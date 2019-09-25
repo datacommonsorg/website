@@ -1,0 +1,18 @@
+# Python files
+__pycache__/
+*.pyc
+.env/
+
+# Production static files
+static/dist/
+**/node_modules/**
+
+# Local env.
+.vscode
+*.swp
+
+# Mac
+.DS_Store
+
+# Flask Config
+configmodule.py

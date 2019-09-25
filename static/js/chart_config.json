@@ -1,0 +1,1001 @@
+[
+  {
+    "label": "Demographics",
+    "charts": [
+      {
+        "title": "Population",
+        "topic": "Population",
+        "chartType": "LINE",
+        "statsVars": ["TotalPopulation"],
+        "source": "US Census",
+        "url": "https://www.census.gov/"
+      },
+      {
+        "title": "Median Age",
+        "topic": "Age",
+        "chartType": "LINE",
+        "statsVars": ["dc/jpbdx38nyvhdd"],
+        "source": "US Census",
+        "url": "https://www.census.gov/"
+      },
+      {
+        "title": "Citizenship",
+        "topic": "Citizenship",
+        "chartType": "SINGLE_BAR",
+        "statsVars": [
+          "dc/ljp64znvx5xt3",
+          "dc/1kkn87qf3g6z1",
+          "dc/qvteg34sxp4m7",
+          "dc/gnesrd1yxrzf5"
+        ],
+        "source": "US Census",
+        "url": "https://www.census.gov/"
+      },
+      {
+        "title": "Median Income",
+        "topic": "Income",
+        "chartType": "LINE",
+        "statsVars": ["MedianIncome"],
+        "source": "US Census",
+        "url": "https://www.census.gov/"
+      },
+      {
+        "title": "Marital Status",
+        "topic": "Marital Status",
+        "chartType": "SINGLE_BAR",
+        "statsVars": [
+          "MarriedPopulation",
+          "DivorcedPopulation",
+          "NeverMarriedPopulation",
+          "WidowedPopulation",
+          "SeparatedPopulation"
+        ],
+        "source": "US Census",
+        "url": "https://www.census.gov/"
+      }
+    ],
+    "children": [
+      {
+        "label": "Population",
+        "charts": [
+          {
+            "title": "Gender",
+            "topic": "Population",
+            "chartType": "SINGLE_BAR",
+            "statsVars": ["MalePopulation", "FemalePopulation"],
+            "source": "US Census",
+            "url": "https://www.census.gov/"
+          }
+        ]
+      },
+      {
+        "label": "Age",
+        "charts": [
+          {
+            "title": "Median Age",
+            "topic": "Age",
+            "chartType": "LINE",
+            "statsVars": ["dc/jpbdx38nyvhdd"],
+            "source": "US Census",
+            "url": "https://www.census.gov/"
+          },
+          {
+            "title": "Age Trend",
+            "topic": "Age",
+            "chartType": "STACK_BAR",
+            "axis": "TIME",
+            "statsVars": [
+              "dc/meyn6fb92kmt1",
+              "dc/try0708bj3wld",
+              "dc/pnx61zqcgd089",
+              "dc/p1b8b9h2e9dm",
+              "dc/jgngnj0y3pymf",
+              "dc/7kfvx85990nb3",
+              "dc/slpn4e1sdstp2"
+            ],
+            "source": "US Census",
+            "url": "https://www.census.gov/"
+          },
+          {
+            "title": "Age Across Places",
+            "topic": "Age",
+            "chartType": "STACK_BAR",
+            "axis": "PLACE",
+            "statsVars": [
+              "dc/meyn6fb92kmt1",
+              "dc/try0708bj3wld",
+              "dc/pnx61zqcgd089",
+              "dc/p1b8b9h2e9dm",
+              "dc/jgngnj0y3pymf",
+              "dc/7kfvx85990nb3",
+              "dc/slpn4e1sdstp2"
+            ],
+            "source": "US Census",
+            "url": "https://www.census.gov/"
+          },
+          {
+            "title": "Age Across Places",
+            "topic": "Age",
+            "chartType": "GROUP_BAR",
+            "axis": "PLACE",
+            "statsVars": [
+              "dc/meyn6fb92kmt1",
+              "dc/try0708bj3wld",
+              "dc/pnx61zqcgd089",
+              "dc/p1b8b9h2e9dm",
+              "dc/jgngnj0y3pymf",
+              "dc/7kfvx85990nb3",
+              "dc/slpn4e1sdstp2"
+            ],
+            "perCapita": true,
+            "scaling": 100,
+            "unit": "%",
+            "source": "US Census",
+            "url": "https://www.census.gov/"
+          }
+        ]
+      },
+      {
+        "label": "Citizenship",
+        "charts": [
+          {
+            "title": "Citizenship Trend",
+            "topic": "Citizenship",
+            "chartType": "STACK_BAR",
+            "axis": "TIME",
+            "statsVars": [
+              "dc/ljp64znvx5xt3",
+              "dc/1kkn87qf3g6z1",
+              "dc/qvteg34sxp4m7",
+              "dc/gnesrd1yxrzf5"
+            ],
+            "source": "US Census",
+            "url": "https://www.census.gov/"
+          },
+          {
+            "title": "Citizenship Across Places",
+            "topic": "Citizenship",
+            "chartType": "STACK_BAR",
+            "axis": "PLACE",
+            "statsVars": [
+              "dc/ljp64znvx5xt3",
+              "dc/1kkn87qf3g6z1",
+              "dc/qvteg34sxp4m7",
+              "dc/gnesrd1yxrzf5"
+            ],
+            "source": "US Census",
+            "url": "https://www.census.gov/"
+          },
+          {
+            "title": "Citizenship Across Places",
+            "topic": "Citizenship",
+            "chartType": "GROUP_BAR",
+            "axis": "PLACE",
+            "statsVars": [
+              "dc/ljp64znvx5xt3",
+              "dc/1kkn87qf3g6z1",
+              "dc/qvteg34sxp4m7",
+              "dc/gnesrd1yxrzf5"
+            ],
+            "perCapita": true,
+            "scaling": 100,
+            "unit": "%",
+            "source": "US Census",
+            "url": "https://www.census.gov/"
+          }
+        ]
+      },
+      {
+        "label": "Income",
+        "charts": [
+          {
+            "title": "Median Income",
+            "topic": "Income",
+            "chartType": "LINE",
+            "statsVars": ["MedianIncome"],
+            "unit": "$",
+            "source": "US Census",
+            "url": "https://www.census.gov/"
+          },
+          {
+            "title": "Median Income Trend",
+            "topic": "Income",
+            "chartType": "STACK_BAR",
+            "axis": "TIME",
+            "statsVars": [
+              "dc/cmn38d85glq72",
+              "dc/pj50xtdgxeh4g",
+              "dc/61fzldryrnte1",
+              "dc/jhpflf91nvlt6",
+              "dc/tpeg0jxdts2t3",
+              "dc/esr27kls5vfy6",
+              "dc/6yb4mgxtc1288",
+              "dc/pvsbze841l2tc"
+            ],
+            "source": "US Census",
+            "url": "https://www.census.gov/"
+          },
+          {
+            "title": "Income Across Places",
+            "topic": "Income",
+            "chartType": "STACK_BAR",
+            "axis": "PLACE",
+            "statsVars": [
+              "dc/cmn38d85glq72",
+              "dc/pj50xtdgxeh4g",
+              "dc/61fzldryrnte1",
+              "dc/jhpflf91nvlt6",
+              "dc/tpeg0jxdts2t3",
+              "dc/esr27kls5vfy6",
+              "dc/6yb4mgxtc1288",
+              "dc/pvsbze841l2tc"
+            ],
+            "source": "US Census",
+            "url": "https://www.census.gov/"
+          },
+          {
+            "title": "Income Across Places",
+            "topic": "Income",
+            "chartType": "GROUP_BAR",
+            "axis": "PLACE",
+            "statsVars": [
+              "dc/cmn38d85glq72",
+              "dc/pj50xtdgxeh4g",
+              "dc/61fzldryrnte1",
+              "dc/jhpflf91nvlt6",
+              "dc/tpeg0jxdts2t3",
+              "dc/esr27kls5vfy6",
+              "dc/6yb4mgxtc1288",
+              "dc/pvsbze841l2tc"
+            ],
+            "perCapita": true,
+            "scaling": 100,
+            "unit": "%",
+            "source": "US Census",
+            "url": "https://www.census.gov/"
+          },
+          {
+            "title": "Income",
+            "chartType": "SINGLE_BAR",
+            "statsVars": [
+              "dc/cmn38d85glq72",
+              "dc/pj50xtdgxeh4g",
+              "dc/61fzldryrnte1",
+              "dc/jhpflf91nvlt6",
+              "dc/tpeg0jxdts2t3",
+              "dc/esr27kls5vfy6",
+              "dc/6yb4mgxtc1288",
+              "dc/pvsbze841l2tc"
+            ],
+            "source": "US Census",
+            "url": "https://www.census.gov/"
+          }
+        ]
+      },
+      {
+        "label": "Marital Status",
+        "charts": [
+          {
+            "title": "Marital Status across Places",
+            "topic": "Marital Status",
+            "chartType": "STACK_BAR",
+            "axis": "TIME",
+            "statsVars": [
+              "MarriedPopulation",
+              "DivorcedPopulation",
+              "NeverMarriedPopulation",
+              "WidowedPopulation",
+              "SeparatedPopulation"
+            ],
+            "source": "US Census",
+            "url": "https://www.census.gov/"
+          },
+          {
+            "title": "Marital Status Across Places",
+            "topic": "Marital Status",
+            "chartType": "STACK_BAR",
+            "axis": "PLACE",
+            "statsVars": [
+              "MarriedPopulation",
+              "DivorcedPopulation",
+              "NeverMarriedPopulation",
+              "WidowedPopulation",
+              "SeparatedPopulation"
+            ],
+            "source": "US Census",
+            "url": "https://www.census.gov/"
+          },
+          {
+            "title": "Marital Status Across Places",
+            "topic": "Marital Status",
+            "chartType": "GROUP_BAR",
+            "axis": "PLACE",
+            "statsVars": [
+              "MarriedPopulation",
+              "DivorcedPopulation",
+              "NeverMarriedPopulation",
+              "WidowedPopulation",
+              "SeparatedPopulation"
+            ],
+            "perCapita": true,
+            "scaling": 100,
+            "unit": "%",
+            "source": "US Census",
+            "url": "https://www.census.gov/"
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "label": "Health",
+    "charts": [
+      {
+        "title": "Mortality",
+        "chartType": "SINGLE_BAR",
+        "statsVars": [
+          "dc/ep33gsm98jx83",
+          "dc/4jbr9d6krbq8b",
+          "dc/jp78cbvpp5cwf",
+          "dc/xbp3e1vhh0k",
+          "dc/q2l08jqn8b2bb"
+        ],
+        "placeTypes": ["County", "State"],
+        "source": "CDC",
+        "url": "https://www.cdc.gov/"
+      },
+      {
+        "title": "Outcomes",
+        "chartType": "SINGLE_BAR",
+        "statsVars": [
+          "dc/msb1g40nedmc",
+          "dc/zykf4zc9rley2",
+          "dc/242ggfbbtxer4",
+          "dc/05wsnx83v7g4c",
+          "dc/e1tpt6j311f8b"
+        ],
+        "placeTypes": ["City"],
+        "unit": "%",
+        "source": "CDC",
+        "url": "https://www.cdc.gov/"
+      },
+      {
+        "title": "Behaviors",
+        "chartType": "SINGLE_BAR",
+        "statsVars": [
+          "dc/pej02dv14h6g7",
+          "dc/3wqqr6tv5w54g",
+          "dc/w030hcc9bw7q5",
+          "dc/g761l9fzzkk06",
+          "dc/8zz3tp7ese92h"
+        ],
+        "placeTypes": ["City"],
+        "unit": "%",
+        "source": "CDC",
+        "url": "https://www.cdc.gov/"
+      },
+      {
+        "title": "Drug Prescribed",
+        "chartType": "SINGLE_BAR",
+        "statsVars": [
+          "dc/p4j0ctx3kbdl4",
+          "dc/mxlgnxpw7h607",
+          "dc/7dsge7p8xbmlc",
+          "dc/862d0n6lbcem5",
+          "dc/9pw9303309ycc"
+        ],
+        "placeTypes": ["County"],
+        "source": "DEA",
+        "url": "https://www.deadiversion.usdoj.gov"
+      },
+      {
+        "title": "COVID-19 Cumulative Cases",
+        "chartType": "LINE",
+        "statsVars": ["NYTCovid19CumulativeCases", "dc/qztkwwf54vg95"],
+        "placeTypes": ["County", "State", "Country"],
+        "source": "The New York Times",
+        "url": "https://www.nytimes.com/article/coronavirus-county-data-us.html"
+      }
+    ],
+    "children": [
+      {
+        "label": "Mortality",
+        "charts": [
+          {
+            "title": "Mortality Trend",
+            "topic": "Health",
+            "chartType": "LINE",
+            "statsVars": [
+              "dc/ep33gsm98jx83",
+              "dc/4jbr9d6krbq8b",
+              "dc/jp78cbvpp5cwf",
+              "dc/xbp3e1vhh0k",
+              "dc/q2l08jqn8b2bb"
+            ],
+            "placeTypes": ["County", "State"],
+            "source": "CDC",
+            "url": "https://www.cdc.gov/"
+          },
+          {
+            "title": "Mortality Across Places",
+            "topic": "Health",
+            "chartType": "STACK_BAR",
+            "axis": "PLACE",
+            "statsVars": [
+              "dc/ep33gsm98jx83",
+              "dc/4jbr9d6krbq8b",
+              "dc/jp78cbvpp5cwf",
+              "dc/xbp3e1vhh0k",
+              "dc/q2l08jqn8b2bb"
+            ],
+            "placeTypes": ["County", "State"],
+            "source": "CDC",
+            "url": "https://www.cdc.gov/"
+          },
+          {
+            "title": "Mortality Across Places",
+            "topic": "Health",
+            "chartType": "GROUP_BAR",
+            "axis": "PLACE",
+            "statsVars": [
+              "dc/ep33gsm98jx83",
+              "dc/4jbr9d6krbq8b",
+              "dc/jp78cbvpp5cwf",
+              "dc/xbp3e1vhh0k",
+              "dc/q2l08jqn8b2bb"
+            ],
+            "placeTypes": ["County", "State"],
+            "perCapita": true,
+            "scaling": 100,
+            "unit": "%",
+            "source": "CDC",
+            "url": "https://www.cdc.gov/"
+          }
+        ]
+      },
+      {
+        "label": "Health Outcomes",
+        "charts": [
+          {
+            "title": "Outcomes",
+            "chartType": "SINGLE_BAR",
+            "statsVars": [
+              "dc/msb1g40nedmc",
+              "dc/zykf4zc9rley2",
+              "dc/242ggfbbtxer4",
+              "dc/05wsnx83v7g4c",
+              "dc/e1tpt6j311f8b"
+            ],
+            "placeTypes": ["City"],
+            "unit": "%",
+            "source": "CDC",
+            "url": "https://www.cdc.gov/"
+          },
+          {
+            "title": "Outcomes Across Places",
+            "topic": "Health",
+            "chartType": "STACK_BAR",
+            "axis": "PLACE",
+            "statsVars": [
+              "dc/msb1g40nedmc",
+              "dc/zykf4zc9rley2",
+              "dc/242ggfbbtxer4",
+              "dc/05wsnx83v7g4c",
+              "dc/e1tpt6j311f8b"
+            ],
+            "placeTypes": ["City"],
+            "unit": "%",
+            "source": "CDC",
+            "url": "https://www.cdc.gov/"
+          },
+          {
+            "title": "Outcomes Across Places",
+            "topic": "Health",
+            "chartType": "GROUP_BAR",
+            "axis": "PLACE",
+            "statsVars": [
+              "dc/msb1g40nedmc",
+              "dc/zykf4zc9rley2",
+              "dc/242ggfbbtxer4",
+              "dc/05wsnx83v7g4c",
+              "dc/e1tpt6j311f8b"
+            ],
+            "placeTypes": ["City"],
+            "unit": "%",
+            "source": "CDC",
+            "url": "https://www.cdc.gov/"
+          }
+        ]
+      },
+      {
+        "label": "Health Behaviors",
+        "charts": [
+          {
+            "title": "Behaviors",
+            "chartType": "SINGLE_BAR",
+            "statsVars": [
+              "dc/pej02dv14h6g7",
+              "dc/3wqqr6tv5w54g",
+              "dc/w030hcc9bw7q5",
+              "dc/g761l9fzzkk06",
+              "dc/8zz3tp7ese92h"
+            ],
+            "placeTypes": ["City"],
+            "unit": "%",
+            "source": "CDC",
+            "url": "https://www.cdc.gov/"
+          },
+          {
+            "title": "Behaviors Across Places",
+            "topic": "Health",
+            "chartType": "STACK_BAR",
+            "axis": "PLACE",
+            "statsVars": [
+              "dc/pej02dv14h6g7",
+              "dc/3wqqr6tv5w54g",
+              "dc/w030hcc9bw7q5",
+              "dc/g761l9fzzkk06",
+              "dc/8zz3tp7ese92h"
+            ],
+            "placeTypes": ["City"],
+            "unit": "%",
+            "source": "CDC",
+            "url": "https://www.cdc.gov/"
+          },
+          {
+            "title": "Behaviors Across Places",
+            "topic": "Health",
+            "chartType": "GROUP_BAR",
+            "axis": "PLACE",
+            "statsVars": [
+              "dc/pej02dv14h6g7",
+              "dc/3wqqr6tv5w54g",
+              "dc/w030hcc9bw7q5",
+              "dc/g761l9fzzkk06",
+              "dc/8zz3tp7ese92h"
+            ],
+            "placeTypes": ["City"],
+            "unit": "%",
+            "source": "CDC",
+            "url": "https://www.cdc.gov/"
+          }
+        ]
+      },
+      {
+        "label": "Drug Prescribed",
+        "charts": [
+          {
+            "title": "Drug Prescribed (in Grams)",
+            "chartType": "SINGLE_BAR",
+            "statsVars": [
+              "dc/p4j0ctx3kbdl4",
+              "dc/mxlgnxpw7h607",
+              "dc/7dsge7p8xbmlc",
+              "dc/862d0n6lbcem5",
+              "dc/9pw9303309ycc"
+            ],
+            "placeTypes": ["County"],
+            "source": "DEA",
+            "url": "https://www.deadiversion.usdoj.gov"
+          },
+          {
+            "title": "Drug Prescribed Across Places (in Grams)",
+            "topic": "Health",
+            "chartType": "STACK_BAR",
+            "axis": "PLACE",
+            "statsVars": [
+              "dc/p4j0ctx3kbdl4",
+              "dc/mxlgnxpw7h607",
+              "dc/7dsge7p8xbmlc",
+              "dc/862d0n6lbcem5",
+              "dc/9pw9303309ycc"
+            ],
+            "placeTypes": ["County"],
+            "source": "DEA",
+            "url": "https://www.deadiversion.usdoj.gov"
+          },
+          {
+            "title": "Drug Prescribed Across Places",
+            "topic": "Health",
+            "chartType": "GROUP_BAR",
+            "axis": "PLACE",
+            "statsVars": [
+              "dc/p4j0ctx3kbdl4",
+              "dc/mxlgnxpw7h607",
+              "dc/7dsge7p8xbmlc",
+              "dc/862d0n6lbcem5",
+              "dc/9pw9303309ycc"
+            ],
+            "placeTypes": ["County"],
+            "perCapita": true,
+            "source": "DEA",
+            "url": "https://www.deadiversion.usdoj.gov"
+          }
+        ]
+      },
+      {
+        "label": "COVID-19",
+        "charts": [
+          {
+            "title": "COVID-19 Cumulative Cases",
+            "chartType": "LINE",
+            "statsVars": ["NYTCovid19CumulativeCases"],
+            "placeTypes": ["County", "State", "Country"],
+            "source": "The New York Times",
+            "url": "https://www.nytimes.com/article/coronavirus-county-data-us.html"
+          },
+          {
+            "title": "COVID-19 Cumulative Deaths",
+            "chartType": "LINE",
+            "statsVars": ["dc/qztkwwf54vg95"],
+            "placeTypes": ["County", "State", "Country"],
+            "source": "The New York Times",
+            "url": "https://www.nytimes.com/article/coronavirus-county-data-us.html"
+          },
+          {
+            "title": "COVID-19 Cumulative Cases",
+            "chartType": "GROUP_BAR",
+            "axis": "PLACE",
+            "statsVars": ["NYTCovid19CumulativeCases"],
+            "placeTypes": ["County", "State", "Country"],
+            "source": "The New York Times",
+            "url": "https://www.nytimes.com/article/coronavirus-county-data-us.html"
+          },
+          {
+            "title": "COVID-19 Cumulative Deaths",
+            "chartType": "GROUP_BAR",
+            "axis": "PLACE",
+            "statsVars": ["dc/qztkwwf54vg95"],
+            "placeTypes": ["County", "State", "Country"],
+            "source": "The New York Times",
+            "url": "https://www.nytimes.com/article/coronavirus-county-data-us.html"
+          },
+          {
+            "title": "COVID-19 Cumulative Cases (Per 1000 People)",
+            "chartType": "GROUP_BAR",
+            "axis": "PLACE",
+            "statsVars": ["NYTCovid19CumulativeCases"],
+            "placeTypes": ["County", "State", "Country"],
+            "perCapita": true,
+            "scaling": 1000,
+            "source": "The New York Times",
+            "url": "https://www.nytimes.com/article/coronavirus-county-data-us.html"
+          },
+          {
+            "title": "COVID-19 Cumulative Deaths (Per 1000 People)",
+            "chartType": "GROUP_BAR",
+            "axis": "PLACE",
+            "statsVars": ["dc/qztkwwf54vg95"],
+            "placeTypes": ["County", "State", "Country"],
+            "perCapita": true,
+            "scaling": 1000,
+            "source": "The New York Times",
+            "url": "https://www.nytimes.com/article/coronavirus-county-data-us.html"
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "label": "Crime",
+    "charts": [
+      {
+        "title": "Total Crime",
+        "topic": "Crime",
+        "chartType": "LINE",
+        "statsVars": ["TotalCrimes"],
+        "placeTypes": ["City", "State"],
+        "source": "FBI",
+        "url": "https://www.fbi.gov/"
+      },
+      {
+        "title": "Violent Crime",
+        "topic": "Crime",
+        "chartType": "LINE",
+        "statsVars": ["dc/3eqzh2dz54m35"],
+        "placeTypes": ["City", "State"],
+        "source": "FBI",
+        "url": "https://www.fbi.gov/"
+      },
+      {
+        "title": "Property Crime",
+        "topic": "Crime",
+        "chartType": "LINE",
+        "statsVars": ["dc/td8984d2wb2rh"],
+        "placeTypes": ["City", "State"],
+        "source": "FBI",
+        "url": "https://www.fbi.gov/"
+      },
+      {
+        "title": "Arson",
+        "topic": "Crime",
+        "chartType": "LINE",
+        "statsVars": ["dc/24xvy54shzb3h"],
+        "placeTypes": ["City", "State"],
+        "source": "FBI",
+        "url": "https://www.fbi.gov/"
+      }
+    ],
+    "children": [
+      {
+        "label": "Combined Crime",
+        "charts": [
+          {
+            "title": "Combined Crime Across Places",
+            "topic": "Crime",
+            "chartType": "STACK_BAR",
+            "axis": "PLACE",
+            "statsVars": ["TotalCrimes"],
+            "placeTypes": ["City", "State"],
+            "source": "FBI",
+            "url": "https://www.fbi.gov/"
+          },
+          {
+            "title": "Combined Crime Per 1000 People",
+            "topic": "Crime",
+            "chartType": "GROUP_BAR",
+            "axis": "PLACE",
+            "statsVars": ["TotalCrimes"],
+            "placeTypes": ["City", "State"],
+            "perCapita": true,
+            "scaling": 1000,
+            "source": "FBI",
+            "url": "https://www.fbi.gov/"
+          }
+        ]
+      },
+      {
+        "label": "Violent",
+        "charts": [
+          {
+            "title": "Violent Crime Across Places",
+            "topic": "Crime",
+            "chartType": "STACK_BAR",
+            "axis": "PLACE",
+            "statsVars": ["dc/3eqzh2dz54m35"],
+            "placeTypes": ["City", "State"],
+            "source": "FBI",
+            "url": "https://www.fbi.gov/"
+          },
+          {
+            "title": "Violent Crime Per 1000 People",
+            "topic": "Crime",
+            "chartType": "GROUP_BAR",
+            "axis": "PLACE",
+            "statsVars": ["dc/3eqzh2dz54m35"],
+            "placeTypes": ["City", "State"],
+            "perCapita": true,
+            "scaling": 1000,
+            "source": "FBI",
+            "url": "https://www.fbi.gov/"
+          }
+        ]
+      },
+      {
+        "label": "Property",
+        "charts": [
+          {
+            "title": "Property Crime Across Places",
+            "topic": "Crime",
+            "chartType": "STACK_BAR",
+            "axis": "PLACE",
+            "statsVars": ["dc/td8984d2wb2rh"],
+            "placeTypes": ["City", "State"],
+            "source": "FBI",
+            "url": "https://www.fbi.gov/"
+          },
+          {
+            "title": "Property Crime Per 1000 People",
+            "topic": "Crime",
+            "chartType": "GROUP_BAR",
+            "axis": "PLACE",
+            "statsVars": ["dc/td8984d2wb2rh"],
+            "placeTypes": ["City", "State"],
+            "perCapita": true,
+            "scaling": 1000,
+            "source": "FBI",
+            "url": "https://www.fbi.gov/"
+          }
+        ]
+      },
+      {
+        "label": "Arson",
+        "charts": [
+          {
+            "title": "Arson Crime Across Places",
+            "topic": "Crime",
+            "chartType": "STACK_BAR",
+            "axis": "PLACE",
+            "statsVars": ["dc/24xvy54shzb3h"],
+            "placeTypes": ["City", "State"],
+            "source": "FBI",
+            "url": "https://www.fbi.gov/"
+          },
+          {
+            "title": "Arson Crime Per 1000 People",
+            "topic": "Crime",
+            "chartType": "GROUP_BAR",
+            "axis": "PLACE",
+            "statsVars": ["dc/24xvy54shzb3h"],
+            "placeTypes": ["City", "State"],
+            "perCapita": true,
+            "scaling": 1000,
+            "source": "FBI",
+            "url": "https://www.fbi.gov/"
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "label": "Education",
+    "charts": [
+      {
+        "title": "Education Attainment",
+        "chartType": "SINGLE_BAR",
+        "statsVars": [
+          "dc/y5kepy5lkw6bb",
+          "dc/gmq4ysp44m5j9",
+          "dc/2dps7teg5j5v9",
+          "dc/tpkg6dm5s3kb4",
+          "dc/3e9rwvgq7wrtg"
+        ],
+        "source": "US Census",
+        "url": "https://www.census.gov/"
+      },
+      {
+        "title": "School Enrollment",
+        "chartType": "SINGLE_BAR",
+        "statsVars": ["dc/j4l3qg4zv13j6", "dc/9y4xw434pyj28"],
+        "source": "US Census",
+        "url": "https://www.census.gov/"
+      }
+    ],
+    "children": [
+      {
+        "label": "Attainment",
+        "charts": [
+          {
+            "title": "Attainment Trend",
+            "topic": "Attainment",
+            "chartType": "STACK_BAR",
+            "axis": "TIME",
+            "statsVars": [
+              "dc/y5kepy5lkw6bb",
+              "dc/gmq4ysp44m5j9",
+              "dc/2dps7teg5j5v9",
+              "dc/tpkg6dm5s3kb4",
+              "dc/3e9rwvgq7wrtg"
+            ],
+            "source": "US Census",
+            "url": "https://www.census.gov/"
+          },
+          {
+            "title": "Attainment Across Places",
+            "topic": "Attainment",
+            "chartType": "STACK_BAR",
+            "axis": "PLACE",
+            "statsVars": [
+              "dc/y5kepy5lkw6bb",
+              "dc/gmq4ysp44m5j9",
+              "dc/2dps7teg5j5v9",
+              "dc/tpkg6dm5s3kb4",
+              "dc/3e9rwvgq7wrtg"
+            ],
+            "source": "US Census",
+            "url": "https://www.census.gov/"
+          },
+          {
+            "title": "Attainment Across Places",
+            "topic": "Attainment",
+            "chartType": "GROUP_BAR",
+            "axis": "PLACE",
+            "statsVars": [
+              "dc/y5kepy5lkw6bb",
+              "dc/gmq4ysp44m5j9",
+              "dc/2dps7teg5j5v9",
+              "dc/tpkg6dm5s3kb4",
+              "dc/3e9rwvgq7wrtg"
+            ],
+            "perCapita": true,
+            "scaling": 100,
+            "unit": "%",
+            "source": "US Census",
+            "url": "https://www.census.gov/"
+          }
+        ]
+      },
+      {
+        "label": "Enrollment",
+        "charts": [
+          {
+            "title": "Enrollment Trend",
+            "topic": "Enrollment",
+            "chartType": "STACK_BAR",
+            "axis": "TIME",
+            "statsVars": ["dc/j4l3qg4zv13j6", "dc/9y4xw434pyj28"],
+            "source": "US Census",
+            "url": "https://www.census.gov/"
+          },
+          {
+            "title": "Enrollment Across Places",
+            "topic": "Enrollment",
+            "chartType": "STACK_BAR",
+            "axis": "PLACE",
+            "statsVars": ["dc/j4l3qg4zv13j6", "dc/9y4xw434pyj28"],
+            "source": "US Census",
+            "url": "https://www.census.gov/"
+          },
+          {
+            "title": "Enrollment Across Places",
+            "topic": "Enrollment",
+            "chartType": "GROUP_BAR",
+            "axis": "PLACE",
+            "statsVars": ["dc/j4l3qg4zv13j6", "dc/9y4xw434pyj28"],
+            "perCapita": true,
+            "scaling": 100,
+            "unit": "%",
+            "source": "US Census",
+            "url": "https://www.census.gov/"
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "label": "Employment",
+    "charts": [
+      {
+        "title": "UnemploymentRate",
+        "chartType": "LINE",
+        "statsVars": ["UnemploymentRate"],
+        "source": "BLS",
+        "url": "https://bls.gov/"
+      },
+      {
+        "title": "State Unemployment Insurance",
+        "chartType": "LINE",
+        "statsVars": ["dc/kgklfjwvtwx0b"],
+        "placeTypes": ["State"],
+        "source": "BLS",
+        "url": "https://bls.gov/"
+      },
+      {
+        "title": "Employed People",
+        "chartType": "LINE",
+        "statsVars": ["dc/0edh3qcehep5d"],
+        "source": "BLS",
+        "url": "https://bls.gov/"
+      },
+      {
+        "title": "Labor Force",
+        "chartType": "LINE",
+        "statsVars": ["dc/hkd8hbdg967v7"],
+        "source": "BLS",
+        "url": "https://bls.gov/"
+      }
+    ],
+    "children": []
+  },
+  {
+    "label": "Households",
+    "charts": [
+      {
+        "title": "Income",
+        "chartType": "SINGLE_BAR",
+        "statsVars": [
+          "dc/lvsdhhbd0jrh5",
+          "dc/gx09ehen28bsf",
+          "dc/rprpfge1wsm33",
+          "dc/c12q5trlfjl98",
+          "dc/z2rte6lflytvh",
+          "dc/wgnpff4d5g2q2",
+          "dc/3wql8mczgswkb"
+        ],
+        "source": "US Census",
+        "url": "https://www.census.gov/"
+      }
+    ],
+    "children": []
+  }
+]

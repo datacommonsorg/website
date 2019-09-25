@@ -1,0 +1,123 @@
+// Copyright 2020 Google LLC
+//
+// Licensed under the Apache License, Version 2.0 (the "License");
+// you may not use this file except in compliance with the License.
+// You may obtain a copy of the License at
+//
+//      http://www.apache.org/licenses/LICENSE-2.0
+//
+// Unless required by applicable law or agreed to in writing, software
+// distributed under the License is distributed on an "AS IS" BASIS,
+// WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+// See the License for the specific language governing permissions and
+// limitations under the License.
+
+syntax = "proto2";
+
+package datacommons.proto;
+
+// This proto is used for inferring the various other arguments to pass to DC
+// API, given populationType, measuredProperty and constrainingPVs.
+message PopObsArgs {
+  // Value from populationType property.
+  optional string pop_type = 1;
+  // Value from measuredProperty property.
+  optional string mprop = 2;
+  // Constraining property-value pairs of StatisticalPopulation.
+  // NOTE: {prop: "*", val: unset} gets interpreted as applying to any
+  //       constraining prop-val combinations.
+  //       {prop: XXX, val: unset} gets interpreted as applying to any
+  //       constraining prop-val combinations with exactly the specified prop.
+  //       {prop: XXX, val: YYY} gets interpreted as applying to only
+  //       constraining prop-val combination with prop XXX and value YYY.
+  repeated PopObsSpec.PV cpv = 14;
+  // Values are stat properties like measuredValue, medianValue, etc.
+  optional string stat_type = 4;
+  // Value from measurementMethod property.
+  optional string mmethod = 5;
+  // Display value for "unit".
+  optional string display_unit = 6;
+  // Value from observationPeriod property.
+  optional string obs_period = 7;
+  // Value from observationDate property.
+  optional string latest_obs_date = 8;
+  // Provenance ID.
+  optional string prov_hrid = 9;
+  // A displayable name for the stat, like: "Median income by gender and race"
+  optional string title = 10;
+  // Value from measurementDenominator property.
+  optional string mdenominator = 11;
+  // Value from measurementQualifier property.
+  optional string mqualifier = 12;
+  // Value from scalingFactor property.
+  optional string scaling_factor = 13;
+
+  reserved 3;
+}
+
+message ProvenanceArgs {
+  // A human-readable ID. This will be used in PopObsArgs and DcidMidMap protos.
+  optional string hrid = 1;
+  // Display name.
+  optional string name = 2;
+  // Display URL.
+  optional string url = 3;
+}
+
+// All published Pop/Obs args. Stored in a textproto.
+message PopObsArgsList {
+  repeated PopObsArgs arg = 1;
+  repeated ProvenanceArgs prov = 2;
+}
+
+// This proto contains the specification of a PopObs instance. It contains
+// the intended population type, measured property, stats type, constraining
+// property and hidden property-value pairs.
+message PopObsSpec {
+  // A property-value pair
+  message PV {
+    optional string prop = 1;
+    optional string val = 2;
+  }
+
+  // Population type.
+  optional string pop_type = 1;
+  // Measured property.
+  optional string mprop = 2;
+  // Values are stat properties like measuredValue, medianValue, etc.
+  optional string stat_type = 3;
+  // Constraining properties of StatisticalPopulation.
+  repeated string cprop = 4;
+  // A list of depending property value pairs that a client does not indicate
+  // but needs to be added.
+  // For example, property "income" needs additional pv of "age=Years15Onwards"
+  repeated PV dpv = 5;
+  // Name for this spec.
+  optional string name = 6;
+  // Verticals of this spec.
+  repeated string vertical = 7;
+}
+
+// All published Pop/Obs spec. Stored in a textproto.
+message PopObsSpecList {
+  repeated PopObsSpec spec = 1;
+}
+
+message QuantityPropValSpec {
+  // Population type.
+  optional string pop_type = 1;
+  // Measured property.
+  optional string mprop = 2;
+  // The range property in question.
+  optional string qty_cprop = 3;
+  // Other constraining properties (besides "qty_cprop").
+  repeated string other_cprop = 4;
+  // The DCID quantity values.
+  repeated string qty_val = 5;
+}
+
+// All quantity values with corresponding constraining properties. Generated
+// programmatically and stored in a textproto.
+message QuantityPropValSpecList {
+  repeated QuantityPropValSpec spec = 1;
+}

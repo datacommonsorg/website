@@ -1,0 +1,30 @@
+<!--
+ Copyright 2020 Google LLC
+
+ Licensed under the Apache License, Version 2.0 (the "License");
+ you may not use this file except in compliance with the License.
+ You may obtain a copy of the License at
+
+      http://www.apache.org/licenses/LICENSE-2.0
+
+ Unless required by applicable law or agreed to in writing, software
+ distributed under the License is distributed on an "AS IS" BASIS,
+ WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ See the License for the specific language governing permissions and
+ limitations under the License.
+-->
+
+{% extends 'base.html' %}
+
+{% block head %}
+  <script src={{url_for('static', filename='dev.js', t=datetime.datetime.today().strftime("%m-%d-%H-%M"))}}></script>
+  <link rel="stylesheet" href={{url_for('static', filename='css/draw.css')}}></script>
+  <link rel="stylesheet" href={{url_for('static', filename='css/dev.css')}}></script>
+{% endblock %}
+
+{% block content %}
+  <div id="chart-box-1" class="chart-container"></div>
+  <div id="chart-box-2" class="chart-container"></div>
+  <div id="chart-box-3" class="chart-container"></div>
+  <div id="chart-box-4" class="chart-container"></div>
+{% endblock %}

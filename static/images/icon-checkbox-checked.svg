@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width="14px" height="14px" viewBox="0 0 14 14" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+    <!-- Generator: Sketch 53.2 (72643) - https://sketchapp.com -->
+    <title>ic_check_box_black_18dp</title>
+    <desc>Created with Sketch.</desc>
+    <g id="Page-2" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+        <g id="Artboard" transform="translate(-245.000000, -132.000000)">
+            <g id="Main" transform="translate(16.000000, 121.000000)">
+                <g id="ic_check_box_black_18dp" transform="translate(227.000000, 9.000000)">
+                    <polygon id="Path" points="0 0 18 0 18 18 0 18"></polygon>
+                    <path d="M14.25,2.25 L3.75,2.25 C2.92125,2.25 2.25,2.92125 2.25,3.75 L2.25,14.25 C2.25,15.07875 2.92125,15.75 3.75,15.75 L14.25,15.75 C15.07875,15.75 15.75,15.07875 15.75,14.25 L15.75,3.75 C15.75,2.92125 15.07875,2.25 14.25,2.25 Z M7.5,12.75 L3.75,9 L4.81125,7.93875 L7.5,10.6275 L13.18875,4.93875 L14.25,6 L7.5,12.75 Z" id="Shape" fill="#333333" fill-rule="nonzero"></path>
+                </g>
+            </g>
+        </g>
+    </g>
+</svg>
