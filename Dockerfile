@@ -1,9 +1,9 @@
 FROM nikolaik/python-nodejs:latest
 
-WORKDIR /datacommons
 COPY . /datacommons
 
 # Python test
+WORKDIR /datacommons
 RUN pip install --no-cache-dir -r requirements.txt
 RUN python -m pytest
 
