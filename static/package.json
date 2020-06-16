@@ -1,7 +1,8 @@
 {
-  "name": "static",
+  "name": "datacommons.org",
   "version": "1.0.0",
-  "description": "Package for datacommons browser static files",
+  "description": "Package for datacommons.org website static files",
+  "license": "Apache",
   "main": "index.js",
   "scripts": {
     "build": "webpack -p --progress --config webpack.config.js",

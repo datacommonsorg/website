@@ -587,7 +587,7 @@ def search():
     # Convert from search results to template dictionary.
     results = []
     query_tokens = set(query_text.lower().split())
-    for section in search_response['section']:
+    for section in search_response.get('section', []):
         entities = []
         for search_entity in section['entity']:
             entity = {}
@@ -656,7 +656,7 @@ def mcf_playground():
 
 #
 # STATIC PAGES FROM DATACOMMONS.ORG
-#   
+#
 
 def list_blobs(bucket_name):
   """Return a dictionary of three recent blobs in the bucket.
