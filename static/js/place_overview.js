@@ -67,7 +67,9 @@ function getSimilarPlaces(dcid) {
     .then((resp) => {
       let places = resp.data;
       let result = [dcid];
-      result.push(...places.relatedPlaces.slice(0, 4));
+      if (places.relatedPlaces) {
+        result.push(...places.relatedPlaces.slice(0, 4));
+      }
       return result;
     });
 }
