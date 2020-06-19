@@ -146,13 +146,14 @@ def place():
     if not place_dcid:
         return redirect(url_for('place', dcid='geoId/0649670'))
     place_types = get_property_value(place_dcid, 'typeOf')
-    place_type = None
-    for t in place_types:
-        if not place_type or place_type.startswith('AdministrativeArea'):
-            place_type = t
+    # We prefer to use specific type like "State", "County" over "AdministrativeArea"
+    chosen_type = None
+    for place_type in place_types:
+        if not chosen_type or chosen_type.startswith('AdministrativeArea'):
+            chosen_type = place_type
     place_name = get_property_value(place_dcid, 'name')[0]
     return flask.render_template(
-        'place_overview.html', place_type=place_type, place_name=place_name)
+        'place_overview.html', place_type=chosen_type, place_name=place_name)
 
 
 @cache.cached(timeout=3600 * 24)
