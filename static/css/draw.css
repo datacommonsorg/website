@@ -32,3 +32,31 @@ path.line {
   fill: none;
   stroke-width: 3;
 }
+
+.axis line {
+  /*stroke: #706f6f;*/
+  stroke: #999;
+  stroke-width: 0.5;
+}
+
+.axis path {
+  /*stroke: #706f6f;*/
+  stroke: #999;
+  stroke-width: 0.5;
+  shape-rendering: crispEdges;
+}
+
+.axis text {
+  fill: #2b2929;
+  font-family: Roboto;
+  shape-rendering: crispEdges;
+}
+
+.y.axis line.grid-line {
+  stroke-opacity: 0.5;
+  stroke-dasharray: 2,2;
+}
+
+.dot {
+  stroke: #fff;
+}
