@@ -41,7 +41,6 @@ def _read_pop_obs_spec():
     data_common = file_common.read()
   text_format.Parse(data_common, pop_obs_spec_list)
   
-  #result = {'vertical name': {number of cprops: [PobObsSpec]}}
   result = collections.defaultdict(lambda: collections.defaultdict(list))
   for pos in pop_obs_spec_list.spec:
     cpv = {}
