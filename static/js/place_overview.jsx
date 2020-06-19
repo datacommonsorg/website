@@ -214,7 +214,7 @@ class MainPane extends Component {
     }
     return (
       <React.Fragment>
-        <Overview topic={this.props.topic} />
+        {this.props.dcid != "country/USA" && <Overview topic={this.props.topic} />}
         {configData.map((item, index) => {
           return (
             <section className="subtopic" key={index}>

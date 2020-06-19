@@ -145,10 +145,15 @@ def place():
     place_dcid = request.args.get('dcid')
     if not place_dcid:
         return redirect(url_for('place', dcid='geoId/0649670'))
-    place_type = get_property_value(place_dcid, 'typeOf')[0]
+    place_types = get_property_value(place_dcid, 'typeOf')
+    # We prefer to use specific type like "State", "County" over "AdministrativeArea"
+    chosen_type = None
+    for place_type in place_types:
+        if not chosen_type or chosen_type.startswith('AdministrativeArea'):
+            chosen_type = place_type
     place_name = get_property_value(place_dcid, 'name')[0]
     return flask.render_template(
-        'place_overview.html', place_type=place_type, place_name=place_name)
+        'place_overview.html', place_type=chosen_type, place_name=place_name)
 
 
 @cache.cached(timeout=3600 * 24)
@@ -406,7 +411,7 @@ def get_parent_place(dcid):
                 'property': 'containedInPlace', 'direction': 'out'}
     url = dc.API_ROOT + dc.API_ENDPOINTS['get_property_values']
     payload = dc.send_request(url, req_json=req_json)
-    parents = payload[dcid].get('out')
+    parents = payload[dcid].get('out', [])
     parents.sort(key=lambda x: x['dcid'], reverse=True)
     return parents
 
