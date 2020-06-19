@@ -12,6 +12,7 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
+## This file specifies a list of populations with different constraint properties and dependent property-value pairs under each vertical. 
 
 ## Person Count ##
 
@@ -1679,3 +1680,4 @@ spec: {
 #   }
 #   name: "13-Week Moving Average Insured Unemployment Rate"
 # }
+
