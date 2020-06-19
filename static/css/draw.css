@@ -27,3 +27,8 @@
   font-weight: bold;
   margin: 0 10px;
 }
+
+path.line {
+  fill: none;
+  stroke-width: 3;
+}
