@@ -5,6 +5,6 @@
  * [stat_config.proto](./stat_config.proto): configuration file for generating [stat_config_pb2.py](./stat_config_pb2.py), used for parsing the input config files. 
  * [generate_json_local.sh](./run_local.sh): commands for generate the json file locally
  
- * [pop_obs_spec_common.textproto](./pop_obs_spec_common.textproto) and [pop_obs_spec_gni.textproto](./pop_obs_spec_gni.textproto): contain lists of specs with specific population_type, measured_property, contraint properties etc, that will be shown in the gni for the users to choose from. 
+ * [pop_obs_spec_common.textproto](./pop_obs_spec_common.textproto) : contain lists of specs with specific population_type, measured_property, contraint properties etc, that will be shown in the gni for the users to choose from. 
 
 

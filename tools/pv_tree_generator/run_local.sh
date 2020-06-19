@@ -15,4 +15,4 @@
 pip3 install protobuf==3.12.0
 protoc -I=./ --python_out=./ ./stat_config.proto
 
-python3 util.py
+#python3 util.py

@@ -30,19 +30,6 @@ class PopObsSpec(object):
       self.text = text #name, string
       self.key = (pop_type, mprop, stats) + tuple(sorted(ps + list(cpv.keys())))
 
-  def __str__(self):
-      print_ = "pop_type: " + self.pop_type + '\n'
-      print_ += "mprop: " + self.mprop + '\n'
-      print_ += "stats: " + self.stats + '\n'
-      print_ += "properties: " + str(self.ps) + '\n'
-      print_ += "cpv:" + str(self.cpv) + '\n'
-      print_ += "name: " + self.text + '\n\n'
-      return print_
-  
-  def __repr__(self):
-      return self.__str__()
-
-
 def _read_pop_obs_spec():
   """Read pop obs spec from the config file."""
   
@@ -64,10 +51,5 @@ def _read_pop_obs_spec():
       result[v][len(pos.cprop)].append(
         PopObsSpec(pos.pop_type, pos.mprop, pos.stat_type, list(pos.cprop),
                    cpv, pos.name))
-  #print(result)
   return result
   
-
-    
-if __name__ == "__main__":
-  _read_pop_obs_spec()
