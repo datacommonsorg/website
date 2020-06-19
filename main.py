@@ -150,7 +150,6 @@ def place():
     for t in place_types:
         if not place_type or place_type.startswith('AdministrativeArea'):
             place_type = t
-    logging.info(place_type)
     place_name = get_property_value(place_dcid, 'name')[0]
     return flask.render_template(
         'place_overview.html', place_type=place_type, place_name=place_name)
