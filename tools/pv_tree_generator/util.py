@@ -48,18 +48,12 @@ def _read_pop_obs_spec():
   
   # Read pop obs spec
   POS_COMMON_PATH = "./pop_obs_spec_common.textproto"
-  POS_GNI_PATH = "./pop_obs_spec_gni.textproto"
   pop_obs_spec_list = stat_config_pb2.PopObsSpecList()
     
   with open(POS_COMMON_PATH, 'r') as file_common:
     data_common = file_common.read()
   text_format.Parse(data_common, pop_obs_spec_list)
   
-  with open(POS_GNI_PATH, 'r') as file_gni:
-    data_gni = file_gni.read()
-  text_format.Parse(data_gni, pop_obs_spec_list)
-  
-
   #result = {'vertical name': {number of cprops: [PobObsSpec]}}
   result = collections.defaultdict(lambda: collections.defaultdict(list))
   for pos in pop_obs_spec_list.spec:

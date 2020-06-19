@@ -1681,3 +1681,39 @@ spec: {
 #   name: "13-Week Moving Average Insured Unemployment Rate"
 # }
 
+# originally in pop_obs_spec_gni.textproto
+spec: {
+  pop_type: "Person"
+  mprop: "count"
+  stat_type: "measuredValue"
+  vertical: "Employment"
+  name: "Labor Force"
+  dpv: {
+    prop: "employmentStatus"
+    val: "BLS_InLaborForce"
+  }
+}
+
+spec: {
+  pop_type: "Person"
+  mprop: "count"
+  stat_type: "measuredValue"
+  vertical: "Employment"
+  name: "Employed"
+  dpv: {
+    prop: "employment"
+    val: "BLS_Employed"
+  }
+}
+
+spec: {
+  pop_type: "Person"
+  mprop: "count"
+  stat_type: "measuredValue"
+  vertical: "Employment"
+  name: "Unemployed"
+  dpv: {
+    prop: "employment"
+    val: "BLS_Unemployed"
+  }
+}
