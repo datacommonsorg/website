@@ -15,6 +15,7 @@
  */
 
 import * as _SVG from "@svgdotjs/svg.js";
+import * as d3 from "d3";
 import moment from "moment";
 
 import {
@@ -37,6 +38,9 @@ const TOP_MARGIN = 10;
 const SIDE_MARGIN = 15;
 const BAR_GAP_RATIO = 0.25;
 const GROUP_BAR_GAP = 1;
+const NUM_X_TICKS = 5;
+const MARGIN = { top: 10, right: 10, bottom: 30, left: 30 };
+
 
 // Colors - 500 level colors from the Google Material palette
 const COLORS = [
@@ -130,15 +134,19 @@ function drawGroupBars(
     let barX =
       layout.xRange.low + layout.barGap + i * (layout.barGap + layout.barWidth);
     let n = dataGroups[i].value.length;
-    let innerBarWidth = (layout.barWidth - (n-1) * GROUP_BAR_GAP) / n;
+    let innerBarWidth = (layout.barWidth - (n - 1) * GROUP_BAR_GAP) / n;
     for (let j = 0; j < n; j++) {
-      let y = computeCoordinate(dataGroups[i].value[j].value, valueRange, layout.yRange);
+      let y = computeCoordinate(
+        dataGroups[i].value[j].value,
+        valueRange,
+        layout.yRange
+      );
       canvas.rect(innerBarWidth, layout.yRange.high - y).attr({
         x: barX,
         y: y,
         fill: COLORS[j],
       });
-      barX += (innerBarWidth + GROUP_BAR_GAP);
+      barX += innerBarWidth + GROUP_BAR_GAP;
     }
   }
 }
@@ -348,7 +356,7 @@ function drawComplexBarChart(
  * @param dataGroups
  * @param unit
  */
-function drawLineChart(
+function drawLineChartOld(
   parentId: string,
   parentWidth: number,
   parentHeight: number,
@@ -399,6 +407,109 @@ function drawLineChart(
   drawYTicks(canvas, layout, yTick);
   // Draw lines.
   drawLines(canvas, layout, dataGroups, xTick.valueRange, yTick.valueRange);
+  if (hasLegend) {
+    parentElement.appendChild(legendElem);
+  }
+}
+
+/**
+ * Draw line chart.
+ * @param parentId
+ * @param parentWidth
+ * @param parentHeight
+ * @param dataGroups
+ * @param unit
+ */
+function drawLineChart(
+  parentId: string,
+  width: number,
+  height: number,
+  dataGroups: DataGroup[],
+  unit?: string
+) {
+  let parentElement = document.getElementById(parentId);
+  // Pick one group and use the data point label as text list.
+  let legendText = dataGroups.map((dataGroup) => dataGroup.label);
+  let minV = Math.min(...dataGroups.map((dataGroup) => dataGroup.min()));
+  let maxV = Math.max(...dataGroups.map((dataGroup) => dataGroup.max()));
+
+  // Draw legend and compute the height.
+  // Add legend to the container box in the end.
+  let hasLegend = dataGroups.length > 1;
+  let legendHeight = 0;
+  let legendElem;
+  if (hasLegend) {
+    legendElem = createLegend(legendText);
+    parentElement.appendChild(legendElem);
+    let bbox = legendElem.getBoundingClientRect();
+    legendHeight = bbox.height;
+    parentElement.removeChild(legendElem);
+  }
+  height -= legendHeight;
+
+  let svg = d3
+    .select("#" + parentId)
+    .append("svg")
+    .attr("width", width)
+    .attr("height", height);
+
+  let xScale = d3
+    .scaleTime()
+    .domain(d3.extent(dataGroups[0].value, (d) => new Date(d.label).getTime()))
+    .range([MARGIN.left, width - MARGIN.right]);
+
+  let yScale = d3
+    .scaleLinear()
+    .domain([minV, maxV])
+    .range([height - MARGIN.bottom, MARGIN.top]);
+
+  svg
+    .append("g")
+    .attr("class", "x axis")
+    .attr("transform", `translate(0, ${height - MARGIN.bottom})`)
+    .call(d3.axisBottom(xScale).ticks(NUM_X_TICKS));
+
+  svg
+    .append("g")
+    .attr("class", "y axis")
+    .attr("transform", `translate(${MARGIN.left},0)`)
+    .call(
+      d3
+        .axisRight(yScale)
+        .ticks(4)
+        .tickSize(width - MARGIN.left - MARGIN.right)
+    )
+    //.tickFormat(formatTick)) look at https://observablehq.com/@d3/styled-axes for cool $ label fn
+    .call((g) => g.select(".domain").remove())
+    .call((g) =>
+      g.selectAll(".tick:not(:first-of-type) line").attr("class", "grid-line")
+    )
+    .call((g) => g.selectAll(".tick text").attr("x", -25));
+
+  for (let i = 0; i < dataGroups.length; i++) {
+    let dataGroup = dataGroups[i];
+    let dataset = dataGroup.value.map(function (dp) {
+      return [new Date(dp.label).getTime(), dp.value];
+    });
+
+    let line = d3
+      .line()
+      .x(function (d) {
+        return xScale(d[0]);
+      })
+      .y(function (d) {
+        return yScale(d[1]);
+      })
+      .curve(d3.curveMonotoneX);
+
+    svg
+      .append("path")
+      .datum(dataset)
+      .attr("class", "line")
+      .style("stroke", COLORS[i])
+      .attr("d", line);
+  }
+
   if (hasLegend) {
     parentElement.appendChild(legendElem);
   }
