@@ -15,6 +15,7 @@
  */
 
 import * as _SVG from "@svgdotjs/svg.js";
+import * as d3 from "d3";
 import moment from "moment";
 
 import {
@@ -37,6 +38,7 @@ const TOP_MARGIN = 10;
 const SIDE_MARGIN = 15;
 const BAR_GAP_RATIO = 0.25;
 const GROUP_BAR_GAP = 1;
+const NUM_X_TICKS = 5;
 
 // Colors - 500 level colors from the Google Material palette
 const COLORS = [
@@ -130,15 +132,19 @@ function drawGroupBars(
     let barX =
       layout.xRange.low + layout.barGap + i * (layout.barGap + layout.barWidth);
     let n = dataGroups[i].value.length;
-    let innerBarWidth = (layout.barWidth - (n-1) * GROUP_BAR_GAP) / n;
+    let innerBarWidth = (layout.barWidth - (n - 1) * GROUP_BAR_GAP) / n;
     for (let j = 0; j < n; j++) {
-      let y = computeCoordinate(dataGroups[i].value[j].value, valueRange, layout.yRange);
+      let y = computeCoordinate(
+        dataGroups[i].value[j].value,
+        valueRange,
+        layout.yRange
+      );
       canvas.rect(innerBarWidth, layout.yRange.high - y).attr({
         x: barX,
         y: y,
         fill: COLORS[j],
       });
-      barX += (innerBarWidth + GROUP_BAR_GAP);
+      barX += innerBarWidth + GROUP_BAR_GAP;
     }
   }
 }
@@ -348,7 +354,7 @@ function drawComplexBarChart(
  * @param dataGroups
  * @param unit
  */
-function drawLineChart(
+function drawLineChartOld(
   parentId: string,
   parentWidth: number,
   parentHeight: number,
@@ -404,10 +410,117 @@ function drawLineChart(
   }
 }
 
+/**
+ * Draw line chart.
+ * @param parentId
+ * @param parentWidth
+ * @param parentHeight
+ * @param dataGroups
+ * @param unit
+ */
+function drawLineChart(
+  parentId: string,
+  width: number,
+  height: number,
+  dataGroups: DataGroup[],
+  unit?: string
+) {
+  let parentElement = document.getElementById(parentId);
+  // Pick one group and use the data point label as text list.
+  let legendText = dataGroups.map((dataGroup) => dataGroup.label);
+  let minV = Math.min(...dataGroups.map((dataGroup) => dataGroup.min()));
+  let maxV = Math.max(...dataGroups.map((dataGroup) => dataGroup.max()));
+
+  // Draw legend and compute the height.
+  // Add legend to the container box in the end.
+  let hasLegend = dataGroups.length > 1;
+  let legendHeight = 0;
+  let legendElem;
+  if (hasLegend) {
+    legendElem = createLegend(legendText);
+    parentElement.appendChild(legendElem);
+    let bbox = legendElem.getBoundingClientRect();
+    legendHeight = bbox.height;
+    parentElement.removeChild(legendElem);
+  }
+  height -= legendHeight;
+  const margin = { top: 10, right: 10, bottom: 30, left: 30 };
+  // append the svg object to the body of the page
+  let svg = d3
+    .select("#" + parentId)
+    .append("svg")
+    .attr("width", width)
+    .attr("height", height);
+
+  // X scale will use the index of our data
+  let xScale = d3
+    .scaleTime()
+    .domain(d3.extent(dataGroups[0].value, (d) => new Date(d.label).getTime()))
+    .range([margin.left, width - margin.right]); // output
+
+  // Y scale will use the randomly generate number
+  let yScale = d3
+    .scaleLinear()
+    .domain([minV, maxV]) // input --> this should be the range from the dataset. use d3.max
+    .range([height - margin.bottom, margin.top]); // output
+
+  svg
+    .append("g")
+    .attr("class", "x axis")
+    .attr("transform", `translate(0, ${height - margin.bottom})`)
+    .call(d3.axisBottom(xScale).ticks(NUM_X_TICKS));
+
+  svg
+    .append("g")
+    .attr("class", "y axis")
+    .attr("transform", `translate(${margin.left},0)`)
+    .call(
+      d3
+        .axisRight(yScale)
+        .ticks(4)
+        .tickSize(width - margin.left - margin.right)
+    )
+    //.tickFormat(formatTick)) look at https://observablehq.com/@d3/styled-axes for cool $ label fn
+    .call((g) => g.select(".domain").remove())
+    .call((g) =>
+      g.selectAll(".tick:not(:first-of-type) line").attr("class", "grid-line")
+    )
+    .call((g) => g.selectAll(".tick text").attr("x", -25));
+
+  for (let i = 0; i < dataGroups.length; i++) {
+    let dataGroup = dataGroups[i];
+    let dataset = dataGroup.value.map(function (dp) {
+      return [new Date(dp.label).getTime(), dp.value];
+    });
+
+    let line = d3
+      .line()
+      .x(function (d) {
+        return xScale(d[0]);
+      }) // set the x values for the line generator --> change to e.g. d.date
+      .y(function (d) {
+        return yScale(d[1]);
+      }) // set the y values for the line generator
+      .curve(d3.curveMonotoneX); // apply smoothing to the line
+
+    svg
+      .append("path")
+      .datum(dataset) // 10. Binds data to the line
+      .attr("class", "line") // Assign a class for styling
+      .style("stroke", COLORS[i])
+      .attr("d", line); // 11. Calls the line generator
+  }
+
+  if (hasLegend) {
+    parentElement.appendChild(legendElem);
+  }
+}
+
 export {
   createLegend,
   drawBars,
   drawLineChart,
+  drawLineChartOld,
   drawSingleBarChart,
   drawStackBarChart,
   drawGroupBarChart,
