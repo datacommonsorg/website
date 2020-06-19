@@ -39,6 +39,7 @@ const SIDE_MARGIN = 15;
 const BAR_GAP_RATIO = 0.25;
 const GROUP_BAR_GAP = 1;
 const NUM_X_TICKS = 5;
+const NUM_Y_TICKS = 5;
 const MARGIN = { top: 10, right: 10, bottom: 30, left: 30 };
 
 
@@ -430,7 +431,7 @@ function drawLineChart(
   let parentElement = document.getElementById(parentId);
   // Pick one group and use the data point label as text list.
   let legendText = dataGroups.map((dataGroup) => dataGroup.label);
-  let minV = Math.min(...dataGroups.map((dataGroup) => dataGroup.min()));
+  let minV = 0;
   let maxV = Math.max(...dataGroups.map((dataGroup) => dataGroup.max()));
 
   // Draw legend and compute the height.
@@ -461,7 +462,8 @@ function drawLineChart(
   let yScale = d3
     .scaleLinear()
     .domain([minV, maxV])
-    .range([height - MARGIN.bottom, MARGIN.top]);
+    .range([height - MARGIN.bottom, MARGIN.top])
+    .nice(NUM_Y_TICKS);
 
   svg
     .append("g")
@@ -476,10 +478,9 @@ function drawLineChart(
     .call(
       d3
         .axisRight(yScale)
-        .ticks(4)
+        .ticks(NUM_Y_TICKS, "1s")
         .tickSize(width - MARGIN.left - MARGIN.right)
     )
-    //.tickFormat(formatTick)) look at https://observablehq.com/@d3/styled-axes for cool $ label fn
     .call((g) => g.select(".domain").remove())
     .call((g) =>
       g.selectAll(".tick:not(:first-of-type) line").attr("class", "grid-line")
@@ -491,16 +492,16 @@ function drawLineChart(
     let dataset = dataGroup.value.map(function (dp) {
       return [new Date(dp.label).getTime(), dp.value];
     });
+    let shouldAddDots = dataset.length < 12;
 
     let line = d3
       .line()
-      .x(function (d) {
-        return xScale(d[0]);
-      })
-      .y(function (d) {
-        return yScale(d[1]);
-      })
-      .curve(d3.curveMonotoneX);
+      .x(d => xScale(d[0]))
+      .y(d => yScale(d[1]));
+
+     if (shouldAddDots) {
+       line = line.curve(d3.curveMonotoneX);
+     }
 
     svg
       .append("path")
@@ -508,6 +509,19 @@ function drawLineChart(
       .attr("class", "line")
       .style("stroke", COLORS[i])
       .attr("d", line);
+
+    if (shouldAddDots) {
+      svg
+        .selectAll(".dot")
+        .data(dataset)
+        .enter()
+        .append("circle")
+          .attr("class", "dot")
+          .attr("cx", (d, i) => xScale(d[0]))
+          .attr("cy", d => yScale(d[1]))
+          .attr("fill", COLORS[i])
+          .attr("r", 3);
+    }
   }
 
   if (hasLegend) {
