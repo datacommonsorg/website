@@ -1,6 +1,6 @@
  ## Generate the json configuration file used by GNI tool
  
- * [util.py][./util.py]: functions used for building the property-value tree
+ * [util.py](./util.py): functions used for building the property-value tree
  * [stat_config.proto][2]: configuration file for generating [stat_config_pb2.py][3], used for parsing the input config files. 
  * [run_local.sh][4]: commands for running the script locally
  
