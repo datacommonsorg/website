@@ -52,4 +52,4 @@ def _read_pop_obs_spec():
         PopObsSpec(pos.pop_type, pos.mprop, pos.stat_type, list(pos.cprop),
                    cpv, pos.name))
   return result
-  
+
