@@ -272,32 +272,6 @@ function drawStackBarChart(
 }
 
 /**
- * Draw group bar chart.
- *
- * @param parentId
- * @param parentWidth
- * @param parentHeight
- * @param dataGroups
- * @param unit
- */
-function drawGroupBarChartOld(
-  parentId: string,
-  parentWidth: number,
-  parentHeight: number,
-  dataGroups: DataGroup[],
-  unit?: string
-) {
-  drawComplexBarChart(
-    parentId,
-    parentWidth,
-    parentHeight,
-    dataGroups,
-    BarType.Group,
-    unit
-  );
-}
-
-/**
  * Draw complex (stack or group) bar chart.
  *
  * @param parentId
@@ -451,105 +425,24 @@ function drawGroupBarChart(
 
 /**
  * Draw line chart.
- * @param parentId
- * @param parentWidth
- * @param parentHeight
- * @param dataGroups
- * @param unit
- */
-function drawLineChartOld(
-  parentId: string,
-  parentWidth: number,
-  parentHeight: number,
-  dataGroups: DataGroup[],
-  unit?: string
-) {
-  let parentElement = document.getElementById(parentId);
-  // Pick one group and use the data point label as text list.
-  let legendText = dataGroups.map((dataGroup) => dataGroup.label);
-  let tickText = dataGroups[0].value.map((dataPoint) => dataPoint.label);
-  let minV = Math.min(...dataGroups.map((dataGroup) => dataGroup.min()));
-  let maxV = Math.max(...dataGroups.map((dataGroup) => dataGroup.max()));
-  let rangeMin = Math.max(0, minV * 2 - maxV);
-  let yTick = getYTick(new Range(rangeMin, maxV));
-  yTick.unit = unit;
-  let yTickWidth = computeYTickWidth(yTick);
-  // Draw legend and compute the height.
-  // Add legend to the container box in the end.
-  let hasLegend = dataGroups.length > 1;
-  let legendHeight = 0;
-  let legendElem;
-  if (hasLegend) {
-    legendElem = createLegend(legendText);
-    parentElement.appendChild(legendElem);
-    let bbox = legendElem.getBoundingClientRect();
-    legendHeight = bbox.height;
-    parentElement.removeChild(legendElem);
-  }
-  // Create canvas.
-  const canvas = _SVG
-    .SVG()
-    .addTo("#" + parentId)
-    .size(parentWidth, parentHeight - legendHeight);
-  // Create initial layout.
-  let xRange = new Range(
-    yTickWidth + Y_TICK_MARGIN + SIDE_MARGIN,
-    parentWidth - SIDE_MARGIN
-  );
-  let yRange = new Range(TOP_MARGIN, parentHeight - legendHeight);
-  let layout = new Layout(xRange, yRange);
-
-  let xTick = getLineXTick(tickText);
-  // Draw X ticks.
-  let xTicksHeight = drawLineXTicks(canvas, layout, xTick);
-  // Update layout.
-  layout.yRange.high -= xTicksHeight;
-  // Draw Y ticks.
-  drawYTicks(canvas, layout, yTick);
-  // Draw lines.
-  drawLines(canvas, layout, dataGroups, xTick.valueRange, yTick.valueRange);
-  if (hasLegend) {
-    parentElement.appendChild(legendElem);
-  }
-}
-
-/**
- * Draw line chart.
- * @param parentId
- * @param parentWidth
- * @param parentHeight
+ * @param id
+ * @param width
+ * @param height
  * @param dataGroups
  * @param unit
  */
 function drawLineChart(
-  parentId: string,
+  id: string,
   width: number,
   height: number,
   dataGroups: DataGroup[],
   unit?: string
 ) {
-  let parentElement = document.getElementById(parentId);
-  // Pick one group and use the data point label as text list.
-  let legendText = dataGroups.map((dataGroup) => dataGroup.label);
   let minV = 0;
   let maxV = Math.max(...dataGroups.map((dataGroup) => dataGroup.max()));
 
-  // Draw legend and compute the height.
-  // Add legend to the container box in the end.
-  let hasLegend = dataGroups.length > 1;
-  let legendHeight = 0;
-  let legendElem;
-  if (hasLegend) {
-    legendElem = createLegend(legendText);
-    parentElement.appendChild(legendElem);
-    let bbox = legendElem.getBoundingClientRect();
-    legendHeight = bbox.height;
-    parentElement.removeChild(legendElem);
-  }
-  height -= legendHeight;
-
   let svg = d3
-    .select("#" + parentId)
+    .select("#" + id)
     .append("svg")
     .attr("width", width)
     .attr("height", height);
@@ -596,12 +489,12 @@ function drawLineChart(
 
     let line = d3
       .line()
-      .x(d => xScale(d[0]))
-      .y(d => yScale(d[1]));
+      .x((d) => xScale(d[0]))
+      .y((d) => yScale(d[1]));
 
-     if (shouldAddDots) {
-       line = line.curve(d3.curveMonotoneX);
-     }
+    if (shouldAddDots) {
+      line = line.curve(d3.curveMonotoneX);
+    }
 
     svg
       .append("path")
@@ -616,16 +509,18 @@ function drawLineChart(
         .data(dataset)
         .enter()
         .append("circle")
-          .attr("class", "dot")
-          .attr("cx", (d, i) => xScale(d[0]))
-          .attr("cy", d => yScale(d[1]))
-          .attr("fill", COLORS[i])
-          .attr("r", 3);
+        .attr("class", "dot")
+        .attr("cx", (d, i) => xScale(d[0]))
+        .attr("cy", (d) => yScale(d[1]))
+        .attr("fill", COLORS[i])
+        .attr("r", 3);
     }
   }
 
-  if (hasLegend) {
-    parentElement.appendChild(legendElem);
+  if (dataGroups.length > 1) {
+    let legendText = dataGroups.map((dataGroup) => dataGroup.label);
+    let color = getColorFn(legendText.length);
+    appendLegendElem(id, color, legendText);
   }
 }
 
