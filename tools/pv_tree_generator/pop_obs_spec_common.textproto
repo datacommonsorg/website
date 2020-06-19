@@ -1,0 +1,1719 @@
+# Copyright 2020 Google LLC
+#
+# Licensed under the Apache License, Version 2.0 (the "License");
+# you may not use this file except in compliance with the License.
+# You may obtain a copy of the License at
+#
+#      http://www.apache.org/licenses/LICENSE-2.0
+#
+# Unless required by applicable law or agreed to in writing, software
+# distributed under the License is distributed on an "AS IS" BASIS,
+# WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+# See the License for the specific language governing permissions and
+# limitations under the License.
+
+## This file specifies a list of populations with different constraint properties and dependent property-value pairs under each vertical. 
+
+## Person Count ##
+
+spec: {
+  pop_type: "Person"
+  mprop: "count"
+  stat_type: "measuredValue"
+  name: "Population"
+  vertical: "Demographics"
+}
+
+## Person Count 1 cprop ##
+
+spec: {
+  pop_type: "Person"
+  mprop: "count"
+  stat_type: "measuredValue"
+  vertical: "Demographics"
+  cprop: "age"
+}
+
+spec: {
+  pop_type: "Person"
+  mprop: "count"
+  stat_type: "measuredValue"
+  vertical: "Demographics"
+  cprop: "citizenship"
+}
+
+spec: {
+  pop_type: "Person"
+  mprop: "count"
+  stat_type: "measuredValue"
+  vertical: "Demographics"
+  cprop: "gender"
+}
+
+spec: {
+  pop_type: "Person"
+  mprop: "count"
+  stat_type: "measuredValue"
+  vertical: "Demographics"
+  cprop: "income"
+  dpv: {
+    prop: "age"
+    val: "Years15Onwards"
+  }
+  dpv: {
+    prop: "incomeStatus"
+    val: "WithIncome"
+  }
+}
+
+## Table B16004 Age by Language Spoken at Home by Ability to Speak English
+## Universe: Population 5 Years and Over
+# [Age] Person Count # Exists
+# languageSpokenAtHome x [Age]
+spec: {
+  pop_type: "Person"
+  mprop: "count"
+  stat_type: "measuredValue"
+  vertical: "Demographics"
+  cprop: "languageSpokenAtHome"
+  cprop: "age"
+}
+# abilityToSpeakEnglish x languageSpokenAtHome x [Age]
+spec: {
+  pop_type: "Person"
+  mprop: "count"
+  stat_type: "measuredValue"
+  vertical: "Demographics"
+  cprop: "abilityToSpeakEnglish"
+  cprop: "age"
+  cprop: "languageSpokenAtHome"
+}
+
+spec: {
+  pop_type: "Person"
+  mprop: "count"
+  stat_type: "measuredValue"
+  vertical: "Demographics"
+  cprop: "maritalStatus"
+  dpv: {
+    prop: "age"
+    val: "Years15Onwards"
+  }
+}
+
+spec: {
+  pop_type: "Person"
+  mprop: "count"
+  stat_type: "measuredValue"
+  vertical: "Demographics"
+  cprop: "nativity"
+  dpv: {
+    prop: "age"
+    val: "Years5Onwards"
+  }
+}
+
+spec: {
+  pop_type: "Person"
+  mprop: "count"
+  stat_type: "measuredValue"
+  vertical: "Demographics"
+  cprop: "placeOfBirth"
+}
+
+spec: {
+  pop_type: "Person"
+  mprop: "count"
+  stat_type: "measuredValue"
+  vertical: "Demographics"
+  cprop: "povertyStatus"
+}
+
+spec: {
+  pop_type: "Person"
+  mprop: "count"
+  stat_type: "measuredValue"
+  vertical: "Demographics"
+  cprop: "race"
+}
+
+spec: {
+  pop_type: "Person"
+  mprop: "count"
+  stat_type: "measuredValue"
+  vertical: "Demographics"
+  cprop: "veteranStatus"
+  dpv: {
+    prop: "age"
+    val: "Years18Onwards"
+  }
+  dpv: {
+    prop: "armedForcesStatus"
+    val: "Civilian"
+  }
+}
+
+## Person Count 2 cprops ##
+
+spec: {
+  pop_type: "Person"
+  mprop: "count"
+  stat_type: "measuredValue"
+  vertical: "Demographics"
+  cprop: "age"
+  cprop: "gender"
+}
+
+spec: {
+  pop_type: "Person"
+  mprop: "count"
+  stat_type: "measuredValue"
+  vertical: "Demographics"
+  cprop: "age"
+  cprop: "placeOfBirth"
+}
+
+spec: {
+  pop_type: "Person"
+  mprop: "count"
+  stat_type: "measuredValue"
+  vertical: "Demographics"
+  vertical: "Education"
+  cprop: "educationalAttainment"
+  cprop: "gender"
+  dpv: {
+    prop: "age"
+    val: "Years25Onwards"
+  }
+}
+
+spec: {
+  pop_type: "Person"
+  mprop: "count"
+  stat_type: "measuredValue"
+  vertical: "Demographics"
+  cprop: "income"
+  cprop: "gender"
+  dpv: {
+    prop: "age"
+    val: "Years16Onwards"
+  }
+  dpv: {
+    prop: "incomeStatus"
+    val: "WithIncome"
+  }
+}
+
+spec: {
+  pop_type: "Person"
+  mprop: "count"
+  stat_type: "measuredValue"
+  vertical: "Demographics"
+  cprop: "maritalStatus"
+  cprop: "gender"
+  dpv: {
+    prop: "age"
+    val: "Years15Onwards"
+  }
+}
+
+spec: {
+  pop_type: "Person"
+  mprop: "count"
+  stat_type: "measuredValue"
+  vertical: "Demographics"
+  cprop: "gender"
+  cprop: "povertyStatus"
+}
+
+spec: {
+  pop_type: "Person"
+  mprop: "count"
+  stat_type: "measuredValue"
+  vertical: "Demographics"
+  cprop: "gender"
+  cprop: "race"
+}
+
+spec: {
+  pop_type: "Person"
+  mprop: "count"
+  stat_type: "measuredValue"
+  vertical: "Demographics"
+  vertical: "Education"
+  cprop: "gender"
+  cprop: "schoolEnrollment"
+  dpv: {
+    prop: "age"
+    val: "Years3Onwards"
+  }
+}
+
+spec: {
+  pop_type: "Person"
+  mprop: "count"
+  stat_type: "measuredValue"
+  vertical: "Demographics"
+  cprop: "gender"
+  cprop: "veteranStatus"
+  dpv: {
+    prop: "age"
+    val: "Years18Onwards"
+  }
+  dpv: {
+    prop: "armedForcesStatus"
+    val: "Civilian"
+  }
+}
+
+spec: {
+  pop_type: "Person"
+  mprop: "count"
+  stat_type: "measuredValue"
+  vertical: "Demographics"
+  cprop: "income"
+  cprop: "placeOfBirth"
+  dpv: {
+    prop: "age"
+    val: "Years15Onwards"
+  }
+  dpv: {
+    prop: "incomeStatus"
+    val: "WithIncome"
+  }
+}
+
+spec: {
+  pop_type: "Person"
+  mprop: "count"
+  stat_type: "measuredValue"
+  vertical: "Demographics"
+  cprop: "incomeStatus"
+  cprop: "placeOfBirth"
+  dpv: {
+    prop: "age"
+    val: "Years15Onwards"
+  }
+}
+
+spec: {
+  pop_type: "Person"
+  mprop: "count"
+  stat_type: "measuredValue"
+  vertical: "Demographics"
+  cprop: "maritalStatus"
+  cprop: "placeOfBirth"
+  dpv: {
+    prop: "age"
+    val: "Years15Onwards"
+  }
+}
+
+## Table B16005: Nativity by Language Spoken at Home by Ability to Speak English
+## Universe: Population 5 Years and Over
+# Non/Native 5 Years and Over
+# languageSpokenAtHome x Non/Native 5 Years and Over
+spec: {
+  pop_type: "Person"
+  mprop: "count"
+  stat_type: "measuredValue"
+  vertical: "Demographics"
+  cprop: "nativity"
+  cprop: "languageSpokenAtHome"
+  dpv: {
+    prop: "age"
+    val: "Years5Onwards"
+  }
+}
+# abilityToSpeakEnglish x languageSpokenAtHome x Non/Native 5 Years and Over
+spec: {
+  pop_type: "Person"
+  mprop: "count"
+  stat_type: "measuredValue"
+  vertical: "Demographics"
+  cprop: "abilityToSpeakEnglish"
+  cprop: "nativity"
+  cprop: "languageSpokenAtHome"
+  dpv: {
+    prop: "age"
+    val: "Years5Onwards"
+  }
+}
+
+## Table B16005[A-I]: Nativity by Language Spoken at Home by Ability to Speak English by Race
+## Universe: Population 5 Years and Over
+# Non/Native x Race 5 Years and Over
+spec: {
+  pop_type: "Person"
+  mprop: "count"
+  stat_type: "measuredValue"
+  vertical: "Demographics"
+  cprop: "race"
+  cprop: "nativity"
+  dpv: {
+    prop: "age"
+    val: "Years5Onwards"
+  }
+}
+# languageSpokenAtHome x Non/Native x Race 5 Years and Over
+spec: {
+  pop_type: "Person"
+  mprop: "count"
+  stat_type: "measuredValue"
+  vertical: "Demographics"
+  cprop: "languageSpokenAtHome"
+  cprop: "nativity"
+  cprop: "race"
+  dpv: {
+    prop: "age"
+    val: "Years5Onwards"
+  }
+}
+# abilityToSpeakEnglish x languageSpokenAtHome (nonEnglish) x Non/Native x Race 5 Years and Over
+spec: {
+  pop_type: "Person"
+  mprop: "count"
+  stat_type: "measuredValue"
+  vertical: "Demographics"
+  cprop: "abilityToSpeakEnglish"
+  cprop: "race"
+  cprop: "nativity"
+  dpv: {
+    prop: "age"
+    val: "Years5Onwards"
+  }
+  dpv: {
+    prop: "languageSpokenAtHome"
+    val: "LanguageOtherThanEnglish"
+  }
+}
+
+spec: {
+  pop_type: "Person"
+  mprop: "count"
+  stat_type: "measuredValue"
+  vertical: "Demographics"
+  cprop: "race"
+  cprop: "povertyStatus"
+}
+
+spec: {
+  pop_type: "Person"
+  mprop: "count"
+  stat_type: "measuredValue"
+  vertical: "Demographics"
+  vertical: "Education"
+  cprop: "race"
+  cprop: "schoolEnrollment"
+  dpv: {
+    prop: "age"
+    val: "Years3Onwards"
+  }
+}
+
+## Person Count 3 cprops ##
+
+spec: {
+  pop_type: "Person"
+  mprop: "count"
+  stat_type: "measuredValue"
+  vertical: "Demographics"
+  cprop: "age"
+  cprop: "gender"
+  cprop: "educationalAttainment"
+}
+
+spec: {
+  pop_type: "Person"
+  mprop: "count"
+  stat_type: "measuredValue"
+  vertical: "Demographics"
+  cprop: "age"
+  cprop: "gender"
+  cprop: "healthInsurance"
+  dpv: {
+    prop: "armedForcesStatus"
+    val: "Civilian"
+  }
+  dpv: {
+    prop: "institutionalization"
+    val: "USC_NonInstitutionalized"
+  }
+}
+
+spec: {
+  pop_type: "Person"
+  mprop: "count"
+  stat_type: "measuredValue"
+  vertical: "Demographics"
+  cprop: "age"
+  cprop: "gender"
+  cprop: "race"
+}
+
+spec: {
+  pop_type: "Person"
+  mprop: "count"
+  stat_type: "measuredValue"
+  vertical: "Demographics"
+  cprop: "gender"
+  cprop: "povertyStatus"
+  cprop: "race"
+}
+
+spec: {
+  pop_type: "Person"
+  mprop: "count"
+  stat_type: "measuredValue"
+  vertical: "Demographics"
+  cprop: "gender"
+  cprop: "maritalStatus"
+  cprop: "race"
+  dpv: {
+    prop: "age"
+    val: "Years15Onwards"
+  }
+}
+
+spec: {
+  pop_type: "Person"
+  mprop: "count"
+  stat_type: "measuredValue"
+  vertical: "Education"
+  cprop: "detailedLevelOfSchool"
+  cprop: "gender"
+  dpv: {
+    prop: "age"
+    val: "Years25Onwards"
+  }
+}
+
+spec: {
+  pop_type: "Person"
+  mprop: "count"
+  stat_type: "measuredValue"
+  vertical: "Demographics"
+  vertical: "Education"
+  cprop: "educationalAttainment"
+  dpv: {
+    prop: "age"
+    val: "Years25Onwards"
+  }
+}
+
+spec: {
+  pop_type: "Person"
+  mprop: "count"
+  stat_type: "measuredValue"
+  vertical: "Education"
+  vertical: "Demographics"
+  cprop: "educationalAttainment"
+  cprop: "gender"
+  cprop: "race"
+  dpv: {
+    prop: "age"
+    val: "Years25Onwards"
+  }
+}
+
+## Person Count - Census Tables ##
+
+## Census B14001
+## Universe: Population 3 Years and Over
+# MISSING NotEnrolledInSchool counts, so schoolEnrollment becomes a dpv here
+spec: {
+  pop_type: "Person"
+  mprop: "count"
+  stat_type: "measuredValue"
+  vertical: "Demographics"
+  vertical: "Education"
+  cprop: "levelOfSchool"
+  dpv: {
+    prop: "schoolEnrollment"
+    val: "EnrolledInSchool"
+  }
+  dpv: {
+    prop: "age"
+    val: "Years3Onwards"
+  }
+}
+
+## Person Count - Census Tables ##
+
+## Table B14002: Sex by School Enrollment by Level of School by Type of School for the Population 3 Years and Over
+## Universe: Population 3 Years and Over
+# Fe/Male 3+YO # Exists above in Person 1 cprop and Person 2 cprop
+# Fe/Male Not/Enrolled 3+YO # Exists above in Person 2 cprop
+# LevelOfSchool Fe/Male Enrolled 3+YO
+spec: {
+  pop_type: "Person"
+  mprop: "count"
+  stat_type: "measuredValue"
+  vertical: "Demographics"
+  vertical: "Education"
+  cprop: "gender"
+  cprop: "levelOfSchool"
+  dpv: {
+    prop: "schoolEnrollment"
+    val: "EnrolledInSchool"
+  }
+  dpv: {
+    prop: "age"
+    val: "Years3Onwards"
+  }
+}
+# Type Of School LevelOfSchool Fe/Male Enrolled 3+YO
+spec: {
+  pop_type: "Person"
+  mprop: "count"
+  stat_type: "measuredValue"
+  vertical: "Demographics"
+  vertical: "Education"
+  cprop: "typeOfSchool"
+  cprop: "gender"
+  cprop: "levelOfSchool"
+  dpv: {
+    prop: "schoolEnrollment"
+    val: "EnrolledInSchool"
+  }
+  dpv: {
+    prop: "age"
+    val: "Years3Onwards"
+  }
+}
+
+## Table B14007
+## Universe: Population 3 Years and Over
+# 3+YO Not/Enrolled in school
+spec: {
+  pop_type: "Person"
+  mprop: "count"
+  stat_type: "measuredValue"
+  vertical: "Education"
+  cprop: "schoolEnrollment"
+  dpv: {
+    prop: "age"
+    val: "Years3Onwards"
+  }
+}
+# Detailed Level of School for 3+YO enrolled in school
+spec: {
+  pop_type: "Person"
+  mprop: "count"
+  stat_type: "measuredValue"
+  vertical: "Education"
+  cprop: "detailedLevelOfSchool"
+  dpv: {
+    prop: "schoolEnrollment"
+    val: "EnrolledInSchool"
+  }
+  dpv: {
+    prop: "age"
+    val: "Years3Onwards"
+  }
+}
+
+## Table B14007[A-I] School Enrollment by Detailed Level of School [Race]
+## Universe: [Race] Population 3 Years and Over
+# Not/Enrolled in School [Race] 3 Years and Over # exists above in Person 2 cprop
+# Detailed Level of School for Enrolled in School [Race] 3 Years and Over
+spec: {
+  pop_type: "Person"
+  mprop: "count"
+  stat_type: "measuredValue"
+  vertical: "Demographics"
+  vertical: "Education"
+  cprop: "detailedLevelOfSchool"
+  cprop: "race"
+  dpv: {
+    prop: "schoolEnrollment"
+    val: "EnrolledInSchool"
+  }
+  dpv: {
+    prop: "age"
+    val: "Years3Onwards"
+  }
+}
+
+## Table B21001
+## Universe: Civilian Population 18 years and older
+# Veteran/NonVet Civilian Population 18 years and older # exists above
+# Fe/Male Civilian Population 18 years and older # promoted armedForcesStatus
+spec: {
+  pop_type: "Person"
+  mprop: "count"
+  stat_type: "measuredValue"
+  vertical: "Demographics"
+  cprop: "gender"
+  cprop: "armedForcesStatus"
+  dpv: {
+    prop: "age"
+    val: "Years18Onwards"
+  }
+}
+# Fe/Male Non/Vet Civilian Population 18 years and older # exists above under 2 cprop
+# Male Age Civilian Population # promoted armedForcesStatus
+spec: {
+  pop_type: "Person"
+  mprop: "count"
+  stat_type: "measuredValue"
+  vertical: "Demographics"
+  cprop: "gender"
+  cprop: "age"
+  cprop: "armedForcesStatus"
+}
+# Male Age Vet Civilian Population
+spec: {
+  pop_type: "Person"
+  mprop: "count"
+  stat_type: "measuredValue"
+  vertical: "Demographics"
+  cprop: "gender"
+  cprop: "age"
+  cprop: "veteranStatus"
+  dpv: {
+    prop: "armedForcesStatus"
+    val: "Civilian"
+  }
+}
+
+## Table B27003
+## Universe: Civilian Noninstitutionalized Population
+# Male Civilian Noninstitutionalized # promoted armedForcesStatus and institutionalization
+spec: {
+  pop_type: "Person"
+  mprop: "count"
+  stat_type: "measuredValue"
+  vertical: "Demographics"
+  cprop: "gender"
+  cprop: "institutionalization"
+  cprop: "armedForcesStatus"
+}
+# Male Civilian Noninstitutionalized Age # promoted armedForcesStatus and institutionalization
+spec: {
+  pop_type: "Person"
+  mprop: "count"
+  stat_type: "measuredValue"
+  vertical: "Demographics"
+  cprop: "age"
+  cprop: "gender"
+  cprop: "institutionalization"
+  cprop: "armedForcesStatus"
+}
+# Male Civilian Noninstitutionalized Age Coverage # exists above in Person 3 cprop
+
+## Person Age ##
+
+spec: {
+  pop_type: "Person"
+  mprop: "age"
+  stat_type: "medianValue"
+  vertical: "Demographics"
+}
+
+## Person Income ##
+
+spec: {
+  pop_type: "Person"
+  mprop: "income"
+  stat_type: "medianValue"
+  vertical: "Demographics"
+  dpv: {
+    prop: "age"
+    val: "Years15Onwards"
+  }
+  dpv: {
+    prop: "incomeStatus"
+    val: "WithIncome"
+  }
+}
+
+## Person unemploymentRate ##
+
+spec: {
+  pop_type: "Person"
+  mprop: "unemploymentRate"
+  stat_type: "measuredValue"
+  vertical: "Employment"
+  name: "Unemployment Rate"
+}
+
+## Person percent ##
+
+spec: {
+  pop_type: "Person"
+  mprop: "percent"
+  stat_type: "measuredValue"
+  vertical: "Health"
+  cprop: "healthOutcome"
+  dpv: {
+    prop: "age"
+    val: "Years18Onwards"
+  }
+  name: "Health Outcomes"
+}
+
+# This one needs additional config
+spec: {
+  pop_type: "Person"
+  mprop: "percent"
+  stat_type: "measuredValue"
+  vertical: "Health"
+  cprop: "healthPrevention"
+  dpv: {
+    prop: "age"
+    val: "Years18Onwards"
+  }
+  name: "Health Preventions"
+}
+
+spec: {
+  pop_type: "Person"
+  mprop: "percent"
+  stat_type: "measuredValue"
+  vertical: "Health"
+  cprop: "healthBehavior"
+  dpv: {
+    prop: "age"
+    val: "Years18Onwards"
+  }
+  name: "Health Behaviors"
+}
+
+spec: {
+  pop_type: "Person"
+  mprop: "percent"
+  stat_type: "measuredValue"
+  vertical: "Health"
+  cprop: "gender"
+  cprop: "healthOutcome"
+  dpv: {
+    prop: "age"
+    val: "Years20Onwards"
+  }
+}
+
+spec: {
+  pop_type: "Person"
+  mprop: "percent"
+  stat_type: "measuredValue"
+  vertical: "Health"
+  cprop: "gender"
+  cprop: "healthBehavior"
+  dpv: {
+    prop: "age"
+    val: "Years20Onwards"
+  }
+}
+
+## CriminalActivities ##
+
+spec: {
+  pop_type: "CriminalActivities"
+  mprop: "count"
+  stat_type: "measuredValue"
+  vertical: "Crime"
+  cprop: "crimeType"
+}
+
+## MortalityEvent ##
+
+spec: {
+  pop_type: "MortalityEvent"
+  mprop: "count"
+  stat_type: "measuredValue"
+  vertical: "Health"
+  name: "Mortality"
+}
+
+spec: {
+  pop_type: "MortalityEvent"
+  mprop: "count"
+  stat_type: "measuredValue"
+  vertical: "Health"
+  cprop: "age"
+}
+
+spec: {
+  pop_type: "MortalityEvent"
+  mprop: "count"
+  stat_type: "measuredValue"
+  vertical: "Health"
+  cprop: "causeOfDeath"
+}
+
+spec: {
+  pop_type: "MortalityEvent"
+  mprop: "count"
+  stat_type: "measuredValue"
+  vertical: "Health"
+  cprop: "gender"
+}
+
+spec: {
+  pop_type: "MortalityEvent"
+  mprop: "count"
+  stat_type: "measuredValue"
+  vertical: "Health"
+  cprop: "race"
+}
+
+spec: {
+  pop_type: "MortalityEvent"
+  mprop: "count"
+  stat_type: "measuredValue"
+  vertical: "Health"
+  cprop: "age"
+  cprop: "causeOfDeath"
+}
+
+spec: {
+  pop_type: "MortalityEvent"
+  mprop: "count"
+  stat_type: "measuredValue"
+  vertical: "Health"
+  cprop: "age"
+  cprop: "gender"
+}
+
+spec: {
+  pop_type: "MortalityEvent"
+  mprop: "count"
+  stat_type: "measuredValue"
+  vertical: "Health"
+  cprop: "age"
+  cprop: "race"
+}
+
+spec: {
+  pop_type: "MortalityEvent"
+  mprop: "count"
+  stat_type: "measuredValue"
+  vertical: "Health"
+  cprop: "causeOfDeath"
+  cprop: "gender"
+}
+
+spec: {
+  pop_type: "MortalityEvent"
+  mprop: "count"
+  stat_type: "measuredValue"
+  vertical: "Health"
+  cprop: "causeOfDeath"
+  cprop: "race"
+}
+
+spec: {
+  pop_type: "MortalityEvent"
+  mprop: "count"
+  stat_type: "measuredValue"
+  vertical: "Health"
+  cprop: "gender"
+  cprop: "race"
+}
+
+spec: {
+  pop_type: "MortalityEvent"
+  mprop: "count"
+  stat_type: "measuredValue"
+  vertical: "Health"
+  cprop: "causeOfDeath"
+  cprop: "gender"
+  cprop: "race"
+}
+
+spec: {
+  pop_type: "MortalityEvent"
+  mprop: "count"
+  stat_type: "measuredValue"
+  vertical: "Health"
+  cprop: "age"
+  cprop: "gender"
+  cprop: "race"
+}
+
+spec: {
+  pop_type: "MortalityEvent"
+  mprop: "count"
+  stat_type: "measuredValue"
+  vertical: "Health"
+  cprop: "age"
+  cprop: "gender"
+  cprop: "causeOfDeath"
+}
+
+spec: {
+  pop_type: "MortalityEvent"
+  mprop: "count"
+  stat_type: "measuredValue"
+  vertical: "Health"
+  cprop: "age"
+  cprop: "race"
+  cprop: "causeOfDeath"
+}
+
+## USCEstablishment ##
+
+spec: {
+  pop_type: "USCEstablishment"
+  mprop: "count"
+  stat_type: "measuredValue"
+  vertical: "Economics"
+  name: "Number of Establishments"
+}
+
+spec: {
+  pop_type: "USCEstablishment"
+  mprop: "wagesAnnual"
+  stat_type: "measuredValue"
+  vertical: "Economics"
+  name: "Annual Wages of Establishments"
+}
+
+spec: {
+  pop_type: "USCEstablishment"
+  mprop: "wagesAnnual"
+  stat_type: "measuredValue"
+  vertical: "Economics"
+  cprop: "naics"
+  name: "Annual Wages of Establishments by Industry"
+}
+
+## USCWorker ##
+
+spec: {
+  pop_type: "USCWorker"
+  mprop: "count"
+  stat_type: "measuredValue"
+  vertical: "Economics"
+  name: "Labor Force"
+}
+
+## BLSEstablishment ##
+
+spec: {
+  pop_type: "BLSEstablishment"
+  mprop: "count"
+  stat_type: "measuredValue"
+  vertical: "Employment"
+  cprop: "naics"
+  name: "Establishments by Industry"
+}
+
+spec: {
+  pop_type: "BLSEstablishment"
+  mprop: "count"
+  stat_type: "measuredValue"
+  vertical: "Employment"
+  cprop: "establishmentOwnership"
+  cprop: "naics"
+}
+
+## BLSWorker ##
+
+spec: {
+  pop_type: "BLSWorker"
+  mprop: "count"
+  stat_type: "measuredValue"
+  vertical: "Employment"
+  cprop: "naics"
+  name: "Labor Force by Industry"
+}
+
+spec: {
+  pop_type: "BLSWorker"
+  mprop: "count"
+  stat_type: "measuredValue"
+  vertical: "Employment"
+  cprop: "establishmentOwnership"
+  cprop: "naics"
+}
+
+# spec: {
+#   pop_type: "BLSWorker"
+#   mprop: "wagesTotal"
+#   stat_type: "measuredValue"
+#   vertical: "Economics"
+#   cprop: "naics"
+#   name: "Labor Force by Industry Total Wages"
+# }
+
+spec: {
+  pop_type: "BLSWorker"
+  mprop: "wagesAnnual"
+  stat_type: "measuredValue"
+  vertical: "Economics"
+  cprop: "naics"
+  cprop: "establishmentOwnership"
+  name: "Annual Wages of Labor Force by Industry and Ownership"
+}
+
+# spec: {
+#   pop_type: "BLSWorker"
+#   mprop: "wagesTotal"
+#   stat_type: "measuredValue"
+#   vertical: "Economics"
+#   cprop: "naics"
+#   cprop: "establishmentOwnership"
+#   name: "Labor Force Total Wages by Industry and Ownership"
+# }
+
+# spec: {
+#   pop_type: "BLSWorker"
+#   mprop: "wagesWeekly"
+#   stat_type: "measuredValue"
+#   vertical: "Economics"
+#   cprop: "naics"
+#   cprop: "establishmentOwnership"
+#   name: "Labor Force Weekly Wages by Industry and Ownership"
+# }
+
+## Household ##
+spec: {
+  pop_type: "Household"
+  mprop: "count"
+  stat_type: "measuredValue"
+  vertical: "Household"
+  name: "Household"
+}
+
+spec: {
+  pop_type: "Household"
+  mprop: "count"
+  stat_type: "measuredValue"
+  vertical: "Household"
+  cprop: "householderAge"
+  name: "Household by Householder Age"
+}
+
+spec: {
+  pop_type: "Household"
+  mprop: "count"
+  stat_type: "measuredValue"
+  vertical: "Household"
+  cprop: "householderRace"
+  name: "Household by Householder Race"
+}
+
+spec: {
+  pop_type: "Household"
+  mprop: "count"
+  stat_type: "measuredValue"
+  vertical: "Household"
+  cprop: "income"
+  name: "Household Income"
+}
+
+spec: {
+  pop_type: "Household"
+  mprop: "count"
+  stat_type: "measuredValue"
+  vertical: "Household"
+  cprop: "householderAge"
+  cprop: "income"
+}
+
+spec: {
+  pop_type: "Household"
+  mprop: "count"
+  stat_type: "measuredValue"
+  vertical: "Household"
+  cprop: "householderRace"
+  cprop: "income"
+}
+
+spec: {
+  pop_type: "Household"
+  mprop: "count"
+  stat_type: "measuredValue"
+  vertical: "Household"
+  cprop: "householderAge"
+  cprop: "householderRace"
+}
+
+spec: {
+  pop_type: "Household"
+  mprop: "count"
+  stat_type: "measuredValue"
+  vertical: "Household"
+  cprop: "householderAge"
+  cprop: "householderRace"
+  cprop: "income"
+}
+
+## HousingUnit ##
+spec: {
+  pop_type: "HousingUnit"
+  mprop: "count"
+  stat_type: "measuredValue"
+  vertical: "Housing"
+  name: "Housing Units"
+}
+
+spec: {
+  pop_type: "HousingUnit"
+  mprop: "count"
+  stat_type: "measuredValue"
+  vertical: "Housing"
+  cprop: "cashRentStatus"
+  dpv: {
+    prop: "occupancyStatus"
+    val: "OccupiedHousingUnit"
+  }
+  dpv: {
+    prop: "occupancyTenure"
+    val: "RenterOccupied"
+  }
+  name: "Housing Unit Cash Rent Status"
+}
+
+spec: {
+  pop_type: "HousingUnit"
+  mprop: "count"
+  stat_type: "measuredValue"
+  vertical: "Housing"
+  cprop: "grossRent"
+  dpv: {
+    prop: "occupancyStatus"
+    val: "OccupiedHousingUnit"
+  }
+  dpv: {
+    prop: "occupancyTenure"
+    val: "RenterOccupied"
+  }
+  dpv: {
+    prop: "cashRentStatus"
+    val: "WithCashRent"
+  }
+  name: "Housing Unit Gross Rent"
+}
+
+spec: {
+  pop_type: "HousingUnit"
+  mprop: "count"
+  stat_type: "measuredValue"
+  vertical: "Housing"
+  cprop: "homeValue"
+  dpv: {
+    prop: "occupancyStatus"
+    val: "OccupiedHousingUnit"
+  }
+  dpv: {
+    prop: "occupancyTenure"
+    val: "OwnerOccupied"
+  }
+  name: "Housing Unit Home Value"
+}
+
+spec: {
+  pop_type: "HousingUnit"
+  mprop: "count"
+  stat_type: "measuredValue"
+  vertical: "Housing"
+  cprop: "householderRace"
+  dpv: {
+    prop: "occupancyStatus"
+    val: "OccupiedHousingUnit"
+  }
+  name: "Housing Unit Householder Race"
+}
+
+spec: {
+  pop_type: "HousingUnit"
+  mprop: "count"
+  stat_type: "measuredValue"
+  vertical: "Housing"
+  cprop: "numberOfRooms"
+  name: "Housing Unit Number of Rooms"
+}
+
+spec: {
+  pop_type: "HousingUnit"
+  mprop: "count"
+  stat_type: "measuredValue"
+  vertical: "Housing"
+  cprop: "occupancyStatus"
+  name: "Housing Unit Occupancy Status"
+}
+
+spec: {
+  pop_type: "HousingUnit"
+  mprop: "count"
+  stat_type: "measuredValue"
+  vertical: "Housing"
+  cprop: "occupancyTenure"
+  dpv: {
+    prop: "occupancyStatus"
+    val: "OccupiedHousingUnit"
+  }
+  name: "Housing Unit Occupancy Tenure"
+}
+
+spec: {
+  pop_type: "HousingUnit"
+  mprop: "count"
+  stat_type: "measuredValue"
+  vertical: "Housing"
+  cprop: "householderRace"
+  cprop: "occupancyTenure"
+  dpv: {
+    prop: "occupancyStatus"
+    val: "OccupiedHousingUnit"
+  }
+}
+
+### Person counts with cprops ###
+
+spec: {
+  pop_type: "Person"
+  mprop: "count"
+  stat_type: "measuredValue"
+  vertical: "Demographics"
+  cprop: "age"
+  cprop: "race"
+}
+
+#### Left both as cprop as there were 2,3 options, respectively
+spec: {
+  pop_type: "Person"
+  mprop: "count"
+  stat_type: "measuredValue"
+  vertical: "Demographics"
+  vertical: "Employment"
+  cprop: "incomeStatus"
+  cprop: "age"
+}
+
+spec: {
+  pop_type: "Person"
+  mprop: "count"
+  stat_type: "measuredValue"
+  vertical: "Demographics"
+  vertical: "Education"
+  cprop: "age"
+  cprop: "collegeOrGraduateSchoolEnrollment"
+  cprop: "gender"
+}
+
+spec: {
+  pop_type: "Person"
+  mprop: "count"
+  stat_type: "measuredValue"
+  vertical: "Demographics"
+  vertical: "Employment"
+  cprop: "age"
+  cprop: "gender"
+  cprop: "povertyStatus"
+}
+
+# TODO: check this
+#### Note that in common there is already one but with age 3+
+spec: {
+  pop_type: "Person"
+  mprop: "count"
+  stat_type: "measuredValue"
+  vertical: "Demographics"
+  vertical: "Education"
+  cprop: "age"
+  cprop: "gender"
+  cprop: "schoolEnrollment"
+}
+
+spec: {
+  pop_type: "Person"
+  mprop: "count"
+  stat_type: "measuredValue"
+  vertical: "Demographics"
+  vertical: "Employment"
+  cprop: "workExperience"
+  cprop: "gender"
+  dpv: {
+    prop: "age"
+    val: "Years16Onwards"
+  }
+}
+
+#### Chose 16+ age group (among 15+, 16+) for consistency
+spec: {
+  pop_type: "Person"
+  mprop: "count"
+  stat_type: "measuredValue"
+  vertical: "Demographics"
+  vertical: "Employment"
+  cprop: "gender"
+  cprop: "incomeStatus"
+  cprop: "workExperience"
+  dpv: {
+    prop: "age"
+    val: "Years16Onwards"
+  }
+}
+
+spec: {
+  pop_type: "Person"
+  mprop: "count"
+  stat_type: "measuredValue"
+  vertical: "Demographics"
+  vertical: "Employment"
+  cprop: "gender"
+  cprop: "race"
+  cprop: "workExperience"
+  dpv: {
+    prop: "age"
+    val: "Years16Onwards"
+  }
+}
+
+spec: {
+  pop_type: "Person"
+  mprop: "count"
+  stat_type: "measuredValue"
+  vertical: "Demographics"
+  cprop: "gender"
+  cprop: "spousePresent"
+  dpv: {
+    prop: "age"
+    val: "Years15Onwards"
+  }
+  dpv: {
+    prop: "maritalStatus"
+    val: "NowMarried"
+  }
+}
+
+spec: {
+  pop_type: "Person"
+  mprop: "count"
+  stat_type: "measuredValue"
+  vertical: "Employment"
+  vertical: "Demographics"
+  cprop: "age"
+  cprop: "gender"
+  cprop: "povertyStatus"
+  cprop: "race"
+}
+
+spec: {
+  pop_type: "Person"
+  mprop: "count"
+  stat_type: "measuredValue"
+  vertical: "Demographics"
+  vertical: "Employment"
+  cprop: "gender"
+  cprop: "income"
+  cprop: "workExperience"
+  dpv: {
+    prop: "age"
+    val: "Years15Onwards"
+  }
+  dpv: {
+    prop: "incomeStatus"
+    val: "WithIncome"
+  }
+}
+
+spec: {
+  pop_type: "Person"
+  mprop: "count"
+  stat_type: "measuredValue"
+  vertical: "Demographics"
+  vertical: "Employment"
+  cprop: "gender"
+  cprop: "incomeStatus"
+  cprop: "race"
+  cprop: "workExperience"
+  dpv: {
+    prop: "age"
+    val: "Years16Onwards"
+  }
+}
+
+spec: {
+  pop_type: "Person"
+  mprop: "count"
+  stat_type: "measuredValue"
+  vertical: "Demographics"
+  cprop: "gender"
+  cprop: "spouseAbsentReason"
+  dpv: {
+    prop: "maritalStatus"
+    val: "NowMarried"
+  }
+  dpv: {
+    prop: "age"
+    val: "Years15Onwards"
+  }
+  dpv: {
+    prop: "spousePresent"
+    val: "MarriedSpouseAbsent"
+  }
+}
+
+spec: {
+  pop_type: "Person"
+  mprop: "count"
+  stat_type: "measuredValue"
+  vertical: "Demographics"
+  vertical: "Employment"
+  cprop: "gender"
+  cprop: "income"
+  cprop: "race"
+  cprop: "workExperience"
+  dpv: {
+    prop: "age"
+    val: "Years16Onwards"
+  }
+  dpv: {
+    prop: "incomeStatus"
+    val: "WithIncome"
+  }
+}
+
+## Drug Distribution retailDrugDistribution##
+
+spec: {
+  pop_type: "DrugDistribution"
+  mprop: "retailDrugDistribution"
+  cprop: "drugPrescribed"
+  stat_type: "measuredValue"
+  vertical: "Health"
+}
+
+## Disasters ##
+spec: {
+  pop_type: "CycloneEvent"
+  mprop: "count"
+  stat_type: "measuredValue"
+  vertical: "Disasters"
+  name: "Cyclones"
+}
+spec: {
+  pop_type: "CycloneEvent"
+  mprop: "count"
+  stat_type: "measuredValue"
+  cprop: "maxClassification"
+  vertical: "Disasters"
+}
+spec: {
+  pop_type: "DroughtEvent"
+  mprop: "count"
+  stat_type: "measuredValue"
+  vertical: "Disasters"
+  name: "Droughts"
+}
+spec: {
+  pop_type: "EarthquakeEvent"
+  mprop: "count"
+  stat_type: "measuredValue"
+  vertical: "Disasters"
+  name: "Earthquakes"
+}
+spec: {
+  pop_type: "EarthquakeEvent"
+  mprop: "count"
+  stat_type: "measuredValue"
+  cprop: "magnitude"
+  vertical: "Disasters"
+}
+spec: {
+  pop_type: "FloodEvent"
+  mprop: "count"
+  stat_type: "measuredValue"
+  vertical: "Disasters"
+  name: "Floods"
+}
+spec: {
+  pop_type: "ThunderstormWindEvent"
+  mprop: "count"
+  stat_type: "measuredValue"
+  vertical: "Disasters"
+  name: "Thunderstorm Wind Gusts"
+}
+spec: {
+  pop_type: "TornadoEvent"
+  mprop: "count"
+  stat_type: "measuredValue"
+  vertical: "Disasters"
+  name: "Tornadoes"
+}
+spec: {
+  pop_type: "WildlandFireEvent"
+  mprop: "count"
+  stat_type: "measuredValue"
+  vertical: "Disasters"
+  name: "Wildland Fires"
+}
+
+## WDI
+
+# spec: {
+#   pop_type: "Consumption"
+#   mprop: "amount"
+#   stat_type: "measuredValue"
+#   cprop: "consumedThing"
+#   vertical: "Environment"
+#   name: "Consumption"
+# }
+# spec: {
+#   pop_type: "EconomicActivity"
+#   mprop: "amount"
+#   stat_type: "measuredValue"
+#   cprop: "activitySource"
+#   vertical: "Economic"
+#   name: "Economic Activity"
+# }
+# # TODO(b/148618745): uncomment the code once bug fixed.
+# # spec: {
+# #   pop_type: "EconomicActivity"
+# #   mprop: "amount"
+# #   stat_type: "growthRate"
+# #   cprop: "activitySource"
+# #   vertical: "Economic"
+# #   name: "Economic Activity Growth Rate"
+# # }
+# spec: {
+#   pop_type: "Emissions"
+#   mprop: "amount"
+#   stat_type: "measuredValue"
+#   cprop: "emittedThing"
+#   vertical: "Environment"
+#   name: "Emissions"
+# }
+# # TODO(b/148618745): uncomment the code once bug fixed.
+# # spec: {
+# #   pop_type: "Person"
+# #   mprop: "count"
+# #   stat_type: "growthRate"
+# #   vertical: "Demographics"
+# #   name: "Population Growth Rate"
+# # }
+# spec: {
+#   pop_type: "Person"
+#   mprop: "count"
+#   stat_type: "measuredValue"
+#   vertical: "Demographics"
+#   cprop: "isInternetUser"
+#   name: "Number of Internet Users"
+# }
+# spec: {
+#   pop_type: "Person"
+#   mprop: "fertilityRate"
+#   stat_type: "measuredValue"
+#   vertical: "Health"
+#   dpv: {
+#     prop: "gender"
+#     val: "Female"
+#   }
+#   name: "Fertility Rate"
+# }
+# spec: {
+#   pop_type: "Person"
+#   mprop: "lifeExpectancy"
+#   stat_type: "measuredValue"
+#   vertical: "Health"
+#   name: "Life Expectancy"
+# }
+
+# This doesn't work
+# spec: {
+#   pop_type: "MedicalConditionIncident"
+#   mprop: "cumulativeCount"
+#   stat_type: "measuredValue"
+#   vertical: "Health"
+#   name: "Medical Condition Incidents"
+#   cprop: "incidentType"
+# }
+
+spec: {
+  pop_type: "MedicalConditionIncident"
+  mprop: "cumulativeCount"
+  stat_type: "measuredValue"
+  vertical: "Health"
+  name: "COVID-19 Incidents"
+  dpv: {
+    prop: "incidentType"
+    val: "COVID_19"
+  }
+  cprop: "medicalStatus"
+}
+spec: {
+  pop_type: "UnemploymentInsuranceClaim"
+  mprop: "count"
+  stat_type: "measuredValue"
+  vertical: "Employment"
+  name: "Unemployment Insurance Claims"
+  cprop: "benefitProgram"
+}
+spec: {
+  pop_type: "UnemploymentInsuranceClaim"
+  mprop: "count"
+  stat_type: "measuredValue"
+  vertical: "Employment"
+  cprop: "benefitProgram"
+  cprop: "claimType"
+}
+
+## TODO(tjann): Whitelist after making this look nicer on GNI PV Tree.
+# spec: {
+#   pop_type: "UnemploymentInsuranceClaim"
+#   mprop: "count"
+#   stat_type: "measuredValue"
+#   vertical: "Employment"
+#   dpv: {
+#     prop: "benefitProgram"
+#     val: "StateUnemploymentInsuranceOrShortTimeCompensation"
+#   }
+#   dpv: {
+#     prop: "claimType"
+#     val: "ContinuedClaim"
+#   }
+#   name: "13-Week Moving Average State Unemployment Insurance or Workshare Claims"
+# }
+# spec: {
+#   pop_type: "Person"
+#   mprop: "insuredUnemploymentRate"
+#   stat_type: "measuredValue"
+#   vertical: "Employment"
+#   dpv: {
+#     prop: "unemploymentInsuranceStatus",
+#     val: "WithCoveredEmployment"
+#   }
+#   name: "13-Week Moving Average Insured Unemployment Rate"
+# }
+
+# originally in pop_obs_spec_gni.textproto
+spec: {
+  pop_type: "Person"
+  mprop: "count"
+  stat_type: "measuredValue"
+  vertical: "Employment"
+  name: "Labor Force"
+  dpv: {
+    prop: "employmentStatus"
+    val: "BLS_InLaborForce"
+  }
+}
+
+spec: {
+  pop_type: "Person"
+  mprop: "count"
+  stat_type: "measuredValue"
+  vertical: "Employment"
+  name: "Employed"
+  dpv: {
+    prop: "employment"
+    val: "BLS_Employed"
+  }
+}
+
+spec: {
+  pop_type: "Person"
+  mprop: "count"
+  stat_type: "measuredValue"
+  vertical: "Employment"
+  name: "Unemployed"
+  dpv: {
+    prop: "employment"
+    val: "BLS_Unemployed"
+  }
+}
