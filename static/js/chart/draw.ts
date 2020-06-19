@@ -42,7 +42,6 @@ const NUM_X_TICKS = 5;
 const NUM_Y_TICKS = 5;
 const MARGIN = { top: 10, right: 10, bottom: 30, left: 30 };
 
-
 // Colors - 500 level colors from the Google Material palette
 const COLORS = [
   "#4285F4",
@@ -58,6 +57,24 @@ const COLORS = [
 enum BarType {
   Stack = 1,
   Group = 2,
+}
+
+function getColorFn(size) {
+  return d3
+    .scaleOrdinal()
+    .range(d3.quantize(d3.interpolateHcl("#362142", "#f4e153"), size));
+}
+
+function appendLegendElem(elem: string, color, keys: string[]) {
+  d3.select("#" + elem)
+    .append("div")
+    .attr("class", "legend")
+    .selectAll("div")
+    .data(keys)
+    .join("div")
+    .attr("style", (d) => `background: ${color(d)}`)
+    .append("span")
+    .text((d) => d);
 }
 
 function createLegend(textList: string[]): Element {
@@ -263,7 +280,7 @@ function drawStackBarChart(
  * @param dataGroups
  * @param unit
  */
-function drawGroupBarChart(
+function drawGroupBarChartOld(
   parentId: string,
   parentWidth: number,
   parentHeight: number,
@@ -347,6 +364,89 @@ function drawComplexBarChart(
     drawGroupBars(canvas, layout, dataGroups, yTick.valueRange);
   }
   parentElement.appendChild(legendElem);
+}
+
+/**
+ * Draw group bar chart.
+ *
+ * @param id
+ * @param width
+ * @param height
+ * @param dataGroups
+ * @param unit
+ */
+function drawGroupBarChart(
+  id: string,
+  width: number,
+  height: number,
+  dataGroups: DataGroup[],
+  unit?: string
+) {
+  let keys = dataGroups[0].value.map((dp) => dp.label);
+  let x0 = d3
+    .scaleBand()
+    .domain(dataGroups.map((dg) => dg.label))
+    .rangeRound([MARGIN.left, width - MARGIN.right])
+    .paddingInner(0.1);
+
+  let x1 = d3
+    .scaleBand()
+    .domain(keys)
+    .rangeRound([0, x0.bandwidth()])
+    .padding(0.05);
+
+  let maxV = Math.max(...dataGroups.map((dataGroup) => dataGroup.max()));
+  let y = d3
+    .scaleLinear()
+    .domain([0, maxV])
+    .nice()
+    .rangeRound([height - MARGIN.bottom, MARGIN.top]);
+
+  let yAxis = (g) =>
+    g
+      .attr("transform", `translate(${MARGIN.left},0)`)
+      .call(d3.axisLeft(y).ticks(5, "s"))
+      .call((g) =>
+        g
+          .select(".tick:last-of-type text")
+          .clone()
+          .attr("x", 3)
+          .attr("text-anchor", "start")
+          .attr("font-weight", "bold")
+      );
+
+  let xAxis = (g) =>
+    g
+      .attr("transform", `translate(0,${height - MARGIN.bottom})`)
+      .call(d3.axisBottom(x0).tickSizeOuter(0));
+
+  let color = getColorFn(keys.length);
+
+  let svg = d3
+    .select("#" + id)
+    .append("svg")
+    .attr("width", width)
+    .attr("height", height);
+
+  svg
+    .append("g")
+    .selectAll("g")
+    .data(dataGroups)
+    .join("g")
+    .attr("transform", (dg) => `translate(${x0(dg.label)},0)`)
+    .selectAll("rect")
+    .data((dg) => dg.value.map((dp) => ({ key: dp.label, value: dp.value })))
+    .join("rect")
+    .attr("x", (d) => x1(d.key))
+    .attr("y", (d) => y(d.value))
+    .attr("width", x1.bandwidth())
+    .attr("height", (d) => y(0) - y(d.value))
+    .attr("fill", (d) => String(color(d.key)));
+
+  svg.append("g").attr("class", "x axis").call(xAxis);
+  svg.append("g").attr("class", "y axis").call(yAxis);
+
+  appendLegendElem(id, color, keys);
 }
 
 /**
