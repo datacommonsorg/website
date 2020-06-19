@@ -1,4 +1,4 @@
- ## Generate the json configuration file used by GNI tool to build the menu of statistical populations for the users to choose from.
+ ### Generate the json configuration file used by GNI tool to build the menu of statistical populations for the users to choose from.
  
  
  * [util.py](./util.py): functions used for building the property-value tree
