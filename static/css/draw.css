@@ -60,3 +60,18 @@ path.line {
 .dot {
   stroke: #fff;
 }
+
+.legend {
+  margin-left: 40px; /* synced with code below, ugh */
+  text-align: center;
+}
+
+.legend div {
+  display: inline-block;
+  padding: 1px 5px;
+  font-size: 10px;
+  line-height: 14px;
+  color: white;
+  margin: 2px;
+  border-radius: 2px;
+}

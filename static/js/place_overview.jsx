@@ -473,7 +473,6 @@ class Chart extends Component {
     const chartType = this.props.config.chartType;
     let elem = document.getElementById(this.props.id);
     elem.innerHTML = "";
-    elem.style.height = CHART_HEIGHT + "px";
     if (chartType == chartTypeEnum.LINE) {
       drawLineChart(
         this.props.id,

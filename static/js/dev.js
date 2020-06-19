@@ -37,7 +37,7 @@ import {
  */
 window.onload = function () {
   let containerWidth = 350;
-  let containerHeight = 400;
+  let height = 400;
 
   // Container element to hold dom element of one chart.
   // The width and height is eventually obtained from gridding system like
@@ -45,7 +45,7 @@ window.onload = function () {
   let containerId = "chart-box-1";
   let containerElem = document.getElementById(containerId);
   containerElem.style.width = containerWidth + "px";
-  containerElem.style.height = containerHeight + "px";
+  containerElem.style.height = height + "px";
 
   // Draw single bar chart.
   let dataPoints = [
@@ -54,7 +54,7 @@ window.onload = function () {
     new DataPoint("California", 300234),
     new DataPoint("United States", 2520234),
   ];
-  drawSingleBarChart(containerId, containerWidth, containerHeight, dataPoints);
+  drawSingleBarChart(containerId, containerWidth, height, dataPoints);
 
   let dataGroups = [
     new DataGroup(
@@ -87,20 +87,18 @@ window.onload = function () {
   containerId = "chart-box-2";
   containerElem = document.getElementById(containerId);
   containerElem.style.width = containerWidth + "px";
-  containerElem.style.height = containerHeight + "px";
-  drawStackBarChart(containerId, containerWidth, containerHeight, dataGroups);
+  containerElem.style.height = height + "px";
+  drawStackBarChart(containerId, containerWidth, height, dataGroups);
 
   // Draw group bar chart.
   containerId = "chart-box-3";
   containerElem = document.getElementById(containerId);
   containerElem.style.width = containerWidth + "px";
-  containerElem.style.height = containerHeight + "px";
-  drawGroupBarChart(containerId, containerWidth, containerHeight, dataGroups);
+  drawGroupBarChart(containerId, containerWidth, height, dataGroups);
 
   // Draw line chart.
   containerId = "chart-box-4";
   containerElem = document.getElementById(containerId);
   containerElem.style.width = containerWidth + "px";
-  containerElem.style.height = containerHeight + "px";
-  drawLineChart(containerId, containerWidth, containerHeight, dataGroups);
+  drawLineChart(containerId, containerWidth, height, dataGroups);
 };
