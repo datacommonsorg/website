@@ -413,6 +413,12 @@ def get_parent_place(dcid):
     payload = dc.send_request(url, req_json=req_json)
     parents = payload[dcid].get('out', [])
     parents.sort(key=lambda x: x['dcid'], reverse=True)
+    for i in range(len(parents)):
+        place_types = parents[i]['types']
+        parents[i]['types'] = list(
+            filter(lambda x: not x.startswith('AdministrativeArea'), place_types))
+        if not parents[i]['types']:
+            parents[i]['types'] = place_types
     return parents
 
 
