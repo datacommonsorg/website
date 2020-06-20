@@ -16,7 +16,6 @@
 
 import * as _SVG from "@svgdotjs/svg.js";
 import * as d3 from "d3";
-import _ from "lodash";
 
 import {
   DataGroup,
