@@ -30,8 +30,8 @@ class PopObsSpec(object):
       self.properties = properties #properties, list of string
       self.cpv = cpv #constrained property-value pairs, dict{string: string}
       self.name = name
-      self.propAll = tuple(sorted(properties + list(cpv.keys())))
-      self.key = (pop_type, mprop, stats) + self.propAll
+      self.prop_all = tuple(sorted(properties + list(cpv.keys())))
+      self.key = (pop_type, mprop, stats) + self.prop_all
       
 class StatVar(object):
     """Represents a StatisticalVariable"""
@@ -46,7 +46,7 @@ class StatVar(object):
     def match_ui_node(self, ui_node):
       #check if the statistical variable should be under the ui_node
       pospec = ui_node.pop_obs_spec
-      if set(self.pv.keys()) != set(pospec.propAll):
+      if set(self.pv.keys()) != set(pospec.prop_all):
         return False
       if not pospec.cpv.items() <= self.pv.items():
         return False
@@ -171,22 +171,22 @@ def _read_stat_var():
     """
     dc.set_api_key(API_KEY)
     sv_triples = dc.get_triples(sv_dcid)
-    statVars = collections.defaultdict(list)
+    stat_vars = collections.defaultdict(list)
     for dcid, triples in sv_triples.items():
-      constraintProperties = set()
+      constraint_properties = set()
       sv_dict = collections.defaultdict(str)
       for _, prop, val in triples:
         if prop == "constraintProperties":
-          constraintProperties.add(val)
+          constraint_properties.add(val)
         else:
           sv_dict[prop] = val
           
       prop_val = {}
-      for property in constraintProperties:
+      for property in constraint_properties:
         if property in sv_dict:
           prop_val[property] = sv_dict[property]
         
       sv = StatVar(sv_dict["populationType"], sv_dict["measuredProperty"], sv_dict["statType"], prop_val, dcid)
-      statVars[sv.key].append(sv)
-    return statVars
+      stat_vars[sv.key].append(sv)
+    return stat_vars
 
