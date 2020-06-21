@@ -19,7 +19,7 @@ from google.protobuf import text_format
 import datacommons as dc
 import stat_config_pb2
 import collections
-from constants import API_KEY
+from configmodule import ProductionConfig
 
 class PopObsSpec(object):
   """Represents a StatisticalPopulation & Observation spec."""
@@ -146,7 +146,7 @@ def _read_stat_var():
     """Read all the statistical variables"""
     
     #read the dcid of all statistical variables
-    dc.set_api_key(API_KEY)
+    dc.set_api_key(ProductionConfig.DC_API_KEY)
     query_str = "SELECT ?a WHERE {?a typeOf StatisticalVariable}"
     result = dc.query(query_str)
     sv_dcid = [list(temp.values())[0] for temp in result]
