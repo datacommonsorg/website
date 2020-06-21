@@ -144,14 +144,13 @@ def _read_pop_obs_spec():
   
 def _read_stat_var():
     """Read all the statistical variables"""
+    
     #read the dcid of all statistical variables
-
-    #currently we read it from the downloaded .csv file
-    #in the future, we will change to query it from bigquery,
-    #or from calling API of datacommons
-    sv_dcid = open("statistical_variables_dcid.txt",'r').read().splitlines()
-
-    #get the triples for each statistical variable and store it as StatVar
+    dc.set_api_key(API_KEY)
+    query_str = "SELECT ?a WHERE {?a typeOf StatisticalVariable}"
+    result = dc.query(query_str)
+    sv_dcid = [list(temp.values())[0] for temp in result]
+    
     """
     example of triples for one statsitical variable
     ('dc/014es05x0d5l', 'measurementMethod', 'CensusACS5yrSurvey')
@@ -169,23 +168,22 @@ def _read_stat_var():
     ('dc/014es05x0d5l', 'constraintProperties', 'incomeStatus')
     ('dc/014es05x0d5l', 'constraintProperties', 'age')
     """
-    dc.set_api_key(API_KEY)
     sv_triples = dc.get_triples(sv_dcid)
     stat_vars = collections.defaultdict(list)
     for dcid, triples in sv_triples.items():
-      constraint_properties = set()
+      constraint_properties = []
       sv_dict = collections.defaultdict(str)
       for _, prop, val in triples:
         if prop == "constraintProperties":
-          constraint_properties.add(val)
+          constraint_properties.append(val)
         else:
           sv_dict[prop] = val
           
       prop_val = {}
       for property in constraint_properties:
-        if property in sv_dict:
-          prop_val[property] = sv_dict[property]
-        
+        if property not in sv_dict:
+          raise Exception("constraint property:{} not found in statistical variable with dcid: {}".format(property,dcid))
+        prop_val[property] = sv_dict[property]
       sv = StatVar(sv_dict["populationType"], sv_dict["measuredProperty"], sv_dict["statType"], prop_val, dcid)
       stat_vars[sv.key].append(sv)
     return stat_vars
