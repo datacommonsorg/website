@@ -12,8 +12,7 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-pip3 install protobuf==3.12.0
-pip install datacommons
+pip install -r requirements.txt
 
 protoc -I=./ --python_out=./ ./stat_config.proto
 
