@@ -34,12 +34,12 @@ path.line {
 }
 
 .axis line {
-  stroke: #706fbf;
+  stroke: #999;
   stroke-width: 0.5;
 }
 
 .axis path {
-  stroke: #706fbf;
+  stroke: #999;
   stroke-width: 0.5;
   shape-rendering: crispEdges;
 }
