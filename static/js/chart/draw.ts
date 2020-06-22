@@ -127,39 +127,25 @@ function drawSingleBarChart(
     .scaleBand()
     .domain(textList)
     .rangeRound([MARGIN.left, width - MARGIN.right])
-    .paddingInner(0.1);
+    .paddingInner(0.1)
+    .paddingOuter(0.1);
 
-    let y = d3
+  let y = d3
     .scaleLinear()
     .domain([0, d3.max(values)])
     .nice()
     .rangeRound([height - MARGIN.bottom, MARGIN.top]);
 
-    let yAxis = (g) =>
-    g
-      .attr("transform", `translate(${MARGIN.left},0)`)
-      .call(d3.axisLeft(y).ticks(5, "s"))
-      .call((g) =>
-        g
-          .select(".tick:last-of-type text")
-          .clone()
-          .attr("x", 3)
-          .attr("text-anchor", "start")
-          .attr("font-weight", "bold")
-      );
+  let color = getColorFn(textList);
 
-    let xAxis = (g) =>
-    g
-      .attr("transform", `translate(0,${height - MARGIN.bottom})`)
-      .call(d3.axisBottom(x).tickSizeOuter(0));
-
-    let color = getColorFn(textList);
-
-    let svg = d3
+  let svg = d3
       .select("#" + id)
       .append("svg")
       .attr("width", width)
       .attr("height", height);
+
+  addXAxis(svg, height, x);
+  addYAxis(svg, width, y);
 
     svg
       .append("g")
@@ -171,9 +157,6 @@ function drawSingleBarChart(
       .attr("width", x.bandwidth())
       .attr("height", d => y(0) - y(d.value))
       .attr("fill", d => color(d.label))
-
-      svg.append("g").attr("class", "x axis").call(xAxis);
-      svg.append("g").attr("class", "y axis").call(yAxis);
 }
 
 /**
