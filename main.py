@@ -414,11 +414,9 @@ def get_parent_place(dcid):
     parents = payload[dcid].get('out', [])
     parents.sort(key=lambda x: x['dcid'], reverse=True)
     for i in range(len(parents)):
-        place_types = parents[i]['types']
-        parents[i]['types'] = list(
-            filter(lambda x: not x.startswith('AdministrativeArea'), place_types))
-        if not parents[i]['types']:
-            parents[i]['types'] = place_types
+        if len(parents[i]['types']) > 1:
+            parents[i]['types'] = list(
+                filter(lambda x: not x.startswith('AdministrativeArea'), place_types))
     return parents
 
 
