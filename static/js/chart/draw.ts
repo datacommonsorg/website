@@ -72,18 +72,24 @@ function appendLegendElem(
     .text((d) => d);
 }
 
-function addXAxis(svg, height, xScale) {
+function addXAxis(
+  svg: d3.Selection<SVGElement, any, any, any>,
+  height: number,
+  xScale: d3.AxisScale<any>
+) {
   svg
     .append("g")
     .attr("class", "x axis")
     .attr("transform", `translate(0, ${height - MARGIN.bottom})`)
-    .call(d3.axisBottom(xScale)
-    .ticks(NUM_X_TICKS)
-    .tickSizeOuter(0))
-    .call((g) => g.select(".domain").remove())
+    .call(d3.axisBottom(xScale).ticks(NUM_X_TICKS).tickSizeOuter(0))
+    .call((g) => g.select(".domain").remove());
 }
 
-function addYAxis(svg, width, yScale) {
+function addYAxis(
+  svg: d3.Selection<SVGElement, any, any, any>,
+  width: number,
+  yScale: d3.AxisScale<any>
+) {
   svg
     .append("g")
     .attr("class", "y axis")
@@ -99,9 +105,10 @@ function addYAxis(svg, width, yScale) {
       g.selectAll(".tick:not(:first-of-type) line").attr("class", "grid-line")
     )
     .call((g) =>
-      g.selectAll(".tick text")
-      .attr("x", -width + MARGIN.left + MARGIN.yAxis)
-      .attr("dy", -4));
+      g
+        .selectAll(".tick text")
+        .attr("x", -width + MARGIN.left + MARGIN.yAxis)
+        .attr("dy", -4)
     );
 }
 
