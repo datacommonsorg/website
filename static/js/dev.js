@@ -36,7 +36,7 @@ import {
  * Update translation results when schema mapping or query changes.
  */
 window.onload = function () {
-  let containerWidth = 350;
+  let width = 350;
   let height = 400;
 
   // Container element to hold dom element of one chart.
@@ -44,7 +44,7 @@ window.onload = function () {
   // Bootstrap.
   let containerId = "chart-box-1";
   let containerElem = document.getElementById(containerId);
-  containerElem.style.width = containerWidth + "px";
+  containerElem.style.width = width + "px";
   containerElem.style.height = height + "px";
 
   // Draw single bar chart.
@@ -54,7 +54,7 @@ window.onload = function () {
     new DataPoint("California", 300234),
     new DataPoint("United States", 2520234),
   ];
-  drawSingleBarChart(containerId, containerWidth, height, dataPoints);
+  drawSingleBarChart(containerId, width, height, dataPoints);
 
   let dataGroups = [
     new DataGroup(
@@ -86,19 +86,18 @@ window.onload = function () {
   // Draw stack bar chart.
   containerId = "chart-box-2";
   containerElem = document.getElementById(containerId);
-  containerElem.style.width = containerWidth + "px";
-  containerElem.style.height = height + "px";
-  drawStackBarChart(containerId, containerWidth, height, dataGroups);
+  containerElem.style.width = width + "px";
+  drawStackBarChart(containerId, width, height, dataGroups);
 
   // Draw group bar chart.
   containerId = "chart-box-3";
   containerElem = document.getElementById(containerId);
-  containerElem.style.width = containerWidth + "px";
-  drawGroupBarChart(containerId, containerWidth, height, dataGroups);
+  containerElem.style.width = width + "px";
+  drawGroupBarChart(containerId, width, height, dataGroups);
 
   // Draw line chart.
   containerId = "chart-box-4";
   containerElem = document.getElementById(containerId);
-  containerElem.style.width = containerWidth + "px";
-  drawLineChart(containerId, containerWidth, height, dataGroups);
+  containerElem.style.width = width + "px";
+  drawLineChart(containerId, width, height, dataGroups);
 };
