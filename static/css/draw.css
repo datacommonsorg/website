@@ -30,17 +30,15 @@
 
 path.line {
   fill: none;
-  stroke-width: 3;
+  stroke-width: 2.5;
 }
 
 .axis line {
-  /*stroke: #706f6f;*/
   stroke: #999;
   stroke-width: 0.5;
 }
 
 .axis path {
-  /*stroke: #706f6f;*/
   stroke: #999;
   stroke-width: 0.5;
   shape-rendering: crispEdges;

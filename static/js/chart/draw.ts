@@ -36,7 +36,7 @@ const TOP_MARGIN = 10;
 const BAR_GAP_RATIO = 0.25;
 const NUM_X_TICKS = 5;
 const NUM_Y_TICKS = 5;
-const MARGIN = { top: 10, right: 10, bottom: 30, left: 30 };
+const MARGIN = { top: 20, right: 10, bottom: 30, left: 35, yAxis: 3 };
 
 // Colors - 500 level colors from the Google Material palette
 const COLORS = [
@@ -51,10 +51,12 @@ const COLORS = [
 ];
 
 function getColorFn(labels: string[]) {
+  let k = labels.length;
+  k = k < 3 || k > 11 ? 10 : k;  // Spectral colors exist for k = 3 -> 11
   return d3
     .scaleOrdinal<string, string>()
     .domain(labels)
-    .range(d3.quantize(d3.interpolateHcl("#362142", "#f4e153"), labels.length));
+    .range(d3.quantize(d3.interpolateSpectral, k));
 }
 
 function appendLegendElem(
@@ -68,6 +70,46 @@ function appendLegendElem(
     .attr("style", (d) => `background: ${color(d)}`)
     .append("span")
     .text((d) => d);
+}
+
+function addXAxis(
+  svg: d3.Selection<SVGElement, any, any, any>,
+  height: number,
+  xScale: d3.AxisScale<any>
+) {
+  svg
+    .append("g")
+    .attr("class", "x axis")
+    .attr("transform", `translate(0, ${height - MARGIN.bottom})`)
+    .call(d3.axisBottom(xScale).ticks(NUM_X_TICKS).tickSizeOuter(0))
+    .call((g) => g.select(".domain").remove());
+}
+
+function addYAxis(
+  svg: d3.Selection<SVGElement, any, any, any>,
+  width: number,
+  yScale: d3.AxisScale<any>
+) {
+  svg
+    .append("g")
+    .attr("class", "y axis")
+    .attr("transform", `translate(${width - MARGIN.right},0)`)
+    .call(
+      d3
+        .axisLeft(yScale)
+        .ticks(NUM_Y_TICKS, "1s")
+        .tickSize(width - 10 - MARGIN.right)
+    )
+    .call((g) => g.select(".domain").remove())
+    .call((g) =>
+      g.selectAll(".tick:not(:first-of-type) line").attr("class", "grid-line")
+    )
+    .call((g) =>
+      g
+        .selectAll(".tick text")
+        .attr("x", -width + MARGIN.left + MARGIN.yAxis)
+        .attr("dy", -4)
+    );
 }
 
 /**
@@ -92,39 +134,25 @@ function drawSingleBarChart(
     .scaleBand()
     .domain(textList)
     .rangeRound([MARGIN.left, width - MARGIN.right])
-    .paddingInner(0.1);
+    .paddingInner(0.1)
+    .paddingOuter(0.1);
 
-    let y = d3
+  let y = d3
     .scaleLinear()
     .domain([0, d3.max(values)])
     .nice()
     .rangeRound([height - MARGIN.bottom, MARGIN.top]);
 
-    let yAxis = (g) =>
-    g
-      .attr("transform", `translate(${MARGIN.left},0)`)
-      .call(d3.axisLeft(y).ticks(5, "s"))
-      .call((g) =>
-        g
-          .select(".tick:last-of-type text")
-          .clone()
-          .attr("x", 3)
-          .attr("text-anchor", "start")
-          .attr("font-weight", "bold")
-      );
+  let color = getColorFn(textList);
 
-    let xAxis = (g) =>
-    g
-      .attr("transform", `translate(0,${height - MARGIN.bottom})`)
-      .call(d3.axisBottom(x).tickSizeOuter(0));
-
-    let color = getColorFn(textList);
-
-    let svg = d3
+  let svg = d3
       .select("#" + id)
       .append("svg")
       .attr("width", width)
       .attr("height", height);
+
+  addXAxis(svg, height, x);
+  addYAxis(svg, width, y);
 
     svg
       .append("g")
@@ -136,9 +164,6 @@ function drawSingleBarChart(
       .attr("width", x.bandwidth())
       .attr("height", d => y(0) - y(d.value))
       .attr("fill", d => color(d.label))
-
-      svg.append("g").attr("class", "x axis").call(xAxis);
-      svg.append("g").attr("class", "y axis").call(yAxis);
 }
 
 /**
@@ -174,30 +199,13 @@ function drawStackBarChart(
     .domain(dataGroups.map(dg => dg.label))
     .rangeRound([MARGIN.left, width - MARGIN.right])
     .paddingInner(0.1)
+    .paddingOuter(0.1);
 
   let y = d3
     .scaleLinear()
     .domain([0, d3.max(series, d => d3.max(d, d => d[1]))]).nice()
     .nice()
     .rangeRound([height - MARGIN.bottom, MARGIN.top]);
-
-  let yAxis = (g) =>
-    g
-      .attr("transform", `translate(${MARGIN.left},0)`)
-      .call(d3.axisLeft(y).ticks(5, "s"))
-      .call((g) =>
-        g
-          .select(".tick:last-of-type text")
-          .clone()
-          .attr("x", 3)
-          .attr("text-anchor", "start")
-          .attr("font-weight", "bold")
-      );
-
-  let xAxis = (g) =>
-    g
-      .attr("transform", `translate(0,${height - MARGIN.bottom})`)
-      .call(d3.axisBottom(x).tickSizeOuter(0));
 
   let color = getColorFn(keys);
 
@@ -206,6 +214,9 @@ function drawStackBarChart(
     .append("svg")
     .attr("width", width)
     .attr("height", height);
+
+  addXAxis(svg, height, x);
+  addYAxis(svg, width, y);
 
   svg.append("g")
     .selectAll("g")
@@ -219,9 +230,6 @@ function drawStackBarChart(
       .attr("y", d => y(d[1]))
       .attr("width", x.bandwidth())
       .attr("height", d => y(d[0]) - y(d[1]));
-
-  svg.append("g").attr("class", "x axis").call(xAxis);
-  svg.append("g").attr("class", "y axis").call(yAxis);
 
   appendLegendElem(id, color, keys);
 }
@@ -247,7 +255,8 @@ function drawGroupBarChart(
     .scaleBand()
     .domain(dataGroups.map((dg) => dg.label))
     .rangeRound([MARGIN.left, width - MARGIN.right])
-    .paddingInner(0.1);
+    .paddingInner(0.1)
+    .paddingOuter(0.1);
 
   let x1 = d3
     .scaleBand()
@@ -262,23 +271,6 @@ function drawGroupBarChart(
     .nice()
     .rangeRound([height - MARGIN.bottom, MARGIN.top]);
 
-  let yAxis = (g) =>
-    g
-      .attr("transform", `translate(${MARGIN.left},0)`)
-      .call(d3.axisLeft(y).ticks(5, "s"))
-      .call((g) =>
-        g
-          .select(".tick:last-of-type text")
-          .clone()
-          .attr("x", 3)
-          .attr("text-anchor", "start")
-          .attr("font-weight", "bold")
-      );
-
-  let xAxis = (g) =>
-    g
-      .attr("transform", `translate(0,${height - MARGIN.bottom})`)
-      .call(d3.axisBottom(x0).tickSizeOuter(0));
 
   let color = getColorFn(keys);
 
@@ -288,6 +280,8 @@ function drawGroupBarChart(
     .attr("width", width)
     .attr("height", height);
 
+  addXAxis(svg, height, x0);
+  addYAxis(svg, width, y);
   svg
     .append("g")
     .selectAll("g")
@@ -303,8 +297,6 @@ function drawGroupBarChart(
     .attr("height", (d) => y(0) - y(d.value))
     .attr("fill", (d) => color(d.key));
 
-  svg.append("g").attr("class", "x axis").call(xAxis);
-  svg.append("g").attr("class", "y axis").call(yAxis);
 
   appendLegendElem(id, color, keys);
 }
@@ -344,27 +336,11 @@ function drawLineChart(
     .range([height - MARGIN.bottom, MARGIN.top])
     .nice(NUM_Y_TICKS);
 
-  svg
-    .append("g")
-    .attr("class", "x axis")
-    .attr("transform", `translate(0, ${height - MARGIN.bottom})`)
-    .call(d3.axisBottom(xScale).ticks(NUM_X_TICKS));
+  addXAxis(svg, height, xScale);
+  addYAxis(svg, width, yScale);
 
-  svg
-    .append("g")
-    .attr("class", "y axis")
-    .attr("transform", `translate(${MARGIN.left},0)`)
-    .call(
-      d3
-        .axisRight(yScale)
-        .ticks(NUM_Y_TICKS, "1s")
-        .tickSize(width - MARGIN.left - MARGIN.right)
-    )
-    .call((g) => g.select(".domain").remove())
-    .call((g) =>
-      g.selectAll(".tick:not(:first-of-type) line").attr("class", "grid-line")
-    )
-    .call((g) => g.selectAll(".tick text").attr("x", -25));
+  let legendText = dataGroups.map((dataGroup) => dataGroup.label ? dataGroup.label: 'a');
+  let colorFn = getColorFn(legendText);
 
   for (let i = 0; i < dataGroups.length; i++) {
     let dataGroup = dataGroups[i];
@@ -372,6 +348,7 @@ function drawLineChart(
       return [new Date(dp.label).getTime(), dp.value];
     });
     let shouldAddDots = dataset.length < 12;
+    let color = colorFn(dataGroup.label);
 
     let line = d3
       .line()
@@ -386,7 +363,7 @@ function drawLineChart(
       .append("path")
       .datum(dataset)
       .attr("class", "line")
-      .style("stroke", COLORS[i])
+      .style("stroke", color)
       .attr("d", line);
 
     if (shouldAddDots) {
@@ -398,15 +375,13 @@ function drawLineChart(
         .attr("class", "dot")
         .attr("cx", (d, i) => xScale(d[0]))
         .attr("cy", (d) => yScale(d[1]))
-        .attr("fill", COLORS[i])
+        .attr("fill", color)
         .attr("r", 3);
     }
   }
 
   if (dataGroups.length > 1) {
-    let legendText = dataGroups.map((dataGroup) => dataGroup.label);
-    let color = getColorFn(legendText);
-    appendLegendElem(id, color, legendText);
+    appendLegendElem(id, colorFn, legendText);
   }
 }
 
