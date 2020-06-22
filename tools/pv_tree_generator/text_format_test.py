@@ -56,8 +56,5 @@ class TextFormatTest(unittest.TestCase):
   def test_rangeLow(self, name, enum_, expected):
     self.assertEqual(text_format.rangeLow(enum_), expected)
     
-  #def test_filter_and_sort(self, name, prop, children, show_all, expected)
-  #will be added later.
-    
 if __name__ == '__main__':
   unittest.main()

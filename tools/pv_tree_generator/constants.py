@@ -18,7 +18,6 @@
 
 import collections
 
-API_KEY = "AIzaSyCI-BiRt4rsByNGju_3-rQ90mqfD5XN5S4"
 
 VERTICALS = [
     'Demographics', 'Crime', 'Education', 'Employment', 'Health', 'Housing',
