@@ -24,31 +24,10 @@ import {
   Range,
   computeCoordinate,
 } from "./base";
-import { drawBarXTicks } from "./xtick";
-import {
-  Y_TICK_MARGIN,
-  computeYTickWidth,
-  drawYTicks,
-  getYTick,
-} from "./ytick";
 
-const TOP_MARGIN = 10;
-const BAR_GAP_RATIO = 0.25;
 const NUM_X_TICKS = 5;
 const NUM_Y_TICKS = 5;
 const MARGIN = { top: 20, right: 10, bottom: 30, left: 35, yAxis: 3 };
-
-// Colors - 500 level colors from the Google Material palette
-const COLORS = [
-  "#4285F4",
-  "#EA4335",
-  "#FBBC04",
-  "#34A853",
-  "#FA7B17",
-  "#F439A0",
-  "#A142F4",
-  "#24C1E0",
-];
 
 function getColorFn(labels: string[]) {
   let k = labels.length;
@@ -186,7 +165,7 @@ function drawStackBarChart(
 
   let data = [];
   for (let dataGroup of dataGroups) {
-    let curr = {"label": dataGroup.label}
+    let curr: { [property: string]: any } = { "label": dataGroup.label };
     for (let dataPoint of dataGroup.value) {
       curr[dataPoint.label] = dataPoint.value;
     }
