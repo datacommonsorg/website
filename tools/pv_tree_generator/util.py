@@ -16,10 +16,9 @@
 
 """utility functions used to build the property-value tree structure """
 from google.protobuf import text_format
-import datacommons as dc
-import stat_config_pb2
 import collections
-from configmodule import DevelopmentConfig
+import stat_config_pb2
+import dc_request as dc
 
 class PopObsSpec(object):
   """Represents a StatisticalPopulation & Observation spec."""
@@ -141,16 +140,11 @@ def _read_pop_obs_spec():
         PopObsSpec(pos.pop_type, pos.mprop, pos.stat_type, list(pos.cprop),
                    cpv, pos.name))
   return result
-  
+    
 def _read_stat_var():
     """Read all the statistical variables"""
     
-    #read the dcid of all statistical variables
-    dc.set_api_key(DevelopmentConfig.DC_API_KEY)
-    query_str = "SELECT ?a WHERE {?a typeOf StatisticalVariable}"
-    result = dc.query(query_str)
-    sv_dcid = [list(temp.values())[0] for temp in result]
-    
+    sv_dcid = dc.get_sv_dcids()
     """
     example of triples for one statsitical variable
     ('dc/014es05x0d5l', 'measurementMethod', 'CensusACS5yrSurvey')
@@ -178,7 +172,6 @@ def _read_stat_var():
           constraint_properties.append(val)
         else:
           sv_dict[prop] = val
-          
       prop_val = {}
       for property in constraint_properties:
         if property not in sv_dict:
@@ -187,4 +180,4 @@ def _read_stat_var():
       sv = StatVar(sv_dict["populationType"], sv_dict["measuredProperty"], sv_dict["statType"], prop_val, dcid)
       stat_vars[sv.key].append(sv)
     return stat_vars
-
+    
