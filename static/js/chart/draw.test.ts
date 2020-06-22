@@ -18,13 +18,12 @@ import * as _SVG from "@svgdotjs/svg.js";
 
 import {
   DataPoint,
-  BarLayout,
   Range,
   computeCoordinate,
 } from "./base";
 
 import {
-  drawBars,
+  drawSingleBarChart,
 } from "./draw";
 
 
@@ -39,11 +38,9 @@ test("svg test", () => {
   document.body.innerHTML = '<div id="chart">' + "</div>";
   const canvas = _SVG.SVG().addTo("#chart").size(500, 500);
 
-  drawBars(
-    canvas,
-    new BarLayout(new Range(50, 400), new Range(100, 400), 10, 40),
+  drawSingleBarChart(
+    "chart", 400, 400,
     dataPoints,
-    new Range(0, 70)
   );
   expect(document.getElementById("chart").innerHTML).toMatch(
     /<svg xmlns.*svg>/

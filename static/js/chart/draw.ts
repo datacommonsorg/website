@@ -71,76 +71,74 @@ function appendLegendElem(
 }
 
 /**
- * Function to draw bars based on the data values.
- */
-function drawBars(
-  canvas: any,
-  layout: BarLayout,
-  dataPoints: DataPoint[],
-  valueRange: Range
-) {
-  for (let i = 0; i < dataPoints.length; i++) {
-    let barX =
-      layout.xRange.low + layout.barGap + i * (layout.barGap + layout.barWidth);
-    // Pick the Y coordinate by factoring in the data value relative to limit.
-    let barY = computeCoordinate(
-      dataPoints[i].value,
-      valueRange,
-      layout.yRange
-    );
-    let barHeight = layout.yRange.high - barY;
-    let barElem = canvas.rect(layout.barWidth, barHeight).attr({
-      x: barX,
-      y: barY,
-      fill: COLORS[i],
-    });
-    barElem.addClass("highlight-target color-" + COLORS[i]);
-  }
-}
-
-/**
  * Draw single bar chart.
- * @param parentId
- * @param parentWidth
- * @param parentHeight
+ * @param id
+ * @param width
+ * @param height
  * @param dataPoints
  * @param unit
  */
 function drawSingleBarChart(
-  parentId: string,
-  parentWidth: number,
-  parentHeight: number,
+  id: string,
+  width: number,
+  height: number,
   dataPoints: DataPoint[],
   unit?: string
 ) {
   let textList = dataPoints.map((dataPoint) => dataPoint.label);
   let values = dataPoints.map((dataPoint) => dataPoint.value);
-  let yTick = getYTick(new Range(0, Math.max(...values)));
-  yTick.unit = unit;
-  let yTickWidth = computeYTickWidth(yTick);
-  // Create canvas.
-  const canvas = _SVG
-    .SVG()
-    .addTo("#" + parentId)
-    .size(parentWidth, parentHeight);
-  // Create initial layout.
-  let xRange = new Range(yTickWidth + Y_TICK_MARGIN, parentWidth);
-  let yRange = new Range(TOP_MARGIN, parentHeight);
-  let numBars = dataPoints.length;
-  let width = xRange.high - xRange.low;
-  // Use 20% as bar gap.
-  let barGap = Math.round((width / numBars) * BAR_GAP_RATIO);
-  // Account for gaps between bars, before the first bar and after last bar.
-  let barWidth = (width - (numBars + 1) * barGap) / numBars;
-  let layout = new BarLayout(xRange, yRange, barGap, barWidth);
-  // Draw X ticks.
-  let xTicksHeight = drawBarXTicks(canvas, layout, textList);
-  // Update layout.
-  layout.yRange.high -= xTicksHeight;
-  // Draw Y ticks.
-  drawYTicks(canvas, layout, yTick);
-  // Draw bars.
-  drawBars(canvas, layout, dataPoints, yTick.valueRange);
+
+  let x = d3
+    .scaleBand()
+    .domain(textList)
+    .rangeRound([MARGIN.left, width - MARGIN.right])
+    .paddingInner(0.1);
+
+    let y = d3
+    .scaleLinear()
+    .domain([0, d3.max(values)])
+    .nice()
+    .rangeRound([height - MARGIN.bottom, MARGIN.top]);
+
+    let yAxis = (g) =>
+    g
+      .attr("transform", `translate(${MARGIN.left},0)`)
+      .call(d3.axisLeft(y).ticks(5, "s"))
+      .call((g) =>
+        g
+          .select(".tick:last-of-type text")
+          .clone()
+          .attr("x", 3)
+          .attr("text-anchor", "start")
+          .attr("font-weight", "bold")
+      );
+
+    let xAxis = (g) =>
+    g
+      .attr("transform", `translate(0,${height - MARGIN.bottom})`)
+      .call(d3.axisBottom(x).tickSizeOuter(0));
+
+    let color = getColorFn(textList);
+
+    let svg = d3
+      .select("#" + id)
+      .append("svg")
+      .attr("width", width)
+      .attr("height", height);
+
+    svg
+      .append("g")
+      .selectAll("rect")
+      .data(dataPoints)
+      .join("rect")
+      .attr("x", d => x(d.label))
+      .attr("y", d => y(d.value))
+      .attr("width", x.bandwidth())
+      .attr("height", d => y(0) - y(d.value))
+      .attr("fill", d => color(d.label))
+
+      svg.append("g").attr("class", "x axis").call(xAxis);
+      svg.append("g").attr("class", "y axis").call(yAxis);
 }
 
 /**
@@ -413,7 +411,6 @@ function drawLineChart(
 }
 
 export {
-  drawBars,
   drawLineChart,
   drawSingleBarChart,
   drawStackBarChart,
