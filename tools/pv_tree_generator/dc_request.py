@@ -19,8 +19,6 @@ import json
 import collections
 from configmodule import DevelopmentConfig
 
-_MAX_LIMIT = 100
-
 def get_sv_dcids():
     req_url = DevelopmentConfig.API_ROOT + "/query"
     query_str = "SELECT ?a WHERE {?a typeOf StatisticalVariable}"
@@ -30,17 +28,15 @@ def get_sv_dcids():
     sv_dcid = [temp['cells'][0]['value'] for temp in result['rows']]
     return sv_dcid
 
-def get_triples(dcids, limit=_MAX_LIMIT):
+def get_triples(dcids):
     # Generate the GetTriple query and send the request.
     url = DevelopmentConfig.API_ROOT + '/node/triples'
-    payload = send_request(url, req_json={'dcids': dcids, 'limit': limit})
-
+    payload = send_request(url, req_json={'dcids': dcids})
     # Create a map from dcid to list of triples.
     results = collections.defaultdict(list)
     for dcid in dcids:
         # Make sure each dcid is mapped to an empty list.
         results[dcid]
-
         # Add triples as appropriate
         for t in payload[dcid]:
             if 'objectId' in t:
