@@ -16,17 +16,15 @@
 
 import * as _SVG from "@svgdotjs/svg.js";
 import * as d3 from "d3";
-import moment from "moment";
 
 import {
   DataGroup,
   DataPoint,
   BarLayout,
-  Layout,
   Range,
   computeCoordinate,
 } from "./base";
-import { drawBarXTicks, getLineXTick, drawLineXTicks } from "./xtick";
+import { drawBarXTicks } from "./xtick";
 import {
   Y_TICK_MARGIN,
   computeYTickWidth,
@@ -35,9 +33,7 @@ import {
 } from "./ytick";
 
 const TOP_MARGIN = 10;
-const SIDE_MARGIN = 15;
 const BAR_GAP_RATIO = 0.25;
-const GROUP_BAR_GAP = 1;
 const NUM_X_TICKS = 5;
 const NUM_Y_TICKS = 5;
 const MARGIN = { top: 10, right: 10, bottom: 30, left: 30 };
@@ -54,18 +50,15 @@ const COLORS = [
   "#24C1E0",
 ];
 
-enum BarType {
-  Stack = 1,
-  Group = 2,
-}
-
-function getColorFn(size) {
+function getColorFn(labels: string[]) {
   return d3
-    .scaleOrdinal()
-    .range(d3.quantize(d3.interpolateHcl("#362142", "#f4e153"), size));
+    .scaleOrdinal<string, string>()
+    .domain(labels)
+    .range(d3.quantize(d3.interpolateHcl("#362142", "#f4e153"), labels.length));
 }
 
-function appendLegendElem(elem: string, color, keys: string[]) {
+function appendLegendElem(
+  elem: string, color: d3.ScaleOrdinal<string, string>, keys: string[]) {
   d3.select("#" + elem)
     .append("div")
     .attr("class", "legend")
@@ -75,19 +68,6 @@ function appendLegendElem(elem: string, color, keys: string[]) {
     .attr("style", (d) => `background: ${color(d)}`)
     .append("span")
     .text((d) => d);
-}
-
-function createLegend(textList: string[]): Element {
-  let legendElem = document.createElement("div");
-  legendElem.classList.add("legend-box");
-  for (let i = 0; i < textList.length; i++) {
-    let textElem = document.createElement("div");
-    textElem.textContent = textList[i];
-    textElem.classList.add("legend-text");
-    textElem.style.color = COLORS[i];
-    legendElem.appendChild(textElem);
-  }
-  return legendElem;
 }
 
 /**
@@ -115,88 +95,6 @@ function drawBars(
       fill: COLORS[i],
     });
     barElem.addClass("highlight-target color-" + COLORS[i]);
-  }
-}
-
-function drawStackBars(
-  canvas: any,
-  layout: BarLayout,
-  dataGroups: DataGroup[],
-  valueRange: Range
-) {
-  for (let i = 0; i < dataGroups.length; i++) {
-    let y1 = layout.yRange.high;
-    let barX =
-      layout.xRange.low + layout.barGap + i * (layout.barGap + layout.barWidth);
-    let sumValue = 0;
-    for (let j = 0; j < dataGroups[i].value.length; j++) {
-      sumValue += dataGroups[i].value[j].value;
-      let h = computeCoordinate(sumValue, valueRange, layout.yRange);
-      canvas.rect(layout.barWidth, y1 - h).attr({
-        x: barX,
-        y: h,
-        fill: COLORS[j],
-      });
-      y1 = h;
-    }
-  }
-}
-
-function drawGroupBars(
-  canvas: any,
-  layout: BarLayout,
-  dataGroups: DataGroup[],
-  valueRange: Range
-) {
-  for (let i = 0; i < dataGroups.length; i++) {
-    let barX =
-      layout.xRange.low + layout.barGap + i * (layout.barGap + layout.barWidth);
-    let n = dataGroups[i].value.length;
-    let innerBarWidth = (layout.barWidth - (n - 1) * GROUP_BAR_GAP) / n;
-    for (let j = 0; j < n; j++) {
-      let y = computeCoordinate(
-        dataGroups[i].value[j].value,
-        valueRange,
-        layout.yRange
-      );
-      canvas.rect(innerBarWidth, layout.yRange.high - y).attr({
-        x: barX,
-        y: y,
-        fill: COLORS[j],
-      });
-      barX += innerBarWidth + GROUP_BAR_GAP;
-    }
-  }
-}
-
-/**
- * Function to draw lines based on the data values.
- */
-function drawLines(
-  canvas: any,
-  layout: Layout,
-  dataGroups: DataGroup[],
-  xValueRange: Range,
-  yValueRange: Range
-) {
-  for (let i = 0; i < dataGroups.length; i++) {
-    for (let j = 0; j < dataGroups[i].value.length - 1; j++) {
-      let p1 = dataGroups[i].value[j];
-      let p2 = dataGroups[i].value[j + 1];
-      let x1 = computeCoordinate(
-        moment.utc(p1.label).unix(),
-        xValueRange,
-        layout.xRange
-      );
-      let y1 = computeCoordinate(p1.value, yValueRange, layout.yRange);
-      let x2 = computeCoordinate(
-        moment.utc(p2.label).unix(),
-        xValueRange,
-        layout.xRange
-      );
-      let y2 = computeCoordinate(p2.value, yValueRange, layout.yRange);
-      canvas.line(x1, y1, x2, y2).stroke({ width: 2, color: COLORS[i] });
-    }
   }
 }
 
@@ -248,96 +146,86 @@ function drawSingleBarChart(
 /**
  * Draw stack bar chart.
  *
- * @param parentId
- * @param parentWidth
- * @param parentHeight
+ * @param id
+ * @param width
+ * @param height
  * @param dataGroups
  * @param unit
  */
 function drawStackBarChart(
-  parentId: string,
-  parentWidth: number,
-  parentHeight: number,
+  id: string,
+  width: number,
+  height: number,
   dataGroups: DataGroup[],
   unit?: string
 ) {
-  drawComplexBarChart(
-    parentId,
-    parentWidth,
-    parentHeight,
-    dataGroups,
-    BarType.Stack,
-    unit
-  );
-}
+  const keys = dataGroups[0].value.map((dp) => dp.label);
 
-/**
- * Draw complex (stack or group) bar chart.
- *
- * @param parentId
- * @param parentWidth
- * @param parentHeight
- * @param dataGroups
- * @param unit
- */
-function drawComplexBarChart(
-  parentId: string,
-  parentWidth: number,
-  parentHeight: number,
-  dataGroups: DataGroup[],
-  barType: BarType,
-  unit?: string
-) {
-  let parentElement = document.getElementById(parentId);
-  // Pick one group and use the data point label as text list.
-  let textList = dataGroups[0].value.map((dataPoint) => dataPoint.label);
-  let values;
-  if (barType == BarType.Stack) {
-    values = dataGroups.map((dataGroup) => dataGroup.sum());
-  } else if (barType == BarType.Group) {
-    values = dataGroups.map((dataGroup) => dataGroup.max());
+  let data = [];
+  for (let dataGroup of dataGroups) {
+    let curr = {"label": dataGroup.label}
+    for (let dataPoint of dataGroup.value) {
+      curr[dataPoint.label] = dataPoint.value;
+    }
+    data.push(curr);
   }
-  let maxValue = Math.max(...values);
-  let yTick = getYTick(new Range(0, maxValue));
-  yTick.unit = unit;
 
-  let yTickWidth = computeYTickWidth(yTick);
-  // Draw legend and compute the height.
-  // Add legend to the container box in the end.
-  let legendElem = createLegend(textList);
-  parentElement.appendChild(legendElem);
-  let bbox = legendElem.getBoundingClientRect();
-  let legendHeight = bbox.height;
-  parentElement.removeChild(legendElem);
-  // Create canvas.
-  const canvas = _SVG
-    .SVG()
-    .addTo("#" + parentId)
-    .size(parentWidth, parentHeight - legendHeight);
-  // Create initial layout.
-  let xRange = new Range(yTickWidth + Y_TICK_MARGIN, parentWidth);
-  let yRange = new Range(TOP_MARGIN, parentHeight - legendHeight);
-  let numBars = dataGroups.length;
-  let width = xRange.high - xRange.low;
-  let barGap = Math.round((width / numBars) * BAR_GAP_RATIO);
-  // Account for gaps between bars, before the first bar and after last bar.
-  let barWidth = (width - (numBars + 1) * barGap) / numBars;
-  let layout = new BarLayout(xRange, yRange, barGap, barWidth);
-  // Draw X ticks.
-  let xTickText = dataGroups.map((dataGroup) => dataGroup.label);
-  let xTicksHeight = drawBarXTicks(canvas, layout, xTickText);
-  // Update layout.
-  layout.yRange.high -= xTicksHeight;
-  // Draw Y ticks.
-  drawYTicks(canvas, layout, yTick);
+  let series = d3.stack().keys(keys)(data);
 
-  // Draw bars.
-  if (barType == BarType.Stack) {
-    drawStackBars(canvas, layout, dataGroups, yTick.valueRange);
-  } else if (barType == BarType.Group) {
-    drawGroupBars(canvas, layout, dataGroups, yTick.valueRange);
-  }
-  parentElement.appendChild(legendElem);
+  let x = d3.scaleBand()
+    .domain(dataGroups.map(dg => dg.label))
+    .rangeRound([MARGIN.left, width - MARGIN.right])
+    .paddingInner(0.1)
+
+  let y = d3
+    .scaleLinear()
+    .domain([0, d3.max(series, d => d3.max(d, d => d[1]))]).nice()
+    .nice()
+    .rangeRound([height - MARGIN.bottom, MARGIN.top]);
+
+  let yAxis = (g) =>
+    g
+      .attr("transform", `translate(${MARGIN.left},0)`)
+      .call(d3.axisLeft(y).ticks(5, "s"))
+      .call((g) =>
+        g
+          .select(".tick:last-of-type text")
+          .clone()
+          .attr("x", 3)
+          .attr("text-anchor", "start")
+          .attr("font-weight", "bold")
+      );
+
+  let xAxis = (g) =>
+    g
+      .attr("transform", `translate(0,${height - MARGIN.bottom})`)
+      .call(d3.axisBottom(x).tickSizeOuter(0));
+
+  let color = getColorFn(keys);
+
+  const svg = d3
+    .select("#" + id)
+    .append("svg")
+    .attr("width", width)
+    .attr("height", height);
+
+  svg.append("g")
+    .selectAll("g")
+    .data(series)
+    .enter().append("g")
+      .attr("fill", d => color(d.key))
+    .selectAll("rect")
+    .data(d => d)
+    .join("rect")
+      .attr("x", (d) =>x(String(d.data.label)))
+      .attr("y", d => y(d[1]))
+      .attr("width", x.bandwidth())
+      .attr("height", d => y(d[0]) - y(d[1]));
+
+  svg.append("g").attr("class", "x axis").call(xAxis);
+  svg.append("g").attr("class", "y axis").call(yAxis);
+
+  appendLegendElem(id, color, keys);
 }
 
 /**
@@ -394,7 +282,7 @@ function drawGroupBarChart(
       .attr("transform", `translate(0,${height - MARGIN.bottom})`)
       .call(d3.axisBottom(x0).tickSizeOuter(0));
 
-  let color = getColorFn(keys.length);
+  let color = getColorFn(keys);
 
   let svg = d3
     .select("#" + id)
@@ -415,7 +303,7 @@ function drawGroupBarChart(
     .attr("y", (d) => y(d.value))
     .attr("width", x1.bandwidth())
     .attr("height", (d) => y(0) - y(d.value))
-    .attr("fill", (d) => String(color(d.key)));
+    .attr("fill", (d) => color(d.key));
 
   svg.append("g").attr("class", "x axis").call(xAxis);
   svg.append("g").attr("class", "y axis").call(yAxis);
@@ -519,13 +407,12 @@ function drawLineChart(
 
   if (dataGroups.length > 1) {
     let legendText = dataGroups.map((dataGroup) => dataGroup.label);
-    let color = getColorFn(legendText.length);
+    let color = getColorFn(legendText);
     appendLegendElem(id, color, legendText);
   }
 }
 
 export {
-  createLegend,
   drawBars,
   drawLineChart,
   drawSingleBarChart,
