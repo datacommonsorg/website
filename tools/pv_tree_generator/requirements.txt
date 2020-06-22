@@ -1,4 +1,3 @@
 protobuf==3.12.0
-datacommons
 parameterized
 pytest
