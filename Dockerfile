@@ -10,7 +10,7 @@ RUN pip install --no-cache-dir -r requirements.txt
 RUN python -m pytest
 
 WORKDIR /datacommons/tools/pv_tree_generator
-RUN pip install --no-cache-dir parameterized
+RUN pip install --no-cache-dir -r requirements.txt
 RUN python -m pytest
 
 # js/ts test
