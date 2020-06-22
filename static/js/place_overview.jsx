@@ -386,7 +386,7 @@ class Chart extends Component {
     }
     return (
       <div className="col" ref={this.chartElement}>
-        <div className="chart-container chart-container-btn">
+        <div className="chart-container">
           <h4>
             {config.title}
             <span className="sub-title">{this.titleSuffix}</span>
