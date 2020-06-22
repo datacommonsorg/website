@@ -370,12 +370,16 @@ function drawLineChart(
       g.selectAll(".tick text").attr("x", -width + MARGIN.left + MARGIN.yAxis)
     );
 
+  let legendText = dataGroups.map((dataGroup) => dataGroup.label);
+  let colorFn = getColorFn(legendText);
+
   for (let i = 0; i < dataGroups.length; i++) {
     let dataGroup = dataGroups[i];
     let dataset = dataGroup.value.map(function (dp) {
       return [new Date(dp.label).getTime(), dp.value];
     });
     let shouldAddDots = dataset.length < 12;
+    let color = colorFn(dataGroup.label);
 
     let line = d3
       .line()
@@ -390,7 +394,7 @@ function drawLineChart(
       .append("path")
       .datum(dataset)
       .attr("class", "line")
-      .style("stroke", COLORS[i])
+      .style("stroke", color)
       .attr("d", line);
 
     if (shouldAddDots) {
@@ -402,15 +406,13 @@ function drawLineChart(
         .attr("class", "dot")
         .attr("cx", (d, i) => xScale(d[0]))
         .attr("cy", (d) => yScale(d[1]))
-        .attr("fill", COLORS[i])
+        .attr("fill", color)
         .attr("r", 3);
     }
   }
 
   if (dataGroups.length > 1) {
-    let legendText = dataGroups.map((dataGroup) => dataGroup.label);
-    let color = getColorFn(legendText);
-    appendLegendElem(id, color, legendText);
+    appendLegendElem(id, colorFn, legendText);
   }
 }
 
