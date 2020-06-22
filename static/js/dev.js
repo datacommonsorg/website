@@ -49,10 +49,10 @@ window.onload = function () {
 
   // Draw single bar chart.
   let dataPoints = [
-    new DataPoint("San Jose", 7021342),
+    new DataPoint("San Jose", 702134),
     new DataPoint("Santa Clara County", 1002342),
-    new DataPoint("California", 300234),
-    new DataPoint("United States", 2520234),
+    new DataPoint("California", 3002342),
+    new DataPoint("United States", 9520234),
   ];
   drawSingleBarChart(containerId, width, height, dataPoints);
 
