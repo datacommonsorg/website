@@ -36,7 +36,7 @@ const TOP_MARGIN = 10;
 const BAR_GAP_RATIO = 0.25;
 const NUM_X_TICKS = 5;
 const NUM_Y_TICKS = 5;
-const MARGIN = { top: 10, right: 10, bottom: 30, left: 30 };
+const MARGIN = { top: 10, right: 10, bottom: 30, left: 30, yAxis: 3 };
 
 // Colors - 500 level colors from the Google Material palette
 const COLORS = [
@@ -355,10 +355,10 @@ function drawLineChart(
   svg
     .append("g")
     .attr("class", "y axis")
-    .attr("transform", `translate(${MARGIN.left},0)`)
+    .attr("transform", `translate(${width - MARGIN.right},0)`)
     .call(
       d3
-        .axisRight(yScale)
+        .axisLeft(yScale)
         .ticks(NUM_Y_TICKS, "1s")
         .tickSize(width - MARGIN.left - MARGIN.right)
     )
@@ -366,7 +366,9 @@ function drawLineChart(
     .call((g) =>
       g.selectAll(".tick:not(:first-of-type) line").attr("class", "grid-line")
     )
-    .call((g) => g.selectAll(".tick text").attr("x", -25));
+    .call((g) =>
+      g.selectAll(".tick text").attr("x", -width + MARGIN.left + MARGIN.yAxis)
+    );
 
   for (let i = 0; i < dataGroups.length; i++) {
     let dataGroup = dataGroups[i];
