@@ -197,17 +197,13 @@ header #selectionbar {
 }
 
 .chart-container {
-  border: .5px solid var(--dc-gray-lite);
+  border: .5px solid #dee2e6;
   border-radius: 3px;
   height: 100%;
   padding: 10px;
   display: flex;
   flex-direction: column;
   position: relative;
-}
-
-.chart-container-btn {
-  border-color: var(--dc-red-strong);
 }
 
 .chart-container h4 {
