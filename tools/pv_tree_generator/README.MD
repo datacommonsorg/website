@@ -2,10 +2,10 @@
  
  **To generate the json file**
  
-        sh [./generate_json.sh](./generate_json.sh) 
+        sh ./generate_json.sh
 **To run the test** 
 
-        sh [./PVtree_test.sh](./PVtree_test.sh) 
+        sh ./PVtree_test.sh
  
  * [util.py](./util.py): functions used for building the property-value(pv) tree
  * [stat_config.proto](./stat_config.proto): configuration file for generating [stat_config_pb2.py](./stat_config_pb2.py), used for parsing the input config files. 
