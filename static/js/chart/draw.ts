@@ -36,7 +36,7 @@ const TOP_MARGIN = 10;
 const BAR_GAP_RATIO = 0.25;
 const NUM_X_TICKS = 5;
 const NUM_Y_TICKS = 5;
-const MARGIN = { top: 10, right: 10, bottom: 30, left: 30, yAxis: 3 };
+const MARGIN = { top: 10, right: 10, bottom: 30, left: 35, yAxis: 3 };
 
 // Colors - 500 level colors from the Google Material palette
 const COLORS = [
@@ -51,10 +51,12 @@ const COLORS = [
 ];
 
 function getColorFn(labels: string[]) {
+  let k = labels.length;
+  k = k < 3 || k > 11 ? 10 : k;  // Spectral colors exist for k = 3 -> 11
   return d3
     .scaleOrdinal<string, string>()
     .domain(labels)
-    .range(d3.quantize(d3.interpolateHcl("#362142", "#f4e153"), labels.length));
+    .range(d3.quantize(d3.interpolateSpectral, k));
 }
 
 function appendLegendElem(
@@ -186,7 +188,7 @@ function drawStackBarChart(
   let yAxis = (g) =>
     g
       .attr("transform", `translate(${MARGIN.left},0)`)
-      .call(d3.axisLeft(y).ticks(5, "s"))
+      .call(d3.axisLeft(y).ticks(5, "1s"))
       .call((g) =>
         g
           .select(".tick:last-of-type text")
@@ -267,7 +269,7 @@ function drawGroupBarChart(
   let yAxis = (g) =>
     g
       .attr("transform", `translate(${MARGIN.left},0)`)
-      .call(d3.axisLeft(y).ticks(5, "s"))
+      .call(d3.axisLeft(y).ticks(5, "1s"))
       .call((g) =>
         g
           .select(".tick:last-of-type text")
@@ -370,7 +372,7 @@ function drawLineChart(
       g.selectAll(".tick text").attr("x", -width + MARGIN.left + MARGIN.yAxis)
     );
 
-  let legendText = dataGroups.map((dataGroup) => dataGroup.label);
+  let legendText = dataGroups.map((dataGroup) => dataGroup.label ? dataGroup.label: 'a');
   let colorFn = getColorFn(legendText);
 
   for (let i = 0; i < dataGroups.length; i++) {
