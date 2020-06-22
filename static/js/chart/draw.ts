@@ -77,7 +77,9 @@ function addXAxis(svg, height, xScale) {
     .append("g")
     .attr("class", "x axis")
     .attr("transform", `translate(0, ${height - MARGIN.bottom})`)
-    .call(d3.axisBottom(xScale).tickSizeOuter(0))
+    .call(d3.axisBottom(xScale)
+    .ticks(NUM_X_TICKS)
+    .tickSizeOuter(0))
     .call((g) => g.select(".domain").remove())
 }
 
