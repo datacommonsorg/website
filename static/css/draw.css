@@ -14,16 +14,48 @@
  * limitations under the License.
  */
 
-.legend-box {
-  padding: 10px 0;
-  display: flex;
-  justify-content: center;
-  flex-wrap: wrap;
-  width: 100%;
+path.line {
+  fill: none;
+  stroke-width: 2.5;
 }
 
-.legend-text {
-  font-size: 12px;
-  font-weight: bold;
-  margin: 0 10px;
+.axis line {
+  stroke: #999;
+  stroke-width: 0.5;
+}
+
+.axis path {
+  stroke: #999;
+  stroke-width: 0.5;
+  shape-rendering: crispEdges;
+}
+
+.axis text {
+  fill: #2b2929;
+  font-family: Roboto;
+  shape-rendering: crispEdges;
+}
+
+.y.axis line.grid-line {
+  stroke-opacity: 0.5;
+  stroke-dasharray: 2,2;
+}
+
+.dot {
+  stroke: #fff;
+}
+
+.legend {
+  margin-left: 35px;
+  text-align: center;
+}
+
+.legend div {
+  display: inline-block;
+  padding: 1px 5px;
+  font-size: 10px;
+  line-height: 14px;
+  color: white;
+  margin: 2px;
+  border-radius: 2px;
 }

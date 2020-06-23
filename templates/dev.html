@@ -20,6 +20,9 @@
   <script src={{url_for('static', filename='dev.js', t=datetime.datetime.today().strftime("%m-%d-%H-%M"))}}></script>
   <link rel="stylesheet" href={{url_for('static', filename='css/draw.css')}}></script>
   <link rel="stylesheet" href={{url_for('static', filename='css/dev.css')}}></script>
+  <style>
+    .chart-container { float: left; }
+  </style>
 {% endblock %}
 
 {% block content %}
@@ -27,4 +30,5 @@
   <div id="chart-box-2" class="chart-container"></div>
   <div id="chart-box-3" class="chart-container"></div>
   <div id="chart-box-4" class="chart-container"></div>
+  <div style="clear:both;"></div>
 {% endblock %}
