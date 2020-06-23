@@ -36,25 +36,25 @@ import {
  * Update translation results when schema mapping or query changes.
  */
 window.onload = function () {
-  let containerWidth = 350;
-  let containerHeight = 400;
+  let width = 350;
+  let height = 400;
 
   // Container element to hold dom element of one chart.
   // The width and height is eventually obtained from gridding system like
   // Bootstrap.
   let containerId = "chart-box-1";
   let containerElem = document.getElementById(containerId);
-  containerElem.style.width = containerWidth + "px";
-  containerElem.style.height = containerHeight + "px";
+  containerElem.style.width = width + "px";
+  containerElem.style.height = height + "px";
 
   // Draw single bar chart.
   let dataPoints = [
-    new DataPoint("San Jose", 7021342),
+    new DataPoint("San Jose", 702134),
     new DataPoint("Santa Clara County", 1002342),
-    new DataPoint("California", 300234),
-    new DataPoint("United States", 2520234),
+    new DataPoint("California", 3002342),
+    new DataPoint("United States", 9520234),
   ];
-  drawSingleBarChart(containerId, containerWidth, containerHeight, dataPoints);
+  drawSingleBarChart(containerId, width, height, dataPoints);
 
   let dataGroups = [
     new DataGroup(
@@ -86,21 +86,18 @@ window.onload = function () {
   // Draw stack bar chart.
   containerId = "chart-box-2";
   containerElem = document.getElementById(containerId);
-  containerElem.style.width = containerWidth + "px";
-  containerElem.style.height = containerHeight + "px";
-  drawStackBarChart(containerId, containerWidth, containerHeight, dataGroups);
+  containerElem.style.width = width + "px";
+  drawStackBarChart(containerId, width, height, dataGroups);
 
   // Draw group bar chart.
   containerId = "chart-box-3";
   containerElem = document.getElementById(containerId);
-  containerElem.style.width = containerWidth + "px";
-  containerElem.style.height = containerHeight + "px";
-  drawGroupBarChart(containerId, containerWidth, containerHeight, dataGroups);
+  containerElem.style.width = width + "px";
+  drawGroupBarChart(containerId, width, height, dataGroups);
 
   // Draw line chart.
   containerId = "chart-box-4";
   containerElem = document.getElementById(containerId);
-  containerElem.style.width = containerWidth + "px";
-  containerElem.style.height = containerHeight + "px";
-  drawLineChart(containerId, containerWidth, containerHeight, dataGroups);
+  containerElem.style.width = width + "px";
+  drawLineChart(containerId, width, height, dataGroups);
 };

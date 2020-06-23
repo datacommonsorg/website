@@ -386,7 +386,7 @@ class Chart extends Component {
     }
     return (
       <div className="col" ref={this.chartElement}>
-        <div className="chart-container chart-container-btn">
+        <div className="chart-container">
           <h4>
             {config.title}
             <span className="sub-title">{this.titleSuffix}</span>
@@ -473,7 +473,6 @@ class Chart extends Component {
     const chartType = this.props.config.chartType;
     let elem = document.getElementById(this.props.id);
     elem.innerHTML = "";
-    elem.style.height = CHART_HEIGHT + "px";
     if (chartType == chartTypeEnum.LINE) {
       drawLineChart(
         this.props.id,
