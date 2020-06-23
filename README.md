@@ -2,7 +2,7 @@
 
 ### Get permission to use API KEY
 
-Cotact DataCommons team to get permission for access of secret manager
+Contact DataCommons team to get permission for access of secret manager
 
 ### Run all the tests.
 
