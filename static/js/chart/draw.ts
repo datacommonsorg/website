@@ -29,13 +29,28 @@ const NUM_X_TICKS = 5;
 const NUM_Y_TICKS = 5;
 const MARGIN = { top: 20, right: 10, bottom: 30, left: 35, yAxis: 3 };
 
-function getColorFn(labels: string[]) {
-  let k = labels.length;
-  k = k < 3 || k > 11 ? 10 : k;  // Spectral colors exist for k = 3 -> 11
-  return d3
-    .scaleOrdinal<string, string>()
-    .domain(labels)
-    .range(d3.quantize(d3.interpolateSpectral, k));
+function getColorFn(labels: string[]): d3.ScaleOrdinal<string, string> {
+  let range;
+  if (labels.length == 1) {
+    range = ["#930000"];
+  } else if (labels.length == 2) {
+    range = ["#930000", "#3288bd"];
+  } else {
+    range = d3.quantize(
+      d3.interpolateRgbBasis([
+        "#930000",
+        "#d30000",
+        "#f46d43",
+        "#fdae61",
+        "#fee08b",
+        "#66c2a5",
+        "#3288bd",
+        "#5e4fa2",
+      ]),
+      labels.length
+    );
+  }
+  return d3.scaleOrdinal<string, string>().domain(labels).range(range);
 }
 
 function appendLegendElem(
