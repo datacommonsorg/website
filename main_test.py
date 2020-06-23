@@ -5,8 +5,6 @@ import json
 from unittest.mock import patch
 
 from main import app
-from datacommons import send_request
-
 
 class TestStaticPage(unittest.TestCase):
     def test_homepage(self):

@@ -26,8 +26,9 @@ import requests
 from werkzeug.utils import import_string
 from google.cloud import secretmanager
 
-
-if os.environ.get('FLASK_ENV') == 'production':
+if os.environ.get('FLASK_ENV') == 'test':
+    cfg = import_string('configmodule.TestConfig')()
+elif os.environ.get('FLASK_ENV') == 'production':
     cfg = import_string('configmodule.ProductionConfig')()
 else:
     cfg = import_string('configmodule.DevelopmentConfig')()
@@ -35,11 +36,14 @@ else:
 API_ROOT = cfg.API_ROOT
 API_PROJECT = cfg.API_PROJECT
 
-# Read the api key from Google Cloud Secret Manager
-secret_client = secretmanager.SecretManagerServiceClient()
-secret_name = secret_client.secret_version_path(API_PROJECT, 'mixer-api-key', '1')
-secret_response = secret_client.access_secret_version(secret_name)
-DC_API_KEY = secret_response.payload.data.decode('UTF-8')
+if os.environ.get('FLASK_ENV') == 'test':
+    DC_API_KEY = 'api-key'
+else:
+    # Read the api key from Google Cloud Secret Manager
+    secret_client = secretmanager.SecretManagerServiceClient()
+    secret_name = secret_client.secret_version_path(API_PROJECT, 'mixer-api-key', '1')
+    secret_response = secret_client.access_secret_version(secret_name)
+    DC_API_KEY = secret_response.payload.data.decode('UTF-8')
 
 # --------------------------------- CONSTANTS ---------------------------------
 
