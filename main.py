@@ -413,7 +413,7 @@ def get_parent_place(dcid):
     for i in range(len(parents)):
         if len(parents[i]['types']) > 1:
             parents[i]['types'] = list(
-                filter(lambda x: not x.startswith('AdministrativeArea'), place_types))
+                filter(lambda x: not x.startswith('AdministrativeArea'), parents[i]['types']))
     return parents
 
 

@@ -5,8 +5,8 @@ google-cloud-storage
 google-cloud-secret-manager
 jinja2
 parameterized
-protobuf==3.11.3
+protobuf
 pytest
-requests==2.23.0
+requests
 six
 wheel
