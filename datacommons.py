@@ -20,15 +20,33 @@ import json
 import logging
 import os
 import zlib
+import urllib
 
 import requests
+from werkzeug.utils import import_string
+from google.cloud import secretmanager
 
+
+if os.environ.get('FLASK_ENV') == 'production':
+    cfg = import_string('configmodule.ProductionConfig')()
+else:
+    cfg = import_string('configmodule.DevelopmentConfig')()
+
+API_ROOT = cfg.API_ROOT
+API_PROJECT = cfg.API_PROJECT
+
+# Read the api key from Google Cloud Secret Manager
+secret_client = secretmanager.SecretManagerServiceClient()
+secret_name = secret_client.secret_version_path(API_PROJECT, 'mixer-api-key', '1')
+secret_response = secret_client.access_secret_version(secret_name)
+DC_API_KEY = secret_response.payload.data.decode('UTF-8')
 
 # --------------------------------- CONSTANTS ---------------------------------
 
 # REST API endpoint paths
 API_ENDPOINTS = {
     'query': '/query',
+    'search': '/search',
     'get_property_labels': '/node/property-labels',
     'get_property_values': '/node/property-values',
     'get_triples': '/node/triples',
@@ -46,15 +64,21 @@ API_ENDPOINTS = {
 # The default value to limit to
 _MAX_LIMIT = 100
 
-# TODO(boxu): make these config variables when open source.
-if os.environ.get('FLASK_ENV') == 'production':
-    API_ROOT = 'https://api.datacommons.org'
-    DC_API_KEY = 'AIzaSyCnIAVLJYOpq8UWw9HSV7AQoj5ErKcdM4c'
-else:
-    API_ROOT = 'https://datacommons.endpoints.datcom-mixer-staging.cloud.goog'
-    DC_API_KEY = 'AIzaSyDpizzPv0L41m9HuRpqAorIIxtyZJwH80Y'
 
 # ----------------------------- WRAPPER FUNCTIONS -----------------------------
+
+def search(query_text, max_results):
+    req_url = API_ROOT + API_ENDPOINTS['search']
+    req_url += '?key={}&query={}&max_results={}'.format(
+        DC_API_KEY,
+        urllib.parse.quote(query_text.replace(',', ' ')),
+        max_results)
+    response = requests.get(req_url)
+    if response.status_code != 200:
+        raise ValueError(
+            'Response error: An HTTP {} code was returned by the mixer. Printing '
+            'response\n{}'.format(response.status_code, response.reason))
+    return response.json()
 
 
 def get_stats(place_dcids, stats_var):
