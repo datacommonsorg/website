@@ -22,14 +22,12 @@ import datetime
 import json
 import logging
 import os
-import urllib
 
 import flask
 from flask import request, redirect, url_for
 from flask_caching import Cache
 from google.cloud import storage
 import jinja2
-from werkzeug.utils import import_string
 
 import datacommons as dc
 import datachart_handler
@@ -37,9 +35,11 @@ import barchart_handler
 import line_chart
 import translator
 import barchart_template as btemp
+from werkzeug.utils import import_string
 
-
+# Max search results
 _MAX_SEARCH_RESULTS = 1000
+
 _MAX_BLOBS = 1
 _FC_FEEDS_BUCKET = 'datacommons-feeds'
 _SA_FEED_BUCKET = 'datacommons-frog-feed'
@@ -56,7 +56,6 @@ app = flask.Flask(
     static_url_path=""
 )
 
-
 if os.environ.get('FLASK_ENV') == 'production':
     cfg = import_string('configmodule.ProductionConfig')()
 else:
@@ -64,8 +63,6 @@ else:
 
 app.config.from_object(cfg)
 
-API_ROOT = app.config['API_ROOT']
-DC_API_KEY = app.config['DC_API_KEY']
 GCS_BUCKET = app.config['GCS_BUCKET']
 
 cache = Cache(app)
@@ -579,19 +576,7 @@ def translator_handler():
 def search():
     query_text = request.args.get('query', '')
     max_results = int(request.args.get('l', _MAX_SEARCH_RESULTS))
-
-    url = '{}/search?key={}&query={}&max_results={}'.format(
-        API_ROOT, DC_API_KEY,
-        urllib.parse.quote(query_text.replace(',', ' ')),
-        max_results)
-    try:
-        res = urllib.request.urlopen(url)
-    except urllib.error.HTTPError as e:
-        raise ValueError(
-            'Response error: An HTTP {} code was returned by the mixer. Printing '
-            'response\n\n{}'.format(e.code, e.read()))
-
-    search_response = json.loads(res.read())
+    search_response = dc.search(query_text, max_results)
 
     # Convert from search results to template dictionary.
     results = []

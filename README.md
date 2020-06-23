@@ -1,9 +1,8 @@
 ## Development Locally
 
-### Download the config file that contains api key.
+### Get permission to use API KEY
 
-Save https://storage.cloud.google.com/datcom-browser-prod.appspot.com/configmodule.py in
-current folder. If you don't have permission, please contact DataCommons team
+Cotact DataCommons team to get permission for access of secret manager
 
 ### Run all the tests.
 
@@ -51,14 +50,14 @@ npm run-script watch
 - Deploy to Staging:
 
   ```bash
-  gcloud config set project datcom-browser-staging
-  gcloud app deploy app_staging.yaml -q --no-promote
+  gcloud config set project datcom-browser-staging && \
+  gcloud app deploy app_staging.yaml -q
   ```
 
 - Deploy to Prod:
 
   ```bash
-  gcloud config set project datcom-browser-prod
+  gcloud config set project datcom-browser-prod && \
   gcloud app deploy app_prod.yaml -q --no-promote
   ```
 
