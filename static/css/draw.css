@@ -14,20 +14,6 @@
  * limitations under the License.
  */
 
-.legend-box {
-  padding: 10px 0;
-  display: flex;
-  justify-content: center;
-  flex-wrap: wrap;
-  width: 100%;
-}
-
-.legend-text {
-  font-size: 12px;
-  font-weight: bold;
-  margin: 0 10px;
-}
-
 path.line {
   fill: none;
   stroke-width: 2.5;
@@ -60,7 +46,7 @@ path.line {
 }
 
 .legend {
-  margin-left: 40px;
+  margin-left: 35px;
   text-align: center;
 }
 

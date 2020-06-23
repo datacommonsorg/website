@@ -24,31 +24,10 @@ import {
   Range,
   computeCoordinate,
 } from "./base";
-import { drawBarXTicks } from "./xtick";
-import {
-  Y_TICK_MARGIN,
-  computeYTickWidth,
-  drawYTicks,
-  getYTick,
-} from "./ytick";
 
-const TOP_MARGIN = 10;
-const BAR_GAP_RATIO = 0.25;
 const NUM_X_TICKS = 5;
 const NUM_Y_TICKS = 5;
 const MARGIN = { top: 20, right: 10, bottom: 30, left: 35, yAxis: 3 };
-
-// Colors - 500 level colors from the Google Material palette
-const COLORS = [
-  "#4285F4",
-  "#EA4335",
-  "#FBBC04",
-  "#34A853",
-  "#FA7B17",
-  "#F439A0",
-  "#A142F4",
-  "#24C1E0",
-];
 
 function getColorFn(labels: string[]) {
   let k = labels.length;
@@ -72,17 +51,60 @@ function appendLegendElem(
     .text((d) => d);
 }
 
+/**
+ * From https://bl.ocks.org/mbostock/7555321
+ * Wraps axis text by fitting as many words per line as would fit a given width.
+ */
+function wrap(text: d3.Selection<SVGElement, any, any, any>, width: number) {
+  text.each(function () {
+    var text = d3.select(this),
+      words = text.text().split(/\s+/).reverse(),
+      word,
+      line: Array<string> = [],
+      lineNumber = 0,
+      lineHeight = 1.1, // ems
+      y = text.attr("y"),
+      dy = parseFloat(text.attr("dy")),
+      tspan = text
+        .text(null)
+        .append("tspan")
+        .attr("x", 0)
+        .attr("y", y)
+        .attr("dy", dy + "em");
+    while ((word = words.pop())) {
+      line.push(word);
+      tspan.text(line.join(" "));
+      if (tspan.node().getComputedTextLength() > width) {
+        line.pop();
+        tspan.text(line.join(" "));
+        line = [word];
+        tspan = text
+          .append("tspan")
+          .attr("x", 0)
+          .attr("y", y)
+          .attr("dy", ++lineNumber * lineHeight + dy + "em")
+          .text(word);
+      }
+    }
+  });
+}
+
 function addXAxis(
   svg: d3.Selection<SVGElement, any, any, any>,
   height: number,
   xScale: d3.AxisScale<any>
 ) {
-  svg
+  var axis = svg
     .append("g")
-    .attr("class", "x axis")
-    .attr("transform", `translate(0, ${height - MARGIN.bottom})`)
-    .call(d3.axisBottom(xScale).ticks(NUM_X_TICKS).tickSizeOuter(0))
-    .call((g) => g.select(".domain").remove());
+      .attr("class", "x axis")
+      .attr("transform", `translate(0, ${height - MARGIN.bottom})`)
+      .call(d3.axisBottom(xScale).ticks(NUM_X_TICKS).tickSizeOuter(0))
+      .call((g) => g.select(".domain").remove());
+
+  if (typeof xScale.bandwidth === "function") {
+    axis.selectAll(".tick text")
+      .call(wrap, xScale.bandwidth());
+  }
 }
 
 function addYAxis(
@@ -186,7 +208,7 @@ function drawStackBarChart(
 
   let data = [];
   for (let dataGroup of dataGroups) {
-    let curr = {"label": dataGroup.label}
+    let curr: { [property: string]: any } = { "label": dataGroup.label };
     for (let dataPoint of dataGroup.value) {
       curr[dataPoint.label] = dataPoint.value;
     }
