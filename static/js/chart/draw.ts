@@ -121,7 +121,8 @@ function addXAxis(
 function addYAxis(
   svg: d3.Selection<SVGElement, any, any, any>,
   width: number,
-  yScale: d3.AxisScale<any>
+  yScale: d3.ScaleLinear<any, any>,
+  unit?: string
 ) {
   svg
     .append("g")
@@ -130,8 +131,16 @@ function addYAxis(
     .call(
       d3
         .axisLeft(yScale)
-        .ticks(NUM_Y_TICKS, "1s")
-        .tickSize(width - 10 - MARGIN.right)
+        .ticks(NUM_Y_TICKS)
+        .tickSize(width - 5 - MARGIN.right)
+        .tickFormat((d) => {
+          let yticks = yScale.ticks();
+          let p = d3.precisionPrefix(yticks[1] - yticks[0], yticks[yticks.length - 1]);
+          let tText = d3.formatPrefix(`.${p}`, yScale.domain()[1])(d);
+          let dollar = unit == "$" ? "$" : "";
+          let percent = unit == "%" ? "%" : "";
+          return `${dollar}${tText}${percent}`;
+        })
     )
     .call((g) => g.select(".domain").remove())
     .call((g) =>
@@ -185,7 +194,7 @@ function drawSingleBarChart(
       .attr("height", height);
 
   addXAxis(svg, height, x);
-  addYAxis(svg, width, y);
+  addYAxis(svg, width, y, unit);
 
   svg
     .append("g")
@@ -249,7 +258,7 @@ function drawStackBarChart(
     .attr("height", height);
 
   addXAxis(svg, height, x);
-  addYAxis(svg, width, y);
+  addYAxis(svg, width, y, unit);
 
   svg.append("g")
     .selectAll("g")
@@ -314,7 +323,7 @@ function drawGroupBarChart(
     .attr("height", height);
 
   addXAxis(svg, height, x0);
-  addYAxis(svg, width, y);
+  addYAxis(svg, width, y, unit);
   svg
     .append("g")
     .selectAll("g")
@@ -370,7 +379,7 @@ function drawLineChart(
     .nice(NUM_Y_TICKS);
 
   addXAxis(svg, height, xScale);
-  addYAxis(svg, width, yScale);
+  addYAxis(svg, width, yScale, unit);
 
   let legendText = dataGroups.map((dataGroup) => dataGroup.label ? dataGroup.label: 'a');
   let colorFn = getColorFn(legendText);
