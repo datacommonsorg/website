@@ -21,14 +21,20 @@
   <link rel="stylesheet" href={{url_for('static', filename='css/draw.css')}}></script>
   <link rel="stylesheet" href={{url_for('static', filename='css/dev.css')}}></script>
   <style>
-    .chart-container { float: left; }
+    .chart { 
+      margin: 20px;
+      float: left;
+      position: relative;
+      outline: 1px solid blue;
+    }
+
+    svg {
+      outline: 1px solid red;
+    }
   </style>
 {% endblock %}
 
 {% block content %}
-  <div id="chart-box-1" class="chart-container"></div>
-  <div id="chart-box-2" class="chart-container"></div>
-  <div id="chart-box-3" class="chart-container"></div>
-  <div id="chart-box-4" class="chart-container"></div>
+  <div id="charts-container"></div>
   <div style="clear:both;"></div>
 {% endblock %}
