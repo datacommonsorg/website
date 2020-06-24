@@ -37,8 +37,9 @@ test("svg test", () => {
   appendLegendElem("chart", color, keys);
 
   expect(document.getElementById("chart").innerHTML).toEqual(
-    `<div class="legend"><div style="background: rgb(158, 1, 66)">` +
-    `<span>San Jose</span></div><div style="background: rgb(214, 66, 75)">` +
-    `<span>Palo Alto</span></div></div>`
+    `<div class="legend">` +
+    `<div style="background: #930000"><span>San Jose</span></div>` +
+    `<div style="background: #3288bd"><span>Palo Alto</span></div>` +
+    `</div>`
   );
 });
