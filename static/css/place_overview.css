@@ -257,8 +257,7 @@ header #selectionbar {
   font-size: .8rem;
 }
 
-.sidebar-outer {
-  margin-top: 150px;
+#sidebar-outer {
   position: relative;
 }
 .fixed {
