@@ -14,15 +14,11 @@
  * limitations under the License.
  */
 
-import * as _SVG from "@svgdotjs/svg.js";
 import * as d3 from "d3";
 
 import {
   DataGroup,
   DataPoint,
-  BarLayout,
-  Range,
-  computeCoordinate,
 } from "./base";
 
 const NUM_X_TICKS = 5;
@@ -70,22 +66,22 @@ function appendLegendElem(
  * From https://bl.ocks.org/mbostock/7555321
  * Wraps axis text by fitting as many words per line as would fit a given width.
  */
-function wrap(text: d3.Selection<SVGElement, any, any, any>, width: number) {
+function wrap(text: d3.Selection<SVGTextElement, any, any, any>, width: number) {
   text.each(function () {
-    var text = d3.select(this),
-      words = text.text().split(/\s+/).reverse(),
-      word,
-      line: Array<string> = [],
-      lineNumber = 0,
-      lineHeight = 1.1, // ems
-      y = text.attr("y"),
-      dy = parseFloat(text.attr("dy")),
-      tspan = text
+    let text = d3.select(this);
+    let words = text.text().split(/\s+/).reverse();
+    let line: Array<string> = [];
+    let lineNumber = 0;
+    let lineHeight = 1.1; // ems
+    let y = text.attr("y");
+    let dy = parseFloat(text.attr("dy"));
+    let tspan = text
         .text(null)
         .append("tspan")
         .attr("x", 0)
         .attr("y", y)
         .attr("dy", dy + "em");
+    let word: string;
     while ((word = words.pop())) {
       line.push(word);
       tspan.text(line.join(" "));
@@ -109,7 +105,7 @@ function addXAxis(
   height: number,
   xScale: d3.AxisScale<any>
 ) {
-  var axis = svg
+  let axis = svg
     .append("g")
       .attr("class", "x axis")
       .attr("transform", `translate(0, ${height - MARGIN.bottom})`)
@@ -191,16 +187,16 @@ function drawSingleBarChart(
   addXAxis(svg, height, x);
   addYAxis(svg, width, y);
 
-    svg
-      .append("g")
-      .selectAll("rect")
-      .data(dataPoints)
-      .join("rect")
-      .attr("x", d => x(d.label))
-      .attr("y", d => y(d.value))
-      .attr("width", x.bandwidth())
-      .attr("height", d => y(0) - y(d.value))
-      .attr("fill", d => color(d.label))
+  svg
+    .append("g")
+    .selectAll("rect")
+    .data(dataPoints)
+    .join("rect")
+    .attr("x", d => x(d.label))
+    .attr("y", d => y(d.value))
+    .attr("width", x.bandwidth())
+    .attr("height", d => y(0) - y(d.value))
+    .attr("fill", d => color(d.label));
 }
 
 /**
@@ -423,6 +419,8 @@ function drawLineChart(
 }
 
 export {
+  appendLegendElem,
+  getColorFn,
   drawLineChart,
   drawSingleBarChart,
   drawStackBarChart,
