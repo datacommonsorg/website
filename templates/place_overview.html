@@ -87,33 +87,30 @@
   </header>
 
   <div id="body" class="container">
-    <div id="title" class="row mt-3 mt-md-4 mt-lg-5">
-      <div class="col-2 d-none d-md-flex"></div>
-      <div class="col-12 col-md-5 order-last order-md-2">
-        <h1 id="place-name">{{place_name}}</h1>
-        <h3>
-          <span id="place-type" data-pt={{place_type}}>A {{place_type}} in</span>
-          <span id="place-parents">
-          </span>
-        </h3>
+    <div id="body-row" class="row">
+      <div class="col-md-2 mt-3 mt-md-4 mt-lg-5 sidebar-outer">
+        <div id="topics" class="fixed"></div>
       </div>
-
-      <div class="col-12 col-md-5 order-first order-md-last pb-3">
-        <div class="search border">
-          <div id="location-field">
-            <div id="search-icon"></div>
-            <input id="place-autocomplete" placeholder="Enter a US city, county or state" type="text" />
+      <div id="main" class="col-md-10 mt-3 mt-md-4 mt-lg-5">
+        <div id="title" class="row">
+          <div class="col-12 col-md-6 order-last order-md-2">
+            <h1 id="place-name">{{place_name}}</h1>
+            <h3>
+              <span id="place-type" data-pt={{place_type}}>A {{place_type}} in</span>
+              <span id="place-parents">
+              </span>
+            </h3>
+          </div>
+          <div class="col-12 col-md-6 order-first order-md-last pb-3">
+            <div class="search border">
+              <div id="location-field">
+                <div id="search-icon"></div>
+                <input id="place-autocomplete" placeholder="Enter a US city, county or state" type="text" />
+              </div>
+            </div>
           </div>
         </div>
-      </div>
-    </div>
-
-    <div id="main" class="row mt-3">
-      <!-- START left-nav -->
-      <div id="topics" class="col-md-2 pr-5 d-none d-md-flex">
-      </div>
-      <!-- END left-nav -->
-      <div id="main-pane" class="col mt-3 mt-md-0">
+        <div id="main-pane" class="row"></div>
       </div>
     </div>
   </div>

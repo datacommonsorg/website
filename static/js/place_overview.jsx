@@ -217,7 +217,7 @@ class MainPane extends Component {
         {this.props.dcid != "country/USA" && <Overview topic={this.props.topic} />}
         {configData.map((item, index) => {
           return (
-            <section className="subtopic" key={index}>
+            <section className="subtopic col-12" key={index}>
               <h3 id={item.label}>{item.label}</h3>
               <div className="row row-cols-lg-2 row-cols-md-2 row-cols-sm-2 row-cols-1">
                 {item.charts.map((config, index) => {
@@ -281,8 +281,8 @@ class Overview extends Component {
     if (!this.props.topic) {
       return (
         <React.Fragment>
-          <h2>{!this.props.topic ? "Overview" : this.props.topic}</h2>
-          <section className="factoid">
+          <h2 className="col-12 pt-2">{!this.props.topic ? "Overview" : this.props.topic}</h2>
+          <section className="factoid col-12">
             <div className="row">
               <div className="col-12 col-md-4">
                 <div id="map-container"></div>

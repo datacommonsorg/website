@@ -57,6 +57,10 @@
   color: var(--secondary);
 }
 
+#main .place-links {
+  color: var(--secondary);
+}
+
 #title a,
 #main-pane a {
   color: inherit;
@@ -251,4 +255,12 @@ header #selectionbar {
 #dc-footer a {
   color: var(--link-color);
   font-size: .8rem;
+}
+
+.sidebar-outer {
+  margin-top: 150px;
+  position: relative;
+}
+.fixed {
+  position: fixed;
 }
