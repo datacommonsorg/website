@@ -1,5 +1,3 @@
-# Lint as: python3
-
 # Copyright 2020 Google LLC
 #
 # Licensed under the Apache License, Version 2.0 (the "License");
@@ -14,11 +12,9 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-"""build the property-value tree and generate the json file for the GNI browser menu"""
+"""build the property-value tree """
 
 import util
-import constants
-import json
 import text_format
 import collections
 
@@ -28,13 +24,13 @@ def build_tree_recursive(pos, level, pop_obs_spec, stat_vars, show_all, parent=N
     """Recursively build the ui tree"""
     #get the property of the ui node
     if parent:
-      pdiff = (set(pos.properties) - set(parent.pop_obs_spec.properties)).pop()
+      property_diff = (set(pos.properties) - set(parent.pop_obs_spec.properties)).pop()
       parent_pv = parent.pv
     else:
-      pdiff = pos.properties[0]  # This is single pv pos
+      property_diff = pos.properties[0]  # This is single pv pos
       parent_pv = {}
     
-    prop_ui_node = util.UiNode(pos, parent_pv, True, pdiff)
+    prop_ui_node = util.UiNode(pos, parent_pv, True, property_diff)
     result = {
       'populationType': prop_ui_node.pop_type,
       'show': 'yes',
@@ -58,8 +54,8 @@ def build_tree_recursive(pos, level, pop_obs_spec, stat_vars, show_all, parent=N
         value_ui_pv = collections.OrderedDict()
         for prop, val in parent_pv.items():
           value_ui_pv[prop] = val
-        value_ui_pv[pdiff] = sv.pv[pdiff]
-        value_ui_node = util.UiNode(pos, value_ui_pv, False, pdiff)
+        value_ui_pv[property_diff] = sv.pv[property_diff]
+        value_ui_node = util.UiNode(pos, value_ui_pv, False, property_diff)
         
         value_blob = {
           'populationType': value_ui_node.pop_type,
@@ -88,7 +84,7 @@ def build_tree_recursive(pos, level, pop_obs_spec, stat_vars, show_all, parent=N
             del branch['sv_set']
         value_blob['count'] = len(value_blob['sv_set'])
       
-    result['children'] = text_format.filter_and_sort(pdiff, result['children'], show_all)
+    result['children'] = text_format.filter_and_sort(property_diff, result['children'], show_all)
     #update the count
     if result['children']:
       for child in result['children']:
@@ -157,18 +153,3 @@ def build_tree(v, pop_obs_spec, stat_vars, show_all):
     
     return root
      
-def main():
-    pop_obs_spec = util._read_pop_obs_spec()
-    stat_vars = util._read_stat_var()
-    f_hierachy = open("./hierarchy.js","w")
-    f_json = open("./hierarchy.json","w")
-    data = {}
-    for vertical in constants.VERTICALS:
-      root = build_tree(vertical, pop_obs_spec[vertical], stat_vars, False)
-      data[vertical] = root
-      f_hierachy.write('var {}={};\n'.format(vertical, json.dumps(root)))
-    json.dump(data, f_json)
-    return
-    
-if __name__ == "__main__":
-    main()
