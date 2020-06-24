@@ -58,4 +58,5 @@ path.line {
   color: white;
   margin: 2px;
   border-radius: 2px;
+  text-shadow: rgba(0,0,0,.3) 0px 0 5px;
 }

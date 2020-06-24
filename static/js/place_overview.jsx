@@ -281,9 +281,6 @@ class Overview extends Component {
     if (!this.props.topic) {
       return (
         <React.Fragment>
-          <button type="button" className="btn btn-dc btn-sm float-right">
-            Explore more <img src="images/open_in_new-24px.svg" />
-          </button>
           <h2>{!this.props.topic ? "Overview" : this.props.topic}</h2>
           <section className="factoid">
             <div className="row">
