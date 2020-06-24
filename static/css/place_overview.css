@@ -260,6 +260,7 @@ header #selectionbar {
 #sidebar-outer {
   position: relative;
 }
-.fixed {
+#sidebar-outer .fixed {
   position: fixed;
+  top: 20px;
 }

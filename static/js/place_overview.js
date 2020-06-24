@@ -36,10 +36,8 @@ function adjustMenuPosition() {
   let topicsEl = document.getElementById('topics');
   if (window.scrollY > Y_SCROLL_LIMIT) {
     topicsEl.classList.add("fixed");
-    topicsEl.style.top = "20px";
   } else {
     topicsEl.classList.remove("fixed");
-    topicsEl.style.top = "0";
   }
 }
 
