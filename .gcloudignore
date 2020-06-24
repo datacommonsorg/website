@@ -15,9 +15,16 @@
 
 # Python pycache:
 __pycache__/
+
 # Ignored by the build system
 /setup.cfg
 
 **/node_modules/**
 
 .env/
+
+# Ignore tools
+tools/
+
+# ignore source static files
+static/

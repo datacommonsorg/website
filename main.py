@@ -52,7 +52,7 @@ logging.basicConfig(
 # called `app` in `main.py`.
 app = flask.Flask(
     __name__,
-    static_folder="static/dist",
+    static_folder="dist",
     static_url_path=""
 )
 
