@@ -1,0 +1,58 @@
+<!--
+ Copyright 2020 Google LLC
+
+ Licensed under the Apache License, Version 2.0 (the "License");
+ you may not use this file except in compliance with the License.
+ You may obtain a copy of the License at
+
+      http://www.apache.org/licenses/LICENSE-2.0
+
+ Unless required by applicable law or agreed to in writing, software
+ distributed under the License is distributed on an "AS IS" BASIS,
+ WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ See the License for the specific language governing permissions and
+ limitations under the License.
+-->
+
+{% extends 'base.html' %}
+
+{% block head %}
+  <title>KG Search</title>
+  <link rel="stylesheet" href={{url_for('static', filename='css/search.css', t=config['GAE_VERSION'])}} />
+{% endblock %}
+
+{% block content %}
+  {% if not results %}
+    <h4>
+      <div>Sorry, no results were found in DataCommons.org for "{{query_text}}".</div><br>
+      <div>You can try your search on
+        <a href="https://scholar.google.com/scholar?q={{query_text}}">Google Scholar</a>,&nbsp;
+        <a href="https://toolbox.google.com/datasetsearch/search?query={{query_text}}">
+          Google Dataset search</a>,&nbsp;
+        <a href="https://catalog.data.gov/dataset?q={{query_text}}">Data.gov</a>
+        <span> or </span>
+        <a href="https://dataverse.org/">Dataverse</a>
+        <span>.</span>
+      </div>
+    </h4>
+  {% else %}
+    {% for result in results %}
+      <div class="search-result-section">
+        <div class="search-result-type">
+          Type: {{result.type}}
+        </div>
+        <div class="search-result-entities">
+          {% for entity in result.entities %}
+            <div class="search-result-entity">
+              <div class="name">
+                <a href="/kg?dcid={{entity.dcid}}">
+                  {{entity.name}}
+                </a>
+              </div>
+            </div>
+          {% endfor %}
+        </div>
+      </div>
+    {% endfor %}
+  {% endif %}
+{% endblock %}

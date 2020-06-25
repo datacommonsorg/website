@@ -14,28 +14,39 @@
  * limitations under the License.
  */
 
-import * as _SVG from "@svgdotjs/svg.js";
 import * as d3 from "d3";
 
 import {
   DataGroup,
   DataPoint,
-  BarLayout,
-  Range,
-  computeCoordinate,
 } from "./base";
 
 const NUM_X_TICKS = 5;
 const NUM_Y_TICKS = 5;
 const MARGIN = { top: 20, right: 10, bottom: 30, left: 35, yAxis: 3 };
 
-function getColorFn(labels: string[]) {
-  let k = labels.length;
-  k = k < 3 || k > 11 ? 10 : k;  // Spectral colors exist for k = 3 -> 11
-  return d3
-    .scaleOrdinal<string, string>()
-    .domain(labels)
-    .range(d3.quantize(d3.interpolateSpectral, k));
+function getColorFn(labels: string[]): d3.ScaleOrdinal<string, string> {
+  let range;
+  if (labels.length == 1) {
+    range = ["#930000"];
+  } else if (labels.length == 2) {
+    range = ["#930000", "#3288bd"];
+  } else {
+    range = d3.quantize(
+      d3.interpolateRgbBasis([
+        "#930000",
+        "#d30000",
+        "#f46d43",
+        "#fdae61",
+        "#fee08b",
+        "#66c2a5",
+        "#3288bd",
+        "#5e4fa2",
+      ]),
+      labels.length
+    );
+  }
+  return d3.scaleOrdinal<string, string>().domain(labels).range(range);
 }
 
 function appendLegendElem(
@@ -55,22 +66,22 @@ function appendLegendElem(
  * From https://bl.ocks.org/mbostock/7555321
  * Wraps axis text by fitting as many words per line as would fit a given width.
  */
-function wrap(text: d3.Selection<SVGElement, any, any, any>, width: number) {
+function wrap(text: d3.Selection<SVGTextElement, any, any, any>, width: number) {
   text.each(function () {
-    var text = d3.select(this),
-      words = text.text().split(/\s+/).reverse(),
-      word,
-      line: Array<string> = [],
-      lineNumber = 0,
-      lineHeight = 1.1, // ems
-      y = text.attr("y"),
-      dy = parseFloat(text.attr("dy")),
-      tspan = text
+    let text = d3.select(this);
+    let words = text.text().split(/\s+/).reverse();
+    let line: Array<string> = [];
+    let lineNumber = 0;
+    let lineHeight = 1.1; // ems
+    let y = text.attr("y");
+    let dy = parseFloat(text.attr("dy"));
+    let tspan = text
         .text(null)
         .append("tspan")
         .attr("x", 0)
         .attr("y", y)
         .attr("dy", dy + "em");
+    let word: string;
     while ((word = words.pop())) {
       line.push(word);
       tspan.text(line.join(" "));
@@ -94,7 +105,7 @@ function addXAxis(
   height: number,
   xScale: d3.AxisScale<any>
 ) {
-  var axis = svg
+  let axis = svg
     .append("g")
       .attr("class", "x axis")
       .attr("transform", `translate(0, ${height - MARGIN.bottom})`)
@@ -110,7 +121,8 @@ function addXAxis(
 function addYAxis(
   svg: d3.Selection<SVGElement, any, any, any>,
   width: number,
-  yScale: d3.AxisScale<any>
+  yScale: d3.ScaleLinear<any, any>,
+  unit?: string
 ) {
   svg
     .append("g")
@@ -119,8 +131,16 @@ function addYAxis(
     .call(
       d3
         .axisLeft(yScale)
-        .ticks(NUM_Y_TICKS, "1s")
-        .tickSize(width - 10 - MARGIN.right)
+        .ticks(NUM_Y_TICKS)
+        .tickSize(width - 5 - MARGIN.right)
+        .tickFormat((d) => {
+          let yticks = yScale.ticks();
+          let p = d3.precisionPrefix(yticks[1] - yticks[0], yticks[yticks.length - 1]);
+          let tText = d3.formatPrefix(`.${p}`, yScale.domain()[1])(d);
+          let dollar = unit == "$" ? "$" : "";
+          let percent = unit == "%" ? "%" : "";
+          return `${dollar}${tText}${percent}`;
+        })
     )
     .call((g) => g.select(".domain").remove())
     .call((g) =>
@@ -174,18 +194,18 @@ function drawSingleBarChart(
       .attr("height", height);
 
   addXAxis(svg, height, x);
-  addYAxis(svg, width, y);
+  addYAxis(svg, width, y, unit);
 
-    svg
-      .append("g")
-      .selectAll("rect")
-      .data(dataPoints)
-      .join("rect")
-      .attr("x", d => x(d.label))
-      .attr("y", d => y(d.value))
-      .attr("width", x.bandwidth())
-      .attr("height", d => y(0) - y(d.value))
-      .attr("fill", d => color(d.label))
+  svg
+    .append("g")
+    .selectAll("rect")
+    .data(dataPoints)
+    .join("rect")
+    .attr("x", d => x(d.label))
+    .attr("y", d => y(d.value))
+    .attr("width", x.bandwidth())
+    .attr("height", d => y(0) - y(d.value))
+    .attr("fill", d => color(d.label));
 }
 
 /**
@@ -238,7 +258,7 @@ function drawStackBarChart(
     .attr("height", height);
 
   addXAxis(svg, height, x);
-  addYAxis(svg, width, y);
+  addYAxis(svg, width, y, unit);
 
   svg.append("g")
     .selectAll("g")
@@ -303,7 +323,7 @@ function drawGroupBarChart(
     .attr("height", height);
 
   addXAxis(svg, height, x0);
-  addYAxis(svg, width, y);
+  addYAxis(svg, width, y, unit);
   svg
     .append("g")
     .selectAll("g")
@@ -359,7 +379,7 @@ function drawLineChart(
     .nice(NUM_Y_TICKS);
 
   addXAxis(svg, height, xScale);
-  addYAxis(svg, width, yScale);
+  addYAxis(svg, width, yScale, unit);
 
   let legendText = dataGroups.map((dataGroup) => dataGroup.label ? dataGroup.label: 'a');
   let colorFn = getColorFn(legendText);
@@ -408,6 +428,8 @@ function drawLineChart(
 }
 
 export {
+  appendLegendElem,
+  getColorFn,
   drawLineChart,
   drawSingleBarChart,
   drawStackBarChart,

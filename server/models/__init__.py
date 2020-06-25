@@ -11,17 +11,3 @@
 # WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 # See the License for the specific language governing permissions and
 # limitations under the License.
-
-# Run test for client side code.
-cd static
-npm run test
-cd ..
-
-# Run test for server side code.
-python3 -m venv .env
-source .env/bin/activate
-cd server
-export FLASK_ENV=test
-pip3 install -r requirements.txt
-python3 -m pytest
-cd ..

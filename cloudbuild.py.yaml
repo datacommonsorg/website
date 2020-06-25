@@ -1,22 +1,18 @@
 # Run Python tests, lint, etc.
 steps:
 
-- name: python:3.7
-  entrypoint: python3
-  args: ["-m" , "pip" , "install" , "-t" , "." , "-r" , "requirements.txt"]
+- id: flask_test
+  name: python:3.7-slim
+  entrypoint: /bin/sh
+  args:
+  - -c
+  - 'cd server && export FLASK_ENV=test && pip install -r requirements.txt && python -m pytest'
 
-- name: python:3.7
-  entrypoint: python3
-  args: ["-m", "pytest"]
-
-- name: python:3.7
-  entrypoint: python3
-  dir: 'tools/pv_tree_generator'
-  args: ["-m" , "pip" , "install" , "-t" , "." , "-r" , "requirements.txt"]
-
-- name: python:3.7
-  entrypoint: python3
-  dir: 'tools/pv_tree_generator'
-  args: ["-m", "pytest"]
+- id: pv_tree_generator
+  name: python:3.7-slim
+  entrypoint: /bin/sh
+  args:
+  - -c
+  - 'cd tools/pv_tree_generator && pip install -r requirements.txt && python -m pytest'
 
 # TODO: Add Python linter, format checker, and any other useful code health tools.

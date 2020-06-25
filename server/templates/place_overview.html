@@ -1,0 +1,137 @@
+<!doctype html>
+<!--
+ Copyright 2020 Google LLC
+
+ Licensed under the Apache License, Version 2.0 (the "License");
+ you may not use this file except in compliance with the License.
+ You may obtain a copy of the License at
+
+      http://www.apache.org/licenses/LICENSE-2.0
+
+ Unless required by applicable law or agreed to in writing, software
+ distributed under the License is distributed on an "AS IS" BASIS,
+ WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ See the License for the specific language governing permissions and
+ limitations under the License.
+-->
+
+<html lang="en" id="dc">
+
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css"
+    integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
+  <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700;900&display=swap" rel="stylesheet">
+
+  <link rel="stylesheet"
+    href={{url_for('static', filename='css/place_overview.css', t=config['GAE_VERSION'])}}>
+  <link rel="stylesheet"
+    href={{url_for('static', filename='css/place_overview_search.css', t=config['GAE_VERSION'])}}>
+  <link rel="stylesheet" href={{url_for('static', filename='css/draw.css', t=config['GAE_VERSION'])}}></script>
+
+  <script
+    src={{url_for('static', filename='place_overview.js', t=config['GAE_VERSION'])}}></script>
+  <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDAMcc9QlTtAd4liELMgJSj0gwDojTS2eQ&libraries=places"
+    async defer></script>
+
+  <title>{{place_name}} Overview | Data Commons Place Browser</title>
+</head>
+
+<body id="dc-places-overview">
+  <header>
+    <div id="sitename">
+      <div class="container">
+        <div class="row">
+          <div class="col">
+            <h1><a>DataCommons.org</a></h1>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div id="selectionbar">
+      <div class="container">
+        <div class="row">
+          <nav class="navbar navbar-expand-md navbar-dark col">
+            <a class="navbar-brand" href="#"></a>
+            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#dc-main-nav">
+              <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse justify-content-md-end" id="dc-main-nav">
+              <ul class="navbar-nav float-md-right">
+                <li class="nav-item active">
+                  <a class="nav-link" href="#">Places</a>
+                </li>
+                <li class="nav-item">
+                  <a class="nav-link" href="http://browser.datacommons.org">Knowledge graph</a>
+                </li>
+                <li class="nav-item">
+                  <a class="nav-link" href="http://browser.datacommons.org/gni">Chart explorer</a>
+                </li>
+                <li class="nav-item">
+                  <a class="nav-link" href="http://datacommons.org/datasets">Datasets</a>
+                </li>
+                <li class="nav-item">
+                  <a class="nav-link" href="http://docs.datacommons.org/api">API</a>
+                </li>
+                <li class="nav-item">
+                  <a class="nav-link" href="http://datacommons.org/special_announcement">COVID-19 Announcements</a>
+                </li>
+              </ul>
+            </div>
+          </nav>
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <div id="body" class="container">
+    <div id="body-row" class="row">
+      <div id="sidebar-outer" class="col-md-2 mt-3 mt-md-4 mt-lg-5 d-none d-md-flex">
+        <div id="topics"></div>
+      </div>
+      <div id="main" class="col-md-10 mt-3 mt-md-4 mt-lg-5">
+        <div id="title" class="row">
+          <div class="col-12 col-md-6 order-last order-md-2">
+            <h1 id="place-name">{{place_name}}</h1>
+            <h3>
+              <span id="place-type" data-pt={{place_type}}>A {{place_type}} in</span>
+              <span id="place-parents">
+              </span>
+            </h3>
+          </div>
+          <div class="col-12 col-md-6 order-first order-md-last pb-3">
+            <div class="search border">
+              <div id="location-field">
+                <div id="search-icon"></div>
+                <input id="place-autocomplete" placeholder="Enter a US city, county or state" type="text" />
+              </div>
+            </div>
+          </div>
+        </div>
+        <div id="main-pane" class="row"></div>
+      </div>
+    </div>
+  </div>
+
+  <footer id="dc-footer">
+    <div class="container">
+      <a href="https://policies.google.com/terms">Terms and Conditions</a> ·
+      <a href="https://policies.google.com/privacy?hl=en-US">Privacy Policy</a> ·
+      <a href="/disclaimers">Disclaimers</a>
+    </div>
+  </footer>
+
+  <script src="https://code.jquery.com/jquery-3.4.1.slim.min.js"
+    integrity="sha384-J6qa4849blE2+poT4WnyKhv5vZF5SrPo0iEjwBvKU7imGFAV0wwj1yYfoRSJoZ+n"
+    crossorigin="anonymous"></script>
+  <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js"
+    integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo"
+    crossorigin="anonymous"></script>
+  <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js"
+    integrity="sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6"
+    crossorigin="anonymous"></script>
+</body>
+
+</html>

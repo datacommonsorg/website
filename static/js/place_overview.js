@@ -22,12 +22,24 @@ import { MainPane, Ranking, Menu, ParentPlace } from "./place_overview.jsx";
 
 let ac;
 
+const Y_SCROLL_LIMIT = 150;
+
 window.onload = () => {
   const urlParams = new URLSearchParams(window.location.search);
   let dcid = urlParams.get("dcid");
   renderPage(dcid);
   initAutocomplete();
+  document.addEventListener("scroll", adjustMenuPosition);
 };
+
+function adjustMenuPosition() {
+  let topicsEl = document.getElementById('topics');
+  if (window.scrollY > Y_SCROLL_LIMIT) {
+    topicsEl.classList.add("fixed");
+  } else {
+    topicsEl.classList.remove("fixed");
+  }
+}
 
 /**
  * Get child places with filtering.

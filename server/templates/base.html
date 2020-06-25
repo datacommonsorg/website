@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<!--
+ Copyright 2020 Google LLC
+
+ Licensed under the Apache License, Version 2.0 (the "License");
+ you may not use this file except in compliance with the License.
+ You may obtain a copy of the License at
+
+      http://www.apache.org/licenses/LICENSE-2.0
+
+ Unless required by applicable law or agreed to in writing, software
+ distributed under the License is distributed on an "AS IS" BASIS,
+ WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ See the License for the specific language governing permissions and
+ limitations under the License.
+-->
+
+<html lang="en">
+<head>
+  <!-- Google Tag Manager -->
+  <script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
+  new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
+  j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
+  'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
+  })(window,document,'script','dataLayer','GTM-596VBP2');</script>
+  <!-- End Google Tag Manager -->
+
+  <link rel="icon" href="favicon.ico" type="image/x-icon"/>
+  <link rel="stylesheet" href={{url_for('static', filename='css/base.css', t=config['GAE_VERSION'])}} />
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+  <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDi30xvuxtDt7ZzbRl3_-JRiLK-knqNkks&"></script>
+
+  {% block head %}
+  {% endblock %}
+</head>
+<body>
+  <!-- Google Tag Manager (noscript) -->
+  <noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-596VBP2"
+  height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
+  <!-- End Google Tag Manager (noscript) -->
+
+  <div id="header">
+    <div id="wrapper">
+      <div id="sitename">
+        <h1>
+          <a href="/">DataCommons.org</a>
+        </h1>
+      </div>
+      <form id="search-box" action="/search" method="get">
+        Search <input id="search-input" type="text" name="query" value="{{query_text}}"/>
+        <input type="submit" style="display: none" />
+      </form>
+    </div>
+  </div>
+  <div id="selectionbar">
+    <div id="selectionbar-wrapper">
+      <li>
+        <a href="/gni">GNI</a>
+      </li>
+      <li>
+        <a href="https://datacommons.org">Home</a>
+      </li>
+      <li>
+        <a href="/">Browser</a>
+      </li>
+      <li>
+        <a href="https://datacommons.org/datasets">Datasets</a>
+      </li>
+      <li>
+        <a href="https://datacommons.org/documentation">Documentation</a>
+      </li>
+      <li>
+        <a href="https://datacommons.org/factcheck">Factchecks</a>
+      </li>
+      <li>
+        <a href="https://datacommons.org/special_announcement">COVID-19 Announcements</a>
+      </li>
+    </div>
+  </div>
+  <div id="content">
+    {% block content %}
+    {% endblock %}
+  </div>
+  <div id="footer">
+    <hr>
+    <p><a href="https://policies.google.com/terms">Terms And Conditions</a></p>
+    <p><a href="https://policies.google.com/privacy?hl=en-US">Privacy Policy</a></p>
+    <p><a href="https://datacommons.org/disclaimers">Disclaimers</a></p>
+  </div>
+</body>
+</html>

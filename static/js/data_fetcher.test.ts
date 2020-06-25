@@ -14,11 +14,10 @@
  * limitations under the License.
  */
 
-// users.test.js
 import axios from "axios";
 
 import { fetchStatsData } from "./data_fetcher";
-import { DataGroup, DataPoint } from "./chart/base";
+import { DataGroup } from "./chart/base";
 
 jest.mock("axios");
 const mockedAxios = axios as jest.Mocked<typeof axios>;

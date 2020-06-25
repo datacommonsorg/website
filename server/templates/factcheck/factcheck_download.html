@@ -1,0 +1,132 @@
+<!DOCTYPE html>
+<!--
+ Copyright 2020 Google LLC
+
+ Licensed under the Apache License, Version 2.0 (the "License");
+ you may not use this file except in compliance with the License.
+ You may obtain a copy of the License at
+
+      http://www.apache.org/licenses/LICENSE-2.0
+
+ Unless required by applicable law or agreed to in writing, software
+ distributed under the License is distributed on an "AS IS" BASIS,
+ WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ See the License for the specific language governing permissions and
+ limitations under the License.
+-->
+
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+<title>Fact Checks Download - {{ sitename }}</title>
+<meta name="description"
+  content="Schema.org is a set of extensible schemas that enables webmasters to embed
+    structured data on their web pages for use by search engines and other applications." />
+
+  {% include 'factcheck/gtm.html' %}
+
+</head>
+<body>
+
+  {% include 'factcheck/basicPageHeader.html' %}
+
+  <div style="padding: 14px; float: right;" id="languagebox"></div>
+
+  <div id="mainContent" class="faq">
+    <h1>
+      Download Fact Check Data
+    </h1>
+    <br>
+    Here, you can download a research dataset of historical fact checks and access the data
+    feed of fact check markups created via the
+    <a href="https://toolbox.google.com/factcheck/markuptool" target="_blank">
+      Google Fact Check Markup Tool.</a>
+    Both follow the
+    <a href="http://schema.org/ClaimReview" target="_blank">
+      ClaimReview</a>
+    open standard.
+    <br/>
+    <p>
+    <h1 id='research-data'>
+      Research Dataset
+    </h1>
+    The research dataset is a compilation of historical structured markup of fact checks,
+    which follow the schema.org
+    <a href="http://schema.org/ClaimReview" target="_blank">ClaimReview</a>
+    schema,
+    from select fact checking articles on the web.
+    The field "url" points to the original fact checking articles.
+    The content of the fact checking articles is not part of the download file,
+    and it resides on the publishers' sites.
+
+    <p>
+    <a
+      href="/data/factcheck/fact_checks_20190605.txt.gz" id="download"
+      onclick="dataLayer.push({'event': 'download-click'});"> Download Research Dataset </a>
+
+
+    <p>
+    <h1 id='fcmt-data'>
+      Fact Check Markup Tool Data Feed
+    </h1>
+
+    This is a data feed of ClaimReview markups created via the Google Fact Check Markup Tool and the
+    new ClaimReview Read/Write API.
+    The data in the feed also follows the schema.org ClaimReview standard,
+    namely the same schema as the data in the historical research dataset.
+    The feed itself is in DataFeed format.
+
+    The compilation of the research dataset and the data feed from the Fact Check Markup Tool and
+    the new ClaimReview Read/Write API are licensed under
+    <a href="https://creativecommons.org/licenses/by/4.0/" target="_blank">CC BY.</a>
+    The license on the structured data of each ClaimReview markup is
+    specified in the field
+    <a href="http://pending.webschemas.org/sdLicense" target="_blank">sdLicense. </a>
+    Additionally, each publisher may have their own license
+    terms for content on their website. Please refer to the website of the publisher.
+
+    <p>
+      {% for key in recent_blobs %}
+      Data Feed: <a href="{{ recent_blobs[key].public_url }} "> Latest version </a>
+      {% endfor %}
+    </p>
+
+    <h2> Questions? </h2>
+      Please refer to the
+      <a href="{{ url_for('factcheck.faq') }}">FAQ</a>
+    or write to factcheck-support@google.com
+    </p>
+
+
+  </div>
+  <script type="application/ld+json">
+{
+  "@context":"http://schema.org/",
+  "@type":"Dataset",
+  "name":"Data Commons Fact checking corpus",
+  "description": "This dataset is a compilation of structured markup following schema.org ClaimReview schema of select fact checking articles on the web.",
+  "url":"https://datacommons.org/docs/download.html",
+  "keywords":[ "structured data", "markup", "fact checking", "ClaimReview", "misinformation"],
+  "creator":{
+     "@type":"Organization",
+     "url": "https://datacommons.org/",
+     "name":"Data Commons project",
+     "contactPoint":{
+        "@type":"ContactPoint",
+        "contactType": "Public engagement",
+        "email":"support@datacommons.org",
+        "url": "https://factchecks.datacommons.org/"
+     }
+  },
+  "distribution":{
+    "@type":"DataDownload",
+    "encodingFormat":"CSV",
+    "contentUrl":"https://datacommons.org/docs/fact_checks_20190605.txt.gz"
+  }
+}
+</script>
+
+{% include 'factcheck/basicPageFooter.html' %}
+
+</body>
+</html>

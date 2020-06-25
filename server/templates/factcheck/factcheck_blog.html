@@ -1,0 +1,227 @@
+<!DOCTYPE html>
+<!--
+ Copyright 2020 Google LLC
+
+ Licensed under the Apache License, Version 2.0 (the "License");
+ you may not use this file except in compliance with the License.
+ You may obtain a copy of the License at
+
+      http://www.apache.org/licenses/LICENSE-2.0
+
+ Unless required by applicable law or agreed to in writing, software
+ distributed under the License is distributed on an "AS IS" BASIS,
+ WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ See the License for the specific language governing permissions and
+ limitations under the License.
+-->
+
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+<head>
+  <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+  <title>Fact Checks Blog - {{ sitename }}</title>
+
+  {% include 'factcheck/gtm.html' %}
+
+</head>
+<body>
+{% include 'factcheck/basicPageHeader.html' %}
+
+<div id="mainContent" class="factCheckSite">
+  {% include 'factcheck/factcheck_latest_blog_post.html' %}
+  <div class="toc">
+    <h1 id="previous-posts">Previous Posts</h1>
+    <ul>
+      <li><a href="#post-2018-10-02">
+        October 2018 - Building tools to help fact checkers
+      </a></li>
+      <li><a href="#post-2018-05-02">
+        May 2018 - Academia, Publishers and Tech Come Together to Open Up Fact Check Data
+      </a></li>
+    </ul>
+  </div>
+
+  <div class="post">
+  <h2 id="post-2018-10-02">Building tools to help fact checkers</h2>
+  <h3>2018-10-02</h3>
+
+  <p>
+    In early 2016, in collaboration with academia and the fact checking community, Google and
+    schema.org helped to define a new structured data open standard,
+    <a href="https://schema.org/ClaimReview" target="_blank" rel="noopener">ClaimReview</a>.
+    In doing so, tech companies started to highlight high quality fact checking content, starting
+    with Google through <a
+      href="https://www.blog.google/outreach-initiatives/google-news-initiative/labeling-fact-check-articles-google-news/"
+      target="_blank" rel="noopener">fact check tag</a>
+    and <a
+      href="https://www.blog.google/products/search/fact-check-now-available-google-search-and-news-around-world/"
+      target="_blank" rel="noopener">search rich snippet</a>.
+    <a href="https://blogs.bing.com/Webmaster-Blog/September-2017/Bing-adds-Fact-Check-label-in-SERP-to-support-the-ClaimReview-markup"
+       target="_blank" rel="noopener">Bing</a>,
+    <a href="https://newsroom.fb.com/news/2018/06/increasing-our-efforts-to-fight-false-news/"
+       target="_blank" rel="noopener">Facebook</a>
+    and others soon began to do the same.
+  </p>
+
+  <p>
+    In May 2018, we introduced DataCommons.org, an initiative for the open sharing of data, and
+    released the first <a href="https://datacommons.org/factcheck/download" target="_blank"
+                          rel="noopener">fact check corpus</a>
+    to help academia and practitioners to study misinformation. This sample dataset of fact
+    checks came from a small but diverse set of publishers. Still, the release of this open
+    dataset led to more interests from researchers around the world to study misinformation. We
+    also received requests from academia to update the fact check corpus regularly and allow more
+    publishers and non-technical users to add ClaimReview markups.
+  </p>
+
+  <p>
+    In the effort to continue to bolster high quality information on the Web, today, we are
+    pleased to share two new tools by Google, starting in limited beta with the academia and
+    journalist communities: <i>Fact Check Explorer</i> and <i>Fact Check Markup Tool</i>.
+  </p>
+
+  <p>Both tools can be found on Google's newly created experimental
+    <a href="https://g.co/factchecktools" target="_blank" rel="noopener">Fact Check Tools</a>
+    site. To start, the
+    <a href="https://toolbox.google.com/factcheck/explorer" target="_blank" rel="noopener">Fact
+      Check Explorer</a>
+    (FCE) acts as a search engine for fact checking content and allows users to easily search for
+    and find fact checks relevant to a topic of interests. Was a new species of trout
+    <a href="https://www.snopes.com/fact-check/blue-bow-trout-real/" target="_blank" rel="noopener">discovered</a>
+    in Pennsylvania? Is the WhatsApp <a
+        href="https://www.boomlive.in/spam-whatsapp-forward-claims-modi-government-to-distribute-free-cycles-on-aug-15/"
+        target="_blank" rel="noopener">rumor</a>
+    about India’s government distributing free cycles to students true? What topics has a certain
+    publisher fact checked? All of this can be found in the tool.
+  </p>
+
+  <p>The <a href="https://toolbox.google.com/factcheck/markuptool" target="_blank" rel="noopener">Fact
+    Check Markup Tool</a>,
+    to complement this, makes it possible for journalists and fact checkers to add
+    <a href="https://schema.org/ClaimReview" target="_blank" rel="noopener">ClaimReview</a>
+    markup to their articles without having to code or mess around with their CMS, making the
+    whole process easy to use even without coding skills. Here’s how it works: a journalist from
+    a publisher copies the URL of an article they want to add the markup to, pastes it into the
+    tool, completes the form (e.g. who made the claim? What is the verdict? etc.) and then clicks
+    "submit". Once completed, the data will be shared openly on DataCommons.org for any and all
+    interested companies to access and programmatically incorporate into their products. Note that
+    a journalist can only create markups for pages from their own publishers.
+  </p>
+
+  <p>
+    <img src="/static/explorer.png" alt="FactCheck Explorer" width=500px/> <br/>
+    <em>Screenshot of the Fact Check Markup Tool, now in beta.</em>
+  </p>
+
+  <p>
+    These two tools are being made available on limited release to select journalists and
+    fact-checking
+    organizations. The <a href="https://ifcncodeofprinciples.poynter.org/" target="_blank"
+                          rel="noopener">International Fact Checking Network</a>
+    will determine those users, in line with their
+    <a href="https://ifcncodeofprinciples.poynter.org/" target="_blank" rel="noopener">Code of
+      Principles</a>.
+    Over time, access to these tools will be opened more broadly.
+  </p>
+
+  <p>In line with our commitment to continued sharing of data, all ClaimReview markup data created
+    via the Fact Check Markup Tool will be available via the
+    <a href="http://www.datacommons.org/factcheck/download" target="_blank" rel="noopener">Fact
+      Check Markup Tool Data Feed</a>
+    in <a href="https://schema.org/DataFeed" target="_blank" rel="noopener">DataFeed</a> format
+    and will be updated on a frequent and regular basis. We are also releasing an updated version
+    of the research Fact Check Corpus. Again, the meta-data in both datasets follows the open
+    schema.org standard (<a href="https://schema.org/ClaimReview" target="_blank" rel="noopener">ClaimReview</a>)
+    that has been adopted by most fact checking organizations and is currently being used by
+    Google News, Google Search, Bing News, Bing Search, Facebook and others. And the field "url"
+    points to the original fact-checking articles, whose content are not part of the released
+    datasets and reside on the publishers' sites.
+  </p>
+
+  <p>We would like to thank all the contributors for this launch and especially call out
+    International Fact-Checking Network and Duke Reporters' Lab for their continued partnership.
+  </p>
+
+  <p><i>
+    ClaimReview was developed three years ago through a partnership of the
+    <a href="https://reporterslab.org/" target="_blank" rel="noopener">Duke University Reporters’
+      Lab</a>, Google, and schema.org. A pioneer of the digital fact-check movement, Duke’s Bill
+    Adair is also announcing today, with the help of a grant from the Google News Initiative, a
+    new global effort to help journalists and fact checkers adopt ClaimReview in their fact check
+    operations. Read more about the effort
+    <a href="http://reporterslab.org/reporters-lab-to-launch-project-to-promote-claimreview"
+       target="_blank" rel="noopener">here</a>.
+  </i></p>
+
+  <ul class="authors">
+    <li> Erica Anderson, Google News Initiative</li>
+    <li> Srikanth Belwadi, DataCommons.org</li>
+    <li> Simon Baumgartner, Google Research</li>
+  </ul>
+
+  </div>
+
+  <div class="post">
+  <h2 id="post-2018-05-02">
+    Academia, Publishers and Tech Come Together to Open Up Fact Check Data
+  </h2>
+  <h3>2018-05-02</h3>
+
+  <p>The Internet began as an academic venture, intended to foster greater
+    exchanges between members of different research communities. Since its
+    inception, many of its major advancements have come from the academic
+    world.</p>
+
+  <p>Today as the Internet and the web play an increasingly important role
+    in our everyday lives, we all benefit from that work. This growth has not
+    been unchallenged, and the Internet has faced threats including DNS
+    spoofing, browser malware, and spam. In every one of these cases, academia
+    and industry have joined forces to address these attacks.</p>
+
+  <p>Today, the attack is in the form of misinformation. The Internet has
+    empowered individuals to communicate and publish like never before.
+    Malicious actors seek to exploit this and undermine the systems we have
+    built.</p>
+
+  <p>We wish to attract the energies of academics to fight this new
+    threat. Achieving this first requires a better understanding of the
+    phenomenon. This of course, is best facilitated through the sharing of
+    data. Today we launch DataCommons.org, a schema.org-like initiative for
+    the open sharing of data. We start with a dataset aimed at helping us
+    understand the characteristics of misinformation.</p>
+
+  <p>
+    Fact checks offer a significant lens into the world of misinformation. In
+    this release we are providing the metadata associated with a sample of
+    fact checks from a number of different sources. The meta-data follows the
+    open schema.org standard (<a href="http://schema.org/ClaimReview">ClaimReview</a>)
+    that has already been adopted by most fact checking organizations and is
+    currently being used by Google News, Google Search, Bing News, Bing
+    Search, and others.</p>
+
+  <p>
+    This release is a small step towards making it easier for researchers
+    around the world to study misinformation and publish findings on a
+    publicly available data set. In the future, we are committed to continued
+    sharing of data related to the study of misinformation through
+    DataCommons.org and within the bounds of privacy constraints. This effort
+    is a partnership between the fact checking community (International
+    Fact-Checking Network), academic institutions (Carnegie Mellon
+    University, Duke University), and industry (Bing, Google).
+    Interested researchers can head directly to the
+    <a href="{{ url_for('factcheck.download') }}"> Download Page</a></p>
+
+  <ul class="authors">
+    <li>Andrew Moore, Carnegie Mellon University and Open Knowledge Network</li>
+    <li>Bill Adair, Duke University</li>
+    <li>Alexios Mantzarlis, International Fact-Checking Network</li>
+    <li>Ting Cai, Bing</li>
+    <li>Cong Yu, Google</li>
+    <li>R.V. Guha, Data Commons and Schema.org</li>
+  </ul>
+  </div>
+</div>
+
+{% include 'factcheck/basicPageFooter.html' %}
+
+</body>
+</html>

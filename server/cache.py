@@ -12,16 +12,6 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-# Run test for client side code.
-cd static
-npm run test
-cd ..
+from flask_caching import Cache
 
-# Run test for server side code.
-python3 -m venv .env
-source .env/bin/activate
-cd server
-export FLASK_ENV=test
-pip3 install -r requirements.txt
-python3 -m pytest
-cd ..
+cache = Cache(config={'CACHE_TYPE': 'simple'})

@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-const webpack = require("webpack");
+const path = require('path');
 const CopyPlugin = require("copy-webpack-plugin");
 
 const config = {
@@ -29,7 +29,7 @@ const config = {
     mcf_playground: __dirname + "/js/mcf_playground.js",
   },
   output: {
-    path: __dirname + "/dist",
+    path: path.resolve(__dirname, '../') + "/server/dist",
     filename: "[name].js",
   },
   resolve: {

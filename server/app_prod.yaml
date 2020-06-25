@@ -12,16 +12,23 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-# Run test for client side code.
-cd static
-npm run test
-cd ..
+runtime: python37
 
-# Run test for server side code.
-python3 -m venv .env
-source .env/bin/activate
-cd server
-export FLASK_ENV=test
-pip3 install -r requirements.txt
-python3 -m pytest
-cd ..
+instance_class: F4_1G
+automatic_scaling:
+  min_instances: 3
+
+handlers:
+  # This configures Google App Engine to serve the files in the app's static
+  # directory.
+  - url: /static
+    static_dir: dist
+
+    # This handler routes all requests not caught above to your main app. It is
+    # required when static routes are defined, but can be omitted (along with
+    # the entire handlers section) when there are no static files defined.
+  - url: /.*
+    script: auto
+
+env_variables:
+  FLASK_ENV: production

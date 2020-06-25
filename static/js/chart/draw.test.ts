@@ -14,21 +14,14 @@
  * limitations under the License.
  */
 
-import * as _SVG from "@svgdotjs/svg.js";
-
 import {
   DataPoint,
-  Range,
-  computeCoordinate,
 } from "./base";
 
 import {
-  drawSingleBarChart,
+  appendLegendElem,
+  getColorFn,
 } from "./draw";
-
-/*
-Object.defineProperty(SVGElement, "getComputedTextLength", {
-  value: () => 10});
 
 test("svg test", () => {
   let dataPoints = [
@@ -38,20 +31,15 @@ test("svg test", () => {
     new DataPoint("bar4", 40),
     new DataPoint("bar5", 50),
   ];
-  document.body.innerHTML = '<div id="chart">' + "</div>";
+  document.body.innerHTML = '<div id="chart"></div>';
+  let keys = ["San Jose", "Palo Alto"];
+  let color = getColorFn(keys);
+  appendLegendElem("chart", color, keys);
 
-  drawSingleBarChart(
-    "chart", 400, 400,
-    dataPoints,
+  expect(document.getElementById("chart").innerHTML).toEqual(
+    `<div class="legend">` +
+    `<div style="background: #930000"><span>San Jose</span></div>` +
+    `<div style="background: #3288bd"><span>Palo Alto</span></div>` +
+    `</div>`
   );
-  expect(document.getElementById("chart").innerHTML).toMatch(
-    /<svg xmlns.*svg>/
-  );
-});
-*/
-
-test("compute coordinate", () => {
-  const vRange = new Range(7, 1);
-  const cRange = new Range(10, 430);
-  expect(computeCoordinate(2, vRange, cRange)).toBe(360);
 });

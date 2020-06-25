@@ -18,8 +18,6 @@
  * @fileoverview dev page.
  */
 
-import * as _SVG from "@svgdotjs/svg.js";
-
 import {
   DataPoint,
   DataGroup,
@@ -32,20 +30,24 @@ import {
   drawLineChart,
 } from "./chart/draw";
 
-/**
- * Update translation results when schema mapping or query changes.
- */
+
 window.onload = function () {
   let width = 350;
-  let height = 400;
+  let height = 300;
 
   // Container element to hold dom element of one chart.
   // The width and height is eventually obtained from gridding system like
   // Bootstrap.
-  let containerId = "chart-box-1";
-  let containerElem = document.getElementById(containerId);
-  containerElem.style.width = width + "px";
-  containerElem.style.height = height + "px";
+  var id = 0;
+  var containerElem = document.getElementById("charts-container");
+  function addChartContainer(width, height) {
+    let containerId = "chart-box-" + ++id;
+    let chartElem = containerElem.appendChild(document.createElement("div"));
+    chartElem.className = "chart";
+    chartElem.id = containerId;
+    chartElem.style.width = width + "px";
+    return containerId;
+  }
 
   // Draw single bar chart.
   let dataPoints = [
@@ -54,6 +56,7 @@ window.onload = function () {
     new DataPoint("California", 3002342),
     new DataPoint("United States", 9520234),
   ];
+  let containerId = addChartContainer(width, height);
   drawSingleBarChart(containerId, width, height, dataPoints);
 
   let dataGroups = [
@@ -80,24 +83,96 @@ window.onload = function () {
         new DataPoint("2012", 25000),
         new DataPoint("2013", 22000),
       ]
+    ),
+    new DataGroup(
+      "Mountain View",
+      [
+        new DataPoint("2011", 1000),
+        new DataPoint("2012", 5000),
+        new DataPoint("2013", 2000),
+      ]
+    ),
+    new DataGroup(
+      "VeryLongCityName",
+      [
+        new DataPoint("2011", 1000),
+        new DataPoint("2012", 5000),
+        new DataPoint("2013", 2000),
+      ]
     )
   ];
 
   // Draw stack bar chart.
-  containerId = "chart-box-2";
-  containerElem = document.getElementById(containerId);
-  containerElem.style.width = width + "px";
+  containerId = addChartContainer(width, height);
   drawStackBarChart(containerId, width, height, dataGroups);
 
   // Draw group bar chart.
-  containerId = "chart-box-3";
-  containerElem = document.getElementById(containerId);
-  containerElem.style.width = width + "px";
+  containerId = addChartContainer(width, height);
   drawGroupBarChart(containerId, width, height, dataGroups);
 
   // Draw line chart.
-  containerId = "chart-box-4";
-  containerElem = document.getElementById(containerId);
-  containerElem.style.width = width + "px";
+  containerId = addChartContainer(width, height);
+  drawLineChart(containerId, width, height, dataGroups);
+
+  // Draw single bar chart with dollar values
+  containerId = addChartContainer(width, height);
+  drawSingleBarChart(containerId, width, height, dataPoints, "$");
+
+  // Draw single bar chart with percentage values
+  width = 225;
+  dataPoints = [
+    new DataPoint("San Jose", 70.2),
+    new DataPoint("Santa Clara County", 12.4),
+    new DataPoint("California", 30),
+    new DataPoint("United States", 95.9),
+  ];
+  containerId = addChartContainer(width, height);
+  drawSingleBarChart(containerId, width, height, dataPoints, "%");
+
+  // Draw single bar chart with potentially weird y-axis values
+  width = 225;
+  dataPoints = [
+    new DataPoint("Enrolled in School", 510475),
+    new DataPoint("Not Enrolled in School", 1341885),
+  ];
+  containerId = addChartContainer(width, height);
+  drawSingleBarChart(containerId, width, height, dataPoints);
+
+  // Test percent and narrow chart
+  dataPoints = [
+    new DataPoint("San Jose", 20.2),
+    new DataPoint("Santa Clara County", 22.4),
+    new DataPoint("California", 23),
+    new DataPoint("United States", 25.9),
+  ];
+  containerId = addChartContainer(width, height);
+  drawSingleBarChart(containerId, width, height, dataPoints, "%");
+
+  // Test narrow group bar chart
+  containerId = addChartContainer(width, height);
+  drawGroupBarChart(containerId, width, height, dataGroups);
+
+  // Test narrow line chart
+  dataGroups = [
+    new DataGroup("label-1", [
+      new DataPoint("01-01-2011", 702134),
+      new DataPoint("01-02-2011", 1002342),
+      new DataPoint("01-03-2011", 3002342),
+      new DataPoint("01-04-2011", 9520234),
+      new DataPoint("01-05-2011", 3520234),
+      new DataPoint("01-06-2011", 7520234),
+    ]),
+  ];
+  containerId = addChartContainer(width, height);
+  drawLineChart(containerId, width, height, dataGroups);
+
+  // Test y-axis with small values
+  dataGroups = [
+    new DataGroup("label-1", [
+      new DataPoint("01-01-2011", 7),
+      new DataPoint("01-02-2011", 10),
+    ]),
+  ];
+  containerId = addChartContainer(width, height);
   drawLineChart(containerId, width, height, dataGroups);
 };

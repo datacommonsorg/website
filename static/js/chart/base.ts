@@ -14,21 +14,6 @@
  * limitations under the License.
  */
 
-/**
- * Range represents a range with low and high value.
- */
-class Range {
-  low: number;
-  high: number;
-  constructor(low: number, high: number) {
-    this.low = low;
-    this.high = high;
-  }
-  span(): number {
-    return this.high - this.low;
-  }
-}
-
 class DataPoint {
   value: number;
   label: string;
@@ -61,38 +46,4 @@ class DataGroup {
   }
 }
 
-class Layout {
-  xRange: Range;
-  yRange: Range;
-  constructor(xr: Range, yr: Range) {
-    this.xRange = xr;
-    this.yRange = yr;
-  }
-}
-
-class BarLayout extends Layout {
-  barGap: number;
-  barWidth: number;
-  constructor(xr: Range, yr: Range, barGap: number, barWidth: number) {
-    super(xr, yr);
-    this.barGap = barGap;
-    this.barWidth = barWidth;
-  }
-}
-
-/**
- * Computes the coordinate of a value, given the value range and the
- * coordinate range.
- *
- * @param v The value.
- * @param vRange The value range.
- * @param cRange The coordinate range.
- *
- * @return The coordinate.
- */
-function computeCoordinate(v: number, vRange: Range, cRange: Range): number {
-  let unitSize = cRange.span() / vRange.span();
-  return cRange.low + unitSize * (v - vRange.low);
-}
-
-export { DataGroup, DataPoint, Layout, BarLayout, Range, computeCoordinate };
+export { DataGroup, DataPoint};

@@ -1,10 +1,11 @@
 # Python files
 __pycache__/
+.pytest_cache
 *.pyc
 .env/
 
 # Production static files
-static/dist/
+dist/
 **/node_modules/**
 
 # Local env.
