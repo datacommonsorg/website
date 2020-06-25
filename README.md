@@ -50,6 +50,7 @@ npm run-script watch
 - Deploy to Staging:
 
   ```bash
+  cd server && \
   gcloud config set project datcom-browser-staging && \
   gcloud app deploy app_staging.yaml -q
   ```
@@ -57,6 +58,7 @@ npm run-script watch
 - Deploy to Prod:
 
   ```bash
+  cd server && \
   gcloud config set project datcom-browser-prod && \
   gcloud app deploy app_prod.yaml -q --no-promote
   ```

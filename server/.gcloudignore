@@ -14,7 +14,8 @@
 .gitignore
 
 # Python pycache:
-__pycache__/
+**/__pycache__/**
+.pytest_cache
 
 # Ignored by the build system
 /setup.cfg
@@ -23,8 +24,5 @@ __pycache__/
 
 .env/
 
-# Ignore tools
-tools/
-
-# ignore source static files
-static/
+# Ignore tests
+tests/
