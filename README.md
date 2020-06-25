@@ -13,8 +13,8 @@ Contact DataCommons team to get permission for access of secret manager
 ### Package javascript and static assets.
 
 ```bash
-cd static
-npm install --update
+cd static && \
+npm install --update && \
 npm run-script watch
 ```
 

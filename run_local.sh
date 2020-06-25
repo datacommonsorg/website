@@ -26,4 +26,5 @@ gcloud config set project datcom-browser-staging
 gcloud auth application-default login
 
 export FLASK_ENV=development
+cd server
 python3 main.py
