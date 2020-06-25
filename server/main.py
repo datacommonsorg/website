@@ -34,10 +34,13 @@ from models import datachart_handler
 from models import barchart_handler
 from lib import line_chart
 from lib import translator
+from lib.gcs import list_blobs
 import lib.barchart_template as btemp
 
 from __init__ import create_app
 from cache import cache
+
+_MAX_BLOBS = 1
 
 # Max search results
 _MAX_SEARCH_RESULTS = 1000
@@ -675,7 +678,7 @@ def datasets():
 
 @app.route('/special_announcement')
 def special_announcement_homepage():
-  recent_blobs = list_blobs(_SA_FEED_BUCKET)
+  recent_blobs = list_blobs(_SA_FEED_BUCKET, _MAX_BLOBS)
   return flask.render_template(
       'factcheck/special_announcement.html', recent_blobs=recent_blobs)
 

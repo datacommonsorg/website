@@ -12,8 +12,6 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-import collections
-
 from flask import Blueprint
 from flask import flash
 from flask import g
@@ -21,43 +19,12 @@ from flask import redirect
 from flask import render_template
 from flask import request
 from flask import url_for
-from google.cloud import storage
 
 from cache import cache
-
+from lib.gcs import list_blobs
 
 _MAX_BLOBS = 1
 _FC_FEEDS_BUCKET = 'datacommons-feeds'
-
-
-def list_blobs(bucket_name):
-  """Return a dictionary of three recent blobs in the bucket.
-
-  Args:
-    bucket_name: the bucket where the feed is stored.
-  Returns:
-    Ordered dictionary of three recent blobs, most recent first.
-  """
-  storage_client = storage.Client()
-  bucket = storage_client.get_bucket(bucket_name)
-
-  blobs = bucket.list_blobs()
-
-  json_blobs = []
-  for b in blobs:
-    if b.name.endswith('.json'):
-      json_blobs.append(b)
-
-  recent_blobs = sorted(json_blobs, key=lambda blob: blob.updated, reverse=True)
-  d = collections.OrderedDict()
-  num_blobs = 0
-  for b in recent_blobs:
-    formatted_date = b.updated.strftime('%Y-%m-%d %H:%M:%S')
-    d[formatted_date] = b
-    num_blobs += 1
-    if num_blobs == _MAX_BLOBS:
-      break
-  return d
 
 # Define blueprint
 bp = Blueprint(
@@ -80,6 +47,6 @@ def blog():
 
 @bp.route('/download')
 def download():
-  recent_blobs = list_blobs(_FC_FEEDS_BUCKET)
+  recent_blobs = list_blobs(_FC_FEEDS_BUCKET, _MAX_BLOBS)
   return render_template(
     'factcheck/factcheck_download.html', recent_blobs=recent_blobs)
