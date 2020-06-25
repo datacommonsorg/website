@@ -15,7 +15,8 @@
 
 
 pip3 install -r requirements.txt
-protoc -I=./ --python_out=./ ./*.proto
+
+# protoc -I=./ --python_out=./ ./*.proto
 
 # For developers with permission, they can run the app locally and read the
 # placeid2dcid.json from GCS.

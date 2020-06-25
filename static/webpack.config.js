@@ -29,7 +29,7 @@ const config = {
     mcf_playground: __dirname + "/js/mcf_playground.js",
   },
   output: {
-    path: path.resolve(__dirname, '../') + "/dist",
+    path: path.resolve(__dirname, '../') + "/server/dist",
     filename: "[name].js",
   },
   resolve: {

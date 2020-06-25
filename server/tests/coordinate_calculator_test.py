@@ -15,7 +15,7 @@
 from parameterized import parameterized
 import unittest
 
-import coordinate_calculator as cc
+from lib import coordinate_calculator as cc
 
 class TransformTest(unittest.TestCase):
 

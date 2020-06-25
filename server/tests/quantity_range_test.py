@@ -15,7 +15,7 @@
 from parameterized import parameterized
 import unittest
 
-import quantity_range as qr
+from lib import quantity_range as qr
 
 
 class QuantityRangeTest(unittest.TestCase):

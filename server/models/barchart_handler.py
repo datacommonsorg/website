@@ -19,9 +19,9 @@ import logging
 
 import jinja2
 
-import datacommons
-import datachart_handler as ch
-import quantity_range as qr
+import services.datacommons
+import models.datachart_handler as ch
+import lib.quantity_range as qr
 
 UNIT = ('Years', 'USDollar', 'Rooms', 'Room', 'Year')
 
