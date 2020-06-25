@@ -33,8 +33,8 @@ class TestRoute(unittest.TestCase):
         response = app.test_client().get('/factcheck/blog')
         assert response.status_code == 200
 
-    @patch('lib.gcs.list_blobs')
+    @patch('routes.factcheck.list_blobs')
     def test_download(self, mock_list_blobs):
-        mock_list_blobs.return_value = []
+        mock_list_blobs.side_effect = (lambda bucket, max_blobs : [])
         response = app.test_client().get('/factcheck/download')
         assert response.status_code == 200
