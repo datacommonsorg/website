@@ -124,7 +124,7 @@ containedInPlace: l:SFCount</textarea>
 
   <script src="https://cdnjs.cloudflare.com/ajax/libs/vis/4.21.0/vis.js"></script>
   <script
-    src={{url_for('static', filename='mcf_playground.js', t=datetime.datetime.today().strftime("%m-%d-%H-%M"))}}></script>
+    src={{url_for('static', filename='mcf_playground.js', t=config['GAE_VERSION'])}}></script>
 </body>
 
 </html>

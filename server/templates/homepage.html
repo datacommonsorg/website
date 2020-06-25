@@ -18,7 +18,7 @@
 
 {% block head %}
   <title>Data Commons KG</title>
-  <link rel="stylesheet" href={{url_for('static', filename='css/homepage.css', t=datetime.datetime.today().strftime("%m-%d-%H-%M"))}}>
+  <link rel="stylesheet" href={{url_for('static', filename='css/homepage.css', t=config['GAE_VERSION'])}}>
 {% endblock %}
 
 {% block content %}

@@ -17,11 +17,11 @@
 {% extends 'base.html' %}
 
 {% block head %}
-  <script src={{url_for('static', filename='dev.js', t=datetime.datetime.today().strftime("%m-%d-%H-%M"))}}></script>
+  <script src={{url_for('static', filename='dev.js', t=config['GAE_VERSION'])}}></script>
   <link rel="stylesheet" href={{url_for('static', filename='css/draw.css')}}></script>
   <link rel="stylesheet" href={{url_for('static', filename='css/dev.css')}}></script>
   <style>
-    .chart { 
+    .chart {
       margin: 20px;
       float: left;
       position: relative;

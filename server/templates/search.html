@@ -18,7 +18,7 @@
 
 {% block head %}
   <title>KG Search</title>
-  <link rel="stylesheet" href={{url_for('static', filename='css/search.css', t=datetime.datetime.today().strftime("%m-%d-%H-%M"))}} />
+  <link rel="stylesheet" href={{url_for('static', filename='css/search.css', t=config['GAE_VERSION'])}} />
 {% endblock %}
 
 {% block content %}

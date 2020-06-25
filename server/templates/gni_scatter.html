@@ -17,8 +17,8 @@
 {% extends 'gni_base.html' %}
 
 {% block head %}
-<link rel="stylesheet" href={{url_for('static', filename='css/scatter.css', t=datetime.datetime.today().strftime("%m-%d-%H-%M"))}}>
-<script src={{url_for('static', filename='scatter.js', t=datetime.datetime.today().strftime("%m-%d-%H-%M"))}}></script>
+<link rel="stylesheet" href={{url_for('static', filename='css/scatter.css', t=config['GAE_VERSION'])}}>
+<script src={{url_for('static', filename='scatter.js', t=config['GAE_VERSION'])}}></script>
 
 <script src="https://code.jquery.com/jquery-1.11.1.min.js"></script>
 <script src="https://code.jquery.com/ui/1.11.1/jquery-ui.min.js"></script>

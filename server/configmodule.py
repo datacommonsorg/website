@@ -1,9 +1,13 @@
 """Module contains Flask config for production and dev environment.
 """
 
+import os
+import datetime
+
 class Config:
     TEST = False
     CACHE_TYPE = 'simple'  # Flask-Caching related configs
+    GAE_VERSION = os.environ.get('GAE_VERSION') or datetime.datetime.today().strftime("%m-%d-%H")
 
 class ProductionConfig(Config):
     API_PROJECT = 'datcom-mixer'
