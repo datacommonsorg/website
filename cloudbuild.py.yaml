@@ -6,7 +6,7 @@ steps:
   entrypoint: /bin/sh
   args:
   - -c
-  - 'pip install -r requirements.txt && python -m pytest'
+  - 'cd server && export FLASK_ENV=test && pip install -r requirements.txt && python -m pytest'
 
 - id: pv_tree_generator
   name: python:3.7-slim

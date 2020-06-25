@@ -20,5 +20,8 @@ cd ..
 # Run test for server side code.
 python3 -m venv .env
 source .env/bin/activate
+cd server
+export FLASK_ENV=test
 pip3 install -r requirements.txt
 python3 -m pytest
+cd ..

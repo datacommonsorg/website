@@ -29,12 +29,12 @@ from flask_caching import Cache
 from google.cloud import storage
 import jinja2
 
-import datacommons as dc
-import datachart_handler
-import barchart_handler
-import line_chart
-import translator
-import barchart_template as btemp
+import services.datacommons as dc
+from models import datachart_handler
+from models import barchart_handler
+from lib import line_chart
+from lib import translator
+import lib.barchart_template as btemp
 from werkzeug.utils import import_string
 
 # Max search results

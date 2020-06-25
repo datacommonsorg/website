@@ -1,5 +1,6 @@
 # Python files
 __pycache__/
+.pytest_cache
 *.pyc
 .env/
 

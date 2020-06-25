@@ -17,7 +17,7 @@ import cgi
 import io
 import logging
 import attr
-import coordinate_calculator as cc
+import lib.coordinate_calculator as cc
 
 
 _LINE_COLOR = '#f1f1f1'

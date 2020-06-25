@@ -19,9 +19,10 @@ import datetime
 import logging
 import re
 import zlib
+import os
 
-import datacommons
-import stat_config_pb2
+from services import datacommons
+from models import stat_config_pb2
 
 from google.protobuf import text_format
 
@@ -97,8 +98,10 @@ def get_color(i):
 def get_golden_pop_obs_args():
   """Get pop obs args."""
   result = {}
+  path_name = os.path.dirname(os.path.realpath(__file__))
+  file_path = os.path.join(path_name, 'pop_obs_args.textproto')
   pop_obs_args_list = stat_config_pb2.PopObsArgsList()
-  with open('pop_obs_args.textproto', 'rb') as f:
+  with open(file_path, 'rb') as f:
     proto_data = f.read()
     text_format.Parse(proto_data, pop_obs_args_list)
   for arg in pop_obs_args_list.arg:

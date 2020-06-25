@@ -15,7 +15,8 @@
 
 
 pip3 install -r requirements.txt
-protoc -I=./ --python_out=./ ./*.proto
+
+# protoc -I=./ --python_out=./ ./*.proto
 
 # For developers with permission, they can run the app locally and read the
 # placeid2dcid.json from GCS.
@@ -25,4 +26,5 @@ gcloud config set project datcom-browser-staging
 gcloud auth application-default login
 
 export FLASK_ENV=development
+cd server
 python3 main.py
