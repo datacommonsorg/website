@@ -258,6 +258,7 @@ header #selectionbar {
 }
 
 #sidebar-outer {
+  margin-top: 150px;
   position: relative;
 }
 #sidebar-outer .fixed {
