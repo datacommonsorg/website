@@ -17,8 +17,8 @@
 {% extends 'base.html' %}
 
 {% block head %}
-  <link rel="stylesheet" href={{url_for('static', filename='css/kg.css', t=datetime.datetime.today().strftime("%m-%d-%H-%M"))}} />
-  <script src={{url_for('static', filename='kg.js', t=datetime.datetime.today().strftime("%m-%d-%H-%M"))}}></script>
+  <link rel="stylesheet" href={{url_for('static', filename='css/kg.css', t=config['GAE_VERSION'])}} />
+  <script src={{url_for('static', filename='kg.js', t=config['GAE_VERSION'])}}></script>
 {% endblock %}
 
 {% block content %}

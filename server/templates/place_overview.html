@@ -26,13 +26,13 @@
   <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700;900&display=swap" rel="stylesheet">
 
   <link rel="stylesheet"
-    href={{url_for('static', filename='css/place_overview.css', t=datetime.datetime.today().strftime("%m-%d-%H-%M"))}}>
+    href={{url_for('static', filename='css/place_overview.css', t=config['GAE_VERSION'])}}>
   <link rel="stylesheet"
-    href={{url_for('static', filename='css/place_overview_search.css', t=datetime.datetime.today().strftime("%m-%d-%H-%M"))}}>
-  <link rel="stylesheet" href={{url_for('static', filename='css/draw.css', t=datetime.datetime.today().strftime("%m-%d-%H-%M"))}}></script>
+    href={{url_for('static', filename='css/place_overview_search.css', t=config['GAE_VERSION'])}}>
+  <link rel="stylesheet" href={{url_for('static', filename='css/draw.css', t=config['GAE_VERSION'])}}></script>
 
   <script
-    src={{url_for('static', filename='place_overview.js', t=datetime.datetime.today().strftime("%m-%d-%H-%M"))}}></script>
+    src={{url_for('static', filename='place_overview.js', t=config['GAE_VERSION'])}}></script>
   <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDAMcc9QlTtAd4liELMgJSj0gwDojTS2eQ&libraries=places"
     async defer></script>
 

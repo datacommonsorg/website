@@ -34,38 +34,27 @@ from models import datachart_handler
 from models import barchart_handler
 from lib import line_chart
 from lib import translator
+from lib.gcs import list_blobs
 import lib.barchart_template as btemp
-from werkzeug.utils import import_string
+
+from __init__ import create_app
+from cache import cache
+
+_MAX_BLOBS = 1
 
 # Max search results
 _MAX_SEARCH_RESULTS = 1000
 
-_MAX_BLOBS = 1
-_FC_FEEDS_BUCKET = 'datacommons-feeds'
 _SA_FEED_BUCKET = 'datacommons-frog-feed'
 
 logging.basicConfig(
     level=logging.DEBUG,
     format='%(asctime)s %(levelname)s %(lineno)d : %(message)s')
 
-# If `entrypoint` is not defined in app.yaml, App Engine will look for an app
-# called `app` in `main.py`.
-app = flask.Flask(
-    __name__,
-    static_folder="dist",
-    static_url_path=""
-)
 
-if os.environ.get('FLASK_ENV') == 'production':
-    cfg = import_string('configmodule.ProductionConfig')()
-else:
-    cfg = import_string('configmodule.DevelopmentConfig')()
-
-app.config.from_object(cfg)
+app = create_app()
 
 GCS_BUCKET = app.config['GCS_BUCKET']
-
-cache = Cache(app)
 
 @app.context_processor
 def utility_processor():
@@ -652,59 +641,6 @@ def mcf_playground():
 # STATIC PAGES FROM DATACOMMONS.ORG
 #
 
-def list_blobs(bucket_name):
-  """Return a dictionary of three recent blobs in the bucket.
-
-  Args:
-    bucket_name: the bucket where the feed is stored.
-  Returns:
-    Ordered dictionary of three recent blobs, most recent first.
-  """
-  storage_client = storage.Client()
-  bucket = storage_client.get_bucket(bucket_name)
-
-  blobs = bucket.list_blobs()
-
-  json_blobs = []
-  for b in blobs:
-    if b.name.endswith('.json'):
-      json_blobs.append(b)
-
-  recent_blobs = sorted(json_blobs, key=lambda blob: blob.updated, reverse=True)
-  d = collections.OrderedDict()
-  num_blobs = 0
-  for b in recent_blobs:
-    formatted_date = b.updated.strftime('%Y-%m-%d %H:%M:%S')
-    d[formatted_date] = b
-    num_blobs += 1
-    if num_blobs == _MAX_BLOBS:
-      break
-  return d
-
-@app.route('/factcheck')
-def factcheck_homepage():
-  return flask.render_template(
-      'factcheck/factcheck_homepage.html')
-
-
-@app.route('/factcheck/faq')
-def factcheck_faq():
-  return flask.render_template('factcheck/factcheck_faq.html')
-
-
-@app.route('/factcheck/blog')
-def factcheck_blog():
-  return flask.render_template(
-      'factcheck/factcheck_blog.html')
-
-
-@app.route('/factcheck/download')
-def factcheck_download():
-  recent_blobs = list_blobs(_FC_FEEDS_BUCKET)
-  return flask.render_template(
-      'factcheck/factcheck_download.html')
-
-
 @app.route('/faq')
 def faq():
   return flask.render_template('factcheck/faq.html')
@@ -742,7 +678,7 @@ def datasets():
 
 @app.route('/special_announcement')
 def special_announcement_homepage():
-  recent_blobs = list_blobs(_SA_FEED_BUCKET)
+  recent_blobs = list_blobs(_SA_FEED_BUCKET, _MAX_BLOBS)
   return flask.render_template(
       'factcheck/special_announcement.html', recent_blobs=recent_blobs)
 

@@ -17,8 +17,8 @@
 {% extends 'gni_base.html' %}
 
 {% block head %}
-  <link rel="stylesheet" href={{url_for('static', filename='css/gni.css', t=datetime.datetime.today().strftime("%m-%d-%H-%M"))}}>
-  <script type="text/javascript" src={{url_for('static', filename='download.js', t=datetime.datetime.today().strftime("%m-%d-%H-%M"))}}></script>
+  <link rel="stylesheet" href={{url_for('static', filename='css/gni.css', t=config['GAE_VERSION'])}}>
+  <script type="text/javascript" src={{url_for('static', filename='download.js', t=config['GAE_VERSION'])}}></script>
 {% endblock %}
 
 {% block content %}

@@ -65,7 +65,7 @@ class TestApiParentPlaces(unittest.TestCase):
         else:
           return {}
 
-    @patch('services.datacommons.send_request')
+    @patch('main.dc.send_request')
     def test_api_parent_places(self, mock_send_request):
         mock_send_request.side_effect = self.side_effect
         response = app.test_client().get('/api/parent-place/geoId/0649670')

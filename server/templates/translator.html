@@ -18,8 +18,8 @@
 
 {% block head %}
   <title>Translator</title>
-  <link rel="stylesheet" href={{url_for('static', filename='css/translator.css', t=datetime.datetime.today().strftime("%m-%d-%H-%M"))}} />
-  <script src={{url_for('static', filename='translator.js', t=datetime.datetime.today().strftime("%m-%d-%H-%M"))}}></script>
+  <link rel="stylesheet" href={{url_for('static', filename='css/translator.css', t=config['GAE_VERSION'])}} />
+  <script src={{url_for('static', filename='translator.js', t=config['GAE_VERSION'])}}></script>
 {% endblock %}
 
 {% block content %}

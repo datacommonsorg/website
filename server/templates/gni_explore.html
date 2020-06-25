@@ -17,8 +17,8 @@
 {% extends 'gni_base.html' %}
 
 {% block head %}
-  <link rel="stylesheet" href={{url_for('static', filename='css/gni.css', t=datetime.datetime.today().strftime("%m-%d-%H-%M"))}}></script>
-  <script src={{url_for('static', filename='gni.js', t=datetime.datetime.today().strftime("%m-%d-%H-%M"))}}></script>
+  <link rel="stylesheet" href={{url_for('static', filename='css/gni.css', t=config['GAE_VERSION'])}}></script>
+  <script src={{url_for('static', filename='gni.js', t=config['GAE_VERSION'])}}></script>
   <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDAMcc9QlTtAd4liELMgJSj0gwDojTS2eQ&libraries=places" async
   defer></script>
 {% endblock %}
