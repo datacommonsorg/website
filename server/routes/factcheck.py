@@ -81,4 +81,5 @@ def blog():
 @bp.route('/download')
 def download():
   recent_blobs = list_blobs(_FC_FEEDS_BUCKET)
-  return render_template('factcheck/factcheck_download.html')
+  return render_template(
+    'factcheck/factcheck_download.html', recent_blobs=recent_blobs)
