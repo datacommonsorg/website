@@ -66,10 +66,10 @@ class BuildTreeTest(unittest.TestCase):
         mock_get_triples.side_effect = self.get_triples_
         pop_obs_spec = _read_pop_obs_spec()
         stat_vars = _read_stat_var()
-        data = {}
+        data = [{},{}]
         vertical = "Demographics"
         root = build_tree.build_tree(vertical, pop_obs_spec[vertical], stat_vars, False)
-        data[vertical] = root
+        data[0][vertical] = root
         expected = json.load(open("./hierarchy_test.json", "r"))
         self.assertEqual(data, expected)
         return
