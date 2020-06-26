@@ -23,10 +23,10 @@
     padding: 0;
   }
 
-  #content .gs-webResult * {
+  #content .gsc-webResult * {
     padding-left: 0;
   }
-  
+
   #content table.gsc-search-box td.gsc-input {
     padding-right: 0;
   }
