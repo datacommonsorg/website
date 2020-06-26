@@ -17,15 +17,22 @@
 {% extends 'base.html' %}
 
 {% block head %}
-  <title>{{ request.args.get('q') }} - DataCommons Search</title>
-  <link rel="stylesheet" href={{url_for('static', filename='css/search.css', t=config['GAE_VERSION'])}} />
+  <title>Sitemap</title>
 {% endblock %}
 
 {% block content %}
-  <h1>Showing results for {{ request.args.get('q') }}</h1>
-
-  <div class="gcse-searchbox-only" data-resultsUrl="/search"></div>
-
-  <script async src="https://cse.google.com/cse.js?cx=009384408222384877262:5y3ahjevnio"></script>
-  <div class="gcse-searchresults-only"></div>
+  {% for key in place_by_type %}
+    <h3>{{ key }}</h3>
+    <div style="column-count: 3">
+      {% for place in place_by_type[key] %}
+        <div>
+          <a href="{{url_for('sitemap.node', dcid=place['dcid'])}}">{{place['name']}}</a>
+          <span>: (</span>
+          <a href="{{url_for('entity_page') + '?dcid=' + place['dcid']}}">KG</a>
+          <span>)</span>
+        </div>
+      {% endfor %}
+    </div>
+    <!-- <dd>{{ value }}</dd> -->
+  {% endfor %}
 {% endblock %}

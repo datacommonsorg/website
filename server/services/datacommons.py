@@ -41,7 +41,8 @@ if os.environ.get('FLASK_ENV') == 'test':
 else:
     # Read the api key from Google Cloud Secret Manager
     secret_client = secretmanager.SecretManagerServiceClient()
-    secret_name = secret_client.secret_version_path(API_PROJECT, 'mixer-api-key', '1')
+    secret_name = secret_client.secret_version_path(
+        API_PROJECT, 'mixer-api-key', '1')
     secret_response = secret_client.access_secret_version(secret_name)
     DC_API_KEY = secret_response.payload.data.decode('UTF-8')
 
@@ -80,8 +81,9 @@ def search(query_text, max_results):
     response = requests.get(req_url)
     if response.status_code != 200:
         raise ValueError(
-            'Response error: An HTTP {} code was returned by the mixer. Printing '
-            'response\n{}'.format(response.status_code, response.reason))
+            'Response error: An HTTP {} code was returned by the mixer. '
+            'Printing response\n{}'.format(
+                response.status_code, response.reason))
     return response.json()
 
 
@@ -149,7 +151,7 @@ def get_property_values(dcids,
             elif 'value' in node:
                 unique_results[dcid].add(node['value'])
 
-    # Make sure each dcid is in the results dict, and convert all sets to lists.
+    # Make sure each dcid is in the results dict, and convert sets to lists.
     results = {dcid: sorted(list(unique_results[dcid])) for dcid in dcids}
     return results
 
@@ -235,8 +237,8 @@ def get_observations(dcids,
     # Create the results and format it appropriately
     result = _format_expand_payload(payload, 'observation', must_exist=dcids)
 
-    # Drop empty results by calling _flatten_results without default_value, then
-    # coerce the type to float if possible.
+    # Drop empty results by calling _flatten_results without default_value,
+    # then coerce the type to float if possible.
     typed_results = {}
     for k, v in _flatten_results(result).items():
         try:
@@ -287,8 +289,9 @@ def query(query_string):
         timeout=60)
     if response.status_code != 200:
         raise ValueError(
-            'Response error: An HTTP {} code was returned by the mixer. Printing '
-            'response\n{}'.format(response.status_code, response.reason))
+            'Response error: An HTTP {} code was returned by the mixer. '
+            'Printing response\n{}'.format(
+                response.status_code, response.reason))
     res_json = response.json()
     return res_json['header'], res_json['rows']
 
@@ -349,8 +352,9 @@ def send_request(req_url, req_json={}, compress=False, post=True):
 
     if response.status_code != 200:
         raise ValueError(
-            'Response error: An HTTP {} code was returned by the mixer. Printing '
-            'response\n{}'.format(response.status_code, response.reason))
+            'Response error: An HTTP {} code was returned by the mixer. '
+            'Printing response\n{}'.format(
+                response.status_code, response.reason))
 
     # Get the JSON
     res_json = response.json()
@@ -367,8 +371,13 @@ def send_request(req_url, req_json={}, compress=False, post=True):
     return json.loads(payload)
 
 
+def fetch_data(path, req_json, compress, post):
+    req_url = API_ROOT + path
+    return send_request(req_url, req_json, compress, post)
+
+
 def _format_expand_payload(payload, new_key, must_exist=[]):
-    """ Formats expand type payloads into dicts from dcids to lists of values."""
+    """ Formats expand payloads into dicts from dcids to lists of values."""
     # Create the results dictionary from payload
     results = collections.defaultdict(set)
     for entry in payload:
@@ -388,7 +397,7 @@ def _flatten_results(result, default_value=None):
     for k, v in result.items():
         if len(v) > 1:
             raise ValueError(
-                'Expected one result, but more returned for "{}": {}'.format(k, v))
+                'Expected one, but more returned for "{}": {}'.format(k, v))
         if len(v) == 1:
             flattened[k] = v[0]
         elif default_value is not None:
