@@ -38,7 +38,10 @@ def create_app():
     cache.init_app(app)
 
     # apply the blueprints to the app
-    from routes import factcheck
+    from routes import factcheck, sitemap
+    from routes.api import place
     app.register_blueprint(factcheck.bp)
+    app.register_blueprint(place.bp)
+    app.register_blueprint(sitemap.bp)
 
     return app
