@@ -67,4 +67,5 @@ def node(dcid):
     for place_type in place_by_type:
         place_by_type[place_type].sort(key=lambda x: x['name'])
 
-    return render_template('sitemap.html', place_by_type=place_by_type)
+    return render_template(
+      'sitemap.html', place_by_type=place_by_type, dcid=dcid)
