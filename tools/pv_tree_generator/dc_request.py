@@ -17,20 +17,31 @@
 import requests
 import json
 import collections
-from configmodule import DevelopmentConfig
+from google.cloud import secretmanager
+
+API_ROOT = 'https://datacommons.endpoints.datcom-mixer-staging.cloud.goog'
+
+def get_api_key():
+    secret_client = secretmanager.SecretManagerServiceClient()
+    secret_name = secret_client.secret_version_path(
+        'datcom-mixer-staging', 'mixer-api-key', '1')
+    secret_response = secret_client.access_secret_version(secret_name)
+    DC_API_KEY = secret_response.payload.data.decode('UTF-8')
+    return DC_API_KEY
 
 def get_sv_dcids():
-    req_url = DevelopmentConfig.API_ROOT + "/query"
+    req_url = API_ROOT + "/query"
     query_str = "SELECT ?a WHERE {?a typeOf StatisticalVariable}"
-    headers =  {'x-api-key': DevelopmentConfig.DC_API_KEY, 'Content-Type':'application/json'}
-    response = requests.post(req_url, json = {'sparql':query_str}, headers = headers, timeout=60)
+    headers =  {'x-api-key': get_api_key(), 'Content-Type':'application/json'}
+    response = requests.post(req_url, json = {'sparql':query_str},
+        headers = headers, timeout=60)
     result = response.json()
     sv_dcid = [temp['cells'][0]['value'] for temp in result['rows']]
     return sv_dcid
 
 def get_triples(dcids):
     # Generate the GetTriple query and send the request.
-    url = DevelopmentConfig.API_ROOT + '/node/triples'
+    url = API_ROOT + '/node/triples'
     payload = send_request(url, req_json={'dcids': dcids})
     # Create a map from dcid to list of triples.
     results = collections.defaultdict(list)
@@ -53,7 +64,7 @@ def send_request(req_url, req_json={}, compress=False, post=True):
       The payload returned by sending the POST/GET request formatted as a dict.
     """
     headers = {
-        'x-api-key': DevelopmentConfig.DC_API_KEY,
+        'x-api-key': get_api_key(),
         'Content-Type': 'application/json'
     }
 
