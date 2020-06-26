@@ -21,9 +21,11 @@ import build_tree
 from util import _read_pop_obs_spec, _read_stat_var
 
 class BuildTreeTest(unittest.TestCase):
+    """testing build_tree"""
+
     @staticmethod
     def get_sv():
-        #pick a subset of stat_var dcids
+        """pick a subset of stat_var dcids"""
         level0 = ['MarriedPopulation', 'DivorcedPopulation', 'MalePopulation']
         level1 = ['dc/0k7719speyv21', 'dc/2pvw6jqmkp41b', 'dc/06f6zh0wslnx',\
                'dc/2rjldly6tsmf', 'dc/026gmdj2xk1kb', 'dc/f7g49v7tzy3rd']
@@ -35,6 +37,7 @@ class BuildTreeTest(unittest.TestCase):
 
     @staticmethod
     def get_triples_(dcids):
+        """read the triples with predicates in the specified list"""
         triples = json.load(open("test_triples.json", "r"))
         results = defaultdict(list)
         #skip if the predicate is not in the list
@@ -43,20 +46,22 @@ class BuildTreeTest(unittest.TestCase):
         for dcid in dcids:
             if dcid not in triples:
                 raise Exception("triples not found for dcid: {}".format(dcid))
-            
-            for id, prop, value in triples[dcid]:
+
+            for dcid_, prop, value in triples[dcid]:
                 if prop == 'constraintProperties':
                     if value not in predicates:
                         continue
                 elif prop not in predicates:
                     continue
-                results[dcid].append((id, prop, value))
+                results[dcid].append((dcid_, prop, value))
         return dict(results)
-    
+
     @patch('build_tree.MAX_LEVEL', 3)
     @patch('dc_request.get_triples')
     @patch('dc_request.get_sv_dcids')
-    def test_build_tree(self,mock_get_sv, mock_get_triples):
+    def test_build_tree(self, mock_get_sv, mock_get_triples):
+        """build the tree with the mock functions, compare the result with
+            hierarchy_test.json"""
         mock_get_sv.side_effect = self.get_sv
         mock_get_triples.side_effect = self.get_triples_
         pop_obs_spec = _read_pop_obs_spec()
@@ -65,9 +70,9 @@ class BuildTreeTest(unittest.TestCase):
         vertical = "Demographics"
         root = build_tree.build_tree(vertical, pop_obs_spec[vertical], stat_vars, False)
         data[vertical] = root
-        expected = json.load(open("./hierarchy_test.json","r"))
+        expected = json.load(open("./hierarchy_test.json", "r"))
         self.assertEqual(data, expected)
         return
-      
+
 if __name__ == "__main__":
     unittest.main()
