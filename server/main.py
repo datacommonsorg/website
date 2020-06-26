@@ -42,9 +42,6 @@ from cache import cache
 
 _MAX_BLOBS = 1
 
-# Max search results
-_MAX_SEARCH_RESULTS = 1000
-
 _SA_FEED_BUCKET = 'datacommons-frog-feed'
 
 logging.basicConfig(
@@ -563,35 +560,7 @@ def translator_handler():
 
 @app.route('/search')
 def search():
-    query_text = request.args.get('query', '')
-    max_results = int(request.args.get('l', _MAX_SEARCH_RESULTS))
-    search_response = dc.search(query_text, max_results)
-
-    # Convert from search results to template dictionary.
-    results = []
-    query_tokens = set(query_text.lower().split())
-    for section in search_response.get('section', []):
-        entities = []
-        for search_entity in section['entity']:
-            entity = {}
-            entity['name'] = search_entity['name']
-            entity['dcid'] = search_entity['dcid']
-            name_tokens = search_entity['name'].lower().split()
-            for i, t in enumerate(name_tokens):
-                name_tokens[i] = t.strip("'")
-            name_tokens = set(name_tokens)
-            if not name_tokens & query_tokens:
-                continue
-            entity['rank'] = len(name_tokens & query_tokens) / len(name_tokens
-                                                                   | query_tokens)
-            entities.append(entity)
-        entities = sorted(entities, key=lambda e: (e['rank']), reverse=True)
-        if entities:
-            results.append({
-                'type': section['typeName'],
-                'entities': entities,
-            })
-    return flask.render_template('search.html', query_text=query_text, results=results)
+    return flask.render_template('search.html')
 
 
 @app.route('/weather')

@@ -497,11 +497,12 @@ function renderPlaceMap(dcid, containedInPlaces) {
  * @param {string} dcid The DCID of the node.
  * @param {string} type The type of the node.
  * @param {string} name The name of the node.
+ * @param {string} description The description of the node, defined or compiled for the meta header
  * @param {*} triples Triples of the node.
  * @param {!Iterable} outArcs The out arc triples.
  * @param {!Object} provDomain Provenance domain.
  */
-function renderKGPage(dcid, type, name, triples, outArcs, provDomain) {
+function renderKGPage(dcid, type, name, description, triples, outArcs, provDomain) {
   // Get location id
   let locId = dcid;
   let locName;
@@ -618,10 +619,16 @@ function renderKGPage(dcid, type, name, triples, outArcs, provDomain) {
   document.getElementById('toogle-chart').checked = !showText;
 
   // Set name
-  document.title = name;
+  document.title = `${name} - DataCommons Knowledge Graph`;
   let nameElem = document.getElementById('bg-node-name');
   nameElem.textContent = name;
 
+  if (description) {
+    let metaDescElem = document.createElement("meta");
+    metaDescElem.setAttribute("name", "description");
+    metaDescElem.setAttribute("content", description);
+    document.getElementsByTagName('head')[0].appendChild(metaDescElem);
+  }
 
   // Display initially hided elements.
   let elems = document.getElementsByClassName('initial-hide');
@@ -948,6 +955,13 @@ window.onload = () => {
     name = outArcsMap['name'][0][0];
   }
 
+  // Get description for the meta-header
+  // TODO: compile a suitable description if undefined in the graph
+  let description;
+  if ('description' in outArcsMap) {
+    description = outArcsMap['description'][0][0];
+  }
+
   const current_page_uri = new URL(window.location.href);
   let newPlacePage =
     current_page_uri.searchParams.get('v2') == undefined ? false : true;
@@ -1002,6 +1016,6 @@ window.onload = () => {
     });
   } else {
     ReactDOM.render(<GeneralNode />, document.getElementById('node'));
-    renderKGPage(dcid, type, name, triples, outArcs, provDomain);
+    renderKGPage(dcid, type, name, description, triples, outArcs, provDomain);
   }
 };
