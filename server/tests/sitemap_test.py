@@ -17,7 +17,6 @@ from unittest.mock import patch
 
 from main import app
 
-
 class TestRoute(unittest.TestCase):
     @patch('routes.sitemap.fetch_data')
     def test_index(self, mock_fetch_data):
@@ -60,9 +59,22 @@ class TestRoute(unittest.TestCase):
             'types': ['City']
           }
         ]
-        mock_child_fetch.side_effect = lambda dcid: mock_response
+        mock_child_fetch.return_value = mock_response
+
         response = app.test_client().get('/sitemap/geoId/06')
+        self.assertTrue(mock_child_fetch.assert_called_once)
         assert response.status_code == 200
         assert b'county 1' in response.data
         assert b'county 2' in response.data
         assert b'city 1' in response.data
+
+        # Test the child_fetch() cache
+        response = app.test_client().get('/sitemap/geoId/06')
+        self.assertTrue(mock_child_fetch.assert_called_once)
+
+    @patch('routes.sitemap.child_fetch')
+    def test_no_child(self, mock_child_fetch):
+        mock_child_fetch.return_value = []
+        response = app.test_client().get('/sitemap/geoId/07')
+        assert response.status_code == 200
+        assert b'There are no sub-places in our knowledge' in response.data
