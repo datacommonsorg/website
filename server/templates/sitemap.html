@@ -22,16 +22,17 @@
 
 {% block content %}
   {% for key in place_by_type %}
-    <h4>{{ key }}</h4>
-    {% for place in place_by_type[key] %}
-    <div>
-      <a href="{{url_for('sitemap.node', dcid=place['dcid'])}}">{{place['name']}}</a>
-      <span>: (</span>
-      <a href="{{url_for('entity_page') + '?dcid=' + place['dcid']}}">KG</a>
-      <span>)</span>
+    <h3>{{ key }}</h3>
+    <div style="column-count: 3">
+      {% for place in place_by_type[key] %}
+        <div>
+          <a href="{{url_for('sitemap.node', dcid=place['dcid'])}}">{{place['name']}}</a>
+          <span>: (</span>
+          <a href="{{url_for('entity_page') + '?dcid=' + place['dcid']}}">KG</a>
+          <span>)</span>
+        </div>
+      {% endfor %}
     </div>
-
-    {% endfor %}
     <!-- <dd>{{ value }}</dd> -->
   {% endfor %}
 {% endblock %}
