@@ -20,19 +20,6 @@
     padding: 0;
   }
 
-  #search-box {
-    margin-top: 20px;
-  }
-
-  #search-input {
-    flex: 1;
-    height: 30px;
-    font-size: 16px;
-    color: #555;
-    margin-left: 10px;
-    padding-left: 7px;
-  }
-
   #header {
     width: 100%;
     margin: 0;
@@ -57,9 +44,36 @@
     justify-content: space-between;
   }
 
-  #wrapper form {
-    color: #fff;
+  /* CSE */
+  #header #___gcse_0 {
+    margin-top: 25px;
+    width: 250px;
   }
+
+  #header .gsib_b {
+    display: none;
+  }
+
+  #header .gsc-input-box {
+    border: none;
+  }
+
+  #header table.gsc-search-box td.gsc-input {
+    padding-right: 0;
+  }
+
+  #header .gsc-search-button.gsc-search-button-v2 {
+    padding: 7px 10px 6px 6px;
+    margin: 0 0 1px 0;
+    border: 1px solid #600;
+    border-radius: 0 10px 10px 0;
+  }
+
+  #header #gsc-iw-id1 {
+    border-radius: 10px 0 0 10px;
+  }
+
+  /* end CSE */
 
   #sitename {
     max-width: 500px;
@@ -128,23 +142,19 @@
     cursor: default;
   }
 
-  a:link {
+  #footer a:link,
+  #content a:link {
     color: #660000;
     text-decoration: none;
     border-bottom: dotted 1px #660000;
   }
 
   a:visited {
-    color: #990000;
-    text-decoration: none;
-    border-bottom: dotted 1px #990000;
+    color: #bb4d00;
   }
 
   a:hover {
-    background-color: #660000;
-    border-bottom: none !important;
-    color: #fff !important;
-    text-decoration: none;
+    border-bottom: solid 1px #660000;
   }
 
   blockquote {
