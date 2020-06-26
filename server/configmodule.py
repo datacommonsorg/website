@@ -4,20 +4,26 @@
 import os
 import datetime
 
+
 class Config:
     TEST = False
     CACHE_TYPE = 'simple'  # Flask-Caching related configs
-    GAE_VERSION = os.environ.get('GAE_VERSION') or datetime.datetime.today().strftime("%m-%d-%H")
+    GAE_VERSION = (
+        os.environ.get('GAE_VERSION') or
+        datetime.datetime.today().strftime("%m-%d-%H-%M"))
+
 
 class ProductionConfig(Config):
     API_PROJECT = 'datcom-mixer'
     API_ROOT = 'https://api.datacommons.org'
     GCS_BUCKET = "datcom-browser-prod.appspot.com"
 
+
 class DevelopmentConfig(Config):
     API_PROJECT = 'datcom-mixer-staging'
     API_ROOT = 'https://datacommons.endpoints.datcom-mixer-staging.cloud.goog'
     GCS_BUCKET = "datcom-browser-staging.appspot.com"
+
 
 class TestConfig(Config):
     TEST = True
