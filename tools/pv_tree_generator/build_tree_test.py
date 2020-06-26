@@ -12,13 +12,13 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-from util import _read_pop_obs_spec()
-from util import _read_stat_var()
 import unittest
 from unittest.mock import patch
-import build_tree
 import json
 from collections import defaultdict
+
+import build_tree
+from util import _read_pop_obs_spec, _read_stat_var
 
 class BuildTreeTest(unittest.TestCase):
     @staticmethod
@@ -52,7 +52,7 @@ class BuildTreeTest(unittest.TestCase):
                     continue
                 results[dcid].append((id, prop, value))
         return dict(results)
-      
+    
     @patch('build_tree.MAX_LEVEL', 3)
     @patch('dc_request.get_triples')
     @patch('dc_request.get_sv_dcids')
