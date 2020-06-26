@@ -15,9 +15,7 @@
 import util
 import unittest
 from unittest.mock import patch
-from build_tree import build_tree
-import dc_request
-from configmodule import DevelopmentConfig
+import build_tree
 import json
 from collections import defaultdict
 
@@ -36,28 +34,22 @@ class BuildTreeTest(unittest.TestCase):
 
     @staticmethod
     def get_triples_(dcids):
-        url = DevelopmentConfig.API_ROOT + '/node/triples'
-        payload = dc_request.send_request(url, req_json={'dcids': dcids})
+        triples = json.load(open("test_triples.json", "r"))
         results = defaultdict(list)
         #skip if the predicate is not in the list
         predicates = ["measuredProperty", "populationType", "statType", "income", \
             "gender", "age", "incomeStatus"]
-        predicates_all = set()
         for dcid in dcids:
-            results[dcid]
-            for t in payload[dcid]:
-                if 'objectId' in t:
-                    value = t['objectId']
-                elif 'objectValue' in t:
-                    value = t['objectValue']
-
-                if t['predicate'] == 'constraintProperties':
+            if dcid not in triples:
+                raise Exception("triples not found for dcid: {}".format(dcid))
+            
+            for id, prop, value in triples[dcid]:
+                if prop == 'constraintProperties':
                     if value not in predicates:
                         continue
-                elif t['predicate'] not in predicates:
+                elif prop not in predicates:
                     continue
-                predicates_all.add(t['predicate'])
-                results[dcid].append((t['subjectId'], t['predicate'], value))
+                results[dcid].append((id, prop, value))
         return dict(results)
       
     @patch('build_tree.MAX_LEVEL', 3)
@@ -70,7 +62,7 @@ class BuildTreeTest(unittest.TestCase):
         stat_vars = util._read_stat_var()
         data = {}
         vertical = "Demographics"
-        root = build_tree(vertical, pop_obs_spec[vertical], stat_vars, False)
+        root = build_tree.build_tree(vertical, pop_obs_spec[vertical], stat_vars, False)
         data[vertical] = root
         expected = json.load(open("./hierarchy_test.json","r"))
         self.assertEqual(data, expected)

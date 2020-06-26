@@ -14,7 +14,6 @@
 
 from parameterized import parameterized
 import unittest
-
 import text_format
 
 class TextFormatTest(unittest.TestCase):
