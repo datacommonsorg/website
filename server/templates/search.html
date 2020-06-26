@@ -17,42 +17,15 @@
 {% extends 'base.html' %}
 
 {% block head %}
-  <title>KG Search</title>
+  <title>{{ request.args.get('q') }} - DataCommons Search</title>
   <link rel="stylesheet" href={{url_for('static', filename='css/search.css', t=config['GAE_VERSION'])}} />
 {% endblock %}
 
 {% block content %}
-  {% if not results %}
-    <h4>
-      <div>Sorry, no results were found in DataCommons.org for "{{query_text}}".</div><br>
-      <div>You can try your search on
-        <a href="https://scholar.google.com/scholar?q={{query_text}}">Google Scholar</a>,&nbsp;
-        <a href="https://toolbox.google.com/datasetsearch/search?query={{query_text}}">
-          Google Dataset search</a>,&nbsp;
-        <a href="https://catalog.data.gov/dataset?q={{query_text}}">Data.gov</a>
-        <span> or </span>
-        <a href="https://dataverse.org/">Dataverse</a>
-        <span>.</span>
-      </div>
-    </h4>
-  {% else %}
-    {% for result in results %}
-      <div class="search-result-section">
-        <div class="search-result-type">
-          Type: {{result.type}}
-        </div>
-        <div class="search-result-entities">
-          {% for entity in result.entities %}
-            <div class="search-result-entity">
-              <div class="name">
-                <a href="/kg?dcid={{entity.dcid}}">
-                  {{entity.name}}
-                </a>
-              </div>
-            </div>
-          {% endfor %}
-        </div>
-      </div>
-    {% endfor %}
-  {% endif %}
+  <h1>Showing results for {{ request.args.get('q') }}</h1>
+
+  <div class="gcse-searchbox-only" data-resultsUrl="/search"></div>
+
+  <script async src="https://cse.google.com/cse.js?cx=009384408222384877262:5y3ahjevnio"></script>
+  <div class="gcse-searchresults-only"></div>
 {% endblock %}

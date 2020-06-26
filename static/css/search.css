@@ -14,34 +14,34 @@
  * limitations under the License.
  */
 
-.search-result-section {
-  margin-bottom: 20px;
-}
+  .gcsc-branding a,
+  .gcsc-more-maybe-branding-root a {
+    border-bottom: none !important;
+  }
 
-.search-result-type {
-  font-weight: bold;
-  font-size: 24px;
-}
+  #content .gsc-control-cse {
+    padding: 0;
+  }
 
-.search-result-entities {
-  margin-top: 10px;
-}
+  #content .gs-webResult * {
+    padding-left: 0;
+  }
+  
+  #content table.gsc-search-box td.gsc-input {
+    padding-right: 0;
+  }
 
-.search-result-entity {
-  display: flex;
-  padding: 7px;
-}
+  #content .gsc-search-button.gsc-search-button-v2 {
+    padding: 8px 12px 7px 12px;
+    margin: 0 0 1px 0;
+    border: 1px solid #600;
+  }
 
-.search-result-entity:nth-child(odd) {
-  background-color: #f0f0f0;
-}
+  #content h1 {
+    font-size: 24px;
+    margin-top: 0;
+  }
 
-.search-result-entity .name {
-  flex: 1;
-  max-width: 50%;
-}
-
-.search-result-entity .provenance {
-  flex: 1;
-  max-width: 50%;
-}
+  #content .gsst_a {
+    border: none !important;
+  }
