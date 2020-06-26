@@ -47,6 +47,7 @@ def index():
           'dcid': place['dcid'],
           'name': place.get('name', place['dcid'])
         })
+        countries['Country'].sort(key=lambda x: x['name'])
     return render_template('sitemap.html', place_by_type=countries)
 
 
@@ -63,4 +64,7 @@ def node(dcid):
                   'name': place['name']
                 })
                 break
+    for place_type in place_by_type:
+        place_by_type[place_type].sort(key=lambda x: x['name'])
+
     return render_template('sitemap.html', place_by_type=place_by_type)
