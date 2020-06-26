@@ -80,7 +80,7 @@ def build_tree_recursive(pos, level, pop_obs_spec, stat_vars, show_all, parent=N
                                         stat_vars, show_all, value_ui_node)
                 if branch['children']:
                     value_blob['children'].append(branch)
-                    value_blob['sv_set'] |= branch['sv_set']
+                value_blob['sv_set'] |= branch['sv_set']
                 del branch['sv_set']
             value_blob['count'] = len(value_blob['sv_set'])
 
@@ -90,7 +90,7 @@ def build_tree_recursive(pos, level, pop_obs_spec, stat_vars, show_all, parent=N
         for child in result['children']:
             result['sv_set'] |= child['sv_set']
             del child['sv_set']
-        result['count'] = len(result['sv_set'])
+    result['count'] = len(result['sv_set'])
     return result
 
 def build_tree(v, pop_obs_spec, stat_vars, show_all):
@@ -133,10 +133,10 @@ def build_tree(v, pop_obs_spec, stat_vars, show_all):
             for pv0 in root['children']:  # hoist logic will break if multiple 0 pv
                 if pv0['argString'] == '{},count'.format(pos.pop_type):
                     pv0['children'].append(child)
-                if 'sv_set' not in pv0:
-                    pv0['sv_set'] = set()
-                pv0['sv_set'] |= child['sv_set']
-                break
+                    if 'sv_set' not in pv0:
+                        pv0['sv_set'] = set()
+                    pv0['sv_set'] |= child['sv_set']
+                    break
         else:
             root['children'].append(child)
         root['sv_set'] |= child['sv_set']
@@ -147,6 +147,6 @@ def build_tree(v, pop_obs_spec, stat_vars, show_all):
         if 'sv_set' in pv0:
             pv0['count'] += len(pv0['sv_set'])
             del pv0['sv_set']
-        root['count'] += len(root['sv_set'])
-        del root['sv_set']
+    root['count'] += len(root['sv_set'])
+    del root['sv_set']
     return root
