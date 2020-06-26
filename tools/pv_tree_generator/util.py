@@ -57,7 +57,8 @@ class UiNode:
       self.pop_obs_spec = pop_obs_spec #pop_obs_spec for this node.
       self.is_prop = is_prop #is the node a "Property" or a "Value" node.
       self.prop = prop #the property it represents
-      self.pv = pv #An ordered dict of property-value this node inherits from its parent.
+      self.pv = pv # ordered dict of property-value this node inherits
+                   # from its parent.
 
     @property
     def pop_type(self):
@@ -173,9 +174,11 @@ def _read_stat_var():
       prop_val = {}
       for property in constraint_properties:
         if property not in sv_dict:
-          raise Exception("constraint property:{} not found in statistical variable with dcid: {}".format(property,dcid))
+          raise Exception('constraint property:{} not found in statistical'
+            'variable with dcid: {}'.format(property,dcid))
         prop_val[property] = sv_dict[property]
-      sv = StatVar(sv_dict["populationType"], sv_dict["measuredProperty"], sv_dict["statType"], prop_val, dcid)
+      sv = StatVar(sv_dict["populationType"], sv_dict["measuredProperty"],
+        sv_dict["statType"], prop_val, dcid)
       stat_vars[sv.key].append(sv)
     return stat_vars
     

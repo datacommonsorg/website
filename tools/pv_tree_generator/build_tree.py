@@ -20,11 +20,13 @@ import text_format
 
 MAX_LEVEL = 6
 
-def build_tree_recursive(pos, level, pop_obs_spec, stat_vars, show_all, parent=None):
+def build_tree_recursive(pos, level, pop_obs_spec, stat_vars, show_all, 
+    parent=None):
     """Recursively build the ui tree"""
     #get the property of the ui node
     if parent:
-        property_diff = (set(pos.properties) - set(parent.pop_obs_spec.properties)).pop()
+        property_diff = (set(pos.properties) - set(parent.pop_obs_spec.
+            properties)).pop()
         parent_pv = parent.pv
     else:
         property_diff = pos.properties[0]  # This is single pv pos
@@ -46,8 +48,9 @@ def build_tree_recursive(pos, level, pop_obs_spec, stat_vars, show_all, parent=N
     #get the child specs of the current node
     child_pos = []
     for c_pos in pop_obs_spec[level+1]:
-        if pos.pop_type == c_pos.pop_type and set(pos.properties) < set(c_pos.properties):
-            child_pos.append(c_pos)
+        if (pos.pop_type == c_pos.pop_type and 
+            set(pos.properties) < set(c_pos.properties)):
+                child_pos.append(c_pos)
 
     for sv in stat_vars[pos.key]:
         if sv.match_ui_node(prop_ui_node):
@@ -76,15 +79,16 @@ def build_tree_recursive(pos, level, pop_obs_spec, stat_vars, show_all, parent=N
             if level <= MAX_LEVEL:
                 #build the branches recursively
                 for child in child_pos:
-                    branch = build_tree_recursive(child, level + 1, pop_obs_spec,
-                                        stat_vars, show_all, value_ui_node)
+                    branch = build_tree_recursive(child, level + 1, 
+                        pop_obs_spec, stat_vars, show_all, value_ui_node)
                 if branch['children']:
                     value_blob['children'].append(branch)
                 value_blob['sv_set'] |= branch['sv_set']
                 del branch['sv_set']
             value_blob['count'] = len(value_blob['sv_set'])
 
-    result['children'] = text_format.filter_and_sort(property_diff, result['children'], show_all)
+    result['children'] = text_format.filter_and_sort(property_diff, 
+        result['children'], show_all)
     #update the count
     if result['children']:
         for child in result['children']:
@@ -109,7 +113,8 @@ def build_tree(v, pop_obs_spec, stat_vars, show_all):
         'sv_set': set(),#used for counting child nodes
     }
 
-    #specs with 0 constaints are of type "value", as the level 1 children of root
+    # specs with 0 constaints are of type "value", 
+    # as the level 1 children of root
     for pos in pop_obs_spec[0]:
         ui_node = util.UiNode(pos, {}, False)
         root['children'].append({
@@ -129,8 +134,10 @@ def build_tree(v, pop_obs_spec, stat_vars, show_all):
     for pos in pop_obs_spec[1]:
         child = build_tree_recursive(pos, 1, pop_obs_spec, stat_vars, show_all)
         # For certain branch, we would like to put them under 0 pv nodes:
-        if (pos.pop_type in ['EarthquakeEvent', 'CycloneEvent', 'MortalityEvent']):
-            for pv0 in root['children']:  # hoist logic will break if multiple 0 pv
+        if (pos.pop_type in ['EarthquakeEvent', 'CycloneEvent', 
+            'MortalityEvent']):
+            for pv0 in root['children']: 
+                # hoist logic will break if multiple 0 pv
                 if pv0['argString'] == '{},count'.format(pos.pop_type):
                     pv0['children'].append(child)
                     if 'sv_set' not in pv0:

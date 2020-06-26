@@ -27,10 +27,10 @@ class BuildTreeTest(unittest.TestCase):
     def get_sv():
         """pick a subset of stat_var dcids"""
         level0 = ['MarriedPopulation', 'DivorcedPopulation', 'MalePopulation']
-        level1 = ['dc/0k7719speyv21', 'dc/2pvw6jqmkp41b', 'dc/06f6zh0wslnx',\
+        level1 = ['dc/0k7719speyv21', 'dc/2pvw6jqmkp41b', 'dc/06f6zh0wslnx',
                'dc/2rjldly6tsmf', 'dc/026gmdj2xk1kb', 'dc/f7g49v7tzy3rd']
-        level2 = ['dc/61fzldryrnte1', 'dc/6yb4mgxtc1288', 'dc/esr27kls5vfy6',\
-                'dc/jhpflf91nvlt6', 'dc/cmn38d85glq72', 'dc/pj50xtdgxeh4g',\
+        level2 = ['dc/61fzldryrnte1', 'dc/6yb4mgxtc1288', 'dc/esr27kls5vfy6',
+                'dc/jhpflf91nvlt6', 'dc/cmn38d85glq72', 'dc/pj50xtdgxeh4g',
                 'dc/pvsbze841l2tc', 'dc/tpeg0jxdts2t3']
         sv_dcid = level0 + level1 + level2
         return sv_dcid
@@ -41,12 +41,11 @@ class BuildTreeTest(unittest.TestCase):
         triples = json.load(open("test_triples.json", "r"))
         results = defaultdict(list)
         #skip if the predicate is not in the list
-        predicates = ["measuredProperty", "populationType", "statType", "income", \
-            "gender", "age", "incomeStatus"]
+        predicates = ["measuredProperty", "populationType", "statType",
+            "income", "gender", "age", "incomeStatus"]
         for dcid in dcids:
             if dcid not in triples:
                 raise Exception("triples not found for dcid: {}".format(dcid))
-
             for dcid_, prop, value in triples[dcid]:
                 if prop == 'constraintProperties':
                     if value not in predicates:
@@ -68,9 +67,10 @@ class BuildTreeTest(unittest.TestCase):
         stat_vars = _read_stat_var()
         data = [{},{}]
         vertical = "Demographics"
-        root = build_tree.build_tree(vertical, pop_obs_spec[vertical], stat_vars, False)
+        root = build_tree.build_tree(vertical, pop_obs_spec[vertical],
+            stat_vars, False)
         data[0][vertical] = root
-        expected = json.load(open("./hierarchy_test.json", "r"))
+        expected = json.load(open("./hierarchy_golden.json", "r"))
         self.assertEqual(data, expected)
         return
 

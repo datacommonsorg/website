@@ -6,7 +6,7 @@
         
 **To run the test** 
 
-        sh ./PVtree_test.sh
+        sh ./pv_tree_test.sh
  
  * [main.py](./main.py): the main script for generating the json configuration 
  * [build_tree.py](./build_tree.py): build the property-value(pv) tree recursively
