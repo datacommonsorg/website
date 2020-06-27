@@ -18,7 +18,7 @@ require("@babel/polyfill");
 
 import React, { Component } from "react";
 import PropTypes from "prop-types";
-import intersection from  "lodash";
+import intersection from "lodash";
 
 import { randDomId } from "./util";
 import {
@@ -215,7 +215,9 @@ class MainPane extends Component {
     }
     return (
       <React.Fragment>
-        {this.props.dcid != "country/USA" && <Overview topic={this.props.topic} />}
+        {this.props.dcid != "country/USA" && (
+          <Overview topic={this.props.topic} />
+        )}
         {configData.map((item, index) => {
           let subtopicHeader;
           if (isOverview) {
@@ -332,6 +334,32 @@ Overview.propTypes = {
   topic: PropTypes.string,
 };
 
+class ChildPlace extends Component {
+  render() {
+    return (
+      <React.Fragment>
+        {Object.keys(this.props.childPlaces).map((placeType) => (
+          <div key={placeType}>
+            <div>{placeType}</div>
+            {this.props.childPlaces[placeType].map((place) => (
+              <a key={place["dcid"]} href={"/place?dcid=" + place["dcid"]}>
+                {place["name"]}
+              </a>
+            ))}
+          </div>
+        ))}
+      </React.Fragment>
+    );
+  }
+}
+
+ChildPlace.propTypes = {
+  /**
+   * The topic of the current page.
+   */
+  childPlaces: PropTypes.object,
+};
+
 class Chart extends Component {
   constructor(props) {
     super(props);
@@ -366,7 +394,9 @@ class Chart extends Component {
           // type. Also reset the dcid of the place to be that of the parent.
           this.shouldRender = false;
           for (const parent of props.parentPlaces) {
-            if (intersection(config.placeTypes, parent["types"][0]).length > 0) {
+            if (
+              intersection(config.placeTypes, parent["types"][0]).length > 0
+            ) {
               this.dcid = parent["dcid"];
               this.titleSuffix = ` (${parent["name"]})`;
               this.shouldRender = true;
@@ -564,7 +594,21 @@ class Chart extends Component {
                 ...this.props.parentPlaces.map((parent) => parent["dcid"]),
               ]);
             } else if (this.placeRelation == placeRelationEnum.CONTAINING) {
-              placesPromise = this.props.childPlacesPromise;
+              placesPromise = this.props.childPlacesPromise.then(
+                (childPlaces) => {
+                  for (let placeType in childPlaces) {
+                    if (
+                      !config.placeTypes ||
+                      config.placeTypes.contains(placeType)
+                    ) {
+                      return childPlaces[placeType]
+                        .slice(0, 5)
+                        .map((place) => place["dcid"]);
+                    }
+                  }
+                  return [];
+                }
+              );
             } else if (this.placeRelation == placeRelationEnum.SIMILAR) {
               placesPromise = this.props.similarPlacesPromise;
             } else if (this.placeRelation == placeRelationEnum.NEARBY) {
@@ -637,4 +681,4 @@ Chart.propTypes = {
   nearbyPlacesPromise: PropTypes.object,
 };
 
-export { Ranking, MainPane, Menu, ParentPlace };
+export { Ranking, MainPane, Menu, ParentPlace, ChildPlace };
