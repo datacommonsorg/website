@@ -39,7 +39,7 @@ This will watch static files change and re-build on code edit.
 Start flask webserver locally at localhost:8080
 
 ```bash
-./run_local.sh
+./run_server.sh
 ```
 
 ### Start the Web using Docker
