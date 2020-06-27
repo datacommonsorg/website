@@ -17,6 +17,7 @@ import os
 from flask import Flask
 from werkzeug.utils import import_string
 
+
 def create_app():
     app = Flask(
         __name__,
@@ -38,10 +39,11 @@ def create_app():
     cache.init_app(app)
 
     # apply the blueprints to the app
-    from routes import factcheck, sitemap
+    from routes import factcheck, sitemap, gni
     from routes.api import place
     app.register_blueprint(factcheck.bp)
     app.register_blueprint(place.bp)
     app.register_blueprint(sitemap.bp)
+    app.register_blueprint(gni.bp)
 
     return app

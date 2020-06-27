@@ -25,7 +25,6 @@ import os
 
 import flask
 from flask import request, redirect, url_for
-from flask_caching import Cache
 from google.cloud import storage
 import jinja2
 
@@ -52,10 +51,6 @@ logging.basicConfig(
 app = create_app()
 
 GCS_BUCKET = app.config['GCS_BUCKET']
-
-@app.context_processor
-def utility_processor():
-    return dict(datetime=datetime)
 
 
 def get_place_args(get_values):
@@ -88,26 +83,6 @@ def dev():
     if os.environ.get('FLASK_ENV') == 'production':
         flask.abort(404)
     return flask.render_template('dev.html')
-
-
-@app.route('/scatter')
-def gni():
-    return flask.render_template('gni_scatter.html')
-
-
-@app.route('/gni')
-def scatter():
-    return flask.render_template('gni_explore.html')
-
-
-@app.route('/download')
-def download():
-    return flask.render_template('gni_download.html')
-
-
-@app.route('/download2')
-def download_bulk():
-    return flask.render_template('gni_download_bulk.html')
 
 
 @app.route('/kg')
