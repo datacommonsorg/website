@@ -139,36 +139,43 @@ header #selectionbar {
 }
 
 #main-pane h2 {
-  color: var(--dc-red-strong);
+  color: var(--dc-gray);
   font-weight: 500;
   font-size: 1.1rem;
   text-transform: uppercase;
   line-height: 1.5rem;
-  margin-bottom: 10px;
+  margin-top: 10px;
 }
 
-#dc-places-subtopic #main-pane h2 {
-  color: var(--dc-gray);
-}
-
-#dc-places-subtopic #main-pane h2 span {
-  color: var(--dc-red-strong);
-}
-
-.subtopic {
+#main-pane section {
+  border-top: 1px solid var(--dc-gray-lite);
   margin-top: 1rem;
 }
 
-#dc-places-overview .subtopic {
-  border-top: 1px solid var(--dc-gray-lite);
+#main-pane section:first-of-type {
+  border: none;
+  margin-top: 0;
 }
 
 #body .subtopic h3 {
   color: var(--dc-gray);
   font-weight: 700;
-  font-size: 1.1rem;
+  font-size: 1rem;
   text-transform: uppercase;
   margin: 15px 0 10px;
+}
+
+#main-pane h2 .more a,
+#body .subtopic h3 .more a {
+  color: var(--dc-gray);
+  font-weight: 400;
+  font-size: .8rem;
+  float: right;
+  text-decoration: none;
+}
+
+#body .subtopic h3 .more a:hover {
+  text-decoration: underline;
 }
 
 .subtopic .row {
