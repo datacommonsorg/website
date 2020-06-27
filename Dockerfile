@@ -1,22 +1,19 @@
 FROM node:12-slim
-COPY . /website
 
-# test, build client side code
+# Test, build client side code
+COPY static /website/static
 WORKDIR /website/static
 RUN npm install --only=production
-# RUN npm run-script test
+RUN npm run-script test
 RUN npm run-script build
 
-# test and build server side code
+# Test and build server side code
 FROM python:3.7-slim
-COPY . /website
-
-WORKDIR /website
+COPY server /website/server
+WORKDIR /website/server
 RUN pip install -r requirements.txt
-
-# Python test
-# ENV FLASK_ENV="test"
-# RUN python -m pytest
+ENV FLASK_ENV="test"
+RUN python -m pytest
 
 # Run the web service on container startup.
 ENV FLASK_ENV="production"
