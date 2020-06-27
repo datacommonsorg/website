@@ -14,18 +14,18 @@
 
 from parameterized import parameterized
 import unittest
-
 import text_format
 
 class TextFormatTest(unittest.TestCase):
   @parameterized.expand([
-    ('ICD10','ICD10/A00-B99', '(A00-B99) Infectious, parasitic diseases'),
-    ('NAICS','NAICS/10', 'All Industries'),
-    ('DEA_DRUGS','drug/dea/1105B', 'Dl-Methamphetamine Racemic Base'),
-    ('EQ_MAGNITUDES','M3Onwards', 'More than 3 Magnitude'),
-    ('Years','Years18Onwards', 'More than 18 Years'),
-    ('Crime','PropertyCrime', 'Property'),
-    ('USC','USC_NonInstitutionalized', 'Non Institutionalized'),
+    ('ICD10', 'ICD10/A00-B99', '(A00-B99) Infectious, parasitic diseases'),
+    ('NAICS', 'NAICS/10', 'All Industries'),
+    ('DEA_DRUGS', 'drug/dea/1105B', 'Dl-Methamphetamine Racemic Base'),
+    ('EQ_MAGNITUDES', 'M3Onwards', 'More than 3 Magnitude'),
+    ('Years', 'Years18Onwards', 'More than 18 Years'),
+    ('Crime', 'PropertyCrime', 'Property'),
+    ('USC', 'USC_NonInstitutionalized', 'Non Institutionalized'),
+    ('USC2', 'USC_HispanicOrLatinoRace', 'Hispanic Or Latino'),
     ('EnrolledInSchool','EnrolledInSchool', 'Enrolled In School'),
     ('Grade 8','EnrolledInGrade8', 'Grade 8')])
   def test_format_title(self, name, title, expected):

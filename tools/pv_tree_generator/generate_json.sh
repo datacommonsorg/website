@@ -16,4 +16,4 @@ pip install -r requirements.txt
 
 protoc -I=./ --python_out=./ ./stat_config.proto
 
-python3 util.py
+python3 main.py

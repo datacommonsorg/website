@@ -55,6 +55,9 @@ def format_title(title):
 
   for word in PREFIX:
     title = title.replace(word, '')
+  
+  if title == "HispanicOrLatinoRace":
+    title = title.replace('Race','')
 
   if title.startswith('EnrolledIn') and title != 'EnrolledInSchool':
     title = title.replace('EnrolledIn', '').replace('Grade', 'Grade ')

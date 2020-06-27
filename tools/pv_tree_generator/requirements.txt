@@ -1,3 +1,5 @@
 protobuf
 parameterized
 pytest
+requests
+google-cloud-secret-manager
