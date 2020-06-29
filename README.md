@@ -4,7 +4,7 @@
 Contact DataCommons team to get permission for access of secret manager.
 
 ### Set Google Application Credential
-Contact DataCommons team to get permission for GCP application credentail.
+Contact DataCommons team to get permission for GCP application credential.
 Then run the following command once
 
 ```bash
@@ -34,15 +34,15 @@ export GOOGLE_APPLICATION_CREDENTIALS=<JSON_CREDENTIAL_PATH>
 This will watch static files change and re-build on code edit.
 
 
-### Start Flask Server
+### Start the Flask Server
 
-Start flask webserver locally at localhost:8080
+Start the flask webserver locally at localhost:8080
 
 ```bash
 ./run_server.sh
 ```
 
-### Start the Web using Docker
+### Start the server using Docker
 
 Another way to start the server locally is to use Docker.
 
