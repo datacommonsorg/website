@@ -233,7 +233,7 @@ class MainPane extends Component {
           return (
             <section className="subtopic col-12" key={index}>
               {subtopicHeader}
-              <div className="row row-cols-lg-2 row-cols-md-2 row-cols-sm-2 row-cols-1">
+              <div className="row row-cols-lg-2 row-cols-md-2 row-cols-1">
                 {item.charts.map((config, index) => {
                   let id = randDomId();
                   return (
