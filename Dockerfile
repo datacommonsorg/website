@@ -3,7 +3,7 @@ FROM node:12-slim
 # Test, build client side code
 COPY static /website/static
 WORKDIR /website/static
-RUN npm install --only=production
+RUN npm install
 RUN npm run-script test
 RUN npm run-script build
 
@@ -17,4 +17,4 @@ RUN python -m pytest
 
 # Run the web service on container startup.
 ENV FLASK_ENV="production"
-CMD exec gunicorn --bind :$PORT --workers 1 --threads 8 --timeout 0 main:app
+CMD exec gunicorn --bind :8080 --workers 1 --threads 8 --timeout 0 main:app

@@ -56,8 +56,7 @@ docker build -t datacommonsorg-website .
 Run it locally
 ```bash
 docker run \
--p 9090:8080 \
--e PORT=8080 \
+-p 8080:8080 \
 -e GOOGLE_APPLICATION_CREDENTIALS=<JSON_CREDENTIAL_PATH> \
 -v $GOOGLE_APPLICATION_CREDENTIALS:<JSON_CREDENTIAL_PATH>:ro \
 datacommonsorg-website
@@ -77,16 +76,14 @@ datacommonsorg-website
 
   ```bash
   cd server && \
-  gcloud config set project datcom-browser-staging && \
-  gcloud app deploy app_staging.yaml -q
+  gcloud app deploy app_staging.yaml -q --project=datcom-browser-staging
   ```
 
 - Deploy to Prod:
 
   ```bash
   cd server && \
-  gcloud config set project datcom-browser-prod && \
-  gcloud app deploy app_prod.yaml -q --no-promote
+  gcloud app deploy app_prod.yaml -q --no-promote --project=datcom-browser-prod
   ```
 
 
