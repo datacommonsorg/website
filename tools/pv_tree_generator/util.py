@@ -182,3 +182,31 @@ def _read_stat_var():
       stat_vars[sv.key].append(sv)
     return stat_vars
     
+SEARCH_WHITELIST_PATH = './search_whitelist_popobs.textproto'
+QUANT_SPEC_PATH = './quantity_prop_val_spec.textproto'
+def _read_search_pvs():
+    """Read all the property value dcid that is used in search."""
+    props = set()
+    vals = set()
+
+    # Add the (pop_type, mprop, prop) tuple
+    pop_obs_spec_list = stat_config_pb2.PopObsSpecList()
+    with open(SEARCH_WHITELIST_PATH, 'r') as file_in:
+        search_whitelist = file_in.read()
+    text_format.Parse(search_whitelist, pop_obs_spec_list)
+    for pos in pop_obs_spec_list.spec:
+        pop_type = pos.pop_type
+        mprop = pos.mprop
+        props.add((pop_type, mprop, ''))
+        for p in pos.cprop:
+            props.add((pop_type, mprop, p))
+
+    # Add the quantity dcid
+    quant_spec_list = stat_config_pb2.QuantityPropValSpecList()
+    with open(QUANT_SPEC_PATH,'r') as file_in:
+        quant_specs = file_in.read()
+    text_format.Parse(quant_specs,quant_spec_list)
+    for spec in quant_spec_list.spec:
+        for qty in spec.qty_val:
+            vals.add(qty)
+    return props, vals

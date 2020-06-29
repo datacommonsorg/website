@@ -81,10 +81,10 @@ def build_tree_recursive(pos, level, pop_obs_spec, stat_vars, show_all,
                 for child in child_pos:
                     branch = build_tree_recursive(child, level + 1, 
                         pop_obs_spec, stat_vars, show_all, value_ui_node)
-                if branch['children']:
-                    value_blob['children'].append(branch)
-                value_blob['sv_set'] |= branch['sv_set']
-                del branch['sv_set']
+                    if branch['children']:
+                        value_blob['children'].append(branch)
+                    value_blob['sv_set'] |= branch['sv_set']
+                    del branch['sv_set']
             value_blob['count'] = len(value_blob['sv_set'])
 
     result['children'] = text_format.filter_and_sort(property_diff, 
