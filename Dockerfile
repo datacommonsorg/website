@@ -1,23 +1,20 @@
-# The image is about 83 Mb in size
-# https://hub.docker.com/layers/nikolaik/python-nodejs/python3.7-nodejs12-alpine/images/sha256-5f8af48c272739f56984f5e4d01ee5418406c4ac7d439dd1b672d4e04cbe29f9?context=explore
-FROM nikolaik/python-nodejs:python3.7-nodejs12
+FROM node:12-slim
 
-ENV FLASK_ENV="test"
-
-COPY . /website
-
-# Python test
-WORKDIR /website
-RUN pip install --no-cache-dir -r requirements.txt
-RUN python -m pytest
-
-WORKDIR /website/tools/pv_tree_generator
-RUN pip install --no-cache-dir -r requirements.txt
-RUN python -m pytest
-
-# js/ts test
+# Test, build client side code
+COPY static /website/static
 WORKDIR /website/static
 RUN npm install
-RUN npm test
+RUN npm run-script test
+RUN npm run-script build
 
+# Test and build server side code
+FROM python:3.7-slim
+COPY server /website/server
+WORKDIR /website/server
+RUN pip install -r requirements.txt
+ENV FLASK_ENV="test"
+RUN python -m pytest
 
+# Run the web service on container startup.
+ENV FLASK_ENV="production"
+CMD exec gunicorn --bind :8080 --workers 1 --threads 8 --timeout 0 main:app
