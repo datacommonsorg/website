@@ -129,8 +129,8 @@ window.onload = function () {
   containerId = addChartContainer(width, height);
   drawSingleBarChart(containerId, width, height, dataPoints, "%");
 
-  // Draw single bar chart with potentially weird y-axis values
-  width = 225;
+  // Draw narrow single bar chart with potentially weird y-axis values
+  width = 315;
   dataPoints = [
     new DataPoint("Enrolled in School", 510475),
     new DataPoint("Not Enrolled in School", 1341885),

@@ -202,6 +202,7 @@ class MainPane extends Component {
 
   render() {
     let configData = [];
+    let isOverview = !this.props.topic;
     if (!this.props.topic) {
       configData = chartConfig;
     } else {
@@ -216,10 +217,23 @@ class MainPane extends Component {
       <React.Fragment>
         {this.props.dcid != "country/USA" && <Overview topic={this.props.topic} />}
         {configData.map((item, index) => {
+          let subtopicHeader;
+          if (isOverview) {
+            subtopicHeader = (
+              <h3 id={item.label}>
+                <a href={`/place?dcid=${this.props.dcid}&topic=${item.label}`}>{item.label}</a>
+                <span class="more">
+                  <a href={`/place?dcid=${this.props.dcid}&topic=${item.label}`}>More charts ›</a>
+                </span>
+              </h3>
+            );
+          } else {
+            subtopicHeader = <h3 id={item.label}>{item.label}</h3>
+          }
           return (
             <section className="subtopic col-12" key={index}>
-              <h3 id={item.label}>{item.label}</h3>
-              <div className="row row-cols-lg-2 row-cols-md-2 row-cols-sm-2 row-cols-1">
+              {subtopicHeader}
+              <div className="row row-cols-lg-2 row-cols-md-2 row-cols-1">
                 {item.charts.map((config, index) => {
                   let id = randDomId();
                   return (
@@ -281,7 +295,7 @@ class Overview extends Component {
     if (!this.props.topic) {
       return (
         <React.Fragment>
-          <h2 className="col-12 pt-2">{!this.props.topic ? "Overview" : this.props.topic}</h2>
+          <h2 className="col-12 pt-2" id="overview">Overview</h2>
           <section className="factoid col-12">
             <div className="row">
               <div className="col-12 col-md-4">
@@ -300,7 +314,13 @@ class Overview extends Component {
         </React.Fragment>
       );
     } else {
-      return <React.Fragment></React.Fragment>;
+      return (
+        <React.Fragment>
+          <h2 className="col-12 pt-2">{this.props.topic}
+          <span class="more"><a href={`/place?dcid=${this.props.dcid}`}>Back to overview ›</a></span>
+          </h2>
+        </React.Fragment>
+      );
     }
   }
 }
