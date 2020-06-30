@@ -12,12 +12,15 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
+import collections
 import json
 
 from flask import Blueprint
 
 from cache import cache
 from services.datacommons import fetch_data
+
+WANTED_PLACE_TYPES = ["Country", "State", "County", "City"]
 
 # Define blueprint
 bp = Blueprint(
@@ -48,4 +51,16 @@ def child_fetch(dcid):
       compress=False,
       post=True
     )
-    return response[dcid].get('in', [])
+    places = response[dcid].get('in', [])
+    result = collections.defaultdict(list)
+    for place in places:
+        for place_type in place['types']:
+            if place_type in WANTED_PLACE_TYPES:
+                result[place_type].append({
+                  'name': place['name'],
+                  'dcid': place['dcid'],
+                })
+                break
+    for place in result:
+        result[place].sort(key=lambda x: x['dcid'])
+    return result
