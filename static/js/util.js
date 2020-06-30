@@ -14,43 +14,58 @@
  * limitations under the License.
  */
 
-const pako = require('pako');
+const pako = require("pako");
 
-const POPULATION = 'StatisticalPopulation';
-const OBSERVATION = 'Observation';
-const COMPARATIVE_OBSERVATION = 'ComparativeObservation';
+const POPULATION = "StatisticalPopulation";
+const OBSERVATION = "Observation";
+const COMPARATIVE_OBSERVATION = "ComparativeObservation";
 
 const MAX_CARD_HEIGHT = 600;
 
 const /** !Array<string> */ STATS = [
-  'measuredValue', 'growthRate', 'meanValue', 'medianValue', 'sumValue',
-  'minValue', 'maxValue', 'stdDeviationValue', 'percentile10', 'percentile25',
-  'percentile75', 'percentile90'];
+    "measuredValue",
+    "growthRate",
+    "meanValue",
+    "medianValue",
+    "sumValue",
+    "minValue",
+    "maxValue",
+    "stdDeviationValue",
+    "percentile10",
+    "percentile25",
+    "percentile75",
+    "percentile90",
+  ];
 
 const /** !Array<string> */ OBS_KEYS = [
-  'observationPeriod', 'measurementMethod', 'measurementQualifier',
-  'measurementDenominator', 'scalingFactor'
-];
+    "observationPeriod",
+    "measurementMethod",
+    "measurementQualifier",
+    "measurementDenominator",
+    "scalingFactor",
+  ];
 
 const NUMBER_OF_CHARTS_PER_ROW = 3;
 
 const /** !Array<string> */ PROD_HOST = [
-  'browser.datacommons.org', 'datcom-browser-prod.appspot.com'
-];
+    "browser.datacommons.org",
+    "datcom-browser-prod.appspot.com",
+  ];
 
 const /** !Array<string> */ STAGING_HOST = [
-  'staging.datacommons.org', 'datcom-browser-staging.appspot.com'
-];
+    "staging.datacommons.org",
+    "datcom-browser-staging.appspot.com",
+  ];
 
 const API_DATA = {
   prod: {
-    root: 'https://api.datacommons.org',
-    key: 'AIzaSyCJXDc2HxXL3u76PqQfYXuT1oGB-f4uC1I'
+    root: "https://api.datacommons.org",
+    key: "AIzaSyCJXDc2HxXL3u76PqQfYXuT1oGB-f4uC1I",
   },
   staging: {
-    root: 'https://datacommons.endpoints.datcom-mixer-staging.cloud.goog',
-    key: 'AIzaSyDffCx9SDfXDJ-lZdsCsYO4296UOH25oz8'
-  }
+    root: "https://datacommons.endpoints.datcom-mixer-staging.cloud.goog",
+    key: "AIzaSyDffCx9SDfXDJ-lZdsCsYO4296UOH25oz8",
+  },
 };
 
 /**
@@ -61,7 +76,7 @@ function isBrowserInProdEnv() {
   if (PROD_HOST.includes(window.location.host)) return true;
   if (STAGING_HOST.includes(window.location.host)) return false;
 
-  console.log('Unknown host: ' + window.location.host + ', treat as staging.');
+  console.log("Unknown host: " + window.location.host + ", treat as staging.");
   return false;
 }
 
@@ -97,22 +112,21 @@ function getApiKey() {
  */
 function getStatsString(obs, richTitle) {
   // TODO(b/148291506): Add unittest for this.
-  let statsStr = '';
-  if (!('measuredValue' in obs)) {
+  let statsStr = "";
+  if (!("measuredValue" in obs)) {
     for (const stat of STATS) {
       if (stat in obs) {
-        statsStr = `(${stat.replace('Value', '')})`;
+        statsStr = `(${stat.replace("Value", "")})`;
       }
     }
   }
   if (richTitle) {
-    if ('measurementMethod' in obs) {
-      statsStr += ` (${obs['measurementMethod']})`;
+    if ("measurementMethod" in obs) {
+      statsStr += ` (${obs["measurementMethod"]})`;
     }
   }
   return statsStr;
 }
-
 
 /**
  * Checks whether the type is Population.
@@ -148,29 +162,29 @@ function isComparativeObservation(type) {
  */
 function appendMoreIfNecessary(parent, height) {
   if (parent.offsetHeight >= height) {
-    const moreEl = document.createElement('div');
+    const moreEl = document.createElement("div");
     moreEl.textContent = "More";
-    moreEl.setAttribute('class', 'more');
+    moreEl.setAttribute("class", "more");
     parent.appendChild(moreEl);
     parent.style.maxHeight = `${height}px`;
-    moreEl.addEventListener('click', () => {
-      parent.style.overflow = 'auto';
+    moreEl.addEventListener("click", () => {
+      parent.style.overflow = "auto";
       setElementShown(moreEl, false);
       // Set to arbitrary large max-height to show full content.
-      parent.style.maxHeight = '50000px';
+      parent.style.maxHeight = "50000px";
     });
   }
 }
 
 function setElementShown(el, isShown) {
-  el.style.display = isShown ? '' : 'none';
-};
+  el.style.display = isShown ? "" : "none";
+}
 
 /**
  * Append show more hint to all card elements.
  */
 function appendMoreToAll() {
-  const cardEls = document.getElementsByClassName('card');
+  const cardEls = document.getElementsByClassName("card");
   for (let i = 0; i < cardEls.length; i++) {
     appendMoreIfNecessary(cardEls[i], MAX_CARD_HEIGHT);
   }
@@ -191,27 +205,26 @@ function sendRequest(reqUrl, isZip, isGet = true, data = {}) {
   let jsonString = null;
   let api_key = getApiKey();
   if (isGet) {
-    request.open('GET', getApiRoot() + reqUrl + `&key=${api_key}`, false);
+    request.open("GET", getApiRoot() + reqUrl + `&key=${api_key}`, false);
   } else {
-    request.open('POST', getApiRoot() + reqUrl + `?key=${api_key}`, false);
+    request.open("POST", getApiRoot() + reqUrl + `?key=${api_key}`, false);
   }
   request.send(JSON.stringify(data));
   if (request.status === 200) {
     if (isZip) {
-      let s = JSON.parse(request.responseText)['payload'];
+      let s = JSON.parse(request.responseText)["payload"];
       if (s) {
         jsonString = unzip(s);
       } else {
         return null;
       }
     } else {
-      jsonString = JSON.parse(request.responseText)['payload'];
+      jsonString = JSON.parse(request.responseText)["payload"];
     }
     return JSON.parse(jsonString);
   }
   return null;
 }
-
 
 /**
  * Unzip a compressed encoded string.
@@ -221,7 +234,7 @@ function sendRequest(reqUrl, isZip, isGet = true, data = {}) {
  */
 function unzip(s) {
   const binData = atob(s);
-  const charData = binData.split('').map(x => x.charCodeAt(0));
+  const charData = binData.split("").map((x) => x.charCodeAt(0));
   const byteData = new Uint8Array(charData);
 
   /**
@@ -230,7 +243,7 @@ function unzip(s) {
    * @suppress {checkTypes}
    */
   const inflateData = pako.inflate(byteData, {});
-  return new TextDecoder('utf-8').decode(inflateData);
+  return new TextDecoder("utf-8").decode(inflateData);
 }
 
 /**
@@ -253,17 +266,20 @@ function getMapInfo(dcid) {
   let coordinateSequenceSet = [];
 
   const kmlCoordinatesRes = sendRequest(
-      `/node/property-values?dcids=${dcid}&property=kmlCoordinates`, false);
-  const kmlCoordinates = kmlCoordinatesRes[dcid]['out'][0]['value'];
+    `/node/property-values?dcids=${dcid}&property=kmlCoordinates`,
+    false
+  );
+  const kmlCoordinates = kmlCoordinatesRes[dcid]["out"][0]["value"];
 
-  const coordinateGroups = kmlCoordinates.split('</coordinates><coordinates>');
+  const coordinateGroups = kmlCoordinates.split("</coordinates><coordinates>");
   for (let coordinateGroup of coordinateGroups) {
-    const coordinates = coordinateGroup.replace('<coordinates>', '')
-                            .replace('</coordinates>', '')
-                            .split(' ');
+    const coordinates = coordinateGroup
+      .replace("<coordinates>", "")
+      .replace("</coordinates>", "")
+      .split(" ");
     let coordinateSequence = [];
     for (let coordinate of coordinates) {
-      const v = coordinate.split(',');
+      const v = coordinate.split(",");
       const x = parseFloat(v[0]);
       const y = parseFloat(v[1]);
 
@@ -272,7 +288,7 @@ function getMapInfo(dcid) {
       down = Math.min(down, y);
       up = Math.max(up, y);
 
-      coordinateSequence.push({lat: y, lng: x});
+      coordinateSequence.push({ lat: y, lng: x });
     }
     coordinateSequenceSet.push(coordinateSequence);
   }
@@ -282,11 +298,11 @@ function getMapInfo(dcid) {
   const margin = 0.02;
 
   return {
-    'left': left - margin * x_spread,
-    'right': right + margin * x_spread,
-    'up': up + margin * y_spread,
-    'down': down - margin * y_spread,
-    'coordinateSequenceSet': coordinateSequenceSet
+    left: left - margin * x_spread,
+    right: right + margin * x_spread,
+    up: up + margin * y_spread,
+    down: down - margin * y_spread,
+    coordinateSequenceSet: coordinateSequenceSet,
   };
 }
 
@@ -303,13 +319,16 @@ function formatChartGroup(chartGroup) {
   let res = [];
   for (let idx = 0; idx < chartGroup.length; idx++) {
     const url = getLineChartUrl(chartGroup[idx]);
-    res.push([url, url.split('&').join('%26')]);
+    res.push([url, url.split("&").join("%26")]);
   }
   if (chartGroup.length % NUMBER_OF_CHARTS_PER_ROW) {
-    for (let idx = 0; idx < NUMBER_OF_CHARTS_PER_ROW -
-             chartGroup.length % NUMBER_OF_CHARTS_PER_ROW;
-         idx++) {
-      res.push(['', '']);
+    for (
+      let idx = 0;
+      idx <
+      NUMBER_OF_CHARTS_PER_ROW - (chartGroup.length % NUMBER_OF_CHARTS_PER_ROW);
+      idx++
+    ) {
+      res.push(["", ""]);
     }
   }
   return res;
@@ -326,8 +345,8 @@ function formatChartCategories(chartCategories) {
   let res = [];
   for (let idx = 0; idx < chartCategories.length; idx++) {
     res.push({
-      'category': chartCategories[idx]['category'],
-      'urls': formatChartGroup(chartCategories[idx]['groups'])
+      category: chartCategories[idx]["category"],
+      urls: formatChartGroup(chartCategories[idx]["groups"]),
     });
   }
   return res;
@@ -342,17 +361,17 @@ function formatChartCategories(chartCategories) {
  * @return {!Object} Out arcs map.
  */
 function getOutArcsMap(triples, dcid) {
-  let outArcs = triples[dcid].filter(t => t['subjectId'] == dcid);
+  let outArcs = triples[dcid].filter((t) => t["subjectId"] == dcid);
 
   let outArcsMap = {};
   for (let t of outArcs) {
-    if (!(t['predicate'] in outArcsMap)) {
-      outArcsMap[t['predicate']] = [];
+    if (!(t["predicate"] in outArcsMap)) {
+      outArcsMap[t["predicate"]] = [];
     }
-    if ('objectId' in t) {
-      outArcsMap[t['predicate']].push([t['objectId'], t['objectName']]);
-    } else if ('objectValue' in t) {
-      outArcsMap[t['predicate']].push([t['objectValue']]);
+    if ("objectId" in t) {
+      outArcsMap[t["predicate"]].push([t["objectId"], t["objectName"]]);
+    } else if ("objectValue" in t) {
+      outArcsMap[t["predicate"]].push([t["objectValue"]]);
     }
   }
 
@@ -368,11 +387,11 @@ function getOutArcsMap(triples, dcid) {
  * @return {!Array} [dcid, name].
  */
 function getContainedInPlace(outArcsMap) {
-  if (!('containedInPlace' in outArcsMap)) {
-    return ['', ''];
+  if (!("containedInPlace" in outArcsMap)) {
+    return ["", ""];
   }
 
-  const containedInPlaces = outArcsMap['containedInPlace'];
+  const containedInPlaces = outArcsMap["containedInPlace"];
 
   if (containedInPlaces.length == 1) {
     return containedInPlaces[0];
@@ -380,7 +399,7 @@ function getContainedInPlace(outArcsMap) {
 
   let res = containedInPlaces[0];
   for (let p of containedInPlaces) {
-    if (p[0].length == 'geoId/00'.length) {
+    if (p[0].length == "geoId/00".length) {
       res = p;
       break;
     }
@@ -397,29 +416,30 @@ function getContainedInPlace(outArcsMap) {
  * @return {string} Type.
  */
 function getType(triples, dcid) {
-  let type = '';
-  if (dcid.startsWith('dc/p/')) {
+  let type = "";
+  if (dcid.startsWith("dc/p/")) {
     type = POPULATION;
-  } else if (dcid.startsWith('dc/o/')) {
+  } else if (dcid.startsWith("dc/o/")) {
     type = OBSERVATION;
   } else {
     let ts = triples[dcid].filter(
-        t => t['subjectId'] == dcid && t['predicate'] == 'typeOf');
+      (t) => t["subjectId"] == dcid && t["predicate"] == "typeOf"
+    );
     if (ts.length > 0) {
       if (ts.length > 1) {
         let types = {};
         for (let t of ts) {
-          types[t['objectId']] = '';
+          types[t["objectId"]] = "";
         }
-        for (let targetType of ['State', 'County', 'City']) {
+        for (let targetType of ["State", "County", "City"]) {
           if (targetType in types) {
             type = targetType;
             break;
           }
         }
       }
-      if (type == '') {
-        type = ts[0]['objectId'];
+      if (type == "") {
+        type = ts[0]["objectId"];
       }
     }
   }
@@ -434,42 +454,44 @@ function getType(triples, dcid) {
  * @return {string} The line chart URL.
  */
 function getLineChartUrl(argMap) {
-  if (!('placeDcid' in argMap)) return '';
+  if (!("placeDcid" in argMap)) return "";
 
-  let url = '/line?v2&mid1=' + argMap['placeDcid'];
-  url += '&popt1=' + argMap['popType'];
-  url += '&mprop1=' + argMap['measuredProp'];
+  let url = "/line?v2&mid1=" + argMap["placeDcid"];
+  url += "&popt1=" + argMap["popType"];
+  url += "&mprop1=" + argMap["measuredProp"];
 
-  if ('pvs' in argMap) {
-    for (let p in argMap['pvs']) {
-      url += '&cpv1=' + p + ',' + argMap['pvs'][p];
+  if ("pvs" in argMap) {
+    for (let p in argMap["pvs"]) {
+      url += "&cpv1=" + p + "," + argMap["pvs"][p];
     }
   }
 
-  url += '&st1=' + argMap['statType'];
+  url += "&st1=" + argMap["statType"];
 
-  if ('measurementMethod' in argMap) {
-    url += '&mmethod1=' + argMap['measurementMethod'];
+  if ("measurementMethod" in argMap) {
+    url += "&mmethod1=" + argMap["measurementMethod"];
   }
 
-  if ('observationPeriod' in argMap) {
-    url += '&op1=' + argMap['observationPeriod'];
+  if ("observationPeriod" in argMap) {
+    url += "&op1=" + argMap["observationPeriod"];
   }
 
-  url += '&title=' + argMap['title'].replace(' ', '%20');
-  url += '&w=300&h=200';
+  url += "&title=" + argMap["title"].replace(" ", "%20");
+  url += "&w=300&h=200";
 
   return url;
 }
 
-function isSetsEqual (a, b) {
-  return a.size === b.size && [...a].every(v => b.has(v));
+function isSetsEqual(a, b) {
+  return a.size === b.size && [...a].every((v) => b.has(v));
 }
 
 function randDomId() {
-  return Math.random().toString(36).replace(/[^a-z]+/g, '').substr(2, 10);
+  return Math.random()
+    .toString(36)
+    .replace(/[^a-z]+/g, "")
+    .substr(2, 10);
 }
-
 
 export {
   STATS,
