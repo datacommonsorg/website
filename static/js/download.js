@@ -21,11 +21,11 @@ import {
   getPerCapita,
   parsePtPvs,
   getDataUrl,
-} from './dc.js';
+} from "./dc.js";
 
-const axios = require('axios');
+const axios = require("axios");
 
-import { getApiKey, getApiRoot, unzip } from './util.js';
+import { getApiKey, getApiRoot, unzip } from "./util.js";
 
 let allData = [];
 let gCurrentSeries = null;
@@ -50,20 +50,24 @@ let measuredProp = {};
  * @param {Boolean} shouldShow True if the spinner should be shown.
  */
 function toggleSpinner(shouldShow) {
-  $('#screen').css('display', shouldShow ? 'block' : 'none');
+  $("#screen").css("display", shouldShow ? "block" : "none");
 }
 
 function showCode() {
-  let chartContainer = document.getElementById('gchart-container');
-  let imgElem = chartContainer.getElementsByTagName('img')[0];
+  let chartContainer = document.getElementById("gchart-container");
+  let imgElem = chartContainer.getElementsByTagName("img")[0];
   let fstr = imgElem.src;
-  let doc = document.getElementById('code').contentWindow.document;
+  let doc = document.getElementById("code").contentWindow.document;
   doc.open();
-  doc.write('<html><head><title></title></head><body><pre>' + fstr + '</pre></body></html>');
+  doc.write(
+    "<html><head><title></title></head><body><pre>" +
+      fstr +
+      "</pre></body></html>"
+  );
   doc.close();
-  document.querySelector('#code').style.width = '800px';
-  document.querySelector('#code').style.height = '200px';
-  document.querySelector('#code').style.border = '2px solid gray';
+  document.querySelector("#code").style.width = "800px";
+  document.querySelector("#code").style.height = "200px";
+  document.querySelector("#code").style.border = "2px solid gray";
 }
 
 /**
@@ -76,33 +80,33 @@ function downloadData() {
   let ptpvStr = null;
   let perCapita = getPerCapita();
 
-  if ('place' in urlargs) {
-    placeStr = urlargs['place'];
+  if ("place" in urlargs) {
+    placeStr = urlargs["place"];
   }
 
-  if ('ptpv' in urlargs) {
-    ptpvStr = urlargs['ptpv'];
+  if ("ptpv" in urlargs) {
+    ptpvStr = urlargs["ptpv"];
   }
 
   if (!ptpvStr) {
-    ptpvStr = 'Person,count';
+    ptpvStr = "Person,count";
   }
 
-  let placeIds = placeStr.split(',');
+  let placeIds = placeStr.split(",");
   let allPtpv = parsePtPvs(ptpvStr);
 
-  let titles = ['Year'];
+  let titles = ["Year"];
   let tmp = {};
   let result = [];
   let dataPromises = [];
   let pvKeys = [];
   for (let ptpv of allPtpv) {
     let dataUrl = getDataUrl(placeIds, [ptpv], perCapita);
-    let pvKey = Object.values(ptpv['pvs']).join('^');
+    let pvKey = Object.values(ptpv["pvs"]).join("^");
     pvKeys.push(pvKey);
     dataPromises.push(axios.get(dataUrl));
   }
-  result.push(titles.join(','));
+  result.push(titles.join(","));
 
   let keys = [];
   Promise.all(dataPromises).then(function (allResp) {
@@ -119,17 +123,17 @@ function downloadData() {
         titles.push(key);
       }
     }
-    result.push(titles.join(','));
+    result.push(titles.join(","));
     years = Array.from(years);
     years.sort();
     for (let year of years) {
       let row = [year];
       for (let i = 1; i < titles.length; i++) {
-        row.push(tmp[titles[i]][year] || '');
+        row.push(tmp[titles[i]][year] || "");
       }
-      result.push(row.join(','));
+      result.push(row.join(","));
     }
-    saveToFile('export.csv', result.join('\n'));
+    saveToFile("export.csv", result.join("\n"));
   });
 }
 
@@ -144,39 +148,39 @@ function downloadBulkData(placeType, year) {
   let measuredProp = {};
 
   const urlargs = getUrlVars();
-  if ('ptpv' in urlargs) {
-    ptPvs = parsePtPvs(urlargs['ptpv']);
+  if ("ptpv" in urlargs) {
+    ptPvs = parsePtPvs(urlargs["ptpv"]);
   }
 
   let numOutstandingRequests = ptPvs.length;
 
   for (const ptpv of ptPvs) {
-    let urlarg = ptpv['urlarg'];
-    measuredProp[urlarg] = ptpv['measuredProp'];
+    let urlarg = ptpv["urlarg"];
+    measuredProp[urlarg] = ptpv["measuredProp"];
     let reqPv = [];
-    for (const p of Object.keys(ptpv['pvs'])) {
+    for (const p of Object.keys(ptpv["pvs"])) {
       reqPv.push({
-        'property': p,
-        'value': ptpv['pvs'][p]
+        property: p,
+        value: ptpv["pvs"][p],
       });
     }
     $.ajax({
-      type: 'POST',
+      type: "POST",
       url: `${getApiRoot()}/bulk/place-obs?key=${getApiKey()}`,
       data: JSON.stringify({
-        'observationDate': year,
-        'placeType': placeType,
-        'populationType': ptpv['popType'],
-        'pvs': reqPv
+        observationDate: year,
+        placeType: placeType,
+        populationType: ptpv["popType"],
+        pvs: reqPv,
       }),
-      dataType: 'text',
+      dataType: "text",
       success: function (data) {
-        const payload = JSON.parse(data)['payload'];
+        const payload = JSON.parse(data)["payload"];
         if (payload) {
           let data = JSON.parse(unzip(payload));
           allBulkDownloadData[urlarg] = data;
         } else {
-          console.log('No payload for: ', ptpv);
+          console.log("No payload for: ", ptpv);
         }
       },
       complete: function (jqxhr, textStatus) {
@@ -184,7 +188,7 @@ function downloadBulkData(placeType, year) {
         if (numOutstandingRequests == 0) {
           savePtpvAsCSV();
         }
-      }
+      },
     });
   }
 }
@@ -199,7 +203,7 @@ function savePtpvAsCSV() {
 
   for (const key of Object.keys(allBulkDownloadData)) {
     let mp = measuredProp[key];
-    if (!('places' in allBulkDownloadData[key])) {
+    if (!("places" in allBulkDownloadData[key])) {
       alert("Sorry we don't have data for this place type");
       return;
     }
@@ -207,14 +211,14 @@ function savePtpvAsCSV() {
       const placeName = po.name;
       const dcid = po.place;
       placeNames[dcid] = placeName;
-      let val = '';
-      const obs = po.observations.filter(o => o.measuredProp === mp);
+      let val = "";
+      const obs = po.observations.filter((o) => o.measuredProp === mp);
       // For place-obs, there should only be one observation per measured
       // property.
       if (obs.length) {
         let stat = getStatProp(obs);
         if (stat == null) {
-          console.log('Cannot find a stat property in the observation');
+          console.log("Cannot find a stat property in the observation");
         } else {
           val = obs[0][stat];
         }
@@ -226,9 +230,9 @@ function savePtpvAsCSV() {
     }
   }
   let columns = Object.keys(allBulkDownloadData);
-  let titles = ['dcid', 'place'];
+  let titles = ["dcid", "place"];
   for (const c of columns) {
-    titles.push(c.replace(/,/g, '-'));
+    titles.push(c.replace(/,/g, "-"));
   }
 
   for (const dcid of Object.keys(placeData)) {
@@ -236,23 +240,23 @@ function savePtpvAsCSV() {
     for (c of columns) {
       row.push(placeData[dcid][c]);
     }
-    results.push(row.join(','));
+    results.push(row.join(","));
   }
-  results = results.sort((a, b) => b[0] < a[0] ? -1 : 1); // sort by dcid
+  results = results.sort((a, b) => (b[0] < a[0] ? -1 : 1)); // sort by dcid
 
-  let csv = titles.join(',') + '\n' + results.join('\n');
-  saveToFile('export.csv', csv);
+  let csv = titles.join(",") + "\n" + results.join("\n");
+  saveToFile("export.csv", csv);
   return;
 }
 
 function saveToFile(filename, csv) {
   if (!csv.match(/^data:text\/csv/i)) {
-    csv = 'data:text/csv;charset=utf-8,' + csv;
+    csv = "data:text/csv;charset=utf-8," + csv;
   }
   let data = encodeURI(csv);
-  let link = document.createElement('a');
-  link.setAttribute('href', data);
-  link.setAttribute('download', filename);
+  let link = document.createElement("a");
+  link.setAttribute("href", data);
+  link.setAttribute("download", filename);
   link.click();
 }
 
@@ -266,25 +270,26 @@ function saveToFile(filename, csv) {
 function processPage() {
   const urlargs = getUrlVars();
   toggleSpinner(true);
-  clearDiv('observation');
+  clearDiv("observation");
 
   let placeStr = null;
   let ptpv = null;
 
-  if ('place' in urlargs) {
-    placeStr = urlargs['place'];
+  if ("place" in urlargs) {
+    placeStr = urlargs["place"];
   }
 
-  if ('ptpv' in urlargs) {
-    ptpv = urlargs['ptpv'];
+  if ("ptpv" in urlargs) {
+    ptpv = urlargs["ptpv"];
   }
 
   if (placeStr && ptpv) {
-    drawFromChartApi('observation', placeStr, (ptpv ? ptpv : 'Person,count'));
+    drawFromChartApi("observation", placeStr, ptpv ? ptpv : "Person,count");
     let div = document.createElement("div");
     div.fontSize = "9px";
-    div.innerHTML = "Population data from Census.gov; Labor data from bls.gov; Crime data from fbi.gov; Health data from cdc.gov";
-    let parent = document.getElementById('observation');
+    div.innerHTML =
+      "Population data from Census.gov; Labor data from bls.gov; Crime data from fbi.gov; Health data from cdc.gov";
+    let parent = document.getElementById("observation");
     parent.appendChild(div);
   }
   toggleSpinner(false);
@@ -292,12 +297,15 @@ function processPage() {
 }
 
 window.onload = function () {
-  processPage()
+  processPage();
   $("#download-button").click(function () {
     downloadData();
   });
   $("#bulk-download-button").click(function () {
-    window.location.href = window.location.href.replace("download", "download2");
+    window.location.href = window.location.href.replace(
+      "download",
+      "download2"
+    );
   });
   $("#show-code").click(function () {
     showCode();
@@ -306,9 +314,9 @@ window.onload = function () {
   let links = document.getElementsByClassName("bulk-ref");
   for (let link of links) {
     let year = link.dataset.year;
-    let ptype= link.dataset.ptype;
-    link.addEventListener("click", function() {
+    let ptype = link.dataset.ptype;
+    link.addEventListener("click", function () {
       downloadBulkData(ptype, year);
     });
   }
-}
+};

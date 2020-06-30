@@ -15,10 +15,10 @@
  */
 
 import React from "react";
-import ReactDOM from 'react-dom';
-import _ from 'lodash';
-import * as plot from './plot';
-import * as util from './util';
+import ReactDOM from "react-dom";
+import _ from "lodash";
+import * as plot from "./plot";
+import * as util from "./util";
 
 import {
   ArcGroupTitle,
@@ -26,13 +26,16 @@ import {
   ArcGroupTextContent,
   ObsCount,
   VSelect,
-} from './kg_template.jsx';
-
+} from "./kg_template.jsx";
 
 const /** !Array<string> */ VALUE_KEYS = [
-  'measuredValue', 'medianValue', 'meanValue', 'percentValue', 'growthRate',
-  'stdDeviationValue'
-];
+    "measuredValue",
+    "medianValue",
+    "meanValue",
+    "percentValue",
+    "growthRate",
+    "stdDeviationValue",
+  ];
 
 const MAX_V = 5;
 
@@ -53,8 +56,15 @@ class ObservationChart {
    * @param {boolean=} richTitle Whether to use rich title for the chart.
    */
   constructor(
-      chartEl, textData, chartData, type, textView, pvs, measuredProperty,
-      richTitle = false) {
+    chartEl,
+    textData,
+    chartData,
+    type,
+    textView,
+    pvs,
+    measuredProperty,
+    richTitle = false
+  ) {
     /** @private @const {!Element} */
     this.chartEl_ = chartEl;
 
@@ -89,10 +99,10 @@ class ObservationChart {
     this.plotData_ = [];
 
     /** @private {string} */
-    this.valueKey_ = '';
+    this.valueKey_ = "";
 
     /** @private {string} */
-    this.svgId_ = '';
+    this.svgId_ = "";
 
     /** @private {!Array<string>} */
     this.vList_ = [];
@@ -131,10 +141,11 @@ class ObservationChart {
    * @private
    */
   getExtraPs_() {
-    if (this.pvs_ !== null && this.sample_['pvs'] instanceof Object) {
-      const sample_ps = Object.keys(this.sample_['pvs']);
+    if (this.pvs_ !== null && this.sample_["pvs"] instanceof Object) {
+      const sample_ps = Object.keys(this.sample_["pvs"]);
       this.extraPs_ = sample_ps.filter(
-          p => !Object.keys(this.pvs_).includes(p));
+        (p) => !Object.keys(this.pvs_).includes(p)
+      );
     }
   }
 
@@ -155,7 +166,7 @@ class ObservationChart {
   getObsCompContent_() {
     var obs_pvs;
     var comp_pvs;
-    if (this.sample_['parentDcid'] == this.sample_['observedNode']) {
+    if (this.sample_["parentDcid"] == this.sample_["observedNode"]) {
       obs_pvs = this.pvs_;
       comp_pvs = this.otherParentPvs_;
     } else {
@@ -163,11 +174,11 @@ class ObservationChart {
       comp_pvs = this.pvs_;
     }
     this.obsNodePvContent_ = Object.entries(obs_pvs)
-                              .map(x => x.join('='))
-                              .join(',');
+      .map((x) => x.join("="))
+      .join(",");
     this.compNodePvContent_ = Object.entries(comp_pvs)
-                              .map(x => x.join('='))
-                              .join(',');
+      .map((x) => x.join("="))
+      .join(",");
   }
 
   /**
@@ -177,20 +188,20 @@ class ObservationChart {
   addVText_() {
     let popDcidToPvs = {};
     for (const pop of this.textData_) {
-      popDcidToPvs[pop['dcid']] = pop['pvs'];
+      popDcidToPvs[pop["dcid"]] = pop["pvs"];
     }
     for (const obs of this.chartData_) {
-      const pvs = popDcidToPvs[obs['parentDcid']];
+      const pvs = popDcidToPvs[obs["parentDcid"]];
       let extraVs = [];
       for (const p of this.extraPs_) {
         // Remove USC_, BLS_ ...
         let v = pvs[p];
-        if (!v.startsWith('COVID')) {
-          v = v.replace(/^.*?_/, '');
+        if (!v.startsWith("COVID")) {
+          v = v.replace(/^.*?_/, "");
         }
         extraVs.push(v);
       }
-      obs['vText'] = extraVs.join('--');
+      obs["vText"] = extraVs.join("--");
     }
   }
 
@@ -200,20 +211,20 @@ class ObservationChart {
    */
   getPlotData_() {
     for (const d of this.chartData_) {
-      if ('observationDate' in d) {
-        d['time'] = Date.parse(d['observationDate']);
+      if ("observationDate" in d) {
+        d["time"] = Date.parse(d["observationDate"]);
       }
     }
 
-    const fullPropSet = this.chartData_.map(
-        obsData => new Set(Object.keys(obsData))).reduce(
-        (props, otherProps) => new Set([...props, ...otherProps]));
+    const fullPropSet = this.chartData_
+      .map((obsData) => new Set(Object.keys(obsData)))
+      .reduce((props, otherProps) => new Set([...props, ...otherProps]));
     // Group data by measuredProperty.
-    let dataGroup = _.groupBy(this.chartData_, d => d['measuredProperty']);
+    let dataGroup = _.groupBy(this.chartData_, (d) => d["measuredProperty"]);
 
     // Pick the measured property if only asking for one.
     const allProp = Object.keys(dataGroup);
-    const oneProp = allProp.includes('count') ? 'count' : allProp[0];
+    const oneProp = allProp.includes("count") ? "count" : allProp[0];
     for (const prop in dataGroup) {
       if (prop != oneProp) {
         continue;
@@ -224,32 +235,29 @@ class ObservationChart {
         if (fullPropSet.has(valueKey)) {
           this.valueKey_ = valueKey;
           // Filter data based on valueKey and observationPeriod.
-          data = data.filter(d => valueKey in d);
+          data = data.filter((d) => valueKey in d);
           for (const obs_key of util.OBS_KEYS) {
             if (obs_key in sample) {
-              data = data.filter(d => d[obs_key] === sample[obs_key]);
+              data = data.filter((d) => d[obs_key] === sample[obs_key]);
             }
           }
           // Update data fields.
-          data.forEach(d => d[valueKey] = Number(d[valueKey]));
+          data.forEach((d) => (d[valueKey] = Number(d[valueKey])));
           // Group data by v list.
-          this.plotData_ = _.groupBy(data, d => d['vText']);
+          this.plotData_ = _.groupBy(data, (d) => d["vText"]);
           // Less than 3 time points, get the latest timepoint to plot.
           if (Object.values(this.plotData_)[0].length < 3) {
-            const dataByTime = _.groupBy(data, d => d['time']);
+            const dataByTime = _.groupBy(data, (d) => d["time"]);
             const len = Object.keys(dataByTime).length;
             const timeKey = Object.keys(dataByTime).sort()[len - 1];
-            this.plotData_ = _.groupBy(dataByTime[timeKey], d => d['vText']);
+            this.plotData_ = _.groupBy(dataByTime[timeKey], (d) => d["vText"]);
           }
           // Sort each series by time.
           for (const key in this.plotData_) {
             this.plotData_[key].sort((a, b) => {
-              if (a['time'] < b['time'])
-                return -1;
-              else if (a['time'] > b['time'])
-                return 1;
-              else
-                return 0;
+              if (a["time"] < b["time"]) return -1;
+              else if (a["time"] > b["time"]) return 1;
+              else return 0;
             });
           }
           return;
@@ -260,53 +268,69 @@ class ObservationChart {
 
   /** @private */
   renderTitle_() {
-    let elem = document.createElement('div');
+    let elem = document.createElement("div");
     if (util.isPopulation(this.type_)) {
-      const popType = this.sample_['type'];
+      const popType = this.sample_["type"];
       // Sub population contains extra pvs. Need them for display.
       const pvContent = Object.entries(this.pvs_)
-                            .map(x => x.join('='))
-                            .join(',');
-      const extraPText = this.extraPs_.join(',');
+        .map((x) => x.join("="))
+        .join(",");
+      const extraPText = this.extraPs_.join(",");
       // Renders the title element.
-      ReactDOM.render(<ArcGroupTitle
-        arcType={this.measuredProperty_}
-        subject={popType}
-        pvContent={pvContent}
-        extraPText={extraPText}
-      />, elem);
-    } else if(util.isComparativeObservation(this.type_)) {
-      ReactDOM.render(<ArcGroupComparativeTitle
-        arcType={util.COMPARATIVE_OBSERVATION}
-        subject={this.sample_['measuredProperty']}
-        obsPvContent={this.obsNodePvContent_}
-        compPvContent={this.compNodePvContent_}
-        obsNode={this.sample_['observedNode']}
-        compNode={this.sample_['comparedNode']}
-        compOperator={this.sample_['comparisonOperator']}
-      />, elem);
+      ReactDOM.render(
+        <ArcGroupTitle
+          arcType={this.measuredProperty_}
+          subject={popType}
+          pvContent={pvContent}
+          extraPText={extraPText}
+        />,
+        elem
+      );
+    } else if (util.isComparativeObservation(this.type_)) {
+      ReactDOM.render(
+        <ArcGroupComparativeTitle
+          arcType={util.COMPARATIVE_OBSERVATION}
+          subject={this.sample_["measuredProperty"]}
+          obsPvContent={this.obsNodePvContent_}
+          compPvContent={this.compNodePvContent_}
+          obsNode={this.sample_["observedNode"]}
+          compNode={this.sample_["comparedNode"]}
+          compOperator={this.sample_["comparisonOperator"]}
+        />,
+        elem
+      );
     } else if (util.isObservation(this.type_)) {
-      ReactDOM.render(<ArcGroupTitle
-        arcType={util.OBSERVATION}
-        subject={this.sample_['measuredProperty'] + ' ' +
-        util.getStatsString(this.sample_, this.richTitle_)}
-      />, elem);
+      ReactDOM.render(
+        <ArcGroupTitle
+          arcType={util.OBSERVATION}
+          subject={
+            this.sample_["measuredProperty"] +
+            " " +
+            util.getStatsString(this.sample_, this.richTitle_)
+          }
+        />,
+        elem
+      );
     }
     this.chartEl_.appendChild(elem);
   }
 
   /** @private */
   renderText_() {
-    const propName =
-        util.isPopulation(this.type_) ? 'location' : 'observedNode';
+    const propName = util.isPopulation(this.type_)
+      ? "location"
+      : "observedNode";
 
-    let elem = document.createElement('div');
-    ReactDOM.render(<ArcGroupTextContent
-      propName={propName}
-      arcs={this.textData_}
-      textView={true}
-    />, elem);
-    util.setElementShown(elem.getElementsByTagName('table')[0], this.textView_);
+    let elem = document.createElement("div");
+    ReactDOM.render(
+      <ArcGroupTextContent
+        propName={propName}
+        arcs={this.textData_}
+        textView={true}
+      />,
+      elem
+    );
+    util.setElementShown(elem.getElementsByTagName("table")[0], this.textView_);
     this.chartEl_.appendChild(elem);
   }
 
@@ -314,10 +338,12 @@ class ObservationChart {
   createSvg_() {
     // Create the svg element.
     this.svgId_ = util.randDomId();
-    const svgElem =
-        document.createElementNS('http://www.w3.org/2000/svg', 'svg');
-    svgElem.setAttribute('id', this.svgId_);
-    svgElem.setAttribute('class', 'chart-view');
+    const svgElem = document.createElementNS(
+      "http://www.w3.org/2000/svg",
+      "svg"
+    );
+    svgElem.setAttribute("id", this.svgId_);
+    svgElem.setAttribute("class", "chart-view");
     this.chartEl_.appendChild(svgElem);
     util.setElementShown(svgElem, !this.textView_);
   }
@@ -325,7 +351,7 @@ class ObservationChart {
   /** @private */
   renderSvg_() {
     const svgNode = document.getElementById(this.svgId_);
-    svgNode.innerHTML = '';
+    svgNode.innerHTML = "";
     const seriesArray = [];
     for (const key of this.vList_) {
       seriesArray.push(this.plotData_[key]);
@@ -333,14 +359,14 @@ class ObservationChart {
     if (seriesArray.length === 0) {
       return;
     }
-    const svgSelector = '#' + this.svgId_;
+    const svgSelector = "#" + this.svgId_;
     if (seriesArray[0].length === 1) {
       if (seriesArray.length === 1) {
         svgNode.parentNode.removeChild(svgNode);
-        const textEl = this.chartEl_.getElementsByClassName('node-table')[0];
-        textEl.classList.remove('text-view');
+        const textEl = this.chartEl_.getElementsByClassName("node-table")[0];
+        textEl.classList.remove("text-view");
         util.setElementShown(textEl, true);
-        const countEl = this.chartEl_.getElementsByClassName('count-obs')[0];
+        const countEl = this.chartEl_.getElementsByClassName("count-obs")[0];
         countEl.parentNode.removeChild(countEl);
         return;
       }
@@ -354,10 +380,8 @@ class ObservationChart {
   /** @private */
   renderCount_() {
     // Add the count element.
-    let elem = document.createElement('div');
-    ReactDOM.render(<ObsCount
-      count={this.chartData_.length}
-    />, elem);
+    let elem = document.createElement("div");
+    ReactDOM.render(<ObsCount count={this.chartData_.length} />, elem);
     util.setElementShown(elem, !this.textView_);
     this.chartEl_.appendChild(elem);
   }
@@ -368,11 +392,11 @@ class ObservationChart {
    */
   handleVInput_() {
     // Handler for v input event.
-    const inputEls = this.chartEl_.getElementsByClassName('v-select-input');
-    _.forEach(inputEls, inputEl => {
-      inputEl.addEventListener('click', e => {
+    const inputEls = this.chartEl_.getElementsByClassName("v-select-input");
+    _.forEach(inputEls, (inputEl) => {
+      inputEl.addEventListener("click", (e) => {
         this.vList_ = [];
-        _.forEach(inputEls, el => {
+        _.forEach(inputEls, (el) => {
           if (el.checked) {
             this.vList_.push(el.value);
           }
@@ -391,18 +415,18 @@ class ObservationChart {
     if (this.extraPs_.length === 1) {
       const p = this.extraPs_[0];
       let /** !Array<string> */ orderList = [];
-      if (p === 'education') {
+      if (p === "education") {
         orderList = [
-          '',
-          'RegularHighSchoolDiploma',
-          'BachelorDegree',
-          'MasterDegree',
-          'DoctorateDegree',
-          'ProfessionalSchoolDegree',
-          'NoSchoolingCompleted',
+          "",
+          "RegularHighSchoolDiploma",
+          "BachelorDegree",
+          "MasterDegree",
+          "DoctorateDegree",
+          "ProfessionalSchoolDegree",
+          "NoSchoolingCompleted",
         ];
-      } else if (p === 'gender' || p === 'crimeType') {
-        orderList = ['', 'Total'];
+      } else if (p === "gender" || p === "crimeType") {
+        orderList = ["", "Total"];
       }
       if (orderList.length > 0) {
         vList.sort((a, b) => {
@@ -415,14 +439,14 @@ class ObservationChart {
     this.vList_ = vList.slice(0, MAX_V);
 
     // Pop animation.
-    const titlePEl = this.chartEl_.getElementsByClassName('title-p')[0];
+    const titlePEl = this.chartEl_.getElementsByClassName("title-p")[0];
     if (titlePEl) {
-      const vSelectEl = this.chartEl_.getElementsByClassName('v-select')[0];
-      ReactDOM.render(<VSelect vList={vList} maxV={MAX_V}/>, vSelectEl)
-      vSelectEl.addEventListener('mouseleave', e => {
+      const vSelectEl = this.chartEl_.getElementsByClassName("v-select")[0];
+      ReactDOM.render(<VSelect vList={vList} maxV={MAX_V} />, vSelectEl);
+      vSelectEl.addEventListener("mouseleave", (e) => {
         util.setElementShown(vSelectEl, false);
       });
-      titlePEl.addEventListener('mouseover', e => {
+      titlePEl.addEventListener("mouseover", (e) => {
         util.setElementShown(vSelectEl, true);
       });
     }
@@ -462,6 +486,4 @@ class ObservationChart {
   }
 }
 
-export {
-  ObservationChart,
-}
+export { ObservationChart };

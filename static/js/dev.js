@@ -18,10 +18,7 @@
  * @fileoverview dev page.
  */
 
-import {
-  DataPoint,
-  DataGroup,
-} from "./chart/base";
+import { DataPoint, DataGroup } from "./chart/base";
 
 import {
   drawSingleBarChart,
@@ -29,7 +26,6 @@ import {
   drawGroupBarChart,
   drawLineChart,
 } from "./chart/draw";
-
 
 window.onload = function () {
   let width = 350;
@@ -60,46 +56,31 @@ window.onload = function () {
   drawSingleBarChart(containerId, width, height, dataPoints);
 
   let dataGroups = [
-    new DataGroup(
-      "San Jose",
-      [
-        new DataPoint("2011", 21000),
-        new DataPoint("2012", 22000),
-        new DataPoint("2013", 23000),
-      ]
-    ),
-    new DataGroup(
-      "Fremont",
-      [
-        new DataPoint("2011", 22000),
-        new DataPoint("2012", 26000),
-        new DataPoint("2013", 24000),
-      ]
-    ),
-    new DataGroup(
-      "San Francisco",
-      [
-        new DataPoint("2011", 21000),
-        new DataPoint("2012", 25000),
-        new DataPoint("2013", 22000),
-      ]
-    ),
-    new DataGroup(
-      "Mountain View",
-      [
-        new DataPoint("2011", 1000),
-        new DataPoint("2012", 5000),
-        new DataPoint("2013", 2000),
-      ]
-    ),
-    new DataGroup(
-      "VeryLongCityName",
-      [
-        new DataPoint("2011", 1000),
-        new DataPoint("2012", 5000),
-        new DataPoint("2013", 2000),
-      ]
-    )
+    new DataGroup("San Jose", [
+      new DataPoint("2011", 21000),
+      new DataPoint("2012", 22000),
+      new DataPoint("2013", 23000),
+    ]),
+    new DataGroup("Fremont", [
+      new DataPoint("2011", 22000),
+      new DataPoint("2012", 26000),
+      new DataPoint("2013", 24000),
+    ]),
+    new DataGroup("San Francisco", [
+      new DataPoint("2011", 21000),
+      new DataPoint("2012", 25000),
+      new DataPoint("2013", 22000),
+    ]),
+    new DataGroup("Mountain View", [
+      new DataPoint("2011", 1000),
+      new DataPoint("2012", 5000),
+      new DataPoint("2013", 2000),
+    ]),
+    new DataGroup("VeryLongCityName", [
+      new DataPoint("2011", 1000),
+      new DataPoint("2012", 5000),
+      new DataPoint("2013", 2000),
+    ]),
   ];
 
   // Draw stack bar chart.

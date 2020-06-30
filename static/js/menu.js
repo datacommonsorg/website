@@ -14,21 +14,16 @@
  * limitations under the License.
  */
 
-import {
-  dcidToPlaceType,
-  getUrlVars,
-  setSearchParam,
-} from './dc.js';
-
+import { dcidToPlaceType, getUrlVars, setSearchParam } from "./dc.js";
 
 /*
-* Add or remove point of view under chart upon selection of menu item
-*/
+ * Add or remove point of view under chart upon selection of menu item
+ */
 function togglePV(argStr) {
   let vars = getUrlVars();
-  let ptpv = []
-  if ('ptpv' in vars) {
-    ptpv = vars['ptpv'].split('__');
+  let ptpv = [];
+  if ("ptpv" in vars) {
+    ptpv = vars["ptpv"].split("__");
 
     if (ptpv.includes(argStr)) {
       ptpv.splice(ptpv.indexOf(argStr), 1);
@@ -40,20 +35,20 @@ function togglePV(argStr) {
   }
 
   if (ptpv.length == 0) {
-    delete vars['ptpv'];
+    delete vars["ptpv"];
   } else {
-    vars['ptpv'] = ptpv.join('__');
+    vars["ptpv"] = ptpv.join("__");
   }
   setSearchParam(vars);
 }
 
 function initMenu(exploreTypeVars, urlParams) {
-  let menuContainer = document.querySelector('#drill');
-  let selectedOptionList = urlParams.ptpv ? urlParams.ptpv.split('__') : [];
-  let search = window.location.href.includes('search');
+  let menuContainer = document.querySelector("#drill");
+  let selectedOptionList = urlParams.ptpv ? urlParams.ptpv.split("__") : [];
+  let search = window.location.href.includes("search");
   let place_types = new Set();
-  if ('place' in urlParams) {
-    for (let dcid of urlParams['place'].split(',')) {
+  if ("place" in urlParams) {
+    for (let dcid of urlParams["place"].split(",")) {
       let pt = dcidToPlaceType(dcid);
       if (pt) {
         place_types.add(pt);
@@ -62,31 +57,38 @@ function initMenu(exploreTypeVars, urlParams) {
   }
 
   let clean = (str) => {
-    return str.replace(' ', '-');
+    return str.replace(" ", "-");
   };
 
   let categoryList = Object.keys(exploreTypeVars);
   let traverse = (node, parentElement) => {
     let showIfSelectedOption = (argString) => {
       if (selectedOptionList.includes(argString)) {
-        let ulParent = parentElement.closest('.unordered-list');
-        let arrowElement =
-          ulParent.previousSibling.querySelector('.right-caret');
-        if (!arrowElement.classList.contains('transform-down')) {
-          arrowElement.classList.toggle('transform-down');
+        let ulParent = parentElement.closest(".unordered-list");
+        let arrowElement = ulParent.previousSibling.querySelector(
+          ".right-caret"
+        );
+        if (!arrowElement.classList.contains("transform-down")) {
+          arrowElement.classList.toggle("transform-down");
         }
         while (ulParent !== null) {
-          ulParent.classList.remove('hidden');
-          ulParent.classList.remove('collapsed');
-          ulParent = ulParent.parentElement.closest('.unordered-list');
+          ulParent.classList.remove("hidden");
+          ulParent.classList.remove("collapsed");
+          ulParent = ulParent.parentElement.closest(".unordered-list");
         }
-        document.getElementById(`checkbox-${argString}`).classList.add('checked');
+        document
+          .getElementById(`checkbox-${argString}`)
+          .classList.add("checked");
       }
     };
-    if (place_types.size > 0 && node['placeTypes'] && node['placeTypes'].length > 0) {
+    if (
+      place_types.size > 0 &&
+      node["placeTypes"] &&
+      node["placeTypes"].length > 0
+    ) {
       let validNode = false;
       for (let p of place_types) {
-        if (node['placeTypes'].includes(p)) {
+        if (node["placeTypes"].includes(p)) {
           validNode = true;
           break;
         }
@@ -95,18 +97,18 @@ function initMenu(exploreTypeVars, urlParams) {
         return;
       }
     }
-    if (node.type.toLowerCase() === 'property') {
+    if (node.type.toLowerCase() === "property") {
       let html;
 
       // Create li element
-      let listItem = document.createElement('li');
-      listItem.classList.add('parent');
+      let listItem = document.createElement("li");
+      listItem.classList.add("parent");
       listItem.id = clean(node.title);
 
       if (node.children.length > 0) {
-        let for_search = '';
+        let for_search = "";
         if (search && node.search_count > 1) {
-          for_search = 'for-search';
+          for_search = "for-search";
         }
         html = `<span>
               <a class="expand-link ${for_search}">
@@ -127,10 +129,10 @@ function initMenu(exploreTypeVars, urlParams) {
       parentElement.appendChild(listItem);
 
       // Create and append ul element that will contain children
-      let unorderedListItem = document.createElement('ul');
-      unorderedListItem.classList.add('unordered-list');
-      unorderedListItem.classList.add('hidden');
-      unorderedListItem.classList.add('collapsed');
+      let unorderedListItem = document.createElement("ul");
+      unorderedListItem.classList.add("unordered-list");
+      unorderedListItem.classList.add("hidden");
+      unorderedListItem.classList.add("collapsed");
       parentElement.appendChild(unorderedListItem);
 
       // Traverse children
@@ -140,24 +142,23 @@ function initMenu(exploreTypeVars, urlParams) {
       children2.forEach((child) => {
         traverse(child, unorderedListItem);
       });
-    } else if (node.type.toLowerCase() === 'value') {
+    } else if (node.type.toLowerCase() === "value") {
       let html;
 
       // Create li element
-      let listItem = document.createElement('li');
-      listItem.classList.add('value');
+      let listItem = document.createElement("li");
+      listItem.classList.add("value");
       listItem.id = clean(node.title);
 
-      let for_search = '';
+      let for_search = "";
       if (search && node.search_count > 0) {
-        for_search = 'for-search';
+        for_search = "for-search";
       }
       html = `<span>
                   <a id="${node.argString}" class="value-link ${for_search}"
                     data-argstring="${node.argString}">
                     ${node.title}
-                    <button id="checkbox-${
-        node.argString}" class="checkbox"></button>
+                    <button id="checkbox-${node.argString}" class="checkbox"></button>
                   </a>
                 </span>`;
       if (node.children.length > 0) {
@@ -178,10 +179,10 @@ function initMenu(exploreTypeVars, urlParams) {
       showIfSelectedOption(node.argString);
 
       // Create and append ul element that will contain children
-      let unorderedListItem = document.createElement('ul');
-      unorderedListItem.classList.add('unordered-list');
-      unorderedListItem.classList.add('hidden');
-      unorderedListItem.classList.add('collapsed');
+      let unorderedListItem = document.createElement("ul");
+      unorderedListItem.classList.add("unordered-list");
+      unorderedListItem.classList.add("hidden");
+      unorderedListItem.classList.add("collapsed");
       parentElement.appendChild(unorderedListItem);
 
       // Traverse children
@@ -193,22 +194,24 @@ function initMenu(exploreTypeVars, urlParams) {
 
   let toggleChildren = (evt) => {
     // Show children
-    let children = evt.target.closest('li').nextSibling;
+    let children = evt.target.closest("li").nextSibling;
     if (children) {
-      children.classList.toggle('hidden');
+      children.classList.toggle("hidden");
       setTimeout(() => {
-        children.classList.toggle('collapsed');
+        children.classList.toggle("collapsed");
       }, 0);
     }
 
-    evt.currentTarget.querySelector('.right-caret').classList.toggle('transform-down');
+    evt.currentTarget
+      .querySelector(".right-caret")
+      .classList.toggle("transform-down");
   };
 
   let toggleChartPOV = (evt) => {
-    if (evt.target.classList.contains('checkbox')) {
-      evt.target.classList.toggle('checked');
-    } else if (evt.target.classList.contains('value-link')) {
-      evt.target.querySelector('.checkbox').classList.toggle('checked');
+    if (evt.target.classList.contains("checkbox")) {
+      evt.target.classList.toggle("checked");
+    } else if (evt.target.classList.contains("value-link")) {
+      evt.target.querySelector(".checkbox").classList.toggle("checked");
     }
     window.evtmap[evt.currentTarget.dataset.argstring] = evt;
     // Toggle this POV in the chart
@@ -216,20 +219,18 @@ function initMenu(exploreTypeVars, urlParams) {
   };
 
   categoryList.forEach((category) => {
-    if (category && exploreTypeVars[category]['children'].length > 0) {
+    if (category && exploreTypeVars[category]["children"].length > 0) {
       traverse(exploreTypeVars[category], menuContainer);
     }
   });
 
-  document.querySelectorAll('#drill .expand-link').forEach((item) => {
-    item.addEventListener('click', toggleChildren);
+  document.querySelectorAll("#drill .expand-link").forEach((item) => {
+    item.addEventListener("click", toggleChildren);
   });
 
-  document.querySelectorAll('#drill .value-link').forEach((item) => {
-    item.addEventListener('click', toggleChartPOV);
+  document.querySelectorAll("#drill .value-link").forEach((item) => {
+    item.addEventListener("click", toggleChartPOV);
   });
 }
 
-export {
-  initMenu
-}
+export { initMenu };

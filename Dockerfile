@@ -4,6 +4,7 @@ FROM node:12-slim
 COPY static /website/static
 WORKDIR /website/static
 RUN npm install
+RUN npm run lint
 RUN npm run-script test
 RUN npm run-script build
 

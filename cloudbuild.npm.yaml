@@ -4,4 +4,4 @@ steps:
   entrypoint: /bin/sh
   args:
   - -c
-  - 'cd static && npm install && npm test'
+  - 'cd static && npm install && npm run lint && npm test'
