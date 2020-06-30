@@ -28,10 +28,22 @@ class TestRoute(unittest.TestCase):
               {
                 'dcid': 'dcid1',
                 'name': 'name1',
+                'types': ['County', 'AdministrativeArea'],
               },
               {
                 'dcid': 'dcid2',
                 'name': 'name2',
+                'types': ['County'],
+              },
+              {
+                'dcid': 'dcid3',
+                'name': 'name3',
+                'types': ['State'],
+              },
+              {
+                'dcid': 'dcid3',
+                'name': 'name3',
+                'types': ['CensusTract'],
               }
             ]
           }
@@ -40,13 +52,21 @@ class TestRoute(unittest.TestCase):
           lambda url, req, compress, post: mock_response)
         response = app.test_client().get('/api/place/child/geoId/06')
         assert response.status_code == 200
-        assert json.loads(response.data) == [
-              {
-                'dcid': 'dcid1',
-                'name': 'name1',
-              },
-              {
-                'dcid': 'dcid2',
-                'name': 'name2',
-              }
-            ]
+        assert json.loads(response.data) == {
+          'County': [
+            {
+              'dcid': 'dcid1',
+              'name': 'name1'
+            },
+            {
+              'dcid': 'dcid2',
+              'name': 'name2'
+            }
+          ],
+          'State': [
+            {
+              'dcid': 'dcid3',
+              'name': 'name3'
+            }
+          ]
+        }

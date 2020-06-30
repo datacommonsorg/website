@@ -601,6 +601,7 @@ class Chart extends Component {
                       !config.placeTypes ||
                       config.placeTypes.contains(placeType)
                     ) {
+                      // Choose the first 5 child places to show in the chart.
                       return childPlaces[placeType]
                         .slice(0, 5)
                         .map((place) => place["dcid"]);

@@ -19,17 +19,16 @@ import React from "react";
 import axios from "axios";
 
 import {
+  ChildPlace,
   MainPane,
-  Ranking,
   Menu,
   ParentPlace,
-  ChildPlace,
+  Ranking,
 } from "./place_overview.jsx";
 
 let ac;
 
 const Y_SCROLL_LIMIT = 150;
-const WANTED_PLACE_TYPES = new Set(["Country", "State", "County", "City"]);
 
 window.onload = () => {
   const urlParams = new URLSearchParams(window.location.search);
@@ -55,23 +54,7 @@ function adjustMenuPosition() {
  */
 function getChildPlaces(dcid) {
   return axios.get(`/api/place/child/${dcid}`).then((resp) => {
-    let places = resp.data;
-    let result = {};
-    for (let place of places) {
-      for (let placeType of place["types"]) {
-        if (WANTED_PLACE_TYPES.has(placeType)) {
-          if (!(placeType in result)) {
-            result[placeType] = [];
-          }
-          result[placeType].push({
-            name: place["name"],
-            dcid: place["dcid"],
-          });
-          break;
-        }
-      }
-    }
-    return result;
+    return resp.data;
   });
 }
 
