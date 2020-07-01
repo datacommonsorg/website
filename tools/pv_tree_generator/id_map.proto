@@ -1,0 +1,19 @@
+syntax = "proto2";
+ 
+package datacommons.proto;
+ 
+  
+message DcidMid {
+ optional string dcid = 1;
+ repeated string mid = 2;
+ optional string prov_hrid = 3;
+}
+ 
+message DcidMidMap {
+ message ValSet {
+   repeated DcidMid val = 2;
+ }
+ repeated DcidMid type = 1;
+ repeated DcidMid prop = 2;
+ repeated ValSet val_set = 3;
+}

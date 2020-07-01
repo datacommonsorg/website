@@ -14,8 +14,10 @@
 
 """utility functions used to build the property-value tree structure """
 from google.protobuf import text_format
+from google.cloud import storage
 import collections
 import stat_config_pb2
+import id_map_pb2
 import dc_request as dc
 
 class PopObsSpec(object):
@@ -184,6 +186,8 @@ def _read_stat_var():
     
 SEARCH_WHITELIST_PATH = './search_whitelist_popobs.textproto'
 QUANT_SPEC_PATH = './quantity_prop_val_spec.textproto'
+API_PROJECT = 'datcom-mixer-staging'
+GCS_BUCKET = "datcom-browser-staging.appspot.com"
 def _read_search_pvs():
     """Read all the property value dcid that is used in search."""
     props = set()
@@ -200,6 +204,17 @@ def _read_search_pvs():
         props.add((pop_type, mprop, ''))
         for p in pos.cprop:
             props.add((pop_type, mprop, p))
+
+    # Add the non-quantity enum dcid
+    storage_client = storage.Client(project=API_PROJECT)
+    bucket = storage_client.get_bucket(GCS_BUCKET)
+    blob = bucket.get_blob('dcid_mid_map.textproto')
+    dcid_map_str = blob.download_as_string()
+    dcid_mid_map = id_map_pb2.DcidMidMap()
+    text_format.Parse(dcid_map_str,dcid_mid_map)
+    for val_set in dcid_mid_map.val_set:
+        for val in val_set.val:
+            vals.add(val.dcid)
 
     # Add the quantity dcid
     quant_spec_list = stat_config_pb2.QuantityPropValSpecList()

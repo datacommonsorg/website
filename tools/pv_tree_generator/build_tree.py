@@ -66,7 +66,7 @@ def build_tree_recursive(pos, level, pop_obs_spec, stat_vars, show_all,
             in_search = True
             for prop, val in value_ui_pv.items():
                 in_search = (in_search and (value_ui_node.pop_type, 
-                    value_ui_node.mprop, prop) in SEARCH_SPECS)
+                    value_ui_node.mprop, prop) in SEARCH_SPECS and val in SEARCH_VALS)
                 if not in_search:
                     break
 
