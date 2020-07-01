@@ -378,16 +378,6 @@ def get_parent_place(dcid):
     return parents
 
 
-@cache.memoize(timeout=3600 * 24)  # Cache for one day.
-@app.route('/api/child-place/<path:dcid>')
-def api_child_place(dcid):
-    """
-    Get the child places for a place.
-    """
-    child_places = get_property_value(dcid, 'containedInPlace', out=False)
-    return json.dumps(child_places)
-
-
 @app.route('/data/line')
 def linedata():
     """Handler to get the line data."""

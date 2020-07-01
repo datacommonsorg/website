@@ -14,17 +14,10 @@
 # limitations under the License.
 
 
-pip3 install -r ./server/requirements.txt
-
-# protoc -I=./ --python_out=./ ./*.proto
-
-# For developers with permission, they can run the app locally and read the
-# placeid2dcid.json from GCS.
-# When deploying a new file to GCS, first make sure it runs in local and staging,
-# then copy it over to prod bucket.
-gcloud config set project datcom-browser-staging
-gcloud auth application-default login
+python3 -m venv .env
+source .env/bin/activate
 
 export FLASK_ENV=development
 cd server
+pip3 install -r requirements.txt
 python3 main.py

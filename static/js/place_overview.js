@@ -18,7 +18,13 @@ import ReactDOM from "react-dom";
 import React from "react";
 import axios from "axios";
 
-import { MainPane, Ranking, Menu, ParentPlace } from "./place_overview.jsx";
+import {
+  ChildPlace,
+  MainPane,
+  Menu,
+  ParentPlace,
+  Ranking,
+} from "./place_overview.jsx";
 
 let ac;
 
@@ -33,7 +39,7 @@ window.onload = () => {
 };
 
 function adjustMenuPosition() {
-  let topicsEl = document.getElementById('topics');
+  let topicsEl = document.getElementById("topics");
   if (window.scrollY > Y_SCROLL_LIMIT) {
     topicsEl.classList.add("fixed");
   } else {
@@ -47,24 +53,8 @@ function adjustMenuPosition() {
  * @param {string} dcid
  */
 function getChildPlaces(dcid) {
-  return axios.get(`/api/child-place/${dcid}`).then((resp) => {
-    let places = resp.data;
-    let result = [];
-    for (let dcid of places) {
-      if (!dcid.startsWith("geoId/")) {
-        // Zipcode and school district.
-        continue;
-      }
-      if (dcid.replace("geoId/", "").length > 7) {
-        // Census Tract.
-        continue;
-      }
-      result.push(dcid);
-      if (result.length == 5) {
-        break;
-      }
-    }
-    return result;
+  return axios.get(`/api/place/child/${dcid}`).then((resp) => {
+    return resp.data;
   });
 }
 
@@ -131,6 +121,16 @@ function renderPage(dcid) {
       document.getElementById("place-parents")
     );
   });
+
+  // TODO: remove the check when style is fixed.
+  if (false) {
+    childPlacesPromise.then((childPlaces) => {
+      ReactDOM.render(
+        <ChildPlace childPlaces={childPlaces} />,
+        document.getElementById("child-place")
+      );
+    });
+  }
 
   parentPlacesPromise.then((parentPlaces) => {
     ReactDOM.render(

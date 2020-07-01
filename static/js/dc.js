@@ -18,56 +18,101 @@ let placeColors = {};
 let popPVLineType = {};
 
 const gColors = [
-  '#1A73E8', '#D93025', '#F9AB00', '#1E8E3E', '#E8710A', '#E52592', '#9334E6',
-  '#12B5CB', '#AECBFA', '#F6AEA9', '#FDE293', '#A8DAB5', '#FDC69C', '#FBA9D6',
-  '#D7AEFB', '#AE14F2', '#185ABC', '#B31412', '#EA8600', '#137333', '#C26401',
-  '#B80672', '#7627BB', '#098591', '#669DF6', '#EE675C', '#FCC934', '#5BB974',
-  '#FA903E', '#FF63B8', '#AF5CF7', '#4ECDE6',
+  "#1A73E8",
+  "#D93025",
+  "#F9AB00",
+  "#1E8E3E",
+  "#E8710A",
+  "#E52592",
+  "#9334E6",
+  "#12B5CB",
+  "#AECBFA",
+  "#F6AEA9",
+  "#FDE293",
+  "#A8DAB5",
+  "#FDC69C",
+  "#FBA9D6",
+  "#D7AEFB",
+  "#AE14F2",
+  "#185ABC",
+  "#B31412",
+  "#EA8600",
+  "#137333",
+  "#C26401",
+  "#B80672",
+  "#7627BB",
+  "#098591",
+  "#669DF6",
+  "#EE675C",
+  "#FCC934",
+  "#5BB974",
+  "#FA903E",
+  "#FF63B8",
+  "#AF5CF7",
+  "#4ECDE6",
 ];
 
-const gLines = [[1, 1], [4, 4], [3, 4], [14, 2, 2, 7], [2, 2, 20, 2, 20, 2], [10, 2]];
+const gLines = [
+  [1, 1],
+  [4, 4],
+  [3, 4],
+  [14, 2, 2, 7],
+  [2, 2, 20, 2, 20, 2],
+  [10, 2],
+];
 
 const MAX_CHART_WIDTH = 1000;
 const MAX_CHART_HEIGHT = 500;
 
 // List of possible properties containing stats for an observation. Should be
 // ordered by preference of using that value for charting / download purposes.
-const STATS_PROPS = ['measuredValue', 'meanValue', 'medianValue', 'sumValue', 'minValue',
-      'maxValue', 'marginOfError', 'stdError', 'meanStdError',
-      'percentile10', 'percentile25', 'percentile75', 'percentile90',
-      'growthRate', 'stdDeviationValue'];
-
+const STATS_PROPS = [
+  "measuredValue",
+  "meanValue",
+  "medianValue",
+  "sumValue",
+  "minValue",
+  "maxValue",
+  "marginOfError",
+  "stdError",
+  "meanStdError",
+  "percentile10",
+  "percentile25",
+  "percentile75",
+  "percentile90",
+  "growthRate",
+  "stdDeviationValue",
+];
 
 const POP_NAME = {
-  'Person': 'Population',
-  'CriminalActivity': 'Crime',
-  'MortalityEvent': 'Death',
+  Person: "Population",
+  CriminalActivity: "Crime",
+  MortalityEvent: "Death",
 };
 
-
-function getPlaceColor (place) {
+function getPlaceColor(place) {
   if (place.name in placeColors) {
     return placeColors[place.name];
   } else {
-    const n = (Object.keys(placeColors)).length;
+    const n = Object.keys(placeColors).length;
     const nextColor = gColors[n];
     placeColors[place.name] = nextColor;
     return nextColor;
   }
 }
 
-function getPopPvLine (popPV) {
- if (popPV in popPVLineType) {
+function getPopPvLine(popPV) {
+  if (popPV in popPVLineType) {
     return popPVLineType[popPV];
   } else {
-    const n = (Object.keys(popPVLineType)).length;
+    const n = Object.keys(popPVLineType).length;
     const nextLine = gLines[n];
     popPVLineType[popPV] = nextLine;
     return nextLine;
   }
 }
 
-function isSubPopulationOf (pt1, pt2, nc1, nc2, pvs1, pvs2) {
+function isSubPopulationOf(pt1, pt2, nc1, nc2, pvs1, pvs2) {
   if (pt1 != pt2) {
     return false;
   }
@@ -78,7 +123,7 @@ function isSubPopulationOf (pt1, pt2, nc1, nc2, pvs1, pvs2) {
 }
 
 function fromEntries(x) {
-  return x.reduce(function(prev, curr) {
+  return x.reduce(function (prev, curr) {
     prev[curr[0]] = curr[1];
     return prev;
   }, {});
@@ -93,13 +138,13 @@ function getPlace(data) {
 }
 
 function formatAC(str) {
-    str = str.replace('USC_', '');
-    str = str.replace('EnrolledInSchool_', '');
-    str = str.replace('BLS_', '');
-    str = str.replace('FBI_', '');
-    str = str.replace('To', ' - ');
-    str = str.replace('StatusInThePast12Months', 'Status');
-    return str;
+  str = str.replace("USC_", "");
+  str = str.replace("EnrolledInSchool_", "");
+  str = str.replace("BLS_", "");
+  str = str.replace("FBI_", "");
+  str = str.replace("To", " - ");
+  str = str.replace("StatusInThePast12Months", "Status");
+  return str;
 }
 
 function propncToProp(population) {
@@ -149,20 +194,20 @@ class Place {
       let popData = data.populations[popDcid];
       if (popData.observations) {
         // We do not know how to display comparisons.
-        popData.observations = popData.observations.filter(o =>
-          (!o.hasOwnProperty('comparisonOperator')) &&
-              o.provenanceId != 'dc/gk50y31'
+        popData.observations = popData.observations.filter(
+          (o) =>
+            !o.hasOwnProperty("comparisonOperator") &&
+            o.provenanceId != "dc/gk50y31"
         );
-        if (popData.observations.length == 0)
-          continue;
+        if (popData.observations.length == 0) continue;
       }
       let p = new Population(popData);
       this.populations[popDcid] = p;
     }
-    if ('observations' in data) {
-      this.populations[''] = new Population({
-        'popType': '',
-        'observations': data['observations']
+    if ("observations" in data) {
+      this.populations[""] = new Population({
+        popType: "",
+        observations: data["observations"],
       });
     }
   }
@@ -179,14 +224,14 @@ class Place {
         return pop;
       }
     }
-    console.log('No data found for ', popType, pvs);
+    console.log("No data found for ", popType, pvs);
   }
 
   getPeoplePopulation(year) {
-    let pop = this.getPopulation('Person', {});
+    let pop = this.getPopulation("Person", {});
     if (pop) {
       for (const obs of pop.data.observations) {
-        if (obs.measuredProp === 'count' && obs.observationDate === year ) {
+        if (obs.measuredProp === "count" && obs.observationDate === year) {
           return obs.measuredValue;
         }
       }
@@ -195,11 +240,11 @@ class Place {
   }
 }
 
-function placeMod (placeName, mod) {
+function placeMod(placeName, mod) {
   if (placeName) {
-    return mod + ' ' + placeName;
+    return mod + " " + placeName;
   } else {
-    return ' ';
+    return " ";
   }
 }
 
@@ -209,27 +254,35 @@ function placeMod (placeName, mod) {
 class Series {
   constructor(place, ptPv, timeSeries) {
     this.place = place;
-    this.measuredProp = ptPv['measuredProp'];
+    this.measuredProp = ptPv["measuredProp"];
     this.ts = timeSeries;
     this.color = getPlaceColor(place);
-    this.line = getPopPvLine(ptPv['urlarg']);
+    this.line = getPopPvLine(ptPv["urlarg"]);
   }
 }
-
 
 class Population {
   constructor(data) {
     this.data = data;
-    this.pvs = data.propertyValues;  // can be undefined
+    this.pvs = data.propertyValues; // can be undefined
     this.popType = data.popType;
-    this.nc = data.numConstraints;  // can be undefined
+    this.nc = data.numConstraints; // can be undefined
   }
 
   title(place, placeName, prop, percap) {
-    let ignoreVals = ['Years5Onwards', 'Years25Onwards','WithIncome', 'Years15Onwards', 'Years18Onwards', 'Years3Onwards'];
+    let ignoreVals = [
+      "Years5Onwards",
+      "Years25Onwards",
+      "WithIncome",
+      "Years15Onwards",
+      "Years18Onwards",
+      "Years3Onwards",
+    ];
     let suppressed = false;
-    let pre = 'Number';
-    if (percap) { pre = 'Fraction'; }
+    let pre = "Number";
+    if (percap) {
+      pre = "Fraction";
+    }
     let popType = this.popType;
     let pvl = this.pvs ? this.pvs.length : 0;
 
@@ -245,82 +298,100 @@ class Population {
       }
     }
 
-    if (strs.length == 0 ) {
-      if (popType == 'Person' && (prop == null || prop == 'count'))  {
-        return placeMod(placeName, ' ') + ' population';
-      } else if (prop == null || prop == 'count') {
-        return placeMod(placeName, ' ') + popType;
+    if (strs.length == 0) {
+      if (popType == "Person" && (prop == null || prop == "count")) {
+        return placeMod(placeName, " ") + " population";
+      } else if (prop == null || prop == "count") {
+        return placeMod(placeName, " ") + popType;
       } else {
-        return 'Median ' + prop + placeMod(placeName, ' ');
+        return "Median " + prop + placeMod(placeName, " ");
       }
     }
 
-    str = strs.join(', ');
+    str = strs.join(", ");
     if (place == null && suppressed) {
       str += "<sup>*</sup>";
     }
 
-    //       str += pv[0] + ' = ' + formatAC(pv[1]) + '; ';
-    return placeMod(placeName, '') + ' ' + str;
+    //       str += pv[0] + " = " + formatAC(pv[1]) + "; ";
+    return placeMod(placeName, "") + " " + str;
   }
 
   titleLong(place, placeName, prop, percap) {
-    let pre = 'Number';
-    if (percap) { pre = 'Fraction'; }
+    let pre = "Number";
+    if (percap) {
+      pre = "Fraction";
+    }
     if (this.pvs.length == 0) {
-      if (this.popType == 'Person') {
-        if (prop == 'count') {
-          return pre + 'of  people ' + placeMod(placeName, 'in');
+      if (this.popType == "Person") {
+        if (prop == "count") {
+          return pre + "of  people " + placeMod(placeName, "in");
         } else if (prop == null) {
-          return 'People ' + placeMod(placeName, 'of');
+          return "People " + placeMod(placeName, "of");
         } else {
-          return 'Median ' + prop + placeMod(placeName, ' of ');
+          return "Median " + prop + placeMod(placeName, " of ");
         }
-      } else if (this.popType == 'CriminalActivities') {
-        return placeMod(placeName, '') + ' crimes';
+      } else if (this.popType == "CriminalActivities") {
+        return placeMod(placeName, "") + " crimes";
       }
-
     } else {
       let str = "";
       if (this.pvs.length > 0) {
-        str += ' with  ';
+        str += " with  ";
       }
 
       for (const pv of this.pvs) {
-        str += pv[0] + ' = ' + formatAC(pv[1]) + '; ';
+        str += pv[0] + " = " + formatAC(pv[1]) + "; ";
       }
-      if (prop == 'count') {
-        if (this.popType == 'Person') {
-          return pre + ' of  people ' + placeMod(placeName, 'in') + str;
-        } else if (this.popType == 'CriminalActivities') {
-          return 'Number of  Crimes' + (percap ? ' per 1000 people ': '') + placeMod(placeName, 'in') + str;
-        } else if (this.popType == 'BLSEstablishment') {
-          return 'Number of  Establishments ' +  (percap ? ' per 1000 people ': '') + placeMod(placeName, 'in') + str;
-        } else if (this.popType == 'BLSWorker') {
-          return 'Number of  positions ' +  (percap ? ' per 1000 people ': '') + placeMod(placeName, 'in') + str;
+      if (prop == "count") {
+        if (this.popType == "Person") {
+          return pre + " of  people " + placeMod(placeName, "in") + str;
+        } else if (this.popType == "CriminalActivities") {
+          return (
+            "Number of  Crimes" +
+            (percap ? " per 1000 people " : "") +
+            placeMod(placeName, "in") +
+            str
+          );
+        } else if (this.popType == "BLSEstablishment") {
+          return (
+            "Number of  Establishments " +
+            (percap ? " per 1000 people " : "") +
+            placeMod(placeName, "in") +
+            str
+          );
+        } else if (this.popType == "BLSWorker") {
+          return (
+            "Number of  positions " +
+            (percap ? " per 1000 people " : "") +
+            placeMod(placeName, "in") +
+            str
+          );
         }
-
-      } if (prop == null) {
-        return this.popType + placeMod(placeName, ' of ');
+      }
+      if (prop == null) {
+        return this.popType + placeMod(placeName, " of ");
       } else {
-        return prop + ' of ' + str;
+        return prop + " of " + str;
       }
     }
   }
 
-  getTimeSeries(measuredProp, place, perCapita=False) {
-    const obs = this.data.observations.filter(o => o.measuredProp === measuredProp);
+  getTimeSeries(measuredProp, place, perCapita = False) {
+    const obs = this.data.observations.filter(
+      (o) => o.measuredProp === measuredProp
+    );
     let stat;
-    if (measuredProp === 'age' || measuredProp === 'income') {
-      stat = 'medianValue'
+    if (measuredProp === "age" || measuredProp === "income") {
+      stat = "medianValue";
     } else {
-      stat = 'measuredValue'
+      stat = "measuredValue";
     }
     // For now GNI only supports measuredValue and medianValue. When we start
     // supporting other stat types (as a var), then can modify/use getStatPop.
     // let stat = getStatProp(measuredProp, obs);
     // if (stat == null) {
-    //   console.log('Cannot find a stat property in the observation');
+    //   console.log("Cannot find a stat property in the observation");
     //   return;
     // }
     let pts = [];
@@ -328,10 +399,10 @@ class Population {
       if (o.measuredProp === measuredProp && stat in o) {
         let dd;
         let t = o.observationDate;
-        if (typeof t === 'number') {
+        if (typeof t === "number") {
           dd = new Date(t / 1000);
         } else {
-          const parts = t.split('-').map(v => Number(v));
+          const parts = t.split("-").map((v) => Number(v));
           if (parts.length == 1) {
             dd = new Date(parts[0], 0);
           } else if (parts.length == 2) {
@@ -343,13 +414,13 @@ class Population {
           }
         }
         let val = o[stat];
-        if (perCapita && measuredProp == 'count') {
+        if (perCapita && measuredProp == "count") {
           let peoplePop = place.getPeoplePopulation(t);
           if (peoplePop > 0) {
-            if (this.popType == 'Person') {
+            if (this.popType == "Person") {
               val = val / peoplePop;
             } else {
-              val = val * 1000 / peoplePop;
+              val = (val * 1000) / peoplePop;
             }
             pts.push([dd.getFullYear(), val]);
           }
@@ -370,24 +441,24 @@ class TimeSeries {
     this.label = null;
   }
 
-  serialize () {
-    let str = "{\"label\" : \"" + this.label + "\", \"data\" : [";
+  serialize() {
+    let str = '{"label" : "' + this.label + '", "data" : [';
     let strs = [];
     for (it of this.data) {
       strs.push("[" + it[0] + "," + it[1] + "]");
     }
-    str += strs.join(',') + "]}";
+    str += strs.join(",") + "]}";
     return str;
   }
 }
 
-
 class ChartData {
   // Takes an array of Series object.
   constructor(seriesArray) {
-    let attrString = 'Population data from Census.gov; Labor data from bls.gov; Crime data from fbi.gov; Health data from cdc.gov' ;
+    let attrString =
+      "Population data from Census.gov; Labor data from bls.gov; Crime data from fbi.gov; Health data from cdc.gov";
     const n = seriesArray.length;
-    this.header = [attrString, ...seriesArray.map(ts => ts.ts.label)];
+    this.header = [attrString, ...seriesArray.map((ts) => ts.ts.label)];
     let rowData = {};
     for (let i = 0; i < n; i++) {
       for (const pt of seriesArray[i].ts.data) {
@@ -408,23 +479,23 @@ class ChartData {
 }
 
 /***********************************************************
-* Updating chart and other UI elements
-***********************************************************/
+ * Updating chart and other UI elements
+ ***********************************************************/
 
 /**
  * Parses the pt_ps_mp_str from the URL (arg=ptpv), returning an Array of
  * dictionaries keyed as such:
- * 'popType': String
- * 'measuredProp': String
- * 'pvs': {p:v, ...}
- * 'urlarg': String (url arg hash of the ptpv)
+ * "popType": String
+ * "measuredProp": String
+ * "pvs": {p:v, ...}
+ * "urlarg": String (url arg hash of the ptpv)
  */
 function parsePtPvs(pt_ps_mp_str) {
   let ret = [];
-  for (const pt_pvs_mp of pt_ps_mp_str.split('__')) {
+  for (const pt_pvs_mp of pt_ps_mp_str.split("__")) {
     // ptpvs=Person,mp,p1,v1,p2,v2__Person,mp,p1,v1
     // first is popType, next is measuredProp and then pvs
-    let parts = pt_pvs_mp.split(',');
+    let parts = pt_pvs_mp.split(",");
 
     if (parts.length < 2) {
       continue;
@@ -435,26 +506,26 @@ function parsePtPvs(pt_ps_mp_str) {
     let pvs = {};
     let n;
     for (n = 2; n < parts.length; n = n + 2) {
-      pvs[parts[n]] = parts[n+1];
+      pvs[parts[n]] = parts[n + 1];
     }
     ret.push({
-      'popType': popType,
-      'measuredProp': measuredProp,
-      'pvs': pvs,
-      'urlarg': pt_pvs_mp
+      popType: popType,
+      measuredProp: measuredProp,
+      pvs: pvs,
+      urlarg: pt_pvs_mp,
     });
   }
   return ret;
 }
 
 function getLegend(ptpv) {
-  let popType = ptpv['popType'];
-  let measuredProp = ptpv['measuredProp'];
-  let pvs = ptpv['pvs'];
+  let popType = ptpv["popType"];
+  let measuredProp = ptpv["measuredProp"];
+  let pvs = ptpv["pvs"];
   let ps = Object.keys(pvs);
   ps.sort();
-  let legend = '';
-  if (measuredProp != 'count') {
+  let legend = "";
+  if (measuredProp != "count") {
     legend += ` ${cap(measuredProp)}`;
   } else {
     if (ps.length == 0) {
@@ -466,25 +537,24 @@ function getLegend(ptpv) {
     }
   }
   if (ps.length > 0) {
-    legend += ` ${ps.map(p => pvs[p]).join(',')}`;
+    legend += ` ${ps.map((p) => pvs[p]).join(",")}`;
   }
   return legend;
 }
 
-
 function getUrlHelper(placeIds, ptpvGroup) {
-  let url = '';
+  let url = "";
   for (let i = 1; i < ptpvGroup.length + 1; i++) {
-    let piece = '';
+    let piece = "";
     // Add place param
     for (let placeId of placeIds) {
       piece += `&mid${i}=${placeId}`;
     }
     // Add know pop obs spec
-    let ptpv = ptpvGroup[i-1];
-    let popType = ptpv['popType'];
-    let pvs = ptpv['pvs'];
-    let measuredProp = ptpv['measuredProp'];
+    let ptpv = ptpvGroup[i - 1];
+    let popType = ptpv["popType"];
+    let pvs = ptpv["pvs"];
+    let measuredProp = ptpv["measuredProp"];
     piece += `&popt${i}=${popType}&mprop${i}=${measuredProp}`;
     for (let p in pvs) {
       piece += `&cpv${i}=${p},${pvs[p]}`;
@@ -494,43 +564,43 @@ function getUrlHelper(placeIds, ptpvGroup) {
     ps.sort();
     url += piece;
   }
-  return url
+  return url;
 }
 
 function getChartUrl(placeIds, ptpvGroup, perCapita, width, height) {
-  let url = '/datachart/line?richlg&placelg';
+  let url = "/datachart/line?richlg&placelg";
   if (perCapita) {
-    url += '&pc';
+    url += "&pc";
   }
   return `${url}${getUrlHelper(placeIds, ptpvGroup)}&w=${width}&h=${height}`;
 }
 
 function getDataUrl(placeIds, ptpvGroup, perCapita) {
-  let url = '/data/line?';
+  let url = "/data/line?";
   if (perCapita) {
-    url += '&pc';
+    url += "&pc";
   }
   return `${url}${getUrlHelper(placeIds, ptpvGroup)}`;
 }
 
 /*
-* Draw population chart
-*/
+ * Draw population chart
+ */
 function drawFromChartApi(chartElem, placeIdStr, pt_pvs_mp_str) {
   const obsElem = document.getElementById(chartElem);
   const elem2 = document.createElement("div");
-  elem2.id = 'gchart-container';
+  elem2.id = "gchart-container";
   obsElem.appendChild(elem2);
   let perCapita = getPerCapita();
 
   let width = Math.min(obsElem.offsetWidth - 20, MAX_CHART_WIDTH);
   let height = Math.min(Math.round(width * 0.5), MAX_CHART_HEIGHT);
 
-  let placeIds = placeIdStr.split(',');
+  let placeIds = placeIdStr.split(",");
   let allPtPv = parsePtPvs(pt_pvs_mp_str);
   let mpropGroup = {};
   for (let ptPv of allPtPv) {
-    let mprop = ptPv['measuredProp'];
+    let mprop = ptPv["measuredProp"];
     if (mprop in mpropGroup) {
       mpropGroup[mprop].push(ptPv);
     } else {
@@ -539,7 +609,7 @@ function drawFromChartApi(chartElem, placeIdStr, pt_pvs_mp_str) {
   }
   for (let mprop in mpropGroup) {
     const card = document.createElement("div");
-    card.className = 'card';
+    card.className = "card";
     elem2.appendChild(card);
     let ptpvGroup = mpropGroup[mprop];
     let img = new Image();
@@ -548,7 +618,8 @@ function drawFromChartApi(chartElem, placeIdStr, pt_pvs_mp_str) {
     showPVListV2(card, ptpvGroup);
     let attribution = document.createElement("div");
     attribution.classList.add("attribution");
-    attribution.textContent = "Population data from census.gov; Labor data from bls.gov; Crime data from fbi.gov; Health data from cdc.gov";
+    attribution.textContent =
+      "Population data from census.gov; Labor data from bls.gov; Crime data from fbi.gov; Health data from cdc.gov";
     card.appendChild(attribution);
   }
 }
@@ -567,38 +638,38 @@ function showPVListV2(listElem, ptpvGroup) {
       let legend = getLegend(ptpv);
       text.innerHTML = legend;
       elem.appendChild(text);
-      const button = document.createElement('button');
-      button.classList.add('mdl-chip__action');
-      const cancel = document.createElement('i');
-      cancel.classList.add('material-icons');
-      cancel.innerHTML = 'cancel';
+      const button = document.createElement("button");
+      button.classList.add("mdl-chip__action");
+      const cancel = document.createElement("i");
+      cancel.classList.add("material-icons");
+      cancel.innerHTML = "cancel";
       button.appendChild(cancel);
       elem.appendChild(button);
-      elem.appendChild(document.createElement('br'));
-      cancel.addEventListener('click', () => removePVTFromUrl(ptpv['urlarg']));
+      elem.appendChild(document.createElement("br"));
+      cancel.addEventListener("click", () => removePVTFromUrl(ptpv["urlarg"]));
       ind++;
     }
   }
- }
+}
 
- /*
-* Remove PTPV from url
-*/
+/*
+ * Remove PTPV from url
+ */
 function removePVTFromUrl(toremove) {
   let vars = getUrlVars();
-  //    let newStr = pt + ',' + mp + ',' + pvs;
-  if ('ptpv' in vars) {
-    let ptpvs = vars['ptpv'].split('__');
+  //    let newStr = pt + "," + mp + "," + pvs;
+  if ("ptpv" in vars) {
+    let ptpvs = vars["ptpv"].split("__");
 
     if (ptpvs.includes(toremove)) {
       ptpvs.splice(ptpvs.indexOf(toremove), 1);
-      vars['ptpv'] = ptpvs.join('__');
-      let evt = window.evtmap[toremove]
+      vars["ptpv"] = ptpvs.join("__");
+      let evt = window.evtmap[toremove];
       if (evt) {
-        if (evt.target.classList.contains('checkbox')) {
-          evt.target.classList.toggle('checked');
-        } else if (evt.target.classList.contains('value-link')) {
-          evt.target.querySelector('.checkbox').classList.toggle('checked');
+        if (evt.target.classList.contains("checkbox")) {
+          evt.target.classList.toggle("checked");
+        } else if (evt.target.classList.contains("value-link")) {
+          evt.target.querySelector(".checkbox").classList.toggle("checked");
         }
       }
     }
@@ -606,41 +677,44 @@ function removePVTFromUrl(toremove) {
   setSearchParam(vars);
 }
 
-
 function cap(string) {
-    return string.charAt(0).toUpperCase() + string.slice(1);
+  return string.charAt(0).toUpperCase() + string.slice(1);
 }
 
-function dcidToPlaceType (dcid) {
+function dcidToPlaceType(dcid) {
   // TODO(boxu): update this when place type is available in cache.
-  if (dcid.startsWith('country/')) {
-    return 'Country';
+  if (dcid.startsWith("country/")) {
+    return "Country";
   }
-  if (dcid.startsWith('geoId/')) {
-    let id = dcid.replace('geoId/', '');
+  if (dcid.startsWith("geoId/")) {
+    let id = dcid.replace("geoId/", "");
     if (id.length == 2) {
-      return 'State';
+      return "State";
     } else if (id.length == 5) {
-      return 'County';
+      return "County";
     } else if (id.length == 7) {
-      return 'City';
+      return "City";
     }
   }
   return null;
 }
 
-function getPerCapita () {
+function getPerCapita() {
   let vars = getUrlVars();
-  return ('pc' in vars && vars['pc'] === "1");
+  return "pc" in vars && vars["pc"] === "1";
 }
 
 /*
-* Get url params
-*/
+ * Get url params
+ */
 function getUrlVars() {
   let vars = {};
   let str = window.location.hash;
-  const parts = str.replace(/[?&]+([^=&]+)=([^&]*)/gi, function(m,key,value) {
+  const parts = str.replace(/[?&]+([^=&]+)=([^&]*)/gi, function (
+    m,
+    key,
+    value
+  ) {
     vars[key] = value;
   });
   return vars;
@@ -649,7 +723,7 @@ function getUrlVars() {
 function setSearchParam(vars) {
   let newHash = "#";
   for (const k in vars) {
-    newHash += '&' + k + '=' + vars[k];
+    newHash += "&" + k + "=" + vars[k];
   }
   window.location.hash = newHash;
 }
@@ -670,4 +744,4 @@ export {
   clearDiv,
   parsePtPvs,
   getDataUrl,
-}
+};
