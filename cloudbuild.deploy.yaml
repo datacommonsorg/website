@@ -41,11 +41,12 @@ steps:
   - -c
   - |
     set -x && \
+    # Configure Git to create commits with Cloud Build's service account
+    git config user.email $(gcloud auth list --filter=status:ACTIVE --format='value(account)') && \
     gcloud source repos clone deployment --project=datcom-ci && \
     cd deployment && \
     git checkout master && \
     echo $SHORT_SHA website/staging/commit_hash.txt && \
-    git add * && \
-    git commit -m "Deployed website to staging at commit $SHORT_SHA:
-    $(git log --format=%B -n 1 $COMMIT_SHA)" && \
+    git add website/staging/commit_hash.txt && \
+    git commit -m "Deployed website to staging at commit https://github.com/datacommonsorg/website/commit/$SHORT_SHA" && \
     git push origin master
