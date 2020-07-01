@@ -80,7 +80,7 @@ class BuildTreeTest(unittest.TestCase):
     @staticmethod
     def get_sv_search():
         dcids = ["notInWhiteListCitizenship", "inWhiteListMale", 
-                 "inWhiteListIncome"]
+                 "inWhiteListIncome", "inWhiteListUnknownVal"]
         return dcids
 
     @patch('dc_request.get_triples')
@@ -98,16 +98,16 @@ class BuildTreeTest(unittest.TestCase):
         root_search = build_tree.build_tree(vertical, pop_obs_spec[vertical],
             stat_vars, True)
         data[1][vertical] = root
-        # 3 from pos + 3 from starvars
-        self.assertEqual(data[0]['Demographics']['count'], 6) 
-        self.assertEqual(data[1]['Demographics']['count'], 6)
+        # 3 from pos + 4 from starvars
+        self.assertEqual(data[0]['Demographics']['count'], 7) 
+        self.assertEqual(data[1]['Demographics']['count'], 7)
         self.assertEqual(data[1]['Demographics']['search_count'], 5)
         for child in data[1]['Demographics']['children']:
             if child['title'] == 'Citizenship':
                 self.assertEqual(child['count'],1)
                 self.assertEqual(child['search_count'], 0)
             if child['title'] == 'Gender':
-                self.assertEqual(child['count'], 1)
+                self.assertEqual(child['count'], 2)
                 self.assertEqual(child['search_count'], 1)
             if child['title'] == 'Income':
                 self.assertEqual(child['count'], 1)
