@@ -1,0 +1,51 @@
+steps:
+
+- id: package_js
+  name: 'node'
+  entrypoint: /bin/bash
+  args:
+  - -c
+  - |
+    cd static && \
+    npm install && \
+    npm run lint && \
+    npm test && \
+    npm run-script build
+
+- id: flask_test
+  name: python:3.7-slim
+  entrypoint: /bin/sh
+  args:
+  - -c
+  - |
+    cd server && \
+    export FLASK_ENV=test && \
+    pip install -r requirements.txt && \
+    python -m pytest
+
+- id: deploy
+  name: 'gcr.io/cloud-builders/gcloud'
+  entrypoint: /bin/sh
+  args:
+  - -c
+  - |
+    cd server && \
+    gcloud app deploy app_staging.yaml -q \
+      --project=datcom-browser-staging \
+      --version=$SHORT_SHA
+
+- id: update version
+  name: 'gcr.io/cloud-builders/git'
+  entrypoint: /bin/sh
+  args:
+  - -c
+  - |
+    set -x && \
+    gcloud source repos clone deployment --project=datcom-ci && \
+    cd deployment && \
+    git checkout master && \
+    echo $SHORT_SHA website/staging/commit_hash.txt && \
+    git add * && \
+    git commit -m "Deployed website to staging at commit $SHORT_SHA:
+    $(git log --format=%B -n 1 $COMMIT_SHA)" && \
+    git push origin master
