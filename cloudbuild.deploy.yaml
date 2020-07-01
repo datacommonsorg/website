@@ -41,7 +41,7 @@ steps:
   - -c
   - |
     set -x && \
-    git clone https://github.com/datacommonsorg/deployment.git deployment && \
+    gcloud source repos clone deployment --project=datcom-ci && \
     cd deployment && \
     git checkout master && \
     echo $SHORT_SHA website/staging/commit_hash.txt && \
