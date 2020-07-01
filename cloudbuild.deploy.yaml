@@ -33,3 +33,19 @@ steps:
     gcloud app deploy app_staging.yaml -q \
       --project=datcom-browser-staging \
       --version=$SHORT_SHA
+
+- id: update version
+  name: 'gcr.io/cloud-builders/git'
+  entrypoint: /bin/sh
+  args:
+  - -c
+  - |
+    set -x && \
+    git clone https://github.com/datacommonsorg/deployment.git deployment && \
+    cd deployment && \
+    git checkout master && \
+    echo $SHORT_SHA website/staging/commit_hash.txt && \
+    git add * && \
+    git commit -m "Deployed website to staging at commit $SHORT_SHA:
+    $(git log --format=%B -n 1 $COMMIT_SHA)" && \
+    git push origin master
