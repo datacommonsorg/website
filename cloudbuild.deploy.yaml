@@ -1,0 +1,35 @@
+steps:
+
+- id: package_js
+  name: 'node'
+  entrypoint: /bin/bash
+  args:
+  - -c
+  - |
+    cd static && \
+    npm install && \
+    npm run lint && \
+    npm test && \
+    npm run-script build
+
+- id: flask_test
+  name: python:3.7-slim
+  entrypoint: /bin/sh
+  args:
+  - -c
+  - |
+    cd server && \
+    export FLASK_ENV=test && \
+    pip install -r requirements.txt && \
+    python -m pytest
+
+- id: deploy
+  name: 'gcr.io/cloud-builders/gcloud'
+  entrypoint: /bin/sh
+  args:
+  - -c
+  - |
+    cd server && \
+    gcloud app deploy app_staging.yaml -q \
+      --project=datcom-browser-staging \
+      --version=$SHORT_SHA
