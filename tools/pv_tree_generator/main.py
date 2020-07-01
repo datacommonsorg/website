@@ -26,6 +26,8 @@ def main():
     for vertical in constants.VERTICALS:
       root = build_tree(vertical, pop_obs_spec[vertical], stat_vars, False)
       data[0][vertical] = root
+      root_search = build_tree(vertical, pop_obs_spec[vertical], stat_vars, True)
+      data[1][vertical] = root_search
     json.dump(data, f_json)
     return
     

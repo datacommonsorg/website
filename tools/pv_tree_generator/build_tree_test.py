@@ -42,7 +42,7 @@ class BuildTreeTest(unittest.TestCase):
         results = defaultdict(list)
         #skip if the predicate is not in the list
         predicates = ["measuredProperty", "populationType", "statType",
-            "income", "gender", "age", "incomeStatus"]
+            "income", "gender", "age", "incomeStatus", "citizenship"]
         for dcid in dcids:
             if dcid not in triples:
                 raise Exception("triples not found for dcid: {}".format(dcid))
@@ -70,9 +70,51 @@ class BuildTreeTest(unittest.TestCase):
         root = build_tree.build_tree(vertical, pop_obs_spec[vertical],
             stat_vars, False)
         data[0][vertical] = root
+        root_search = build_tree.build_tree(vertical, pop_obs_spec[vertical],
+            stat_vars, True)
+        data[1][vertical] = root
         expected = json.load(open("./hierarchy_golden.json", "r"))
         self.assertEqual(data, expected)
         return
+        
+    @staticmethod
+    def get_sv_search():
+        dcids = ["notInWhiteListCitizenship", "inWhiteListMale", 
+                 "inWhiteListIncome"]
+        return dcids
+
+    @patch('dc_request.get_triples')
+    @patch('dc_request.get_sv_dcids')
+    def test_search_white_list(self, mock_get_sv, mock_get_triples):
+        mock_get_sv.side_effect = self.get_sv_search
+        mock_get_triples.side_effect = self.get_triples_
+        pop_obs_spec = _read_pop_obs_spec()
+        stat_vars = _read_stat_var()
+        data = [{},{}]
+        vertical = "Demographics"
+        root = build_tree.build_tree(vertical, pop_obs_spec[vertical],
+            stat_vars, False)
+        data[0][vertical] = root
+        root_search = build_tree.build_tree(vertical, pop_obs_spec[vertical],
+            stat_vars, True)
+        data[1][vertical] = root
+        # 3 from pos + 3 from starvars
+        self.assertEqual(data[0]['Demographics']['count'], 6) 
+        self.assertEqual(data[1]['Demographics']['count'], 6)
+        self.assertEqual(data[1]['Demographics']['search_count'], 5)
+        for child in data[1]['Demographics']['children']:
+            if child['title'] == 'Citizenship':
+                self.assertEqual(child['count'],1)
+                self.assertEqual(child['search_count'], 0)
+            if child['title'] == 'Gender':
+                self.assertEqual(child['count'], 1)
+                self.assertEqual(child['search_count'], 1)
+            if child['title'] == 'Income':
+                self.assertEqual(child['count'], 1)
+                self.assertEqual(child['search_count'], 1)
+        return
+
+        
 
 if __name__ == "__main__":
     unittest.main()
