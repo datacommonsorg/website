@@ -83,6 +83,11 @@ class BuildTreeTest(unittest.TestCase):
                  "inWhiteListIncome", "inWhiteListUnknownVal"]
         return dcids
 
+    def get_search_vals():
+        vals = set(['Female', 'Male', 'NotAUSCitizen', 'USDollar35000To49999'])
+        return vals
+
+    @patch('build_tree.SEARCH_VALS', get_search_vals())
     @patch('dc_request.get_triples')
     @patch('dc_request.get_sv_dcids')
     def test_search_white_list(self, mock_get_sv, mock_get_triples):
