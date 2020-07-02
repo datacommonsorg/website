@@ -32,7 +32,10 @@ steps:
     cd server && \
     gcloud app deploy app_staging.yaml -q \
       --project=datcom-browser-staging \
-      --version=$SHORT_SHA
+      --version=$SHORT_SHA && \
+    gcloud app versions delete --project=datcom-browser-staging \
+    `gcloud app versions list --project=datcom-browser-staging | \
+    sed 's/  */:/g' | cut -f 2 -d : | tail -n +2 | head -1 | tr "\n" " "`
 
 - id: update version
   name: 'gcr.io/cloud-builders/git'
