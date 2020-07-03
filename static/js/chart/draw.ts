@@ -23,7 +23,9 @@ import {
 
 const NUM_X_TICKS = 5;
 const NUM_Y_TICKS = 5;
-const MARGIN = { top: 20, right: 10, bottom: 30, left: 35, yAxis: 3 };
+const MARGIN = { top: 20, right: 10, bottom: 30, left: 35, yAxis: 3, legendWidth: 200};
+// Line dash styles
+const DASHES = ['', '5, 5', '10, 5', '5, 10', '1, 5', '5, 1', '0.9', '5, 5, 1, 5'];
 
 function getColorFn(labels: string[]): d3.ScaleOrdinal<string, string> {
   let range;
@@ -427,10 +429,174 @@ function drawLineChart(
   }
 }
 
+
+/**
+ * Draw a group of line charts with different goeId.
+ *
+ * @param id
+ * @param width
+ * @param height
+ * @param dataGroupsDict
+ * @param unit
+ */
+function drawGroupLineChart(
+    id: string,
+    width: number,
+    height: number,
+    dataGroupsDict: {[geoId: string]: DataGroup[];},
+    unit?: string
+) {
+  console.log(dataGroupsDict);
+
+  let dataGroups;
+  for (let geoId in dataGroupsDict) {
+    dataGroups = dataGroupsDict[geoId];
+    break;
+  }
+
+  let minV = 0;
+  let maxV = 0;
+
+  let legendText = dataGroups.map((dataGroup) => dataGroup.label ? dataGroup.label: 'a');
+  let colorFn = getColorFn(legendText);
+
+  let colors = [];
+  let dashes = [];
+
+  for (let geoId in dataGroupsDict) {
+    maxV = Math.max(maxV, Math.max(...dataGroupsDict[geoId].map((dataGroup) => dataGroup.max())));
+
+  }
+
+  let svg = d3
+      .select("#" + id)
+      .append("svg")
+      .attr("width", width)
+      .attr("height", height);
+
+  let xScale = d3
+      .scaleTime()
+      .domain(d3.extent(dataGroups[0].value, (d) => new Date(d.label).getTime()))
+      .range([MARGIN.left, width - MARGIN.right - MARGIN.legendWidth]);
+
+  let yScale = d3
+      .scaleLinear()
+      .domain([minV, maxV])
+      .range([height - MARGIN.bottom, MARGIN.top])
+      .nice(NUM_Y_TICKS);
+
+  addXAxis(svg, height, xScale);
+  addYAxis(svg, width, yScale, unit);
+
+
+  let dashIndex = 0;
+  for (let geoId in dataGroupsDict) {
+    dataGroups = dataGroupsDict[geoId];
+    dashes.push(DASHES[dashIndex]);
+    for (let i = 0; i < dataGroups.length; i++) {
+      let dataGroup = dataGroups[i];
+      let dataset = dataGroup.value.map(function (dp) {
+        return [new Date(dp.label).getTime(), dp.value];
+      });
+
+      if (dashIndex == 0) {
+        colors.push(colorFn(dataGroupsDict[geoId][i].label));
+      }
+
+      let color = colors[i];
+
+      let line = d3
+          .line()
+          .x((d) => xScale(d[0]))
+          .y((d) => yScale(d[1]));
+
+      svg
+          .append("path")
+          .datum(dataset)
+          .attr("class", "line")
+          .style("stroke", color)
+          .attr("d", line)
+          .attr("stroke-width", "2")
+          .attr("stroke-dasharray", dashes[dashIndex]);
+    }
+
+    dashIndex++;
+  }
+
+  svg
+      .append("g")
+      .attr("id", "inChartLegend")
+      .attr("transform", `translate(${width - MARGIN.legendWidth}, 50)`);
+
+  buildLegend("inChartLegend", colors, dashes, dataGroupsDict);
+
+  // return colors here used to add menu below the chart.
+  return colors;
+}
+
+
+/**
+ * Generate in-chart legend.
+ *
+ * @param id
+ * @param colors
+ * @param dashes
+ * @param dataGroupsDict
+ */
+function buildLegend(
+    id: string,
+    colors: String [],
+    dashes: String [],
+    dataGroupsDict: {[geo: string]: DataGroup[];},
+) {
+  let legend = d3
+      .select("#" + id);
+
+  let index = 0;
+  for (let geo in dataGroupsDict) {
+    let legendClass = legend
+        .append("g")
+        .attr("transform", `translate(0, ${20 * index})`);
+
+    if (dashes.length == 1) {
+      legendClass
+          .append("line")
+          .attr("stroke-width", 2)
+          .attr("stroke-dasharray", "")
+          .attr("x1", "0")
+          .attr("y1", `${20 * index - 5}`)
+          .attr("x2", "30")
+          .attr("y2", `${20 * index - 5}`)
+          .attr("stroke", `${colors[index]}`);
+    } else {
+      legendClass
+          .append("line")
+          .attr("stroke-width", 2)
+          .attr("stroke-dasharray", "")
+          .attr("x1", "0")
+          .attr("y1", `${20 * index - 5}`)
+          .attr("x2", "30")
+          .attr("y2", `${20 * index - 5}`)
+          .attr("stroke", "#930000")
+          .attr("stroke-dasharray", `${dashes[index]}`);
+    }
+
+    legendClass
+        .append("text")
+        .attr("x", "40")
+        .attr("y", `${20 * index}`)
+        .text(geo)
+        .style("font-size", "14");
+
+    index++;
+  }
+}
+
 export {
   appendLegendElem,
   getColorFn,
   drawLineChart,
+  drawGroupLineChart,
   drawSingleBarChart,
   drawStackBarChart,
   drawGroupBarChart,
