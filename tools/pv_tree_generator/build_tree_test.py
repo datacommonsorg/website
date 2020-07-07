@@ -139,7 +139,8 @@ class BuildTreeTest(unittest.TestCase):
                 for child_2 in child['children']:
                     self.assertEqual(child_2['placeTypes'], ['City'])
             elif child['title'] == 'Gender':
-                self.assertEqual(set(child['placeTypes']), set(['Country', 'State']))
+                self.assertEqual(set(child['placeTypes']), 
+                    set(['Country', 'State']))
                 for child_2 in child['children']:
                     if child_2['title'] == 'Male':
                         self.assertEqual(child_2['placeTypes'],['Country'])
