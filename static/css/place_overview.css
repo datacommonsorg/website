@@ -295,3 +295,16 @@ header #selectionbar {
   color: black;
   display:inline-block;
 }
+
+.explore-more-container {
+  display: flex;
+  justify-content: space-between;
+  padding: 0 4px;
+}
+
+.explore-more {
+  margin-top: -2px;
+  font-weight: 500;
+  font-size: .8rem;
+  text-transform: uppercase;
+}

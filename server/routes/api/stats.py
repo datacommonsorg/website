@@ -18,6 +18,7 @@ from flask import Blueprint, request
 from cache import cache
 import services.datacommons as dc
 
+import logging
 
 # Define blueprint
 bp = Blueprint(
@@ -37,3 +38,44 @@ def stats(stats_var):
     """Handler to get the observation given stats var."""
     place_dcids = request.args.getlist('dcid')
     return get_stats_wrapper('^'.join(place_dcids), stats_var)
+
+
+@cache.memoize(timeout=3600 * 24)  # Cache for one day.
+def get_statsinfo_wrapper(statsvars_string):
+    dcids = statsvars_string.split('^')
+    data = dc.fetch_data(
+      '/node/triples',
+      {
+        'dcids': dcids,
+      },
+      compress=False,
+      post=True
+    )
+    result = {}
+    # Get all the constraint properties
+    for dcid, triples in data.items():
+        pvs = {}
+        for triple in triples:
+            if triple['predicate'] == 'constraintProperties':
+                pvs[triple["objectId"]] = ''
+        pop_type = ''
+        mprop = ''
+        for triple in triples:
+            if triple['predicate'] == 'measuredProperty':
+                mprop = triple['objectId']
+            if triple['predicate'] == 'populationType':
+                pop_type = triple['objectId']
+            if triple['predicate'] in pvs:
+                pvs[triple['predicate']] = triple['objectId']
+        tokens = [pop_type, mprop]
+        for p, v in pvs.items():
+            tokens.extend([p, v])
+        result[dcid] = ','.join(tokens)
+    return result
+
+
+@bp.route('/api/statsinfo')
+def statsinfo():
+    """Handler to get the statsvar information."""
+    stats_vars = sorted(request.args.getlist('dcid'))
+    return get_statsinfo_wrapper('^'.join(stats_vars))

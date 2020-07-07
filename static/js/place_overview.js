@@ -18,6 +18,8 @@ import ReactDOM from "react-dom";
 import React from "react";
 import axios from "axios";
 
+import USChartConfig from "./chart_config.json";
+
 import {
   ChildPlace,
   MainPane,
@@ -98,6 +100,27 @@ function getNearbyPlaces(dcid) {
   });
 }
 
+/**
+ * Get properties of all the stats vars.
+ *
+ * This is a temporary need before GNI supports stats var directly. This
+ */
+function getStatsVarInfo(chartConfig) {
+  let reqUrl = "/api/statsinfo?";
+  let statsVars = [];
+  for (let config of chartConfig) {
+    for (let chart of config["charts"]) {
+      statsVars = statsVars.concat(chart["statsVars"]);
+    }
+  }
+  for (let statsVar of statsVars) {
+    reqUrl += `&dcid=${statsVar}`;
+  }
+  return axios.get(reqUrl).then((resp) => {
+    return resp.data;
+  });
+}
+
 function renderPage(dcid) {
   const urlParams = new URLSearchParams(window.location.search);
   // Get topic and render menu.
@@ -114,6 +137,7 @@ function renderPage(dcid) {
   let childPlacesPromise = getChildPlaces(dcid);
   let similarPlacesPromise = getSimilarPlaces(dcid);
   let nearbyPlacesPromise = getNearbyPlaces(dcid);
+  let statsVarInfoPromise = getStatsVarInfo(USChartConfig);
 
   parentPlacesPromise.then((parentPlaces) => {
     ReactDOM.render(
@@ -129,22 +153,25 @@ function renderPage(dcid) {
     );
   });
 
-  parentPlacesPromise.then((parentPlaces) => {
-    ReactDOM.render(
-      <MainPane
-        dcid={dcid}
-        placeType={placeType}
-        topic={topic}
-        parentPlaces={parentPlaces}
-        childPlacesPromise={childPlacesPromise}
-        similarPlacesPromise={similarPlacesPromise}
-        nearbyPlacesPromise={nearbyPlacesPromise}
-      />,
-      document.getElementById("main-pane")
-    );
-    renderMap(dcid);
-    renderRanking(dcid);
-  });
+  Promise.all([statsVarInfoPromise, parentPlacesPromise]).then(
+    (resolvedValues) => {
+      ReactDOM.render(
+        <MainPane
+          dcid={dcid}
+          placeType={placeType}
+          topic={topic}
+          statsVarInfo={resolvedValues[0]}
+          parentPlaces={resolvedValues[1]}
+          childPlacesPromise={childPlacesPromise}
+          similarPlacesPromise={similarPlacesPromise}
+          nearbyPlacesPromise={nearbyPlacesPromise}
+        />,
+        document.getElementById("main-pane")
+      );
+      renderMap(dcid);
+      renderRanking(dcid);
+    }
+  );
 }
 
 function renderRanking(dcid) {
