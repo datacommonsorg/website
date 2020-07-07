@@ -161,6 +161,7 @@ def build_tree(v, pop_obs_spec, stat_vars, show_all):
                     'measuredProperty': ui_node.mprop,
                     'placeTypes': PLACETYPES,
                 })
+                break # to avoid duplicates related to measurementMethod
             root['count'] += 1
             root['search_count'] += search_count
 
