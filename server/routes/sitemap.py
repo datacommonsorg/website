@@ -56,14 +56,15 @@ def index():
 def node(dcid):
     child_places = child_fetch(dcid)
     place_by_type = collections.defaultdict(list)
-    for place in child_places:
-        for place_type in place['types']:
-            if not place_type.startswith('AdministrativeArea'):
-                place_by_type[place_type].append({
-                  'dcid': place['dcid'],
-                  'name': place['name']
-                })
-                break
+    for place_type, childs in child_places.items():
+        for child in childs:
+            for place_type in child.get('types', [""]):
+                if not place_type.startswith('AdministrativeArea'):
+                    place_by_type[place_type].append({
+                      'dcid': child['dcid'],
+                      'name': child['name']
+                    })
+                    break
     for place_type in place_by_type:
         place_by_type[place_type].sort(key=lambda x: x['name'])
 

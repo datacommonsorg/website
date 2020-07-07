@@ -216,7 +216,7 @@ class MainPane extends Component {
     return (
       <React.Fragment>
         {this.props.dcid != "country/USA" && (
-          <Overview topic={this.props.topic} />
+          <Overview topic={this.props.topic} dcid={this.props.dcid} />
         )}
         {configData.map((item, index) => {
           let subtopicHeader;
@@ -328,7 +328,7 @@ class Overview extends Component {
         <React.Fragment>
           <h2 className="col-12 pt-2">
             {this.props.topic}
-            <span class="more">
+            <span className="more">
               <a href={`/place?dcid=${this.props.dcid}`}>Back to overview ›</a>
             </span>
           </h2>
@@ -617,7 +617,7 @@ class Chart extends Component {
                   for (let placeType in childPlaces) {
                     if (
                       !config.placeTypes ||
-                      config.placeTypes.contains(placeType)
+                      config.placeTypes.includes(placeType)
                     ) {
                       // Choose the first 5 child places to show in the chart.
                       return childPlaces[placeType]
