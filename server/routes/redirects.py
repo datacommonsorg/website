@@ -25,11 +25,6 @@ bp = Blueprint(
 )
 
 
-from flask import request
-@bp.route('/kg')
-def kg():
-    return redirect('https://datacommons.org/browser', code=301)
-
 @bp.route('/gni')
 def gni():
     return redirect('https://datacommons.org/tools/timeline', code=301)
