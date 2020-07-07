@@ -24,7 +24,7 @@ const mockedAxios = axios as jest.Mocked<typeof axios>;
 
 test("fetch stats data", () => {
   mockedAxios.get.mockImplementation((url: string) => {
-    if (url === "/stats/TotalPopulation?&dcid=geoId/05&dcid=geoId/06") {
+    if (url === "/api/stats/TotalPopulation?&dcid=geoId/05&dcid=geoId/06") {
       return Promise.resolve({
         data: {
           "geoId/05": {
@@ -43,7 +43,7 @@ test("fetch stats data", () => {
           },
         },
       });
-    } else if (url === "/stats/MalePopulation?&dcid=geoId/05&dcid=geoId/06") {
+    } else if (url === "/api/stats/MalePopulation?&dcid=geoId/05&dcid=geoId/06") {
       return Promise.resolve({
         data: {
           "geoId/05": {

@@ -291,4 +291,5 @@ header #selectionbar {
   margin-right: 4px;
   text-decoration: underline;
   color: black;
+  display:inline-block;
 }
