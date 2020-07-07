@@ -73,7 +73,6 @@ def get_property_value(dcid, prop, out=True):
 
 
 @app.route('/')
-@app.route('/browser')
 def homepage():
     return flask.render_template('homepage.html')
 
@@ -83,12 +82,6 @@ def dev():
     if os.environ.get('FLASK_ENV') == 'production':
         flask.abort(404)
     return flask.render_template('dev.html')
-
-
-@app.route('/kg')
-def entity_page():
-    dcid = request.args.get('dcid')
-    return flask.render_template('kg.html', dcid=dcid)
 
 
 # TODO(boxu): Complete this routing when place sub-topic page is completed.
@@ -356,7 +349,7 @@ def api_parent_place(dcid):
     # In DataCommons knowledge graph, places has multiple containedInPlace
     # relation with parent places, but it might not be comprehensive. For
     # example, "Moutain View" is containedInPlace for "Santa Clara County" and
-    # "California" but not "United States": https://browser.datacommons.org/kg?dcid=geoId/0649670
+    # "California" but not "United States": https://browser.datacommons.org/browser/geoId/0649670
     # Here calling get_parent_place twice to get to the top parents.
     parents1 = get_parent_place(dcid)
     parents2 = get_parent_place(parents1[-1]['dcid'])
