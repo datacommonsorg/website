@@ -284,6 +284,8 @@ header #selectionbar {
 .child-place-type {
   font-weight: bold;
   font-size: 13px;
+  margin-top: 10px;
+  margin-bottom: 4px;
 }
 
 .child-place-link {

@@ -17,6 +17,7 @@
 require("@babel/polyfill");
 
 import React, { Component } from "react";
+import pluralize from "pluralize";
 import PropTypes from "prop-types";
 import intersection from "lodash";
 
@@ -350,17 +351,19 @@ class ChildPlace extends Component {
     if (Object.keys(this.props.childPlaces).length > 0) {
       return (
         <React.Fragment>
-          <div id="child-place-title">Child Places</div>
           {Object.keys(this.props.childPlaces).map((placeType) => (
             <div key={placeType}>
-              <div className="child-place-type">{placeType}</div>
-              {this.props.childPlaces[placeType].map((place) => (
+              <div className="child-place-type">{pluralize(placeType)}</div>
+              {this.props.childPlaces[placeType].map((place, i) => (
                 <a
                   key={place["dcid"]}
                   className="child-place-link"
                   href={"/place?dcid=" + place["dcid"]}
                 >
-                  {place["name"]},
+                  {place["name"]}
+                  {i < this.props.childPlaces[placeType].length - 1 && (
+                    <span>,</span>
+                  )}
                 </a>
               ))}
             </div>
