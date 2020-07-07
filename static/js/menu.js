@@ -117,7 +117,7 @@ function initMenu(exploreTypeVars, urlParams) {
           html += `<sup>(${node.search_count})</sup>`;
         }
         html += `<img class="right-caret" width="12px"
-              src="/images/right-caret.png"/>
+              src="images/right-caret.png"/>
               </a>
             </span>`;
       } else {
@@ -167,7 +167,7 @@ function initMenu(exploreTypeVars, urlParams) {
           html += `<sup>(${node.search_count})</sup>`;
         }
         html += `<a class="expand-link">
-                    <img class="right-caret" width="12px" src="/images/right-caret.png" />
+                    <img class="right-caret" width="12px" src="images/right-caret.png" />
                    </a>`;
       }
       listItem.innerHTML = html;

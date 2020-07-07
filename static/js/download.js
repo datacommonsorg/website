@@ -304,7 +304,7 @@ window.onload = function () {
   $("#bulk-download-button").click(function () {
     window.location.href = window.location.href.replace(
       "download",
-      "bulk_download"
+      "download2"
     );
   });
   $("#show-code").click(function () {
