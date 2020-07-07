@@ -266,9 +266,32 @@ header #selectionbar {
 
 #sidebar-outer {
   margin-top: 150px;
+}
+
+#sidebar-region {
   position: relative;
 }
-#sidebar-outer .fixed {
-  position: fixed;
-  top: 20px;
+
+#child-place-title {
+  font-weight: bold;
+  font-size: 14px;
+}
+
+#child-place {
+  margin-top: 30px;
+}
+
+.child-place-type {
+  font-weight: bold;
+  font-size: 13px;
+  margin-top: 10px;
+  margin-bottom: 4px;
+}
+
+.child-place-link {
+  font-size: 13px;
+  margin-right: 4px;
+  text-decoration: underline;
+  color: black;
+  display:inline-block;
 }
