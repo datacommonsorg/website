@@ -21,12 +21,15 @@ from build_tree import build_tree
 def main():
     pop_obs_spec = util._read_pop_obs_spec()
     stat_vars = util._read_stat_var()
+    place_mapping = util._read_placeType_mapping()
     f_json = open("./hierarchy.json","w")
     data = [{},{}]
     for vertical in constants.VERTICALS:
-      root = build_tree(vertical, pop_obs_spec[vertical], stat_vars, False)
+      root = build_tree(vertical, pop_obs_spec[vertical], stat_vars, 
+        place_mapping, False)
       data[0][vertical] = root
-      root_search = build_tree(vertical, pop_obs_spec[vertical], stat_vars, True)
+      root_search = build_tree(vertical, pop_obs_spec[vertical], stat_vars, 
+        place_mapping, True)
       data[1][vertical] = root_search
     json.dump(data, f_json)
     return

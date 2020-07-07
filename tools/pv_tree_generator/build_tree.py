@@ -20,9 +20,8 @@ import text_format
 
 MAX_LEVEL = 6
 SEARCH_SPECS, SEARCH_VALS = util._read_search_pvs()
-PLACETYPES = ['Country', 'State', 'County', 'City']
 
-def build_tree_recursive(pos, level, pop_obs_spec, stat_vars, show_all, 
+def build_tree_recursive(pos, level, pop_obs_spec, stat_vars, place_mapping, show_all, 
     parent=None):
     """Recursively build the ui tree"""
     #get the property of the ui node
@@ -48,7 +47,7 @@ def build_tree_recursive(pos, level, pop_obs_spec, stat_vars, show_all,
         'search_count': 0,
         'search_sv_set': set(),
         'measuredProperty': prop_ui_node.mprop,
-        'placeTypes': PLACETYPES,
+        'placeTypes': [],
     }
 
     #get the child specs of the current node
@@ -73,7 +72,6 @@ def build_tree_recursive(pos, level, pop_obs_spec, stat_vars, show_all,
                 if not in_search:
                     break
 
-
             value_blob = {
                 'populationType': value_ui_node.pop_type,
                 'show': 'yes',
@@ -89,7 +87,7 @@ def build_tree_recursive(pos, level, pop_obs_spec, stat_vars, show_all,
                 'search_count': 1 if in_search else 0,
                 'search_sv_set': set([sv.dcid]) if in_search else set(),
                 'measuredProperty': value_ui_node.mprop,
-                'placeTypes': PLACETYPES,
+                'placeTypes': sorted(place_mapping[sv.dcid]),
             }
             # add statistical variables as the child of current node
             result['children'].append(value_blob)
@@ -98,7 +96,7 @@ def build_tree_recursive(pos, level, pop_obs_spec, stat_vars, show_all,
                 #build the branches recursively
                 for child in child_pos:
                     branch = build_tree_recursive(child, level + 1, 
-                        pop_obs_spec, stat_vars, show_all, value_ui_node)
+                        pop_obs_spec, stat_vars, place_mapping, show_all, value_ui_node)
                     if branch['children']:
                         value_blob['children'].append(branch)
                     value_blob['sv_set'] |= branch['sv_set']
@@ -112,16 +110,20 @@ def build_tree_recursive(pos, level, pop_obs_spec, stat_vars, show_all,
         result['children'], show_all)
     #update the count
     if result['children']:
+        place_types_set = set()
         for child in result['children']:
             result['sv_set'] |= child['sv_set']
             result['search_sv_set'] |= child['search_sv_set']
             del child['sv_set']
             del child['search_sv_set']
+            place_types_set.update(child['placeTypes'])
+        result['placeTypes'] = sorted(list(place_types_set))
+
     result['count'] = len(result['sv_set'])
     result['search_count'] = len(result['search_sv_set'])
     return result
 
-def build_tree(v, pop_obs_spec, stat_vars, show_all):
+def build_tree(v, pop_obs_spec, stat_vars, place_mapping, show_all):
     """Build the tree for each vertical."""
 
     #vertical as the root
@@ -137,7 +139,7 @@ def build_tree(v, pop_obs_spec, stat_vars, show_all):
         'sv_set': set(),#used for counting child nodes
         'search_count': 0,
         'search_sv_set': set(),
-        'placeTypes': PLACETYPES,
+        'placeTypes': [],
     }
 
     # specs with 0 constaints are of type "value", 
@@ -159,8 +161,10 @@ def build_tree(v, pop_obs_spec, stat_vars, show_all):
                     'count': 1,
                     'search_count': search_count,
                     'measuredProperty': ui_node.mprop,
-                    'placeTypes': PLACETYPES,
+                    'placeTypes': sorted(place_mapping[sv.dcid]),
                 })
+                root['placeTypes'] = sorted(list(set(root['placeTypes'])|
+                    set(place_mapping[sv.dcid])))
                 break # to avoid duplicates related to measurementMethod
             root['count'] += 1
             root['search_count'] += search_count
@@ -168,7 +172,8 @@ def build_tree(v, pop_obs_spec, stat_vars, show_all):
     # build specs with >= 1 constraints recursively
     
     for pos in pop_obs_spec[1]:
-        child = build_tree_recursive(pos, 1, pop_obs_spec, stat_vars, show_all)
+        child = build_tree_recursive(pos, 1, pop_obs_spec, stat_vars, 
+                                     place_mapping, show_all)
         # For certain branch, we would like to put them under 0 pv nodes:
         if (pos.pop_type in ['EarthquakeEvent', 'CycloneEvent', 
             'MortalityEvent']):
@@ -189,6 +194,8 @@ def build_tree(v, pop_obs_spec, stat_vars, show_all):
         root['search_sv_set'] |= child['search_sv_set']
         del child['sv_set']
         del child['search_sv_set']
+        root['placeTypes'] = sorted(list(set(root['placeTypes'])|
+                    set(child['placeTypes'])))
 
     # update the count
     for pv0 in root['children']:

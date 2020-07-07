@@ -209,3 +209,11 @@ def _read_search_pvs():
         for qty in spec.qty_val:
             vals.add(qty)
     return props, vals
+
+PLACE_TYPES = ['Country', 'State', 'County', 'City']
+def _read_placeType_mapping():
+    sv_dcid = dc.get_sv_dcids()
+    place_mapping = {}
+    for dcid in sv_dcid:
+      place_mapping[dcid] = PLACE_TYPES
+    return place_mapping

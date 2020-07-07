@@ -18,7 +18,7 @@ import json
 from collections import defaultdict
 
 import build_tree
-from util import _read_pop_obs_spec, _read_stat_var
+from util import _read_pop_obs_spec, _read_stat_var, _read_placeType_mapping
 
 class BuildTreeTest(unittest.TestCase):
     """testing build_tree"""
@@ -65,13 +65,14 @@ class BuildTreeTest(unittest.TestCase):
         mock_get_triples.side_effect = self.get_triples_
         pop_obs_spec = _read_pop_obs_spec()
         stat_vars = _read_stat_var()
+        place_mapping = _read_placeType_mapping()
         data = [{},{}]
         vertical = "Demographics"
         root = build_tree.build_tree(vertical, pop_obs_spec[vertical],
-            stat_vars, False)
+            stat_vars, place_mapping, False)
         data[0][vertical] = root
         root_search = build_tree.build_tree(vertical, pop_obs_spec[vertical],
-            stat_vars, True)
+            stat_vars, place_mapping, True)
         data[1][vertical] = root
         expected = json.load(open("./hierarchy_golden.json", "r"))
         self.assertEqual(data, expected)
@@ -83,6 +84,14 @@ class BuildTreeTest(unittest.TestCase):
                  "inWhiteListIncome", "inWhiteListUnknownVal"]
         return dcids
 
+    @staticmethod
+    def place_mapping():
+        place_map = {"notInWhiteListCitizenship": ['City'], 
+                      "inWhiteListMale": ['Country'],
+                      "inWhiteListIncome": ['County'],
+                      "inWhiteListUnknownVal": ['State']}
+        return place_map
+    
     def get_search_vals():
         vals = set(['Female', 'Male', 'NotAUSCitizen', 'USDollar35000To49999'])
         return vals
@@ -95,14 +104,18 @@ class BuildTreeTest(unittest.TestCase):
         mock_get_triples.side_effect = self.get_triples_
         pop_obs_spec = _read_pop_obs_spec()
         stat_vars = _read_stat_var()
+        place_mapping = self.place_mapping()
+        print(place_mapping)
         data = [{},{}]
         vertical = "Demographics"
         root = build_tree.build_tree(vertical, pop_obs_spec[vertical],
-            stat_vars, False)
+            stat_vars, place_mapping, False)
         data[0][vertical] = root
         root_search = build_tree.build_tree(vertical, pop_obs_spec[vertical],
-            stat_vars, True)
+            stat_vars, place_mapping, True)
         data[1][vertical] = root
+        
+        # assert counts
         self.assertEqual(data[0]['Demographics']['count'], 4) 
         self.assertEqual(data[1]['Demographics']['count'], 4)
         self.assertEqual(data[1]['Demographics']['search_count'], 2)
@@ -116,9 +129,30 @@ class BuildTreeTest(unittest.TestCase):
             if child['title'] == 'Income':
                 self.assertEqual(child['count'], 1)
                 self.assertEqual(child['search_count'], 1)
+
+        # assert placeTypes
+        self.assertEqual(set(data[0]['Demographics']['placeTypes']), 
+            set(['Country', 'State', 'County', 'City']))
+        for child in data[0]['Demographics']['children']:
+            if child['title'] == 'Citizenship':
+                self.assertEqual(child['placeTypes'], ['City'])
+                for child_2 in child['children']:
+                    self.assertEqual(child_2['placeTypes'], ['City'])
+            elif child['title'] == 'Gender':
+                self.assertEqual(set(child['placeTypes']), set(['Country', 'State']))
+                for child_2 in child['children']:
+                    if child_2['title'] == 'Male':
+                        self.assertEqual(child_2['placeTypes'],['Country'])
+                    if child_2['title'] == 'Unknown':
+                        self.assertEqual(child_2['placeTypes'],['State'])
+            elif child['title'] == 'Income':
+                self.assertEqual(child['placeTypes'], ['County'])
+                for child_2 in child['children']:
+                    self.assertEqual(child_2['placeTypes'], ['County'])
+            else:
+                self.assertEqual(child['placeTypes'], [])
         return
 
-        
-
+    
 if __name__ == "__main__":
     unittest.main()
