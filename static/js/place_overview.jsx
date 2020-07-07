@@ -348,30 +348,30 @@ Overview.propTypes = {
 
 class ChildPlace extends Component {
   render() {
-    if (Object.keys(this.props.childPlaces).length > 0) {
-      return (
-        <React.Fragment>
-          {Object.keys(this.props.childPlaces).map((placeType) => (
-            <div key={placeType}>
-              <div className="child-place-type">{pluralize(placeType)}</div>
-              {this.props.childPlaces[placeType].map((place, i) => (
-                <a
-                  key={place["dcid"]}
-                  className="child-place-link"
-                  href={"/place?dcid=" + place["dcid"]}
-                >
-                  {place["name"]}
-                  {i < this.props.childPlaces[placeType].length - 1 && (
-                    <span>,</span>
-                  )}
-                </a>
-              ))}
-            </div>
-          ))}
-        </React.Fragment>
-      );
+    if (Object.keys(this.props.childPlaces).length == 0) {
+      return "";
     }
-    return <span></span>;
+    return (
+      <React.Fragment>
+        {Object.keys(this.props.childPlaces).map((placeType) => (
+          <div key={placeType}>
+            <div className="child-place-type">{pluralize(placeType)}</div>
+            {this.props.childPlaces[placeType].map((place, i) => (
+              <a
+                key={place["dcid"]}
+                className="child-place-link"
+                href={"/place?dcid=" + place["dcid"]}
+              >
+                {place["name"]}
+                {i < this.props.childPlaces[placeType].length - 1 && (
+                  <span>,</span>
+                )}
+              </a>
+            ))}
+          </div>
+        ))}
+      </React.Fragment>
+    );
   }
 }
 
