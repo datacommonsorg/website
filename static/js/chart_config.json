@@ -6,7 +6,7 @@
         "title": "Population",
         "topic": "Population",
         "chartType": "LINE",
-        "statsVars": ["TotalPopulation"],
+        "statsVars": ["Count_Person"],
         "source": "US Census",
         "url": "https://www.census.gov/"
       },
@@ -35,7 +35,7 @@
         "title": "Median Income",
         "topic": "Income",
         "chartType": "LINE",
-        "statsVars": ["Median_Income_Person_15OrMoreYears_WithIncome"],
+        "statsVars": ["Median_Income_Person"],
         "source": "US Census",
         "url": "https://www.census.gov/"
       },
@@ -44,11 +44,11 @@
         "topic": "Marital Status",
         "chartType": "SINGLE_BAR",
         "statsVars": [
-          "Count_Person_15OrMoreYears_MarriedAndNotSeparated",
-          "Count_Person_15OrMoreYears_Divorced",
-          "Count_Person_15OrMoreYears_NeverMarried",
-          "Count_Person_15OrMoreYears_Widowed",
-          "Count_Person_15OrMoreYears_Separated"
+          "Count_Person_MarriedAndNotSeparated",
+          "Count_Person_Divorced",
+          "Count_Person_NeverMarried",
+          "Count_Person_Widowed",
+          "Count_Person_Separated"
         ],
         "source": "US Census",
         "url": "https://www.census.gov/"
@@ -192,7 +192,7 @@
             "title": "Median Income",
             "topic": "Income",
             "chartType": "LINE",
-            "statsVars": ["Median_Income_Person_15OrMoreYears_WithIncome"],
+            "statsVars": ["Median_Income_Person"],
             "unit": "$",
             "source": "US Census",
             "url": "https://www.census.gov/"
@@ -203,14 +203,14 @@
             "chartType": "STACK_BAR",
             "axis": "TIME",
             "statsVars": [
-              "Count_Person_15OrMoreYears_IncomeOfUpto9999USDollar_WithIncome",
-              "Count_Person_15OrMoreYears_IncomeOf10000To14999USDollar_WithIncome",
-              "Count_Person_15OrMoreYears_IncomeOf15000To24999USDollar_WithIncome",
-              "Count_Person_15OrMoreYears_IncomeOf25000To34999USDollar_WithIncome",
-              "Count_Person_15OrMoreYears_IncomeOf35000To49999USDollar_WithIncome",
-              "Count_Person_15OrMoreYears_IncomeOf50000To64999USDollar_WithIncome",
-              "Count_Person_15OrMoreYears_IncomeOf65000To74999USDollar_WithIncome",
-              "Count_Person_15OrMoreYears_IncomeOf75000OrMoreUSDollar_WithIncome"
+              "Count_Person_IncomeOfUpto9999USDollar",
+              "Count_Person_IncomeOf10000To14999USDollar",
+              "Count_Person_IncomeOf15000To24999USDollar",
+              "Count_Person_IncomeOf25000To34999USDollar",
+              "Count_Person_IncomeOf35000To49999USDollar",
+              "Count_Person_IncomeOf50000To64999USDollar",
+              "Count_Person_IncomeOf65000To74999USDollar",
+              "Count_Person_IncomeOf75000OrMoreUSDollar"
             ],
             "source": "US Census",
             "url": "https://www.census.gov/"
@@ -221,14 +221,14 @@
             "chartType": "STACK_BAR",
             "axis": "PLACE",
             "statsVars": [
-              "Count_Person_15OrMoreYears_IncomeOfUpto9999USDollar_WithIncome",
-              "Count_Person_15OrMoreYears_IncomeOf10000To14999USDollar_WithIncome",
-              "Count_Person_15OrMoreYears_IncomeOf15000To24999USDollar_WithIncome",
-              "Count_Person_15OrMoreYears_IncomeOf25000To34999USDollar_WithIncome",
-              "Count_Person_15OrMoreYears_IncomeOf35000To49999USDollar_WithIncome",
-              "Count_Person_15OrMoreYears_IncomeOf50000To64999USDollar_WithIncome",
-              "Count_Person_15OrMoreYears_IncomeOf65000To74999USDollar_WithIncome",
-              "Count_Person_15OrMoreYears_IncomeOf75000OrMoreUSDollar_WithIncome"
+              "Count_Person_IncomeOfUpto9999USDollar",
+              "Count_Person_IncomeOf10000To14999USDollar",
+              "Count_Person_IncomeOf15000To24999USDollar",
+              "Count_Person_IncomeOf25000To34999USDollar",
+              "Count_Person_IncomeOf35000To49999USDollar",
+              "Count_Person_IncomeOf50000To64999USDollar",
+              "Count_Person_IncomeOf65000To74999USDollar",
+              "Count_Person_IncomeOf75000OrMoreUSDollar"
             ],
             "source": "US Census",
             "url": "https://www.census.gov/"
@@ -239,14 +239,14 @@
             "chartType": "GROUP_BAR",
             "axis": "PLACE",
             "statsVars": [
-              "Count_Person_15OrMoreYears_IncomeOfUpto9999USDollar_WithIncome",
-              "Count_Person_15OrMoreYears_IncomeOf10000To14999USDollar_WithIncome",
-              "Count_Person_15OrMoreYears_IncomeOf15000To24999USDollar_WithIncome",
-              "Count_Person_15OrMoreYears_IncomeOf25000To34999USDollar_WithIncome",
-              "Count_Person_15OrMoreYears_IncomeOf35000To49999USDollar_WithIncome",
-              "Count_Person_15OrMoreYears_IncomeOf50000To64999USDollar_WithIncome",
-              "Count_Person_15OrMoreYears_IncomeOf65000To74999USDollar_WithIncome",
-              "Count_Person_15OrMoreYears_IncomeOf75000OrMoreUSDollar_WithIncome"
+              "Count_Person_IncomeOfUpto9999USDollar",
+              "Count_Person_IncomeOf10000To14999USDollar",
+              "Count_Person_IncomeOf15000To24999USDollar",
+              "Count_Person_IncomeOf25000To34999USDollar",
+              "Count_Person_IncomeOf35000To49999USDollar",
+              "Count_Person_IncomeOf50000To64999USDollar",
+              "Count_Person_IncomeOf65000To74999USDollar",
+              "Count_Person_IncomeOf75000OrMoreUSDollar"
             ],
             "perCapita": true,
             "scaling": 100,
@@ -258,14 +258,14 @@
             "title": "Income",
             "chartType": "SINGLE_BAR",
             "statsVars": [
-              "Count_Person_15OrMoreYears_IncomeOfUpto9999USDollar_WithIncome",
-              "Count_Person_15OrMoreYears_IncomeOf10000To14999USDollar_WithIncome",
-              "Count_Person_15OrMoreYears_IncomeOf15000To24999USDollar_WithIncome",
-              "Count_Person_15OrMoreYears_IncomeOf25000To34999USDollar_WithIncome",
-              "Count_Person_15OrMoreYears_IncomeOf35000To49999USDollar_WithIncome",
-              "Count_Person_15OrMoreYears_IncomeOf50000To64999USDollar_WithIncome",
-              "Count_Person_15OrMoreYears_IncomeOf65000To74999USDollar_WithIncome",
-              "Count_Person_15OrMoreYears_IncomeOf75000OrMoreUSDollar_WithIncome"
+              "Count_Person_IncomeOfUpto9999USDollar",
+              "Count_Person_IncomeOf10000To14999USDollar",
+              "Count_Person_IncomeOf15000To24999USDollar",
+              "Count_Person_IncomeOf25000To34999USDollar",
+              "Count_Person_IncomeOf35000To49999USDollar",
+              "Count_Person_IncomeOf50000To64999USDollar",
+              "Count_Person_IncomeOf65000To74999USDollar",
+              "Count_Person_IncomeOf75000OrMoreUSDollar"
             ],
             "source": "US Census",
             "url": "https://www.census.gov/"
@@ -281,11 +281,11 @@
             "chartType": "STACK_BAR",
             "axis": "TIME",
             "statsVars": [
-              "Count_Person_15OrMoreYears_MarriedAndNotSeparated",
-              "Count_Person_15OrMoreYears_Divorced",
-              "Count_Person_15OrMoreYears_NeverMarried",
-              "Count_Person_15OrMoreYears_Widowed",
-              "Count_Person_15OrMoreYears_Separated"
+              "Count_Person_MarriedAndNotSeparated",
+              "Count_Person_Divorced",
+              "Count_Person_NeverMarried",
+              "Count_Person_Widowed",
+              "Count_Person_Separated"
             ],
             "source": "US Census",
             "url": "https://www.census.gov/"
@@ -296,11 +296,11 @@
             "chartType": "STACK_BAR",
             "axis": "PLACE",
             "statsVars": [
-              "Count_Person_15OrMoreYears_MarriedAndNotSeparated",
-              "Count_Person_15OrMoreYears_Divorced",
-              "Count_Person_15OrMoreYears_NeverMarried",
-              "Count_Person_15OrMoreYears_Widowed",
-              "Count_Person_15OrMoreYears_Separated"
+              "Count_Person_MarriedAndNotSeparated",
+              "Count_Person_Divorced",
+              "Count_Person_NeverMarried",
+              "Count_Person_Widowed",
+              "Count_Person_Separated"
             ],
             "source": "US Census",
             "url": "https://www.census.gov/"
@@ -311,11 +311,11 @@
             "chartType": "GROUP_BAR",
             "axis": "PLACE",
             "statsVars": [
-              "Count_Person_15OrMoreYears_MarriedAndNotSeparated",
-              "Count_Person_15OrMoreYears_Divorced",
-              "Count_Person_15OrMoreYears_NeverMarried",
-              "Count_Person_15OrMoreYears_Widowed",
-              "Count_Person_15OrMoreYears_Separated"
+              "Count_Person_MarriedAndNotSeparated",
+              "Count_Person_Divorced",
+              "Count_Person_NeverMarried",
+              "Count_Person_Widowed",
+              "Count_Person_Separated"
             ],
             "perCapita": true,
             "scaling": 100,
@@ -334,11 +334,11 @@
         "title": "Mortality",
         "chartType": "SINGLE_BAR",
         "statsVars": [
-          "Count_MortalityEvent_DiseasesOfTheCirculatorySystem",
-          "Count_MortalityEvent_Neoplasms",
-          "Count_MortalityEvent_DiseasesOfTheRespiratorySystem",
-          "Count_MortalityEvent_ExternalCauses",
-          "Count_MortalityEvent_DiseasesOfTheNervousSystem"
+          "Count_Death_DiseasesOfTheCirculatorySystem",
+          "Count_Death_Neoplasms",
+          "Count_Death_DiseasesOfTheRespiratorySystem",
+          "Count_Death_ExternalCauses",
+          "Count_Death_DiseasesOfTheNervousSystem"
         ],
         "placeTypes": ["County", "State"],
         "source": "CDC",
@@ -348,11 +348,11 @@
         "title": "Outcomes",
         "chartType": "SINGLE_BAR",
         "statsVars": [
-          "Percent_Person_18OrMoreYears_WithHighCholesterol",
-          "Percent_Person_18OrMoreYears_WithHighBloodPressure",
-          "Percent_Person_18OrMoreYears_WithArthritis",
-          "Percent_Person_18OrMoreYears_WithMentalHealthNotGood",
-          "Percent_Person_18OrMoreYears_WithPhysicalHealthNotGood"
+          "Percent_Person_WithHighCholesterol",
+          "Percent_Person_WithHighBloodPressure",
+          "Percent_Person_WithArthritis",
+          "Percent_Person_WithMentalHealthNotGood",
+          "Percent_Person_WithPhysicalHealthNotGood"
         ],
         "placeTypes": ["City"],
         "unit": "%",
@@ -363,11 +363,11 @@
         "title": "Behaviors",
         "chartType": "SINGLE_BAR",
         "statsVars": [
-          "Percent_Person_18OrMoreYears_SleepLessThan7Hours",
-          "Percent_Person_18OrMoreYears_Obesity",
-          "Percent_Person_18OrMoreYears_BingeDrinking",
-          "Percent_Person_18OrMoreYears_PhysicalInactivity",
-          "Percent_Person_18OrMoreYears_Smoking"
+          "Percent_Person_SleepLessThan7Hours",
+          "Percent_Person_Obesity",
+          "Percent_Person_BingeDrinking",
+          "Percent_Person_PhysicalInactivity",
+          "Percent_Person_Smoking"
         ],
         "placeTypes": ["City"],
         "unit": "%",
@@ -392,8 +392,8 @@
         "title": "COVID-19 Cumulative Cases",
         "chartType": "LINE",
         "statsVars": [
-          "CumulativeCount_MedicalConditionIncident_IncidentCOVID_19_ConfirmedOrProbableCase",
-          "CumulativeCount_MedicalConditionIncident_IncidentCOVID_19_PatientDeceased"
+          "CumulativeCount_MedicalConditionIncident_COVID_19_ConfirmedOrProbableCase",
+          "CumulativeCount_MedicalConditionIncident_COVID_19_PatientDeceased"
         ],
         "placeTypes": ["County", "State", "Country"],
         "source": "The New York Times",
@@ -409,11 +409,11 @@
             "topic": "Health",
             "chartType": "LINE",
             "statsVars": [
-              "Count_MortalityEvent_DiseasesOfTheCirculatorySystem",
-              "Count_MortalityEvent_Neoplasms",
-              "Count_MortalityEvent_DiseasesOfTheRespiratorySystem",
-              "Count_MortalityEvent_ExternalCauses",
-              "Count_MortalityEvent_DiseasesOfTheNervousSystem"
+              "Count_Death_DiseasesOfTheCirculatorySystem",
+              "Count_Death_Neoplasms",
+              "Count_Death_DiseasesOfTheRespiratorySystem",
+              "Count_Death_ExternalCauses",
+              "Count_Death_DiseasesOfTheNervousSystem"
             ],
             "placeTypes": ["County", "State"],
             "source": "CDC",
@@ -425,11 +425,11 @@
             "chartType": "STACK_BAR",
             "axis": "PLACE",
             "statsVars": [
-              "Count_MortalityEvent_DiseasesOfTheCirculatorySystem",
-              "Count_MortalityEvent_Neoplasms",
-              "Count_MortalityEvent_DiseasesOfTheRespiratorySystem",
-              "Count_MortalityEvent_ExternalCauses",
-              "Count_MortalityEvent_DiseasesOfTheNervousSystem"
+              "Count_Death_DiseasesOfTheCirculatorySystem",
+              "Count_Death_Neoplasms",
+              "Count_Death_DiseasesOfTheRespiratorySystem",
+              "Count_Death_ExternalCauses",
+              "Count_Death_DiseasesOfTheNervousSystem"
             ],
             "placeTypes": ["County", "State"],
             "source": "CDC",
@@ -441,11 +441,11 @@
             "chartType": "GROUP_BAR",
             "axis": "PLACE",
             "statsVars": [
-              "Count_MortalityEvent_DiseasesOfTheCirculatorySystem",
-              "Count_MortalityEvent_Neoplasms",
-              "Count_MortalityEvent_DiseasesOfTheRespiratorySystem",
-              "Count_MortalityEvent_ExternalCauses",
-              "Count_MortalityEvent_DiseasesOfTheNervousSystem"
+              "Count_Death_DiseasesOfTheCirculatorySystem",
+              "Count_Death_Neoplasms",
+              "Count_Death_DiseasesOfTheRespiratorySystem",
+              "Count_Death_ExternalCauses",
+              "Count_Death_DiseasesOfTheNervousSystem"
             ],
             "placeTypes": ["County", "State"],
             "perCapita": true,
@@ -463,11 +463,11 @@
             "title": "Outcomes",
             "chartType": "SINGLE_BAR",
             "statsVars": [
-              "Percent_Person_18OrMoreYears_WithHighCholesterol",
-              "Percent_Person_18OrMoreYears_WithHighBloodPressure",
-              "Percent_Person_18OrMoreYears_WithArthritis",
-              "Percent_Person_18OrMoreYears_WithMentalHealthNotGood",
-              "Percent_Person_18OrMoreYears_WithPhysicalHealthNotGood"
+              "Percent_Person_WithHighCholesterol",
+              "Percent_Person_WithHighBloodPressure",
+              "Percent_Person_WithArthritis",
+              "Percent_Person_WithMentalHealthNotGood",
+              "Percent_Person_WithPhysicalHealthNotGood"
             ],
             "placeTypes": ["City"],
             "unit": "%",
@@ -480,11 +480,11 @@
             "chartType": "STACK_BAR",
             "axis": "PLACE",
             "statsVars": [
-              "Percent_Person_18OrMoreYears_WithHighCholesterol",
-              "Percent_Person_18OrMoreYears_WithHighBloodPressure",
-              "Percent_Person_18OrMoreYears_WithArthritis",
-              "Percent_Person_18OrMoreYears_WithMentalHealthNotGood",
-              "Percent_Person_18OrMoreYears_WithPhysicalHealthNotGood"
+              "Percent_Person_WithHighCholesterol",
+              "Percent_Person_WithHighBloodPressure",
+              "Percent_Person_WithArthritis",
+              "Percent_Person_WithMentalHealthNotGood",
+              "Percent_Person_WithPhysicalHealthNotGood"
             ],
             "placeTypes": ["City"],
             "unit": "%",
@@ -497,11 +497,11 @@
             "chartType": "GROUP_BAR",
             "axis": "PLACE",
             "statsVars": [
-              "Percent_Person_18OrMoreYears_WithHighCholesterol",
-              "Percent_Person_18OrMoreYears_WithHighBloodPressure",
-              "Percent_Person_18OrMoreYears_WithArthritis",
-              "Percent_Person_18OrMoreYears_WithMentalHealthNotGood",
-              "Percent_Person_18OrMoreYears_WithPhysicalHealthNotGood"
+              "Percent_Person_WithHighCholesterol",
+              "Percent_Person_WithHighBloodPressure",
+              "Percent_Person_WithArthritis",
+              "Percent_Person_WithMentalHealthNotGood",
+              "Percent_Person_WithPhysicalHealthNotGood"
             ],
             "placeTypes": ["City"],
             "unit": "%",
@@ -517,11 +517,11 @@
             "title": "Behaviors",
             "chartType": "SINGLE_BAR",
             "statsVars": [
-              "Percent_Person_18OrMoreYears_SleepLessThan7Hours",
-              "Percent_Person_18OrMoreYears_Obesity",
-              "Percent_Person_18OrMoreYears_BingeDrinking",
-              "Percent_Person_18OrMoreYears_PhysicalInactivity",
-              "Percent_Person_18OrMoreYears_Smoking"
+              "Percent_Person_SleepLessThan7Hours",
+              "Percent_Person_Obesity",
+              "Percent_Person_BingeDrinking",
+              "Percent_Person_PhysicalInactivity",
+              "Percent_Person_Smoking"
             ],
             "placeTypes": ["City"],
             "unit": "%",
@@ -534,11 +534,11 @@
             "chartType": "STACK_BAR",
             "axis": "PLACE",
             "statsVars": [
-              "Percent_Person_18OrMoreYears_SleepLessThan7Hours",
-              "Percent_Person_18OrMoreYears_Obesity",
-              "Percent_Person_18OrMoreYears_BingeDrinking",
-              "Percent_Person_18OrMoreYears_PhysicalInactivity",
-              "Percent_Person_18OrMoreYears_Smoking"
+              "Percent_Person_SleepLessThan7Hours",
+              "Percent_Person_Obesity",
+              "Percent_Person_BingeDrinking",
+              "Percent_Person_PhysicalInactivity",
+              "Percent_Person_Smoking"
             ],
             "placeTypes": ["City"],
             "unit": "%",
@@ -551,11 +551,11 @@
             "chartType": "GROUP_BAR",
             "axis": "PLACE",
             "statsVars": [
-              "Percent_Person_18OrMoreYears_SleepLessThan7Hours",
-              "Percent_Person_18OrMoreYears_Obesity",
-              "Percent_Person_18OrMoreYears_BingeDrinking",
-              "Percent_Person_18OrMoreYears_PhysicalInactivity",
-              "Percent_Person_18OrMoreYears_Smoking"
+              "Percent_Person_SleepLessThan7Hours",
+              "Percent_Person_Obesity",
+              "Percent_Person_BingeDrinking",
+              "Percent_Person_PhysicalInactivity",
+              "Percent_Person_Smoking"
             ],
             "placeTypes": ["City"],
             "unit": "%",
@@ -622,7 +622,7 @@
           {
             "title": "COVID-19 Cumulative Cases",
             "chartType": "LINE",
-            "statsVars": ["CumulativeCount_MedicalConditionIncident_IncidentCOVID_19_ConfirmedOrProbableCase"],
+            "statsVars": ["CumulativeCount_MedicalConditionIncident_COVID_19_ConfirmedOrProbableCase"],
             "placeTypes": ["County", "State", "Country"],
             "source": "The New York Times",
             "url": "https://www.nytimes.com/article/coronavirus-county-data-us.html"
@@ -630,7 +630,7 @@
           {
             "title": "COVID-19 Cumulative Deaths",
             "chartType": "LINE",
-            "statsVars": ["CumulativeCount_MedicalConditionIncident_IncidentCOVID_19_PatientDeceased"],
+            "statsVars": ["CumulativeCount_MedicalConditionIncident_COVID_19_PatientDeceased"],
             "placeTypes": ["County", "State", "Country"],
             "source": "The New York Times",
             "url": "https://www.nytimes.com/article/coronavirus-county-data-us.html"
@@ -639,7 +639,7 @@
             "title": "COVID-19 Cumulative Cases",
             "chartType": "GROUP_BAR",
             "axis": "PLACE",
-            "statsVars": ["CumulativeCount_MedicalConditionIncident_IncidentCOVID_19_ConfirmedOrProbableCase"],
+            "statsVars": ["CumulativeCount_MedicalConditionIncident_COVID_19_ConfirmedOrProbableCase"],
             "placeTypes": ["County", "State", "Country"],
             "source": "The New York Times",
             "url": "https://www.nytimes.com/article/coronavirus-county-data-us.html"
@@ -648,7 +648,7 @@
             "title": "COVID-19 Cumulative Deaths",
             "chartType": "GROUP_BAR",
             "axis": "PLACE",
-            "statsVars": ["CumulativeCount_MedicalConditionIncident_IncidentCOVID_19_PatientDeceased"],
+            "statsVars": ["CumulativeCount_MedicalConditionIncident_COVID_19_PatientDeceased"],
             "placeTypes": ["County", "State", "Country"],
             "source": "The New York Times",
             "url": "https://www.nytimes.com/article/coronavirus-county-data-us.html"
@@ -657,7 +657,7 @@
             "title": "COVID-19 Cumulative Cases (Per 1000 People)",
             "chartType": "GROUP_BAR",
             "axis": "PLACE",
-            "statsVars": ["CumulativeCount_MedicalConditionIncident_IncidentCOVID_19_ConfirmedOrProbableCase"],
+            "statsVars": ["CumulativeCount_MedicalConditionIncident_COVID_19_ConfirmedOrProbableCase"],
             "placeTypes": ["County", "State", "Country"],
             "perCapita": true,
             "scaling": 1000,
@@ -668,7 +668,7 @@
             "title": "COVID-19 Cumulative Deaths (Per 1000 People)",
             "chartType": "GROUP_BAR",
             "axis": "PLACE",
-            "statsVars": ["CumulativeCount_MedicalConditionIncident_IncidentCOVID_19_PatientDeceased"],
+            "statsVars": ["CumulativeCount_MedicalConditionIncident_COVID_19_PatientDeceased"],
             "placeTypes": ["County", "State", "Country"],
             "perCapita": true,
             "scaling": 1000,
@@ -686,7 +686,7 @@
         "title": "Total Crime",
         "topic": "Crime",
         "chartType": "LINE",
-        "statsVars": ["Count_CriminalActivities_UCR_CombinedCrime"],
+        "statsVars": ["Count_CriminalActivities_CombinedCrime"],
         "placeTypes": ["City", "State"],
         "source": "FBI",
         "url": "https://www.fbi.gov/"
@@ -728,7 +728,7 @@
             "topic": "Crime",
             "chartType": "STACK_BAR",
             "axis": "PLACE",
-            "statsVars": ["Count_CriminalActivities_UCR_CombinedCrime"],
+            "statsVars": ["Count_CriminalActivities_CombinedCrime"],
             "placeTypes": ["City", "State"],
             "source": "FBI",
             "url": "https://www.fbi.gov/"
@@ -738,7 +738,7 @@
             "topic": "Crime",
             "chartType": "GROUP_BAR",
             "axis": "PLACE",
-            "statsVars": ["Count_CriminalActivities_UCR_CombinedCrime"],
+            "statsVars": ["Count_CriminalActivities_CombinedCrime"],
             "placeTypes": ["City", "State"],
             "perCapita": true,
             "scaling": 1000,
@@ -837,11 +837,11 @@
         "title": "Education Attainment",
         "chartType": "SINGLE_BAR",
         "statsVars": [
-          "Count_Person_25OrMoreYears_NoSchoolingCompleted",
-          "Count_Person_25OrMoreYears_RegularHighSchoolDiploma",
-          "Count_Person_25OrMoreYears_BachelorsDegree",
-          "Count_Person_25OrMoreYears_MastersDegree",
-          "Count_Person_25OrMoreYears_DoctorateDegree"
+          "Count_Person_EducationalAttainmentNoSchoolingCompleted",
+          "Count_Person_EducationalAttainmentRegularHighSchoolDiploma",
+          "Count_Person_EducationalAttainmentBachelorsDegree",
+          "Count_Person_EducationalAttainmentMastersDegree",
+          "Count_Person_EducationalAttainmentDoctorateDegree"
         ],
         "source": "US Census",
         "url": "https://www.census.gov/"
@@ -850,8 +850,8 @@
         "title": "School Enrollment",
         "chartType": "SINGLE_BAR",
         "statsVars": [
-          "Count_Person_3OrMoreYears_EnrolledInSchool",
-          "Count_Person_3OrMoreYears_NotEnrolledInSchool"
+          "Count_Person_EnrolledInSchool",
+          "Count_Person_NotEnrolledInSchool"
         ],
         "source": "US Census",
         "url": "https://www.census.gov/"
@@ -867,11 +867,11 @@
             "chartType": "STACK_BAR",
             "axis": "TIME",
             "statsVars": [
-              "Count_Person_25OrMoreYears_NoSchoolingCompleted",
-              "Count_Person_25OrMoreYears_RegularHighSchoolDiploma",
-              "Count_Person_25OrMoreYears_BachelorsDegree",
-              "Count_Person_25OrMoreYears_MastersDegree",
-              "Count_Person_25OrMoreYears_DoctorateDegree"
+              "Count_Person_EducationalAttainmentNoSchoolingCompleted",
+              "Count_Person_EducationalAttainmentRegularHighSchoolDiploma",
+              "Count_Person_EducationalAttainmentBachelorsDegree",
+              "Count_Person_EducationalAttainmentMastersDegree",
+              "Count_Person_EducationalAttainmentDoctorateDegree"
             ],
             "source": "US Census",
             "url": "https://www.census.gov/"
@@ -882,11 +882,11 @@
             "chartType": "STACK_BAR",
             "axis": "PLACE",
             "statsVars": [
-              "Count_Person_25OrMoreYears_NoSchoolingCompleted",
-              "Count_Person_25OrMoreYears_RegularHighSchoolDiploma",
-              "Count_Person_25OrMoreYears_BachelorsDegree",
-              "Count_Person_25OrMoreYears_MastersDegree",
-              "Count_Person_25OrMoreYears_DoctorateDegree"
+              "Count_Person_EducationalAttainmentNoSchoolingCompleted",
+              "Count_Person_EducationalAttainmentRegularHighSchoolDiploma",
+              "Count_Person_EducationalAttainmentBachelorsDegree",
+              "Count_Person_EducationalAttainmentMastersDegree",
+              "Count_Person_EducationalAttainmentDoctorateDegree"
             ],
             "source": "US Census",
             "url": "https://www.census.gov/"
@@ -897,11 +897,11 @@
             "chartType": "GROUP_BAR",
             "axis": "PLACE",
             "statsVars": [
-              "Count_Person_25OrMoreYears_NoSchoolingCompleted",
-              "Count_Person_25OrMoreYears_RegularHighSchoolDiploma",
-              "Count_Person_25OrMoreYears_BachelorsDegree",
-              "Count_Person_25OrMoreYears_MastersDegree",
-              "Count_Person_25OrMoreYears_DoctorateDegree"
+              "Count_Person_EducationalAttainmentNoSchoolingCompleted",
+              "Count_Person_EducationalAttainmentRegularHighSchoolDiploma",
+              "Count_Person_EducationalAttainmentBachelorsDegree",
+              "Count_Person_EducationalAttainmentMastersDegree",
+              "Count_Person_EducationalAttainmentDoctorateDegree"
             ],
             "perCapita": true,
             "scaling": 100,
@@ -920,8 +920,8 @@
             "chartType": "STACK_BAR",
             "axis": "TIME",
             "statsVars": [
-              "Count_Person_3OrMoreYears_EnrolledInSchool",
-              "Count_Person_3OrMoreYears_NotEnrolledInSchool"
+              "Count_Person_EnrolledInSchool",
+              "Count_Person_NotEnrolledInSchool"
             ],
             "source": "US Census",
             "url": "https://www.census.gov/"
@@ -932,8 +932,8 @@
             "chartType": "STACK_BAR",
             "axis": "PLACE",
             "statsVars": [
-              "Count_Person_3OrMoreYears_EnrolledInSchool",
-              "Count_Person_3OrMoreYears_NotEnrolledInSchool"
+              "Count_Person_EnrolledInSchool",
+              "Count_Person_NotEnrolledInSchool"
             ],
             "source": "US Census",
             "url": "https://www.census.gov/"
@@ -944,8 +944,8 @@
             "chartType": "GROUP_BAR",
             "axis": "PLACE",
             "statsVars": [
-              "Count_Person_3OrMoreYears_EnrolledInSchool",
-              "Count_Person_3OrMoreYears_NotEnrolledInSchool"
+              "Count_Person_EnrolledInSchool",
+              "Count_Person_NotEnrolledInSchool"
             ],
             "perCapita": true,
             "scaling": 100,
@@ -963,7 +963,7 @@
       {
         "title": "UnemploymentRate",
         "chartType": "LINE",
-        "statsVars": ["UnemploymentRate"],
+        "statsVars": ["UnemploymentRate_Person"],
         "source": "BLS",
         "url": "https://bls.gov/"
       },
