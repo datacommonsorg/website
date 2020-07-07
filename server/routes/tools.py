@@ -17,27 +17,27 @@ from flask import render_template
 
 
 bp = Blueprint(
-  "gni",
+  "tools",
   __name__,
+  url_prefix='/tools'
 )
 
 
-# TODO(shifucun/beets): Re-organize the path names
-@bp.route('/gni')
+@bp.route('/timeline')
 def explore():
-    return render_template('gni/explore.html')
+    return render_template('tools/explore.html')
 
 
 @bp.route('/download')
 def download():
-    return render_template('gni/download.html')
+    return render_template('tools/download.html')
 
 
-@bp.route('/download2')
+@bp.route('/bulk_download')
 def download_bulk():
-    return render_template('gni/download_bulk.html')
+    return render_template('tools/download_bulk.html')
 
 
 @bp.route('/scatter')
 def scatter():
-    return render_template('gni/scatter.html')
+    return render_template('tools/scatter.html')
