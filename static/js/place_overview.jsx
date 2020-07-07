@@ -371,6 +371,7 @@ class ChildPlace extends Component {
         </React.Fragment>
       );
     }
+    return <span></span>;
   }
 }
 
