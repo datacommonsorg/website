@@ -466,7 +466,11 @@ class Chart extends Component {
               {config.title}
               <span className="sub-title">{this.titleSuffix}</span>
             </h4>
-            <a className="explore-more" href={this.buildTimelineToolUrl()}>
+            <a
+              target="_blank"
+              className="explore-more"
+              href={this.buildTimelineToolUrl()}
+            >
               Explore More
             </a>
           </div>
