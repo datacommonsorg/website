@@ -98,22 +98,6 @@ class UiNode:
           return '{} {}'.format(stats, self.mprop)
 
     @property
-    def arg_string(self):
-      """Return the arg string for url."""
-      pv = self.pv.copy()
-      if 'crimeType' in pv and 'subType' in pv:
-        pv['crimeType'] = pv['subType']
-        del pv['subType']
-      if self.is_prop:
-        return ''
-      result = '{},{}'.format(self.pop_type, self.mprop)
-      for p, v in pv.items():
-        result += ',{},{}'.format(p, v)
-      for p, v in self.cpv.items():
-        result += ',{},{}'.format(p, v)
-      return result
-
-    @property
     def enum(self):
       if not self.is_prop and self.prop:
         return self.pv[self.prop]

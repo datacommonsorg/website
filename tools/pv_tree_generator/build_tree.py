@@ -20,6 +20,7 @@ import text_format
 
 MAX_LEVEL = 6
 SEARCH_SPECS, SEARCH_VALS = util._read_search_pvs()
+PLACETYPES = ['Country', 'State', 'County', 'City']
 
 def build_tree_recursive(pos, level, pop_obs_spec, stat_vars, show_all, 
     parent=None):
@@ -46,6 +47,8 @@ def build_tree_recursive(pos, level, pop_obs_spec, stat_vars, show_all,
         'sv_set': set(),
         'search_count': 0,
         'search_sv_set': set(),
+        'measuredProperty': prop_ui_node.mprop,
+        'placeTypes': PLACETYPES,
     }
 
     #get the child specs of the current node
@@ -85,6 +88,8 @@ def build_tree_recursive(pos, level, pop_obs_spec, stat_vars, show_all,
                 'sv_set': set([sv.dcid]),
                 'search_count': 1 if in_search else 0,
                 'search_sv_set': set([sv.dcid]) if in_search else set(),
+                'measuredProperty': value_ui_node.mprop,
+                'placeTypes': PLACETYPES,
             }
             # add statistical variables as the child of current node
             result['children'].append(value_blob)
@@ -132,6 +137,7 @@ def build_tree(v, pop_obs_spec, stat_vars, show_all):
         'sv_set': set(),#used for counting child nodes
         'search_count': 0,
         'search_sv_set': set(),
+        'placeTypes': PLACETYPES,
     }
 
     # specs with 0 constaints are of type "value", 
@@ -139,22 +145,27 @@ def build_tree(v, pop_obs_spec, stat_vars, show_all):
     for pos in pop_obs_spec[0]:
         search_count = (1 if (pos.pop_type, pos.mprop, '') in SEARCH_SPECS else 0)
         ui_node = util.UiNode(pos, {}, False)
-        root['children'].append({
-            'populationType': ui_node.pop_type,
-            'show': 'yes',
-            'selected': 'no',
-            'expanded': 'no',
-            'argString': ui_node.arg_string,
-            'title': text_format.format_title(ui_node.text),
-            'type': 'value',
-            'children': [],
-            'count': 1,
-            'search_count': search_count,
-        })
-        root['count'] += 1
-        root['search_count'] += search_count
+        for sv in stat_vars[pos.key]:
+            if pos.cpv == sv.pv:
+                root['children'].append({
+                    'populationType': ui_node.pop_type,
+                    'show': 'yes',
+                    'selected': 'no',
+                    'expanded': 'no',
+                    'argString': sv.dcid,
+                    'title': text_format.format_title(ui_node.text),
+                    'type': 'value',
+                    'children': [],
+                    'count': 1,
+                    'search_count': search_count,
+                    'measuredProperty': ui_node.mprop,
+                    'placeTypes': PLACETYPES,
+                })
+            root['count'] += 1
+            root['search_count'] += search_count
 
     # build specs with >= 1 constraints recursively
+    
     for pos in pop_obs_spec[1]:
         child = build_tree_recursive(pos, 1, pop_obs_spec, stat_vars, show_all)
         # For certain branch, we would like to put them under 0 pv nodes:
@@ -162,7 +173,8 @@ def build_tree(v, pop_obs_spec, stat_vars, show_all):
             'MortalityEvent']):
             for pv0 in root['children']: 
                 # hoist logic will break if multiple 0 pv
-                if pv0['argString'] == '{},count'.format(pos.pop_type):
+                if (pv0['populationType'] == pos.pop_type and 
+                    pv0['measuredProperty'] == 'count'):
                     pv0['children'].append(child)
                     if 'sv_set' not in pv0:
                         pv0['sv_set'] = set()

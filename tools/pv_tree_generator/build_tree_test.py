@@ -103,10 +103,9 @@ class BuildTreeTest(unittest.TestCase):
         root_search = build_tree.build_tree(vertical, pop_obs_spec[vertical],
             stat_vars, True)
         data[1][vertical] = root
-        # 3 from pos + 4 from starvars
-        self.assertEqual(data[0]['Demographics']['count'], 7) 
-        self.assertEqual(data[1]['Demographics']['count'], 7)
-        self.assertEqual(data[1]['Demographics']['search_count'], 5)
+        self.assertEqual(data[0]['Demographics']['count'], 4) 
+        self.assertEqual(data[1]['Demographics']['count'], 4)
+        self.assertEqual(data[1]['Demographics']['search_count'], 2)
         for child in data[1]['Demographics']['children']:
             if child['title'] == 'Citizenship':
                 self.assertEqual(child['count'],1)
