@@ -223,14 +223,20 @@ class MainPane extends Component {
           if (isOverview) {
             subtopicHeader = (
               <h3 id={item.label}>
-                <a href={`/place?dcid=${this.props.dcid}&topic=${item.label}`}>{item.label}</a>
-                <span class="more">
-                  <a href={`/place?dcid=${this.props.dcid}&topic=${item.label}`}>More charts ›</a>
+                <a href={`/place?dcid=${this.props.dcid}&topic=${item.label}`}>
+                  {item.label}
+                </a>
+                <span className="more">
+                  <a
+                    href={`/place?dcid=${this.props.dcid}&topic=${item.label}`}
+                  >
+                    More charts ›
+                  </a>
                 </span>
               </h3>
             );
           } else {
-            subtopicHeader = <h3 id={item.label}>{item.label}</h3>
+            subtopicHeader = <h3 id={item.label}>{item.label}</h3>;
           }
           return (
             <section className="subtopic col-12" key={index}>
@@ -297,7 +303,9 @@ class Overview extends Component {
     if (!this.props.topic) {
       return (
         <React.Fragment>
-          <h2 className="col-12 pt-2" id="overview">Overview</h2>
+          <h2 className="col-12 pt-2" id="overview">
+            Overview
+          </h2>
           <section className="factoid col-12">
             <div className="row">
               <div className="col-12 col-md-4">
@@ -318,8 +326,11 @@ class Overview extends Component {
     } else {
       return (
         <React.Fragment>
-          <h2 className="col-12 pt-2">{this.props.topic}
-          <span class="more"><a href={`/place?dcid=${this.props.dcid}`}>Back to overview ›</a></span>
+          <h2 className="col-12 pt-2">
+            {this.props.topic}
+            <span class="more">
+              <a href={`/place?dcid=${this.props.dcid}`}>Back to overview ›</a>
+            </span>
           </h2>
         </React.Fragment>
       );
@@ -336,20 +347,27 @@ Overview.propTypes = {
 
 class ChildPlace extends Component {
   render() {
-    return (
-      <React.Fragment>
-        {Object.keys(this.props.childPlaces).map((placeType) => (
-          <div key={placeType}>
-            <div>{placeType}</div>
-            {this.props.childPlaces[placeType].map((place) => (
-              <a key={place["dcid"]} href={"/place?dcid=" + place["dcid"]}>
-                {place["name"]}
-              </a>
-            ))}
-          </div>
-        ))}
-      </React.Fragment>
-    );
+    if (Object.keys(this.props.childPlaces).length > 0) {
+      return (
+        <React.Fragment>
+          <div id="child-place-title">Child Places</div>
+          {Object.keys(this.props.childPlaces).map((placeType) => (
+            <div key={placeType}>
+              <div className="child-place-type">{placeType}</div>
+              {this.props.childPlaces[placeType].map((place) => (
+                <a
+                  key={place["dcid"]}
+                  className="child-place-link"
+                  href={"/place?dcid=" + place["dcid"]}
+                >
+                  {place["name"]},
+                </a>
+              ))}
+            </div>
+          ))}
+        </React.Fragment>
+      );
+    }
   }
 }
 

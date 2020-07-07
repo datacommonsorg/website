@@ -61,6 +61,6 @@ def child_fetch(dcid):
                   'dcid': place['dcid'],
                 })
                 break
-    for place in result:
-        result[place].sort(key=lambda x: x['dcid'])
+    for place_type in result:
+        result[place_type].sort(key=lambda x: x['dcid'])
     return result
