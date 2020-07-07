@@ -19,21 +19,21 @@ from main import app
 
 class TestStaticPage(unittest.TestCase):
     def test_gni(self):
-        response = app.test_client().get('/tools/timeline')
+        response = app.test_client().get('/gni')
         assert response.status_code == 200
         assert b"Welcome to Data Commons." in response.data
 
     def test_download(self):
-        response = app.test_client().get('/tools/download')
+        response = app.test_client().get('/download')
         assert response.status_code == 200
         assert b"By using these API/Data" in response.data
 
-    def test_bulk_download(self):
-        response = app.test_client().get('/tools/bulk_download')
+    def test_download2(self):
+        response = app.test_client().get('/download2')
         assert response.status_code == 200
         assert b"For every State" in response.data
 
     def test_scatter(self):
-        response = app.test_client().get('/tools/scatter')
+        response = app.test_client().get('/scatter')
         assert response.status_code == 200
         assert b"Select two variables from the left menu" in response.data
