@@ -12,32 +12,34 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-from flask import Blueprint
-from flask import render_template
+"""Permanent redirects to support the website re-organization and merging of
+browser.datacommons.org with datacommons.org
+"""
 
+from flask import Blueprint, redirect, url_for
+from routes import tools
 
 bp = Blueprint(
-  "gni",
+  "redirects",
   __name__,
 )
 
 
-# TODO(shifucun/beets): Re-organize the path names
 @bp.route('/gni')
-def explore():
-    return render_template('gni/explore.html')
+def gni():
+    return redirect(url_for('tools.timeline'), code=302)
 
 
 @bp.route('/download')
 def download():
-    return render_template('gni/download.html')
+    return redirect(url_for('tools.download'), code=302)
 
 
-@bp.route('/download2')
+@bp.route('/bulk_download')
 def download_bulk():
-    return render_template('gni/download_bulk.html')
+    return redirect(url_for('tools.download_bulk'), code=302)
 
 
 @bp.route('/scatter')
 def scatter():
-    return render_template('gni/scatter.html')
+    return redirect(url_for('tools.scatter'), code=302)
