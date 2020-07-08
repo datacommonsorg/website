@@ -307,7 +307,6 @@ def get_place_population(dcids):
       result[(dcid, date)] = v
   return result
 
-import logging
 
 # TODO(b/155485304): Add unit test for this.
 def get_plot_data(place_args, pc, gr):
@@ -336,7 +335,6 @@ def get_plot_data(place_args, pc, gr):
   chart_data = datacommons.get_chart_data(list(keys))
   result = []
   for key, data in chart_data.items():
-    logging.info(data)
     dcid = data['place_dcid']
     points = [(date, v) for date, v in data['data'].items()]
     result.append({
