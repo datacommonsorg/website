@@ -300,7 +300,6 @@ def api_ranking(dcid):
             'name': parent_names[parent],
             'data': get_related_place(
                 dcid, 'Person', 'count', 'measuredValue',
-                measurement_method='CensusACS5yrSurvey',
                 same_place_type=True, within_place=parent)})
         # Median income
         result['Median Income'].append({
@@ -308,21 +307,18 @@ def api_ranking(dcid):
             'data': get_related_place(
                 dcid, 'Person', 'income', 'medianValue',
                 pvs_string='age^Years15Onwards^incomeStatus^WithIncome',
-                measurement_method='CensusACS5yrSurvey',
                 same_place_type=True, within_place=parent)})
         # Median age
         result['Median Age'].append({
             'name': parent_names[parent],
             'data': get_related_place(
                 dcid, 'Person', 'age', 'medianValue',
-                measurement_method='CensusACS5yrSurvey',
                 same_place_type=True, within_place=parent)})
         # Unemployment rate
         result['Unemployment Rate'].append({
             'name': parent_names[parent],
             'data': get_related_place(
                 dcid, 'Person', 'unemploymentRate', 'measuredValue',
-                measurement_method='BLSSeasonallyUnadjusted',
                 same_place_type=True, within_place=parent)})
         # Crime
         result['Crime per capita'].append({
