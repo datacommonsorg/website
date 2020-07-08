@@ -231,7 +231,6 @@ function initAutocomplete() {
   // geographical location types.
   const options = {
     types: ["(regions)"],
-    componentRestrictions: { country: "us" },
     fields: ["place_id", "name", "types"],
   };
   ac = new google.maps.places.Autocomplete(
