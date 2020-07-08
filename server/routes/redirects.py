@@ -16,13 +16,23 @@
 browser.datacommons.org with datacommons.org
 """
 
-from flask import Blueprint, redirect, url_for
-from routes import tools
+from flask import Blueprint, redirect, request, url_for
+from routes import browser, tools
 
 bp = Blueprint(
   "redirects",
   __name__,
 )
+
+
+@bp.route('/kg')
+def kg():
+    dcid = request.args.get('dcid', '')
+    if dcid:
+        url = url_for('browser.kg_entity', dcid=dcid)
+    else:
+        url = url_for('browser.kg_main')
+    return redirect(url, code=302)
 
 
 @bp.route('/gni')

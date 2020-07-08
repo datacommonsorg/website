@@ -24,7 +24,7 @@ class TestStaticPage(unittest.TestCase):
     def test_homepage(self):
         response = app.test_client().get('/')
         assert response.status_code == 200
-        assert b"The Data Commons Graph (DCG)" in response.data
+        assert b"Data Commons is a project started by Google" in response.data
 
 
 class TestApiParentPlaces(unittest.TestCase):
