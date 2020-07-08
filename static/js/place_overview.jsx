@@ -461,19 +461,10 @@ class Chart extends Component {
     return (
       <div className="col" ref={this.chartElement}>
         <div className="chart-container">
-          <div className="row explore-more-container">
-            <h4>
-              {config.title}
-              <span className="sub-title">{this.titleSuffix}</span>
-            </h4>
-            <a
-              target="_blank"
-              className="explore-more"
-              href={this.buildTimelineToolUrl()}
-            >
-              Explore More
-            </a>
-          </div>
+          <h4>
+            {config.title}
+            <span className="sub-title">{this.titleSuffix}</span>
+          </h4>
           {config.axis == axisEnum.PLACE && (
             <label>
               Choose places:{" "}
@@ -496,8 +487,19 @@ class Chart extends Component {
             </label>
           )}
           <div id={this.props.id}></div>
-          <footer>
-            Data from <a href={config.url}>{config.source}</a>
+          <footer className="row explore-more-container">
+            <div>
+              Data from <a href={config.url}>{config.source}</a>
+            </div>
+            <div>
+              <a
+                target="_blank"
+                className="explore-more"
+                href={this.buildTimelineToolUrl()}
+              >
+                Explore More ›
+              </a>
+            </div>
           </footer>
         </div>
       </div>
