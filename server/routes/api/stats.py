@@ -18,7 +18,6 @@ from flask import Blueprint, request
 from cache import cache
 import services.datacommons as dc
 
-
 # Define blueprint
 bp = Blueprint(
   "stats",
@@ -28,12 +27,98 @@ bp = Blueprint(
 
 @cache.memoize(timeout=3600 * 24)  # Cache for one day.
 def get_stats_wrapper(dcid_str, stats_var):
+    """Wrapper function to get stats for multiple places and give statsvar.
+
+    This wrapper takes concatenated place dcids as a string argument so the
+    flask cache can work.
+
+    Args:
+        dcid_str: place dcids concatenated by "^".
+        stats_var: the dcid of the statistical variable.
+    Returns:
+        An serialized json str. The json is an object keyed by the place dcid
+        with value to be the observation time series.
+    """
     dcids = dcid_str.split('^')
     return json.dumps(dc.get_stats(dcids, stats_var))
 
 
 @bp.route('/api/stats/<path:stats_var>')
 def stats(stats_var):
-    """Handler to get the observation given stats var."""
+    """Handler to get the observation given stats var for multiple places.
+
+    This uses the get_stats_wrapper function so the result can be cached.
+
+    Args:
+        stats_var: the dcid of the statistical variable.
+    Returns:
+        An serialized json str. The json is an object keyed by the place dcid
+        with value to be the observation time series.
+    """
     place_dcids = request.args.getlist('dcid')
     return get_stats_wrapper('^'.join(place_dcids), stats_var)
+
+
+@cache.memoize(timeout=3600 * 24)  # Cache for one day.
+def get_statsinfo_wrapper(statsvars_string):
+    """Wrapper function to get stats information give multiple stats var.
+
+    The result is used by chart API.
+
+    Args:
+        statsvars_string: stats var dcids concatenated by "^".
+    Returns:
+        An object keyed by stats dcid, with value being partial url that can
+        be used by the /tools/timeline endpoint.
+        {
+            "TotalPopulation": "Person,count,gender,Female"
+        }
+    """
+    dcids = statsvars_string.split('^')
+    data = dc.fetch_data(
+      '/node/triples',
+      {
+        'dcids': dcids,
+      },
+      compress=False,
+      post=True
+    )
+    result = {}
+    # Get all the constraint properties
+    for dcid, triples in data.items():
+        pvs = {}
+        for triple in triples:
+            if triple['predicate'] == 'constraintProperties':
+                pvs[triple["objectId"]] = ''
+        pop_type = ''
+        mprop = ''
+        for triple in triples:
+            if triple['predicate'] == 'measuredProperty':
+                mprop = triple['objectId']
+            if triple['predicate'] == 'populationType':
+                pop_type = triple['objectId']
+            if triple['predicate'] in pvs:
+                pvs[triple['predicate']] = triple['objectId']
+        tokens = [pop_type, mprop]
+        for p, v in pvs.items():
+            tokens.extend([p, v])
+        result[dcid] = ','.join(tokens)
+    return result
+
+
+@bp.route('/api/statsinfo')
+def statsinfo():
+    """Handler to get stats information give multiple stats var.
+
+    The result is used by timeline tools page as partial url. It calls the
+    get_statsinfo_wrapper function so the result can be memoized.
+
+    Returns:
+        An object keyed by stats dcid, with value being partial url that can
+        be used by the /tools/timeline endpoint.
+        {
+            "TotalPopulation": "Person,count,gender,Female"
+        }
+    """
+    stats_vars = sorted(request.args.getlist('dcid'))
+    return get_statsinfo_wrapper('^'.join(stats_vars))

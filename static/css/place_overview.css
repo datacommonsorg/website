@@ -295,3 +295,15 @@ header #selectionbar {
   color: black;
   display:inline-block;
 }
+
+.explore-more-container {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 0 4px;
+}
+
+.explore-more {
+  font-size: .7rem;
+  color: var(--dc-red-strong);
+}
