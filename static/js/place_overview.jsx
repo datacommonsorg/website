@@ -17,6 +17,7 @@
 require("@babel/polyfill");
 
 import React, { Component } from "react";
+import pluralize from "pluralize";
 import PropTypes from "prop-types";
 import intersection from "lodash";
 
@@ -216,21 +217,27 @@ class MainPane extends Component {
     return (
       <React.Fragment>
         {this.props.dcid != "country/USA" && (
-          <Overview topic={this.props.topic} />
+          <Overview topic={this.props.topic} dcid={this.props.dcid} />
         )}
         {configData.map((item, index) => {
           let subtopicHeader;
           if (isOverview) {
             subtopicHeader = (
               <h3 id={item.label}>
-                <a href={`/place?dcid=${this.props.dcid}&topic=${item.label}`}>{item.label}</a>
-                <span class="more">
-                  <a href={`/place?dcid=${this.props.dcid}&topic=${item.label}`}>More charts ›</a>
+                <a href={`/place?dcid=${this.props.dcid}&topic=${item.label}`}>
+                  {item.label}
+                </a>
+                <span className="more">
+                  <a
+                    href={`/place?dcid=${this.props.dcid}&topic=${item.label}`}
+                  >
+                    More charts ›
+                  </a>
                 </span>
               </h3>
             );
           } else {
-            subtopicHeader = <h3 id={item.label}>{item.label}</h3>
+            subtopicHeader = <h3 id={item.label}>{item.label}</h3>;
           }
           return (
             <section className="subtopic col-12" key={index}>
@@ -297,7 +304,9 @@ class Overview extends Component {
     if (!this.props.topic) {
       return (
         <React.Fragment>
-          <h2 className="col-12 pt-2" id="overview">Overview</h2>
+          <h2 className="col-12 pt-2" id="overview">
+            Overview
+          </h2>
           <section className="factoid col-12">
             <div className="row">
               <div className="col-12 col-md-4">
@@ -318,8 +327,11 @@ class Overview extends Component {
     } else {
       return (
         <React.Fragment>
-          <h2 className="col-12 pt-2">{this.props.topic}
-          <span class="more"><a href={`/place?dcid=${this.props.dcid}`}>Back to overview ›</a></span>
+          <h2 className="col-12 pt-2">
+            {this.props.topic}
+            <span className="more">
+              <a href={`/place?dcid=${this.props.dcid}`}>Back to overview ›</a>
+            </span>
           </h2>
         </React.Fragment>
       );
@@ -336,14 +348,24 @@ Overview.propTypes = {
 
 class ChildPlace extends Component {
   render() {
+    if (Object.keys(this.props.childPlaces).length == 0) {
+      return "";
+    }
     return (
       <React.Fragment>
         {Object.keys(this.props.childPlaces).map((placeType) => (
           <div key={placeType}>
-            <div>{placeType}</div>
-            {this.props.childPlaces[placeType].map((place) => (
-              <a key={place["dcid"]} href={"/place?dcid=" + place["dcid"]}>
+            <div className="child-place-type">{pluralize(placeType)}</div>
+            {this.props.childPlaces[placeType].map((place, i) => (
+              <a
+                key={place["dcid"]}
+                className="child-place-link"
+                href={"/place?dcid=" + place["dcid"]}
+              >
                 {place["name"]}
+                {i < this.props.childPlaces[placeType].length - 1 && (
+                  <span>,</span>
+                )}
               </a>
             ))}
           </div>
@@ -599,7 +621,7 @@ class Chart extends Component {
                   for (let placeType in childPlaces) {
                     if (
                       !config.placeTypes ||
-                      config.placeTypes.contains(placeType)
+                      config.placeTypes.includes(placeType)
                     ) {
                       // Choose the first 5 child places to show in the chart.
                       return childPlaces[placeType]

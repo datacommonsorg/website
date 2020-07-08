@@ -39,11 +39,11 @@ window.onload = () => {
 };
 
 function adjustMenuPosition() {
-  let topicsEl = document.getElementById("topics");
+  let topicsEl = document.getElementById("sidebar-region");
   if (window.scrollY > Y_SCROLL_LIMIT) {
-    topicsEl.classList.add("fixed");
+    topicsEl.style.top = window.scrollY - Y_SCROLL_LIMIT - 100 + "px";
   } else {
-    topicsEl.classList.remove("fixed");
+    topicsEl.style.top = 0;
   }
 }
 
@@ -122,15 +122,12 @@ function renderPage(dcid) {
     );
   });
 
-  // TODO: remove the check when style is fixed.
-  if (false) {
-    childPlacesPromise.then((childPlaces) => {
-      ReactDOM.render(
-        <ChildPlace childPlaces={childPlaces} />,
-        document.getElementById("child-place")
-      );
-    });
-  }
+  childPlacesPromise.then((childPlaces) => {
+    ReactDOM.render(
+      <ChildPlace childPlaces={childPlaces} />,
+      document.getElementById("child-place")
+    );
+  });
 
   parentPlacesPromise.then((parentPlaces) => {
     ReactDOM.render(
@@ -207,7 +204,6 @@ function initAutocomplete() {
   // geographical location types.
   const options = {
     types: ["(regions)"],
-    componentRestrictions: { country: "us" },
     fields: ["place_id", "name", "types"],
   };
   ac = new google.maps.places.Autocomplete(

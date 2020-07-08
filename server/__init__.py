@@ -40,10 +40,11 @@ def create_app():
 
     # apply the blueprints to the app
     from routes import factcheck, sitemap, gni
-    from routes.api import place
+    from routes.api import place, stats
     app.register_blueprint(factcheck.bp)
     app.register_blueprint(place.bp)
     app.register_blueprint(sitemap.bp)
     app.register_blueprint(gni.bp)
+    app.register_blueprint(stats.bp)
 
     return app
