@@ -24,7 +24,7 @@ bp = Blueprint(
 
 
 @bp.route('/timeline')
-def explore():
+def timeline():
     return render_template('tools/explore.html')
 
 

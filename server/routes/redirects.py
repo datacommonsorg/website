@@ -16,8 +16,8 @@
 browser.datacommons.org with datacommons.org
 """
 
-from flask import Blueprint
-from flask import redirect
+from flask import Blueprint, redirect, url_for
+from routes import tools
 
 bp = Blueprint(
   "redirects",
@@ -27,19 +27,19 @@ bp = Blueprint(
 
 @bp.route('/gni')
 def gni():
-    return redirect('https://datacommons.org/tools/timeline', code=301)
+    return redirect(url_for('tools.timeline'), code=302)
 
 
 @bp.route('/download')
 def download():
-    return redirect('https://datacommons.org/tools/download', code=301)
+    return redirect(url_for('tools.download'), code=302)
 
 
 @bp.route('/bulk_download')
 def download_bulk():
-    return redirect('https://datacommons.org/tools/bulk_download', code=301)
+    return redirect(url_for('tools.download_bulk'), code=302)
 
 
 @bp.route('/scatter')
 def scatter():
-    return redirect('https://datacommons.org/tools/scatter', code=301)
+    return redirect(url_for('tools.scatter'), code=302)
