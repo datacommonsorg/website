@@ -62,31 +62,6 @@ docker run \
 datacommonsorg-website
 ```
 
-## Deploy to AppEngine
-
-- Build compiled asset bundle:
-
-  ```bash
-  cd static
-  npm run-script build
-  cd ..
-  ```
-
-- Deploy to Staging:
-
-  ```bash
-  cd server && \
-  gcloud app deploy app_staging.yaml -q --project=datcom-browser-staging
-  ```
-
-- Deploy to Prod:
-
-  ```bash
-  cd server && \
-  gcloud app deploy app_prod.yaml -q --no-promote --project=datcom-browser-prod
-  ```
-
-
 ## Update resource files
 
 ### placeid2dcid.json

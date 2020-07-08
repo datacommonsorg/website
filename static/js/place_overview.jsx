@@ -256,6 +256,7 @@ class MainPane extends Component {
                       childPlacesPromise={this.props.childPlacesPromise}
                       similarPlacesPromise={this.props.similarPlacesPromise}
                       nearbyPlacesPromise={this.props.nearbyPlacesPromise}
+                      statsVarInfo={this.props.statsVarInfo}
                     />
                   );
                 })}
@@ -297,6 +298,10 @@ MainPane.propTypes = {
    * A promise resolves to nearby places dcids.
    */
   nearbyPlacesPromise: PropTypes.object,
+  /**
+   * An object from statsvar dcid to the url tokens used by timeline tool.
+   */
+  statsVarInfo: PropTypes.object,
 };
 
 class Overview extends Component {
@@ -482,8 +487,19 @@ class Chart extends Component {
             </label>
           )}
           <div id={this.props.id}></div>
-          <footer>
-            Data from <a href={config.url}>{config.source}</a>
+          <footer className="row explore-more-container">
+            <div>
+              Data from <a href={config.url}>{config.source}</a>
+            </div>
+            <div>
+              <a
+                target="_blank"
+                className="explore-more"
+                href={this.buildTimelineToolUrl()}
+              >
+                Explore More ›
+              </a>
+            </div>
           </footer>
         </div>
       </div>
@@ -536,6 +552,18 @@ class Chart extends Component {
   _handlePlaceSelection(event) {
     this.placeRelation = event.target.value;
     this.fetchData();
+  }
+
+  buildTimelineToolUrl() {
+    // TODO(boxu): change this to /tools/timeline after link migration.
+    let url = "/gni#&ptpv=";
+    let parts = [];
+    for (let statsVar of this.props.config.statsVars) {
+      parts.push(this.props.statsVarInfo[statsVar]);
+    }
+    url += parts.join("__");
+    url += `&place=${this.props.dcid}`;
+    return url;
   }
 
   drawChart() {
@@ -702,6 +730,10 @@ Chart.propTypes = {
    * The nearby places promise.
    */
   nearbyPlacesPromise: PropTypes.object,
+  /**
+   * An object from statsvar dcid to the url tokens used by timeline tool.
+   */
+  statsVarInfo: PropTypes.object,
 };
 
 export { Ranking, MainPane, Menu, ParentPlace, ChildPlace };
