@@ -71,7 +71,7 @@ def get_statsinfo_wrapper(statsvars_string):
         An object keyed by stats dcid, with value being partial url that can
         be used by the /tools/timeline endpoint.
         {
-            "TotalPopulation": "Person,count,gender,Female"
+            "Count_Person": "Person,count,gender,Female"
         }
     """
     dcids = statsvars_string.split('^')
@@ -117,7 +117,7 @@ def statsinfo():
         An object keyed by stats dcid, with value being partial url that can
         be used by the /tools/timeline endpoint.
         {
-            "TotalPopulation": "Person,count,gender,Female"
+            "Count_Person": "Person,count,gender,Female"
         }
     """
     stats_vars = sorted(request.args.getlist('dcid'))

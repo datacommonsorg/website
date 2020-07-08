@@ -14,11 +14,8 @@
 
 """Handlers for data charts."""
 
-import base64
 import datetime
-import logging
 import re
-import zlib
 import os
 
 from services import datacommons
@@ -302,13 +299,14 @@ def get_ancestor_places(dcid):
 # that approach might be better than the commented out attempt.
 def get_place_population(dcids):
   result = {}
-  keys = [dcid + '^count^CensusACS5yrSurvey^^measured^^^^Person' for dcid in dcids]
+  keys = [dcid + '^count^measured^^^^Person' for dcid in dcids]
   chart_data = datacommons.get_chart_data(keys)
   for key, data in chart_data.items():
     dcid = key.split('^')[0]
-    for date, v in data['obsTimeSeries']['val'].items():
+    for date, v in data['data'].items():
       result[(dcid, date)] = v
   return result
+
 
 # TODO(b/155485304): Add unit test for this.
 def get_plot_data(place_args, pc, gr):
@@ -321,8 +319,7 @@ def get_plot_data(place_args, pc, gr):
     all_places |= set(dcids)
     for dcid in dcids:
       key_parts = [
-          dcid, po_args['measuredProp'], po_args['measurementMethod'],
-          po_args.get('observationPeriod', ''),
+          dcid, po_args['measuredProp'],
           po_args.get('statType', '').replace('Value', ''),
           po_args.get('measurementDenominator', ''),
           po_args.get('measurementQualifier', ''),
@@ -338,16 +335,16 @@ def get_plot_data(place_args, pc, gr):
   chart_data = datacommons.get_chart_data(list(keys))
   result = []
   for key, data in chart_data.items():
-    dcid = key.split('^')[0]
-    points = [(date, v) for date, v in data['obsTimeSeries']['val'].items()]
+    dcid = data['place_dcid']
+    points = [(date, v) for date, v in data['data'].items()]
     result.append({
         'idx': key_to_idx[key],
         'dcid': dcid,
-        'name': data['obsTimeSeries']['placeName'],
+        'name': data['place_name'],
         'points': sorted(points, key=lambda x: x[0]),
         'domid': place_args[key_to_idx[key]][1]['domId']
     })
-    dcid_name[dcid] = data['obsTimeSeries']['placeName']
+    dcid_name[dcid] = data['place_name']
   for dcid in all_places:
     if dcid not in dcid_name:
       dcid_name[dcid] = dcid

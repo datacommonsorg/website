@@ -54,7 +54,7 @@ def child_fetch(dcid):
     )
     places = response[dcid].get('in', [])
     dcid_str = '^'.join(sorted(map(lambda x: x['dcid'], places)))
-    pop = json.loads(get_stats_wrapper(dcid_str, 'TotalPopulation'))
+    pop = json.loads(get_stats_wrapper(dcid_str, 'Count_Person'))
 
     pop = {
       dcid: stats.get('data', {}).get('2018', 0) for dcid, stats in pop.items()
