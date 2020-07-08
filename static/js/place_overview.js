@@ -103,7 +103,7 @@ function getNearbyPlaces(dcid) {
 /**
  * Get properties of all the stats vars.
  *
- * This is a temporary need before GNI supports stats var directly. This
+ * This is a temporary need before GNI supports stats var directly.
  */
 function getStatsVarInfo(chartConfig) {
   let reqUrl = "/api/statsinfo?";

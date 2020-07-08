@@ -555,6 +555,7 @@ class Chart extends Component {
   }
 
   buildTimelineToolUrl() {
+    // TODO(boxu): change this to /tools/timeline after link migration.
     let url = "/gni#&ptpv=";
     let parts = [];
     for (let statsVar of this.props.config.statsVars) {
