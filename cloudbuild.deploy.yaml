@@ -6,10 +6,11 @@ steps:
   args:
   - -c
   - |
-    cd static && \
-    npm install && \
-    npm run lint && \
-    npm test && \
+    set -x
+    cd static
+    npm install
+    npm run lint
+    npm test
     npm run-script build
 
 - id: flask_test
@@ -18,35 +19,43 @@ steps:
   args:
   - -c
   - |
-    cd server && \
-    export FLASK_ENV=test && \
-    pip install -r requirements.txt && \
+    set -x
+    cd server
+    export FLASK_ENV=test
+    pip install -r requirements.txt
     python -m pytest
 
 - id: deploy
   name: 'gcr.io/cloud-builders/gcloud'
-  entrypoint: /bin/sh
+  entrypoint: /bin/bash
   args:
   - -c
   - |
-    cd server && \
-    gcloud app deploy app_staging.yaml -q \
-      --project=datcom-browser-staging \
-      --version=$SHORT_SHA
+    set -x
+    cd server
+    gcloud config set project datcom-browser-staging
+    gcloud app deploy app_staging.yaml -q --version=$SHORT_SHA
+    # Keep at most 5 recent versions
+    if [[ "$(gcloud app versions list | wc -l)" -gt 6 ]]; then
+      echo "Remove the oldest version..."
+      gcloud app versions delete -q \
+      `gcloud app versions list --sort-by=~LAST_DEPLOYED | sed 's/  */:/g' | cut -f 2 -d : | tail -1 | tr "\n" " "`
+    fi
+
 
 - id: update version
   name: 'gcr.io/cloud-builders/git'
-  entrypoint: /bin/sh
+  entrypoint: /bin/bash
   args:
   - -c
   - |
-    set -x && \
-    gcloud source repos clone deployment --project=datcom-ci && \
-    cd deployment && \
+    set -x
+    gcloud source repos clone deployment --project=datcom-ci
+    cd deployment
     # Configure Git to create commits with Cloud Build's service account
-    git config user.email $(gcloud auth list --filter=status:ACTIVE --format='value(account)') && \
-    git checkout master && \
-    echo $SHORT_SHA > website/staging/commit_hash.txt && \
-    git add website/staging/commit_hash.txt && \
-    git commit -m "Deployed website to staging at commit https://github.com/datacommonsorg/website/commit/$SHORT_SHA" && \
+    git config user.email $(gcloud auth list --filter=status:ACTIVE --format='value(account)')
+    git checkout master
+    echo $SHORT_SHA > website/staging/commit_hash.txt
+    git add website/staging/commit_hash.txt
+    git commit -m "Deployed website to staging at commit https://github.com/datacommonsorg/website/commit/$SHORT_SHA"
     git push origin master

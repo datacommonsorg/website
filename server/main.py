@@ -18,7 +18,6 @@ This module contains the request handler codes and the main app.
 """
 
 import collections
-import datetime
 import json
 import logging
 import os
@@ -301,7 +300,6 @@ def api_ranking(dcid):
             'name': parent_names[parent],
             'data': get_related_place(
                 dcid, 'Person', 'count', 'measuredValue',
-                measurement_method='CensusACS5yrSurvey',
                 same_place_type=True, within_place=parent)})
         # Median income
         result['Median Income'].append({
@@ -309,21 +307,18 @@ def api_ranking(dcid):
             'data': get_related_place(
                 dcid, 'Person', 'income', 'medianValue',
                 pvs_string='age^Years15Onwards^incomeStatus^WithIncome',
-                measurement_method='CensusACS5yrSurvey',
                 same_place_type=True, within_place=parent)})
         # Median age
         result['Median Age'].append({
             'name': parent_names[parent],
             'data': get_related_place(
                 dcid, 'Person', 'age', 'medianValue',
-                measurement_method='CensusACS5yrSurvey',
                 same_place_type=True, within_place=parent)})
         # Unemployment rate
         result['Unemployment Rate'].append({
             'name': parent_names[parent],
             'data': get_related_place(
                 dcid, 'Person', 'unemploymentRate', 'measuredValue',
-                measurement_method='BLSSeasonallyUnadjusted',
                 same_place_type=True, within_place=parent)})
         # Crime
         result['Crime per capita'].append({
@@ -387,19 +382,6 @@ def linedata():
     place_args, _ = get_place_args(get_values)
     plot_data, _ = datachart_handler.get_plot_data(place_args, pc, gr)
     return json.dumps(plot_data)
-
-
-@cache.memoize(timeout=3600 * 24)  # Cache for one day.
-def get_stats_wrapper(dcid_str, stats_var):
-    dcids = dcid_str.split('^')
-    return json.dumps(dc.get_stats(dcids, stats_var))
-
-
-@app.route('/stats/<path:stats_var>')
-def stats(stats_var):
-    """Handler to get the observation given stats var."""
-    place_dcids = request.args.getlist('dcid')
-    return get_stats_wrapper('^'.join(place_dcids), stats_var)
 
 
 @app.route('/datachart/line')
