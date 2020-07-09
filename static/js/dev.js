@@ -214,4 +214,19 @@ window.onload = function () {
 
   containerId = addChartContainer(1000, 500);
   drawGroupLineChart(containerId, 1000, 500, dataGroupsDict);
+
+  dataGroupsDict = {
+      'geoId/06': [dataGroups_geo2_1, dataGroups_geo2_2],
+  };
+
+  containerId = addChartContainer(1000, 500);
+  drawGroupLineChart(containerId, 1000, 500, dataGroupsDict);
+
+  dataGroupsDict = {
+      'geoId/05': [dataGroups_geo1_1],
+      'geoId/06': [dataGroups_geo2_1],
+  };
+
+  containerId = addChartContainer(1000, 500);
+  drawGroupLineChart(containerId, 1000, 500, dataGroupsDict);
 };

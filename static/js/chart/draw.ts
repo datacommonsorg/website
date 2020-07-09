@@ -21,9 +21,14 @@ import {
   DataPoint,
 } from "./base";
 
+import {
+  randDomId,
+} from "./../util";
+
 const NUM_X_TICKS = 5;
 const NUM_Y_TICKS = 5;
-const MARGIN = { top: 20, right: 10, bottom: 30, left: 35, yAxis: 3, legendWidth: 200};
+const MARGIN = { top: 20, right: 10, bottom: 30, left: 35,
+  yAxis: 3, legendRatio:0.2, legendMinWidth: 150, legendHeight: 20, legendAdjustment: 5 };
 // Line dash styles
 const DASHES = ['', '5, 5', '10, 5', '5, 10', '1, 5', '5, 1', '0.9', '5, 5, 1, 5'];
 
@@ -431,42 +436,77 @@ function drawLineChart(
 
 
 /**
- * Draw a group of line charts with different goeId.
+ * Return all styles information for given dataGroupsDict.
+ * {
+ *     colors: [],
+ *     dashes: [],
+ *     statVars: [],
+ *     geoIds: [],
+ *     maxV: ,
+ * }
  *
- * @param id
- * @param width
- * @param height
  * @param dataGroupsDict
+ */
+function generateStyles(
+    dataGroupsDict: {[geoId: string]: DataGroup[] },
+) {
+  let styles = {};
+  styles["colors"] = [];
+  styles["dashes"] = [];
+  styles["statVars"] = [];
+  styles["geoIds"] = [];
+
+  let dataGroups : DataGroup[];
+  dataGroups = Object.values(dataGroupsDict)[0];
+  let legendText = dataGroups.map((dataGroup) => dataGroup.label ? dataGroup.label: '');
+  let colorFn = getColorFn(legendText);
+
+  for (let i = 0; i < dataGroups.length; i++) {
+    styles["colors"].push(colorFn(dataGroups[i].label));
+    styles["statVars"].push(dataGroups[i].label);
+  }
+
+  let dashIndex = 0;
+  let maxV = 0;
+  for (let geoId in dataGroupsDict) {
+    dataGroups = dataGroupsDict[geoId];
+    maxV = Math.max(maxV, Math.max(...dataGroupsDict[geoId].map((dataGroup) => dataGroup.max())));
+    styles["geoIds"].push(geoId);
+    styles["dashes"].push(DASHES[dashIndex]);
+    dashIndex++;
+  }
+  styles["maxV"] = maxV;
+
+  return styles;
+}
+
+
+/**
+ * Draw a group of lines chart with in-chart legend given a dataGroupsDict with different geoIds.
+ *
+ * @param id: DOM id.
+ * @param width: width for the chart.
+ * @param height: height for the chart.
+ * @param dataGroupsDict: {[geoId: string]: DataGroup[]}.
  * @param unit
  */
 function drawGroupLineChart(
     id: string,
     width: number,
     height: number,
-    dataGroupsDict: {[geoId: string]: DataGroup[];},
+    dataGroupsDict: {[geoId: string]: DataGroup[] },
     unit?: string
 ) {
-  console.log(dataGroupsDict);
+  // Get all styles.
+  let styles = generateStyles(dataGroupsDict);
 
-  let dataGroups;
-  for (let geoId in dataGroupsDict) {
-    dataGroups = dataGroupsDict[geoId];
-    break;
-  }
+  let dataGroups: DataGroup[];
+  dataGroups = Object.values(dataGroupsDict)[0];
 
   let minV = 0;
-  let maxV = 0;
-
-  let legendText = dataGroups.map((dataGroup) => dataGroup.label ? dataGroup.label: 'a');
-  let colorFn = getColorFn(legendText);
-
-  let colors = [];
-  let dashes = [];
-
-  for (let geoId in dataGroupsDict) {
-    maxV = Math.max(maxV, Math.max(...dataGroupsDict[geoId].map((dataGroup) => dataGroup.max())));
-
-  }
+  let maxV = styles["maxV"];
+  // Adjust the width of in-chart legends.
+  let legendWidth = Math.max(width * MARGIN.legendRatio, MARGIN.legendMinWidth);
 
   let svg = d3
       .select("#" + id)
@@ -477,7 +517,7 @@ function drawGroupLineChart(
   let xScale = d3
       .scaleTime()
       .domain(d3.extent(dataGroups[0].value, (d) => new Date(d.label).getTime()))
-      .range([MARGIN.left, width - MARGIN.right - MARGIN.legendWidth]);
+      .range([MARGIN.left, width - MARGIN.right - legendWidth]);
 
   let yScale = d3
       .scaleLinear()
@@ -488,22 +528,14 @@ function drawGroupLineChart(
   addXAxis(svg, height, xScale);
   addYAxis(svg, width, yScale, unit);
 
-
   let dashIndex = 0;
   for (let geoId in dataGroupsDict) {
     dataGroups = dataGroupsDict[geoId];
-    dashes.push(DASHES[dashIndex]);
     for (let i = 0; i < dataGroups.length; i++) {
       let dataGroup = dataGroups[i];
       let dataset = dataGroup.value.map(function (dp) {
         return [new Date(dp.label).getTime(), dp.value];
       });
-
-      if (dashIndex == 0) {
-        colors.push(colorFn(dataGroupsDict[geoId][i].label));
-      }
-
-      let color = colors[i];
 
       let line = d3
           .line()
@@ -514,81 +546,87 @@ function drawGroupLineChart(
           .append("path")
           .datum(dataset)
           .attr("class", "line")
-          .style("stroke", color)
+          .style("stroke", styles["colors"][i])
           .attr("d", line)
           .attr("stroke-width", "2")
-          .attr("stroke-dasharray", dashes[dashIndex]);
+          .attr("stroke-dasharray", styles["dashes"][dashIndex]);
     }
 
     dashIndex++;
   }
 
+  let legendId = randDomId();
   svg
       .append("g")
-      .attr("id", "inChartLegend")
-      .attr("transform", `translate(${width - MARGIN.legendWidth}, 50)`);
+      .attr("id", legendId)
+      .attr("transform", `translate(${width - legendWidth}, 50)`);
 
-  buildLegend("inChartLegend", colors, dashes, dataGroupsDict);
+  buildLegend(legendId, styles);
 
   // return colors here used to add menu below the chart.
-  return colors;
+  return styles["colors"];
 }
 
 
 /**
  * Generate in-chart legend.
  *
- * @param id
- * @param colors
- * @param dashes
- * @param dataGroupsDict
+ * @param id: This is the id for the chart legend element.
+ * @param styles: It contains all colors and dashes for geoIds and statVars.
  */
 function buildLegend(
     id: string,
-    colors: String [],
-    dashes: String [],
-    dataGroupsDict: {[geo: string]: DataGroup[];},
+    styles: {},
 ) {
   let legend = d3
       .select("#" + id);
 
-  let index = 0;
-  for (let geo in dataGroupsDict) {
-    let legendClass = legend
-        .append("g")
-        .attr("transform", `translate(0, ${20 * index})`);
+  if (styles["dashes"].length == 1) {
+    // Only have one geoId. Then different statsVars should have different colors.
+    let index = 0;
+    for (let color of styles["colors"]) {
+      let legendClass = legend
+          .append("g")
+          .attr("transform", `translate(0, ${MARGIN.legendHeight * index})`);
 
-    if (dashes.length == 1) {
       legendClass
-          .append("line")
-          .attr("stroke-width", 2)
-          .attr("stroke-dasharray", "")
-          .attr("x1", "0")
-          .attr("y1", `${20 * index - 5}`)
-          .attr("x2", "30")
-          .attr("y2", `${20 * index - 5}`)
-          .attr("stroke", `${colors[index]}`);
-    } else {
-      legendClass
-          .append("line")
-          .attr("stroke-width", 2)
-          .attr("stroke-dasharray", "")
-          .attr("x1", "0")
-          .attr("y1", `${20 * index - 5}`)
-          .attr("x2", "30")
-          .attr("y2", `${20 * index - 5}`)
-          .attr("stroke", "#930000")
-          .attr("stroke-dasharray", `${dashes[index]}`);
+          .append("text")
+          .attr("x", "40")
+          .attr("y", `${MARGIN.legendHeight * index}`)
+          .text(styles["statVars"][index])
+          .style("font-size", "14")
+          .attr("fill", `${color}`);
+
+      index++;
     }
+  } else {
+    // Have multiply goeIds. Then different geoIds should have different dashes.
+    let index = 0;
+    for (let geo of styles["geoIds"]) {
+      let legendClass = legend
+          .append("g")
+          .attr("transform", `translate(0, ${MARGIN.legendHeight * index})`);
 
-    legendClass
-        .append("text")
-        .attr("x", "40")
-        .attr("y", `${20 * index}`)
-        .text(geo)
-        .style("font-size", "14");
+      legendClass
+          .append("line")
+          .attr("stroke-width", 2)
+          .attr("x1", "0")
+          .attr("y1", `${MARGIN.legendHeight * index - MARGIN.legendAdjustment}`)
+          .attr("x2", "30")
+          .attr("y2", `${MARGIN.legendHeight * index - MARGIN.legendAdjustment}`)
+          // Default color to be black here.
+          .attr("stroke", "#000000")
+          .attr("stroke-dasharray", `${styles["dashes"][index]}`);
 
-    index++;
+      legendClass
+          .append("text")
+          .attr("x", "40")
+          .attr("y", `${MARGIN.legendHeight * index}`)
+          .text(geo)
+          .style("font-size", "14");
+
+      index++;
+    }
   }
 }
 
