@@ -1,4 +1,4 @@
-<!--
+{#
  Copyright 2020 Google LLC
 
  Licensed under the Apache License, Version 2.0 (the "License");
@@ -12,112 +12,68 @@
  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
  See the License for the specific language governing permissions and
  limitations under the License.
--->
+#}
 
-{% extends 'base.html' %}
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+<head>
+  <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+  <title>Home - {{ sitename }}</title>
 
-{% block head %}
-  <title>Data Commons KG</title>
-  <link rel="stylesheet" href={{url_for('static', filename='css/homepage.css', t=config['GAE_VERSION'])}}>
-{% endblock %}
+  {% include 'factcheck/gtm.html' %}
 
-{% block content %}
-  <div id="homepage-content">
+</head>
+<body>
+{% include 'factcheck/basicPageHeader.html' %}
+
+  <div id="mainContent">
+
+    <H1>
+      Welcome to Data Commons
+    </H1>
+
     <p>
-      The Data Commons Graph (DCG) is constructed by synthesizing a single Graph from many different data sources.
-      It currently contains data from Wikipedia, the US Census, NOAA, FBI, etc.
-      The browser can be used both to explore what data is available and to understand the graph structure, to help use the API.
+      Publicly available data from open sources (census.gov, NOAA, data.gov, etc.)
+      are vital resources for students and researchers in a variety of disciplines.
+      Unfortunately, processing these datasets is often tedious and cumbersome.
+      Organizations follow distinctive practices for codifying datasets.
+      Combining data from different sources requires mapping common entities
+      (city, county, etc.) and resolving different types of keys/identifiers.
+      This process is time consuming and can increase the likelihood for methodological errors.
     </p>
+
     <p>
-      You can use the search box above or start looking around from some well known starting points:
+      Data Commons attempts to synthesize a single "Open Knowledge Graph" from these
+      different data sources. It links references to the same entities (such
+      as cities, counties, organizations, etc.) across
+      different datasets to nodes on the graph, so that users can access data about a
+      particular entity aggregated from different sources without data cleaning or joining.
+      Like the Web, Data Commons is
+      open - any user can contribute datasets or build applications
+      powered by the graph. In the long term, we hope the data contained
+      within Data Commons will be useful to students, researchers, and enthusiasts
+      across different disciplines.
+      Though we've "jump-started" the graph with data from publicly
+      available sources (CDC, US Census, FBI, etc.), we encourage you to join and
+      contribute.
     </p>
-    <ul>
-      <li class="type-list">
-        <strong>Cities</strong>:
-        <a href="/kg?dcid=geoId/4261000">Pittsburgh, PA</a>,
-        <a href="/kg?dcid=geoId/0649670">Mountain View, CA</a>,
-        <a href="/kg?dcid=geoId/4805000">Austin, TX</a>,
-        <a href="/kg?dcid=geoId/0606000">Berkeley, CA</a>,
-        <a href="/kg?dcid=City"> More ...</a>
-      </li>
-      <li class="type-list">
-        <strong>Counties</strong>:
-        <a href="/kg?dcid=geoId/06085">Santa Clara</a>,
-        <a href="/kg?dcid=geoId/12086">Miami-Dade</a>,
-        <a href="kg?dcid=County">More ...</a>
-      </li>
-      <li class="type-list">
-        <strong>States</strong>:
-        <a href="/kg?dcid=geoId/12">Florida</a>,
-        <a href="/kg?dcid=geoId/06">California</a>,
-        <a href="/kg?dcid=geoId/56">Wyoming</a>,
-        <a href="/kg?dcid=geoId/36">New York</a>,
-        <a href="/kg?dcid=State">More ...</a>
-      </li>
-      <li class="type-list">
-        <strong>Countries</strong>:
-        <a href="/kg?dcid=country/USA">United States</a>,
-        <a href="/kg?dcid=country/CAN">Canada</a>,
-        <a href="/kg?dcid=Country">More ...</a>
-      </li>
-      <li class="type-list">
-        <strong>Congressional Districts</strong>:
-        <a href="/kg?dcid=geoId/0618">CA-18</a>,
-        <a href="/kg?dcid=geoId/3601">NY-01</a>,
-        <a href="/kg?dcid=CongressionalDistrict">More ...</a>
-      </li>
-      <li class="type-list">
-        <strong>Elections</strong>:
-        <a href="/kg?dcid=election/2016_P_US00">2016 US Presidential Election</a>,
-        <a href="/kg?dcid=election/1990_S_MI00">1990 US Senate Elections for Michigan</a>,
-        <a href="/kg?dcid=Election">More ...</a>
-      </li>
-      <li class="type-list">
-        <strong>Census Estimates </strong>:
-        <a href="/kg?dcid=dc/p/pxxyedzk8nbp9">Asian Population in Santa Clara</a>,
-        <a href="/kg?dcid=dc/p/xqv3f41jvpx29">Master Degree Holders in New Orleans</a>
-      </li>
-      <li class="type-list">
-        <strong>Labor Statistics </strong>:
-        <a href="/kg?dcid=dc/p/820mxx8ejlrj7">Unemployment in Boston </a>
-      </li>
-      <li class="type-list">
-        <strong>Crime Data</strong>:
-        <a href="/kg?dcid=dc/p/lxbzwmf6mrt88">Violent Robbery in Atlanta, Georgia</a>,
-        <a href="/kg?dcid=dc/p/xhzdrlmy9262g">Larceny-Theft in Georgia</a>
-      </li>
-      <li class="type-list">
-        <strong>Health Data</strong>:
-        <a href="/kg?dcid=dc/p/pqsvgs2qh8lnd">Prevalence of Diabetes in Atlanta</a>
-      </li>
-      <li class="type-list">
-        <strong>DEA ARCOS</strong>:
-        <a href="/kg?dcid=dc/p/02t7t97c0c2g4">Cocaine distribution in Palm Beach, FL</a>,
-        <a href="/kg?dcid=dc/p/1z2025y18gtc8">Amphetamine distribution in Wayne County, WV</a>
-      </li>
-      <li class="type-list">
-        <strong>Biological Specimens</strong>:
-        <a href="/kg?dcid=dc/bsmvthtq89217">Austrobaileya scandens</a>,
-        <a href="/kg?dcid=BiologicalSpecimen">More ...</a>
-      </li>
-      <li class="type-list">
-        <strong>Power Plants</strong>:
-        <a href="/kg?dcid=dc/ps56lyh58sv9g">APS West Phoenix</a>,
-        <a href="/kg?dcid=PowerPlantUnit">More ...</a>
-      </li>
-      <li class="type-list">
-        <strong>ENCODE (Encyclopedia Of DNA Elements)</strong>:
-        <a href="/kg?dcid=Lab">Labs</a>,
-        <a href="/kg?dcid=EncodeBiosampleType">Biosamples</a>,
-        <a href="/kg?dcid=EncodeExperiment">Experiments</a>,
-        <a href="/kg?dcid=EncodeBedFile">More ...</a>
-      </li>
-      <li class="type-list">
-        <strong>Public Schools and School Districts</strong>:
-        <a href="/kg?dcid=nces/062961004587">Henry M. Gunn High</a>,
-        <a href="/kg?dcid=nces/360007702877">Stuyvesant High School</a>,
-        <a href="/kg?dcid=geoId/sch3620580">New York City Department of Education</a>
-      </li>
-    </ul>
+
+    <p>
+      You can use the <a href="{{ url_for('browser.kg_main') }}">Data Commons
+      Graph Browser</a> to browse the graph. The data can be
+      programmatically accessed via <a href="http://docs.datacommons.org/api">APIs</a>.
+      For example usage, check out the <a href=" {{ url_for('colab') }}">tutorials</a>.
+    </p>
+
+    <p>
+      Data Commons is a project started by Google, and is intended to be a community effort.
+      <a href="{{ url_for('get_involved') }}"> Get involved!</a>
+    </p>
+
+
   </div>
-{% endblock %}
+
+  {% include 'factcheck/basicPageFooter.html' %}
+
+</body>
+</html>
