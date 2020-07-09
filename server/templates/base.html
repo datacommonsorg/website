@@ -1,5 +1,4 @@
-<!DOCTYPE html>
-<!--
+{#
  Copyright 2020 Google LLC
 
  Licensed under the Apache License, Version 2.0 (the "License");
@@ -13,78 +12,139 @@
  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
  See the License for the specific language governing permissions and
  limitations under the License.
--->
+#}
+
+{#
+  Required variables:
+  title: page title
+  main_id: DOM Element ID for the main content block
+
+  Blocks to override:
+  head - additional head elements
+  content - main page content
+#}
+
+
+<!DOCTYPE html>
 
 <html lang="en">
 <head>
-  <!-- Google Tag Manager -->
-  <script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
-  new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
-  j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
-  'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
-  })(window,document,'script','dataLayer','GTM-596VBP2');</script>
-  <!-- End Google Tag Manager -->
-
+  <title>{{ title }} - Data Commons</title>
+  <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
   <link rel="icon" href="favicon.ico" type="image/x-icon"/>
-  <link rel="stylesheet" href={{url_for('static', filename='css/base.css', t=config['GAE_VERSION'])}} />
-  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
-  <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDi30xvuxtDt7ZzbRl3_-JRiLK-knqNkks&"></script>
-
+  <link href="https://fonts.googleapis.com/css2?family=Merriweather&family=Roboto&display=swap" rel="stylesheet">
   {% block head %}
   {% endblock %}
 </head>
 <body>
-  <!-- Google Tag Manager (noscript) -->
-  <noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-596VBP2"
-  height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
-  <!-- End Google Tag Manager (noscript) -->
-
-  <div id="header">
-    <div id="wrapper">
-      <div id="sitename">
-        <h1>
-          <a href="/">DataCommons.org</a>
-        </h1>
+  <header id="main-header">
+    <nav class="navbar navbar-dark navbar-expand-lg col" id="main-nav">
+      <div class="container-fluid">
+        <a class="navbar-brand" href="/">Data Commons</a>
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#dc-main-nav">
+          <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse justify-content-md-end" id="dc-main-nav">
+          <ul class="navbar-nav float-md-right">
+            <li class="nav-item dropdown">
+              <a class="nav-link dropdown-toggle" href="#" id="nav-explore-dropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                Explore
+              </a>
+              <div class="dropdown-menu" aria-labelledby="nav-explore-dropdown">
+                <a class="dropdown-item" href="{{ url_for('place') }}">Place explorer</a>
+                <a class="dropdown-item" href="{{ url_for('browser.kg_main') }}">Data Commons Graph explorer</a>
+              </div>
+            </li>
+            <li class="nav-item dropdown">
+              <a class="nav-link dropdown-toggle" href="#" id="nav-tools-dropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                Tools
+              </a>
+              <div class="dropdown-menu" aria-labelledby="nav-tools-dropdown">
+                <a class="dropdown-item" href="{{ url_for('tools.timeline') }}">Timeline tool</a>
+                <a class="dropdown-item" href="{{ url_for('tools.scatter') }}">Scatterplot tool</a>
+              </div>
+            </li>
+            <li class="nav-item dropdown">
+              <a class="nav-link dropdown-toggle" href="#" id="nav-doc-dropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                Documentation
+              </a>
+              <div class="dropdown-menu" aria-labelledby="nav-doc-dropdown">
+                <a class="dropdown-item" href="{{ url_for('datasets') }}">Datasets</a>
+                <a class="dropdown-item" href="http://docs.datacommons.org/api/python/">Python API</a>
+                {# TODO(beets): Add a page for this #}
+                <a class="dropdown-item" href="#">Sample python notebooks</a>
+                <a class="dropdown-item" href="http://docs.datacommons.org/api/r/">R API</a>
+                <a class="dropdown-item" href="http://docs.datacommons.org/api/rest/">REST API</a>
+                <a class="dropdown-item" href="http://docs.datacommons.org/api/sheets/">Google Sheets API</a>
+              </div>
+            </li>
+            <li class="nav-item dropdown">
+              <a class="nav-link dropdown-toggle" href="#" id="nav-about-dropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                About
+              </a>
+              <div class="dropdown-menu" aria-labelledby="nav-about-dropdown">
+                {# TODO(beets): Add a page for this #}
+                <a class="dropdown-item" href="#">About Data Commons</a>
+                <a class="dropdown-item" href="{{ url_for('faq') }}">FAQ</a>
+              </div>
+            </li>
+          </ul>
+          <div class="gcse-searchbox-only" data-resultsUrl="/search"></div>
+        </div>
       </div>
-      <script async src="https://cse.google.com/cse.js?cx=010079880385165835740%3Aosnv3q-sw08"></script>
-      <div class="gcse-searchbox-only" data-resultsUrl="/search"></div>
-    </div>
-  </div>
-  <div id="selectionbar">
-    <div id="selectionbar-wrapper">
-      <li>
-        <a href="/gni">GNI</a>
-      </li>
-      <li>
-        <a href="https://datacommons.org">Home</a>
-      </li>
-      <li>
-        <a href="/browser/">Browser</a>
-      </li>
-      <li>
-        <a href="https://datacommons.org/datasets">Datasets</a>
-      </li>
-      <li>
-        <a href="https://datacommons.org/documentation">Documentation</a>
-      </li>
-      <li>
-        <a href="https://datacommons.org/factcheck">Factchecks</a>
-      </li>
-      <li>
-        <a href="https://datacommons.org/special_announcement">COVID-19 Announcements</a>
-      </li>
-    </div>
-  </div>
-  <div id="content">
+    </nav>
+  </header>
+
+  <main id="{{ main_id }}" class="main-content">
     {% block content %}
     {% endblock %}
-  </div>
-  <div id="footer">
-    <hr>
-    <p><a href="https://policies.google.com/terms">Terms And Conditions</a></p>
-    <p><a href="https://policies.google.com/privacy?hl=en-US">Privacy Policy</a></p>
-    <p><a href="https://datacommons.org/disclaimers">Disclaimers</a></p>
-    <p><a href="{{url_for('sitemap.index')}}">Sitemap</a></p>
-  </div>
+  </main>
+
+  <footer id="main-footer">
+    <div class="container">
+      <div class="row">
+        <section class="col-12 col-sm-6 col-md-3">
+          <h6>Explore</h6>
+          <a href="{{ url_for('place') }}">Place Explorer</a>
+          <a href="{{ url_for('browser.kg_main') }}">Data Commons Graph Explorer</a>
+        </section>
+        <section class="col-12 col-sm-6 col-md-3">
+          <h6>Tools</h6>
+          <a href="{{ url_for('tools.timeline') }}">Timeline tool</a>
+          <a href="{{ url_for('tools.scatter') }}">Scatterplot tool</a>
+        </section>
+        <section class="col-12 col-sm-6 col-md-3">
+          <h6>Documentation</h6>
+          <a href="/place">Datasets</a>
+          <a href="/browser">Python API</a>
+          <a href="/browser">R API</a>
+          <a href="/browser">REST API</a>
+          <a href="/browser">Google Sheets API</a>
+        </section>
+        <section class="col-12 col-sm-6 col-md-3">
+          <h6>Data Commons</h6>
+          <a href="/place">About Data Commons</a>
+          <a href="/browser">Frequently Asked Questions</a>
+          <a href="{{url_for('sitemap.index')}}">Sitemap</a>
+        </section>
+      </div>
+      <div class="row">
+        <div id="sub-footer" class="col-12">
+          <span>Data Commons is a Google supported project</span>
+          <div class="float-md-right mt-2 mt-md-0">
+            <a href="https://policies.google.com/terms">Terms and Conditions</a> ·
+            <a href="https://policies.google.com/privacy?hl=en-US">Privacy Policy</a> ·
+            <a href="/disclaimers">Disclaimers</a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </footer>
+  {# TODO: Compile this down (or manually implement). Used only for nav bar so far #}
+  <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
+  <script async src="https://cse.google.com/cse.js?cx=010079880385165835740%3Aosnv3q-sw08"></script>
 </body>
 </html>

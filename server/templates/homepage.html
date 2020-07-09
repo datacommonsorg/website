@@ -13,67 +13,116 @@
  See the License for the specific language governing permissions and
  limitations under the License.
 #}
+{% extends 'base.html' %}
 
-<!DOCTYPE html>
-<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
-<head>
-  <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
-  <title>Home - {{ sitename }}</title>
+{% set main_id = 'homepage' %}
+{% set title = 'Home' %}
 
-  {% include 'factcheck/gtm.html' %}
+{% block head %}
+  <link rel="stylesheet" href={{url_for('static', filename='css/static.min.css', t=config['GAE_VERSION'])}} />
+{% endblock %}
 
-</head>
-<body>
-{% include 'factcheck/basicPageHeader.html' %}
+{% block content %}
+<section id="homepage-top" class="bg-callout bg-callout-primary">
+  <div class="container text-center">
+    <h1>Linking the world's public datasets</h1>
 
-  <div id="mainContent">
+    <img class="img-fluid mt-5 mb-5"
+      src="{{ url_for('static', filename='images/homepage_knowledge_graph.png') }}" />
 
-    <H1>
-      Welcome to Data Commons
-    </H1>
-
-    <p>
-      Publicly available data from open sources (census.gov, NOAA, data.gov, etc.)
-      are vital resources for students and researchers in a variety of disciplines.
-      Unfortunately, processing these datasets is often tedious and cumbersome.
-      Organizations follow distinctive practices for codifying datasets.
-      Combining data from different sources requires mapping common entities
-      (city, county, etc.) and resolving different types of keys/identifiers.
-      This process is time consuming and can increase the likelihood for methodological errors.
+    <p class="lead">
+      Data Commons is an open knowledge repository that combines data from
+      public datasets using mapped common entities. It includes tools to
+      easily explore and analyze data across different datasets without data
+      cleaning or joining.
     </p>
-
-    <p>
-      Data Commons attempts to synthesize a single "Open Knowledge Graph" from these
-      different data sources. It links references to the same entities (such
-      as cities, counties, organizations, etc.) across
-      different datasets to nodes on the graph, so that users can access data about a
-      particular entity aggregated from different sources without data cleaning or joining.
-      Like the Web, Data Commons is
-      open - any user can contribute datasets or build applications
-      powered by the graph. In the long term, we hope the data contained
-      within Data Commons will be useful to students, researchers, and enthusiasts
-      across different disciplines.
-      Though we've "jump-started" the graph with data from publicly
-      available sources (CDC, US Census, FBI, etc.), we encourage you to join and
-      contribute.
-    </p>
-
-    <p>
-      You can use the <a href="https://browser.datacommons.org">Data Commons
-      Graph Browser</a> to browse the graph. The data can be
-      programmatically accessed via <a href="http://docs.datacommons.org/api">APIs</a>.
-      For example usage, check out the <a href=" {{ url_for('colab') }}">tutorials</a>.
-    </p>
-
-    <p>
-      Data Commons is a project started by Google, and is intended to be a community effort.
-      <a href="{{ url_for('get_involved') }}"> Get involved!</a>
-    </p>
-
-
   </div>
+</section>
 
-  {% include 'factcheck/basicPageFooter.html' %}
+<section class="container">
+  <h2>A unified view of data</h2>
+  <p>
+    We cleaned and processed the data so you don't have to. Data about
+    particular entities are aggregated from different sources for a unified
+    view.
+  </p>
+  <a href="{{ url_for('place') }}">Explore Places in the Data Commons Graph</a>
+  <a href="{{ url_for('browser.kg_main') }}">Browse the Data Commons Graph</a>
+  <a href="{{ url_for('tools.timeline') }}">Explore Timeline</a>
+  <a href="{{ url_for('tools.scatter') }}">Create Scatterplots</a>
+</section>
 
-</body>
-</html>
+<section class="container">
+  <h2>Easy analysis</h2>
+  <p>
+    Access and analyze the graph easily using API's in Python, R, or Google Sheets.
+  </p>
+  <a href="#">See API documentation.</a>
+  <a href="#">See some sample python notebooks.</a>
+</section>
+
+<section class="container">
+  <h2>Open</h2>
+  <p>
+    Built using <a href="http://schema.org">Schema.org</a>. <a href="http://github.com/datacommonsorg">Open sourced</a>.
+    Build applications powered by the graph using the <a href="#">REST API</a>.
+  </p>
+</section>
+
+<section class="container">
+  <h3>Including datasets from</h3>
+  <img class="d-block img-fluid mx-auto" src="{{ url_for('static', filename='images/homepage_datasets.png') }}" />
+</section>
+
+<section id="homepage-bottom" class="bg-callout bg-callout-primary">
+  <div class="container">
+    <h2 class="text-center">Get Started</h2>
+    <div class="row">
+      <div class="col-12 col-sm-6 col-lg-3">
+        <h6>Explore place statistics</h6>
+        <a href="{{ url_for('place', dcid='geoId/0649670') }}">Mountain View, CA</a>
+        <a href="{{ url_for('place', dcid='geoId/3651000', topic='Health') }}">New York City Health</a>
+        <a href="{{ url_for('place', dcid='geoId/1150000', topic='Demographics') }}">Washington, DC Demographics</a>
+      </div>
+      <div class="col-12 col-sm-6 col-lg-3">
+        <h6>Explore DC Graph nodes</h6>
+        <a href="{{ url_for('browser.kg_entity', dcid='election/2016_P_US00') }}">2016 US Presidential Elections</a>
+        <a href="{{ url_for('browser.kg_entity', dcid='/dc/p/lxbzwmf6mrt88') }}">Violent Robbery in Atlanta</a>
+        <a href="{{ url_for('browser.kg_entity', dcid='EncodeBiosampleType') }}">Encyclopedia of DNA Elements Biosamples</a>
+      </div>
+      <div class="col-12 col-sm-6 col-lg-3">
+        {# TODO: Fill in these URLs #}
+        <h6>Explore timeline statistics</h6>
+        <a href="#">US University Towns by Income</a>
+        <a href="#">Richest vs Poorest California Counties</a>
+        <a href="#">Employment differences across neighboring cities</a>
+      </div>
+      <div class="col-12 col-sm-6 col-lg-3">
+        <h6>Explore scatterplots</h6>
+        <a href="#">COVID-19 cases vs Income</a>
+        <a href="#">Richest vs Poorest California Counties</a>
+        <a href="#">Employment differences across neighboring cities</a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="container">
+  <h2>What's new</h2>
+  <div>
+    <dl>
+      <dt>July 9, 2020</dt>
+      <dd>Lots of data pushed</dd>
+    </dl>
+    <dl>
+      <dt>July 9, 2020</dt>
+      <dd>Lots of data pushed</dd>
+    </dl>
+    <dl>
+      <dt>July 9, 2020</dt>
+      <dd>Lots of data pushed</dd>
+    </dl>
+  </div>
+</section>
+
+{% endblock %}

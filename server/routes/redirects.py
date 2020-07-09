@@ -30,7 +30,7 @@ def kg():
     dcid = request.args.get('dcid', '')
     if dcid:
         dcid = '/' + dcid
-    return redirect(url_for('browser.kg_entity') + dcid, code=302)
+    return redirect(url_for('browser.kg_entity', dcid=dcid), code=302)
 
 
 @bp.route('/gni')

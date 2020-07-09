@@ -22,7 +22,7 @@ class TestStaticPage(unittest.TestCase):
     def test_homepage(self):
         response = app.test_client().get('/')
         assert response.status_code == 200
-        assert b"Data Commons is a project started by Google" in response.data
+        assert b"Linking the world's public datasets" in response.data
 
 
     def test_kg_static(self):
