@@ -29,8 +29,10 @@ bp = Blueprint(
 def kg():
     dcid = request.args.get('dcid', '')
     if dcid:
-        dcid = '/' + dcid
-    return redirect(url_for('browser.kg_entity', dcid=dcid), code=302)
+        url = url_for('browser.kg_entity', dcid=dcid)
+    else:
+        url = url_for('browser.kg_main')
+    return redirect(url, code=302)
 
 
 @bp.route('/gni')
