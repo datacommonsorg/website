@@ -18,8 +18,8 @@ require("@babel/polyfill");
 
 import React, { Component } from "react";
 import pluralize from "pluralize";
-import PropTypes from "prop-types";
-import intersection from "lodash";
+import _ from "lodash";
+import { DataPoint, DataGroup } from "./chart/base";
 
 import { randDomId } from "./util";
 import {
@@ -52,7 +52,25 @@ const placeRelationEnum = {
 
 const CHART_HEIGHT = 194;
 
-class ParentPlace extends Component {
+interface ConfigType {
+  title: string;
+  topic: string;
+  chartType: string;
+  statsVars: string[];
+  source: string;
+  url: string;
+  axis: string;
+  placeTypes: string[];
+  scaling: number;
+  perCapita: boolean;
+  unit: string;
+}
+
+interface ParentPlacePropsType {
+  parentPlaces: { dcid: string; name: string }[];
+}
+
+class ParentPlace extends Component<ParentPlacePropsType, {}> {
   constructor(props) {
     super(props);
   }
@@ -83,7 +101,11 @@ class ParentPlace extends Component {
   }
 }
 
-class Ranking extends Component {
+interface RankingPropsType {
+  data: { Population: {}[] };
+}
+
+class Ranking extends Component<RankingPropsType, {}> {
   constructor(props) {
     super(props);
   }
@@ -125,14 +147,12 @@ class Ranking extends Component {
   }
 }
 
-Ranking.propTypes = {
-  /**
-   * The response data from /api/ranking/
-   */
-  data: PropTypes.object,
-};
+interface MenuPropsType {
+  dcid: string;
+  topic: string;
+}
 
-class Menu extends Component {
+class Menu extends Component<MenuPropsType, {}> {
   render() {
     let dcid = this.props.dcid;
     let topic = this.props.topic;
@@ -146,57 +166,87 @@ class Menu extends Component {
             Overview
           </a>
         </li>
-        {chartConfig.map((item, index) => {
-          return (
-            <li className="nav-item" key={index}>
-              <a
-                href={`/place?dcid=${dcid}&topic=${item.label}`}
-                className={`nav-link ${topic == item.label ? "active" : ""}`}
-              >
-                {item.label}
-              </a>
-              <ul
-                className={
-                  "nav flex-column ml-3 " +
-                  (item.label != topic ? "collapse" : "")
-                }
-                data-parent="#nav-topics"
-              >
-                <div className="d-block">
-                  {item.children.map((child, index) => {
-                    return (
-                      <li className="nav-item" key={index}>
-                        <a
-                          href={`/place?dcid=${dcid}&topic=${item.label}#${child.label}`}
-                          className="nav-link"
-                        >
-                          {child.label}
-                        </a>
-                      </li>
-                    );
-                  })}
-                </div>
-              </ul>
-            </li>
-          );
-        })}
+        {chartConfig.map(
+          (item: {
+            label: string;
+            charts: ConfigType[];
+            children: {label: string, charts: ConfigType[]}[];
+          }) => {
+            return (
+              <li className="nav-item" key={item.label}>
+                <a
+                  href={`/place?dcid=${dcid}&topic=${item.label}`}
+                  className={`nav-link ${topic == item.label ? "active" : ""}`}
+                >
+                  {item.label}
+                </a>
+                <ul
+                  className={
+                    "nav flex-column ml-3 " +
+                    (item.label != topic ? "collapse" : "")
+                  }
+                  data-parent="#nav-topics"
+                >
+                  <div className="d-block">
+                    {item.children.map((child, index) => {
+                      return (
+                        <li className="nav-item" key={index}>
+                          <a
+                            href={`/place?dcid=${dcid}&topic=${item.label}#${child.label}`}
+                            className="nav-link"
+                          >
+                            {child.label}
+                          </a>
+                        </li>
+                      );
+                    })}
+                  </div>
+                </ul>
+              </li>
+            );
+          }
+        )}
       </ul>
     );
   }
 }
 
-Menu.propTypes = {
+interface MainPanePropType {
   /**
    * The place dcid.
    */
-  dcid: PropTypes.string,
+  dcid: string;
   /**
-   * A string of the topic.
+   * The place type.
    */
-  topic: PropTypes.string,
-};
+  placeType: string;
+  /**
+   * The topic of the current page.
+   */
+  topic: string;
+  /**
+   * An array of parent place objects.
+   */
+  parentPlaces: { dcid: string; name: string }[];
+  /**
+   * A promise resolves to child places dcids.
+   */
+  childPlacesPromise: Promise<{ [key: string]: Object[] }>;
+  /**
+   * A promise resolves to similar places dcids.
+   */
+  similarPlacesPromise: Promise<{ dcid: string; name: string }>;
+  /**
+   * A promise resolves to nearby places dcids.
+   */
+  nearbyPlacesPromise: Promise<{ dcid: string; name: string }>;
+  /**
+   * An object from statsvar dcid to the url tokens used by timeline tool.
+   */
+  statsVarInfo: { [key: string]: string };
+}
 
-class MainPane extends Component {
+class MainPane extends Component<MainPanePropType, {}> {
   constructor(props) {
     super(props);
   }
@@ -243,7 +293,7 @@ class MainPane extends Component {
             <section className="subtopic col-12" key={index}>
               {subtopicHeader}
               <div className="row row-cols-lg-2 row-cols-md-2 row-cols-1">
-                {item.charts.map((config, index) => {
+                {item.charts.map((config: ConfigType, index: number) => {
                   let id = randDomId();
                   return (
                     <Chart
@@ -269,42 +319,18 @@ class MainPane extends Component {
   }
 }
 
-MainPane.propTypes = {
+interface OverviewPropType {
   /**
    * The place dcid.
    */
-  dcid: PropTypes.string,
-  /**
-   * The place type.
-   */
-  placeType: PropTypes.string,
+  dcid: string;
   /**
    * The topic of the current page.
    */
-  topic: PropTypes.string,
-  /**
-   * An array of parent place objects.
-   */
-  parentPlaces: PropTypes.array,
-  /**
-   * A promise resolves to child places dcids.
-   */
-  childPlacesPromise: PropTypes.object,
-  /**
-   * A promise resolves to similar places dcids.
-   */
-  similarPlacesPromise: PropTypes.object,
-  /**
-   * A promise resolves to nearby places dcids.
-   */
-  nearbyPlacesPromise: PropTypes.object,
-  /**
-   * An object from statsvar dcid to the url tokens used by timeline tool.
-   */
-  statsVarInfo: PropTypes.object,
-};
+  topic: string;
+}
 
-class Overview extends Component {
+class Overview extends Component<OverviewPropType, {}> {
   render() {
     if (!this.props.topic) {
       return (
@@ -344,14 +370,11 @@ class Overview extends Component {
   }
 }
 
-Overview.propTypes = {
-  /**
-   * The topic of the current page.
-   */
-  topic: PropTypes.string,
-};
+interface ChildPlacePropType {
+  childPlaces: { string: { dcid: string; name: string }[] };
+}
 
-class ChildPlace extends Component {
+class ChildPlace extends Component<ChildPlacePropType, {}> {
   render() {
     if (Object.keys(this.props.childPlaces).length == 0) {
       return "";
@@ -380,14 +403,61 @@ class ChildPlace extends Component {
   }
 }
 
-ChildPlace.propTypes = {
+interface ChartPropType {
   /**
-   * The topic of the current page.
+   * The place dcid.
    */
-  childPlaces: PropTypes.object,
-};
+  dcid: string;
+  /**
+   * The svg dom element id.
+   */
+  id: string;
+  /**
+   * An object of the chart config.
+   */
+  config: ConfigType;
+  /**
+   * The place type.
+   */
+  placeType: string;
+  /**
+   * The parent places object array.
+   *
+   * Parent object are sorted by enclosing order. For example:
+   * "San Jose", "Santa Clara County", "California"
+   */
+  parentPlaces: { dcid: string; name: string }[];
+  /**
+   * The child places promise.
+   */
+  childPlacesPromise: Promise<{ [key: string]: Object[] }>;
+  /**
+   * The similar places promise.
+   */
+  similarPlacesPromise: Promise<{ dcid: string; name: string }>;
+  /**
+   * The nearby places promise.
+   */
+  nearbyPlacesPromise: Promise<{ dcid: string; name: string }>;
+  /**
+   * An object from statsvar dcid to the url tokens used by timeline tool.
+   */
+  statsVarInfo: { [key: string]: string };
+}
 
-class Chart extends Component {
+interface ChartStateType {
+  dataPoints?: DataPoint[];
+  dataGroups?: DataGroup[];
+  elemWidth: number;
+}
+
+class Chart extends Component<ChartPropType, ChartStateType> {
+  chartElement: React.RefObject<HTMLDivElement>;
+  dcid: string;
+  titleSuffix: string;
+  shouldRender: boolean;
+  placeRelation: string;
+
   constructor(props) {
     super(props);
     this.chartElement = React.createRef();
@@ -421,9 +491,7 @@ class Chart extends Component {
           // type. Also reset the dcid of the place to be that of the parent.
           this.shouldRender = false;
           for (const parent of props.parentPlaces) {
-            if (
-              intersection(config.placeTypes, parent["types"][0]).length > 0
-            ) {
+            if (_.intersection(config.placeTypes, parent["types"]).length > 0) {
               this.dcid = parent["dcid"];
               this.titleSuffix = ` (${parent["name"]})`;
               this.shouldRender = true;
@@ -439,7 +507,7 @@ class Chart extends Component {
         } else {
           let isContained = false;
           for (const parent of props.parentPlaces) {
-            if (intersection(config.placeTypes, parent["types"]).length > 0) {
+            if (_.intersection(config.placeTypes, parent["types"]).length > 0) {
               this.placeRelation = placeRelationEnum.CONTAINED;
               isContained = true;
               break;
@@ -693,47 +761,5 @@ class Chart extends Component {
     }
   }
 }
-
-Chart.propTypes = {
-  /**
-   * The place dcid.
-   */
-  dcid: PropTypes.string,
-  /**
-   * The svg dom element id.
-   */
-  id: PropTypes.string,
-  /**
-   * An object of the chart config.
-   */
-  config: PropTypes.object,
-  /**
-   * The place type.
-   */
-  placeType: PropTypes.string,
-  /**
-   * The parent places object array.
-   *
-   * Parent object are sorted by enclosing order. For example:
-   * "San Jose", "Santa Clara County", "California"
-   */
-  parentPlaces: PropTypes.array,
-  /**
-   * The child places promise.
-   */
-  childPlacesPromise: PropTypes.object,
-  /**
-   * The similar places promise.
-   */
-  similarPlacesPromise: PropTypes.object,
-  /**
-   * The nearby places promise.
-   */
-  nearbyPlacesPromise: PropTypes.object,
-  /**
-   * An object from statsvar dcid to the url tokens used by timeline tool.
-   */
-  statsVarInfo: PropTypes.object,
-};
 
 export { Ranking, MainPane, Menu, ParentPlace, ChildPlace };

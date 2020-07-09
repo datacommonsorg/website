@@ -25,7 +25,7 @@ const config = {
     scatter: __dirname + "/js/scatter.js",
     translator: __dirname + "/js/translator.js",
     dev: __dirname + "/js/dev.js",
-    place_overview: __dirname + "/js/place_overview.js",
+    place_overview: __dirname + "/js/place_overview.ts",
     mcf_playground: __dirname + "/js/mcf_playground.js",
   },
   output: {
@@ -33,19 +33,19 @@ const config = {
     filename: "[name].js",
   },
   resolve: {
-    extensions: [".js", ".ts"],
+    extensions: [".js", ".ts", ".tsx"],
   },
   module: {
     rules: [
       {
-        test: /\.(js|jsx)$/,
+        test: /\.(js|jsx|ts|tsx)$/,
         exclude: /node_modules/,
         use: {
           loader: "babel-loader",
         },
       },
       {
-        test: /\.ts?$/,
+        test: /\.(ts|tsx)$/,
         use: "ts-loader",
         exclude: /node_modules/,
       },
