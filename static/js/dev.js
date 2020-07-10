@@ -26,6 +26,7 @@ import {
   drawGroupBarChart,
   drawLineChart,
   drawGroupLineChart,
+  getDashes,
 } from "./chart/draw";
 
 window.onload = function () {
@@ -222,6 +223,23 @@ window.onload = function () {
     "geoId/05": [dataGroups_geo1_1],
     "geoId/06": [dataGroups_geo2_1],
   };
+
+  containerId = addChartContainer(1000, 500);
+  drawGroupLineChart(containerId, 1000, 500, dataGroupsDict);
+
+  dataGroupsDict = {};
+  for (let i = 1; i <= 10; i++) {
+    dataGroupsDict[i] = [
+      new DataGroup("Test", [
+        new DataPoint("1", i),
+        new DataPoint("2", i),
+        new DataPoint("3", i),
+        new DataPoint("4", i),
+        new DataPoint("5", i),
+        new DataPoint("6", i),
+      ]),
+    ];
+  }
 
   containerId = addChartContainer(1000, 500);
   drawGroupLineChart(containerId, 1000, 500, dataGroupsDict);
