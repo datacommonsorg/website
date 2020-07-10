@@ -19,7 +19,7 @@ from unittest.mock import patch
 
 from main import app
 
-class TestStaticPage(unittest.TestCase):
+class TestStaticPages(unittest.TestCase):
     def test_homepage(self):
         response = app.test_client().get('/')
         assert response.status_code == 200
@@ -50,7 +50,7 @@ class TestStaticPage(unittest.TestCase):
         assert b"Datasets" in response.data
 
 
-    @patch('routes.factcheck.list_blobs')
+    @patch('routes.static.list_blobs')
     def test_special_announcement(self, mock_list_blobs):
         mock_list_blobs.side_effect = (lambda bucket, max_blobs : [])
         response = app.test_client().get('/special_announcement')
@@ -58,7 +58,7 @@ class TestStaticPage(unittest.TestCase):
         assert b"Covid-19 Special Announcements" in response.data
 
 
-    def test_about(self):
+    def test_special_announcement_faq(self):
         response = app.test_client().get('/special_announcement/faq')
         assert response.status_code == 200
         assert b"Covid-19 Data Feed FAQ" in response.data
