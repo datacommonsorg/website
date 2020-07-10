@@ -31,4 +31,4 @@ def kg_main():
 
 @bp.route('/<path:dcid>')
 def kg_entity(dcid):
-    return render_template('/browser/kg.html', dcid=dcid)
+    return render_template('/browser/kg_entity.html', dcid=dcid)

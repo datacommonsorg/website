@@ -20,10 +20,6 @@
   background: var(--dc-red-fade);
 }
 
-.main-content {
-  margin: 3rem auto 6rem;
-}
-
 .lead {
   font-size: 1.5rem;
 }
@@ -66,4 +62,28 @@
 #homepage #homepage-bottom .col-12,
 #homepage #homepage-bottom .col-sm-6 {
   margin-bottom: 2rem;
+}
+
+#datasets h2 {
+  font-size: 1.4rem;
+}
+
+#homepage h1 {
+  margin-bottom: 0rem;
+}
+
+h1 {
+  margin-bottom: 2rem;
+}
+
+h2 {
+  margin-bottom: 1.5rem;
+}
+
+#special_announcement_faq dd {
+  margin-bottom: 2rem;
+}
+
+#about section {
+  margin-top: 3rem;
 }

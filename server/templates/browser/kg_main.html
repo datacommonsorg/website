@@ -16,13 +16,16 @@
 
 {% extends 'base.html' %}
 
+{% set main_id = 'kg_main' %}
+{% set title = 'Data Commons Graph Browser' %}
+
 {% block head %}
-  <title>Data Commons KG</title>
-  <link rel="stylesheet" href={{url_for('static', filename='css/homepage.css', t=config['GAE_VERSION'])}}>
+  <link rel="stylesheet" href={{url_for('static', filename='css/kg.min.css', t=config['GAE_VERSION'])}} />
 {% endblock %}
 
 {% block content %}
-  <div id="homepage-content">
+  <div class="container">
+    <h1 class="mb-4">Data Commons Graph Browser</h1>
     <p>
       The Data Commons Graph (DCG) is constructed by synthesizing a single Graph from many different data sources.
       It currently contains data from Wikipedia, the US Census, NOAA, FBI, etc.

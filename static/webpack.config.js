@@ -20,7 +20,7 @@ const FixStyleOnlyEntriesPlugin = require("webpack-fix-style-only-entries");
 
 const config = {
   entry: {
-    kg: __dirname + "/js/kg.js",
+    kg: [__dirname + "/js/kg.js", __dirname + "/css/kg.scss"],
     gni: __dirname + "/js/gni.js",
     download: __dirname + "/js/download.js",
     scatter: __dirname + "/js/scatter.js",
@@ -28,7 +28,9 @@ const config = {
     dev: __dirname + "/js/dev.js",
     place_overview: __dirname + "/js/place_overview.js",
     mcf_playground: __dirname + "/js/mcf_playground.js",
+    search: __dirname + "/css/search.scss",
     static: __dirname + "/css/static.scss",
+    translator: __dirname + "/css/translator.scss",
   },
   output: {
     path: path.resolve(__dirname, "../") + "/server/dist",

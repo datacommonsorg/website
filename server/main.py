@@ -565,22 +565,50 @@ def mcf_playground():
 
 
 #
-# STATIC PAGES FROM DATACOMMONS.ORG
+# STATIC PAGES
 #
+
+
+@app.route('/about')
+def about():
+  return flask.render_template('about.html')
+
 
 @app.route('/faq')
 def faq():
-  return flask.render_template('factcheck/faq.html')
-
-
-@app.route('/documentation')
-def documentation():
-  return flask.render_template('factcheck/documentation.html')
+  return flask.render_template('faq.html')
 
 
 @app.route('/disclaimers')
 def disclaimers():
-  return flask.render_template('factcheck/disclaimers.html')
+  return flask.render_template('disclaimers.html')
+
+
+@app.route('/datasets')
+def datasets():
+  return flask.render_template('datasets.html')
+
+
+@app.route('/special_announcement')
+def special_announcement_homepage():
+  recent_blobs = list_blobs(_SA_FEED_BUCKET, _MAX_BLOBS)
+  return flask.render_template(
+      'special_announcement.html', recent_blobs=recent_blobs)
+
+
+@app.route('/special_announcement/faq')
+def special_announcement_faq():
+  return flask.render_template(
+      'special_announcement_faq.html')
+
+
+#
+# Migrate content for remaining routes
+#
+
+@app.route('/documentation')
+def documentation():
+  return flask.render_template('factcheck/documentation.html')
 
 
 @app.route('/getinvolved')
@@ -590,30 +618,8 @@ def get_involved():
 
 @app.route('/colab')
 def colab():
-  return flask.render_template('factcheck/colab.html')
-
-
-@app.route('/data')
-def data():
-  return flask.render_template('factcheck/data.html')
-
-
-@app.route('/datasets')
-def datasets():
-  return flask.render_template('factcheck/datasets.html')
-
-
-@app.route('/special_announcement')
-def special_announcement_homepage():
-  recent_blobs = list_blobs(_SA_FEED_BUCKET, _MAX_BLOBS)
-  return flask.render_template(
-      'factcheck/special_announcement.html', recent_blobs=recent_blobs)
-
-
-@app.route('/special_announcement/faq')
-def special_announcement_faq():
-  return flask.render_template(
-      'factcheck/special_announcement_faq.html')
+  #return flask.render_template('factcheck/colab.html')
+  return flask.render_template('error.html')
 
 
 if __name__ == '__main__':
