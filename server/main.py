@@ -33,15 +33,11 @@ from models import datachart_handler
 from models import barchart_handler
 from lib import line_chart
 from lib import translator
-from lib.gcs import list_blobs
 import lib.barchart_template as btemp
 
 from __init__ import create_app
 from cache import cache
 
-_MAX_BLOBS = 1
-
-_SA_FEED_BUCKET = 'datacommons-frog-feed'
 
 logging.basicConfig(
     level=logging.DEBUG,
@@ -70,11 +66,6 @@ def get_place_args(get_values):
 @cache.memoize(timeout=3600 * 24)  # Cache for one day.
 def get_property_value(dcid, prop, out=True):
     return dc.get_property_values([dcid], prop, out)[dcid]
-
-
-@app.route('/')
-def homepage():
-    return flask.render_template('homepage.html')
 
 
 @app.route('/dev')
@@ -565,44 +556,6 @@ def mcf_playground():
 
 
 #
-# STATIC PAGES
-#
-
-
-@app.route('/about')
-def about():
-  return flask.render_template('about.html')
-
-
-@app.route('/faq')
-def faq():
-  return flask.render_template('faq.html')
-
-
-@app.route('/disclaimers')
-def disclaimers():
-  return flask.render_template('disclaimers.html')
-
-
-@app.route('/datasets')
-def datasets():
-  return flask.render_template('datasets.html')
-
-
-@app.route('/special_announcement')
-def special_announcement_homepage():
-  recent_blobs = list_blobs(_SA_FEED_BUCKET, _MAX_BLOBS)
-  return flask.render_template(
-      'special_announcement.html', recent_blobs=recent_blobs)
-
-
-@app.route('/special_announcement/faq')
-def special_announcement_faq():
-  return flask.render_template(
-      'special_announcement_faq.html')
-
-
-#
 # Migrate content for remaining routes
 #
 
@@ -618,8 +571,7 @@ def get_involved():
 
 @app.route('/colab')
 def colab():
-  #return flask.render_template('factcheck/colab.html')
-  return flask.render_template('error.html')
+  return flask.render_template('factcheck/colab.html')
 
 
 if __name__ == '__main__':

@@ -20,12 +20,6 @@ from unittest.mock import patch
 
 from main import app
 
-class TestStaticPage(unittest.TestCase):
-    def test_homepage(self):
-        response = app.test_client().get('/')
-        assert response.status_code == 200
-        assert b"Linking the world's public datasets" in response.data
-
 
 class TestApiParentPlaces(unittest.TestCase):
     @staticmethod
