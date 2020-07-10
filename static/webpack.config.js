@@ -16,6 +16,7 @@
 
 const path = require("path");
 const CopyPlugin = require("copy-webpack-plugin");
+const FixStyleOnlyEntriesPlugin = require("webpack-fix-style-only-entries");
 
 const config = {
   entry: {
@@ -27,6 +28,7 @@ const config = {
     dev: __dirname + "/js/dev.js",
     place_overview: __dirname + "/js/place_overview.js",
     mcf_playground: __dirname + "/js/mcf_playground.js",
+    static: __dirname + "/css/static.scss",
   },
   output: {
     path: path.resolve(__dirname, "../") + "/server/dist",
@@ -49,16 +51,38 @@ const config = {
         use: "ts-loader",
         exclude: /node_modules/,
       },
+      {
+        test: /\.(css|scss)$/,
+        exclude: /node_modules/,
+        use: [
+          {
+            loader: "file-loader",
+            options: {
+              outputPath: "css/",
+              name: "[name].min.css",
+            },
+          },
+          {
+            loader: "sass-loader",
+            options: {
+              sourceMap: true,
+            },
+          },
+        ],
+      },
     ],
   },
   plugins: [
     new CopyPlugin([
-      { from: "css/**/*" },
+      { from: "css/**/*.css" },
       { from: "images/*" },
       { from: "fonts/*" },
       { from: "data/**/*" },
       { from: "favicon.ico" },
     ]),
+    new FixStyleOnlyEntriesPlugin({
+      silent: true,
+    }),
   ],
 };
 module.exports = [config];
