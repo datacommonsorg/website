@@ -81,7 +81,7 @@ const config = {
       { from: "favicon.ico" },
     ]),
     new FixStyleOnlyEntriesPlugin({
-      silent: true
+      silent: true,
     }),
   ],
 };
