@@ -12,8 +12,7 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-"""Data Commons static content routes
-"""
+"""Data Commons static content routes."""
 
 from flask import Blueprint, render_template
 from lib.gcs import list_blobs
