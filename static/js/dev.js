@@ -159,72 +159,68 @@ window.onload = function () {
   drawLineChart(containerId, width, height, dataGroups);
 
   // Test group line chart
-  let dataGroups_geo1_1 =
-      new DataGroup("Total", [
-        new DataPoint("2011", 2940667),
-        new DataPoint("2012", 2952164),
-        new DataPoint("2013", 2959400),
-        new DataPoint("2014", 2967392),
-        new DataPoint("2015", 2978048),
-        new DataPoint("2016", 2989918),
-        new DataPoint("2017", 3001345),
-        new DataPoint("2018", 3009733),
-      ]);
+  let dataGroups_geo1_1 = new DataGroup("Total", [
+    new DataPoint("2011", 2940667),
+    new DataPoint("2012", 2952164),
+    new DataPoint("2013", 2959400),
+    new DataPoint("2014", 2967392),
+    new DataPoint("2015", 2978048),
+    new DataPoint("2016", 2989918),
+    new DataPoint("2017", 3001345),
+    new DataPoint("2018", 3009733),
+  ]);
 
-  let dataGroups_geo1_2 =
-      new DataGroup("Male", [
-        new DataPoint("2011", 1421287),
-        new DataPoint("2012", 1431252),
-        new DataPoint("2013", 1439862),
-        new DataPoint("2014", 1447235),
-        new DataPoint("2015", 1451913),
-        new DataPoint("2016", 1456694),
-        new DataPoint("2017", 1461651),
-        new DataPoint("2018", 1468412),
-      ]);
+  let dataGroups_geo1_2 = new DataGroup("Male", [
+    new DataPoint("2011", 1421287),
+    new DataPoint("2012", 1431252),
+    new DataPoint("2013", 1439862),
+    new DataPoint("2014", 1447235),
+    new DataPoint("2015", 1451913),
+    new DataPoint("2016", 1456694),
+    new DataPoint("2017", 1461651),
+    new DataPoint("2018", 1468412),
+  ]);
 
-  let dataGroups_geo2_1 =
-      new DataGroup("Total", [
-        new DataPoint("2011", 37638369),
-        new DataPoint("2012", 37948800),
-        new DataPoint("2013", 38260787),
-        new DataPoint("2014", 38596972),
-        new DataPoint("2015", 38918045),
-        new DataPoint("2016", 39167117),
-        new DataPoint("2017", 39358497),
-        new DataPoint("2018", 39461588),
-      ]);
+  let dataGroups_geo2_1 = new DataGroup("Total", [
+    new DataPoint("2011", 37638369),
+    new DataPoint("2012", 37948800),
+    new DataPoint("2013", 38260787),
+    new DataPoint("2014", 38596972),
+    new DataPoint("2015", 38918045),
+    new DataPoint("2016", 39167117),
+    new DataPoint("2017", 39358497),
+    new DataPoint("2018", 39461588),
+  ]);
 
-  let dataGroups_geo2_2 =
-      new DataGroup("Male", [
-        new DataPoint("2011", 18387718),
-        new DataPoint("2012", 18561020),
-        new DataPoint("2013", 18726468),
-        new DataPoint("2014", 18911519),
-        new DataPoint("2015", 19087135),
-        new DataPoint("2016", 19200970),
-        new DataPoint("2017", 19366579),
-        new DataPoint("2018", 19453769),
-      ]);
+  let dataGroups_geo2_2 = new DataGroup("Male", [
+    new DataPoint("2011", 18387718),
+    new DataPoint("2012", 18561020),
+    new DataPoint("2013", 18726468),
+    new DataPoint("2014", 18911519),
+    new DataPoint("2015", 19087135),
+    new DataPoint("2016", 19200970),
+    new DataPoint("2017", 19366579),
+    new DataPoint("2018", 19453769),
+  ]);
 
   let dataGroupsDict = {
-    'geoId/05': [dataGroups_geo1_1, dataGroups_geo1_2],
-    'geoId/06': [dataGroups_geo2_1, dataGroups_geo2_2],
+    "geoId/05": [dataGroups_geo1_1, dataGroups_geo1_2],
+    "geoId/06": [dataGroups_geo2_1, dataGroups_geo2_2],
   };
 
   containerId = addChartContainer(1000, 500);
   drawGroupLineChart(containerId, 1000, 500, dataGroupsDict);
 
   dataGroupsDict = {
-      'geoId/06': [dataGroups_geo2_1, dataGroups_geo2_2],
+    "geoId/06": [dataGroups_geo2_1, dataGroups_geo2_2],
   };
 
   containerId = addChartContainer(1000, 500);
   drawGroupLineChart(containerId, 1000, 500, dataGroupsDict);
 
   dataGroupsDict = {
-      'geoId/05': [dataGroups_geo1_1],
-      'geoId/06': [dataGroups_geo2_1],
+    "geoId/05": [dataGroups_geo1_1],
+    "geoId/06": [dataGroups_geo2_1],
   };
 
   containerId = addChartContainer(1000, 500);
