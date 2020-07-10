@@ -73,7 +73,7 @@
                 <a class="dropdown-item" href="{{ url_for('datasets') }}">Datasets</a>
                 <a class="dropdown-item" href="http://docs.datacommons.org/api/python/">Python API</a>
                 {# TODO(beets): Add a page for this #}
-                <a class="dropdown-item" href="#">Sample python notebooks</a>
+                <a class="dropdown-item" href="#">Sample Python notebooks</a>
                 <a class="dropdown-item" href="http://docs.datacommons.org/api/r/">R API</a>
                 <a class="dropdown-item" href="http://docs.datacommons.org/api/rest/">REST API</a>
                 <a class="dropdown-item" href="http://docs.datacommons.org/api/sheets/">Google Sheets API</a>
@@ -116,16 +116,17 @@
         </section>
         <section class="col-12 col-sm-6 col-md-3">
           <h6>Documentation</h6>
-          <a href="/place">Datasets</a>
-          <a href="/browser">Python API</a>
-          <a href="/browser">R API</a>
-          <a href="/browser">REST API</a>
-          <a href="/browser">Google Sheets API</a>
+          <a href="{{ url_for('datasets') }}">Datasets</a>
+          <a href="http://docs.datacommons.org/api/python/">Python API</a>
+          <a href="http://docs.datacommons.org/api/r/">R API</a>
+          <a href="http://docs.datacommons.org/api/rest/">REST API</a>
+          <a href="http://docs.datacommons.org/api/sheets/">Google Sheets API</a>
         </section>
         <section class="col-12 col-sm-6 col-md-3">
           <h6>Data Commons</h6>
-          <a href="/place">About Data Commons</a>
-          <a href="/browser">Frequently Asked Questions</a>
+          <a href="#">About Data Commons</a>
+          <a href="{{ url_for('faq') }}">Frequently Asked Questions</a>
+          <a href="http://github.com/datacommonsorg">Github Repository</a>
           <a href="{{url_for('sitemap.index')}}">Sitemap</a>
         </section>
       </div>
@@ -135,7 +136,7 @@
           <div class="float-md-right mt-2 mt-md-0">
             <a href="https://policies.google.com/terms">Terms and Conditions</a> ·
             <a href="https://policies.google.com/privacy?hl=en-US">Privacy Policy</a> ·
-            <a href="/disclaimers">Disclaimers</a>
+            <a href="{{ url_for('disclaimers') }}">Disclaimers</a>
           </div>
         </div>
       </div>

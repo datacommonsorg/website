@@ -14,7 +14,6 @@
 
 import pytest
 import unittest
-import logging
 
 from main import app
 
