@@ -18,7 +18,6 @@ This module contains the request handler codes and the main app.
 """
 
 import collections
-import datetime
 import json
 import logging
 import os
