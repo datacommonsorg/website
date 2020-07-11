@@ -28,6 +28,7 @@
 /** Bootstrap overrides **/
 $link-color: #660000;
 $link-hover-color: $link-color;
+$primary: $link-color;
 
 $font-size-base: 1.1rem;
 $headings-font-family: 'Merriweather', serif;
@@ -46,6 +47,10 @@ $container-max-widths: (
 );
 
 @import "~bootstrap/scss/bootstrap";
+
+.main-content {
+  margin: 3rem auto 6rem;
+}
 
 /** CSE **/
 #main-header #___gcse_0 {

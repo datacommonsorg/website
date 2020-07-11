@@ -1,4 +1,4 @@
-<!--
+{#
  Copyright 2020 Google LLC
 
  Licensed under the Apache License, Version 2.0 (the "License");
@@ -12,12 +12,14 @@
  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
  See the License for the specific language governing permissions and
  limitations under the License.
--->
-
+#}
 {% extends 'base.html' %}
 
+{% set main_id = 'dev' %}
+{% set title = 'Dev page' %}
+
 {% block head %}
-  <script src={{url_for('static', filename='dev.js', t=config['GAE_VERSION'])}}></script>
+  <link rel="stylesheet" href={{url_for('static', filename='css/static.min.css')}}></script>
   <link rel="stylesheet" href={{url_for('static', filename='css/draw.css')}}></script>
   <link rel="stylesheet" href={{url_for('static', filename='css/dev.css')}}></script>
   <style>
@@ -35,6 +37,10 @@
 {% endblock %}
 
 {% block content %}
-  <div id="charts-container"></div>
-  <div style="clear:both;"></div>
+  <div class="container">
+    <div id="charts-container"></div>
+    <div style="clear:both;"></div>
+  </div>
+
+  <script src={{url_for('static', filename='dev.js', t=config['GAE_VERSION'])}}></script>
 {% endblock %}

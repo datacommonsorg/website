@@ -16,12 +16,16 @@
 
 @import 'base';
 
-.bg-callout-primary {
-  background: var(--dc-red-fade);
+h1 {
+  margin-bottom: 2rem;
 }
 
-.main-content {
-  margin: 3rem auto 6rem;
+h2 {
+  margin-bottom: 1.5rem;
+}
+
+.bg-callout-primary {
+  background: var(--dc-red-fade);
 }
 
 .lead {
@@ -66,4 +70,20 @@
 #homepage #homepage-bottom .col-12,
 #homepage #homepage-bottom .col-sm-6 {
   margin-bottom: 2rem;
+}
+
+#datasets h2 {
+  font-size: 1.4rem;
+}
+
+#homepage h1 {
+  margin-bottom: 0;
+}
+
+#special_announcement_faq dd {
+  margin-bottom: 2rem;
+}
+
+#about section {
+  margin-top: 3rem;
 }

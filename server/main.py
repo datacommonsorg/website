@@ -18,7 +18,6 @@ This module contains the request handler codes and the main app.
 """
 
 import collections
-import datetime
 import json
 import logging
 import os
@@ -33,15 +32,11 @@ from models import datachart_handler
 from models import barchart_handler
 from lib import line_chart
 from lib import translator
-from lib.gcs import list_blobs
 import lib.barchart_template as btemp
 
 from __init__ import create_app
 from cache import cache
 
-_MAX_BLOBS = 1
-
-_SA_FEED_BUCKET = 'datacommons-frog-feed'
 
 logging.basicConfig(
     level=logging.DEBUG,
@@ -70,11 +65,6 @@ def get_place_args(get_values):
 @cache.memoize(timeout=3600 * 24)  # Cache for one day.
 def get_property_value(dcid, prop, out=True):
     return dc.get_property_values([dcid], prop, out)[dcid]
-
-
-@app.route('/')
-def homepage():
-    return flask.render_template('homepage.html')
 
 
 @app.route('/dev')
@@ -565,22 +555,12 @@ def mcf_playground():
 
 
 #
-# STATIC PAGES FROM DATACOMMONS.ORG
+# Migrate content for remaining routes
 #
-
-@app.route('/faq')
-def faq():
-  return flask.render_template('factcheck/faq.html')
-
 
 @app.route('/documentation')
 def documentation():
   return flask.render_template('factcheck/documentation.html')
-
-
-@app.route('/disclaimers')
-def disclaimers():
-  return flask.render_template('factcheck/disclaimers.html')
 
 
 @app.route('/getinvolved')
@@ -591,29 +571,6 @@ def get_involved():
 @app.route('/colab')
 def colab():
   return flask.render_template('factcheck/colab.html')
-
-
-@app.route('/data')
-def data():
-  return flask.render_template('factcheck/data.html')
-
-
-@app.route('/datasets')
-def datasets():
-  return flask.render_template('factcheck/datasets.html')
-
-
-@app.route('/special_announcement')
-def special_announcement_homepage():
-  recent_blobs = list_blobs(_SA_FEED_BUCKET, _MAX_BLOBS)
-  return flask.render_template(
-      'factcheck/special_announcement.html', recent_blobs=recent_blobs)
-
-
-@app.route('/special_announcement/faq')
-def special_announcement_faq():
-  return flask.render_template(
-      'factcheck/special_announcement_faq.html')
 
 
 if __name__ == '__main__':

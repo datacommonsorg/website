@@ -22,6 +22,6 @@ python3 -m venv .env
 source .env/bin/activate
 cd server
 export FLASK_ENV=test
-pip3 install -r requirements.txt
+pip3 install -r requirements.txt -q
 python3 -m pytest
 cd ..
