@@ -293,7 +293,6 @@ function drawStackBarChart(
     .scaleLinear()
     .domain([0, d3.max(series, (d) => d3.max(d, (d) => d[1]))])
     .nice()
-    .nice()
     .rangeRound([height - MARGIN.bottom, MARGIN.top]);
 
   let color = getColorFn(keys);
@@ -476,6 +475,14 @@ function drawLineChart(
   }
 }
 
+/**
+ * {
+ *     colors: string[], an array of colors for statVars
+ *     dashes: string[], an array of dash styles for geoIds(if applied)
+ *     statVars: string[], an array of statVars
+ *     geoIds: string[], an array of geoIds
+ * }
+ */
 interface PlotParams {
   colors: string[];
   dashes: string[];
@@ -484,19 +491,11 @@ interface PlotParams {
 }
 
 /**
- * Return all styles information for given dataGroupsDict.
- * {
- *     colors: string[], an array of colors for statVars
- *     dashes: string[], an array of dash styles for geoIds(if applied)
- *     statVars: string[], an array of statVars
- *     geoIds: string[], an array of geoIds
- * }
+ * Return a PlotParams object defined above.
  *
  * @param dataGroupsDict
  */
-function computePlotParams(dataGroupsDict: {
-  [geoId: string]: DataGroup[];
-}): PlotParams {
+function computePlotParams(dataGroupsDict: { [geoId: string]: DataGroup[] }) {
   let plotParams: PlotParams;
   plotParams = {
     colors: [],
@@ -526,23 +525,23 @@ function computePlotParams(dataGroupsDict: {
   return plotParams;
 }
 
+/**
+ *  {
+ *      minV: number, min value in y label.
+ *      maxV: number, max value in y label.
+ *  }
+ */
 interface Range {
   minV: number;
   maxV: number;
 }
 
 /**
- * Return a dict with max value and min value shown in the y label.
- *  {
- *      minV: number, min value in y label.
- *      maxV: number, max value in y label.
- *  }
+ * Return a Range object defined above.
  *
  * @param dataGroupsDict
  */
-function computeRanges(dataGroupsDict: {
-  [geoId: string]: DataGroup[];
-}): Range {
+function computeRanges(dataGroupsDict: { [geoId: string]: DataGroup[] }) {
   let range: Range;
   range = {
     minV: 0,
