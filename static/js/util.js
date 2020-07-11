@@ -13,6 +13,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
+import { getUrlVars, setSearchParam } from './dc';
 
 const pako = require("pako");
 
@@ -493,6 +494,38 @@ function randDomId() {
     .substr(2, 10);
 }
 
+/**
+ * add or delete statvars from url
+ *
+ * @param {string} dcid of statvar
+ * @param {boolean} add = True, delete = False
+ * @return {string} The line chart URL.
+ */
+
+function updateUrlStatsVar(statvar, add){
+  let vars = getUrlVars;
+  let sv_list = [];
+  if ("statsvar" in vars) {
+    sv_list = vars["statsvar"].split("__");
+  } 
+  if (add){
+    if (!sv_list.includes(statvar)){
+      sv_list.push(statvar);
+    }
+  }
+  else{
+    if (sv_list.includes(statvar)){
+      sv_list.splice(sv_list.indexOf(statvar), 1);
+    }
+  }
+  if (sv_list.length === 0) {
+    delete vars["statsvar"];
+  } else {
+    vars["statsvar"] = sv_list.join("__");
+  }
+  setSearchParam(vars);
+}
+
 export {
   STATS,
   OBS_KEYS,
@@ -521,4 +554,6 @@ export {
   unzip,
   setElementShown,
   randDomId,
+  updateUrlStatsVar,
 };
+

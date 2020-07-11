@@ -18,6 +18,10 @@
  * @fileoverview dev page.
  */
 
+import React from "react";
+import ReactDOM from "react-dom";
+import {page} from './pv_tree.tsx';
+import {updateUrlStatsVar} from './util.js';
 import { DataPoint, DataGroup } from "./chart/base";
 
 import {
@@ -34,6 +38,7 @@ window.onload = function () {
   // Container element to hold dom element of one chart.
   // The width and height is eventually obtained from gridding system like
   // Bootstrap.
+
   var id = 0;
   var containerElem = document.getElementById("charts-container");
   function addChartContainer(width, height) {
@@ -44,6 +49,10 @@ window.onload = function () {
     chartElem.style.width = width + "px";
     return containerId;
   }
+
+  containerId = addChartContainer(600, height);
+  ReactDOM.render(React.createElement(page, {updateurl:updateUrlStatsVar, search:false}),document.getElementById(containerId));
+  
 
   // Draw single bar chart.
   let dataPoints = [
@@ -82,7 +91,8 @@ window.onload = function () {
       new DataPoint("2013", 2000),
     ]),
   ];
-
+  
+ //ReactDOM.render(React.createElement(page),document.getElementById(containerId));
   // Draw stack bar chart.
   containerId = addChartContainer(width, height);
   drawStackBarChart(containerId, width, height, dataGroups);
@@ -156,4 +166,6 @@ window.onload = function () {
   ];
   containerId = addChartContainer(width, height);
   drawLineChart(containerId, width, height, dataGroups);
+
+
 };
