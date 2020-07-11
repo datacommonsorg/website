@@ -24,7 +24,10 @@ const config = {
     gni: __dirname + "/js/gni.js",
     download: __dirname + "/js/download.js",
     scatter: __dirname + "/js/scatter.js",
-    translator: [__dirname + "/js/translator.js", __dirname + "/css/translator.scss"],
+    translator: [
+      __dirname + "/js/translator.js",
+      __dirname + "/css/translator.scss",
+    ],
     dev: __dirname + "/js/dev.js",
     place_overview: __dirname + "/js/place_overview.js",
     mcf_playground: __dirname + "/js/mcf_playground.js",
