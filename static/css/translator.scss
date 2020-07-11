@@ -23,11 +23,12 @@ h3 {
   display: flex;
 }
 
-#mapping, #query {
+#mapping,
+#query {
   font-size: 15px;
   width: 100%;
   height: 400px;
-  overflow:scroll;
+  overflow: scroll;
   color: #444;
 }
 
@@ -50,21 +51,20 @@ h3 {
 }
 
 .binding {
-  color: #4285F4;
+  color: #4285f4;
 }
 
 table.translation-info-table {
   margin-top: 20px;
-  background: #E2F3EB;
+  background: #e2f3eb;
   padding: 20px;
-  box-shadow: 0 2px 4px 0 rgba(0,0,0,0.16),0 2px 10px 0 rgba(0,0,0,0.12);
+  box-shadow: 0 2px 4px 0 rgba(0, 0, 0, 0.16), 0 2px 10px 0 rgba(0, 0, 0, 0.12);
   width: 100%;
   margin-bottom: 30px;
   table-layout: fixed;
   word-wrap: break-word;
-  white-space:pre-wrap;
+  white-space: pre-wrap;
 }
-
 
 table.translation-info-table .header {
   font-size: 18px;
@@ -109,6 +109,5 @@ table.translation-info-table .sql-result {
 }
 
 label {
-  color: #5D4037;
+  color: #5d4037;
 }
-
