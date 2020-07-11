@@ -13,7 +13,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-import { getUrlVars, setSearchParam } from './dc';
+import { getUrlVars, setSearchParam } from "./dc";
 
 const pako = require("pako");
 
@@ -504,24 +504,24 @@ function randDomId() {
 
 function updateUrlStatsVar(statvar, add){
   let vars = getUrlVars;
-  let sv_list = [];
+  let svList = [];
   if ("statsvar" in vars) {
-    sv_list = vars["statsvar"].split("__");
+    svList = vars["statsvar"].split("__");
   } 
   if (add){
-    if (!sv_list.includes(statvar)){
-      sv_list.push(statvar);
+    if (!svList.includes(statvar)){
+      svList.push(statvar);
     }
   }
   else{
-    if (sv_list.includes(statvar)){
-      sv_list.splice(sv_list.indexOf(statvar), 1);
+    if (svList.includes(statvar)){
+      svList.splice(svList.indexOf(statvar), 1);
     }
   }
-  if (sv_list.length === 0) {
+  if (svList.length === 0) {
     delete vars["statsvar"];
   } else {
-    vars["statsvar"] = sv_list.join("__");
+    vars["statsvar"] = svList.join("__");
   }
   setSearchParam(vars);
 }

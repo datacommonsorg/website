@@ -20,8 +20,8 @@
 
 import React from "react";
 import ReactDOM from "react-dom";
-import {page} from './pv_tree.tsx';
-import {updateUrlStatsVar} from './util.js';
+import {page} from "./pv_tree.tsx";
+import {updateUrlStatsVar} from "./util.js";
 import { DataPoint, DataGroup } from "./chart/base";
 
 import {
@@ -49,9 +49,10 @@ window.onload = function () {
     chartElem.style.width = width + "px";
     return containerId;
   }
-
-  containerId = addChartContainer(600, height);
-  ReactDOM.render(React.createElement(page, {updateurl:updateUrlStatsVar, search:false}),document.getElementById(containerId));
+  let width_menu = 600
+  let containerId = addChartContainer(width_menu, height);
+  ReactDOM.render(React.createElement(page, {updateurl:updateUrlStatsVar, search:false}),
+                  document.getElementById(containerId));
   
 
   // Draw single bar chart.
@@ -61,7 +62,7 @@ window.onload = function () {
     new DataPoint("California", 3002342),
     new DataPoint("United States", 9520234),
   ];
-  let containerId = addChartContainer(width, height);
+   containerId = addChartContainer(width, height);
   drawSingleBarChart(containerId, width, height, dataPoints);
 
   let dataGroups = [

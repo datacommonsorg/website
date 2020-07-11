@@ -1,4 +1,4 @@
-import React, {Component} from 'react';
+import React, {Component} from "react";
 import hierarchy from "../../tools/pv_tree_generator/hierarchy_golden.json";
 //import hierarchy from "../data/hierarchy.json";
 
@@ -26,7 +26,7 @@ interface NodePropType {
   children: NodeType[];
   type: string;
   argString: string;
-  updateurl: (string, bool) => void;
+  updateurl: (string, boolean) => void;
   nodePath: string;
 }
 
@@ -38,37 +38,37 @@ class Node extends Component<NodePropType, {}> {
     this.state = {
       checked: props.selected === "yes" ? true: false,
       expanded: props.selected === "yes" ? true: false,
-      nodePath: props.nodePath + ',' + props.title,
-    }
+      nodePath: props.nodePath + "," + props.title,
+    };
   }
 
-  _handleCheckboxClick() {
+  private _handleCheckboxClick = ():void => {
     this.setState({
         checked: !this.state.checked,
     });
     this.props.updateurl(this.props.argString +this.state.nodePath, !this.state.checked);
   }
 
-  _handleExpandClick() {
+  private _handleExpandClick = ():void => {
     this.setState({
         expanded: !this.state.expanded,
       });
   }
 
   render() {
-    let checkbox_img;
-    let expand_img;
+    let checkboxImg;
+    let expandImg;
     let child; 
     if (this.props.type === "value") {
-      checkbox_img = <button className={this.state.checked? 
+      checkboxImg = <button className={this.state.checked? 
                                         "checkbox checked":"checkbox"}  
-                              onClick={this._handleCheckboxClick}/>}
+                              onClick={this._handleCheckboxClick}/>};
 
     if (this.state.expanded) {
-      expand_img = <img className="right-caret transform-down"
+      expandImg = <img className="right-caret transform-down"
                         src="../images/right-caret.png"
                         width = "12px" 
-                        onClick={this._handleExpandClick}/>
+                        onClick={this._handleExpandClick}/>;
       if (this.props.children) {
         child = this.props.children.map((item, index) => {
           return(
@@ -82,12 +82,12 @@ class Node extends Component<NodePropType, {}> {
                   updateurl={this.props.updateurl}
                   nodePath={this.state.nodePath}
                   key={this.props.argString}></Node>
-          )
-        })
+          );
+        });
       }
     }
     else {
-      expand_img = <img className="right-caret"
+      expandImg = <img className="right-caret"
                         src="../images/right-caret.png"
                         width = "12px"
                         onClick={this._handleExpandClick}/>
@@ -99,9 +99,9 @@ class Node extends Component<NodePropType, {}> {
           <span>
             <a className="value-link">
               {this.props.title + "  "}
-              <sup>{this.props.count !== 0 && '('+this.props.count+')'}</sup>
-              {checkbox_img} 
-              {expand_img}
+              <sup>{this.props.count !== 0 && "("+this.props.count+")"}</sup>
+              {checkboxImg} 
+              {expandImg}
             </a>
           </span>
           {child}
@@ -131,7 +131,7 @@ class Menu extends Component<MenuPropType, {}> {
       {menujson.map((vertical, index1) => {
         return(
             Object.keys(vertical).map((key, index) => {
-              let item = vertical[key];
+              const item = vertical[key];
               return(
                 <Node title={item.title} 
                     selected= {item.selected}
@@ -140,7 +140,7 @@ class Menu extends Component<MenuPropType, {}> {
                     count={item.count}
                     type={item.type}
                     argString={item.argString}
-                    key={index1+','+index}
+                    key={index1+","+index}
                     nodePath=""
                     updateurl={this.props.updateurl}
                     ></Node>  
@@ -157,7 +157,7 @@ class Menu extends Component<MenuPropType, {}> {
 class page extends Component<MenuPropType, {}>{
   render(){
     return <Menu updateurl={this.props.updateurl}
-                 search={this.props.search}></Menu>
+                 search={this.props.search}></Menu>;
   }
 }
-export {page}
+export {page};
