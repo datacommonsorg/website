@@ -38,28 +38,18 @@ const LEGEND = {
  * @param labels
  */
 function getDashes(labels: string[]) {
-  // Line dash styles
-  const DASHES = [
-    "",
-    "5, 5",
-    "10, 5",
-    "5, 10",
-    "1, 5",
-    "5, 1",
-    "0.9",
-    "5, 5, 1, 5",
-  ];
   let dashes: string[];
-  if (labels.length <= 8) {
-    dashes = DASHES.slice(0, labels.length);
-  } else {
-    dashes = getDashesHelper(labels.length);
+  dashes = [];
+  // Solid line will always be the first one.
+  dashes.push("");
+  if (labels.length == 1) {
+    return dashes;
   }
+  getDashesHelper(dashes, labels.length);
   return dashes;
 }
 
-function getDashesHelper(length: number) {
-  let dashes = [];
+function getDashesHelper(dashes: string[], length: number) {
   for (let sum = 10; ; sum += 6) {
     let left = sum / 2;
     let right = sum / 2;
@@ -486,6 +476,13 @@ function drawLineChart(
   }
 }
 
+interface PlotParams {
+  colors: string[];
+  dashes: string[];
+  statVars: string[];
+  geoIds: string[];
+}
+
 /**
  * Return all styles information for given dataGroupsDict.
  * {
@@ -499,19 +496,8 @@ function drawLineChart(
  */
 function computePlotParams(dataGroupsDict: {
   [geoId: string]: DataGroup[];
-}): {
-  colors: string[];
-  dashes: string[];
-  statVars: string[];
-  geoIds: string[];
-} {
-  let plotParams: {
-    colors: string[];
-    dashes: string[];
-    statVars: string[];
-    geoIds: string[];
-  };
-
+}): PlotParams {
+  let plotParams: PlotParams;
   plotParams = {
     colors: [],
     dashes: [],
@@ -539,26 +525,26 @@ function computePlotParams(dataGroupsDict: {
 
   return plotParams;
 }
+
+interface Range {
+  minV: number;
+  maxV: number;
+}
+
 /**
  * Return a dict with max value and min value shown in the y label.
  *  {
- *      minV: number, max value in y label.
- *      maxV: number, min value in y label.
+ *      minV: number, min value in y label.
+ *      maxV: number, max value in y label.
  *  }
  *
  * @param dataGroupsDict
  */
 function computeRanges(dataGroupsDict: {
   [geoId: string]: DataGroup[];
-}): {
-  minV: number;
-  maxV: number;
-} {
-  let ranges: {
-    minV: number;
-    maxV: number;
-  };
-  ranges = {
+}): Range {
+  let range: Range;
+  range = {
     minV: 0,
     maxV: 0,
   };
@@ -572,8 +558,8 @@ function computeRanges(dataGroupsDict: {
       Math.max(...dataGroups.map((dataGroup) => dataGroup.max()))
     );
   }
-  ranges["maxV"] = maxV;
-  return ranges;
+  range["maxV"] = maxV;
+  return range;
 }
 
 /**
@@ -600,9 +586,9 @@ function drawGroupLineChart(
 
   // Adjust the width of in-chart legends.
   let legendWidth = Math.max(width * LEGEND.ratio, LEGEND.minWidth);
-  let ranges = computeRanges(dataGroupsDict);
-  let minV = ranges["minV"];
-  let maxV = ranges["maxV"];
+  let yRange = computeRanges(dataGroupsDict);
+  let minV = yRange["minV"];
+  let maxV = yRange["maxV"];
 
   let svg = d3
     .select("#" + id)
