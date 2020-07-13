@@ -62,7 +62,7 @@ const STATS_VAR_TEXT: {[key:string]: string} = {
   "dc/z2rte6lflytvh": "$125K to $150K",
   "dc/wgnpff4d5g2q2": "$150K to $200K",
   "dc/3wql8mczgswkb": "$150K to $200K",
-  // covid-19
+  // COVID-19
   "NYTCovid19CumulativeCases": "COVID-19 Cumulative Cases",
   "dc/qztkwwf54vg95": "COVID-19 Cumulative Deaths",
   // Citizenship

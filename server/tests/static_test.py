@@ -53,10 +53,10 @@ class TestStaticPages(unittest.TestCase):
         mock_list_blobs.side_effect = (lambda bucket, max_blobs : [])
         response = app.test_client().get('/special_announcement')
         assert response.status_code == 200
-        assert b"Covid-19 Special Announcements" in response.data
+        assert b"COVID-19 Special Announcements" in response.data
 
 
     def test_special_announcement_faq(self):
         response = app.test_client().get('/special_announcement/faq')
         assert response.status_code == 200
-        assert b"Covid-19 Data Feed FAQ" in response.data
+        assert b"COVID-19 Data Feed FAQ" in response.data
