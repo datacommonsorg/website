@@ -23,19 +23,23 @@
 {% endblock %}
 
 {% block content %}
-<section id="homepage-top" class="bg-callout bg-callout-primary">
-  <div class="container text-center">
+<section id="homepage-top">
+  <div class="container">
     <h1>Linking the world's public datasets</h1>
-
-    <img class="img-fluid mt-5 mb-5"
-      src="{{ url_for('static', filename='images/homepage_knowledge_graph.png') }}" />
-
-    <p class="lead">
-      Data Commons is an open knowledge repository that combines data from
-      public datasets using mapped common entities. It includes tools to
-      easily explore and analyze data across different datasets without data
-      cleaning or joining.
-    </p>
+    <div class="row">
+      <div class="col-6">
+        <p class="lead">
+          Data Commons is an open knowledge repository that combines data from
+          public datasets using mapped common entities. It includes tools to
+          easily explore and analyze data across different datasets without data
+          cleaning or joining.
+        </p>
+      </div>
+      <div class="col-6">
+        <img class="img-fluid"
+          src="{{ url_for('static', filename='images/homepage_knowledge_graph.png') }}" />
+      </div>
+    </div>
   </div>
 </section>
 
@@ -109,18 +113,9 @@
 
 <section class="container">
   <h2>What's new</h2>
-  <div>
     <dl>
-      <dt>July 9, 2020</dt>
-      <dd>Lots of data pushed</dd>
-    </dl>
-    <dl>
-      <dt>July 9, 2020</dt>
-      <dd>Lots of data pushed</dd>
-    </dl>
-    <dl>
-      <dt>July 9, 2020</dt>
-      <dd>Lots of data pushed</dd>
+      <dt>April 8, 2020</dt>
+      <dd>Published feed of <a href="{{ url_for('static.special_announcement') }}">Covid-19 Special Announcement</a> markups created in the Google Search Console.</dd>
     </dl>
   </div>
 </section>

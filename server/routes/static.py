@@ -52,7 +52,7 @@ def datasets():
 
 
 @bp.route('/special_announcement')
-def special_announcement_homepage():
+def special_announcement():
   recent_blobs = list_blobs(_SA_FEED_BUCKET, _MAX_BLOBS)
   return render_template(
       'special_announcement.html', recent_blobs=recent_blobs)

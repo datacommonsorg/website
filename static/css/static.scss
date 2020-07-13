@@ -17,11 +17,11 @@
 @import 'base';
 
 h1 {
-  margin-bottom: 2rem;
+  margin-bottom: 3rem;
 }
 
 h2 {
-  margin-bottom: 1.5rem;
+  margin-bottom: 1.25rem;
 }
 
 .bg-callout-primary {
@@ -29,7 +29,7 @@ h2 {
 }
 
 .lead {
-  font-size: 1.5rem;
+  font-size: 1.4rem;
 }
 
 /* HOMEPAGE */
@@ -49,6 +49,7 @@ h2 {
   margin-top: 5rem;
 }
 
+#homepage section dd a,
 #homepage section p a {
   display: inline;
 }
