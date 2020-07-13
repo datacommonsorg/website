@@ -28,14 +28,14 @@ class Node extends Component<NodePropType, NodeStateType> {
     this.state = {
       checked: props.selected === "yes" ? true : false,
       expanded: props.selected === "yes" ? true : false,
-      nodePath: props.nodePath + "," + props.title,
+      nodePath: props.nodePath + "," + props.title.replace(/\s/g, ""),
     };
   }
 
-  render() {
-    let checkboxImg;
-    let expandImg;
-    let child;
+  public render = (): JSX.Element => {
+    let checkboxImg: JSX.Element;
+    let expandImg: JSX.Element;
+    let child: JSX.Element[];
     if (this.props.type === "value") {
       checkboxImg = (
         <button
@@ -100,7 +100,7 @@ class Node extends Component<NodePropType, NodeStateType> {
         </li>
       </ul>
     );
-  }
+  };
 
   private _handleCheckboxClick = (): void => {
     this.setState({
@@ -108,7 +108,7 @@ class Node extends Component<NodePropType, NodeStateType> {
     });
     this.props.updateUrl(
       this.props.argString + this.state.nodePath,
-      !this.state.checked
+      !this.state.checked,
     );
   };
 
