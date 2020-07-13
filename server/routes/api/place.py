@@ -22,6 +22,7 @@ from services.datacommons import fetch_data
 from routes.api.stats import get_stats_wrapper
 
 WANTED_PLACE_TYPES = ["Country", "State", "County", "City"]
+CHILD_PLACE_LIMIT = 20
 
 # Define blueprint
 bp = Blueprint(
@@ -35,9 +36,13 @@ bp = Blueprint(
 @cache.memoize(timeout=3600 * 24)  # Cache for one day.
 def child(dcid):
     """
-    Get the child places for a place.
+    Get top child places for a place.
     """
-    return json.dumps(child_fetch(dcid))
+    child_places = child_fetch(dcid)
+    for place_type in child_places:
+        child_places[place_type].sort(key=lambda x: x['pop'], reverse=True)
+        child_places[place_type] = child_places[place_type][:CHILD_PLACE_LIMIT]
+    return json.dumps(child_places)
 
 
 @cache.memoize(timeout=3600 * 24)  # Cache for one day.
@@ -71,7 +76,4 @@ def child_fetch(dcid):
                   'pop': pop.get(place['dcid'], 0)
                 })
                 break
-    for place_type in result:
-        result[place_type].sort(key=lambda x: x['pop'], reverse=True)
-        result[place_type] = result[place_type][:10]
     return result
