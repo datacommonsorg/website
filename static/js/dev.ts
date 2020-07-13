@@ -20,7 +20,7 @@
 
 import React from "react";
 import ReactDOM from "react-dom";
-import {page} from "./pv_tree.tsx";
+import {page} from "./pv_tree";
 import {updateUrlStatsVar} from "./util.js";
 import { DataPoint, DataGroup } from "./chart/base";
 

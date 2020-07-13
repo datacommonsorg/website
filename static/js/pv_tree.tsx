@@ -10,7 +10,7 @@ interface NodePropType {
   children: NodePropType[];
   type: string;
   argString: string;
-  updateUrl: (string, boolean) => void;
+  updateUrl: (statvar: string, add: boolean) => void;
   nodePath: string;
 }
 
@@ -21,7 +21,7 @@ interface NodeStateType{
 }
 
 class Node extends Component<NodePropType, NodeStateType> {
-  constructor(props) {
+  constructor(props: NodePropType) {
     super(props);
     this._handleCheckboxClick = this._handleCheckboxClick.bind(this);
     this._handleExpandClick = this._handleExpandClick.bind(this);
@@ -32,14 +32,14 @@ class Node extends Component<NodePropType, NodeStateType> {
     };
   }
 
-  _handleCheckboxClick = ():void => {
+  private _handleCheckboxClick = (): void => {
     this.setState({
         checked: !this.state.checked,
     });
     this.props.updateUrl(this.props.argString +this.state.nodePath, !this.state.checked);
   }
 
-  _handleExpandClick = ():void => {
+  private _handleExpandClick = (): void => {
     this.setState({
         expanded: !this.state.expanded,
       });
@@ -80,7 +80,7 @@ class Node extends Component<NodePropType, NodeStateType> {
       expandImg = <img className="right-caret"
                         src="../images/right-caret.png"
                         width = "12px"
-                        onClick={this._handleExpandClick}/>
+                        onClick={this._handleExpandClick}/>;
     }
 
     return (
@@ -103,7 +103,7 @@ class Node extends Component<NodePropType, NodeStateType> {
 
 interface MenuPropType{
   search: boolean;
-  updateUrl: (string, bool) => void;
+  updateUrl: (statvar: string, add: boolean) => void;
 }
 
 class Menu extends Component<MenuPropType, {}> {
@@ -134,7 +134,7 @@ class Menu extends Component<MenuPropType, {}> {
                     nodePath=""
                     updateUrl={this.props.updateUrl}
                     ></Node>  
-              )
+              );
             })
         )
       })
