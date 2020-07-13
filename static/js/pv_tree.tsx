@@ -1,9 +1,9 @@
-import React, {Component} from "react";
+import React, { Component } from "react";
 import hierarchy from "../../tools/pv_tree_generator/hierarchy_golden.json";
 //import hierarchy from "../data/hierarchy.json";
 
 interface NodePropType {
-  title: string; 
+  title: string;
   selected: string;
   expanded: string;
   count: number;
@@ -14,7 +14,7 @@ interface NodePropType {
   nodePath: string;
 }
 
-interface NodeStateType{
+interface NodeStateType {
   checked: boolean;
   expanded: boolean;
   nodePath: string;
@@ -26,61 +26,61 @@ class Node extends Component<NodePropType, NodeStateType> {
     this._handleCheckboxClick = this._handleCheckboxClick.bind(this);
     this._handleExpandClick = this._handleExpandClick.bind(this);
     this.state = {
-      checked: props.selected === "yes" ? true: false,
-      expanded: props.selected === "yes" ? true: false,
+      checked: props.selected === "yes" ? true : false,
+      expanded: props.selected === "yes" ? true : false,
       nodePath: props.nodePath + "," + props.title,
     };
-  }
-
-  private _handleCheckboxClick = (): void => {
-    this.setState({
-        checked: !this.state.checked,
-    });
-    this.props.updateUrl(this.props.argString +this.state.nodePath, !this.state.checked);
-  }
-
-  private _handleExpandClick = (): void => {
-    this.setState({
-        expanded: !this.state.expanded,
-      });
   }
 
   render() {
     let checkboxImg;
     let expandImg;
-    let child; 
+    let child;
     if (this.props.type === "value") {
-      checkboxImg = <button className={this.state.checked? 
-                                        "checkbox checked":"checkbox"}  
-                              onClick={this._handleCheckboxClick}/>;}
+      checkboxImg = (
+        <button
+          className={this.state.checked ? "checkbox checked" : "checkbox"}
+          onClick={this._handleCheckboxClick}
+        />
+      );
+    }
 
     if (this.state.expanded) {
-      expandImg = <img className="right-caret transform-down"
-                        src="../images/right-caret.png"
-                        width = "12px" 
-                        onClick={this._handleExpandClick}/>;
+      expandImg = (
+        <img
+          className="right-caret transform-down"
+          src="../images/right-caret.png"
+          width="12px"
+          onClick={this._handleExpandClick}
+        />
+      );
       if (this.props.children) {
         child = this.props.children.map((item, index) => {
-          return(
-            <Node title={item.title} 
-                  selected= {item.selected}
-                  expanded={item.selected}
-                  children={item.children}
-                  count={item.count}
-                  type={item.type}
-                  argString={item.argString}
-                  updateUrl={this.props.updateUrl}
-                  nodePath={this.state.nodePath}
-                  key={this.props.argString}></Node>
+          return (
+            <Node
+              title={item.title}
+              selected={item.selected}
+              expanded={item.selected}
+              children={item.children}
+              count={item.count}
+              type={item.type}
+              argString={item.argString}
+              updateUrl={this.props.updateUrl}
+              nodePath={this.state.nodePath}
+              key={this.props.argString}
+            ></Node>
           );
         });
       }
-    }
-    else {
-      expandImg = <img className="right-caret"
-                        src="../images/right-caret.png"
-                        width = "12px"
-                        onClick={this._handleExpandClick}/>;
+    } else {
+      expandImg = (
+        <img
+          className="right-caret"
+          src="../images/right-caret.png"
+          width="12px"
+          onClick={this._handleExpandClick}
+        />
+      );
     }
 
     return (
@@ -89,8 +89,10 @@ class Node extends Component<NodePropType, NodeStateType> {
           <span>
             <a className="value-link">
               {this.props.title + "  "}
-              <sup>{this.props.count !== 0 && "("+this.props.count+")"}</sup>
-              {checkboxImg} 
+              <sup>
+                {this.props.count !== 0 && "(" + this.props.count + ")"}
+              </sup>
+              {checkboxImg}
               {expandImg}
             </a>
           </span>
@@ -99,55 +101,69 @@ class Node extends Component<NodePropType, NodeStateType> {
       </ul>
     );
   }
+
+  private _handleCheckboxClick = (): void => {
+    this.setState({
+      checked: !this.state.checked,
+    });
+    this.props.updateUrl(
+      this.props.argString + this.state.nodePath,
+      !this.state.checked
+    );
+  };
+
+  private _handleExpandClick = (): void => {
+    this.setState({
+      expanded: !this.state.expanded,
+    });
+  };
 }
 
-interface MenuPropType{
+interface MenuPropType {
   search: boolean;
   updateUrl: (statvar: string, add: boolean) => void;
 }
 
 class Menu extends Component<MenuPropType, {}> {
-  render(){
+  render() {
     let menujson;
     if (this.props.search) {
       menujson = [hierarchy[1]];
-    }
-    else {
+    } else {
       menujson = [hierarchy[0]];
     }
-    
-    return(
+
+    return (
       <div id="drill">
-      {menujson.map((vertical, index1) => {
-        return(
-            Object.keys(vertical).map((key, index) => {
-              const item = vertical[key];
-              return(
-                <Node title={item.title} 
-                    selected= {item.selected}
-                    expanded={item.selected}
-                    children={item.children}
-                    count={item.count}
-                    type={item.type}
-                    argString={item.argString}
-                    key={index1+","+index}
-                    nodePath=""
-                    updateUrl={this.props.updateUrl}
-                    ></Node>  
-              );
-            })
-        )
-      })
-      }
+        {menujson.map((vertical, index1) => {
+          return Object.keys(vertical).map((key, index) => {
+            const item = vertical[key];
+            return (
+              <Node
+                title={item.title}
+                selected={item.selected}
+                expanded={item.selected}
+                children={item.children}
+                count={item.count}
+                type={item.type}
+                argString={item.argString}
+                key={index1 + "," + index}
+                nodePath=""
+                updateUrl={this.props.updateUrl}
+              ></Node>
+            );
+          });
+        })}
       </div>
-    )
+    );
   }
 }
 
-class page extends Component<MenuPropType, {}>{
-  render(){
-    return <Menu updateUrl={this.props.updateUrl}
-                 search={this.props.search}></Menu>;
+class page extends Component<MenuPropType, {}> {
+  render() {
+    return (
+      <Menu updateUrl={this.props.updateUrl} search={this.props.search}></Menu>
+    );
   }
 }
-export {page};
+export { page };
