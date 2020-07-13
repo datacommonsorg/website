@@ -16,14 +16,51 @@
 
 import * as d3 from "d3";
 
-import {
-  DataGroup,
-  DataPoint,
-} from "./base";
+import { DataGroup, DataPoint } from "./base";
+
+import { randDomId } from "./../util";
 
 const NUM_X_TICKS = 5;
 const NUM_Y_TICKS = 5;
 const MARGIN = { top: 20, right: 10, bottom: 30, left: 35, yAxis: 3 };
+// The middleAdjustment here is to avoid line being like underscore, and move the line into middle place.
+const LEGEND = {
+  ratio: 0.2,
+  minWidth: 150,
+  height: 20,
+  middleAdjustment: 5,
+  leftMarginForChart: 50,
+};
+
+/**
+ * Return an array of dashes given a string array.
+ *
+ * @param labels
+ */
+function getDashes(labels: string[]) {
+  let dashes: string[];
+  dashes = [];
+  // Solid line will always be the first one.
+  dashes.push("");
+  if (labels.length == 1) {
+    return dashes;
+  }
+  getDashesHelper(dashes, labels.length);
+  return dashes;
+}
+
+function getDashesHelper(dashes: string[], length: number) {
+  for (let sum = 10; ; sum += 6) {
+    let left = sum / 2;
+    let right = sum / 2;
+    while (left >= 3) {
+      dashes.push("" + left + ", " + right);
+      if (dashes.length == length) return dashes;
+      left -= 2;
+      right += 2;
+    }
+  }
+}
 
 function getColorFn(labels: string[]): d3.ScaleOrdinal<string, string> {
   let range;
@@ -50,7 +87,10 @@ function getColorFn(labels: string[]): d3.ScaleOrdinal<string, string> {
 }
 
 function appendLegendElem(
-  elem: string, color: d3.ScaleOrdinal<string, string>, keys: string[]) {
+  elem: string,
+  color: d3.ScaleOrdinal<string, string>,
+  keys: string[]
+) {
   d3.select("#" + elem)
     .append("div")
     .attr("class", "legend")
@@ -66,7 +106,10 @@ function appendLegendElem(
  * From https://bl.ocks.org/mbostock/7555321
  * Wraps axis text by fitting as many words per line as would fit a given width.
  */
-function wrap(text: d3.Selection<SVGTextElement, any, any, any>, width: number) {
+function wrap(
+  text: d3.Selection<SVGTextElement, any, any, any>,
+  width: number
+) {
   text.each(function () {
     let text = d3.select(this);
     let words = text.text().split(/\s+/).reverse();
@@ -76,11 +119,11 @@ function wrap(text: d3.Selection<SVGTextElement, any, any, any>, width: number) 
     let y = text.attr("y");
     let dy = parseFloat(text.attr("dy"));
     let tspan = text
-        .text(null)
-        .append("tspan")
-        .attr("x", 0)
-        .attr("y", y)
-        .attr("dy", dy + "em");
+      .text(null)
+      .append("tspan")
+      .attr("x", 0)
+      .attr("y", y)
+      .attr("dy", dy + "em");
     let word: string;
     while ((word = words.pop())) {
       line.push(word);
@@ -107,14 +150,13 @@ function addXAxis(
 ) {
   let axis = svg
     .append("g")
-      .attr("class", "x axis")
-      .attr("transform", `translate(0, ${height - MARGIN.bottom})`)
-      .call(d3.axisBottom(xScale).ticks(NUM_X_TICKS).tickSizeOuter(0))
-      .call((g) => g.select(".domain").remove());
+    .attr("class", "x axis")
+    .attr("transform", `translate(0, ${height - MARGIN.bottom})`)
+    .call(d3.axisBottom(xScale).ticks(NUM_X_TICKS).tickSizeOuter(0))
+    .call((g) => g.select(".domain").remove());
 
   if (typeof xScale.bandwidth === "function") {
-    axis.selectAll(".tick text")
-      .call(wrap, xScale.bandwidth());
+    axis.selectAll(".tick text").call(wrap, xScale.bandwidth());
   }
 }
 
@@ -135,7 +177,10 @@ function addYAxis(
         .tickSize(width - 5 - MARGIN.right)
         .tickFormat((d) => {
           let yticks = yScale.ticks();
-          let p = d3.precisionPrefix(yticks[1] - yticks[0], yticks[yticks.length - 1]);
+          let p = d3.precisionPrefix(
+            yticks[1] - yticks[0],
+            yticks[yticks.length - 1]
+          );
           let tText = d3.formatPrefix(`.${p}`, yScale.domain()[1])(d);
           let dollar = unit == "$" ? "$" : "";
           let percent = unit == "%" ? "%" : "";
@@ -188,10 +233,10 @@ function drawSingleBarChart(
   let color = getColorFn(textList);
 
   let svg = d3
-      .select("#" + id)
-      .append("svg")
-      .attr("width", width)
-      .attr("height", height);
+    .select("#" + id)
+    .append("svg")
+    .attr("width", width)
+    .attr("height", height);
 
   addXAxis(svg, height, x);
   addYAxis(svg, width, y, unit);
@@ -201,11 +246,11 @@ function drawSingleBarChart(
     .selectAll("rect")
     .data(dataPoints)
     .join("rect")
-    .attr("x", d => x(d.label))
-    .attr("y", d => y(d.value))
+    .attr("x", (d) => x(d.label))
+    .attr("y", (d) => y(d.value))
     .attr("width", x.bandwidth())
-    .attr("height", d => y(0) - y(d.value))
-    .attr("fill", d => color(d.label));
+    .attr("height", (d) => y(0) - y(d.value))
+    .attr("fill", (d) => color(d.label));
 }
 
 /**
@@ -228,7 +273,7 @@ function drawStackBarChart(
 
   let data = [];
   for (let dataGroup of dataGroups) {
-    let curr: { [property: string]: any } = { "label": dataGroup.label };
+    let curr: { [property: string]: any } = { label: dataGroup.label };
     for (let dataPoint of dataGroup.value) {
       curr[dataPoint.label] = dataPoint.value;
     }
@@ -237,15 +282,16 @@ function drawStackBarChart(
 
   let series = d3.stack().keys(keys)(data);
 
-  let x = d3.scaleBand()
-    .domain(dataGroups.map(dg => dg.label))
+  let x = d3
+    .scaleBand()
+    .domain(dataGroups.map((dg) => dg.label))
     .rangeRound([MARGIN.left, width - MARGIN.right])
     .paddingInner(0.1)
     .paddingOuter(0.1);
 
   let y = d3
     .scaleLinear()
-    .domain([0, d3.max(series, d => d3.max(d, d => d[1]))]).nice()
+    .domain([0, d3.max(series, (d) => d3.max(d, (d) => d[1]))])
     .nice()
     .rangeRound([height - MARGIN.bottom, MARGIN.top]);
 
@@ -260,18 +306,20 @@ function drawStackBarChart(
   addXAxis(svg, height, x);
   addYAxis(svg, width, y, unit);
 
-  svg.append("g")
+  svg
+    .append("g")
     .selectAll("g")
     .data(series)
-    .enter().append("g")
-      .attr("fill", d => color(d.key))
+    .enter()
+    .append("g")
+    .attr("fill", (d) => color(d.key))
     .selectAll("rect")
-    .data(d => d)
+    .data((d) => d)
     .join("rect")
-      .attr("x", (d) =>x(String(d.data.label)))
-      .attr("y", d => y(d[1]))
-      .attr("width", x.bandwidth())
-      .attr("height", d => y(d[0]) - y(d[1]));
+    .attr("x", (d) => x(String(d.data.label)))
+    .attr("y", (d) => y(d[1]))
+    .attr("width", x.bandwidth())
+    .attr("height", (d) => y(d[0]) - y(d[1]));
 
   appendLegendElem(id, color, keys);
 }
@@ -313,7 +361,6 @@ function drawGroupBarChart(
     .nice()
     .rangeRound([height - MARGIN.bottom, MARGIN.top]);
 
-
   let color = getColorFn(keys);
 
   let svg = d3
@@ -338,7 +385,6 @@ function drawGroupBarChart(
     .attr("width", x1.bandwidth())
     .attr("height", (d) => y(0) - y(d.value))
     .attr("fill", (d) => color(d.key));
-
 
   appendLegendElem(id, color, keys);
 }
@@ -381,7 +427,9 @@ function drawLineChart(
   addXAxis(svg, height, xScale);
   addYAxis(svg, width, yScale, unit);
 
-  let legendText = dataGroups.map((dataGroup) => dataGroup.label ? dataGroup.label: 'a');
+  let legendText = dataGroups.map((dataGroup) =>
+    dataGroup.label ? dataGroup.label : "a"
+  );
   let colorFn = getColorFn(legendText);
 
   for (let i = 0; i < dataGroups.length; i++) {
@@ -427,10 +475,253 @@ function drawLineChart(
   }
 }
 
+/**
+ * {
+ *     colors: string[], an array of colors for statVars
+ *     dashes: string[], an array of dash styles for geoIds(if applied)
+ *     statVars: string[], an array of statVars
+ *     geoIds: string[], an array of geoIds
+ * }
+ */
+interface PlotParams {
+  colors: string[];
+  dashes: string[];
+  statVars: string[];
+  geoIds: string[];
+}
+
+/**
+ * Return a PlotParams object defined above.
+ *
+ * @param dataGroupsDict
+ */
+function computePlotParams(dataGroupsDict: { [geoId: string]: DataGroup[] }) {
+  let plotParams: PlotParams;
+  plotParams = {
+    colors: [],
+    dashes: [],
+    statVars: [],
+    geoIds: [],
+  };
+
+  let dataGroups: DataGroup[];
+  dataGroups = Object.values(dataGroupsDict)[0];
+  let legendText = dataGroups.map((dataGroup) =>
+    dataGroup.label ? dataGroup.label : ""
+  );
+  let colorFn = getColorFn(legendText);
+
+  for (let i = 0; i < dataGroups.length; i++) {
+    plotParams["colors"].push(colorFn(dataGroups[i].label));
+    plotParams["statVars"].push(dataGroups[i].label);
+  }
+
+  for (let geoId in dataGroupsDict) {
+    plotParams["geoIds"].push(geoId);
+  }
+
+  plotParams["dashes"] = getDashes(plotParams["geoIds"]);
+
+  return plotParams;
+}
+
+/**
+ *  {
+ *      minV: number, min value in y label.
+ *      maxV: number, max value in y label.
+ *  }
+ */
+interface Range {
+  minV: number;
+  maxV: number;
+}
+
+/**
+ * Return a Range object defined above.
+ *
+ * @param dataGroupsDict
+ */
+function computeRanges(dataGroupsDict: { [geoId: string]: DataGroup[] }) {
+  let range: Range;
+  range = {
+    minV: 0,
+    maxV: 0,
+  };
+
+  let dataGroups: DataGroup[];
+  let maxV = 0;
+  for (let geoId in dataGroupsDict) {
+    dataGroups = dataGroupsDict[geoId];
+    maxV = Math.max(
+      maxV,
+      Math.max(...dataGroups.map((dataGroup) => dataGroup.max()))
+    );
+  }
+  range["maxV"] = maxV;
+  return range;
+}
+
+/**
+ * Draw a group of lines chart with in-chart legend given a dataGroupsDict with different geoIds.
+ *
+ * @param id: DOM id.
+ * @param width: width for the chart.
+ * @param height: height for the chart.
+ * @param dataGroupsDict: {[geoId: string]: DataGroup[]}.
+ * @param unit
+ */
+function drawGroupLineChart(
+  id: string,
+  width: number,
+  height: number,
+  dataGroupsDict: { [geoId: string]: DataGroup[] },
+  unit?: string
+) {
+  // Get all styles.
+  let plotParams = computePlotParams(dataGroupsDict);
+
+  let dataGroups: DataGroup[];
+  dataGroups = Object.values(dataGroupsDict)[0];
+
+  // Adjust the width of in-chart legends.
+  let legendWidth = Math.max(width * LEGEND.ratio, LEGEND.minWidth);
+  let yRange = computeRanges(dataGroupsDict);
+  let minV = yRange["minV"];
+  let maxV = yRange["maxV"];
+
+  let svg = d3
+    .select("#" + id)
+    .append("svg")
+    .attr("width", width)
+    .attr("height", height);
+
+  let xScale = d3
+    .scaleTime()
+    .domain(d3.extent(dataGroups[0].value, (d) => new Date(d.label).getTime()))
+    .range([MARGIN.left, width - MARGIN.right - legendWidth]);
+
+  let yScale = d3
+    .scaleLinear()
+    .domain([minV, maxV])
+    .range([height - MARGIN.bottom, MARGIN.top])
+    .nice(NUM_Y_TICKS);
+
+  addXAxis(svg, height, xScale);
+  addYAxis(svg, width, yScale, unit);
+
+  let dashIndex = 0;
+  for (let geoId in dataGroupsDict) {
+    dataGroups = dataGroupsDict[geoId];
+    for (let i = 0; i < dataGroups.length; i++) {
+      let dataGroup = dataGroups[i];
+      let dataset = dataGroup.value.map(function (dp) {
+        return [new Date(dp.label).getTime(), dp.value];
+      });
+
+      let line = d3
+        .line()
+        .x((d) => xScale(d[0]))
+        .y((d) => yScale(d[1]));
+
+      svg
+        .append("path")
+        .datum(dataset)
+        .attr("class", "line")
+        .style("stroke", plotParams["colors"][i])
+        .attr("d", line)
+        .attr("stroke-width", "2")
+        .attr("stroke-dasharray", plotParams["dashes"][dashIndex]);
+    }
+    dashIndex++;
+  }
+
+  let legendId = randDomId();
+  svg
+    .append("g")
+    .attr("id", legendId)
+    .attr(
+      "transform",
+      `translate(${width - legendWidth}, ${LEGEND.leftMarginForChart})`
+    );
+
+  buildInChartLegend(legendId, plotParams);
+
+  // return colors here used to add menu below the chart.
+  return plotParams["colors"];
+}
+
+/**
+ * Generate in-chart legend.
+ *
+ * @param id: This is the id for the chart legend element.
+ * @param plotParams: It contains all colors and dashes for geoIds and statVars.
+ */
+function buildInChartLegend(
+  id: string,
+  plotParams: {
+    colors: string[];
+    dashes: string[];
+    statVars: string[];
+    geoIds: string[];
+  }
+) {
+  let legend = d3.select("#" + id);
+
+  if (plotParams["dashes"].length == 1) {
+    // Only have one geoId. Then different statsVars should have different colors.
+    let index = 0;
+    for (let color of plotParams["colors"]) {
+      let legendClass = legend
+        .append("g")
+        .attr("transform", `translate(0, ${LEGEND.height * index})`);
+
+      legendClass
+        .append("text")
+        .attr("x", "40")
+        .attr("y", `${LEGEND.height * index}`)
+        .text(plotParams["statVars"][index])
+        .style("font-size", "14")
+        .attr("fill", `${color}`);
+
+      index++;
+    }
+  } else {
+    // Have multiple goeIds. Then different geoIds should have different dashes.
+    let index = 0;
+    for (let geo of plotParams["geoIds"]) {
+      let legendClass = legend
+        .append("g")
+        .attr("transform", `translate(0, ${LEGEND.height * index})`);
+
+      legendClass
+        .append("line")
+        .attr("stroke-width", 2)
+        .attr("x1", "0")
+        .attr("y1", `${LEGEND.height * index - LEGEND.middleAdjustment}`)
+        .attr("x2", "30")
+        .attr("y2", `${LEGEND.height * index - LEGEND.middleAdjustment}`)
+        // Default color to be black here.
+        .attr("stroke", "#000000")
+        .attr("stroke-dasharray", `${plotParams["dashes"][index]}`);
+
+      legendClass
+        .append("text")
+        .attr("x", "40")
+        .attr("y", `${LEGEND.height * index}`)
+        .text(geo)
+        .style("font-size", "14");
+
+      index++;
+    }
+  }
+}
+
 export {
+  getDashes,
   appendLegendElem,
   getColorFn,
   drawLineChart,
+  drawGroupLineChart,
   drawSingleBarChart,
   drawStackBarChart,
   drawGroupBarChart,
