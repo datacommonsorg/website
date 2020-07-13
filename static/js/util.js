@@ -502,19 +502,18 @@ function randDomId() {
  * @return {string} The line chart URL.
  */
 
-function updateUrlStatsVar(statvar, add){
+function updateUrlStatsVar(statvar, add) {
   let vars = getUrlVars();
   let svList = [];
   if ("statsvar" in vars) {
     svList = vars["statsvar"].split("__");
-  } 
-  if (add){
-    if (!svList.includes(statvar)){
+  }
+  if (add) {
+    if (!svList.includes(statvar)) {
       svList.push(statvar);
     }
-  }
-  else{
-    if (svList.includes(statvar)){
+  } else {
+    if (svList.includes(statvar)) {
       svList.splice(svList.indexOf(statvar), 1);
     }
   }
@@ -556,4 +555,3 @@ export {
   randDomId,
   updateUrlStatsVar,
 };
-

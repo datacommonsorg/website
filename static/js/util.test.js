@@ -1,4 +1,4 @@
-import {updateUrlStatsVar} from "./util.js";
+import { updateUrlStatsVar } from "./util.js";
 
 test("update Url statsvar", () => {
   window.location.hash = "";
