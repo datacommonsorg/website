@@ -2,35 +2,25 @@ import React, {Component} from "react";
 import hierarchy from "../../tools/pv_tree_generator/hierarchy_golden.json";
 //import hierarchy from "../data/hierarchy.json";
 
-// Fields of each node from json file
-interface NodeType {
-  show: string; 
-  title: string; 
-  selected: string;
-  expanded: string;
-  children: NodeType[];
-  count: number;
-  search_count: number;
-  measuredProperty: string;
-  placeTypes: string[];
-  populationType: string;
-  type: string; // Property or Value
-  argString: string;// for statvars, argString = dcid
-}
-
 interface NodePropType {
   title: string; 
   selected: string;
   expanded: string;
   count: number;
-  children: NodeType[];
+  children: NodePropType[];
   type: string;
   argString: string;
-  updateurl: (string, boolean) => void;
+  updateUrl: (string, boolean) => void;
   nodePath: string;
 }
 
-class Node extends Component<NodePropType, {}> {
+interface NodeStateType{
+  checked: boolean;
+  expanded: boolean;
+  nodePath: string;
+}
+
+class Node extends Component<NodePropType, NodeStateType> {
   constructor(props) {
     super(props);
     this._handleCheckboxClick = this._handleCheckboxClick.bind(this);
@@ -42,14 +32,14 @@ class Node extends Component<NodePropType, {}> {
     };
   }
 
-  private _handleCheckboxClick = ():void => {
+  _handleCheckboxClick = ():void => {
     this.setState({
         checked: !this.state.checked,
     });
-    this.props.updateurl(this.props.argString +this.state.nodePath, !this.state.checked);
+    this.props.updateUrl(this.props.argString +this.state.nodePath, !this.state.checked);
   }
 
-  private _handleExpandClick = ():void => {
+  _handleExpandClick = ():void => {
     this.setState({
         expanded: !this.state.expanded,
       });
@@ -62,7 +52,7 @@ class Node extends Component<NodePropType, {}> {
     if (this.props.type === "value") {
       checkboxImg = <button className={this.state.checked? 
                                         "checkbox checked":"checkbox"}  
-                              onClick={this._handleCheckboxClick}/>};
+                              onClick={this._handleCheckboxClick}/>;}
 
     if (this.state.expanded) {
       expandImg = <img className="right-caret transform-down"
@@ -79,7 +69,7 @@ class Node extends Component<NodePropType, {}> {
                   count={item.count}
                   type={item.type}
                   argString={item.argString}
-                  updateurl={this.props.updateurl}
+                  updateUrl={this.props.updateUrl}
                   nodePath={this.state.nodePath}
                   key={this.props.argString}></Node>
           );
@@ -107,13 +97,13 @@ class Node extends Component<NodePropType, {}> {
           {child}
         </li>
       </ul>
-    )
+    );
   }
 }
 
 interface MenuPropType{
   search: boolean;
-  updateurl: (string, bool) => void;
+  updateUrl: (string, bool) => void;
 }
 
 class Menu extends Component<MenuPropType, {}> {
@@ -142,7 +132,7 @@ class Menu extends Component<MenuPropType, {}> {
                     argString={item.argString}
                     key={index1+","+index}
                     nodePath=""
-                    updateurl={this.props.updateurl}
+                    updateUrl={this.props.updateUrl}
                     ></Node>  
               )
             })
@@ -156,7 +146,7 @@ class Menu extends Component<MenuPropType, {}> {
 
 class page extends Component<MenuPropType, {}>{
   render(){
-    return <Menu updateurl={this.props.updateurl}
+    return <Menu updateUrl={this.props.updateUrl}
                  search={this.props.search}></Menu>;
   }
 }

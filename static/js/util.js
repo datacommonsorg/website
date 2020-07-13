@@ -503,7 +503,7 @@ function randDomId() {
  */
 
 function updateUrlStatsVar(statvar, add){
-  let vars = getUrlVars;
+  let vars = getUrlVars();
   let svList = [];
   if ("statsvar" in vars) {
     svList = vars["statsvar"].split("__");

@@ -49,9 +49,9 @@ window.onload = function () {
     chartElem.style.width = width + "px";
     return containerId;
   }
-  let width_menu = 600
-  let containerId = addChartContainer(width_menu, height);
-  ReactDOM.render(React.createElement(page, {updateurl:updateUrlStatsVar, search:false}),
+  const widthMenu = 600;
+  let containerId = addChartContainer(widthMenu, height);
+  ReactDOM.render(React.createElement(page, {updateUrl:updateUrlStatsVar, search:false}),
                   document.getElementById(containerId));
   
 
