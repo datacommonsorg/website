@@ -501,14 +501,13 @@ function randDomId() {
  * @param {boolean} add = True, delete = False
  * @return {string} The line chart URL.
  */
-
-function updateUrlStatsVar(statvar, add) {
+function updateUrlStatsVar(statvar, should_add) {
   let vars = getUrlVars();
   let svList = [];
   if ("statsvar" in vars) {
     svList = vars["statsvar"].split("__");
   }
-  if (add) {
+  if (should_add) {
     if (!svList.includes(statvar)) {
       svList.push(statvar);
     }

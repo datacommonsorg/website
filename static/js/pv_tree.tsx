@@ -1,6 +1,6 @@
 import React, { Component } from "react";
 import hierarchy from "../../tools/pv_tree_generator/hierarchy_golden.json";
-//import hierarchy from "../data/hierarchy.json";
+
 
 interface NodePropType {
   title: string;
@@ -26,8 +26,8 @@ class Node extends Component<NodePropType, NodeStateType> {
     this._handleCheckboxClick = this._handleCheckboxClick.bind(this);
     this._handleExpandClick = this._handleExpandClick.bind(this);
     this.state = {
-      checked: props.selected === "yes" ? true : false,
-      expanded: props.selected === "yes" ? true : false,
+      checked: props.selected === "yes",
+      expanded: props.selected === "yes",
       nodePath: props.nodePath + "," + props.title.replace(/\s/g, ""),
     };
   }
@@ -49,8 +49,7 @@ class Node extends Component<NodePropType, NodeStateType> {
       expandImg = (
         <img
           className="right-caret transform-down"
-          src="../images/right-caret.png"
-          width="12px"
+          src= "../images/right-caret.png"
           onClick={this._handleExpandClick}
         />
       );
@@ -77,7 +76,6 @@ class Node extends Component<NodePropType, NodeStateType> {
         <img
           className="right-caret"
           src="../images/right-caret.png"
-          width="12px"
           onClick={this._handleExpandClick}
         />
       );
@@ -121,7 +119,7 @@ class Node extends Component<NodePropType, NodeStateType> {
 
 interface MenuPropType {
   search: boolean;
-  updateUrl: (statvar: string, add: boolean) => void;
+  updateUrl: (statvar: string, should_add: boolean) => void;
 }
 
 class Menu extends Component<MenuPropType, {}> {

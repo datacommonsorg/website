@@ -215,30 +215,29 @@ window.onload = function () {
     new DataPoint("2018", 19453769),
   ]);
 
-  let dataGroupsDict = {
+  let dataGroupsDict_1 = {
     "geoId/05": [dataGroups_geo1_1, dataGroups_geo1_2],
     "geoId/06": [dataGroups_geo2_1, dataGroups_geo2_2],
   };
-
   containerId = addChartContainer(1000, 500);
-  drawGroupLineChart(containerId, 1000, 500, dataGroupsDict);
+  drawGroupLineChart(containerId, 1000, 500, dataGroupsDict_1);
 
-  dataGroupsDict = {
+  let dataGroupsDict_2 = {
     "geoId/06": [dataGroups_geo2_1, dataGroups_geo2_2],
   };
 
   containerId = addChartContainer(1000, 500);
-  drawGroupLineChart(containerId, 1000, 500, dataGroupsDict);
-
-  dataGroupsDict = {
+  drawGroupLineChart(containerId, 1000, 500, dataGroupsDict_2);
+  
+  let dataGroupsDict_3 = {
     "geoId/05": [dataGroups_geo1_1],
     "geoId/06": [dataGroups_geo2_1],
   };
 
   containerId = addChartContainer(1000, 500);
-  drawGroupLineChart(containerId, 1000, 500, dataGroupsDict);
+  drawGroupLineChart(containerId, 1000, 500, dataGroupsDict_3);
 
-  dataGroupsDict = {};
+  let dataGroupsDict = {};
   for (let i = 1; i <= 10; i++) {
     dataGroupsDict[i] = [
       new DataGroup("Test", [
@@ -251,7 +250,6 @@ window.onload = function () {
       ]),
     ];
   }
-
   containerId = addChartContainer(1000, 500);
   drawGroupLineChart(containerId, 1000, 500, dataGroupsDict);
-};
+}
