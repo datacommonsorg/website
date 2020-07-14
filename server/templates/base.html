@@ -13,18 +13,19 @@
  See the License for the specific language governing permissions and
  limitations under the License.
 #}
-
 {#
   Required variables:
   title: page title
   main_id: DOM Element ID for the main content block
 
+  Optional variables:
+  is_hide_full_footer: boolean, if true, hides the full expanded footer. Default false
+  subpage_title: string, if specified, will be displayed in the header next to Data Commons
+
   Blocks to override:
   head - additional head elements
   content - main page content
 #}
-
-
 <!DOCTYPE html>
 
 <html lang="en">
@@ -32,120 +33,134 @@
   <title>{{ title }} - Data Commons</title>
   <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
   <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-  <link rel="icon" href="favicon.ico" type="image/x-icon"/>
-  <link href="https://fonts.googleapis.com/css2?family=Merriweather&family=Roboto&display=swap" rel="stylesheet">
+  <link rel="icon" href="/favicon.ico" type="image/x-icon"/>
+  <link href="https://fonts.googleapis.com/css2?family=Public+Sans&family=Roboto&display=swap" rel="stylesheet">
   {% block head %}
   {% endblock %}
 </head>
 <body>
-  <header id="main-header">
-    <nav class="navbar navbar-dark navbar-expand-lg col" id="main-nav">
-      <div class="container-fluid">
-        <a class="navbar-brand" href="{{ url_for('static.homepage') }}">Data Commons</a>
-        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#dc-main-nav">
-          <span class="navbar-toggler-icon"></span>
-        </button>
-        <div class="collapse navbar-collapse justify-content-md-end" id="dc-main-nav">
-          <ul class="navbar-nav float-md-right">
-            <li class="nav-item dropdown">
-              <a class="nav-link dropdown-toggle" href="#" id="nav-explore-dropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                Explore
-              </a>
-              <div class="dropdown-menu" aria-labelledby="nav-explore-dropdown">
-                <a class="dropdown-item" href="{{ url_for('place') }}">Place explorer</a>
-                <a class="dropdown-item" href="{{ url_for('browser.kg_main') }}">Data Commons Graph explorer</a>
-              </div>
-            </li>
-            <li class="nav-item dropdown">
-              <a class="nav-link dropdown-toggle" href="#" id="nav-tools-dropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                Tools
-              </a>
-              <div class="dropdown-menu" aria-labelledby="nav-tools-dropdown">
-                <a class="dropdown-item" href="{{ url_for('tools.timeline') }}">Timeline tool</a>
-                <a class="dropdown-item" href="{{ url_for('tools.scatter') }}">Scatterplot tool</a>
-              </div>
-            </li>
-            <li class="nav-item dropdown">
-              <a class="nav-link dropdown-toggle" href="#" id="nav-doc-dropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                Documentation
-              </a>
-              <div class="dropdown-menu" aria-labelledby="nav-doc-dropdown">
-                <a class="dropdown-item" href="{{ url_for('static.datasets') }}">Datasets</a>
-                <a class="dropdown-item" href="http://docs.datacommons.org/api/python/">Python API</a>
-                {# TODO(beets): Add a page for this #}
-                <a class="dropdown-item" href="#">Sample Python notebooks</a>
-                <a class="dropdown-item" href="http://docs.datacommons.org/api/r/">R API</a>
-                <a class="dropdown-item" href="http://docs.datacommons.org/api/rest/">REST API</a>
-                <a class="dropdown-item" href="http://docs.datacommons.org/api/sheets/">Google Sheets API</a>
-              </div>
-            </li>
-            <li class="nav-item dropdown">
-              <a class="nav-link dropdown-toggle" href="#" id="nav-about-dropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                About
-              </a>
-              <div class="dropdown-menu" aria-labelledby="nav-about-dropdown">
-                {# TODO(beets): Add a page for this #}
-                <a class="dropdown-item" href="{{ url_for('static.about') }}">About Data Commons</a>
-                <a class="dropdown-item" href="{{ url_for('static.faq') }}">FAQ</a>
-              </div>
-            </li>
-          </ul>
-          <div class="gcse-searchbox-only" data-resultsUrl="/search"></div>
+  <div id="main">
+    <header id="main-header">
+      <nav class="navbar navbar-dark navbar-expand-lg col" id="main-nav">
+        <div class="container-fluid">
+          <div class="navbar-brand">
+            <a href="{{ url_for('static.homepage') }}">Data Commons</a>
+            {% if subpage_title %}
+            <span>{{ subpage_title }}</span>
+            {% endif %}
+            </a>
+          </div>
+          <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#dc-main-nav">
+            <span class="navbar-toggler-icon"></span>
+          </button>
+          <div class="collapse navbar-collapse justify-content-md-end" id="dc-main-nav">
+            <ul class="navbar-nav float-md-right">
+              <li class="nav-item dropdown">
+                <a class="nav-link dropdown-toggle" href="#" id="nav-explore-dropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                  Explore
+                </a>
+                <div class="dropdown-menu" aria-labelledby="nav-explore-dropdown">
+                  <a class="dropdown-item" href="{{ url_for('place') }}">Place explorer</a>
+                  <a class="dropdown-item" href="{{ url_for('browser.kg_main') }}">Data Commons Graph explorer</a>
+                </div>
+              </li>
+              <li class="nav-item dropdown">
+                <a class="nav-link dropdown-toggle" href="#" id="nav-tools-dropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                  Tools
+                </a>
+                <div class="dropdown-menu" aria-labelledby="nav-tools-dropdown">
+                  <a class="dropdown-item" href="{{ url_for('tools.timeline') }}">Timeline tool</a>
+                  <a class="dropdown-item" href="{{ url_for('tools.scatter') }}">Scatterplot tool</a>
+                </div>
+              </li>
+              <li class="nav-item dropdown">
+                <a class="nav-link dropdown-toggle" href="#" id="nav-doc-dropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                  Documentation
+                </a>
+                <div class="dropdown-menu" aria-labelledby="nav-doc-dropdown">
+                  <a class="dropdown-item" href="{{ url_for('static.datasets') }}">Datasets</a>
+                  <a class="dropdown-item" href="http://docs.datacommons.org/api/python/">Python API</a>
+                  {# TODO(beets): Add a page for this #}
+                  <a class="dropdown-item" href="#">Sample Python notebooks</a>
+                  <a class="dropdown-item" href="http://docs.datacommons.org/api/r/">R API</a>
+                  <a class="dropdown-item" href="http://docs.datacommons.org/api/rest/">REST API</a>
+                  <a class="dropdown-item" href="http://docs.datacommons.org/api/sheets/">Google Sheets API</a>
+                </div>
+              </li>
+              <li class="nav-item dropdown">
+                <a class="nav-link dropdown-toggle" href="#" id="nav-about-dropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                  About
+                </a>
+                <div class="dropdown-menu" aria-labelledby="nav-about-dropdown">
+                  {# TODO(beets): Add a page for this #}
+                  <a class="dropdown-item" href="{{ url_for('static.about') }}">About Data Commons</a>
+                  <a class="dropdown-item" href="{{ url_for('static.faq') }}">FAQ</a>
+                </div>
+              </li>
+            </ul>
+            <div class="gcse-searchbox-only" data-resultsUrl="/search"></div>
+          </div>
         </div>
-      </div>
-    </nav>
-  </header>
+      </nav>
+    </header>
 
-  <main id="{{ main_id }}" class="main-content">
-    {% block content %}
-    {% endblock %}
-  </main>
+    <main id="{{ main_id }}" class="main-content">
+      {% block content %}
+      {% endblock %}
+    </main>
 
-  <footer id="main-footer">
-    <div class="container">
-      <div class="row">
-        <section class="col-12 col-sm-6 col-md-3">
-          <h6>Explore</h6>
-          <a href="{{ url_for('place') }}">Place Explorer</a>
-          <a href="{{ url_for('browser.kg_main') }}">Data Commons Graph Explorer</a>
-        </section>
-        <section class="col-12 col-sm-6 col-md-3">
-          <h6>Tools</h6>
-          <a href="{{ url_for('tools.timeline') }}">Timeline tool</a>
-          <a href="{{ url_for('tools.scatter') }}">Scatterplot tool</a>
-        </section>
-        <section class="col-12 col-sm-6 col-md-3">
-          <h6>Documentation</h6>
-          <a href="{{ url_for('static.datasets') }}">Datasets</a>
-          <a href="http://docs.datacommons.org/api/python/">Python API</a>
-          <a href="http://docs.datacommons.org/api/r/">R API</a>
-          <a href="http://docs.datacommons.org/api/rest/">REST API</a>
-          <a href="http://docs.datacommons.org/api/sheets/">Google Sheets API</a>
-        </section>
-        <section class="col-12 col-sm-6 col-md-3">
-          <h6>Data Commons</h6>
-          <a href="#">About Data Commons</a>
-          <a href="{{ url_for('static.faq') }}">Frequently Asked Questions</a>
-          <a href="http://github.com/datacommonsorg">Github Repository</a>
-          <a href="{{url_for('sitemap.index')}}">Sitemap</a>
-        </section>
-      </div>
-      <div class="row">
-        <div id="sub-footer" class="col-12">
-          <span>Data Commons is a Google supported project</span>
-          <div class="float-md-right mt-2 mt-md-0">
-            <a href="https://policies.google.com/terms">Terms and Conditions</a> ·
-            <a href="https://policies.google.com/privacy?hl=en-US">Privacy Policy</a> ·
-            <a href="{{ url_for('static.disclaimers') }}">Disclaimers</a>
+    <footer id="main-footer">
+      <div class="container">
+        {% if not is_hide_full_footer %}
+          <div class="row">
+            <section class="col-12 col-sm-6 col-md-3">
+              <h6>Explore</h6>
+              <a href="{{ url_for('place') }}">Place Explorer</a>
+              <a href="{{ url_for('browser.kg_main') }}">Data Commons Graph Explorer</a>
+            </section>
+            <section class="col-12 col-sm-6 col-md-3">
+              <h6>Tools</h6>
+              <a href="{{ url_for('tools.timeline') }}">Timeline tool</a>
+              <a href="{{ url_for('tools.scatter') }}">Scatterplot tool</a>
+            </section>
+            <section class="col-12 col-sm-6 col-md-3">
+              <h6>Documentation</h6>
+              <a href="{{ url_for('static.datasets') }}">Datasets</a>
+              <a href="http://docs.datacommons.org/api/python/">Python API</a>
+              <a href="http://docs.datacommons.org/api/r/">R API</a>
+              <a href="http://docs.datacommons.org/api/rest/">REST API</a>
+              <a href="http://docs.datacommons.org/api/sheets/">Google Sheets API</a>
+            </section>
+            <section class="col-12 col-sm-6 col-md-3">
+              <h6>Data Commons</h6>
+              <a href="#">About Data Commons</a>
+              <a href="{{ url_for('static.faq') }}">Frequently Asked Questions</a>
+              <a href="http://github.com/datacommonsorg">Github Repository</a>
+              <a href="{{url_for('sitemap.index')}}">Sitemap</a>
+            </section>
+          </div>
+        {% endif %}
+        <div class="row">
+          <div id="sub-footer" class="col-12">
+            <span><a href="{{ url_for('static.homepage') }}">Data Commons</a> is a Google supported project</span>
+            <div class="float-md-right mt-2 mt-md-0">
+              {% block subfooter_extra %}{% endblock %}
+              <a href="https://policies.google.com/terms">Terms and Conditions</a> ·
+              <a href="https://policies.google.com/privacy?hl=en-US">Privacy Policy</a> ·
+              <a href="{{ url_for('static.disclaimers') }}">Disclaimers</a>
+            </div>
           </div>
         </div>
       </div>
-    </div>
-  </footer>
-  {# TODO: Compile this down (or manually implement). Used only for nav bar so far #}
-  <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
+    </footer>
+  </div>
+  {# Compile this down (or manually implement). Used only for nav bar so far #}
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
   <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
   <script async src="https://cse.google.com/cse.js?cx=010079880385165835740%3Aosnv3q-sw08"></script>
+
+  {% block footer %}
+  {% endblock %}
 </body>
 </html>

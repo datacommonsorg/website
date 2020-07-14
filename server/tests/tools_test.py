@@ -36,4 +36,4 @@ class TestStaticPage(unittest.TestCase):
     def test_scatter(self):
         response = app.test_client().get('/tools/scatter')
         assert response.status_code == 200
-        assert b"Select two variables from the left menu" in response.data
+        assert b"Please select two variables from the left menu" in response.data

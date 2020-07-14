@@ -48,6 +48,17 @@ $container-max-widths: (
 
 @import "~bootstrap/scss/bootstrap";
 
+#main-nav .navbar-brand a {
+  color: #fff;
+  font-weight: 500;
+}
+
+#main-nav .navbar-brand span {
+  font-weight: 200;
+  letter-spacing: 2px;
+  margin-left: .2rem;
+}
+
 .main-content {
   margin: 3rem auto 6rem;
 }
