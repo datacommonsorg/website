@@ -18,6 +18,10 @@
  * @fileoverview dev page.
  */
 
+import React from "react";
+import ReactDOM from "react-dom";
+import { page } from "./pv_tree";
+import { updateUrlStatsVar } from "./util.js";
 import { DataPoint, DataGroup } from "./chart/base";
 
 import {
@@ -36,6 +40,7 @@ window.onload = function () {
   // Container element to hold dom element of one chart.
   // The width and height is eventually obtained from gridding system like
   // Bootstrap.
+
   var id = 0;
   var containerElem = document.getElementById("charts-container");
   function addChartContainer(width, height) {
@@ -46,6 +51,12 @@ window.onload = function () {
     chartElem.style.width = width + "px";
     return containerId;
   }
+  const widthMenu = 600;
+  let containerId = addChartContainer(widthMenu, height);
+  ReactDOM.render(
+    React.createElement(page, { updateUrl: updateUrlStatsVar, search: false }),
+    document.getElementById(containerId)
+  );
 
   // Draw single bar chart.
   let dataPoints = [
@@ -54,7 +65,7 @@ window.onload = function () {
     new DataPoint("California", 3002342),
     new DataPoint("United States", 9520234),
   ];
-  let containerId = addChartContainer(width, height);
+  containerId = addChartContainer(width, height);
   drawSingleBarChart(containerId, width, height, dataPoints);
 
   let dataGroups = [
@@ -204,30 +215,29 @@ window.onload = function () {
     new DataPoint("2018", 19453769),
   ]);
 
-  let dataGroupsDict = {
+  const dataGroupsDict_1 = {
     "geoId/05": [dataGroups_geo1_1, dataGroups_geo1_2],
     "geoId/06": [dataGroups_geo2_1, dataGroups_geo2_2],
   };
-
   containerId = addChartContainer(1000, 500);
-  drawGroupLineChart(containerId, 1000, 500, dataGroupsDict);
+  drawGroupLineChart(containerId, 1000, 500, dataGroupsDict_1);
 
-  dataGroupsDict = {
+  const dataGroupsDict_2 = {
     "geoId/06": [dataGroups_geo2_1, dataGroups_geo2_2],
   };
 
   containerId = addChartContainer(1000, 500);
-  drawGroupLineChart(containerId, 1000, 500, dataGroupsDict);
-
-  dataGroupsDict = {
+  drawGroupLineChart(containerId, 1000, 500, dataGroupsDict_2);
+  
+  const dataGroupsDict_3 = {
     "geoId/05": [dataGroups_geo1_1],
     "geoId/06": [dataGroups_geo2_1],
   };
 
   containerId = addChartContainer(1000, 500);
-  drawGroupLineChart(containerId, 1000, 500, dataGroupsDict);
+  drawGroupLineChart(containerId, 1000, 500, dataGroupsDict_3);
 
-  dataGroupsDict = {};
+  let dataGroupsDict = {};
   for (let i = 1; i <= 10; i++) {
     dataGroupsDict[i] = [
       new DataGroup("Test", [
@@ -240,7 +250,6 @@ window.onload = function () {
       ]),
     ];
   }
-
   containerId = addChartContainer(1000, 500);
   drawGroupLineChart(containerId, 1000, 500, dataGroupsDict);
-};
+}
