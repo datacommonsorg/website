@@ -42,23 +42,24 @@ class TestRoute(unittest.TestCase):
 
     @patch('routes.sitemap.child_fetch')
     def test_node(self, mock_child_fetch):
-        mock_response = [
-          {
-            'dcid': 'geoId/12345',
-            'name': 'county 1',
-            'types': ['AdministrativeArea', 'County']
-          },
-          {
-            'dcid': 'geoId/12222',
-            'name': 'county 2',
-            'types': ['County']
-          },
-          {
-            'dcid': 'geoId/6666666',
-            'name': 'city 1',
-            'types': ['City']
-          }
-        ]
+        mock_response = {
+          'County': [
+            {
+              'dcid': 'geoId/12345',
+              'name': 'county 1',
+            },
+            {
+              'dcid': 'geoId/12222',
+              'name': 'county 2',
+            }
+          ],
+          'City': [
+            {
+              'dcid': 'geoId/6666666',
+              'name': 'city 1',
+            }
+          ]
+        }
         mock_child_fetch.return_value = mock_response
 
         response = app.test_client().get('/sitemap/geoId/06')
@@ -74,7 +75,7 @@ class TestRoute(unittest.TestCase):
 
     @patch('routes.sitemap.child_fetch')
     def test_no_child(self, mock_child_fetch):
-        mock_child_fetch.return_value = []
+        mock_child_fetch.return_value = {}
         response = app.test_client().get('/sitemap/geoId/07')
         assert response.status_code == 200
         assert b'There are no sub-places in our knowledge' in response.data
