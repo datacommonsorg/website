@@ -1,11 +1,8 @@
 import React, { Component } from "react";
-import hierarchy from "../../tools/pv_tree_generator/hierarchy_golden.json";
-
+import hierarchy from "../../tools/pv_tree_generator/hierarchy.json";
 
 interface NodePropType {
   title: string;
-  selected: string;
-  expanded: string;
   count: number;
   children: NodePropType[];
   type: string;
@@ -26,8 +23,8 @@ class Node extends Component<NodePropType, NodeStateType> {
     this._handleCheckboxClick = this._handleCheckboxClick.bind(this);
     this._handleExpandClick = this._handleExpandClick.bind(this);
     this.state = {
-      checked: props.selected === "yes",
-      expanded: props.selected === "yes",
+      checked: false,
+      expanded: false,
       nodePath: props.nodePath + "," + props.title.replace(/\s/g, ""),
     };
   }
@@ -36,7 +33,7 @@ class Node extends Component<NodePropType, NodeStateType> {
     let checkboxImg: JSX.Element;
     let expandImg: JSX.Element;
     let child: JSX.Element[];
-    if (this.props.type === "value") {
+    if (this.props.type === "val") {
       checkboxImg = (
         <button
           className={this.state.checked ? "checkbox checked" : "checkbox"}
@@ -49,7 +46,7 @@ class Node extends Component<NodePropType, NodeStateType> {
       expandImg = (
         <img
           className="right-caret transform-down"
-          src= "../images/right-caret.png"
+          src="../images/right-caret.png"
           onClick={this._handleExpandClick}
         />
       );
@@ -58,8 +55,6 @@ class Node extends Component<NodePropType, NodeStateType> {
           return (
             <Node
               title={item.title}
-              selected={item.selected}
-              expanded={item.selected}
               children={item.children}
               count={item.count}
               type={item.type}
@@ -106,7 +101,7 @@ class Node extends Component<NodePropType, NodeStateType> {
     });
     this.props.updateUrl(
       this.props.argString + this.state.nodePath,
-      !this.state.checked,
+      !this.state.checked
     );
   };
 
@@ -139,8 +134,6 @@ class Menu extends Component<MenuPropType, {}> {
             return (
               <Node
                 title={item.title}
-                selected={item.selected}
-                expanded={item.selected}
                 children={item.children}
                 count={item.count}
                 type={item.type}
