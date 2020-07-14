@@ -1510,7 +1510,7 @@ $(function () {
       if (PREV_DROPPED === 0 && numDropped === 0) {
         $("#dropped").text("");
       } else {
-        $("#dropped").text("Number of datapoints dropped: " + numDropped);
+        $("#dropped").text("| Dropped datapoints: " + numDropped);
         PREV_DROPPED = numDropped;
       }
 
