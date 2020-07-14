@@ -36,20 +36,17 @@ def build_tree_recursive(pos, level, pop_obs_spec, stat_vars, place_mapping, sho
     prop_ui_node = util.UiNode(pos, parent_pv, True, property_diff)
     result = {
         'populationType': prop_ui_node.pop_type,
-        'show': 'yes',
-        'selected': 'no',
-        'expanded': 'no',
         'title': text_format.format_title(prop_ui_node.text),
-        'type': 'Property',
+        'type': 'prop',
         'count': 0,
         'children': [],
         'sv_set': set(),
         'search_count': 0,
         'search_sv_set': set(),
-        'measuredProperty': prop_ui_node.mprop,
+        'mprop': prop_ui_node.mprop, 
         'placeTypes': [],
     }
-
+    
     #get the child specs of the current node
     child_pos = []
     for c_pos in pop_obs_spec[level+1]:
@@ -57,12 +54,14 @@ def build_tree_recursive(pos, level, pop_obs_spec, stat_vars, place_mapping, sho
             set(pos.properties) < set(c_pos.properties)):
                 child_pos.append(c_pos)
 
+    child_values = []
     for sv in stat_vars[pos.key]:
-        if sv.match_ui_node(prop_ui_node):
+        if sv.match_ui_node(prop_ui_node) and sv.pv[property_diff] not in child_values:
             value_ui_pv = collections.OrderedDict()
             for prop, val in parent_pv.items():
                 value_ui_pv[prop] = val
             value_ui_pv[property_diff] = sv.pv[property_diff]
+            child_values.append(sv.pv[property_diff])
             value_ui_node = util.UiNode(pos, value_ui_pv, False, property_diff)
             
             in_search = True
@@ -74,19 +73,16 @@ def build_tree_recursive(pos, level, pop_obs_spec, stat_vars, place_mapping, sho
 
             value_blob = {
                 'populationType': value_ui_node.pop_type,
-                'show': 'yes',
-                'selected': 'no',
-                'expanded': 'no',
                 'argString': sv.dcid,
                 'title': text_format.format_title(value_ui_node.text),
-                'type': 'value',
+                'type': 'val',
                 'enum': value_ui_node.enum,
                 'count': 1,
                 'children': [],
                 'sv_set': set([sv.dcid]),
                 'search_count': 1 if in_search else 0,
                 'search_sv_set': set([sv.dcid]) if in_search else set(),
-                'measuredProperty': value_ui_node.mprop,
+                'mprop': value_ui_node.mprop,
                 'placeTypes': sorted(place_mapping[sv.dcid]),
             }
             # add statistical variables as the child of current node
@@ -108,6 +104,7 @@ def build_tree_recursive(pos, level, pop_obs_spec, stat_vars, place_mapping, sho
 
     result['children'] = text_format.filter_and_sort(property_diff, 
         result['children'], show_all)
+    
     #update the count
     if result['children']:
         place_types_set = set()
@@ -128,12 +125,9 @@ def build_tree(v, pop_obs_spec, stat_vars, place_mapping, show_all):
 
     #vertical as the root
     root = {
-        'show': 'yes',
-        'selected': 'no',
-        'expanded': 'no',
         'argString': 'top',
         'title': text_format.format_title(v),
-        'type': 'Property',
+        'type': 'prop', 
         'count': 0, #count of child nodes
         'children': [],
         'sv_set': set(),#used for counting child nodes
@@ -151,16 +145,13 @@ def build_tree(v, pop_obs_spec, stat_vars, place_mapping, show_all):
             if pos.cpv == sv.pv:
                 root['children'].append({
                     'populationType': ui_node.pop_type,
-                    'show': 'yes',
-                    'selected': 'no',
-                    'expanded': 'no',
                     'argString': sv.dcid,
                     'title': text_format.format_title(ui_node.text),
-                    'type': 'value',
+                    'type': 'val', 
                     'children': [],
                     'count': 1,
                     'search_count': search_count,
-                    'measuredProperty': ui_node.mprop,
+                    'mprop': ui_node.mprop, 
                     'placeTypes': sorted(place_mapping[sv.dcid]),
                 })
                 root['placeTypes'] = sorted(list(set(root['placeTypes'])|
@@ -180,7 +171,7 @@ def build_tree(v, pop_obs_spec, stat_vars, place_mapping, show_all):
             for pv0 in root['children']: 
                 # hoist logic will break if multiple 0 pv
                 if (pv0['populationType'] == pos.pop_type and 
-                    pv0['measuredProperty'] == 'count'):
+                    pv0['mprop'] == 'count'):
                     pv0['children'].append(child)
                     if 'sv_set' not in pv0:
                         pv0['sv_set'] = set()
@@ -208,4 +199,12 @@ def build_tree(v, pop_obs_spec, stat_vars, place_mapping, show_all):
     root['search_count'] += len(root['search_sv_set'])
     del root['sv_set']
     del root['search_sv_set']
+    return traverseTree(root)
+
+def traverseTree(root):
+    if 'populationType' in root:
+        del root['populationType']
+    if 'children' in root:
+        for node in root['children']:
+            traverseTree(node)
     return root
