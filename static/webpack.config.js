@@ -20,38 +20,38 @@ const FixStyleOnlyEntriesPlugin = require("webpack-fix-style-only-entries");
 
 const config = {
   entry: {
-    kg: [__dirname + "/js/kg.js", __dirname + "/css/kg.scss"],
-    gni: __dirname + "/js/gni.js",
+    dev: __dirname + "/js/dev.ts",
     download: __dirname + "/js/download.js",
+    gni: __dirname + "/js/gni.js",
+    kg: [__dirname + "/js/kg.js", __dirname + "/css/kg.scss"],
+    mcf_playground: __dirname + "/js/mcf_playground.js",
+    place_overview: __dirname + "/js/place_overview.ts",
     scatter: [__dirname + "/js/scatter.js", __dirname + "/css/scatter.scss"],
+    search: __dirname + "/css/search.scss",
+    static: __dirname + "/css/static.scss",
     translator: [
       __dirname + "/js/translator.js",
       __dirname + "/css/translator.scss",
     ],
-    dev: __dirname + "/js/dev.js",
-    place_overview: __dirname + "/js/place_overview.js",
-    mcf_playground: __dirname + "/js/mcf_playground.js",
-    search: __dirname + "/css/search.scss",
-    static: __dirname + "/css/static.scss",
   },
   output: {
     path: path.resolve(__dirname, "../") + "/server/dist",
     filename: "[name].js",
   },
   resolve: {
-    extensions: [".js", ".ts"],
+    extensions: [".js", ".ts", ".tsx"],
   },
   module: {
     rules: [
       {
-        test: /\.(js|jsx)$/,
+        test: /\.(js|jsx|ts|tsx)$/,
         exclude: /node_modules/,
         use: {
           loader: "babel-loader",
         },
       },
       {
-        test: /\.ts?$/,
+        test: /\.(ts|tsx)$/,
         use: "ts-loader",
         exclude: /node_modules/,
       },

@@ -19,8 +19,10 @@ from flask import Blueprint
 
 from cache import cache
 from services.datacommons import fetch_data
+from routes.api.stats import get_stats_wrapper
 
 WANTED_PLACE_TYPES = ["Country", "State", "County", "City"]
+CHILD_PLACE_LIMIT = 20
 
 # Define blueprint
 bp = Blueprint(
@@ -34,9 +36,13 @@ bp = Blueprint(
 @cache.memoize(timeout=3600 * 24)  # Cache for one day.
 def child(dcid):
     """
-    Get the child places for a place.
+    Get top child places for a place.
     """
-    return json.dumps(child_fetch(dcid))
+    child_places = child_fetch(dcid)
+    for place_type in child_places:
+        child_places[place_type].sort(key=lambda x: x['pop'], reverse=True)
+        child_places[place_type] = child_places[place_type][:CHILD_PLACE_LIMIT]
+    return json.dumps(child_places)
 
 
 @cache.memoize(timeout=3600 * 24)  # Cache for one day.
@@ -52,6 +58,14 @@ def child_fetch(dcid):
       post=True
     )
     places = response[dcid].get('in', [])
+    dcid_str = '^'.join(sorted(map(lambda x: x['dcid'], places)))
+    pop = json.loads(get_stats_wrapper(dcid_str, 'Count_Person'))
+
+    pop = {
+      dcid: stats.get('data', {}).get('2018', 0) for dcid, stats in pop.items()
+      if stats
+    }
+
     result = collections.defaultdict(list)
     for place in places:
         for place_type in place['types']:
@@ -59,8 +73,7 @@ def child_fetch(dcid):
                 result[place_type].append({
                   'name': place['name'],
                   'dcid': place['dcid'],
+                  'pop': pop.get(place['dcid'], 0)
                 })
                 break
-    for place in result:
-        result[place].sort(key=lambda x: x['dcid'])
     return result
