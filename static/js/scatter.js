@@ -250,7 +250,7 @@ $(function () {
   $("#place-types").click(function () {
     let stateTypeElem = document.getElementById("place-types-states");
     let countyTypeElem = document.getElementById("place-types-counties");
-    $.get("data/placeObject.json", function (nestedLocations) {
+    $.get("/data/placeObject.json", function (nestedLocations) {
       stateTypeElem.options.length = 0;
       countyTypeElem.options.length = 0;
       createOption(stateTypeElem, "Select a state", "");
@@ -264,7 +264,7 @@ $(function () {
   $("#place-types-states").change(function () {
     let stateTypeElem = document.getElementById("place-types-states");
     let countyTypeElem = document.getElementById("place-types-counties");
-    $.get("data/placeObject.json", function (nestedLocations) {
+    $.get("/data/placeObject.json", function (nestedLocations) {
       countyTypeElem.options.length = 0;
       createOption(countyTypeElem, "Select a county (optional)", "");
 
@@ -551,7 +551,7 @@ $(function () {
               htmlString += `<sup>(${node.count})</sup>`;
             }
             htmlString += `<a id="${node.argString}" class="expand-link" data-argstring="${node.argString}">
-                <img class="right-caret" width="12px" src="images/right-caret-light.png" />
+                <img class="right-caret" width="12px" src="/images/right-caret-light.png" />
                 </a>
                 </span>`;
           } else {
@@ -590,7 +590,7 @@ $(function () {
           if (node.children.length > 0) {
             htmlString += `<sup>(${node.count})</sup>`;
             htmlString += `<a class="expand-link">
-                      <img class="right-caret" width="12px" src="images/right-caret-light.png" />
+                      <img class="right-caret" width="12px" src="/images/right-caret-light.png" />
                      </a>`;
           }
           listItem.innerHTML = htmlString;
@@ -645,8 +645,9 @@ $(function () {
       function openDialog() {
         document.getElementById("dialog").style.visibility = "visible";
         $("#dialog")
-          .dialog()
+          .modal({ keyboard: false })
           .find(":checkbox")
+          .prop("checked", false)
           .unbind("change")
           .bind("change", function (e) {
             if (this.checked) {
@@ -659,11 +660,7 @@ $(function () {
               ) {
                 replaceVariable(e.target.id);
 
-                // close dialog and uncheck all in dialog
-                $("#one").removeAttr("checked"); // jq 1.6+
-                $("#two").removeAttr("checked");
-                $(this).closest(".ui-dialog-content").dialog("close");
-                document.getElementById("dialog").style.visibility = "hidden";
+                $("#dialog").modal("hide");
 
                 checkAndPlotData();
               }
@@ -837,7 +834,7 @@ $(function () {
     window.location.href = newUrl;
   }
 
-  $.getJSON("data/hierarchy.json", function (hierarchy) {
+  $.getJSON("/data/hierarchy.json", function (hierarchy) {
     drawExploreMenu(hierarchy[0], []);
   });
 
@@ -1538,7 +1535,7 @@ $(function () {
           };
         }
         let chart = new google.visualization.ScatterChart(
-          document.getElementById("chart_div")
+          document.getElementById("chart-div")
         );
         chart.draw(dataTable, options);
         removeSpinner();

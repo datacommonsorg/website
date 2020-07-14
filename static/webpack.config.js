@@ -23,7 +23,7 @@ const config = {
     kg: [__dirname + "/js/kg.js", __dirname + "/css/kg.scss"],
     gni: __dirname + "/js/gni.js",
     download: __dirname + "/js/download.js",
-    scatter: __dirname + "/js/scatter.js",
+    scatter: [__dirname + "/js/scatter.js", __dirname + "/css/scatter.scss"],
     translator: [
       __dirname + "/js/translator.js",
       __dirname + "/css/translator.scss",
