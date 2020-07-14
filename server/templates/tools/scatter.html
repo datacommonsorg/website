@@ -40,51 +40,49 @@
     {# Selections for the chart #}
     <div id="chart-header">
         <div class="form-group row">
-          <label for="inputEmail3" class="col-sm-2 col-form-label">Plot
-            locations</label>
-          <div class="col-sm-10">
+          <label for="inputEmail3" class="col-sm-3 col-form-label">Plot these places</label>
+          <div class="col-sm-9">
             <div class="form-row">
               <div class="col-auto">
                 <select id="place-types" class="custom-select">
                 </select>
               </div>
               <div class="col-auto">
-                <label id="enclosing" class="col-form-label" style="visibility: hidden">in</label>
+                <label id="enclosing" class="col-form-label" style="display: none">in</label>
               </div>
               <div class="col-auto">
-                <select id="place-types-states" class="custom-select" style="visibility: hidden"></select>
-                <select id="place-types-counties" class="custom-select" style="visibility: hidden"></select>
+                <select id="place-types-states" class="custom-select" style="display: none"></select>
+                <select id="place-types-counties" class="custom-select" style="display: none"></select>
               </div>
             </div>
           </div>
         </div>
-        <div class="form-group">
+        <div class="form-group" id="pop-threshold">
           <div class="row">
-            <label class="col-form-label col-sm-2">Filter</label>
-            <div class="col-sm-10">
+            <label class="col-form-label col-sm-3">Only add places of this size</label>
+            <div class="col-sm-9">
               <div class="form-row">
                 <div class="col-auto">
                   <input type="number" id="min-pop" class="form-control" value="0">
+                  <div class="invalid-feedback"></div>
                 </div>
                 <div class="col-auto">
                   <label class="col-form-label">and</label>
                 </div>
                 <div class="col-auto">
                   <input type="number" id="max-pop" class="form-control" value="330000000">
+                  <div class="invalid-feedback"></div>
                 </div>
                 <div class="col-auto">
                   <label class="col-form-label">people</label>
-                </div>
-                <div class="col-auto">
-                  <button id="enter-threshold" class="btn btn-primary ml-3">Filter</button>
                 </div>
               </div>
             </div>
           </div>
         </div>
         <div class="form-group row">
-          <div class="col-form-label col-sm-2">Display options</div>
-          <div class="col-sm-10">
+          <div class="col-form-label col-sm-3">Plot options</div>
+          <div class="col-sm-9">
             <div class="form-check form-check-inline col-form-label">
               <input class="form-check-input" type="checkbox" id="per-capita">
               <label class="form-check-label description" for="per-capita"> Per capita
@@ -132,7 +130,7 @@
 
     {# Scatter chart #}
     <div id="chart-div">
-      <div id="intructions">
+      <div id="instructions">
         Please select two variables from the left menu, and plot locations above
       </div>
     </div>

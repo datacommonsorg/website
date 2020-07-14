@@ -42,8 +42,9 @@ $drill-menu-line: #5b5e60;
   padding: 5rem 0;
   text-align: left;
   font-size: 1.5rem;
-  color: var(--dc-gray-lite);
+  color: var(--dc-gray);
   font-style: italic;
+  font-weight: 200;
 }
 
 #chart-header {
@@ -340,4 +341,8 @@ sup {
   font-size: 10px;
   color: #999;
   font-weight: bold;
+}
+
+#new-selection {
+  font-weight: 500;
 }
