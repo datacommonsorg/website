@@ -71,10 +71,10 @@ $(function () {
   let CURR_CHECKED = { one: "", two: "" };
 
   /* Chart data */
-  let GEO_DICT_X;  // Contains values for all locations
-  let GEO_DICT_Y;  // Contains values for all locations
-  let GEO_DICT_POP;  // Contains population count for all locations
-  let PLOT_LOCATIONS;  // Contains the geoIds to plot
+  let GEO_DICT_X; // Contains values for all locations
+  let GEO_DICT_Y; // Contains values for all locations
+  let GEO_DICT_POP; // Contains population count for all locations
+  let PLOT_LOCATIONS; // Contains the geoIds to plot
 
   /* Array to hold information to download csv */
   let DOWNLOAD_ARR = [];
@@ -312,8 +312,7 @@ $(function () {
     } else if (arrOptions.length === 1 && arrOptions[0] === "Country") {
       document.getElementById("enclosing").style.display = "none";
       document.getElementById("place-types-states").style.display = "none";
-      document.getElementById("place-types-counties").style.display =
-        "none";
+      document.getElementById("place-types-counties").style.display = "none";
       LOCATION_IN = chosenPlaceType;
       ALL = true;
       checkAndPlotData();
@@ -323,8 +322,7 @@ $(function () {
       document.getElementById("enclosing").style.display = "inline-block";
       document.getElementById("place-types-states").style.display =
         "inline-block";
-      document.getElementById("place-types-counties").style.display =
-        "none";
+      document.getElementById("place-types-counties").style.display = "none";
       LOCATION_IN = chosenPlaceType;
       ALL = false;
     }
@@ -1105,7 +1103,7 @@ $(function () {
   });
 
   /* If user selects a valid threshold for the population, redraw chart. */
-  $("#pop-threshold input").focusout(function() {
+  $("#pop-threshold input").focusout(function () {
     let $min_pop = $("#min-pop").removeClass("is-invalid");
     let $max_pop = $("#max-pop").removeClass("is-invalid");
     let $min_feedback = $min_pop.siblings(".invalid-feedback");
@@ -1155,7 +1153,6 @@ $(function () {
       );
     }
   });
-
 
   /**
    * Request data from API and return an array containing payload objects.
