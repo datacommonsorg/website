@@ -43,7 +43,7 @@ def build_tree_recursive(pos, level, pop_obs_spec, stat_vars, place_mapping, sho
         'sv_set': set(),
         'search_count': 0,
         'search_sv_set': set(),
-        'mprop': prop_ui_node.mprop, #measuredProperty
+        'mprop': prop_ui_node.mprop, 
         'placeTypes': [],
     }
     
@@ -127,7 +127,7 @@ def build_tree(v, pop_obs_spec, stat_vars, place_mapping, show_all):
     root = {
         'argString': 'top',
         'title': text_format.format_title(v),
-        'type': 'prop', #property
+        'type': 'prop', 
         'count': 0, #count of child nodes
         'children': [],
         'sv_set': set(),#used for counting child nodes
@@ -147,11 +147,11 @@ def build_tree(v, pop_obs_spec, stat_vars, place_mapping, show_all):
                     'populationType': ui_node.pop_type,
                     'argString': sv.dcid,
                     'title': text_format.format_title(ui_node.text),
-                    'type': 'val', #value
+                    'type': 'val', 
                     'children': [],
                     'count': 1,
                     'search_count': search_count,
-                    'mprop': ui_node.mprop, #measuredProperty
+                    'mprop': ui_node.mprop, 
                     'placeTypes': sorted(place_mapping[sv.dcid]),
                 })
                 root['placeTypes'] = sorted(list(set(root['placeTypes'])|
