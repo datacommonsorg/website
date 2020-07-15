@@ -53,6 +53,7 @@ window.onload = function () {
   }
   const widthMenu = 600;
   let containerId = addChartContainer(widthMenu, height);
+  document.getElementById(containerId).classList.add("explore-menu-container");
   ReactDOM.render(
     React.createElement(page, { updateUrl: updateUrlStatsVar, search: false }),
     document.getElementById(containerId)

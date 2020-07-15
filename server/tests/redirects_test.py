@@ -31,12 +31,6 @@ class TestRedirects(unittest.TestCase):
         assert b"By using these API/Data" in response.data
 
 
-    def test_bulk_download(self):
-        response = app.test_client().get('/tools/bulk_download', follow_redirects=True)
-        assert response.status_code == 200
-        assert b"For every State" in response.data
-
-
     def test_scatter(self):
         response = app.test_client().get('/scatter', follow_redirects=True)
         assert response.status_code == 200

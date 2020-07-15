@@ -25,17 +25,12 @@ bp = Blueprint(
 
 @bp.route('/timeline')
 def timeline():
-    return render_template('tools/explore.html')
+    return render_template('tools/timeline.html')
 
 
 @bp.route('/download')
 def download():
     return render_template('tools/download.html')
-
-
-@bp.route('/bulk_download')
-def download_bulk():
-    return render_template('tools/download_bulk.html')
 
 
 @bp.route('/scatter')

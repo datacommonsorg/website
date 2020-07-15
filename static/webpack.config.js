@@ -20,15 +20,15 @@ const FixStyleOnlyEntriesPlugin = require("webpack-fix-style-only-entries");
 
 const config = {
   entry: {
-    dev: __dirname + "/js/dev.ts",
+    dev: [__dirname + "/js/dev.ts", __dirname + "/css/dev.scss"],
     download: __dirname + "/js/download.js",
-    gni: __dirname + "/js/gni.js",
     kg: [__dirname + "/js/kg.js", __dirname + "/css/kg.scss"],
     mcf_playground: __dirname + "/js/mcf_playground.js",
     place_overview: __dirname + "/js/place_overview.ts",
     scatter: [__dirname + "/js/scatter.js", __dirname + "/css/scatter.scss"],
     search: __dirname + "/css/search.scss",
     static: __dirname + "/css/static.scss",
+    timeline: [__dirname + "/js/timeline.js", __dirname + "/css/timeline.scss"],
     translator: [
       __dirname + "/js/translator.js",
       __dirname + "/css/translator.scss",

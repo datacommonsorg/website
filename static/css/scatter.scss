@@ -14,37 +14,20 @@
  * limitations under the License.
  */
 
-@import 'base_tools';
-
-$drill-menu-background: #525252;
-$drill-menu-line: #5b5e60;
+@import 'tools/base_tools';
+@import 'tools/statvar_menu';
 
 #plot-container {
-  position: absolute;
-  top: 0;
-  left: 0;
-  right: 0;
-  bottom: 0;
-}
-
-#scatter-container {
-  position: absolute;
-  left: 350px;
-  top: 0;
-  height: 100%;
-  right: 0;
-  padding: 20px;
   display: flex;
   flex-direction: column;
 }
 
 #instructions {
-  padding: 5rem 0;
-  text-align: left;
-  font-size: 1.5rem;
+  text-align: center;
+  font-size: 1.2rem;
   color: var(--dc-gray);
-  font-style: italic;
   font-weight: 200;
+  margin-top: 25%;
 }
 
 #chart-header {
@@ -58,7 +41,10 @@ $drill-menu-line: #5b5e60;
   -moz-appearance: none;
 }
 
-#chart-header .custom-select {
+#chart-header .custom-select,
+#chart-header input,
+#chart-header option {
+  font-size: 1rem;
   width: auto;
 }
 
@@ -68,67 +54,6 @@ $drill-menu-line: #5b5e60;
 
 #instruction {
   margin-bottom: 10px;
-}
-
-#screen {
-  display: none;
-}
-
-#screen {
-  position: absolute;
-  left: 0;
-  top: 0;
-  background: #000;
-  z-index: 5;
-}
-
-#screen.visible {
-  display: block;
-  opacity: 0.5;
-  width: 100%;
-  height: 100%;
-}
-
-#screen-chart {
-  position: absolute;
-  left: 0;
-  top: 0;
-  background: #000;
-  z-index: 11;
-}
-
-/* Spinner */
-#spinner:not([hidden]) {
-  position: fixed;
-  top: 0;
-  left: 0;
-  right: 0;
-  bottom: 0;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-}
-
-#spinner::after {
-  content: "";
-  z-index: 10;
-  width: 80px;
-  height: 80px;
-  border: 2px solid #f3f3f3;
-  border-top: 3px solid #419cf2;
-  border-radius: 100%;
-  will-change: transform;
-  animation: spin 1s infinite linear;
-}
-
-@keyframes spin {
-  from {
-    transform: rotate(0deg);
-  }
-
-  to {
-    transform: rotate(360deg);
-  }
 }
 
 .block_container {
@@ -154,87 +79,6 @@ $drill-menu-line: #5b5e60;
   margin-right: 5px;
 }
 
-/* Dropdown Button */
-
-.dropbtn {
-  background-color: #808080;
-  color: white;
-  padding: 6px;
-  font-size: 16px;
-  border: none;
-  cursor: pointer;
-}
-
-/* Dropdown button on hover & focus */
-.dropbtn:hover,
-.dropbtn:focus {
-  background-color: #808080;
-}
-
-.dropdown {
-  position: relative;
-  display: inline-block;
-}
-
-/* Dropdown Content (Hidden by Default) */
-.dropdown-content {
-  display: none;
-  position: absolute;
-  background-color: #f1f1f1;
-  min-width: 160px;
-  box-shadow: 0 8px 16px 0 rgba(0,0,0,0.2);
-  z-index: 1;
-}
-
-/* Links inside the dropdown */
-.dropdown-content a {
-  color: black;
-  padding: 12px 16px;
-  text-decoration: none;
-  display: block;
-}
-
-/* Change color of dropdown links on hover */
-.dropdown-content a:hover {
-  background-color: #ddd;
-}
-
-/* Show the dropdown menu */
-.show {
-  display: block;
-}
-
-/* Menu styling */
-
-.explore-menu-container {
-  direction: initial;
-  display: flex;
-  flex-direction: column;
-  position: absolute;
-  left: 0;
-  width: 350px;
-  height: 100%;
-  background: $drill-menu-background;
-  color: #fff;
-  letter-spacing: 0;
-}
-
-.explore-menu-container .title {
-  padding: 20px 31px 0;
-  margin-bottom: 3px;
-  font-size: 18px;
-  letter-spacing: 0;
-  line-height: 26px;
-}
-
-#drill-scroll-container {
-  overflow-y: auto;
-}
-
-#drill {
-  padding: 24px;
-}
-
 #chart-container {
   position: relative;
   grid-gap: 0;
@@ -249,95 +93,6 @@ $drill-menu-line: #5b5e60;
   border-radius: 8px;
   background: #fff;
   box-shadow: 0 1px 3px 0 rgba(0,0,0,0.12);
-}
-
-#drill li {
-  font-size: 1rem;
-  display: block;
-  margin: 0 -24px;
-  margin-left: 6px;
-  padding: 3px 24px;
-  padding-left: 16px;
-  text-indent: -16px;
-  border-top-right-radius: 6px;
-  border-bottom-right-radius: 6px;
-  border-left: 4px solid $drill-menu-line;
-  color: white;
-}
-
-#drill li::before {
-  height: 10px;
-  width: 10px;
-  content: "";
-  display: inline-block;
-  margin-left: -7px;
-  margin-right: 10px;
-  font-size: 16px;
-  border: 2px solid $drill-menu-background;
-  vertical-align: middle;
-  border-radius: 50%;
-  background-color: #4285f4;
-}
-
-#drill ul {
-  font-size: 0.95rem;
-  margin: 0 -24px;
-  margin-left: 6px;
-  padding: 3px 24px 3px 6px;
-  border-top-right-radius: 6px;
-  border-bottom-right-radius: 6px;
-  border-left: 4px solid $drill-menu-line;
-}
-
-#drill a {
-  cursor: pointer;
-  text-decoration: none;
-  color: white;
-}
-
-#drill .checkbox {
-  cursor: pointer;
-  width: 14px;
-  height: 14px;
-  margin-top: 4px;
-  float: right;
-  border: 0;
-  background: url('/images/icon-checkbox-light.svg');
-  outline: none;
-}
-
-#drill .checkbox.checked {
-  background: url('/images/icon-checkbox-checked-light.svg');
-}
-
-.right-caret {
-  transition: 250ms cubic-bezier(0.4, 0, 0.2, 1);
-}
-
-.right-caret.transform-up {
-  transform: rotate3d(0, 0, 1, -90deg);
-}
-
-.unordered-list span,
-.unordered-list button {
-  opacity: 1;
-  transition: 250ms cubic-bezier(0.4, 0, 0.2, 1);
-}
-
-.unordered-list.collapsed span,
-.unordered-list.collapsed button {
-  opacity: 0;
-  transform: translateX(-4px);
-}
-
-.top {
-  font-size: 18px;
-}
-
-sup {
-  font-size: 10px;
-  color: #999;
-  font-weight: bold;
 }
 
 #new-selection {

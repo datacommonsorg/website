@@ -14,11 +14,15 @@
  limitations under the License.
 #}
 
-{% extends 'tools/base.html' %}
+{% set is_hide_full_footer = true %}
+{% set subpage_title = "Timeline" %}
+{% set title = "Timeline tool" %}
+
+{% extends 'base.html' %}
 
 {% block head %}
-  <link rel="stylesheet" href={{url_for('static', filename='css/gni.css', t=config['GAE_VERSION'])}}>
-  <script type="text/javascript" src={{url_for('static', filename='download.js', t=config['GAE_VERSION'])}}></script>
+  <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
+  <link rel="stylesheet" href={{url_for('static', filename='css/timeline.min.css', t=config['GAE_VERSION'])}}>
 {% endblock %}
 
 {% block content %}
@@ -37,9 +41,8 @@
     <br>
     <div>
       <a href="javascript:void(0)" id="download-button">Download</a> the data in this chart as a CSV file.
-      <br>
-      <a href="javascript:void(0)" id='bulk-download-button'>Bulk Download</a> data for multiple years.
     </div>
   </div>
 </div>
+<script type="text/javascript" src={{url_for('static', filename='download.js', t=config['GAE_VERSION'])}}></script>
 {% endblock %}
