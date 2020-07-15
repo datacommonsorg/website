@@ -30,34 +30,55 @@ import {
 
 let ac: google.maps.places.Autocomplete;
 
-let Y_SCROLL_LIMIT = 132;
-const Y_SCROLL_WINDOW_BREAKPOINT = 992;
+let Y_SCROLL_LIMIT = 0;  // window scroll position to start fixing the sidebar
+let SIDEBAR_TOP_MAX = 0;  // Max top position for the sidebar, relative to #sidebar-outer.
+const Y_SCROLL_WINDOW_BREAKPOINT = 992;  // Only trigger fixed sidebar beyond this window width.
+const Y_SCROLL_MARGIN = 100;  // Margin to apply to the fixed sidebar top.
 
 window.onload = () => {
   const urlParams = new URLSearchParams(window.location.search);
   let dcid = urlParams.get("dcid");
   renderPage(dcid);
   initAutocomplete();
+  updatePageLayoutState();
   maybeToggleFixedSidebar();
   window.onresize = maybeToggleFixedSidebar;
 };
 
+/**
+ *  Make adjustments to sidebar scroll state based on the content.
+ */
+function updatePageLayoutState() {
+  Y_SCROLL_LIMIT = document.getElementById('main-pane').offsetTop;
+  document.getElementById('sidebar-top-spacer').style.height = Y_SCROLL_LIMIT + "px";
+  let sidebarOuterHeight = document.getElementById("sidebar-outer").offsetHeight;
+  let sidebarRegionHeight = document.getElementById("sidebar-region").offsetHeight;
+  SIDEBAR_TOP_MAX = sidebarOuterHeight - sidebarRegionHeight - Y_SCROLL_MARGIN;
+}
+
+/**
+ *  Toggle fixed sidebar based on window width.
+ */
 function maybeToggleFixedSidebar() {
   if (window.innerWidth < Y_SCROLL_WINDOW_BREAKPOINT) {
     document.removeEventListener("scroll", adjustMenuPosition);
     return;
   }
   document.addEventListener("scroll", adjustMenuPosition);
-
-  // Make adjustments based on the content.
-  Y_SCROLL_LIMIT = document.getElementById('main-pane').offsetTop;
-  document.getElementById('sidebar-top-spacer').style.height = Y_SCROLL_LIMIT + "px";
 }
 
+/**
+ * Update fixed sidebar based on the window scroll.
+ */
 function adjustMenuPosition() {
   let topicsEl = document.getElementById("sidebar-region");
   if (window.scrollY > Y_SCROLL_LIMIT) {
-    topicsEl.style.top = window.scrollY - Y_SCROLL_LIMIT - 100 + "px";
+    let calcTop = window.scrollY - Y_SCROLL_LIMIT - Y_SCROLL_MARGIN;
+    if (calcTop > SIDEBAR_TOP_MAX) {
+      topicsEl.style.top = SIDEBAR_TOP_MAX + "px";
+      return;
+    }
+    topicsEl.style.top = calcTop + "px";
   } else {
     topicsEl.style.top = "0";
   }
@@ -159,7 +180,7 @@ function renderPage(dcid: string) {
       document.getElementById("place-parents")
     );
     // Readjust sidebar based on parent places.
-    maybeToggleFixedSidebar();
+    updatePageLayoutState();
   });
 
   childPlacesPromise.then((childPlaces) => {
@@ -278,3 +299,5 @@ function getPlaceAndRender() {
       acElem.setAttribute("placeholder", "Search for another place");
     });
 }
+
+export { updatePageLayoutState };

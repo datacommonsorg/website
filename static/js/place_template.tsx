@@ -30,6 +30,7 @@ import {
 } from "./chart/draw";
 import chartConfig from "./chart_config.json";
 import { fetchStatsData } from "./data_fetcher";
+import { updatePageLayoutState } from "./place";
 
 const chartTypeEnum = {
   LINE: "LINE",
@@ -579,6 +580,7 @@ class Chart extends Component<ChartPropType, ChartStateType> {
     } catch (e) {
       console.log(e);
     }
+    updatePageLayoutState();
   }
 
   componentWillUnmount() {
