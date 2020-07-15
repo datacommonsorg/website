@@ -506,7 +506,11 @@ class Chart extends Component<ChartPropType, ChartStateType> {
               Data from <a href={config.url}>{config.source}</a>
             </div>
             <div>
-              <a target="_blank" className="explore-more" href={config["gni"]}>
+              <a
+                target="_blank"
+                className="explore-more"
+                href={config["exploreUrl"]}
+              >
                 Explore More ›
               </a>
             </div>

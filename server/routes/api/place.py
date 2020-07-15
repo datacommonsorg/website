@@ -35,6 +35,14 @@ bp = Blueprint(
 @bp.route('/statsvars/<path:dcid>')
 @cache.memoize(timeout=3600 * 24)  # Cache for one day.
 def statsvars_route(dcid):
+    """Get all the statistical variables that exist for a give place.
+
+    Args:
+      dcid: Place dcid.
+
+    Returns:
+      A list of statistical variable dcids.
+    """
     return json.dumps(statsvars(dcid))
 
 

@@ -17,7 +17,6 @@ import json
 from flask import Blueprint, request
 from cache import cache
 import services.datacommons as dc
-import logging
 
 # Define blueprint
 bp = Blueprint(
@@ -41,7 +40,6 @@ def get_stats_wrapper(dcid_str, stats_var):
         with value to be the observation time series.
     """
     dcids = dcid_str.split('^')
-    logging.info("%s, %s", dcids, stats_var)
     return json.dumps(dc.get_stats(dcids, stats_var))
 
 
@@ -61,7 +59,7 @@ def stats(stats_var):
     return get_stats_wrapper('^'.join(place_dcids), stats_var)
 
 
-def get_stats_info(dcids):
+def get_stats_url_fragment(dcids):
     """Get stats information give multiple stats var dcids.
 
     The result is used as partial link to GNI.

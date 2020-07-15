@@ -12,42 +12,63 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
+"""This module defines the routes for retrieving chart config and metadata.
+
+The client side will request chart configuration including chart type,
+statistical variables, etc. from endpoints in this module.
+"""
+
 import copy
 import json
+import urllib
 
-from flask import Blueprint, current_app
+from flask import Blueprint, current_app, url_for
 
 from cache import cache
-from routes.api.stats import get_stats_info
+from routes.api.stats import get_stats_url_fragment
 from routes.api.place import statsvars
 
 
 # Define blueprint
 bp = Blueprint(
-    "chart",
+    "api_chart",
     __name__,
     url_prefix='/api/chart'
 )
 
+
 def filter_charts(charts, all_stats_vars):
+    """Filter charts from template specs based on statsitical variable.
+
+    The input charts might have statistical variables that do not exist in the
+    valid statstical variable set for a given place. This function filters and
+    keep the ones that are valid.
+
+    Args:
+        charts: An array of chart specs.
+        all_stats_vars: All valid statistical variable that can be used.
+
+    Returns:
+        An array of chart specs that could be used.
+    """
     result = []
     for chart in charts:
         chart_copy = copy.copy(chart)
         chart_copy['statsVars'] = [
-            x for x in chart_copy['statsVars'] if x in all_stats_vars]
+            x for x in chart['statsVars'] if x in all_stats_vars]
         if chart_copy['statsVars']:
             result.append(chart_copy)
     return result
 
 
 def build_url(dcid, stats_vars, stats_var_info):
-    url = "/gni#&ptpv="
+    anchor = "&ptpv="
     parts = []
     for stats_var in stats_vars:
         parts.append(stats_var_info[stats_var])
-    url += '__'.join(parts)
-    url += '&place=' + dcid
-    return url
+    anchor += '__'.join(parts)
+    anchor += '&place=' + dcid
+    return urllib.parse.unquote(url_for('gni.explore', _anchor=anchor))
 
 
 @bp.route('/config/<path:dcid>')
@@ -62,16 +83,16 @@ def config(dcid):
     cc = []
     for src_section in current_app.config['CHART_CONFIG']:
         target_section = {
-          "label": src_section["label"],
-          "charts": filter_charts(src_section['charts'], all_stats_vars),
-          "children": []
+            "label": src_section["label"],
+            "charts": filter_charts(src_section['charts'], all_stats_vars),
+            "children": []
         }
         for child in src_section['children']:
             child_charts = filter_charts(child['charts'], all_stats_vars)
             if child_charts:
                 target_section['children'].append({
-                  'label': child["label"],
-                  'charts': child_charts
+                    'label': child["label"],
+                    'charts': child_charts
                 })
         if target_section['charts'] or target_section['children']:
             cc.append(target_section)
@@ -86,18 +107,18 @@ def config(dcid):
                 used_stats_vars.update(set(chart['statsVars']))
 
     # Get the stats var info, ie, the partial url used for GNI.
-    stats_var_info = get_stats_info(list(used_stats_vars))
+    stats_var_info = get_stats_url_fragment(list(used_stats_vars))
 
     # Population the GNI url to each chart.
     for i in range(len(cc)):
         # Populate gni url for charts
         for j in range(len(cc[i]['charts'])):
-            cc[i]['charts'][j]['gni'] = build_url(
+            cc[i]['charts'][j]['exploreUrl'] = build_url(
                 dcid, cc[i]['charts'][j]['statsVars'], stats_var_info)
         # Populate gni url for children
         for j in range(len(cc[i].get('children', []))):
             for k in range(len(cc[i]['children'][j]['charts'])):
-                cc[i]['children'][j]['charts'][k]['gni'] = build_url(
+                cc[i]['children'][j]['charts'][k]['exploreUrl'] = build_url(
                     dcid,
                     cc[i]['children'][j]['charts'][k]['statsVars'],
                     stats_var_info
