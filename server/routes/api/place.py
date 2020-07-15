@@ -32,6 +32,29 @@ bp = Blueprint(
 )
 
 
+@bp.route('/statsvars/<path:dcid>')
+@cache.memoize(timeout=3600 * 24)  # Cache for one day.
+def statsvars_route(dcid):
+    return json.dumps(statsvars(dcid))
+
+
+@cache.memoize(timeout=3600 * 24)  # Cache for one day.
+def statsvars(dcid):
+    """
+    Get all the statistical variable dcids for a place.
+    """
+    response = fetch_data(
+        '/place/stats-var',
+        {
+            'dcids': [dcid],
+        },
+        compress=False,
+        post=False,
+        has_payload=False
+    )
+    return response['places'][dcid]['statsVars']
+
+
 @bp.route('/child/<path:dcid>')
 @cache.memoize(timeout=3600 * 24)  # Cache for one day.
 def child(dcid):

@@ -12,6 +12,7 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
+import json
 import os
 
 from flask import Flask
@@ -40,11 +41,17 @@ def create_app():
 
     # apply the blueprints to the app
     from routes import factcheck, sitemap, gni
-    from routes.api import place, stats
+    from routes.api import place, stats, chart
     app.register_blueprint(factcheck.bp)
     app.register_blueprint(place.bp)
     app.register_blueprint(sitemap.bp)
     app.register_blueprint(gni.bp)
     app.register_blueprint(stats.bp)
+    app.register_blueprint(chart.bp)
+
+    # Load chart config
+    with open('chart_config.json') as f:
+        chart_config = json.load(f)
+    app.config['CHART_CONFIG'] = chart_config
 
     return app

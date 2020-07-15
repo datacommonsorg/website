@@ -18,8 +18,6 @@ import React from "react";
 import ReactDOM from "react-dom";
 import axios from "axios";
 
-import USChartConfig from "./chart_config.json";
-
 import {
   ChildPlace,
   MainPane,
@@ -101,22 +99,11 @@ function getNearbyPlaces(dcid: string) {
 }
 
 /**
- * Get properties of all the stats vars.
+ * Get the chart configuration.
  *
- * This is a temporary need before GNI supports stats var directly.
  */
-function getStatsVarInfo(chartConfig) {
-  let reqUrl = "/api/statsinfo?";
-  let statsVars = [];
-  for (let config of chartConfig) {
-    for (let chart of config["charts"]) {
-      statsVars = statsVars.concat(chart["statsVars"]);
-    }
-  }
-  for (let statsVar of statsVars) {
-    reqUrl += `&dcid=${statsVar}`;
-  }
-  return axios.get(reqUrl).then((resp) => {
+function getChartConfig(dcid) {
+  return axios.get("/api/chart/config/" + dcid).then((resp) => {
     return resp.data;
   });
 }
@@ -125,11 +112,6 @@ function renderPage(dcid: string) {
   const urlParams = new URLSearchParams(window.location.search);
   // Get topic and render menu.
   let topic = urlParams.get("topic");
-  ReactDOM.render(
-    React.createElement(Menu, {dcid: dcid, topic: topic}),
-    document.getElementById("topics")
-  );
-
   let placeType = document.getElementById("place-type").dataset.pt;
 
   // Get parent, child and similiar places and render main pane.
@@ -137,34 +119,45 @@ function renderPage(dcid: string) {
   let childPlacesPromise = getChildPlaces(dcid);
   let similarPlacesPromise = getSimilarPlaces(dcid);
   let nearbyPlacesPromise = getNearbyPlaces(dcid);
-  let statsVarInfoPromise = getStatsVarInfo(USChartConfig);
+  let chartConfigPromise = getChartConfig(dcid);
+
+  chartConfigPromise.then((chartConfig) => {
+    ReactDOM.render(
+      React.createElement(Menu, {
+        dcid: dcid,
+        topic: topic,
+        chartConfig: chartConfig,
+      }),
+      document.getElementById("topics")
+    );
+  });
 
   parentPlacesPromise.then((parentPlaces) => {
     ReactDOM.render(
-      React.createElement(ParentPlace, {parentPlaces: parentPlaces}),
+      React.createElement(ParentPlace, { parentPlaces: parentPlaces }),
       document.getElementById("place-parents")
     );
   });
 
   childPlacesPromise.then((childPlaces) => {
     ReactDOM.render(
-      React.createElement(ChildPlace, {childPlaces: childPlaces}),
+      React.createElement(ChildPlace, { childPlaces: childPlaces }),
       document.getElementById("child-place")
     );
   });
 
-  Promise.all([statsVarInfoPromise, parentPlacesPromise]).then(
+  Promise.all([chartConfigPromise, parentPlacesPromise]).then(
     (resolvedValues) => {
       ReactDOM.render(
-        React.createElement(MainPane,{
+        React.createElement(MainPane, {
           dcid: dcid,
           placeType: placeType,
           topic: topic,
-          statsVarInfo: resolvedValues[0],
+          chartConfig: resolvedValues[0],
           parentPlaces: resolvedValues[1],
           childPlacesPromise: childPlacesPromise,
           similarPlacesPromise: similarPlacesPromise,
-          nearbyPlacesPromise: nearbyPlacesPromise
+          nearbyPlacesPromise: nearbyPlacesPromise,
         }),
         document.getElementById("main-pane")
       );
@@ -178,7 +171,10 @@ function renderRanking(dcid) {
   let rankingTable = document.getElementById("ranking-table");
   if (rankingTable) {
     axios.get(`api/ranking/${dcid}`).then((resp) => {
-      ReactDOM.render(React.createElement(Ranking, {data: resp.data}), rankingTable);
+      ReactDOM.render(
+        React.createElement(Ranking, { data: resp.data }),
+        rankingTable
+      );
     });
   }
 }
@@ -188,7 +184,7 @@ function renderMap(dcid) {
   if (mapContainer) {
     axios.get(`api/mapinfo/${dcid}`).then((resp) => {
       const mapInfo = resp.data;
-      if (!mapInfo) return;
+      if (!mapInfo || Object.keys(mapInfo).length == 0) return;
       let mapOptions = {
         mapTypeControl: false,
         draggable: true,
@@ -209,15 +205,17 @@ function renderMap(dcid) {
       map.fitBounds(bounds);
 
       // Polygons of the place.
-      for (let coordinateSequence of mapInfo["coordinateSequenceSet"]) {
-        let polygon = new google.maps.Polygon({
-          paths: coordinateSequence,
-          strokeColor: "#FF0000",
-          strokeOpacity: 0.6,
-          strokeWeight: 1,
-          fillOpacity: 0.15,
-        });
-        polygon.setMap(map);
+      if (mapInfo["coordinateSequenceSet"]) {
+        for (let coordinateSequence of mapInfo["coordinateSequenceSet"]) {
+          let polygon = new google.maps.Polygon({
+            paths: coordinateSequence,
+            strokeColor: "#FF0000",
+            strokeOpacity: 0.6,
+            strokeWeight: 1,
+            fillOpacity: 0.15,
+          });
+          polygon.setMap(map);
+        }
       }
     });
   }
@@ -233,11 +231,10 @@ function initAutocomplete() {
     types: ["(regions)"],
     fields: ["place_id", "name", "types"],
   };
-  const acElem = document.getElementById("place-autocomplete") as HTMLInputElement;
-  ac = new google.maps.places.Autocomplete(
-    acElem,
-    options
-  );
+  const acElem = document.getElementById(
+    "place-autocomplete"
+  ) as HTMLInputElement;
+  ac = new google.maps.places.Autocomplete(acElem, options);
   ac.addListener("place_changed", getPlaceAndRender);
 }
 
@@ -257,7 +254,9 @@ function getPlaceAndRender() {
     .catch(function (error) {
       console.log(error);
       alert("Sorry, but we don't have any data about " + name);
-      const acElem = document.getElementById("place-autocomplete") as HTMLInputElement;
+      const acElem = document.getElementById(
+        "place-autocomplete"
+      ) as HTMLInputElement;
       acElem.value = "";
       acElem.setAttribute("placeholder", "Search for another place");
     });
