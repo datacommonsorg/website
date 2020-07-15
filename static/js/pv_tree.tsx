@@ -114,7 +114,7 @@ class Node extends Component<NodePropType, NodeStateType> {
 
 interface MenuPropType {
   search: boolean;
-  updateUrl: (statvar: string, should_add: boolean) => void;
+  updateUrl: (statvar: string, shouldAdd: boolean) => void;
 }
 
 class Menu extends Component<MenuPropType, {}> {
@@ -150,11 +150,11 @@ class Menu extends Component<MenuPropType, {}> {
   }
 }
 
-class page extends Component<MenuPropType, {}> {
+class Page extends Component<MenuPropType, {}> {
   render() {
     return (
       <Menu updateUrl={this.props.updateUrl} search={this.props.search}></Menu>
     );
   }
 }
-export { page };
+export { Page };

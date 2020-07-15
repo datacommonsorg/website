@@ -32,14 +32,14 @@ const Y_SCROLL_LIMIT = 150;
 
 window.onload = () => {
   const urlParams = new URLSearchParams(window.location.search);
-  let dcid = urlParams.get("dcid");
+  const dcid = urlParams.get("dcid");
   renderPage(dcid);
   initAutocomplete();
   document.addEventListener("scroll", adjustMenuPosition);
 };
 
 function adjustMenuPosition() {
-  let topicsEl = document.getElementById("sidebar-region");
+  const topicsEl = document.getElementById("sidebar-region");
   if (window.scrollY > Y_SCROLL_LIMIT) {
     topicsEl.style.top = window.scrollY - Y_SCROLL_LIMIT - 100 + "px";
   } else {
@@ -67,8 +67,8 @@ function getSimilarPlaces(dcid: string) {
   return axios
     .get(`/api/similar-place/${dcid}?stats-var=Count_Person`)
     .then((resp) => {
-      let places = resp.data;
-      let result = [dcid];
+      const places = resp.data;
+      const result = [dcid];
       if (places.relatedPlaces) {
         result.push(...places.relatedPlaces.slice(0, 4));
       }
@@ -111,22 +111,22 @@ function getChartConfig(dcid) {
 function renderPage(dcid: string) {
   const urlParams = new URLSearchParams(window.location.search);
   // Get topic and render menu.
-  let topic = urlParams.get("topic");
-  let placeType = document.getElementById("place-type").dataset.pt;
+  const topic = urlParams.get("topic");
+  const placeType = document.getElementById("place-type").dataset.pt;
 
   // Get parent, child and similiar places and render main pane.
-  let parentPlacesPromise = getParentPlaces(dcid);
-  let childPlacesPromise = getChildPlaces(dcid);
-  let similarPlacesPromise = getSimilarPlaces(dcid);
-  let nearbyPlacesPromise = getNearbyPlaces(dcid);
-  let chartConfigPromise = getChartConfig(dcid);
+  const parentPlacesPromise = getParentPlaces(dcid);
+  const childPlacesPromise = getChildPlaces(dcid);
+  const similarPlacesPromise = getSimilarPlaces(dcid);
+  const nearbyPlacesPromise = getNearbyPlaces(dcid);
+  const chartConfigPromise = getChartConfig(dcid);
 
   chartConfigPromise.then((chartConfig) => {
     ReactDOM.render(
       React.createElement(Menu, {
-        dcid: dcid,
-        topic: topic,
-        chartConfig: chartConfig,
+        dcid,
+        topic,
+        chartConfig,
       }),
       document.getElementById("topics")
     );
@@ -134,14 +134,14 @@ function renderPage(dcid: string) {
 
   parentPlacesPromise.then((parentPlaces) => {
     ReactDOM.render(
-      React.createElement(ParentPlace, { parentPlaces: parentPlaces }),
+      React.createElement(ParentPlace, { parentPlaces }),
       document.getElementById("place-parents")
     );
   });
 
   childPlacesPromise.then((childPlaces) => {
     ReactDOM.render(
-      React.createElement(ChildPlace, { childPlaces: childPlaces }),
+      React.createElement(ChildPlace, { childPlaces }),
       document.getElementById("child-place")
     );
   });
@@ -150,14 +150,14 @@ function renderPage(dcid: string) {
     (resolvedValues) => {
       ReactDOM.render(
         React.createElement(MainPane, {
-          dcid: dcid,
-          placeType: placeType,
-          topic: topic,
+          dcid,
+          placeType,
+          topic,
           chartConfig: resolvedValues[0],
           parentPlaces: resolvedValues[1],
-          childPlacesPromise: childPlacesPromise,
-          similarPlacesPromise: similarPlacesPromise,
-          nearbyPlacesPromise: nearbyPlacesPromise,
+          childPlacesPromise,
+          similarPlacesPromise,
+          nearbyPlacesPromise,
         }),
         document.getElementById("main-pane")
       );
@@ -168,7 +168,7 @@ function renderPage(dcid: string) {
 }
 
 function renderRanking(dcid) {
-  let rankingTable = document.getElementById("ranking-table");
+  const rankingTable = document.getElementById("ranking-table");
   if (rankingTable) {
     axios.get(`api/ranking/${dcid}`).then((resp) => {
       ReactDOM.render(
@@ -180,12 +180,12 @@ function renderRanking(dcid) {
 }
 
 function renderMap(dcid) {
-  let mapContainer = document.getElementById("map-container");
+  const mapContainer = document.getElementById("map-container");
   if (mapContainer) {
     axios.get(`api/mapinfo/${dcid}`).then((resp) => {
       const mapInfo = resp.data;
-      if (!mapInfo || Object.keys(mapInfo).length == 0) return;
-      let mapOptions = {
+      if (!mapInfo || Object.keys(mapInfo).length === 0) return;
+      const mapOptions = {
         mapTypeControl: false,
         draggable: true,
         scaleControl: true,
@@ -194,20 +194,20 @@ function renderMap(dcid) {
         streetViewControl: false,
         mapTypeId: google.maps.MapTypeId.ROADMAP,
       };
-      let map = new google.maps.Map(mapContainer, mapOptions);
+      const map = new google.maps.Map(mapContainer, mapOptions);
 
       // Map bounds.
-      let sw = new google.maps.LatLng(mapInfo["down"], mapInfo["left"]);
-      let ne = new google.maps.LatLng(mapInfo["up"], mapInfo["right"]);
-      let bounds = new google.maps.LatLngBounds();
+      const sw = new google.maps.LatLng(mapInfo.down, mapInfo.left);
+      const ne = new google.maps.LatLng(mapInfo.up, mapInfo.right);
+      const bounds = new google.maps.LatLngBounds();
       bounds.extend(sw);
       bounds.extend(ne);
       map.fitBounds(bounds);
 
       // Polygons of the place.
-      if (mapInfo["coordinateSequenceSet"]) {
-        for (let coordinateSequence of mapInfo["coordinateSequenceSet"]) {
-          let polygon = new google.maps.Polygon({
+      if (mapInfo.coordinateSequenceSet) {
+        for (const coordinateSequence of mapInfo.coordinateSequenceSet) {
+          const polygon = new google.maps.Polygon({
             paths: coordinateSequence,
             strokeColor: "#FF0000",
             strokeOpacity: 0.6,
@@ -251,8 +251,7 @@ function getPlaceAndRender() {
       urlParams.set("dcid", resp.data);
       window.location.search = urlParams.toString();
     })
-    .catch(function (error) {
-      console.log(error);
+    .catch((error) => {
       alert("Sorry, but we don't have any data about " + name);
       const acElem = document.getElementById(
         "place-autocomplete"

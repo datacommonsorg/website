@@ -1,5 +1,10 @@
 {
   "compilerOptions": {
+    "plugins": [
+      {
+        "name": "typescript-tslint-plugin",
+      }
+    ],
     "outDir": "./dist/",
     "sourceMap": true,
     "noImplicitAny": false,

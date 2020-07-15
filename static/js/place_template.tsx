@@ -14,8 +14,6 @@
  * limitations under the License.
  */
 
-require("@babel/polyfill");
-
 import React, { Component } from "react";
 import pluralize from "pluralize";
 import _ from "lodash";
@@ -62,6 +60,7 @@ interface ConfigType {
   scaling: number;
   perCapita: boolean;
   unit: string;
+  exploreUrl: string;
 }
 
 interface ChartCategory {
@@ -79,16 +78,16 @@ class ParentPlace extends Component<ParentPlacePropsType, {}> {
     super(props);
   }
   render() {
-    let num = this.props.parentPlaces.length;
+    const num = this.props.parentPlaces.length;
     return this.props.parentPlaces.map((item, index) => {
       return (
-        <React.Fragment key={item["dcid"]}>
+        <React.Fragment key={item.dcid}>
           <a
             className="place-links"
             href="#"
-            onClick={this._handleClick.bind(this, item["dcid"])}
+            onClick={this._handleClick.bind(this, item.dcid)}
           >
-            {item["name"]}
+            {item.name}
           </a>
           {index < num - 1 && <span>, </span>}
         </React.Fragment>
@@ -99,16 +98,20 @@ class ParentPlace extends Component<ParentPlacePropsType, {}> {
   _handleClick(dcid, e) {
     e.preventDefault();
     const queryString = window.location.search;
-    let urlParams = new URLSearchParams(queryString);
+    const urlParams = new URLSearchParams(queryString);
     urlParams.set("dcid", dcid);
     window.location.search = urlParams.toString();
   }
 }
 
 interface RankingPropsType {
-  data: { Population: {}[] };
+  data: {
+    label: string[]
+    Population: { name: {}; label: string }[]
+  };
 }
 
+// tslint:disable-next-line: max-classes-per-file
 class Ranking extends Component<RankingPropsType, {}> {
   constructor(props) {
     super(props);
@@ -119,28 +122,28 @@ class Ranking extends Component<RankingPropsType, {}> {
         <thead>
           <tr>
             <th scope="col">Rankings (in) </th>
-            {this.props.data["Population"].map((item, index) => {
+            {this.props.data.Population.map((item, index) => {
               return (
                 <th scope="col" key={index}>
-                  {item["name"]}
+                  {item.name}
                 </th>
               );
             })}
           </tr>
         </thead>
         <tbody>
-          {this.props.data["label"].map((item, index) => {
+          {this.props.data.label.map((item, index) => {
             return (
               <tr key={index}>
                 <th scope="row">{item}</th>
-                {this.props.data[item].map((rankingInfo, index) => {
-                  let top = rankingInfo["data"]["rankFromTop"];
-                  let bottom = rankingInfo["data"]["rankFromBottom"];
+                {this.props.data[item].map((rankingInfo) => {
+                  const top = rankingInfo.data.rankFromTop;
+                  const bottom = rankingInfo.data.rankFromBottom;
                   let text = "";
                   if (!isNaN(top) && !isNaN(bottom)) {
                     text = `${top} of ${top + bottom}`;
                   }
-                  return <td key={index}>{text}</td>;
+                  return <td key={text}>{text}</td>;
                 })}
               </tr>
             );
@@ -157,10 +160,11 @@ interface MenuPropsType {
   chartConfig: ChartCategory[];
 }
 
+// tslint:disable-next-line: max-classes-per-file
 class Menu extends Component<MenuPropsType, {}> {
   render() {
-    let dcid = this.props.dcid;
-    let topic = this.props.topic;
+    const dcid = this.props.dcid;
+    const topic = this.props.topic;
     return (
       <ul id="nav-topics" className="nav flex-column accordion">
         <li className="nav-item">
@@ -176,14 +180,14 @@ class Menu extends Component<MenuPropsType, {}> {
             <li className="nav-item" key={item.label}>
               <a
                 href={`/place?dcid=${dcid}&topic=${item.label}`}
-                className={`nav-link ${topic == item.label ? "active" : ""}`}
+                className={`nav-link ${topic === item.label ? "active" : ""}`}
               >
                 {item.label}
               </a>
               <ul
                 className={
                   "nav flex-column ml-3 " +
-                  (item.label != topic ? "collapse" : "")
+                  (item.label !== topic ? "collapse" : "")
                 }
                 data-parent="#nav-topics"
               >
@@ -226,7 +230,7 @@ interface MainPanePropType {
   /**
    * A promise resolves to child places dcids.
    */
-  childPlacesPromise: Promise<{ [key: string]: Object[] }>;
+  childPlacesPromise: Promise<{ [key: string]: { dcid: string }[] }>;
   /**
    * A promise resolves to similar places dcids.
    */
@@ -248,12 +252,12 @@ class MainPane extends Component<MainPanePropType, {}> {
 
   render() {
     let configData = [];
-    let isOverview = !this.props.topic;
+    const isOverview = !this.props.topic;
     if (!this.props.topic) {
       configData = this.props.chartConfig;
     } else {
-      for (let group of this.props.chartConfig) {
-        if (group.label == this.props.topic) {
+      for (const group of this.props.chartConfig) {
+        if (group.label === this.props.topic) {
           configData = group.children;
           break;
         }
@@ -261,7 +265,7 @@ class MainPane extends Component<MainPanePropType, {}> {
     }
     return (
       <React.Fragment>
-        {this.props.dcid != "country/USA" && (
+        {this.props.dcid !== "country/USA" && (
           <Overview topic={this.props.topic} dcid={this.props.dcid} />
         )}
         {configData.map((item, index) => {
@@ -288,11 +292,11 @@ class MainPane extends Component<MainPanePropType, {}> {
             <section className="subtopic col-12" key={index}>
               {subtopicHeader}
               <div className="row row-cols-lg-2 row-cols-md-2 row-cols-1">
-                {item.charts.map((config: ConfigType, index: number) => {
-                  let id = randDomId();
+                {item.charts.map((config: ConfigType) => {
+                  const id = randDomId();
                   return (
                     <Chart
-                      key={index}
+                      key={id}
                       id={id}
                       config={config}
                       dcid={this.props.dcid}
@@ -369,7 +373,7 @@ interface ChildPlacePropType {
 
 class ChildPlace extends Component<ChildPlacePropType, {}> {
   render() {
-    if (Object.keys(this.props.childPlaces).length == 0) {
+    if (Object.keys(this.props.childPlaces).length === 0) {
       return "";
     }
     return (
@@ -379,11 +383,11 @@ class ChildPlace extends Component<ChildPlacePropType, {}> {
             <div className="child-place-type">{pluralize(placeType)}</div>
             {this.props.childPlaces[placeType].map((place, i) => (
               <a
-                key={place["dcid"]}
+                key={place.dcid}
                 className="child-place-link"
-                href={"/place?dcid=" + place["dcid"]}
+                href={"/place?dcid=" + place.dcid}
               >
-                {place["name"]}
+                {place.name}
                 {i < this.props.childPlaces[placeType].length - 1 && (
                   <span>,</span>
                 )}
@@ -419,7 +423,7 @@ interface ChartPropType {
   /**
    * The child places promise.
    */
-  childPlacesPromise: Promise<{ [key: string]: Object[] }>;
+  childPlacesPromise: Promise<{ [key: string]: { dcid: string }[] }>;
   /**
    * The similar places promise.
    */
@@ -476,7 +480,7 @@ class Chart extends Component<ChartPropType, ChartStateType> {
             {config.title}
             <span className="sub-title">{this.titleSuffix}</span>
           </h4>
-          {config.axis == axisEnum.PLACE && (
+          {config.axis === axisEnum.PLACE && (
             <label>
               Choose places:{" "}
               <select
@@ -509,7 +513,7 @@ class Chart extends Component<ChartPropType, ChartStateType> {
               <a
                 target="_blank"
                 className="explore-more"
-                href={config["exploreUrl"]}
+                href={config.exploreUrl}
               >
                 Explore More ›
               </a>
@@ -525,8 +529,8 @@ class Chart extends Component<ChartPropType, ChartStateType> {
     const dp = this.state.dataPoints;
     const dg = this.state.dataGroups;
     if (
-      (dp && dp.length == 0) ||
-      (dg && (dg.length == 0 || (dg.length == 1 && dg[0].value.length == 0)))
+      (dp && dp.length === 0) ||
+      (dg && (dg.length === 0 || (dg.length === 1 && dg[0].value.length === 0)))
     ) {
       alert("No data for selection");
       return;
@@ -535,7 +539,7 @@ class Chart extends Component<ChartPropType, ChartStateType> {
     try {
       this.drawChart();
     } catch (e) {
-      console.log(e);
+      return;
     }
   }
 
@@ -551,26 +555,26 @@ class Chart extends Component<ChartPropType, ChartStateType> {
       this.props.childPlacesPromise,
       this.props.nearbyPlacesPromise,
     ]).then((values) => {
-      if (this.similarRef.current && Object.keys(values[0]).length == 0) {
+      if (this.similarRef.current && Object.keys(values[0]).length === 0) {
         this.similarRef.current.style.display = "none";
       }
-      if (this.childrenRef.current && Object.keys(values[1]).length == 0) {
+      if (this.childrenRef.current && Object.keys(values[1]).length === 0) {
         this.childrenRef.current.style.display = "none";
       }
-      if (this.nearbyRef.current && Object.keys(values[2]).length == 0) {
+      if (this.nearbyRef.current && Object.keys(values[2]).length === 0) {
         this.nearbyRef.current.style.display = "none";
       }
     });
   }
 
   _handleWindowResize() {
-    let svgElement = document.getElementById(this.props.id);
+    const svgElement = document.getElementById(this.props.id);
     if (!svgElement) {
       return;
     }
     // Chart resizes at bootstrap breakpoints
-    let width = svgElement.offsetWidth;
-    if (width != this.state.elemWidth) {
+    const width = svgElement.offsetWidth;
+    if (width !== this.state.elemWidth) {
       this.setState({
         elemWidth: width,
       });
@@ -584,9 +588,9 @@ class Chart extends Component<ChartPropType, ChartStateType> {
 
   drawChart() {
     const chartType = this.props.config.chartType;
-    let elem = document.getElementById(this.props.id);
+    const elem = document.getElementById(this.props.id);
     elem.innerHTML = "";
-    if (chartType == chartTypeEnum.LINE) {
+    if (chartType === chartTypeEnum.LINE) {
       drawLineChart(
         this.props.id,
         elem.offsetWidth,
@@ -594,7 +598,7 @@ class Chart extends Component<ChartPropType, ChartStateType> {
         this.state.dataGroups,
         this.props.config.unit
       );
-    } else if (chartType == chartTypeEnum.SINGLE_BAR) {
+    } else if (chartType === chartTypeEnum.SINGLE_BAR) {
       drawSingleBarChart(
         this.props.id,
         elem.offsetWidth,
@@ -602,7 +606,7 @@ class Chart extends Component<ChartPropType, ChartStateType> {
         this.state.dataPoints,
         this.props.config.unit
       );
-    } else if (chartType == chartTypeEnum.STACK_BAR) {
+    } else if (chartType === chartTypeEnum.STACK_BAR) {
       drawStackBarChart(
         this.props.id,
         elem.offsetWidth,
@@ -610,7 +614,7 @@ class Chart extends Component<ChartPropType, ChartStateType> {
         this.state.dataGroups,
         this.props.config.unit
       );
-    } else if (chartType == chartTypeEnum.GROUP_BAR) {
+    } else if (chartType === chartTypeEnum.GROUP_BAR) {
       drawGroupBarChart(
         this.props.id,
         elem.offsetWidth,
@@ -622,7 +626,7 @@ class Chart extends Component<ChartPropType, ChartStateType> {
   }
 
   async fetchData() {
-    let dcid = this.dcid;
+    const dcid = this.dcid;
     const config = this.props.config;
     const chartType = config.chartType;
     const perCapita = !!config.perCapita;
@@ -651,25 +655,27 @@ class Chart extends Component<ChartPropType, ChartStateType> {
         switch (config.axis) {
           case axisEnum.PLACE:
             let placesPromise;
-            if (this.placeRelation == placeRelationEnum.CONTAINED) {
+            if (this.placeRelation === placeRelationEnum.CONTAINED) {
               placesPromise = Promise.resolve([
                 dcid,
-                ...this.props.parentPlaces.map((parent) => parent["dcid"]),
+                ...this.props.parentPlaces.map((parent) => parent.dcid),
               ]);
-            } else if (this.placeRelation == placeRelationEnum.CONTAINING) {
+            } else if (this.placeRelation === placeRelationEnum.CONTAINING) {
               placesPromise = this.props.childPlacesPromise.then(
                 (childPlaces) => {
                   // TODO(boxu): figure out a better way to pick child places.
-                  for (let placeType in childPlaces) {
-                    return childPlaces[placeType]
-                      .slice(0, 5)
-                      .map((place) => place["dcid"]);
+                  for (const placeType in childPlaces) {
+                    if (childPlaces.hasOwnProperty(placeType)) {
+                      return childPlaces[placeType]
+                        .slice(0, 5)
+                        .map((place) => place.dcid);
+                    }
                   }
                 }
               );
-            } else if (this.placeRelation == placeRelationEnum.SIMILAR) {
+            } else if (this.placeRelation === placeRelationEnum.SIMILAR) {
               placesPromise = this.props.similarPlacesPromise;
-            } else if (this.placeRelation == placeRelationEnum.NEARBY) {
+            } else if (this.placeRelation === placeRelationEnum.NEARBY) {
               placesPromise = this.props.nearbyPlacesPromise.then((data) => {
                 return Object.keys(data);
               });
