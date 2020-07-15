@@ -30,8 +30,8 @@ import {
 
 let ac: google.maps.places.Autocomplete;
 
-let Y_SCROLL_LIMIT = 0;  // window scroll position to start fixing the sidebar
-let SIDEBAR_TOP_MAX = 0;  // Max top position for the sidebar, relative to #sidebar-outer.
+let yScrollLimit = 0;  // window scroll position to start fixing the sidebar
+let sidebarTopMax = 0;  // Max top position for the sidebar, relative to #sidebar-outer.
 const Y_SCROLL_WINDOW_BREAKPOINT = 992;  // Only trigger fixed sidebar beyond this window width.
 const Y_SCROLL_MARGIN = 100;  // Margin to apply to the fixed sidebar top.
 
@@ -49,11 +49,11 @@ window.onload = () => {
  *  Make adjustments to sidebar scroll state based on the content.
  */
 function updatePageLayoutState() {
-  Y_SCROLL_LIMIT = document.getElementById('main-pane').offsetTop;
-  document.getElementById('sidebar-top-spacer').style.height = Y_SCROLL_LIMIT + "px";
+  yScrollLimit = document.getElementById('main-pane').offsetTop;
+  document.getElementById('sidebar-top-spacer').style.height = yScrollLimit + "px";
   let sidebarOuterHeight = document.getElementById("sidebar-outer").offsetHeight;
   let sidebarRegionHeight = document.getElementById("sidebar-region").offsetHeight;
-  SIDEBAR_TOP_MAX = sidebarOuterHeight - sidebarRegionHeight - Y_SCROLL_MARGIN;
+  sidebarTopMax = sidebarOuterHeight - sidebarRegionHeight - Y_SCROLL_MARGIN;
 }
 
 /**
@@ -72,10 +72,10 @@ function maybeToggleFixedSidebar() {
  */
 function adjustMenuPosition() {
   let topicsEl = document.getElementById("sidebar-region");
-  if (window.scrollY > Y_SCROLL_LIMIT) {
-    let calcTop = window.scrollY - Y_SCROLL_LIMIT - Y_SCROLL_MARGIN;
-    if (calcTop > SIDEBAR_TOP_MAX) {
-      topicsEl.style.top = SIDEBAR_TOP_MAX + "px";
+  if (window.scrollY > yScrollLimit) {
+    let calcTop = window.scrollY - yScrollLimit - Y_SCROLL_MARGIN;
+    if (calcTop > sidebarTopMax) {
+      topicsEl.style.top = sidebarTopMax + "px";
       return;
     }
     topicsEl.style.top = calcTop + "px";
