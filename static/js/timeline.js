@@ -173,7 +173,7 @@ function renderFromUrl(urlargs) {
     if ("pc" in urlargs && urlargs["pc"] == "1") {
       link += "&pc=1";
     }
-    $("#download-link").attr("href", link).show();
+    $("#download-link").attr("href", link).css("visibility", "visible");
   }
   let newPlaceTypes = new Set();
   if ("place" in urlargs) {

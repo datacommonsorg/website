@@ -14,31 +14,30 @@
  limitations under the License.
 #}
 
-{% extends 'tools/base.html' %}
+{% set is_hide_full_footer = true %}
+{% set subpage_title = "Timeline" %}
+{% set title = "Timeline tool" %}
+
+{% extends 'base.html' %}
 
 {% block head %}
-  <link rel="stylesheet" href={{url_for('static', filename='css/gni.css', t=config['GAE_VERSION'])}}></script>
-  <script src={{url_for('static', filename='gni.js', t=config['GAE_VERSION'])}}></script>
-  <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDAMcc9QlTtAd4liELMgJSj0gwDojTS2eQ&libraries=places" async
-  defer></script>
+  <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
+  <link rel="stylesheet" href={{url_for('static', filename='css/timeline.min.css', t=config['GAE_VERSION'])}}></script>
 {% endblock %}
 
 {% block content %}
 <div id="main-pane">
   <div class="explore-menu-container" id="explore">
-    <div class="explore-menu-header">
-      <div class="title">Select Variables </div>
-      <div id="percapita-link" class="text">
-        <a>Per capita
-          <button class="checkbox" name="pc" id="percapita"></button>
-        </a>
-      </div>
-    </div>
     <div id="drill-scroll-container">
+      <div class="title">Select variables:</div>
+      <div id="percapita-link" class="text">
+        <label for="percapita">Per capita</label>
+        <input type="checkbox" id="percapita" name="pc">
+      </div>
       <div id="drill"></div>
     </div>
   </div>
-  <div id="view">
+  <div id="plot-container">
     <div class="container">
       <div id="search">
         <div id="location-field">
@@ -115,8 +114,16 @@
     </div>
   </div>
 </div>
+<div id='screen'>
+  <div id="spinner"></div>
+</div>
 {% endblock %}
 
-{% block getcode %}
-<p><a id='download-link'>Get the Code and Data</a></p>
+{% block footer %}
+  <script src={{url_for('static', filename='timeline.js', t=config['GAE_VERSION'])}}></script>
+  <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDAMcc9QlTtAd4liELMgJSj0gwDojTS2eQ&libraries=places" async defer></script>
+{% endblock %}
+
+{% block subfooter_extra %}
+  <a id="download-link" class="btn-subfooter btn btn-dark" style="visibility: hidden">Get the code and data</a>
 {% endblock %}
