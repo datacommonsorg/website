@@ -237,13 +237,26 @@ function drawTimeSeries(seriesArray, valueKey, selector) {
   // seen so far.
   // As more data is added to Data Commons, this logic may need
   // further fine-tuning.
+  // Example in/out:
+  // Only unit: USDollar
+  // Only StatVar mDenom: As Fraction of Amount_Consumption_Energy
+  // Only Property mDenom: Per Area
+  // Only scalingFactor: usecase does not exist (Jul 2020)
+  //
+  // unit + StatVar mDenom: USDollar As Fraction Of GDP
+  // unit + Property mDenom: USDollar Per Area
+  // StatVar mDenom + scalingFactor=100:  % of Count_Person
+  //
+  // These combos do not exist yet, but here is what code would yield:
+  // StatVar mDenom + scalingFactor!=100: As Fraction of 191 Count_Person
+  // unit + StatVar mDenom + scalingFactor: USDollar As Fraction Of 49 GDP
+  // unit + Property mDenom + scalingFactor: USDollar Per 49 Area
   let yLabelText = "";
   if (sample["unit"]) {
     yLabelText = sample["unit"];
   }
   if (sample["measurementDenominator"]) {
     let mDenom = sample["measurementDenominator"];
-    console.log(sample["scalingFactor"]);
     if (!yLabelText && sample["scalingFactor"] == 100) {
       // Special case: unitless and scaled by 100: percent.
       yLabelText = "% of " + mDenom;
@@ -254,7 +267,7 @@ function drawTimeSeries(seriesArray, valueKey, selector) {
       }
       if (mDenom[0] === mDenom[0].toUpperCase()) {
         // Case: denominator is a StatVar.
-        yLabelText += "As a Fraction of ";
+        yLabelText += "As Fraction Of ";
       } else {
         // Case: denominator is a property.
         yLabelText += "Per ";
@@ -262,7 +275,7 @@ function drawTimeSeries(seriesArray, valueKey, selector) {
       if (sample["scalingFactor"]) {
         yLabelText += sample["scalingFactor"] + " ";
       }
-      yLabelText += mDenom;
+      yLabelText += mDenom[0].toUpperCase() + mDenom.slice(1);
     }
   }
   // 2020-07: no case of scalingFactor existing without mDenom.
