@@ -34,6 +34,15 @@ class Node extends Component<NodePropType, NodeStateType> {
     };
   }
 
+  componentDidUpdate(prevProps) {
+    if (this.props.svPaths !== prevProps.svPaths) {
+      this._handleHashChange();
+    }
+  }
+  componentDidMount() {
+    this._handleHashChange();
+  }
+
   public render = (): JSX.Element => {
     let checkboxImg: JSX.Element;
     let expandImg: JSX.Element;
@@ -109,22 +118,13 @@ class Node extends Component<NodePropType, NodeStateType> {
       this.props.argString + this.state.nodePath,
       !this.state.checked
     );
-  }
+  };
 
   private _handleExpandClick = (): void => {
     this.setState({
       expanded: !this.state.expanded,
     });
   };
-
-  componentDidUpdate(prevProps) {
-    if (this.props.svPaths !== prevProps.svPaths) {
-      this._handleHashChange();
-    }
-  }
-  componentDidMount() {
-    this._handleHashChange();
-  }
 
   private _handleHashChange() {
     let svPathNext = [];

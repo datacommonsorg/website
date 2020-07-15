@@ -18,10 +18,6 @@
  * @fileoverview dev page.
  */
 
-import React from "react";
-import ReactDOM from "react-dom";
-import { page } from "./pv_tree";
-import { updateUrlStatsVar } from "./util.js";
 import { DataPoint, DataGroup } from "./chart/base";
 
 import {
@@ -50,12 +46,6 @@ window.onload = function () {
     chartElem.style.width = width + "px";
     return containerId;
   }
-  const widthMenu = 600;
-  let containerId = addChartContainer(widthMenu, height);
-  ReactDOM.render(
-    React.createElement(page, { updateUrl: updateUrlStatsVar, search: false }),
-    document.getElementById(containerId)
-  );
 
   // Draw single bar chart.
   let dataPoints = [
@@ -64,7 +54,7 @@ window.onload = function () {
     new DataPoint("California", 3002342),
     new DataPoint("United States", 9520234),
   ];
-  containerId = addChartContainer(width, height);
+  let containerId = addChartContainer(width, height);
   drawSingleBarChart(containerId, width, height, dataPoints);
 
   let dataGroups = [

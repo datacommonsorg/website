@@ -27,6 +27,7 @@ const config = {
     dev: __dirname + "/js/dev.ts",
     place_overview: __dirname + "/js/place_overview.ts",
     mcf_playground: __dirname + "/js/mcf_playground.js",
+    menu_dev: __dirname + "/js/menu_dev.ts",
   },
   output: {
     path: path.resolve(__dirname, "../") + "/server/dist",
