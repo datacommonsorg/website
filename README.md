@@ -20,7 +20,7 @@ To see the extent of data we have today, browse the graph using our
 
 ### GitHub Workflow
 
-In https://github.com/datacommonsorg/website, click on "Fork" button to fork the repo.
+In [https://github.com/datacommonsorg/website](https://github.com/datacommonsorg/website), click on "Fork" button to fork the repo.
 
 Clone your forked repo to your desktop.
 
@@ -82,7 +82,6 @@ export GOOGLE_APPLICATION_CREDENTIALS=<JSON_CREDENTIAL_PATH>
 ```
 
 This will watch static files change and re-build on code edit.
-
 
 #### Start the Flask Server
 
