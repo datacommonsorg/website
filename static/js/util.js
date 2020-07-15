@@ -13,6 +13,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
+import { getUrlVars, setSearchParam } from "./dc";
 
 const pako = require("pako");
 
@@ -184,7 +185,7 @@ function setElementShown(el, isShown) {
  * Append show more hint to all card elements.
  */
 function appendMoreToAll() {
-  const cardEls = document.getElementsByClassName("card");
+  const cardEls = document.getElementsByClassName("shadow-card");
   for (let i = 0; i < cardEls.length; i++) {
     appendMoreIfNecessary(cardEls[i], MAX_CARD_HEIGHT);
   }
@@ -493,6 +494,36 @@ function randDomId() {
     .substr(2, 10);
 }
 
+/**
+ * add or delete statvars from url
+ *
+ * @param {string} dcid of statvar
+ * @param {boolean} add = True, delete = False
+ * @return {string} The line chart URL.
+ */
+function updateUrlStatsVar(statvar, should_add) {
+  let vars = getUrlVars();
+  let svList = [];
+  if ("statsvar" in vars) {
+    svList = vars["statsvar"].split("__");
+  }
+  if (should_add) {
+    if (!svList.includes(statvar)) {
+      svList.push(statvar);
+    }
+  } else {
+    if (svList.includes(statvar)) {
+      svList.splice(svList.indexOf(statvar), 1);
+    }
+  }
+  if (svList.length === 0) {
+    delete vars["statsvar"];
+  } else {
+    vars["statsvar"] = svList.join("__");
+  }
+  setSearchParam(vars);
+}
+
 export {
   STATS,
   OBS_KEYS,
@@ -521,4 +552,5 @@ export {
   unzip,
   setElementShown,
   randDomId,
+  updateUrlStatsVar,
 };

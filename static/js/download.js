@@ -27,24 +27,6 @@ const axios = require("axios");
 
 import { getApiKey, getApiRoot, unzip } from "./util.js";
 
-let allData = [];
-let gCurrentSeries = null;
-
-/**
- * Values returned from the /bulk/place-obs request.
- * Objects have the following keys:
- *   name, observation: [{measuredProp, measuredValue, observationPeriod}],
- *   place: dcid
- */
-let allBulkDownloadData = {};
-
-/**
- * Measured properties to return for each ptpv during bulk download.
- * key: ptpv url arg
- * value: measuredProp
- */
-let measuredProp = {};
-
 /**
  * Shows or hides the spinner.
  * @param {Boolean} shouldShow True if the spinner should be shown.
@@ -137,118 +119,6 @@ function downloadData() {
   });
 }
 
-/**
- * Downloads data for all places of a certain type for the specified ptpv's in
- * the chart.
- */
-function downloadBulkData(placeType, year) {
-  let ptPvs = [];
-
-  let allBulkDownloadData = {};
-  let measuredProp = {};
-
-  const urlargs = getUrlVars();
-  if ("ptpv" in urlargs) {
-    ptPvs = parsePtPvs(urlargs["ptpv"]);
-  }
-
-  let numOutstandingRequests = ptPvs.length;
-
-  for (const ptpv of ptPvs) {
-    let urlarg = ptpv["urlarg"];
-    measuredProp[urlarg] = ptpv["measuredProp"];
-    let reqPv = [];
-    for (const p of Object.keys(ptpv["pvs"])) {
-      reqPv.push({
-        property: p,
-        value: ptpv["pvs"][p],
-      });
-    }
-    $.ajax({
-      type: "POST",
-      url: `${getApiRoot()}/bulk/place-obs?key=${getApiKey()}`,
-      data: JSON.stringify({
-        observationDate: year,
-        placeType: placeType,
-        populationType: ptpv["popType"],
-        pvs: reqPv,
-      }),
-      dataType: "text",
-      success: function (data) {
-        const payload = JSON.parse(data)["payload"];
-        if (payload) {
-          let data = JSON.parse(unzip(payload));
-          allBulkDownloadData[urlarg] = data;
-        } else {
-          console.log("No payload for: ", ptpv);
-        }
-      },
-      complete: function (jqxhr, textStatus) {
-        numOutstandingRequests--;
-        if (numOutstandingRequests == 0) {
-          savePtpvAsCSV();
-        }
-      },
-    });
-  }
-}
-
-/**
- * Saves data for ptpv's across places of a certain type.
- */
-function savePtpvAsCSV() {
-  let placeData = {};
-  let results = [];
-  let placeNames = {};
-
-  for (const key of Object.keys(allBulkDownloadData)) {
-    let mp = measuredProp[key];
-    if (!("places" in allBulkDownloadData[key])) {
-      alert("Sorry we don't have data for this place type");
-      return;
-    }
-    for (const po of allBulkDownloadData[key].places) {
-      const placeName = po.name;
-      const dcid = po.place;
-      placeNames[dcid] = placeName;
-      let val = "";
-      const obs = po.observations.filter((o) => o.measuredProp === mp);
-      // For place-obs, there should only be one observation per measured
-      // property.
-      if (obs.length) {
-        let stat = getStatProp(obs);
-        if (stat == null) {
-          console.log("Cannot find a stat property in the observation");
-        } else {
-          val = obs[0][stat];
-        }
-      }
-      if (!(dcid in placeData)) {
-        placeData[dcid] = {};
-      }
-      placeData[dcid][key] = val;
-    }
-  }
-  let columns = Object.keys(allBulkDownloadData);
-  let titles = ["dcid", "place"];
-  for (const c of columns) {
-    titles.push(c.replace(/,/g, "-"));
-  }
-
-  for (const dcid of Object.keys(placeData)) {
-    let row = [dcid, `"${placeNames[dcid]}"`];
-    for (c of columns) {
-      row.push(placeData[dcid][c]);
-    }
-    results.push(row.join(","));
-  }
-  results = results.sort((a, b) => (b[0] < a[0] ? -1 : 1)); // sort by dcid
-
-  let csv = titles.join(",") + "\n" + results.join("\n");
-  saveToFile("export.csv", csv);
-  return;
-}
-
 function saveToFile(filename, csv) {
   if (!csv.match(/^data:text\/csv/i)) {
     csv = "data:text/csv;charset=utf-8," + csv;
@@ -301,22 +171,7 @@ window.onload = function () {
   $("#download-button").click(function () {
     downloadData();
   });
-  $("#bulk-download-button").click(function () {
-    window.location.href = window.location.href.replace(
-      "download",
-      "bulk_download"
-    );
-  });
   $("#show-code").click(function () {
     showCode();
   });
-
-  let links = document.getElementsByClassName("bulk-ref");
-  for (let link of links) {
-    let year = link.dataset.year;
-    let ptype = link.dataset.ptype;
-    link.addEventListener("click", function () {
-      downloadBulkData(ptype, year);
-    });
-  }
 };

@@ -178,10 +178,10 @@ function fetchStatsData(
   }
   let allDataPromises: Promise<AxiosResponse<ApiResponse>>[] = [];
   for (const statsVar of statsVars) {
-    allDataPromises.push(axios.get(`/stats/${statsVar}${dcidParams}`));
+    allDataPromises.push(axios.get(`/api/stats/${statsVar}${dcidParams}`));
   }
   if (perCapita) {
-    allDataPromises.push(axios.get(`/stats/TotalPopulation${dcidParams}`));
+    allDataPromises.push(axios.get(`/api/stats/Count_Person${dcidParams}`));
   }
   return Promise.all(allDataPromises).then((allResp) => {
     let result = new StatsData(places, statsVars, [], {});

@@ -847,12 +847,12 @@ $(function () {
 
   /* Start the loading spinner and gray out the background. */
   function loadSpinner() {
-    $("#screen").addClass("visible");
+    $("#screen").css("display", "block");
   }
 
   /* Remove the spinner and gray background. */
   function removeSpinner() {
-    $("#screen").removeClass("visible");
+    $("#screen").css("display", "none");
   }
 
   /**

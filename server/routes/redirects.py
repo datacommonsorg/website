@@ -45,11 +45,6 @@ def download():
     return redirect(url_for('tools.download'), code=302)
 
 
-@bp.route('/bulk_download')
-def download_bulk():
-    return redirect(url_for('tools.download_bulk'), code=302)
-
-
 @bp.route('/scatter')
 def scatter():
     return redirect(url_for('tools.scatter'), code=302)

@@ -21,13 +21,11 @@
 {% extends 'base.html' %}
 
 {% block head %}
-  <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
-  <link rel="stylesheet" href="https://www.gstatic.com/external_hosted/material_design_lite/mdl_css-indigo-blue-bundle.css">
   <link rel="stylesheet" href={{url_for('static', filename='css/scatter.min.css', t=config['GAE_VERSION'])}}>
 {% endblock %}
 
 {% block content %}
-<div id="plot-container">
+<div id="main-pane">
   {# Explore menu #}
   <div class="explore-menu-container" id="explore">
     <div id="drill-scroll-container">
@@ -36,7 +34,7 @@
     </div>
   </div>
 
-  <div id="scatter-container">
+  <div id="plot-container">
     {# Selections for the chart #}
     <div id="chart-header">
         <div class="form-group row">

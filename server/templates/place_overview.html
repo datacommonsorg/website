@@ -88,9 +88,11 @@
 
   <div id="body" class="container">
     <div id="body-row" class="row">
-      <div id="sidebar-outer" class="col-lg-2 d-none d-lg-flex">
-        <div id="topics" class="row"></div>
-        <div id="child-place" class="row"></div>
+      <div id="sidebar-outer" class="col-lg-2 d-sm-none d-md-block">
+        <div id="sidebar-region" class="row">
+          <div id="topics"></div>
+          <div id="child-place"></div>
+        </div>
       </div>
       <div id="main" class="col-lg-10 mt-3 mt-md-4 mt-lg-5">
         <div id="title" class="row">
@@ -106,7 +108,7 @@
             <div class="search border">
               <div id="location-field">
                 <div id="search-icon"></div>
-                <input id="place-autocomplete" placeholder="Enter a US city, county or state" type="text" />
+                <input id="place-autocomplete" placeholder="Enter a country, state, county or city" type="text" />
               </div>
             </div>
           </div>

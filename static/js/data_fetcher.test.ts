@@ -24,7 +24,7 @@ const mockedAxios = axios as jest.Mocked<typeof axios>;
 
 test("fetch stats data", () => {
   mockedAxios.get.mockImplementation((url: string) => {
-    if (url === "/stats/TotalPopulation?&dcid=geoId/05&dcid=geoId/06") {
+    if (url === "/api/stats/Count_Person?&dcid=geoId/05&dcid=geoId/06") {
       return Promise.resolve({
         data: {
           "geoId/05": {
@@ -43,7 +43,7 @@ test("fetch stats data", () => {
           },
         },
       });
-    } else if (url === "/stats/MalePopulation?&dcid=geoId/05&dcid=geoId/06") {
+    } else if (url === "/api/stats/Count_Person_Male?&dcid=geoId/05&dcid=geoId/06") {
       return Promise.resolve({
         data: {
           "geoId/05": {
@@ -67,11 +67,11 @@ test("fetch stats data", () => {
 
   return fetchStatsData(
     ["geoId/05", "geoId/06"],
-    ["TotalPopulation", "MalePopulation"]
+    ["Count_Person", "Count_Person_Male"]
   ).then((data) => {
     expect(data).toEqual({
       data: {
-        MalePopulation: {
+        Count_Person_Male: {
           "geoId/05": {
             data: {
               "2011": 11000,
@@ -87,7 +87,7 @@ test("fetch stats data", () => {
             place_name: "California",
           },
         },
-        TotalPopulation: {
+        Count_Person: {
           "geoId/05": {
             data: {
               "2011": 21000,
@@ -106,7 +106,7 @@ test("fetch stats data", () => {
       },
       dates: ["2011", "2012"],
       places: ["geoId/05", "geoId/06"],
-      statsVars: ["TotalPopulation", "MalePopulation"],
+      statsVars: ["Count_Person", "Count_Person_Male"],
     });
 
     expect(data.getPlaceGroupWithStatsVar()).toEqual([
