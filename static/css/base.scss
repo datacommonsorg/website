@@ -31,7 +31,6 @@ $link-hover-color: $link-color;
 $primary: $link-color;
 
 $font-size-base: 1.1rem;
-$headings-font-family: 'Merriweather', serif;
 
 $grid-breakpoints: (
   xs: 0,
@@ -68,6 +67,10 @@ $container-max-widths: (
   width: 200px;
 }
 
+#main-header .gsib_a {
+  padding: 3px 9px 3px 9px;
+}
+
 #main-header .gsib_b {
   display: none;
 }
@@ -76,16 +79,21 @@ $container-max-widths: (
   border: none;
 }
 
+#main-header form.gsc-search-box,
+#main-header table.gsc-search-box {
+  margin-bottom: 0;
+}
+
 #main-header table.gsc-search-box td.gsc-input {
   padding-right: 0;
 }
 
 #main-header .gsc-search-button.gsc-search-button-v2 {
-  background: var(--dc-red-lite) !important;
+  background: rgba(255, 255, 255, .2) !important;
   border-radius: 0 10px 10px 0;
-  border: 1px solid var(--dc-red-lite);
+  border: none !important;
   margin: 0 0 1px 0;
-  padding: 10px 10px 8px 8px;
+  padding: 10px 10px 9px 8px;
 }
 
 #main-header #gsc-iw-id1 {
@@ -103,6 +111,14 @@ $container-max-widths: (
 
 #main-header .nav-item.dropdown {
   margin-right: 1rem;
+}
+
+#main-nav .dropdown-item,
+#main-nav .nav-link {
+  /* Specify fonts in absolute px until we remove inclusion of MDL from tool pages */
+  font-size: 14px;
+  font-weight: 400;
+  line-height: 24px;
 }
 
 #main-footer {
