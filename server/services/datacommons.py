@@ -333,7 +333,8 @@ def get_interesting_places(dcids):
 # ------------------------- INTERNAL HELPER FUNCTIONS -------------------------
 
 
-def send_request(req_url, req_json={}, compress=False, post=True):
+def send_request(
+        req_url, req_json={}, compress=False, post=True, has_payload=True):
     """ Sends a POST/GET request to req_url with req_json, default to POST.
     Returns:
       The payload returned by sending the POST/GET request formatted as a dict.
@@ -358,22 +359,20 @@ def send_request(req_url, req_json={}, compress=False, post=True):
 
     # Get the JSON
     res_json = response.json()
-    if 'payload' not in res_json:
-        raise ValueError(
-            'Response error: Payload not found. Printing response\n\n'
-            '{}'.format(res_json))
 
     # If the payload is compressed, decompress and decode it
-    payload = res_json['payload']
-    if compress:
-        payload = zlib.decompress(
-            base64.b64decode(payload), zlib.MAX_WBITS | 32)
-    return json.loads(payload)
+    if has_payload:
+        res_json = res_json['payload']
+        if compress:
+            res_json = zlib.decompress(
+                base64.b64decode(res_json), zlib.MAX_WBITS | 32)
+        res_json = json.loads(res_json)
+    return res_json
 
 
-def fetch_data(path, req_json, compress, post):
+def fetch_data(path, req_json, compress, post, has_payload=True):
     req_url = API_ROOT + path
-    return send_request(req_url, req_json, compress, post)
+    return send_request(req_url, req_json, compress, post, has_payload)
 
 
 def _format_expand_payload(payload, new_key, must_exist=[]):

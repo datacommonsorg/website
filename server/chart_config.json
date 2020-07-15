@@ -11,6 +11,14 @@
         "url": "https://www.census.gov/"
       },
       {
+        "title": "Person Per Area",
+        "topic": "Population",
+        "chartType": "LINE",
+        "statsVars": ["Count_Person_PerArea"],
+        "source": "TODO",
+        "url": "TODO"
+      },
+      {
         "title": "Median Age",
         "topic": "Age",
         "chartType": "LINE",
