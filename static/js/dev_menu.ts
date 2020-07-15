@@ -15,16 +15,16 @@
  */
 
 /**
- * @fileoverview menu_dev page.
+ * @fileoverview dev_menu page.
  */
 
 import React from "react";
 import ReactDOM from "react-dom";
-import { page } from "./pv_tree";
+import { Page } from "./pv_tree";
 import { updateUrlStatsVar } from "./util.js";
 window.onload = function () {
   ReactDOM.render(
-    React.createElement(page, { updateUrl: updateUrlStatsVar, search: false }),
+    React.createElement(Page, { updateUrl: updateUrlStatsVar, search: false }),
     document.getElementById("explore")
   );
 };

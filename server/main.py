@@ -83,11 +83,11 @@ def dev():
         flask.abort(404)
     return flask.render_template('dev.html')
 
-@app.route('/menu_dev')
-def menu_dev():
+@app.route('/dev_menu')
+def dev_menu():
     if os.environ.get('FLASK_ENV') == 'production':
         flask.abort(404)
-    return flask.render_template('menu_dev.html')
+    return flask.render_template('dev_menu.html')
 
 @app.route('/kg')
 def entity_page():

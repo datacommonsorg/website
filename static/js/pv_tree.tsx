@@ -192,7 +192,7 @@ interface pageStateType {
   statvarPaths: string[][];
 }
 
-class page extends Component<MenuPropType, pageStateType> {
+class Page extends Component<MenuPropType, pageStateType> {
   constructor(props) {
     super(props);
     this.handleHashChange = this.handleHashChange.bind(this);
@@ -223,4 +223,4 @@ class page extends Component<MenuPropType, pageStateType> {
     );
   }
 }
-export { page };
+export { Page };
