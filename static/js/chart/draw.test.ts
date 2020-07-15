@@ -24,7 +24,7 @@ import {
 } from "./draw";
 
 test("svg test", () => {
-  let dataPoints = [
+  const dataPoints = [
     new DataPoint("bar1", 10),
     new DataPoint("bar2", 20),
     new DataPoint("bar3", 30),
@@ -32,8 +32,8 @@ test("svg test", () => {
     new DataPoint("bar5", 50),
   ];
   document.body.innerHTML = '<div id="chart"></div>';
-  let keys = ["San Jose", "Palo Alto"];
-  let color = getColorFn(keys);
+  const keys = ["San Jose", "Palo Alto"];
+  const color = getColorFn(keys);
   appendLegendElem("chart", color, keys);
 
   expect(document.getElementById("chart").innerHTML).toEqual(

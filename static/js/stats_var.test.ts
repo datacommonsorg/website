@@ -20,9 +20,9 @@ import chartConfig from "../../server/chart_config.json";
 
 
 test("stats var names", () => {
-  for (let section of chartConfig) {
-    for (let chart of section.charts) {
-      for (let statsVar of chart.statsVars) {
+  for (const section of chartConfig) {
+    for (const chart of section.charts) {
+      for (const statsVar of chart.statsVars) {
         expect(STATS_VAR_TEXT[statsVar]).toBeTruthy();
       }
     }
