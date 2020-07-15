@@ -101,7 +101,7 @@ class Node extends Component<NodePropType, NodeStateType> {
     );
   };
 
-  private _handleCheckboxClick() {
+  private _handleCheckboxClick = (): void => {
     this.setState({
       checked: !this.state.checked,
     });

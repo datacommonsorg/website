@@ -525,7 +525,7 @@ function updateUrlStatsVar(statvar, should_add) {
 }
 
 /**
- * add or delete statvars from url
+ * parse the paths of statvars from url
  *
  * @return {string[][]} the list of paths of statvars from url
  */
