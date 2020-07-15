@@ -127,22 +127,22 @@ class Node extends Component<NodePropType, NodeStateType> {
   };
 
   private _handleHashChange() {
-    let svPathNext = [];
-    let checked_ = false;
-    let expanded_ = false;
-    for (let idx = 0; idx < this.props.svPaths.length; idx++) {
-      if (this.props.svPaths[idx][0] === this.props.title.replace(/\s/g, "")) {
-        if (this.props.svPaths[idx].length === 1) {
-          checked_ = true;
+    const svPathNext = [];
+    let check = false;
+    let expand = false;
+    for (const svPath of this.props.svPaths) {
+      if (svPath[0] === this.props.title.replace(/\s/g, "")) {
+        if (svPath.length === 1) {
+          check = true;
         } else {
-          expanded_ = true;
-          svPathNext.push(this.props.svPaths[idx].slice(1));
+          expand = true;
+          svPathNext.push(svPath.slice(1));
         }
       }
     }
     this.setState({
-      checked: checked_,
-      expanded: expanded_,
+      checked: check,
+      expanded: expand,
       svPaths: svPathNext,
     });
   }
@@ -187,11 +187,11 @@ class Menu extends Component<MenuPropType, {}> {
   }
 }
 
-interface pageStateType {
+interface PageStateType {
   statvarPaths: string[][];
 }
 
-class Page extends Component<MenuPropType, pageStateType> {
+class Page extends Component<MenuPropType, PageStateType> {
   constructor(props) {
     super(props);
     this.handleHashChange = this.handleHashChange.bind(this);
