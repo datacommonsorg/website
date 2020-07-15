@@ -1,5 +1,6 @@
 import React, { Component } from "react";
 import hierarchy from "../../tools/pv_tree_generator/hierarchy.json";
+import { parseStatVarPath } from "./util";
 
 interface NodePropType {
   title: string;
@@ -9,12 +10,14 @@ interface NodePropType {
   argString: string;
   updateUrl: (statvar: string, add: boolean) => void;
   nodePath: string;
+  svPaths: string[][];
 }
 
 interface NodeStateType {
   checked: boolean;
   expanded: boolean;
   nodePath: string;
+  svPaths: string[][];
 }
 
 class Node extends Component<NodePropType, NodeStateType> {
@@ -22,10 +25,12 @@ class Node extends Component<NodePropType, NodeStateType> {
     super(props);
     this._handleCheckboxClick = this._handleCheckboxClick.bind(this);
     this._handleExpandClick = this._handleExpandClick.bind(this);
+    this._handleHashChange = this._handleHashChange.bind(this);
     this.state = {
       checked: false,
       expanded: false,
       nodePath: props.nodePath + "," + props.title.replace(/\s/g, ""),
+      svPaths: [[]],
     };
   }
 
@@ -61,7 +66,8 @@ class Node extends Component<NodePropType, NodeStateType> {
               argString={item.argString}
               updateUrl={this.props.updateUrl}
               nodePath={this.state.nodePath}
-              key={this.props.argString}
+              svPaths={this.state.svPaths}
+              key={this.props.title + index}
             ></Node>
           );
         });
@@ -95,7 +101,7 @@ class Node extends Component<NodePropType, NodeStateType> {
     );
   };
 
-  private _handleCheckboxClick = (): void => {
+  private _handleCheckboxClick() {
     this.setState({
       checked: !this.state.checked,
     });
@@ -103,18 +109,49 @@ class Node extends Component<NodePropType, NodeStateType> {
       this.props.argString + this.state.nodePath,
       !this.state.checked
     );
-  };
+  }
 
   private _handleExpandClick = (): void => {
     this.setState({
       expanded: !this.state.expanded,
     });
   };
+
+  componentDidUpdate(prevProps) {
+    if (this.props.svPaths !== prevProps.svPaths) {
+      this._handleHashChange();
+    }
+  }
+  componentDidMount() {
+    this._handleHashChange();
+  }
+
+  private _handleHashChange() {
+    let svPathNext = [];
+    let checked_ = false;
+    let expanded_ = false;
+    for (let idx = 0; idx < this.props.svPaths.length; idx++) {
+      if (this.props.svPaths[idx][0] === this.props.title.replace(/\s/g, "")) {
+        if (this.props.svPaths[idx].length === 1) {
+          checked_ = true;
+        } else {
+          expanded_ = true;
+          svPathNext.push(this.props.svPaths[idx].slice(1));
+        }
+      }
+    }
+    this.setState({
+      checked: checked_,
+      expanded: expanded_,
+      svPaths: svPathNext,
+    });
+  }
 }
 
 interface MenuPropType {
   search: boolean;
   updateUrl: (statvar: string, should_add: boolean) => void;
+  svPaths: string[][];
 }
 
 class Menu extends Component<MenuPropType, {}> {
@@ -139,6 +176,7 @@ class Menu extends Component<MenuPropType, {}> {
                 type={item.type}
                 argString={item.argString}
                 key={index1 + "," + index}
+                svPaths={this.props.svPaths}
                 nodePath=""
                 updateUrl={this.props.updateUrl}
               ></Node>
@@ -150,10 +188,38 @@ class Menu extends Component<MenuPropType, {}> {
   }
 }
 
-class page extends Component<MenuPropType, {}> {
+interface pageStateType {
+  statvarPaths: string[][];
+}
+
+class page extends Component<MenuPropType, pageStateType> {
+  constructor(props) {
+    super(props);
+    this.handleHashChange = this.handleHashChange.bind(this);
+    this.state = {
+      statvarPaths: parseStatVarPath(),
+    };
+  }
+
+  componentDidMount() {
+    window.addEventListener("hashchange", this.handleHashChange);
+  }
+
+  handleHashChange() {
+    this.setState({
+      statvarPaths: parseStatVarPath(),
+    });
+  }
+
   render() {
     return (
-      <Menu updateUrl={this.props.updateUrl} search={this.props.search}></Menu>
+      <div>
+        <Menu
+          updateUrl={this.props.updateUrl}
+          search={this.props.search}
+          svPaths={this.state.statvarPaths}
+        ></Menu>
+      </div>
     );
   }
 }

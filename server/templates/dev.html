@@ -21,6 +21,9 @@
   <link rel="stylesheet" href={{url_for('static', filename='css/draw.css')}}></script>
   <link rel="stylesheet" href={{url_for('static', filename='css/dev.css')}}></script>
   <link rel="stylesheet" href={{url_for('static', filename='css/gni.css')}}></script>
+  <link rel="stylesheet" href={{url_for('static', filename='css/place_overview_search.css')}}></script>
+  <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDAMcc9QlTtAd4liELMgJSj0gwDojTS2eQ&libraries=places"
+    async defer></script>
   <style>
     .chart {
       margin: 20px;
@@ -38,4 +41,8 @@
 {% block content %}
   <div id="charts-container"></div>
   <div style="clear:both;"></div>
+  <div id="location-field">
+    <div id="search-icon"></div>
+    <input id="place-autocomplete" placeholder="Enter a country, state, county or city" type="text" />
+  </div>
 {% endblock %}

@@ -36,7 +36,6 @@ import {
 window.onload = function () {
   let width = 350;
   let height = 300;
-
   // Container element to hold dom element of one chart.
   // The width and height is eventually obtained from gridding system like
   // Bootstrap.
@@ -228,7 +227,7 @@ window.onload = function () {
 
   containerId = addChartContainer(1000, 500);
   drawGroupLineChart(containerId, 1000, 500, dataGroupsDict_2);
-  
+
   const dataGroupsDict_3 = {
     "geoId/05": [dataGroups_geo1_1],
     "geoId/06": [dataGroups_geo2_1],
@@ -252,4 +251,4 @@ window.onload = function () {
   }
   containerId = addChartContainer(1000, 500);
   drawGroupLineChart(containerId, 1000, 500, dataGroupsDict);
-}
+};
