@@ -28,7 +28,6 @@ import {
   drawStackBarChart,
   drawGroupBarChart,
 } from "./chart/draw";
-import chartConfig from "./chart_config.json";
 import { fetchStatsData } from "./data_fetcher";
 
 const chartTypeEnum = {
@@ -60,10 +59,15 @@ interface ConfigType {
   source: string;
   url: string;
   axis: string;
-  placeTypes: string[];
   scaling: number;
   perCapita: boolean;
   unit: string;
+}
+
+interface ChartCategory {
+  label: string;
+  charts: ConfigType[];
+  children: { label: string; charts: ConfigType[] }[];
 }
 
 interface ParentPlacePropsType {
@@ -150,6 +154,7 @@ class Ranking extends Component<RankingPropsType, {}> {
 interface MenuPropsType {
   dcid: string;
   topic: string;
+  chartConfig: ChartCategory[];
 }
 
 class Menu extends Component<MenuPropsType, {}> {
@@ -166,46 +171,40 @@ class Menu extends Component<MenuPropsType, {}> {
             Overview
           </a>
         </li>
-        {chartConfig.map(
-          (item: {
-            label: string;
-            charts: ConfigType[];
-            children: {label: string, charts: ConfigType[]}[];
-          }) => {
-            return (
-              <li className="nav-item" key={item.label}>
-                <a
-                  href={`/place?dcid=${dcid}&topic=${item.label}`}
-                  className={`nav-link ${topic == item.label ? "active" : ""}`}
-                >
-                  {item.label}
-                </a>
-                <ul
-                  className={
-                    "nav flex-column ml-3 " +
-                    (item.label != topic ? "collapse" : "")
-                  }
-                  data-parent="#nav-topics"
-                >
-                  <div className="d-block">
-                    {item.children.map((child, index) => {
-                      return (
-                        <li className="nav-item" key={index}>
-                          <a
-                            href={`/place?dcid=${dcid}&topic=${item.label}#${child.label}`}
-                            className="nav-link"
-                          >
-                            {child.label}
-                          </a>
-                        </li>
-                      );
-                    })}
-                  </div>
-                </ul>
-              </li>
-            );
-          }
-        )}
+        {this.props.chartConfig.map((item: ChartCategory) => {
+          return (
+            <li className="nav-item" key={item.label}>
+              <a
+                href={`/place?dcid=${dcid}&topic=${item.label}`}
+                className={`nav-link ${topic == item.label ? "active" : ""}`}
+              >
+                {item.label}
+              </a>
+              <ul
+                className={
+                  "nav flex-column ml-3 " +
+                  (item.label != topic ? "collapse" : "")
+                }
+                data-parent="#nav-topics"
+              >
+                <div className="d-block">
+                  {item.children.map((child, index) => {
+                    return (
+                      <li className="nav-item" key={index}>
+                        <a
+                          href={`/place?dcid=${dcid}&topic=${item.label}#${child.label}`}
+                          className="nav-link"
+                        >
+                          {child.label}
+                        </a>
+                      </li>
+                    );
+                  })}
+                </div>
+              </ul>
+            </li>
+          );
+        })}
       </ul>
     );
   }
@@ -216,10 +215,6 @@ interface MainPanePropType {
    * The place dcid.
    */
   dcid: string;
-  /**
-   * The place type.
-   */
-  placeType: string;
   /**
    * The topic of the current page.
    */
@@ -243,7 +238,7 @@ interface MainPanePropType {
   /**
    * An object from statsvar dcid to the url tokens used by timeline tool.
    */
-  statsVarInfo: { [key: string]: string };
+  chartConfig: ChartCategory[];
 }
 
 class MainPane extends Component<MainPanePropType, {}> {
@@ -255,9 +250,9 @@ class MainPane extends Component<MainPanePropType, {}> {
     let configData = [];
     let isOverview = !this.props.topic;
     if (!this.props.topic) {
-      configData = chartConfig;
+      configData = this.props.chartConfig;
     } else {
-      for (let group of chartConfig) {
+      for (let group of this.props.chartConfig) {
         if (group.label == this.props.topic) {
           configData = group.children;
           break;
@@ -301,12 +296,10 @@ class MainPane extends Component<MainPanePropType, {}> {
                       id={id}
                       config={config}
                       dcid={this.props.dcid}
-                      placeType={this.props.placeType}
                       parentPlaces={this.props.parentPlaces}
                       childPlacesPromise={this.props.childPlacesPromise}
                       similarPlacesPromise={this.props.similarPlacesPromise}
                       nearbyPlacesPromise={this.props.nearbyPlacesPromise}
-                      statsVarInfo={this.props.statsVarInfo}
                     />
                   );
                 })}
@@ -417,10 +410,6 @@ interface ChartPropType {
    */
   config: ConfigType;
   /**
-   * The place type.
-   */
-  placeType: string;
-  /**
    * The parent places object array.
    *
    * Parent object are sorted by enclosing order. For example:
@@ -439,10 +428,6 @@ interface ChartPropType {
    * The nearby places promise.
    */
   nearbyPlacesPromise: Promise<{ dcid: string; name: string }>;
-  /**
-   * An object from statsvar dcid to the url tokens used by timeline tool.
-   */
-  statsVarInfo: { [key: string]: string };
 }
 
 interface ChartStateType {
@@ -453,14 +438,21 @@ interface ChartStateType {
 
 class Chart extends Component<ChartPropType, ChartStateType> {
   chartElement: React.RefObject<HTMLDivElement>;
+  similarRef: React.RefObject<HTMLOptionElement>;
+  nearbyRef: React.RefObject<HTMLOptionElement>;
+  parentRef: React.RefObject<HTMLOptionElement>;
+  childrenRef: React.RefObject<HTMLOptionElement>;
   dcid: string;
   titleSuffix: string;
-  shouldRender: boolean;
   placeRelation: string;
 
   constructor(props) {
     super(props);
     this.chartElement = React.createRef();
+    this.similarRef = React.createRef();
+    this.nearbyRef = React.createRef();
+    this.parentRef = React.createRef();
+    this.childrenRef = React.createRef();
 
     this.state = {
       elemWidth: 0,
@@ -471,61 +463,12 @@ class Chart extends Component<ChartPropType, ChartStateType> {
     this._handlePlaceSelection = this._handlePlaceSelection.bind(this);
     this.dcid = props.dcid;
     this.titleSuffix = "";
-    this.shouldRender = true;
-
     // Default use similar places.
     this.placeRelation = placeRelationEnum.SIMILAR;
-
-    let config = props.config;
-    if (config.placeTypes) {
-      let pagePlaceType = props.placeType;
-      if (
-        config.chartType == chartTypeEnum.LINE ||
-        config.chartType == chartTypeEnum.SINGLE_BAR
-      ) {
-        if (config.placeTypes.includes(pagePlaceType)) {
-          // Renders the chart if it is valid for the page's place type.
-          this.shouldRender = true;
-        } else {
-          // If the page's place type is not valid, use the parent with valid
-          // type. Also reset the dcid of the place to be that of the parent.
-          this.shouldRender = false;
-          for (const parent of props.parentPlaces) {
-            if (_.intersection(config.placeTypes, parent["types"]).length > 0) {
-              this.dcid = parent["dcid"];
-              this.titleSuffix = ` (${parent["name"]})`;
-              this.shouldRender = true;
-              break;
-            }
-          }
-        }
-      } else {
-        // For chart of related places, choose similar places if type matches,
-        // otherwise try use parent places for "contained" selection.
-        if (config.placeTypes.includes(pagePlaceType)) {
-          this.placeRelation = placeRelationEnum.SIMILAR;
-        } else {
-          let isContained = false;
-          for (const parent of props.parentPlaces) {
-            if (_.intersection(config.placeTypes, parent["types"]).length > 0) {
-              this.placeRelation = placeRelationEnum.CONTAINED;
-              isContained = true;
-              break;
-            }
-          }
-          if (!isContained) {
-            this.placeRelation = placeRelationEnum.CONTAINING;
-          }
-        }
-      }
-    }
   }
 
   render() {
     const config = this.props.config;
-    if (!this.shouldRender) {
-      return "";
-    }
     return (
       <div className="col" ref={this.chartElement}>
         <div className="chart-container">
@@ -540,17 +483,20 @@ class Chart extends Component<ChartPropType, ChartStateType> {
                 value={this.placeRelation}
                 onChange={this._handlePlaceSelection}
               >
-                <option value="CONTAINED">contained</option>
-                {this.props.placeType != "City" && (
-                  <option value="CONTAINING">containing</option>
+                <option value="SIMILAR" ref={this.similarRef}>
+                  simliar
+                </option>
+                {this.props.parentPlaces.length > 0 && (
+                  <option value="CONTAINED" ref={this.parentRef}>
+                    contained
+                  </option>
                 )}
-                {(!config.placeTypes ||
-                  config.placeTypes.includes(this.props.placeType)) && (
-                  <React.Fragment>
-                    <option value="SIMILAR">simliar</option>
-                    <option value="NEARBY">nearby</option>
-                  </React.Fragment>
-                )}
+                <option value="CONTAINING" ref={this.childrenRef}>
+                  containing
+                </option>
+                <option value="NEARBY" ref={this.nearbyRef}>
+                  nearby
+                </option>
               </select>
             </label>
           )}
@@ -563,7 +509,7 @@ class Chart extends Component<ChartPropType, ChartStateType> {
               <a
                 target="_blank"
                 className="explore-more"
-                href={this.buildTimelineToolUrl()}
+                href={config["exploreUrl"]}
               >
                 Explore More ›
               </a>
@@ -582,8 +528,7 @@ class Chart extends Component<ChartPropType, ChartStateType> {
       (dp && dp.length == 0) ||
       (dg && (dg.length == 0 || (dg.length == 1 && dg[0].value.length == 0)))
     ) {
-      this.chartElement.current.innerHTML = "";
-      this.chartElement.current.classList.remove("col");
+      alert("No data for selection");
       return;
     }
     // Draw chart.
@@ -601,6 +546,21 @@ class Chart extends Component<ChartPropType, ChartStateType> {
   componentDidMount() {
     window.addEventListener("resize", this._handleWindowResize);
     this.fetchData();
+    Promise.all([
+      this.props.similarPlacesPromise,
+      this.props.childPlacesPromise,
+      this.props.nearbyPlacesPromise,
+    ]).then((values) => {
+      if (this.similarRef.current && Object.keys(values[0]).length == 0) {
+        this.similarRef.current.style.display = "none";
+      }
+      if (this.childrenRef.current && Object.keys(values[1]).length == 0) {
+        this.childrenRef.current.style.display = "none";
+      }
+      if (this.nearbyRef.current && Object.keys(values[2]).length == 0) {
+        this.nearbyRef.current.style.display = "none";
+      }
+    });
   }
 
   _handleWindowResize() {
@@ -620,18 +580,6 @@ class Chart extends Component<ChartPropType, ChartStateType> {
   _handlePlaceSelection(event) {
     this.placeRelation = event.target.value;
     this.fetchData();
-  }
-
-  buildTimelineToolUrl() {
-    // TODO(boxu): change this to /tools/timeline after link migration.
-    let url = "/gni#&ptpv=";
-    let parts = [];
-    for (let statsVar of this.props.config.statsVars) {
-      parts.push(this.props.statsVarInfo[statsVar]);
-    }
-    url += parts.join("__");
-    url += `&place=${this.props.dcid}`;
-    return url;
   }
 
   drawChart() {
@@ -674,9 +622,6 @@ class Chart extends Component<ChartPropType, ChartStateType> {
   }
 
   async fetchData() {
-    if (!this.shouldRender) {
-      return;
-    }
     let dcid = this.dcid;
     const config = this.props.config;
     const chartType = config.chartType;
@@ -714,18 +659,12 @@ class Chart extends Component<ChartPropType, ChartStateType> {
             } else if (this.placeRelation == placeRelationEnum.CONTAINING) {
               placesPromise = this.props.childPlacesPromise.then(
                 (childPlaces) => {
+                  // TODO(boxu): figure out a better way to pick child places.
                   for (let placeType in childPlaces) {
-                    if (
-                      !config.placeTypes ||
-                      config.placeTypes.includes(placeType)
-                    ) {
-                      // Choose the first 5 child places to show in the chart.
-                      return childPlaces[placeType]
-                        .slice(0, 5)
-                        .map((place) => place["dcid"]);
-                    }
+                    return childPlaces[placeType]
+                      .slice(0, 5)
+                      .map((place) => place["dcid"]);
                   }
-                  return [];
                 }
               );
             } else if (this.placeRelation == placeRelationEnum.SIMILAR) {
