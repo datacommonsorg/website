@@ -233,15 +233,39 @@ function drawTimeSeries(seriesArray, valueKey, selector) {
     );
   }
 
+  // The y-label is based on units, mDenoms, and scalingFactors
+  // seen so far.
+  // As more data is added to Data Commons, this logic may need
+  // further fine-tuning.
   let yLabelText = "";
   if (sample["unit"]) {
     yLabelText = sample["unit"];
   }
-  if (sample["scalingFactor"] == 100) {
-    yLabelText = "% of " + sample["measurementDenominator"];
-  } else if (sample["scalingFactor"]) {
-    yLabelText = "Proportion of " + sample["measurementDenominator"];
+  if (sample["measurementDenominator"]) {
+    let mDenom = sample["measurementDenominator"];
+    console.log(sample["scalingFactor"]);
+    if (!yLabelText && sample["scalingFactor"] == 100) {
+      // Special case: unitless and scaled by 100: percent.
+      yLabelText = "% of " + mDenom;
+    } else {
+      if (yLabelText) {
+        // Prepare to postpend to unit.
+        yLabelText += " ";
+      }
+      if (mDenom[0] === mDenom[0].toUpperCase()) {
+        // Case: denominator is a StatVar.
+        yLabelText += "As a Fraction of ";
+      } else {
+        // Case: denominator is a property.
+        yLabelText += "Per ";
+      }
+      if (sample["scalingFactor"]) {
+        yLabelText += sample["scalingFactor"] + " ";
+      }
+      yLabelText += mDenom;
+    }
   }
+  // 2020-07: no case of scalingFactor existing without mDenom.
 
   // Draw Y label.
   svg
