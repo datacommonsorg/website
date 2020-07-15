@@ -30,15 +30,29 @@ import {
 
 let ac: google.maps.places.Autocomplete;
 
-const Y_SCROLL_LIMIT = 150;
+let Y_SCROLL_LIMIT = 132;
+const Y_SCROLL_WINDOW_BREAKPOINT = 992;
 
 window.onload = () => {
   const urlParams = new URLSearchParams(window.location.search);
   let dcid = urlParams.get("dcid");
   renderPage(dcid);
   initAutocomplete();
-  document.addEventListener("scroll", adjustMenuPosition);
+  maybeToggleFixedSidebar();
+  window.onresize = maybeToggleFixedSidebar;
 };
+
+function maybeToggleFixedSidebar() {
+  if (window.innerWidth < Y_SCROLL_WINDOW_BREAKPOINT) {
+    document.removeEventListener("scroll", adjustMenuPosition);
+    return;
+  }
+  document.addEventListener("scroll", adjustMenuPosition);
+
+  // Make adjustments based on the content.
+  Y_SCROLL_LIMIT = document.getElementById('main-pane').offsetTop;
+  document.getElementById('sidebar-top-spacer').style.height = Y_SCROLL_LIMIT + "px";
+}
 
 function adjustMenuPosition() {
   let topicsEl = document.getElementById("sidebar-region");
@@ -144,6 +158,8 @@ function renderPage(dcid: string) {
       React.createElement(ParentPlace, {parentPlaces: parentPlaces}),
       document.getElementById("place-parents")
     );
+    // Readjust sidebar based on parent places.
+    maybeToggleFixedSidebar();
   });
 
   childPlacesPromise.then((childPlaces) => {

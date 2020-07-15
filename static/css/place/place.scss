@@ -14,45 +14,29 @@
  * limitations under the License.
  */
 
-/** Bootstrap overrides **/
+@import '../base';
+@import 'place_search';
 
-// Extra small devices (portrait phones, less than 576px)
-#dc body {
-  width: 540px;
-  overflow: scroll;
+$vertical-section-border: 1px solid var(--dc-gray-lite);
+$vertical-section-margin: 2rem;
+$sidebar-top-padding: 132px;  // Keep in sync with place.ts: Y_SCROLL_LIMIT
+
+#dc-places {
+  margin-left: 1.5rem;
+  margin-right: 1.5rem;
+
+  @include media-breakpoint-up(md) {
+    margin-left: 3rem;
+    margin-right: 3rem;
+  }
 }
 
-// Small devices (landscape phones, 576px and up)
-@media (min-width: 576px) {
-  #dc body { width: 540px; }
-}
-
-// Medium devices (tablets, 768px and up)
-@media (min-width: 768px) {
-  #dc body { width: 720px; }
-}
-
-// Large devices (desktops, 992px and up)
-@media (min-width: 992px) {
-  #dc body { width: 960px; }
-}
-
-// Extra large devices (large desktops, 1200px and up)
-@media (min-width: 1200px) {
-  #dc body { width: 1140px; }
-}
-
-#dc body {
-  font-family: "Roboto", "Helvetica Neue", Arial, sans-serif;
-  font-weight: 400;
-}
-
-#body h1 {
+#dc-places h1 {
   font-size: 1.8rem;
   font-weight: 700;
 }
 
-#body h3 {
+#dc-places h3 {
   font-size: 1rem;
   color: var(--secondary);
 }
@@ -65,58 +49,6 @@
 #main-pane a {
   color: inherit;
   text-decoration: underline;
-}
-
-#main a {
-  color: var(--link-color);
-}
-
-:root {
-  --font-family: "Roboto", "Helvetica Neue", Arial, sans-serif !important;
-  --breakpoint-xl: 1040px;
-  --dc-red-strong: #660000;
-  --dc-red-lite: #9A0000;
-  --dc-gray: #3B3B3B;
-  --dc-gray-lite: #ccc;
-  --link-color: #660000;
-}
-
-/** base styles **/
-
-header #sitename {
-  background: #900;
-  height: 80px;
-}
-
-header #sitename .row {
-  padding-top: 25px;
-}
-
-header h1 {
-  color: #fff;
-  letter-spacing: -1px;
-  text-shadow: 0 2px 0 #510000;
-  font: bold 24px Helvetica, Arial, sans-serif;
-}
-
-header h1 a {
-  text-decoration: none;
-}
-
-header #selectionbar {
-  background: #600;
-  color: #fff;
-  font-size: 15px;
-}
-
-@media (min-width: 768px) {
-  header #selectionbar {
-    height: 46px;
-  }
-
-  header #selectionbar .navbar {
-    padding-top: 4px;
-  }
 }
 
 #topics a {
@@ -138,7 +70,7 @@ header #selectionbar {
   color: var(--link-color);
 }
 
-#main-pane h2 {
+#main h2 {
   color: var(--dc-gray);
   font-weight: 500;
   font-size: 1.1rem;
@@ -148,8 +80,8 @@ header #selectionbar {
 }
 
 #main-pane section {
-  border-top: 1px solid var(--dc-gray-lite);
-  margin-top: 1rem;
+  border-top: $vertical-section-border;
+  margin-top: $vertical-section-margin;
 }
 
 #main-pane section:first-of-type {
@@ -165,7 +97,7 @@ header #selectionbar {
   margin: 15px 0 10px;
 }
 
-#main-pane h2 .more a,
+#main h2 .more a,
 #body .subtopic h3 .more a {
   color: var(--dc-gray);
   font-weight: 400;
@@ -252,23 +184,26 @@ header #selectionbar {
   min-height: 160px;
 }
 
-#dc-footer {
-  text-align: right;
-  background: #f0f0f0;
-  padding: 1.5rem 0 3rem;
-  margin-top: 3rem;
-}
-
-#dc-footer a {
-  color: var(--link-color);
-  font-size: .8rem;
-}
-
 #sidebar-outer {
-  margin-top: 150px;
+  border-top: $vertical-section-border;
+  margin-top: $vertical-section-margin;
+  padding-top: $vertical-section-margin;
+
+  @include media-breakpoint-up(lg) {
+    border: none;
+    margin-top: 0;
+    padding-top: 0;
+  }
+}
+
+#sidebar-top-spacer {
+  height: $sidebar-top-padding;
+  padding: 0;
+  margin: 0;
 }
 
 #sidebar-region {
+  padding-top: 15px;
   position: relative;
 }
 
