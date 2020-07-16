@@ -13,7 +13,11 @@
 # limitations under the License.
 
 import unittest
-import json
-from unittest.mock import patch
 
 from main import app
+
+
+class TestRoute(unittest.TestCase):
+    def test_dev(self):
+        response = app.test_client().get('/dev')
+        assert response.status_code == 200
