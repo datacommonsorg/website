@@ -1,4 +1,4 @@
-<!--
+{#
  Copyright 2020 Google LLC
 
  Licensed under the Apache License, Version 2.0 (the "License");
@@ -12,14 +12,27 @@
  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
  See the License for the specific language governing permissions and
  limitations under the License.
--->
+#}
 
 {% extends 'base.html' %}
 
+{% set main_id = 'kg_entity' %}
+{% set title = 'Data Commons Graph Browser' %}
+
+{% block head %}
+  <link rel="stylesheet" href={{url_for('static', filename='css/kg.min.css', t=config['GAE_VERSION'])}} />
+{% endblock %}
+
 {% block content %}
-  <div style="display:none">
-    <div id="bg-spec">{{spec}}</div>
+  <div class="container">
+    <h2>Data Commons Graph Browser</h2>
+    <div style="display:none">
+      <div id="bg-dcid">{{dcid}}</div>
+    </div>
+    <div id="app"></div>
+    <div id="node">
+    </div>
   </div>
-  <div id="node">
-  </div>
+
+  <script src={{url_for('static', filename='kg.js', t=config['GAE_VERSION'])}}></script>
 {% endblock %}

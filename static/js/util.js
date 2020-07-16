@@ -185,7 +185,7 @@ function setElementShown(el, isShown) {
  * Append show more hint to all card elements.
  */
 function appendMoreToAll() {
-  const cardEls = document.getElementsByClassName("card");
+  const cardEls = document.getElementsByClassName("shadow-card");
   for (let i = 0; i < cardEls.length; i++) {
     appendMoreIfNecessary(cardEls[i], MAX_CARD_HEIGHT);
   }

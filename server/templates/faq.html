@@ -1,5 +1,4 @@
-<!DOCTYPE html>
-<!--
+{#
  Copyright 2020 Google LLC
 
  Licensed under the Apache License, Version 2.0 (the "License");
@@ -13,22 +12,18 @@
  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
  See the License for the specific language governing permissions and
  limitations under the License.
--->
+#}
+{% extends 'base.html' %}
 
-<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
-<head>
-  <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
-  <title>FAQ - DataCommons.org</title>
-  <link rel="stylesheet" type="text/css" href="schemaorg.css"/>
+{% set main_id = 'faq' %}
+{% set title = 'Frequently Asked Questions' %}
 
-  {% include 'factcheck/gtm.html' %}
+{% block head %}
+  <link rel="stylesheet" href={{url_for('static', filename='css/static.min.css', t=config['GAE_VERSION'])}} />
+{% endblock %}
 
-</head>
-<body>
-{% include 'factcheck/basicPageHeader.html' %}
-
-<div id="mainContent">
-
+{% block content %}
+<div class="container">
   <h1>Frequently Asked Questions </h1>
 
   <p>
@@ -161,12 +156,5 @@
     GitHub forum</a> or contact <a
       href="mailto:support@DataCommons.org">support@datacommons.org</a>.
   </p>
-  <br>
-
 </div>
-
-
-{% include 'factcheck/basicPageFooter.html' %}
-
-</body>
-</html>
+{% endblock %}

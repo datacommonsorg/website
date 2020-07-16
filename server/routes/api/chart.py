@@ -93,7 +93,7 @@ def build_url(dcid, stats_vars, stats_var_info):
         parts.append(stats_var_info[stats_var])
     anchor += '__'.join(parts)
     anchor += '&place=' + dcid
-    return urllib.parse.unquote(url_for('gni.explore', _anchor=anchor))
+    return urllib.parse.unquote(url_for('tools.timeline', _anchor=anchor))
 
 
 @bp.route('/config/<path:dcid>')

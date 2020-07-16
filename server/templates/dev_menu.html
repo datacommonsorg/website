@@ -14,20 +14,21 @@
  limitations under the License.
 #}
 
-{% extends 'gni/base.html' %}
+{% extends 'base.html' %}
+
+{% set is_hide_full_footer = true %}
+{% set main_id = 'dev_menu' %}
+{% set title = 'Dev menu page' %}
 
 {% block head %}
-<script src={{url_for('static', filename='dev_menu.js', t=config['GAE_VERSION'])}}></script>
-<link rel="stylesheet" href={{url_for('static', filename='css/gni.css')}}>
-</script>
-<link rel="stylesheet" href={{url_for('static', filename='css/place_overview_search.css')}}>
-</script>
+<link rel="stylesheet" href={{url_for('static', filename='css/tools/statvar_menu.min.css')}}>
+<link rel="stylesheet" href={{url_for('static', filename='css/timeline.min.css')}}>
 <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDAMcc9QlTtAd4liELMgJSj0gwDojTS2eQ&libraries=places" async
   defer></script>
 {% endblock %}
 
 {% block content %}
 <div id="main-pane"></div>
-
+<script src={{url_for('static', filename='dev_menu.js', t=config['GAE_VERSION'])}}></script>
 
 {% endblock %}

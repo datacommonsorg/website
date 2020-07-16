@@ -72,7 +72,7 @@ const STATS_VAR_TEXT: { [key: string]: string } = {
   Count_Household_IncomeOf125000To149999USDollar: "$125K to $150K",
   Count_Household_IncomeOf150000To199999USDollar: "$150K to $200K",
   Count_Household_IncomeOf200000OrMoreUSDollar: "Over $200K",
-  // covid-19
+  // COVID-19
   CumulativeCount_MedicalConditionIncident_COVID_19_ConfirmedOrProbableCase:
     "COVID-19 Cumulative Cases",
   CumulativeCount_MedicalConditionIncident_COVID_19_PatientDeceased:
