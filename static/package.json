@@ -13,7 +13,8 @@
     "dev-build": "webpack --progress -d --config webpack.config.js",
     "test": "jest",
     "watch": "webpack --progress -d --config webpack.config.js --watch",
-    "lint": "eslint ."
+    "lint": "eslint .",
+    "tslint": "tslint -c tslint.json js/**/*.ts && tslint -c tslint.json js/**/*.tsx"
   },
   "devDependencies": {
     "@babel/core": "^7.9.6",
@@ -33,14 +34,16 @@
     "file-loader": "^6.0.0",
     "jest": "^25.5.1",
     "js-cookie": "^2.2.1",
-    "lodash": "^4.17.15",
+    "lodash": "^4.17.19",
     "pako": "^1.0.11",
     "react": "^16.13.1",
     "react-dom": "^16.13.1",
     "style-loader": "^1.1.4",
     "ts-jest": "^25.4.0",
     "ts-loader": "^7.0.1",
-    "typescript": "^3.9.2",
+    "tslint": "^6.1.2",
+    "typescript": "^3.9.6",
+    "typescript-tslint-plugin": "^0.5.5",
     "webpack": "^4.42.1",
     "webpack-cli": "^3.3.11"
   },
