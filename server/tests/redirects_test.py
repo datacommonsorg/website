@@ -1,3 +1,4 @@
+
 # Copyright 2020 Google LLC
 #
 # Licensed under the Apache License, Version 2.0 (the "License");
@@ -17,23 +18,32 @@ import unittest
 from main import app
 
 
-class TestStaticPage(unittest.TestCase):
+class TestRedirects(unittest.TestCase):
     def test_gni(self):
-        response = app.test_client().get('/gni')
+        response = app.test_client().get('/gni', follow_redirects=True)
         assert response.status_code == 200
         assert b"Welcome to Data Commons." in response.data
 
+
     def test_download(self):
-        response = app.test_client().get('/download')
+        response = app.test_client().get('/download', follow_redirects=True)
         assert response.status_code == 200
         assert b"By using these API/Data" in response.data
 
-    def test_download2(self):
-        response = app.test_client().get('/download2')
-        assert response.status_code == 200
-        assert b"For every State" in response.data
 
     def test_scatter(self):
-        response = app.test_client().get('/scatter')
+        response = app.test_client().get('/scatter', follow_redirects=True)
         assert response.status_code == 200
-        assert b"Select two variables from the left menu" in response.data
+        assert b"Please select two variables from the left menu" in response.data
+
+
+    def test_browser(self):
+        response = app.test_client().get('/kg', follow_redirects=True)
+        assert response.status_code == 200
+        assert b"The Data Commons Graph (DCG)" in response.data
+
+
+    def test_browser_with_args(self):
+        response = app.test_client().get('/kg?dcid=geoId/06', follow_redirects=True)
+        assert response.status_code == 200
+        assert b"geoId/06" in response.data

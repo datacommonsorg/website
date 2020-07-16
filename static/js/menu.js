@@ -68,8 +68,8 @@ function initMenu(exploreTypeVars, urlParams) {
         let arrowElement = ulParent.previousSibling.querySelector(
           ".right-caret"
         );
-        if (!arrowElement.classList.contains("transform-down")) {
-          arrowElement.classList.toggle("transform-down");
+        if (!arrowElement.classList.contains("transform-up")) {
+          arrowElement.classList.toggle("transform-up");
         }
         while (ulParent !== null) {
           ulParent.classList.remove("hidden");
@@ -117,7 +117,7 @@ function initMenu(exploreTypeVars, urlParams) {
           html += `<sup>(${node.search_count})</sup>`;
         }
         html += `<img class="right-caret" width="12px"
-              src="images/right-caret.png"/>
+              src="/images/right-caret-light.png"/>
               </a>
             </span>`;
       } else {
@@ -167,7 +167,7 @@ function initMenu(exploreTypeVars, urlParams) {
           html += `<sup>(${node.search_count})</sup>`;
         }
         html += `<a class="expand-link">
-                    <img class="right-caret" width="12px" src="images/right-caret.png" />
+                    <img class="right-caret" width="12px" src="/images/right-caret.png" />
                    </a>`;
       }
       listItem.innerHTML = html;
@@ -204,7 +204,7 @@ function initMenu(exploreTypeVars, urlParams) {
 
     evt.currentTarget
       .querySelector(".right-caret")
-      .classList.toggle("transform-down");
+      .classList.toggle("transform-up");
   };
 
   let toggleChartPOV = (evt) => {

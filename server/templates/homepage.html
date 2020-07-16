@@ -1,4 +1,4 @@
-<!--
+{#
  Copyright 2020 Google LLC
 
  Licensed under the Apache License, Version 2.0 (the "License");
@@ -12,112 +12,112 @@
  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
  See the License for the specific language governing permissions and
  limitations under the License.
--->
-
+#}
 {% extends 'base.html' %}
 
+{% set main_id = 'homepage' %}
+{% set title = 'Home' %}
+
 {% block head %}
-  <title>Data Commons KG</title>
-  <link rel="stylesheet" href={{url_for('static', filename='css/homepage.css', t=config['GAE_VERSION'])}}>
+  <link rel="stylesheet" href={{url_for('static', filename='css/static.min.css', t=config['GAE_VERSION'])}} />
 {% endblock %}
 
 {% block content %}
-  <div id="homepage-content">
-    <p>
-      The Data Commons Graph (DCG) is constructed by synthesizing a single Graph from many different data sources.
-      It currently contains data from Wikipedia, the US Census, NOAA, FBI, etc.
-      The browser can be used both to explore what data is available and to understand the graph structure, to help use the API.
-    </p>
-    <p>
-      You can use the search box above or start looking around from some well known starting points:
-    </p>
-    <ul>
-      <li class="type-list">
-        <strong>Cities</strong>:
-        <a href="/kg?dcid=geoId/4261000">Pittsburgh, PA</a>,
-        <a href="/kg?dcid=geoId/0649670">Mountain View, CA</a>,
-        <a href="/kg?dcid=geoId/4805000">Austin, TX</a>,
-        <a href="/kg?dcid=geoId/0606000">Berkeley, CA</a>,
-        <a href="/kg?dcid=City"> More ...</a>
-      </li>
-      <li class="type-list">
-        <strong>Counties</strong>:
-        <a href="/kg?dcid=geoId/06085">Santa Clara</a>,
-        <a href="/kg?dcid=geoId/12086">Miami-Dade</a>,
-        <a href="kg?dcid=County">More ...</a>
-      </li>
-      <li class="type-list">
-        <strong>States</strong>:
-        <a href="/kg?dcid=geoId/12">Florida</a>,
-        <a href="/kg?dcid=geoId/06">California</a>,
-        <a href="/kg?dcid=geoId/56">Wyoming</a>,
-        <a href="/kg?dcid=geoId/36">New York</a>,
-        <a href="/kg?dcid=State">More ...</a>
-      </li>
-      <li class="type-list">
-        <strong>Countries</strong>:
-        <a href="/kg?dcid=country/USA">United States</a>,
-        <a href="/kg?dcid=country/CAN">Canada</a>,
-        <a href="/kg?dcid=Country">More ...</a>
-      </li>
-      <li class="type-list">
-        <strong>Congressional Districts</strong>:
-        <a href="/kg?dcid=geoId/0618">CA-18</a>,
-        <a href="/kg?dcid=geoId/3601">NY-01</a>,
-        <a href="/kg?dcid=CongressionalDistrict">More ...</a>
-      </li>
-      <li class="type-list">
-        <strong>Elections</strong>:
-        <a href="/kg?dcid=election/2016_P_US00">2016 US Presidential Election</a>,
-        <a href="/kg?dcid=election/1990_S_MI00">1990 US Senate Elections for Michigan</a>,
-        <a href="/kg?dcid=Election">More ...</a>
-      </li>
-      <li class="type-list">
-        <strong>Census Estimates </strong>:
-        <a href="/kg?dcid=dc/p/pxxyedzk8nbp9">Asian Population in Santa Clara</a>,
-        <a href="/kg?dcid=dc/p/xqv3f41jvpx29">Master Degree Holders in New Orleans</a>
-      </li>
-      <li class="type-list">
-        <strong>Labor Statistics </strong>:
-        <a href="/kg?dcid=dc/p/820mxx8ejlrj7">Unemployment in Boston </a>
-      </li>
-      <li class="type-list">
-        <strong>Crime Data</strong>:
-        <a href="/kg?dcid=dc/p/lxbzwmf6mrt88">Violent Robbery in Atlanta, Georgia</a>,
-        <a href="/kg?dcid=dc/p/xhzdrlmy9262g">Larceny-Theft in Georgia</a>
-      </li>
-      <li class="type-list">
-        <strong>Health Data</strong>:
-        <a href="/kg?dcid=dc/p/pqsvgs2qh8lnd">Prevalence of Diabetes in Atlanta</a>
-      </li>
-      <li class="type-list">
-        <strong>DEA ARCOS</strong>:
-        <a href="/kg?dcid=dc/p/02t7t97c0c2g4">Cocaine distribution in Palm Beach, FL</a>,
-        <a href="/kg?dcid=dc/p/1z2025y18gtc8">Amphetamine distribution in Wayne County, WV</a>
-      </li>
-      <li class="type-list">
-        <strong>Biological Specimens</strong>:
-        <a href="/kg?dcid=dc/bsmvthtq89217">Austrobaileya scandens</a>,
-        <a href="/kg?dcid=BiologicalSpecimen">More ...</a>
-      </li>
-      <li class="type-list">
-        <strong>Power Plants</strong>:
-        <a href="/kg?dcid=dc/ps56lyh58sv9g">APS West Phoenix</a>,
-        <a href="/kg?dcid=PowerPlantUnit">More ...</a>
-      </li>
-      <li class="type-list">
-        <strong>ENCODE (Encyclopedia Of DNA Elements)</strong>:
-        <a href="/kg?dcid=Lab">Labs</a>,
-        <a href="/kg?dcid=EncodeBiosampleType">Biosamples</a>,
-        <a href="/kg?dcid=EncodeExperiment">Experiments</a>,
-        <a href="/kg?dcid=EncodeBedFile">More ...</a>
-      </li>
-      <li class="type-list">
-        <strong>Public Schools and School Districts</strong>:
-        <a href="/kg?dcid=nces/062961004587">Henry M. Gunn High</a>,
-        <a href="/kg?dcid=nces/360007702877">Stuyvesant High School</a>,
-        <a href="/kg?dcid=geoId/sch3620580">New York City Department of Education</a>
-      </li>
-    </ul>
+<section id="homepage-top">
+  <div class="container">
+    <h1>Linking the world's public datasets</h1>
+    <div class="row">
+      <div class="col-12 col-lg-6">
+        <p class="lead">
+          Data Commons is an open knowledge repository that combines data from
+          public datasets using mapped common entities. It includes tools to
+          easily explore and analyze data across different datasets without data
+          cleaning or joining.
+        </p>
+      </div>
+      <div class="col-12 col-lg-6 mt-4 mt-lg-0">
+        <img class="img-fluid"
+          src="{{ url_for('static', filename='images/homepage_knowledge_graph.png') }}" />
+      </div>
+    </div>
   </div>
+</section>
+
+<section class="container">
+  <h2>A unified view of data</h2>
+  <p>
+    We cleaned and processed the data so you don't have to. Data about
+    particular entities are aggregated from different sources for a unified
+    view.
+  </p>
+  <a href="{{ url_for('place') }}">Explore Places in the Data Commons Graph</a>
+  <a href="{{ url_for('browser.kg_main') }}">Browse the Data Commons Graph</a>
+  <a href="{{ url_for('tools.timeline') }}">Explore Timeline</a>
+  <a href="{{ url_for('tools.scatter') }}">Create Scatterplots</a>
+</section>
+
+<section class="container">
+  <h2>Easy analysis</h2>
+  <p>
+    Access and analyze the graph easily using API's in Python, R, or Google Sheets.
+  </p>
+  <a href="#">See API documentation.</a>
+  <a href="#">See some sample python notebooks.</a>
+</section>
+
+<section class="container">
+  <h2>Open</h2>
+  <p>
+    Built using <a href="http://schema.org">Schema.org</a>. <a href="http://github.com/datacommonsorg">Open sourced</a>.
+    Build applications powered by the graph using the <a href="#">REST API</a>.
+  </p>
+</section>
+
+<section class="container">
+  <h3>Including datasets from</h3>
+  <img class="d-block img-fluid mx-auto" src="{{ url_for('static', filename='images/homepage_datasets.png') }}" />
+</section>
+
+<section id="homepage-bottom" class="bg-callout bg-callout-primary">
+  <div class="container">
+    <h2 class="text-center">Get Started</h2>
+    <div class="row">
+      <div class="col-12 col-sm-6 col-lg-3">
+        <h6>Explore place statistics</h6>
+        <a href="{{ url_for('place', dcid='geoId/0649670') }}">Mountain View, CA</a>
+        <a href="{{ url_for('place', dcid='geoId/3651000', topic='Health') }}">New York City Health</a>
+        <a href="{{ url_for('place', dcid='geoId/1150000', topic='Demographics') }}">Washington, DC Demographics</a>
+      </div>
+      <div class="col-12 col-sm-6 col-lg-3">
+        <h6>Explore DC Graph nodes</h6>
+        <a href="{{ url_for('browser.kg_entity', dcid='election/2016_P_US00') }}">2016 US Presidential Elections</a>
+        <a href="{{ url_for('browser.kg_entity', dcid='/dc/p/lxbzwmf6mrt88') }}">Violent Robbery in Atlanta</a>
+        <a href="{{ url_for('browser.kg_entity', dcid='EncodeBiosampleType') }}">Encyclopedia of DNA Elements Biosamples</a>
+      </div>
+      <div class="col-12 col-sm-6 col-lg-3">
+        {# TODO: Fill in these URLs #}
+        <h6>Explore timeline statistics</h6>
+        <a href="#">US University Towns by Income</a>
+        <a href="#">Richest vs Poorest California Counties</a>
+        <a href="#">Employment differences across neighboring cities</a>
+      </div>
+      <div class="col-12 col-sm-6 col-lg-3">
+        <h6>Explore scatterplots</h6>
+        <a href="#">COVID-19 cases vs Income</a>
+        <a href="#">Richest vs Poorest California Counties</a>
+        <a href="#">Employment differences across neighboring cities</a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="container">
+  <h2>What's new</h2>
+    <dl>
+      <dt>April 8, 2020</dt>
+      <dd>Published feed of <a href="{{ url_for('static.special_announcement') }}">COVID-19 Special Announcement</a> markups created in the Google Search Console.</dd>
+    </dl>
+  </div>
+</section>
+
 {% endblock %}

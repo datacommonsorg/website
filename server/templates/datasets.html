@@ -1,5 +1,4 @@
-<!DOCTYPE html>
-<!--
+{#
  Copyright 2020 Google LLC
 
  Licensed under the Apache License, Version 2.0 (the "License");
@@ -13,25 +12,23 @@
  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
  See the License for the specific language governing permissions and
  limitations under the License.
--->
+#}
+{% extends 'base.html' %}
 
-<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
-<head>
-  <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
-  <title>Datasets - DataCommons.org</title>
+{% set main_id = 'datasets' %}
+{% set title = 'Datasets' %}
 
-  {% include 'factcheck/gtm.html' %}
+{% block head %}
+  <link rel="stylesheet" href={{url_for('static', filename='css/static.min.css', t=config['GAE_VERSION'])}} />
+{% endblock %}
 
-</head>
-<body>
-{% include 'factcheck/basicPageHeader.html' %}
-
-<div id="mainContent">
+{% block content %}
+<div class="container">
+  <h1>Datasets in the Data Commons Graph</h1>
   <p>
     The base data in the Data Commons Graph, including taxonomy, is derived from
     <a href="https://schema.org/">schema.org</a>.
   </p>
-  <h1>Datasets in Data Commons Graph</h1>
 <!--  AHS, AES -->
 
   <h2>
@@ -448,7 +445,5 @@
     about millions of plants, fungi, and algae.
   </p>
 
-{% include 'factcheck/basicPageFooter.html' %}
-
-</body>
-</html>
+</div>
+{% endblock %}

@@ -1,4 +1,4 @@
-<!--
+{#
  Copyright 2020 Google LLC
 
  Licensed under the Apache License, Version 2.0 (the "License");
@@ -12,36 +12,39 @@
  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
  See the License for the specific language governing permissions and
  limitations under the License.
--->
-
+#}
 {% extends 'base.html' %}
 
+{% set main_id = 'sitemap' %}
+{% set title = 'Sitemap' %}
+
 {% block head %}
-  <title>Sitemap</title>
+  <link rel="stylesheet" href={{url_for('static', filename='css/static.min.css', t=config['GAE_VERSION'])}} />
 {% endblock %}
 
 {% block content %}
-  {% if place_by_type|length %}
-    {% for key in place_by_type %}
-      <h3>{{ key }}</h3>
-      <div style="column-count: 3">
-        {% for place in place_by_type[key] %}
-          <div>
-            <a href="{{url_for('sitemap.node', dcid=place['dcid'])}}">{{place['name']}}</a>
-            <span>: (</span>
-            <a href="{{url_for('entity_page') + '?dcid=' + place['dcid']}}">KG</a>
-            <span>)</span>
-          </div>
-        {% endfor %}
-      </div>
-    {% endfor %}
-  {% else %}
-    <h4>There are no sub-places in our knowledge graph for this place.</h4>
-    <h4>
-      Please check
-      <a href="{{url_for('entity_page') + '?dcid=' + dcid}}">KG</a> page
-      for more information.
-    </h4>
-  {% endif %}
-
+  <div class="container">
+    <h1>Sitemap</h1>
+    {% if place_by_type|length %}
+      {% for key in place_by_type %}
+        <h3>{{ key }}</h3> <div style="column-count: 3">
+          {% for place in place_by_type[key] %}
+            <div>
+              <a href="{{url_for('sitemap.node', dcid=place['dcid'])}}">{{place['name']}}</a>
+              <span>: (</span>
+              <a href="{{url_for('browser.kg_entity', dcid=dcid)}}">KG</a>
+              <span>)</span>
+            </div>
+          {% endfor %}
+        </div>
+      {% endfor %}
+    {% else %}
+      <h4>There are no sub-places in our knowledge graph for this place.</h4>
+      <h4>
+        Please check
+        <a href="{{url_for('browser.kg_entity', dcid=dcid)}}">KG</a> page
+        for more information.
+      </h4>
+    {% endif %}
+  </div>
 {% endblock %}

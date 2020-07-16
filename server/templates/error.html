@@ -1,4 +1,4 @@
-<!--
+{#
  Copyright 2020 Google LLC
 
  Licensed under the Apache License, Version 2.0 (the "License");
@@ -12,13 +12,21 @@
  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
  See the License for the specific language governing permissions and
  limitations under the License.
--->
+#}
 
 {% extends 'base.html' %}
 
+{% set main_id = 'error' %}
+{% set title = 'Error' %}
+
+{% block head %}
+  <link rel="stylesheet" href={{url_for('static', filename='css/static.min.css', t=config['GAE_VERSION'])}} />
+{% endblock %}
+
 {% block content %}
-  <div id="error-content">
-    <h4>We're sorry, there was an error while retrieving this page.</h4>
-    <h4>Please send this URL to support@datacommons.org. Thanks!</h4>
+  <div id="error-content" class="container">
+    <h1>Uh oh!</h1>
+    <p>We're sorry, there was an error while retrieving this page.</p>
+    <p>Please send this URL to support@datacommons.org. Thanks!</p>
   </div>
 {% endblock %}

@@ -169,11 +169,11 @@ function renderFromUrl(urlargs) {
     $("#observation").show();
 
     drawFromChartApi("observation", placeStr, ptpv ? ptpv : "Person,count");
-    let link = `/download#&place=${urlargs["place"]}&ptpv=${urlargs["ptpv"]}`;
+    let link = `/tools/download#&place=${urlargs["place"]}&ptpv=${urlargs["ptpv"]}`;
     if ("pc" in urlargs && urlargs["pc"] == "1") {
       link += "&pc=1";
     }
-    $("#download-link").attr("href", link).show();
+    $("#download-link").attr("href", link).css("visibility", "visible");
   }
   let newPlaceTypes = new Set();
   if ("place" in urlargs) {
@@ -310,7 +310,7 @@ function getPlaceAndRender() {
   const place = ac.getPlace();
   let name = place.name;
 
-  $.get(`api/placeid2dcid/${place.place_id}`, function (dcid) {
+  $.get(`/api/placeid2dcid/${place.place_id}`, function (dcid) {
     name = name.replace(", USA", "");
     dcid2Name[dcid] = name;
     addPlaceToUrl(dcid);
@@ -336,7 +336,7 @@ window.onload = function () {
   if ("place" in vars && "ptpv" in vars) {
     toggleSpinner(true);
   }
-  $.getJSON("data/hierarchy.json", function (hierarchy) {
+  $.getJSON("/data/hierarchy.json", function (hierarchy) {
     if (window.location.href.includes("search")) {
       exploreTypeVars = hierarchy[1];
     } else {
