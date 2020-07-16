@@ -132,12 +132,7 @@
               "Count_Person_50To54Years",
               "Count_Person_55To59Years",
               "Count_Person_60To64Years",
-              "Count_Person_65OrMoreYears",
-              "Count_Person_65To69Years",
-              "Count_Person_70To74Years",
-              "Count_Person_75To79Years",
-              "Count_Person_80To84Years",
-              "Count_Person_85To89Years"
+              "Count_Person_65OrMoreYears"
             ],
             "source": "US Census",
             "url": "https://www.census.gov/"
@@ -163,12 +158,7 @@
               "Count_Person_50To54Years",
               "Count_Person_55To59Years",
               "Count_Person_60To64Years",
-              "Count_Person_65OrMoreYears",
-              "Count_Person_65To69Years",
-              "Count_Person_70To74Years",
-              "Count_Person_75To79Years",
-              "Count_Person_80To84Years",
-              "Count_Person_85To89Years"
+              "Count_Person_65OrMoreYears"
             ],
             "source": "US Census",
             "url": "https://www.census.gov/"
@@ -194,12 +184,7 @@
               "Count_Person_50To54Years",
               "Count_Person_55To59Years",
               "Count_Person_60To64Years",
-              "Count_Person_65OrMoreYears",
-              "Count_Person_65To69Years",
-              "Count_Person_70To74Years",
-              "Count_Person_75To79Years",
-              "Count_Person_80To84Years",
-              "Count_Person_85To89Years"
+              "Count_Person_65OrMoreYears"
             ],
             "perCapita": true,
             "scaling": 100,
