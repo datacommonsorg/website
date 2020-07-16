@@ -23,7 +23,10 @@ const config = {
     dev: [__dirname + "/js/dev.ts", __dirname + "/css/dev.scss"],
     dev_menu: __dirname + "/js/dev_menu.ts",
     download: __dirname + "/js/download.js",
-    dev_menu: [__dirname + "/js/dev_menu.ts", __dirname + "/css/timeline.scss"],
+    dev_menu: [
+      __dirname + "/js/dev_menu.ts",
+      __dirname + "/css/timeline_statsvar.scss",
+    ],
     kg: [__dirname + "/js/kg.js", __dirname + "/css/kg.scss"],
     mcf_playground: __dirname + "/js/mcf_playground.js",
     place: [__dirname + "/js/place.ts", __dirname + "/css/place/place.scss"],

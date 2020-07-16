@@ -1,6 +1,6 @@
 import React, { Component } from "react";
 import { parseStatVarPath } from "./util";
-import { SearchBar } from "./search";
+import { SearchBar } from "./timeline_search";
 import { Menu } from "./statsvar_menu";
 
 interface PagePropType {
@@ -34,11 +34,9 @@ class Page extends Component<PagePropType, PageStateType> {
   render() {
     return (
       <div>
-        <div id="view">
           <div id="search">
             <SearchBar />
           </div>
-        </div>
         <div className="explore-menu-container" id="explore">
           <Menu
             updateUrl={this.props.updateUrl}

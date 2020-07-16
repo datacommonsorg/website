@@ -97,7 +97,6 @@ class SearchBar extends Component<{}, SearchBarStateType> {
             placeholder="Enter a country, state, county or city to get started"
             type="text"
           />
-          <span id="place-name"></span>
         </span>
       </div>
     );
