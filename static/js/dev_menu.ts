@@ -20,7 +20,7 @@
 
 import React from "react";
 import ReactDOM from "react-dom";
-import { Page } from "./gni_page";
+import { Page } from "./timeline.tsx";
 import { updateUrlStatsVar } from "./util.js";
 
 window.onload = function () {

@@ -1,11 +1,11 @@
 import React, { Component } from "react";
 import { parseStatVarPath } from "./util";
-import { SearchBar } from "./gni_search";
-import { Menu } from "./gni_menu";
+import { SearchBar } from "./search";
+import { Menu } from "./statsvar_menu";
 
 interface PagePropType {
   search: boolean;
-  updateUrl: (statvar: string, should_add: boolean) => void;
+  updateUrl: (statvar: string, shouldAdd: boolean) => void;
 }
 
 interface PageStateType {

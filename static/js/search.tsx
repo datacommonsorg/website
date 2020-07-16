@@ -63,8 +63,7 @@ class SearchBar extends Component<{}, SearchBarStateType> {
           this.state.placeList.push([place.name, resp.data]);
         }
       })
-      .catch(function (error) {
-        console.log(error);
+      .catch(() => {
         alert("Sorry, but we don't have any data about " + name);
       });
     const acElem = document.getElementById("ac") as HTMLInputElement;
