@@ -47,6 +47,11 @@ $container-max-widths: (
 
 @import "~bootstrap/scss/bootstrap";
 
+#main-nav .navbar-brand {
+  font-size: 1.1rem;
+  line-height: 24px;
+}
+
 #main-nav .navbar-brand a {
   color: #fff;
   font-weight: 500;

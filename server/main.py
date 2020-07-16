@@ -85,7 +85,7 @@ def explore_place():
 def place():
     place_dcid = request.args.get('dcid')
     if not place_dcid:
-        return redirect(url_for('place', dcid='geoId/0649670'))
+        return redirect(url_for('place', dcid='country/USA'))
     place_types = get_property_value(place_dcid, 'typeOf')
     # We prefer to use specific type like "State", "County" over "AdministrativeArea"
     chosen_type = None
@@ -93,8 +93,9 @@ def place():
         if not chosen_type or chosen_type.startswith('AdministrativeArea'):
             chosen_type = place_type
     place_name = get_property_value(place_dcid, 'name')[0]
+    topic = request.args.get('topic', '')
     return flask.render_template(
-        'place_overview.html', place_type=chosen_type, place_name=place_name)
+        'place.html', place_type=chosen_type, place_name=place_name, place_dcid=place_dcid, topic=topic)
 
 
 @cache.cached(timeout=3600 * 24)

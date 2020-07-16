@@ -24,7 +24,7 @@ const config = {
     download: __dirname + "/js/download.js",
     kg: [__dirname + "/js/kg.js", __dirname + "/css/kg.scss"],
     mcf_playground: __dirname + "/js/mcf_playground.js",
-    place_overview: __dirname + "/js/place_overview.ts",
+    place: [__dirname + "/js/place.ts", __dirname + "/css/place/place.scss"],
     scatter: [__dirname + "/js/scatter.js", __dirname + "/css/scatter.scss"],
     search: __dirname + "/css/search.scss",
     static: __dirname + "/css/static.scss",
