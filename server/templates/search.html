@@ -1,4 +1,4 @@
-<!--
+{#
  Copyright 2020 Google LLC
 
  Licensed under the Apache License, Version 2.0 (the "License");
@@ -12,20 +12,24 @@
  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
  See the License for the specific language governing permissions and
  limitations under the License.
--->
-
+#}
 {% extends 'base.html' %}
 
+{% set search_query = request.args.get('q') %}
+{% set main_id = 'search' %}
+{% set title = '{{ search_query }} - Search Results' %}
+
 {% block head %}
-  <title>{{ request.args.get('q') }} - DataCommons Search</title>
-  <link rel="stylesheet" href={{url_for('static', filename='css/search.css', t=config['GAE_VERSION'])}} />
+  <link rel="stylesheet" href={{url_for('static', filename='css/search.min.css', t=config['GAE_VERSION'])}} />
 {% endblock %}
 
 {% block content %}
-  <h1>Showing results for {{ request.args.get('q') }}</h1>
+<div class="container">
+  <h1>Showing results for {{ search_query }}</h1>
 
   <div class="gcse-searchbox-only" data-resultsUrl="/search"></div>
 
   <script async src="https://cse.google.com/cse.js?cx=010079880385165835740%3Aosnv3q-sw08"></script>
   <div class="gcse-searchresults-only"></div>
+</div>
 {% endblock %}

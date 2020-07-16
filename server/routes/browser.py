@@ -12,16 +12,23 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-# Run test for client side code.
-cd static
-npm run lint && npm run test
-cd ..
+"""Data Commons Knowledge Graph Browser routes
+"""
 
-# Run test for server side code.
-python3 -m venv .env
-source .env/bin/activate
-cd server
-export FLASK_ENV=test
-pip3 install -r requirements.txt -q
-python3 -m pytest
-cd ..
+from flask import Blueprint, render_template
+
+bp = Blueprint(
+  'browser',
+  __name__,
+  url_prefix='/browser'
+)
+
+
+@bp.route('/')
+def kg_main():
+    return render_template('/browser/kg_main.html')
+
+
+@bp.route('/<path:dcid>')
+def kg_entity(dcid):
+    return render_template('/browser/kg_entity.html', dcid=dcid)

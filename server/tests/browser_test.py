@@ -12,16 +12,19 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-# Run test for client side code.
-cd static
-npm run lint && npm run test
-cd ..
+import pytest
+import unittest
 
-# Run test for server side code.
-python3 -m venv .env
-source .env/bin/activate
-cd server
-export FLASK_ENV=test
-pip3 install -r requirements.txt -q
-python3 -m pytest
-cd ..
+from main import app
+
+class TestStaticPage(unittest.TestCase):
+    def test_kg_static(self):
+        response = app.test_client().get('/browser/')
+        assert response.status_code == 200
+        assert b"The Data Commons Graph (DCG)" in response.data
+
+
+    def test_kg_entity(self):
+        response = app.test_client().get('/browser/geoId/06')
+        assert response.status_code == 200
+        assert b"geoId/06" in response.data

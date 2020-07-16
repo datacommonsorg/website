@@ -16,18 +16,24 @@
 
 const path = require("path");
 const CopyPlugin = require("copy-webpack-plugin");
+const FixStyleOnlyEntriesPlugin = require("webpack-fix-style-only-entries");
 
 const config = {
   entry: {
-    kg: __dirname + "/js/kg.js",
-    gni: __dirname + "/js/gni.js",
-    download: __dirname + "/js/download.js",
-    scatter: __dirname + "/js/scatter.js",
-    translator: __dirname + "/js/translator.js",
-    dev: __dirname + "/js/dev.ts",
+    dev: [__dirname + "/js/dev.ts", __dirname + "/css/dev.scss"],
     dev_menu: __dirname + "/js/dev_menu.ts",
-    place_overview: __dirname + "/js/place_overview.ts",
+    download: __dirname + "/js/download.js",
+    kg: [__dirname + "/js/kg.js", __dirname + "/css/kg.scss"],
     mcf_playground: __dirname + "/js/mcf_playground.js",
+    place: [__dirname + "/js/place.ts", __dirname + "/css/place/place.scss"],
+    scatter: [__dirname + "/js/scatter.js", __dirname + "/css/scatter.scss"],
+    search: __dirname + "/css/search.scss",
+    static: __dirname + "/css/static.scss",
+    timeline: [__dirname + "/js/timeline.js", __dirname + "/css/timeline.scss"],
+    translator: [
+      __dirname + "/js/translator.js",
+      __dirname + "/css/translator.scss",
+    ],
   },
   output: {
     path: path.resolve(__dirname, "../") + "/server/dist",
@@ -50,16 +56,38 @@ const config = {
         use: "ts-loader",
         exclude: /node_modules/,
       },
+      {
+        test: /\.(css|scss)$/,
+        exclude: /node_modules/,
+        use: [
+          {
+            loader: "file-loader",
+            options: {
+              outputPath: "css/",
+              name: "[name].min.css",
+            },
+          },
+          {
+            loader: "sass-loader",
+            options: {
+              sourceMap: true,
+            },
+          },
+        ],
+      },
     ],
   },
   plugins: [
     new CopyPlugin([
-      { from: "css/**/*" },
+      { from: "css/**/*.css" },
       { from: "images/*" },
       { from: "fonts/*" },
       { from: "data/**/*" },
       { from: "favicon.ico" },
     ]),
+    new FixStyleOnlyEntriesPlugin({
+      silent: true,
+    }),
   ],
 };
 module.exports = [config];

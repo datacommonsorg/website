@@ -27,6 +27,7 @@ import {
   drawGroupBarChart,
 } from "./chart/draw";
 import { fetchStatsData } from "./data_fetcher";
+import { updatePageLayoutState } from "./place";
 
 const chartTypeEnum = {
   LINE: "LINE",
@@ -220,6 +221,10 @@ interface MainPanePropType {
    */
   dcid: string;
   /**
+   * The place type.
+   */
+  placeType: string;
+  /**
    * The topic of the current page.
    */
   topic: string;
@@ -265,7 +270,7 @@ class MainPane extends Component<MainPanePropType, {}> {
     }
     return (
       <React.Fragment>
-        {this.props.dcid !== "country/USA" && (
+        {!["Country", "Continent"].includes(this.props.placeType) && (
           <Overview topic={this.props.topic} dcid={this.props.dcid} />
         )}
         {configData.map((item, index) => {
@@ -291,7 +296,7 @@ class MainPane extends Component<MainPanePropType, {}> {
           return (
             <section className="subtopic col-12" key={index}>
               {subtopicHeader}
-              <div className="row row-cols-lg-2 row-cols-md-2 row-cols-1">
+              <div className="row row-cols-md-2 row-cols-1">
                 {item.charts.map((config: ConfigType) => {
                   const id = randDomId();
                   return (
@@ -332,9 +337,6 @@ class Overview extends Component<OverviewPropType, {}> {
     if (!this.props.topic) {
       return (
         <React.Fragment>
-          <h2 className="col-12 pt-2" id="overview">
-            Overview
-          </h2>
           <section className="factoid col-12">
             <div className="row">
               <div className="col-12 col-md-4">
@@ -352,18 +354,26 @@ class Overview extends Component<OverviewPropType, {}> {
           </section>
         </React.Fragment>
       );
-    } else {
-      return (
-        <React.Fragment>
-          <h2 className="col-12 pt-2">
-            {this.props.topic}
-            <span className="more">
-              <a href={`/place?dcid=${this.props.dcid}`}>Back to overview ›</a>
-            </span>
-          </h2>
-        </React.Fragment>
-      );
     }
+    return (
+      <React.Fragment>
+        <section className="factoid col-12">
+          <div className="row">
+            <div className="col-12 col-md-4">
+              <div id="map-container"></div>
+            </div>
+            <div className="col-12 col-md-8">
+              <table id="ranking-table" className="table"></table>
+              <footer>
+                Data from <a href="https://www.census.gov/">census.gov</a>,{" "}
+                <a href="https://www.fbi.gov/">fbi.gov</a> and{" "}
+                <a href="https://www.bls.gov/">bls.gov</a>
+              </footer>
+            </div>
+          </div>
+        </section>
+      </React.Fragment>
+    );
   }
 }
 
@@ -541,6 +551,7 @@ class Chart extends Component<ChartPropType, ChartStateType> {
     } catch (e) {
       return;
     }
+    updatePageLayoutState();
   }
 
   componentWillUnmount() {

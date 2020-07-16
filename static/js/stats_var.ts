@@ -25,6 +25,13 @@ const STATS_VAR_TEXT: { [key: string]: string } = {
   Count_Person_InLaborForce: "People in Labor Force",
   Count_Person: "Total",
   Count_Person_PerArea: "Person per Area",
+  LifeExpectancy_Person: "Life Expectancy",
+  GrowthRate_Count_Person: "Population Growth Rate",
+  FertilityRate_Person_Female: "Fertility Rate",
+
+  // Economics
+  GrowthRate_Amount_EconomicActivity_GrossDomesticProduction: "GDP Growth Rate",
+
   // age
   Count_Person_Upto5Years: "0-5",
   Count_Person_5To17Years: "5-17",
@@ -65,7 +72,7 @@ const STATS_VAR_TEXT: { [key: string]: string } = {
   Count_Household_IncomeOf125000To149999USDollar: "$125K to $150K",
   Count_Household_IncomeOf150000To199999USDollar: "$150K to $200K",
   Count_Household_IncomeOf200000OrMoreUSDollar: "Over $200K",
-  // covid-19
+  // COVID-19
   CumulativeCount_MedicalConditionIncident_COVID_19_ConfirmedOrProbableCase:
     "COVID-19 Cumulative Cases",
   CumulativeCount_MedicalConditionIncident_COVID_19_PatientDeceased:

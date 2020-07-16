@@ -37,6 +37,30 @@ bp = Blueprint(
 )
 
 
+# Temporary hack before we clean up place stats var cache.
+MAPPING = {
+    "Count_Person": "TotalPopulation",
+    "Count_Person_Male": "MalePopulation",
+    "Count_Person_Female": "FemalePopulation",
+    "Count_Person_MarriedAndNotSeparated": "MarriedPopulation",
+    "Count_Person_Divorced": "DivorcedPopulation",
+    "Count_Person_NeverMarried": "NeverMarriedPopulation",
+    "Count_Person_Separated": "SeparatedPopulation",
+    "Count_Person_Widowed": "WidowedPopulation",
+    "Median_Age_Person": "MedianAge",
+    "Median_Income_Person": "MedianIncome",
+    "Count_Person_BelowPovertyLevelInThePast12Months": "BelowPovertyLine",
+    "Count_HousingUnit": "HousingUnits",
+    "Count_Household": "Households",
+    "Count_CriminalActivities_CombinedCrime": "TotalCrimes",
+    "UnemploymentRate_Person": "UnemploymentRate",
+    "CumulativeCount_MedicalConditionIncident_COVID_19_ConfirmedOrProbableCase": "NYTCovid19CumulativeCases",
+    "CumulativeCount_MedicalConditionIncident_COVID_19_PatientDeceased": "NYTCovid19CumulativeDeaths",
+    "IncrementalCount_MedicalConditionIncident_COVID_19_ConfirmedOrProbableCase": "NYTCovid19IncrementalCases",
+    "IncrementalCount_MedicalConditionIncident_COVID_19_PatientDeceased": "NYTCovid19IncrementalDeaths"
+}
+
+
 def filter_charts(charts, all_stats_vars):
     """Filter charts from template specs based on statsitical variable.
 
@@ -55,7 +79,8 @@ def filter_charts(charts, all_stats_vars):
     for chart in charts:
         chart_copy = copy.copy(chart)
         chart_copy['statsVars'] = [
-            x for x in chart['statsVars'] if x in all_stats_vars]
+            x for x in chart['statsVars']
+            if x in all_stats_vars or MAPPING.get(x, '') in all_stats_vars]
         if chart_copy['statsVars']:
             result.append(chart_copy)
     return result
@@ -68,7 +93,7 @@ def build_url(dcid, stats_vars, stats_var_info):
         parts.append(stats_var_info[stats_var])
     anchor += '__'.join(parts)
     anchor += '&place=' + dcid
-    return urllib.parse.unquote(url_for('gni.explore', _anchor=anchor))
+    return urllib.parse.unquote(url_for('tools.timeline', _anchor=anchor))
 
 
 @bp.route('/config/<path:dcid>')
@@ -84,10 +109,11 @@ def config(dcid):
     for src_section in current_app.config['CHART_CONFIG']:
         target_section = {
             "label": src_section["label"],
-            "charts": filter_charts(src_section['charts'], all_stats_vars),
+            "charts": filter_charts(
+                src_section.get('charts', []), all_stats_vars),
             "children": []
         }
-        for child in src_section['children']:
+        for child in src_section.get('children', []):
             child_charts = filter_charts(child['charts'], all_stats_vars)
             if child_charts:
                 target_section['children'].append({

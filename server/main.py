@@ -32,15 +32,11 @@ from models import datachart_handler
 from models import barchart_handler
 from lib import line_chart
 from lib import translator
-from lib.gcs import list_blobs
 import lib.barchart_template as btemp
 
 from __init__ import create_app
 from cache import cache
 
-_MAX_BLOBS = 1
-
-_SA_FEED_BUCKET = 'datacommons-frog-feed'
 
 logging.basicConfig(
     level=logging.DEBUG,
@@ -71,12 +67,6 @@ def get_property_value(dcid, prop, out=True):
     return dc.get_property_values([dcid], prop, out)[dcid]
 
 
-@app.route('/')
-@app.route('/browser')
-def homepage():
-    return flask.render_template('homepage.html')
-
-
 @app.route('/dev')
 def dev():
     if os.environ.get('FLASK_ENV') == 'production':
@@ -89,12 +79,6 @@ def dev_menu():
         flask.abort(404)
     return flask.render_template('dev_menu.html')
 
-@app.route('/kg')
-def entity_page():
-    dcid = request.args.get('dcid')
-    return flask.render_template('kg.html', dcid=dcid)
-
-
 # TODO(boxu): Complete this routing when place sub-topic page is completed.
 @app.route('/explore/place')
 def explore_place():
@@ -106,7 +90,7 @@ def explore_place():
 def place():
     place_dcid = request.args.get('dcid')
     if not place_dcid:
-        return redirect(url_for('place', dcid='geoId/0649670'))
+        return redirect(url_for('place', dcid='country/USA'))
     place_types = get_property_value(place_dcid, 'typeOf')
     # We prefer to use specific type like "State", "County" over "AdministrativeArea"
     chosen_type = None
@@ -114,8 +98,9 @@ def place():
         if not chosen_type or chosen_type.startswith('AdministrativeArea'):
             chosen_type = place_type
     place_name = get_property_value(place_dcid, 'name')[0]
+    topic = request.args.get('topic', '')
     return flask.render_template(
-        'place_overview.html', place_type=chosen_type, place_name=place_name)
+        'place.html', place_type=chosen_type, place_name=place_name, place_dcid=place_dcid, topic=topic)
 
 
 @cache.cached(timeout=3600 * 24)
@@ -356,7 +341,7 @@ def api_parent_place(dcid):
     # In DataCommons knowledge graph, places has multiple containedInPlace
     # relation with parent places, but it might not be comprehensive. For
     # example, "Moutain View" is containedInPlace for "Santa Clara County" and
-    # "California" but not "United States": https://browser.datacommons.org/kg?dcid=geoId/0649670
+    # "California" but not "United States": https://browser.datacommons.org/browser/geoId/0649670
     # Here calling get_parent_place twice to get to the top parents.
     parents1 = get_parent_place(dcid)
     parents2 = get_parent_place(parents1[-1]['dcid'])
@@ -559,22 +544,12 @@ def mcf_playground():
 
 
 #
-# STATIC PAGES FROM DATACOMMONS.ORG
+# Migrate content for remaining routes
 #
-
-@app.route('/faq')
-def faq():
-  return flask.render_template('factcheck/faq.html')
-
 
 @app.route('/documentation')
 def documentation():
   return flask.render_template('factcheck/documentation.html')
-
-
-@app.route('/disclaimers')
-def disclaimers():
-  return flask.render_template('factcheck/disclaimers.html')
 
 
 @app.route('/getinvolved')
@@ -585,29 +560,6 @@ def get_involved():
 @app.route('/colab')
 def colab():
   return flask.render_template('factcheck/colab.html')
-
-
-@app.route('/data')
-def data():
-  return flask.render_template('factcheck/data.html')
-
-
-@app.route('/datasets')
-def datasets():
-  return flask.render_template('factcheck/datasets.html')
-
-
-@app.route('/special_announcement')
-def special_announcement_homepage():
-  recent_blobs = list_blobs(_SA_FEED_BUCKET, _MAX_BLOBS)
-  return flask.render_template(
-      'factcheck/special_announcement.html', recent_blobs=recent_blobs)
-
-
-@app.route('/special_announcement/faq')
-def special_announcement_faq():
-  return flask.render_template(
-      'factcheck/special_announcement_faq.html')
 
 
 if __name__ == '__main__':
