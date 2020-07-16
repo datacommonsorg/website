@@ -591,23 +591,23 @@ function drawGroupLineChart(
   dataGroups = Object.values(dataGroupsDict)[0];
 
   // Adjust the width of in-chart legends.
-  let legendWidth = Math.max(width * LEGEND.ratio, LEGEND.minWidth);
-  let yRange = computeRanges(dataGroupsDict);
-  let minV = yRange["minV"];
-  let maxV = yRange["maxV"];
+  const legendWidth = Math.max(width * LEGEND.ratio, LEGEND.minWidth);
+  const yRange = computeRanges(dataGroupsDict);
+  const minV = yRange.minV;
+  const maxV = yRange.maxV;
 
-  let svg = d3
+  const svg = d3
     .select("#" + id)
     .append("svg")
     .attr("width", width)
     .attr("height", height);
 
-  let xScale = d3
+  const xScale = d3
     .scaleTime()
     .domain(d3.extent(dataGroups[0].value, (d) => new Date(d.label).getTime()))
     .range([MARGIN.left, width - MARGIN.right - legendWidth]);
 
-  let yScale = d3
+  const yScale = d3
     .scaleLinear()
     .domain([minV, maxV])
     .range([height - MARGIN.bottom, MARGIN.top])
@@ -617,29 +617,32 @@ function drawGroupLineChart(
   addYAxis(svg, width, yScale, unit);
 
   let dashIndex = 0;
-  for (let geoId in dataGroupsDict) {
-    dataGroups = dataGroupsDict[geoId];
-    for (let i = 0; i < dataGroups.length; i++) {
-      let dataGroup = dataGroups[i];
-      let dataset = dataGroup.value.map(function (dp) {
-        return [new Date(dp.label).getTime(), dp.value];
-      });
+  for (const geoId in dataGroupsDict) {
+    if (dataGroupsDict.hasOwnProperty(geoId)) {
+      dataGroups = dataGroupsDict[geoId];
+      for (let i = 0; i < dataGroups.length; i++) {
+        const dataGroup = dataGroups[i];
+        const dataset = dataGroup.value.map((dp) => [
+          new Date(dp.label).getTime(),
+          dp.value,
+        ]);
 
-      let line = d3
-        .line()
-        .x((d) => xScale(d[0]))
-        .y((d) => yScale(d[1]));
+        const line = d3
+          .line()
+          .x((d) => xScale(d[0]))
+          .y((d) => yScale(d[1]));
 
-      svg
-        .append("path")
-        .datum(dataset)
-        .attr("class", "line")
-        .style("stroke", plotParams["colors"][i])
-        .attr("d", line)
-        .attr("stroke-width", "2")
-        .attr("stroke-dasharray", plotParams["dashes"][dashIndex]);
+        svg
+          .append("path")
+          .datum(dataset)
+          .attr("class", "line")
+          .style("stroke", plotParams.colors[i])
+          .attr("d", line)
+          .attr("stroke-width", "2")
+          .attr("stroke-dasharray", plotParams.dashes[dashIndex]);
+      }
+      dashIndex++;
     }
-    dashIndex++;
   }
 
   const legendId = randDomId();
