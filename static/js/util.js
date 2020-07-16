@@ -524,6 +524,24 @@ function updateUrlStatsVar(statvar, should_add) {
   setSearchParam(vars);
 }
 
+/**
+ * parse the paths of statvars from url
+ *
+ * @return {string[][]} the list of paths of statvars from url
+ */
+function parseStatVarPath() {
+  let vars = getUrlVars();
+  let svList = [];
+  let statvarPath = [];
+  if ("statsvar" in vars) {
+    svList = vars["statsvar"].split("__");
+    for (let idx = 0; idx < svList.length; idx++) {
+      statvarPath.push(svList[idx].split(",").slice(1));
+    }
+  }
+  return statvarPath;
+}
+
 export {
   STATS,
   OBS_KEYS,
@@ -553,4 +571,5 @@ export {
   setElementShown,
   randDomId,
   updateUrlStatsVar,
+  parseStatVarPath,
 };

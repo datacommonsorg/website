@@ -73,6 +73,11 @@ def dev():
         flask.abort(404)
     return flask.render_template('dev.html')
 
+@app.route('/dev_menu')
+def dev_menu():
+    if os.environ.get('FLASK_ENV') == 'production':
+        flask.abort(404)
+    return flask.render_template('dev_menu.html')
 
 # TODO(boxu): Complete this routing when place sub-topic page is completed.
 @app.route('/explore/place')
