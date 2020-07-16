@@ -15,7 +15,7 @@
 import collections
 import json
 
-from flask import Blueprint
+from flask import Blueprint, request
 
 from cache import cache
 from services.datacommons import fetch_data
@@ -30,6 +30,28 @@ bp = Blueprint(
     __name__,
     url_prefix='/api/place'
 )
+
+
+@bp.route('/name')
+def name():
+    """Get place names."""
+    dcids = request.args.getlist('dcid')
+    response = fetch_data(
+        '/node/property-values',
+        {
+            'dcids': dcids,
+            'property': 'name',
+            'direction': 'out'
+        },
+        compress=False,
+        post=True
+    )
+    result = {}
+    for dcid in dcids:
+        values = response[dcid].get('out')
+        result[dcid] = values[0]['value'] if values else ''
+    return json.dumps(result)
+
 
 
 @bp.route('/statsvars/<path:dcid>')
