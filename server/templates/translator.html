@@ -1,4 +1,4 @@
-<!--
+{#
  Copyright 2020 Google LLC
 
  Licensed under the Apache License, Version 2.0 (the "License");
@@ -12,30 +12,33 @@
  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
  See the License for the specific language governing permissions and
  limitations under the License.
--->
-
+#}
 {% extends 'base.html' %}
 
+{% set main_id = 'translator' %}
+{% set title = 'Schema Translator' %}
+
 {% block head %}
-  <title>Translator</title>
-  <link rel="stylesheet" href={{url_for('static', filename='css/translator.css', t=config['GAE_VERSION'])}} />
-  <script src={{url_for('static', filename='translator.js', t=config['GAE_VERSION'])}}></script>
+  <link rel="stylesheet" href={{url_for('static', filename='css/translator.min.css', t=config['GAE_VERSION'])}} />
 {% endblock %}
 
 {% block content %}
-  <div>
-    <div class="title">Enter Schema Mapping and Graph Query</div>
-    <div id="input-box">
-      <div class="input-box-content">
-        <h3>Schema Mapping</h3>
+  <div class="container">
+    <h1>Schema Translator</h1>
+    <h5>Enter Schema Mapping and Graph Query</h5>
+    <div id="input-box" class="row mt-5">
+      <div class="input-box-content col-6">
+        <h6>Schema Mapping</h6>
         <textarea id="mapping">{{schema_mapping}}</textarea>
       </div>
-      <div class="input-box-content">
-        <h3>Graph Query</h3>
+      <div class="input-box-content col-6">
+        <h6>Graph Query</h6>
         <textarea id="query">{{sample_query}}</textarea>
       </div>
     </div>
+    <div id="result"></div>
+    <a href="https://console.cloud.google.com/bigquery?sq=443333369001:c5d2972c96704d65a3091ee15d6f0c87" target="_blank"> BigQuery Link</a>
   </div>
-  <div id="result"></div>
-  <a href="https://console.cloud.google.com/bigquery?sq=443333369001:c5d2972c96704d65a3091ee15d6f0c87" target="_blank"> BigQuery Link</a>
+
+  <script src={{url_for('static', filename='translator.js', t=config['GAE_VERSION'])}}></script>
 {% endblock %}

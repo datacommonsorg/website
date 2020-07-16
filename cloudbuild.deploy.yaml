@@ -10,7 +10,10 @@ steps:
     cd static
     npm install
     npm run lint
+<<<<<<< HEAD
     npm run tslint
+=======
+>>>>>>> redesign-clean
     npm test
     npm run-script build
 

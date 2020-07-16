@@ -93,7 +93,7 @@ class ArcGroupComparativeTitle extends Component {
         <strong>
           <span>{this.props.arcType} </span>
           <span>{' '} measuring{' '}{' '}</span>
-          <a href={"/kg?dcid="+this.props.compOperator}>{compOperator}</a>
+          <a href={"/browser/"+this.props.compOperator}>{compOperator}</a>
           <span>{' '}of{' '}{this.props.subject}{' '}</span>
           {!!this.props.extraPText && this.props.extraPText != 'Unknown' &&
             <div>
@@ -102,9 +102,9 @@ class ArcGroupComparativeTitle extends Component {
             </div>
           }
           <span>{' '} between {' '}</span>
-          <a href={"/kg?dcid="+this.props.obsNode}>{this.props.obsPvContent}</a>
+          <a href={"/browser/"+this.props.obsNode}>{this.props.obsPvContent}</a>
           <span>{' '}and{' '}</span>
-          <a href={"/kg?dcid="+this.props.compNode}>{this.props.compPvContent}</a>
+          <a href={"/browser/"+this.props.compNode}>{this.props.compPvContent}</a>
           <div className="v-select-parent">
             <span>{' '}</span>
             <div className="v-select" style={{display:'none'}}></div>
@@ -131,18 +131,18 @@ class ArcGroupTextContent extends Component {
           return (
           <tr key={index}>
             <td width="25%">
-              <a href={"/kg?dcid="+this.props.propName}>{this.props.propName}</a>{' '}of
+              <a href={"/browser/"+this.props.propName}>{this.props.propName}</a>{' '}of
             </td>
             <td witdh="50%">
               {!!arc['dcid'] ?
-                <a href={"/kg?dcid="+arc['dcid']}>{arc['text']}</a>
+                <a href={"/browser/"+arc['dcid']}>{arc['text']}</a>
               :
                 <span>{arc['text']}</span>
               }
             </td>
             <td width="25%">
               {!!arc['prov'] &&
-                <a href={"/kg?dcid="+arc['prov']}>{arc['src']}</a>
+                <a href={"/browser/"+arc['prov']}>{arc['src']}</a>
               }
             </td>
           </tr>
@@ -171,24 +171,24 @@ class OutArcsTable extends Component {
             return (
               <tr key={arc['predicate'] + index}>
                 <td className="property-column" width="25%">
-                  <a href={"/kg?dcid=" + arc['predicate']}>{arc['predicate']}</a>
+                  <a href={"/browser/" + arc['predicate']}>{arc['predicate']}</a>
                 </td>
                 <td witdh="50%">
                   {!!arc['objectValue'] ?
                     <span className="out-arc-text">{arc['objectValue']}</span>
                     :
-                    <a href={"/kg?dcid="+arc['objectId']}>{arc['objectName']}</a>
+                    <a href={"/browser/"+arc['objectId']}>{arc['objectName']}</a>
                   }
                 </td>
                 <td width="25%">
-                  <a href={"/kg?dcid="+arc['provenanceId']}>{arc['src']}</a>
+                  <a href={"/browser/"+arc['provenanceId']}>{arc['src']}</a>
                 </td>
               </tr>
             );
           })}
           <tr key="dcid">
             <td className="property-column" width="25%">
-              <a href="/kg?dcid=dcid">dcid</a>
+              <a href="/browser/dcid">dcid</a>
             </td>
             <td witdh="50%">
               <span className="out-arc-text">{this.props.dcid}</span>

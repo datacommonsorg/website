@@ -70,6 +70,12 @@ $(function () {
   /* Keeps track of the two variables that are currently selected. */
   let CURR_CHECKED = { one: "", two: "" };
 
+  /* Chart data */
+  let GEO_DICT_X; // Contains values for all locations
+  let GEO_DICT_Y; // Contains values for all locations
+  let GEO_DICT_POP; // Contains population count for all locations
+  let PLOT_LOCATIONS; // Contains the geoIds to plot
+
   /* Array to hold information to download csv */
   let DOWNLOAD_ARR = [];
 
@@ -147,23 +153,23 @@ $(function () {
   /**
    * If location + two variables are selected, plot chart.
    * Does not re-fetch the data.
-   * @param{string} OPTION1
-   * @param{string} OPTION2
+   * @param{string} option1
+   * @param{string} option2
    * @param{?object} geoDictX Contains values of x axis variable
    * @param{?object} geoDictY Contains values of y axis variable
    * @param{?object} geoDictPop Contains population count for all location
    * @param{?Array<string>} locations Array of locations to plot
    */
   function maybeDrawScatter(
-    OPTION1,
-    OPTION2,
+    option1,
+    option2,
     geoDictX,
     geoDictY,
     geoDictPop,
     locations
   ) {
     if (locationSelected() && selectedTwo()) {
-      drawScatter(OPTION1, OPTION2, geoDictX, geoDictY, geoDictPop, locations);
+      drawScatter(option1, option2, geoDictX, geoDictY, geoDictPop, locations);
     }
   }
 
@@ -250,7 +256,7 @@ $(function () {
   $("#place-types").click(function () {
     let stateTypeElem = document.getElementById("place-types-states");
     let countyTypeElem = document.getElementById("place-types-counties");
-    $.get("data/placeObject.json", function (nestedLocations) {
+    $.get("/data/placeObject.json", function (nestedLocations) {
       stateTypeElem.options.length = 0;
       countyTypeElem.options.length = 0;
       createOption(stateTypeElem, "Select a state", "");
@@ -264,7 +270,7 @@ $(function () {
   $("#place-types-states").change(function () {
     let stateTypeElem = document.getElementById("place-types-states");
     let countyTypeElem = document.getElementById("place-types-counties");
-    $.get("data/placeObject.json", function (nestedLocations) {
+    $.get("/data/placeObject.json", function (nestedLocations) {
       countyTypeElem.options.length = 0;
       createOption(countyTypeElem, "Select a county (optional)", "");
 
@@ -295,31 +301,28 @@ $(function () {
 
     // If user goes back to 'Select place type', clear the chart
     if (chosenPlaceType === "") {
-      document.getElementById("enclosing").style.visibility = "hidden";
-      document.getElementById("place-types-states").style.visibility = "hidden";
-      document.getElementById("place-types-counties").style.visibility =
-        "hidden";
+      document.getElementById("enclosing").style.display = "none";
+      document.getElementById("place-types-states").style.display = "none";
+      document.getElementById("place-types-counties").style.display = "none";
       resetChart();
 
       // If user selects a place type with only country as the enclosing area
       // ('CensusCoreBasedStatisticalArea', 'CommutingZone', 'State'),
       // don't display state or counties.
     } else if (arrOptions.length === 1 && arrOptions[0] === "Country") {
-      document.getElementById("enclosing").style.visibility = "hidden";
-      document.getElementById("place-types-states").style.visibility = "hidden";
-      document.getElementById("place-types-counties").style.visibility =
-        "hidden";
+      document.getElementById("enclosing").style.display = "none";
+      document.getElementById("place-types-states").style.display = "none";
+      document.getElementById("place-types-counties").style.display = "none";
       LOCATION_IN = chosenPlaceType;
       ALL = true;
       checkAndPlotData();
 
       // User selects a place type with additional enclosing areas
     } else if (arrOptions.length > 0) {
-      document.getElementById("enclosing").style.visibility = "visible";
-      document.getElementById("place-types-states").style.visibility =
-        "visible";
-      document.getElementById("place-types-counties").style.visibility =
-        "hidden";
+      document.getElementById("enclosing").style.display = "inline-block";
+      document.getElementById("place-types-states").style.display =
+        "inline-block";
+      document.getElementById("place-types-counties").style.display = "none";
       LOCATION_IN = chosenPlaceType;
       ALL = false;
     }
@@ -551,7 +554,7 @@ $(function () {
               htmlString += `<sup>(${node.count})</sup>`;
             }
             htmlString += `<a id="${node.argString}" class="expand-link" data-argstring="${node.argString}">
-                <img class="right-caret" width="12px" src="images/right-caret-light.png" />
+                <img class="right-caret" width="12px" src="/images/right-caret-light.png" />
                 </a>
                 </span>`;
           } else {
@@ -590,7 +593,7 @@ $(function () {
           if (node.children.length > 0) {
             htmlString += `<sup>(${node.count})</sup>`;
             htmlString += `<a class="expand-link">
-                      <img class="right-caret" width="12px" src="images/right-caret-light.png" />
+                      <img class="right-caret" width="12px" src="/images/right-caret-light.png" />
                      </a>`;
           }
           listItem.innerHTML = htmlString;
@@ -645,8 +648,9 @@ $(function () {
       function openDialog() {
         document.getElementById("dialog").style.visibility = "visible";
         $("#dialog")
-          .dialog()
+          .modal({ keyboard: false })
           .find(":checkbox")
+          .prop("checked", false)
           .unbind("change")
           .bind("change", function (e) {
             if (this.checked) {
@@ -659,11 +663,7 @@ $(function () {
               ) {
                 replaceVariable(e.target.id);
 
-                // close dialog and uncheck all in dialog
-                $("#one").removeAttr("checked"); // jq 1.6+
-                $("#two").removeAttr("checked");
-                $(this).closest(".ui-dialog-content").dialog("close");
-                document.getElementById("dialog").style.visibility = "hidden";
+                $("#dialog").modal("hide");
 
                 checkAndPlotData();
               }
@@ -837,7 +837,7 @@ $(function () {
     window.location.href = newUrl;
   }
 
-  $.getJSON("data/hierarchy.json", function (hierarchy) {
+  $.getJSON("/data/hierarchy.json", function (hierarchy) {
     drawExploreMenu(hierarchy[0], []);
   });
 
@@ -847,12 +847,12 @@ $(function () {
 
   /* Start the loading spinner and gray out the background. */
   function loadSpinner() {
-    $("#screen").addClass("visible");
+    $("#screen").css("display", "block");
   }
 
   /* Remove the spinner and gray background. */
   function removeSpinner() {
-    $("#screen").removeClass("visible");
+    $("#screen").css("display", "none");
   }
 
   /**
@@ -975,7 +975,10 @@ $(function () {
    * @param{?Object} geoDictPop Contains values for population count
    */
   function getLocationsAndPlot(geoDictX, geoDictY, geoDictPop) {
-    let locations = [];
+    GEO_DICT_X = geoDictX;
+    GEO_DICT_Y = geoDictY;
+    GEO_DICT_POP = geoDictPop;
+    PLOT_LOCATIONS = [];
     if (
       (ALL && LOCATION_IN !== "") ||
       (ENCLOSING_AREA !== "" && LOCATION_IN !== "")
@@ -997,18 +1000,18 @@ $(function () {
         {},
         function (piObjs) {
           for (let location of piObjs) {
-            locations.push(location["place"].split("/")[1]);
+            PLOT_LOCATIONS.push(location["place"].split("/")[1]);
           }
           // remove duplicates
-          locations = new Set(locations);
-          locations = Array.from(locations);
+          PLOT_LOCATIONS = new Set(PLOT_LOCATIONS);
+          PLOT_LOCATIONS = Array.from(PLOT_LOCATIONS);
           maybeDrawScatter(
             OPTION1,
             OPTION2,
-            geoDictX,
-            geoDictY,
-            geoDictPop,
-            locations
+            GEO_DICT_X,
+            GEO_DICT_Y,
+            GEO_DICT_POP,
+            PLOT_LOCATIONS
           );
         },
         // TODO: needs better error handling
@@ -1020,113 +1023,136 @@ $(function () {
       maybeDrawScatter(
         OPTION1,
         OPTION2,
-        geoDictX,
-        geoDictY,
-        geoDictPop,
-        locations
+        GEO_DICT_X,
+        GEO_DICT_Y,
+        GEO_DICT_POP,
+        PLOT_LOCATIONS
       );
     }
-
-    /* Checks if user wants to calculate per capita */
-    $("#per-capita").change(function () {
-      if (document.getElementById("per-capita").checked) {
-        PER_CAPITA = true;
-      } else {
-        PER_CAPITA = false;
-      }
-      maybeDrawScatter(
-        OPTION1,
-        OPTION2,
-        geoDictX,
-        geoDictY,
-        geoDictPop,
-        locations
-      );
-    });
-
-    /* Checks if user wants to swap x and y axes */
-    $("#swap").change(function () {
-      if (document.getElementById("swap").checked) {
-        SWAP = true;
-      } else {
-        SWAP = false;
-      }
-      maybeDrawScatter(
-        OPTION1,
-        OPTION2,
-        geoDictX,
-        geoDictY,
-        geoDictPop,
-        locations
-      );
-    });
-
-    /* Checks if user wants to use log scale. */
-    $("#log-check-x").change(function () {
-      if (document.getElementById("log-check-x").checked) {
-        LOGX = true;
-        hObj = { title: cleanedLabel(OPTION1), scaleType: "log" };
-      } else {
-        LOGX = false;
-        hObj = { title: cleanedLabel(OPTION1) };
-      }
-      maybeDrawScatter(
-        OPTION1,
-        OPTION2,
-        geoDictX,
-        geoDictY,
-        geoDictPop,
-        locations
-      );
-    });
-
-    $("#log-check-y").change(function () {
-      if (document.getElementById("log-check-y").checked) {
-        LOGY = true;
-        vObj = { title: cleanedLabel(OPTION2), scaleType: "log" };
-      } else {
-        LOGY = false;
-        vObj = { title: cleanedLabel(OPTION2) };
-      }
-      maybeDrawScatter(
-        OPTION1,
-        OPTION2,
-        geoDictX,
-        geoDictY,
-        geoDictPop,
-        locations
-      );
-    });
-
-    /* If user selects a valid threshold for the population, redraw chart. */
-    $("#enter-threshold").click(function () {
-      let minInput = Number(document.getElementById("min-pop").value);
-      let maxInput = Number(document.getElementById("max-pop").value);
-
-      if (Number.isNaN(minInput)) {
-        alert("Please enter a valid minimum");
-      } else if (Number.isNaN(maxInput)) {
-        alert("Please enter a valid maximum");
-      } else if (minInput < 0) {
-        alert("Minimum cannot be negative");
-      } else if (maxInput < 0) {
-        alert("Maximum cannot be negative");
-      } else if (minInput > maxInput) {
-        alert("Maximum must be greater than or equal to minimum");
-      } else {
-        MIN_POP = minInput;
-        MAX_POP = maxInput;
-        maybeDrawScatter(
-          OPTION1,
-          OPTION2,
-          geoDictX,
-          geoDictY,
-          geoDictPop,
-          locations
-        );
-      }
-    });
   }
+
+  /* Checks if user wants to calculate per capita */
+  $("#per-capita").change(function () {
+    if (document.getElementById("per-capita").checked) {
+      PER_CAPITA = true;
+    } else {
+      PER_CAPITA = false;
+    }
+    maybeDrawScatter(
+      OPTION1,
+      OPTION2,
+      GEO_DICT_X,
+      GEO_DICT_Y,
+      GEO_DICT_POP,
+      PLOT_LOCATIONS
+    );
+  });
+
+  /* Checks if user wants to swap x and y axes */
+  $("#swap").change(function () {
+    if (document.getElementById("swap").checked) {
+      SWAP = true;
+    } else {
+      SWAP = false;
+    }
+    maybeDrawScatter(
+      OPTION1,
+      OPTION2,
+      GEO_DICT_X,
+      GEO_DICT_Y,
+      GEO_DICT_POP,
+      PLOT_LOCATIONS
+    );
+  });
+
+  /* Checks if user wants to use log scale. */
+  $("#log-check-x").change(function () {
+    if (document.getElementById("log-check-x").checked) {
+      LOGX = true;
+      hObj = { title: cleanedLabel(OPTION1), scaleType: "log" };
+    } else {
+      LOGX = false;
+      hObj = { title: cleanedLabel(OPTION1) };
+    }
+    maybeDrawScatter(
+      OPTION1,
+      OPTION2,
+      GEO_DICT_X,
+      GEO_DICT_Y,
+      GEO_DICT_POP,
+      PLOT_LOCATIONS
+    );
+  });
+
+  $("#log-check-y").change(function () {
+    if (document.getElementById("log-check-y").checked) {
+      LOGY = true;
+      vObj = { title: cleanedLabel(OPTION2), scaleType: "log" };
+    } else {
+      LOGY = false;
+      vObj = { title: cleanedLabel(OPTION2) };
+    }
+    maybeDrawScatter(
+      OPTION1,
+      OPTION2,
+      GEO_DICT_X,
+      GEO_DICT_Y,
+      GEO_DICT_POP,
+      PLOT_LOCATIONS
+    );
+  });
+
+  /* If user selects a valid threshold for the population, redraw chart. */
+  $("#pop-threshold input").focusout(function () {
+    let $min_pop = $("#min-pop").removeClass("is-invalid");
+    let $max_pop = $("#max-pop").removeClass("is-invalid");
+    let $min_feedback = $min_pop.siblings(".invalid-feedback");
+    let $max_feedback = $max_pop.siblings(".invalid-feedback");
+    let minInput = Number($min_pop.val());
+    let maxInput = Number($max_pop.val());
+    let isValid = true;
+
+    if (Number.isNaN(minInput)) {
+      $min_pop.addClass("is-invalid");
+      $min_feedback.text("Please enter a valid number");
+      isValid = false;
+    }
+    if (Number.isNaN(maxInput)) {
+      $max_pop.addClass("is-invalid");
+      $max_feedback.text("Please enter a valid number");
+      isValid = false;
+    }
+    if (minInput < 0) {
+      $min_pop.addClass("is-invalid");
+      $min_feedback.text("Must be greater than 0");
+      isValid = false;
+    }
+    if (maxInput < 0) {
+      $max_pop.addClass("is-invalid");
+      $max_feedback.text("Must be greater than 0");
+      isValid = false;
+    }
+    if (minInput > maxInput) {
+      // Apply the warning to the field which just received the event.
+      $(this)
+        .addClass("is-invalid")
+        .siblings(".invalid-feedback")
+        .text("Maximum must be greater than the minimum");
+      isValid = false;
+    }
+    if (isValid) {
+      MIN_POP = minInput;
+      MAX_POP = maxInput;
+      maybeDrawScatter(
+        OPTION1,
+        OPTION2,
+        GEO_DICT_X,
+        GEO_DICT_Y,
+        GEO_DICT_POP,
+        PLOT_LOCATIONS
+      );
+    }
+  });
 
   /**
    * Request data from API and return an array containing payload objects.
@@ -1356,16 +1382,16 @@ $(function () {
 
   /**
    * Format all the labels and chart parameters, then draw the chart.
-   * @param{string} OPTION1 First option selected by user
-   * @param{string} OPTION2 Second option selected by user
+   * @param{string} option1 First option selected by user
+   * @param{string} option2 Second option selected by user
    * @param{?Object} geoDictX Contains values for all locations
    * @param{?Object} geoDictY Contains values for all locations
    * @param{?Object} geoDictPop Contains population count for all locations
    * @param{?rray<string>} locations Contains the geoIds to plot
    */
   function drawScatter(
-    OPTION1,
-    OPTION2,
+    option1,
+    option2,
     geoDictX,
     geoDictY,
     geoDictPop,
@@ -1390,13 +1416,13 @@ $(function () {
 
     if (locations.length > 0) {
       // Create clean labels for the axes and legend
-      xlabel = cleanedLabel(OPTION1);
-      ylabel = cleanedLabel(OPTION2);
-      xleg = cleanedLabelNoUnits(OPTION1);
-      yleg = cleanedLabelNoUnits(OPTION2);
+      xlabel = cleanedLabel(option1);
+      ylabel = cleanedLabel(option2);
+      xleg = cleanedLabelNoUnits(option1);
+      yleg = cleanedLabelNoUnits(option2);
       title = xleg + " vs " + yleg;
-      hObj = { title: cleanedLabel(OPTION1) };
-      vObj = { title: cleanedLabel(OPTION2) };
+      hObj = { title: cleanedLabel(option1) };
+      vObj = { title: cleanedLabel(option2) };
 
       downloadArr.push(["Location", xlabel, ylabel]);
 
@@ -1404,10 +1430,10 @@ $(function () {
         title = yleg + " vs " + xleg;
       }
       if (LOGX) {
-        hObj = { title: cleanedLabel(OPTION1), scaleType: "log" };
+        hObj = { title: cleanedLabel(option1), scaleType: "log" };
       }
       if (LOGY) {
-        vObj = { title: cleanedLabel(OPTION2), scaleType: "log" };
+        vObj = { title: cleanedLabel(option2), scaleType: "log" };
       }
 
       for (let locationId of locations) {
@@ -1429,16 +1455,16 @@ $(function () {
 
             // If the measuredProp = "count":
             // If number is < 1, round to 1 since log(1) = 0
-            x = checkLessThanOne(x, getMeasuredProp(OPTION1));
-            y = checkLessThanOne(y, getMeasuredProp(OPTION2));
+            x = checkLessThanOne(x, getMeasuredProp(option1));
+            y = checkLessThanOne(y, getMeasuredProp(option2));
             p = checkLessThanOne(p, "count");
 
             if (p > MIN_POP && p < MAX_POP) {
               if (PER_CAPITA) {
                 downloadArr.push([
                   location,
-                  getPerCapita(x, p, OPTION1),
-                  getPerCapita(y, p, OPTION2),
+                  getPerCapita(x, p, option1),
+                  getPerCapita(y, p, option2),
                 ]);
               } else {
                 downloadArr.push([location, x, y]);
@@ -1481,7 +1507,7 @@ $(function () {
       if (PREV_DROPPED === 0 && numDropped === 0) {
         $("#dropped").text("");
       } else {
-        $("#dropped").text("Number of datapoints dropped: " + numDropped);
+        $("#dropped").text("| Dropped datapoints: " + numDropped);
         PREV_DROPPED = numDropped;
       }
 
@@ -1538,7 +1564,7 @@ $(function () {
           };
         }
         let chart = new google.visualization.ScatterChart(
-          document.getElementById("chart_div")
+          document.getElementById("chart-div")
         );
         chart.draw(dataTable, options);
         removeSpinner();
