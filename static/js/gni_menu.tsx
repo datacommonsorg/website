@@ -1,6 +1,5 @@
 import React, { Component } from "react";
 import hierarchy from "../../tools/pv_tree_generator/hierarchy.json";
-import { parseStatVarPath } from "./util";
 
 interface NodePropType {
   title: string;
@@ -150,7 +149,7 @@ class Node extends Component<NodePropType, NodeStateType> {
 
 interface MenuPropType {
   search: boolean;
-  updateUrl: (statvar: string, should_add: boolean) => void;
+  updateUrl: (statvar: string, shouldAdd: boolean) => void;
   svPaths: string[][];
 }
 
