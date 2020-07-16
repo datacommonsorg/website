@@ -119,9 +119,7 @@
             "statsVars": [
               "Count_Person_Upto5Years",
               "Count_Person_5To17Years",
-              "Count_Person_15To19Years",
               "Count_Person_20To24Years",
-              "Count_Person_25To29Years",
               "Count_Person_25To34Years",
               "Count_Person_30To34Years",
               "Count_Person_35To39Years",
@@ -145,9 +143,7 @@
             "statsVars": [
               "Count_Person_Upto5Years",
               "Count_Person_5To17Years",
-              "Count_Person_15To19Years",
               "Count_Person_20To24Years",
-              "Count_Person_25To29Years",
               "Count_Person_25To34Years",
               "Count_Person_30To34Years",
               "Count_Person_35To39Years",
@@ -171,9 +167,7 @@
             "statsVars": [
               "Count_Person_Upto5Years",
               "Count_Person_5To17Years",
-              "Count_Person_15To19Years",
               "Count_Person_20To24Years",
-              "Count_Person_25To29Years",
               "Count_Person_25To34Years",
               "Count_Person_30To34Years",
               "Count_Person_35To39Years",
