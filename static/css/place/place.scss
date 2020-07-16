@@ -1,0 +1,244 @@
+/**
+ * Copyright 2020 Google LLC
+ *
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ *      http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ */
+
+@import '../base';
+@import 'place_search';
+
+$vertical-section-border: 1px solid var(--dc-gray-lite);
+$vertical-section-margin: 2rem;
+$sidebar-top-padding: 132px;  // Keep in sync with place.ts: Y_SCROLL_LIMIT
+
+#dc-places {
+  margin-left: 1.5rem;
+  margin-right: 1.5rem;
+
+  @include media-breakpoint-up(md) {
+    margin-left: 3rem;
+    margin-right: 3rem;
+  }
+}
+
+#dc-places h1 {
+  font-size: 1.8rem;
+  font-weight: 700;
+}
+
+#dc-places h3 {
+  font-size: 1rem;
+  color: var(--secondary);
+}
+
+#main .place-links {
+  color: var(--secondary);
+}
+
+#title a,
+#main-pane a {
+  color: inherit;
+  text-decoration: underline;
+}
+
+#topics a {
+  color: var(--dc-gray);
+  display: inline-block;
+  font-size: .9rem;
+  font-weight: 500;
+  line-height: 1.2rem;
+  padding: .3rem 0;
+  text-decoration: none;
+}
+
+#topics .nav-item .nav-item a {
+  font-weight: 300;
+  padding: .25rem 0;
+}
+
+#topics a.active {
+  color: var(--link-color);
+}
+
+#main h2 {
+  color: var(--dc-gray);
+  font-weight: 500;
+  font-size: 1.1rem;
+  text-transform: uppercase;
+  line-height: 1.5rem;
+  margin-top: 10px;
+}
+
+#main-pane section {
+  border-top: $vertical-section-border;
+  margin-top: $vertical-section-margin;
+}
+
+#main-pane section:first-of-type {
+  border: none;
+  margin-top: 0;
+}
+
+#body .subtopic h3 {
+  color: var(--dc-gray);
+  font-weight: 700;
+  font-size: 1rem;
+  text-transform: uppercase;
+  margin: 15px 0 10px;
+}
+
+#main h2 .more a,
+#body .subtopic h3 .more a {
+  color: var(--dc-gray);
+  font-weight: 400;
+  font-size: .8rem;
+  float: right;
+  text-decoration: none;
+}
+
+#body .subtopic h3 .more a:hover {
+  text-decoration: underline;
+}
+
+.subtopic .row {
+  margin-left: -.5rem;
+  margin-right: -.5rem;
+}
+
+.subtopic .row .col {
+  padding: .5rem;
+}
+
+.btn-dc {
+  color: #fff;
+  background-color: var(--dc-red-lite);
+  border-color: none;
+  padding: .2rem .6rem;
+}
+
+.btn-dc:hover {
+  color: #fff;
+}
+
+.btn-dc img {
+  vertical-align: sub;
+  height: 1rem;
+}
+
+#main-pane .button-dc {
+  margin-top: -3px;
+}
+
+.chart-container {
+  border: .5px solid #dee2e6;
+  border-radius: 3px;
+  height: 100%;
+  padding: 10px;
+  display: flex;
+  flex-direction: column;
+  position: relative;
+}
+
+.chart-container h4 {
+  color: var(--dc-gray);
+  font-weight: 500;
+  font-size: .8rem;
+  text-transform: uppercase;
+  margin-bottom: .5rem;
+  display: inline;
+}
+
+.chart-container h4 .sub-title {
+  color: #999;
+}
+
+.factoid footer,
+.chart-container footer {
+  font-size: .5rem;
+  color: var(--dc-gray);
+  margin-top: .5rem;
+}
+
+.factoid .table thead th {
+  vertical-align: middle;
+}
+
+.factoid th,
+.factoid td {
+  font-size: .9rem;
+  padding: .25rem;
+}
+
+#map-container {
+  height: 100%;
+  min-height: 160px;
+}
+
+#sidebar-outer {
+  border-top: $vertical-section-border;
+  margin-top: $vertical-section-margin;
+  padding-top: $vertical-section-margin;
+
+  @include media-breakpoint-up(lg) {
+    border: none;
+    margin-top: 0;
+    padding-top: 0;
+  }
+}
+
+#sidebar-top-spacer {
+  height: $sidebar-top-padding;
+  padding: 0;
+  margin: 0;
+}
+
+#sidebar-region {
+  padding-top: 15px;
+  position: relative;
+}
+
+#child-place-title {
+  font-weight: bold;
+  font-size: 14px;
+}
+
+#child-place {
+  margin-top: 30px;
+}
+
+.child-place-type {
+  font-weight: bold;
+  font-size: 13px;
+  margin-top: 10px;
+  margin-bottom: 4px;
+}
+
+.child-place-link {
+  font-size: 13px;
+  margin-right: 4px;
+  text-decoration: underline;
+  color: black;
+  display:inline-block;
+}
+
+.explore-more-container {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 0 4px;
+}
+
+.explore-more {
+  font-size: .7rem;
+  color: var(--dc-red-strong);
+}

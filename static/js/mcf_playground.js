@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-let BROWSER = "https://browser.datacommons.org/kg?dcid=";
+let BROWSER = "https://browser.datacommons.org/browser/";
 
 let DATE_FORMAT = /^\d{4}(-\d\d(-\d\d(T\d\d:\d\d)?)?)?$/i;
 

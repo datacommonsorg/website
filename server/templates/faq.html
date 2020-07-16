@@ -1,0 +1,160 @@
+{#
+ Copyright 2020 Google LLC
+
+ Licensed under the Apache License, Version 2.0 (the "License");
+ you may not use this file except in compliance with the License.
+ You may obtain a copy of the License at
+
+      http://www.apache.org/licenses/LICENSE-2.0
+
+ Unless required by applicable law or agreed to in writing, software
+ distributed under the License is distributed on an "AS IS" BASIS,
+ WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ See the License for the specific language governing permissions and
+ limitations under the License.
+#}
+{% extends 'base.html' %}
+
+{% set main_id = 'faq' %}
+{% set title = 'Frequently Asked Questions' %}
+
+{% block head %}
+  <link rel="stylesheet" href={{url_for('static', filename='css/static.min.css', t=config['GAE_VERSION'])}} />
+{% endblock %}
+
+{% block content %}
+<div class="container">
+  <h1>Frequently Asked Questions </h1>
+
+  <p>
+    <b>Q: What is Data Commons?</b><br>
+    Data Commons is a project started at Google, and is intended to be a community effort.
+    Data Commons is a collaborative initiative with a mission to maintain and provide access to
+    useful structured data on the Internet in an easy to use manner. Our goal is to create a
+    knowledge graph that contains a significant fraction of the world's structured data.
+    The Data Commons graph will be open, like the web, where anyone should be able to build
+    applications on top of this graph and anyone should be able to add to it.
+  </p>
+
+  <p>
+    <b>Q: What is the difference between Data Commons and public dataset projects like Dataverse,
+      Kaggle datasets, Google Big Query Public Datasets, etc.?</b><br>
+    Data Commons provides Data-as-a-Service directly rather than "downloadable datasets" in public
+    dataset projects like Kaggle or Google Big Query Public Datasets.
+    The underlying data indeed comes from different datasets and sources, but entities in different
+    datasets are resolved such that
+    users can directly query for the data, without specifying the source. In other words, users of
+    Data Commons do not need to search and find datasets,
+    or reconcile structure / schema across different datasets, or create common identifiers before
+    joining across various sources of data.
+  </p>
+
+  <p>
+    <b>Q: What is the relation between DataCommons.org and Schema.org?</b><br>
+    DataCommons.org builds upon on the vocabularies defined by Schema.org,
+    with additional terms defined to cover concepts (e.g. "citizenship") that are important to the
+    data in Data Commons but which have not been a priority
+    for Schema.org-based Web markup. The Data Commons schemas constitute an "external extension" to
+    Schema.org, similar to that provided by GS1.
+    Some schemas could migrate into Schema.org if the community find value in them.
+  </p>
+
+  <p>
+    <b>Q: What are the kinds of entities you are resolving now? Which ones are you not
+      resolving?</b><br>
+    At this time we are resolving entities as it relates to a geographical location or a place.
+    For example "population", "weather", and "crime statistics" in a particular "city".
+    We will continue to expand the set of entities that will be resolved like organizations, people,
+    events, products, etc.
+    The long term goal is to be able to resolve any arbitrary entity using <a
+      href="https://arxiv.org/pdf/1511.06341.pdf">Reference by Description.</a>
+  </p>
+  <p>
+    <b>Q: What are the usage rights of the data in Data Commons?</b><br>
+    Data Commons knowledge graph, and the compilation of the datasets is licensed under <a
+      href="https://creativecommons.org/licenses/by/4.0/">CC BY</a>.
+    The Data Commons API and the Python Libraries are released under <a
+      href="https://www.apache.org/licenses/LICENSE-2.0">Apache License 2.0</a>.
+    The data included in Data Commons Open Knowledge Graph come from different sources. The source of the
+    data (provenance) is provided for all the data.
+    Provenance includes the URL of the source of the data. While effort is made to obtain data from
+    sources which offer unrestricted usage of underlying data, terms of use of this data may be
+    subject to different licenses and terms of use as specified in the URL of the provenance.
+  </p>
+
+  <p>
+    <b>Q: How can we access data in Data Commons?</b><br>
+    The data in knowledge graph can be accessed through <a
+      href="https://browser.datacommons.org">Data Commons browser </a> and <a
+      href="https://github.com/google/datacommons">Python Query API</a>.
+  </p>
+
+  <p>
+    <b>Q: How can we add our own data to knowledge graph?</b><br>
+    Data Commons is intended to be a community project and seeks your involvement.
+    To know more about publishing data that can be included into Data Commons, check out <a
+      href="{{ url_for('get_involved') }}"> Get
+    involved</a> section. You can also contact <a href="mailto:support@datacommons.org">support@datacommons.org </a>
+    if you have an interesting dataset that you think should be included in Data Commons and would
+    like to help.
+    In the future we plan to allow users to ingest data into the Data Commons Open Knowledge Graph using
+    an upload tool. We will update the community when this functionality is released.
+  </p>
+
+  <p>
+    <b>Q: How long will you store the data for?</b><br>
+    Data Commons is not an archival service. We collect the data, build the knowledge graph and
+    provide access to the Open Knowledge Graph.
+    As with any website, long term storage and safekeeping of the data is the responsibility of the
+    primary publisher.
+  </p>
+
+  <p>
+    <b>Q: Where can I download all the data?</b><br>
+    Given the size and evolving nature of the Data Commons Open Knowledge Graph, we prefer you access
+    it via the APIs.
+    If your project needs local access to a large fraction of the OKG, please contact <a
+      href="mailto:support@DataCommons.org">support@datacommons.org </a>.
+  </p>
+
+  <p>
+    <b>Q: How much does this service cost to use?</b><br>
+    The public data in the Data Commons OKG is hosted on Google Cloud platform by
+    Data Commons and is made available for users. There is no cost for data itself, when it is
+    publicly available for free.
+    The usage limits for the service beyond free tier quota will be in line with pricing of <a
+      href="https://cloud.google.com/bigquery/public-data/Google">Big Query Public dataset
+    program</a>.
+    In the future when more data is added to the knowledge graph by users - just like the Web, we
+    expect some data to be free, some data to be private, and some data may have an associated cost
+    to access.
+  </p>
+
+  <p>
+    <b>Q: What are the SLAs / Performance levels we can expect?</b><br>
+    The service is provided on an as-is basis with no SLA or commitments on availability or
+    uptime.
+  </p>
+
+  <p>
+    <b>Q: How do we know if the data is accurate?</b><br>
+    Data Commons provides an access mechanism to data and makes no commitment on accuracy data.
+    Answers to queries will include the provenance (source of the data). Choice of which data to
+    use, based on source, is in developer's control.
+  </p>
+
+  <p>
+    <b>Q: How often is the data refreshed?</b><br>
+    We intend to refresh the dataset to reflect the evolving nature of underlying data and as
+    more data sources are included.
+    However, we don't have a set schedule for periodic update of data.
+  </p>
+
+  <p>
+    <b>Q: I have a question / feedback. Whom do I contact?</b><br>
+    You can post your question on the <a href="https://github.com/google/datacommons/issues">
+    GitHub forum</a> or contact <a
+      href="mailto:support@DataCommons.org">support@datacommons.org</a>.
+  </p>
+</div>
+{% endblock %}

@@ -1,0 +1,177 @@
+{#
+ Copyright 2020 Google LLC
+
+ Licensed under the Apache License, Version 2.0 (the "License");
+ you may not use this file except in compliance with the License.
+ You may obtain a copy of the License at
+
+      http://www.apache.org/licenses/LICENSE-2.0
+
+ Unless required by applicable law or agreed to in writing, software
+ distributed under the License is distributed on an "AS IS" BASIS,
+ WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ See the License for the specific language governing permissions and
+ limitations under the License.
+#}
+
+{% set is_hide_full_footer = true %}
+{% set subpage_title = "Scatter" %}
+{% set title = "Scatterplot tool" %}
+
+{% extends 'base.html' %}
+
+{% block head %}
+  <link rel="stylesheet" href={{url_for('static', filename='css/scatter.min.css', t=config['GAE_VERSION'])}}>
+{% endblock %}
+
+{% block content %}
+<div id="main-pane">
+  {# Explore menu #}
+  <div class="explore-menu-container" id="explore">
+    <div id="drill-scroll-container">
+      <div class="title">Select two variables:</div>
+      <div id="drill"></div>
+    </div>
+  </div>
+
+  <div id="plot-container">
+    {# Selections for the chart #}
+    <div id="chart-header">
+        <div class="form-group row">
+          <label for="inputEmail3" class="col-sm-3 col-form-label">Plot these places</label>
+          <div class="col-sm-9">
+            <div class="form-row">
+              <div class="col-auto">
+                <select id="place-types" class="custom-select">
+                </select>
+              </div>
+              <div class="col-auto">
+                <label id="enclosing" class="col-form-label" style="display: none">in</label>
+              </div>
+              <div class="col-auto">
+                <select id="place-types-states" class="custom-select" style="display: none"></select>
+                <select id="place-types-counties" class="custom-select" style="display: none"></select>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="form-group" id="pop-threshold">
+          <div class="row">
+            <label class="col-form-label col-sm-3">Only add places of this size</label>
+            <div class="col-sm-9">
+              <div class="form-row">
+                <div class="col-auto">
+                  <input type="number" id="min-pop" class="form-control" value="0">
+                  <div class="invalid-feedback"></div>
+                </div>
+                <div class="col-auto">
+                  <label class="col-form-label">and</label>
+                </div>
+                <div class="col-auto">
+                  <input type="number" id="max-pop" class="form-control" value="330000000">
+                  <div class="invalid-feedback"></div>
+                </div>
+                <div class="col-auto">
+                  <label class="col-form-label">people</label>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="form-group row">
+          <div class="col-form-label col-sm-3">Plot options</div>
+          <div class="col-sm-9">
+            <div class="form-check form-check-inline col-form-label">
+              <input class="form-check-input" type="checkbox" id="per-capita">
+              <label class="form-check-label description" for="per-capita"> Per capita
+              </label>
+            </div>
+            <div class="form-check form-check-inline col-form-label">
+              <input class="form-check-input" type="checkbox" id="swap">
+              <label class="form-check-label description" for="swap"> Swap x and y axes
+              </label>
+            </div>
+            <div class="form-check form-check-inline col-form-label">
+              <input class="form-check-input" type="checkbox" id="log-check-x">
+              <label class="form-check-label description" for="log-check-x"> Plot x-axis
+                on log scale </label>
+            </div>
+            <div class="form-check form-check-inline col-form-label">
+              <input class="form-check-input" type="checkbox" id="log-check-y">
+              <label class="form-check-label description" for="log-check-y"> Plot y-axis
+                on log scale</label>
+            </div>
+          </div>
+        </div>
+
+      {# Display calculations #}
+      <div class="block_container calculations">
+        <div class="description">
+          <div id="mean-x"></div>
+        </div>
+        <div class="description">
+          <div id="mean-y"></div>
+        </div>
+        <div class="description">
+          <div id="sd-x"></div>
+        </div>
+        <div class="description">
+          <div id="sd-y"></div>
+        </div>
+        <div class="description">
+          <div id="dropped"></div>
+        </div>
+      </div>
+
+    </div>
+
+    {# Scatter chart #}
+    <div id="chart-div">
+      <div id="instructions">
+        Please select two variables from the left menu, and plot locations above
+      </div>
+    </div>
+
+  </div>
+</div>
+
+{# Dialog box #}
+<div class="modal fade" id="dialog" tabindex="-1" role="dialog">
+  <div class="modal-dialog modal-dialog-centered" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title">Only two variables can be selected</h5>
+        <button type="button" class="close" data-dismiss="modal"
+          aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        Check the variable you would like to replace with your new selection:
+        <div id="new-selection" class="mt-3 mb-3"></div>
+        <div class="form-check col-form-label">
+          <input class="form-check-input" type="checkbox" id="one">
+          <label class="form-check-label description" for="one" id="var-one"></label>
+        </div>
+        <div class="form-check col-form-label">
+          <input class="form-check-input" type="checkbox" id="two">
+          <label class="form-check-label description" for="two" id="var-two"></label>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div id='screen'>
+  <div id="spinner"></div>
+</div>
+{% endblock %}
+
+{% block footer %}
+<script src="https://www.gstatic.com/charts/loader.js"></script>
+<script src={{url_for('static', filename='scatter.js', t=config['GAE_VERSION'])}}></script>
+{% endblock %}
+
+{% block subfooter_extra %}
+<button id="download-csv" class="btn-subfooter btn btn-dark">Download CSV</button>
+{% endblock %}

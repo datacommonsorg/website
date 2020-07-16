@@ -609,7 +609,7 @@ function drawFromChartApi(chartElem, placeIdStr, pt_pvs_mp_str) {
   }
   for (let mprop in mpropGroup) {
     const card = document.createElement("div");
-    card.className = "card";
+    card.className = "shadow-card";
     elem2.appendChild(card);
     let ptpvGroup = mpropGroup[mprop];
     let img = new Image();

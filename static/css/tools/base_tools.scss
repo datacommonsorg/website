@@ -1,0 +1,130 @@
+/**
+ * Copyright 2020 Google LLC
+ *
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ *      http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ */
+
+@import '../base';
+
+body {
+  font-size: 1rem;
+  font-weight: 400;
+  line-height: 1.5;
+}
+
+#main {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  height: 100vh;
+  align-items: stretch;
+}
+
+#main-header,
+.main-content,
+#main-footer {
+  display: flex;
+  flex: 0 0;
+}
+
+.main-content {
+  flex: 1 1 auto;
+  margin: 0 !important;
+  position: relative;
+}
+
+#main-footer {
+  margin-top: 0 !important;
+  padding-top: 0 !important;
+}
+
+#main-footer .container {
+  max-width: 100% !important;
+  padding-left: 31px !important;
+  padding-right: 31px !important;
+}
+
+#main-footer #sub-footer {
+  border-top: none !important;
+  margin-bottom: 0 !important;
+  padding-bottom: 1.5rem !important;
+}
+
+#main-pane {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+}
+
+#plot-container {
+  position: absolute;
+  left: 350px;
+  top: 0;
+  height: 100%;
+  right: 0;
+  padding: 20px;
+}
+
+.btn-subfooter {
+  font-size: .9rem;
+  margin: -.375rem .5rem -1px;
+  background-color: var(--dc-red-strong);
+  border-color: var(--dc-red-strong);
+}
+
+/* Spinner */
+#screen {
+  display: none;
+  position: absolute;
+  left: 0;
+  top: 0;
+  background: rgba(0, 0, 0, .5);
+  z-index: 100;
+  width: 100%;
+  height: 100%;
+}
+
+#spinner:not([hidden]) {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+#spinner::after {
+  content: "";
+  z-index: 10;
+  width: 80px;
+  height: 80px;
+  border: 2px solid #f3f3f3;
+  border-top: 3px solid var(--dc-red-strong);
+  border-radius: 100%;
+  will-change: transform;
+  animation: spin 1s infinite linear;
+}
+
+@keyframes spin {
+  from {
+    transform: rotate(0deg);
+  }
+
+  to {
+    transform: rotate(360deg);
+  }
+}
