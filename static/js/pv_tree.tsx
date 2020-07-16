@@ -151,6 +151,7 @@ class Node extends Component<NodePropType, NodeStateType> {
 interface MenuPropType {
   search: boolean;
   updateUrl: (statvar: string, shouldAdd: boolean) => void;
+  svPaths: string[][];
 }
 
 class Menu extends Component<MenuPropType, {}> {
