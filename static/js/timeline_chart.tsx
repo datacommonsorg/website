@@ -50,33 +50,42 @@ class StatVarChip extends Component<StatVarChipPropsType, {}> {
   }
 }
 
+/**
+ * @param chartElem: Element DOM Id
+ * @param placeIds: [placeId1, placeId2, ...]
+ * @param statVarsAndMeasuredProps: [[statVar1, mprop1], [statVar2, mprop2], ...]
+ * @param perCapita: true/false
+ */
 interface ChartRegionPropsType {
   chartElem: string;
   placeIds: string[];
-  statVarsAndMeasuredProps: any[];
+  statVarsAndMeasuredProps: string[][];
   perCapita: boolean;
 }
 
 class ChartRegion extends Component<ChartRegionPropsType, {}> {
-  measuredPropGroup: { string?: string[] };
-  measuredProps: string[];
-  chartIds: string[];
+  measuredPropGroup: {
+    [mprop: string]: { chartId: string; statVars: string[] };
+  };
   width: number;
   height: number;
 
   constructor(props) {
     super(props);
-
-    // get mprop-statVar dict: { mprop: [statVar1, statVar2, ...]}
     this.measuredPropGroup = {};
-    this.measuredProps = [];
     for (const statVarAndMeasuredProp of this.props.statVarsAndMeasuredProps) {
       const mprop = statVarAndMeasuredProp[1];
       if (mprop in this.measuredPropGroup) {
-        this.measuredPropGroup[mprop].push(statVarAndMeasuredProp[0]);
+        this.measuredPropGroup[mprop]["statVars"].push(
+          statVarAndMeasuredProp[0]
+        );
       } else {
-        this.measuredProps.push(mprop);
-        this.measuredPropGroup[mprop] = [statVarAndMeasuredProp[0]];
+        this.measuredPropGroup[mprop] = {
+          chartId: "",
+          statVars: [],
+        };
+        this.measuredPropGroup[mprop]["chartId"] = randDomId();
+        this.measuredPropGroup[mprop]["statVars"] = [statVarAndMeasuredProp[0]];
       }
     }
 
@@ -85,14 +94,35 @@ class ChartRegion extends Component<ChartRegionPropsType, {}> {
     this.width = Math.min(obsElem.offsetWidth - 20, MAX_CHART_WIDTH);
     this.height = Math.min(Math.round(this.width * 0.5), MAX_CHART_HEIGHT);
 
-    const length = Object.keys(this.measuredPropGroup).length;
-    this.chartIds = [];
-    for (let i = 0; i < length; i++) {
-      this.chartIds.push(randDomId());
+    // Empty state in the beginning, dataGroupDict and PlotParams will be in the state
+    this.state = {};
+  }
+
+  render() {
+    if (Object.keys(this.state).length === 0) {
+      return <div></div>;
     }
 
-    // Empty state in the beginning, only dataGroupDict will be in the state
-    this.state = {};
+    return Object.keys(this.measuredPropGroup).map((mprop, index) => {
+      return (
+        <div key={mprop}>
+          <div
+            id={this.measuredPropGroup[mprop]["chartId"]}
+            className="card"
+          ></div>
+          {this.state["params"][mprop]["colors"].map((color, statVarIndex) => {
+            return (
+              <StatVarChip
+                statVar={this.state["params"][mprop]["statVars"][statVarIndex]}
+                color={color}
+                key={randDomId()}
+                deleteStatVarChip={this.deleteStatVarChip}
+              />
+            );
+          })}
+        </div>
+      );
+    });
   }
 
   componentDidMount() {
@@ -102,7 +132,7 @@ class ChartRegion extends Component<ChartRegionPropsType, {}> {
     for (const mprop in this.measuredPropGroup) {
       if (this.measuredPropGroup.hasOwnProperty(mprop)) {
         mprops.push(mprop);
-        const statsVarsArray = this.measuredPropGroup[mprop];
+        const statsVarsArray = this.measuredPropGroup[mprop]["statVars"];
         // Make an array of Promises
         promises.push(
           fetchStatsData(
@@ -119,7 +149,7 @@ class ChartRegion extends Component<ChartRegionPropsType, {}> {
       const state = {};
       const params = {};
       for (let i = 0; i < statDatas.length; i++) {
-        // generate dict {geoId: DataGroup}.
+        // generate dict {geoId: DataGroup[]}.
         const dataGroupsDict = {};
         for (const geo of statDatas[i].places) {
           dataGroupsDict[geo] = statDatas[i].getStatsVarGroupWithTime(geo);
@@ -140,7 +170,7 @@ class ChartRegion extends Component<ChartRegionPropsType, {}> {
     for (const mprop in this.state["data"]) {
       if (this.state["data"].hasOwnProperty(mprop)) {
         const dataGroupsDict = this.state["data"][mprop];
-        const elemId = this.chartIds[index];
+        const elemId = this.measuredPropGroup[mprop]["chartId"];
         drawGroupLineChart(
           elemId,
           this.width,
@@ -156,30 +186,6 @@ class ChartRegion extends Component<ChartRegionPropsType, {}> {
   deleteStatVarChip(statVar: string) {
     // TODO: add function to delete statvarchip.
     return;
-  }
-
-  render() {
-    if (JSON.stringify(this.state) === "{}") {
-      return <div></div>;
-    }
-
-    return this.measuredProps.map((mprop, index) => {
-      return (
-        <div key={mprop}>
-          <div id={this.chartIds[index]} className="card"></div>
-          {this.state["params"][mprop]["colors"].map((color, statVarIndex) => {
-            return (
-              <StatVarChip
-                statVar={this.state["params"][mprop]["statVars"][statVarIndex]}
-                color={color}
-                key={randDomId()}
-                deleteStatVarChip={this.deleteStatVarChip}
-              />
-            );
-          })}
-        </div>
-      );
-    });
   }
 }
 
