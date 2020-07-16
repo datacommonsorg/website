@@ -257,6 +257,9 @@ function drawTimeSeries(seriesArray, valueKey, selector) {
   }
   if (sample["measurementDenominator"]) {
     let mDenom = sample["measurementDenominator"];
+    if (mDenom === "PerCapita") {
+      mDenom = "Count_Person";
+    }
     if (!yLabelText && sample["scalingFactor"] == 100) {
       // Special case: unitless and scaled by 100: percent.
       yLabelText = "% of " + mDenom;
