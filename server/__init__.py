@@ -40,14 +40,17 @@ def create_app():
     cache.init_app(app)
 
     # apply the blueprints to the app
-    from routes import factcheck, sitemap, gni
+    from routes import browser, factcheck, redirects, sitemap, static, tools
     from routes.api import place, stats, chart
+    app.register_blueprint(browser.bp)
+    app.register_blueprint(chart.bp)
     app.register_blueprint(factcheck.bp)
     app.register_blueprint(place.bp)
+    app.register_blueprint(redirects.bp)
     app.register_blueprint(sitemap.bp)
-    app.register_blueprint(gni.bp)
+    app.register_blueprint(static.bp)
     app.register_blueprint(stats.bp)
-    app.register_blueprint(chart.bp)
+    app.register_blueprint(tools.bp)
 
     # Load chart config
     with open('chart_config.json') as f:
