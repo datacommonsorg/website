@@ -51,17 +51,19 @@ Wait for approval of the Pull Request and merge the change.
 ### Local Development
 
 #### Get permission to use API KEY
+
 Contact Data Commons team to get permission for access of secret manager.
 
 #### Set Google Application Credential
+
 Contact Data Commons team to get permission for GCP application credential.
 Then run the following command once
 
 ```bash
 gcloud config set project datcom-browser-staging && \
 gcloud auth application-default login
-
 ```
+
 This will generate a json file in your local machine, record the path and set
 the environment variable in your ~/.bash_profile or ~/.bashrc file
 
@@ -98,11 +100,13 @@ Another way to start the server locally is to use Docker.
 Make sure you have installed [Docker Desktop](https://www.docker.com/products/docker-desktop).
 
 Build Docker image
+
 ```bash
 docker build -t datacommonsorg-website .
 ```
 
 Run it locally
+
 ```bash
 docker run \
 -p 8080:8080 \
@@ -111,10 +115,10 @@ docker run \
 datacommonsorg-website
 ```
 
-<<<<<<< HEAD
 ### Update resource files
 
 #### placeid2dcid.json
+
 This file is stored in GCS bucket: datcom-browser-prod.appspot.com (for prod) and
 datcom-browser-prod.appspot.com (for local and staging). For updating this file,
 please contact Data Commons team.
@@ -128,8 +132,5 @@ Apache 2.0
 For general questions or issues, please open an issue on our
 [issues](https://github.com/datacommonsorg/website/issues) page. For all other
 questions, please send an email to `support@datacommons.org`.
-=======
-## Update resource files
->>>>>>> redesign-clean
 
 **Note** - This is not an officially supported Google product.
