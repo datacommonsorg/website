@@ -642,7 +642,7 @@ function drawGroupLineChart(
     dashIndex++;
   }
 
-  let legendId = randDomId();
+  const legendId = randDomId();
   svg
     .append("g")
     .attr("id", legendId)
