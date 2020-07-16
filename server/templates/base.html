@@ -80,8 +80,7 @@
                 <div class="dropdown-menu" aria-labelledby="nav-doc-dropdown">
                   <a class="dropdown-item" href="{{ url_for('static.datasets') }}">Datasets</a>
                   <a class="dropdown-item" href="http://docs.datacommons.org/api/python/">Python API</a>
-                  {# TODO(beets): Add a page for this #}
-                  <a class="dropdown-item" href="#">Sample Python notebooks</a>
+                  <a class="dropdown-item" href="http://docs.datacommons.org/api/examples.html">Sample Python notebooks</a>
                   <a class="dropdown-item" href="http://docs.datacommons.org/api/r/">R API</a>
                   <a class="dropdown-item" href="http://docs.datacommons.org/api/rest/">REST API</a>
                   <a class="dropdown-item" href="http://docs.datacommons.org/api/sheets/">Google Sheets API</a>
@@ -92,7 +91,6 @@
                   About
                 </a>
                 <div class="dropdown-menu" aria-labelledby="nav-about-dropdown">
-                  {# TODO(beets): Add a page for this #}
                   <a class="dropdown-item" href="{{ url_for('static.about') }}">About Data Commons</a>
                   <a class="dropdown-item" href="{{ url_for('static.faq') }}">FAQ</a>
                 </div>
@@ -159,7 +157,13 @@
   <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
   <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
   <script async src="https://cse.google.com/cse.js?cx=010079880385165835740%3Aosnv3q-sw08"></script>
-
+  <script async src="https://www.googletagmanager.com/gtag/js?id=UA-117119267-1"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+    gtag('config', 'UA-117119267-1');
+  </script>
   {% block footer %}
   {% endblock %}
 </body>
