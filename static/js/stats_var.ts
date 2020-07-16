@@ -25,6 +25,13 @@ const STATS_VAR_TEXT: { [key: string]: string } = {
   Count_Person_InLaborForce: "People in Labor Force",
   Count_Person: "Total",
   Count_Person_PerArea: "Person per Area",
+  LifeExpectancy_Person: "Life Expectancy",
+  GrowthRate_Count_Person: "Population Growth Rate",
+  FertilityRate_Person_Female: "Fertility Rate",
+
+  // Economics
+  GrowthRate_Amount_EconomicActivity_GrossDomesticProduction: "GDP Growth Rate",
+
   // age
   Count_Person_Upto5Years: "0-5",
   Count_Person_5To17Years: "5-17",

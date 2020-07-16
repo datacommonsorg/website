@@ -84,10 +84,11 @@ def config(dcid):
     for src_section in current_app.config['CHART_CONFIG']:
         target_section = {
             "label": src_section["label"],
-            "charts": filter_charts(src_section['charts'], all_stats_vars),
+            "charts": filter_charts(
+                src_section.get('charts', []), all_stats_vars),
             "children": []
         }
-        for child in src_section['children']:
+        for child in src_section.get('children', []):
             child_charts = filter_charts(child['charts'], all_stats_vars)
             if child_charts:
                 target_section['children'].append({

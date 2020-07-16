@@ -220,6 +220,10 @@ interface MainPanePropType {
    */
   dcid: string;
   /**
+   * The place type.
+   */
+  placeType: string;
+  /**
    * The topic of the current page.
    */
   topic: string;
@@ -265,7 +269,7 @@ class MainPane extends Component<MainPanePropType, {}> {
     }
     return (
       <React.Fragment>
-        {this.props.dcid !== "country/USA" && (
+        {!["Country", "Continent"].includes(this.props.placeType) && (
           <Overview topic={this.props.topic} dcid={this.props.dcid} />
         )}
         {configData.map((item, index) => {
