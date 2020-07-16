@@ -59,8 +59,8 @@ class Node extends Component<NodePropType, NodeStateType> {
       if (this.state.expanded) {
         expandImg = (
           <img
-            className="right-caret transform-down"
-            src="../images/right-caret.png"
+            className="right-caret transform-up"
+            src="/images/right-caret-light.png"
             onClick={this._handleExpandClick}
           />
         );
@@ -83,7 +83,7 @@ class Node extends Component<NodePropType, NodeStateType> {
         expandImg = (
           <img
             className="right-caret"
-            src="../images/right-caret.png"
+            src="/images/right-caret-light.png"
             onClick={this._handleExpandClick}
           />
         );

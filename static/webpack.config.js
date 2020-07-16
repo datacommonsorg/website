@@ -25,7 +25,6 @@ const config = {
     download: __dirname + "/js/download.js",
     dev_menu: [
       __dirname + "/js/dev_menu.ts",
-      __dirname + "/css/tools/statvar_menu.scss",
       __dirname + "/css/timeline.scss",
     ],
     kg: [__dirname + "/js/kg.js", __dirname + "/css/kg.scss"],

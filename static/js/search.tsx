@@ -4,13 +4,13 @@ import { updateUrlPlace } from "./util";
 
 let ac: google.maps.places.Autocomplete;
 
-interface PlacePropType {
+interface ChipPropType {
   placeName: string;
   placeId: string;
   deleteChip: (placeName: string, placeString: string) => void;
 }
 
-class Chip extends Component<PlacePropType, {}> {
+class Chip extends Component<ChipPropType, {}> {
   render() {
     return (
       <span className="mdl-chip mdl-chip--deletable">
@@ -34,7 +34,7 @@ interface SearchBarStateType {
 
 class SearchBar extends Component<{}, SearchBarStateType> {
   constructor(props) {
-    super(props);
+    super(props)
     this.getPlaceAndRender = this.getPlaceAndRender.bind(this);
     this.deleteChip = this.deleteChip.bind(this);
     this.state = {
@@ -57,10 +57,10 @@ class SearchBar extends Component<{}, SearchBarStateType> {
     // Get the place details from the autocomplete object.
     const place = ac.getPlace();
     axios
-      .get(`api/placeid2dcid/${place.place_id}`)
+      .get(`/api/placeid2dcid/${place.place_id}`)
       .then((resp) => {
         if (updateUrlPlace(resp.data, true)) {
-          this.state.placeList.push([place.name, resp.data]);
+          this.state.placeList.push([place.name.split(",")[0], resp.data]);
         }
       })
       .catch(() => {
