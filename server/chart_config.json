@@ -11,36 +11,36 @@
         "url": "https://www.census.gov/"
       },
       {
+        "title": "Population Growth Rate",
+        "topic": "Population",
+        "chartType": "LINE",
+        "statsVars": ["GrowthRate_Count_Person"],
+        "source": "EurostatData",
+        "url": "https://ec.europa.eu/eurostat/data/database"
+      },
+      {
         "title": "Person Per Area",
         "topic": "Population",
         "chartType": "LINE",
         "statsVars": ["Count_Person_PerArea"],
-        "source": "TODO",
-        "url": "TODO"
+        "source": "EurostatData",
+        "url": "https://ec.europa.eu/eurostat/data/database"
       },
       {
         "title": "Life Expectancy",
         "topic": "Population",
         "chartType": "LINE",
         "statsVars": ["LifeExpectancy_Person"],
-        "source": "TODO",
-        "url": "TODO"
-      },
-      {
-        "title": "Population Growth Rate",
-        "topic": "Population",
-        "chartType": "LINE",
-        "statsVars": ["GrowthRate_Count_Person"],
-        "source": "TODO",
-        "url": "TODO"
+        "source": "EurostatData",
+        "url": "https://ec.europa.eu/eurostat/data/database"
       },
       {
         "title": "Fertility Rate",
         "topic": "Population",
         "chartType": "LINE",
         "statsVars": ["FertilityRate_Person_Female"],
-        "source": "TODO",
-        "url": "TODO"
+        "source": "EurostatData",
+        "url": "https://ec.europa.eu/eurostat/data/database"
       },
       {
         "title": "Median Age",
@@ -119,11 +119,25 @@
             "statsVars": [
               "Count_Person_Upto5Years",
               "Count_Person_5To17Years",
+              "Count_Person_15To19Years",
+              "Count_Person_20To24Years",
+              "Count_Person_25To29Years",
               "Count_Person_25To34Years",
+              "Count_Person_30To34Years",
+              "Count_Person_35To39Years",
               "Count_Person_35To44Years",
+              "Count_Person_40To44Years",
+              "Count_Person_45To49Years",
               "Count_Person_45To54Years",
+              "Count_Person_50To54Years",
               "Count_Person_55To59Years",
-              "Count_Person_65OrMoreYears"
+              "Count_Person_60To64Years",
+              "Count_Person_65OrMoreYears",
+              "Count_Person_65To69Years",
+              "Count_Person_70To74Years",
+              "Count_Person_75To79Years",
+              "Count_Person_80To84Years",
+              "Count_Person_85To89Years"
             ],
             "source": "US Census",
             "url": "https://www.census.gov/"
@@ -136,11 +150,25 @@
             "statsVars": [
               "Count_Person_Upto5Years",
               "Count_Person_5To17Years",
+              "Count_Person_15To19Years",
+              "Count_Person_20To24Years",
+              "Count_Person_25To29Years",
               "Count_Person_25To34Years",
+              "Count_Person_30To34Years",
+              "Count_Person_35To39Years",
               "Count_Person_35To44Years",
+              "Count_Person_40To44Years",
+              "Count_Person_45To49Years",
               "Count_Person_45To54Years",
+              "Count_Person_50To54Years",
               "Count_Person_55To59Years",
-              "Count_Person_65OrMoreYears"
+              "Count_Person_60To64Years",
+              "Count_Person_65OrMoreYears",
+              "Count_Person_65To69Years",
+              "Count_Person_70To74Years",
+              "Count_Person_75To79Years",
+              "Count_Person_80To84Years",
+              "Count_Person_85To89Years"
             ],
             "source": "US Census",
             "url": "https://www.census.gov/"
@@ -153,11 +181,25 @@
             "statsVars": [
               "Count_Person_Upto5Years",
               "Count_Person_5To17Years",
+              "Count_Person_15To19Years",
+              "Count_Person_20To24Years",
+              "Count_Person_25To29Years",
               "Count_Person_25To34Years",
+              "Count_Person_30To34Years",
+              "Count_Person_35To39Years",
               "Count_Person_35To44Years",
+              "Count_Person_40To44Years",
+              "Count_Person_45To49Years",
               "Count_Person_45To54Years",
+              "Count_Person_50To54Years",
               "Count_Person_55To59Years",
-              "Count_Person_65OrMoreYears"
+              "Count_Person_60To64Years",
+              "Count_Person_65OrMoreYears",
+              "Count_Person_65To69Years",
+              "Count_Person_70To74Years",
+              "Count_Person_75To79Years",
+              "Count_Person_80To84Years",
+              "Count_Person_85To89Years"
             ],
             "perCapita": true,
             "scaling": 100,
@@ -363,14 +405,69 @@
     "label": "Economics",
     "charts": [
       {
+        "title": "GDP",
+        "topic": "Economics",
+        "chartType": "LINE",
+        "statsVars": [
+          "Amount_EconomicActivity_GrossDomesticProduction_Nominal"
+        ],
+        "source": "EurostatData",
+        "url": "https://ec.europa.eu/eurostat/data/database"
+      },
+      {
         "title": "GDP Growth Rate",
         "topic": "Economics",
         "chartType": "LINE",
         "statsVars": [
           "GrowthRate_Amount_EconomicActivity_GrossDomesticProduction"
         ],
-        "source": "TODO",
-        "url": "TODO"
+        "source": "EurostatData",
+        "url": "https://ec.europa.eu/eurostat/data/database"
+      },
+      {
+        "title": "Government Debt",
+        "topic": "Economics",
+        "chartType": "LINE",
+        "statsVars": ["Amount_Debt_Government"],
+        "source": "EurostatData",
+        "url": "https://ec.europa.eu/eurostat/data/database"
+      }
+    ],
+    "children": [
+      {
+        "label": "Economic Activity",
+        "charts": [
+          {
+            "title": "GDP Per Capita",
+            "topic": "Economics",
+            "chartType": "LINE",
+            "statsVars": [
+              "Amount_EconomicActivity_GrossDomesticProduction_Nominal_PerCapita"
+            ],
+            "source": "EurostatData",
+            "url": "https://ec.europa.eu/eurostat/data/database"
+          },
+          {
+            "title": "GNI PPP Per Capita",
+            "topic": "Economics",
+            "chartType": "LINE",
+            "statsVars": [
+              "Amount_EconomicActivity_GrossNationalIncome_PurchasingPowerParity_PerCapita"
+            ],
+            "source": "EurostatData",
+            "url": "https://ec.europa.eu/eurostat/data/database"
+          },
+          {
+            "title": "GNI PPP",
+            "topic": "Economics",
+            "chartType": "LINE",
+            "statsVars": [
+              "Amount_EconomicActivity_GrossNationalIncome_PurchasingPowerParity"
+            ],
+            "source": "EurostatData",
+            "url": "https://ec.europa.eu/eurostat/data/database"
+          }
+        ]
       }
     ]
   },
@@ -387,7 +484,6 @@
           "Count_Death_ExternalCauses",
           "Count_Death_DiseasesOfTheNervousSystem"
         ],
-        "placeTypes": ["County", "State"],
         "source": "CDC",
         "url": "https://www.cdc.gov/"
       },
@@ -401,7 +497,6 @@
           "Percent_Person_WithMentalHealthNotGood",
           "Percent_Person_WithPhysicalHealthNotGood"
         ],
-        "placeTypes": ["City"],
         "unit": "%",
         "source": "CDC",
         "url": "https://www.cdc.gov/"
@@ -416,7 +511,6 @@
           "Percent_Person_PhysicalInactivity",
           "Percent_Person_Smoking"
         ],
-        "placeTypes": ["City"],
         "unit": "%",
         "source": "CDC",
         "url": "https://www.cdc.gov/"
@@ -431,7 +525,6 @@
           "RetailDrugDistribution_DrugDistribution_Amphetamine",
           "RetailDrugDistribution_DrugDistribution_Morphine"
         ],
-        "placeTypes": ["County"],
         "source": "DEA",
         "url": "https://www.deadiversion.usdoj.gov"
       },
@@ -442,7 +535,6 @@
           "CumulativeCount_MedicalConditionIncident_COVID_19_ConfirmedOrProbableCase",
           "CumulativeCount_MedicalConditionIncident_COVID_19_PatientDeceased"
         ],
-        "placeTypes": ["County", "State", "Country"],
         "source": "The New York Times",
         "url": "https://www.nytimes.com/article/coronavirus-county-data-us.html"
       }
@@ -462,7 +554,6 @@
               "Count_Death_ExternalCauses",
               "Count_Death_DiseasesOfTheNervousSystem"
             ],
-            "placeTypes": ["County", "State"],
             "source": "CDC",
             "url": "https://www.cdc.gov/"
           },
@@ -478,7 +569,6 @@
               "Count_Death_ExternalCauses",
               "Count_Death_DiseasesOfTheNervousSystem"
             ],
-            "placeTypes": ["County", "State"],
             "source": "CDC",
             "url": "https://www.cdc.gov/"
           },
@@ -494,7 +584,6 @@
               "Count_Death_ExternalCauses",
               "Count_Death_DiseasesOfTheNervousSystem"
             ],
-            "placeTypes": ["County", "State"],
             "perCapita": true,
             "scaling": 100,
             "unit": "%",
@@ -516,7 +605,6 @@
               "Percent_Person_WithMentalHealthNotGood",
               "Percent_Person_WithPhysicalHealthNotGood"
             ],
-            "placeTypes": ["City"],
             "unit": "%",
             "source": "CDC",
             "url": "https://www.cdc.gov/"
@@ -533,7 +621,6 @@
               "Percent_Person_WithMentalHealthNotGood",
               "Percent_Person_WithPhysicalHealthNotGood"
             ],
-            "placeTypes": ["City"],
             "unit": "%",
             "source": "CDC",
             "url": "https://www.cdc.gov/"
@@ -550,7 +637,6 @@
               "Percent_Person_WithMentalHealthNotGood",
               "Percent_Person_WithPhysicalHealthNotGood"
             ],
-            "placeTypes": ["City"],
             "unit": "%",
             "source": "CDC",
             "url": "https://www.cdc.gov/"
@@ -570,7 +656,6 @@
               "Percent_Person_PhysicalInactivity",
               "Percent_Person_Smoking"
             ],
-            "placeTypes": ["City"],
             "unit": "%",
             "source": "CDC",
             "url": "https://www.cdc.gov/"
@@ -587,7 +672,6 @@
               "Percent_Person_PhysicalInactivity",
               "Percent_Person_Smoking"
             ],
-            "placeTypes": ["City"],
             "unit": "%",
             "source": "CDC",
             "url": "https://www.cdc.gov/"
@@ -604,7 +688,6 @@
               "Percent_Person_PhysicalInactivity",
               "Percent_Person_Smoking"
             ],
-            "placeTypes": ["City"],
             "unit": "%",
             "source": "CDC",
             "url": "https://www.cdc.gov/"
@@ -624,7 +707,6 @@
               "RetailDrugDistribution_DrugDistribution_Amphetamine",
               "RetailDrugDistribution_DrugDistribution_Morphine"
             ],
-            "placeTypes": ["County"],
             "source": "DEA",
             "url": "https://www.deadiversion.usdoj.gov"
           },
@@ -640,7 +722,6 @@
               "RetailDrugDistribution_DrugDistribution_Amphetamine",
               "RetailDrugDistribution_DrugDistribution_Morphine"
             ],
-            "placeTypes": ["County"],
             "source": "DEA",
             "url": "https://www.deadiversion.usdoj.gov"
           },
@@ -656,7 +737,6 @@
               "RetailDrugDistribution_DrugDistribution_Amphetamine",
               "RetailDrugDistribution_DrugDistribution_Morphine"
             ],
-            "placeTypes": ["County"],
             "perCapita": true,
             "source": "DEA",
             "url": "https://www.deadiversion.usdoj.gov"
@@ -669,16 +749,18 @@
           {
             "title": "COVID-19 Cumulative Cases",
             "chartType": "LINE",
-            "statsVars": ["CumulativeCount_MedicalConditionIncident_COVID_19_ConfirmedOrProbableCase"],
-            "placeTypes": ["County", "State", "Country"],
+            "statsVars": [
+              "CumulativeCount_MedicalConditionIncident_COVID_19_ConfirmedOrProbableCase"
+            ],
             "source": "The New York Times",
             "url": "https://www.nytimes.com/article/coronavirus-county-data-us.html"
           },
           {
             "title": "COVID-19 Cumulative Deaths",
             "chartType": "LINE",
-            "statsVars": ["CumulativeCount_MedicalConditionIncident_COVID_19_PatientDeceased"],
-            "placeTypes": ["County", "State", "Country"],
+            "statsVars": [
+              "CumulativeCount_MedicalConditionIncident_COVID_19_PatientDeceased"
+            ],
             "source": "The New York Times",
             "url": "https://www.nytimes.com/article/coronavirus-county-data-us.html"
           },
@@ -686,8 +768,9 @@
             "title": "COVID-19 Cumulative Cases",
             "chartType": "GROUP_BAR",
             "axis": "PLACE",
-            "statsVars": ["CumulativeCount_MedicalConditionIncident_COVID_19_ConfirmedOrProbableCase"],
-            "placeTypes": ["County", "State", "Country"],
+            "statsVars": [
+              "CumulativeCount_MedicalConditionIncident_COVID_19_ConfirmedOrProbableCase"
+            ],
             "source": "The New York Times",
             "url": "https://www.nytimes.com/article/coronavirus-county-data-us.html"
           },
@@ -695,8 +778,9 @@
             "title": "COVID-19 Cumulative Deaths",
             "chartType": "GROUP_BAR",
             "axis": "PLACE",
-            "statsVars": ["CumulativeCount_MedicalConditionIncident_COVID_19_PatientDeceased"],
-            "placeTypes": ["County", "State", "Country"],
+            "statsVars": [
+              "CumulativeCount_MedicalConditionIncident_COVID_19_PatientDeceased"
+            ],
             "source": "The New York Times",
             "url": "https://www.nytimes.com/article/coronavirus-county-data-us.html"
           },
@@ -704,8 +788,9 @@
             "title": "COVID-19 Cumulative Cases (Per 1000 People)",
             "chartType": "GROUP_BAR",
             "axis": "PLACE",
-            "statsVars": ["CumulativeCount_MedicalConditionIncident_COVID_19_ConfirmedOrProbableCase"],
-            "placeTypes": ["County", "State", "Country"],
+            "statsVars": [
+              "CumulativeCount_MedicalConditionIncident_COVID_19_ConfirmedOrProbableCase"
+            ],
             "perCapita": true,
             "scaling": 1000,
             "source": "The New York Times",
@@ -715,8 +800,9 @@
             "title": "COVID-19 Cumulative Deaths (Per 1000 People)",
             "chartType": "GROUP_BAR",
             "axis": "PLACE",
-            "statsVars": ["CumulativeCount_MedicalConditionIncident_COVID_19_PatientDeceased"],
-            "placeTypes": ["County", "State", "Country"],
+            "statsVars": [
+              "CumulativeCount_MedicalConditionIncident_COVID_19_PatientDeceased"
+            ],
             "perCapita": true,
             "scaling": 1000,
             "source": "The New York Times",
@@ -734,7 +820,6 @@
         "topic": "Crime",
         "chartType": "LINE",
         "statsVars": ["Count_CriminalActivities_CombinedCrime"],
-        "placeTypes": ["City", "State"],
         "source": "FBI",
         "url": "https://www.fbi.gov/"
       },
@@ -743,7 +828,6 @@
         "topic": "Crime",
         "chartType": "LINE",
         "statsVars": ["Count_CriminalActivities_ViolentCrime"],
-        "placeTypes": ["City", "State"],
         "source": "FBI",
         "url": "https://www.fbi.gov/"
       },
@@ -752,7 +836,6 @@
         "topic": "Crime",
         "chartType": "LINE",
         "statsVars": ["Count_CriminalActivities_PropertyCrime"],
-        "placeTypes": ["City", "State"],
         "source": "FBI",
         "url": "https://www.fbi.gov/"
       },
@@ -761,7 +844,6 @@
         "topic": "Crime",
         "chartType": "LINE",
         "statsVars": ["Count_CriminalActivities_Arson"],
-        "placeTypes": ["City", "State"],
         "source": "FBI",
         "url": "https://www.fbi.gov/"
       }
@@ -776,7 +858,6 @@
             "chartType": "STACK_BAR",
             "axis": "PLACE",
             "statsVars": ["Count_CriminalActivities_CombinedCrime"],
-            "placeTypes": ["City", "State"],
             "source": "FBI",
             "url": "https://www.fbi.gov/"
           },
@@ -786,7 +867,6 @@
             "chartType": "GROUP_BAR",
             "axis": "PLACE",
             "statsVars": ["Count_CriminalActivities_CombinedCrime"],
-            "placeTypes": ["City", "State"],
             "perCapita": true,
             "scaling": 1000,
             "source": "FBI",
@@ -803,7 +883,6 @@
             "chartType": "STACK_BAR",
             "axis": "PLACE",
             "statsVars": ["Count_CriminalActivities_ViolentCrime"],
-            "placeTypes": ["City", "State"],
             "source": "FBI",
             "url": "https://www.fbi.gov/"
           },
@@ -813,7 +892,6 @@
             "chartType": "GROUP_BAR",
             "axis": "PLACE",
             "statsVars": ["Count_CriminalActivities_ViolentCrime"],
-            "placeTypes": ["City", "State"],
             "perCapita": true,
             "scaling": 1000,
             "source": "FBI",
@@ -830,7 +908,6 @@
             "chartType": "STACK_BAR",
             "axis": "PLACE",
             "statsVars": ["Count_CriminalActivities_PropertyCrime"],
-            "placeTypes": ["City", "State"],
             "source": "FBI",
             "url": "https://www.fbi.gov/"
           },
@@ -840,7 +917,6 @@
             "chartType": "GROUP_BAR",
             "axis": "PLACE",
             "statsVars": ["Count_CriminalActivities_PropertyCrime"],
-            "placeTypes": ["City", "State"],
             "perCapita": true,
             "scaling": 1000,
             "source": "FBI",
@@ -857,7 +933,6 @@
             "chartType": "STACK_BAR",
             "axis": "PLACE",
             "statsVars": ["Count_CriminalActivities_Arson"],
-            "placeTypes": ["City", "State"],
             "source": "FBI",
             "url": "https://www.fbi.gov/"
           },
@@ -867,7 +942,6 @@
             "chartType": "GROUP_BAR",
             "axis": "PLACE",
             "statsVars": ["Count_CriminalActivities_Arson"],
-            "placeTypes": ["City", "State"],
             "perCapita": true,
             "scaling": 1000,
             "source": "FBI",
@@ -1017,8 +1091,9 @@
       {
         "title": "State Unemployment Insurance",
         "chartType": "LINE",
-        "statsVars": ["Count_UnemploymentInsuranceClaim_StateUnemploymentInsurance"],
-        "placeTypes": ["State"],
+        "statsVars": [
+          "Count_UnemploymentInsuranceClaim_StateUnemploymentInsurance"
+        ],
         "source": "BLS",
         "url": "https://bls.gov/"
       },
@@ -1037,7 +1112,23 @@
         "url": "https://bls.gov/"
       }
     ],
-    "children": []
+    "children": [
+      {
+        "label": "UnemploymentRate",
+        "charts": [
+          {
+            "title": "Unemployment Rate by Gender",
+            "chartType": "SINGLE_BAR",
+            "statsVars": [
+              "UnemploymentRate_Person_Male",
+              "UnemploymentRate_Person_Female"
+            ],
+            "source": "EurostatData",
+            "url": "https://ec.europa.eu/eurostat/data/database"
+          }
+        ]
+      }
+    ]
   },
   {
     "label": "Households",
@@ -1059,5 +1150,61 @@
       }
     ],
     "children": []
+  },
+  {
+    "label": "Environment",
+    "charts": [
+      {
+        "title": "Energy comsumption Per Capita",
+        "chartType": "LINE",
+        "statsVars": ["Amount_Consumption_Energy_PerCapita"],
+        "source": "EurostatData",
+        "url": "https://ec.europa.eu/eurostat/data/database"
+      }
+    ],
+    "children": [
+      {
+        "label": "Energy",
+        "charts": [
+          {
+            "topic": "Environment",
+            "title": "CO2 Emissions Per Capita",
+            "chartType": "LINE",
+            "statsVars": ["Amount_Emissions_CarbonDioxide_PerCapita"],
+            "source": "EurostatData",
+            "url": "https://ec.europa.eu/eurostat/data/database"
+          },
+          {
+            "title": "Electricity Consumption Per Capita",
+            "topic": "Environment",
+            "chartType": "LINE",
+            "statsVars": ["Amount_Consumption_Electricity_PerCapita"],
+            "source": "EurostatData",
+            "url": "https://ec.europa.eu/eurostat/data/database"
+          }
+        ]
+      },
+      {
+        "label": "Disaster",
+        "charts": [
+          {
+            "topic": "Environment",
+            "title": "Earthquake Event",
+            "chartType": "LINE",
+            "statsVars": ["Count_EarthquakeEvent"],
+            "source": "EurostatData",
+            "url": "https://ec.europa.eu/eurostat/data/database"
+          },
+          {
+            "topic": "Environment",
+            "title": "Cyclone Event",
+            "chartType": "LINE",
+            "statsVars": ["Count_CycloneEvent"],
+            "source": "EurostatData",
+            "url": "https://ec.europa.eu/eurostat/data/database"
+          }
+        ]
+      }
+    ]
   }
 ]

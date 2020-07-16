@@ -30,16 +30,42 @@ const STATS_VAR_TEXT: { [key: string]: string } = {
   FertilityRate_Person_Female: "Fertility Rate",
 
   // Economics
+  Amount_EconomicActivity_GrossDomesticProduction_Nominal: "GDP",
   GrowthRate_Amount_EconomicActivity_GrossDomesticProduction: "GDP Growth Rate",
+  Amount_Debt_Government: "GDP",
+  Amount_EconomicActivity_GrossDomesticProduction_Nominal_PerCapita: "GDP Per Capita",
+  Amount_EconomicActivity_GrossNationalIncome_PurchasingPowerParity_PerCapita: "GNI PPP Per Capita",
+  Amount_EconomicActivity_GrossNationalIncome_PurchasingPowerParity: "GNI PPP",
+
+  // Environment
+  Amount_Consumption_Energy_PerCapita: "Energy comsumption Per Capita",
+  Amount_Emissions_CarbonDioxide_PerCapita: "CO2 Emissions Per Capita",
+  Amount_Consumption_Electricity_PerCapita: "Electricity Consumption Per Capita",
+  Count_EarthquakeEvent: "Earthquake Event",
+  Count_CycloneEvent: "Cyclone Event",
 
   // age
   Count_Person_Upto5Years: "0-5",
   Count_Person_5To17Years: "5-17",
+  Count_Person_15To19Years: "15-19",
+  Count_Person_20To24Years: "20-24",
+  Count_Person_25To29Years: "25-29",
   Count_Person_25To34Years: "25-34",
+  Count_Person_30To34Years: "30-34",
+  Count_Person_35To39Years: "35-39",
   Count_Person_35To44Years: "35-44",
+  Count_Person_40To44Years: "40-44",
+  Count_Person_45To49Years: "45-49",
   Count_Person_45To54Years: "45-54",
+  Count_Person_50To54Years: "50-54",
   Count_Person_55To59Years: "55-59",
+  Count_Person_60To64Years: "60-64",
+  Count_Person_65To69Years: "65-69",
   Count_Person_65OrMoreYears: "65+",
+  Count_Person_70To74Years: "70-74",
+  Count_Person_75To79Years: "75-79",
+  Count_Person_80To84Years: "80-84",
+  Count_Person_85To89Years: "85-89",
   // gender
   Count_Person_Male: "Male",
   Count_Person_Female: "Female",
@@ -114,6 +140,9 @@ const STATS_VAR_TEXT: { [key: string]: string } = {
   Count_CriminalActivities_ViolentCrime: "Violent Crimes",
   Count_CriminalActivities_PropertyCrime: "Property Crimes",
   Count_CriminalActivities_Arson: "Arson",
+  // Employment
+  UnemploymentRate_Person_Male: "Male",
+  UnemploymentRate_Person_Female: "Female",
 };
 
 export { STATS_VAR_TEXT };
