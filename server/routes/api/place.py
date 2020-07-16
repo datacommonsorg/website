@@ -15,7 +15,7 @@
 import collections
 import json
 
-from flask import Blueprint
+from flask import Blueprint, request
 
 from cache import cache
 from services.datacommons import fetch_data
@@ -30,6 +30,27 @@ bp = Blueprint(
     __name__,
     url_prefix='/api/place'
 )
+
+
+@bp.route('/name')
+def name():
+    """Get place names."""
+    dcids = request.args.getlist('dcid')
+    response = fetch_data(
+        '/node/property-values',
+        {
+            'dcids': dcids,
+            'property': 'name',
+            'direction': 'out'
+        },
+        compress=False,
+        post=True
+    )
+    result = {}
+    for dcid in dcids:
+        values = response[dcid].get('out')
+        result[dcid] = values[0]['value'] if values else ''
+    return json.dumps(result)
 
 
 @bp.route('/statsvars/<path:dcid>')
@@ -93,8 +114,8 @@ def child_fetch(dcid):
     pop = json.loads(get_stats_wrapper(dcid_str, 'Count_Person'))
 
     pop = {
-        dcid: stats.get('data', {}).get('2018', 0) for dcid, stats in pop.items()
-        if stats
+        dcid: stats.get('data', {}).get('2018', 0)
+        for dcid, stats in pop.items() if stats
     }
 
     result = collections.defaultdict(list)
@@ -119,7 +140,8 @@ def parent_place(dcid):
     # In DataCommons knowledge graph, places has multiple containedInPlace
     # relation with parent places, but it might not be comprehensive. For
     # example, "Moutain View" is containedInPlace for "Santa Clara County" and
-    # "California" but not "United States": https://browser.datacommons.org/browser/geoId/0649670
+    # "California" but not "United States":
+    # https://datacommons.org/browser/geoId/0649670
     # Here calling get_parent_place twice to get to the top parents.
     parents1 = get_parent_place(dcid)
     parents2 = get_parent_place(parents1[-1]['dcid'])
