@@ -406,8 +406,11 @@ function drawLineChart(
   dataGroups: DataGroup[],
   unit?: string
 ) {
-  const minV = 0;
   const maxV = Math.max(...dataGroups.map((dataGroup) => dataGroup.max()));
+  let minV = Math.min(...dataGroups.map((dataGroup) => dataGroup.min()));
+  if (minV > 0) {
+    minV = 0;
+  }
 
   const svg = d3
     .select("#" + id)

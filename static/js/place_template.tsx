@@ -41,6 +41,16 @@ const axisEnum = {
   PLACE: "PLACE",
 };
 
+const CONTINENTS = new Set([
+  "africa",
+  "antarctica",
+  "northamerica",
+  "oceania",
+  "europe",
+  "asia",
+  "southamerica",
+]);
+
 const placeRelationEnum = {
   CONTAINING: "CONTAINING",
   CONTAINED: "CONTAINED",
@@ -107,8 +117,8 @@ class ParentPlace extends Component<ParentPlacePropsType, {}> {
 
 interface RankingPropsType {
   data: {
-    label: string[]
-    Population: { name: {}; label: string }[]
+    label: string[];
+    Population: { name: {}; label: string }[];
   };
 }
 
@@ -490,6 +500,13 @@ class Chart extends Component<ChartPropType, ChartStateType> {
     }
   }
 
+  showParent() {
+    return (
+      this.props.parentPlaces.length > 0 &&
+      !CONTINENTS.has(this.props.parentPlaces[0].dcid)
+    );
+  }
+
   render() {
     const config = this.props.config;
     return (
@@ -509,7 +526,7 @@ class Chart extends Component<ChartPropType, ChartStateType> {
                 <option value="SIMILAR" ref={this.similarRef}>
                   simliar
                 </option>
-                {this.props.parentPlaces.length > 0 && (
+                {this.showParent() && (
                   <option value="CONTAINED" ref={this.parentRef}>
                     contained
                   </option>
