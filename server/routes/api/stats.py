@@ -59,14 +59,13 @@ def stats(stats_var):
     return get_stats_wrapper('^'.join(place_dcids), stats_var)
 
 
-@cache.memoize(timeout=3600 * 24)  # Cache for one day.
-def get_statsinfo_wrapper(statsvars_string):
-    """Wrapper function to get stats information give multiple stats var.
+def get_stats_url_fragment(dcids):
+    """Get stats information give multiple stats var dcids.
 
-    The result is used by chart API.
+    The result is used as partial link to GNI.
 
     Args:
-        statsvars_string: stats var dcids concatenated by "^".
+        dcids: A list of stats var dcids.
     Returns:
         An object keyed by stats dcid, with value being partial url that can
         be used by the /tools/timeline endpoint.
@@ -74,7 +73,6 @@ def get_statsinfo_wrapper(statsvars_string):
             "Count_Person": "Person,count,gender,Female"
         }
     """
-    dcids = statsvars_string.split('^')
     data = dc.fetch_data(
       '/node/triples',
       {
@@ -104,21 +102,3 @@ def get_statsinfo_wrapper(statsvars_string):
             tokens.extend([p, v])
         result[dcid] = ','.join(tokens)
     return result
-
-
-@bp.route('/api/statsinfo')
-def statsinfo():
-    """Handler to get stats information give multiple stats var.
-
-    The result is used by timeline tools page as partial url. It calls the
-    get_statsinfo_wrapper function so the result can be memoized.
-
-    Returns:
-        An object keyed by stats dcid, with value being partial url that can
-        be used by the /tools/timeline endpoint.
-        {
-            "Count_Person": "Person,count,gender,Female"
-        }
-    """
-    stats_vars = sorted(request.args.getlist('dcid'))
-    return get_statsinfo_wrapper('^'.join(stats_vars))

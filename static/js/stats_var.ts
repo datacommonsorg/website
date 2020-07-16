@@ -23,6 +23,15 @@ const STATS_VAR_TEXT: { [key: string]: string } = {
     "Unemployment Insurance Claim",
   Count_Person_Employed: "Employed People",
   Count_Person_InLaborForce: "People in Labor Force",
+  Count_Person: "Total",
+  Count_Person_PerArea: "Person per Area",
+  LifeExpectancy_Person: "Life Expectancy",
+  GrowthRate_Count_Person: "Population Growth Rate",
+  FertilityRate_Person_Female: "Fertility Rate",
+
+  // Economics
+  GrowthRate_Amount_EconomicActivity_GrossDomesticProduction: "GDP Growth Rate",
+
   // age
   Count_Person_Upto5Years: "0-5",
   Count_Person_5To17Years: "5-17",
@@ -32,7 +41,6 @@ const STATS_VAR_TEXT: { [key: string]: string } = {
   Count_Person_55To59Years: "55-59",
   Count_Person_65OrMoreYears: "65+",
   // gender
-  Count_Person: "Total",
   Count_Person_Male: "Male",
   Count_Person_Female: "Female",
   // income

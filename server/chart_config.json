@@ -11,6 +11,38 @@
         "url": "https://www.census.gov/"
       },
       {
+        "title": "Person Per Area",
+        "topic": "Population",
+        "chartType": "LINE",
+        "statsVars": ["Count_Person_PerArea"],
+        "source": "TODO",
+        "url": "TODO"
+      },
+      {
+        "title": "Life Expectancy",
+        "topic": "Population",
+        "chartType": "LINE",
+        "statsVars": ["LifeExpectancy_Person"],
+        "source": "TODO",
+        "url": "TODO"
+      },
+      {
+        "title": "Population Growth Rate",
+        "topic": "Population",
+        "chartType": "LINE",
+        "statsVars": ["GrowthRate_Count_Person"],
+        "source": "TODO",
+        "url": "TODO"
+      },
+      {
+        "title": "Fertility Rate",
+        "topic": "Population",
+        "chartType": "LINE",
+        "statsVars": ["FertilityRate_Person_Female"],
+        "source": "TODO",
+        "url": "TODO"
+      },
+      {
         "title": "Median Age",
         "topic": "Age",
         "chartType": "LINE",
@@ -324,6 +356,21 @@
             "url": "https://www.census.gov/"
           }
         ]
+      }
+    ]
+  },
+  {
+    "label": "Economics",
+    "charts": [
+      {
+        "title": "GDP Growth Rate",
+        "topic": "Economics",
+        "chartType": "LINE",
+        "statsVars": [
+          "GrowthRate_Amount_EconomicActivity_GrossDomesticProduction"
+        ],
+        "source": "TODO",
+        "url": "TODO"
       }
     ]
   },

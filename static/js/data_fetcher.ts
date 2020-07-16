@@ -63,11 +63,11 @@ class StatsData {
     if (!date) {
       date = this.dates.slice(-1)[0];
     }
-    let result: DataGroup[] = [];
-    for (let place of this.places) {
-      let dataPoints: DataPoint[] = [];
+    const result: DataGroup[] = [];
+    for (const place of this.places) {
+      const dataPoints: DataPoint[] = [];
       let placeName: string;
-      for (let statsVar of this.statsVars) {
+      for (const statsVar of this.statsVars) {
         if (this.data[statsVar][place]) {
           dataPoints.push({
             label: STATS_VAR_TEXT[statsVar],
@@ -92,10 +92,10 @@ class StatsData {
     if (!place) {
       place = this.places[0];
     }
-    let result: DataGroup[] = [];
-    for (let statsVar of this.statsVars) {
-      let dataPoints: DataPoint[] = [];
-      for (let date of this.dates) {
+    const result: DataGroup[] = [];
+    for (const statsVar of this.statsVars) {
+      const dataPoints: DataPoint[] = [];
+      for (const date of this.dates) {
         dataPoints.push({
           label: date,
           value: this.data[statsVar][place].data[date],
@@ -115,10 +115,10 @@ class StatsData {
     if (!place) {
       place = this.places[0];
     }
-    let result: DataGroup[] = [];
-    for (let date of this.dates) {
-      let dataPoints: DataPoint[] = [];
-      for (let statsVar of this.statsVars) {
+    const result: DataGroup[] = [];
+    for (const date of this.dates) {
+      const dataPoints: DataPoint[] = [];
+      for (const statsVar of this.statsVars) {
         dataPoints.push({
           label: STATS_VAR_TEXT[statsVar],
           value: this.data[statsVar][place].data[date],
@@ -142,8 +142,8 @@ class StatsData {
     if (!date) {
       date = this.dates.slice(-1)[0];
     }
-    let result: DataPoint[] = [];
-    for (let statsVar of this.statsVars) {
+    const result: DataPoint[] = [];
+    for (const statsVar of this.statsVars) {
       result.push({
         label: STATS_VAR_TEXT[statsVar],
         value: this.data[statsVar][place].data[date],
@@ -171,12 +171,12 @@ function fetchStatsData(
   perCapita: boolean = false,
   scaling: number = 1
 ): Promise<StatsData> {
-  let n = statsVars.length;
+  const n = statsVars.length;
   let dcidParams = `?`;
-  for (let place of places) {
+  for (const place of places) {
     dcidParams += `&dcid=${place}`;
   }
-  let allDataPromises: Promise<AxiosResponse<ApiResponse>>[] = [];
+  const allDataPromises: Promise<AxiosResponse<ApiResponse>>[] = [];
   for (const statsVar of statsVars) {
     allDataPromises.push(axios.get(`/api/stats/${statsVar}${dcidParams}`));
   }
@@ -184,8 +184,8 @@ function fetchStatsData(
     allDataPromises.push(axios.get(`/api/stats/Count_Person${dcidParams}`));
   }
   return Promise.all(allDataPromises).then((allResp) => {
-    let result = new StatsData(places, statsVars, [], {});
-    let dates: { [key: string]: boolean } = {};
+    const result = new StatsData(places, statsVars, [], {});
+    const dates: { [key: string]: boolean } = {};
     for (let i = 0; i < n; i++) {
       result.data[statsVars[i]] = allResp[i].data;
       // Compute perCapita.
@@ -194,22 +194,24 @@ function fetchStatsData(
           if (!allResp[i].data[place]) {
             continue;
           }
-          let population = allResp[n].data[place].data;
-          let years = Object.keys(population);
+          const population = allResp[n].data[place].data;
+          const years = Object.keys(population);
           years.sort();
-          let yearMin = years[0];
-          let yearMax = years[years.length - 1];
+          const yearMin = years[0];
+          const yearMax = years[years.length - 1];
           for (const date in allResp[i].data[place].data) {
-            let year = date.split("-")[0];
-            let pop: number;
-            if (year in population) {
-              pop = population[year];
-            } else if (year < yearMin) {
-              pop = population[yearMin];
-            } else {
-              pop = population[yearMax];
+            if (allResp[i].data[place].data.hasOwnProperty(date)) {
+              const year = date.split("-")[0];
+              let pop: number;
+              if (year in population) {
+                pop = population[year];
+              } else if (year < yearMin) {
+                pop = population[yearMin];
+              } else {
+                pop = population[yearMax];
+              }
+              result.data[statsVars[i]][place].data[date] /= pop / scaling;
             }
-            result.data[statsVars[i]][place].data[date] /= pop / scaling;
           }
         }
       }
@@ -219,14 +221,16 @@ function fetchStatsData(
           continue;
         }
         // Build initial dates
-        if (Object.keys(dates).length == 0) {
-          for (let date in allResp[i].data[place].data) {
-            dates[date] = true;
+        if (Object.keys(dates).length === 0) {
+          for (const date in allResp[i].data[place].data) {
+            if (allResp[i].data[place].data.hasOwnProperty(date)) {
+              dates[date] = true;
+            }
           }
         } else {
           // If a date is not in the new data, remove it from the current
           // collection.
-          for (let date of Object.keys(dates)) {
+          for (const date of Object.keys(dates)) {
             if (!(date in allResp[i].data[place].data)) {
               delete dates[date];
             }
