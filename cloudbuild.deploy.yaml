@@ -7,7 +7,7 @@ steps:
   - -c
   - |
     set -x
-    ./run_test.sh -lbc
+    ./run_test.sh -blc
 
 - id: flask_test
   name: python:3.7-slim

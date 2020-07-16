@@ -4,4 +4,8 @@ steps:
   entrypoint: /bin/sh
   args:
   - -c
+<<<<<<< HEAD
   - ./run_test.sh -lbc
+=======
+  - ./run_test.sh -blc
+>>>>>>> 7b6f0c1... Consolidate commands to run tests into the script
