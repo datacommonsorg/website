@@ -576,6 +576,7 @@ function computeRanges(dataGroupsDict: { [geoId: string]: DataGroup[] }) {
  * @param width: width for the chart.
  * @param height: height for the chart.
  * @param dataGroupsDict: {[geoId: string]: DataGroup[]}.
+ * @param plotParams: contains all plot params for chart.
  * @param unit
  */
 function drawGroupLineChart(
@@ -583,32 +584,30 @@ function drawGroupLineChart(
   width: number,
   height: number,
   dataGroupsDict: { [geoId: string]: DataGroup[] },
+  plotParams: PlotParams,
   unit?: string
 ) {
-  // Get all styles.
-  const plotParams = computePlotParams(dataGroupsDict);
-
   let dataGroups: DataGroup[];
   dataGroups = Object.values(dataGroupsDict)[0];
 
   // Adjust the width of in-chart legends.
-  const legendWidth = Math.max(width * LEGEND.ratio, LEGEND.minWidth);
-  const yRange = computeRanges(dataGroupsDict);
-  const minV = yRange.minV;
-  const maxV = yRange.maxV;
+  let legendWidth = Math.max(width * LEGEND.ratio, LEGEND.minWidth);
+  let yRange = computeRanges(dataGroupsDict);
+  let minV = yRange["minV"];
+  let maxV = yRange["maxV"];
 
-  const svg = d3
+  let svg = d3
     .select("#" + id)
     .append("svg")
     .attr("width", width)
     .attr("height", height);
 
-  const xScale = d3
+  let xScale = d3
     .scaleTime()
     .domain(d3.extent(dataGroups[0].value, (d) => new Date(d.label).getTime()))
     .range([MARGIN.left, width - MARGIN.right - legendWidth]);
 
-  const yScale = d3
+  let yScale = d3
     .scaleLinear()
     .domain([minV, maxV])
     .range([height - MARGIN.bottom, MARGIN.top])
@@ -618,35 +617,32 @@ function drawGroupLineChart(
   addYAxis(svg, width, yScale, unit);
 
   let dashIndex = 0;
-  for (const geoId in dataGroupsDict) {
-    if (dataGroupsDict.hasOwnProperty(geoId)) {
-      dataGroups = dataGroupsDict[geoId];
-      for (let i = 0; i < dataGroups.length; i++) {
-        const dataGroup = dataGroups[i];
-        const dataset = dataGroup.value.map((dp) => [
-          new Date(dp.label).getTime(),
-          dp.value,
-        ]);
+  for (let geoId in dataGroupsDict) {
+    dataGroups = dataGroupsDict[geoId];
+    for (let i = 0; i < dataGroups.length; i++) {
+      let dataGroup = dataGroups[i];
+      let dataset = dataGroup.value.map(function (dp) {
+        return [new Date(dp.label).getTime(), dp.value];
+      });
 
-        const line = d3
-          .line()
-          .x((d) => xScale(d[0]))
-          .y((d) => yScale(d[1]));
+      let line = d3
+        .line()
+        .x((d) => xScale(d[0]))
+        .y((d) => yScale(d[1]));
 
-        svg
-          .append("path")
-          .datum(dataset)
-          .attr("class", "line")
-          .style("stroke", plotParams.colors[i])
-          .attr("d", line)
-          .attr("stroke-width", "2")
-          .attr("stroke-dasharray", plotParams.dashes[dashIndex]);
-      }
-      dashIndex++;
+      svg
+        .append("path")
+        .datum(dataset)
+        .attr("class", "line")
+        .style("stroke", plotParams["colors"][i])
+        .attr("d", line)
+        .attr("stroke-width", "2")
+        .attr("stroke-dasharray", plotParams["dashes"][dashIndex]);
     }
+    dashIndex++;
   }
 
-  const legendId = randDomId();
+  let legendId = randDomId();
   svg
     .append("g")
     .attr("id", legendId)
@@ -656,9 +652,6 @@ function drawGroupLineChart(
     );
 
   buildInChartLegend(legendId, plotParams);
-
-  // return colors here used to add menu below the chart.
-  return plotParams.colors;
 }
 
 /**
@@ -731,6 +724,7 @@ export {
   getDashes,
   appendLegendElem,
   getColorFn,
+  computePlotParams,
   drawLineChart,
   drawGroupLineChart,
   drawSingleBarChart,
