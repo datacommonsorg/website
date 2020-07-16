@@ -14,6 +14,7 @@
  * limitations under the License.
  */
 
+/* tslint:disable:no-string-literal */
 import React, { Component } from "react";
 import { randDomId } from "./util";
 import { fetchStatsData, StatsData } from "./data_fetcher";
@@ -69,8 +70,8 @@ class ChartRegion extends Component<ChartRegionPropsType, {}> {
     // get mprop-statVar dict: { mprop: [statVar1, statVar2, ...]}
     this.measuredPropGroup = {};
     this.measuredProps = [];
-    for (let statVarAndMeasuredProp of this.props.statVarsAndMeasuredProps) {
-      let mprop = statVarAndMeasuredProp[1];
+    for (const statVarAndMeasuredProp of this.props.statVarsAndMeasuredProps) {
+      const mprop = statVarAndMeasuredProp[1];
       if (mprop in this.measuredPropGroup) {
         this.measuredPropGroup[mprop].push(statVarAndMeasuredProp[0]);
       } else {
@@ -84,7 +85,7 @@ class ChartRegion extends Component<ChartRegionPropsType, {}> {
     this.width = Math.min(obsElem.offsetWidth - 20, MAX_CHART_WIDTH);
     this.height = Math.min(Math.round(this.width * 0.5), MAX_CHART_HEIGHT);
 
-    let length = Object.keys(this.measuredPropGroup).length;
+    const length = Object.keys(this.measuredPropGroup).length;
     this.chartIds = [];
     for (let i = 0; i < length; i++) {
       this.chartIds.push(randDomId());
@@ -96,35 +97,37 @@ class ChartRegion extends Component<ChartRegionPropsType, {}> {
 
   componentDidMount() {
     // Set up states
-    let promises: Promise<StatsData>[] = [];
-    let mprops = [];
-    for (let mprop in this.measuredPropGroup) {
-      mprops.push(mprop);
-      let statsVarsArray = this.measuredPropGroup[mprop];
-      // Make an array of Promises
-      promises.push(
-        fetchStatsData(
-          this.props.placeIds,
-          statsVarsArray,
-          this.props.perCapita,
-          1
-        )
-      );
+    const promises: Promise<StatsData>[] = [];
+    const mprops = [];
+    for (const mprop in this.measuredPropGroup) {
+      if (this.measuredPropGroup.hasOwnProperty(mprop)) {
+        mprops.push(mprop);
+        const statsVarsArray = this.measuredPropGroup[mprop];
+        // Make an array of Promises
+        promises.push(
+          fetchStatsData(
+            this.props.placeIds,
+            statsVarsArray,
+            this.props.perCapita,
+            1
+          )
+        );
+      }
     }
 
     Promise.all(promises).then((statDatas) => {
-      let state = {};
-      let params = {};
+      const state = {};
+      const params = {};
       for (let i = 0; i < statDatas.length; i++) {
         // generate dict {geoId: DataGroup}.
-        let dataGroupsDict = {};
-        for (let geo of statDatas[i].places) {
+        const dataGroupsDict = {};
+        for (const geo of statDatas[i].places) {
           dataGroupsDict[geo] = statDatas[i].getStatsVarGroupWithTime(geo);
         }
         state[mprops[i]] = dataGroupsDict;
         params[mprops[i]] = computePlotParams(dataGroupsDict);
       }
-      this.setState({ data: state, params: params });
+      this.setState({ data: state, params });
     });
   }
 
@@ -134,17 +137,19 @@ class ChartRegion extends Component<ChartRegionPropsType, {}> {
 
   updateChart() {
     let index = 0;
-    for (let mprop in this.state["data"]) {
-      let dataGroupsDict = this.state["data"][mprop];
-      let elemId = this.chartIds[index];
-      drawGroupLineChart(
-        elemId,
-        this.width,
-        this.height,
-        dataGroupsDict,
-        this.state["params"][mprop]
-      );
-      index++;
+    for (const mprop in this.state["data"]) {
+      if (this.state["data"].hasOwnProperty(mprop)) {
+        const dataGroupsDict = this.state["data"][mprop];
+        const elemId = this.chartIds[index];
+        drawGroupLineChart(
+          elemId,
+          this.width,
+          this.height,
+          dataGroupsDict,
+          this.state["params"][mprop]
+        );
+        index++;
+      }
     }
   }
 
