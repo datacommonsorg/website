@@ -74,13 +74,6 @@ def dev():
     return flask.render_template('dev.html')
 
 
-# TODO(boxu): Complete this routing when place sub-topic page is completed.
-@app.route('/explore/place')
-def explore_place():
-    place_dcid = request.args.get('dcid')
-    return redirect(url_for('place', dcid=place_dcid))
-
-
 @app.route('/place')
 def place():
     place_dcid = request.args.get('dcid')
