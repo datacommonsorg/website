@@ -14,7 +14,7 @@
 
 # Run test for client side code.
 cd static
-npm run lint && npm run test
+npm run lint && npm run tslint && npm run test
 cd ..
 
 # Run test for server side code.

@@ -21,6 +21,7 @@ const FixStyleOnlyEntriesPlugin = require("webpack-fix-style-only-entries");
 const config = {
   entry: {
     dev: [__dirname + "/js/dev.ts", __dirname + "/css/dev.scss"],
+    dev_menu: __dirname + "/js/dev_menu.ts",
     download: __dirname + "/js/download.js",
     dev_menu: [__dirname + "/js/dev_menu.ts", 
                __dirname + "/css/tools/statvar_menu.scss", 

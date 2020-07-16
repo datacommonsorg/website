@@ -1,5 +1,6 @@
 import React, { Component } from "react";
 import hierarchy from "../../tools/pv_tree_generator/hierarchy.json";
+import { parseStatVarPath } from "./util";
 
 interface NodePropType {
   title: string;

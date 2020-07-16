@@ -61,15 +61,15 @@
   <p>
     Access and analyze the graph easily using API's in Python, R, or Google Sheets.
   </p>
-  <a href="#">See API documentation.</a>
-  <a href="#">See some sample python notebooks.</a>
+  <a href="http://docs.datacommons.org/api/">See API documentation.</a>
+  <a href="http://docs.datacommons.org/api/examples.html">See some sample Python notebooks.</a>
 </section>
 
 <section class="container">
   <h2>Open</h2>
   <p>
     Built using <a href="http://schema.org">Schema.org</a>. <a href="http://github.com/datacommonsorg">Open sourced</a>.
-    Build applications powered by the graph using the <a href="#">REST API</a>.
+    Build applications powered by the graph using the <a href="http://docs.datacommons.org/api/rest/">REST API</a>.
   </p>
 </section>
 
@@ -82,31 +82,32 @@
   <div class="container">
     <h2 class="text-center">Get Started</h2>
     <div class="row">
-      <div class="col-12 col-sm-6 col-lg-3">
+      <div class="col-12 col-md-4">
         <h6>Explore place statistics</h6>
         <a href="{{ url_for('place', dcid='geoId/0649670') }}">Mountain View, CA</a>
         <a href="{{ url_for('place', dcid='geoId/3651000', topic='Health') }}">New York City Health</a>
         <a href="{{ url_for('place', dcid='geoId/1150000', topic='Demographics') }}">Washington, DC Demographics</a>
       </div>
-      <div class="col-12 col-sm-6 col-lg-3">
+      <div class="col-12 col-md-4">
         <h6>Explore DC Graph nodes</h6>
         <a href="{{ url_for('browser.kg_entity', dcid='election/2016_P_US00') }}">2016 US Presidential Elections</a>
         <a href="{{ url_for('browser.kg_entity', dcid='/dc/p/lxbzwmf6mrt88') }}">Violent Robbery in Atlanta</a>
         <a href="{{ url_for('browser.kg_entity', dcid='EncodeBiosampleType') }}">Encyclopedia of DNA Elements Biosamples</a>
       </div>
-      <div class="col-12 col-sm-6 col-lg-3">
-        {# TODO: Fill in these URLs #}
+      <div class="col-12 col-md-4">
         <h6>Explore timeline statistics</h6>
-        <a href="#">US University Towns by Income</a>
-        <a href="#">Richest vs Poorest California Counties</a>
-        <a href="#">Employment differences across neighboring cities</a>
+        <a href="{{ url_for('tools.timeline') }}/#&&place=geoId/0606000,geoId/2511000,geoId/2603000,geoId/1777005,geoId/1225175,geoId/4815976&ptpv=Person,age">US University Towns by Income</a>
+        <a href="{{ url_for('tools.timeline') }}/#&&place=geoId/06085,geoId/06025&ptpv=__Person,income,age,Years15Onwards,incomeStatus,WithIncome&pc=0">Richest vs Poorest California Counties</a>
+        <a href="{{ url_for('tools.timeline') }}/#&&place=geoId/0655282,geoId/0620956&pc=1&ptpv=Person,income,age,Years15Onwards,incomeStatus,WithIncome__Person,count,employment,BLS_Employed">Employment differences across neighboring cities</a>
       </div>
+      {# disable until we can reload scatter from url params
       <div class="col-12 col-sm-6 col-lg-3">
         <h6>Explore scatterplots</h6>
         <a href="#">COVID-19 cases vs Income</a>
         <a href="#">Richest vs Poorest California Counties</a>
         <a href="#">Employment differences across neighboring cities</a>
       </div>
+      #}
     </div>
   </div>
 </section>

@@ -18,6 +18,7 @@
 
 {% set main_id = 'kg_entity' %}
 {% set title = 'Data Commons Graph Browser' %}
+{% set subpage_title = 'Graph Browser' %}
 
 {% block head %}
   <link rel="stylesheet" href={{url_for('static', filename='css/kg.min.css', t=config['GAE_VERSION'])}} />
@@ -25,7 +26,6 @@
 
 {% block content %}
   <div class="container">
-    <h2>Data Commons Graph Browser</h2>
     <div style="display:none">
       <div id="bg-dcid">{{dcid}}</div>
     </div>

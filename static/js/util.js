@@ -605,6 +605,9 @@ export {
   setElementShown,
   randDomId,
   updateUrlStatsVar,
+<<<<<<< HEAD
   updateUrlPlace,
+=======
+>>>>>>> 5df2b8bcaab8788b2625384b8f6bcd9cb341bc85
   parseStatVarPath,
 };
