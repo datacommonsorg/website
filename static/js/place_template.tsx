@@ -305,6 +305,7 @@ class MainPane extends Component<MainPanePropType, {}> {
                       id={id}
                       config={config}
                       dcid={this.props.dcid}
+                      placeType={this.props.placeType}
                       parentPlaces={this.props.parentPlaces}
                       childPlacesPromise={this.props.childPlacesPromise}
                       similarPlacesPromise={this.props.similarPlacesPromise}
@@ -420,6 +421,10 @@ interface ChartPropType {
    */
   id: string;
   /**
+   * The place type.
+   */
+  placeType: string;
+  /**
    * An object of the chart config.
    */
   config: ConfigType;
@@ -478,7 +483,11 @@ class Chart extends Component<ChartPropType, ChartStateType> {
     this.dcid = props.dcid;
     this.titleSuffix = "";
     // Default use similar places.
-    this.placeRelation = placeRelationEnum.SIMILAR;
+    if (this.props.placeType === "Country") {
+      this.placeRelation = placeRelationEnum.CONTAINING;
+    } else {
+      this.placeRelation = placeRelationEnum.SIMILAR;
+    }
   }
 
   render() {
@@ -560,21 +569,22 @@ class Chart extends Component<ChartPropType, ChartStateType> {
 
   componentDidMount() {
     window.addEventListener("resize", this._handleWindowResize);
-    this.fetchData();
     Promise.all([
       this.props.similarPlacesPromise,
       this.props.childPlacesPromise,
       this.props.nearbyPlacesPromise,
     ]).then((values) => {
-      if (this.similarRef.current && Object.keys(values[0]).length === 0) {
-        this.similarRef.current.style.display = "none";
-      }
       if (this.childrenRef.current && Object.keys(values[1]).length === 0) {
         this.childrenRef.current.style.display = "none";
+        this.placeRelation = placeRelationEnum.SIMILAR;
       }
       if (this.nearbyRef.current && Object.keys(values[2]).length === 0) {
         this.nearbyRef.current.style.display = "none";
       }
+      if (this.similarRef.current && Object.keys(values[0]).length === 0) {
+        this.similarRef.current.style.display = "none";
+      }
+      this.fetchData();
     });
   }
 
