@@ -25,6 +25,7 @@ const config = {
     scatter: __dirname + "/js/scatter.js",
     translator: __dirname + "/js/translator.js",
     dev: __dirname + "/js/dev.ts",
+    dev_menu: __dirname + "/js/dev_menu.ts",
     place_overview: __dirname + "/js/place_overview.ts",
     mcf_playground: __dirname + "/js/mcf_playground.js",
   },

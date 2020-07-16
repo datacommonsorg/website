@@ -322,7 +322,7 @@ body {
   font-size: 0.95rem;
   margin: 0 -24px;
   margin-left: 6px;
-  padding: 0 24px 0 6px;
+  padding: 0px 24px 0px 6px;
   border-top-right-radius: 6px;
   border-bottom-right-radius: 6px;
   /* border-left: 4px solid #ccc;  */
@@ -340,7 +340,7 @@ body {
   cursor: pointer;
   width: 14px;
   height: 14px;
-  margin-top: -6px;
+  margin-top: 10px;
   float: right;
   border: 0;
   background: url('../images/icon-checkbox.svg');

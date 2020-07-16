@@ -9,12 +9,14 @@ interface NodePropType {
   argString: string;
   updateUrl: (statvar: string, add: boolean) => void;
   nodePath: string;
+  svPaths: string[][];
 }
 
 interface NodeStateType {
   checked: boolean;
   expanded: boolean;
   nodePath: string;
+  svPaths: string[][];
 }
 
 class Node extends Component<NodePropType, NodeStateType> {
@@ -22,11 +24,22 @@ class Node extends Component<NodePropType, NodeStateType> {
     super(props);
     this._handleCheckboxClick = this._handleCheckboxClick.bind(this);
     this._handleExpandClick = this._handleExpandClick.bind(this);
+    this._handleHashChange = this._handleHashChange.bind(this);
     this.state = {
       checked: false,
       expanded: false,
       nodePath: props.nodePath + "," + props.title.replace(/\s/g, ""),
+      svPaths: [[]],
     };
+  }
+
+  componentDidUpdate(prevProps) {
+    if (this.props.svPaths !== prevProps.svPaths) {
+      this._handleHashChange();
+    }
+  }
+  componentDidMount() {
+    this._handleHashChange();
   }
 
   public render = (): JSX.Element => {
@@ -42,15 +55,15 @@ class Node extends Component<NodePropType, NodeStateType> {
       );
     }
 
-    if (this.state.expanded) {
-      expandImg = (
-        <img
-          className="right-caret transform-down"
-          src="../images/right-caret.png"
-          onClick={this._handleExpandClick}
-        />
-      );
-      if (this.props.children) {
+    if (this.props.children.length !== 0) {
+      if (this.state.expanded) {
+        expandImg = (
+          <img
+            className="right-caret transform-down"
+            src="../images/right-caret.png"
+            onClick={this._handleExpandClick}
+          />
+        );
         child = this.props.children.map((item, index) => {
           return (
             <Node
@@ -61,19 +74,20 @@ class Node extends Component<NodePropType, NodeStateType> {
               argString={item.argString}
               updateUrl={this.props.updateUrl}
               nodePath={this.state.nodePath}
-              key={this.props.argString}
+              svPaths={this.state.svPaths}
+              key={this.props.title + index}
             ></Node>
           );
         });
+      } else {
+        expandImg = (
+          <img
+            className="right-caret"
+            src="../images/right-caret.png"
+            onClick={this._handleExpandClick}
+          />
+        );
       }
-    } else {
-      expandImg = (
-        <img
-          className="right-caret"
-          src="../images/right-caret.png"
-          onClick={this._handleExpandClick}
-        />
-      );
     }
 
     return (
@@ -110,11 +124,33 @@ class Node extends Component<NodePropType, NodeStateType> {
       expanded: !this.state.expanded,
     });
   };
+
+  private _handleHashChange() {
+    const svPathNext = [];
+    let check = false;
+    let expand = false;
+    for (const svPath of this.props.svPaths) {
+      if (svPath[0] === this.props.title.replace(/\s/g, "")) {
+        if (svPath.length === 1) {
+          check = true;
+        } else {
+          expand = true;
+          svPathNext.push(svPath.slice(1));
+        }
+      }
+    }
+    this.setState({
+      checked: check,
+      expanded: expand,
+      svPaths: svPathNext,
+    });
+  }
 }
 
 interface MenuPropType {
   search: boolean;
-  updateUrl: (statvar: string, shouldAdd: boolean) => void;
+  updateUrl: (statvar: string, should_add: boolean) => void;
+  svPaths: string[][];
 }
 
 class Menu extends Component<MenuPropType, {}> {
@@ -139,6 +175,7 @@ class Menu extends Component<MenuPropType, {}> {
                 type={item.type}
                 argString={item.argString}
                 key={index1 + "," + index}
+                svPaths={this.props.svPaths}
                 nodePath=""
                 updateUrl={this.props.updateUrl}
               ></Node>
@@ -150,11 +187,4 @@ class Menu extends Component<MenuPropType, {}> {
   }
 }
 
-class Page extends Component<MenuPropType, {}> {
-  render() {
-    return (
-      <Menu updateUrl={this.props.updateUrl} search={this.props.search}></Menu>
-    );
-  }
-}
-export { Page };
+export { Menu };

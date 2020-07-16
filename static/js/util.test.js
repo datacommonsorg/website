@@ -1,4 +1,4 @@
-import { updateUrlStatsVar } from "./util.js";
+import { updateUrlStatsVar, parseStatVarPath, updateUrlPlace } from "./util.js";
 
 test("update Url statsvar", () => {
   window.location.hash = "";
@@ -13,4 +13,19 @@ test("update Url statsvar", () => {
   window.location.hash = "#&place=geoId/01";
   updateUrlStatsVar("dc/test1", true);
   expect(window.location.hash).toBe("#&place=geoId/01&statsvar=dc/test1");
+});
+
+test("parse statvar from Url", () => {
+  window.location.hash = "#&statsvar=dc/test,Demo,prop";
+  expect(parseStatVarPath()).toStrictEqual([["Demo", "prop"]]);
+});
+
+test("update places from Url", () => {
+  window.location.hash = "#&place=geo/01";
+  updateUrlPlace("geo/02", true);
+  expect(window.location.hash).toBe("#&place=geo/01,geo/02");
+  updateUrlPlace("geo/02", false);
+  expect(window.location.hash).toBe("#&place=geo/01");
+  updateUrlPlace("geo/01", false);
+  expect(window.location.hash).toBe("");
 });
