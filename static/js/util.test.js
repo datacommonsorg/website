@@ -1,4 +1,9 @@
-import { updateUrlStatsVar, parseStatVarPath, updateUrlPlace } from "./util.js";
+import {
+  updateUrlStatsVar,
+  parseStatVarPath,
+  updateUrlPlace,
+  parsePlace,
+} from "./util.js";
 
 test("update Url statsvar", () => {
   window.location.hash = "";
@@ -28,4 +33,9 @@ test("update places from Url", () => {
   expect(window.location.hash).toBe("#&place=geo/01");
   updateUrlPlace("geo/01", false);
   expect(window.location.hash).toBe("");
+});
+
+test("parse places from Url", () => {
+  window.location.hash = "#&place=geoId/4459000,country/USA"
+  expect(parsePlace()).toStrictEqual([["geoId/4459000", "Providence"],["country/USA", "United States"]])
 });

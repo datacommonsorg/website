@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-import { parseStatVarPath } from "./util";
+import { parseStatVarPath, parsePlace} from "./util";
 import { SearchBar } from "./timeline_search";
 import { Menu } from "./statsvar_menu";
 
@@ -10,6 +10,7 @@ interface PagePropType {
 
 interface PageStateType {
   statvarPaths: string[][];
+  placeList:string[][];
 }
 
 class Page extends Component<PagePropType, PageStateType> {
@@ -18,6 +19,7 @@ class Page extends Component<PagePropType, PageStateType> {
     this.handleHashChange = this.handleHashChange.bind(this);
     this.state = {
       statvarPaths: parseStatVarPath(),
+      placeList:parsePlace(),
     };
   }
 
@@ -28,6 +30,7 @@ class Page extends Component<PagePropType, PageStateType> {
   handleHashChange() {
     this.setState({
       statvarPaths: parseStatVarPath(),
+      placeList: parsePlace(),
     });
   }
 
@@ -35,7 +38,7 @@ class Page extends Component<PagePropType, PageStateType> {
     return (
       <div>
           <div id="search">
-            <SearchBar />
+            <SearchBar placeList={this.state.placeList}/>
           </div>
         <div className="explore-menu-container" id="explore">
           <Menu

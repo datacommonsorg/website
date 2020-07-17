@@ -5,26 +5,38 @@ import { updateUrlPlace } from "./util";
 let ac: google.maps.places.Autocomplete;
 
 interface ChipPropType {
-  placeName: string;
-  placeId: string;
-  deleteChip: (placeName: string, placeString: string) => void;
+  placeName: string,
+  placeId: string,
 }
 
-class Chip extends Component<ChipPropType, {}> {
+interface ChipStateType {
+  placeId: string;
+}
+
+
+class Chip extends Component<ChipPropType, ChipStateType> {
+  constructor(props){
+    super(props);
+    this.deleteChip = this.deleteChip.bind(this);
+    this.state = {
+      placeId: props.placeId,
+    }
+  }
   render() {
     return (
       <span className="mdl-chip mdl-chip--deletable">
         <span className="mdl-chip__text">{this.props.placeName}</span>
         <button
           className="mdl-chip__action"
-          onClick={() =>
-            this.props.deleteChip(this.props.placeName, this.props.placeId)
-          }
+          onClick={this.deleteChip}
         >
           <i className="material-icons">cancel</i>
         </button>
       </span>
     );
+  }
+  deleteChip(){
+    updateUrlPlace(this.state.placeId, false)
   }
 }
 
@@ -32,13 +44,16 @@ interface SearchBarStateType {
   placeList: string[][];
 }
 
-class SearchBar extends Component<{}, SearchBarStateType> {
+interface SearchBarPropType{
+  placeList: string[][];
+}
+
+class SearchBar extends Component<SearchBarPropType, SearchBarStateType> {
   constructor(props) {
     super(props)
     this.getPlaceAndRender = this.getPlaceAndRender.bind(this);
-    this.deleteChip = this.deleteChip.bind(this);
     this.state = {
-      placeList: [],
+      placeList: this.props.placeList,
     };
   }
   componentDidMount() {
@@ -51,6 +66,14 @@ class SearchBar extends Component<{}, SearchBarStateType> {
     const acElem = document.getElementById("ac") as HTMLInputElement;
     ac = new google.maps.places.Autocomplete(acElem, options);
     ac.addListener("place_changed", this.getPlaceAndRender);
+  }
+
+  componentDidUpdate(prevProps){
+    if(this.props.placeList !== prevProps.placeList){
+      this.setState({
+        placeList: this.props.placeList}
+      )
+    }
   }
 
   getPlaceAndRender() {
@@ -71,14 +94,6 @@ class SearchBar extends Component<{}, SearchBarStateType> {
     acElem.setAttribute("placeholder", "Search for another place");
   }
 
-  deleteChip(placeName, placeId) {
-    updateUrlPlace(placeId, false);
-    this.state.placeList.splice(
-      this.state.placeList.indexOf([placeName, placeId]),
-      1
-    );
-  }
-
   render() {
     return (
       <div id="location-field">
@@ -86,10 +101,9 @@ class SearchBar extends Component<{}, SearchBarStateType> {
         <span id="place-list">
           {this.state.placeList.map((place) => (
             <Chip
-              placeName={place[0]}
-              placeId={place[1]}
+              placeId={place[0]}
+              placeName={place[1]}
               key={place[0]}
-              deleteChip={this.deleteChip}
             ></Chip>
           ))}
           <input

@@ -14,6 +14,7 @@
  * limitations under the License.
  */
 import { getUrlVars, setSearchParam } from "./dc";
+import axios from "axios";
 
 const pako = require("pako");
 
@@ -576,6 +577,29 @@ function parseStatVarPath() {
   return statvarPath;
 }
 
+
+function parsePlace(){
+  let vars = getUrlVars();
+  let placeList = [];
+  if ("place" in vars) {
+    let places = vars["place"].split(",");
+    for (const place of places ) {
+      let placeName = place;
+      axios
+      .get(`/api/place/name?dcid=${place}`)
+      .then((resp) => {
+        placeName=resp.data[place];
+      })
+      .catch((error) =>{
+        console.log(error)
+      })
+      placeList.push([place, placeName])
+  }
+}
+  return placeList;
+}
+
+
 export {
   STATS,
   OBS_KEYS,
@@ -607,4 +631,5 @@ export {
   updateUrlStatsVar,
   updateUrlPlace,
   parseStatVarPath,
+  parsePlace,
 };
