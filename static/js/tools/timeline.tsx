@@ -15,7 +15,7 @@
  */
 
 import React, { Component } from "react";
-import { parseStatVarPath, parsePlace} from "./timeline_util";
+import { parseStatVarPath, parsePlace } from "./timeline_util";
 import { SearchBar } from "./timeline_search";
 import { Menu } from "./statsvar_menu";
 
@@ -26,7 +26,7 @@ interface PagePropType {
 
 interface PageStateType {
   statvarPaths: string[][];
-  placeList:string[][];
+  placeList: {} /*{placeId: placeName}*/;
 }
 
 class Page extends Component<PagePropType, PageStateType> {
@@ -35,27 +35,39 @@ class Page extends Component<PagePropType, PageStateType> {
     this.handleHashChange = this.handleHashChange.bind(this);
     this.state = {
       statvarPaths: parseStatVarPath(),
-      placeList:parsePlace(),
+      placeList: {},
     };
   }
 
   componentDidMount() {
     window.addEventListener("hashchange", this.handleHashChange);
+    this.handleHashChange();
   }
 
   handleHashChange() {
+    const placesPromise = parsePlace();
+    if (placesPromise === null) {
+      this.setState({
+        placeList: {},
+      });
+    } else {
+      placesPromise.then((places) => {
+        this.setState({
+          placeList: places,
+        });
+      });
+    }
     this.setState({
       statvarPaths: parseStatVarPath(),
-      placeList: parsePlace(),
     });
   }
 
   render() {
     return (
       <div>
-          <div id="search">
-            <SearchBar placeList={this.state.placeList}/>
-          </div>
+        <div id="search">
+          <SearchBar placeList={this.state.placeList} />
+        </div>
         <div className="explore-menu-container" id="explore">
           <Menu
             updateUrl={this.props.updateUrl}

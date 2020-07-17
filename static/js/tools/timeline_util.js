@@ -22,13 +22,13 @@ import { getUrlVars, setSearchParam } from "./dc";
  * @param {boolean} add = True, delete = False
  * @return void
  */
-function updateUrlStatsVar(statvar, should_add) {
+function updateUrlStatsVar(statvar, shouldAdd) {
   let vars = getUrlVars();
   let svList = [];
   if ("statsvar" in vars) {
     svList = vars["statsvar"].split("__");
   }
-  if (should_add) {
+  if (shouldAdd) {
     if (!svList.includes(statvar)) {
       svList.push(statvar);
     }
@@ -46,20 +46,20 @@ function updateUrlStatsVar(statvar, should_add) {
 }
 
 /**
- * add or delete statvars from url
+ * add or delete place from url
  *
  * @param {string} dcid of place
  * @param {boolean} add = True, delete = False
  * @return {boolean} if added/deleted = True, if did nothing = False
  */
-function updateUrlPlace(place, should_add) {
+function updateUrlPlace(place, shouldAdd) {
   let vars = getUrlVars();
   let placeList = [];
   let changed = false;
   if ("place" in vars) {
     placeList = vars["place"].split(",");
   }
-  if (should_add) {
+  if (shouldAdd) {
     if (!placeList.includes(place)) {
       placeList.push(place);
       changed = true;
@@ -97,25 +97,27 @@ function parseStatVarPath() {
   return statvarPath;
 }
 
+/**
+ * Get the place names from place ids in the url
+ *
+ * @return promise
+ */
 function parsePlace() {
   let vars = getUrlVars();
-  let placeList = [];
+  let url = "/api/place/name?";
+  let urls = [];
   if ("place" in vars) {
     let places = vars["place"].split(",");
     for (const place of places) {
-      let placeName = place;
-      axios
-        .get(`/api/place/name?dcid=${place}`)
-        .then((resp) => {
-          placeName = resp.data[place];
-        })
-        .catch((error) => {
-          console.log(error);
-        });
-      placeList.push([place, placeName]);
+      urls.push(`dcid=${place}`);
     }
+    url += urls.join("&");
+    return axios.get(url).then((resp) => {
+      return resp.data;
+    });
+  } else {
+    return null;
   }
-  return placeList;
 }
 
 export { updateUrlStatsVar, updateUrlPlace, parseStatVarPath, parsePlace };

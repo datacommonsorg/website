@@ -37,8 +37,11 @@ test("update places from Url", () => {
 
 test("parse places from Url", () => {
   window.location.hash = "#&place=geoId/4459000,country/USA";
-  expect(parsePlace()).toStrictEqual([
-    ["geoId/4459000", "Providence"],
-    ["country/USA", "United States"],
-  ]);
+  const placesPromise = parsePlace();
+  placesPromise.then((places) => {
+    expect(places).toStrictEqual({
+      "geoId/4459000": "Providence",
+      "country/USA": "United States",
+    });
+  });
 });
