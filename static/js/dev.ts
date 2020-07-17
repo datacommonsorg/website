@@ -18,10 +18,7 @@
  * @fileoverview dev page.
  */
 
-import React from "react";
-import ReactDOM from "react-dom";
 import { DataPoint, DataGroup } from "./chart/base";
-import { ChartRegionPropsType, ChartRegion } from "./timeline_chart";
 
 import {
   drawSingleBarChart,
@@ -32,22 +29,23 @@ import {
   computePlotParams,
 } from "./chart/draw";
 
-window.onload = function () {
+window.onload = () => {
   let width = 350;
-  let height = 300;
+  const height = 300;
 
   // Container element to hold dom element of one chart.
   // The width and height is eventually obtained from gridding system like
   // Bootstrap.
-  var id = 0;
-  var containerElem = document.getElementById("charts-container");
-  function addChartContainer(width, height) {
-    let containerId = "chart-box-" + ++id;
-    let chartElem = containerElem.appendChild(document.createElement("div"));
+
+  let id = 0;
+  const containerElem = document.getElementById("charts-container");
+  function addChartContainer(w: number, h: number) {
+    const cid = "chart-box-" + ++id;
+    const chartElem = containerElem.appendChild(document.createElement("div"));
     chartElem.className = "chart";
-    chartElem.id = containerId;
+    chartElem.id = cid;
     chartElem.style.width = width + "px";
-    return containerId;
+    return cid;
   }
 
   // Draw single bar chart.
@@ -163,7 +161,8 @@ window.onload = function () {
   drawLineChart(containerId, width, height, dataGroups);
 
   // Test group line chart
-  let dataGroups_geo1_1 = new DataGroup("Total", [
+  width = 1000;
+  const dataGroupsGeo11 = new DataGroup("Total", [
     new DataPoint("2011", 2940667),
     new DataPoint("2012", 2952164),
     new DataPoint("2013", 2959400),
@@ -174,7 +173,7 @@ window.onload = function () {
     new DataPoint("2018", 3009733),
   ]);
 
-  let dataGroups_geo1_2 = new DataGroup("Male", [
+  const dataGroupsGeo12 = new DataGroup("Male", [
     new DataPoint("2011", 1421287),
     new DataPoint("2012", 1431252),
     new DataPoint("2013", 1439862),
@@ -185,7 +184,7 @@ window.onload = function () {
     new DataPoint("2018", 1468412),
   ]);
 
-  let dataGroups_geo2_1 = new DataGroup("Total", [
+  const dataGroupsGeo21 = new DataGroup("Total", [
     new DataPoint("2011", 37638369),
     new DataPoint("2012", 37948800),
     new DataPoint("2013", 38260787),
@@ -196,7 +195,7 @@ window.onload = function () {
     new DataPoint("2018", 39461588),
   ]);
 
-  let dataGroups_geo2_2 = new DataGroup("Male", [
+  const dataGroupsGeo22 = new DataGroup("Male", [
     new DataPoint("2011", 18387718),
     new DataPoint("2012", 18561020),
     new DataPoint("2013", 18726468),
@@ -207,9 +206,21 @@ window.onload = function () {
     new DataPoint("2018", 19453769),
   ]);
 
-  let dataGroupsDict_1 = {
-    "geoId/05": [dataGroups_geo1_1, dataGroups_geo1_2],
-    "geoId/06": [dataGroups_geo2_1, dataGroups_geo2_2],
+  const dataGroupsDict1 = {
+    "geoId/05": [dataGroupsGeo11, dataGroupsGeo12],
+    "geoId/06": [dataGroupsGeo21, dataGroupsGeo22],
+  };
+  containerId = addChartContainer(1000, 500);
+  drawGroupLineChart(
+    containerId,
+    1000,
+    500,
+    dataGroupsDict1,
+    computePlotParams(dataGroupsDict1)
+  );
+
+  const dataGroupsDict2 = {
+    "geoId/06": [dataGroupsGeo21, dataGroupsGeo22],
   };
 
   containerId = addChartContainer(1000, 500);
@@ -217,12 +228,13 @@ window.onload = function () {
     containerId,
     1000,
     500,
-    dataGroupsDict_1,
-    computePlotParams(dataGroupsDict_1)
+    dataGroupsDict2,
+    computePlotParams(dataGroupsDict2)
   );
 
-  let dataGroupsDict_2 = {
-    "geoId/06": [dataGroups_geo2_1, dataGroups_geo2_2],
+  const dataGroupsDict3 = {
+    "geoId/05": [dataGroupsGeo11],
+    "geoId/06": [dataGroupsGeo21],
   };
 
   containerId = addChartContainer(1000, 500);
@@ -230,25 +242,11 @@ window.onload = function () {
     containerId,
     1000,
     500,
-    dataGroupsDict_2,
-    computePlotParams(dataGroupsDict_2)
+    dataGroupsDict3,
+    computePlotParams(dataGroupsDict3)
   );
 
-  let dataGroupsDict_3 = {
-    "geoId/05": [dataGroups_geo1_1],
-    "geoId/06": [dataGroups_geo2_1],
-  };
-
-  containerId = addChartContainer(1000, 500);
-  drawGroupLineChart(
-    containerId,
-    1000,
-    500,
-    dataGroupsDict_3,
-    computePlotParams(dataGroupsDict_3)
-  );
-
-  let dataGroupsDict = {};
+  const dataGroupsDict = {};
   for (let i = 1; i <= 10; i++) {
     dataGroupsDict[i] = [
       new DataGroup("Test", [
@@ -261,7 +259,6 @@ window.onload = function () {
       ]),
     ];
   }
-
   containerId = addChartContainer(1000, 500);
   drawGroupLineChart(
     containerId,
@@ -269,40 +266,5 @@ window.onload = function () {
     500,
     dataGroupsDict,
     computePlotParams(dataGroupsDict)
-  );
-
-  containerId = addChartContainer(1000, 500);
-  let drawChartParams: ChartRegionPropsType;
-  drawChartParams = {
-    chartElem: containerId,
-    placeIds: ["geoId/05"],
-    statVarsAndMeasuredProps: [
-      ["Count_Person", "count"],
-      ["Count_Person_Male", "count"],
-      ["Median_Age_Person", "age"],
-    ],
-    perCapita: false,
-  };
-
-  ReactDOM.render(
-    React.createElement(ChartRegion, drawChartParams),
-    document.getElementById(containerId)
-  );
-
-  containerId = addChartContainer(1000, 500);
-  drawChartParams = {
-    chartElem: containerId,
-    placeIds: ["geoId/05", "geoId/06"],
-    statVarsAndMeasuredProps: [
-      ["Count_Person", "count"],
-      ["Count_Person_Male", "count"],
-      ["Median_Age_Person", "age"],
-    ],
-    perCapita: false,
-  };
-
-  ReactDOM.render(
-    React.createElement(ChartRegion, drawChartParams),
-    document.getElementById(containerId)
   );
 };
