@@ -16,9 +16,9 @@
 
 /* tslint:disable:no-string-literal */
 import React, { Component } from "react";
-import { randDomId } from "./util";
-import { fetchStatsData, StatsData } from "./data_fetcher";
-import { drawGroupLineChart, computePlotParams } from "./chart/draw";
+import { randDomId } from "../util";
+import { fetchStatsData, StatsData } from "../data_fetcher";
+import { drawGroupLineChart, computePlotParams } from "../chart/draw";
 
 const MAX_CHART_WIDTH = 1000;
 const MAX_CHART_HEIGHT = 500;

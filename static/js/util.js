@@ -13,7 +13,6 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-import { getUrlVars, setSearchParam } from "./dc";
 
 const pako = require("pako");
 
@@ -494,88 +493,6 @@ function randDomId() {
     .substr(2, 10);
 }
 
-/**
- * add or delete statvars from url
- *
- * @param {string} dcid of statvar
- * @param {boolean} add = True, delete = False
- * @return void
- */
-function updateUrlStatsVar(statvar, should_add) {
-  let vars = getUrlVars();
-  let svList = [];
-  if ("statsvar" in vars) {
-    svList = vars["statsvar"].split("__");
-  }
-  if (should_add) {
-    if (!svList.includes(statvar)) {
-      svList.push(statvar);
-    }
-  } else {
-    if (svList.includes(statvar)) {
-      svList.splice(svList.indexOf(statvar), 1);
-    }
-  }
-  if (svList.length === 0) {
-    delete vars["statsvar"];
-  } else {
-    vars["statsvar"] = svList.join("__");
-  }
-  setSearchParam(vars);
-}
-
-/**
- * add or delete statvars from url
- *
- * @param {string} dcid of place
- * @param {boolean} add = True, delete = False
- * @return {boolean} if added/deleted = True, if did nothing = False
- */
-function updateUrlPlace(place, should_add) {
-  let vars = getUrlVars();
-  let placeList = [];
-  let changed = false;
-  if ("place" in vars) {
-    placeList = vars["place"].split(",");
-  }
-  if (should_add) {
-    if (!placeList.includes(place)) {
-      placeList.push(place);
-      changed = true;
-    }
-  } else {
-    if (placeList.includes(place)) {
-      placeList.splice(placeList.indexOf(place), 1);
-      changed = true;
-    }
-  }
-  if (placeList.length === 0) {
-    delete vars["place"];
-  } else {
-    vars["place"] = placeList.join(",");
-  }
-  setSearchParam(vars);
-  return changed;
-}
-
-/**
- * parse the paths of statvars from url
- *
- * @return {string[][]} the list of paths of statvars from url
- */
-function parseStatVarPath() {
-  let vars = getUrlVars();
-  let svList = [];
-  let statvarPath = [];
-  if ("statsvar" in vars) {
-    svList = vars["statsvar"].split("__");
-    for (let idx = 0; idx < svList.length; idx++) {
-      statvarPath.push(svList[idx].split(",").slice(1));
-    }
-  }
-  return statvarPath;
-}
-
 export {
   STATS,
   OBS_KEYS,
@@ -604,7 +521,4 @@ export {
   unzip,
   setElementShown,
   randDomId,
-  updateUrlStatsVar,
-  updateUrlPlace,
-  parseStatVarPath,
 };
