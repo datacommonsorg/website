@@ -82,7 +82,7 @@ function updateUrlPlace(place, shouldAdd) {
 /**
  * parse the paths of statvars from url
  *
- * @return {string[][]} the list of paths of statvars from url
+ * @return {[string[][],string[]]} the list of paths of statvars from url
  */
 function parseStatVarPath() {
   let vars = getUrlVars();

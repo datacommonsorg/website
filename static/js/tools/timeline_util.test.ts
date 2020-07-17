@@ -22,7 +22,7 @@ test("update Url statsvar", () => {
 
 test("parse statvar from Url", () => {
   window.location.hash = "#&statsvar=dc/test,Demo,prop";
-  expect(parseStatVarPath()).toStrictEqual([["Demo", "prop"]]);
+  expect(parseStatVarPath()).toStrictEqual([[["Demo", "prop"]],['dc/test']]);
 });
 
 test("update places from Url", () => {
