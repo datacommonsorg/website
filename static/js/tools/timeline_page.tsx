@@ -18,6 +18,8 @@ import React, { Component } from "react";
 import { parseStatVarPath, parsePlace } from "./timeline_util";
 import { SearchBar } from "./timeline_search";
 import { Menu } from "./statsvar_menu";
+import { ChartRegion, ChartRegionPropsType } from "./timeline_chart";
+
 
 interface PagePropType {
   search: boolean;
@@ -30,7 +32,7 @@ interface PageStateType {
 }
 
 class Page extends Component<PagePropType, PageStateType> {
-  constructor(props) {
+  constructor(props: PagePropType) {
     super(props);
     this.handleHashChange = this.handleHashChange.bind(this);
     this.state = {
@@ -63,18 +65,35 @@ class Page extends Component<PagePropType, PageStateType> {
   }
 
   render() {
+
+
     return (
       <div>
         <div id="search">
           <SearchBar placeList={this.state.placeList} />
         </div>
-        <div className="explore-menu-container" id="explore">
-          <Menu
-            updateUrl={this.props.updateUrl}
-            search={this.props.search}
-            svPaths={this.state.statvarPaths}
-          ></Menu>
+        <div id="timeline-lower-pane">
+          <div className="explore-menu-container" id="explore">
+            <Menu
+              updateUrl={this.props.updateUrl}
+              search={this.props.search}
+              svPaths={this.state.statvarPaths}
+            ></Menu>
+          </div>
+          <div id="chart-region">
+            <ChartRegion
+              chartElem="charts"
+              placeIds={["geoId/05", "geoId/06"]}
+              statVarsAndMeasuredProps={[
+                ["Count_Person", "count"],
+                ["Count_Person_Male", "count"],
+                ["Median_Age_Person", "age"],
+              ]}
+              perCapita={false}>
+            </ChartRegion>
+          </div>
         </div>
+
       </div>
     );
   }

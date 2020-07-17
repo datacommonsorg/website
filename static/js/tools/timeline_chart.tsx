@@ -14,7 +14,6 @@
  * limitations under the License.
  */
 
-/* tslint:disable:no-string-literal */
 import React, { Component } from "react";
 import { randDomId } from "../util";
 import { fetchStatsData, StatsData } from "../data_fetcher";
@@ -22,6 +21,10 @@ import { drawGroupLineChart, computePlotParams } from "../chart/draw";
 
 const MAX_CHART_WIDTH = 1000;
 const MAX_CHART_HEIGHT = 500;
+
+// TODO(shifucun): remove this
+const tmpWidth = 500;
+
 
 interface StatVarChipPropsType {
   statVar: string;
@@ -63,7 +66,12 @@ interface ChartRegionPropsType {
   perCapita: boolean;
 }
 
-class ChartRegion extends Component<ChartRegionPropsType, {}> {
+interface ChartRegionStateType {
+  params: object;
+  data: object;
+}
+
+class ChartRegion extends Component<ChartRegionPropsType, ChartRegionStateType> {
   measuredPropGroup: {
     [mprop: string]: { chartId: string; statVars: string[] };
   };
@@ -76,7 +84,7 @@ class ChartRegion extends Component<ChartRegionPropsType, {}> {
     for (const statVarAndMeasuredProp of this.props.statVarsAndMeasuredProps) {
       const mprop = statVarAndMeasuredProp[1];
       if (mprop in this.measuredPropGroup) {
-        this.measuredPropGroup[mprop]["statVars"].push(
+        this.measuredPropGroup[mprop].statVars.push(
           statVarAndMeasuredProp[0]
         );
       } else {
@@ -84,22 +92,24 @@ class ChartRegion extends Component<ChartRegionPropsType, {}> {
           chartId: "",
           statVars: [],
         };
-        this.measuredPropGroup[mprop]["chartId"] = randDomId();
-        this.measuredPropGroup[mprop]["statVars"] = [statVarAndMeasuredProp[0]];
+        this.measuredPropGroup[mprop].chartId = randDomId();
+        this.measuredPropGroup[mprop].statVars = [statVarAndMeasuredProp[0]];
       }
     }
 
     // get width and height for chart
-    const obsElem = document.getElementById(this.props.chartElem);
-    this.width = Math.min(obsElem.offsetWidth - 20, MAX_CHART_WIDTH);
+    this.width = Math.min(tmpWidth - 20, MAX_CHART_WIDTH);
     this.height = Math.min(Math.round(this.width * 0.5), MAX_CHART_HEIGHT);
 
     // Empty state in the beginning, dataGroupDict and PlotParams will be in the state
-    this.state = {};
+    this.state = {
+      data: {},
+      params: {}
+    };
   }
 
   render() {
-    if (Object.keys(this.state).length === 0) {
+    if (Object.keys(this.state.data).length === 0) {
       return <div></div>;
     }
 
@@ -107,13 +117,13 @@ class ChartRegion extends Component<ChartRegionPropsType, {}> {
       return (
         <div key={mprop}>
           <div
-            id={this.measuredPropGroup[mprop]["chartId"]}
+            id={this.measuredPropGroup[mprop].chartId}
             className="card"
           ></div>
-          {this.state["params"][mprop]["colors"].map((color, statVarIndex) => {
+          {this.state.params[mprop].colors.map((color, statVarIndex) => {
             return (
               <StatVarChip
-                statVar={this.state["params"][mprop]["statVars"][statVarIndex]}
+                statVar={this.state.params[mprop].statVars[statVarIndex]}
                 color={color}
                 key={randDomId()}
                 deleteStatVarChip={this.deleteStatVarChip}
@@ -132,7 +142,7 @@ class ChartRegion extends Component<ChartRegionPropsType, {}> {
     for (const mprop in this.measuredPropGroup) {
       if (this.measuredPropGroup.hasOwnProperty(mprop)) {
         mprops.push(mprop);
-        const statsVarsArray = this.measuredPropGroup[mprop]["statVars"];
+        const statsVarsArray = this.measuredPropGroup[mprop].statVars;
         // Make an array of Promises
         promises.push(
           fetchStatsData(
@@ -167,16 +177,16 @@ class ChartRegion extends Component<ChartRegionPropsType, {}> {
 
   updateChart() {
     let index = 0;
-    for (const mprop in this.state["data"]) {
-      if (this.state["data"].hasOwnProperty(mprop)) {
-        const dataGroupsDict = this.state["data"][mprop];
-        const elemId = this.measuredPropGroup[mprop]["chartId"];
+    for (const mprop in this.state.data) {
+      if (this.state.data.hasOwnProperty(mprop)) {
+        const dataGroupsDict = this.state.data[mprop];
+        const elemId = this.measuredPropGroup[mprop].chartId;
         drawGroupLineChart(
           elemId,
           this.width,
           this.height,
           dataGroupsDict,
-          this.state["params"][mprop]
+          this.state.params[mprop]
         );
         index++;
       }
