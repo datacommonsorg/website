@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-import { parseStatVarPath } from "./util";
+import { parseStatVarPath } from "../util";
 import { SearchBar } from "./timeline_search";
 import { Menu } from "./statsvar_menu";
 

@@ -1,6 +1,6 @@
 import React, { Component } from "react";
 import axios from "axios";
-import { updateUrlPlace } from "./util";
+import { updateUrlPlace } from "../util";
 
 let ac: google.maps.places.Autocomplete;
 

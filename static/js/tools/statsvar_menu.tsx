@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-import hierarchy from "../../tools/pv_tree_generator/hierarchy.json";
+import hierarchy from "../../../tools/pv_tree_generator/hierarchy.json";
 
 interface NodePropType {
   title: string;

@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-import { initMenu } from "./menu.js";
+import { initMenu } from "./tools/menu.js";
 
 import {
   drawFromChartApi,
