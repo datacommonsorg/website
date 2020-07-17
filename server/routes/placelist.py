@@ -23,12 +23,12 @@ from services.datacommons import fetch_data
 
 # Define blueprint
 bp = Blueprint(
-  "sitemap",
+  "placelist",
   __name__,
 )
 
 
-@bp.route('/sitemap')
+@bp.route('/placelist')
 @cache.memoize(timeout=3600 * 24)  # Cache for one day.
 def index():
     response = fetch_data(
@@ -48,10 +48,10 @@ def index():
           'name': place.get('name', place['dcid'])
         })
         countries['Country'].sort(key=lambda x: x['name'])
-    return render_template('sitemap.html', place_by_type=countries)
+    return render_template('placelist.html', place_by_type=countries)
 
 
-@bp.route('/sitemap/<path:dcid>')
+@bp.route('/placelist/<path:dcid>')
 @cache.memoize(timeout=3600 * 24)  # Cache for one day.
 def node(dcid):
     child_places = child_fetch(dcid)
@@ -69,4 +69,4 @@ def node(dcid):
         place_by_type[place_type].sort(key=lambda x: x['name'])
 
     return render_template(
-      'sitemap.html', place_by_type=place_by_type, dcid=dcid)
+      'placelist.html', place_by_type=place_by_type, dcid=dcid)

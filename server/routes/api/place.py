@@ -21,7 +21,23 @@ from cache import cache
 from services.datacommons import fetch_data
 from routes.api.stats import get_stats_wrapper
 
-WANTED_PLACE_TYPES = ["Country", "State", "County", "City"]
+WANTED_PLACE_TYPES = ["Country",
+                      "State",
+                      "Province",
+                      "County",
+                      "City",
+                      "Town",
+                      "Village",
+                      "Borough",
+                      "CensusZipCodeTabulationArea",
+                      "EurostatNUTS1",
+                      "EurostatNUTS2",
+                      "EurostatNUTS3",
+                      "AdministrativeArea1",
+                      "AdministrativeArea2",
+                      "AdministrativeArea3",
+                      "AdministrativeArea4",
+                      "AdministrativeArea5"]
 CHILD_PLACE_LIMIT = 20
 
 # Define blueprint
@@ -165,6 +181,6 @@ def get_parent_place(dcid):
     for i in range(len(parents)):
         if len(parents[i]['types']) > 1:
             parents[i]['types'] = [
-              x for x in parents[i]['types']
-              if not x.startswith('AdministrativeArea')]
+                x for x in parents[i]['types']
+                if not x.startswith('AdministrativeArea')]
     return parents

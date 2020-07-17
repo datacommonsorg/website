@@ -15,8 +15,8 @@
 #}
 {% extends 'base.html' %}
 
-{% set main_id = 'sitemap' %}
-{% set title = 'Sitemap' %}
+{% set main_id = 'placelist' %}
+{% set title = 'Place List' %}
 
 {% block head %}
   <link rel="stylesheet" href={{url_for('static', filename='css/static.min.css', t=config['GAE_VERSION'])}} />
@@ -24,13 +24,13 @@
 
 {% block content %}
   <div class="container">
-    <h1>Sitemap</h1>
+    <h1>Place List</h1>
     {% if place_by_type|length %}
       {% for key in place_by_type %}
         <h3>{{ key }}</h3> <div style="column-count: 3">
           {% for place in place_by_type[key] %}
             <div>
-              <a href="{{url_for('sitemap.node', dcid=place['dcid'])}}">{{place['name']}}</a>
+              <a href="{{url_for('placelist.node', dcid=place['dcid'])}}">{{place['name']}}</a>
               <span>: (</span>
               <a href="{{url_for('browser.kg_entity', dcid=dcid)}}">KG</a>
               <span>)</span>
