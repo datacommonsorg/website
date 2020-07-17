@@ -17,7 +17,7 @@
 
 {% set search_query = request.args.get('q') %}
 {% set main_id = 'search' %}
-{% set title = '{{ search_query }} - Search Results' %}
+{% set title = search_query + ' | Search Results' %}
 
 {% block head %}
   <link rel="stylesheet" href={{url_for('static', filename='css/search.min.css', t=config['GAE_VERSION'])}} />

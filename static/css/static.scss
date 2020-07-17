@@ -39,14 +39,26 @@ h2 {
   padding-bottom: 5rem;
 }
 
+#homepage-top .lead-col {
+  display: flex;
+  justify-content: center;
+  flex-direction: column;
+}
+
+#homepage-top .img-col {
+  display: flex;
+  justify-content: center;
+}
+
 #homepage-bottom {
   padding-top: 3rem;
   padding-bottom: 3rem;
   margin-top: 6rem;
+  margin-bottom: 5rem;
 }
 
 #homepage section.container {
-  margin-top: 5rem;
+  margin-bottom: 5rem;
 }
 
 #homepage section dd a,

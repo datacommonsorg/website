@@ -576,6 +576,7 @@ function computeRanges(dataGroupsDict: { [geoId: string]: DataGroup[] }) {
  * @param width: width for the chart.
  * @param height: height for the chart.
  * @param dataGroupsDict: {[geoId: string]: DataGroup[]}.
+ * @param plotParams: contains all plot params for chart.
  * @param unit
  */
 function drawGroupLineChart(
@@ -583,11 +584,9 @@ function drawGroupLineChart(
   width: number,
   height: number,
   dataGroupsDict: { [geoId: string]: DataGroup[] },
+  plotParams: PlotParams,
   unit?: string
 ) {
-  // Get all styles.
-  const plotParams = computePlotParams(dataGroupsDict);
-
   let dataGroups: DataGroup[];
   dataGroups = Object.values(dataGroupsDict)[0];
 
@@ -656,9 +655,6 @@ function drawGroupLineChart(
     );
 
   buildInChartLegend(legendId, plotParams);
-
-  // return colors here used to add menu below the chart.
-  return plotParams.colors;
 }
 
 /**
@@ -731,6 +727,7 @@ export {
   getDashes,
   appendLegendElem,
   getColorFn,
+  computePlotParams,
   drawLineChart,
   drawGroupLineChart,
   drawSingleBarChart,

@@ -26,6 +26,7 @@ import {
   drawGroupBarChart,
   drawLineChart,
   drawGroupLineChart,
+  computePlotParams,
 } from "./chart/draw";
 
 window.onload = () => {
@@ -38,7 +39,7 @@ window.onload = () => {
 
   let id = 0;
   const containerElem = document.getElementById("charts-container");
-  function addChartContainer(w:number , h:number) {
+  function addChartContainer(w: number, h: number) {
     const cid = "chart-box-" + ++id;
     const chartElem = containerElem.appendChild(document.createElement("div"));
     chartElem.className = "chart";
@@ -160,6 +161,7 @@ window.onload = () => {
   drawLineChart(containerId, width, height, dataGroups);
 
   // Test group line chart
+  width = 1000;
   const dataGroupsGeo11 = new DataGroup("Total", [
     new DataPoint("2011", 2940667),
     new DataPoint("2012", 2952164),
@@ -209,14 +211,26 @@ window.onload = () => {
     "geoId/06": [dataGroupsGeo21, dataGroupsGeo22],
   };
   containerId = addChartContainer(1000, 500);
-  drawGroupLineChart(containerId, 1000, 500, dataGroupsDict1);
+  drawGroupLineChart(
+    containerId,
+    1000,
+    500,
+    dataGroupsDict1,
+    computePlotParams(dataGroupsDict1)
+  );
 
   const dataGroupsDict2 = {
     "geoId/06": [dataGroupsGeo21, dataGroupsGeo22],
   };
 
   containerId = addChartContainer(1000, 500);
-  drawGroupLineChart(containerId, 1000, 500, dataGroupsDict2);
+  drawGroupLineChart(
+    containerId,
+    1000,
+    500,
+    dataGroupsDict2,
+    computePlotParams(dataGroupsDict2)
+  );
 
   const dataGroupsDict3 = {
     "geoId/05": [dataGroupsGeo11],
@@ -224,7 +238,13 @@ window.onload = () => {
   };
 
   containerId = addChartContainer(1000, 500);
-  drawGroupLineChart(containerId, 1000, 500, dataGroupsDict3);
+  drawGroupLineChart(
+    containerId,
+    1000,
+    500,
+    dataGroupsDict3,
+    computePlotParams(dataGroupsDict3)
+  );
 
   const dataGroupsDict = {};
   for (let i = 1; i <= 10; i++) {
@@ -240,5 +260,11 @@ window.onload = () => {
     ];
   }
   containerId = addChartContainer(1000, 500);
-  drawGroupLineChart(containerId, 1000, 500, dataGroupsDict);
+  drawGroupLineChart(
+    containerId,
+    1000,
+    500,
+    dataGroupsDict,
+    computePlotParams(dataGroupsDict)
+  );
 };
