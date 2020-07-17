@@ -23,7 +23,7 @@ import {
   getUrlVars,
   setSearchParam,
   clearDiv,
-} from "../dc.js";
+} from "./dc.js";
 
 import { getApiKey, getApiRoot, isSetsEqual } from "../util.js";
 

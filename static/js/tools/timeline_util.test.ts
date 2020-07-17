@@ -1,4 +1,8 @@
-import { updateUrlStatsVar, parseStatVarPath, updateUrlPlace } from "./util.js";
+import {
+  updateUrlStatsVar,
+  parseStatVarPath,
+  updateUrlPlace,
+} from "./timeline_util.js";
 
 test("update Url statsvar", () => {
   window.location.hash = "";
