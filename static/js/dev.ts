@@ -161,94 +161,124 @@ window.onload = () => {
   drawLineChart(containerId, width, height, dataGroups);
 
   // Test group line chart
-  width = 1000;
-  const dataGroupsGeo11 = new DataGroup("Total", [
-    new DataPoint("2011", 2940667),
-    new DataPoint("2012", 2952164),
-    new DataPoint("2013", 2959400),
-    new DataPoint("2014", 2967392),
-    new DataPoint("2015", 2978048),
-    new DataPoint("2016", 2989918),
-    new DataPoint("2017", 3001345),
-    new DataPoint("2018", 3009733),
-  ]);
-
-  const dataGroupsGeo12 = new DataGroup("Male", [
-    new DataPoint("2011", 1421287),
-    new DataPoint("2012", 1431252),
-    new DataPoint("2013", 1439862),
-    new DataPoint("2014", 1447235),
-    new DataPoint("2015", 1451913),
-    new DataPoint("2016", 1456694),
-    new DataPoint("2017", 1461651),
-    new DataPoint("2018", 1468412),
-  ]);
-
-  const dataGroupsGeo21 = new DataGroup("Total", [
-    new DataPoint("2011", 37638369),
-    new DataPoint("2012", 37948800),
-    new DataPoint("2013", 38260787),
-    new DataPoint("2014", 38596972),
-    new DataPoint("2015", 38918045),
-    new DataPoint("2016", 39167117),
-    new DataPoint("2017", 39358497),
-    new DataPoint("2018", 39461588),
-  ]);
-
-  const dataGroupsGeo22 = new DataGroup("Male", [
-    new DataPoint("2011", 18387718),
-    new DataPoint("2012", 18561020),
-    new DataPoint("2013", 18726468),
-    new DataPoint("2014", 18911519),
-    new DataPoint("2015", 19087135),
-    new DataPoint("2016", 19200970),
-    new DataPoint("2017", 19366579),
-    new DataPoint("2018", 19453769),
-  ]);
-
-  const dataGroupsDict1 = {
-    "geoId/05": [dataGroupsGeo11, dataGroupsGeo12],
-    "geoId/06": [dataGroupsGeo21, dataGroupsGeo22],
+  width = 500;
+  const years = [
+    "2011",
+    "2012",
+    "2013",
+    "2014",
+    "2015",
+    "2016",
+    "2017",
+    "2018",
+  ];
+  const placeValue1 = {
+    Total: [
+      2940667,
+      1952164,
+      1959400,
+      1967392,
+      2978048,
+      2989918,
+      3001345,
+      3009733,
+    ],
+    Male: [
+      1421287,
+      1431252,
+      1439862,
+      1447235,
+      1451913,
+      1456694,
+      1461651,
+      1468412,
+    ],
   };
-  containerId = addChartContainer(1000, 500);
+  const placeValue2 = {
+    Total: [
+      37638369,
+      37948800,
+      38260787,
+      38596972,
+      38918045,
+      39167117,
+      39358497,
+      39461588,
+    ],
+    Male: [
+      18387718,
+      18561020,
+      18726468,
+      18911519,
+      19087135,
+      19200970,
+      19366579,
+      19453769,
+    ],
+  };
+  const placeData1 = [];
+  for (const label in placeValue1) {
+    placeData1.push(
+      new DataGroup(
+        label,
+        years.map((year, i) => new DataPoint(year, placeValue1[label][i]))
+      )
+    );
+  }
+  const placeData2 = [];
+  for (const label in placeValue2) {
+    placeData2.push(
+      new DataGroup(
+        label,
+        years.map((year, i) => new DataPoint(year, placeValue2[label][i]))
+      )
+    );
+  }
+
+  const dataGroupsDict1: {[key: string]: DataGroup[]} = {
+    "geoId/05": placeData1,
+    "geoId/06": placeData2,
+  };
+
+  containerId = addChartContainer(width, height);
   drawGroupLineChart(
     containerId,
-    1000,
-    500,
+    width,
+    height,
     dataGroupsDict1,
-    computePlotParams(dataGroupsDict1)
+    computePlotParams(["geoId/05", "geoId/06"], ["Total", "Male"])
   );
 
-  const dataGroupsDict2 = {
-    "geoId/06": [dataGroupsGeo21, dataGroupsGeo22],
+  const dataGroupsDict2: {[key: string]: DataGroup[]} = {
+    "geoId/06": placeData2,
   };
 
-  containerId = addChartContainer(1000, 500);
+  containerId = addChartContainer(width, height);
   drawGroupLineChart(
     containerId,
-    1000,
-    500,
+    width,
+    height,
     dataGroupsDict2,
-    computePlotParams(dataGroupsDict2)
+    computePlotParams(["geoId/06"], ["Total", "Male"])
   );
 
-  const dataGroupsDict3 = {
-    "geoId/05": [dataGroupsGeo11],
-    "geoId/06": [dataGroupsGeo21],
+  const dataGroupsDict3: {[key: string]: DataGroup[]} = {
+    "geoId/05": [placeData1[0]],
+    "geoId/06": [placeData2[0]],
   };
 
-  containerId = addChartContainer(1000, 500);
+  containerId = addChartContainer(width, height);
   drawGroupLineChart(
     containerId,
-    1000,
-    500,
+    width,
+    height,
     dataGroupsDict3,
-    computePlotParams(dataGroupsDict3)
+    computePlotParams(["geoId/05", "geoId/06"], ["Total"])
   );
 
-  const dataGroupsDict = {};
+  const dataGroupsDict: {[key: string]: DataGroup[]} = {};
   for (let i = 1; i <= 10; i++) {
-    dataGroupsDict[i] = [
+    dataGroupsDict[String(i)] = [
       new DataGroup("Test", [
         new DataPoint("1", i),
         new DataPoint("2", i),
@@ -259,12 +289,12 @@ window.onload = () => {
       ]),
     ];
   }
-  containerId = addChartContainer(1000, 500);
+  containerId = addChartContainer(width, height);
   drawGroupLineChart(
     containerId,
-    1000,
-    500,
+    width,
+    height,
     dataGroupsDict,
-    computePlotParams(dataGroupsDict)
+    computePlotParams(Object.keys(dataGroupsDict), ["Test"])
   );
 };

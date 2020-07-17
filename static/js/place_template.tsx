@@ -28,6 +28,7 @@ import {
 } from "./chart/draw";
 import { fetchStatsData } from "./data_fetcher";
 import { updatePageLayoutState } from "./place";
+import { STATS_VAR_TEXT } from "./stats_var";
 
 const chartTypeEnum = {
   LINE: "LINE",
@@ -675,8 +676,12 @@ class Chart extends Component<ChartPropType, ChartStateType> {
     switch (chartType) {
       case chartTypeEnum.LINE:
         fetchStatsData([dcid], config.statsVars).then((data) => {
+          const dataGroups = data.getStatsVarGroupWithTime(dcid);
+          for (const dataGroup of dataGroups) {
+            dataGroup.label = STATS_VAR_TEXT[dataGroup.label];
+          }
           this.setState({
-            dataGroups: data.getStatsVarGroupWithTime(dcid),
+            dataGroups,
           });
         });
         break;

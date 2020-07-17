@@ -18,12 +18,12 @@ import React, { Component } from "react";
 import {
   parseStatVarPath,
   parsePlace,
-  getStatsVarProp,
+  getStatsVarInfo,
   getPlaceNames,
 } from "./timeline_util";
 import { SearchBar } from "./timeline_search";
 import { Menu } from "./statsvar_menu";
-import { ChartRegion } from "./timeline_chart";
+import { ChartRegion, StatVarInfo } from "./timeline_chart";
 
 interface PagePropType {
   search: boolean;
@@ -32,8 +32,8 @@ interface PagePropType {
 
 interface PageStateType {
   statvarPaths: string[][];
-  svTriples: {};
-  placeList: { [key: string]: string } /*{placeId: placeName}*/;
+  statvarInfo: { [key: string]: StatVarInfo };
+  places: [string, string][]; // [(placeId, placeName)]
   perCapita: boolean;
 }
 
@@ -44,8 +44,8 @@ class Page extends Component<PagePropType, PageStateType> {
     this._togglePerCapita = this._togglePerCapita.bind(this);
     this.state = {
       statvarPaths: [],
-      svTriples: {},
-      placeList: {},
+      statvarInfo: {},
+      places: [],
       perCapita: false,
     };
   }
@@ -58,37 +58,27 @@ class Page extends Component<PagePropType, PageStateType> {
   handleHashChange() {
     const svPaths = parseStatVarPath()[0];
     const svIds = parseStatVarPath()[1];
-    if (svPaths !== this.state.statvarPaths) {
-      if (svIds.length !== 0) {
-        const triplesPromise = getStatsVarProp(svIds);
-        triplesPromise.then((triples) => {
-          this.setState({
-            svTriples: triples,
-            statvarPaths: svPaths,
-          });
-        });
-      } else {
-        this.setState({
-          svTriples: {},
-          statvarPaths: [],
-        });
-      }
+
+    let statvarInfoPromise = Promise.resolve(this.state.statvarInfo);
+    if (svPaths !== this.state.statvarPaths && svIds.length !== 0) {
+      statvarInfoPromise = getStatsVarInfo(svIds);
     }
+
+    let placesPromise = Promise.resolve(this.state.places);
     const placeIds = parsePlace();
-    if (placeIds !== Object.keys(this.state.placeList)) {
-      if (placeIds.length !== 0) {
-        const placesPromise = getPlaceNames(placeIds);
-        placesPromise.then((places) => {
-          this.setState({
-            placeList: places,
-          });
-        });
-      } else {
-        this.setState({
-          placeList: {},
-        });
-      }
+    if (placeIds !== Object.keys(this.state.places) && placeIds.length !== 0) {
+      placesPromise = getPlaceNames(placeIds).then((data) =>
+        Object.entries(data)
+      );
     }
+
+    Promise.all([statvarInfoPromise, placesPromise]).then((values) => {
+      this.setState({
+        statvarInfo: values[0],
+        statvarPaths: svPaths,
+        places: values[1],
+      });
+    });
   }
 
   _togglePerCapita() {
@@ -122,19 +112,15 @@ class Page extends Component<PagePropType, PageStateType> {
         <div id="plot-container">
           <div className="container">
             <div id="search">
-              <SearchBar placeList={this.state.placeList} />
+              <SearchBar places={this.state.places} />
             </div>
-
             <div id="chart-region">
               <ChartRegion
-                chartElem="charts"
-                places={this.state.placeList}
-                statVarsAndMeasuredProps={[
-                  ["Count_Person", "count"],
-                  ["Count_Person_Male", "count"],
-                  ["Median_Age_Person", "age"],
-                ]}
+                places={this.state.places}
+                statVars={this.state.statvarInfo}
                 perCapita={false}
+                width={500}
+                height={500}
               ></ChartRegion>
             </div>
           </div>
