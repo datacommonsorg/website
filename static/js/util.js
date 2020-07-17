@@ -499,7 +499,7 @@ function randDomId() {
  *
  * @param {string} dcid of statvar
  * @param {boolean} add = True, delete = False
- * @return {string} The line chart URL.
+ * @return void
  */
 function updateUrlStatsVar(statvar, should_add) {
   let vars = getUrlVars();
@@ -522,6 +522,40 @@ function updateUrlStatsVar(statvar, should_add) {
     vars["statsvar"] = svList.join("__");
   }
   setSearchParam(vars);
+}
+
+/**
+ * add or delete statvars from url
+ *
+ * @param {string} dcid of place
+ * @param {boolean} add = True, delete = False
+ * @return {boolean} if added/deleted = True, if did nothing = False
+ */
+function updateUrlPlace(place, should_add) {
+  let vars = getUrlVars();
+  let placeList = [];
+  let changed = false;
+  if ("place" in vars) {
+    placeList = vars["place"].split(",");
+  }
+  if (should_add) {
+    if (!placeList.includes(place)) {
+      placeList.push(place);
+      changed = true;
+    }
+  } else {
+    if (placeList.includes(place)) {
+      placeList.splice(placeList.indexOf(place), 1);
+      changed = true;
+    }
+  }
+  if (placeList.length === 0) {
+    delete vars["place"];
+  } else {
+    vars["place"] = placeList.join(",");
+  }
+  setSearchParam(vars);
+  return changed;
 }
 
 /**
@@ -571,5 +605,6 @@ export {
   setElementShown,
   randDomId,
   updateUrlStatsVar,
+  updateUrlPlace,
   parseStatVarPath,
 };

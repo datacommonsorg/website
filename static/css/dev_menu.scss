@@ -14,18 +14,6 @@
  * limitations under the License.
  */
 
-/**
- * @fileoverview dev_menu page.
- */
-
-import React from "react";
-import ReactDOM from "react-dom";
-import { Page } from "./timeline.tsx";
-import { updateUrlStatsVar } from "./util.js";
-
-window.onload = function () {
-  ReactDOM.render(
-    React.createElement(Page, { updateUrl: updateUrlStatsVar, search: false }),
-    document.getElementById("main-pane")
-  );
-};
+@import 'tools/base_tools';
+@import 'tools/statvar_menu';
+@import 'timeline';
