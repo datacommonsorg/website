@@ -15,7 +15,12 @@
  */
 
 import React, { Component } from "react";
-import { parseStatVarPath, parsePlace, getTriples } from "./timeline_util";
+import {
+  parseStatVarPath,
+  parsePlace,
+  getStatsVarProp,
+  getPlaceNames,
+} from "./timeline_util";
 import { SearchBar } from "./timeline_search";
 import { Menu } from "./statsvar_menu";
 import { ChartRegion } from "./timeline_chart";
@@ -50,33 +55,38 @@ class Page extends Component<PagePropType, PageStateType> {
   handleHashChange() {
     const svPaths = parseStatVarPath()[0];
     const svIds = parseStatVarPath()[1];
-    const placesPromise = parsePlace();
-    if (placesPromise === null) {
-      this.setState({
-        placeList: {},
-      });
-    } else {
-      placesPromise.then((places) => {
-        this.setState({
-          placeList: places,
+    if (svPaths !== this.state.statvarPaths) {
+      if (svIds.length !== 0) {
+        const triplesPromise = getStatsVarProp(svIds);
+        triplesPromise.then((triples) => {
+          this.setState({
+            svTriples: triples,
+            statvarPaths: svPaths,
+          });
         });
-      });
-    }
-    if (svIds.length !== 0) {
-      const triplesPromise = getTriples(svIds);
-      triplesPromise.then((triples) => {
+      } else {
         this.setState({
-          svTriples: triples,
+          svTriples: {},
+          statvarPaths: [],
         });
-      });
-    } else {
-      this.setState({
-        svTriples: {},
-      });
+      }
     }
-    this.setState({
-      statvarPaths: svPaths,
-    });
+    const placeIds = parsePlace();
+    if (placeIds !== Object.keys(this.state.placeList)){
+      if (placeIds.length !== 0){
+        const placesPromise = getPlaceNames(placeIds);
+        placesPromise.then((places) => {
+          this.setState({
+            placeList: places,
+          });
+        });
+      }
+      else{
+        this.setState({
+          placeList: {},
+        })
+      }
+    }
   }
 
   render() {

@@ -106,23 +106,26 @@ function parseStatVarPath() {
  */
 function parsePlace() {
   let vars = getUrlVars();
-  let url = "/api/place/name?";
-  let urls = [];
   if ("place" in vars) {
-    let places = vars["place"].split(",");
-    for (const place of places) {
-      urls.push(`dcid=${place}`);
-    }
-    url += urls.join("&");
-    return axios.get(url).then((resp) => {
-      return resp.data;
-    });
+    return vars["place"].split(",");
   } else {
-    return null;
+    return [];
   }
 }
 
-function getTriples(dcids) {
+function getPlaceNames(dcids) {
+  let url = "/api/place/name?";
+  let urls = [];
+  for (const place of dcids) {
+    urls.push(`dcid=${place}`);
+  }
+  url += urls.join("&");
+  return axios.get(url).then((resp) => {
+    return resp.data;
+  });
+}
+
+function getStatsVarProp(dcids) {
   let url = "/api/stats/stats-var-property?";
   let urls = [];
   for (const dcid of dcids) {
@@ -139,5 +142,6 @@ export {
   updateUrlPlace,
   parseStatVarPath,
   parsePlace,
-  getTriples,
+  getStatsVarProp,
+  getPlaceNames,
 };
