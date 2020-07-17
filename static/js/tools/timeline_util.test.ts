@@ -3,7 +3,7 @@ import {
   parseStatVarPath,
   updateUrlPlace,
   parsePlace,
-} from "./util.js";
+} from "./timeline_util.js";
 
 test("update Url statsvar", () => {
   window.location.hash = "";
@@ -36,6 +36,9 @@ test("update places from Url", () => {
 });
 
 test("parse places from Url", () => {
-  window.location.hash = "#&place=geoId/4459000,country/USA"
-  expect(parsePlace()).toStrictEqual([["geoId/4459000", "Providence"],["country/USA", "United States"]])
+  window.location.hash = "#&place=geoId/4459000,country/USA";
+  expect(parsePlace()).toStrictEqual([
+    ["geoId/4459000", "Providence"],
+    ["country/USA", "United States"],
+  ]);
 });

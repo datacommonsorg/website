@@ -21,7 +21,7 @@ import {
   getPerCapita,
   parsePtPvs,
   getDataUrl,
-} from "./dc.js";
+} from "./tools/dc.js";
 
 const axios = require("axios");
 
