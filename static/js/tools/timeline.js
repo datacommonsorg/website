@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-import { initMenu } from "./tools/menu.js";
+import { initMenu } from "./menu.js";
 
 import {
   drawFromChartApi,
@@ -23,11 +23,11 @@ import {
   getUrlVars,
   setSearchParam,
   clearDiv,
-} from "./dc.js";
+} from "../dc.js";
 
-import { getApiKey, getApiRoot, isSetsEqual } from "./util.js";
+import { getApiKey, getApiRoot, isSetsEqual } from "../util.js";
 
-require("./globals.js");
+require("../globals.js");
 
 let exploreTypeVars;
 
