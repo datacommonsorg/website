@@ -24,6 +24,8 @@ bp = Blueprint(
   __name__,
 )
 
+# TODO(shifucun): add unittest for this module
+
 
 @cache.memoize(timeout=3600 * 24)  # Cache for one day.
 def get_stats_wrapper(dcid_str, stats_var):
@@ -59,6 +61,18 @@ def stats(stats_var):
     return get_stats_wrapper('^'.join(place_dcids), stats_var)
 
 
+@bp.route('/api/stats/stats-var-property')
+def stats_var_property():
+    """Handler to get the properties of give statistical variables.
+
+    Returns:
+        A dictionary keyed by stats var dcid with value being a dictionary of
+        all the properties of each stats var.
+    """
+    dcids = request.args.getlist('dcid')
+    return stats_var_property_wrapper(dcids)
+
+
 def get_stats_url_fragment(dcids):
     """Get stats information give multiple stats var dcids.
 
@@ -73,6 +87,18 @@ def get_stats_url_fragment(dcids):
             "Count_Person": "Person,count,gender,Female"
         }
     """
+    stats_var_info = stats_var_property_wrapper(dcids)
+    result = {}
+    for dcid, data in stats_var_info.items():
+        tokens = [data['pt'], data['mprop']]
+        for p, v in data['pvs'].items():
+            tokens.extend([p, v])
+        result[dcid] = ','.join(tokens)
+    return result
+
+
+def stats_var_property_wrapper(dcids):
+    """Function to get properties for give statistical variables."""
     data = dc.fetch_data(
       '/node/triples',
       {
@@ -88,17 +114,22 @@ def get_stats_url_fragment(dcids):
         for triple in triples:
             if triple['predicate'] == 'constraintProperties':
                 pvs[triple["objectId"]] = ''
-        pop_type = ''
+        pt = ''
+        md = ''
         mprop = ''
         for triple in triples:
             if triple['predicate'] == 'measuredProperty':
                 mprop = triple['objectId']
             if triple['predicate'] == 'populationType':
-                pop_type = triple['objectId']
+                pt = triple['objectId']
+            if triple['predicate'] == 'measurementDenominator':
+                md = triple['objectId']
             if triple['predicate'] in pvs:
                 pvs[triple['predicate']] = triple['objectId']
-        tokens = [pop_type, mprop]
-        for p, v in pvs.items():
-            tokens.extend([p, v])
-        result[dcid] = ','.join(tokens)
+        result[dcid] = {
+            'mprop': mprop,
+            'pt': pt,
+            'md': md,
+            'pvs': pvs,
+        }
     return result

@@ -18,7 +18,7 @@ import React, { Component } from "react";
 import { parseStatVarPath, parsePlace } from "./timeline_util";
 import { SearchBar } from "./timeline_search";
 import { Menu } from "./statsvar_menu";
-import { ChartRegion, ChartRegionPropsType } from "./timeline_chart";
+import { ChartRegion } from "./timeline_chart";
 
 
 interface PagePropType {
@@ -28,7 +28,7 @@ interface PagePropType {
 
 interface PageStateType {
   statvarPaths: string[][];
-  placeList: {} /*{placeId: placeName}*/;
+  placeList: {[key: string]: string} /*{placeId: placeName}*/;
 }
 
 class Page extends Component<PagePropType, PageStateType> {
@@ -65,8 +65,6 @@ class Page extends Component<PagePropType, PageStateType> {
   }
 
   render() {
-
-
     return (
       <div>
         <div id="search">
@@ -83,7 +81,7 @@ class Page extends Component<PagePropType, PageStateType> {
           <div id="chart-region">
             <ChartRegion
               chartElem="charts"
-              placeIds={["geoId/05", "geoId/06"]}
+              places={this.state.placeList}
               statVarsAndMeasuredProps={[
                 ["Count_Person", "count"],
                 ["Count_Person_Male", "count"],
