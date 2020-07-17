@@ -15,7 +15,7 @@
  */
 
 import React, { Component } from "react";
-import { parseStatVarPath, parsePlace } from "./timeline_util";
+import { parseStatVarPath, parsePlace, getTriples} from "./timeline_util";
 import { SearchBar } from "./timeline_search";
 import { Menu } from "./statsvar_menu";
 import { ChartRegion, ChartRegionPropsType } from "./timeline_chart";
@@ -28,6 +28,7 @@ interface PagePropType {
 
 interface PageStateType {
   statvarPaths: string[][];
+  svTriples: {};
   placeList: {} /*{placeId: placeName}*/;
 }
 
@@ -37,6 +38,7 @@ class Page extends Component<PagePropType, PageStateType> {
     this.handleHashChange = this.handleHashChange.bind(this);
     this.state = {
       statvarPaths: parseStatVarPath(),
+      svTriples:{},
       placeList: {},
     };
   }
@@ -47,6 +49,9 @@ class Page extends Component<PagePropType, PageStateType> {
   }
 
   handleHashChange() {
+    const svPaths = parseStatVarPath[0];
+    const svIds = parseStatVarPath[1];
+    const triplesPromise = getTriples(svIds);
     const placesPromise = parsePlace();
     if (placesPromise === null) {
       this.setState({
@@ -59,8 +64,13 @@ class Page extends Component<PagePropType, PageStateType> {
         });
       });
     }
+    triplesPromise.then((triples) =>{
+      this.setState({
+        svTriples: triples,
+      });
+    })
     this.setState({
-      statvarPaths: parseStatVarPath(),
+      statvarPaths: svPaths,
     });
   }
 

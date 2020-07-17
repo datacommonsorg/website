@@ -88,13 +88,15 @@ function parseStatVarPath() {
   let vars = getUrlVars();
   let svList = [];
   let statvarPath = [];
+  let statvarIds = [];
   if ("statsvar" in vars) {
     svList = vars["statsvar"].split("__");
     for (let idx = 0; idx < svList.length; idx++) {
+      statvarIds.push(svList[idx].split(",")[0]);
       statvarPath.push(svList[idx].split(",").slice(1));
     }
   }
-  return statvarPath;
+  return [statvarPath, statvarIds];
 }
 
 /**
@@ -120,4 +122,22 @@ function parsePlace() {
   }
 }
 
-export { updateUrlStatsVar, updateUrlPlace, parseStatVarPath, parsePlace };
+function getTriples(dcids) {
+  let url = "/api/stats/stats-var-property?";
+  let urls = [];
+  for (const dcid of dcids) {
+    urls.push(`dcid=${dcid}`);
+  }
+  url += urls.join("&");
+  return axios.get(url).then((resp) => {
+    return resp.data;
+  });
+}
+
+export {
+  updateUrlStatsVar,
+  updateUrlPlace,
+  parseStatVarPath,
+  parsePlace,
+  getTriples,
+};
