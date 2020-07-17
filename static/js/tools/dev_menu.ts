@@ -24,7 +24,7 @@ import { Page } from "./timeline.tsx";
 import { updateUrlStatsVar } from "./timeline_util.js";
 import { ChartRegion, ChartRegionPropsType } from "./timeline_chart";
 
-window.onload = function () {
+window.onload = () => {
   ReactDOM.render(
     React.createElement(Page, { updateUrl: updateUrlStatsVar, search: false }),
     document.getElementById("main-pane")
