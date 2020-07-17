@@ -61,7 +61,7 @@ class StatVarChip extends Component<StatVarChipPropsType, {}> {
  */
 interface ChartRegionPropsType {
   chartElem: string;
-  placeIds: string[];
+  places: {[key: string]: string};
   statVarsAndMeasuredProps: string[][];
   perCapita: boolean;
 }
@@ -146,7 +146,7 @@ class ChartRegion extends Component<ChartRegionPropsType, ChartRegionStateType> 
         // Make an array of Promises
         promises.push(
           fetchStatsData(
-            this.props.placeIds,
+            Object.keys(this.props.places),
             statsVarsArray,
             this.props.perCapita,
             1

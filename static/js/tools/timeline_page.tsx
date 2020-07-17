@@ -15,11 +15,10 @@
  */
 
 import React, { Component } from "react";
-import { parseStatVarPath, parsePlace, getTriples} from "./timeline_util";
+import { parseStatVarPath, parsePlace, getTriples } from "./timeline_util";
 import { SearchBar } from "./timeline_search";
 import { Menu } from "./statsvar_menu";
-import { ChartRegion, ChartRegionPropsType } from "./timeline_chart";
-
+import { ChartRegion } from "./timeline_chart";
 
 interface PagePropType {
   search: boolean;
@@ -29,7 +28,7 @@ interface PagePropType {
 interface PageStateType {
   statvarPaths: string[][];
   svTriples: {};
-  placeList: {} /*{placeId: placeName}*/;
+  placeList: { [key: string]: string } /*{placeId: placeName}*/;
 }
 
 class Page extends Component<PagePropType, PageStateType> {
@@ -37,8 +36,8 @@ class Page extends Component<PagePropType, PageStateType> {
     super(props);
     this.handleHashChange = this.handleHashChange.bind(this);
     this.state = {
-      statvarPaths: parseStatVarPath(),
-      svTriples:{},
+      statvarPaths: [],
+      svTriples: {},
       placeList: {},
     };
   }
@@ -49,9 +48,8 @@ class Page extends Component<PagePropType, PageStateType> {
   }
 
   handleHashChange() {
-    const svPaths = parseStatVarPath[0];
-    const svIds = parseStatVarPath[1];
-    const triplesPromise = getTriples(svIds);
+    const svPaths = parseStatVarPath()[0];
+    const svIds = parseStatVarPath()[1];
     const placesPromise = parsePlace();
     if (placesPromise === null) {
       this.setState({
@@ -64,19 +62,24 @@ class Page extends Component<PagePropType, PageStateType> {
         });
       });
     }
-    triplesPromise.then((triples) =>{
-      this.setState({
-        svTriples: triples,
+    if (svIds.length !== 0) {
+      const triplesPromise = getTriples(svIds);
+      triplesPromise.then((triples) => {
+        this.setState({
+          svTriples: triples,
+        });
       });
-    })
+    } else {
+      this.setState({
+        svTriples: {},
+      });
+    }
     this.setState({
       statvarPaths: svPaths,
     });
   }
 
   render() {
-
-
     return (
       <div>
         <div id="search">
@@ -93,17 +96,16 @@ class Page extends Component<PagePropType, PageStateType> {
           <div id="chart-region">
             <ChartRegion
               chartElem="charts"
-              placeIds={["geoId/05", "geoId/06"]}
+              places={this.state.placeList}
               statVarsAndMeasuredProps={[
                 ["Count_Person", "count"],
                 ["Count_Person_Male", "count"],
                 ["Median_Age_Person", "age"],
               ]}
-              perCapita={false}>
-            </ChartRegion>
+              perCapita={false}
+            ></ChartRegion>
           </div>
         </div>
-
       </div>
     );
   }
