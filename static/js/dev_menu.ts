@@ -22,10 +22,28 @@ import React from "react";
 import ReactDOM from "react-dom";
 import { Page } from "./timeline.tsx";
 import { updateUrlStatsVar } from "./util.js";
+import { ChartRegion, ChartRegionPropsType } from "./timeline_chart";
 
 window.onload = function () {
   ReactDOM.render(
     React.createElement(Page, { updateUrl: updateUrlStatsVar, search: false }),
     document.getElementById("main-pane")
+  );
+
+  let drawChartParams: ChartRegionPropsType;
+  drawChartParams = {
+    chartElem: "charts",
+    placeIds: ["geoId/05", "geoId/06"],
+    statVarsAndMeasuredProps: [
+      ["Count_Person", "count"],
+      ["Count_Person_Male", "count"],
+      ["Median_Age_Person", "age"],
+    ],
+    perCapita: false,
+  };
+
+  ReactDOM.render(
+    React.createElement(ChartRegion, drawChartParams),
+    document.getElementById("charts")
   );
 };
