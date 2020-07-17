@@ -23,38 +23,49 @@ let ac: google.maps.places.Autocomplete;
 interface ChipPropType {
   placeName: string;
   placeId: string;
-  deleteChip: (placeName: string, placeString: string) => void;
 }
 
-class Chip extends Component<ChipPropType, {}> {
+interface ChipStateType {
+  placeId: string;
+}
+
+class Chip extends Component<ChipPropType, ChipStateType> {
+  constructor(props) {
+    super(props);
+    this.deleteChip = this.deleteChip.bind(this);
+    this.state = {
+      placeId: props.placeId,
+    };
+  }
   render() {
     return (
       <span className="mdl-chip mdl-chip--deletable">
         <span className="mdl-chip__text">{this.props.placeName}</span>
-        <button
-          className="mdl-chip__action"
-          onClick={() =>
-            this.props.deleteChip(this.props.placeName, this.props.placeId)
-          }
-        >
+        <button className="mdl-chip__action" onClick={this.deleteChip}>
           <i className="material-icons">cancel</i>
         </button>
       </span>
     );
   }
+  deleteChip() {
+    updateUrlPlace(this.state.placeId, false);
+  }
 }
 
 interface SearchBarStateType {
-  placeList: string[][];
+  placeList: {};
 }
 
-class SearchBar extends Component<{}, SearchBarStateType> {
+interface SearchBarPropType {
+  placeList: {};
+}
+
+class SearchBar extends Component<SearchBarPropType, SearchBarStateType> {
   constructor(props) {
     super(props);
     this.getPlaceAndRender = this.getPlaceAndRender.bind(this);
-    this.deleteChip = this.deleteChip.bind(this);
     this.state = {
-      placeList: [],
+      placeList: this.props.placeList,
     };
   }
   componentDidMount() {
@@ -69,15 +80,21 @@ class SearchBar extends Component<{}, SearchBarStateType> {
     ac.addListener("place_changed", this.getPlaceAndRender);
   }
 
+  componentDidUpdate(prevProps) {
+    if (this.props.placeList !== prevProps.placeList) {
+      this.setState({
+        placeList: this.props.placeList,
+      });
+    }
+  }
+
   getPlaceAndRender() {
     // Get the place details from the autocomplete object.
     const place = ac.getPlace();
     axios
       .get(`/api/placeid2dcid/${place.place_id}`)
       .then((resp) => {
-        if (updateUrlPlace(resp.data, true)) {
-          this.state.placeList.push([place.name.split(",")[0], resp.data]);
-        }
+        updateUrlPlace(resp.data, true);
       })
       .catch(() => {
         alert("Sorry, but we don't have any data about " + name);
@@ -87,25 +104,16 @@ class SearchBar extends Component<{}, SearchBarStateType> {
     acElem.setAttribute("placeholder", "Search for another place");
   }
 
-  deleteChip(placeName, placeId) {
-    updateUrlPlace(placeId, false);
-    this.state.placeList.splice(
-      this.state.placeList.indexOf([placeName, placeId]),
-      1
-    );
-  }
-
   render() {
     return (
       <div id="location-field">
         <div id="search-icon"></div>
         <span id="place-list">
-          {this.state.placeList.map((place) => (
+          {Object.keys(this.props.placeList).map((placeId, index) => (
             <Chip
-              placeName={place[0]}
-              placeId={place[1]}
-              key={place[0]}
-              deleteChip={this.deleteChip}
+              placeId={placeId}
+              placeName={this.props.placeList[placeId]}
+              key={index}
             ></Chip>
           ))}
           <input
