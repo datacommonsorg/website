@@ -17,3 +17,11 @@
 @import 'tools/base_tools';
 @import 'tools/statvar_menu';
 @import 'timeline';
+
+#timeline-lower-pane {
+  display: flex;
+}
+
+#chart-region {
+  margin-left: 400px;
+}
