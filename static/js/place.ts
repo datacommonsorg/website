@@ -28,10 +28,10 @@ import {
 
 let ac: google.maps.places.Autocomplete;
 
-let yScrollLimit = 0;  // window scroll position to start fixing the sidebar
-let sidebarTopMax = 0;  // Max top position for the sidebar, relative to #sidebar-outer.
-const Y_SCROLL_WINDOW_BREAKPOINT = 992;  // Only trigger fixed sidebar beyond this window width.
-const Y_SCROLL_MARGIN = 100;  // Margin to apply to the fixed sidebar top.
+let yScrollLimit = 0; // window scroll position to start fixing the sidebar
+let sidebarTopMax = 0; // Max top position for the sidebar, relative to #sidebar-outer.
+const Y_SCROLL_WINDOW_BREAKPOINT = 992; // Only trigger fixed sidebar beyond this window width.
+const Y_SCROLL_MARGIN = 100; // Margin to apply to the fixed sidebar top.
 
 window.onload = () => {
   const urlParams = new URLSearchParams(window.location.search);
@@ -47,10 +47,13 @@ window.onload = () => {
  *  Make adjustments to sidebar scroll state based on the content.
  */
 function updatePageLayoutState() {
-  yScrollLimit = document.getElementById('main-pane').offsetTop;
-  document.getElementById('sidebar-top-spacer').style.height = yScrollLimit + "px";
-  let sidebarOuterHeight = document.getElementById("sidebar-outer").offsetHeight;
-  let sidebarRegionHeight = document.getElementById("sidebar-region").offsetHeight;
+  yScrollLimit = document.getElementById("main-pane").offsetTop;
+  document.getElementById("sidebar-top-spacer").style.height =
+    yScrollLimit + "px";
+  const sidebarOuterHeight = document.getElementById("sidebar-outer")
+    .offsetHeight;
+  const sidebarRegionHeight = document.getElementById("sidebar-region")
+    .offsetHeight;
   sidebarTopMax = sidebarOuterHeight - sidebarRegionHeight - Y_SCROLL_MARGIN;
 }
 
@@ -69,9 +72,9 @@ function maybeToggleFixedSidebar() {
  * Update fixed sidebar based on the window scroll.
  */
 function adjustMenuPosition() {
-  let topicsEl = document.getElementById("sidebar-region");
+  const topicsEl = document.getElementById("sidebar-region");
   if (window.scrollY > yScrollLimit) {
-    let calcTop = window.scrollY - yScrollLimit - Y_SCROLL_MARGIN;
+    const calcTop = window.scrollY - yScrollLimit - Y_SCROLL_MARGIN;
     if (calcTop > sidebarTopMax) {
       topicsEl.style.top = sidebarTopMax + "px";
       return;
@@ -117,7 +120,7 @@ function getSimilarPlaces(dcid: string) {
  * @param dcid The place dcid.
  */
 function getParentPlaces(dcid: string) {
-  return axios.get(`/api/parent-place/${dcid}`).then((resp) => {
+  return axios.get(`/api/place/parent/${dcid}`).then((resp) => {
     return resp.data;
   });
 }

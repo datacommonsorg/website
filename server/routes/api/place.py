@@ -15,7 +15,7 @@
 import collections
 import json
 
-from flask import Blueprint
+from flask import Blueprint, request
 
 from cache import cache
 from services.datacommons import fetch_data
@@ -26,10 +26,31 @@ CHILD_PLACE_LIMIT = 20
 
 # Define blueprint
 bp = Blueprint(
-  "place",
-  __name__,
-  url_prefix='/api/place'
+    "place",
+    __name__,
+    url_prefix='/api/place'
 )
+
+
+@bp.route('/name')
+def name():
+    """Get place names."""
+    dcids = request.args.getlist('dcid')
+    response = fetch_data(
+        '/node/property-values',
+        {
+            'dcids': dcids,
+            'property': 'name',
+            'direction': 'out'
+        },
+        compress=False,
+        post=True
+    )
+    result = {}
+    for dcid in dcids:
+        values = response[dcid].get('out')
+        result[dcid] = values[0]['value'] if values else ''
+    return json.dumps(result)
 
 
 @bp.route('/statsvars/<path:dcid>')
@@ -79,22 +100,22 @@ def child(dcid):
 @cache.memoize(timeout=3600 * 24)  # Cache for one day.
 def child_fetch(dcid):
     response = fetch_data(
-      '/node/property-values',
-      {
-        'dcids': [dcid],
-        'property': 'containedInPlace',
-        'direction': 'in'
-      },
-      compress=False,
-      post=True
+        '/node/property-values',
+        {
+            'dcids': [dcid],
+            'property': 'containedInPlace',
+            'direction': 'in'
+        },
+        compress=False,
+        post=True
     )
     places = response[dcid].get('in', [])
     dcid_str = '^'.join(sorted(map(lambda x: x['dcid'], places)))
     pop = json.loads(get_stats_wrapper(dcid_str, 'Count_Person'))
 
     pop = {
-      dcid: stats.get('data', {}).get('2018', 0) for dcid, stats in pop.items()
-      if stats
+        dcid: stats.get('data', {}).get('2018', 0)
+        for dcid, stats in pop.items() if stats
     }
 
     result = collections.defaultdict(list)
@@ -102,9 +123,48 @@ def child_fetch(dcid):
         for place_type in place['types']:
             if place_type in WANTED_PLACE_TYPES:
                 result[place_type].append({
-                  'name': place['name'],
-                  'dcid': place['dcid'],
-                  'pop': pop.get(place['dcid'], 0)
+                    'name': place['name'],
+                    'dcid': place['dcid'],
+                    'pop': pop.get(place['dcid'], 0)
                 })
                 break
     return result
+
+
+@cache.memoize(timeout=3600 * 24)  # Cache for one day.
+@bp.route('/parent/<path:dcid>')
+def parent_place(dcid):
+    """
+    Get the parent places for a place.
+    """
+    # In DataCommons knowledge graph, places has multiple containedInPlace
+    # relation with parent places, but it might not be comprehensive. For
+    # example, "Moutain View" is containedInPlace for "Santa Clara County" and
+    # "California" but not "United States":
+    # https://datacommons.org/browser/geoId/0649670
+    # Here calling get_parent_place twice to get to the top parents.
+    parents1 = get_parent_place(dcid)
+    parents2 = get_parent_place(parents1[-1]['dcid'])
+    return json.dumps(parents1 + parents2)
+
+
+@cache.memoize(timeout=3600 * 24)  # Cache for one day.
+def get_parent_place(dcid):
+    response = fetch_data(
+        '/node/property-values',
+        {
+            'dcids': [dcid],
+            'property': 'containedInPlace',
+            'direction': 'out'
+        },
+        compress=False,
+        post=True
+    )
+    parents = response[dcid].get('out', [])
+    parents.sort(key=lambda x: x['dcid'], reverse=True)
+    for i in range(len(parents)):
+        if len(parents[i]['types']) > 1:
+            parents[i]['types'] = [
+              x for x in parents[i]['types']
+              if not x.startswith('AdministrativeArea')]
+    return parents

@@ -115,7 +115,7 @@ class StatsData {
     if (!place) {
       place = this.places[0];
     }
-    const result: DataGroup[] = [];
+    let result: DataGroup[] = [];
     for (const date of this.dates) {
       const dataPoints: DataPoint[] = [];
       for (const statsVar of this.statsVars) {
@@ -125,6 +125,12 @@ class StatsData {
         });
       }
       result.push(new DataGroup(date, dataPoints));
+    }
+    const interval = Math.floor(result.length / 5);
+    if (interval > 0) {
+      result = result.filter((element, index) => {
+        return index % interval === 0;
+      })
     }
     return result;
   }

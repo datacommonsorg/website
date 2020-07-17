@@ -32,6 +32,7 @@ from models import datachart_handler
 from models import barchart_handler
 from lib import line_chart
 from lib import translator
+from routes.api.place import parent_place
 import lib.barchart_template as btemp
 
 from __init__ import create_app
@@ -260,7 +261,7 @@ def api_ranking(dcid):
     """
     Get the ranking information for a given place.
     """
-    parents = json.loads(api_parent_place(dcid))
+    parents = json.loads(parent_place(dcid))
     selected_parents = []
     parent_names = {}
     for parent in parents:
@@ -323,37 +324,6 @@ def api_ranking(dcid):
             del result[label]
     result['label'] = [x for x in result['label'] if x in result]
     return result
-
-
-@cache.memoize(timeout=3600 * 24)  # Cache for one day.
-@app.route('/api/parent-place/<path:dcid>')
-def api_parent_place(dcid):
-    """
-    Get the child places for a place.
-    """
-    # In DataCommons knowledge graph, places has multiple containedInPlace
-    # relation with parent places, but it might not be comprehensive. For
-    # example, "Moutain View" is containedInPlace for "Santa Clara County" and
-    # "California" but not "United States": https://browser.datacommons.org/browser/geoId/0649670
-    # Here calling get_parent_place twice to get to the top parents.
-    parents1 = get_parent_place(dcid)
-    parents2 = get_parent_place(parents1[-1]['dcid'])
-    return json.dumps(parents1 + parents2)
-
-
-@cache.memoize(timeout=3600 * 24)  # Cache for one day.
-def get_parent_place(dcid):
-    req_json = {'dcids': [dcid],
-                'property': 'containedInPlace', 'direction': 'out'}
-    url = dc.API_ROOT + dc.API_ENDPOINTS['get_property_values']
-    payload = dc.send_request(url, req_json=req_json)
-    parents = payload[dcid].get('out', [])
-    parents.sort(key=lambda x: x['dcid'], reverse=True)
-    for i in range(len(parents)):
-        if len(parents[i]['types']) > 1:
-            parents[i]['types'] = list(
-                filter(lambda x: not x.startswith('AdministrativeArea'), parents[i]['types']))
-    return parents
 
 
 @app.route('/data/line')
