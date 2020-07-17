@@ -27,15 +27,15 @@
   <div class="container">
     <h1>Linking the world's public datasets</h1>
     <div class="row">
-      <div class="col-12 col-lg-6">
-        <p class="lead">
+      <div class="lead-col col-12 col-lg-6">
+        <p class="lead mr-lg-3">
           Data Commons is an open knowledge repository that combines data from
           public datasets using mapped common entities. It includes tools to
           easily explore and analyze data across different datasets without data
           cleaning or joining.
         </p>
       </div>
-      <div class="col-12 col-lg-6 mt-4 mt-lg-0">
+      <div class="img-col col-12 col-lg-6 mt-4 mt-lg-0">
         <img class="img-fluid"
           src="{{ url_for('static', filename='images/homepage_knowledge_graph.png') }}" />
       </div>
@@ -52,8 +52,7 @@
   </p>
   <a href="{{ url_for('place') }}">Explore Places in the Data Commons Graph</a>
   <a href="{{ url_for('browser.kg_main') }}">Browse the Data Commons Graph</a>
-  <a href="{{ url_for('tools.timeline') }}">Explore Timeline</a>
-  <a href="{{ url_for('tools.scatter') }}">Create Scatterplots</a>
+  <a href="{{ url_for('tools.timeline') }}">Create Timeline Graphs</a>
 </section>
 
 <section class="container">
