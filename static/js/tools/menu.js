@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-import { dcidToPlaceType, getUrlVars, setSearchParam } from "../dc.js";
+import { dcidToPlaceType, getUrlVars, setSearchParam } from "./dc.js";
 
 /*
  * Add or remove point of view under chart upon selection of menu item
