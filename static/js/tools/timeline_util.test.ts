@@ -3,6 +3,7 @@ import {
   parseStatVarPath,
   updateUrlPlace,
   parsePlace,
+  getPlaceNames,
 } from "./timeline_util.js";
 
 test("update Url statsvar", () => {
@@ -22,7 +23,7 @@ test("update Url statsvar", () => {
 
 test("parse statvar from Url", () => {
   window.location.hash = "#&statsvar=dc/test,Demo,prop";
-  expect(parseStatVarPath()).toStrictEqual([["Demo", "prop"]]);
+  expect(parseStatVarPath()).toStrictEqual([[["Demo", "prop"]],['dc/test']]);
 });
 
 test("update places from Url", () => {
@@ -37,11 +38,17 @@ test("update places from Url", () => {
 
 test("parse places from Url", () => {
   window.location.hash = "#&place=geoId/4459000,country/USA";
-  const placesPromise = parsePlace();
+  expect(parsePlace()).toStrictEqual(["geoId/4459000", "country/USA"])
+});
+
+test("get place names", () => {
+  const dcids = ["geoId/4459000", "country/USA"]
+  const placesPromise = getPlaceNames(dcids);
   placesPromise.then((places) => {
     expect(places).toStrictEqual({
       "geoId/4459000": "Providence",
       "country/USA": "United States",
     });
   });
-});
+
+})

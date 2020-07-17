@@ -15,11 +15,15 @@
  */
 
 import React, { Component } from "react";
-import { parseStatVarPath, parsePlace } from "./timeline_util";
+import {
+  parseStatVarPath,
+  parsePlace,
+  getStatsVarProp,
+  getPlaceNames,
+} from "./timeline_util";
 import { SearchBar } from "./timeline_search";
 import { Menu } from "./statsvar_menu";
 import { ChartRegion } from "./timeline_chart";
-
 
 interface PagePropType {
   search: boolean;
@@ -28,7 +32,8 @@ interface PagePropType {
 
 interface PageStateType {
   statvarPaths: string[][];
-  placeList: {[key: string]: string} /*{placeId: placeName}*/;
+  svTriples: {};
+  placeList: { [key: string]: string } /*{placeId: placeName}*/;
 }
 
 class Page extends Component<PagePropType, PageStateType> {
@@ -36,7 +41,8 @@ class Page extends Component<PagePropType, PageStateType> {
     super(props);
     this.handleHashChange = this.handleHashChange.bind(this);
     this.state = {
-      statvarPaths: parseStatVarPath(),
+      statvarPaths: [],
+      svTriples: {},
       placeList: {},
     };
   }
@@ -47,21 +53,40 @@ class Page extends Component<PagePropType, PageStateType> {
   }
 
   handleHashChange() {
-    const placesPromise = parsePlace();
-    if (placesPromise === null) {
-      this.setState({
-        placeList: {},
-      });
-    } else {
-      placesPromise.then((places) => {
-        this.setState({
-          placeList: places,
+    const svPaths = parseStatVarPath()[0];
+    const svIds = parseStatVarPath()[1];
+    if (svPaths !== this.state.statvarPaths) {
+      if (svIds.length !== 0) {
+        const triplesPromise = getStatsVarProp(svIds);
+        triplesPromise.then((triples) => {
+          this.setState({
+            svTriples: triples,
+            statvarPaths: svPaths,
+          });
         });
-      });
+      } else {
+        this.setState({
+          svTriples: {},
+          statvarPaths: [],
+        });
+      }
     }
-    this.setState({
-      statvarPaths: parseStatVarPath(),
-    });
+    const placeIds = parsePlace();
+    if (placeIds !== Object.keys(this.state.placeList)){
+      if (placeIds.length !== 0){
+        const placesPromise = getPlaceNames(placeIds);
+        placesPromise.then((places) => {
+          this.setState({
+            placeList: places,
+          });
+        });
+      }
+      else{
+        this.setState({
+          placeList: {},
+        })
+      }
+    }
   }
 
   render() {
@@ -87,11 +112,10 @@ class Page extends Component<PagePropType, PageStateType> {
                 ["Count_Person_Male", "count"],
                 ["Median_Age_Person", "age"],
               ]}
-              perCapita={false}>
-            </ChartRegion>
+              perCapita={false}
+            ></ChartRegion>
           </div>
         </div>
-
       </div>
     );
   }
