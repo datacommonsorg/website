@@ -21,7 +21,7 @@ import text_format
 MAX_LEVEL = 6
 
 
-def build_tree_recursive(pos, level, pop_obs_spec, stat_vars, place_mapping,
+def build_tree_recursive(pos, level, pop_obs_spec, stat_vars,
                          parent=None):
     """Recursively build the ui tree"""
     # get the property of the ui node
@@ -42,7 +42,6 @@ def build_tree_recursive(pos, level, pop_obs_spec, stat_vars, place_mapping,
         'children': [],
         'sv_set': set(),
         'mprop': prop_ui_node.mprop,
-        'placeTypes': [],
     }
 
     # get the child specs of the current node
@@ -71,7 +70,6 @@ def build_tree_recursive(pos, level, pop_obs_spec, stat_vars, place_mapping,
                 'children': [],
                 'sv_set': set([sv.dcid]),
                 'mprop': value_ui_node.mprop,
-                'placeTypes': sorted(place_mapping[sv.dcid]),
             }
             # add statistical variables as the child of current node
             result['children'].append(value_blob)
@@ -80,7 +78,7 @@ def build_tree_recursive(pos, level, pop_obs_spec, stat_vars, place_mapping,
                 # build the branches recursively
                 for child in child_pos:
                     branch = build_tree_recursive(child, level + 1,
-                                                  pop_obs_spec, stat_vars, place_mapping, value_ui_node)
+                                                  pop_obs_spec, stat_vars, value_ui_node)
                     if branch['children']:
                         value_blob['children'].append(branch)
                     value_blob['sv_set'] |= branch['sv_set']
@@ -92,17 +90,16 @@ def build_tree_recursive(pos, level, pop_obs_spec, stat_vars, place_mapping,
 
     # update the count
     if result['children']:
-        place_types_set = set()
+
         for child in result['children']:
             result['sv_set'] |= child['sv_set']
             del child['sv_set']
-            place_types_set.update(child['placeTypes'])
-        result['placeTypes'] = sorted(list(place_types_set))
+
     result['count'] = len(result['sv_set'])
     return result
 
 
-def build_tree(v, pop_obs_spec, stat_vars, place_mapping):
+def build_tree(v, pop_obs_spec, stat_vars):
     """Build the tree for each vertical."""
 
     # vertical as the root
@@ -113,7 +110,6 @@ def build_tree(v, pop_obs_spec, stat_vars, place_mapping):
         'count': 0,  # count of child nodes
         'children': [],
         'sv_set': set(),  # used for counting child nodes
-        'placeTypes': [],
     }
 
     # specs with 0 constaints are of type "value",
@@ -130,10 +126,7 @@ def build_tree(v, pop_obs_spec, stat_vars, place_mapping):
                     'children': [],
                     'count': 1,
                     'mprop': ui_node.mprop,
-                    'placeTypes': sorted(place_mapping[sv.dcid]),
                 })
-                root['placeTypes'] = sorted(list(set(root['placeTypes']) |
-                                                 set(place_mapping[sv.dcid])))
                 break  # to avoid duplicates related to measurementMethod
             root['count'] += 1
 
@@ -141,7 +134,7 @@ def build_tree(v, pop_obs_spec, stat_vars, place_mapping):
 
     for pos in pop_obs_spec[1]:
         child = build_tree_recursive(pos, 1, pop_obs_spec, stat_vars,
-                                     place_mapping)
+                                     )
         # For certain branch, we would like to put them under 0 pv nodes:
         if (pos.pop_type in ['EarthquakeEvent', 'CycloneEvent',
                              'MortalityEvent']):
@@ -158,8 +151,6 @@ def build_tree(v, pop_obs_spec, stat_vars, place_mapping):
             root['children'].append(child)
         root['sv_set'] |= child['sv_set']
         del child['sv_set']
-        root['placeTypes'] = sorted(list(set(root['placeTypes']) |
-                                         set(child['placeTypes'])))
 
     # update the count
     for pv0 in root['children']:

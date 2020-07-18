@@ -176,14 +176,3 @@ def _read_stat_var():
                      sv_dict["statType"], prop_val, dcid)
         stat_vars[sv.key].append(sv)
     return stat_vars
-
-
-PLACE_TYPES = ['Country', 'State', 'County', 'City']
-
-
-def _read_placeType_mapping():
-    sv_dcid = dc.get_sv_dcids()
-    place_mapping = {}
-    for dcid in sv_dcid:
-        place_mapping[dcid] = PLACE_TYPES
-    return place_mapping
