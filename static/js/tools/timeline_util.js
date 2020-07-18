@@ -125,7 +125,7 @@ function getPlaceNames(dcids) {
   });
 }
 
-function getStatsVarProp(dcids) {
+function getStatsVarInfo(dcids) {
   let url = "/api/stats/stats-var-property?";
   let urls = [];
   for (const dcid of dcids) {
@@ -142,6 +142,6 @@ export {
   updateUrlPlace,
   parseStatVarPath,
   parsePlace,
-  getStatsVarProp,
+  getStatsVarInfo,
   getPlaceNames,
 };

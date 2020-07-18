@@ -53,11 +53,11 @@ class Chip extends Component<ChipPropType, ChipStateType> {
 }
 
 interface SearchBarStateType {
-  placeList: {};
+  places: [string, string][];
 }
 
 interface SearchBarPropType {
-  placeList: {};
+  places: [string, string][];
 }
 
 class SearchBar extends Component<SearchBarPropType, SearchBarStateType> {
@@ -65,7 +65,7 @@ class SearchBar extends Component<SearchBarPropType, SearchBarStateType> {
     super(props);
     this.getPlaceAndRender = this.getPlaceAndRender.bind(this);
     this.state = {
-      placeList: this.props.placeList,
+      places: this.props.places,
     };
   }
   componentDidMount() {
@@ -81,9 +81,9 @@ class SearchBar extends Component<SearchBarPropType, SearchBarStateType> {
   }
 
   componentDidUpdate(prevProps) {
-    if (this.props.placeList !== prevProps.placeList) {
+    if (this.props.places !== prevProps.places) {
       this.setState({
-        placeList: this.props.placeList,
+        places: this.props.places,
       });
     }
   }
@@ -110,11 +110,11 @@ class SearchBar extends Component<SearchBarPropType, SearchBarStateType> {
         <div id="search-icon"></div>
         <span id="prompt">Find : </span>
         <span id="place-list">
-          {Object.keys(this.props.placeList).map((placeId, index) => (
+          {this.props.places.map((placeData) => (
             <Chip
-              placeId={placeId}
-              placeName={this.props.placeList[placeId]}
-              key={index}
+              placeId={placeData[0]}
+              placeName={placeData[1]}
+              key={placeData[0]}
             ></Chip>
           ))}</span>
           <input

@@ -101,7 +101,7 @@ class StatsData {
           value: this.data[statsVar][place].data[date],
         });
       }
-      result.push(new DataGroup(STATS_VAR_TEXT[statsVar], dataPoints));
+      result.push(new DataGroup(statsVar, dataPoints));
     }
     return result;
   }
@@ -130,7 +130,7 @@ class StatsData {
     if (interval > 0) {
       result = result.filter((element, index) => {
         return index % interval === 0;
-      })
+      });
     }
     return result;
   }
