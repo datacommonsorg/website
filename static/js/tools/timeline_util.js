@@ -45,7 +45,6 @@ function updateUrlStatsVar(statvar, shouldAdd) {
   setSearchParam(vars);
 }
 
-
 /**
  * delete statvars from url without path
  *
@@ -58,8 +57,8 @@ function deleteStatsVar(statvar) {
   if ("statsvar" in vars) {
     svList = vars["statsvar"].split("__");
   }
-  for(const sv of svList){
-    if(sv.split(",")[0] == statvar){
+  for (const sv of svList) {
+    if (sv.split(",")[0] == statvar) {
       svList.splice(svList.indexOf(statvar), 1);
     }
   }
