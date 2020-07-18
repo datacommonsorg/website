@@ -76,7 +76,7 @@ class BuildTreeTest(unittest.TestCase):
         return
         
     @staticmethod
-    def get_sv_search():
+    def get_sv_subset():
         dcids = ["notInWhiteListCitizenship", "inWhiteListMale", 
                  "inWhiteListIncome", "inWhiteListUnknownVal"]
         return dcids
@@ -89,15 +89,10 @@ class BuildTreeTest(unittest.TestCase):
                       "inWhiteListUnknownVal": ['State']}
         return place_map
     
-    def get_search_vals():
-        vals = set(['Female', 'Male', 'NotAUSCitizen', 'USDollar35000To49999'])
-        return vals
-
-    @patch('build_tree.SEARCH_VALS', get_search_vals())
     @patch('dc_request.get_triples')
     @patch('dc_request.get_sv_dcids')
     def test_search_white_list(self, mock_get_sv, mock_get_triples):
-        mock_get_sv.side_effect = self.get_sv_search
+        mock_get_sv.side_effect = self.get_sv_subset
         mock_get_triples.side_effect = self.get_triples_
         pop_obs_spec = _read_pop_obs_spec()
         stat_vars = _read_stat_var()
@@ -112,17 +107,13 @@ class BuildTreeTest(unittest.TestCase):
         # assert counts
         self.assertEqual(data[0]['Demographics']['count'], 4) 
         self.assertEqual(data[0]['Demographics']['count'], 4)
-        self.assertEqual(data[0]['Demographics']['search_count'], 2)
         for child in data[0]['Demographics']['children']:
             if child['title'] == 'Citizenship':
                 self.assertEqual(child['count'],1)
-                self.assertEqual(child['search_count'], 0)
             if child['title'] == 'Gender':
                 self.assertEqual(child['count'], 2)
-                self.assertEqual(child['search_count'], 1)
             if child['title'] == 'Income':
                 self.assertEqual(child['count'], 1)
-                self.assertEqual(child['search_count'], 1)
 
         # assert placeTypes
         self.assertEqual(set(data[0]['Demographics']['placeTypes']), 
