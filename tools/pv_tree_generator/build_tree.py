@@ -41,7 +41,6 @@ def build_tree_recursive(pos, level, pop_obs_spec, stat_vars,
         'count': 0,
         'children': [],
         'sv_set': set(),
-        'mprop': prop_ui_node.mprop,
     }
 
     # get the child specs of the current node
@@ -69,7 +68,6 @@ def build_tree_recursive(pos, level, pop_obs_spec, stat_vars,
                 'count': 1,
                 'children': [],
                 'sv_set': set([sv.dcid]),
-                'mprop': value_ui_node.mprop,
             }
             # add statistical variables as the child of current node
             result['children'].append(value_blob)
