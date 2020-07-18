@@ -66,14 +66,11 @@ class BuildTreeTest(unittest.TestCase):
         pop_obs_spec = _read_pop_obs_spec()
         stat_vars = _read_stat_var()
         place_mapping = _read_placeType_mapping()
-        data = [{},{}]
+        data = [{}]
         vertical = "Demographics"
         root = build_tree.build_tree(vertical, pop_obs_spec[vertical],
-            stat_vars, place_mapping, False)
+            stat_vars, place_mapping)
         data[0][vertical] = root
-        root_search = build_tree.build_tree(vertical, pop_obs_spec[vertical],
-            stat_vars, place_mapping, True)
-        data[1][vertical] = root
         expected = json.load(open("./hierarchy_golden.json", "r"))
         self.assertEqual(data, expected)
         return
@@ -106,20 +103,17 @@ class BuildTreeTest(unittest.TestCase):
         stat_vars = _read_stat_var()
         place_mapping = self.place_mapping()
         print(place_mapping)
-        data = [{},{}]
+        data = [{}]
         vertical = "Demographics"
         root = build_tree.build_tree(vertical, pop_obs_spec[vertical],
-            stat_vars, place_mapping, False)
+            stat_vars, place_mapping)
         data[0][vertical] = root
-        root_search = build_tree.build_tree(vertical, pop_obs_spec[vertical],
-            stat_vars, place_mapping, True)
-        data[1][vertical] = root
         
         # assert counts
         self.assertEqual(data[0]['Demographics']['count'], 4) 
-        self.assertEqual(data[1]['Demographics']['count'], 4)
-        self.assertEqual(data[1]['Demographics']['search_count'], 2)
-        for child in data[1]['Demographics']['children']:
+        self.assertEqual(data[0]['Demographics']['count'], 4)
+        self.assertEqual(data[0]['Demographics']['search_count'], 2)
+        for child in data[0]['Demographics']['children']:
             if child['title'] == 'Citizenship':
                 self.assertEqual(child['count'],1)
                 self.assertEqual(child['search_count'], 0)

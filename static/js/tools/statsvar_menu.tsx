@@ -1,5 +1,6 @@
 import React, { Component } from "react";
 import hierarchy from "../../../tools/pv_tree_generator/hierarchy.json";
+const menujson=[hierarchy[0]];
 
 interface NodePropType {
   title: string;
@@ -155,13 +156,6 @@ interface MenuPropType {
 
 class Menu extends Component<MenuPropType, {}> {
   render() {
-    let menujson;
-    if (this.props.search) {
-      menujson = [hierarchy[1]];
-    } else {
-      menujson = [hierarchy[0]];
-    }
-
     return (
       <div id="drill">
         <div className="noedge">

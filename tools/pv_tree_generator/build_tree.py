@@ -21,7 +21,7 @@ import text_format
 MAX_LEVEL = 6
 SEARCH_SPECS, SEARCH_VALS = util._read_search_pvs()
 
-def build_tree_recursive(pos, level, pop_obs_spec, stat_vars, place_mapping, show_all, 
+def build_tree_recursive(pos, level, pop_obs_spec, stat_vars, place_mapping,  
     parent=None):
     """Recursively build the ui tree"""
     #get the property of the ui node
@@ -92,7 +92,7 @@ def build_tree_recursive(pos, level, pop_obs_spec, stat_vars, place_mapping, sho
                 #build the branches recursively
                 for child in child_pos:
                     branch = build_tree_recursive(child, level + 1, 
-                        pop_obs_spec, stat_vars, place_mapping, show_all, value_ui_node)
+                        pop_obs_spec, stat_vars, place_mapping, value_ui_node)
                     if branch['children']:
                         value_blob['children'].append(branch)
                     value_blob['sv_set'] |= branch['sv_set']
@@ -103,7 +103,7 @@ def build_tree_recursive(pos, level, pop_obs_spec, stat_vars, place_mapping, sho
             value_blob['search_count'] = len(value_blob['search_sv_set'])
 
     result['children'] = text_format.filter_and_sort(property_diff, 
-        result['children'], show_all)
+        result['children'], False)
     
     #update the count
     if result['children']:
@@ -120,7 +120,7 @@ def build_tree_recursive(pos, level, pop_obs_spec, stat_vars, place_mapping, sho
     result['search_count'] = len(result['search_sv_set'])
     return result
 
-def build_tree(v, pop_obs_spec, stat_vars, place_mapping, show_all):
+def build_tree(v, pop_obs_spec, stat_vars, place_mapping):
     """Build the tree for each vertical."""
 
     #vertical as the root
@@ -164,7 +164,7 @@ def build_tree(v, pop_obs_spec, stat_vars, place_mapping, show_all):
     
     for pos in pop_obs_spec[1]:
         child = build_tree_recursive(pos, 1, pop_obs_spec, stat_vars, 
-                                     place_mapping, show_all)
+                                     place_mapping)
         # For certain branch, we would like to put them under 0 pv nodes:
         if (pos.pop_type in ['EarthquakeEvent', 'CycloneEvent', 
             'MortalityEvent']):
@@ -204,6 +204,8 @@ def build_tree(v, pop_obs_spec, stat_vars, place_mapping, show_all):
 def traverseTree(root):
     if 'populationType' in root:
         del root['populationType']
+    if 'mprop' in root:
+        del root['mprop']
     if 'children' in root:
         for node in root['children']:
             traverseTree(node)
