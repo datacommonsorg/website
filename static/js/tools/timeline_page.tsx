@@ -124,20 +124,19 @@ class Page extends Component<PagePropType, PageStateType> {
             <div id="search">
               <SearchBar placeList={this.state.placeList} />
             </div>
-            {/* <div id="observation" style="display: block;">
-              <div id="chart-region">
-                 <ChartRegion
-                  chartElem="charts"
-                  places={this.state.placeList}
-                  statVarsAndMeasuredProps={[
-                    ["Count_Person", "count"],
-                    ["Count_Person_Male", "count"],
-                    ["Median_Age_Person", "age"],
-                  ]}
-                  perCapita={false}
-                ></ChartRegion>
-               </div>
-            </div>  */}
+
+            <div id="chart-region">
+              <ChartRegion
+                chartElem="charts"
+                places={this.state.placeList}
+                statVarsAndMeasuredProps={[
+                  ["Count_Person", "count"],
+                  ["Count_Person_Male", "count"],
+                  ["Median_Age_Person", "age"],
+                ]}
+                perCapita={false}
+              ></ChartRegion>
+            </div>
           </div>
         </div>
       </div>
