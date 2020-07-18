@@ -91,8 +91,8 @@ class Node extends Component<NodePropType, NodeStateType> {
     }
 
     return (
-      <ul className="unordered-list">
-        <li className="child" id={this.props.title}>
+      <ul className="noborder">
+        <li className="value" id={this.props.title}>
           <span>
             <a className="value-link">
               {this.props.title + "  "}
@@ -164,6 +164,7 @@ class Menu extends Component<MenuPropType, {}> {
 
     return (
       <div id="drill">
+        <div className="noedge">
         {menujson.map((vertical, index1) => {
           return Object.keys(vertical).map((key, index) => {
             const item = vertical[key];
@@ -182,6 +183,7 @@ class Menu extends Component<MenuPropType, {}> {
             );
           });
         })}
+        </div>
       </div>
     );
   }
