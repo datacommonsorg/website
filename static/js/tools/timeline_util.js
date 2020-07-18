@@ -45,6 +45,32 @@ function updateUrlStatsVar(statvar, shouldAdd) {
   setSearchParam(vars);
 }
 
+
+/**
+ * delete statvars from url without path
+ *
+ * @param {string} dcid of statvar
+ * @return void
+ */
+function deleteStatsVar(statvar) {
+  let vars = getUrlVars();
+  let svList = [];
+  if ("statsvar" in vars) {
+    svList = vars["statsvar"].split("__");
+  }
+  for(const sv of svList){
+    if(sv.split(",")[0] == statvar){
+      svList.splice(svList.indexOf(statvar), 1);
+    }
+  }
+  if (svList.length === 0) {
+    delete vars["statsvar"];
+  } else {
+    vars["statsvar"] = svList.join("__");
+  }
+  setSearchParam(vars);
+}
+
 /**
  * add or delete place from url
  *
@@ -102,7 +128,7 @@ function parseStatVarPath() {
 /**
  * Get the place names from place ids in the url
  *
- * @return promise
+ * @return string[] list of place Ids
  */
 function parsePlace() {
   let vars = getUrlVars();
@@ -144,4 +170,5 @@ export {
   parsePlace,
   getStatsVarInfo,
   getPlaceNames,
+  deleteStatsVar,
 };

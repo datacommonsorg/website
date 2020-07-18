@@ -60,16 +60,24 @@ class Page extends Component<PagePropType, PageStateType> {
     const svIds = parseStatVarPath()[1];
 
     let statvarInfoPromise = Promise.resolve(this.state.statvarInfo);
-    if (svPaths !== this.state.statvarPaths && svIds.length !== 0) {
-      statvarInfoPromise = getStatsVarInfo(svIds);
+    if (svPaths !== this.state.statvarPaths) {
+      if (svIds.length !== 0) {
+        statvarInfoPromise = getStatsVarInfo(svIds);
+      } else {
+        statvarInfoPromise = Promise.resolve({});
+      }
     }
 
     let placesPromise = Promise.resolve(this.state.places);
     const placeIds = parsePlace();
-    if (placeIds !== Object.keys(this.state.places) && placeIds.length !== 0) {
-      placesPromise = getPlaceNames(placeIds).then((data) =>
-        Object.entries(data)
-      );
+    if (placeIds !== Object.keys(this.state.places)) {
+      if (placeIds.length !== 0) {
+        placesPromise = getPlaceNames(placeIds).then((data) =>
+          Object.entries(data)
+        );
+      } else {
+        placesPromise = Promise.resolve([]);
+      }
     }
 
     Promise.all([statvarInfoPromise, placesPromise]).then((values) => {
@@ -118,7 +126,7 @@ class Page extends Component<PagePropType, PageStateType> {
               <ChartRegion
                 places={this.state.places}
                 statVars={this.state.statvarInfo}
-                perCapita={false}
+                perCapita={this.state.perCapita}
                 width={500}
                 height={500}
               ></ChartRegion>
