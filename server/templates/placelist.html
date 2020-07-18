@@ -16,7 +16,7 @@
 {% extends 'base.html' %}
 
 {% set main_id = 'placelist' %}
-{% set title = 'Place List' %}
+{% set title = 'Places' %}
 
 {% block head %}
   <link rel="stylesheet" href={{url_for('static', filename='css/static.min.css', t=config['GAE_VERSION'])}} />
@@ -24,7 +24,7 @@
 
 {% block content %}
   <div class="container">
-    <h1>Place List</h1>
+    <h1>Places</h1>
     {% if place_by_type|length %}
       {% for key in place_by_type %}
         <h3>{{ key }}</h3> <div style="column-count: 3">
