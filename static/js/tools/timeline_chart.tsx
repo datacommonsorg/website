@@ -16,6 +16,7 @@
 
 import React, { Component } from "react";
 import { randDomId } from "../util";
+import { deleteStatsVar } from "./timeline_util.js";
 import { fetchStatsData, StatsData } from "../data_fetcher";
 import { drawGroupLineChart, computePlotParams } from "../chart/draw";
 
@@ -192,7 +193,7 @@ class ChartRegion extends Component<
   }
 
   private deleteStatVarChip(statVar: string) {
-    // TODO: add function to delete statvarchip.
+    deleteStatsVar(statVar);
     return;
   }
 }
