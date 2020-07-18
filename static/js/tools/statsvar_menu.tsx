@@ -155,17 +155,10 @@ interface MenuPropType {
 
 class Menu extends Component<MenuPropType, {}> {
   render() {
-    let menujson;
-    if (this.props.search) {
-      menujson = [hierarchy[1]];
-    } else {
-      menujson = [hierarchy[0]];
-    }
-
     return (
       <div id="drill">
         <div className="noedge">
-        {menujson.map((vertical, index1) => {
+        {[hierarchy].map((vertical, index1) => {
           return Object.keys(vertical).map((key, index) => {
             const item = vertical[key];
             return (
