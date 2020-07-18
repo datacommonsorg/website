@@ -108,6 +108,7 @@ class SearchBar extends Component<SearchBarPropType, SearchBarStateType> {
     return (
       <div id="location-field">
         <div id="search-icon"></div>
+        <span id="prompt">Find : </span>
         <span id="place-list">
           {Object.keys(this.props.placeList).map((placeId, index) => (
             <Chip
@@ -115,13 +116,13 @@ class SearchBar extends Component<SearchBarPropType, SearchBarStateType> {
               placeName={this.props.placeList[placeId]}
               key={index}
             ></Chip>
-          ))}
+          ))}</span>
           <input
             id="ac"
             placeholder="Enter a country, state, county or city to get started"
             type="text"
           />
-        </span>
+        <span id="place-name"></span>
       </div>
     );
   }

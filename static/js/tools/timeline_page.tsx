@@ -34,16 +34,19 @@ interface PageStateType {
   statvarPaths: string[][];
   svTriples: {};
   placeList: { [key: string]: string } /*{placeId: placeName}*/;
+  perCapita: boolean;
 }
 
 class Page extends Component<PagePropType, PageStateType> {
   constructor(props: PagePropType) {
     super(props);
     this.handleHashChange = this.handleHashChange.bind(this);
+    this._togglePerCapita = this._togglePerCapita.bind(this);
     this.state = {
       statvarPaths: [],
       svTriples: {},
       placeList: {},
+      perCapita: false,
     };
   }
 
@@ -72,48 +75,68 @@ class Page extends Component<PagePropType, PageStateType> {
       }
     }
     const placeIds = parsePlace();
-    if (placeIds !== Object.keys(this.state.placeList)){
-      if (placeIds.length !== 0){
+    if (placeIds !== Object.keys(this.state.placeList)) {
+      if (placeIds.length !== 0) {
         const placesPromise = getPlaceNames(placeIds);
         placesPromise.then((places) => {
           this.setState({
             placeList: places,
           });
         });
-      }
-      else{
+      } else {
         this.setState({
           placeList: {},
-        })
+        });
       }
     }
+  }
+
+  _togglePerCapita() {
+    this.setState({
+      perCapita: !this.state.perCapita,
+    });
   }
 
   render() {
     return (
       <div>
-        <div id="search">
-          <SearchBar placeList={this.state.placeList} />
-        </div>
-        <div id="timeline-lower-pane">
-          <div className="explore-menu-container" id="explore">
+        <div className="explore-menu-container" id="explore">
+          <div id="drill-scroll-container">
+            <div className="title">Select variables:</div>
+            <div id="percapita-link" className="text">
+              <label htmlFor="percapita">Per capita</label>
+              <input
+                type="checkbox"
+                id="percapita"
+                name="pc"
+                onClick={this._togglePerCapita}
+              ></input>
+            </div>
             <Menu
               updateUrl={this.props.updateUrl}
               search={this.props.search}
               svPaths={this.state.statvarPaths}
             ></Menu>
           </div>
-          <div id="chart-region">
-            <ChartRegion
-              chartElem="charts"
-              places={this.state.placeList}
-              statVarsAndMeasuredProps={[
-                ["Count_Person", "count"],
-                ["Count_Person_Male", "count"],
-                ["Median_Age_Person", "age"],
-              ]}
-              perCapita={false}
-            ></ChartRegion>
+        </div>
+        <div id="plot-container">
+          <div className="container">
+            <div id="search">
+              <SearchBar placeList={this.state.placeList} />
+            </div>
+
+            <div id="chart-region">
+              <ChartRegion
+                chartElem="charts"
+                places={this.state.placeList}
+                statVarsAndMeasuredProps={[
+                  ["Count_Person", "count"],
+                  ["Count_Person_Male", "count"],
+                  ["Median_Age_Person", "age"],
+                ]}
+                perCapita={false}
+              ></ChartRegion>
+            </div>
           </div>
         </div>
       </div>
