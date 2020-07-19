@@ -59,7 +59,6 @@ function deleteStatsVar(statvar) {
   if ("statsvar" in vars) {
     svList = vars["statsvar"].split("__");
   }
-  console.log(window.location.hash);
   for (const sv of svList) {
     if (sv.split(SEP)[0] === statvar) {
       svList.splice(svList.indexOf(sv), 1);
