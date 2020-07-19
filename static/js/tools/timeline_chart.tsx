@@ -65,14 +65,7 @@ interface ChartRegionPropsType {
   perCapita: boolean;
 }
 
-interface ChartRegionStateType {
-  width: number;
-}
-
-class ChartRegion extends Component<
-  ChartRegionPropsType,
-  ChartRegionStateType
-> {
+class ChartRegion extends Component<ChartRegionPropsType, {}> {
   grouping: { [key: string]: string[] };
   placeName: { [key: string]: string };
   chartContainer: React.RefObject<HTMLDivElement>;
@@ -83,9 +76,6 @@ class ChartRegion extends Component<
     this.grouping = {};
     this.placeName = {};
     this.chartContainer = React.createRef();
-    this.state = {
-      width: 0,
-    };
     this.handleWindowResize = this.handleWindowResize.bind(this);
   }
 
@@ -142,10 +132,7 @@ class ChartRegion extends Component<
     if (!this.chartContainer.current) {
       return;
     }
-    const width = this.chartContainer.current.offsetWidth;
-    if (width !== this.state.width) {
-      this.drawChart();
-    }
+    this.drawChart();
   }
 
   private buildGrouping() {
@@ -190,7 +177,7 @@ class ChartRegion extends Component<
   }
 
   private drawChart() {
-    if (!this.allStatsData) {
+    if (this.props.places.length === 0 || !this.allStatsData) {
       return;
     }
     for (const statsData of this.allStatsData) {
