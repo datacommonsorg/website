@@ -29,7 +29,7 @@ const LEGEND = {
   minWidth: 120,
   height: 20,
   middleAdjustment: 5,
-  marginLeft: 20,
+  marginLeft: 0,
   marginTop: 40,
 };
 
