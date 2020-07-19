@@ -163,7 +163,7 @@ class Menu extends Component<MenuPropType, {}> {
         {[hierarchy].map((vertical, index1) => {
           return Object.keys(vertical).map((key, index) => {
             const item = vertical[key];
-            return ((item.type === "val" || item.children.length !== 0)&&
+            return ((item.children.length !== 0)&&
               <Node
                 title={item.title}
                 children={item.children}
