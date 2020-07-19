@@ -165,28 +165,28 @@ class ChartRegion extends Component<
   }
 
   private updateChart() {
-    if (this.props.places.length !== 0){
-    const promises: Promise<{ domId: string; data: StatsData }>[] = [];
-    for (const domId in this.grouping) {
-      promises.push(
-        fetchStatsData(
-          this.props.places.map((x) => x[0]),
-          this.grouping[domId],
-          this.props.perCapita,
-          1
-        ).then((data) => {
-          return { domId, data };
-        })
-      );
+    if (this.props.places.length !== 0) {
+      const promises: Promise<{ domId: string; data: StatsData }>[] = [];
+      for (const domId in this.grouping) {
+        promises.push(
+          fetchStatsData(
+            this.props.places.map((x) => x[0]),
+            this.grouping[domId],
+            this.props.perCapita,
+            1
+          ).then((data) => {
+            return { domId, data };
+          })
+        );
+      }
+      for (const place of this.props.places) {
+        this.placeName[place[0]] = place[1];
+      }
+      Promise.all(promises).then((values) => {
+        this.allStatsData = values;
+        this.drawChart();
+      });
     }
-    this.placeName = {};
-    for (const place of this.props.places) {
-      this.placeName[place[0]] = place[1];
-    }
-    Promise.all(promises).then((values) => {
-      this.allStatsData = values;
-      this.drawChart();
-    });}
   }
 
   private drawChart() {
