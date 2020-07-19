@@ -14,34 +14,35 @@ class Info extends Component {
                 <p> Or you can start your exploration from these interesting points ...</p>
                 <ul>
                     <li>
-                        <b>University towns</b> by 
-                        <a href="#&place=geoId/0606000,geoId/2511000,geoId/2603000,geoId/1777005,geoId/1225175,geoId/4815976&statsvar=Count_Person_18To24Years,Demographics,Age,18%20-%2024%20Years__Count_Person_35To44Years,Demographics,Age,35%20-%2044%20Years"> age </a>, 
-                        <a href="#&place=geoId/0606000,geoId/2511000,geoId/2603000,geoId/1777005,geoId/1225175,geoId/4815976&statsvar=Count_Person_IncomeOfUpto9999USDollar,Demographics,Income,Less%20than%209,999%20$__Count_Person_IncomeOf50000To64999USDollar,Demographics,Income,50,000%20-%2064,999%20$">  income </a>, 
-                        <a href="#&place=geoId/0606000,geoId/2511000,geoId/2603000,geoId/1777005,geoId/1225175,geoId/4815976&statsvar=Count_CriminalActivities_Burglary,Crime,Crime%20Type,Burglary__Count_CriminalActivities_LarcenyTheft,Crime,Crime%20Type,Larceny%20Theft">crime</a>
+                        <b>University towns</b> by
+                        <a href="#&place=geoId/0606000,geoId/2511000,geoId/2603000,geoId/1777005,geoId/1225175,geoId/4815976&statsvar=MedianAge'Demographics'Median%20age"> age</a>,
+                        <a href="#&place=geoId/0606000,geoId/2511000,geoId/2603000,geoId/1777005,geoId/1225175,geoId/4815976&statsvar=MedianIncome'Demographics'Median%20income">  income</a>,
+                        <a href="#&place=geoId/0606000,geoId/2511000,geoId/2603000,geoId/1777005,geoId/1225175,geoId/4815976&statsvar=Count_CriminalActivities_ViolentCrime'Crime'Crime%20Type'Violent"> crime</a>
                     </li>
                     <li>
                         <b>Close by very different</b>
                         <br/>
                         <span> Berkeley &amp; Piedmont:
-                            <a href="#&&place=geoId/0606000,geoId/0656938&statsvar=BelowPovertyLine,Demographics,Poverty%20Status,Below%20Poverty%20Level%20In%20The%20Past12%20Months">poverty</a>,
-                            <a href="#&&place=geoId/0606000,geoId/0656938&statsvar=Count_Person_18To24Years,Demographics,Age,18%20-%2024%20Years__Count_Person_25To34Years,Demographics,Age,25%20-%2034%20Years__Count_Person_35To44Years,Demographics,Age,35%20-%2044%20Years">age distribution</a>, <a href="#&&place=geoId/0606000,geoId/0656938&pc=1&statsvar=Count_Person_EducationalAttainmentBachelorsDegree,Education,Educational%20Attainment,Bachelors%20Degree__Count_Person_EducationalAttainmentMastersDegree,Education,Educational%20Attainment,Masters%20Degree__Count_Person_EducationalAttainmentDoctorateDegree,Education,Educational%20Attainment,Doctorate%20Degree">education</a>
+                            <a href="#&&place=geoId/0606000,geoId/0656938&statsvar=BelowPovertyLine'Demographics'Poverty%20Status'Below%20Poverty%20Level%20In%20The%20Past12%20Months"> poverty</a>,
+                            <a href="#&&place=geoId/0606000,geoId/0656938&statsvar=Count_Person_18To24Years'Demographics'Age'18%20-%2024%20Years__Count_Person_35To44Years'Demographics'Age'35%20-%2044%20Years__Count_Person_45To54Years'Demographics'Age'45%20-%2054%20Years__Count_Person_65To74Years'Demographics'Age'65%20-%2074%20Years"> age distribution</a>,
+                            <a href="#&&place=geoId/0606000,geoId/0656938&pc=1&statsvar=Count_Person_EducationalAttainmentBachelorsDegree'Education'Educational%20Attainment'Bachelors%20Degree__Count_Person_EducationalAttainmentMastersDegree'Education'Educational%20Attainment'Masters%20Degree__Count_Person_EducationalAttainmentDoctorateDegree'Education'Educational%20Attainment'Doctorate%20Degree"> education</a>
                         </span>
                         <br/>
                         <span>Palo Alto &amp; East Palo Alto:
-                            <a href="#&&place=geoId/0655282,geoId/0620956&statsvar=Count_Person_EducationalAttainmentBachelorsDegree,Education,Educational%20Attainment,Bachelors%20Degree__Count_Person_EducationalAttainmentMastersDegree,Education,Educational%20Attainment,Masters%20Degree__Count_Person_EducationalAttainmentDoctorateDegree,Education,Educational%20Attainment,Doctorate%20Degree__Count_Person_AsianAlone,Demographics,Race,Asian%20Alone__Count_Person_BlackOrAfricanAmericanAlone,Demographics,Race,Black%20Or%20African%20American%20Alone__Count_Person_HispanicOrLatino,Demographics,Race,Hispanic%20Or%20Latino__Count_Person_WhiteAlone,Demographics,Race,White%20Alone">race</a>,
-                            <a href="#&&place=geoId/0655282,geoId/0620956&pc=0&ptpv=Person,income,age,Years15Onwards,incomeStatus,WithIncome">income</a>,
-                            <a href="#&&place=geoId/0655282,geoId/0620956&pc=1&ptpv=Person,income,age,Years15Onwards,incomeStatus,WithIncome__Person,count,employment,BLS_Employed">employment</a>,
-                            <a href="#&&place=geoId/0655282,geoId/0620956&pc=1&ptpv=__Person,count,maritalStatus,MarriedAndNotSeparated,age,Years15Onwards__Person,count,maritalStatus,Divorced,age,Years15Onwards__Person,count,maritalStatus,NeverMarried,age,Years15Onwards">marital status</a>
+                            <a href="#&&place=geoId/0655282,geoId/0620956&statsvar=Count_Person_AsianAlone'Demographics'Race'Asian%20Alone__Count_Person_BlackOrAfricanAmericanAlone'Demographics'Race'Black%20Or%20African%20American%20Alone__Count_Person_NativeHawaiianAndOtherPacificIslanderAlone'Demographics'Race'Native%20Hawaiian%20And%20Other%20Pacific%20Islander%20Alone__Count_Person_WhiteAlone'Demographics'Race'White%20Alone"> race</a>,
+                            <a href="#&&place=geoId/0655282,geoId/0620956&pc=0&statsvar=MedianIncome'Demographics'Median%20income"> income</a>,
+                            <a href="#&&place=geoId/0655282,geoId/0620956&pc=1&statsvar=Count_Person_Employed'Employment'Employed"> employment</a>,
+                            <a href="#&&place=geoId/0655282,geoId/0620956&pc=1&statsvar=DivorcedPopulation'Demographics'Marital%20Status'Divorced__MarriedPopulation'Demographics'Marital%20Status'Married%20And%20Not%20Separated__NeverMarriedPopulation'Demographics'Marital%20Status'Never%20Married"> marital status</a>
                         </span>
                     </li>
                         <li> <b>Extremes</b> <br/>
                             <span>Santa Clara County vs Imperial County:
-                                <a href="#&&place=geoId/06085,geoId/06025&ptpv=__Person,income,age,Years15Onwards,incomeStatus,WithIncome&pc=0">Richest vs Poorest CA counties</a>,
-                                <a href="#&&place=geoId/06085,geoId/06025&ptpv=MortalityEvent,count,causeOfDeath,ICD10/V01-Y89__MortalityEvent,count,causeOfDeath,ICD10/I00-I99&pc=1">Cause of Death</a>
+                                <a href="#&&place=geoId/06085,geoId/06025&statsvar=MedianIncome'Demographics'Median%20income"> Richest vs Poorest CA counties</a>,
+                                <a href="#&&place=geoId/06085,geoId/06025&statsvar=Count_Death_DiseasesOfTheCirculatorySystem'Health'Mortality'Cause%20Of%20Death'(I00-I99)%20Diseases%20of%20the%20circulatory%20system__Count_Death_ExternalCauses'Health'Mortality'Cause%20Of%20Death'(V01-Y89)%20External%20causes"> Cause of Death</a>
                             </span><br/>
-                            <span>Atlanta vs West Jordan: 
-                                <a href="#&&place=geoId/1304000,geoId/4982950&ptpv=Person,income,age,Years15Onwards,incomeStatus,WithIncome__Person,count,povertyStatus,BelowPovertyLevelInThePast12Months&pc=0">Highest vs Lowest Income Disparity</a>,
-                                <a href="#&&place=geoId/1304000,geoId/4982950&pc=1&ptpv=Person,count,gender,Female__Person,count,gender,Male">gender balance</a>
+                            <span>Atlanta vs West Jordan:
+                                <a href="#&&place=geoId/1304000,geoId/4982950&statsvar=MedianIncome'Demographics'Median%20income"> Highest vs Lowest Income Disparity</a>,
+                                <a href="#&&place=geoId/1304000,geoId/4982950&pc=1&statsvar=FemalePopulation'Demographics'Gender'Female__MalePopulation'Demographics'Gender'Male"> gender balance</a>
                             </span>
                         </li>
                 </ul>

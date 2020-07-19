@@ -28,7 +28,7 @@ class Node extends Component<NodePropType, NodeStateType> {
     this.state = {
       checked: false,
       expanded: false,
-      nodePath: props.nodePath + "," + props.title,
+      nodePath: props.nodePath + "'" + props.title,
       svPaths: [[]],
     };
   }
