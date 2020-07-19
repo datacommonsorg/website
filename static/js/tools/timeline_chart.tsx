@@ -165,6 +165,7 @@ class ChartRegion extends Component<
   }
 
   private updateChart() {
+    if (this.props.places.length !== 0){
     const promises: Promise<{ domId: string; data: StatsData }>[] = [];
     for (const domId in this.grouping) {
       promises.push(
@@ -178,13 +179,14 @@ class ChartRegion extends Component<
         })
       );
     }
+    this.placeName = {};
     for (const place of this.props.places) {
       this.placeName[place[0]] = place[1];
     }
     Promise.all(promises).then((values) => {
       this.allStatsData = values;
       this.drawChart();
-    });
+    });}
   }
 
   private drawChart() {
