@@ -24,6 +24,7 @@ import {
 import { SearchBar } from "./timeline_search";
 import { Menu } from "./statsvar_menu";
 import { ChartRegion, StatVarInfo } from "./timeline_chart";
+import {Info} from "./timeline_info";
 
 interface PagePropType {
   search: boolean;
@@ -125,6 +126,7 @@ class Page extends Component<PagePropType, PageStateType> {
             <div id="search">
               <SearchBar places={this.state.places} />
             </div>
+            {(this.state.places.length === 0) && <Info/>}
             <div id="chart-region">
               <ChartRegion
                 places={this.state.places}
