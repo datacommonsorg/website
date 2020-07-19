@@ -24,6 +24,7 @@ import {
 import { SearchBar } from "./timeline_search";
 import { Menu } from "./statsvar_menu";
 import { ChartRegion, StatVarInfo } from "./timeline_chart";
+import {Info} from "./timeline_info";
 
 interface PagePropType {
   search: boolean;
@@ -81,6 +82,9 @@ class Page extends Component<PagePropType, PageStateType> {
     }
 
     Promise.all([statvarInfoPromise, placesPromise]).then((values) => {
+      for(let idx=0; idx<svIds.length; idx++){
+        values[0][svIds[idx]].title=svPaths[idx][svPaths[idx].length -1]
+      }
       this.setState({
         statvarInfo: values[0],
         statvarPaths: svPaths,
@@ -122,6 +126,7 @@ class Page extends Component<PagePropType, PageStateType> {
             <div id="search">
               <SearchBar places={this.state.places} />
             </div>
+            {(this.state.places.length === 0) && <Info/>}
             <div id="chart-region">
               <ChartRegion
                 places={this.state.places}
