@@ -473,7 +473,7 @@ interface PlotParams {
   colors: { [key: string]: string };
   // Label to dash style.
   dashes: { [key: string]: string };
-  title: {[key: string]: string};
+  title: { [key: string]: string };
 }
 
 /**
@@ -627,16 +627,13 @@ function buildInChartLegend(id: string, plotParams: PlotParams) {
     // Only have one geoId. Then different statsVars should have different colors.
     const statsVars = Object.keys(plotParams.colors);
     for (let i = 0; i < statsVars.length; i++) {
-      let title=statsVars[i];
-      if ("title" in plotParams){
-        title=plotParams.title[statsVars[i]];}
       legend
         .append("g")
         .attr("transform", `translate(0, ${LEGEND.height * i})`)
         .append("text")
         .attr("x", "40")
         .attr("y", `${LEGEND.height * i}`)
-        .text(title)
+        .text(plotParams.title[statsVars[i]])
         .style("font-size", "14")
         .attr("fill", `${plotParams.colors[statsVars[i]]}`);
     }
