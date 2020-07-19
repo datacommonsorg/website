@@ -54,14 +54,13 @@ function updateUrlStatsVar(statvar, shouldAdd) {
  */
 function deleteStatsVar(statvar) {
   let vars = getUrlVars();
-  let statvarUrl = encodeURI(statvar);
   let svList = [];
   if ("statsvar" in vars) {
     svList = vars["statsvar"].split("__");
   }
   for (const sv of svList) {
-    if (sv.split(",")[0] === statvarUrl) {
-      svList.splice(svList.indexOf(statvarUrl), 1);
+    if (sv.split(",")[0] === statvar) {
+      svList.splice(svList.indexOf(statvar), 1);
     }
   }
   if (svList.length === 0) {

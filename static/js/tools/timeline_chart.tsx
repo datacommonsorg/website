@@ -28,13 +28,14 @@ interface StatVarInfo {
   mprop: string;
   pt: string;
   pvs: { [key: string]: string };
-  title: string,
+  title: string;
 }
 
 interface StatVarChipPropsType {
   statVar: string;
   color: string;
   deleteStatVarChip: (statVar: string) => void;
+  title: string;
 }
 
 class StatVarChip extends Component<StatVarChipPropsType, {}> {
@@ -44,7 +45,7 @@ class StatVarChip extends Component<StatVarChipPropsType, {}> {
         className="pv-chip mdl-chip--deletable"
         style={{ backgroundColor: this.props.color }}
       >
-        <span className="mdl-chip__text">{this.props.statVar}</span>
+        <span className="mdl-chip__text">{this.props.title}</span>
         <button className="mdl-chip__action">
           <i
             className="material-icons"
@@ -112,7 +113,8 @@ class ChartRegion extends Component<
               {Object.keys(plotParams.colors).map((statVar) => {
                 return (
                   <StatVarChip
-                    statVar={this.props.statVars[statVar].title}
+                    statVar={statVar}
+                    title={this.props.statVars[statVar].title}
                     color={plotParams.colors[statVar]}
                     key={randDomId()}
                     deleteStatVarChip={this.deleteStatVarChip}
@@ -181,11 +183,11 @@ class ChartRegion extends Component<
             this.props.places.map((x) => x[1]),
             this.grouping[domId]
           );
-          let svTitle={}
-          for(let sv of Object.keys(plotParams.colors)){
-            svTitle[sv]=this.props.statVars[sv].title;
+          const svTitle = {};
+          for (const sv of Object.keys(plotParams.colors)) {
+            svTitle[sv] = this.props.statVars[sv].title;
           }
-          plotParams.title=svTitle;
+          plotParams.title = svTitle;
           drawGroupLineChart(
             statsData.domId,
             this.state.width,
