@@ -20,8 +20,7 @@ import { deleteStatsVar } from "./timeline_util.js";
 import { fetchStatsData, StatsData } from "../data_fetcher";
 import { drawGroupLineChart, computePlotParams } from "../chart/draw";
 
-const MAX_CHART_WIDTH = 1000;
-const MAX_CHART_HEIGHT = 500;
+const CHART_HEIGHT = 300;
 
 interface StatVarInfo {
   md: string;
@@ -64,13 +63,10 @@ interface ChartRegionPropsType {
   places: [string, string][];
   statVars: { [key: string]: StatVarInfo };
   perCapita: boolean;
-  width: number;
-  height: number;
 }
 
 interface ChartRegionStateType {
   width: number;
-  height: number;
 }
 
 class ChartRegion extends Component<
@@ -80,16 +76,17 @@ class ChartRegion extends Component<
   grouping: { [key: string]: string[] };
   placeName: { [key: string]: string };
   chartContainer: React.RefObject<HTMLDivElement>;
+  allStatsData: { domId: string; data: StatsData }[];
 
   constructor(props: ChartRegionPropsType) {
     super(props);
-    this.state = {
-      width: this.props.width,
-      height: this.props.height,
-    };
     this.grouping = {};
     this.placeName = {};
     this.chartContainer = React.createRef();
+    this.state = {
+      width: 0,
+    };
+    this.handleWindowResize = this.handleWindowResize.bind(this);
   }
 
   render() {
@@ -130,10 +127,25 @@ class ChartRegion extends Component<
 
   componentDidMount() {
     this.updateChart();
+    window.addEventListener("resize", this.handleWindowResize);
+  }
+
+  componentWillUnmount() {
+    window.removeEventListener("resize", this.handleWindowResize);
   }
 
   componentDidUpdate() {
     this.updateChart();
+  }
+
+  private handleWindowResize() {
+    if (!this.chartContainer.current) {
+      return;
+    }
+    const width = this.chartContainer.current.offsetWidth;
+    if (width !== this.state.width) {
+      this.drawChart();
+    }
   }
 
   private buildGrouping() {
@@ -169,40 +181,45 @@ class ChartRegion extends Component<
     for (const place of this.props.places) {
       this.placeName[place[0]] = place[1];
     }
-    Promise.all(promises).then(
-      function (allStatsData) {
-        for (const statsData of allStatsData) {
-          const domId = statsData.domId;
-          const dataGroupsDict = {};
-          for (const placeDcid of statsData.data.places) {
-            dataGroupsDict[
-              this.placeName[placeDcid]
-            ] = statsData.data.getStatsVarGroupWithTime(placeDcid);
-          }
-          const plotParams = computePlotParams(
-            this.props.places.map((x) => x[1]),
-            this.grouping[domId]
-          );
-          const svTitle = {};
-          for (const sv of Object.keys(plotParams.colors)) {
-            svTitle[sv] = this.props.statVars[sv].title;
-          }
-          plotParams.title = svTitle;
-          drawGroupLineChart(
-            statsData.domId,
-            this.state.width,
-            this.state.height,
-            dataGroupsDict,
-            plotParams
-          );
-        }
-      }.bind(this)
-    );
+    Promise.all(promises).then((values) => {
+      this.allStatsData = values;
+      this.drawChart();
+    });
+  }
+
+  private drawChart() {
+    if (!this.allStatsData) {
+      return;
+    }
+    for (const statsData of this.allStatsData) {
+      const domId = statsData.domId;
+      const dataGroupsDict = {};
+      for (const placeDcid of statsData.data.places) {
+        dataGroupsDict[
+          this.placeName[placeDcid]
+        ] = statsData.data.getStatsVarGroupWithTime(placeDcid);
+      }
+      const plotParams = computePlotParams(
+        this.props.places.map((x) => x[1]),
+        this.grouping[domId]
+      );
+      const svTitle = {};
+      for (const sv of Object.keys(plotParams.colors)) {
+        svTitle[sv] = this.props.statVars[sv].title;
+      }
+      plotParams.title = svTitle;
+      drawGroupLineChart(
+        statsData.domId,
+        this.chartContainer.current.offsetWidth,
+        CHART_HEIGHT,
+        dataGroupsDict,
+        plotParams
+      );
+    }
   }
 
   private deleteStatVarChip(statVar: string) {
     deleteStatsVar(statVar);
-    return;
   }
 }
 

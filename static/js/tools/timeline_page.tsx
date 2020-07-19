@@ -130,8 +130,6 @@ class Page extends Component<PagePropType, PageStateType> {
                 places={this.state.places}
                 statVars={this.state.statvarInfo}
                 perCapita={this.state.perCapita}
-                width={500}
-                height={500}
               ></ChartRegion>
             </div>
           </div>
