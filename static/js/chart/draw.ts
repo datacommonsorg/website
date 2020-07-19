@@ -38,6 +38,9 @@ const LEGEND = {
  */
 function getDashes(n: number): string[] {
   let dashes: string[];
+  if (n === 0) {
+    return [];
+  }
   dashes = [""];
   if (dashes.length === n) return dashes;
   for (let sum = 10; ; sum += 6) {
