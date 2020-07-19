@@ -126,7 +126,7 @@ class Page extends Component<PagePropType, PageStateType> {
             <div id="search">
               <SearchBar places={this.state.places} />
             </div>
-            {(window.location.hash === "") && <Info/>}
+            {(this.state.places.length === 0) && <Info/>}
             <div id="chart-region">
               <ChartRegion
                 places={this.state.places}

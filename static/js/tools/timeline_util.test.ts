@@ -5,6 +5,7 @@ import {
   parsePlace,
   getPlaceNames,
 } from "./timeline_util.js";
+import { joinPath } from "./statsvar_menu";
 
 test("update Url statsvar", () => {
   window.location.hash = "";
@@ -33,9 +34,13 @@ test("update places from Url", () => {
     "#&place=geo/01,geo/02&statsvar=Count_Person'Population"
   );
   updateUrlPlace("geo/02", false);
-  expect(window.location.hash).toBe("#&place=geo/01&statsvar=Count_Person'Population");
+  expect(window.location.hash).toBe(
+    "#&place=geo/01&statsvar=Count_Person" + joinPath + "Population"
+  );
   updateUrlPlace("geo/01", false);
-  expect(window.location.hash).toBe("#&statsvar=Count_Person'Population");
+  expect(window.location.hash).toBe(
+    "#&statsvar=Count_Person" + joinPath + "Population"
+  );
 });
 
 test("parse places from Url", () => {

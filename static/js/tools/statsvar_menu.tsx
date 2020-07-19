@@ -1,6 +1,8 @@
 import React, { Component } from "react";
 import hierarchy from "../../../tools/pv_tree_generator/hierarchy.json";
 
+export const joinPath="'";
+
 interface NodePropType {
   title: string;
   count: number;
@@ -28,7 +30,7 @@ class Node extends Component<NodePropType, NodeStateType> {
     this.state = {
       checked: false,
       expanded: false,
-      nodePath: props.nodePath + "'" + props.title,
+      nodePath: props.nodePath + joinPath + props.title,
       svPaths: [[]],
     };
   }
