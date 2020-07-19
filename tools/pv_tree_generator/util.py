@@ -14,10 +14,8 @@
 
 """utility functions used to build the property-value tree structure """
 from google.protobuf import text_format
-from google.cloud import storage
 import collections
 import stat_config_pb2
-import id_map_pb2
 import dc_request as dc
 
 
