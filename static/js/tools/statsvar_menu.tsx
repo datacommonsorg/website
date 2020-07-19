@@ -28,7 +28,7 @@ class Node extends Component<NodePropType, NodeStateType> {
     this.state = {
       checked: false,
       expanded: false,
-      nodePath: props.nodePath + "," + props.title.replace(/\s/g, ""),
+      nodePath: props.nodePath + "," + props.title,
       svPaths: [[]],
     };
   }
@@ -130,7 +130,7 @@ class Node extends Component<NodePropType, NodeStateType> {
     let check = false;
     let expand = false;
     for (const svPath of this.props.svPaths) {
-      if (svPath[0] === this.props.title.replace(/\s/g, "")) {
+      if (svPath[0] === this.props.title) {
         if (svPath.length === 1) {
           check = true;
         } else {

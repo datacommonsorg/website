@@ -81,6 +81,9 @@ class Page extends Component<PagePropType, PageStateType> {
     }
 
     Promise.all([statvarInfoPromise, placesPromise]).then((values) => {
+      for(let idx=0; idx<svIds.length; idx++){
+        values[0][svIds[idx]].title=svPaths[idx][svPaths[idx].length -1]
+      }
       this.setState({
         statvarInfo: values[0],
         statvarPaths: svPaths,

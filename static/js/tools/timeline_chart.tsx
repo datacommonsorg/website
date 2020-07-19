@@ -28,6 +28,7 @@ interface StatVarInfo {
   mprop: string;
   pt: string;
   pvs: { [key: string]: string };
+  title: string,
 }
 
 interface StatVarChipPropsType {
@@ -111,7 +112,7 @@ class ChartRegion extends Component<
               {Object.keys(plotParams.colors).map((statVar) => {
                 return (
                   <StatVarChip
-                    statVar={statVar}
+                    statVar={this.props.statVars[statVar].title}
                     color={plotParams.colors[statVar]}
                     key={randDomId()}
                     deleteStatVarChip={this.deleteStatVarChip}
@@ -180,6 +181,11 @@ class ChartRegion extends Component<
             this.props.places.map((x) => x[1]),
             this.grouping[domId]
           );
+          let svTitle={}
+          for(let sv of Object.keys(plotParams.colors)){
+            svTitle[sv]=this.props.statVars[sv].title;
+          }
+          plotParams.title=svTitle;
           drawGroupLineChart(
             statsData.domId,
             this.state.width,

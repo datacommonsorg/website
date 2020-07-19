@@ -630,7 +630,7 @@ function buildInChartLegend(id: string, plotParams: PlotParams) {
         .append("text")
         .attr("x", "40")
         .attr("y", `${LEGEND.height * i}`)
-        .text(statsVars[i])
+        .text(plotParams.title[statsVars[i]])
         .style("font-size", "14")
         .attr("fill", `${plotParams.colors[statsVars[i]]}`);
     }
