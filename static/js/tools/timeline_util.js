@@ -15,7 +15,7 @@
  */
 import axios from "axios";
 import { getUrlVars, setSearchParam } from "./dc";
-import { joinPath } from "./statsvar_menu.tsx";
+import { SEP } from "./statsvar_menu.tsx";
 /**
  * add or delete statvars from url
  *
@@ -60,7 +60,7 @@ function deleteStatsVar(statvar) {
     svList = vars["statsvar"].split("__");
   }
   for (const sv of svList) {
-    if (sv.split(joinPath)[0] === statvar) {
+    if (sv.split(SEP)[0] === statvar) {
       svList.splice(svList.indexOf(statvar), 1);
     }
   }
@@ -101,7 +101,7 @@ function updateUrlPlace(place, shouldAdd) {
     delete vars["place"];
   } else {
     if (!("statsvar" in vars)) {
-      vars["statsvar"] = "Count_Person" + joinPath + "Population";
+      vars["statsvar"] = "Count_Person" + SEP + "Population";
     }
     vars["place"] = placeList.join(",");
   }
@@ -124,8 +124,8 @@ function parseStatVarPath() {
     svList = vars["statsvar"].split("__");
     for (let idx = 0; idx < svList.length; idx++) {
       let sv = decodeURI(svList[idx]);
-      statvarIds.push(sv.split(joinPath)[0]);
-      statvarPath.push(sv.split(joinPath).slice(1));
+      statvarIds.push(sv.split(SEP)[0]);
+      statvarPath.push(sv.split(SEP).slice(1));
     }
   }
   return [statvarPath, statvarIds];

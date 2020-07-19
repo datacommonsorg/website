@@ -5,7 +5,7 @@ import {
   parsePlace,
   getPlaceNames,
 } from "./timeline_util.js";
-import { joinPath } from "./statsvar_menu";
+import { SEP } from "./statsvar_menu";
 
 test("update Url statsvar", () => {
   window.location.hash = "";
@@ -23,7 +23,7 @@ test("update Url statsvar", () => {
 });
 
 test("parse statvar from Url", () => {
-  window.location.hash = "#&statsvar=dc/test'Demo'prop";
+  window.location.hash = "#&statsvar=dc/test"+SEP+"Demo"+SEP+"prop";
   expect(parseStatVarPath()).toStrictEqual([[["Demo", "prop"]], ["dc/test"]]);
 });
 
@@ -35,11 +35,11 @@ test("update places from Url", () => {
   );
   updateUrlPlace("geo/02", false);
   expect(window.location.hash).toBe(
-    "#&place=geo/01&statsvar=Count_Person" + joinPath + "Population"
+    "#&place=geo/01&statsvar=Count_Person" + SEP + "Population"
   );
   updateUrlPlace("geo/01", false);
   expect(window.location.hash).toBe(
-    "#&statsvar=Count_Person" + joinPath + "Population"
+    "#&statsvar=Count_Person" + SEP + "Population"
   );
 });
 
