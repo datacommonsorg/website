@@ -24,17 +24,18 @@ import { getUrlVars, setSearchParam } from "./dc";
  */
 function updateUrlStatsVar(statvar, shouldAdd) {
   let vars = getUrlVars();
+  let statvarUrl = encodeURI(statvar);
   let svList = [];
   if ("statsvar" in vars) {
     svList = vars["statsvar"].split("__");
   }
   if (shouldAdd) {
-    if (!svList.includes(statvar)) {
-      svList.push(statvar);
+    if (!svList.includes(statvarUrl)) {
+      svList.push(statvarUrl);
     }
   } else {
-    if (svList.includes(statvar)) {
-      svList.splice(svList.indexOf(statvar), 1);
+    if (svList.includes(statvarUrl)) {
+      svList.splice(svList.indexOf(statvarUrl), 1);
     }
   }
   if (svList.length === 0) {
@@ -99,7 +100,7 @@ function updateUrlPlace(place, shouldAdd) {
     delete vars["place"];
   } else {
     if (!("statsvar" in vars)) {
-      vars["statsvar"] = "Count_Person";
+      vars["statsvar"] = "Count_Person,Population";
     }
     vars["place"] = placeList.join(",");
   }
@@ -121,8 +122,9 @@ function parseStatVarPath() {
   if ("statsvar" in vars) {
     svList = vars["statsvar"].split("__");
     for (let idx = 0; idx < svList.length; idx++) {
-      statvarIds.push(svList[idx].split(",")[0]);
-      statvarPath.push(svList[idx].split(",").slice(1));
+      let sv = decodeURI(svList[idx]);
+      statvarIds.push(sv.split(",")[0]);
+      statvarPath.push(sv.split(",").slice(1));
     }
   }
   return [statvarPath, statvarIds];

@@ -473,6 +473,7 @@ interface PlotParams {
   colors: { [key: string]: string };
   // Label to dash style.
   dashes: { [key: string]: string };
+  title: { [key: string]: string };
 }
 
 /**
@@ -484,6 +485,7 @@ function computePlotParams(
 ): PlotParams {
   const colors = {};
   const dashes = {};
+  const title = {};
   const colorFn = getColorFn(statsNames);
   const dashFn = getDashes(placeNames.length);
   for (const statsName of statsNames) {
@@ -495,6 +497,7 @@ function computePlotParams(
   return {
     colors,
     dashes,
+    title,
   };
 }
 
@@ -630,7 +633,7 @@ function buildInChartLegend(id: string, plotParams: PlotParams) {
         .append("text")
         .attr("x", "40")
         .attr("y", `${LEGEND.height * i}`)
-        .text(statsVars[i])
+        .text(plotParams.title[statsVars[i]])
         .style("font-size", "14")
         .attr("fill", `${plotParams.colors[statsVars[i]]}`);
     }
