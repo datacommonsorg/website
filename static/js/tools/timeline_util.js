@@ -58,7 +58,7 @@ function deleteStatsVar(statvar) {
     svList = vars["statsvar"].split("__");
   }
   for (const sv of svList) {
-    if (sv.split(",")[0] == statvar) {
+    if (sv.split(",")[0] === statvar) {
       svList.splice(svList.indexOf(statvar), 1);
     }
   }
@@ -98,8 +98,12 @@ function updateUrlPlace(place, shouldAdd) {
   if (placeList.length === 0) {
     delete vars["place"];
   } else {
+    if (!("statsvar" in vars)) {
+      vars["statsvar"] = "Count_Person";
+    }
     vars["place"] = placeList.join(",");
   }
+
   setSearchParam(vars);
   return changed;
 }
