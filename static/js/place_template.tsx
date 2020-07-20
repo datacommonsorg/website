@@ -378,23 +378,26 @@ interface OverviewPropType {
 
 class Overview extends Component<OverviewPropType, {}> {
   render() {
-    return (
-      <React.Fragment>
-        <section className="factoid col-12">
-          <div className="row">
-            <div className="col-12 col-md-4">
-              <Map dcid={this.props.dcid}></Map>
+    if (!this.props.topic) {
+      return (
+        <React.Fragment>
+          <section className="factoid col-12">
+            <div className="row">
+              <div className="col-12 col-md-4">
+                <Map dcid={this.props.dcid}></Map>
+              </div>
+              <div className="col-12 col-md-8">
+                <Ranking
+                  dcid={this.props.dcid}
+                  data={{ label: [], Population: [] }}
+                ></Ranking>
+              </div>
             </div>
-            <div className="col-12 col-md-8">
-              <Ranking
-                dcid={this.props.dcid}
-                data={{ label: [], Population: [] }}
-              ></Ranking>
-            </div>
-          </div>
-        </section>
-      </React.Fragment>
-    );
+          </section>
+        </React.Fragment>
+      );
+    }
+    return <React.Fragment></React.Fragment>;
   }
 }
 
