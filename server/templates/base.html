@@ -60,16 +60,9 @@
                   Explore
                 </a>
                 <div class="dropdown-menu" aria-labelledby="nav-explore-dropdown">
-                  <a class="dropdown-item" href="{{ url_for('place') }}">Place explorer</a>
-                  <a class="dropdown-item" href="{{ url_for('browser.kg_main') }}">Data Commons Graph explorer</a>
-                </div>
-              </li>
-              <li class="nav-item dropdown">
-                <a class="nav-link dropdown-toggle" href="#" id="nav-tools-dropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                  Tools
-                </a>
-                <div class="dropdown-menu" aria-labelledby="nav-tools-dropdown">
-                  <a class="dropdown-item" href="{{ url_for('tools.timeline') }}">Timeline tool</a>
+                  <a class="dropdown-item" href="{{ url_for('place') }}">Place Explorer</a>
+                  <a class="dropdown-item" href="{{ url_for('browser.kg_main') }}">Data Commons Graph Explorer</a>
+                  <a class="dropdown-item" href="{{ url_for('tools.timeline') }}">Timelines Explorer</a>
                 </div>
               </li>
               <li class="nav-item dropdown">
@@ -110,16 +103,13 @@
       <div class="container">
         {% if not is_hide_full_footer %}
           <div class="row">
-            <section class="col-12 col-sm-6 col-md-3">
+            <section class="col-12 col-sm-6 col-md-4">
               <h6>Explore</h6>
               <a href="{{ url_for('place') }}">Place Explorer</a>
               <a href="{{ url_for('browser.kg_main') }}">Data Commons Graph Explorer</a>
+              <a href="{{ url_for('tools.timeline') }}">Timelines Explorer</a>
             </section>
-            <section class="col-12 col-sm-6 col-md-3">
-              <h6>Tools</h6>
-              <a href="{{ url_for('tools.timeline') }}">Timeline tool</a>
-            </section>
-            <section class="col-12 col-sm-6 col-md-3">
+            <section class="col-12 col-sm-6 col-md-4">
               <h6>Documentation</h6>
               <a href="{{ url_for('static.datasets') }}">Datasets</a>
               <a href="http://docs.datacommons.org/api/python/">Python API</a>
@@ -127,7 +117,7 @@
               <a href="http://docs.datacommons.org/api/rest/">REST API</a>
               <a href="http://docs.datacommons.org/api/sheets/">Google Sheets API</a>
             </section>
-            <section class="col-12 col-sm-6 col-md-3">
+            <section class="col-12 col-sm-6 col-md-4">
               <h6>Data Commons</h6>
               <a href="#">About Data Commons</a>
               <a href="{{ url_for('static.faq') }}">Frequently Asked Questions</a>
