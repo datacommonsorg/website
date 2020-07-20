@@ -101,7 +101,8 @@ function updateUrlPlace(place, shouldAdd) {
     delete vars["place"];
   } else {
     if (!("statsvar" in vars)) {
-      vars["statsvar"] = "Count_Person" + SEP + "Population";
+      vars["statsvar"] =
+        "Count_Person" + SEP + "Demographics" + SEP + "Population";
     }
     vars["place"] = placeList.join(",");
   }
