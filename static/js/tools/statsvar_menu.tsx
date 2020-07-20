@@ -1,4 +1,5 @@
 import React, { Component } from "react";
+import axios from "axios";
 import hierarchy from "../../../tools/pv_tree_generator/hierarchy_top.json";
 
 const jsonPath = "data/hierarchy_statsvar.json";
@@ -192,11 +193,11 @@ class Menu extends Component<MenuPropType, MenuStateType> {
     );
   }
   componentDidMount(){
-    $.getJSON(jsonPath, function(data){
+    axios.get(jsonPath).then((resp) => {
       this.setState({
-        menuJson: [data],
+        menuJson: [resp.data],
       });
-    }.bind(this))
+    });
   }
 }
 
