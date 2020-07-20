@@ -32,6 +32,11 @@ const CHAR_PER_LINE = 28;
 const WRAP_WIDTH = 200;
 const LINE_HEIGHT = 1.1; // ems
 
+const BROWSER_URL = "/browser/";
+function buildBrowserUri(dcid) {
+  return BROWSER_URL + dcid;
+}
+
 /**
  * Wraps svg text into multiple tspan.
  *
@@ -159,18 +164,11 @@ function drawTimeSeries(seriesArray, valueKey, selector) {
       .style("fill", color(vText))
       .style("stroke", color(vText))
       .on("click", (d) => {
-        let uri = new URL(window.location);
-        let params = uri.searchParams;
-        params.set("dcid", d["dcid"]);
-        uri.search = params.toString();
-        window.open(uri.toString());
+        let uri = buildBrowserUri(d["dcid"]);
+        window.open(uri);
       });
 
     // Draw plot label.
-    let uri = new URL(window.location);
-    let params = uri.searchParams;
-    params.set("dcid", sample["parentDcid"]);
-    uri.search = params.toString();
     const labelX = WIDTH + 15;
     const labelY = totalVLen * 20;
     const svgLabel = svg
@@ -183,7 +181,8 @@ function drawTimeSeries(seriesArray, valueKey, selector) {
       .text(vText)
       .call(wrap, WRAP_WIDTH)
       .on("click", () => {
-        window.open(uri.toString());
+        let uri = buildBrowserUri(sample["parentDcid"]);
+        window.open(uri);
       });
     totalVLen += Math.ceil(vText.length / CHAR_PER_LINE);
 
@@ -337,11 +336,8 @@ function drawBarChart(seriesArray, valueKey, selector) {
     .attr("height", (d) => Math.abs(y(0) - y(d[valueKey])))
     .attr("width", x.bandwidth())
     .on("click", (d) => {
-      let uri = new URL(window.location);
-      let params = uri.searchParams;
-      params.set("dcid", d["dcid"]);
-      uri.search = params.toString();
-      window.open(uri.toString());
+      let uri = buildBrowserUri(d["dcid"]);
+      window.open(uri);
     });
 
   const xAxis = (g) =>
