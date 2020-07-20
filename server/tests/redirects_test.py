@@ -47,3 +47,13 @@ class TestRedirects(unittest.TestCase):
         response = app.test_client().get('/kg?dcid=geoId/06', follow_redirects=True)
         assert response.status_code == 200
         assert b"geoId/06" in response.data
+
+
+    def test_documentation(self):
+        response = app.test_client().get('/documentation', follow_redirects=False)
+        assert response.status_code == 302
+
+
+    def test_colab(self):
+        response = app.test_client().get('/colab', follow_redirects=False)
+        assert response.status_code == 302

@@ -48,3 +48,13 @@ def download():
 @bp.route('/scatter')
 def scatter():
     return redirect(url_for('tools.scatter'), code=302)
+
+
+@bp.route('/documentation')
+def documentation():
+  return redirect('https://docs.datacommons.org/', code=302)
+
+
+@bp.route('/colab')
+def colab():
+  return redirect('https://docs.datacommons.org/tutorials.html', code=302)
