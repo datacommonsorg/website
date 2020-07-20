@@ -171,7 +171,7 @@ function renderPage(dcid: string) {
 
   parentPlacesPromise.then((parentPlaces) => {
     ReactDOM.render(
-      React.createElement(ParentPlace, { parentPlaces }),
+      React.createElement(ParentPlace, { placeType, parentPlaces }),
       document.getElementById("place-parents")
     );
     // Readjust sidebar based on parent places.

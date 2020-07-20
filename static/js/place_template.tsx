@@ -82,15 +82,19 @@ interface ChartCategory {
 }
 
 interface ParentPlacePropsType {
+  placeType: string;
   parentPlaces: { dcid: string; name: string }[];
 }
 
 class ParentPlace extends Component<ParentPlacePropsType, {}> {
-  constructor(props) {
+  constructor(props: ParentPlacePropsType) {
     super(props);
   }
   render() {
     const num = this.props.parentPlaces.length;
+    if (this.props.placeType === "Country" && num === 1) {
+      return <span>{this.props.parentPlaces[0].name}</span> ;
+    }
     return this.props.parentPlaces.map((item, index) => {
       return (
         <React.Fragment key={item.dcid}>
@@ -281,7 +285,8 @@ class MainPane extends Component<MainPanePropType, {}> {
     }
     return (
       <React.Fragment>
-        {!["Country", "Continent"].includes(this.props.placeType) && (
+        {this.props.placeType.startsWith("geoId") && (
+        // Only Show map and ranking for US places.
           <Overview topic={this.props.topic} dcid={this.props.dcid} />
         )}
         {configData.map((item, index) => {
