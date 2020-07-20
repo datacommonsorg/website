@@ -1,0 +1,357 @@
+{
+ "Demographics": {
+  "sv": "top",
+  "l": "Demographics",
+  "t": "p",
+  "c": 1784,
+  "cd": [
+   {
+    "sv": "Count_Person",
+    "l": "Population",
+    "t": "v",
+    "c": 1
+   },
+   {
+    "sv": "MedianAge",
+    "l": "Median age",
+    "t": "v",
+    "c": 1
+   },
+   {
+    "sv": "MedianIncome",
+    "l": "Median income",
+    "t": "v",
+    "c": 1
+   },
+   {
+    "l": "Age",
+    "t": "p",
+    "c": 432
+   },
+   {
+    "l": "Citizenship",
+    "t": "p",
+    "c": 5
+   },
+   {
+    "l": "Gender",
+    "t": "p",
+    "c": 1342
+   },
+   {
+    "l": "Income",
+    "t": "p",
+    "c": 42
+   },
+   {
+    "l": "Marital Status",
+    "t": "p",
+    "c": 73
+   },
+   {
+    "l": "Nativity",
+    "t": "p",
+    "c": 114
+   },
+   {
+    "l": "Place Of Birth",
+    "t": "p",
+    "c": 108
+   },
+   {
+    "l": "Poverty Status",
+    "t": "p",
+    "c": 272
+   },
+   {
+    "l": "Race",
+    "t": "p",
+    "c": 1241
+   },
+   {
+    "l": "Veteran Status",
+    "t": "p",
+    "c": 14
+   },
+   {
+    "l": "Educational Attainment",
+    "t": "p",
+    "c": 38
+   },
+   {
+    "l": "Level Of School",
+    "t": "p",
+    "c": 43
+   }
+  ]
+ },
+ "Crime": {
+  "sv": "top",
+  "l": "Crime",
+  "t": "p",
+  "c": 11,
+  "cd": [
+   {
+    "l": "Crime Type",
+    "t": "p",
+    "c": 11
+   }
+  ]
+ },
+ "Education": {
+  "sv": "top",
+  "l": "Education",
+  "t": "p",
+  "c": 215,
+  "cd": [
+   {
+    "l": "Educational Attainment",
+    "t": "p",
+    "c": 22
+   },
+   {
+    "l": "Level Of School",
+    "t": "p",
+    "c": 43
+   },
+   {
+    "l": "School Enrollment",
+    "t": "p",
+    "c": 22
+   },
+   {
+    "l": "Detailed Level Of School",
+    "t": "p",
+    "c": 128
+   }
+  ]
+ },
+ "Employment": {
+  "sv": "top",
+  "l": "Employment",
+  "t": "p",
+  "c": 193,
+  "cd": [
+   {
+    "sv": "UnemploymentRate",
+    "l": "Unemployment Rate",
+    "t": "v",
+    "c": 1
+   },
+   {
+    "sv": "Count_Person_InLaborForce",
+    "l": "Labor Force",
+    "t": "v",
+    "c": 1
+   },
+   {
+    "sv": "Count_Person_Employed",
+    "l": "Employed",
+    "t": "v",
+    "c": 1
+   },
+   {
+    "sv": "Count_Person_Unemployed",
+    "l": "Unemployed",
+    "t": "v",
+    "c": 1
+   },
+   {
+    "l": "Establishments by Industry",
+    "t": "p",
+    "c": 90
+   },
+   {
+    "l": "Labor Force by Industry",
+    "t": "p",
+    "c": 90
+   },
+   {
+    "l": "Unemployment Insurance Claims",
+    "t": "p",
+    "c": 12
+   }
+  ]
+ },
+ "Health": {
+  "sv": "top",
+  "l": "Health",
+  "t": "p",
+  "c": 1212,
+  "cd": [
+   {
+    "sv": "Count_MortalityEvent_AsAFractionOfCount_Person",
+    "l": "Mortality",
+    "t": "v",
+    "c": 1
+   },
+   {
+    "l": "Health Outcomes",
+    "t": "p",
+    "c": 15
+   },
+   {
+    "l": "Health Preventions",
+    "t": "p",
+    "c": 3
+   },
+   {
+    "l": "Health Behaviors",
+    "t": "p",
+    "c": 9
+   },
+   {
+    "l": "Drug Prescribed",
+    "t": "p",
+    "c": 78
+   },
+   {
+    "l": "COVID-19 Incidents",
+    "t": "p",
+    "c": 7
+   }
+  ]
+ },
+ "Housing": {
+  "sv": "top",
+  "l": "Housing",
+  "t": "p",
+  "c": 96,
+  "cd": [
+   {
+    "sv": "HousingUnits",
+    "l": "Housing Units",
+    "t": "v",
+    "c": 1
+   },
+   {
+    "l": "Housing Unit Cash Rent Status",
+    "t": "p",
+    "c": 2
+   },
+   {
+    "l": "Housing Unit Gross Rent",
+    "t": "p",
+    "c": 25
+   },
+   {
+    "l": "Housing Unit Home Value",
+    "t": "p",
+    "c": 27
+   },
+   {
+    "l": "Housing Unit Householder Race",
+    "t": "p",
+    "c": 29
+   },
+   {
+    "l": "Housing Unit Number of Rooms",
+    "t": "p",
+    "c": 9
+   },
+   {
+    "l": "Housing Unit Occupancy Status",
+    "t": "p",
+    "c": 2
+   },
+   {
+    "l": "Housing Unit Occupancy Tenure",
+    "t": "p",
+    "c": 20
+   }
+  ]
+ },
+ "Household": {
+  "sv": "top",
+  "l": "Household",
+  "t": "p",
+  "c": 679,
+  "cd": [
+   {
+    "sv": "Households",
+    "l": "Household",
+    "t": "v",
+    "c": 1
+   },
+   {
+    "l": "Household by Householder Age",
+    "t": "p",
+    "c": 510
+   },
+   {
+    "l": "Household by Householder Race",
+    "t": "p",
+    "c": 612
+   },
+   {
+    "l": "Household Income",
+    "t": "p",
+    "c": 640
+   }
+  ]
+ },
+ "Disasters": {
+  "sv": "top",
+  "l": "Disasters",
+  "t": "p",
+  "c": 17,
+  "cd": [
+   {
+    "sv": "Count_CycloneEvent",
+    "l": "Cyclones",
+    "t": "v",
+    "c": 1
+   },
+   {
+    "sv": "Count_DroughtEvent",
+    "l": "Droughts",
+    "t": "v",
+    "c": 1
+   },
+   {
+    "sv": "Count_EarthquakeEvent",
+    "l": "Earthquakes",
+    "t": "v",
+    "c": 1
+   },
+   {
+    "sv": "Count_FloodEvent",
+    "l": "Floods",
+    "t": "v",
+    "c": 1
+   },
+   {
+    "sv": "Count_ThunderstormWindEvent",
+    "l": "Thunderstorm Wind Gusts",
+    "t": "v",
+    "c": 1
+   },
+   {
+    "sv": "Count_TornadoEvent",
+    "l": "Tornadoes",
+    "t": "v",
+    "c": 1
+   },
+   {
+    "sv": "Count_WildlandFireEvent",
+    "l": "Wildland Fires",
+    "t": "v",
+    "c": 1
+   }
+  ]
+ },
+ "Environment": {
+  "sv": "top",
+  "l": "Environment",
+  "t": "p",
+  "c": 0,
+  "cd": []
+ },
+ "Economic": {
+  "sv": "top",
+  "l": "Economic",
+  "t": "p",
+  "c": 0,
+  "cd": []
+ }
+}
