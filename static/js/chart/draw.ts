@@ -184,16 +184,13 @@ function addYAxis(
     )
     .call((g) => g.select(".domain").remove())
     .call((g) =>
-      g.selectAll(".tick line").attr("x2", -width + MARGIN.left + MARGIN.yAxis)
-    )
-    .call((g) =>
       g.selectAll(".tick:not(:first-of-type) line").attr("class", "grid-line")
     )
     .call((g) =>
       g
         .selectAll(".tick text")
         .attr("x", -width + MARGIN.left + MARGIN.yAxis)
-        .attr("dy", 4)
+        .attr("dy", -4)
     );
 }
 
