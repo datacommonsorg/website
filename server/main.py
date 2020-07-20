@@ -310,18 +310,13 @@ def api_ranking(dcid):
                 dcid, 'CriminalActivities', 'count', 'measuredValue',
                 pvs_string='crimeType^UCR_CombinedCrime',
                 same_place_type=True, within_place=parent, is_per_capita=True)})
+
     result['label'] = [
         'Population', 'Median Income', 'Median Age', 'Unemployment Rate',
         'Crime per capita']
     for label in result['label']:
-        no_data = True
-        for item in result[label]:
-            if item['data']:
-                no_data = False
-                break
-        if no_data:
-            del result[label]
-    result['label'] = [x for x in result['label'] if x in result]
+        result[label] = [x for x in result[label] if x['data']]
+    result['label'] = [x for x in result['label'] if result[x]]
     return result
 
 

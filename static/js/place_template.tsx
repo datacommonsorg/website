@@ -14,7 +14,8 @@
  * limitations under the License.
  */
 
-import React, { Component } from "react";
+import React, { Component, createRef } from "react";
+import axios from "axios";
 import pluralize from "pluralize";
 import _ from "lodash";
 import { DataPoint, DataGroup } from "./chart/base";
@@ -82,8 +83,7 @@ interface ChartCategory {
 }
 
 interface ParentPlacePropsType {
-  placeType: string;
-  parentPlaces: { dcid: string; name: string }[];
+  parentPlaces: { dcid: string; name: string; types: string[] }[];
 }
 
 class ParentPlace extends Component<ParentPlacePropsType, {}> {
@@ -92,10 +92,10 @@ class ParentPlace extends Component<ParentPlacePropsType, {}> {
   }
   render() {
     const num = this.props.parentPlaces.length;
-    if (this.props.placeType === "Country" && num === 1) {
-      return <span>{this.props.parentPlaces[0].name}</span> ;
-    }
     return this.props.parentPlaces.map((item, index) => {
+      if (item.types[0] === "Continent") {
+        return <span key={item.dcid}>{item.name}</span>;
+      }
       return (
         <React.Fragment key={item.dcid}>
           <a
@@ -121,52 +121,79 @@ class ParentPlace extends Component<ParentPlacePropsType, {}> {
 }
 
 interface RankingPropsType {
+  dcid: string;
   data: {
     label: string[];
     Population: { name: {}; label: string }[];
   };
 }
 
-// tslint:disable-next-line: max-classes-per-file
-class Ranking extends Component<RankingPropsType, {}> {
+interface RankingStateType {
+  data: {
+    label: string[];
+    Population: { name: {}; label: string }[];
+  };
+}
+
+class Ranking extends Component<RankingPropsType, RankingStateType> {
   constructor(props) {
     super(props);
+    this.state = {
+      data: this.props.data,
+    };
   }
   render() {
     return (
       <React.Fragment>
-        <thead>
-          <tr>
-            <th scope="col">Rankings (in) </th>
-            {this.props.data.Population.map((item, index) => {
-              return (
-                <th scope="col" key={index}>
-                  {item.name}
-                </th>
-              );
-            })}
-          </tr>
-        </thead>
-        <tbody>
-          {this.props.data.label.map((item, index) => {
-            return (
-              <tr key={index}>
-                <th scope="row">{item}</th>
-                {this.props.data[item].map((rankingInfo) => {
-                  const top = rankingInfo.data.rankFromTop;
-                  const bottom = rankingInfo.data.rankFromBottom;
-                  let text = "";
-                  if (!isNaN(top) && !isNaN(bottom)) {
-                    text = `${top} of ${top + bottom}`;
-                  }
-                  return <td key={text}>{text}</td>;
+        {this.state.data.label.length > 0 && (
+          <React.Fragment>
+            <table id="ranking-table" className="table">
+              <thead>
+                <tr>
+                  <th scope="col">Rankings (in) </th>
+                  {this.state.data.Population.map((item, index) => {
+                    return (
+                      <th scope="col" key={index}>
+                        {item.name}
+                      </th>
+                    );
+                  })}
+                </tr>
+              </thead>
+              <tbody>
+                {this.state.data.label.map((item, index) => {
+                  return (
+                    <tr key={index}>
+                      <th scope="row">{item}</th>
+                      {this.state.data[item].map((rankingInfo) => {
+                        const top = rankingInfo.data.rankFromTop;
+                        const bottom = rankingInfo.data.rankFromBottom;
+                        let text = "";
+                        if (!isNaN(top) && !isNaN(bottom)) {
+                          text = `${top} of ${top + bottom}`;
+                        }
+                        return <td key={text}>{text}</td>;
+                      })}
+                    </tr>
+                  );
                 })}
-              </tr>
-            );
-          })}
-        </tbody>
+              </tbody>
+            </table>
+            <div className="source">
+              Data from <a href="https://www.census.gov/">census.gov</a>,{" "}
+              <a href="https://www.fbi.gov/">fbi.gov</a> and{" "}
+              <a href="https://www.bls.gov/">bls.gov</a>
+            </div>
+          </React.Fragment>
+        )}
       </React.Fragment>
     );
+  }
+
+  componentDidMount() {
+    axios.get(`api/ranking/${this.props.dcid}`).then((resp) => {
+      this.setState({ data: resp.data });
+    });
   }
 }
 
@@ -285,8 +312,8 @@ class MainPane extends Component<MainPanePropType, {}> {
     }
     return (
       <React.Fragment>
-        {this.props.placeType.startsWith("geoId") && (
-        // Only Show map and ranking for US places.
+        {this.props.dcid.startsWith("geoId") && (
+          // Only Show map and ranking for US places.
           <Overview topic={this.props.topic} dcid={this.props.dcid} />
         )}
         {configData.map((item, index) => {
@@ -351,41 +378,18 @@ interface OverviewPropType {
 
 class Overview extends Component<OverviewPropType, {}> {
   render() {
-    if (!this.props.topic) {
-      return (
-        <React.Fragment>
-          <section className="factoid col-12">
-            <div className="row">
-              <div className="col-12 col-md-4">
-                <div id="map-container"></div>
-              </div>
-              <div className="col-12 col-md-8">
-                <table id="ranking-table" className="table"></table>
-                <footer>
-                  Data from <a href="https://www.census.gov/">census.gov</a>,{" "}
-                  <a href="https://www.fbi.gov/">fbi.gov</a> and{" "}
-                  <a href="https://www.bls.gov/">bls.gov</a>
-                </footer>
-              </div>
-            </div>
-          </section>
-        </React.Fragment>
-      );
-    }
     return (
       <React.Fragment>
         <section className="factoid col-12">
           <div className="row">
             <div className="col-12 col-md-4">
-              <div id="map-container"></div>
+              <Map dcid={this.props.dcid}></Map>
             </div>
             <div className="col-12 col-md-8">
-              <table id="ranking-table" className="table"></table>
-              <footer>
-                Data from <a href="https://www.census.gov/">census.gov</a>,{" "}
-                <a href="https://www.fbi.gov/">fbi.gov</a> and{" "}
-                <a href="https://www.bls.gov/">bls.gov</a>
-              </footer>
+              <Ranking
+                dcid={this.props.dcid}
+                data={{ label: [], Population: [] }}
+              ></Ranking>
             </div>
           </div>
         </section>
@@ -481,13 +485,13 @@ class Chart extends Component<ChartPropType, ChartStateType> {
   titleSuffix: string;
   placeRelation: string;
 
-  constructor(props) {
+  constructor(props: ChartPropType) {
     super(props);
-    this.chartElement = React.createRef();
-    this.similarRef = React.createRef();
-    this.nearbyRef = React.createRef();
-    this.parentRef = React.createRef();
-    this.childrenRef = React.createRef();
+    this.chartElement = createRef();
+    this.similarRef = createRef();
+    this.nearbyRef = createRef();
+    this.parentRef = createRef();
+    this.childrenRef = createRef();
 
     this.state = {
       elemWidth: 0,
@@ -755,4 +759,64 @@ class Chart extends Component<ChartPropType, ChartStateType> {
   }
 }
 
-export { Ranking, MainPane, Menu, ParentPlace, ChildPlace };
+interface MapPropType {
+  /**
+   * The place dcid.
+   */
+  dcid: string;
+}
+
+class Map extends Component<MapPropType, {}> {
+  div: React.RefObject<HTMLDivElement>;
+
+  constructor(props) {
+    super(props);
+    this.div = createRef();
+  }
+  render() {
+    return <div id="map-container" ref={this.div}></div>;
+  }
+
+  componentDidMount() {
+    axios.get(`/api/mapinfo/${this.props.dcid}`).then(
+      function (resp) {
+        const mapInfo = resp.data;
+        if (!mapInfo || Object.keys(mapInfo).length === 0) return;
+        const mapOptions = {
+          mapTypeControl: false,
+          draggable: true,
+          scaleControl: true,
+          scrollwheel: true,
+          navigationControl: true,
+          streetViewControl: false,
+          mapTypeId: google.maps.MapTypeId.ROADMAP,
+        };
+        const map = new google.maps.Map(this.div.current, mapOptions);
+
+        // Map bounds.
+        const sw = new google.maps.LatLng(mapInfo.down, mapInfo.left);
+        const ne = new google.maps.LatLng(mapInfo.up, mapInfo.right);
+        const bounds = new google.maps.LatLngBounds();
+        bounds.extend(sw);
+        bounds.extend(ne);
+        map.fitBounds(bounds);
+
+        // Polygons of the place.
+        if (mapInfo.coordinateSequenceSet) {
+          for (const coordinateSequence of mapInfo.coordinateSequenceSet) {
+            const polygon = new google.maps.Polygon({
+              paths: coordinateSequence,
+              strokeColor: "#FF0000",
+              strokeOpacity: 0.6,
+              strokeWeight: 1,
+              fillOpacity: 0.15,
+            });
+            polygon.setMap(map);
+          }
+        }
+      }.bind(this)
+    );
+  }
+}
+
+export { MainPane, Menu, ParentPlace, ChildPlace };

@@ -161,7 +161,10 @@ def parent_place(dcid):
     # Here calling get_parent_place twice to get to the top parents.
     parents1 = get_parent_place(dcid)
     parents2 = get_parent_place(parents1[-1]['dcid'])
-    return json.dumps(parents1 + parents2)
+    parents3 = get_parent_place(parents2[-1]['dcid'])
+    parents1.extend(parents2)
+    parents1.extend(parents3)
+    return json.dumps(parents1)
 
 
 @cache.memoize(timeout=3600 * 24)  # Cache for one day.
