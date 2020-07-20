@@ -32,15 +32,15 @@ test("update places from Url", () => {
   window.location.hash = "#&place=geo/01";
   updateUrlPlace("geo/02", true);
   expect(window.location.hash).toBe(
-    "#&place=geo/01,geo/02&statsvar=Count_Person" + SEP + "Population"
+    "#&place=geo/01,geo/02&statsvar=Count_Person" + SEP + "Demographics" + SEP + "Population"
   );
   updateUrlPlace("geo/02", false);
   expect(window.location.hash).toBe(
-    "#&place=geo/01&statsvar=Count_Person" + SEP + "Population"
+    "#&place=geo/01&statsvar=Count_Person" + SEP + "Demographics" + SEP + "Population"
   );
   updateUrlPlace("geo/01", false);
   expect(window.location.hash).toBe(
-    "#&statsvar=Count_Person" + SEP + "Population"
+    "#&statsvar=Count_Person" + SEP + "Demographics" + SEP + "Population"
   );
 });
 
