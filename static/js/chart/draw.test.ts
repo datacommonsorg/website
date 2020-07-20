@@ -21,6 +21,7 @@ import {
 import {
   appendLegendElem,
   getColorFn,
+  getDashes,
 } from "./draw";
 
 test("svg test", () => {
@@ -43,3 +44,15 @@ test("svg test", () => {
     `</div>`
   );
 });
+
+test("get dashes", () => {
+  const data: {[key:number]: string[]} = {
+    0: [],
+    1: [""],
+    2: ["", "5, 5"],
+    3: ["", "5, 5", "3, 7"],
+  };
+  for (const n in data) {
+    expect(getDashes(Number(n))).toEqual(data[n]);
+  }
+})

@@ -20,20 +20,21 @@ import { deleteStatsVar } from "./timeline_util.js";
 import { fetchStatsData, StatsData } from "../data_fetcher";
 import { drawGroupLineChart, computePlotParams } from "../chart/draw";
 
-const MAX_CHART_WIDTH = 1000;
-const MAX_CHART_HEIGHT = 500;
+const CHART_HEIGHT = 300;
 
 interface StatVarInfo {
   md: string;
   mprop: string;
   pt: string;
   pvs: { [key: string]: string };
+  title: string;
 }
 
 interface StatVarChipPropsType {
   statVar: string;
   color: string;
   deleteStatVarChip: (statVar: string) => void;
+  title: string;
 }
 
 class StatVarChip extends Component<StatVarChipPropsType, {}> {
@@ -43,7 +44,7 @@ class StatVarChip extends Component<StatVarChipPropsType, {}> {
         className="pv-chip mdl-chip--deletable"
         style={{ backgroundColor: this.props.color }}
       >
-        <span className="mdl-chip__text">{this.props.statVar}</span>
+        <span className="mdl-chip__text">{this.props.title}</span>
         <button className="mdl-chip__action">
           <i
             className="material-icons"
@@ -62,32 +63,20 @@ interface ChartRegionPropsType {
   places: [string, string][];
   statVars: { [key: string]: StatVarInfo };
   perCapita: boolean;
-  width: number;
-  height: number;
 }
 
-interface ChartRegionStateType {
-  width: number;
-  height: number;
-}
-
-class ChartRegion extends Component<
-  ChartRegionPropsType,
-  ChartRegionStateType
-> {
+class ChartRegion extends Component<ChartRegionPropsType, {}> {
   grouping: { [key: string]: string[] };
   placeName: { [key: string]: string };
   chartContainer: React.RefObject<HTMLDivElement>;
+  allStatsData: { domId: string; data: StatsData }[];
 
   constructor(props: ChartRegionPropsType) {
     super(props);
-    this.state = {
-      width: this.props.width,
-      height: this.props.height,
-    };
     this.grouping = {};
     this.placeName = {};
     this.chartContainer = React.createRef();
+    this.handleWindowResize = this.handleWindowResize.bind(this);
   }
 
   render() {
@@ -112,6 +101,7 @@ class ChartRegion extends Component<
                 return (
                   <StatVarChip
                     statVar={statVar}
+                    title={this.props.statVars[statVar].title}
                     color={plotParams.colors[statVar]}
                     key={randDomId()}
                     deleteStatVarChip={this.deleteStatVarChip}
@@ -127,10 +117,22 @@ class ChartRegion extends Component<
 
   componentDidMount() {
     this.updateChart();
+    window.addEventListener("resize", this.handleWindowResize);
+  }
+
+  componentWillUnmount() {
+    window.removeEventListener("resize", this.handleWindowResize);
   }
 
   componentDidUpdate() {
     this.updateChart();
+  }
+
+  private handleWindowResize() {
+    if (!this.chartContainer.current) {
+      return;
+    }
+    this.drawChart();
   }
 
   private buildGrouping() {
@@ -150,51 +152,63 @@ class ChartRegion extends Component<
   }
 
   private updateChart() {
-    const promises: Promise<{ domId: string; data: StatsData }>[] = [];
-    for (const domId in this.grouping) {
-      promises.push(
-        fetchStatsData(
-          this.props.places.map((x) => x[0]),
-          this.grouping[domId],
-          this.props.perCapita,
-          1
-        ).then((data) => {
-          return { domId, data };
-        })
+    if (this.props.places.length !== 0) {
+      const promises: Promise<{ domId: string; data: StatsData }>[] = [];
+      for (const domId in this.grouping) {
+        promises.push(
+          fetchStatsData(
+            this.props.places.map((x) => x[0]),
+            this.grouping[domId],
+            this.props.perCapita,
+            1
+          ).then((data) => {
+            return { domId, data };
+          })
+        );
+      }
+      for (const place of this.props.places) {
+        this.placeName[place[0]] = place[1];
+      }
+      Promise.all(promises).then((values) => {
+        this.allStatsData = values;
+        this.drawChart();
+      });
+    }
+  }
+
+  private drawChart() {
+    if (this.props.places.length === 0 || !this.allStatsData) {
+      return;
+    }
+    for (const statsData of this.allStatsData) {
+      const domId = statsData.domId;
+      const dataGroupsDict = {};
+      for (const placeDcid of statsData.data.places) {
+        dataGroupsDict[
+          this.placeName[placeDcid]
+        ] = statsData.data.getStatsVarGroupWithTime(placeDcid);
+      }
+      const plotParams = computePlotParams(
+        this.props.places.map((x) => x[1]),
+        this.grouping[domId]
+      );
+      const svTitle = {};
+      for (const sv of Object.keys(plotParams.colors)) {
+        svTitle[sv] = this.props.statVars[sv].title;
+      }
+      plotParams.title = svTitle;
+      drawGroupLineChart(
+        statsData.domId,
+        this.chartContainer.current.offsetWidth,
+        CHART_HEIGHT,
+        dataGroupsDict,
+        plotParams
       );
     }
-    for (const place of this.props.places) {
-      this.placeName[place[0]] = place[1];
-    }
-    Promise.all(promises).then(
-      function (allStatsData) {
-        for (const statsData of allStatsData) {
-          const domId = statsData.domId;
-          const dataGroupsDict = {};
-          for (const placeDcid of statsData.data.places) {
-            dataGroupsDict[
-              this.placeName[placeDcid]
-            ] = statsData.data.getStatsVarGroupWithTime(placeDcid);
-          }
-          const plotParams = computePlotParams(
-            this.props.places.map((x) => x[1]),
-            this.grouping[domId]
-          );
-          drawGroupLineChart(
-            statsData.domId,
-            this.state.width,
-            this.state.height,
-            dataGroupsDict,
-            plotParams
-          );
-        }
-      }.bind(this)
-    );
   }
 
   private deleteStatVarChip(statVar: string) {
     deleteStatsVar(statVar);
-    return;
   }
 }
 

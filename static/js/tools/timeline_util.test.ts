@@ -4,7 +4,9 @@ import {
   updateUrlPlace,
   parsePlace,
   getPlaceNames,
+  deleteStatsVar,
 } from "./timeline_util.js";
+import { SEP } from "./statsvar_menu";
 
 test("update Url statsvar", () => {
   window.location.hash = "";
@@ -22,7 +24,7 @@ test("update Url statsvar", () => {
 });
 
 test("parse statvar from Url", () => {
-  window.location.hash = "#&statsvar=dc/test,Demo,prop";
+  window.location.hash = "#&statsvar=dc/test" + SEP + "Demo" + SEP + "prop";
   expect(parseStatVarPath()).toStrictEqual([[["Demo", "prop"]], ["dc/test"]]);
 });
 
@@ -30,12 +32,16 @@ test("update places from Url", () => {
   window.location.hash = "#&place=geo/01";
   updateUrlPlace("geo/02", true);
   expect(window.location.hash).toBe(
-    "#&place=geo/01,geo/02&statsvar=Count_Person"
+    "#&place=geo/01,geo/02&statsvar=Count_Person" + SEP + "Population"
   );
   updateUrlPlace("geo/02", false);
-  expect(window.location.hash).toBe("#&place=geo/01&statsvar=Count_Person");
+  expect(window.location.hash).toBe(
+    "#&place=geo/01&statsvar=Count_Person" + SEP + "Population"
+  );
   updateUrlPlace("geo/01", false);
-  expect(window.location.hash).toBe("#&statsvar=Count_Person");
+  expect(window.location.hash).toBe(
+    "#&statsvar=Count_Person" + SEP + "Population"
+  );
 });
 
 test("parse places from Url", () => {
@@ -52,4 +58,20 @@ test("get place names", () => {
       "country/USA": "United States",
     });
   });
+});
+
+test("delete stat var", () => {
+  window.location.hash = [
+    "#&statsvar=dc/test",
+    "Demographics",
+    "Population" + "__dc/test2",
+    "Crime",
+    "CrimeType",
+  ].join(SEP);
+  deleteStatsVar("dc/test2");
+  expect(window.location.hash).toBe(
+    "#&statsvar=dc/test" + SEP + "Demographics" + SEP + "Population"
+  );
+  deleteStatsVar("dc/test");
+  expect(window.location.hash).toBe("");
 });

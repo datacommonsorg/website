@@ -14,6 +14,7 @@
 """main function for building the PV-tree and generate the json file"""
 
 import json
+import logging
 import util
 import constants
 from build_tree import build_tree
@@ -25,9 +26,10 @@ def main():
     f_json = open("./hierarchy.json", "w")
     data = {}
     for vertical in constants.VERTICALS:
+        logging.info(vertical)
         root = build_tree(vertical, pop_obs_spec[vertical], stat_vars)
         data[vertical] = root
-    json.dump(data, f_json)
+    json.dump(data, f_json, indent=1)
     return
 
 

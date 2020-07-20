@@ -25,11 +25,12 @@ const NUM_Y_TICKS = 5;
 const MARGIN = { top: 20, right: 10, bottom: 30, left: 35, yAxis: 3 };
 // The middleAdjustment here is to avoid line being like underscore, and move the line into middle place.
 const LEGEND = {
-  ratio: 0.2,
-  minWidth: 150,
+  ratio: 0.15,
+  minWidth: 120,
   height: 20,
   middleAdjustment: 5,
-  leftMarginForChart: 50,
+  marginLeft: 0,
+  marginTop: 40,
 };
 
 /**
@@ -37,6 +38,9 @@ const LEGEND = {
  */
 function getDashes(n: number): string[] {
   let dashes: string[];
+  if (n === 0) {
+    return [];
+  }
   dashes = [""];
   if (dashes.length === n) return dashes;
   for (let sum = 10; ; sum += 6) {
@@ -180,13 +184,16 @@ function addYAxis(
     )
     .call((g) => g.select(".domain").remove())
     .call((g) =>
+      g.selectAll(".tick line").attr("x2", -width + MARGIN.left + MARGIN.yAxis)
+    )
+    .call((g) =>
       g.selectAll(".tick:not(:first-of-type) line").attr("class", "grid-line")
     )
     .call((g) =>
       g
         .selectAll(".tick text")
         .attr("x", -width + MARGIN.left + MARGIN.yAxis)
-        .attr("dy", -4)
+        .attr("dy", 4)
     );
 }
 
@@ -473,6 +480,7 @@ interface PlotParams {
   colors: { [key: string]: string };
   // Label to dash style.
   dashes: { [key: string]: string };
+  title: { [key: string]: string };
 }
 
 /**
@@ -484,6 +492,7 @@ function computePlotParams(
 ): PlotParams {
   const colors = {};
   const dashes = {};
+  const title = {};
   const colorFn = getColorFn(statsNames);
   const dashFn = getDashes(placeNames.length);
   for (const statsName of statsNames) {
@@ -495,6 +504,7 @@ function computePlotParams(
   return {
     colors,
     dashes,
+    title,
   };
 }
 
@@ -556,6 +566,8 @@ function drawGroupLineChart(
   const minV = yRange.minV;
   const maxV = yRange.maxV;
 
+  d3.selectAll(`#${id} > *`).remove();
+
   const svg = d3
     .select("#" + id)
     .append("svg")
@@ -574,7 +586,7 @@ function drawGroupLineChart(
     .nice(NUM_Y_TICKS);
 
   addXAxis(svg, height, xScale);
-  addYAxis(svg, width, yScale, unit);
+  addYAxis(svg, width - MARGIN.right - legendWidth, yScale, unit);
 
   for (const place in dataGroupsDict) {
     dataGroups = dataGroupsDict[place];
@@ -606,7 +618,9 @@ function drawGroupLineChart(
     .attr("id", legendId)
     .attr(
       "transform",
-      `translate(${width - legendWidth}, ${LEGEND.leftMarginForChart})`
+      `translate(${width - legendWidth - LEGEND.marginLeft}, ${
+        LEGEND.marginTop
+      })`
     );
 
   buildInChartLegend(legendId, plotParams);
@@ -630,7 +644,7 @@ function buildInChartLegend(id: string, plotParams: PlotParams) {
         .append("text")
         .attr("x", "40")
         .attr("y", `${LEGEND.height * i}`)
-        .text(statsVars[i])
+        .text(plotParams.title[statsVars[i]])
         .style("font-size", "14")
         .attr("fill", `${plotParams.colors[statsVars[i]]}`);
     }
