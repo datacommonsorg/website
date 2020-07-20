@@ -510,19 +510,10 @@ def mcf_playground():
 # Migrate content for remaining routes
 #
 
-@app.route('/documentation')
-def documentation():
-  return flask.render_template('factcheck/documentation.html')
-
 
 @app.route('/getinvolved')
 def get_involved():
   return flask.render_template('factcheck/getInvolved.html')
-
-
-@app.route('/colab')
-def colab():
-  return flask.render_template('factcheck/colab.html')
 
 
 if __name__ == '__main__':
