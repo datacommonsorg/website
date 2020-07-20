@@ -14,25 +14,24 @@
 """main function for building the PV-tree and generate the json file"""
 
 import json
+import logging
 import util
 import constants
 from build_tree import build_tree
 
+
 def main():
     pop_obs_spec = util._read_pop_obs_spec()
     stat_vars = util._read_stat_var()
-    place_mapping = util._read_placeType_mapping()
-    f_json = open("./hierarchy.json","w")
-    data = [{},{}]
+    f_json = open("./hierarchy.json", "w")
+    data = {}
     for vertical in constants.VERTICALS:
-      root = build_tree(vertical, pop_obs_spec[vertical], stat_vars, 
-        place_mapping, False)
-      data[0][vertical] = root
-      root_search = build_tree(vertical, pop_obs_spec[vertical], stat_vars, 
-        place_mapping, True)
-      data[1][vertical] = root_search
-    json.dump(data, f_json)
+        logging.info(vertical)
+        root = build_tree(vertical, pop_obs_spec[vertical], stat_vars)
+        data[vertical] = root
+    json.dump(data, f_json, indent=1)
     return
-    
+
+
 if __name__ == "__main__":
     main()

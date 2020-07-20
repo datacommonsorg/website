@@ -25,37 +25,30 @@ const NUM_Y_TICKS = 5;
 const MARGIN = { top: 20, right: 10, bottom: 30, left: 35, yAxis: 3 };
 // The middleAdjustment here is to avoid line being like underscore, and move the line into middle place.
 const LEGEND = {
-  ratio: 0.2,
-  minWidth: 150,
+  ratio: 0.15,
+  minWidth: 120,
   height: 20,
   middleAdjustment: 5,
-  leftMarginForChart: 50,
+  marginLeft: 0,
+  marginTop: 40,
 };
 
 /**
- * Return an array of dashes given a string array.
- *
- * @param labels
+ * Return an array of dashes.
  */
-function getDashes(labels: string[]) {
+function getDashes(n: number): string[] {
   let dashes: string[];
-  dashes = [];
-  // Solid line will always be the first one.
-  dashes.push("");
-  if (labels.length === 1) {
-    return dashes;
+  if (n === 0) {
+    return [];
   }
-  getDashesHelper(dashes, labels.length);
-  return dashes;
-}
-
-function getDashesHelper(dashes: string[], length: number) {
+  dashes = [""];
+  if (dashes.length === n) return dashes;
   for (let sum = 10; ; sum += 6) {
     let left = sum / 2;
     let right = sum / 2;
     while (left >= 3) {
       dashes.push("" + left + ", " + right);
-      if (dashes.length === length) return dashes;
+      if (dashes.length === n) return dashes;
       left -= 2;
       right += 2;
     }
@@ -191,13 +184,16 @@ function addYAxis(
     )
     .call((g) => g.select(".domain").remove())
     .call((g) =>
+      g.selectAll(".tick line").attr("x2", -width + MARGIN.left + MARGIN.yAxis)
+    )
+    .call((g) =>
       g.selectAll(".tick:not(:first-of-type) line").attr("class", "grid-line")
     )
     .call((g) =>
       g
         .selectAll(".tick text")
         .attr("x", -width + MARGIN.left + MARGIN.yAxis)
-        .attr("dy", -4)
+        .attr("dy", 4)
     );
 }
 
@@ -479,66 +475,43 @@ function drawLineChart(
   }
 }
 
-/**
- * {
- *     colors: string[], an array of colors for statVars
- *     dashes: string[], an array of dash styles for geoIds(if applied)
- *     statVars: string[], an array of statVars
- *     geoIds: string[], an array of geoIds
- * }
- */
 interface PlotParams {
-  colors: string[];
-  dashes: string[];
-  statVars: string[];
-  geoIds: string[];
+  // Label to color.
+  colors: { [key: string]: string };
+  // Label to dash style.
+  dashes: { [key: string]: string };
+  title: { [key: string]: string };
 }
 
 /**
- * Return a PlotParams object defined above.
- *
- * @param dataGroupsDict
+ * Return color and dash style given place names and stats names.
  */
-function computePlotParams(dataGroupsDict: { [geoId: string]: DataGroup[] }) {
-  let plotParams: PlotParams;
-  plotParams = {
-    colors: [],
-    dashes: [],
-    statVars: [],
-    geoIds: [],
+function computePlotParams(
+  placeNames: string[],
+  statsNames: string[]
+): PlotParams {
+  const colors = {};
+  const dashes = {};
+  const title = {};
+  const colorFn = getColorFn(statsNames);
+  const dashFn = getDashes(placeNames.length);
+  for (const statsName of statsNames) {
+    colors[statsName] = colorFn(statsName);
+  }
+  for (let i = 0; i < placeNames.length; i++) {
+    dashes[placeNames[i]] = dashFn[i];
+  }
+  return {
+    colors,
+    dashes,
+    title,
   };
-
-  let dataGroups: DataGroup[];
-  dataGroups = Object.values(dataGroupsDict)[0];
-  const legendText = dataGroups.map((dataGroup) =>
-    dataGroup.label ? dataGroup.label : ""
-  );
-  const colorFn = getColorFn(legendText);
-
-  for (const dataGroup of dataGroups) {
-    plotParams.colors.push(colorFn(dataGroup.label));
-    plotParams.statVars.push(dataGroup.label);
-  }
-
-  for (const geoId in dataGroupsDict) {
-    if (dataGroupsDict.hasOwnProperty(geoId)) {
-      plotParams.geoIds.push(geoId);
-    }
-  }
-
-  plotParams.dashes = getDashes(plotParams.geoIds);
-
-  return plotParams;
 }
 
-/**
- *  {
- *      minV: number, min value in y label.
- *      maxV: number, max value in y label.
- *  }
- */
 interface Range {
+  // min value of the range.
   minV: number;
+  // max value of the range.
   maxV: number;
 }
 
@@ -557,13 +530,11 @@ function computeRanges(dataGroupsDict: { [geoId: string]: DataGroup[] }) {
   let dataGroups: DataGroup[];
   let maxV = 0;
   for (const geoId in dataGroupsDict) {
-    if (dataGroupsDict.hasOwnProperty(geoId)) {
-      dataGroups = dataGroupsDict[geoId];
-      maxV = Math.max(
-        maxV,
-        Math.max(...dataGroups.map((dataGroup) => dataGroup.max()))
-      );
-    }
+    dataGroups = dataGroupsDict[geoId];
+    maxV = Math.max(
+      maxV,
+      Math.max(...dataGroups.map((dataGroup) => dataGroup.max()))
+    );
   }
   range.maxV = maxV;
   return range;
@@ -575,7 +546,7 @@ function computeRanges(dataGroupsDict: { [geoId: string]: DataGroup[] }) {
  * @param id: DOM id.
  * @param width: width for the chart.
  * @param height: height for the chart.
- * @param dataGroupsDict: {[geoId: string]: DataGroup[]}.
+ * @param dataGroupsDict: {[place: string]: DataGroup[]}.
  * @param plotParams: contains all plot params for chart.
  * @param unit
  */
@@ -583,18 +554,19 @@ function drawGroupLineChart(
   id: string,
   width: number,
   height: number,
-  dataGroupsDict: { [geoId: string]: DataGroup[] },
+  dataGroupsDict: { [place: string]: DataGroup[] },
   plotParams: PlotParams,
   unit?: string
 ) {
-  let dataGroups: DataGroup[];
-  dataGroups = Object.values(dataGroupsDict)[0];
+  let dataGroups = Object.values(dataGroupsDict)[0];
 
   // Adjust the width of in-chart legends.
   const legendWidth = Math.max(width * LEGEND.ratio, LEGEND.minWidth);
   const yRange = computeRanges(dataGroupsDict);
   const minV = yRange.minV;
   const maxV = yRange.maxV;
+
+  d3.selectAll(`#${id} > *`).remove();
 
   const svg = d3
     .select("#" + id)
@@ -614,34 +586,29 @@ function drawGroupLineChart(
     .nice(NUM_Y_TICKS);
 
   addXAxis(svg, height, xScale);
-  addYAxis(svg, width, yScale, unit);
+  addYAxis(svg, width - MARGIN.right - legendWidth, yScale, unit);
 
-  let dashIndex = 0;
-  for (const geoId in dataGroupsDict) {
-    if (dataGroupsDict.hasOwnProperty(geoId)) {
-      dataGroups = dataGroupsDict[geoId];
-      for (let i = 0; i < dataGroups.length; i++) {
-        const dataGroup = dataGroups[i];
-        const dataset = dataGroup.value.map((dp) => [
-          new Date(dp.label).getTime(),
-          dp.value,
-        ]);
+  for (const place in dataGroupsDict) {
+    dataGroups = dataGroupsDict[place];
+    for (const dataGroup of dataGroups) {
+      const dataset = dataGroup.value.map((dp) => [
+        new Date(dp.label).getTime(),
+        dp.value,
+      ]);
 
-        const line = d3
-          .line()
-          .x((d) => xScale(d[0]))
-          .y((d) => yScale(d[1]));
+      const line = d3
+        .line()
+        .x((d) => xScale(d[0]))
+        .y((d) => yScale(d[1]));
 
-        svg
-          .append("path")
-          .datum(dataset)
-          .attr("class", "line")
-          .style("stroke", plotParams.colors[i])
-          .attr("d", line)
-          .attr("stroke-width", "2")
-          .attr("stroke-dasharray", plotParams.dashes[dashIndex]);
-      }
-      dashIndex++;
+      svg
+        .append("path")
+        .datum(dataset)
+        .attr("class", "line")
+        .style("stroke", plotParams.colors[dataGroup.label])
+        .attr("d", line)
+        .attr("stroke-width", "2")
+        .attr("stroke-dasharray", plotParams.dashes[place]);
     }
   }
 
@@ -651,7 +618,9 @@ function drawGroupLineChart(
     .attr("id", legendId)
     .attr(
       "transform",
-      `translate(${width - legendWidth}, ${LEGEND.leftMarginForChart})`
+      `translate(${width - legendWidth - LEGEND.marginLeft}, ${
+        LEGEND.marginTop
+      })`
     );
 
   buildInChartLegend(legendId, plotParams);
@@ -663,62 +632,46 @@ function drawGroupLineChart(
  * @param id: This is the id for the chart legend element.
  * @param plotParams: It contains all colors and dashes for geoIds and statVars.
  */
-function buildInChartLegend(
-  id: string,
-  plotParams: {
-    colors: string[];
-    dashes: string[];
-    statVars: string[];
-    geoIds: string[];
-  }
-) {
+function buildInChartLegend(id: string, plotParams: PlotParams) {
   const legend = d3.select("#" + id);
-
-  if (plotParams.dashes.length === 1) {
+  if (Object.keys(plotParams.dashes).length === 1) {
     // Only have one geoId. Then different statsVars should have different colors.
-    let index = 0;
-    for (const color of plotParams.colors) {
-      const legendClass = legend
+    const statsVars = Object.keys(plotParams.colors);
+    for (let i = 0; i < statsVars.length; i++) {
+      legend
         .append("g")
-        .attr("transform", `translate(0, ${LEGEND.height * index})`);
-
-      legendClass
+        .attr("transform", `translate(0, ${LEGEND.height * i})`)
         .append("text")
         .attr("x", "40")
-        .attr("y", `${LEGEND.height * index}`)
-        .text(plotParams.statVars[index])
+        .attr("y", `${LEGEND.height * i}`)
+        .text(plotParams.title[statsVars[i]])
         .style("font-size", "14")
-        .attr("fill", `${color}`);
-
-      index++;
+        .attr("fill", `${plotParams.colors[statsVars[i]]}`);
     }
   } else {
     // Have multiple goeIds. Then different geoIds should have different dashes.
-    let index = 0;
-    for (const geo of plotParams.geoIds) {
-      const legendClass = legend
+    const placeNames = Object.keys(plotParams.dashes);
+    for (let i = 0; i < placeNames.length; i++) {
+      const placeName = placeNames[i];
+      legend
         .append("g")
-        .attr("transform", `translate(0, ${LEGEND.height * index})`);
-
-      legendClass
+        .attr("transform", `translate(0, ${LEGEND.height * i})`);
+      legend
         .append("line")
         .attr("stroke-width", 2)
         .attr("x1", "0")
-        .attr("y1", `${LEGEND.height * index - LEGEND.middleAdjustment}`)
+        .attr("y1", `${LEGEND.height * i - LEGEND.middleAdjustment}`)
         .attr("x2", "30")
-        .attr("y2", `${LEGEND.height * index - LEGEND.middleAdjustment}`)
+        .attr("y2", `${LEGEND.height * i - LEGEND.middleAdjustment}`)
         // Default color to be black here.
         .attr("stroke", "#000000")
-        .attr("stroke-dasharray", `${plotParams.dashes[index]}`);
-
-      legendClass
+        .attr("stroke-dasharray", `${plotParams.dashes[placeName]}`);
+      legend
         .append("text")
         .attr("x", "40")
-        .attr("y", `${LEGEND.height * index}`)
-        .text(geo)
+        .attr("y", `${LEGEND.height * i}`)
+        .text(placeName)
         .style("font-size", "14");
-
-      index++;
     }
   }
 }

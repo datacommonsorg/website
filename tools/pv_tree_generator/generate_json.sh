@@ -15,6 +15,5 @@
 pip install -r requirements.txt
 
 protoc -I=./ --python_out=./ ./stat_config.proto
-protoc -I=./ --python_out=./ ./id_map.proto
 
 python3 main.py

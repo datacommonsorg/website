@@ -16,6 +16,7 @@
 
 @import 'tools/base_tools';
 @import 'tools/statvar_menu';
+@import 'draw';
 
 #main-pane-download {
   margin: 64px auto;
@@ -97,7 +98,6 @@
 #location-field #ac {
   display: flex;
   flex-grow: 1;
-  min-width: 265px;
   height: 56px;
   margin-left: 16px;
   border: none;

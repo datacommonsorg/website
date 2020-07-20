@@ -5,7 +5,8 @@
   ],
   "jsRules": {},
   "rules": {
-      "max-classes-per-file": [false, 10]
+      "max-classes-per-file": [false, 10],
+      "forin": false
   },
   "rulesDirectory": []
 }

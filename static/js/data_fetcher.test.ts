@@ -121,11 +121,11 @@ test("fetch stats data", () => {
     ]);
 
     expect(data.getStatsVarGroupWithTime("geoId/06")).toEqual([
-      new DataGroup("Total", [
+      new DataGroup("Count_Person", [
         { label: "2011", value: 31000 },
         { label: "2012", value: 32000 },
       ]),
-      new DataGroup("Male", [
+      new DataGroup("Count_Person_Male", [
         { label: "2011", value: 15000 },
         { label: "2012", value: 16000 },
       ]),

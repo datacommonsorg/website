@@ -18,7 +18,8 @@ import json
 from collections import defaultdict
 
 import build_tree
-from util import _read_pop_obs_spec, _read_stat_var, _read_placeType_mapping
+from util import _read_pop_obs_spec, _read_stat_var
+
 
 class BuildTreeTest(unittest.TestCase):
     """testing build_tree"""
@@ -28,10 +29,10 @@ class BuildTreeTest(unittest.TestCase):
         """pick a subset of stat_var dcids"""
         level0 = ['MarriedPopulation', 'DivorcedPopulation', 'MalePopulation']
         level1 = ['dc/0k7719speyv21', 'dc/2pvw6jqmkp41b', 'dc/06f6zh0wslnx',
-               'dc/2rjldly6tsmf', 'dc/026gmdj2xk1kb', 'dc/f7g49v7tzy3rd']
+                  'dc/2rjldly6tsmf', 'dc/026gmdj2xk1kb', 'dc/f7g49v7tzy3rd']
         level2 = ['dc/61fzldryrnte1', 'dc/6yb4mgxtc1288', 'dc/esr27kls5vfy6',
-                'dc/jhpflf91nvlt6', 'dc/cmn38d85glq72', 'dc/pj50xtdgxeh4g',
-                'dc/pvsbze841l2tc', 'dc/tpeg0jxdts2t3']
+                  'dc/jhpflf91nvlt6', 'dc/cmn38d85glq72', 'dc/pj50xtdgxeh4g',
+                  'dc/pvsbze841l2tc', 'dc/tpeg0jxdts2t3']
         sv_dcid = level0 + level1 + level2
         return sv_dcid
 
@@ -40,9 +41,9 @@ class BuildTreeTest(unittest.TestCase):
         """read the triples with predicates in the specified list"""
         triples = json.load(open("test_triples.json", "r"))
         results = defaultdict(list)
-        #skip if the predicate is not in the list
+        # skip if the predicate is not in the list
         predicates = ["measuredProperty", "populationType", "statType",
-            "income", "gender", "age", "incomeStatus", "citizenship"]
+                      "income", "gender", "age", "incomeStatus", "citizenship"]
         for dcid in dcids:
             if dcid not in triples:
                 raise Exception("triples not found for dcid: {}".format(dcid))
@@ -65,95 +66,46 @@ class BuildTreeTest(unittest.TestCase):
         mock_get_triples.side_effect = self.get_triples_
         pop_obs_spec = _read_pop_obs_spec()
         stat_vars = _read_stat_var()
-        place_mapping = _read_placeType_mapping()
-        data = [{},{}]
+        data = {}
         vertical = "Demographics"
         root = build_tree.build_tree(vertical, pop_obs_spec[vertical],
-            stat_vars, place_mapping, False)
-        data[0][vertical] = root
-        root_search = build_tree.build_tree(vertical, pop_obs_spec[vertical],
-            stat_vars, place_mapping, True)
-        data[1][vertical] = root
+                                     stat_vars)
+        data[vertical] = root
+        print(data)
         expected = json.load(open("./hierarchy_golden.json", "r"))
         self.assertEqual(data, expected)
         return
-        
+
     @staticmethod
-    def get_sv_search():
-        dcids = ["notInWhiteListCitizenship", "inWhiteListMale", 
+    def get_sv_subset():
+        dcids = ["notInWhiteListCitizenship", "inWhiteListMale",
                  "inWhiteListIncome", "inWhiteListUnknownVal"]
         return dcids
 
-    @staticmethod
-    def place_mapping():
-        place_map = {"notInWhiteListCitizenship": ['City'], 
-                      "inWhiteListMale": ['Country'],
-                      "inWhiteListIncome": ['County'],
-                      "inWhiteListUnknownVal": ['State']}
-        return place_map
-    
-    def get_search_vals():
-        vals = set(['Female', 'Male', 'NotAUSCitizen', 'USDollar35000To49999'])
-        return vals
-
-    @patch('build_tree.SEARCH_VALS', get_search_vals())
     @patch('dc_request.get_triples')
     @patch('dc_request.get_sv_dcids')
-    def test_search_white_list(self, mock_get_sv, mock_get_triples):
-        mock_get_sv.side_effect = self.get_sv_search
+    def test_count(self, mock_get_sv, mock_get_triples):
+        mock_get_sv.side_effect = self.get_sv_subset
         mock_get_triples.side_effect = self.get_triples_
         pop_obs_spec = _read_pop_obs_spec()
         stat_vars = _read_stat_var()
-        place_mapping = self.place_mapping()
-        print(place_mapping)
-        data = [{},{}]
+        data = {}
         vertical = "Demographics"
         root = build_tree.build_tree(vertical, pop_obs_spec[vertical],
-            stat_vars, place_mapping, False)
-        data[0][vertical] = root
-        root_search = build_tree.build_tree(vertical, pop_obs_spec[vertical],
-            stat_vars, place_mapping, True)
-        data[1][vertical] = root
-        
+                                     stat_vars)
+        data[vertical] = root
         # assert counts
-        self.assertEqual(data[0]['Demographics']['count'], 4) 
-        self.assertEqual(data[1]['Demographics']['count'], 4)
-        self.assertEqual(data[1]['Demographics']['search_count'], 2)
-        for child in data[1]['Demographics']['children']:
-            if child['title'] == 'Citizenship':
-                self.assertEqual(child['count'],1)
-                self.assertEqual(child['search_count'], 0)
-            if child['title'] == 'Gender':
-                self.assertEqual(child['count'], 2)
-                self.assertEqual(child['search_count'], 1)
-            if child['title'] == 'Income':
-                self.assertEqual(child['count'], 1)
-                self.assertEqual(child['search_count'], 1)
-
-        # assert placeTypes
-        self.assertEqual(set(data[0]['Demographics']['placeTypes']), 
-            set(['Country', 'State', 'County', 'City']))
-        for child in data[0]['Demographics']['children']:
-            if child['title'] == 'Citizenship':
-                self.assertEqual(child['placeTypes'], ['City'])
-                for child_2 in child['children']:
-                    self.assertEqual(child_2['placeTypes'], ['City'])
-            elif child['title'] == 'Gender':
-                self.assertEqual(set(child['placeTypes']), 
-                    set(['Country', 'State']))
-                for child_2 in child['children']:
-                    if child_2['title'] == 'Male':
-                        self.assertEqual(child_2['placeTypes'],['Country'])
-                    if child_2['title'] == 'Unknown':
-                        self.assertEqual(child_2['placeTypes'],['State'])
-            elif child['title'] == 'Income':
-                self.assertEqual(child['placeTypes'], ['County'])
-                for child_2 in child['children']:
-                    self.assertEqual(child_2['placeTypes'], ['County'])
-            else:
-                self.assertEqual(child['placeTypes'], [])
+        self.assertEqual(data['Demographics']['c'], 4)
+        self.assertEqual(data['Demographics']['c'], 4)
+        for child in data['Demographics']['cd']:
+            if child['l'] == 'Citizenship':
+                self.assertEqual(child['c'], 1)
+            if child['l'] == 'Gender':
+                self.assertEqual(child['c'], 2)
+            if child['l'] == 'Income':
+                self.assertEqual(child['c'], 1)
         return
 
-    
+
 if __name__ == "__main__":
     unittest.main()

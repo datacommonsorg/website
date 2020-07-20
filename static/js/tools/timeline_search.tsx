@@ -53,21 +53,45 @@ class Chip extends Component<ChipPropType, ChipStateType> {
 }
 
 interface SearchBarStateType {
-  placeList: {};
+  places: [string, string][];
 }
 
 interface SearchBarPropType {
-  placeList: {};
+  places: [string, string][];
 }
 
 class SearchBar extends Component<SearchBarPropType, SearchBarStateType> {
+  inputElem: React.RefObject<HTMLInputElement>;
+
   constructor(props) {
     super(props);
     this.getPlaceAndRender = this.getPlaceAndRender.bind(this);
     this.state = {
-      placeList: this.props.placeList,
+      places: this.props.places,
     };
+    this.inputElem = React.createRef();
   }
+
+  render() {
+    return (
+      <div id="location-field">
+        <div id="search-icon"></div>
+        <span id="prompt">Find : </span>
+        <span id="place-list">
+          {this.props.places.map((placeData) => (
+            <Chip
+              placeId={placeData[0]}
+              placeName={placeData[1]}
+              key={placeData[0]}
+            ></Chip>
+          ))}
+        </span>
+        <input ref={this.inputElem} id="ac" type="text" />
+        <span id="place-name"></span>
+      </div>
+    );
+  }
+
   componentDidMount() {
     // Create the autocomplete object, restricting the search predictions to
     // geographical location types.
@@ -75,20 +99,20 @@ class SearchBar extends Component<SearchBarPropType, SearchBarStateType> {
       types: ["(regions)"],
       fields: ["place_id", "name", "types"],
     };
-    const acElem = document.getElementById("ac") as HTMLInputElement;
-    ac = new google.maps.places.Autocomplete(acElem, options);
+    ac = new google.maps.places.Autocomplete(this.inputElem.current, options);
     ac.addListener("place_changed", this.getPlaceAndRender);
   }
 
   componentDidUpdate(prevProps) {
-    if (this.props.placeList !== prevProps.placeList) {
+    this.setPlaceholder();
+    if (this.props.places !== prevProps.places) {
       this.setState({
-        placeList: this.props.placeList,
+        places: this.props.places,
       });
     }
   }
 
-  getPlaceAndRender() {
+  private getPlaceAndRender() {
     // Get the place details from the autocomplete object.
     const place = ac.getPlace();
     axios
@@ -99,31 +123,17 @@ class SearchBar extends Component<SearchBarPropType, SearchBarStateType> {
       .catch(() => {
         alert("Sorry, but we don't have any data about " + name);
       });
-    const acElem = document.getElementById("ac") as HTMLInputElement;
-    acElem.value = "";
-    acElem.setAttribute("placeholder", "Search for another place");
+    this.setPlaceholder();
   }
 
-  render() {
-    return (
-      <div id="location-field">
-        <div id="search-icon"></div>
-        <span id="place-list">
-          {Object.keys(this.props.placeList).map((placeId, index) => (
-            <Chip
-              placeId={placeId}
-              placeName={this.props.placeList[placeId]}
-              key={index}
-            ></Chip>
-          ))}
-          <input
-            id="ac"
-            placeholder="Enter a country, state, county or city to get started"
-            type="text"
-          />
-        </span>
-      </div>
-    );
+  private setPlaceholder() {
+    this.inputElem.current.value = "";
+    if (this.state.places.length > 0) {
+      this.inputElem.current.placeholder = "Add another place";
+    } else {
+      this.inputElem.current.placeholder =
+        "Enter a country, state, county or city to get started";
+    }
   }
 }
 export { SearchBar };
