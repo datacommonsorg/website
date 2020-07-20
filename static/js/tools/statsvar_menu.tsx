@@ -1,6 +1,8 @@
 import React, { Component } from "react";
-import hierarchy from "../../../tools/pv_tree_generator/hierarchy.json";
+import axios from "axios";
+import hierarchy from "../../../tools/pv_tree_generator/hierarchy_top.json";
 
+const jsonPath = "data/hierarchy_statsvar.json";
 export const SEP="'";
 
 interface NodePropType {
@@ -154,13 +156,21 @@ interface MenuPropType {
   updateUrl: (statvar: string, shouldAdd: boolean) => void;
   svPaths: string[][];
 }
-
-class Menu extends Component<MenuPropType, {}> {
+interface MenuStateType{
+  menuJson:[{}]
+}
+class Menu extends Component<MenuPropType, MenuStateType> {
+  constructor(props){
+    super(props)
+    this.state={
+      menuJson:[hierarchy]
+    }
+  }
   render() {
     return (
       <div id="drill">
         <div className="noedge">
-        {[hierarchy].map((vertical, index1) => {
+        {this.state.menuJson.map((vertical, index1) => {
           return Object.keys(vertical).map((key, index) => {
             const item = vertical[key];
             return ((item.cd.length !== 0)&&
@@ -181,6 +191,13 @@ class Menu extends Component<MenuPropType, {}> {
         </div>
       </div>
     );
+  }
+  componentDidMount(){
+    axios.get(jsonPath).then((resp) => {
+      this.setState({
+        menuJson: [resp.data],
+      });
+    });
   }
 }
 

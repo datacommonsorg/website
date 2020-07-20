@@ -169,3 +169,15 @@ def traverseTree(root):
         for node in root['cd']:
             traverseTree(node)
     return root
+
+def getTopLevel(root, max_level):
+    return removeChildren(root, 0, max_level)
+
+def removeChildren(root, cur_level, max_level):
+    if 'cd' in root:
+        if cur_level >= max_level:
+            del root['cd']
+        else:
+            for node in root['cd']:
+                removeChildren(node, cur_level+1, max_level)
+    return root

@@ -17,19 +17,24 @@ import json
 import logging
 import util
 import constants
-from build_tree import build_tree
-
+from build_tree import build_tree, getTopLevel
+import copy
 
 def main():
     pop_obs_spec = util._read_pop_obs_spec()
     stat_vars = util._read_stat_var()
     f_json = open("./hierarchy.json", "w")
+    f_json_top = open("./hierarchy_top.json", "w")
     data = {}
+    data_top = {}
     for vertical in constants.VERTICALS:
         logging.info(vertical)
         root = build_tree(vertical, pop_obs_spec[vertical], stat_vars)
         data[vertical] = root
+        root_top = getTopLevel(copy.deepcopy(root), 1)
+        data_top[vertical] = root_top
     json.dump(data, f_json, indent=1)
+    json.dump(data_top,f_json_top, indent=1)
     return
 
 
