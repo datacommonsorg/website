@@ -55,7 +55,7 @@ def format_title(title):
 
   for word in PREFIX:
     title = title.replace(word, '')
-  
+
   if title == "HispanicOrLatinoRace":
     title = title.replace('Race','')
 
@@ -91,7 +91,7 @@ def format_range(range_enum, prefix):
 
 def rangeLow(o):
   """Function to sort for range enums."""
-  enum = o['enum']
+  enum = o['e']
   for key in RANGE_TEXT:
     enum = enum.replace(key, '')
   if len(enum.split('To')) == 2:
@@ -117,16 +117,16 @@ def sort_func(prop):
   ]:
     return rangeLow
   elif prop == 'educationalAttainment':
-    return lambda o: constants.EDUCATIONS.get(o['title'], DEFAULT_RANK)
+    return lambda o: constants.EDUCATIONS.get(o['l'], DEFAULT_RANK)
   elif prop == 'naics':
     order = {}
     for idx, name in enumerate(list(constants.NAICS.values())):
       order[name] = idx
-    return lambda o: order.get(o['title'], DEFAULT_RANK)
+    return lambda o: order.get(o['l'], DEFAULT_RANK)
   elif prop == 'detailedLevelOfSchool':
-    return lambda o: constants.GRADE.get(o['title'], DEFAULT_RANK)
+    return lambda o: constants.GRADE.get(o['l'], DEFAULT_RANK)
   else:
-    return lambda o: o['title']
+    return lambda o: o['l']
 
 
 def filter_and_sort(prop, children, show_all):
@@ -152,7 +152,7 @@ def filter_and_sort(prop, children, show_all):
       target_titles = set(list(constants.DEA_DRUGS.values()))
 
   if target_titles:
-    used_children = [c for c in children if c['title'] in target_titles]
+    used_children = [c for c in children if c['l'] in target_titles]
   else:
     used_children = children
   used_children.sort(key=sort_func(prop))

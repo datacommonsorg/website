@@ -4,11 +4,11 @@ import hierarchy from "../../../tools/pv_tree_generator/hierarchy.json";
 export const SEP="'";
 
 interface NodePropType {
-  title: string;
-  count: number;
-  children: NodePropType[];
-  type: string;
-  argString: string;
+  l: string; // label
+  c: number; // count
+  cd: NodePropType[];  // children
+  t: string;  // type
+  sv: string;
   updateUrl: (statvar: string, add: boolean) => void;
   nodePath: string;
   svPaths: string[][];
@@ -30,7 +30,7 @@ class Node extends Component<NodePropType, NodeStateType> {
     this.state = {
       checked: false,
       expanded: false,
-      nodePath: props.nodePath + SEP + props.title,
+      nodePath: props.nodePath + SEP + props.l,
       svPaths: [[]],
     };
   }
@@ -48,7 +48,7 @@ class Node extends Component<NodePropType, NodeStateType> {
     let checkboxImg: JSX.Element;
     let expandImg: JSX.Element;
     let child: JSX.Element[];
-    if (this.props.type === "val") {
+    if (this.props.t === "v") {
       checkboxImg = (
         <button
           className={this.state.checked ? "checkbox checked" : "checkbox"}
@@ -57,7 +57,7 @@ class Node extends Component<NodePropType, NodeStateType> {
       );
     }
 
-    if (this.props.children.length !== 0) {
+    if (this.props.cd && this.props.cd.length !== 0) {
       if (this.state.expanded) {
         expandImg = (
           <img
@@ -66,18 +66,18 @@ class Node extends Component<NodePropType, NodeStateType> {
             onClick={this._handleExpandClick}
           />
         );
-        child = this.props.children.map((item, index) => {
+        child = this.props.cd.map((item, index) => {
           return (
             <Node
-              title={item.title}
-              children={item.children}
-              count={item.count}
-              type={item.type}
-              argString={item.argString}
+              l={item.l}
+              cd={item.cd}
+              c={item.c}
+              t={item.t}
+              sv={item.sv}
               updateUrl={this.props.updateUrl}
               nodePath={this.state.nodePath}
               svPaths={this.state.svPaths}
-              key={this.props.title + index}
+              key={this.props.l + index}
             ></Node>
           );
         });
@@ -94,12 +94,12 @@ class Node extends Component<NodePropType, NodeStateType> {
 
     return (
       <ul className="noborder">
-        <li className="value" id={this.props.title}>
+        <li className="value" id={this.props.l}>
           <span>
             <a className="value-link">
-              {this.props.title + "  "}
+              {this.props.l + "  "}
               <sup>
-                {this.props.count !== 0 && "(" + this.props.count + ")"}
+                {this.props.c !== 0 && "(" + this.props.c + ")"}
               </sup>
               {checkboxImg}
               {expandImg}
@@ -116,7 +116,7 @@ class Node extends Component<NodePropType, NodeStateType> {
       checked: !this.state.checked,
     });
     this.props.updateUrl(
-      this.props.argString + this.state.nodePath,
+      this.props.sv + this.state.nodePath,
       !this.state.checked
     );
   };
@@ -132,7 +132,7 @@ class Node extends Component<NodePropType, NodeStateType> {
     let check = false;
     let expand = false;
     for (const svPath of this.props.svPaths) {
-      if (svPath[0] === this.props.title) {
+      if (svPath[0] === this.props.l) {
         if (svPath.length === 1) {
           check = true;
         } else {
@@ -163,13 +163,13 @@ class Menu extends Component<MenuPropType, {}> {
         {[hierarchy].map((vertical, index1) => {
           return Object.keys(vertical).map((key, index) => {
             const item = vertical[key];
-            return ((item.children.length !== 0)&&
+            return ((item.cd.length !== 0)&&
               <Node
-                title={item.title}
-                children={item.children}
-                count={item.count}
-                type={item.type}
-                argString={item.argString}
+                l={item.l}
+                cd={item.cd}
+                c={item.c}
+                t={item.t}
+                sv={item.sv}
                 key={index1 + "," + index}
                 svPaths={this.props.svPaths}
                 nodePath=""

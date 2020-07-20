@@ -36,10 +36,10 @@ def build_tree_recursive(pos, level, pop_obs_spec, stat_vars,
     prop_ui_node = util.UiNode(pos, parent_pv, True, property_diff)
     result = {
         'populationType': prop_ui_node.pop_type,
-        'title': text_format.format_title(prop_ui_node.text),
-        'type': 'prop',
-        'count': 0,
-        'children': [],
+        'l': text_format.format_title(prop_ui_node.text),
+        't': 'p',
+        'c': 0,
+        'cd': [],
         'sv_set': set(),
     }
 
@@ -61,39 +61,39 @@ def build_tree_recursive(pos, level, pop_obs_spec, stat_vars,
             value_ui_node = util.UiNode(pos, value_ui_pv, False, property_diff)
             value_blob = {
                 'populationType': value_ui_node.pop_type,
-                'argString': sv.dcid,
-                'title': text_format.format_title(value_ui_node.text),
-                'type': 'val',
-                'enum': value_ui_node.enum,
-                'count': 1,
-                'children': [],
+                'sv': sv.dcid,
+                'l': text_format.format_title(value_ui_node.text),
+                't': 'v',
+                'e': value_ui_node.enum,
+                'c': 1,
                 'sv_set': set([sv.dcid]),
             }
             # add statistical variables as the child of current node
-            result['children'].append(value_blob)
+            result['cd'].append(value_blob)
 
             if level <= MAX_LEVEL:
                 # build the branches recursively
                 for child in child_pos:
-                    branch = build_tree_recursive(child, level + 1,
-                                                  pop_obs_spec, stat_vars, value_ui_node)
-                    if branch['children']:
-                        value_blob['children'].append(branch)
+                    branch = build_tree_recursive(
+                        child, level + 1, pop_obs_spec, stat_vars, value_ui_node)
+                    if branch['cd']:
+                        if 'cd' not in value_blob:
+                            value_blob['cd'] = []
+                        value_blob['cd'].append(branch)
                     value_blob['sv_set'] |= branch['sv_set']
                     del branch['sv_set']
-            value_blob['count'] = len(value_blob['sv_set'])
+            value_blob['c'] = len(value_blob['sv_set'])
 
-    result['children'] = text_format.filter_and_sort(property_diff,
-                                                     result['children'], False)
+    result['cd'] = text_format.filter_and_sort(property_diff,
+                                                     result['cd'], False)
 
     # update the count
-    if result['children']:
-
-        for child in result['children']:
+    if result['cd']:
+        for child in result['cd']:
             result['sv_set'] |= child['sv_set']
             del child['sv_set']
 
-    result['count'] = len(result['sv_set'])
+    result['c'] = len(result['sv_set'])
     return result
 
 
@@ -102,31 +102,30 @@ def build_tree(v, pop_obs_spec, stat_vars):
 
     # vertical as the root
     root = {
-        'argString': 'top',
-        'title': text_format.format_title(v),
-        'type': 'prop',
-        'count': 0,  # count of child nodes
-        'children': [],
+        'sv': 'top',
+        'l': text_format.format_title(v),
+        't': 'p',
+        'c': 0,  # count of child nodes
+        'cd': [],
         'sv_set': set(),  # used for counting child nodes
     }
 
     # specs with 0 constaints are of type "value",
-    # as the level 1 children of root
+    # as the level 1 cd of root
     for pos in pop_obs_spec[0]:
         ui_node = util.UiNode(pos, {}, False)
         for sv in stat_vars[pos.key]:
             if pos.cpv == sv.pv:
-                root['children'].append({
+                root['cd'].append({
                     'populationType': ui_node.pop_type,
-                    'argString': sv.dcid,
-                    'title': text_format.format_title(ui_node.text),
-                    'type': 'val',
-                    'children': [],
-                    'count': 1,
+                    'sv': sv.dcid,
+                    'l': text_format.format_title(ui_node.text),
+                    't': 'v',
+                    'c': 1,
                     'mprop': ui_node.mprop,
                 })
                 break  # to avoid duplicates related to measurementMethod
-            root['count'] += 1
+            root['c'] += 1
 
     # build specs with >= 1 constraints recursively
 
@@ -136,26 +135,27 @@ def build_tree(v, pop_obs_spec, stat_vars):
         # For certain branch, we would like to put them under 0 pv nodes:
         if (pos.pop_type in ['EarthquakeEvent', 'CycloneEvent',
                              'MortalityEvent']):
-            for pv0 in root['children']:
+            for pv0 in root['cd']:
                 # hoist logic will break if multiple 0 pv
-                if (pv0['populationType'] == pos.pop_type and
-                        pv0['mprop'] == 'count'):
-                    pv0['children'].append(child)
+                if (pv0['populationType'] == pos.pop_type and pv0['mprop'] == 'c'):
+                    if 'cd' not in pv0:
+                        pv0['cd'] = []
+                    pv0['cd'].append(child)
                     if 'sv_set' not in pv0:
                         pv0['sv_set'] = set()
                     pv0['sv_set'] |= child['sv_set']
                     break
         else:
-            root['children'].append(child)
+            root['cd'].append(child)
         root['sv_set'] |= child['sv_set']
         del child['sv_set']
 
     # update the count
-    for pv0 in root['children']:
+    for pv0 in root['cd']:
         if 'sv_set' in pv0:
-            pv0['count'] += len(pv0['sv_set'])
+            pv0['c'] += len(pv0['sv_set'])
             del pv0['sv_set']
-    root['count'] += len(root['sv_set'])
+    root['c'] += len(root['sv_set'])
     del root['sv_set']
     return traverseTree(root)
 
@@ -165,7 +165,7 @@ def traverseTree(root):
         del root['populationType']
     if 'mprop' in root:
         del root['mprop']
-    if 'children' in root:
-        for node in root['children']:
+    if 'cd' in root:
+        for node in root['cd']:
             traverseTree(node)
     return root

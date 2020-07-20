@@ -71,6 +71,7 @@ class BuildTreeTest(unittest.TestCase):
         root = build_tree.build_tree(vertical, pop_obs_spec[vertical],
                                      stat_vars)
         data[vertical] = root
+        print(data)
         expected = json.load(open("./hierarchy_golden.json", "r"))
         self.assertEqual(data, expected)
         return
@@ -94,15 +95,15 @@ class BuildTreeTest(unittest.TestCase):
                                      stat_vars)
         data[vertical] = root
         # assert counts
-        self.assertEqual(data['Demographics']['count'], 4)
-        self.assertEqual(data['Demographics']['count'], 4)
-        for child in data['Demographics']['children']:
-            if child['title'] == 'Citizenship':
-                self.assertEqual(child['count'], 1)
-            if child['title'] == 'Gender':
-                self.assertEqual(child['count'], 2)
-            if child['title'] == 'Income':
-                self.assertEqual(child['count'], 1)
+        self.assertEqual(data['Demographics']['c'], 4)
+        self.assertEqual(data['Demographics']['c'], 4)
+        for child in data['Demographics']['cd']:
+            if child['l'] == 'Citizenship':
+                self.assertEqual(child['c'], 1)
+            if child['l'] == 'Gender':
+                self.assertEqual(child['c'], 2)
+            if child['l'] == 'Income':
+                self.assertEqual(child['c'], 1)
         return
 
 
