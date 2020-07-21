@@ -122,10 +122,6 @@ class ParentPlace extends Component<ParentPlacePropsType, {}> {
 
 interface RankingPropsType {
   dcid: string;
-  data: {
-    label: string[];
-    Population: { name: {}; label: string }[];
-  };
 }
 
 interface RankingStateType {
@@ -139,7 +135,7 @@ class Ranking extends Component<RankingPropsType, RankingStateType> {
   constructor(props) {
     super(props);
     this.state = {
-      data: this.props.data,
+      data: {label: [], Population: []},
     };
   }
   render() {
@@ -389,7 +385,6 @@ class Overview extends Component<OverviewPropType, {}> {
               <div className="col-12 col-md-8">
                 <Ranking
                   dcid={this.props.dcid}
-                  data={{ label: [], Population: [] }}
                 ></Ranking>
               </div>
             </div>
