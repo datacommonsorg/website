@@ -79,7 +79,7 @@ class Page extends Component<PagePropType, PageStateType> {
       statvarAvaiPromise = getStatsVar(placeIds);
       if (placeIds.length !== 0) {
         placesPromise = getPlaceNames(placeIds).then((data) =>
-         Object.entries(data)
+          Object.entries(data)
         );
       } else {
         placesPromise = Promise.resolve([]);
