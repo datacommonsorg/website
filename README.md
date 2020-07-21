@@ -14,7 +14,7 @@ meant to be for community, by the community. We are excited to work with you
 to make public data accessible to everyone.
 
 To see the extent of data we have today, browse the graph using our
-[browser](https://browser.datacommons.org/).
+[browser](https://browser.datacommons.org/browser).
 
 ## Contributing
 
@@ -120,7 +120,7 @@ datacommonsorg-website
 #### placeid2dcid.json
 
 This file is stored in GCS bucket: datcom-browser-prod.appspot.com (for prod) and
-datcom-browser-prod.appspot.com (for local and staging). For updating this file,
+datcom-browser-staging.appspot.com (for local and staging). To update this file,
 please contact Data Commons team.
 
 ## License

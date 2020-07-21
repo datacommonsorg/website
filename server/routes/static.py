@@ -28,36 +28,41 @@ bp = Blueprint(
 
 @bp.route('/')
 def homepage():
-    return render_template('homepage.html')
+    return render_template('static/homepage.html')
 
 
 @bp.route('/about')
 def about():
-  return render_template('about.html')
+  return render_template('static/about.html')
 
 
 @bp.route('/faq')
 def faq():
-  return render_template('faq.html')
+  return render_template('static/faq.html')
 
 
 @bp.route('/disclaimers')
 def disclaimers():
-  return render_template('disclaimers.html')
+  return render_template('static/disclaimers.html')
 
 
 @bp.route('/datasets')
 def datasets():
-  return render_template('datasets.html')
+  return render_template('static/datasets.html')
+
+
+@bp.route('/getinvolved')
+def get_involved():
+  return render_template('static/get_involved.html')
 
 
 @bp.route('/special_announcement')
 def special_announcement():
   recent_blobs = list_blobs(_SA_FEED_BUCKET, _MAX_BLOBS)
   return render_template(
-      'special_announcement.html', recent_blobs=recent_blobs)
+      'static/special_announcement.html', recent_blobs=recent_blobs)
 
 
 @bp.route('/special_announcement/faq')
 def special_announcement_faq():
-  return render_template('special_announcement_faq.html')
+  return render_template('static/special_announcement_faq.html')
