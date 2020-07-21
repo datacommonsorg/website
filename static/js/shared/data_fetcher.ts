@@ -17,7 +17,7 @@
 import axios, { AxiosResponse } from "axios";
 import _ from "lodash";
 
-import { DataPoint, DataGroup } from "./chart/base";
+import { DataPoint, DataGroup } from "../chart/base";
 import { STATS_VAR_TEXT } from "./stats_var";
 
 interface ApiResponse {

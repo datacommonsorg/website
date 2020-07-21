@@ -22,14 +22,17 @@ const config = {
   entry: {
     dev: [__dirname + "/js/dev.ts", __dirname + "/css/dev.scss"],
     dev_menu: __dirname + "/js/tools/dev_menu.ts",
-    download: __dirname + "/js/download.js",
+    download: __dirname + "/js/tools/download.js",
     dev_menu: [
       __dirname + "/js/tools/dev_menu.ts",
       __dirname + "/css/dev_menu.scss",
     ],
-    kg: [__dirname + "/js/kg.js", __dirname + "/css/kg.scss"],
+    kg: [__dirname + "/js/browser/kg.js", __dirname + "/css/kg.scss"],
     mcf_playground: __dirname + "/js/mcf_playground.js",
-    place: [__dirname + "/js/place.ts", __dirname + "/css/place/place.scss"],
+    place: [
+      __dirname + "/js/place/place.ts",
+      __dirname + "/css/place/place.scss",
+    ],
     scatter: [
       __dirname + "/js/tools/scatter.js",
       __dirname + "/css/scatter.scss",
