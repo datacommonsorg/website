@@ -28,7 +28,7 @@ import {
 const _ = require("lodash");
 const axios = require("axios");
 const Cookie = require("js-cookie");
-const util = require("./util.js");
+const util = require("../shared/util.js");
 const view = require("./view.js");
 const observationchart = require("./observation_chart.js");
 

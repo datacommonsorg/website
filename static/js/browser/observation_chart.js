@@ -18,7 +18,7 @@ import React from "react";
 import ReactDOM from "react-dom";
 import _ from "lodash";
 import * as plot from "./plot";
-import * as util from "./util";
+import * as util from "../shared/util";
 
 import {
   ArcGroupTitle,
