@@ -23,7 +23,6 @@ import {
   MainPane,
   Menu,
   ParentPlace,
-  Ranking,
 } from "./place_template";
 
 let ac: google.maps.places.Autocomplete;
@@ -200,64 +199,8 @@ function renderPage(dcid: string) {
         }),
         document.getElementById("main-pane")
       );
-      renderMap(dcid);
-      renderRanking(dcid);
     }
   );
-}
-
-function renderRanking(dcid) {
-  const rankingTable = document.getElementById("ranking-table");
-  if (rankingTable) {
-    axios.get(`api/ranking/${dcid}`).then((resp) => {
-      ReactDOM.render(
-        React.createElement(Ranking, { data: resp.data }),
-        rankingTable
-      );
-    });
-  }
-}
-
-function renderMap(dcid) {
-  const mapContainer = document.getElementById("map-container");
-  if (mapContainer) {
-    axios.get(`api/mapinfo/${dcid}`).then((resp) => {
-      const mapInfo = resp.data;
-      if (!mapInfo || Object.keys(mapInfo).length === 0) return;
-      const mapOptions = {
-        mapTypeControl: false,
-        draggable: true,
-        scaleControl: true,
-        scrollwheel: true,
-        navigationControl: true,
-        streetViewControl: false,
-        mapTypeId: google.maps.MapTypeId.ROADMAP,
-      };
-      const map = new google.maps.Map(mapContainer, mapOptions);
-
-      // Map bounds.
-      const sw = new google.maps.LatLng(mapInfo.down, mapInfo.left);
-      const ne = new google.maps.LatLng(mapInfo.up, mapInfo.right);
-      const bounds = new google.maps.LatLngBounds();
-      bounds.extend(sw);
-      bounds.extend(ne);
-      map.fitBounds(bounds);
-
-      // Polygons of the place.
-      if (mapInfo.coordinateSequenceSet) {
-        for (const coordinateSequence of mapInfo.coordinateSequenceSet) {
-          const polygon = new google.maps.Polygon({
-            paths: coordinateSequence,
-            strokeColor: "#FF0000",
-            strokeOpacity: 0.6,
-            strokeWeight: 1,
-            fillOpacity: 0.15,
-          });
-          polygon.setMap(map);
-        }
-      }
-    });
-  }
 }
 
 /**
