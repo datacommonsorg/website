@@ -1,4 +1,4 @@
-<!--
+{#
  Copyright 2020 Google LLC
 
  Licensed under the Apache License, Version 2.0 (the "License");
@@ -12,57 +12,28 @@
  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
  See the License for the specific language governing permissions and
  limitations under the License.
--->
+#}
 
-<!-- Header start from basicPageHeader.tpl -->
-<!-- Google Tag Manager (noscript) -->
-<noscript>
-    <iframe src="https://www.googletagmanager.com/ns.html?id=GTM-596VBP2"
-            height="0" width="0" style="display: none; visibility: hidden"></iframe>
-  </noscript>
-  <!-- End Google Tag Manager (noscript) -->
+<link rel="stylesheet" href="/css/factcheck/schemaorg.css">
 
-  <link rel="stylesheet" href="/css/factcheck/schemaorg.css">
-
-  <div id="container">
-    <div id="intro">
-      <div id="pageHeader">
-        <div class="wrapper">
-          <div id="sitename">
-            <h1>
-              <a href="/">DataCommons.org</a>
-            </h1>
-          </div>
+<div id="container">
+  <div id="intro">
+    <div id="pageHeader">
+      <div class="wrapper">
+        <div id="sitename">
+          <h1>
+            <a href="/">DataCommons.org</a>
+          </h1>
         </div>
       </div>
     </div>
   </div>
+</div>
 
-  <div id="selectionbar">
-    <div class="wrapper">
-      <li>
-        <a href="{{ url_for('static.special_announcement') }}">COVID-19 Announcements</a>
-      </li>
-      <li>
-        <a href="{{ url_for('factcheck.homepage') }}">Fact Checks</a>
-      </li>
-      <li>
-        <a href="{{ url_for('documentation') }}">Documentation</a>
-      </li>
-      <li>
-        <a href="{{ url_for('static.datasets') }}">Datasets</a>
-      </li>
-      <li>
-        <a href="{{ url_for('browser.kg_main') }}">Browser</a>
-      </li>
-      <li>
-        <a href="{{ url_for('static.homepage') }}">Home</a>
-      </li>
-      <li>
-        <a href="https://browser.datacommons.org/gni">GNI</a>
-      </li>
-    </div>
+<div id="selectionbar">
+  <div class="wrapper">
+    <li>
+      <a href="{{ url_for('factcheck.homepage') }}">Fact Checks</a>
+    </li>
   </div>
-  <div style="padding: 14px; float: right;" id="languagebox"></div>
-
-  <!-- Header end from basicPageHeader.tpl -->
+</div>
