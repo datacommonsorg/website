@@ -266,16 +266,15 @@ def api_ranking(dcid):
     parent_names = {}
     for parent in parents:
         parent_dcid = parent['dcid']
-        if parent_dcid == 'country/USA':
+        parent_types = parent['types'][0]
+        if parent_types == 'Continent':
             continue
         if parent_dcid.startswith('zip'):
             continue
         selected_parents.append(parent_dcid)
         parent_names[parent_dcid] = parent['name']
-        if len(selected_parents) == 2:
+        if len(selected_parents) == 3:
             break
-    selected_parents.append('country/USA')
-    parent_names['country/USA'] = 'United States'
     result = collections.defaultdict(list)
     # TODO(boxu): make the stats_vars in a config.
     for parent in selected_parents:
@@ -311,18 +310,13 @@ def api_ranking(dcid):
                 dcid, 'CriminalActivities', 'count', 'measuredValue',
                 pvs_string='crimeType^UCR_CombinedCrime',
                 same_place_type=True, within_place=parent, is_per_capita=True)})
+
     result['label'] = [
         'Population', 'Median Income', 'Median Age', 'Unemployment Rate',
         'Crime per capita']
     for label in result['label']:
-        no_data = True
-        for item in result[label]:
-            if item['data']:
-                no_data = False
-                break
-        if no_data:
-            del result[label]
-    result['label'] = [x for x in result['label'] if x in result]
+        result[label] = [x for x in result[label] if x['data']]
+    result['label'] = [x for x in result['label'] if result[x]]
     return result
 
 
