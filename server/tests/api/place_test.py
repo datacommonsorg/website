@@ -120,7 +120,7 @@ class TestApiParentPlaces(unittest.TestCase):
                 }
             }
         else:
-            return {}
+            return {req['dcids'][0]: {}}
 
     @patch('routes.api.place.fetch_data')
     def test_parent_places(self, mock_fetch_data):

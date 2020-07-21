@@ -243,3 +243,9 @@ $sidebar-top-padding: 132px;  // Keep in sync with place.ts: Y_SCROLL_LIMIT
   font-size: .7rem;
   color: var(--dc-red-strong);
 }
+
+.source {
+  font-size: 0.5rem;
+  color: var(--dc-gray);
+  margin-top: 0.5rem;
+}
