@@ -18,7 +18,7 @@ import * as d3 from "d3";
 
 import { DataGroup, DataPoint } from "./base";
 
-import { randDomId } from "./../util";
+import { randDomId } from "../shared/util";
 
 const NUM_X_TICKS = 5;
 const NUM_Y_TICKS = 5;

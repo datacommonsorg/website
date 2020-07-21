@@ -21,11 +21,11 @@ import {
   getPerCapita,
   parsePtPvs,
   getDataUrl,
-} from "./tools/dc.js";
+} from "./dc.js";
 
 const axios = require("axios");
 
-import { getApiKey, getApiRoot, unzip } from "./util.js";
+import { getApiKey, getApiRoot, unzip } from "../shared/util.js";
 
 /**
  * Shows or hides the spinner.

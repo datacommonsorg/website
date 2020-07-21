@@ -18,18 +18,18 @@ import React, { Component, createRef } from "react";
 import axios from "axios";
 import pluralize from "pluralize";
 import _ from "lodash";
-import { DataPoint, DataGroup } from "./chart/base";
+import { DataPoint, DataGroup } from "../chart/base";
 
-import { randDomId } from "./util";
+import { randDomId } from "../shared/util";
 import {
   drawLineChart,
   drawSingleBarChart,
   drawStackBarChart,
   drawGroupBarChart,
-} from "./chart/draw";
-import { fetchStatsData } from "./data_fetcher";
+} from "../chart/draw";
+import { fetchStatsData } from "../shared/data_fetcher";
 import { updatePageLayoutState } from "./place";
-import { STATS_VAR_TEXT } from "./stats_var";
+import { STATS_VAR_TEXT } from "../shared/stats_var";
 
 const chartTypeEnum = {
   LINE: "LINE",
