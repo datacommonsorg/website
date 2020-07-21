@@ -170,23 +170,26 @@ function getStatsVarInfo(dcids) {
   });
 }
 
-function getStatsVar(dcids){
-  if (dcids.length == 0){
+function getStatsVar(dcids) {
+  if (dcids.length == 0) {
     return Promise.resolve([]);
   }
   let promises = [];
-  for (let dcid of dcids){
-    promises.push(axios.get("/api/place/statsvars/"+dcid).then((resp) => {
-      return resp.data;}))
+  for (let dcid of dcids) {
+    promises.push(
+      axios.get("/api/place/statsvars/" + dcid).then((resp) => {
+        return resp.data;
+      })
+    );
   }
   return Promise.all(promises).then((values) => {
-    let statvars = ["Count_Person"]// Count_Person not in List ???
-    for (let value of values){
+    let statvars = ["Count_Person"]; // Count_Person not in List ???
+    for (let value of values) {
       statvars = statvars.concat(value);
     }
-    statvars.filter((item, pos) => statvars.indexOf(item) === pos)
+    statvars.filter((item, pos) => statvars.indexOf(item) === pos);
     return statvars;
-  })
+  });
 }
 
 export {
