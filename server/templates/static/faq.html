@@ -73,7 +73,7 @@
     <b>Q: What are the usage rights of the data in Data Commons?</b><br>
     Data Commons knowledge graph, and the compilation of the datasets is licensed under <a
       href="https://creativecommons.org/licenses/by/4.0/">CC BY</a>.
-    The Data Commons API and the Python Libraries are released under <a
+    The Data Commons REST API and the R, Python Libraries are released under <a
       href="https://www.apache.org/licenses/LICENSE-2.0">Apache License 2.0</a>.
     The data included in Data Commons Graph come from different sources. The source of the
     data (provenance) is provided for all the data.
@@ -84,9 +84,12 @@
 
   <p>
     <b>Q: How can we access data in Data Commons?</b><br>
-    The data in knowledge graph can be accessed through <a
-      href="https://browser.datacommons.org">Data Commons browser </a> and <a
-      href="https://github.com/google/datacommons">Python Query API</a>.
+    The data in knowledge graph can be accessed through the <a
+      href="{{ url_for('browser.kg_main') }}">Data Commons Graph Browser </a> and API's for <a
+      href="https://docs.datacommons.org/api/python">Python</a>, <a
+      href="https://docs.datacommons.org/api/r">R</a>, <a
+      href="https://docs.datacommons.org/api/rest">REST</a> and <a
+      href="https://docs.datacommons.org/api/sheets">Google Sheets</a>.
   </p>
 
   <p>
@@ -94,7 +97,7 @@
     Data Commons is intended to be a community project and seeks your involvement.
     To know more about publishing data that can be included into Data Commons, check out <a
       href="{{ url_for('static.get_involved') }}"> Get
-    involved</a> section. You can also contact <a href="mailto:support@datacommons.org">support@datacommons.org </a>
+    Involved</a> page. You can also contact <a href="mailto:support@datacommons.org">support@datacommons.org </a>
     if you have an interesting dataset that you think should be included in Data Commons and would
     like to help.
     In the future we plan to allow users to ingest data into the Data Commons Graph using
@@ -113,13 +116,13 @@
     <b>Q: Where can I download all the data?</b><br>
     Given the size and evolving nature of the Data Commons Graph, we prefer you access
     it via the APIs.
-    If your project needs local access to a large fraction of the OKG, please contact <a
+    If your project needs local access to a large fraction of the Data Commons Graph, please contact <a
       href="mailto:support@DataCommons.org">support@datacommons.org </a>.
   </p>
 
   <p>
     <b>Q: How much does this service cost to use?</b><br>
-    The public data in the Data Commons OKG is hosted on Google Cloud platform by
+    The public data in the Data Commons Graph is hosted on Google Cloud platform by
     Data Commons and is made available for users. There is no cost for data itself, when it is
     publicly available for free.
     The usage limits for the service beyond free tier quota will be in line with pricing of <a
