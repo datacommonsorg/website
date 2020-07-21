@@ -37,7 +37,7 @@ interface PageStateType {
   statvarInfo: { [key: string]: StatVarInfo };
   places: [string, string][]; // [(placeId, placeName)]
   perCapita: boolean;
-  statvarAvai: string[];
+  statvarValid: string[];
 }
 
 class Page extends Component<PagePropType, PageStateType> {
@@ -50,7 +50,7 @@ class Page extends Component<PagePropType, PageStateType> {
       statvarInfo: {},
       places: [],
       perCapita: false,
-      statvarAvai: [],
+      statvarValid: [],
     };
   }
 
@@ -73,10 +73,10 @@ class Page extends Component<PagePropType, PageStateType> {
     }
 
     let placesPromise = Promise.resolve(this.state.places);
-    let statvarAvaiPromise = Promise.resolve(this.state.statvarAvai);
+    let statvarValidPromise = Promise.resolve(this.state.statvarValid);
     const placeIds = parsePlace();
     if (placeIds !== Object.keys(this.state.places)) {
-      statvarAvaiPromise = getStatsVar(placeIds);
+      statvarValidPromise = getStatsVar(placeIds);
       if (placeIds.length !== 0) {
         placesPromise = getPlaceNames(placeIds).then((data) =>
           Object.entries(data)
@@ -86,16 +86,16 @@ class Page extends Component<PagePropType, PageStateType> {
       }
     }
 
-    Promise.all([statvarInfoPromise, placesPromise, statvarAvaiPromise]).then(
+    Promise.all([statvarInfoPromise, placesPromise, statvarValidPromise]).then(
       (values) => {
         for (let idx = 0; idx < svIds.length; idx++) {
-          values[0][svIds[idx]].title = svPaths[idx][svPaths[idx].length - 1];
+          values[0][svIds[idx]].title = svPaths[idx].slice(-1)[0];
         }
         this.setState({
           statvarInfo: values[0],
           statvarPaths: svPaths,
           places: values[1],
-          statvarAvai: values[2],
+          statvarValid: values[2],
         });
       }
     );
@@ -126,7 +126,7 @@ class Page extends Component<PagePropType, PageStateType> {
               updateUrl={this.props.updateUrl}
               search={this.props.search}
               svPaths={this.state.statvarPaths}
-              svAvai={this.state.statvarAvai}
+              svValid={this.state.statvarValid}
             ></Menu>
           </div>
         </div>

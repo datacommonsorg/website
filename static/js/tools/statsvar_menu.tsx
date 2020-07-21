@@ -14,7 +14,7 @@ interface NodePropType {
   updateUrl: (statvar: string, add: boolean) => void;
   nodePath: string;
   svPaths: string[][];
-  svAvai: string[];
+  svValid: string[];
 }
 
 interface NodeStateType {
@@ -51,7 +51,10 @@ class Node extends Component<NodePropType, NodeStateType> {
     let checkboxImg: JSX.Element;
     let expandImg: JSX.Element;
     let child: JSX.Element[];
-    if (this.props.t === "v" && this.props.svAvai.includes(this.props.sv)) {
+    let childCnt = 0;
+    let svValid = false;
+    if (this.props.t === "v" && this.props.svValid.includes(this.props.sv)) {
+      svValid = true;
       checkboxImg = (
         <button
           className={this.state.checked ? "checkbox checked" : "checkbox"}
@@ -61,22 +64,30 @@ class Node extends Component<NodePropType, NodeStateType> {
     }
 
     if (this.props.cd && this.props.cd.length !== 0) {
+      this.props.cd.map((item) => {
+        if (item.t === "p" || this.props.svValid.includes(item.sv)) {
+          childCnt += 1;
+        }
+      });
+
       if (this.state.expanded) {
         child = this.props.cd.map((item, index) => {
-          return (
-            <Node
-              l={item.l}
-              cd={item.cd}
-              c={item.c}
-              t={item.t}
-              sv={item.sv}
-              updateUrl={this.props.updateUrl}
-              nodePath={this.state.nodePath}
-              svPaths={this.state.svPaths}
-              key={this.props.l + index}
-              svAvai={this.props.svAvai}
-            ></Node>
-          );
+          if (item.t === "p" || this.props.svValid.includes(item.sv)) {
+            return (
+              <Node
+                l={item.l}
+                cd={item.cd}
+                c={item.c}
+                t={item.t}
+                sv={item.sv}
+                updateUrl={this.props.updateUrl}
+                nodePath={this.state.nodePath}
+                svPaths={this.state.svPaths}
+                key={this.props.l + index}
+                svValid={this.props.svValid}
+              ></Node>
+            );
+          }
         });
         expandImg = (
           <img
@@ -97,8 +108,7 @@ class Node extends Component<NodePropType, NodeStateType> {
     }
 
     return (
-      (typeof checkboxImg !== "undefined" ||
-        typeof expandImg !== "undefined") && (
+      (svValid || childCnt !== 0) && (
         <ul className="noborder">
           <li className="value" id={this.props.l}>
             <span>
@@ -158,7 +168,7 @@ interface MenuPropType {
   search: boolean;
   updateUrl: (statvar: string, shouldAdd: boolean) => void;
   svPaths: string[][];
-  svAvai: string[];
+  svValid: string[];
 }
 interface MenuStateType {
   menuJson: [{}];
@@ -189,7 +199,7 @@ class Menu extends Component<MenuPropType, MenuStateType> {
                     svPaths={this.props.svPaths}
                     nodePath=""
                     updateUrl={this.props.updateUrl}
-                    svAvai={this.props.svAvai}
+                    svValid={this.props.svValid}
                   ></Node>
                 )
               );
