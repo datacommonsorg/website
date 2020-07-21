@@ -20,6 +20,8 @@ import {
   parsePlace,
   getStatsVarInfo,
   getPlaceNames,
+  updateUrlPC,
+  getPC,
 } from "./timeline_util";
 import { SearchBar } from "./timeline_search";
 import { Menu } from "./statsvar_menu";
@@ -89,11 +91,13 @@ class Page extends Component<PagePropType, PageStateType> {
         statvarInfo: values[0],
         statvarPaths: svPaths,
         places: values[1],
+        perCapita: getPC(),
       });
     });
   }
 
   _togglePerCapita() {
+    updateUrlPC(!this.state.perCapita);
     this.setState({
       perCapita: !this.state.perCapita,
     });

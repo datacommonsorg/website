@@ -95,6 +95,7 @@ class StatsData {
     const result: DataGroup[] = [];
     for (const statsVar of this.statsVars) {
       const dataPoints: DataPoint[] = [];
+      if (this.data[statsVar][place].data){
       for (const date of this.dates) {
         dataPoints.push({
           label: date,
@@ -102,7 +103,7 @@ class StatsData {
         });
       }
       result.push(new DataGroup(statsVar, dataPoints));
-    }
+    }}
     return result;
   }
 

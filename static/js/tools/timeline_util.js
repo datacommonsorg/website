@@ -16,6 +16,7 @@
 import axios from "axios";
 import { getUrlVars, setSearchParam } from "./dc";
 import { SEP } from "./statsvar_menu.tsx";
+import { func } from "prop-types";
 /**
  * add or delete statvars from url
  *
@@ -110,7 +111,11 @@ function updateUrlPlace(place, shouldAdd) {
   setSearchParam(vars);
   return changed;
 }
-
+function updateUrlPC(pc){
+  let vars = getUrlVars();
+  vars["pc"] = pc? "1":"0";
+  setSearchParam(vars);
+}
 /**
  * parse the paths of statvars from url
  *
@@ -170,12 +175,23 @@ function getStatsVarInfo(dcids) {
   });
 }
 
+function getPC(){
+  let vars = getUrlVars();
+  if ("pc" in vars) {
+    return vars.pc === "1";
+  } else {
+    return false;
+  }
+}
+
 export {
   updateUrlStatsVar,
   updateUrlPlace,
+  updateUrlPC,
   parseStatVarPath,
   parsePlace,
   getStatsVarInfo,
   getPlaceNames,
+  getPC,
   deleteStatsVar,
 };
