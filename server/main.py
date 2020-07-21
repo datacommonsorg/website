@@ -506,16 +506,6 @@ def mcf_playground():
     return flask.render_template('mcf_playground.html')
 
 
-#
-# Migrate content for remaining routes
-#
-
-
-@app.route('/getinvolved')
-def get_involved():
-  return flask.render_template('factcheck/getInvolved.html')
-
-
 if __name__ == '__main__':
     # This is used when running locally only. When deploying to Google App
     # Engine, a webserver process such as Gunicorn will serve the app. This
