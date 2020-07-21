@@ -532,7 +532,7 @@ class Chart extends Component<ChartPropType, ChartStateType> {
                 onChange={this._handlePlaceSelection}
               >
                 <option value="SIMILAR" ref={this.similarRef}>
-                  simliar
+                  similar
                 </option>
                 {this.showParent() && (
                   <option value="CONTAINED" ref={this.parentRef}>
