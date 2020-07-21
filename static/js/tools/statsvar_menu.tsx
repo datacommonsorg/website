@@ -3,17 +3,18 @@ import axios from "axios";
 import hierarchy from "../../../tools/pv_tree_generator/hierarchy_top.json";
 
 const jsonPath = "data/hierarchy_statsvar.json";
-export const SEP="'";
+export const SEP = "'";
 
 interface NodePropType {
   l: string; // label
   c: number; // count
-  cd: NodePropType[];  // children
-  t: string;  // type
+  cd: NodePropType[]; // children
+  t: string; // type
   sv: string;
   updateUrl: (statvar: string, add: boolean) => void;
   nodePath: string;
   svPaths: string[][];
+  svAvai: string[];
 }
 
 interface NodeStateType {
@@ -50,7 +51,7 @@ class Node extends Component<NodePropType, NodeStateType> {
     let checkboxImg: JSX.Element;
     let expandImg: JSX.Element;
     let child: JSX.Element[];
-    if (this.props.t === "v") {
+    if (this.props.t === "v" && this.props.svAvai.includes(this.props.sv)) {
       checkboxImg = (
         <button
           className={this.state.checked ? "checkbox checked" : "checkbox"}
@@ -61,13 +62,6 @@ class Node extends Component<NodePropType, NodeStateType> {
 
     if (this.props.cd && this.props.cd.length !== 0) {
       if (this.state.expanded) {
-        expandImg = (
-          <img
-            className="right-caret transform-up"
-            src="/images/right-caret-light.png"
-            onClick={this._handleExpandClick}
-          />
-        );
         child = this.props.cd.map((item, index) => {
           return (
             <Node
@@ -80,9 +74,17 @@ class Node extends Component<NodePropType, NodeStateType> {
               nodePath={this.state.nodePath}
               svPaths={this.state.svPaths}
               key={this.props.l + index}
+              svAvai={this.props.svAvai}
             ></Node>
           );
         });
+        expandImg = (
+          <img
+            className="right-caret transform-up"
+            src="/images/right-caret-light.png"
+            onClick={this._handleExpandClick}
+          />
+        );
       } else {
         expandImg = (
           <img
@@ -95,21 +97,22 @@ class Node extends Component<NodePropType, NodeStateType> {
     }
 
     return (
-      <ul className="noborder">
-        <li className="value" id={this.props.l}>
-          <span>
-            <a className="value-link">
-              {this.props.l + "  "}
-              <sup>
-                {this.props.c !== 0 && "(" + this.props.c + ")"}
-              </sup>
-              {checkboxImg}
-              {expandImg}
-            </a>
-          </span>
-          {child}
-        </li>
-      </ul>
+      (typeof checkboxImg !== "undefined" ||
+        typeof expandImg !== "undefined") && (
+        <ul className="noborder">
+          <li className="value" id={this.props.l}>
+            <span>
+              <a className="value-link">
+                {this.props.l + "  "}
+                <sup>{this.props.c !== 0 && "(" + this.props.c + ")"}</sup>
+                {checkboxImg}
+                {expandImg}
+              </a>
+            </span>
+            {child}
+          </li>
+        </ul>
+      )
     );
   };
 
@@ -155,44 +158,48 @@ interface MenuPropType {
   search: boolean;
   updateUrl: (statvar: string, shouldAdd: boolean) => void;
   svPaths: string[][];
+  svAvai: string[];
 }
-interface MenuStateType{
-  menuJson:[{}]
+interface MenuStateType {
+  menuJson: [{}];
 }
 class Menu extends Component<MenuPropType, MenuStateType> {
-  constructor(props){
-    super(props)
-    this.state={
-      menuJson:[hierarchy]
-    }
+  constructor(props) {
+    super(props);
+    this.state = {
+      menuJson: [hierarchy],
+    };
   }
   render() {
     return (
       <div id="drill">
         <div className="noedge">
-        {this.state.menuJson.map((vertical, index1) => {
-          return Object.keys(vertical).map((key, index) => {
-            const item = vertical[key];
-            return ((item.cd.length !== 0)&&
-              <Node
-                l={item.l}
-                cd={item.cd}
-                c={item.c}
-                t={item.t}
-                sv={item.sv}
-                key={index1 + "," + index}
-                svPaths={this.props.svPaths}
-                nodePath=""
-                updateUrl={this.props.updateUrl}
-              ></Node>
-            );
-          });
-        })}
+          {this.state.menuJson.map((vertical, index1) => {
+            return Object.keys(vertical).map((key, index) => {
+              const item = vertical[key];
+              return (
+                item.cd.length !== 0 && (
+                  <Node
+                    l={item.l}
+                    cd={item.cd}
+                    c={item.c}
+                    t={item.t}
+                    sv={item.sv}
+                    key={index1 + "," + index}
+                    svPaths={this.props.svPaths}
+                    nodePath=""
+                    updateUrl={this.props.updateUrl}
+                    svAvai={this.props.svAvai}
+                  ></Node>
+                )
+              );
+            });
+          })}
         </div>
       </div>
     );
   }
-  componentDidMount(){
+  componentDidMount() {
     axios.get(jsonPath).then((resp) => {
       this.setState({
         menuJson: [resp.data],
