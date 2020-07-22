@@ -13,8 +13,6 @@
 # limitations under the License.
 
 SCHEMA_MAPPING = '''
-Database: dc
-
 Node: E:StatisticalPopulation->E1
 typeOf: StatisticalPopulation
 dcid: C:StatisticalPopulation->id
