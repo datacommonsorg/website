@@ -95,13 +95,15 @@ class StatsData {
     const result: DataGroup[] = [];
     for (const statsVar of this.statsVars) {
       const dataPoints: DataPoint[] = [];
-      for (const date of this.dates) {
-        dataPoints.push({
-          label: date,
-          value: this.data[statsVar][place].data[date],
-        });
+      if (this.data[statsVar][place].data) {
+        for (const date of this.dates) {
+          dataPoints.push({
+            label: date,
+            value: this.data[statsVar][place].data[date],
+          });
+        }
+        result.push(new DataGroup(statsVar, dataPoints));
       }
-      result.push(new DataGroup(statsVar, dataPoints));
     }
     return result;
   }
@@ -237,7 +239,7 @@ function fetchStatsData(
           // If a date is not in the new data, remove it from the current
           // collection.
           for (const date of Object.keys(dates)) {
-            if (!(date in allResp[i].data[place].data)) {
+            if (allResp[i].data[place].data && !(date in allResp[i].data[place].data)) {
               delete dates[date];
             }
           }

@@ -15,7 +15,31 @@
  */
 import axios from "axios";
 import { getUrlVars, setSearchParam } from "./dc";
-import { SEP } from "./statsvar_menu.tsx";
+import { SEP } from "./statsvar_menu";
+
+// Temporary hack before we clean up place stats var cache.
+const MAPPING = {
+  "Count_Person": "TotalPopulation",
+  "Count_Person_Male": "MalePopulation",
+  "Count_Person_Female": "FemalePopulation",
+  "Count_Person_MarriedAndNotSeparated": "MarriedPopulation",
+  "Count_Person_Divorced": "DivorcedPopulation",
+  "Count_Person_NeverMarried": "NeverMarriedPopulation",
+  "Count_Person_Separated": "SeparatedPopulation",
+  "Count_Person_Widowed": "WidowedPopulation",
+  "Median_Age_Person": "MedianAge",
+  "Median_Income_Person": "MedianIncome",
+  "Count_Person_BelowPovertyLevelInThePast12Months": "BelowPovertyLine",
+  "Count_HousingUnit": "HousingUnits",
+  "Count_Household": "Households",
+  "Count_CriminalActivities_CombinedCrime": "TotalCrimes",
+  "UnemploymentRate_Person": "UnemploymentRate",
+  "CumulativeCount_MedicalConditionIncident_COVID_19_ConfirmedOrProbableCase": "NYTCovid19CumulativeCases",
+  "CumulativeCount_MedicalConditionIncident_COVID_19_PatientDeceased": "NYTCovid19CumulativeDeaths",
+  "IncrementalCount_MedicalConditionIncident_COVID_19_ConfirmedOrProbableCase": "NYTCovid19IncrementalCases",
+  "IncrementalCount_MedicalConditionIncident_COVID_19_PatientDeceased": "NYTCovid19IncrementalDeaths"
+}
+
 /**
  * add or delete statvars from url
  *
@@ -23,12 +47,17 @@ import { SEP } from "./statsvar_menu.tsx";
  * @param {boolean} add = True, delete = False
  * @return void
  */
-function updateUrlStatsVar(statvar, shouldAdd) {
-  let vars = getUrlVars();
-  let statvarUrl = encodeURI(statvar);
+interface VarUrl {
+  statsvar: string;
+  place: string;
+}
+
+function updateUrlStatsVar(statvar: string, shouldAdd: boolean) {
+  const vars = getUrlVars() as VarUrl;
+  const statvarUrl = encodeURI(statvar);
   let svList = [];
   if ("statsvar" in vars) {
-    svList = vars["statsvar"].split("__");
+    svList = vars.statsvar.split("__");
   }
   if (shouldAdd) {
     if (!svList.includes(statvarUrl)) {
@@ -40,9 +69,9 @@ function updateUrlStatsVar(statvar, shouldAdd) {
     }
   }
   if (svList.length === 0) {
-    delete vars["statsvar"];
+    delete vars.statsvar;
   } else {
-    vars["statsvar"] = svList.join("__");
+    vars.statsvar = svList.join("__");
   }
   setSearchParam(vars);
 }
@@ -53,11 +82,11 @@ function updateUrlStatsVar(statvar, shouldAdd) {
  * @param {string} dcid of statvar
  * @return void
  */
-function deleteStatsVar(statvar) {
-  let vars = getUrlVars();
+function deleteStatsVar(statvar: string) {
+  const vars = getUrlVars() as VarUrl;
   let svList = [];
   if ("statsvar" in vars) {
-    svList = vars["statsvar"].split("__");
+    svList = vars.statsvar.split("__");
   }
   for (const sv of svList) {
     if (sv.split(SEP)[0] === statvar) {
@@ -65,9 +94,9 @@ function deleteStatsVar(statvar) {
     }
   }
   if (svList.length === 0) {
-    delete vars["statsvar"];
+    delete vars.statsvar;
   } else {
-    vars["statsvar"] = svList.join("__");
+    vars.statsvar = svList.join("__");
   }
   setSearchParam(vars);
 }
@@ -79,12 +108,12 @@ function deleteStatsVar(statvar) {
  * @param {boolean} add = True, delete = False
  * @return {boolean} if added/deleted = True, if did nothing = False
  */
-function updateUrlPlace(place, shouldAdd) {
-  let vars = getUrlVars();
+function updateUrlPlace(place: string, shouldAdd: boolean) {
+  const vars = getUrlVars() as VarUrl;
   let placeList = [];
   let changed = false;
   if ("place" in vars) {
-    placeList = vars["place"].split(",");
+    placeList = vars.place.split(",");
   }
   if (shouldAdd) {
     if (!placeList.includes(place)) {
@@ -97,14 +126,15 @@ function updateUrlPlace(place, shouldAdd) {
       changed = true;
     }
   }
+
   if (placeList.length === 0) {
-    delete vars["place"];
+    delete vars.place;
   } else {
-    if (!("statsvar" in vars)) {
-      vars["statsvar"] =
+    if (!vars.hasOwnProperty("statsvar")) {
+      vars.statsvar =
         "Count_Person" + SEP + "Demographics" + SEP + "Population";
     }
-    vars["place"] = placeList.join(",");
+    vars.place = placeList.join(",");
   }
 
   setSearchParam(vars);
@@ -117,14 +147,14 @@ function updateUrlPlace(place, shouldAdd) {
  * @return {[string[][],string[]]} the list of paths of statvars from url
  */
 function parseStatVarPath() {
-  let vars = getUrlVars();
+  const vars = getUrlVars() as VarUrl;
   let svList = [];
-  let statvarPath = [];
-  let statvarIds = [];
+  const statvarPath = [];
+  const statvarIds = [];
   if ("statsvar" in vars) {
-    svList = vars["statsvar"].split("__");
-    for (let idx = 0; idx < svList.length; idx++) {
-      let sv = decodeURI(svList[idx]);
+    svList = vars.statsvar.split("__");
+    for (const statvar of svList) {
+      const sv = decodeURI(statvar);
       statvarIds.push(sv.split(SEP)[0]);
       statvarPath.push(sv.split(SEP).slice(1));
     }
@@ -138,17 +168,17 @@ function parseStatVarPath() {
  * @return string[] list of place Ids
  */
 function parsePlace() {
-  let vars = getUrlVars();
+  const vars = getUrlVars() as VarUrl;
   if ("place" in vars) {
-    return vars["place"].split(",");
+    return vars.place.split(",");
   } else {
     return [];
   }
 }
 
-function getPlaceNames(dcids) {
+function getPlaceNames(dcids: string[]) {
   let url = "/api/place/name?";
-  let urls = [];
+  const urls = [];
   for (const place of dcids) {
     urls.push(`dcid=${place}`);
   }
@@ -158,9 +188,9 @@ function getPlaceNames(dcids) {
   });
 }
 
-function getStatsVarInfo(dcids) {
+function getStatsVarInfo(dcids: string[]) {
   let url = "/api/stats/stats-var-property?";
-  let urls = [];
+  const urls = [];
   for (const dcid of dcids) {
     urls.push(`dcid=${dcid}`);
   }
@@ -168,6 +198,33 @@ function getStatsVarInfo(dcids) {
   return axios.get(url).then((resp) => {
     return resp.data;
   });
+}
+
+function getStatsVar(dcids: string[]) {
+  if(dcids.length === 0) {
+  return Promise.resolve(new Set<string>());
+}
+const promises = [];
+// ToDo: read the set of statsvars available for multiple dcids from server side
+for (const dcid of dcids) {
+  promises.push(
+    axios.get("/api/place/statsvars/" + dcid).then((resp) => {
+      return resp.data;
+    })
+  );
+}
+return Promise.all(promises).then((values) => {
+  let statvars = new Set(); // Count_Person not in List ???
+  for (const value of values) {
+    statvars = new Set([...Array.from(statvars), ...value])
+  }
+  Object.keys(MAPPING).map((key) => {
+    if (statvars.has(MAPPING[key])) {
+      statvars.add(key);
+    }
+  })
+  return statvars;
+}) as Promise<Set<string>>;
 }
 
 export {
@@ -178,4 +235,5 @@ export {
   getStatsVarInfo,
   getPlaceNames,
   deleteStatsVar,
+  getStatsVar,
 };

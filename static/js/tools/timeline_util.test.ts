@@ -5,7 +5,7 @@ import {
   parsePlace,
   getPlaceNames,
   deleteStatsVar,
-} from "./timeline_util.js";
+} from "./timeline_util";
 import { SEP } from "./statsvar_menu";
 
 test("update Url statsvar", () => {

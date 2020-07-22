@@ -16,7 +16,7 @@
 
 import React, { Component } from "react";
 import { randDomId } from "../shared/util";
-import { deleteStatsVar } from "./timeline_util.js";
+import { deleteStatsVar } from "./timeline_util";
 import { fetchStatsData, StatsData } from "../shared/data_fetcher";
 import { drawGroupLineChart, computePlotParams } from "../chart/draw";
 
