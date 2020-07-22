@@ -25,9 +25,9 @@ import {
   clearDiv,
 } from "./dc.js";
 
-import { getApiKey, getApiRoot, isSetsEqual } from "../util.js";
+import { getApiKey, getApiRoot, isSetsEqual } from "../shared/util.js";
 
-require("../globals.js");
+require("./globals.js");
 
 let exploreTypeVars;
 

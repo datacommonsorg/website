@@ -15,9 +15,9 @@
  */
 
 import React, { Component } from "react";
-import { randDomId } from "../util";
+import { randDomId } from "../shared/util";
 import { deleteStatsVar } from "./timeline_util";
-import { fetchStatsData, StatsData } from "../data_fetcher";
+import { fetchStatsData, StatsData } from "../shared/data_fetcher";
 import { drawGroupLineChart, computePlotParams } from "../chart/draw";
 
 const CHART_HEIGHT = 300;

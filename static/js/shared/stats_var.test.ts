@@ -16,7 +16,7 @@
 
 
 import { STATS_VAR_TEXT } from "./stats_var";
-import chartConfig from "../../server/chart_config.json";
+import chartConfig from "../../../server/chart_config.json";
 
 
 test("stats var names", () => {

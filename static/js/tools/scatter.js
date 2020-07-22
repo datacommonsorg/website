@@ -17,7 +17,7 @@
 /* This script generates the menu, chart options, and chart for scatterplot.
  * TODO: Break this script up into smaller modules. */
 
-import { getApiKey, getApiRoot, unzip } from "../util.js";
+import { getApiKey, getApiRoot, unzip } from "../shared/util.js";
 
 /* Clear url on page reload */
 if (performance.navigation.type == 1) {

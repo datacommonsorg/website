@@ -21,7 +21,7 @@
 const ReactDOM = require("react-dom");
 const React = require("react");
 
-import { getApiKey, getApiRoot } from "./util.js";
+import { getApiKey, getApiRoot } from "./shared/util.js";
 
 import { Translation } from "./translator_template.jsx";
 
