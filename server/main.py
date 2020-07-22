@@ -91,10 +91,18 @@ def place():
     for place_type in place_types:
         if not chosen_type or chosen_type.startswith('AdministrativeArea'):
             chosen_type = place_type
-    place_name = get_property_value(place_dcid, 'name')[0]
+    place_names = get_property_value(place_dcid, 'name')
+    if place_names:
+        place_name = place_names[0]
+    else:
+        place_name = place_dcid
     topic = request.args.get('topic', '')
     return flask.render_template(
-        'place.html', place_type=chosen_type, place_name=place_name, place_dcid=place_dcid, topic=topic)
+        'place.html',
+        place_type=chosen_type,
+        place_name=place_name,
+        place_dcid=place_dcid,
+        topic=topic)
 
 
 @cache.cached(timeout=3600 * 24)
