@@ -73,10 +73,10 @@ class Page extends Component<PagePropType, PageStateType> {
     }
 
     let placesPromise = Promise.resolve(this.state.places);
-    let statvarValidPromise = Promise.resolve(this.state.statvarValid);
+    let validStatsVarPromise = Promise.resolve(this.state.statvarValid);
     const placeIds = parsePlace();
     if (placeIds !== Object.keys(this.state.places)) {
-      statvarValidPromise = getStatsVar(placeIds);
+      validStatsVarPromise = getStatsVar(placeIds);
       if (placeIds.length !== 0) {
         placesPromise = getPlaceNames(placeIds).then((data) =>
           Object.entries(data)
@@ -86,7 +86,7 @@ class Page extends Component<PagePropType, PageStateType> {
       }
     }
 
-    Promise.all([statvarInfoPromise, placesPromise, statvarValidPromise]).then(
+    Promise.all([statvarInfoPromise, placesPromise, validStatsVarPromise]).then(
       (values) => {
         for (let idx = 0; idx < svIds.length; idx++) {
           values[0][svIds[idx]].title = svPaths[idx].slice(-1)[0];

@@ -16,6 +16,31 @@
 import axios from "axios";
 import { getUrlVars, setSearchParam } from "./dc";
 import { SEP } from "./statsvar_menu";
+import { keys } from "../../webpack.config";
+
+// Temporary hack before we clean up place stats var cache.
+const MAPPING = {
+  "Count_Person": "TotalPopulation",
+  "Count_Person_Male": "MalePopulation",
+  "Count_Person_Female": "FemalePopulation",
+  "Count_Person_MarriedAndNotSeparated": "MarriedPopulation",
+  "Count_Person_Divorced": "DivorcedPopulation",
+  "Count_Person_NeverMarried": "NeverMarriedPopulation",
+  "Count_Person_Separated": "SeparatedPopulation",
+  "Count_Person_Widowed": "WidowedPopulation",
+  "Median_Age_Person": "MedianAge",
+  "Median_Income_Person": "MedianIncome",
+  "Count_Person_BelowPovertyLevelInThePast12Months": "BelowPovertyLine",
+  "Count_HousingUnit": "HousingUnits",
+  "Count_Household": "Households",
+  "Count_CriminalActivities_CombinedCrime": "TotalCrimes",
+  "UnemploymentRate_Person": "UnemploymentRate",
+  "CumulativeCount_MedicalConditionIncident_COVID_19_ConfirmedOrProbableCase": "NYTCovid19CumulativeCases",
+  "CumulativeCount_MedicalConditionIncident_COVID_19_PatientDeceased": "NYTCovid19CumulativeDeaths",
+  "IncrementalCount_MedicalConditionIncident_COVID_19_ConfirmedOrProbableCase": "NYTCovid19IncrementalCases",
+  "IncrementalCount_MedicalConditionIncident_COVID_19_PatientDeceased": "NYTCovid19IncrementalDeaths"
+}
+
 /**
  * add or delete statvars from url
  *
@@ -177,25 +202,30 @@ function getStatsVarInfo(dcids: string[]) {
 }
 
 function getStatsVar(dcids: string[]) {
-  if (dcids.length === 0) {
-    return Promise.resolve([]);
+  if(dcids.length === 0) {
+  return Promise.resolve([]);
+}
+const promises = [];
+// ToDo: read the set of statsvars available for multiple dcids from server side
+for (const dcid of dcids) {
+  promises.push(
+    axios.get("/api/place/statsvars/" + dcid).then((resp) => {
+      return resp.data;
+    })
+  );
+}
+return Promise.all(promises).then((values) => {
+  let statvars = new Set(); // Count_Person not in List ???
+  for (const value of values) {
+    statvars = new Set([...Array.from(statvars), ...value])
   }
-  const promises = [];
-  for (const dcid of dcids) {
-    promises.push(
-      axios.get("/api/place/statsvars/" + dcid).then((resp) => {
-        return resp.data;
-      })
-    );
-  }
-  return Promise.all(promises).then((values) => {
-    let statvars = ["Count_Person"]; // Count_Person not in List ???
-    for (const value of values) {
-      statvars = statvars.concat(value);
+  Object.keys(MAPPING).map((key) => {
+    if (statvars.has(MAPPING[key])) {
+      statvars.add(key);
     }
-    statvars.filter((item, pos) => statvars.indexOf(item) === pos);
-    return statvars;
-  });
+  })
+  return Array.from(statvars);
+});
 }
 
 export {
