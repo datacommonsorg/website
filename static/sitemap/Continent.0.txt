@@ -1,0 +1,7 @@
+https://datacommons.org/place?dcid=africa
+https://datacommons.org/place?dcid=antarctica
+https://datacommons.org/place?dcid=asia
+https://datacommons.org/place?dcid=europe
+https://datacommons.org/place?dcid=northamerica
+https://datacommons.org/place?dcid=oceania
+https://datacommons.org/place?dcid=southamerica

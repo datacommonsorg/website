@@ -32,7 +32,7 @@
             <div>
               <a href="{{url_for('placelist.node', dcid=place['dcid'])}}">{{place['name']}}</a>
               <span>: (</span>
-              <a href="{{url_for('browser.kg_entity', dcid=dcid)}}">KG</a>
+              <a href="{{url_for('browser.kg_entity', dcid=place['dcid'])}}">KG</a>
               <span>)</span>
             </div>
           {% endfor %}
