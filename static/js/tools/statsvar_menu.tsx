@@ -15,6 +15,7 @@ interface NodePropType {
   nodePath: string;
   svPaths: string[][];
   svValid: Set<string>;
+  filter: boolean;
 }
 
 interface NodeStateType {
@@ -53,7 +54,10 @@ class Node extends Component<NodePropType, NodeStateType> {
     let child: JSX.Element[];
     let childCnt = 0;
     let svValid = false;
-    if (this.props.t === "v" && this.props.svValid.has(this.props.sv)) {
+    if (
+      this.props.t === "v" &&
+      (!this.props.filter || this.props.svValid.has(this.props.sv))
+    ) {
       svValid = true;
       checkboxImg = (
         <button
@@ -65,14 +69,22 @@ class Node extends Component<NodePropType, NodeStateType> {
 
     if (this.props.cd && this.props.cd.length !== 0) {
       this.props.cd.map((item) => {
-        if (item.t === "p" || this.props.svValid.has(item.sv)) {
+        if (
+          item.t === "p" ||
+          !this.props.filter ||
+          this.props.svValid.has(item.sv)
+        ) {
           childCnt += 1;
         }
       });
 
       if (this.state.expanded) {
         child = this.props.cd.map((item, index) => {
-          if (item.t === "p" || this.props.svValid.has(item.sv)) {
+          if (
+            item.t === "p" ||
+            !this.props.filter ||
+            this.props.svValid.has(item.sv)
+          ) {
             return (
               <Node
                 l={item.l}
@@ -85,6 +97,7 @@ class Node extends Component<NodePropType, NodeStateType> {
                 svPaths={this.state.svPaths}
                 key={this.props.l + index}
                 svValid={this.props.svValid}
+                filter={this.props.filter}
               ></Node>
             );
           }
@@ -169,6 +182,7 @@ interface MenuPropType {
   updateUrl: (statvar: string, shouldAdd: boolean) => void;
   svPaths: string[][];
   svValid: Set<string>;
+  filter: boolean;
 }
 interface MenuStateType {
   menuJson: [{}];
@@ -200,6 +214,7 @@ class Menu extends Component<MenuPropType, MenuStateType> {
                     nodePath=""
                     updateUrl={this.props.updateUrl}
                     svValid={this.props.svValid}
+                    filter={this.props.filter}
                   ></Node>
                 )
               );

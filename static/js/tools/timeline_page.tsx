@@ -127,6 +127,7 @@ class Page extends Component<PagePropType, PageStateType> {
               search={this.props.search}
               svPaths={this.state.statvarPaths}
               svValid={this.state.statvarValid}
+              filter={this.state.places.length !== 0}
             ></Menu>
           </div>
         </div>
