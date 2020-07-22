@@ -31,6 +31,8 @@ class Node extends Component<NodePropType, NodeStateType> {
     this._handleCheckboxClick = this._handleCheckboxClick.bind(this);
     this._handleExpandClick = this._handleExpandClick.bind(this);
     this._handleHashChange = this._handleHashChange.bind(this);
+    this.expandable = this.expandable.bind(this);
+    this.validSV = this.validSV.bind(this);
     this.state = {
       checked: false,
       expanded: false,
@@ -49,87 +51,51 @@ class Node extends Component<NodePropType, NodeStateType> {
   }
 
   public render = (): JSX.Element => {
-    let checkboxImg: JSX.Element;
-    let expandImg: JSX.Element;
     let child: JSX.Element[];
-    let childCnt = 0;
-    let svValid = false;
-    if (
-      this.props.t === "v" &&
-      (!this.props.filter || this.props.svValid.has(this.props.sv))
-    ) {
-      svValid = true;
-      checkboxImg = (
-        <button
-          className={this.state.checked ? "checkbox checked" : "checkbox"}
-          onClick={this._handleCheckboxClick}
-        />
-      );
-    }
-
-    if (this.props.cd && this.props.cd.length !== 0) {
-      this.props.cd.map((item) => {
-        if (
-          item.t === "p" ||
-          !this.props.filter ||
-          this.props.svValid.has(item.sv)
-        ) {
-          childCnt += 1;
-        }
+    const validSV = this.validSV();
+    const expandable = this.expandable();
+    if (expandable && this.state.expanded) {
+      child = this.props.cd.map((item, index) => {
+        return (
+          <Node
+            l={item.l}
+            cd={item.cd}
+            c={item.c}
+            t={item.t}
+            sv={item.sv}
+            updateUrl={this.props.updateUrl}
+            nodePath={this.state.nodePath}
+            svPaths={this.state.svPaths}
+            key={this.props.l + index}
+            svValid={this.props.svValid}
+            filter={this.props.filter}
+          ></Node>
+        );
       });
-
-      if (this.state.expanded) {
-        child = this.props.cd.map((item, index) => {
-          if (
-            item.t === "p" ||
-            !this.props.filter ||
-            this.props.svValid.has(item.sv)
-          ) {
-            return (
-              <Node
-                l={item.l}
-                cd={item.cd}
-                c={item.c}
-                t={item.t}
-                sv={item.sv}
-                updateUrl={this.props.updateUrl}
-                nodePath={this.state.nodePath}
-                svPaths={this.state.svPaths}
-                key={this.props.l + index}
-                svValid={this.props.svValid}
-                filter={this.props.filter}
-              ></Node>
-            );
-          }
-        });
-        expandImg = (
-          <img
-            className="right-caret transform-up"
-            src="/images/right-caret-light.png"
-            onClick={this._handleExpandClick}
-          />
-        );
-      } else {
-        expandImg = (
-          <img
-            className="right-caret"
-            src="/images/right-caret-light.png"
-            onClick={this._handleExpandClick}
-          />
-        );
-      }
     }
 
     return (
-      (svValid || childCnt !== 0) && (
+      // render the node only if it is a valid SV node or it is expandable
+      (validSV || expandable) && (
         <ul className="noborder">
           <li className="value" id={this.props.l}>
             <span>
               <a className="value-link">
                 {this.props.l + "  "}
                 <sup>{this.props.c !== 0 && "(" + this.props.c + ")"}</sup>
-                {checkboxImg}
-                {expandImg}
+                {validSV && (
+                  <button
+                    className={this.state.checked ? "checkbox checked" : "checkbox"}
+                    onClick={this._handleCheckboxClick}
+                  />
+                )}
+                {expandable && (
+                  <img
+                    className={this.state.expanded ? "right-caret transform-up" : "right-caret"}
+                    src="/images/right-caret-light.png"
+                    onClick={this._handleExpandClick}
+                  />
+                )}
               </a>
             </span>
             {child}
@@ -138,7 +104,6 @@ class Node extends Component<NodePropType, NodeStateType> {
       )
     );
   };
-
   private _handleCheckboxClick = (): void => {
     this.setState({
       checked: !this.state.checked,
@@ -174,6 +139,34 @@ class Node extends Component<NodePropType, NodeStateType> {
       expanded: expand,
       svPaths: svPathNext,
     });
+  }
+
+  private validSV() {
+    // the node is valid statsvar node if it is a value node,
+    // and the statsvar is available or not filtered.
+    return (
+      this.props.t === "v" &&
+      (!this.props.filter || this.props.svValid.has(this.props.sv))
+    );
+  }
+
+  private expandable() {
+    let childCnt = 0;
+    if (this.props.cd && this.props.cd.length !== 0) {
+      this.props.cd.map((item) => {
+        if (
+          // a valid child node is either a property node,
+          // or a value node not filtered
+          // or a value node with valid statvar id
+          item.t === "p" ||
+          !this.props.filter ||
+          this.props.svValid.has(item.sv)
+        ) {
+          childCnt += 1;
+        }
+      });
+    }
+    return childCnt > 0;
   }
 }
 
