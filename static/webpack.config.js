@@ -96,7 +96,9 @@ const config = {
       { from: "images/*" },
       { from: "fonts/*" },
       { from: "data/**/*" },
+      { from: "sitemap/*.txt" },
       { from: "favicon.ico" },
+      { from: "robots.txt" },
     ]),
     new FixStyleOnlyEntriesPlugin({
       silent: true,
