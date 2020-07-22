@@ -93,7 +93,8 @@ def write_place_url(place_type):
 def updateRobotTxt():
     with open('../../static/robots.txt', 'w') as robot:
         for f in os.listdir(SAVE_PATH):
-            robot.write('Sitemap: https://datacommons.org/{}\n'.format(f))
+            robot.write(
+              'Sitemap: https://datacommons.org/sitemap/{}\n'.format(f))
 
 
 def main():
