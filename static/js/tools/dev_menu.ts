@@ -21,7 +21,7 @@
 import React from "react";
 import ReactDOM from "react-dom";
 import { Page } from "./timeline_page";
-import { updateUrlStatsVar } from "./timeline_util.js";
+import { updateUrlStatsVar } from "./timeline_util";
 
 window.onload = () => {
   ReactDOM.render(

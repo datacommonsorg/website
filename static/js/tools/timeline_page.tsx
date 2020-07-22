@@ -20,13 +20,14 @@ import {
   parsePlace,
   getStatsVarInfo,
   getPlaceNames,
+  getStatsVar,
   updateUrlPC,
   getPC,
 } from "./timeline_util";
 import { SearchBar } from "./timeline_search";
 import { Menu } from "./statsvar_menu";
 import { ChartRegion, StatVarInfo } from "./timeline_chart";
-import {Info} from "./timeline_info";
+import { Info } from "./timeline_info";
 
 interface PagePropType {
   search: boolean;
@@ -38,6 +39,7 @@ interface PageStateType {
   statvarInfo: { [key: string]: StatVarInfo };
   places: [string, string][]; // [(placeId, placeName)]
   perCapita: boolean;
+  statvarValid: Set<string>;
 }
 
 class Page extends Component<PagePropType, PageStateType> {
@@ -50,6 +52,7 @@ class Page extends Component<PagePropType, PageStateType> {
       statvarInfo: {},
       places: [],
       perCapita: false,
+      statvarValid: new Set(),
     };
   }
 
@@ -72,8 +75,10 @@ class Page extends Component<PagePropType, PageStateType> {
     }
 
     let placesPromise = Promise.resolve(this.state.places);
+    let validStatsVarPromise = Promise.resolve(this.state.statvarValid);
     const placeIds = parsePlace();
     if (placeIds !== Object.keys(this.state.places)) {
+      validStatsVarPromise = getStatsVar(placeIds);
       if (placeIds.length !== 0) {
         placesPromise = getPlaceNames(placeIds).then((data) =>
           Object.entries(data)
@@ -83,17 +88,20 @@ class Page extends Component<PagePropType, PageStateType> {
       }
     }
 
-    Promise.all([statvarInfoPromise, placesPromise]).then((values) => {
-      for(let idx=0; idx<svIds.length; idx++){
-        values[0][svIds[idx]].title=svPaths[idx][svPaths[idx].length -1]
+    Promise.all([statvarInfoPromise, placesPromise, validStatsVarPromise]).then(
+      (values) => {
+        for (let idx = 0; idx < svIds.length; idx++) {
+          values[0][svIds[idx]].title = svPaths[idx].slice(-1)[0];
+        }
+        this.setState({
+          statvarInfo: values[0],
+          statvarPaths: svPaths,
+          places: values[1],
+          statvarValid: values[2],
+          perCapita: getPC(),
+        });
       }
-      this.setState({
-        statvarInfo: values[0],
-        statvarPaths: svPaths,
-        places: values[1],
-        perCapita: getPC(),
-      });
-    });
+    );
   }
 
   _togglePerCapita() {
@@ -122,6 +130,7 @@ class Page extends Component<PagePropType, PageStateType> {
               updateUrl={this.props.updateUrl}
               search={this.props.search}
               svPaths={this.state.statvarPaths}
+              svValid={this.state.statvarValid}
             ></Menu>
           </div>
         </div>
@@ -130,7 +139,7 @@ class Page extends Component<PagePropType, PageStateType> {
             <div id="search">
               <SearchBar places={this.state.places} />
             </div>
-            {(this.state.places.length === 0) && <Info/>}
+            {this.state.places.length === 0 && <Info />}
             <div id="chart-region">
               <ChartRegion
                 places={this.state.places}

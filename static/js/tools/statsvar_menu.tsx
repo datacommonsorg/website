@@ -3,17 +3,18 @@ import axios from "axios";
 import hierarchy from "../../../tools/pv_tree_generator/hierarchy_top.json";
 
 const jsonPath = "data/hierarchy_statsvar.json";
-export const SEP="'";
+export const SEP = "'";
 
 interface NodePropType {
   l: string; // label
   c: number; // count
-  cd: NodePropType[];  // children
-  t: string;  // type
+  cd: NodePropType[]; // children
+  t: string; // type
   sv: string;
   updateUrl: (statvar: string, add: boolean) => void;
   nodePath: string;
   svPaths: string[][];
+  svValid: Set<string>;
 }
 
 interface NodeStateType {
@@ -50,7 +51,10 @@ class Node extends Component<NodePropType, NodeStateType> {
     let checkboxImg: JSX.Element;
     let expandImg: JSX.Element;
     let child: JSX.Element[];
-    if (this.props.t === "v") {
+    let childCnt = 0;
+    let svValid = false;
+    if (this.props.t === "v" && this.props.svValid.has(this.props.sv)) {
+      svValid = true;
       checkboxImg = (
         <button
           className={this.state.checked ? "checkbox checked" : "checkbox"}
@@ -60,7 +64,31 @@ class Node extends Component<NodePropType, NodeStateType> {
     }
 
     if (this.props.cd && this.props.cd.length !== 0) {
+      this.props.cd.map((item) => {
+        if (item.t === "p" || this.props.svValid.has(item.sv)) {
+          childCnt += 1;
+        }
+      });
+
       if (this.state.expanded) {
+        child = this.props.cd.map((item, index) => {
+          if (item.t === "p" || this.props.svValid.has(item.sv)) {
+            return (
+              <Node
+                l={item.l}
+                cd={item.cd}
+                c={item.c}
+                t={item.t}
+                sv={item.sv}
+                updateUrl={this.props.updateUrl}
+                nodePath={this.state.nodePath}
+                svPaths={this.state.svPaths}
+                key={this.props.l + index}
+                svValid={this.props.svValid}
+              ></Node>
+            );
+          }
+        });
         expandImg = (
           <img
             className="right-caret transform-up"
@@ -68,21 +96,6 @@ class Node extends Component<NodePropType, NodeStateType> {
             onClick={this._handleExpandClick}
           />
         );
-        child = this.props.cd.map((item, index) => {
-          return (
-            <Node
-              l={item.l}
-              cd={item.cd}
-              c={item.c}
-              t={item.t}
-              sv={item.sv}
-              updateUrl={this.props.updateUrl}
-              nodePath={this.state.nodePath}
-              svPaths={this.state.svPaths}
-              key={this.props.l + index}
-            ></Node>
-          );
-        });
       } else {
         expandImg = (
           <img
@@ -95,21 +108,21 @@ class Node extends Component<NodePropType, NodeStateType> {
     }
 
     return (
-      <ul className="noborder">
-        <li className="value" id={this.props.l}>
-          <span>
-            <a className="value-link">
-              {this.props.l + "  "}
-              <sup>
-                {this.props.c !== 0 && "(" + this.props.c + ")"}
-              </sup>
-              {checkboxImg}
-              {expandImg}
-            </a>
-          </span>
-          {child}
-        </li>
-      </ul>
+      (svValid || childCnt !== 0) && (
+        <ul className="noborder">
+          <li className="value" id={this.props.l}>
+            <span>
+              <a className="value-link">
+                {this.props.l + "  "}
+                <sup>{this.props.c !== 0 && "(" + this.props.c + ")"}</sup>
+                {checkboxImg}
+                {expandImg}
+              </a>
+            </span>
+            {child}
+          </li>
+        </ul>
+      )
     );
   };
 
@@ -155,44 +168,48 @@ interface MenuPropType {
   search: boolean;
   updateUrl: (statvar: string, shouldAdd: boolean) => void;
   svPaths: string[][];
+  svValid: Set<string>;
 }
-interface MenuStateType{
-  menuJson:[{}]
+interface MenuStateType {
+  menuJson: [{}];
 }
 class Menu extends Component<MenuPropType, MenuStateType> {
-  constructor(props){
-    super(props)
-    this.state={
-      menuJson:[hierarchy]
-    }
+  constructor(props) {
+    super(props);
+    this.state = {
+      menuJson: [hierarchy],
+    };
   }
   render() {
     return (
       <div id="drill">
         <div className="noedge">
-        {this.state.menuJson.map((vertical, index1) => {
-          return Object.keys(vertical).map((key, index) => {
-            const item = vertical[key];
-            return ((item.cd.length !== 0)&&
-              <Node
-                l={item.l}
-                cd={item.cd}
-                c={item.c}
-                t={item.t}
-                sv={item.sv}
-                key={index1 + "," + index}
-                svPaths={this.props.svPaths}
-                nodePath=""
-                updateUrl={this.props.updateUrl}
-              ></Node>
-            );
-          });
-        })}
+          {this.state.menuJson.map((vertical, index1) => {
+            return Object.keys(vertical).map((key, index) => {
+              const item = vertical[key];
+              return (
+                item.cd.length !== 0 && (
+                  <Node
+                    l={item.l}
+                    cd={item.cd}
+                    c={item.c}
+                    t={item.t}
+                    sv={item.sv}
+                    key={index1 + "," + index}
+                    svPaths={this.props.svPaths}
+                    nodePath=""
+                    updateUrl={this.props.updateUrl}
+                    svValid={this.props.svValid}
+                  ></Node>
+                )
+              );
+            });
+          })}
         </div>
       </div>
     );
   }
-  componentDidMount(){
+  componentDidMount() {
     axios.get(jsonPath).then((resp) => {
       this.setState({
         menuJson: [resp.data],
