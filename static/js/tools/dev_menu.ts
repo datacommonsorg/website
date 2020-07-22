@@ -21,11 +21,10 @@
 import React from "react";
 import ReactDOM from "react-dom";
 import { Page } from "./timeline_page";
-import { updateUrlStatsVar } from "./timeline_util";
 
 window.onload = () => {
   ReactDOM.render(
-    React.createElement(Page, { updateUrl: updateUrlStatsVar, search: false }),
+    React.createElement(Page),
     document.getElementById("main-pane")
   );
 };

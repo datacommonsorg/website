@@ -53,132 +53,107 @@ interface VarUrl {
   pc: string;
 }
 
-function updateUrlStatsVar(statvar: string, shouldAdd: boolean) {
-  const vars = getUrlVars() as VarUrl;
-  const statvarUrl = encodeURI(statvar);
-  let svList = [];
-  if ("statsvar" in vars) {
-    svList = vars.statsvar.split("__");
-  }
-  if (shouldAdd) {
-    if (!svList.includes(statvarUrl)) {
-      svList.push(statvarUrl);
-    }
-  } else {
-    if (svList.includes(statvarUrl)) {
-      svList.splice(svList.indexOf(statvarUrl), 1);
-    }
-  }
-  if (svList.length === 0) {
-    delete vars.statsvar;
-  } else {
-    vars.statsvar = svList.join("__");
-  }
-  setSearchParam(vars);
+interface UrlParam {
+  pc?: boolean;
+  place?: { place: string, shouldAdd: boolean };
+  svPath?: { statsvar: string, shouldAdd: boolean };
+  svDelete?: string;
 }
 
-/**
- * delete statvars from url without path
- *
- * @param {string} dcid of statvar
- * @return void
- */
-function deleteStatsVar(statvar: string) {
+function updateUrl(param: UrlParam) {
   const vars = getUrlVars() as VarUrl;
-  let svList = [];
-  if ("statsvar" in vars) {
-    svList = vars.statsvar.split("__");
+  // update per Capita state
+  if ("pc" in param) {
+    vars.pc = param.pc ? "1" : "0";
   }
-  for (const sv of svList) {
-    if (sv.split(SEP)[0] === statvar) {
-      svList.splice(svList.indexOf(sv), 1);
+  // update places
+  if ("place" in param) {
+    let placeList = [];
+    if ("place" in vars) {
+      placeList = vars.place.split(",");
     }
-  }
-  if (svList.length === 0) {
-    delete vars.statsvar;
-  } else {
-    vars.statsvar = svList.join("__");
-  }
-  setSearchParam(vars);
-}
-
-/**
- * add or delete place from url
- *
- * @param {string} dcid of place
- * @param {boolean} add = True, delete = False
- * @return {boolean} if added/deleted = True, if did nothing = False
- */
-function updateUrlPlace(place: string, shouldAdd: boolean) {
-  const vars = getUrlVars() as VarUrl;
-  let placeList = [];
-  let changed = false;
-  if ("place" in vars) {
-    placeList = vars.place.split(",");
-  }
-  if (shouldAdd) {
-    if (!placeList.includes(place)) {
-      placeList.push(place);
-      changed = true;
+    if (param.place.shouldAdd && !placeList.includes(param.place.place)) {
+      placeList.push(param.place.place);
+    } else if (!param.place.shouldAdd && placeList.includes(param.place.place)) {
+      placeList.splice(placeList.indexOf(param.place.place), 1);
     }
-  } else {
-    if (placeList.includes(place)) {
-      placeList.splice(placeList.indexOf(place), 1);
-      changed = true;
+    vars.place = placeList.join(",");
+    // delete empty fields
+    if (vars.place === "") {
+      delete vars.place;
     }
-  }
-
-  if (placeList.length === 0) {
-    delete vars.place;
-  } else {
-    if (!vars.hasOwnProperty("statsvar")) {
+    else if (!vars.hasOwnProperty("statsvar")) {
       vars.statsvar =
         "Count_Person" + SEP + "Demographics" + SEP + "Population";
     }
-    vars.place = placeList.join(",");
+  }
+  // update statsvar with Path
+  if ("svPath" in param) {
+    const statvarUrl = encodeURI(param.svPath.statsvar);
+    let svList = [];
+    if ("statsvar" in vars) {
+      svList = vars.statsvar.split("__");
+    }
+    if (param.svPath.shouldAdd && !svList.includes(statvarUrl)) {
+      svList.push(statvarUrl);
+    } else if (!param.svPath.shouldAdd && svList.includes(statvarUrl)) {
+      svList.splice(svList.indexOf(statvarUrl), 1);
+    }
+    vars.statsvar = svList.join("__");
+    if (vars.statsvar === "") {
+      delete vars.statsvar;
+    }
+  }
+  // delete statsvar with statsvarId
+  if ("svDelete" in param) {
+    let svList = [];
+    if ("statsvar" in vars) {
+      svList = vars.statsvar.split("__");
+    }
+    for (const sv of svList) {
+      if (sv.split(SEP)[0] === param.svDelete) {
+        svList.splice(svList.indexOf(sv), 1);
+      }
+    }
+    vars.statsvar = svList.join("__");
+    if (vars.statsvar === "") {
+      delete vars.statsvar;
+    }
   }
 
-  setSearchParam(vars);
-  return changed;
-}
-function updateUrlPC(pc) {
-  const vars = getUrlVars() as VarUrl;
-  vars.pc = pc ? "1" : "0";
+  // add default statsvar when place is not empty
   setSearchParam(vars);
 }
-/**
- * parse the paths of statvars from url
- *
- * @return {[string[][],string[]]} the list of paths of statvars from url
- */
-function parseStatVarPath() {
+
+function parseUrl() {
   const vars = getUrlVars() as VarUrl;
+  let pc: boolean;
+  if ("pc" in vars) {
+    pc = vars.pc === "1";
+  } else {
+    pc = false
+  }
+
+  let placeIds: string[];
+  if ("place" in vars) {
+    placeIds = vars.place.split(",");
+  } else {
+    placeIds = []
+  }
+
   let svList = [];
-  const statvarPath = [];
-  const statvarIds = [];
+  const statsvarPaths = [];
+  const statsvarIds = [];
   if ("statsvar" in vars) {
     svList = vars.statsvar.split("__");
     for (const statvar of svList) {
       const sv = decodeURI(statvar);
-      statvarIds.push(sv.split(SEP)[0]);
-      statvarPath.push(sv.split(SEP).slice(1));
+      statsvarIds.push(sv.split(SEP)[0]);
+      statsvarPaths.push(sv.split(SEP).slice(1));
     }
   }
-  return [statvarPath, statvarIds];
-}
 
-/**
- * Get the place names from place ids in the url
- *
- * @return string[] list of place Ids
- */
-function parsePlace() {
-  const vars = getUrlVars() as VarUrl;
-  if ("place" in vars) {
-    return vars.place.split(",");
-  } else {
-    return [];
-  }
+  return { "svPath": statsvarPaths, "svId": statsvarIds, "placeId": placeIds, "pc": pc }
 }
 
 function getPlaceNames(dcids: string[]) {
@@ -205,14 +180,7 @@ function getStatsVarInfo(dcids: string[]) {
   });
 }
 
-function getPC() {
-  const vars = getUrlVars() as VarUrl;;
-  if ("pc" in vars) {
-    return vars.pc === "1";
-  } else {
-    return false;
-  }
-}
+
 function getStatsVar(dcids: string[]) {
   if (dcids.length === 0) {
     return Promise.resolve(new Set<string>());
@@ -241,14 +209,9 @@ function getStatsVar(dcids: string[]) {
 }
 
 export {
-  updateUrlStatsVar,
-  updateUrlPlace,
-  updateUrlPC,
-  parseStatVarPath,
-  parsePlace,
+  updateUrl,
+  parseUrl,
   getStatsVarInfo,
   getPlaceNames,
-  getPC,
-  deleteStatsVar,
   getStatsVar,
 };

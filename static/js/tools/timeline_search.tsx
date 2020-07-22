@@ -16,7 +16,7 @@
 
 import React, { Component } from "react";
 import axios from "axios";
-import { updateUrlPlace } from "./timeline_util";
+import { updateUrl } from "./timeline_util";
 
 let ac: google.maps.places.Autocomplete;
 
@@ -48,7 +48,7 @@ class Chip extends Component<ChipPropType, ChipStateType> {
     );
   }
   deleteChip() {
-    updateUrlPlace(this.state.placeId, false);
+    updateUrl({ place: { place: this.state.placeId, shouldAdd: false } });
   }
 }
 
@@ -118,7 +118,7 @@ class SearchBar extends Component<SearchBarPropType, SearchBarStateType> {
     axios
       .get(`/api/placeid2dcid/${place.place_id}`)
       .then((resp) => {
-        updateUrlPlace(resp.data, true);
+        updateUrl({ place: { place: resp.data, shouldAdd: true } });
       })
       .catch(() => {
         alert("Sorry, but we don't have any data about " + name);
