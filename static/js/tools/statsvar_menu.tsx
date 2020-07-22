@@ -14,7 +14,7 @@ interface NodePropType {
   updateUrl: (statvar: string, add: boolean) => void;
   nodePath: string;
   svPaths: string[][];
-  svValid: string[];
+  svValid: Set<string>;
 }
 
 interface NodeStateType {
@@ -53,7 +53,7 @@ class Node extends Component<NodePropType, NodeStateType> {
     let child: JSX.Element[];
     let childCnt = 0;
     let svValid = false;
-    if (this.props.t === "v" && this.props.svValid.includes(this.props.sv)) {
+    if (this.props.t === "v" && this.props.svValid.has(this.props.sv)) {
       svValid = true;
       checkboxImg = (
         <button
@@ -65,14 +65,14 @@ class Node extends Component<NodePropType, NodeStateType> {
 
     if (this.props.cd && this.props.cd.length !== 0) {
       this.props.cd.map((item) => {
-        if (item.t === "p" || this.props.svValid.includes(item.sv)) {
+        if (item.t === "p" || this.props.svValid.has(item.sv)) {
           childCnt += 1;
         }
       });
 
       if (this.state.expanded) {
         child = this.props.cd.map((item, index) => {
-          if (item.t === "p" || this.props.svValid.includes(item.sv)) {
+          if (item.t === "p" || this.props.svValid.has(item.sv)) {
             return (
               <Node
                 l={item.l}
@@ -168,7 +168,7 @@ interface MenuPropType {
   search: boolean;
   updateUrl: (statvar: string, shouldAdd: boolean) => void;
   svPaths: string[][];
-  svValid: string[];
+  svValid: Set<string>;
 }
 interface MenuStateType {
   menuJson: [{}];

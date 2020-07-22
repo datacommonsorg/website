@@ -203,7 +203,7 @@ function getStatsVarInfo(dcids: string[]) {
 
 function getStatsVar(dcids: string[]) {
   if(dcids.length === 0) {
-  return Promise.resolve([]);
+  return Promise.resolve(new Set<string>());
 }
 const promises = [];
 // ToDo: read the set of statsvars available for multiple dcids from server side
@@ -224,8 +224,8 @@ return Promise.all(promises).then((values) => {
       statvars.add(key);
     }
   })
-  return Array.from(statvars);
-});
+  return statvars;
+}) as Promise<Set<string>>;
 }
 
 export {

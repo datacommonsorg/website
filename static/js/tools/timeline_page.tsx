@@ -37,7 +37,7 @@ interface PageStateType {
   statvarInfo: { [key: string]: StatVarInfo };
   places: [string, string][]; // [(placeId, placeName)]
   perCapita: boolean;
-  statvarValid: string[];
+  statvarValid: Set<string>;
 }
 
 class Page extends Component<PagePropType, PageStateType> {
@@ -50,7 +50,7 @@ class Page extends Component<PagePropType, PageStateType> {
       statvarInfo: {},
       places: [],
       perCapita: false,
-      statvarValid: [],
+      statvarValid: new Set(),
     };
   }
 

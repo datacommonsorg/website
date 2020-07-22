@@ -239,7 +239,7 @@ function fetchStatsData(
           // If a date is not in the new data, remove it from the current
           // collection.
           for (const date of Object.keys(dates)) {
-            if (!(date in allResp[i].data[place].data)) {
+            if (allResp[i].data[place].data && !(date in allResp[i].data[place].data)) {
               delete dates[date];
             }
           }
