@@ -16,7 +16,6 @@
 import axios from "axios";
 import { getUrlVars, setSearchParam } from "./dc";
 import { SEP } from "./statsvar_menu";
-import { keys } from "../../webpack.config";
 
 // Temporary hack before we clean up place stats var cache.
 const MAPPING = {
