@@ -65,14 +65,13 @@ def chunks(lst, n):
 
 def write_place_url(place_type):
     logging.info(place_type)
-    if os.path.exists('{}{}.0.txt'.format(SAVE_PATH, place_type)):
-        return
     sparql = '''
       SELECT ?dcid
       WHERE {{
         ?a typeOf {} .
         ?a dcid ?dcid
       }}
+      Order By ASC(?dcid)
     '''.format(place_type)
     try:
         data = dc.query(sparql)
@@ -87,7 +86,7 @@ def write_place_url(place_type):
             for p in places:
                 f.write(SITE_PREFIX + p['?dcid'] + '\n')
         index += 1
-        time.sleep(5)
+        time.sleep(10)
 
 
 def updateRobotTxt():
