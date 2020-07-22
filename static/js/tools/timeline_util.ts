@@ -40,13 +40,6 @@ const MAPPING = {
   "IncrementalCount_MedicalConditionIncident_COVID_19_PatientDeceased": "NYTCovid19IncrementalDeaths"
 }
 
-/**
- * add or delete statvars from url
- *
- * @param {string} dcid of statvar
- * @param {boolean} add = True, delete = False
- * @return void
- */
 interface VarUrl {
   statsvar: string;
   place: string;
@@ -78,10 +71,10 @@ function updateUrl(param: UrlParam) {
       placeList.splice(placeList.indexOf(param.place.place), 1);
     }
     vars.place = placeList.join(",");
-    // delete empty fields
     if (vars.place === "") {
       delete vars.place;
     }
+    // set default statsvar when place is not empty
     else if (!vars.hasOwnProperty("statsvar")) {
       vars.statsvar =
         "Count_Person" + SEP + "Demographics" + SEP + "Population";
@@ -121,7 +114,6 @@ function updateUrl(param: UrlParam) {
     }
   }
 
-  // add default statsvar when place is not empty
   setSearchParam(vars);
 }
 
@@ -131,14 +123,14 @@ function parseUrl() {
   if ("pc" in vars) {
     pc = vars.pc === "1";
   } else {
-    pc = false
+    pc = false;
   }
 
   let placeIds: string[];
   if ("place" in vars) {
     placeIds = vars.place.split(",");
   } else {
-    placeIds = []
+    placeIds = [];
   }
 
   let svList = [];
