@@ -1,6 +1,7 @@
 import React, { Component } from "react";
 import axios from "axios";
 import hierarchy from "../../../tools/pv_tree_generator/hierarchy_top.json";
+import { updateUrl } from "./timeline_util";
 
 const jsonPath = "data/hierarchy_statsvar.json";
 export const SEP = "'";
@@ -11,7 +12,6 @@ interface NodePropType {
   cd: NodePropType[]; // children
   t: string; // type
   sv: string;
-  updateUrl: (statvar: string, add: boolean) => void;
   nodePath: string;
   statsVarPaths: string[][];
   statsVarValid: Set<string>;
@@ -63,7 +63,6 @@ class Node extends Component<NodePropType, NodeStateType> {
             c={item.c}
             t={item.t}
             sv={item.sv}
-            updateUrl={this.props.updateUrl}
             nodePath={this.state.nodePath}
             statsVarPaths={this.state.statsVarPaths}
             key={this.props.l + index}
@@ -108,10 +107,12 @@ class Node extends Component<NodePropType, NodeStateType> {
     this.setState({
       checked: !this.state.checked,
     });
-    this.props.updateUrl(
-      this.props.sv + this.state.nodePath,
-      !this.state.checked
-    );
+    updateUrl({
+      statsVarPath: {
+        statsvar: this.props.sv + this.state.nodePath,
+        shouldAdd: !this.state.checked,
+      },
+    });
   };
 
   private _handleExpandClick = (): void => {
@@ -157,7 +158,7 @@ class Node extends Component<NodePropType, NodeStateType> {
         if (
           // a valid child node is either a property node,
           // or a value node not filtered
-          // or a value node with valid statvar id
+          // or a value node with valid statsVar id
           item.t === "p" ||
           !this.props.filter ||
           this.props.statsVarValid.has(item.sv)
@@ -172,7 +173,6 @@ class Node extends Component<NodePropType, NodeStateType> {
 
 interface MenuPropType {
   search: boolean;
-  updateUrl: (statvar: string, shouldAdd: boolean) => void;
   statsVarPaths: string[][];
   statsVarValid: Set<string>;
   filter: boolean;
@@ -205,7 +205,6 @@ class Menu extends Component<MenuPropType, MenuStateType> {
                     key={index1 + "," + index}
                     statsVarPaths={this.props.statsVarPaths}
                     nodePath=""
-                    updateUrl={this.props.updateUrl}
                     statsVarValid={this.props.statsVarValid}
                     filter={this.props.filter}
                   ></Node>

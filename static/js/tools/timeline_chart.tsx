@@ -16,13 +16,13 @@
 
 import React, { Component } from "react";
 import { randDomId } from "../shared/util";
-import { deleteStatsVar } from "./timeline_util";
+import { updateUrl } from "./timeline_util";
 import { fetchStatsData, StatsData } from "../shared/data_fetcher";
 import { drawGroupLineChart, computePlotParams } from "../chart/draw";
 
 const CHART_HEIGHT = 300;
 
-interface StatVarInfo {
+interface StatsVarInfo {
   md: string;
   mprop: string;
   pt: string;
@@ -30,14 +30,14 @@ interface StatVarInfo {
   title: string;
 }
 
-interface StatVarChipPropsType {
-  statVar: string;
+interface StatsVarChipPropsType {
+  statsVar: string;
   color: string;
-  deleteStatVarChip: (statVar: string) => void;
+  deleteStatsVarChip: (statsVar: string) => void;
   title: string;
 }
 
-class StatVarChip extends Component<StatVarChipPropsType, {}> {
+class StatsVarChip extends Component<StatsVarChipPropsType, {}> {
   render() {
     return (
       <div
@@ -48,7 +48,7 @@ class StatVarChip extends Component<StatVarChipPropsType, {}> {
         <button className="mdl-chip__action">
           <i
             className="material-icons"
-            onClick={() => this.props.deleteStatVarChip(this.props.statVar)}
+            onClick={() => this.props.deleteStatsVarChip(this.props.statsVar)}
           >
             cancel
           </i>
@@ -61,7 +61,7 @@ class StatVarChip extends Component<StatVarChipPropsType, {}> {
 interface ChartRegionPropsType {
   // An array of place dcids.
   places: [string, string][];
-  statVars: { [key: string]: StatVarInfo };
+  statsVars: { [key: string]: StatsVarInfo };
   perCapita: boolean;
 }
 
@@ -82,7 +82,7 @@ class ChartRegion extends Component<ChartRegionPropsType, {}> {
   render() {
     if (
       this.props.places.length === 0 ||
-      Object.keys(this.props.statVars).length === 0
+      Object.keys(this.props.statsVars).length === 0
     ) {
       return <div></div>;
     }
@@ -97,14 +97,14 @@ class ChartRegion extends Component<ChartRegionPropsType, {}> {
           return (
             <div key={domId}>
               <div id={domId} className="card"></div>
-              {Object.keys(plotParams.colors).map((statVar) => {
+              {Object.keys(plotParams.colors).map((statsVar) => {
                 return (
-                  <StatVarChip
-                    statVar={statVar}
-                    title={this.props.statVars[statVar].title}
-                    color={plotParams.colors[statVar]}
+                  <StatsVarChip
+                    statsVar={statsVar}
+                    title={this.props.statsVars[statsVar].title}
+                    color={plotParams.colors[statsVar]}
                     key={randDomId()}
-                    deleteStatVarChip={this.deleteStatVarChip}
+                    deleteStatsVarChip={this.deleteStatsVarChip}
                   />
                 );
               })}
@@ -138,12 +138,12 @@ class ChartRegion extends Component<ChartRegionPropsType, {}> {
   private buildGrouping() {
     this.grouping = {};
     const temp = {};
-    for (const statVarId in this.props.statVars) {
-      const mprop = this.props.statVars[statVarId].mprop;
+    for (const statsVarId in this.props.statsVars) {
+      const mprop = this.props.statsVars[statsVarId].mprop;
       if (!temp[mprop]) {
         temp[mprop] = [];
       }
-      temp[mprop].push(statVarId);
+      temp[mprop].push(statsVarId);
     }
     for (const mprop in temp) {
       const domId = randDomId();
@@ -193,8 +193,8 @@ class ChartRegion extends Component<ChartRegionPropsType, {}> {
         this.grouping[domId]
       );
       const statsVarTitle = {};
-      for (const statsVar of Object.keys(plotParams.colors)) {
-        statsVarTitle[statsVar] = this.props.statVars[statsVar].title;
+      for (const statsVar of Object.keys(this.props.statsVars)) {
+        statsVarTitle[statsVar] = this.props.statsVars[statsVar].title;
       }
       plotParams.title = statsVarTitle;
       drawGroupLineChart(
@@ -207,9 +207,9 @@ class ChartRegion extends Component<ChartRegionPropsType, {}> {
     }
   }
 
-  private deleteStatVarChip(statVar: string) {
-    deleteStatsVar(statVar);
+  private deleteStatsVarChip(statsVar: string) {
+    updateUrl({ statsVarDelete: statsVar });
   }
 }
 
-export { ChartRegionPropsType, ChartRegion, StatVarInfo };
+export { ChartRegionPropsType, ChartRegion, StatsVarInfo };

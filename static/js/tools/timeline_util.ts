@@ -40,140 +40,112 @@ const MAPPING = {
   "IncrementalCount_MedicalConditionIncident_COVID_19_PatientDeceased": "NYTCovid19IncrementalDeaths"
 }
 
-/**
- * add or delete statvars from url
- *
- * @param {string} dcid of statvar
- * @param {boolean} add = True, delete = False
- * @return void
- */
 interface VarUrl {
   statsvar: string;
   place: string;
+  pc: string;
 }
 
-function updateUrlStatsVar(statvar: string, shouldAdd: boolean) {
-  const vars = getUrlVars() as VarUrl;
-  const statvarUrl = encodeURI(statvar);
-  let statsVarList = [];
-  if ("statsvar" in vars) {
-    statsVarList = vars.statsvar.split("__");
-  }
-  if (shouldAdd) {
-    if (!statsVarList.includes(statvarUrl)) {
-      statsVarList.push(statvarUrl);
-    }
-  } else {
-    if (statsVarList.includes(statvarUrl)) {
-      statsVarList.splice(statsVarList.indexOf(statvarUrl), 1);
-    }
-  }
-  if (statsVarList.length === 0) {
-    delete vars.statsvar;
-  } else {
-    vars.statsvar = statsVarList.join("__");
-  }
-  setSearchParam(vars);
+interface UrlParam {
+  pc?: boolean;
+  place?: { place: string, shouldAdd: boolean };
+  statsVarPath?: { statsvar: string, shouldAdd: boolean };
+  statsVarDelete?: string;
 }
 
-/**
- * delete statvars from url without path
- *
- * @param {string} dcid of statvar
- * @return void
- */
-function deleteStatsVar(statvar: string) {
+function updateUrl(param: UrlParam) {
   const vars = getUrlVars() as VarUrl;
-  let statsVarList = [];
-  if ("statsvar" in vars) {
-    statsVarList = vars.statsvar.split("__");
+  // update per Capita state
+  if ("pc" in param) {
+    vars.pc = param.pc ? "1" : "0";
   }
-  for (const statsVar of statsVarList) {
-    if (statsVar.split(SEP)[0] === statvar) {
-      statsVarList.splice(statsVarList.indexOf(statsVar), 1);
+  // update places
+  if ("place" in param) {
+    let placeList = [];
+    if ("place" in vars) {
+      placeList = vars.place.split(",");
     }
-  }
-  if (statsVarList.length === 0) {
-    delete vars.statsvar;
-  } else {
-    vars.statsvar = statsVarList.join("__");
-  }
-  setSearchParam(vars);
-}
-
-/**
- * add or delete place from url
- *
- * @param {string} dcid of place
- * @param {boolean} add = True, delete = False
- * @return {boolean} if added/deleted = True, if did nothing = False
- */
-function updateUrlPlace(place: string, shouldAdd: boolean) {
-  const vars = getUrlVars() as VarUrl;
-  let placeList = [];
-  let changed = false;
-  if ("place" in vars) {
-    placeList = vars.place.split(",");
-  }
-  if (shouldAdd) {
-    if (!placeList.includes(place)) {
-      placeList.push(place);
-      changed = true;
+    if (param.place.shouldAdd && !placeList.includes(param.place.place)) {
+      placeList.push(param.place.place);
+    } else if (!param.place.shouldAdd && placeList.includes(param.place.place)) {
+      placeList.splice(placeList.indexOf(param.place.place), 1);
     }
-  } else {
-    if (placeList.includes(place)) {
-      placeList.splice(placeList.indexOf(place), 1);
-      changed = true;
+    vars.place = placeList.join(",");
+    if (vars.place === "") {
+      delete vars.place;
     }
-  }
-
-  if (placeList.length === 0) {
-    delete vars.place;
-  } else {
-    if (!vars.hasOwnProperty("statsvar")) {
+    // set default statsvar when place is not empty
+    else if (!vars.hasOwnProperty("statsvar")) {
       vars.statsvar =
         "Count_Person" + SEP + "Demographics" + SEP + "Population";
     }
-    vars.place = placeList.join(",");
+  }
+  // update statsvar with Path
+  if ("statsVarPath" in param) {
+    const statsVarUrl = encodeURI(param.statsVarPath.statsvar);
+    let statsVarList = [];
+    if ("statsvar" in vars) {
+      statsVarList = vars.statsvar.split("__");
+    }
+    if (param.statsVarPath.shouldAdd && !statsVarList.includes(statsVarUrl)) {
+      statsVarList.push(statsVarUrl);
+    } else if (!param.statsVarPath.shouldAdd && statsVarList.includes(statsVarUrl)) {
+      statsVarList.splice(statsVarList.indexOf(statsVarUrl), 1);
+    }
+    vars.statsvar = statsVarList.join("__");
+    if (vars.statsvar === "") {
+      delete vars.statsvar;
+    }
+  }
+  // delete statsvar with statsvarId
+  if ("statsVarDelete" in param) {
+    let statsVarList = [];
+    if ("statsvar" in vars) {
+      statsVarList = vars.statsvar.split("__");
+    }
+    for (const statsVar of statsVarList) {
+      if (statsVar.split(SEP)[0] === param.statsVarDelete) {
+        statsVarList.splice(statsVarList.indexOf(statsVar), 1);
+      }
+    }
+    vars.statsvar = statsVarList.join("__");
+    if (vars.statsvar === "") {
+      delete vars.statsvar;
+    }
   }
 
   setSearchParam(vars);
-  return changed;
 }
 
-/**
- * parse the paths of statvars from url
- *
- * @return {[string[][],string[]]} the list of paths of statvars from url
- */
-function parseStatVarPath() {
+function parseUrl() {
   const vars = getUrlVars() as VarUrl;
+  let pc: boolean;
+  if ("pc" in vars) {
+    pc = vars.pc === "1";
+  } else {
+    pc = false;
+  }
+
+  let placeIds: string[];
+  if ("place" in vars) {
+    placeIds = vars.place.split(",");
+  } else {
+    placeIds = [];
+  }
+
   let statsVarList = [];
-  const statvarPath = [];
-  const statvarIds = [];
+  const statsvarPaths = [];
+  const statsvarIds = [];
   if ("statsvar" in vars) {
     statsVarList = vars.statsvar.split("__");
-    for (const statvar of statsVarList) {
-      const statsVar = decodeURI(statvar);
-      statvarIds.push(statsVar.split(SEP)[0]);
-      statvarPath.push(statsVar.split(SEP).slice(1));
+    for (const statsVar of statsVarList) {
+      const statsVarDecoded = decodeURI(statsVar);
+      statsvarIds.push(statsVarDecoded.split(SEP)[0]);
+      statsvarPaths.push(statsVarDecoded.split(SEP).slice(1));
     }
   }
-  return [statvarPath, statvarIds];
-}
 
-/**
- * Get the place names from place ids in the url
- *
- * @return string[] list of place Ids
- */
-function parsePlace() {
-  const vars = getUrlVars() as VarUrl;
-  if ("place" in vars) {
-    return vars.place.split(",");
-  } else {
-    return [];
-  }
+  return { "statsVarPath": statsvarPaths, "statsVarId": statsvarIds, "placeId": placeIds, "pc": pc }
 }
 
 function getPlaceNames(dcids: string[]) {
@@ -200,40 +172,38 @@ function getStatsVarInfo(dcids: string[]) {
   });
 }
 
+
 function getStatsVar(dcids: string[]) {
-  if(dcids.length === 0) {
-  return Promise.resolve(new Set<string>());
-}
-const promises = [];
-// ToDo: read the set of statsvars available for multiple dcids from server side
-for (const dcid of dcids) {
-  promises.push(
-    axios.get("/api/place/statsvars/" + dcid).then((resp) => {
-      return resp.data;
-    })
-  );
-}
-return Promise.all(promises).then((values) => {
-  let statvars = new Set(); // Count_Person not in List ???
-  for (const value of values) {
-    statvars = new Set([...Array.from(statvars), ...value])
+  if (dcids.length === 0) {
+    return Promise.resolve(new Set<string>());
   }
-  Object.keys(MAPPING).map((key) => {
-    if (statvars.has(MAPPING[key])) {
-      statvars.add(key);
+  const promises = [];
+  // ToDo: read the set of statsvars available for multiple dcids from server side
+  for (const dcid of dcids) {
+    promises.push(
+      axios.get("/api/place/statsvars/" + dcid).then((resp) => {
+        return resp.data;
+      })
+    );
+  }
+  return Promise.all(promises).then((values) => {
+    let statsVars = new Set(); // Count_Person not in List ???
+    for (const value of values) {
+      statsVars = new Set([...Array.from(statsVars), ...value])
     }
-  })
-  return statvars;
-}) as Promise<Set<string>>;
+    Object.keys(MAPPING).map((key) => {
+      if (statsVars.has(MAPPING[key])) {
+        statsVars.add(key);
+      }
+    })
+    return statsVars;
+  }) as Promise<Set<string>>;
 }
 
 export {
-  updateUrlStatsVar,
-  updateUrlPlace,
-  parseStatVarPath,
-  parsePlace,
+  updateUrl,
+  parseUrl,
   getStatsVarInfo,
   getPlaceNames,
-  deleteStatsVar,
   getStatsVar,
 };
