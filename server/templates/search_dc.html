@@ -1,0 +1,67 @@
+{#
+ Copyright 2020 Google LLC
+
+ Licensed under the Apache License, Version 2.0 (the "License");
+ you may not use this file except in compliance with the License.
+ You may obtain a copy of the License at
+
+      http://www.apache.org/licenses/LICENSE-2.0
+
+ Unless required by applicable law or agreed to in writing, software
+ distributed under the License is distributed on an "AS IS" BASIS,
+ WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ See the License for the specific language governing permissions and
+ limitations under the License.
+#}
+{% extends 'base.html' %}
+
+{% set main_id = 'search' %}
+{% set title = query_text + ' | Search Results' %}
+
+{% block head %}
+  <link rel="stylesheet" href={{url_for('static', filename='css/search.min.css', t=config['GAE_VERSION'])}} >
+{% endblock %}
+
+{% block content %}
+<div class="container">
+  <h1>Search the Data Commons Graph</h1>
+    <form id="search-box" class="input-group mt-3 mb-5" action="{{ url_for('search_dc') }}" method="get">
+      <input id="search-input" class="form-control" placeholder="Enter search query..." type="text" name="q" value="{{query_text}}"/>
+      <div class="input-group-append">
+        <button type="submit" class="btn btn-primary">Search</button>
+      </div>
+    </form>
+  {% if query_text and not results %}
+    <h5>Sorry, no results were found in DataCommons.org for "{{ query_text }}".</h5>
+    <div>You can try your search on
+      <a href="{{ url_for('search') }}?q={{query_text}}">Data Commons full search</a>,
+      <a href="https://scholar.google.com/scholar?q={{query_text}}">Google Scholar</a>,
+      <a href="https://toolbox.google.com/datasetsearch/search?query={{query_text}}">
+        Google Dataset search</a>,
+      <a href="https://catalog.data.gov/dataset?q={{query_text}}">Data.gov</a>
+      or
+      <a href="https://dataverse.org/">Dataverse</a>.
+    </div>
+  {% elif query_text %}
+    <h5>Showing results for {{ query_text }}</h5>
+    {% for result in results %}
+      <div class="search-result-section mt-3">
+        <div class="search-result-type font-weight-bold">
+          Type: {{result.type}}
+        </div>
+        <div class="search-result-entities">
+          {% for entity in result.entities %}
+            <div class="search-result-entity">
+              <div class="name">
+                <a href="{{ url_for('browser.kg_entity', dcid=entity.dcid) }}">
+                  {{entity.name}}
+                </a>
+              </div>
+            </div>
+          {% endfor %}
+        </div>
+      </div>
+    {% endfor %}
+  {% endif %}
+</div>
+{% endblock %}
