@@ -16,6 +16,7 @@ import json
 import os
 
 from flask import Flask
+from google.cloud import storage
 from werkzeug.utils import import_string
 
 
@@ -56,5 +57,11 @@ def create_app():
     with open('chart_config.json') as f:
         chart_config = json.load(f)
     app.config['CHART_CONFIG'] = chart_config
+
+    # Load placeid2dcid mapping from GCS
+    storage_client = storage.Client()
+    bucket = storage_client.get_bucket(app.config['GCS_BUCKET'])
+    blob = bucket.get_blob('placeid2dcid.json')
+    app.config['PLACEID2DCID'] = json.loads(blob.download_as_string())
 
     return app
