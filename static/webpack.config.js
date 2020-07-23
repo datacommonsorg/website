@@ -21,12 +21,11 @@ const FixStyleOnlyEntriesPlugin = require("webpack-fix-style-only-entries");
 const config = {
   entry: {
     dev: [__dirname + "/js/dev.ts", __dirname + "/css/dev.scss"],
-    dev_menu: __dirname + "/js/tools/dev_menu.ts",
-    download: __dirname + "/js/tools/download.js",
     dev_menu: [
       __dirname + "/js/tools/dev_menu.ts",
       __dirname + "/css/dev_menu.scss",
     ],
+    download: __dirname + "/js/tools/download.js",
     kg: [__dirname + "/js/browser/kg.js", __dirname + "/css/kg.scss"],
     mcf_playground: __dirname + "/js/mcf_playground.js",
     place: [
