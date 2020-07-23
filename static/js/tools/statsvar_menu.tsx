@@ -1,4 +1,4 @@
-import React, { Component, Children } from "react";
+import React, { Component } from "react";
 import axios from "axios";
 import hierarchy from "../../../tools/pv_tree_generator/hierarchy_top.json";
 import { updateUrl } from "./timeline_util";
