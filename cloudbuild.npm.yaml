@@ -4,4 +4,4 @@ steps:
   entrypoint: /bin/sh
   args:
   - -c
-  - 'cd static && npm install && npm run lint && npm run tslint && npm test && npm run-script build'
+  - ./run_test.sh -lbc
