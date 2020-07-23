@@ -115,23 +115,10 @@ def api_placeid2dcid(placeid):
     This is to use together with the Google Maps Autocomplete API:
     https://developers.google.com/places/web-service/autocomplete.
     """
-    mapping = get_placeid2dcid()
-    if placeid in mapping:
-        return mapping[placeid]
+    if placeid in app.config['PLACEID2DCID']:
+        return app.config['PLACEID2DCID'][placeid]
     else:
         flask.abort('dcid not found for %s' % placeid, 404)
-
-
-# Getting the blob at module level will make the server crash when deploying
-# to AppEngine. Make it in a function and cache for 30 days will effectively
-# achieve the same caching effect.
-@cache.memoize(timeout=3600 * 24 * 30)  # Cache for 30 days.
-def get_placeid2dcid():
-    # Instantiates a client
-    storage_client = storage.Client()
-    bucket = storage_client.get_bucket(GCS_BUCKET)
-    blob = bucket.get_blob('placeid2dcid.json')
-    return json.loads(blob.download_as_string())
 
 
 @cache.memoize(timeout=3600 * 24)  # Cache for one day.
