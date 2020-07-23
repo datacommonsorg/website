@@ -57,7 +57,7 @@ function run_all_tests {
 function help {
   echo "Usage: $0 -pblca"
   echo "-p       Run server python tests"
-  echo "-b       Run client build"
+  echo "-b       Run client install and build"
   echo "-l       Run client lint"
   echo "-c       Run client tests"
   echo "-a       Run all tests"
