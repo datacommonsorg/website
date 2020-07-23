@@ -84,13 +84,19 @@ class Node extends Component<NodePropType, NodeStateType> {
                 <sup>{this.props.c !== 0 && "(" + this.props.c + ")"}</sup>
                 {isValidStatsVar && (
                   <button
-                    className={this.state.checked ? "checkbox checked" : "checkbox"}
+                    className={
+                      this.state.checked ? "checkbox checked" : "checkbox"
+                    }
                     onClick={this._handleCheckboxClick}
                   />
                 )}
                 {canExpand && (
                   <img
-                    className={this.state.expanded ? "right-caret transform-up" : "right-caret"}
+                    className={
+                      this.state.expanded
+                        ? "right-caret transform-up"
+                        : "right-caret"
+                    }
                     src="/images/right-caret-light.png"
                     onClick={this._handleExpandClick}
                   />
@@ -152,14 +158,41 @@ class Node extends Component<NodePropType, NodeStateType> {
   }
 
   private canExpand() {
-    let childCnt = 0;
-    if (this.props.cd && this.props.cd.length !== 0) {
+    if (this.props.t !== "c") {
+      // a node can be expanded if it has >= 1 children
+      return this.childCnt(this.props.cd) !== 0;
+    } else {
+      // if the node is the top level node i.e. this.props.t === "c"
+      // we need to check if its child node has valid nodes.
+      let childCnt = 0; // number of valid child nodes
       this.props.cd.map((item) => {
+        let valid = false;
+        if (
+          item.t === "v" &&
+          (!this.props.filter || this.props.statsVarValid.has(item.sv))
+        ) {
+          valid = true;// the node is valid if it's a valid value node
+        }
+         else if (this.childCnt(item.cd) !== 0) {
+          valid = true;// the node is valid if it has non-zero children
+        }
+        if (valid) {
+          childCnt += 1;
+        }
+      });
+      return childCnt !== 0;
+    }
+  }
+
+  private childCnt(children) {
+    let childCnt = 0;
+    if (children && children.length !== 0) {
+      children.map((item) => {
         if (
           // a valid child node is either a property node,
           // or a value node not filtered
           // or a value node with valid statsVar id
-          item.t === "p" ||
+          item.t !== "v" ||
           !this.props.filter ||
           this.props.statsVarValid.has(item.sv)
         ) {
@@ -167,7 +200,7 @@ class Node extends Component<NodePropType, NodeStateType> {
         }
       });
     }
-    return childCnt > 0;
+    return childCnt;
   }
 }
 
@@ -200,7 +233,7 @@ class Menu extends Component<MenuPropType, MenuStateType> {
                     l={item.l}
                     cd={item.cd}
                     c={item.c}
-                    t={item.t}
+                    t="c"
                     sv={item.sv}
                     key={index1 + "," + index}
                     statsVarPaths={this.props.statsVarPaths}
