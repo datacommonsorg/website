@@ -20,6 +20,8 @@ import text_format
 
 MAX_LEVEL = 6
 
+MAPPING = {"TotalPopulation": "Count_Person"}
+
 
 def build_tree_recursive(pos, level, pop_obs_spec, stat_vars,
                          parent=None):
@@ -61,7 +63,7 @@ def build_tree_recursive(pos, level, pop_obs_spec, stat_vars,
             value_ui_node = util.UiNode(pos, value_ui_pv, False, property_diff)
             value_blob = {
                 'populationType': value_ui_node.pop_type,
-                'sv': sv.dcid,
+                'sv': sv.dcid if sv.dcid not in MAPPING else MAPPING[sv.dcid],
                 'l': text_format.format_title(value_ui_node.text),
                 't': 'v',
                 'e': value_ui_node.enum,
@@ -87,7 +89,7 @@ def build_tree_recursive(pos, level, pop_obs_spec, stat_vars,
             value_blob['c'] = len(value_blob['sv_set'])
 
     result['cd'] = text_format.filter_and_sort(property_diff,
-                                                     result['cd'], False)
+                                               result['cd'], False)
 
     # update the count
     if result['cd']:
@@ -121,7 +123,7 @@ def build_tree(v, pop_obs_spec, stat_vars):
             if pos.cpv == sv.pv:
                 root['cd'].append({
                     'populationType': ui_node.pop_type,
-                    'sv': sv.dcid,
+                    'sv': sv.dcid if sv.dcid not in MAPPING else MAPPING[sv.dcid],
                     'l': text_format.format_title(ui_node.text),
                     't': 'v',
                     'c': 1,
@@ -197,7 +199,7 @@ def group_super_enum(json_blob):
     direct_enum = set()
     for child in json_blob['cd']:
         if 'se' in child:
-        # Now only group by one super enum.
+            # Now only group by one super enum.
             assert len(child['se']) == 1
             v = list(child['se'].values())[0]
             grouping[v].append(child)
