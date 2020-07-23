@@ -580,7 +580,13 @@ class Chart extends Component<ChartPropType, ChartStateType> {
       (dp && dp.length === 0) ||
       (dg && (dg.length === 0 || (dg.length === 1 && dg[0].value.length === 0)))
     ) {
-      alert("No data for selection");
+      if (this.placeRelation === placeRelationEnum.CONTAINING) {
+        this.childrenRef.current.style.display = "none";
+      } else if (this.placeRelation === placeRelationEnum.CONTAINED) {
+        this.parentRef.current.style.display = "none";
+      }
+      this.placeRelation = placeRelationEnum.SIMILAR;
+      this.fetchData();
       return;
     }
     // Draw chart.
