@@ -677,9 +677,6 @@ function renderKGPage(
     (t) => t["objectId"] == dcid && t["subjectId"] != dcid
   );
   inArcs = inArcs.map((t) => {
-    if (t["subjectTypes"]) {
-      t["subjectType"] = t["subjectTypes"][0];
-    }
     t["dcid"] = t["subjectId"];
     t["prov"] = t["provenanceId"];
     t["src"] = provDomain[t["provenanceId"]];
@@ -694,10 +691,20 @@ function renderKGPage(
   // Do not show observation in in-arcs as they are handled later.
   inArcs = inArcs.filter((t) => t["subjectType"] != "Observation");
 
-  const inArcsGroup = _.groupBy(inArcs, (arc) => arc["subjectType"]);
+  let inArcsGroup = {};
+  for (let inArc of inArcs) {
+    for (let sType of inArc["subjectTypes"]) {
+      if (!(sType in inArcsGroup)) {
+        inArcsGroup[sType] = [];
+      }
+      inArcsGroup[sType].push(inArc);
+    }
+  }
 
   const inArcsGroupsElem = document.getElementById("in-arcs-groups");
-  for (let parentType in inArcsGroup) {
+  let sortedTypes = Object.keys(inArcsGroup);
+  sortedTypes.sort();
+  for (const parentType of sortedTypes) {
     if (util.isPopulation(parentType)) continue;
     const nodesByPred = _.groupBy(
       inArcsGroup[parentType],

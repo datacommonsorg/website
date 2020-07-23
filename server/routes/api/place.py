@@ -143,7 +143,6 @@ def child_fetch(dcid):
                     'dcid': place['dcid'],
                     'pop': pop.get(place['dcid'], 0)
                 })
-                break
     return result
 
 
