@@ -109,7 +109,7 @@ class Node extends Component<NodePropType, NodeStateType> {
     });
     updateUrl({
       statsVarPath: {
-        statsvar: this.props.sv + this.state.nodePath,
+        statsVar: this.props.sv + this.state.nodePath,
         shouldAdd: !this.state.checked,
       },
     });

@@ -181,7 +181,7 @@ function getStatsVar(dcids: string[]) {
   // ToDo: read the set of statsVars available for multiple dcids from server side
   for (const dcid of dcids) {
     promises.push(
-      axios.get("/api/place/statsVars/" + dcid).then((resp) => {
+      axios.get("/api/place/statsvars/" + dcid).then((resp) => {
         return resp.data;
       })
     );
