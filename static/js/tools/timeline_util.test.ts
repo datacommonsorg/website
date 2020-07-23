@@ -7,16 +7,16 @@ import { SEP } from "./statsvar_menu";
 
 test("update Url statsvar", () => {
   window.location.hash = "";
-  updateUrl({ statsVarPath: { statsvar: "dc/test1", shouldAdd: true } });
+  updateUrl({ statsVarPath: { statsVar: "dc/test1", shouldAdd: true } });
   expect(window.location.hash).toBe("#&statsvar=dc/test1");
-  updateUrl({ statsVarPath: { statsvar: "dc/test2", shouldAdd: true } });
+  updateUrl({ statsVarPath: { statsVar: "dc/test2", shouldAdd: true } });
   expect(window.location.hash).toBe("#&statsvar=dc/test1__dc/test2");
-  updateUrl({ statsVarPath: { statsvar: "dc/test2", shouldAdd: false } });
+  updateUrl({ statsVarPath: { statsVar: "dc/test2", shouldAdd: false } });
   expect(window.location.hash).toBe("#&statsvar=dc/test1");
-  updateUrl({ statsVarPath: { statsvar: "dc/test2", shouldAdd: false } });;
+  updateUrl({ statsVarPath: { statsVar: "dc/test2", shouldAdd: false } });;
   expect(window.location.hash).toBe("#&statsvar=dc/test1");
   window.location.hash = "#&place=geoId/01";
-  updateUrl({ statsVarPath: { statsvar: "dc/test1", shouldAdd: true } });
+  updateUrl({ statsVarPath: { statsVar: "dc/test1", shouldAdd: true } });
   expect(window.location.hash).toBe("#&place=geoId/01&statsvar=dc/test1");
 });
 
