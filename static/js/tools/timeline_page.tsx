@@ -24,7 +24,7 @@ import {
 } from "./timeline_util";
 import { SearchBar } from "./timeline_search";
 import { Menu } from "./statsvar_menu";
-import { ChartRegion, StatVarInfo } from "./timeline_chart";
+import { ChartRegion, StatsVarInfo } from "./timeline_chart";
 import { Info } from "./timeline_info";
 
 interface PagePropType {
@@ -32,11 +32,11 @@ interface PagePropType {
 }
 
 interface PageStateType {
-  statvarPaths: string[][];
-  statvarInfo: { [key: string]: StatVarInfo };
+  statsVarPaths: string[][];
+  statsVarInfo: { [key: string]: StatsVarInfo };
   places: [string, string][]; // [(placeId, placeName)]
   perCapita: boolean;
-  statvarValid: Set<string>;
+  statsVarValid: Set<string>;
 }
 
 class Page extends Component<PagePropType, PageStateType> {
@@ -45,11 +45,11 @@ class Page extends Component<PagePropType, PageStateType> {
     this.handleHashChange = this.handleHashChange.bind(this);
     this._togglePerCapita = this._togglePerCapita.bind(this);
     this.state = {
-      statvarPaths: [],
-      statvarInfo: {},
+      statsVarPaths: [],
+      statsVarInfo: {},
       places: [],
       perCapita: false,
-      statvarValid: new Set(),
+      statsVarValid: new Set(),
     };
   }
 
@@ -61,17 +61,17 @@ class Page extends Component<PagePropType, PageStateType> {
   handleHashChange() {
     const urlVar = parseUrl();
 
-    let statvarInfoPromise = Promise.resolve(this.state.statvarInfo);
-    if (urlVar.svPath !== this.state.statvarPaths) {
-      if (urlVar.svId.length !== 0) {
-        statvarInfoPromise = getStatsVarInfo(urlVar.svId);
+    let statsVarInfoPromise = Promise.resolve(this.state.statsVarInfo);
+    if (urlVar.statsVarPath !== this.state.statsVarPaths) {
+      if (urlVar.statsVarId.length !== 0) {
+        statsVarInfoPromise = getStatsVarInfo(urlVar.statsVarId);
       } else {
-        statvarInfoPromise = Promise.resolve({});
+        statsVarInfoPromise = Promise.resolve({});
       }
     }
 
     let placesPromise = Promise.resolve(this.state.places);
-    let validStatsVarPromise = Promise.resolve(this.state.statvarValid);
+    let validStatsVarPromise = Promise.resolve(this.state.statsVarValid);
     if (urlVar.placeId !== Object.keys(this.state.places)) {
       validStatsVarPromise = getStatsVar(urlVar.placeId);
       if (urlVar.placeId.length !== 0) {
@@ -83,16 +83,16 @@ class Page extends Component<PagePropType, PageStateType> {
       }
     }
 
-    Promise.all([statvarInfoPromise, placesPromise, validStatsVarPromise]).then(
+    Promise.all([statsVarInfoPromise, placesPromise, validStatsVarPromise]).then(
       (values) => {
-        for (let idx = 0; idx < urlVar.svId.length; idx++) {
-          values[0][urlVar.svId[idx]].title = urlVar.svPath[idx].slice(-1)[0];
+        for (let idx = 0; idx < urlVar.statsVarId.length; idx++) {
+          values[0][urlVar.statsVarId[idx]].title = urlVar.statsVarPath[idx].slice(-1)[0];
         }
         this.setState({
-          statvarInfo: values[0],
-          statvarPaths: urlVar.svPath,
+          statsVarInfo: values[0],
+          statsVarPaths: urlVar.statsVarPath,
           places: values[1],
-          statvarValid: values[2],
+          statsVarValid: values[2],
           perCapita: urlVar.pc,
         });
       }
@@ -123,8 +123,9 @@ class Page extends Component<PagePropType, PageStateType> {
             </div>
             <Menu
               search={this.props.search}
-              svPaths={this.state.statvarPaths}
-              svValid={this.state.statvarValid}
+              statsVarPaths={this.state.statsVarPaths}
+              statsVarValid={this.state.statsVarValid}
+              filter={this.state.places.length !== 0}
             ></Menu>
           </div>
         </div>
@@ -137,7 +138,7 @@ class Page extends Component<PagePropType, PageStateType> {
             <div id="chart-region">
               <ChartRegion
                 places={this.state.places}
-                statVars={this.state.statvarInfo}
+                statsVars={this.state.statsVarInfo}
                 perCapita={this.state.perCapita}
               ></ChartRegion>
             </div>
