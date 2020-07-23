@@ -4,4 +4,4 @@ steps:
   entrypoint: /bin/sh
   args:
   - -c
-  - ./run_test.sh -blc
+  - ./run_test.sh -lbc
