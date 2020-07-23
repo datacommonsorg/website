@@ -104,6 +104,7 @@ function wrap(
     const text = d3.select(this);
     const words = text.text().split(/\s+/).reverse();
     let line: string[] = [];
+    let lineNumber = 0;
     const lineHeight = 1.1; // ems
     const y = text.attr("y");
     const dy = parseFloat(text.attr("dy"));
@@ -126,7 +127,7 @@ function wrap(
           .append("tspan")
           .attr("x", 0)
           .attr("y", y)
-          .attr("dy", lineHeight + dy + "em")
+          .attr("dy", ++lineNumber * lineHeight + dy + "em")
           .text(word);
       }
       word = words.pop();
@@ -147,7 +148,9 @@ function addXAxis(
     .call((g) => g.select(".domain").remove());
 
   if (typeof xScale.bandwidth === "function") {
-    axis.selectAll(".tick text").call(wrap, xScale.bandwidth());
+    axis.selectAll(".tick text")
+    .attr("dy", "0em")
+    .call(wrap, xScale.bandwidth());
   }
 }
 
@@ -553,10 +556,10 @@ function drawGroupLineChart(
 ) {
   let dataGroups = Object.values(dataGroupsDict)[0];
   const dashInLegend = Object.keys(plotParams.dashes).length !== 1;
-  const legenTextdWidth = Math.max(width * LEGEND.ratio, LEGEND.minTextWidth);
+  const legendTextdWidth = Math.max(width * LEGEND.ratio, LEGEND.minTextWidth);
   const legendWidth = dashInLegend
-    ? LEGEND.dashWidth + legenTextdWidth
-    : legenTextdWidth;
+    ? LEGEND.dashWidth + legendTextdWidth
+    : legendTextdWidth;
 
   // Adjust the width of in-chart legends.
   const yRange = computeRanges(dataGroupsDict);
@@ -616,7 +619,7 @@ function drawGroupLineChart(
         LEGEND.marginTop
       })`
     );
-  buildInChartLegend(legend, plotParams, dashInLegend, legenTextdWidth);
+  buildInChartLegend(legend, plotParams, dashInLegend, legendTextdWidth);
 }
 
 /**
@@ -624,12 +627,14 @@ function drawGroupLineChart(
  *
  * @param id: This is the id for the chart legend element.
  * @param plotParams: It contains all colors and dashes for geoIds and statVars.
+ * @param dashInLegend: Is there dash line in the legend.
+ * @param legendTextdWidth: The width of the legend text.
  */
 function buildInChartLegend(
   legend: d3.Selection<SVGGElement, any, any, any>,
   plotParams: PlotParams,
   dashInLegend: boolean,
-  legenTextdWidth: number
+  legendTextdWidth: number
 ) {
   let yOffset = 0;
   if (!dashInLegend) {
@@ -640,11 +645,12 @@ function buildInChartLegend(
         .append("text")
         .attr("transform", `translate(0, ${yOffset})`)
         .attr("text-anchor", "start")
-        .attr("dy", ".3em")
+        .attr("y", "0.3em")
+        .attr("dy", "0em")
         .attr("fill", `${plotParams.colors[statsVar]}`)
         .style("font-size", "14")
         .text(plotParams.title[statsVar])
-        .call(wrap, legenTextdWidth);
+        .call(wrap, legendTextdWidth);
       yOffset += text.node().getBBox().height + LEGEND.lineMargin;
     }
   } else {
@@ -668,10 +674,11 @@ function buildInChartLegend(
       lgGroup
         .append("text")
         .attr("transform", `translate(${LEGEND.dashWidth}, 0)`)
-        .attr("dy", ".3em")
+        .attr("y", "0.3em")
+        .attr("dy", "0em")
         .style("font-size", "14")
         .text(placeName)
-        .call(wrap, legenTextdWidth);
+        .call(wrap, legendTextdWidth);
       yOffset += (lgGroup.node().getBBox().height + LEGEND.lineMargin);
     }
   }
