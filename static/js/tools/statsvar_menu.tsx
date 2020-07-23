@@ -75,7 +75,7 @@ class Node extends Component<NodePropType, NodeStateType> {
 
     return (
       // render the node only if it is a valid SV node or it is canExpand
-      (isValidStatsVar || canExpand) && (
+      (isValidStatsVar || (this.props.t !== 'v' && canExpand)) && (
         <ul className="noborder">
           <li className="value" id={this.props.l}>
             <span>
