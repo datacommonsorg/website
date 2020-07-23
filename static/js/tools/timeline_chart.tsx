@@ -16,7 +16,7 @@
 
 import React, { Component } from "react";
 import { randDomId } from "../shared/util";
-import { deleteStatsVar } from "./timeline_util";
+import { updateUrl } from "./timeline_util";
 import { fetchStatsData, StatsData } from "../shared/data_fetcher";
 import { drawGroupLineChart, computePlotParams } from "../chart/draw";
 
@@ -193,7 +193,7 @@ class ChartRegion extends Component<ChartRegionPropsType, {}> {
         this.grouping[domId]
       );
       const svTitle = {};
-      for (const sv of Object.keys(plotParams.colors)) {
+      for (const sv of Object.keys(this.props.statVars)) {
         svTitle[sv] = this.props.statVars[sv].title;
       }
       plotParams.title = svTitle;
@@ -208,7 +208,7 @@ class ChartRegion extends Component<ChartRegionPropsType, {}> {
   }
 
   private deleteStatVarChip(statVar: string) {
-    deleteStatsVar(statVar);
+    updateUrl({ svDelete: statVar });
   }
 }
 

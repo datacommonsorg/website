@@ -1,6 +1,7 @@
 import React, { Component } from "react";
 import axios from "axios";
 import hierarchy from "../../../tools/pv_tree_generator/hierarchy_top.json";
+import { updateUrl } from "./timeline_util";
 
 const jsonPath = "data/hierarchy_statsvar.json";
 export const SEP = "'";
@@ -11,7 +12,6 @@ interface NodePropType {
   cd: NodePropType[]; // children
   t: string; // type
   sv: string;
-  updateUrl: (statvar: string, add: boolean) => void;
   nodePath: string;
   svPaths: string[][];
   svValid: Set<string>;
@@ -80,7 +80,6 @@ class Node extends Component<NodePropType, NodeStateType> {
                 c={item.c}
                 t={item.t}
                 sv={item.sv}
-                updateUrl={this.props.updateUrl}
                 nodePath={this.state.nodePath}
                 svPaths={this.state.svPaths}
                 key={this.props.l + index}
@@ -130,10 +129,12 @@ class Node extends Component<NodePropType, NodeStateType> {
     this.setState({
       checked: !this.state.checked,
     });
-    this.props.updateUrl(
-      this.props.sv + this.state.nodePath,
-      !this.state.checked
-    );
+    updateUrl({
+      svPath: {
+        statsvar: this.props.sv + this.state.nodePath,
+        shouldAdd: !this.state.checked,
+      },
+    });
   };
 
   private _handleExpandClick = (): void => {
@@ -166,7 +167,6 @@ class Node extends Component<NodePropType, NodeStateType> {
 
 interface MenuPropType {
   search: boolean;
-  updateUrl: (statvar: string, shouldAdd: boolean) => void;
   svPaths: string[][];
   svValid: Set<string>;
 }
@@ -198,7 +198,6 @@ class Menu extends Component<MenuPropType, MenuStateType> {
                     key={index1 + "," + index}
                     svPaths={this.props.svPaths}
                     nodePath=""
-                    updateUrl={this.props.updateUrl}
                     svValid={this.props.svValid}
                   ></Node>
                 )

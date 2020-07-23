@@ -16,11 +16,11 @@
 
 import React, { Component } from "react";
 import {
-  parseStatVarPath,
-  parsePlace,
+  parseUrl,
   getStatsVarInfo,
   getPlaceNames,
   getStatsVar,
+  updateUrl,
 } from "./timeline_util";
 import { SearchBar } from "./timeline_search";
 import { Menu } from "./statsvar_menu";
@@ -29,7 +29,6 @@ import { Info } from "./timeline_info";
 
 interface PagePropType {
   search: boolean;
-  updateUrl: (statvar: string, shouldAdd: boolean) => void;
 }
 
 interface PageStateType {
@@ -60,13 +59,12 @@ class Page extends Component<PagePropType, PageStateType> {
   }
 
   handleHashChange() {
-    const svPaths = parseStatVarPath()[0];
-    const svIds = parseStatVarPath()[1];
+    const urlVar = parseUrl();
 
     let statvarInfoPromise = Promise.resolve(this.state.statvarInfo);
-    if (svPaths !== this.state.statvarPaths) {
-      if (svIds.length !== 0) {
-        statvarInfoPromise = getStatsVarInfo(svIds);
+    if (urlVar.svPath !== this.state.statvarPaths) {
+      if (urlVar.svId.length !== 0) {
+        statvarInfoPromise = getStatsVarInfo(urlVar.svId);
       } else {
         statvarInfoPromise = Promise.resolve({});
       }
@@ -74,11 +72,10 @@ class Page extends Component<PagePropType, PageStateType> {
 
     let placesPromise = Promise.resolve(this.state.places);
     let validStatsVarPromise = Promise.resolve(this.state.statvarValid);
-    const placeIds = parsePlace();
-    if (placeIds !== Object.keys(this.state.places)) {
-      validStatsVarPromise = getStatsVar(placeIds);
-      if (placeIds.length !== 0) {
-        placesPromise = getPlaceNames(placeIds).then((data) =>
+    if (urlVar.placeId !== Object.keys(this.state.places)) {
+      validStatsVarPromise = getStatsVar(urlVar.placeId);
+      if (urlVar.placeId.length !== 0) {
+        placesPromise = getPlaceNames(urlVar.placeId).then((data) =>
           Object.entries(data)
         );
       } else {
@@ -88,20 +85,22 @@ class Page extends Component<PagePropType, PageStateType> {
 
     Promise.all([statvarInfoPromise, placesPromise, validStatsVarPromise]).then(
       (values) => {
-        for (let idx = 0; idx < svIds.length; idx++) {
-          values[0][svIds[idx]].title = svPaths[idx].slice(-1)[0];
+        for (let idx = 0; idx < urlVar.svId.length; idx++) {
+          values[0][urlVar.svId[idx]].title = urlVar.svPath[idx].slice(-1)[0];
         }
         this.setState({
           statvarInfo: values[0],
-          statvarPaths: svPaths,
+          statvarPaths: urlVar.svPath,
           places: values[1],
           statvarValid: values[2],
+          perCapita: urlVar.pc,
         });
       }
     );
   }
 
   _togglePerCapita() {
+    updateUrl({ pc: !this.state.perCapita });
     this.setState({
       perCapita: !this.state.perCapita,
     });
@@ -123,7 +122,6 @@ class Page extends Component<PagePropType, PageStateType> {
               ></input>
             </div>
             <Menu
-              updateUrl={this.props.updateUrl}
               search={this.props.search}
               svPaths={this.state.statvarPaths}
               svValid={this.state.statvarValid}
