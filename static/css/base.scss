@@ -110,6 +110,10 @@ $container-max-widths: (
   padding: 0;
 }
 
+#main-header #gs_tti50 input {
+  background: none !important;
+}
+
 /** Shared page elements **/
 #main-header {
   padding: .5rem 0;
