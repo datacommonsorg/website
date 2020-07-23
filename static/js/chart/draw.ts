@@ -18,17 +18,14 @@ import * as d3 from "d3";
 
 import { DataGroup, DataPoint } from "./base";
 
-import { randDomId } from "../shared/util";
-
 const NUM_X_TICKS = 5;
 const NUM_Y_TICKS = 5;
 const MARGIN = { top: 20, right: 10, bottom: 30, left: 35, yAxis: 3 };
-// The middleAdjustment here is to avoid line being like underscore, and move the line into middle place.
 const LEGEND = {
-  ratio: 0.15,
-  minWidth: 120,
-  height: 20,
-  middleAdjustment: 5,
+  ratio: 0.2,
+  minTextWidth: 100,
+  dashWidth: 30,
+  lineMargin: 10,
   marginLeft: 0,
   marginTop: 40,
 };
@@ -556,9 +553,13 @@ function drawGroupLineChart(
   unit?: string
 ) {
   let dataGroups = Object.values(dataGroupsDict)[0];
+  const dashInLegend = Object.keys(plotParams.dashes).length !== 1;
+  const legendTextdWidth = Math.max(width * LEGEND.ratio, LEGEND.minTextWidth);
+  const legendWidth = dashInLegend
+    ? LEGEND.dashWidth + legendTextdWidth
+    : legendTextdWidth;
 
   // Adjust the width of in-chart legends.
-  const legendWidth = Math.max(width * LEGEND.ratio, LEGEND.minWidth);
   const yRange = computeRanges(dataGroupsDict);
   const minV = yRange.minV;
   const maxV = yRange.maxV;
@@ -608,19 +609,15 @@ function drawGroupLineChart(
         .attr("stroke-dasharray", plotParams.dashes[place]);
     }
   }
-
-  const legendId = randDomId();
-  svg
+  const legend = svg
     .append("g")
-    .attr("id", legendId)
     .attr(
       "transform",
       `translate(${width - legendWidth - LEGEND.marginLeft}, ${
         LEGEND.marginTop
       })`
     );
-
-  buildInChartLegend(legendId, plotParams);
+  buildInChartLegend(legend, plotParams, dashInLegend, legendTextdWidth);
 }
 
 /**
@@ -628,47 +625,59 @@ function drawGroupLineChart(
  *
  * @param id: This is the id for the chart legend element.
  * @param plotParams: It contains all colors and dashes for geoIds and statVars.
+ * @param dashInLegend: Is there dash line in the legend.
+ * @param legendTextdWidth: The width of the legend text.
  */
-function buildInChartLegend(id: string, plotParams: PlotParams) {
-  const legend = d3.select("#" + id);
-  if (Object.keys(plotParams.dashes).length === 1) {
+function buildInChartLegend(
+  legend: d3.Selection<SVGGElement, any, any, any>,
+  plotParams: PlotParams,
+  dashInLegend: boolean,
+  legendTextdWidth: number
+) {
+  let yOffset = 0;
+  if (!dashInLegend) {
     // Only have one geoId. Then different statsVars should have different colors.
     const statsVars = Object.keys(plotParams.colors);
-    for (let i = 0; i < statsVars.length; i++) {
-      legend
-        .append("g")
-        .attr("transform", `translate(0, ${LEGEND.height * i})`)
+    for (const statsVar of statsVars) {
+      const text = legend
         .append("text")
-        .attr("x", "40")
-        .attr("y", `${LEGEND.height * i}`)
-        .text(plotParams.title[statsVars[i]])
+        .attr("transform", `translate(0, ${yOffset})`)
+        .attr("text-anchor", "start")
+        .attr("y", "0.3em")
+        .attr("dy", "0em")
+        .attr("fill", `${plotParams.colors[statsVar]}`)
         .style("font-size", "14")
-        .attr("fill", `${plotParams.colors[statsVars[i]]}`);
+        .text(plotParams.title[statsVar])
+        .call(wrap, legendTextdWidth);
+      yOffset += text.node().getBBox().height + LEGEND.lineMargin;
     }
   } else {
-    // Have multiple goeIds. Then different geoIds should have different dashes.
+    // Have multiple places, then they should have different dashes.
     const placeNames = Object.keys(plotParams.dashes);
-    for (let i = 0; i < placeNames.length; i++) {
-      const placeName = placeNames[i];
-      legend
+    for (const placeName of placeNames) {
+      // Create a group to hold dash line and legend text.
+      const lgGroup = legend
         .append("g")
-        .attr("transform", `translate(0, ${LEGEND.height * i})`);
-      legend
+        .attr("transform", `translate(0, ${yOffset})`);
+      // Draw the dash line.
+      lgGroup
         .append("line")
         .attr("stroke-width", 2)
         .attr("x1", "0")
-        .attr("y1", `${LEGEND.height * i - LEGEND.middleAdjustment}`)
-        .attr("x2", "30")
-        .attr("y2", `${LEGEND.height * i - LEGEND.middleAdjustment}`)
+        .attr("x2", `${LEGEND.dashWidth - 3}`)
         // Default color to be black here.
         .attr("stroke", "#000000")
         .attr("stroke-dasharray", `${plotParams.dashes[placeName]}`);
-      legend
+      // Draw the text.
+      lgGroup
         .append("text")
-        .attr("x", "40")
-        .attr("y", `${LEGEND.height * i}`)
+        .attr("transform", `translate(${LEGEND.dashWidth}, 0)`)
+        .attr("y", "0.3em")
+        .attr("dy", "0em")
+        .style("font-size", "14")
         .text(placeName)
-        .style("font-size", "14");
+        .call(wrap, legendTextdWidth);
+      yOffset += lgGroup.node().getBBox().height + LEGEND.lineMargin;
     }
   }
 }
