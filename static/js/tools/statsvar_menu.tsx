@@ -159,21 +159,24 @@ class Node extends Component<NodePropType, NodeStateType> {
 
   private canExpand() {
     if (this.props.t !== "c") {
+      // a node can be expanded if it has >= 1 children
       return this.childCnt(this.props.cd) !== 0;
     } else {
-      // check two levels for category nodes
-      let childCnt = 0;
+      // if the node is the top level node i.e. this.props.t === "c"
+      // we need to check if its child node has valid nodes.
+      let childCnt = 0; // number of valid child nodes
       this.props.cd.map((item) => {
-        let cnt = 0;
+        let valid = false;
         if (
           item.t === "v" &&
           (!this.props.filter || this.props.statsVarValid.has(item.sv))
         ) {
-          cnt += 1;
-        } else if (this.childCnt(item.cd)) {
-          cnt += 1;
+          valid = true;// the node is valid if it's a valid value node
         }
-        if (cnt !== 0) {
+         else if (this.childCnt(item.cd) !== 0) {
+          valid = true;// the node is valid if it has non-zero children
+        }
+        if (valid) {
           childCnt += 1;
         }
       });
