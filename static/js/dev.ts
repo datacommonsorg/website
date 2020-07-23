@@ -38,6 +38,7 @@ window.onload = () => {
   // Bootstrap.
 
   let id = 0;
+  let containerId: string;
   const containerElem = document.getElementById("charts-container");
   function addChartContainer(w: number, h: number) {
     const cid = "chart-box-" + ++id;
@@ -55,7 +56,7 @@ window.onload = () => {
     new DataPoint("California", 3002342),
     new DataPoint("United States", 9520234),
   ];
-  let containerId = addChartContainer(width, height);
+  containerId = addChartContainer(width, height);
   drawSingleBarChart(containerId, width, height, dataPoints);
 
   let dataGroups = [
@@ -235,7 +236,7 @@ window.onload = () => {
     );
   }
 
-  const dataGroupsDict1: {[key: string]: DataGroup[]} = {
+  const dataGroupsDict1: { [key: string]: DataGroup[] } = {
     "geoId/05": placeData1,
     "geoId/06": placeData2,
   };
@@ -249,7 +250,7 @@ window.onload = () => {
     computePlotParams(["geoId/05", "geoId/06"], ["Total", "Male"])
   );
 
-  const dataGroupsDict2: {[key: string]: DataGroup[]} = {
+  const dataGroupsDict2: { [key: string]: DataGroup[] } = {
     "geoId/06": placeData2,
   };
 
@@ -262,7 +263,7 @@ window.onload = () => {
     computePlotParams(["geoId/06"], ["Total", "Male"])
   );
 
-  const dataGroupsDict3: {[key: string]: DataGroup[]} = {
+  const dataGroupsDict3: { [key: string]: DataGroup[] } = {
     "geoId/05": [placeData1[0]],
     "geoId/06": [placeData2[0]],
   };
@@ -273,10 +274,16 @@ window.onload = () => {
     width,
     height,
     dataGroupsDict3,
-    computePlotParams(["geoId/05", "geoId/06"], ["Total"])
+    computePlotParams(
+      [
+        "very very very long name",
+        "such a long name that it needs to span 4 lines",
+      ],
+      ["Total"]
+    )
   );
 
-  const dataGroupsDict: {[key: string]: DataGroup[]} = {};
+  const dataGroupsDict: { [key: string]: DataGroup[] } = {};
   for (let i = 1; i <= 10; i++) {
     dataGroupsDict[String(i)] = [
       new DataGroup("Test", [
