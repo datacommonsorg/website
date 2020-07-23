@@ -142,29 +142,31 @@ function drawTimeSeries(seriesArray, valueKey, selector) {
       "vText" in sample ? sample["vText"] : sample["measuredProperty"];
     vText = vText.replace(/\//g, "_");
     vText = vText.replace(/\./g, "\\.");
+    let lineId = "dot-" + i;
+    let lineColor = color(lineId);
 
     // Draw path.
     const svgLine = svg
       .append("path")
       .datum(series)
       .attr("class", "line")
-      .style("stroke", color(vText))
+      .style("stroke", lineColor)
       .attr("d", valueline);
 
     // Draw dot.
     svg
-      .selectAll("dot-" + vText)
+      .selectAll(lineId)
       .data(series)
       .enter()
       .append("circle")
       .attr("class", "dot")
       .attr("cx", (d) => x(d["time"]))
       .attr("cy", (d) => y(d[valueKey]))
-      .attr("r", 2)
-      .style("fill", color(vText))
-      .style("stroke", color(vText))
-      .on("click", (d) => {
-        let uri = buildBrowserUri(d["dcid"]);
+      .attr("data-dcid", (d) => d["dcid"])
+      .style("fill", lineColor)
+      .style("stroke", lineColor)
+      .on("click", () => {
+        let uri = buildBrowserUri(d3.event.target.dataset.dcid);
         window.open(uri);
       });
 
@@ -177,13 +179,14 @@ function drawTimeSeries(seriesArray, valueKey, selector) {
       .attr("transform", `translate(${labelX},${labelY})`)
       .attr("dy", ".3em")
       .attr("text-anchor", "start")
-      .style("fill", color(vText))
+      .attr("data-dcid", sample["parentDcid"])
+      .style("fill", lineColor)
       .text(vText)
       .call(wrap, WRAP_WIDTH)
-      .on("click", () => {
-        let uri = buildBrowserUri(sample["parentDcid"]);
+      .on("click", (d, i) => {
+        let uri = buildBrowserUri(d3.event.target.parentNode.dataset.dcid);
         window.open(uri);
-      });
+      })
     totalVLen += Math.ceil(vText.length / CHAR_PER_LINE);
 
     // Hover on label and line node should highlight both.
