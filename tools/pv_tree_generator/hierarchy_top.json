@@ -6,7 +6,7 @@
   "c": 1784,
   "cd": [
    {
-    "sv": "Count_Person",
+    "sv": "TotalPopulation",
     "l": "Population",
     "t": "v",
     "c": 1
@@ -180,7 +180,7 @@
   "c": 1212,
   "cd": [
    {
-    "sv": "Count_MortalityEvent_AsAFractionOfCount_Person",
+    "sv": "Count_MortalityEvent",
     "l": "Mortality",
     "t": "v",
     "c": 1

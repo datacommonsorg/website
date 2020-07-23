@@ -37,13 +37,14 @@ class PopObsSpec(object):
 class StatVar(object):
     """Represents a StatisticalVariable"""
 
-    def __init__(self, pop_type, mprop, stats, pv, dcid):
+    def __init__(self, pop_type, mprop, stats, pv, dcid, se):
         self.pop_type = pop_type  # population_type, string
         self.mprop = mprop  # measured property, string
         self.stats = stats  # stat_type, string
         self.pv = pv  # property-value pairs, dict{string: string}
         self.dcid = dcid
         self.key = (pop_type, mprop, stats) + tuple(sorted(list(pv.keys())))
+        self.se = se
 
     def match_ui_node(self, ui_node):
         # check if the statistical variable should be under the ui_node
@@ -170,7 +171,15 @@ def _read_stat_var():
                 raise Exception('constraint property:{} not found in statistical'
                                 'variable with dcid: {}'.format(property, dcid))
             prop_val[property] = sv_dict[property]
+        se = {}  # Super enum
+        if 'crimeType' in prop_val:
+            v = prop_val.get('crimeType', '')
+            if v in ['AggravatedAssault', 'ForcibleRape', 'Robbery',
+                'MurderAndNonNegligentManslaughter']:
+                se = {'crimeType': 'ViolentCrime'}
+            elif v in ['MotorVehicleTheft', 'LarcenyTheft', 'Burglary']:
+                se = {'crimeType': 'PropertyCrime'}
         sv = StatVar(sv_dict["populationType"], sv_dict["measuredProperty"],
-                     sv_dict["statType"], prop_val, dcid)
+                     sv_dict["statType"], prop_val, dcid, se)
         stat_vars[sv.key].append(sv)
     return stat_vars

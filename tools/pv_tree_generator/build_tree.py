@@ -68,6 +68,8 @@ def build_tree_recursive(pos, level, pop_obs_spec, stat_vars,
                 'c': 1,
                 'sv_set': set([sv.dcid]),
             }
+            if sv.se:
+                value_blob['se'] = sv.se
             # add statistical variables as the child of current node
             result['cd'].append(value_blob)
 
@@ -94,6 +96,7 @@ def build_tree_recursive(pos, level, pop_obs_spec, stat_vars,
             del child['sv_set']
 
     result['c'] = len(result['sv_set'])
+    result = group_super_enum(result)
     return result
 
 
@@ -165,13 +168,17 @@ def traverseTree(root):
         del root['populationType']
     if 'mprop' in root:
         del root['mprop']
+    if 'se' in root:
+        del root['se']
     if 'cd' in root:
         for node in root['cd']:
             traverseTree(node)
     return root
 
+
 def getTopLevel(root, max_level):
     return removeChildren(root, 0, max_level)
+
 
 def removeChildren(root, cur_level, max_level):
     if 'cd' in root:
@@ -181,3 +188,38 @@ def removeChildren(root, cur_level, max_level):
             for node in root['cd']:
                 removeChildren(node, cur_level+1, max_level)
     return root
+
+
+def group_super_enum(json_blob):
+    """Group the nodes by super enum."""
+    new_children = []
+    grouping = collections.defaultdict(list)
+    direct_enum = set()
+    for child in json_blob['cd']:
+        if 'se' in child:
+        # Now only group by one super enum.
+            assert len(child['se']) == 1
+            v = list(child['se'].values())[0]
+            grouping[v].append(child)
+        else:
+            new_children.append(child)
+            direct_enum.add(child['e'])
+    # Add a layer for super enum
+    for v, children in grouping.items():
+        if v in direct_enum:
+            for child in new_children:
+                if child['e'] == v:
+                    child['cd'] = children
+                    child['c'] += len(children)
+                    break
+        else:
+            direct_enum.add(v)
+            enum_blob = children[0].copy()  # Shallow copy
+            enum_blob['cd'] = children
+            enum_blob['l'] = text_format.format_title(v)
+            enum_blob['c'] = len(children)
+            enum_blob['t'] = 'p'
+            del enum_blob['sv']
+            new_children.append(enum_blob)
+    json_blob['cd'] = new_children
+    return json_blob
