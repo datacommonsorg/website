@@ -68,7 +68,7 @@ class StatsData {
       const dataPoints: DataPoint[] = [];
       let placeName: string;
       for (const statsVar of this.statsVars) {
-        if (this.data[statsVar][place]) {
+        if (this.data[statsVar][place].data) {
           dataPoints.push({
             label: STATS_VAR_TEXT[statsVar],
             value: this.data[statsVar][place].data[date],
