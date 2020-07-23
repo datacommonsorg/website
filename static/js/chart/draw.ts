@@ -148,9 +148,7 @@ function addXAxis(
     .call((g) => g.select(".domain").remove());
 
   if (typeof xScale.bandwidth === "function") {
-    axis.selectAll(".tick text")
-    .attr("dy", "0em")
-    .call(wrap, xScale.bandwidth());
+    axis.selectAll(".tick text").call(wrap, xScale.bandwidth());
   }
 }
 
@@ -666,7 +664,7 @@ function buildInChartLegend(
         .append("line")
         .attr("stroke-width", 2)
         .attr("x1", "0")
-        .attr("x2", `${LEGEND.dashWidth-3}`)
+        .attr("x2", `${LEGEND.dashWidth - 3}`)
         // Default color to be black here.
         .attr("stroke", "#000000")
         .attr("stroke-dasharray", `${plotParams.dashes[placeName]}`);
@@ -679,7 +677,7 @@ function buildInChartLegend(
         .style("font-size", "14")
         .text(placeName)
         .call(wrap, legendTextdWidth);
-      yOffset += (lgGroup.node().getBBox().height + LEGEND.lineMargin);
+      yOffset += lgGroup.node().getBBox().height + LEGEND.lineMargin;
     }
   }
 }
