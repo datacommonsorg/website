@@ -13,8 +13,8 @@ interface NodePropType {
   sv: string;
   updateUrl: (statvar: string, add: boolean) => void;
   nodePath: string;
-  svPaths: string[][];
-  svValid: Set<string>;
+  statsVarPaths: string[][];
+  statsVarValid: Set<string>;
   filter: boolean;
 }
 
@@ -22,7 +22,7 @@ interface NodeStateType {
   checked: boolean;
   expanded: boolean;
   nodePath: string;
-  svPaths: string[][];
+  statsVarPaths: string[][];
 }
 
 class Node extends Component<NodePropType, NodeStateType> {
@@ -31,18 +31,18 @@ class Node extends Component<NodePropType, NodeStateType> {
     this._handleCheckboxClick = this._handleCheckboxClick.bind(this);
     this._handleExpandClick = this._handleExpandClick.bind(this);
     this._handleHashChange = this._handleHashChange.bind(this);
-    this.expandable = this.expandable.bind(this);
-    this.validSV = this.validSV.bind(this);
+    this.canExpand = this.canExpand.bind(this);
+    this.isValidStatsVar = this.isValidStatsVar.bind(this);
     this.state = {
       checked: false,
       expanded: false,
       nodePath: props.nodePath + SEP + props.l,
-      svPaths: [[]],
+      statsVarPaths: [[]],
     };
   }
 
   componentDidUpdate(prevProps) {
-    if (this.props.svPaths !== prevProps.svPaths) {
+    if (this.props.statsVarPaths !== prevProps.statsVarPaths) {
       this._handleHashChange();
     }
   }
@@ -52,9 +52,9 @@ class Node extends Component<NodePropType, NodeStateType> {
 
   public render = (): JSX.Element => {
     let child: JSX.Element[];
-    const validSV = this.validSV();
-    const expandable = this.expandable();
-    if (expandable && this.state.expanded) {
+    const isValidStatsVar = this.isValidStatsVar();
+    const canExpand = this.canExpand();
+    if (canExpand && this.state.expanded) {
       child = this.props.cd.map((item, index) => {
         return (
           <Node
@@ -65,9 +65,9 @@ class Node extends Component<NodePropType, NodeStateType> {
             sv={item.sv}
             updateUrl={this.props.updateUrl}
             nodePath={this.state.nodePath}
-            svPaths={this.state.svPaths}
+            statsVarPaths={this.state.statsVarPaths}
             key={this.props.l + index}
-            svValid={this.props.svValid}
+            statsVarValid={this.props.statsVarValid}
             filter={this.props.filter}
           ></Node>
         );
@@ -75,21 +75,21 @@ class Node extends Component<NodePropType, NodeStateType> {
     }
 
     return (
-      // render the node only if it is a valid SV node or it is expandable
-      (validSV || expandable) && (
+      // render the node only if it is a valid SV node or it is canExpand
+      (isValidStatsVar || canExpand) && (
         <ul className="noborder">
           <li className="value" id={this.props.l}>
             <span>
               <a className="value-link">
                 {this.props.l + "  "}
                 <sup>{this.props.c !== 0 && "(" + this.props.c + ")"}</sup>
-                {validSV && (
+                {isValidStatsVar && (
                   <button
                     className={this.state.checked ? "checkbox checked" : "checkbox"}
                     onClick={this._handleCheckboxClick}
                   />
                 )}
-                {expandable && (
+                {canExpand && (
                   <img
                     className={this.state.expanded ? "right-caret transform-up" : "right-caret"}
                     src="/images/right-caret-light.png"
@@ -121,36 +121,36 @@ class Node extends Component<NodePropType, NodeStateType> {
   };
 
   private _handleHashChange() {
-    const svPathNext = [];
+    const statsVarPathNext = [];
     let check = false;
     let expand = false;
-    for (const svPath of this.props.svPaths) {
-      if (svPath[0] === this.props.l) {
-        if (svPath.length === 1) {
+    for (const statsVarPath of this.props.statsVarPaths) {
+      if (statsVarPath[0] === this.props.l) {
+        if (statsVarPath.length === 1) {
           check = true;
         } else {
           expand = true;
-          svPathNext.push(svPath.slice(1));
+          statsVarPathNext.push(statsVarPath.slice(1));
         }
       }
     }
     this.setState({
       checked: check,
       expanded: expand,
-      svPaths: svPathNext,
+      statsVarPaths: statsVarPathNext,
     });
   }
 
-  private validSV() {
+  private isValidStatsVar() {
     // the node is valid statsvar node if it is a value node,
     // and the statsvar is available or not filtered.
     return (
       this.props.t === "v" &&
-      (!this.props.filter || this.props.svValid.has(this.props.sv))
+      (!this.props.filter || this.props.statsVarValid.has(this.props.sv))
     );
   }
 
-  private expandable() {
+  private canExpand() {
     let childCnt = 0;
     if (this.props.cd && this.props.cd.length !== 0) {
       this.props.cd.map((item) => {
@@ -160,7 +160,7 @@ class Node extends Component<NodePropType, NodeStateType> {
           // or a value node with valid statvar id
           item.t === "p" ||
           !this.props.filter ||
-          this.props.svValid.has(item.sv)
+          this.props.statsVarValid.has(item.sv)
         ) {
           childCnt += 1;
         }
@@ -173,8 +173,8 @@ class Node extends Component<NodePropType, NodeStateType> {
 interface MenuPropType {
   search: boolean;
   updateUrl: (statvar: string, shouldAdd: boolean) => void;
-  svPaths: string[][];
-  svValid: Set<string>;
+  statsVarPaths: string[][];
+  statsVarValid: Set<string>;
   filter: boolean;
 }
 interface MenuStateType {
@@ -203,10 +203,10 @@ class Menu extends Component<MenuPropType, MenuStateType> {
                     t={item.t}
                     sv={item.sv}
                     key={index1 + "," + index}
-                    svPaths={this.props.svPaths}
+                    statsVarPaths={this.props.statsVarPaths}
                     nodePath=""
                     updateUrl={this.props.updateUrl}
-                    svValid={this.props.svValid}
+                    statsVarValid={this.props.statsVarValid}
                     filter={this.props.filter}
                   ></Node>
                 )

@@ -60,13 +60,13 @@ class Page extends Component<PagePropType, PageStateType> {
   }
 
   handleHashChange() {
-    const svPaths = parseStatVarPath()[0];
-    const svIds = parseStatVarPath()[1];
+    const statsVarPaths = parseStatVarPath()[0];
+    const statsVarIds = parseStatVarPath()[1];
 
     let statvarInfoPromise = Promise.resolve(this.state.statvarInfo);
-    if (svPaths !== this.state.statvarPaths) {
-      if (svIds.length !== 0) {
-        statvarInfoPromise = getStatsVarInfo(svIds);
+    if (statsVarPaths !== this.state.statvarPaths) {
+      if (statsVarIds.length !== 0) {
+        statvarInfoPromise = getStatsVarInfo(statsVarIds);
       } else {
         statvarInfoPromise = Promise.resolve({});
       }
@@ -88,12 +88,12 @@ class Page extends Component<PagePropType, PageStateType> {
 
     Promise.all([statvarInfoPromise, placesPromise, validStatsVarPromise]).then(
       (values) => {
-        for (let idx = 0; idx < svIds.length; idx++) {
-          values[0][svIds[idx]].title = svPaths[idx].slice(-1)[0];
+        for (let idx = 0; idx < statsVarIds.length; idx++) {
+          values[0][statsVarIds[idx]].title = statsVarPaths[idx].slice(-1)[0];
         }
         this.setState({
           statvarInfo: values[0],
-          statvarPaths: svPaths,
+          statvarPaths: statsVarPaths,
           places: values[1],
           statvarValid: values[2],
         });
@@ -125,8 +125,8 @@ class Page extends Component<PagePropType, PageStateType> {
             <Menu
               updateUrl={this.props.updateUrl}
               search={this.props.search}
-              svPaths={this.state.statvarPaths}
-              svValid={this.state.statvarValid}
+              statsVarPaths={this.state.statvarPaths}
+              statsVarValid={this.state.statvarValid}
               filter={this.state.places.length !== 0}
             ></Menu>
           </div>

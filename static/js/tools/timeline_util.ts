@@ -55,23 +55,23 @@ interface VarUrl {
 function updateUrlStatsVar(statvar: string, shouldAdd: boolean) {
   const vars = getUrlVars() as VarUrl;
   const statvarUrl = encodeURI(statvar);
-  let svList = [];
+  let statsVarList = [];
   if ("statsvar" in vars) {
-    svList = vars.statsvar.split("__");
+    statsVarList = vars.statsvar.split("__");
   }
   if (shouldAdd) {
-    if (!svList.includes(statvarUrl)) {
-      svList.push(statvarUrl);
+    if (!statsVarList.includes(statvarUrl)) {
+      statsVarList.push(statvarUrl);
     }
   } else {
-    if (svList.includes(statvarUrl)) {
-      svList.splice(svList.indexOf(statvarUrl), 1);
+    if (statsVarList.includes(statvarUrl)) {
+      statsVarList.splice(statsVarList.indexOf(statvarUrl), 1);
     }
   }
-  if (svList.length === 0) {
+  if (statsVarList.length === 0) {
     delete vars.statsvar;
   } else {
-    vars.statsvar = svList.join("__");
+    vars.statsvar = statsVarList.join("__");
   }
   setSearchParam(vars);
 }
@@ -84,19 +84,19 @@ function updateUrlStatsVar(statvar: string, shouldAdd: boolean) {
  */
 function deleteStatsVar(statvar: string) {
   const vars = getUrlVars() as VarUrl;
-  let svList = [];
+  let statsVarList = [];
   if ("statsvar" in vars) {
-    svList = vars.statsvar.split("__");
+    statsVarList = vars.statsvar.split("__");
   }
-  for (const sv of svList) {
-    if (sv.split(SEP)[0] === statvar) {
-      svList.splice(svList.indexOf(sv), 1);
+  for (const statsVar of statsVarList) {
+    if (statsVar.split(SEP)[0] === statvar) {
+      statsVarList.splice(statsVarList.indexOf(statsVar), 1);
     }
   }
-  if (svList.length === 0) {
+  if (statsVarList.length === 0) {
     delete vars.statsvar;
   } else {
-    vars.statsvar = svList.join("__");
+    vars.statsvar = statsVarList.join("__");
   }
   setSearchParam(vars);
 }
@@ -148,15 +148,15 @@ function updateUrlPlace(place: string, shouldAdd: boolean) {
  */
 function parseStatVarPath() {
   const vars = getUrlVars() as VarUrl;
-  let svList = [];
+  let statsVarList = [];
   const statvarPath = [];
   const statvarIds = [];
   if ("statsvar" in vars) {
-    svList = vars.statsvar.split("__");
-    for (const statvar of svList) {
-      const sv = decodeURI(statvar);
-      statvarIds.push(sv.split(SEP)[0]);
-      statvarPath.push(sv.split(SEP).slice(1));
+    statsVarList = vars.statsvar.split("__");
+    for (const statvar of statsVarList) {
+      const statsVar = decodeURI(statvar);
+      statvarIds.push(statsVar.split(SEP)[0]);
+      statvarPath.push(statsVar.split(SEP).slice(1));
     }
   }
   return [statvarPath, statvarIds];

@@ -192,11 +192,11 @@ class ChartRegion extends Component<ChartRegionPropsType, {}> {
         this.props.places.map((x) => x[1]),
         this.grouping[domId]
       );
-      const svTitle = {};
-      for (const sv of Object.keys(plotParams.colors)) {
-        svTitle[sv] = this.props.statVars[sv].title;
+      const statsVarTitle = {};
+      for (const statsVar of Object.keys(plotParams.colors)) {
+        statsVarTitle[statsVar] = this.props.statVars[statsVar].title;
       }
-      plotParams.title = svTitle;
+      plotParams.title = statsVarTitle;
       drawGroupLineChart(
         statsData.domId,
         this.chartContainer.current.offsetWidth,
