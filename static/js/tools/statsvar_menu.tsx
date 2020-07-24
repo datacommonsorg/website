@@ -161,7 +161,7 @@ class Node extends Component<NodePropType, NodeStateType> {
     if (this.props.t === "p") {
       // a property node can be expanded if it has >= 1 children
       return this.hasChild(this.props.cd);
-    } else if (this.props.t === "c"){
+    } else if (this.props.t === "c") {
       // the top level node is expandable if has valid value node
       // or valid property node
       let hasChild = false;
@@ -170,26 +170,24 @@ class Node extends Component<NodePropType, NodeStateType> {
           item.t === "v" &&
           (!this.props.filter || this.props.statsVarValid.has(item.sv))
         ) {
-          hasChild = true;// valid value node
-        }
-         else if (this.hasChild(item.cd)) {
-          hasChild = true;// valid property node
+          hasChild = true; // valid value node
+        } else if (this.hasChild(item.cd)) {
+          hasChild = true; // valid property node
         }
       });
       return hasChild;
-    }
-    else{
+    } else {
       // a value node is expandable if it has valid property node
       let valid = false;
-      if (this.props.cd){
-      this.props.cd.map((item) => {
-        if (this.hasChild(item.cd)) {
-          valid = true;
-        }
-      });
-      return valid;
+      if (this.props.cd) {
+        this.props.cd.map((item) => {
+          if (this.hasChild(item.cd)) {
+            valid = true;
+          }
+        });
+        return valid;
+      }
     }
-  }
   }
 
   private hasChild(children) {
@@ -197,10 +195,7 @@ class Node extends Component<NodePropType, NodeStateType> {
     let hasChild = false;
     if (children && children.length !== 0) {
       children.map((item) => {
-        if (
-          !this.props.filter ||
-          this.props.statsVarValid.has(item.sv)
-        ) {
+        if (!this.props.filter || this.props.statsVarValid.has(item.sv)) {
           hasChild = true;
         }
       });
