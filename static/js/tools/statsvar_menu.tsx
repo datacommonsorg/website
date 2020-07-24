@@ -4,7 +4,7 @@ import hierarchy from "../../../tools/pv_tree_generator/hierarchy_top.json";
 import { updateUrl } from "./timeline_util";
 
 const jsonPath = "data/hierarchy_statsvar.json";
-export const SEP = "'";
+export const SEP = "^";
 
 interface NodePropType {
   l: string; // label
@@ -75,7 +75,7 @@ class Node extends Component<NodePropType, NodeStateType> {
 
     return (
       // render the node only if it is a valid SV node or it is canExpand
-      (isValidStatsVar || canExpand) && (
+      (isValidStatsVar || (this.props.t !== "v" && canExpand)) && (
         <ul className="noborder">
           <li className="value" id={this.props.l}>
             <span>
