@@ -163,8 +163,8 @@ class Node extends Component<NodePropType, NodeStateType> {
       return this.hasChild(this.props.cd);
     } else if (this.props.t === "c"){
       // the top level node is expandable if has valid value node
-      // or it has property node which has valid child nodes.
-      let hasChild = false; // number of valid child nodes
+      // or valid property node
+      let hasChild = false;
       this.props.cd.map((item) => {
         if (
           item.t === "v" &&
@@ -179,7 +179,7 @@ class Node extends Component<NodePropType, NodeStateType> {
       return hasChild;
     }
     else{
-      // a value node is expandable if any of its child property node has valid child nodes
+      // a value node is expandable if it has valid property node
       let valid = false;
       if (this.props.cd){
       this.props.cd.map((item) => {
