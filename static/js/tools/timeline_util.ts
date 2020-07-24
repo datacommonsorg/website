@@ -19,26 +19,30 @@ import { SEP } from "./statsvar_menu";
 
 // Temporary hack before we clean up place stats var cache.
 const MAPPING = {
-  "Count_Person": "TotalPopulation",
-  "Count_Person_Male": "MalePopulation",
-  "Count_Person_Female": "FemalePopulation",
-  "Count_Person_MarriedAndNotSeparated": "MarriedPopulation",
-  "Count_Person_Divorced": "DivorcedPopulation",
-  "Count_Person_NeverMarried": "NeverMarriedPopulation",
-  "Count_Person_Separated": "SeparatedPopulation",
-  "Count_Person_Widowed": "WidowedPopulation",
-  "Median_Age_Person": "MedianAge",
-  "Median_Income_Person": "MedianIncome",
-  "Count_Person_BelowPovertyLevelInThePast12Months": "BelowPovertyLine",
-  "Count_HousingUnit": "HousingUnits",
-  "Count_Household": "Households",
-  "Count_CriminalActivities_CombinedCrime": "TotalCrimes",
-  "UnemploymentRate_Person": "UnemploymentRate",
-  "CumulativeCount_MedicalConditionIncident_COVID_19_ConfirmedOrProbableCase": "NYTCovid19CumulativeCases",
-  "CumulativeCount_MedicalConditionIncident_COVID_19_PatientDeceased": "NYTCovid19CumulativeDeaths",
-  "IncrementalCount_MedicalConditionIncident_COVID_19_ConfirmedOrProbableCase": "NYTCovid19IncrementalCases",
-  "IncrementalCount_MedicalConditionIncident_COVID_19_PatientDeceased": "NYTCovid19IncrementalDeaths"
-}
+  Count_Person: "TotalPopulation",
+  Count_Person_Male: "MalePopulation",
+  Count_Person_Female: "FemalePopulation",
+  Count_Person_MarriedAndNotSeparated: "MarriedPopulation",
+  Count_Person_Divorced: "DivorcedPopulation",
+  Count_Person_NeverMarried: "NeverMarriedPopulation",
+  Count_Person_Separated: "SeparatedPopulation",
+  Count_Person_Widowed: "WidowedPopulation",
+  Median_Age_Person: "MedianAge",
+  Median_Income_Person: "MedianIncome",
+  Count_Person_BelowPovertyLevelInThePast12Months: "BelowPovertyLine",
+  Count_HousingUnit: "HousingUnits",
+  Count_Household: "Households",
+  Count_CriminalActivities_CombinedCrime: "TotalCrimes",
+  UnemploymentRate_Person: "UnemploymentRate",
+  CumulativeCount_MedicalConditionIncident_COVID_19_ConfirmedOrProbableCase:
+    "NYTCovid19CumulativeCases",
+  CumulativeCount_MedicalConditionIncident_COVID_19_PatientDeceased:
+    "NYTCovid19CumulativeDeaths",
+  IncrementalCount_MedicalConditionIncident_COVID_19_ConfirmedOrProbableCase:
+    "NYTCovid19IncrementalCases",
+  IncrementalCount_MedicalConditionIncident_COVID_19_PatientDeceased:
+    "NYTCovid19IncrementalDeaths",
+};
 
 interface VarUrl {
   statsVar: string;
@@ -48,8 +52,8 @@ interface VarUrl {
 
 interface UrlParam {
   pc?: boolean;
-  place?: { place: string, shouldAdd: boolean };
-  statsVarPath?: { statsVar: string, shouldAdd: boolean };
+  place?: { place: string; shouldAdd: boolean };
+  statsVarPath?: { statsVar: string; shouldAdd: boolean };
   statsVarDelete?: string;
 }
 
@@ -67,7 +71,10 @@ function updateUrl(param: UrlParam) {
     }
     if (param.place.shouldAdd && !placeList.includes(param.place.place)) {
       placeList.push(param.place.place);
-    } else if (!param.place.shouldAdd && placeList.includes(param.place.place)) {
+    } else if (
+      !param.place.shouldAdd &&
+      placeList.includes(param.place.place)
+    ) {
       placeList.splice(placeList.indexOf(param.place.place), 1);
     }
     vars.place = placeList.join(",");
@@ -84,7 +91,7 @@ function updateUrl(param: UrlParam) {
   if ("statsVarPath" in param) {
     const statvarPath = param.statsVarPath.statsVar.split(SEP);
     const encodedPath = [];
-    for(const node of statvarPath){
+    for (const node of statvarPath) {
       encodedPath.push(encodeURI(node));
     }
     const statsVarUrl = encodedPath.join(SEP);
@@ -94,7 +101,10 @@ function updateUrl(param: UrlParam) {
     }
     if (param.statsVarPath.shouldAdd && !statsVarList.includes(statsVarUrl)) {
       statsVarList.push(statsVarUrl);
-    } else if (!param.statsVarPath.shouldAdd && statsVarList.includes(statsVarUrl)) {
+    } else if (
+      !param.statsVarPath.shouldAdd &&
+      statsVarList.includes(statsVarUrl)
+    ) {
       statsVarList.splice(statsVarList.indexOf(statsVarUrl), 1);
     }
     vars.statsVar = statsVarList.join("__");
@@ -150,7 +160,12 @@ function parseUrl() {
     }
   }
 
-  return { "statsVarPath": statsVarPaths, "statsVarId": statsVarIds, "placeId": placeIds, "pc": pc }
+  return {
+    statsVarPath: statsVarPaths,
+    statsVarId: statsVarIds,
+    placeId: placeIds,
+    pc,
+  };
 }
 
 function getPlaceNames(dcids: string[]) {
@@ -177,7 +192,6 @@ function getStatsVarInfo(dcids: string[]) {
   });
 }
 
-
 function getStatsVar(dcids: string[]) {
   if (dcids.length === 0) {
     return Promise.resolve(new Set<string>());
@@ -194,15 +208,26 @@ function getStatsVar(dcids: string[]) {
   return Promise.all(promises).then((values) => {
     let statsVars = new Set(); // Count_Person not in List ???
     for (const value of values) {
-      statsVars = new Set([...Array.from(statsVars), ...value])
+      statsVars = new Set([...Array.from(statsVars), ...value]);
     }
     Object.keys(MAPPING).map((key) => {
       if (statsVars.has(MAPPING[key])) {
         statsVars.add(key);
       }
-    })
+    });
     return statsVars;
   }) as Promise<Set<string>>;
+}
+
+function saveToFile(filename: string, csv: string) {
+  if (!csv.match(/^data:text\/csv/i)) {
+    csv = "data:text/csv;charset=utf-8," + csv;
+  }
+  const data = encodeURI(csv);
+  const link = document.createElement("a");
+  link.setAttribute("href", data);
+  link.setAttribute("download", filename);
+  link.click();
 }
 
 export {
@@ -211,4 +236,5 @@ export {
   getStatsVarInfo,
   getPlaceNames,
   getStatsVar,
+  saveToFile,
 };

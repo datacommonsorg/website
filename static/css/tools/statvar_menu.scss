@@ -52,6 +52,19 @@ $menu-line: #5b5e60;
   padding: 24px;
 }
 
+#drill .noborder{
+  font-size: 0.95rem;
+  margin: 0 -14px;
+  padding: 0px 14px 0px 6px;
+  border-top-right-radius: 6px;
+  border-bottom-right-radius: 6px;
+  border-left: 0px solid $menu-line;
+}
+
+#drill .noedge{
+  padding:0px 0px 0px 10px;
+}
+
 #drill li {
   display: block;
   margin: 0 -24px;

@@ -16,7 +16,7 @@
 
 import React, { Component } from "react";
 import { randDomId } from "../shared/util";
-import { updateUrl } from "./timeline_util";
+import { updateUrl, saveToFile } from "./timeline_util";
 import { fetchStatsData, StatsData } from "../shared/data_fetcher";
 import { drawGroupLineChart, computePlotParams } from "../chart/draw";
 
@@ -70,6 +70,7 @@ class ChartRegion extends Component<ChartRegionPropsType, {}> {
   placeName: { [key: string]: string };
   chartContainer: React.RefObject<HTMLDivElement>;
   allStatsData: { domId: string; data: StatsData }[];
+  downloadLink: HTMLAnchorElement;
 
   constructor(props: ChartRegionPropsType) {
     super(props);
@@ -77,6 +78,12 @@ class ChartRegion extends Component<ChartRegionPropsType, {}> {
     this.placeName = {};
     this.chartContainer = React.createRef();
     this.handleWindowResize = this.handleWindowResize.bind(this);
+    this.downloadLink = document.getElementById(
+      "download-link"
+    ) as HTMLAnchorElement;
+    this.downloadLink.onclick = () => {
+      saveToFile("export.csv", this.createDataCsv());
+    };
   }
   render() {
     if (
@@ -172,6 +179,9 @@ class ChartRegion extends Component<ChartRegionPropsType, {}> {
         this.allStatsData = values;
         this.drawChart();
       });
+      this.downloadLink.style.visibility = "visible";
+    } else {
+      this.downloadLink.style.visibility = "hidden";
     }
   }
 
@@ -209,6 +219,60 @@ class ChartRegion extends Component<ChartRegionPropsType, {}> {
 
   private deleteStatsVarChip(statsVar: string) {
     updateUrl({ statsVarDelete: statsVar });
+  }
+
+  private createDataCsv() {
+    // Get all the dates
+    let allDates = new Set<string>();
+    for (const statData of this.allStatsData) {
+      allDates = new Set([...Array.from(allDates), ...statData.data.dates]);
+    }
+    // Create the the header row.
+    const header = ["date"];
+    for (const statData of this.allStatsData) {
+      for (const place of statData.data.places) {
+        for (const sv of statData.data.statsVars) {
+          header.push(`${place} ${sv}`);
+        }
+      }
+    }
+    // Get the place name
+    const placeName: { [key: string]: string } = {};
+    const sample = this.allStatsData[0].data;
+    const statsVar = sample.statsVars[0];
+    for (const place of sample.places) {
+      placeName[sample.data[statsVar][place].place_dcid] =
+        sample.data[statsVar][place].place_name;
+    }
+
+    // Iterate each year, group, place, stats var to populate data
+    const rows: string[][] = [];
+    for (const date of Array.from(allDates)) {
+      const row: string[] = [date];
+      for (const statData of this.allStatsData) {
+        for (const p of statData.data.places) {
+          for (const sv of statData.data.statsVars) {
+            const tmp = statData.data.data[sv][p];
+            if (tmp && tmp.data && tmp.data[date]) {
+              row.push(String(tmp.data[date]));
+            } else {
+              row.push("");
+            }
+          }
+        }
+      }
+      rows.push(row);
+    }
+    let headerRow = header.join(",") + "\n";
+    for (const dcid in placeName) {
+      const re = new RegExp(dcid, "g");
+      headerRow = headerRow.replace(re, placeName[dcid]);
+    }
+    let result = headerRow;
+    for (const row of rows) {
+      result += row.join(",") + "\n";
+    }
+    return result;
   }
 }
 
