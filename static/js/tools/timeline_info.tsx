@@ -39,7 +39,7 @@ class Info extends Component {
                         <li> <b>Extremes</b> <br/>
                             <span>Santa Clara County vs Imperial County:
                                 <a href={["#&&place=geoId/06085,geoId/06025&statsVar=MedianIncome","Demographics","Median%20income"
-                                ].join(SEP)}> Richest vs Poorest CA counties</a>,
+                                ].join(SEP)}> Richest vs. Poorest CA counties</a>,
                                 <a href={["#&&place=geoId/06085,geoId/06025&statsVar=Count_Death_DiseasesOfTheCirculatorySystem","Health","Mortality","Cause%20Of%20Death","(I00-I99)%20Diseases%20of%20the%20circulatory%20system__Count_Death_ExternalCauses","Health","Mortality","Cause%20Of%20Death","(V01-Y89)%20External%20causes"].join(SEP)}> Cause of Death</a>
                             </span><br/>
                             <span>Atlanta vs West Jordan:
