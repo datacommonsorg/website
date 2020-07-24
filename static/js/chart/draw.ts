@@ -552,7 +552,14 @@ function drawGroupLineChart(
   plotParams: PlotParams,
   unit?: string
 ) {
-  let dataGroups = Object.values(dataGroupsDict)[0];
+  // Get a non-empty array as dataGroups
+  const dataGroupsAll = Object.values(dataGroupsDict);
+  for (let idx = 0; idx < dataGroupsAll.length; idx++){
+    if(dataGroupsAll[idx].length === 0){
+      dataGroupsAll.splice(idx,1);
+    }
+  }
+  let dataGroups =dataGroupsAll[0];
   const dashInLegend = Object.keys(plotParams.dashes).length !== 1;
   const legendTextdWidth = Math.max(width * LEGEND.ratio, LEGEND.minTextWidth);
   const legendWidth = dashInLegend
