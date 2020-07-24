@@ -25,8 +25,9 @@ interface ApiResponse {
     data: {
       [key: string]: number;
     };
-    place_name: string;
-    provenance_domain: string;
+    placeName: string;
+    placeDcid: string;
+    provenanceDomain: string;
   };
 }
 
@@ -76,7 +77,7 @@ class StatsData {
             label: STATS_VAR_TEXT[statsVar],
             value: this.data[statsVar][place].data[date],
           });
-          placeName = this.data[statsVar][place].place_name;
+          placeName = this.data[statsVar][place].placeName;
         }
       }
       if (dataPoints.length > 0) {
@@ -231,7 +232,7 @@ function fetchStatsData(
         if (!allResp[i].data[place]) {
           continue;
         }
-        result.sources.add(allResp[i].data[place].provenance_domain)
+        result.sources.add(allResp[i].data[place].provenanceDomain)
         // Build initial dates
         if (Object.keys(dates).length === 0) {
           for (const date in allResp[i].data[place].data) {

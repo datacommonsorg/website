@@ -96,24 +96,40 @@ class ChartRegion extends Component<ChartRegionPropsType, {}> {
     return (
       <div ref={this.chartContainer}>
         {Object.keys(this.grouping).map((domId) => {
+          const statsVars = this.grouping[domId];
+          const statsVarsTile = statsVars.map(sv => this.props.statsVars[sv].title);
           const plotParams = computePlotParams(
             this.props.places.map((x) => x[1]),
-            this.grouping[domId]
+            statsVarsTile,
           );
+          // Stats var chip color is independent of places, so pick one place to
+          // provide a key for style look up.
+          const placeName = this.props.places[0][1];
           return (
-            <div key={domId}>
-              <div id={domId} className="card"></div>
-              {Object.keys(plotParams.colors).map((statsVar) => {
-                return (
-                  <StatsVarChip
-                    statsVar={statsVar}
-                    title={this.props.statsVars[statsVar].title}
-                    color={plotParams.colors[statsVar]}
-                    key={randDomId()}
-                    deleteStatsVarChip={this.deleteStatsVarChip}
-                  />
-                );
-              })}
+            <div key={domId} className="card">
+              <div id={domId} className="chart-svg"></div>
+              <div>
+                {statsVars.map(
+                  function (statsVar) {
+                    let color: string;
+                    const statsVarTitle = this.props.statsVars[statsVar].title;
+                    if (statsVars.length === 1) {
+                      color = "#999";
+                    } else {
+                      color = plotParams.lines[placeName + statsVarTitle].color;
+                    }
+                    return (
+                      <StatsVarChip
+                        statsVar={statsVar}
+                        title={statsVarTitle}
+                        color={color}
+                        key={randDomId()}
+                        deleteStatsVarChip={this.deleteStatsVarChip}
+                      />
+                    );
+                  }.bind(this)
+                )}
+              </div>
             </div>
           );
         }, this)}
@@ -197,22 +213,23 @@ class ChartRegion extends Component<ChartRegionPropsType, {}> {
           this.placeName[placeDcid]
         ] = statsData.data.getStatsVarGroupWithTime(placeDcid);
       }
+      const statsVars = this.grouping[domId];
+      const statsVarsTitle = {};
+      for (const statsVar of statsVars) {
+        statsVarsTitle[statsVar] = this.props.statsVars[statsVar].title
+      }
       const plotParams = computePlotParams(
         this.props.places.map((x) => x[1]),
-        this.grouping[domId]
+        Object.values(statsVarsTitle),
       );
-      const statsVarTitle = {};
-      for (const statsVar of Object.keys(this.props.statsVars)) {
-        statsVarTitle[statsVar] = this.props.statsVars[statsVar].title;
-      }
-      plotParams.title = statsVarTitle;
       drawGroupLineChart(
         statsData.domId,
         this.chartContainer.current.offsetWidth,
         CHART_HEIGHT,
+        statsVarsTitle,
         dataGroupsDict,
         plotParams,
-        Array.from(statsData.data.sources),
+        Array.from(statsData.data.sources)
       );
     }
   }
@@ -241,8 +258,8 @@ class ChartRegion extends Component<ChartRegionPropsType, {}> {
     const sample = this.allStatsData[0].data;
     const statsVar = sample.statsVars[0];
     for (const place of sample.places) {
-      placeName[sample.data[statsVar][place].place_dcid] =
-        sample.data[statsVar][place].place_name;
+      placeName[sample.data[statsVar][place].placeDcid] =
+        sample.data[statsVar][place].placeName;
     }
 
     // Iterate each year, group, place, stats var to populate data

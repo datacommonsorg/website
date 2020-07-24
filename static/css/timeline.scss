@@ -295,6 +295,12 @@ sup {
   display: flex;
 }
 
-#download-link {
-  color: #fff;
+.chart-svg {
+  margin-bottom: 10px;
+}
+
+.card {
+  box-shadow: 0 2px 4px 0 rgba(0, 0, 0, 0.2);
+  padding: 7px 15px;
+  margin: 12px 0;
 }

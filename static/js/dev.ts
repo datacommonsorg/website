@@ -242,8 +242,8 @@ window.onload = () => {
   }
 
   const dataGroupsDict1: { [key: string]: DataGroup[] } = {
-    "geoId/05": placeData1,
-    "geoId/06": placeData2,
+    "Nevada": placeData1,
+    "California": placeData2,
   };
 
   containerId = addChartContainer(width, height);
@@ -251,12 +251,13 @@ window.onload = () => {
     containerId,
     width,
     height,
+    {"Total": "Total", "Male": "Male"},
     dataGroupsDict1,
-    computePlotParams(["geoId/05", "geoId/06"], ["Total", "Male"])
+    computePlotParams(["Nevada", "California"], ["Total", "Male"]),
   );
 
   const dataGroupsDict2: { [key: string]: DataGroup[] } = {
-    "geoId/06": placeData2,
+    "California": placeData2,
   };
 
   containerId = addChartContainer(width, height);
@@ -264,13 +265,14 @@ window.onload = () => {
     containerId,
     width,
     height,
+    {"Total": "Total", "Male": "Male"},
     dataGroupsDict2,
-    computePlotParams(["geoId/06"], ["Total", "Male"])
+    computePlotParams(["California"], ["Total", "Male"]),
   );
 
   const dataGroupsDict3: { [key: string]: DataGroup[] } = {
-    "geoId/05": [placeData1[0]],
-    "geoId/06": [placeData2[0]],
+    "very very very long place name": [placeData1[0]],
+    "such a long name that it needs to span 4 lines": [placeData2[0]],
   };
 
   containerId = addChartContainer(width, height);
@@ -278,35 +280,14 @@ window.onload = () => {
     containerId,
     width,
     height,
+    {"Total": "Total"},
     dataGroupsDict3,
     computePlotParams(
       [
-        "very very very long name",
+        "very very very long place name",
         "such a long name that it needs to span 4 lines",
       ],
       ["Total"]
-    )
-  );
-
-  const dataGroupsDict: { [key: string]: DataGroup[] } = {};
-  for (let i = 1; i <= 10; i++) {
-    dataGroupsDict[String(i)] = [
-      new DataGroup("Test", [
-        new DataPoint("1", i),
-        new DataPoint("2", i),
-        new DataPoint("3", i),
-        new DataPoint("4", i),
-        new DataPoint("5", i),
-        new DataPoint("6", i),
-      ]),
-    ];
-  }
-  containerId = addChartContainer(width, height);
-  drawGroupLineChart(
-    containerId,
-    width,
-    height,
-    dataGroupsDict,
-    computePlotParams(Object.keys(dataGroupsDict), ["Test"])
+    ),
   );
 };
