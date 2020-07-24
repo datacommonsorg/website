@@ -82,7 +82,12 @@ function updateUrl(param: UrlParam) {
   }
   // update statsVar with Path
   if ("statsVarPath" in param) {
-    const statsVarUrl = encodeURI(param.statsVarPath.statsVar);
+    const statvarPath = param.statsVarPath.statsVar.split(SEP);
+    const encodedPath = [];
+    for(const node of statvarPath){
+      encodedPath.push(encodeURI(node));
+    }
+    const statsVarUrl = encodedPath.join(SEP);
     let statsVarList = [];
     if ("statsVar" in vars) {
       statsVarList = vars.statsVar.split("__");
