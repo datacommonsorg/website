@@ -20,7 +20,7 @@ import { DataGroup, DataPoint } from "./base";
 
 const NUM_X_TICKS = 5;
 const NUM_Y_TICKS = 5;
-const MARGIN = { top: 20, right: 10, bottom: 30, left: 35, yAxis: 3 };
+const MARGIN = { top: 20, right: 10, bottom: 30, left: 35, yAxis: 3, sourceText: 8 };
 const LEGEND = {
   ratio: 0.2,
   minTextWidth: 100,
@@ -475,6 +475,7 @@ interface PlotParams {
   // Label to dash style.
   dashes: { [key: string]: string };
   title: { [key: string]: string };
+  source: string[];
 }
 
 /**
@@ -487,6 +488,7 @@ function computePlotParams(
   const colors = {};
   const dashes = {};
   const title = {};
+  const source = [];
   const colorFn = getColorFn(statsNames);
   const dashFn = getDashes(placeNames.length);
   for (const statsName of statsNames) {
@@ -499,6 +501,7 @@ function computePlotParams(
     colors,
     dashes,
     title,
+    source,
   };
 }
 
@@ -554,12 +557,12 @@ function drawGroupLineChart(
 ) {
   // Get a non-empty array as dataGroups
   const dataGroupsAll = Object.values(dataGroupsDict);
-  for (let idx = 0; idx < dataGroupsAll.length; idx++){
-    if(dataGroupsAll[idx].length === 0){
-      dataGroupsAll.splice(idx,1);
+  for (let idx = 0; idx < dataGroupsAll.length; idx++) {
+    if (dataGroupsAll[idx].length === 0) {
+      dataGroupsAll.splice(idx, 1);
     }
   }
-  let dataGroups =dataGroupsAll[0];
+  let dataGroups = dataGroupsAll[0];
   const dashInLegend = Object.keys(plotParams.dashes).length !== 1;
   const legendTextdWidth = Math.max(width * LEGEND.ratio, LEGEND.minTextWidth);
   const legendWidth = dashInLegend
@@ -572,12 +575,12 @@ function drawGroupLineChart(
   const maxV = yRange.maxV;
 
   d3.selectAll(`#${id} > *`).remove();
-
+  const sourceTextHeight = 20; // add source info at the bottom of the chart
   const svg = d3
     .select("#" + id)
     .append("svg")
     .attr("width", width)
-    .attr("height", height);
+    .attr("height", height + sourceTextHeight);
 
   const xScale = d3
     .scaleTime()
@@ -616,15 +619,30 @@ function drawGroupLineChart(
         .attr("stroke-dasharray", plotParams.dashes[place]);
     }
   }
+  // add source info to the chart
+  const sourceText = "Data source: " + plotParams.source.join(', ');
+  svg
+    .append("text")
+    .attr("text-anchor", "start")
+    .attr(
+      "transform",
+      `translate(${MARGIN.left}, ${
+      height + MARGIN.sourceText
+      })`)
+    .attr("fill", "#808080")
+    .style("font-size", "12")
+    .text(sourceText)
+
   const legend = svg
     .append("g")
     .attr(
       "transform",
       `translate(${width - legendWidth - LEGEND.marginLeft}, ${
-        LEGEND.marginTop
+      LEGEND.marginTop
       })`
     );
   buildInChartLegend(legend, plotParams, dashInLegend, legendTextdWidth);
+
 }
 
 /**

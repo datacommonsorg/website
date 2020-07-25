@@ -78,7 +78,6 @@ class ChartRegion extends Component<ChartRegionPropsType, {}> {
     this.chartContainer = React.createRef();
     this.handleWindowResize = this.handleWindowResize.bind(this);
   }
-
   render() {
     if (
       this.props.places.length === 0 ||
@@ -197,6 +196,7 @@ class ChartRegion extends Component<ChartRegionPropsType, {}> {
         statsVarTitle[statsVar] = this.props.statsVars[statsVar].title;
       }
       plotParams.title = statsVarTitle;
+      plotParams.source = Array.from(statsData.data.sources);
       drawGroupLineChart(
         statsData.domId,
         this.chartContainer.current.offsetWidth,
