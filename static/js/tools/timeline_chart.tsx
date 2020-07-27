@@ -78,7 +78,6 @@ class ChartRegion extends Component<ChartRegionPropsType, {}> {
     this.chartContainer = React.createRef();
     this.handleWindowResize = this.handleWindowResize.bind(this);
   }
-
   render() {
     if (
       this.props.places.length === 0 ||
@@ -202,7 +201,8 @@ class ChartRegion extends Component<ChartRegionPropsType, {}> {
         this.chartContainer.current.offsetWidth,
         CHART_HEIGHT,
         dataGroupsDict,
-        plotParams
+        plotParams,
+        Array.from(statsData.data.sources),
       );
     }
   }

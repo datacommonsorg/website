@@ -26,6 +26,7 @@ interface ApiResponse {
       [key: string]: number;
     };
     place_name: string;
+    provenance_domain: string;
   };
 }
 
@@ -40,6 +41,7 @@ class StatsData {
   data: {
     [key: string]: ApiResponse;
   };
+  sources: Set<string>;
 
   constructor(
     places: string[],
@@ -51,6 +53,7 @@ class StatsData {
     this.statsVars = statsVars;
     this.dates = dates;
     this.data = data;
+    this.sources = new Set<string>();
   }
 
   /**
@@ -228,6 +231,7 @@ function fetchStatsData(
         if (!allResp[i].data[place]) {
           continue;
         }
+        result.sources.add(allResp[i].data[place].provenance_domain)
         // Build initial dates
         if (Object.keys(dates).length === 0) {
           for (const date in allResp[i].data[place].data) {
