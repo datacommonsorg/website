@@ -105,7 +105,10 @@ def download():
                                     geojson['type'])
             # Process Statistical Observation if valid.
             if geo_id in stat_var_by_geo and \
-                    (not per_capita or geo_id in population_by_geo):
+                    'data' in stat_var_by_geo[geo_id] and \
+                    (not per_capita or
+                    (geo_id in population_by_geo and
+                    'data' in population_by_geo[geo_id])):
                 # Grab the latest available data.
                 stat_obs = next(iter(stat_var_by_geo[geo_id]['data'].values()))
 
