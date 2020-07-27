@@ -53,7 +53,6 @@ def create_app():
     app.register_blueprint(static.bp)
     app.register_blueprint(stats.bp)
     app.register_blueprint(tools.bp)
-    app.register_blueprint(choropleth.bp)
 
     # Load chart config
     with open('chart_config.json') as f:

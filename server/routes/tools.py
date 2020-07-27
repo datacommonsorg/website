@@ -31,6 +31,7 @@ def timeline():
 def scatter():
     return flask.render_template('tools/scatter.html')
 
+
 @bp.route('/choropleth')
 def choropleth():
     # TODO(iancostello): Permit production use after development finishes.
