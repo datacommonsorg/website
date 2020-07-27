@@ -12,17 +12,17 @@ interface NodePropType {
   cd: NodePropType[]; // children
   t: string; // type
   sv: string;
-  nodePath: string;
-  statsVarPaths: string[][];
+  statsVarPaths: number[][];
   statsVarValid: Set<string>;
   filter: boolean;
+  idx: number;
+  setName: (statsVarId: string, statsVarName: string) => void;
 }
 
 interface NodeStateType {
   checked: boolean;
   expanded: boolean;
-  nodePath: string;
-  statsVarPaths: string[][];
+  statsVarPaths: number[][];
 }
 
 class Node extends Component<NodePropType, NodeStateType> {
@@ -36,7 +36,6 @@ class Node extends Component<NodePropType, NodeStateType> {
     this.state = {
       checked: false,
       expanded: false,
-      nodePath: props.nodePath + SEP + props.l,
       statsVarPaths: [[]],
     };
   }
@@ -63,11 +62,12 @@ class Node extends Component<NodePropType, NodeStateType> {
             c={item.c}
             t={item.t}
             sv={item.sv}
-            nodePath={this.state.nodePath}
             statsVarPaths={this.state.statsVarPaths}
             key={this.props.l + index}
             statsVarValid={this.props.statsVarValid}
             filter={this.props.filter}
+            idx={index}
+            setName={this.props.setName}
           ></Node>
         );
       });
@@ -115,8 +115,8 @@ class Node extends Component<NodePropType, NodeStateType> {
       checked: !this.state.checked,
     });
     updateUrl({
-      statsVarPath: {
-        statsVar: this.props.sv + this.state.nodePath,
+      statsVar: {
+        statsVar: this.props.sv,
         shouldAdd: !this.state.checked,
       },
     });
@@ -133,9 +133,10 @@ class Node extends Component<NodePropType, NodeStateType> {
     let check = false;
     let expand = false;
     for (const statsVarPath of this.props.statsVarPaths) {
-      if (statsVarPath[0] === this.props.l) {
+      if (statsVarPath && statsVarPath[0] === this.props.idx) {
         if (statsVarPath.length === 1) {
           check = true;
+          this.props.setName(this.props.sv, this.props.l);
         } else {
           expand = true;
           statsVarPathNext.push(statsVarPath.slice(1));
@@ -207,9 +208,10 @@ class Node extends Component<NodePropType, NodeStateType> {
 
 interface MenuPropType {
   search: boolean;
-  statsVarPaths: string[][];
+  statsVarPaths: number[][];
   statsVarValid: Set<string>;
   filter: boolean;
+  setName: (statsVarId: string, statsVarName: string) => void;
 }
 interface MenuStateType {
   menuJson: [{}];
@@ -238,9 +240,10 @@ class Menu extends Component<MenuPropType, MenuStateType> {
                     sv={item.sv}
                     key={index1 + "," + index}
                     statsVarPaths={this.props.statsVarPaths}
-                    nodePath=""
                     statsVarValid={this.props.statsVarValid}
                     filter={this.props.filter}
+                    idx={index}
+                    setName={this.props.setName}
                   ></Node>
                 )
               );

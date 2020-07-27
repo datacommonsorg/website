@@ -7,23 +7,23 @@ import { SEP } from "./statsvar_menu";
 
 test("update Url statsvar", () => {
   window.location.hash = "";
-  updateUrl({ statsVarPath: { statsVar: "dc/test1", shouldAdd: true } });
+  updateUrl({ statsVar: { statsVar: "dc/test1", shouldAdd: true } });
   expect(window.location.hash).toBe("#&statsVar=dc/test1");
-  updateUrl({ statsVarPath: { statsVar: "dc/test2", shouldAdd: true } });
+  updateUrl({ statsVar: { statsVar: "dc/test2", shouldAdd: true } });
   expect(window.location.hash).toBe("#&statsVar=dc/test1__dc/test2");
-  updateUrl({ statsVarPath: { statsVar: "dc/test2", shouldAdd: false } });
+  updateUrl({ statsVar: { statsVar: "dc/test2", shouldAdd: false } });
   expect(window.location.hash).toBe("#&statsVar=dc/test1");
-  updateUrl({ statsVarPath: { statsVar: "dc/test2", shouldAdd: false } });;
+  updateUrl({ statsVar: { statsVar: "dc/test2", shouldAdd: false } });;
   expect(window.location.hash).toBe("#&statsVar=dc/test1");
   window.location.hash = "#&place=geoId/01";
-  updateUrl({ statsVarPath: { statsVar: "dc/test1", shouldAdd: true } });
+  updateUrl({ statsVar: { statsVar: "dc/test1", shouldAdd: true } });
   expect(window.location.hash).toBe("#&place=geoId/01&statsVar=dc/test1");
 });
 
 test("parse statsVar from Url", () => {
-  window.location.hash = "#&statsVar=dc/test" + SEP + "Demo" + SEP + "prop";
-  expect(parseUrl().statsVarPath).toStrictEqual([["Demo", "prop"]]);
+  window.location.hash = "#&statsVar=Count_Person";
   expect(parseUrl().statsVarId).toStrictEqual(["dc/test"]);
+  expect(parseUrl().statsVarPath).toStrictEqual([[0, 0]]);
 });
 
 test("update places from Url", () => {
@@ -56,20 +56,4 @@ test("get place names", () => {
       "country/USA": "United States",
     });
   });
-});
-
-test("delete stat var", () => {
-  window.location.hash = [
-    "#&statsVar=dc/test",
-    "Demographics",
-    "Population" + "__dc/test2",
-    "Crime",
-    "CrimeType",
-  ].join(SEP);
-  updateUrl({ statsVarDelete: "dc/test2" })
-  expect(window.location.hash).toBe(
-    "#&statsVar=dc/test" + SEP + "Demographics" + SEP + "Population"
-  );
-  updateUrl({ statsVarDelete: "dc/test" })
-  expect(window.location.hash).toBe("");
 });

@@ -16,6 +16,7 @@
 import axios from "axios";
 import { getUrlVars, setSearchParam } from "./dc";
 import { SEP } from "./statsvar_menu";
+import statsVarPathMap from "../../../tools/pv_tree_generator/statsvar_path.json";
 
 // Temporary hack before we clean up place stats var cache.
 const MAPPING = {
@@ -49,8 +50,7 @@ interface VarUrl {
 interface UrlParam {
   pc?: boolean;
   place?: { place: string, shouldAdd: boolean };
-  statsVarPath?: { statsVar: string, shouldAdd: boolean };
-  statsVarDelete?: string;
+  statsVar?: { statsVar: string, shouldAdd: boolean };
 }
 
 function updateUrl(param: UrlParam) {
@@ -80,45 +80,23 @@ function updateUrl(param: UrlParam) {
         "Count_Person" + SEP + "Demographics" + SEP + "Population";
     }
   }
-  // update statsVar with Path
-  if ("statsVarPath" in param) {
-    const statvarPath = param.statsVarPath.statsVar.split(SEP);
-    const encodedPath = [];
-    for(const node of statvarPath){
-      encodedPath.push(encodeURI(node));
-    }
-    const statsVarUrl = encodedPath.join(SEP);
+  // update statsVar
+  if ("statsVar" in param) {
+    const statsVarUpdate = param.statsVar.statsVar;
     let statsVarList = [];
     if ("statsVar" in vars) {
       statsVarList = vars.statsVar.split("__");
     }
-    if (param.statsVarPath.shouldAdd && !statsVarList.includes(statsVarUrl)) {
-      statsVarList.push(statsVarUrl);
-    } else if (!param.statsVarPath.shouldAdd && statsVarList.includes(statsVarUrl)) {
-      statsVarList.splice(statsVarList.indexOf(statsVarUrl), 1);
+    if (param.statsVar.shouldAdd && !statsVarList.includes(statsVarUpdate)) {
+      statsVarList.push(statsVarUpdate);
+    } else if (!param.statsVar.shouldAdd && statsVarList.includes(statsVarUpdate)) {
+      statsVarList.splice(statsVarList.indexOf(statsVarUpdate), 1);
     }
     vars.statsVar = statsVarList.join("__");
     if (vars.statsVar === "") {
       delete vars.statsVar;
     }
   }
-  // delete statsvar with statsvarId
-  if ("statsVarDelete" in param) {
-    let statsVarList = [];
-    if ("statsVar" in vars) {
-      statsVarList = vars.statsVar.split("__");
-    }
-    for (const statsVar of statsVarList) {
-      if (statsVar.split(SEP)[0] === param.statsVarDelete) {
-        statsVarList.splice(statsVarList.indexOf(statsVar), 1);
-      }
-    }
-    vars.statsVar = statsVarList.join("__");
-    if (vars.statsVar === "") {
-      delete vars.statsVar;
-    }
-  }
-
   setSearchParam(vars);
 }
 
@@ -146,7 +124,7 @@ function parseUrl() {
     for (const statsVar of statsVarList) {
       const statsVarDecoded = decodeURI(statsVar);
       statsVarIds.push(statsVarDecoded.split(SEP)[0]);
-      statsVarPaths.push(statsVarDecoded.split(SEP).slice(1));
+      statsVarPaths.push(statsVarPathMap[statsVarDecoded.split(SEP)[0]]);
     }
   }
 
