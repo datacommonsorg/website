@@ -196,13 +196,13 @@ class ChartRegion extends Component<ChartRegionPropsType, {}> {
         statsVarTitle[statsVar] = this.props.statsVars[statsVar].title;
       }
       plotParams.title = statsVarTitle;
-      plotParams.source = Array.from(statsData.data.sources);
       drawGroupLineChart(
         statsData.domId,
         this.chartContainer.current.offsetWidth,
         CHART_HEIGHT,
         dataGroupsDict,
-        plotParams
+        plotParams,
+        Array.from(statsData.data.sources),
       );
     }
   }

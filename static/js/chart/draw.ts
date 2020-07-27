@@ -20,7 +20,7 @@ import { DataGroup, DataPoint } from "./base";
 
 const NUM_X_TICKS = 5;
 const NUM_Y_TICKS = 5;
-const MARGIN = { top: 20, right: 10, bottom: 30, left: 35, yAxis: 3, sourceText: 8 };
+const MARGIN = { top: 20, right: 10, bottom: 30, left: 35, yAxis: 3};
 const LEGEND = {
   ratio: 0.2,
   minTextWidth: 100,
@@ -29,6 +29,11 @@ const LEGEND = {
   marginLeft: 0,
   marginTop: 40,
 };
+const SOURCE = {
+  topMargin: 8,
+  font: 12,
+  height: 20,
+}
 
 /**
  * Return an array of dashes.
@@ -475,7 +480,6 @@ interface PlotParams {
   // Label to dash style.
   dashes: { [key: string]: string };
   title: { [key: string]: string };
-  source: string[];
 }
 
 /**
@@ -501,7 +505,6 @@ function computePlotParams(
     colors,
     dashes,
     title,
-    source,
   };
 }
 
@@ -553,6 +556,7 @@ function drawGroupLineChart(
   height: number,
   dataGroupsDict: { [place: string]: DataGroup[] },
   plotParams: PlotParams,
+  source?: string[],
   unit?: string
 ) {
   // Get a non-empty array as dataGroups
@@ -575,12 +579,11 @@ function drawGroupLineChart(
   const maxV = yRange.maxV;
 
   d3.selectAll(`#${id} > *`).remove();
-  const sourceTextHeight = 20; // add source info at the bottom of the chart
   const svg = d3
     .select("#" + id)
     .append("svg")
     .attr("width", width)
-    .attr("height", height + sourceTextHeight);
+    .attr("height", height + SOURCE.height);
 
   const xScale = d3
     .scaleTime()
@@ -620,17 +623,17 @@ function drawGroupLineChart(
     }
   }
   // add source info to the chart
-  const sourceText = "Data source: " + plotParams.source.join(', ');
+  const sourceText = "Data source: " +source.filter(Boolean).join(', ');
   svg
     .append("text")
     .attr("text-anchor", "start")
     .attr(
       "transform",
       `translate(${MARGIN.left}, ${
-      height + MARGIN.sourceText
+      height + SOURCE.topMargin
       })`)
     .attr("fill", "#808080")
-    .style("font-size", "12")
+    .style("font-size", `${SOURCE.font}`)
     .text(sourceText)
 
   const legend = svg
