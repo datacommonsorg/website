@@ -4,7 +4,6 @@ import hierarchy from "../../../tools/pv_tree_generator/hierarchy_top.json";
 import { updateUrl } from "./timeline_util";
 
 const jsonPath = "data/hierarchy_statsvar.json";
-export const SEP = "^";
 
 interface NodePropType {
   l: string; // label

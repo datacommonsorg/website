@@ -15,7 +15,6 @@
  */
 import axios from "axios";
 import { getUrlVars, setSearchParam } from "./dc";
-import { SEP } from "./statsvar_menu";
 import statsVarPathMap from "../../../tools/pv_tree_generator/statsvar_path.json";
 
 // Temporary hack before we clean up place stats var cache.
@@ -77,7 +76,7 @@ function updateUrl(param: UrlParam) {
     // set default statsVar when place is not empty
     else if (!vars.hasOwnProperty("statsVar")) {
       vars.statsVar =
-        "Count_Person" + SEP + "Demographics" + SEP + "Population";
+        "Count_Person";
     }
   }
   // update statsVar
@@ -122,9 +121,8 @@ function parseUrl() {
   if ("statsVar" in vars) {
     statsVarList = vars.statsVar.split("__");
     for (const statsVar of statsVarList) {
-      const statsVarDecoded = decodeURI(statsVar);
-      statsVarIds.push(statsVarDecoded.split(SEP)[0]);
-      statsVarPaths.push(statsVarPathMap[statsVarDecoded.split(SEP)[0]]);
+      statsVarIds.push(statsVar);
+      statsVarPaths.push(statsVarPathMap[statsVar]);
     }
   }
 
