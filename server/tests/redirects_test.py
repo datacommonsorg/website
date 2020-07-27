@@ -40,7 +40,7 @@ class TestRedirects(unittest.TestCase):
     def test_browser(self):
         response = app.test_client().get('/kg', follow_redirects=True)
         assert response.status_code == 200
-        assert b"The Data Commons Graph (DCG)" in response.data
+        assert b"The Data Commons Graph is constructed by" in response.data
 
 
     def test_browser_with_args(self):
