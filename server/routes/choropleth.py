@@ -77,7 +77,7 @@ def download():
                                             "geoJsonCoordinates")
 
     # Download population data if per capita.
-    population_by_geo = {} if per_capita else \
+    population_by_geo = {} if not per_capita else \
         dc.get_stats(geos_contained_in_place, "Count_Person")
 
     # Process into combined json object.
