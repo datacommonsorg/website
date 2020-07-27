@@ -75,6 +75,12 @@ def dev():
         flask.abort(404)
     return flask.render_template('dev.html')
 
+@app.route('/choropleth')
+def choropleth():
+    if os.environ.get('FLASK_ENV') == 'production':
+        flask.abort(404)
+    return flask.render_template('choropleth.html')
+
 @app.route('/dev_menu')
 def dev_menu():
     if os.environ.get('FLASK_ENV') == 'production':
