@@ -139,7 +139,7 @@ function handleMapHover(country) {
     base_url += "&place=" + geoId
     base_url += "&bc=" 
     
-    // Handle breadcrumbs
+    // Add or create breadcrumbs field.
     var breadcrumbs = url.searchParams.get("bc");
     if (breadcrumbs != null && breadcrumbs != "") {
       base_url += breadcrumbs + ";"
@@ -148,20 +148,21 @@ function handleMapHover(country) {
     window.location.href = base_url
   }
 
+  /**
+   * Generates the breadcrumbs text from browswer url.
+   */
   function generateBreadCrumbs() {
     var breadcrumbs = url.searchParams.get("bc");
+    var breadcrumbs_display = document.getElementById("breadcrumbs");
     var crumbs = breadcrumbs.split(";")
   
-    // Retain existing settings
+    // Build url each reference in the breadcrumbs.
     var base_url = document.location.origin + document.location.pathname + '?'
     base_url += "statVar=" + url.searchParams.get("statVar");
     base_url += "&perCapita=" + url.searchParams.get("perCapita")
-
-    // Change level
     base_url += "&place=";
+
     var breadcrumbs_upto = "";
-  
-    var breadcrumbs_display = document.getElementById("breadcrumbs");
     for (let index in crumbs) {
       let level_ref = crumbs[index];
   
