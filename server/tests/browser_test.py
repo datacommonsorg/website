@@ -13,7 +13,6 @@
 # limitations under the License.
 
 import unittest
-import logging
 
 from main import app
 
@@ -22,11 +21,9 @@ class TestStaticPage(unittest.TestCase):
     def test_kg_static(self):
         response = app.test_client().get('/browser/')
         assert response.status_code == 200
-        logging.info(response.data)
         assert b"The Data Commons Graph is constructed by" in response.data
 
     def test_kg_entity(self):
         response = app.test_client().get('/browser/geoId/06')
-        logging.info(response.data)
         assert response.status_code == 200
         assert b"geoId/06" in response.data
