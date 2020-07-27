@@ -552,7 +552,7 @@ class Chart extends Component<ChartPropType, ChartStateType> {
               </select>
             </label>
           )}
-          <div id={this.props.id}></div>
+          <div id={this.props.id} className="svg-container"></div>
           <footer className="row explore-more-container">
             <div>
               Data from <a href={config.url}>{config.source}</a>
