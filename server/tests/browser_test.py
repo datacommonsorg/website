@@ -12,17 +12,16 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-import pytest
 import unittest
 
 from main import app
+
 
 class TestStaticPage(unittest.TestCase):
     def test_kg_static(self):
         response = app.test_client().get('/browser/')
         assert response.status_code == 200
-        assert b"The Data Commons Graph (DCG)" in response.data
-
+        assert b"The Data Commons Graph is constructed by" in response.data
 
     def test_kg_entity(self):
         response = app.test_client().get('/browser/geoId/06')
