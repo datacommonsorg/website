@@ -202,13 +202,13 @@ class ChartRegion extends Component<ChartRegionPropsType, {}> {
         CHART_HEIGHT,
         dataGroupsDict,
         plotParams,
-        Array.from(statsData.data.sources),
+        Array.from(statsData.data.sources)
       );
     }
   }
 
-  private deleteStatsVarChip(statsVar: string) {
-    updateUrl({ statsVarDelete: statsVar });
+  private deleteStatsVarChip(statsVarUpdate: string) {
+    updateUrl({ statsVar: { statsVar: statsVarUpdate, shouldAdd: false } });
   }
 }
 

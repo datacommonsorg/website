@@ -1,45 +1,46 @@
-import {
-  getPlaceNames,
-  updateUrl,
-  parseUrl,
-} from "./timeline_util";
-import { SEP } from "./statsvar_menu";
+import { getPlaceNames, updateUrl, parseUrl } from "./timeline_util";
 
 test("update Url statsvar", () => {
   window.location.hash = "";
-  updateUrl({ statsVarPath: { statsVar: "dc/test1", shouldAdd: true } });
-  expect(window.location.hash).toBe("#&statsVar=dc/test1");
-  updateUrl({ statsVarPath: { statsVar: "dc/test2", shouldAdd: true } });
-  expect(window.location.hash).toBe("#&statsVar=dc/test1__dc/test2");
-  updateUrl({ statsVarPath: { statsVar: "dc/test2", shouldAdd: false } });
-  expect(window.location.hash).toBe("#&statsVar=dc/test1");
-  updateUrl({ statsVarPath: { statsVar: "dc/test2", shouldAdd: false } });;
-  expect(window.location.hash).toBe("#&statsVar=dc/test1");
+  // add statsvar with path
+  updateUrl({ statsVar: { statsVar: "dc/test1,0,0", shouldAdd: true } });
+  expect(window.location.hash).toBe("#&statsVar=dc/test1,0,0");
+  // add statsvar with name
+  updateUrl({ statsVar: { statsVar: "dc/test2", shouldAdd: true } });
+  expect(window.location.hash).toBe("#&statsVar=dc/test1,0,0__dc/test2");
+  // add existing statsvar with name
+  updateUrl({ statsVar: { statsVar: "dc/test1", shouldAdd: true } });
+  expect(window.location.hash).toBe("#&statsVar=dc/test1,0,0__dc/test2");
+  // delete statsvar with name
+  updateUrl({ statsVar: { statsVar: "dc/test1", shouldAdd: false } });
+  expect(window.location.hash).toBe("#&statsVar=dc/test2");
+  // delete statsvar with path
+  updateUrl({ statsVar: { statsVar: "dc/test2", shouldAdd: false } });
+  expect(window.location.hash).toBe("");
+  // delete statsvar not in list
+  updateUrl({ statsVar: { statsVar: "dc/test2", shouldAdd: false } });
+  expect(window.location.hash).toBe("");
   window.location.hash = "#&place=geoId/01";
-  updateUrl({ statsVarPath: { statsVar: "dc/test1", shouldAdd: true } });
+  updateUrl({ statsVar: { statsVar: "dc/test1", shouldAdd: true } });
   expect(window.location.hash).toBe("#&place=geoId/01&statsVar=dc/test1");
 });
 
 test("parse statsVar from Url", () => {
-  window.location.hash = "#&statsVar=dc/test" + SEP + "Demo" + SEP + "prop";
-  expect(parseUrl().statsVarPath).toStrictEqual([["Demo", "prop"]]);
-  expect(parseUrl().statsVarId).toStrictEqual(["dc/test"]);
+  window.location.hash = "#&statsVar=Count_Person";
+  expect(parseUrl().statsVarId).toStrictEqual(["Count_Person"]);
+  expect(parseUrl().statsVarPath).toStrictEqual([[0, 0]]);
 });
 
 test("update places from Url", () => {
   window.location.hash = "#&place=geo/01";
-  updateUrl({ place: { place: "geo/02", shouldAdd: true } })
+  updateUrl({ place: { place: "geo/02", shouldAdd: true } });
   expect(window.location.hash).toBe(
-    "#&place=geo/01,geo/02&statsVar=Count_Person" + SEP + "Demographics" + SEP + "Population"
+    "#&place=geo/01,geo/02&statsVar=Count_Person"
   );
-  updateUrl({ place: { place: "geo/02", shouldAdd: false } })
-  expect(window.location.hash).toBe(
-    "#&place=geo/01&statsVar=Count_Person" + SEP + "Demographics" + SEP + "Population"
-  );
-  updateUrl({ place: { place: "geo/01", shouldAdd: false } })
-  expect(window.location.hash).toBe(
-    "#&statsVar=Count_Person" + SEP + "Demographics" + SEP + "Population"
-  );
+  updateUrl({ place: { place: "geo/02", shouldAdd: false } });
+  expect(window.location.hash).toBe("#&place=geo/01&statsVar=Count_Person");
+  updateUrl({ place: { place: "geo/01", shouldAdd: false } });
+  expect(window.location.hash).toBe("#&statsVar=Count_Person");
 });
 
 test("parse places from Url", () => {
@@ -56,20 +57,4 @@ test("get place names", () => {
       "country/USA": "United States",
     });
   });
-});
-
-test("delete stat var", () => {
-  window.location.hash = [
-    "#&statsVar=dc/test",
-    "Demographics",
-    "Population" + "__dc/test2",
-    "Crime",
-    "CrimeType",
-  ].join(SEP);
-  updateUrl({ statsVarDelete: "dc/test2" })
-  expect(window.location.hash).toBe(
-    "#&statsVar=dc/test" + SEP + "Demographics" + SEP + "Population"
-  );
-  updateUrl({ statsVarDelete: "dc/test" })
-  expect(window.location.hash).toBe("");
 });

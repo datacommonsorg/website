@@ -102,7 +102,7 @@ def build_tree_recursive(pos, level, pop_obs_spec, stat_vars,
     return result
 
 
-def build_tree(v, pop_obs_spec, stat_vars):
+def build_tree(v, pop_obs_spec, stat_vars, vertical_idx):
     """Build the tree for each vertical."""
 
     # vertical as the root
@@ -114,7 +114,6 @@ def build_tree(v, pop_obs_spec, stat_vars):
         'cd': [],
         'sv_set': set(),  # used for counting child nodes
     }
-
     # specs with 0 constaints are of type "value",
     # as the level 1 cd of root
     for pos in pop_obs_spec[0]:
@@ -133,7 +132,6 @@ def build_tree(v, pop_obs_spec, stat_vars):
             root['c'] += 1
 
     # build specs with >= 1 constraints recursively
-
     for pos in pop_obs_spec[1]:
         child = build_tree_recursive(pos, 1, pop_obs_spec, stat_vars,
                                      )
@@ -162,10 +160,13 @@ def build_tree(v, pop_obs_spec, stat_vars):
             del pv0['sv_set']
     root['c'] += len(root['sv_set'])
     del root['sv_set']
-    return traverseTree(root)
+    statsvar_path = {}
+    return traverseTree(root, [vertical_idx], statsvar_path)
 
 
-def traverseTree(root):
+def traverseTree(root, path, statsvar_path):
+    if root['t'] == 'v':
+        statsvar_path[root['sv']] = path
     if 'populationType' in root:
         del root['populationType']
     if 'mprop' in root:
@@ -173,9 +174,12 @@ def traverseTree(root):
     if 'se' in root:
         del root['se']
     if 'cd' in root:
+        idx = 0
         for node in root['cd']:
-            traverseTree(node)
-    return root
+            nextPath = path + [idx]
+            traverseTree(node, nextPath, statsvar_path)
+            idx += 1
+    return root, statsvar_path
 
 
 def getTopLevel(root, max_level):
