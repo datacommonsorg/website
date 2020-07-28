@@ -84,43 +84,38 @@ function updateUrl(param: UrlParam) {
     const statsVarUpdate = param.statsVar.statsVar;
     const statsVarUpdateName = statsVarUpdate.split(",")[0];
     const statsVarUpatePath = statsVarUpdate.split(",").slice(1);
-    let statsVarList = [];
+    let statsVarList = new Set<string>();
     if ("statsVar" in vars) {
-      statsVarList = vars.statsVar.split("__");
+      statsVarList = new Set(vars.statsVar.split("__"));
     }
-
     if (statsVarUpatePath.length !== 0) {
       // update with statsVarPath
       if (param.statsVar.shouldAdd) {
-        if (!statsVarList.includes(statsVarUpdate)) {
-          if (statsVarList.includes(statsVarUpdateName)) {
-            // remove the same statsVar with name only
-            statsVarList.splice(statsVarList.indexOf(statsVarUpdateName), 1);
-          }
-          statsVarList.push(statsVarUpdate);
-        }
+        // remove the same statsVar with name only
+        statsVarList.delete(statsVarUpdateName);
+        statsVarList.add(statsVarUpdate);
       } else {
-        if (statsVarList.includes(statsVarUpdate)) {
-          statsVarList.splice(statsVarList.indexOf(statsVarUpdate), 1);
+        if (statsVarList.has(statsVarUpdate)) {
+          statsVarList.delete(statsVarUpdate);
         }
-        else if (statsVarList.includes(statsVarUpdateName)) {
-          statsVarList.splice(statsVarList.indexOf(statsVarUpdateName), 1);
+        else if (statsVarList.has(statsVarUpdateName)) {
+          statsVarList.delete(statsVarUpdateName);
         }
       }
     } else {
       // update with statsVarName
       const statsVarNames = {};
-      for (let idx = 0; idx < statsVarList.length; idx++) {
-        statsVarNames[statsVarList[idx].split(",")[0]] = idx;
+      for (const statsVar of Array.from(statsVarList)) {
+        statsVarNames[statsVar.split(",")[0]] = statsVar;
       }
       if (param.statsVar.shouldAdd && !(statsVarUpdateName in statsVarNames)) {
-        statsVarList.push(statsVarUpdate);
+        statsVarList.add(statsVarUpdate);
       }
       else if (!param.statsVar.shouldAdd && (statsVarUpdateName in statsVarNames)) {
-        statsVarList.splice(statsVarNames[statsVarUpdateName], 1);
+        statsVarList.delete(statsVarNames[statsVarUpdateName]);
       }
     }
-    vars.statsVar = statsVarList.join("__");
+    vars.statsVar = Array.from(statsVarList).join("__");
     if (vars.statsVar === "") {
       delete vars.statsVar;
     }
