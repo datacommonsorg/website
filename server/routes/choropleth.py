@@ -30,7 +30,7 @@ LEVEL_MAP = {
 bp = Blueprint(
   "choropleth",
   __name__,
-  url_prefix='/choropleth'
+  url_prefix='/tools/choropleth'
 )
 
 @bp.route('/download')
@@ -67,6 +67,7 @@ def download():
     per_capita = request.args.get("perCapita", default=False) in (
         [True, "true", "True", 1, "t"])
     display_level = request.args.get("level")
+    print(f"DISPLAY LEVEL {display_level}")
     measurement_denominator = request.args.get("mdom", default="Count_Person")
 
     # If no level is requested then default to one level below current.
