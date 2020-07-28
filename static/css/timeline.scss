@@ -290,3 +290,19 @@ sup {
   font-size: 12px;
   color: #666;
 }
+
+.checkbox {
+  cursor: pointer;
+  width: 14px;
+  height: 14px;
+  margin-top: 4px;
+  border: 0;
+  background: url('/images/icon-checkbox.svg');
+  outline: none;
+}
+
+
+
+.checkbox.checked {
+  background: url('/images/icon-checkbox-checked.svg');
+}

@@ -106,6 +106,7 @@ class ChartRegion extends Component<ChartRegionPropsType, ChartRegionStateType> 
           );
           return (
             <div key={this.grouping[chartIndex].domId}>
+              {<button className="checkbox"></button>}
               <div id={this.grouping[chartIndex].domId} className="card"></div>
               {Object.keys(plotParams.colors).map((statsVar) => {
                 return (
@@ -147,7 +148,12 @@ class ChartRegion extends Component<ChartRegionPropsType, ChartRegionStateType> 
 
   private handlePerCapita(chartIndex){
     const perCapitaTemp = this.state.perCapita;
-    perCapitaTemp[chartIndex] = !perCapitaTemp[chartIndex];
+    if (chartIndex in perCapitaTemp){
+      perCapitaTemp[chartIndex] = !perCapitaTemp[chartIndex];
+    }
+    else{
+      perCapitaTemp[chartIndex] = false;
+    }
     this.setState({perCapita: perCapitaTemp});
   }
 
