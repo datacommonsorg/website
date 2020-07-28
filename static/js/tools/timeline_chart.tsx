@@ -232,8 +232,8 @@ class ChartRegion extends Component<ChartRegionPropsType, {}> {
     }
   }
 
-  private deleteStatsVarChip(statsVar: string) {
-    updateUrl({ statsVarDelete: statsVar });
+  private deleteStatsVarChip(statsVarUpdate: string) {
+    updateUrl({ statsVar: { statsVar: statsVarUpdate, shouldAdd: false } });
   }
 
   private createDataCsv() {
