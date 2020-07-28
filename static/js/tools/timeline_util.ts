@@ -82,14 +82,43 @@ function updateUrl(param: UrlParam) {
   // update statsVar
   if ("statsVar" in param) {
     const statsVarUpdate = param.statsVar.statsVar;
+    const statsVarUpdateName = statsVarUpdate.split(",")[0];
+    const statsVarUpatePath = statsVarUpdate.split(",").slice(1);
     let statsVarList = [];
     if ("statsVar" in vars) {
       statsVarList = vars.statsVar.split("__");
     }
-    if (param.statsVar.shouldAdd && !statsVarList.includes(statsVarUpdate)) {
-      statsVarList.push(statsVarUpdate);
-    } else if (!param.statsVar.shouldAdd && statsVarList.includes(statsVarUpdate)) {
-      statsVarList.splice(statsVarList.indexOf(statsVarUpdate), 1);
+
+    if (statsVarUpatePath.length !== 0) {
+      // update with statsVarPath
+      if (param.statsVar.shouldAdd) {
+        if (!statsVarList.includes(statsVarUpdate)) {
+          if (statsVarList.includes(statsVarUpdateName)) {
+            // remove the same statsvar with name only
+            statsVarList.splice(statsVarList.indexOf(statsVarUpdateName), 1);
+          }
+          statsVarList.push(statsVarUpdate);
+        }
+      } else {
+        if (statsVarList.includes(statsVarUpdate)) {
+          statsVarList.splice(statsVarList.indexOf(statsVarUpdate), 1);
+        }
+        else if (statsVarList.includes(statsVarUpdateName)) {
+          statsVarList.splice(statsVarList.indexOf(statsVarUpdateName), 1);
+        }
+      }
+    } else {
+      // update with statVarName
+      const statsVarNames = {};
+      for (let idx = 0; idx < statsVarList.length; idx++) {
+        statsVarNames[statsVarList[idx].split(",")[0]] = idx;
+      }
+      if (param.statsVar.shouldAdd && !(statsVarUpdateName in statsVarNames)) {
+        statsVarList.push(statsVarUpdate);
+      }
+      else if (!param.statsVar.shouldAdd && (statsVarUpdateName in statsVarNames)) {
+        statsVarList.splice(statsVarNames[statsVarUpdateName], 1);
+      }
     }
     vars.statsVar = statsVarList.join("__");
     if (vars.statsVar === "") {
@@ -121,8 +150,18 @@ function parseUrl() {
   if ("statsVar" in vars) {
     statsVarList = vars.statsVar.split("__");
     for (const statsVar of statsVarList) {
-      statsVarIds.push(statsVar);
-      statsVarPaths.push(statsVarPathMap[statsVar]);
+      const statsVarSplit = statsVar.split(',');
+      if (statsVarSplit.length === 1) {
+        statsVarIds.push(statsVar);
+        statsVarPaths.push(statsVarPathMap[statsVar]);
+      }
+      else {
+        statsVarIds.push(statsVarSplit[0]);
+        const path = statsVarSplit.slice(1).map((item) => {
+          return parseInt(item, 10);
+        })
+        statsVarPaths.push(path);
+      }
     }
   }
 

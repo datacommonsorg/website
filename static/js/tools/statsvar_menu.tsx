@@ -12,6 +12,7 @@ interface NodePropType {
   t: string; // type
   sv: string;
   statsVarPaths: number[][];
+  nodePath: number[];
   statsVarValid: Set<string>;
   filter: boolean;
   idx: number;
@@ -67,6 +68,7 @@ class Node extends Component<NodePropType, NodeStateType> {
             filter={this.props.filter}
             idx={index}
             setName={this.props.setName}
+            nodePath={[...this.props.nodePath, index]}
           ></Node>
         );
       });
@@ -115,7 +117,7 @@ class Node extends Component<NodePropType, NodeStateType> {
     });
     updateUrl({
       statsVar: {
-        statsVar: this.props.sv,
+        statsVar: this.props.sv + "," + this.props.nodePath.join(","),
         shouldAdd: !this.state.checked,
       },
     });
@@ -243,6 +245,7 @@ class Menu extends Component<MenuPropType, MenuStateType> {
                     filter={this.props.filter}
                     idx={index}
                     setName={this.props.setName}
+                    nodePath={[index]}
                   ></Node>
                 )
               );
