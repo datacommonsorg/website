@@ -212,9 +212,12 @@ class ChartRegion extends Component<ChartRegionPropsType, {}> {
         ] = statsData.data.getStatsVarGroupWithTime(placeDcid);
       }
       const statsVars = this.grouping[domId];
+      if (!statsVars) {
+        continue;
+      }
       const statsVarsTitle = {};
       for (const statsVar of statsVars) {
-        statsVarsTitle[statsVar] = this.props.statsVars[statsVar].title
+        statsVarsTitle[statsVar] = this.props.statsVars[statsVar].title || statsVar;
       }
       const plotParams = computePlotParams(
         this.props.places.map((x) => x[1]),
