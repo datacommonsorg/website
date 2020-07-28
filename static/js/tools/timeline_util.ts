@@ -94,7 +94,7 @@ function updateUrl(param: UrlParam) {
       if (param.statsVar.shouldAdd) {
         if (!statsVarList.includes(statsVarUpdate)) {
           if (statsVarList.includes(statsVarUpdateName)) {
-            // remove the same statsvar with name only
+            // remove the same statsVar with name only
             statsVarList.splice(statsVarList.indexOf(statsVarUpdateName), 1);
           }
           statsVarList.push(statsVarUpdate);
@@ -108,7 +108,7 @@ function updateUrl(param: UrlParam) {
         }
       }
     } else {
-      // update with statVarName
+      // update with statsVarName
       const statsVarNames = {};
       for (let idx = 0; idx < statsVarList.length; idx++) {
         statsVarNames[statsVarList[idx].split(",")[0]] = idx;
