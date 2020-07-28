@@ -483,7 +483,12 @@ interface PlotParams {
 }
 
 /**
- * Return color and dash style given place names and stats var dcids.
+ * Return color and dash style given place names and stats var display names.
+ *
+ * Detailed spec of the chart style: https://docs.google.com/document/d/1Sw6Nq0E2XY0318Kd9fiZLUgSG7rgKJbr4LAjRqND90w
+ * Note the plot params is based on place names and stats var display text, not
+ * the dcids. The client needs a mapping from stats var dcid to the display text,
+ * which can be used together with this function in drawGroupLineChart().
  */
 function computePlotParams(
   placeNames: string[],
@@ -698,7 +703,7 @@ function buildInChartLegend(
         .attr("class", "legend-text")
         .attr("transform", `translate(${dashWidth}, 0)`)
       .attr("y", "0.3em")
-      .attr("dy", "0em")
+      .attr("dy", "0")
       .text(label)
       .attr("fill", `${legendStyle.color}`)
       .call(wrap, legendTextdWidth);

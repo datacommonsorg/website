@@ -113,9 +113,7 @@ class ChartRegion extends Component<ChartRegionPropsType, {}> {
                   function (statsVar) {
                     let color: string;
                     const statsVarTitle = this.props.statsVars[statsVar].title;
-                    if (statsVars.length === 1) {
-                      color = "#999";
-                    } else {
+                    if (statsVars.length > 1) {
                       color = plotParams.lines[placeName + statsVarTitle].color;
                     }
                     return (
