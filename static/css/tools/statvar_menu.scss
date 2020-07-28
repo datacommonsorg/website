@@ -52,6 +52,19 @@ $menu-line: #5b5e60;
   padding: 24px;
 }
 
+#drill .noborder {
+  font-size: 0.95rem;
+  margin: 0 -14px;
+  padding: 0 14px 0 6px;
+  border-top-right-radius: 6px;
+  border-bottom-right-radius: 6px;
+  border-left: 0 solid $menu-line;
+}
+
+#drill .noedge {
+  padding: 0 0 0 10px;
+}
+
 #drill li {
   display: block;
   margin: 0 -24px;
@@ -104,12 +117,12 @@ $menu-line: #5b5e60;
   margin-top: 4px;
   float: right;
   border: 0;
-  background: url('/images/icon-checkbox-light.svg');
+  background: url("/images/icon-checkbox-light.svg");
   outline: none;
 }
 
 #drill .checkbox.checked {
-  background: url('/images/icon-checkbox-checked-light.svg');
+  background: url("/images/icon-checkbox-checked-light.svg");
 }
 
 .right-caret {
