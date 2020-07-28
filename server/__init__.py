@@ -58,10 +58,13 @@ def create_app():
         chart_config = json.load(f)
     app.config['CHART_CONFIG'] = chart_config
 
-    # Load placeid2dcid mapping from GCS
-    storage_client = storage.Client()
-    bucket = storage_client.get_bucket(app.config['GCS_BUCKET'])
-    blob = bucket.get_blob('placeid2dcid.json')
-    app.config['PLACEID2DCID'] = json.loads(blob.download_as_string())
+    if cfg.TEST:
+        app.config['PLACEID2DCID'] = {"ChIJCzYy5IS16lQRQrfeQ5K5Oxw": "country/USA"}
+    else:
+        # Load placeid2dcid mapping from GCS
+        storage_client = storage.Client()
+        bucket = storage_client.get_bucket(app.config['GCS_BUCKET'])
+        blob = bucket.get_blob('placeid2dcid.json')
+        app.config['PLACEID2DCID'] = json.loads(blob.download_as_string())
 
     return app
