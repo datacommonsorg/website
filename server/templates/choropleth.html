@@ -21,7 +21,6 @@
    {% set title = "Choropleth tool" %}
    
    {% block head %}
-   <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons" >
    <link rel="stylesheet" href={{url_for('static', filename='css/choropleth.min.css')}} >
    {% endblock %}
    
@@ -30,11 +29,5 @@
    {% endblock %}
    
    {% block footer %}
-     <script src="https://cdnjs.cloudflare.com/ajax/libs/d3/4.9.1/d3.min.js" defer></script>
-     <script src="https://d3js.org/d3-geo.v1.min.js" defer></script>
      <script src={{url_for('static', filename='choropleth.js', t=config['GAE_VERSION'])}}></script>
-   {% endblock %}
-   
-   {% block subfooter_extra %}
-     <a id="download-link" class="btn-subfooter btn btn-dark" style="visibility: hidden">Get the code and data</a>
    {% endblock %}
