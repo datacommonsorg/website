@@ -31,7 +31,8 @@ const LEGEND = {
   defaultColor: "#000",
 };
 const SOURCE = {
-  topMargin: 8,
+  topMargin: 15,
+  leftMargin: 8,
   font: 12,
   height: 20,
 };
@@ -579,16 +580,14 @@ function drawGroupLineChart(
   unit?: string
 ) {
   // Get a non-empty array as dataGroups
-  const dataGroupsAll = Object.values(dataGroupsDict);
-  for (let idx = 0; idx < dataGroupsAll.length; idx++) {
-    if (dataGroupsAll[idx].length === 0) {
-      dataGroupsAll.splice(idx, 1);
-    }
-  }
+  const dataGroupsAll = Object.values(dataGroupsDict).filter(
+    (x) => x.length > 0
+  );
   let dataGroups = dataGroupsAll[0];
   const legendTextdWidth = Math.max(width * LEGEND.ratio, LEGEND.minTextWidth);
   const legendWidth =
-  Object.keys(dataGroupsDict).length > 1 && Object.keys(statsVarsTitle).length > 1
+    Object.keys(dataGroupsDict).length > 1 &&
+    Object.keys(statsVarsTitle).length > 1
       ? LEGEND.dashWidth + legendTextdWidth
       : legendTextdWidth;
 
@@ -629,7 +628,8 @@ function drawGroupLineChart(
         .line()
         .x((d) => xScale(d[0]))
         .y((d) => yScale(d[1]));
-      const lineStyle = plotParams.lines[place + statsVarsTitle[dataGroup.label]];
+      const lineStyle =
+        plotParams.lines[place + statsVarsTitle[dataGroup.label]];
       svg
         .append("path")
         .datum(dataset)
@@ -648,7 +648,7 @@ function drawGroupLineChart(
       .attr("text-anchor", "start")
       .attr(
         "transform",
-        `translate(${MARGIN.left}, ${height + SOURCE.topMargin})`
+        `translate(${SOURCE.leftMargin}, ${height + SOURCE.topMargin})`
       )
       .attr("fill", "#808080")
       .style("font-size", `${SOURCE.font}`)
@@ -700,8 +700,8 @@ function buildInChartLegend(
     // Draw the text.
     lgGroup
       .append("text")
-        .attr("class", "legend-text")
-        .attr("transform", `translate(${dashWidth}, 0)`)
+      .attr("class", "legend-text")
+      .attr("transform", `translate(${dashWidth}, 0)`)
       .attr("y", "0.3em")
       .attr("dy", "0")
       .text(label)
