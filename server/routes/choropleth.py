@@ -42,10 +42,11 @@ def download():
         statVar -> The statistical variable to download, as a string.
         perCapita -> Whether to return the per-capita value, as a string of a 
                 boolean.
-        geoId -> The currently viewed geography to render.
-        level -> The subgeographic level to pull and display information for.
-        mdom -> The measurement denominator to use if perCapita is true. 
-                Defaults to Count_Person.
+        geoId -> The currently viewed geography to render, as a string.
+        level -> The subgeographic level to pull and display information for,
+                as a string. Choices: Country, AdministrativeLevel[1/2], City.
+        mdom -> The measurement denominator to use if perCapita is true, as a 
+                string. Defaults to "Count_Person".
 
 
     API Returns:
@@ -63,27 +64,31 @@ def download():
     if requested_geoId is None:
         return jsonify({"error": "Must provide a 'geoId' field!"}, 400)
 
-    # Get optional fields.
-    per_capita = request.args.get("perCapita", default=False) in (
-        [True, "true", "True", 1, "t"])
-    display_level = request.args.get("level")
-    print(f"DISPLAY LEVEL {display_level}")
-    measurement_denominator = request.args.get("mdom", default="Count_Person")
-
     # If no level is requested then default to one level below current.
+    display_level = request.args.get("level")
     if display_level is None:
         requested_geoId_type = dc.get_property_values([requested_geoId],
                                                 "typeOf")[requested_geoId]
+        # TODO(iancostello): Handle a failed function call, e.g., returns None.
+        # TODO(iancostello): Handle the case where display_level is None.
         for level in requested_geoId_type:
             if level in LEVEL_MAP:
                 display_level = LEVEL_MAP[level]
                 break
 
+    # Get optional fields.
+    per_capita = request.args.get("perCapita", default=False).lower() in (
+        ["true", "1", "t"])
+    measurement_denominator = request.args.get("mdom", default="Count_Person")
+
     # Get list of all contained places.
+    # TODO(iancostello): Handle a failing function call.
     geos_contained_in_place = dc.get_places_in(
             [requested_geoId], display_level)[requested_geoId]
 
     # Download statistical variable, names, and geojson for subgeos.
+    # TODO(iancostello): Handle failing function calls. 
+    # Also, handle the case where only a fraction of values are returned.
     stat_var_by_geo = dc.get_stats(geos_contained_in_place,
                                    requested_stat_var)
     names_by_geo = dc.get_property_values(geos_contained_in_place,
@@ -108,6 +113,7 @@ def download():
                     "id": geo_id,
                     "properties": {
                         # Choose the first name when multiple are present.
+                        # TODO(iancostello): Implement a better approach.
                         "name": names_by_geo[geo_id][0],
                         "hasSublevel": 
                             (display_level in LEVEL_MAP),
@@ -115,18 +121,17 @@ def download():
                     }
                 }
             # Load, simplify, and add geoJSON coordinates.
-            # First returned value is chosen always. 
+            # First returned value is chosen always.
+            # TODO(iancostello): Implement a better approach.
             geojson = json.loads(json_text[0])
             geo_feature['geometry']['coordinates'] = (
                 coerce_geojson_to_righthand_rule(
                                     geojson['coordinates'],
                                     geojson['type']))
             # Process Statistical Observation if valid.
-            if (geo_id in stat_var_by_geo and
-                    'data' in stat_var_by_geo[geo_id] and
+            if ('data' in stat_var_by_geo.get(geo_id, []) and
                     (not per_capita or
-                    (geo_id in population_by_geo and
-                    'data' in population_by_geo[geo_id]))):
+                    'data' in population_by_geo.get(geo_id, []))):
                 # Grab the latest available data.
                 stat_obs = next(iter(
                     reversed(stat_var_by_geo[geo_id]['data'].values())))
