@@ -557,11 +557,11 @@ function computeRanges(dataGroupsDict: { [geoId: string]: DataGroup[] }) {
  * @param id: DOM id.
  * @param width: width for the chart.
  * @param height: height for the chart.
- * @param statsVars: stats var dcid to display name.
- * @param places: place object with dcid and name.
- * @param dataGroupsDict: {[place: string]: DataGroup[]}.
+ * @param statsVarsTitle: object from stats var dcid to display title.
+ * @param dataGroupsDict: data groups for plotting.
  * @param plotParams: contains all plot params for chart.
- * @param unit
+ * @param source: an array of source domain.
+ * @param unit the unit of the measurement.
  */
 function drawGroupLineChart(
   id: string,
@@ -695,7 +695,8 @@ function buildInChartLegend(
     // Draw the text.
     lgGroup
       .append("text")
-      .attr("transform", `translate(${dashWidth}, 0)`)
+        .attr("class", "legend-text")
+        .attr("transform", `translate(${dashWidth}, 0)`)
       .attr("y", "0.3em")
       .attr("dy", "0em")
       .text(label)
