@@ -65,11 +65,16 @@ interface ChartRegionPropsType {
   perCapita: boolean;
 }
 
-class ChartRegion extends Component<ChartRegionPropsType, {}> {
-  grouping: { [key: string]: string[] };
+interface ChartRegionStateType{
+  perCapita: {[key: string]: boolean};
+  unit: {[key: string]: string};
+  logScale: {[key: string]: boolean};
+}
+class ChartRegion extends Component<ChartRegionPropsType, ChartRegionStateType> {
+  grouping: { [key: string]: {domId: string, statsVars: string[]} };
   placeName: { [key: string]: string };
   chartContainer: React.RefObject<HTMLDivElement>;
-  allStatsData: { domId: string; data: StatsData }[];
+  allStatsData: { chartIndex: string; data: StatsData }[];
 
   constructor(props: ChartRegionPropsType) {
     super(props);
@@ -77,6 +82,12 @@ class ChartRegion extends Component<ChartRegionPropsType, {}> {
     this.placeName = {};
     this.chartContainer = React.createRef();
     this.handleWindowResize = this.handleWindowResize.bind(this);
+    this.handlePerCapita = this.handlePerCapita.bind(this);
+    this.state={
+      perCapita:{},
+      unit: {},
+      logScale:{},
+    }
   }
   render() {
     if (
@@ -88,14 +99,14 @@ class ChartRegion extends Component<ChartRegionPropsType, {}> {
     this.buildGrouping();
     return (
       <div ref={this.chartContainer}>
-        {Object.keys(this.grouping).map((domId) => {
+        {Object.keys(this.grouping).map((chartIndex) => {
           const plotParams = computePlotParams(
             this.props.places.map((x) => x[1]),
-            this.grouping[domId]
+            this.grouping[chartIndex].statsVars,
           );
           return (
-            <div key={domId}>
-              <div id={domId} className="card"></div>
+            <div key={this.grouping[chartIndex].domId}>
+              <div id={this.grouping[chartIndex].domId} className="card"></div>
               {Object.keys(plotParams.colors).map((statsVar) => {
                 return (
                   <StatsVarChip
@@ -134,6 +145,12 @@ class ChartRegion extends Component<ChartRegionPropsType, {}> {
     this.drawChart();
   }
 
+  private handlePerCapita(chartIndex){
+    const perCapitaTemp = this.state.perCapita;
+    perCapitaTemp[chartIndex] = !perCapitaTemp[chartIndex];
+    this.setState({perCapita: perCapitaTemp});
+  }
+
   private buildGrouping() {
     this.grouping = {};
     const temp = {};
@@ -144,24 +161,32 @@ class ChartRegion extends Component<ChartRegionPropsType, {}> {
       }
       temp[mprop].push(statsVarId);
     }
+    let chartIndex = 0;
+    const perCapitaTemp = {};
+    const unitTemp = {};
+    const logScaleTemp = {};
     for (const mprop in temp) {
-      const domId = randDomId();
-      this.grouping[domId] = temp[mprop];
+      const domIdRand = randDomId();
+      this.grouping[chartIndex] = {domId: domIdRand, statsVars: temp[mprop]}
+      chartIndex += 1;
+      perCapitaTemp[chartIndex] = false;
+      unitTemp[chartIndex] = "";
+      logScaleTemp[chartIndex] = false;
     }
   }
 
   private updateChart() {
     if (this.props.places.length !== 0) {
-      const promises: Promise<{ domId: string; data: StatsData }>[] = [];
-      for (const domId in this.grouping) {
+      const promises: Promise<{ chartIndex: string; data: StatsData }>[] = [];
+      for (const chartIndex in this.grouping) {
         promises.push(
           fetchStatsData(
             this.props.places.map((x) => x[0]),
-            this.grouping[domId],
+            this.grouping[chartIndex].statsVars,
             this.props.perCapita,
             1
           ).then((data) => {
-            return { domId, data };
+            return { chartIndex, data };
           })
         );
       }
@@ -180,7 +205,7 @@ class ChartRegion extends Component<ChartRegionPropsType, {}> {
       return;
     }
     for (const statsData of this.allStatsData) {
-      const domId = statsData.domId;
+      const chartIndex = statsData.chartIndex;
       const dataGroupsDict = {};
       for (const placeDcid of statsData.data.places) {
         dataGroupsDict[
@@ -189,7 +214,7 @@ class ChartRegion extends Component<ChartRegionPropsType, {}> {
       }
       const plotParams = computePlotParams(
         this.props.places.map((x) => x[1]),
-        this.grouping[domId]
+        this.grouping[chartIndex].statsVars,
       );
       const statsVarTitle = {};
       for (const statsVar of Object.keys(this.props.statsVars)) {
@@ -197,7 +222,7 @@ class ChartRegion extends Component<ChartRegionPropsType, {}> {
       }
       plotParams.title = statsVarTitle;
       drawGroupLineChart(
-        statsData.domId,
+        this.grouping[chartIndex].domId,
         this.chartContainer.current.offsetWidth,
         CHART_HEIGHT,
         dataGroupsDict,
