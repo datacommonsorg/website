@@ -258,8 +258,8 @@ class ChartRegion extends Component<ChartRegionPropsType, {}> {
     const sample = this.allStatsData[0].data;
     const statsVar = sample.statsVars[0];
     for (const place of sample.places) {
-      placeName[sample.data[statsVar][place].placeDcid] =
-        sample.data[statsVar][place].placeName;
+      placeName[sample.data[statsVar][place].place_dcid] =
+        sample.data[statsVar][place].place_name;
     }
 
     // Iterate each year, group, place, stats var to populate data

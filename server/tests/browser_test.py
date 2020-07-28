@@ -15,14 +15,10 @@
 import unittest
 
 from main import app
-import logging
-
 
 
 class TestStaticPage(unittest.TestCase):
     def test_kg_static(self):
-        logging.warning("hahahahah")
-        logging.info("hahahahah")
         response = app.test_client().get('/browser/')
         assert response.status_code == 200
         assert b"The Data Commons Graph is constructed by" in response.data

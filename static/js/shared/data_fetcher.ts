@@ -25,9 +25,9 @@ interface ApiResponse {
     data: {
       [key: string]: number;
     };
-    placeName: string;
-    placeDcid: string;
-    provenanceDomain: string;
+    place_name: string;
+    place_dcid: string;
+    provenance_domain: string;
   };
 }
 
@@ -77,7 +77,7 @@ class StatsData {
             label: STATS_VAR_TEXT[statsVar],
             value: this.data[statsVar][place].data[date],
           });
-          placeName = this.data[statsVar][place].placeName;
+          placeName = this.data[statsVar][place].place_name;
         }
       }
       if (dataPoints.length > 0) {
@@ -203,7 +203,7 @@ function fetchStatsData(
       // Compute perCapita.
       if (perCapita) {
         for (const place in allResp[i].data) {
-          if (!allResp[i].data[place]) {
+          if (Object.keys(allResp[i].data[place]).length === 0) {
             continue;
           }
           const population = allResp[n].data[place].data;
@@ -232,7 +232,7 @@ function fetchStatsData(
         if (!allResp[i].data[place]) {
           continue;
         }
-        result.sources.add(allResp[i].data[place].provenanceDomain)
+        result.sources.add(allResp[i].data[place].provenance_domain)
         // Build initial dates
         if (Object.keys(dates).length === 0) {
           for (const date in allResp[i].data[place].data) {
