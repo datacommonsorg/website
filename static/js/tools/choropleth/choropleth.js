@@ -135,7 +135,8 @@ function handleMapClick(geo) {
  * @param from_api whether the url should be to the api or locally.
  */
 function build_choropleth_url(fields_to_include, from_api) {
-  var base_url = document.location.origin + document.location.pathname
+  //TODO(iancostello): Make this path relative.
+  var base_url = document.location.origin + document.location.pathname;
   if (from_api) {
     base_url += "/api";
   }
