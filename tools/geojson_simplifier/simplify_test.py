@@ -12,8 +12,8 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-"""
-Tests the import_data.py script.
+"""Tests the import_data.py script.
+
     Typical usage:
     python3 simplify_test.py
 """

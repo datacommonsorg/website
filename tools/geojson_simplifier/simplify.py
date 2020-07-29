@@ -12,8 +12,7 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-"""
-Simplifies GeoJson files by reducing their number of vertices.
+"""Simplifies GeoJson files by reducing their number of vertices.
 
     Typical usage:
     python3 simplify.py --in_path original-data/geoId-01.geojson
