@@ -117,7 +117,7 @@ class ChartRegion extends Component<ChartRegionPropsType, {}> {
           return (
             <div key={domId} className="card">
               {
-                <span className="chartOption">{console.log(chartIndex, statsVarsTitle)}
+                <span className="chartOption">
                   Per capita
                   <button
                     className={

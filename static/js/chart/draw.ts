@@ -660,7 +660,7 @@ function drawGroupLineChart(
     .attr(
       "transform",
       `translate(${width - legendWidth - LEGEND.marginLeft}, ${
-      LEGEND.marginTop
+        LEGEND.marginTop
       })`
     );
   buildInChartLegend(legend, plotParams.legend, legendTextdWidth);
