@@ -203,18 +203,18 @@ def determine_color_palette(values, is_denominated):
         is_denominated -> Whether the requested data has a measurement 
             denominator like per capita, as a boolean. 
     Returns:
-        domain -> D3 nnumerical domain to use.
+        domain -> D3 numerical domain to use.
         palette -> Color palette to render with.
     """
     # Percentages use diverging palettes.
     if is_denominated:
-        lower_range = min(values, 0.10)
-        upper_range = max(values, 0.90)
+        lower_range = min(values)
+        upper_range = max(values)
         palette = ['#998ec3', '#f7f7f7', '#f1a340']
         return [lower_range, statistics.median(values), upper_range], palette
     # Linear palette otherwise.
     else:
-        lower_range = min(values, 0.04)
-        upper_range = max(values, 0.96)
+        lower_range = min(values)
+        upper_range = max(values)
         palette = ['#deebf7', '#9ecae1', '#3182bd']
         return [lower_range, statistics.median(values), upper_range], palette

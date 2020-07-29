@@ -17,25 +17,27 @@
 import React, { Component } from "react";
 
 class MainPane extends Component {
-    constructor(props) {
-      super(props);
-    }
-  
-    render() {
-        //TODO(iancostello): remove bounding-box and centroid if unneccesary.
-        //TODO(iancostello):Add dynamic sizing.
-        return ( 
-            <React.Fragment>
-                <div className="column" id="breadcrumbs"></div>
-                <svg id="map_container" width="800px" height="500px">
-                    <g className="map"></g>
-                    <g className="bounding-box"><rect></rect></g>
-                    <g className="centroid"><circle r="4"></circle></g>
-                </svg>
-                <div className="column" id="hover-text-display"></div>
-            </React.Fragment>
-        );
-    }
+  constructor(props) {
+    super(props);
+  }
+
+  render() {
+    return (
+      <React.Fragment>
+        <div className="column" id="breadcrumbs"></div>
+        <svg id="map_container" width="800px" height="500px">
+          <g className="map"></g>
+          <g className="bounding-box">
+            <rect></rect>
+          </g>
+          <g className="centroid">
+            <circle r="4"></circle>
+          </g>
+        </svg>
+        <div className="column" id="hover-text-display"></div>
+      </React.Fragment>
+    );
+  }
 }
 
 export { MainPane };
