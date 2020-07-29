@@ -180,7 +180,7 @@
   "c": 1212,
   "cd": [
    {
-    "sv": "Count_MortalityEvent_AsAFractionOfCount_Person",
+    "sv": "Count_MortalityEvent",
     "l": "Mortality",
     "t": "v",
     "c": 1
