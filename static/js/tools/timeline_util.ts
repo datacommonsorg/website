@@ -51,7 +51,7 @@ interface VarUrl {
 }
 
 interface UrlParam {
-  pc?: boolean;
+  pcToggle?: string;
   place?: { place: string, shouldAdd: boolean };
   statsVar?: { statsVar: string, shouldAdd: boolean };
 }
@@ -59,8 +59,17 @@ interface UrlParam {
 function updateUrl(param: UrlParam) {
   const vars = getUrlVars() as VarUrl;
   // update per Capita state
-  if ("pc" in param) {
-    vars.pc = param.pc ? "1" : "0";
+  if ("pcToggle" in param) {
+    let pcList = []; // list of chart indexes whose pc is true;
+    if ("pc" in vars) {
+      pcList = vars.pc.split(",");
+    }
+    if (pcList.includes(param.pcToggle)){pcList.splice(pcList.indexOf(param.pcToggle),1)}
+    else{pcList.push(param.pcToggle)}
+    vars.pc = pcList.join(",");
+    if (vars.pc === "") {
+      delete vars.pc;
+    }
   }
   // update places
   if ("place" in param) {
@@ -132,11 +141,11 @@ function updateUrl(param: UrlParam) {
 
 function parseUrl() {
   const vars = getUrlVars() as VarUrl;
-  let pc: boolean;
+  let pcList: string[];
   if ("pc" in vars) {
-    pc = vars.pc === "1";
+    pcList = vars.pc.split(",");
   } else {
-    pc = false;
+    pcList = [];
   }
 
   let placeIds: string[];
@@ -171,7 +180,7 @@ function parseUrl() {
     statsVarPath: statsVarPaths,
     statsVarId: statsVarIds,
     placeId: placeIds,
-    pc,
+    pc: pcList,
   };
 }
 

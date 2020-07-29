@@ -62,18 +62,11 @@ interface ChartRegionPropsType {
   // An array of place dcids.
   places: [string, string][];
   statsVars: { [key: string]: StatsVarInfo };
-  perCapita: boolean;
+  perCapita: string[];
+  handlePerCapita: (chartIndex: string) => void;
 }
 
-interface ChartRegionStateType {
-  perCapita: { [key: string]: boolean };
-  unit: { [key: string]: string };
-  logScale: { [key: string]: boolean };
-}
-class ChartRegion extends Component<
-  ChartRegionPropsType,
-  ChartRegionStateType
-> {
+class ChartRegion extends Component<ChartRegionPropsType, {}> {
   grouping: { [key: string]: { domId: string; statsVars: string[] } };
   placeName: { [key: string]: string };
   chartContainer: React.RefObject<HTMLDivElement>;
@@ -86,7 +79,6 @@ class ChartRegion extends Component<
     this.placeName = {};
     this.chartContainer = React.createRef();
     this.handleWindowResize = this.handleWindowResize.bind(this);
-    this.handlePerCapita = this.handlePerCapita.bind(this);
     this.state = {
       perCapita: {},
       unit: {},
@@ -125,16 +117,15 @@ class ChartRegion extends Component<
           return (
             <div key={domId} className="card">
               {
-                <span className="chartOption">
+                <span className="chartOption">{console.log(chartIndex, statsVarsTitle)}
                   Per capita
                   <button
                     className={
-                      chartIndex in this.state.perCapita &&
-                      this.state.perCapita[chartIndex]
+                      (this.props.perCapita.includes(chartIndex))
                         ? "checkbox checked"
                         : "checkbox"
                     }
-                    onClick={() => this.handlePerCapita(chartIndex)}
+                    onClick={() => this.props.handlePerCapita(chartIndex)}
                   ></button>
                 </span>
               }
@@ -186,16 +177,6 @@ class ChartRegion extends Component<
     this.drawChart();
   }
 
-  private handlePerCapita(chartIndex) {
-    const perCapitaTemp = this.state.perCapita;
-    if (chartIndex in perCapitaTemp) {
-      perCapitaTemp[chartIndex] = !perCapitaTemp[chartIndex];
-    } else {
-      perCapitaTemp[chartIndex] = true;
-    }
-    this.setState({ perCapita: perCapitaTemp });
-  }
-
   private buildGrouping() {
     this.grouping = {};
     const temp = {};
@@ -222,7 +203,7 @@ class ChartRegion extends Component<
           fetchStatsData(
             this.props.places.map((x) => x[0]),
             this.grouping[chartIndex].statsVars,
-            this.state.perCapita[chartIndex],
+            this.props.perCapita.includes(chartIndex),
             1
           ).then((data) => {
             return { chartIndex, data };

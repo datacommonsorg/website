@@ -35,7 +35,7 @@ interface PageStateType {
   statsVarPaths: number[][];
   statsVarInfo: { [key: string]: StatsVarInfo };
   places: [string, string][]; // [(placeId, placeName)]
-  perCapita: {[key: string]: boolean};
+  perCapitaTrue:string[];
   statsVarValid: Set<string>;
 }
 
@@ -44,11 +44,12 @@ class Page extends Component<PagePropType, PageStateType> {
     super(props);
     this.handleHashChange = this.handleHashChange.bind(this);
     this.setStatsVarNames = this.setStatsVarNames.bind(this);
+    this.handlePerCapita = this.handlePerCapita.bind(this);
     this.state = {
       statsVarPaths: [],
       statsVarInfo: {},
       places: [],
-      perCapita: {},
+      perCapitaTrue: [],
       statsVarValid: new Set(),
     };
   }
@@ -93,7 +94,7 @@ class Page extends Component<PagePropType, PageStateType> {
         statsVarPaths: urlVar.statsVarPath,
         places: values[1],
         statsVarValid: values[2],
-        perCapita: urlVar.pc,
+        perCapitaTrue: urlVar.pc,
       });
     });
   }
@@ -104,6 +105,9 @@ class Page extends Component<PagePropType, PageStateType> {
     this.setState({
       statsVarInfo: value,
     });
+  }
+  handlePerCapita(chartIndex){
+    updateUrl({"pcToggle": chartIndex});
   }
 
   render() {
@@ -130,7 +134,8 @@ class Page extends Component<PagePropType, PageStateType> {
               <ChartRegion
                 places={this.state.places}
                 statsVars={this.state.statsVarInfo}
-                perCapita={this.state.perCapita}
+                perCapita={this.state.perCapitaTrue}
+                handlePerCapita={this.handlePerCapita}
               ></ChartRegion>
             </div>
           </div>
