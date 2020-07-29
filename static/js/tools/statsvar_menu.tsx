@@ -1,9 +1,9 @@
 import React, { Component } from "react";
 import axios from "axios";
-import hierarchy from "../../../tools/pv_tree_generator/hierarchy_top.json";
+import hierarchy from "../../data/hierarchy_top.json";
 import { updateUrl } from "./timeline_util";
 
-const jsonPath = "data/hierarchy_statsvar.json";
+const jsonPath = "../../data/hierarchy_statsvar.json";
 
 interface NodePropType {
   l: string; // label

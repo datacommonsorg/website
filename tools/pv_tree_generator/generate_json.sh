@@ -12,8 +12,9 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-pip install -r requirements.txt
-
 protoc -I=./ --python_out=./ ./stat_config.proto
 
+python3 -m venv .env
+source .env/bin/activate
+pip install -r requirements.txt
 python3 main.py

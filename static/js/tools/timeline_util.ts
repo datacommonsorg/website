@@ -15,7 +15,7 @@
  */
 import axios from "axios";
 import { getUrlVars, setSearchParam } from "./dc";
-import statsVarPathMap from "../../../tools/pv_tree_generator/statsvar_path.json";
+import statsVarPathMap from "../../data/statsvar_path.json";
 
 // Temporary hack before we clean up place stats var cache.
 const MAPPING = {
