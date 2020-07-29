@@ -26,25 +26,25 @@ var url = new URL(window.location.href);
  * Generates choropleth map from API on pageload.
  */
 window.onload = () => {
-    const urlParams = new URLSearchParams(window.location.search);
-    ReactDOM.render(
-        React.createElement(MainPane),
-        document.getElementById("main-pane")
-    );
+  const urlParams = new URLSearchParams(window.location.search);
+  ReactDOM.render(
+    React.createElement(MainPane),
+    document.getElementById("main-pane")
+  );
 
-    // TODO:(iancostello) Refactor the url builder.
-    // Build api call from request.
-    var base_url = build_choropleth_url(
+  // TODO:(iancostello) Refactor the url builder.
+  // Build api call from request.
+  var base_url = build_choropleth_url(
       ['statVar', 'perCapita', 'geoId', 'level', 'mdom'], true)
 
-    // Create request and generate map.
-    axios.get(base_url).then((resp) => {
-        var payload = resp.data[0];
-        generateGeoMap(payload['geoJson'], payload['_PLOTTING_INFO'])
-    });
+  // Create request and generate map.
+  axios.get(base_url).then((resp) => {
+    var payload = resp.data[0];
+    generateGeoMap(payload['geoJson'], payload['_PLOTTING_INFO'])
+  });
 
-    // Generate breadcrumbs.
-    generateBreadCrumbs()
+  // Generate breadcrumbs.
+  generateBreadCrumbs()
 };
 
 /**
@@ -66,9 +66,9 @@ function generateGeoMap(geojson, plt_info) {
     // Scale and center the map.
     var svg_container = document.getElementById("map_container")
     var projection = d3.geoAlbers().fitSize([
-        svg_container.clientWidth,
-        svg_container.clientHeight],
-        geojson);
+                                             svg_container.clientWidth,
+                                             svg_container.clientHeight],
+                                             geojson);
     var geomap = d3.geoPath().projection(projection);
 
     // Build map objects.
@@ -95,6 +95,7 @@ function generateGeoMap(geojson, plt_info) {
  * @param {json} geo is the geoJson content for the hovered geo.
  */
 function handleMapHover(geo) {
+<<<<<<< HEAD
     // Display statistical variable information on hover.
     let name = geo.properties.name;
     let geo_value = geo.properties.hasOwnProperty('value') ? 
@@ -104,6 +105,17 @@ function handleMapHover(geo) {
     // Highlight selected geo in black on hover.
     d3.select(this).attr("class", "border-highlighted");
   }
+=======
+  // Display statistical variable information on hover.
+  let name = geo.properties.name;
+  let geo_value = geo.properties.hasOwnProperty('value') ? 
+      geo.properties.value : "No Value"
+  document.getElementById("hover-text-display").innerHTML = name + " - " + geo_value
+  
+  // Highlight selected geo in black on hover.
+  d3.select(this).attr("class", "border-highlighted");
+}
+>>>>>>> 12cd8306c437c6c1eec25324ae2416c929c2ccc9
   
 /**
  * Clears output after leaving a geo.
@@ -125,6 +137,10 @@ function handleMapClick(geo) {
   if (geo.properties.hasSublevel) {
     redirectToGeo(geo.properties.geoId)
   } else {
+<<<<<<< HEAD
+=======
+    //TODO(iancostello): Improve this feature (change cursor)
+>>>>>>> 12cd8306c437c6c1eec25324ae2416c929c2ccc9
     alert("This geo has no further sublevels!")
   }
 }
@@ -135,6 +151,10 @@ function handleMapClick(geo) {
  * @param from_api whether the url should be to the api or locally.
  */
 function build_choropleth_url(fields_to_include, from_api) {
+<<<<<<< HEAD
+=======
+  //TODO(iancostello): Make this path relative. 
+>>>>>>> 12cd8306c437c6c1eec25324ae2416c929c2ccc9
   var base_url = document.location.origin + document.location.pathname
   if (from_api) {
     base_url += "/download"
@@ -190,7 +210,11 @@ function generateBreadCrumbs() {
       let level_ref = crumbs[index];
 
       if (level_ref != "") {
+<<<<<<< HEAD
         // TODO(iancostello): How should we sanitize this?
+=======
+        // TODO(iancostello): Turn into react component to sanitize.
+>>>>>>> 12cd8306c437c6c1eec25324ae2416c929c2ccc9
         let curr_url = base_url + level_ref + "&bc=" + breadcrumbs_upto;
         breadcrumbs_display.innerHTML += 
           "<a href=\"" + curr_url + "\">" + level_ref +  "</a>" + " > ";

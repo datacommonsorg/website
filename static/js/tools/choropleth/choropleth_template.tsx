@@ -22,6 +22,8 @@ class MainPane extends Component {
     }
   
     render() {
+        //TODO(iancostello): remove bounding-box and centroid if unneccesary.
+        //TODO(iancostello):Add dynamic sizing.
         return ( 
             <React.Fragment>
                 <div className="column" id="breadcrumbs"></div>

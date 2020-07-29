@@ -11,4 +11,3 @@ requests
 six
 wheel
 gunicorn
-numpy

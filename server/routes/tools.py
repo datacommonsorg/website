@@ -12,12 +12,10 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-import flask
-from flask import Blueprint
-from flask import render_template
+from flask
 import os
 
-bp = Blueprint(
+bp = flask.Blueprint(
   "tools",
   __name__,
   url_prefix='/tools'
@@ -26,17 +24,17 @@ bp = Blueprint(
 
 @bp.route('/timeline')
 def timeline():
-    return render_template('tools/timeline.html')
+    return flask.render_template('tools/timeline.html')
 
 
 @bp.route('/download')
 def download():
-    return render_template('tools/download.html')
+    return flask.render_template('tools/download.html')
 
 
 @bp.route('/scatter')
 def scatter():
-    return render_template('tools/scatter.html')
+    return flask.render_template('tools/scatter.html')
 
 @bp.route('/choropleth')
 def choropleth():

@@ -18,16 +18,16 @@
  @import '../draw';
 
 #map_container {
-    margin-left: 12%;
-    margin-right: 12%;
+  margin-left: 12%;
+  margin-right: 12%;
 }
 
 .border {
-    stroke: white;
-    stroke-width: 0px; 
+  stroke: white;
+  stroke-width: 0; 
 }
 
 .border-highlighted {
-    stroke: black;
-    stroke-width: 1px; 
+  stroke: black;
+  stroke-width: 1px; 
 }
