@@ -529,9 +529,10 @@ class Chart extends Component<ChartPropType, ChartStateType> {
             <span className="sub-title">{this.titleSuffix}</span>
           </h4>
           {config.axis === axisEnum.PLACE && (
-            <label>
-              Choose places:{" "}
+            <div>
+              <label htmlFor={"select-" + this.props.id}>Choose places:</label>
               <select
+                id={"select-" + this.props.id}
                 value={this.placeRelation}
                 onChange={this._handlePlaceSelection}
               >
@@ -550,9 +551,9 @@ class Chart extends Component<ChartPropType, ChartStateType> {
                   nearby
                 </option>
               </select>
-            </label>
+            </div>
           )}
-          <div id={this.props.id}></div>
+          <div id={this.props.id} className="svg-container"></div>
           <footer className="row explore-more-container">
             <div>
               Data from <a href={config.url}>{config.source}</a>

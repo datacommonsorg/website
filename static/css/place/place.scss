@@ -98,12 +98,17 @@ $sidebar-top-padding: 132px;  // Keep in sync with place.ts: Y_SCROLL_LIMIT
   margin: 15px 0 10px;
 }
 
+#body .subtopic h3 a {
+  line-height: 1.2rem;
+}
+
 #main h2 .more a,
 #body .subtopic h3 .more a {
   color: var(--dc-gray);
   font-weight: 400;
   font-size: .8rem;
   float: right;
+  margin-top: 2px;
   text-decoration: none;
 }
 
@@ -140,6 +145,10 @@ $sidebar-top-padding: 132px;  // Keep in sync with place.ts: Y_SCROLL_LIMIT
   margin-top: -3px;
 }
 
+.svg-container {
+  flex: 1 1 auto;
+}
+
 .chart-container {
   border: .5px solid #dee2e6;
   border-radius: 3px;
@@ -161,6 +170,18 @@ $sidebar-top-padding: 132px;  // Keep in sync with place.ts: Y_SCROLL_LIMIT
 
 .chart-container h4 .sub-title {
   color: #999;
+}
+
+.chart-container label {
+  font-size: .9rem;
+  margin-right: .5rem;
+}
+
+.chart-container select {
+  font-size: .9rem;
+  border-radius: 3px;
+  padding: .1rem;
+  border-color: var(--dc-gray-lite);
 }
 
 .factoid footer,
@@ -218,6 +239,7 @@ $sidebar-top-padding: 132px;  // Keep in sync with place.ts: Y_SCROLL_LIMIT
 }
 
 .child-place-type {
+  color: var(--dc-gray);
   font-weight: bold;
   font-size: 13px;
   margin-top: 10px;
@@ -225,10 +247,10 @@ $sidebar-top-padding: 132px;  // Keep in sync with place.ts: Y_SCROLL_LIMIT
 }
 
 .child-place-link {
+  color: var(--dc-gray);
   font-size: 13px;
   margin-right: 4px;
   text-decoration: underline;
-  color: black;
   display:inline-block;
 }
 
