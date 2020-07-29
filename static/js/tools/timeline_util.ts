@@ -237,7 +237,16 @@ function saveToFile(filename: string, csv: string) {
   link.click();
 }
 
+interface StatsVarInfo {
+  md: string;
+  mprop: string;
+  pt: string;
+  pvs: { [key: string]: string };
+  title: string;
+}
+
 export {
+  StatsVarInfo,
   updateUrl,
   parseUrl,
   getStatsVarInfo,
