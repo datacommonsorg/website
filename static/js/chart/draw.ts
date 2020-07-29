@@ -597,7 +597,7 @@ function drawGroupLineChart(
   const maxV = yRange.maxV;
 
   let container: d3.Selection<any, any, any, any>;
-  if (selector instanceof String) {
+  if (typeof selector === "string") {
     container = d3.select("#" + selector);
   } else if (selector instanceof HTMLDivElement) {
     container = d3.select(selector);
