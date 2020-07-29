@@ -73,6 +73,7 @@ class SearchBar extends Component<SearchBarPropType, SearchBarStateType> {
   }
 
   render() {
+    console.log("search")
     return (
       <div id="location-field">
         <div id="search-icon"></div>
@@ -101,15 +102,6 @@ class SearchBar extends Component<SearchBarPropType, SearchBarStateType> {
     };
     ac = new google.maps.places.Autocomplete(this.inputElem.current, options);
     ac.addListener("place_changed", this.getPlaceAndRender);
-  }
-
-  componentDidUpdate(prevProps) {
-    this.setPlaceholder();
-    if (this.props.places !== prevProps.places) {
-      this.setState({
-        places: this.props.places,
-      });
-    }
   }
 
   private getPlaceAndRender() {
