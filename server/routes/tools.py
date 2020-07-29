@@ -12,7 +12,7 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-from flask
+import flask
 import os
 
 bp = flask.Blueprint(
@@ -35,6 +35,7 @@ def download():
 @bp.route('/scatter')
 def scatter():
     return flask.render_template('tools/scatter.html')
+
 
 @bp.route('/choropleth')
 def choropleth():
