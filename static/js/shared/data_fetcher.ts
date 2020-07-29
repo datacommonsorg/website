@@ -26,6 +26,7 @@ interface ApiResponse {
       [key: string]: number;
     };
     place_name: string;
+    place_dcid: string;
     provenance_domain: string;
   };
 }
@@ -202,7 +203,7 @@ function fetchStatsData(
       // Compute perCapita.
       if (perCapita) {
         for (const place in allResp[i].data) {
-          if (!allResp[i].data[place]) {
+          if (Object.keys(allResp[i].data[place]).length === 0) {
             continue;
           }
           const population = allResp[n].data[place].data;

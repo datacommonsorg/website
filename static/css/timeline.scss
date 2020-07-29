@@ -191,7 +191,7 @@
   padding: 0 15px;
   border: 20;
   border-radius: 16px;
-  background-color: #dddeff;
+  background-color: #999;
   display: inline-block;
   color: white;
   margin: 2px 2px;
@@ -291,6 +291,20 @@ sup {
   color: #666;
 }
 
+#timeline-lower-pane {
+  display: flex;
+}
+
+.chart-svg {
+  margin-bottom: 10px;
+}
+
+.card {
+  box-shadow: 0 2px 4px 0 rgba(0, 0, 0, 0.2);
+  padding: 7px 15px;
+  margin: 12px 0;
+}
+
 .checkbox {
   cursor: pointer;
   width: 14px;
@@ -308,5 +322,4 @@ sup {
 .chartOption {
   display: inline-block; /* change the display type           */
   margin-bottom: 6px;
-  margin-top: 20px;   
-}
+  margin-top: 20px; }

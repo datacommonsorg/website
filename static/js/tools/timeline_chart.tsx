@@ -16,7 +16,7 @@
 
 import React, { Component } from "react";
 import { randDomId } from "../shared/util";
-import { updateUrl } from "./timeline_util";
+import { updateUrl, saveToFile } from "./timeline_util";
 import { fetchStatsData, StatsData } from "../shared/data_fetcher";
 import { drawGroupLineChart, computePlotParams } from "../chart/draw";
 
@@ -65,16 +65,20 @@ interface ChartRegionPropsType {
   perCapita: boolean;
 }
 
-interface ChartRegionStateType{
-  perCapita: {[key: string]: boolean};
-  unit: {[key: string]: string};
-  logScale: {[key: string]: boolean};
+interface ChartRegionStateType {
+  perCapita: { [key: string]: boolean };
+  unit: { [key: string]: string };
+  logScale: { [key: string]: boolean };
 }
-class ChartRegion extends Component<ChartRegionPropsType, ChartRegionStateType> {
-  grouping: { [key: string]: {domId: string, statsVars: string[]} };
+class ChartRegion extends Component<
+  ChartRegionPropsType,
+  ChartRegionStateType
+> {
+  grouping: { [key: string]: { domId: string; statsVars: string[] } };
   placeName: { [key: string]: string };
   chartContainer: React.RefObject<HTMLDivElement>;
   allStatsData: { chartIndex: string; data: StatsData }[];
+  downloadLink: HTMLAnchorElement;
 
   constructor(props: ChartRegionPropsType) {
     super(props);
@@ -83,11 +87,17 @@ class ChartRegion extends Component<ChartRegionPropsType, ChartRegionStateType> 
     this.chartContainer = React.createRef();
     this.handleWindowResize = this.handleWindowResize.bind(this);
     this.handlePerCapita = this.handlePerCapita.bind(this);
-    this.state={
-      perCapita:{},
+    this.state = {
+      perCapita: {},
       unit: {},
-      logScale:{},
-    }
+      logScale: {},
+    };
+    this.downloadLink = document.getElementById(
+      "download-link"
+    ) as HTMLAnchorElement;
+    this.downloadLink.onclick = () => {
+      saveToFile("export.csv", this.createDataCsv());
+    };
   }
   render() {
     if (
@@ -100,27 +110,55 @@ class ChartRegion extends Component<ChartRegionPropsType, ChartRegionStateType> 
     return (
       <div ref={this.chartContainer}>
         {Object.keys(this.grouping).map((chartIndex) => {
+          const statsVars = this.grouping[chartIndex].statsVars;
+          const statsVarsTitle = statsVars.map(
+            (sv) => this.props.statsVars[sv].title
+          );
           const plotParams = computePlotParams(
             this.props.places.map((x) => x[1]),
-            this.grouping[chartIndex].statsVars,
+            statsVarsTitle
           );
+          const domId = this.grouping[chartIndex].domId;
+          // Stats var chip color is independent of places, so pick one place to
+          // provide a key for style look up.
+          const placeName = this.props.places[0][1];
           return (
-            <div key={this.grouping[chartIndex].domId}>
-              {<span className="chartOption">Per capita
-                <button className={(chartIndex in this.state.perCapita && this.state.perCapita[chartIndex])? "checkbox checked": "checkbox"}
-                        onClick={()=>this.handlePerCapita(chartIndex)}></button></span>}
-              <div id={this.grouping[chartIndex].domId} className="card"></div>
-              {Object.keys(plotParams.colors).map((statsVar) => {
-                return (
-                  <StatsVarChip
-                    statsVar={statsVar}
-                    title={this.props.statsVars[statsVar].title}
-                    color={plotParams.colors[statsVar]}
-                    key={randDomId()}
-                    deleteStatsVarChip={this.deleteStatsVarChip}
-                  />
-                );
-              })}
+            <div key={domId} className="card">
+              {
+                <span className="chartOption">
+                  Per capita
+                  <button
+                    className={
+                      chartIndex in this.state.perCapita &&
+                      this.state.perCapita[chartIndex]
+                        ? "checkbox checked"
+                        : "checkbox"
+                    }
+                    onClick={() => this.handlePerCapita(chartIndex)}
+                  ></button>
+                </span>
+              }
+              <div id={domId} className="chart-svg"></div>
+              <div>
+                {statsVars.map(
+                  function (statsVar) {
+                    let color: string;
+                    const statsVarTitle = this.props.statsVars[statsVar].title;
+                    if (statsVars.length > 1) {
+                      color = plotParams.lines[placeName + statsVarTitle].color;
+                    }
+                    return (
+                      <StatsVarChip
+                        statsVar={statsVar}
+                        title={statsVarTitle}
+                        color={color}
+                        key={randDomId()}
+                        deleteStatsVarChip={this.deleteStatsVarChip}
+                      />
+                    );
+                  }.bind(this)
+                )}
+              </div>
             </div>
           );
         }, this)}
@@ -148,15 +186,14 @@ class ChartRegion extends Component<ChartRegionPropsType, ChartRegionStateType> 
     this.drawChart();
   }
 
-  private handlePerCapita(chartIndex){
+  private handlePerCapita(chartIndex) {
     const perCapitaTemp = this.state.perCapita;
-    if (chartIndex in perCapitaTemp){
+    if (chartIndex in perCapitaTemp) {
       perCapitaTemp[chartIndex] = !perCapitaTemp[chartIndex];
-    }
-    else{
+    } else {
       perCapitaTemp[chartIndex] = true;
     }
-    this.setState({perCapita: perCapitaTemp});
+    this.setState({ perCapita: perCapitaTemp });
   }
 
   private buildGrouping() {
@@ -172,7 +209,7 @@ class ChartRegion extends Component<ChartRegionPropsType, ChartRegionStateType> 
     let chartIndex = 0;
     for (const mprop in temp) {
       const domIdRand = randDomId();
-      this.grouping[chartIndex] = {domId: domIdRand, statsVars: temp[mprop]}
+      this.grouping[chartIndex] = { domId: domIdRand, statsVars: temp[mprop] };
       chartIndex += 1;
     }
   }
@@ -199,6 +236,9 @@ class ChartRegion extends Component<ChartRegionPropsType, ChartRegionStateType> 
         this.allStatsData = values;
         this.drawChart();
       });
+      this.downloadLink.style.visibility = "visible";
+    } else {
+      this.downloadLink.style.visibility = "hidden";
     }
   }
 
@@ -214,28 +254,87 @@ class ChartRegion extends Component<ChartRegionPropsType, ChartRegionStateType> 
           this.placeName[placeDcid]
         ] = statsData.data.getStatsVarGroupWithTime(placeDcid);
       }
+      const statsVars = this.grouping[chartIndex].statsVars;
+      if (!statsVars) {
+        continue;
+      }
+      const statsVarsTitle = {};
+      for (const statsVar of statsVars) {
+        statsVarsTitle[statsVar] =
+          this.props.statsVars[statsVar].title || statsVar;
+      }
       const plotParams = computePlotParams(
         this.props.places.map((x) => x[1]),
-        this.grouping[chartIndex].statsVars,
+        Object.values(statsVarsTitle)
       );
-      const statsVarTitle = {};
-      for (const statsVar of Object.keys(this.props.statsVars)) {
-        statsVarTitle[statsVar] = this.props.statsVars[statsVar].title;
-      }
-      plotParams.title = statsVarTitle;
       drawGroupLineChart(
         this.grouping[chartIndex].domId,
         this.chartContainer.current.offsetWidth,
         CHART_HEIGHT,
+        statsVarsTitle,
         dataGroupsDict,
         plotParams,
-        Array.from(statsData.data.sources),
+        Array.from(statsData.data.sources)
       );
     }
   }
 
-  private deleteStatsVarChip(statsVar: string) {
-    updateUrl({ statsVarDelete: statsVar });
+  private deleteStatsVarChip(statsVarUpdate: string) {
+    updateUrl({ statsVar: { statsVar: statsVarUpdate, shouldAdd: false } });
+  }
+
+  private createDataCsv() {
+    // Get all the dates
+    let allDates = new Set<string>();
+    for (const statData of this.allStatsData) {
+      allDates = new Set([...Array.from(allDates), ...statData.data.dates]);
+    }
+    // Create the the header row.
+    const header = ["date"];
+    for (const statData of this.allStatsData) {
+      for (const place of statData.data.places) {
+        for (const sv of statData.data.statsVars) {
+          header.push(`${place} ${sv}`);
+        }
+      }
+    }
+    // Get the place name
+    const placeName: { [key: string]: string } = {};
+    const sample = this.allStatsData[0].data;
+    const statsVar = sample.statsVars[0];
+    for (const place of sample.places) {
+      placeName[sample.data[statsVar][place].place_dcid] =
+        sample.data[statsVar][place].place_name;
+    }
+
+    // Iterate each year, group, place, stats var to populate data
+    const rows: string[][] = [];
+    for (const date of Array.from(allDates)) {
+      const row: string[] = [date];
+      for (const statData of this.allStatsData) {
+        for (const p of statData.data.places) {
+          for (const sv of statData.data.statsVars) {
+            const tmp = statData.data.data[sv][p];
+            if (tmp && tmp.data && tmp.data[date]) {
+              row.push(String(tmp.data[date]));
+            } else {
+              row.push("");
+            }
+          }
+        }
+      }
+      rows.push(row);
+    }
+    let headerRow = header.join(",") + "\n";
+    for (const dcid in placeName) {
+      const re = new RegExp(dcid, "g");
+      headerRow = headerRow.replace(re, placeName[dcid]);
+    }
+    let result = headerRow;
+    for (const row of rows) {
+      result += row.join(",") + "\n";
+    }
+    return result;
   }
 }
 
