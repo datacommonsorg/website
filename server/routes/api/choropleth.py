@@ -40,7 +40,7 @@ def choropleth_api():
     """Returns data for geographic subregions for a certain statistical 
             variable.
 
-    API Params:
+    API Params: #TODO(iancostello): Split API calls up or move to client.
         statVar -> The statistical variable to download, as a string.
         perCapita -> Whether to return the per-capita value, as a string of a 
                 boolean.
