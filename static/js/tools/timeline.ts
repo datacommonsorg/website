@@ -15,7 +15,7 @@
  */
 
 /**
- * @fileoverview dev_menu page.
+ * @fileoverview entrance of timeline page.
  */
 
 import React from "react";
