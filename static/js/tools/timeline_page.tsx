@@ -24,8 +24,9 @@ import {
 } from "./timeline_util";
 import { SearchBar } from "./timeline_search";
 import { Menu } from "./statsvar_menu";
-import { ChartRegion, StatsVarInfo } from "./timeline_chart";
+import { StatsVarInfo } from "./timeline_util";
 import { Info } from "./timeline_info";
+import { ChartRegion } from "./timeline_chart_region";
 
 interface PagePropType {
   search: boolean;

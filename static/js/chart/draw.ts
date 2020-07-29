@@ -570,7 +570,7 @@ function computeRanges(dataGroupsDict: { [geoId: string]: DataGroup[] }) {
  * @param unit the unit of the measurement.
  */
 function drawGroupLineChart(
-  id: string,
+  selector: string | HTMLDivElement,
   width: number,
   height: number,
   statsVarsTitle: { [key: string]: string },
@@ -596,10 +596,18 @@ function drawGroupLineChart(
   const minV = yRange.minV;
   const maxV = yRange.maxV;
 
-  d3.selectAll(`#${id} > *`).remove();
-  const svg = d3
-    .select("#" + id)
-    .append("svg")
+  let container: d3.Selection<any, any, any, any>;
+  if (selector instanceof String) {
+    container = d3.select("#" + selector);
+  } else if (selector instanceof HTMLDivElement) {
+    container = d3.select(selector);
+  } else {
+    return;
+  }
+
+  container.selectAll("svg").remove();
+
+  const svg = container.append("svg")
     .attr("width", width)
     .attr("height", height + SOURCE.height);
 
@@ -712,6 +720,7 @@ function buildInChartLegend(
 }
 
 export {
+  PlotParams,
   getDashes,
   appendLegendElem,
   getColorFn,
