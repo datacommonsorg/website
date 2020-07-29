@@ -14,6 +14,7 @@
 
 """
 Downloads and saves GeoJson map files from DataCommons.
+
     Typical usage:
     python3 download.py
 """
