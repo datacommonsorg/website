@@ -186,7 +186,7 @@ function drawTimeSeries(seriesArray, valueKey, selector) {
       .on("click", (d, i) => {
         let uri = buildBrowserUri(d3.event.target.parentNode.dataset.dcid);
         window.open(uri);
-      })
+      });
     totalVLen += Math.ceil(vText.length / CHAR_PER_LINE);
 
     // Hover on label and line node should highlight both.

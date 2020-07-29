@@ -12,7 +12,7 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-from flask
+import flask
 import os
 
 bp = flask.Blueprint(
@@ -36,9 +36,10 @@ def download():
 def scatter():
     return flask.render_template('tools/scatter.html')
 
+
 @bp.route('/choropleth')
 def choropleth():
     # TODO(iancostello): Permit production use after development finishes.
     if os.environ.get('FLASK_ENV') == 'production':
         flask.abort(404)
-    return flask.render_template('choropleth.html')
+    return flask.render_template('tools/choropleth.html')
