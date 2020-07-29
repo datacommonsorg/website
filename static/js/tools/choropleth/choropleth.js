@@ -33,13 +33,13 @@ window.onload = () => {
 
   // TODO:(iancostello) Refactor the url builder.
   // Build api call from request.
-  const base_url = build_choropleth_url(
+  var base_url = build_choropleth_url(
     ["statVar", "perCapita", "geoId", "level", "mdom"],
     true
   );
   // Create request and generate map.
   axios.get(base_url).then((resp) => {
-    const payload = resp.data[0];
+    var payload = resp.data[0];
     generateGeoMap(payload["geoJson"], payload["_PLOTTING_INFO"]);
   });
 
@@ -54,23 +54,23 @@ window.onload = () => {
  */
 function generateGeoMap(geojson, plt_info) {
   // Combine path elements from D3 content.
-  const mapContent = d3
+  var mapContent = d3
     .select("#main-pane g.map")
     .selectAll("path")
     .data(geojson.features);
 
   // Build chart display options.
-  const colorScale = d3
+  var colorScale = d3
     .scaleLinear()
     .domain(plt_info["domain"])
     .range(plt_info["palette"]);
 
   // Scale and center the map.
-  const svg_container = document.getElementById("map_container");
-  const projection = d3
+  var svg_container = document.getElementById("map_container");
+  var projection = d3
     .geoAlbers()
     .fitSize([svg_container.clientWidth, svg_container.clientHeight], geojson);
-  const geomap = d3.geoPath().projection(projection);
+  var geomap = d3.geoPath().projection(projection);
 
   // Build map objects.
   mapContent
@@ -79,8 +79,8 @@ function generateGeoMap(geojson, plt_info) {
     .attr("d", geomap)
     // Add CSS class to each path for border outlining.
     .attr("class", "border")
-    .attr("fill", function (d: { properties: { value: number } }) {
-      if (d.properties.value) {
+    .attr("fill", function (d) {
+      if (d.properties.hasOwnProperty("value")) {
         return colorScale(d.properties.value);
       } else {
         return "gray";
@@ -98,8 +98,10 @@ function generateGeoMap(geojson, plt_info) {
  */
 function handleMapHover(geo) {
   // Display statistical variable information on hover.
-  const name = geo.properties.name;
-  const geo_value = geo.properties.value ? geo.properties.value : "No Value";
+  let name = geo.properties.name;
+  let geo_value = geo.properties.hasOwnProperty("value")
+    ? geo.properties.value
+    : "No Value";
   document.getElementById("hover-text-display").innerHTML =
     name + " - " + geo_value;
 
@@ -139,14 +141,15 @@ function handleMapClick(geo) {
  */
 function build_choropleth_url(fields_to_include, from_api) {
   //TODO(iancostello): Make this path relative.
-  let base_url = document.location.origin + document.location.pathname;
+  var base_url = document.location.origin + document.location.pathname;
   if (from_api) {
     base_url += "/api";
   }
   base_url += "?";
-  for (const index in fields_to_include) {
-    const arg_name = fields_to_include[index];
-    const arg_value = url.searchParams.get(arg_name);
+  const urlParams = new URLSearchParams(window.location.search);
+  for (let index in fields_to_include) {
+    let arg_name = fields_to_include[index];
+    let arg_value = url.searchParams.get(arg_name);
     if (arg_value != null) {
       base_url += "&" + arg_name + "=" + arg_value;
     }
@@ -159,7 +162,7 @@ function build_choropleth_url(fields_to_include, from_api) {
  * @param {string} geoId to redirect to.
  */
 function redirectToGeo(geoId) {
-  let base_url = build_choropleth_url(
+  var base_url = build_choropleth_url(
     ["statVar", "perCapita", "level", "mdom"],
     false
   );
@@ -182,11 +185,11 @@ function redirectToGeo(geoId) {
 function generateBreadCrumbs() {
   const breadcrumbs = url.searchParams.get("bc");
   if (breadcrumbs != null && breadcrumbs != "") {
-    const breadcrumbs_display = document.getElementById("breadcrumbs");
-    const crumbs = breadcrumbs.split(";");
+    var breadcrumbs_display = document.getElementById("breadcrumbs");
+    var crumbs = breadcrumbs.split(";");
 
     // Build url for each reference in the breadcrumbs.
-    let base_url = build_choropleth_url(
+    var base_url = build_choropleth_url(
       ["statVar", "perCapita", "level", "mdom"],
       false
     );
@@ -198,7 +201,7 @@ function generateBreadCrumbs() {
 
       if (level_ref != "") {
         // TODO(iancostello): Turn into react component to sanitize.
-        const curr_url = base_url + level_ref + "&bc=" + breadcrumbs_upto;
+        let curr_url = base_url + level_ref + "&bc=" + breadcrumbs_upto;
         breadcrumbs_display.innerHTML +=
           '<a href="' + curr_url + '">' + level_ref + "</a>" + " > ";
         breadcrumbs_upto += level_ref + ";";
