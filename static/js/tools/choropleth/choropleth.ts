@@ -80,7 +80,7 @@ function generateGeoMap(geojson, plt_info) {
     .attr("d", geomap)
     // Add CSS class to each path for border outlining.
     .attr("class", "border")
-    .attr("fill", function (d) {
+    .attr("fill", function (d : { properties: { value : number }}) {
       if (d.properties.hasOwnProperty("value")) {
         return colorScale(d.properties.value);
       } else {
