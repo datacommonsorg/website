@@ -295,14 +295,18 @@ sup {
   cursor: pointer;
   width: 14px;
   height: 14px;
-  margin-top: 4px;
+  margin-left: 6px;
   border: 0;
   background: url('/images/icon-checkbox.svg');
   outline: none;
 }
 
-
-
 .checkbox.checked {
   background: url('/images/icon-checkbox-checked.svg');
+}
+
+.chartOption {
+  display: inline-block; /* change the display type           */
+  margin-bottom: 6px;
+  margin-top: 20px;   
 }

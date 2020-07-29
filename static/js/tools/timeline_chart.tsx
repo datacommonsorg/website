@@ -106,7 +106,9 @@ class ChartRegion extends Component<ChartRegionPropsType, ChartRegionStateType> 
           );
           return (
             <div key={this.grouping[chartIndex].domId}>
-              {<button className="checkbox"></button>}
+              {<span className="chartOption">Per capita
+                <button className={(chartIndex in this.state.perCapita && this.state.perCapita[chartIndex])? "checkbox checked": "checkbox"}
+                        onClick={()=>this.handlePerCapita(chartIndex)}></button></span>}
               <div id={this.grouping[chartIndex].domId} className="card"></div>
               {Object.keys(plotParams.colors).map((statsVar) => {
                 return (
@@ -152,7 +154,7 @@ class ChartRegion extends Component<ChartRegionPropsType, ChartRegionStateType> 
       perCapitaTemp[chartIndex] = !perCapitaTemp[chartIndex];
     }
     else{
-      perCapitaTemp[chartIndex] = false;
+      perCapitaTemp[chartIndex] = true;
     }
     this.setState({perCapita: perCapitaTemp});
   }
@@ -168,16 +170,10 @@ class ChartRegion extends Component<ChartRegionPropsType, ChartRegionStateType> 
       temp[mprop].push(statsVarId);
     }
     let chartIndex = 0;
-    const perCapitaTemp = {};
-    const unitTemp = {};
-    const logScaleTemp = {};
     for (const mprop in temp) {
       const domIdRand = randDomId();
       this.grouping[chartIndex] = {domId: domIdRand, statsVars: temp[mprop]}
       chartIndex += 1;
-      perCapitaTemp[chartIndex] = false;
-      unitTemp[chartIndex] = "";
-      logScaleTemp[chartIndex] = false;
     }
   }
 
@@ -189,7 +185,7 @@ class ChartRegion extends Component<ChartRegionPropsType, ChartRegionStateType> 
           fetchStatsData(
             this.props.places.map((x) => x[0]),
             this.grouping[chartIndex].statsVars,
-            this.props.perCapita,
+            this.state.perCapita[chartIndex],
             1
           ).then((data) => {
             return { chartIndex, data };

@@ -35,7 +35,7 @@ interface PageStateType {
   statsVarPaths: string[][];
   statsVarInfo: { [key: string]: StatsVarInfo };
   places: [string, string][]; // [(placeId, placeName)]
-  perCapita: boolean;
+  perCapita: {[key: string]: boolean};
   statsVarValid: Set<string>;
 }
 
@@ -43,12 +43,11 @@ class Page extends Component<PagePropType, PageStateType> {
   constructor(props: PagePropType) {
     super(props);
     this.handleHashChange = this.handleHashChange.bind(this);
-    this._togglePerCapita = this._togglePerCapita.bind(this);
     this.state = {
       statsVarPaths: [],
       statsVarInfo: {},
       places: [],
-      perCapita: false,
+      perCapita: {},
       statsVarValid: new Set(),
     };
   }
@@ -99,28 +98,11 @@ class Page extends Component<PagePropType, PageStateType> {
     );
   }
 
-  _togglePerCapita() {
-    updateUrl({ pc: !this.state.perCapita });
-    this.setState({
-      perCapita: !this.state.perCapita,
-    });
-  }
-
   render() {
     return (
       <div>
         <div className="explore-menu-container" id="explore">
           <div id="drill-scroll-container">
-            <div className="title">Select variables:</div>
-            <div id="percapita-link" className="text">
-              <label htmlFor="percapita">Per capita</label>
-              <input
-                type="checkbox"
-                id="percapita"
-                name="pc"
-                onClick={this._togglePerCapita}
-              ></input>
-            </div>
             <Menu
               search={this.props.search}
               statsVarPaths={this.state.statsVarPaths}
