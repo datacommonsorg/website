@@ -32,7 +32,7 @@ interface PagePropType {
 }
 
 interface PageStateType {
-  statsVarPaths: string[][];
+  statsVarPaths: number[][];
   statsVarInfo: { [key: string]: StatsVarInfo };
   places: [string, string][]; // [(placeId, placeName)]
   perCapita: boolean;
@@ -44,6 +44,7 @@ class Page extends Component<PagePropType, PageStateType> {
     super(props);
     this.handleHashChange = this.handleHashChange.bind(this);
     this._togglePerCapita = this._togglePerCapita.bind(this);
+    this.setStatsVarNames = this.setStatsVarNames.bind(this);
     this.state = {
       statsVarPaths: [],
       statsVarInfo: {},
@@ -83,26 +84,33 @@ class Page extends Component<PagePropType, PageStateType> {
       }
     }
 
-    Promise.all([statsVarInfoPromise, placesPromise, validStatsVarPromise]).then(
-      (values) => {
-        for (let idx = 0; idx < urlVar.statsVarId.length; idx++) {
-          values[0][urlVar.statsVarId[idx]].title = urlVar.statsVarPath[idx].slice(-1)[0];
-        }
-        this.setState({
-          statsVarInfo: values[0],
-          statsVarPaths: urlVar.statsVarPath,
-          places: values[1],
-          statsVarValid: values[2],
-          perCapita: urlVar.pc,
-        });
-      }
-    );
+    Promise.all([
+      statsVarInfoPromise,
+      placesPromise,
+      validStatsVarPromise,
+    ]).then((values) => {
+      this.setState({
+        statsVarInfo: values[0],
+        statsVarPaths: urlVar.statsVarPath,
+        places: values[1],
+        statsVarValid: values[2],
+        perCapita: urlVar.pc,
+      });
+    });
   }
 
   _togglePerCapita() {
     updateUrl({ pc: !this.state.perCapita });
     this.setState({
       perCapita: !this.state.perCapita,
+    });
+  }
+
+  setStatsVarNames(statsVarId: string, statsVarName: string) {
+    const value = this.state.statsVarInfo;
+    value[statsVarId].title = statsVarName;
+    this.setState({
+      statsVarInfo: value,
     });
   }
 
@@ -126,6 +134,7 @@ class Page extends Component<PagePropType, PageStateType> {
               statsVarPaths={this.state.statsVarPaths}
               statsVarValid={this.state.statsVarValid}
               filter={this.state.places.length !== 0}
+              setName={this.setStatsVarNames}
             ></Menu>
           </div>
         </div>
