@@ -15,7 +15,6 @@
  */
 
 import React, { Component } from "react";
-import { randDomId } from "../shared/util";
 import { StatsVarInfo, updateUrl } from "./timeline_util";
 import { fetchStatsData, StatsData } from "../shared/data_fetcher";
 import {
@@ -110,10 +109,10 @@ class Chart extends Component<ChartPropsType, {}> {
             }
             return (
               <StatsVarChip
+                key={statsVar}
                 statsVar={statsVar}
                 title={title}
                 color={color}
-                key={randDomId()}
                 deleteStatsVarChip={this.deleteStatsVarChip}
               />
             );
