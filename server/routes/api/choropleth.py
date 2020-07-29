@@ -209,10 +209,6 @@ def determine_color_palette(values, is_denominated):
     # Percentages use diverging palettes.
     lower_range = min(values)
     upper_range = max(values)
-    if is_denominated:  
-        palette = ['#998ec3', '#f7f7f7', '#f1a340']
-        return [lower_range, statistics.median(values), upper_range], palette
-    # Linear palette otherwise.
-    else:
-        palette = ['#deebf7', '#9ecae1', '#3182bd']
-        return [lower_range, statistics.median(values), upper_range], palette
+    palette = (['#998ec3', '#f7f7f7', '#f1a340'] if is_denominated
+        else ['#deebf7', '#9ecae1', '#3182bd'])
+    return [lower_range, statistics.median(values), upper_range], palette
