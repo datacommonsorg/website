@@ -211,20 +211,20 @@ interface MenuPropType {
   statsVarPaths: number[][];
   statsVarValid: Set<string>;
   filter: boolean;
-  setStatsVarTitle: (statsVarId2Title: {[key: string]: string}) => void;
+  setStatsVarTitle: (statsVarId2Title: { [key: string]: string }) => void;
 }
 interface MenuStateType {
   menuJson: [{}];
 }
 class Menu extends Component<MenuPropType, MenuStateType> {
-  statsVarId2Title: {[key: string]: string} // {Id: Title}
+  statsVarId2Title: { [key: string]: string }; // {Id: Title}
   constructor(props) {
     super(props);
     this.addStatsVarTitle = this.addStatsVarTitle.bind(this);
     this.state = {
       menuJson: [hierarchy],
     };
-    this.statsVarId2Title={};
+    this.statsVarId2Title = {};
   }
   render() {
     return (
@@ -264,13 +264,15 @@ class Menu extends Component<MenuPropType, MenuStateType> {
       });
     });
   }
-  addStatsVarTitle(id: string, title: string){
+  addStatsVarTitle(id: string, title: string) {
     this.statsVarId2Title[id] = title;
-    if(Object.keys(this.statsVarId2Title).length === this.props.statsVarPaths.length){
+    if (
+      Object.keys(this.statsVarId2Title).length ===
+      this.props.statsVarPaths.length
+    ) {
       this.props.setStatsVarTitle(this.statsVarId2Title);
     }
   }
-
 }
 
 export { Menu };

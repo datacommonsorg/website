@@ -56,7 +56,8 @@ class Page extends Component<PagePropType, PageStateType> {
   }
   shouldComponentUpdate(nextProps, nextState) {
     if (
-      JSON.stringify(this.state.statsVarInfo) !== JSON.stringify(nextState.statsVarInfo) ||
+      JSON.stringify(this.state.statsVarInfo) !==
+        JSON.stringify(nextState.statsVarInfo) ||
       this.state.places !== nextState.places ||
       this.state.perCapita !== nextState.perCapita
     ) {
@@ -118,11 +119,13 @@ class Page extends Component<PagePropType, PageStateType> {
     });
   }
 
-  setStatsVarTitle(statsVarId2Title: {[key: string]: string}) {
+  setStatsVarTitle(statsVarId2Title: { [key: string]: string }) {
     const value = this.state.statsVarInfo;
-    Object.keys(statsVarId2Title).map((id)=>{
-      if(id in value){value[id].title = statsVarId2Title[id];}
-    })
+    Object.keys(statsVarId2Title).map((id) => {
+      if (id in value) {
+        value[id].title = statsVarId2Title[id];
+      }
+    });
     this.setState({
       statsVarInfo: value,
     });

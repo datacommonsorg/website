@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-import React, { Component } from "react";
+import React, { Component, PureComponent } from "react";
 import axios from "axios";
 import { updateUrl } from "./timeline_util";
 
@@ -29,7 +29,7 @@ interface ChipStateType {
   placeId: string;
 }
 
-class Chip extends Component<ChipPropType, ChipStateType> {
+class Chip extends PureComponent<ChipPropType, ChipStateType> {
   constructor(props) {
     super(props);
     this.deleteChip = this.deleteChip.bind(this);
@@ -52,28 +52,25 @@ class Chip extends Component<ChipPropType, ChipStateType> {
   }
 }
 
-interface SearchBarStateType {
-  places: [string, string][];
-}
-
 interface SearchBarPropType {
   places: [string, string][];
 }
 
-class SearchBar extends Component<SearchBarPropType, SearchBarStateType> {
+class SearchBar extends Component<SearchBarPropType, {}> {
   inputElem: React.RefObject<HTMLInputElement>;
 
   constructor(props) {
     super(props);
     this.getPlaceAndRender = this.getPlaceAndRender.bind(this);
-    this.state = {
-      places: this.props.places,
-    };
     this.inputElem = React.createRef();
+  }
+  shouldComponentUpdate(nextProps, nextState) {
+    return (
+      JSON.stringify(this.props.places) !== JSON.stringify(nextProps.places)
+    );
   }
 
   render() {
-    console.log("search")
     return (
       <div id="location-field">
         <div id="search-icon"></div>
@@ -120,7 +117,7 @@ class SearchBar extends Component<SearchBarPropType, SearchBarStateType> {
 
   private setPlaceholder() {
     this.inputElem.current.value = "";
-    if (this.state.places.length > 0) {
+    if (this.props.places.length > 0) {
       this.inputElem.current.placeholder = "Add another place";
     } else {
       this.inputElem.current.placeholder =
