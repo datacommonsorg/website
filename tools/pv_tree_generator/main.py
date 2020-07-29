@@ -25,8 +25,8 @@ def main():
     pop_obs_spec = util._read_pop_obs_spec()
     stat_vars = util._read_stat_var()
     f_json = open("../../static/data/hierarchy_statsvar.json", "w")
-    f_json_top = open("./hierarchy_top.json", "w")
-    f_json_statsvar_path = open("./statsvar_path.json", "w")
+    f_json_top = open("../../static/data/hierarchy_top.json", "w")
+    f_json_statsvar_path = open("../../static/data/statsvar_path.json", "w")
     data = {}
     data_top = {}
     statsvar_path_all = {}
