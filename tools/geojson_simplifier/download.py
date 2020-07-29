@@ -11,6 +11,7 @@
 # WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 # See the License for the specific language governing permissions and
 # limitations under the License.
+
 """
 Downloads and saves GeoJson map files from DataCommons.
     Typical usage:
@@ -23,6 +24,11 @@ import geojson
 
 # TODO(fpernice-google): support downloading more than just US states
 class GeojsonDownloder:
+    """Downloads Geojson data from DataCommons API.
+
+    Attributes:
+        geojsons: Dictionary containing all the downloaded geojsons.
+    """
     LEVEL_MAP = {
         "Country": "AdministrativeArea1",
         "AdministrativeArea1": "AdministrativeArea2",
