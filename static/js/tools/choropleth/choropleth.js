@@ -131,7 +131,7 @@ function handleMapClick(geo) {
     redirectToGeo(geo.properties.geoId);
   } else {
     //TODO(iancostello): Improve this feature (change cursor)
-    alert("This geo has no further sublevels!")
+    alert("This geo has no further sublevels!");
   }
 }
 
@@ -141,7 +141,7 @@ function handleMapClick(geo) {
  * @param from_api whether the url should be to the api or locally.
  */
 function build_choropleth_url(fields_to_include, from_api) {
-  //TODO(iancostello): Make this path relative. 
+  //TODO(iancostello): Make this path relative.
   var base_url = document.location.origin + document.location.pathname;
   if (from_api) {
     base_url += "/api";
