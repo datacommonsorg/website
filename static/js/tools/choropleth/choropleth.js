@@ -123,7 +123,7 @@ function mouseLeave() {
  */
 function handleMapClick(geo) {
   if (geo.properties.hasSublevel) {
-    redirectToGeo(geo.properties.geoId)
+    redirectToGeo(geo.properties.geoId);
   } else {
     alert("This geo has no further sublevels!")
   }
@@ -131,24 +131,24 @@ function handleMapClick(geo) {
 
 /**
  * Builds a redirect link given the fields to include from search params.
- * @param fields_to_include 
+ * @param fields_to_include
  * @param from_api whether the url should be to the api or locally.
  */
 function build_choropleth_url(fields_to_include, from_api) {
   var base_url = document.location.origin + document.location.pathname
   if (from_api) {
-    base_url += "/download"
+    base_url += "/api";
   }
-  base_url += "?"
+  base_url += "?";
   const urlParams = new URLSearchParams(window.location.search);
   for (let index in fields_to_include) {
-    let arg_name = fields_to_include[index]
+    let arg_name = fields_to_include[index];
     let arg_value = url.searchParams.get(arg_name);
     if (arg_value != null) {
-      base_url += "&" + arg_name + "=" + arg_value
+      base_url += "&" + arg_name + "=" + arg_value;
     }
   }
-  return base_url
+  return base_url;
 }
 
 /**
@@ -157,18 +157,20 @@ function build_choropleth_url(fields_to_include, from_api) {
  */
 function redirectToGeo(geoId) {
   var base_url = build_choropleth_url(
-      ['statVar', 'perCapita', 'level', 'mdom'], false)
-  base_url += "&geoId=" + geoId
-  base_url += "&bc=" 
-  
+    ["statVar", "perCapita", "level", "mdom"],
+    false
+  );
+  base_url += "&geoId=" + geoId;
+  base_url += "&bc=";
+
   // Add or create breadcrumbs field.
   // TODO(iancostello): Use parent places api.
   var breadcrumbs = url.searchParams.get("bc");
   if (breadcrumbs != null && breadcrumbs != "") {
-    base_url += breadcrumbs + ";"
+    base_url += breadcrumbs + ";";
   }
   base_url += url.searchParams.get("geoId");
-  window.location.href = base_url
+  window.location.href = base_url;
 }
 
 /**
@@ -178,11 +180,13 @@ function generateBreadCrumbs() {
   var breadcrumbs = url.searchParams.get("bc");
   if (breadcrumbs != null && breadcrumbs != "") {
     var breadcrumbs_display = document.getElementById("breadcrumbs");
-    var crumbs = breadcrumbs.split(";")
+    var crumbs = breadcrumbs.split(";");
 
     // Build url for each reference in the breadcrumbs.
     var base_url = build_choropleth_url(
-      ['statVar', 'perCapita', 'level', 'mdom'], false)
+      ["statVar", "perCapita", "level", "mdom"],
+      false
+    );
     base_url += "&geoId=";
 
     var breadcrumbs_upto = "";
@@ -192,11 +196,11 @@ function generateBreadCrumbs() {
       if (level_ref != "") {
         // TODO(iancostello): How should we sanitize this?
         let curr_url = base_url + level_ref + "&bc=" + breadcrumbs_upto;
-        breadcrumbs_display.innerHTML += 
-          "<a href=\"" + curr_url + "\">" + level_ref +  "</a>" + " > ";
+        breadcrumbs_display.innerHTML +=
+          '<a href="' + curr_url + '">' + level_ref + "</a>" + " > ";
         breadcrumbs_upto += level_ref + ";";
-      } 
+      }
     }
-    breadcrumbs_display.innerHTML += url.searchParams.get("geoId")
+    breadcrumbs_display.innerHTML += url.searchParams.get("geoId");
   }
 }
