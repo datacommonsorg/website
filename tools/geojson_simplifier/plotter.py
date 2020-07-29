@@ -37,11 +37,11 @@ flags.DEFINE_string('simplified_path', default=None,
 def main(_):
     flags.mark_flag_as_required('original_path')
     flags.mark_flag_as_required('simplified_path')
-    complex = gpd.read_file(FLAGS.original_path)
+    original = gpd.read_file(FLAGS.original_path)
     simple = gpd.read_file(FLAGS.simplified_path)
 
-    fig, (ax1, ax2) = plt.subplots(ncols=2, sharex=True, sharey=True)
-    f1 = complex.plot(ax=ax1)
+    _, (ax1, ax2) = plt.subplots(ncols=2, sharex=True, sharey=True)
+    f1 = original.plot(ax=ax1)
     f2 = simple.plot(ax=ax2)
     f1.set_title('Original.')
     f2.set_title('Simplified.')
