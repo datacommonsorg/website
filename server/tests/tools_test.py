@@ -36,6 +36,4 @@ class TestStaticPage(unittest.TestCase):
         assert b"Please select two variables from the left menu" in response.data
 
 
-    def test_choropleth(self):
-        response = app.test_client().get('/tools/choropleth')
-        assert response.status_code == 200
+    #TODO(iancostello):Implement this test once server is linked to client.
