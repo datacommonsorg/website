@@ -102,7 +102,7 @@ function getChildPlaces(dcid) {
  */
 function getSimilarPlaces(dcid: string) {
   return axios
-    .get(`/api/similar-place/${dcid}?stats-var=Count_Person`)
+    .get(`/api/similar-place/Count_Person/${dcid}`)
     .then((resp) => {
       const places = resp.data;
       const result = [dcid];
