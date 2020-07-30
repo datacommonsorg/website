@@ -110,7 +110,8 @@ $menu-line: #5b5e60;
   font-size: 0.95rem;
 }
 
-#drill .checkbox {
+#drill 
+.checkbox {
   cursor: pointer;
   width: 14px;
   height: 14px;
@@ -121,7 +122,8 @@ $menu-line: #5b5e60;
   outline: none;
 }
 
-#drill .checkbox.checked {
+#drill 
+.checkbox.checked {
   background: url("/images/icon-checkbox-checked-light.svg");
 }
 
@@ -154,4 +156,24 @@ sup {
   font-size: 10px;
   color: #999;
   font-weight: bold;
+}
+
+ 
+.checkbox {
+  cursor: pointer;
+  width: 14px;
+  height: 14px;
+  margin-top: 4px;
+  border: 0;
+  background: url("/images/icon-checkbox-light.svg");
+  outline: none;
+}
+
+.checkbox.checked {
+  background: url("/images/icon-checkbox-checked-light.svg");
+}
+
+.perCapita {
+  margin-left: 32px;
+  margin-right: 5px;
 }
