@@ -62,6 +62,7 @@ API_ENDPOINTS = {
     'get_place_obs': '/bulk/place-obs',
     'get_chart_data': '/node/chart-data',
     'get_stats': '/bulk/stats',
+    # TODO(shifucun): switch back to /node/related-places after data switch.
     'get_related_places': '/node/related-locations',
     'get_interesting_places': '/node/interesting-place-aspects',
 }

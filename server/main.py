@@ -251,7 +251,6 @@ def api_ranking(dcid):
         if len(selected_parents) == 3:
             break
     result = collections.defaultdict(list)
-    # TODO(boxu): make the stats_vars in a config.
     for parent in selected_parents:
         stats_var_string = '^'.join(RANKING_STATS.keys())
         response = get_related_place(
@@ -260,7 +259,9 @@ def api_ranking(dcid):
             result[RANKING_STATS[stats_var]].append(
                 {'name': parent_names[parent], 'data': data})
 
-        # Crime
+        # Crime stats var is separted from RANKING_STATS as it uses perCapita
+        # option.
+        # TOOD(shifucun): merge this once https://github.com/datacommonsorg/mixer/issues/262 is fixed.
         crime_statsvar = {
             'Count_CriminalActivities_CombinedCrime': 'Crime per capita'}
         response = get_related_place(
