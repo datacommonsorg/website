@@ -20,6 +20,7 @@ import text_format
 
 MAX_LEVEL = 6
 
+
 def build_tree_recursive(pos, level, pop_obs_spec, stat_vars,
                          parent=None):
     """Recursively build the ui tree"""
@@ -49,18 +50,16 @@ def build_tree_recursive(pos, level, pop_obs_spec, stat_vars,
                 set(pos.properties) < set(c_pos.properties)):
             child_pos.append(c_pos)
 
-    child_values = []
     for sv in stat_vars[pos.key]:
-        if sv.match_ui_node(prop_ui_node) and sv.pv[property_diff] not in child_values:
+        if sv.match_ui_node(prop_ui_node) and sv.pv[property_diff]:
             value_ui_pv = collections.OrderedDict()
             for prop, val in parent_pv.items():
                 value_ui_pv[prop] = val
             value_ui_pv[property_diff] = sv.pv[property_diff]
-            child_values.append(sv.pv[property_diff])
             value_ui_node = util.UiNode(pos, value_ui_pv, False, property_diff)
             value_blob = {
                 'populationType': value_ui_node.pop_type,
-                'sv': sv.dcid ,
+                'sv': sv.dcid,
                 'l': text_format.format_title(value_ui_node.text),
                 't': 'v',
                 'e': value_ui_node.enum,

@@ -134,6 +134,32 @@ def _read_pop_obs_spec():
     return result
 
 
+def removeDuplicateStatsVar(stat_vars):
+    for key in stat_vars:
+        stat_vars_dup = collections.defaultdict(list)
+        for sv in stat_vars[key]:
+            full_key = [sv.pop_type, sv.mprop, sv.stats]
+            for prop, val in sv.pv.items():
+                full_key.append(prop)
+                full_key.append(val)
+            full_key.sort()
+            stat_vars_dup[tuple(full_key)].append(sv)
+        for full_key in stat_vars_dup:
+            if len(stat_vars_dup[full_key]) > 1:
+                human_readable = []
+                for sv in stat_vars_dup[full_key]:
+                    if sv.dcid[0:3] != "dc/":
+                        human_readable.append(sv)
+                if len(human_readable) >= 1:
+                    keep = human_readable[0]
+                else:
+                    keep = stat_vars_dup[full_key][0]
+                for sv in stat_vars_dup[full_key]:
+                    if sv != keep:
+                        stat_vars[sv.key].remove(sv)
+    return stat_vars
+
+
 def _read_stat_var():
     """Read all the statistical variables"""
 
@@ -160,7 +186,12 @@ def _read_stat_var():
     for dcid, triples in sv_triples.items():
         constraint_properties = []
         sv_dict = collections.defaultdict(str)
-        for _, prop, val in triples:
+        for dcid_, prop, val in triples:
+            if dcid_ != dcid:
+                # triples include measurementDenomator info of other statsvars
+                # eg. we will get "dc/gywfwwmg5gsrg, measurementDenominator, Count_Person"
+                # in triples of "Count_Peron"
+                continue
             if prop == "constraintProperties":
                 constraint_properties.append(val)
             else:
@@ -173,17 +204,16 @@ def _read_stat_var():
             prop_val[property] = sv_dict[property]
         if "measurementDenominator" in sv_dict:
             prop_val["md"] = sv_dict["measurementDenominator"]
-        if (dcid == "Count_Person_PerArea"):
-            print(prop_val)
         se = {}  # Super enum
         if 'crimeType' in prop_val:
             v = prop_val.get('crimeType', '')
             if v in ['AggravatedAssault', 'ForcibleRape', 'Robbery',
-                'MurderAndNonNegligentManslaughter']:
+                     'MurderAndNonNegligentManslaughter']:
                 se = {'crimeType': 'ViolentCrime'}
             elif v in ['MotorVehicleTheft', 'LarcenyTheft', 'Burglary']:
                 se = {'crimeType': 'PropertyCrime'}
         sv = StatVar(sv_dict["populationType"], sv_dict["measuredProperty"],
                      sv_dict["statType"], prop_val, dcid, se)
         stat_vars[sv.key].append(sv)
+    stat_vars = removeDuplicateStatsVar(stat_vars)
     return stat_vars

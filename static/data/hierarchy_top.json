@@ -6,7 +6,7 @@
   "c": 1785,
   "cd": [
    {
-    "sv": "dc/cv35g4gzkth83",
+    "sv": "Count_Person",
     "l": "Population",
     "t": "v",
     "c": 1
@@ -139,7 +139,7 @@
     "c": 1
    },
    {
-    "sv": "dc/wvggy8knns1w2",
+    "sv": "Count_Person_InLaborForce",
     "l": "Labor Force",
     "t": "v",
     "c": 1
