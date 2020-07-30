@@ -16,7 +16,7 @@ interface NodePropType {
   statsVarValid: Set<string>;
   filter: boolean;
   idx: number;
-  setName: (statsVarId: string, statsVarName: string) => void;
+  addStatsVarTitle: (statsVarId: string, statsVarName: string) => void;
 }
 
 interface NodeStateType {
@@ -67,7 +67,7 @@ class Node extends Component<NodePropType, NodeStateType> {
             statsVarValid={this.props.statsVarValid}
             filter={this.props.filter}
             idx={index}
-            setName={this.props.setName}
+            addStatsVarTitle={this.props.addStatsVarTitle}
             nodePath={[...this.props.nodePath, index]}
           ></Node>
         );
@@ -137,7 +137,7 @@ class Node extends Component<NodePropType, NodeStateType> {
       if (statsVarPath && statsVarPath[0] === this.props.idx) {
         if (statsVarPath.length === 1) {
           check = true;
-          this.props.setName(this.props.sv, this.props.l);
+          this.props.addStatsVarTitle(this.props.sv, this.props.l);
         } else {
           expand = true;
           statsVarPathNext.push(statsVarPath.slice(1));
@@ -208,21 +208,23 @@ class Node extends Component<NodePropType, NodeStateType> {
 }
 
 interface MenuPropType {
-  search: boolean;
   statsVarPaths: number[][];
   statsVarValid: Set<string>;
   filter: boolean;
-  setName: (statsVarId: string, statsVarName: string) => void;
+  setStatsVarTitle: (statsVarId2Title: { [key: string]: string }) => void;
 }
 interface MenuStateType {
   menuJson: [{}];
 }
 class Menu extends Component<MenuPropType, MenuStateType> {
+  statsVarId2Title: { [key: string]: string }; // {Id: Title}
   constructor(props) {
     super(props);
+    this.addStatsVarTitle = this.addStatsVarTitle.bind(this);
     this.state = {
       menuJson: [hierarchy],
     };
+    this.statsVarId2Title = {};
   }
   render() {
     return (
@@ -244,7 +246,7 @@ class Menu extends Component<MenuPropType, MenuStateType> {
                     statsVarValid={this.props.statsVarValid}
                     filter={this.props.filter}
                     idx={index}
-                    setName={this.props.setName}
+                    addStatsVarTitle={this.addStatsVarTitle}
                     nodePath={[index]}
                   ></Node>
                 )
@@ -261,6 +263,15 @@ class Menu extends Component<MenuPropType, MenuStateType> {
         menuJson: [resp.data],
       });
     });
+  }
+  addStatsVarTitle(id: string, title: string) {
+    this.statsVarId2Title[id] = title;
+    if (
+      Object.keys(this.statsVarId2Title).length ===
+      this.props.statsVarPaths.length
+    ) {
+      this.props.setStatsVarTitle(this.statsVarId2Title);
+    }
   }
 }
 

@@ -45,7 +45,7 @@ class Page extends Component<PagePropType, PageStateType> {
     super(props);
     this.handleHashChange = this.handleHashChange.bind(this);
     this._togglePerCapita = this._togglePerCapita.bind(this);
-    this.setStatsVarNames = this.setStatsVarNames.bind(this);
+    this.setStatsVarTitle = this.setStatsVarTitle.bind(this);
     this.state = {
       statsVarPaths: [],
       statsVarInfo: {},
@@ -53,6 +53,14 @@ class Page extends Component<PagePropType, PageStateType> {
       perCapita: false,
       statsVarValid: new Set(),
     };
+  }
+  shouldComponentUpdate(nextProps, nextState) {
+    return (
+      JSON.stringify(this.state.statsVarInfo) !==
+        JSON.stringify(nextState.statsVarInfo) ||
+      this.state.places !== nextState.places ||
+      this.state.perCapita !== nextState.perCapita
+    );
   }
 
   componentDidMount() {
@@ -107,9 +115,13 @@ class Page extends Component<PagePropType, PageStateType> {
     });
   }
 
-  setStatsVarNames(statsVarId: string, statsVarName: string) {
+  setStatsVarTitle(statsVarId2Title: { [key: string]: string }) {
     const value = this.state.statsVarInfo;
-    value[statsVarId].title = statsVarName;
+    Object.keys(statsVarId2Title).map((id) => {
+      if (id in value) {
+        value[id].title = statsVarId2Title[id];
+      }
+    });
     this.setState({
       statsVarInfo: value,
     });
@@ -125,11 +137,10 @@ class Page extends Component<PagePropType, PageStateType> {
             <button className={this.state.perCapita?"checkbox checked":"checkbox"}
                     onClick={this._togglePerCapita}></button>
             <Menu
-              search={this.props.search}
               statsVarPaths={this.state.statsVarPaths}
               statsVarValid={this.state.statsVarValid}
               filter={this.state.places.length !== 0}
-              setName={this.setStatsVarNames}
+              setStatsVarTitle={this.setStatsVarTitle}
             ></Menu>
           </div>
         </div>
