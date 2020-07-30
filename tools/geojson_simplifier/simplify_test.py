@@ -17,32 +17,71 @@
     Typical usage:
     python3 simplify_test.py
 """
-
 import unittest
 import geojson
 import simplify
+import os
 
-TEST_DATA_DIR = "test-data/"
+TEST_DATA_DIR = "test-data"
 
 
 class GeojsonSimplifierTest(unittest.TestCase):
     def test_california(self):
         simplifier = simplify.GeojsonSimplifier()
-        simplifier.read_geojson(TEST_DATA_DIR + 'cali.geojson')
+        simplifier.read_geojson(os.path.join(TEST_DATA_DIR,
+                                             'california.geojson'))
         simplifier.simplify()
-        result = simplifier.simple_geojson
-        with open(TEST_DATA_DIR + 'cali-simple.geojson', 'r') as f:
+        result = simplifier.geojson
+        file = os.path.join(TEST_DATA_DIR, 'california-simple.geojson')
+        with open(file, 'r') as f:
             expected_result = geojson.load(f)
         self.assertDictEqual(result, expected_result)
 
     def test_alabama(self):
         simplifier = simplify.GeojsonSimplifier()
-        simplifier.read_geojson(TEST_DATA_DIR + 'alabama.geojson')
+        simplifier.read_geojson(os.path.join(TEST_DATA_DIR, 'alabama.geojson'))
         simplifier.simplify()
-        result = simplifier.simple_geojson
-        with open(TEST_DATA_DIR + 'alabama-simple.geojson', 'r') as f:
+        result = simplifier.geojson
+        file = os.path.join(TEST_DATA_DIR, 'alabama-simple.geojson')
+        with open(file, 'r') as f:
             expected_result = geojson.load(f)
         self.assertDictEqual(result, expected_result)
+
+    def test_small_adjustement(self):
+        polygon_ex = {
+            'type': 'Polygon',
+            'coordinates': [
+                [[[1, 1], [2, 2], [3, 3.1], [4, 0]]]
+            ]
+        }
+        polygon_simple_ex = {
+            'type': 'Polygon',
+            'coordinates': [
+                [[[1, 1], [3, 3.1], [4, 0]]]
+            ]
+        }
+        simplifier = simplify.GeojsonSimplifier()
+        simplifier.geojson = polygon_ex
+        simplifier.simplify(epsilon=0.1)
+        self.assertDictEqual(simplifier.geojson, polygon_simple_ex)
+
+    def test_larger_adjustement(self):
+        polygon_ex = {
+            'type': 'Polygon',
+            'coordinates': [
+                [[[1, 0], [2, 5], [3, 0.25], [4, -0.5], [5, 0.1]]]
+            ]
+        }
+        polygon_simple_ex = {
+            'type': 'Polygon',
+            'coordinates': [
+                [[[1, 0], [2, 5], [5, 0.1]]]
+            ]
+        }
+        simplifier = simplify.GeojsonSimplifier()
+        simplifier.geojson = polygon_ex
+        simplifier.simplify(epsilon=2)
+        self.assertDictEqual(simplifier.geojson, polygon_simple_ex)
 
 
 if __name__ == '__main__':
