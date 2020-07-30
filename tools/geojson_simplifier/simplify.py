@@ -74,6 +74,7 @@ class GeojsonSimplifier:
         """Modifies the instance geojson by reducing its number of points.
 
         Runs the Ramer–Douglas–Peucker algorithm to simplify the GeoJSONs.
+        Wikipedia page: wikipedia.org/wiki/Ramer–Douglas–Peucker_algorithm
 
         Args:
             epsilon: The epsilon parameter to the  Ramer–Douglas–Peucker
@@ -83,23 +84,22 @@ class GeojsonSimplifier:
         """
         coords = self.geojson['coordinates']
 
-        original_sz = 0
-        simplified_sz = 0
+        original_size = 0
+        simplified_size = 0
         # Iterate over polygons.
         for i in range(len(coords)):
             assert len(coords[i]) == 1
             c = coords[i][0]
-            original_sz += len(c)
+            original_size += len(c)
             new_c = rdp.rdp(c, epsilon=epsilon)
-            simplified_sz += len(new_c)
+            simplified_size += len(new_c)
             if len(new_c) >= 3:
                 # Simplify the polygon succeeded, not yielding a line
                 coords[i][0] = new_c
 
         if verbose:
-            print(f"Original number of points = {original_sz}.")
-        if verbose:
-            print(f"Simplified number of points = {simplified_sz}.")
+            print(f"Original number of points = {original_size}.")
+            print(f"Simplified number of points = {simplified_size}.")
 
     def save(self, out_path):
         """Saves instance geojson after simplification.
