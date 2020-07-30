@@ -135,27 +135,34 @@ def _read_pop_obs_spec():
 
 
 def removeDuplicateStatsVar(stat_vars):
+    """chose statsVars with human readable dcids when multiple statsvars 
+    have the same triples"""
     for key in stat_vars:
         stat_vars_dup = collections.defaultdict(list)
+        # stat_vars_dup stores the statsvars with same triples 
         for sv in stat_vars[key]:
             full_key = [sv.pop_type, sv.mprop, sv.stats]
             for prop, val in sv.pv.items():
-                full_key.append(prop)
-                full_key.append(val)
+                full_key.extend([prop, val])
             full_key.sort()
             stat_vars_dup[tuple(full_key)].append(sv)
         for full_key in stat_vars_dup:
             if len(stat_vars_dup[full_key]) > 1:
+                # duplicated statsvars found
                 human_readable = []
                 for sv in stat_vars_dup[full_key]:
                     if sv.dcid[0:3] != "dc/":
+                        # found all the human readable ones, 
+                        # i.e. dcid does not start with dc/
                         human_readable.append(sv)
+                # keep one statsvar, prefer the human readable ones
                 if len(human_readable) >= 1:
                     keep = human_readable[0]
                 else:
                     keep = stat_vars_dup[full_key][0]
                 for sv in stat_vars_dup[full_key]:
                     if sv != keep:
+                        # remove other duplicated statsvars
                         stat_vars[sv.key].remove(sv)
     return stat_vars
 

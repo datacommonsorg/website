@@ -136,7 +136,7 @@ def build_tree(v, pop_obs_spec, stat_vars, vertical_idx):
                              'MortalityEvent']):
             for pv0 in root['cd']:
                 # hoist logic will break if multiple 0 pv
-                if (pv0['populationType'] == pos.pop_type and pv0['mprop'] == 'c'):
+                if (pv0['populationType'] == pos.pop_type and pv0['mprop'] == 'count'):
                     if 'cd' not in pv0:
                         pv0['cd'] = []
                     pv0['cd'].append(child)

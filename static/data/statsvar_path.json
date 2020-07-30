@@ -18053,6 +18053,10260 @@
   4,
   0
  ],
+ "Count_Death_Upto1Years": [
+  4,
+  0,
+  0,
+  0
+ ],
+ "Count_Death_Upto1Years_CertainInfectiousParasiticDiseases": [
+  4,
+  0,
+  1,
+  0,
+  0,
+  0
+ ],
+ "Count_Death_Upto1Years_CertainInfectiousParasiticDiseases_Female": [
+  4,
+  0,
+  2,
+  0,
+  1,
+  0,
+  1,
+  0
+ ],
+ "Count_Death_Upto1Years_CertainInfectiousParasiticDiseases_Male": [
+  4,
+  0,
+  2,
+  1,
+  1,
+  0,
+  1,
+  0
+ ],
+ "Count_Death_Upto1Years_CertainInfectiousParasiticDiseases_BlackOrAfricanAmerican": [
+  4,
+  0,
+  3,
+  2,
+  1,
+  0,
+  1,
+  0
+ ],
+ "Count_Death_Upto1Years_CertainInfectiousParasiticDiseases_White": [
+  4,
+  0,
+  3,
+  3,
+  1,
+  0,
+  1,
+  0
+ ],
+ "Count_Death_Upto1Years_Neoplasms": [
+  4,
+  0,
+  1,
+  1,
+  0,
+  0
+ ],
+ "Count_Death_Upto1Years_EndocrineNutritionalMetabolicDiseases": [
+  4,
+  0,
+  1,
+  3,
+  0,
+  0
+ ],
+ "Count_Death_Upto1Years_DiseasesOfTheNervousSystem": [
+  4,
+  0,
+  1,
+  5,
+  0,
+  0
+ ],
+ "Count_Death_Upto1Years_DiseasesOfTheNervousSystem_Female": [
+  4,
+  0,
+  2,
+  0,
+  1,
+  5,
+  1,
+  0
+ ],
+ "Count_Death_Upto1Years_DiseasesOfTheNervousSystem_Male": [
+  4,
+  0,
+  2,
+  1,
+  1,
+  5,
+  1,
+  0
+ ],
+ "Count_Death_Upto1Years_DiseasesOfTheNervousSystem_BlackOrAfricanAmerican": [
+  4,
+  0,
+  3,
+  2,
+  1,
+  5,
+  1,
+  0
+ ],
+ "Count_Death_Upto1Years_DiseasesOfTheNervousSystem_White": [
+  4,
+  0,
+  3,
+  3,
+  1,
+  5,
+  1,
+  0
+ ],
+ "Count_Death_Upto1Years_DiseasesOfTheCirculatorySystem": [
+  4,
+  0,
+  1,
+  6,
+  0,
+  0
+ ],
+ "Count_Death_Upto1Years_DiseasesOfTheCirculatorySystem_Female": [
+  4,
+  0,
+  2,
+  0,
+  1,
+  6,
+  1,
+  0
+ ],
+ "Count_Death_Upto1Years_DiseasesOfTheCirculatorySystem_Male": [
+  4,
+  0,
+  2,
+  1,
+  1,
+  6,
+  1,
+  0
+ ],
+ "Count_Death_Upto1Years_DiseasesOfTheCirculatorySystem_BlackOrAfricanAmerican": [
+  4,
+  0,
+  3,
+  2,
+  1,
+  6,
+  1,
+  0
+ ],
+ "Count_Death_Upto1Years_DiseasesOfTheCirculatorySystem_White": [
+  4,
+  0,
+  3,
+  3,
+  1,
+  6,
+  1,
+  0
+ ],
+ "Count_Death_Upto1Years_DiseasesOfTheRespiratorySystem": [
+  4,
+  0,
+  1,
+  7,
+  0,
+  0
+ ],
+ "Count_Death_Upto1Years_DiseasesOfTheRespiratorySystem_Female": [
+  4,
+  0,
+  2,
+  0,
+  1,
+  7,
+  1,
+  0
+ ],
+ "Count_Death_Upto1Years_DiseasesOfTheRespiratorySystem_Male": [
+  4,
+  0,
+  2,
+  1,
+  1,
+  7,
+  1,
+  0
+ ],
+ "Count_Death_Upto1Years_DiseasesOfTheRespiratorySystem_BlackOrAfricanAmerican": [
+  4,
+  0,
+  3,
+  2,
+  1,
+  7,
+  1,
+  0
+ ],
+ "Count_Death_Upto1Years_DiseasesOfTheRespiratorySystem_White": [
+  4,
+  0,
+  3,
+  3,
+  1,
+  7,
+  1,
+  0
+ ],
+ "Count_Death_Upto1Years_DiseasesOfTheDigestiveSystem": [
+  4,
+  0,
+  1,
+  8,
+  0,
+  0
+ ],
+ "Count_Death_Upto1Years_DiseasesOfTheDigestiveSystem_Male": [
+  4,
+  0,
+  2,
+  1,
+  1,
+  8,
+  1,
+  0
+ ],
+ "Count_Death_Upto1Years_DiseasesOfTheDigestiveSystem_BlackOrAfricanAmerican": [
+  4,
+  0,
+  3,
+  2,
+  1,
+  8,
+  1,
+  0
+ ],
+ "Count_Death_Upto1Years_DiseasesOfTheDigestiveSystem_White": [
+  4,
+  0,
+  3,
+  3,
+  1,
+  8,
+  1,
+  0
+ ],
+ "Count_Death_Upto1Years_DiseasesOfTheGenitourinarySystem": [
+  4,
+  0,
+  1,
+  11,
+  0,
+  0
+ ],
+ "Count_Death_Upto1Years_CertainConditionsOriginatingInThePerinatalPeriod": [
+  4,
+  0,
+  1,
+  13,
+  0,
+  0
+ ],
+ "Count_Death_Upto1Years_CertainConditionsOriginatingInThePerinatalPeriod_Female": [
+  4,
+  0,
+  2,
+  0,
+  1,
+  13,
+  1,
+  0
+ ],
+ "Count_Death_Upto1Years_CertainConditionsOriginatingInThePerinatalPeriod_Male": [
+  4,
+  0,
+  2,
+  1,
+  1,
+  12,
+  1,
+  0
+ ],
+ "Count_Death_Upto1Years_CertainConditionsOriginatingInThePerinatalPeriod_AmericanIndianAndAlaskaNativeAlone": [
+  4,
+  0,
+  3,
+  0,
+  1,
+  10,
+  0,
+  0
+ ],
+ "Count_Death_Upto1Years_CertainConditionsOriginatingInThePerinatalPeriod_AsianOrPacificIslander": [
+  4,
+  0,
+  3,
+  1,
+  1,
+  12,
+  1,
+  0
+ ],
+ "Count_Death_Upto1Years_CertainConditionsOriginatingInThePerinatalPeriod_BlackOrAfricanAmerican": [
+  4,
+  0,
+  3,
+  2,
+  1,
+  13,
+  1,
+  0
+ ],
+ "Count_Death_Upto1Years_CertainConditionsOriginatingInThePerinatalPeriod_White": [
+  4,
+  0,
+  3,
+  3,
+  1,
+  13,
+  1,
+  0
+ ],
+ "Count_Death_Upto1Years_CongenitalMalformationsDeformationsChromosomalAbnormalities": [
+  4,
+  0,
+  1,
+  14,
+  0,
+  0
+ ],
+ "Count_Death_Upto1Years_CongenitalMalformationsDeformationsChromosomalAbnormalities_Female": [
+  4,
+  0,
+  2,
+  0,
+  1,
+  14,
+  1,
+  0
+ ],
+ "Count_Death_Upto1Years_CongenitalMalformationsDeformationsChromosomalAbnormalities_Male": [
+  4,
+  0,
+  2,
+  1,
+  1,
+  13,
+  1,
+  0
+ ],
+ "Count_Death_Upto1Years_CongenitalMalformationsDeformationsChromosomalAbnormalities_AsianOrPacificIslander": [
+  4,
+  0,
+  3,
+  1,
+  1,
+  13,
+  1,
+  0
+ ],
+ "Count_Death_Upto1Years_CongenitalMalformationsDeformationsChromosomalAbnormalities_BlackOrAfricanAmerican": [
+  4,
+  0,
+  3,
+  2,
+  1,
+  14,
+  1,
+  0
+ ],
+ "Count_Death_Upto1Years_CongenitalMalformationsDeformationsChromosomalAbnormalities_White": [
+  4,
+  0,
+  3,
+  3,
+  1,
+  14,
+  1,
+  0
+ ],
+ "Count_Death_Upto1Years_AbnormalNotClassfied": [
+  4,
+  0,
+  1,
+  15,
+  0,
+  0
+ ],
+ "Count_Death_Upto1Years_AbnormalNotClassfied_Female": [
+  4,
+  0,
+  2,
+  0,
+  1,
+  15,
+  1,
+  0
+ ],
+ "Count_Death_Upto1Years_AbnormalNotClassfied_Male": [
+  4,
+  0,
+  2,
+  1,
+  1,
+  14,
+  1,
+  0
+ ],
+ "Count_Death_Upto1Years_AbnormalNotClassfied_AsianOrPacificIslander": [
+  4,
+  0,
+  3,
+  1,
+  1,
+  14,
+  1,
+  0
+ ],
+ "Count_Death_Upto1Years_AbnormalNotClassfied_BlackOrAfricanAmerican": [
+  4,
+  0,
+  3,
+  2,
+  1,
+  15,
+  1,
+  0
+ ],
+ "Count_Death_Upto1Years_AbnormalNotClassfied_White": [
+  4,
+  0,
+  3,
+  3,
+  1,
+  15,
+  1,
+  0
+ ],
+ "Count_Death_Upto1Years_ExternalCauses": [
+  4,
+  0,
+  1,
+  17,
+  0,
+  0
+ ],
+ "Count_Death_Upto1Years_ExternalCauses_Female": [
+  4,
+  0,
+  2,
+  0,
+  1,
+  17,
+  1,
+  0
+ ],
+ "Count_Death_Upto1Years_ExternalCauses_Male": [
+  4,
+  0,
+  2,
+  1,
+  1,
+  16,
+  1,
+  0
+ ],
+ "Count_Death_Upto1Years_ExternalCauses_AsianOrPacificIslander": [
+  4,
+  0,
+  3,
+  1,
+  1,
+  16,
+  1,
+  0
+ ],
+ "Count_Death_Upto1Years_ExternalCauses_BlackOrAfricanAmerican": [
+  4,
+  0,
+  3,
+  2,
+  1,
+  17,
+  1,
+  0
+ ],
+ "Count_Death_Upto1Years_ExternalCauses_White": [
+  4,
+  0,
+  3,
+  3,
+  1,
+  17,
+  1,
+  0
+ ],
+ "Count_Death_Upto1Years_Female": [
+  4,
+  0,
+  2,
+  0,
+  0,
+  0
+ ],
+ "Count_Death_Upto1Years_Female_AmericanIndianAndAlaskaNativeAlone": [
+  4,
+  0,
+  3,
+  0,
+  2,
+  0,
+  1,
+  0
+ ],
+ "Count_Death_Upto1Years_Female_AsianOrPacificIslander": [
+  4,
+  0,
+  3,
+  1,
+  2,
+  0,
+  1,
+  0
+ ],
+ "Count_Death_Upto1Years_Female_BlackOrAfricanAmerican": [
+  4,
+  0,
+  3,
+  2,
+  2,
+  0,
+  1,
+  0
+ ],
+ "Count_Death_Upto1Years_Female_White": [
+  4,
+  0,
+  3,
+  3,
+  2,
+  0,
+  1,
+  0
+ ],
+ "Count_Death_Upto1Years_Male": [
+  4,
+  0,
+  2,
+  1,
+  0,
+  0
+ ],
+ "Count_Death_Upto1Years_Male_AmericanIndianAndAlaskaNativeAlone": [
+  4,
+  0,
+  3,
+  0,
+  2,
+  1,
+  1,
+  0
+ ],
+ "Count_Death_Upto1Years_Male_AsianOrPacificIslander": [
+  4,
+  0,
+  3,
+  1,
+  2,
+  1,
+  1,
+  0
+ ],
+ "Count_Death_Upto1Years_Male_BlackOrAfricanAmerican": [
+  4,
+  0,
+  3,
+  2,
+  2,
+  1,
+  1,
+  0
+ ],
+ "Count_Death_Upto1Years_Male_White": [
+  4,
+  0,
+  3,
+  3,
+  2,
+  1,
+  1,
+  0
+ ],
+ "Count_Death_Upto1Years_AmericanIndianAndAlaskaNativeAlone": [
+  4,
+  0,
+  3,
+  0,
+  0,
+  0
+ ],
+ "Count_Death_Upto1Years_AsianOrPacificIslander": [
+  4,
+  0,
+  3,
+  1,
+  0,
+  0
+ ],
+ "Count_Death_Upto1Years_BlackOrAfricanAmerican": [
+  4,
+  0,
+  3,
+  2,
+  0,
+  0
+ ],
+ "Count_Death_Upto1Years_White": [
+  4,
+  0,
+  3,
+  3,
+  0,
+  0
+ ],
+ "Count_Death_1To4Years": [
+  4,
+  0,
+  0,
+  1
+ ],
+ "Count_Death_1To4Years_CertainInfectiousParasiticDiseases": [
+  4,
+  0,
+  1,
+  0,
+  0,
+  1
+ ],
+ "Count_Death_1To4Years_Neoplasms": [
+  4,
+  0,
+  1,
+  1,
+  0,
+  1
+ ],
+ "Count_Death_1To4Years_Neoplasms_Female": [
+  4,
+  0,
+  2,
+  0,
+  1,
+  1,
+  1,
+  0
+ ],
+ "Count_Death_1To4Years_Neoplasms_Male": [
+  4,
+  0,
+  2,
+  1,
+  1,
+  1,
+  1,
+  0
+ ],
+ "Count_Death_1To4Years_Neoplasms_White": [
+  4,
+  0,
+  3,
+  3,
+  1,
+  1,
+  1,
+  0
+ ],
+ "Count_Death_1To4Years_DiseasesOfTheNervousSystem": [
+  4,
+  0,
+  1,
+  5,
+  0,
+  1
+ ],
+ "Count_Death_1To4Years_DiseasesOfTheNervousSystem_Male": [
+  4,
+  0,
+  2,
+  1,
+  1,
+  5,
+  1,
+  1
+ ],
+ "Count_Death_1To4Years_DiseasesOfTheNervousSystem_White": [
+  4,
+  0,
+  3,
+  3,
+  1,
+  5,
+  1,
+  1
+ ],
+ "Count_Death_1To4Years_DiseasesOfTheCirculatorySystem": [
+  4,
+  0,
+  1,
+  6,
+  0,
+  1
+ ],
+ "Count_Death_1To4Years_DiseasesOfTheRespiratorySystem": [
+  4,
+  0,
+  1,
+  7,
+  0,
+  1
+ ],
+ "Count_Death_1To4Years_DiseasesOfTheRespiratorySystem_Female": [
+  4,
+  0,
+  2,
+  0,
+  1,
+  7,
+  1,
+  1
+ ],
+ "Count_Death_1To4Years_DiseasesOfTheRespiratorySystem_White": [
+  4,
+  0,
+  3,
+  3,
+  1,
+  7,
+  1,
+  1
+ ],
+ "Count_Death_1To4Years_CongenitalMalformationsDeformationsChromosomalAbnormalities": [
+  4,
+  0,
+  1,
+  14,
+  0,
+  1
+ ],
+ "Count_Death_1To4Years_CongenitalMalformationsDeformationsChromosomalAbnormalities_Female": [
+  4,
+  0,
+  2,
+  0,
+  1,
+  14,
+  1,
+  1
+ ],
+ "Count_Death_1To4Years_CongenitalMalformationsDeformationsChromosomalAbnormalities_Male": [
+  4,
+  0,
+  2,
+  1,
+  1,
+  13,
+  1,
+  1
+ ],
+ "Count_Death_1To4Years_CongenitalMalformationsDeformationsChromosomalAbnormalities_BlackOrAfricanAmerican": [
+  4,
+  0,
+  3,
+  2,
+  1,
+  14,
+  1,
+  1
+ ],
+ "Count_Death_1To4Years_CongenitalMalformationsDeformationsChromosomalAbnormalities_White": [
+  4,
+  0,
+  3,
+  3,
+  1,
+  14,
+  1,
+  1
+ ],
+ "Count_Death_1To4Years_AbnormalNotClassfied": [
+  4,
+  0,
+  1,
+  15,
+  0,
+  1
+ ],
+ "Count_Death_1To4Years_AbnormalNotClassfied_Female": [
+  4,
+  0,
+  2,
+  0,
+  1,
+  15,
+  1,
+  1
+ ],
+ "Count_Death_1To4Years_AbnormalNotClassfied_White": [
+  4,
+  0,
+  3,
+  3,
+  1,
+  15,
+  1,
+  1
+ ],
+ "Count_Death_1To4Years_ExternalCauses": [
+  4,
+  0,
+  1,
+  17,
+  0,
+  1
+ ],
+ "Count_Death_1To4Years_ExternalCauses_Female": [
+  4,
+  0,
+  2,
+  0,
+  1,
+  17,
+  1,
+  1
+ ],
+ "Count_Death_1To4Years_ExternalCauses_Male": [
+  4,
+  0,
+  2,
+  1,
+  1,
+  16,
+  1,
+  1
+ ],
+ "Count_Death_1To4Years_ExternalCauses_BlackOrAfricanAmerican": [
+  4,
+  0,
+  3,
+  2,
+  1,
+  17,
+  1,
+  1
+ ],
+ "Count_Death_1To4Years_ExternalCauses_White": [
+  4,
+  0,
+  3,
+  3,
+  1,
+  17,
+  1,
+  1
+ ],
+ "Count_Death_1To4Years_Female": [
+  4,
+  0,
+  2,
+  0,
+  0,
+  1
+ ],
+ "Count_Death_1To4Years_Female_AsianOrPacificIslander": [
+  4,
+  0,
+  3,
+  1,
+  2,
+  0,
+  1,
+  1
+ ],
+ "Count_Death_1To4Years_Female_BlackOrAfricanAmerican": [
+  4,
+  0,
+  3,
+  2,
+  2,
+  0,
+  1,
+  1
+ ],
+ "Count_Death_1To4Years_Female_White": [
+  4,
+  0,
+  3,
+  3,
+  2,
+  0,
+  1,
+  1
+ ],
+ "Count_Death_1To4Years_Male": [
+  4,
+  0,
+  2,
+  1,
+  0,
+  1
+ ],
+ "Count_Death_1To4Years_Male_AsianOrPacificIslander": [
+  4,
+  0,
+  3,
+  1,
+  2,
+  1,
+  1,
+  1
+ ],
+ "Count_Death_1To4Years_Male_BlackOrAfricanAmerican": [
+  4,
+  0,
+  3,
+  2,
+  2,
+  1,
+  1,
+  1
+ ],
+ "Count_Death_1To4Years_Male_White": [
+  4,
+  0,
+  3,
+  3,
+  2,
+  1,
+  1,
+  1
+ ],
+ "Count_Death_1To4Years_AsianOrPacificIslander": [
+  4,
+  0,
+  3,
+  1,
+  0,
+  1
+ ],
+ "Count_Death_1To4Years_BlackOrAfricanAmerican": [
+  4,
+  0,
+  3,
+  2,
+  0,
+  1
+ ],
+ "Count_Death_1To4Years_White": [
+  4,
+  0,
+  3,
+  3,
+  0,
+  1
+ ],
+ "Count_Death_5To14Years": [
+  4,
+  0,
+  0,
+  2
+ ],
+ "Count_Death_5To14Years_CertainInfectiousParasiticDiseases": [
+  4,
+  0,
+  1,
+  0,
+  0,
+  2
+ ],
+ "Count_Death_5To14Years_Neoplasms": [
+  4,
+  0,
+  1,
+  1,
+  0,
+  2
+ ],
+ "Count_Death_5To14Years_Neoplasms_Female": [
+  4,
+  0,
+  2,
+  0,
+  1,
+  1,
+  1,
+  1
+ ],
+ "Count_Death_5To14Years_Neoplasms_Male": [
+  4,
+  0,
+  2,
+  1,
+  1,
+  1,
+  1,
+  1
+ ],
+ "Count_Death_5To14Years_Neoplasms_BlackOrAfricanAmerican": [
+  4,
+  0,
+  3,
+  2,
+  1,
+  1,
+  1,
+  0
+ ],
+ "Count_Death_5To14Years_Neoplasms_White": [
+  4,
+  0,
+  3,
+  3,
+  1,
+  1,
+  1,
+  1
+ ],
+ "Count_Death_5To14Years_EndocrineNutritionalMetabolicDiseases": [
+  4,
+  0,
+  1,
+  3,
+  0,
+  1
+ ],
+ "Count_Death_5To14Years_EndocrineNutritionalMetabolicDiseases_White": [
+  4,
+  0,
+  3,
+  3,
+  1,
+  3,
+  1,
+  0
+ ],
+ "Count_Death_5To14Years_DiseasesOfTheNervousSystem": [
+  4,
+  0,
+  1,
+  5,
+  0,
+  2
+ ],
+ "Count_Death_5To14Years_DiseasesOfTheNervousSystem_Female": [
+  4,
+  0,
+  2,
+  0,
+  1,
+  5,
+  1,
+  1
+ ],
+ "Count_Death_5To14Years_DiseasesOfTheNervousSystem_Male": [
+  4,
+  0,
+  2,
+  1,
+  1,
+  5,
+  1,
+  2
+ ],
+ "Count_Death_5To14Years_DiseasesOfTheNervousSystem_BlackOrAfricanAmerican": [
+  4,
+  0,
+  3,
+  2,
+  1,
+  5,
+  1,
+  1
+ ],
+ "Count_Death_5To14Years_DiseasesOfTheNervousSystem_White": [
+  4,
+  0,
+  3,
+  3,
+  1,
+  5,
+  1,
+  2
+ ],
+ "Count_Death_5To14Years_DiseasesOfTheCirculatorySystem": [
+  4,
+  0,
+  1,
+  6,
+  0,
+  2
+ ],
+ "Count_Death_5To14Years_DiseasesOfTheCirculatorySystem_Female": [
+  4,
+  0,
+  2,
+  0,
+  1,
+  6,
+  1,
+  1
+ ],
+ "Count_Death_5To14Years_DiseasesOfTheCirculatorySystem_White": [
+  4,
+  0,
+  3,
+  3,
+  1,
+  6,
+  1,
+  1
+ ],
+ "Count_Death_5To14Years_DiseasesOfTheRespiratorySystem": [
+  4,
+  0,
+  1,
+  7,
+  0,
+  2
+ ],
+ "Count_Death_5To14Years_DiseasesOfTheRespiratorySystem_Male": [
+  4,
+  0,
+  2,
+  1,
+  1,
+  7,
+  1,
+  1
+ ],
+ "Count_Death_5To14Years_DiseasesOfTheRespiratorySystem_BlackOrAfricanAmerican": [
+  4,
+  0,
+  3,
+  2,
+  1,
+  7,
+  1,
+  1
+ ],
+ "Count_Death_5To14Years_DiseasesOfTheDigestiveSystem": [
+  4,
+  0,
+  1,
+  8,
+  0,
+  1
+ ],
+ "Count_Death_5To14Years_CongenitalMalformationsDeformationsChromosomalAbnormalities": [
+  4,
+  0,
+  1,
+  14,
+  0,
+  2
+ ],
+ "Count_Death_5To14Years_CongenitalMalformationsDeformationsChromosomalAbnormalities_Female": [
+  4,
+  0,
+  2,
+  0,
+  1,
+  14,
+  1,
+  2
+ ],
+ "Count_Death_5To14Years_CongenitalMalformationsDeformationsChromosomalAbnormalities_Male": [
+  4,
+  0,
+  2,
+  1,
+  1,
+  13,
+  1,
+  2
+ ],
+ "Count_Death_5To14Years_CongenitalMalformationsDeformationsChromosomalAbnormalities_White": [
+  4,
+  0,
+  3,
+  3,
+  1,
+  14,
+  1,
+  2
+ ],
+ "Count_Death_5To14Years_AbnormalNotClassfied": [
+  4,
+  0,
+  1,
+  15,
+  0,
+  2
+ ],
+ "Count_Death_5To14Years_AbnormalNotClassfied_White": [
+  4,
+  0,
+  3,
+  3,
+  1,
+  15,
+  1,
+  2
+ ],
+ "Count_Death_5To14Years_ExternalCauses": [
+  4,
+  0,
+  1,
+  17,
+  0,
+  2
+ ],
+ "Count_Death_5To14Years_ExternalCauses_Female": [
+  4,
+  0,
+  2,
+  0,
+  1,
+  17,
+  1,
+  2
+ ],
+ "Count_Death_5To14Years_ExternalCauses_Male": [
+  4,
+  0,
+  2,
+  1,
+  1,
+  16,
+  1,
+  2
+ ],
+ "Count_Death_5To14Years_ExternalCauses_AmericanIndianAndAlaskaNativeAlone": [
+  4,
+  0,
+  3,
+  0,
+  1,
+  12,
+  1,
+  0
+ ],
+ "Count_Death_5To14Years_ExternalCauses_AsianOrPacificIslander": [
+  4,
+  0,
+  3,
+  1,
+  1,
+  16,
+  1,
+  1
+ ],
+ "Count_Death_5To14Years_ExternalCauses_BlackOrAfricanAmerican": [
+  4,
+  0,
+  3,
+  2,
+  1,
+  17,
+  1,
+  2
+ ],
+ "Count_Death_5To14Years_ExternalCauses_White": [
+  4,
+  0,
+  3,
+  3,
+  1,
+  17,
+  1,
+  2
+ ],
+ "Count_Death_5To14Years_Female": [
+  4,
+  0,
+  2,
+  0,
+  0,
+  2
+ ],
+ "Count_Death_5To14Years_Female_AsianOrPacificIslander": [
+  4,
+  0,
+  3,
+  1,
+  2,
+  0,
+  1,
+  2
+ ],
+ "Count_Death_5To14Years_Female_BlackOrAfricanAmerican": [
+  4,
+  0,
+  3,
+  2,
+  2,
+  0,
+  1,
+  2
+ ],
+ "Count_Death_5To14Years_Female_White": [
+  4,
+  0,
+  3,
+  3,
+  2,
+  0,
+  1,
+  2
+ ],
+ "Count_Death_5To14Years_Male": [
+  4,
+  0,
+  2,
+  1,
+  0,
+  2
+ ],
+ "Count_Death_5To14Years_Male_AsianOrPacificIslander": [
+  4,
+  0,
+  3,
+  1,
+  2,
+  1,
+  1,
+  2
+ ],
+ "Count_Death_5To14Years_Male_BlackOrAfricanAmerican": [
+  4,
+  0,
+  3,
+  2,
+  2,
+  1,
+  1,
+  2
+ ],
+ "Count_Death_5To14Years_Male_White": [
+  4,
+  0,
+  3,
+  3,
+  2,
+  1,
+  1,
+  2
+ ],
+ "Count_Death_5To14Years_AmericanIndianAndAlaskaNativeAlone": [
+  4,
+  0,
+  3,
+  0,
+  0,
+  1
+ ],
+ "Count_Death_5To14Years_AsianOrPacificIslander": [
+  4,
+  0,
+  3,
+  1,
+  0,
+  2
+ ],
+ "Count_Death_5To14Years_BlackOrAfricanAmerican": [
+  4,
+  0,
+  3,
+  2,
+  0,
+  2
+ ],
+ "Count_Death_5To14Years_White": [
+  4,
+  0,
+  3,
+  3,
+  0,
+  2
+ ],
+ "Count_Death_15To24Years": [
+  4,
+  0,
+  0,
+  3
+ ],
+ "Count_Death_15To24Years_CertainInfectiousParasiticDiseases": [
+  4,
+  0,
+  1,
+  0,
+  0,
+  3
+ ],
+ "Count_Death_15To24Years_CertainInfectiousParasiticDiseases_Female": [
+  4,
+  0,
+  2,
+  0,
+  1,
+  0,
+  1,
+  1
+ ],
+ "Count_Death_15To24Years_CertainInfectiousParasiticDiseases_Male": [
+  4,
+  0,
+  2,
+  1,
+  1,
+  0,
+  1,
+  1
+ ],
+ "Count_Death_15To24Years_CertainInfectiousParasiticDiseases_BlackOrAfricanAmerican": [
+  4,
+  0,
+  3,
+  2,
+  1,
+  0,
+  1,
+  1
+ ],
+ "Count_Death_15To24Years_CertainInfectiousParasiticDiseases_White": [
+  4,
+  0,
+  3,
+  3,
+  1,
+  0,
+  1,
+  1
+ ],
+ "Count_Death_15To24Years_Neoplasms": [
+  4,
+  0,
+  1,
+  1,
+  0,
+  3
+ ],
+ "Count_Death_15To24Years_Neoplasms_Female": [
+  4,
+  0,
+  2,
+  0,
+  1,
+  1,
+  1,
+  2
+ ],
+ "Count_Death_15To24Years_Neoplasms_Male": [
+  4,
+  0,
+  2,
+  1,
+  1,
+  1,
+  1,
+  2
+ ],
+ "Count_Death_15To24Years_Neoplasms_AsianOrPacificIslander": [
+  4,
+  0,
+  3,
+  1,
+  1,
+  1,
+  1,
+  0
+ ],
+ "Count_Death_15To24Years_Neoplasms_BlackOrAfricanAmerican": [
+  4,
+  0,
+  3,
+  2,
+  1,
+  1,
+  1,
+  1
+ ],
+ "Count_Death_15To24Years_Neoplasms_White": [
+  4,
+  0,
+  3,
+  3,
+  1,
+  1,
+  1,
+  2
+ ],
+ "Count_Death_15To24Years_EndocrineNutritionalMetabolicDiseases": [
+  4,
+  0,
+  1,
+  3,
+  0,
+  2
+ ],
+ "Count_Death_15To24Years_EndocrineNutritionalMetabolicDiseases_Female": [
+  4,
+  0,
+  2,
+  0,
+  1,
+  3,
+  1,
+  0
+ ],
+ "Count_Death_15To24Years_EndocrineNutritionalMetabolicDiseases_Male": [
+  4,
+  0,
+  2,
+  1,
+  1,
+  3,
+  1,
+  0
+ ],
+ "Count_Death_15To24Years_EndocrineNutritionalMetabolicDiseases_White": [
+  4,
+  0,
+  3,
+  3,
+  1,
+  3,
+  1,
+  1
+ ],
+ "Count_Death_15To24Years_MentalBehaviouralDisorders": [
+  4,
+  0,
+  1,
+  4,
+  0,
+  0
+ ],
+ "Count_Death_15To24Years_MentalBehaviouralDisorders_Male": [
+  4,
+  0,
+  2,
+  1,
+  1,
+  4,
+  1,
+  0
+ ],
+ "Count_Death_15To24Years_MentalBehaviouralDisorders_White": [
+  4,
+  0,
+  3,
+  3,
+  1,
+  4,
+  1,
+  0
+ ],
+ "Count_Death_15To24Years_DiseasesOfTheNervousSystem": [
+  4,
+  0,
+  1,
+  5,
+  0,
+  3
+ ],
+ "Count_Death_15To24Years_DiseasesOfTheNervousSystem_Female": [
+  4,
+  0,
+  2,
+  0,
+  1,
+  5,
+  1,
+  2
+ ],
+ "Count_Death_15To24Years_DiseasesOfTheNervousSystem_Male": [
+  4,
+  0,
+  2,
+  1,
+  1,
+  5,
+  1,
+  3
+ ],
+ "Count_Death_15To24Years_DiseasesOfTheNervousSystem_BlackOrAfricanAmerican": [
+  4,
+  0,
+  3,
+  2,
+  1,
+  5,
+  1,
+  2
+ ],
+ "Count_Death_15To24Years_DiseasesOfTheNervousSystem_White": [
+  4,
+  0,
+  3,
+  3,
+  1,
+  5,
+  1,
+  3
+ ],
+ "Count_Death_15To24Years_DiseasesOfTheCirculatorySystem": [
+  4,
+  0,
+  1,
+  6,
+  0,
+  3
+ ],
+ "Count_Death_15To24Years_DiseasesOfTheCirculatorySystem_Female": [
+  4,
+  0,
+  2,
+  0,
+  1,
+  6,
+  1,
+  2
+ ],
+ "Count_Death_15To24Years_DiseasesOfTheCirculatorySystem_Male": [
+  4,
+  0,
+  2,
+  1,
+  1,
+  6,
+  1,
+  1
+ ],
+ "Count_Death_15To24Years_DiseasesOfTheCirculatorySystem_BlackOrAfricanAmerican": [
+  4,
+  0,
+  3,
+  2,
+  1,
+  6,
+  1,
+  1
+ ],
+ "Count_Death_15To24Years_DiseasesOfTheCirculatorySystem_White": [
+  4,
+  0,
+  3,
+  3,
+  1,
+  6,
+  1,
+  2
+ ],
+ "Count_Death_15To24Years_DiseasesOfTheRespiratorySystem": [
+  4,
+  0,
+  1,
+  7,
+  0,
+  3
+ ],
+ "Count_Death_15To24Years_DiseasesOfTheRespiratorySystem_Female": [
+  4,
+  0,
+  2,
+  0,
+  1,
+  7,
+  1,
+  2
+ ],
+ "Count_Death_15To24Years_DiseasesOfTheRespiratorySystem_Male": [
+  4,
+  0,
+  2,
+  1,
+  1,
+  7,
+  1,
+  2
+ ],
+ "Count_Death_15To24Years_DiseasesOfTheRespiratorySystem_BlackOrAfricanAmerican": [
+  4,
+  0,
+  3,
+  2,
+  1,
+  7,
+  1,
+  2
+ ],
+ "Count_Death_15To24Years_DiseasesOfTheRespiratorySystem_White": [
+  4,
+  0,
+  3,
+  3,
+  1,
+  7,
+  1,
+  2
+ ],
+ "Count_Death_15To24Years_DiseasesOfTheDigestiveSystem": [
+  4,
+  0,
+  1,
+  8,
+  0,
+  2
+ ],
+ "Count_Death_15To24Years_DiseasesOfTheDigestiveSystem_White": [
+  4,
+  0,
+  3,
+  3,
+  1,
+  8,
+  1,
+  1
+ ],
+ "Count_Death_15To24Years_DiseasesOfTheMusculoskeletalSystemConnectiveTissue": [
+  4,
+  0,
+  1,
+  10,
+  0,
+  0
+ ],
+ "Count_Death_15To24Years_DiseasesOfTheMusculoskeletalSystemConnectiveTissue_Female": [
+  4,
+  0,
+  2,
+  0,
+  1,
+  10,
+  1,
+  0
+ ],
+ "Count_Death_15To24Years_CongenitalMalformationsDeformationsChromosomalAbnormalities": [
+  4,
+  0,
+  1,
+  14,
+  0,
+  3
+ ],
+ "Count_Death_15To24Years_CongenitalMalformationsDeformationsChromosomalAbnormalities_Male": [
+  4,
+  0,
+  2,
+  1,
+  1,
+  13,
+  1,
+  3
+ ],
+ "Count_Death_15To24Years_CongenitalMalformationsDeformationsChromosomalAbnormalities_White": [
+  4,
+  0,
+  3,
+  3,
+  1,
+  14,
+  1,
+  3
+ ],
+ "Count_Death_15To24Years_AbnormalNotClassfied": [
+  4,
+  0,
+  1,
+  15,
+  0,
+  3
+ ],
+ "Count_Death_15To24Years_AbnormalNotClassfied_Female": [
+  4,
+  0,
+  2,
+  0,
+  1,
+  15,
+  1,
+  2
+ ],
+ "Count_Death_15To24Years_AbnormalNotClassfied_Male": [
+  4,
+  0,
+  2,
+  1,
+  1,
+  14,
+  1,
+  1
+ ],
+ "Count_Death_15To24Years_AbnormalNotClassfied_BlackOrAfricanAmerican": [
+  4,
+  0,
+  3,
+  2,
+  1,
+  15,
+  1,
+  1
+ ],
+ "Count_Death_15To24Years_AbnormalNotClassfied_White": [
+  4,
+  0,
+  3,
+  3,
+  1,
+  15,
+  1,
+  3
+ ],
+ "Count_Death_15To24Years_SpecialCases": [
+  4,
+  0,
+  1,
+  16,
+  0,
+  0
+ ],
+ "Count_Death_15To24Years_SpecialCases_Male": [
+  4,
+  0,
+  2,
+  1,
+  1,
+  15,
+  1,
+  0
+ ],
+ "Count_Death_15To24Years_SpecialCases_White": [
+  4,
+  0,
+  3,
+  3,
+  1,
+  16,
+  1,
+  0
+ ],
+ "Count_Death_15To24Years_ExternalCauses": [
+  4,
+  0,
+  1,
+  17,
+  0,
+  3
+ ],
+ "Count_Death_15To24Years_ExternalCauses_Female": [
+  4,
+  0,
+  2,
+  0,
+  1,
+  17,
+  1,
+  3
+ ],
+ "Count_Death_15To24Years_ExternalCauses_Male": [
+  4,
+  0,
+  2,
+  1,
+  1,
+  16,
+  1,
+  3
+ ],
+ "Count_Death_15To24Years_ExternalCauses_AmericanIndianAndAlaskaNativeAlone": [
+  4,
+  0,
+  3,
+  0,
+  1,
+  12,
+  1,
+  1
+ ],
+ "Count_Death_15To24Years_ExternalCauses_AsianOrPacificIslander": [
+  4,
+  0,
+  3,
+  1,
+  1,
+  16,
+  1,
+  2
+ ],
+ "Count_Death_15To24Years_ExternalCauses_BlackOrAfricanAmerican": [
+  4,
+  0,
+  3,
+  2,
+  1,
+  17,
+  1,
+  3
+ ],
+ "Count_Death_15To24Years_ExternalCauses_White": [
+  4,
+  0,
+  3,
+  3,
+  1,
+  17,
+  1,
+  3
+ ],
+ "Count_Death_15To24Years_Female": [
+  4,
+  0,
+  2,
+  0,
+  0,
+  3
+ ],
+ "Count_Death_15To24Years_Female_AmericanIndianAndAlaskaNativeAlone": [
+  4,
+  0,
+  3,
+  0,
+  2,
+  0,
+  1,
+  1
+ ],
+ "Count_Death_15To24Years_Female_AsianOrPacificIslander": [
+  4,
+  0,
+  3,
+  1,
+  2,
+  0,
+  1,
+  3
+ ],
+ "Count_Death_15To24Years_Female_BlackOrAfricanAmerican": [
+  4,
+  0,
+  3,
+  2,
+  2,
+  0,
+  1,
+  3
+ ],
+ "Count_Death_15To24Years_Female_White": [
+  4,
+  0,
+  3,
+  3,
+  2,
+  0,
+  1,
+  3
+ ],
+ "Count_Death_15To24Years_Male": [
+  4,
+  0,
+  2,
+  1,
+  0,
+  3
+ ],
+ "Count_Death_15To24Years_Male_AmericanIndianAndAlaskaNativeAlone": [
+  4,
+  0,
+  3,
+  0,
+  2,
+  1,
+  1,
+  1
+ ],
+ "Count_Death_15To24Years_Male_AsianOrPacificIslander": [
+  4,
+  0,
+  3,
+  1,
+  2,
+  1,
+  1,
+  3
+ ],
+ "Count_Death_15To24Years_Male_BlackOrAfricanAmerican": [
+  4,
+  0,
+  3,
+  2,
+  2,
+  1,
+  1,
+  3
+ ],
+ "Count_Death_15To24Years_Male_White": [
+  4,
+  0,
+  3,
+  3,
+  2,
+  1,
+  1,
+  3
+ ],
+ "Count_Death_15To24Years_AmericanIndianAndAlaskaNativeAlone": [
+  4,
+  0,
+  3,
+  0,
+  0,
+  2
+ ],
+ "Count_Death_15To24Years_AsianOrPacificIslander": [
+  4,
+  0,
+  3,
+  1,
+  0,
+  3
+ ],
+ "Count_Death_15To24Years_BlackOrAfricanAmerican": [
+  4,
+  0,
+  3,
+  2,
+  0,
+  3
+ ],
+ "Count_Death_15To24Years_White": [
+  4,
+  0,
+  3,
+  3,
+  0,
+  3
+ ],
+ "Count_Death_25To34Years": [
+  4,
+  0,
+  0,
+  4
+ ],
+ "Count_Death_25To34Years_CertainInfectiousParasiticDiseases": [
+  4,
+  0,
+  1,
+  0,
+  0,
+  4
+ ],
+ "Count_Death_25To34Years_CertainInfectiousParasiticDiseases_Female": [
+  4,
+  0,
+  2,
+  0,
+  1,
+  0,
+  1,
+  2
+ ],
+ "Count_Death_25To34Years_CertainInfectiousParasiticDiseases_Male": [
+  4,
+  0,
+  2,
+  1,
+  1,
+  0,
+  1,
+  2
+ ],
+ "Count_Death_25To34Years_CertainInfectiousParasiticDiseases_BlackOrAfricanAmerican": [
+  4,
+  0,
+  3,
+  2,
+  1,
+  0,
+  1,
+  2
+ ],
+ "Count_Death_25To34Years_CertainInfectiousParasiticDiseases_White": [
+  4,
+  0,
+  3,
+  3,
+  1,
+  0,
+  1,
+  2
+ ],
+ "Count_Death_25To34Years_Neoplasms": [
+  4,
+  0,
+  1,
+  1,
+  0,
+  4
+ ],
+ "Count_Death_25To34Years_Neoplasms_Female": [
+  4,
+  0,
+  2,
+  0,
+  1,
+  1,
+  1,
+  3
+ ],
+ "Count_Death_25To34Years_Neoplasms_Male": [
+  4,
+  0,
+  2,
+  1,
+  1,
+  1,
+  1,
+  3
+ ],
+ "Count_Death_25To34Years_Neoplasms_AsianOrPacificIslander": [
+  4,
+  0,
+  3,
+  1,
+  1,
+  1,
+  1,
+  1
+ ],
+ "Count_Death_25To34Years_Neoplasms_BlackOrAfricanAmerican": [
+  4,
+  0,
+  3,
+  2,
+  1,
+  1,
+  1,
+  2
+ ],
+ "Count_Death_25To34Years_Neoplasms_White": [
+  4,
+  0,
+  3,
+  3,
+  1,
+  1,
+  1,
+  3
+ ],
+ "Count_Death_25To34Years_DiseasesOfBloodAndBloodFormingOrgansAndImmuneDisorders": [
+  4,
+  0,
+  1,
+  2,
+  0,
+  0
+ ],
+ "Count_Death_25To34Years_DiseasesOfBloodAndBloodFormingOrgansAndImmuneDisorders_BlackOrAfricanAmerican": [
+  4,
+  0,
+  3,
+  2,
+  1,
+  2,
+  1,
+  0
+ ],
+ "Count_Death_25To34Years_EndocrineNutritionalMetabolicDiseases": [
+  4,
+  0,
+  1,
+  3,
+  0,
+  3
+ ],
+ "Count_Death_25To34Years_EndocrineNutritionalMetabolicDiseases_Female": [
+  4,
+  0,
+  2,
+  0,
+  1,
+  3,
+  1,
+  1
+ ],
+ "Count_Death_25To34Years_EndocrineNutritionalMetabolicDiseases_Male": [
+  4,
+  0,
+  2,
+  1,
+  1,
+  3,
+  1,
+  1
+ ],
+ "Count_Death_25To34Years_EndocrineNutritionalMetabolicDiseases_BlackOrAfricanAmerican": [
+  4,
+  0,
+  3,
+  2,
+  1,
+  3,
+  1,
+  0
+ ],
+ "Count_Death_25To34Years_EndocrineNutritionalMetabolicDiseases_White": [
+  4,
+  0,
+  3,
+  3,
+  1,
+  3,
+  1,
+  2
+ ],
+ "Count_Death_25To34Years_MentalBehaviouralDisorders": [
+  4,
+  0,
+  1,
+  4,
+  0,
+  1
+ ],
+ "Count_Death_25To34Years_MentalBehaviouralDisorders_Female": [
+  4,
+  0,
+  2,
+  0,
+  1,
+  4,
+  1,
+  0
+ ],
+ "Count_Death_25To34Years_MentalBehaviouralDisorders_Male": [
+  4,
+  0,
+  2,
+  1,
+  1,
+  4,
+  1,
+  1
+ ],
+ "Count_Death_25To34Years_MentalBehaviouralDisorders_BlackOrAfricanAmerican": [
+  4,
+  0,
+  3,
+  2,
+  1,
+  4,
+  1,
+  0
+ ],
+ "Count_Death_25To34Years_MentalBehaviouralDisorders_White": [
+  4,
+  0,
+  3,
+  3,
+  1,
+  4,
+  1,
+  1
+ ],
+ "Count_Death_25To34Years_DiseasesOfTheNervousSystem": [
+  4,
+  0,
+  1,
+  5,
+  0,
+  4
+ ],
+ "Count_Death_25To34Years_DiseasesOfTheNervousSystem_Female": [
+  4,
+  0,
+  2,
+  0,
+  1,
+  5,
+  1,
+  3
+ ],
+ "Count_Death_25To34Years_DiseasesOfTheNervousSystem_Male": [
+  4,
+  0,
+  2,
+  1,
+  1,
+  5,
+  1,
+  4
+ ],
+ "Count_Death_25To34Years_DiseasesOfTheNervousSystem_BlackOrAfricanAmerican": [
+  4,
+  0,
+  3,
+  2,
+  1,
+  5,
+  1,
+  3
+ ],
+ "Count_Death_25To34Years_DiseasesOfTheNervousSystem_White": [
+  4,
+  0,
+  3,
+  3,
+  1,
+  5,
+  1,
+  4
+ ],
+ "Count_Death_25To34Years_DiseasesOfTheCirculatorySystem": [
+  4,
+  0,
+  1,
+  6,
+  0,
+  4
+ ],
+ "Count_Death_25To34Years_DiseasesOfTheCirculatorySystem_Female": [
+  4,
+  0,
+  2,
+  0,
+  1,
+  6,
+  1,
+  3
+ ],
+ "Count_Death_25To34Years_DiseasesOfTheCirculatorySystem_Male": [
+  4,
+  0,
+  2,
+  1,
+  1,
+  6,
+  1,
+  2
+ ],
+ "Count_Death_25To34Years_DiseasesOfTheCirculatorySystem_AsianOrPacificIslander": [
+  4,
+  0,
+  3,
+  1,
+  1,
+  6,
+  1,
+  0
+ ],
+ "Count_Death_25To34Years_DiseasesOfTheCirculatorySystem_BlackOrAfricanAmerican": [
+  4,
+  0,
+  3,
+  2,
+  1,
+  6,
+  1,
+  2
+ ],
+ "Count_Death_25To34Years_DiseasesOfTheCirculatorySystem_White": [
+  4,
+  0,
+  3,
+  3,
+  1,
+  6,
+  1,
+  3
+ ],
+ "Count_Death_25To34Years_DiseasesOfTheRespiratorySystem": [
+  4,
+  0,
+  1,
+  7,
+  0,
+  4
+ ],
+ "Count_Death_25To34Years_DiseasesOfTheRespiratorySystem_Female": [
+  4,
+  0,
+  2,
+  0,
+  1,
+  7,
+  1,
+  3
+ ],
+ "Count_Death_25To34Years_DiseasesOfTheRespiratorySystem_Male": [
+  4,
+  0,
+  2,
+  1,
+  1,
+  7,
+  1,
+  3
+ ],
+ "Count_Death_25To34Years_DiseasesOfTheRespiratorySystem_BlackOrAfricanAmerican": [
+  4,
+  0,
+  3,
+  2,
+  1,
+  7,
+  1,
+  3
+ ],
+ "Count_Death_25To34Years_DiseasesOfTheRespiratorySystem_White": [
+  4,
+  0,
+  3,
+  3,
+  1,
+  7,
+  1,
+  3
+ ],
+ "Count_Death_25To34Years_DiseasesOfTheDigestiveSystem": [
+  4,
+  0,
+  1,
+  8,
+  0,
+  3
+ ],
+ "Count_Death_25To34Years_DiseasesOfTheDigestiveSystem_Female": [
+  4,
+  0,
+  2,
+  0,
+  1,
+  8,
+  1,
+  0
+ ],
+ "Count_Death_25To34Years_DiseasesOfTheDigestiveSystem_Male": [
+  4,
+  0,
+  2,
+  1,
+  1,
+  8,
+  1,
+  1
+ ],
+ "Count_Death_25To34Years_DiseasesOfTheDigestiveSystem_AmericanIndianAndAlaskaNativeAlone": [
+  4,
+  0,
+  3,
+  0,
+  1,
+  7,
+  1,
+  0
+ ],
+ "Count_Death_25To34Years_DiseasesOfTheDigestiveSystem_BlackOrAfricanAmerican": [
+  4,
+  0,
+  3,
+  2,
+  1,
+  8,
+  1,
+  1
+ ],
+ "Count_Death_25To34Years_DiseasesOfTheDigestiveSystem_White": [
+  4,
+  0,
+  3,
+  3,
+  1,
+  8,
+  1,
+  2
+ ],
+ "Count_Death_25To34Years_DiseasesOfTheMusculoskeletalSystemConnectiveTissue": [
+  4,
+  0,
+  1,
+  10,
+  0,
+  1
+ ],
+ "Count_Death_25To34Years_DiseasesOfTheMusculoskeletalSystemConnectiveTissue_Female": [
+  4,
+  0,
+  2,
+  0,
+  1,
+  10,
+  1,
+  1
+ ],
+ "Count_Death_25To34Years_DiseasesOfTheMusculoskeletalSystemConnectiveTissue_White": [
+  4,
+  0,
+  3,
+  3,
+  1,
+  10,
+  1,
+  0
+ ],
+ "Count_Death_25To34Years_DiseasesOfTheGenitourinarySystem": [
+  4,
+  0,
+  1,
+  11,
+  0,
+  1
+ ],
+ "Count_Death_25To34Years_DiseasesOfTheGenitourinarySystem_Female": [
+  4,
+  0,
+  2,
+  0,
+  1,
+  11,
+  1,
+  0
+ ],
+ "Count_Death_25To34Years_DiseasesOfTheGenitourinarySystem_Male": [
+  4,
+  0,
+  2,
+  1,
+  1,
+  11,
+  1,
+  0
+ ],
+ "Count_Death_25To34Years_DiseasesOfTheGenitourinarySystem_BlackOrAfricanAmerican": [
+  4,
+  0,
+  3,
+  2,
+  1,
+  11,
+  1,
+  0
+ ],
+ "Count_Death_25To34Years_PregnancyChildbirthThePuerperium": [
+  4,
+  0,
+  1,
+  12,
+  0,
+  0
+ ],
+ "Count_Death_25To34Years_PregnancyChildbirthThePuerperium_Female": [
+  4,
+  0,
+  2,
+  0,
+  1,
+  12,
+  1,
+  0
+ ],
+ "Count_Death_25To34Years_PregnancyChildbirthThePuerperium_White": [
+  4,
+  0,
+  3,
+  3,
+  1,
+  12,
+  1,
+  0
+ ],
+ "Count_Death_25To34Years_CongenitalMalformationsDeformationsChromosomalAbnormalities": [
+  4,
+  0,
+  1,
+  14,
+  0,
+  4
+ ],
+ "Count_Death_25To34Years_CongenitalMalformationsDeformationsChromosomalAbnormalities_Female": [
+  4,
+  0,
+  2,
+  0,
+  1,
+  14,
+  1,
+  3
+ ],
+ "Count_Death_25To34Years_CongenitalMalformationsDeformationsChromosomalAbnormalities_Male": [
+  4,
+  0,
+  2,
+  1,
+  1,
+  13,
+  1,
+  4
+ ],
+ "Count_Death_25To34Years_CongenitalMalformationsDeformationsChromosomalAbnormalities_White": [
+  4,
+  0,
+  3,
+  3,
+  1,
+  14,
+  1,
+  4
+ ],
+ "Count_Death_25To34Years_AbnormalNotClassfied": [
+  4,
+  0,
+  1,
+  15,
+  0,
+  4
+ ],
+ "Count_Death_25To34Years_AbnormalNotClassfied_Female": [
+  4,
+  0,
+  2,
+  0,
+  1,
+  15,
+  1,
+  3
+ ],
+ "Count_Death_25To34Years_AbnormalNotClassfied_Male": [
+  4,
+  0,
+  2,
+  1,
+  1,
+  14,
+  1,
+  2
+ ],
+ "Count_Death_25To34Years_AbnormalNotClassfied_BlackOrAfricanAmerican": [
+  4,
+  0,
+  3,
+  2,
+  1,
+  15,
+  1,
+  2
+ ],
+ "Count_Death_25To34Years_AbnormalNotClassfied_White": [
+  4,
+  0,
+  3,
+  3,
+  1,
+  15,
+  1,
+  4
+ ],
+ "Count_Death_25To34Years_SpecialCases": [
+  4,
+  0,
+  1,
+  16,
+  0,
+  1
+ ],
+ "Count_Death_25To34Years_SpecialCases_Female": [
+  4,
+  0,
+  2,
+  0,
+  1,
+  16,
+  1,
+  0
+ ],
+ "Count_Death_25To34Years_SpecialCases_Male": [
+  4,
+  0,
+  2,
+  1,
+  1,
+  15,
+  1,
+  1
+ ],
+ "Count_Death_25To34Years_SpecialCases_AsianOrPacificIslander": [
+  4,
+  0,
+  3,
+  1,
+  1,
+  15,
+  1,
+  0
+ ],
+ "Count_Death_25To34Years_SpecialCases_BlackOrAfricanAmerican": [
+  4,
+  0,
+  3,
+  2,
+  1,
+  16,
+  1,
+  0
+ ],
+ "Count_Death_25To34Years_SpecialCases_White": [
+  4,
+  0,
+  3,
+  3,
+  1,
+  16,
+  1,
+  1
+ ],
+ "Count_Death_25To34Years_ExternalCauses": [
+  4,
+  0,
+  1,
+  17,
+  0,
+  4
+ ],
+ "Count_Death_25To34Years_ExternalCauses_Female": [
+  4,
+  0,
+  2,
+  0,
+  1,
+  17,
+  1,
+  4
+ ],
+ "Count_Death_25To34Years_ExternalCauses_Male": [
+  4,
+  0,
+  2,
+  1,
+  1,
+  16,
+  1,
+  4
+ ],
+ "Count_Death_25To34Years_ExternalCauses_AmericanIndianAndAlaskaNativeAlone": [
+  4,
+  0,
+  3,
+  0,
+  1,
+  12,
+  1,
+  2
+ ],
+ "Count_Death_25To34Years_ExternalCauses_AsianOrPacificIslander": [
+  4,
+  0,
+  3,
+  1,
+  1,
+  16,
+  1,
+  3
+ ],
+ "Count_Death_25To34Years_ExternalCauses_BlackOrAfricanAmerican": [
+  4,
+  0,
+  3,
+  2,
+  1,
+  17,
+  1,
+  4
+ ],
+ "Count_Death_25To34Years_ExternalCauses_White": [
+  4,
+  0,
+  3,
+  3,
+  1,
+  17,
+  1,
+  4
+ ],
+ "Count_Death_25To34Years_Female": [
+  4,
+  0,
+  2,
+  0,
+  0,
+  4
+ ],
+ "Count_Death_25To34Years_Female_AmericanIndianAndAlaskaNativeAlone": [
+  4,
+  0,
+  3,
+  0,
+  2,
+  0,
+  1,
+  2
+ ],
+ "Count_Death_25To34Years_Female_AsianOrPacificIslander": [
+  4,
+  0,
+  3,
+  1,
+  2,
+  0,
+  1,
+  4
+ ],
+ "Count_Death_25To34Years_Female_BlackOrAfricanAmerican": [
+  4,
+  0,
+  3,
+  2,
+  2,
+  0,
+  1,
+  4
+ ],
+ "Count_Death_25To34Years_Female_White": [
+  4,
+  0,
+  3,
+  3,
+  2,
+  0,
+  1,
+  4
+ ],
+ "Count_Death_25To34Years_Male": [
+  4,
+  0,
+  2,
+  1,
+  0,
+  4
+ ],
+ "Count_Death_25To34Years_Male_AmericanIndianAndAlaskaNativeAlone": [
+  4,
+  0,
+  3,
+  0,
+  2,
+  1,
+  1,
+  2
+ ],
+ "Count_Death_25To34Years_Male_AsianOrPacificIslander": [
+  4,
+  0,
+  3,
+  1,
+  2,
+  1,
+  1,
+  4
+ ],
+ "Count_Death_25To34Years_Male_BlackOrAfricanAmerican": [
+  4,
+  0,
+  3,
+  2,
+  2,
+  1,
+  1,
+  4
+ ],
+ "Count_Death_25To34Years_Male_White": [
+  4,
+  0,
+  3,
+  3,
+  2,
+  1,
+  1,
+  4
+ ],
+ "Count_Death_25To34Years_AmericanIndianAndAlaskaNativeAlone": [
+  4,
+  0,
+  3,
+  0,
+  0,
+  3
+ ],
+ "Count_Death_25To34Years_AsianOrPacificIslander": [
+  4,
+  0,
+  3,
+  1,
+  0,
+  4
+ ],
+ "Count_Death_25To34Years_BlackOrAfricanAmerican": [
+  4,
+  0,
+  3,
+  2,
+  0,
+  4
+ ],
+ "Count_Death_25To34Years_White": [
+  4,
+  0,
+  3,
+  3,
+  0,
+  4
+ ],
+ "Count_Death_35To44Years": [
+  4,
+  0,
+  0,
+  5
+ ],
+ "Count_Death_35To44Years_CertainInfectiousParasiticDiseases": [
+  4,
+  0,
+  1,
+  0,
+  0,
+  5
+ ],
+ "Count_Death_35To44Years_CertainInfectiousParasiticDiseases_Female": [
+  4,
+  0,
+  2,
+  0,
+  1,
+  0,
+  1,
+  3
+ ],
+ "Count_Death_35To44Years_CertainInfectiousParasiticDiseases_Male": [
+  4,
+  0,
+  2,
+  1,
+  1,
+  0,
+  1,
+  3
+ ],
+ "Count_Death_35To44Years_CertainInfectiousParasiticDiseases_AsianOrPacificIslander": [
+  4,
+  0,
+  3,
+  1,
+  1,
+  0,
+  1,
+  0
+ ],
+ "Count_Death_35To44Years_CertainInfectiousParasiticDiseases_BlackOrAfricanAmerican": [
+  4,
+  0,
+  3,
+  2,
+  1,
+  0,
+  1,
+  3
+ ],
+ "Count_Death_35To44Years_CertainInfectiousParasiticDiseases_White": [
+  4,
+  0,
+  3,
+  3,
+  1,
+  0,
+  1,
+  3
+ ],
+ "Count_Death_35To44Years_Neoplasms": [
+  4,
+  0,
+  1,
+  1,
+  0,
+  5
+ ],
+ "Count_Death_35To44Years_Neoplasms_Female": [
+  4,
+  0,
+  2,
+  0,
+  1,
+  1,
+  1,
+  4
+ ],
+ "Count_Death_35To44Years_Neoplasms_Male": [
+  4,
+  0,
+  2,
+  1,
+  1,
+  1,
+  1,
+  4
+ ],
+ "Count_Death_35To44Years_Neoplasms_AsianOrPacificIslander": [
+  4,
+  0,
+  3,
+  1,
+  1,
+  1,
+  1,
+  2
+ ],
+ "Count_Death_35To44Years_Neoplasms_BlackOrAfricanAmerican": [
+  4,
+  0,
+  3,
+  2,
+  1,
+  1,
+  1,
+  3
+ ],
+ "Count_Death_35To44Years_Neoplasms_White": [
+  4,
+  0,
+  3,
+  3,
+  1,
+  1,
+  1,
+  4
+ ],
+ "Count_Death_35To44Years_DiseasesOfBloodAndBloodFormingOrgansAndImmuneDisorders": [
+  4,
+  0,
+  1,
+  2,
+  0,
+  1
+ ],
+ "Count_Death_35To44Years_DiseasesOfBloodAndBloodFormingOrgansAndImmuneDisorders_Female": [
+  4,
+  0,
+  2,
+  0,
+  1,
+  2,
+  1,
+  0
+ ],
+ "Count_Death_35To44Years_DiseasesOfBloodAndBloodFormingOrgansAndImmuneDisorders_Male": [
+  4,
+  0,
+  2,
+  1,
+  1,
+  2,
+  1,
+  0
+ ],
+ "Count_Death_35To44Years_DiseasesOfBloodAndBloodFormingOrgansAndImmuneDisorders_BlackOrAfricanAmerican": [
+  4,
+  0,
+  3,
+  2,
+  1,
+  2,
+  1,
+  1
+ ],
+ "Count_Death_35To44Years_DiseasesOfBloodAndBloodFormingOrgansAndImmuneDisorders_White": [
+  4,
+  0,
+  3,
+  3,
+  1,
+  2,
+  1,
+  0
+ ],
+ "Count_Death_35To44Years_EndocrineNutritionalMetabolicDiseases": [
+  4,
+  0,
+  1,
+  3,
+  0,
+  4
+ ],
+ "Count_Death_35To44Years_EndocrineNutritionalMetabolicDiseases_Female": [
+  4,
+  0,
+  2,
+  0,
+  1,
+  3,
+  1,
+  2
+ ],
+ "Count_Death_35To44Years_EndocrineNutritionalMetabolicDiseases_Male": [
+  4,
+  0,
+  2,
+  1,
+  1,
+  3,
+  1,
+  2
+ ],
+ "Count_Death_35To44Years_EndocrineNutritionalMetabolicDiseases_AsianOrPacificIslander": [
+  4,
+  0,
+  3,
+  1,
+  1,
+  3,
+  1,
+  0
+ ],
+ "Count_Death_35To44Years_EndocrineNutritionalMetabolicDiseases_BlackOrAfricanAmerican": [
+  4,
+  0,
+  3,
+  2,
+  1,
+  3,
+  1,
+  1
+ ],
+ "Count_Death_35To44Years_EndocrineNutritionalMetabolicDiseases_White": [
+  4,
+  0,
+  3,
+  3,
+  1,
+  3,
+  1,
+  3
+ ],
+ "Count_Death_35To44Years_MentalBehaviouralDisorders": [
+  4,
+  0,
+  1,
+  4,
+  0,
+  2
+ ],
+ "Count_Death_35To44Years_MentalBehaviouralDisorders_Female": [
+  4,
+  0,
+  2,
+  0,
+  1,
+  4,
+  1,
+  1
+ ],
+ "Count_Death_35To44Years_MentalBehaviouralDisorders_Male": [
+  4,
+  0,
+  2,
+  1,
+  1,
+  4,
+  1,
+  2
+ ],
+ "Count_Death_35To44Years_MentalBehaviouralDisorders_AmericanIndianAndAlaskaNativeAlone": [
+  4,
+  0,
+  3,
+  0,
+  1,
+  3,
+  1,
+  0
+ ],
+ "Count_Death_35To44Years_MentalBehaviouralDisorders_BlackOrAfricanAmerican": [
+  4,
+  0,
+  3,
+  2,
+  1,
+  4,
+  1,
+  1
+ ],
+ "Count_Death_35To44Years_MentalBehaviouralDisorders_White": [
+  4,
+  0,
+  3,
+  3,
+  1,
+  4,
+  1,
+  2
+ ],
+ "Count_Death_35To44Years_DiseasesOfTheNervousSystem": [
+  4,
+  0,
+  1,
+  5,
+  0,
+  5
+ ],
+ "Count_Death_35To44Years_DiseasesOfTheNervousSystem_Female": [
+  4,
+  0,
+  2,
+  0,
+  1,
+  5,
+  1,
+  4
+ ],
+ "Count_Death_35To44Years_DiseasesOfTheNervousSystem_Male": [
+  4,
+  0,
+  2,
+  1,
+  1,
+  5,
+  1,
+  5
+ ],
+ "Count_Death_35To44Years_DiseasesOfTheNervousSystem_BlackOrAfricanAmerican": [
+  4,
+  0,
+  3,
+  2,
+  1,
+  5,
+  1,
+  4
+ ],
+ "Count_Death_35To44Years_DiseasesOfTheNervousSystem_White": [
+  4,
+  0,
+  3,
+  3,
+  1,
+  5,
+  1,
+  5
+ ],
+ "Count_Death_35To44Years_DiseasesOfTheCirculatorySystem": [
+  4,
+  0,
+  1,
+  6,
+  0,
+  5
+ ],
+ "Count_Death_35To44Years_DiseasesOfTheCirculatorySystem_Female": [
+  4,
+  0,
+  2,
+  0,
+  1,
+  6,
+  1,
+  4
+ ],
+ "Count_Death_35To44Years_DiseasesOfTheCirculatorySystem_Male": [
+  4,
+  0,
+  2,
+  1,
+  1,
+  6,
+  1,
+  3
+ ],
+ "Count_Death_35To44Years_DiseasesOfTheCirculatorySystem_AmericanIndianAndAlaskaNativeAlone": [
+  4,
+  0,
+  3,
+  0,
+  1,
+  5,
+  1,
+  0
+ ],
+ "Count_Death_35To44Years_DiseasesOfTheCirculatorySystem_AsianOrPacificIslander": [
+  4,
+  0,
+  3,
+  1,
+  1,
+  6,
+  1,
+  1
+ ],
+ "Count_Death_35To44Years_DiseasesOfTheCirculatorySystem_BlackOrAfricanAmerican": [
+  4,
+  0,
+  3,
+  2,
+  1,
+  6,
+  1,
+  3
+ ],
+ "Count_Death_35To44Years_DiseasesOfTheCirculatorySystem_White": [
+  4,
+  0,
+  3,
+  3,
+  1,
+  6,
+  1,
+  4
+ ],
+ "Count_Death_35To44Years_DiseasesOfTheRespiratorySystem": [
+  4,
+  0,
+  1,
+  7,
+  0,
+  5
+ ],
+ "Count_Death_35To44Years_DiseasesOfTheRespiratorySystem_Female": [
+  4,
+  0,
+  2,
+  0,
+  1,
+  7,
+  1,
+  4
+ ],
+ "Count_Death_35To44Years_DiseasesOfTheRespiratorySystem_Male": [
+  4,
+  0,
+  2,
+  1,
+  1,
+  7,
+  1,
+  4
+ ],
+ "Count_Death_35To44Years_DiseasesOfTheRespiratorySystem_BlackOrAfricanAmerican": [
+  4,
+  0,
+  3,
+  2,
+  1,
+  7,
+  1,
+  4
+ ],
+ "Count_Death_35To44Years_DiseasesOfTheRespiratorySystem_White": [
+  4,
+  0,
+  3,
+  3,
+  1,
+  7,
+  1,
+  4
+ ],
+ "Count_Death_35To44Years_DiseasesOfTheDigestiveSystem": [
+  4,
+  0,
+  1,
+  8,
+  0,
+  4
+ ],
+ "Count_Death_35To44Years_DiseasesOfTheDigestiveSystem_Female": [
+  4,
+  0,
+  2,
+  0,
+  1,
+  8,
+  1,
+  1
+ ],
+ "Count_Death_35To44Years_DiseasesOfTheDigestiveSystem_Male": [
+  4,
+  0,
+  2,
+  1,
+  1,
+  8,
+  1,
+  2
+ ],
+ "Count_Death_35To44Years_DiseasesOfTheDigestiveSystem_AmericanIndianAndAlaskaNativeAlone": [
+  4,
+  0,
+  3,
+  0,
+  1,
+  7,
+  1,
+  1
+ ],
+ "Count_Death_35To44Years_DiseasesOfTheDigestiveSystem_AsianOrPacificIslander": [
+  4,
+  0,
+  3,
+  1,
+  1,
+  8,
+  1,
+  0
+ ],
+ "Count_Death_35To44Years_DiseasesOfTheDigestiveSystem_BlackOrAfricanAmerican": [
+  4,
+  0,
+  3,
+  2,
+  1,
+  8,
+  1,
+  2
+ ],
+ "Count_Death_35To44Years_DiseasesOfTheDigestiveSystem_White": [
+  4,
+  0,
+  3,
+  3,
+  1,
+  8,
+  1,
+  3
+ ],
+ "Count_Death_35To44Years_DiseasesOfTheMusculoskeletalSystemConnectiveTissue": [
+  4,
+  0,
+  1,
+  10,
+  0,
+  2
+ ],
+ "Count_Death_35To44Years_DiseasesOfTheMusculoskeletalSystemConnectiveTissue_Female": [
+  4,
+  0,
+  2,
+  0,
+  1,
+  10,
+  1,
+  2
+ ],
+ "Count_Death_35To44Years_DiseasesOfTheMusculoskeletalSystemConnectiveTissue_Male": [
+  4,
+  0,
+  2,
+  1,
+  1,
+  10,
+  1,
+  0
+ ],
+ "Count_Death_35To44Years_DiseasesOfTheMusculoskeletalSystemConnectiveTissue_BlackOrAfricanAmerican": [
+  4,
+  0,
+  3,
+  2,
+  1,
+  10,
+  1,
+  0
+ ],
+ "Count_Death_35To44Years_DiseasesOfTheMusculoskeletalSystemConnectiveTissue_White": [
+  4,
+  0,
+  3,
+  3,
+  1,
+  10,
+  1,
+  1
+ ],
+ "Count_Death_35To44Years_DiseasesOfTheGenitourinarySystem": [
+  4,
+  0,
+  1,
+  11,
+  0,
+  2
+ ],
+ "Count_Death_35To44Years_DiseasesOfTheGenitourinarySystem_Female": [
+  4,
+  0,
+  2,
+  0,
+  1,
+  11,
+  1,
+  1
+ ],
+ "Count_Death_35To44Years_DiseasesOfTheGenitourinarySystem_Male": [
+  4,
+  0,
+  2,
+  1,
+  1,
+  11,
+  1,
+  1
+ ],
+ "Count_Death_35To44Years_DiseasesOfTheGenitourinarySystem_BlackOrAfricanAmerican": [
+  4,
+  0,
+  3,
+  2,
+  1,
+  11,
+  1,
+  1
+ ],
+ "Count_Death_35To44Years_DiseasesOfTheGenitourinarySystem_White": [
+  4,
+  0,
+  3,
+  3,
+  1,
+  11,
+  1,
+  0
+ ],
+ "Count_Death_35To44Years_PregnancyChildbirthThePuerperium": [
+  4,
+  0,
+  1,
+  12,
+  0,
+  1
+ ],
+ "Count_Death_35To44Years_PregnancyChildbirthThePuerperium_Female": [
+  4,
+  0,
+  2,
+  0,
+  1,
+  12,
+  1,
+  1
+ ],
+ "Count_Death_35To44Years_PregnancyChildbirthThePuerperium_BlackOrAfricanAmerican": [
+  4,
+  0,
+  3,
+  2,
+  1,
+  12,
+  1,
+  0
+ ],
+ "Count_Death_35To44Years_CongenitalMalformationsDeformationsChromosomalAbnormalities": [
+  4,
+  0,
+  1,
+  14,
+  0,
+  5
+ ],
+ "Count_Death_35To44Years_CongenitalMalformationsDeformationsChromosomalAbnormalities_Female": [
+  4,
+  0,
+  2,
+  0,
+  1,
+  14,
+  1,
+  4
+ ],
+ "Count_Death_35To44Years_CongenitalMalformationsDeformationsChromosomalAbnormalities_Male": [
+  4,
+  0,
+  2,
+  1,
+  1,
+  13,
+  1,
+  5
+ ],
+ "Count_Death_35To44Years_CongenitalMalformationsDeformationsChromosomalAbnormalities_White": [
+  4,
+  0,
+  3,
+  3,
+  1,
+  14,
+  1,
+  5
+ ],
+ "Count_Death_35To44Years_AbnormalNotClassfied": [
+  4,
+  0,
+  1,
+  15,
+  0,
+  5
+ ],
+ "Count_Death_35To44Years_AbnormalNotClassfied_Female": [
+  4,
+  0,
+  2,
+  0,
+  1,
+  15,
+  1,
+  4
+ ],
+ "Count_Death_35To44Years_AbnormalNotClassfied_Male": [
+  4,
+  0,
+  2,
+  1,
+  1,
+  14,
+  1,
+  3
+ ],
+ "Count_Death_35To44Years_AbnormalNotClassfied_AsianOrPacificIslander": [
+  4,
+  0,
+  3,
+  1,
+  1,
+  14,
+  1,
+  1
+ ],
+ "Count_Death_35To44Years_AbnormalNotClassfied_BlackOrAfricanAmerican": [
+  4,
+  0,
+  3,
+  2,
+  1,
+  15,
+  1,
+  3
+ ],
+ "Count_Death_35To44Years_AbnormalNotClassfied_White": [
+  4,
+  0,
+  3,
+  3,
+  1,
+  15,
+  1,
+  5
+ ],
+ "Count_Death_35To44Years_SpecialCases": [
+  4,
+  0,
+  1,
+  16,
+  0,
+  2
+ ],
+ "Count_Death_35To44Years_SpecialCases_Female": [
+  4,
+  0,
+  2,
+  0,
+  1,
+  16,
+  1,
+  1
+ ],
+ "Count_Death_35To44Years_SpecialCases_Male": [
+  4,
+  0,
+  2,
+  1,
+  1,
+  15,
+  1,
+  2
+ ],
+ "Count_Death_35To44Years_SpecialCases_AsianOrPacificIslander": [
+  4,
+  0,
+  3,
+  1,
+  1,
+  15,
+  1,
+  1
+ ],
+ "Count_Death_35To44Years_SpecialCases_BlackOrAfricanAmerican": [
+  4,
+  0,
+  3,
+  2,
+  1,
+  16,
+  1,
+  1
+ ],
+ "Count_Death_35To44Years_SpecialCases_White": [
+  4,
+  0,
+  3,
+  3,
+  1,
+  16,
+  1,
+  2
+ ],
+ "Count_Death_35To44Years_ExternalCauses": [
+  4,
+  0,
+  1,
+  17,
+  0,
+  5
+ ],
+ "Count_Death_35To44Years_ExternalCauses_Female": [
+  4,
+  0,
+  2,
+  0,
+  1,
+  17,
+  1,
+  5
+ ],
+ "Count_Death_35To44Years_ExternalCauses_Male": [
+  4,
+  0,
+  2,
+  1,
+  1,
+  16,
+  1,
+  5
+ ],
+ "Count_Death_35To44Years_ExternalCauses_AmericanIndianAndAlaskaNativeAlone": [
+  4,
+  0,
+  3,
+  0,
+  1,
+  12,
+  1,
+  3
+ ],
+ "Count_Death_35To44Years_ExternalCauses_AsianOrPacificIslander": [
+  4,
+  0,
+  3,
+  1,
+  1,
+  16,
+  1,
+  4
+ ],
+ "Count_Death_35To44Years_ExternalCauses_BlackOrAfricanAmerican": [
+  4,
+  0,
+  3,
+  2,
+  1,
+  17,
+  1,
+  5
+ ],
+ "Count_Death_35To44Years_ExternalCauses_White": [
+  4,
+  0,
+  3,
+  3,
+  1,
+  17,
+  1,
+  5
+ ],
+ "Count_Death_35To44Years_Female": [
+  4,
+  0,
+  2,
+  0,
+  0,
+  5
+ ],
+ "Count_Death_35To44Years_Female_AmericanIndianAndAlaskaNativeAlone": [
+  4,
+  0,
+  3,
+  0,
+  2,
+  0,
+  1,
+  3
+ ],
+ "Count_Death_35To44Years_Female_AsianOrPacificIslander": [
+  4,
+  0,
+  3,
+  1,
+  2,
+  0,
+  1,
+  5
+ ],
+ "Count_Death_35To44Years_Female_BlackOrAfricanAmerican": [
+  4,
+  0,
+  3,
+  2,
+  2,
+  0,
+  1,
+  5
+ ],
+ "Count_Death_35To44Years_Female_White": [
+  4,
+  0,
+  3,
+  3,
+  2,
+  0,
+  1,
+  5
+ ],
+ "Count_Death_35To44Years_Male": [
+  4,
+  0,
+  2,
+  1,
+  0,
+  5
+ ],
+ "Count_Death_35To44Years_Male_AmericanIndianAndAlaskaNativeAlone": [
+  4,
+  0,
+  3,
+  0,
+  2,
+  1,
+  1,
+  3
+ ],
+ "Count_Death_35To44Years_Male_AsianOrPacificIslander": [
+  4,
+  0,
+  3,
+  1,
+  2,
+  1,
+  1,
+  5
+ ],
+ "Count_Death_35To44Years_Male_BlackOrAfricanAmerican": [
+  4,
+  0,
+  3,
+  2,
+  2,
+  1,
+  1,
+  5
+ ],
+ "Count_Death_35To44Years_Male_White": [
+  4,
+  0,
+  3,
+  3,
+  2,
+  1,
+  1,
+  5
+ ],
+ "Count_Death_35To44Years_AmericanIndianAndAlaskaNativeAlone": [
+  4,
+  0,
+  3,
+  0,
+  0,
+  4
+ ],
+ "Count_Death_35To44Years_AsianOrPacificIslander": [
+  4,
+  0,
+  3,
+  1,
+  0,
+  5
+ ],
+ "Count_Death_35To44Years_BlackOrAfricanAmerican": [
+  4,
+  0,
+  3,
+  2,
+  0,
+  5
+ ],
+ "Count_Death_35To44Years_White": [
+  4,
+  0,
+  3,
+  3,
+  0,
+  5
+ ],
+ "Count_Death_45To54Years": [
+  4,
+  0,
+  0,
+  6
+ ],
+ "Count_Death_45To54Years_CertainInfectiousParasiticDiseases": [
+  4,
+  0,
+  1,
+  0,
+  0,
+  6
+ ],
+ "Count_Death_45To54Years_CertainInfectiousParasiticDiseases_Female": [
+  4,
+  0,
+  2,
+  0,
+  1,
+  0,
+  1,
+  4
+ ],
+ "Count_Death_45To54Years_CertainInfectiousParasiticDiseases_Male": [
+  4,
+  0,
+  2,
+  1,
+  1,
+  0,
+  1,
+  4
+ ],
+ "Count_Death_45To54Years_CertainInfectiousParasiticDiseases_AsianOrPacificIslander": [
+  4,
+  0,
+  3,
+  1,
+  1,
+  0,
+  1,
+  1
+ ],
+ "Count_Death_45To54Years_CertainInfectiousParasiticDiseases_BlackOrAfricanAmerican": [
+  4,
+  0,
+  3,
+  2,
+  1,
+  0,
+  1,
+  4
+ ],
+ "Count_Death_45To54Years_CertainInfectiousParasiticDiseases_White": [
+  4,
+  0,
+  3,
+  3,
+  1,
+  0,
+  1,
+  4
+ ],
+ "Count_Death_45To54Years_Neoplasms": [
+  4,
+  0,
+  1,
+  1,
+  0,
+  6
+ ],
+ "Count_Death_45To54Years_Neoplasms_Female": [
+  4,
+  0,
+  2,
+  0,
+  1,
+  1,
+  1,
+  5
+ ],
+ "Count_Death_45To54Years_Neoplasms_Male": [
+  4,
+  0,
+  2,
+  1,
+  1,
+  1,
+  1,
+  5
+ ],
+ "Count_Death_45To54Years_Neoplasms_AmericanIndianAndAlaskaNativeAlone": [
+  4,
+  0,
+  3,
+  0,
+  1,
+  1,
+  1,
+  0
+ ],
+ "Count_Death_45To54Years_Neoplasms_AsianOrPacificIslander": [
+  4,
+  0,
+  3,
+  1,
+  1,
+  1,
+  1,
+  3
+ ],
+ "Count_Death_45To54Years_Neoplasms_BlackOrAfricanAmerican": [
+  4,
+  0,
+  3,
+  2,
+  1,
+  1,
+  1,
+  4
+ ],
+ "Count_Death_45To54Years_Neoplasms_White": [
+  4,
+  0,
+  3,
+  3,
+  1,
+  1,
+  1,
+  5
+ ],
+ "Count_Death_45To54Years_DiseasesOfBloodAndBloodFormingOrgansAndImmuneDisorders": [
+  4,
+  0,
+  1,
+  2,
+  0,
+  2
+ ],
+ "Count_Death_45To54Years_DiseasesOfBloodAndBloodFormingOrgansAndImmuneDisorders_Female": [
+  4,
+  0,
+  2,
+  0,
+  1,
+  2,
+  1,
+  1
+ ],
+ "Count_Death_45To54Years_DiseasesOfBloodAndBloodFormingOrgansAndImmuneDisorders_Male": [
+  4,
+  0,
+  2,
+  1,
+  1,
+  2,
+  1,
+  1
+ ],
+ "Count_Death_45To54Years_DiseasesOfBloodAndBloodFormingOrgansAndImmuneDisorders_BlackOrAfricanAmerican": [
+  4,
+  0,
+  3,
+  2,
+  1,
+  2,
+  1,
+  2
+ ],
+ "Count_Death_45To54Years_DiseasesOfBloodAndBloodFormingOrgansAndImmuneDisorders_White": [
+  4,
+  0,
+  3,
+  3,
+  1,
+  2,
+  1,
+  1
+ ],
+ "Count_Death_45To54Years_EndocrineNutritionalMetabolicDiseases": [
+  4,
+  0,
+  1,
+  3,
+  0,
+  5
+ ],
+ "Count_Death_45To54Years_EndocrineNutritionalMetabolicDiseases_Female": [
+  4,
+  0,
+  2,
+  0,
+  1,
+  3,
+  1,
+  3
+ ],
+ "Count_Death_45To54Years_EndocrineNutritionalMetabolicDiseases_Male": [
+  4,
+  0,
+  2,
+  1,
+  1,
+  3,
+  1,
+  3
+ ],
+ "Count_Death_45To54Years_EndocrineNutritionalMetabolicDiseases_AmericanIndianAndAlaskaNativeAlone": [
+  4,
+  0,
+  3,
+  0,
+  1,
+  2,
+  1,
+  0
+ ],
+ "Count_Death_45To54Years_EndocrineNutritionalMetabolicDiseases_AsianOrPacificIslander": [
+  4,
+  0,
+  3,
+  1,
+  1,
+  3,
+  1,
+  1
+ ],
+ "Count_Death_45To54Years_EndocrineNutritionalMetabolicDiseases_BlackOrAfricanAmerican": [
+  4,
+  0,
+  3,
+  2,
+  1,
+  3,
+  1,
+  2
+ ],
+ "Count_Death_45To54Years_EndocrineNutritionalMetabolicDiseases_White": [
+  4,
+  0,
+  3,
+  3,
+  1,
+  3,
+  1,
+  4
+ ],
+ "Count_Death_45To54Years_MentalBehaviouralDisorders": [
+  4,
+  0,
+  1,
+  4,
+  0,
+  3
+ ],
+ "Count_Death_45To54Years_MentalBehaviouralDisorders_Female": [
+  4,
+  0,
+  2,
+  0,
+  1,
+  4,
+  1,
+  2
+ ],
+ "Count_Death_45To54Years_MentalBehaviouralDisorders_Male": [
+  4,
+  0,
+  2,
+  1,
+  1,
+  4,
+  1,
+  3
+ ],
+ "Count_Death_45To54Years_MentalBehaviouralDisorders_BlackOrAfricanAmerican": [
+  4,
+  0,
+  3,
+  2,
+  1,
+  4,
+  1,
+  2
+ ],
+ "Count_Death_45To54Years_MentalBehaviouralDisorders_White": [
+  4,
+  0,
+  3,
+  3,
+  1,
+  4,
+  1,
+  3
+ ],
+ "Count_Death_45To54Years_DiseasesOfTheNervousSystem": [
+  4,
+  0,
+  1,
+  5,
+  0,
+  6
+ ],
+ "Count_Death_45To54Years_DiseasesOfTheNervousSystem_Female": [
+  4,
+  0,
+  2,
+  0,
+  1,
+  5,
+  1,
+  5
+ ],
+ "Count_Death_45To54Years_DiseasesOfTheNervousSystem_Male": [
+  4,
+  0,
+  2,
+  1,
+  1,
+  5,
+  1,
+  6
+ ],
+ "Count_Death_45To54Years_DiseasesOfTheNervousSystem_AsianOrPacificIslander": [
+  4,
+  0,
+  3,
+  1,
+  1,
+  5,
+  1,
+  0
+ ],
+ "Count_Death_45To54Years_DiseasesOfTheNervousSystem_BlackOrAfricanAmerican": [
+  4,
+  0,
+  3,
+  2,
+  1,
+  5,
+  1,
+  5
+ ],
+ "Count_Death_45To54Years_DiseasesOfTheNervousSystem_White": [
+  4,
+  0,
+  3,
+  3,
+  1,
+  5,
+  1,
+  6
+ ],
+ "Count_Death_45To54Years_DiseasesOfTheCirculatorySystem": [
+  4,
+  0,
+  1,
+  6,
+  0,
+  6
+ ],
+ "Count_Death_45To54Years_DiseasesOfTheCirculatorySystem_Female": [
+  4,
+  0,
+  2,
+  0,
+  1,
+  6,
+  1,
+  5
+ ],
+ "Count_Death_45To54Years_DiseasesOfTheCirculatorySystem_Male": [
+  4,
+  0,
+  2,
+  1,
+  1,
+  6,
+  1,
+  4
+ ],
+ "Count_Death_45To54Years_DiseasesOfTheCirculatorySystem_AmericanIndianAndAlaskaNativeAlone": [
+  4,
+  0,
+  3,
+  0,
+  1,
+  5,
+  1,
+  1
+ ],
+ "Count_Death_45To54Years_DiseasesOfTheCirculatorySystem_AsianOrPacificIslander": [
+  4,
+  0,
+  3,
+  1,
+  1,
+  6,
+  1,
+  2
+ ],
+ "Count_Death_45To54Years_DiseasesOfTheCirculatorySystem_BlackOrAfricanAmerican": [
+  4,
+  0,
+  3,
+  2,
+  1,
+  6,
+  1,
+  4
+ ],
+ "Count_Death_45To54Years_DiseasesOfTheCirculatorySystem_White": [
+  4,
+  0,
+  3,
+  3,
+  1,
+  6,
+  1,
+  5
+ ],
+ "Count_Death_45To54Years_DiseasesOfTheRespiratorySystem": [
+  4,
+  0,
+  1,
+  7,
+  0,
+  6
+ ],
+ "Count_Death_45To54Years_DiseasesOfTheRespiratorySystem_Female": [
+  4,
+  0,
+  2,
+  0,
+  1,
+  7,
+  1,
+  5
+ ],
+ "Count_Death_45To54Years_DiseasesOfTheRespiratorySystem_Male": [
+  4,
+  0,
+  2,
+  1,
+  1,
+  7,
+  1,
+  5
+ ],
+ "Count_Death_45To54Years_DiseasesOfTheRespiratorySystem_AsianOrPacificIslander": [
+  4,
+  0,
+  3,
+  1,
+  1,
+  7,
+  1,
+  0
+ ],
+ "Count_Death_45To54Years_DiseasesOfTheRespiratorySystem_BlackOrAfricanAmerican": [
+  4,
+  0,
+  3,
+  2,
+  1,
+  7,
+  1,
+  5
+ ],
+ "Count_Death_45To54Years_DiseasesOfTheRespiratorySystem_White": [
+  4,
+  0,
+  3,
+  3,
+  1,
+  7,
+  1,
+  5
+ ],
+ "Count_Death_45To54Years_DiseasesOfTheDigestiveSystem": [
+  4,
+  0,
+  1,
+  8,
+  0,
+  5
+ ],
+ "Count_Death_45To54Years_DiseasesOfTheDigestiveSystem_Female": [
+  4,
+  0,
+  2,
+  0,
+  1,
+  8,
+  1,
+  2
+ ],
+ "Count_Death_45To54Years_DiseasesOfTheDigestiveSystem_Male": [
+  4,
+  0,
+  2,
+  1,
+  1,
+  8,
+  1,
+  3
+ ],
+ "Count_Death_45To54Years_DiseasesOfTheDigestiveSystem_AmericanIndianAndAlaskaNativeAlone": [
+  4,
+  0,
+  3,
+  0,
+  1,
+  7,
+  1,
+  2
+ ],
+ "Count_Death_45To54Years_DiseasesOfTheDigestiveSystem_AsianOrPacificIslander": [
+  4,
+  0,
+  3,
+  1,
+  1,
+  8,
+  1,
+  1
+ ],
+ "Count_Death_45To54Years_DiseasesOfTheDigestiveSystem_BlackOrAfricanAmerican": [
+  4,
+  0,
+  3,
+  2,
+  1,
+  8,
+  1,
+  3
+ ],
+ "Count_Death_45To54Years_DiseasesOfTheDigestiveSystem_White": [
+  4,
+  0,
+  3,
+  3,
+  1,
+  8,
+  1,
+  4
+ ],
+ "Count_Death_45To54Years_DiseasesOfTheMusculoskeletalSystemConnectiveTissue": [
+  4,
+  0,
+  1,
+  10,
+  0,
+  3
+ ],
+ "Count_Death_45To54Years_DiseasesOfTheMusculoskeletalSystemConnectiveTissue_Female": [
+  4,
+  0,
+  2,
+  0,
+  1,
+  10,
+  1,
+  3
+ ],
+ "Count_Death_45To54Years_DiseasesOfTheMusculoskeletalSystemConnectiveTissue_Male": [
+  4,
+  0,
+  2,
+  1,
+  1,
+  10,
+  1,
+  1
+ ],
+ "Count_Death_45To54Years_DiseasesOfTheMusculoskeletalSystemConnectiveTissue_BlackOrAfricanAmerican": [
+  4,
+  0,
+  3,
+  2,
+  1,
+  10,
+  1,
+  1
+ ],
+ "Count_Death_45To54Years_DiseasesOfTheMusculoskeletalSystemConnectiveTissue_White": [
+  4,
+  0,
+  3,
+  3,
+  1,
+  10,
+  1,
+  2
+ ],
+ "Count_Death_45To54Years_DiseasesOfTheGenitourinarySystem": [
+  4,
+  0,
+  1,
+  11,
+  0,
+  3
+ ],
+ "Count_Death_45To54Years_DiseasesOfTheGenitourinarySystem_Female": [
+  4,
+  0,
+  2,
+  0,
+  1,
+  11,
+  1,
+  2
+ ],
+ "Count_Death_45To54Years_DiseasesOfTheGenitourinarySystem_Male": [
+  4,
+  0,
+  2,
+  1,
+  1,
+  11,
+  1,
+  2
+ ],
+ "Count_Death_45To54Years_DiseasesOfTheGenitourinarySystem_AsianOrPacificIslander": [
+  4,
+  0,
+  3,
+  1,
+  1,
+  11,
+  1,
+  0
+ ],
+ "Count_Death_45To54Years_DiseasesOfTheGenitourinarySystem_BlackOrAfricanAmerican": [
+  4,
+  0,
+  3,
+  2,
+  1,
+  11,
+  1,
+  2
+ ],
+ "Count_Death_45To54Years_DiseasesOfTheGenitourinarySystem_White": [
+  4,
+  0,
+  3,
+  3,
+  1,
+  11,
+  1,
+  1
+ ],
+ "Count_Death_45To54Years_PregnancyChildbirthThePuerperium": [
+  4,
+  0,
+  1,
+  12,
+  0,
+  2
+ ],
+ "Count_Death_45To54Years_PregnancyChildbirthThePuerperium_Female": [
+  4,
+  0,
+  2,
+  0,
+  1,
+  12,
+  1,
+  2
+ ],
+ "Count_Death_45To54Years_PregnancyChildbirthThePuerperium_White": [
+  4,
+  0,
+  3,
+  3,
+  1,
+  12,
+  1,
+  1
+ ],
+ "Count_Death_45To54Years_CongenitalMalformationsDeformationsChromosomalAbnormalities": [
+  4,
+  0,
+  1,
+  14,
+  0,
+  6
+ ],
+ "Count_Death_45To54Years_CongenitalMalformationsDeformationsChromosomalAbnormalities_Female": [
+  4,
+  0,
+  2,
+  0,
+  1,
+  14,
+  1,
+  5
+ ],
+ "Count_Death_45To54Years_CongenitalMalformationsDeformationsChromosomalAbnormalities_Male": [
+  4,
+  0,
+  2,
+  1,
+  1,
+  13,
+  1,
+  6
+ ],
+ "Count_Death_45To54Years_CongenitalMalformationsDeformationsChromosomalAbnormalities_White": [
+  4,
+  0,
+  3,
+  3,
+  1,
+  14,
+  1,
+  6
+ ],
+ "Count_Death_45To54Years_AbnormalNotClassfied": [
+  4,
+  0,
+  1,
+  15,
+  0,
+  6
+ ],
+ "Count_Death_45To54Years_AbnormalNotClassfied_Female": [
+  4,
+  0,
+  2,
+  0,
+  1,
+  15,
+  1,
+  5
+ ],
+ "Count_Death_45To54Years_AbnormalNotClassfied_Male": [
+  4,
+  0,
+  2,
+  1,
+  1,
+  14,
+  1,
+  4
+ ],
+ "Count_Death_45To54Years_AbnormalNotClassfied_AsianOrPacificIslander": [
+  4,
+  0,
+  3,
+  1,
+  1,
+  14,
+  1,
+  2
+ ],
+ "Count_Death_45To54Years_AbnormalNotClassfied_BlackOrAfricanAmerican": [
+  4,
+  0,
+  3,
+  2,
+  1,
+  15,
+  1,
+  4
+ ],
+ "Count_Death_45To54Years_AbnormalNotClassfied_White": [
+  4,
+  0,
+  3,
+  3,
+  1,
+  15,
+  1,
+  6
+ ],
+ "Count_Death_45To54Years_SpecialCases": [
+  4,
+  0,
+  1,
+  16,
+  0,
+  3
+ ],
+ "Count_Death_45To54Years_SpecialCases_Female": [
+  4,
+  0,
+  2,
+  0,
+  1,
+  16,
+  1,
+  2
+ ],
+ "Count_Death_45To54Years_SpecialCases_Male": [
+  4,
+  0,
+  2,
+  1,
+  1,
+  15,
+  1,
+  3
+ ],
+ "Count_Death_45To54Years_SpecialCases_BlackOrAfricanAmerican": [
+  4,
+  0,
+  3,
+  2,
+  1,
+  16,
+  1,
+  2
+ ],
+ "Count_Death_45To54Years_SpecialCases_White": [
+  4,
+  0,
+  3,
+  3,
+  1,
+  16,
+  1,
+  3
+ ],
+ "Count_Death_45To54Years_ExternalCauses": [
+  4,
+  0,
+  1,
+  17,
+  0,
+  6
+ ],
+ "Count_Death_45To54Years_ExternalCauses_Female": [
+  4,
+  0,
+  2,
+  0,
+  1,
+  17,
+  1,
+  6
+ ],
+ "Count_Death_45To54Years_ExternalCauses_Male": [
+  4,
+  0,
+  2,
+  1,
+  1,
+  16,
+  1,
+  6
+ ],
+ "Count_Death_45To54Years_ExternalCauses_AmericanIndianAndAlaskaNativeAlone": [
+  4,
+  0,
+  3,
+  0,
+  1,
+  12,
+  1,
+  4
+ ],
+ "Count_Death_45To54Years_ExternalCauses_AsianOrPacificIslander": [
+  4,
+  0,
+  3,
+  1,
+  1,
+  16,
+  1,
+  5
+ ],
+ "Count_Death_45To54Years_ExternalCauses_BlackOrAfricanAmerican": [
+  4,
+  0,
+  3,
+  2,
+  1,
+  17,
+  1,
+  6
+ ],
+ "Count_Death_45To54Years_ExternalCauses_White": [
+  4,
+  0,
+  3,
+  3,
+  1,
+  17,
+  1,
+  6
+ ],
+ "Count_Death_45To54Years_Female": [
+  4,
+  0,
+  2,
+  0,
+  0,
+  6
+ ],
+ "Count_Death_45To54Years_Female_AmericanIndianAndAlaskaNativeAlone": [
+  4,
+  0,
+  3,
+  0,
+  2,
+  0,
+  1,
+  4
+ ],
+ "Count_Death_45To54Years_Female_AsianOrPacificIslander": [
+  4,
+  0,
+  3,
+  1,
+  2,
+  0,
+  1,
+  6
+ ],
+ "Count_Death_45To54Years_Female_BlackOrAfricanAmerican": [
+  4,
+  0,
+  3,
+  2,
+  2,
+  0,
+  1,
+  6
+ ],
+ "Count_Death_45To54Years_Female_White": [
+  4,
+  0,
+  3,
+  3,
+  2,
+  0,
+  1,
+  6
+ ],
+ "Count_Death_45To54Years_Male": [
+  4,
+  0,
+  2,
+  1,
+  0,
+  6
+ ],
+ "Count_Death_45To54Years_Male_AmericanIndianAndAlaskaNativeAlone": [
+  4,
+  0,
+  3,
+  0,
+  2,
+  1,
+  1,
+  4
+ ],
+ "Count_Death_45To54Years_Male_AsianOrPacificIslander": [
+  4,
+  0,
+  3,
+  1,
+  2,
+  1,
+  1,
+  6
+ ],
+ "Count_Death_45To54Years_Male_BlackOrAfricanAmerican": [
+  4,
+  0,
+  3,
+  2,
+  2,
+  1,
+  1,
+  6
+ ],
+ "Count_Death_45To54Years_Male_White": [
+  4,
+  0,
+  3,
+  3,
+  2,
+  1,
+  1,
+  6
+ ],
+ "Count_Death_45To54Years_AmericanIndianAndAlaskaNativeAlone": [
+  4,
+  0,
+  3,
+  0,
+  0,
+  5
+ ],
+ "Count_Death_45To54Years_AsianOrPacificIslander": [
+  4,
+  0,
+  3,
+  1,
+  0,
+  6
+ ],
+ "Count_Death_45To54Years_BlackOrAfricanAmerican": [
+  4,
+  0,
+  3,
+  2,
+  0,
+  6
+ ],
+ "Count_Death_45To54Years_White": [
+  4,
+  0,
+  3,
+  3,
+  0,
+  6
+ ],
+ "Count_Death_55To64Years": [
+  4,
+  0,
+  0,
+  7
+ ],
+ "Count_Death_55To64Years_CertainInfectiousParasiticDiseases": [
+  4,
+  0,
+  1,
+  0,
+  0,
+  7
+ ],
+ "Count_Death_55To64Years_CertainInfectiousParasiticDiseases_Female": [
+  4,
+  0,
+  2,
+  0,
+  1,
+  0,
+  1,
+  5
+ ],
+ "Count_Death_55To64Years_CertainInfectiousParasiticDiseases_Male": [
+  4,
+  0,
+  2,
+  1,
+  1,
+  0,
+  1,
+  5
+ ],
+ "Count_Death_55To64Years_CertainInfectiousParasiticDiseases_AsianOrPacificIslander": [
+  4,
+  0,
+  3,
+  1,
+  1,
+  0,
+  1,
+  2
+ ],
+ "Count_Death_55To64Years_CertainInfectiousParasiticDiseases_BlackOrAfricanAmerican": [
+  4,
+  0,
+  3,
+  2,
+  1,
+  0,
+  1,
+  5
+ ],
+ "Count_Death_55To64Years_CertainInfectiousParasiticDiseases_White": [
+  4,
+  0,
+  3,
+  3,
+  1,
+  0,
+  1,
+  5
+ ],
+ "Count_Death_55To64Years_Neoplasms": [
+  4,
+  0,
+  1,
+  1,
+  0,
+  7
+ ],
+ "Count_Death_55To64Years_Neoplasms_Female": [
+  4,
+  0,
+  2,
+  0,
+  1,
+  1,
+  1,
+  6
+ ],
+ "Count_Death_55To64Years_Neoplasms_Male": [
+  4,
+  0,
+  2,
+  1,
+  1,
+  1,
+  1,
+  6
+ ],
+ "Count_Death_55To64Years_Neoplasms_AmericanIndianAndAlaskaNativeAlone": [
+  4,
+  0,
+  3,
+  0,
+  1,
+  1,
+  1,
+  1
+ ],
+ "Count_Death_55To64Years_Neoplasms_AsianOrPacificIslander": [
+  4,
+  0,
+  3,
+  1,
+  1,
+  1,
+  1,
+  4
+ ],
+ "Count_Death_55To64Years_Neoplasms_BlackOrAfricanAmerican": [
+  4,
+  0,
+  3,
+  2,
+  1,
+  1,
+  1,
+  5
+ ],
+ "Count_Death_55To64Years_Neoplasms_White": [
+  4,
+  0,
+  3,
+  3,
+  1,
+  1,
+  1,
+  6
+ ],
+ "Count_Death_55To64Years_DiseasesOfBloodAndBloodFormingOrgansAndImmuneDisorders": [
+  4,
+  0,
+  1,
+  2,
+  0,
+  3
+ ],
+ "Count_Death_55To64Years_DiseasesOfBloodAndBloodFormingOrgansAndImmuneDisorders_Female": [
+  4,
+  0,
+  2,
+  0,
+  1,
+  2,
+  1,
+  2
+ ],
+ "Count_Death_55To64Years_DiseasesOfBloodAndBloodFormingOrgansAndImmuneDisorders_Male": [
+  4,
+  0,
+  2,
+  1,
+  1,
+  2,
+  1,
+  2
+ ],
+ "Count_Death_55To64Years_DiseasesOfBloodAndBloodFormingOrgansAndImmuneDisorders_BlackOrAfricanAmerican": [
+  4,
+  0,
+  3,
+  2,
+  1,
+  2,
+  1,
+  3
+ ],
+ "Count_Death_55To64Years_DiseasesOfBloodAndBloodFormingOrgansAndImmuneDisorders_White": [
+  4,
+  0,
+  3,
+  3,
+  1,
+  2,
+  1,
+  2
+ ],
+ "Count_Death_55To64Years_EndocrineNutritionalMetabolicDiseases": [
+  4,
+  0,
+  1,
+  3,
+  0,
+  6
+ ],
+ "Count_Death_55To64Years_EndocrineNutritionalMetabolicDiseases_Female": [
+  4,
+  0,
+  2,
+  0,
+  1,
+  3,
+  1,
+  4
+ ],
+ "Count_Death_55To64Years_EndocrineNutritionalMetabolicDiseases_Male": [
+  4,
+  0,
+  2,
+  1,
+  1,
+  3,
+  1,
+  4
+ ],
+ "Count_Death_55To64Years_EndocrineNutritionalMetabolicDiseases_AmericanIndianAndAlaskaNativeAlone": [
+  4,
+  0,
+  3,
+  0,
+  1,
+  2,
+  1,
+  1
+ ],
+ "Count_Death_55To64Years_EndocrineNutritionalMetabolicDiseases_AsianOrPacificIslander": [
+  4,
+  0,
+  3,
+  1,
+  1,
+  3,
+  1,
+  2
+ ],
+ "Count_Death_55To64Years_EndocrineNutritionalMetabolicDiseases_BlackOrAfricanAmerican": [
+  4,
+  0,
+  3,
+  2,
+  1,
+  3,
+  1,
+  3
+ ],
+ "Count_Death_55To64Years_EndocrineNutritionalMetabolicDiseases_White": [
+  4,
+  0,
+  3,
+  3,
+  1,
+  3,
+  1,
+  5
+ ],
+ "Count_Death_55To64Years_MentalBehaviouralDisorders": [
+  4,
+  0,
+  1,
+  4,
+  0,
+  4
+ ],
+ "Count_Death_55To64Years_MentalBehaviouralDisorders_Female": [
+  4,
+  0,
+  2,
+  0,
+  1,
+  4,
+  1,
+  3
+ ],
+ "Count_Death_55To64Years_MentalBehaviouralDisorders_Male": [
+  4,
+  0,
+  2,
+  1,
+  1,
+  4,
+  1,
+  4
+ ],
+ "Count_Death_55To64Years_MentalBehaviouralDisorders_AsianOrPacificIslander": [
+  4,
+  0,
+  3,
+  1,
+  1,
+  4,
+  1,
+  0
+ ],
+ "Count_Death_55To64Years_MentalBehaviouralDisorders_BlackOrAfricanAmerican": [
+  4,
+  0,
+  3,
+  2,
+  1,
+  4,
+  1,
+  3
+ ],
+ "Count_Death_55To64Years_MentalBehaviouralDisorders_White": [
+  4,
+  0,
+  3,
+  3,
+  1,
+  4,
+  1,
+  4
+ ],
+ "Count_Death_55To64Years_DiseasesOfTheNervousSystem": [
+  4,
+  0,
+  1,
+  5,
+  0,
+  7
+ ],
+ "Count_Death_55To64Years_DiseasesOfTheNervousSystem_Female": [
+  4,
+  0,
+  2,
+  0,
+  1,
+  5,
+  1,
+  6
+ ],
+ "Count_Death_55To64Years_DiseasesOfTheNervousSystem_Male": [
+  4,
+  0,
+  2,
+  1,
+  1,
+  5,
+  1,
+  7
+ ],
+ "Count_Death_55To64Years_DiseasesOfTheNervousSystem_AsianOrPacificIslander": [
+  4,
+  0,
+  3,
+  1,
+  1,
+  5,
+  1,
+  1
+ ],
+ "Count_Death_55To64Years_DiseasesOfTheNervousSystem_BlackOrAfricanAmerican": [
+  4,
+  0,
+  3,
+  2,
+  1,
+  5,
+  1,
+  6
+ ],
+ "Count_Death_55To64Years_DiseasesOfTheNervousSystem_White": [
+  4,
+  0,
+  3,
+  3,
+  1,
+  5,
+  1,
+  7
+ ],
+ "Count_Death_55To64Years_DiseasesOfTheCirculatorySystem": [
+  4,
+  0,
+  1,
+  6,
+  0,
+  7
+ ],
+ "Count_Death_55To64Years_DiseasesOfTheCirculatorySystem_Female": [
+  4,
+  0,
+  2,
+  0,
+  1,
+  6,
+  1,
+  6
+ ],
+ "Count_Death_55To64Years_DiseasesOfTheCirculatorySystem_Male": [
+  4,
+  0,
+  2,
+  1,
+  1,
+  6,
+  1,
+  5
+ ],
+ "Count_Death_55To64Years_DiseasesOfTheCirculatorySystem_AmericanIndianAndAlaskaNativeAlone": [
+  4,
+  0,
+  3,
+  0,
+  1,
+  5,
+  1,
+  2
+ ],
+ "Count_Death_55To64Years_DiseasesOfTheCirculatorySystem_AsianOrPacificIslander": [
+  4,
+  0,
+  3,
+  1,
+  1,
+  6,
+  1,
+  3
+ ],
+ "Count_Death_55To64Years_DiseasesOfTheCirculatorySystem_BlackOrAfricanAmerican": [
+  4,
+  0,
+  3,
+  2,
+  1,
+  6,
+  1,
+  5
+ ],
+ "Count_Death_55To64Years_DiseasesOfTheCirculatorySystem_White": [
+  4,
+  0,
+  3,
+  3,
+  1,
+  6,
+  1,
+  6
+ ],
+ "Count_Death_55To64Years_DiseasesOfTheRespiratorySystem": [
+  4,
+  0,
+  1,
+  7,
+  0,
+  7
+ ],
+ "Count_Death_55To64Years_DiseasesOfTheRespiratorySystem_Female": [
+  4,
+  0,
+  2,
+  0,
+  1,
+  7,
+  1,
+  6
+ ],
+ "Count_Death_55To64Years_DiseasesOfTheRespiratorySystem_Male": [
+  4,
+  0,
+  2,
+  1,
+  1,
+  7,
+  1,
+  6
+ ],
+ "Count_Death_55To64Years_DiseasesOfTheRespiratorySystem_AmericanIndianAndAlaskaNativeAlone": [
+  4,
+  0,
+  3,
+  0,
+  1,
+  6,
+  1,
+  0
+ ],
+ "Count_Death_55To64Years_DiseasesOfTheRespiratorySystem_AsianOrPacificIslander": [
+  4,
+  0,
+  3,
+  1,
+  1,
+  7,
+  1,
+  1
+ ],
+ "Count_Death_55To64Years_DiseasesOfTheRespiratorySystem_BlackOrAfricanAmerican": [
+  4,
+  0,
+  3,
+  2,
+  1,
+  7,
+  1,
+  6
+ ],
+ "Count_Death_55To64Years_DiseasesOfTheRespiratorySystem_White": [
+  4,
+  0,
+  3,
+  3,
+  1,
+  7,
+  1,
+  6
+ ],
+ "Count_Death_55To64Years_DiseasesOfTheDigestiveSystem": [
+  4,
+  0,
+  1,
+  8,
+  0,
+  6
+ ],
+ "Count_Death_55To64Years_DiseasesOfTheDigestiveSystem_Female": [
+  4,
+  0,
+  2,
+  0,
+  1,
+  8,
+  1,
+  3
+ ],
+ "Count_Death_55To64Years_DiseasesOfTheDigestiveSystem_Male": [
+  4,
+  0,
+  2,
+  1,
+  1,
+  8,
+  1,
+  4
+ ],
+ "Count_Death_55To64Years_DiseasesOfTheDigestiveSystem_AmericanIndianAndAlaskaNativeAlone": [
+  4,
+  0,
+  3,
+  0,
+  1,
+  7,
+  1,
+  3
+ ],
+ "Count_Death_55To64Years_DiseasesOfTheDigestiveSystem_AsianOrPacificIslander": [
+  4,
+  0,
+  3,
+  1,
+  1,
+  8,
+  1,
+  2
+ ],
+ "Count_Death_55To64Years_DiseasesOfTheDigestiveSystem_BlackOrAfricanAmerican": [
+  4,
+  0,
+  3,
+  2,
+  1,
+  8,
+  1,
+  4
+ ],
+ "Count_Death_55To64Years_DiseasesOfTheDigestiveSystem_White": [
+  4,
+  0,
+  3,
+  3,
+  1,
+  8,
+  1,
+  5
+ ],
+ "Count_Death_55To64Years_DiseasesOfTheSkinSubcutaneousTissue": [
+  4,
+  0,
+  1,
+  9,
+  0,
+  0
+ ],
+ "Count_Death_55To64Years_DiseasesOfTheMusculoskeletalSystemConnectiveTissue": [
+  4,
+  0,
+  1,
+  10,
+  0,
+  4
+ ],
+ "Count_Death_55To64Years_DiseasesOfTheMusculoskeletalSystemConnectiveTissue_Female": [
+  4,
+  0,
+  2,
+  0,
+  1,
+  10,
+  1,
+  4
+ ],
+ "Count_Death_55To64Years_DiseasesOfTheMusculoskeletalSystemConnectiveTissue_Male": [
+  4,
+  0,
+  2,
+  1,
+  1,
+  10,
+  1,
+  2
+ ],
+ "Count_Death_55To64Years_DiseasesOfTheMusculoskeletalSystemConnectiveTissue_BlackOrAfricanAmerican": [
+  4,
+  0,
+  3,
+  2,
+  1,
+  10,
+  1,
+  2
+ ],
+ "Count_Death_55To64Years_DiseasesOfTheMusculoskeletalSystemConnectiveTissue_White": [
+  4,
+  0,
+  3,
+  3,
+  1,
+  10,
+  1,
+  3
+ ],
+ "Count_Death_55To64Years_DiseasesOfTheGenitourinarySystem": [
+  4,
+  0,
+  1,
+  11,
+  0,
+  4
+ ],
+ "Count_Death_55To64Years_DiseasesOfTheGenitourinarySystem_Female": [
+  4,
+  0,
+  2,
+  0,
+  1,
+  11,
+  1,
+  3
+ ],
+ "Count_Death_55To64Years_DiseasesOfTheGenitourinarySystem_Male": [
+  4,
+  0,
+  2,
+  1,
+  1,
+  11,
+  1,
+  3
+ ],
+ "Count_Death_55To64Years_DiseasesOfTheGenitourinarySystem_AsianOrPacificIslander": [
+  4,
+  0,
+  3,
+  1,
+  1,
+  11,
+  1,
+  1
+ ],
+ "Count_Death_55To64Years_DiseasesOfTheGenitourinarySystem_BlackOrAfricanAmerican": [
+  4,
+  0,
+  3,
+  2,
+  1,
+  11,
+  1,
+  3
+ ],
+ "Count_Death_55To64Years_DiseasesOfTheGenitourinarySystem_White": [
+  4,
+  0,
+  3,
+  3,
+  1,
+  11,
+  1,
+  2
+ ],
+ "Count_Death_55To64Years_CongenitalMalformationsDeformationsChromosomalAbnormalities": [
+  4,
+  0,
+  1,
+  14,
+  0,
+  7
+ ],
+ "Count_Death_55To64Years_CongenitalMalformationsDeformationsChromosomalAbnormalities_Female": [
+  4,
+  0,
+  2,
+  0,
+  1,
+  14,
+  1,
+  6
+ ],
+ "Count_Death_55To64Years_CongenitalMalformationsDeformationsChromosomalAbnormalities_Male": [
+  4,
+  0,
+  2,
+  1,
+  1,
+  13,
+  1,
+  7
+ ],
+ "Count_Death_55To64Years_CongenitalMalformationsDeformationsChromosomalAbnormalities_White": [
+  4,
+  0,
+  3,
+  3,
+  1,
+  14,
+  1,
+  7
+ ],
+ "Count_Death_55To64Years_AbnormalNotClassfied": [
+  4,
+  0,
+  1,
+  15,
+  0,
+  7
+ ],
+ "Count_Death_55To64Years_AbnormalNotClassfied_Female": [
+  4,
+  0,
+  2,
+  0,
+  1,
+  15,
+  1,
+  6
+ ],
+ "Count_Death_55To64Years_AbnormalNotClassfied_Male": [
+  4,
+  0,
+  2,
+  1,
+  1,
+  14,
+  1,
+  5
+ ],
+ "Count_Death_55To64Years_AbnormalNotClassfied_AsianOrPacificIslander": [
+  4,
+  0,
+  3,
+  1,
+  1,
+  14,
+  1,
+  3
+ ],
+ "Count_Death_55To64Years_AbnormalNotClassfied_BlackOrAfricanAmerican": [
+  4,
+  0,
+  3,
+  2,
+  1,
+  15,
+  1,
+  5
+ ],
+ "Count_Death_55To64Years_AbnormalNotClassfied_White": [
+  4,
+  0,
+  3,
+  3,
+  1,
+  15,
+  1,
+  7
+ ],
+ "Count_Death_55To64Years_SpecialCases": [
+  4,
+  0,
+  1,
+  16,
+  0,
+  4
+ ],
+ "Count_Death_55To64Years_SpecialCases_Female": [
+  4,
+  0,
+  2,
+  0,
+  1,
+  16,
+  1,
+  3
+ ],
+ "Count_Death_55To64Years_SpecialCases_Male": [
+  4,
+  0,
+  2,
+  1,
+  1,
+  15,
+  1,
+  4
+ ],
+ "Count_Death_55To64Years_SpecialCases_White": [
+  4,
+  0,
+  3,
+  3,
+  1,
+  16,
+  1,
+  4
+ ],
+ "Count_Death_55To64Years_ExternalCauses": [
+  4,
+  0,
+  1,
+  17,
+  0,
+  7
+ ],
+ "Count_Death_55To64Years_ExternalCauses_Female": [
+  4,
+  0,
+  2,
+  0,
+  1,
+  17,
+  1,
+  7
+ ],
+ "Count_Death_55To64Years_ExternalCauses_Male": [
+  4,
+  0,
+  2,
+  1,
+  1,
+  16,
+  1,
+  7
+ ],
+ "Count_Death_55To64Years_ExternalCauses_AmericanIndianAndAlaskaNativeAlone": [
+  4,
+  0,
+  3,
+  0,
+  1,
+  12,
+  1,
+  5
+ ],
+ "Count_Death_55To64Years_ExternalCauses_AsianOrPacificIslander": [
+  4,
+  0,
+  3,
+  1,
+  1,
+  16,
+  1,
+  6
+ ],
+ "Count_Death_55To64Years_ExternalCauses_BlackOrAfricanAmerican": [
+  4,
+  0,
+  3,
+  2,
+  1,
+  17,
+  1,
+  7
+ ],
+ "Count_Death_55To64Years_ExternalCauses_White": [
+  4,
+  0,
+  3,
+  3,
+  1,
+  17,
+  1,
+  7
+ ],
+ "Count_Death_55To64Years_Female": [
+  4,
+  0,
+  2,
+  0,
+  0,
+  7
+ ],
+ "Count_Death_55To64Years_Female_AmericanIndianAndAlaskaNativeAlone": [
+  4,
+  0,
+  3,
+  0,
+  2,
+  0,
+  1,
+  5
+ ],
+ "Count_Death_55To64Years_Female_AsianOrPacificIslander": [
+  4,
+  0,
+  3,
+  1,
+  2,
+  0,
+  1,
+  7
+ ],
+ "Count_Death_55To64Years_Female_BlackOrAfricanAmerican": [
+  4,
+  0,
+  3,
+  2,
+  2,
+  0,
+  1,
+  7
+ ],
+ "Count_Death_55To64Years_Female_White": [
+  4,
+  0,
+  3,
+  3,
+  2,
+  0,
+  1,
+  7
+ ],
+ "Count_Death_55To64Years_Male": [
+  4,
+  0,
+  2,
+  1,
+  0,
+  7
+ ],
+ "Count_Death_55To64Years_Male_AmericanIndianAndAlaskaNativeAlone": [
+  4,
+  0,
+  3,
+  0,
+  2,
+  1,
+  1,
+  5
+ ],
+ "Count_Death_55To64Years_Male_AsianOrPacificIslander": [
+  4,
+  0,
+  3,
+  1,
+  2,
+  1,
+  1,
+  7
+ ],
+ "Count_Death_55To64Years_Male_BlackOrAfricanAmerican": [
+  4,
+  0,
+  3,
+  2,
+  2,
+  1,
+  1,
+  7
+ ],
+ "Count_Death_55To64Years_Male_White": [
+  4,
+  0,
+  3,
+  3,
+  2,
+  1,
+  1,
+  7
+ ],
+ "Count_Death_55To64Years_AmericanIndianAndAlaskaNativeAlone": [
+  4,
+  0,
+  3,
+  0,
+  0,
+  6
+ ],
+ "Count_Death_55To64Years_AsianOrPacificIslander": [
+  4,
+  0,
+  3,
+  1,
+  0,
+  7
+ ],
+ "Count_Death_55To64Years_BlackOrAfricanAmerican": [
+  4,
+  0,
+  3,
+  2,
+  0,
+  7
+ ],
+ "Count_Death_55To64Years_White": [
+  4,
+  0,
+  3,
+  3,
+  0,
+  7
+ ],
+ "Count_Death_65To74Years": [
+  4,
+  0,
+  0,
+  8
+ ],
+ "Count_Death_65To74Years_CertainInfectiousParasiticDiseases": [
+  4,
+  0,
+  1,
+  0,
+  0,
+  8
+ ],
+ "Count_Death_65To74Years_CertainInfectiousParasiticDiseases_Female": [
+  4,
+  0,
+  2,
+  0,
+  1,
+  0,
+  1,
+  6
+ ],
+ "Count_Death_65To74Years_CertainInfectiousParasiticDiseases_Male": [
+  4,
+  0,
+  2,
+  1,
+  1,
+  0,
+  1,
+  6
+ ],
+ "Count_Death_65To74Years_CertainInfectiousParasiticDiseases_AsianOrPacificIslander": [
+  4,
+  0,
+  3,
+  1,
+  1,
+  0,
+  1,
+  3
+ ],
+ "Count_Death_65To74Years_CertainInfectiousParasiticDiseases_BlackOrAfricanAmerican": [
+  4,
+  0,
+  3,
+  2,
+  1,
+  0,
+  1,
+  6
+ ],
+ "Count_Death_65To74Years_CertainInfectiousParasiticDiseases_White": [
+  4,
+  0,
+  3,
+  3,
+  1,
+  0,
+  1,
+  6
+ ],
+ "Count_Death_65To74Years_Neoplasms": [
+  4,
+  0,
+  1,
+  1,
+  0,
+  8
+ ],
+ "Count_Death_65To74Years_Neoplasms_Female": [
+  4,
+  0,
+  2,
+  0,
+  1,
+  1,
+  1,
+  7
+ ],
+ "Count_Death_65To74Years_Neoplasms_Male": [
+  4,
+  0,
+  2,
+  1,
+  1,
+  1,
+  1,
+  7
+ ],
+ "Count_Death_65To74Years_Neoplasms_AmericanIndianAndAlaskaNativeAlone": [
+  4,
+  0,
+  3,
+  0,
+  1,
+  1,
+  1,
+  2
+ ],
+ "Count_Death_65To74Years_Neoplasms_AsianOrPacificIslander": [
+  4,
+  0,
+  3,
+  1,
+  1,
+  1,
+  1,
+  5
+ ],
+ "Count_Death_65To74Years_Neoplasms_BlackOrAfricanAmerican": [
+  4,
+  0,
+  3,
+  2,
+  1,
+  1,
+  1,
+  6
+ ],
+ "Count_Death_65To74Years_Neoplasms_White": [
+  4,
+  0,
+  3,
+  3,
+  1,
+  1,
+  1,
+  7
+ ],
+ "Count_Death_65To74Years_DiseasesOfBloodAndBloodFormingOrgansAndImmuneDisorders": [
+  4,
+  0,
+  1,
+  2,
+  0,
+  4
+ ],
+ "Count_Death_65To74Years_DiseasesOfBloodAndBloodFormingOrgansAndImmuneDisorders_Female": [
+  4,
+  0,
+  2,
+  0,
+  1,
+  2,
+  1,
+  3
+ ],
+ "Count_Death_65To74Years_DiseasesOfBloodAndBloodFormingOrgansAndImmuneDisorders_Male": [
+  4,
+  0,
+  2,
+  1,
+  1,
+  2,
+  1,
+  3
+ ],
+ "Count_Death_65To74Years_DiseasesOfBloodAndBloodFormingOrgansAndImmuneDisorders_BlackOrAfricanAmerican": [
+  4,
+  0,
+  3,
+  2,
+  1,
+  2,
+  1,
+  4
+ ],
+ "Count_Death_65To74Years_DiseasesOfBloodAndBloodFormingOrgansAndImmuneDisorders_White": [
+  4,
+  0,
+  3,
+  3,
+  1,
+  2,
+  1,
+  3
+ ],
+ "Count_Death_65To74Years_EndocrineNutritionalMetabolicDiseases": [
+  4,
+  0,
+  1,
+  3,
+  0,
+  7
+ ],
+ "Count_Death_65To74Years_EndocrineNutritionalMetabolicDiseases_Female": [
+  4,
+  0,
+  2,
+  0,
+  1,
+  3,
+  1,
+  5
+ ],
+ "Count_Death_65To74Years_EndocrineNutritionalMetabolicDiseases_Male": [
+  4,
+  0,
+  2,
+  1,
+  1,
+  3,
+  1,
+  5
+ ],
+ "Count_Death_65To74Years_EndocrineNutritionalMetabolicDiseases_AmericanIndianAndAlaskaNativeAlone": [
+  4,
+  0,
+  3,
+  0,
+  1,
+  2,
+  1,
+  2
+ ],
+ "Count_Death_65To74Years_EndocrineNutritionalMetabolicDiseases_AsianOrPacificIslander": [
+  4,
+  0,
+  3,
+  1,
+  1,
+  3,
+  1,
+  3
+ ],
+ "Count_Death_65To74Years_EndocrineNutritionalMetabolicDiseases_BlackOrAfricanAmerican": [
+  4,
+  0,
+  3,
+  2,
+  1,
+  3,
+  1,
+  4
+ ],
+ "Count_Death_65To74Years_EndocrineNutritionalMetabolicDiseases_White": [
+  4,
+  0,
+  3,
+  3,
+  1,
+  3,
+  1,
+  6
+ ],
+ "Count_Death_65To74Years_MentalBehaviouralDisorders": [
+  4,
+  0,
+  1,
+  4,
+  0,
+  5
+ ],
+ "Count_Death_65To74Years_MentalBehaviouralDisorders_Female": [
+  4,
+  0,
+  2,
+  0,
+  1,
+  4,
+  1,
+  4
+ ],
+ "Count_Death_65To74Years_MentalBehaviouralDisorders_Male": [
+  4,
+  0,
+  2,
+  1,
+  1,
+  4,
+  1,
+  5
+ ],
+ "Count_Death_65To74Years_MentalBehaviouralDisorders_AsianOrPacificIslander": [
+  4,
+  0,
+  3,
+  1,
+  1,
+  4,
+  1,
+  1
+ ],
+ "Count_Death_65To74Years_MentalBehaviouralDisorders_BlackOrAfricanAmerican": [
+  4,
+  0,
+  3,
+  2,
+  1,
+  4,
+  1,
+  4
+ ],
+ "Count_Death_65To74Years_MentalBehaviouralDisorders_White": [
+  4,
+  0,
+  3,
+  3,
+  1,
+  4,
+  1,
+  5
+ ],
+ "Count_Death_65To74Years_DiseasesOfTheNervousSystem": [
+  4,
+  0,
+  1,
+  5,
+  0,
+  8
+ ],
+ "Count_Death_65To74Years_DiseasesOfTheNervousSystem_Female": [
+  4,
+  0,
+  2,
+  0,
+  1,
+  5,
+  1,
+  7
+ ],
+ "Count_Death_65To74Years_DiseasesOfTheNervousSystem_Male": [
+  4,
+  0,
+  2,
+  1,
+  1,
+  5,
+  1,
+  8
+ ],
+ "Count_Death_65To74Years_DiseasesOfTheNervousSystem_AsianOrPacificIslander": [
+  4,
+  0,
+  3,
+  1,
+  1,
+  5,
+  1,
+  2
+ ],
+ "Count_Death_65To74Years_DiseasesOfTheNervousSystem_BlackOrAfricanAmerican": [
+  4,
+  0,
+  3,
+  2,
+  1,
+  5,
+  1,
+  7
+ ],
+ "Count_Death_65To74Years_DiseasesOfTheNervousSystem_White": [
+  4,
+  0,
+  3,
+  3,
+  1,
+  5,
+  1,
+  8
+ ],
+ "Count_Death_65To74Years_DiseasesOfTheCirculatorySystem": [
+  4,
+  0,
+  1,
+  6,
+  0,
+  8
+ ],
+ "Count_Death_65To74Years_DiseasesOfTheCirculatorySystem_Female": [
+  4,
+  0,
+  2,
+  0,
+  1,
+  6,
+  1,
+  7
+ ],
+ "Count_Death_65To74Years_DiseasesOfTheCirculatorySystem_Male": [
+  4,
+  0,
+  2,
+  1,
+  1,
+  6,
+  1,
+  6
+ ],
+ "Count_Death_65To74Years_DiseasesOfTheCirculatorySystem_AmericanIndianAndAlaskaNativeAlone": [
+  4,
+  0,
+  3,
+  0,
+  1,
+  5,
+  1,
+  3
+ ],
+ "Count_Death_65To74Years_DiseasesOfTheCirculatorySystem_AsianOrPacificIslander": [
+  4,
+  0,
+  3,
+  1,
+  1,
+  6,
+  1,
+  4
+ ],
+ "Count_Death_65To74Years_DiseasesOfTheCirculatorySystem_BlackOrAfricanAmerican": [
+  4,
+  0,
+  3,
+  2,
+  1,
+  6,
+  1,
+  6
+ ],
+ "Count_Death_65To74Years_DiseasesOfTheCirculatorySystem_White": [
+  4,
+  0,
+  3,
+  3,
+  1,
+  6,
+  1,
+  7
+ ],
+ "Count_Death_65To74Years_DiseasesOfTheRespiratorySystem": [
+  4,
+  0,
+  1,
+  7,
+  0,
+  8
+ ],
+ "Count_Death_65To74Years_DiseasesOfTheRespiratorySystem_Female": [
+  4,
+  0,
+  2,
+  0,
+  1,
+  7,
+  1,
+  7
+ ],
+ "Count_Death_65To74Years_DiseasesOfTheRespiratorySystem_Male": [
+  4,
+  0,
+  2,
+  1,
+  1,
+  7,
+  1,
+  7
+ ],
+ "Count_Death_65To74Years_DiseasesOfTheRespiratorySystem_AmericanIndianAndAlaskaNativeAlone": [
+  4,
+  0,
+  3,
+  0,
+  1,
+  6,
+  1,
+  1
+ ],
+ "Count_Death_65To74Years_DiseasesOfTheRespiratorySystem_AsianOrPacificIslander": [
+  4,
+  0,
+  3,
+  1,
+  1,
+  7,
+  1,
+  2
+ ],
+ "Count_Death_65To74Years_DiseasesOfTheRespiratorySystem_BlackOrAfricanAmerican": [
+  4,
+  0,
+  3,
+  2,
+  1,
+  7,
+  1,
+  7
+ ],
+ "Count_Death_65To74Years_DiseasesOfTheRespiratorySystem_White": [
+  4,
+  0,
+  3,
+  3,
+  1,
+  7,
+  1,
+  7
+ ],
+ "Count_Death_65To74Years_DiseasesOfTheDigestiveSystem": [
+  4,
+  0,
+  1,
+  8,
+  0,
+  7
+ ],
+ "Count_Death_65To74Years_DiseasesOfTheDigestiveSystem_Female": [
+  4,
+  0,
+  2,
+  0,
+  1,
+  8,
+  1,
+  4
+ ],
+ "Count_Death_65To74Years_DiseasesOfTheDigestiveSystem_Male": [
+  4,
+  0,
+  2,
+  1,
+  1,
+  8,
+  1,
+  5
+ ],
+ "Count_Death_65To74Years_DiseasesOfTheDigestiveSystem_AmericanIndianAndAlaskaNativeAlone": [
+  4,
+  0,
+  3,
+  0,
+  1,
+  7,
+  1,
+  4
+ ],
+ "Count_Death_65To74Years_DiseasesOfTheDigestiveSystem_AsianOrPacificIslander": [
+  4,
+  0,
+  3,
+  1,
+  1,
+  8,
+  1,
+  3
+ ],
+ "Count_Death_65To74Years_DiseasesOfTheDigestiveSystem_BlackOrAfricanAmerican": [
+  4,
+  0,
+  3,
+  2,
+  1,
+  8,
+  1,
+  5
+ ],
+ "Count_Death_65To74Years_DiseasesOfTheDigestiveSystem_White": [
+  4,
+  0,
+  3,
+  3,
+  1,
+  8,
+  1,
+  6
+ ],
+ "Count_Death_65To74Years_DiseasesOfTheSkinSubcutaneousTissue": [
+  4,
+  0,
+  1,
+  9,
+  0,
+  1
+ ],
+ "Count_Death_65To74Years_DiseasesOfTheSkinSubcutaneousTissue_Female": [
+  4,
+  0,
+  2,
+  0,
+  1,
+  9,
+  1,
+  0
+ ],
+ "Count_Death_65To74Years_DiseasesOfTheSkinSubcutaneousTissue_Male": [
+  4,
+  0,
+  2,
+  1,
+  1,
+  9,
+  1,
+  0
+ ],
+ "Count_Death_65To74Years_DiseasesOfTheSkinSubcutaneousTissue_BlackOrAfricanAmerican": [
+  4,
+  0,
+  3,
+  2,
+  1,
+  9,
+  1,
+  0
+ ],
+ "Count_Death_65To74Years_DiseasesOfTheSkinSubcutaneousTissue_White": [
+  4,
+  0,
+  3,
+  3,
+  1,
+  9,
+  1,
+  0
+ ],
+ "Count_Death_65To74Years_DiseasesOfTheMusculoskeletalSystemConnectiveTissue": [
+  4,
+  0,
+  1,
+  10,
+  0,
+  5
+ ],
+ "Count_Death_65To74Years_DiseasesOfTheMusculoskeletalSystemConnectiveTissue_Female": [
+  4,
+  0,
+  2,
+  0,
+  1,
+  10,
+  1,
+  5
+ ],
+ "Count_Death_65To74Years_DiseasesOfTheMusculoskeletalSystemConnectiveTissue_Male": [
+  4,
+  0,
+  2,
+  1,
+  1,
+  10,
+  1,
+  3
+ ],
+ "Count_Death_65To74Years_DiseasesOfTheMusculoskeletalSystemConnectiveTissue_AsianOrPacificIslander": [
+  4,
+  0,
+  3,
+  1,
+  1,
+  10,
+  1,
+  0
+ ],
+ "Count_Death_65To74Years_DiseasesOfTheMusculoskeletalSystemConnectiveTissue_BlackOrAfricanAmerican": [
+  4,
+  0,
+  3,
+  2,
+  1,
+  10,
+  1,
+  3
+ ],
+ "Count_Death_65To74Years_DiseasesOfTheMusculoskeletalSystemConnectiveTissue_White": [
+  4,
+  0,
+  3,
+  3,
+  1,
+  10,
+  1,
+  4
+ ],
+ "Count_Death_65To74Years_DiseasesOfTheGenitourinarySystem": [
+  4,
+  0,
+  1,
+  11,
+  0,
+  5
+ ],
+ "Count_Death_65To74Years_DiseasesOfTheGenitourinarySystem_Female": [
+  4,
+  0,
+  2,
+  0,
+  1,
+  11,
+  1,
+  4
+ ],
+ "Count_Death_65To74Years_DiseasesOfTheGenitourinarySystem_Male": [
+  4,
+  0,
+  2,
+  1,
+  1,
+  11,
+  1,
+  4
+ ],
+ "Count_Death_65To74Years_DiseasesOfTheGenitourinarySystem_AsianOrPacificIslander": [
+  4,
+  0,
+  3,
+  1,
+  1,
+  11,
+  1,
+  2
+ ],
+ "Count_Death_65To74Years_DiseasesOfTheGenitourinarySystem_BlackOrAfricanAmerican": [
+  4,
+  0,
+  3,
+  2,
+  1,
+  11,
+  1,
+  4
+ ],
+ "Count_Death_65To74Years_DiseasesOfTheGenitourinarySystem_White": [
+  4,
+  0,
+  3,
+  3,
+  1,
+  11,
+  1,
+  3
+ ],
+ "Count_Death_65To74Years_CongenitalMalformationsDeformationsChromosomalAbnormalities": [
+  4,
+  0,
+  1,
+  14,
+  0,
+  8
+ ],
+ "Count_Death_65To74Years_CongenitalMalformationsDeformationsChromosomalAbnormalities_White": [
+  4,
+  0,
+  3,
+  3,
+  1,
+  14,
+  1,
+  8
+ ],
+ "Count_Death_65To74Years_AbnormalNotClassfied": [
+  4,
+  0,
+  1,
+  15,
+  0,
+  8
+ ],
+ "Count_Death_65To74Years_AbnormalNotClassfied_Female": [
+  4,
+  0,
+  2,
+  0,
+  1,
+  15,
+  1,
+  7
+ ],
+ "Count_Death_65To74Years_AbnormalNotClassfied_Male": [
+  4,
+  0,
+  2,
+  1,
+  1,
+  14,
+  1,
+  6
+ ],
+ "Count_Death_65To74Years_AbnormalNotClassfied_AsianOrPacificIslander": [
+  4,
+  0,
+  3,
+  1,
+  1,
+  14,
+  1,
+  4
+ ],
+ "Count_Death_65To74Years_AbnormalNotClassfied_BlackOrAfricanAmerican": [
+  4,
+  0,
+  3,
+  2,
+  1,
+  15,
+  1,
+  6
+ ],
+ "Count_Death_65To74Years_AbnormalNotClassfied_White": [
+  4,
+  0,
+  3,
+  3,
+  1,
+  15,
+  1,
+  8
+ ],
+ "Count_Death_65To74Years_ExternalCauses": [
+  4,
+  0,
+  1,
+  17,
+  0,
+  8
+ ],
+ "Count_Death_65To74Years_ExternalCauses_Female": [
+  4,
+  0,
+  2,
+  0,
+  1,
+  17,
+  1,
+  8
+ ],
+ "Count_Death_65To74Years_ExternalCauses_Male": [
+  4,
+  0,
+  2,
+  1,
+  1,
+  16,
+  1,
+  8
+ ],
+ "Count_Death_65To74Years_ExternalCauses_AmericanIndianAndAlaskaNativeAlone": [
+  4,
+  0,
+  3,
+  0,
+  1,
+  12,
+  1,
+  6
+ ],
+ "Count_Death_65To74Years_ExternalCauses_AsianOrPacificIslander": [
+  4,
+  0,
+  3,
+  1,
+  1,
+  16,
+  1,
+  7
+ ],
+ "Count_Death_65To74Years_ExternalCauses_BlackOrAfricanAmerican": [
+  4,
+  0,
+  3,
+  2,
+  1,
+  17,
+  1,
+  8
+ ],
+ "Count_Death_65To74Years_ExternalCauses_White": [
+  4,
+  0,
+  3,
+  3,
+  1,
+  17,
+  1,
+  8
+ ],
+ "Count_Death_65To74Years_Female": [
+  4,
+  0,
+  2,
+  0,
+  0,
+  8
+ ],
+ "Count_Death_65To74Years_Female_AmericanIndianAndAlaskaNativeAlone": [
+  4,
+  0,
+  3,
+  0,
+  2,
+  0,
+  1,
+  6
+ ],
+ "Count_Death_65To74Years_Female_AsianOrPacificIslander": [
+  4,
+  0,
+  3,
+  1,
+  2,
+  0,
+  1,
+  8
+ ],
+ "Count_Death_65To74Years_Female_BlackOrAfricanAmerican": [
+  4,
+  0,
+  3,
+  2,
+  2,
+  0,
+  1,
+  8
+ ],
+ "Count_Death_65To74Years_Female_White": [
+  4,
+  0,
+  3,
+  3,
+  2,
+  0,
+  1,
+  8
+ ],
+ "Count_Death_65To74Years_Male": [
+  4,
+  0,
+  2,
+  1,
+  0,
+  8
+ ],
+ "Count_Death_65To74Years_Male_AmericanIndianAndAlaskaNativeAlone": [
+  4,
+  0,
+  3,
+  0,
+  2,
+  1,
+  1,
+  6
+ ],
+ "Count_Death_65To74Years_Male_AsianOrPacificIslander": [
+  4,
+  0,
+  3,
+  1,
+  2,
+  1,
+  1,
+  8
+ ],
+ "Count_Death_65To74Years_Male_BlackOrAfricanAmerican": [
+  4,
+  0,
+  3,
+  2,
+  2,
+  1,
+  1,
+  8
+ ],
+ "Count_Death_65To74Years_Male_White": [
+  4,
+  0,
+  3,
+  3,
+  2,
+  1,
+  1,
+  8
+ ],
+ "Count_Death_65To74Years_AmericanIndianAndAlaskaNativeAlone": [
+  4,
+  0,
+  3,
+  0,
+  0,
+  7
+ ],
+ "Count_Death_65To74Years_AsianOrPacificIslander": [
+  4,
+  0,
+  3,
+  1,
+  0,
+  8
+ ],
+ "Count_Death_65To74Years_BlackOrAfricanAmerican": [
+  4,
+  0,
+  3,
+  2,
+  0,
+  8
+ ],
+ "Count_Death_65To74Years_White": [
+  4,
+  0,
+  3,
+  3,
+  0,
+  8
+ ],
+ "Count_Death_75To84Years": [
+  4,
+  0,
+  0,
+  9
+ ],
+ "Count_Death_75To84Years_CertainInfectiousParasiticDiseases": [
+  4,
+  0,
+  1,
+  0,
+  0,
+  9
+ ],
+ "Count_Death_75To84Years_CertainInfectiousParasiticDiseases_Female": [
+  4,
+  0,
+  2,
+  0,
+  1,
+  0,
+  1,
+  7
+ ],
+ "Count_Death_75To84Years_CertainInfectiousParasiticDiseases_Male": [
+  4,
+  0,
+  2,
+  1,
+  1,
+  0,
+  1,
+  7
+ ],
+ "Count_Death_75To84Years_CertainInfectiousParasiticDiseases_AsianOrPacificIslander": [
+  4,
+  0,
+  3,
+  1,
+  1,
+  0,
+  1,
+  4
+ ],
+ "Count_Death_75To84Years_CertainInfectiousParasiticDiseases_BlackOrAfricanAmerican": [
+  4,
+  0,
+  3,
+  2,
+  1,
+  0,
+  1,
+  7
+ ],
+ "Count_Death_75To84Years_CertainInfectiousParasiticDiseases_White": [
+  4,
+  0,
+  3,
+  3,
+  1,
+  0,
+  1,
+  7
+ ],
+ "Count_Death_75To84Years_Neoplasms": [
+  4,
+  0,
+  1,
+  1,
+  0,
+  9
+ ],
+ "Count_Death_75To84Years_Neoplasms_Female": [
+  4,
+  0,
+  2,
+  0,
+  1,
+  1,
+  1,
+  8
+ ],
+ "Count_Death_75To84Years_Neoplasms_Male": [
+  4,
+  0,
+  2,
+  1,
+  1,
+  1,
+  1,
+  8
+ ],
+ "Count_Death_75To84Years_Neoplasms_AmericanIndianAndAlaskaNativeAlone": [
+  4,
+  0,
+  3,
+  0,
+  1,
+  1,
+  1,
+  3
+ ],
+ "Count_Death_75To84Years_Neoplasms_AsianOrPacificIslander": [
+  4,
+  0,
+  3,
+  1,
+  1,
+  1,
+  1,
+  6
+ ],
+ "Count_Death_75To84Years_Neoplasms_BlackOrAfricanAmerican": [
+  4,
+  0,
+  3,
+  2,
+  1,
+  1,
+  1,
+  7
+ ],
+ "Count_Death_75To84Years_Neoplasms_White": [
+  4,
+  0,
+  3,
+  3,
+  1,
+  1,
+  1,
+  8
+ ],
+ "Count_Death_75To84Years_DiseasesOfBloodAndBloodFormingOrgansAndImmuneDisorders": [
+  4,
+  0,
+  1,
+  2,
+  0,
+  5
+ ],
+ "Count_Death_75To84Years_DiseasesOfBloodAndBloodFormingOrgansAndImmuneDisorders_Female": [
+  4,
+  0,
+  2,
+  0,
+  1,
+  2,
+  1,
+  4
+ ],
+ "Count_Death_75To84Years_DiseasesOfBloodAndBloodFormingOrgansAndImmuneDisorders_Male": [
+  4,
+  0,
+  2,
+  1,
+  1,
+  2,
+  1,
+  4
+ ],
+ "Count_Death_75To84Years_DiseasesOfBloodAndBloodFormingOrgansAndImmuneDisorders_AsianOrPacificIslander": [
+  4,
+  0,
+  3,
+  1,
+  1,
+  2,
+  1,
+  0
+ ],
+ "Count_Death_75To84Years_DiseasesOfBloodAndBloodFormingOrgansAndImmuneDisorders_BlackOrAfricanAmerican": [
+  4,
+  0,
+  3,
+  2,
+  1,
+  2,
+  1,
+  5
+ ],
+ "Count_Death_75To84Years_DiseasesOfBloodAndBloodFormingOrgansAndImmuneDisorders_White": [
+  4,
+  0,
+  3,
+  3,
+  1,
+  2,
+  1,
+  4
+ ],
+ "Count_Death_75To84Years_EndocrineNutritionalMetabolicDiseases": [
+  4,
+  0,
+  1,
+  3,
+  0,
+  8
+ ],
+ "Count_Death_75To84Years_EndocrineNutritionalMetabolicDiseases_Female": [
+  4,
+  0,
+  2,
+  0,
+  1,
+  3,
+  1,
+  6
+ ],
+ "Count_Death_75To84Years_EndocrineNutritionalMetabolicDiseases_Male": [
+  4,
+  0,
+  2,
+  1,
+  1,
+  3,
+  1,
+  6
+ ],
+ "Count_Death_75To84Years_EndocrineNutritionalMetabolicDiseases_AmericanIndianAndAlaskaNativeAlone": [
+  4,
+  0,
+  3,
+  0,
+  1,
+  2,
+  1,
+  3
+ ],
+ "Count_Death_75To84Years_EndocrineNutritionalMetabolicDiseases_AsianOrPacificIslander": [
+  4,
+  0,
+  3,
+  1,
+  1,
+  3,
+  1,
+  4
+ ],
+ "Count_Death_75To84Years_EndocrineNutritionalMetabolicDiseases_BlackOrAfricanAmerican": [
+  4,
+  0,
+  3,
+  2,
+  1,
+  3,
+  1,
+  5
+ ],
+ "Count_Death_75To84Years_EndocrineNutritionalMetabolicDiseases_White": [
+  4,
+  0,
+  3,
+  3,
+  1,
+  3,
+  1,
+  7
+ ],
+ "Count_Death_75To84Years_MentalBehaviouralDisorders": [
+  4,
+  0,
+  1,
+  4,
+  0,
+  6
+ ],
+ "Count_Death_75To84Years_MentalBehaviouralDisorders_Female": [
+  4,
+  0,
+  2,
+  0,
+  1,
+  4,
+  1,
+  5
+ ],
+ "Count_Death_75To84Years_MentalBehaviouralDisorders_Male": [
+  4,
+  0,
+  2,
+  1,
+  1,
+  4,
+  1,
+  6
+ ],
+ "Count_Death_75To84Years_MentalBehaviouralDisorders_AmericanIndianAndAlaskaNativeAlone": [
+  4,
+  0,
+  3,
+  0,
+  1,
+  3,
+  1,
+  1
+ ],
+ "Count_Death_75To84Years_MentalBehaviouralDisorders_AsianOrPacificIslander": [
+  4,
+  0,
+  3,
+  1,
+  1,
+  4,
+  1,
+  2
+ ],
+ "Count_Death_75To84Years_MentalBehaviouralDisorders_BlackOrAfricanAmerican": [
+  4,
+  0,
+  3,
+  2,
+  1,
+  4,
+  1,
+  5
+ ],
+ "Count_Death_75To84Years_MentalBehaviouralDisorders_White": [
+  4,
+  0,
+  3,
+  3,
+  1,
+  4,
+  1,
+  6
+ ],
+ "Count_Death_75To84Years_DiseasesOfTheNervousSystem": [
+  4,
+  0,
+  1,
+  5,
+  0,
+  9
+ ],
+ "Count_Death_75To84Years_DiseasesOfTheNervousSystem_Female": [
+  4,
+  0,
+  2,
+  0,
+  1,
+  5,
+  1,
+  8
+ ],
+ "Count_Death_75To84Years_DiseasesOfTheNervousSystem_Male": [
+  4,
+  0,
+  2,
+  1,
+  1,
+  5,
+  1,
+  9
+ ],
+ "Count_Death_75To84Years_DiseasesOfTheNervousSystem_AmericanIndianAndAlaskaNativeAlone": [
+  4,
+  0,
+  3,
+  0,
+  1,
+  4,
+  1,
+  0
+ ],
+ "Count_Death_75To84Years_DiseasesOfTheNervousSystem_AsianOrPacificIslander": [
+  4,
+  0,
+  3,
+  1,
+  1,
+  5,
+  1,
+  3
+ ],
+ "Count_Death_75To84Years_DiseasesOfTheNervousSystem_BlackOrAfricanAmerican": [
+  4,
+  0,
+  3,
+  2,
+  1,
+  5,
+  1,
+  8
+ ],
+ "Count_Death_75To84Years_DiseasesOfTheNervousSystem_White": [
+  4,
+  0,
+  3,
+  3,
+  1,
+  5,
+  1,
+  9
+ ],
+ "Count_Death_75To84Years_DiseasesOfTheCirculatorySystem": [
+  4,
+  0,
+  1,
+  6,
+  0,
+  9
+ ],
+ "Count_Death_75To84Years_DiseasesOfTheCirculatorySystem_Female": [
+  4,
+  0,
+  2,
+  0,
+  1,
+  6,
+  1,
+  8
+ ],
+ "Count_Death_75To84Years_DiseasesOfTheCirculatorySystem_Male": [
+  4,
+  0,
+  2,
+  1,
+  1,
+  6,
+  1,
+  7
+ ],
+ "Count_Death_75To84Years_DiseasesOfTheCirculatorySystem_AmericanIndianAndAlaskaNativeAlone": [
+  4,
+  0,
+  3,
+  0,
+  1,
+  5,
+  1,
+  4
+ ],
+ "Count_Death_75To84Years_DiseasesOfTheCirculatorySystem_AsianOrPacificIslander": [
+  4,
+  0,
+  3,
+  1,
+  1,
+  6,
+  1,
+  5
+ ],
+ "Count_Death_75To84Years_DiseasesOfTheCirculatorySystem_BlackOrAfricanAmerican": [
+  4,
+  0,
+  3,
+  2,
+  1,
+  6,
+  1,
+  7
+ ],
+ "Count_Death_75To84Years_DiseasesOfTheCirculatorySystem_White": [
+  4,
+  0,
+  3,
+  3,
+  1,
+  6,
+  1,
+  8
+ ],
+ "Count_Death_75To84Years_DiseasesOfTheRespiratorySystem": [
+  4,
+  0,
+  1,
+  7,
+  0,
+  9
+ ],
+ "Count_Death_75To84Years_DiseasesOfTheRespiratorySystem_Female": [
+  4,
+  0,
+  2,
+  0,
+  1,
+  7,
+  1,
+  8
+ ],
+ "Count_Death_75To84Years_DiseasesOfTheRespiratorySystem_Male": [
+  4,
+  0,
+  2,
+  1,
+  1,
+  7,
+  1,
+  8
+ ],
+ "Count_Death_75To84Years_DiseasesOfTheRespiratorySystem_AmericanIndianAndAlaskaNativeAlone": [
+  4,
+  0,
+  3,
+  0,
+  1,
+  6,
+  1,
+  2
+ ],
+ "Count_Death_75To84Years_DiseasesOfTheRespiratorySystem_AsianOrPacificIslander": [
+  4,
+  0,
+  3,
+  1,
+  1,
+  7,
+  1,
+  3
+ ],
+ "Count_Death_75To84Years_DiseasesOfTheRespiratorySystem_BlackOrAfricanAmerican": [
+  4,
+  0,
+  3,
+  2,
+  1,
+  7,
+  1,
+  8
+ ],
+ "Count_Death_75To84Years_DiseasesOfTheRespiratorySystem_White": [
+  4,
+  0,
+  3,
+  3,
+  1,
+  7,
+  1,
+  8
+ ],
+ "Count_Death_75To84Years_DiseasesOfTheDigestiveSystem": [
+  4,
+  0,
+  1,
+  8,
+  0,
+  8
+ ],
+ "Count_Death_75To84Years_DiseasesOfTheDigestiveSystem_Female": [
+  4,
+  0,
+  2,
+  0,
+  1,
+  8,
+  1,
+  5
+ ],
+ "Count_Death_75To84Years_DiseasesOfTheDigestiveSystem_Male": [
+  4,
+  0,
+  2,
+  1,
+  1,
+  8,
+  1,
+  6
+ ],
+ "Count_Death_75To84Years_DiseasesOfTheDigestiveSystem_AmericanIndianAndAlaskaNativeAlone": [
+  4,
+  0,
+  3,
+  0,
+  1,
+  7,
+  1,
+  5
+ ],
+ "Count_Death_75To84Years_DiseasesOfTheDigestiveSystem_AsianOrPacificIslander": [
+  4,
+  0,
+  3,
+  1,
+  1,
+  8,
+  1,
+  4
+ ],
+ "Count_Death_75To84Years_DiseasesOfTheDigestiveSystem_BlackOrAfricanAmerican": [
+  4,
+  0,
+  3,
+  2,
+  1,
+  8,
+  1,
+  6
+ ],
+ "Count_Death_75To84Years_DiseasesOfTheDigestiveSystem_White": [
+  4,
+  0,
+  3,
+  3,
+  1,
+  8,
+  1,
+  7
+ ],
+ "Count_Death_75To84Years_DiseasesOfTheSkinSubcutaneousTissue": [
+  4,
+  0,
+  1,
+  9,
+  0,
+  2
+ ],
+ "Count_Death_75To84Years_DiseasesOfTheSkinSubcutaneousTissue_Female": [
+  4,
+  0,
+  2,
+  0,
+  1,
+  9,
+  1,
+  1
+ ],
+ "Count_Death_75To84Years_DiseasesOfTheSkinSubcutaneousTissue_Male": [
+  4,
+  0,
+  2,
+  1,
+  1,
+  9,
+  1,
+  1
+ ],
+ "Count_Death_75To84Years_DiseasesOfTheSkinSubcutaneousTissue_BlackOrAfricanAmerican": [
+  4,
+  0,
+  3,
+  2,
+  1,
+  9,
+  1,
+  1
+ ],
+ "Count_Death_75To84Years_DiseasesOfTheSkinSubcutaneousTissue_White": [
+  4,
+  0,
+  3,
+  3,
+  1,
+  9,
+  1,
+  1
+ ],
+ "Count_Death_75To84Years_DiseasesOfTheMusculoskeletalSystemConnectiveTissue": [
+  4,
+  0,
+  1,
+  10,
+  0,
+  6
+ ],
+ "Count_Death_75To84Years_DiseasesOfTheMusculoskeletalSystemConnectiveTissue_Female": [
+  4,
+  0,
+  2,
+  0,
+  1,
+  10,
+  1,
+  6
+ ],
+ "Count_Death_75To84Years_DiseasesOfTheMusculoskeletalSystemConnectiveTissue_Male": [
+  4,
+  0,
+  2,
+  1,
+  1,
+  10,
+  1,
+  4
+ ],
+ "Count_Death_75To84Years_DiseasesOfTheMusculoskeletalSystemConnectiveTissue_AsianOrPacificIslander": [
+  4,
+  0,
+  3,
+  1,
+  1,
+  10,
+  1,
+  1
+ ],
+ "Count_Death_75To84Years_DiseasesOfTheMusculoskeletalSystemConnectiveTissue_BlackOrAfricanAmerican": [
+  4,
+  0,
+  3,
+  2,
+  1,
+  10,
+  1,
+  4
+ ],
+ "Count_Death_75To84Years_DiseasesOfTheMusculoskeletalSystemConnectiveTissue_White": [
+  4,
+  0,
+  3,
+  3,
+  1,
+  10,
+  1,
+  5
+ ],
+ "Count_Death_75To84Years_DiseasesOfTheGenitourinarySystem": [
+  4,
+  0,
+  1,
+  11,
+  0,
+  6
+ ],
+ "Count_Death_75To84Years_DiseasesOfTheGenitourinarySystem_Female": [
+  4,
+  0,
+  2,
+  0,
+  1,
+  11,
+  1,
+  5
+ ],
+ "Count_Death_75To84Years_DiseasesOfTheGenitourinarySystem_Male": [
+  4,
+  0,
+  2,
+  1,
+  1,
+  11,
+  1,
+  5
+ ],
+ "Count_Death_75To84Years_DiseasesOfTheGenitourinarySystem_AsianOrPacificIslander": [
+  4,
+  0,
+  3,
+  1,
+  1,
+  11,
+  1,
+  3
+ ],
+ "Count_Death_75To84Years_DiseasesOfTheGenitourinarySystem_BlackOrAfricanAmerican": [
+  4,
+  0,
+  3,
+  2,
+  1,
+  11,
+  1,
+  5
+ ],
+ "Count_Death_75To84Years_DiseasesOfTheGenitourinarySystem_White": [
+  4,
+  0,
+  3,
+  3,
+  1,
+  11,
+  1,
+  4
+ ],
+ "Count_Death_75To84Years_CongenitalMalformationsDeformationsChromosomalAbnormalities": [
+  4,
+  0,
+  1,
+  14,
+  0,
+  9
+ ],
+ "Count_Death_75To84Years_CongenitalMalformationsDeformationsChromosomalAbnormalities_Female": [
+  4,
+  0,
+  2,
+  0,
+  1,
+  14,
+  1,
+  7
+ ],
+ "Count_Death_75To84Years_CongenitalMalformationsDeformationsChromosomalAbnormalities_White": [
+  4,
+  0,
+  3,
+  3,
+  1,
+  14,
+  1,
+  9
+ ],
+ "Count_Death_75To84Years_AbnormalNotClassfied": [
+  4,
+  0,
+  1,
+  15,
+  0,
+  9
+ ],
+ "Count_Death_75To84Years_AbnormalNotClassfied_Female": [
+  4,
+  0,
+  2,
+  0,
+  1,
+  15,
+  1,
+  8
+ ],
+ "Count_Death_75To84Years_AbnormalNotClassfied_Male": [
+  4,
+  0,
+  2,
+  1,
+  1,
+  14,
+  1,
+  7
+ ],
+ "Count_Death_75To84Years_AbnormalNotClassfied_AsianOrPacificIslander": [
+  4,
+  0,
+  3,
+  1,
+  1,
+  14,
+  1,
+  5
+ ],
+ "Count_Death_75To84Years_AbnormalNotClassfied_BlackOrAfricanAmerican": [
+  4,
+  0,
+  3,
+  2,
+  1,
+  15,
+  1,
+  7
+ ],
+ "Count_Death_75To84Years_AbnormalNotClassfied_White": [
+  4,
+  0,
+  3,
+  3,
+  1,
+  15,
+  1,
+  9
+ ],
+ "Count_Death_75To84Years_ExternalCauses": [
+  4,
+  0,
+  1,
+  17,
+  0,
+  9
+ ],
+ "Count_Death_75To84Years_ExternalCauses_Female": [
+  4,
+  0,
+  2,
+  0,
+  1,
+  17,
+  1,
+  9
+ ],
+ "Count_Death_75To84Years_ExternalCauses_Male": [
+  4,
+  0,
+  2,
+  1,
+  1,
+  16,
+  1,
+  9
+ ],
+ "Count_Death_75To84Years_ExternalCauses_AmericanIndianAndAlaskaNativeAlone": [
+  4,
+  0,
+  3,
+  0,
+  1,
+  12,
+  1,
+  7
+ ],
+ "Count_Death_75To84Years_ExternalCauses_AsianOrPacificIslander": [
+  4,
+  0,
+  3,
+  1,
+  1,
+  16,
+  1,
+  8
+ ],
+ "Count_Death_75To84Years_ExternalCauses_BlackOrAfricanAmerican": [
+  4,
+  0,
+  3,
+  2,
+  1,
+  17,
+  1,
+  9
+ ],
+ "Count_Death_75To84Years_ExternalCauses_White": [
+  4,
+  0,
+  3,
+  3,
+  1,
+  17,
+  1,
+  9
+ ],
+ "Count_Death_75To84Years_Female": [
+  4,
+  0,
+  2,
+  0,
+  0,
+  9
+ ],
+ "Count_Death_75To84Years_Female_AmericanIndianAndAlaskaNativeAlone": [
+  4,
+  0,
+  3,
+  0,
+  2,
+  0,
+  1,
+  7
+ ],
+ "Count_Death_75To84Years_Female_AsianOrPacificIslander": [
+  4,
+  0,
+  3,
+  1,
+  2,
+  0,
+  1,
+  9
+ ],
+ "Count_Death_75To84Years_Female_BlackOrAfricanAmerican": [
+  4,
+  0,
+  3,
+  2,
+  2,
+  0,
+  1,
+  9
+ ],
+ "Count_Death_75To84Years_Female_White": [
+  4,
+  0,
+  3,
+  3,
+  2,
+  0,
+  1,
+  9
+ ],
+ "Count_Death_75To84Years_Male": [
+  4,
+  0,
+  2,
+  1,
+  0,
+  9
+ ],
+ "Count_Death_75To84Years_Male_AmericanIndianAndAlaskaNativeAlone": [
+  4,
+  0,
+  3,
+  0,
+  2,
+  1,
+  1,
+  7
+ ],
+ "Count_Death_75To84Years_Male_AsianOrPacificIslander": [
+  4,
+  0,
+  3,
+  1,
+  2,
+  1,
+  1,
+  9
+ ],
+ "Count_Death_75To84Years_Male_BlackOrAfricanAmerican": [
+  4,
+  0,
+  3,
+  2,
+  2,
+  1,
+  1,
+  9
+ ],
+ "Count_Death_75To84Years_Male_White": [
+  4,
+  0,
+  3,
+  3,
+  2,
+  1,
+  1,
+  9
+ ],
+ "Count_Death_75To84Years_AmericanIndianAndAlaskaNativeAlone": [
+  4,
+  0,
+  3,
+  0,
+  0,
+  8
+ ],
+ "Count_Death_75To84Years_AsianOrPacificIslander": [
+  4,
+  0,
+  3,
+  1,
+  0,
+  9
+ ],
+ "Count_Death_75To84Years_BlackOrAfricanAmerican": [
+  4,
+  0,
+  3,
+  2,
+  0,
+  9
+ ],
+ "Count_Death_75To84Years_White": [
+  4,
+  0,
+  3,
+  3,
+  0,
+  9
+ ],
+ "Count_Death_CertainInfectiousParasiticDiseases": [
+  4,
+  0,
+  1,
+  0
+ ],
+ "Count_Death_CertainInfectiousParasiticDiseases_Female": [
+  4,
+  0,
+  2,
+  0,
+  1,
+  0
+ ],
+ "Count_Death_CertainInfectiousParasiticDiseases_Female_AmericanIndianAndAlaskaNativeAlone": [
+  4,
+  0,
+  3,
+  0,
+  2,
+  0,
+  0,
+  0
+ ],
+ "Count_Death_CertainInfectiousParasiticDiseases_Female_AsianOrPacificIslander": [
+  4,
+  0,
+  3,
+  1,
+  2,
+  0,
+  0,
+  0
+ ],
+ "Count_Death_CertainInfectiousParasiticDiseases_Female_BlackOrAfricanAmerican": [
+  4,
+  0,
+  3,
+  2,
+  2,
+  0,
+  0,
+  0
+ ],
+ "Count_Death_CertainInfectiousParasiticDiseases_Female_White": [
+  4,
+  0,
+  3,
+  3,
+  2,
+  0,
+  0,
+  0
+ ],
+ "Count_Death_CertainInfectiousParasiticDiseases_Male": [
+  4,
+  0,
+  2,
+  1,
+  1,
+  0
+ ],
+ "Count_Death_CertainInfectiousParasiticDiseases_Male_AmericanIndianAndAlaskaNativeAlone": [
+  4,
+  0,
+  3,
+  0,
+  2,
+  1,
+  0,
+  0
+ ],
+ "Count_Death_CertainInfectiousParasiticDiseases_Male_AsianOrPacificIslander": [
+  4,
+  0,
+  3,
+  1,
+  2,
+  1,
+  0,
+  0
+ ],
+ "Count_Death_CertainInfectiousParasiticDiseases_Male_BlackOrAfricanAmerican": [
+  4,
+  0,
+  3,
+  2,
+  2,
+  1,
+  0,
+  0
+ ],
+ "Count_Death_CertainInfectiousParasiticDiseases_Male_White": [
+  4,
+  0,
+  3,
+  3,
+  2,
+  1,
+  0,
+  0
+ ],
+ "Count_Death_CertainInfectiousParasiticDiseases_AmericanIndianAndAlaskaNativeAlone": [
+  4,
+  0,
+  3,
+  0,
+  1,
+  0
+ ],
+ "Count_Death_CertainInfectiousParasiticDiseases_AsianOrPacificIslander": [
+  4,
+  0,
+  3,
+  1,
+  1,
+  0
+ ],
+ "Count_Death_CertainInfectiousParasiticDiseases_BlackOrAfricanAmerican": [
+  4,
+  0,
+  3,
+  2,
+  1,
+  0
+ ],
+ "Count_Death_CertainInfectiousParasiticDiseases_White": [
+  4,
+  0,
+  3,
+  3,
+  1,
+  0
+ ],
+ "Count_Death_Neoplasms": [
+  4,
+  0,
+  1,
+  1
+ ],
+ "Count_Death_Neoplasms_Female": [
+  4,
+  0,
+  2,
+  0,
+  1,
+  1
+ ],
+ "Count_Death_Neoplasms_Female_AmericanIndianAndAlaskaNativeAlone": [
+  4,
+  0,
+  3,
+  0,
+  2,
+  0,
+  0,
+  1
+ ],
+ "Count_Death_Neoplasms_Female_AsianOrPacificIslander": [
+  4,
+  0,
+  3,
+  1,
+  2,
+  0,
+  0,
+  1
+ ],
+ "Count_Death_Neoplasms_Female_BlackOrAfricanAmerican": [
+  4,
+  0,
+  3,
+  2,
+  2,
+  0,
+  0,
+  1
+ ],
+ "Count_Death_Neoplasms_Female_White": [
+  4,
+  0,
+  3,
+  3,
+  2,
+  0,
+  0,
+  1
+ ],
+ "Count_Death_Neoplasms_Male": [
+  4,
+  0,
+  2,
+  1,
+  1,
+  1
+ ],
+ "Count_Death_Neoplasms_Male_AmericanIndianAndAlaskaNativeAlone": [
+  4,
+  0,
+  3,
+  0,
+  2,
+  1,
+  0,
+  1
+ ],
+ "Count_Death_Neoplasms_Male_AsianOrPacificIslander": [
+  4,
+  0,
+  3,
+  1,
+  2,
+  1,
+  0,
+  1
+ ],
+ "Count_Death_Neoplasms_Male_BlackOrAfricanAmerican": [
+  4,
+  0,
+  3,
+  2,
+  2,
+  1,
+  0,
+  1
+ ],
+ "Count_Death_Neoplasms_Male_White": [
+  4,
+  0,
+  3,
+  3,
+  2,
+  1,
+  0,
+  1
+ ],
+ "Count_Death_Neoplasms_AmericanIndianAndAlaskaNativeAlone": [
+  4,
+  0,
+  3,
+  0,
+  1,
+  1
+ ],
+ "Count_Death_Neoplasms_AsianOrPacificIslander": [
+  4,
+  0,
+  3,
+  1,
+  1,
+  1
+ ],
+ "Count_Death_Neoplasms_BlackOrAfricanAmerican": [
+  4,
+  0,
+  3,
+  2,
+  1,
+  1
+ ],
+ "Count_Death_Neoplasms_White": [
+  4,
+  0,
+  3,
+  3,
+  1,
+  1
+ ],
+ "Count_Death_DiseasesOfBloodAndBloodFormingOrgansAndImmuneDisorders": [
+  4,
+  0,
+  1,
+  2
+ ],
+ "Count_Death_DiseasesOfBloodAndBloodFormingOrgansAndImmuneDisorders_Female": [
+  4,
+  0,
+  2,
+  0,
+  1,
+  2
+ ],
+ "Count_Death_DiseasesOfBloodAndBloodFormingOrgansAndImmuneDisorders_Female_AsianOrPacificIslander": [
+  4,
+  0,
+  3,
+  1,
+  2,
+  0,
+  0,
+  2
+ ],
+ "Count_Death_DiseasesOfBloodAndBloodFormingOrgansAndImmuneDisorders_Female_BlackOrAfricanAmerican": [
+  4,
+  0,
+  3,
+  2,
+  2,
+  0,
+  0,
+  2
+ ],
+ "Count_Death_DiseasesOfBloodAndBloodFormingOrgansAndImmuneDisorders_Female_White": [
+  4,
+  0,
+  3,
+  3,
+  2,
+  0,
+  0,
+  2
+ ],
+ "Count_Death_DiseasesOfBloodAndBloodFormingOrgansAndImmuneDisorders_Male": [
+  4,
+  0,
+  2,
+  1,
+  1,
+  2
+ ],
+ "Count_Death_DiseasesOfBloodAndBloodFormingOrgansAndImmuneDisorders_Male_AsianOrPacificIslander": [
+  4,
+  0,
+  3,
+  1,
+  2,
+  1,
+  0,
+  2
+ ],
+ "Count_Death_DiseasesOfBloodAndBloodFormingOrgansAndImmuneDisorders_Male_BlackOrAfricanAmerican": [
+  4,
+  0,
+  3,
+  2,
+  2,
+  1,
+  0,
+  2
+ ],
+ "Count_Death_DiseasesOfBloodAndBloodFormingOrgansAndImmuneDisorders_Male_White": [
+  4,
+  0,
+  3,
+  3,
+  2,
+  1,
+  0,
+  2
+ ],
+ "Count_Death_DiseasesOfBloodAndBloodFormingOrgansAndImmuneDisorders_AsianOrPacificIslander": [
+  4,
+  0,
+  3,
+  1,
+  1,
+  2
+ ],
+ "Count_Death_DiseasesOfBloodAndBloodFormingOrgansAndImmuneDisorders_BlackOrAfricanAmerican": [
+  4,
+  0,
+  3,
+  2,
+  1,
+  2
+ ],
+ "Count_Death_DiseasesOfBloodAndBloodFormingOrgansAndImmuneDisorders_White": [
+  4,
+  0,
+  3,
+  3,
+  1,
+  2
+ ],
+ "Count_Death_EndocrineNutritionalMetabolicDiseases": [
+  4,
+  0,
+  1,
+  3
+ ],
+ "Count_Death_EndocrineNutritionalMetabolicDiseases_Female": [
+  4,
+  0,
+  2,
+  0,
+  1,
+  3
+ ],
+ "Count_Death_EndocrineNutritionalMetabolicDiseases_Female_AmericanIndianAndAlaskaNativeAlone": [
+  4,
+  0,
+  3,
+  0,
+  2,
+  0,
+  0,
+  2
+ ],
+ "Count_Death_EndocrineNutritionalMetabolicDiseases_Female_AsianOrPacificIslander": [
+  4,
+  0,
+  3,
+  1,
+  2,
+  0,
+  0,
+  3
+ ],
+ "Count_Death_EndocrineNutritionalMetabolicDiseases_Female_BlackOrAfricanAmerican": [
+  4,
+  0,
+  3,
+  2,
+  2,
+  0,
+  0,
+  3
+ ],
+ "Count_Death_EndocrineNutritionalMetabolicDiseases_Female_White": [
+  4,
+  0,
+  3,
+  3,
+  2,
+  0,
+  0,
+  3
+ ],
+ "Count_Death_EndocrineNutritionalMetabolicDiseases_Male": [
+  4,
+  0,
+  2,
+  1,
+  1,
+  3
+ ],
+ "Count_Death_EndocrineNutritionalMetabolicDiseases_Male_AmericanIndianAndAlaskaNativeAlone": [
+  4,
+  0,
+  3,
+  0,
+  2,
+  1,
+  0,
+  2
+ ],
+ "Count_Death_EndocrineNutritionalMetabolicDiseases_Male_AsianOrPacificIslander": [
+  4,
+  0,
+  3,
+  1,
+  2,
+  1,
+  0,
+  3
+ ],
+ "Count_Death_EndocrineNutritionalMetabolicDiseases_Male_BlackOrAfricanAmerican": [
+  4,
+  0,
+  3,
+  2,
+  2,
+  1,
+  0,
+  3
+ ],
+ "Count_Death_EndocrineNutritionalMetabolicDiseases_Male_White": [
+  4,
+  0,
+  3,
+  3,
+  2,
+  1,
+  0,
+  3
+ ],
+ "Count_Death_EndocrineNutritionalMetabolicDiseases_AmericanIndianAndAlaskaNativeAlone": [
+  4,
+  0,
+  3,
+  0,
+  1,
+  2
+ ],
+ "Count_Death_EndocrineNutritionalMetabolicDiseases_AsianOrPacificIslander": [
+  4,
+  0,
+  3,
+  1,
+  1,
+  3
+ ],
+ "Count_Death_EndocrineNutritionalMetabolicDiseases_BlackOrAfricanAmerican": [
+  4,
+  0,
+  3,
+  2,
+  1,
+  3
+ ],
+ "Count_Death_EndocrineNutritionalMetabolicDiseases_White": [
+  4,
+  0,
+  3,
+  3,
+  1,
+  3
+ ],
+ "Count_Death_MentalBehaviouralDisorders": [
+  4,
+  0,
+  1,
+  4
+ ],
+ "Count_Death_MentalBehaviouralDisorders_Female": [
+  4,
+  0,
+  2,
+  0,
+  1,
+  4
+ ],
+ "Count_Death_MentalBehaviouralDisorders_Female_AmericanIndianAndAlaskaNativeAlone": [
+  4,
+  0,
+  3,
+  0,
+  2,
+  0,
+  0,
+  3
+ ],
+ "Count_Death_MentalBehaviouralDisorders_Female_AsianOrPacificIslander": [
+  4,
+  0,
+  3,
+  1,
+  2,
+  0,
+  0,
+  4
+ ],
+ "Count_Death_MentalBehaviouralDisorders_Female_BlackOrAfricanAmerican": [
+  4,
+  0,
+  3,
+  2,
+  2,
+  0,
+  0,
+  4
+ ],
+ "Count_Death_MentalBehaviouralDisorders_Female_White": [
+  4,
+  0,
+  3,
+  3,
+  2,
+  0,
+  0,
+  4
+ ],
+ "Count_Death_MentalBehaviouralDisorders_Male": [
+  4,
+  0,
+  2,
+  1,
+  1,
+  4
+ ],
+ "Count_Death_MentalBehaviouralDisorders_Male_AmericanIndianAndAlaskaNativeAlone": [
+  4,
+  0,
+  3,
+  0,
+  2,
+  1,
+  0,
+  3
+ ],
+ "Count_Death_MentalBehaviouralDisorders_Male_AsianOrPacificIslander": [
+  4,
+  0,
+  3,
+  1,
+  2,
+  1,
+  0,
+  4
+ ],
+ "Count_Death_MentalBehaviouralDisorders_Male_BlackOrAfricanAmerican": [
+  4,
+  0,
+  3,
+  2,
+  2,
+  1,
+  0,
+  4
+ ],
+ "Count_Death_MentalBehaviouralDisorders_Male_White": [
+  4,
+  0,
+  3,
+  3,
+  2,
+  1,
+  0,
+  4
+ ],
+ "Count_Death_MentalBehaviouralDisorders_AmericanIndianAndAlaskaNativeAlone": [
+  4,
+  0,
+  3,
+  0,
+  1,
+  3
+ ],
+ "Count_Death_MentalBehaviouralDisorders_AsianOrPacificIslander": [
+  4,
+  0,
+  3,
+  1,
+  1,
+  4
+ ],
+ "Count_Death_MentalBehaviouralDisorders_BlackOrAfricanAmerican": [
+  4,
+  0,
+  3,
+  2,
+  1,
+  4
+ ],
+ "Count_Death_MentalBehaviouralDisorders_White": [
+  4,
+  0,
+  3,
+  3,
+  1,
+  4
+ ],
+ "Count_Death_DiseasesOfTheNervousSystem": [
+  4,
+  0,
+  1,
+  5
+ ],
+ "Count_Death_DiseasesOfTheNervousSystem_Female": [
+  4,
+  0,
+  2,
+  0,
+  1,
+  5
+ ],
+ "Count_Death_DiseasesOfTheNervousSystem_Female_AmericanIndianAndAlaskaNativeAlone": [
+  4,
+  0,
+  3,
+  0,
+  2,
+  0,
+  0,
+  4
+ ],
+ "Count_Death_DiseasesOfTheNervousSystem_Female_AsianOrPacificIslander": [
+  4,
+  0,
+  3,
+  1,
+  2,
+  0,
+  0,
+  5
+ ],
+ "Count_Death_DiseasesOfTheNervousSystem_Female_BlackOrAfricanAmerican": [
+  4,
+  0,
+  3,
+  2,
+  2,
+  0,
+  0,
+  5
+ ],
+ "Count_Death_DiseasesOfTheNervousSystem_Female_White": [
+  4,
+  0,
+  3,
+  3,
+  2,
+  0,
+  0,
+  5
+ ],
+ "Count_Death_DiseasesOfTheNervousSystem_Male": [
+  4,
+  0,
+  2,
+  1,
+  1,
+  5
+ ],
+ "Count_Death_DiseasesOfTheNervousSystem_Male_AmericanIndianAndAlaskaNativeAlone": [
+  4,
+  0,
+  3,
+  0,
+  2,
+  1,
+  0,
+  4
+ ],
+ "Count_Death_DiseasesOfTheNervousSystem_Male_AsianOrPacificIslander": [
+  4,
+  0,
+  3,
+  1,
+  2,
+  1,
+  0,
+  5
+ ],
+ "Count_Death_DiseasesOfTheNervousSystem_Male_BlackOrAfricanAmerican": [
+  4,
+  0,
+  3,
+  2,
+  2,
+  1,
+  0,
+  5
+ ],
+ "Count_Death_DiseasesOfTheNervousSystem_Male_White": [
+  4,
+  0,
+  3,
+  3,
+  2,
+  1,
+  0,
+  5
+ ],
+ "Count_Death_DiseasesOfTheNervousSystem_AmericanIndianAndAlaskaNativeAlone": [
+  4,
+  0,
+  3,
+  0,
+  1,
+  4
+ ],
+ "Count_Death_DiseasesOfTheNervousSystem_AsianOrPacificIslander": [
+  4,
+  0,
+  3,
+  1,
+  1,
+  5
+ ],
+ "Count_Death_DiseasesOfTheNervousSystem_BlackOrAfricanAmerican": [
+  4,
+  0,
+  3,
+  2,
+  1,
+  5
+ ],
+ "Count_Death_DiseasesOfTheNervousSystem_White": [
+  4,
+  0,
+  3,
+  3,
+  1,
+  5
+ ],
+ "Count_Death_DiseasesOfTheCirculatorySystem": [
+  4,
+  0,
+  1,
+  6
+ ],
+ "Count_Death_DiseasesOfTheCirculatorySystem_Female": [
+  4,
+  0,
+  2,
+  0,
+  1,
+  6
+ ],
+ "Count_Death_DiseasesOfTheCirculatorySystem_Female_AmericanIndianAndAlaskaNativeAlone": [
+  4,
+  0,
+  3,
+  0,
+  2,
+  0,
+  0,
+  5
+ ],
+ "Count_Death_DiseasesOfTheCirculatorySystem_Female_AsianOrPacificIslander": [
+  4,
+  0,
+  3,
+  1,
+  2,
+  0,
+  0,
+  6
+ ],
+ "Count_Death_DiseasesOfTheCirculatorySystem_Female_BlackOrAfricanAmerican": [
+  4,
+  0,
+  3,
+  2,
+  2,
+  0,
+  0,
+  6
+ ],
+ "Count_Death_DiseasesOfTheCirculatorySystem_Female_White": [
+  4,
+  0,
+  3,
+  3,
+  2,
+  0,
+  0,
+  6
+ ],
+ "Count_Death_DiseasesOfTheCirculatorySystem_Male": [
+  4,
+  0,
+  2,
+  1,
+  1,
+  6
+ ],
+ "Count_Death_DiseasesOfTheCirculatorySystem_Male_AmericanIndianAndAlaskaNativeAlone": [
+  4,
+  0,
+  3,
+  0,
+  2,
+  1,
+  0,
+  5
+ ],
+ "Count_Death_DiseasesOfTheCirculatorySystem_Male_AsianOrPacificIslander": [
+  4,
+  0,
+  3,
+  1,
+  2,
+  1,
+  0,
+  6
+ ],
+ "Count_Death_DiseasesOfTheCirculatorySystem_Male_BlackOrAfricanAmerican": [
+  4,
+  0,
+  3,
+  2,
+  2,
+  1,
+  0,
+  6
+ ],
+ "Count_Death_DiseasesOfTheCirculatorySystem_Male_White": [
+  4,
+  0,
+  3,
+  3,
+  2,
+  1,
+  0,
+  6
+ ],
+ "Count_Death_DiseasesOfTheCirculatorySystem_AmericanIndianAndAlaskaNativeAlone": [
+  4,
+  0,
+  3,
+  0,
+  1,
+  5
+ ],
+ "Count_Death_DiseasesOfTheCirculatorySystem_AsianOrPacificIslander": [
+  4,
+  0,
+  3,
+  1,
+  1,
+  6
+ ],
+ "Count_Death_DiseasesOfTheCirculatorySystem_BlackOrAfricanAmerican": [
+  4,
+  0,
+  3,
+  2,
+  1,
+  6
+ ],
+ "Count_Death_DiseasesOfTheCirculatorySystem_White": [
+  4,
+  0,
+  3,
+  3,
+  1,
+  6
+ ],
+ "Count_Death_DiseasesOfTheRespiratorySystem": [
+  4,
+  0,
+  1,
+  7
+ ],
+ "Count_Death_DiseasesOfTheRespiratorySystem_Female": [
+  4,
+  0,
+  2,
+  0,
+  1,
+  7
+ ],
+ "Count_Death_DiseasesOfTheRespiratorySystem_Female_AmericanIndianAndAlaskaNativeAlone": [
+  4,
+  0,
+  3,
+  0,
+  2,
+  0,
+  0,
+  6
+ ],
+ "Count_Death_DiseasesOfTheRespiratorySystem_Female_AsianOrPacificIslander": [
+  4,
+  0,
+  3,
+  1,
+  2,
+  0,
+  0,
+  7
+ ],
+ "Count_Death_DiseasesOfTheRespiratorySystem_Female_BlackOrAfricanAmerican": [
+  4,
+  0,
+  3,
+  2,
+  2,
+  0,
+  0,
+  7
+ ],
+ "Count_Death_DiseasesOfTheRespiratorySystem_Female_White": [
+  4,
+  0,
+  3,
+  3,
+  2,
+  0,
+  0,
+  7
+ ],
+ "Count_Death_DiseasesOfTheRespiratorySystem_Male": [
+  4,
+  0,
+  2,
+  1,
+  1,
+  7
+ ],
+ "Count_Death_DiseasesOfTheRespiratorySystem_Male_AmericanIndianAndAlaskaNativeAlone": [
+  4,
+  0,
+  3,
+  0,
+  2,
+  1,
+  0,
+  6
+ ],
+ "Count_Death_DiseasesOfTheRespiratorySystem_Male_AsianOrPacificIslander": [
+  4,
+  0,
+  3,
+  1,
+  2,
+  1,
+  0,
+  7
+ ],
+ "Count_Death_DiseasesOfTheRespiratorySystem_Male_BlackOrAfricanAmerican": [
+  4,
+  0,
+  3,
+  2,
+  2,
+  1,
+  0,
+  7
+ ],
+ "Count_Death_DiseasesOfTheRespiratorySystem_Male_White": [
+  4,
+  0,
+  3,
+  3,
+  2,
+  1,
+  0,
+  7
+ ],
+ "Count_Death_DiseasesOfTheRespiratorySystem_AmericanIndianAndAlaskaNativeAlone": [
+  4,
+  0,
+  3,
+  0,
+  1,
+  6
+ ],
+ "Count_Death_DiseasesOfTheRespiratorySystem_AsianOrPacificIslander": [
+  4,
+  0,
+  3,
+  1,
+  1,
+  7
+ ],
+ "Count_Death_DiseasesOfTheRespiratorySystem_BlackOrAfricanAmerican": [
+  4,
+  0,
+  3,
+  2,
+  1,
+  7
+ ],
+ "Count_Death_DiseasesOfTheRespiratorySystem_White": [
+  4,
+  0,
+  3,
+  3,
+  1,
+  7
+ ],
+ "Count_Death_DiseasesOfTheDigestiveSystem": [
+  4,
+  0,
+  1,
+  8
+ ],
+ "Count_Death_DiseasesOfTheDigestiveSystem_Female": [
+  4,
+  0,
+  2,
+  0,
+  1,
+  8
+ ],
+ "Count_Death_DiseasesOfTheDigestiveSystem_Female_AmericanIndianAndAlaskaNativeAlone": [
+  4,
+  0,
+  3,
+  0,
+  2,
+  0,
+  0,
+  7
+ ],
+ "Count_Death_DiseasesOfTheDigestiveSystem_Female_AsianOrPacificIslander": [
+  4,
+  0,
+  3,
+  1,
+  2,
+  0,
+  0,
+  8
+ ],
+ "Count_Death_DiseasesOfTheDigestiveSystem_Female_BlackOrAfricanAmerican": [
+  4,
+  0,
+  3,
+  2,
+  2,
+  0,
+  0,
+  8
+ ],
+ "Count_Death_DiseasesOfTheDigestiveSystem_Female_White": [
+  4,
+  0,
+  3,
+  3,
+  2,
+  0,
+  0,
+  8
+ ],
+ "Count_Death_DiseasesOfTheDigestiveSystem_Male": [
+  4,
+  0,
+  2,
+  1,
+  1,
+  8
+ ],
+ "Count_Death_DiseasesOfTheDigestiveSystem_Male_AmericanIndianAndAlaskaNativeAlone": [
+  4,
+  0,
+  3,
+  0,
+  2,
+  1,
+  0,
+  7
+ ],
+ "Count_Death_DiseasesOfTheDigestiveSystem_Male_AsianOrPacificIslander": [
+  4,
+  0,
+  3,
+  1,
+  2,
+  1,
+  0,
+  8
+ ],
+ "Count_Death_DiseasesOfTheDigestiveSystem_Male_BlackOrAfricanAmerican": [
+  4,
+  0,
+  3,
+  2,
+  2,
+  1,
+  0,
+  8
+ ],
+ "Count_Death_DiseasesOfTheDigestiveSystem_Male_White": [
+  4,
+  0,
+  3,
+  3,
+  2,
+  1,
+  0,
+  8
+ ],
+ "Count_Death_DiseasesOfTheDigestiveSystem_AmericanIndianAndAlaskaNativeAlone": [
+  4,
+  0,
+  3,
+  0,
+  1,
+  7
+ ],
+ "Count_Death_DiseasesOfTheDigestiveSystem_AsianOrPacificIslander": [
+  4,
+  0,
+  3,
+  1,
+  1,
+  8
+ ],
+ "Count_Death_DiseasesOfTheDigestiveSystem_BlackOrAfricanAmerican": [
+  4,
+  0,
+  3,
+  2,
+  1,
+  8
+ ],
+ "Count_Death_DiseasesOfTheDigestiveSystem_White": [
+  4,
+  0,
+  3,
+  3,
+  1,
+  8
+ ],
+ "Count_Death_DiseasesOfTheSkinSubcutaneousTissue": [
+  4,
+  0,
+  1,
+  9
+ ],
+ "Count_Death_DiseasesOfTheSkinSubcutaneousTissue_Female": [
+  4,
+  0,
+  2,
+  0,
+  1,
+  9
+ ],
+ "Count_Death_DiseasesOfTheSkinSubcutaneousTissue_Female_AsianOrPacificIslander": [
+  4,
+  0,
+  3,
+  1,
+  2,
+  0,
+  0,
+  9
+ ],
+ "Count_Death_DiseasesOfTheSkinSubcutaneousTissue_Female_BlackOrAfricanAmerican": [
+  4,
+  0,
+  3,
+  2,
+  2,
+  0,
+  0,
+  9
+ ],
+ "Count_Death_DiseasesOfTheSkinSubcutaneousTissue_Female_White": [
+  4,
+  0,
+  3,
+  3,
+  2,
+  0,
+  0,
+  9
+ ],
+ "Count_Death_DiseasesOfTheSkinSubcutaneousTissue_Male": [
+  4,
+  0,
+  2,
+  1,
+  1,
+  9
+ ],
+ "Count_Death_DiseasesOfTheSkinSubcutaneousTissue_Male_AsianOrPacificIslander": [
+  4,
+  0,
+  3,
+  1,
+  2,
+  1,
+  0,
+  9
+ ],
+ "Count_Death_DiseasesOfTheSkinSubcutaneousTissue_Male_BlackOrAfricanAmerican": [
+  4,
+  0,
+  3,
+  2,
+  2,
+  1,
+  0,
+  9
+ ],
+ "Count_Death_DiseasesOfTheSkinSubcutaneousTissue_Male_White": [
+  4,
+  0,
+  3,
+  3,
+  2,
+  1,
+  0,
+  9
+ ],
+ "Count_Death_DiseasesOfTheSkinSubcutaneousTissue_AsianOrPacificIslander": [
+  4,
+  0,
+  3,
+  1,
+  1,
+  9
+ ],
+ "Count_Death_DiseasesOfTheSkinSubcutaneousTissue_BlackOrAfricanAmerican": [
+  4,
+  0,
+  3,
+  2,
+  1,
+  9
+ ],
+ "Count_Death_DiseasesOfTheSkinSubcutaneousTissue_White": [
+  4,
+  0,
+  3,
+  3,
+  1,
+  9
+ ],
+ "Count_Death_DiseasesOfTheMusculoskeletalSystemConnectiveTissue": [
+  4,
+  0,
+  1,
+  10
+ ],
+ "Count_Death_DiseasesOfTheMusculoskeletalSystemConnectiveTissue_Female": [
+  4,
+  0,
+  2,
+  0,
+  1,
+  10
+ ],
+ "Count_Death_DiseasesOfTheMusculoskeletalSystemConnectiveTissue_Female_AsianOrPacificIslander": [
+  4,
+  0,
+  3,
+  1,
+  2,
+  0,
+  0,
+  10
+ ],
+ "Count_Death_DiseasesOfTheMusculoskeletalSystemConnectiveTissue_Female_BlackOrAfricanAmerican": [
+  4,
+  0,
+  3,
+  2,
+  2,
+  0,
+  0,
+  10
+ ],
+ "Count_Death_DiseasesOfTheMusculoskeletalSystemConnectiveTissue_Female_White": [
+  4,
+  0,
+  3,
+  3,
+  2,
+  0,
+  0,
+  10
+ ],
+ "Count_Death_DiseasesOfTheMusculoskeletalSystemConnectiveTissue_Male": [
+  4,
+  0,
+  2,
+  1,
+  1,
+  10
+ ],
+ "Count_Death_DiseasesOfTheMusculoskeletalSystemConnectiveTissue_Male_AsianOrPacificIslander": [
+  4,
+  0,
+  3,
+  1,
+  2,
+  1,
+  0,
+  10
+ ],
+ "Count_Death_DiseasesOfTheMusculoskeletalSystemConnectiveTissue_Male_BlackOrAfricanAmerican": [
+  4,
+  0,
+  3,
+  2,
+  2,
+  1,
+  0,
+  10
+ ],
+ "Count_Death_DiseasesOfTheMusculoskeletalSystemConnectiveTissue_Male_White": [
+  4,
+  0,
+  3,
+  3,
+  2,
+  1,
+  0,
+  10
+ ],
+ "Count_Death_DiseasesOfTheMusculoskeletalSystemConnectiveTissue_AmericanIndianAndAlaskaNativeAlone": [
+  4,
+  0,
+  3,
+  0,
+  1,
+  8
+ ],
+ "Count_Death_DiseasesOfTheMusculoskeletalSystemConnectiveTissue_AsianOrPacificIslander": [
+  4,
+  0,
+  3,
+  1,
+  1,
+  10
+ ],
+ "Count_Death_DiseasesOfTheMusculoskeletalSystemConnectiveTissue_BlackOrAfricanAmerican": [
+  4,
+  0,
+  3,
+  2,
+  1,
+  10
+ ],
+ "Count_Death_DiseasesOfTheMusculoskeletalSystemConnectiveTissue_White": [
+  4,
+  0,
+  3,
+  3,
+  1,
+  10
+ ],
+ "Count_Death_DiseasesOfTheGenitourinarySystem": [
+  4,
+  0,
+  1,
+  11
+ ],
+ "Count_Death_DiseasesOfTheGenitourinarySystem_Female": [
+  4,
+  0,
+  2,
+  0,
+  1,
+  11
+ ],
+ "Count_Death_DiseasesOfTheGenitourinarySystem_Female_AmericanIndianAndAlaskaNativeAlone": [
+  4,
+  0,
+  3,
+  0,
+  2,
+  0,
+  0,
+  8
+ ],
+ "Count_Death_DiseasesOfTheGenitourinarySystem_Female_AsianOrPacificIslander": [
+  4,
+  0,
+  3,
+  1,
+  2,
+  0,
+  0,
+  11
+ ],
+ "Count_Death_DiseasesOfTheGenitourinarySystem_Female_BlackOrAfricanAmerican": [
+  4,
+  0,
+  3,
+  2,
+  2,
+  0,
+  0,
+  11
+ ],
+ "Count_Death_DiseasesOfTheGenitourinarySystem_Female_White": [
+  4,
+  0,
+  3,
+  3,
+  2,
+  0,
+  0,
+  11
+ ],
+ "Count_Death_DiseasesOfTheGenitourinarySystem_Male": [
+  4,
+  0,
+  2,
+  1,
+  1,
+  11
+ ],
+ "Count_Death_DiseasesOfTheGenitourinarySystem_Male_AmericanIndianAndAlaskaNativeAlone": [
+  4,
+  0,
+  3,
+  0,
+  2,
+  1,
+  0,
+  8
+ ],
+ "Count_Death_DiseasesOfTheGenitourinarySystem_Male_AsianOrPacificIslander": [
+  4,
+  0,
+  3,
+  1,
+  2,
+  1,
+  0,
+  11
+ ],
+ "Count_Death_DiseasesOfTheGenitourinarySystem_Male_BlackOrAfricanAmerican": [
+  4,
+  0,
+  3,
+  2,
+  2,
+  1,
+  0,
+  11
+ ],
+ "Count_Death_DiseasesOfTheGenitourinarySystem_Male_White": [
+  4,
+  0,
+  3,
+  3,
+  2,
+  1,
+  0,
+  11
+ ],
+ "Count_Death_DiseasesOfTheGenitourinarySystem_AmericanIndianAndAlaskaNativeAlone": [
+  4,
+  0,
+  3,
+  0,
+  1,
+  9
+ ],
+ "Count_Death_DiseasesOfTheGenitourinarySystem_AsianOrPacificIslander": [
+  4,
+  0,
+  3,
+  1,
+  1,
+  11
+ ],
+ "Count_Death_DiseasesOfTheGenitourinarySystem_BlackOrAfricanAmerican": [
+  4,
+  0,
+  3,
+  2,
+  1,
+  11
+ ],
+ "Count_Death_DiseasesOfTheGenitourinarySystem_White": [
+  4,
+  0,
+  3,
+  3,
+  1,
+  11
+ ],
+ "Count_Death_PregnancyChildbirthThePuerperium": [
+  4,
+  0,
+  1,
+  12
+ ],
+ "Count_Death_PregnancyChildbirthThePuerperium_Female": [
+  4,
+  0,
+  2,
+  0,
+  1,
+  12
+ ],
+ "Count_Death_PregnancyChildbirthThePuerperium_Female_BlackOrAfricanAmerican": [
+  4,
+  0,
+  3,
+  2,
+  2,
+  0,
+  0,
+  12
+ ],
+ "Count_Death_PregnancyChildbirthThePuerperium_Female_White": [
+  4,
+  0,
+  3,
+  3,
+  2,
+  0,
+  0,
+  12
+ ],
+ "Count_Death_PregnancyChildbirthThePuerperium_BlackOrAfricanAmerican": [
+  4,
+  0,
+  3,
+  2,
+  1,
+  12
+ ],
+ "Count_Death_PregnancyChildbirthThePuerperium_White": [
+  4,
+  0,
+  3,
+  3,
+  1,
+  12
+ ],
+ "Count_Death_CertainConditionsOriginatingInThePerinatalPeriod": [
+  4,
+  0,
+  1,
+  13
+ ],
+ "Count_Death_CertainConditionsOriginatingInThePerinatalPeriod_Female": [
+  4,
+  0,
+  2,
+  0,
+  1,
+  13
+ ],
+ "Count_Death_CertainConditionsOriginatingInThePerinatalPeriod_Female_AsianOrPacificIslander": [
+  4,
+  0,
+  3,
+  1,
+  2,
+  0,
+  0,
+  12
+ ],
+ "Count_Death_CertainConditionsOriginatingInThePerinatalPeriod_Female_BlackOrAfricanAmerican": [
+  4,
+  0,
+  3,
+  2,
+  2,
+  0,
+  0,
+  13
+ ],
+ "Count_Death_CertainConditionsOriginatingInThePerinatalPeriod_Female_White": [
+  4,
+  0,
+  3,
+  3,
+  2,
+  0,
+  0,
+  13
+ ],
+ "Count_Death_CertainConditionsOriginatingInThePerinatalPeriod_Male": [
+  4,
+  0,
+  2,
+  1,
+  1,
+  12
+ ],
+ "Count_Death_CertainConditionsOriginatingInThePerinatalPeriod_Male_AsianOrPacificIslander": [
+  4,
+  0,
+  3,
+  1,
+  2,
+  1,
+  0,
+  12
+ ],
+ "Count_Death_CertainConditionsOriginatingInThePerinatalPeriod_Male_BlackOrAfricanAmerican": [
+  4,
+  0,
+  3,
+  2,
+  2,
+  1,
+  0,
+  12
+ ],
+ "Count_Death_CertainConditionsOriginatingInThePerinatalPeriod_Male_White": [
+  4,
+  0,
+  3,
+  3,
+  2,
+  1,
+  0,
+  12
+ ],
+ "Count_Death_CertainConditionsOriginatingInThePerinatalPeriod_AmericanIndianAndAlaskaNativeAlone": [
+  4,
+  0,
+  3,
+  0,
+  1,
+  10
+ ],
+ "Count_Death_CertainConditionsOriginatingInThePerinatalPeriod_AsianOrPacificIslander": [
+  4,
+  0,
+  3,
+  1,
+  1,
+  12
+ ],
+ "Count_Death_CertainConditionsOriginatingInThePerinatalPeriod_BlackOrAfricanAmerican": [
+  4,
+  0,
+  3,
+  2,
+  1,
+  13
+ ],
+ "Count_Death_CertainConditionsOriginatingInThePerinatalPeriod_White": [
+  4,
+  0,
+  3,
+  3,
+  1,
+  13
+ ],
+ "Count_Death_CongenitalMalformationsDeformationsChromosomalAbnormalities": [
+  4,
+  0,
+  1,
+  14
+ ],
+ "Count_Death_CongenitalMalformationsDeformationsChromosomalAbnormalities_Female": [
+  4,
+  0,
+  2,
+  0,
+  1,
+  14
+ ],
+ "Count_Death_CongenitalMalformationsDeformationsChromosomalAbnormalities_Female_AsianOrPacificIslander": [
+  4,
+  0,
+  3,
+  1,
+  2,
+  0,
+  0,
+  13
+ ],
+ "Count_Death_CongenitalMalformationsDeformationsChromosomalAbnormalities_Female_BlackOrAfricanAmerican": [
+  4,
+  0,
+  3,
+  2,
+  2,
+  0,
+  0,
+  14
+ ],
+ "Count_Death_CongenitalMalformationsDeformationsChromosomalAbnormalities_Female_White": [
+  4,
+  0,
+  3,
+  3,
+  2,
+  0,
+  0,
+  14
+ ],
+ "Count_Death_CongenitalMalformationsDeformationsChromosomalAbnormalities_Male": [
+  4,
+  0,
+  2,
+  1,
+  1,
+  13
+ ],
+ "Count_Death_CongenitalMalformationsDeformationsChromosomalAbnormalities_Male_AsianOrPacificIslander": [
+  4,
+  0,
+  3,
+  1,
+  2,
+  1,
+  0,
+  13
+ ],
+ "Count_Death_CongenitalMalformationsDeformationsChromosomalAbnormalities_Male_BlackOrAfricanAmerican": [
+  4,
+  0,
+  3,
+  2,
+  2,
+  1,
+  0,
+  13
+ ],
+ "Count_Death_CongenitalMalformationsDeformationsChromosomalAbnormalities_Male_White": [
+  4,
+  0,
+  3,
+  3,
+  2,
+  1,
+  0,
+  13
+ ],
+ "Count_Death_CongenitalMalformationsDeformationsChromosomalAbnormalities_AsianOrPacificIslander": [
+  4,
+  0,
+  3,
+  1,
+  1,
+  13
+ ],
+ "Count_Death_CongenitalMalformationsDeformationsChromosomalAbnormalities_BlackOrAfricanAmerican": [
+  4,
+  0,
+  3,
+  2,
+  1,
+  14
+ ],
+ "Count_Death_CongenitalMalformationsDeformationsChromosomalAbnormalities_White": [
+  4,
+  0,
+  3,
+  3,
+  1,
+  14
+ ],
+ "Count_Death_AbnormalNotClassfied": [
+  4,
+  0,
+  1,
+  15
+ ],
+ "Count_Death_AbnormalNotClassfied_Female": [
+  4,
+  0,
+  2,
+  0,
+  1,
+  15
+ ],
+ "Count_Death_AbnormalNotClassfied_Female_AsianOrPacificIslander": [
+  4,
+  0,
+  3,
+  1,
+  2,
+  0,
+  0,
+  14
+ ],
+ "Count_Death_AbnormalNotClassfied_Female_BlackOrAfricanAmerican": [
+  4,
+  0,
+  3,
+  2,
+  2,
+  0,
+  0,
+  15
+ ],
+ "Count_Death_AbnormalNotClassfied_Female_White": [
+  4,
+  0,
+  3,
+  3,
+  2,
+  0,
+  0,
+  15
+ ],
+ "Count_Death_AbnormalNotClassfied_Male": [
+  4,
+  0,
+  2,
+  1,
+  1,
+  14
+ ],
+ "Count_Death_AbnormalNotClassfied_Male_AmericanIndianAndAlaskaNativeAlone": [
+  4,
+  0,
+  3,
+  0,
+  2,
+  1,
+  0,
+  9
+ ],
+ "Count_Death_AbnormalNotClassfied_Male_AsianOrPacificIslander": [
+  4,
+  0,
+  3,
+  1,
+  2,
+  1,
+  0,
+  14
+ ],
+ "Count_Death_AbnormalNotClassfied_Male_BlackOrAfricanAmerican": [
+  4,
+  0,
+  3,
+  2,
+  2,
+  1,
+  0,
+  14
+ ],
+ "Count_Death_AbnormalNotClassfied_Male_White": [
+  4,
+  0,
+  3,
+  3,
+  2,
+  1,
+  0,
+  14
+ ],
+ "Count_Death_AbnormalNotClassfied_AmericanIndianAndAlaskaNativeAlone": [
+  4,
+  0,
+  3,
+  0,
+  1,
+  11
+ ],
+ "Count_Death_AbnormalNotClassfied_AsianOrPacificIslander": [
+  4,
+  0,
+  3,
+  1,
+  1,
+  14
+ ],
+ "Count_Death_AbnormalNotClassfied_BlackOrAfricanAmerican": [
+  4,
+  0,
+  3,
+  2,
+  1,
+  15
+ ],
+ "Count_Death_AbnormalNotClassfied_White": [
+  4,
+  0,
+  3,
+  3,
+  1,
+  15
+ ],
+ "Count_Death_SpecialCases": [
+  4,
+  0,
+  1,
+  16
+ ],
+ "Count_Death_SpecialCases_Female": [
+  4,
+  0,
+  2,
+  0,
+  1,
+  16
+ ],
+ "Count_Death_SpecialCases_Female_BlackOrAfricanAmerican": [
+  4,
+  0,
+  3,
+  2,
+  2,
+  0,
+  0,
+  16
+ ],
+ "Count_Death_SpecialCases_Female_White": [
+  4,
+  0,
+  3,
+  3,
+  2,
+  0,
+  0,
+  16
+ ],
+ "Count_Death_SpecialCases_Male": [
+  4,
+  0,
+  2,
+  1,
+  1,
+  15
+ ],
+ "Count_Death_SpecialCases_Male_AsianOrPacificIslander": [
+  4,
+  0,
+  3,
+  1,
+  2,
+  1,
+  0,
+  15
+ ],
+ "Count_Death_SpecialCases_Male_BlackOrAfricanAmerican": [
+  4,
+  0,
+  3,
+  2,
+  2,
+  1,
+  0,
+  15
+ ],
+ "Count_Death_SpecialCases_Male_White": [
+  4,
+  0,
+  3,
+  3,
+  2,
+  1,
+  0,
+  15
+ ],
+ "Count_Death_SpecialCases_AsianOrPacificIslander": [
+  4,
+  0,
+  3,
+  1,
+  1,
+  15
+ ],
+ "Count_Death_SpecialCases_BlackOrAfricanAmerican": [
+  4,
+  0,
+  3,
+  2,
+  1,
+  16
+ ],
+ "Count_Death_SpecialCases_White": [
+  4,
+  0,
+  3,
+  3,
+  1,
+  16
+ ],
+ "Count_Death_ExternalCauses": [
+  4,
+  0,
+  1,
+  17
+ ],
+ "Count_Death_ExternalCauses_Female": [
+  4,
+  0,
+  2,
+  0,
+  1,
+  17
+ ],
+ "Count_Death_ExternalCauses_Female_AmericanIndianAndAlaskaNativeAlone": [
+  4,
+  0,
+  3,
+  0,
+  2,
+  0,
+  0,
+  9
+ ],
+ "Count_Death_ExternalCauses_Female_AsianOrPacificIslander": [
+  4,
+  0,
+  3,
+  1,
+  2,
+  0,
+  0,
+  15
+ ],
+ "Count_Death_ExternalCauses_Female_BlackOrAfricanAmerican": [
+  4,
+  0,
+  3,
+  2,
+  2,
+  0,
+  0,
+  17
+ ],
+ "Count_Death_ExternalCauses_Female_White": [
+  4,
+  0,
+  3,
+  3,
+  2,
+  0,
+  0,
+  17
+ ],
+ "Count_Death_ExternalCauses_Male": [
+  4,
+  0,
+  2,
+  1,
+  1,
+  16
+ ],
+ "Count_Death_ExternalCauses_Male_AmericanIndianAndAlaskaNativeAlone": [
+  4,
+  0,
+  3,
+  0,
+  2,
+  1,
+  0,
+  10
+ ],
+ "Count_Death_ExternalCauses_Male_AsianOrPacificIslander": [
+  4,
+  0,
+  3,
+  1,
+  2,
+  1,
+  0,
+  16
+ ],
+ "Count_Death_ExternalCauses_Male_BlackOrAfricanAmerican": [
+  4,
+  0,
+  3,
+  2,
+  2,
+  1,
+  0,
+  16
+ ],
+ "Count_Death_ExternalCauses_Male_White": [
+  4,
+  0,
+  3,
+  3,
+  2,
+  1,
+  0,
+  16
+ ],
+ "Count_Death_ExternalCauses_AmericanIndianAndAlaskaNativeAlone": [
+  4,
+  0,
+  3,
+  0,
+  1,
+  12
+ ],
+ "Count_Death_ExternalCauses_AsianOrPacificIslander": [
+  4,
+  0,
+  3,
+  1,
+  1,
+  16
+ ],
+ "Count_Death_ExternalCauses_BlackOrAfricanAmerican": [
+  4,
+  0,
+  3,
+  2,
+  1,
+  17
+ ],
+ "Count_Death_ExternalCauses_White": [
+  4,
+  0,
+  3,
+  3,
+  1,
+  17
+ ],
+ "Count_Death_Female": [
+  4,
+  0,
+  2,
+  0
+ ],
+ "Count_Death_Female_AmericanIndianAndAlaskaNativeAlone": [
+  4,
+  0,
+  3,
+  0,
+  2,
+  0
+ ],
+ "Count_Death_Female_AsianOrPacificIslander": [
+  4,
+  0,
+  3,
+  1,
+  2,
+  0
+ ],
+ "Count_Death_Female_BlackOrAfricanAmerican": [
+  4,
+  0,
+  3,
+  2,
+  2,
+  0
+ ],
+ "Count_Death_Female_White": [
+  4,
+  0,
+  3,
+  3,
+  2,
+  0
+ ],
+ "Count_Death_Male": [
+  4,
+  0,
+  2,
+  1
+ ],
+ "Count_Death_Male_AmericanIndianAndAlaskaNativeAlone": [
+  4,
+  0,
+  3,
+  0,
+  2,
+  1
+ ],
+ "Count_Death_Male_AsianOrPacificIslander": [
+  4,
+  0,
+  3,
+  1,
+  2,
+  1
+ ],
+ "Count_Death_Male_BlackOrAfricanAmerican": [
+  4,
+  0,
+  3,
+  2,
+  2,
+  1
+ ],
+ "Count_Death_Male_White": [
+  4,
+  0,
+  3,
+  3,
+  2,
+  1
+ ],
+ "Count_Death_AmericanIndianAndAlaskaNativeAlone": [
+  4,
+  0,
+  3,
+  0
+ ],
+ "Count_Death_AsianOrPacificIslander": [
+  4,
+  0,
+  3,
+  1
+ ],
+ "Count_Death_BlackOrAfricanAmerican": [
+  4,
+  0,
+  3,
+  2
+ ],
+ "Count_Death_White": [
+  4,
+  0,
+  3,
+  3
+ ],
  "Percent_Person_WithAllTeethLoss": [
   4,
   1,
@@ -24714,6 +34968,30 @@
   7,
   0
  ],
+ "Count_CycloneEvent_ExtratropicalCyclone": [
+  7,
+  0,
+  0,
+  0
+ ],
+ "Count_CycloneEvent_SubtropicalStorm": [
+  7,
+  0,
+  0,
+  1
+ ],
+ "Count_CycloneEvent_TropicalDisturbance": [
+  7,
+  0,
+  0,
+  2
+ ],
+ "Count_CycloneEvent_TropicalStorm": [
+  7,
+  0,
+  0,
+  3
+ ],
  "Count_DroughtEvent": [
   7,
   1
@@ -24721,6 +34999,84 @@
  "Count_EarthquakeEvent": [
   7,
   2
+ ],
+ "Count_EarthquakeEvent_M3To4": [
+  7,
+  2,
+  0,
+  0
+ ],
+ "Count_EarthquakeEvent_M4To5": [
+  7,
+  2,
+  0,
+  1
+ ],
+ "Count_EarthquakeEvent_M5To6": [
+  7,
+  2,
+  0,
+  2
+ ],
+ "Count_EarthquakeEvent_M6To7": [
+  7,
+  2,
+  0,
+  3
+ ],
+ "Count_EarthquakeEvent_M7To8": [
+  7,
+  2,
+  0,
+  4
+ ],
+ "Count_EarthquakeEvent_M8To9": [
+  7,
+  2,
+  0,
+  5
+ ],
+ "Count_EarthquakeEvent_M3Onwards": [
+  7,
+  2,
+  0,
+  6
+ ],
+ "Count_EarthquakeEvent_M4Onwards": [
+  7,
+  2,
+  0,
+  7
+ ],
+ "Count_EarthquakeEvent_M5Onwards": [
+  7,
+  2,
+  0,
+  8
+ ],
+ "Count_EarthquakeEvent_M6Onwards": [
+  7,
+  2,
+  0,
+  9
+ ],
+ "Count_EarthquakeEvent_M7Onwards": [
+  7,
+  2,
+  0,
+  10
+ ],
+ "Count_EarthquakeEvent_M8Onwards": [
+  7,
+  2,
+  0,
+  11
+ ],
+ "Count_EarthquakeEvent_M9Onwards": [
+  7,
+  2,
+  0,
+  12
  ],
  "Count_FloodEvent": [
   7,
