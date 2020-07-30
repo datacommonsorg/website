@@ -122,7 +122,8 @@ class Page extends Component<PagePropType, PageStateType> {
           <div id="drill-scroll-container">
             <div className="title">Select variables:</div>
             <span className="perCapita">Per capita</span>
-            <button className={this.state.perCapita?"checkbox checked":"checkbox"}></button>
+            <button className={this.state.perCapita?"checkbox checked":"checkbox"}
+                    onClick={this._togglePerCapita}></button>
             <Menu
               search={this.props.search}
               statsVarPaths={this.state.statsVarPaths}
