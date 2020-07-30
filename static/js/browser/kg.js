@@ -64,6 +64,13 @@ const LOC_FIELD = {
   childhoodLocationPopulations: "childhoodLocation",
 };
 
+// Regex to check for top level NAICS code, which is one of:
+// - Start with "10". Such as "NAICS/1012".
+// - Two digits. Such as "NAICS/51".
+// - Two pairs of two digits connected by "-". Such as "NAICS/31-33".
+// TOOD(shifucun): Add additional whitelisted NAICS that exist in cache.
+const TOP_NAICS_REGEX = /(NAICS\/10\d*|NAICS\/\d\d|NAICS\/\d\d-\d\d)/g;
+
 /**
  * Orders population group keys.
  *
@@ -787,10 +794,7 @@ function renderKGPage(
         let popDcids = [];
         if (key.includes("naics")) {
           for (const pop of popGroup[key]) {
-            if (pop["pvs"]["naics"].match(
-                /(NAICS\/10\d*|NAICS\/\d\d|NAICS\/\d\d-\d\d)/g
-              )
-            ) {
+            if (pop["pvs"]["naics"].match(TOP_NAICS_REGEX)) {
               popDcids.push(pop["dcid"]);
             }
           }
