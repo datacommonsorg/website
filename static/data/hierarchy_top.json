@@ -3,7 +3,7 @@
   "sv": "top",
   "l": "Demographics",
   "t": "p",
-  "c": 1784,
+  "c": 1785,
   "cd": [
    {
     "sv": "Count_Person",
@@ -12,13 +12,13 @@
     "c": 1
    },
    {
-    "sv": "MedianAge",
+    "sv": "Median_Age_Person",
     "l": "Median age",
     "t": "v",
     "c": 1
    },
    {
-    "sv": "MedianIncome",
+    "sv": "Median_Income_Person",
     "l": "Median income",
     "t": "v",
     "c": 1
@@ -133,7 +133,7 @@
   "c": 193,
   "cd": [
    {
-    "sv": "UnemploymentRate",
+    "sv": "UnemploymentRate_Person",
     "l": "Unemployment Rate",
     "t": "v",
     "c": 1
@@ -183,7 +183,7 @@
     "sv": "Count_MortalityEvent",
     "l": "Mortality",
     "t": "v",
-    "c": 1
+    "c": 1101
    },
    {
     "l": "Health Outcomes",
@@ -219,7 +219,7 @@
   "c": 96,
   "cd": [
    {
-    "sv": "HousingUnits",
+    "sv": "Count_HousingUnit",
     "l": "Housing Units",
     "t": "v",
     "c": 1
@@ -268,7 +268,7 @@
   "c": 679,
   "cd": [
    {
-    "sv": "Households",
+    "sv": "Count_Household",
     "l": "Household",
     "t": "v",
     "c": 1
@@ -300,7 +300,7 @@
     "sv": "Count_CycloneEvent",
     "l": "Cyclones",
     "t": "v",
-    "c": 1
+    "c": 5
    },
    {
     "sv": "Count_DroughtEvent",
@@ -312,7 +312,7 @@
     "sv": "Count_EarthquakeEvent",
     "l": "Earthquakes",
     "t": "v",
-    "c": 1
+    "c": 14
    },
    {
     "sv": "Count_FloodEvent",
