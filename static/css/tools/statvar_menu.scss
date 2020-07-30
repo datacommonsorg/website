@@ -161,7 +161,7 @@ sup {
   width: 14px;
   height: 14px;
   margin-top: 4px;
-  border: 0;
+  border: none;
   background: url("/images/icon-checkbox-light.svg");
   outline: none;
 }
@@ -173,4 +173,8 @@ sup {
 .perCapita {
   margin-left: 32px;
   margin-right: 5px;
+}
+
+button:focus {
+  outline: 0;
 }
