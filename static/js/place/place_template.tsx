@@ -414,7 +414,9 @@ class ChildPlace extends Component<ChildPlacePropType, {}> {
         {Object.keys(this.props.childPlaces).map((placeType) => (
           <div key={placeType}>
             <div className="child-place-type">{pluralize(placeType)}</div>
-            {this.props.childPlaces[placeType].map((place, i) => (
+            {this.props.childPlaces[placeType]
+            .sort((a, b) => a.name > b.name)
+            .map((place, i) => (
               <a
                 key={place.dcid}
                 className="child-place-link"

@@ -178,6 +178,11 @@ function renderPage(dcid: string) {
   });
 
   childPlacesPromise.then((childPlaces) => {
+    // Display child places alphabetically
+    for (let placeType in childPlaces) {
+      childPlaces[placeType].sort((a, b) => a.name < b.name ? -1 : a.name > b.name ? 1 : 0);
+    }
+
     ReactDOM.render(
       React.createElement(ChildPlace, { childPlaces }),
       document.getElementById("child-place")
