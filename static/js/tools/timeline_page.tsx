@@ -90,7 +90,6 @@ class Page extends Component<PagePropType, PageStateType> {
       placesPromise,
       validStatsVarPromise,
     ]).then((values) => {
-      console.log(urlVar.pc)
       this.setState({
         statsVarInfo: values[0],
         statsVarPaths: urlVar.statsVarPath,

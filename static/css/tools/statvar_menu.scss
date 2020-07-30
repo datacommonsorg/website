@@ -110,8 +110,7 @@ $menu-line: #5b5e60;
   font-size: 0.95rem;
 }
 
-#drill 
-.checkbox {
+#drill .checkbox {
   cursor: pointer;
   width: 14px;
   height: 14px;
@@ -122,8 +121,7 @@ $menu-line: #5b5e60;
   outline: none;
 }
 
-#drill 
-.checkbox.checked {
+#drill .checkbox.checked {
   background: url("/images/icon-checkbox-checked-light.svg");
 }
 
@@ -158,7 +156,6 @@ sup {
   font-weight: bold;
 }
 
- 
 .checkbox {
   cursor: pointer;
   width: 14px;
