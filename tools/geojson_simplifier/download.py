@@ -11,10 +11,8 @@
 # WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 # See the License for the specific language governing permissions and
 # limitations under the License.
-
 """
 Downloads and saves GeoJson map files from DataCommons.
-
     Typical usage:
     python3 download.py
 """
@@ -23,12 +21,43 @@ import datacommons as dc
 import geojson
 
 
-# TODO(fpernice-google): support downloading more than just US states
-class GeojsonDownloder:
-    """Downloads Geojson data from DataCommons API.
+# TODO(fpernice-google): Support downloading more than just US states.
+class GeojsonDownloader:
+    """Downloads desired Geojsons files from the DataCommons Knowledge Graph.
 
     Attributes:
-        geojsons: Dictionary containing all the downloaded geojsons.
+        geojsons: A dictionary that maps each queried area to another
+                  dictionary containing the geojson coordinate information. An
+                  example of this is the following
+
+                {   # Multipolygon of the state of Alabama (fake).
+                    "geoId/01": [{
+                        "type": "MultiPolygon",
+
+                        # Set of individual Polygons that compose it.
+                        "coordinates": [
+                            # Polygon 1
+                            [[ [1.5, 12.4], [5.3, 45.2], [1.1, 3.5],
+                                                            [1.5, 12.4] ]],
+                            # Polygon 2
+                            [[ [1, 2], [3, 4], [5, 6], [2, -1], [1, 2] ]],
+                            # Polygon 3
+                            [[ [53, 23], [65, 2], [31, 12], [53, 23] ]]
+                        ]
+                    }],
+                    # Polygon of the state of Illinois (fake).
+                    # Since Illinois is a single chunk of land, its type
+                    # is Polygon instead of Multipolygon.
+                    "geoId/17": [{
+                        "type": "Polygon",
+                        "coordinates": [
+                            # Polygon 1
+                            [[ [1.5, 12.4], [5.3, 45.2], [1.1, 3.5],
+                                                            [1.5, 12.4] ]]
+                        ]
+                    }]
+
+                }
     """
     LEVEL_MAP = {
         "Country": "AdministrativeArea1",
@@ -41,17 +70,39 @@ class GeojsonDownloder:
         self.geojsons = None
 
     def download_data(self, place='country/USA'):
+        """Downloads geojson data for specified location.
+
+        Given the specified location, extracts the geojsons of all
+        administrative areas one level below it (as specified by the
+        LEVEL_MAP class constant). For example, if the input is country/USA,
+        extracts all AdministrativeArea1's within the US (US states).
+
+        Args:
+            place: A string that is a valid value for the geoId property of a
+                   DataCommons node.
+        """
         geolevel_below = dc.get_property_values([place],
                                                 "typeOf")
+        # There is an extra level of nesting in geojson files, so we have
+        # to get the 0th element explicitly.
+        assert len(geolevel_below[place]) == 1
         geolevel_below = geolevel_below[place][0]
         geos_contained_in_place = dc.get_places_in(
                                     [place],
-                                    self.LEVEL_MAP[geolevel_below])
-        geos_contained_in_place = geos_contained_in_place[place]
+                                    self.LEVEL_MAP[geolevel_below])[place]
         self.geojsons = dc.get_property_values(geos_contained_in_place,
                                                "geoJsonCoordinates")
 
     def save(self, prefix='', path='./original-data/'):
+        """Saves the downloaded geojsons to disk.
+
+        Args:
+            prefix: Prefix prepended to the geoId of a given geojson to
+                    determine the name of its filename. For example, if
+                    prefix='original-', a resulting filename might be
+                    'original-geoId-01.geojson'.
+            path: Path in which to save the desired files.
+        """
         for geoid in self.geojsons:
             assert len(self.geojsons[geoid]) == 1
             coords = self.geojsons[geoid][0]
@@ -61,6 +112,6 @@ class GeojsonDownloder:
 
 
 if __name__ == '__main__':
-    loader = GeojsonDownloder()
+    loader = GeojsonDownloader()
     loader.download_data()
     loader.save()
