@@ -26,28 +26,37 @@ TEST_DATA_DIR = "test-data"
 
 
 class GeojsonSimplifierTest(unittest.TestCase):
-    def test_california(self):
+    @staticmethod
+    def get_file_output(raw_file, simple_file):
         simplifier = simplify.GeojsonSimplifier()
-        simplifier.read_geojson(os.path.join(TEST_DATA_DIR,
-                                             'california.geojson'))
+        simplifier.read_geojson(os.path.join(TEST_DATA_DIR, raw_file))
         simplifier.simplify()
         result = simplifier.geojson
-        file = os.path.join(TEST_DATA_DIR, 'california-simple.geojson')
+        file = os.path.join(TEST_DATA_DIR, simple_file)
         with open(file, 'r') as f:
             expected_result = geojson.load(f)
-        self.assertDictEqual(result, expected_result)
+        return result, expected_result
+
+    def test_california(self):
+        """Simplifies file ./test-data/california.geojson and compares result
+        against ./test-data/california-simple.geojson
+        """
+        result, exp_result = self.get_file_output('california.geojson',
+                                                  'california-simple.geojson')
+        self.assertDictEqual(result, exp_result)
 
     def test_alabama(self):
-        simplifier = simplify.GeojsonSimplifier()
-        simplifier.read_geojson(os.path.join(TEST_DATA_DIR, 'alabama.geojson'))
-        simplifier.simplify()
-        result = simplifier.geojson
-        file = os.path.join(TEST_DATA_DIR, 'alabama-simple.geojson')
-        with open(file, 'r') as f:
-            expected_result = geojson.load(f)
-        self.assertDictEqual(result, expected_result)
+        """Simplifies file ./test-data/alabama.geojson and compares result
+        against ./test-data/alabama-simple.geojson
+        """
+        result, exp_result = self.get_file_output('alabama.geojson',
+                                                  'alabama-simple.geojson')
+        self.assertDictEqual(result, exp_result)
 
     def test_small_adjustement(self):
+        """Tests a small adjustement (removed point is very well approximated
+        by the resulting line) on a small, custom-made Polygon.
+        """
         polygon_ex = {
             'type': 'Polygon',
             'coordinates': [
@@ -66,6 +75,9 @@ class GeojsonSimplifierTest(unittest.TestCase):
         self.assertDictEqual(simplifier.geojson, polygon_simple_ex)
 
     def test_larger_adjustement(self):
+        """Tests a moderate adjustement (removed point is poorly approximated
+        by the resulting line) on a small, custom-made Polygon.
+        """
         polygon_ex = {
             'type': 'Polygon',
             'coordinates': [
@@ -82,6 +94,12 @@ class GeojsonSimplifierTest(unittest.TestCase):
         simplifier.geojson = polygon_ex
         simplifier.simplify(epsilon=2)
         self.assertDictEqual(simplifier.geojson, polygon_simple_ex)
+
+    def shortDescription(self):
+        """Tells Unittest to print out the full docstrings of any failing tests.
+        By default, it only prints the first line.
+        """
+        return " ".join(self._testMethodDoc.split())
 
 
 if __name__ == '__main__':
