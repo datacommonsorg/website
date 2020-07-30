@@ -48,6 +48,7 @@ app = create_app()
 GCS_BUCKET = app.config['GCS_BUCKET']
 _MAX_SEARCH_RESULTS = 1000
 
+# Contains statistical variable and the display name used for place rankings.
 RANKING_STATS = {
     'Count_Person': 'Population',
     'Median_Income_Person': 'Median Income',
