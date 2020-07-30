@@ -15,7 +15,6 @@
  */
 
 import axios, { AxiosResponse } from "axios";
-import _ from "lodash";
 
 import { DataPoint, DataGroup } from "../chart/base";
 import { STATS_VAR_TEXT } from "./stats_var";
@@ -99,11 +98,11 @@ class StatsData {
     const result: DataGroup[] = [];
     for (const statsVar of this.statsVars) {
       const dataPoints: DataPoint[] = [];
-      if (this.data[statsVar][place].data) {
+      if (Object.keys(this.data[statsVar][place].data).length !== 0) {
         for (const date of this.dates) {
           dataPoints.push({
             label: date,
-            value: this.data[statsVar][place].data[date],
+            value: date in this.data[statsVar][place].data ? this.data[statsVar][place].data[date] : null,
           });
         }
         result.push(new DataGroup(statsVar, dataPoints));
@@ -227,26 +226,15 @@ function fetchStatsData(
           }
         }
       }
-      // Build the dates collection
+      // Build the dates collection, get the union of available dates for all data
       for (const place in allResp[i].data) {
         if (!allResp[i].data[place]) {
           continue;
         }
         result.sources.add(allResp[i].data[place].provenance_domain)
-        // Build initial dates
-        if (Object.keys(dates).length === 0) {
-          for (const date in allResp[i].data[place].data) {
-            if (allResp[i].data[place].data.hasOwnProperty(date)) {
-              dates[date] = true;
-            }
-          }
-        } else {
-          // If a date is not in the new data, remove it from the current
-          // collection.
-          for (const date of Object.keys(dates)) {
-            if (allResp[i].data[place].data && !(date in allResp[i].data[place].data)) {
-              delete dates[date];
-            }
+        for (const date in allResp[i].data[place].data) {
+          if (allResp[i].data[place].data.hasOwnProperty(date)) {
+            dates[date] = true;
           }
         }
       }

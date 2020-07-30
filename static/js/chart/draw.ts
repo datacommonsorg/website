@@ -587,7 +587,7 @@ function drawGroupLineChart(
   const legendTextdWidth = Math.max(width * LEGEND.ratio, LEGEND.minTextWidth);
   const legendWidth =
     Object.keys(dataGroupsDict).length > 1 &&
-    Object.keys(statsVarsTitle).length > 1
+      Object.keys(statsVarsTitle).length > 1
       ? LEGEND.dashWidth + legendTextdWidth
       : legendTextdWidth;
 
@@ -634,6 +634,7 @@ function drawGroupLineChart(
       ]);
       const line = d3
         .line()
+        .defined(d => d[1] != null)
         .x((d) => xScale(d[0]))
         .y((d) => yScale(d[1]));
       const lineStyle =
@@ -668,7 +669,7 @@ function drawGroupLineChart(
     .attr(
       "transform",
       `translate(${width - legendWidth - LEGEND.marginLeft}, ${
-        LEGEND.marginTop
+      LEGEND.marginTop
       })`
     );
   buildInChartLegend(legend, plotParams.legend, legendTextdWidth);

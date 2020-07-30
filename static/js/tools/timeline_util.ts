@@ -187,7 +187,7 @@ function getStatsVar(dcids: string[]) {
     );
   }
   return Promise.all(promises).then((values) => {
-    let statsVars = new Set(); // Count_Person not in List ???
+    let statsVars = new Set();
     for (const value of values) {
       statsVars = new Set([...Array.from(statsVars), ...value]);
     }
