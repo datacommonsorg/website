@@ -148,6 +148,7 @@ function renderPage(dcid: string) {
   const urlParams = new URLSearchParams(window.location.search);
   // Get topic and render menu.
   const topic = urlParams.get("topic");
+  const placeName = document.getElementById("place-name").dataset.pn;
   const placeType = document.getElementById("place-type").dataset.pt;
 
   // Get parent, child and similiar places and render main pane.
@@ -170,8 +171,8 @@ function renderPage(dcid: string) {
 
   parentPlacesPromise.then((parentPlaces) => {
     ReactDOM.render(
-      React.createElement(ParentPlace, { parentPlaces }),
-      document.getElementById("place-parents")
+      React.createElement(ParentPlace, { parentPlaces, placeType }),
+      document.getElementById("place-type")
     );
     // Readjust sidebar based on parent places.
     updatePageLayoutState();
@@ -184,7 +185,7 @@ function renderPage(dcid: string) {
     }
 
     ReactDOM.render(
-      React.createElement(ChildPlace, { childPlaces }),
+      React.createElement(ChildPlace, { childPlaces, placeName }),
       document.getElementById("child-place")
     );
   });
