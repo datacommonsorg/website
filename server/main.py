@@ -260,10 +260,9 @@ def api_ranking(dcid):
         response = get_related_place(
             dcid, '^'.join(crime_statsvar.keys()), same_place_type=True,
             within_place=parent, is_per_capita=True)
-        for stats_var, label in crime_statsvar.items():
-            result[label].append({
-                'name': parent_names[parent],
-                'data': response[stats_var]})
+        for stats_var, data in response.items():
+            result[crime_statsvar[stats_var]].append(
+                {'name': parent_names[parent], 'data': data})
 
     result['label'] = list(RANKING_STATS.values()) + \
         list(crime_statsvar.values())
