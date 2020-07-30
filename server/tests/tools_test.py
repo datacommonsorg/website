@@ -21,7 +21,7 @@ class TestStaticPage(unittest.TestCase):
     def test_timeline(self):
         response = app.test_client().get('/tools/timeline')
         assert response.status_code == 200
-        assert b"Welcome to Data Commons." in response.data
+        assert b"Timelines Explorer | Data Commons" in response.data
 
 
     def test_download(self):
