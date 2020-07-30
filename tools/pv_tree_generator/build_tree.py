@@ -20,9 +20,6 @@ import text_format
 
 MAX_LEVEL = 6
 
-MAPPING = {"TotalPopulation": "Count_Person"}
-
-
 def build_tree_recursive(pos, level, pop_obs_spec, stat_vars,
                          parent=None):
     """Recursively build the ui tree"""
@@ -63,7 +60,7 @@ def build_tree_recursive(pos, level, pop_obs_spec, stat_vars,
             value_ui_node = util.UiNode(pos, value_ui_pv, False, property_diff)
             value_blob = {
                 'populationType': value_ui_node.pop_type,
-                'sv': sv.dcid if sv.dcid not in MAPPING else MAPPING[sv.dcid],
+                'sv': sv.dcid ,
                 'l': text_format.format_title(value_ui_node.text),
                 't': 'v',
                 'e': value_ui_node.enum,
@@ -122,7 +119,7 @@ def build_tree(v, pop_obs_spec, stat_vars, vertical_idx):
             if pos.cpv == sv.pv:
                 root['cd'].append({
                     'populationType': ui_node.pop_type,
-                    'sv': sv.dcid if sv.dcid not in MAPPING else MAPPING[sv.dcid],
+                    'sv': sv.dcid,
                     'l': text_format.format_title(ui_node.text),
                     't': 'v',
                     'c': 1,

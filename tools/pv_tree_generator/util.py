@@ -171,6 +171,10 @@ def _read_stat_var():
                 raise Exception('constraint property:{} not found in statistical'
                                 'variable with dcid: {}'.format(property, dcid))
             prop_val[property] = sv_dict[property]
+        if "measurementDenominator" in sv_dict:
+            prop_val["md"] = sv_dict["measurementDenominator"]
+        if (dcid == "Count_Person_PerArea"):
+            print(prop_val)
         se = {}  # Super enum
         if 'crimeType' in prop_val:
             v = prop_val.get('crimeType', '')

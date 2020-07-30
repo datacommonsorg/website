@@ -1,13 +1,13 @@
 {
- "Count_Person": [
+ "dc/cv35g4gzkth83": [
   0,
   0
  ],
- "MedianAge": [
+ "Median_Age_Person": [
   0,
   1
  ],
- "MedianIncome": [
+ "Median_Income_Person": [
   0,
   2
  ],
@@ -2697,14 +2697,14 @@
   5,
   0,
   0,
-  5
+  4
  ],
  "dc/qhwj3qx90h4pd": [
   0,
   5,
   0,
   0,
-  5,
+  4,
   0,
   0
  ],
@@ -2713,7 +2713,7 @@
   5,
   0,
   0,
-  5,
+  4,
   0,
   1
  ],
@@ -2722,7 +2722,7 @@
   5,
   0,
   0,
-  5,
+  4,
   0,
   2
  ],
@@ -2731,7 +2731,7 @@
   5,
   0,
   0,
-  5,
+  4,
   0,
   3
  ],
@@ -2740,7 +2740,7 @@
   5,
   0,
   0,
-  5,
+  4,
   0,
   4
  ],
@@ -2749,7 +2749,7 @@
   5,
   0,
   0,
-  5,
+  4,
   0,
   5
  ],
@@ -2993,14 +2993,14 @@
   5,
   1,
   0,
-  4
+  5
  ],
  "dc/260gxgmeglpb": [
   0,
   5,
   1,
   0,
-  4,
+  5,
   0,
   0
  ],
@@ -3009,7 +3009,7 @@
   5,
   1,
   0,
-  4,
+  5,
   0,
   1
  ],
@@ -3018,7 +3018,7 @@
   5,
   1,
   0,
-  4,
+  5,
   0,
   2
  ],
@@ -3027,7 +3027,7 @@
   5,
   1,
   0,
-  4,
+  5,
   0,
   3
  ],
@@ -3036,7 +3036,7 @@
   5,
   1,
   0,
-  4,
+  5,
   0,
   4
  ],
@@ -3045,7 +3045,7 @@
   5,
   1,
   0,
-  4,
+  5,
   0,
   5
  ],
@@ -4086,7 +4086,7 @@
   4,
   4
  ],
- "FemalePopulation": [
+ "dc/g7m87nm4ec6j2": [
   0,
   5,
   0
@@ -4096,7 +4096,7 @@
   5,
   0,
   0,
-  4
+  5
  ],
  "Count_Person_45To64Years_EducationalAttainmentHighSchoolGraduateIncludesEquivalency_Female": [
   0,
@@ -8672,14 +8672,14 @@
   0,
   0
  ],
- "Count_Person_3OrMoreYears_Female_EnrolledInPrivateSchool": [
+ "Count_Person_EnrolledInPrivateSchool": [
   0,
   5,
   0,
   6,
   2
  ],
- "Count_Person_EnrolledInPublicSchool": [
+ "Count_Person_3OrMoreYears_Female_EnrolledInPublicSchool": [
   0,
   5,
   0,
@@ -9051,7 +9051,7 @@
   12,
   1
  ],
- "MalePopulation": [
+ "dc/7ej72pkcdjm49": [
   0,
   5,
   1
@@ -9061,7 +9061,7 @@
   5,
   1,
   0,
-  5
+  4
  ],
  "Count_Person_45To64Years_EducationalAttainmentHighSchoolGraduateIncludesEquivalency_Male": [
   0,
@@ -9195,7 +9195,7 @@
   0,
   1
  ],
- "WorldBank/SE_TER_CUAT_DO_MA_ZS": [
+ "Count_Person_25OrMoreYears_EducationalAttainmentDoctorateDegree_Male": [
   2,
   0,
   9,
@@ -14280,7 +14280,7 @@
   1,
   7
  ],
- "DivorcedPopulation": [
+ "Count_Person_Divorced": [
   0,
   7,
   0
@@ -14313,7 +14313,7 @@
   3,
   0
  ],
- "MarriedPopulation": [
+ "Count_Person_MarriedAndNotSeparated": [
   0,
   7,
   1
@@ -14346,7 +14346,7 @@
   3,
   1
  ],
- "NeverMarriedPopulation": [
+ "Count_Person_NeverMarried": [
   0,
   7,
   2
@@ -14379,7 +14379,7 @@
   3,
   2
  ],
- "SeparatedPopulation": [
+ "Count_Person_Separated": [
   0,
   7,
   3
@@ -14412,7 +14412,7 @@
   3,
   3
  ],
- "WidowedPopulation": [
+ "Count_Person_Widowed": [
   0,
   7,
   4
@@ -15545,7 +15545,7 @@
   2,
   0
  ],
- "BelowPovertyLine": [
+ "Count_Person_BelowPovertyLevelInThePast12Months": [
   0,
   10,
   1
@@ -16581,7 +16581,7 @@
   0,
   8
  ],
- "WorldBank/SE_TER_CUAT_DO_ZS": [
+ "Count_Person_EducationalAttainmentDoctorateDegree": [
   2,
   0,
   9
@@ -16626,7 +16626,7 @@
   0,
   0
  ],
- "TotalCrimes": [
+ "Count_CriminalActivities_CombinedCrime": [
   1,
   0,
   1
@@ -16773,11 +16773,11 @@
   3,
   15
  ],
- "UnemploymentRate": [
+ "UnemploymentRate_Person": [
   3,
   0
  ],
- "Count_Person_InLaborForce": [
+ "dc/wvggy8knns1w2": [
   3,
   1
  ],
@@ -17973,7 +17973,7 @@
   0,
   3
  ],
- "Count_UnemploymentInsuranceClaim_ShortTimeCompensation": [
+ "Count_UnemploymentInsuranceClaim_ShortTimeCompensation_ScaledForPartTimeUnemploymentBenefits": [
   3,
   6,
   0
@@ -17985,7 +17985,7 @@
   0,
   0
  ],
- "Count_UnemploymentInsuranceClaim_ShortTimeCompensation_InitialClaim": [
+ "Count_UnemploymentInsuranceClaim_ShortTimeCompensation_InitialClaim_ScaledForPartTimeUnemploymentBenefits": [
   3,
   6,
   0,
@@ -18595,12 +18595,12 @@
   5,
   0
  ],
- "NYTCovid19CumulativeCases": [
+ "CumulativeCount_MedicalConditionIncident_COVID_19_ConfirmedOrProbableCase": [
   4,
   5,
   1
  ],
- "NYTCovid19CumulativeDeaths": [
+ "CumulativeCount_MedicalConditionIncident_COVID_19_PatientDeceased": [
   4,
   5,
   2
@@ -18625,7 +18625,7 @@
   5,
   6
  ],
- "HousingUnits": [
+ "Count_HousingUnit": [
   5,
   0
  ],
@@ -18879,12 +18879,12 @@
   3,
   22
  ],
- "Count_HousingUnit_HomeValue1000000OrMoreUSDollar": [
+ "Count_HousingUnit_HomeValue1000000To1499999USDollar": [
   5,
   3,
   23
  ],
- "Count_HousingUnit_HomeValue1000000To1499999USDollar": [
+ "Count_HousingUnit_HomeValue1000000OrMoreUSDollar": [
   5,
   3,
   24
@@ -19145,7 +19145,7 @@
   7,
   1
  ],
- "Households": [
+ "Count_Household": [
   6,
   0
  ],
