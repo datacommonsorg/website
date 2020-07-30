@@ -17,32 +17,6 @@ import axios from "axios";
 import { getUrlVars, setSearchParam } from "./dc";
 import statsVarPathMap from "../../data/statsvar_path.json";
 
-// Temporary hack before we clean up place stats var cache.
-const MAPPING = {
-  Count_Person: "TotalPopulation",
-  Count_Person_Male: "MalePopulation",
-  Count_Person_Female: "FemalePopulation",
-  Count_Person_MarriedAndNotSeparated: "MarriedPopulation",
-  Count_Person_Divorced: "DivorcedPopulation",
-  Count_Person_NeverMarried: "NeverMarriedPopulation",
-  Count_Person_Separated: "SeparatedPopulation",
-  Count_Person_Widowed: "WidowedPopulation",
-  Median_Age_Person: "MedianAge",
-  Median_Income_Person: "MedianIncome",
-  Count_Person_BelowPovertyLevelInThePast12Months: "BelowPovertyLine",
-  Count_HousingUnit: "HousingUnits",
-  Count_Household: "Households",
-  Count_CriminalActivities_CombinedCrime: "TotalCrimes",
-  UnemploymentRate_Person: "UnemploymentRate",
-  CumulativeCount_MedicalConditionIncident_COVID_19_ConfirmedOrProbableCase:
-    "NYTCovid19CumulativeCases",
-  CumulativeCount_MedicalConditionIncident_COVID_19_PatientDeceased:
-    "NYTCovid19CumulativeDeaths",
-  IncrementalCount_MedicalConditionIncident_COVID_19_ConfirmedOrProbableCase:
-    "NYTCovid19IncrementalCases",
-  IncrementalCount_MedicalConditionIncident_COVID_19_PatientDeceased:
-    "NYTCovid19IncrementalDeaths",
-};
 
 interface VarUrl {
   statsVar: string;
@@ -217,11 +191,6 @@ function getStatsVar(dcids: string[]) {
     for (const value of values) {
       statsVars = new Set([...Array.from(statsVars), ...value]);
     }
-    Object.keys(MAPPING).map((key) => {
-      if (statsVars.has(MAPPING[key])) {
-        statsVars.add(key);
-      }
-    });
     return statsVars;
   }) as Promise<Set<string>>;
 }
