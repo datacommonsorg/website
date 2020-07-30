@@ -33,6 +33,7 @@ test("fetch stats data", () => {
               "2012": 22000,
             },
             place_name: "Arkansas",
+            provenance_domain: "source1",
           },
           "geoId/06": {
             data: {
@@ -40,6 +41,7 @@ test("fetch stats data", () => {
               "2012": 32000,
             },
             place_name: "California",
+            provenance_domain: "source2",
           },
         },
       });
@@ -52,6 +54,7 @@ test("fetch stats data", () => {
               "2012": 13000,
             },
             place_name: "Arkansas",
+            provenance_domain: "source1",
           },
           "geoId/06": {
             data: {
@@ -59,6 +62,7 @@ test("fetch stats data", () => {
               "2012": 16000,
             },
             place_name: "California",
+            provenance_domain: "source2",
           },
         },
       });
@@ -78,6 +82,7 @@ test("fetch stats data", () => {
               "2012": 13000,
             },
             place_name: "Arkansas",
+            provenance_domain: "source1",
           },
           "geoId/06": {
             data: {
@@ -85,6 +90,7 @@ test("fetch stats data", () => {
               "2012": 16000,
             },
             place_name: "California",
+            provenance_domain: "source2",
           },
         },
         Count_Person: {
@@ -94,6 +100,7 @@ test("fetch stats data", () => {
               "2012": 22000,
             },
             place_name: "Arkansas",
+            provenance_domain: "source1",
           },
           "geoId/06": {
             data: {
@@ -101,12 +108,14 @@ test("fetch stats data", () => {
               "2012": 32000,
             },
             place_name: "California",
+            provenance_domain: "source2",
           },
         },
       },
       dates: ["2011", "2012"],
       places: ["geoId/05", "geoId/06"],
       statsVars: ["Count_Person", "Count_Person_Male"],
+      sources: new Set(["source1", "source2"]),
     });
 
     expect(data.getPlaceGroupWithStatsVar()).toEqual([

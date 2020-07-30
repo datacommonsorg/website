@@ -16,6 +16,7 @@ import json
 import os
 
 from flask import Flask
+from google.cloud import storage
 from werkzeug.utils import import_string
 
 
@@ -41,9 +42,10 @@ def create_app():
 
     # apply the blueprints to the app
     from routes import browser, factcheck, redirects, placelist, static, tools
-    from routes.api import place, stats, chart
+    from routes.api import place, stats, chart, choropleth
     app.register_blueprint(browser.bp)
     app.register_blueprint(chart.bp)
+    app.register_blueprint(choropleth.bp)
     app.register_blueprint(factcheck.bp)
     app.register_blueprint(place.bp)
     app.register_blueprint(redirects.bp)
@@ -56,5 +58,14 @@ def create_app():
     with open('chart_config.json') as f:
         chart_config = json.load(f)
     app.config['CHART_CONFIG'] = chart_config
+
+    if cfg.TEST:
+        app.config['PLACEID2DCID'] = {"ChIJCzYy5IS16lQRQrfeQ5K5Oxw": "country/USA"}
+    else:
+        # Load placeid2dcid mapping from GCS
+        storage_client = storage.Client()
+        bucket = storage_client.get_bucket(app.config['GCS_BUCKET'])
+        blob = bucket.get_blob('placeid2dcid.json')
+        app.config['PLACEID2DCID'] = json.loads(blob.download_as_string())
 
     return app

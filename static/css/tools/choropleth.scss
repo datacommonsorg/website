@@ -14,23 +14,20 @@
  * limitations under the License.
  */
 
-@import 'tools/base_tools';
-@import 'tools/statvar_menu';
-@import 'timeline';
+ @import '../tools/base_tools';
+ @import '../draw';
 
-#timeline-lower-pane {
-  display: flex;
+#map_container {
+  margin-left: 12%;
+  margin-right: 12%;
 }
 
-#drill .noborder{
-  font-size: 0.95rem;
-  margin: 0 -14px;
-  padding: 0px 14px 0px 6px;
-  border-top-right-radius: 6px;
-  border-bottom-right-radius: 6px;
-  border-left: 0px solid $menu-line;
+.border {
+  stroke: white;
+  stroke-width: 0; 
 }
 
-#drill .noedge{
-  padding:0px 0px 0px 10px;
+.border-highlighted {
+  stroke: black;
+  stroke-width: 1px; 
 }

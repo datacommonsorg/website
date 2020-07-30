@@ -135,7 +135,7 @@ class Ranking extends Component<RankingPropsType, RankingStateType> {
   constructor(props) {
     super(props);
     this.state = {
-      data: {label: [], Population: []},
+      data: { label: [], Population: [] },
     };
   }
   render() {
@@ -216,36 +216,42 @@ class Menu extends Component<MenuPropsType, {}> {
         </li>
         {this.props.chartConfig.map((item: ChartCategory) => {
           return (
-            <li className="nav-item" key={item.label}>
-              <a
-                href={`/place?dcid=${dcid}&topic=${item.label}`}
-                className={`nav-link ${topic === item.label ? "active" : ""}`}
-              >
-                {item.label}
-              </a>
-              <ul
-                className={
-                  "nav flex-column ml-3 " +
-                  (item.label !== topic ? "collapse" : "")
-                }
-                data-parent="#nav-topics"
-              >
-                <div className="d-block">
-                  {item.children.map((child, index) => {
-                    return (
-                      <li className="nav-item" key={index}>
-                        <a
-                          href={`/place?dcid=${dcid}&topic=${item.label}#${child.label}`}
-                          className="nav-link"
-                        >
-                          {child.label}
-                        </a>
-                      </li>
-                    );
-                  })}
-                </div>
-              </ul>
-            </li>
+            <React.Fragment key={item.label}>
+              {item.children.length > 0 && (
+                <li className="nav-item">
+                  <a
+                    href={`/place?dcid=${dcid}&topic=${item.label}`}
+                    className={`nav-link ${
+                      topic === item.label ? "active" : ""
+                    }`}
+                  >
+                    {item.label}
+                  </a>
+                  <ul
+                    className={
+                      "nav flex-column ml-3 " +
+                      (item.label !== topic ? "collapse" : "")
+                    }
+                    data-parent="#nav-topics"
+                  >
+                    <div className="d-block">
+                      {item.children.map((child, index) => {
+                        return (
+                          <li className="nav-item" key={index}>
+                            <a
+                              href={`/place?dcid=${dcid}&topic=${item.label}#${child.label}`}
+                              className="nav-link"
+                            >
+                              {child.label}
+                            </a>
+                          </li>
+                        );
+                      })}
+                    </div>
+                  </ul>
+                </li>
+              )}
+            </React.Fragment>
           );
         })}
       </ul>
@@ -383,9 +389,7 @@ class Overview extends Component<OverviewPropType, {}> {
                 <Map dcid={this.props.dcid}></Map>
               </div>
               <div className="col-12 col-md-8">
-                <Ranking
-                  dcid={this.props.dcid}
-                ></Ranking>
+                <Ranking dcid={this.props.dcid}></Ranking>
               </div>
             </div>
           </section>
@@ -576,7 +580,13 @@ class Chart extends Component<ChartPropType, ChartStateType> {
       (dp && dp.length === 0) ||
       (dg && (dg.length === 0 || (dg.length === 1 && dg[0].value.length === 0)))
     ) {
-      alert("No data for selection");
+      if (this.placeRelation === placeRelationEnum.CONTAINING) {
+        this.childrenRef.current.style.display = "none";
+      } else if (this.placeRelation === placeRelationEnum.CONTAINED) {
+        this.parentRef.current.style.display = "none";
+      }
+      this.placeRelation = placeRelationEnum.SIMILAR;
+      this.fetchData();
       return;
     }
     // Draw chart.

@@ -68,8 +68,8 @@ class BuildTreeTest(unittest.TestCase):
         stat_vars = _read_stat_var()
         data = {}
         vertical = "Demographics"
-        root = build_tree.build_tree(vertical, pop_obs_spec[vertical],
-                                     stat_vars)
+        root, _ = build_tree.build_tree(vertical, pop_obs_spec[vertical],
+                                        stat_vars, 0)
         data[vertical] = root
         print(data)
         expected = json.load(open("./hierarchy_golden.json", "r"))
@@ -91,8 +91,8 @@ class BuildTreeTest(unittest.TestCase):
         stat_vars = _read_stat_var()
         data = {}
         vertical = "Demographics"
-        root = build_tree.build_tree(vertical, pop_obs_spec[vertical],
-                                     stat_vars)
+        root, statsvar_path = build_tree.build_tree(vertical, pop_obs_spec[vertical],
+                                                    stat_vars, 0)
         data[vertical] = root
         # assert counts
         self.assertEqual(data['Demographics']['c'], 4)
@@ -104,6 +104,11 @@ class BuildTreeTest(unittest.TestCase):
                 self.assertEqual(child['c'], 2)
             if child['l'] == 'Income':
                 self.assertEqual(child['c'], 1)
+        # assert statsvarPath
+        self.assertEqual(statsvar_path['notInWhiteListCitizenship'], [0, 1, 0])
+        self.assertEqual(statsvar_path['inWhiteListMale'], [0, 2, 0])
+        self.assertEqual(statsvar_path['inWhiteListIncome'], [0, 3, 0])
+        self.assertEqual(statsvar_path['inWhiteListUnknownVal'], [0, 2, 1])
         return
 
 
