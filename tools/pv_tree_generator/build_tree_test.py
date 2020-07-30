@@ -27,7 +27,8 @@ class BuildTreeTest(unittest.TestCase):
     @staticmethod
     def get_sv():
         """pick a subset of stat_var dcids"""
-        level0 = ['MarriedPopulation', 'DivorcedPopulation', 'MalePopulation']
+        level0 = ['MarriedPopulation', 'DivorcedPopulation',
+                  'MalePopulation', "dc/xxxMariedPop"]
         level1 = ['dc/0k7719speyv21', 'dc/2pvw6jqmkp41b', 'dc/06f6zh0wslnx',
                   'dc/2rjldly6tsmf', 'dc/026gmdj2xk1kb', 'dc/f7g49v7tzy3rd']
         level2 = ['dc/61fzldryrnte1', 'dc/6yb4mgxtc1288', 'dc/esr27kls5vfy6',
