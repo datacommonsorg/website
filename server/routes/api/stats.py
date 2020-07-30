@@ -73,30 +73,6 @@ def stats_var_property():
     return stats_var_property_wrapper(dcids)
 
 
-def get_stats_url_fragment(dcids):
-    """Get stats information give multiple stats var dcids.
-
-    The result is used as partial link to GNI.
-
-    Args:
-        dcids: A list of stats var dcids.
-    Returns:
-        An object keyed by stats dcid, with value being partial url that can
-        be used by the /tools/timeline endpoint.
-        {
-            "Count_Person": "Person,count,gender,Female"
-        }
-    """
-    stats_var_info = stats_var_property_wrapper(dcids)
-    result = {}
-    for dcid, data in stats_var_info.items():
-        tokens = [data['pt'], data['mprop']]
-        for p, v in data['pvs'].items():
-            tokens.extend([p, v])
-        result[dcid] = ','.join(tokens)
-    return result
-
-
 def stats_var_property_wrapper(dcids):
     """Function to get properties for give statistical variables."""
     data = dc.fetch_data(
