@@ -23,11 +23,11 @@ import geojson
 
 # TODO(fpernice-google): Support downloading more than just US states.
 class GeojsonDownloader:
-    """Downloads desired Geojsons files from the DataCommons Knowledge Graph.
+    """Downloads desired GeoJSON files from the DataCommons Knowledge Graph.
 
     Attributes:
         geojsons: A dictionary that maps each queried area to another
-                  dictionary containing the geojson coordinate information. An
+                  dictionary containing the GeoJSON coordinate information. An
                   example of this is the following
 
                 {   # Multipolygon of the state of Alabama (fake).
@@ -45,8 +45,8 @@ class GeojsonDownloader:
                             [[ [53, 23], [65, 2], [31, 12], [53, 23] ]]
                         ]
                     }],
-                    # Polygon of the state of Illinois (fake).
-                    # Since Illinois is a single chunk of land, its type
+                    # Polygon of the state of Wyoming (fake).
+                    # Since Wyoming is a single chunk of land, its type
                     # is Polygon instead of Multipolygon.
                     "geoId/17": [{
                         "type": "Polygon",
@@ -70,9 +70,9 @@ class GeojsonDownloader:
         self.geojsons = None
 
     def download_data(self, place='country/USA'):
-        """Downloads geojson data for specified location.
+        """Downloads GeoJSON data for a specified location.
 
-        Given the specified location, extracts the geojsons of all
+        Given the specified location, extracts the GeoJSONs of all
         administrative areas one level below it (as specified by the
         LEVEL_MAP class constant). For example, if the input is country/USA,
         extracts all AdministrativeArea1's within the US (US states).
@@ -80,6 +80,9 @@ class GeojsonDownloader:
         Args:
             place: A string that is a valid value for the geoId property of a
                    DataCommons node.
+
+        Raises:
+            ValueError: If a Data Commons API call fails.
         """
         geolevel_below = dc.get_property_values([place],
                                                 "typeOf")
@@ -97,11 +100,11 @@ class GeojsonDownloader:
         """Saves the downloaded geojsons to disk.
 
         Args:
-            prefix: Prefix prepended to the geoId of a given geojson to
+            prefix: Prefix prepended to the geoId of a given GeoJSON to
                     determine the name of its filename. For example, if
                     prefix='original-', a resulting filename might be
                     'original-geoId-01.geojson'.
-            path: Path in which to save the desired files.
+            path: Directory in which to save the desired files, as a string.
         """
         for geoid in self.geojsons:
             assert len(self.geojsons[geoid]) == 1
