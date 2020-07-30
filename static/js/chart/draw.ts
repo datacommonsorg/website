@@ -594,7 +594,10 @@ function drawGroupLineChart(
   // Adjust the width of in-chart legends.
   const yRange = computeRanges(dataGroupsDict);
   const minV = yRange.minV;
-  const maxV = yRange.maxV;
+  let maxV = yRange.maxV;
+  if (minV === maxV) {
+    maxV = minV + 1;
+  }
 
   let container: d3.Selection<any, any, any, any>;
   if (typeof selector === "string") {
