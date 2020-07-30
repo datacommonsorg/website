@@ -25,7 +25,6 @@ import urllib
 from flask import Blueprint, current_app, url_for
 
 from cache import cache
-from routes.api.stats import get_stats_url_fragment
 from routes.api.place import statsvars
 
 
@@ -86,13 +85,8 @@ def filter_charts(charts, all_stats_vars):
     return result
 
 
-def build_url(dcid, stats_vars, stats_var_info):
-    anchor = "&ptpv="
-    parts = []
-    for stats_var in stats_vars:
-        parts.append(stats_var_info[stats_var])
-    anchor += '__'.join(parts)
-    anchor += '&place=' + dcid
+def build_url(dcid, stats_vars):
+    anchor = '&place={}&statsVar={}'.format(dcid, '__'.join(stats_vars))
     return urllib.parse.unquote(url_for('tools.timeline', _anchor=anchor))
 
 
@@ -132,21 +126,16 @@ def config(dcid):
             for chart in child['charts']:
                 used_stats_vars.update(set(chart['statsVars']))
 
-    # Get the stats var info, ie, the partial url used for GNI.
-    stats_var_info = get_stats_url_fragment(list(used_stats_vars))
-
     # Population the GNI url to each chart.
     for i in range(len(cc)):
         # Populate gni url for charts
         for j in range(len(cc[i]['charts'])):
             cc[i]['charts'][j]['exploreUrl'] = build_url(
-                dcid, cc[i]['charts'][j]['statsVars'], stats_var_info)
+                dcid, cc[i]['charts'][j]['statsVars'])
         # Populate gni url for children
         for j in range(len(cc[i].get('children', []))):
             for k in range(len(cc[i]['children'][j]['charts'])):
                 cc[i]['children'][j]['charts'][k]['exploreUrl'] = build_url(
                     dcid,
-                    cc[i]['children'][j]['charts'][k]['statsVars'],
-                    stats_var_info
-                )
+                    cc[i]['children'][j]['charts'][k]['statsVars'])
     return json.dumps(cc)
