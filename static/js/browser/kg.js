@@ -41,22 +41,6 @@ const NO_POP_TYPES = [
   "Source",
 ];
 
-const TOP_NAICS = [
-  "NAICS/1011",
-  "NAICS/1012",
-  "NAICS/1013",
-  "NAICS/1021",
-  "NAICS/1022",
-  "NAICS/1023",
-  "NAICS/1024",
-  "NAICS/1025",
-  "NAICS/1026",
-  "NAICS/1027",
-  ,
-  "NAICS/1028",
-  "NAICS/1029",
-];
-
 const WEATHER = [
   "temperature",
   "visibility",
@@ -803,7 +787,10 @@ function renderKGPage(
         let popDcids = [];
         if (key.includes("naics")) {
           for (const pop of popGroup[key]) {
-            if (TOP_NAICS.includes(pop["pvs"]["naics"])) {
+            if (pop["pvs"]["naics"].match(
+                /(NAICS\/10\d*|NAICS\/\d\d|NAICS\/\d\d-\d\d)/g
+              )
+            ) {
               popDcids.push(pop["dcid"]);
             }
           }
