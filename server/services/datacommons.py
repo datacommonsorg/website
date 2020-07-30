@@ -62,7 +62,7 @@ API_ENDPOINTS = {
     'get_place_obs': '/bulk/place-obs',
     'get_chart_data': '/node/chart-data',
     'get_stats': '/bulk/stats',
-    'get_related_places': '/node/related-places',
+    'get_related_places': '/node/related-locations',
     'get_interesting_places': '/node/interesting-place-aspects',
 }
 
@@ -297,31 +297,20 @@ def query(query_string):
 
 
 def get_related_place(
-    dcids, population_type, measured_property, stat_type, pvs=None,
-    measurement_method=None, same_place_type=None, within_place=None,
-    is_per_capita=None
-):
+        dcid, stats_vars, same_place_type=None, within_place=None,
+        is_per_capita=None):
     url = API_ROOT + API_ENDPOINTS['get_related_places']
     req_json = {
-        'dcids': dcids,
-        'population_type': population_type,
-        'measured_property': measured_property,
-        'stat_type': stat_type
+        'dcid': dcid,
+        'stat_var_dcids': stats_vars
     }
-    if pvs:
-        req_json['pvs'] = [{'property': k, 'value': v} for k, v in pvs.items()]
-    if measurement_method:
-        req_json['measurement_method'] = measurement_method
     if same_place_type:
         req_json['same_place_type'] = same_place_type
     if within_place:
         req_json['within_place'] = within_place
     if is_per_capita:
         req_json['is_per_capita'] = is_per_capita
-    payload = send_request(
-        url,
-        req_json)
-    return payload
+    return send_request(url, req_json)
 
 
 def get_interesting_places(dcids):
