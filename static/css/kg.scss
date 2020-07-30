@@ -348,3 +348,11 @@ form {
 .plot-label {
   font-size: .9rem;
 }
+
+.chart-view .dot {
+  r: 2;
+}
+
+.chart-view .dot:hover {
+  r: 5;
+}

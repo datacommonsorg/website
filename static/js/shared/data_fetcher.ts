@@ -26,6 +26,8 @@ interface ApiResponse {
       [key: string]: number;
     };
     place_name: string;
+    place_dcid: string;
+    provenance_domain: string;
   };
 }
 
@@ -40,6 +42,7 @@ class StatsData {
   data: {
     [key: string]: ApiResponse;
   };
+  sources: Set<string>;
 
   constructor(
     places: string[],
@@ -51,6 +54,7 @@ class StatsData {
     this.statsVars = statsVars;
     this.dates = dates;
     this.data = data;
+    this.sources = new Set<string>();
   }
 
   /**
@@ -68,7 +72,7 @@ class StatsData {
       const dataPoints: DataPoint[] = [];
       let placeName: string;
       for (const statsVar of this.statsVars) {
-        if (this.data[statsVar][place]) {
+        if (this.data[statsVar][place].data) {
           dataPoints.push({
             label: STATS_VAR_TEXT[statsVar],
             value: this.data[statsVar][place].data[date],
@@ -199,7 +203,7 @@ function fetchStatsData(
       // Compute perCapita.
       if (perCapita) {
         for (const place in allResp[i].data) {
-          if (!allResp[i].data[place]) {
+          if (Object.keys(allResp[i].data[place]).length === 0) {
             continue;
           }
           const population = allResp[n].data[place].data;
@@ -228,6 +232,7 @@ function fetchStatsData(
         if (!allResp[i].data[place]) {
           continue;
         }
+        result.sources.add(allResp[i].data[place].provenance_domain)
         // Build initial dates
         if (Object.keys(dates).length === 0) {
           for (const date in allResp[i].data[place].data) {

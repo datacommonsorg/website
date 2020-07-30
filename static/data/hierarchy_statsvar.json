@@ -14226,7 +14226,7 @@
           ]
          },
          {
-          "sv": "Count_Person_EnrolledInPrivateSchool",
+          "sv": "Count_Person_3OrMoreYears_Female_EnrolledInPrivateSchool",
           "l": "Private School",
           "t": "v",
           "e": "EnrolledInPrivateSchool",
@@ -18872,43 +18872,6 @@
           ]
          },
          {
-          "sv": "Count_Person_45To64Years_Male",
-          "l": "45 - 64 Years",
-          "t": "v",
-          "e": "Years45To64",
-          "c": 4,
-          "cd": [
-           {
-            "l": "Educational Attainment",
-            "t": "p",
-            "c": 3,
-            "cd": [
-             {
-              "sv": "Count_Person_45To64Years_EducationalAttainmentHighSchoolGraduateIncludesEquivalency_Male",
-              "l": "High School Graduate Includes Equivalency",
-              "t": "v",
-              "e": "HighSchoolGraduateIncludesEquivalency",
-              "c": 1
-             },
-             {
-              "sv": "Count_Person_45To64Years_EducationalAttainmentAssociatesDegree_Male",
-              "l": "Associates Degree",
-              "t": "v",
-              "e": "AssociatesDegree",
-              "c": 1
-             },
-             {
-              "sv": "Count_Person_45To64Years_EducationalAttainmentBachelorsDegree_Male",
-              "l": "Bachelors Degree",
-              "t": "v",
-              "e": "BachelorsDegree",
-              "c": 1
-             }
-            ]
-           }
-          ]
-         },
-         {
           "sv": "Count_Person_45To54Years_Male",
           "l": "45 - 54 Years",
           "t": "v",
@@ -19315,6 +19278,43 @@
                 ]
                }
               ]
+             }
+            ]
+           }
+          ]
+         },
+         {
+          "sv": "Count_Person_45To64Years_Male",
+          "l": "45 - 64 Years",
+          "t": "v",
+          "e": "Years45To64",
+          "c": 4,
+          "cd": [
+           {
+            "l": "Educational Attainment",
+            "t": "p",
+            "c": 3,
+            "cd": [
+             {
+              "sv": "Count_Person_45To64Years_EducationalAttainmentHighSchoolGraduateIncludesEquivalency_Male",
+              "l": "High School Graduate Includes Equivalency",
+              "t": "v",
+              "e": "HighSchoolGraduateIncludesEquivalency",
+              "c": 1
+             },
+             {
+              "sv": "Count_Person_45To64Years_EducationalAttainmentAssociatesDegree_Male",
+              "l": "Associates Degree",
+              "t": "v",
+              "e": "AssociatesDegree",
+              "c": 1
+             },
+             {
+              "sv": "Count_Person_45To64Years_EducationalAttainmentBachelorsDegree_Male",
+              "l": "Bachelors Degree",
+              "t": "v",
+              "e": "BachelorsDegree",
+              "c": 1
              }
             ]
            }
@@ -19804,7 +19804,7 @@
           "c": 1
          },
          {
-          "sv": "Count_Person_25OrMoreYears_EducationalAttainmentDoctorateDegree_Male",
+          "sv": "WorldBank/SE_TER_CUAT_DO_MA_ZS",
           "l": "Doctorate Degree",
           "t": "v",
           "e": "DoctorateDegree",
@@ -53315,7 +53315,7 @@
       ]
      },
      {
-      "sv": "Count_Person_EducationalAttainmentDoctorateDegree",
+      "sv": "WorldBank/SE_TER_CUAT_DO_ZS",
       "l": "Doctorate Degree",
       "t": "v",
       "e": "DoctorateDegree",
@@ -53334,7 +53334,7 @@
           "c": 1
          },
          {
-          "sv": "Count_Person_25OrMoreYears_EducationalAttainmentDoctorateDegree_Male",
+          "sv": "WorldBank/SE_TER_CUAT_DO_MA_ZS",
           "l": "Male",
           "t": "v",
           "e": "Male",
@@ -53830,24 +53830,10 @@
     "c": 11,
     "cd": [
      {
-      "sv": "Count_CriminalActivities_AggravatedAssault",
-      "l": "Aggravated Assault",
-      "t": "v",
-      "e": "AggravatedAssault",
-      "c": 1
-     },
-     {
       "sv": "Count_CriminalActivities_Arson",
       "l": "Arson",
       "t": "v",
       "e": "Arson",
-      "c": 1
-     },
-     {
-      "sv": "Count_CriminalActivities_Burglary",
-      "l": "Burglary",
-      "t": "v",
-      "e": "Burglary",
       "c": 1
      },
      {
@@ -53858,53 +53844,71 @@
       "c": 1
      },
      {
-      "sv": "Count_CriminalActivities_ForcibleRape",
-      "l": "Forcible Rape",
-      "t": "v",
-      "e": "ForcibleRape",
-      "c": 1
-     },
-     {
-      "sv": "Count_CriminalActivities_LarcenyTheft",
-      "l": "Larceny Theft",
-      "t": "v",
-      "e": "LarcenyTheft",
-      "c": 1
-     },
-     {
-      "sv": "Count_CriminalActivities_MotorVehicleTheft",
-      "l": "Motor Vehicle Theft",
-      "t": "v",
-      "e": "MotorVehicleTheft",
-      "c": 1
-     },
-     {
-      "sv": "Count_CriminalActivities_MurderAndNonNegligentManslaughter",
-      "l": "Murder And Non Negligent Manslaughter",
-      "t": "v",
-      "e": "MurderAndNonNegligentManslaughter",
-      "c": 1
-     },
-     {
       "sv": "Count_CriminalActivities_PropertyCrime",
       "l": "Property",
       "t": "v",
       "e": "PropertyCrime",
-      "c": 1
-     },
-     {
-      "sv": "Count_CriminalActivities_Robbery",
-      "l": "Robbery",
-      "t": "v",
-      "e": "Robbery",
-      "c": 1
+      "c": 4,
+      "cd": [
+       {
+        "sv": "Count_CriminalActivities_Burglary",
+        "l": "Burglary",
+        "t": "v",
+        "e": "Burglary",
+        "c": 1
+       },
+       {
+        "sv": "Count_CriminalActivities_LarcenyTheft",
+        "l": "Larceny Theft",
+        "t": "v",
+        "e": "LarcenyTheft",
+        "c": 1
+       },
+       {
+        "sv": "Count_CriminalActivities_MotorVehicleTheft",
+        "l": "Motor Vehicle Theft",
+        "t": "v",
+        "e": "MotorVehicleTheft",
+        "c": 1
+       }
+      ]
      },
      {
       "sv": "Count_CriminalActivities_ViolentCrime",
       "l": "Violent",
       "t": "v",
       "e": "ViolentCrime",
-      "c": 1
+      "c": 5,
+      "cd": [
+       {
+        "sv": "Count_CriminalActivities_AggravatedAssault",
+        "l": "Aggravated Assault",
+        "t": "v",
+        "e": "AggravatedAssault",
+        "c": 1
+       },
+       {
+        "sv": "Count_CriminalActivities_ForcibleRape",
+        "l": "Forcible Rape",
+        "t": "v",
+        "e": "ForcibleRape",
+        "c": 1
+       },
+       {
+        "sv": "Count_CriminalActivities_MurderAndNonNegligentManslaughter",
+        "l": "Murder And Non Negligent Manslaughter",
+        "t": "v",
+        "e": "MurderAndNonNegligentManslaughter",
+        "c": 1
+       },
+       {
+        "sv": "Count_CriminalActivities_Robbery",
+        "l": "Robbery",
+        "t": "v",
+        "e": "Robbery",
+        "c": 1
+       }
+      ]
      }
     ]
    }
@@ -54100,7 +54104,7 @@
       ]
      },
      {
-      "sv": "Count_Person_EducationalAttainmentDoctorateDegree",
+      "sv": "WorldBank/SE_TER_CUAT_DO_ZS",
       "l": "Doctorate Degree",
       "t": "v",
       "e": "DoctorateDegree",
@@ -54119,7 +54123,7 @@
           "c": 1
          },
          {
-          "sv": "Count_Person_25OrMoreYears_EducationalAttainmentDoctorateDegree_Male",
+          "sv": "WorldBank/SE_TER_CUAT_DO_MA_ZS",
           "l": "Male",
           "t": "v",
           "e": "Male",
@@ -57532,7 +57536,7 @@
           "c": 1
          },
          {
-          "sv": "Count_UnemploymentInsuranceClaim_ShortTimeCompensation_InitialClaim_ScaledForPartTimeUnemploymentBenefits",
+          "sv": "Count_UnemploymentInsuranceClaim_ShortTimeCompensation_InitialClaim",
           "l": "Initial Claim",
           "t": "v",
           "e": "InitialClaim",
@@ -57643,7 +57647,7 @@
   "c": 1212,
   "cd": [
    {
-    "sv": "Count_MortalityEvent_AsAFractionOfCount_Person",
+    "sv": "Count_MortalityEvent",
     "l": "Mortality",
     "t": "v",
     "c": 1
@@ -58878,17 +58882,17 @@
       "c": 1
      },
      {
-      "sv": "Count_HousingUnit_HomeValue1000000To1499999USDollar",
-      "l": "1,000,000 - 1,499,999 $",
-      "t": "v",
-      "e": "USDollar1000000To1499999",
-      "c": 1
-     },
-     {
       "sv": "Count_HousingUnit_HomeValue1000000OrMoreUSDollar",
       "l": "More than 1,000,000 $",
       "t": "v",
       "e": "USDollar1000000Onwards",
+      "c": 1
+     },
+     {
+      "sv": "Count_HousingUnit_HomeValue1000000To1499999USDollar",
+      "l": "1,000,000 - 1,499,999 $",
+      "t": "v",
+      "e": "USDollar1000000To1499999",
       "c": 1
      },
      {
