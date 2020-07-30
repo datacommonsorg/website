@@ -32,11 +32,11 @@ flags.DEFINE_string('original_path', default=None,
                     help='Path to original geojson to be compared.')
 flags.DEFINE_string('simplified_path', default=None,
                     help='Path to simplified geojson to be compared.')
+flags.mark_flag_as_required('original_path')
+flags.mark_flag_as_required('simplified_path')
 
 
 def main(_):
-    flags.mark_flag_as_required('original_path')
-    flags.mark_flag_as_required('simplified_path')
     original = gpd.read_file(FLAGS.original_path)
     simple = gpd.read_file(FLAGS.simplified_path)
 
