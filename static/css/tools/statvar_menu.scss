@@ -155,3 +155,26 @@ sup {
   color: #999;
   font-weight: bold;
 }
+
+.checkbox {
+  cursor: pointer;
+  width: 14px;
+  height: 14px;
+  margin-top: 4px;
+  border: none;
+  background: url("/images/icon-checkbox-light.svg");
+  outline: none;
+}
+
+.checkbox.checked {
+  background: url("/images/icon-checkbox-checked-light.svg");
+}
+
+.perCapita {
+  margin-left: 32px;
+  margin-right: 5px;
+}
+
+button:focus {
+  outline: 0;
+}

@@ -121,15 +121,9 @@ class Page extends Component<PagePropType, PageStateType> {
         <div className="explore-menu-container" id="explore">
           <div id="drill-scroll-container">
             <div className="title">Select variables:</div>
-            <div id="percapita-link" className="text">
-              <label htmlFor="percapita">Per capita</label>
-              <input
-                type="checkbox"
-                id="percapita"
-                name="pc"
-                onClick={this._togglePerCapita}
-              ></input>
-            </div>
+            <span className="perCapita">Per capita</span>
+            <button className={this.state.perCapita?"checkbox checked":"checkbox"}
+                    onClick={this._togglePerCapita}></button>
             <Menu
               search={this.props.search}
               statsVarPaths={this.state.statsVarPaths}
