@@ -55,16 +55,12 @@ class Page extends Component<PagePropType, PageStateType> {
     };
   }
   shouldComponentUpdate(nextProps, nextState) {
-    if (
+    return (
       JSON.stringify(this.state.statsVarInfo) !==
         JSON.stringify(nextState.statsVarInfo) ||
       this.state.places !== nextState.places ||
       this.state.perCapita !== nextState.perCapita
-    ) {
-      return true;
-    } else {
-      return false;
-    }
+    );
   }
 
   componentDidMount() {
