@@ -634,6 +634,7 @@ function drawGroupLineChart(
       ]);
       const line = d3
         .line()
+        .defined(d => d[1]!=null)
         .x((d) => xScale(d[0]))
         .y((d) => yScale(d[1]));
       const lineStyle =
@@ -645,7 +646,7 @@ function drawGroupLineChart(
         .style("stroke", lineStyle.color)
         .attr("d", line)
         .attr("stroke-width", "1")
-        .attr("stroke-dasharray", lineStyle.dash);
+        .attr("stroke-dasharray", lineStyle.dash)
     }
   }
   // add source info to the chart
