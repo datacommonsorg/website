@@ -1,1 +1,176 @@
-{"Demographics": {"sv": ["top"], "l": "Demographics", "t": "p", "c": 10, "cd": [{"l": "Age", "t": "p", "c": 0, "cd": []}, {"l": "Citizenship", "t": "p", "c": 0, "cd": []}, {"l": "Gender", "t": "p", "c": 2, "cd": [{"sv": ["dc/026gmdj2xk1kb"], "l": "Female", "t": "v", "e": "Female", "c": 1}, {"sv": ["MalePopulation"], "l": "Male", "t": "v", "e": "Male", "c": 1}]}, {"l": "Income", "t": "p", "c": 8, "cd": [{"sv": ["dc/cmn38d85glq72"], "l": "Less than 9,999 $", "t": "v", "e": "USDollarUpto9999", "c": 1}, {"sv": ["dc/pj50xtdgxeh4g"], "l": "10,000 - 14,999 $", "t": "v", "e": "USDollar10000To14999", "c": 1}, {"sv": ["dc/61fzldryrnte1"], "l": "15,000 - 24,999 $", "t": "v", "e": "USDollar15000To24999", "c": 1}, {"sv": ["dc/jhpflf91nvlt6"], "l": "25,000 - 34,999 $", "t": "v", "e": "USDollar25000To34999", "c": 1}, {"sv": ["dc/tpeg0jxdts2t3"], "l": "35,000 - 49,999 $", "t": "v", "e": "USDollar35000To49999", "c": 1}, {"sv": ["dc/esr27kls5vfy6"], "l": "50,000 - 64,999 $", "t": "v", "e": "USDollar50000To64999", "c": 1}, {"sv": ["dc/6yb4mgxtc1288"], "l": "65,000 - 74,999 $", "t": "v", "e": "USDollar65000To74999", "c": 1}, {"sv": ["dc/pvsbze841l2tc"], "l": "More than 75,000 $", "t": "v", "e": "USDollar75000Onwards", "c": 1}]}, {"l": "Marital Status", "t": "p", "c": 0, "cd": []}, {"l": "Nativity", "t": "p", "c": 0, "cd": []}, {"l": "Place Of Birth", "t": "p", "c": 0, "cd": []}, {"l": "Poverty Status", "t": "p", "c": 0, "cd": []}, {"l": "Race", "t": "p", "c": 0, "cd": []}, {"l": "Veteran Status", "t": "p", "c": 0, "cd": []}, {"l": "Educational Attainment", "t": "p", "c": 0, "cd": []}, {"l": "Level Of School", "t": "p", "c": 0, "cd": []}]}}
+{
+ "Demographics": {
+  "sv": [
+   "top"
+  ],
+  "l": "Demographics",
+  "t": "p",
+  "c": 10,
+  "cd": [
+   {
+    "l": "Age",
+    "t": "p",
+    "c": 0,
+    "cd": []
+   },
+   {
+    "l": "Citizenship",
+    "t": "p",
+    "c": 0,
+    "cd": []
+   },
+   {
+    "l": "Gender",
+    "t": "p",
+    "c": 2,
+    "cd": [
+     {
+      "sv": [
+       "dc/026gmdj2xk1kb"
+      ],
+      "l": "Female",
+      "t": "v",
+      "e": "Female",
+      "c": 1
+     },
+     {
+      "sv": [
+       "MalePopulation"
+      ],
+      "l": "Male",
+      "t": "v",
+      "e": "Male",
+      "c": 1
+     }
+    ]
+   },
+   {
+    "l": "Income",
+    "t": "p",
+    "c": 8,
+    "cd": [
+     {
+      "sv": [
+       "dc/cmn38d85glq72"
+      ],
+      "l": "Less than 9,999 $",
+      "t": "v",
+      "e": "USDollarUpto9999",
+      "c": 1
+     },
+     {
+      "sv": [
+       "dc/pj50xtdgxeh4g"
+      ],
+      "l": "10,000 - 14,999 $",
+      "t": "v",
+      "e": "USDollar10000To14999",
+      "c": 1
+     },
+     {
+      "sv": [
+       "dc/61fzldryrnte1"
+      ],
+      "l": "15,000 - 24,999 $",
+      "t": "v",
+      "e": "USDollar15000To24999",
+      "c": 1
+     },
+     {
+      "sv": [
+       "dc/jhpflf91nvlt6"
+      ],
+      "l": "25,000 - 34,999 $",
+      "t": "v",
+      "e": "USDollar25000To34999",
+      "c": 1
+     },
+     {
+      "sv": [
+       "dc/tpeg0jxdts2t3"
+      ],
+      "l": "35,000 - 49,999 $",
+      "t": "v",
+      "e": "USDollar35000To49999",
+      "c": 1
+     },
+     {
+      "sv": [
+       "dc/esr27kls5vfy6"
+      ],
+      "l": "50,000 - 64,999 $",
+      "t": "v",
+      "e": "USDollar50000To64999",
+      "c": 1
+     },
+     {
+      "sv": [
+       "dc/6yb4mgxtc1288"
+      ],
+      "l": "65,000 - 74,999 $",
+      "t": "v",
+      "e": "USDollar65000To74999",
+      "c": 1
+     },
+     {
+      "sv": [
+       "dc/pvsbze841l2tc"
+      ],
+      "l": "More than 75,000 $",
+      "t": "v",
+      "e": "USDollar75000Onwards",
+      "c": 1
+     }
+    ]
+   },
+   {
+    "l": "Marital Status",
+    "t": "p",
+    "c": 0,
+    "cd": []
+   },
+   {
+    "l": "Nativity",
+    "t": "p",
+    "c": 0,
+    "cd": []
+   },
+   {
+    "l": "Place Of Birth",
+    "t": "p",
+    "c": 0,
+    "cd": []
+   },
+   {
+    "l": "Poverty Status",
+    "t": "p",
+    "c": 0,
+    "cd": []
+   },
+   {
+    "l": "Race",
+    "t": "p",
+    "c": 0,
+    "cd": []
+   },
+   {
+    "l": "Veteran Status",
+    "t": "p",
+    "c": 0,
+    "cd": []
+   },
+   {
+    "l": "Educational Attainment",
+    "t": "p",
+    "c": 0,
+    "cd": []
+   },
+   {
+    "l": "Level Of School",
+    "t": "p",
+    "c": 0,
+    "cd": []
+   }
+  ]
+ }
+}
