@@ -50,39 +50,53 @@ def build_tree_recursive(pos, level, pop_obs_spec, stat_vars,
                 set(pos.properties) < set(c_pos.properties)):
             child_pos.append(c_pos)
 
+    child_prop_vals = []
     for sv in stat_vars[pos.key]:
         if sv.match_ui_node(prop_ui_node) and sv.pv[property_diff]:
-            value_ui_pv = collections.OrderedDict()
-            for prop, val in parent_pv.items():
-                value_ui_pv[prop] = val
-            value_ui_pv[property_diff] = sv.pv[property_diff]
-            value_ui_node = util.UiNode(pos, value_ui_pv, False, property_diff)
-            value_blob = {
-                'populationType': value_ui_node.pop_type,
-                'sv': sv.dcid,
-                'l': text_format.format_title(value_ui_node.text),
-                't': 'v',
-                'e': value_ui_node.enum,
-                'c': 1,
-                'sv_set': set([sv.dcid]),
-            }
-            if sv.se:
-                value_blob['se'] = sv.se
-            # add statistical variables as the child of current node
-            result['cd'].append(value_blob)
+            if sv.pv[property_diff] not in child_prop_vals:
+                # if this is the first statsvar of this node, build the node
+                # and corresponding child nodes
+                child_prop_vals.append(sv.pv[property_diff])
+                value_ui_pv = collections.OrderedDict()
+                for prop, val in parent_pv.items():
+                    value_ui_pv[prop] = val
+                value_ui_pv[property_diff] = sv.pv[property_diff]
+                value_ui_node = util.UiNode(
+                    pos, value_ui_pv, False, property_diff)
+                value_blob = {
+                    'populationType': value_ui_node.pop_type,
+                    'sv': [sv.dcid],
+                    'l': text_format.format_title(value_ui_node.text),
+                    't': 'v',
+                    'e': value_ui_node.enum,
+                    'c': 1,
+                    'sv_set': set([sv.dcid]),
+                }
+                if sv.se:
+                    value_blob['se'] = sv.se
+                # add statistical variables as the child of current node
+                result['cd'].append(value_blob)
 
-            if level <= MAX_LEVEL:
-                # build the branches recursively
-                for child in child_pos:
-                    branch = build_tree_recursive(
-                        child, level + 1, pop_obs_spec, stat_vars, value_ui_node)
-                    if branch['cd']:
-                        if 'cd' not in value_blob:
-                            value_blob['cd'] = []
-                        value_blob['cd'].append(branch)
-                    value_blob['sv_set'] |= branch['sv_set']
-                    del branch['sv_set']
-            value_blob['c'] = len(value_blob['sv_set'])
+                if level <= MAX_LEVEL:
+                    # build the branches recursively
+                    for child in child_pos:
+                        branch = build_tree_recursive(
+                            child, level + 1, pop_obs_spec, stat_vars, value_ui_node)
+                        if branch['cd']:
+                            if 'cd' not in value_blob:
+                                value_blob['cd'] = []
+                            value_blob['cd'].append(branch)
+                        value_blob['sv_set'] |= branch['sv_set']
+                        del branch['sv_set']
+                value_blob['c'] = len(value_blob['sv_set'])
+            else:
+                # if this is a duplicated statsVar
+                # append the statsVar to the right node, increase the count by 1
+                for child in result['cd']:
+                    if child['e'] == sv.pv[property_diff]:
+                        child['sv'].append(sv.dcid)
+                        child['c'] += 1
+                        child['sv_set'].add(sv.dcid)
 
     result['cd'] = text_format.filter_and_sort(property_diff,
                                                result['cd'], False)
@@ -103,7 +117,7 @@ def build_tree(v, pop_obs_spec, stat_vars, vertical_idx):
 
     # vertical as the root
     root = {
-        'sv': 'top',
+        'sv': ['top'],
         'l': text_format.format_title(v),
         't': 'p',
         'c': 0,  # count of child nodes
@@ -114,18 +128,21 @@ def build_tree(v, pop_obs_spec, stat_vars, vertical_idx):
     # as the level 1 cd of root
     for pos in pop_obs_spec[0]:
         ui_node = util.UiNode(pos, {}, False)
+        childStatsVars = []
+        # find all the statsvars belong to the node
         for sv in stat_vars[pos.key]:
             if pos.cpv == sv.pv:
-                root['cd'].append({
-                    'populationType': ui_node.pop_type,
-                    'sv': sv.dcid,
-                    'l': text_format.format_title(ui_node.text),
-                    't': 'v',
-                    'c': 1,
-                    'mprop': ui_node.mprop,
-                })
-                break  # to avoid duplicates related to measurementMethod
-            root['c'] += 1
+                childStatsVars.append(sv.dcid)
+                root['c'] += 1
+        if len(childStatsVars) > 0:
+            root['cd'].append({
+                'populationType': ui_node.pop_type,
+                'sv': childStatsVars,
+                'l': text_format.format_title(ui_node.text),
+                't': 'v',
+                'c': len(childStatsVars),
+                'mprop': ui_node.mprop,
+            })
 
     # build specs with >= 1 constraints recursively
     for pos in pop_obs_spec[1]:
@@ -162,7 +179,8 @@ def build_tree(v, pop_obs_spec, stat_vars, vertical_idx):
 
 def traverseTree(root, path, statsvar_path):
     if root['t'] == 'v':
-        statsvar_path[root['sv']] = path
+        for sv in root['sv']:
+            statsvar_path[sv] = path
     if 'populationType' in root:
         del root['populationType']
     if 'mprop' in root:

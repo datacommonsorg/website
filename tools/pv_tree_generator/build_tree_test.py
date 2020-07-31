@@ -72,7 +72,6 @@ class BuildTreeTest(unittest.TestCase):
         root, _ = build_tree.build_tree(vertical, pop_obs_spec[vertical],
                                         stat_vars, 0)
         data[vertical] = root
-        print(data)
         expected = json.load(open("./hierarchy_golden.json", "r"))
         self.assertEqual(data, expected)
         return
