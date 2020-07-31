@@ -16,7 +16,7 @@
 
 import axios from "axios";
 
-import { fetchStatsData } from "./data_fetcher";
+import { fetchStatsData, StatsData } from "./data_fetcher";
 import { DataGroup } from "../chart/base";
 
 jest.mock("axios");
@@ -157,3 +157,21 @@ test("fetch stats data", () => {
     ]);
   });
 });
+
+
+test("StatsData test", () => {
+  // Test partial data
+  const statsData = new StatsData([],[],[], {
+    "Count_Person": {
+      "geoId/01": null,
+      "geoId/02": {
+        "place_dcid": "geoId/02",
+        "place_name": "Place2",
+        "provenance_domain": "test.domain",
+        "data": {"1990":10, "1992": 20}
+      }
+    }
+  });
+  expect(statsData.getStatsVarGroupWithTime("geoId/01")).toEqual([])
+
+})
