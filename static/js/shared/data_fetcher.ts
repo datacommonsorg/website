@@ -19,15 +19,17 @@ import axios, { AxiosResponse } from "axios";
 import { DataPoint, DataGroup } from "../chart/base";
 import { STATS_VAR_TEXT } from "./stats_var";
 
-interface ApiResponse {
-  [key: string]: {
-    data: {
-      [key: string]: number;
-    };
-    place_name: string;
-    place_dcid: string;
-    provenance_domain: string;
+interface TimeSeries {
+  data: {
+    [key: string]: number;
   };
+  place_name: string;
+  place_dcid: string;
+  provenance_domain: string;
+}
+
+interface ApiResponse {
+  [key: string]: TimeSeries | null;
 }
 
 /**
@@ -71,12 +73,14 @@ class StatsData {
       const dataPoints: DataPoint[] = [];
       let placeName: string;
       for (const statsVar of this.statsVars) {
-        if (this.data[statsVar][place].data) {
+        if (!this.data[statsVar][place]) continue;
+        const timeSeries = this.data[statsVar][place];
+        if (timeSeries.data) {
           dataPoints.push({
             label: STATS_VAR_TEXT[statsVar],
-            value: this.data[statsVar][place].data[date],
+            value: timeSeries.data[date],
           });
-          placeName = this.data[statsVar][place].place_name;
+          placeName = timeSeries.place_name;
         }
       }
       if (dataPoints.length > 0) {
@@ -98,11 +102,13 @@ class StatsData {
     const result: DataGroup[] = [];
     for (const statsVar of this.statsVars) {
       const dataPoints: DataPoint[] = [];
-      if (Object.keys(this.data[statsVar][place].data).length !== 0) {
+      if (!this.data[statsVar][place]) continue;
+      const timeSeries = this.data[statsVar][place];
+      if (Object.keys(timeSeries.data).length !== 0) {
         for (const date of this.dates) {
           dataPoints.push({
             label: date,
-            value: date in this.data[statsVar][place].data ? this.data[statsVar][place].data[date] : null,
+            value: timeSeries.data[date] || null,
           });
         }
         result.push(new DataGroup(statsVar, dataPoints));
@@ -124,9 +130,11 @@ class StatsData {
     for (const date of this.dates) {
       const dataPoints: DataPoint[] = [];
       for (const statsVar of this.statsVars) {
+        if (!this.data[statsVar][place]) continue;
+        const timeSeries = this.data[statsVar][place];
         dataPoints.push({
           label: STATS_VAR_TEXT[statsVar],
-          value: this.data[statsVar][place].data[date],
+          value: timeSeries.data[date],
         });
       }
       result.push(new DataGroup(date, dataPoints));
@@ -155,9 +163,11 @@ class StatsData {
     }
     const result: DataPoint[] = [];
     for (const statsVar of this.statsVars) {
+      if (!this.data[statsVar][place]) continue;
+      const timeSeries = this.data[statsVar][place];
       result.push({
         label: STATS_VAR_TEXT[statsVar],
-        value: this.data[statsVar][place].data[date],
+        value: timeSeries.data[date],
       });
     }
     return result;
@@ -202,40 +212,34 @@ function fetchStatsData(
       // Compute perCapita.
       if (perCapita) {
         for (const place in allResp[i].data) {
-          if (Object.keys(allResp[i].data[place]).length === 0) {
-            continue;
-          }
-          const population = allResp[n].data[place].data;
+          if (!allResp[i].data[place]) continue;
+          const timeSeries = allResp[i].data[place];
+          const population = timeSeries.data;
           const years = Object.keys(population);
           years.sort();
           const yearMin = years[0];
           const yearMax = years[years.length - 1];
-          for (const date in allResp[i].data[place].data) {
-            if (allResp[i].data[place].data.hasOwnProperty(date)) {
-              const year = date.split("-")[0];
-              let pop: number;
-              if (year in population) {
-                pop = population[year];
-              } else if (year < yearMin) {
-                pop = population[yearMin];
-              } else {
-                pop = population[yearMax];
-              }
-              result.data[statsVars[i]][place].data[date] /= pop / scaling;
+          for (const date in timeSeries.data) {
+            const year = date.split("-")[0];
+            let pop: number;
+            if (year in population) {
+              pop = population[year];
+            } else if (year < yearMin) {
+              pop = population[yearMin];
+            } else {
+              pop = population[yearMax];
             }
+            result.data[statsVars[i]][place].data[date] /= pop / scaling;
           }
         }
       }
       // Build the dates collection, get the union of available dates for all data
       for (const place in allResp[i].data) {
-        if (!allResp[i].data[place]) {
-          continue;
-        }
-        result.sources.add(allResp[i].data[place].provenance_domain)
-        for (const date in allResp[i].data[place].data) {
-          if (allResp[i].data[place].data.hasOwnProperty(date)) {
+        if (!allResp[i].data[place]) continue;
+        const timeSeries = allResp[i].data[place];
+        result.sources.add(timeSeries.provenance_domain)
+        for (const date in timeSeries.data) {
             dates[date] = true;
-          }
         }
       }
     }
