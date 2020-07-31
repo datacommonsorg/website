@@ -69,8 +69,8 @@ class BuildTreeTest(unittest.TestCase):
         stat_vars = _read_stat_var()
         data = {}
         vertical = "Demographics"
-        root, _ = build_tree.build_tree(vertical, pop_obs_spec[vertical],
-                                        stat_vars, 0)
+        root, _, _ = build_tree.build_tree(vertical, pop_obs_spec[vertical],
+                                           stat_vars, 0)
         data[vertical] = root
         print(data)
         expected = json.load(open("./hierarchy_golden.json", "r"))
@@ -92,8 +92,8 @@ class BuildTreeTest(unittest.TestCase):
         stat_vars = _read_stat_var()
         data = {}
         vertical = "Demographics"
-        root, statsvar_path = build_tree.build_tree(vertical, pop_obs_spec[vertical],
-                                                    stat_vars, 0)
+        root, statsvar_path, _ = build_tree.build_tree(vertical, pop_obs_spec[vertical],
+                                                       stat_vars, 0)
         data[vertical] = root
         # assert counts
         self.assertEqual(data['Demographics']['c'], 4)

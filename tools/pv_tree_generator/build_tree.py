@@ -157,12 +157,14 @@ def build_tree(v, pop_obs_spec, stat_vars, vertical_idx):
     root['c'] += len(root['sv_set'])
     del root['sv_set']
     statsvar_path = {}
-    return traverseTree(root, [vertical_idx], statsvar_path)
+    statsvar_title = {}
+    return traverseTree(root, [vertical_idx], statsvar_path, statsvar_title)
 
 
-def traverseTree(root, path, statsvar_path):
+def traverseTree(root, path, statsvar_path, statsvar_title):
     if root['t'] == 'v':
         statsvar_path[root['sv']] = path
+        statsvar_title[root['sv']] = root['l']
     if 'populationType' in root:
         del root['populationType']
     if 'mprop' in root:
@@ -173,9 +175,9 @@ def traverseTree(root, path, statsvar_path):
         idx = 0
         for node in root['cd']:
             nextPath = path + [idx]
-            traverseTree(node, nextPath, statsvar_path)
+            traverseTree(node, nextPath, statsvar_path, statsvar_title)
             idx += 1
-    return root, statsvar_path
+    return root, statsvar_path, statsvar_title
 
 
 def getTopLevel(root, max_level):

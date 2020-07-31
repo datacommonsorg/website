@@ -46,7 +46,6 @@ class Page extends Component<PagePropType, PageStateType> {
     super(props);
     this.handleHashChange = this.handleHashChange.bind(this);
     this._togglePerCapita = this._togglePerCapita.bind(this);
-    this.setStatsVarTitle = this.setStatsVarTitle.bind(this);
     this.state = {
       statsVarPaths: [],
       statsVarInfo: {},
@@ -116,21 +115,6 @@ class Page extends Component<PagePropType, PageStateType> {
     });
   }
 
-  setStatsVarTitle(statsVarId2Title: { [key: string]: string }) {
-    // Deep clone state value out to prevent change state value outside
-    // setState(). Otherwise the state is changed and check in
-    // shouldComponentUpdate() has no effect.
-    const value = _.cloneDeep(this.state.statsVarInfo);
-    Object.keys(statsVarId2Title).map((id) => {
-      if (id in value) {
-        value[id].title = statsVarId2Title[id];
-      }
-    });
-    this.setState({
-      statsVarInfo: value,
-    });
-  }
-
   render() {
     return (
       <div>
@@ -138,13 +122,14 @@ class Page extends Component<PagePropType, PageStateType> {
           <div id="drill-scroll-container">
             <div className="title">Select variables:</div>
             <span className="perCapita">Per capita</span>
-            <button className={this.state.perCapita?"checkbox checked":"checkbox"}
-                    onClick={this._togglePerCapita}></button>
+            <button
+              className={this.state.perCapita ? "checkbox checked" : "checkbox"}
+              onClick={this._togglePerCapita}
+            ></button>
             <Menu
               statsVarPaths={this.state.statsVarPaths}
               statsVarValid={this.state.statsVarValid}
               filter={this.state.places.length !== 0}
-              setStatsVarTitle={this.setStatsVarTitle}
             ></Menu>
           </div>
         </div>

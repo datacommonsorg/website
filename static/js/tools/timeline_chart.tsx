@@ -17,6 +17,7 @@
 import React, { Component } from "react";
 import { StatsVarInfo, updateUrl } from "./timeline_util";
 import { fetchStatsData, StatsData } from "../shared/data_fetcher";
+import statsVarTitleMap from "../../data/statsvar_title.json";
 import {
   PlotParams,
   drawGroupLineChart,
@@ -59,7 +60,7 @@ interface ChartPropsType {
   places: [string, string][];
   statsVars: { [key: string]: StatsVarInfo };
   perCapita: boolean;
-  onDataUpdate: (mprop: string, data: StatsData) => {}
+  onDataUpdate: (mprop: string, data: StatsData) => {};
 }
 
 class Chart extends Component<ChartPropsType, {}> {
@@ -73,17 +74,14 @@ class Chart extends Component<ChartPropsType, {}> {
   constructor(props: ChartPropsType) {
     super(props);
     this.placeName = {};
-    this.statsVarsTitle = {};
     this.svgContainer = React.createRef();
     this.handleWindowResize = this.handleWindowResize.bind(this);
+    this.statsVarsTitle = {};
   }
   render() {
     const statsVars = Object.keys(this.props.statsVars);
-    // TODO(shifucun): investigate on stats var title, now this is updated
-    // several times.
-    this.statsVarsTitle = {};
     for (const dcid in this.props.statsVars) {
-      this.statsVarsTitle[dcid] = this.props.statsVars[dcid].title || dcid;
+      this.statsVarsTitle[dcid] = statsVarTitleMap[dcid] || dcid;
     }
     // TODO(shifucn): simplify placeid->name, statsid->name logic.
     for (const place of this.props.places) {
@@ -100,26 +98,25 @@ class Chart extends Component<ChartPropsType, {}> {
       <div className="card">
         <div ref={this.svgContainer} className="chart-svg"></div>
         <div>
-        {statsVars.map(
-          function (statsVar) {
-            let color: string;
-            const title = this.statsVarsTitle[statsVar];
-            if (statsVars.length > 1) {
-              color = this.plotParams.lines[placeName + title].color;
-            }
-            return (
-              <StatsVarChip
-                key={statsVar}
-                statsVar={statsVar}
-                title={title}
-                color={color}
-                deleteStatsVarChip={this.deleteStatsVarChip}
-              />
-            );
-          }.bind(this)
-        )}
+          {statsVars.map(
+            function (statsVar) {
+              let color: string;
+              const title = this.statsVarsTitle[statsVar];
+              if (statsVars.length > 1) {
+                color = this.plotParams.lines[placeName + title].color;
+              }
+              return (
+                <StatsVarChip
+                  key={statsVar}
+                  statsVar={statsVar}
+                  title={title}
+                  color={color}
+                  deleteStatsVarChip={this.deleteStatsVarChip}
+                />
+              );
+            }.bind(this)
+          )}
         </div>
-
       </div>
     );
   }

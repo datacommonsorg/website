@@ -27,20 +27,24 @@ def main():
     f_json = open("../../static/data/hierarchy_statsvar.json", "w")
     f_json_top = open("../../static/data/hierarchy_top.json", "w")
     f_json_statsvar_path = open("../../static/data/statsvar_path.json", "w")
+    f_json_statsvar_title = open("../../static/data/statsvar_title.json", "w")
     data = {}
     data_top = {}
     statsvar_path_all = {}
+    statsvar_title_all = {}
     for idx, vertical in enumerate(constants.VERTICALS):
         logging.info(vertical)
-        root, statsvar_path = build_tree(
+        root, statsvar_path, statsvar_title = build_tree(
             vertical, pop_obs_spec[vertical], stat_vars, idx)
         statsvar_path_all.update(statsvar_path)
+        statsvar_title_all.update(statsvar_title)
         data[vertical] = root
         root_top = getTopLevel(copy.deepcopy(root), 1)
         data_top[vertical] = root_top
     json.dump(data, f_json, indent=1)
     json.dump(data_top, f_json_top, indent=1)
     json.dump(statsvar_path_all, f_json_statsvar_path, indent=1)
+    json.dump(statsvar_title_all, f_json_statsvar_title, indent=1)
     return
 
 

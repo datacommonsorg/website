@@ -211,7 +211,6 @@ interface StatsVarInfo {
   mprop: string;
   pt: string;
   pvs: { [key: string]: string };
-  title: string;
 }
 
 export {
