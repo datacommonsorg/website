@@ -16,6 +16,7 @@ interface NodePropType {
   statsVarPaths: string[][];
   statsVarValid: Set<string>;
   filter: boolean;
+  onClick?: (statVar : string) => void;
 }
 
 interface NodeStateType {
@@ -68,6 +69,7 @@ class Node extends Component<NodePropType, NodeStateType> {
             key={this.props.l + index}
             statsVarValid={this.props.statsVarValid}
             filter={this.props.filter}
+            onClick={this.props.onClick}
           ></Node>
         );
       });
@@ -104,15 +106,21 @@ class Node extends Component<NodePropType, NodeStateType> {
     );
   };
   private _handleCheckboxClick = (): void => {
-    this.setState({
-      checked: !this.state.checked,
-    });
-    updateUrl({
-      statsVarPath: {
-        statsVar: this.props.sv + this.state.nodePath,
-        shouldAdd: !this.state.checked,
-      },
-    });
+    // Perform onClick override if provided.
+    if (this.props.onClick) {
+      this.props.onClick(this.props.sv)
+    // Otherwise perform default behavior: Add statsVar meta to url.
+    } else {
+      this.setState({
+        checked: !this.state.checked,
+      });
+      updateUrl({
+        statsVarPath: {
+          statsVar: this.props.sv + this.state.nodePath,
+          shouldAdd: !this.state.checked,
+        },
+      });
+    }
   };
 
   private _handleExpandClick = (): void => {
@@ -176,6 +184,7 @@ interface MenuPropType {
   statsVarPaths: string[][];
   statsVarValid: Set<string>;
   filter: boolean;
+  onClick?: (statVar: string) => void;
 }
 interface MenuStateType {
   menuJson: [{}];
@@ -207,6 +216,7 @@ class Menu extends Component<MenuPropType, MenuStateType> {
                     nodePath=""
                     statsVarValid={this.props.statsVarValid}
                     filter={this.props.filter}
+                    onClick={this.props.onClick}
                   ></Node>
                 )
               );

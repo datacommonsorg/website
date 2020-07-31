@@ -148,4 +148,4 @@ class Page extends Component<PagePropType, PageStateType> {
     );
   }
 }
-export { Page };
+export { Page, PageStateType };

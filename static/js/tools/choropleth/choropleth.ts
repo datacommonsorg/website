@@ -31,6 +31,11 @@ window.onload = () => {
     React.createElement(MainPane),
     document.getElementById("main-pane")
   );
+  
+  // Redirect to basic url if none provide.
+  if (window.location.search == "") {
+    window.location.search = "statVar=Count_Person_Employed&perCapita=t&geoId=country/USA"
+  }
 
   // TODO:(iancostello) Refactor the url builder.
   // Build api call from request.
@@ -40,8 +45,15 @@ window.onload = () => {
   );
   // Create request and generate map.
   axios.get(base_url).then((resp) => {
+    // Generate Map.
     var payload = resp.data[0];
     generateGeoMap(payload["geoJson"], payload["_PLOTTING_INFO"]);
+
+    // Update title.
+    const urlParams = new URLSearchParams(window.location.search);
+    var statVar = urlParams.get("statVar");
+    document.getElementById("heading").innerHTML = 
+      statVar + " in " + payload["_PLOTTING_INFO"]['current_geo']; 
   });
 
   // Generate breadcrumbs.
@@ -78,6 +90,7 @@ function generateGeoMap(geojson, plt_info) {
     .enter()
     .append("path")
     .attr("d", geomap)
+    .attr("ref", "geoPath")
     // Add CSS class to each path for border outlining.
     .attr("class", "border")
     .attr("fill", function (d : { properties: { value : number }}) {
@@ -104,21 +117,21 @@ function handleMapHover(geo) {
     ? geo.properties.value
     : "No Value";
   document.getElementById("hover-text-display").innerHTML =
-    name + " - " + geo_value;
+    name + " - " + geo_value.toLocaleString();
 
   // Highlight selected geo in black on hover.
-  d3.select(this).attr("class", "border-highlighted");
+  d3.select(geo.ref).attr("class", "border-highlighted");
 }
 
 /**
  * Clears output after leaving a geo.
  */
-function mouseLeave() {
+function mouseLeave(geo) {
   // Remove hover text.
   document.getElementById("hover-text-display").innerHTML = "";
 
   // Remove geo display effect.
-  d3.select(this).attr("class", "border");
+  d3.select(geo.ref).attr("class", "border");
 }
 
 /**

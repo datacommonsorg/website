@@ -15,9 +15,10 @@
 import collections
 import json
 
-from flask import Blueprint, request
-
+from flask import Blueprint, request, jsonify
 from cache import cache
+import services.datacommons as dc
+# Note that significant code broke when this was changed to dc.fetch_data.
 from services.datacommons import fetch_data
 from routes.api.stats import get_stats_wrapper
 
@@ -113,6 +114,56 @@ def child(dcid):
     return json.dumps(child_places)
 
 
+# Defines the map from higher geos to their respective subgeos.
+LEVEL_MAP = {
+    "Country": "AdministrativeArea1",
+    "AdministrativeArea1": "AdministrativeArea2",
+    "AdministrativeArea2": "City"
+}
+@bp.route('child/statvars')
+@cache.memoize(timeout=3600 * 24)  # Cache for one day.
+def child_statvars():
+    """
+    Gets all statistical variable avaiable for a particular sublevel of a dcid. 
+
+    API Params:
+        dcid -> The place dcid geoID to information for, as a string.
+        level -> The level of children to pull for, as a string.
+    Example Query:
+        api/place/child/statvars?dcid=country/USA&level=State
+        Returns all statistical variables that are value for states of the USA.
+    Returns:
+        A json list of all the available statistical variables.
+    """
+    # Get required params.
+    requested_dcid = request.args.get("dcid")
+    if requested_dcid is None:
+        return jsonify({"error": "Must provide a 'dcid' field!"}, 400)
+    requested_level = request.args.get("level")
+    if requested_level is None:
+        requested_dcid_type = dc.get_property_values([requested_dcid],
+                                                "typeOf")[requested_dcid]
+        # TODO(iancostello): Handle a failed function call, e.g., returns None.
+        # TODO(iancostello): Handle the case where display_level is None.
+        for level in requested_dcid_type:
+            if level in LEVEL_MAP:
+                requested_level = LEVEL_MAP[level]
+                break
+
+    # Get sublevels.
+    geos_contained_in_place = dc.get_places_in(
+        [requested_dcid], requested_level)
+    if requested_dcid not in geos_contained_in_place:
+        return jsonify({"error": "Internal server error."}, 500)
+    geos_contained_in_place = geos_contained_in_place[requested_dcid]
+
+    # Get all available geoIds. Assume the first 10 cover all cases.
+    geoIds = set()
+    for geoId in geos_contained_in_place[:10]:
+        geoIds = geoIds.union(statsvars(geoId))
+    return json.dumps(list(geoIds))
+
+    
 @cache.memoize(timeout=3600 * 24)  # Cache for one day.
 def child_fetch(dcid):
     response = fetch_data(

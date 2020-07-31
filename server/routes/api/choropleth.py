@@ -94,7 +94,8 @@ def choropleth_api():
     # TODO: Potentially move these calls to the client.
     stat_var_by_geo = dc.get_stats(geos_contained_in_place,
                                    requested_stat_var)
-    names_by_geo = dc.get_property_values(geos_contained_in_place,
+    names_by_geo = dc.get_property_values(geos_contained_in_place
+                                        + [requested_geoId],
                                           "name")
     geojson_by_geo = dc.get_property_values(geos_contained_in_place,
                                             "geoJsonCoordinates")
@@ -147,6 +148,8 @@ def choropleth_api():
                     # and statistical values from different times.
                     pop = next(iter(
                         reversed(population_by_geo[geo_id]['data'].values())))
+                    if pop == 0:
+                        continue
                     stat_obs /= pop
 
                 values.append(stat_obs)
@@ -164,6 +167,8 @@ def choropleth_api():
             "features": features
         },
         "_PLOTTING_INFO": {
+            # TODO(iancostello): Check if this fails.
+            "current_geo": names_by_geo[requested_geoId][0], 
             "domain": domain,
             "palette": palette
         }  
@@ -207,8 +212,11 @@ def determine_color_palette(values, is_denominated):
         palette -> Color palette to render with.
     """
     # Percentages use diverging palettes.
-    lower_range = min(values)
-    upper_range = max(values)
     palette = (['#998ec3', '#f7f7f7', '#f1a340'] if is_denominated
         else ['#deebf7', '#9ecae1', '#3182bd'])
-    return [lower_range, statistics.median(values), upper_range], palette
+    if len(values) != 0:
+        lower_range = min(values)
+        upper_range = max(values)
+        return [lower_range, statistics.median(values), upper_range], palette
+    else:
+        return [0,0,0], palette
