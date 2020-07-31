@@ -227,6 +227,7 @@ class Menu extends Component<MenuPropType, MenuStateType> {
     this.statsVarId2Title = {};
   }
   render() {
+    this.statsVarId2Title = {};
     return (
       <div id="drill">
         <div className="noedge">
