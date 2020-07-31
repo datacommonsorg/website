@@ -180,7 +180,7 @@ def traverseTree(root, path, statsvar_path, statsvar_title):
     if root['t'] == 'v':
         for sv in root['sv']:
             statsvar_path[sv] = path
-            statsvar_title[root['sv']] = root['l']
+            statsvar_title[sv] = root['l']
     if 'populationType' in root:
         del root['populationType']
     if 'mprop' in root:
