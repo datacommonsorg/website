@@ -42,7 +42,12 @@ def get_stats_wrapper(dcid_str, stats_var):
         with value to be the observation time series.
     """
     dcids = dcid_str.split('^')
-    return json.dumps(dc.get_stats(dcids, stats_var))
+    result = dc.get_stats(dcids, stats_var)
+    for dcid in result:
+        if not result[dcid]:
+            # Convert {} to None so client side sees null instead of {}
+            result[dcid] = None
+    return json.dumps(result)
 
 
 @bp.route('/api/stats/<path:stats_var>')
