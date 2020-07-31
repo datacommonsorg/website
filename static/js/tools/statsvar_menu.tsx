@@ -154,7 +154,7 @@ class Node extends Component<NodePropType, NodeStateType> {
   private _handleHashChange() {
     const statsVarPathNext = [];
     let check = false;
-    let expand = false;
+    let expand = this.state.expanded;
     for (const statsVarPath of this.props.statsVarPaths) {
       if (statsVarPath && statsVarPath[0] === this.props.idx) {
         if (statsVarPath.length === 1) {
