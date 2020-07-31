@@ -10,7 +10,7 @@ interface NodePropType {
   c: number; // count
   cd: NodePropType[]; // children
   t: string; // type
-  sv: string;
+  sv: string[];
   statsVarPaths: number[][];
   nodePath: number[];
   statsVarValid: Set<string>;
@@ -115,12 +115,34 @@ class Node extends Component<NodePropType, NodeStateType> {
     this.setState({
       checked: !this.state.checked,
     });
-    updateUrl({
-      statsVar: {
-        statsVar: this.props.sv + "," + this.props.nodePath.join(","),
-        shouldAdd: !this.state.checked,
-      },
-    });
+    if (this.state.checked) {
+      // delete all related statsVars
+      updateUrl({
+        statsVar: {
+          statsVar:
+            this.props.sv.join("__") + "," + this.props.nodePath.join(","),
+          shouldAdd: !this.state.checked,
+        },
+      });
+    } else {
+      // add available statsVars only
+      let validSV = [];
+      if (this.props.filter) {
+        for (const statsVar of this.props.sv) {
+          if (this.props.statsVarValid.has(statsVar)) {
+            validSV.push(statsVar);
+          }
+        }
+      } else {
+        validSV = this.props.sv;
+      }
+      updateUrl({
+        statsVar: {
+          statsVar: validSV.join("__") + "," + this.props.nodePath.join(","),
+          shouldAdd: !this.state.checked,
+        },
+      });
+    }
   };
 
   private _handleExpandClick = (): void => {
@@ -137,7 +159,9 @@ class Node extends Component<NodePropType, NodeStateType> {
       if (statsVarPath && statsVarPath[0] === this.props.idx) {
         if (statsVarPath.length === 1) {
           check = true;
-          this.props.addStatsVarTitle(this.props.sv, this.props.l);
+          for (const sv of this.props.sv) {
+            this.props.addStatsVarTitle(sv, this.props.l);
+          }
         } else {
           expand = true;
           statsVarPathNext.push(statsVarPath.slice(1));
@@ -156,10 +180,19 @@ class Node extends Component<NodePropType, NodeStateType> {
     // and the statsvar is available or not filtered.
     return (
       this.props.t === "v" &&
-      (!this.props.filter || this.props.statsVarValid.has(this.props.sv))
+      (!this.props.filter ||
+        this.hasIntersection(this.props.statsVarValid, this.props.sv))
     );
   }
 
+  private hasIntersection(statsVarValid: Set<string>, statsVars: string[]) {
+    for (const value of statsVars) {
+      if (statsVarValid.has(value)) {
+        return true;
+      }
+    }
+    return false;
+  }
   private canExpand() {
     if (this.props.t === "p") {
       // a property node can be expanded if it has >= 1 children
@@ -171,10 +204,11 @@ class Node extends Component<NodePropType, NodeStateType> {
       this.props.cd.map((item) => {
         if (
           item.t === "v" &&
-          (!this.props.filter || this.props.statsVarValid.has(item.sv))
+          (!this.props.filter ||
+            this.hasIntersection(this.props.statsVarValid, this.props.sv))
         ) {
           valid = true; // valid value node
-        } else if (this.hasChild(item.cd)) {
+        } else if (item.t === "p" && this.hasChild(item.cd)) {
           valid = true; // valid property node
         }
       });
@@ -198,7 +232,10 @@ class Node extends Component<NodePropType, NodeStateType> {
     let valid = false;
     if (children && children.length !== 0) {
       children.map((item) => {
-        if (!this.props.filter || this.props.statsVarValid.has(item.sv)) {
+        if (
+          !this.props.filter ||
+          this.hasIntersection(this.props.statsVarValid, item.sv)
+        ) {
           valid = true;
         }
       });
@@ -227,6 +264,7 @@ class Menu extends Component<MenuPropType, MenuStateType> {
     this.statsVarId2Title = {};
   }
   render() {
+    this.statsVarId2Title = {};
     return (
       <div id="drill">
         <div className="noedge">
