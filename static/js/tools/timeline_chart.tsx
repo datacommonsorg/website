@@ -74,9 +74,9 @@ class Chart extends Component<ChartPropsType, {}> {
   constructor(props: ChartPropsType) {
     super(props);
     this.placeName = {};
+    this.statsVarsTitle = {};
     this.svgContainer = React.createRef();
     this.handleWindowResize = this.handleWindowResize.bind(this);
-    this.statsVarsTitle = {};
   }
   render() {
     const statsVars = Object.keys(this.props.statsVars);
