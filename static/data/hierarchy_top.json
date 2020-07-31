@@ -5,7 +5,7 @@
   ],
   "l": "Demographics",
   "t": "p",
-  "c": 1789,
+  "c": 1787,
   "cd": [
    {
     "sv": [
@@ -44,7 +44,7 @@
    {
     "l": "Gender",
     "t": "p",
-    "c": 1344
+    "c": 1342
    },
    {
     "l": "Income",
@@ -144,7 +144,7 @@
   ],
   "l": "Employment",
   "t": "p",
-  "c": 199,
+  "c": 196,
   "cd": [
    {
     "sv": [
@@ -191,7 +191,7 @@
    {
     "l": "Unemployment Insurance Claims",
     "t": "p",
-    "c": 15
+    "c": 12
    }
   ]
  },
