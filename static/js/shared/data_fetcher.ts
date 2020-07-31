@@ -213,13 +213,13 @@ function fetchStatsData(
       if (perCapita) {
         for (const place in allResp[i].data) {
           if (!allResp[i].data[place]) continue;
-          const timeSeries = allResp[i].data[place];
-          const population = timeSeries.data;
+          const dateValue = allResp[i].data[place].data;
+          const population = allResp[n].data[place].data;
           const years = Object.keys(population);
           years.sort();
           const yearMin = years[0];
           const yearMax = years[years.length - 1];
-          for (const date in timeSeries.data) {
+          for (const date in dateValue) {
             const year = date.split("-")[0];
             let pop: number;
             if (year in population) {
