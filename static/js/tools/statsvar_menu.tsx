@@ -205,7 +205,7 @@ class Node extends Component<NodePropType, NodeStateType> {
         if (
           item.t === "v" &&
           (!this.props.filter ||
-            this.hasIntersection(this.props.statsVarValid, this.props.sv))
+            this.hasIntersection(this.props.statsVarValid, item.sv))
         ) {
           valid = true; // valid value node
         } else if (item.t === "p" && this.hasChild(item.cd)) {
