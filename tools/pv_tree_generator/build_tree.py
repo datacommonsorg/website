@@ -95,8 +95,6 @@ def build_tree_recursive(pos, level, pop_obs_spec, stat_vars,
                 for child in result['cd']:
                     if child['e'] == sv.pv[property_diff]:
                         child['sv'].append(sv.dcid)
-                        child['c'] += 1
-                        child['sv_set'].add(sv.dcid)
 
     result['cd'] = text_format.filter_and_sort(property_diff,
                                                result['cd'], False)
