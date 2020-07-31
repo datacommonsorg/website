@@ -8679,7 +8679,21 @@
   6,
   2
  ],
+ "Count_Person_3OrMoreYears_Female_EnrolledInPrivateSchool": [
+  0,
+  5,
+  0,
+  6,
+  2
+ ],
  "Count_Person_3OrMoreYears_Female_EnrolledInPublicSchool": [
+  0,
+  5,
+  0,
+  6,
+  3
+ ],
+ "Count_Person_EnrolledInPublicSchool": [
   0,
   5,
   0,
@@ -17978,6 +17992,11 @@
   6,
   0
  ],
+ "Count_UnemploymentInsuranceClaim_ShortTimeCompensation": [
+  3,
+  6,
+  0
+ ],
  "Count_UnemploymentInsuranceClaim_ShortTimeCompensation_ContinuedClaim_ScaledForPartTimeUnemploymentBenefits": [
   3,
   6,
@@ -17985,7 +18004,21 @@
   0,
   0
  ],
+ "Count_UnemploymentInsuranceClaim_ShortTimeCompensation_ContinuedClaim": [
+  3,
+  6,
+  0,
+  0,
+  0
+ ],
  "Count_UnemploymentInsuranceClaim_ShortTimeCompensation_InitialClaim_ScaledForPartTimeUnemploymentBenefits": [
+  3,
+  6,
+  0,
+  0,
+  1
+ ],
+ "Count_UnemploymentInsuranceClaim_ShortTimeCompensation_InitialClaim": [
   3,
   6,
   0,
@@ -18050,6 +18083,10 @@
   1
  ],
  "Count_MortalityEvent": [
+  4,
+  0
+ ],
+ "Count_Death": [
   4,
   0
  ],

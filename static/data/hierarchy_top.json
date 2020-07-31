@@ -1,24 +1,32 @@
 {
  "Demographics": {
-  "sv": "top",
+  "sv": [
+   "top"
+  ],
   "l": "Demographics",
   "t": "p",
-  "c": 1785,
+  "c": 1789,
   "cd": [
    {
-    "sv": "Count_Person",
+    "sv": [
+     "Count_Person"
+    ],
     "l": "Population",
     "t": "v",
     "c": 1
    },
    {
-    "sv": "Median_Age_Person",
+    "sv": [
+     "Median_Age_Person"
+    ],
     "l": "Median age",
     "t": "v",
     "c": 1
    },
    {
-    "sv": "Median_Income_Person",
+    "sv": [
+     "Median_Income_Person"
+    ],
     "l": "Median income",
     "t": "v",
     "c": 1
@@ -36,7 +44,7 @@
    {
     "l": "Gender",
     "t": "p",
-    "c": 1342
+    "c": 1344
    },
    {
     "l": "Income",
@@ -86,7 +94,9 @@
   ]
  },
  "Crime": {
-  "sv": "top",
+  "sv": [
+   "top"
+  ],
   "l": "Crime",
   "t": "p",
   "c": 11,
@@ -99,7 +109,9 @@
   ]
  },
  "Education": {
-  "sv": "top",
+  "sv": [
+   "top"
+  ],
   "l": "Education",
   "t": "p",
   "c": 215,
@@ -127,31 +139,41 @@
   ]
  },
  "Employment": {
-  "sv": "top",
+  "sv": [
+   "top"
+  ],
   "l": "Employment",
   "t": "p",
-  "c": 193,
+  "c": 199,
   "cd": [
    {
-    "sv": "UnemploymentRate_Person",
+    "sv": [
+     "UnemploymentRate_Person"
+    ],
     "l": "Unemployment Rate",
     "t": "v",
     "c": 1
    },
    {
-    "sv": "Count_Person_InLaborForce",
+    "sv": [
+     "Count_Person_InLaborForce"
+    ],
     "l": "Labor Force",
     "t": "v",
     "c": 1
    },
    {
-    "sv": "Count_Person_Employed",
+    "sv": [
+     "Count_Person_Employed"
+    ],
     "l": "Employed",
     "t": "v",
     "c": 1
    },
    {
-    "sv": "Count_Person_Unemployed",
+    "sv": [
+     "Count_Person_Unemployed"
+    ],
     "l": "Unemployed",
     "t": "v",
     "c": 1
@@ -169,21 +191,26 @@
    {
     "l": "Unemployment Insurance Claims",
     "t": "p",
-    "c": 12
+    "c": 15
    }
   ]
  },
  "Health": {
-  "sv": "top",
+  "sv": [
+   "top"
+  ],
   "l": "Health",
   "t": "p",
-  "c": 1212,
+  "c": 1214,
   "cd": [
    {
-    "sv": "Count_MortalityEvent",
+    "sv": [
+     "Count_MortalityEvent",
+     "Count_Death"
+    ],
     "l": "Mortality",
     "t": "v",
-    "c": 1101
+    "c": 1102
    },
    {
     "l": "Health Outcomes",
@@ -213,13 +240,17 @@
   ]
  },
  "Housing": {
-  "sv": "top",
+  "sv": [
+   "top"
+  ],
   "l": "Housing",
   "t": "p",
-  "c": 96,
+  "c": 97,
   "cd": [
    {
-    "sv": "Count_HousingUnit",
+    "sv": [
+     "Count_HousingUnit"
+    ],
     "l": "Housing Units",
     "t": "v",
     "c": 1
@@ -262,13 +293,17 @@
   ]
  },
  "Household": {
-  "sv": "top",
+  "sv": [
+   "top"
+  ],
   "l": "Household",
   "t": "p",
-  "c": 679,
+  "c": 680,
   "cd": [
    {
-    "sv": "Count_Household",
+    "sv": [
+     "Count_Household"
+    ],
     "l": "Household",
     "t": "v",
     "c": 1
@@ -291,49 +326,65 @@
   ]
  },
  "Disasters": {
-  "sv": "top",
+  "sv": [
+   "top"
+  ],
   "l": "Disasters",
   "t": "p",
-  "c": 17,
+  "c": 24,
   "cd": [
    {
-    "sv": "Count_CycloneEvent",
+    "sv": [
+     "Count_CycloneEvent"
+    ],
     "l": "Cyclones",
     "t": "v",
     "c": 5
    },
    {
-    "sv": "Count_DroughtEvent",
+    "sv": [
+     "Count_DroughtEvent"
+    ],
     "l": "Droughts",
     "t": "v",
     "c": 1
    },
    {
-    "sv": "Count_EarthquakeEvent",
+    "sv": [
+     "Count_EarthquakeEvent"
+    ],
     "l": "Earthquakes",
     "t": "v",
     "c": 14
    },
    {
-    "sv": "Count_FloodEvent",
+    "sv": [
+     "Count_FloodEvent"
+    ],
     "l": "Floods",
     "t": "v",
     "c": 1
    },
    {
-    "sv": "Count_ThunderstormWindEvent",
+    "sv": [
+     "Count_ThunderstormWindEvent"
+    ],
     "l": "Thunderstorm Wind Gusts",
     "t": "v",
     "c": 1
    },
    {
-    "sv": "Count_TornadoEvent",
+    "sv": [
+     "Count_TornadoEvent"
+    ],
     "l": "Tornadoes",
     "t": "v",
     "c": 1
    },
    {
-    "sv": "Count_WildlandFireEvent",
+    "sv": [
+     "Count_WildlandFireEvent"
+    ],
     "l": "Wildland Fires",
     "t": "v",
     "c": 1
@@ -341,14 +392,18 @@
   ]
  },
  "Environment": {
-  "sv": "top",
+  "sv": [
+   "top"
+  ],
   "l": "Environment",
   "t": "p",
   "c": 0,
   "cd": []
  },
  "Economic": {
-  "sv": "top",
+  "sv": [
+   "top"
+  ],
   "l": "Economic",
   "t": "p",
   "c": 0,

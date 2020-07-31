@@ -62,38 +62,41 @@ function updateUrl(param: UrlParam) {
   }
   // update statsVar
   if ("statsVar" in param) {
-    const statsVarUpdate = param.statsVar.statsVar;
-    const statsVarUpdateName = statsVarUpdate.split(",")[0];
-    const statsVarUpatePath = statsVarUpdate.split(",").slice(1);
+    // support add/delete multiple statsVars at the same time
+    const statsVarsToUpdate = param.statsVar.statsVar.split('__');
     let statsVarList = new Set<string>();
     if ("statsVar" in vars) {
       statsVarList = new Set(vars.statsVar.split("__"));
     }
-    if (statsVarUpatePath.length !== 0) {
-      // update with statsVarPath
-      if (param.statsVar.shouldAdd) {
-        // remove the same statsVar with name only
-        statsVarList.delete(statsVarUpdateName);
-        statsVarList.add(statsVarUpdate);
-      } else {
-        if (statsVarList.has(statsVarUpdate)) {
-          statsVarList.delete(statsVarUpdate);
-        }
-        else if (statsVarList.has(statsVarUpdateName)) {
+    for (const statsVarUpdate of statsVarsToUpdate) {
+      const statsVarUpdateName = statsVarUpdate.split(",")[0];
+      const statsVarUpatePath = statsVarUpdate.split(",").slice(1);
+      if (statsVarUpatePath.length !== 0) {
+        // update with statsVarPath
+        if (param.statsVar.shouldAdd) {
+          // remove the same statsVar with name only
           statsVarList.delete(statsVarUpdateName);
+          statsVarList.add(statsVarUpdate);
+        } else {
+          if (statsVarList.has(statsVarUpdate)) {
+            statsVarList.delete(statsVarUpdate);
+          }
+          else if (statsVarList.has(statsVarUpdateName)) {
+            statsVarList.delete(statsVarUpdateName);
+          }
         }
-      }
-    } else {
-      // update with statsVarName
-      const statsVarNames = {};
-      for (const statsVar of Array.from(statsVarList)) {
-        statsVarNames[statsVar.split(",")[0]] = statsVar;
-      }
-      if (param.statsVar.shouldAdd && !(statsVarUpdateName in statsVarNames)) {
-        statsVarList.add(statsVarUpdate);
-      }
-      else if (!param.statsVar.shouldAdd && (statsVarUpdateName in statsVarNames)) {
-        statsVarList.delete(statsVarNames[statsVarUpdateName]);
+      } else {
+        // update with statsVarName
+        const statsVarNames = {};
+        for (const statsVar of Array.from(statsVarList)) {
+          statsVarNames[statsVar.split(",")[0]] = statsVar;
+        }
+        if (param.statsVar.shouldAdd && !(statsVarUpdateName in statsVarNames)) {
+          statsVarList.add(statsVarUpdate);
+        }
+        else if (!param.statsVar.shouldAdd && (statsVarUpdateName in statsVarNames)) {
+          statsVarList.delete(statsVarNames[statsVarUpdateName]);
+        }
       }
     }
     vars.statsVar = Array.from(statsVarList).join("__");
