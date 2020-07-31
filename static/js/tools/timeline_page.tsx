@@ -15,6 +15,7 @@
  */
 
 import React, { Component } from "react";
+import _ from "lodash";
 import {
   parseUrl,
   getStatsVarInfo,
@@ -116,7 +117,10 @@ class Page extends Component<PagePropType, PageStateType> {
   }
 
   setStatsVarTitle(statsVarId2Title: { [key: string]: string }) {
-    const value = this.state.statsVarInfo;
+    // Deep clone state value out to prevent change state value outside
+    // setState(). Otherwise the state is changed and check in
+    // shouldComponentUpdate() has no effect.
+    const value = _.cloneDeep(this.state.statsVarInfo);
     Object.keys(statsVarId2Title).map((id) => {
       if (id in value) {
         value[id].title = statsVarId2Title[id];

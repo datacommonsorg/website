@@ -41,22 +41,6 @@ const NO_POP_TYPES = [
   "Source",
 ];
 
-const TOP_NAICS = [
-  "NAICS/1011",
-  "NAICS/1012",
-  "NAICS/1013",
-  "NAICS/1021",
-  "NAICS/1022",
-  "NAICS/1023",
-  "NAICS/1024",
-  "NAICS/1025",
-  "NAICS/1026",
-  "NAICS/1027",
-  ,
-  "NAICS/1028",
-  "NAICS/1029",
-];
-
 const WEATHER = [
   "temperature",
   "visibility",
@@ -79,6 +63,13 @@ const LOC_FIELD = {
   populations: "location",
   childhoodLocationPopulations: "childhoodLocation",
 };
+
+// Regex to check for top level NAICS code, which is one of:
+// - Start with "10". Such as "NAICS/1012".
+// - Two digits. Such as "NAICS/51".
+// - Two pairs of two digits connected by "-". Such as "NAICS/31-33".
+// TOOD(shifucun): Add additional whitelisted NAICS that exist in cache.
+const TOP_NAICS_REGEX = /(NAICS\/10\d*|NAICS\/\d\d|NAICS\/\d\d-\d\d)/g;
 
 /**
  * Orders population group keys.
@@ -803,7 +794,7 @@ function renderKGPage(
         let popDcids = [];
         if (key.includes("naics")) {
           for (const pop of popGroup[key]) {
-            if (TOP_NAICS.includes(pop["pvs"]["naics"])) {
+            if (pop["pvs"]["naics"].match(TOP_NAICS_REGEX)) {
               popDcids.push(pop["dcid"]);
             }
           }
