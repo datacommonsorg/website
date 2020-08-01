@@ -26,6 +26,7 @@ function run_npm_test {
 # Run linter on client side code
 function run_npm_lint {
   cd static
+  npm install
   npm run lint
   cd ..
 }

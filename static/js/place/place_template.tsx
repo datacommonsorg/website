@@ -198,7 +198,6 @@ interface MenuPropsType {
   chartConfig: ChartCategory[];
 }
 
-// tslint:disable-next-line: max-classes-per-file
 class Menu extends Component<MenuPropsType, unknown> {
   render(): JSX.Element {
     const dcid = this.props.dcid;
