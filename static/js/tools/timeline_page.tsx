@@ -42,8 +42,6 @@ interface PageStateType {
 }
 
 class Page extends Component<PagePropType, PageStateType> {
-  _isMounted = false;
-
   constructor(props: PagePropType) {
     super(props);
     this.handleHashChange = this.handleHashChange.bind(this);
@@ -68,13 +66,8 @@ class Page extends Component<PagePropType, PageStateType> {
   }
 
   componentDidMount() {
-    this._isMounted = true;
     window.addEventListener("hashchange", this.handleHashChange);
     this.handleHashChange();
-  }
-
-  componentWillUnmount() {
-    this._isMounted = false;
   }
 
   handleHashChange() {
@@ -107,16 +100,13 @@ class Page extends Component<PagePropType, PageStateType> {
       placesPromise,
       validStatsVarPromise,
     ]).then((values) => {
-      if (this._isMounted) {
-        this.setState({
-          statsVarInfo: values[0],
-          statsVarPaths: urlVar.statsVarPath,
-          places: values[1],
-          statsVarValid: values[2],
-          perCapita: urlVar.pc,
-        });
-      }
-
+      this.setState({
+        statsVarInfo: values[0],
+        statsVarPaths: urlVar.statsVarPath,
+        places: values[1],
+        statsVarValid: values[2],
+        perCapita: urlVar.pc,
+      })
     });
   }
 

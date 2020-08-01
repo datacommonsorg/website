@@ -18,7 +18,7 @@ Enzyme.configure({ adapter: new Adapter() });
 
 const globalAny: any = global;
 
-test("No stats var set in url", () => {
+test("Single place and single stats var", () => {
   globalAny.window = Object.create(window);
   document.body.innerHTML = '<button id="download-link"></div>';
   // Set url hash
