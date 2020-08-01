@@ -1,6 +1,6 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`renders menu 1`] = `
+exports[`filtering the menu 1`] = `
 "<div id=\\"drill\\">
   <div class=\\"noedge\\">
     <ul class=\\"noborder\\">
@@ -14,13 +14,13 @@ exports[`renders menu 1`] = `
 </div>"
 `;
 
-exports[`renders menu 2`] = `
+exports[`filtering the menu 2`] = `
 "<div id=\\"drill\\">
   <div class=\\"noedge\\"></div>
 </div>"
 `;
 
-exports[`renders menu 3`] = `
+exports[`filtering the menu 3`] = `
 "<div id=\\"drill\\">
   <div class=\\"noedge\\">
     <ul class=\\"noborder\\">
