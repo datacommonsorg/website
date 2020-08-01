@@ -14,10 +14,8 @@
  * limitations under the License.
  */
 
-
 import { STATS_VAR_TEXT } from "./stats_var";
 import chartConfig from "../../../server/chart_config.json";
-
 
 test("stats var names", () => {
   for (const section of chartConfig) {

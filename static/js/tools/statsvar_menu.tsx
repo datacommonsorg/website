@@ -256,11 +256,11 @@ interface MenuPropType {
   setStatsVarTitle: (statsVarId2Title: { [key: string]: string }) => void;
 }
 interface MenuStateType {
-  menuJson: [{}];
+  menuJson: [unknown];
 }
 class Menu extends Component<MenuPropType, MenuStateType> {
   statsVarId2Title: { [key: string]: string }; // {Id: Title}
-  constructor(props) {
+  constructor(props: MenuPropType) {
     super(props);
     this.addStatsVarTitle = this.addStatsVarTitle.bind(this);
     this.state = {
@@ -268,7 +268,7 @@ class Menu extends Component<MenuPropType, MenuStateType> {
     };
     this.statsVarId2Title = {};
   }
-  render() {
+  render(): JSX.Element {
     this.statsVarId2Title = {};
     return (
       <div id="drill">
@@ -300,14 +300,16 @@ class Menu extends Component<MenuPropType, MenuStateType> {
       </div>
     );
   }
-  componentDidMount() {
+
+  componentDidMount(): void {
     axios.get(jsonPath).then((resp) => {
       this.setState({
         menuJson: [resp.data],
       });
     });
   }
-  addStatsVarTitle(id: string, title: string) {
+
+  addStatsVarTitle(id: string, title: string): void {
     this.statsVarId2Title[id] = title;
     if (
       Object.keys(this.statsVarId2Title).length ===

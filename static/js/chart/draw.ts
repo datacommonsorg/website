@@ -48,7 +48,7 @@ function appendLegendElem(
   elem: string,
   color: d3.ScaleOrdinal<string, string>,
   keys: string[]
-) {
+): void {
   d3.select("#" + elem)
     .append("div")
     .attr("class", "legend")
@@ -173,7 +173,7 @@ function drawSingleBarChart(
   height: number,
   dataPoints: DataPoint[],
   unit?: string
-) {
+): void {
   const textList = dataPoints.map((dataPoint) => dataPoint.label);
   const values = dataPoints.map((dataPoint) => dataPoint.value);
 
@@ -228,7 +228,7 @@ function drawStackBarChart(
   height: number,
   dataGroups: DataGroup[],
   unit?: string
-) {
+): void {
   const keys = dataGroups[0].value.map((dp) => dp.label);
 
   const data = [];
@@ -299,7 +299,7 @@ function drawGroupBarChart(
   height: number,
   dataGroups: DataGroup[],
   unit?: string
-) {
+): void {
   const keys = dataGroups[0].value.map((dp) => dp.label);
   const x0 = d3
     .scaleBand()
@@ -363,7 +363,7 @@ function drawLineChart(
   height: number,
   dataGroups: DataGroup[],
   unit?: string
-) {
+): void {
   const maxV = Math.max(...dataGroups.map((dataGroup) => dataGroup.max()));
   let minV = Math.min(...dataGroups.map((dataGroup) => dataGroup.min()));
   if (minV > 0) {
@@ -423,7 +423,7 @@ function drawLineChart(
         .enter()
         .append("circle")
         .attr("class", "dot")
-        .attr("cx", (d, i) => xScale(d[0]))
+        .attr("cx", (d) => xScale(d[0]))
         .attr("cy", (d) => yScale(d[1]))
         .attr("fill", colorFn(dataGroup.label))
         .attr("r", 3);
@@ -441,8 +441,7 @@ function drawLineChart(
  * @param dataGroupsDict
  */
 function computeRanges(dataGroupsDict: { [geoId: string]: DataGroup[] }) {
-  let range: Range;
-  range = {
+  const range = {
     minV: 0,
     maxV: 0,
   };
@@ -481,7 +480,7 @@ function drawGroupLineChart(
   plotParams: PlotParams,
   source?: string[],
   unit?: string
-) {
+): void {
   // Get a non-empty array as dataGroups
   const dataGroupsAll = Object.values(dataGroupsDict).filter(
     (x) => x.length > 0

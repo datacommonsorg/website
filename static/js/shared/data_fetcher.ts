@@ -64,7 +64,7 @@ class StatsData {
    * @param date? The date of the data point. By default pick the last date
    * in the time series.
    */
-  getPlaceGroupWithStatsVar(date?: string) {
+  getPlaceGroupWithStatsVar(date?: string): DataGroup[] {
     if (!date) {
       date = this.dates.slice(-1)[0];
     }
@@ -95,7 +95,7 @@ class StatsData {
    *
    * @param place? The place to get the stats.
    */
-  getStatsVarGroupWithTime(place?: string) {
+  getStatsVarGroupWithTime(place?: string): DataGroup[] {
     if (!place) {
       place = this.places[0];
     }
@@ -122,7 +122,7 @@ class StatsData {
    *
    * @param place? The place to get the stats.
    */
-  getTimeGroupWithStatsVar(place?: string) {
+  getTimeGroupWithStatsVar(place?: string): DataGroup[] {
     if (!place) {
       place = this.places[0];
     }
@@ -154,7 +154,7 @@ class StatsData {
    * @param place? The place to get the stats.
    * @param date? The date to get the stats.
    */
-  getStatsPoint(place?: string, date?: string) {
+  getStatsPoint(place?: string, date?: string): DataPoint[] {
     if (!place) {
       place = this.places[0];
     }
@@ -189,8 +189,8 @@ class StatsData {
 function fetchStatsData(
   places: string[],
   statsVars: string[],
-  perCapita: boolean = false,
-  scaling: number = 1
+  perCapita = false,
+  scaling = 1
 ): Promise<StatsData> {
   const n = statsVars.length;
   let dcidParams = `?`;
@@ -237,9 +237,9 @@ function fetchStatsData(
       for (const place in allResp[i].data) {
         if (!allResp[i].data[place]) continue;
         const timeSeries = allResp[i].data[place];
-        result.sources.add(timeSeries.provenance_domain)
+        result.sources.add(timeSeries.provenance_domain);
         for (const date in timeSeries.data) {
-            dates[date] = true;
+          dates[date] = true;
         }
       }
     }

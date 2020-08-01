@@ -34,7 +34,7 @@ interface StatsVarChipPropsType {
   title: string;
 }
 
-class StatsVarChip extends Component<StatsVarChipPropsType, {}> {
+class StatsVarChip extends Component<StatsVarChipPropsType, unknown> {
   render() {
     return (
       <div
@@ -61,10 +61,10 @@ interface ChartPropsType {
   places: [string, string][];
   statsVars: { [key: string]: StatsVarInfo };
   perCapita: boolean;
-  onDataUpdate: (mprop: string, data: StatsData) => {}
+  onDataUpdate: (mprop: string, data: StatsData) => void;
 }
 
-class Chart extends Component<ChartPropsType, {}> {
+class Chart extends Component<ChartPropsType, unknown> {
   data: StatsData;
   svgContainer: React.RefObject<HTMLDivElement>;
   placeName: { [key: string]: string };
@@ -79,7 +79,7 @@ class Chart extends Component<ChartPropsType, {}> {
     this.svgContainer = React.createRef();
     this.handleWindowResize = this.handleWindowResize.bind(this);
   }
-  render() {
+  render(): JSX.Element {
     const statsVars = Object.keys(this.props.statsVars);
     // TODO(shifucun): investigate on stats var title, now this is updated
     // several times.
@@ -102,39 +102,39 @@ class Chart extends Component<ChartPropsType, {}> {
       <div className="card">
         <div ref={this.svgContainer} className="chart-svg"></div>
         <div>
-        {statsVars.map(
-          function (statsVar) {
-            let color: string;
-            const title = this.statsVarsTitle[statsVar];
-            if (statsVars.length > 1) {
-              color = this.plotParams.lines[placeName + title].color;
-            }
-            return (
-              <StatsVarChip
-                key={statsVar}
-                statsVar={statsVar}
-                title={title}
-                color={color}
-                deleteStatsVarChip={this.deleteStatsVarChip}
-              />
-            );
-          }.bind(this)
-        )}
+          {statsVars.map(
+            function (statsVar) {
+              let color: string;
+              const title = this.statsVarsTitle[statsVar];
+              if (statsVars.length > 1) {
+                color = this.plotParams.lines[placeName + title].color;
+              }
+              return (
+                <StatsVarChip
+                  key={statsVar}
+                  statsVar={statsVar}
+                  title={title}
+                  color={color}
+                  deleteStatsVarChip={this.deleteStatsVarChip}
+                />
+              );
+            }.bind(this)
+          )}
         </div>
       </div>
     );
   }
 
-  componentDidMount() {
+  componentDidMount(): void {
     this.loadDataAndDrawChart();
     window.addEventListener("resize", this.handleWindowResize);
   }
 
-  componentWillUnmount() {
+  componentWillUnmount(): void {
     window.removeEventListener("resize", this.handleWindowResize);
   }
 
-  componentDidUpdate() {
+  componentDidUpdate(): void {
     this.loadDataAndDrawChart();
   }
 
