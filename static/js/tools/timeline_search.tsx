@@ -79,7 +79,7 @@ class SearchBar extends Component<SearchBarPropType, {}> {
           {this.props.places.map((placeData) => (
             <Chip
               placeId={placeData[0]}
-              placeName={placeData[1]}
+              placeName={placeData[1]? placeData[1]: placeData[0]}
               key={placeData[0]}
             ></Chip>
           ))}
