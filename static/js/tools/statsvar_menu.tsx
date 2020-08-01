@@ -160,7 +160,12 @@ class Node extends Component<NodePropType, NodeStateType> {
         if (statsVarPath.length === 1) {
           check = true;
           for (const sv of this.props.sv) {
-            this.props.addStatsVarTitle(sv, this.props.l);
+            if (!this.props.filter || this.props.statsVarValid.has(sv)) {
+              this.props.addStatsVarTitle(sv, this.props.l);
+            } else {
+              // remove the statsVar from url if not available
+              updateUrl({ statsVar: { statsVar: sv, shouldAdd: false } });
+            }
           }
         } else {
           expand = true;
@@ -205,7 +210,7 @@ class Node extends Component<NodePropType, NodeStateType> {
         if (
           item.t === "v" &&
           (!this.props.filter ||
-            this.hasIntersection(this.props.statsVarValid, this.props.sv))
+            this.hasIntersection(this.props.statsVarValid, item.sv))
         ) {
           valid = true; // valid value node
         } else if (item.t === "p" && this.hasChild(item.cd)) {
