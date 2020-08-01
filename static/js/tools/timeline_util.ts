@@ -158,7 +158,10 @@ function parseUrl() {
       const statsVarSplit = statsVar.split(',');
       if (statsVarSplit.length === 1) {
         statsVarIds.push(statsVar);
-        statsVarPaths.push(statsVarPathMap[statsVar]);
+        if (statsVar in statsVarPathMap) {
+          // ignore invalid statsVar Id
+          statsVarPaths.push(statsVarPathMap[statsVar]);
+        }
       }
       else {
         statsVarIds.push(statsVarSplit[0]);

@@ -160,7 +160,12 @@ class Node extends Component<NodePropType, NodeStateType> {
         if (statsVarPath.length === 1) {
           check = true;
           for (const sv of this.props.sv) {
-            this.props.addStatsVarTitle(sv, this.props.l);
+            if (!this.props.filter || this.props.statsVarValid.has(sv)) {
+              this.props.addStatsVarTitle(sv, this.props.l);
+            } else {
+              // remove the statsVar from url if not available
+              updateUrl({ statsVar: { statsVar: sv, shouldAdd: false } });
+            }
           }
         } else {
           expand = true;
