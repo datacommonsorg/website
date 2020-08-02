@@ -268,13 +268,6 @@ function setSearchParam(vars) {
   window.location.hash = newHash;
 }
 
-function clearDiv(id) {
-  const olem = document.getElementById(id);
-  while (olem.firstChild) {
-    olem.removeChild(olem.firstChild);
-  }
-}
-
 export {
   StatsVarInfo,
   updateUrl,
