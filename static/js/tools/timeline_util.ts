@@ -14,7 +14,6 @@
  * limitations under the License.
  */
 import axios from "axios";
-import { getUrlVars, setSearchParam } from "./dc";
 import statsVarPathMap from "../../data/statsvar_path.json";
 
 interface VarUrl {
@@ -252,6 +251,27 @@ interface StatsVarInfo {
   pt: string;
   pvs: { [key: string]: string };
   title: string;
+}
+
+/*
+ * Parse url hash into VarUrl object that contains statsvar, place and perCapita
+ * information
+ */
+function getUrlVars(): VarUrl {
+  const vars = {};
+  window.location.hash.replace(/[?&]+([^=&]+)=([^&]*)/gi, (m, key, value) => {
+    vars[key] = value;
+    return value;
+  });
+  return vars as VarUrl;
+}
+
+function setSearchParam(vars: VarUrl) {
+  let newHash = "#";
+  for (const k in vars) {
+    newHash += "&" + k + "=" + vars[k];
+  }
+  window.location.hash = newHash;
 }
 
 export {

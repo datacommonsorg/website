@@ -586,7 +586,6 @@ function buildInChartLegend(
   params: { [key: string]: Style },
   legendTextdWidth: number
 ) {
-  console.log(params);
   let yOffset = 0;
   for (const label in params) {
     // Create a group to hold dash line and legend text.
