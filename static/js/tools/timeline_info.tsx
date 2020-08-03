@@ -5,20 +5,17 @@ class Info extends Component {
     return (
       <div id="placeholder-container">
         <p>
-          {" "}
           Welcome to Data Commons. This tool is to help you find data about
           places (zip codes, cities, counties, states) from a variety of
           sources, including the Census, FBI, Bureau of Labor Statistics, CDC
-          and others.{" "}
+          and others.
         </p>
         <p>
-          {" "}
           Enter a place in the search box above and then pick one or more of the
           variables in the pane to the left. There are thousands of variables to
-          choose from, arranged in a topical hierarchy.{" "}
+          choose from, arranged in a topical hierarchy.
         </p>
         <p>
-          {" "}
           Or you can start your exploration from these interesting points ...
         </p>
         <ul>
@@ -55,7 +52,6 @@ class Info extends Component {
             <b>Close by very different</b>
             <br />
             <span>
-              {" "}
               Berkeley &amp; Piedmont:
               <a
                 href={
@@ -125,7 +121,6 @@ class Info extends Component {
             </span>
           </li>
           <li>
-            {" "}
             <b>Extremes</b> <br />
             <span>
               Santa Clara County vs Imperial County:

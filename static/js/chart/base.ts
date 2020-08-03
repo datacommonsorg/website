@@ -16,7 +16,7 @@
 
 import * as d3 from "d3";
 
-const DEFAULT_COLOR = "#fff";
+const DEFAULT_COLOR = "#000";
 
 class DataPoint {
   value: number;
@@ -54,11 +54,10 @@ class DataGroup {
  * Return an array of dashes.
  */
 function getDashes(n: number): string[] {
-  let dashes: string[];
   if (n === 0) {
     return [];
   }
-  dashes = [""];
+  const dashes = [""];
   if (dashes.length === n) return dashes;
   for (let sum = 10; ; sum += 6) {
     let left = sum / 2;

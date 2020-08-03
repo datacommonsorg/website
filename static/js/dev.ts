@@ -28,9 +28,7 @@ import {
   drawGroupLineChart,
 } from "./chart/draw";
 
-import {
-  computePlotParams,
-} from "./chart/base";
+import { computePlotParams } from "./chart/base";
 
 window.onload = () => {
   let width = 350;

@@ -14,15 +14,9 @@
  * limitations under the License.
  */
 
-import {
-  DataPoint,
-  getColorFn,
-  getDashes,
-} from "./base";
+import { getColorFn, getDashes } from "./base";
 
-import {
-  appendLegendElem,
-} from "./draw";
+import { appendLegendElem } from "./draw";
 
 test("svg test", () => {
   document.body.innerHTML = '<div id="chart"></div>';

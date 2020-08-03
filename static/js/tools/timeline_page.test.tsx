@@ -11,7 +11,6 @@ import * as d3 from "d3";
 
 import { Page } from "./timeline_page";
 import { drawGroupLineChart } from "../chart/draw";
-import { DataGroup, PlotParams } from "../chart/base";
 import hierarchy from "../../data/hierarchy_top.json";
 
 Enzyme.configure({ adapter: new Adapter() });
@@ -31,14 +30,14 @@ test("Single place and single stats var", () => {
   // and jsdom.
   (drawGroupLineChart as jest.Mock).mockImplementation(
     (
-      selector: string | HTMLDivElement,
-      width: number,
-      height: number,
-      statsVarsTitle: { [key: string]: string },
-      dataGroupsDict: { [place: string]: DataGroup[] },
-      plotParams: PlotParams,
-      source?: string[],
-      unit?: string
+      selector: string | HTMLDivElement
+      // width: number,
+      // height: number,
+      // statsVarsTitle: { [key: string]: string },
+      // dataGroupsDict: { [place: string]: DataGroup[] },
+      // plotParams: PlotParams,
+      // source?: string[],
+      // unit?: string
     ) => {
       let container: d3.Selection<any, any, any, any>;
       if (typeof selector === "string") {
@@ -54,6 +53,7 @@ test("Single place and single stats var", () => {
         .append("svg")
         .attr("width", 500)
         .attr("height", 500);
+      svg.append("text").text("svg text");
     }
   );
 

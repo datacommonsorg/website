@@ -107,7 +107,7 @@ class Page extends Component<PagePropType, PageStateType> {
         places: values[1],
         statsVarValid: values[2],
         perCapita: urlVar.pc,
-      })
+      });
     });
   }
 

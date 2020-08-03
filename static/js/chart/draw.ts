@@ -16,14 +16,7 @@
 
 import * as d3 from "d3";
 
-import {
-  DataGroup,
-  DataPoint,
-  Range,
-  PlotParams,
-  Style,
-  getColorFn,
-} from "./base";
+import { DataGroup, DataPoint, PlotParams, Style, getColorFn } from "./base";
 
 const NUM_X_TICKS = 5;
 const NUM_Y_TICKS = 5;
@@ -593,6 +586,7 @@ function buildInChartLegend(
   params: { [key: string]: Style },
   legendTextdWidth: number
 ) {
+  console.log(params);
   let yOffset = 0;
   for (const label in params) {
     // Create a group to hold dash line and legend text.
