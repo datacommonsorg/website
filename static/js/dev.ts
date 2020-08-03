@@ -26,8 +26,9 @@ import {
   drawGroupBarChart,
   drawLineChart,
   drawGroupLineChart,
-  computePlotParams,
 } from "./chart/draw";
+
+import { computePlotParams } from "./chart/base";
 
 window.onload = () => {
   let width = 350;
@@ -40,7 +41,7 @@ window.onload = () => {
   let id = 0;
   let containerId: string;
   const containerElem = document.getElementById("charts-container");
-  function addChartContainer(w: number, h: number) {
+  function addChartContainer() {
     const cid = "chart-box-" + ++id;
     const chartElem = containerElem.appendChild(document.createElement("div"));
     chartElem.className = "chart";
@@ -56,7 +57,7 @@ window.onload = () => {
     new DataPoint("California", 3002342),
     new DataPoint("United States", 9520234),
   ];
-  containerId = addChartContainer(width, height);
+  containerId = addChartContainer();
   drawSingleBarChart(containerId, width, height, dataPoints);
 
   let dataGroups = [
@@ -93,19 +94,19 @@ window.onload = () => {
   ];
 
   // Draw stack bar chart.
-  containerId = addChartContainer(width, height);
+  containerId = addChartContainer();
   drawStackBarChart(containerId, width, height, dataGroups);
 
   // Draw group bar chart.
-  containerId = addChartContainer(width, height);
+  containerId = addChartContainer();
   drawGroupBarChart(containerId, width, height, dataGroups);
 
   // Draw line chart.
-  containerId = addChartContainer(width, height);
+  containerId = addChartContainer();
   drawLineChart(containerId, width, height, dataGroups);
 
   // Draw single bar chart with dollar values
-  containerId = addChartContainer(width, height);
+  containerId = addChartContainer();
   drawSingleBarChart(containerId, width, height, dataPoints, "$");
 
   // Draw single bar chart with percentage values
@@ -116,7 +117,7 @@ window.onload = () => {
     new DataPoint("California", 30),
     new DataPoint("United States", 95.9),
   ];
-  containerId = addChartContainer(width, height);
+  containerId = addChartContainer();
   drawSingleBarChart(containerId, width, height, dataPoints, "%");
 
   // Draw narrow single bar chart with potentially weird y-axis values
@@ -125,7 +126,7 @@ window.onload = () => {
     new DataPoint("Enrolled in School", 510475),
     new DataPoint("Not Enrolled in School", 1341885),
   ];
-  containerId = addChartContainer(width, height);
+  containerId = addChartContainer();
   drawSingleBarChart(containerId, width, height, dataPoints);
 
   // Test percent and narrow chart
@@ -135,11 +136,11 @@ window.onload = () => {
     new DataPoint("California", 23),
     new DataPoint("United States", 25.9),
   ];
-  containerId = addChartContainer(width, height);
+  containerId = addChartContainer();
   drawSingleBarChart(containerId, width, height, dataPoints, "%");
 
   // Test narrow group bar chart
-  containerId = addChartContainer(width, height);
+  containerId = addChartContainer();
   drawGroupBarChart(containerId, width, height, dataGroups);
 
   // Test narrow line chart
@@ -153,7 +154,7 @@ window.onload = () => {
       new DataPoint("01-06-2011", 7520234),
     ]),
   ];
-  containerId = addChartContainer(width, height);
+  containerId = addChartContainer();
   drawLineChart(containerId, width, height, dataGroups);
 
   // Test y-axis with small values
@@ -163,7 +164,7 @@ window.onload = () => {
       new DataPoint("01-02-2011", 10),
     ]),
   ];
-  containerId = addChartContainer(width, height);
+  containerId = addChartContainer();
   drawLineChart(containerId, width, height, dataGroups);
 
   // Test group line chart
@@ -242,32 +243,32 @@ window.onload = () => {
   }
 
   const dataGroupsDict1: { [key: string]: DataGroup[] } = {
-    "Nevada": placeData1,
-    "California": placeData2,
+    Nevada: placeData1,
+    California: placeData2,
   };
 
-  containerId = addChartContainer(width, height);
+  containerId = addChartContainer();
   drawGroupLineChart(
     containerId,
     width,
     height,
-    {"Total": "Total", "Male": "Male"},
+    { Total: "Total", Male: "Male" },
     dataGroupsDict1,
-    computePlotParams(["Nevada", "California"], ["Total", "Male"]),
+    computePlotParams(["Nevada", "California"], ["Total", "Male"])
   );
 
   const dataGroupsDict2: { [key: string]: DataGroup[] } = {
-    "California": placeData2,
+    California: placeData2,
   };
 
-  containerId = addChartContainer(width, height);
+  containerId = addChartContainer();
   drawGroupLineChart(
     containerId,
     width,
     height,
-    {"Total": "Total", "Male": "Male"},
+    { Total: "Total", Male: "Male" },
     dataGroupsDict2,
-    computePlotParams(["California"], ["Total", "Male"]),
+    computePlotParams(["California"], ["Total", "Male"])
   );
 
   const dataGroupsDict3: { [key: string]: DataGroup[] } = {
@@ -275,12 +276,12 @@ window.onload = () => {
     "such a long name that it needs to span 4 lines": [placeData2[0]],
   };
 
-  containerId = addChartContainer(width, height);
+  containerId = addChartContainer();
   drawGroupLineChart(
     containerId,
     width,
     height,
-    {"Total": "Total"},
+    { Total: "Total" },
     dataGroupsDict3,
     computePlotParams(
       [
@@ -288,6 +289,6 @@ window.onload = () => {
         "such a long name that it needs to span 4 lines",
       ],
       ["Total"]
-    ),
+    )
   );
 };

@@ -40,6 +40,7 @@ $sidebar-top-padding: 132px;  // Keep in sync with place.ts: Y_SCROLL_LIMIT
 #dc-places h3 {
   font-size: 1rem;
   color: var(--secondary);
+  line-height: 1.4rem;
 }
 
 #main .place-links {
@@ -238,12 +239,21 @@ $sidebar-top-padding: 132px;  // Keep in sync with place.ts: Y_SCROLL_LIMIT
   margin-top: 30px;
 }
 
+#child-place-head {
+  font-weight: 500;
+  font-size: .9rem;
+  color: var(--dc-gray);
+}
+
+.child-place-group {
+  margin-bottom: 1rem;
+  margin-top: .5rem;
+}
+
 .child-place-type {
   color: var(--dc-gray);
-  font-weight: bold;
+  font-weight: 600;
   font-size: 13px;
-  margin-top: 10px;
-  margin-bottom: 4px;
 }
 
 .child-place-link {
@@ -251,7 +261,8 @@ $sidebar-top-padding: 132px;  // Keep in sync with place.ts: Y_SCROLL_LIMIT
   font-size: 13px;
   margin-right: 4px;
   text-decoration: underline;
-  display:inline-block;
+  color: var(--dc-gray);
+  display: inline-block;
 }
 
 .explore-more-container {

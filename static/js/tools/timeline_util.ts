@@ -28,7 +28,14 @@ interface UrlParam {
   statsVar?: { statsVar: string; shouldAdd: boolean };
 }
 
-function updateUrl(param: UrlParam) {
+interface UrlObject {
+  statsVarPath: number[][];
+  statsVarId: string[];
+  placeId: string[];
+  pc: boolean;
+}
+
+function updateUrl(param: UrlParam): void {
   const vars = getUrlVars() as VarUrl;
   // update per Capita state
   if ("pc" in param) {
@@ -51,9 +58,8 @@ function updateUrl(param: UrlParam) {
     vars.place = placeList.join(",");
     if (vars.place === "") {
       delete vars.place;
-    }
-    // set default statsVar when place is not empty
-    else if (!vars.hasOwnProperty("statsVar")) {
+    } else if (!vars.statsVar) {
+      // set default statsVar when place is not empty
       vars.statsVar = "Count_Person";
     }
   }
@@ -133,7 +139,8 @@ function deleteStatsVarWithName(
   return statsVarList;
 }
 
-function parseUrl() {
+// set default statsVar when place is not empty
+function parseUrl(): UrlObject {
   const vars = getUrlVars() as VarUrl;
   let pc: boolean;
   if ("pc" in vars) {
@@ -171,7 +178,6 @@ function parseUrl() {
       }
     }
   }
-
   return {
     statsVarPath: statsVarPaths,
     statsVarId: statsVarIds,
@@ -180,7 +186,7 @@ function parseUrl() {
   };
 }
 
-function getPlaceNames(dcids: string[]) {
+function getPlaceNames(dcids: string[]): Promise<{ [key: string]: string }> {
   let url = "/api/place/name?";
   const urls = [];
   for (const place of dcids) {
@@ -192,7 +198,9 @@ function getPlaceNames(dcids: string[]) {
   });
 }
 
-function getStatsVarInfo(dcids: string[]) {
+function getStatsVarInfo(
+  dcids: string[]
+): Promise<Record<string, StatsVarInfo>> {
   let url = "/api/stats/stats-var-property?";
   const urls = [];
   for (const dcid of dcids) {
@@ -204,7 +212,7 @@ function getStatsVarInfo(dcids: string[]) {
   });
 }
 
-function getStatsVar(dcids: string[]) {
+function getStatsVar(dcids: string[]): Promise<Set<string>> {
   if (dcids.length === 0) {
     return Promise.resolve(new Set<string>());
   }
@@ -226,7 +234,7 @@ function getStatsVar(dcids: string[]) {
   }) as Promise<Set<string>>;
 }
 
-function saveToFile(filename: string, csv: string) {
+function saveToFile(filename: string, csv: string): void {
   if (!csv.match(/^data:text\/csv/i)) {
     csv = "data:text/csv;charset=utf-8," + csv;
   }
@@ -246,21 +254,19 @@ interface StatsVarInfo {
 }
 
 /*
- * Get url params
+ * Parse url hash into VarUrl object that contains statsvar, place and perCapita
+ * information
  */
-function getUrlVars() {
+function getUrlVars(): VarUrl {
   const vars = {};
-  const parts = window.location.hash.replace(
-    /[?&]+([^=&]+)=([^&]*)/gi,
-    (m, key, value) => {
-      vars[key] = value;
-      return value;
-    }
-  );
-  return vars;
+  window.location.hash.replace(/[?&]+([^=&]+)=([^&]*)/gi, (m, key, value) => {
+    vars[key] = value;
+    return value;
+  });
+  return vars as VarUrl;
 }
 
-function setSearchParam(vars) {
+function setSearchParam(vars: VarUrl) {
   let newHash = "#";
   for (const k in vars) {
     newHash += "&" + k + "=" + vars[k];
