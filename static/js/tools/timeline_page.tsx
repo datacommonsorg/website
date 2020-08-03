@@ -55,6 +55,7 @@ class Page extends Component<PagePropType, PageStateType> {
       statsVarValid: new Set(),
     };
   }
+
   shouldComponentUpdate(nextProps, nextState) {
     return (
       JSON.stringify(this.state.statsVarInfo) !==
@@ -105,7 +106,7 @@ class Page extends Component<PagePropType, PageStateType> {
         places: values[1],
         statsVarValid: values[2],
         perCapita: urlVar.pc,
-      });
+      })
     });
   }
 

@@ -16,12 +16,12 @@
 
 import {
   DataPoint,
+  getColorFn,
+  getDashes,
 } from "./base";
 
 import {
   appendLegendElem,
-  getColorFn,
-  getDashes,
 } from "./draw";
 
 test("svg test", () => {
