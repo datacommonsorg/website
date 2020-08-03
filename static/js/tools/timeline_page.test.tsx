@@ -29,16 +29,7 @@ test("Single place and single stats var", () => {
   // Mock drawGroupLineChart() as getComputedTextLength can has issue with jest
   // and jsdom.
   (drawGroupLineChart as jest.Mock).mockImplementation(
-    (
-      selector: string | HTMLDivElement
-      // width: number,
-      // height: number,
-      // statsVarsTitle: { [key: string]: string },
-      // dataGroupsDict: { [place: string]: DataGroup[] },
-      // plotParams: PlotParams,
-      // source?: string[],
-      // unit?: string
-    ) => {
+    (selector: string | HTMLDivElement) => {
       let container: d3.Selection<any, any, any, any>;
       if (typeof selector === "string") {
         container = d3.select("#" + selector);
