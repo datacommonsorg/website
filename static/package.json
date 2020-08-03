@@ -13,7 +13,7 @@
     "dev-build": "webpack --progress -d --config webpack.config.js",
     "test": "jest --unhandled-rejections=strict",
     "watch": "webpack --progress -d --config webpack.config.js --watch",
-    "lint": "eslint ."
+    "lint": "eslint --fix ."
   },
   "devDependencies": {
     "@babel/core": "^7.9.6",
