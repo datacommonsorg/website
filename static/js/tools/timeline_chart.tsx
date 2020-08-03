@@ -18,10 +18,12 @@ import React, { Component } from "react";
 import { StatsVarInfo, updateUrl } from "./timeline_util";
 import { fetchStatsData, StatsData } from "../shared/data_fetcher";
 import {
-  PlotParams,
   drawGroupLineChart,
-  computePlotParams,
 } from "../chart/draw";
+import {
+  PlotParams,
+  computePlotParams,
+} from "../chart/base";
 
 const CHART_HEIGHT = 300;
 
@@ -119,7 +121,6 @@ class Chart extends Component<ChartPropsType, {}> {
           }.bind(this)
         )}
         </div>
-
       </div>
     );
   }

@@ -36,9 +36,11 @@ class ChartRegion extends Component<ChartRegionPropsType, {}> {
     this.downloadLink = document.getElementById(
       "download-link"
     ) as HTMLAnchorElement;
-    this.downloadLink.onclick = () => {
-      saveToFile("export.csv", this.createDataCsv());
-    };
+    if (this.downloadLink) {
+      this.downloadLink.onclick = () => {
+        saveToFile("export.csv", this.createDataCsv());
+      };
+    }
   }
 
   render() {
@@ -74,7 +76,7 @@ class ChartRegion extends Component<ChartRegionPropsType, {}> {
 
   private onDataUpdate(mprop: string, data: StatsData) {
     this.allStatsData[mprop] = data;
-    if (Object.keys(this.allStatsData).length > 0) {
+    if (this.downloadLink && Object.keys(this.allStatsData).length > 0) {
       this.downloadLink.style.visibility = "visible";
     } else {
       this.downloadLink.style.visibility = "hidden";

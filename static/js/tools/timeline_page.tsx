@@ -15,6 +15,7 @@
  */
 
 import React, { Component } from "react";
+import _ from "lodash";
 import {
   parseUrl,
   getStatsVarInfo,
@@ -54,6 +55,7 @@ class Page extends Component<PagePropType, PageStateType> {
       statsVarValid: new Set(),
     };
   }
+
   shouldComponentUpdate(nextProps, nextState) {
     return (
       JSON.stringify(this.state.statsVarInfo) !==
@@ -104,7 +106,7 @@ class Page extends Component<PagePropType, PageStateType> {
         places: values[1],
         statsVarValid: values[2],
         perCapita: urlVar.pc,
-      });
+      })
     });
   }
 
@@ -116,7 +118,10 @@ class Page extends Component<PagePropType, PageStateType> {
   }
 
   setStatsVarTitle(statsVarId2Title: { [key: string]: string }) {
-    const value = this.state.statsVarInfo;
+    // Deep clone state value out to prevent change state value outside
+    // setState(). Otherwise the state is changed and check in
+    // shouldComponentUpdate() has no effect.
+    const value = _.cloneDeep(this.state.statsVarInfo);
     Object.keys(statsVarId2Title).map((id) => {
       if (id in value) {
         value[id].title = statsVarId2Title[id];
@@ -134,8 +139,10 @@ class Page extends Component<PagePropType, PageStateType> {
           <div id="drill-scroll-container">
             <div className="title">Select variables:</div>
             <span className="perCapita">Per capita</span>
-            <button className={this.state.perCapita?"checkbox checked":"checkbox"}
-                    onClick={this._togglePerCapita}></button>
+            <button
+              className={this.state.perCapita ? "checkbox checked" : "checkbox"}
+              onClick={this._togglePerCapita}
+            ></button>
             <Menu
               statsVarPaths={this.state.statsVarPaths}
               statsVarValid={this.state.statsVarValid}
@@ -150,13 +157,16 @@ class Page extends Component<PagePropType, PageStateType> {
               <SearchBar places={this.state.places} />
             </div>
             {this.state.places.length === 0 && <Info />}
-            <div id="chart-region">
-              <ChartRegion
-                places={this.state.places}
-                statsVars={this.state.statsVarInfo}
-                perCapita={this.state.perCapita}
-              ></ChartRegion>
-            </div>
+            {this.state.places.length !== 0 &&
+              Object.keys(this.state.statsVarInfo).length !== 0 && (
+                <div id="chart-region">
+                  <ChartRegion
+                    places={this.state.places}
+                    statsVars={this.state.statsVarInfo}
+                    perCapita={this.state.perCapita}
+                  ></ChartRegion>
+                </div>
+              )}
           </div>
         </div>
       </div>
