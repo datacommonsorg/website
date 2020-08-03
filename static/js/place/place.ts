@@ -18,12 +18,7 @@ import React from "react";
 import ReactDOM from "react-dom";
 import axios from "axios";
 
-import {
-  ChildPlace,
-  MainPane,
-  Menu,
-  ParentPlace,
-} from "./place_template";
+import { ChildPlace, MainPane, Menu, ParentPlace } from "./place_template";
 
 let ac: google.maps.places.Autocomplete;
 
@@ -45,7 +40,7 @@ window.onload = () => {
 /**
  *  Make adjustments to sidebar scroll state based on the content.
  */
-function updatePageLayoutState() {
+function updatePageLayoutState(): void {
   yScrollLimit = document.getElementById("main-pane").offsetTop;
   document.getElementById("sidebar-top-spacer").style.height =
     yScrollLimit + "px";
@@ -101,16 +96,14 @@ function getChildPlaces(dcid) {
  * @param dcid The place dcid
  */
 function getSimilarPlaces(dcid: string) {
-  return axios
-    .get(`/api/similar-place/Count_Person/${dcid}`)
-    .then((resp) => {
-      const places = resp.data;
-      const result = [dcid];
-      if (places.relatedPlaces) {
-        result.push(...places.relatedPlaces.slice(0, 4));
-      }
-      return result;
-    });
+  return axios.get(`/api/similar-place/Count_Person/${dcid}`).then((resp) => {
+    const places = resp.data;
+    const result = [dcid];
+    if (places.relatedPlaces) {
+      result.push(...places.relatedPlaces.slice(0, 4));
+    }
+    return result;
+  });
 }
 
 /**
@@ -180,8 +173,10 @@ function renderPage(dcid: string) {
 
   childPlacesPromise.then((childPlaces) => {
     // Display child places alphabetically
-    for (let placeType in childPlaces) {
-      childPlaces[placeType].sort((a, b) => a.name < b.name ? -1 : a.name > b.name ? 1 : 0);
+    for (const placeType in childPlaces) {
+      childPlaces[placeType].sort((a, b) =>
+        a.name < b.name ? -1 : a.name > b.name ? 1 : 0
+      );
     }
 
     ReactDOM.render(
@@ -239,7 +234,7 @@ function getPlaceAndRender() {
       urlParams.set("dcid", resp.data);
       window.location.search = urlParams.toString();
     })
-    .catch((error) => {
+    .catch(() => {
       alert("Sorry, but we don't have any data about " + name);
       const acElem = document.getElementById(
         "place-autocomplete"

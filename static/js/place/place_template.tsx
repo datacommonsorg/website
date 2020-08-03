@@ -17,7 +17,6 @@
 import React, { Component, createRef } from "react";
 import axios from "axios";
 import pluralize from "pluralize";
-import _ from "lodash";
 import { DataPoint, DataGroup } from "../chart/base";
 
 import { randDomId } from "../shared/util";
@@ -113,12 +112,12 @@ interface ParentPlacePropsType {
   placeType: string;
 }
 
-class ParentPlace extends Component<ParentPlacePropsType, {}> {
+class ParentPlace extends Component<ParentPlacePropsType, unknown> {
   constructor(props: ParentPlacePropsType) {
     super(props);
   }
 
-  render() {
+  render(): JSX.Element {
     const num = this.props.parentPlaces.length;
     return (
       <React.Fragment>
@@ -144,7 +143,7 @@ class ParentPlace extends Component<ParentPlacePropsType, {}> {
     );
   }
 
-  _handleClick(dcid, e) {
+  _handleClick(dcid: string, e: Event): void {
     e.preventDefault();
     const queryString = window.location.search;
     const urlParams = new URLSearchParams(queryString);
@@ -160,7 +159,7 @@ interface RankingPropsType {
 interface RankingStateType {
   data: {
     label: string[];
-    Population: { name: {}; label: string }[];
+    Population: { name: Record<string, unknown>; label: string }[];
   };
 }
 
@@ -232,9 +231,8 @@ interface MenuPropsType {
   chartConfig: ChartCategory[];
 }
 
-// tslint:disable-next-line: max-classes-per-file
-class Menu extends Component<MenuPropsType, {}> {
-  render() {
+class Menu extends Component<MenuPropsType, unknown> {
+  render(): JSX.Element {
     const dcid = this.props.dcid;
     const topic = this.props.topic;
     return (
@@ -316,7 +314,7 @@ interface MainPanePropType {
   /**
    * A promise resolves to similar places dcids.
    */
-  similarPlacesPromise: Promise<{ dcid: string; name: string }>;
+  similarPlacesPromise: Promise<string[]>;
   /**
    * A promise resolves to nearby places dcids.
    */
@@ -327,12 +325,12 @@ interface MainPanePropType {
   chartConfig: ChartCategory[];
 }
 
-class MainPane extends Component<MainPanePropType, {}> {
-  constructor(props) {
+class MainPane extends Component<MainPanePropType, unknown> {
+  constructor(props: MainPanePropType) {
     super(props);
   }
 
-  render() {
+  render(): JSX.Element {
     let configData = [];
     const isOverview = !this.props.topic;
     if (!this.props.topic) {
@@ -411,7 +409,7 @@ interface OverviewPropType {
   topic: string;
 }
 
-class Overview extends Component<OverviewPropType, {}> {
+class Overview extends Component<OverviewPropType, unknown> {
   render() {
     if (!this.props.topic) {
       return (
@@ -438,31 +436,33 @@ interface ChildPlacePropType {
   placeName: string;
 }
 
-class ChildPlace extends Component<ChildPlacePropType, {}> {
-  render() {
+class ChildPlace extends Component<ChildPlacePropType, unknown> {
+  render(): JSX.Element {
     if (Object.keys(this.props.childPlaces).length === 0) {
-      return "";
+      return <React.Fragment></React.Fragment>;
     }
     return (
       <React.Fragment>
         <span id="child-place-head">Places in {this.props.placeName}</span>
         {Object.keys(this.props.childPlaces).map((placeType) => (
           <div key={placeType} className="child-place-group">
-            <div className="child-place-type">{pluralizedDisplayNameForPlaceType(placeType)}</div>
+            <div className="child-place-type">
+              {pluralizedDisplayNameForPlaceType(placeType)}
+            </div>
             {this.props.childPlaces[placeType]
-            .sort((a, b) => a.name > b.name)
-            .map((place, i) => (
-              <a
-                key={place.dcid}
-                className="child-place-link"
-                href={"/place?dcid=" + place.dcid}
-              >
-                {place.name}
-                {i < this.props.childPlaces[placeType].length - 1 && (
-                  <span>,</span>
-                )}
-              </a>
-            ))}
+              .sort((a, b) => a.name > b.name)
+              .map((place, i) => (
+                <a
+                  key={place.dcid}
+                  className="child-place-link"
+                  href={"/place?dcid=" + place.dcid}
+                >
+                  {place.name}
+                  {i < this.props.childPlaces[placeType].length - 1 && (
+                    <span>,</span>
+                  )}
+                </a>
+              ))}
           </div>
         ))}
       </React.Fragment>
@@ -501,7 +501,7 @@ interface ChartPropType {
   /**
    * The similar places promise.
    */
-  similarPlacesPromise: Promise<{ dcid: string; name: string }>;
+  similarPlacesPromise: Promise<string[]>;
   /**
    * The nearby places promise.
    */
@@ -598,6 +598,7 @@ class Chart extends Component<ChartPropType, ChartStateType> {
             <div>
               <a
                 target="_blank"
+                rel="noreferrer"
                 className="explore-more"
                 href={config.exploreUrl}
               >
@@ -751,7 +752,7 @@ class Chart extends Component<ChartPropType, ChartStateType> {
       // Fall-through
       case chartTypeEnum.STACK_BAR:
         switch (config.axis) {
-          case axisEnum.PLACE:
+          case axisEnum.PLACE: {
             let placesPromise;
             if (this.placeRelation === placeRelationEnum.CONTAINED) {
               placesPromise = Promise.resolve([
@@ -763,11 +764,9 @@ class Chart extends Component<ChartPropType, ChartStateType> {
                 (childPlaces) => {
                   // TODO(boxu): figure out a better way to pick child places.
                   for (const placeType in childPlaces) {
-                    if (childPlaces.hasOwnProperty(placeType)) {
-                      return childPlaces[placeType]
-                        .slice(0, 5)
-                        .map((place) => place.dcid);
-                    }
+                    return childPlaces[placeType]
+                      .slice(0, 5)
+                      .map((place) => place.dcid);
                   }
                 }
               );
@@ -788,6 +787,7 @@ class Chart extends Component<ChartPropType, ChartStateType> {
               );
             });
             break;
+          }
           case axisEnum.TIME:
           // Fall-through;
           default:
@@ -812,7 +812,7 @@ interface MapPropType {
   dcid: string;
 }
 
-class Map extends Component<MapPropType, {}> {
+class Map extends Component<MapPropType, unknown> {
   div: React.RefObject<HTMLDivElement>;
 
   constructor(props) {

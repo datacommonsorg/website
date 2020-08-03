@@ -26,7 +26,7 @@ interface ChartRegionPropsType {
   perCapita: boolean;
 }
 
-class ChartRegion extends Component<ChartRegionPropsType, {}> {
+class ChartRegion extends Component<ChartRegionPropsType, unknown> {
   downloadLink: HTMLAnchorElement;
   allStatsData: { [key: string]: StatsData };
 
@@ -43,7 +43,7 @@ class ChartRegion extends Component<ChartRegionPropsType, {}> {
     }
   }
 
-  render() {
+  render(): JSX.Element {
     if (
       this.props.places.length === 0 ||
       Object.keys(this.props.statsVars).length === 0

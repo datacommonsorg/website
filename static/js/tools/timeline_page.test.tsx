@@ -11,7 +11,6 @@ import * as d3 from "d3";
 
 import { Page } from "./timeline_page";
 import { drawGroupLineChart } from "../chart/draw";
-import { DataGroup, PlotParams } from "../chart/base";
 import hierarchy from "../../data/hierarchy_top.json";
 
 Enzyme.configure({ adapter: new Adapter() });
@@ -30,16 +29,7 @@ test("Single place and single stats var", () => {
   // Mock drawGroupLineChart() as getComputedTextLength can has issue with jest
   // and jsdom.
   (drawGroupLineChart as jest.Mock).mockImplementation(
-    (
-      selector: string | HTMLDivElement,
-      width: number,
-      height: number,
-      statsVarsTitle: { [key: string]: string },
-      dataGroupsDict: { [place: string]: DataGroup[] },
-      plotParams: PlotParams,
-      source?: string[],
-      unit?: string
-    ) => {
+    (selector: string | HTMLDivElement) => {
       let container: d3.Selection<any, any, any, any>;
       if (typeof selector === "string") {
         container = d3.select("#" + selector);
@@ -54,6 +44,7 @@ test("Single place and single stats var", () => {
         .append("svg")
         .attr("width", 500)
         .attr("height", 500);
+      svg.append("text").text("svg text");
     }
   );
 

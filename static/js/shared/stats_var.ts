@@ -33,14 +33,17 @@ const STATS_VAR_TEXT: { [key: string]: string } = {
   Amount_EconomicActivity_GrossDomesticProduction_Nominal: "GDP",
   GrowthRate_Amount_EconomicActivity_GrossDomesticProduction: "GDP Growth Rate",
   Amount_Debt_Government: "GDP",
-  Amount_EconomicActivity_GrossDomesticProduction_Nominal_PerCapita: "GDP Per Capita",
-  Amount_EconomicActivity_GrossNationalIncome_PurchasingPowerParity_PerCapita: "GNI PPP Per Capita",
+  Amount_EconomicActivity_GrossDomesticProduction_Nominal_PerCapita:
+    "GDP Per Capita",
+  Amount_EconomicActivity_GrossNationalIncome_PurchasingPowerParity_PerCapita:
+    "GNI PPP Per Capita",
   Amount_EconomicActivity_GrossNationalIncome_PurchasingPowerParity: "GNI PPP",
 
   // Environment
   Amount_Consumption_Energy_PerCapita: "Energy comsumption Per Capita",
   Amount_Emissions_CarbonDioxide_PerCapita: "CO2 Emissions Per Capita",
-  Amount_Consumption_Electricity_PerCapita: "Electricity Consumption Per Capita",
+  Amount_Consumption_Electricity_PerCapita:
+    "Electricity Consumption Per Capita",
   Count_EarthquakeEvent: "Earthquake Event",
   Count_CycloneEvent: "Cyclone Event",
 

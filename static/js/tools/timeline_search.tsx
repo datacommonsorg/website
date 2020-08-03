@@ -55,23 +55,23 @@ interface SearchBarPropType {
   places: [string, string][];
 }
 
-class SearchBar extends Component<SearchBarPropType, {}> {
+class SearchBar extends Component<SearchBarPropType, unknown> {
   inputElem: React.RefObject<HTMLInputElement>;
   ac: google.maps.places.Autocomplete;
 
-  constructor(props) {
+  constructor(props: SearchBarPropType) {
     super(props);
     this.getPlaceAndRender = this.getPlaceAndRender.bind(this);
     this.inputElem = React.createRef();
     this.ac = null;
   }
-  shouldComponentUpdate(nextProps, nextState) {
+  shouldComponentUpdate(nextProps: SearchBarPropType): boolean {
     return (
       JSON.stringify(this.props.places) !== JSON.stringify(nextProps.places)
     );
   }
 
-  render() {
+  render(): JSX.Element {
     return (
       <div id="location-field">
         <div id="search-icon"></div>
@@ -80,7 +80,7 @@ class SearchBar extends Component<SearchBarPropType, {}> {
           {this.props.places.map((placeData) => (
             <Chip
               placeId={placeData[0]}
-              placeName={placeData[1]? placeData[1]: placeData[0]}
+              placeName={placeData[1] ? placeData[1] : placeData[0]}
               key={placeData[0]}
             ></Chip>
           ))}
@@ -91,7 +91,7 @@ class SearchBar extends Component<SearchBarPropType, {}> {
     );
   }
 
-  componentDidMount() {
+  componentDidMount(): void {
     // Create the autocomplete object, restricting the search predictions to
     // geographical location types.
     const options = {
