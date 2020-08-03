@@ -82,33 +82,66 @@ interface ChartCategory {
   children: { label: string; charts: ConfigType[] }[];
 }
 
+function displayNameForPlaceType(placeType: string): string {
+  if (
+    placeType.startsWith("AdministrativeArea") ||
+    placeType.startsWith("Eurostat")
+  ) {
+    return "Place";
+  }
+  if (placeType == "CensusZipCodeTabulationArea") {
+    return "Zip Code";
+  }
+  return placeType;
+}
+
+function pluralizedDisplayNameForPlaceType(placeType: string): string {
+  if (placeType.startsWith("AdministrativeArea")) {
+    return placeType.replace("AdministrativeArea", "Administrative Area ");
+  }
+  if (placeType.startsWith("Eurostat")) {
+    return placeType.replace("EurostatNUTS", "Eurostat NUTS ");
+  }
+  if (placeType == "CensusZipCodeTabulationArea") {
+    return "Zip Codes";
+  }
+  return pluralize(placeType);
+}
+
 interface ParentPlacePropsType {
   parentPlaces: { dcid: string; name: string; types: string[] }[];
+  placeType: string;
 }
 
 class ParentPlace extends Component<ParentPlacePropsType, {}> {
   constructor(props: ParentPlacePropsType) {
     super(props);
   }
+
   render() {
     const num = this.props.parentPlaces.length;
-    return this.props.parentPlaces.map((item, index) => {
-      if (item.types[0] === "Continent") {
-        return <span key={item.dcid}>{item.name}</span>;
-      }
-      return (
-        <React.Fragment key={item.dcid}>
-          <a
-            className="place-links"
-            href="#"
-            onClick={this._handleClick.bind(this, item.dcid)}
-          >
-            {item.name}
-          </a>
-          {index < num - 1 && <span>, </span>}
-        </React.Fragment>
-      );
-    });
+    return (
+      <React.Fragment>
+        <span>A {displayNameForPlaceType(this.props.placeType)} in </span>
+        {this.props.parentPlaces.map((item, index) => {
+          if (item.types[0] === "Continent") {
+            return <span key={item.dcid}>{item.name}</span>;
+          }
+          return (
+            <React.Fragment key={item.dcid}>
+              <a
+                className="place-links"
+                href="#"
+                onClick={this._handleClick.bind(this, item.dcid)}
+              >
+                {item.name}
+              </a>
+              {index < num - 1 && <span>, </span>}
+            </React.Fragment>
+          );
+        })}
+      </React.Fragment>
+    );
   }
 
   _handleClick(dcid, e) {
@@ -402,6 +435,7 @@ class Overview extends Component<OverviewPropType, {}> {
 
 interface ChildPlacePropType {
   childPlaces: { string: { dcid: string; name: string }[] };
+  placeName: string;
 }
 
 class ChildPlace extends Component<ChildPlacePropType, {}> {
@@ -411,10 +445,13 @@ class ChildPlace extends Component<ChildPlacePropType, {}> {
     }
     return (
       <React.Fragment>
+        <span id="child-place-head">Places in {this.props.placeName}</span>
         {Object.keys(this.props.childPlaces).map((placeType) => (
-          <div key={placeType}>
-            <div className="child-place-type">{pluralize(placeType)}</div>
-            {this.props.childPlaces[placeType].map((place, i) => (
+          <div key={placeType} className="child-place-group">
+            <div className="child-place-type">{pluralizedDisplayNameForPlaceType(placeType)}</div>
+            {this.props.childPlaces[placeType]
+            .sort((a, b) => a.name > b.name)
+            .map((place, i) => (
               <a
                 key={place.dcid}
                 className="child-place-link"
