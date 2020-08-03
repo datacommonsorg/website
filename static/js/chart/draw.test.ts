@@ -14,39 +14,26 @@
  * limitations under the License.
  */
 
-import {
-  DataPoint,
-} from "./base";
+import { getColorFn, getDashes } from "./base";
 
-import {
-  appendLegendElem,
-  getColorFn,
-  getDashes,
-} from "./draw";
+import { appendLegendElem } from "./draw";
 
 test("svg test", () => {
-  const dataPoints = [
-    new DataPoint("bar1", 10),
-    new DataPoint("bar2", 20),
-    new DataPoint("bar3", 30),
-    new DataPoint("bar4", 40),
-    new DataPoint("bar5", 50),
-  ];
   document.body.innerHTML = '<div id="chart"></div>';
   const keys = ["San Jose", "Palo Alto"];
   const color = getColorFn(keys);
   appendLegendElem("chart", color, keys);
 
   expect(document.getElementById("chart").innerHTML).toEqual(
-    `<div class="legend">` +
-    `<div style="background: #930000"><span>San Jose</span></div>` +
-    `<div style="background: #3288bd"><span>Palo Alto</span></div>` +
-    `</div>`
+    '<div class="legend">' +
+      '<div style="background: #930000"><span>San Jose</span></div>' +
+      '<div style="background: #3288bd"><span>Palo Alto</span></div>' +
+      "</div>"
   );
 });
 
 test("get dashes", () => {
-  const data: {[key:number]: string[]} = {
+  const data: { [key: number]: string[] } = {
     0: [],
     1: [""],
     2: ["", "5, 5"],
@@ -55,4 +42,4 @@ test("get dashes", () => {
   for (const n in data) {
     expect(getDashes(Number(n))).toEqual(data[n]);
   }
-})
+});

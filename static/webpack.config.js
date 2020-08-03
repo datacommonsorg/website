@@ -25,8 +25,8 @@ const config = {
       __dirname + "/css/tools/choropleth.scss",
     ],
     dev: [__dirname + "/js/dev.ts", __dirname + "/css/dev.scss"],
-    dev_menu: [
-      __dirname + "/js/tools/dev_menu.ts",
+    timeline: [
+      __dirname + "/js/tools/timeline.ts",
       __dirname + "/css/timeline.scss",
     ],
     download: __dirname + "/js/tools/download.js",
@@ -42,10 +42,6 @@ const config = {
     ],
     search: __dirname + "/css/search.scss",
     static: __dirname + "/css/static.scss",
-    timeline: [
-      __dirname + "/js/tools/timeline.js",
-      __dirname + "/css/timeline.scss",
-    ],
     translator: [
       __dirname + "/js/translator.js",
       __dirname + "/css/translator.scss",

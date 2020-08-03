@@ -17,7 +17,6 @@
 import React, { Component, createRef } from "react";
 import axios from "axios";
 import pluralize from "pluralize";
-import _ from "lodash";
 import { DataPoint, DataGroup } from "../chart/base";
 
 import { randDomId } from "../shared/util";
@@ -82,36 +81,69 @@ interface ChartCategory {
   children: { label: string; charts: ConfigType[] }[];
 }
 
-interface ParentPlacePropsType {
-  parentPlaces: { dcid: string; name: string; types: string[] }[];
+function displayNameForPlaceType(placeType: string): string {
+  if (
+    placeType.startsWith("AdministrativeArea") ||
+    placeType.startsWith("Eurostat")
+  ) {
+    return "Place";
+  }
+  if (placeType == "CensusZipCodeTabulationArea") {
+    return "Zip Code";
+  }
+  return placeType;
 }
 
-class ParentPlace extends Component<ParentPlacePropsType, {}> {
+function pluralizedDisplayNameForPlaceType(placeType: string): string {
+  if (placeType.startsWith("AdministrativeArea")) {
+    return placeType.replace("AdministrativeArea", "Administrative Area ");
+  }
+  if (placeType.startsWith("Eurostat")) {
+    return placeType.replace("EurostatNUTS", "Eurostat NUTS ");
+  }
+  if (placeType == "CensusZipCodeTabulationArea") {
+    return "Zip Codes";
+  }
+  return pluralize(placeType);
+}
+
+interface ParentPlacePropsType {
+  parentPlaces: { dcid: string; name: string; types: string[] }[];
+  placeType: string;
+}
+
+class ParentPlace extends Component<ParentPlacePropsType, unknown> {
   constructor(props: ParentPlacePropsType) {
     super(props);
   }
-  render() {
+
+  render(): JSX.Element {
     const num = this.props.parentPlaces.length;
-    return this.props.parentPlaces.map((item, index) => {
-      if (item.types[0] === "Continent") {
-        return <span key={item.dcid}>{item.name}</span>;
-      }
-      return (
-        <React.Fragment key={item.dcid}>
-          <a
-            className="place-links"
-            href="#"
-            onClick={this._handleClick.bind(this, item.dcid)}
-          >
-            {item.name}
-          </a>
-          {index < num - 1 && <span>, </span>}
-        </React.Fragment>
-      );
-    });
+    return (
+      <React.Fragment>
+        <span>A {displayNameForPlaceType(this.props.placeType)} in </span>
+        {this.props.parentPlaces.map((item, index) => {
+          if (item.types[0] === "Continent") {
+            return <span key={item.dcid}>{item.name}</span>;
+          }
+          return (
+            <React.Fragment key={item.dcid}>
+              <a
+                className="place-links"
+                href="#"
+                onClick={this._handleClick.bind(this, item.dcid)}
+              >
+                {item.name}
+              </a>
+              {index < num - 1 && <span>, </span>}
+            </React.Fragment>
+          );
+        })}
+      </React.Fragment>
+    );
   }
 
-  _handleClick(dcid, e) {
+  _handleClick(dcid: string, e: Event): void {
     e.preventDefault();
     const queryString = window.location.search;
     const urlParams = new URLSearchParams(queryString);
@@ -127,7 +159,7 @@ interface RankingPropsType {
 interface RankingStateType {
   data: {
     label: string[];
-    Population: { name: {}; label: string }[];
+    Population: { name: Record<string, unknown>; label: string }[];
   };
 }
 
@@ -199,9 +231,8 @@ interface MenuPropsType {
   chartConfig: ChartCategory[];
 }
 
-// tslint:disable-next-line: max-classes-per-file
-class Menu extends Component<MenuPropsType, {}> {
-  render() {
+class Menu extends Component<MenuPropsType, unknown> {
+  render(): JSX.Element {
     const dcid = this.props.dcid;
     const topic = this.props.topic;
     return (
@@ -283,7 +314,7 @@ interface MainPanePropType {
   /**
    * A promise resolves to similar places dcids.
    */
-  similarPlacesPromise: Promise<{ dcid: string; name: string }>;
+  similarPlacesPromise: Promise<string[]>;
   /**
    * A promise resolves to nearby places dcids.
    */
@@ -294,12 +325,12 @@ interface MainPanePropType {
   chartConfig: ChartCategory[];
 }
 
-class MainPane extends Component<MainPanePropType, {}> {
-  constructor(props) {
+class MainPane extends Component<MainPanePropType, unknown> {
+  constructor(props: MainPanePropType) {
     super(props);
   }
 
-  render() {
+  render(): JSX.Element {
     let configData = [];
     const isOverview = !this.props.topic;
     if (!this.props.topic) {
@@ -378,7 +409,7 @@ interface OverviewPropType {
   topic: string;
 }
 
-class Overview extends Component<OverviewPropType, {}> {
+class Overview extends Component<OverviewPropType, unknown> {
   render() {
     if (!this.props.topic) {
       return (
@@ -402,30 +433,36 @@ class Overview extends Component<OverviewPropType, {}> {
 
 interface ChildPlacePropType {
   childPlaces: { string: { dcid: string; name: string }[] };
+  placeName: string;
 }
 
-class ChildPlace extends Component<ChildPlacePropType, {}> {
-  render() {
+class ChildPlace extends Component<ChildPlacePropType, unknown> {
+  render(): JSX.Element {
     if (Object.keys(this.props.childPlaces).length === 0) {
-      return "";
+      return <React.Fragment></React.Fragment>;
     }
     return (
       <React.Fragment>
+        <span id="child-place-head">Places in {this.props.placeName}</span>
         {Object.keys(this.props.childPlaces).map((placeType) => (
-          <div key={placeType}>
-            <div className="child-place-type">{pluralize(placeType)}</div>
-            {this.props.childPlaces[placeType].map((place, i) => (
-              <a
-                key={place.dcid}
-                className="child-place-link"
-                href={"/place?dcid=" + place.dcid}
-              >
-                {place.name}
-                {i < this.props.childPlaces[placeType].length - 1 && (
-                  <span>,</span>
-                )}
-              </a>
-            ))}
+          <div key={placeType} className="child-place-group">
+            <div className="child-place-type">
+              {pluralizedDisplayNameForPlaceType(placeType)}
+            </div>
+            {this.props.childPlaces[placeType]
+              .sort((a, b) => a.name > b.name)
+              .map((place, i) => (
+                <a
+                  key={place.dcid}
+                  className="child-place-link"
+                  href={"/place?dcid=" + place.dcid}
+                >
+                  {place.name}
+                  {i < this.props.childPlaces[placeType].length - 1 && (
+                    <span>,</span>
+                  )}
+                </a>
+              ))}
           </div>
         ))}
       </React.Fragment>
@@ -464,7 +501,7 @@ interface ChartPropType {
   /**
    * The similar places promise.
    */
-  similarPlacesPromise: Promise<{ dcid: string; name: string }>;
+  similarPlacesPromise: Promise<string[]>;
   /**
    * The nearby places promise.
    */
@@ -529,9 +566,10 @@ class Chart extends Component<ChartPropType, ChartStateType> {
             <span className="sub-title">{this.titleSuffix}</span>
           </h4>
           {config.axis === axisEnum.PLACE && (
-            <label>
-              Choose places:{" "}
+            <div>
+              <label htmlFor={"select-" + this.props.id}>Choose places:</label>
               <select
+                id={"select-" + this.props.id}
                 value={this.placeRelation}
                 onChange={this._handlePlaceSelection}
               >
@@ -550,9 +588,9 @@ class Chart extends Component<ChartPropType, ChartStateType> {
                   nearby
                 </option>
               </select>
-            </label>
+            </div>
           )}
-          <div id={this.props.id}></div>
+          <div id={this.props.id} className="svg-container"></div>
           <footer className="row explore-more-container">
             <div>
               Data from <a href={config.url}>{config.source}</a>
@@ -560,6 +598,7 @@ class Chart extends Component<ChartPropType, ChartStateType> {
             <div>
               <a
                 target="_blank"
+                rel="noreferrer"
                 className="explore-more"
                 href={config.exploreUrl}
               >
@@ -713,7 +752,7 @@ class Chart extends Component<ChartPropType, ChartStateType> {
       // Fall-through
       case chartTypeEnum.STACK_BAR:
         switch (config.axis) {
-          case axisEnum.PLACE:
+          case axisEnum.PLACE: {
             let placesPromise;
             if (this.placeRelation === placeRelationEnum.CONTAINED) {
               placesPromise = Promise.resolve([
@@ -725,11 +764,9 @@ class Chart extends Component<ChartPropType, ChartStateType> {
                 (childPlaces) => {
                   // TODO(boxu): figure out a better way to pick child places.
                   for (const placeType in childPlaces) {
-                    if (childPlaces.hasOwnProperty(placeType)) {
-                      return childPlaces[placeType]
-                        .slice(0, 5)
-                        .map((place) => place.dcid);
-                    }
+                    return childPlaces[placeType]
+                      .slice(0, 5)
+                      .map((place) => place.dcid);
                   }
                 }
               );
@@ -750,6 +787,7 @@ class Chart extends Component<ChartPropType, ChartStateType> {
               );
             });
             break;
+          }
           case axisEnum.TIME:
           // Fall-through;
           default:
@@ -774,7 +812,7 @@ interface MapPropType {
   dcid: string;
 }
 
-class Map extends Component<MapPropType, {}> {
+class Map extends Component<MapPropType, unknown> {
   div: React.RefObject<HTMLDivElement>;
 
   constructor(props) {

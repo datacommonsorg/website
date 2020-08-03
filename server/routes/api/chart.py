@@ -25,7 +25,6 @@ import urllib
 from flask import Blueprint, current_app, url_for
 
 from cache import cache
-from routes.api.stats import get_stats_url_fragment
 from routes.api.place import statsvars
 
 
@@ -35,30 +34,6 @@ bp = Blueprint(
     __name__,
     url_prefix='/api/chart'
 )
-
-
-# Temporary hack before we clean up place stats var cache.
-MAPPING = {
-    "Count_Person": "TotalPopulation",
-    "Count_Person_Male": "MalePopulation",
-    "Count_Person_Female": "FemalePopulation",
-    "Count_Person_MarriedAndNotSeparated": "MarriedPopulation",
-    "Count_Person_Divorced": "DivorcedPopulation",
-    "Count_Person_NeverMarried": "NeverMarriedPopulation",
-    "Count_Person_Separated": "SeparatedPopulation",
-    "Count_Person_Widowed": "WidowedPopulation",
-    "Median_Age_Person": "MedianAge",
-    "Median_Income_Person": "MedianIncome",
-    "Count_Person_BelowPovertyLevelInThePast12Months": "BelowPovertyLine",
-    "Count_HousingUnit": "HousingUnits",
-    "Count_Household": "Households",
-    "Count_CriminalActivities_CombinedCrime": "TotalCrimes",
-    "UnemploymentRate_Person": "UnemploymentRate",
-    "CumulativeCount_MedicalConditionIncident_COVID_19_ConfirmedOrProbableCase": "NYTCovid19CumulativeCases",
-    "CumulativeCount_MedicalConditionIncident_COVID_19_PatientDeceased": "NYTCovid19CumulativeDeaths",
-    "IncrementalCount_MedicalConditionIncident_COVID_19_ConfirmedOrProbableCase": "NYTCovid19IncrementalCases",
-    "IncrementalCount_MedicalConditionIncident_COVID_19_PatientDeceased": "NYTCovid19IncrementalDeaths"
-}
 
 
 def filter_charts(charts, all_stats_vars):
@@ -79,20 +54,14 @@ def filter_charts(charts, all_stats_vars):
     for chart in charts:
         chart_copy = copy.copy(chart)
         chart_copy['statsVars'] = [
-            x for x in chart['statsVars']
-            if x in all_stats_vars or MAPPING.get(x, '') in all_stats_vars]
+            x for x in chart['statsVars'] if x in all_stats_vars]
         if chart_copy['statsVars']:
             result.append(chart_copy)
     return result
 
 
-def build_url(dcid, stats_vars, stats_var_info):
-    anchor = "&ptpv="
-    parts = []
-    for stats_var in stats_vars:
-        parts.append(stats_var_info[stats_var])
-    anchor += '__'.join(parts)
-    anchor += '&place=' + dcid
+def build_url(dcid, stats_vars):
+    anchor = '&place={}&statsVar={}'.format(dcid, '__'.join(stats_vars))
     return urllib.parse.unquote(url_for('tools.timeline', _anchor=anchor))
 
 
@@ -132,21 +101,16 @@ def config(dcid):
             for chart in child['charts']:
                 used_stats_vars.update(set(chart['statsVars']))
 
-    # Get the stats var info, ie, the partial url used for GNI.
-    stats_var_info = get_stats_url_fragment(list(used_stats_vars))
-
     # Population the GNI url to each chart.
     for i in range(len(cc)):
         # Populate gni url for charts
         for j in range(len(cc[i]['charts'])):
             cc[i]['charts'][j]['exploreUrl'] = build_url(
-                dcid, cc[i]['charts'][j]['statsVars'], stats_var_info)
+                dcid, cc[i]['charts'][j]['statsVars'])
         # Populate gni url for children
         for j in range(len(cc[i].get('children', []))):
             for k in range(len(cc[i]['children'][j]['charts'])):
                 cc[i]['children'][j]['charts'][k]['exploreUrl'] = build_url(
                     dcid,
-                    cc[i]['children'][j]['charts'][k]['statsVars'],
-                    stats_var_info
-                )
+                    cc[i]['children'][j]['charts'][k]['statsVars'])
     return json.dumps(cc)

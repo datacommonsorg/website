@@ -10,13 +10,13 @@ interface NodePropType {
   c: number; // count
   cd: NodePropType[]; // children
   t: string; // type
-  sv: string;
+  sv: string[];
   statsVarPaths: number[][];
   nodePath: number[];
   statsVarValid: Set<string>;
   filter: boolean;
   idx: number;
-  setName: (statsVarId: string, statsVarName: string) => void;
+  addStatsVarTitle: (statsVarId: string, statsVarName: string) => void;
 }
 
 interface NodeStateType {
@@ -67,7 +67,7 @@ class Node extends Component<NodePropType, NodeStateType> {
             statsVarValid={this.props.statsVarValid}
             filter={this.props.filter}
             idx={index}
-            setName={this.props.setName}
+            addStatsVarTitle={this.props.addStatsVarTitle}
             nodePath={[...this.props.nodePath, index]}
           ></Node>
         );
@@ -115,12 +115,34 @@ class Node extends Component<NodePropType, NodeStateType> {
     this.setState({
       checked: !this.state.checked,
     });
-    updateUrl({
-      statsVar: {
-        statsVar: this.props.sv + "," + this.props.nodePath.join(","),
-        shouldAdd: !this.state.checked,
-      },
-    });
+    if (this.state.checked) {
+      // delete all related statsVars
+      updateUrl({
+        statsVar: {
+          statsVar:
+            this.props.sv.join("__") + "," + this.props.nodePath.join(","),
+          shouldAdd: !this.state.checked,
+        },
+      });
+    } else {
+      // add available statsVars only
+      let validSV = [];
+      if (this.props.filter) {
+        for (const statsVar of this.props.sv) {
+          if (this.props.statsVarValid.has(statsVar)) {
+            validSV.push(statsVar);
+          }
+        }
+      } else {
+        validSV = this.props.sv;
+      }
+      updateUrl({
+        statsVar: {
+          statsVar: validSV.join("__") + "," + this.props.nodePath.join(","),
+          shouldAdd: !this.state.checked,
+        },
+      });
+    }
   };
 
   private _handleExpandClick = (): void => {
@@ -132,12 +154,19 @@ class Node extends Component<NodePropType, NodeStateType> {
   private _handleHashChange() {
     const statsVarPathNext = [];
     let check = false;
-    let expand = false;
+    let expand = this.state.expanded;
     for (const statsVarPath of this.props.statsVarPaths) {
       if (statsVarPath && statsVarPath[0] === this.props.idx) {
         if (statsVarPath.length === 1) {
           check = true;
-          this.props.setName(this.props.sv, this.props.l);
+          for (const sv of this.props.sv) {
+            if (!this.props.filter || this.props.statsVarValid.has(sv)) {
+              this.props.addStatsVarTitle(sv, this.props.l);
+            } else {
+              // remove the statsVar from url if not available
+              updateUrl({ statsVar: { statsVar: sv, shouldAdd: false } });
+            }
+          }
         } else {
           expand = true;
           statsVarPathNext.push(statsVarPath.slice(1));
@@ -156,10 +185,19 @@ class Node extends Component<NodePropType, NodeStateType> {
     // and the statsvar is available or not filtered.
     return (
       this.props.t === "v" &&
-      (!this.props.filter || this.props.statsVarValid.has(this.props.sv))
+      (!this.props.filter ||
+        this.hasIntersection(this.props.statsVarValid, this.props.sv))
     );
   }
 
+  private hasIntersection(statsVarValid: Set<string>, statsVars: string[]) {
+    for (const value of statsVars) {
+      if (statsVarValid.has(value)) {
+        return true;
+      }
+    }
+    return false;
+  }
   private canExpand() {
     if (this.props.t === "p") {
       // a property node can be expanded if it has >= 1 children
@@ -171,10 +209,11 @@ class Node extends Component<NodePropType, NodeStateType> {
       this.props.cd.map((item) => {
         if (
           item.t === "v" &&
-          (!this.props.filter || this.props.statsVarValid.has(item.sv))
+          (!this.props.filter ||
+            this.hasIntersection(this.props.statsVarValid, item.sv))
         ) {
           valid = true; // valid value node
-        } else if (this.hasChild(item.cd)) {
+        } else if (item.t === "p" && this.hasChild(item.cd)) {
           valid = true; // valid property node
         }
       });
@@ -198,7 +237,10 @@ class Node extends Component<NodePropType, NodeStateType> {
     let valid = false;
     if (children && children.length !== 0) {
       children.map((item) => {
-        if (!this.props.filter || this.props.statsVarValid.has(item.sv)) {
+        if (
+          !this.props.filter ||
+          this.hasIntersection(this.props.statsVarValid, item.sv)
+        ) {
           valid = true;
         }
       });
@@ -208,23 +250,26 @@ class Node extends Component<NodePropType, NodeStateType> {
 }
 
 interface MenuPropType {
-  search: boolean;
   statsVarPaths: number[][];
   statsVarValid: Set<string>;
   filter: boolean;
-  setName: (statsVarId: string, statsVarName: string) => void;
+  setStatsVarTitle: (statsVarId2Title: { [key: string]: string }) => void;
 }
 interface MenuStateType {
-  menuJson: [{}];
+  menuJson: [unknown];
 }
 class Menu extends Component<MenuPropType, MenuStateType> {
-  constructor(props) {
+  statsVarId2Title: { [key: string]: string }; // {Id: Title}
+  constructor(props: MenuPropType) {
     super(props);
+    this.addStatsVarTitle = this.addStatsVarTitle.bind(this);
     this.state = {
       menuJson: [hierarchy],
     };
+    this.statsVarId2Title = {};
   }
-  render() {
+  render(): JSX.Element {
+    this.statsVarId2Title = {};
     return (
       <div id="drill">
         <div className="noedge">
@@ -244,7 +289,7 @@ class Menu extends Component<MenuPropType, MenuStateType> {
                     statsVarValid={this.props.statsVarValid}
                     filter={this.props.filter}
                     idx={index}
-                    setName={this.props.setName}
+                    addStatsVarTitle={this.addStatsVarTitle}
                     nodePath={[index]}
                   ></Node>
                 )
@@ -255,12 +300,23 @@ class Menu extends Component<MenuPropType, MenuStateType> {
       </div>
     );
   }
-  componentDidMount() {
+
+  componentDidMount(): void {
     axios.get(jsonPath).then((resp) => {
       this.setState({
         menuJson: [resp.data],
       });
     });
+  }
+
+  addStatsVarTitle(id: string, title: string): void {
+    this.statsVarId2Title[id] = title;
+    if (
+      Object.keys(this.statsVarId2Title).length ===
+      this.props.statsVarPaths.length
+    ) {
+      this.props.setStatsVarTitle(this.statsVarId2Title);
+    }
   }
 }
 

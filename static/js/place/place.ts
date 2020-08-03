@@ -18,12 +18,7 @@ import React from "react";
 import ReactDOM from "react-dom";
 import axios from "axios";
 
-import {
-  ChildPlace,
-  MainPane,
-  Menu,
-  ParentPlace,
-} from "./place_template";
+import { ChildPlace, MainPane, Menu, ParentPlace } from "./place_template";
 
 let ac: google.maps.places.Autocomplete;
 
@@ -45,7 +40,7 @@ window.onload = () => {
 /**
  *  Make adjustments to sidebar scroll state based on the content.
  */
-function updatePageLayoutState() {
+function updatePageLayoutState(): void {
   yScrollLimit = document.getElementById("main-pane").offsetTop;
   document.getElementById("sidebar-top-spacer").style.height =
     yScrollLimit + "px";
@@ -101,16 +96,14 @@ function getChildPlaces(dcid) {
  * @param dcid The place dcid
  */
 function getSimilarPlaces(dcid: string) {
-  return axios
-    .get(`/api/similar-place/${dcid}?stats-var=Count_Person`)
-    .then((resp) => {
-      const places = resp.data;
-      const result = [dcid];
-      if (places.relatedPlaces) {
-        result.push(...places.relatedPlaces.slice(0, 4));
-      }
-      return result;
-    });
+  return axios.get(`/api/similar-place/Count_Person/${dcid}`).then((resp) => {
+    const places = resp.data;
+    const result = [dcid];
+    if (places.relatedPlaces) {
+      result.push(...places.relatedPlaces.slice(0, 4));
+    }
+    return result;
+  });
 }
 
 /**
@@ -148,6 +141,7 @@ function renderPage(dcid: string) {
   const urlParams = new URLSearchParams(window.location.search);
   // Get topic and render menu.
   const topic = urlParams.get("topic");
+  const placeName = document.getElementById("place-name").dataset.pn;
   const placeType = document.getElementById("place-type").dataset.pt;
 
   // Get parent, child and similiar places and render main pane.
@@ -170,16 +164,23 @@ function renderPage(dcid: string) {
 
   parentPlacesPromise.then((parentPlaces) => {
     ReactDOM.render(
-      React.createElement(ParentPlace, { parentPlaces }),
-      document.getElementById("place-parents")
+      React.createElement(ParentPlace, { parentPlaces, placeType }),
+      document.getElementById("place-type")
     );
     // Readjust sidebar based on parent places.
     updatePageLayoutState();
   });
 
   childPlacesPromise.then((childPlaces) => {
+    // Display child places alphabetically
+    for (const placeType in childPlaces) {
+      childPlaces[placeType].sort((a, b) =>
+        a.name < b.name ? -1 : a.name > b.name ? 1 : 0
+      );
+    }
+
     ReactDOM.render(
-      React.createElement(ChildPlace, { childPlaces }),
+      React.createElement(ChildPlace, { childPlaces, placeName }),
       document.getElementById("child-place")
     );
   });
@@ -233,7 +234,7 @@ function getPlaceAndRender() {
       urlParams.set("dcid", resp.data);
       window.location.search = urlParams.toString();
     })
-    .catch((error) => {
+    .catch(() => {
       alert("Sorry, but we don't have any data about " + name);
       const acElem = document.getElementById(
         "place-autocomplete"

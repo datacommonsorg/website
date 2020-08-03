@@ -38,6 +38,17 @@ WANTED_PLACE_TYPES = ["Country",
                       "AdministrativeArea3",
                       "AdministrativeArea4",
                       "AdministrativeArea5"]
+
+# These place types are equivalent: prefer the key.
+EQUIVALENT_PLACE_TYPES = {
+    "State": "AdministrativeArea1",
+    "County": "AdministrativeArea2",
+    "City": "AdministrativeArea3",
+    "Town": "City",
+    "Borough": "City",
+    "Village": "City",
+}
+
 CHILD_PLACE_LIMIT = 20
 
 # Define blueprint
@@ -143,6 +154,10 @@ def child_fetch(dcid):
                     'dcid': place['dcid'],
                     'pop': pop.get(place['dcid'], 0)
                 })
+    # Filter equivalent place types
+    for (preferred, equivalent) in EQUIVALENT_PLACE_TYPES.items():
+        if preferred in result and equivalent in result:
+            del result[equivalent]
     return result
 
 

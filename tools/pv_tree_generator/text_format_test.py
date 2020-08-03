@@ -58,6 +58,31 @@ class TextFormatTest(unittest.TestCase):
     def test_rangeLow(self, name, enum_, expected):
         self.assertEqual(text_format.rangeLow(enum_), expected)
 
+    node1 = {"sv": "Count_Person_EnrolledInPrivateSchool",
+              "l": "Private School"}
+    node2 = {"sv":"Count_Person_3OrMoreYears_Female_EnrolledInPublicSchool",
+              "l": "Public School"}
+    sorted1 = [node1, node2]
+
+    node3 = {"sv": "Count_Person_Upto5Years_Female_HispanicOrLatino",
+              "l": "Hispanic Or Latino"}
+    node4 = {"sv": "Count_Person_Upto5Years_Female_BlackOrAfricanAmericanAlone",
+              "l": "Not in List"}
+    
+    node5 = {"sv": "dc/g8kg52zcxzw9f", "l": "Kindergarten"}
+    node6 = {"sv": "dc/xj1ljvqpeqrq9", "l": "Grade 1 To Grade 4"}
+    node7 = { "sv": "Count_Person_25OrMoreYears_EducationalAttainmentDoctorateDegree_Female",
+          "l": "Doctorate Degree"}
+    sorted2 = [node5, node7]
+
+    @parameterized.expand([
+        ("SchoolEnrollment1", "School Enrollment", [node1, node2], sorted1),
+        ("SchoolEnrollment2", "School Enrollment", [node2, node1], sorted1),
+        ("race1", "race", [node3, node4], [node3]),
+        ("education", "educationalAttainment", [node6, node5, node7], sorted2)])
+    def test_filter_and_sort(self, name, prop, children, expected):
+        self.assertEqual(text_format.filter_and_sort(prop, children, False), expected)
+
 
 if __name__ == '__main__':
     unittest.main()

@@ -1,0 +1,5 @@
+node_modules
+
+# There are too many lint errors on current legacy js code. Ignore them for now
+# and hopefully to clean up while we gradually move all js to ts.
+**/*.js
