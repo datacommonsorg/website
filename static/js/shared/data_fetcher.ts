@@ -18,6 +18,7 @@ import axios, { AxiosResponse } from "axios";
 
 import { DataPoint, DataGroup } from "../chart/base";
 import { STATS_VAR_TEXT } from "./stats_var";
+import { object } from "prop-types";
 
 interface TimeSeries {
   data: {
@@ -249,4 +250,42 @@ function fetchStatsData(
   });
 }
 
-export { StatsData, fetchStatsData };
+function updateStatsData(prevStatsVar, newStatsVar){
+  if (!prevStatsVar){return newStatsVar}
+  for (const newPlace of newStatsVar){
+    if (!prevStatsVar.place.includes(newPlace)){
+      prevStatsVar.place.push(newPlace);
+    }
+  }
+  // update statsVar list
+  for (const newStatsVarId of newStatsVar){
+    if (!prevStatsVar.statsVars.includes(newStatsVarId)){
+      prevStatsVar.statsVars.push(newStatsVarId);
+    }
+  }
+  // update data
+  Object.keys(newStatsVar.data).map((statsVarId)=>{
+    Object.keys(newStatsVar.data[statsVarId]).map((placeId)=>{
+       if (!(statsVarId in prevStatsVar.data)){
+         prevStatsVar.data[statsVarId] = {}
+       }
+      prevStatsVar.data[statsVarId][placeId] = newStatsVar.data[statsVarId][placeId];
+    });});
+  // update date
+  const dates: { [key: string]: boolean } = {};
+  prevStatsVar.dates.map((date) => {
+    dates[date] = true;
+  })
+  newStatsVar.dates.map((date) => {
+    dates[date] = true;
+  })
+  prevStatsVar.dates = Object.keys(dates);
+  prevStatsVar.dates.sort();
+  // update sources
+  for (const source of newStatsVar.sources){
+    prevStatsVar.sources.add(source);
+  }
+  return prevStatsVar;
+}
+
+export { StatsData, fetchStatsData, updateStatsData};

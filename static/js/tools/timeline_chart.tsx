@@ -16,7 +16,7 @@
 
 import React, { Component } from "react";
 import { StatsVarInfo, updateUrl } from "./timeline_util";
-import { fetchStatsData, StatsData } from "../shared/data_fetcher";
+import { fetchStatsData, StatsData, updateStatsData } from "../shared/data_fetcher";
 import {
   PlotParams,
   drawGroupLineChart,
@@ -125,7 +125,7 @@ class Chart extends Component<ChartPropsType, {}> {
   }
 
   componentDidMount() {
-    this.loadDataAndDrawChart();
+    this.loadDataAndDrawChart({places:[], statsVars:{}});
     window.addEventListener("resize", this.handleWindowResize);
   }
 
@@ -133,8 +133,8 @@ class Chart extends Component<ChartPropsType, {}> {
     window.removeEventListener("resize", this.handleWindowResize);
   }
 
-  componentDidUpdate() {
-    this.loadDataAndDrawChart();
+  componentDidUpdate(prevProps) {
+    this.loadDataAndDrawChart(prevProps);
   }
 
   private handleWindowResize() {
@@ -144,17 +144,51 @@ class Chart extends Component<ChartPropsType, {}> {
     this.drawChart();
   }
 
-  private loadDataAndDrawChart() {
-    fetchStatsData(
-      this.props.places.map((x) => x[0]),
-      Object.keys(this.props.statsVars),
-      this.props.perCapita,
-      1
-    ).then((statsData) => {
-      this.statsData = statsData;
-      this.props.onDataUpdate(this.props.mprop, statsData);
+  private loadDataAndDrawChart(prevProps) {
+    const placeDiff = this.compareArray(prevProps.places, this.props.places);
+    const statsVarDiff = this.compareArray(Object.keys(prevProps.statsVars),Object.keys(this.props.statsVars));
+    let dataNewPlacePromise = Promise.resolve({});
+    let dataNewStatsVarPromise = Promise.resolve({});
+    if (placeDiff.add.length !== 0){
+      dataNewPlacePromise = fetchStatsData(
+        placeDiff.add.map((x) => x[0]),
+        Object.keys(this.props.statsVars),
+        this.props.perCapita,
+        1
+      )
+    }
+    if (statsVarDiff.add.length !== 0){
+      dataNewStatsVarPromise = fetchStatsData(
+        this.props.places.map((x) => x[0]),
+        statsVarDiff.add,
+        this.props.perCapita,
+        1
+      )
+    }
+    Promise.all([
+      dataNewPlacePromise,
+      dataNewStatsVarPromise,
+    ]).then((values)=>{
+      this.statsData = updateStatsData(this.statsData, values[0]);
+      this.statsData = updateStatsData(this.statsData, values[1]);
+      this.props.onDataUpdate(this.props.mprop, this.statsData)
       this.drawChart();
-    });
+    })
+  }
+
+  private compareArray(array1, array2){
+    const diff = {add:[], delete: []}
+    for( const item of array1){
+      if (!array2.includes(item)){
+        diff.delete.push(item)
+      }
+    }
+    for (const item of array2){
+      if (!array1.includes(item)){
+        diff.add.push(item)
+      }
+    }
+    return diff;
   }
 
   /**
