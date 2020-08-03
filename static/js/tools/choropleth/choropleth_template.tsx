@@ -17,11 +17,7 @@
 import React, { Component } from "react";
 
 class MainPane extends Component {
-  constructor(props) {
-    super(props);
-  }
-
-  render() {
+  render(): JSX.Element {
     return (
       <React.Fragment>
         <div className="column" id="breadcrumbs"></div>

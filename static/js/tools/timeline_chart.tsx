@@ -73,12 +73,6 @@ class Chart extends Component<ChartPropsType, unknown> {
     this.statsVarsTitle = {};
     this.svgContainer = React.createRef();
     this.handleWindowResize = this.handleWindowResize.bind(this);
-    this.downloadLink = document.getElementById(
-      "download-link"
-    ) as HTMLAnchorElement;
-    this.downloadLink.onclick = () => {
-      saveToFile("export.csv", this.createDataCsv());
-    };
   }
   render(): JSX.Element {
     const statsVars = Object.keys(this.props.statsVars);
