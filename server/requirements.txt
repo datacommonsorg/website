@@ -11,3 +11,5 @@ requests
 six
 wheel
 gunicorn
+selenium
+flask_testing
