@@ -16,7 +16,7 @@
 
 import axios from "axios";
 
-import { fetchStatsData } from "./data_fetcher";
+import { fetchStatsData, StatsData } from "./data_fetcher";
 import { DataGroup } from "../chart/base";
 
 jest.mock("axios");
@@ -45,7 +45,9 @@ test("fetch stats data", () => {
           },
         },
       });
-    } else if (url === "/api/stats/Count_Person_Male?&dcid=geoId/05&dcid=geoId/06") {
+    } else if (
+      url === "/api/stats/Count_Person_Male?&dcid=geoId/05&dcid=geoId/06"
+    ) {
       return Promise.resolve({
         data: {
           "geoId/05": {
@@ -156,4 +158,20 @@ test("fetch stats data", () => {
       { label: "Male", value: 16000 },
     ]);
   });
+});
+
+test("StatsData test", () => {
+  // Test partial data
+  const statsData = new StatsData([], [], [], {
+    Count_Person: {
+      "geoId/01": null,
+      "geoId/02": {
+        place_dcid: "geoId/02",
+        place_name: "Place2",
+        provenance_domain: "test.domain",
+        data: { "1990": 10, "1992": 20 },
+      },
+    },
+  });
+  expect(statsData.getStatsVarGroupWithTime("geoId/01")).toEqual([]);
 });

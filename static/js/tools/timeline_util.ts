@@ -14,35 +14,7 @@
  * limitations under the License.
  */
 import axios from "axios";
-import { getUrlVars, setSearchParam } from "./dc";
 import statsVarPathMap from "../../data/statsvar_path.json";
-
-// Temporary hack before we clean up place stats var cache.
-const MAPPING = {
-  Count_Person: "TotalPopulation",
-  Count_Person_Male: "MalePopulation",
-  Count_Person_Female: "FemalePopulation",
-  Count_Person_MarriedAndNotSeparated: "MarriedPopulation",
-  Count_Person_Divorced: "DivorcedPopulation",
-  Count_Person_NeverMarried: "NeverMarriedPopulation",
-  Count_Person_Separated: "SeparatedPopulation",
-  Count_Person_Widowed: "WidowedPopulation",
-  Median_Age_Person: "MedianAge",
-  Median_Income_Person: "MedianIncome",
-  Count_Person_BelowPovertyLevelInThePast12Months: "BelowPovertyLine",
-  Count_HousingUnit: "HousingUnits",
-  Count_Household: "Households",
-  Count_CriminalActivities_CombinedCrime: "TotalCrimes",
-  UnemploymentRate_Person: "UnemploymentRate",
-  CumulativeCount_MedicalConditionIncident_COVID_19_ConfirmedOrProbableCase:
-    "NYTCovid19CumulativeCases",
-  CumulativeCount_MedicalConditionIncident_COVID_19_PatientDeceased:
-    "NYTCovid19CumulativeDeaths",
-  IncrementalCount_MedicalConditionIncident_COVID_19_ConfirmedOrProbableCase:
-    "NYTCovid19IncrementalCases",
-  IncrementalCount_MedicalConditionIncident_COVID_19_PatientDeceased:
-    "NYTCovid19IncrementalDeaths",
-};
 
 interface VarUrl {
   statsVar: string;
@@ -52,11 +24,18 @@ interface VarUrl {
 
 interface UrlParam {
   pc?: boolean;
-  place?: { place: string, shouldAdd: boolean };
-  statsVar?: { statsVar: string, shouldAdd: boolean };
+  place?: { place: string; shouldAdd: boolean };
+  statsVar?: { statsVar: string; shouldAdd: boolean };
 }
 
-function updateUrl(param: UrlParam) {
+interface UrlObject {
+  statsVarPath: number[][];
+  statsVarId: string[];
+  placeId: string[];
+  pc: boolean;
+}
+
+function updateUrl(param: UrlParam): void {
   const vars = getUrlVars() as VarUrl;
   // update per Capita state
   if ("pc" in param) {
@@ -79,47 +58,34 @@ function updateUrl(param: UrlParam) {
     vars.place = placeList.join(",");
     if (vars.place === "") {
       delete vars.place;
-    }
-    // set default statsVar when place is not empty
-    else if (!vars.hasOwnProperty("statsVar")) {
-      vars.statsVar =
-        "Count_Person";
+    } else if (!vars.statsVar) {
+      // set default statsVar when place is not empty
+      vars.statsVar = "Count_Person";
     }
   }
   // update statsVar
   if ("statsVar" in param) {
-    const statsVarUpdate = param.statsVar.statsVar;
-    const statsVarUpdateName = statsVarUpdate.split(",")[0];
-    const statsVarUpatePath = statsVarUpdate.split(",").slice(1);
+    // support add/delete multiple statsVars at the same time
+    const statsVars = param.statsVar.statsVar.split("__");
     let statsVarList = new Set<string>();
     if ("statsVar" in vars) {
       statsVarList = new Set(vars.statsVar.split("__"));
     }
-    if (statsVarUpatePath.length !== 0) {
-      // update with statsVarPath
-      if (param.statsVar.shouldAdd) {
-        // remove the same statsVar with name only
-        statsVarList.delete(statsVarUpdateName);
-        statsVarList.add(statsVarUpdate);
+    for (const statsVarToUpdate of statsVars) {
+      if (statsVarToUpdate.split(",").length !== 1) {
+        // update statsVar with path
+        if (param.statsVar.shouldAdd) {
+          statsVarList = addStatsVarWithPath(statsVarList, statsVarToUpdate);
+        } else {
+          statsVarList = deleteStatsVarWithPath(statsVarList, statsVarToUpdate);
+        }
       } else {
-        if (statsVarList.has(statsVarUpdate)) {
-          statsVarList.delete(statsVarUpdate);
+        // update statsVar with name only
+        if (param.statsVar.shouldAdd) {
+          statsVarList = addStatsVarWithName(statsVarList, statsVarToUpdate);
+        } else {
+          statsVarList = deleteStatsVarWithName(statsVarList, statsVarToUpdate);
         }
-        else if (statsVarList.has(statsVarUpdateName)) {
-          statsVarList.delete(statsVarUpdateName);
-        }
-      }
-    } else {
-      // update with statsVarName
-      const statsVarNames = {};
-      for (const statsVar of Array.from(statsVarList)) {
-        statsVarNames[statsVar.split(",")[0]] = statsVar;
-      }
-      if (param.statsVar.shouldAdd && !(statsVarUpdateName in statsVarNames)) {
-        statsVarList.add(statsVarUpdate);
-      }
-      else if (!param.statsVar.shouldAdd && (statsVarUpdateName in statsVarNames)) {
-        statsVarList.delete(statsVarNames[statsVarUpdateName]);
       }
     }
     vars.statsVar = Array.from(statsVarList).join("__");
@@ -130,7 +96,51 @@ function updateUrl(param: UrlParam) {
   setSearchParam(vars);
 }
 
-function parseUrl() {
+function addStatsVarWithPath(statsVarList: Set<string>, statsVarToAdd: string) {
+  statsVarList.delete(statsVarToAdd.split(",")[0]);
+  statsVarList.add(statsVarToAdd);
+  return statsVarList;
+}
+
+function deleteStatsVarWithPath(
+  statsVarList: Set<string>,
+  statsVarToDelete: string
+) {
+  if (statsVarList.has(statsVarToDelete)) {
+    statsVarList.delete(statsVarToDelete);
+  } else if (statsVarList.has(statsVarToDelete.split(",")[0])) {
+    statsVarList.delete(statsVarToDelete.split(",")[0]);
+  }
+  return statsVarList;
+}
+
+function addStatsVarWithName(statsVarList: Set<string>, statsVarToAdd: string) {
+  const statsVarNames = {}; // {statsVarName: string of statsVar in url, with path or not}
+  for (const statsVar of Array.from(statsVarList)) {
+    statsVarNames[statsVar.split(",")[0]] = statsVar;
+  }
+  if (!(statsVarToAdd in statsVarNames)) {
+    statsVarList.add(statsVarToAdd);
+  }
+  return statsVarList;
+}
+
+function deleteStatsVarWithName(
+  statsVarList: Set<string>,
+  statsVarToDelete: string
+) {
+  const statsVarNames = {}; // {statsVarName: string of statsVar in url, with path or not}
+  for (const statsVar of Array.from(statsVarList)) {
+    statsVarNames[statsVar.split(",")[0]] = statsVar;
+  }
+  if (statsVarToDelete in statsVarNames) {
+    statsVarList.delete(statsVarNames[statsVarToDelete]);
+  }
+  return statsVarList;
+}
+
+// set default statsVar when place is not empty
+function parseUrl(): UrlObject {
   const vars = getUrlVars() as VarUrl;
   let pc: boolean;
   if ("pc" in vars) {
@@ -152,21 +162,22 @@ function parseUrl() {
   if ("statsVar" in vars) {
     statsVarList = vars.statsVar.split("__");
     for (const statsVar of statsVarList) {
-      const statsVarSplit = statsVar.split(',');
+      const statsVarSplit = statsVar.split(",");
       if (statsVarSplit.length === 1) {
         statsVarIds.push(statsVar);
-        statsVarPaths.push(statsVarPathMap[statsVar]);
-      }
-      else {
+        if (statsVar in statsVarPathMap) {
+          // ignore invalid statsVar Id
+          statsVarPaths.push(statsVarPathMap[statsVar]);
+        }
+      } else {
         statsVarIds.push(statsVarSplit[0]);
         const path = statsVarSplit.slice(1).map((item) => {
           return parseInt(item, 10);
-        })
+        });
         statsVarPaths.push(path);
       }
     }
   }
-
   return {
     statsVarPath: statsVarPaths,
     statsVarId: statsVarIds,
@@ -175,7 +186,7 @@ function parseUrl() {
   };
 }
 
-function getPlaceNames(dcids: string[]) {
+function getPlaceNames(dcids: string[]): Promise<{ [key: string]: string }> {
   let url = "/api/place/name?";
   const urls = [];
   for (const place of dcids) {
@@ -187,7 +198,9 @@ function getPlaceNames(dcids: string[]) {
   });
 }
 
-function getStatsVarInfo(dcids: string[]) {
+function getStatsVarInfo(
+  dcids: string[]
+): Promise<Record<string, StatsVarInfo>> {
   let url = "/api/stats/stats-var-property?";
   const urls = [];
   for (const dcid of dcids) {
@@ -199,7 +212,7 @@ function getStatsVarInfo(dcids: string[]) {
   });
 }
 
-function getStatsVar(dcids: string[]) {
+function getStatsVar(dcids: string[]): Promise<Set<string>> {
   if (dcids.length === 0) {
     return Promise.resolve(new Set<string>());
   }
@@ -213,20 +226,15 @@ function getStatsVar(dcids: string[]) {
     );
   }
   return Promise.all(promises).then((values) => {
-    let statsVars = new Set(); // Count_Person not in List ???
+    let statsVars = new Set();
     for (const value of values) {
       statsVars = new Set([...Array.from(statsVars), ...value]);
     }
-    Object.keys(MAPPING).map((key) => {
-      if (statsVars.has(MAPPING[key])) {
-        statsVars.add(key);
-      }
-    });
     return statsVars;
   }) as Promise<Set<string>>;
 }
 
-function saveToFile(filename: string, csv: string) {
+function saveToFile(filename: string, csv: string): void {
   if (!csv.match(/^data:text\/csv/i)) {
     csv = "data:text/csv;charset=utf-8," + csv;
   }
@@ -237,7 +245,37 @@ function saveToFile(filename: string, csv: string) {
   link.click();
 }
 
+interface StatsVarInfo {
+  md: string;
+  mprop: string;
+  pt: string;
+  pvs: { [key: string]: string };
+  title: string;
+}
+
+/*
+ * Parse url hash into VarUrl object that contains statsvar, place and perCapita
+ * information
+ */
+function getUrlVars(): VarUrl {
+  const vars = {};
+  window.location.hash.replace(/[?&]+([^=&]+)=([^&]*)/gi, (m, key, value) => {
+    vars[key] = value;
+    return value;
+  });
+  return vars as VarUrl;
+}
+
+function setSearchParam(vars: VarUrl) {
+  let newHash = "#";
+  for (const k in vars) {
+    newHash += "&" + k + "=" + vars[k];
+  }
+  window.location.hash = newHash;
+}
+
 export {
+  StatsVarInfo,
   updateUrl,
   parseUrl,
   getStatsVarInfo,

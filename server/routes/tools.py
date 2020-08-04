@@ -27,11 +27,6 @@ def timeline():
     return flask.render_template('tools/timeline.html')
 
 
-@bp.route('/download')
-def download():
-    return flask.render_template('tools/download.html')
-
-
 @bp.route('/scatter')
 def scatter():
     return flask.render_template('tools/scatter.html')

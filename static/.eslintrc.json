@@ -1,8 +1,20 @@
 {
-  "parser": "babel-eslint",
-  "extends": ["prettier"],
-  "plugins": ["prettier"],
+  "parser": "@typescript-eslint/parser",
+  "extends": [
+    "eslint:recommended",
+    "plugin:react/recommended",
+    "prettier",
+    "plugin:@typescript-eslint/eslint-recommended",
+    "plugin:@typescript-eslint/recommended"
+  ],
+  "plugins": [
+    "react",
+    "prettier"
+  ],
   "rules": {
-    "prettier/prettier": ["error"]
+    "prettier/prettier": ["error"],
+    "semi": ["error", "always"],
+    "@typescript-eslint/no-explicit-any": "off",
+    "no-fallthrough": "off"
   }
 }

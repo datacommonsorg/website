@@ -24,7 +24,6 @@ import os
 
 import flask
 from flask import request, redirect, url_for
-from google.cloud import storage
 import jinja2
 
 import services.datacommons as dc
@@ -48,6 +47,14 @@ app = create_app()
 
 GCS_BUCKET = app.config['GCS_BUCKET']
 _MAX_SEARCH_RESULTS = 1000
+
+# Contains statistical variable and the display name used for place rankings.
+RANKING_STATS = {
+    'Count_Person': 'Population',
+    'Median_Income_Person': 'Median Income',
+    'Median_Age_Person': 'Median Age',
+    'UnemploymentRate_Person': 'Unemployment Rate',
+}
 
 
 def get_place_args(get_values):
@@ -75,11 +82,6 @@ def dev():
         flask.abort(404)
     return flask.render_template('dev.html')
 
-@app.route('/dev_menu')
-def dev_menu():
-    if os.environ.get('FLASK_ENV') == 'production':
-        flask.abort(404)
-    return flask.render_template('dev_menu.html')
 
 @app.route('/place')
 def place():
@@ -170,54 +172,24 @@ def api_mapinfo(dcid):
 
 @cache.memoize(timeout=3600 * 24)  # Cache for one day.
 def get_related_place(
-        dcid, population_type, measured_property, stat_type, pvs_string='',
-        measurement_method=None, same_place_type=None, within_place=None,
+        dcid, stats_vars_string, same_place_type=None, within_place=None,
         is_per_capita=None):
-    pv_tokens = pvs_string.split('^')
-    pvs = {}
-    for i in range(len(pv_tokens) // 2):
-        pvs[pv_tokens[i*2]] = pv_tokens[i*2+1]
+    stats_vars = stats_vars_string.split('^')
+
     return dc.get_related_place(
-        [dcid], population_type, measured_property, stat_type, pvs=pvs,
-        measurement_method=measurement_method, same_place_type=same_place_type,
-        within_place=within_place, is_per_capita=is_per_capita).get(dcid, {})
+        dcid, stats_vars, same_place_type=same_place_type,
+        within_place=within_place, is_per_capita=is_per_capita)
 
 
+# TODO(boxu): move this to route.place module.
 @cache.memoize(timeout=3600 * 24)  # Cache for one day.
-def api_similar_places_helper(dcid, stats_var):
-    triples = dc.get_triples([stats_var])[stats_var]
-    population_type = None
-    measured_property = None
-    stat_type = None
-    measurement_method = None
-    pvs = {}
-    for t in triples:
-        if t[1] in ["provenance", "typeOf"]:
-            continue
-        if t[1] == "statType":
-            stat_type = t[2]
-        elif t[1] == "populationType":
-            population_type = t[2]
-        elif t[1] == "measurementMethod":
-            measurement_method = t[2]
-        elif t[1] == "measuredProperty":
-            measured_property = t[2]
-        else:
-            pvs[t[1]] = t[2]
-    return dc.get_related_place(
-        [dcid], population_type, measured_property, stat_type, pvs=pvs,
-        measurement_method=measurement_method, same_place_type=True).get(dcid, {})
-
-
-@app.route('/api/similar-place/<path:dcid>')
-def api_similar_places(dcid):
+@app.route('/api/similar-place/<stats_var>/<path:dcid>')
+def api_similar_places(stats_var, dcid):
     """
     Get the similar places for a given place by stats var.
     """
-    stats_var = request.args.get('stats-var')
-    if not stats_var:
-        flask.abort('Missing url parameter "stats-var"', 400)
-    return api_similar_places_helper(dcid, stats_var)
+    return dc.get_related_place(
+        dcid, [stats_var], same_place_type=True).get(stats_var, {})
 
 
 @cache.memoize(timeout=3600 * 24)  # Cache for one day.
@@ -272,44 +244,28 @@ def api_ranking(dcid):
         if len(selected_parents) == 3:
             break
     result = collections.defaultdict(list)
-    # TODO(boxu): make the stats_vars in a config.
     for parent in selected_parents:
-        # Population ranking
-        result['Population'].append({
-            'name': parent_names[parent],
-            'data': get_related_place(
-                dcid, 'Person', 'count', 'measuredValue',
-                same_place_type=True, within_place=parent)})
-        # Median income
-        result['Median Income'].append({
-            'name': parent_names[parent],
-            'data': get_related_place(
-                dcid, 'Person', 'income', 'medianValue',
-                pvs_string='age^Years15Onwards^incomeStatus^WithIncome',
-                same_place_type=True, within_place=parent)})
-        # Median age
-        result['Median Age'].append({
-            'name': parent_names[parent],
-            'data': get_related_place(
-                dcid, 'Person', 'age', 'medianValue',
-                same_place_type=True, within_place=parent)})
-        # Unemployment rate
-        result['Unemployment Rate'].append({
-            'name': parent_names[parent],
-            'data': get_related_place(
-                dcid, 'Person', 'unemploymentRate', 'measuredValue',
-                same_place_type=True, within_place=parent)})
-        # Crime
-        result['Crime per capita'].append({
-            'name': parent_names[parent],
-            'data': get_related_place(
-                dcid, 'CriminalActivities', 'count', 'measuredValue',
-                pvs_string='crimeType^UCR_CombinedCrime',
-                same_place_type=True, within_place=parent, is_per_capita=True)})
+        stats_var_string = '^'.join(RANKING_STATS.keys())
+        response = get_related_place(
+            dcid, stats_var_string, same_place_type=True, within_place=parent)
+        for stats_var, data in response.items():
+            result[RANKING_STATS[stats_var]].append(
+                {'name': parent_names[parent], 'data': data})
 
-    result['label'] = [
-        'Population', 'Median Income', 'Median Age', 'Unemployment Rate',
-        'Crime per capita']
+        # Crime stats var is separted from RANKING_STATS as it uses perCapita
+        # option.
+        # TOOD(shifucun): merge this once https://github.com/datacommonsorg/mixer/issues/262 is fixed.
+        crime_statsvar = {
+            'Count_CriminalActivities_CombinedCrime': 'Crime per capita'}
+        response = get_related_place(
+            dcid, '^'.join(crime_statsvar.keys()), same_place_type=True,
+            within_place=parent, is_per_capita=True)
+        for stats_var, data in response.items():
+            result[crime_statsvar[stats_var]].append(
+                {'name': parent_names[parent], 'data': data})
+
+    result['label'] = list(RANKING_STATS.values()) + \
+        list(crime_statsvar.values())
     for label in result['label']:
         result[label] = [x for x in result[label] if x['data']]
     result['label'] = [x for x in result['label'] if result[x]]

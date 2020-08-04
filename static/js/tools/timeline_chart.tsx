@@ -15,20 +15,12 @@
  */
 
 import React, { Component } from "react";
-import { randDomId } from "../shared/util";
-import { updateUrl, saveToFile } from "./timeline_util";
+import { StatsVarInfo, updateUrl } from "./timeline_util";
 import { fetchStatsData, StatsData } from "../shared/data_fetcher";
-import { drawGroupLineChart, computePlotParams } from "../chart/draw";
+import { drawGroupLineChart } from "../chart/draw";
+import { PlotParams, computePlotParams } from "../chart/base";
 
 const CHART_HEIGHT = 300;
-
-interface StatsVarInfo {
-  md: string;
-  mprop: string;
-  pt: string;
-  pvs: { [key: string]: string };
-  title: string;
-}
 
 interface StatsVarChipPropsType {
   statsVar: string;
@@ -37,7 +29,7 @@ interface StatsVarChipPropsType {
   title: string;
 }
 
-class StatsVarChip extends Component<StatsVarChipPropsType, {}> {
+class StatsVarChip extends Component<StatsVarChipPropsType, unknown> {
   render() {
     return (
       <div
@@ -58,240 +50,134 @@ class StatsVarChip extends Component<StatsVarChipPropsType, {}> {
   }
 }
 
-interface ChartRegionPropsType {
+interface ChartPropsType {
   // An array of place dcids.
+  mprop: string;
   places: [string, string][];
   statsVars: { [key: string]: StatsVarInfo };
   perCapita: boolean;
+  onDataUpdate: (mprop: string, data: StatsData) => void;
 }
 
-class ChartRegion extends Component<ChartRegionPropsType, {}> {
-  grouping: { [key: string]: string[] };
+class Chart extends Component<ChartPropsType, unknown> {
+  data: StatsData;
+  svgContainer: React.RefObject<HTMLDivElement>;
   placeName: { [key: string]: string };
-  chartContainer: React.RefObject<HTMLDivElement>;
-  allStatsData: { domId: string; data: StatsData }[];
-  downloadLink: HTMLAnchorElement;
+  statsVarsTitle: { [key: string]: string };
+  plotParams: PlotParams;
+  statsData: StatsData;
 
-  constructor(props: ChartRegionPropsType) {
+  constructor(props: ChartPropsType) {
     super(props);
-    this.grouping = {};
     this.placeName = {};
-    this.chartContainer = React.createRef();
+    this.statsVarsTitle = {};
+    this.svgContainer = React.createRef();
     this.handleWindowResize = this.handleWindowResize.bind(this);
-    this.downloadLink = document.getElementById(
-      "download-link"
-    ) as HTMLAnchorElement;
-    this.downloadLink.onclick = () => {
-      saveToFile("export.csv", this.createDataCsv());
-    };
   }
-  render() {
-    if (
-      this.props.places.length === 0 ||
-      Object.keys(this.props.statsVars).length === 0
-    ) {
-      return <div></div>;
+  render(): JSX.Element {
+    const statsVars = Object.keys(this.props.statsVars);
+    // TODO(shifucun): investigate on stats var title, now this is updated
+    // several times.
+    this.statsVarsTitle = {};
+    for (const dcid in this.props.statsVars) {
+      this.statsVarsTitle[dcid] = this.props.statsVars[dcid].title || dcid;
     }
-    this.buildGrouping();
+    // TODO(shifucn): simplify placeid->name, statsid->name logic.
+    for (const place of this.props.places) {
+      this.placeName[place[0]] = place[1];
+    }
+    this.plotParams = computePlotParams(
+      this.props.places.map((x) => x[1]),
+      Object.values(this.statsVarsTitle)
+    );
+    // Stats var chip color is independent of places, so pick one place to
+    // provide a key for style look up.
+    const placeName = this.props.places[0][1];
     return (
-      <div ref={this.chartContainer}>
-        {Object.keys(this.grouping).map((domId) => {
-          const statsVars = this.grouping[domId];
-          const statsVarsTile = statsVars.map(sv => this.props.statsVars[sv].title);
-          const plotParams = computePlotParams(
-            this.props.places.map((x) => x[1]),
-            statsVarsTile,
-          );
-          // Stats var chip color is independent of places, so pick one place to
-          // provide a key for style look up.
-          const placeName = this.props.places[0][1];
-          return (
-            <div key={domId} className="card">
-              <div id={domId} className="chart-svg"></div>
-              <div>
-                {statsVars.map(
-                  function (statsVar) {
-                    let color: string;
-                    const statsVarTitle = this.props.statsVars[statsVar].title;
-                    if (statsVars.length > 1) {
-                      color = plotParams.lines[placeName + statsVarTitle].color;
-                    }
-                    return (
-                      <StatsVarChip
-                        statsVar={statsVar}
-                        title={statsVarTitle}
-                        color={color}
-                        key={randDomId()}
-                        deleteStatsVarChip={this.deleteStatsVarChip}
-                      />
-                    );
-                  }.bind(this)
-                )}
-              </div>
-            </div>
-          );
-        }, this)}
+      <div className="card">
+        <div ref={this.svgContainer} className="chart-svg"></div>
+        <div>
+          {statsVars.map(
+            function (statsVar) {
+              let color: string;
+              const title = this.statsVarsTitle[statsVar];
+              if (statsVars.length > 1) {
+                color = this.plotParams.lines[placeName + title].color;
+              }
+              return (
+                <StatsVarChip
+                  key={statsVar}
+                  statsVar={statsVar}
+                  title={title}
+                  color={color}
+                  deleteStatsVarChip={this.deleteStatsVarChip}
+                />
+              );
+            }.bind(this)
+          )}
+        </div>
       </div>
     );
   }
 
-  componentDidMount() {
-    this.updateChart();
+  componentDidMount(): void {
+    this.loadDataAndDrawChart();
     window.addEventListener("resize", this.handleWindowResize);
   }
 
-  componentWillUnmount() {
+  componentWillUnmount(): void {
     window.removeEventListener("resize", this.handleWindowResize);
   }
 
-  componentDidUpdate() {
-    this.updateChart();
+  componentDidUpdate(): void {
+    this.loadDataAndDrawChart();
   }
 
   private handleWindowResize() {
-    if (!this.chartContainer.current) {
+    if (!this.svgContainer.current) {
       return;
     }
     this.drawChart();
   }
 
-  private buildGrouping() {
-    this.grouping = {};
-    const temp = {};
-    for (const statsVarId in this.props.statsVars) {
-      const mprop = this.props.statsVars[statsVarId].mprop;
-      if (!temp[mprop]) {
-        temp[mprop] = [];
-      }
-      temp[mprop].push(statsVarId);
-    }
-    for (const mprop in temp) {
-      const domId = randDomId();
-      this.grouping[domId] = temp[mprop];
-    }
+  private loadDataAndDrawChart() {
+    fetchStatsData(
+      this.props.places.map((x) => x[0]),
+      Object.keys(this.props.statsVars),
+      this.props.perCapita,
+      1
+    ).then((statsData) => {
+      this.statsData = statsData;
+      this.props.onDataUpdate(this.props.mprop, statsData);
+      this.drawChart();
+    });
   }
 
-  private updateChart() {
-    if (this.props.places.length !== 0) {
-      const promises: Promise<{ domId: string; data: StatsData }>[] = [];
-      for (const domId in this.grouping) {
-        promises.push(
-          fetchStatsData(
-            this.props.places.map((x) => x[0]),
-            this.grouping[domId],
-            this.props.perCapita,
-            1
-          ).then((data) => {
-            return { domId, data };
-          })
-        );
-      }
-      for (const place of this.props.places) {
-        this.placeName[place[0]] = place[1];
-      }
-      Promise.all(promises).then((values) => {
-        this.allStatsData = values;
-        this.drawChart();
-      });
-      this.downloadLink.style.visibility = "visible";
-    } else {
-      this.downloadLink.style.visibility = "hidden";
-    }
-  }
-
+  /**
+   * Draw chart in current svg container based on stats data.
+   */
   private drawChart() {
-    if (this.props.places.length === 0 || !this.allStatsData) {
-      return;
+    const dataGroupsDict = {};
+    for (const placeDcid of this.statsData.places) {
+      dataGroupsDict[
+        this.placeName[placeDcid]
+      ] = this.statsData.getStatsVarGroupWithTime(placeDcid);
     }
-    for (const statsData of this.allStatsData) {
-      const domId = statsData.domId;
-      const dataGroupsDict = {};
-      for (const placeDcid of statsData.data.places) {
-        dataGroupsDict[
-          this.placeName[placeDcid]
-        ] = statsData.data.getStatsVarGroupWithTime(placeDcid);
-      }
-      const statsVars = this.grouping[domId];
-      if (!statsVars) {
-        continue;
-      }
-      const statsVarsTitle = {};
-      for (const statsVar of statsVars) {
-        statsVarsTitle[statsVar] = this.props.statsVars[statsVar].title || statsVar;
-      }
-      const plotParams = computePlotParams(
-        this.props.places.map((x) => x[1]),
-        Object.values(statsVarsTitle),
-      );
-      drawGroupLineChart(
-        statsData.domId,
-        this.chartContainer.current.offsetWidth,
-        CHART_HEIGHT,
-        statsVarsTitle,
-        dataGroupsDict,
-        plotParams,
-        Array.from(statsData.data.sources)
-      );
-    }
+    drawGroupLineChart(
+      this.svgContainer.current,
+      this.svgContainer.current.offsetWidth,
+      CHART_HEIGHT,
+      this.statsVarsTitle,
+      dataGroupsDict,
+      this.plotParams,
+      Array.from(this.statsData.sources)
+    );
   }
 
+  // TODO(shifucun): no need to pass this function from parent?
   private deleteStatsVarChip(statsVarUpdate: string) {
     updateUrl({ statsVar: { statsVar: statsVarUpdate, shouldAdd: false } });
   }
-
-  private createDataCsv() {
-    // Get all the dates
-    let allDates = new Set<string>();
-    for (const statData of this.allStatsData) {
-      allDates = new Set([...Array.from(allDates), ...statData.data.dates]);
-    }
-    // Create the the header row.
-    const header = ["date"];
-    for (const statData of this.allStatsData) {
-      for (const place of statData.data.places) {
-        for (const sv of statData.data.statsVars) {
-          header.push(`${place} ${sv}`);
-        }
-      }
-    }
-    // Get the place name
-    const placeName: { [key: string]: string } = {};
-    const sample = this.allStatsData[0].data;
-    const statsVar = sample.statsVars[0];
-    for (const place of sample.places) {
-      placeName[sample.data[statsVar][place].place_dcid] =
-        sample.data[statsVar][place].place_name;
-    }
-
-    // Iterate each year, group, place, stats var to populate data
-    const rows: string[][] = [];
-    for (const date of Array.from(allDates)) {
-      const row: string[] = [date];
-      for (const statData of this.allStatsData) {
-        for (const p of statData.data.places) {
-          for (const sv of statData.data.statsVars) {
-            const tmp = statData.data.data[sv][p];
-            if (tmp && tmp.data && tmp.data[date]) {
-              row.push(String(tmp.data[date]));
-            } else {
-              row.push("");
-            }
-          }
-        }
-      }
-      rows.push(row);
-    }
-    let headerRow = header.join(",") + "\n";
-    for (const dcid in placeName) {
-      const re = new RegExp(dcid, "g");
-      headerRow = headerRow.replace(re, placeName[dcid]);
-    }
-    let result = headerRow;
-    for (const row of rows) {
-      result += row.join(",") + "\n";
-    }
-    return result;
-  }
 }
 
-export { ChartRegionPropsType, ChartRegion, StatsVarInfo };
+export { Chart };

@@ -15,6 +15,7 @@
  */
 
 import React, { Component } from "react";
+import _ from "lodash";
 import {
   parseUrl,
   getStatsVarInfo,
@@ -24,8 +25,9 @@ import {
 } from "./timeline_util";
 import { SearchBar } from "./timeline_search";
 import { Menu } from "./statsvar_menu";
-import { ChartRegion, StatsVarInfo } from "./timeline_chart";
+import { StatsVarInfo } from "./timeline_util";
 import { Info } from "./timeline_info";
+import { ChartRegion } from "./timeline_chart_region";
 
 interface PagePropType {
   search: boolean;
@@ -44,7 +46,7 @@ class Page extends Component<PagePropType, PageStateType> {
     super(props);
     this.handleHashChange = this.handleHashChange.bind(this);
     this._togglePerCapita = this._togglePerCapita.bind(this);
-    this.setStatsVarNames = this.setStatsVarNames.bind(this);
+    this.setStatsVarTitle = this.setStatsVarTitle.bind(this);
     this.state = {
       statsVarPaths: [],
       statsVarInfo: {},
@@ -53,15 +55,25 @@ class Page extends Component<PagePropType, PageStateType> {
       statsVarValid: new Set(),
     };
   }
+  shouldComponentUpdate(
+    nextProps: PagePropType,
+    nextState: PageStateType
+  ): boolean {
+    return (
+      JSON.stringify(this.state.statsVarInfo) !==
+        JSON.stringify(nextState.statsVarInfo) ||
+      this.state.places !== nextState.places ||
+      this.state.perCapita !== nextState.perCapita
+    );
+  }
 
-  componentDidMount() {
+  componentDidMount(): void {
     window.addEventListener("hashchange", this.handleHashChange);
     this.handleHashChange();
   }
 
-  handleHashChange() {
+  handleHashChange(): void {
     const urlVar = parseUrl();
-
     let statsVarInfoPromise = Promise.resolve(this.state.statsVarInfo);
     if (urlVar.statsVarPath !== this.state.statsVarPaths) {
       if (urlVar.statsVarId.length !== 0) {
@@ -99,42 +111,44 @@ class Page extends Component<PagePropType, PageStateType> {
     });
   }
 
-  _togglePerCapita() {
+  _togglePerCapita(): void {
     updateUrl({ pc: !this.state.perCapita });
     this.setState({
       perCapita: !this.state.perCapita,
     });
   }
 
-  setStatsVarNames(statsVarId: string, statsVarName: string) {
-    const value = this.state.statsVarInfo;
-    value[statsVarId].title = statsVarName;
+  setStatsVarTitle(statsVarId2Title: { [key: string]: string }): void {
+    // Deep clone state value out to prevent change state value outside
+    // setState(). Otherwise the state is changed and check in
+    // shouldComponentUpdate() has no effect.
+    const value = _.cloneDeep(this.state.statsVarInfo);
+    Object.keys(statsVarId2Title).map((id) => {
+      if (id in value) {
+        value[id].title = statsVarId2Title[id];
+      }
+    });
     this.setState({
       statsVarInfo: value,
     });
   }
 
-  render() {
+  render(): JSX.Element {
     return (
       <div>
         <div className="explore-menu-container" id="explore">
           <div id="drill-scroll-container">
             <div className="title">Select variables:</div>
-            <div id="percapita-link" className="text">
-              <label htmlFor="percapita">Per capita</label>
-              <input
-                type="checkbox"
-                id="percapita"
-                name="pc"
-                onClick={this._togglePerCapita}
-              ></input>
-            </div>
+            <span className="perCapita">Per capita</span>
+            <button
+              className={this.state.perCapita ? "checkbox checked" : "checkbox"}
+              onClick={this._togglePerCapita}
+            ></button>
             <Menu
-              search={this.props.search}
               statsVarPaths={this.state.statsVarPaths}
               statsVarValid={this.state.statsVarValid}
               filter={this.state.places.length !== 0}
-              setName={this.setStatsVarNames}
+              setStatsVarTitle={this.setStatsVarTitle}
             ></Menu>
           </div>
         </div>
@@ -144,13 +158,16 @@ class Page extends Component<PagePropType, PageStateType> {
               <SearchBar places={this.state.places} />
             </div>
             {this.state.places.length === 0 && <Info />}
-            <div id="chart-region">
-              <ChartRegion
-                places={this.state.places}
-                statsVars={this.state.statsVarInfo}
-                perCapita={this.state.perCapita}
-              ></ChartRegion>
-            </div>
+            {this.state.places.length !== 0 &&
+              Object.keys(this.state.statsVarInfo).length !== 0 && (
+                <div id="chart-region">
+                  <ChartRegion
+                    places={this.state.places}
+                    statsVars={this.state.statsVarInfo}
+                    perCapita={this.state.perCapita}
+                  ></ChartRegion>
+                </div>
+              )}
           </div>
         </div>
       </div>

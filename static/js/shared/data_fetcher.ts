@@ -15,20 +15,21 @@
  */
 
 import axios, { AxiosResponse } from "axios";
-import _ from "lodash";
 
 import { DataPoint, DataGroup } from "../chart/base";
 import { STATS_VAR_TEXT } from "./stats_var";
 
-interface ApiResponse {
-  [key: string]: {
-    data: {
-      [key: string]: number;
-    };
-    place_name: string;
-    place_dcid: string;
-    provenance_domain: string;
+interface TimeSeries {
+  data: {
+    [key: string]: number;
   };
+  place_name: string;
+  place_dcid: string;
+  provenance_domain: string;
+}
+
+interface ApiResponse {
+  [key: string]: TimeSeries | null;
 }
 
 /**
@@ -63,7 +64,7 @@ class StatsData {
    * @param date? The date of the data point. By default pick the last date
    * in the time series.
    */
-  getPlaceGroupWithStatsVar(date?: string) {
+  getPlaceGroupWithStatsVar(date?: string): DataGroup[] {
     if (!date) {
       date = this.dates.slice(-1)[0];
     }
@@ -72,12 +73,14 @@ class StatsData {
       const dataPoints: DataPoint[] = [];
       let placeName: string;
       for (const statsVar of this.statsVars) {
-        if (this.data[statsVar][place].data) {
+        if (!this.data[statsVar][place]) continue;
+        const timeSeries = this.data[statsVar][place];
+        if (timeSeries.data) {
           dataPoints.push({
             label: STATS_VAR_TEXT[statsVar],
-            value: this.data[statsVar][place].data[date],
+            value: timeSeries.data[date],
           });
-          placeName = this.data[statsVar][place].place_name;
+          placeName = timeSeries.place_name;
         }
       }
       if (dataPoints.length > 0) {
@@ -92,18 +95,20 @@ class StatsData {
    *
    * @param place? The place to get the stats.
    */
-  getStatsVarGroupWithTime(place?: string) {
+  getStatsVarGroupWithTime(place?: string): DataGroup[] {
     if (!place) {
       place = this.places[0];
     }
     const result: DataGroup[] = [];
     for (const statsVar of this.statsVars) {
       const dataPoints: DataPoint[] = [];
-      if (this.data[statsVar][place].data) {
+      if (!this.data[statsVar][place]) continue;
+      const timeSeries = this.data[statsVar][place];
+      if (Object.keys(timeSeries.data).length !== 0) {
         for (const date of this.dates) {
           dataPoints.push({
             label: date,
-            value: this.data[statsVar][place].data[date],
+            value: timeSeries.data[date] || null,
           });
         }
         result.push(new DataGroup(statsVar, dataPoints));
@@ -117,7 +122,7 @@ class StatsData {
    *
    * @param place? The place to get the stats.
    */
-  getTimeGroupWithStatsVar(place?: string) {
+  getTimeGroupWithStatsVar(place?: string): DataGroup[] {
     if (!place) {
       place = this.places[0];
     }
@@ -125,9 +130,11 @@ class StatsData {
     for (const date of this.dates) {
       const dataPoints: DataPoint[] = [];
       for (const statsVar of this.statsVars) {
+        if (!this.data[statsVar][place]) continue;
+        const timeSeries = this.data[statsVar][place];
         dataPoints.push({
           label: STATS_VAR_TEXT[statsVar],
-          value: this.data[statsVar][place].data[date],
+          value: timeSeries.data[date],
         });
       }
       result.push(new DataGroup(date, dataPoints));
@@ -147,7 +154,7 @@ class StatsData {
    * @param place? The place to get the stats.
    * @param date? The date to get the stats.
    */
-  getStatsPoint(place?: string, date?: string) {
+  getStatsPoint(place?: string, date?: string): DataPoint[] {
     if (!place) {
       place = this.places[0];
     }
@@ -156,9 +163,11 @@ class StatsData {
     }
     const result: DataPoint[] = [];
     for (const statsVar of this.statsVars) {
+      if (!this.data[statsVar][place]) continue;
+      const timeSeries = this.data[statsVar][place];
       result.push({
         label: STATS_VAR_TEXT[statsVar],
-        value: this.data[statsVar][place].data[date],
+        value: timeSeries.data[date],
       });
     }
     return result;
@@ -180,8 +189,8 @@ class StatsData {
 function fetchStatsData(
   places: string[],
   statsVars: string[],
-  perCapita: boolean = false,
-  scaling: number = 1
+  perCapita = false,
+  scaling = 1
 ): Promise<StatsData> {
   const n = statsVars.length;
   let dcidParams = `?`;
@@ -203,51 +212,34 @@ function fetchStatsData(
       // Compute perCapita.
       if (perCapita) {
         for (const place in allResp[i].data) {
-          if (Object.keys(allResp[i].data[place]).length === 0) {
-            continue;
-          }
+          if (!allResp[i].data[place]) continue;
+          const dateValue = allResp[i].data[place].data;
           const population = allResp[n].data[place].data;
           const years = Object.keys(population);
           years.sort();
           const yearMin = years[0];
           const yearMax = years[years.length - 1];
-          for (const date in allResp[i].data[place].data) {
-            if (allResp[i].data[place].data.hasOwnProperty(date)) {
-              const year = date.split("-")[0];
-              let pop: number;
-              if (year in population) {
-                pop = population[year];
-              } else if (year < yearMin) {
-                pop = population[yearMin];
-              } else {
-                pop = population[yearMax];
-              }
-              result.data[statsVars[i]][place].data[date] /= pop / scaling;
+          for (const date in dateValue) {
+            const year = date.split("-")[0];
+            let pop: number;
+            if (year in population) {
+              pop = population[year];
+            } else if (year < yearMin) {
+              pop = population[yearMin];
+            } else {
+              pop = population[yearMax];
             }
+            result.data[statsVars[i]][place].data[date] /= pop / scaling;
           }
         }
       }
-      // Build the dates collection
+      // Build the dates collection, get the union of available dates for all data
       for (const place in allResp[i].data) {
-        if (!allResp[i].data[place]) {
-          continue;
-        }
-        result.sources.add(allResp[i].data[place].provenance_domain)
-        // Build initial dates
-        if (Object.keys(dates).length === 0) {
-          for (const date in allResp[i].data[place].data) {
-            if (allResp[i].data[place].data.hasOwnProperty(date)) {
-              dates[date] = true;
-            }
-          }
-        } else {
-          // If a date is not in the new data, remove it from the current
-          // collection.
-          for (const date of Object.keys(dates)) {
-            if (allResp[i].data[place].data && !(date in allResp[i].data[place].data)) {
-              delete dates[date];
-            }
-          }
+        if (!allResp[i].data[place]) continue;
+        const timeSeries = allResp[i].data[place];
+        result.sources.add(timeSeries.provenance_domain);
+        for (const date in timeSeries.data) {
+          dates[date] = true;
         }
       }
     }

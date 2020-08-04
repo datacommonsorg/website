@@ -20,13 +20,12 @@ import axios from "axios";
 import { MainPane } from "./choropleth_template";
 import * as d3 from "d3";
 
-var url = new URL(window.location.href);
+const url = new URL(window.location.href);
 
 /**
  * Generates choropleth map from API on pageload.
  */
 window.onload = () => {
-  const urlParams = new URLSearchParams(window.location.search);
   ReactDOM.render(
     React.createElement(MainPane),
     document.getElementById("main-pane")
@@ -34,13 +33,13 @@ window.onload = () => {
 
   // TODO:(iancostello) Refactor the url builder.
   // Build api call from request.
-  var base_url = build_choropleth_url(
+  const base_url = build_choropleth_url(
     ["statVar", "perCapita", "geoId", "level", "mdom"],
     true
   );
   // Create request and generate map.
   axios.get(base_url).then((resp) => {
-    var payload = resp.data[0];
+    const payload = resp.data[0];
     generateGeoMap(payload["geoJson"], payload["_PLOTTING_INFO"]);
   });
 
@@ -55,23 +54,23 @@ window.onload = () => {
  */
 function generateGeoMap(geojson, plt_info) {
   // Combine path elements from D3 content.
-  var mapContent = d3
+  const mapContent = d3
     .select("#main-pane g.map")
     .selectAll("path")
     .data(geojson.features);
 
   // Build chart display options.
-  var colorScale = d3
+  const colorScale = d3
     .scaleLinear()
     .domain(plt_info["domain"])
     .range(plt_info["palette"]);
 
   // Scale and center the map.
-  var svg_container = document.getElementById("map_container");
-  var projection = d3
+  const svg_container = document.getElementById("map_container");
+  const projection = d3
     .geoAlbers()
     .fitSize([svg_container.clientWidth, svg_container.clientHeight], geojson);
-  var geomap = d3.geoPath().projection(projection);
+  const geomap = d3.geoPath().projection(projection);
 
   // Build map objects.
   mapContent
@@ -80,8 +79,8 @@ function generateGeoMap(geojson, plt_info) {
     .attr("d", geomap)
     // Add CSS class to each path for border outlining.
     .attr("class", "border")
-    .attr("fill", function (d : { properties: { value : number }}) {
-      if (d.properties.hasOwnProperty("value")) {
+    .attr("fill", function (d: { properties: { value: number } }) {
+      if (d.properties.value) {
         return colorScale(d.properties.value);
       } else {
         return "gray";
@@ -99,10 +98,8 @@ function generateGeoMap(geojson, plt_info) {
  */
 function handleMapHover(geo) {
   // Display statistical variable information on hover.
-  let name = geo.properties.name;
-  let geo_value = geo.properties.hasOwnProperty("value")
-    ? geo.properties.value
-    : "No Value";
+  const name = geo.properties.name;
+  const geo_value = geo.properties.value ? geo.properties.value : "No Value";
   document.getElementById("hover-text-display").innerHTML =
     name + " - " + geo_value;
 
@@ -142,15 +139,14 @@ function handleMapClick(geo) {
  */
 function build_choropleth_url(fields_to_include, from_api) {
   //TODO(iancostello): Make this path relative.
-  var base_url = document.location.origin + document.location.pathname;
+  let base_url = document.location.origin + document.location.pathname;
   if (from_api) {
     base_url += "/api";
   }
   base_url += "?";
-  const urlParams = new URLSearchParams(window.location.search);
-  for (let index in fields_to_include) {
-    let arg_name = fields_to_include[index];
-    let arg_value = url.searchParams.get(arg_name);
+  for (const index in fields_to_include) {
+    const arg_name = fields_to_include[index];
+    const arg_value = url.searchParams.get(arg_name);
     if (arg_value != null) {
       base_url += "&" + arg_name + "=" + arg_value;
     }
@@ -163,7 +159,7 @@ function build_choropleth_url(fields_to_include, from_api) {
  * @param {string} geoId to redirect to.
  */
 function redirectToGeo(geoId) {
-  var base_url = build_choropleth_url(
+  let base_url = build_choropleth_url(
     ["statVar", "perCapita", "level", "mdom"],
     false
   );
@@ -172,7 +168,7 @@ function redirectToGeo(geoId) {
 
   // Add or create breadcrumbs field.
   // TODO(iancostello): Use parent places api.
-  var breadcrumbs = url.searchParams.get("bc");
+  const breadcrumbs = url.searchParams.get("bc");
   if (breadcrumbs != null && breadcrumbs != "") {
     base_url += breadcrumbs + ";";
   }
@@ -184,25 +180,25 @@ function redirectToGeo(geoId) {
  * Generates the breadcrumbs text from browser url.
  */
 function generateBreadCrumbs() {
-  var breadcrumbs = url.searchParams.get("bc");
+  const breadcrumbs = url.searchParams.get("bc");
   if (breadcrumbs != null && breadcrumbs != "") {
-    var breadcrumbs_display = document.getElementById("breadcrumbs");
-    var crumbs = breadcrumbs.split(";");
+    const breadcrumbs_display = document.getElementById("breadcrumbs");
+    const crumbs = breadcrumbs.split(";");
 
     // Build url for each reference in the breadcrumbs.
-    var base_url = build_choropleth_url(
+    let base_url = build_choropleth_url(
       ["statVar", "perCapita", "level", "mdom"],
       false
     );
     base_url += "&geoId=";
 
-    var breadcrumbs_upto = "";
-    for (let index in crumbs) {
-      let level_ref = crumbs[index];
+    let breadcrumbs_upto = "";
+    for (const index in crumbs) {
+      const level_ref = crumbs[index];
 
       if (level_ref != "") {
         // TODO(iancostello): Turn into react component to sanitize.
-        let curr_url = base_url + level_ref + "&bc=" + breadcrumbs_upto;
+        const curr_url = base_url + level_ref + "&bc=" + breadcrumbs_upto;
         breadcrumbs_display.innerHTML +=
           '<a href="' + curr_url + '">' + level_ref + "</a>" + " > ";
         breadcrumbs_upto += level_ref + ";";
