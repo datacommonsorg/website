@@ -8,6 +8,13 @@ steps:
   - -c
   - ./run_test.sh -p
 
+- id: flask_webdriver_test
+  name: python:3.7-slim
+  entrypoint: /bin/sh
+  args:
+  - -c
+  - ./run_test.sh -w
+
 - id: pv_tree_generator
   name: python:3.7-slim
   entrypoint: /bin/sh
