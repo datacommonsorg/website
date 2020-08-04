@@ -15,6 +15,15 @@
  */
 import axios from "axios";
 import statsVarPathMap from "../../data/statsvar_path.json";
+import { node } from "prop-types";
+
+interface StatsVarInfo {
+  md: string;
+  mprop: string;
+  pt: string;
+  pvs: { [key: string]: string };
+  title: string;
+}
 
 interface VarUrl {
   statsVar: string;
@@ -245,14 +254,6 @@ function saveToFile(filename: string, csv: string): void {
   link.click();
 }
 
-interface StatsVarInfo {
-  md: string;
-  mprop: string;
-  pt: string;
-  pvs: { [key: string]: string };
-  title: string;
-}
-
 /*
  * Parse url hash into VarUrl object that contains statsvar, place and perCapita
  * information
@@ -274,6 +275,73 @@ function setSearchParam(vars: VarUrl) {
   window.location.hash = newHash;
 }
 
+interface StatsVarNode {
+  [key: string]: string [][];
+}
+
+class UrlTimeline {
+  statsVarNodes: StatsVarNode;
+  placeDcids: string[];
+  pc: boolean;	
+
+  constructor() {
+    this.statsVarNodes = {};
+    this.placeDcids = [];
+    this.pc = false;
+  }
+
+  public setPC() {
+    this.pc = true;
+  }
+
+  public unsetPC() {
+    this.pc = false;
+  }
+
+  public addPlace(placeDcid: string) {
+    this.placeDcids.push(placeDcid);
+  }
+
+  public removePLace(placeDcid: string) {
+    const index = this.placeDcids.indexOf(placeDcid);
+    if (index > -1) {
+      this.placeDcids.splice(index, 1);
+    }
+  }
+
+  public addStatsVar(statsVar: string) {
+    if (! this.statsVarNodes.hasOwnProperty(statsVar)){
+      this.statsVarNodes[statsVar] = [];
+    }
+  }
+
+  public addStatsVarWithPath(statsVar: string, nodePath: string[]){
+    if (! this.statsVarNodes.hasOwnProperty(statsVar)){
+      this.statsVarNodes[statsVar] = [nodePath];
+    }
+    else if (!this.statsVarNodes[statsVar].includes(nodePath)){
+      this.statsVarNodes[statsVar].push(nodePath)
+    }
+  }
+
+  public removeStatsVar(statsVar: string) {
+    if (this.statsVarNodes.hasOwnProperty(statsVar)){   
+        delete this.statsVarNodes[statsVar];
+    }
+  }
+
+  public removeStatsVarWithPath(statsVar: string, nodePath: string[]){
+    if (this.statsVarNodes.hasOwnProperty(statsVar)){
+      if (this.statsVarNodes[statsVar].length <= 1){   
+      delete this.statsVarNodes[statsVar]}
+      else{
+        const idx = this.statsVarNodes[statsVar].indexOf(nodePath);
+        this.statsVarNodes[statsVar].splice(idx, 1)
+      }
+    }
+  }
+}	
+
 export {
   StatsVarInfo,
   updateUrl,
@@ -282,4 +350,5 @@ export {
   getPlaceNames,
   getStatsVar,
   saveToFile,
+  UrlTimeline,
 };

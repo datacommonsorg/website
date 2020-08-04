@@ -145,7 +145,7 @@ class Page extends Component<PagePropType, PageStateType> {
               onClick={this._togglePerCapita}
             ></button>
             <Menu
-              statsVarPaths={this.state.statsVarPaths}
+              selectedNodePaths={this.state.statsVarPaths}
               statsVarValid={this.state.statsVarValid}
               filter={this.state.places.length !== 0}
               setStatsVarTitle={this.setStatsVarTitle}

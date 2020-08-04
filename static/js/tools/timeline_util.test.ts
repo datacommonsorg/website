@@ -1,4 +1,20 @@
-import { getPlaceNames, updateUrl, parseUrl } from "./timeline_util";
+/**
+ * Copyright 2020 Google LLC
+ *
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ *      http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ */
+
+import { getPlaceNames, updateUrl, parseUrl, UrlTimeline } from "./timeline_util";
 
 test("update Url statsvar", () => {
   window.location.hash = "";
@@ -58,3 +74,25 @@ test("get place names", () => {
     });
   });
 });
+
+
+test("test UrlTimeline", () => {
+  let urltest = new UrlTimeline();
+  urltest.addPlace("country/USA");
+  expect(urltest.placeDcids).toStrictEqual(["country/USA"])
+  urltest.addStatsVar("Count_Person")
+  expect(urltest.statsVarNodes).toStrictEqual({ Count_Person: [] });
+  urltest.addStatsVarWithPath("Median_Age_Person", ["0", "1"]);
+  expect(urltest.statsVarNodes).toStrictEqual({ Count_Person: [], Median_Age_Person: [["0", "1"]] });
+  urltest.removePLace("country/USA");
+  expect(urltest.placeDcids).toStrictEqual([]);
+  urltest.removeStatsVar("Count_Person");
+  expect(urltest.statsVarNodes).toStrictEqual({ Median_Age_Person: [["0", "1"]] });
+  urltest.removeStatsVarWithPath("Median_Age_Person", ["0", "1"]);
+  expect(urltest.statsVarNodes).toStrictEqual({});
+  // remove statsVar with name only, even though the path exists
+  urltest.addStatsVarWithPath("Count_Person", ["0", "0"])
+  expect(urltest.statsVarNodes).toStrictEqual({Count_Person: [["0","0"]]})
+  urltest.removeStatsVar("Count_Person")
+  expect(urltest.statsVarNodes).toStrictEqual({})
+})
