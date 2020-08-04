@@ -69,6 +69,9 @@ class Chart extends Component<ChartPropsType, {}> {
   statsVarsTitle: { [key: string]: string };
   plotParams: PlotParams;
   statsData: StatsData;
+  // prevProps keeps the last two props,
+  // because the chart would render twice due to "set statsVar title" function in statsVar menu
+  prevProps: {places: string[][], statsVars: {}}[];
 
   constructor(props: ChartPropsType) {
     super(props);
@@ -76,6 +79,7 @@ class Chart extends Component<ChartPropsType, {}> {
     this.statsVarsTitle = {};
     this.svgContainer = React.createRef();
     this.handleWindowResize = this.handleWindowResize.bind(this);
+    this.prevProps = [{places: [], statsVars: {}}, {places: [], statsVars: {}}];
   }
   render() {
     const statsVars = Object.keys(this.props.statsVars);
@@ -133,8 +137,11 @@ class Chart extends Component<ChartPropsType, {}> {
     window.removeEventListener("resize", this.handleWindowResize);
   }
 
-  componentDidUpdate(prevProps) {
-    this.loadDataAndDrawChart(prevProps);
+  componentDidUpdate() {
+    // keep the most recent two props in this.prevProps
+    this.prevProps.shift();
+    this.prevProps.push({places: this.props.places, statsVars: this.props.statsVars})
+    this.loadDataAndDrawChart(this.prevProps[0]);
   }
 
   private handleWindowResize() {
@@ -169,8 +176,10 @@ class Chart extends Component<ChartPropsType, {}> {
       dataNewPlacePromise,
       dataNewStatsVarPromise,
     ]).then((values)=>{
-      this.statsData = updateStatsData(this.statsData, values[0]);
-      this.statsData = updateStatsData(this.statsData, values[1]);
+      if (placeDiff.add.length !== 0){
+            this.statsData = updateStatsData(this.statsData, values[0]);}
+      if (statsVarDiff.add.length !== 0){
+      this.statsData = updateStatsData(this.statsData, values[1]);}
       this.props.onDataUpdate(this.props.mprop, this.statsData)
       this.drawChart();
     })

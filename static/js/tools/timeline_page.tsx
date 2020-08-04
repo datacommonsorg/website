@@ -132,16 +132,6 @@ class Page extends Component<PagePropType, PageStateType> {
   }
 
   render() {
-    let renderChart = false;
-    if (Object.keys(this.state.statsVarInfo).length !== 0){
-      const statVarExample = Object.keys(this.state.statsVarInfo)[0];
-      if (this.state.statsVarInfo[statVarExample].hasOwnProperty("title")){
-        renderChart = true;
-      }
-    }
-    if (this.state.places.length === 0){
-      renderChart = false;
-    }
     return (
       <div>
         <div className="explore-menu-container" id="explore">
@@ -166,7 +156,7 @@ class Page extends Component<PagePropType, PageStateType> {
               <SearchBar places={this.state.places} />
             </div>
             {this.state.places.length === 0 && <Info />}
-            {renderChart && (
+            {this.state.places.length !== 0 && Object.keys(this.state.statsVarInfo).length !== 0 && (
                 <div id="chart-region">
                   <ChartRegion
                     places={this.state.places}
