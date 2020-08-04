@@ -170,6 +170,7 @@ class Chart extends Component<ChartPropsType, unknown> {
       this.statsVarsTitle,
       dataGroupsDict,
       this.plotParams,
+      this.props.mprop,
       Array.from(this.statsData.sources)
     );
   }

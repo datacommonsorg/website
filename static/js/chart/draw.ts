@@ -20,21 +20,21 @@ import { DataGroup, DataPoint, PlotParams, Style, getColorFn } from "./base";
 
 const NUM_X_TICKS = 5;
 const NUM_Y_TICKS = 5;
-const MARGIN = { top: 20, right: 10, bottom: 30, left: 35, yAxis: 3 };
+const MARGIN = { top: 20, right: 5, bottom: 30, left: 35, yAxis: 3 };
 const LEGEND = {
   ratio: 0.2,
   minTextWidth: 100,
   dashWidth: 30,
   lineMargin: 10,
-  marginLeft: 0,
+  marginLeft: -15,
   marginTop: 40,
   defaultColor: "#000",
 };
 const SOURCE = {
-  topMargin: 15,
+  topMargin: 25,
   leftMargin: 8,
   font: 12,
-  height: 20,
+  height: 25,
 };
 
 function appendLegendElem(
@@ -471,6 +471,7 @@ function drawGroupLineChart(
   statsVarsTitle: { [key: string]: string },
   dataGroupsDict: { [place: string]: DataGroup[] },
   plotParams: PlotParams,
+  mprop?: string,
   source?: string[],
   unit?: string
 ): void {
@@ -523,6 +524,30 @@ function drawGroupLineChart(
 
   addXAxis(svg, height, xScale);
   addYAxis(svg, width - MARGIN.right - legendWidth, yScale, unit);
+
+  // add ylabel
+  let ylabelText = mprop.charAt(0).toUpperCase() + mprop.slice(1);
+  if (unit) {
+    ylabelText = ylabelText + "(" + unit + ")";
+  }
+  svg
+    .append("text")
+    .attr("text-anchor", "middle")
+    .attr("transform", "rotate(-90)")
+    .attr("x", -height / 2)
+    .attr("y", 10)
+    .style("font-size", 13)
+    .text(ylabelText);
+  // add xlabel
+  svg
+    .append("text")
+    .attr("text-anchor", "middle")
+    .attr(
+      "transform",
+      `translate(${(width - MARGIN.right - legendWidth) / 2}, ${height + 10})`
+    )
+    .style("font-size", 13)
+    .text("Date");
 
   for (const place in dataGroupsDict) {
     dataGroups = dataGroupsDict[place];
