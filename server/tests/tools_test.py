@@ -23,13 +23,6 @@ class TestStaticPage(unittest.TestCase):
         assert response.status_code == 200
         assert b"Timelines Explorer | Data Commons" in response.data
 
-
-    def test_download(self):
-        response = app.test_client().get('/tools/download')
-        assert response.status_code == 200
-        assert b"By using these API/Data" in response.data
-
-
     def test_scatter(self):
         response = app.test_client().get('/tools/scatter')
         assert response.status_code == 200

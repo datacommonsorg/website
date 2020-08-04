@@ -18,7 +18,6 @@ import axios, { AxiosResponse } from "axios";
 
 import { DataPoint, DataGroup } from "../chart/base";
 import { STATS_VAR_TEXT } from "./stats_var";
-import { object } from "prop-types";
 
 interface TimeSeries {
   data: {
@@ -65,7 +64,7 @@ class StatsData {
    * @param date? The date of the data point. By default pick the last date
    * in the time series.
    */
-  getPlaceGroupWithStatsVar(date?: string) {
+  getPlaceGroupWithStatsVar(date?: string): DataGroup[] {
     if (!date) {
       date = this.dates.slice(-1)[0];
     }
@@ -96,7 +95,7 @@ class StatsData {
    *
    * @param place? The place to get the stats.
    */
-  getStatsVarGroupWithTime(place?: string) {
+  getStatsVarGroupWithTime(place?: string): DataGroup[] {
     if (!place) {
       place = this.places[0];
     }
@@ -123,7 +122,7 @@ class StatsData {
    *
    * @param place? The place to get the stats.
    */
-  getTimeGroupWithStatsVar(place?: string) {
+  getTimeGroupWithStatsVar(place?: string): DataGroup[] {
     if (!place) {
       place = this.places[0];
     }
@@ -155,7 +154,7 @@ class StatsData {
    * @param place? The place to get the stats.
    * @param date? The date to get the stats.
    */
-  getStatsPoint(place?: string, date?: string) {
+  getStatsPoint(place?: string, date?: string): DataPoint[] {
     if (!place) {
       place = this.places[0];
     }
@@ -190,8 +189,8 @@ class StatsData {
 function fetchStatsData(
   places: string[],
   statsVars: string[],
-  perCapita: boolean = false,
-  scaling: number = 1
+  perCapita = false,
+  scaling = 1
 ): Promise<StatsData> {
   const n = statsVars.length;
   let dcidParams = `?`;
@@ -238,9 +237,9 @@ function fetchStatsData(
       for (const place in allResp[i].data) {
         if (!allResp[i].data[place]) continue;
         const timeSeries = allResp[i].data[place];
-        result.sources.add(timeSeries.provenance_domain)
+        result.sources.add(timeSeries.provenance_domain);
         for (const date in timeSeries.data) {
-            dates[date] = true;
+          dates[date] = true;
         }
       }
     }
@@ -250,42 +249,93 @@ function fetchStatsData(
   });
 }
 
-function updateStatsData(prevStatsVar, newStatsVar){
-  if (!prevStatsVar){return newStatsVar}
-  for (const newPlace of newStatsVar){
-    if (!prevStatsVar.place.includes(newPlace)){
-      prevStatsVar.place.push(newPlace);
+// add data from newStatsVar to prevStatsVar
+function updateStatsData(
+  prevStatsVar: StatsData,
+  newStatsVar: StatsData
+): StatsData {
+  if (!prevStatsVar) {
+    return newStatsVar;
+  }
+  // update place
+  for (const newPlace of newStatsVar.places) {
+    if (!prevStatsVar.places.includes(newPlace)) {
+      prevStatsVar.places.push(newPlace);
     }
   }
   // update statsVar list
-  for (const newStatsVarId of newStatsVar){
-    if (!prevStatsVar.statsVars.includes(newStatsVarId)){
+  for (const newStatsVarId of newStatsVar.statsVars) {
+    if (!prevStatsVar.statsVars.includes(newStatsVarId)) {
       prevStatsVar.statsVars.push(newStatsVarId);
     }
   }
   // update data
-  Object.keys(newStatsVar.data).map((statsVarId)=>{
-    Object.keys(newStatsVar.data[statsVarId]).map((placeId)=>{
-       if (!(statsVarId in prevStatsVar.data)){
-         prevStatsVar.data[statsVarId] = {}
-       }
-      prevStatsVar.data[statsVarId][placeId] = newStatsVar.data[statsVarId][placeId];
-    });});
+  Object.keys(newStatsVar.data).map((statsVarId) => {
+    Object.keys(newStatsVar.data[statsVarId]).map((placeId) => {
+      if (!(statsVarId in prevStatsVar.data)) {
+        prevStatsVar.data[statsVarId] = {};
+      }
+      prevStatsVar.data[statsVarId][placeId] =
+        newStatsVar.data[statsVarId][placeId];
+    });
+  });
   // update date
   const dates: { [key: string]: boolean } = {};
   prevStatsVar.dates.map((date) => {
     dates[date] = true;
-  })
+  });
   newStatsVar.dates.map((date) => {
     dates[date] = true;
-  })
+  });
   prevStatsVar.dates = Object.keys(dates);
   prevStatsVar.dates.sort();
   // update sources
-  for (const source of newStatsVar.sources){
+  for (const source of Array.from(newStatsVar.sources)) {
     prevStatsVar.sources.add(source);
   }
   return prevStatsVar;
 }
 
-export { StatsData, fetchStatsData, updateStatsData};
+function deleteStatsVar(
+  statsVarData: StatsData,
+  statsVarsToDelete: string[]
+): StatsData {
+  // delete the data of specified statsVars
+  // note: "date" and "source" are not updated
+  for (const statsVar of statsVarsToDelete) {
+    statsVarData.statsVars.splice(statsVarData.statsVars.indexOf(statsVar), 1);
+  }
+  Object.keys(statsVarData.data).map((statsVarId) => {
+    if (statsVarId in statsVarsToDelete) {
+      delete statsVarData.data[statsVarId];
+    }
+  });
+  return statsVarData;
+}
+
+function deletePlaces(statsVarData: StatsData, places: string[]): StatsData {
+  // delete the data of specified places
+  // note: "date" and "source" are not updated
+  for (const place of places) {
+    statsVarData.places.splice(statsVarData.places.indexOf(place), 1);
+  }
+  Object.keys(statsVarData.data).map((statsVarId) => {
+    Object.keys(statsVarData.data[statsVarId]).map((placeId) => {
+      if (placeId in statsVarData.data[statsVarId]) {
+        delete statsVarData.data[statsVarId][placeId];
+      }
+      if (Object.keys(statsVarData.data[statsVarId]).length === 0) {
+        delete statsVarData.data[statsVarId];
+      }
+    });
+  });
+  return statsVarData;
+}
+
+export {
+  StatsData,
+  fetchStatsData,
+  updateStatsData,
+  deleteStatsVar,
+  deletePlaces,
+};

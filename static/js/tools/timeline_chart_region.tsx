@@ -26,7 +26,7 @@ interface ChartRegionPropsType {
   perCapita: boolean;
 }
 
-class ChartRegion extends Component<ChartRegionPropsType, {}> {
+class ChartRegion extends Component<ChartRegionPropsType, unknown> {
   downloadLink: HTMLAnchorElement;
   allStatsData: { [key: string]: StatsData };
 
@@ -36,12 +36,14 @@ class ChartRegion extends Component<ChartRegionPropsType, {}> {
     this.downloadLink = document.getElementById(
       "download-link"
     ) as HTMLAnchorElement;
-    this.downloadLink.onclick = () => {
-      saveToFile("export.csv", this.createDataCsv());
-    };
+    if (this.downloadLink) {
+      this.downloadLink.onclick = () => {
+        saveToFile("export.csv", this.createDataCsv());
+      };
+    }
   }
 
-  render() {
+  render(): JSX.Element {
     if (
       this.props.places.length === 0 ||
       Object.keys(this.props.statsVars).length === 0
@@ -74,7 +76,7 @@ class ChartRegion extends Component<ChartRegionPropsType, {}> {
 
   private onDataUpdate(mprop: string, data: StatsData) {
     this.allStatsData[mprop] = data;
-    if (Object.keys(this.allStatsData).length > 0) {
+    if (this.downloadLink && Object.keys(this.allStatsData).length > 0) {
       this.downloadLink.style.visibility = "visible";
     } else {
       this.downloadLink.style.visibility = "hidden";

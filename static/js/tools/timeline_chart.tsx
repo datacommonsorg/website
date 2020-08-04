@@ -16,12 +16,15 @@
 
 import React, { Component } from "react";
 import { StatsVarInfo, updateUrl } from "./timeline_util";
-import { fetchStatsData, StatsData, updateStatsData } from "../shared/data_fetcher";
 import {
-  PlotParams,
-  drawGroupLineChart,
-  computePlotParams,
-} from "../chart/draw";
+  fetchStatsData,
+  StatsData,
+  updateStatsData,
+  deleteStatsVar,
+  deletePlaces,
+} from "../shared/data_fetcher";
+import { drawGroupLineChart } from "../chart/draw";
+import { PlotParams, computePlotParams } from "../chart/base";
 
 const CHART_HEIGHT = 300;
 
@@ -32,7 +35,7 @@ interface StatsVarChipPropsType {
   title: string;
 }
 
-class StatsVarChip extends Component<StatsVarChipPropsType, {}> {
+class StatsVarChip extends Component<StatsVarChipPropsType, unknown> {
   render() {
     return (
       <div
@@ -59,10 +62,10 @@ interface ChartPropsType {
   places: [string, string][];
   statsVars: { [key: string]: StatsVarInfo };
   perCapita: boolean;
-  onDataUpdate: (mprop: string, data: StatsData) => {}
+  onDataUpdate: (mprop: string, data: StatsData) => void;
 }
 
-class Chart extends Component<ChartPropsType, {}> {
+class Chart extends Component<ChartPropsType, unknown> {
   data: StatsData;
   svgContainer: React.RefObject<HTMLDivElement>;
   placeName: { [key: string]: string };
@@ -71,7 +74,7 @@ class Chart extends Component<ChartPropsType, {}> {
   statsData: StatsData;
   // prevProps keeps the last two props,
   // because the chart would render twice due to "set statsVar title" function in statsVar menu
-  prevProps: {places: string[][], statsVars: {}}[];
+  prevProps: { places: string[][]; statsVars: string[] }[];
 
   constructor(props: ChartPropsType) {
     super(props);
@@ -79,9 +82,12 @@ class Chart extends Component<ChartPropsType, {}> {
     this.statsVarsTitle = {};
     this.svgContainer = React.createRef();
     this.handleWindowResize = this.handleWindowResize.bind(this);
-    this.prevProps = [{places: [], statsVars: {}}, {places: [], statsVars: {}}];
+    this.prevProps = [
+      { places: [], statsVars: [] },
+      { places: [], statsVars: [] },
+    ];
   }
-  render() {
+  render(): JSX.Element {
     const statsVars = Object.keys(this.props.statsVars);
     // TODO(shifucun): investigate on stats var title, now this is updated
     // several times.
@@ -104,44 +110,45 @@ class Chart extends Component<ChartPropsType, {}> {
       <div className="card">
         <div ref={this.svgContainer} className="chart-svg"></div>
         <div>
-        {statsVars.map(
-          function (statsVar) {
-            let color: string;
-            const title = this.statsVarsTitle[statsVar];
-            if (statsVars.length > 1) {
-              color = this.plotParams.lines[placeName + title].color;
-            }
-            return (
-              <StatsVarChip
-                key={statsVar}
-                statsVar={statsVar}
-                title={title}
-                color={color}
-                deleteStatsVarChip={this.deleteStatsVarChip}
-              />
-            );
-          }.bind(this)
-        )}
+          {statsVars.map(
+            function (statsVar) {
+              let color: string;
+              const title = this.statsVarsTitle[statsVar];
+              if (statsVars.length > 1) {
+                color = this.plotParams.lines[placeName + title].color;
+              }
+              return (
+                <StatsVarChip
+                  key={statsVar}
+                  statsVar={statsVar}
+                  title={title}
+                  color={color}
+                  deleteStatsVarChip={this.deleteStatsVarChip}
+                />
+              );
+            }.bind(this)
+          )}
         </div>
-
       </div>
     );
   }
 
-  componentDidMount() {
-    this.loadDataAndDrawChart({places:[], statsVars:{}});
+  componentDidMount(): void {
+    this.loadDataAndDrawChart({ places: [], statsVars: [] });
     window.addEventListener("resize", this.handleWindowResize);
   }
 
-  componentWillUnmount() {
+  componentWillUnmount(): void {
     window.removeEventListener("resize", this.handleWindowResize);
   }
 
-  componentDidUpdate() {
-    // keep the most recent two props in this.prevProps
-    this.prevProps.shift();
-    this.prevProps.push({places: this.props.places, statsVars: this.props.statsVars})
+  componentDidUpdate(): void {
     this.loadDataAndDrawChart(this.prevProps[0]);
+    this.prevProps.shift();
+    this.prevProps.push({
+      places: this.props.places,
+      statsVars: Object.keys(this.props.statsVars),
+    });
   }
 
   private handleWindowResize() {
@@ -153,48 +160,66 @@ class Chart extends Component<ChartPropsType, {}> {
 
   private loadDataAndDrawChart(prevProps) {
     const placeDiff = this.compareArray(prevProps.places, this.props.places);
-    const statsVarDiff = this.compareArray(Object.keys(prevProps.statsVars),Object.keys(this.props.statsVars));
-    let dataNewPlacePromise = Promise.resolve({});
-    let dataNewStatsVarPromise = Promise.resolve({});
-    if (placeDiff.add.length !== 0){
+    const statsVarDiff = this.compareArray(
+      prevProps.statsVars,
+      Object.keys(this.props.statsVars)
+    );
+    let dataNewPlacePromise: Promise<StatsData>;
+    let dataNewStatsVarPromise: Promise<StatsData>;
+    // fetch data of new places
+    if (placeDiff.add.length !== 0) {
       dataNewPlacePromise = fetchStatsData(
         placeDiff.add.map((x) => x[0]),
         Object.keys(this.props.statsVars),
         this.props.perCapita,
         1
-      )
+      );
     }
-    if (statsVarDiff.add.length !== 0){
+    // fetch data of new statsVars
+    if (statsVarDiff.add.length !== 0) {
       dataNewStatsVarPromise = fetchStatsData(
         this.props.places.map((x) => x[0]),
         statsVarDiff.add,
         this.props.perCapita,
         1
-      )
+      );
     }
-    Promise.all([
-      dataNewPlacePromise,
-      dataNewStatsVarPromise,
-    ]).then((values)=>{
-      if (placeDiff.add.length !== 0){
-            this.statsData = updateStatsData(this.statsData, values[0]);}
-      if (statsVarDiff.add.length !== 0){
-      this.statsData = updateStatsData(this.statsData, values[1]);}
-      this.props.onDataUpdate(this.props.mprop, this.statsData)
-      this.drawChart();
-    })
+    // delete data of unselected statsVars
+    if (statsVarDiff.delete.length !== 0) {
+      this.statsData = deleteStatsVar(this.statsData, statsVarDiff.delete);
+    }
+    // delete data of unselected places
+    if (placeDiff.delete.length !== 0) {
+      this.statsData = deletePlaces(
+        this.statsData,
+        placeDiff.delete.map((x) => x[0])
+      );
+    }
+
+    Promise.all([dataNewPlacePromise, dataNewStatsVarPromise]).then(
+      (values) => {
+        if (placeDiff.add.length !== 0) {
+          this.statsData = updateStatsData(this.statsData, values[0]);
+        }
+        if (statsVarDiff.add.length !== 0) {
+          this.statsData = updateStatsData(this.statsData, values[1]);
+        }
+        this.props.onDataUpdate(this.props.mprop, this.statsData);
+        this.drawChart();
+      }
+    );
   }
 
-  private compareArray(array1, array2){
-    const diff = {add:[], delete: []}
-    for( const item of array1){
-      if (!array2.includes(item)){
-        diff.delete.push(item)
+  private compareArray(array1, array2) {
+    const diff = { add: [], delete: [] };
+    for (const item of array1) {
+      if (!array2.includes(item)) {
+        diff.delete.push(item);
       }
     }
-    for (const item of array2){
-      if (!array1.includes(item)){
-        diff.add.push(item)
+    for (const item of array2) {
+      if (!array1.includes(item)) {
+        diff.add.push(item);
       }
     }
     return diff;

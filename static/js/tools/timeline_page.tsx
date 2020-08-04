@@ -55,7 +55,10 @@ class Page extends Component<PagePropType, PageStateType> {
       statsVarValid: new Set(),
     };
   }
-  shouldComponentUpdate(nextProps, nextState) {
+  shouldComponentUpdate(
+    nextProps: PagePropType,
+    nextState: PageStateType
+  ): boolean {
     return (
       JSON.stringify(this.state.statsVarInfo) !==
         JSON.stringify(nextState.statsVarInfo) ||
@@ -64,14 +67,13 @@ class Page extends Component<PagePropType, PageStateType> {
     );
   }
 
-  componentDidMount() {
+  componentDidMount(): void {
     window.addEventListener("hashchange", this.handleHashChange);
     this.handleHashChange();
   }
 
-  handleHashChange() {
+  handleHashChange(): void {
     const urlVar = parseUrl();
-
     let statsVarInfoPromise = Promise.resolve(this.state.statsVarInfo);
     if (urlVar.statsVarPath !== this.state.statsVarPaths) {
       if (urlVar.statsVarId.length !== 0) {
@@ -109,14 +111,14 @@ class Page extends Component<PagePropType, PageStateType> {
     });
   }
 
-  _togglePerCapita() {
+  _togglePerCapita(): void {
     updateUrl({ pc: !this.state.perCapita });
     this.setState({
       perCapita: !this.state.perCapita,
     });
   }
 
-  setStatsVarTitle(statsVarId2Title: { [key: string]: string }) {
+  setStatsVarTitle(statsVarId2Title: { [key: string]: string }): void {
     // Deep clone state value out to prevent change state value outside
     // setState(). Otherwise the state is changed and check in
     // shouldComponentUpdate() has no effect.
@@ -131,7 +133,7 @@ class Page extends Component<PagePropType, PageStateType> {
     });
   }
 
-  render() {
+  render(): JSX.Element {
     return (
       <div>
         <div className="explore-menu-container" id="explore">
@@ -156,7 +158,8 @@ class Page extends Component<PagePropType, PageStateType> {
               <SearchBar places={this.state.places} />
             </div>
             {this.state.places.length === 0 && <Info />}
-            {this.state.places.length !== 0 && Object.keys(this.state.statsVarInfo).length !== 0 && (
+            {this.state.places.length !== 0 &&
+              Object.keys(this.state.statsVarInfo).length !== 0 && (
                 <div id="chart-region">
                   <ChartRegion
                     places={this.state.places}

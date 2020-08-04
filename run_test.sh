@@ -26,7 +26,8 @@ function run_npm_test {
 # Run linter on client side code
 function run_npm_lint {
   cd static
-  npm run lint && npm run tslint
+  npm list eslint || npm install eslint
+  npm run lint
   cd ..
 }
 
