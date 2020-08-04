@@ -14,7 +14,12 @@
  * limitations under the License.
  */
 
-import { getPlaceNames, updateUrl, parseUrl, UrlTimeline } from "./timeline_util";
+import {
+  getPlaceNames,
+  updateUrl,
+  parseUrl,
+  UrlTimeline,
+} from "./timeline_util";
 
 test("update Url statsvar", () => {
   window.location.hash = "";
@@ -75,24 +80,28 @@ test("get place names", () => {
   });
 });
 
-
 test("test UrlTimeline", () => {
-  let urltest = new UrlTimeline();
+  const urltest = new UrlTimeline();
   urltest.addPlace("country/USA");
-  expect(urltest.placeDcids).toStrictEqual(["country/USA"])
-  urltest.addStatsVar("Count_Person")
+  expect(urltest.placeDcids).toStrictEqual(["country/USA"]);
+  urltest.addStatsVar("Count_Person");
   expect(urltest.statsVarNodes).toStrictEqual({ Count_Person: [] });
   urltest.addStatsVarWithPath("Median_Age_Person", ["0", "1"]);
-  expect(urltest.statsVarNodes).toStrictEqual({ Count_Person: [], Median_Age_Person: [["0", "1"]] });
+  expect(urltest.statsVarNodes).toStrictEqual({
+    Count_Person: [],
+    Median_Age_Person: [["0", "1"]],
+  });
   urltest.removePLace("country/USA");
   expect(urltest.placeDcids).toStrictEqual([]);
   urltest.removeStatsVar("Count_Person");
-  expect(urltest.statsVarNodes).toStrictEqual({ Median_Age_Person: [["0", "1"]] });
+  expect(urltest.statsVarNodes).toStrictEqual({
+    Median_Age_Person: [["0", "1"]],
+  });
   urltest.removeStatsVarWithPath("Median_Age_Person", ["0", "1"]);
   expect(urltest.statsVarNodes).toStrictEqual({});
   // remove statsVar with name only, even though the path exists
-  urltest.addStatsVarWithPath("Count_Person", ["0", "0"])
-  expect(urltest.statsVarNodes).toStrictEqual({Count_Person: [["0","0"]]})
-  urltest.removeStatsVar("Count_Person")
-  expect(urltest.statsVarNodes).toStrictEqual({})
-})
+  urltest.addStatsVarWithPath("Count_Person", ["0", "0"]);
+  expect(urltest.statsVarNodes).toStrictEqual({ Count_Person: [["0", "0"]] });
+  urltest.removeStatsVar("Count_Person");
+  expect(urltest.statsVarNodes).toStrictEqual({});
+});

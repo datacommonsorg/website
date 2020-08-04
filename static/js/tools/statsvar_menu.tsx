@@ -18,7 +18,7 @@ import React, { Component } from "react";
 import axios from "axios";
 import hierarchy from "../../data/hierarchy_top.json";
 import { updateUrl } from "./timeline_util";
-import {StatsVarFilterInterface} from "./commons";
+import { StatsVarFilterInterface } from "./commons";
 import _ from "lodash";
 
 const jsonPath = "../../data/hierarchy_statsvar.json";
@@ -55,8 +55,6 @@ class Node extends Component<NodePropType, NodeStateType> {
       expanded: false,
     };
   }
-
-  
 
   public render = (): JSX.Element => {
     let child: JSX.Element[];
@@ -133,8 +131,13 @@ class Node extends Component<NodePropType, NodeStateType> {
     let check = false;
     let expand = this.state.expanded;
     for (const nodePath of this.props.selectedNodePaths) {
-      if (_.isEqual(_.take(nodePath, this.props.nodePath.length),this.props.nodePath)) {
-        if (_.isEqual(nodePath,this.props.nodePath)) {
+      if (
+        _.isEqual(
+          _.take(nodePath, this.props.nodePath.length),
+          this.props.nodePath
+        )
+      ) {
+        if (_.isEqual(nodePath, this.props.nodePath)) {
           check = true;
           for (const sv of this.props.sv) {
             if (!this.props.filter || this.props.statsVarValid.has(sv)) {
@@ -193,8 +196,6 @@ class Node extends Component<NodePropType, NodeStateType> {
       expanded: !this.state.expanded,
     });
   };
-
-  
 
   private isValidStatsVar() {
     // the node is valid statsvar node if it is a value node,

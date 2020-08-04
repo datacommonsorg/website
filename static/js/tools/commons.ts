@@ -19,44 +19,44 @@
  * implemented as a concrete class based on specific use case.
  */
 interface StatsVarFilterInterface {
-    isValid(statsVar: string): boolean;
-  }
-  
+  isValid(statsVar: string): boolean;
+}
+
 /**
  * StatsVar filter class for timeline tool.
  */
 class TimelineStatsVarFilter implements StatsVarFilterInterface {
-statsVars: Set<string>;
-isValid(statsVar: string): boolean {
+  statsVars: Set<string>;
+  isValid(statsVar: string): boolean {
     return this.statsVars.has(statsVar);
-}
-constructor(statsVars: Set<string>) {
+  }
+  constructor(statsVars: Set<string>) {
     this.statsVars = statsVars;
-}
+  }
 }
 
 /**
  * StatsVar filter for choropleth tool.
  */
 class ChoroplethStatsVarFilter implements StatsVarFilterInterface {
-isValid(statsVar: string): boolean {
+  isValid(statsVar: string): boolean {
     // TODO(shifucun): add the actual logic.
     return !!statsVar;
-}
+  }
 }
 
 /**
  * StatsVar filter that does not filter and allows all non-null stats vars.
  */
 class NoopStatsVarFilter implements StatsVarFilterInterface {
-isValid(statsVar: string): boolean {
+  isValid(statsVar: string): boolean {
     return !!statsVar;
-}
+  }
 }
 
 export {
-StatsVarFilterInterface,
-TimelineStatsVarFilter,
-ChoroplethStatsVarFilter,
-NoopStatsVarFilter,
+  StatsVarFilterInterface,
+  TimelineStatsVarFilter,
+  ChoroplethStatsVarFilter,
+  NoopStatsVarFilter,
 };

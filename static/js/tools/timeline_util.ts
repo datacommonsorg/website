@@ -15,7 +15,6 @@
  */
 import axios from "axios";
 import statsVarPathMap from "../../data/statsvar_path.json";
-import { node } from "prop-types";
 
 interface StatsVarInfo {
   md: string;
@@ -276,13 +275,13 @@ function setSearchParam(vars: VarUrl) {
 }
 
 interface StatsVarNode {
-  [key: string]: string [][];
+  [key: string]: string[][];
 }
 
 class UrlTimeline {
   statsVarNodes: StatsVarNode;
   placeDcids: string[];
-  pc: boolean;	
+  pc: boolean;
 
   constructor() {
     this.statsVarNodes = {};
@@ -290,57 +289,56 @@ class UrlTimeline {
     this.pc = false;
   }
 
-  public setPC() {
+  public setPC(): void {
     this.pc = true;
   }
 
-  public unsetPC() {
+  public unsetPC(): void {
     this.pc = false;
   }
 
-  public addPlace(placeDcid: string) {
+  public addPlace(placeDcid: string): void {
     this.placeDcids.push(placeDcid);
   }
 
-  public removePLace(placeDcid: string) {
+  public removePLace(placeDcid: string): void {
     const index = this.placeDcids.indexOf(placeDcid);
     if (index > -1) {
       this.placeDcids.splice(index, 1);
     }
   }
 
-  public addStatsVar(statsVar: string) {
-    if (! this.statsVarNodes.hasOwnProperty(statsVar)){
+  public addStatsVar(statsVar: string): void {
+    if (!(statsVar in this.statsVarNodes)) {
       this.statsVarNodes[statsVar] = [];
     }
   }
 
-  public addStatsVarWithPath(statsVar: string, nodePath: string[]){
-    if (! this.statsVarNodes.hasOwnProperty(statsVar)){
+  public addStatsVarWithPath(statsVar: string, nodePath: string[]): void {
+    if (!(statsVar in this.statsVarNodes)) {
       this.statsVarNodes[statsVar] = [nodePath];
-    }
-    else if (!this.statsVarNodes[statsVar].includes(nodePath)){
-      this.statsVarNodes[statsVar].push(nodePath)
+    } else if (!this.statsVarNodes[statsVar].includes(nodePath)) {
+      this.statsVarNodes[statsVar].push(nodePath);
     }
   }
 
-  public removeStatsVar(statsVar: string) {
-    if (this.statsVarNodes.hasOwnProperty(statsVar)){   
+  public removeStatsVar(statsVar: string): void {
+    if (statsVar in this.statsVarNodes) {
+      delete this.statsVarNodes[statsVar];
+    }
+  }
+
+  public removeStatsVarWithPath(statsVar: string, nodePath: string[]): void {
+    if (statsVar in this.statsVarNodes) {
+      if (this.statsVarNodes[statsVar].length <= 1) {
         delete this.statsVarNodes[statsVar];
-    }
-  }
-
-  public removeStatsVarWithPath(statsVar: string, nodePath: string[]){
-    if (this.statsVarNodes.hasOwnProperty(statsVar)){
-      if (this.statsVarNodes[statsVar].length <= 1){   
-      delete this.statsVarNodes[statsVar]}
-      else{
+      } else {
         const idx = this.statsVarNodes[statsVar].indexOf(nodePath);
-        this.statsVarNodes[statsVar].splice(idx, 1)
+        this.statsVarNodes[statsVar].splice(idx, 1);
       }
     }
   }
-}	
+}
 
 export {
   StatsVarInfo,
