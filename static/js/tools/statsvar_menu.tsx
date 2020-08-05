@@ -1,7 +1,25 @@
+/**
+ * Copyright 2020 Google LLC
+ *
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ *      http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ */
+
 import React, { Component } from "react";
 import axios from "axios";
 import hierarchy from "../../data/hierarchy_top.json";
 import { updateUrl } from "./timeline_util";
+import { StatsVarFilterInterface } from "./commons";
+import _ from "lodash";
 
 const jsonPath = "../../data/hierarchy_statsvar.json";
 
@@ -11,7 +29,7 @@ interface NodePropType {
   cd: NodePropType[]; // children
   t: string; // type
   sv: string[];
-  statsVarPaths: number[][];
+  selectedNodePaths: number[][];
   nodePath: number[];
   statsVarValid: Set<string>;
   filter: boolean;
@@ -22,7 +40,6 @@ interface NodePropType {
 interface NodeStateType {
   checked: boolean;
   expanded: boolean;
-  statsVarPaths: number[][];
 }
 
 class Node extends Component<NodePropType, NodeStateType> {
@@ -30,23 +47,13 @@ class Node extends Component<NodePropType, NodeStateType> {
     super(props);
     this._handleCheckboxClick = this._handleCheckboxClick.bind(this);
     this._handleExpandClick = this._handleExpandClick.bind(this);
-    this._handleHashChange = this._handleHashChange.bind(this);
+    this.onUpdate = this.onUpdate.bind(this);
     this.canExpand = this.canExpand.bind(this);
     this.isValidStatsVar = this.isValidStatsVar.bind(this);
     this.state = {
       checked: false,
       expanded: false,
-      statsVarPaths: [[]],
     };
-  }
-
-  componentDidUpdate(prevProps) {
-    if (this.props.statsVarPaths !== prevProps.statsVarPaths) {
-      this._handleHashChange();
-    }
-  }
-  componentDidMount() {
-    this._handleHashChange();
   }
 
   public render = (): JSX.Element => {
@@ -62,7 +69,7 @@ class Node extends Component<NodePropType, NodeStateType> {
             c={item.c}
             t={item.t}
             sv={item.sv}
-            statsVarPaths={this.state.statsVarPaths}
+            selectedNodePaths={this.props.selectedNodePaths}
             key={this.props.l + index}
             statsVarValid={this.props.statsVarValid}
             filter={this.props.filter}
@@ -111,6 +118,48 @@ class Node extends Component<NodePropType, NodeStateType> {
       )
     );
   };
+
+  componentDidUpdate(prevProps) {
+    if (!_.isEqual(this.props.selectedNodePaths, prevProps.selectedNodePaths)) {
+      this.onUpdate();
+    }
+  }
+
+  componentDidMount() {
+    this.onUpdate();
+  }
+
+  private onUpdate() {
+    let check = false;
+    let expand = this.state.expanded;
+    for (const nodePath of this.props.selectedNodePaths) {
+      if (
+        _.isEqual(
+          _.take(nodePath, this.props.nodePath.length),
+          this.props.nodePath
+        )
+      ) {
+        if (_.isEqual(nodePath, this.props.nodePath)) {
+          check = true;
+          for (const sv of this.props.sv) {
+            if (!this.props.filter || this.props.statsVarValid.has(sv)) {
+              this.props.addStatsVarTitle(sv, this.props.l);
+            } else {
+              // remove the statsVar from url if not available
+              updateUrl({ statsVar: { statsVar: sv, shouldAdd: false } });
+            }
+          }
+        } else {
+          expand = true;
+        }
+      }
+    }
+    this.setState({
+      checked: check,
+      expanded: expand,
+    });
+  }
+
   private _handleCheckboxClick = (): void => {
     this.setState({
       checked: !this.state.checked,
@@ -151,35 +200,6 @@ class Node extends Component<NodePropType, NodeStateType> {
     });
   };
 
-  private _handleHashChange() {
-    const statsVarPathNext = [];
-    let check = false;
-    let expand = this.state.expanded;
-    for (const statsVarPath of this.props.statsVarPaths) {
-      if (statsVarPath && statsVarPath[0] === this.props.idx) {
-        if (statsVarPath.length === 1) {
-          check = true;
-          for (const sv of this.props.sv) {
-            if (!this.props.filter || this.props.statsVarValid.has(sv)) {
-              this.props.addStatsVarTitle(sv, this.props.l);
-            } else {
-              // remove the statsVar from url if not available
-              updateUrl({ statsVar: { statsVar: sv, shouldAdd: false } });
-            }
-          }
-        } else {
-          expand = true;
-          statsVarPathNext.push(statsVarPath.slice(1));
-        }
-      }
-    }
-    this.setState({
-      checked: check,
-      expanded: expand,
-      statsVarPaths: statsVarPathNext,
-    });
-  }
-
   private isValidStatsVar() {
     // the node is valid statsvar node if it is a value node,
     // and the statsvar is available or not filtered.
@@ -198,6 +218,7 @@ class Node extends Component<NodePropType, NodeStateType> {
     }
     return false;
   }
+
   private canExpand() {
     if (this.props.t === "p") {
       // a property node can be expanded if it has >= 1 children
@@ -250,16 +271,19 @@ class Node extends Component<NodePropType, NodeStateType> {
 }
 
 interface MenuPropType {
-  statsVarPaths: number[][];
+  selectedNodePaths: number[][];
   statsVarValid: Set<string>;
   filter: boolean;
   setStatsVarTitle: (statsVarId2Title: { [key: string]: string }) => void;
 }
+
 interface MenuStateType {
   menuJson: [unknown];
 }
+
 class Menu extends Component<MenuPropType, MenuStateType> {
   statsVarId2Title: { [key: string]: string }; // {Id: Title}
+
   constructor(props: MenuPropType) {
     super(props);
     this.addStatsVarTitle = this.addStatsVarTitle.bind(this);
@@ -268,6 +292,7 @@ class Menu extends Component<MenuPropType, MenuStateType> {
     };
     this.statsVarId2Title = {};
   }
+
   render(): JSX.Element {
     this.statsVarId2Title = {};
     return (
@@ -285,7 +310,7 @@ class Menu extends Component<MenuPropType, MenuStateType> {
                     t="c"
                     sv={item.sv}
                     key={index1 + "," + index}
-                    statsVarPaths={this.props.statsVarPaths}
+                    selectedNodePaths={this.props.selectedNodePaths}
                     statsVarValid={this.props.statsVarValid}
                     filter={this.props.filter}
                     idx={index}
@@ -313,7 +338,7 @@ class Menu extends Component<MenuPropType, MenuStateType> {
     this.statsVarId2Title[id] = title;
     if (
       Object.keys(this.statsVarId2Title).length ===
-      this.props.statsVarPaths.length
+      this.props.selectedNodePaths.length
     ) {
       this.props.setStatsVarTitle(this.statsVarId2Title);
     }
