@@ -58,17 +58,17 @@ class TestBase(LiveServerTestCase):
 class TestPlaceExplorer(TestBase):
 
     def test_explorer_original(self):
-        time.sleep(3)
+        time.sleep(10)
         self.assertEqual("United States | Place Explorer | Data Commons", self.driver.title)
         responses = []
         responses = self.driver.find_elements_by_class_name("chart-container")
         self.assertEqual(len(responses), 23)
 
     def test_more_charts_click(self):
-        time.sleep(5)
+        time.sleep(10)
         elem = self.driver.find_element_by_xpath("/html/body/div[1]/main/div/div/div[2]/div[3]/section[1]/h3/a")
         elem.click()
-        time.sleep(5)
+        time.sleep(10)
         self.assertEqual(self.driver.current_url, self.get_server_url() + USA_DEMOGRAPHICS_URL)
         
 
