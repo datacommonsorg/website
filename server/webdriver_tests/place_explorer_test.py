@@ -38,7 +38,12 @@ class TestBase(LiveServerTestCase):
         """
         Will be called before every test
         """
-        self.driver = webdriver.Chrome()
+        chrome_options = webdriver.ChromeOptions()
+        chrome_options.add_argument('--headless')
+        chrome_options.add_argument('--no-sandbox')
+        chrome_options.add_argument('--disable-dev-shm-usage')
+
+        self.driver = webdriver.Chrome(chrome_options=chrome_options)
         self.driver.get(self.get_server_url() + USA_URL)
 
     def tearDown(self):
