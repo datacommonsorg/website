@@ -26,6 +26,9 @@ import time
 from main import app
 
 
+USA_URL = '/place?dcid=country/USA'
+USA_DEMOGRAPHICS_URL = '/place?dcid=country/USA&topic=Demographics'
+
 class TestBase(LiveServerTestCase):
 
     def create_app(self):
@@ -36,12 +39,12 @@ class TestBase(LiveServerTestCase):
         Will be called before every test
         """
         self.driver = webdriver.Chrome()
-        self.driver.get(self.get_server_url() + '/place?dcid=country/USA')
+        self.driver.get(self.get_server_url() + USA_URL)
 
     def tearDown(self):
         self.driver.quit()
 
-    def test_server_and_page(self):
+    def test_page_server(self):
         response = urllib.request.urlopen(self.get_server_url())
         self.assertEqual(response.getcode(), 200)
         self.assertEqual("United States | Place Explorer | Data Commons", self.driver.title)
@@ -58,12 +61,10 @@ class TestPlaceExplorer(TestBase):
 
     def test_more_charts_click(self):
         time.sleep(5)
-        logging.info(self.driver.current_url)
         elem = self.driver.find_element_by_xpath("/html/body/div[1]/main/div/div/div[2]/div[3]/section[1]/h3/a")
         elem.click()
         time.sleep(5)
-        logging.info(self.driver.current_url)
-        self.assertEqual(self.driver.current_url, self.get_server_url() + '/place?dcid=country/USA&topic=Demographics')
+        self.assertEqual(self.driver.current_url, self.get_server_url() + USA_DEMOGRAPHICS_URL)
         
 
 if __name__ == '__main__':
