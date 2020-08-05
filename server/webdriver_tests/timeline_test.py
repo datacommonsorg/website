@@ -53,7 +53,7 @@ class TestCharts(TestBase):
 
     def test_charts_original(self):
         response = urllib.request.urlopen(self.driver.current_url)
-        time.sleep(10)
+        time.sleep(60)
         self.assertEqual(response.getcode(), 200)
         self.assertEqual("Timelines Explorer | Data Commons", self.driver.title)
         responses = []
@@ -62,7 +62,7 @@ class TestCharts(TestBase):
 
     def test_chart_numbers_1(self):
         self.driver.get(self.driver.current_url + '#&statsVar=Median_Age_Person,0,1__Median_Income_Person,0,2&place=geoId/06')
-        time.sleep(10)
+        time.sleep(60)
         # TODO: Leave screenshot in future PR.
         # self.driver.save_screenshot("test_screenshots/timeline_ca_2_charts.png")
         response = urllib.request.urlopen(self.driver.current_url)
@@ -74,7 +74,7 @@ class TestCharts(TestBase):
 
     def test_chart_numbers_2(self):
         self.driver.get(self.driver.current_url + '#&statsVar=Median_Age_Person,0,1__Median_Income_Person,0,2__Count_Person_Upto5Years,0,3,0__Count_Person_5To17Years,0,3,1&place=geoId/06,geoId/08')
-        time.sleep(10)
+        time.sleep(60)
         # TODO: Leave screenshot in future PR.
         # self.driver.save_screenshot("test_screenshots/timeline_ca_co_3_charts.png")
         response = urllib.request.urlopen(self.driver.current_url)

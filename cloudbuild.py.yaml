@@ -14,6 +14,7 @@ steps:
   args:
   - -c
   - |
+    set -e
     apt-get update
     apt-get upgrade
     apt-get install -y unzip xvfb libxi6 libgconf-2-4
