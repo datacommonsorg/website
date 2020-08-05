@@ -15,6 +15,7 @@
  */
 import axios from "axios";
 import statsVarPathMap from "../../data/statsvar_path.json";
+import _ from "lodash";
 
 interface StatsVarInfo {
   md: string;
@@ -275,66 +276,73 @@ function setSearchParam(vars: VarUrl) {
 }
 
 interface StatsVarNode {
-  [key: string]: string[][];
+  [key: string]: string[][]; // key: statsVar Id, value: array of nodePath
 }
 
-class UrlTimeline {
+// keeps parameters used in Timeline page
+// and provide methods of updating the parameters
+class TimelineParams {
   statsVarNodes: StatsVarNode;
-  placeDcids: string[];
+  placeDcids: Set<string>;
   pc: boolean;
 
   constructor() {
     this.statsVarNodes = {};
-    this.placeDcids = [];
+    this.placeDcids = new Set<string>();
     this.pc = false;
   }
 
+  // set PerCapital to true
   public setPC(): void {
     this.pc = true;
   }
 
+  // unset PerCapita to false
   public unsetPC(): void {
     this.pc = false;
   }
 
+  // add one new place
   public addPlace(placeDcid: string): void {
-    this.placeDcids.push(placeDcid);
+    this.placeDcids.add(placeDcid);
   }
 
+  // remove one place
   public removePLace(placeDcid: string): void {
-    const index = this.placeDcids.indexOf(placeDcid);
-    if (index > -1) {
-      this.placeDcids.splice(index, 1);
-    }
+    this.placeDcids.delete(placeDcid);
   }
 
-  public addStatsVar(statsVar: string): void {
-    if (!(statsVar in this.statsVarNodes)) {
-      this.statsVarNodes[statsVar] = [];
-    }
-  }
-
-  public addStatsVarWithPath(statsVar: string, nodePath: string[]): void {
+  // add one statsVar with Path
+  public addStatsVar(statsVar: string, nodePath: string[]): void {
     if (!(statsVar in this.statsVarNodes)) {
       this.statsVarNodes[statsVar] = [nodePath];
-    } else if (!this.statsVarNodes[statsVar].includes(nodePath)) {
+    } else if (
+      _.findIndex(this.statsVarNodes[statsVar], function (obj) {
+        return _.isEqual(obj, nodePath);
+      }) === -1
+    ) {
       this.statsVarNodes[statsVar].push(nodePath);
     }
   }
 
-  public removeStatsVar(statsVar: string): void {
+  // delete one statsVar
+  public removeStatsVar(statsVar: string, nodePath: string[] = []): void {
     if (statsVar in this.statsVarNodes) {
-      delete this.statsVarNodes[statsVar];
-    }
-  }
-
-  public removeStatsVarWithPath(statsVar: string, nodePath: string[]): void {
-    if (statsVar in this.statsVarNodes) {
-      if (this.statsVarNodes[statsVar].length <= 1) {
+      // if Path is not provided, delete all nodes of the statsVar
+      if (nodePath.length === 0) {
         delete this.statsVarNodes[statsVar];
-      } else {
-        const idx = this.statsVarNodes[statsVar].indexOf(nodePath);
-        this.statsVarNodes[statsVar].splice(idx, 1);
+      }
+      // if Path is provided, delete the statsVar with the same Path only
+      else {
+        const idx = _.findIndex(this.statsVarNodes[statsVar], function (obj) {
+          return _.isEqual(obj, nodePath);
+        });
+        if (idx !== -1) {
+          this.statsVarNodes[statsVar].splice(idx, 1);
+        }
+        if (this.statsVarNodes[statsVar].length === 0) {
+          delete this.statsVarNodes[statsVar];
+        }
       }
     }
   }
@@ -348,5 +356,5 @@ export {
   getPlaceNames,
   getStatsVar,
   saveToFile,
-  UrlTimeline,
+  TimelineParams,
 };

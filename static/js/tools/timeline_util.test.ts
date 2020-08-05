@@ -18,7 +18,7 @@ import {
   getPlaceNames,
   updateUrl,
   parseUrl,
-  UrlTimeline,
+  TimelineParams,
 } from "./timeline_util";
 
 test("update Url statsvar", () => {
@@ -80,28 +80,57 @@ test("get place names", () => {
   });
 });
 
-test("test UrlTimeline", () => {
-  const urltest = new UrlTimeline();
+// test the functions of updating the parameters in class TimelineParams
+test("test TimelineParams", () => {
+  const urltest = new TimelineParams();
+
+  // add place
   urltest.addPlace("country/USA");
-  expect(urltest.placeDcids).toStrictEqual(["country/USA"]);
-  urltest.addStatsVar("Count_Person");
-  expect(urltest.statsVarNodes).toStrictEqual({ Count_Person: [] });
-  urltest.addStatsVarWithPath("Median_Age_Person", ["0", "1"]);
-  expect(urltest.statsVarNodes).toStrictEqual({
-    Count_Person: [],
-    Median_Age_Person: [["0", "1"]],
-  });
-  urltest.removePLace("country/USA");
-  expect(urltest.placeDcids).toStrictEqual([]);
-  urltest.removeStatsVar("Count_Person");
-  expect(urltest.statsVarNodes).toStrictEqual({
-    Median_Age_Person: [["0", "1"]],
-  });
-  urltest.removeStatsVarWithPath("Median_Age_Person", ["0", "1"]);
-  expect(urltest.statsVarNodes).toStrictEqual({});
-  // remove statsVar with name only, even though the path exists
-  urltest.addStatsVarWithPath("Count_Person", ["0", "0"]);
+  expect(urltest.placeDcids).toStrictEqual(new Set(["country/USA"]));
+
+  // add one statsVar
+  urltest.addStatsVar("Count_Person", ["0", "0"]);
   expect(urltest.statsVarNodes).toStrictEqual({ Count_Person: [["0", "0"]] });
-  urltest.removeStatsVar("Count_Person");
+
+  // add duplicated statsVar
+  urltest.addStatsVar("Count_Person", ["0", "0"]);
+  expect(urltest.statsVarNodes).toStrictEqual({ Count_Person: [["0", "0"]] });
+
+  // add duplicated statsVar with different Path
+  urltest.addStatsVar("Count_Person", ["0", "5"]);
+  expect(urltest.statsVarNodes).toStrictEqual({
+    Count_Person: [
+      ["0", "0"],
+      ["0", "5"],
+    ],
+  });
+
+  // add one more statsVar
+  urltest.addStatsVar("Median_Age_Person", ["0", "1"]);
+  expect(urltest.statsVarNodes).toStrictEqual({
+    Count_Person: [
+      ["0", "0"],
+      ["0", "5"],
+    ],
+    Median_Age_Person: [["0", "1"]],
+  });
+
+  // remove one place
+  urltest.removePLace("country/USA");
+  expect(urltest.placeDcids).toStrictEqual(new Set<string>());
+
+  // remove statsVar with one Path when there're multiple paths
+  urltest.removeStatsVar("Count_Person", ["0", "5"]);
+  expect(urltest.statsVarNodes).toStrictEqual({
+    Count_Person: [["0", "0"]],
+    Median_Age_Person: [["0", "1"]],
+  });
+
+  // remove statsVar without Path
+  urltest.removeStatsVar("Median_Age_Person");
+  expect(urltest.statsVarNodes).toStrictEqual({ Count_Person: [["0", "0"]] });
+
+  // remove statsVar with Path
+  urltest.removeStatsVar("Count_Person", ["0", "0"]);
   expect(urltest.statsVarNodes).toStrictEqual({});
 });

@@ -120,13 +120,15 @@ class Node extends Component<NodePropType, NodeStateType> {
   };
 
   componentDidUpdate(prevProps) {
-    if (this.props.selectedNodePaths !== prevProps.selectedNodePaths) {
+    if (!_.isEqual(this.props.selectedNodePaths, prevProps.selectedNodePaths)) {
       this.onUpdate();
     }
   }
+
   componentDidMount() {
     this.onUpdate();
   }
+
   private onUpdate() {
     let check = false;
     let expand = this.state.expanded;
@@ -157,6 +159,7 @@ class Node extends Component<NodePropType, NodeStateType> {
       expanded: expand,
     });
   }
+
   private _handleCheckboxClick = (): void => {
     this.setState({
       checked: !this.state.checked,
@@ -215,6 +218,7 @@ class Node extends Component<NodePropType, NodeStateType> {
     }
     return false;
   }
+
   private canExpand() {
     if (this.props.t === "p") {
       // a property node can be expanded if it has >= 1 children
@@ -272,11 +276,14 @@ interface MenuPropType {
   filter: boolean;
   setStatsVarTitle: (statsVarId2Title: { [key: string]: string }) => void;
 }
+
 interface MenuStateType {
   menuJson: [unknown];
 }
+
 class Menu extends Component<MenuPropType, MenuStateType> {
   statsVarId2Title: { [key: string]: string }; // {Id: Title}
+
   constructor(props: MenuPropType) {
     super(props);
     this.addStatsVarTitle = this.addStatsVarTitle.bind(this);
@@ -285,6 +292,7 @@ class Menu extends Component<MenuPropType, MenuStateType> {
     };
     this.statsVarId2Title = {};
   }
+
   render(): JSX.Element {
     this.statsVarId2Title = {};
     return (
