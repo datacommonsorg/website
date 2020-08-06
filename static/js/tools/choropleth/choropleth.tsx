@@ -89,20 +89,20 @@ class ChoroplethMap extends Component {
      */
     renderGeoMap() {
         // Combine path elements from D3 content.
-        var geojson = this.state["geojson"]
+        var geojson = this.state["geojson"];
         var mapContent = d3
             .select("#main-pane g.map")
             .selectAll("path")
             .data(geojson.features);
 
         // Scale and center the map.
-        var svgContainer = document.getElementById("map_container");
-        var projection = d3
+        const svgContainer = document.getElementById("map_container");
+        const projection = d3
             .geoAlbers()
             .fitSize([svgContainer.clientWidth,
                       svgContainer.clientHeight],
                       geojson);
-        var geomap = d3.geoPath().projection(projection);
+        const geomap = d3.geoPath().projection(projection);
 
         // Build map objects.
         mapContent
@@ -117,15 +117,15 @@ class ChoroplethMap extends Component {
             .on("mouseleave", this.mouseLeave)
             .on("click", this.handleMapClick);
 
-        this.setState({"mapContent": mapContent})
+        this.setState({ mapContent });
 
         // Create population map.
-        var popMap = {}
-        for (var index in geojson.features) {
-            var content = geojson.features[index]
-            popMap[content.id] = content.properties.pop
+        var popMap = {};
+        for (const index in geojson.features) {
+            var content = geojson.features[index];
+            popMap[content.id] = content.properties.pop;
         }
-        this.setState({ popMap })
+        this.setState({ popMap });
     }
 
     /**
@@ -133,19 +133,19 @@ class ChoroplethMap extends Component {
      * Requires geoJson map to be rendered and state values to be set.
      */
     updateGeoValues() {
-        var values = this.state["values"]
-        var isPerCapita = this.state["perCapita"]
+        const values = this.state["values"];
+        const isPerCapita = this.state["perCapita"];
 
         // Build chart display options.
-        var colorScale = d3
+        const colorScale = d3
             .scaleLinear()
             .domain(determineColorPalette(values,
                 this.state["perCapita"], this.state["popMap"]))
             .range(["#deebf7", "#9ecae1", "#3182bd"] as any);
 
         // Bind to current map.
-        var geojson = this.state["geojson"]
-        var mapContent = d3
+        const geojson = this.state["geojson"];
+        const mapContent = d3
             .select("#main-pane g.map")
             .selectAll("path")
             .data(geojson.features);
@@ -155,7 +155,7 @@ class ChoroplethMap extends Component {
             .attr("fill", function 
                     (d : { properties: { geoId : string, pop : number }}) {
                 if (d.properties.geoId in values) {
-                    let value = values[d.properties.geoId];
+                    const value = values[d.properties.geoId];
                     if (isPerCapita) {
                         if (d.properties.hasOwnProperty("pop")) {
                             return colorScale(value / d.properties.pop);
@@ -166,7 +166,7 @@ class ChoroplethMap extends Component {
                 } else {
                     return "gray";
                 }
-            })
+            });
     }
 
     /**
@@ -175,10 +175,10 @@ class ChoroplethMap extends Component {
      */
     handleMapHover(geo) {
         // Display statistical variable information on hover.
-        let name = geo.properties.name;
-        let geoId = geo.properties.geoId;
-        let values = this.state["values"]
-        let geoValue : any = "No Value"
+        const name = geo.properties.name;
+        const geoId = geo.properties.geoId;
+        const values = this.state["values"];
+        let geoValue : any = "No Value";
         if (geoId in values) {
             geoValue = values[geoId];
             if (this.state["perCapita"]) {
@@ -201,9 +201,9 @@ class ChoroplethMap extends Component {
             ["geoId", "bc", "perCapita", "level", "mdom"],
             "",
         );
-        baseUrl += "&statVar=" + statVar
+        baseUrl += "&statVar=" + statVar;
         history.pushState({}, null, baseUrl);
-        this.loadValues()
+        this.loadValues();
     }
   
     /**
@@ -244,20 +244,20 @@ class ChoroplethMap extends Component {
 
 /**
  * Builds a redirect link given the fields to include from search params.
- * @param fields_to_include
- * @param from_api whether the url should be to the api or locally.
+ * @param fieldsToInclude from URL.
+ * @param reqPoint baseUrl to hit in choropleth sphere.
  */
-function buildChoroplethUrl(fields_to_include, req_point) {
+function buildChoroplethUrl(fieldsToInclude, reqPoint) {
     //TODO(iancostello): Make this path relative.
     var baseUrl = document.location.origin + document.location.pathname;
-    baseUrl += req_point;
+    baseUrl += reqPoint;
     baseUrl += "?";
     const urlParams = new URLSearchParams(window.location.search);
-    for (let index in fields_to_include) {
-      let arg_name = fields_to_include[index];
-      let arg_value = urlParams.get(arg_name);
-      if (arg_value != null) {
-        baseUrl += "&" + arg_name + "=" + arg_value;
+    for (let index in fieldsToInclude) {
+      let argName = fieldsToInclude[index];
+      let argValue = urlParams.get(argName);
+      if (argValue != null) {
+        baseUrl += "&" + argName + "=" + argValue;
       }
     }
     return baseUrl;
@@ -280,7 +280,7 @@ function redirectToGeo(geoId) {
     // Add or create breadcrumbs field.
     // TODO(iancostello): Use parent places api.
     var breadcrumbs = url.searchParams.get("bc");
-    if (breadcrumbs != null && breadcrumbs != "") {
+    if (breadcrumbs != null && breadcrumbs !== "") {
       baseUrl += breadcrumbs + ";";
     }
     baseUrl += url.searchParams.get("geoId");
@@ -294,8 +294,8 @@ function generateBreadCrumbs() {
     var url = new URL(window.location.href);
 
     var breadcrumbs = url.searchParams.get("bc");
-    if (breadcrumbs != null && breadcrumbs != "") {
-        var breadcrumbs_display = document.getElementById("breadcrumbs");
+    if (breadcrumbs != null && breadcrumbs !== "") {
+        var breadcrumbsDisplay = document.getElementById("breadcrumbs");
         var crumbs = breadcrumbs.split(";");
 
         // Build url for each reference in the breadcrumbs.
@@ -305,19 +305,19 @@ function generateBreadCrumbs() {
         );
         baseUrl += "&geoId=";
 
-        var breadcrumbs_upto = "";
+        var breadcrumbsUpto = "";
         for (let index in crumbs) {
-            let level_ref = crumbs[index];
+            let levelRef = crumbs[index];
 
-            if (level_ref != "") {
+            if (levelRef !== "") {
                 // TODO(iancostello): Turn into react component to sanitize.
-                let curr_url = baseUrl + level_ref + "&bc=" + breadcrumbs_upto;
-                breadcrumbs_display.innerHTML +=
-                '<a href="' + curr_url + '">' + level_ref + "</a>" + " > ";
-                breadcrumbs_upto += level_ref + ";";
+                let currUrl = baseUrl + levelRef + "&bc=" + breadcrumbsUpto;
+                breadcrumbsDisplay.innerHTML +=
+                '<a href="' + currUrl + '">' + levelRef + "</a>" + " > ";
+                breadcrumbsUpto += levelRef + ";";
             }
         }
-        breadcrumbs_display.innerHTML += url.searchParams.get("geoId");
+        breadcrumbsDisplay.innerHTML += url.searchParams.get("geoId");
     }
 }
 

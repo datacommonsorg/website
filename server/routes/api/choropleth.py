@@ -41,35 +41,35 @@ def choropleth_values():
             variable.
 
     API Params:
-        geoId -> The currently viewed geography to render, as a string.
-        level -> The subgeographic level to pull and display information for,
+        geoId: The currently viewed geography to render, as a string.
+        level: The subgeographic level to pull and display information for,
                 as a string. Choices: Country, AdministrativeLevel[1/2], City.
-        statVar -> The statistical variable to pull data about.
+        statVar: The statistical variable to pull data about.
 
     API Returns:
-        values -> statistical variable values for all subgeos.
+        values: dictionary of geo to statistical variable values (as a float)
+            for all subgeos.
     """
     # Get required request parameters.
     requested_geoId = request.args.get("geoId")
-    if requested_geoId is None:
+    if not requested_geoId:
         return jsonify({"error": "Must provide a 'geoId' field!"}, 400)
     stat_var = request.args.get("statVar")
-    if requested_geoId is None:
-        return jsonify({"error": "Must provide a 'geoId' field!"}, 400)
+    if not stat_var:
+        return jsonify({"error": "Must provide a 'statVar' field!"}, 400)
     display_level = get_sublevel(requested_geoId, request.args.get("level"))
 
     # Get all subgeos.
     geos_contained_in_place = dc.get_places_in(
-            [requested_geoId], display_level)[requested_geoId]
+            [requested_geoId], display_level).get(requested_geo, [])
     values_by_geo = dc.get_stats(geos_contained_in_place, stat_var)
 
     # Add to dictionary for response.
     populations_by_geo = {}
     for geo_id, payload in values_by_geo.items():
         if "data" in payload:
-            value = next(iter(
+            populations_by_geo[geo_id] = next(iter(
                         reversed(payload['data'].values())))
-            populations_by_geo[geo_id] = value
 
     # Return as json payload.
     return jsonify(populations_by_geo, 200)
@@ -80,20 +80,20 @@ def choropleth_geo():
             variable.
 
     API Params:
-        geoId -> The currently viewed geography to render, as a string.
-        level -> The subgeographic level to pull and display information for,
+        geoId: The currently viewed geography to render, as a string.
+        level: The subgeographic level to pull and display information for,
                 as a string. Choices: Country, AdministrativeLevel[1/2], City.
-        mdom -> The measurement denominator to use if perCapita is true, as a 
+        mdom: The measurement denominator to use if perCapita is true, as a 
                 string. Defaults to "Count_Person".
 
 
     API Returns:
-        geoJson -> geoJson format that includes statistical variables info,
+        geoJson: geoJson format that includes statistical variables info,
             geoId, and name for all subregions.
     """
     # Get required request parameters.
     requested_geoId = request.args.get("geoId")
-    if requested_geoId is None:
+    if not requested_geoId:
         return jsonify({"error": "Must provide a 'geoId' field!"}, 400)
     display_level = get_sublevel(requested_geoId, request.args.get("level"))
 
@@ -115,7 +115,7 @@ def choropleth_geo():
 
     # Download population data if per capita.
     # TODO(iancostello): Determine how to handle populations 
-                    # and statistical values from different times.
+    # and statistical values from different times.
     population_by_geo = dc.get_stats(geos_contained_in_place,
                                      measurement_denominator)
 
@@ -150,9 +150,8 @@ def choropleth_geo():
             # Process Statistical Observation if valid.
             if ('data' in population_by_geo.get(geo_id, [])):
                 # Grab the latest available data.
-                pop = next(iter(
+                geo_feature["properties"]["pop"] = next(iter(
                     reversed(population_by_geo[geo_id]['data'].values())))
-                geo_feature["properties"]["pop"] = pop
 
             # Add to main dataframe.
             features.append(geo_feature)
@@ -167,12 +166,12 @@ def get_sublevel(requested_geoId, display_level):
     """Returns the best sublevel display for a geoID.
 
     Args:
-        requested_geoId -> The parent geo DCID to find children.
-        display_level -> Display level provided or None.
+        requested_geoId: The parent geo DCID to find children.
+        display_level: Display level provided or None.
     Returns:
        display_level is not None. Otherwise the next sublevel below the parent.
     """
-    if display_level is None:
+    if not display_level:
         requested_geoId_type = dc.get_property_values([requested_geoId],
                                                 "typeOf")[requested_geoId]
         # TODO(iancostello): Handle a failed function call, e.g., returns None.
@@ -190,8 +189,8 @@ def coerce_geojson_to_righthand_rule(geoJsonCords, obj_type):
     fixes these lists to be in the format expected by D3 and turns all polygons
     into multipolygons for downstream consistency.
         Args:
-            geoJsonCords -> Nested list of geojson.
-            obj_type -> Object feature type.
+            geoJsonCords: Nested list of geojson.
+            obj_type: Object feature type.
         Returns:
             Nested list of geocoords.
     """
