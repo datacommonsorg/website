@@ -33,10 +33,9 @@ window.onload = () => {
 
   // TODO:(iancostello) Refactor the url builder.
   // Build api call from request.
-  const base_url = build_choropleth_url(
-    ["statVar", "perCapita", "geoId", "level", "mdom"],
-    true
-  );
+  let base_url = document.location.pathname + '/api';
+  base_url += build_choropleth_params(
+    ["statVar", "perCapita", "geoId", "level", "mdom"]);
   // Create request and generate map.
   axios.get(base_url).then((resp) => {
     const payload = resp.data[0];
@@ -135,23 +134,17 @@ function handleMapClick(geo) {
 /**
  * Builds a redirect link given the fields to include from search params.
  * @param fields_to_include
- * @param from_api whether the url should be to the api or locally.
  */
-function build_choropleth_url(fields_to_include, from_api) {
-  //TODO(iancostello): Make this path relative.
-  let base_url = document.location.origin + document.location.pathname;
-  if (from_api) {
-    base_url += "/api";
-  }
-  base_url += "?";
+function build_choropleth_params(fields_to_include) {
+  let params = "?";
   for (const index in fields_to_include) {
     const arg_name = fields_to_include[index];
     const arg_value = url.searchParams.get(arg_name);
     if (arg_value != null) {
-      base_url += "&" + arg_name + "=" + arg_value;
+      params += "&" + arg_name + "=" + arg_value;
     }
   }
-  return base_url;
+  return params;
 }
 
 /**
@@ -159,10 +152,9 @@ function build_choropleth_url(fields_to_include, from_api) {
  * @param {string} geoId to redirect to.
  */
 function redirectToGeo(geoId) {
-  let base_url = build_choropleth_url(
-    ["statVar", "perCapita", "level", "mdom"],
-    false
-  );
+  let base_url = document.location.pathname;
+  base_url += build_choropleth_params(
+    ["statVar", "perCapita", "level", "mdom"]);
   base_url += "&geoId=" + geoId;
   base_url += "&bc=";
 
@@ -186,10 +178,9 @@ function generateBreadCrumbs() {
     const crumbs = breadcrumbs.split(";");
 
     // Build url for each reference in the breadcrumbs.
-    let base_url = build_choropleth_url(
-      ["statVar", "perCapita", "level", "mdom"],
-      false
-    );
+    let base_url =  document.location.pathname;
+    base_url += build_choropleth_params(
+      ["statVar", "perCapita", "level", "mdom"]);
     base_url += "&geoId=";
 
     let breadcrumbs_upto = "";
