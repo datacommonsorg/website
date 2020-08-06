@@ -66,13 +66,12 @@ class Page extends Component<Record<string, unknown>, PageStateType> {
       statsVarInfoPromise = getStatsVarInfo(this.params.getStatsVarDcids());
     }
     let placesPromise = Promise.resolve({});
-    if (this.params.placeDcids.length !== 0) {
-      placesPromise = getPlaceNames(this.params.placeDcids);
-    }
     let validStatsVarPromise = Promise.resolve(new Set<string>());
     if (this.params.placeDcids.length !== 0) {
+      placesPromise = getPlaceNames(this.params.placeDcids);
       validStatsVarPromise = getStatsVar(this.params.placeDcids);
     }
+    
     Promise.all([
       statsVarInfoPromise,
       placesPromise,
