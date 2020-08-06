@@ -23,23 +23,23 @@ import axios from "axios";
 import * as d3 from "d3";
 
 class ChoroplethMap extends Component {
-    constructor(props) {
+    constructor(props: any) {
         super(props);
 
         // Redirect to basic url if none provided.
-        if (window.location.search == "") {
-            window.location.search = "statVar=Count_Person_Employed&perCapita=t&geoId=country/USA"
+        if (window.location.search === "") {
+            window.location.search = "statVar=Count_Person_Employed&perCapita=t&geoId=country/USA";
         }
         
         // Add default state and bind function contexts.
         const urlParams = new URLSearchParams(window.location.search);
         this.state = {
             geojson: [],
-            values: {},
             perCapita: (urlParams.has("perCapita")
-                && (['t','true', '1']).includes(
-                    urlParams.get("perCapita").toLowerCase()))
-        }
+                && (["t","true", "1"]).includes(
+                    urlParams.get("perCapita").toLowerCase())),
+            values: {},
+        };
         this.loadGeoJson = this.loadGeoJson.bind(this);
         this.renderGeoMap = this.renderGeoMap.bind(this);
         this.loadValues = this.loadValues.bind(this);
@@ -54,15 +54,15 @@ class ChoroplethMap extends Component {
      */
     loadGeoJson() {
         const urlParams = new URLSearchParams(window.location.search);
-        var base_url = build_choropleth_url(
+        const baseUrl = buildChoroplethUrl(
             ["perCapita", "geoId", "level", "mdom"],
-            "/geo"
+            "/geo",
         );
 
         // Create request and generate map.
-        axios.get(base_url).then((resp) => {
-            this.setState({'geojson': resp.data[0]});
-            this.renderGeoMap()
+        axios.get(baseUrl).then((resp) => {
+            this.setState({"geojson": resp.data[0]});
+            this.renderGeoMap();
             this.loadValues();
         });  
     }
@@ -72,13 +72,13 @@ class ChoroplethMap extends Component {
      */
     loadValues() {
         const urlParams = new URLSearchParams(window.location.search);
-        var base_url = build_choropleth_url(
+        const baseUrl = buildChoroplethUrl(
             ["geoId", "statVar"],
-            "/values"
+            "/values",
         );
 
-        axios.get(base_url).then((resp) => {
-            this.setState({'values': resp.data[0]});
+        axios.get(baseUrl).then((resp) => {
+            this.setState({"values": resp.data[0]});
             this.updateGeoValues();
         });
     }
@@ -89,18 +89,18 @@ class ChoroplethMap extends Component {
      */
     renderGeoMap() {
         // Combine path elements from D3 content.
-        var geojson = this.state['geojson']
+        var geojson = this.state["geojson"]
         var mapContent = d3
             .select("#main-pane g.map")
             .selectAll("path")
             .data(geojson.features);
 
         // Scale and center the map.
-        var svg_container = document.getElementById("map_container");
+        var svgContainer = document.getElementById("map_container");
         var projection = d3
             .geoAlbers()
-            .fitSize([svg_container.clientWidth,
-                      svg_container.clientHeight],
+            .fitSize([svgContainer.clientWidth,
+                      svgContainer.clientHeight],
                       geojson);
         var geomap = d3.geoPath().projection(projection);
 
@@ -133,18 +133,18 @@ class ChoroplethMap extends Component {
      * Requires geoJson map to be rendered and state values to be set.
      */
     updateGeoValues() {
-        var values = this.state['values']
-        var isPerCapita = this.state['perCapita']
+        var values = this.state["values"]
+        var isPerCapita = this.state["perCapita"]
 
         // Build chart display options.
         var colorScale = d3
             .scaleLinear()
             .domain(determineColorPalette(values,
-                this.state['perCapita'], this.state['popMap']))
+                this.state["perCapita"], this.state["popMap"]))
             .range(["#deebf7", "#9ecae1", "#3182bd"] as any);
 
         // Bind to current map.
-        var geojson = this.state['geojson']
+        var geojson = this.state["geojson"]
         var mapContent = d3
             .select("#main-pane g.map")
             .selectAll("path")
@@ -177,11 +177,11 @@ class ChoroplethMap extends Component {
         // Display statistical variable information on hover.
         let name = geo.properties.name;
         let geoId = geo.properties.geoId;
-        let values = this.state['values']
+        let values = this.state["values"]
         let geoValue : any = "No Value"
         if (geoId in values) {
             geoValue = values[geoId];
-            if (this.state['perCapita']) {
+            if (this.state["perCapita"]) {
                 if (geo.properties.hasOwnProperty("pop")) {
                     geoValue /= geo.properties.pop;
                 }
@@ -197,12 +197,12 @@ class ChoroplethMap extends Component {
 
     handleStatVarChange(statVar) {
         // TODO(iancostello): Update browser.
-        var base_url = build_choropleth_url(
+        var baseUrl = buildChoroplethUrl(
             ["geoId", "bc", "perCapita", "level", "mdom"],
-            ""
+            "",
         );
-        base_url += "&statVar=" + statVar
-        history.pushState({}, null, base_url);
+        baseUrl += "&statVar=" + statVar
+        history.pushState({}, null, baseUrl);
         this.loadValues()
     }
   
@@ -247,20 +247,20 @@ class ChoroplethMap extends Component {
  * @param fields_to_include
  * @param from_api whether the url should be to the api or locally.
  */
-function build_choropleth_url(fields_to_include, req_point) {
+function buildChoroplethUrl(fields_to_include, req_point) {
     //TODO(iancostello): Make this path relative.
-    var base_url = document.location.origin + document.location.pathname;
-    base_url += req_point;
-    base_url += "?";
+    var baseUrl = document.location.origin + document.location.pathname;
+    baseUrl += req_point;
+    baseUrl += "?";
     const urlParams = new URLSearchParams(window.location.search);
     for (let index in fields_to_include) {
       let arg_name = fields_to_include[index];
       let arg_value = urlParams.get(arg_name);
       if (arg_value != null) {
-        base_url += "&" + arg_name + "=" + arg_value;
+        baseUrl += "&" + arg_name + "=" + arg_value;
       }
     }
-    return base_url;
+    return baseUrl;
 }
 
 /**
@@ -270,21 +270,21 @@ function build_choropleth_url(fields_to_include, req_point) {
 function redirectToGeo(geoId) {
     var url = new URL(window.location.href);
 
-    var base_url = build_choropleth_url(
+    var baseUrl = buildChoroplethUrl(
       ["statVar", "perCapita", "level", "mdom"],
-      ""
+      "",
     );
-    base_url += "&geoId=" + geoId;
-    base_url += "&bc=";
+    baseUrl += "&geoId=" + geoId;
+    baseUrl += "&bc=";
   
     // Add or create breadcrumbs field.
     // TODO(iancostello): Use parent places api.
     var breadcrumbs = url.searchParams.get("bc");
     if (breadcrumbs != null && breadcrumbs != "") {
-      base_url += breadcrumbs + ";";
+      baseUrl += breadcrumbs + ";";
     }
-    base_url += url.searchParams.get("geoId");
-    window.location.href = base_url;
+    baseUrl += url.searchParams.get("geoId");
+    window.location.href = baseUrl;
 }
   
 /**
@@ -299,11 +299,11 @@ function generateBreadCrumbs() {
         var crumbs = breadcrumbs.split(";");
 
         // Build url for each reference in the breadcrumbs.
-        var base_url = build_choropleth_url(
+        var baseUrl = buildChoroplethUrl(
         ["statVar", "perCapita", "level", "mdom"],
-        ""
+        "",
         );
-        base_url += "&geoId=";
+        baseUrl += "&geoId=";
 
         var breadcrumbs_upto = "";
         for (let index in crumbs) {
@@ -311,7 +311,7 @@ function generateBreadCrumbs() {
 
             if (level_ref != "") {
                 // TODO(iancostello): Turn into react component to sanitize.
-                let curr_url = base_url + level_ref + "&bc=" + breadcrumbs_upto;
+                let curr_url = baseUrl + level_ref + "&bc=" + breadcrumbs_upto;
                 breadcrumbs_display.innerHTML +=
                 '<a href="' + curr_url + '">' + level_ref + "</a>" + " > ";
                 breadcrumbs_upto += level_ref + ";";
