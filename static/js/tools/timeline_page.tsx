@@ -60,9 +60,19 @@ class Page extends Component<Record<string, unknown>, PageStateType> {
   }
 
   componentDidMount(): void {
-    const statsVarInfoPromise = getStatsVarInfo(this.params.getStatsVarDcids());
-    const placesPromise = getPlaceNames(this.params.placeDcids);
-    const validStatsVarPromise = getStatsVar(this.params.placeDcids);
+    // Initial rendering has emmpty state. This proactively parse the url hash
+    // and re-render.
+    let statsVarInfoPromise = Promise.resolve({});
+    if (this.params.getStatsVarDcids().length !== 0) {
+      statsVarInfoPromise = getStatsVarInfo(this.params.getStatsVarDcids());
+    }
+    let placesPromise = Promise.resolve({});
+    let validStatsVarPromise = Promise.resolve(new Set<string>());
+    if (this.params.placeDcids.length !== 0) {
+      placesPromise = getPlaceNames(this.params.placeDcids);
+      validStatsVarPromise = getStatsVar(this.params.placeDcids);
+    }
+    
     Promise.all([
       statsVarInfoPromise,
       placesPromise,
@@ -174,7 +184,11 @@ class Page extends Component<Record<string, unknown>, PageStateType> {
         <div id="plot-container">
           <div className="container">
             <div id="search">
-              <SearchBar places={this.state.placeIdNames} />
+              <SearchBar
+                places={this.state.placeIdNames}
+                addPlace={this.addPlace.bind(this)}
+                removePlace={this.removePlace.bind(this)}
+              />
             </div>
             {Object.keys(this.state.placeIdNames).length === 0 && <Info />}
             {Object.keys(this.state.placeIdNames).length !== 0 &&
@@ -185,6 +199,7 @@ class Page extends Component<Record<string, unknown>, PageStateType> {
                     statsVars={this.state.statsVarInfo}
                     perCapita={this.state.perCapita}
                     statsVarTitle={this.state.statsVarTitle}
+                    removeStatsVar={this.removeStatsVar.bind(this)}
                   ></ChartRegion>
                 </div>
               )}

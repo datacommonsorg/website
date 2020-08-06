@@ -17,25 +17,19 @@
 import React, { Component, PureComponent } from "react";
 import {} from "googlemaps";
 import axios from "axios";
-import { updateUrl } from "./timeline_util";
 
 interface ChipPropType {
   placeName: string;
   placeId: string;
+  removePlace: (place: string) => void;
 }
 
-interface ChipStateType {
-  placeId: string;
-}
-
-class Chip extends PureComponent<ChipPropType, ChipStateType> {
+class Chip extends PureComponent<ChipPropType, Record<string, unknown>> {
   constructor(props) {
     super(props);
     this.deleteChip = this.deleteChip.bind(this);
-    this.state = {
-      placeId: props.placeId,
-    };
   }
+
   render() {
     return (
       <span className="mdl-chip mdl-chip--deletable">
@@ -46,13 +40,16 @@ class Chip extends PureComponent<ChipPropType, ChipStateType> {
       </span>
     );
   }
-  deleteChip() {
-    updateUrl({ place: { place: this.state.placeId, shouldAdd: false } });
+
+  private deleteChip() {
+    this.props.removePlace(this.props.placeId);
   }
 }
 
 interface SearchBarPropType {
   places: Record<string, string>;
+  addPlace: (place: string) => void;
+  removePlace: (place: string) => void;
 }
 
 class SearchBar extends Component<SearchBarPropType, unknown> {
@@ -64,11 +61,6 @@ class SearchBar extends Component<SearchBarPropType, unknown> {
     this.getPlaceAndRender = this.getPlaceAndRender.bind(this);
     this.inputElem = React.createRef();
     this.ac = null;
-  }
-  shouldComponentUpdate(nextProps: SearchBarPropType): boolean {
-    return (
-      JSON.stringify(this.props.places) !== JSON.stringify(nextProps.places)
-    );
   }
 
   render(): JSX.Element {
@@ -86,6 +78,7 @@ class SearchBar extends Component<SearchBarPropType, unknown> {
                   : placeId
               }
               key={placeId}
+              removePlace={this.props.removePlace}
             ></Chip>
           ))}
         </span>
@@ -117,7 +110,7 @@ class SearchBar extends Component<SearchBarPropType, unknown> {
     axios
       .get(`/api/placeid2dcid/${place.place_id}`)
       .then((resp) => {
-        updateUrl({ place: { place: resp.data, shouldAdd: true } });
+        this.props.addPlace(resp.data);
       })
       .catch(() => {
         alert("Sorry, but we don't have any data about " + name);
