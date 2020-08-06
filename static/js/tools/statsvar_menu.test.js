@@ -40,10 +40,12 @@ it("filtering the menu", () => {
   act(() => {
     render(
       <Menu
-        selectedNodePaths={[[0, 0]]}
+        selectedNodePaths={[["0", "0"]]}
         statsVarValid={new Set(["Count_Person"])}
         filter={true}
-        setStatsVarTitle={({}) => {}}
+        setStatsVarTitle={jest.fn()}
+        addStatsVar={jest.fn()}
+        removeStatsVar={jest.fn()}
       />,
       container
     );
@@ -54,10 +56,12 @@ it("filtering the menu", () => {
   act(() => {
     render(
       <Menu
-        selectedNodePaths={[[0, 0]]}
+        selectedNodePaths={[["0", "0"]]}
         statsVarValid={new Set([])}
         filter={true}
-        setStatsVarTitle={({}) => {}}
+        setStatsVarTitle={jest.fn()}
+        addStatsVar={jest.fn()}
+        removeStatsVar={jest.fn()}
       />,
       container
     );
@@ -69,10 +73,12 @@ it("filtering the menu", () => {
   act(() => {
     render(
       <Menu
-        selectedNodePaths={[[0, 0]]}
+        selectedNodePaths={[["0", "0"]]}
         statsVarValid={new Set(["Median_Age_Person"])}
         filter={true}
-        setStatsVarTitle={({}) => {}}
+        setStatsVarTitle={jest.fn()}
+        addStatsVar={jest.fn()}
+        removeStatsVar={jest.fn()}
       />,
       container
     );

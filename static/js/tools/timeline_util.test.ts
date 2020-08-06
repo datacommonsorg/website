@@ -19,6 +19,7 @@ import {
   updateUrl,
   parseUrl,
   TimelineParams,
+  getTimelineParamsFromUrl,
 } from "./timeline_util";
 
 test("update Url statsvar", () => {
@@ -86,7 +87,7 @@ test("test TimelineParams", () => {
 
   // add place
   urltest.addPlace("country/USA");
-  expect(urltest.placeDcids).toStrictEqual(new Set(["country/USA"]));
+  expect(urltest.placeDcids).toStrictEqual(["country/USA"]);
 
   // add one statsVar
   urltest.addStatsVar("Count_Person", ["0", "0"]);
@@ -115,9 +116,22 @@ test("test TimelineParams", () => {
     Median_Age_Person: [["0", "1"]],
   });
 
+  // get statsVarDcids
+  expect(urltest.getStatsVarDcids()).toStrictEqual([
+    "Count_Person",
+    "Median_Age_Person",
+  ]);
+
+  // get statsVarPaths
+  expect(urltest.getStatsVarPaths()).toStrictEqual([
+    ["0", "0"],
+    ["0", "5"],
+    ["0", "1"],
+  ]);
+
   // remove one place
   urltest.removePLace("country/USA");
-  expect(urltest.placeDcids).toStrictEqual(new Set<string>());
+  expect(urltest.placeDcids).toStrictEqual([]);
 
   // remove statsVar with one Path when there're multiple paths
   urltest.removeStatsVar("Count_Person", ["0", "5"]);
@@ -133,4 +147,28 @@ test("test TimelineParams", () => {
   // remove statsVar with Path
   urltest.removeStatsVar("Count_Person", ["0", "0"]);
   expect(urltest.statsVarNodes).toStrictEqual({});
+});
+
+test("test function of parsing the timeline parameters from the url", () => {
+  window.location.hash = "";
+  let params = getTimelineParamsFromUrl();
+  expect(params.pc).toEqual(false);
+  expect(params.placeDcids).toStrictEqual([]);
+  expect(params.statsVarNodes).toStrictEqual({});
+
+  window.location.hash = "#&place=country/USA,geoId/06";
+  params = getTimelineParamsFromUrl();
+  expect(params.placeDcids).toStrictEqual(["country/USA", "geoId/06"]);
+
+  window.location.hash = "&pc=1";
+  params = getTimelineParamsFromUrl();
+  expect(params.pc).toEqual(true);
+
+  window.location.hash =
+    "&statsVar=Count_Person__Median_Age_Person,0,1__Unknown";
+  params = getTimelineParamsFromUrl();
+  expect(params.statsVarNodes).toStrictEqual({
+    Count_Person: [["0", "0"]],
+    Median_Age_Person: [["0", "1"]],
+  });
 });
