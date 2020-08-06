@@ -27,6 +27,7 @@ import { Menu } from "./statsvar_menu";
 import { StatsVarInfo, TimelineParams } from "./timeline_util";
 import { Info } from "./timeline_info";
 import { ChartRegion } from "./timeline_chart_region";
+import {NoopStatsVarFilter, TimelineStatsVarFilter, StatsVarFilterInterface} from "./commons"
 
 interface PageStateType {
   statsVarPaths: string[][];
@@ -144,6 +145,13 @@ class Page extends Component<Record<string, unknown>, PageStateType> {
   }
 
   render(): JSX.Element {
+    let statsVarFilter: StatsVarFilterInterface;
+    if (Object.keys(this.state.placeIdNames).length === 0){
+      statsVarFilter = new NoopStatsVarFilter;
+    }
+    else{
+      statsVarFilter = new TimelineStatsVarFilter(this.state.statsVarValid)
+    }
     return (
       <div>
         <div className="explore-menu-container" id="explore">
@@ -156,8 +164,7 @@ class Page extends Component<Record<string, unknown>, PageStateType> {
             ></button>
             <Menu
               selectedNodePaths={this.state.statsVarPaths}
-              statsVarValid={this.state.statsVarValid}
-              filter={Object.keys(this.state.placeIdNames).length !== 0}
+              statsVarFilter={statsVarFilter}
               setStatsVarTitle={this.setStatsVarTitle.bind(this)}
               addStatsVar={this.addStatsVar.bind(this)}
               removeStatsVar={this.removeStatsVar.bind(this)}
