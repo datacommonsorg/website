@@ -308,12 +308,11 @@ class TimelineParams {
 
   // add one new place, return true if this.placeDcids changed
   public addPlace(placeDcid: string): boolean {
-    if (this.placeDcids.includes(placeDcid)) {
-      return false;
-    } else {
+    if (!this.placeDcids.includes(placeDcid)) {
       this.placeDcids.push(placeDcid);
       return true;
     }
+    return false;
   }
 
   // remove one place, return true if this.placeDcids changed

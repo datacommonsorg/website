@@ -43,16 +43,17 @@ class Page extends Component<Record<string, unknown>, PageStateType> {
   constructor(props: Record<string, unknown>) {
     super(props);
     this.params = getTimelineParamsFromUrl();
-    const tempStatsVarTitle = {};
+    // set default statsVarTitle as the statsVar dcids
+    const statsVarTitle = {};
     for (const statsVar of this.params.getStatsVarDcids()) {
-      tempStatsVarTitle[statsVar] = statsVar;
+      statsVarTitle[statsVar] = statsVar;
     }
     this.state = {
       placeIdNames: {},
       statsVarValid: new Set(),
       statsVarPaths: this.params.getStatsVarPaths(),
       statsVarInfo: {},
-      statsVarTitle: tempStatsVarTitle,
+      statsVarTitle: statsVarTitle,
       perCapita: this.params.pc,
     };
   }
@@ -65,15 +66,16 @@ class Page extends Component<Record<string, unknown>, PageStateType> {
       statsVarInfoPromise,
       placesPromise,
       validStatsVarPromise,
-    ]).then((values) => {
+    ]).then(([statsVarInfo, placeIdNames, statsVarValid]) => {
       this.setState({
-        statsVarInfo: values[0],
-        placeIdNames: values[1],
-        statsVarValid: values[2],
+        statsVarInfo: statsVarInfo,
+        placeIdNames: placeIdNames,
+        statsVarValid: statsVarValid,
       });
     });
   }
 
+  // add one statsVar with nodePath
   private addStatsVar(statsVar: string, nodePath: string[]): void {
     if (this.params.addStatsVar(statsVar, nodePath)) {
       getStatsVarInfo(this.params.getStatsVarDcids()).then((data) => {
@@ -85,6 +87,7 @@ class Page extends Component<Record<string, unknown>, PageStateType> {
     }
   }
 
+  // remove one statsVar with nodePath
   private removeStatsVar(statsVar: string, nodePath: string[] = []): void {
     if (this.params.removeStatsVar(statsVar, nodePath)) {
       const tempStatsVarInfo = this.state.statsVarInfo;
@@ -98,6 +101,7 @@ class Page extends Component<Record<string, unknown>, PageStateType> {
     }
   }
 
+  // add one place
   private addPlace(place: string): void {
     if (this.params.addPlace(place)) {
       const placesPromise = getPlaceNames(this.params.placeDcids);
@@ -111,6 +115,7 @@ class Page extends Component<Record<string, unknown>, PageStateType> {
     }
   }
 
+  // remove one place
   private removePlace(place: string): void {
     if (this.params.removePLace(place)) {
       const tempPlace = this.state.placeIdNames;
@@ -124,12 +129,14 @@ class Page extends Component<Record<string, unknown>, PageStateType> {
     }
   }
 
+  // change per capita
   private togglePerCapita(): void {
     this.setState({
       perCapita: !this.state.perCapita,
     });
   }
 
+  // call back function passed down to menu for getting statsVar titles
   setStatsVarTitle(statsVarId2Title: Record<string, string>): void {
     this.setState({
       statsVarTitle: statsVarId2Title,
