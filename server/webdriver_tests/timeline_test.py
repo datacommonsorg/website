@@ -40,8 +40,8 @@ class TestBase(LiveServerTestCase):
 
         # self.driver = webdriver.Chrome()
 
-        self.driver.get('http://datacommons.org/tools/timeline')
-        # self.driver.get(self.get_server_url() + '/tools/timeline')
+        # self.driver.get('http://datacommons.org/tools/timeline')
+        self.driver.get(self.get_server_url() + '/tools/timeline')
 
     def tearDown(self):
         self.driver.quit()
