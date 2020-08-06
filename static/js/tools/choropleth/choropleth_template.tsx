@@ -15,6 +15,21 @@
  */
 
 import React, { Component } from "react";
+import ReactDOM from "react-dom";
+import { ChoroplethMap, generateBreadCrumbs } from "./choropleth"
+
+/**
+ * Generates choropleth map from API on pageload.
+ */
+window.onload = () => {
+  ReactDOM.render(
+    React.createElement(MainPane),
+    document.getElementById("main-pane")
+  );
+
+  // Generate breadcrumbs.
+  generateBreadCrumbs();
+}
 
 class MainPane extends Component {
   constructor(props) {
@@ -25,19 +40,11 @@ class MainPane extends Component {
     return (
       <React.Fragment>
         <div className="column" id="breadcrumbs"></div>
-        <svg id="map_container" width="800px" height="500px">
-          <g className="map"></g>
-          <g className="bounding-box">
-            <rect></rect>
-          </g>
-          <g className="centroid">
-            <circle r="4"></circle>
-          </g>
-        </svg>
+        <ChoroplethMap></ChoroplethMap>
         <div className="column" id="hover-text-display"></div>
       </React.Fragment>
     );
-  }
+   }
 }
 
 export { MainPane };
