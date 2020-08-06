@@ -1,12 +1,12 @@
 # Run Python tests, lint, etc.
 steps:
 
-- id: flask_test
-  name: python:3.7-slim
-  entrypoint: /bin/sh
-  args:
-  - -c
-  - ./run_test.sh -p
+# - id: flask_test
+#   name: python:3.7-slim
+#   entrypoint: /bin/sh
+#   args:
+#   - -c
+#   - ./run_test.sh -p
 
 - id: flask_webdriver_test
   name: python:3.7-slim
@@ -14,7 +14,6 @@ steps:
   args:
   - -c
   - |
-    set -e
     apt-get update
     apt-get upgrade
     apt-get install -y unzip xvfb libxi6 libgconf-2-4
@@ -34,11 +33,11 @@ steps:
     cd ..
   # - ./run_test.sh -w
 
-- id: pv_tree_generator
-  name: python:3.7-slim
-  entrypoint: /bin/sh
-  args:
-  - -c
-  - 'cd tools/pv_tree_generator && pip install -r requirements.txt && python -m pytest'
+# - id: pv_tree_generator
+#   name: python:3.7-slim
+#   entrypoint: /bin/sh
+#   args:
+#   - -c
+#   - 'cd tools/pv_tree_generator && pip install -r requirements.txt && python -m pytest'
 
 # TODO: Add Python linter, format checker, and any other useful code health tools.
