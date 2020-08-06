@@ -151,7 +151,7 @@ class Node extends Component<NodePropType, NodeStateType> {
               }
             } else {
               // TODO: if the statsVar does not match with the input
-              // add the default statsVar path              
+              // add the default statsVar path
             }
           }
         } else if (

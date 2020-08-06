@@ -20,6 +20,7 @@ import { render, unmountComponentAtNode } from "react-dom";
 import { act } from "react-dom/test-utils";
 import pretty from "pretty";
 import { TimelineStatsVarFilter } from "./commons";
+import {statsVarNode} from "./timeline_util";
 
 let container = null;
 beforeEach(() => {
@@ -41,7 +42,7 @@ it("filtering the menu", () => {
   act(() => {
     render(
       <Menu
-        selectedNodePaths={[["0", "0"]]}
+        selectedNodes={{"Count_Person":[["0", "0"]]}}
         setStatsVarTitle={jest.fn()}
         addStatsVar={jest.fn()}
         removeStatsVar={jest.fn()}
@@ -56,7 +57,7 @@ it("filtering the menu", () => {
   act(() => {
     render(
       <Menu
-        selectedNodePaths={[["0", "0"]]}
+        selectedNodes={{"Count_Person":[["0", "0"]]}}
         setStatsVarTitle={jest.fn()}
         addStatsVar={jest.fn()}
         removeStatsVar={jest.fn()}
@@ -72,7 +73,7 @@ it("filtering the menu", () => {
   act(() => {
     render(
       <Menu
-        selectedNodePaths={[["0", "0"]]}
+        selectedNodes={{"Count_Person":[["0", "0"]]}}
         setStatsVarTitle={jest.fn()}
         addStatsVar={jest.fn()}
         removeStatsVar={jest.fn()}
