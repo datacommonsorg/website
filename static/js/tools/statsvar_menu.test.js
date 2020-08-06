@@ -19,6 +19,7 @@ import { Menu } from "./statsvar_menu";
 import { render, unmountComponentAtNode } from "react-dom";
 import { act } from "react-dom/test-utils";
 import pretty from "pretty";
+import { TimelineStatsVarFilter } from "./commons";
 
 let container = null;
 beforeEach(() => {
@@ -41,11 +42,10 @@ it("filtering the menu", () => {
     render(
       <Menu
         selectedNodePaths={[["0", "0"]]}
-        statsVarValid={new Set(["Count_Person"])}
-        filter={true}
         setStatsVarTitle={jest.fn()}
         addStatsVar={jest.fn()}
         removeStatsVar={jest.fn()}
+        statsVarFilter={new TimelineStatsVarFilter(new Set(["Count_Person"]))}
       />,
       container
     );
@@ -57,11 +57,10 @@ it("filtering the menu", () => {
     render(
       <Menu
         selectedNodePaths={[["0", "0"]]}
-        statsVarValid={new Set([])}
-        filter={true}
         setStatsVarTitle={jest.fn()}
         addStatsVar={jest.fn()}
         removeStatsVar={jest.fn()}
+        statsVarFilter={new TimelineStatsVarFilter(new Set([]))}
       />,
       container
     );
@@ -74,11 +73,12 @@ it("filtering the menu", () => {
     render(
       <Menu
         selectedNodePaths={[["0", "0"]]}
-        statsVarValid={new Set(["Median_Age_Person"])}
-        filter={true}
         setStatsVarTitle={jest.fn()}
         addStatsVar={jest.fn()}
         removeStatsVar={jest.fn()}
+        statsVarFilter={
+          new TimelineStatsVarFilter(new Set(["Median_Age_Person"]))
+        }
       />,
       container
     );

@@ -15,7 +15,6 @@
  */
 
 import React, { Component } from "react";
-import _ from "lodash";
 import {
   getStatsVarInfo,
   getPlaceNames,
@@ -27,7 +26,11 @@ import { Menu } from "./statsvar_menu";
 import { StatsVarInfo, TimelineParams } from "./timeline_util";
 import { Info } from "./timeline_info";
 import { ChartRegion } from "./timeline_chart_region";
-import {NoopStatsVarFilter, TimelineStatsVarFilter, StatsVarFilterInterface} from "./commons"
+import {
+  NoopStatsVarFilter,
+  TimelineStatsVarFilter,
+  StatsVarFilterInterface,
+} from "./commons";
 
 interface PageStateType {
   statsVarPaths: string[][];
@@ -72,7 +75,7 @@ class Page extends Component<Record<string, unknown>, PageStateType> {
       placesPromise = getPlaceNames(this.params.placeDcids);
       validStatsVarPromise = getStatsVar(this.params.placeDcids);
     }
-    
+
     Promise.all([
       statsVarInfoPromise,
       placesPromise,
@@ -156,11 +159,10 @@ class Page extends Component<Record<string, unknown>, PageStateType> {
 
   render(): JSX.Element {
     let statsVarFilter: StatsVarFilterInterface;
-    if (Object.keys(this.state.placeIdNames).length === 0){
-      statsVarFilter = new NoopStatsVarFilter;
-    }
-    else{
-      statsVarFilter = new TimelineStatsVarFilter(this.state.statsVarValid)
+    if (Object.keys(this.state.placeIdNames).length === 0) {
+      statsVarFilter = new NoopStatsVarFilter();
+    } else {
+      statsVarFilter = new TimelineStatsVarFilter(this.state.statsVarValid);
     }
     return (
       <div>
