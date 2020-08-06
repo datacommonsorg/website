@@ -25,6 +25,7 @@ interface ChartRegionPropsType {
   statsVars: { [key: string]: StatsVarInfo };
   perCapita: boolean;
   statsVarTitle: Record<string, string>;
+  removeStatsVar: (statsVar: string, nodePath?: string[]) => void;
 }
 
 class ChartRegion extends Component<ChartRegionPropsType, unknown> {
@@ -71,6 +72,7 @@ class ChartRegion extends Component<ChartRegionPropsType, unknown> {
               perCapita={this.props.perCapita}
               onDataUpdate={this.onDataUpdate.bind(this)}
               statsVarTitle={statsVarTitle}
+              removeStatsVar={this.props.removeStatsVar}
             ></Chart>
           );
         }, this)}
