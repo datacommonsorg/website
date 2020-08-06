@@ -17,7 +17,6 @@
 import React, { Component } from "react";
 import axios from "axios";
 import hierarchy from "../../data/hierarchy_top.json";
-import { updateUrl } from "./timeline_util";
 import { StatsVarFilterInterface } from "./commons";
 import _ from "lodash";
 
@@ -28,13 +27,14 @@ interface NodePropType {
   c: number; // count
   cd: NodePropType[]; // children
   t: string; // type
-  sv: string[];
-  selectedNodePaths: number[][];
-  nodePath: number[];
+  sv: string[]; // statsVar dcid
+  selectedNodePaths: string[][]; // path to all the selected statsVars
+  nodePath: string[]; // path to current node
   statsVarValid: Set<string>;
   filter: boolean;
-  idx: number;
   addStatsVarTitle: (statsVarId: string, statsVarName: string) => void;
+  addStatsVar: (statsVar: string, nodePath: string[]) => void; // function for adding statsVars
+  removeStatsVar: (statsVar: string, nodePath?: string[]) => void; // function for removing statsVars
 }
 
 interface NodeStateType {
@@ -73,9 +73,10 @@ class Node extends Component<NodePropType, NodeStateType> {
             key={this.props.l + index}
             statsVarValid={this.props.statsVarValid}
             filter={this.props.filter}
-            idx={index}
             addStatsVarTitle={this.props.addStatsVarTitle}
-            nodePath={[...this.props.nodePath, index]}
+            nodePath={[...this.props.nodePath, index.toString()]}
+            addStatsVar={this.props.addStatsVar}
+            removeStatsVar={this.props.removeStatsVar}
           ></Node>
         );
       });
@@ -146,7 +147,7 @@ class Node extends Component<NodePropType, NodeStateType> {
               this.props.addStatsVarTitle(sv, this.props.l);
             } else {
               // remove the statsVar from url if not available
-              updateUrl({ statsVar: { statsVar: sv, shouldAdd: false } });
+              this.props.removeStatsVar(sv);
             }
           }
         } else {
@@ -166,31 +167,18 @@ class Node extends Component<NodePropType, NodeStateType> {
     });
     if (this.state.checked) {
       // delete all related statsVars
-      updateUrl({
-        statsVar: {
-          statsVar:
-            this.props.sv.join("__") + "," + this.props.nodePath.join(","),
-          shouldAdd: !this.state.checked,
-        },
-      });
+      for (const statsVar of this.props.sv) {
+        this.props.removeStatsVar(statsVar);
+      }
     } else {
       // add available statsVars only
-      let validSV = [];
       if (this.props.filter) {
         for (const statsVar of this.props.sv) {
           if (this.props.statsVarValid.has(statsVar)) {
-            validSV.push(statsVar);
+            this.props.addStatsVar(statsVar, this.props.nodePath);
           }
         }
-      } else {
-        validSV = this.props.sv;
       }
-      updateUrl({
-        statsVar: {
-          statsVar: validSV.join("__") + "," + this.props.nodePath.join(","),
-          shouldAdd: !this.state.checked,
-        },
-      });
     }
   };
 
@@ -271,10 +259,12 @@ class Node extends Component<NodePropType, NodeStateType> {
 }
 
 interface MenuPropType {
-  selectedNodePaths: number[][];
+  selectedNodePaths: string[][];
   statsVarValid: Set<string>;
   filter: boolean;
-  setStatsVarTitle: (statsVarId2Title: { [key: string]: string }) => void;
+  setStatsVarTitle: (statsVarId2Title: Record<string, string>) => void;
+  addStatsVar: (statsVar: string, nodePath: string[]) => void;
+  removeStatsVar: (statsVar: string, nodePath?: string[]) => void;
 }
 
 interface MenuStateType {
@@ -282,7 +272,7 @@ interface MenuStateType {
 }
 
 class Menu extends Component<MenuPropType, MenuStateType> {
-  statsVarId2Title: { [key: string]: string }; // {Id: Title}
+  statsVarId2Title: Record<string, string>; // {Id: Title}
 
   constructor(props: MenuPropType) {
     super(props);
@@ -313,9 +303,10 @@ class Menu extends Component<MenuPropType, MenuStateType> {
                     selectedNodePaths={this.props.selectedNodePaths}
                     statsVarValid={this.props.statsVarValid}
                     filter={this.props.filter}
-                    idx={index}
                     addStatsVarTitle={this.addStatsVarTitle}
-                    nodePath={[index]}
+                    removeStatsVar={this.props.removeStatsVar}
+                    addStatsVar={this.props.addStatsVar}
+                    nodePath={[index.toString()]}
                   ></Node>
                 )
               );

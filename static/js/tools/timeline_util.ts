@@ -283,13 +283,17 @@ interface StatsVarNode {
 // and provide methods of updating the parameters
 class TimelineParams {
   statsVarNodes: StatsVarNode;
-  placeDcids: Set<string>;
+  placeDcids: string[];
   pc: boolean;
 
   constructor() {
     this.statsVarNodes = {};
-    this.placeDcids = new Set<string>();
+    this.placeDcids = [];
     this.pc = false;
+    this.addStatsVar = this.addStatsVar.bind(this);
+    this.removeStatsVar = this.removeStatsVar.bind(this);
+    this.addPlace = this.addPlace.bind(this);
+    this.removePLace = this.removePLace.bind(this);
   }
 
   // set PerCapital to true
@@ -302,35 +306,48 @@ class TimelineParams {
     this.pc = false;
   }
 
-  // add one new place
-  public addPlace(placeDcid: string): void {
-    this.placeDcids.add(placeDcid);
+  // add one new place, return true if this.placeDcids changed
+  public addPlace(placeDcid: string): boolean {
+    if (!this.placeDcids.includes(placeDcid)) {
+      this.placeDcids.push(placeDcid);
+      return true;
+    }
+    return false;
   }
 
-  // remove one place
-  public removePLace(placeDcid: string): void {
-    this.placeDcids.delete(placeDcid);
+  // remove one place, return true if this.placeDcids changed
+  public removePLace(placeDcid: string): boolean {
+    const index = this.placeDcids.indexOf(placeDcid);
+    if (index !== -1) {
+      this.placeDcids.splice(index, 1);
+      return true;
+    }
+    return false;
   }
 
-  // add one statsVar with Path
-  public addStatsVar(statsVar: string, nodePath: string[]): void {
+  // add one statsVar with Path, return true if this.statsVarNodes changed
+  public addStatsVar(statsVar: string, nodePath: string[]): boolean {
     if (!(statsVar in this.statsVarNodes)) {
       this.statsVarNodes[statsVar] = [nodePath];
+      return true;
     } else if (
       _.findIndex(this.statsVarNodes[statsVar], function (obj) {
         return _.isEqual(obj, nodePath);
       }) === -1
     ) {
       this.statsVarNodes[statsVar].push(nodePath);
+      return true;
     }
+    return false;
   }
 
-  // delete one statsVar
-  public removeStatsVar(statsVar: string, nodePath: string[] = []): void {
+  // delete one statsVar, return true if this.statsVarNodes changed
+  public removeStatsVar(statsVar: string, nodePath: string[] = []): boolean {
     if (statsVar in this.statsVarNodes) {
       // if Path is not provided, delete all nodes of the statsVar
       if (nodePath.length === 0) {
         delete this.statsVarNodes[statsVar];
+        return true;
       }
       // if Path is provided, delete the statsVar with the same Path only
       else {
@@ -339,13 +356,73 @@ class TimelineParams {
         });
         if (idx !== -1) {
           this.statsVarNodes[statsVar].splice(idx, 1);
+          if (this.statsVarNodes[statsVar].length === 0) {
+            delete this.statsVarNodes[statsVar];
+          }
+          return true;
         }
-        if (this.statsVarNodes[statsVar].length === 0) {
-          delete this.statsVarNodes[statsVar];
+      }
+    }
+    return false;
+  }
+
+  // get the dcids of all the statsVars
+  public getStatsVarDcids(): string[] {
+    return Object.keys(this.statsVarNodes);
+  }
+
+  // get the path of all the nodes
+  public getStatsVarPaths(): string[][] {
+    const statsVarPaths = [];
+    for (const statsVar in this.statsVarNodes) {
+      for (const nodePath of this.statsVarNodes[statsVar]) {
+        statsVarPaths.push(nodePath);
+      }
+    }
+    return statsVarPaths;
+  }
+}
+
+// get the timeline parameters from the url
+function getTimelineParamsFromUrl(): TimelineParams {
+  const params = new TimelineParams();
+  const urlParams = new URLSearchParams(window.location.hash);
+
+  // set Per Capita
+  const pc = urlParams.get("pc");
+  if (pc === "1") {
+    params.setPC();
+  }
+
+  // set places
+  const places = urlParams.get("place");
+  if (places) {
+    for (const place of places.split(",")) {
+      params.addPlace(place);
+    }
+  }
+
+  // set statsVars
+  const statsVars = urlParams.get("statsVar");
+  if (statsVars) {
+    for (const statsVarString of statsVars.split("__")) {
+      const statsVarInfo = statsVarString.split(",");
+      // check if the statsVar id exists in the PV tree
+      if (statsVarInfo.length >= 1 && statsVarInfo[0] in statsVarPathMap) {
+        // if statsVar path is not include in url
+        // load the path from pre-built map
+        if (statsVarInfo.length === 1 && statsVarInfo[0] in statsVarPathMap) {
+          params.addStatsVar(
+            statsVarInfo[0],
+            statsVarPathMap[statsVarInfo[0]].map((x: number) => x.toString())
+          );
+        } else {
+          params.addStatsVar(statsVarInfo[0], statsVarInfo.splice(1));
         }
       }
     }
   }
+  return params;
 }
 
 export {
@@ -357,4 +434,5 @@ export {
   getStatsVar,
   saveToFile,
   TimelineParams,
+  getTimelineParamsFromUrl,
 };

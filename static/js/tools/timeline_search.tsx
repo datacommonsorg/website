@@ -52,7 +52,7 @@ class Chip extends PureComponent<ChipPropType, ChipStateType> {
 }
 
 interface SearchBarPropType {
-  places: [string, string][];
+  places: Record<string, string>;
 }
 
 class SearchBar extends Component<SearchBarPropType, unknown> {
@@ -77,11 +77,15 @@ class SearchBar extends Component<SearchBarPropType, unknown> {
         <div id="search-icon"></div>
         <span id="prompt">Find : </span>
         <span id="place-list">
-          {this.props.places.map((placeData) => (
+          {Object.keys(this.props.places).map((placeId) => (
             <Chip
-              placeId={placeData[0]}
-              placeName={placeData[1] ? placeData[1] : placeData[0]}
-              key={placeData[0]}
+              placeId={placeId}
+              placeName={
+                this.props.places[placeId]
+                  ? this.props.places[placeId]
+                  : placeId
+              }
+              key={placeId}
             ></Chip>
           ))}
         </span>
@@ -123,7 +127,7 @@ class SearchBar extends Component<SearchBarPropType, unknown> {
 
   private setPlaceholder() {
     this.inputElem.current.value = "";
-    if (this.props.places.length > 0) {
+    if (Object.keys(this.props.places).length > 0) {
       this.inputElem.current.placeholder = "Add another place";
     } else {
       this.inputElem.current.placeholder =

@@ -17,119 +17,129 @@
 import React, { Component } from "react";
 import _ from "lodash";
 import {
-  parseUrl,
   getStatsVarInfo,
   getPlaceNames,
   getStatsVar,
-  updateUrl,
+  getTimelineParamsFromUrl,
 } from "./timeline_util";
 import { SearchBar } from "./timeline_search";
 import { Menu } from "./statsvar_menu";
-import { StatsVarInfo } from "./timeline_util";
+import { StatsVarInfo, TimelineParams } from "./timeline_util";
 import { Info } from "./timeline_info";
 import { ChartRegion } from "./timeline_chart_region";
 
-interface PagePropType {
-  search: boolean;
-}
-
 interface PageStateType {
-  statsVarPaths: number[][];
+  statsVarPaths: string[][];
   statsVarInfo: { [key: string]: StatsVarInfo };
-  places: [string, string][]; // [(placeId, placeName)]
+  placeIdNames: Record<string, string>; // [(placeId, placeName)]
+  statsVarTitle: Record<string, string>;
   perCapita: boolean;
   statsVarValid: Set<string>;
 }
 
-class Page extends Component<PagePropType, PageStateType> {
-  constructor(props: PagePropType) {
+class Page extends Component<Record<string, unknown>, PageStateType> {
+  params: TimelineParams;
+
+  constructor(props: Record<string, unknown>) {
     super(props);
-    this.handleHashChange = this.handleHashChange.bind(this);
-    this._togglePerCapita = this._togglePerCapita.bind(this);
-    this.setStatsVarTitle = this.setStatsVarTitle.bind(this);
+    this.params = getTimelineParamsFromUrl();
+    // set default statsVarTitle as the statsVar dcids
+    const statsVarTitle = {};
+    for (const statsVar of this.params.getStatsVarDcids()) {
+      statsVarTitle[statsVar] = statsVar;
+    }
     this.state = {
-      statsVarPaths: [],
-      statsVarInfo: {},
-      places: [],
-      perCapita: false,
+      placeIdNames: {},
       statsVarValid: new Set(),
+      statsVarPaths: this.params.getStatsVarPaths(),
+      statsVarInfo: {},
+      statsVarTitle: statsVarTitle,
+      perCapita: this.params.pc,
     };
-  }
-  shouldComponentUpdate(
-    nextProps: PagePropType,
-    nextState: PageStateType
-  ): boolean {
-    return (
-      JSON.stringify(this.state.statsVarInfo) !==
-        JSON.stringify(nextState.statsVarInfo) ||
-      this.state.places !== nextState.places ||
-      this.state.perCapita !== nextState.perCapita
-    );
   }
 
   componentDidMount(): void {
-    window.addEventListener("hashchange", this.handleHashChange);
-    this.handleHashChange();
-  }
-
-  handleHashChange(): void {
-    const urlVar = parseUrl();
-    let statsVarInfoPromise = Promise.resolve(this.state.statsVarInfo);
-    if (urlVar.statsVarPath !== this.state.statsVarPaths) {
-      if (urlVar.statsVarId.length !== 0) {
-        statsVarInfoPromise = getStatsVarInfo(urlVar.statsVarId);
-      } else {
-        statsVarInfoPromise = Promise.resolve({});
-      }
-    }
-
-    let placesPromise = Promise.resolve(this.state.places);
-    let validStatsVarPromise = Promise.resolve(this.state.statsVarValid);
-    if (urlVar.placeId !== Object.keys(this.state.places)) {
-      validStatsVarPromise = getStatsVar(urlVar.placeId);
-      if (urlVar.placeId.length !== 0) {
-        placesPromise = getPlaceNames(urlVar.placeId).then((data) =>
-          Object.entries(data)
-        );
-      } else {
-        placesPromise = Promise.resolve([]);
-      }
-    }
-
+    const statsVarInfoPromise = getStatsVarInfo(this.params.getStatsVarDcids());
+    const placesPromise = getPlaceNames(this.params.placeDcids);
+    const validStatsVarPromise = getStatsVar(this.params.placeDcids);
     Promise.all([
       statsVarInfoPromise,
       placesPromise,
       validStatsVarPromise,
-    ]).then((values) => {
+    ]).then(([statsVarInfo, placeIdNames, statsVarValid]) => {
       this.setState({
-        statsVarInfo: values[0],
-        statsVarPaths: urlVar.statsVarPath,
-        places: values[1],
-        statsVarValid: values[2],
-        perCapita: urlVar.pc,
+        statsVarInfo: statsVarInfo,
+        placeIdNames: placeIdNames,
+        statsVarValid: statsVarValid,
       });
     });
   }
 
-  _togglePerCapita(): void {
-    updateUrl({ pc: !this.state.perCapita });
+  // add one statsVar with nodePath
+  private addStatsVar(statsVar: string, nodePath: string[]): void {
+    if (this.params.addStatsVar(statsVar, nodePath)) {
+      getStatsVarInfo(this.params.getStatsVarDcids()).then((data) => {
+        this.setState({
+          statsVarInfo: data,
+          statsVarPaths: this.params.getStatsVarPaths(),
+        });
+      });
+    }
+  }
+
+  // remove one statsVar with nodePath
+  private removeStatsVar(statsVar: string, nodePath: string[] = []): void {
+    if (this.params.removeStatsVar(statsVar, nodePath)) {
+      const tempStatsVarInfo = this.state.statsVarInfo;
+      if (!(statsVar in this.params.statsVarNodes)) {
+        delete tempStatsVarInfo[statsVar];
+      }
+      this.setState({
+        statsVarPaths: this.params.getStatsVarPaths(),
+        statsVarInfo: tempStatsVarInfo,
+      });
+    }
+  }
+
+  // add one place
+  private addPlace(place: string): void {
+    if (this.params.addPlace(place)) {
+      const placesPromise = getPlaceNames(this.params.placeDcids);
+      const validStatsVarPromise = getStatsVar(this.params.placeDcids);
+      Promise.all([placesPromise, validStatsVarPromise]).then((values) => {
+        this.setState({
+          placeIdNames: values[0],
+          statsVarValid: values[1],
+        });
+      });
+    }
+  }
+
+  // remove one place
+  private removePlace(place: string): void {
+    if (this.params.removePLace(place)) {
+      const tempPlace = this.state.placeIdNames;
+      delete tempPlace[place];
+      getStatsVar(this.params.placeDcids).then((data) => {
+        this.setState({
+          placeIdNames: tempPlace,
+          statsVarValid: data,
+        });
+      });
+    }
+  }
+
+  // change per capita
+  private togglePerCapita(): void {
     this.setState({
       perCapita: !this.state.perCapita,
     });
   }
 
-  setStatsVarTitle(statsVarId2Title: { [key: string]: string }): void {
-    // Deep clone state value out to prevent change state value outside
-    // setState(). Otherwise the state is changed and check in
-    // shouldComponentUpdate() has no effect.
-    const value = _.cloneDeep(this.state.statsVarInfo);
-    Object.keys(statsVarId2Title).map((id) => {
-      if (id in value) {
-        value[id].title = statsVarId2Title[id];
-      }
-    });
+  // call back function passed down to menu for getting statsVar titles
+  setStatsVarTitle(statsVarId2Title: Record<string, string>): void {
     this.setState({
-      statsVarInfo: value,
+      statsVarTitle: statsVarId2Title,
     });
   }
 
@@ -142,29 +152,32 @@ class Page extends Component<PagePropType, PageStateType> {
             <span className="perCapita">Per capita</span>
             <button
               className={this.state.perCapita ? "checkbox checked" : "checkbox"}
-              onClick={this._togglePerCapita}
+              onClick={this.togglePerCapita.bind(this)}
             ></button>
             <Menu
               selectedNodePaths={this.state.statsVarPaths}
               statsVarValid={this.state.statsVarValid}
-              filter={this.state.places.length !== 0}
-              setStatsVarTitle={this.setStatsVarTitle}
+              filter={Object.keys(this.state.placeIdNames).length !== 0}
+              setStatsVarTitle={this.setStatsVarTitle.bind(this)}
+              addStatsVar={this.addStatsVar.bind(this)}
+              removeStatsVar={this.removeStatsVar.bind(this)}
             ></Menu>
           </div>
         </div>
         <div id="plot-container">
           <div className="container">
             <div id="search">
-              <SearchBar places={this.state.places} />
+              <SearchBar places={this.state.placeIdNames} />
             </div>
-            {this.state.places.length === 0 && <Info />}
-            {this.state.places.length !== 0 &&
+            {Object.keys(this.state.placeIdNames).length === 0 && <Info />}
+            {Object.keys(this.state.placeIdNames).length !== 0 &&
               Object.keys(this.state.statsVarInfo).length !== 0 && (
                 <div id="chart-region">
                   <ChartRegion
-                    places={this.state.places}
+                    places={this.state.placeIdNames}
                     statsVars={this.state.statsVarInfo}
                     perCapita={this.state.perCapita}
+                    statsVarTitle={this.state.statsVarTitle}
                   ></ChartRegion>
                 </div>
               )}

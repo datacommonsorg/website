@@ -101,7 +101,7 @@ test("Single place and single stats var", () => {
     .mockResolvedValue({ data: { "geoId/05": "Place" } });
 
   // Do the actual render!
-  const wrapper = mount(<Page search={true} />);
+  const wrapper = mount(<Page />);
 
   // There are 3 promises to resolve:
   // 1) all for [statsVarInfo, placeName, validStatsVar]
