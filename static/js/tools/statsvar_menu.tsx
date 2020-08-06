@@ -93,7 +93,7 @@ class Node extends Component<NodePropType, NodeStateType> {
                 )}
               </a>
             </span>
-            {this.checkExpand &&
+            {this.checkExpand() &&
               this.state.expanded &&
               this.props.cd.map((item, index) => {
                 return (
