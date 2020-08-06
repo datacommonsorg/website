@@ -20,6 +20,7 @@ import {
   getPlaceNames,
   getStatsVar,
   getTimelineParamsFromUrl,
+  StatsVarNode,
 } from "./timeline_util";
 import { SearchBar } from "./timeline_search";
 import { Menu } from "./statsvar_menu";
@@ -33,7 +34,7 @@ import {
 } from "./commons";
 
 interface PageStateType {
-  statsVarPaths: string[][];
+  statsVarNodes: StatsVarNode;
   statsVarInfo: { [key: string]: StatsVarInfo };
   placeIdNames: Record<string, string>; // [(placeId, placeName)]
   statsVarTitle: Record<string, string>;
@@ -55,7 +56,7 @@ class Page extends Component<Record<string, unknown>, PageStateType> {
     this.state = {
       placeIdNames: {},
       statsVarValid: new Set(),
-      statsVarPaths: this.params.getStatsVarPaths(),
+      statsVarNodes: this.params.statsVarNodes,
       statsVarInfo: {},
       statsVarTitle: statsVarTitle,
       perCapita: this.params.pc,
@@ -95,7 +96,7 @@ class Page extends Component<Record<string, unknown>, PageStateType> {
       getStatsVarInfo(this.params.getStatsVarDcids()).then((data) => {
         this.setState({
           statsVarInfo: data,
-          statsVarPaths: this.params.getStatsVarPaths(),
+          statsVarNodes: this.params.statsVarNodes,
         });
       });
     }
@@ -109,7 +110,7 @@ class Page extends Component<Record<string, unknown>, PageStateType> {
         delete tempStatsVarInfo[statsVar];
       }
       this.setState({
-        statsVarPaths: this.params.getStatsVarPaths(),
+        statsVarNodes: this.params.statsVarNodes,
         statsVarInfo: tempStatsVarInfo,
       });
     }
@@ -175,7 +176,7 @@ class Page extends Component<Record<string, unknown>, PageStateType> {
               onClick={this.togglePerCapita.bind(this)}
             ></button>
             <Menu
-              selectedNodePaths={this.state.statsVarPaths}
+              selectedNodes={this.state.statsVarNodes}
               statsVarFilter={statsVarFilter}
               setStatsVarTitle={this.setStatsVarTitle.bind(this)}
               addStatsVar={this.addStatsVar.bind(this)}
