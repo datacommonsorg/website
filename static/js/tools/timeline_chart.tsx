@@ -15,7 +15,7 @@
  */
 
 import React, { Component } from "react";
-import { StatsVarInfo, updateUrl } from "./timeline_util";
+import { StatsVarInfo } from "./timeline_util";
 import { fetchStatsData, StatsData } from "../shared/data_fetcher";
 import { drawGroupLineChart } from "../chart/draw";
 import { PlotParams, computePlotParams } from "../chart/base";
@@ -25,8 +25,8 @@ const CHART_HEIGHT = 300;
 interface StatsVarChipPropsType {
   statsVar: string;
   color: string;
-  deleteStatsVarChip: (statsVar: string) => void;
   title: string;
+  removeStatsVar: (statsVar: string, nodePath?: string[]) => void;
 }
 
 class StatsVarChip extends Component<StatsVarChipPropsType, unknown> {
@@ -40,7 +40,7 @@ class StatsVarChip extends Component<StatsVarChipPropsType, unknown> {
         <button className="mdl-chip__action">
           <i
             className="material-icons"
-            onClick={() => this.props.deleteStatsVarChip(this.props.statsVar)}
+            onClick={() => this.props.removeStatsVar(this.props.statsVar)}
           >
             cancel
           </i>
@@ -58,6 +58,7 @@ interface ChartPropsType {
   perCapita: boolean;
   onDataUpdate: (mprop: string, data: StatsData) => void;
   statsVarTitle: Record<string, string>;
+  removeStatsVar: (statsVar: string, nodePath?: string[]) => void;
 }
 
 class Chart extends Component<ChartPropsType, unknown> {
@@ -99,7 +100,7 @@ class Chart extends Component<ChartPropsType, unknown> {
                   statsVar={statsVar}
                   title={title}
                   color={color}
-                  deleteStatsVarChip={this.deleteStatsVarChip}
+                  removeStatsVar={this.props.removeStatsVar}
                 />
               );
             }.bind(this)
@@ -161,11 +162,6 @@ class Chart extends Component<ChartPropsType, unknown> {
       this.plotParams,
       Array.from(this.statsData.sources)
     );
-  }
-
-  // TODO(shifucun): no need to pass this function from parent?
-  private deleteStatsVarChip(statsVarUpdate: string) {
-    updateUrl({ statsVar: { statsVar: statsVarUpdate, shouldAdd: false } });
   }
 }
 
