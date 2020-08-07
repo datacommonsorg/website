@@ -94,7 +94,7 @@ class Page extends Component<Record<string, unknown>, PageStateType> {
   // add one statsVar with nodePath
   private addStatsVar(statsVar: string, nodePath: string[]): void {
     if (this.params.addStatsVar(statsVar, nodePath)) {
-      const statsVarNode = _.cloneDeep(this.params.statsVarNodes)
+      const statsVarNode = _.cloneDeep(this.params.statsVarNodes);
       getStatsVarInfo(this.params.getStatsVarDcids()).then((data) => {
         this.setState({
           statsVarInfo: data,
