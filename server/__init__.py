@@ -70,6 +70,10 @@ def create_app():
 
     if cfg.TEST or cfg.WEBDRIVER:
         log.info("hello from webdriver!!!!")
+        log.info(cfg.WEBDRIVER)
+        log.info(cfg.API_PROJECT)
+        log.info(cfg.API_ROOT)
+        log.info(cfg.GCS_BUCKET)
         app.config['PLACEID2DCID'] = {
             "ChIJCzYy5IS16lQRQrfeQ5K5Oxw": "country/USA"}
     else:
