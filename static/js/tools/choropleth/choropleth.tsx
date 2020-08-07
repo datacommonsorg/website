@@ -146,6 +146,7 @@ class ChoroplethMap extends Component {
       .domain(
         determineColorPalette(values, this.state["pc"], this.state["popMap"])
       )
+      // TODO(iancostello): Investigate if this can be tighter type.
       .range(["#deebf7", "#9ecae1", "#3182bd"] as any);
 
     // Select D3 paths via geojson data.
