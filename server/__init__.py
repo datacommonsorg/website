@@ -18,7 +18,15 @@ import os
 from flask import Flask
 from google.cloud import storage
 from werkzeug.utils import import_string
+import logging
+import sys
 
+log = logging.getLogger()
+out_hdlr = logging.StreamHandler(sys.stdout)
+out_hdlr.setFormatter(logging.Formatter('%(message)s'))
+out_hdlr.setLevel(logging.INFO)
+log.addHandler(out_hdlr)
+log.setLevel(logging.INFO)
 
 def create_app():
     app = Flask(
@@ -32,6 +40,8 @@ def create_app():
         cfg = import_string('configmodule.TestConfig')()
     elif os.environ.get('FLASK_ENV') == 'production':
         cfg = import_string('configmodule.ProductionConfig')()
+    elif os.environ.get('FLASK_ENV') == 'WEBDRIVER':
+        cfg = import_string('configmodule.WebdriverConfig')()
     else:
         cfg = import_string('configmodule.DevelopmentConfig')()
     app.config.from_object(cfg)
@@ -59,10 +69,14 @@ def create_app():
     app.config['CHART_CONFIG'] = chart_config
 
     if cfg.TEST or cfg.WEBDRIVER:
+        log.info("hello from webdriver!!!!")
         app.config['PLACEID2DCID'] = {
             "ChIJCzYy5IS16lQRQrfeQ5K5Oxw": "country/USA"}
     else:
         # Load placeid2dcid mapping from GCS
+        log.info("hello from init!!!!!!")
+        log.info(cfg.TEST)
+        log.info(cfg.WEBDRIVER)
         storage_client = storage.Client()
         bucket = storage_client.get_bucket(app.config['GCS_BUCKET'])
         blob = bucket.get_blob('placeid2dcid.json')
