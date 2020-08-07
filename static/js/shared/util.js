@@ -20,7 +20,7 @@ const POPULATION = "StatisticalPopulation";
 const OBSERVATION = "Observation";
 const COMPARATIVE_OBSERVATION = "ComparativeObservation";
 
-const MAX_CARD_HEIGHT = 400;
+const MAX_CARD_HEIGHT = 450;
 
 const /** !Array<string> */ STATS = [
     "measuredValue",
