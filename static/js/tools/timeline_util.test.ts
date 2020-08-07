@@ -19,7 +19,6 @@ import {
   updateUrl,
   parseUrl,
   TimelineParams,
-  getTimelineParamsFromUrl,
 } from "./timeline_util";
 
 test("update Url statsvar", () => {
@@ -151,22 +150,23 @@ test("test TimelineParams", () => {
 
 test("test function of parsing the timeline parameters from the url", () => {
   window.location.hash = "";
-  let params = getTimelineParamsFromUrl();
+  const params = new TimelineParams();
+  params.getParamsFromUrl();
   expect(params.pc).toEqual(false);
   expect(params.placeDcids).toStrictEqual([]);
   expect(params.statsVarNodes).toStrictEqual({});
 
   window.location.hash = "#&place=country/USA,geoId/06";
-  params = getTimelineParamsFromUrl();
+  params.getParamsFromUrl();
   expect(params.placeDcids).toStrictEqual(["country/USA", "geoId/06"]);
 
   window.location.hash = "&pc=1";
-  params = getTimelineParamsFromUrl();
+  params.getParamsFromUrl();
   expect(params.pc).toEqual(true);
 
   window.location.hash =
     "&statsVar=Count_Person__Median_Age_Person,0,1__Unknown";
-  params = getTimelineParamsFromUrl();
+  params.getParamsFromUrl();
   expect(params.statsVarNodes).toStrictEqual({
     Count_Person: [["0", "0"]],
     Median_Age_Person: [["0", "1"]],

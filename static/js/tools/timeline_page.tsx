@@ -19,12 +19,12 @@ import {
   getStatsVarInfo,
   getPlaceNames,
   getStatsVar,
-  getTimelineParamsFromUrl,
   StatsVarNode,
+  StatsVarInfo,
+  TimelineParams,
 } from "./timeline_util";
 import { SearchBar } from "./timeline_search";
 import { Menu } from "./statsvar_menu";
-import { StatsVarInfo, TimelineParams } from "./timeline_util";
 import { Info } from "./timeline_info";
 import { ChartRegion } from "./timeline_chart_region";
 import {
@@ -48,7 +48,8 @@ class Page extends Component<Record<string, unknown>, PageStateType> {
 
   constructor(props: Record<string, unknown>) {
     super(props);
-    this.params = getTimelineParamsFromUrl();
+    this.params = new TimelineParams();
+    this.params.getParamsFromUrl();
     // set default statsVarTitle as the statsVar dcids
     const statsVarTitle = {};
     for (const statsVar of this.params.getStatsVarDcids()) {
@@ -94,13 +95,13 @@ class Page extends Component<Record<string, unknown>, PageStateType> {
   // add one statsVar with nodePath
   private addStatsVar(statsVar: string, nodePath: string[]): void {
     if (this.params.addStatsVar(statsVar, nodePath)) {
-      const statsVarNode = _.cloneDeep(this.params.statsVarNodes);
       getStatsVarInfo(this.params.getStatsVarDcids()).then((data) => {
         this.setState({
           statsVarInfo: data,
-          statsVarNodes: statsVarNode,
+          statsVarNodes: _.cloneDeep(this.params.statsVarNodes),
         });
       });
+      this.params.setUrlStatsVars();
     }
   }
 
@@ -112,9 +113,10 @@ class Page extends Component<Record<string, unknown>, PageStateType> {
         delete tempStatsVarInfo[statsVar];
       }
       this.setState({
-        statsVarNodes: this.params.statsVarNodes,
+        statsVarNodes: _.cloneDeep(this.params.statsVarNodes),
         statsVarInfo: tempStatsVarInfo,
       });
+      this.params.setUrlStatsVars();
     }
   }
 
@@ -129,6 +131,7 @@ class Page extends Component<Record<string, unknown>, PageStateType> {
           statsVarValid: values[1],
         });
       });
+      this.params.setUrlPlaces();
     }
   }
 
@@ -143,14 +146,17 @@ class Page extends Component<Record<string, unknown>, PageStateType> {
           statsVarValid: data,
         });
       });
+      this.params.setUrlPlaces();
     }
   }
 
   // change per capita
   private togglePerCapita(): void {
+    this.state.perCapita ? this.params.unsetPC() : this.params.setPC();
     this.setState({
-      perCapita: !this.state.perCapita,
+      perCapita: this.params.pc,
     });
+    this.params.setUrlPerCapita();
   }
 
   // call back function passed down to menu for getting statsVar titles

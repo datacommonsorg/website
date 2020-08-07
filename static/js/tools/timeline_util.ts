@@ -275,6 +275,10 @@ function setSearchParam(vars: VarUrl) {
   window.location.hash = newHash;
 }
 
+const placeSep = ",";
+const nodePathSep = ",";
+const statsVarSep = "__";
+
 interface StatsVarNode {
   [key: string]: string[][]; // key: statsVar Id, value: array of nodePath
 }
@@ -285,6 +289,7 @@ class TimelineParams {
   statsVarNodes: StatsVarNode;
   placeDcids: string[];
   pc: boolean;
+  urlParams: URLSearchParams;
 
   constructor() {
     this.statsVarNodes = {};
@@ -294,6 +299,7 @@ class TimelineParams {
     this.removeStatsVar = this.removeStatsVar.bind(this);
     this.addPlace = this.addPlace.bind(this);
     this.removePLace = this.removePLace.bind(this);
+    this.urlParams = new URLSearchParams("");
   }
 
   // set PerCapital to true
@@ -366,6 +372,30 @@ class TimelineParams {
     return false;
   }
 
+  // set PerCapita in url
+  public setUrlPerCapita(): void {
+    this.urlParams.set("pc", this.pc ? "1" : "0");
+    window.location.hash = this.urlParams.toString();
+  }
+
+  // set places in url
+  public setUrlPlaces(): void {
+    this.urlParams.set("place", this.placeDcids.join(placeSep));
+    window.location.hash = this.urlParams.toString();
+  }
+
+  // set statsVars in url
+  public setUrlStatsVars(): void {
+    const statsVarArray = [];
+    for (const statsVar in this.statsVarNodes) {
+      statsVarArray.push(
+        statsVar + nodePathSep + this.statsVarNodes[statsVar].join(nodePathSep)
+      );
+    }
+    this.urlParams.set("statsVar", statsVarArray.join(statsVarSep));
+    window.location.hash = this.urlParams.toString();
+  }
+
   // get the dcids of all the statsVars
   public getStatsVarDcids(): string[] {
     return Object.keys(this.statsVarNodes);
@@ -381,48 +411,43 @@ class TimelineParams {
     }
     return statsVarPaths;
   }
-}
 
-// get the timeline parameters from the url
-function getTimelineParamsFromUrl(): TimelineParams {
-  const params = new TimelineParams();
-  const urlParams = new URLSearchParams(window.location.hash);
-
-  // set Per Capita
-  const pc = urlParams.get("pc");
-  if (pc === "1") {
-    params.setPC();
-  }
-
-  // set places
-  const places = urlParams.get("place");
-  if (places) {
-    for (const place of places.split(",")) {
-      params.addPlace(place);
+  // get the timeline parameters from the url
+  public getParamsFromUrl(): void {
+    this.urlParams = new URLSearchParams(window.location.hash);
+    // set Per Capita
+    const pc = this.urlParams.get("pc");
+    if (pc === "1") {
+      this.setPC();
     }
-  }
-
-  // set statsVars
-  const statsVars = urlParams.get("statsVar");
-  if (statsVars) {
-    for (const statsVarString of statsVars.split("__")) {
-      const statsVarInfo = statsVarString.split(",");
-      // check if the statsVar id exists in the PV tree
-      if (statsVarInfo.length >= 1 && statsVarInfo[0] in statsVarPathMap) {
-        // if statsVar path is not include in url
-        // load the path from pre-built map
-        if (statsVarInfo.length === 1 && statsVarInfo[0] in statsVarPathMap) {
-          params.addStatsVar(
-            statsVarInfo[0],
-            statsVarPathMap[statsVarInfo[0]].map((x: number) => x.toString())
-          );
-        } else {
-          params.addStatsVar(statsVarInfo[0], statsVarInfo.splice(1));
+    // set places
+    const places = this.urlParams.get("place");
+    if (places) {
+      for (const place of places.split(placeSep)) {
+        this.addPlace(place);
+      }
+    }
+    // set statsVars
+    const statsVars = this.urlParams.get("statsVar");
+    if (statsVars) {
+      for (const statsVarString of statsVars.split(statsVarSep)) {
+        const statsVarInfo = statsVarString.split(nodePathSep);
+        // check if the statsVar id exists in the PV tree
+        if (statsVarInfo.length >= 1 && statsVarInfo[0] in statsVarPathMap) {
+          // if statsVar path is not include in url
+          // load the path from pre-built map
+          if (statsVarInfo.length === 1 && statsVarInfo[0] in statsVarPathMap) {
+            this.addStatsVar(
+              statsVarInfo[0],
+              statsVarPathMap[statsVarInfo[0]].map((x: number) => x.toString())
+            );
+          } else {
+            this.addStatsVar(statsVarInfo[0], statsVarInfo.splice(1));
+          }
         }
       }
     }
   }
-  return params;
 }
 
 export {
@@ -434,6 +459,5 @@ export {
   getStatsVar,
   saveToFile,
   TimelineParams,
-  getTimelineParamsFromUrl,
   StatsVarNode,
 };
