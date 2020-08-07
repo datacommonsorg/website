@@ -45,11 +45,14 @@ interface PageStateType {
 
 class Page extends Component<Record<string, unknown>, PageStateType> {
   params: TimelineParams;
+  ignoreHashChange: boolean;
 
   constructor(props: Record<string, unknown>) {
     super(props);
+    this.handleHashChange = this.handleHashChange.bind(this);
     this.params = new TimelineParams();
     this.params.getParamsFromUrl();
+    this.ignoreHashChange = false;
     // set default statsVarTitle as the statsVar dcids
     const statsVarTitle = {};
     for (const statsVar of this.params.getStatsVarDcids()) {
@@ -66,8 +69,33 @@ class Page extends Component<Record<string, unknown>, PageStateType> {
   }
 
   componentDidMount(): void {
-    // Initial rendering has emmpty state. This proactively parse the url hash
-    // and re-render.
+    window.addEventListener("hashchange", this.handleHashChange);
+    this.getAllPromises();
+  }
+
+  private handleHashChange(): void {
+    if (!this.ignoreHashChange) {
+      // do not update if it's set by calling add/remove place/statsVar
+      this.params.getParamsFromUrl();
+      if (
+        !_.isEqual(this.params.statsVarNodes, this.state.statsVarNodes) ||
+        !_.isEqual(
+          this.params.placeDcids,
+          Object.keys(this.state.placeIdNames)
+        ) ||
+        this.params.pc !== this.state.perCapita
+      ) {
+        this.setState({
+          statsVarNodes: _.cloneDeep(this.params.statsVarNodes),
+          perCapita: this.params.pc,
+        });
+        this.getAllPromises();
+      }
+    }
+    this.ignoreHashChange = false;
+  }
+
+  private getAllPromises(): void {
     let statsVarInfoPromise = Promise.resolve({});
     if (this.params.getStatsVarDcids().length !== 0) {
       statsVarInfoPromise = getStatsVarInfo(this.params.getStatsVarDcids());
@@ -78,7 +106,6 @@ class Page extends Component<Record<string, unknown>, PageStateType> {
       placesPromise = getPlaceNames(this.params.placeDcids);
       validStatsVarPromise = getStatsVar(this.params.placeDcids);
     }
-
     Promise.all([
       statsVarInfoPromise,
       placesPromise,
@@ -101,6 +128,7 @@ class Page extends Component<Record<string, unknown>, PageStateType> {
           statsVarNodes: _.cloneDeep(this.params.statsVarNodes),
         });
       });
+      this.ignoreHashChange = true;
       this.params.setUrlStatsVars();
     }
   }
@@ -116,6 +144,7 @@ class Page extends Component<Record<string, unknown>, PageStateType> {
         statsVarNodes: _.cloneDeep(this.params.statsVarNodes),
         statsVarInfo: tempStatsVarInfo,
       });
+      this.ignoreHashChange = true;
       this.params.setUrlStatsVars();
     }
   }
@@ -131,6 +160,7 @@ class Page extends Component<Record<string, unknown>, PageStateType> {
           statsVarValid: values[1],
         });
       });
+      this.ignoreHashChange = true;
       this.params.setUrlPlaces();
     }
   }
@@ -146,6 +176,7 @@ class Page extends Component<Record<string, unknown>, PageStateType> {
           statsVarValid: data,
         });
       });
+      this.ignoreHashChange = true;
       this.params.setUrlPlaces();
     }
   }
@@ -156,6 +187,7 @@ class Page extends Component<Record<string, unknown>, PageStateType> {
     this.setState({
       perCapita: this.params.pc,
     });
+    this.ignoreHashChange = true;
     this.params.setUrlPerCapita();
   }
 

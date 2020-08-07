@@ -131,7 +131,7 @@ class Node extends Component<NodePropType, NodeStateType> {
   }
 
   private onUpdate() {
-    let check = this.state.checked;
+    let check = false;
     let expand = this.state.expanded;
     for (const statsVar in this.props.selectedNodes) {
       for (const nodePath of this.props.selectedNodes[statsVar]) {

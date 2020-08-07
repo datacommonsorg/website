@@ -35,7 +35,7 @@ test("Single place and single stats var", () => {
   // Set url hash
   Object.defineProperty(window, "location", {
     value: {
-      hash: "&place=geoId/05&statsVar=Median_Age_Person",
+      hash: "#&place=geoId/05&statsVar=Median_Age_Person",
     },
   });
   // Mock drawGroupLineChart() as getComputedTextLength can has issue with jest
