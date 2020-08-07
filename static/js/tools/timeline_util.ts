@@ -435,4 +435,5 @@ export {
   saveToFile,
   TimelineParams,
   getTimelineParamsFromUrl,
+  StatsVarNode,
 };

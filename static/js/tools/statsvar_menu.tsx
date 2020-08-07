@@ -16,6 +16,7 @@
 
 import React, { Component } from "react";
 import axios from "axios";
+import { StatsVarNode } from "./timeline_util";
 import hierarchy from "../../data/hierarchy_top.json";
 import { StatsVarFilterInterface } from "./commons";
 import _ from "lodash";
@@ -36,7 +37,7 @@ interface NodePropType {
   cd: NodeJsonField[]; // children
   t: string; // type
   sv: string[]; // statsVar dcid
-  selectedNodePaths: string[][]; // path to all the selected statsVars
+  selectedNodes: StatsVarNode; // path to all the selected statsVars
   nodePath: string[]; // path to current node
   addStatsVarTitle: (statsVarId: string, statsVarName: string) => void; // pass the title of selected statsVar to parent
   addStatsVar: (statsVar: string, nodePath: string[]) => void; // function for adding statsVar
@@ -103,7 +104,7 @@ class Node extends Component<NodePropType, NodeStateType> {
                     c={item.c}
                     t={item.t}
                     sv={item.sv}
-                    selectedNodePaths={this.props.selectedNodePaths}
+                    selectedNodes={this.props.selectedNodes}
                     key={this.props.l + index}
                     statsVarFilter={this.props.statsVarFilter}
                     addStatsVarTitle={this.props.addStatsVarTitle}
@@ -120,7 +121,7 @@ class Node extends Component<NodePropType, NodeStateType> {
   };
 
   componentDidUpdate(prevProps) {
-    if (!_.isEqual(this.props.selectedNodePaths, prevProps.selectedNodePaths)) {
+    if (!_.isEqual(this.props.selectedNodes, prevProps.selectedNodes)) {
       this.onUpdate();
     }
   }
@@ -132,24 +133,34 @@ class Node extends Component<NodePropType, NodeStateType> {
   private onUpdate() {
     let check = this.state.checked;
     let expand = this.state.expanded;
-    for (const nodePath of this.props.selectedNodePaths) {
-      if (
-        _.isEqual(
-          _.take(nodePath, this.props.nodePath.length),
-          this.props.nodePath
-        )
-      ) {
-        if (_.isEqual(nodePath, this.props.nodePath)) {
-          check = true;
-          for (const sv of this.props.sv) {
-            if (this.props.statsVarFilter.isValid(sv)) {
-              this.props.addStatsVarTitle(sv, this.props.l);
+    for (const statsVar in this.props.selectedNodes) {
+      for (const nodePath of this.props.selectedNodes[statsVar]) {
+        if (nodePath.length === this.props.nodePath.length) {
+          // if node Path has the same length, check if the node path matches
+          if (_.isEqual(nodePath, this.props.nodePath)) {
+            // check if the statsVar of node matches with the input
+            if (this.props.sv.includes(statsVar)) {
+              check = true;
+              for (const sv of this.props.sv) {
+                if (this.props.statsVarFilter.isValid(sv)) {
+                  this.props.addStatsVarTitle(sv, this.props.l);
+                } else {
+                  // remove the statsVar if not available
+                  this.props.removeStatsVar(sv);
+                }
+              }
             } else {
-              // remove the statsVar if not available
-              this.props.removeStatsVar(sv);
+              // TODO: if the statsVar does not match with the input
+              // add the default statsVar path
             }
           }
-        } else {
+        } else if (
+          _.isEqual(
+            _.take(nodePath, this.props.nodePath.length),
+            this.props.nodePath
+          )
+        ) {
+          // if prefix of node path matches, expand the node
           expand = true;
         }
       }
@@ -228,7 +239,7 @@ class Node extends Component<NodePropType, NodeStateType> {
 }
 
 interface MenuPropType {
-  selectedNodePaths: string[][];
+  selectedNodes: StatsVarNode;
   statsVarFilter: StatsVarFilterInterface;
   setStatsVarTitle: (statsVarId2Title: Record<string, string>) => void;
   addStatsVar: (statsVar: string, nodePath: string[]) => void;
@@ -268,7 +279,7 @@ class Menu extends Component<MenuPropType, MenuStateType> {
                     t="c"
                     sv={item.sv}
                     key={index1 + "," + index}
-                    selectedNodePaths={this.props.selectedNodePaths}
+                    selectedNodes={this.props.selectedNodes}
                     statsVarFilter={this.props.statsVarFilter}
                     addStatsVarTitle={this.addStatsVarTitle}
                     removeStatsVar={this.props.removeStatsVar}
@@ -296,7 +307,7 @@ class Menu extends Component<MenuPropType, MenuStateType> {
     this.statsVarId2Title[id] = title;
     if (
       Object.keys(this.statsVarId2Title).length ===
-      this.props.selectedNodePaths.length
+      Object.keys(this.props.selectedNodes).length
     ) {
       this.props.setStatsVarTitle(this.statsVarId2Title);
     }
