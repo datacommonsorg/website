@@ -275,6 +275,10 @@ function setSearchParam(vars: VarUrl) {
   window.location.hash = newHash;
 }
 
+const placeSep = ",";
+const nodePathSep = ",";
+const statsVarSep = "__";
+
 interface StatsVarNode {
   [key: string]: string[][]; // key: statsVar Id, value: array of nodePath
 }
@@ -397,7 +401,7 @@ function getTimelineParamsFromUrl(): TimelineParams {
   // set places
   const places = urlParams.get("place");
   if (places) {
-    for (const place of places.split(",")) {
+    for (const place of places.split(placeSep)) {
       params.addPlace(place);
     }
   }
@@ -405,8 +409,8 @@ function getTimelineParamsFromUrl(): TimelineParams {
   // set statsVars
   const statsVars = urlParams.get("statsVar");
   if (statsVars) {
-    for (const statsVarString of statsVars.split("__")) {
-      const statsVarInfo = statsVarString.split(",");
+    for (const statsVarString of statsVars.split(statsVarSep)) {
+      const statsVarInfo = statsVarString.split(nodePathSep);
       // check if the statsVar id exists in the PV tree
       if (statsVarInfo.length >= 1 && statsVarInfo[0] in statsVarPathMap) {
         // if statsVar path is not include in url
@@ -425,6 +429,35 @@ function getTimelineParamsFromUrl(): TimelineParams {
   return params;
 }
 
+class setUrl {
+  urlParams: URLSearchParams;
+
+  constructor() {
+    this.urlParams = new URLSearchParams(window.location.hash);
+  }
+
+  public setPerCapita(pc: boolean):void {
+    this.urlParams.set("pc", pc ? "1" : "0");
+    window.location.hash = this.urlParams.toString();
+  }
+
+  public setPlaces(placeDcids: string[]):void {
+    this.urlParams.set("place", placeDcids.join(placeSep));
+    window.location.hash = this.urlParams.toString();
+  }
+
+  public setStatsVars(statsVarNodes: StatsVarNode):void {
+    const statsVarArray = [];
+    for (const statsVar in statsVarNodes) {
+      statsVarArray.push(
+        statsVar + nodePathSep + statsVarNodes[statsVar].join(nodePathSep)
+      );
+    }
+    this.urlParams.set("statsVar", statsVarArray.join(statsVarSep));
+    window.location.hash = this.urlParams.toString();
+  }
+}
+
 export {
   StatsVarInfo,
   updateUrl,
@@ -436,4 +469,5 @@ export {
   TimelineParams,
   getTimelineParamsFromUrl,
   StatsVarNode,
+  setUrl,
 };
