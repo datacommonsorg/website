@@ -37,6 +37,8 @@ class ChoroplethMap extends Component {
     this.state = {
       geojson: [],
       pc:
+        // TODO(iancostello): Potentially make pc simply a flag toggle without
+        // a value.
         urlParams.has("pc") &&
         ["t", "true", "1"].includes(urlParams.get("pc").toLowerCase()),
       values: {},
