@@ -134,6 +134,7 @@ class Page extends Component<PagePropType, PageStateType> {
   }
 
   render(): JSX.Element {
+    console.log("Render from page!!!!!!!!!");
     return (
       <div>
         <div className="explore-menu-container" id="explore">

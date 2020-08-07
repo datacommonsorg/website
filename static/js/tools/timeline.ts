@@ -23,6 +23,7 @@ import ReactDOM from "react-dom";
 import { Page } from "./timeline_page";
 
 window.onload = () => {
+  console.log("sadhakjhfjklashfkljasdhfjkashdfjklshdfjlkashdfjkshdfjkladshfjlakdshfajkdlsfhajksdfhjalksdhfaskdjl");
   ReactDOM.render(
     React.createElement(Page),
     document.getElementById("main-pane")
