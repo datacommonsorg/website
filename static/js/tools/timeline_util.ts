@@ -414,6 +414,7 @@ class TimelineParams {
 
   // get the timeline parameters from the url
   public getParamsFromUrl(): void {
+    // get the url, remove the leading hash symbol "#"
     this.urlParams = new URLSearchParams(window.location.hash.split("#")[1]);
     // set Per Capita
     const pc = this.urlParams.get("pc");

@@ -92,7 +92,7 @@ class Page extends Component<Record<string, unknown>, PageStateType> {
         this.getAllPromises();
       }
     }
-    this.ignoreHashChange = false;
+    this.ignoreHashChange = false; // reset to default value: do not ignore
   }
 
   private getAllPromises(): void {
@@ -128,7 +128,7 @@ class Page extends Component<Record<string, unknown>, PageStateType> {
           statsVarNodes: _.cloneDeep(this.params.statsVarNodes),
         });
       });
-      this.ignoreHashChange = true;
+      this.ignoreHashChange = true; // ignore the next hash change
       this.params.setUrlStatsVars();
     }
   }
