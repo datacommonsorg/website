@@ -19,13 +19,12 @@ import {
   getStatsVarInfo,
   getPlaceNames,
   getStatsVar,
-  getTimelineParamsFromUrl,
   StatsVarNode,
-  setUrl,
+  StatsVarInfo,
+  TimelineParams,
 } from "./timeline_util";
 import { SearchBar } from "./timeline_search";
 import { Menu } from "./statsvar_menu";
-import { StatsVarInfo, TimelineParams } from "./timeline_util";
 import { Info } from "./timeline_info";
 import { ChartRegion } from "./timeline_chart_region";
 import {
@@ -46,12 +45,11 @@ interface PageStateType {
 
 class Page extends Component<Record<string, unknown>, PageStateType> {
   params: TimelineParams;
-  url: setUrl;
 
   constructor(props: Record<string, unknown>) {
     super(props);
-    this.params = getTimelineParamsFromUrl();
-    this.url = new setUrl();
+    this.params = new TimelineParams();
+    this.params.getParamsFromUrl();
     // set default statsVarTitle as the statsVar dcids
     const statsVarTitle = {};
     for (const statsVar of this.params.getStatsVarDcids()) {
@@ -103,7 +101,7 @@ class Page extends Component<Record<string, unknown>, PageStateType> {
           statsVarNodes: _.cloneDeep(this.params.statsVarNodes),
         });
       });
-      this.url.setStatsVars(this.params.statsVarNodes);
+      this.params.setUrlStatsVars();
     }
   }
 
@@ -118,7 +116,7 @@ class Page extends Component<Record<string, unknown>, PageStateType> {
         statsVarNodes: _.cloneDeep(this.params.statsVarNodes),
         statsVarInfo: tempStatsVarInfo,
       });
-      this.url.setStatsVars(this.params.statsVarNodes);
+      this.params.setUrlStatsVars();
     }
   }
 
@@ -133,7 +131,7 @@ class Page extends Component<Record<string, unknown>, PageStateType> {
           statsVarValid: values[1],
         });
       });
-      this.url.setPlaces(this.params.placeDcids);
+      this.params.setUrlPlaces();
     }
   }
 
@@ -148,7 +146,7 @@ class Page extends Component<Record<string, unknown>, PageStateType> {
           statsVarValid: data,
         });
       });
-      this.url.setPlaces(this.params.placeDcids);
+      this.params.setUrlPlaces();
     }
   }
 
@@ -158,7 +156,7 @@ class Page extends Component<Record<string, unknown>, PageStateType> {
     this.setState({
       perCapita: this.params.pc,
     });
-    this.url.setPerCapita(this.params.pc);
+    this.params.setUrlPerCapita();
   }
 
   // call back function passed down to menu for getting statsVar titles
