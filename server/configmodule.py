@@ -7,6 +7,7 @@ import datetime
 
 class Config:
     TEST = False
+    WEBDRIVER = False
     CACHE_TYPE = 'simple'  # Flask-Caching related configs
     GAE_VERSION = (
         os.environ.get('GAE_VERSION') or
@@ -23,6 +24,13 @@ class DevelopmentConfig(Config):
     API_PROJECT = 'datcom-mixer-staging'
     API_ROOT = 'https://datacommons.endpoints.datcom-mixer-staging.cloud.goog'
     GCS_BUCKET = "datcom-browser-staging.appspot.com"
+
+
+class WebdriverConfig(Config):
+    WEBDRIVER = True
+    API_PROJECT = 'datcom-mixer-staging'
+    API_ROOT = 'https://datacommons.endpoints.datcom-mixer-staging.cloud.goog'
+    GCS_BUCKET = ""
 
 
 class TestConfig(Config):

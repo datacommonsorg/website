@@ -18,13 +18,17 @@ import urllib
 from flask_testing import LiveServerTestCase
 from selenium import webdriver
 import logging
+import sys
 import time
 
 from main import app
 
-logging.basicConfig(
-    level=logging.DEBUG,
-    format='%(asctime)s %(levelname)s %(lineno)d : %(message)s')
+log = logging.getLogger()
+out_hdlr = logging.StreamHandler(sys.stdout)
+out_hdlr.setFormatter(logging.Formatter('%(message)s'))
+out_hdlr.setLevel(logging.INFO)
+log.addHandler(out_hdlr)
+log.setLevel(logging.INFO)
 
 
 class TestBase(LiveServerTestCase):
@@ -43,7 +47,7 @@ class TestBase(LiveServerTestCase):
         self.driver = webdriver.Chrome(options=chrome_options)
 
         # self.driver = webdriver.Chrome()
-        logging.info("asdasdasdasd")
+        log.info("hello from timeline test")
         # self.driver.get('http://datacommons.org/tools/timeline')
         self.driver.get(self.get_server_url() + '/tools/timeline')
 
@@ -57,7 +61,6 @@ class TestCharts(TestBase):
         """
         Test the server can run successfully.
         """
-        logging.info("asdasdasdasd")
         response = urllib.request.urlopen(self.driver.current_url)
         self.assertEqual(response.getcode(), 200)
         self.assertEqual("Timelines Explorer | Data Commons", self.driver.title)
@@ -68,7 +71,7 @@ class TestCharts(TestBase):
         """
         response = urllib.request.urlopen(self.driver.current_url)
         time.sleep(5)
-        logging.info("asdasdasdasd")
+        log.info("hello from test_charts_original")
         self.assertEqual(response.getcode(), 200)
         self.assertEqual("Timelines Explorer | Data Commons", self.driver.title)
         responses = []
@@ -77,7 +80,7 @@ class TestCharts(TestBase):
 
     def test_chart_numbers_1(self):
         self.driver.get(self.driver.current_url + '#&statsVar=Median_Age_Person,0,1__Median_Income_Person,0,2&place=geoId/06')
-        logging.info("asdasdasdasd")
+        log.info("hello from test_chart_numbers_1")
         time.sleep(5)
         # TODO: Leave screenshot in future PR.
         # self.driver.save_screenshot("test_screenshots/timeline_ca_2_charts.png")
@@ -91,7 +94,7 @@ class TestCharts(TestBase):
     def test_chart_numbers_2(self):
         self.driver.get(self.driver.current_url + '#&statsVar=Median_Age_Person,0,1__Median_Income_Person,0,2__Count_Person_Upto5Years,0,3,0__Count_Person_5To17Years,0,3,1&place=geoId/06,geoId/08')
         time.sleep(5)
-        logging.info("asdasdasdasd")
+        log.info("hello from test_chart_numbers_2")
         # TODO: Leave screenshot in future PR.
         # self.driver.save_screenshot("test_screenshots/timeline_ca_co_3_charts.png")
         response = urllib.request.urlopen(self.driver.current_url)

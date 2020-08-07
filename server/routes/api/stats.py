@@ -17,6 +17,7 @@ import json
 from flask import Blueprint, request
 from cache import cache
 import services.datacommons as dc
+import logging
 
 # Define blueprint
 bp = Blueprint(
@@ -63,6 +64,9 @@ def stats(stats_var):
         with value to be the observation time series.
     """
     place_dcids = request.args.getlist('dcid')
+    logging.info('hello from api.stats.py stats function')
+    logging.info(place_dcids)
+    logging.info(get_stats_wrapper('^'.join(place_dcids), stats_var))
     return get_stats_wrapper('^'.join(place_dcids), stats_var)
 
 

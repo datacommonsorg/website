@@ -14,6 +14,7 @@
 
 from flask import Blueprint
 from flask import render_template
+import logging
 
 
 bp = Blueprint(
@@ -25,6 +26,7 @@ bp = Blueprint(
 
 @bp.route('/timeline')
 def timeline():
+    logging.info("hello from route/tools.py")
     return render_template('tools/timeline.html')
 
 

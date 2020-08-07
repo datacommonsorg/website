@@ -58,8 +58,9 @@ def create_app():
         chart_config = json.load(f)
     app.config['CHART_CONFIG'] = chart_config
 
-    if cfg.TEST:
-        app.config['PLACEID2DCID'] = {"ChIJCzYy5IS16lQRQrfeQ5K5Oxw": "country/USA"}
+    if cfg.TEST or cfg.WEBDRIVER:
+        app.config['PLACEID2DCID'] = {
+            "ChIJCzYy5IS16lQRQrfeQ5K5Oxw": "country/USA"}
     else:
         # Load placeid2dcid mapping from GCS
         storage_client = storage.Client()

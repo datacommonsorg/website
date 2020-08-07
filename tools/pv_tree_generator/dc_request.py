@@ -14,9 +14,11 @@
 
 """functions for reading data from datacommons"""
 
+import base64
 import requests
 import json
 import collections
+import zlib
 from google.cloud import secretmanager
 
 API_ROOT = 'https://datacommons.endpoints.datcom-mixer-staging.cloud.goog'
@@ -64,7 +66,7 @@ def send_request(req_url, req_json={}, compress=False, post=True):
       The payload returned by sending the POST/GET request formatted as a dict.
     """
     headers = {
-        'x-api-key': get_api_key(),
+        'x-api-key': '',
         'Content-Type': 'application/json'
     }
 
