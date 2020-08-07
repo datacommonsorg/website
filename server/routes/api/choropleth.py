@@ -32,76 +32,92 @@ LEVEL_MAP = {
 bp = Blueprint(
   "choropleth",
   __name__,
-  url_prefix='/tools/choropleth'
+  url_prefix='/api/choropleth'
 )
 
-@bp.route('/api')
-def choropleth_api():
+@bp.route('/values')
+def choropleth_values():
     """Returns data for geographic subregions for a certain statistical 
             variable.
 
-    API Params: #TODO(iancostello): Split API calls up or move to client.
-        statVar -> The statistical variable to download, as a string.
-        perCapita -> Whether to return the per-capita value, as a string of a 
-                boolean.
-        geoId -> The currently viewed geography to render, as a string.
-        level -> The subgeographic level to pull and display information for,
+    API Params:
+        geoDcid: The currently viewed geography to render, as a string.
+        level: The subgeographic level to pull and display information for,
                 as a string. Choices: Country, AdministrativeLevel[1/2], City.
-        mdom -> The measurement denominator to use if perCapita is true, as a 
-                string. Defaults to "Count_Person".
+        statVar: The statistical variable to pull data about.
+
+    API Returns:
+        values: dictionary of geo to statistical variable values (as a float)
+            for all subgeos.
+    """
+    # Get required request parameters.
+    requested_geoDcid = request.args.get("geoDcid")
+    if not requested_geoDcid:
+        return jsonify({"error": "Must provide a 'geoDcid' field!"}, 400)
+    stat_var = request.args.get("statVar")
+    if not stat_var:
+        return jsonify({"error": "Must provide a 'statVar' field!"}, 400)
+    display_level = get_sublevel(requested_geoDcid, request.args.get("level"))
+
+    # Get all subgeos.
+    geos_contained_in_place = dc.get_places_in(
+            [requested_geoDcid], display_level).get(requested_geoDcid, [])
+    values_by_geo = dc.get_stats(geos_contained_in_place, stat_var)
+
+    # Add to dictionary for response.
+    populations_by_geo = {}
+    for geo_id, payload in values_by_geo.items():
+        if "data" in payload:
+            populations_by_geo[geo_id] = next(iter(
+                        reversed(payload['data'].values())))
+
+    # Return as json payload.
+    return jsonify(populations_by_geo, 200)
+
+@bp.route('/geo')
+def choropleth_geo():
+    """Returns data for geographic subregions for a certain statistical 
+            variable.
+
+    API Params:
+        geoDcid: The currently viewed geography to render, as a string.
+        level: The subgeographic level to pull and display information for,
+                as a string. Choices: Country, AdministrativeLevel[1/2], City.
+        mdom: The measurement denominator to use as a string.
+            Defaults to "Count_Person".
 
 
     API Returns:
-        df -> Returns a dictionary with two entries
-            geoJson -> geoJson format that includes statistical variables info,
-                    geoId, and name for all subregions.
-            _PLOTTING_INFO -> Includes domain range for use in D3 and the
-                    color palette to render with.
+        geoJson: geoJson format that includes statistical variables info,
+            geoDcid, and name for all subregions.
     """
     # Get required request parameters.
-    requested_stat_var = request.args.get("statVar")
-    if requested_stat_var is None:
-        return jsonify({"error": "Must provide a 'statVar' field!"}, 400)
-    requested_geoId = request.args.get("geoId")
-    if requested_geoId is None:
-        return jsonify({"error": "Must provide a 'geoId' field!"}, 400)
-
-    # If no level is requested then default to one level below current.
-    display_level = request.args.get("level")
-    if display_level is None:
-        requested_geoId_type = dc.get_property_values([requested_geoId],
-                                                "typeOf")[requested_geoId]
-        # TODO(iancostello): Handle a failed function call, e.g., returns None.
-        # TODO(iancostello): Handle the case where display_level is None.
-        for level in requested_geoId_type:
-            if level in LEVEL_MAP:
-                display_level = LEVEL_MAP[level]
-                break
+    requested_geoDcid = request.args.get("geoDcid")
+    if not requested_geoDcid:
+        return jsonify({"error": "Must provide a 'geoDcid' field!"}, 400)
+    display_level = get_sublevel(requested_geoDcid, request.args.get("level"))
 
     # Get optional fields.
-    per_capita = request.args.get("perCapita", default=False).lower() in (
-        ["true", "1", "t"])
     measurement_denominator = request.args.get("mdom", default="Count_Person")
 
     # Get list of all contained places.
     # TODO(iancostello): Handle a failing function call.
     geos_contained_in_place = dc.get_places_in(
-            [requested_geoId], display_level)[requested_geoId]
+            [requested_geoDcid], display_level)[requested_geoDcid]
 
     # Download statistical variable, names, and geojson for subgeos.
     # TODO(iancostello): Handle failing function calls. 
     # Also, handle the case where only a fraction of values are returned.
-    # TODO: Potentially move these calls to the client.
-    stat_var_by_geo = dc.get_stats(geos_contained_in_place,
-                                   requested_stat_var)
     names_by_geo = dc.get_property_values(geos_contained_in_place,
                                           "name")
     geojson_by_geo = dc.get_property_values(geos_contained_in_place,
                                             "geoJsonCoordinates")
 
     # Download population data if per capita.
-    population_by_geo = ({} if not per_capita
-        else dc.get_stats(geos_contained_in_place, measurement_denominator))
+    # TODO(iancostello): Determine how to handle populations 
+    # and statistical values from different times.
+    population_by_geo = dc.get_stats(geos_contained_in_place,
+                                     measurement_denominator)
 
     # Process into a combined json object.
     features, values = [], []
@@ -120,7 +136,7 @@ def choropleth_api():
                         "name": names_by_geo[geo_id][0],
                         "hasSublevel": 
                             (display_level in LEVEL_MAP),
-                        "geoId": geo_id,
+                        "geoDcid": geo_id,
                     }
                 }
             # Load, simplify, and add geoJSON coordinates.
@@ -132,42 +148,40 @@ def choropleth_api():
                                     geojson['coordinates'],
                                     geojson['type']))
             # Process Statistical Observation if valid.
-            if ('data' in stat_var_by_geo.get(geo_id, []) and
-                    (not per_capita or
-                    'data' in population_by_geo.get(geo_id, []))):
+            if ('data' in population_by_geo.get(geo_id, [])):
                 # Grab the latest available data.
-                stat_obs = next(iter(
-                    reversed(stat_var_by_geo[geo_id]['data'].values())))
-
-                # Handle per-capita option.
-                if per_capita:
-                    # Note that this could be from a different period from the
-                    # statistical variable.
-                    # TODO(iancostello): Determine how to handle populations 
-                    # and statistical values from different times.
-                    pop = next(iter(
-                        reversed(population_by_geo[geo_id]['data'].values())))
-                    stat_obs /= pop
-
-                values.append(stat_obs)
-                geo_feature["properties"]["value"] = stat_obs
+                geo_feature["properties"]["pop"] = next(iter(
+                    reversed(population_by_geo[geo_id]['data'].values())))
 
             # Add to main dataframe.
             features.append(geo_feature)
-    # Generate plotting information from value list.
-    domain, palette = determine_color_palette(values, per_capita)
 
     # Return as json payload.
     return jsonify({
-        "geoJson": {
-            "type": "FeatureCollection",
-            "features": features
-        },
-        "_PLOTTING_INFO": {
-            "domain": domain,
-            "palette": palette
-        }  
+        "type": "FeatureCollection",
+        "features": features
     }, 200)
+
+def get_sublevel(requested_geoDcid, display_level):
+    """Returns the best sublevel display for a geoDcid.
+
+    Args:
+        requested_geoDcid: The parent geo DCID to find children.
+        display_level: Display level provided or None. Valid display_levels
+            are [AdministrativeLevel1, AdministrativeLevel2, City]
+    Returns:
+       Directly returns display_level argument if it is not none.
+        Otherwise the next sublevel below the parent is returned.
+    """
+    if not display_level:
+        requested_geoDcid_type = dc.get_property_values([requested_geoDcid],
+                                                "typeOf")[requested_geoDcid]
+        # TODO(iancostello): Handle a failed function call, e.g., returns None.
+        # TODO(iancostello): Handle the case where display_level is None.
+        for level in requested_geoDcid_type:
+            if level in LEVEL_MAP:
+                return LEVEL_MAP[level]
+    return display_level
 
 def coerce_geojson_to_righthand_rule(geoJsonCords, obj_type):
     """Changes GeoJSON handedness to the right-hand rule.
@@ -177,8 +191,8 @@ def coerce_geojson_to_righthand_rule(geoJsonCords, obj_type):
     fixes these lists to be in the format expected by D3 and turns all polygons
     into multipolygons for downstream consistency.
         Args:
-            geoJsonCords -> Nested list of geojson.
-            obj_type -> Object feature type.
+            geoJsonCords: Nested list of geojson.
+            obj_type: Object feature type.
         Returns:
             Nested list of geocoords.
     """
@@ -191,24 +205,3 @@ def coerce_geojson_to_righthand_rule(geoJsonCords, obj_type):
         return geoJsonCords
     else:
         assert False, f"Type {obj_type} unknown!"
-
-# TODO: Potentially move this to client.
-def determine_color_palette(values, is_denominated):
-    """Builds plotting range and color domain given a set of values.
-        Percentage values use diverging palettes.
-        Sequential data uses sequential palettes.
-
-    Args:
-        values -> List of all float values in the choropleth.
-        is_denominated -> Whether the requested data has a measurement 
-            denominator like per capita, as a boolean. 
-    Returns:
-        domain -> D3 numerical domain to use.
-        palette -> Color palette to render with.
-    """
-    # Percentages use diverging palettes.
-    lower_range = min(values)
-    upper_range = max(values)
-    palette = (['#998ec3', '#f7f7f7', '#f1a340'] if is_denominated
-        else ['#deebf7', '#9ecae1', '#3182bd'])
-    return [lower_range, statistics.median(values), upper_range], palette

@@ -33,9 +33,14 @@ window.onload = () => {
 
   // TODO:(iancostello) Refactor the url builder.
   // Build api call from request.
-  let base_url = document.location.pathname + '/api';
-  base_url += build_choropleth_params(
-    ["statVar", "perCapita", "geoId", "level", "mdom"]);
+  let base_url = document.location.pathname + "/api";
+  base_url += build_choropleth_params([
+    "statVar",
+    "perCapita",
+    "geoId",
+    "level",
+    "mdom",
+  ]);
   // Create request and generate map.
   axios.get(base_url).then((resp) => {
     const payload = resp.data[0];
@@ -153,8 +158,12 @@ function build_choropleth_params(fields_to_include) {
  */
 function redirectToGeo(geoId) {
   let base_url = document.location.pathname;
-  base_url += build_choropleth_params(
-    ["statVar", "perCapita", "level", "mdom"]);
+  base_url += build_choropleth_params([
+    "statVar",
+    "perCapita",
+    "level",
+    "mdom",
+  ]);
   base_url += "&geoId=" + geoId;
   base_url += "&bc=";
 
@@ -178,9 +187,13 @@ function generateBreadCrumbs() {
     const crumbs = breadcrumbs.split(";");
 
     // Build url for each reference in the breadcrumbs.
-    let base_url =  document.location.pathname;
-    base_url += build_choropleth_params(
-      ["statVar", "perCapita", "level", "mdom"]);
+    let base_url = document.location.pathname;
+    base_url += build_choropleth_params([
+      "statVar",
+      "perCapita",
+      "level",
+      "mdom",
+    ]);
     base_url += "&geoId=";
 
     let breadcrumbs_upto = "";
