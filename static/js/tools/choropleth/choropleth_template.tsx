@@ -16,7 +16,7 @@
 
 import React, { Component } from "react";
 import ReactDOM from "react-dom";
-import { ChoroplethMap, generateBreadCrumbs } from "./choropleth";
+import { ChoroplethMap, generateBreadCrumbs } from "./choropleth_new";
 
 /**
  * Generates choropleth map from API on pageload.

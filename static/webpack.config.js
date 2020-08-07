@@ -21,7 +21,7 @@ const FixStyleOnlyEntriesPlugin = require("webpack-fix-style-only-entries");
 const config = {
   entry: {
     choropleth: [
-      __dirname + "/js/tools/choropleth/choropleth.tsx",
+      __dirname + "/js/tools/choropleth/choropleth_new.tsx",
       __dirname + "/css/tools/choropleth.scss",
     ],
     dev: [__dirname + "/js/dev.ts", __dirname + "/css/dev.scss"],
