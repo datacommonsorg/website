@@ -24,15 +24,10 @@ import os
 
 import flask
 from flask import request, redirect, url_for
-import jinja2
 
 import services.datacommons as dc
-from models import datachart_handler
-from models import barchart_handler
-from lib import line_chart
 from lib import translator
 from routes.api.place import parent_place
-import lib.barchart_template as btemp
 
 from __init__ import create_app
 from cache import cache
@@ -55,20 +50,6 @@ RANKING_STATS = {
     'Median_Age_Person': 'Median Age',
     'UnemploymentRate_Person': 'Unemployment Rate',
 }
-
-
-def get_place_args(get_values):
-    place_args = collections.OrderedDict()
-    all_idx = [''] + [str(i)
-                      for i in range(1, datachart_handler.MAX_POPOBS_TYPES + 1)]
-    all_dcids = set()
-    for idx in all_idx:
-        dcids = get_values.getlist('mid{}'.format(idx))
-        if dcids:
-            place_args[idx] = (
-                dcids, datachart_handler.parse_pop_obs_args(get_values, idx))
-            all_dcids |= set(dcids)
-    return place_args, all_dcids
 
 
 @cache.memoize(timeout=3600 * 24)  # Cache for one day.
@@ -270,130 +251,6 @@ def api_ranking(dcid):
         result[label] = [x for x in result[label] if x['data']]
     result['label'] = [x for x in result['label'] if result[x]]
     return result
-
-
-@app.route('/data/line')
-def linedata():
-    """Handler to get the line data."""
-    get_values = request.args
-    pc = get_values.get('pc') is not None  # Per Capita
-    gr = get_values.get('gr') is not None  # Growth Rate
-    place_args, _ = get_place_args(get_values)
-    plot_data, _ = datachart_handler.get_plot_data(place_args, pc, gr)
-    return json.dumps(plot_data)
-
-
-@app.route('/datachart/line')
-def linechart():
-    """Handler for /datachart/line."""
-    # TODO(boxu): make ChartHandler a smaller object that only handles args.
-    lh = datachart_handler.ChartHandler(request.args)
-    get_params = request.args
-    rich_legend = get_params.get('richlg') is not None
-    place_legend = get_params.get('placelg') is not None
-    pc = get_params.get('pc') is not None  # Per Capita
-    gr = get_params.get('gr') is not None  # Growth Rate
-    chart_dom_id = get_params.get('cdomid', '')
-    place_args, all_dcids = get_place_args(get_params)
-
-    single_place = len(all_dcids) == 1
-
-    # A dictionary to color.
-    color_map = {}
-
-    # A dictionary to get line style for places.
-    style_map = {}
-
-    # A list of legend objects to add.
-    legends = []
-
-    # Get observation data.
-    plot_data, place_name = datachart_handler.get_plot_data(place_args, pc, gr)
-
-    # See https://docs.google.com/document/d/1dW9izgDzllbhrIJm-aZxWlapMIueVX6WQlImiiDIAFs/edit?usp=sharing
-    # for details
-
-    dcid_legend = set()
-    for idx, (dcids, args) in place_args.items():
-        if len(place_args) == 1:  # Single PV
-            for dcid in dcids:
-                if dcid not in color_map:
-                    color_map[dcid] = datachart_handler.get_color(
-                        len(color_map))
-                text = args['legend']
-                if rich_legend:
-                    text = place_name[dcid] + ' ' + text
-                if text:
-                    legends.append(
-                        line_chart.Legend(color=color_map[dcid], text=text, style=''))
-        else:  # Multiple PV
-            if idx not in color_map:
-                color_map[idx] = datachart_handler.get_color(len(color_map))
-            color = color_map[idx]
-            for dcid in dcids:
-                if single_place:
-                    text = args['legend']
-                    if rich_legend:
-                        text = place_name[dcid] + ' ' + text
-                    if text:
-                        legends.append(
-                            line_chart.Legend(color=color, text=text, style=''))
-                else:
-                    if dcid not in style_map:
-                        style_map[dcid] = datachart_handler.get_dash(
-                            len(style_map))
-                    style = style_map[dcid]
-                    if place_legend:
-                        if dcid not in dcid_legend:
-                            legends.append(
-                                line_chart.Legend(
-                                    color='grey', text=place_name[dcid], style=style))
-                            dcid_legend.add(dcid)
-                    else:
-                        text = place_name[dcid] + ' ' + args['legend']
-                        legends.append(
-                            line_chart.Legend(color=color, text=text, style=style))
-    lines = []
-    for pd in plot_data:
-        if len(place_args) == 1:
-            color = color_map[pd['dcid']]
-            style = ''
-        else:
-            color = color_map[pd['idx']]
-            if single_place:
-                style = ''
-            else:
-                style = style_map[pd['dcid']]
-        lines.append(
-            line_chart.Line(
-                points=pd['points'],
-                style=style,
-                color=color,
-                dom_id=pd['domid']))
-
-    svg = line_chart.build_svg(lines, legends, lh.width, lh.height,
-                               lh.title, lh.subtitle, gr,
-                               chart_dom_id)
-    resp = flask.Response(svg)
-    resp.headers['Access-Control-Allow-Origin'] = '*'
-    resp.headers['Content-Type'] = 'image/svg+xml; charset=utf-8'
-    resp.headers['Vary'] = 'Accept-Encoding'
-    return resp
-
-
-@app.route('/datachart/bar')
-def barchart():
-    """Handler for /datachart/bar."""
-    # TODO(boxu): make ChartHandler a smaller object that only handles args.
-    bch = barchart_handler.BarChartHandler(request.args)
-    data = bch.get_data()
-    env = jinja2.Environment()
-    template = env.from_string(source=btemp.t)
-    resp = flask.Response(template.render(data))
-    resp.headers['Access-Control-Allow-Origin'] = '*'
-    resp.headers['Content-Type'] = 'image/svg+xml; charset=utf-8'
-    resp.headers['Vary'] = 'Accept-Encoding'
-    return resp
 
 
 @app.route('/translator')
