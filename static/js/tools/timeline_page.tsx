@@ -32,6 +32,7 @@ import {
   TimelineStatsVarFilter,
   StatsVarFilterInterface,
 } from "./commons";
+import _ from "lodash";
 
 interface PageStateType {
   statsVarNodes: StatsVarNode;
@@ -56,7 +57,7 @@ class Page extends Component<Record<string, unknown>, PageStateType> {
     this.state = {
       placeIdNames: {},
       statsVarValid: new Set(),
-      statsVarNodes: this.params.statsVarNodes,
+      statsVarNodes: _.cloneDeep(this.params.statsVarNodes),
       statsVarInfo: {},
       statsVarTitle: statsVarTitle,
       perCapita: this.params.pc,
@@ -93,10 +94,11 @@ class Page extends Component<Record<string, unknown>, PageStateType> {
   // add one statsVar with nodePath
   private addStatsVar(statsVar: string, nodePath: string[]): void {
     if (this.params.addStatsVar(statsVar, nodePath)) {
+      const statsVarNode = _.cloneDeep(this.params.statsVarNodes)
       getStatsVarInfo(this.params.getStatsVarDcids()).then((data) => {
         this.setState({
           statsVarInfo: data,
-          statsVarNodes: this.params.statsVarNodes,
+          statsVarNodes: statsVarNode,
         });
       });
     }
