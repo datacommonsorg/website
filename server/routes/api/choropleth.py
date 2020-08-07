@@ -32,7 +32,7 @@ LEVEL_MAP = {
 bp = Blueprint(
   "choropleth",
   __name__,
-  url_prefix='/tools/choropleth'
+  url_prefix='/api/choropleth'
 )
 
 @bp.route('/values')
@@ -41,7 +41,7 @@ def choropleth_values():
             variable.
 
     API Params:
-        geoId: The currently viewed geography to render, as a string.
+        geoDcid: The currently viewed geography to render, as a string.
         level: The subgeographic level to pull and display information for,
                 as a string. Choices: Country, AdministrativeLevel[1/2], City.
         statVar: The statistical variable to pull data about.
@@ -51,17 +51,17 @@ def choropleth_values():
             for all subgeos.
     """
     # Get required request parameters.
-    requested_geoId = request.args.get("geoId")
-    if not requested_geoId:
-        return jsonify({"error": "Must provide a 'geoId' field!"}, 400)
+    requested_geoDcid = request.args.get("geoDcid")
+    if not requested_geoDcid:
+        return jsonify({"error": "Must provide a 'geoDcid' field!"}, 400)
     stat_var = request.args.get("statVar")
     if not stat_var:
         return jsonify({"error": "Must provide a 'statVar' field!"}, 400)
-    display_level = get_sublevel(requested_geoId, request.args.get("level"))
+    display_level = get_sublevel(requested_geoDcid, request.args.get("level"))
 
     # Get all subgeos.
     geos_contained_in_place = dc.get_places_in(
-            [requested_geoId], display_level).get(requested_geo, [])
+            [requested_geoDcid], display_level).get(requested_geoDcid, [])
     values_by_geo = dc.get_stats(geos_contained_in_place, stat_var)
 
     # Add to dictionary for response.
@@ -80,22 +80,22 @@ def choropleth_geo():
             variable.
 
     API Params:
-        geoId: The currently viewed geography to render, as a string.
+        geoDcid: The currently viewed geography to render, as a string.
         level: The subgeographic level to pull and display information for,
                 as a string. Choices: Country, AdministrativeLevel[1/2], City.
-        mdom: The measurement denominator to use if perCapita is true, as a 
-                string. Defaults to "Count_Person".
+        mdom: The measurement denominator to use as a string.
+            Defaults to "Count_Person".
 
 
     API Returns:
         geoJson: geoJson format that includes statistical variables info,
-            geoId, and name for all subregions.
+            geoDcid, and name for all subregions.
     """
     # Get required request parameters.
-    requested_geoId = request.args.get("geoId")
-    if not requested_geoId:
-        return jsonify({"error": "Must provide a 'geoId' field!"}, 400)
-    display_level = get_sublevel(requested_geoId, request.args.get("level"))
+    requested_geoDcid = request.args.get("geoDcid")
+    if not requested_geoDcid:
+        return jsonify({"error": "Must provide a 'geoDcid' field!"}, 400)
+    display_level = get_sublevel(requested_geoDcid, request.args.get("level"))
 
     # Get optional fields.
     measurement_denominator = request.args.get("mdom", default="Count_Person")
@@ -103,7 +103,7 @@ def choropleth_geo():
     # Get list of all contained places.
     # TODO(iancostello): Handle a failing function call.
     geos_contained_in_place = dc.get_places_in(
-            [requested_geoId], display_level)[requested_geoId]
+            [requested_geoDcid], display_level)[requested_geoDcid]
 
     # Download statistical variable, names, and geojson for subgeos.
     # TODO(iancostello): Handle failing function calls. 
@@ -136,7 +136,7 @@ def choropleth_geo():
                         "name": names_by_geo[geo_id][0],
                         "hasSublevel": 
                             (display_level in LEVEL_MAP),
-                        "geoId": geo_id,
+                        "geoDcid": geo_id,
                     }
                 }
             # Load, simplify, and add geoJSON coordinates.
@@ -162,21 +162,23 @@ def choropleth_geo():
         "features": features
     }, 200)
 
-def get_sublevel(requested_geoId, display_level):
-    """Returns the best sublevel display for a geoID.
+def get_sublevel(requested_geoDcid, display_level):
+    """Returns the best sublevel display for a geoDcid.
 
     Args:
-        requested_geoId: The parent geo DCID to find children.
-        display_level: Display level provided or None.
+        requested_geoDcid: The parent geo DCID to find children.
+        display_level: Display level provided or None. Valid display_levels
+            are [AdministrativeLevel1, AdministrativeLevel2, City]
     Returns:
-       display_level is not None. Otherwise the next sublevel below the parent.
+       Directly returns display_level argument if it is not none.
+        Otherwise the next sublevel below the parent is returned.
     """
     if not display_level:
-        requested_geoId_type = dc.get_property_values([requested_geoId],
-                                                "typeOf")[requested_geoId]
+        requested_geoDcid_type = dc.get_property_values([requested_geoDcid],
+                                                "typeOf")[requested_geoDcid]
         # TODO(iancostello): Handle a failed function call, e.g., returns None.
         # TODO(iancostello): Handle the case where display_level is None.
-        for level in requested_geoId_type:
+        for level in requested_geoDcid_type:
             if level in LEVEL_MAP:
                 return LEVEL_MAP[level]
     return display_level

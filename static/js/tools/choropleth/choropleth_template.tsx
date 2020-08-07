@@ -32,10 +32,6 @@ window.onload = () => {
 }
 
 class MainPane extends Component {
-  constructor(props) {
-    super(props);
-  }
-
   render() {
     return (
       <React.Fragment>

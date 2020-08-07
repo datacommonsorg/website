@@ -22,7 +22,6 @@ const config = {
   entry: {
     choropleth: [
       __dirname + "/js/tools/choropleth/choropleth.tsx",
-      __dirname + "/js/tools/choropleth/choropleth_template.tsx",
       __dirname + "/css/tools/choropleth.scss",
     ],
     dev: [__dirname + "/js/dev.ts", __dirname + "/css/dev.scss"],
