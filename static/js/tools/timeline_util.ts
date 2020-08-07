@@ -290,6 +290,7 @@ class TimelineParams {
   placeDcids: string[];
   pc: boolean;
   urlParams: URLSearchParams;
+  listenHashChange: boolean;
 
   constructor() {
     this.statsVarNodes = {};
@@ -300,6 +301,7 @@ class TimelineParams {
     this.addPlace = this.addPlace.bind(this);
     this.removePLace = this.removePLace.bind(this);
     this.urlParams = new URLSearchParams("");
+    this.listenHashChange = true;
   }
 
   // set PerCapital to true
@@ -375,12 +377,14 @@ class TimelineParams {
   // set PerCapita in url
   public setUrlPerCapita(): void {
     this.urlParams.set("pc", this.pc ? "1" : "0");
+    this.listenHashChange = false;
     window.location.hash = this.urlParams.toString();
   }
 
   // set places in url
   public setUrlPlaces(): void {
     this.urlParams.set("place", this.placeDcids.join(placeSep));
+    this.listenHashChange = false;
     window.location.hash = this.urlParams.toString();
   }
 
@@ -393,6 +397,7 @@ class TimelineParams {
       );
     }
     this.urlParams.set("statsVar", statsVarArray.join(statsVarSep));
+    this.listenHashChange = false;
     window.location.hash = this.urlParams.toString();
   }
 
@@ -414,7 +419,11 @@ class TimelineParams {
 
   // get the timeline parameters from the url
   public getParamsFromUrl(): void {
-    this.urlParams = new URLSearchParams(window.location.hash);
+    // get the url, remove the leading hash symbol "#"
+    this.urlParams = new URLSearchParams(window.location.hash.split("#")[1]);
+    this.statsVarNodes = {};
+    this.placeDcids = [];
+    this.pc = false;
     // set Per Capita
     const pc = this.urlParams.get("pc");
     if (pc === "1") {

@@ -48,6 +48,7 @@ class Page extends Component<Record<string, unknown>, PageStateType> {
 
   constructor(props: Record<string, unknown>) {
     super(props);
+    this.handleHashChange = this.handleHashChange.bind(this);
     this.params = new TimelineParams();
     this.params.getParamsFromUrl();
     // set default statsVarTitle as the statsVar dcids
@@ -66,8 +67,33 @@ class Page extends Component<Record<string, unknown>, PageStateType> {
   }
 
   componentDidMount(): void {
-    // Initial rendering has emmpty state. This proactively parse the url hash
-    // and re-render.
+    window.addEventListener("hashchange", this.handleHashChange);
+    this.getAllPromises();
+  }
+
+  private handleHashChange(): void {
+    if (this.params.listenHashChange) {
+      // do not update if it's set by calling add/remove place/statsVar
+      this.params.getParamsFromUrl();
+      if (
+        !_.isEqual(this.params.statsVarNodes, this.state.statsVarNodes) ||
+        !_.isEqual(
+          this.params.placeDcids,
+          Object.keys(this.state.placeIdNames)
+        ) ||
+        this.params.pc !== this.state.perCapita
+      ) {
+        this.setState({
+          statsVarNodes: _.cloneDeep(this.params.statsVarNodes),
+          perCapita: this.params.pc,
+        });
+        this.getAllPromises();
+      }
+    }
+    this.params.listenHashChange = true;
+  }
+
+  private getAllPromises(): void {
     let statsVarInfoPromise = Promise.resolve({});
     if (this.params.getStatsVarDcids().length !== 0) {
       statsVarInfoPromise = getStatsVarInfo(this.params.getStatsVarDcids());
@@ -78,7 +104,6 @@ class Page extends Component<Record<string, unknown>, PageStateType> {
       placesPromise = getPlaceNames(this.params.placeDcids);
       validStatsVarPromise = getStatsVar(this.params.placeDcids);
     }
-
     Promise.all([
       statsVarInfoPromise,
       placesPromise,
