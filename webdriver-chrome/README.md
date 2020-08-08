@@ -6,7 +6,7 @@ This is a Docker image based on python:3.7-slim, but with chrome and chromedrive
 ## How to build the Docker image
 To generate the Docker image and push it to GCS, run
 
-```
+```bash
 gcloud builds submit . --config=cloudbuild.yaml
 ```
 
