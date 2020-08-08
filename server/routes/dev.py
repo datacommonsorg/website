@@ -21,7 +21,6 @@ from lib.gcs import list_png
 
 
 SCREENSHOT_BUCKET = 'datcom-browser-screenshot'
-MAX_IMAGES = 1000
 
 # Define blueprint
 bp = Blueprint(
@@ -42,5 +41,5 @@ def dev():
 def screenshot(folder):
     if os.environ.get('FLASK_ENV') == 'production':
         flask.abort(404)
-    images = list_png(SCREENSHOT_BUCKET, MAX_IMAGES, folder)
+    images = list_png(SCREENSHOT_BUCKET, folder)
     return flask.render_template('dev/screenshot.html', images=images)
