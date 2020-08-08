@@ -1,0 +1,15 @@
+substitutions:
+  _VERS: "84.0.4147.30"
+  
+steps:
+  - name: 'gcr.io/cloud-builders/docker'
+    args:
+    - build
+    - "--build-arg=VERS=${_VERS}"
+    - --tag=gcr.io/datcom-ci/webdriver-chrome:${_VERS}
+    - --tag=gcr.io/datcom-ci/webdriver-chrome:latest
+    - "."
+
+images:
+  - "gcr.io/datcom-ci/webdriver-chrome:${_VERS}"
+  - "gcr.io/datcom-ci/webdriver-chrome:latest"
