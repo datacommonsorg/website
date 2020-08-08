@@ -43,7 +43,7 @@ def create_app():
     cache.init_app(app)
 
     # apply the blueprints to the app
-    from routes import browser, factcheck, redirects, placelist, static, tools
+    from routes import browser, factcheck, redirects, placelist, static, tools, dev
     from routes.api import place, stats, chart, choropleth
     app.register_blueprint(browser.bp)
     app.register_blueprint(chart.bp)
@@ -55,6 +55,7 @@ def create_app():
     app.register_blueprint(static.bp)
     app.register_blueprint(stats.bp)
     app.register_blueprint(tools.bp)
+    app.register_blueprint(dev.bp)
 
     # Load chart config
     with open('chart_config.json') as f:

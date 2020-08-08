@@ -57,13 +57,6 @@ def get_property_value(dcid, prop, out=True):
     return dc.get_property_values([dcid], prop, out)[dcid]
 
 
-@app.route('/dev')
-def dev():
-    if os.environ.get('FLASK_ENV') == 'production':
-        flask.abort(404)
-    return flask.render_template('dev.html')
-
-
 @app.route('/place')
 def place():
     place_dcid = request.args.get('dcid')
