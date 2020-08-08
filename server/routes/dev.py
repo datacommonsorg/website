@@ -16,7 +16,6 @@ import os
 
 import flask
 from flask import Blueprint
-import logging
 
 from lib.gcs import list_png
 
@@ -43,6 +42,5 @@ def dev():
 def screenshot(folder):
     if os.environ.get('FLASK_ENV') == 'production':
         flask.abort(404)
-    logging.info(folder)
     images = list_png(SCREENSHOT_BUCKET, MAX_IMAGES, folder)
     return flask.render_template('dev/screenshot.html', images=images)
