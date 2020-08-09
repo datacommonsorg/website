@@ -12,7 +12,6 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-import unittest
 from flask_testing import LiveServerTestCase
 from selenium import webdriver
 from main import app
@@ -24,9 +23,7 @@ class TestBase(LiveServerTestCase):
         return app
 
     def setUp(self):
-        """
-        Will be called before every test
-        """
+        """Will be called before every test"""
         chrome_options = webdriver.ChromeOptions()
         chrome_options.add_argument('--headless')
         chrome_options.add_argument('--no-sandbox')

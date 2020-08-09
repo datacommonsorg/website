@@ -14,32 +14,24 @@
 
 import unittest
 import urllib
-
-from flask_testing import LiveServerTestCase
-from selenium import webdriver
-from selenium.webdriver.common.desired_capabilities import DesiredCapabilities
 import time
 from base_test import TestBase
-from main import app
 
 TOOL_URL = '/tools/timeline'
 
 class TestCharts(TestBase):
 
     def test_server_and_page(self):
-        """
-        Test the server can run successfully.
-        """
+        """Test the server can run successfully."""
         self.driver.get(self.get_server_url() + TOOL_URL)
         time.sleep(5)
-        response = urllib.request.urlopen(self.driver.current_url)
-        self.assertEqual(response.getcode(), 200)
+        req = urllib.request.Request(self.driver.current_url)
+        with urllib.request.urlopen(req) as response:
+            self.assertEqual(response.getcode(), 200)
         self.assertEqual("Timelines Explorer | Data Commons", self.driver.title)
 
     def test_charts_original(self):
-        """
-        Test the original timeline page. No charts in this page.
-        """
+        """Test the original timeline page. No charts in this page."""
         self.driver.get(self.get_server_url() + TOOL_URL)
         time.sleep(5)
         responses = []

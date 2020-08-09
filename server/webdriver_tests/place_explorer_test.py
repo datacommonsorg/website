@@ -14,14 +14,9 @@
 
 import unittest
 import urllib
-from flask_testing import LiveServerTestCase
-from selenium import webdriver
-from selenium.webdriver.common.keys import Keys
-from selenium.webdriver.common.action_chains import ActionChains
 from base_test import TestBase
 import time
 
-from main import app
 
 USA_URL = '/place?dcid=country/USA'
 
@@ -29,15 +24,14 @@ USA_URL = '/place?dcid=country/USA'
 class TestPlaceExplorer(TestBase):
 
     def test_page_server(self):
-        """
-        Test the place explorer tool page cann be loaded successfullly.
-        """
+        """Test the place explorer tool page cann be loaded successfullly."""
         self.driver.get(self.get_server_url() + USA_URL)
         time.sleep(5)
-        response = urllib.request.urlopen(self.get_server_url())
-        self.assertEqual(response.getcode(), 200)
+        req = urllib.request.Request(self.driver.current_url)
+        with urllib.request.urlopen(req) as response:
+            self.assertEqual(response.getcode(), 200)
         self.assertEqual("United States | Place Explorer | Data Commons", self.driver.title)
-        
+
 
 if __name__ == '__main__':
     unittest.main()
