@@ -8,6 +8,23 @@ steps:
   - -c
   - ./run_test.sh -p
 
+- id: package_js
+  name: 'node'
+  entrypoint: /bin/bash
+  args:
+  - -c
+  - |
+    set -x
+    ./run_test.sh -b
+
+- id: flask_webdriver_test
+  name: gcr.io/datcom-ci/webdriver-chrome
+  entrypoint: /bin/sh
+  args:
+  - -c
+  - |
+    ./run_test.sh -w
+
 - id: pv_tree_generator
   name: python:3.7-slim
   entrypoint: /bin/sh
