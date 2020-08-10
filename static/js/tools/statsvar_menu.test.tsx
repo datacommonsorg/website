@@ -20,7 +20,6 @@ import { render, unmountComponentAtNode } from "react-dom";
 import { act } from "react-dom/test-utils";
 import pretty from "pretty";
 import { TimelineStatsVarFilter } from "./commons";
-import {statsVarNode} from "./timeline_util";
 
 let container = null;
 beforeEach(() => {
@@ -85,6 +84,22 @@ it("filtering the menu", () => {
     );
   });
   expect(pretty(container.innerHTML)).toMatchSnapshot();
+
+  // test the set StatsVar titles
+  const setTitle=jest.fn(x=>x);
+  act(() => {
+    render(
+      <Menu
+        selectedNodes={{"Count_Person":[["0", "0"]]}}
+        setStatsVarTitle={setTitle}
+        addStatsVar={jest.fn()}
+        removeStatsVar={jest.fn()}
+        statsVarFilter={new TimelineStatsVarFilter(new Set(["Count_Person"]))}
+      />,
+      container
+    );
+  });
+  console.log(setTitle.mock.calls)
 });
 
 // Todo(Lijuan): add test for setting statsVar titles
