@@ -63,6 +63,7 @@ def dev():
         flask.abort(404)
     return flask.render_template('dev.html')
 
+
 @app.route('/place')
 def place():
     place_dcid = request.args.get('dcid')
