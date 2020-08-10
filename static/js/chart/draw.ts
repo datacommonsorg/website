@@ -20,22 +20,21 @@ import { DataGroup, DataPoint, PlotParams, Style, getColorFn } from "./base";
 
 const NUM_X_TICKS = 5;
 const NUM_Y_TICKS = 5;
-const MARGIN = { top: 20, right: 10, bottom: 30, left: 35, yAxis: 3 };
+const MARGIN = { top: 40, right: 10, bottom: 30, left: 35, yAxis: 3, grid: 5 };
 const LEGEND = {
   ratio: 0.2,
   minTextWidth: 100,
   dashWidth: 30,
   lineMargin: 10,
-  marginLeft: 0,
+  marginLeft: 15,
   marginTop: 40,
   defaultColor: "#000",
 };
 const SOURCE = {
   topMargin: 15,
-  leftMargin: 8,
-  font: 12,
   height: 20,
 };
+const LABELTOPMARGIN = 10;
 
 function appendLegendElem(
   elem: string,
@@ -122,12 +121,12 @@ function addYAxis(
   svg
     .append("g")
     .attr("class", "y axis")
-    .attr("transform", `translate(${width - MARGIN.right},0)`)
+    .attr("transform", `translate(${width - MARGIN.right}, 0)`)
     .call(
       d3
         .axisLeft(yScale)
         .ticks(NUM_Y_TICKS)
-        .tickSize(width - 5 - MARGIN.right)
+        .tickSize(width - MARGIN.grid - MARGIN.right)
         .tickFormat((d) => {
           const yticks = yScale.ticks();
           const p = d3.precisionPrefix(
@@ -476,6 +475,7 @@ function drawGroupLineChart(
   statsVarsTitle: { [key: string]: string },
   dataGroupsDict: { [place: string]: DataGroup[] },
   plotParams: PlotParams,
+  mprop?: string,
   source?: string[],
   unit?: string
 ): void {
@@ -529,6 +529,17 @@ function drawGroupLineChart(
   addXAxis(svg, height, xScale);
   addYAxis(svg, width - MARGIN.right - legendWidth, yScale, unit);
 
+  // add ylabel
+  let ylabelText = mprop.charAt(0).toUpperCase() + mprop.slice(1);
+  if (unit) {
+    ylabelText = ylabelText + "(" + unit + ")";
+  }
+  svg
+    .append("text")
+    .attr("text-anchor", "start")
+    .attr("transform", `translate(${MARGIN.grid}, ${LABELTOPMARGIN})`)
+    .text(ylabelText);
+
   for (const place in dataGroupsDict) {
     dataGroups = dataGroupsDict[place];
     for (const dataGroup of dataGroups) {
@@ -561,10 +572,9 @@ function drawGroupLineChart(
       .attr("text-anchor", "start")
       .attr(
         "transform",
-        `translate(${SOURCE.leftMargin}, ${height + SOURCE.topMargin})`
+        `translate(${MARGIN.grid}, ${height + SOURCE.topMargin})`
       )
       .attr("fill", "#808080")
-      .style("font-size", `${SOURCE.font}`)
       .text(sourceText);
   }
 
@@ -572,7 +582,7 @@ function drawGroupLineChart(
     .append("g")
     .attr(
       "transform",
-      `translate(${width - legendWidth - LEGEND.marginLeft}, ${
+      `translate(${width - legendWidth + LEGEND.marginLeft}, ${
         LEGEND.marginTop
       })`
     );
