@@ -261,6 +261,7 @@ class Menu extends Component<MenuPropType, MenuStateType> {
     };
     this.statsVarId2Title = {};
   }
+  
   render(): JSX.Element {
     this.statsVarId2Title = {};
     return (

@@ -52,20 +52,6 @@ RANKING_STATS = {
 }
 
 
-def get_place_args(get_values):
-    place_args = collections.OrderedDict()
-    all_idx = [''] + [str(i)
-                      for i in range(1, datachart_handler.MAX_POPOBS_TYPES + 1)]
-    all_dcids = set()
-    for idx in all_idx:
-        dcids = get_values.getlist('mid{}'.format(idx))
-        if dcids:
-            place_args[idx] = (
-                dcids, datachart_handler.parse_pop_obs_args(get_values, idx))
-            all_dcids |= set(dcids)
-    return place_args, all_dcids
-
-
 @cache.memoize(timeout=3600 * 24)  # Cache for one day.
 def get_property_value(dcid, prop, out=True):
     return dc.get_property_values([dcid], prop, out)[dcid]

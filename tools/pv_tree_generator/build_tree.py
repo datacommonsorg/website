@@ -20,8 +20,6 @@ import text_format
 
 MAX_LEVEL = 6
 
-MAPPING = {"TotalPopulation": "Count_Person"}
-
 
 def build_tree_recursive(pos, level, pop_obs_spec, stat_vars,
                          parent=None):

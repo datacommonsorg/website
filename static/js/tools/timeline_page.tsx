@@ -15,7 +15,6 @@
  */
 
 import React, { Component } from "react";
-import _ from "lodash";
 import {
   getStatsVarInfo,
   getPlaceNames,
@@ -65,17 +64,6 @@ class Page extends Component<Record<string, unknown>, PageStateType> {
       statsVarTitle: statsVarTitle,
       perCapita: this.params.pc,
     };
-  }
-  shouldComponentUpdate(
-    nextProps: PagePropType,
-    nextState: PageStateType
-  ): boolean {
-    return (
-      JSON.stringify(this.state.statsVarInfo) !==
-        JSON.stringify(nextState.statsVarInfo) ||
-      this.state.places !== nextState.places ||
-      this.state.perCapita !== nextState.perCapita
-    );
   }
 
   componentDidMount(): void {
