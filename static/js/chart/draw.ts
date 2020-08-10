@@ -20,25 +20,21 @@ import { DataGroup, DataPoint, PlotParams, Style, getColorFn } from "./base";
 
 const NUM_X_TICKS = 5;
 const NUM_Y_TICKS = 5;
-const MARGIN = { top: 20, right: 10, bottom: 30, left: 35, yAxis: 3 };
+const MARGIN = { top: 40, right: 10, bottom: 30, left: 35, yAxis: 3, grid: 5 };
 const LEGEND = {
   ratio: 0.2,
   minTextWidth: 100,
   dashWidth: 30,
   lineMargin: 10,
-  marginLeft: -15,
+  marginLeft: 15,
   marginTop: 40,
   defaultColor: "#000",
 };
 const SOURCE = {
-  topMargin: 25,
-  leftMargin: 8,
-  height: 25,
+  topMargin: 15,
+  height: 20,
 };
-const YLABEL = {
-  rightMargin: 20,
-  leftMargin: 10,
-};
+const LABELTOPMARGIN = 10;
 
 function appendLegendElem(
   elem: string,
@@ -107,10 +103,7 @@ function addXAxis(
   const axis = svg
     .append("g")
     .attr("class", "x axis")
-    .attr(
-      "transform",
-      `translate(${YLABEL.rightMargin}, ${height - MARGIN.bottom})`
-    )
+    .attr("transform", `translate(0, ${height - MARGIN.bottom})`)
     .call(d3.axisBottom(xScale).ticks(NUM_X_TICKS).tickSizeOuter(0))
     .call((g) => g.select(".domain").remove());
 
@@ -128,15 +121,12 @@ function addYAxis(
   svg
     .append("g")
     .attr("class", "y axis")
-    .attr(
-      "transform",
-      `translate(${width - MARGIN.right + YLABEL.rightMargin},0)`
-    )
+    .attr("transform", `translate(${width - MARGIN.right}, 0)`)
     .call(
       d3
         .axisLeft(yScale)
         .ticks(NUM_Y_TICKS)
-        .tickSize(width - 5 - MARGIN.right)
+        .tickSize(width - MARGIN.grid - MARGIN.right)
         .tickFormat((d) => {
           const yticks = yScale.ticks();
           const p = d3.precisionPrefix(
@@ -546,20 +536,9 @@ function drawGroupLineChart(
   }
   svg
     .append("text")
-    .attr("text-anchor", "middle")
-    .attr("transform", "rotate(-90)")
-    .attr("x", -height / 2)
-    .attr("y", YLABEL.leftMargin)
+    .attr("text-anchor", "start")
+    .attr("transform", `translate(${MARGIN.grid}, ${LABELTOPMARGIN})`)
     .text(ylabelText);
-  // add xlabel
-  svg
-    .append("text")
-    .attr("text-anchor", "middle")
-    .attr(
-      "transform",
-      `translate(${(width - MARGIN.right - legendWidth) / 2}, ${height + 10})`
-    )
-    .text("Date");
 
   for (const place in dataGroupsDict) {
     dataGroups = dataGroupsDict[place];
@@ -591,10 +570,7 @@ function drawGroupLineChart(
     svg
       .append("text")
       .attr("text-anchor", "start")
-      .attr(
-        "transform",
-        `translate(${SOURCE.leftMargin}, ${height + SOURCE.topMargin})`
-      )
+      .attr("transform", `translate(0, ${height + SOURCE.topMargin})`)
       .attr("fill", "#808080")
       .text(sourceText);
   }
@@ -603,7 +579,7 @@ function drawGroupLineChart(
     .append("g")
     .attr(
       "transform",
-      `translate(${width - legendWidth - LEGEND.marginLeft + YLABEL.rightMargin}, ${
+      `translate(${width - legendWidth + LEGEND.marginLeft}, ${
         LEGEND.marginTop
       })`
     );
