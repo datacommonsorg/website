@@ -570,7 +570,10 @@ function drawGroupLineChart(
     svg
       .append("text")
       .attr("text-anchor", "start")
-      .attr("transform", `translate(${MARGIN.grid}, ${height + SOURCE.topMargin})`)
+      .attr(
+        "transform",
+        `translate(${MARGIN.grid}, ${height + SOURCE.topMargin})`
+      )
       .attr("fill", "#808080")
       .text(sourceText);
   }

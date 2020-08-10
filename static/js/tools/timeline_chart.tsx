@@ -86,7 +86,7 @@ class Chart extends Component<ChartPropsType, unknown> {
     return (
       <div className="card">
         <div ref={this.svgContainer} className="chart-svg"></div>
-        <div>
+        <div className="statsVarChipRegion">
           {statsVars.map(
             function (statsVar) {
               let color: string;
