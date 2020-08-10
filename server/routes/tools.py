@@ -12,11 +12,10 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-from flask import Blueprint
-from flask import render_template
+import flask
+import os
 
-
-bp = Blueprint(
+bp = flask.Blueprint(
   "tools",
   __name__,
   url_prefix='/tools'
@@ -25,9 +24,17 @@ bp = Blueprint(
 
 @bp.route('/timeline')
 def timeline():
-    return render_template('tools/timeline.html')
+    return flask.render_template('tools/timeline.html')
 
 
 @bp.route('/scatter')
 def scatter():
-    return render_template('tools/scatter.html')
+    return flask.render_template('tools/scatter.html')
+
+
+@bp.route('/choropleth')
+def choropleth():
+    # TODO(iancostello): Permit production use after development finishes.
+    if os.environ.get('FLASK_ENV') == 'production':
+        flask.abort(404)
+    return flask.render_template('tools/choropleth.html')
