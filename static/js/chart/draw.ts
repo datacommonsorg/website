@@ -20,7 +20,7 @@ import { DataGroup, DataPoint, PlotParams, Style, getColorFn } from "./base";
 
 const NUM_X_TICKS = 5;
 const NUM_Y_TICKS = 5;
-const MARGIN = { top: 20, right: 5, bottom: 30, left: 35, yAxis: 3 };
+const MARGIN = { top: 20, right: 10, bottom: 30, left: 35, yAxis: 3 };
 const LEGEND = {
   ratio: 0.2,
   minTextWidth: 100,
@@ -33,9 +33,12 @@ const LEGEND = {
 const SOURCE = {
   topMargin: 25,
   leftMargin: 8,
-  font: 12,
   height: 25,
 };
+const YLABEL={
+  rightMargin: 20,
+  leftMargin: 10
+}
 
 function appendLegendElem(
   elem: string,
@@ -104,7 +107,7 @@ function addXAxis(
   const axis = svg
     .append("g")
     .attr("class", "x axis")
-    .attr("transform", `translate(0, ${height - MARGIN.bottom})`)
+    .attr("transform", `translate(${YLABEL.rightMargin}, ${height - MARGIN.bottom})`)
     .call(d3.axisBottom(xScale).ticks(NUM_X_TICKS).tickSizeOuter(0))
     .call((g) => g.select(".domain").remove());
 
@@ -122,7 +125,7 @@ function addYAxis(
   svg
     .append("g")
     .attr("class", "y axis")
-    .attr("transform", `translate(${width - MARGIN.right},0)`)
+    .attr("transform", `translate(${width - MARGIN.right + YLABEL.rightMargin},0)`)
     .call(
       d3
         .axisLeft(yScale)
@@ -535,8 +538,7 @@ function drawGroupLineChart(
     .attr("text-anchor", "middle")
     .attr("transform", "rotate(-90)")
     .attr("x", -height / 2)
-    .attr("y", 10)
-    .style("font-size", 13)
+    .attr("y", YLABEL.leftMargin)
     .text(ylabelText);
   // add xlabel
   svg
@@ -546,7 +548,6 @@ function drawGroupLineChart(
       "transform",
       `translate(${(width - MARGIN.right - legendWidth) / 2}, ${height + 10})`
     )
-    .style("font-size", 13)
     .text("Date");
 
   for (const place in dataGroupsDict) {
@@ -584,7 +585,6 @@ function drawGroupLineChart(
         `translate(${SOURCE.leftMargin}, ${height + SOURCE.topMargin})`
       )
       .attr("fill", "#808080")
-      .style("font-size", `${SOURCE.font}`)
       .text(sourceText);
   }
 

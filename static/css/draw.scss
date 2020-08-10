@@ -17,6 +17,7 @@
 path.line {
   fill: none;
   stroke-width: 2.5;
+  transform: translate(20px,0);
 }
 
 .axis line {
@@ -67,4 +68,8 @@ path.line {
 
 .legend-text {
   font-size: 14px;
+}
+
+text {
+  font-size: 12px;
 }
