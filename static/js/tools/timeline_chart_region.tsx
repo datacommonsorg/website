@@ -21,9 +21,11 @@ import { Chart } from "./timeline_chart";
 
 interface ChartRegionPropsType {
   // An array of place dcids.
-  places: [string, string][];
+  places: Record<string, string>;
   statsVars: { [key: string]: StatsVarInfo };
   perCapita: boolean;
+  statsVarTitle: Record<string, string>;
+  removeStatsVar: (statsVar: string, nodePath?: string[]) => void;
 }
 
 class ChartRegion extends Component<ChartRegionPropsType, unknown> {
@@ -45,7 +47,7 @@ class ChartRegion extends Component<ChartRegionPropsType, unknown> {
 
   render(): JSX.Element {
     if (
-      this.props.places.length === 0 ||
+      Object.keys(this.props.places).length === 0 ||
       Object.keys(this.props.statsVars).length === 0
     ) {
       return <div></div>;
@@ -56,8 +58,10 @@ class ChartRegion extends Component<ChartRegionPropsType, unknown> {
         {Object.keys(groups).map((mprop) => {
           const statsVarDcids = groups[mprop];
           const statsVars = {};
+          const statsVarTitle = {};
           for (const id of statsVarDcids) {
             statsVars[id] = this.props.statsVars[id];
+            statsVarTitle[id] = this.props.statsVarTitle[id];
           }
           return (
             <Chart
@@ -67,6 +71,8 @@ class ChartRegion extends Component<ChartRegionPropsType, unknown> {
               statsVars={statsVars}
               perCapita={this.props.perCapita}
               onDataUpdate={this.onDataUpdate.bind(this)}
+              statsVarTitle={statsVarTitle}
+              removeStatsVar={this.props.removeStatsVar}
             ></Chart>
           );
         }, this)}

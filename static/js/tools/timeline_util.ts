@@ -15,6 +15,15 @@
  */
 import axios from "axios";
 import statsVarPathMap from "../../data/statsvar_path.json";
+import _ from "lodash";
+
+interface StatsVarInfo {
+  md: string;
+  mprop: string;
+  pt: string;
+  pvs: { [key: string]: string };
+  title: string;
+}
 
 interface VarUrl {
   statsVar: string;
@@ -245,14 +254,6 @@ function saveToFile(filename: string, csv: string): void {
   link.click();
 }
 
-interface StatsVarInfo {
-  md: string;
-  mprop: string;
-  pt: string;
-  pvs: { [key: string]: string };
-  title: string;
-}
-
 /*
  * Parse url hash into VarUrl object that contains statsvar, place and perCapita
  * information
@@ -274,6 +275,190 @@ function setSearchParam(vars: VarUrl) {
   window.location.hash = newHash;
 }
 
+const placeSep = ",";
+const nodePathSep = ",";
+const statsVarSep = "__";
+
+interface StatsVarNode {
+  [key: string]: string[][]; // key: statsVar Id, value: array of nodePath
+}
+
+// keeps parameters used in Timeline page
+// and provide methods of updating the parameters
+class TimelineParams {
+  statsVarNodes: StatsVarNode;
+  placeDcids: string[];
+  pc: boolean;
+  urlParams: URLSearchParams;
+  listenHashChange: boolean;
+
+  constructor() {
+    this.statsVarNodes = {};
+    this.placeDcids = [];
+    this.pc = false;
+    this.addStatsVar = this.addStatsVar.bind(this);
+    this.removeStatsVar = this.removeStatsVar.bind(this);
+    this.addPlace = this.addPlace.bind(this);
+    this.removePLace = this.removePLace.bind(this);
+    this.urlParams = new URLSearchParams("");
+    this.listenHashChange = true;
+  }
+
+  // set PerCapital to true
+  public setPC(): void {
+    this.pc = true;
+  }
+
+  // unset PerCapita to false
+  public unsetPC(): void {
+    this.pc = false;
+  }
+
+  // add one new place, return true if this.placeDcids changed
+  public addPlace(placeDcid: string): boolean {
+    if (!this.placeDcids.includes(placeDcid)) {
+      this.placeDcids.push(placeDcid);
+      return true;
+    }
+    return false;
+  }
+
+  // remove one place, return true if this.placeDcids changed
+  public removePLace(placeDcid: string): boolean {
+    const index = this.placeDcids.indexOf(placeDcid);
+    if (index !== -1) {
+      this.placeDcids.splice(index, 1);
+      return true;
+    }
+    return false;
+  }
+
+  // add one statsVar with Path, return true if this.statsVarNodes changed
+  public addStatsVar(statsVar: string, nodePath: string[]): boolean {
+    if (!(statsVar in this.statsVarNodes)) {
+      this.statsVarNodes[statsVar] = [nodePath];
+      return true;
+    } else if (
+      _.findIndex(this.statsVarNodes[statsVar], function (obj) {
+        return _.isEqual(obj, nodePath);
+      }) === -1
+    ) {
+      this.statsVarNodes[statsVar].push(nodePath);
+      return true;
+    }
+    return false;
+  }
+
+  // delete one statsVar, return true if this.statsVarNodes changed
+  public removeStatsVar(statsVar: string, nodePath: string[] = []): boolean {
+    if (statsVar in this.statsVarNodes) {
+      // if Path is not provided, delete all nodes of the statsVar
+      if (nodePath.length === 0) {
+        delete this.statsVarNodes[statsVar];
+        return true;
+      }
+      // if Path is provided, delete the statsVar with the same Path only
+      else {
+        const idx = _.findIndex(this.statsVarNodes[statsVar], function (obj) {
+          return _.isEqual(obj, nodePath);
+        });
+        if (idx !== -1) {
+          this.statsVarNodes[statsVar].splice(idx, 1);
+          if (this.statsVarNodes[statsVar].length === 0) {
+            delete this.statsVarNodes[statsVar];
+          }
+          return true;
+        }
+      }
+    }
+    return false;
+  }
+
+  // set PerCapita in url
+  public setUrlPerCapita(): void {
+    this.urlParams.set("pc", this.pc ? "1" : "0");
+    this.listenHashChange = false;
+    window.location.hash = this.urlParams.toString();
+  }
+
+  // set places in url
+  public setUrlPlaces(): void {
+    this.urlParams.set("place", this.placeDcids.join(placeSep));
+    this.listenHashChange = false;
+    window.location.hash = this.urlParams.toString();
+  }
+
+  // set statsVars in url
+  public setUrlStatsVars(): void {
+    const statsVarArray = [];
+    for (const statsVar in this.statsVarNodes) {
+      statsVarArray.push(
+        statsVar + nodePathSep + this.statsVarNodes[statsVar].join(nodePathSep)
+      );
+    }
+    this.urlParams.set("statsVar", statsVarArray.join(statsVarSep));
+    this.listenHashChange = false;
+    window.location.hash = this.urlParams.toString();
+  }
+
+  // get the dcids of all the statsVars
+  public getStatsVarDcids(): string[] {
+    return Object.keys(this.statsVarNodes);
+  }
+
+  // get the path of all the nodes
+  public getStatsVarPaths(): string[][] {
+    const statsVarPaths = [];
+    for (const statsVar in this.statsVarNodes) {
+      for (const nodePath of this.statsVarNodes[statsVar]) {
+        statsVarPaths.push(nodePath);
+      }
+    }
+    return statsVarPaths;
+  }
+
+  // get the timeline parameters from the url
+  public getParamsFromUrl(): void {
+    // get the url, remove the leading hash symbol "#"
+    this.urlParams = new URLSearchParams(window.location.hash.split("#")[1]);
+    this.statsVarNodes = {};
+    this.placeDcids = [];
+    this.pc = false;
+    // set Per Capita
+    const pc = this.urlParams.get("pc");
+    if (pc === "1") {
+      this.setPC();
+    }
+    // set places
+    const places = this.urlParams.get("place");
+    if (places) {
+      for (const place of places.split(placeSep)) {
+        this.addPlace(place);
+      }
+    }
+    // set statsVars
+    const statsVars = this.urlParams.get("statsVar");
+    if (statsVars) {
+      for (const statsVarString of statsVars.split(statsVarSep)) {
+        const statsVarInfo = statsVarString.split(nodePathSep);
+        // check if the statsVar id exists in the PV tree
+        if (statsVarInfo.length >= 1 && statsVarInfo[0] in statsVarPathMap) {
+          // if statsVar path is not include in url
+          // load the path from pre-built map
+          if (statsVarInfo.length === 1 && statsVarInfo[0] in statsVarPathMap) {
+            this.addStatsVar(
+              statsVarInfo[0],
+              statsVarPathMap[statsVarInfo[0]].map((x: number) => x.toString())
+            );
+          } else {
+            this.addStatsVar(statsVarInfo[0], statsVarInfo.splice(1));
+          }
+        }
+      }
+    }
+  }
+}
+
 export {
   StatsVarInfo,
   updateUrl,
@@ -282,4 +467,6 @@ export {
   getPlaceNames,
   getStatsVar,
   saveToFile,
+  TimelineParams,
+  StatsVarNode,
 };

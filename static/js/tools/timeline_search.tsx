@@ -17,25 +17,19 @@
 import React, { Component, PureComponent } from "react";
 import {} from "googlemaps";
 import axios from "axios";
-import { updateUrl } from "./timeline_util";
 
 interface ChipPropType {
   placeName: string;
   placeId: string;
+  removePlace: (place: string) => void;
 }
 
-interface ChipStateType {
-  placeId: string;
-}
-
-class Chip extends PureComponent<ChipPropType, ChipStateType> {
+class Chip extends PureComponent<ChipPropType, Record<string, unknown>> {
   constructor(props) {
     super(props);
     this.deleteChip = this.deleteChip.bind(this);
-    this.state = {
-      placeId: props.placeId,
-    };
   }
+
   render() {
     return (
       <span className="mdl-chip mdl-chip--deletable">
@@ -46,13 +40,16 @@ class Chip extends PureComponent<ChipPropType, ChipStateType> {
       </span>
     );
   }
-  deleteChip() {
-    updateUrl({ place: { place: this.state.placeId, shouldAdd: false } });
+
+  private deleteChip() {
+    this.props.removePlace(this.props.placeId);
   }
 }
 
 interface SearchBarPropType {
-  places: [string, string][];
+  places: Record<string, string>;
+  addPlace: (place: string) => void;
+  removePlace: (place: string) => void;
 }
 
 class SearchBar extends Component<SearchBarPropType, unknown> {
@@ -65,11 +62,6 @@ class SearchBar extends Component<SearchBarPropType, unknown> {
     this.inputElem = React.createRef();
     this.ac = null;
   }
-  shouldComponentUpdate(nextProps: SearchBarPropType): boolean {
-    return (
-      JSON.stringify(this.props.places) !== JSON.stringify(nextProps.places)
-    );
-  }
 
   render(): JSX.Element {
     return (
@@ -77,11 +69,16 @@ class SearchBar extends Component<SearchBarPropType, unknown> {
         <div id="search-icon"></div>
         <span id="prompt">Find : </span>
         <span id="place-list">
-          {this.props.places.map((placeData) => (
+          {Object.keys(this.props.places).map((placeId) => (
             <Chip
-              placeId={placeData[0]}
-              placeName={placeData[1] ? placeData[1] : placeData[0]}
-              key={placeData[0]}
+              placeId={placeId}
+              placeName={
+                this.props.places[placeId]
+                  ? this.props.places[placeId]
+                  : placeId
+              }
+              key={placeId}
+              removePlace={this.props.removePlace}
             ></Chip>
           ))}
         </span>
@@ -113,7 +110,7 @@ class SearchBar extends Component<SearchBarPropType, unknown> {
     axios
       .get(`/api/placeid2dcid/${place.place_id}`)
       .then((resp) => {
-        updateUrl({ place: { place: resp.data, shouldAdd: true } });
+        this.props.addPlace(resp.data);
       })
       .catch(() => {
         alert("Sorry, but we don't have any data about " + name);
@@ -123,7 +120,7 @@ class SearchBar extends Component<SearchBarPropType, unknown> {
 
   private setPlaceholder() {
     this.inputElem.current.value = "";
-    if (this.props.places.length > 0) {
+    if (Object.keys(this.props.places).length > 0) {
       this.inputElem.current.placeholder = "Add another place";
     } else {
       this.inputElem.current.placeholder =

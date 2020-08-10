@@ -137,7 +137,12 @@ function addYAxis(
             yticks[1] - yticks[0],
             yticks[yticks.length - 1]
           );
-          const tText = d3.formatPrefix(`.${p}`, yScale.domain()[1])(d);
+          let tText = String(d);
+          // When the y value is less than one, use the original value.
+          // Otherwise 0.3 is formatted into 300m which is confusing to 300M.
+          if (d > 1) {
+            tText = d3.formatPrefix(`.${p}`, yScale.domain()[1])(d);
+          }
           const dollar = unit === "$" ? "$" : "";
           const percent = unit === "%" ? "%" : "";
           return `${dollar}${tText}${percent}`;

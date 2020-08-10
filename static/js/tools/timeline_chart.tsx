@@ -15,7 +15,7 @@
  */
 
 import React, { Component } from "react";
-import { StatsVarInfo, updateUrl } from "./timeline_util";
+import { StatsVarInfo } from "./timeline_util";
 import { fetchStatsData, StatsData } from "../shared/data_fetcher";
 import { drawGroupLineChart } from "../chart/draw";
 import { PlotParams, computePlotParams } from "../chart/base";
@@ -25,8 +25,8 @@ const CHART_HEIGHT = 300;
 interface StatsVarChipPropsType {
   statsVar: string;
   color: string;
-  deleteStatsVarChip: (statsVar: string) => void;
   title: string;
+  removeStatsVar: (statsVar: string, nodePath?: string[]) => void;
 }
 
 class StatsVarChip extends Component<StatsVarChipPropsType, unknown> {
@@ -40,7 +40,7 @@ class StatsVarChip extends Component<StatsVarChipPropsType, unknown> {
         <button className="mdl-chip__action">
           <i
             className="material-icons"
-            onClick={() => this.props.deleteStatsVarChip(this.props.statsVar)}
+            onClick={() => this.props.removeStatsVar(this.props.statsVar)}
           >
             cancel
           </i>
@@ -53,24 +53,22 @@ class StatsVarChip extends Component<StatsVarChipPropsType, unknown> {
 interface ChartPropsType {
   // An array of place dcids.
   mprop: string;
-  places: [string, string][];
+  places: Record<string, string>;
   statsVars: { [key: string]: StatsVarInfo };
   perCapita: boolean;
   onDataUpdate: (mprop: string, data: StatsData) => void;
+  statsVarTitle: Record<string, string>;
+  removeStatsVar: (statsVar: string, nodePath?: string[]) => void;
 }
 
 class Chart extends Component<ChartPropsType, unknown> {
   data: StatsData;
   svgContainer: React.RefObject<HTMLDivElement>;
-  placeName: { [key: string]: string };
-  statsVarsTitle: { [key: string]: string };
   plotParams: PlotParams;
   statsData: StatsData;
 
   constructor(props: ChartPropsType) {
     super(props);
-    this.placeName = {};
-    this.statsVarsTitle = {};
     this.svgContainer = React.createRef();
     this.handleWindowResize = this.handleWindowResize.bind(this);
   }
@@ -78,21 +76,13 @@ class Chart extends Component<ChartPropsType, unknown> {
     const statsVars = Object.keys(this.props.statsVars);
     // TODO(shifucun): investigate on stats var title, now this is updated
     // several times.
-    this.statsVarsTitle = {};
-    for (const dcid in this.props.statsVars) {
-      this.statsVarsTitle[dcid] = this.props.statsVars[dcid].title || dcid;
-    }
-    // TODO(shifucn): simplify placeid->name, statsid->name logic.
-    for (const place of this.props.places) {
-      this.placeName[place[0]] = place[1];
-    }
     this.plotParams = computePlotParams(
-      this.props.places.map((x) => x[1]),
-      Object.values(this.statsVarsTitle)
+      Object.values(this.props.places),
+      Object.values(this.props.statsVarTitle)
     );
     // Stats var chip color is independent of places, so pick one place to
     // provide a key for style look up.
-    const placeName = this.props.places[0][1];
+    const placeName = Object.values(this.props.places)[0];
     return (
       <div className="card">
         <div ref={this.svgContainer} className="chart-svg"></div>
@@ -100,7 +90,7 @@ class Chart extends Component<ChartPropsType, unknown> {
           {statsVars.map(
             function (statsVar) {
               let color: string;
-              const title = this.statsVarsTitle[statsVar];
+              const title = this.props.statsVarTitle[statsVar];
               if (statsVars.length > 1) {
                 color = this.plotParams.lines[placeName + title].color;
               }
@@ -110,7 +100,7 @@ class Chart extends Component<ChartPropsType, unknown> {
                   statsVar={statsVar}
                   title={title}
                   color={color}
-                  deleteStatsVarChip={this.deleteStatsVarChip}
+                  removeStatsVar={this.props.removeStatsVar}
                 />
               );
             }.bind(this)
@@ -142,7 +132,7 @@ class Chart extends Component<ChartPropsType, unknown> {
 
   private loadDataAndDrawChart() {
     fetchStatsData(
-      this.props.places.map((x) => x[0]),
+      Object.keys(this.props.places),
       Object.keys(this.props.statsVars),
       this.props.perCapita,
       1
@@ -160,24 +150,19 @@ class Chart extends Component<ChartPropsType, unknown> {
     const dataGroupsDict = {};
     for (const placeDcid of this.statsData.places) {
       dataGroupsDict[
-        this.placeName[placeDcid]
+        this.props.places[placeDcid]
       ] = this.statsData.getStatsVarGroupWithTime(placeDcid);
     }
     drawGroupLineChart(
       this.svgContainer.current,
       this.svgContainer.current.offsetWidth,
       CHART_HEIGHT,
-      this.statsVarsTitle,
+      this.props.statsVarTitle,
       dataGroupsDict,
       this.plotParams,
       this.props.mprop,
       Array.from(this.statsData.sources)
     );
-  }
-
-  // TODO(shifucun): no need to pass this function from parent?
-  private deleteStatsVarChip(statsVarUpdate: string) {
-    updateUrl({ statsVar: { statsVar: statsVarUpdate, shouldAdd: false } });
   }
 }
 

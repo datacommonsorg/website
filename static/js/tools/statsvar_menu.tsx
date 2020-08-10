@@ -1,28 +1,53 @@
+/**
+ * Copyright 2020 Google LLC
+ *
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ *      http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ */
+
 import React, { Component } from "react";
 import axios from "axios";
+import { StatsVarNode } from "./timeline_util";
 import hierarchy from "../../data/hierarchy_top.json";
-import { updateUrl } from "./timeline_util";
+import { StatsVarFilterInterface } from "./commons";
+import _ from "lodash";
 
 const jsonPath = "../../data/hierarchy_statsvar.json";
+
+interface NodeJsonField {
+  l: string; // label
+  c: number; // count
+  cd: NodeJsonField[]; // children
+  t: string; // type
+  sv: string[]; // statsVar dcid
+}
 
 interface NodePropType {
   l: string; // label
   c: number; // count
-  cd: NodePropType[]; // children
+  cd: NodeJsonField[]; // children
   t: string; // type
-  sv: string[];
-  statsVarPaths: number[][];
-  nodePath: number[];
-  statsVarValid: Set<string>;
-  filter: boolean;
-  idx: number;
-  addStatsVarTitle: (statsVarId: string, statsVarName: string) => void;
+  sv: string[]; // statsVar dcid
+  selectedNodes: StatsVarNode; // path to all the selected statsVars
+  nodePath: string[]; // path to current node
+  addStatsVarTitle: (statsVarId: string, statsVarName: string) => void; // pass the title of selected statsVar to parent
+  addStatsVar: (statsVar: string, nodePath: string[]) => void; // function for adding statsVar
+  removeStatsVar: (statsVar: string, nodePath?: string[]) => void; // function for removing statsVar
+  statsVarFilter: StatsVarFilterInterface; // filtering the statsVar
 }
 
 interface NodeStateType {
   checked: boolean;
   expanded: boolean;
-  statsVarPaths: number[][];
 }
 
 class Node extends Component<NodePropType, NodeStateType> {
@@ -30,61 +55,25 @@ class Node extends Component<NodePropType, NodeStateType> {
     super(props);
     this._handleCheckboxClick = this._handleCheckboxClick.bind(this);
     this._handleExpandClick = this._handleExpandClick.bind(this);
-    this._handleHashChange = this._handleHashChange.bind(this);
-    this.canExpand = this.canExpand.bind(this);
-    this.isValidStatsVar = this.isValidStatsVar.bind(this);
+    this.isValidNode = this.isValidNode.bind(this);
+    this.onUpdate = this.onUpdate.bind(this);
     this.state = {
       checked: false,
       expanded: false,
-      statsVarPaths: [[]],
     };
   }
 
-  componentDidUpdate(prevProps) {
-    if (this.props.statsVarPaths !== prevProps.statsVarPaths) {
-      this._handleHashChange();
-    }
-  }
-  componentDidMount() {
-    this._handleHashChange();
-  }
-
   public render = (): JSX.Element => {
-    let child: JSX.Element[];
-    const isValidStatsVar = this.isValidStatsVar();
-    const canExpand = this.canExpand();
-    if (canExpand && this.state.expanded) {
-      child = this.props.cd.map((item, index) => {
-        return (
-          <Node
-            l={item.l}
-            cd={item.cd}
-            c={item.c}
-            t={item.t}
-            sv={item.sv}
-            statsVarPaths={this.state.statsVarPaths}
-            key={this.props.l + index}
-            statsVarValid={this.props.statsVarValid}
-            filter={this.props.filter}
-            idx={index}
-            addStatsVarTitle={this.props.addStatsVarTitle}
-            nodePath={[...this.props.nodePath, index]}
-          ></Node>
-        );
-      });
-    }
-
     return (
-      // render the node only if it is a valid value node
-      // or it is a property node that can be expanded
-      (isValidStatsVar || (this.props.t !== "v" && canExpand)) && (
+      // render the node if it's valid
+      this.isValidNode(this.props) && (
         <ul className="noborder">
           <li className="value" id={this.props.l}>
             <span>
               <a className="value-link">
                 {this.props.l + "  "}
                 <sup>{this.props.c !== 0 && "(" + this.props.c + ")"}</sup>
-                {isValidStatsVar && (
+                {this.props.t === "v" && (
                   <button
                     className={
                       this.state.checked ? "checkbox checked" : "checkbox"
@@ -92,7 +81,7 @@ class Node extends Component<NodePropType, NodeStateType> {
                     onClick={this._handleCheckboxClick}
                   />
                 )}
-                {canExpand && (
+                {this.checkExpand() && (
                   <img
                     className={
                       this.state.expanded
@@ -105,43 +94,99 @@ class Node extends Component<NodePropType, NodeStateType> {
                 )}
               </a>
             </span>
-            {child}
+            {this.checkExpand() &&
+              this.state.expanded &&
+              this.props.cd.map((item, index) => {
+                return (
+                  <Node
+                    l={item.l}
+                    cd={item.cd}
+                    c={item.c}
+                    t={item.t}
+                    sv={item.sv}
+                    selectedNodes={this.props.selectedNodes}
+                    key={this.props.l + index}
+                    statsVarFilter={this.props.statsVarFilter}
+                    addStatsVarTitle={this.props.addStatsVarTitle}
+                    nodePath={[...this.props.nodePath, index.toString()]}
+                    addStatsVar={this.props.addStatsVar}
+                    removeStatsVar={this.props.removeStatsVar}
+                  ></Node>
+                );
+              })}
           </li>
         </ul>
       )
     );
   };
+
+  componentDidUpdate(prevProps) {
+    if (!_.isEqual(this.props.selectedNodes, prevProps.selectedNodes)) {
+      this.onUpdate();
+    }
+  }
+
+  componentDidMount() {
+    this.onUpdate();
+  }
+
+  private onUpdate() {
+    let check = false;
+    let expand = this.state.expanded;
+    for (const statsVar in this.props.selectedNodes) {
+      for (const nodePath of this.props.selectedNodes[statsVar]) {
+        if (nodePath.length === this.props.nodePath.length) {
+          // if node Path has the same length, check if the node path matches
+          if (_.isEqual(nodePath, this.props.nodePath)) {
+            // check if the statsVar of node matches with the input
+            if (this.props.sv.includes(statsVar)) {
+              check = true;
+              for (const sv of this.props.sv) {
+                if (this.props.statsVarFilter.isValid(sv)) {
+                  this.props.addStatsVarTitle(sv, this.props.l);
+                } else {
+                  // remove the statsVar if not available
+                  this.props.removeStatsVar(sv);
+                }
+              }
+            } else {
+              // TODO: if the statsVar does not match with the input
+              // add the default statsVar path
+            }
+          }
+        } else if (
+          _.isEqual(
+            _.take(nodePath, this.props.nodePath.length),
+            this.props.nodePath
+          )
+        ) {
+          // if prefix of node path matches, expand the node
+          expand = true;
+        }
+      }
+    }
+    this.setState({
+      checked: check,
+      expanded: expand,
+    });
+  }
+
   private _handleCheckboxClick = (): void => {
     this.setState({
       checked: !this.state.checked,
     });
     if (this.state.checked) {
       // delete all related statsVars
-      updateUrl({
-        statsVar: {
-          statsVar:
-            this.props.sv.join("__") + "," + this.props.nodePath.join(","),
-          shouldAdd: !this.state.checked,
-        },
-      });
+      for (const statsVar of this.props.sv) {
+        this.props.removeStatsVar(statsVar);
+      }
     } else {
       // add available statsVars only
-      let validSV = [];
-      if (this.props.filter) {
-        for (const statsVar of this.props.sv) {
-          if (this.props.statsVarValid.has(statsVar)) {
-            validSV.push(statsVar);
-          }
+      for (const statsVar of this.props.sv) {
+        if (this.props.statsVarFilter.isValid(statsVar)) {
+          this.props.addStatsVar(statsVar, this.props.nodePath);
         }
-      } else {
-        validSV = this.props.sv;
       }
-      updateUrl({
-        statsVar: {
-          statsVar: validSV.join("__") + "," + this.props.nodePath.join(","),
-          shouldAdd: !this.state.checked,
-        },
-      });
     }
   };
 
@@ -151,115 +196,63 @@ class Node extends Component<NodePropType, NodeStateType> {
     });
   };
 
-  private _handleHashChange() {
-    const statsVarPathNext = [];
-    let check = false;
-    let expand = this.state.expanded;
-    for (const statsVarPath of this.props.statsVarPaths) {
-      if (statsVarPath && statsVarPath[0] === this.props.idx) {
-        if (statsVarPath.length === 1) {
-          check = true;
-          for (const sv of this.props.sv) {
-            if (!this.props.filter || this.props.statsVarValid.has(sv)) {
-              this.props.addStatsVarTitle(sv, this.props.l);
-            } else {
-              // remove the statsVar from url if not available
-              updateUrl({ statsVar: { statsVar: sv, shouldAdd: false } });
-            }
+  /**
+   * Check if a node can be expanded.
+   */
+  private checkExpand(): boolean {
+    // Value node can be expanded if one of the child node is valid.
+    if (this.props.t === "v") {
+      if (this.props.cd) {
+        for (const child of this.props.cd) {
+          if (this.isValidNode(child)) {
+            return true;
           }
-        } else {
-          expand = true;
-          statsVarPathNext.push(statsVarPath.slice(1));
         }
       }
+      return false;
     }
-    this.setState({
-      checked: check,
-      expanded: expand,
-      statsVarPaths: statsVarPathNext,
-    });
+    // Property and Top node can always expand since it is valid to be created.
+    return true;
   }
 
-  private isValidStatsVar() {
-    // the node is valid statsvar node if it is a value node,
-    // and the statsvar is available or not filtered.
-    return (
-      this.props.t === "v" &&
-      (!this.props.filter ||
-        this.hasIntersection(this.props.statsVarValid, this.props.sv))
-    );
-  }
-
-  private hasIntersection(statsVarValid: Set<string>, statsVars: string[]) {
-    for (const value of statsVars) {
-      if (statsVarValid.has(value)) {
-        return true;
+  private isValidNode(node: NodePropType | NodeJsonField): boolean {
+    // For value node, the stats var should be valid.
+    if (node.t === "v") {
+      for (const sv of node.sv) {
+        if (this.props.statsVarFilter.isValid(sv)) {
+          return true;
+        }
+      }
+      return false;
+    }
+    // For property node and top node, at lease one of the child node should be
+    // valid.
+    if (node.cd && node.cd.length !== 0) {
+      for (const child of node.cd) {
+        if (this.isValidNode(child)) {
+          return true;
+        }
       }
     }
     return false;
   }
-  private canExpand() {
-    if (this.props.t === "p") {
-      // a property node can be expanded if it has >= 1 children
-      return this.hasChild(this.props.cd);
-    } else if (this.props.t === "c") {
-      // the top level node is expandable if has valid value node
-      // or valid property node
-      let valid = false;
-      this.props.cd.map((item) => {
-        if (
-          item.t === "v" &&
-          (!this.props.filter ||
-            this.hasIntersection(this.props.statsVarValid, item.sv))
-        ) {
-          valid = true; // valid value node
-        } else if (item.t === "p" && this.hasChild(item.cd)) {
-          valid = true; // valid property node
-        }
-      });
-      return valid;
-    } else {
-      // a value node is expandable if it has valid property node
-      let valid = false;
-      if (this.props.cd) {
-        this.props.cd.map((item) => {
-          if (this.hasChild(item.cd)) {
-            valid = true;
-          }
-        });
-      }
-      return valid;
-    }
-  }
-
-  private hasChild(children) {
-    // return true if a property node has valid children
-    let valid = false;
-    if (children && children.length !== 0) {
-      children.map((item) => {
-        if (
-          !this.props.filter ||
-          this.hasIntersection(this.props.statsVarValid, item.sv)
-        ) {
-          valid = true;
-        }
-      });
-    }
-    return valid;
-  }
 }
 
 interface MenuPropType {
-  statsVarPaths: number[][];
-  statsVarValid: Set<string>;
-  filter: boolean;
-  setStatsVarTitle: (statsVarId2Title: { [key: string]: string }) => void;
+  selectedNodes: StatsVarNode;
+  statsVarFilter: StatsVarFilterInterface;
+  setStatsVarTitle: (statsVarId2Title: Record<string, string>) => void;
+  addStatsVar: (statsVar: string, nodePath: string[]) => void;
+  removeStatsVar: (statsVar: string, nodePath?: string[]) => void;
 }
+
 interface MenuStateType {
   menuJson: [unknown];
 }
+
 class Menu extends Component<MenuPropType, MenuStateType> {
-  statsVarId2Title: { [key: string]: string }; // {Id: Title}
+  statsVarId2Title: Record<string, string>; // {Id: Title}
+
   constructor(props: MenuPropType) {
     super(props);
     this.addStatsVarTitle = this.addStatsVarTitle.bind(this);
@@ -268,6 +261,7 @@ class Menu extends Component<MenuPropType, MenuStateType> {
     };
     this.statsVarId2Title = {};
   }
+
   render(): JSX.Element {
     this.statsVarId2Title = {};
     return (
@@ -285,12 +279,12 @@ class Menu extends Component<MenuPropType, MenuStateType> {
                     t="c"
                     sv={item.sv}
                     key={index1 + "," + index}
-                    statsVarPaths={this.props.statsVarPaths}
-                    statsVarValid={this.props.statsVarValid}
-                    filter={this.props.filter}
-                    idx={index}
+                    selectedNodes={this.props.selectedNodes}
+                    statsVarFilter={this.props.statsVarFilter}
                     addStatsVarTitle={this.addStatsVarTitle}
-                    nodePath={[index]}
+                    removeStatsVar={this.props.removeStatsVar}
+                    addStatsVar={this.props.addStatsVar}
+                    nodePath={[index.toString()]}
                   ></Node>
                 )
               );
@@ -309,11 +303,11 @@ class Menu extends Component<MenuPropType, MenuStateType> {
     });
   }
 
-  addStatsVarTitle(id: string, title: string): void {
+  private addStatsVarTitle(id: string, title: string): void {
     this.statsVarId2Title[id] = title;
     if (
       Object.keys(this.statsVarId2Title).length ===
-      this.props.statsVarPaths.length
+      Object.keys(this.props.selectedNodes).length
     ) {
       this.props.setStatsVarTitle(this.statsVarId2Title);
     }
