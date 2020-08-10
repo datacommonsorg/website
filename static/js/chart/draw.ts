@@ -603,7 +603,7 @@ function drawGroupLineChart(
     .append("g")
     .attr(
       "transform",
-      `translate(${width - legendWidth - LEGEND.marginLeft}, ${
+      `translate(${width - legendWidth - LEGEND.marginLeft + YLABEL.rightMargin}, ${
         LEGEND.marginTop
       })`
     );
