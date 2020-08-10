@@ -10,3 +10,4 @@ pytest
 requests
 six
 wheel
+gunicorn
