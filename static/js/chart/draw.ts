@@ -35,10 +35,10 @@ const SOURCE = {
   leftMargin: 8,
   height: 25,
 };
-const YLABEL={
+const YLABEL = {
   rightMargin: 20,
-  leftMargin: 10
-}
+  leftMargin: 10,
+};
 
 function appendLegendElem(
   elem: string,
@@ -107,7 +107,10 @@ function addXAxis(
   const axis = svg
     .append("g")
     .attr("class", "x axis")
-    .attr("transform", `translate(${YLABEL.rightMargin}, ${height - MARGIN.bottom})`)
+    .attr(
+      "transform",
+      `translate(${YLABEL.rightMargin}, ${height - MARGIN.bottom})`
+    )
     .call(d3.axisBottom(xScale).ticks(NUM_X_TICKS).tickSizeOuter(0))
     .call((g) => g.select(".domain").remove());
 
@@ -125,7 +128,10 @@ function addYAxis(
   svg
     .append("g")
     .attr("class", "y axis")
-    .attr("transform", `translate(${width - MARGIN.right + YLABEL.rightMargin},0)`)
+    .attr(
+      "transform",
+      `translate(${width - MARGIN.right + YLABEL.rightMargin},0)`
+    )
     .call(
       d3
         .axisLeft(yScale)

@@ -17,7 +17,7 @@
 path.line {
   fill: none;
   stroke-width: 2.5;
-  transform: translate(20px,0);
+  transform: translate(20px, 0);
 }
 
 .axis line {
@@ -39,7 +39,7 @@ path.line {
 
 .y.axis line.grid-line {
   stroke-opacity: 0.5;
-  stroke-dasharray: 2,2;
+  stroke-dasharray: 2, 2;
 }
 
 .dot {
@@ -59,7 +59,7 @@ path.line {
   color: white;
   margin: 2px;
   border-radius: 2px;
-  text-shadow: rgba(0,0,0,.3) 0px 0 5px;
+  text-shadow: rgba(0, 0, 0, 0.3) 0px 0 5px;
 }
 
 .legend-line {
