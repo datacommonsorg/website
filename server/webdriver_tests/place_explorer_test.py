@@ -20,6 +20,7 @@ from base_test import WebdriverBaseTest
 USA_URL = '/place?dcid=country/USA'
 
 
+# Class to test place explorer tool.
 class TestPlaceExplorer(WebdriverBaseTest):
 
     def test_page_serve(self):
@@ -30,7 +31,7 @@ class TestPlaceExplorer(WebdriverBaseTest):
         req = urllib.request.Request(self.driver.current_url)
         with urllib.request.urlopen(req) as response:
             self.assertEqual(response.getcode(), 200)
-        # Double assert the js files are generated successfully.
+        # Assert the js files are generated successfully.
         req = urllib.request.Request(self.url_ + "/place.js")
         with urllib.request.urlopen(req) as response:
             self.assertEqual(response.getcode(), 200)

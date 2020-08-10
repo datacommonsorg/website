@@ -18,6 +18,8 @@ from base_test import WebdriverBaseTest
 
 TIMELINE_URL = '/tools/timeline'
 
+
+# Class to test timeline tool.
 class TestCharts(WebdriverBaseTest):
 
     def test_server_and_page(self):
@@ -28,7 +30,7 @@ class TestCharts(WebdriverBaseTest):
         req = urllib.request.Request(self.driver.current_url)
         with urllib.request.urlopen(req) as response:
             self.assertEqual(response.getcode(), 200)
-        # Double assert the js files are generated successfully.
+        # Assert the js files are generated successfully.
         req = urllib.request.Request(self.url_ + "/timeline.js")
         with urllib.request.urlopen(req) as response:
             self.assertEqual(response.getcode(), 200)

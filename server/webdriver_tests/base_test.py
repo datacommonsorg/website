@@ -17,6 +17,7 @@ from selenium import webdriver
 from main import app
 
 
+# Base test class to setup the server.
 class WebdriverBaseTest(LiveServerTestCase):
 
     def create_app(self):
