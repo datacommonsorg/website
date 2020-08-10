@@ -55,6 +55,11 @@ function run_webdriver_test {
   python3 -m venv .env
   source .env/bin/activate
   cd server
+  if [ ! -d dist  ]
+  then
+    echo "no dist folder, please run ./run_test.sh -b to build js first."
+    exit 1
+  fi
   export FLASK_ENV=WEBDRIVER
   export GOOGLE_CLOUD_PROJECT=datcom-browser-staging
   pip3 install -r requirements.txt -q

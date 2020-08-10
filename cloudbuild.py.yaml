@@ -15,6 +15,8 @@ steps:
   - -c
   - |
     set -x
+    # ./run_test.sh -b can run npm run-script build command which can build all the js files. 
+    # These js files generated will be necessery for the flask_webdriver_test task.
     ./run_test.sh -b
 
 - id: flask_webdriver_test

@@ -14,26 +14,30 @@
 
 import unittest
 import urllib
-import time
-from base_test import TestBase
+from base_test import WebdriverBaseTest
 
-TOOL_URL = '/tools/timeline'
+TIMELINE_URL = '/tools/timeline'
 
-class TestCharts(TestBase):
+class TestCharts(WebdriverBaseTest):
 
     def test_server_and_page(self):
         """Test the server can run successfully."""
-        self.driver.get(self.get_server_url() + TOOL_URL)
-        time.sleep(5)
+        self.driver.get(self.url_ + TIMELINE_URL)
+        # Using implicit wait here to wait for loading page.
+        self.driver.implicitly_wait(5)
         req = urllib.request.Request(self.driver.current_url)
+        with urllib.request.urlopen(req) as response:
+            self.assertEqual(response.getcode(), 200)
+        # Double assert the js files are generated successfully.
+        req = urllib.request.Request(self.url_ + "/timeline.js")
         with urllib.request.urlopen(req) as response:
             self.assertEqual(response.getcode(), 200)
         self.assertEqual("Timelines Explorer | Data Commons", self.driver.title)
 
     def test_charts_original(self):
         """Test the original timeline page. No charts in this page."""
-        self.driver.get(self.get_server_url() + TOOL_URL)
-        time.sleep(5)
+        self.driver.get(self.url_ + TIMELINE_URL)
+        self.driver.implicitly_wait(5)
         responses = []
         responses = self.driver.find_elements_by_class_name("card")
         self.assertEqual(len(responses), 0)

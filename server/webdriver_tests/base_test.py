@@ -17,7 +17,7 @@ from selenium import webdriver
 from main import app
 
 
-class TestBase(LiveServerTestCase):
+class WebdriverBaseTest(LiveServerTestCase):
 
     def create_app(self):
         return app
@@ -29,6 +29,7 @@ class TestBase(LiveServerTestCase):
         chrome_options.add_argument('--no-sandbox')
         chrome_options.add_argument('--disable-dev-shm-usage')
         self.driver = webdriver.Chrome(options=chrome_options)
+        self.url_ = self.get_server_url()
 
     def tearDown(self):
         self.driver.quit()

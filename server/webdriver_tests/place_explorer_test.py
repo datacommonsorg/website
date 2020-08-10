@@ -14,20 +14,24 @@
 
 import unittest
 import urllib
-from base_test import TestBase
-import time
+from base_test import WebdriverBaseTest
 
 
 USA_URL = '/place?dcid=country/USA'
 
 
-class TestPlaceExplorer(TestBase):
+class TestPlaceExplorer(WebdriverBaseTest):
 
-    def test_page_server(self):
+    def test_page_serve(self):
         """Test the place explorer tool page cann be loaded successfullly."""
-        self.driver.get(self.get_server_url() + USA_URL)
-        time.sleep(5)
+        self.driver.get(self.url_ + USA_URL)
+        # Using implicit wait here to wait for loading page.
+        self.driver.implicitly_wait(5)
         req = urllib.request.Request(self.driver.current_url)
+        with urllib.request.urlopen(req) as response:
+            self.assertEqual(response.getcode(), 200)
+        # Double assert the js files are generated successfully.
+        req = urllib.request.Request(self.url_ + "/place.js")
         with urllib.request.urlopen(req) as response:
             self.assertEqual(response.getcode(), 200)
         self.assertEqual("United States | Place Explorer | Data Commons", self.driver.title)
