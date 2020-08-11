@@ -84,11 +84,6 @@ function saveToFile(filename: string, csv: string): void {
   link.click();
 }
 
-/*
- * Parse url hash into VarUrl object that contains statsvar, place and perCapita
- * information
- */
-
 const placeSep = ",";
 const nodePathSep = ",";
 const statsVarSep = "__";
