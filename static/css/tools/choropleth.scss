@@ -14,10 +14,10 @@
  * limitations under the License.
  */
 
- @import '../tools/base_tools';
- @import '../tools/statvar_menu';
- @import '../timeline';
- @import '../draw';
+@import '../tools/base_tools';
+@import '../tools/statvar_menu';
+@import '../timeline';
+@import '../draw';
 
 #map_container {
   margin-left: 12%;
@@ -59,10 +59,10 @@
 #heading {
   font-size: 32px;
   text-align: center;
-} 
+}
 
 // Renders checkboxes as circles.
 button {
   border-radius: 50%;
-  overflow:hidden;
+  overflow: hidden;
 }
