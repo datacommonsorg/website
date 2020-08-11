@@ -186,6 +186,12 @@ class Page extends Component<Record<string, unknown>, PageStateType> {
 
   // call back function passed down to menu for getting statsVar titles
   setStatsVarTitle(statsVarId2Title: Record<string, string>): void {
+    for (const id in statsVarId2Title) {
+      // remove title of unselected statsVars
+      if (!Object.keys(this.state.statsVarNodes).includes(id)) {
+        delete statsVarId2Title[id];
+      }
+    }
     this.setState({
       statsVarTitle: statsVarId2Title,
     });
