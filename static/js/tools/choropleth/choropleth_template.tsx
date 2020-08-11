@@ -19,6 +19,7 @@ import ReactDOM from "react-dom";
 const axios = require("axios");
 import { Menu } from "../statsvar_menu";
 import { ChoroplethMap, generateBreadCrumbs } from "./choropleth";
+import statVarLocations from "../../../data/statsvar_path.json"
 import {
   NoopStatsVarFilter,
   TimelineStatsVarFilter,
@@ -62,12 +63,13 @@ class MainPane extends Component {
     // Get all statistical variable available for the current subgeo.
     axios.get("/api/place/child/statvars/"
              + urlParams.get("geoDcid")).then((resp) => {
-      let statVars : Set<string> = new Set();
-      // TODO(iancostello): Don't assume the property exists.
-      resp.data.forEach(item => statVars.add(item));
-      // this.setState({
-      //   statsVarFilter: new TimelineStatsVarFilter(statVars)
-      // });
+      if (resp.status === 200) {
+        let statVars : Set<string> = new Set();
+        resp.data.forEach(item => statVars.add(item));
+        this.setState({
+          statsVarFilter: new TimelineStatsVarFilter(statVars)
+        });
+      }
     });
 
     // Initialize state.
@@ -110,13 +112,15 @@ class MainPane extends Component {
    * This function is passed as a callback to the statsvar_menu.
    * @param statVar 
    */
-  _handleStatVarSelection(statVar : string) : void {
+  _handleStatVarSelection(statVar : string, statVarLocation: string[]) : void {
+    // Update the choropleth map values.
     var choroplethRef = this.state['choroplethMap'].current;
     choroplethRef.handleStatVarChange(statVar);
-    this.setState({
-      // TODO(iancostello) Ask Lijuan how this position is found.
-      statsVarNodes: { statVar: [0, 0] }
-    })
+
+    // Update the displayed value in the stats var sidemenu.
+    var statsVarNodes = {};
+    statsVarNodes[statVar] = [statVarLocation];
+    this.setState({ statsVarNodes });
   }
 
   // call back function passed down to menu for getting statsVar titles

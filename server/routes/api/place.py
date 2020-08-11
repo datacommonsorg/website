@@ -147,10 +147,10 @@ def child_statvars(dcid):
         A json list of all the available statistical variables.
     """
     # Get required params.
-    if dcid:
+    if not dcid:
         return jsonify({"error": "Must provide a 'dcid' field!"}, 400)
     requested_level = request.args.get("level")
-    if requested_level:
+    if not requested_level:
         dcid_type = dc.get_property_values([dcid],
                                                 "typeOf")[dcid]
         for level in dcid_type:
@@ -158,7 +158,7 @@ def child_statvars(dcid):
                 requested_level = SUB_GEO_LEVEL_MAP[level]
                 break
         # Level lookup failed if no level is in the dictionary.
-        if requested_level:
+        if not requested_level:
             return jsonify(
                 {"error": "Could not determine subgeo for {dcid}."}, 500)
 
