@@ -16,7 +16,6 @@
 
 @import '../tools/base_tools';
 @import '../tools/statvar_menu';
-@import '../timeline';
 @import '../draw';
 
 #map_container {
@@ -37,6 +36,10 @@
 #explore {
   float: left;
   width: 25%;
+}
+
+#explore #percapita-link {
+  padding: 10px 31px 0;
 }
 
 #main-content {

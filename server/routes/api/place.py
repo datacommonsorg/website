@@ -14,12 +14,11 @@
 
 import collections
 import json
+import services.datacommons as dc
 
 from flask import Blueprint, request, jsonify
-
 from cache import cache
 from services.datacommons import fetch_data
-import services.datacommons as dc
 from routes.api.stats import get_stats_wrapper
 
 WANTED_PLACE_TYPES = ["Country",
