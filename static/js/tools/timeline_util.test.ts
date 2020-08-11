@@ -152,17 +152,13 @@ test("test function of parsing the timeline parameters from the url", () => {
   window.location.hash = "";
   const params = new TimelineParams();
   params.getParamsFromUrl();
-  expect(params.pc).toEqual(false);
+  expect(params.chartOptions).toEqual({});
   expect(params.placeDcids).toStrictEqual([]);
   expect(params.statsVarNodes).toStrictEqual({});
 
   window.location.hash = "#&place=country/USA,geoId/06";
   params.getParamsFromUrl();
   expect(params.placeDcids).toStrictEqual(["country/USA", "geoId/06"]);
-
-  window.location.hash = "&pc=1";
-  params.getParamsFromUrl();
-  expect(params.pc).toEqual(true);
 
   window.location.hash =
     "&statsVar=Count_Person__Median_Age_Person,0,1__Unknown";

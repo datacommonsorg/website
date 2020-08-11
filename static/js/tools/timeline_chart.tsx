@@ -59,6 +59,7 @@ interface ChartPropsType {
   onDataUpdate: (mprop: string, data: StatsData) => void;
   statsVarTitle: Record<string, string>;
   removeStatsVar: (statsVar: string, nodePath?: string[]) => void;
+  setPC: (mprop: string, pc: boolean) => void;
 }
 
 class Chart extends Component<ChartPropsType, unknown> {
@@ -85,6 +86,19 @@ class Chart extends Component<ChartPropsType, unknown> {
     const placeName = Object.values(this.props.places)[0];
     return (
       <div className="card">
+        <span className="chartPerCapita">
+          Per capita
+          <button
+            className={
+              this.props.perCapita
+                ? "perCapitaCheckbox checked"
+                : "perCapitaCheckbox"
+            }
+            onClick={() => {
+              this.props.setPC(this.props.mprop, !this.props.perCapita);
+            }}
+          ></button>
+        </span>
         <div ref={this.svgContainer} className="chart-svg"></div>
         <div className="statsVarChipRegion">
           {statsVars.map(

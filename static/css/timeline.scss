@@ -309,3 +309,23 @@ sup {
 .statsVarChipRegion {
   margin-left: 3px;
 }
+
+.perCapitaCheckbox {
+  cursor: pointer;
+  width: 14px;
+  height: 14px;
+  border: none;
+  background: url("/images/icon-checkbox.svg");
+  outline: none;
+  margin-left: 5px;
+}
+
+.perCapitaCheckbox.checked {
+  background: url("/images/icon-checkbox-checked.svg");
+}
+
+.chartPerCapita {
+  font-size: 14px;
+  margin-bottom: 10px;
+  margin-left: 3px;
+}

@@ -16,16 +16,17 @@
 
 import React, { Component } from "react";
 import { StatsData } from "../shared/data_fetcher";
-import { StatsVarInfo, saveToFile } from "./timeline_util";
+import { StatsVarInfo, saveToFile, ChartOptions } from "./timeline_util";
 import { Chart } from "./timeline_chart";
 
 interface ChartRegionPropsType {
   // An array of place dcids.
   places: Record<string, string>;
   statsVars: { [key: string]: StatsVarInfo };
-  perCapita: boolean;
   statsVarTitle: Record<string, string>;
   removeStatsVar: (statsVar: string, nodePath?: string[]) => void;
+  chartOptions: ChartOptions;
+  setPC: (mprop: string, pc: boolean) => void;
 }
 
 class ChartRegion extends Component<ChartRegionPropsType, unknown> {
@@ -69,10 +70,15 @@ class ChartRegion extends Component<ChartRegionPropsType, unknown> {
               mprop={mprop}
               places={this.props.places}
               statsVars={statsVars}
-              perCapita={this.props.perCapita}
+              perCapita={
+                mprop in this.props.chartOptions
+                  ? this.props.chartOptions[mprop].pc
+                  : false
+              }
               onDataUpdate={this.onDataUpdate.bind(this)}
               statsVarTitle={statsVarTitle}
               removeStatsVar={this.props.removeStatsVar}
+              setPC={this.props.setPC}
             ></Chart>
           );
         }, this)}
