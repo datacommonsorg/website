@@ -55,7 +55,7 @@ def list_png(bucket_name, prefix):
       bucket_name: the bucket where the image is stored.
       prefix: the folder prefix
     Returns:
-      An array of 64-encoded images.
+      An array of base64 encoded images.
     """
     storage_client = storage.Client()
     bucket = storage_client.get_bucket(bucket_name)
