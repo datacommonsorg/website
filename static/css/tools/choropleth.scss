@@ -15,6 +15,8 @@
  */
 
  @import '../tools/base_tools';
+ @import '../tools/statvar_menu';
+ @import '../timeline';
  @import '../draw';
 
 #map_container {
@@ -30,4 +32,37 @@
 .border-highlighted {
   stroke: black;
   stroke-width: 1px; 
+}
+
+#explore {
+  float: left;
+  width: 25%;
+}
+
+#main-content {
+  float: right;
+  width: 75%;
+}
+
+#breadcrumbs {
+  float: left;
+  height: 30px;
+  width: 40%;
+  margin-left: 15px;
+}
+
+#hover-text-display {
+  float: right;
+  width: 40%;
+}
+
+#heading {
+  font-size: 32px;
+  text-align: center;
+} 
+
+// Renders checkboxes as circles.
+button {
+  border-radius: 50%;
+  overflow:hidden;
 }

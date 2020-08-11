@@ -108,7 +108,8 @@ def choropleth_geo():
     # Download statistical variable, names, and geojson for subgeos.
     # TODO(iancostello): Handle failing function calls. 
     # Also, handle the case where only a fraction of values are returned.
-    names_by_geo = dc.get_property_values(geos_contained_in_place,
+    names_by_geo = dc.get_property_values(geos_contained_in_place
+                                          + [requested_geoDcid],
                                           "name")
     geojson_by_geo = dc.get_property_values(geos_contained_in_place,
                                             "geoJsonCoordinates")
@@ -159,7 +160,11 @@ def choropleth_geo():
     # Return as json payload.
     return jsonify({
         "type": "FeatureCollection",
-        "features": features
+        "features": features,
+        "properties": {
+            # TODO(iancostello): Don't just pick the first and check.
+            "current_geo": names_by_geo[requested_geoDcid][0]
+        }
     }, 200)
 
 def get_sublevel(requested_geoDcid, display_level):

@@ -16,12 +16,19 @@
 
 import React, { Component } from "react";
 import ReactDOM from "react-dom";
+const axios = require("axios");
+import { Menu } from "../statsvar_menu";
 import { ChoroplethMap, generateBreadCrumbs } from "./choropleth";
+import {
+  NoopStatsVarFilter,
+  TimelineStatsVarFilter,
+} from "../commons";
 
 /**
  * Generates choropleth map from API on pageload.
  */
 window.onload = () => {
+  // Generate page.
   ReactDOM.render(
     React.createElement(MainPane),
     document.getElementById("main-pane")
@@ -32,13 +39,132 @@ window.onload = () => {
 };
 
 class MainPane extends Component {
+  constructor(props: Record<string, unknown>) {
+    super(props);
+
+    // Redirect to basic url if none provided.
+    if (window.location.search === "") {
+      window.location.search =
+        "statVar=Count_Person_Employed&pc=t&geoDcid=country/USA";
+    }
+
+    // Bind functions as needed.
+    this._handleStatVarSelection = this._handleStatVarSelection.bind(this);
+
+    // Get default values for optional fields.
+    var urlParams = new URLSearchParams(window.location.search);
+    var isPerCapita = false
+    if (urlParams.has("pc")) {
+      isPerCapita = ["true", "t", "1"].includes(
+        urlParams.get("pc").toLowerCase());
+    }
+
+    // Get all statistical variable available for the current subgeo.
+    axios.get("/api/place/child/statvars/"
+             + urlParams.get("geoDcid")).then((resp) => {
+      let statVars : Set<string> = new Set();
+      // TODO(iancostello): Don't assume the property exists.
+      resp.data.forEach(item => statVars.add(item));
+      // this.setState({
+      //   statsVarFilter: new TimelineStatsVarFilter(statVars)
+      // });
+    });
+
+    // Initialize state.
+    this.state = {
+      // References used for both choropleth and stats var sidemenu objects.
+      choroplethMap: React.createRef(),
+      statVarMenuRef: React.createRef(),
+      pc: isPerCapita,
+      // Default to no filtering in stats var sidemenu until API call returns.
+      statsVarFilter: new NoopStatsVarFilter(), 
+      // Tracks the currently selected node in sidemenu.
+      statsVarNodes: {},
+    };
+  }
+
+  /**
+   * Toggles the per capita value of the choropleth map and redraws the map.
+   */
+  _togglePerCapita() {
+    // Update locally in parent.
+    var newPerCapitaValue = !this.state['pc'];
+    this.setState({
+      pc: newPerCapitaValue
+    })
+    // Redraw the choropleth map.
+    var choroplethRef = this.state['choroplethMap'].current;
+    if (choroplethRef) {
+      choroplethRef.setPerCapita(newPerCapitaValue)
+      choroplethRef.updateGeoValues()
+    }
+    // Update in URL.
+    var urlParams = new URLSearchParams(window.location.search);
+    urlParams.set("pc", newPerCapitaValue.toString());
+    history.pushState({}, null, "choropleth?" + urlParams.toString());
+  }
+
+  /**
+   * Passes off the downloading and redrawing of a new statistical variable
+   * selection to the child map element.
+   * This function is passed as a callback to the statsvar_menu.
+   * @param statVar 
+   */
+  _handleStatVarSelection(statVar : string) : void {
+    var choroplethRef = this.state['choroplethMap'].current;
+    choroplethRef.handleStatVarChange(statVar);
+    this.setState({
+      // TODO(iancostello) Ask Lijuan how this position is found.
+      statsVarNodes: { statVar: [0, 0] }
+    })
+  }
+
+  // call back function passed down to menu for getting statsVar titles
+  setStatsVarTitle(statsVarId2Title: Record<string, string>): void {
+    this.setState({
+      statsVarTitle: statsVarId2Title,
+    });
+  }
+
   render(): JSX.Element {
     return (
-      <React.Fragment>
-        <div className="column" id="breadcrumbs"></div>
-        <ChoroplethMap></ChoroplethMap>
-        <div className="column" id="hover-text-display"></div>
-      </React.Fragment>
+      <div>
+        <div className="explore-menu-container" id="explore">
+          <div id="drill-scroll-container">
+            <div className="title">Select variables:</div>
+            <div id="percapita-link" className="text">
+              <label htmlFor="percapita">Per capita</label>
+              <input
+                type="checkbox"
+                id="percapita"
+                checked={this.state && this.state['pc']}
+                name="pc"
+                onClick={this._togglePerCapita.bind(this)}
+              ></input>
+            </div>
+            <Menu
+              ref={this.state && this.state['statVarMenuRef']}
+              selectedNodes={this.state['statsVarNodes']}
+              statsVarFilter={this.state['statsVarFilter']}
+              setStatsVarTitle={this.setStatsVarTitle.bind(this)}
+              addStatsVar={this._handleStatVarSelection.bind(this)}
+              removeStatsVar={() => 0 }
+            ></Menu>
+          </div>
+        </div>
+        <div id="main-content">
+          <React.Fragment>
+            <div id="heading">Loading...</div>
+            <div>
+              <div className="column" id="breadcrumbs"></div>
+              <div className="column" id="hover-text-display"></div>
+            </div>
+            <div>
+              <ChoroplethMap ref={this.state && this.state['choroplethMap']}></ChoroplethMap>
+            </div>
+          </React.Fragment>
+        </div>
+      </div>
     );
   }
 }

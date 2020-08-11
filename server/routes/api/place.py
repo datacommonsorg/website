@@ -15,10 +15,11 @@
 import collections
 import json
 
-from flask import Blueprint, request
+from flask import Blueprint, request, jsonify
 
 from cache import cache
 from services.datacommons import fetch_data
+import services.datacommons as dc
 from routes.api.stats import get_stats_wrapper
 
 WANTED_PLACE_TYPES = ["Country",
@@ -122,6 +123,58 @@ def child(dcid):
         child_places[place_type].sort(key=lambda x: x['pop'], reverse=True)
         child_places[place_type] = child_places[place_type][:CHILD_PLACE_LIMIT]
     return json.dumps(child_places)
+
+
+# Defines the map from higher geos to their respective subgeos.
+SUB_GEO_LEVEL_MAP = {
+    "Country": "AdministrativeArea1",
+    "AdministrativeArea1": "AdministrativeArea2",
+    "AdministrativeArea2": "City"
+}
+@bp.route('child/statvars/<path:dcid>')
+def child_statvars(dcid):
+    """
+    Gets all statistical variables available for a particular sublevel of a
+        dcid.
+    API Params:
+        dcid -> The place dcid to pull information for, as a string.
+        level -> The level of children to pull for, as a string. If omitted,
+            then the subgeo is determined.
+    Example Query:
+        api/place/child/statvars?dcid=country/USA&level=State
+        Returns all statistical variables that are value for states of the USA.
+    Returns:
+        A json list of all the available statistical variables.
+    """
+    # Get required params.
+    if dcid:
+        return jsonify({"error": "Must provide a 'dcid' field!"}, 400)
+    requested_level = request.args.get("level")
+    if requested_level:
+        dcid_type = dc.get_property_values([dcid],
+                                                "typeOf")[dcid]
+        for level in dcid_type:
+            if level in SUB_GEO_LEVEL_MAP:
+                requested_level = SUB_GEO_LEVEL_MAP[level]
+                break
+        # Level lookup failed if no level is in the dictionary.
+        if requested_level:
+            return jsonify(
+                {"error": "Could not determine subgeo for {dcid}."}, 500)
+
+    # Get sublevels.
+    geos_contained_in_place = dc.get_places_in(
+        [dcid], requested_level)
+    if dcid not in geos_contained_in_place:
+        return jsonify({"error": "Internal server error."}, 500)
+    geos_contained_in_place = geos_contained_in_place[dcid]
+
+    # Get all available Statistical Variables for subgeos.
+    # Only the union of the first 10 geos are returned for speed.
+    stat_vars_for_subgeo = set()
+    for geoId in geos_contained_in_place[:10]:
+        stat_vars_for_subgeo = stat_vars_for_subgeo.union(statsvars(geoId))
+    return json.dumps(list(stat_vars_for_subgeo))
 
 
 @cache.memoize(timeout=3600 * 24)  # Cache for one day.
