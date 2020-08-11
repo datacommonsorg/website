@@ -25,6 +25,13 @@ class DevelopmentConfig(Config):
     GCS_BUCKET = "datcom-browser-staging.appspot.com"
 
 
+class WebdriverConfig(Config):
+    WEBDRIVER = True
+    API_PROJECT = 'datcom-mixer-staging'
+    API_ROOT = 'https://datacommons.endpoints.datcom-mixer-staging.cloud.goog'
+    GCS_BUCKET = ""
+
+
 class TestConfig(Config):
     TEST = True
     API_PROJECT = 'api-project'
