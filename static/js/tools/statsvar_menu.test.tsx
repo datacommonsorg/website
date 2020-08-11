@@ -15,17 +15,25 @@
  */
 
 import React from "react";
-import { Menu } from "./statsvar_menu";
 import { render, unmountComponentAtNode } from "react-dom";
 import { act } from "react-dom/test-utils";
+import Enzyme, { mount } from "enzyme";
+import Adapter from "enzyme-adapter-react-16";
 import pretty from "pretty";
+
+import { Menu } from "./statsvar_menu";
 import { TimelineStatsVarFilter } from "./commons";
+import { mock_hierarchy_complete } from "./mock_functions";
+
+Enzyme.configure({ adapter: new Adapter() });
+jest.mock("axios");
 
 let container = null;
 beforeEach(() => {
   // setup a DOM element as a render target
   container = document.createElement("div");
   document.body.appendChild(container);
+  mock_hierarchy_complete();
 });
 
 afterEach(() => {
@@ -41,7 +49,7 @@ it("filtering the menu", () => {
   act(() => {
     render(
       <Menu
-        selectedNodes={{"Count_Person":[["0", "0"]]}}
+        selectedNodes={{ Count_Person: [["0", "0"]] }}
         setStatsVarTitle={jest.fn()}
         addStatsVar={jest.fn()}
         removeStatsVar={jest.fn()}
@@ -56,7 +64,7 @@ it("filtering the menu", () => {
   act(() => {
     render(
       <Menu
-        selectedNodes={{"Count_Person":[["0", "0"]]}}
+        selectedNodes={{ Count_Person: [["0", "0"]] }}
         setStatsVarTitle={jest.fn()}
         addStatsVar={jest.fn()}
         removeStatsVar={jest.fn()}
@@ -72,7 +80,7 @@ it("filtering the menu", () => {
   act(() => {
     render(
       <Menu
-        selectedNodes={{"Count_Person":[["0", "0"]]}}
+        selectedNodes={{ Count_Person: [["0", "0"]] }}
         setStatsVarTitle={jest.fn()}
         addStatsVar={jest.fn()}
         removeStatsVar={jest.fn()}
@@ -86,11 +94,11 @@ it("filtering the menu", () => {
   expect(pretty(container.innerHTML)).toMatchSnapshot();
 
   // test the set StatsVar titles
-  const setTitle=jest.fn(x=>x);
+  const setTitle = jest.fn((x) => x);
   act(() => {
     render(
       <Menu
-        selectedNodes={{"Count_Person":[["0", "0"]]}}
+        selectedNodes={{ Count_Person: [["0", "0"]] }}
         setStatsVarTitle={setTitle}
         addStatsVar={jest.fn()}
         removeStatsVar={jest.fn()}
@@ -99,7 +107,64 @@ it("filtering the menu", () => {
       container
     );
   });
-  console.log(setTitle.mock.calls)
 });
 
-// Todo(Lijuan): add test for setting statsVar titles
+
+test("mount with one statsVar", () => {
+  const setTitle = jest.fn();
+  const wrapper = mount(
+    <Menu
+    selectedNodes={{ Count_Person: [["0", "0"]] }}
+    setStatsVarTitle={setTitle}
+    addStatsVar={jest.fn()}
+    removeStatsVar={jest.fn()}
+    statsVarFilter={new TimelineStatsVarFilter(new Set(["Count_Person", "Median_Age_Person"]))
+      }
+    />
+  );
+  Promise.resolve(wrapper).then(() => {
+    // make sure setTitle is called
+    expect(setTitle).toHaveBeenCalledWith({ Count_Person: "Population" });
+    // add one statsVar by clicking checkbox
+    wrapper.find("#drill .checkbox").at(1).simulate("click")
+    expect(wrapper.find("#drill").getDOMNode().innerHTML).toMatchSnapshot()
+    // remove one statsVar by clicking checkbox
+    wrapper.find("#drill .checkbox").at(1).simulate("click")
+    expect(wrapper.find("#drill").getDOMNode().innerHTML).toMatchSnapshot()
+  });
+  
+});
+
+test("mount with multiple statsVars", () => {
+  const setTitle = jest.fn();
+  const wrapper = mount(
+    <Menu
+      selectedNodes={{
+        Count_Person: [["0", "0"]],
+        Median_Age_Person: [["0", "1"]],
+        Count_Person_Upto5Years: [["0", "3", "0"]],
+      }}
+      setStatsVarTitle={setTitle}
+      addStatsVar={jest.fn()}
+      removeStatsVar={jest.fn()}
+      statsVarFilter={
+        new TimelineStatsVarFilter(
+          new Set([
+            "Count_Person",
+            "Count_Person_Upto5Years",
+            "Median_Age_Person",
+          ])
+        )
+      }
+    />
+  );
+
+  Promise.resolve(wrapper).then(() => {
+    // make sure setTitle is called
+    expect(setTitle).toHaveBeenCalledWith({
+      Count_Person: "Population",
+      Median_Age_Person: "Median age",
+      Count_Person_Upto5Years: "Less than 5 Years",
+    });
+  });
+});

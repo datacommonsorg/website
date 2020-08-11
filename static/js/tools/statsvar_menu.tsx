@@ -263,7 +263,6 @@ class Menu extends Component<MenuPropType, MenuStateType> {
   }
 
   render(): JSX.Element {
-    this.statsVarId2Title = {};
     return (
       <div id="drill">
         <div className="noedge">
@@ -304,13 +303,11 @@ class Menu extends Component<MenuPropType, MenuStateType> {
   }
 
   private addStatsVarTitle(id: string, title: string): void {
-    console.log(id, title)
     this.statsVarId2Title[id] = title;
     if (
       Object.keys(this.statsVarId2Title).length ===
       Object.keys(this.props.selectedNodes).length
     ) {
-      console.log("called")
       this.props.setStatsVarTitle(this.statsVarId2Title);
     }
   }

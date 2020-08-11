@@ -1,0 +1,40 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Single place and single stats var 1`] = `
+"<div class=\\"card\\">
+  <div class=\\"chart-svg\\"></div>
+  <div>
+    <div class=\\"pv-chip mdl-chip--deletable\\"><span class=\\"mdl-chip__text\\">Median age</span><button class=\\"mdl-chip__action\\"><i class=\\"material-icons\\">cancel</i></button></div>
+  </div>
+</div>
+<div class=\\"card\\">
+  <div class=\\"chart-svg\\"></div>
+  <div>
+    <div class=\\"pv-chip mdl-chip--deletable\\"><span class=\\"mdl-chip__text\\">Population</span><button class=\\"mdl-chip__action\\"><i class=\\"material-icons\\">cancel</i></button></div>
+  </div>
+</div>"
+`;
+
+exports[`Single place and single stats var 2`] = `
+"<div class=\\"card\\">
+  <div class=\\"chart-svg\\"><svg width=\\"500\\" height=\\"500\\"><text>svg text</text></svg></div>
+  <div>
+    <div class=\\"pv-chip mdl-chip--deletable\\"><span class=\\"mdl-chip__text\\">Median age</span><button class=\\"mdl-chip__action\\"><i class=\\"material-icons\\">cancel</i></button></div>
+  </div>
+</div>"
+`;
+
+exports[`Single place and single stats var 3`] = `
+"<div class=\\"noedge\\">
+  <ul class=\\"noborder\\">
+    <li class=\\"value\\" id=\\"Demographics\\"><span><a class=\\"value-link\\">Demographics  <sup>(1787)</sup><img class=\\"right-caret transform-up\\" src=\\"/images/right-caret-light.png\\"></a></span>
+      <ul class=\\"noborder\\">
+        <li class=\\"value\\" id=\\"Population\\"><span><a class=\\"value-link\\">Population  <sup>(1)</sup><button class=\\"checkbox\\"></button></a></span></li>
+      </ul>
+      <ul class=\\"noborder\\">
+        <li class=\\"value\\" id=\\"Median age\\"><span><a class=\\"value-link\\">Median age  <sup>(1)</sup><button class=\\"checkbox checked\\"></button></a></span></li>
+      </ul>
+    </li>
+  </ul>
+</div>"
+`;

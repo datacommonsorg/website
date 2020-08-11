@@ -18,13 +18,49 @@ jest.mock("axios");
 import { when } from "jest-when";
 import axios from "axios";
 import hierarchy from "../../data/hierarchy_top.json";
+import hierarchy_complete from "../../data/hierarchy_statsvar.json";
 import { drawGroupLineChart } from "../chart/draw";
 import * as d3 from "d3";
 
 export function axios_mock(): void {
   // Mock all the async axios call.
   axios.get = jest.fn();
-  // get stats.
+
+  // get hierachy.json
+  when(axios.get)
+  .calledWith("../../data/hierarchy_statsvar.json")
+  .mockResolvedValue({ data: hierarchy });
+
+   // get statsvar properties Median_Age_Person
+   when(axios.get)
+   .calledWith("/api/stats/stats-var-property?dcid=Median_Age_Person")
+   .mockResolvedValue({
+     data: {
+       Median_Age_Person: { md: "", mprop: "age", pt: "Person", pvs: {} },
+     },
+   });
+
+   // get statsVar info of Median_Age_Person and Count_Person
+   when(axios.get)
+   .calledWith("/api/stats/stats-var-property?dcid=Median_Age_Person&dcid=Count_Person")
+   .mockResolvedValue({
+     data: {
+       Median_Age_Person: { md: "", mprop: "age", pt: "Person", pvs: {} },
+       Count_Person: {md:"", mprop: "count", pt:"Person", pvs: {}}
+     },
+   });
+
+   // get place stats vars, geoId/05
+  when(axios.get)
+  .calledWith("/api/place/statsvars/geoId/05")
+  .mockResolvedValue({ data: ["Count_Person", "Median_Age_Person"] });
+
+  // get place names
+  when(axios.get)
+    .calledWith("/api/place/name?dcid=geoId/05")
+    .mockResolvedValue({ data: { "geoId/05": "Place" } });
+
+  // get data, geoId/05, Median_Age_Person
   when(axios.get)
     .calledWith("/api/stats/Median_Age_Person?&dcid=geoId/05")
     .mockResolvedValue({
@@ -37,27 +73,31 @@ export function axios_mock(): void {
         },
       },
     });
-  // get hierachy.json
+  // get data, geoId/05,Count_Person
   when(axios.get)
-    .calledWith("../../data/hierarchy_statsvar.json")
-    .mockResolvedValue({ data: hierarchy });
-
-  // get statsvar properties
-  when(axios.get)
-    .calledWith("/api/stats/stats-var-property?dcid=Median_Age_Person")
-    .mockResolvedValue({
-      data: {
-        Median_Age_Person: { md: "", mprop: "age", pt: "Person", pvs: {} },
+  .calledWith("/api/stats/Count_Person?&dcid=geoId/05")
+  .mockResolvedValue({
+    data: {
+      "geoId/05": {
+        place_dcid: "geoId/05",
+        place_name: "Arkansas",
+        provenance_domain: "census.gov",
+        data: { "1999": 37.3, "2010": 37.4, "2020": 37.5 },
       },
-    });
-  // get place stats vars
-  when(axios.get)
-    .calledWith("/api/place/statsvars/geoId/05")
-    .mockResolvedValue({ data: ["Count_Person", "Median_Age_Person"] });
-  // get place names
-  when(axios.get)
-    .calledWith("/api/place/name?dcid=geoId/05")
-    .mockResolvedValue({ data: { "geoId/05": "Place" } });
+    },
+  });
+  
+}
+
+export function mock_hierarchy_complete():void{
+    axios.get = jest.fn();
+    when(axios.get)
+    .calledWith("../../data/hierarchy_statsvar.json")
+    .mockResolvedValue({ data: hierarchy_complete });
+
+    when(axios.get)
+    .calledWith("../../data/hierarchy_top.json")
+    .mockResolvedValue({ data: hierarchy_complete });
 }
 
 // Mock drawGroupLineChart() as getComputedTextLength can has issue with jest

@@ -139,7 +139,9 @@ class Chart extends Component<ChartPropsType, unknown> {
     ).then((statsData) => {
       this.statsData = statsData;
       this.props.onDataUpdate(this.props.mprop, statsData);
-      this.drawChart();
+      if (this.svgContainer.current) {
+        this.drawChart();
+      }
     });
   }
 
