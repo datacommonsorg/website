@@ -14,8 +14,9 @@
 
 import collections
 import json
+import services.datacommons as dc
 
-from flask import Blueprint, request
+from flask import Blueprint, request, jsonify
 
 from cache import cache
 from services.datacommons import fetch_data
