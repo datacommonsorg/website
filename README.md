@@ -76,6 +76,11 @@ export GOOGLE_APPLICATION_CREDENTIALS=<JSON_CREDENTIAL_PATH>
 ```bash
 ./run_test.sh
 ```
+To update the test snapshots, run command:
+```bash
+cd static
+npm test testfilename -- -u
+```
 
 #### Package javascript and static assets
 

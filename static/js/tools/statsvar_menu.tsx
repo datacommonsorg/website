@@ -263,7 +263,6 @@ class Menu extends Component<MenuPropType, MenuStateType> {
   }
 
   render(): JSX.Element {
-    this.statsVarId2Title = {};
     return (
       <div id="drill">
         <div className="noedge">
@@ -301,16 +300,18 @@ class Menu extends Component<MenuPropType, MenuStateType> {
         menuJson: [resp.data],
       });
     });
+    this.props.setStatsVarTitle(this.statsVarId2Title);
+  }
+
+  componentDidUpdate(prevProps: MenuPropType): void {
+    if (!_.isEqual(prevProps.selectedNodes, this.props.selectedNodes)) {
+      // Set the statsVar title after the menu was rendered
+      this.props.setStatsVarTitle(this.statsVarId2Title);
+    }
   }
 
   private addStatsVarTitle(id: string, title: string): void {
     this.statsVarId2Title[id] = title;
-    if (
-      Object.keys(this.statsVarId2Title).length ===
-      Object.keys(this.props.selectedNodes).length
-    ) {
-      this.props.setStatsVarTitle(this.statsVarId2Title);
-    }
   }
 }
 
