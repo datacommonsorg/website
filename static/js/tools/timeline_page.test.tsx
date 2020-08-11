@@ -24,6 +24,7 @@ import React from "react";
 
 import { Page } from "./timeline_page";
 import { axios_mock, drawGroupLineChart_mock } from "./mock_functions";
+import pretty from "pretty";
 
 Enzyme.configure({ adapter: new Adapter() });
 
@@ -63,9 +64,59 @@ test("Single place and single stats var", () => {
           `<button class="mdl-chip__action"><i class="material-icons">` +
           `cancel</i></button></div></div></div>`
       );
+
+      // add one statsVar by clicking the checkbox
+      wrapper.find("#drill .checkbox").at(0).simulate("click");
+      Promise.resolve(wrapper)
+        .then(() => wrapper.update())
+        .then(() => {
+          wrapper.update();
+          expect(window.location.hash).toEqual(
+            "place=geoId%2F05&statsVar=Median_Age_Person%2C0%2C1__Count_Person%2C0%2C0"
+          );
+          // test if the statsVar info and statsVarTitle is updated
+          expect(wrapper.state().statsVarInfo).toEqual({
+            Median_Age_Person: { md: "", mprop: "age", pt: "Person", pvs: {} },
+            Count_Person: { md: "", mprop: "count", pt: "Person", pvs: {} },
+          });
+          expect(wrapper.state().statsVarTitle).toEqual({
+            Median_Age_Person: "Median age",
+            Count_Person: "Population",
+          });
+          expect(
+            pretty(wrapper.find("#chart-region").getDOMNode().innerHTML)
+          ).toMatchSnapshot();
+
+          // delete one statsVar from the statsVar chips
+          wrapper.find("#chart-region button i").at(1).simulate("click");
+          Promise.resolve(wrapper)
+            .then(() => wrapper.update())
+            .then(() => {
+              wrapper.update();
+              expect(window.location.hash).toEqual(
+                "place=geoId%2F05&statsVar=Median_Age_Person%2C0%2C1"
+              );
+              expect(wrapper.state().statsVarInfo).toEqual({
+                Median_Age_Person: {
+                  md: "",
+                  mprop: "age",
+                  pt: "Person",
+                  pvs: {},
+                },
+              });
+              expect(wrapper.state().statsVarTitle).toEqual({
+                Median_Age_Person: "Median age",
+              });
+              expect(
+                pretty(wrapper.find("#chart-region").getDOMNode().innerHTML)
+              ).toMatchSnapshot();
+              expect(
+                pretty(wrapper.find("#drill").getDOMNode().innerHTML)
+              ).toMatchSnapshot();
+              // TODO(Lijuan): delete last statsVar by clicking checkbox
+            });
+        });
     });
 });
 
-// TODO(Lijuan)
-// add test functions mocking check/uncheck a statsVar, delete statsVar chip
-// and delete place chips etc.
+// TODO(Lijuan): two places and one statsVar, statsVar valid for one, invalid for the other
