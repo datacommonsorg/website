@@ -38,7 +38,7 @@ path.line {
 
 .y.axis line.grid-line {
   stroke-opacity: 0.5;
-  stroke-dasharray: 2,2;
+  stroke-dasharray: 2, 2;
 }
 
 .dot {
@@ -58,7 +58,7 @@ path.line {
   color: white;
   margin: 2px;
   border-radius: 2px;
-  text-shadow: rgba(0,0,0,.3) 0px 0 5px;
+  text-shadow: rgba(0, 0, 0, 0.3) 0px 0 5px;
 }
 
 .legend-line {
@@ -67,4 +67,8 @@ path.line {
 
 .legend-text {
   font-size: 14px;
+}
+
+.label {
+  font-size: 12px;
 }

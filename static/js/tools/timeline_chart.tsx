@@ -86,7 +86,7 @@ class Chart extends Component<ChartPropsType, unknown> {
     return (
       <div className="card">
         <div ref={this.svgContainer} className="chart-svg"></div>
-        <div>
+        <div className="statsVarChipRegion">
           {statsVars.map(
             function (statsVar) {
               let color: string;
@@ -139,7 +139,9 @@ class Chart extends Component<ChartPropsType, unknown> {
     ).then((statsData) => {
       this.statsData = statsData;
       this.props.onDataUpdate(this.props.mprop, statsData);
-      this.drawChart();
+      if (this.svgContainer.current) {
+        this.drawChart();
+      }
     });
   }
 
@@ -160,6 +162,7 @@ class Chart extends Component<ChartPropsType, unknown> {
       this.props.statsVarTitle,
       dataGroupsDict,
       this.plotParams,
+      this.props.mprop,
       Array.from(this.statsData.sources)
     );
   }

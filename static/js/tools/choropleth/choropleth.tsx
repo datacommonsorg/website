@@ -111,7 +111,7 @@ class ChoroplethMap extends Component {
     // Scale and center the map.
     const svgContainer = document.getElementById("map_container");
     const projection = d3
-      .geoAlbers()
+      .geoAlbersUsa()
       .fitSize([svgContainer.clientWidth, svgContainer.clientHeight], geojson);
     const geomap = d3.geoPath().projection(projection);
 
