@@ -3,13 +3,13 @@
 exports[`Single place and single stats var 1`] = `
 "<div class=\\"card\\">
   <div class=\\"chart-svg\\"></div>
-  <div>
+  <div class=\\"statsVarChipRegion\\">
     <div class=\\"pv-chip mdl-chip--deletable\\"><span class=\\"mdl-chip__text\\">Median age</span><button class=\\"mdl-chip__action\\"><i class=\\"material-icons\\">cancel</i></button></div>
   </div>
 </div>
 <div class=\\"card\\">
   <div class=\\"chart-svg\\"></div>
-  <div>
+  <div class=\\"statsVarChipRegion\\">
     <div class=\\"pv-chip mdl-chip--deletable\\"><span class=\\"mdl-chip__text\\">Population</span><button class=\\"mdl-chip__action\\"><i class=\\"material-icons\\">cancel</i></button></div>
   </div>
 </div>"
@@ -18,7 +18,7 @@ exports[`Single place and single stats var 1`] = `
 exports[`Single place and single stats var 2`] = `
 "<div class=\\"card\\">
   <div class=\\"chart-svg\\"><svg width=\\"500\\" height=\\"500\\"><text>svg text</text></svg></div>
-  <div>
+  <div class=\\"statsVarChipRegion\\">
     <div class=\\"pv-chip mdl-chip--deletable\\"><span class=\\"mdl-chip__text\\">Median age</span><button class=\\"mdl-chip__action\\"><i class=\\"material-icons\\">cancel</i></button></div>
   </div>
 </div>"
