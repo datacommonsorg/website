@@ -7,6 +7,7 @@ import datetime
 
 class Config:
     TEST = False
+    WEBDRIVER = False
     CACHE_TYPE = 'simple'  # Flask-Caching related configs
     GAE_VERSION = (
         os.environ.get('GAE_VERSION') or
