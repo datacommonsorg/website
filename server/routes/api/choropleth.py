@@ -241,8 +241,6 @@ def child_statvars():
                                    flask.request.args.get("level"))
 
     # Get sublevels.
-    print(dcid)
-    print(requested_level)
     geos_contained_in_place = dc.get_places_in(
         [dcid], requested_level)
     if dcid not in geos_contained_in_place:
@@ -254,10 +252,7 @@ def child_statvars():
     # TODO(iancostello): Determine whether this heuristic is too generous
     # or too restrictive.
     stat_vars_for_subgeo = set()
-    print(geos_contained_in_place)
     for geoId in geos_contained_in_place[:10]:
-        print("yo")
-        print(place.statsvars(geoId))
         stat_vars_for_subgeo = stat_vars_for_subgeo.union(
             place.statsvars(geoId))
     return json.dumps(list(stat_vars_for_subgeo))
