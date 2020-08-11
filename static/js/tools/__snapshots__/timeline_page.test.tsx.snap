@@ -1,4 +1,5 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
+// update the snapshots with command: npm test -- -u
 
 exports[`Single place and single stats var 1`] = `
 "<div class=\\"card\\">

@@ -1,4 +1,5 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
+// update the snapshots with command: npm test -- -u
 
 exports[`filtering the menu 1`] = `
 "<div id=\\"drill\\">
