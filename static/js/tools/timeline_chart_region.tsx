@@ -46,7 +46,6 @@ class ChartRegion extends Component<ChartRegionPropsType, unknown> {
   }
 
   render(): JSX.Element {
-    console.log("chart-region")
     if (
       Object.keys(this.props.places).length === 0 ||
       Object.keys(this.props.statsVars).length === 0

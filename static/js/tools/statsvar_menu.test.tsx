@@ -109,16 +109,18 @@ it("filtering the menu", () => {
   });
 });
 
-
 test("mount with one statsVar", () => {
   const setTitle = jest.fn();
   const wrapper = mount(
     <Menu
-    selectedNodes={{ Count_Person: [["0", "0"]] }}
-    setStatsVarTitle={setTitle}
-    addStatsVar={jest.fn()}
-    removeStatsVar={jest.fn()}
-    statsVarFilter={new TimelineStatsVarFilter(new Set(["Count_Person", "Median_Age_Person"]))
+      selectedNodes={{ Count_Person: [["0", "0"]] }}
+      setStatsVarTitle={setTitle}
+      addStatsVar={jest.fn()}
+      removeStatsVar={jest.fn()}
+      statsVarFilter={
+        new TimelineStatsVarFilter(
+          new Set(["Count_Person", "Median_Age_Person"])
+        )
       }
     />
   );
@@ -126,13 +128,12 @@ test("mount with one statsVar", () => {
     // make sure setTitle is called
     expect(setTitle).toHaveBeenCalledWith({ Count_Person: "Population" });
     // add one statsVar by clicking checkbox
-    wrapper.find("#drill .checkbox").at(1).simulate("click")
-    expect(wrapper.find("#drill").getDOMNode().innerHTML).toMatchSnapshot()
+    wrapper.find("#drill .checkbox").at(1).simulate("click");
+    expect(wrapper.find("#drill").getDOMNode().innerHTML).toMatchSnapshot();
     // remove one statsVar by clicking checkbox
-    wrapper.find("#drill .checkbox").at(1).simulate("click")
-    expect(wrapper.find("#drill").getDOMNode().innerHTML).toMatchSnapshot()
+    wrapper.find("#drill .checkbox").at(1).simulate("click");
+    expect(wrapper.find("#drill").getDOMNode().innerHTML).toMatchSnapshot();
   });
-  
 });
 
 test("mount with multiple statsVars", () => {
