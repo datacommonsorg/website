@@ -536,6 +536,7 @@ function drawGroupLineChart(
   }
   svg
     .append("text")
+    .attr("class", "label")
     .attr("text-anchor", "start")
     .attr("transform", `translate(${MARGIN.grid}, ${LABELTOPMARGIN})`)
     .text(ylabelText);
@@ -569,6 +570,7 @@ function drawGroupLineChart(
     const sourceText = "Data source: " + source.filter(Boolean).join(", ");
     svg
       .append("text")
+      .attr("class", "label")
       .attr("text-anchor", "start")
       .attr(
         "transform",
