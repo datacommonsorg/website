@@ -16,14 +16,10 @@
 
 import React, { Component } from "react";
 import ReactDOM from "react-dom";
-const axios = require("axios");
 import { Menu } from "../statsvar_menu";
 import { ChoroplethMap, generateBreadCrumbs } from "./choropleth";
-import statVarLocations from "../../../data/statsvar_path.json"
-import {
-  NoopStatsVarFilter,
-  TimelineStatsVarFilter,
-} from "../commons";
+import { NoopStatsVarFilter, TimelineStatsVarFilter } from "../commons";
+import axios from "axios";
 
 /**
  * Generates choropleth map from API on pageload.
@@ -53,24 +49,26 @@ class MainPane extends Component {
     this._handleStatVarSelection = this._handleStatVarSelection.bind(this);
 
     // Get default values for optional fields.
-    var urlParams = new URLSearchParams(window.location.search);
-    var isPerCapita = false
+    const urlParams = new URLSearchParams(window.location.search);
+    let isPerCapita = false;
     if (urlParams.has("pc")) {
       isPerCapita = ["true", "t", "1"].includes(
-        urlParams.get("pc").toLowerCase());
+        urlParams.get("pc").toLowerCase()
+      );
     }
 
     // Get all statistical variable available for the current subgeo.
-    axios.get("/api/place/child/statvars/"
-             + urlParams.get("geoDcid")).then((resp) => {
-      if (resp.status === 200) {
-        let statVars : Set<string> = new Set();
-        resp.data.forEach(item => statVars.add(item));
-        this.setState({
-          statsVarFilter: new TimelineStatsVarFilter(statVars)
-        });
-      }
-    });
+    axios
+      .get("/api/place/child/statvars/" + urlParams.get("geoDcid"))
+      .then((resp) => {
+        if (resp.status === 200) {
+          const statVars: Set<string> = new Set();
+          resp.data.forEach((item) => statVars.add(item));
+          this.setState({
+            statsVarFilter: new TimelineStatsVarFilter(statVars),
+          });
+        }
+      });
 
     // Initialize state.
     this.state = {
@@ -79,7 +77,7 @@ class MainPane extends Component {
       statVarMenuRef: React.createRef(),
       pc: isPerCapita,
       // Default to no filtering in stats var sidemenu until API call returns.
-      statsVarFilter: new NoopStatsVarFilter(), 
+      statsVarFilter: new NoopStatsVarFilter(),
       // Tracks the currently selected node in sidemenu.
       statsVarNodes: {},
     };
@@ -88,20 +86,19 @@ class MainPane extends Component {
   /**
    * Toggles the per capita value of the choropleth map and redraws the map.
    */
-  _togglePerCapita() {
+  _togglePerCapita(): void {
     // Update locally in parent.
-    var newPerCapitaValue = !this.state['pc'];
+    const newPerCapitaValue = !this.state["pc"];
     this.setState({
-      pc: newPerCapitaValue
-    })
+      pc: newPerCapitaValue,
+    });
     // Redraw the choropleth map.
-    var choroplethRef = this.state['choroplethMap'].current;
-    if (choroplethRef) {
-      choroplethRef.setPerCapita(newPerCapitaValue)
-      choroplethRef.updateGeoValues()
-    }
+    const choroplethRef = this.state["choroplethMap"].current;
+    choroplethRef.setPerCapita(newPerCapitaValue);
+    choroplethRef.updateGeoValues();
+  
     // Update in URL.
-    var urlParams = new URLSearchParams(window.location.search);
+    const urlParams = new URLSearchParams(window.location.search);
     urlParams.set("pc", newPerCapitaValue.toString());
     history.pushState({}, null, "choropleth?" + urlParams.toString());
   }
@@ -110,15 +107,15 @@ class MainPane extends Component {
    * Passes off the downloading and redrawing of a new statistical variable
    * selection to the child map element.
    * This function is passed as a callback to the statsvar_menu.
-   * @param statVar 
+   * @param statVar
    */
-  _handleStatVarSelection(statVar : string, statVarLocation: string[]) : void {
+  _handleStatVarSelection(statVar: string, statVarLocation: string[]): void {
     // Update the choropleth map values.
-    var choroplethRef = this.state['choroplethMap'].current;
+    const choroplethRef = this.state["choroplethMap"].current;
     choroplethRef.handleStatVarChange(statVar);
 
     // Update the displayed value in the stats var sidemenu.
-    var statsVarNodes = {};
+    const statsVarNodes = {};
     statsVarNodes[statVar] = [statVarLocation];
     this.setState({ statsVarNodes });
   }
@@ -141,18 +138,18 @@ class MainPane extends Component {
               <input
                 type="checkbox"
                 id="percapita"
-                checked={this.state && this.state['pc']}
+                checked={this.state && this.state["pc"]}
                 name="pc"
                 onClick={this._togglePerCapita.bind(this)}
               ></input>
             </div>
             <Menu
-              ref={this.state && this.state['statVarMenuRef']}
-              selectedNodes={this.state['statsVarNodes']}
-              statsVarFilter={this.state['statsVarFilter']}
+              ref={this.state && this.state["statVarMenuRef"]}
+              selectedNodes={this.state["statsVarNodes"]}
+              statsVarFilter={this.state["statsVarFilter"]}
               setStatsVarTitle={this.setStatsVarTitle.bind(this)}
               addStatsVar={this._handleStatVarSelection.bind(this)}
-              removeStatsVar={() => 0 }
+              removeStatsVar={() => 0}
             ></Menu>
           </div>
         </div>
@@ -164,7 +161,9 @@ class MainPane extends Component {
               <div className="column" id="hover-text-display"></div>
             </div>
             <div>
-              <ChoroplethMap ref={this.state && this.state['choroplethMap']}></ChoroplethMap>
+              <ChoroplethMap
+                ref={this.state && this.state["choroplethMap"]}
+              ></ChoroplethMap>
             </div>
           </React.Fragment>
         </div>

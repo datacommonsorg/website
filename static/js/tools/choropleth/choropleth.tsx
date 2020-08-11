@@ -44,10 +44,10 @@ class ChoroplethMap extends Component {
     this.loadGeoJson();
   }
 
-  /** Refreshes are currently never done through state updates. 
+  /** Refreshes are currently never done through state updates.
    * TODO(iancostello): Refactor this component to update via state.
    */
-  shouldComponentUpdate() {
+  shouldComponentUpdate(): boolean {
     return false;
   }
 
@@ -90,9 +90,9 @@ class ChoroplethMap extends Component {
   /**
    * Set Per Capita.
    */
-  setPerCapita(pc : boolean) {
-    this.setState({pc})
-    this.renderGeoMap()
+  setPerCapita(pc: boolean): void {
+    this.setState({ pc });
+    this.renderGeoMap();
   }
 
   /**
@@ -184,9 +184,10 @@ class ChoroplethMap extends Component {
 
     // Update title.
     const url = new URL(window.location.href);
-    document.getElementById("heading").innerHTML = 
-      url.searchParams.get("statVar") + " in " + 
-      this.state['geojson']['properties']['current_geo']; 
+    document.getElementById("heading").innerHTML =
+      url.searchParams.get("statVar") +
+      " in " +
+      this.state["geojson"]["properties"]["current_geo"];
   }
 
   /**
@@ -212,7 +213,7 @@ class ChoroplethMap extends Component {
     }
 
     document.getElementById("hover-text-display").innerHTML =
-      name + " - " + formatGeoValue(geoValue, this.state['pc']);
+      name + " - " + formatGeoValue(geoValue, this.state["pc"]);
 
     // Highlight selected geo in black on hover.
     d3.select(geo.ref).attr("class", "border-highlighted");
@@ -390,14 +391,19 @@ function formatGeoValue(geoValue, isPerCapita) {
         dispValue *= 10;
         multiplier *= 10;
       }
-      return geoValue.toFixed(6) + " or " +
-        dispValue.toLocaleString() + " per " + multiplier.toLocaleString() + 
-        " people." 
+      return (
+        geoValue.toFixed(6) +
+        " or " +
+        dispValue.toLocaleString() +
+        " per " +
+        multiplier.toLocaleString() +
+        " people."
+      );
     } else {
-      return geoValue.toLocaleString() + " per capita"
+      return geoValue.toLocaleString() + " per capita";
     }
   } else {
-    return geoValue.toLocaleString()
+    return geoValue.toLocaleString();
   }
 }
 

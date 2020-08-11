@@ -21,7 +21,7 @@ import statistics
 import json
 import services.datacommons as dc
 
-# Defines the map from higher geos to their respective subgeos.
+# Map from a geographic level to its closest fine-grained level.
 LEVEL_MAP = {
     "Country": "AdministrativeArea1",
     "AdministrativeArea1": "AdministrativeArea2",

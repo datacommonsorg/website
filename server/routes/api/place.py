@@ -137,9 +137,9 @@ def child_statvars(dcid):
     Gets all statistical variables available for a particular sublevel of a
         dcid.
     API Params:
-        dcid -> The place dcid to pull information for, as a string.
-        level -> The level of children to pull for, as a string. If omitted,
-            then the subgeo is determined.
+        dcid: The place dcid to pull information for, as a string.
+        level: The level of children to pull for, as a string. If omitted,
+            then the subgeo is computed.
     Example Query:
         api/place/child/statvars?dcid=country/USA&level=State
         Returns all statistical variables that are value for states of the USA.
@@ -151,9 +151,8 @@ def child_statvars(dcid):
         return jsonify({"error": "Must provide a 'dcid' field!"}, 400)
     requested_level = request.args.get("level")
     if not requested_level:
-        dcid_type = dc.get_property_values([dcid],
-                                                "typeOf")[dcid]
-        for level in dcid_type:
+        dcid_types = dc.get_property_values([dcid], "typeOf")[dcid]
+        for level in dcid_types:
             if level in SUB_GEO_LEVEL_MAP:
                 requested_level = SUB_GEO_LEVEL_MAP[level]
                 break
@@ -171,6 +170,8 @@ def child_statvars(dcid):
 
     # Get all available Statistical Variables for subgeos.
     # Only the union of the first 10 geos are returned for speed.
+    # TODO(iancostello): Determine whether this heuristic is too generous
+    # or too restrictive.
     stat_vars_for_subgeo = set()
     for geoId in geos_contained_in_place[:10]:
         stat_vars_for_subgeo = stat_vars_for_subgeo.union(statsvars(geoId))
