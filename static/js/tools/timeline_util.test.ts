@@ -14,10 +14,7 @@
  * limitations under the License.
  */
 
-import {
-  getPlaceNames,
-  TimelineParams,
-} from "./timeline_util";
+import { getPlaceNames, TimelineParams } from "./timeline_util";
 
 test("get place names", () => {
   const dcids = ["geoId/4459000", "country/USA"];
