@@ -13,15 +13,13 @@
 # limitations under the License.
 
 """Defines endpoints to support choropleth map."""
-
-from flask import request
-from flask import jsonify
-from flask import Blueprint
+import flask
 import statistics
 import json
 import services.datacommons as dc
+import routes.api.place as place
 
-# Defines the map from higher geos to their respective subgeos.
+# Map from a geographic level to its closest fine-grained level.
 LEVEL_MAP = {
     "Country": "AdministrativeArea1",
     "AdministrativeArea1": "AdministrativeArea2",
@@ -29,7 +27,7 @@ LEVEL_MAP = {
 }
 
 # All choropleth endpoints are defined with the choropleth/ prefix.
-bp = Blueprint(
+bp = flask.Blueprint(
   "choropleth",
   __name__,
   url_prefix='/api/choropleth'
@@ -51,13 +49,14 @@ def choropleth_values():
             for all subgeos.
     """
     # Get required request parameters.
-    requested_geoDcid = request.args.get("geoDcid")
+    requested_geoDcid = flask.request.args.get("geoDcid")
     if not requested_geoDcid:
-        return jsonify({"error": "Must provide a 'geoDcid' field!"}, 400)
-    stat_var = request.args.get("statVar")
+        return flask.jsonify({"error": "Must provide a 'geoDcid' field!"}, 400)
+    stat_var = flask.request.args.get("statVar")
     if not stat_var:
-        return jsonify({"error": "Must provide a 'statVar' field!"}, 400)
-    display_level = get_sublevel(requested_geoDcid, request.args.get("level"))
+        return flask.jsonify({"error": "Must provide a 'statVar' field!"}, 400)
+    display_level = get_sublevel(requested_geoDcid,
+                                 flask.request.args.get("level"))
 
     # Get all subgeos.
     geos_contained_in_place = dc.get_places_in(
@@ -72,7 +71,7 @@ def choropleth_values():
                         reversed(payload['data'].values())))
 
     # Return as json payload.
-    return jsonify(populations_by_geo, 200)
+    return flask.jsonify(populations_by_geo, 200)
 
 @bp.route('/geo')
 def choropleth_geo():
@@ -92,13 +91,15 @@ def choropleth_geo():
             geoDcid, and name for all subregions.
     """
     # Get required request parameters.
-    requested_geoDcid = request.args.get("geoDcid")
+    requested_geoDcid = flask.request.args.get("geoDcid")
     if not requested_geoDcid:
-        return jsonify({"error": "Must provide a 'geoDcid' field!"}, 400)
-    display_level = get_sublevel(requested_geoDcid, request.args.get("level"))
+        return flask.jsonify({"error": "Must provide a 'geoDcid' field!"}, 400)
+    display_level = get_sublevel(requested_geoDcid,
+                                 flask.request.args.get("level"))
 
     # Get optional fields.
-    measurement_denominator = request.args.get("mdom", default="Count_Person")
+    measurement_denominator = flask.request.args.get("mdom",
+                                                     default="Count_Person")
 
     # Get list of all contained places.
     # TODO(iancostello): Handle a failing function call.
@@ -108,7 +109,8 @@ def choropleth_geo():
     # Download statistical variable, names, and geojson for subgeos.
     # TODO(iancostello): Handle failing function calls. 
     # Also, handle the case where only a fraction of values are returned.
-    names_by_geo = dc.get_property_values(geos_contained_in_place,
+    names_by_geo = dc.get_property_values(geos_contained_in_place
+                                          + [requested_geoDcid],
                                           "name")
     geojson_by_geo = dc.get_property_values(geos_contained_in_place,
                                             "geoJsonCoordinates")
@@ -157,9 +159,13 @@ def choropleth_geo():
             features.append(geo_feature)
 
     # Return as json payload.
-    return jsonify({
+    return flask.jsonify({
         "type": "FeatureCollection",
-        "features": features
+        "features": features,
+        "properties": {
+            # TODO(iancostello): Don't just pick the first and check.
+            "current_geo": names_by_geo[requested_geoDcid][0]
+        }
     }, 200)
 
 def get_sublevel(requested_geoDcid, display_level):
@@ -205,3 +211,48 @@ def coerce_geojson_to_righthand_rule(geoJsonCords, obj_type):
         return geoJsonCords
     else:
         assert False, f"Type {obj_type} unknown!"
+
+# Defines the map from higher geos to their respective subgeos.
+SUB_GEO_LEVEL_MAP = {
+    "Country": "AdministrativeArea1",
+    "AdministrativeArea1": "AdministrativeArea2",
+    "AdministrativeArea2": "City"
+}
+@bp.route('child/statvars')
+def child_statvars():
+    """
+    Gets all statistical variables available for a particular sublevel of a
+        dcid.
+    API Params:
+        dcid: The place dcid to pull information for, as a string.
+        level: The level of children to pull for, as a string. If omitted,
+            then the subgeo is computed.
+    Example Query:
+        api/place/child/statvars?dcid=country/USA&level=State
+        Returns all statistical variables that are value for states of the USA.
+    Returns:
+        A json list of all the available statistical variables.
+    """
+    # Get required params.
+    dcid = flask.request.args.get("dcid")
+    if not dcid:
+        return flask.jsonify({"error": "Must provide a 'dcid' field!"}, 400)
+    requested_level = get_sublevel(dcid,
+                                   flask.request.args.get("level"))
+
+    # Get sublevels.
+    geos_contained_in_place = dc.get_places_in(
+        [dcid], requested_level)
+    if dcid not in geos_contained_in_place:
+        return flask.jsonify({"error": "Internal server error."}, 500)
+    geos_contained_in_place = geos_contained_in_place[dcid]
+
+    # Get all available Statistical Variables for subgeos.
+    # Only the union of the first 10 geos are returned for speed.
+    # TODO(iancostello): Determine whether this heuristic is too generous
+    # or too restrictive.
+    stat_vars_for_subgeo = set()
+    for geoId in geos_contained_in_place[:10]:
+        stat_vars_for_subgeo = stat_vars_for_subgeo.union(
+            place.statsvars(geoId))
+    return json.dumps(list(stat_vars_for_subgeo))
