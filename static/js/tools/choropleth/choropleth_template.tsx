@@ -59,7 +59,7 @@ class MainPane extends Component {
 
     // Get all statistical variable available for the current subgeo.
     axios
-      .get("/api/place/child/statvars/" + urlParams.get("geoDcid"))
+      .get("/api/choropleth/child/statvars?dcid=" + urlParams.get("geoDcid"))
       .then((resp) => {
         if (resp.status === 200) {
           const statVars: Set<string> = new Set();
@@ -100,6 +100,7 @@ class MainPane extends Component {
     // Update in URL.
     const urlParams = new URLSearchParams(window.location.search);
     urlParams.set("pc", newPerCapitaValue.toString());
+    // TODO(iancostello): Move this into a helper method.
     history.pushState({}, null, "choropleth?" + urlParams.toString());
   }
 
