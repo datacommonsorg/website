@@ -67,6 +67,8 @@ class TestCharts(WebdriverBaseTest):
         charts = self.driver.find_elements_by_class_name("card")
         # Assert there are two charts.
         self.assertEqual(len(charts), 2)
+        self.driver.set_window_size(width=1000,height=2000,windowHandle='current')
+        self.driver.save_screenshot("test_screenshots/test_charts_from_url_directly_and_uncheck_statvar.png")
 
     def test_check_statvar_and_uncheck(self):
         """Test check and uncheck one statvar."""
@@ -88,6 +90,8 @@ class TestCharts(WebdriverBaseTest):
         charts = self.driver.find_elements_by_class_name("card")
         # Assert there is one chart.
         self.assertEqual(len(charts), 1)
+        self.driver.set_window_size(width=1000,height=2000,windowHandle='current')
+        self.driver.save_screenshot("test_screenshots/test_check_statvar_and_uncheck.png")
 
 if __name__ == '__main__':
     unittest.main()
