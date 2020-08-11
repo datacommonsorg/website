@@ -18,7 +18,7 @@ import urllib
 from base_test import WebdriverBaseTest
  
 TIMELINE_URL = '/tools/timeline'
-STATVAR_TEST_URL_1 = '#&statsVar=Median_Age_Person,0,1__Median_Income_Person,0,2__Count_Person_Upto5Years,'\
+URL_HASH_1 = '#&statsVar=Median_Age_Person,0,1__Median_Income_Person,0,2__Count_Person_Upto5Years,'\
     '0,3,0__Count_Person_5To17Years,0,3,1&place=geoId/06,geoId/08'
 GEO_URL_1 = '#&place=geoId/06'
 
@@ -45,7 +45,6 @@ class TestCharts(WebdriverBaseTest):
         """Test the original timeline page. No charts in this page."""
         self.driver.get(self.url_ + TIMELINE_URL)
         self.driver.implicitly_wait(5)
-        charts = []
         charts = self.driver.find_elements_by_class_name("card")
         self.assertEqual(len(charts), 0)
 
@@ -54,9 +53,8 @@ class TestCharts(WebdriverBaseTest):
         Given the url directly, test the menu and charts are shown correctly.
         Then unclick one statvar, test the corresponding change.
         """
-        self.driver.get(self.url_ + TIMELINE_URL + STATVAR_TEST_URL_1)
+        self.driver.get(self.url_ + TIMELINE_URL + URL_HASH_1)
         self.driver.implicitly_wait(5)
-        charts = []
         charts = self.driver.find_elements_by_class_name("card")
         # Assert there are three charts.
         self.assertEqual(len(charts), 3)
@@ -66,7 +64,6 @@ class TestCharts(WebdriverBaseTest):
         median_age_checkbox = median_age.find_element_by_class_name("checked")
         median_age_checkbox.click()
         self.driver.implicitly_wait(2)
-        charts = []
         charts = self.driver.find_elements_by_class_name("card")
         # Assert there are two charts.
         self.assertEqual(len(charts), 2)
@@ -75,7 +72,6 @@ class TestCharts(WebdriverBaseTest):
         """Test check and uncheck one statvar."""
         self.driver.get(self.url_ + TIMELINE_URL + GEO_URL_1)
         self.driver.implicitly_wait(3)
-        charts = []
         charts = self.driver.find_elements_by_class_name("card")
         # Assert there is no chart.
         self.assertEqual(len(charts), 0)
@@ -89,7 +85,6 @@ class TestCharts(WebdriverBaseTest):
         population_checkbox = population.find_element_by_class_name("checkbox")
         population_checkbox.click()
         self.driver.implicitly_wait(5)
-        charts = []
         charts = self.driver.find_elements_by_class_name("card")
         # Assert there is one chart.
         self.assertEqual(len(charts), 1)
