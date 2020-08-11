@@ -61,7 +61,7 @@ def create_app():
         chart_config = json.load(f)
     app.config['CHART_CONFIG'] = chart_config
 
-    if cfg.TEST or cfg.WEBDRIVER:
+    if cfg.TEST :
         app.config['PLACEID2DCID'] = {
             "ChIJCzYy5IS16lQRQrfeQ5K5Oxw": "country/USA"}
     else:
