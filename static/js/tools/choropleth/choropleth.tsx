@@ -142,6 +142,8 @@ class ChoroplethMap extends Component {
     });
 
     // Generate breadcrumbs.
+    // TODO(fpernice-google): Derive the curGeo value from geoDcid instead
+    // of embedding in url.
     generateBreadCrumbs(this.state['geojson']['properties']['current_geo']);
   }
 
