@@ -13,11 +13,9 @@
 # limitations under the License.
 
 
-import unittest
-import urllib
 import time
 from base_test import WebdriverBaseTest
- 
+
 
 #TODO: Can add more urls and tests if necessary.
 TIMELINE_EXPLORER_URL_1 = '/tools/timeline#&place=geoId/0606000,geoId/2511000,geoId/2603000,geoId/1777005,geoId/1225175,geoId/4815976&statsVar=Median_Age_Person'
