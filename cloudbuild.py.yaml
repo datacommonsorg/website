@@ -28,6 +28,7 @@ steps:
     ./run_test.sh -w
 
 - name: gcr.io/cloud-builders/gsutil
+  entrypoint: /bin/sh
   args: 
   - -c
   - |
