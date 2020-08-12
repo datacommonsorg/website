@@ -52,14 +52,14 @@ class StatsVarChip extends Component<StatsVarChipPropsType, unknown> {
 
 interface ChartPropsType {
   // An array of place dcids.
-  mprop: string;
+  groupId: string; // unique identifier of the chart
   places: Record<string, string>;
   statsVars: { [key: string]: StatsVarInfo };
   perCapita: boolean;
-  onDataUpdate: (mprop: string, data: StatsData) => void;
+  onDataUpdate: (groupId: string, data: StatsData) => void;
   statsVarTitle: Record<string, string>;
   removeStatsVar: (statsVar: string, nodePath?: string[]) => void;
-  setPC: (mprop: string, pc: boolean) => void;
+  setPC: (groupId: string, pc: boolean) => void;
 }
 
 class Chart extends Component<ChartPropsType, unknown> {
@@ -95,7 +95,7 @@ class Chart extends Component<ChartPropsType, unknown> {
                 : "perCapitaCheckbox"
             }
             onClick={() => {
-              this.props.setPC(this.props.mprop, !this.props.perCapita);
+              this.props.setPC(this.props.groupId, !this.props.perCapita);
             }}
           ></button>
         </span>
@@ -152,7 +152,7 @@ class Chart extends Component<ChartPropsType, unknown> {
       1
     ).then((statsData) => {
       this.statsData = statsData;
-      this.props.onDataUpdate(this.props.mprop, statsData);
+      this.props.onDataUpdate(this.props.groupId, statsData);
       if (this.svgContainer.current) {
         this.drawChart();
       }
@@ -176,9 +176,24 @@ class Chart extends Component<ChartPropsType, unknown> {
       this.props.statsVarTitle,
       dataGroupsDict,
       this.plotParams,
-      this.props.mprop,
+      this.ylabel(),
       Array.from(this.statsData.sources)
     );
+  }
+  
+  private ylabel(): string {
+    // get mprop from one statsVar
+    let statsVarSample = Object.keys(this.props.statsVars)[0];
+    let mprop = this.props.statsVars[statsVarSample].mprop
+    // ensure the mprop is the same for all the statsVars
+    for (const statsVar in this.props.statsVars){
+      if(this.props.statsVars[statsVar].mprop!== mprop){
+        mprop = ""
+      }
+    }
+    // use mprop as the ylabel
+    let ylabelText = mprop.charAt(0).toUpperCase() + mprop.slice(1);  
+    return ylabelText
   }
 }
 

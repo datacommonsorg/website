@@ -121,12 +121,12 @@ class TimelineParams {
   }
 
   // set PerCaptia for a chart
-  public setChartPC(mprop: string, pc: boolean): boolean {
-    if (!this.chartOptions || !(mprop in this.chartOptions)) {
-      this.chartOptions[mprop] = { pc: pc };
+  public setChartPC(groupId: string, pc: boolean): boolean {
+    if (!this.chartOptions || !(groupId in this.chartOptions)) {
+      this.chartOptions[groupId] = { pc: pc };
       return pc === true;
-    } else if (this.chartOptions[mprop].pc !== pc) {
-      this.chartOptions[mprop].pc = pc;
+    } else if (this.chartOptions[groupId].pc !== pc) {
+      this.chartOptions[groupId].pc = pc;
       return true;
     }
     return false;

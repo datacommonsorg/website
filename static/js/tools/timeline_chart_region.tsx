@@ -56,8 +56,8 @@ class ChartRegion extends Component<ChartRegionPropsType, unknown> {
     const groups = this.groupStatsVars(this.props.statsVars);
     return (
       <React.Fragment>
-        {Object.keys(groups).map((mprop) => {
-          const statsVarDcids = groups[mprop];
+        {Object.keys(groups).map((groupId) => {
+          const statsVarDcids = groups[groupId];
           const statsVars = {};
           const statsVarTitle = {};
           for (const id of statsVarDcids) {
@@ -66,13 +66,13 @@ class ChartRegion extends Component<ChartRegionPropsType, unknown> {
           }
           return (
             <Chart
-              key={mprop}
-              mprop={mprop}
+              key={groupId}
+              groupId = {groupId}
               places={this.props.places}
               statsVars={statsVars}
               perCapita={
-                mprop in this.props.chartOptions
-                  ? this.props.chartOptions[mprop].pc
+                groupId in this.props.chartOptions
+                  ? this.props.chartOptions[groupId].pc
                   : false
               }
               onDataUpdate={this.onDataUpdate.bind(this)}
@@ -86,8 +86,8 @@ class ChartRegion extends Component<ChartRegionPropsType, unknown> {
     );
   }
 
-  private onDataUpdate(mprop: string, data: StatsData) {
-    this.allStatsData[mprop] = data;
+  private onDataUpdate(groupId: string, data: StatsData) {
+    this.allStatsData[groupId] = data;
     if (this.downloadLink && Object.keys(this.allStatsData).length > 0) {
       this.downloadLink.style.visibility = "visible";
     } else {
