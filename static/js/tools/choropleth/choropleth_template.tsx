@@ -95,7 +95,6 @@ class MainPane extends Component {
     // Redraw the choropleth map.
     const choroplethRef = this.state["choroplethMap"].current;
     choroplethRef.setPerCapita(newPerCapitaValue);
-    choroplethRef.updateGeoValues();
   
     // Update in URL.
     const urlParams = new URLSearchParams(window.location.search);
@@ -139,7 +138,7 @@ class MainPane extends Component {
               <input
                 type="checkbox"
                 id="percapita"
-                checked={this.state && this.state["pc"]}
+                checked={this.state["pc"]}
                 name="pc"
                 onClick={this._togglePerCapita.bind(this)}
               ></input>
