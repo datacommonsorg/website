@@ -92,35 +92,44 @@ interface StatsVarNode {
   [key: string]: string[][]; // key: statsVar Id, value: array of nodePath
 }
 
+interface ChartOptions {
+  [key: string]: {
+    // key: mprop
+    pc: boolean;
+  };
+}
 // keeps parameters used in Timeline page
 // and provide methods of updating the parameters
 class TimelineParams {
   statsVarNodes: StatsVarNode;
   placeDcids: string[];
-  pc: boolean;
   urlParams: URLSearchParams;
   listenHashChange: boolean;
+  chartOptions: ChartOptions;
 
   constructor() {
     this.statsVarNodes = {};
     this.placeDcids = [];
-    this.pc = false;
     this.addStatsVar = this.addStatsVar.bind(this);
     this.removeStatsVar = this.removeStatsVar.bind(this);
     this.addPlace = this.addPlace.bind(this);
     this.removePLace = this.removePLace.bind(this);
+    this.setChartPC = this.setChartPC.bind(this);
     this.urlParams = new URLSearchParams("");
     this.listenHashChange = true;
+    this.chartOptions = {};
   }
 
-  // set PerCapital to true
-  public setPC(): void {
-    this.pc = true;
-  }
-
-  // unset PerCapita to false
-  public unsetPC(): void {
-    this.pc = false;
+  // set PerCaptia for a chart
+  public setChartPC(groupId: string, pc: boolean): boolean {
+    if (!this.chartOptions || !(groupId in this.chartOptions)) {
+      this.chartOptions[groupId] = { pc: pc };
+      return pc === true;
+    } else if (this.chartOptions[groupId].pc !== pc) {
+      this.chartOptions[groupId].pc = pc;
+      return true;
+    }
+    return false;
   }
 
   // add one new place, return true if this.placeDcids changed
@@ -183,13 +192,6 @@ class TimelineParams {
     return false;
   }
 
-  // set PerCapita in url
-  public setUrlPerCapita(): void {
-    this.urlParams.set("pc", this.pc ? "1" : "0");
-    this.listenHashChange = false;
-    window.location.hash = this.urlParams.toString();
-  }
-
   // set places in url
   public setUrlPlaces(): void {
     this.urlParams.set("place", this.placeDcids.join(placeSep));
@@ -206,6 +208,14 @@ class TimelineParams {
       );
     }
     this.urlParams.set("statsVar", statsVarArray.join(statsVarSep));
+    this.listenHashChange = false;
+    window.location.hash = this.urlParams.toString();
+  }
+
+  // set chartOptions in url
+  public setUrlChartOptions(): void {
+    const chartOptions = encodeURIComponent(JSON.stringify(this.chartOptions));
+    this.urlParams.set("chart", chartOptions);
     this.listenHashChange = false;
     window.location.hash = this.urlParams.toString();
   }
@@ -232,12 +242,7 @@ class TimelineParams {
     this.urlParams = new URLSearchParams(window.location.hash.split("#")[1]);
     this.statsVarNodes = {};
     this.placeDcids = [];
-    this.pc = false;
-    // set Per Capita
-    const pc = this.urlParams.get("pc");
-    if (pc === "1") {
-      this.setPC();
-    }
+
     // set places
     const places = this.urlParams.get("place");
     if (places) {
@@ -245,6 +250,7 @@ class TimelineParams {
         this.addPlace(place);
       }
     }
+
     // set statsVars
     const statsVars = this.urlParams.get("statsVar");
     if (statsVars) {
@@ -265,6 +271,14 @@ class TimelineParams {
         }
       }
     }
+    const chartOptions = JSON.parse(
+      decodeURIComponent(this.urlParams.get("chart"))
+    );
+    if (chartOptions) {
+      this.chartOptions = chartOptions;
+    } else {
+      this.chartOptions = {};
+    }
   }
 }
 
@@ -276,4 +290,5 @@ export {
   saveToFile,
   TimelineParams,
   StatsVarNode,
+  ChartOptions,
 };

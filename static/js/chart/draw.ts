@@ -475,7 +475,7 @@ function drawGroupLineChart(
   statsVarsTitle: { [key: string]: string },
   dataGroupsDict: { [place: string]: DataGroup[] },
   plotParams: PlotParams,
-  mprop?: string,
+  ylabel?: string,
   source?: string[],
   unit?: string
 ): void {
@@ -530,16 +530,12 @@ function drawGroupLineChart(
   addYAxis(svg, width - MARGIN.right - legendWidth, yScale, unit);
 
   // add ylabel
-  let ylabelText = mprop.charAt(0).toUpperCase() + mprop.slice(1);
-  if (unit) {
-    ylabelText = ylabelText + "(" + unit + ")";
-  }
   svg
     .append("text")
     .attr("class", "label")
     .attr("text-anchor", "start")
     .attr("transform", `translate(${MARGIN.grid}, ${LABELTOPMARGIN})`)
-    .text(ylabelText);
+    .text(ylabel);
 
   for (const place in dataGroupsDict) {
     dataGroups = dataGroupsDict[place];
