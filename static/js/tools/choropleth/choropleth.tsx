@@ -25,13 +25,6 @@ import * as d3 from "d3";
 class ChoroplethMap extends Component {
   constructor() {
     super({});
-
-    // Redirect to basic url if none provided.
-    if (window.location.search === "") {
-      window.location.search =
-        "statVar=Count_Person_Employed&pc=t&geoDcid=country/USA";
-    }
-
     // Add default state and bind function contexts.
     const urlParams = new URLSearchParams(window.location.search);
     this.state = {
@@ -49,6 +42,14 @@ class ChoroplethMap extends Component {
     this.handleMapHover = this.handleMapHover.bind(this);
     this.updateGeoValues = this.updateGeoValues.bind(this);
     this.loadGeoJson();
+  }
+
+  /** 
+   * Refreshes are currently never done through state updates.
+   * TODO(iancostello): Refactor this component to update via state.
+   */
+  shouldComponentUpdate(): boolean {
+    return false;
   }
 
   /**
@@ -79,12 +80,20 @@ class ChoroplethMap extends Component {
    */
   loadValues(): void {
     let baseUrl = "/api/choropleth/values";
-    baseUrl += buildChoroplethParams(["geoDcid", "statVar"]);
+    baseUrl += buildChoroplethParams(["geoDcid", "level", "statVar"]);
 
     axios.get(baseUrl).then((resp) => {
       this.setState({ values: resp.data[0] });
       this.updateGeoValues();
     });
+  }
+
+  /**
+   * Set Per Capita.
+   */
+  setPerCapita(pc: boolean): void {
+    // Wait for state to update before redrawing.
+    this.setState({ pc }, this.updateGeoValues);
   }
 
   /**
@@ -173,6 +182,31 @@ class ChoroplethMap extends Component {
         return "gray";
       }
     });
+
+    // Update title.
+    // TODO(iancostello): Use react component instead of innerHTML throughout.
+    const url = new URL(window.location.href);
+    document.getElementById("heading").innerHTML =
+      url.searchParams.get("statVar") +
+      " in " +
+      this.state["geojson"]["properties"]["current_geo"];
+  }
+
+  /**
+   * Updates the current map and URL to a new statistical variable without
+   * a full page refresh.
+   * @param statVar to update to.
+   */
+  handleStatVarChange(statVar: string): void {
+    // Update URL history.
+    let baseUrl = "/tools/choropleth";
+    baseUrl += buildChoroplethParams(["geoDcid", "bc", "pc", "level", "mdom"]);
+    baseUrl += "&statVar=" + statVar;
+    // TODO(iancostello): Move into helper.
+    history.pushState({}, null, baseUrl);
+
+    // TODO(iancostello): Manage through component's state.
+    this.loadValues();
   }
 
   /**
@@ -198,24 +232,10 @@ class ChoroplethMap extends Component {
     }
 
     document.getElementById("hover-text-display").innerHTML =
-      name + " - " + geoValue.toLocaleString();
+      name + " - " + formatGeoValue(geoValue, this.state["pc"]);
 
     // Highlight selected geo in black on hover.
     d3.select(geo.ref).attr("class", "border-highlighted");
-  }
-
-  /**
-   * Updates the current map and URL to a new statistical variable without
-   * a full page refresh.
-   * @param statVar to update to.
-   */
-  handleStatVarChange(statVar: string): void {
-    let baseUrl = "/tools/choropleth";
-    baseUrl += buildChoroplethParams(["geoDcid", "bc", "pc", "level", "mdom"]);
-    baseUrl += "&statVar=" + statVar;
-    history.pushState({}, null, baseUrl);
-    // TODO(iancostello): Manage through component's state.
-    this.loadValues();
   }
 
   /**
@@ -350,10 +370,43 @@ function determineColorPalette(dict, pc: boolean, popMap: []): number[] {
     return a - b;
   });
   const len = values.length;
-  const lowerValue = values[0];
-  const medianValue = values[len / 2];
-  const upperValue = values[len - 1];
-  return [lowerValue, medianValue, upperValue];
+  if (len > 0) {
+    const lowerValue = values[0];
+    const approxMedianValue = values[Math.floor(len / 2)];
+    const upperValue = values[len - 1];
+    return [lowerValue, approxMedianValue, upperValue];
+  } else {
+    return [0, 0, 0]
+  }
+}
+
+/**
+ * Returns a nicely formatted hover value for the value of statistical variables
+ * for geographies.
+ * @param geoValue statistical variable value to display.
+ * @param isPerCapita whether the value is a per capita indicator.
+ */
+function formatGeoValue(geoValue, isPerCapita) {
+  // Per capita values may be difficult to read so add a per count field.
+  // E.g. 0.0052 or 5.2 per 1000.
+  if (!isPerCapita || geoValue === "No Value") {
+    return geoValue.toLocaleString();
+  } else {
+    // Find a multiplier such that the value is greater than 1.
+    if (geoValue < 1) {
+      let multiplier = 1;
+      let dispValue = geoValue;
+      while (dispValue && dispValue < 1) {
+        dispValue *= 10;
+        multiplier *= 10;
+      }
+      return (
+        `${geoValue.toFixed(6)} or ${dispValue.toLocaleString()} per ${multiplier.toLocaleString()} people`
+      );
+    } else {
+      return geoValue.toLocaleString() + " per capita";
+    }
+  } 
 }
 
 export { ChoroplethMap, generateBreadCrumbs };
