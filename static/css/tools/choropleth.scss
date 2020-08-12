@@ -24,13 +24,17 @@
 }
 
 .border {
-  stroke: white;
-  stroke-width: 0; 
+  stroke: gray;
+  stroke-width: 0.5px; 
 }
 
 .border-highlighted {
   stroke: black;
-  stroke-width: 1px; 
+  stroke-width: 1px;
+}
+
+.clickable {
+  cursor: pointer;
 }
 
 #explore {

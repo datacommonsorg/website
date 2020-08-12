@@ -30,8 +30,6 @@ class ChoroplethMap extends Component {
     this.state = {
       geojson: [],
       pc:
-        // TODO(iancostello): Potentially make pc simply a flag toggle without
-        // a value.
         urlParams.has("pc") &&
         ["t", "true", "1"].includes(urlParams.get("pc").toLowerCase()),
       values: {},
@@ -72,7 +70,9 @@ class ChoroplethMap extends Component {
       //shouldComponentUpdate.
       this.renderGeoMap();
       this.updateGeoValues();
-    });
+    }, () => {
+      document.getElementById("heading").innerHTML = "API Request Failed!"
+    } );
   }
 
   /**
@@ -85,6 +85,8 @@ class ChoroplethMap extends Component {
     axios.get(baseUrl).then((resp) => {
       this.setState({ values: resp.data[0] });
       this.updateGeoValues();
+    }, () => {
+      document.getElementById("heading").innerHTML = "API Request Failed!"
     });
   }
 
@@ -155,15 +157,15 @@ class ChoroplethMap extends Component {
       .domain(
         determineColorPalette(values, this.state["pc"], this.state["popMap"])
       )
-      // TODO(iancostello): Investigate if this can be tighter type.
-      .range(["#deebf7", "#9ecae1", "#3182bd"] as any);
+      .range(["#deebf7", "#9ecae1", "#3182bd"] as unknown as number[]);
 
     // Select D3 paths via geojson data.
     const geojson = this.state["geojson"];
     const mapContent = d3
       .select("#main-pane g.map")
       .selectAll("path")
-      .data(geojson.features);
+      .data(geojson.features)
+      .attr("id", function(_,index) { return "geoPath/" + index; });
 
     // Create new infill.
     mapContent.attr("fill", function (d: {
@@ -186,10 +188,18 @@ class ChoroplethMap extends Component {
     // Update title.
     // TODO(iancostello): Use react component instead of innerHTML throughout.
     const url = new URL(window.location.href);
-    document.getElementById("heading").innerHTML =
-      url.searchParams.get("statVar") +
-      " in " +
-      this.state["geojson"]["properties"]["current_geo"];
+    const currentGeo = this.state["geojson"]["properties"]["current_geo"];
+    const currentStatVar = url.searchParams.get("statVar");
+    if (currentStatVar) {
+      document.getElementById("heading").innerHTML =
+      currentStatVar + " in " + currentGeo;
+    } else {
+      document.getElementById("heading").innerHTML =
+        currentGeo;
+       document.getElementById("hover-text-display").innerHTML =
+        "Pick a statistical variable to get started!";
+    }
+    
   }
 
   /**
@@ -202,7 +212,6 @@ class ChoroplethMap extends Component {
     let baseUrl = "/tools/choropleth";
     baseUrl += buildChoroplethParams(["geoDcid", "bc", "pc", "level", "mdom"]);
     baseUrl += "&statVar=" + statVar;
-    // TODO(iancostello): Move into helper.
     history.pushState({}, null, baseUrl);
 
     // TODO(iancostello): Manage through component's state.
@@ -215,8 +224,9 @@ class ChoroplethMap extends Component {
    */
   handleMapHover(geo: {
     ref: string;
-    properties: { name: string; geoDcid: string; pop: number };
-  }): void {
+    properties: { name: string; geoDcid: string; pop: number;
+                  hasSublevel: boolean};
+    }, index): void {
     // Display statistical variable information on hover.
     const name = geo.properties.name;
     const geoDcid = geo.properties.geoDcid;
@@ -233,20 +243,26 @@ class ChoroplethMap extends Component {
 
     document.getElementById("hover-text-display").innerHTML =
       name + " - " + formatGeoValue(geoValue, this.state["pc"]);
-
-    // Highlight selected geo in black on hover.
-    d3.select(geo.ref).attr("class", "border-highlighted");
+    
+    // Highlight selected subgeos and change pointer if they are clickable.
+    let objClass = "border-highlighted"
+    if (geo.properties.hasSublevel) {
+      objClass += " clickable"
+    }
+    document.getElementById("geoPath/" + index).setAttribute
+                                              ("class", objClass);
   }
 
   /**
    * Clears output after leaving a geo.
    */
-  mouseLeave(geo: { ref: string }): void {
+  mouseLeave(geo: { ref: string }, index : number): void {
     // Remove hover text.
     document.getElementById("hover-text-display").innerHTML = "";
 
     // Remove geo display effect.
-    d3.select(geo.ref).attr("class", "border");
+    document.getElementById("geoPath/" + index).setAttribute
+                                              ("class", "border");
   }
 
   /**
@@ -260,7 +276,6 @@ class ChoroplethMap extends Component {
     if (geo.properties.hasSublevel) {
       redirectToGeo(geo.properties.geoDcid);
     } else {
-      //TODO(iancostello): Improve this feature (change cursor).
       alert("This geo has no further sublevels!");
     }
   }
@@ -307,7 +322,6 @@ function redirectToGeo(geoDcid: string): void {
   baseUrl += "&bc=";
 
   // Add or create breadcrumbs field.
-  // TODO(iancostello): Use parent places api.
   const breadcrumbs = url.searchParams.get("bc");
   if (breadcrumbs != null && breadcrumbs !== "") {
     baseUrl += breadcrumbs + ";";

@@ -40,16 +40,19 @@ class MainPane extends Component {
     super(props);
 
     // Redirect to basic url if none provided.
+    const urlParams = new URLSearchParams(window.location.search);
     if (window.location.search === "") {
       window.location.search =
         "statVar=Count_Person_Employed&pc=t&geoDcid=country/USA";
+    } else if (!urlParams.has("geoDcid")) {
+      urlParams.set("geoDcid", "country/USA");
+      window.location.search = urlParams.toString();
     }
 
     // Bind functions as needed.
     this._handleStatVarSelection = this._handleStatVarSelection.bind(this);
 
     // Get default values for optional fields.
-    const urlParams = new URLSearchParams(window.location.search);
     let isPerCapita = false;
     if (urlParams.has("pc")) {
       isPerCapita = ["true", "t", "1"].includes(
@@ -99,7 +102,6 @@ class MainPane extends Component {
     // Update in URL.
     const urlParams = new URLSearchParams(window.location.search);
     urlParams.set("pc", newPerCapitaValue.toString());
-    // TODO(iancostello): Move this into a helper method.
     history.pushState({}, null, "choropleth?" + urlParams.toString());
   }
 
