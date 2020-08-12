@@ -17,13 +17,46 @@ import time
 from base_test import WebdriverBaseTest
 
 
+SCREENSHOTS_FOLDER = 'test_screenshots/'
 #TODO: Can add more urls and tests if necessary.
-TIMELINE_EXPLORER_URL_1 = '/tools/timeline#&place=geoId/0606000,geoId/2511000,geoId/2603000,geoId/1777005,geoId/1225175,geoId/4815976&statsVar=Median_Age_Person'
-TIMELINE_EXPLORER_URL_2 = '/tools/timeline#&place=geoId/0606000,geoId/2511000,geoId/2603000,geoId/1777005,geoId/1225175,geoId/4815976&statsVar=Count_CriminalActivities_ViolentCrime'
-TIMELINE_EXPLORER_URL_3 = '/tools/timeline#place=country%2FUSA%2CgeoId%2F06085&pc=1&statsVar=CumulativeCount_MedicalConditionIncident_COVID_19_ConfirmedOrProbableCase'
-PLACE_EXPLORER_URL_1 = '/place?dcid=country/USA'
-PLACE_EXPLORER_URL_2 = '/place?dcid=country/USA&topic=Demographics'
-PLACE_EXPLORER_URL_3 = '/place?dcid=country/USA&topic=Health'
+TEST_URLS = [
+    {
+        'url': '/tools/timeline#&place=geoId/0606000,geoId/2511000,geoId/2603000,geoId/1777005,geoId/1225175,geoId/4815976&statsVar=Median_Age_Person',
+        'filename_suffix': 'median_age_six_places.png',
+        'test_class': 'card',
+        'height': 1000
+    },
+    {
+        'url': '/tools/timeline#&place=geoId/0606000,geoId/2511000,geoId/2603000,geoId/1777005,geoId/1225175,geoId/4815976&statsVar=Count_CriminalActivities_ViolentCrime',
+        'filename_suffix': 'violentcrime_six_places.png',
+        'test_class': 'card',
+        'height': 1000
+    },
+    {
+        'url': '/tools/timeline#place=country%2FUSA%2CgeoId%2F06085&pc=1&statsVar=CumulativeCount_MedicalConditionIncident_COVID_19_ConfirmedOrProbableCase',
+        'filename_suffix': 'covid_19_cases_two_places.png',
+        'test_class': 'card',
+        'height': 1000
+    },
+    {
+        'url': '/place?dcid=country/USA',
+        'filename_suffix': 'place_usa.png',
+        'test_class': 'chart-container',
+        'height': 5500
+    },
+    {
+        'url': '/place?dcid=country/USA&topic=Demographics',
+        'filename_suffix': 'place_usa_demographics.png',
+        'test_class': 'chart-container',
+        'height': 4400
+    },
+    {
+        'url': '/place?dcid=country/USA&topic=Health',
+        'filename_suffix': 'place_usa_health.png',
+        'test_class': 'chart-container',
+        'height': 3300
+    }
+]
 
 
 # Class to test timeline tool.
@@ -31,52 +64,13 @@ class TestScreenShot(WebdriverBaseTest):
 
     def test_pages_and_sreenshot(self):
         """Test these page can show correctly and do screenshot."""
-        self.driver.set_window_size(width=1000,height=2000,windowHandle='current')
-
-        # Test TIMELINE_EXPLORER_URL_1.
-        self.driver.get(self.url_ + TIMELINE_EXPLORER_URL_1)
-        time.sleep(5)
-        charts = self.driver.find_elements_by_class_name("card")
-        # Assert there are one chart.
-        self.assertEqual(len(charts), 1)
-        self.driver.save_screenshot("test_screenshots/1_median_age_six_places.png")
-
-        # Test TIMELINE_EXPLORER_URL_2.
-        self.driver.get(self.url_ + TIMELINE_EXPLORER_URL_2)
-        time.sleep(5)
-        charts = self.driver.find_elements_by_class_name("card")
-        # Assert there are one chart.
-        self.assertEqual(len(charts), 1)
-        self.driver.save_screenshot("test_screenshots/2_violentcrime_six_places.png")
-
-        # Test TIMELINE_EXPLORER_URL_3.
-        self.driver.get(self.url_ + TIMELINE_EXPLORER_URL_3)
-        time.sleep(5)
-        charts = self.driver.find_elements_by_class_name("card")
-        # Assert there are one chart.
-        self.assertEqual(len(charts), 1)
-        self.driver.save_screenshot("test_screenshots/3_covid_19_cases_two_places.png")
-
-        # Test PLACE_EXPLORER_URL_1.
-        self.driver.get(self.url_ + PLACE_EXPLORER_URL_1)
-        time.sleep(5)
-        charts = self.driver.find_elements_by_class_name("chart-container")
-        # Assert there are more than 10 charts.
-        self.assertGreaterEqual(len(charts), 10)
-        self.driver.save_screenshot("test_screenshots/4_place_usa.png")
-
-        # Test PLACE_EXPLORER_URL_2.
-        self.driver.get(self.url_ + PLACE_EXPLORER_URL_2)
-        time.sleep(5)
-        charts = self.driver.find_elements_by_class_name("chart-container")
-        # Assert there are more than 10 charts.
-        self.assertGreaterEqual(len(charts), 10)
-        self.driver.save_screenshot("test_screenshots/5_place_usa_demographics.png")
-
-        # Test PLACE_EXPLORER_URL_3.
-        self.driver.get(self.url_ + PLACE_EXPLORER_URL_3)
-        time.sleep(5)
-        charts = self.driver.find_elements_by_class_name("chart-container")
-        # Assert there are more than 10 charts.
-        self.assertGreaterEqual(len(charts), 10)
-        self.driver.save_screenshot("test_screenshots/6_place_usa_health.png")
+        index = 1
+        for test_info in TEST_URLS:
+            self.driver.get(self.url_ + test_info['url'])
+            time.sleep(5)
+            self.driver.set_window_size(width=1000,height=test_info['height'],windowHandle='current')
+            charts = self.driver.find_elements_by_class_name(test_info['test_class'])
+            # Assert there are charts.
+            self.assertGreater(len(charts), 0)
+            self.driver.save_screenshot(SCREENSHOTS_FOLDER + str(index) + "_" + test_info['filename_suffix'])
+            index = index + 1
