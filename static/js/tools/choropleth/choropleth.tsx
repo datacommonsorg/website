@@ -92,8 +92,8 @@ class ChoroplethMap extends Component {
    * Set Per Capita.
    */
   setPerCapita(pc: boolean): void {
-    this.setState({ pc });
-    this.renderGeoMap();
+    // Wait for state to update before redrawing.
+    this.setState({ pc }, this.updateGeoValues);
   }
 
   /**
@@ -371,7 +371,7 @@ function determineColorPalette(dict, pc: boolean, popMap: []): number[] {
   });
   const len = values.length;
   const lowerValue = values[0];
-  const medianValue = values[len / 2];
+  const medianValue = values[Math.floor(len / 2)];
   const upperValue = values[len - 1];
   return [lowerValue, medianValue, upperValue];
 }
