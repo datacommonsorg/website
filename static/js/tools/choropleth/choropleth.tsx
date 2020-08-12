@@ -302,6 +302,8 @@ function buildChoroplethParams(fieldsToInclude: string[]): string {
 /**
  * Redirects the webclient to a particular geo. Handles breadcrumbs in redirect.
  * @param {string} geoDcid to redirect to.
+ * @param {string} human-readable current geo, e.g. United States when geoDcid
+ *                 is country/USA.
  */
 function redirectToGeo(geoDcid: string, curGeo: string): void {
   const url = new URL(window.location.href);
@@ -317,12 +319,15 @@ function redirectToGeo(geoDcid: string, curGeo: string): void {
   if (breadcrumbs != null && breadcrumbs !== "") {
     baseUrl += breadcrumbs + ";";
   }
+  // Adds zoomed-in geoDcid and human-readable curGeo.
   baseUrl += url.searchParams.get("geoDcid") + "~" + curGeo;
   window.location.href = baseUrl;
 }
 
 /**
  * Generates the breadcrumbs text from browser url.
+ * @param {string} human-readable current geo to display at end of list of
+ *                 hierarchy of locations.
  */
 function generateBreadCrumbs(curGeo): void {
   const url = new URL(window.location.href);
@@ -339,6 +344,7 @@ function generateBreadCrumbs(curGeo): void {
 
     let breadcrumbsUpto = "";
     for (const index in crumbs) {
+      // The geoDcid reference and human-readable curGeo are separated by a '~'.
       const levelRef = crumbs[index].split("~")[0];
       const humanName = crumbs[index].split("~")[1];
 
