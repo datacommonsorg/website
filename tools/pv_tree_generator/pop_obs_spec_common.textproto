@@ -1717,3 +1717,40 @@ spec: {
     val: "BLS_Unemployed"
   }
 }
+
+spec: {
+  pop_type: "EconomicActivity"
+  mprop: "amount"
+  stat_type: "growthRate"
+  vertical: "Economics"
+  name: "Gross Domestic Production Growth Rate"
+  dpv: {
+    prop: "activitySource"
+    val: "GrossDomesticProduction"
+  }
+}
+
+spec: {
+  pop_type: "EconomicActivity"
+  mprop: "amount"
+  stat_type: "measuredValue"
+  vertical: "Economics"
+  cprop: "measurementQualifier"
+  dpv: {
+    prop: "activitySource"
+    val: "GrossDomesticProduction"
+  }
+}
+
+spec: {
+  pop_type: "EconomicActivity"
+  mprop: "amount"
+  stat_type: "measuredValue"
+  vertical: "Economics"
+  cprop: "measurementQualifier"
+  cprop: "measurementDenominator"
+  dpv: {
+    prop: "activitySource"
+    val: "GrossDomesticProduction"
+  }
+}

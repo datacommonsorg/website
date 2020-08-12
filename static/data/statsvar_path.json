@@ -8672,13 +8672,6 @@
   0,
   0
  ],
- "Count_Person_EnrolledInPrivateSchool": [
-  0,
-  5,
-  0,
-  6,
-  2
- ],
  "Count_Person_3OrMoreYears_Female_EnrolledInPrivateSchool": [
   0,
   5,
@@ -8687,13 +8680,6 @@
   2
  ],
  "Count_Person_3OrMoreYears_Female_EnrolledInPublicSchool": [
-  0,
-  5,
-  0,
-  6,
-  3
- ],
- "Count_Person_EnrolledInPublicSchool": [
   0,
   5,
   0,
@@ -17987,21 +17973,9 @@
   0,
   3
  ],
- "Count_UnemploymentInsuranceClaim_ShortTimeCompensation_ScaledForPartTimeUnemploymentBenefits": [
-  3,
-  6,
-  0
- ],
  "Count_UnemploymentInsuranceClaim_ShortTimeCompensation": [
   3,
   6,
-  0
- ],
- "Count_UnemploymentInsuranceClaim_ShortTimeCompensation_ContinuedClaim_ScaledForPartTimeUnemploymentBenefits": [
-  3,
-  6,
-  0,
-  0,
   0
  ],
  "Count_UnemploymentInsuranceClaim_ShortTimeCompensation_ContinuedClaim": [
@@ -18010,13 +17984,6 @@
   0,
   0,
   0
- ],
- "Count_UnemploymentInsuranceClaim_ShortTimeCompensation_InitialClaim_ScaledForPartTimeUnemploymentBenefits": [
-  3,
-  6,
-  0,
-  0,
-  1
  ],
  "Count_UnemploymentInsuranceClaim_ShortTimeCompensation_InitialClaim": [
   3,
@@ -18081,10 +18048,6 @@
   3,
   0,
   1
- ],
- "Count_MortalityEvent": [
-  4,
-  0
  ],
  "Count_Death": [
   4,
@@ -35130,5 +35093,123 @@
  "Count_WildlandFireEvent": [
   7,
   6
+ ],
+ "Count_Establishment": [
+  9,
+  0
+ ],
+ "WagesAnnual_Establishment": [
+  9,
+  1
+ ],
+ "Count_Worker": [
+  9,
+  2
+ ],
+ "GrowthRate_Amount_EconomicActivity_GrossDomesticProduction": [
+  9,
+  3
+ ],
+ "WagesAnnual_Establishment_NAICSAgricultureForestryFishingHunting": [
+  9,
+  4,
+  0
+ ],
+ "WagesAnnual_Establishment_NAICSMiningQuarryingOilGasExtraction": [
+  9,
+  4,
+  1
+ ],
+ "WagesAnnual_Establishment_NAICSUtilities": [
+  9,
+  4,
+  2
+ ],
+ "WagesAnnual_Establishment_NAICSConstruction": [
+  9,
+  4,
+  3
+ ],
+ "WagesAnnual_Establishment_NAICSWholesaleTrade": [
+  9,
+  4,
+  4
+ ],
+ "WagesAnnual_Establishment_NAICSInformation": [
+  9,
+  4,
+  5
+ ],
+ "WagesAnnual_Establishment_NAICSFinanceInsurance": [
+  9,
+  4,
+  6
+ ],
+ "WagesAnnual_Establishment_NAICSRealEstateRentalLeasing": [
+  9,
+  4,
+  7
+ ],
+ "WagesAnnual_Establishment_NAICSProfessionalScientificTechnicalServices": [
+  9,
+  4,
+  8
+ ],
+ "WagesAnnual_Establishment_NAICSManagementOfCompaniesEnterprises": [
+  9,
+  4,
+  9
+ ],
+ "WagesAnnual_Establishment_NAICSAdministrativeSupportWasteManagementRemediationServices": [
+  9,
+  4,
+  10
+ ],
+ "WagesAnnual_Establishment_NAICSEducationalServices": [
+  9,
+  4,
+  11
+ ],
+ "WagesAnnual_Establishment_NAICSHealthCareSocialAssistance": [
+  9,
+  4,
+  12
+ ],
+ "WagesAnnual_Establishment_NAICSArtsEntertainmentRecreation": [
+  9,
+  4,
+  13
+ ],
+ "WagesAnnual_Establishment_NAICSAccommodationFoodServices": [
+  9,
+  4,
+  14
+ ],
+ "WagesAnnual_Establishment_NAICSOtherServices": [
+  9,
+  4,
+  15
+ ],
+ "WagesAnnual_Establishment_NAICSNonclassifiable": [
+  9,
+  4,
+  16
+ ],
+ "Amount_EconomicActivity_GrossDomesticProduction_Nominal": [
+  9,
+  5,
+  0
+ ],
+ "Amount_EconomicActivity_GrossDomesticProduction_Nominal_PerCapita": [
+  9,
+  5,
+  0,
+  0,
+  0
+ ],
+ "Amount_EconomicActivity_GrossDomesticProduction_RealValue": [
+  9,
+  5,
+  1
  ]
 }

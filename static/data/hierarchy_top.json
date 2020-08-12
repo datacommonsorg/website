@@ -201,16 +201,15 @@
   ],
   "l": "Health",
   "t": "p",
-  "c": 1214,
+  "c": 1213,
   "cd": [
    {
     "sv": [
-     "Count_MortalityEvent",
      "Count_Death"
     ],
     "l": "Mortality",
     "t": "v",
-    "c": 1102
+    "c": 1101
    },
    {
     "l": "Health Outcomes",
@@ -400,13 +399,56 @@
   "c": 0,
   "cd": []
  },
- "Economic": {
+ "Economics": {
   "sv": [
    "top"
   ],
-  "l": "Economic",
+  "l": "Economics",
   "t": "p",
-  "c": 0,
-  "cd": []
+  "c": 24,
+  "cd": [
+   {
+    "sv": [
+     "Count_Establishment"
+    ],
+    "l": "Number of Establishments",
+    "t": "v",
+    "c": 1
+   },
+   {
+    "sv": [
+     "WagesAnnual_Establishment"
+    ],
+    "l": "Annual Wages of Establishments",
+    "t": "v",
+    "c": 1
+   },
+   {
+    "sv": [
+     "Count_Worker"
+    ],
+    "l": "Labor Force",
+    "t": "v",
+    "c": 1
+   },
+   {
+    "sv": [
+     "GrowthRate_Amount_EconomicActivity_GrossDomesticProduction"
+    ],
+    "l": "Gross Domestic Production Growth Rate",
+    "t": "v",
+    "c": 1
+   },
+   {
+    "l": "Annual Wages of Establishments by Industry",
+    "t": "p",
+    "c": 17
+   },
+   {
+    "l": "Measurement Qualifier",
+    "t": "p",
+    "c": 3
+   }
+  ]
  }
 }

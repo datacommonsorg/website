@@ -192,6 +192,7 @@ def _read_stat_var():
     stat_vars = collections.defaultdict(list)
     for dcid, triples in sv_triples.items():
         constraint_properties = []
+        # sv_dict keeps all the triples of the statsVar
         sv_dict = collections.defaultdict(str)
         for dcid_, prop, val in triples:
             if dcid_ != dcid:
@@ -202,16 +203,21 @@ def _read_stat_var():
             if prop == "constraintProperties":
                 constraint_properties.append(val)
             else:
-                sv_dict[prop] = val
+                sv_dict[prop] = val 
+        # prop_val keeps all the constraint pv pairs
         prop_val = {}
         for property in constraint_properties:
             if property not in sv_dict:
                 raise Exception('constraint property:{} not found in statistical'
                                 'variable with dcid: {}'.format(property, dcid))
             prop_val[property] = sv_dict[property]
-        if "measurementDenominator" in sv_dict:
-            prop_val["md"] = sv_dict["measurementDenominator"]
-        se = {}  # Super enum
+        # add measurement constraints such as measurementDenominator to prop_val 
+        measurementConstraints = ["measurementDenominator", "measurementQualifier"]
+        for constraint in measurementConstraints:
+            if constraint in sv_dict:
+                prop_val[constraint] = sv_dict[constraint]
+        # Super enum
+        se = {}  
         if 'crimeType' in prop_val:
             v = prop_val.get('crimeType', '')
             if v in ['AggravatedAssault', 'ForcibleRape', 'Robbery',
@@ -219,6 +225,7 @@ def _read_stat_var():
                 se = {'crimeType': 'ViolentCrime'}
             elif v in ['MotorVehicleTheft', 'LarcenyTheft', 'Burglary']:
                 se = {'crimeType': 'PropertyCrime'}
+        # create the statsVar object
         sv = StatVar(sv_dict["populationType"], sv_dict["measuredProperty"],
                      sv_dict["statType"], prop_val, dcid, se)
         stat_vars[sv.key].append(sv)

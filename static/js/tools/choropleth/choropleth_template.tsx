@@ -95,7 +95,7 @@ class MainPane extends Component {
     // Redraw the choropleth map.
     const choroplethRef = this.state["choroplethMap"].current;
     choroplethRef.setPerCapita(newPerCapitaValue);
-  
+
     // Update in URL.
     const urlParams = new URLSearchParams(window.location.search);
     urlParams.set("pc", newPerCapitaValue.toString());

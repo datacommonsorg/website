@@ -180,20 +180,20 @@ class Chart extends Component<ChartPropsType, unknown> {
       Array.from(this.statsData.sources)
     );
   }
-  
+
   private ylabel(): string {
     // get mprop from one statsVar
-    let statsVarSample = Object.keys(this.props.statsVars)[0];
-    let mprop = this.props.statsVars[statsVarSample].mprop
+    const statsVarSample = Object.keys(this.props.statsVars)[0];
+    let mprop = this.props.statsVars[statsVarSample].mprop;
     // ensure the mprop is the same for all the statsVars
-    for (const statsVar in this.props.statsVars){
-      if(this.props.statsVars[statsVar].mprop!== mprop){
-        mprop = ""
+    for (const statsVar in this.props.statsVars) {
+      if (this.props.statsVars[statsVar].mprop !== mprop) {
+        mprop = "";
       }
     }
     // use mprop as the ylabel
-    let ylabelText = mprop.charAt(0).toUpperCase() + mprop.slice(1);  
-    return ylabelText
+    const ylabelText = mprop.charAt(0).toUpperCase() + mprop.slice(1);
+    return ylabelText;
   }
 }
 

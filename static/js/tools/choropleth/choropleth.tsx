@@ -44,7 +44,7 @@ class ChoroplethMap extends Component {
     this.loadGeoJson();
   }
 
-  /** 
+  /**
    * Refreshes are currently never done through state updates.
    * TODO(iancostello): Refactor this component to update via state.
    */
@@ -376,7 +376,7 @@ function determineColorPalette(dict, pc: boolean, popMap: []): number[] {
     const upperValue = values[len - 1];
     return [lowerValue, approxMedianValue, upperValue];
   } else {
-    return [0, 0, 0]
+    return [0, 0, 0];
   }
 }
 
@@ -400,13 +400,13 @@ function formatGeoValue(geoValue, isPerCapita) {
         dispValue *= 10;
         multiplier *= 10;
       }
-      return (
-        `${geoValue.toFixed(6)} or ${dispValue.toLocaleString()} per ${multiplier.toLocaleString()} people`
-      );
+      return `${geoValue.toFixed(
+        6
+      )} or ${dispValue.toLocaleString()} per ${multiplier.toLocaleString()} people`;
     } else {
       return geoValue.toLocaleString() + " per capita";
     }
-  } 
+  }
 }
 
 export { ChoroplethMap, generateBreadCrumbs };
