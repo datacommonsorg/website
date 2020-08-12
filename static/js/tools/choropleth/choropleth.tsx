@@ -370,10 +370,14 @@ function determineColorPalette(dict, pc: boolean, popMap: []): number[] {
     return a - b;
   });
   const len = values.length;
-  const lowerValue = values[0];
-  const medianValue = values[Math.floor(len / 2)];
-  const upperValue = values[len - 1];
-  return [lowerValue, medianValue, upperValue];
+  if (len > 0) {
+    const lowerValue = values[0];
+    const approxMedianValue = values[Math.floor(len / 2)];
+    const upperValue = values[len - 1];
+    return [lowerValue, approxMedianValue, upperValue];
+  } else {
+    return [0, 0, 0]
+  }
 }
 
 /**
