@@ -25,12 +25,12 @@
 
 .border {
   stroke: white;
-  stroke-width: 0; 
+  stroke-width: 0;
 }
 
 .border-highlighted {
   stroke: black;
-  stroke-width: 1px; 
+  stroke-width: 1px;
 }
 
 #explore {
@@ -50,18 +50,20 @@
 #breadcrumbs {
   float: left;
   height: 30px;
-  width: 40%;
+  width: 100%;
   margin-left: 15px;
 }
 
 #hover-text-display {
   float: right;
   width: 40%;
+  height: 0;
 }
 
 #heading {
   font-size: 32px;
   text-align: center;
+  width: 100%;
 }
 
 // Renders checkboxes as circles.

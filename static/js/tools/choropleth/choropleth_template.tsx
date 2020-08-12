@@ -154,9 +154,9 @@ class MainPane extends Component {
         </div>
         <div id="main-content">
           <React.Fragment>
+          <div className="column" id="breadcrumbs"></div>
             <div id="heading">Loading...</div>
             <div>
-              <div className="column" id="breadcrumbs"></div>
               <div className="column" id="hover-text-display"></div>
             </div>
             <div>
