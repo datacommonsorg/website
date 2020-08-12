@@ -16,16 +16,17 @@
 
 import React, { Component } from "react";
 import { StatsData } from "../shared/data_fetcher";
-import { StatsVarInfo, saveToFile } from "./timeline_util";
+import { StatsVarInfo, saveToFile, ChartOptions } from "./timeline_util";
 import { Chart } from "./timeline_chart";
 
 interface ChartRegionPropsType {
   // An array of place dcids.
   places: Record<string, string>;
   statsVars: { [key: string]: StatsVarInfo };
-  perCapita: boolean;
   statsVarTitle: Record<string, string>;
   removeStatsVar: (statsVar: string, nodePath?: string[]) => void;
+  chartOptions: ChartOptions;
+  setPC: (mprop: string, pc: boolean) => void;
 }
 
 class ChartRegion extends Component<ChartRegionPropsType, unknown> {
@@ -55,8 +56,8 @@ class ChartRegion extends Component<ChartRegionPropsType, unknown> {
     const groups = this.groupStatsVars(this.props.statsVars);
     return (
       <React.Fragment>
-        {Object.keys(groups).map((mprop) => {
-          const statsVarDcids = groups[mprop];
+        {Object.keys(groups).map((groupId) => {
+          const statsVarDcids = groups[groupId];
           const statsVars = {};
           const statsVarTitle = {};
           for (const id of statsVarDcids) {
@@ -65,14 +66,19 @@ class ChartRegion extends Component<ChartRegionPropsType, unknown> {
           }
           return (
             <Chart
-              key={mprop}
-              mprop={mprop}
+              key={groupId}
+              groupId = {groupId}
               places={this.props.places}
               statsVars={statsVars}
-              perCapita={this.props.perCapita}
+              perCapita={
+                groupId in this.props.chartOptions
+                  ? this.props.chartOptions[groupId].pc
+                  : false
+              }
               onDataUpdate={this.onDataUpdate.bind(this)}
               statsVarTitle={statsVarTitle}
               removeStatsVar={this.props.removeStatsVar}
+              setPC={this.props.setPC}
             ></Chart>
           );
         }, this)}
@@ -80,8 +86,8 @@ class ChartRegion extends Component<ChartRegionPropsType, unknown> {
     );
   }
 
-  private onDataUpdate(mprop: string, data: StatsData) {
-    this.allStatsData[mprop] = data;
+  private onDataUpdate(groupId: string, data: StatsData) {
+    this.allStatsData[groupId] = data;
     if (this.downloadLink && Object.keys(this.allStatsData).length > 0) {
       this.downloadLink.style.visibility = "visible";
     } else {

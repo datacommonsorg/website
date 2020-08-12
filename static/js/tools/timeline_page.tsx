@@ -22,6 +22,7 @@ import {
   StatsVarNode,
   StatsVarInfo,
   TimelineParams,
+  ChartOptions,
 } from "./timeline_util";
 import { SearchBar } from "./timeline_search";
 import { Menu } from "./statsvar_menu";
@@ -39,8 +40,8 @@ interface PageStateType {
   statsVarInfo: { [key: string]: StatsVarInfo };
   placeIdNames: Record<string, string>; // [(placeId, placeName)]
   statsVarTitle: Record<string, string>;
-  perCapita: boolean;
   statsVarValid: Set<string>;
+  chartOptions: ChartOptions;
 }
 
 class Page extends Component<Record<string, unknown>, PageStateType> {
@@ -62,7 +63,7 @@ class Page extends Component<Record<string, unknown>, PageStateType> {
       statsVarNodes: _.cloneDeep(this.params.statsVarNodes),
       statsVarInfo: {},
       statsVarTitle: statsVarTitle,
-      perCapita: this.params.pc,
+      chartOptions: _.cloneDeep(this.params.chartOptions),
     };
   }
 
@@ -81,11 +82,11 @@ class Page extends Component<Record<string, unknown>, PageStateType> {
           this.params.placeDcids,
           Object.keys(this.state.placeIdNames)
         ) ||
-        this.params.pc !== this.state.perCapita
+        !_.isEqual(this.params.chartOptions, this.state.chartOptions)
       ) {
         this.setState({
           statsVarNodes: _.cloneDeep(this.params.statsVarNodes),
-          perCapita: this.params.pc,
+          chartOptions: this.params.chartOptions,
         });
         this.getAllPromises();
       }
@@ -175,15 +176,6 @@ class Page extends Component<Record<string, unknown>, PageStateType> {
     }
   }
 
-  // change per capita
-  private togglePerCapita(): void {
-    this.state.perCapita ? this.params.unsetPC() : this.params.setPC();
-    this.setState({
-      perCapita: this.params.pc,
-    });
-    this.params.setUrlPerCapita();
-  }
-
   // call back function passed down to menu for getting statsVar titles
   setStatsVarTitle(statsVarId2Title: Record<string, string>): void {
     for (const id in statsVarId2Title) {
@@ -195,6 +187,16 @@ class Page extends Component<Record<string, unknown>, PageStateType> {
     this.setState({
       statsVarTitle: statsVarId2Title,
     });
+  }
+
+  // set PerCapita for a chart
+  setChartPerCapita(mprop: string, pc: boolean): void {
+    if (this.params.setChartPC(mprop, pc)) {
+      this.setState({
+        chartOptions: _.cloneDeep(this.params.chartOptions),
+      });
+      this.params.setUrlChartOptions();
+    }
   }
 
   render(): JSX.Element {
@@ -209,11 +211,6 @@ class Page extends Component<Record<string, unknown>, PageStateType> {
         <div className="explore-menu-container" id="explore">
           <div id="drill-scroll-container">
             <div className="title">Select variables:</div>
-            <span className="perCapita">Per capita</span>
-            <button
-              className={this.state.perCapita ? "checkbox checked" : "checkbox"}
-              onClick={this.togglePerCapita.bind(this)}
-            ></button>
             <Menu
               selectedNodes={this.state.statsVarNodes}
               statsVarFilter={statsVarFilter}
@@ -239,9 +236,10 @@ class Page extends Component<Record<string, unknown>, PageStateType> {
                   <ChartRegion
                     places={this.state.placeIdNames}
                     statsVars={this.state.statsVarInfo}
-                    perCapita={this.state.perCapita}
                     statsVarTitle={this.state.statsVarTitle}
                     removeStatsVar={this.removeStatsVar.bind(this)}
+                    chartOptions={this.state.chartOptions}
+                    setPC={this.setChartPerCapita.bind(this)}
                   ></ChartRegion>
                 </div>
               )}
