@@ -24,7 +24,7 @@ steps:
     git clone https://github.com/datacommonsorg/website.git
     cd website
     git fetch origin pull/$_PR_NUMBER/head:$BRANCH_NAME
-    echo ${git show $SHORT_SHA | head -n 2 | tail -n 1} /workspace/email.txt
+    echo `git show $SHORT_SHA | head -n 2 | tail -n 1 | cut -d "<" -f2 | cut -d ">" -f1` > /workspace/email.txt
 
 - id: send notify email
   name: python:3.7-slim
