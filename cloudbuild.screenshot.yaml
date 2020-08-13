@@ -28,6 +28,7 @@ steps:
   - -c
   - |
     gsutil cp server/test_screenshots/*.png gs://datcom-browser-screenshot/$SHORT_SHA/
+    rm -rf server/test_screenshots
 
 # Update the data version
 - id: fetch author email

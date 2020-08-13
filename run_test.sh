@@ -98,7 +98,7 @@ function run_all_tests {
 }
 
 function help {
-  echo "Usage: $0 -pwblcas"
+  echo "Usage: $0 -pwblcsa"
   echo "-p       Run server python tests"
   echo "-w       Run webdriver tests"
   echo "-b       Run client install and build"
@@ -110,7 +110,7 @@ function help {
   exit 1
 }
 
-while getopts pwblca OPTION; do
+while getopts pwblcsa OPTION; do
   case $OPTION in
     p)
         echo -e "### Running server tests"
