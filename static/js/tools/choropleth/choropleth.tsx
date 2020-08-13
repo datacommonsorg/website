@@ -41,10 +41,11 @@ class ChoroplethMap extends Component {
     this.loadValues = this.loadValues.bind(this);
     this.handleMapHover = this.handleMapHover.bind(this);
     this.updateGeoValues = this.updateGeoValues.bind(this);
+    this.handleMapClick = this.handleMapClick.bind(this);
     this.loadGeoJson();
   }
 
-  /** 
+  /**
    * Refreshes are currently never done through state updates.
    * TODO(iancostello): Refactor this component to update via state.
    */
@@ -139,6 +140,11 @@ class ChoroplethMap extends Component {
     this.setState(() => {
       return { popMap };
     });
+
+    // Generate breadcrumbs.
+    // TODO(fpernice-google): Derive the curGeo value from geoDcid instead
+    // of embedding in url.
+    generateBreadCrumbs(this.state['geojson']['properties']['current_geo']);
   }
 
   /**
@@ -258,7 +264,8 @@ class ChoroplethMap extends Component {
     properties: { geoDcid: string; hasSublevel: boolean };
   }): void {
     if (geo.properties.hasSublevel) {
-      redirectToGeo(geo.properties.geoDcid);
+      redirectToGeo(geo.properties.geoDcid,
+                    this.state['geojson']['properties']['current_geo']);
     } else {
       //TODO(iancostello): Improve this feature (change cursor).
       alert("This geo has no further sublevels!");
@@ -297,8 +304,10 @@ function buildChoroplethParams(fieldsToInclude: string[]): string {
 /**
  * Redirects the webclient to a particular geo. Handles breadcrumbs in redirect.
  * @param {string} geoDcid to redirect to.
+ * @param {string} human-readable current geo, e.g. United States when geoDcid
+ *                 is country/USA.
  */
-function redirectToGeo(geoDcid: string): void {
+function redirectToGeo(geoDcid: string, curGeo: string): void {
   const url = new URL(window.location.href);
 
   let baseUrl = "/tools/choropleth";
@@ -312,14 +321,17 @@ function redirectToGeo(geoDcid: string): void {
   if (breadcrumbs != null && breadcrumbs !== "") {
     baseUrl += breadcrumbs + ";";
   }
-  baseUrl += url.searchParams.get("geoDcid");
+  // Adds zoomed-in geoDcid and human-readable curGeo.
+  baseUrl += url.searchParams.get("geoDcid") + "~" + curGeo;
   window.location.href = baseUrl;
 }
 
 /**
  * Generates the breadcrumbs text from browser url.
+ * @param {string} human-readable current geo to display at end of list of
+ *                 hierarchy of locations.
  */
-function generateBreadCrumbs(): void {
+function generateBreadCrumbs(curGeo): void {
   const url = new URL(window.location.href);
 
   const breadcrumbs = url.searchParams.get("bc");
@@ -334,17 +346,19 @@ function generateBreadCrumbs(): void {
 
     let breadcrumbsUpto = "";
     for (const index in crumbs) {
-      const levelRef = crumbs[index];
+      // The geoDcid reference and human-readable curGeo are separated by a '~'.
+      const levelRef = crumbs[index].split("~")[0];
+      const humanName = crumbs[index].split("~")[1];
 
       if (levelRef !== "") {
         // TODO(iancostello): Turn into react component to sanitize.
         const currUrl = baseUrl + levelRef + "&bc=" + breadcrumbsUpto;
         breadcrumbsDisplay.innerHTML +=
-          '<a href="' + currUrl + '">' + levelRef + "</a>" + " > ";
-        breadcrumbsUpto += levelRef + ";";
+          '<a href="' + currUrl + '">' + humanName + "</a>" + " > ";
+        breadcrumbsUpto += crumbs[index] + ";";
       }
     }
-    breadcrumbsDisplay.innerHTML += url.searchParams.get("geoDcid");
+    breadcrumbsDisplay.innerHTML += curGeo;
   }
 }
 
@@ -406,7 +420,7 @@ function formatGeoValue(geoValue, isPerCapita) {
     } else {
       return geoValue.toLocaleString() + " per capita";
     }
-  } 
+  }
 }
 
 export { ChoroplethMap, generateBreadCrumbs };
