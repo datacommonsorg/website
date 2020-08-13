@@ -65,4 +65,7 @@ steps:
   - |
     cd build-notifier
     pip3 install -r requirements.txt -q
-    python3 send_email.py --email=$(cat /workspace/email.txt) --short_sha=$SHORT_SHA
+    python3 send_email.py \
+      --email=$(cat /workspace/email.txt) \
+      --short_sha=$SHORT_SHA \
+      --pull_request=$_PR_NUMBER
