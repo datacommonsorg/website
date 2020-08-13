@@ -72,6 +72,7 @@ export GOOGLE_APPLICATION_CREDENTIALS=<JSON_CREDENTIAL_PATH>
 ```
 
 #### Install web browser and webdriver
+
 Before running the tests, install the browser and webdriver. Here we recommend you use Google Chrome browser and ChromeDriver.
 
 * Chrome browser can be downloaded [here](https://www.google.com/chrome/).
@@ -101,7 +102,9 @@ Note: You can change `84.0.4147.30`(version number) to the lastet version [here]
 ```bash
 ./run_test.sh -a
 ```
-To update the test snapshots, run this command:
+
+#### Update React test snapshots
+
 ```bash
 cd static
 npm test testfilename -- -u
