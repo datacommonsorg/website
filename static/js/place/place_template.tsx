@@ -219,7 +219,7 @@ class Ranking extends Component<RankingPropsType, RankingStateType> {
   }
 
   componentDidMount() {
-    axios.get(`api/ranking/${this.props.dcid}`).then((resp) => {
+    axios.get(`api/place/ranking/${this.props.dcid}`).then((resp) => {
       this.setState({ data: resp.data });
     });
   }
@@ -824,7 +824,7 @@ class Map extends Component<MapPropType, unknown> {
   }
 
   componentDidMount() {
-    axios.get(`/api/mapinfo/${this.props.dcid}`).then(
+    axios.get(`/api/place/mapinfo/${this.props.dcid}`).then(
       function (resp) {
         const mapInfo = resp.data;
         if (!mapInfo || Object.keys(mapInfo).length === 0) return;
