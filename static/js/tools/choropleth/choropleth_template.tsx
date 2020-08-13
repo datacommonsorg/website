@@ -31,8 +31,7 @@ window.onload = () => {
     document.getElementById("main-pane")
   );
 
-  // Generate breadcrumbs.
-  generateBreadCrumbs();
+
 };
 
 class MainPane extends Component {
@@ -98,7 +97,7 @@ class MainPane extends Component {
     // Redraw the choropleth map.
     const choroplethRef = this.state["choroplethMap"].current;
     choroplethRef.setPerCapita(newPerCapitaValue);
-  
+
     // Update in URL.
     const urlParams = new URLSearchParams(window.location.search);
     urlParams.set("pc", newPerCapitaValue.toString());
@@ -157,9 +156,9 @@ class MainPane extends Component {
         </div>
         <div id="main-content">
           <React.Fragment>
+          <div className="column" id="breadcrumbs"></div>
             <div id="heading">Loading...</div>
             <div>
-              <div className="column" id="breadcrumbs"></div>
               <div className="column" id="hover-text-display"></div>
             </div>
             <div>
