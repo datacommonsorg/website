@@ -14,7 +14,7 @@
 
 
 import time
-from base_test import WebdriverBaseTest
+from webdriver_tests.base_test import WebdriverBaseTest
 
 
 SCREENSHOTS_FOLDER = 'test_screenshots/'

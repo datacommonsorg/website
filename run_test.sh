@@ -63,7 +63,7 @@ function run_webdriver_test {
   export FLASK_ENV=WEBDRIVER
   export GOOGLE_CLOUD_PROJECT=datcom-browser-staging
   pip3 install -r requirements.txt -q
-  python3 -m pytest --ignore=webdriver_tests/screenshot_test.py webdriver_tests/**.py
+  python3 -m pytest webdriver_tests/*.py
   cd ..
 }
 
@@ -85,7 +85,7 @@ function run_screenshot_test {
     rm -rf test_screenshots
   fi
   mkdir test_screenshots
-  python3 -m pytest webdriver_tests/screenshot_test.py
+  python3 -m pytest webdriver_tests/screenshot/screenshot_test.py
   cd ..
 }
 
