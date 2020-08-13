@@ -79,5 +79,5 @@ class TestScreenShot(WebdriverBaseTest):
             self.assertGreater(len(charts), 0)
             self.driver.save_screenshot(
                 '{}{}_{}'.format(
-                    SCREENSHOTS_FOLDER, index, test_info['filename_suffix'])
-            index = index + 1
+                    SCREENSHOTS_FOLDER, index, test_info['filename_suffix']))
+            index += index
