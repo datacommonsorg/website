@@ -64,14 +64,6 @@
         "url": "https://www.census.gov/"
       },
       {
-        "title": "Median Income",
-        "topic": "Income",
-        "chartType": "LINE",
-        "statsVars": ["Median_Income_Person"],
-        "source": "US Census",
-        "url": "https://www.census.gov/"
-      },
-      {
         "title": "Marital Status",
         "topic": "Marital Status",
         "chartType": "SINGLE_BAR",
@@ -384,7 +376,40 @@
     "label": "Economics",
     "charts": [
       {
-        "title": "GDP",
+        "title": "Unemployment Rate",
+        "chartType": "LINE",
+        "statsVars": ["UnemploymentRate_Person"],
+        "source": "BLS",
+        "url": "https://bls.gov/"
+      },
+      {
+        "title": "State Unemployment Insurance",
+        "chartType": "LINE",
+        "statsVars": [
+          "Count_UnemploymentInsuranceClaim_StateUnemploymentInsurance"
+        ],
+        "source": "BLS",
+        "url": "https://bls.gov/"
+      },
+      {
+        "title": "Employed People",
+        "chartType": "LINE",
+        "statsVars": ["Count_Person_Employed"],
+        "source": "BLS",
+        "url": "https://bls.gov/"
+      },
+      {
+        "title": "Labor Force Participation",
+        "chartType": "LINE",
+        "statsVars": ["Count_Person_InLaborForce"],
+        "perCapita": true,
+        "scaling": 100,
+        "unit": "%",
+        "source": "BLS",
+        "url": "https://bls.gov/"
+      },
+      {
+        "title": "Gross Domestic Product",
         "topic": "Economics",
         "chartType": "LINE",
         "statsVars": [
@@ -394,8 +419,7 @@
         "url": "https://ec.europa.eu/eurostat/data/database"
       },
       {
-        "title": "GDP Growth Rate",
-        "topic": "Economics",
+        "title": "Gross Domestic Product Growth Rate",
         "chartType": "LINE",
         "statsVars": [
           "GrowthRate_Amount_EconomicActivity_GrossDomesticProduction"
@@ -410,14 +434,99 @@
         "statsVars": ["Amount_Debt_Government"],
         "source": "EurostatData",
         "url": "https://ec.europa.eu/eurostat/data/database"
+      },
+      {
+        "title": "Median Individual Income",
+        "topic": "Income",
+        "chartType": "LINE",
+        "statsVars": ["Median_Income_Person"],
+        "source": "US Census",
+        "url": "https://www.census.gov/"
+      },
+      {
+        "title": "Household Income Breakdown",
+        "chartType": "SINGLE_BAR",
+        "statsVars": [
+          "Count_Household_IncomeOfUpto10000USDollar",
+          "Count_Household_IncomeOf10000To14999USDollar",
+          "Count_Household_IncomeOf20000To24999USDollar",
+          "Count_Household_IncomeOf40000To44999USDollar",
+          "Count_Household_IncomeOf50000To59999USDollar",
+          "Count_Household_IncomeOf60000To74999USDollar",
+          "Count_Household_IncomeOf75000To99999USDollar",
+          "Count_Household_IncomeOf100000To124999USDollar",
+          "Count_Household_IncomeOf125000To149999USDollar",
+          "Count_Household_IncomeOf150000To199999USDollar",
+          "Count_Household_IncomeOf200000OrMoreUSDollar"
+        ],
+        "source": "US Census",
+        "url": "https://www.census.gov/"
       }
     ],
     "children": [
       {
+        "label": "Unemployment",
+        "charts": [
+          {
+            "title": "Unemployment Rate",
+            "chartType": "LINE",
+            "statsVars": ["UnemploymentRate_Person"],
+            "source": "BLS",
+            "url": "https://bls.gov/"
+          },
+          {
+            "title": "State Unemployment Insurance",
+            "chartType": "LINE",
+            "statsVars": [
+              "Count_UnemploymentInsuranceClaim_StateUnemploymentInsurance"
+            ],
+            "source": "BLS",
+            "url": "https://bls.gov/"
+          },
+          {
+            "title": "Employed People",
+            "chartType": "LINE",
+            "statsVars": ["Count_Person_Employed"],
+            "source": "BLS",
+            "url": "https://bls.gov/"
+          },
+          {
+            "title": "Labor Force Participation",
+            "chartType": "LINE",
+            "statsVars": ["Count_Person_InLaborForce"],
+            "perCapita": true,
+            "scaling": 100,
+            "unit": "%",
+            "source": "BLS",
+            "url": "https://bls.gov/"
+          },
+          {
+            "title": "Unemployment Rate by Gender",
+            "chartType": "SINGLE_BAR",
+            "statsVars": [
+              "UnemploymentRate_Person_Male",
+              "UnemploymentRate_Person_Female"
+            ],
+            "source": "EurostatData",
+            "url": "https://ec.europa.eu/eurostat/data/database"
+          }
+        ]
+      },
+      {
         "label": "Economic Activity",
         "charts": [
           {
-            "title": "GDP Per Capita",
+            "title": "Gross Domestic Product",
+            "topic": "Economics",
+            "chartType": "LINE",
+            "statsVars": [
+              "Amount_EconomicActivity_GrossDomesticProduction_Nominal"
+            ],
+            "source": "EurostatData",
+            "url": "https://ec.europa.eu/eurostat/data/database"
+          },
+          {
+            "title": "Gross Domestic Product, Per Capita",
             "topic": "Economics",
             "chartType": "LINE",
             "statsVars": [
@@ -427,7 +536,16 @@
             "url": "https://ec.europa.eu/eurostat/data/database"
           },
           {
-            "title": "GNI PPP Per Capita",
+            "title": "Gross Domestic Product Growth Rate",
+            "chartType": "LINE",
+            "statsVars": [
+              "GrowthRate_Amount_EconomicActivity_GrossDomesticProduction"
+            ],
+            "source": "EurostatData",
+            "url": "https://ec.europa.eu/eurostat/data/database"
+          },
+          {
+            "title": "Gross National Income, Per Capita (Purchasing Power Parity)",
             "topic": "Economics",
             "chartType": "LINE",
             "statsVars": [
@@ -437,7 +555,7 @@
             "url": "https://ec.europa.eu/eurostat/data/database"
           },
           {
-            "title": "GNI PPP",
+            "title": "Gross National Income (Purchasing Power Parity)",
             "topic": "Economics",
             "chartType": "LINE",
             "statsVars": [
@@ -445,6 +563,153 @@
             ],
             "source": "EurostatData",
             "url": "https://ec.europa.eu/eurostat/data/database"
+          },
+          {
+            "title": "Government Debt",
+            "topic": "Economics",
+            "chartType": "LINE",
+            "statsVars": ["Amount_Debt_Government"],
+            "source": "EurostatData",
+            "url": "https://ec.europa.eu/eurostat/data/database"
+          }
+        ]
+      },
+      {
+        "label": "Individual Income",
+        "charts": [
+          {
+            "title": "Median Individual Income",
+            "chartType": "LINE",
+            "statsVars": ["Median_Income_Person"],
+            "unit": "$",
+            "source": "US Census",
+            "url": "https://www.census.gov/"
+          },
+          {
+            "title": "Individual Income Breakdown",
+            "topic": "Income",
+            "chartType": "SINGLE_BAR",
+            "statsVars": [
+              "Count_Person_IncomeOfUpto9999USDollar",
+              "Count_Person_IncomeOf10000To14999USDollar",
+              "Count_Person_IncomeOf15000To24999USDollar",
+              "Count_Person_IncomeOf25000To34999USDollar",
+              "Count_Person_IncomeOf35000To49999USDollar",
+              "Count_Person_IncomeOf50000To64999USDollar",
+              "Count_Person_IncomeOf65000To74999USDollar",
+              "Count_Person_IncomeOf75000OrMoreUSDollar"
+            ],
+            "source": "US Census",
+            "url": "https://www.census.gov/"
+          },
+          {
+            "title": "Individual Income Trend",
+            "chartType": "STACK_BAR",
+            "axis": "TIME",
+            "statsVars": [
+              "Count_Person_IncomeOfUpto9999USDollar",
+              "Count_Person_IncomeOf10000To14999USDollar",
+              "Count_Person_IncomeOf15000To24999USDollar",
+              "Count_Person_IncomeOf25000To34999USDollar",
+              "Count_Person_IncomeOf35000To49999USDollar",
+              "Count_Person_IncomeOf50000To64999USDollar",
+              "Count_Person_IncomeOf65000To74999USDollar",
+              "Count_Person_IncomeOf75000OrMoreUSDollar"
+            ],
+            "source": "US Census",
+            "url": "https://www.census.gov/"
+          },
+          {
+            "title": "Individual Income Across Places",
+            "chartType": "GROUP_BAR",
+            "axis": "PLACE",
+            "statsVars": [
+              "Count_Person_IncomeOfUpto9999USDollar",
+              "Count_Person_IncomeOf10000To14999USDollar",
+              "Count_Person_IncomeOf15000To24999USDollar",
+              "Count_Person_IncomeOf25000To34999USDollar",
+              "Count_Person_IncomeOf35000To49999USDollar",
+              "Count_Person_IncomeOf50000To64999USDollar",
+              "Count_Person_IncomeOf65000To74999USDollar",
+              "Count_Person_IncomeOf75000OrMoreUSDollar"
+            ],
+            "perCapita": true,
+            "scaling": 100,
+            "unit": "%",
+            "source": "US Census",
+            "url": "https://www.census.gov/"
+      }
+    ]
+  },
+  {
+        "label": "Household Income",
+        "charts": [
+          {
+            "title": "Median Household Income",
+            "chartType": "LINE",
+            "statsVars": ["Median_Income_Household"],
+            "unit": "$",
+            "source": "US Census",
+            "url": "https://www.census.gov/"
+          },
+          {
+            "title": "Household Income Breakdown",
+            "chartType": "SINGLE_BAR",
+            "statsVars": [
+              "Count_Household_IncomeOfUpto10000USDollar",
+              "Count_Household_IncomeOf10000To14999USDollar",
+              "Count_Household_IncomeOf20000To24999USDollar",
+              "Count_Household_IncomeOf40000To44999USDollar",
+              "Count_Household_IncomeOf50000To59999USDollar",
+              "Count_Household_IncomeOf60000To74999USDollar",
+              "Count_Household_IncomeOf75000To99999USDollar",
+              "Count_Household_IncomeOf100000To124999USDollar",
+              "Count_Household_IncomeOf125000To149999USDollar",
+              "Count_Household_IncomeOf150000To199999USDollar",
+              "Count_Household_IncomeOf200000OrMoreUSDollar"
+            ],
+            "source": "US Census",
+            "url": "https://www.census.gov/"
+          },
+          {
+            "title": "Household Income Trend",
+            "chartType": "STACK_BAR",
+            "axis": "TIME",
+            "statsVars": [
+              "Count_Household_IncomeOfUpto10000USDollar",
+              "Count_Household_IncomeOf10000To14999USDollar",
+              "Count_Household_IncomeOf20000To24999USDollar",
+              "Count_Household_IncomeOf40000To44999USDollar",
+              "Count_Household_IncomeOf50000To59999USDollar",
+              "Count_Household_IncomeOf60000To74999USDollar",
+              "Count_Household_IncomeOf75000To99999USDollar",
+              "Count_Household_IncomeOf100000To124999USDollar",
+              "Count_Household_IncomeOf125000To149999USDollar",
+              "Count_Household_IncomeOf150000To199999USDollar",
+              "Count_Household_IncomeOf200000OrMoreUSDollar"
+            ],
+            "source": "US Census",
+            "url": "https://www.census.gov/"
+          },
+          {
+            "title": "Household Income Across Places",
+            "chartType": "GROUP_BAR",
+            "axis": "PLACE",
+            "statsVars": [
+              "Count_Household_IncomeOfUpto10000USDollar",
+              "Count_Household_IncomeOf10000To14999USDollar",
+              "Count_Household_IncomeOf20000To24999USDollar",
+              "Count_Household_IncomeOf40000To44999USDollar",
+              "Count_Household_IncomeOf50000To59999USDollar",
+              "Count_Household_IncomeOf60000To74999USDollar",
+              "Count_Household_IncomeOf75000To99999USDollar",
+              "Count_Household_IncomeOf100000To124999USDollar",
+              "Count_Household_IncomeOf125000To149999USDollar",
+              "Count_Household_IncomeOf150000To199999USDollar",
+              "Count_Household_IncomeOf200000OrMoreUSDollar"
+            ],
+            "source": "US Census",
+            "url": "https://www.census.gov/"
           }
         ]
       }
@@ -1058,85 +1323,14 @@
     ]
   },
   {
-    "label": "Employment",
-    "charts": [
-      {
-        "title": "UnemploymentRate",
-        "chartType": "LINE",
-        "statsVars": ["UnemploymentRate_Person"],
-        "source": "BLS",
-        "url": "https://bls.gov/"
-      },
-      {
-        "title": "State Unemployment Insurance",
-        "chartType": "LINE",
-        "statsVars": [
-          "Count_UnemploymentInsuranceClaim_StateUnemploymentInsurance"
-        ],
-        "source": "BLS",
-        "url": "https://bls.gov/"
-      },
-      {
-        "title": "Employed People",
-        "chartType": "LINE",
-        "statsVars": ["Count_Person_Employed"],
-        "source": "BLS",
-        "url": "https://bls.gov/"
-      },
-      {
-        "title": "Labor Force",
-        "chartType": "LINE",
-        "statsVars": ["Count_Person_InLaborForce"],
-        "source": "BLS",
-        "url": "https://bls.gov/"
-      }
-    ],
-    "children": [
-      {
-        "label": "UnemploymentRate",
-        "charts": [
-          {
-            "title": "Unemployment Rate by Gender",
-            "chartType": "SINGLE_BAR",
-            "statsVars": [
-              "UnemploymentRate_Person_Male",
-              "UnemploymentRate_Person_Female"
-            ],
-            "source": "EurostatData",
-            "url": "https://ec.europa.eu/eurostat/data/database"
-          }
-        ]
-      }
-    ]
-  },
-  {
-    "label": "Households",
-    "charts": [
-      {
-        "title": "Income",
-        "chartType": "SINGLE_BAR",
-        "statsVars": [
-          "Count_Household_IncomeOf35000To39999USDollar",
-          "Count_Household_IncomeOf40000To44999USDollar",
-          "Count_Household_IncomeOf75000To99999USDollar",
-          "Count_Household_IncomeOf100000To124999USDollar",
-          "Count_Household_IncomeOf125000To149999USDollar",
-          "Count_Household_IncomeOf150000To199999USDollar",
-          "Count_Household_IncomeOf200000OrMoreUSDollar"
-        ],
-        "source": "US Census",
-        "url": "https://www.census.gov/"
-      }
-    ],
-    "children": []
-  },
-  {
     "label": "Environment",
     "charts": [
       {
         "title": "Energy comsumption Per Capita",
         "chartType": "LINE",
-        "statsVars": ["Amount_Consumption_Energy_PerCapita"],
+        "statsVars": [
+          "Amount_Consumption_Energy_PerCapita"
+        ],
         "source": "EurostatData",
         "url": "https://ec.europa.eu/eurostat/data/database"
       }
