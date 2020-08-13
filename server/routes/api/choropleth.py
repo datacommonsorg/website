@@ -59,7 +59,8 @@ def choropleth_values():
                                  flask.request.args.get("level"))
     if not display_level:
         return flask.jsonify({"error":
-           f"Failed to automatically resolve subgeo for {dcid}."}, 400) 
+           f"Failed to automatically resolve subgeo for {dcid}." +
+           "Please provide a 'level' field manually."}, 400) 
 
     # Get all subgeos.
     geos_contained_in_place = dc.get_places_in(
@@ -101,7 +102,8 @@ def choropleth_geo():
                                  flask.request.args.get("level"))
     if not display_level:
         return flask.jsonify({"error":
-           f"Failed to automatically resolve subgeo for {dcid}."}, 400) 
+           f"Failed to automatically resolve subgeo for {dcid}." +
+           "Please provide a 'level' field manually."}, 400) 
 
     # Get optional fields.
     measurement_denominator = flask.request.args.get("mdom",
@@ -244,7 +246,8 @@ def child_statvars():
                                    flask.request.args.get("level"))
     if not requested_level:
         return flask.jsonify({"error":
-           f"Failed to automatically resolve subgeo for {dcid}."}, 400) 
+           f"Failed to automatically resolve subgeo for {dcid}. " +
+           "Please provide a 'level' field manually."}, 400) 
 
     # Get sublevels.
     geos_contained_in_place = dc.get_places_in(

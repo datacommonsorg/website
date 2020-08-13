@@ -72,7 +72,10 @@ class ChoroplethMap extends Component {
       this.renderGeoMap();
       this.updateGeoValues();
     }, () => {
-      document.getElementById("heading").innerHTML = "API Request Failed!"
+      document.getElementById("heading").innerHTML = ""
+      document.getElementById("error").innerHTML = "API Request Failed! "
+        + "Please consider starting at the base menu again." + 
+        "<a href=\"/tools/choropleth\"> Access here.</a>"
     } );
   }
 
@@ -87,7 +90,9 @@ class ChoroplethMap extends Component {
       this.setState({ values: resp.data[0] });
       this.updateGeoValues();
     }, () => {
-      document.getElementById("heading").innerHTML = "API Request Failed!"
+      document.getElementById("heading").innerHTML = ""
+      document.getElementById("error").innerHTML = "API request failed for your"
+        + "statistical variable choice! Please select a new variable."
     });
   }
 

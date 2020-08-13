@@ -158,6 +158,7 @@ class MainPane extends Component {
           <React.Fragment>
           <div className="column" id="breadcrumbs"></div>
             <div id="heading">Loading...</div>
+            <div id="error"></div>
             <div>
               <div className="column" id="hover-text-display"></div>
             </div>
