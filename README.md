@@ -71,6 +71,17 @@ the environment variable in your ~/.bash_profile or ~/.bashrc file
 export GOOGLE_APPLICATION_CREDENTIALS=<JSON_CREDENTIAL_PATH>
 ```
 
+#### Install web browser and webdriver
+Before running the tests, we need to install the browser and webdriver. Here we recommend you using Google Chrome browser and ChromeDriver.
+
+Chrome browser can be downloaded [here](https://www.google.com/chrome/).
+
+ChromeDriver can be downloaded [here](https://chromedriver.chromium.org/downloads/version-selection), or you can download it using package manager directly:
+
+```bash
+npm install chromedriver
+```
+
 #### Run all the tests
 
 ```bash
