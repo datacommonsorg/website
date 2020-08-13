@@ -14,11 +14,13 @@
 
 
 import time
-from base_test import WebdriverBaseTest
+from webdriver_tests.base_test import WebdriverBaseTest
 
+# TODO(shifucun): add test for narrow width for mobile testing
+WIDTH = 1280
 
 SCREENSHOTS_FOLDER = 'test_screenshots/'
-#TODO: Can add more urls and tests if necessary.
+# TODO: Can add more urls and tests if necessary.
 TEST_URLS = [
     {
         'url': '/tools/timeline#&place=geoId/0606000,geoId/2511000,geoId/2603000,geoId/1777005,geoId/1225175,geoId/4815976&statsVar=Median_Age_Person',
@@ -68,9 +70,15 @@ class TestScreenShot(WebdriverBaseTest):
         for test_info in TEST_URLS:
             self.driver.get(self.url_ + test_info['url'])
             time.sleep(5)
-            self.driver.set_window_size(width=1000,height=test_info['height'],windowHandle='current')
-            charts = self.driver.find_elements_by_class_name(test_info['test_class'])
+            self.driver.set_window_size(
+                width=WIDTH,
+                height=test_info['height'],
+                windowHandle='current')
+            charts = self.driver.find_elements_by_class_name(
+                test_info['test_class'])
             # Assert there are charts.
             self.assertGreater(len(charts), 0)
-            self.driver.save_screenshot(SCREENSHOTS_FOLDER + str(index) + "_" + test_info['filename_suffix'])
-            index = index + 1
+            self.driver.save_screenshot(
+                '{}{}_{}'.format(
+                    SCREENSHOTS_FOLDER, index, test_info['filename_suffix']))
+            index += 1
