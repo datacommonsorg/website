@@ -75,8 +75,8 @@ function run_webdriver_test {
 
 function run_all_tests {
   run_py_test
-  run_webdriver_test
   run_npm_build
+  run_webdriver_test
   run_npm_lint
   run_npm_test
 }
