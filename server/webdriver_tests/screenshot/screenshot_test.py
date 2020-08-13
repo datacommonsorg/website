@@ -16,6 +16,7 @@
 import time
 from webdriver_tests.base_test import WebdriverBaseTest
 
+WIDTH = 1280
 
 SCREENSHOTS_FOLDER = 'test_screenshots/'
 # TODO: Can add more urls and tests if necessary.
@@ -69,11 +70,14 @@ class TestScreenShot(WebdriverBaseTest):
             self.driver.get(self.url_ + test_info['url'])
             time.sleep(5)
             self.driver.set_window_size(
-                width=1000, height=test_info['height'], windowHandle='current')
+                width=WIDTH,
+                height=test_info['height'],
+                windowHandle='current')
             charts = self.driver.find_elements_by_class_name(
                 test_info['test_class'])
             # Assert there are charts.
             self.assertGreater(len(charts), 0)
             self.driver.save_screenshot(
-                SCREENSHOTS_FOLDER + str(index) + "_" + test_info['filename_suffix'])
-            index = index + 1
+                '{}{}_{}'.format(
+                    SCREENSHOTS_FOLDER, index, test_info['filename_suffix'])
+            index += 1
