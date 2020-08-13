@@ -20,7 +20,7 @@ steps:
   args:
   - -c
   - |
-    ./run_test.sh -s
+    ./run_test.sh -bs
 
 - name: gcr.io/cloud-builders/gsutil
   entrypoint: /bin/sh
