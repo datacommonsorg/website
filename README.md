@@ -82,6 +82,20 @@ Before running the tests, install the browser and webdriver. Here we recommend y
   npm install chromedriver
   ```
 
+If using Linux system, you can run the following commands to download Chrome browser and ChromeDriver, this will also include the path setup:
+
+```bash
+wget https://dl.google.com/linux/direct/google-chrome-stable_current_amd64.deb
+sudo dpkg -i google-chrome-stable_current_amd64.deb; sudo apt-get -fy install
+wget https://chromedriver.storage.googleapis.com/84.0.4147.30/chromedriver_linux64.zip
+unzip chromedriver_linux64.zip
+sudo mv chromedriver /usr/bin/chromedriver
+sudo chown root:root /usr/bin/chromedriver
+sudo chmod +x /usr/bin/chromedriver
+```
+
+Note: You can change `84.0.4147.30`(version number) to the lastet version [here](https://chromedriver.storage.googleapis.com/LATEST_RELEASE).
+
 #### Run all the tests
 
 ```bash
