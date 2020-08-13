@@ -80,4 +80,4 @@ class TestScreenShot(WebdriverBaseTest):
             self.driver.save_screenshot(
                 '{}{}_{}'.format(
                     SCREENSHOTS_FOLDER, index, test_info['filename_suffix'])
-            index += 1
+            index = index + 1
