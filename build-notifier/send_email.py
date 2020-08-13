@@ -14,7 +14,7 @@ args = vars(arg_parser.parse_args())
 
 
 port = 587  # For SSL
-sender_email = 'datcom.ci@gmail.com'
+sender_email = 'datacommonsorg@gmail.com'
 gmail_smtp = 'smtp.gmail.com'
 website_prefix = 'https://staging.datacommons.org/dev/screenshot'
 repo_prefix = 'https://github.com/datacommonsorg/website/pull'
@@ -32,7 +32,7 @@ The screenshots can be found in this url: {}/{}
 )
 
 secret_client = secretmanager.SecretManagerServiceClient()
-secret_name = secret_client.secret_version_path('datcom-ci', 'gmailpw', '1')
+secret_name = secret_client.secret_version_path('datcom-ci', 'gmailpw', '3')
 secret_response = secret_client.access_secret_version(secret_name)
 password = secret_response.payload.data.decode('UTF-8')
 

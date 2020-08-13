@@ -16,6 +16,7 @@
 import time
 from webdriver_tests.base_test import WebdriverBaseTest
 
+# TODO(shifucun): add test for narrow width for mobile testing
 WIDTH = 1280
 
 SCREENSHOTS_FOLDER = 'test_screenshots/'
