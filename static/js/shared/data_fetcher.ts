@@ -23,9 +23,9 @@ interface TimeSeries {
   data: {
     [key: string]: number;
   };
-  place_name: string;
-  place_dcid: string;
-  provenance_domain: string;
+  placeName: string;
+  placeDcid: string;
+  provenanceDomain: string;
 }
 
 interface ApiResponse {
@@ -80,7 +80,7 @@ class StatsData {
             label: STATS_VAR_TEXT[statsVar],
             value: timeSeries.data[date],
           });
-          placeName = timeSeries.place_name;
+          placeName = timeSeries.placeName;
         }
       }
       if (dataPoints.length > 0) {
@@ -237,7 +237,7 @@ function fetchStatsData(
       for (const place in allResp[i].data) {
         if (!allResp[i].data[place]) continue;
         const timeSeries = allResp[i].data[place];
-        result.sources.add(timeSeries.provenance_domain);
+        result.sources.add(timeSeries.provenanceDomain);
         for (const date in timeSeries.data) {
           dates[date] = true;
         }

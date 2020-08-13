@@ -71,12 +71,23 @@ the environment variable in your ~/.bash_profile or ~/.bashrc file
 export GOOGLE_APPLICATION_CREDENTIALS=<JSON_CREDENTIAL_PATH>
 ```
 
+#### Install web browser and webdriver
+Before running the tests, install the browser and webdriver. Here we recommend you use Google Chrome browser and ChromeDriver.
+
+* Chrome browser can be downloaded [here](https://www.google.com/chrome/).
+
+* ChromeDriver can be downloaded [here](https://chromedriver.chromium.org/downloads/version-selection), or you can download it using package manager directly:
+
+  ```bash
+  npm install chromedriver
+  ```
+
 #### Run all the tests
 
 ```bash
-./run_test.sh
+./run_test.sh -a
 ```
-To update the test snapshots, run command:
+To update the test snapshots, run this command:
 ```bash
 cd static
 npm test testfilename -- -u

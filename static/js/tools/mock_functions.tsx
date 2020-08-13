@@ -68,9 +68,9 @@ export function axios_mock(): void {
     .mockResolvedValue({
       data: {
         "geoId/05": {
-          place_dcid: "geoId/05",
-          place_name: "Arkansas",
-          provenance_domain: "census.gov",
+          placeDcid: "geoId/05",
+          placeName: "Arkansas",
+          provenanceDomain: "census.gov",
           data: { "2011": 37.3, "2012": 37.4, "2013": 37.5, "2014": 37.6 },
         },
       },
@@ -82,9 +82,9 @@ export function axios_mock(): void {
     .mockResolvedValue({
       data: {
         "geoId/05": {
-          place_dcid: "geoId/05",
-          place_name: "Arkansas",
-          provenance_domain: "census.gov",
+          placeDcid: "geoId/05",
+          placeName: "Arkansas",
+          provenanceDomain: "census.gov",
           data: { "1999": 37.3, "2010": 37.4, "2020": 37.5 },
         },
       },
