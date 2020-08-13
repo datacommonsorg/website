@@ -63,6 +63,12 @@ function run_webdriver_test {
   export FLASK_ENV=WEBDRIVER
   export GOOGLE_CLOUD_PROJECT=datcom-browser-staging
   pip3 install -r requirements.txt -q
+  if [  -d test_screenshots  ]
+  then
+    echo "Delete the test_screenshots folder"
+    rm -rf test_screenshots
+  fi
+  mkdir test_screenshots
   python3 -m pytest webdriver_tests/**.py
   cd ..
 }
