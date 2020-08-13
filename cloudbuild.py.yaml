@@ -27,14 +27,6 @@ steps:
   - |
     ./run_test.sh -w
 
-- name: gcr.io/cloud-builders/gsutil
-  entrypoint: /bin/sh
-  args: 
-  - -c
-  - |
-    gsutil cp server/test_screenshots/*.png gs://datcom-browser-screenshot/$SHORT_SHA/
-    rm -rf server/test_screenshots
-
 - id: pv_tree_generator
   name: python:3.7-slim
   entrypoint: /bin/sh

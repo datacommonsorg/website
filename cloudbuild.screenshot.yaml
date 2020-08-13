@@ -14,6 +14,21 @@
 
 steps:
 
+- id: flask_webdriver_test
+  name: gcr.io/datcom-ci/webdriver-chrome
+  entrypoint: /bin/sh
+  args:
+  - -c
+  - |
+    ./run_test.sh -s
+
+- name: gcr.io/cloud-builders/gsutil
+  entrypoint: /bin/sh
+  args:
+  - -c
+  - |
+    gsutil cp server/test_screenshots/*.png gs://datcom-browser-screenshot/$SHORT_SHA/
+
 # Update the data version
 - id: fetch author email
   name: 'gcr.io/cloud-builders/git'
