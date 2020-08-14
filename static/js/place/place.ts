@@ -96,7 +96,7 @@ function getChildPlaces(dcid) {
  * @param dcid The place dcid
  */
 function getSimilarPlaces(dcid: string) {
-  return axios.get(`/api/similar-place/Count_Person/${dcid}`).then((resp) => {
+  return axios.get(`/api/place/similar/Count_Person/${dcid}`).then((resp) => {
     const places = resp.data;
     const result = [dcid];
     if (places.relatedPlaces) {
@@ -123,7 +123,7 @@ function getParentPlaces(dcid: string) {
  * @param dcid The place dcid.
  */
 function getNearbyPlaces(dcid: string) {
-  return axios.get(`/api/nearby-place/${dcid}`).then((resp) => {
+  return axios.get(`/api/place/nearby/${dcid}`).then((resp) => {
     return resp.data;
   });
 }

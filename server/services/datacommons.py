@@ -92,7 +92,7 @@ def get_stats(place_dcids, stats_var):
     url = API_ROOT + API_ENDPOINTS['get_stats']
     req_json = {
         'place': place_dcids,
-        'stats_var': stats_var
+        'stats_var': stats_var,
     }
     return send_request(url, req_json=req_json)
 

@@ -64,7 +64,7 @@
                   Explore
                 </a>
                 <div class="dropdown-menu" aria-labelledby="nav-explore-dropdown">
-                  <a class="dropdown-item" href="{{ url_for('place') }}">Place Explorer</a>
+                  <a class="dropdown-item" href="{{ url_for('place.place') }}">Place Explorer</a>
                   <a class="dropdown-item" href="{{ url_for('browser.kg_main') }}">Data Commons Graph Browser</a>
                   <a class="dropdown-item" href="{{ url_for('tools.timeline') }}">Timelines Explorer</a>
                 </div>
@@ -109,7 +109,7 @@
           <div class="row">
             <section class="col-12 col-sm-6 col-md-4">
               <h6>Explore</h6>
-              <a href="{{ url_for('place') }}">Place Explorer</a>
+              <a href="{{ url_for('place.place') }}">Place Explorer</a>
               <a href="{{ url_for('browser.kg_main') }}">Data Commons Graph Explorer</a>
               <a href="{{ url_for('tools.timeline') }}">Timelines Explorer</a>
             </section>

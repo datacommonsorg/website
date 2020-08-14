@@ -33,9 +33,23 @@ bp = flask.Blueprint(
   url_prefix='/api/choropleth'
 )
 
+def get_latest_data(payload_for_geo):
+    """ Returns the most recent data as from a DataCommons API payload.
+    
+    Args:
+        payload_for_geo -> The payload from a get_stats call for a
+            particular dcid.
+    Returns:
+        The most recent data available for that dcid.
+    """
+    time_series = payload_for_geo.get('data')
+    if not time_series: return None
+    max_date = max(time_series)
+    return time_series[max_date]
+
 @bp.route('/values')
 def choropleth_values():
-    """Returns data for geographic subregions for a certain statistical 
+    """Returns data for geographic subregions for a certain statistical
             variable.
 
     API Params:
@@ -57,6 +71,10 @@ def choropleth_values():
         return flask.jsonify({"error": "Must provide a 'statVar' field!"}, 400)
     display_level = get_sublevel(requested_geoDcid,
                                  flask.request.args.get("level"))
+    if not display_level:
+        return flask.jsonify({"error":
+           f"Failed to automatically resolve geographic subdivision level for" +
+           f"{requested_geoDcid}. Please provide a 'level' field manually."}, 400)
 
     # Get all subgeos.
     geos_contained_in_place = dc.get_places_in(
@@ -66,16 +84,17 @@ def choropleth_values():
     # Add to dictionary for response.
     populations_by_geo = {}
     for geo_id, payload in values_by_geo.items():
-        if "data" in payload:
-            populations_by_geo[geo_id] = next(iter(
-                        reversed(payload['data'].values())))
+        if payload and "data" in payload:
+            latest_data = get_latest_data(payload)
+            if latest_data:
+                populations_by_geo[geo_id] = latest_data
 
     # Return as json payload.
     return flask.jsonify(populations_by_geo, 200)
 
 @bp.route('/geo')
 def choropleth_geo():
-    """Returns data for geographic subregions for a certain statistical 
+    """Returns data for geographic subregions for a certain statistical
             variable.
 
     API Params:
@@ -96,18 +115,21 @@ def choropleth_geo():
         return flask.jsonify({"error": "Must provide a 'geoDcid' field!"}, 400)
     display_level = get_sublevel(requested_geoDcid,
                                  flask.request.args.get("level"))
+    if not display_level:
+        return flask.jsonify({"error":
+           f"Failed to automatically resolve geographic subdivision level for" +
+           f"{requested_geoDcid}. Please provide a 'level' field manually."}, 400) 
 
     # Get optional fields.
     measurement_denominator = flask.request.args.get("mdom",
                                                      default="Count_Person")
 
     # Get list of all contained places.
-    # TODO(iancostello): Handle a failing function call.
     geos_contained_in_place = dc.get_places_in(
-            [requested_geoDcid], display_level)[requested_geoDcid]
+            [requested_geoDcid], display_level).get(requested_geoDcid, [])
+
 
     # Download statistical variable, names, and geojson for subgeos.
-    # TODO(iancostello): Handle failing function calls. 
     # Also, handle the case where only a fraction of values are returned.
     names_by_geo = dc.get_property_values(geos_contained_in_place
                                           + [requested_geoDcid],
@@ -116,7 +138,7 @@ def choropleth_geo():
                                             "geoJsonCoordinates")
 
     # Download population data if per capita.
-    # TODO(iancostello): Determine how to handle populations 
+    # TODO(iancostello): Determine how to handle populations
     # and statistical values from different times.
     population_by_geo = dc.get_stats(geos_contained_in_place,
                                      measurement_denominator)
@@ -134,26 +156,28 @@ def choropleth_geo():
                     "id": geo_id,
                     "properties": {
                         # Choose the first name when multiple are present.
-                        # TODO(iancostello): Implement a better approach.
-                        "name": names_by_geo[geo_id][0],
+                        "name": names_by_geo.get(geo_id, ["Unnamed Area"])[0],
                         "hasSublevel": 
                             (display_level in LEVEL_MAP),
                         "geoDcid": geo_id,
                     }
                 }
             # Load, simplify, and add geoJSON coordinates.
-            # First returned value is chosen always.
-            # TODO(iancostello): Implement a better approach.
+            # Exclude geo if no or multiple renderings are present.
+            if len(json_text) != 1:
+                continue
             geojson = json.loads(json_text[0])
             geo_feature['geometry']['coordinates'] = (
                 coerce_geojson_to_righthand_rule(
                                     geojson['coordinates'],
                                     geojson['type']))
             # Process Statistical Observation if valid.
-            if ('data' in population_by_geo.get(geo_id, [])):
+            if ('data' in population_by_geo.get(geo_id, [])
+                    and population_by_geo[geo_id]['data']):
                 # Grab the latest available data.
-                geo_feature["properties"]["pop"] = next(iter(
-                    reversed(population_by_geo[geo_id]['data'].values())))
+                latest_data = get_latest_data(population_by_geo[geo_id])
+                if latest_data:
+                    geo_feature["properties"]["pop"] = latest_data
 
             # Add to main dataframe.
             features.append(geo_feature)
@@ -163,8 +187,8 @@ def choropleth_geo():
         "type": "FeatureCollection",
         "features": features,
         "properties": {
-            # TODO(iancostello): Don't just pick the first and check.
-            "current_geo": names_by_geo[requested_geoDcid][0]
+            "current_geo":
+                names_by_geo.get(requested_geoDcid, ["Unnamed Area"])[0]
         }
     }, 200)
 
@@ -181,17 +205,15 @@ def get_sublevel(requested_geoDcid, display_level):
     """
     if not display_level:
         requested_geoDcid_type = dc.get_property_values([requested_geoDcid],
-                                                "typeOf")[requested_geoDcid]
-        # TODO(iancostello): Handle a failed function call, e.g., returns None.
-        # TODO(iancostello): Handle the case where display_level is None.
-        for level in requested_geoDcid_type:
+                                                        "typeOf")
+        for level in requested_geoDcid_type.get(requested_geoDcid, []):
             if level in LEVEL_MAP:
                 return LEVEL_MAP[level]
     return display_level
 
 def coerce_geojson_to_righthand_rule(geoJsonCords, obj_type):
     """Changes GeoJSON handedness to the right-hand rule.
-    
+
     GeoJSON is stored in DataCommons in the reverse format of what D3
     expects. This results in geographies geometry being inverted. This function
     fixes these lists to be in the format expected by D3 and turns all polygons
@@ -239,6 +261,10 @@ def child_statvars():
         return flask.jsonify({"error": "Must provide a 'dcid' field!"}, 400)
     requested_level = get_sublevel(dcid,
                                    flask.request.args.get("level"))
+    if not requested_level:
+        return flask.jsonify({"error":
+           f"Failed to automatically resolve geographic subdivision level for" +
+           f"{dcid}. Please provide a 'level' field manually."}, 400) 
 
     # Get sublevels.
     geos_contained_in_place = dc.get_places_in(

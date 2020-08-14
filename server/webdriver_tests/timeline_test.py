@@ -15,13 +15,13 @@
 
 import unittest
 import urllib
-from base_test import WebdriverBaseTest
- 
+from webdriver_tests.base_test import WebdriverBaseTest
+
+
 TIMELINE_URL = '/tools/timeline'
 URL_HASH_1 = '#&statsVar=Median_Age_Person,0,1__Median_Income_Person,0,2__Count_Person_Upto5Years,'\
     '0,3,0__Count_Person_5To17Years,0,3,1&place=geoId/06,geoId/08'
 GEO_URL_1 = '#&place=geoId/06'
-
 
 
 # Class to test timeline tool.
@@ -58,7 +58,7 @@ class TestCharts(WebdriverBaseTest):
         charts = self.driver.find_elements_by_class_name("card")
         # Assert there are three charts.
         self.assertEqual(len(charts), 3)
-        
+
         # Uncheck median age statvar, and the number of charts will become two.
         median_age = self.driver.find_element_by_id("Median age")
         median_age_checkbox = median_age.find_element_by_class_name("checked")
@@ -88,6 +88,7 @@ class TestCharts(WebdriverBaseTest):
         charts = self.driver.find_elements_by_class_name("card")
         # Assert there is one chart.
         self.assertEqual(len(charts), 1)
+
 
 if __name__ == '__main__':
     unittest.main()

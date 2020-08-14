@@ -52,10 +52,21 @@ export function axios_mock(): void {
       },
     });
 
+  when(axios.get)
+  .calledWith(
+    "/api/stats/stats-var-property?dcid=NotInTheTree"
+  )
+  .mockResolvedValue({
+    data: {
+      NotInTheTree: { md: "", mprop: "count", pt: "Person", pvs: {} },
+    },
+  });
+  
+
   // get place stats vars, geoId/05
   when(axios.get)
     .calledWith("/api/place/statsvars/geoId/05")
-    .mockResolvedValue({ data: ["Count_Person", "Median_Age_Person"] });
+    .mockResolvedValue({ data: ["Count_Person", "Median_Age_Person", "NotInTheTree"] });
 
   // get place names, geoId/05
   when(axios.get)
@@ -68,9 +79,9 @@ export function axios_mock(): void {
     .mockResolvedValue({
       data: {
         "geoId/05": {
-          place_dcid: "geoId/05",
-          place_name: "Arkansas",
-          provenance_domain: "census.gov",
+          placeDcid: "geoId/05",
+          placeName: "Arkansas",
+          provenanceDomain: "census.gov",
           data: { "2011": 37.3, "2012": 37.4, "2013": 37.5, "2014": 37.6 },
         },
       },
@@ -82,13 +93,27 @@ export function axios_mock(): void {
     .mockResolvedValue({
       data: {
         "geoId/05": {
-          place_dcid: "geoId/05",
-          place_name: "Arkansas",
-          provenance_domain: "census.gov",
+          placeDcid: "geoId/05",
+          placeName: "Arkansas",
+          provenanceDomain: "census.gov",
           data: { "1999": 37.3, "2010": 37.4, "2020": 37.5 },
         },
       },
     });
+
+  when(axios.get)
+  .calledWith("/api/stats/NotInTheTree?&dcid=geoId/05")
+  .mockResolvedValue({
+    data: {
+      "geoId/05": {
+        placeDcid: "geoId/05",
+        placeName: "Arkansas",
+        provenanceDomain: "census.gov",
+        data: { "1999": 37.3, "2010": 37.4, "2020": 37.5 },
+      },
+    },
+  });
+
 }
 
 export function mock_hierarchy_complete(): void {

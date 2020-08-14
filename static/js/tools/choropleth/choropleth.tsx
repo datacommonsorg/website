@@ -30,8 +30,6 @@ class ChoroplethMap extends Component {
     this.state = {
       geojson: [],
       pc:
-        // TODO(iancostello): Potentially make pc simply a flag toggle without
-        // a value.
         urlParams.has("pc") &&
         ["t", "true", "1"].includes(urlParams.get("pc").toLowerCase()),
       values: {},
@@ -41,6 +39,7 @@ class ChoroplethMap extends Component {
     this.loadValues = this.loadValues.bind(this);
     this.handleMapHover = this.handleMapHover.bind(this);
     this.updateGeoValues = this.updateGeoValues.bind(this);
+    this.handleMapClick = this.handleMapClick.bind(this);
     this.loadGeoJson();
   }
 
@@ -60,7 +59,7 @@ class ChoroplethMap extends Component {
     let geoUrl = "/api/choropleth/geo";
     geoUrl += buildChoroplethParams(["pc", "geoDcid", "level", "mdom"]);
     let valueUrl = "/api/choropleth/values";
-    valueUrl += buildChoroplethParams(["geoDcid", "statVar"]);
+    valueUrl += buildChoroplethParams(["geoDcid", "statVar", "level"]);
 
     // Create request and generate map.
     const geoPromise = axios.get(geoUrl);
@@ -72,7 +71,12 @@ class ChoroplethMap extends Component {
       //shouldComponentUpdate.
       this.renderGeoMap();
       this.updateGeoValues();
-    });
+    }, () => {
+      document.getElementById("heading").innerHTML = ""
+      document.getElementById("error").innerHTML = "API Request Failed! "
+        + "Please consider starting at the base menu again." + 
+        "<a href=\"/tools/choropleth\"> Access here.</a>"
+    } );
   }
 
   /**
@@ -85,6 +89,10 @@ class ChoroplethMap extends Component {
     axios.get(baseUrl).then((resp) => {
       this.setState({ values: resp.data[0] });
       this.updateGeoValues();
+    }, () => {
+      document.getElementById("heading").innerHTML = ""
+      document.getElementById("error").innerHTML = "API request failed for your"
+        + "statistical variable choice! Please select a new variable."
     });
   }
 
@@ -139,6 +147,11 @@ class ChoroplethMap extends Component {
     this.setState(() => {
       return { popMap };
     });
+
+    // Generate breadcrumbs.
+    // TODO(fpernice-google): Derive the curGeo value from geoDcid instead
+    // of embedding in url.
+    generateBreadCrumbs(this.state['geojson']['properties']['current_geo']);
   }
 
   /**
@@ -155,15 +168,15 @@ class ChoroplethMap extends Component {
       .domain(
         determineColorPalette(values, this.state["pc"], this.state["popMap"])
       )
-      // TODO(iancostello): Investigate if this can be tighter type.
-      .range(["#deebf7", "#9ecae1", "#3182bd"] as any);
+      .range(["#deebf7", "#9ecae1", "#3182bd"] as unknown as number[]);
 
     // Select D3 paths via geojson data.
     const geojson = this.state["geojson"];
     const mapContent = d3
       .select("#main-pane g.map")
       .selectAll("path")
-      .data(geojson.features);
+      .data(geojson.features)
+      .attr("id", function(_,index) { return "geoPath/" + index; });
 
     // Create new infill.
     mapContent.attr("fill", function (d: {
@@ -186,10 +199,18 @@ class ChoroplethMap extends Component {
     // Update title.
     // TODO(iancostello): Use react component instead of innerHTML throughout.
     const url = new URL(window.location.href);
-    document.getElementById("heading").innerHTML =
-      url.searchParams.get("statVar") +
-      " in " +
-      this.state["geojson"]["properties"]["current_geo"];
+    const currentGeo = this.state["geojson"]["properties"]["current_geo"];
+    const currentStatVar = url.searchParams.get("statVar");
+    if (currentStatVar) {
+      document.getElementById("heading").innerHTML =
+      currentStatVar + " in " + currentGeo;
+    } else {
+      document.getElementById("heading").innerHTML =
+        currentGeo;
+       document.getElementById("hover-text-display").innerHTML =
+        "Pick a statistical variable to get started!";
+    }
+    
   }
 
   /**
@@ -202,7 +223,6 @@ class ChoroplethMap extends Component {
     let baseUrl = "/tools/choropleth";
     baseUrl += buildChoroplethParams(["geoDcid", "bc", "pc", "level", "mdom"]);
     baseUrl += "&statVar=" + statVar;
-    // TODO(iancostello): Move into helper.
     history.pushState({}, null, baseUrl);
 
     // TODO(iancostello): Manage through component's state.
@@ -215,8 +235,9 @@ class ChoroplethMap extends Component {
    */
   handleMapHover(geo: {
     ref: string;
-    properties: { name: string; geoDcid: string; pop: number };
-  }): void {
+    properties: { name: string; geoDcid: string; pop: number;
+                  hasSublevel: boolean};
+    }, index): void {
     // Display statistical variable information on hover.
     const name = geo.properties.name;
     const geoDcid = geo.properties.geoDcid;
@@ -233,20 +254,26 @@ class ChoroplethMap extends Component {
 
     document.getElementById("hover-text-display").innerHTML =
       name + " - " + formatGeoValue(geoValue, this.state["pc"]);
-
-    // Highlight selected geo in black on hover.
-    d3.select(geo.ref).attr("class", "border-highlighted");
+    
+    // Highlight selected subgeos and change pointer if they are clickable.
+    let objClass = "border-highlighted"
+    if (geo.properties.hasSublevel) {
+      objClass += " clickable"
+    }
+    document.getElementById("geoPath/" + index).setAttribute
+                                              ("class", objClass);
   }
 
   /**
    * Clears output after leaving a geo.
    */
-  mouseLeave(geo: { ref: string }): void {
+  mouseLeave(geo: { ref: string }, index : number): void {
     // Remove hover text.
     document.getElementById("hover-text-display").innerHTML = "";
 
     // Remove geo display effect.
-    d3.select(geo.ref).attr("class", "border");
+    document.getElementById("geoPath/" + index).setAttribute
+                                              ("class", "border");
   }
 
   /**
@@ -258,9 +285,9 @@ class ChoroplethMap extends Component {
     properties: { geoDcid: string; hasSublevel: boolean };
   }): void {
     if (geo.properties.hasSublevel) {
-      redirectToGeo(geo.properties.geoDcid);
+      redirectToGeo(geo.properties.geoDcid,
+                    this.state['geojson']['properties']['current_geo']);
     } else {
-      //TODO(iancostello): Improve this feature (change cursor).
       alert("This geo has no further sublevels!");
     }
   }
@@ -297,29 +324,33 @@ function buildChoroplethParams(fieldsToInclude: string[]): string {
 /**
  * Redirects the webclient to a particular geo. Handles breadcrumbs in redirect.
  * @param {string} geoDcid to redirect to.
+ * @param {string} human-readable current geo, e.g. United States when geoDcid
+ *                 is country/USA.
  */
-function redirectToGeo(geoDcid: string): void {
+function redirectToGeo(geoDcid: string, curGeo: string): void {
   const url = new URL(window.location.href);
 
   let baseUrl = "/tools/choropleth";
-  baseUrl += buildChoroplethParams(["statVar", "pc", "level", "mdom"]);
+  baseUrl += buildChoroplethParams(["statVar", "pc", "mdom"]);
   baseUrl += "&geoDcid=" + geoDcid;
   baseUrl += "&bc=";
 
   // Add or create breadcrumbs field.
-  // TODO(iancostello): Use parent places api.
   const breadcrumbs = url.searchParams.get("bc");
   if (breadcrumbs != null && breadcrumbs !== "") {
     baseUrl += breadcrumbs + ";";
   }
-  baseUrl += url.searchParams.get("geoDcid");
+  // Adds zoomed-in geoDcid and human-readable curGeo.
+  baseUrl += url.searchParams.get("geoDcid") + "~" + curGeo;
   window.location.href = baseUrl;
 }
 
 /**
  * Generates the breadcrumbs text from browser url.
+ * @param {string} human-readable current geo to display at end of list of
+ *                 hierarchy of locations.
  */
-function generateBreadCrumbs(): void {
+function generateBreadCrumbs(curGeo): void {
   const url = new URL(window.location.href);
 
   const breadcrumbs = url.searchParams.get("bc");
@@ -329,22 +360,24 @@ function generateBreadCrumbs(): void {
 
     // Build url for each reference in the breadcrumbs.
     let baseUrl = "/tools/choropleth";
-    baseUrl += buildChoroplethParams(["statVar", "pc", "level", "mdom"]);
+    baseUrl += buildChoroplethParams(["statVar", "pc", "mdom"]);
     baseUrl += "&geoDcid=";
 
     let breadcrumbsUpto = "";
     for (const index in crumbs) {
-      const levelRef = crumbs[index];
+      // The geoDcid reference and human-readable curGeo are separated by a '~'.
+      const levelRef = crumbs[index].split("~")[0];
+      const humanName = crumbs[index].split("~")[1];
 
       if (levelRef !== "") {
         // TODO(iancostello): Turn into react component to sanitize.
         const currUrl = baseUrl + levelRef + "&bc=" + breadcrumbsUpto;
         breadcrumbsDisplay.innerHTML +=
-          '<a href="' + currUrl + '">' + levelRef + "</a>" + " > ";
-        breadcrumbsUpto += levelRef + ";";
+          '<a href="' + currUrl + '">' + humanName + "</a>" + " > ";
+        breadcrumbsUpto += crumbs[index] + ";";
       }
     }
-    breadcrumbsDisplay.innerHTML += url.searchParams.get("geoDcid");
+    breadcrumbsDisplay.innerHTML += curGeo;
   }
 }
 

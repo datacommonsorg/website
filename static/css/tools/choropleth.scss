@@ -24,13 +24,17 @@
 }
 
 .border {
-  stroke: white;
-  stroke-width: 0; 
+  stroke: gray;
+  stroke-width: 0.5px; 
 }
 
 .border-highlighted {
   stroke: black;
-  stroke-width: 1px; 
+  stroke-width: 1px;
+}
+
+.clickable {
+  cursor: pointer;
 }
 
 #explore {
@@ -50,17 +54,23 @@
 #breadcrumbs {
   float: left;
   height: 30px;
-  width: 40%;
+  width: 100%;
   margin-left: 15px;
 }
 
 #hover-text-display {
   float: right;
+  min-width: 150px;
   width: 40%;
+  height: 0;
 }
 
 #heading {
   font-size: 32px;
+  text-align: center;
+}
+
+#error {
   text-align: center;
 }
 

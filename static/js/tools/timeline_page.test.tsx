@@ -35,6 +35,7 @@ test("Single place and single stats var", () => {
   document.body.innerHTML = '<button id="download-link"></div>';
   // Set url hash
   Object.defineProperty(window, "location", {
+    writable: true,
     value: {
       hash: "#&place=geoId/05&statsVar=Median_Age_Person",
     },
@@ -120,4 +121,37 @@ test("Single place and single stats var", () => {
     });
 });
 
-// TODO(Lijuan): two places and one statsVar, statsVar valid for one, invalid for the other
+// // TODO(Lijuan): two places and one statsVar, statsVar valid for one, invalid for the other
+
+test("statsVar not in PV-tree", () => {
+  Object.defineProperty(window, "location", {
+    value: {
+      hash: "#&place=geoId/05&statsVar=NotInTheTree",
+    },
+  });
+  // Mock drawGroupLineChart() as getComputedTextLength can has issue with jest
+  // and jsdom.
+  drawGroupLineChart_mock();
+  // mock all the async axios call
+  axios_mock();
+  // Do the actual render!
+  const wrapper = mount(<Page />);
+  // There are 3 promises to resolve:
+  // 1) all for [statsVarInfo, placeName, validStatsVar]
+  // 2) get hierachy.json
+  // 3) get stats
+  return Promise.resolve(wrapper)
+    .then(() => wrapper.update())
+    .then(() => wrapper.update())
+    .then(() => wrapper.update())
+    .then(() => wrapper.update())
+    .then(() => {
+      wrapper.update();
+      expect(
+        pretty(wrapper.find("#chart-region").getDOMNode().innerHTML)
+      ).toMatchSnapshot();
+      expect(
+        pretty(wrapper.find("#drill").getDOMNode().innerHTML)
+      ).toMatchSnapshot();
+    });
+});

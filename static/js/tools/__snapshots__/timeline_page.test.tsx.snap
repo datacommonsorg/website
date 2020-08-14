@@ -38,3 +38,20 @@ exports[`Single place and single stats var 3`] = `
   </ul>
 </div>"
 `;
+
+exports[`statsVar not in PV-tree 1`] = `
+"<div class=\\"card\\"><span class=\\"chartPerCapita\\">Per capita<button class=\\"perCapitaCheckbox\\"></button></span>
+  <div class=\\"chart-svg\\"></div>
+  <div class=\\"statsVarChipRegion\\">
+    <div class=\\"pv-chip mdl-chip--deletable\\"><span class=\\"mdl-chip__text\\">NotInTheTree</span><button class=\\"mdl-chip__action\\"><i class=\\"material-icons\\">cancel</i></button></div>
+  </div>
+</div>"
+`;
+
+exports[`statsVar not in PV-tree 2`] = `
+"<div class=\\"noedge\\">
+  <ul class=\\"noborder\\">
+    <li class=\\"value\\" id=\\"Demographics\\"><span><a class=\\"value-link\\">Demographics  <sup>(1787)</sup><img class=\\"right-caret\\" src=\\"/images/right-caret-light.png\\"></a></span></li>
+  </ul>
+</div>"
+`;

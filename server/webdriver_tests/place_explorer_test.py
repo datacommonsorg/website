@@ -14,7 +14,7 @@
 
 import unittest
 import urllib
-from base_test import WebdriverBaseTest
+from webdriver_tests.base_test import WebdriverBaseTest
 
 
 USA_URL = '/place?dcid=country/USA'
