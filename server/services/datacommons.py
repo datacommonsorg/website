@@ -88,11 +88,12 @@ def search(query_text, max_results):
     return response.json()
 
 
-def get_stats(place_dcids, stats_var):
+def get_stats(place_dcids, stats_var, obs_dates='latest'):
     url = API_ROOT + API_ENDPOINTS['get_stats']
     req_json = {
         'place': place_dcids,
-        'stats_var': stats_var
+        'stats_var': stats_var,
+        'obs_dates': obs_dates
     }
     return send_request(url, req_json=req_json)
 
