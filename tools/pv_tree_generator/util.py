@@ -64,7 +64,7 @@ class StatVar(object):
         pospec = ui_node.pop_obs_spec
         if set(self.pv.keys()) != set(pospec.prop_all):
             return False
-        if not pospec.cpv.items() <= self.pv.items():
+        if not pospec.dpv.items() <= self.pv.items():
             return False
         if not ui_node.pv.items() <= self.pv.items():
             return False
@@ -132,8 +132,7 @@ def _read_pop_obs_spec():
     """Read pop obs spec from the config file."""
 
     # Read pop obs spec
-    # POS_COMMON_PATH = "./pop_obs_spec_common.textproto"
-    POS_COMMON_PATH = "./test.textproto"
+    POS_COMMON_PATH = "./pop_obs_spec_common.textproto"
     pop_obs_spec_list = stat_config_pb2.PopObsSpecList()
 
     with open(POS_COMMON_PATH, 'r') as file_common:
@@ -147,11 +146,11 @@ def _read_pop_obs_spec():
             dpv[pv.prop] = pv.val
         obs_props = []
         for obs in pos.obs_props:
-            obs_props.append(ObsProp(obs.stat_type, obs.mprop,
+            obs_props.append(ObsProps(obs.stat_type, obs.mprop,
                                      obs.mqual, obs.mdenom, obs.sfactor, obs.name))
         # handle the old specs
         if not pos.obs_props:
-            obs_props.append(ObsProp(pos.stat_type, pos.mprop, "", "", "", ""))
+            obs_props.append(ObsProps(pos.stat_type, pos.mprop, "", "", "", ""))
         for v in pos.vertical:
             result[v][len(pos.cprop)].append(PopObsSpec(
                 pos.pop_type, list(pos.cprop), dpv, pos.name, obs_props))
@@ -194,12 +193,7 @@ def removeDuplicateStatsVar(stat_vars):
 def _read_stat_var():
     """Read all the statistical variables"""
 
-    # sv_dcid = dc.get_sv_dcids()
-    sv_dcid = ["Amount_EconomicActivity_GrossNationalIncome_PurchasingPowerParity",
-    "GrowthRate_Amount_EconomicActivity_GrossDomesticProduction",
-    "Amount_EconomicActivity_GrossDomesticProduction_Nominal",
-    "Amount_EconomicActivity_GrossDomesticProduction_RealValue",
-    "Count_Person"]
+    sv_dcid = dc.get_sv_dcids()
 
     """
     example of triples for one statsitical variable
