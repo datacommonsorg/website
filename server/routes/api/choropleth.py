@@ -33,6 +33,20 @@ bp = flask.Blueprint(
   url_prefix='/api/choropleth'
 )
 
+def get_latest_data(payload_for_geo):
+    """ Returns the most recent data as from a DataCommons API payload.
+    
+    Args:
+        payload_for_geo -> The payload from a get_stats call for a
+            particular dcid.
+    Returns:
+        The most recent data available for that dcid.
+    """
+    time_series = payload_for_geo.get('data')
+    if not time_series: return None
+    max_date = max(time_series)
+    return time_series[max_date]
+
 @bp.route('/values')
 def choropleth_values():
     """Returns data for geographic subregions for a certain statistical
@@ -268,17 +282,3 @@ def child_statvars():
         stat_vars_for_subgeo = stat_vars_for_subgeo.union(
             place.statsvars(geoId))
     return json.dumps(list(stat_vars_for_subgeo))
-
-def get_latest_data(payload_for_geo):
-    """ Returns the most recent data as from a DataCommons API payload.
-    
-    Args:
-        payload_for_geo -> The payload from a get_stats call for a
-            particular dcid.
-    Returns:
-        The most recent data available for that dcid.
-    """
-    time_series = payload_for_geo.get('data')
-    if not time_series: return None
-    max_date = max(time_series)
-    return time_series[max_date]
