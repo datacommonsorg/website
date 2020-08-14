@@ -3,6 +3,7 @@ __pycache__/
 .pytest_cache
 *.pyc
 .env/
+test_screenshots/
 
 # Production static files
 dist/
