@@ -60,7 +60,7 @@ def choropleth_values():
     if not display_level:
         return flask.jsonify({"error":
            f"Failed to automatically resolve geographic subdivision level for" +
-           f"{dcid}. Please provide a 'level' field manually."}, 400) 
+           f"{requested_geoDcid}. Please provide a 'level' field manually."}, 400)
 
     # Get all subgeos.
     geos_contained_in_place = dc.get_places_in(
@@ -250,7 +250,7 @@ def child_statvars():
     if not requested_level:
         return flask.jsonify({"error":
            f"Failed to automatically resolve geographic subdivision level for" +
-           f"{requested_geoDcid}. Please provide a 'level' field manually."}, 400) 
+           f"{dcid}. Please provide a 'level' field manually."}, 400) 
 
     # Get sublevels.
     geos_contained_in_place = dc.get_places_in(
