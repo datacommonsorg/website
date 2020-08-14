@@ -35,13 +35,14 @@ def get_property_value(dcid, prop, out=True):
     return dc.get_property_values([dcid], prop, out)[dcid]
 
 
-@bp.route('/')
+@bp.route('', strict_slashes=False)
 def place():
     place_dcid = flask.request.args.get('dcid')
     if not place_dcid:
         return flask.redirect(flask.url_for('place.place', dcid='country/USA'))
     place_types = get_property_value(place_dcid, 'typeOf')
-    # We prefer to use specific type like "State", "County" over "AdministrativeArea"
+    # We prefer to use specific type like "State", "County" over
+    # "AdministrativeArea"
     chosen_type = None
     for place_type in place_types:
         if not chosen_type or chosen_type.startswith('AdministrativeArea'):
