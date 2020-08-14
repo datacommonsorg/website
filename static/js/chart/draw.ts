@@ -20,7 +20,7 @@ import { DataGroup, DataPoint, PlotParams, Style, getColorFn } from "./base";
 
 const NUM_X_TICKS = 5;
 const NUM_Y_TICKS = 5;
-const MARGIN = { top: 40, right: 10, bottom: 30, left: 35, yAxis: 3, grid: 5 };
+const MARGIN = { top: 20, right: 10, bottom: 30, left: 35, yAxis: 3, grid: 5 };
 const LEGEND = {
   ratio: 0.2,
   minTextWidth: 100,
@@ -34,7 +34,10 @@ const SOURCE = {
   topMargin: 15,
   height: 20,
 };
-const LABELTOPMARGIN = 10;
+const YLABEL = {
+  topMargin: 10,
+  height: 15,
+};
 
 function appendLegendElem(
   elem: string,
@@ -523,7 +526,7 @@ function drawGroupLineChart(
   const yScale = d3
     .scaleLinear()
     .domain([minV, maxV])
-    .range([height - MARGIN.bottom, MARGIN.top])
+    .range([height - MARGIN.bottom, MARGIN.top+YLABEL.height])
     .nice(NUM_Y_TICKS);
 
   addXAxis(svg, height, xScale);
@@ -534,7 +537,7 @@ function drawGroupLineChart(
     .append("text")
     .attr("class", "label")
     .attr("text-anchor", "start")
-    .attr("transform", `translate(${MARGIN.grid}, ${LABELTOPMARGIN})`)
+    .attr("transform", `translate(${MARGIN.grid}, ${YLABEL.topMargin})`)
     .text(ylabel);
 
   for (const place in dataGroupsDict) {
