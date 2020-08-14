@@ -1,11 +1,55 @@
 {
+ "Economics": {
+  "sv": [
+   "top"
+  ],
+  "l": "Economics",
+  "t": "p",
+  "c": 3,
+  "cd": [
+   {
+    "sv": [
+     "Count_Establishment"
+    ],
+    "l": "Number of Establishments",
+    "t": "v",
+    "c": 1
+   },
+   {
+    "sv": [
+     "WagesAnnual_Establishment"
+    ],
+    "l": "Annual Wages of Establishments",
+    "t": "v",
+    "c": 1
+   },
+   {
+    "sv": [
+     "Count_Worker"
+    ],
+    "l": "Labor Force",
+    "t": "v",
+    "c": 1
+   },
+   {
+    "l": "Annual Wages of Establishments by Industry",
+    "t": "p",
+    "c": 0
+   },
+   {
+    "l": "Activity Source",
+    "t": "p",
+    "c": 0
+   }
+  ]
+ },
  "Demographics": {
   "sv": [
    "top"
   ],
   "l": "Demographics",
   "t": "p",
-  "c": 1787,
+  "c": 3,
   "cd": [
    {
     "sv": [
@@ -34,420 +78,62 @@
    {
     "l": "Age",
     "t": "p",
-    "c": 432
+    "c": 0
    },
    {
     "l": "Citizenship",
     "t": "p",
-    "c": 5
+    "c": 0
    },
    {
     "l": "Gender",
     "t": "p",
-    "c": 1342
+    "c": 0
    },
    {
     "l": "Income",
     "t": "p",
-    "c": 42
+    "c": 0
    },
    {
     "l": "Marital Status",
     "t": "p",
-    "c": 73
+    "c": 0
    },
    {
     "l": "Nativity",
     "t": "p",
-    "c": 114
+    "c": 0
    },
    {
     "l": "Place Of Birth",
     "t": "p",
-    "c": 108
+    "c": 0
    },
    {
     "l": "Poverty Status",
     "t": "p",
-    "c": 272
+    "c": 0
    },
    {
     "l": "Race",
     "t": "p",
-    "c": 1241
+    "c": 0
    },
    {
     "l": "Veteran Status",
     "t": "p",
-    "c": 14
+    "c": 0
    },
    {
     "l": "Educational Attainment",
     "t": "p",
-    "c": 38
+    "c": 0
    },
    {
     "l": "Level Of School",
     "t": "p",
-    "c": 43
-   }
-  ]
- },
- "Crime": {
-  "sv": [
-   "top"
-  ],
-  "l": "Crime",
-  "t": "p",
-  "c": 11,
-  "cd": [
-   {
-    "l": "Crime Type",
-    "t": "p",
-    "c": 11
-   }
-  ]
- },
- "Education": {
-  "sv": [
-   "top"
-  ],
-  "l": "Education",
-  "t": "p",
-  "c": 215,
-  "cd": [
-   {
-    "l": "Educational Attainment",
-    "t": "p",
-    "c": 22
-   },
-   {
-    "l": "Level Of School",
-    "t": "p",
-    "c": 43
-   },
-   {
-    "l": "School Enrollment",
-    "t": "p",
-    "c": 22
-   },
-   {
-    "l": "Detailed Level Of School",
-    "t": "p",
-    "c": 128
-   }
-  ]
- },
- "Employment": {
-  "sv": [
-   "top"
-  ],
-  "l": "Employment",
-  "t": "p",
-  "c": 196,
-  "cd": [
-   {
-    "sv": [
-     "UnemploymentRate_Person"
-    ],
-    "l": "Unemployment Rate",
-    "t": "v",
-    "c": 1
-   },
-   {
-    "sv": [
-     "Count_Person_InLaborForce"
-    ],
-    "l": "Labor Force",
-    "t": "v",
-    "c": 1
-   },
-   {
-    "sv": [
-     "Count_Person_Employed"
-    ],
-    "l": "Employed",
-    "t": "v",
-    "c": 1
-   },
-   {
-    "sv": [
-     "Count_Person_Unemployed"
-    ],
-    "l": "Unemployed",
-    "t": "v",
-    "c": 1
-   },
-   {
-    "l": "Establishments by Industry",
-    "t": "p",
-    "c": 90
-   },
-   {
-    "l": "Labor Force by Industry",
-    "t": "p",
-    "c": 90
-   },
-   {
-    "l": "Unemployment Insurance Claims",
-    "t": "p",
-    "c": 12
-   }
-  ]
- },
- "Health": {
-  "sv": [
-   "top"
-  ],
-  "l": "Health",
-  "t": "p",
-  "c": 1213,
-  "cd": [
-   {
-    "sv": [
-     "Count_Death"
-    ],
-    "l": "Mortality",
-    "t": "v",
-    "c": 1101
-   },
-   {
-    "l": "Health Outcomes",
-    "t": "p",
-    "c": 15
-   },
-   {
-    "l": "Health Preventions",
-    "t": "p",
-    "c": 3
-   },
-   {
-    "l": "Health Behaviors",
-    "t": "p",
-    "c": 9
-   },
-   {
-    "l": "Drug Prescribed",
-    "t": "p",
-    "c": 78
-   },
-   {
-    "l": "COVID-19 Incidents",
-    "t": "p",
-    "c": 7
-   }
-  ]
- },
- "Housing": {
-  "sv": [
-   "top"
-  ],
-  "l": "Housing",
-  "t": "p",
-  "c": 97,
-  "cd": [
-   {
-    "sv": [
-     "Count_HousingUnit"
-    ],
-    "l": "Housing Units",
-    "t": "v",
-    "c": 1
-   },
-   {
-    "l": "Housing Unit Cash Rent Status",
-    "t": "p",
-    "c": 2
-   },
-   {
-    "l": "Housing Unit Gross Rent",
-    "t": "p",
-    "c": 25
-   },
-   {
-    "l": "Housing Unit Home Value",
-    "t": "p",
-    "c": 27
-   },
-   {
-    "l": "Housing Unit Householder Race",
-    "t": "p",
-    "c": 29
-   },
-   {
-    "l": "Housing Unit Number of Rooms",
-    "t": "p",
-    "c": 9
-   },
-   {
-    "l": "Housing Unit Occupancy Status",
-    "t": "p",
-    "c": 2
-   },
-   {
-    "l": "Housing Unit Occupancy Tenure",
-    "t": "p",
-    "c": 20
-   }
-  ]
- },
- "Household": {
-  "sv": [
-   "top"
-  ],
-  "l": "Household",
-  "t": "p",
-  "c": 680,
-  "cd": [
-   {
-    "sv": [
-     "Count_Household"
-    ],
-    "l": "Household",
-    "t": "v",
-    "c": 1
-   },
-   {
-    "l": "Household by Householder Age",
-    "t": "p",
-    "c": 510
-   },
-   {
-    "l": "Household by Householder Race",
-    "t": "p",
-    "c": 612
-   },
-   {
-    "l": "Household Income",
-    "t": "p",
-    "c": 640
-   }
-  ]
- },
- "Disasters": {
-  "sv": [
-   "top"
-  ],
-  "l": "Disasters",
-  "t": "p",
-  "c": 24,
-  "cd": [
-   {
-    "sv": [
-     "Count_CycloneEvent"
-    ],
-    "l": "Cyclones",
-    "t": "v",
-    "c": 5
-   },
-   {
-    "sv": [
-     "Count_DroughtEvent"
-    ],
-    "l": "Droughts",
-    "t": "v",
-    "c": 1
-   },
-   {
-    "sv": [
-     "Count_EarthquakeEvent"
-    ],
-    "l": "Earthquakes",
-    "t": "v",
-    "c": 14
-   },
-   {
-    "sv": [
-     "Count_FloodEvent"
-    ],
-    "l": "Floods",
-    "t": "v",
-    "c": 1
-   },
-   {
-    "sv": [
-     "Count_ThunderstormWindEvent"
-    ],
-    "l": "Thunderstorm Wind Gusts",
-    "t": "v",
-    "c": 1
-   },
-   {
-    "sv": [
-     "Count_TornadoEvent"
-    ],
-    "l": "Tornadoes",
-    "t": "v",
-    "c": 1
-   },
-   {
-    "sv": [
-     "Count_WildlandFireEvent"
-    ],
-    "l": "Wildland Fires",
-    "t": "v",
-    "c": 1
-   }
-  ]
- },
- "Environment": {
-  "sv": [
-   "top"
-  ],
-  "l": "Environment",
-  "t": "p",
-  "c": 0,
-  "cd": []
- },
- "Economics": {
-  "sv": [
-   "top"
-  ],
-  "l": "Economics",
-  "t": "p",
-  "c": 24,
-  "cd": [
-   {
-    "sv": [
-     "Count_Establishment"
-    ],
-    "l": "Number of Establishments",
-    "t": "v",
-    "c": 1
-   },
-   {
-    "sv": [
-     "WagesAnnual_Establishment"
-    ],
-    "l": "Annual Wages of Establishments",
-    "t": "v",
-    "c": 1
-   },
-   {
-    "sv": [
-     "Count_Worker"
-    ],
-    "l": "Labor Force",
-    "t": "v",
-    "c": 1
-   },
-   {
-    "sv": [
-     "GrowthRate_Amount_EconomicActivity_GrossDomesticProduction"
-    ],
-    "l": "Gross Domestic Production Growth Rate",
-    "t": "v",
-    "c": 1
-   },
-   {
-    "l": "Annual Wages of Establishments by Industry",
-    "t": "p",
-    "c": 17
-   },
-   {
-    "l": "Measurement Qualifier",
-    "t": "p",
-    "c": 3
+    "c": 0
    }
   ]
  }

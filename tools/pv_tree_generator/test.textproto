@@ -1,0 +1,30 @@
+spec: {
+  pop_type: "EconomicActivity"
+  vertical: "Economics"
+  cprop: "activitySource"
+  obs_props: {
+     mprop: "amount"
+     stat_type: "growthRate"
+     name: "Growth Rate"
+  }
+  obs_props:{
+    mprop: "amount"
+    stat_type: "measuredValue"
+    mqual: "Nominal"
+    name: "Nominal"
+  }
+  obs_props:{
+    mprop: "amount"
+    stat_type: "measuredValue"
+    mqual: "PurchasingPowerParity"
+    name: "Purchasing Power Parity"
+  }
+}
+
+spec: {
+  pop_type: "Person"
+  mprop: "count"
+  stat_type: "measuredValue"
+  name: "Population"
+  vertical: "Demographics"
+}

@@ -30,7 +30,8 @@ def main():
     data = {}
     data_top = {}
     statsvar_path_all = {}
-    for idx, vertical in enumerate(constants.VERTICALS):
+    # for idx, vertical in enumerate(constants.VERTICALS):
+    for idx, vertical in enumerate(["Economics", "Demographics"]):
         logging.info(vertical)
         root, statsvar_path = build_tree(
             vertical, pop_obs_spec[vertical], stat_vars, idx)

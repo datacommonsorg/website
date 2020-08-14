@@ -21,6 +21,14 @@ package datacommons.proto;
 // This proto contains the specification of a PopObs instance. It contains
 // the intended population type, measured property, stats type, constraining
 // property and hidden property-value pairs.
+message ObsProp {
+  optional string stat_type =1;
+  optional string mprop=2;
+  optional string mqual=3;
+  optional string mdenom=4;
+  optional string sfactor=5;
+  optional string name=6;
+}
 message PopObsSpec {
   // A property-value pair
   message PV {
@@ -44,6 +52,7 @@ message PopObsSpec {
   optional string name = 6;
   // Verticals of this spec.
   repeated string vertical = 7;
+  repeated ObsProp obs_props = 8;
 }
 
 // All published Pop/Obs spec. Stored in a textproto.

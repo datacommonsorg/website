@@ -19,10 +19,76 @@ DESCRIPTOR = _descriptor.FileDescriptor(
   package='datacommons.proto',
   syntax='proto2',
   serialized_options=None,
-  serialized_pb=_b('\n\x11stat_config.proto\x12\x11\x64\x61tacommons.proto\"\xbf\x01\n\nPopObsSpec\x12\x10\n\x08pop_type\x18\x01 \x01(\t\x12\r\n\x05mprop\x18\x02 \x01(\t\x12\x11\n\tstat_type\x18\x03 \x01(\t\x12\r\n\x05\x63prop\x18\x04 \x03(\t\x12-\n\x03\x64pv\x18\x05 \x03(\x0b\x32 .datacommons.proto.PopObsSpec.PV\x12\x0c\n\x04name\x18\x06 \x01(\t\x12\x10\n\x08vertical\x18\x07 \x03(\t\x1a\x1f\n\x02PV\x12\x0c\n\x04prop\x18\x01 \x01(\t\x12\x0b\n\x03val\x18\x02 \x01(\t\"=\n\x0ePopObsSpecList\x12+\n\x04spec\x18\x01 \x03(\x0b\x32\x1d.datacommons.proto.PopObsSpec')
+  serialized_pb=_b('\n\x11stat_config.proto\x12\x11\x64\x61tacommons.proto\"i\n\x07ObsProp\x12\x11\n\tstat_type\x18\x01 \x01(\t\x12\r\n\x05mprop\x18\x02 \x01(\t\x12\r\n\x05mqual\x18\x03 \x01(\t\x12\x0e\n\x06mdenom\x18\x04 \x01(\t\x12\x0f\n\x07sfactor\x18\x05 \x01(\t\x12\x0c\n\x04name\x18\x06 \x01(\t\"\xee\x01\n\nPopObsSpec\x12\x10\n\x08pop_type\x18\x01 \x01(\t\x12\r\n\x05mprop\x18\x02 \x01(\t\x12\x11\n\tstat_type\x18\x03 \x01(\t\x12\r\n\x05\x63prop\x18\x04 \x03(\t\x12-\n\x03\x64pv\x18\x05 \x03(\x0b\x32 .datacommons.proto.PopObsSpec.PV\x12\x0c\n\x04name\x18\x06 \x01(\t\x12\x10\n\x08vertical\x18\x07 \x03(\t\x12-\n\tobs_props\x18\x08 \x03(\x0b\x32\x1a.datacommons.proto.ObsProp\x1a\x1f\n\x02PV\x12\x0c\n\x04prop\x18\x01 \x01(\t\x12\x0b\n\x03val\x18\x02 \x01(\t\"=\n\x0ePopObsSpecList\x12+\n\x04spec\x18\x01 \x03(\x0b\x32\x1d.datacommons.proto.PopObsSpec')
 )
 
 
+
+
+_OBSPROP = _descriptor.Descriptor(
+  name='ObsProp',
+  full_name='datacommons.proto.ObsProp',
+  filename=None,
+  file=DESCRIPTOR,
+  containing_type=None,
+  fields=[
+    _descriptor.FieldDescriptor(
+      name='stat_type', full_name='datacommons.proto.ObsProp.stat_type', index=0,
+      number=1, type=9, cpp_type=9, label=1,
+      has_default_value=False, default_value=_b("").decode('utf-8'),
+      message_type=None, enum_type=None, containing_type=None,
+      is_extension=False, extension_scope=None,
+      serialized_options=None, file=DESCRIPTOR),
+    _descriptor.FieldDescriptor(
+      name='mprop', full_name='datacommons.proto.ObsProp.mprop', index=1,
+      number=2, type=9, cpp_type=9, label=1,
+      has_default_value=False, default_value=_b("").decode('utf-8'),
+      message_type=None, enum_type=None, containing_type=None,
+      is_extension=False, extension_scope=None,
+      serialized_options=None, file=DESCRIPTOR),
+    _descriptor.FieldDescriptor(
+      name='mqual', full_name='datacommons.proto.ObsProp.mqual', index=2,
+      number=3, type=9, cpp_type=9, label=1,
+      has_default_value=False, default_value=_b("").decode('utf-8'),
+      message_type=None, enum_type=None, containing_type=None,
+      is_extension=False, extension_scope=None,
+      serialized_options=None, file=DESCRIPTOR),
+    _descriptor.FieldDescriptor(
+      name='mdenom', full_name='datacommons.proto.ObsProp.mdenom', index=3,
+      number=4, type=9, cpp_type=9, label=1,
+      has_default_value=False, default_value=_b("").decode('utf-8'),
+      message_type=None, enum_type=None, containing_type=None,
+      is_extension=False, extension_scope=None,
+      serialized_options=None, file=DESCRIPTOR),
+    _descriptor.FieldDescriptor(
+      name='sfactor', full_name='datacommons.proto.ObsProp.sfactor', index=4,
+      number=5, type=9, cpp_type=9, label=1,
+      has_default_value=False, default_value=_b("").decode('utf-8'),
+      message_type=None, enum_type=None, containing_type=None,
+      is_extension=False, extension_scope=None,
+      serialized_options=None, file=DESCRIPTOR),
+    _descriptor.FieldDescriptor(
+      name='name', full_name='datacommons.proto.ObsProp.name', index=5,
+      number=6, type=9, cpp_type=9, label=1,
+      has_default_value=False, default_value=_b("").decode('utf-8'),
+      message_type=None, enum_type=None, containing_type=None,
+      is_extension=False, extension_scope=None,
+      serialized_options=None, file=DESCRIPTOR),
+  ],
+  extensions=[
+  ],
+  nested_types=[],
+  enum_types=[
+  ],
+  serialized_options=None,
+  is_extendable=False,
+  syntax='proto2',
+  extension_ranges=[],
+  oneofs=[
+  ],
+  serialized_start=40,
+  serialized_end=145,
+)
 
 
 _POPOBSSPEC_PV = _descriptor.Descriptor(
@@ -58,8 +124,8 @@ _POPOBSSPEC_PV = _descriptor.Descriptor(
   extension_ranges=[],
   oneofs=[
   ],
-  serialized_start=201,
-  serialized_end=232,
+  serialized_start=355,
+  serialized_end=386,
 )
 
 _POPOBSSPEC = _descriptor.Descriptor(
@@ -118,6 +184,13 @@ _POPOBSSPEC = _descriptor.Descriptor(
       message_type=None, enum_type=None, containing_type=None,
       is_extension=False, extension_scope=None,
       serialized_options=None, file=DESCRIPTOR),
+    _descriptor.FieldDescriptor(
+      name='obs_props', full_name='datacommons.proto.PopObsSpec.obs_props', index=7,
+      number=8, type=11, cpp_type=10, label=3,
+      has_default_value=False, default_value=[],
+      message_type=None, enum_type=None, containing_type=None,
+      is_extension=False, extension_scope=None,
+      serialized_options=None, file=DESCRIPTOR),
   ],
   extensions=[
   ],
@@ -130,8 +203,8 @@ _POPOBSSPEC = _descriptor.Descriptor(
   extension_ranges=[],
   oneofs=[
   ],
-  serialized_start=41,
-  serialized_end=232,
+  serialized_start=148,
+  serialized_end=386,
 )
 
 
@@ -161,16 +234,25 @@ _POPOBSSPECLIST = _descriptor.Descriptor(
   extension_ranges=[],
   oneofs=[
   ],
-  serialized_start=234,
-  serialized_end=295,
+  serialized_start=388,
+  serialized_end=449,
 )
 
 _POPOBSSPEC_PV.containing_type = _POPOBSSPEC
 _POPOBSSPEC.fields_by_name['dpv'].message_type = _POPOBSSPEC_PV
+_POPOBSSPEC.fields_by_name['obs_props'].message_type = _OBSPROP
 _POPOBSSPECLIST.fields_by_name['spec'].message_type = _POPOBSSPEC
+DESCRIPTOR.message_types_by_name['ObsProp'] = _OBSPROP
 DESCRIPTOR.message_types_by_name['PopObsSpec'] = _POPOBSSPEC
 DESCRIPTOR.message_types_by_name['PopObsSpecList'] = _POPOBSSPECLIST
 _sym_db.RegisterFileDescriptor(DESCRIPTOR)
+
+ObsProp = _reflection.GeneratedProtocolMessageType('ObsProp', (_message.Message,), dict(
+  DESCRIPTOR = _OBSPROP,
+  __module__ = 'stat_config_pb2'
+  # @@protoc_insertion_point(class_scope:datacommons.proto.ObsProp)
+  ))
+_sym_db.RegisterMessage(ObsProp)
 
 PopObsSpec = _reflection.GeneratedProtocolMessageType('PopObsSpec', (_message.Message,), dict(
 

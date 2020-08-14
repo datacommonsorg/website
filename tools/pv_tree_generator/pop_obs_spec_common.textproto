@@ -1718,39 +1718,50 @@ spec: {
   }
 }
 
-spec: {
-  pop_type: "EconomicActivity"
-  mprop: "amount"
-  stat_type: "growthRate"
-  vertical: "Economics"
-  name: "Gross Domestic Production Growth Rate"
-  dpv: {
-    prop: "activitySource"
-    val: "GrossDomesticProduction"
-  }
-}
+
 
 spec: {
   pop_type: "EconomicActivity"
-  mprop: "amount"
-  stat_type: "measuredValue"
   vertical: "Economics"
-  cprop: "measurementQualifier"
-  dpv: {
-    prop: "activitySource"
-    val: "GrossDomesticProduction"
+  cprop: "activitySource"
+  obs_props: {
+     mprop: "amount"
+     stat_type: "growthRate"
+     name: "Growth Rate"
   }
-}
+  obs_props:{
+    mprop: "amount"
+    stat_type: "measuredValue"
+    mqual: "Nominal"
+    name: "Nominal"
+  }
+  obs_props:{
+    mprop: "amount"
+    stat_type: "measuredValue"
+    mqual: "RealValue"
+    name: "Real value"
+  }
 
-spec: {
-  pop_type: "EconomicActivity"
-  mprop: "amount"
-  stat_type: "measuredValue"
-  vertical: "Economics"
-  cprop: "measurementQualifier"
-  cprop: "measurementDenominator"
-  dpv: {
-    prop: "activitySource"
-    val: "GrossDomesticProduction"
+  obs_props:{
+    mprop: "amount"
+    stat_type: "measuredValue"
+    mqual: "Nominal"
+    mdenom: "PerCapita"
+    name: "Nominal Per Capita"
+  }
+
+  obs_props:{
+    mprop: "amount"
+    stat_type: "measuredValue"
+    mqual: "PurchasingPowerParity"
+    name: "Purchasing Power Parity"
+  }
+
+  obs_props:{
+    mprop: "amount"
+    stat_type: "measuredValue"
+    mqual: "PurchasingPowerParity"
+    mdenom: "PerCapita"
+    name: "Purchasing Power Parity Per Capita"
   }
 }

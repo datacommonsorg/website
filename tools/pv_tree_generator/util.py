@@ -19,31 +19,44 @@ import stat_config_pb2
 import dc_request as dc
 
 
-class PopObsSpec(object):
-    """Represents a StatisticalPopulation & Observation spec."""
+class ObsProps(object):
+    """represent the properties of a statsVar"""
 
-    def __init__(self, pop_type, mprop, stats, properties, cpv, name):
-        self.pop_type = pop_type  # population type, string
-        self.mprop = mprop  # measured property, string
-        self.stats = stats  # stat_type, string
-        self.properties = properties  # properties, list of string
-        # constrained property-value pairs, dict{string: string}
-        self.cpv = cpv
+    def __init__(self, stat_type, mprop, mqual, mdenom, sfactor, name):
+        self.stat_type = stat_type
+        self.mprop = mprop
+        self.mqual = mqual
+        self.mdenom = mdenom
+        self.sfactor = sfactor
         self.name = name
-        self.prop_all = tuple(sorted(properties + list(cpv.keys())))
-        self.key = (pop_type, mprop, stats) + self.prop_all
+        self.key = (stat_type, mprop, mqual, mdenom, sfactor)
+
+
+class PopObsSpec(object):
+    """Represents a UI node with multiple statsVars specified in obs_Props"""
+
+    def __init__(self, pop_type, cprops, dpv, name, obs_props):
+        self.pop_type = pop_type  # population type, string
+        self.cprops = cprops  # properties, list of string
+        # constrained property-value pairs, dict{string: string}
+        self.dpv = dpv
+        self.name = name
+        self.prop_all = tuple(sorted(cprops + list(dpv.keys())))
+        self.obs_props = obs_props  # list of ObsProps
 
 
 class StatVar(object):
     """Represents a StatisticalVariable"""
 
-    def __init__(self, pop_type, mprop, stats, pv, dcid, se):
-        self.pop_type = pop_type  # population_type, string
-        self.mprop = mprop  # measured property, string
-        self.stats = stats  # stat_type, string
-        self.pv = pv  # property-value pairs, dict{string: string}
+    def __init__(self, pop_type, mprop, stats, mqual, mdenom, sfactor, pv, dcid, se):
+        self.pop_type = pop_type  # population_type
+        self.mprop = mprop  # measured property
+        self.stats = stats  # stat_type
+        self.mqual = mqual  # measurement qualifier
+        self.pv = pv  # constraint property-value pairs, dict{string: string}
         self.dcid = dcid
-        self.key = (pop_type, mprop, stats) + tuple(sorted(list(pv.keys())))
+        self.key = (pop_type, stats, mprop, mqual, mdenom,
+                    sfactor) + tuple(sorted(list(pv.keys())))
         self.se = se
 
     def match_ui_node(self, ui_node):
@@ -61,12 +74,14 @@ class StatVar(object):
 class UiNode:
     """Class holds the data of a node in the pv menu tree. """
 
-    def __init__(self, pop_obs_spec, pv, is_prop, prop=None):
+    def __init__(self, pop_obs_spec, obs_props, pv, is_prop, prop=None):
         self.pop_obs_spec = pop_obs_spec  # pop_obs_spec for this node.
+        self.obs_props = obs_props # the Ui node represent one ObsProps
         self.is_prop = is_prop  # is the node a "Property" or a "Value" node.
         self.prop = prop  # the property it represents
         self.pv = pv  # ordered dict of property-value this node inherits
         # from its parent.
+        self.key = tuple([pop_obs_spec.pop_type])+obs_props.key+ pop_obs_spec.prop_all
 
     @property
     def pop_type(self):
@@ -74,11 +89,11 @@ class UiNode:
 
     @property
     def mprop(self):
-        return self.pop_obs_spec.mprop
+        return self.obs_props.mprop
 
     @property
     def stats(self):
-        return self.pop_obs_spec.stats
+        return self.obs_props.stat_type
 
     @property
     def cpv(self):
@@ -93,7 +108,9 @@ class UiNode:
             else:
                 return self.prop
         else:  # This is a Value
-            if self.prop:
+            if self.obs_props.name:
+                return self.obs_props.name
+            elif self.prop:
                 return self.pv[self.prop]
             elif self.pop_obs_spec.name:
                 return self.pop_obs_spec.name
@@ -115,7 +132,8 @@ def _read_pop_obs_spec():
     """Read pop obs spec from the config file."""
 
     # Read pop obs spec
-    POS_COMMON_PATH = "./pop_obs_spec_common.textproto"
+    # POS_COMMON_PATH = "./pop_obs_spec_common.textproto"
+    POS_COMMON_PATH = "./test.textproto"
     pop_obs_spec_list = stat_config_pb2.PopObsSpecList()
 
     with open(POS_COMMON_PATH, 'r') as file_common:
@@ -124,13 +142,19 @@ def _read_pop_obs_spec():
 
     result = collections.defaultdict(lambda: collections.defaultdict(list))
     for pos in pop_obs_spec_list.spec:
-        cpv = {}
+        dpv = {}
         for pv in pos.dpv:
-            cpv[pv.prop] = pv.val
+            dpv[pv.prop] = pv.val
+        obs_props = []
+        for obs in pos.obs_props:
+            obs_props.append(ObsProp(obs.stat_type, obs.mprop,
+                                     obs.mqual, obs.mdenom, obs.sfactor, obs.name))
+        # handle the old specs
+        if not pos.obs_props:
+            obs_props.append(ObsProp(pos.stat_type, pos.mprop, "", "", "", ""))
         for v in pos.vertical:
-            result[v][len(pos.cprop)].append(
-                PopObsSpec(pos.pop_type, pos.mprop, pos.stat_type, list(pos.cprop),
-                           cpv, pos.name))
+            result[v][len(pos.cprop)].append(PopObsSpec(
+                pos.pop_type, list(pos.cprop), dpv, pos.name, obs_props))
     return result
 
 
@@ -170,7 +194,13 @@ def removeDuplicateStatsVar(stat_vars):
 def _read_stat_var():
     """Read all the statistical variables"""
 
-    sv_dcid = dc.get_sv_dcids()
+    # sv_dcid = dc.get_sv_dcids()
+    sv_dcid = ["Amount_EconomicActivity_GrossNationalIncome_PurchasingPowerParity",
+    "GrowthRate_Amount_EconomicActivity_GrossDomesticProduction",
+    "Amount_EconomicActivity_GrossDomesticProduction_Nominal",
+    "Amount_EconomicActivity_GrossDomesticProduction_RealValue",
+    "Count_Person"]
+
     """
     example of triples for one statsitical variable
     ('dc/014es05x0d5l', 'measurementMethod', 'CensusACS5yrSurvey')
@@ -203,7 +233,7 @@ def _read_stat_var():
             if prop == "constraintProperties":
                 constraint_properties.append(val)
             else:
-                sv_dict[prop] = val 
+                sv_dict[prop] = val
         # prop_val keeps all the constraint pv pairs
         prop_val = {}
         for property in constraint_properties:
@@ -211,13 +241,9 @@ def _read_stat_var():
                 raise Exception('constraint property:{} not found in statistical'
                                 'variable with dcid: {}'.format(property, dcid))
             prop_val[property] = sv_dict[property]
-        # add measurement constraints such as measurementDenominator to prop_val 
-        measurementConstraints = ["measurementDenominator", "measurementQualifier"]
-        for constraint in measurementConstraints:
-            if constraint in sv_dict:
-                prop_val[constraint] = sv_dict[constraint]
+
         # Super enum
-        se = {}  
+        se = {}
         if 'crimeType' in prop_val:
             v = prop_val.get('crimeType', '')
             if v in ['AggravatedAssault', 'ForcibleRape', 'Robbery',
@@ -227,7 +253,7 @@ def _read_stat_var():
                 se = {'crimeType': 'PropertyCrime'}
         # create the statsVar object
         sv = StatVar(sv_dict["populationType"], sv_dict["measuredProperty"],
-                     sv_dict["statType"], prop_val, dcid, se)
+                     sv_dict["statType"], sv_dict["measurementQualifier"], sv_dict["measurementDenominator"], sv_dict["scalingFactor"], prop_val, dcid, se)
         stat_vars[sv.key].append(sv)
     stat_vars = removeDuplicateStatsVar(stat_vars)
     return stat_vars
