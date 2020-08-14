@@ -57,7 +57,7 @@ steps:
     echo $SHORT_SHA > /workspace/commit.txt
     if [[ "$(git show $SHORT_SHA | head -2 | tail -1)" == Merge:*  ]]
     then
-      echo "$(cut -d' ' -f2 <<<`git show $SHORT_SHA | head -2 | tail -1`)" > /workspace/commit.txt
+      echo $(cut -d' ' -f2 <<<`git show $SHORT_SHA | head -2 | tail -1`) > /workspace/commit.txt
     fi
     echo `git show $(cat /workspace/commit.txt) | head -n 2 | tail -n 1 | cut -d "<" -f2 | cut -d ">" -f1` > /workspace/email.txt
 
