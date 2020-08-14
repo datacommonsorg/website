@@ -59,7 +59,7 @@ class ChoroplethMap extends Component {
     let geoUrl = "/api/choropleth/geo";
     geoUrl += buildChoroplethParams(["pc", "geoDcid", "level", "mdom"]);
     let valueUrl = "/api/choropleth/values";
-    valueUrl += buildChoroplethParams(["geoDcid", "statVar"]);
+    valueUrl += buildChoroplethParams(["geoDcid", "statVar", "level"]);
 
     // Create request and generate map.
     const geoPromise = axios.get(geoUrl);
@@ -331,7 +331,7 @@ function redirectToGeo(geoDcid: string, curGeo: string): void {
   const url = new URL(window.location.href);
 
   let baseUrl = "/tools/choropleth";
-  baseUrl += buildChoroplethParams(["statVar", "pc", "level", "mdom"]);
+  baseUrl += buildChoroplethParams(["statVar", "pc", "mdom"]);
   baseUrl += "&geoDcid=" + geoDcid;
   baseUrl += "&bc=";
 
@@ -360,7 +360,7 @@ function generateBreadCrumbs(curGeo): void {
 
     // Build url for each reference in the breadcrumbs.
     let baseUrl = "/tools/choropleth";
-    baseUrl += buildChoroplethParams(["statVar", "pc", "level", "mdom"]);
+    baseUrl += buildChoroplethParams(["statVar", "pc", "mdom"]);
     baseUrl += "&geoDcid=";
 
     let breadcrumbsUpto = "";
