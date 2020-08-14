@@ -33,6 +33,17 @@ bp = flask.Blueprint(
   url_prefix='/api/choropleth'
 )
 
+# Returns null if data is unavailable for the geo
+def get_latest_value_from_stat_data(payload):
+    if not payload:
+        return None
+    time_series = payload.get('data')
+    if not time_series:
+        return None
+    max_date = max(time_series)
+    max_date_stat = time_series[max_date]
+    return max_date_stat
+
 @bp.route('/values')
 def choropleth_values():
     """Returns data for geographic subregions for a certain statistical 
@@ -66,9 +77,7 @@ def choropleth_values():
     # Add to dictionary for response.
     populations_by_geo = {}
     for geo_id, payload in values_by_geo.items():
-        if "data" in payload:
-            populations_by_geo[geo_id] = next(iter(
-                        reversed(payload['data'].values())))
+        populations_by_geo[geo_id] = get_latest_value_from_stat_data(payload)
 
     # Return as json payload.
     return flask.jsonify(populations_by_geo, 200)
@@ -150,10 +159,10 @@ def choropleth_geo():
                                     geojson['coordinates'],
                                     geojson['type']))
             # Process Statistical Observation if valid.
-            if ('data' in population_by_geo.get(geo_id, [])):
-                # Grab the latest available data.
-                geo_feature["properties"]["pop"] = next(iter(
-                    reversed(population_by_geo[geo_id]['data'].values())))
+            geo_feature["properties"]["pop"] = get_latest_value_from_stat_data(population_by_geo[geo_id])
+            # if ('data' in population_by_geo.get(geo_id, [])):
+            #     # Grab the latest available data.
+            #     geo_feature["properties"]["pop"] = get_latest_value_from_stat_data(json_text)
 
             # Add to main dataframe.
             features.append(geo_feature)
