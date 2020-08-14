@@ -124,7 +124,6 @@ test("Single place and single stats var", () => {
 // // TODO(Lijuan): two places and one statsVar, statsVar valid for one, invalid for the other
 
 test("statsVar not in PV-tree", () => {
-  console.log("test statsvar not in PV tree")
   Object.defineProperty(window, "location", {
     value: {
       hash: "#&place=geoId/05&statsVar=NotInTheTree",
