@@ -71,8 +71,9 @@ def choropleth_values():
     populations_by_geo = {}
     for geo_id, payload in values_by_geo.items():
         if payload and "data" in payload:
-            populations_by_geo[geo_id] = next(iter(reversed(
-                        payload.get("data", {}).values())))
+            latest_data = get_latest_data(payload)
+            if latest_data:
+                populations_by_geo[geo_id] = latest_data
 
     # Return as json payload.
     return flask.jsonify(populations_by_geo, 200)
@@ -160,8 +161,9 @@ def choropleth_geo():
             if ('data' in population_by_geo.get(geo_id, [])
                     and population_by_geo[geo_id]['data']):
                 # Grab the latest available data.
-                geo_feature["properties"]["pop"] = next(iter(reversed(
-                    population_by_geo[geo_id]['data'].values())))
+                latest_data = get_latest_data(population_by_geo[geo_id])
+                if latest_data:
+                    geo_feature["properties"]["pop"] = latest_data
 
             # Add to main dataframe.
             features.append(geo_feature)
@@ -266,3 +268,17 @@ def child_statvars():
         stat_vars_for_subgeo = stat_vars_for_subgeo.union(
             place.statsvars(geoId))
     return json.dumps(list(stat_vars_for_subgeo))
+
+def get_latest_data(payload_for_geo):
+    """ Returns the most recent data as from a DataCommons API payload.
+    
+    Args:
+        payload_for_geo -> The payload from a get_stats call for a
+            particular dcid.
+    Returns:
+        The most recent data available for that dcid.
+    """
+    time_series = payload_for_geo.get('data')
+    if not time_series: return None
+    max_date = max(time_series)
+    return time_series[max_date]
