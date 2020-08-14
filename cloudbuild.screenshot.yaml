@@ -54,12 +54,12 @@ steps:
     git clone https://github.com/datacommonsorg/website.git
     cd website
     git fetch origin pull/$_PR_NUMBER/head:$BRANCH_NAME --update-head-ok
-    export COMMIT=$SHORT_SHA
+    echo $SHORT_SHA > /workspace/commit.txt
     if [[ "$(git show $SHORT_SHA | head -2 | tail -1)" == Merge:*  ]]
     then
-      export COMMIT="$(cut -d' ' -f2 <<<`git show $SHORT_SHA | head -2 | tail -1`)"
+      echo "$(cut -d' ' -f2 <<<`git show $SHORT_SHA | head -2 | tail -1`)" > /workspace/commit.txt
     fi
-    echo `git show $COMMIT | head -n 2 | tail -n 1 | cut -d "<" -f2 | cut -d ">" -f1` > /workspace/email.txt
+    echo `git show $(cat /workspace/commit.txt) | head -n 2 | tail -n 1 | cut -d "<" -f2 | cut -d ">" -f1` > /workspace/email.txt
 
 # Send notify email
 - id: send notify email
