@@ -557,7 +557,7 @@ function drawGroupLineChart(
         .attr("class", "line")
         .style("stroke", lineStyle.color)
         .attr("d", line)
-        .attr("stroke-width", "1")
+        .attr("stroke-width", "5")
         .attr("stroke-dasharray", lineStyle.dash);
     }
   }
