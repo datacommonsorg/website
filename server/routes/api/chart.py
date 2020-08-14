@@ -12,7 +12,8 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-"""This module defines the routes for retrieving chart config and metadata.
+"""This module defines the routes for retrieving chart config and metadata
+for the Place Explorer.
 
 The client side will request chart configuration including chart type,
 statistical variables, etc. from endpoints in this module.
@@ -21,12 +22,11 @@ statistical variables, etc. from endpoints in this module.
 import copy
 import json
 import urllib
-
-from flask import Blueprint, current_app, url_for
+import services.datacommons as dc_service
+import routes.api.place as place_api
 
 from cache import cache
-from routes.api.place import statsvars
-
+from flask import Blueprint, current_app, url_for
 
 # Define blueprint
 bp = Blueprint(
@@ -65,13 +65,57 @@ def build_url(dcid, stats_vars):
     return urllib.parse.unquote(url_for('tools.timeline', _anchor=anchor))
 
 
+def get_statsvars_need_all_dates(chart_list, sv_set):
+    """Pulls out stats vars from the list of chart configs that require all dates kept
+    i.e., line charts sv's
+
+    Args:
+        chart_list: List of charts objects (keyed "charts" in the chart_config.json
+        sv_set: Set of stats vars that should be kept
+    """
+    for chart in chart_list:
+        if chart['chartType'] == 'LINE':
+            for sv in chart['statsVars']:
+                sv_set.add(sv)
+
+
+def keep_latest_data(timeseries):
+    """Only keep the latest timestamped data from the timeseries
+
+    Args:
+        timeseries: GetStats timeseries, dictionary of date: value
+
+    Returns:
+        GetStats timeseries with only one date/value, or None
+    """
+    if not timeseries: return None
+    max_date = max(timeseries)
+    filtered_series = {}
+    filtered_series[max_date] = timeseries[max_date]
+    return filtered_series
+
+
+def get_landing_page_data(dcid):
+    response = dc_service.fetch_data(
+        '/node/landing-page',
+        {
+            'dcids': [dcid],
+        },
+        compress=False,
+        post=True,
+        has_payload=True
+    )
+    return response
+
+
 @bp.route('/config/<path:dcid>')
 @cache.memoize(timeout=3600 * 24)  # Cache for one day.
 def config(dcid):
     """
     Get chart config for a given place.
     """
-    all_stats_vars = set(statsvars(dcid))
+    all_stats_vars = set(place_api.statsvars(dcid))
+
     # Build the chart config by filtering the source configuration based on
     # available statistical variables.
     cc = []
@@ -92,16 +136,27 @@ def config(dcid):
         if target_section['charts'] or target_section['children']:
             cc.append(target_section)
 
-    # Gather all stats vars within the final chart config
-    used_stats_vars = set()
-    for section in cc:
-        for chart in section['charts']:
-            used_stats_vars.update(set(chart['statsVars']))
-        for child in section['children']:
-            for chart in child['charts']:
-                used_stats_vars.update(set(chart['statsVars']))
+    # Track stats vars where we need data from all dates (i.e. line charts)
+    sv_keep_all_dates = set()
+    for topic in cc:
+        get_statsvars_need_all_dates(topic['charts'], sv_keep_all_dates)
+        for section in topic['children']:
+            get_statsvars_need_all_dates(section['charts'], sv_keep_all_dates)
 
-    # Population the GNI url to each chart.
+    # Add cached chart data available
+    # TODO: Request uncached data from the mixer
+    chart_stats_vars = get_landing_page_data(dcid)
+    cached_chart_data = {}
+    if chart_stats_vars.get(dcid) and len(chart_stats_vars[dcid]):
+        cached_chart_data = chart_stats_vars
+        # Only keep latest data if possible
+        for place in cached_chart_data:
+            for sv in cached_chart_data[place]:
+                if not sv in sv_keep_all_dates:
+                    cached_chart_data[place][sv]['data'] = keep_latest_data(
+                        cached_chart_data[place][sv]['data'])
+
+    # Populate the GNI url for each chart.
     for i in range(len(cc)):
         # Populate gni url for charts
         for j in range(len(cc[i]['charts'])):
@@ -113,4 +168,10 @@ def config(dcid):
                 cc[i]['children'][j]['charts'][k]['exploreUrl'] = build_url(
                     dcid,
                     cc[i]['children'][j]['charts'][k]['statsVars'])
-    return json.dumps(cc)
+
+    response = {
+        'config': cc,
+        'data': cached_chart_data,
+    }
+
+    return json.dumps(response)
