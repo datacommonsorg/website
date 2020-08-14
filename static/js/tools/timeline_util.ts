@@ -256,18 +256,19 @@ class TimelineParams {
     if (statsVars) {
       for (const statsVarString of statsVars.split(statsVarSep)) {
         const statsVarInfo = statsVarString.split(nodePathSep);
-        // check if the statsVar id exists in the PV tree
-        if (statsVarInfo.length >= 1 && statsVarInfo[0] in statsVarPathMap) {
-          // if statsVar path is not include in url
-          // load the path from pre-built map
-          if (statsVarInfo.length === 1 && statsVarInfo[0] in statsVarPathMap) {
+        // if statsVar path is not include in url
+        // load the path from pre-built map
+        if (statsVarInfo.length === 1) {
+          if (statsVarInfo[0] in statsVarPathMap) {
             this.addStatsVar(
               statsVarInfo[0],
               statsVarPathMap[statsVarInfo[0]].map((x: number) => x.toString())
             );
           } else {
-            this.addStatsVar(statsVarInfo[0], statsVarInfo.splice(1));
+            this.addStatsVar(statsVarInfo[0], []);
           }
+        } else {
+          this.addStatsVar(statsVarInfo[0], statsVarInfo.splice(1));
         }
       }
     }

@@ -113,5 +113,6 @@ test("test function of parsing the timeline parameters from the url", () => {
   expect(params.statsVarNodes).toStrictEqual({
     Count_Person: [["0", "0"]],
     Median_Age_Person: [["0", "1"]],
+    Unknown: [[]],
   });
 });

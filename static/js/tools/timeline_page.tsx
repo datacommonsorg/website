@@ -184,6 +184,11 @@ class Page extends Component<Record<string, unknown>, PageStateType> {
         delete statsVarId2Title[id];
       }
     }
+    for (const id in this.state.statsVarNodes) {
+      if (!(id in statsVarId2Title)) {
+        statsVarId2Title[id] = id;
+      }
+    }
     this.setState({
       statsVarTitle: statsVarId2Title,
     });
