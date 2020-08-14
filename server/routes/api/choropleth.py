@@ -33,6 +33,20 @@ bp = flask.Blueprint(
   url_prefix='/api/choropleth'
 )
 
+def get_latest_data(payload_for_geo):
+    """ Returns the most recent data as from a DataCommons API payload.
+    
+    Args:
+        payload_for_geo -> The payload from a get_stats call for a
+            particular dcid.
+    Returns:
+        The most recent data available for that dcid.
+    """
+    time_series = payload_for_geo.get('data')
+    if not time_series: return None
+    max_date = max(time_series)
+    return time_series[max_date]
+
 @bp.route('/values')
 def choropleth_values():
     """Returns data for geographic subregions for a certain statistical
@@ -60,7 +74,7 @@ def choropleth_values():
     if not display_level:
         return flask.jsonify({"error":
            f"Failed to automatically resolve geographic subdivision level for" +
-           f"{dcid}. Please provide a 'level' field manually."}, 400)
+           f"{requested_geoDcid}. Please provide a 'level' field manually."}, 400)
 
     # Get all subgeos.
     geos_contained_in_place = dc.get_places_in(
@@ -70,9 +84,10 @@ def choropleth_values():
     # Add to dictionary for response.
     populations_by_geo = {}
     for geo_id, payload in values_by_geo.items():
-        if "data" in payload:
-            populations_by_geo[geo_id] = next(iter(
-                        payload['data'].values()))
+        if payload and "data" in payload:
+            latest_data = get_latest_data(payload)
+            if latest_data:
+                populations_by_geo[geo_id] = latest_data
 
     # Return as json payload.
     return flask.jsonify(populations_by_geo, 200)
@@ -103,7 +118,7 @@ def choropleth_geo():
     if not display_level:
         return flask.jsonify({"error":
            f"Failed to automatically resolve geographic subdivision level for" +
-           f"{dcid}. Please provide a 'level' field manually."}, 400)
+           f"{requested_geoDcid}. Please provide a 'level' field manually."}, 400) 
 
     # Get optional fields.
     measurement_denominator = flask.request.args.get("mdom",
@@ -142,7 +157,7 @@ def choropleth_geo():
                     "properties": {
                         # Choose the first name when multiple are present.
                         "name": names_by_geo.get(geo_id, ["Unnamed Area"])[0],
-                        "hasSublevel":
+                        "hasSublevel": 
                             (display_level in LEVEL_MAP),
                         "geoDcid": geo_id,
                     }
@@ -157,10 +172,12 @@ def choropleth_geo():
                                     geojson['coordinates'],
                                     geojson['type']))
             # Process Statistical Observation if valid.
-            if ('data' in population_by_geo.get(geo_id, [])):
+            if ('data' in population_by_geo.get(geo_id, [])
+                    and population_by_geo[geo_id]['data']):
                 # Grab the latest available data.
-                geo_feature["properties"]["pop"] = next(iter(
-                    population_by_geo[geo_id]['data'].values()))
+                latest_data = get_latest_data(population_by_geo[geo_id])
+                if latest_data:
+                    geo_feature["properties"]["pop"] = latest_data
 
             # Add to main dataframe.
             features.append(geo_feature)
@@ -247,7 +264,7 @@ def child_statvars():
     if not requested_level:
         return flask.jsonify({"error":
            f"Failed to automatically resolve geographic subdivision level for" +
-           f"{dcid}. Please provide a 'level' field manually."}, 400)
+           f"{dcid}. Please provide a 'level' field manually."}, 400) 
 
     # Get sublevels.
     geos_contained_in_place = dc.get_places_in(
