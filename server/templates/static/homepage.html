@@ -50,7 +50,7 @@
     particular entities are aggregated from different sources for a unified
     view.
   </p>
-  <a href="{{ url_for('place') }}">Explore Places in the Data Commons Graph</a>
+  <a href="{{ url_for('place.place') }}">Explore Places in the Data Commons Graph</a>
   <a href="{{ url_for('browser.kg_main') }}">Browse the Data Commons Graph</a>
   <a href="{{ url_for('tools.timeline') }}">Create Timeline Graphs</a>
 </section>
@@ -83,9 +83,9 @@
     <div class="row">
       <div class="col-12 col-md-4">
         <h6>Explore place statistics</h6>
-        <a href="{{ url_for('place', dcid='geoId/0649670') }}">Mountain View, CA</a>
-        <a href="{{ url_for('place', dcid='geoId/3651000', topic='Health') }}">New York City Health</a>
-        <a href="{{ url_for('place', dcid='geoId/1150000', topic='Demographics') }}">Washington, DC Demographics</a>
+        <a href="{{ url_for('place.place', dcid='geoId/0649670') }}">Mountain View, CA</a>
+        <a href="{{ url_for('place.place', dcid='geoId/3651000', topic='Health') }}">New York City Health</a>
+        <a href="{{ url_for('place.place', dcid='geoId/1150000', topic='Demographics') }}">Washington, DC Demographics</a>
       </div>
       <div class="col-12 col-md-4">
         <h6>Explore Data Commons Graph nodes</h6>

@@ -35,7 +35,7 @@ bp = flask.Blueprint(
 
 @bp.route('/values')
 def choropleth_values():
-    """Returns data for geographic subregions for a certain statistical 
+    """Returns data for geographic subregions for a certain statistical
             variable.
 
     API Params:
@@ -72,14 +72,14 @@ def choropleth_values():
     for geo_id, payload in values_by_geo.items():
         if "data" in payload:
             populations_by_geo[geo_id] = next(iter(
-                        reversed(payload['data'].values())))
+                        payload['data'].values()))
 
     # Return as json payload.
     return flask.jsonify(populations_by_geo, 200)
 
 @bp.route('/geo')
 def choropleth_geo():
-    """Returns data for geographic subregions for a certain statistical 
+    """Returns data for geographic subregions for a certain statistical
             variable.
 
     API Params:
@@ -123,7 +123,7 @@ def choropleth_geo():
                                             "geoJsonCoordinates")
 
     # Download population data if per capita.
-    # TODO(iancostello): Determine how to handle populations 
+    # TODO(iancostello): Determine how to handle populations
     # and statistical values from different times.
     population_by_geo = dc.get_stats(geos_contained_in_place,
                                      measurement_denominator)
@@ -160,7 +160,7 @@ def choropleth_geo():
             if ('data' in population_by_geo.get(geo_id, [])):
                 # Grab the latest available data.
                 geo_feature["properties"]["pop"] = next(iter(
-                    reversed(population_by_geo[geo_id]['data'].values())))
+                    population_by_geo[geo_id]['data'].values()))
 
             # Add to main dataframe.
             features.append(geo_feature)
@@ -196,7 +196,7 @@ def get_sublevel(requested_geoDcid, display_level):
 
 def coerce_geojson_to_righthand_rule(geoJsonCords, obj_type):
     """Changes GeoJSON handedness to the right-hand rule.
-    
+
     GeoJSON is stored in DataCommons in the reverse format of what D3
     expects. This results in geographies geometry being inverted. This function
     fixes these lists to be in the format expected by D3 and turns all polygons
