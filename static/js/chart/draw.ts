@@ -277,9 +277,9 @@ function drawStackBarChart(
     .data((d) => d)
     .join("rect")
     .attr("x", (d) => x(String(d.data.label)))
-    .attr("y", (d) => y(d[1]))
+    .attr("y", (d) => Number.isNaN(d[1]) ? y(d[0]) : y(d[1]))
     .attr("width", x.bandwidth())
-    .attr("height", (d) => y(d[0]) - y(d[1]));
+    .attr("height", (d) => Number.isNaN(d[1]) ? 0 : y(d[0]) - y(d[1]));
 
   appendLegendElem(id, color, keys);
 }
