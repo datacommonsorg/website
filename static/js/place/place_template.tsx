@@ -731,22 +731,26 @@ class Chart extends Component<ChartPropType, ChartStateType> {
     }
     switch (chartType) {
       case chartTypeEnum.LINE:
-        fetchStatsData([dcid], config.statsVars, perCapita, scaling).then((data) => {
-          const dataGroups = data.getStatsVarGroupWithTime(dcid);
-          for (const dataGroup of dataGroups) {
-            dataGroup.label = STATS_VAR_TEXT[dataGroup.label];
+        fetchStatsData([dcid], config.statsVars, perCapita, scaling).then(
+          (data) => {
+            const dataGroups = data.getStatsVarGroupWithTime(dcid);
+            for (const dataGroup of dataGroups) {
+              dataGroup.label = STATS_VAR_TEXT[dataGroup.label];
+            }
+            this.setState({
+              dataGroups,
+            });
           }
-          this.setState({
-            dataGroups,
-          });
-        });
+        );
         break;
       case chartTypeEnum.SINGLE_BAR:
-        fetchStatsData([dcid], config.statsVars, perCapita, scaling).then((data) => {
-          this.setState({
-            dataPoints: data.getStatsPoint(dcid),
-          });
-        });
+        fetchStatsData([dcid], config.statsVars, perCapita, scaling).then(
+          (data) => {
+            this.setState({
+              dataPoints: data.getStatsPoint(dcid),
+            });
+          }
+        );
         break;
       case chartTypeEnum.GROUP_BAR:
       // Fall-through
@@ -791,11 +795,13 @@ class Chart extends Component<ChartPropType, ChartStateType> {
           case axisEnum.TIME:
           // Fall-through;
           default:
-            fetchStatsData([dcid], config.statsVars, perCapita, scaling).then((data) => {
-              this.setState({
-                dataGroups: data.getTimeGroupWithStatsVar(dcid),
-              });
-            });
+            fetchStatsData([dcid], config.statsVars, perCapita, scaling).then(
+              (data) => {
+                this.setState({
+                  dataGroups: data.getTimeGroupWithStatsVar(dcid),
+                });
+              }
+            );
             break;
         }
         break;

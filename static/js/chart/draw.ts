@@ -526,7 +526,7 @@ function drawGroupLineChart(
   const yScale = d3
     .scaleLinear()
     .domain([minV, maxV])
-    .range([height - MARGIN.bottom, MARGIN.top+YLABEL.height])
+    .range([height - MARGIN.bottom, MARGIN.top + YLABEL.height])
     .nice(NUM_Y_TICKS);
 
   addXAxis(svg, height, xScale);
