@@ -14,7 +14,7 @@ meant to be for community, by the community. We are excited to work with you
 to make public data accessible to everyone.
 
 To see the extent of data we have today, browse the graph using our
-[browser](https://browser.datacommons.org/browser).
+[browser](https://datacommons.org/browser).
 
 ## Contributing
 

@@ -48,7 +48,7 @@ const /** !Array<string> */ OBS_KEYS = [
 const NUMBER_OF_CHARTS_PER_ROW = 3;
 
 const /** !Array<string> */ PROD_HOST = [
-    "browser.datacommons.org",
+    "datacommons.org",
     "datcom-browser-prod.appspot.com",
   ];
 
