@@ -74,7 +74,7 @@ def get_statsvars_need_all_dates(chart_list, sv_set):
         sv_set: Set of stats vars that should be kept
     """
     for chart in chart_list:
-        if chart['chartType'] == 'LINE':
+        if chart['chartType'] == 'LINE' or chart.get('axis', '') == 'TIME':
             for sv in chart['statsVars']:
                 sv_set.add(sv)
 

@@ -208,8 +208,8 @@ function isAllCachedDataAvailable(
         return false;
       }
     }
-    return true;
   }
+  return true;
 }
 
 /**
