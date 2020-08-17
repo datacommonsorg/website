@@ -65,18 +65,25 @@ class ChoroplethMap extends Component {
     const geoPromise = axios.get(geoUrl);
     const valuePromise = axios.get(valueUrl);
 
-    Promise.all([geoPromise, valuePromise]).then((values) => {
-      this.setState({ geojson: values[0].data[0], values: values[1].data[0] });
-      //TODO(iancostello): Investigate if this can be moved to
-      //shouldComponentUpdate.
-      this.renderGeoMap();
-      this.updateGeoValues();
-    }, () => {
-      document.getElementById("heading").innerHTML = ""
-      document.getElementById("error").innerHTML = "API Request Failed! "
-        + "Please consider starting at the base menu again." + 
-        "<a href=\"/tools/choropleth\"> Access here.</a>"
-    } );
+    Promise.all([geoPromise, valuePromise]).then(
+      (values) => {
+        this.setState({
+          geojson: values[0].data[0],
+          values: values[1].data[0],
+        });
+        //TODO(iancostello): Investigate if this can be moved to
+        //shouldComponentUpdate.
+        this.renderGeoMap();
+        this.updateGeoValues();
+      },
+      () => {
+        document.getElementById("heading").innerHTML = "";
+        document.getElementById("error").innerHTML =
+          "API Request Failed! " +
+          "Please consider starting at the base menu again." +
+          '<a href="/tools/choropleth"> Access here.</a>';
+      }
+    );
   }
 
   /**
@@ -86,14 +93,18 @@ class ChoroplethMap extends Component {
     let baseUrl = "/api/choropleth/values";
     baseUrl += buildChoroplethParams(["geoDcid", "level", "statVar"]);
 
-    axios.get(baseUrl).then((resp) => {
-      this.setState({ values: resp.data[0] });
-      this.updateGeoValues();
-    }, () => {
-      document.getElementById("heading").innerHTML = ""
-      document.getElementById("error").innerHTML = "API request failed for your"
-        + "statistical variable choice! Please select a new variable."
-    });
+    axios.get(baseUrl).then(
+      (resp) => {
+        this.setState({ values: resp.data[0] });
+        this.updateGeoValues();
+      },
+      () => {
+        document.getElementById("heading").innerHTML = "";
+        document.getElementById("error").innerHTML =
+          "API request failed for your" +
+          "statistical variable choice! Please select a new variable.";
+      }
+    );
   }
 
   /**
@@ -151,7 +162,7 @@ class ChoroplethMap extends Component {
     // Generate breadcrumbs.
     // TODO(fpernice-google): Derive the curGeo value from geoDcid instead
     // of embedding in url.
-    generateBreadCrumbs(this.state['geojson']['properties']['current_geo']);
+    generateBreadCrumbs(this.state["geojson"]["properties"]["current_geo"]);
   }
 
   /**
@@ -168,7 +179,7 @@ class ChoroplethMap extends Component {
       .domain(
         determineColorPalette(values, this.state["pc"], this.state["popMap"])
       )
-      .range(["#deebf7", "#9ecae1", "#3182bd"] as unknown as number[]);
+      .range((["#deebf7", "#9ecae1", "#3182bd"] as unknown) as number[]);
 
     // Select D3 paths via geojson data.
     const geojson = this.state["geojson"];
@@ -176,7 +187,9 @@ class ChoroplethMap extends Component {
       .select("#main-pane g.map")
       .selectAll("path")
       .data(geojson.features)
-      .attr("id", function(_,index) { return "geoPath/" + index; });
+      .attr("id", function (_, index) {
+        return "geoPath/" + index;
+      });
 
     // Create new infill.
     mapContent.attr("fill", function (d: {
@@ -203,14 +216,12 @@ class ChoroplethMap extends Component {
     const currentStatVar = url.searchParams.get("statVar");
     if (currentStatVar) {
       document.getElementById("heading").innerHTML =
-      currentStatVar + " in " + currentGeo;
+        currentStatVar + " in " + currentGeo;
     } else {
-      document.getElementById("heading").innerHTML =
-        currentGeo;
-       document.getElementById("hover-text-display").innerHTML =
+      document.getElementById("heading").innerHTML = currentGeo;
+      document.getElementById("hover-text-display").innerHTML =
         "Pick a statistical variable to get started!";
     }
-    
   }
 
   /**
@@ -233,11 +244,18 @@ class ChoroplethMap extends Component {
    * Capture hover event on geo and displays relevant information.
    * @param {json} geo is the geoJson content for the hovered geo.
    */
-  handleMapHover(geo: {
-    ref: string;
-    properties: { name: string; geoDcid: string; pop: number;
-                  hasSublevel: boolean};
-    }, index): void {
+  handleMapHover(
+    geo: {
+      ref: string;
+      properties: {
+        name: string;
+        geoDcid: string;
+        pop: number;
+        hasSublevel: boolean;
+      };
+    },
+    index: number
+  ): void {
     // Display statistical variable information on hover.
     const name = geo.properties.name;
     const geoDcid = geo.properties.geoDcid;
@@ -254,26 +272,24 @@ class ChoroplethMap extends Component {
 
     document.getElementById("hover-text-display").innerHTML =
       name + " - " + formatGeoValue(geoValue, this.state["pc"]);
-    
+
     // Highlight selected subgeos and change pointer if they are clickable.
-    let objClass = "border-highlighted"
+    let objClass = "border-highlighted";
     if (geo.properties.hasSublevel) {
-      objClass += " clickable"
+      objClass += " clickable";
     }
-    document.getElementById("geoPath/" + index).setAttribute
-                                              ("class", objClass);
+    document.getElementById("geoPath/" + index).setAttribute("class", objClass);
   }
 
   /**
    * Clears output after leaving a geo.
    */
-  mouseLeave(geo: { ref: string }, index : number): void {
+  mouseLeave(geo: { ref: string }, index: number): void {
     // Remove hover text.
     document.getElementById("hover-text-display").innerHTML = "";
 
     // Remove geo display effect.
-    document.getElementById("geoPath/" + index).setAttribute
-                                              ("class", "border");
+    document.getElementById("geoPath/" + index).setAttribute("class", "border");
   }
 
   /**
@@ -285,8 +301,10 @@ class ChoroplethMap extends Component {
     properties: { geoDcid: string; hasSublevel: boolean };
   }): void {
     if (geo.properties.hasSublevel) {
-      redirectToGeo(geo.properties.geoDcid,
-                    this.state['geojson']['properties']['current_geo']);
+      redirectToGeo(
+        geo.properties.geoDcid,
+        this.state["geojson"]["properties"]["current_geo"]
+      );
     } else {
       alert("This geo has no further sublevels!");
     }
@@ -350,7 +368,7 @@ function redirectToGeo(geoDcid: string, curGeo: string): void {
  * @param {string} human-readable current geo to display at end of list of
  *                 hierarchy of locations.
  */
-function generateBreadCrumbs(curGeo): void {
+function generateBreadCrumbs(curGeo: string): void {
   const url = new URL(window.location.href);
 
   const breadcrumbs = url.searchParams.get("bc");
@@ -409,7 +427,7 @@ function determineColorPalette(dict, pc: boolean, popMap: []): number[] {
     const upperValue = values[len - 1];
     return [lowerValue, approxMedianValue, upperValue];
   } else {
-    return [0, 0, 0]
+    return [0, 0, 0];
   }
 }
 
@@ -433,13 +451,13 @@ function formatGeoValue(geoValue, isPerCapita) {
         dispValue *= 10;
         multiplier *= 10;
       }
-      return (
-        `${geoValue.toFixed(6)} or ${dispValue.toLocaleString()} per ${multiplier.toLocaleString()} people`
-      );
+      return `${geoValue.toFixed(
+        6
+      )} or ${dispValue.toLocaleString()} per ${multiplier.toLocaleString()} people`;
     } else {
       return geoValue.toLocaleString() + " per capita";
     }
   }
 }
 
-export { ChoroplethMap, generateBreadCrumbs };
+export { ChoroplethMap };

@@ -67,7 +67,7 @@ class ChartRegion extends Component<ChartRegionPropsType, unknown> {
           return (
             <Chart
               key={groupId}
-              groupId = {groupId}
+              groupId={groupId}
               places={this.props.places}
               statsVars={statsVars}
               perCapita={
