@@ -66,7 +66,8 @@ def create_app():
 
     if cfg.TEST or cfg.WEBDRIVER:
         app.config['PLACEID2DCID'] = {
-            "ChIJCzYy5IS16lQRQrfeQ5K5Oxw": "country/USA"}
+            "ChIJCzYy5IS16lQRQrfeQ5K5Oxw": "country/USA",
+            "ChIJPV4oX_65j4ARVW8IJ6IJUYs": "geoId/06"}
     else:
         # Load placeid2dcid mapping from GCS
         storage_client = storage.Client()

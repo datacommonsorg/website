@@ -15,16 +15,19 @@
 import unittest
 import urllib
 from webdriver_tests.base_test import WebdriverBaseTest
+from selenium.webdriver.support.ui import Select
+import time
 
 
 USA_URL = '/place?dcid=country/USA'
+PLACE_SEARCH = 'California, USA'
 
 
 # Class to test place explorer tool.
 class TestPlaceExplorer(WebdriverBaseTest):
 
     def test_page_serve(self):
-        """Test the place explorer tool page cann be loaded successfullly."""
+        """Test the place explorer tool page can be loaded successfullly."""
         self.driver.get(self.url_ + USA_URL)
         # Using implicit wait here to wait for loading page.
         self.driver.implicitly_wait(5)
@@ -36,6 +39,43 @@ class TestPlaceExplorer(WebdriverBaseTest):
         with urllib.request.urlopen(req) as response:
             self.assertEqual(response.getcode(), 200)
         self.assertEqual("United States | Place Explorer | Data Commons", self.driver.title)
+
+    def test_place_search(self):
+        """Test the place search box can work correctly."""
+        self.driver.get(self.url_ + USA_URL)
+        # Using implicit wait here to wait for loading page.
+        self.driver.implicitly_wait(5)
+        search_border = self.driver.find_element_by_class_name("search")
+        search_box = search_border.find_element_by_class_name("pac-target-input")
+        search_box.send_keys(PLACE_SEARCH)
+        self.driver.implicitly_wait(3)
+        search_results = self.driver.find_elements_by_class_name("pac-item")
+        ca_result = search_results[0]
+        ca_result.click()
+        self.driver.implicitly_wait(3)
+        self.assertEqual("California | Place Explorer | Data Commons", self.driver.title)
+
+    def test_demograpgics_link_and_switch_to_similar(self):
+        """
+        Test the demographics link can work correctly, and when changing from containing to similar,
+        the chart should change accordingly.
+        """
+        self.driver.get(self.url_ + USA_URL)
+        time.sleep(5)
+        demographics = self.driver.find_element_by_id("Demographics")
+        demographics.find_element_by_tag_name('a').click()
+        time.sleep(5)
+        self.assertTrue("Demographics" in self.driver.current_url)
+        subtopics = self.driver.find_elements_by_class_name("subtopic")
+        age_topic = subtopics[1]
+        age_charts = age_topic.find_elements_by_class_name("col")
+        age_across_places_chart = age_charts[2]
+        origin = age_across_places_chart.find_element_by_class_name("svg-container").get_attribute("innerHTML")
+        selects = Select(age_across_places_chart.find_element_by_tag_name("select"))
+        selects.select_by_value("SIMILAR")
+        time.sleep(3)
+        after = age_across_places_chart.find_element_by_class_name("svg-container").get_attribute("innerHTML")
+        self.assertTrue(origin != after)
 
 
 if __name__ == '__main__':

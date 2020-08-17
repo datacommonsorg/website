@@ -16,12 +16,15 @@
 import unittest
 import urllib
 from webdriver_tests.base_test import WebdriverBaseTest
+import time
 
 
 TIMELINE_URL = '/tools/timeline'
 URL_HASH_1 = '#&statsVar=Median_Age_Person,0,1__Median_Income_Person,0,2__Count_Person_Upto5Years,'\
     '0,3,0__Count_Person_5To17Years,0,3,1&place=geoId/06,geoId/08'
 GEO_URL_1 = '#&place=geoId/06'
+STATVAR_URL_1 = '#&statsVar=Count_Person'
+PLACE_SEARCH = 'California, USA'
 
 
 # Class to test timeline tool.
@@ -88,6 +91,29 @@ class TestCharts(WebdriverBaseTest):
         charts = self.driver.find_elements_by_class_name("card")
         # Assert there is one chart.
         self.assertEqual(len(charts), 1)
+
+    def test_place_search_box_and_remove_place(self):
+        """Test the timeline tool place search can work correctly."""
+        # Add place into place search box.
+        self.driver.get(self.url_ + TIMELINE_URL + STATVAR_URL_1)
+        time.sleep(3)
+        search_box = self.driver.find_element_by_id("search")
+        search_box_input = search_box.find_element_by_id("ac")
+        search_box_input.send_keys(PLACE_SEARCH)
+        time.sleep(2)
+        search_results = self.driver.find_elements_by_class_name("pac-item")
+        ca_result = search_results[0]
+        ca_result.click()
+        time.sleep(3)
+        charts = self.driver.find_elements_by_class_name("card")
+        self.assertEqual(len(charts), 1)
+
+        # Remove place from place search box.
+        delete_button = search_box.find_element_by_class_name("mdl-chip__action")
+        delete_button.click()
+        time.sleep(3)
+        charts = self.driver.find_elements_by_class_name("card")
+        self.assertEqual(len(charts), 0)
 
 
 if __name__ == '__main__':
