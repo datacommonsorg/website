@@ -17,7 +17,7 @@
 import React, { Component } from "react";
 import ReactDOM from "react-dom";
 import { Menu } from "../statsvar_menu";
-import { ChoroplethMap, generateBreadCrumbs } from "./choropleth";
+import { ChoroplethMap } from "./choropleth";
 import { NoopStatsVarFilter, TimelineStatsVarFilter } from "../commons";
 import axios from "axios";
 
@@ -30,8 +30,6 @@ window.onload = () => {
     React.createElement(MainPane),
     document.getElementById("main-pane")
   );
-
-
 };
 
 class MainPane extends Component {
@@ -156,7 +154,7 @@ class MainPane extends Component {
         </div>
         <div id="main-content">
           <React.Fragment>
-          <div className="column" id="breadcrumbs"></div>
+            <div className="column" id="breadcrumbs"></div>
             <div id="heading">Loading...</div>
             <div id="error"></div>
             <div>
