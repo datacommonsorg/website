@@ -31,7 +31,7 @@ interface TimeSeries {
 }
 
 interface StatApiResponse {
-  [place_dcid: string]: TimeSeries | null;
+  [placeDcid: string]: TimeSeries | null;
 }
 
 interface CachedStatsVarDataMap {

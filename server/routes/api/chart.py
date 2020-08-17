@@ -65,18 +65,22 @@ def build_url(dcid, stats_vars):
     return urllib.parse.unquote(url_for('tools.timeline', _anchor=anchor))
 
 
-def get_statsvars_need_all_dates(chart_list, sv_set):
+def get_statsvars_need_all_dates(chart_list):
     """Pulls out stats vars from the list of chart configs that require all dates kept
     i.e., line charts sv's
 
     Args:
         chart_list: List of charts objects (keyed "charts" in the chart_config.json
-        sv_set: Set of stats vars that should be kept
+
+    Returns:
+        Set of stats vars that should be kept
     """
+    result = set()
     for chart in chart_list:
         if chart['chartType'] == 'LINE' or chart.get('axis', '') == 'TIME':
             for sv in chart['statsVars']:
-                sv_set.add(sv)
+                result.add(sv)
+    return result
 
 
 def keep_latest_data(timeseries):
@@ -90,9 +94,7 @@ def keep_latest_data(timeseries):
     """
     if not timeseries: return None
     max_date = max(timeseries)
-    filtered_series = {}
-    filtered_series[max_date] = timeseries[max_date]
-    return filtered_series
+    return { max_date: timeseries[max_date] }
 
 
 def get_landing_page_data(dcid):
@@ -139,9 +141,9 @@ def config(dcid):
     # Track stats vars where we need data from all dates (i.e. line charts)
     sv_keep_all_dates = set()
     for topic in cc:
-        get_statsvars_need_all_dates(topic['charts'], sv_keep_all_dates)
+        sv_keep_all_dates.update(get_statsvars_need_all_dates(topic['charts']))
         for section in topic['children']:
-            get_statsvars_need_all_dates(section['charts'], sv_keep_all_dates)
+            sv_keep_all_dates.update(get_statsvars_need_all_dates(section['charts']))
 
     # Add cached chart data available
     # TODO: Request uncached data from the mixer
