@@ -26,7 +26,7 @@ import {
   drawStackBarChart,
   drawGroupBarChart,
 } from "../chart/draw";
-import { fetchStatsData } from "../shared/data_fetcher";
+import { CachedStatVarDataMap, fetchStatsData } from "../shared/data_fetcher";
 import { updatePageLayoutState } from "./place";
 import { STATS_VAR_TEXT } from "../shared/stats_var";
 
@@ -323,6 +323,10 @@ interface MainPanePropType {
    * An object from statsvar dcid to the url tokens used by timeline tool.
    */
   chartConfig: ChartCategory[];
+  /**
+   * Cached stat var data for filling in charts.
+   */
+  chartData: CachedStatVarDataMap;
 }
 
 class MainPane extends Component<MainPanePropType, unknown> {
@@ -386,6 +390,7 @@ class MainPane extends Component<MainPanePropType, unknown> {
                       childPlacesPromise={this.props.childPlacesPromise}
                       similarPlacesPromise={this.props.similarPlacesPromise}
                       nearbyPlacesPromise={this.props.nearbyPlacesPromise}
+                      chartData={this.props.chartData}
                     />
                   );
                 })}
@@ -506,6 +511,10 @@ interface ChartPropType {
    * The nearby places promise.
    */
   nearbyPlacesPromise: Promise<{ dcid: string; name: string }>;
+  /**
+   * Cached stat var data for filling in charts.
+   */
+  chartData: CachedStatVarDataMap;
 }
 
 interface ChartStateType {
@@ -731,7 +740,13 @@ class Chart extends Component<ChartPropType, ChartStateType> {
     }
     switch (chartType) {
       case chartTypeEnum.LINE:
-        fetchStatsData([dcid], config.statsVars, perCapita, scaling).then((data) => {
+        fetchStatsData(
+          [dcid],
+          config.statsVars,
+          perCapita,
+          scaling,
+          this.props.chartData
+        ).then((data) => {
           const dataGroups = data.getStatsVarGroupWithTime(dcid);
           for (const dataGroup of dataGroups) {
             dataGroup.label = STATS_VAR_TEXT[dataGroup.label];
@@ -742,7 +757,13 @@ class Chart extends Component<ChartPropType, ChartStateType> {
         });
         break;
       case chartTypeEnum.SINGLE_BAR:
-        fetchStatsData([dcid], config.statsVars, perCapita, scaling).then((data) => {
+        fetchStatsData(
+          [dcid],
+          config.statsVars,
+          perCapita,
+          scaling,
+          this.props.chartData
+        ).then((data) => {
           this.setState({
             dataPoints: data.getStatsPoint(dcid),
           });
@@ -778,20 +799,30 @@ class Chart extends Component<ChartPropType, ChartStateType> {
               });
             }
             placesPromise.then((places) => {
-              fetchStatsData(places, config.statsVars, perCapita, scaling).then(
-                (data) => {
-                  this.setState({
-                    dataGroups: data.getPlaceGroupWithStatsVar(),
-                  });
-                }
-              );
+              fetchStatsData(
+                places,
+                config.statsVars,
+                perCapita,
+                scaling,
+                this.props.chartData
+              ).then((data) => {
+                this.setState({
+                  dataGroups: data.getPlaceGroupWithStatsVar(),
+                });
+              });
             });
             break;
           }
           case axisEnum.TIME:
           // Fall-through;
           default:
-            fetchStatsData([dcid], config.statsVars, perCapita, scaling).then((data) => {
+            fetchStatsData(
+              [dcid],
+              config.statsVars,
+              perCapita,
+              scaling,
+              this.props.chartData
+            ).then((data) => {
               this.setState({
                 dataGroups: data.getTimeGroupWithStatsVar(dcid),
               });
