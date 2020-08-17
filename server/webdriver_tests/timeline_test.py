@@ -24,7 +24,8 @@ URL_HASH_1 = '#&statsVar=Median_Age_Person,0,1__Median_Income_Person,0,2__Count_
     '0,3,0__Count_Person_5To17Years,0,3,1&place=geoId/06,geoId/08'
 GEO_URL_1 = '#&place=geoId/06'
 STATVAR_URL_1 = '#&statsVar=Count_Person'
-PLACE_SEARCH = 'California, USA'
+PLACE_SEARCH_CA = 'California, USA'
+PLACE_SEARCH_USA = 'USA'
 
 
 # Class to test timeline tool.
@@ -99,21 +100,32 @@ class TestCharts(WebdriverBaseTest):
         time.sleep(3)
         search_box = self.driver.find_element_by_id("search")
         search_box_input = search_box.find_element_by_id("ac")
-        search_box_input.send_keys(PLACE_SEARCH)
+        # Add California
+        search_box_input.send_keys(PLACE_SEARCH_CA)
+        time.sleep(2)
+        search_results = self.driver.find_elements_by_class_name("pac-item")
+        ca_result = search_results[0]
+        ca_result.click()
+        # Add USA
+        search_box_input.send_keys(PLACE_SEARCH_USA)
         time.sleep(2)
         search_results = self.driver.find_elements_by_class_name("pac-item")
         ca_result = search_results[0]
         ca_result.click()
         time.sleep(3)
         charts = self.driver.find_elements_by_class_name("card")
+        lines = charts[0].find_elements_by_class_name("line")
         self.assertEqual(len(charts), 1)
+        self.assertEqual(len(lines), 2)
 
-        # Remove place from place search box.
+        # Remove California from place search box.
         delete_button = search_box.find_element_by_class_name("mdl-chip__action")
         delete_button.click()
         time.sleep(3)
         charts = self.driver.find_elements_by_class_name("card")
-        self.assertEqual(len(charts), 0)
+        lines = charts[0].find_elements_by_class_name("line")
+        self.assertEqual(len(charts), 1)
+        self.assertEqual(len(lines), 1)
 
 
 if __name__ == '__main__':

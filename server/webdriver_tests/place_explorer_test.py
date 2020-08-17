@@ -20,6 +20,7 @@ import time
 
 
 USA_URL = '/place?dcid=country/USA'
+CA_URL = '/place?dcid=geoId/06'
 PLACE_SEARCH = 'California, USA'
 
 
@@ -45,8 +46,7 @@ class TestPlaceExplorer(WebdriverBaseTest):
         self.driver.get(self.url_ + USA_URL)
         # Using implicit wait here to wait for loading page.
         self.driver.implicitly_wait(5)
-        search_border = self.driver.find_element_by_class_name("search")
-        search_box = search_border.find_element_by_class_name("pac-target-input")
+        search_box = self.driver.find_element_by_class_name("pac-target-input")
         search_box.send_keys(PLACE_SEARCH)
         self.driver.implicitly_wait(3)
         search_results = self.driver.find_elements_by_class_name("pac-item")
@@ -60,7 +60,7 @@ class TestPlaceExplorer(WebdriverBaseTest):
         Test the demographics link can work correctly, and when changing from containing to similar,
         the chart should change accordingly.
         """
-        self.driver.get(self.url_ + USA_URL)
+        self.driver.get(self.url_ + CA_URL)
         time.sleep(5)
         demographics = self.driver.find_element_by_id("Demographics")
         demographics.find_element_by_tag_name('a').click()
@@ -72,10 +72,20 @@ class TestPlaceExplorer(WebdriverBaseTest):
         age_across_places_chart = age_charts[2]
         origin = age_across_places_chart.find_element_by_class_name("svg-container").get_attribute("innerHTML")
         selects = Select(age_across_places_chart.find_element_by_tag_name("select"))
-        selects.select_by_value("SIMILAR")
+        # Select containing to see the change.
+        selects.select_by_value("CONTAINING")
         time.sleep(3)
         after = age_across_places_chart.find_element_by_class_name("svg-container").get_attribute("innerHTML")
         self.assertTrue(origin != after)
+
+        # Select similar to assert the chart is showing correctly.
+        selects.select_by_value("SIMILAR")
+        time.sleep(3)
+        legends = age_across_places_chart.find_element_by_class_name("x").find_elements_by_class_name("tick")
+        self.assertEqual(len(legends), 3)
+        elem3 = age_across_places_chart.find_element_by_tag_name("svg").find_elements_by_xpath("*")[2]
+        elem3_bars = elem3.find_elements_by_tag_name("g")
+        self.assertEqual(len(elem3_bars), 14)
 
 
 if __name__ == '__main__':
