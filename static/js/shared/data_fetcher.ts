@@ -19,17 +19,25 @@ import axios, { AxiosResponse } from "axios";
 import { DataPoint, DataGroup } from "../chart/base";
 import { STATS_VAR_TEXT } from "./stats_var";
 
+const TOTAL_POPULATION_SV = "Count_Person";
+
 interface TimeSeries {
   data: {
-    [key: string]: number;
+    [date: string]: number; // Date might be "latest" if it's from the cache
   };
   placeName: string;
   placeDcid: string;
   provenanceDomain: string;
 }
 
-interface ApiResponse {
-  [key: string]: TimeSeries | null;
+interface StatApiResponse {
+  [placeDcid: string]: TimeSeries | null;
+}
+
+interface CachedStatsVarDataMap {
+  [geoId: string]: {
+    [statVar: string]: TimeSeries;
+  };
 }
 
 /**
@@ -41,7 +49,7 @@ class StatsData {
   statsVars: string[];
   dates: string[];
   data: {
-    [key: string]: ApiResponse;
+    [statsVar: string]: StatApiResponse;
   };
   sources: Set<string>;
 
@@ -49,7 +57,7 @@ class StatsData {
     places: string[],
     statsVars: string[],
     dates: string[],
-    data: { [key: string]: ApiResponse }
+    data: { [statsVar: string]: StatApiResponse }
   ) {
     this.places = places;
     this.statsVars = statsVars;
@@ -73,6 +81,9 @@ class StatsData {
       const dataPoints: DataPoint[] = [];
       let placeName: string;
       for (const statsVar of this.statsVars) {
+        if (!this.data[statsVar]) {
+          continue;
+        }
         if (!this.data[statsVar][place]) continue;
         const timeSeries = this.data[statsVar][place];
         if (timeSeries.data) {
@@ -175,6 +186,129 @@ class StatsData {
 }
 
 /**
+ * Checks if all requested cached data is available in the cachedData.
+ *
+ * @param places A list of place dcids.
+ * @param statsVars A list of statistical variable dcids.
+ * @param cachedData Cached chart data with most stats vars for a place
+ *
+ * @returns true if all requested data is available, false otherwise.
+ */
+function isAllCachedDataAvailable(
+  places: string[],
+  statsVars: string[],
+  cachedData: CachedStatsVarDataMap
+): boolean {
+  for (const place of places) {
+    if (!(place in cachedData)) {
+      return false;
+    }
+    for (const sv of statsVars) {
+      if (!(sv in cachedData[place])) {
+        return false;
+      }
+    }
+  }
+  return true;
+}
+
+/**
+ * Creates a StatApiResponse object
+ *
+ * @param place A place dcid
+ * @param input Timeseries object
+ *
+ * @return StatApiResponse object with the place and input.
+ */
+function statApiResponse(place: string, input: TimeSeries): StatApiResponse {
+  const result = {};
+  result[place] = input;
+  return result;
+}
+
+/**
+ * Converts cached chart data to StatsData for a chart.
+ * isAllCachedDataAvailable must be called before this to ensure requested data
+ * is available.
+ *
+ * @param places A list of place dcids.
+ * @param statsVars A list of statistical variable dcids.
+ * @param perCapita Whether to compute per capita result.
+ * @param scaling Scaling factor for per capita compuation.
+ * @param cachedData Cached chart data with most stats vars for a place
+ *
+ * @returns StatsData object with only the requested statsVars.
+ */
+function getStatsDataFromCachedData(
+  places: string[],
+  statsVars: string[],
+  perCapita = false,
+  scaling = 1,
+  cachedData: CachedStatsVarDataMap = {}
+): StatsData {
+  const result = new StatsData(places, statsVars, [], {});
+  const dates: Set<string> = new Set();
+  for (const place of places) {
+    for (const sv of statsVars) {
+      result.data[sv] = statApiResponse(place, cachedData[place][sv]);
+      if (perCapita) {
+        result.data[sv] = computePerCapita(
+          result.data[sv],
+          statApiResponse(place, cachedData[place][TOTAL_POPULATION_SV]),
+          scaling
+        );
+      }
+      const timeSeries = result.data[sv][place];
+      result.sources.add(timeSeries.provenanceDomain);
+      for (const date in timeSeries.data) {
+        dates.add(date);
+      }
+    }
+  }
+
+  result.dates = Array.from(dates.values());
+  result.dates.sort();
+  return result;
+}
+
+/**
+ * Returns per capita computation applied to the statVarResponse
+ *
+ * @param statsVarResponse Response to apply per capita computation to
+ * @param populationResponse Population data to use for the per capita computation
+ * @returns statVarResponse with the per capita calculation applied to it's values
+ */
+function computePerCapita(
+  statsVarResponse: StatApiResponse,
+  populationResponse: StatApiResponse,
+  scaling = 1
+): StatApiResponse {
+  const result = { ...statsVarResponse };
+  for (const place in statsVarResponse) {
+    if (!statsVarResponse[place]) continue;
+    const dateValue = statsVarResponse[place].data;
+    const population = populationResponse[place].data;
+    const years = Object.keys(population);
+    years.sort();
+    const yearMin = years[0];
+    const yearMax = years[years.length - 1];
+    for (const date in dateValue) {
+      const year = date.split("-")[0];
+      let pop: number;
+      if (year in population) {
+        pop = population[year];
+      } else if (year < yearMin) {
+        pop = population[yearMin];
+      } else {
+        pop = population[yearMax];
+      }
+      result[place].data[date] /= pop / scaling;
+    }
+  }
+  return result;
+}
+
+/**
  * Fetch statistical time series given a set of places and a set of statistical
  * variables.
  *
@@ -185,53 +319,54 @@ class StatsData {
  *
  * @returns A Promise of StatsData object.
  */
-
 function fetchStatsData(
   places: string[],
   statsVars: string[],
   perCapita = false,
-  scaling = 1
+  scaling = 1,
+  cachedData: CachedStatsVarDataMap = {}
 ): Promise<StatsData> {
-  const n = statsVars.length;
+  if (isAllCachedDataAvailable(places, statsVars, cachedData)) {
+    return new Promise((resolve) => {
+      resolve(
+        getStatsDataFromCachedData(
+          places,
+          statsVars,
+          perCapita,
+          scaling,
+          cachedData
+        )
+      );
+    });
+  }
+
+  const numStatsVars = statsVars.length;
   let dcidParams = `?`;
   for (const place of places) {
     dcidParams += `&dcid=${place}`;
   }
-  const allDataPromises: Promise<AxiosResponse<ApiResponse>>[] = [];
+  const apiDataPromises: Promise<AxiosResponse<StatApiResponse>>[] = [];
   for (const statsVar of statsVars) {
-    allDataPromises.push(axios.get(`/api/stats/${statsVar}${dcidParams}`));
+    apiDataPromises.push(axios.get(`/api/stats/${statsVar}${dcidParams}`));
   }
   if (perCapita) {
-    allDataPromises.push(axios.get(`/api/stats/Count_Person${dcidParams}`));
+    apiDataPromises.push(
+      axios.get(`/api/stats/${TOTAL_POPULATION_SV}${dcidParams}`)
+    );
   }
-  return Promise.all(allDataPromises).then((allResp) => {
+
+  return Promise.all(apiDataPromises).then((allResp) => {
     const result = new StatsData(places, statsVars, [], {});
     const dates: { [key: string]: boolean } = {};
-    for (let i = 0; i < n; i++) {
-      result.data[statsVars[i]] = allResp[i].data;
-      // Compute perCapita.
+    for (let i = 0; i < numStatsVars; i++) {
+      const sv = statsVars[i];
+      result.data[sv] = allResp[i].data;
       if (perCapita) {
-        for (const place in allResp[i].data) {
-          if (!allResp[i].data[place]) continue;
-          const dateValue = allResp[i].data[place].data;
-          const population = allResp[n].data[place].data;
-          const years = Object.keys(population);
-          years.sort();
-          const yearMin = years[0];
-          const yearMax = years[years.length - 1];
-          for (const date in dateValue) {
-            const year = date.split("-")[0];
-            let pop: number;
-            if (year in population) {
-              pop = population[year];
-            } else if (year < yearMin) {
-              pop = population[yearMin];
-            } else {
-              pop = population[yearMax];
-            }
-            result.data[statsVars[i]][place].data[date] /= pop / scaling;
-          }
-        }
+        result.data[sv] = computePerCapita(
+          allResp[i].data,
+          allResp[numStatsVars].data,
+          scaling
+        );
       }
       // Build the dates collection, get the union of available dates for all data
       for (const place in allResp[i].data) {
@@ -249,4 +384,8 @@ function fetchStatsData(
   });
 }
 
-export { StatsData, fetchStatsData };
+export {
+  CachedStatsVarDataMap as CachedStatVarDataMap,
+  StatsData,
+  fetchStatsData,
+};
