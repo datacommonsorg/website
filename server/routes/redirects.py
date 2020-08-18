@@ -54,6 +54,7 @@ def colab():
     return redirect('https://docs.datacommons.org/tutorials.html', code=302)
 
 
+# This is used to handle explore more link from Google search. Do not remove.
 @bp.route('/explore/place')
 def explore():
     return redirect(
