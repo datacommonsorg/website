@@ -39,7 +39,7 @@ class BuildTreeTest(unittest.TestCase):
                    "GrowthRate_Amount_EconomicActivity_GrossDomesticProduction",
                    "Amount_EconomicActivity_GrossDomesticProduction_Nominal",
                    "Amount_EconomicActivity_GrossNationalIncome_PurchasingPowerParity",
-                   "Count_Person_Upto5Years", 
+                   "Count_Person_Upto5Years",
                    "Count_CriminalActivities_Arson",
                    "Count_CriminalActivities_ViolentCrime",
                    "Count_CriminalActivities_AggravatedAssault",
@@ -52,7 +52,7 @@ class BuildTreeTest(unittest.TestCase):
                    "Count_Person_EducationalAttainmentKindergarten",
                    "Count_Person_EducationalAttainmentNurserySchool",
                    "Count_Establishment_NAICSTotalAllIndustries",
-                   "Count_Worker_NAICSTotalAllIndustries", 
+                   "Count_Worker_NAICSTotalAllIndustries",
                    ]
         return sv_dcid
 
@@ -70,9 +70,10 @@ class BuildTreeTest(unittest.TestCase):
         mock_get_sv.side_effect = self.get_sv
         mock_get_triples.side_effect = self.get_triples_
         data, _ = build_tree.build_tree(3)
-        expected = json.load(open("./hierarchy_golden.json","r"))
+        expected = json.load(open("./hierarchy_golden.json", "r"))
         self.assertEqual(data, expected)
         return
+
 
 if __name__ == "__main__":
     unittest.main()

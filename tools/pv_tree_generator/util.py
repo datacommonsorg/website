@@ -54,8 +54,10 @@ class StatsVar(object):
         self.mqual = mqual  # measurement qualifier
         self.pv = pv  # constraint property-value pairs, dict{string: string}
         self.dcid = dcid
-        self.key = (pop_type, stats, mprop, mqual, mdenom) + tuple(sorted(list(pv.keys())))
-        self.se = se # super enum
+        self.key = (pop_type, stats, mprop, mqual, mdenom) + \
+            tuple(sorted(list(pv.keys())))
+        self.se = se  # super enum
+
 
 def read_pop_obs_spec():
     """Read pop obs spec from the config file."""
@@ -136,8 +138,8 @@ def read_stat_var():
     ('dc/014es05x0d5l', 'constraintProperties', 'incomeStatus')
     ('dc/014es05x0d5l', 'constraintProperties', 'age')
     """
-    # trunk statsVar dcids into smaller size and 
-    # get the triples 
+    # trunk statsVar dcids into smaller size and
+    # get the triples
     trunk_size = 10000
     n_trunk = len(sv_dcid)//trunk_size
     sv_triples = {}
@@ -146,7 +148,8 @@ def read_stat_var():
             trunk_triples = dc.get_triples(sv_dcid[i*trunk_size:])
             sv_triples.update(trunk_triples)
         else:
-            trunk_triples = dc.get_triples(sv_dcid[i*trunk_size:(i+1)*trunk_size])
+            trunk_triples = dc.get_triples(
+                sv_dcid[i*trunk_size:(i+1)*trunk_size])
             sv_triples.update(trunk_triples)
     # group all the statsVars according to the triples
     stat_vars = collections.defaultdict(list)
@@ -157,8 +160,8 @@ def read_stat_var():
         for dcid_, prop, val in triples:
             if dcid_ != dcid:
                 # triples include measurementDenomator info of other statsvars
-                # eg. we will get "dc/gywfwwmg5gsrg, measurementDenominator, Count_Person"
-                # in triples of "Count_Peron"
+                # eg. we will get "dc/gywfwwmg5gsrg, measurementDenominator, 
+                # Count_Person" in triples of "Count_Peron"
                 continue
             if prop == "constraintProperties":
                 constraint_properties.append(val)
@@ -171,8 +174,9 @@ def read_stat_var():
                 raise Exception('constraint property:{} not found in statistical'
                                 'variable with dcid: {}'.format(property, dcid))
             prop_val[property] = sv_dict[property]
-        # create super enum, i.e. group statsvars with different p-v pairs: (p,v1); (p,v2)
-        # by adding a common value: (p, v), so that v1, v2 would be leaf nodes for value node v;
+        # create super enum, i.e. group statsvars with different p-v pairs: 
+        # (p,v1); (p,v2) by adding a common value: (p, v), 
+        # so that v1, v2 would be leaf nodes for value node v;
         se = {}
         if 'crimeType' in prop_val:
             v = prop_val.get('crimeType', '')
@@ -180,15 +184,15 @@ def read_stat_var():
                      'MurderAndNonNegligentManslaughter']:
                 se = {'crimeType': 'ViolentCrime'}
             elif v in ['MotorVehicleTheft', 'LarcenyTheft', 'Burglary']:
-                se = {'crimeType': 'PropertyCrime'} 
+                se = {'crimeType': 'PropertyCrime'}
         # create the statsVar object
-        sv = StatsVar(sv_dict["populationType"], 
+        sv = StatsVar(sv_dict["populationType"],
                       sv_dict["measuredProperty"],
-                      sv_dict["statType"], 
-                      sv_dict["measurementQualifier"], 
-                      sv_dict["measurementDenominator"], 
-                      prop_val, 
-                      dcid, 
+                      sv_dict["statType"],
+                      sv_dict["measurementQualifier"],
+                      sv_dict["measurementDenominator"],
+                      prop_val,
+                      dcid,
                       se)
         stat_vars[sv.key].append(sv)
     stat_vars = removeDuplicateStatsVar(stat_vars)

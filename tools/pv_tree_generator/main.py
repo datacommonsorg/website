@@ -19,7 +19,8 @@ import util
 import constants
 from build_tree import build_tree, get_top_level
 import copy
-MAX_LEVEL=6
+MAX_LEVEL = 6
+
 
 def main():
     f_json = open("../../static/data/hierarchy_statsvar.json", "w")
