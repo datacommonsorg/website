@@ -49,6 +49,7 @@ const NUMBER_OF_CHARTS_PER_ROW = 3;
 
 const /** !Array<string> */ PROD_HOST = [
     "datacommons.org",
+    "browser.datacommons.org",
     "datcom-browser-prod.appspot.com",
   ];
 
@@ -73,11 +74,13 @@ const API_DATA = {
  * @return {boolean} Whether browser is in prod environment.
  */
 function isBrowserInProdEnv() {
-  if (PROD_HOST.includes(window.location.host)) return true;
-  if (STAGING_HOST.includes(window.location.host)) return false;
+  let host = window.location.host;
+  if (PROD_HOST.includes(host)) return true;
+  if (STAGING_HOST.includes(host)) return false;
 
-  console.log("Unknown host: " + window.location.host + ", treat as staging.");
-  return false;
+  // TODO: Default to prod for now, until we use async XHR
+  console.log("Unknown host: \"" + host + "\", treat as prod.");
+  return true;
 }
 
 /**
