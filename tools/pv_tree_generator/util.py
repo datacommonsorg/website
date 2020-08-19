@@ -22,14 +22,13 @@ import dc_request as dc
 class ObsProps(object):
     """represent the properties of a statsVar observation"""
 
-    def __init__(self, stat_type, mprop, mqual, mdenom, sfactor, name):
+    def __init__(self, stat_type, mprop, mqual, mdenom, name):
         self.stat_type = stat_type
         self.mprop = mprop
         self.mqual = mqual
         self.mdenom = mdenom
-        self.sfactor = sfactor
         self.name = name
-        self.key = (stat_type, mprop, mqual, mdenom, sfactor)
+        self.key = (stat_type, mprop, mqual, mdenom)
 
 
 class PopObsSpec(object):
@@ -48,49 +47,34 @@ class PopObsSpec(object):
 class StatsVar(object):
     """Represents a StatisticalVariable"""
 
-    def __init__(self, pop_type, mprop, stats, mqual, mdenom, sfactor, pv, dcid, se):
+    def __init__(self, pop_type, mprop, stats, mqual, mdenom, pv, dcid, se):
         self.pop_type = pop_type  # population_type
         self.mprop = mprop  # measured property
         self.stats = stats  # stat_type
         self.mqual = mqual  # measurement qualifier
         self.pv = pv  # constraint property-value pairs, dict{string: string}
         self.dcid = dcid
-        self.key = (pop_type, stats, mprop, mqual, mdenom,
-                    sfactor) + tuple(sorted(list(pv.keys())))
+        self.key = (pop_type, stats, mprop, mqual, mdenom) + tuple(sorted(list(pv.keys())))
         self.se = se # super enum
-
-def read_pos_list(path):
-    pop_obs_spec_list = stat_config_pb2.PopObsSpecList()
-    with open(path, 'r') as file_common:
-        data_common = file_common.read()
-    text_format.Parse(data_common, pop_obs_spec_list)
-    return pop_obs_spec_list.spec
 
 def read_pop_obs_spec():
     """Read pop obs spec from the config file."""
     result = collections.defaultdict(lambda: collections.defaultdict(list))
-
-    # Read pop obs spec
-    POS_COMMON_PATH = "./pop_obs_spec_common.textproto"
-    for pos in read_pos_list(POS_COMMON_PATH):
-        dpv = {}
-        for pv in pos.dpv:
-            dpv[pv.prop] = pv.val
-        obs_props = [ObsProps(pos.stat_type, pos.mprop, "", "", "", "")]
-        for v in pos.vertical:
-            result[v][len(pos.cprop)].append(PopObsSpec(
-                pos.pop_type, list(pos.cprop), dpv, pos.name, obs_props))
-
-    # Read new prop_obs_specs with multiple obs_props
-    POS_OBS_PROPS_PATH = "./pop_obs_spec_with_obs_props.textproto"
-    for pos in read_pos_list(POS_OBS_PROPS_PATH):
+    # Read pop_obs_specs with multiple obs_props
+    POS_OBS_PROPS_PATH = "./pop_obs_spec_common.textproto"
+    pop_obs_spec_list = stat_config_pb2.PopObsSpecList()
+    with open(POS_OBS_PROPS_PATH, 'r') as file_common:
+        data_common = file_common.read()
+    text_format.Parse(data_common, pop_obs_spec_list)
+    # create pop_obs_specs objects
+    for pos in pop_obs_spec_list.spec:
         dpv = {}
         for pv in pos.dpv:
             dpv[pv.prop] = pv.val
         obs_props = []
         for obs in pos.obs_props:
             obs_props.append(ObsProps(obs.stat_type, obs.mprop,
-                                      obs.mqual, obs.mdenom, obs.sfactor, obs.name))
+                                      obs.mqual, obs.mdenom, obs.name))
         for v in pos.vertical:
             result[v][len(pos.cprop)].append(PopObsSpec(
                 pos.pop_type, list(pos.cprop), dpv, pos.name, obs_props))
@@ -203,7 +187,6 @@ def read_stat_var():
                       sv_dict["statType"], 
                       sv_dict["measurementQualifier"], 
                       sv_dict["measurementDenominator"], 
-                      sv_dict["scalingFactor"], 
                       prop_val, 
                       dcid, 
                       se)

@@ -18,8 +18,10 @@
 
 spec: {
   pop_type: "Person"
-  mprop: "count"
-  stat_type: "measuredValue"
+  obs_props: {
+    mprop: "count"
+    stat_type: "measuredValue"
+  }
   name: "Population"
   vertical: "Demographics"
 }
@@ -28,32 +30,40 @@ spec: {
 
 spec: {
   pop_type: "Person"
-  mprop: "count"
-  stat_type: "measuredValue"
+  obs_props: {
+    mprop: "count"
+    stat_type: "measuredValue"
+  }
   vertical: "Demographics"
   cprop: "age"
 }
 
 spec: {
   pop_type: "Person"
-  mprop: "count"
-  stat_type: "measuredValue"
+  obs_props: {
+    mprop: "count"
+    stat_type: "measuredValue"
+  }
   vertical: "Demographics"
   cprop: "citizenship"
 }
 
 spec: {
   pop_type: "Person"
-  mprop: "count"
-  stat_type: "measuredValue"
+  obs_props: {
+    mprop: "count"
+    stat_type: "measuredValue"
+  }
   vertical: "Demographics"
   cprop: "gender"
 }
 
 spec: {
   pop_type: "Person"
-  mprop: "count"
-  stat_type: "measuredValue"
+  obs_props: {
+    mprop: "count"
+    stat_type: "measuredValue"
+  }
   vertical: "Demographics"
   cprop: "income"
   dpv: {
@@ -72,8 +82,10 @@ spec: {
 # languageSpokenAtHome x [Age]
 spec: {
   pop_type: "Person"
-  mprop: "count"
-  stat_type: "measuredValue"
+  obs_props: {
+    mprop: "count"
+    stat_type: "measuredValue"
+  }
   vertical: "Demographics"
   cprop: "languageSpokenAtHome"
   cprop: "age"
@@ -81,8 +93,10 @@ spec: {
 # abilityToSpeakEnglish x languageSpokenAtHome x [Age]
 spec: {
   pop_type: "Person"
-  mprop: "count"
-  stat_type: "measuredValue"
+  obs_props: {
+    mprop: "count"
+    stat_type: "measuredValue"
+  }
   vertical: "Demographics"
   cprop: "abilityToSpeakEnglish"
   cprop: "age"
@@ -91,8 +105,10 @@ spec: {
 
 spec: {
   pop_type: "Person"
-  mprop: "count"
-  stat_type: "measuredValue"
+  obs_props: {
+    mprop: "count"
+    stat_type: "measuredValue"
+  }
   vertical: "Demographics"
   cprop: "maritalStatus"
   dpv: {
@@ -103,8 +119,10 @@ spec: {
 
 spec: {
   pop_type: "Person"
-  mprop: "count"
-  stat_type: "measuredValue"
+  obs_props: {
+    mprop: "count"
+    stat_type: "measuredValue"
+  }
   vertical: "Demographics"
   cprop: "nativity"
   dpv: {
@@ -115,32 +133,40 @@ spec: {
 
 spec: {
   pop_type: "Person"
-  mprop: "count"
-  stat_type: "measuredValue"
+  obs_props: {
+    mprop: "count"
+    stat_type: "measuredValue"
+  }
   vertical: "Demographics"
   cprop: "placeOfBirth"
 }
 
 spec: {
   pop_type: "Person"
-  mprop: "count"
-  stat_type: "measuredValue"
+  obs_props: {
+    mprop: "count"
+    stat_type: "measuredValue"
+  }
   vertical: "Demographics"
   cprop: "povertyStatus"
 }
 
 spec: {
   pop_type: "Person"
-  mprop: "count"
-  stat_type: "measuredValue"
+  obs_props: {
+    mprop: "count"
+    stat_type: "measuredValue"
+  }
   vertical: "Demographics"
   cprop: "race"
 }
 
 spec: {
   pop_type: "Person"
-  mprop: "count"
-  stat_type: "measuredValue"
+  obs_props: {
+    mprop: "count"
+    stat_type: "measuredValue"
+  }
   vertical: "Demographics"
   cprop: "veteranStatus"
   dpv: {
@@ -157,8 +183,10 @@ spec: {
 
 spec: {
   pop_type: "Person"
-  mprop: "count"
-  stat_type: "measuredValue"
+  obs_props: {
+    mprop: "count"
+    stat_type: "measuredValue"
+  }
   vertical: "Demographics"
   cprop: "age"
   cprop: "gender"
@@ -166,8 +194,10 @@ spec: {
 
 spec: {
   pop_type: "Person"
-  mprop: "count"
-  stat_type: "measuredValue"
+  obs_props: {
+    mprop: "count"
+    stat_type: "measuredValue"
+  }
   vertical: "Demographics"
   cprop: "age"
   cprop: "placeOfBirth"
@@ -175,8 +205,10 @@ spec: {
 
 spec: {
   pop_type: "Person"
-  mprop: "count"
-  stat_type: "measuredValue"
+  obs_props: {
+    mprop: "count"
+    stat_type: "measuredValue"
+  }
   vertical: "Demographics"
   vertical: "Education"
   cprop: "educationalAttainment"
@@ -189,8 +221,10 @@ spec: {
 
 spec: {
   pop_type: "Person"
-  mprop: "count"
-  stat_type: "measuredValue"
+  obs_props: {
+    mprop: "count"
+    stat_type: "measuredValue"
+  }
   vertical: "Demographics"
   cprop: "income"
   cprop: "gender"
@@ -206,8 +240,10 @@ spec: {
 
 spec: {
   pop_type: "Person"
-  mprop: "count"
-  stat_type: "measuredValue"
+  obs_props: {
+    mprop: "count"
+    stat_type: "measuredValue"
+  }
   vertical: "Demographics"
   cprop: "maritalStatus"
   cprop: "gender"
@@ -219,8 +255,10 @@ spec: {
 
 spec: {
   pop_type: "Person"
-  mprop: "count"
-  stat_type: "measuredValue"
+  obs_props: {
+    mprop: "count"
+    stat_type: "measuredValue"
+  }
   vertical: "Demographics"
   cprop: "gender"
   cprop: "povertyStatus"
@@ -228,8 +266,10 @@ spec: {
 
 spec: {
   pop_type: "Person"
-  mprop: "count"
-  stat_type: "measuredValue"
+  obs_props: {
+    mprop: "count"
+    stat_type: "measuredValue"
+  }
   vertical: "Demographics"
   cprop: "gender"
   cprop: "race"
@@ -237,8 +277,10 @@ spec: {
 
 spec: {
   pop_type: "Person"
-  mprop: "count"
-  stat_type: "measuredValue"
+  obs_props: {
+    mprop: "count"
+    stat_type: "measuredValue"
+  }
   vertical: "Demographics"
   vertical: "Education"
   cprop: "gender"
@@ -251,8 +293,10 @@ spec: {
 
 spec: {
   pop_type: "Person"
-  mprop: "count"
-  stat_type: "measuredValue"
+  obs_props: {
+    mprop: "count"
+    stat_type: "measuredValue"
+  }
   vertical: "Demographics"
   cprop: "gender"
   cprop: "veteranStatus"
@@ -268,8 +312,10 @@ spec: {
 
 spec: {
   pop_type: "Person"
-  mprop: "count"
-  stat_type: "measuredValue"
+  obs_props: {
+    mprop: "count"
+    stat_type: "measuredValue"
+  }
   vertical: "Demographics"
   cprop: "income"
   cprop: "placeOfBirth"
@@ -285,8 +331,10 @@ spec: {
 
 spec: {
   pop_type: "Person"
-  mprop: "count"
-  stat_type: "measuredValue"
+  obs_props: {
+    mprop: "count"
+    stat_type: "measuredValue"
+  }
   vertical: "Demographics"
   cprop: "incomeStatus"
   cprop: "placeOfBirth"
@@ -298,8 +346,10 @@ spec: {
 
 spec: {
   pop_type: "Person"
-  mprop: "count"
-  stat_type: "measuredValue"
+  obs_props: {
+    mprop: "count"
+    stat_type: "measuredValue"
+  }
   vertical: "Demographics"
   cprop: "maritalStatus"
   cprop: "placeOfBirth"
@@ -315,8 +365,10 @@ spec: {
 # languageSpokenAtHome x Non/Native 5 Years and Over
 spec: {
   pop_type: "Person"
-  mprop: "count"
-  stat_type: "measuredValue"
+  obs_props: {
+    mprop: "count"
+    stat_type: "measuredValue"
+  }
   vertical: "Demographics"
   cprop: "nativity"
   cprop: "languageSpokenAtHome"
@@ -328,8 +380,10 @@ spec: {
 # abilityToSpeakEnglish x languageSpokenAtHome x Non/Native 5 Years and Over
 spec: {
   pop_type: "Person"
-  mprop: "count"
-  stat_type: "measuredValue"
+  obs_props: {
+    mprop: "count"
+    stat_type: "measuredValue"
+  }
   vertical: "Demographics"
   cprop: "abilityToSpeakEnglish"
   cprop: "nativity"
@@ -345,8 +399,10 @@ spec: {
 # Non/Native x Race 5 Years and Over
 spec: {
   pop_type: "Person"
-  mprop: "count"
-  stat_type: "measuredValue"
+  obs_props: {
+    mprop: "count"
+    stat_type: "measuredValue"
+  }
   vertical: "Demographics"
   cprop: "race"
   cprop: "nativity"
@@ -358,8 +414,10 @@ spec: {
 # languageSpokenAtHome x Non/Native x Race 5 Years and Over
 spec: {
   pop_type: "Person"
-  mprop: "count"
-  stat_type: "measuredValue"
+  obs_props: {
+    mprop: "count"
+    stat_type: "measuredValue"
+  }
   vertical: "Demographics"
   cprop: "languageSpokenAtHome"
   cprop: "nativity"
@@ -372,8 +430,10 @@ spec: {
 # abilityToSpeakEnglish x languageSpokenAtHome (nonEnglish) x Non/Native x Race 5 Years and Over
 spec: {
   pop_type: "Person"
-  mprop: "count"
-  stat_type: "measuredValue"
+  obs_props: {
+    mprop: "count"
+    stat_type: "measuredValue"
+  }
   vertical: "Demographics"
   cprop: "abilityToSpeakEnglish"
   cprop: "race"
@@ -390,8 +450,10 @@ spec: {
 
 spec: {
   pop_type: "Person"
-  mprop: "count"
-  stat_type: "measuredValue"
+  obs_props: {
+    mprop: "count"
+    stat_type: "measuredValue"
+  }
   vertical: "Demographics"
   cprop: "race"
   cprop: "povertyStatus"
@@ -399,8 +461,10 @@ spec: {
 
 spec: {
   pop_type: "Person"
-  mprop: "count"
-  stat_type: "measuredValue"
+  obs_props: {
+    mprop: "count"
+    stat_type: "measuredValue"
+  }
   vertical: "Demographics"
   vertical: "Education"
   cprop: "race"
@@ -415,8 +479,10 @@ spec: {
 
 spec: {
   pop_type: "Person"
-  mprop: "count"
-  stat_type: "measuredValue"
+  obs_props: {
+    mprop: "count"
+    stat_type: "measuredValue"
+  }
   vertical: "Demographics"
   cprop: "age"
   cprop: "gender"
@@ -425,8 +491,10 @@ spec: {
 
 spec: {
   pop_type: "Person"
-  mprop: "count"
-  stat_type: "measuredValue"
+  obs_props: {
+    mprop: "count"
+    stat_type: "measuredValue"
+  }
   vertical: "Demographics"
   cprop: "age"
   cprop: "gender"
@@ -443,8 +511,10 @@ spec: {
 
 spec: {
   pop_type: "Person"
-  mprop: "count"
-  stat_type: "measuredValue"
+  obs_props: {
+    mprop: "count"
+    stat_type: "measuredValue"
+  }
   vertical: "Demographics"
   cprop: "age"
   cprop: "gender"
@@ -453,8 +523,10 @@ spec: {
 
 spec: {
   pop_type: "Person"
-  mprop: "count"
-  stat_type: "measuredValue"
+  obs_props: {
+    mprop: "count"
+    stat_type: "measuredValue"
+  }
   vertical: "Demographics"
   cprop: "gender"
   cprop: "povertyStatus"
@@ -463,8 +535,10 @@ spec: {
 
 spec: {
   pop_type: "Person"
-  mprop: "count"
-  stat_type: "measuredValue"
+  obs_props: {
+    mprop: "count"
+    stat_type: "measuredValue"
+  }
   vertical: "Demographics"
   cprop: "gender"
   cprop: "maritalStatus"
@@ -477,8 +551,10 @@ spec: {
 
 spec: {
   pop_type: "Person"
-  mprop: "count"
-  stat_type: "measuredValue"
+  obs_props: {
+    mprop: "count"
+    stat_type: "measuredValue"
+  }
   vertical: "Education"
   cprop: "detailedLevelOfSchool"
   cprop: "gender"
@@ -490,8 +566,10 @@ spec: {
 
 spec: {
   pop_type: "Person"
-  mprop: "count"
-  stat_type: "measuredValue"
+  obs_props: {
+    mprop: "count"
+    stat_type: "measuredValue"
+  }
   vertical: "Demographics"
   vertical: "Education"
   cprop: "educationalAttainment"
@@ -503,8 +581,10 @@ spec: {
 
 spec: {
   pop_type: "Person"
-  mprop: "count"
-  stat_type: "measuredValue"
+  obs_props: {
+    mprop: "count"
+    stat_type: "measuredValue"
+  }
   vertical: "Education"
   vertical: "Demographics"
   cprop: "educationalAttainment"
@@ -523,8 +603,10 @@ spec: {
 # MISSING NotEnrolledInSchool counts, so schoolEnrollment becomes a dpv here
 spec: {
   pop_type: "Person"
-  mprop: "count"
-  stat_type: "measuredValue"
+  obs_props: {
+    mprop: "count"
+    stat_type: "measuredValue"
+  }
   vertical: "Demographics"
   vertical: "Education"
   cprop: "levelOfSchool"
@@ -547,8 +629,10 @@ spec: {
 # LevelOfSchool Fe/Male Enrolled 3+YO
 spec: {
   pop_type: "Person"
-  mprop: "count"
-  stat_type: "measuredValue"
+  obs_props: {
+    mprop: "count"
+    stat_type: "measuredValue"
+  }
   vertical: "Demographics"
   vertical: "Education"
   cprop: "gender"
@@ -565,8 +649,10 @@ spec: {
 # Type Of School LevelOfSchool Fe/Male Enrolled 3+YO
 spec: {
   pop_type: "Person"
-  mprop: "count"
-  stat_type: "measuredValue"
+  obs_props: {
+    mprop: "count"
+    stat_type: "measuredValue"
+  }
   vertical: "Demographics"
   vertical: "Education"
   cprop: "typeOfSchool"
@@ -587,8 +673,10 @@ spec: {
 # 3+YO Not/Enrolled in school
 spec: {
   pop_type: "Person"
-  mprop: "count"
-  stat_type: "measuredValue"
+  obs_props: {
+    mprop: "count"
+    stat_type: "measuredValue"
+  }
   vertical: "Education"
   cprop: "schoolEnrollment"
   dpv: {
@@ -599,8 +687,10 @@ spec: {
 # Detailed Level of School for 3+YO enrolled in school
 spec: {
   pop_type: "Person"
-  mprop: "count"
-  stat_type: "measuredValue"
+  obs_props: {
+    mprop: "count"
+    stat_type: "measuredValue"
+  }
   vertical: "Education"
   cprop: "detailedLevelOfSchool"
   dpv: {
@@ -619,8 +709,10 @@ spec: {
 # Detailed Level of School for Enrolled in School [Race] 3 Years and Over
 spec: {
   pop_type: "Person"
-  mprop: "count"
-  stat_type: "measuredValue"
+  obs_props: {
+    mprop: "count"
+    stat_type: "measuredValue"
+  }
   vertical: "Demographics"
   vertical: "Education"
   cprop: "detailedLevelOfSchool"
@@ -641,8 +733,10 @@ spec: {
 # Fe/Male Civilian Population 18 years and older # promoted armedForcesStatus
 spec: {
   pop_type: "Person"
-  mprop: "count"
-  stat_type: "measuredValue"
+  obs_props: {
+    mprop: "count"
+    stat_type: "measuredValue"
+  }
   vertical: "Demographics"
   cprop: "gender"
   cprop: "armedForcesStatus"
@@ -655,8 +749,10 @@ spec: {
 # Male Age Civilian Population # promoted armedForcesStatus
 spec: {
   pop_type: "Person"
-  mprop: "count"
-  stat_type: "measuredValue"
+  obs_props: {
+    mprop: "count"
+    stat_type: "measuredValue"
+  }
   vertical: "Demographics"
   cprop: "gender"
   cprop: "age"
@@ -665,8 +761,10 @@ spec: {
 # Male Age Vet Civilian Population
 spec: {
   pop_type: "Person"
-  mprop: "count"
-  stat_type: "measuredValue"
+  obs_props: {
+    mprop: "count"
+    stat_type: "measuredValue"
+  }
   vertical: "Demographics"
   cprop: "gender"
   cprop: "age"
@@ -682,8 +780,10 @@ spec: {
 # Male Civilian Noninstitutionalized # promoted armedForcesStatus and institutionalization
 spec: {
   pop_type: "Person"
-  mprop: "count"
-  stat_type: "measuredValue"
+  obs_props: {
+    mprop: "count"
+    stat_type: "measuredValue"
+  }
   vertical: "Demographics"
   cprop: "gender"
   cprop: "institutionalization"
@@ -692,8 +792,10 @@ spec: {
 # Male Civilian Noninstitutionalized Age # promoted armedForcesStatus and institutionalization
 spec: {
   pop_type: "Person"
-  mprop: "count"
-  stat_type: "measuredValue"
+  obs_props: {
+    mprop: "count"
+    stat_type: "measuredValue"
+  }
   vertical: "Demographics"
   cprop: "age"
   cprop: "gender"
@@ -706,8 +808,10 @@ spec: {
 
 spec: {
   pop_type: "Person"
-  mprop: "age"
-  stat_type: "medianValue"
+  obs_props: {
+    mprop: "age"
+    stat_type: "medianValue"
+  }
   vertical: "Demographics"
 }
 
@@ -715,8 +819,10 @@ spec: {
 
 spec: {
   pop_type: "Person"
-  mprop: "income"
-  stat_type: "medianValue"
+  obs_props: {
+    mprop: "income"
+    stat_type: "medianValue"
+  }
   vertical: "Demographics"
   dpv: {
     prop: "age"
@@ -732,8 +838,10 @@ spec: {
 
 spec: {
   pop_type: "Person"
-  mprop: "unemploymentRate"
-  stat_type: "measuredValue"
+  obs_props: {
+    mprop: "unemploymentRate"
+    stat_type: "measuredValue"
+  }
   vertical: "Employment"
   name: "Unemployment Rate"
 }
@@ -742,8 +850,10 @@ spec: {
 
 spec: {
   pop_type: "Person"
-  mprop: "percent"
-  stat_type: "measuredValue"
+  obs_props: {
+    mprop: "percent"
+    stat_type: "measuredValue"
+  }
   vertical: "Health"
   cprop: "healthOutcome"
   dpv: {
@@ -756,8 +866,10 @@ spec: {
 # This one needs additional config
 spec: {
   pop_type: "Person"
-  mprop: "percent"
-  stat_type: "measuredValue"
+  obs_props: {
+    mprop: "percent"
+    stat_type: "measuredValue"
+  }
   vertical: "Health"
   cprop: "healthPrevention"
   dpv: {
@@ -769,8 +881,10 @@ spec: {
 
 spec: {
   pop_type: "Person"
-  mprop: "percent"
-  stat_type: "measuredValue"
+  obs_props: {
+    mprop: "percent"
+    stat_type: "measuredValue"
+  }
   vertical: "Health"
   cprop: "healthBehavior"
   dpv: {
@@ -782,8 +896,10 @@ spec: {
 
 spec: {
   pop_type: "Person"
-  mprop: "percent"
-  stat_type: "measuredValue"
+  obs_props: {
+    mprop: "percent"
+    stat_type: "measuredValue"
+  }
   vertical: "Health"
   cprop: "gender"
   cprop: "healthOutcome"
@@ -795,8 +911,10 @@ spec: {
 
 spec: {
   pop_type: "Person"
-  mprop: "percent"
-  stat_type: "measuredValue"
+  obs_props: {
+    mprop: "percent"
+    stat_type: "measuredValue"
+  }
   vertical: "Health"
   cprop: "gender"
   cprop: "healthBehavior"
@@ -810,8 +928,10 @@ spec: {
 
 spec: {
   pop_type: "CriminalActivities"
-  mprop: "count"
-  stat_type: "measuredValue"
+  obs_props: {
+    mprop: "count"
+    stat_type: "measuredValue"
+  }
   vertical: "Crime"
   cprop: "crimeType"
 }
@@ -820,48 +940,60 @@ spec: {
 
 spec: {
   pop_type: "MortalityEvent"
-  mprop: "count"
-  stat_type: "measuredValue"
+  obs_props: {
+    mprop: "count"
+    stat_type: "measuredValue"
+  }
   vertical: "Health"
   name: "Mortality"
 }
 
 spec: {
   pop_type: "MortalityEvent"
-  mprop: "count"
-  stat_type: "measuredValue"
+  obs_props: {
+    mprop: "count"
+    stat_type: "measuredValue"
+  }
   vertical: "Health"
   cprop: "age"
 }
 
 spec: {
   pop_type: "MortalityEvent"
-  mprop: "count"
-  stat_type: "measuredValue"
+  obs_props: {
+    mprop: "count"
+    stat_type: "measuredValue"
+  }
   vertical: "Health"
   cprop: "causeOfDeath"
 }
 
 spec: {
   pop_type: "MortalityEvent"
-  mprop: "count"
-  stat_type: "measuredValue"
+  obs_props: {
+    mprop: "count"
+    stat_type: "measuredValue"
+  }
   vertical: "Health"
   cprop: "gender"
 }
 
 spec: {
   pop_type: "MortalityEvent"
-  mprop: "count"
-  stat_type: "measuredValue"
+  obs_props: {
+    mprop: "count"
+    stat_type: "measuredValue"
+  }
   vertical: "Health"
   cprop: "race"
 }
 
 spec: {
   pop_type: "MortalityEvent"
-  mprop: "count"
-  stat_type: "measuredValue"
+  obs_props: {
+    mprop: "count"
+    stat_type: "measuredValue"
+  }
   vertical: "Health"
   cprop: "age"
   cprop: "causeOfDeath"
@@ -869,8 +1001,10 @@ spec: {
 
 spec: {
   pop_type: "MortalityEvent"
-  mprop: "count"
-  stat_type: "measuredValue"
+  obs_props: {
+    mprop: "count"
+    stat_type: "measuredValue"
+  }
   vertical: "Health"
   cprop: "age"
   cprop: "gender"
@@ -878,8 +1012,10 @@ spec: {
 
 spec: {
   pop_type: "MortalityEvent"
-  mprop: "count"
-  stat_type: "measuredValue"
+  obs_props: {
+    mprop: "count"
+    stat_type: "measuredValue"
+  }
   vertical: "Health"
   cprop: "age"
   cprop: "race"
@@ -887,8 +1023,10 @@ spec: {
 
 spec: {
   pop_type: "MortalityEvent"
-  mprop: "count"
-  stat_type: "measuredValue"
+  obs_props: {
+    mprop: "count"
+    stat_type: "measuredValue"
+  }
   vertical: "Health"
   cprop: "causeOfDeath"
   cprop: "gender"
@@ -896,8 +1034,10 @@ spec: {
 
 spec: {
   pop_type: "MortalityEvent"
-  mprop: "count"
-  stat_type: "measuredValue"
+  obs_props: {
+    mprop: "count"
+    stat_type: "measuredValue"
+  }
   vertical: "Health"
   cprop: "causeOfDeath"
   cprop: "race"
@@ -905,8 +1045,10 @@ spec: {
 
 spec: {
   pop_type: "MortalityEvent"
-  mprop: "count"
-  stat_type: "measuredValue"
+  obs_props: {
+    mprop: "count"
+    stat_type: "measuredValue"
+  }
   vertical: "Health"
   cprop: "gender"
   cprop: "race"
@@ -914,8 +1056,10 @@ spec: {
 
 spec: {
   pop_type: "MortalityEvent"
-  mprop: "count"
-  stat_type: "measuredValue"
+  obs_props: {
+    mprop: "count"
+    stat_type: "measuredValue"
+  }
   vertical: "Health"
   cprop: "causeOfDeath"
   cprop: "gender"
@@ -924,8 +1068,10 @@ spec: {
 
 spec: {
   pop_type: "MortalityEvent"
-  mprop: "count"
-  stat_type: "measuredValue"
+  obs_props: {
+    mprop: "count"
+    stat_type: "measuredValue"
+  }
   vertical: "Health"
   cprop: "age"
   cprop: "gender"
@@ -934,8 +1080,10 @@ spec: {
 
 spec: {
   pop_type: "MortalityEvent"
-  mprop: "count"
-  stat_type: "measuredValue"
+  obs_props: {
+    mprop: "count"
+    stat_type: "measuredValue"
+  }
   vertical: "Health"
   cprop: "age"
   cprop: "gender"
@@ -944,8 +1092,10 @@ spec: {
 
 spec: {
   pop_type: "MortalityEvent"
-  mprop: "count"
-  stat_type: "measuredValue"
+  obs_props: {
+    mprop: "count"
+    stat_type: "measuredValue"
+  }
   vertical: "Health"
   cprop: "age"
   cprop: "race"
@@ -956,24 +1106,30 @@ spec: {
 
 spec: {
   pop_type: "USCEstablishment"
-  mprop: "count"
-  stat_type: "measuredValue"
+  obs_props: {
+    mprop: "count"
+    stat_type: "measuredValue"
+  }
   vertical: "Economics"
   name: "Number of Establishments"
 }
 
 spec: {
   pop_type: "USCEstablishment"
-  mprop: "wagesAnnual"
-  stat_type: "measuredValue"
+  obs_props: {
+    mprop: "wagesAnnual"
+    stat_type: "measuredValue"
+  }
   vertical: "Economics"
   name: "Annual Wages of Establishments"
 }
 
 spec: {
   pop_type: "USCEstablishment"
-  mprop: "wagesAnnual"
-  stat_type: "measuredValue"
+  obs_props: {
+    mprop: "wagesAnnual"
+    stat_type: "measuredValue"
+  }
   vertical: "Economics"
   cprop: "naics"
   name: "Annual Wages of Establishments by Industry"
@@ -983,8 +1139,10 @@ spec: {
 
 spec: {
   pop_type: "USCWorker"
-  mprop: "count"
-  stat_type: "measuredValue"
+  obs_props: {
+    mprop: "count"
+    stat_type: "measuredValue"
+  }
   vertical: "Economics"
   name: "Labor Force"
 }
@@ -993,8 +1151,10 @@ spec: {
 
 spec: {
   pop_type: "BLSEstablishment"
-  mprop: "count"
-  stat_type: "measuredValue"
+  obs_props: {
+    mprop: "count"
+    stat_type: "measuredValue"
+  }
   vertical: "Employment"
   cprop: "naics"
   name: "Establishments by Industry"
@@ -1002,8 +1162,10 @@ spec: {
 
 spec: {
   pop_type: "BLSEstablishment"
-  mprop: "count"
-  stat_type: "measuredValue"
+  obs_props: {
+    mprop: "count"
+    stat_type: "measuredValue"
+  }
   vertical: "Employment"
   cprop: "establishmentOwnership"
   cprop: "naics"
@@ -1013,8 +1175,10 @@ spec: {
 
 spec: {
   pop_type: "BLSWorker"
-  mprop: "count"
-  stat_type: "measuredValue"
+  obs_props: {
+    mprop: "count"
+    stat_type: "measuredValue"
+  }
   vertical: "Employment"
   cprop: "naics"
   name: "Labor Force by Industry"
@@ -1022,8 +1186,10 @@ spec: {
 
 spec: {
   pop_type: "BLSWorker"
-  mprop: "count"
-  stat_type: "measuredValue"
+  obs_props: {
+    mprop: "count"
+    stat_type: "measuredValue"
+  }
   vertical: "Employment"
   cprop: "establishmentOwnership"
   cprop: "naics"
@@ -1040,8 +1206,10 @@ spec: {
 
 spec: {
   pop_type: "BLSWorker"
-  mprop: "wagesAnnual"
-  stat_type: "measuredValue"
+  obs_props: {
+    mprop: "wagesAnnual"
+    stat_type: "measuredValue"
+  }
   vertical: "Economics"
   cprop: "naics"
   cprop: "establishmentOwnership"
@@ -1071,16 +1239,20 @@ spec: {
 ## Household ##
 spec: {
   pop_type: "Household"
-  mprop: "count"
-  stat_type: "measuredValue"
+  obs_props: {
+    mprop: "count"
+    stat_type: "measuredValue"
+  }
   vertical: "Household"
   name: "Household"
 }
 
 spec: {
   pop_type: "Household"
-  mprop: "count"
-  stat_type: "measuredValue"
+  obs_props: {
+    mprop: "count"
+    stat_type: "measuredValue"
+  }
   vertical: "Household"
   cprop: "householderAge"
   name: "Household by Householder Age"
@@ -1088,8 +1260,10 @@ spec: {
 
 spec: {
   pop_type: "Household"
-  mprop: "count"
-  stat_type: "measuredValue"
+  obs_props: {
+    mprop: "count"
+    stat_type: "measuredValue"
+  }
   vertical: "Household"
   cprop: "householderRace"
   name: "Household by Householder Race"
@@ -1097,8 +1271,10 @@ spec: {
 
 spec: {
   pop_type: "Household"
-  mprop: "count"
-  stat_type: "measuredValue"
+  obs_props: {
+    mprop: "count"
+    stat_type: "measuredValue"
+  }
   vertical: "Household"
   cprop: "income"
   name: "Household Income"
@@ -1106,8 +1282,10 @@ spec: {
 
 spec: {
   pop_type: "Household"
-  mprop: "count"
-  stat_type: "measuredValue"
+  obs_props: {
+    mprop: "count"
+    stat_type: "measuredValue"
+  }
   vertical: "Household"
   cprop: "householderAge"
   cprop: "income"
@@ -1115,8 +1293,10 @@ spec: {
 
 spec: {
   pop_type: "Household"
-  mprop: "count"
-  stat_type: "measuredValue"
+  obs_props: {
+    mprop: "count"
+    stat_type: "measuredValue"
+  }
   vertical: "Household"
   cprop: "householderRace"
   cprop: "income"
@@ -1124,8 +1304,10 @@ spec: {
 
 spec: {
   pop_type: "Household"
-  mprop: "count"
-  stat_type: "measuredValue"
+  obs_props: {
+    mprop: "count"
+    stat_type: "measuredValue"
+  }
   vertical: "Household"
   cprop: "householderAge"
   cprop: "householderRace"
@@ -1133,8 +1315,10 @@ spec: {
 
 spec: {
   pop_type: "Household"
-  mprop: "count"
-  stat_type: "measuredValue"
+  obs_props: {
+    mprop: "count"
+    stat_type: "measuredValue"
+  }
   vertical: "Household"
   cprop: "householderAge"
   cprop: "householderRace"
@@ -1144,16 +1328,20 @@ spec: {
 ## HousingUnit ##
 spec: {
   pop_type: "HousingUnit"
-  mprop: "count"
-  stat_type: "measuredValue"
+  obs_props: {
+    mprop: "count"
+    stat_type: "measuredValue"
+  }
   vertical: "Housing"
   name: "Housing Units"
 }
 
 spec: {
   pop_type: "HousingUnit"
-  mprop: "count"
-  stat_type: "measuredValue"
+  obs_props: {
+    mprop: "count"
+    stat_type: "measuredValue"
+  }
   vertical: "Housing"
   cprop: "cashRentStatus"
   dpv: {
@@ -1169,8 +1357,10 @@ spec: {
 
 spec: {
   pop_type: "HousingUnit"
-  mprop: "count"
-  stat_type: "measuredValue"
+  obs_props: {
+    mprop: "count"
+    stat_type: "measuredValue"
+  }
   vertical: "Housing"
   cprop: "grossRent"
   dpv: {
@@ -1190,8 +1380,10 @@ spec: {
 
 spec: {
   pop_type: "HousingUnit"
-  mprop: "count"
-  stat_type: "measuredValue"
+  obs_props: {
+    mprop: "count"
+    stat_type: "measuredValue"
+  }
   vertical: "Housing"
   cprop: "homeValue"
   dpv: {
@@ -1207,8 +1399,10 @@ spec: {
 
 spec: {
   pop_type: "HousingUnit"
-  mprop: "count"
-  stat_type: "measuredValue"
+  obs_props: {
+    mprop: "count"
+    stat_type: "measuredValue"
+  }
   vertical: "Housing"
   cprop: "householderRace"
   dpv: {
@@ -1220,8 +1414,10 @@ spec: {
 
 spec: {
   pop_type: "HousingUnit"
-  mprop: "count"
-  stat_type: "measuredValue"
+  obs_props: {
+    mprop: "count"
+    stat_type: "measuredValue"
+  }
   vertical: "Housing"
   cprop: "numberOfRooms"
   name: "Housing Unit Number of Rooms"
@@ -1229,8 +1425,10 @@ spec: {
 
 spec: {
   pop_type: "HousingUnit"
-  mprop: "count"
-  stat_type: "measuredValue"
+  obs_props: {
+    mprop: "count"
+    stat_type: "measuredValue"
+  }
   vertical: "Housing"
   cprop: "occupancyStatus"
   name: "Housing Unit Occupancy Status"
@@ -1238,8 +1436,10 @@ spec: {
 
 spec: {
   pop_type: "HousingUnit"
-  mprop: "count"
-  stat_type: "measuredValue"
+  obs_props: {
+    mprop: "count"
+    stat_type: "measuredValue"
+  }
   vertical: "Housing"
   cprop: "occupancyTenure"
   dpv: {
@@ -1251,8 +1451,10 @@ spec: {
 
 spec: {
   pop_type: "HousingUnit"
-  mprop: "count"
-  stat_type: "measuredValue"
+  obs_props: {
+    mprop: "count"
+    stat_type: "measuredValue"
+  }
   vertical: "Housing"
   cprop: "householderRace"
   cprop: "occupancyTenure"
@@ -1266,8 +1468,10 @@ spec: {
 
 spec: {
   pop_type: "Person"
-  mprop: "count"
-  stat_type: "measuredValue"
+  obs_props: {
+    mprop: "count"
+    stat_type: "measuredValue"
+  }
   vertical: "Demographics"
   cprop: "age"
   cprop: "race"
@@ -1276,8 +1480,10 @@ spec: {
 #### Left both as cprop as there were 2,3 options, respectively
 spec: {
   pop_type: "Person"
-  mprop: "count"
-  stat_type: "measuredValue"
+  obs_props: {
+    mprop: "count"
+    stat_type: "measuredValue"
+  }
   vertical: "Demographics"
   vertical: "Employment"
   cprop: "incomeStatus"
@@ -1286,8 +1492,10 @@ spec: {
 
 spec: {
   pop_type: "Person"
-  mprop: "count"
-  stat_type: "measuredValue"
+  obs_props: {
+    mprop: "count"
+    stat_type: "measuredValue"
+  }
   vertical: "Demographics"
   vertical: "Education"
   cprop: "age"
@@ -1297,8 +1505,10 @@ spec: {
 
 spec: {
   pop_type: "Person"
-  mprop: "count"
-  stat_type: "measuredValue"
+  obs_props: {
+    mprop: "count"
+    stat_type: "measuredValue"
+  }
   vertical: "Demographics"
   vertical: "Employment"
   cprop: "age"
@@ -1310,8 +1520,10 @@ spec: {
 #### Note that in common there is already one but with age 3+
 spec: {
   pop_type: "Person"
-  mprop: "count"
-  stat_type: "measuredValue"
+  obs_props: {
+    mprop: "count"
+    stat_type: "measuredValue"
+  }
   vertical: "Demographics"
   vertical: "Education"
   cprop: "age"
@@ -1321,8 +1533,10 @@ spec: {
 
 spec: {
   pop_type: "Person"
-  mprop: "count"
-  stat_type: "measuredValue"
+  obs_props: {
+    mprop: "count"
+    stat_type: "measuredValue"
+  }
   vertical: "Demographics"
   vertical: "Employment"
   cprop: "workExperience"
@@ -1336,8 +1550,10 @@ spec: {
 #### Chose 16+ age group (among 15+, 16+) for consistency
 spec: {
   pop_type: "Person"
-  mprop: "count"
-  stat_type: "measuredValue"
+  obs_props: {
+    mprop: "count"
+    stat_type: "measuredValue"
+  }
   vertical: "Demographics"
   vertical: "Employment"
   cprop: "gender"
@@ -1351,8 +1567,10 @@ spec: {
 
 spec: {
   pop_type: "Person"
-  mprop: "count"
-  stat_type: "measuredValue"
+  obs_props: {
+    mprop: "count"
+    stat_type: "measuredValue"
+  }
   vertical: "Demographics"
   vertical: "Employment"
   cprop: "gender"
@@ -1366,8 +1584,10 @@ spec: {
 
 spec: {
   pop_type: "Person"
-  mprop: "count"
-  stat_type: "measuredValue"
+  obs_props: {
+    mprop: "count"
+    stat_type: "measuredValue"
+  }
   vertical: "Demographics"
   cprop: "gender"
   cprop: "spousePresent"
@@ -1383,8 +1603,10 @@ spec: {
 
 spec: {
   pop_type: "Person"
-  mprop: "count"
-  stat_type: "measuredValue"
+  obs_props: {
+    mprop: "count"
+    stat_type: "measuredValue"
+  }
   vertical: "Employment"
   vertical: "Demographics"
   cprop: "age"
@@ -1395,8 +1617,10 @@ spec: {
 
 spec: {
   pop_type: "Person"
-  mprop: "count"
-  stat_type: "measuredValue"
+  obs_props: {
+    mprop: "count"
+    stat_type: "measuredValue"
+  }
   vertical: "Demographics"
   vertical: "Employment"
   cprop: "gender"
@@ -1414,8 +1638,10 @@ spec: {
 
 spec: {
   pop_type: "Person"
-  mprop: "count"
-  stat_type: "measuredValue"
+  obs_props: {
+    mprop: "count"
+    stat_type: "measuredValue"
+  }
   vertical: "Demographics"
   vertical: "Employment"
   cprop: "gender"
@@ -1430,8 +1656,10 @@ spec: {
 
 spec: {
   pop_type: "Person"
-  mprop: "count"
-  stat_type: "measuredValue"
+  obs_props: {
+    mprop: "count"
+    stat_type: "measuredValue"
+  }
   vertical: "Demographics"
   cprop: "gender"
   cprop: "spouseAbsentReason"
@@ -1451,8 +1679,10 @@ spec: {
 
 spec: {
   pop_type: "Person"
-  mprop: "count"
-  stat_type: "measuredValue"
+  obs_props: {
+    mprop: "count"
+    stat_type: "measuredValue"
+  }
   vertical: "Demographics"
   vertical: "Employment"
   cprop: "gender"
@@ -1473,73 +1703,93 @@ spec: {
 
 spec: {
   pop_type: "DrugDistribution"
-  mprop: "retailDrugDistribution"
+  obs_props: {
+    mprop: "retailDrugDistribution"
+    stat_type: "measuredValue"
+  }
   cprop: "drugPrescribed"
-  stat_type: "measuredValue"
   vertical: "Health"
 }
 
 ## Disasters ##
 spec: {
   pop_type: "CycloneEvent"
-  mprop: "count"
-  stat_type: "measuredValue"
+  obs_props: {
+    mprop: "count"
+    stat_type: "measuredValue"
+  }
   vertical: "Disasters"
   name: "Cyclones"
 }
 spec: {
   pop_type: "CycloneEvent"
-  mprop: "count"
-  stat_type: "measuredValue"
+  obs_props: {
+    mprop: "count"
+    stat_type: "measuredValue"
+  }
   cprop: "maxClassification"
   vertical: "Disasters"
 }
 spec: {
   pop_type: "DroughtEvent"
-  mprop: "count"
-  stat_type: "measuredValue"
+  obs_props: {
+    mprop: "count"
+    stat_type: "measuredValue"
+  }
   vertical: "Disasters"
   name: "Droughts"
 }
 spec: {
   pop_type: "EarthquakeEvent"
-  mprop: "count"
-  stat_type: "measuredValue"
+  obs_props: {
+    mprop: "count"
+    stat_type: "measuredValue"
+  }
   vertical: "Disasters"
   name: "Earthquakes"
 }
 spec: {
   pop_type: "EarthquakeEvent"
-  mprop: "count"
-  stat_type: "measuredValue"
+  obs_props: {
+    mprop: "count"
+    stat_type: "measuredValue"
+  }
   cprop: "magnitude"
   vertical: "Disasters"
 }
 spec: {
   pop_type: "FloodEvent"
-  mprop: "count"
-  stat_type: "measuredValue"
+  obs_props: {
+    mprop: "count"
+    stat_type: "measuredValue"
+  }
   vertical: "Disasters"
   name: "Floods"
 }
 spec: {
   pop_type: "ThunderstormWindEvent"
-  mprop: "count"
-  stat_type: "measuredValue"
+  obs_props: {
+    mprop: "count"
+    stat_type: "measuredValue"
+  }
   vertical: "Disasters"
   name: "Thunderstorm Wind Gusts"
 }
 spec: {
   pop_type: "TornadoEvent"
-  mprop: "count"
-  stat_type: "measuredValue"
+  obs_props: {
+    mprop: "count"
+    stat_type: "measuredValue"
+  }
   vertical: "Disasters"
   name: "Tornadoes"
 }
 spec: {
   pop_type: "WildlandFireEvent"
-  mprop: "count"
-  stat_type: "measuredValue"
+  obs_props: {
+    mprop: "count"
+    stat_type: "measuredValue"
+  }
   vertical: "Disasters"
   name: "Wildland Fires"
 }
@@ -1626,8 +1876,10 @@ spec: {
 
 spec: {
   pop_type: "MedicalConditionIncident"
-  mprop: "cumulativeCount"
-  stat_type: "measuredValue"
+  obs_props: {
+    mprop: "cumulativeCount"
+    stat_type: "measuredValue"
+  }
   vertical: "Health"
   name: "COVID-19 Incidents"
   dpv: {
@@ -1638,16 +1890,20 @@ spec: {
 }
 spec: {
   pop_type: "UnemploymentInsuranceClaim"
-  mprop: "count"
-  stat_type: "measuredValue"
+  obs_props: {
+    mprop: "count"
+    stat_type: "measuredValue"
+  }
   vertical: "Employment"
   name: "Unemployment Insurance Claims"
   cprop: "benefitProgram"
 }
 spec: {
   pop_type: "UnemploymentInsuranceClaim"
-  mprop: "count"
-  stat_type: "measuredValue"
+  obs_props: {
+    mprop: "count"
+    stat_type: "measuredValue"
+  }
   vertical: "Employment"
   cprop: "benefitProgram"
   cprop: "claimType"
@@ -1684,8 +1940,10 @@ spec: {
 # originally in pop_obs_spec_gni.textproto
 spec: {
   pop_type: "Person"
-  mprop: "count"
-  stat_type: "measuredValue"
+  obs_props: {
+    mprop: "count"
+    stat_type: "measuredValue"
+  }
   vertical: "Employment"
   name: "Labor Force"
   dpv: {
@@ -1696,8 +1954,10 @@ spec: {
 
 spec: {
   pop_type: "Person"
-  mprop: "count"
-  stat_type: "measuredValue"
+  obs_props: {
+    mprop: "count"
+    stat_type: "measuredValue"
+  }
   vertical: "Employment"
   name: "Employed"
   dpv: {
@@ -1708,12 +1968,60 @@ spec: {
 
 spec: {
   pop_type: "Person"
-  mprop: "count"
-  stat_type: "measuredValue"
+  obs_props: {
+    mprop: "count"
+    stat_type: "measuredValue"
+  }
   vertical: "Employment"
   name: "Unemployed"
   dpv: {
     prop: "employment"
     val: "BLS_Unemployed"
+  }
+}
+
+spec: {
+  pop_type: "EconomicActivity"
+  vertical: "Economics"
+  cprop: "activitySource"
+  obs_props: {
+     mprop: "amount"
+     stat_type: "growthRate"
+     name: "Growth Rate"
+  }
+  obs_props:{
+    mprop: "amount"
+    stat_type: "measuredValue"
+    mqual: "Nominal"
+    name: "Nominal"
+  }
+  obs_props:{
+    mprop: "amount"
+    stat_type: "measuredValue"
+    mqual: "RealValue"
+    name: "Real value"
+  }
+
+  obs_props:{
+    mprop: "amount"
+    stat_type: "measuredValue"
+    mqual: "Nominal"
+    mdenom: "PerCapita"
+    name: "Nominal Per Capita"
+  }
+
+  obs_props:{
+    mprop: "amount"
+    stat_type: "measuredValue"
+    mqual: "PurchasingPowerParity"
+    name: "Purchasing Power Parity"
+  }
+
+  obs_props:{
+    mprop: "amount"
+    stat_type: "measuredValue"
+    mqual: "PurchasingPowerParity"
+    mdenom: "PerCapita"
+    name: "Purchasing Power Parity Per Capita"
   }
 }

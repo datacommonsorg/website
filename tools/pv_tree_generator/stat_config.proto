@@ -27,7 +27,6 @@ message ObsProp {
   optional string mprop = 2;
   optional string mqual = 3;
   optional string mdenom = 4;
-  optional string sfactor = 5;
   optional string name = 6;
 }
 
@@ -43,10 +42,6 @@ message PopObsSpec {
 
   // Population type.
   optional string pop_type = 1;
-  // Measured property.
-  optional string mprop = 2; // kept for supporting the old specs
-  // Values are stat properties like measuredValue, medianValue, etc.
-  optional string stat_type = 3; // kept for supporting the old specs
   // Constraining properties of StatisticalPopulation.
   repeated string cprop = 4;
   // A list of depending property value pairs that a client does not indicate

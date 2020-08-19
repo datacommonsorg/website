@@ -19,13 +19,13 @@ import util
 import constants
 from build_tree import build_tree, get_top_level
 import copy
-
+MAX_LEVEL=6
 
 def main():
     f_json = open("../../static/data/hierarchy_statsvar.json", "w")
     f_json_top = open("../../static/data/hierarchy_top.json", "w")
     f_json_statsvar_path = open("../../static/data/statsvar_path.json", "w")
-    data, statsvar_path_all = build_tree(6)
+    data, statsvar_path_all = build_tree(MAX_LEVEL)
     data_top = get_top_level(data)
     json.dump(data, f_json, indent=1)
     json.dump(data_top, f_json_top, indent=1)
