@@ -45,7 +45,7 @@ class PopObsSpec(object):
         self.obs_props = obs_props  # list of ObsProps
 
 
-class StatVar(object):
+class StatsVar(object):
     """Represents a StatisticalVariable"""
 
     def __init__(self, pop_type, mprop, stats, mqual, mdenom, sfactor, pv, dcid, se):
@@ -76,12 +76,13 @@ class UiNode:
 
     def __init__(self, pop_obs_spec, obs_props, pv, is_prop, prop=None):
         self.pop_obs_spec = pop_obs_spec  # pop_obs_spec for this node.
-        self.obs_props = obs_props # the Ui node represent one ObsProps
+        self.obs_props = obs_props  # the Ui node represent one ObsProps
         self.is_prop = is_prop  # is the node a "Property" or a "Value" node.
         self.prop = prop  # the property it represents
         self.pv = pv  # ordered dict of property-value this node inherits
         # from its parent.
-        self.key = tuple([pop_obs_spec.pop_type])+obs_props.key+ pop_obs_spec.prop_all
+        self.key = tuple([pop_obs_spec.pop_type]) + \
+            obs_props.key + pop_obs_spec.prop_all
 
     @property
     def pop_type(self):
@@ -133,6 +134,7 @@ def _read_pop_obs_spec():
 
     # Read pop obs spec
     POS_COMMON_PATH = "./pop_obs_spec_common.textproto"
+    # POS_COMMON_PATH = "./test.textproto"
     pop_obs_spec_list = stat_config_pb2.PopObsSpecList()
 
     with open(POS_COMMON_PATH, 'r') as file_common:
@@ -147,10 +149,11 @@ def _read_pop_obs_spec():
         obs_props = []
         for obs in pos.obs_props:
             obs_props.append(ObsProps(obs.stat_type, obs.mprop,
-                                     obs.mqual, obs.mdenom, obs.sfactor, obs.name))
+                                      obs.mqual, obs.mdenom, obs.sfactor, obs.name))
         # handle the old specs
         if not pos.obs_props:
-            obs_props.append(ObsProps(pos.stat_type, pos.mprop, "", "", "", ""))
+            obs_props.append(
+                ObsProps(pos.stat_type, pos.mprop, "", "", "", ""))
         for v in pos.vertical:
             result[v][len(pos.cprop)].append(PopObsSpec(
                 pos.pop_type, list(pos.cprop), dpv, pos.name, obs_props))
@@ -194,7 +197,10 @@ def _read_stat_var():
     """Read all the statistical variables"""
 
     sv_dcid = dc.get_sv_dcids()
-
+    # sv_dcid = ["Count_Person","GrowthRate_Amount_EconomicActivity_GrossDomesticProduction", "Amount_EconomicActivity_GrossDomesticProduction_Nominal", "Amount_EconomicActivity_GrossNationalIncome_PurchasingPowerParity",
+    # "Count_Person_Upto5Years", "Count_CriminalActivities_Arson", "Count_CriminalActivities_ViolentCrime",
+    # "Count_CriminalActivities_AggravatedAssault", "Count_CycloneEvent", "Count_EarthquakeEvent", "Count_FloodEvent",
+    # "Count_EarthquakeEvent_M3To4", "Count_CycloneEvent_ExtratropicalCyclone", "Count_Person_EnrolledInGrade1ToGrade4", "Count_Person_EnrolledInGrade5ToGrade8", "Count_Person_EducationalAttainmentNoSchoolingCompleted","Count_Person_EducationalAttainmentNurserySchool", "Count_Person_EducationalAttainmentKindergarten"]
     """
     example of triples for one statsitical variable
     ('dc/014es05x0d5l', 'measurementMethod', 'CensusACS5yrSurvey')
@@ -246,8 +252,8 @@ def _read_stat_var():
             elif v in ['MotorVehicleTheft', 'LarcenyTheft', 'Burglary']:
                 se = {'crimeType': 'PropertyCrime'}
         # create the statsVar object
-        sv = StatVar(sv_dict["populationType"], sv_dict["measuredProperty"],
-                     sv_dict["statType"], sv_dict["measurementQualifier"], sv_dict["measurementDenominator"], sv_dict["scalingFactor"], prop_val, dcid, se)
+        sv = StatsVar(sv_dict["populationType"], sv_dict["measuredProperty"],
+                      sv_dict["statType"], sv_dict["measurementQualifier"], sv_dict["measurementDenominator"], sv_dict["scalingFactor"], prop_val, dcid, se)
         stat_vars[sv.key].append(sv)
     stat_vars = removeDuplicateStatsVar(stat_vars)
     return stat_vars
