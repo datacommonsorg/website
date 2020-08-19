@@ -1,15 +1,12 @@
 from typing import Dict, List, Tuple
-from util import PopObsSpec, StatsVar, _read_pop_obs_spec, _read_stat_var
+from util import PopObsSpec, StatsVar, read_pop_obs_spec, read_stat_var
 import collections
 import text_format
 from constants import VERTICALS
 import copy
-POP_OBS_SPEC = _read_pop_obs_spec()
-STATS_VARS = _read_stat_var()
 
 class Root:
     """The root node for all the verticals"""
-
     def children(self) -> List['ValueNode']:
         """Returns a list of value nodes, i.e. the verticals such as "Demographics", "Economics" """
         valueNodes = []
@@ -26,9 +23,9 @@ class Root:
                     leafs.append(valueLeaf(self.getName(pos, matching_statsVar), [
                                  sv.dcid for sv in matching_statsVar], True, pos))
             # property specs that is children of the value node for building the next level of the tree
-            props = {}
+            props = []
             for pos in POP_OBS_SPEC[vertical][1]:
-                props[pos.cprops[0]] = pos
+                props.append((pos.cprops[0],pos))
             valueNodes.append(ValueNode(vertical, leafs, props, None))
         return valueNodes
 
@@ -52,7 +49,7 @@ class PropertyNode:
         A value node can have a level of leaf nodes or a group of new properties as its children.
     """
 
-    def __init__(self, pos: PopObsSpec, parent_pvs: Dict[str, str], new_prop: str, vertical: str, level: int):
+    def __init__(self, pos: PopObsSpec, parent_pvs: Dict[str, str], new_prop: str, vertical, level: int):
         self.pv = parent_pvs  # the property value pairs inherited from the parent nodes
         self.pos = pos  # the pob_obs_spec the node represents
         self.prop = new_prop  # the new property the node represents
@@ -88,13 +85,13 @@ class PropertyNode:
 
     def child_props(self):
         """returns the dict of new prop and corresponding specs for building the next level"""
-        child_pos = collections.defaultdict(list)
+        child_pos = []
         for c_pos in POP_OBS_SPEC[self.vertical][self.level+1]:
             if (self.pos.pop_type == c_pos.pop_type and
                     set(self.pos.cprops) < set(c_pos.cprops)):
                 newProp = (set(c_pos.cprops) - set(self.pos.
                                                    cprops)).pop()
-                child_pos[newProp] = c_pos
+                child_pos.append((newProp, c_pos))
         return child_pos
 
     def json_blob(self):
@@ -134,7 +131,7 @@ class ValueNode:
     def children(self):
         """return a list of property nodes as the children of the value node"""
         propertyNodes = []
-        for prop in self.child_props:
+        for prop, pos in self.child_props:
             if self.parent:
                 vertical = self.parent.vertical
                 level = self.parent.level + 1
@@ -145,7 +142,7 @@ class ValueNode:
                 level = 1
                 pvs = {}
             propertyNodes.append(PropertyNode(
-                self.child_props[prop], pvs, prop, vertical, level))
+                pos, pvs, prop, vertical, level))
         return propertyNodes
 
     def json_blob(self):
@@ -196,6 +193,10 @@ class valueLeaf:
 
 
 def build_tree(max_level):
+    global POP_OBS_SPEC 
+    global STATS_VARS
+    POP_OBS_SPEC = read_pop_obs_spec()
+    STATS_VARS = read_stat_var()
     data = {}
     vertical_nodes = Root().children()
     vertical_nodes.sort(key=lambda node: VERTICALS.index(node.value))

@@ -1,176 +1,798 @@
 {
  "Demographics": {
-  "sv": [
-   "top"
-  ],
   "l": "Demographics",
   "t": "p",
-  "c": 10,
+  "e": "Demographics",
+  "c": 7,
   "cd": [
    {
+    "l": "Population",
+    "t": "v",
+    "e": "Population",
+    "c": 1,
+    "cd": [],
+    "sv": [
+     "Count_Person"
+    ]
+   },
+   {
     "l": "Age",
+    "e": "age",
     "t": "p",
-    "c": 0,
-    "cd": []
+    "c": 1,
+    "cd": [
+     {
+      "l": "Less than 5 Years",
+      "t": "v",
+      "e": "YearsUpto5",
+      "c": 1,
+      "cd": [
+       {
+        "l": "Language Spoken At Home",
+        "e": "languageSpokenAtHome",
+        "t": "p",
+        "c": 0,
+        "cd": []
+       },
+       {
+        "l": "Gender",
+        "e": "gender",
+        "t": "p",
+        "c": 0,
+        "cd": []
+       },
+       {
+        "l": "Place Of Birth",
+        "e": "placeOfBirth",
+        "t": "p",
+        "c": 0,
+        "cd": []
+       },
+       {
+        "l": "Race",
+        "e": "race",
+        "t": "p",
+        "c": 0,
+        "cd": []
+       },
+       {
+        "l": "Income Status",
+        "e": "incomeStatus",
+        "t": "p",
+        "c": 0,
+        "cd": []
+       }
+      ],
+      "sv": [
+       "Count_Person_Upto5Years"
+      ]
+     }
+    ]
    },
    {
     "l": "Citizenship",
+    "e": "citizenship",
     "t": "p",
     "c": 0,
     "cd": []
    },
    {
     "l": "Gender",
+    "e": "gender",
     "t": "p",
-    "c": 2,
-    "cd": [
-     {
-      "sv": [
-       "dc/026gmdj2xk1kb"
-      ],
-      "l": "Female",
-      "t": "v",
-      "e": "Female",
-      "c": 1
-     },
-     {
-      "sv": [
-       "MalePopulation"
-      ],
-      "l": "Male",
-      "t": "v",
-      "e": "Male",
-      "c": 1
-     }
-    ]
+    "c": 0,
+    "cd": []
    },
    {
     "l": "Income",
+    "e": "income",
     "t": "p",
-    "c": 8,
-    "cd": [
-     {
-      "sv": [
-       "dc/cmn38d85glq72"
-      ],
-      "l": "Less than 9,999 $",
-      "t": "v",
-      "e": "USDollarUpto9999",
-      "c": 1
-     },
-     {
-      "sv": [
-       "dc/pj50xtdgxeh4g"
-      ],
-      "l": "10,000 - 14,999 $",
-      "t": "v",
-      "e": "USDollar10000To14999",
-      "c": 1
-     },
-     {
-      "sv": [
-       "dc/61fzldryrnte1"
-      ],
-      "l": "15,000 - 24,999 $",
-      "t": "v",
-      "e": "USDollar15000To24999",
-      "c": 1
-     },
-     {
-      "sv": [
-       "dc/jhpflf91nvlt6"
-      ],
-      "l": "25,000 - 34,999 $",
-      "t": "v",
-      "e": "USDollar25000To34999",
-      "c": 1
-     },
-     {
-      "sv": [
-       "dc/tpeg0jxdts2t3"
-      ],
-      "l": "35,000 - 49,999 $",
-      "t": "v",
-      "e": "USDollar35000To49999",
-      "c": 1
-     },
-     {
-      "sv": [
-       "dc/esr27kls5vfy6"
-      ],
-      "l": "50,000 - 64,999 $",
-      "t": "v",
-      "e": "USDollar50000To64999",
-      "c": 1
-     },
-     {
-      "sv": [
-       "dc/6yb4mgxtc1288"
-      ],
-      "l": "65,000 - 74,999 $",
-      "t": "v",
-      "e": "USDollar65000To74999",
-      "c": 1
-     },
-     {
-      "sv": [
-       "dc/pvsbze841l2tc"
-      ],
-      "l": "More than 75,000 $",
-      "t": "v",
-      "e": "USDollar75000Onwards",
-      "c": 1
-     }
-    ]
+    "c": 0,
+    "cd": []
    },
    {
     "l": "Marital Status",
+    "e": "maritalStatus",
     "t": "p",
     "c": 0,
     "cd": []
    },
    {
     "l": "Nativity",
+    "e": "nativity",
     "t": "p",
     "c": 0,
     "cd": []
    },
    {
     "l": "Place Of Birth",
+    "e": "placeOfBirth",
     "t": "p",
     "c": 0,
     "cd": []
    },
    {
     "l": "Poverty Status",
+    "e": "povertyStatus",
     "t": "p",
     "c": 0,
     "cd": []
    },
    {
     "l": "Race",
+    "e": "race",
     "t": "p",
     "c": 0,
     "cd": []
    },
    {
     "l": "Veteran Status",
+    "e": "veteranStatus",
     "t": "p",
     "c": 0,
     "cd": []
    },
    {
     "l": "Educational Attainment",
+    "e": "educationalAttainment",
+    "t": "p",
+    "c": 3,
+    "cd": [
+     {
+      "l": "No Schooling Completed",
+      "t": "v",
+      "e": "NoSchoolingCompleted",
+      "c": 1,
+      "cd": [
+       {
+        "l": "Gender",
+        "e": "gender",
+        "t": "p",
+        "c": 0,
+        "cd": []
+       }
+      ],
+      "sv": [
+       "Count_Person_EducationalAttainmentNoSchoolingCompleted"
+      ]
+     },
+     {
+      "l": "Nursery School",
+      "t": "v",
+      "e": "NurserySchool",
+      "c": 1,
+      "cd": [
+       {
+        "l": "Gender",
+        "e": "gender",
+        "t": "p",
+        "c": 0,
+        "cd": []
+       }
+      ],
+      "sv": [
+       "Count_Person_EducationalAttainmentNurserySchool"
+      ]
+     },
+     {
+      "l": "Kindergarten",
+      "t": "v",
+      "e": "Kindergarten",
+      "c": 1,
+      "cd": [
+       {
+        "l": "Gender",
+        "e": "gender",
+        "t": "p",
+        "c": 0,
+        "cd": []
+       }
+      ],
+      "sv": [
+       "Count_Person_EducationalAttainmentKindergarten"
+      ]
+     }
+    ]
+   },
+   {
+    "l": "Level Of School",
+    "e": "levelOfSchool",
+    "t": "p",
+    "c": 2,
+    "cd": [
+     {
+      "l": "Grade 1 To Grade 4",
+      "t": "v",
+      "e": "EnrolledInGrade1ToGrade4",
+      "c": 1,
+      "cd": [
+       {
+        "l": "Gender",
+        "e": "gender",
+        "t": "p",
+        "c": 0,
+        "cd": []
+       }
+      ],
+      "sv": [
+       "Count_Person_EnrolledInGrade1ToGrade4"
+      ]
+     },
+     {
+      "l": "Grade 5 To Grade 8",
+      "t": "v",
+      "e": "EnrolledInGrade5ToGrade8",
+      "c": 1,
+      "cd": [
+       {
+        "l": "Gender",
+        "e": "gender",
+        "t": "p",
+        "c": 0,
+        "cd": []
+       }
+      ],
+      "sv": [
+       "Count_Person_EnrolledInGrade5ToGrade8"
+      ]
+     }
+    ]
+   }
+  ],
+  "sv": []
+ },
+ "Crime": {
+  "l": "Crime",
+  "t": "p",
+  "e": "Crime",
+  "c": 3,
+  "cd": [
+   {
+    "l": "Crime Type",
+    "e": "crimeType",
+    "t": "p",
+    "c": 3,
+    "cd": [
+     {
+      "l": "Arson",
+      "t": "v",
+      "e": "Arson",
+      "c": 1,
+      "cd": [],
+      "sv": [
+       "Count_CriminalActivities_Arson"
+      ]
+     },
+     {
+      "l": "Violent",
+      "t": "v",
+      "e": "ViolentCrime",
+      "c": 2,
+      "cd": [
+       {
+        "l": "Aggravated Assault",
+        "t": "v",
+        "e": "AggravatedAssault",
+        "c": 1,
+        "cd": [],
+        "sv": [
+         "Count_CriminalActivities_AggravatedAssault"
+        ]
+       }
+      ],
+      "sv": [
+       "Count_CriminalActivities_ViolentCrime"
+      ]
+     }
+    ]
+   }
+  ],
+  "sv": []
+ },
+ "Education": {
+  "l": "Education",
+  "t": "p",
+  "e": "Education",
+  "c": 5,
+  "cd": [
+   {
+    "l": "Educational Attainment",
+    "e": "educationalAttainment",
+    "t": "p",
+    "c": 3,
+    "cd": [
+     {
+      "l": "No Schooling Completed",
+      "t": "v",
+      "e": "NoSchoolingCompleted",
+      "c": 1,
+      "cd": [
+       {
+        "l": "Gender",
+        "e": "gender",
+        "t": "p",
+        "c": 0,
+        "cd": []
+       }
+      ],
+      "sv": [
+       "Count_Person_EducationalAttainmentNoSchoolingCompleted"
+      ]
+     },
+     {
+      "l": "Nursery School",
+      "t": "v",
+      "e": "NurserySchool",
+      "c": 1,
+      "cd": [
+       {
+        "l": "Gender",
+        "e": "gender",
+        "t": "p",
+        "c": 0,
+        "cd": []
+       }
+      ],
+      "sv": [
+       "Count_Person_EducationalAttainmentNurserySchool"
+      ]
+     },
+     {
+      "l": "Kindergarten",
+      "t": "v",
+      "e": "Kindergarten",
+      "c": 1,
+      "cd": [
+       {
+        "l": "Gender",
+        "e": "gender",
+        "t": "p",
+        "c": 0,
+        "cd": []
+       }
+      ],
+      "sv": [
+       "Count_Person_EducationalAttainmentKindergarten"
+      ]
+     }
+    ]
+   },
+   {
+    "l": "Level Of School",
+    "e": "levelOfSchool",
+    "t": "p",
+    "c": 2,
+    "cd": [
+     {
+      "l": "Grade 1 To Grade 4",
+      "t": "v",
+      "e": "EnrolledInGrade1ToGrade4",
+      "c": 1,
+      "cd": [
+       {
+        "l": "Gender",
+        "e": "gender",
+        "t": "p",
+        "c": 0,
+        "cd": []
+       }
+      ],
+      "sv": [
+       "Count_Person_EnrolledInGrade1ToGrade4"
+      ]
+     },
+     {
+      "l": "Grade 5 To Grade 8",
+      "t": "v",
+      "e": "EnrolledInGrade5ToGrade8",
+      "c": 1,
+      "cd": [
+       {
+        "l": "Gender",
+        "e": "gender",
+        "t": "p",
+        "c": 0,
+        "cd": []
+       }
+      ],
+      "sv": [
+       "Count_Person_EnrolledInGrade5ToGrade8"
+      ]
+     }
+    ]
+   },
+   {
+    "l": "School Enrollment",
+    "e": "schoolEnrollment",
     "t": "p",
     "c": 0,
     "cd": []
    },
    {
-    "l": "Level Of School",
+    "l": "Detailed Level Of School",
+    "e": "detailedLevelOfSchool",
     "t": "p",
     "c": 0,
     "cd": []
    }
-  ]
+  ],
+  "sv": []
+ },
+ "Employment": {
+  "l": "Employment",
+  "t": "p",
+  "e": "Employment",
+  "c": 2,
+  "cd": [
+   {
+    "l": "Establishments by Industry",
+    "e": "Establishments by Industry",
+    "t": "p",
+    "c": 1,
+    "cd": [
+     {
+      "l": "All Industries",
+      "t": "v",
+      "e": "NAICS/10",
+      "c": 1,
+      "cd": [
+       {
+        "l": "Establishment Ownership",
+        "e": "establishmentOwnership",
+        "t": "p",
+        "c": 0,
+        "cd": []
+       }
+      ],
+      "sv": [
+       "Count_Establishment_NAICSTotalAllIndustries"
+      ]
+     }
+    ]
+   },
+   {
+    "l": "Labor Force by Industry",
+    "e": "Labor Force by Industry",
+    "t": "p",
+    "c": 1,
+    "cd": [
+     {
+      "l": "All Industries",
+      "t": "v",
+      "e": "NAICS/10",
+      "c": 1,
+      "cd": [
+       {
+        "l": "Establishment Ownership",
+        "e": "establishmentOwnership",
+        "t": "p",
+        "c": 0,
+        "cd": []
+       }
+      ],
+      "sv": [
+       "Count_Worker_NAICSTotalAllIndustries"
+      ]
+     }
+    ]
+   },
+   {
+    "l": "Unemployment Insurance Claims",
+    "e": "Unemployment Insurance Claims",
+    "t": "p",
+    "c": 0,
+    "cd": []
+   }
+  ],
+  "sv": []
+ },
+ "Health": {
+  "l": "Health",
+  "t": "p",
+  "e": "Health",
+  "c": 0,
+  "cd": [
+   {
+    "l": "Health Outcomes",
+    "e": "Health Outcomes",
+    "t": "p",
+    "c": 0,
+    "cd": []
+   },
+   {
+    "l": "Health Preventions",
+    "e": "Health Preventions",
+    "t": "p",
+    "c": 0,
+    "cd": []
+   },
+   {
+    "l": "Health Behaviors",
+    "e": "Health Behaviors",
+    "t": "p",
+    "c": 0,
+    "cd": []
+   },
+   {
+    "l": "Age",
+    "e": "age",
+    "t": "p",
+    "c": 0,
+    "cd": []
+   },
+   {
+    "l": "Cause Of Death",
+    "e": "causeOfDeath",
+    "t": "p",
+    "c": 0,
+    "cd": []
+   },
+   {
+    "l": "Gender",
+    "e": "gender",
+    "t": "p",
+    "c": 0,
+    "cd": []
+   },
+   {
+    "l": "Race",
+    "e": "race",
+    "t": "p",
+    "c": 0,
+    "cd": []
+   },
+   {
+    "l": "Drug Prescribed",
+    "e": "drugPrescribed",
+    "t": "p",
+    "c": 0,
+    "cd": []
+   },
+   {
+    "l": "COVID-19 Incidents",
+    "e": "COVID-19 Incidents",
+    "t": "p",
+    "c": 0,
+    "cd": []
+   }
+  ],
+  "sv": []
+ },
+ "Housing": {
+  "l": "Housing",
+  "t": "p",
+  "e": "Housing",
+  "c": 0,
+  "cd": [
+   {
+    "l": "Housing Unit Cash Rent Status",
+    "e": "Housing Unit Cash Rent Status",
+    "t": "p",
+    "c": 0,
+    "cd": []
+   },
+   {
+    "l": "Housing Unit Gross Rent",
+    "e": "Housing Unit Gross Rent",
+    "t": "p",
+    "c": 0,
+    "cd": []
+   },
+   {
+    "l": "Housing Unit Home Value",
+    "e": "Housing Unit Home Value",
+    "t": "p",
+    "c": 0,
+    "cd": []
+   },
+   {
+    "l": "Housing Unit Householder Race",
+    "e": "Housing Unit Householder Race",
+    "t": "p",
+    "c": 0,
+    "cd": []
+   },
+   {
+    "l": "Housing Unit Number of Rooms",
+    "e": "Housing Unit Number of Rooms",
+    "t": "p",
+    "c": 0,
+    "cd": []
+   },
+   {
+    "l": "Housing Unit Occupancy Status",
+    "e": "Housing Unit Occupancy Status",
+    "t": "p",
+    "c": 0,
+    "cd": []
+   },
+   {
+    "l": "Housing Unit Occupancy Tenure",
+    "e": "Housing Unit Occupancy Tenure",
+    "t": "p",
+    "c": 0,
+    "cd": []
+   }
+  ],
+  "sv": []
+ },
+ "Household": {
+  "l": "Household",
+  "t": "p",
+  "e": "Household",
+  "c": 0,
+  "cd": [
+   {
+    "l": "Household by Householder Age",
+    "e": "Household by Householder Age",
+    "t": "p",
+    "c": 0,
+    "cd": []
+   },
+   {
+    "l": "Household by Householder Race",
+    "e": "Household by Householder Race",
+    "t": "p",
+    "c": 0,
+    "cd": []
+   },
+   {
+    "l": "Household Income",
+    "e": "Household Income",
+    "t": "p",
+    "c": 0,
+    "cd": []
+   }
+  ],
+  "sv": []
+ },
+ "Disasters": {
+  "l": "Disasters",
+  "t": "p",
+  "e": "Disasters",
+  "c": 5,
+  "cd": [
+   {
+    "l": "Cyclones",
+    "t": "v",
+    "e": "Cyclones",
+    "c": 2,
+    "cd": [
+     {
+      "l": "Max Classification",
+      "e": "maxClassification",
+      "t": "p",
+      "c": 1,
+      "cd": [
+       {
+        "l": "Extratropical Cyclone",
+        "t": "v",
+        "e": "ExtratropicalCyclone",
+        "c": 1,
+        "cd": [],
+        "sv": [
+         "Count_CycloneEvent_ExtratropicalCyclone"
+        ]
+       }
+      ]
+     }
+    ],
+    "sv": [
+     "Count_CycloneEvent"
+    ]
+   },
+   {
+    "l": "Earthquakes",
+    "t": "v",
+    "e": "Earthquakes",
+    "c": 2,
+    "cd": [
+     {
+      "l": "Magnitude",
+      "e": "magnitude",
+      "t": "p",
+      "c": 1,
+      "cd": [
+       {
+        "l": "3 - 4 Magnitude",
+        "t": "v",
+        "e": "M3To4",
+        "c": 1,
+        "cd": [],
+        "sv": [
+         "Count_EarthquakeEvent_M3To4"
+        ]
+       }
+      ]
+     }
+    ],
+    "sv": [
+     "Count_EarthquakeEvent"
+    ]
+   },
+   {
+    "l": "Floods",
+    "t": "v",
+    "e": "Floods",
+    "c": 1,
+    "cd": [],
+    "sv": [
+     "Count_FloodEvent"
+    ]
+   }
+  ],
+  "sv": []
+ },
+ "Economics": {
+  "l": "Economics",
+  "t": "p",
+  "e": "Economics",
+  "c": 3,
+  "cd": [
+   {
+    "l": "Annual Wages of Establishments by Industry",
+    "e": "Annual Wages of Establishments by Industry",
+    "t": "p",
+    "c": 0,
+    "cd": []
+   },
+   {
+    "l": "Activity Source",
+    "e": "activitySource",
+    "t": "p",
+    "c": 3,
+    "cd": [
+     {
+      "l": "Gross Domestic Production",
+      "t": "p",
+      "e": "GrossDomesticProduction",
+      "c": 2,
+      "cd": [
+       {
+        "l": "Growth Rate",
+        "t": "v",
+        "e": "Growth Rate",
+        "c": 1,
+        "cd": [],
+        "sv": [
+         "GrowthRate_Amount_EconomicActivity_GrossDomesticProduction"
+        ]
+       },
+       {
+        "l": "Nominal",
+        "t": "v",
+        "e": "Nominal",
+        "c": 1,
+        "cd": [],
+        "sv": [
+         "Amount_EconomicActivity_GrossDomesticProduction_Nominal"
+        ]
+       }
+      ],
+      "sv": []
+     },
+     {
+      "l": "Gross National Income",
+      "t": "p",
+      "e": "GrossNationalIncome",
+      "c": 1,
+      "cd": [
+       {
+        "l": "Purchasing Power Parity",
+        "t": "v",
+        "e": "Purchasing Power Parity",
+        "c": 1,
+        "cd": [],
+        "sv": [
+         "Amount_EconomicActivity_GrossNationalIncome_PurchasingPowerParity"
+        ]
+       }
+      ],
+      "sv": []
+     }
+    ]
+   }
+  ],
+  "sv": []
  }
 }

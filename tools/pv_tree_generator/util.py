@@ -20,7 +20,7 @@ import dc_request as dc
 
 
 class ObsProps(object):
-    """represent the properties of a statsVar"""
+    """represent the properties of a statsVar observation"""
 
     def __init__(self, stat_type, mprop, mqual, mdenom, sfactor, name):
         self.stat_type = stat_type
@@ -57,92 +57,33 @@ class StatsVar(object):
         self.dcid = dcid
         self.key = (pop_type, stats, mprop, mqual, mdenom,
                     sfactor) + tuple(sorted(list(pv.keys())))
-        self.se = se
+        self.se = se # super enum
 
-    def match_ui_node(self, ui_node):
-        # check if the statistical variable should be under the ui_node
-        pospec = ui_node.pop_obs_spec
-        if set(self.pv.keys()) != set(pospec.prop_all):
-            return False
-        if not pospec.dpv.items() <= self.pv.items():
-            return False
-        if not ui_node.pv.items() <= self.pv.items():
-            return False
-        return True
+def read_pos_list(path):
+    pop_obs_spec_list = stat_config_pb2.PopObsSpecList()
+    with open(path, 'r') as file_common:
+        data_common = file_common.read()
+    text_format.Parse(data_common, pop_obs_spec_list)
+    return pop_obs_spec_list.spec
 
-
-class UiNode:
-    """Class holds the data of a node in the pv menu tree. """
-
-    def __init__(self, pop_obs_spec, obs_props, pv, is_prop, prop=None):
-        self.pop_obs_spec = pop_obs_spec  # pop_obs_spec for this node.
-        self.obs_props = obs_props  # the Ui node represent one ObsProps
-        self.is_prop = is_prop  # is the node a "Property" or a "Value" node.
-        self.prop = prop  # the property it represents
-        self.pv = pv  # ordered dict of property-value this node inherits
-        # from its parent.
-        self.key = tuple([pop_obs_spec.pop_type]) + \
-            obs_props.key + pop_obs_spec.prop_all
-
-    @property
-    def pop_type(self):
-        return self.pop_obs_spec.pop_type
-
-    @property
-    def mprop(self):
-        return self.obs_props.mprop
-
-    @property
-    def stats(self):
-        return self.obs_props.stat_type
-
-    @property
-    def cpv(self):
-        return self.pop_obs_spec.cpv
-
-    @property
-    def text(self):
-        """Return the display text."""
-        if self.is_prop:  # This is a Property
-            if self.pop_obs_spec.name:
-                return self.pop_obs_spec.name
-            else:
-                return self.prop
-        else:  # This is a Value
-            if self.obs_props.name:
-                return self.obs_props.name
-            elif self.prop:
-                return self.pv[self.prop]
-            elif self.pop_obs_spec.name:
-                return self.pop_obs_spec.name
-            else:
-                stats = ''
-                if self.stats != 'measuredValue':
-                    stats = self.stats.replace('Value', '')
-                return '{} {}'.format(stats, self.mprop)
-
-    @property
-    def enum(self):
-        if not self.is_prop and self.prop:
-            return self.pv[self.prop]
-        else:
-            return ''
-
-
-def _read_pop_obs_spec():
+def read_pop_obs_spec():
     """Read pop obs spec from the config file."""
+    result = collections.defaultdict(lambda: collections.defaultdict(list))
 
     # Read pop obs spec
     POS_COMMON_PATH = "./pop_obs_spec_common.textproto"
-    # POS_COMMON_PATH = "./test.textproto"
-    pop_obs_spec_list = stat_config_pb2.PopObsSpecList()
+    for pos in read_pos_list(POS_COMMON_PATH):
+        dpv = {}
+        for pv in pos.dpv:
+            dpv[pv.prop] = pv.val
+        obs_props = [ObsProps(pos.stat_type, pos.mprop, "", "", "", "")]
+        for v in pos.vertical:
+            result[v][len(pos.cprop)].append(PopObsSpec(
+                pos.pop_type, list(pos.cprop), dpv, pos.name, obs_props))
 
-    with open(POS_COMMON_PATH, 'r') as file_common:
-        data_common = file_common.read()
-    text_format.Parse(data_common, pop_obs_spec_list)
-
-    result = collections.defaultdict(lambda: collections.defaultdict(list))
-    for pos in pop_obs_spec_list.spec:
+    # Read new prop_obs_specs with multiple obs_props
+    POS_OBS_PROPS_PATH = "./pop_obs_spec_with_obs_props.textproto"
+    for pos in read_pos_list(POS_OBS_PROPS_PATH):
         dpv = {}
         for pv in pos.dpv:
             dpv[pv.prop] = pv.val
@@ -150,10 +91,6 @@ def _read_pop_obs_spec():
         for obs in pos.obs_props:
             obs_props.append(ObsProps(obs.stat_type, obs.mprop,
                                       obs.mqual, obs.mdenom, obs.sfactor, obs.name))
-        # handle the old specs
-        if not pos.obs_props:
-            obs_props.append(
-                ObsProps(pos.stat_type, pos.mprop, "", "", "", ""))
         for v in pos.vertical:
             result[v][len(pos.cprop)].append(PopObsSpec(
                 pos.pop_type, list(pos.cprop), dpv, pos.name, obs_props))
@@ -193,14 +130,11 @@ def removeDuplicateStatsVar(stat_vars):
     return stat_vars
 
 
-def _read_stat_var():
+def read_stat_var():
     """Read all the statistical variables"""
 
     sv_dcid = dc.get_sv_dcids()
-    # sv_dcid = ["Count_Person","GrowthRate_Amount_EconomicActivity_GrossDomesticProduction", "Amount_EconomicActivity_GrossDomesticProduction_Nominal", "Amount_EconomicActivity_GrossNationalIncome_PurchasingPowerParity",
-    # "Count_Person_Upto5Years", "Count_CriminalActivities_Arson", "Count_CriminalActivities_ViolentCrime",
-    # "Count_CriminalActivities_AggravatedAssault", "Count_CycloneEvent", "Count_EarthquakeEvent", "Count_FloodEvent",
-    # "Count_EarthquakeEvent_M3To4", "Count_CycloneEvent_ExtratropicalCyclone", "Count_Person_EnrolledInGrade1ToGrade4", "Count_Person_EnrolledInGrade5ToGrade8", "Count_Person_EducationalAttainmentNoSchoolingCompleted","Count_Person_EducationalAttainmentNurserySchool", "Count_Person_EducationalAttainmentKindergarten"]
+
     """
     example of triples for one statsitical variable
     ('dc/014es05x0d5l', 'measurementMethod', 'CensusACS5yrSurvey')
@@ -218,7 +152,19 @@ def _read_stat_var():
     ('dc/014es05x0d5l', 'constraintProperties', 'incomeStatus')
     ('dc/014es05x0d5l', 'constraintProperties', 'age')
     """
-    sv_triples = dc.get_triples(sv_dcid)
+    # trunk statsVar dcids into smaller size and 
+    # get the triples 
+    trunk_size = 10000
+    n_trunk = len(sv_dcid)//trunk_size
+    sv_triples = {}
+    for i in range(n_trunk+1):
+        if i == n_trunk:
+            trunk_triples = dc.get_triples(sv_dcid[i*trunk_size:])
+            sv_triples.update(trunk_triples)
+        else:
+            trunk_triples = dc.get_triples(sv_dcid[i*trunk_size:(i+1)*trunk_size])
+            sv_triples.update(trunk_triples)
+    # group all the statsVars according to the triples
     stat_vars = collections.defaultdict(list)
     for dcid, triples in sv_triples.items():
         constraint_properties = []
@@ -241,8 +187,8 @@ def _read_stat_var():
                 raise Exception('constraint property:{} not found in statistical'
                                 'variable with dcid: {}'.format(property, dcid))
             prop_val[property] = sv_dict[property]
-
-        # Super enum
+        # create super enum, i.e. group statsvars with different p-v pairs: (p,v1); (p,v2)
+        # by adding a common value: (p, v), so that v1, v2 would be leaf nodes for value node v;
         se = {}
         if 'crimeType' in prop_val:
             v = prop_val.get('crimeType', '')
@@ -250,10 +196,17 @@ def _read_stat_var():
                      'MurderAndNonNegligentManslaughter']:
                 se = {'crimeType': 'ViolentCrime'}
             elif v in ['MotorVehicleTheft', 'LarcenyTheft', 'Burglary']:
-                se = {'crimeType': 'PropertyCrime'}
+                se = {'crimeType': 'PropertyCrime'} 
         # create the statsVar object
-        sv = StatsVar(sv_dict["populationType"], sv_dict["measuredProperty"],
-                      sv_dict["statType"], sv_dict["measurementQualifier"], sv_dict["measurementDenominator"], sv_dict["scalingFactor"], prop_val, dcid, se)
+        sv = StatsVar(sv_dict["populationType"], 
+                      sv_dict["measuredProperty"],
+                      sv_dict["statType"], 
+                      sv_dict["measurementQualifier"], 
+                      sv_dict["measurementDenominator"], 
+                      sv_dict["scalingFactor"], 
+                      prop_val, 
+                      dcid, 
+                      se)
         stat_vars[sv.key].append(sv)
     stat_vars = removeDuplicateStatsVar(stat_vars)
     return stat_vars
