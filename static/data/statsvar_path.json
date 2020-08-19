@@ -839,7 +839,7 @@
   0,
   0,
   1,
-  5,
+  2,
   0
  ],
  "Count_Person_18To24Years_EnrolledInPrivateCollegeOrGraduateSchool_Female": [
@@ -848,7 +848,7 @@
   0,
   0,
   1,
-  5,
+  2,
   1
  ],
  "Count_Person_18To24Years_EnrolledInPublicCollegeOrGraduateSchool_Female": [
@@ -857,7 +857,7 @@
   0,
   0,
   1,
-  5,
+  2,
   2
  ],
  "Count_Person_18To24Years_Female_AbovePovertyLevelInThePast12Months": [
@@ -1126,7 +1126,7 @@
   1,
   0,
   1,
-  5,
+  2,
   0
  ],
  "Count_Person_18To24Years_EnrolledInPrivateCollegeOrGraduateSchool_Male": [
@@ -1135,7 +1135,7 @@
   1,
   0,
   1,
-  5,
+  2,
   1
  ],
  "Count_Person_18To24Years_EnrolledInPublicCollegeOrGraduateSchool_Male": [
@@ -1144,7 +1144,7 @@
   1,
   0,
   1,
-  5,
+  2,
   2
  ],
  "Count_Person_18To24Years_Male_AbovePovertyLevelInThePast12Months": [
@@ -1446,7 +1446,7 @@
   0,
   0,
   2,
-  5,
+  2,
   0
  ],
  "Count_Person_25To34Years_EnrolledInPrivateCollegeOrGraduateSchool_Female": [
@@ -1455,7 +1455,7 @@
   0,
   0,
   2,
-  5,
+  2,
   1
  ],
  "Count_Person_25To34Years_EnrolledInPublicCollegeOrGraduateSchool_Female": [
@@ -1464,7 +1464,7 @@
   0,
   0,
   2,
-  5,
+  2,
   2
  ],
  "Count_Person_25To34Years_Female_AbovePovertyLevelInThePast12Months": [
@@ -1760,7 +1760,7 @@
   1,
   0,
   2,
-  5,
+  2,
   0
  ],
  "Count_Person_25To34Years_EnrolledInPrivateCollegeOrGraduateSchool_Male": [
@@ -1769,7 +1769,7 @@
   1,
   0,
   2,
-  5,
+  2,
   1
  ],
  "Count_Person_25To34Years_EnrolledInPublicCollegeOrGraduateSchool_Male": [
@@ -1778,7 +1778,7 @@
   1,
   0,
   2,
-  5,
+  2,
   2
  ],
  "Count_Person_25To34Years_Male_AbovePovertyLevelInThePast12Months": [
@@ -2705,7 +2705,7 @@
   0,
   0,
   4,
-  1,
+  0,
   0
  ],
  "dc/60mq1lysnc39g": [
@@ -2714,7 +2714,7 @@
   0,
   0,
   4,
-  1,
+  0,
   1
  ],
  "dc/81xpj06sdg2kd": [
@@ -2723,7 +2723,7 @@
   0,
   0,
   4,
-  1,
+  0,
   2
  ],
  "dc/kkbq8kzlm6tw4": [
@@ -2732,7 +2732,7 @@
   0,
   0,
   4,
-  1,
+  0,
   3
  ],
  "dc/sjw48vcvjr4d2": [
@@ -2741,7 +2741,7 @@
   0,
   0,
   4,
-  1,
+  0,
   4
  ],
  "dc/4t34d32mwr7e9": [
@@ -2750,7 +2750,7 @@
   0,
   0,
   4,
-  1,
+  0,
   5
  ],
  "Count_Person_45To54Years_Female_AsianAlone": [
@@ -3001,7 +3001,7 @@
   1,
   0,
   4,
-  1,
+  0,
   0
  ],
  "dc/hycewjthgy8w": [
@@ -3010,7 +3010,7 @@
   1,
   0,
   4,
-  1,
+  0,
   1
  ],
  "dc/g9qp5cejpyhq5": [
@@ -3019,7 +3019,7 @@
   1,
   0,
   4,
-  1,
+  0,
   2
  ],
  "dc/yrmj9vp8b8n1d": [
@@ -3028,7 +3028,7 @@
   1,
   0,
   4,
-  1,
+  0,
   3
  ],
  "dc/k0xsgv4gfz9b5": [
@@ -3037,7 +3037,7 @@
   1,
   0,
   4,
-  1,
+  0,
   4
  ],
  "dc/crh2hrcst55t1": [
@@ -3046,7 +3046,7 @@
   1,
   0,
   4,
-  1,
+  0,
   5
  ],
  "Count_Person_45To54Years_Male_AsianAlone": [
@@ -3504,7 +3504,7 @@
   0,
   0,
   9,
-  1,
+  0,
   0
  ],
  "dc/wrz9m375r1yy": [
@@ -3513,7 +3513,7 @@
   0,
   0,
   9,
-  1,
+  0,
   1
  ],
  "dc/qtmer196cydk": [
@@ -3522,7 +3522,7 @@
   0,
   0,
   9,
-  1,
+  0,
   2
  ],
  "dc/965mdb0c8tef9": [
@@ -3531,7 +3531,7 @@
   0,
   0,
   9,
-  1,
+  0,
   3
  ],
  "dc/khsmjk10b8ynb": [
@@ -3540,7 +3540,7 @@
   0,
   0,
   9,
-  1,
+  0,
   4
  ],
  "dc/8l880g9te1n53": [
@@ -3549,7 +3549,7 @@
   0,
   0,
   9,
-  1,
+  0,
   5
  ],
  "Count_Person_75OrMoreYears_Civilian_Female": [
@@ -3775,7 +3775,7 @@
   1,
   0,
   9,
-  1,
+  0,
   0
  ],
  "dc/1ld59l0sp7z85": [
@@ -3784,7 +3784,7 @@
   1,
   0,
   9,
-  1,
+  0,
   1
  ],
  "dc/gc7lcsrrv1rm5": [
@@ -3793,7 +3793,7 @@
   1,
   0,
   9,
-  1,
+  0,
   2
  ],
  "dc/j8se7wv2gbdfd": [
@@ -3802,7 +3802,7 @@
   1,
   0,
   9,
-  1,
+  0,
   3
  ],
  "dc/ykdnhknvnz0rf": [
@@ -3811,7 +3811,7 @@
   1,
   0,
   9,
-  1,
+  0,
   4
  ],
  "dc/z1g2zpsbgbtn9": [
@@ -3820,7 +3820,7 @@
   1,
   0,
   9,
-  1,
+  0,
   5
  ],
  "Count_Person_75OrMoreYears_Civilian_Male": [
@@ -15627,112 +15627,112 @@
   2,
   3,
   0,
-  1,
+  0,
   0
  ],
  "dc/1c4zcyw02n71g": [
   2,
   3,
   1,
-  1,
+  0,
   0
  ],
  "dc/xc7ms0v0r7vy5": [
   2,
   3,
   2,
-  1,
+  0,
   0
  ],
  "dc/03z5xvp7fbdc2": [
   2,
   3,
   3,
-  1,
+  0,
   0
  ],
  "dc/kxzpmb82rnn12": [
   2,
   3,
   4,
-  1,
+  0,
   0
  ],
  "dc/hcte4krdb6g3h": [
   2,
   3,
   5,
-  1,
+  0,
   0
  ],
  "dc/pf5dpsj6zfm9g": [
   2,
   3,
   6,
-  1,
+  0,
   0
  ],
  "dc/deh75ckkkc8w3": [
   2,
   3,
   7,
-  1,
+  0,
   0
  ],
  "dc/t3qdrccyvv92d": [
   2,
   3,
   8,
-  1,
+  0,
   0
  ],
  "dc/jbj3e09w9hsl8": [
   2,
   3,
   9,
-  1,
+  0,
   0
  ],
  "dc/4737stmx46bnb": [
   2,
   3,
   10,
-  1,
+  0,
   0
  ],
  "dc/lp45rhhvvsyz3": [
   2,
   3,
   11,
-  1,
+  0,
   0
  ],
  "dc/1m3fjkmrezthf": [
   2,
   3,
   12,
-  1,
+  0,
   0
  ],
  "dc/3fl8y8x4gslwg": [
   2,
   3,
   13,
-  1,
+  0,
   0
  ],
  "dc/nhmjhp72kjr48": [
   2,
   3,
   14,
-  1,
+  0,
   0
  ],
  "dc/zmp6qzgzp7ly2": [
   2,
   3,
   15,
-  1,
+  0,
   0
  ],
  "Count_Person_BlackOrAfricanAmericanAlone": [
@@ -15758,112 +15758,112 @@
   2,
   3,
   0,
-  1,
+  0,
   1
  ],
  "dc/ns1rqx6wy9909": [
   2,
   3,
   1,
-  1,
+  0,
   1
  ],
  "dc/lv94fnc9rnzg7": [
   2,
   3,
   2,
-  1,
+  0,
   1
  ],
  "dc/hq6fekrv02763": [
   2,
   3,
   3,
-  1,
+  0,
   1
  ],
  "dc/ghqs0gz0cvgx1": [
   2,
   3,
   4,
-  1,
+  0,
   1
  ],
  "dc/rlxhqz8mgxf07": [
   2,
   3,
   5,
-  1,
+  0,
   1
  ],
  "dc/xe4nwk6z1w4ld": [
   2,
   3,
   6,
-  1,
+  0,
   1
  ],
  "dc/zxgqmcexf910g": [
   2,
   3,
   7,
-  1,
+  0,
   1
  ],
  "dc/7b1kt6jvs29m5": [
   2,
   3,
   8,
-  1,
+  0,
   1
  ],
  "dc/nkhxr3btprred": [
   2,
   3,
   9,
-  1,
+  0,
   1
  ],
  "dc/rxtjbe97rt917": [
   2,
   3,
   10,
-  1,
+  0,
   1
  ],
  "dc/ej9175h5g52n4": [
   2,
   3,
   11,
-  1,
+  0,
   1
  ],
  "dc/4601s3h4zgkvh": [
   2,
   3,
   12,
-  1,
+  0,
   1
  ],
  "dc/edpnrsy7glfzf": [
   2,
   3,
   13,
-  1,
+  0,
   1
  ],
  "dc/wjtdrd9wq4m2g": [
   2,
   3,
   14,
-  1,
+  0,
   1
  ],
  "dc/3z6z9w930dl7b": [
   2,
   3,
   15,
-  1,
+  0,
   1
  ],
  "Count_Person_HispanicOrLatino": [
@@ -15889,112 +15889,112 @@
   2,
   3,
   0,
-  1,
+  0,
   2
  ],
  "dc/7g77dy8hfb1rg": [
   2,
   3,
   1,
-  1,
+  0,
   2
  ],
  "dc/6m11q7bk4qge": [
   2,
   3,
   2,
-  1,
+  0,
   2
  ],
  "dc/1wynb0rv84jy9": [
   2,
   3,
   3,
-  1,
+  0,
   2
  ],
  "dc/sdc1bw2pxc46g": [
   2,
   3,
   4,
-  1,
+  0,
   2
  ],
  "dc/3kex5wnwcehj6": [
   2,
   3,
   5,
-  1,
+  0,
   2
  ],
  "dc/w56by78w2crr2": [
   2,
   3,
   6,
-  1,
+  0,
   2
  ],
  "dc/1v84c9j8gg1g6": [
   2,
   3,
   7,
-  1,
+  0,
   2
  ],
  "dc/3s0q1pjxf4d56": [
   2,
   3,
   8,
-  1,
+  0,
   2
  ],
  "dc/rrp56w0hvs6x6": [
   2,
   3,
   9,
-  1,
+  0,
   2
  ],
  "dc/m18kt4h10rhv9": [
   2,
   3,
   10,
-  1,
+  0,
   2
  ],
  "dc/w0empn05hck9": [
   2,
   3,
   11,
-  1,
+  0,
   2
  ],
  "dc/gcsgte71jdvl2": [
   2,
   3,
   12,
-  1,
+  0,
   2
  ],
  "dc/5rk9h9zvbyz5": [
   2,
   3,
   13,
-  1,
+  0,
   2
  ],
  "dc/0jtctjm33mgh1": [
   2,
   3,
   14,
-  1,
+  0,
   2
  ],
  "dc/9cqv67nn7pn1b": [
   2,
   3,
   15,
-  1,
+  0,
   2
  ],
  "Count_Person_NativeHawaiianAndOtherPacificIslanderAlone": [
@@ -16025,112 +16025,112 @@
   2,
   3,
   0,
-  1,
+  0,
   3
  ],
  "dc/c6n2z7vh9sy31": [
   2,
   3,
   1,
-  1,
+  0,
   3
  ],
  "dc/rvw3m8tnk9rzg": [
   2,
   3,
   2,
-  1,
+  0,
   3
  ],
  "dc/yc8bfetcz1d92": [
   2,
   3,
   3,
-  1,
+  0,
   3
  ],
  "dc/q420sgnxr70cg": [
   2,
   3,
   4,
-  1,
+  0,
   3
  ],
  "dc/h0lc69wwsbhy5": [
   2,
   3,
   5,
-  1,
+  0,
   3
  ],
  "dc/0lr57b7391w12": [
   2,
   3,
   6,
-  1,
+  0,
   3
  ],
  "dc/s7ce9rqnnxx2": [
   2,
   3,
   7,
-  1,
+  0,
   3
  ],
  "dc/708rvcfph3j43": [
   2,
   3,
   8,
-  1,
+  0,
   3
  ],
  "dc/epw963xktppx9": [
   2,
   3,
   9,
-  1,
+  0,
   3
  ],
  "dc/68rek3hyfvw3d": [
   2,
   3,
   10,
-  1,
+  0,
   3
  ],
  "dc/f1mn2c36kz0mc": [
   2,
   3,
   11,
-  1,
+  0,
   3
  ],
  "dc/hpzt7l9dxswp7": [
   2,
   3,
   12,
-  1,
+  0,
   3
  ],
  "dc/f2fq3grswrtbh": [
   2,
   3,
   13,
-  1,
+  0,
   3
  ],
  "dc/50yq5l3ek70t7": [
   2,
   3,
   14,
-  1,
+  0,
   3
  ],
  "dc/p3vqwthpjtdw": [
   2,
   3,
   15,
-  1,
+  0,
   3
  ],
  "Count_Person_TwoOrMoreRaces": [
@@ -16156,112 +16156,112 @@
   2,
   3,
   0,
-  1,
+  0,
   4
  ],
  "dc/3n8g9we5yv7th": [
   2,
   3,
   1,
-  1,
+  0,
   4
  ],
  "dc/4qbgpy1bdq9ng": [
   2,
   3,
   2,
-  1,
+  0,
   4
  ],
  "dc/7645ck4vrj3z4": [
   2,
   3,
   3,
-  1,
+  0,
   4
  ],
  "dc/52zwp6khpmd86": [
   2,
   3,
   4,
-  1,
+  0,
   4
  ],
  "dc/smytzhn5chpq7": [
   2,
   3,
   5,
-  1,
+  0,
   4
  ],
  "dc/p0yjn8heys192": [
   2,
   3,
   6,
-  1,
+  0,
   4
  ],
  "dc/6dsh2c30wcptc": [
   2,
   3,
   7,
-  1,
+  0,
   4
  ],
  "dc/sp5k1jygkt21": [
   2,
   3,
   8,
-  1,
+  0,
   4
  ],
  "dc/7ssfc4pnxyqvd": [
   2,
   3,
   9,
-  1,
+  0,
   4
  ],
  "dc/slbyzbleg76rg": [
   2,
   3,
   10,
-  1,
+  0,
   4
  ],
  "dc/43gm4rs97v1sh": [
   2,
   3,
   11,
-  1,
+  0,
   4
  ],
  "dc/rctprrbmyt4k5": [
   2,
   3,
   12,
-  1,
+  0,
   4
  ],
  "dc/lh2p6deyhh1w8": [
   2,
   3,
   13,
-  1,
+  0,
   4
  ],
  "dc/zv5g19y8dl9r1": [
   2,
   3,
   14,
-  1,
+  0,
   4
  ],
  "dc/kz9r60zp6s32b": [
   2,
   3,
   15,
-  1,
+  0,
   4
  ],
  "Count_Person_WhiteAlone": [
@@ -16287,112 +16287,112 @@
   2,
   3,
   0,
-  1,
+  0,
   5
  ],
  "dc/gr3zem8shyhbf": [
   2,
   3,
   1,
-  1,
+  0,
   5
  ],
  "dc/c2nl10sz5wmw3": [
   2,
   3,
   2,
-  1,
+  0,
   5
  ],
  "dc/1b6dcdtx5ytqc": [
   2,
   3,
   3,
-  1,
+  0,
   5
  ],
  "dc/cgsr3vgj7xv33": [
   2,
   3,
   4,
-  1,
+  0,
   5
  ],
  "dc/3lvepgjsreml3": [
   2,
   3,
   5,
-  1,
+  0,
   5
  ],
  "dc/rfkwl069m93jh": [
   2,
   3,
   6,
-  1,
+  0,
   5
  ],
  "dc/r7xqdm2s9r7d7": [
   2,
   3,
   7,
-  1,
+  0,
   5
  ],
  "dc/psvlr9qyj0gmb": [
   2,
   3,
   8,
-  1,
+  0,
   5
  ],
  "dc/tgvpcmdbx6jn5": [
   2,
   3,
   9,
-  1,
+  0,
   5
  ],
  "dc/xc49pjeynx3s1": [
   2,
   3,
   10,
-  1,
+  0,
   5
  ],
  "dc/89kqjl3ky5cgh": [
   2,
   3,
   11,
-  1,
+  0,
   5
  ],
  "dc/h7dltj3mrq778": [
   2,
   3,
   12,
-  1,
+  0,
   5
  ],
  "dc/y5t5r8bkr80p6": [
   2,
   3,
   13,
-  1,
+  0,
   5
  ],
  "dc/55d9n710f1l43": [
   2,
   3,
   14,
-  1,
+  0,
   5
  ],
  "dc/h8p2m5rx43j3b": [
   2,
   3,
   15,
-  1,
+  0,
   5
  ],
  "Count_Person_WhiteAloneNotHispanicOrLatino": [
@@ -16418,112 +16418,112 @@
   2,
   3,
   0,
-  1,
+  0,
   6
  ],
  "dc/nt9cq96phw6nf": [
   2,
   3,
   1,
-  1,
+  0,
   6
  ],
  "dc/dtrqvdzyqzek7": [
   2,
   3,
   2,
-  1,
+  0,
   6
  ],
  "dc/5bv5566pj35v7": [
   2,
   3,
   3,
-  1,
+  0,
   6
  ],
  "dc/j8708n21vjn7g": [
   2,
   3,
   4,
-  1,
+  0,
   6
  ],
  "dc/lex5l1z3xb019": [
   2,
   3,
   5,
-  1,
+  0,
   6
  ],
  "dc/wzbz28yp0r0z7": [
   2,
   3,
   6,
-  1,
+  0,
   6
  ],
  "dc/fpkjrc19wfr82": [
   2,
   3,
   7,
-  1,
+  0,
   6
  ],
  "dc/8276gss3d3q82": [
   2,
   3,
   8,
-  1,
+  0,
   6
  ],
  "dc/fwwm465nrweyb": [
   2,
   3,
   9,
-  1,
+  0,
   6
  ],
  "dc/z89e0y0bvfhq2": [
   2,
   3,
   10,
-  1,
+  0,
   6
  ],
  "dc/lkfgpz9cz0x93": [
   2,
   3,
   11,
-  1,
+  0,
   6
  ],
  "dc/1yyzpv9wsld34": [
   2,
   3,
   12,
-  1,
+  0,
   6
  ],
  "dc/pexzqq68dnek5": [
   2,
   3,
   13,
-  1,
+  0,
   6
  ],
  "dc/4wkzsq23w6reb": [
   2,
   3,
   14,
-  1,
+  0,
   6
  ],
  "dc/wyxmw2dy6t2xh": [
   2,
   3,
   15,
-  1,
+  0,
   6
  ],
  "Count_Person_Nonveteran": [
@@ -18348,7 +18348,7 @@
   0,
   1,
   10,
-  1,
+  0,
   0
  ],
  "Count_Death_Upto1Years_CertainConditionsOriginatingInThePerinatalPeriod_AsianOrPacificIslander": [

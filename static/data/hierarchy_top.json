@@ -1,113 +1,102 @@
 {
  "Demographics": {
+  "sv": [],
   "l": "Demographics",
   "t": "p",
   "e": "Demographics",
   "c": 1787,
   "cd": [
    {
+    "sv": [
+     "Count_Person"
+    ],
     "l": "Population",
     "t": "v",
     "e": "Population",
-    "c": 1,
-    "sv": [
-     "Count_Person"
-    ]
+    "c": 1
    },
    {
+    "sv": [
+     "Median_Age_Person"
+    ],
     "l": "Median age",
     "t": "v",
     "e": "median age",
-    "c": 1,
-    "sv": [
-     "Median_Age_Person"
-    ]
+    "c": 1
    },
    {
+    "sv": [
+     "Median_Income_Person"
+    ],
     "l": "Median income",
     "t": "v",
     "e": "median income",
-    "c": 1,
-    "sv": [
-     "Median_Income_Person"
-    ]
+    "c": 1
    },
    {
     "l": "Age",
-    "e": "age",
     "t": "p",
     "c": 432
    },
    {
     "l": "Citizenship",
-    "e": "citizenship",
     "t": "p",
     "c": 5
    },
    {
     "l": "Gender",
-    "e": "gender",
     "t": "p",
     "c": 1342
    },
    {
     "l": "Income",
-    "e": "income",
     "t": "p",
     "c": 42
    },
    {
     "l": "Marital Status",
-    "e": "maritalStatus",
     "t": "p",
     "c": 73
    },
    {
     "l": "Nativity",
-    "e": "nativity",
     "t": "p",
     "c": 114
    },
    {
     "l": "Place Of Birth",
-    "e": "placeOfBirth",
     "t": "p",
     "c": 108
    },
    {
     "l": "Poverty Status",
-    "e": "povertyStatus",
     "t": "p",
     "c": 272
    },
    {
     "l": "Race",
-    "e": "race",
     "t": "p",
     "c": 1241
    },
    {
     "l": "Veteran Status",
-    "e": "veteranStatus",
     "t": "p",
     "c": 14
    },
    {
     "l": "Educational Attainment",
-    "e": "educationalAttainment",
     "t": "p",
     "c": 38
    },
    {
     "l": "Level Of School",
-    "e": "levelOfSchool",
     "t": "p",
     "c": 43
    }
-  ],
-  "sv": []
+  ]
  },
  "Crime": {
+  "sv": [],
   "l": "Crime",
   "t": "p",
   "e": "Crime",
@@ -115,14 +104,13 @@
   "cd": [
    {
     "l": "Crime Type",
-    "e": "crimeType",
     "t": "p",
     "c": 11
    }
-  ],
-  "sv": []
+  ]
  },
  "Education": {
+  "sv": [],
   "l": "Education",
   "t": "p",
   "e": "Education",
@@ -130,356 +118,331 @@
   "cd": [
    {
     "l": "Educational Attainment",
-    "e": "educationalAttainment",
     "t": "p",
     "c": 22
    },
    {
     "l": "Level Of School",
-    "e": "levelOfSchool",
     "t": "p",
     "c": 43
    },
    {
     "l": "School Enrollment",
-    "e": "schoolEnrollment",
     "t": "p",
     "c": 22
    },
    {
     "l": "Detailed Level Of School",
-    "e": "detailedLevelOfSchool",
     "t": "p",
     "c": 128
    }
-  ],
-  "sv": []
+  ]
  },
  "Employment": {
+  "sv": [],
   "l": "Employment",
   "t": "p",
   "e": "Employment",
   "c": 196,
   "cd": [
    {
+    "sv": [
+     "UnemploymentRate_Person"
+    ],
     "l": "Unemployment Rate",
     "t": "v",
     "e": "Unemployment Rate",
-    "c": 1,
-    "sv": [
-     "UnemploymentRate_Person"
-    ]
+    "c": 1
    },
    {
+    "sv": [
+     "Count_Person_InLaborForce"
+    ],
     "l": "Labor Force",
     "t": "v",
     "e": "Labor Force",
-    "c": 1,
-    "sv": [
-     "Count_Person_InLaborForce"
-    ]
+    "c": 1
    },
    {
+    "sv": [
+     "Count_Person_Employed"
+    ],
     "l": "Employed",
     "t": "v",
     "e": "Employed",
-    "c": 1,
-    "sv": [
-     "Count_Person_Employed"
-    ]
+    "c": 1
    },
    {
+    "sv": [
+     "Count_Person_Unemployed"
+    ],
     "l": "Unemployed",
     "t": "v",
     "e": "Unemployed",
-    "c": 1,
-    "sv": [
-     "Count_Person_Unemployed"
-    ]
+    "c": 1
    },
    {
     "l": "Establishments by Industry",
-    "e": "Establishments by Industry",
     "t": "p",
     "c": 90
    },
    {
     "l": "Labor Force by Industry",
-    "e": "Labor Force by Industry",
     "t": "p",
     "c": 90
    },
    {
     "l": "Unemployment Insurance Claims",
-    "e": "Unemployment Insurance Claims",
     "t": "p",
     "c": 12
    }
-  ],
-  "sv": []
+  ]
  },
  "Health": {
+  "sv": [],
   "l": "Health",
   "t": "p",
   "e": "Health",
   "c": 1213,
   "cd": [
    {
+    "sv": [
+     "Count_Death"
+    ],
     "l": "Mortality",
     "t": "v",
     "e": "Mortality",
-    "c": 1101,
-    "sv": [
-     "Count_Death"
-    ]
+    "c": 1101
    },
    {
     "l": "Health Outcomes",
-    "e": "Health Outcomes",
     "t": "p",
     "c": 15
    },
    {
     "l": "Health Preventions",
-    "e": "Health Preventions",
     "t": "p",
     "c": 3
    },
    {
     "l": "Health Behaviors",
-    "e": "Health Behaviors",
     "t": "p",
     "c": 9
    },
    {
     "l": "Drug Prescribed",
-    "e": "drugPrescribed",
     "t": "p",
     "c": 78
    },
    {
     "l": "COVID-19 Incidents",
-    "e": "COVID-19 Incidents",
     "t": "p",
     "c": 7
    }
-  ],
-  "sv": []
+  ]
  },
  "Housing": {
+  "sv": [],
   "l": "Housing",
   "t": "p",
   "e": "Housing",
   "c": 97,
   "cd": [
    {
+    "sv": [
+     "Count_HousingUnit"
+    ],
     "l": "Housing Units",
     "t": "v",
     "e": "Housing Units",
-    "c": 1,
-    "sv": [
-     "Count_HousingUnit"
-    ]
+    "c": 1
    },
    {
     "l": "Housing Unit Cash Rent Status",
-    "e": "Housing Unit Cash Rent Status",
     "t": "p",
     "c": 2
    },
    {
     "l": "Housing Unit Gross Rent",
-    "e": "Housing Unit Gross Rent",
     "t": "p",
     "c": 25
    },
    {
     "l": "Housing Unit Home Value",
-    "e": "Housing Unit Home Value",
     "t": "p",
     "c": 27
    },
    {
     "l": "Housing Unit Householder Race",
-    "e": "Housing Unit Householder Race",
     "t": "p",
     "c": 29
    },
    {
     "l": "Housing Unit Number of Rooms",
-    "e": "Housing Unit Number of Rooms",
     "t": "p",
     "c": 9
    },
    {
     "l": "Housing Unit Occupancy Status",
-    "e": "Housing Unit Occupancy Status",
     "t": "p",
     "c": 2
    },
    {
     "l": "Housing Unit Occupancy Tenure",
-    "e": "Housing Unit Occupancy Tenure",
     "t": "p",
     "c": 20
    }
-  ],
-  "sv": []
+  ]
  },
  "Household": {
+  "sv": [],
   "l": "Household",
   "t": "p",
   "e": "Household",
   "c": 680,
   "cd": [
    {
+    "sv": [
+     "Count_Household"
+    ],
     "l": "Household",
     "t": "v",
     "e": "Household",
-    "c": 1,
-    "sv": [
-     "Count_Household"
-    ]
+    "c": 1
    },
    {
     "l": "Household by Householder Age",
-    "e": "Household by Householder Age",
     "t": "p",
     "c": 510
    },
    {
     "l": "Household by Householder Race",
-    "e": "Household by Householder Race",
     "t": "p",
     "c": 612
    },
    {
     "l": "Household Income",
-    "e": "Household Income",
     "t": "p",
     "c": 640
    }
-  ],
-  "sv": []
+  ]
  },
  "Disasters": {
+  "sv": [],
   "l": "Disasters",
   "t": "p",
   "e": "Disasters",
   "c": 24,
   "cd": [
    {
+    "sv": [
+     "Count_CycloneEvent"
+    ],
     "l": "Cyclones",
     "t": "v",
     "e": "Cyclones",
-    "c": 5,
-    "sv": [
-     "Count_CycloneEvent"
-    ]
+    "c": 5
    },
    {
+    "sv": [
+     "Count_DroughtEvent"
+    ],
     "l": "Droughts",
     "t": "v",
     "e": "Droughts",
-    "c": 1,
-    "sv": [
-     "Count_DroughtEvent"
-    ]
+    "c": 1
    },
    {
+    "sv": [
+     "Count_EarthquakeEvent"
+    ],
     "l": "Earthquakes",
     "t": "v",
     "e": "Earthquakes",
-    "c": 14,
-    "sv": [
-     "Count_EarthquakeEvent"
-    ]
+    "c": 14
    },
    {
+    "sv": [
+     "Count_FloodEvent"
+    ],
     "l": "Floods",
     "t": "v",
     "e": "Floods",
-    "c": 1,
-    "sv": [
-     "Count_FloodEvent"
-    ]
+    "c": 1
    },
    {
+    "sv": [
+     "Count_ThunderstormWindEvent"
+    ],
     "l": "Thunderstorm Wind Gusts",
     "t": "v",
     "e": "Thunderstorm Wind Gusts",
-    "c": 1,
-    "sv": [
-     "Count_ThunderstormWindEvent"
-    ]
+    "c": 1
    },
    {
+    "sv": [
+     "Count_TornadoEvent"
+    ],
     "l": "Tornadoes",
     "t": "v",
     "e": "Tornadoes",
-    "c": 1,
-    "sv": [
-     "Count_TornadoEvent"
-    ]
+    "c": 1
    },
    {
+    "sv": [
+     "Count_WildlandFireEvent"
+    ],
     "l": "Wildland Fires",
     "t": "v",
     "e": "Wildland Fires",
-    "c": 1,
-    "sv": [
-     "Count_WildlandFireEvent"
-    ]
+    "c": 1
    }
-  ],
-  "sv": []
+  ]
  },
  "Economics": {
+  "sv": [],
   "l": "Economics",
   "t": "p",
   "e": "Economics",
   "c": 27,
   "cd": [
    {
+    "sv": [
+     "Count_Establishment"
+    ],
     "l": "Number of Establishments",
     "t": "v",
     "e": "Number of Establishments",
-    "c": 1,
-    "sv": [
-     "Count_Establishment"
-    ]
+    "c": 1
    },
    {
+    "sv": [
+     "WagesAnnual_Establishment"
+    ],
     "l": "Annual Wages of Establishments",
     "t": "v",
     "e": "Annual Wages of Establishments",
-    "c": 1,
-    "sv": [
-     "WagesAnnual_Establishment"
-    ]
+    "c": 1
    },
    {
+    "sv": [
+     "Count_Worker"
+    ],
     "l": "Labor Force",
     "t": "v",
     "e": "Labor Force",
-    "c": 1,
-    "sv": [
-     "Count_Worker"
-    ]
+    "c": 1
    },
    {
     "l": "Annual Wages of Establishments by Industry",
-    "e": "Annual Wages of Establishments by Industry",
     "t": "p",
     "c": 17
    },
    {
     "l": "Activity Source",
-    "e": "activitySource",
     "t": "p",
     "c": 7
    }
-  ],
-  "sv": []
+  ]
  }
 }

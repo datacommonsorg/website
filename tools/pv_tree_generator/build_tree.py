@@ -105,7 +105,6 @@ class PropertyNode:
             # used for top level reorgnize only
             'mprop': self.pos.obs_props[0].mprop,
             'l': text_format.format_title(name),
-            'e': name,
             't': 'p',
             'c': 0,
             'cd': [],
@@ -155,24 +154,24 @@ class ValueNode:
             pop_type = ""
         result = {
             'populationType': pop_type,
+            'sv': [],
             'l': text_format.format_title(self.value),
             't': 'v',
             'e': self.value,
             'c': 0,
             'sv_set': set([]),
             'cd': [],
-            'sv': []
         }
         for node in self.leafs:
             if node.addLevel:
                 value_blob = {
                     'populationType': node.pop_type,
+                    'sv': node.dcids,
                     'l': text_format.format_title(node.name),
                     't': 'v',
                     'e': node.name,
                     'c': 1,
                     'cd': [],
-                    'sv': node.dcids,
                     'sv_set': set(node.dcids)
                 }
                 result['cd'].append(value_blob)
@@ -229,7 +228,8 @@ def build_tree_recursive(node: PropertyNode, max_level):
             for prop in prop_children:
                 # build the next level
                 prop_blob = build_tree_recursive(prop, max_level)
-                value_blob['cd'].append(prop_blob)
+                if (prop_blob['cd']):
+                    value_blob['cd'].append(prop_blob)
     result['cd'] = text_format.filter_and_sort(node.prop, result['cd'], False)
     return result
 
