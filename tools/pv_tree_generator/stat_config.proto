@@ -18,17 +18,22 @@ syntax = "proto2";
 
 package datacommons.proto;
 
-// This proto contains the specification of a PopObs instance. It contains
-// the intended population type, measured property, stats type, constraining
-// property and hidden property-value pairs.
+// This proto contains specification of a statsVar Observation spec.
+// It contains the stat_type, measurement property, measurement denominator, 
+// measurement qualifier, scaling factor, and anme of the spec if shown as a leaf node 
+// on the PV tree
 message ObsProp {
-  optional string stat_type =1;
-  optional string mprop=2;
-  optional string mqual=3;
-  optional string mdenom=4;
-  optional string sfactor=5;
-  optional string name=6;
+  optional string stat_type = 1;
+  optional string mprop = 2;
+  optional string mqual = 3;
+  optional string mdenom = 4;
+  optional string sfactor = 5;
+  optional string name = 6;
 }
+
+// This proto contains the specification of a PopObs instance. It contains
+// the intended population type, constraining, property and hidden property-value pairs
+// and a list of ObsProps 
 message PopObsSpec {
   // A property-value pair
   message PV {
@@ -39,9 +44,9 @@ message PopObsSpec {
   // Population type.
   optional string pop_type = 1;
   // Measured property.
-  optional string mprop = 2;
+  optional string mprop = 2; // kept for supporting the old specs
   // Values are stat properties like measuredValue, medianValue, etc.
-  optional string stat_type = 3;
+  optional string stat_type = 3; // kept for supporting the old specs
   // Constraining properties of StatisticalPopulation.
   repeated string cprop = 4;
   // A list of depending property value pairs that a client does not indicate
