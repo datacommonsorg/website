@@ -38,7 +38,10 @@ git pull dc master
 git checkout -b new_branch_name
 # Make some code change
 git add .
+# Run tests
+./run_test.sh -a
 git commit -m "commit message"
+# If tests pass
 git push -u origin new_branch_name
 ```
 

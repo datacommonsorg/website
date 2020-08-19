@@ -279,3 +279,18 @@ def reorgnize(vertical):
             leaf['cd'].append(node)
             vertical['cd'].remove(node)
     return
+
+def get_top_level(data):
+    top = copy.deepcopy(data)
+    for v in top:
+        remove_children(top[v], 0, 1)
+    return top
+
+def remove_children(root, cur_level, max_level):
+    if 'cd' in root:
+        if cur_level >= max_level:
+            del root['cd']
+        else:
+            for node in root['cd']:
+                remove_children(node, cur_level+1, max_level)
+    return 

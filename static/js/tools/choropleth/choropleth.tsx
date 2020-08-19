@@ -254,7 +254,7 @@ class ChoroplethMap extends Component {
         hasSublevel: boolean;
       };
     },
-    index
+    index: number
   ): void {
     // Display statistical variable information on hover.
     const name = geo.properties.name;
@@ -368,7 +368,7 @@ function redirectToGeo(geoDcid: string, curGeo: string): void {
  * @param {string} human-readable current geo to display at end of list of
  *                 hierarchy of locations.
  */
-function generateBreadCrumbs(curGeo): void {
+function generateBreadCrumbs(curGeo: string): void {
   const url = new URL(window.location.href);
 
   const breadcrumbs = url.searchParams.get("bc");
@@ -460,4 +460,4 @@ function formatGeoValue(geoValue, isPerCapita) {
   }
 }
 
-export { ChoroplethMap, generateBreadCrumbs };
+export { ChoroplethMap };

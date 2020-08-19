@@ -131,7 +131,7 @@ function getNearbyPlaces(dcid: string) {
 /**
  * Get the chart configuration.
  */
-function getChartConfig(dcid) {
+function getChartConfigData(dcid) {
   return axios.get("/api/chart/config/" + dcid).then((resp) => {
     return resp.data;
   });
@@ -149,14 +149,14 @@ function renderPage(dcid: string) {
   const childPlacesPromise = getChildPlaces(dcid);
   const similarPlacesPromise = getSimilarPlaces(dcid);
   const nearbyPlacesPromise = getNearbyPlaces(dcid);
-  const chartConfigPromise = getChartConfig(dcid);
+  const chartConfigDataPromise = getChartConfigData(dcid);
 
-  chartConfigPromise.then((chartConfig) => {
+  chartConfigDataPromise.then((chartConfigData) => {
     ReactDOM.render(
       React.createElement(Menu, {
         dcid,
         topic,
-        chartConfig,
+        chartConfig: chartConfigData.config,
       }),
       document.getElementById("topics")
     );
@@ -185,14 +185,15 @@ function renderPage(dcid: string) {
     );
   });
 
-  Promise.all([chartConfigPromise, parentPlacesPromise]).then(
+  Promise.all([chartConfigDataPromise, parentPlacesPromise]).then(
     (resolvedValues) => {
       ReactDOM.render(
         React.createElement(MainPane, {
           dcid,
           placeType,
           topic,
-          chartConfig: resolvedValues[0],
+          chartConfig: resolvedValues[0].config,
+          chartData: resolvedValues[0].data,
           parentPlaces: resolvedValues[1],
           childPlacesPromise,
           similarPlacesPromise,

@@ -1,378 +1,5 @@
 [
   {
-    "label": "Demographics",
-    "charts": [
-      {
-        "title": "Population",
-        "topic": "Population",
-        "chartType": "LINE",
-        "statsVars": ["Count_Person"],
-        "source": "US Census",
-        "url": "https://www.census.gov/"
-      },
-      {
-        "title": "Population Growth Rate",
-        "topic": "Population",
-        "chartType": "LINE",
-        "statsVars": ["GrowthRate_Count_Person"],
-        "source": "EurostatData",
-        "url": "https://ec.europa.eu/eurostat/data/database"
-      },
-      {
-        "title": "Person Per Area",
-        "topic": "Population",
-        "chartType": "LINE",
-        "statsVars": ["Count_Person_PerArea"],
-        "source": "EurostatData",
-        "url": "https://ec.europa.eu/eurostat/data/database"
-      },
-      {
-        "title": "Life Expectancy",
-        "topic": "Population",
-        "chartType": "LINE",
-        "statsVars": ["LifeExpectancy_Person"],
-        "source": "EurostatData",
-        "url": "https://ec.europa.eu/eurostat/data/database"
-      },
-      {
-        "title": "Fertility Rate",
-        "topic": "Population",
-        "chartType": "LINE",
-        "statsVars": ["FertilityRate_Person_Female"],
-        "source": "EurostatData",
-        "url": "https://ec.europa.eu/eurostat/data/database"
-      },
-      {
-        "title": "Median Age",
-        "topic": "Age",
-        "chartType": "LINE",
-        "statsVars": ["Median_Age_Person"],
-        "source": "US Census",
-        "url": "https://www.census.gov/"
-      },
-      {
-        "title": "Citizenship",
-        "topic": "Citizenship",
-        "chartType": "SINGLE_BAR",
-        "statsVars": [
-          "Count_Person_USCitizenBornInTheUnitedStates",
-          "Count_Person_USCitizenByNaturalization",
-          "Count_Person_NotAUSCitizen",
-          "Count_Person_USCitizenBornAbroadOfAmericanParents"
-        ],
-        "source": "US Census",
-        "url": "https://www.census.gov/"
-      },
-      {
-        "title": "Marital Status",
-        "topic": "Marital Status",
-        "chartType": "SINGLE_BAR",
-        "statsVars": [
-          "Count_Person_MarriedAndNotSeparated",
-          "Count_Person_Divorced",
-          "Count_Person_NeverMarried",
-          "Count_Person_Widowed",
-          "Count_Person_Separated"
-        ],
-        "source": "US Census",
-        "url": "https://www.census.gov/"
-      }
-    ],
-    "children": [
-      {
-        "label": "Gender",
-        "charts": [
-          {
-            "title": "Population by Gender",
-            "topic": "Gender",
-            "chartType": "SINGLE_BAR",
-            "statsVars": ["Count_Person_Male", "Count_Person_Female"],
-            "source": "US Census",
-            "url": "https://www.census.gov/"
-          }
-        ]
-      },
-      {
-        "label": "Age",
-        "charts": [
-          {
-            "title": "Median Age",
-            "topic": "Age",
-            "chartType": "LINE",
-            "statsVars": ["Median_Age_Person"],
-            "source": "US Census",
-            "url": "https://www.census.gov/"
-          },
-          {
-            "title": "Age Trend",
-            "topic": "Age",
-            "chartType": "STACK_BAR",
-            "axis": "TIME",
-            "statsVars": [
-              "Count_Person_Upto5Years",
-              "Count_Person_5To17Years",
-              "Count_Person_20To24Years",
-              "Count_Person_25To34Years",
-              "Count_Person_30To34Years",
-              "Count_Person_35To39Years",
-              "Count_Person_35To44Years",
-              "Count_Person_40To44Years",
-              "Count_Person_45To49Years",
-              "Count_Person_45To54Years",
-              "Count_Person_50To54Years",
-              "Count_Person_55To59Years",
-              "Count_Person_60To64Years",
-              "Count_Person_65OrMoreYears"
-            ],
-            "source": "US Census",
-            "url": "https://www.census.gov/"
-          },
-          {
-            "title": "Age Across Places",
-            "topic": "Age",
-            "chartType": "STACK_BAR",
-            "axis": "PLACE",
-            "statsVars": [
-              "Count_Person_Upto5Years",
-              "Count_Person_5To17Years",
-              "Count_Person_20To24Years",
-              "Count_Person_25To34Years",
-              "Count_Person_30To34Years",
-              "Count_Person_35To39Years",
-              "Count_Person_35To44Years",
-              "Count_Person_40To44Years",
-              "Count_Person_45To49Years",
-              "Count_Person_45To54Years",
-              "Count_Person_50To54Years",
-              "Count_Person_55To59Years",
-              "Count_Person_60To64Years",
-              "Count_Person_65OrMoreYears"
-            ],
-            "source": "US Census",
-            "url": "https://www.census.gov/"
-          },
-          {
-            "title": "Age Across Places",
-            "topic": "Age",
-            "chartType": "GROUP_BAR",
-            "axis": "PLACE",
-            "statsVars": [
-              "Count_Person_Upto5Years",
-              "Count_Person_5To17Years",
-              "Count_Person_20To24Years",
-              "Count_Person_25To34Years",
-              "Count_Person_30To34Years",
-              "Count_Person_35To39Years",
-              "Count_Person_35To44Years",
-              "Count_Person_40To44Years",
-              "Count_Person_45To49Years",
-              "Count_Person_45To54Years",
-              "Count_Person_50To54Years",
-              "Count_Person_55To59Years",
-              "Count_Person_60To64Years",
-              "Count_Person_65OrMoreYears"
-            ],
-            "perCapita": true,
-            "scaling": 100,
-            "unit": "%",
-            "source": "US Census",
-            "url": "https://www.census.gov/"
-          }
-        ]
-      },
-      {
-        "label": "Citizenship",
-        "charts": [
-          {
-            "title": "Citizenship Trend",
-            "topic": "Citizenship",
-            "chartType": "STACK_BAR",
-            "axis": "TIME",
-            "statsVars": [
-              "Count_Person_USCitizenBornInTheUnitedStates",
-              "Count_Person_USCitizenByNaturalization",
-              "Count_Person_NotAUSCitizen",
-              "Count_Person_USCitizenBornAbroadOfAmericanParents"
-            ],
-            "source": "US Census",
-            "url": "https://www.census.gov/"
-          },
-          {
-            "title": "Citizenship Across Places",
-            "topic": "Citizenship",
-            "chartType": "STACK_BAR",
-            "axis": "PLACE",
-            "statsVars": [
-              "Count_Person_USCitizenBornInTheUnitedStates",
-              "Count_Person_USCitizenByNaturalization",
-              "Count_Person_NotAUSCitizen",
-              "Count_Person_USCitizenBornAbroadOfAmericanParents"
-            ],
-            "source": "US Census",
-            "url": "https://www.census.gov/"
-          },
-          {
-            "title": "Citizenship Across Places",
-            "topic": "Citizenship",
-            "chartType": "GROUP_BAR",
-            "axis": "PLACE",
-            "statsVars": [
-              "Count_Person_USCitizenBornInTheUnitedStates",
-              "Count_Person_USCitizenByNaturalization",
-              "Count_Person_NotAUSCitizen",
-              "Count_Person_USCitizenBornAbroadOfAmericanParents"
-            ],
-            "perCapita": true,
-            "scaling": 100,
-            "unit": "%",
-            "source": "US Census",
-            "url": "https://www.census.gov/"
-          }
-        ]
-      },
-      {
-        "label": "Income",
-        "charts": [
-          {
-            "title": "Median Income",
-            "topic": "Income",
-            "chartType": "LINE",
-            "statsVars": ["Median_Income_Person"],
-            "unit": "$",
-            "source": "US Census",
-            "url": "https://www.census.gov/"
-          },
-          {
-            "title": "Income Trend",
-            "topic": "Income",
-            "chartType": "STACK_BAR",
-            "axis": "TIME",
-            "statsVars": [
-              "Count_Person_IncomeOfUpto9999USDollar",
-              "Count_Person_IncomeOf10000To14999USDollar",
-              "Count_Person_IncomeOf15000To24999USDollar",
-              "Count_Person_IncomeOf25000To34999USDollar",
-              "Count_Person_IncomeOf35000To49999USDollar",
-              "Count_Person_IncomeOf50000To64999USDollar",
-              "Count_Person_IncomeOf65000To74999USDollar",
-              "Count_Person_IncomeOf75000OrMoreUSDollar"
-            ],
-            "source": "US Census",
-            "url": "https://www.census.gov/"
-          },
-          {
-            "title": "Income Across Places",
-            "topic": "Income",
-            "chartType": "STACK_BAR",
-            "axis": "PLACE",
-            "statsVars": [
-              "Count_Person_IncomeOfUpto9999USDollar",
-              "Count_Person_IncomeOf10000To14999USDollar",
-              "Count_Person_IncomeOf15000To24999USDollar",
-              "Count_Person_IncomeOf25000To34999USDollar",
-              "Count_Person_IncomeOf35000To49999USDollar",
-              "Count_Person_IncomeOf50000To64999USDollar",
-              "Count_Person_IncomeOf65000To74999USDollar",
-              "Count_Person_IncomeOf75000OrMoreUSDollar"
-            ],
-            "source": "US Census",
-            "url": "https://www.census.gov/"
-          },
-          {
-            "title": "Income Across Places",
-            "topic": "Income",
-            "chartType": "GROUP_BAR",
-            "axis": "PLACE",
-            "statsVars": [
-              "Count_Person_IncomeOfUpto9999USDollar",
-              "Count_Person_IncomeOf10000To14999USDollar",
-              "Count_Person_IncomeOf15000To24999USDollar",
-              "Count_Person_IncomeOf25000To34999USDollar",
-              "Count_Person_IncomeOf35000To49999USDollar",
-              "Count_Person_IncomeOf50000To64999USDollar",
-              "Count_Person_IncomeOf65000To74999USDollar",
-              "Count_Person_IncomeOf75000OrMoreUSDollar"
-            ],
-            "perCapita": true,
-            "scaling": 100,
-            "unit": "%",
-            "source": "US Census",
-            "url": "https://www.census.gov/"
-          },
-          {
-            "title": "Income",
-            "chartType": "SINGLE_BAR",
-            "statsVars": [
-              "Count_Person_IncomeOfUpto9999USDollar",
-              "Count_Person_IncomeOf10000To14999USDollar",
-              "Count_Person_IncomeOf15000To24999USDollar",
-              "Count_Person_IncomeOf25000To34999USDollar",
-              "Count_Person_IncomeOf35000To49999USDollar",
-              "Count_Person_IncomeOf50000To64999USDollar",
-              "Count_Person_IncomeOf65000To74999USDollar",
-              "Count_Person_IncomeOf75000OrMoreUSDollar"
-            ],
-            "source": "US Census",
-            "url": "https://www.census.gov/"
-          }
-        ]
-      },
-      {
-        "label": "Marital Status",
-        "charts": [
-          {
-            "title": "Marital Status across Places",
-            "topic": "Marital Status",
-            "chartType": "STACK_BAR",
-            "axis": "TIME",
-            "statsVars": [
-              "Count_Person_MarriedAndNotSeparated",
-              "Count_Person_Divorced",
-              "Count_Person_NeverMarried",
-              "Count_Person_Widowed",
-              "Count_Person_Separated"
-            ],
-            "source": "US Census",
-            "url": "https://www.census.gov/"
-          },
-          {
-            "title": "Marital Status Across Places",
-            "topic": "Marital Status",
-            "chartType": "STACK_BAR",
-            "axis": "PLACE",
-            "statsVars": [
-              "Count_Person_MarriedAndNotSeparated",
-              "Count_Person_Divorced",
-              "Count_Person_NeverMarried",
-              "Count_Person_Widowed",
-              "Count_Person_Separated"
-            ],
-            "source": "US Census",
-            "url": "https://www.census.gov/"
-          },
-          {
-            "title": "Marital Status Across Places",
-            "topic": "Marital Status",
-            "chartType": "GROUP_BAR",
-            "axis": "PLACE",
-            "statsVars": [
-              "Count_Person_MarriedAndNotSeparated",
-              "Count_Person_Divorced",
-              "Count_Person_NeverMarried",
-              "Count_Person_Widowed",
-              "Count_Person_Separated"
-            ],
-            "perCapita": true,
-            "scaling": 100,
-            "unit": "%",
-            "source": "US Census",
-            "url": "https://www.census.gov/"
-          }
-        ]
-      }
-    ]
-  },
-  {
     "label": "Economics",
     "charts": [
       {
@@ -1311,6 +938,379 @@
             "statsVars": [
               "Count_Person_EnrolledInSchool",
               "Count_Person_NotEnrolledInSchool"
+            ],
+            "perCapita": true,
+            "scaling": 100,
+            "unit": "%",
+            "source": "US Census",
+            "url": "https://www.census.gov/"
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "label": "Demographics",
+    "charts": [
+      {
+        "title": "Population",
+        "topic": "Population",
+        "chartType": "LINE",
+        "statsVars": ["Count_Person"],
+        "source": "US Census",
+        "url": "https://www.census.gov/"
+      },
+      {
+        "title": "Population Growth Rate",
+        "topic": "Population",
+        "chartType": "LINE",
+        "statsVars": ["GrowthRate_Count_Person"],
+        "source": "EurostatData",
+        "url": "https://ec.europa.eu/eurostat/data/database"
+      },
+      {
+        "title": "Person Per Area",
+        "topic": "Population",
+        "chartType": "LINE",
+        "statsVars": ["Count_Person_PerArea"],
+        "source": "EurostatData",
+        "url": "https://ec.europa.eu/eurostat/data/database"
+      },
+      {
+        "title": "Life Expectancy",
+        "topic": "Population",
+        "chartType": "LINE",
+        "statsVars": ["LifeExpectancy_Person"],
+        "source": "EurostatData",
+        "url": "https://ec.europa.eu/eurostat/data/database"
+      },
+      {
+        "title": "Fertility Rate",
+        "topic": "Population",
+        "chartType": "LINE",
+        "statsVars": ["FertilityRate_Person_Female"],
+        "source": "EurostatData",
+        "url": "https://ec.europa.eu/eurostat/data/database"
+      },
+      {
+        "title": "Median Age",
+        "topic": "Age",
+        "chartType": "LINE",
+        "statsVars": ["Median_Age_Person"],
+        "source": "US Census",
+        "url": "https://www.census.gov/"
+      },
+      {
+        "title": "Citizenship",
+        "topic": "Citizenship",
+        "chartType": "SINGLE_BAR",
+        "statsVars": [
+          "Count_Person_USCitizenBornInTheUnitedStates",
+          "Count_Person_USCitizenByNaturalization",
+          "Count_Person_NotAUSCitizen",
+          "Count_Person_USCitizenBornAbroadOfAmericanParents"
+        ],
+        "source": "US Census",
+        "url": "https://www.census.gov/"
+      },
+      {
+        "title": "Marital Status",
+        "topic": "Marital Status",
+        "chartType": "SINGLE_BAR",
+        "statsVars": [
+          "Count_Person_MarriedAndNotSeparated",
+          "Count_Person_Divorced",
+          "Count_Person_NeverMarried",
+          "Count_Person_Widowed",
+          "Count_Person_Separated"
+        ],
+        "source": "US Census",
+        "url": "https://www.census.gov/"
+      }
+    ],
+    "children": [
+      {
+        "label": "Gender",
+        "charts": [
+          {
+            "title": "Population by Gender",
+            "topic": "Gender",
+            "chartType": "SINGLE_BAR",
+            "statsVars": ["Count_Person_Male", "Count_Person_Female"],
+            "source": "US Census",
+            "url": "https://www.census.gov/"
+          }
+        ]
+      },
+      {
+        "label": "Age",
+        "charts": [
+          {
+            "title": "Median Age",
+            "topic": "Age",
+            "chartType": "LINE",
+            "statsVars": ["Median_Age_Person"],
+            "source": "US Census",
+            "url": "https://www.census.gov/"
+          },
+          {
+            "title": "Age Trend",
+            "topic": "Age",
+            "chartType": "STACK_BAR",
+            "axis": "TIME",
+            "statsVars": [
+              "Count_Person_Upto5Years",
+              "Count_Person_5To17Years",
+              "Count_Person_20To24Years",
+              "Count_Person_25To34Years",
+              "Count_Person_30To34Years",
+              "Count_Person_35To39Years",
+              "Count_Person_35To44Years",
+              "Count_Person_40To44Years",
+              "Count_Person_45To49Years",
+              "Count_Person_45To54Years",
+              "Count_Person_50To54Years",
+              "Count_Person_55To59Years",
+              "Count_Person_60To64Years",
+              "Count_Person_65OrMoreYears"
+            ],
+            "source": "US Census",
+            "url": "https://www.census.gov/"
+          },
+          {
+            "title": "Age Across Places",
+            "topic": "Age",
+            "chartType": "STACK_BAR",
+            "axis": "PLACE",
+            "statsVars": [
+              "Count_Person_Upto5Years",
+              "Count_Person_5To17Years",
+              "Count_Person_20To24Years",
+              "Count_Person_25To34Years",
+              "Count_Person_30To34Years",
+              "Count_Person_35To39Years",
+              "Count_Person_35To44Years",
+              "Count_Person_40To44Years",
+              "Count_Person_45To49Years",
+              "Count_Person_45To54Years",
+              "Count_Person_50To54Years",
+              "Count_Person_55To59Years",
+              "Count_Person_60To64Years",
+              "Count_Person_65OrMoreYears"
+            ],
+            "source": "US Census",
+            "url": "https://www.census.gov/"
+          },
+          {
+            "title": "Age Across Places",
+            "topic": "Age",
+            "chartType": "GROUP_BAR",
+            "axis": "PLACE",
+            "statsVars": [
+              "Count_Person_Upto5Years",
+              "Count_Person_5To17Years",
+              "Count_Person_20To24Years",
+              "Count_Person_25To34Years",
+              "Count_Person_30To34Years",
+              "Count_Person_35To39Years",
+              "Count_Person_35To44Years",
+              "Count_Person_40To44Years",
+              "Count_Person_45To49Years",
+              "Count_Person_45To54Years",
+              "Count_Person_50To54Years",
+              "Count_Person_55To59Years",
+              "Count_Person_60To64Years",
+              "Count_Person_65OrMoreYears"
+            ],
+            "perCapita": true,
+            "scaling": 100,
+            "unit": "%",
+            "source": "US Census",
+            "url": "https://www.census.gov/"
+          }
+        ]
+      },
+      {
+        "label": "Citizenship",
+        "charts": [
+          {
+            "title": "Citizenship Trend",
+            "topic": "Citizenship",
+            "chartType": "STACK_BAR",
+            "axis": "TIME",
+            "statsVars": [
+              "Count_Person_USCitizenBornInTheUnitedStates",
+              "Count_Person_USCitizenByNaturalization",
+              "Count_Person_NotAUSCitizen",
+              "Count_Person_USCitizenBornAbroadOfAmericanParents"
+            ],
+            "source": "US Census",
+            "url": "https://www.census.gov/"
+          },
+          {
+            "title": "Citizenship Across Places",
+            "topic": "Citizenship",
+            "chartType": "STACK_BAR",
+            "axis": "PLACE",
+            "statsVars": [
+              "Count_Person_USCitizenBornInTheUnitedStates",
+              "Count_Person_USCitizenByNaturalization",
+              "Count_Person_NotAUSCitizen",
+              "Count_Person_USCitizenBornAbroadOfAmericanParents"
+            ],
+            "source": "US Census",
+            "url": "https://www.census.gov/"
+          },
+          {
+            "title": "Citizenship Across Places",
+            "topic": "Citizenship",
+            "chartType": "GROUP_BAR",
+            "axis": "PLACE",
+            "statsVars": [
+              "Count_Person_USCitizenBornInTheUnitedStates",
+              "Count_Person_USCitizenByNaturalization",
+              "Count_Person_NotAUSCitizen",
+              "Count_Person_USCitizenBornAbroadOfAmericanParents"
+            ],
+            "perCapita": true,
+            "scaling": 100,
+            "unit": "%",
+            "source": "US Census",
+            "url": "https://www.census.gov/"
+          }
+        ]
+      },
+      {
+        "label": "Income",
+        "charts": [
+          {
+            "title": "Median Income",
+            "topic": "Income",
+            "chartType": "LINE",
+            "statsVars": ["Median_Income_Person"],
+            "unit": "$",
+            "source": "US Census",
+            "url": "https://www.census.gov/"
+          },
+          {
+            "title": "Income Trend",
+            "topic": "Income",
+            "chartType": "STACK_BAR",
+            "axis": "TIME",
+            "statsVars": [
+              "Count_Person_IncomeOfUpto9999USDollar",
+              "Count_Person_IncomeOf10000To14999USDollar",
+              "Count_Person_IncomeOf15000To24999USDollar",
+              "Count_Person_IncomeOf25000To34999USDollar",
+              "Count_Person_IncomeOf35000To49999USDollar",
+              "Count_Person_IncomeOf50000To64999USDollar",
+              "Count_Person_IncomeOf65000To74999USDollar",
+              "Count_Person_IncomeOf75000OrMoreUSDollar"
+            ],
+            "source": "US Census",
+            "url": "https://www.census.gov/"
+          },
+          {
+            "title": "Income Across Places",
+            "topic": "Income",
+            "chartType": "STACK_BAR",
+            "axis": "PLACE",
+            "statsVars": [
+              "Count_Person_IncomeOfUpto9999USDollar",
+              "Count_Person_IncomeOf10000To14999USDollar",
+              "Count_Person_IncomeOf15000To24999USDollar",
+              "Count_Person_IncomeOf25000To34999USDollar",
+              "Count_Person_IncomeOf35000To49999USDollar",
+              "Count_Person_IncomeOf50000To64999USDollar",
+              "Count_Person_IncomeOf65000To74999USDollar",
+              "Count_Person_IncomeOf75000OrMoreUSDollar"
+            ],
+            "source": "US Census",
+            "url": "https://www.census.gov/"
+          },
+          {
+            "title": "Income Across Places",
+            "topic": "Income",
+            "chartType": "GROUP_BAR",
+            "axis": "PLACE",
+            "statsVars": [
+              "Count_Person_IncomeOfUpto9999USDollar",
+              "Count_Person_IncomeOf10000To14999USDollar",
+              "Count_Person_IncomeOf15000To24999USDollar",
+              "Count_Person_IncomeOf25000To34999USDollar",
+              "Count_Person_IncomeOf35000To49999USDollar",
+              "Count_Person_IncomeOf50000To64999USDollar",
+              "Count_Person_IncomeOf65000To74999USDollar",
+              "Count_Person_IncomeOf75000OrMoreUSDollar"
+            ],
+            "perCapita": true,
+            "scaling": 100,
+            "unit": "%",
+            "source": "US Census",
+            "url": "https://www.census.gov/"
+          },
+          {
+            "title": "Income",
+            "chartType": "SINGLE_BAR",
+            "statsVars": [
+              "Count_Person_IncomeOfUpto9999USDollar",
+              "Count_Person_IncomeOf10000To14999USDollar",
+              "Count_Person_IncomeOf15000To24999USDollar",
+              "Count_Person_IncomeOf25000To34999USDollar",
+              "Count_Person_IncomeOf35000To49999USDollar",
+              "Count_Person_IncomeOf50000To64999USDollar",
+              "Count_Person_IncomeOf65000To74999USDollar",
+              "Count_Person_IncomeOf75000OrMoreUSDollar"
+            ],
+            "source": "US Census",
+            "url": "https://www.census.gov/"
+          }
+        ]
+      },
+      {
+        "label": "Marital Status",
+        "charts": [
+          {
+            "title": "Marital Status across Places",
+            "topic": "Marital Status",
+            "chartType": "STACK_BAR",
+            "axis": "TIME",
+            "statsVars": [
+              "Count_Person_MarriedAndNotSeparated",
+              "Count_Person_Divorced",
+              "Count_Person_NeverMarried",
+              "Count_Person_Widowed",
+              "Count_Person_Separated"
+            ],
+            "source": "US Census",
+            "url": "https://www.census.gov/"
+          },
+          {
+            "title": "Marital Status Across Places",
+            "topic": "Marital Status",
+            "chartType": "STACK_BAR",
+            "axis": "PLACE",
+            "statsVars": [
+              "Count_Person_MarriedAndNotSeparated",
+              "Count_Person_Divorced",
+              "Count_Person_NeverMarried",
+              "Count_Person_Widowed",
+              "Count_Person_Separated"
+            ],
+            "source": "US Census",
+            "url": "https://www.census.gov/"
+          },
+          {
+            "title": "Marital Status Across Places",
+            "topic": "Marital Status",
+            "chartType": "GROUP_BAR",
+            "axis": "PLACE",
+            "statsVars": [
+              "Count_Person_MarriedAndNotSeparated",
+              "Count_Person_Divorced",
+              "Count_Person_NeverMarried",
+              "Count_Person_Widowed",
+              "Count_Person_Separated"
             ],
             "perCapita": true,
             "scaling": 100,

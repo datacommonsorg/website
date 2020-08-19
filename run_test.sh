@@ -23,8 +23,19 @@ function run_npm_test {
   cd ..
 }
 
-# Run linter on client side code
-function run_npm_lint {
+# Tests if lint is required on client side code
+function run_npm_lint_test {
+  cd static
+  npm list eslint || npm install eslint
+  if ! npm run test-lint; then
+    echo "\nFix lint errors by running ./run_test.sh -f"
+    exit 1
+  fi
+  cd ..
+}
+
+# Fixes client side lint
+function run_npm_lint_fix {
   cd static
   npm list eslint || npm install eslint
   npm run lint
@@ -94,24 +105,25 @@ function run_all_tests {
   run_npm_build
   run_webdriver_test
   run_screenshot_test
-  run_npm_lint
+  run_npm_lint_test
   run_npm_test
 }
 
 function help {
-  echo "Usage: $0 -pwblcsa"
+  echo "Usage: $0 -pwblcsaf"
   echo "-p       Run server python tests"
   echo "-w       Run webdriver tests"
   echo "-b       Run client install and build"
-  echo "-l       Run client lint"
+  echo "-l       Run client lint test"
   echo "-c       Run client tests"
   echo "-s       Run screenshot tests"
   echo "-a       Run all tests"
+  echo "-f       Fix client lint"
   echo "No args  Run all tests"
   exit 1
 }
 
-while getopts pwblcsa OPTION; do
+while getopts pwblcsaf OPTION; do
   case $OPTION in
     p)
         echo -e "### Running server tests"
@@ -127,7 +139,7 @@ while getopts pwblcsa OPTION; do
         ;;
     l)
         echo -e "### Running client-side lint"
-        run_npm_lint
+        run_npm_lint_test
         ;;
     c)
         echo -e "### Running client tests"
@@ -136,6 +148,10 @@ while getopts pwblcsa OPTION; do
     s)
         echo -e "### Running screenshot tests"
         run_screenshot_test
+        ;;
+    f)
+        echo -e "### Fix lint errors"
+        run_npm_lint_fix
         ;;
     a)
         echo -e "### Running all tests"
