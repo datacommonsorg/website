@@ -23,24 +23,6 @@ SCREENSHOTS_FOLDER = 'test_screenshots/'
 # TODO: Can add more urls and tests if necessary.
 TEST_URLS = [
     {
-        'url': '/tools/timeline#&place=geoId/0606000,geoId/2511000,geoId/2603000,geoId/1777005,geoId/1225175,geoId/4815976&statsVar=Median_Age_Person',
-        'filename_suffix': 'median_age_six_places.png',
-        'test_class': 'card',
-        'height': 1000
-    },
-    {
-        'url': '/tools/timeline#&place=geoId/0606000,geoId/2511000,geoId/2603000,geoId/1777005,geoId/1225175,geoId/4815976&statsVar=Count_CriminalActivities_ViolentCrime',
-        'filename_suffix': 'violentcrime_six_places.png',
-        'test_class': 'card',
-        'height': 1000
-    },
-    {
-        'url': '/tools/timeline#place=country%2FUSA%2CgeoId%2F06085&pc=1&statsVar=CumulativeCount_MedicalConditionIncident_COVID_19_ConfirmedOrProbableCase',
-        'filename_suffix': 'covid_19_cases_two_places.png',
-        'test_class': 'card',
-        'height': 1000
-    },
-    {
         'url': '/place?dcid=country/USA',
         'filename_suffix': 'place_usa.png',
         'test_class': 'chart-container',
@@ -57,6 +39,24 @@ TEST_URLS = [
         'filename_suffix': 'place_usa_health.png',
         'test_class': 'chart-container',
         'height': 3300
+    },
+    {
+        'url': '/tools/timeline#&place=geoId/0606000,geoId/2511000,geoId/2603000,geoId/1777005,geoId/1225175,geoId/4815976&statsVar=Median_Age_Person',
+        'filename_suffix': 'median_age_six_places.png',
+        'test_class': 'card',
+        'height': 1000
+    },
+    {
+        'url': '/tools/timeline#&place=geoId/0606000,geoId/2511000,geoId/2603000,geoId/1777005,geoId/1225175,geoId/4815976&statsVar=Count_CriminalActivities_ViolentCrime',
+        'filename_suffix': 'violentcrime_six_places.png',
+        'test_class': 'card',
+        'height': 1000
+    },
+    {
+        'url': '/tools/timeline#place=country%2FUSA%2CgeoId%2F06085&pc=1&statsVar=CumulativeCount_MedicalConditionIncident_COVID_19_ConfirmedOrProbableCase',
+        'filename_suffix': 'covid_19_cases_two_places.png',
+        'test_class': 'card',
+        'height': 1000
     }
 ]
 
