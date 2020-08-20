@@ -213,6 +213,11 @@ function drawSingleBarChart(
     .attr("fill", (d) => color(d.label));
 }
 
+/**
+ * Create a canvas object with a color gradient to be used as a color scale.
+ * @param color  d3.scaleLinear object that encodes the desired color gradient.
+ * @param n Number of color tones to transition between.
+ */
 function ramp(color, n = 256) {
   let canvas = document.createElement('canvas');
   canvas.width = n;
@@ -225,6 +230,13 @@ function ramp(color, n = 256) {
   return canvas;
 }
 
+/**
+ * Draw a color scale legend.
+ * @param id Id of container div for the color scale.
+ * @param width Desired scale width
+ * @param height Desired scale height. Note: about 40 pixels will be needed
+ *               at least in order to fit the title and scale marks.
+ */
 function drawColorScale(
   id: string,
   width: number,
@@ -237,7 +249,7 @@ function drawColorScale(
   const marginBottom = 16 + tickSize;
   const marginSides = 15;
 
-  // Note: This would be replaced by the color scale used in choropleth.tsx
+  // TODO(fpernice-google): Replace by the color scale used in choropleth.tsx
   const color = d3.scaleLinear()
     .domain([-0.1, 0.1])
     .range((["#deebf7", "#3182bd"] as unknown) as number[]);
