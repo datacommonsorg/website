@@ -51,8 +51,11 @@ class TestScatter(WebdriverBaseTest):
         time.sleep(3)
 
         # Assert there is a chart showing up.
-        chart = self.driver.find_element_by_id("chart-div").find_elements_by_tag_name("svg")
+        chart_div = self.driver.find_element_by_id("chart-div")
+        chart = chart_div.find_elements_by_tag_name("svg")
         self.assertEqual(len(chart), 1)
+        circles = chart[0].find_elements_by_tag_name("circle")
+        self.assertGreater(len(circles), 20)
 
 
 if __name__ == '__main__':
