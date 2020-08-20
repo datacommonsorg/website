@@ -33,7 +33,7 @@ class TestScatter(WebdriverBaseTest):
         self.assertEqual("Scatterplot tool | Data Commons", self.driver.title)
 
     def test_choosing_ptpvs_and_parameters_to_draw(self):
-        """Test the original timeline page. No charts in this page."""
+        """Test the scatter plot tool."""
         self.driver.get(self.url_ + SCATTER_URL)
         # Using implicit wait here to wait for loading page.
         self.driver.implicitly_wait(3)
