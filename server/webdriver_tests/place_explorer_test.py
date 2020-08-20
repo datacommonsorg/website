@@ -52,7 +52,7 @@ class TestPlaceExplorer(WebdriverBaseTest):
         search_results = self.driver.find_elements_by_class_name("pac-item")
         ca_result = search_results[0]
         ca_result.click()
-        self.driver.implicitly_wait(3)
+        time.sleep(3)
         self.assertEqual("California | Place Explorer | Data Commons", self.driver.title)
 
     def test_demograpgics_link_and_switch_to_similar(self):
