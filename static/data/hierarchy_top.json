@@ -1,10 +1,9 @@
 {
  "Demographics": {
-  "sv": [
-   "top"
-  ],
+  "sv": [],
   "l": "Demographics",
   "t": "p",
+  "e": "Demographics",
   "c": 1787,
   "cd": [
    {
@@ -13,6 +12,7 @@
     ],
     "l": "Population",
     "t": "v",
+    "e": "Population",
     "c": 1
    },
    {
@@ -21,6 +21,7 @@
     ],
     "l": "Median age",
     "t": "v",
+    "e": "median age",
     "c": 1
    },
    {
@@ -29,6 +30,7 @@
     ],
     "l": "Median income",
     "t": "v",
+    "e": "median income",
     "c": 1
    },
    {
@@ -94,11 +96,10 @@
   ]
  },
  "Crime": {
-  "sv": [
-   "top"
-  ],
+  "sv": [],
   "l": "Crime",
   "t": "p",
+  "e": "Crime",
   "c": 11,
   "cd": [
    {
@@ -109,11 +110,10 @@
   ]
  },
  "Education": {
-  "sv": [
-   "top"
-  ],
+  "sv": [],
   "l": "Education",
   "t": "p",
+  "e": "Education",
   "c": 215,
   "cd": [
    {
@@ -139,11 +139,10 @@
   ]
  },
  "Employment": {
-  "sv": [
-   "top"
-  ],
+  "sv": [],
   "l": "Employment",
   "t": "p",
+  "e": "Employment",
   "c": 196,
   "cd": [
    {
@@ -152,6 +151,7 @@
     ],
     "l": "Unemployment Rate",
     "t": "v",
+    "e": "Unemployment Rate",
     "c": 1
    },
    {
@@ -160,6 +160,7 @@
     ],
     "l": "Labor Force",
     "t": "v",
+    "e": "Labor Force",
     "c": 1
    },
    {
@@ -168,6 +169,7 @@
     ],
     "l": "Employed",
     "t": "v",
+    "e": "Employed",
     "c": 1
    },
    {
@@ -176,6 +178,7 @@
     ],
     "l": "Unemployed",
     "t": "v",
+    "e": "Unemployed",
     "c": 1
    },
    {
@@ -196,21 +199,20 @@
   ]
  },
  "Health": {
-  "sv": [
-   "top"
-  ],
+  "sv": [],
   "l": "Health",
   "t": "p",
-  "c": 1214,
+  "e": "Health",
+  "c": 1213,
   "cd": [
    {
     "sv": [
-     "Count_MortalityEvent",
      "Count_Death"
     ],
     "l": "Mortality",
     "t": "v",
-    "c": 1102
+    "e": "Mortality",
+    "c": 1101
    },
    {
     "l": "Health Outcomes",
@@ -240,11 +242,10 @@
   ]
  },
  "Housing": {
-  "sv": [
-   "top"
-  ],
+  "sv": [],
   "l": "Housing",
   "t": "p",
+  "e": "Housing",
   "c": 97,
   "cd": [
    {
@@ -253,6 +254,7 @@
     ],
     "l": "Housing Units",
     "t": "v",
+    "e": "Housing Units",
     "c": 1
    },
    {
@@ -293,11 +295,10 @@
   ]
  },
  "Household": {
-  "sv": [
-   "top"
-  ],
+  "sv": [],
   "l": "Household",
   "t": "p",
+  "e": "Household",
   "c": 680,
   "cd": [
    {
@@ -306,6 +307,7 @@
     ],
     "l": "Household",
     "t": "v",
+    "e": "Household",
     "c": 1
    },
    {
@@ -326,11 +328,10 @@
   ]
  },
  "Disasters": {
-  "sv": [
-   "top"
-  ],
+  "sv": [],
   "l": "Disasters",
   "t": "p",
+  "e": "Disasters",
   "c": 24,
   "cd": [
    {
@@ -339,6 +340,7 @@
     ],
     "l": "Cyclones",
     "t": "v",
+    "e": "Cyclones",
     "c": 5
    },
    {
@@ -347,6 +349,7 @@
     ],
     "l": "Droughts",
     "t": "v",
+    "e": "Droughts",
     "c": 1
    },
    {
@@ -355,6 +358,7 @@
     ],
     "l": "Earthquakes",
     "t": "v",
+    "e": "Earthquakes",
     "c": 14
    },
    {
@@ -363,6 +367,7 @@
     ],
     "l": "Floods",
     "t": "v",
+    "e": "Floods",
     "c": 1
    },
    {
@@ -371,6 +376,7 @@
     ],
     "l": "Thunderstorm Wind Gusts",
     "t": "v",
+    "e": "Thunderstorm Wind Gusts",
     "c": 1
    },
    {
@@ -379,6 +385,7 @@
     ],
     "l": "Tornadoes",
     "t": "v",
+    "e": "Tornadoes",
     "c": 1
    },
    {
@@ -387,26 +394,55 @@
     ],
     "l": "Wildland Fires",
     "t": "v",
+    "e": "Wildland Fires",
     "c": 1
    }
   ]
  },
- "Environment": {
-  "sv": [
-   "top"
-  ],
-  "l": "Environment",
+ "Economics": {
+  "sv": [],
+  "l": "Economics",
   "t": "p",
-  "c": 0,
-  "cd": []
- },
- "Economic": {
-  "sv": [
-   "top"
-  ],
-  "l": "Economic",
-  "t": "p",
-  "c": 0,
-  "cd": []
+  "e": "Economics",
+  "c": 27,
+  "cd": [
+   {
+    "sv": [
+     "Count_Establishment"
+    ],
+    "l": "Number of Establishments",
+    "t": "v",
+    "e": "Number of Establishments",
+    "c": 1
+   },
+   {
+    "sv": [
+     "WagesAnnual_Establishment"
+    ],
+    "l": "Annual Wages of Establishments",
+    "t": "v",
+    "e": "Annual Wages of Establishments",
+    "c": 1
+   },
+   {
+    "sv": [
+     "Count_Worker"
+    ],
+    "l": "Labor Force",
+    "t": "v",
+    "e": "Labor Force",
+    "c": 1
+   },
+   {
+    "l": "Annual Wages of Establishments by Industry",
+    "t": "p",
+    "c": 17
+   },
+   {
+    "l": "Activity Source",
+    "t": "p",
+    "c": 7
+   }
+  ]
  }
 }

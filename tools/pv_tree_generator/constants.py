@@ -21,7 +21,7 @@ import collections
 
 VERTICALS = [
     'Demographics', 'Crime', 'Education', 'Employment', 'Health', 'Housing',
-    'Household', 'Disasters', 'Environment', 'Economic'
+    'Household', 'Disasters', 'Environment', 'Economics'
 ]
 
 NAICS = collections.OrderedDict([

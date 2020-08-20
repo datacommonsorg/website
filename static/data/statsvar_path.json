@@ -2993,14 +2993,14 @@
   5,
   1,
   0,
-  5
+  4
  ],
  "dc/260gxgmeglpb": [
   0,
   5,
   1,
   0,
-  5,
+  4,
   0,
   0
  ],
@@ -3009,7 +3009,7 @@
   5,
   1,
   0,
-  5,
+  4,
   0,
   1
  ],
@@ -3018,7 +3018,7 @@
   5,
   1,
   0,
-  5,
+  4,
   0,
   2
  ],
@@ -3027,7 +3027,7 @@
   5,
   1,
   0,
-  5,
+  4,
   0,
   3
  ],
@@ -3036,7 +3036,7 @@
   5,
   1,
   0,
-  5,
+  4,
   0,
   4
  ],
@@ -3045,7 +3045,7 @@
   5,
   1,
   0,
-  5,
+  4,
   0,
   5
  ],
@@ -8672,13 +8672,6 @@
   0,
   0
  ],
- "Count_Person_EnrolledInPrivateSchool": [
-  0,
-  5,
-  0,
-  6,
-  2
- ],
  "Count_Person_3OrMoreYears_Female_EnrolledInPrivateSchool": [
   0,
   5,
@@ -8687,13 +8680,6 @@
   2
  ],
  "Count_Person_3OrMoreYears_Female_EnrolledInPublicSchool": [
-  0,
-  5,
-  0,
-  6,
-  3
- ],
- "Count_Person_EnrolledInPublicSchool": [
   0,
   5,
   0,
@@ -9075,7 +9061,7 @@
   5,
   1,
   0,
-  4
+  5
  ],
  "Count_Person_45To64Years_EducationalAttainmentHighSchoolGraduateIncludesEquivalency_Male": [
   0,
@@ -16650,7 +16636,7 @@
   0,
   2
  ],
- "Count_CriminalActivities_Burglary": [
+ "Count_CriminalActivities_MotorVehicleTheft": [
   1,
   0,
   2,
@@ -16662,7 +16648,7 @@
   2,
   1
  ],
- "Count_CriminalActivities_MotorVehicleTheft": [
+ "Count_CriminalActivities_Burglary": [
   1,
   0,
   2,
@@ -16673,25 +16659,25 @@
   0,
   3
  ],
- "Count_CriminalActivities_AggravatedAssault": [
+ "Count_CriminalActivities_MurderAndNonNegligentManslaughter": [
   1,
   0,
   3,
   0
  ],
- "Count_CriminalActivities_ForcibleRape": [
+ "Count_CriminalActivities_Robbery": [
   1,
   0,
   3,
   1
  ],
- "Count_CriminalActivities_MurderAndNonNegligentManslaughter": [
+ "Count_CriminalActivities_ForcibleRape": [
   1,
   0,
   3,
   2
  ],
- "Count_CriminalActivities_Robbery": [
+ "Count_CriminalActivities_AggravatedAssault": [
   1,
   0,
   3,
@@ -17987,21 +17973,9 @@
   0,
   3
  ],
- "Count_UnemploymentInsuranceClaim_ShortTimeCompensation_ScaledForPartTimeUnemploymentBenefits": [
-  3,
-  6,
-  0
- ],
  "Count_UnemploymentInsuranceClaim_ShortTimeCompensation": [
   3,
   6,
-  0
- ],
- "Count_UnemploymentInsuranceClaim_ShortTimeCompensation_ContinuedClaim_ScaledForPartTimeUnemploymentBenefits": [
-  3,
-  6,
-  0,
-  0,
   0
  ],
  "Count_UnemploymentInsuranceClaim_ShortTimeCompensation_ContinuedClaim": [
@@ -18010,13 +17984,6 @@
   0,
   0,
   0
- ],
- "Count_UnemploymentInsuranceClaim_ShortTimeCompensation_InitialClaim_ScaledForPartTimeUnemploymentBenefits": [
-  3,
-  6,
-  0,
-  0,
-  1
  ],
  "Count_UnemploymentInsuranceClaim_ShortTimeCompensation_InitialClaim": [
   3,
@@ -18081,10 +18048,6 @@
   3,
   0,
   1
- ],
- "Count_MortalityEvent": [
-  4,
-  0
  ],
  "Count_Death": [
   4,
@@ -29170,12 +29133,12 @@
   3,
   22
  ],
- "Count_HousingUnit_HomeValue1000000To1499999USDollar": [
+ "Count_HousingUnit_HomeValue1000000OrMoreUSDollar": [
   5,
   3,
   23
  ],
- "Count_HousingUnit_HomeValue1000000OrMoreUSDollar": [
+ "Count_HousingUnit_HomeValue1000000To1499999USDollar": [
   5,
   3,
   24
@@ -35130,5 +35093,144 @@
  "Count_WildlandFireEvent": [
   7,
   6
+ ],
+ "Count_Establishment": [
+  9,
+  0
+ ],
+ "WagesAnnual_Establishment": [
+  9,
+  1
+ ],
+ "Count_Worker": [
+  9,
+  2
+ ],
+ "WagesAnnual_Establishment_NAICSAgricultureForestryFishingHunting": [
+  9,
+  3,
+  0
+ ],
+ "WagesAnnual_Establishment_NAICSMiningQuarryingOilGasExtraction": [
+  9,
+  3,
+  1
+ ],
+ "WagesAnnual_Establishment_NAICSUtilities": [
+  9,
+  3,
+  2
+ ],
+ "WagesAnnual_Establishment_NAICSConstruction": [
+  9,
+  3,
+  3
+ ],
+ "WagesAnnual_Establishment_NAICSWholesaleTrade": [
+  9,
+  3,
+  4
+ ],
+ "WagesAnnual_Establishment_NAICSInformation": [
+  9,
+  3,
+  5
+ ],
+ "WagesAnnual_Establishment_NAICSFinanceInsurance": [
+  9,
+  3,
+  6
+ ],
+ "WagesAnnual_Establishment_NAICSRealEstateRentalLeasing": [
+  9,
+  3,
+  7
+ ],
+ "WagesAnnual_Establishment_NAICSProfessionalScientificTechnicalServices": [
+  9,
+  3,
+  8
+ ],
+ "WagesAnnual_Establishment_NAICSManagementOfCompaniesEnterprises": [
+  9,
+  3,
+  9
+ ],
+ "WagesAnnual_Establishment_NAICSAdministrativeSupportWasteManagementRemediationServices": [
+  9,
+  3,
+  10
+ ],
+ "WagesAnnual_Establishment_NAICSEducationalServices": [
+  9,
+  3,
+  11
+ ],
+ "WagesAnnual_Establishment_NAICSHealthCareSocialAssistance": [
+  9,
+  3,
+  12
+ ],
+ "WagesAnnual_Establishment_NAICSArtsEntertainmentRecreation": [
+  9,
+  3,
+  13
+ ],
+ "WagesAnnual_Establishment_NAICSAccommodationFoodServices": [
+  9,
+  3,
+  14
+ ],
+ "WagesAnnual_Establishment_NAICSOtherServices": [
+  9,
+  3,
+  15
+ ],
+ "WagesAnnual_Establishment_NAICSNonclassifiable": [
+  9,
+  3,
+  16
+ ],
+ "GrowthRate_Amount_EconomicActivity_GrossDomesticProduction": [
+  9,
+  4,
+  0,
+  0
+ ],
+ "Amount_EconomicActivity_GrossDomesticProduction_Nominal": [
+  9,
+  4,
+  0,
+  1
+ ],
+ "Amount_EconomicActivity_GrossDomesticProduction_RealValue": [
+  9,
+  4,
+  0,
+  2
+ ],
+ "Amount_EconomicActivity_GrossDomesticProduction_Nominal_PerCapita": [
+  9,
+  4,
+  0,
+  3
+ ],
+ "Amount_EconomicActivity_GrossNationalIncome_PurchasingPowerParity": [
+  9,
+  4,
+  1,
+  0
+ ],
+ "Amount_EconomicActivity_GrossNationalIncome_PurchasingPowerParity_PerCapita": [
+  9,
+  4,
+  1,
+  1
+ ],
+ "Amount_EconomicActivity_GrossValueAdded_RealValue": [
+  9,
+  4,
+  2,
+  0
  ]
 }
