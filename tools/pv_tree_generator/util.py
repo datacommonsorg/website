@@ -117,8 +117,7 @@ def removeDuplicateStatsVar(stat_vars):
 
 
 def read_stat_var():
-    """Read all the statistical variables"""
-
+    """ Read all the statistical variables """
     sv_dcid = dc.get_sv_dcids()
 
     """
@@ -160,7 +159,7 @@ def read_stat_var():
         for dcid_, prop, val in triples:
             if dcid_ != dcid:
                 # triples include measurementDenomator info of other statsvars
-                # eg. we will get "dc/gywfwwmg5gsrg, measurementDenominator, 
+                # eg. we will get "dc/gywfwwmg5gsrg, measurementDenominator,
                 # Count_Person" in triples of "Count_Peron"
                 continue
             if prop == "constraintProperties":
@@ -174,8 +173,8 @@ def read_stat_var():
                 raise Exception('constraint property:{} not found in statistical'
                                 'variable with dcid: {}'.format(property, dcid))
             prop_val[property] = sv_dict[property]
-        # create super enum, i.e. group statsvars with different p-v pairs: 
-        # (p,v1); (p,v2) by adding a common value: (p, v), 
+        # create super enum, i.e. group statsvars with different p-v pairs:
+        # (p,v1); (p,v2) by adding a common value: (p, v),
         # so that v1, v2 would be leaf nodes for value node v;
         se = {}
         if 'crimeType' in prop_val:

@@ -751,6 +751,9 @@ class Chart extends Component<ChartPropType, ChartStateType> {
           for (const dataGroup of dataGroups) {
             dataGroup.label = STATS_VAR_TEXT[dataGroup.label];
           }
+          this.setState({
+            dataGroups,
+          });
         });
         break;
       case chartTypeEnum.SINGLE_BAR:

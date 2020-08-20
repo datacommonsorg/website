@@ -16,8 +16,8 @@ import unittest
 from unittest.mock import patch
 import json
 from collections import defaultdict
-
 import build_tree
+import util
 
 
 class BuildTreeTest(unittest.TestCase):

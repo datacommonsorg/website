@@ -1,3 +1,17 @@
+# Copyright 2020 Google LLC
+#
+# Licensed under the Apache License, Version 2.0 (the "License");
+# you may not use this file except in compliance with the License.
+# You may obtain a copy of the License at
+#
+#      http://www.apache.org/licenses/LICENSE-2.0
+#
+# Unless required by applicable law or agreed to in writing, software
+# distributed under the License is distributed on an "AS IS" BASIS,
+# WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+# See the License for the specific language governing permissions and
+# limitations under the License.
+
 from typing import Dict, List, Tuple
 from util import PopObsSpec, StatsVar, read_pop_obs_spec, read_stat_var
 import collections
@@ -6,52 +20,65 @@ from constants import VERTICALS
 import copy
 
 
-class Root:
-    """The root node for all the verticals"""
+def get_root_children(pop_obs_spec_all, stats_vars_all) -> List['ValueNode']:
+    """ Returns the list of vertical nodes, such as "Demographics", "Economics"
+    """
+    valueNodes = []
+    for vertical in pop_obs_spec_all:
+        # leaf nodes of each vertical,
+        # e.g.: Count_Person, Median_Age_Person are leafs of "Demographics"
+        leafs = []
+        for pos in pop_obs_spec_all[vertical][0]:
+            key = tuple([pos.pop_type]) + \
+                pos.obs_props[0].key + pos.prop_all
+            # List of statsVars matches to the leaf node
+            matching_statsVar = []
+            for stats_var in stats_vars_all[key]:
+                if pos.dpv == stats_var.pv:
+                    matching_statsVar.append(stats_var)
+            if matching_statsVar:
+                leafs.append(
+                    ValueLeaf(get_root_leaf_name(pos, matching_statsVar),
+                              [sv.dcid for sv in matching_statsVar],
+                              True,
+                              pos))
+        # property specs that is children of the value node for building
+        # the next level of the tree
+        props = []
+        for pos in pop_obs_spec_all[vertical][1]:
+            props.append((pos.cprops[0], pos))
+        valueNodes.append(ValueNode(vertical, leafs, props, None,
+                                    pop_obs_spec_all[vertical], stats_vars_all))
+    return valueNodes
 
-    def children(self) -> List['ValueNode']:
-        """ Returns a list of value nodes,
-            i.e. the verticals such as "Demographics", "Economics"
-        """
-        valueNodes = []
-        for vertical in POP_OBS_SPEC:
-            # leaf nodes of each vertical,
-            # e.g.: Count_Person, Median_Age_Person are leafs of "Demographics"
-            leafs = []
-            for pos in POP_OBS_SPEC[vertical][0]:
-                key = tuple([pos.pop_type]) + \
-                    pos.obs_props[0].key + pos.prop_all
-                # List of statsVars matches to the leaf node
-                matching_statsVar = []
-                for stats_var in STATS_VARS[key]:
-                    if pos.dpv == stats_var.pv:
-                        matching_statsVar.append(stats_var)
-                if matching_statsVar:
-                    leafs.append(
-                        valueLeaf(self.getName(pos, matching_statsVar),
-                                  [sv.dcid for sv in matching_statsVar],
-                                  True,
-                                  pos))
-            # property specs that is children of the value node for building
-            # the next level of the tree
-            props = []
-            for pos in POP_OBS_SPEC[vertical][1]:
-                props.append((pos.cprops[0], pos))
-            valueNodes.append(ValueNode(vertical, leafs, props, None))
-        return valueNodes
 
-    def getName(self, pos, stats_vars):
-        # get the name of the node
-        if pos.obs_props[0].name:
-            name = pos.obs_props[0].name
-        elif pos.name:
-            name = pos.name
-        else:
-            stats = ''
-            if stats_vars[0].stats != 'measuredValue':
-                stats = stats_vars[0].stats.replace('Value', '')
-            name = '{} {}'.format(stats, stats_vars[0].mprop)
-        return name
+def get_root_leaf_name(pos: PopObsSpec, stats_vars: List[StatsVar]):
+    """ Get the name of the leaf nodes of verticals, 
+        e.g.: Count_Person"""
+    if pos.obs_props[0].name:
+        name = pos.obs_props[0].name
+    elif pos.name:
+        name = pos.name
+    else:
+        stats = ''
+        if stats_vars[0].stats != 'measuredValue':
+            stats = stats_vars[0].stats.replace('Value', '')
+        name = '{} {}'.format(stats, stats_vars[0].mprop)
+    return name
+
+
+class ValueLeaf:
+    """ A leaf node is represents a statsVar, unless there're duplicated ones.
+        A leaf node can either create a new level nodes under the
+        value node, or shown as the value node on the ui.
+    """
+
+    def __init__(self, name: str, dcids: List[str], addLevel: bool,
+                 pos: PopObsSpec):
+        self.name = name
+        self.dcids = dcids
+        self.addLevel = addLevel
+        self.pop_type = pos.pop_type
 
 
 class PropertyNode:
@@ -62,19 +89,21 @@ class PropertyNode:
     """
 
     def __init__(self, pos: PopObsSpec, parent_pvs: Dict[str, str],
-                 new_prop: str, vertical, level: int):
+                 new_prop: str, level: int,
+                 pop_obs_spec, stats_vars_all):
         # the property value pairs inherited from the parent nodes
         self.pv = parent_pvs
         self.pos = pos  # the pob_obs_spec the node represents
         self.prop = new_prop  # the new property the node represents
-        self.vertical = vertical
         self.level = level
+        self.pop_obs_spec = pop_obs_spec
+        self.stats_vars_all = stats_vars_all
 
     def children(self) -> List['ValueNode']:
-        """ returns a list of value nodes as 
+        """ Returns a list of value nodes as 
             the children of the property node
         """
-        # a new level if more than one statsVar observation properties
+        # Add a new level if more than one statsVar observation properties
         # are defined in the pop_obs_spec
         addLevel = (len(self.pos.obs_props) > 1)
         # get the dictionary of the property value to leaf nodes
@@ -82,35 +111,38 @@ class PropertyNode:
         for idx in range(len(self.pos.obs_props)):
             key = tuple([self.pos.pop_type]) + \
                 self.pos.obs_props[idx].key + self.pos.prop_all
-            for sv in STATS_VARS[key]:
+            for sv in self.stats_vars_all[key]:
                 if (self.pos.dpv.items() <= sv.pv.items() and
                         self.pv.items() <= sv.pv.items()):
                     # matching statsVar found
                     if not sv.se or self.prop not in sv.se:  # no super enum
                         matching_stats_vars[sv.pv[self.prop]].append(
-                            valueLeaf(self.pos.obs_props[idx].name,
-                                     [sv.dcid], addLevel, self.pos))
+                            ValueLeaf(self.pos.obs_props[idx].name,
+                                      [sv.dcid], addLevel, self.pos))
                     else:  # create new level for super enum
                         matching_stats_vars[sv.se[self.prop]].append(
-                            valueLeaf(sv.pv[self.prop], 
-                                     [sv.dcid], True, self.pos))
+                            ValueLeaf(sv.pv[self.prop],
+                                      [sv.dcid], True, self.pos))
 
         # create a list of value Nodes
         value_nodes = []
+        child_props = self.child_props()
         for value in matching_stats_vars:
             value_nodes.append(
                 ValueNode(
                     value,
                     matching_stats_vars[value],
-                    self.child_props(),
-                    self))
+                    child_props,
+                    self,
+                    self.pop_obs_spec,
+                    self.stats_vars_all))
         return value_nodes
 
     def child_props(self):
-        """ returns the dict of new prop and 
+        """ eturns a list of new prop and 
             corresponding specs for building the next level"""
         child_pos = []
-        for c_pos in POP_OBS_SPEC[self.vertical][self.level + 1]:
+        for c_pos in self.pop_obs_spec[self.level + 1]:
             if (self.pos.pop_type == c_pos.pop_type and
                     set(self.pos.cprops) < set(c_pos.cprops)):
                 newProp = (set(c_pos.cprops) - set(self.pos.
@@ -119,14 +151,14 @@ class PropertyNode:
         return child_pos
 
     def json_blob(self):
-        """generate the json blob for the property node"""
+        """ Generate the json blob for the property node"""
         if self.pos.name:
             name = self.pos.name
         else:
             name = self.prop
         result = {
             'populationType': self.pos.pop_type,
-            # used for top level reorgnize only
+            # mprop is used for top level reorgnize only
             'mprop': self.pos.obs_props[0].mprop,
             'l': text_format.format_title(name),
             't': 'p',
@@ -142,38 +174,40 @@ class ValueNode:
         The value node can be
             - a real value node representing a statsVar
             - the node of a vertical, such as the node "Demographics"
-            - a psudo value node of super enums, such as the node 
+            - a pseudo value node of super enums, such as the node 
               "violent" under crimeType
     """
 
-    def __init__(self, value: str, leafs: List['valueLeaf'], 
-                 child_props: Dict[str, PopObsSpec], parent: 'PropertyNode'):
+    def __init__(self, value: str, leafs: List[ValueLeaf],
+                 child_props: Dict[str, PopObsSpec], parent: 'PropertyNode',
+                 pop_obs_spec, stats_vars_all):
         self.value = value
         self.leafs = leafs
         # A list of child properties and corresponding specs
-        self.child_props = child_props  
+        self.child_props = child_props
         self.parent = parent
+        self.pop_obs_spec = pop_obs_spec
+        self.stats_vars_all = stats_vars_all
 
     def children(self):
-        """return a list of property nodes as the children of the value node"""
+        """ Return a list of property nodes as the children of the value node. 
+        """
         propertyNodes = []
         for prop, pos in self.child_props:
             if self.parent:
-                vertical = self.parent.vertical
                 level = self.parent.level + 1
                 pvs = dict(self.parent.pv)
                 pvs[self.parent.prop] = self.value
             else:  # top level
-                vertical = self.value
                 level = 1
                 pvs = {}
             propertyNodes.append(PropertyNode(
-                pos, pvs, prop, vertical, level))
+                pos, pvs, prop, level, self.pop_obs_spec, self.stats_vars_all))
         return propertyNodes
 
     def json_blob(self):
-        """ generate the json blob of a value node, including the node itself 
-            and its leaf children"""
+        """ Generate the json blob of a value node, including the node itself 
+            and its leaf children. """
         if self.leafs:
             pop_type = self.leafs[0].pop_type
         elif self.parent:
@@ -192,6 +226,7 @@ class ValueNode:
         }
         for node in self.leafs:
             if node.addLevel:
+                # create a new node as the child of the value node
                 value_blob = {
                     'populationType': node.pop_type,
                     'sv': node.dcids,
@@ -204,6 +239,7 @@ class ValueNode:
                 }
                 result['cd'].append(value_blob)
             else:
+                # add the statsVar dcids to the value ndoe
                 result['sv'].extend(node.dcids)
             result['sv_set'].update(node.dcids)
         if not result['sv']:
@@ -211,28 +247,19 @@ class ValueNode:
         return result
 
 
-class valueLeaf:
-    def __init__(self, name, dcids, addLevel, pos):
-        self.name = name
-        self.dcids = dcids
-        self.addLevel = addLevel
-        self.pop_type = pos.pop_type
-
-
 def build_tree(max_level):
-    global POP_OBS_SPEC
-    global STATS_VARS
-    POP_OBS_SPEC = read_pop_obs_spec()
-    STATS_VARS = read_stat_var()
+    """ Build the tree from root level"""
+    pop_obs_spec = read_pop_obs_spec()
+    stats_vars = read_stat_var()
     data = {}
-    vertical_nodes = Root().children()
+    vertical_nodes = get_root_children(pop_obs_spec, stats_vars)
     vertical_nodes.sort(key=lambda node: VERTICALS.index(node.value))
     for vertical in vertical_nodes:
         current_blob = vertical.json_blob()
         # build the vertical nodes blobs
-        data[vertical.value] = current_blob  
+        data[vertical.value] = current_blob
         # get the property nodes of each vertical
-        prop_nodes = vertical.children() 
+        prop_nodes = vertical.children()
         for node in prop_nodes:
             # build property node blobs
             prop_blob = build_tree_recursive(node, max_level)
@@ -247,6 +274,8 @@ def build_tree(max_level):
 
 
 def build_tree_recursive(node: PropertyNode, max_level):
+    """ Build a property node and its children recusively 
+        until the maximum level."""
     result = node.json_blob()  # build the property node blobs
     value_nodes = node.children()  # get the child value nodes
     for value in value_nodes:
@@ -265,8 +294,16 @@ def build_tree_recursive(node: PropertyNode, max_level):
 
 
 def post_process(root, path, statsvar_path):
-    """process the built tree"""
-    # build the map from statsVar dcid to its path in the tree
+    """ After the tree is built, this function:
+        - removes the unused fields such as "population Type" in the tree
+        - count the number of statsVars under each node
+        - create a map of the statsVar dcid and one of its path in the tree 
+    """
+    # Build the map from statsVar dcid to its path in the tree
+    # The path is a list of numbers,
+    # e.g. path of Count_Person_Upto5Years is [0, 3, 0].
+    # It means its path is Oth node ("Demographics") -> 3rd node ("Age")
+    # -> 0th node ("Less than 5 Years")
     if root['t'] == 'v':
         for sv in root['sv']:
             statsvar_path[sv] = path
@@ -292,7 +329,7 @@ def post_process(root, path, statsvar_path):
 
 
 def reorgnize(vertical):
-    """move certain property nodes as child of certain leaf nodes"""
+    """ Move certain property nodes as child of certain leaf nodes"""
     target_leaf_node = {}
     target_property_node = collections.defaultdict(list)
     # find the target leaf nodes and property ndoes
@@ -303,7 +340,7 @@ def reorgnize(vertical):
                 target_property_node[node['populationType']].append(node)
             if node['t'] == 'v':
                 target_leaf_node[node['populationType']] = node
-    # set the property nodes as child of corresponding leaf nodes
+    # set the property nodes as children of corresponding leaf nodes
     for pop_type in target_leaf_node:
         leaf = target_leaf_node[pop_type]
         for node in target_property_node[pop_type]:
@@ -313,6 +350,7 @@ def reorgnize(vertical):
 
 
 def get_top_level(data):
+    """ Create a smaller copy of the tree that only contains the top level"""
     top = copy.deepcopy(data)
     for v in top:
         remove_children(top[v], 0, 1)
@@ -320,6 +358,7 @@ def get_top_level(data):
 
 
 def remove_children(root, cur_level, max_level):
+    """ Remove the children at level > max_level """
     if 'cd' in root:
         if cur_level >= max_level:
             del root['cd']
