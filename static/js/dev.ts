@@ -26,6 +26,7 @@ import {
   drawGroupBarChart,
   drawLineChart,
   drawGroupLineChart,
+  drawColorScale,
 } from "./chart/draw";
 
 import { computePlotParams } from "./chart/base";
@@ -291,4 +292,8 @@ window.onload = () => {
       ["Total"]
     )
   );
+
+  containerId = addChartContainer();
+  drawColorScale(containerId, width, 60);
+
 };
