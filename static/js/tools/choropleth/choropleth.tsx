@@ -244,13 +244,13 @@ class ChoroplethMap extends Component {
    * @param color  d3.scaleLinear object that encodes the desired color gradient.
    * @param n Number of color tones to transition between.
    */
-  ramp(color, n = 256) {
+  genScaleImg(color: d3.ScaleLinear<number, number>, n = 256): HTMLCanvasElement {
     const canvas = document.createElement("canvas");
     canvas.width = n;
     canvas.height = 1;
     const context = canvas.getContext("2d");
     for (let i = 0; i < n; ++i) {
-      context.fillStyle = color(i / (n - 1));
+      context.fillStyle = color(i / (n - 1)) as unknown as string;
       context.fillRect(i, 0, 1, 1);
     }
     return canvas;
@@ -261,7 +261,7 @@ class ChoroplethMap extends Component {
    * @param color The d3 linearScale that encodes the color gradient to be
    *        plotted.
    */
-  generateLegend(color): void {
+  generateLegend(color: d3.ScaleLinear<number, number>): void {
     const width = 300;
     const height = 60;
     const tickSize = 6;
@@ -295,7 +295,7 @@ class ChoroplethMap extends Component {
       .attr("preserveAspectRatio", "none")
       .attr(
         "xlink:href",
-        this.ramp(
+        this.genScaleImg(
           color.copy().domain(d3.quantize(d3.interpolate(0, 1), n))
         ).toDataURL()
       );
@@ -507,10 +507,13 @@ function generateBreadCrumbs(curGeo: string): void {
 }
 
 /**
- * Returns domain of color palette as len 3 numerical array for plotting.
+ * Returns domain of color palette as len 9 numerical array for plotting.
  * @param dict of values mapping geoDcid to number returned by /values endpoint.
  * @param pc boolean if plotting pc.
  * @param popMap json object mapping geoDcid to total population.
+ *
+ * TODO(fpernice-google): investigate built-in color palettes in d3 like
+ *                        d3.schemeBlues.
  */
 function determineColorPalette(dict, pc: boolean, popMap: []): number[] {
   // Create a sorted list of values.
@@ -529,7 +532,7 @@ function determineColorPalette(dict, pc: boolean, popMap: []): number[] {
   });
   const len = values.length;
 
-  // Find 10 values with equal separation from one another.
+  // Find 9 values with equal separation from one another.
   const steps = 9;
   if (len >= steps) {
     return d3.range(0, steps).map(function (d) {
