@@ -261,6 +261,7 @@ class ChoroplethMap extends Component {
     const marginBottom = 16 + tickSize;
     const marginSides = 15;
     const textPadding = 6;
+    const numTicks = 5;
 
     // Remove previous legend if it exists and create new one.
     if (!d3.select("#legend").empty()) {
@@ -296,9 +297,15 @@ class ChoroplethMap extends Component {
         d3.quantize(d3.interpolate(marginSides, width - marginSides), n)
       );
 
+    const dom = color.domain()
+    const tickValues = d3.range(numTicks).map(i => {
+      const index = Math.floor(i * (dom.length - 1) / (numTicks - 1))
+      return dom[index]
+    })
+
     svg.append("g")
       .attr("transform", `translate(0, ${height - marginBottom})`)
-      .call(d3.axisBottom(x).tickSize(tickSize))
+      .call(d3.axisBottom(x).tickSize(tickSize).tickValues(tickValues))
       .call((g) =>
         g.selectAll(".tick line").attr("y1", marginTop + marginBottom - height))
       .call((g) => g.select(".domain").remove())
