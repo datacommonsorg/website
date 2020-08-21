@@ -131,6 +131,8 @@ class Chart extends Component<ChartPropsType, unknown> {
 
   componentWillUnmount(): void {
     window.removeEventListener("resize", this.handleWindowResize);
+    // reset the options to default value if the chart is removed
+    this.props.setPC(this.props.groupId, false);
   }
 
   componentDidUpdate(): void {
