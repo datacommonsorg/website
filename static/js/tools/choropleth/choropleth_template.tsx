@@ -167,7 +167,6 @@ class MainPane extends Component {
             </div>
             <div id="legend"></div>
           </React.Fragment>
-
         </div>
       </div>
     );

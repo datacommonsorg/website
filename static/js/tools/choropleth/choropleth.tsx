@@ -174,10 +174,22 @@ class ChoroplethMap extends Component {
     const isPerCapita = this.state["pc"];
 
     // Build chart display options.
-    const blues = ["#f7fbff","#deebf7","#c6dbef","#9ecae1",
-                   "#6baed6","#4292c6","#2171b5","#08519c","#08306b"];
-    const colorVals = determineColorPalette(values, this.state["pc"],
-                                            this.state["popMap"]);
+    const blues = [
+      "#f7fbff",
+      "#deebf7",
+      "#c6dbef",
+      "#9ecae1",
+      "#6baed6",
+      "#4292c6",
+      "#2171b5",
+      "#08519c",
+      "#08306b",
+    ];
+    const colorVals = determineColorPalette(
+      values,
+      this.state["pc"],
+      this.state["popMap"]
+    );
     const colorScale = d3
       .scaleLinear()
       .domain(colorVals)
@@ -244,13 +256,10 @@ class ChoroplethMap extends Component {
     return canvas;
   }
 
-
   /**
    * Draw a color scale legend.
-   * @param id Id of container div for the color scale.
-   * @param width Desired scale width
-   * @param height Desired scale height. Note: about 40 pixels will be needed
-   *               at least in order to fit the title and scale marks.
+   * @param color The d3 linearScale that encodes the color gradient to be
+   *        plotted.
    */
   generateLegend(color): void {
     const width = 300;
@@ -265,8 +274,7 @@ class ChoroplethMap extends Component {
 
     // Remove previous legend if it exists and create new one.
     if (!d3.select("#legend").empty()) {
-      d3.select("#legend > *")
-        .remove()
+      d3.select("#legend > *").remove();
     }
 
     const svg = d3
@@ -277,7 +285,8 @@ class ChoroplethMap extends Component {
 
     const n = Math.min(color.domain().length, color.range().length);
 
-    svg.append("image")
+    svg
+      .append("image")
       .attr("id", "legend-img")
       .attr("x", marginSides)
       .attr("y", marginTop)
@@ -297,20 +306,23 @@ class ChoroplethMap extends Component {
         d3.quantize(d3.interpolate(marginSides, width - marginSides), n)
       );
 
-    const dom = color.domain()
-    const tickValues = d3.range(numTicks).map(i => {
-      const index = Math.floor(i * (dom.length - 1) / (numTicks - 1))
-      return dom[index]
-    })
+    const dom = color.domain();
+    const tickValues = d3.range(numTicks).map((i) => {
+      const index = Math.floor((i * (dom.length - 1)) / (numTicks - 1));
+      return dom[index];
+    });
 
-    svg.append("g")
+    svg
+      .append("g")
       .attr("transform", `translate(0, ${height - marginBottom})`)
       .call(d3.axisBottom(x).tickSize(tickSize).tickValues(tickValues))
       .call((g) =>
-        g.selectAll(".tick line").attr("y1", marginTop + marginBottom - height))
+        g.selectAll(".tick line").attr("y1", marginTop + marginBottom - height)
+      )
       .call((g) => g.select(".domain").remove())
       .call((g) =>
-        g.append("text")
+        g
+          .append("text")
           .attr("x", marginSides)
           .attr("y", marginTop + marginBottom - height - textPadding)
           .attr("fill", "currentColor")
@@ -520,12 +532,14 @@ function determineColorPalette(dict, pc: boolean, popMap: []): number[] {
   // Find 10 values with equal separation from one another.
   const steps = 9;
   if (len >= steps) {
-    return d3.range(0, steps).map(function(d){
-              return values[Math.floor(((len - 1) * d) / (steps - 1))];
-            });
+    return d3.range(0, steps).map(function (d) {
+      return values[Math.floor(((len - 1) * d) / (steps - 1))];
+    });
   } else {
-    alert("Not enough values to plot. Please choose a different statistical \
-           variable or geographic area.")
+    alert(
+      "Not enough values to plot. Please choose a different statistical \
+           variable or geographic area."
+    );
     return [0, 0, 0, 0, 0, 0, 0, 0, 0];
   }
 }
