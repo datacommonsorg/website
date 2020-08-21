@@ -219,7 +219,7 @@ function drawSingleBarChart(
  * @param n Number of color tones to transition between.
  */
 function ramp(color, n = 256) {
-  let canvas = document.createElement('canvas');
+  const canvas = document.createElement("canvas");
   canvas.width = n;
   canvas.height = 1;
   const context = canvas.getContext("2d");
@@ -237,12 +237,7 @@ function ramp(color, n = 256) {
  * @param height Desired scale height. Note: about 40 pixels will be needed
  *               at least in order to fit the title and scale marks.
  */
-function drawColorScale(
-  id: string,
-  width: number,
-  height: number
-): void {
-  const ticks = width / 64;
+function drawColorScale(id: string, width: number, height: number): void {
   const tickSize = 6;
   const title = "Color scale.";
   const marginTop = 18;
@@ -250,7 +245,8 @@ function drawColorScale(
   const marginSides = 15;
 
   // TODO(fpernice-google): Replace by the color scale used in choropleth.tsx
-  const color = d3.scaleLinear()
+  const color = d3
+    .scaleLinear()
     .domain([-0.1, 0.1])
     .range((["#deebf7", "#3182bd"] as unknown) as number[]);
 
@@ -258,33 +254,48 @@ function drawColorScale(
     .select("#" + id)
     .append("svg")
     .attr("width", width)
-    .attr("height", height)
+    .attr("height", height);
 
-    const n = Math.min(color.domain().length, color.range().length);
+  const n = Math.min(color.domain().length, color.range().length);
 
-    svg.append("image")
-        .attr("x", marginSides)
-        .attr("y", marginTop)
-        .attr("width", width - 2 * marginSides)
-        .attr("height", height - marginTop - marginBottom)
-        .attr("preserveAspectRatio", "none")
-        .attr("xlink:href", ramp(color.copy().domain(d3.quantize(d3.interpolate(0, 1), n))).toDataURL());
+  svg
+    .append("image")
+    .attr("x", marginSides)
+    .attr("y", marginTop)
+    .attr("width", width - 2 * marginSides)
+    .attr("height", height - marginTop - marginBottom)
+    .attr("preserveAspectRatio", "none")
+    .attr(
+      "xlink:href",
+      ramp(
+        color.copy().domain(d3.quantize(d3.interpolate(0, 1), n))
+      ).toDataURL()
+    );
 
-    const x = color.copy().rangeRound(d3.quantize(d3.interpolate(marginSides, width - marginSides), n));
+  const x = color
+    .copy()
+    .rangeRound(
+      d3.quantize(d3.interpolate(marginSides, width - marginSides), n)
+    );
 
-    svg.append("g")
-      .attr("transform", `translate(0, ${height - marginBottom})`)
-      .call(d3.axisBottom(x)
-        .tickSize(tickSize))
-      .call(g => g.selectAll(".tick line").attr("y1", marginTop + marginBottom - height))
-      .call(g => g.select(".domain").remove())
-      .call(g => g.append("text")
+  svg
+    .append("g")
+    .attr("transform", `translate(0, ${height - marginBottom})`)
+    .call(d3.axisBottom(x).tickSize(tickSize))
+    .call((g) =>
+      g.selectAll(".tick line").attr("y1", marginTop + marginBottom - height)
+    )
+    .call((g) => g.select(".domain").remove())
+    .call((g) =>
+      g
+        .append("text")
         .attr("x", marginSides)
         .attr("y", marginTop + marginBottom - height - 6)
         .attr("fill", "currentColor")
         .attr("text-anchor", "start")
         .attr("font-weight", "bold")
-        .text(title));
+        .text(title)
+    );
 }
 
 /**
@@ -708,7 +719,6 @@ function buildInChartLegend(
     yOffset += lgGroup.node().getBBox().height + LEGEND.lineMargin;
   }
 }
-
 
 export {
   appendLegendElem,

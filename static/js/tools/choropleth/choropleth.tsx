@@ -174,12 +174,14 @@ class ChoroplethMap extends Component {
     const isPerCapita = this.state["pc"];
 
     // Build chart display options.
+    const blues = ["#f7fbff","#deebf7","#c6dbef","#9ecae1",
+                   "#6baed6","#4292c6","#2171b5","#08519c","#08306b"];
+    const colorVals = determineColorPalette(values, this.state["pc"],
+                                            this.state["popMap"]);
     const colorScale = d3
       .scaleLinear()
-      .domain(
-        determineColorPalette(values, this.state["pc"], this.state["popMap"])
-      )
-      .range((["#deebf7", "#9ecae1", "#3182bd"] as unknown) as number[]);
+      .domain(colorVals)
+      .range((blues as unknown) as number[]);
 
     // Select D3 paths via geojson data.
     const geojson = this.state["geojson"];
@@ -222,8 +224,94 @@ class ChoroplethMap extends Component {
       document.getElementById("hover-text-display").innerHTML =
         "Pick a statistical variable to get started!";
     }
+    this.generateLegend(colorScale);
   }
 
+  /**
+   * Create a canvas object with a color gradient to be used as a color scale.
+   * @param color  d3.scaleLinear object that encodes the desired color gradient.
+   * @param n Number of color tones to transition between.
+   */
+  ramp(color, n = 256) {
+    const canvas = document.createElement("canvas");
+    canvas.width = n;
+    canvas.height = 1;
+    const context = canvas.getContext("2d");
+    for (let i = 0; i < n; ++i) {
+      context.fillStyle = color(i / (n - 1));
+      context.fillRect(i, 0, 1, 1);
+    }
+    return canvas;
+  }
+
+
+  /**
+   * Draw a color scale legend.
+   * @param id Id of container div for the color scale.
+   * @param width Desired scale width
+   * @param height Desired scale height. Note: about 40 pixels will be needed
+   *               at least in order to fit the title and scale marks.
+   */
+  generateLegend(color): void {
+    const width = 300;
+    const height = 60;
+    const tickSize = 6;
+    const title = "Color Scale";
+    const marginTop = 18;
+    const marginBottom = 16 + tickSize;
+    const marginSides = 15;
+    const textPadding = 6;
+
+    // Remove previous legend if it exists and create new one.
+    if (!d3.select("#legend").empty()) {
+      d3.select("#legend > *")
+        .remove()
+    }
+
+    const svg = d3
+      .select("#legend")
+      .append("svg")
+      .attr("width", width)
+      .attr("height", height);
+
+    const n = Math.min(color.domain().length, color.range().length);
+
+    svg.append("image")
+      .attr("id", "legend-img")
+      .attr("x", marginSides)
+      .attr("y", marginTop)
+      .attr("width", width - 2 * marginSides)
+      .attr("height", height - marginTop - marginBottom)
+      .attr("preserveAspectRatio", "none")
+      .attr(
+        "xlink:href",
+        this.ramp(
+          color.copy().domain(d3.quantize(d3.interpolate(0, 1), n))
+        ).toDataURL()
+      );
+
+    const x = color
+      .copy()
+      .rangeRound(
+        d3.quantize(d3.interpolate(marginSides, width - marginSides), n)
+      );
+
+    svg.append("g")
+      .attr("transform", `translate(0, ${height - marginBottom})`)
+      .call(d3.axisBottom(x).tickSize(tickSize))
+      .call((g) =>
+        g.selectAll(".tick line").attr("y1", marginTop + marginBottom - height))
+      .call((g) => g.select(".domain").remove())
+      .call((g) =>
+        g.append("text")
+          .attr("x", marginSides)
+          .attr("y", marginTop + marginBottom - height - textPadding)
+          .attr("fill", "currentColor")
+          .attr("text-anchor", "start")
+          .attr("font-weight", "bold")
+          .text(title)
+      );
+  }
   /**
    * Updates the current map and URL to a new statistical variable without
    * a full page refresh.
@@ -421,13 +509,17 @@ function determineColorPalette(dict, pc: boolean, popMap: []): number[] {
     return a - b;
   });
   const len = values.length;
-  if (len > 0) {
-    const lowerValue = values[0];
-    const approxMedianValue = values[Math.floor(len / 2)];
-    const upperValue = values[len - 1];
-    return [lowerValue, approxMedianValue, upperValue];
+
+  // Find 10 values with equal separation from one another.
+  const steps = 9;
+  if (len >= steps) {
+    return d3.range(0, steps).map(function(d){
+              return values[Math.floor(((len - 1) * d) / (steps - 1))];
+            });
   } else {
-    return [0, 0, 0];
+    alert("Not enough values to plot. Please choose a different statistical \
+           variable or geographic area.")
+    return [0, 0, 0, 0, 0, 0, 0, 0, 0];
   }
 }
 

@@ -295,5 +295,4 @@ window.onload = () => {
 
   containerId = addChartContainer();
   drawColorScale(containerId, width, 60);
-
 };
