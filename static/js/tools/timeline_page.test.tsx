@@ -16,15 +16,13 @@
 
 jest.mock("axios");
 jest.mock("../chart/draw");
-
 import Enzyme, { mount } from "enzyme";
 import Adapter from "enzyme-adapter-react-16";
-
 import React from "react";
-
+import axios from "axios";
+import pretty from "pretty";
 import { Page } from "./timeline_page";
 import { axios_mock, drawGroupLineChart_mock } from "./mock_functions";
-import pretty from "pretty";
 
 Enzyme.configure({ adapter: new Adapter() });
 
@@ -153,5 +151,77 @@ test("statsVar not in PV-tree", () => {
       expect(
         pretty(wrapper.find("#drill").getDOMNode().innerHTML)
       ).toMatchSnapshot();
+    });
+});
+
+test("chart options", () => {
+  // test if the chart options are correctly set
+  Object.defineProperty(window, "location", {
+    writable: true,
+    value: {
+      hash: "#&place=geoId/05&statsVar=Median_Age_Person",
+    },
+  });
+
+  // Mock drawGroupLineChart() as getComputedTextLength can has issue with jest
+  // and jsdom.
+  drawGroupLineChart_mock();
+  // mock all the async axios call
+  axios_mock();
+
+  // Do the actual render!
+  const wrapper = mount(<Page />);
+  // There are 3 promises to resolve:
+  // 1) all for [statsVarInfo, placeName, validStatsVar]
+  // 2) get hierachy.json
+  // 3) get stats
+  return Promise.resolve(wrapper)
+    .then(() => wrapper.update())
+    .then(() => wrapper.update())
+    .then(() => wrapper.update())
+    .then(() => wrapper.update())
+    .then(() => {
+      wrapper.update();
+      // set per capita to True
+      wrapper.find("#chart-region .perCapitaCheckbox").simulate("click");
+      Promise.resolve(wrapper)
+        .then(() => wrapper.update())
+        .then(() => {
+          wrapper.update();
+          expect(window.location.hash).toBe(
+            "place=geoId%2F05&statsVar=Median_Age_Person&chart=%257B%2522age%2522%253A%257B%2522pc%2522%253Atrue%257D%257D"
+          );
+          expect(
+            pretty(wrapper.find("#chart-region").getDOMNode().innerHTML)
+          ).toMatchSnapshot();
+
+          // remove the statsVar
+          wrapper.find("#drill .checkbox.checked").simulate("click");
+          expect(wrapper.find("#chart-region").length).toBe(0); // chart deleted
+          expect(window.location.hash).toBe(
+            "place=geoId%2F05&statsVar=&chart=%257B%2522age%2522%253A%257B%2522pc%2522%253Afalse%257D%257D"
+          );
+
+          // TODO: look into the mock functions
+          // Note: when the same url is called the second time, the returned value is {}
+          axios_mock();
+          // add the same statsVar back
+          wrapper.find("#drill .checkbox").at(1).simulate("click");
+          expect(axios.get).toHaveBeenLastCalledWith(
+            "/api/stats/stats-var-property?dcid=Median_Age_Person"
+          );
+          expect(window.location.hash).toBe(
+            "place=geoId%2F05&statsVar=Median_Age_Person%2C0%2C1&chart=%257B%2522age%2522%253A%257B%2522pc%2522%253Afalse%257D%257D"
+          );
+
+          Promise.resolve(wrapper)
+            .then(() => wrapper.update())
+            .then(() => {
+              wrapper.update();
+              expect(
+                pretty(wrapper.find("#chart-region").getDOMNode().innerHTML)
+              ).toMatchSnapshot();
+            });
+        });
     });
 });

@@ -39,6 +39,24 @@ exports[`Single place and single stats var 3`] = `
 </div>"
 `;
 
+exports[`chart options 1`] = `
+"<div class=\\"card\\"><span class=\\"chartPerCapita\\">Per capita<button class=\\"perCapitaCheckbox checked\\"></button></span>
+  <div class=\\"chart-svg\\"></div>
+  <div class=\\"statsVarChipRegion\\">
+    <div class=\\"pv-chip mdl-chip--deletable\\"><span class=\\"mdl-chip__text\\">Median age</span><button class=\\"mdl-chip__action\\"><i class=\\"material-icons\\">cancel</i></button></div>
+  </div>
+</div>"
+`;
+
+exports[`chart options 2`] = `
+"<div class=\\"card\\"><span class=\\"chartPerCapita\\">Per capita<button class=\\"perCapitaCheckbox\\"></button></span>
+  <div class=\\"chart-svg\\"></div>
+  <div class=\\"statsVarChipRegion\\">
+    <div class=\\"pv-chip mdl-chip--deletable\\"><span class=\\"mdl-chip__text\\">Median age</span><button class=\\"mdl-chip__action\\"><i class=\\"material-icons\\">cancel</i></button></div>
+  </div>
+</div>"
+`;
+
 exports[`statsVar not in PV-tree 1`] = `
 "<div class=\\"card\\"><span class=\\"chartPerCapita\\">Per capita<button class=\\"perCapitaCheckbox\\"></button></span>
   <div class=\\"chart-svg\\"></div>
