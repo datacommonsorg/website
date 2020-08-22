@@ -73,7 +73,7 @@ class Node extends Component<NodePropType, NodeStateType> {
               <a
                 className="value-link"
                 onClick={
-                  this.checkExpand() ? this._handleExpandClick : () => {}
+                  this.checkExpand() ? this._handleExpandClick : () => ({})
                 }
               >
                 {this.props.l + "  "}
