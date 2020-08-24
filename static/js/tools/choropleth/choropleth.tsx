@@ -174,12 +174,26 @@ class ChoroplethMap extends Component {
     const isPerCapita = this.state["pc"];
 
     // Build chart display options.
+    const blues = [
+      "#f7fbff",
+      "#deebf7",
+      "#c6dbef",
+      "#9ecae1",
+      "#6baed6",
+      "#4292c6",
+      "#2171b5",
+      "#08519c",
+      "#08306b",
+    ];
+    const colorVals = determineColorPalette(
+      values,
+      this.state["pc"],
+      this.state["popMap"]
+    );
     const colorScale = d3
       .scaleLinear()
-      .domain(
-        determineColorPalette(values, this.state["pc"], this.state["popMap"])
-      )
-      .range((["#deebf7", "#9ecae1", "#3182bd"] as unknown) as number[]);
+      .domain(colorVals)
+      .range((blues as unknown) as number[]);
 
     // Select D3 paths via geojson data.
     const geojson = this.state["geojson"];
@@ -222,8 +236,104 @@ class ChoroplethMap extends Component {
       document.getElementById("hover-text-display").innerHTML =
         "Pick a statistical variable to get started!";
     }
+    this.generateLegend(colorScale);
   }
 
+  /**
+   * Create a canvas object with a color gradient to be used as a color scale.
+   * @param color  d3.scaleLinear object that encodes the desired color gradient.
+   * @param n Number of color tones to transition between.
+   */
+  genScaleImg(
+    color: d3.ScaleLinear<number, number>,
+    n = 256
+  ): HTMLCanvasElement {
+    const canvas = document.createElement("canvas");
+    canvas.width = n;
+    canvas.height = 1;
+    const context = canvas.getContext("2d");
+    for (let i = 0; i < n; ++i) {
+      context.fillStyle = (color(i / (n - 1)) as unknown) as string;
+      context.fillRect(i, 0, 1, 1);
+    }
+    return canvas;
+  }
+
+  /**
+   * Draw a color scale legend.
+   * @param color The d3 linearScale that encodes the color gradient to be
+   *        plotted.
+   */
+  generateLegend(color: d3.ScaleLinear<number, number>): void {
+    const width = 300;
+    const height = 60;
+    const tickSize = 6;
+    const title = "Color Scale";
+    const marginTop = 18;
+    const marginBottom = 16 + tickSize;
+    const marginSides = 15;
+    const textPadding = 6;
+    const numTicks = 5;
+
+    // Remove previous legend if it exists and create new one.
+    if (!d3.select("#legend").empty()) {
+      d3.select("#legend > *").remove();
+    }
+
+    const svg = d3
+      .select("#legend")
+      .append("svg")
+      .attr("width", width)
+      .attr("height", height);
+
+    const n = Math.min(color.domain().length, color.range().length);
+
+    svg
+      .append("image")
+      .attr("id", "legend-img")
+      .attr("x", marginSides)
+      .attr("y", marginTop)
+      .attr("width", width - 2 * marginSides)
+      .attr("height", height - marginTop - marginBottom)
+      .attr("preserveAspectRatio", "none")
+      .attr(
+        "xlink:href",
+        this.genScaleImg(
+          color.copy().domain(d3.quantize(d3.interpolate(0, 1), n))
+        ).toDataURL()
+      );
+
+    const x = color
+      .copy()
+      .rangeRound(
+        d3.quantize(d3.interpolate(marginSides, width - marginSides), n)
+      );
+
+    const dom = color.domain();
+    const tickValues = d3.range(numTicks).map((i) => {
+      const index = Math.floor((i * (dom.length - 1)) / (numTicks - 1));
+      return dom[index];
+    });
+
+    svg
+      .append("g")
+      .attr("transform", `translate(0, ${height - marginBottom})`)
+      .call(d3.axisBottom(x).tickSize(tickSize).tickValues(tickValues))
+      .call((g) =>
+        g.selectAll(".tick line").attr("y1", marginTop + marginBottom - height)
+      )
+      .call((g) => g.select(".domain").remove())
+      .call((g) =>
+        g
+          .append("text")
+          .attr("x", marginSides)
+          .attr("y", marginTop + marginBottom - height - textPadding)
+          .attr("fill", "currentColor")
+          .attr("text-anchor", "start")
+          .attr("font-weight", "bold")
+          .text(title)
+      );
+  }
   /**
    * Updates the current map and URL to a new statistical variable without
    * a full page refresh.
@@ -400,10 +510,13 @@ function generateBreadCrumbs(curGeo: string): void {
 }
 
 /**
- * Returns domain of color palette as len 3 numerical array for plotting.
+ * Returns domain of color palette as len 9 numerical array for plotting.
  * @param dict of values mapping geoDcid to number returned by /values endpoint.
  * @param pc boolean if plotting pc.
  * @param popMap json object mapping geoDcid to total population.
+ *
+ * TODO(fpernice-google): investigate built-in color palettes in d3 like
+ *                        d3.schemeBlues.
  */
 function determineColorPalette(dict, pc: boolean, popMap: []): number[] {
   // Create a sorted list of values.
@@ -421,13 +534,19 @@ function determineColorPalette(dict, pc: boolean, popMap: []): number[] {
     return a - b;
   });
   const len = values.length;
-  if (len > 0) {
-    const lowerValue = values[0];
-    const approxMedianValue = values[Math.floor(len / 2)];
-    const upperValue = values[len - 1];
-    return [lowerValue, approxMedianValue, upperValue];
+
+  // Find 9 values with equal separation from one another.
+  const steps = 9;
+  if (len >= steps) {
+    return d3.range(0, steps).map(function (d) {
+      return values[Math.floor(((len - 1) * d) / (steps - 1))];
+    });
   } else {
-    return [0, 0, 0];
+    alert(
+      "Not enough values to plot. Please choose a different statistical \
+           variable or geographic area."
+    );
+    return [0, 0, 0, 0, 0, 0, 0, 0, 0];
   }
 }
 

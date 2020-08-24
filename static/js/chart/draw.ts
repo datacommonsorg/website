@@ -530,7 +530,7 @@ function drawGroupLineChart(
     .nice(NUM_Y_TICKS);
 
   addXAxis(svg, height, xScale);
-  addYAxis(svg, width - MARGIN.right - legendWidth, yScale, unit);
+  addYAxis(svg, width - legendWidth, yScale, unit);
 
   // add ylabel
   svg
