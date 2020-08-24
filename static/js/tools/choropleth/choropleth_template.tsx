@@ -165,6 +165,7 @@ class MainPane extends Component {
                 ref={this.state && this.state["choroplethMap"]}
               ></ChoroplethMap>
             </div>
+            <div id="legend"></div>
           </React.Fragment>
         </div>
       </div>
