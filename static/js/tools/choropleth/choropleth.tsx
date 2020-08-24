@@ -421,10 +421,16 @@ class ChoroplethMap extends Component {
   }
 
   render(): JSX.Element {
-    // TODO(iancostello): capture size from parent.
+    // TODO(fpernice-google): Handle window resize event to update map size.
+    const w = window.innerWidth;
+    const h = window.innerHeight;
     return (
       <React.Fragment>
-        <svg id="map_container" width="800px" height="500px">
+        <svg
+          id="map_container"
+          width={`${(w * 2) / 3}px`}
+          height={`${(h * 2) / 3}px`}
+        >
           <g className="map"></g>
         </svg>
       </React.Fragment>

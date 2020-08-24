@@ -19,7 +19,7 @@
 @import '../draw';
 
 #map_container {
-  margin-left: 12%;
+  margin-left: 5%;
   margin-right: 12%;
 }
 
@@ -44,6 +44,7 @@
 
 #legend {
   float: right;
+  margin-right: 20%;
 }
 
 #explore #percapita-link {
