@@ -221,7 +221,6 @@ class Ranking extends Component<RankingPropsType, RankingStateType> {
   componentDidMount() {
     axios.get(`api/place/ranking/${this.props.dcid}`).then((resp) => {
       this.setState({ data: resp.data });
-      console.log(this.state.data);
     });
   }
 }

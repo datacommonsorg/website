@@ -114,6 +114,7 @@ def child(dcid):
 
 @cache.memoize(timeout=3600 * 24)  # Cache for one day.
 def child_fetch(dcid):
+<<<<<<< HEAD
     response = fetch_data('/node/property-values', {
         'dcids': [dcid],
         'property': 'containedInPlace',
@@ -121,6 +122,18 @@ def child_fetch(dcid):
     },
                           compress=False,
                           post=True)
+=======
+    response = fetch_data(
+        '/node/property-values',
+        {
+            'dcids': [dcid],
+            'property': 'geoOverlaps',
+            'direction': 'in'
+        },
+        compress=False,
+        post=True
+    )
+>>>>>>> 8a939fe... use geooverlaps to expand list of contained places
     places = response[dcid].get('in', [])
     dcid_str = '^'.join(sorted(map(lambda x: x['dcid'], places)))
     pop = json.loads(get_stats_wrapper(dcid_str, 'Count_Person'))
