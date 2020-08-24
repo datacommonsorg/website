@@ -43,10 +43,10 @@ CHILD_PLACE_LIMIT = 20
 
 # Contains statistical variable and the display name used for place rankings.
 RANKING_STATS = {
-    'Count_Person': 'Population',
-    'Median_Income_Person': 'Median Income',
-    'Median_Age_Person': 'Median Age',
-    'UnemploymentRate_Person': 'Unemployment Rate',
+    'Count_Person': 'Largest Population',
+    'Median_Income_Person': 'Highest Median Income',
+    'Median_Age_Person': 'Highest Median Age',
+    'UnemploymentRate_Person': 'Highest Unemployment Rate',
 }
 
 # Define blueprint
@@ -325,7 +325,7 @@ def api_ranking(dcid):
         # option.
         # TOOD(shifucun): merge this once https://github.com/datacommonsorg/mixer/issues/262 is fixed.
         crime_statsvar = {
-            'Count_CriminalActivities_CombinedCrime': 'Crime per capita'
+            'Count_CriminalActivities_CombinedCrime': 'Highest Crime Per Capita'}
         }
         response = get_related_place(dcid,
                                      '^'.join(crime_statsvar.keys()),

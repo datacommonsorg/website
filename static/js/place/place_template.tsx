@@ -179,7 +179,7 @@ class Ranking extends Component<RankingPropsType, RankingStateType> {
               <thead>
                 <tr>
                   <th scope="col">Rankings (in) </th>
-                  {this.state.data.Population.map((item, index) => {
+                  {this.state.data[this.state.data.label[0]].map((item, index) => {
                     return (
                       <th scope="col" key={index}>
                         {item.name}
@@ -221,6 +221,7 @@ class Ranking extends Component<RankingPropsType, RankingStateType> {
   componentDidMount() {
     axios.get(`api/place/ranking/${this.props.dcid}`).then((resp) => {
       this.setState({ data: resp.data });
+      console.log(this.state.data);
     });
   }
 }
