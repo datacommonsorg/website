@@ -70,17 +70,14 @@ class Node extends Component<NodePropType, NodeStateType> {
         <ul className="noborder">
           <li className="value" id={this.props.l}>
             <span>
-              <a className="value-link">
+              <a
+                className="value-link"
+                onClick={
+                  this.checkExpand() ? this._handleExpandClick : () => ({})
+                }
+              >
                 {this.props.l + "  "}
                 <sup>{this.props.c !== 0 && "(" + this.props.c + ")"}</sup>
-                {this.props.t === "v" && (
-                  <button
-                    className={
-                      this.state.checked ? "checkbox checked" : "checkbox"
-                    }
-                    onClick={this._handleCheckboxClick}
-                  />
-                )}
                 {this.checkExpand() && (
                   <img
                     className={
@@ -89,10 +86,17 @@ class Node extends Component<NodePropType, NodeStateType> {
                         : "right-caret"
                     }
                     src="/images/right-caret-light.png"
-                    onClick={this._handleExpandClick}
                   />
                 )}
               </a>
+              {this.props.t === "v" && (
+                <button
+                  className={
+                    this.state.checked ? "checkbox checked" : "checkbox"
+                  }
+                  onClick={this._handleCheckboxClick}
+                />
+              )}
             </span>
             {this.checkExpand() &&
               this.state.expanded &&
