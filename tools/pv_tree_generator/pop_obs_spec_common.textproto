@@ -1936,14 +1936,15 @@ spec: {
     name: "Incremental Count"
   }
 
-  vertical: "Health"
-  name: "COVID-19 Incidents"
+  vertical: "COVID-19"
+  name: "Medical Incidents"
   dpv: {
     prop: "incidentType"
     val: "COVID_19"
   }
   cprop: "medicalStatus"
 }
+
 spec: {
   pop_type: "UnemploymentInsuranceClaim"
   obs_props: {
@@ -2096,8 +2097,8 @@ spec:{
   obs_props: {
     mprop: "policyExtent"
   }
-  name: "COVID-19 Policy"
-  vertical: "Health"
+  name: "Policies"
+  vertical: "COVID-19"
 }
 
 spec: {
@@ -2110,8 +2111,8 @@ spec: {
     mprop: "cumulativeCount"
     stat_type: "measuredValue"
   }
-  name: "COVID-19 Test"
-  vertical: "Health"
+  name: "Tests"
+  vertical: "COVID-19"
 }
 
 spec: {
@@ -2157,6 +2158,6 @@ spec: {
     mprop: "covid19MobilityTrend"
     stat_type: "measuredValue"
   }
-  name: "COVID-19 Mobility Trend Place Category"
-  vertical: "Health"
+  name: "Mobility Trend Place Categories"
+  vertical: "COVID-19"
 }

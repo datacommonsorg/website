@@ -235,7 +235,7 @@
   "l": "Health",
   "t": "p",
   "e": "Health",
-  "c": 1231,
+  "c": 1206,
   "cd": [
    {
     "sv": [
@@ -245,15 +245,6 @@
     "t": "v",
     "e": "Mortality",
     "c": 1101
-   },
-   {
-    "sv": [
-     "CumulativeCount_Person_COVID19PCRTest"
-    ],
-    "l": "COVID-19 Test",
-    "t": "v",
-    "e": "COVID-19 Test",
-    "c": 1
    },
    {
     "l": "Health Outcomes",
@@ -274,19 +265,37 @@
     "l": "Drug Prescribed",
     "t": "p",
     "c": 78
+   }
+  ]
+ },
+ "COVID-19": {
+  "sv": [],
+  "l": "COVID-19",
+  "t": "p",
+  "e": "COVID-19",
+  "c": 25,
+  "cd": [
+   {
+    "sv": [
+     "CumulativeCount_Person_COVID19PCRTest"
+    ],
+    "l": "Tests",
+    "t": "v",
+    "e": "Tests",
+    "c": 1
    },
    {
-    "l": "COVID-19 Incidents",
+    "l": "Medical Incidents",
     "t": "p",
     "c": 14
    },
    {
-    "l": "COVID-19 Policy",
+    "l": "Policies",
     "t": "p",
     "c": 4
    },
    {
-    "l": "COVID-19 Mobility Trend Place Category",
+    "l": "Mobility Trend Place Categories",
     "t": "p",
     "c": 6
    }

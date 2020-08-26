@@ -28401,1219 +28401,1219 @@
   3,
   3
  ],
- "CumulativeCount_Person_COVID19PCRTest": [
-  4,
-  1
- ],
  "Percent_Person_WithAllTeethLoss": [
   4,
-  2,
+  1,
   0
  ],
  "Percent_Person_WithArthritis": [
   4,
-  2,
+  1,
   1
  ],
  "Percent_Person_WithAsthma": [
   4,
-  2,
+  1,
   2
  ],
  "Percent_Person_WithCancerExcludingSkinCancer": [
   4,
-  2,
+  1,
   3
  ],
  "Percent_Person_WithChronicKidneyDisease": [
   4,
-  2,
+  1,
   4
  ],
  "Percent_Person_WithChronicObstructivePulmonaryDisease": [
   4,
-  2,
+  1,
   5
  ],
  "Percent_Person_WithCoronaryHeartDisease": [
   4,
-  2,
+  1,
   6
  ],
  "Percent_Person_WithDiabetes": [
   4,
-  2,
+  1,
   7
  ],
  "dc/nh3s4skee5483": [
   4,
-  2,
+  1,
   7,
   0,
   0
  ],
  "dc/xmpy89x1nh8cg": [
   4,
-  2,
+  1,
   7,
   0,
   1
  ],
  "Percent_Person_WithHighBloodPressure": [
   4,
-  2,
+  1,
   8
  ],
  "Percent_Person_WithHighCholesterol": [
   4,
-  2,
+  1,
   9
  ],
  "Percent_Person_WithMentalHealthNotGood": [
   4,
-  2,
+  1,
   10
  ],
  "Percent_Person_WithPhysicalHealthNotGood": [
   4,
-  2,
+  1,
   11
  ],
  "Percent_Person_WithStroke": [
   4,
-  2,
+  1,
   12
  ],
  "Percent_Person_ReceivedAnnualCheckup": [
   4,
-  3,
+  2,
   0
  ],
  "Percent_Person_ReceivedCholesterolScreening": [
   4,
-  3,
+  2,
   1
  ],
  "Percent_Person_ReceivedDentalVisit": [
   4,
-  3,
+  2,
   2
  ],
  "Percent_Person_BingeDrinking": [
   4,
-  4,
+  3,
   0
  ],
  "Percent_Person_Obesity": [
   4,
-  4,
+  3,
   1
  ],
  "dc/4lvmzr1h1ylk1": [
   4,
-  4,
+  3,
   1,
   0,
   0
  ],
  "dc/x13tvt8jsgrm4": [
   4,
-  4,
+  3,
   1,
   0,
   1
  ],
  "Percent_Person_PhysicalInactivity": [
   4,
-  4,
+  3,
   2
  ],
  "dc/tcqb49dvg7k53": [
   4,
-  4,
+  3,
   2,
   0,
   0
  ],
  "dc/ty7pq88d26963": [
   4,
-  4,
+  3,
   2,
   0,
   1
  ],
  "Percent_Person_SleepLessThan7Hours": [
   4,
-  4,
+  3,
   3
  ],
  "Percent_Person_Smoking": [
   4,
-  4,
+  3,
   4
  ],
  "RetailDrugDistribution_DrugDistribution_14Hydroxycodeinone": [
   4,
-  5,
+  4,
   0
  ],
  "RetailDrugDistribution_DrugDistribution_5MethoxyNNDimethyltryptamine": [
   4,
-  5,
+  4,
   1
  ],
  "RetailDrugDistribution_DrugDistribution_dea/7439": [
   4,
-  5,
+  4,
   2
  ],
  "RetailDrugDistribution_DrugDistribution_Alfentanil": [
   4,
-  5,
+  4,
   3
  ],
  "RetailDrugDistribution_DrugDistribution_Alphaprodine": [
   4,
-  5,
+  4,
   4
  ],
  "RetailDrugDistribution_DrugDistribution_Amobarbital": [
   4,
-  5,
+  4,
   5
  ],
  "RetailDrugDistribution_DrugDistribution_Amphetamine": [
   4,
-  5,
+  4,
   6
  ],
  "RetailDrugDistribution_DrugDistribution_AnabolicSteroids": [
   4,
-  5,
+  4,
   7
  ],
  "RetailDrugDistribution_DrugDistribution_Anileridine": [
   4,
-  5,
+  4,
   8
  ],
  "RetailDrugDistribution_DrugDistribution_BarbituricAcidDerivativeOrSalt": [
   4,
-  5,
+  4,
   9
  ],
  "RetailDrugDistribution_DrugDistribution_Bufotenine": [
   4,
-  5,
+  4,
   10
  ],
  "RetailDrugDistribution_DrugDistribution_Buprenorphine": [
   4,
-  5,
+  4,
   11
  ],
  "RetailDrugDistribution_DrugDistribution_Butalbital": [
   4,
-  5,
+  4,
   12
  ],
  "RetailDrugDistribution_DrugDistribution_Cannabicyclol": [
   4,
-  5,
+  4,
   13
  ],
  "RetailDrugDistribution_DrugDistribution_Carfentanil": [
   4,
-  5,
+  4,
   14
  ],
  "RetailDrugDistribution_DrugDistribution_Cocaine": [
   4,
-  5,
+  4,
   15
  ],
  "RetailDrugDistribution_DrugDistribution_Codeine": [
   4,
-  5,
+  4,
   16
  ],
  "RetailDrugDistribution_DrugDistribution_DMethamphetamine": [
   4,
-  5,
+  4,
   17
  ],
  "RetailDrugDistribution_DrugDistribution_BulkDextropropoxyphene": [
   4,
-  5,
+  4,
   18
  ],
  "RetailDrugDistribution_DrugDistribution_Diazepam": [
   4,
-  5,
+  4,
   19
  ],
  "RetailDrugDistribution_DrugDistribution_Difenoxin": [
   4,
-  5,
+  4,
   20
  ],
  "RetailDrugDistribution_DrugDistribution_Dihydrocodeine": [
   4,
-  5,
+  4,
   21
  ],
  "RetailDrugDistribution_DrugDistribution_Diphenoxylate": [
   4,
-  5,
+  4,
   22
  ],
  "RetailDrugDistribution_DrugDistribution_DlMethamphetamine": [
   4,
-  5,
+  4,
   23
  ],
  "RetailDrugDistribution_DrugDistribution_MarketableOralDronabinol": [
   4,
-  5,
+  4,
   24
  ],
  "RetailDrugDistribution_DrugDistribution_DronabinolGelCapsule": [
   4,
-  5,
+  4,
   25
  ],
  "RetailDrugDistribution_DrugDistribution_Ecgonine": [
   4,
-  5,
+  4,
   26
  ],
  "RetailDrugDistribution_DrugDistribution_PCE": [
   4,
-  5,
+  4,
   27
  ],
  "RetailDrugDistribution_DrugDistribution_Ethylmorphine": [
   4,
-  5,
+  4,
   28
  ],
  "RetailDrugDistribution_DrugDistribution_EtorphineExceptHCl": [
   4,
-  5,
+  4,
   29
  ],
  "RetailDrugDistribution_DrugDistribution_Fentanyl": [
   4,
-  5,
+  4,
   30
  ],
  "RetailDrugDistribution_DrugDistribution_GammaHydroxybutyricAcid": [
   4,
-  5,
+  4,
   31
  ],
  "RetailDrugDistribution_DrugDistribution_FDAApprovedGammaHydroxybutyricAcidPreparations": [
   4,
-  5,
+  4,
   32
  ],
  "RetailDrugDistribution_DrugDistribution_dea/7444": [
   4,
-  5,
+  4,
   33
  ],
  "RetailDrugDistribution_DrugDistribution_Heroin": [
   4,
-  5,
+  4,
   34
  ],
  "RetailDrugDistribution_DrugDistribution_Hydrocodone": [
   4,
-  5,
+  4,
   35
  ],
  "RetailDrugDistribution_DrugDistribution_Hydromorphone": [
   4,
-  5,
+  4,
   36
  ],
  "RetailDrugDistribution_DrugDistribution_Ketamine": [
   4,
-  5,
+  4,
   37
  ],
  "RetailDrugDistribution_DrugDistribution_Levorphanol": [
   4,
-  5,
+  4,
   38
  ],
  "RetailDrugDistribution_DrugDistribution_Lisdexamfetamine": [
   4,
-  5,
+  4,
   39
  ],
  "RetailDrugDistribution_DrugDistribution_Lorazepam": [
   4,
-  5,
+  4,
   40
  ],
  "RetailDrugDistribution_DrugDistribution_Lysergide": [
   4,
-  5,
+  4,
   41
  ],
  "RetailDrugDistribution_DrugDistribution_34Methylenedioxyamphetamine": [
   4,
-  5,
+  4,
   42
  ],
  "RetailDrugDistribution_DrugDistribution_Mephedrone": [
   4,
-  5,
+  4,
   43
  ],
  "RetailDrugDistribution_DrugDistribution_Mescaline": [
   4,
-  5,
+  4,
   44
  ],
  "RetailDrugDistribution_DrugDistribution_Methadone": [
   4,
-  5,
+  4,
   45
  ],
  "RetailDrugDistribution_DrugDistribution_Methylone": [
   4,
-  5,
+  4,
   46
  ],
  "RetailDrugDistribution_DrugDistribution_Methylphenidate": [
   4,
-  5,
+  4,
   47
  ],
  "RetailDrugDistribution_DrugDistribution_Morphine": [
   4,
-  5,
+  4,
   48
  ],
  "RetailDrugDistribution_DrugDistribution_dea/9336": [
   4,
-  5,
+  4,
   49
  ],
  "RetailDrugDistribution_DrugDistribution_Nabilone": [
   4,
-  5,
+  4,
   50
  ],
  "RetailDrugDistribution_DrugDistribution_Naloxone": [
   4,
-  5,
+  4,
   51
  ],
  "RetailDrugDistribution_DrugDistribution_Norcocaine": [
   4,
-  5,
+  4,
   52
  ],
  "RetailDrugDistribution_DrugDistribution_Normorphine": [
   4,
-  5,
+  4,
   53
  ],
  "RetailDrugDistribution_DrugDistribution_Noroxymorphone": [
   4,
-  5,
+  4,
   54
  ],
  "RetailDrugDistribution_DrugDistribution_dea/9809": [
   4,
-  5,
+  4,
   55
  ],
  "RetailDrugDistribution_DrugDistribution_TincuredOpium": [
   4,
-  5,
+  4,
   56
  ],
  "RetailDrugDistribution_DrugDistribution_PowderedOpium": [
   4,
-  5,
+  4,
   57
  ],
  "RetailDrugDistribution_DrugDistribution_RawOpium": [
   4,
-  5,
+  4,
   58
  ],
  "RetailDrugDistribution_DrugDistribution_Oxycodone": [
   4,
-  5,
+  4,
   59
  ],
  "RetailDrugDistribution_DrugDistribution_Oxymorphone": [
   4,
-  5,
+  4,
   60
  ],
  "RetailDrugDistribution_DrugDistribution_Paregoric": [
   4,
-  5,
+  4,
   61
  ],
  "RetailDrugDistribution_DrugDistribution_Pentobarbital": [
   4,
-  5,
+  4,
   62
  ],
  "RetailDrugDistribution_DrugDistribution_Pethidine": [
   4,
-  5,
+  4,
   63
  ],
  "RetailDrugDistribution_DrugDistribution_Phencyclidine": [
   4,
-  5,
+  4,
   64
  ],
  "RetailDrugDistribution_DrugDistribution_Phendimetrazine": [
   4,
-  5,
+  4,
   65
  ],
  "RetailDrugDistribution_DrugDistribution_Phenobarbital": [
   4,
-  5,
+  4,
   66
  ],
  "RetailDrugDistribution_DrugDistribution_PoppyStrawConcentrate": [
   4,
-  5,
+  4,
   67
  ],
  "RetailDrugDistribution_DrugDistribution_Psilocin": [
   4,
-  5,
+  4,
   68
  ],
  "RetailDrugDistribution_DrugDistribution_Psilocybin": [
   4,
-  5,
+  4,
   69
  ],
  "RetailDrugDistribution_DrugDistribution_Remifentanil": [
   4,
-  5,
+  4,
   70
  ],
  "RetailDrugDistribution_DrugDistribution_Secobarbital": [
   4,
-  5,
+  4,
   71
  ],
  "RetailDrugDistribution_DrugDistribution_Sufentanil": [
   4,
-  5,
+  4,
   72
  ],
  "RetailDrugDistribution_DrugDistribution_Tapentadol": [
   4,
-  5,
+  4,
   73
  ],
  "RetailDrugDistribution_DrugDistribution_Testosterone": [
   4,
-  5,
+  4,
   74
  ],
  "RetailDrugDistribution_DrugDistribution_Tetrahydrocannabinol": [
   4,
-  5,
+  4,
   75
  ],
  "RetailDrugDistribution_DrugDistribution_Thebaine": [
   4,
-  5,
+  4,
   76
  ],
  "RetailDrugDistribution_DrugDistribution_Zolpidem": [
   4,
-  5,
+  4,
   77
  ],
+ "CumulativeCount_Person_COVID19PCRTest": [
+  5,
+  0
+ ],
  "CumulativeCount_MedicalConditionIncident_COVID_19_ConfirmedCase": [
-  4,
-  6,
+  5,
+  1,
   0,
   0
  ],
  "IncrementalCount_MedicalConditionIncident_COVID_19_ConfirmedCase": [
-  4,
-  6,
+  5,
+  1,
   0,
   1
  ],
  "CumulativeCount_MedicalConditionIncident_COVID_19_ConfirmedOrProbableCase": [
-  4,
-  6,
+  5,
+  1,
   1,
   0
  ],
  "IncrementalCount_MedicalConditionIncident_COVID_19_ConfirmedOrProbableCase": [
-  4,
-  6,
+  5,
+  1,
   1,
   1
  ],
  "CumulativeCount_MedicalConditionIncident_COVID_19_PatientDeceased": [
-  4,
-  6,
+  5,
+  1,
   2,
   0
  ],
  "IncrementalCount_MedicalConditionIncident_COVID_19_PatientDeceased": [
-  4,
-  6,
+  5,
+  1,
   2,
   1
  ],
  "CumulativeCount_MedicalConditionIncident_COVID_19_PatientHospitalized": [
-  4,
-  6,
+  5,
+  1,
   3,
   0
  ],
  "Count_MedicalConditionIncident_COVID_19_PatientHospitalized": [
-  4,
-  6,
+  5,
+  1,
   3,
   1
  ],
  "IncrementalCount_MedicalConditionIncident_COVID_19_PatientHospitalized": [
-  4,
-  6,
+  5,
+  1,
   3,
   2
  ],
  "CumulativeCount_MedicalConditionIncident_COVID_19_PatientInICU": [
-  4,
-  6,
+  5,
+  1,
   4,
   0
  ],
  "Count_MedicalConditionIncident_COVID_19_PatientInICU": [
-  4,
-  6,
+  5,
+  1,
   4,
   1
  ],
  "CumulativeCount_MedicalConditionIncident_COVID_19_PatientOnVentilator": [
-  4,
-  6,
+  5,
+  1,
   5,
   0
  ],
  "Count_MedicalConditionIncident_COVID_19_PatientOnVentilator": [
-  4,
-  6,
+  5,
+  1,
   5,
   1
  ],
  "CumulativeCount_MedicalConditionIncident_COVID_19_PatientRecovered": [
-  4,
-  6,
+  5,
+  1,
   6,
   0
  ],
  "PolicyExtent_Legislation_COVID19Pandemic_GovernmentOrganization_ContactTracing": [
-  4,
-  7,
+  5,
+  2,
   0
  ],
  "PolicyExtent_Legislation_COVID19Pandemic_GovernmentOrganization_GovernmentBenefit_DebtOrContractRelief": [
-  4,
-  7,
+  5,
+  2,
   1
  ],
  "PolicyExtent_Legislation_COVID19Pandemic_GovernmentOrganization_InternationalTravelRestriction": [
-  4,
-  7,
+  5,
+  2,
   2
  ],
  "PolicyExtent_Legislation_COVID19Pandemic_GovernmentOrganization_TestingEligibility": [
-  4,
-  7,
+  5,
+  2,
   3
  ],
  "dc/n9rqwq8d3lcx3": [
-  4,
-  8,
+  5,
+  3,
   0
  ],
  "dc/0ny9m7k0lzmn5": [
-  4,
-  8,
+  5,
+  3,
   1
  ],
  "dc/p49ghylpwz93f": [
-  4,
-  8,
+  5,
+  3,
   2
  ],
  "dc/7fmnve6yyc508": [
-  4,
-  8,
+  5,
+  3,
   3
  ],
  "dc/qdbhwwr88yhl7": [
-  4,
-  8,
+  5,
+  3,
   4
  ],
  "dc/tbbjnf9bk96yh": [
-  4,
-  8,
+  5,
+  3,
   5
  ],
  "Count_HousingUnit": [
-  5,
+  6,
   0
  ],
  "Count_HousingUnit_NoCashRent": [
-  5,
+  6,
   1,
   0
  ],
  "Count_HousingUnit_WithCashRent": [
-  5,
+  6,
   1,
   1
  ],
  "dc/32wz78p01jzng": [
-  5,
+  6,
   2,
   0
  ],
  "dc/kyeqbevv1sm81": [
-  5,
+  6,
   2,
   1
  ],
  "dc/g9kdm6qtpmlr9": [
-  5,
+  6,
   2,
   2
  ],
  "dc/qhwefl16c41bd": [
-  5,
+  6,
   2,
   3
  ],
  "dc/sqqy03m22nyjb": [
-  5,
+  6,
   2,
   4
  ],
  "dc/7mt9llfdtpwfc": [
-  5,
+  6,
   2,
   5
  ],
  "dc/53q4prfptqbrc": [
-  5,
+  6,
   2,
   6
  ],
  "dc/02jzwq9z4qwp9": [
-  5,
+  6,
   2,
   7
  ],
  "dc/76y4ekvgmbmfg": [
-  5,
+  6,
   2,
   8
  ],
  "dc/zfxlht3tze97b": [
-  5,
+  6,
   2,
   9
  ],
  "dc/jp73mr7vpdgq": [
-  5,
+  6,
   2,
   10
  ],
  "dc/1lm619q2bsqh": [
-  5,
+  6,
   2,
   11
  ],
  "dc/c7dsklk9ffw07": [
-  5,
+  6,
   2,
   12
  ],
  "dc/3e1l7ddy6981f": [
-  5,
+  6,
   2,
   13
  ],
  "dc/1v5v92e7nc231": [
-  5,
+  6,
   2,
   14
  ],
  "dc/4jplkk8t30k5c": [
-  5,
+  6,
   2,
   15
  ],
  "dc/nm90w7gjnj558": [
-  5,
+  6,
   2,
   16
  ],
  "dc/v0zqzzbqglbg9": [
-  5,
+  6,
   2,
   17
  ],
  "dc/bb37z1pqxq695": [
-  5,
+  6,
   2,
   18
  ],
  "dc/dcxwcgnec87l7": [
-  5,
+  6,
   2,
   19
  ],
  "dc/e5cs7fm74cdnd": [
-  5,
+  6,
   2,
   20
  ],
  "dc/xywgpkqpl0f56": [
-  5,
+  6,
   2,
   21
  ],
  "dc/h83w8tdeffz7c": [
-  5,
+  6,
   2,
   22
  ],
  "dc/8eb17sesktv9h": [
-  5,
+  6,
   2,
   23
  ],
  "dc/w8wj03vyy1wvf": [
-  5,
+  6,
   2,
   24
  ],
  "Count_HousingUnit_HomeValueUpto10000USDollar": [
-  5,
+  6,
   3,
   0
  ],
  "Count_HousingUnit_HomeValue10000To14999USDollar": [
-  5,
+  6,
   3,
   1
  ],
  "Count_HousingUnit_HomeValue15000To19999USDollar": [
-  5,
+  6,
   3,
   2
  ],
  "Count_HousingUnit_HomeValue20000To24999USDollar": [
-  5,
+  6,
   3,
   3
  ],
  "Count_HousingUnit_HomeValue25000To29999USDollar": [
-  5,
+  6,
   3,
   4
  ],
  "Count_HousingUnit_HomeValue30000To34999USDollar": [
-  5,
+  6,
   3,
   5
  ],
  "Count_HousingUnit_HomeValue35000To39999USDollar": [
-  5,
+  6,
   3,
   6
  ],
  "Count_HousingUnit_HomeValue40000To49999USDollar": [
-  5,
+  6,
   3,
   7
  ],
  "Count_HousingUnit_HomeValue50000To59999USDollar": [
-  5,
+  6,
   3,
   8
  ],
  "Count_HousingUnit_HomeValue60000To69999USDollar": [
-  5,
+  6,
   3,
   9
  ],
  "Count_HousingUnit_HomeValue70000To79999USDollar": [
-  5,
+  6,
   3,
   10
  ],
  "Count_HousingUnit_HomeValue80000To89999USDollar": [
-  5,
+  6,
   3,
   11
  ],
  "Count_HousingUnit_HomeValue90000To99999USDollar": [
-  5,
+  6,
   3,
   12
  ],
  "Count_HousingUnit_HomeValue100000To124999USDollar": [
-  5,
+  6,
   3,
   13
  ],
  "Count_HousingUnit_HomeValue125000To149999USDollar": [
-  5,
+  6,
   3,
   14
  ],
  "Count_HousingUnit_HomeValue150000To174999USDollar": [
-  5,
+  6,
   3,
   15
  ],
  "Count_HousingUnit_HomeValue175000To199999USDollar": [
-  5,
+  6,
   3,
   16
  ],
  "Count_HousingUnit_HomeValue200000To249999USDollar": [
-  5,
+  6,
   3,
   17
  ],
  "Count_HousingUnit_HomeValue250000To299999USDollar": [
-  5,
+  6,
   3,
   18
  ],
  "Count_HousingUnit_HomeValue300000To399999USDollar": [
-  5,
+  6,
   3,
   19
  ],
  "Count_HousingUnit_HomeValue400000To499999USDollar": [
-  5,
+  6,
   3,
   20
  ],
  "Count_HousingUnit_HomeValue500000To749999USDollar": [
-  5,
+  6,
   3,
   21
  ],
  "Count_HousingUnit_HomeValue750000To999999USDollar": [
-  5,
+  6,
   3,
   22
  ],
  "Count_HousingUnit_HomeValue1000000To1499999USDollar": [
-  5,
+  6,
   3,
   23
  ],
  "Count_HousingUnit_HomeValue1000000OrMoreUSDollar": [
-  5,
+  6,
   3,
   24
  ],
  "Count_HousingUnit_HomeValue1500000To1999999USDollar": [
-  5,
+  6,
   3,
   25
  ],
  "Count_HousingUnit_HomeValue2000000OrMoreUSDollar": [
-  5,
+  6,
   3,
   26
  ],
  "Count_HousingUnit_HouseholderRaceAmericanIndianAndAlaskaNativeAlone": [
-  5,
+  6,
   4,
   0
  ],
  "Count_HousingUnit_HouseholderRaceAmericanIndianOrAlaskaNativeAlone": [
-  5,
+  6,
   4,
   1
  ],
  "Count_HousingUnit_HouseholderRaceAmericanIndianOrAlaskaNativeAlone_OwnerOccupied": [
-  5,
+  6,
   7,
   0,
   0,
   0
  ],
  "Count_HousingUnit_HouseholderRaceAmericanIndianOrAlaskaNativeAlone_RenterOccupied": [
-  5,
+  6,
   7,
   1,
   0,
   0
  ],
  "Count_HousingUnit_HouseholderRaceAsianAlone": [
-  5,
+  6,
   4,
   2
  ],
  "Count_HousingUnit_HouseholderRaceAsianAlone_OwnerOccupied": [
-  5,
+  6,
   7,
   0,
   0,
   1
  ],
  "Count_HousingUnit_HouseholderRaceAsianAlone_RenterOccupied": [
-  5,
+  6,
   7,
   1,
   0,
   1
  ],
  "Count_HousingUnit_HouseholderRaceBlackOrAfricanAmericanAlone": [
-  5,
+  6,
   4,
   3
  ],
  "Count_HousingUnit_HouseholderRaceBlackOrAfricanAmericanAlone_OwnerOccupied": [
-  5,
+  6,
   7,
   0,
   0,
   2
  ],
  "Count_HousingUnit_HouseholderRaceBlackOrAfricanAmericanAlone_RenterOccupied": [
-  5,
+  6,
   7,
   1,
   0,
   2
  ],
  "Count_HousingUnit_HouseholderRaceHispanicOrLatino": [
-  5,
+  6,
   4,
   4
  ],
  "Count_HousingUnit_HouseholderRaceHispanicOrLatino_OwnerOccupied": [
-  5,
+  6,
   7,
   0,
   0,
   3
  ],
  "Count_HousingUnit_HouseholderRaceHispanicOrLatino_RenterOccupied": [
-  5,
+  6,
   7,
   1,
   0,
   3
  ],
  "Count_HousingUnit_HouseholderRaceNativeHawaiianAndOtherPacificIslanderAlone": [
-  5,
+  6,
   4,
   5
  ],
  "Count_HousingUnit_HouseholderRaceNativeHawaiianOrOtherPacificIslanderAlone": [
-  5,
+  6,
   4,
   6
  ],
  "Count_HousingUnit_HouseholderRaceNativeHawaiianOrOtherPacificIslanderAlone_OwnerOccupied": [
-  5,
+  6,
   7,
   0,
   0,
   4
  ],
  "Count_HousingUnit_HouseholderRaceNativeHawaiianOrOtherPacificIslanderAlone_RenterOccupied": [
-  5,
+  6,
   7,
   1,
   0,
   4
  ],
  "Count_HousingUnit_HouseholderRaceSomeOtherRaceAlone": [
-  5,
+  6,
   4,
   7
  ],
  "Count_HousingUnit_HouseholderRaceSomeOtherRaceAlone_OwnerOccupied": [
-  5,
+  6,
   7,
   0,
   0,
   5
  ],
  "Count_HousingUnit_HouseholderRaceSomeOtherRaceAlone_RenterOccupied": [
-  5,
+  6,
   7,
   1,
   0,
   5
  ],
  "Count_HousingUnit_HouseholderRaceTwoOrMoreRaces": [
-  5,
+  6,
   4,
   8
  ],
  "Count_HousingUnit_HouseholderRaceTwoOrMoreRaces_OwnerOccupied": [
-  5,
+  6,
   7,
   0,
   0,
   6
  ],
  "Count_HousingUnit_HouseholderRaceTwoOrMoreRaces_RenterOccupied": [
-  5,
+  6,
   7,
   1,
   0,
   6
  ],
  "Count_HousingUnit_HouseholderRaceWhiteAlone": [
-  5,
+  6,
   4,
   9
  ],
  "Count_HousingUnit_HouseholderRaceWhiteAlone_OwnerOccupied": [
-  5,
+  6,
   7,
   0,
   0,
   7
  ],
  "Count_HousingUnit_HouseholderRaceWhiteAlone_RenterOccupied": [
-  5,
+  6,
   7,
   1,
   0,
   7
  ],
  "Count_HousingUnit_HouseholderRaceWhiteAloneNotHispanicOrLatino": [
-  5,
+  6,
   4,
   10
  ],
  "Count_HousingUnit_HouseholderRaceWhiteAloneNotHispanicOrLatino_OwnerOccupied": [
-  5,
+  6,
   7,
   0,
   0,
   8
  ],
  "Count_HousingUnit_HouseholderRaceWhiteAloneNotHispanicOrLatino_RenterOccupied": [
-  5,
+  6,
   7,
   1,
   0,
   8
  ],
  "Count_HousingUnit_WithTotal1Rooms": [
-  5,
+  6,
   5,
   0
  ],
  "Count_HousingUnit_WithTotal2Rooms": [
-  5,
+  6,
   5,
   1
  ],
  "Count_HousingUnit_WithTotal3Rooms": [
-  5,
+  6,
   5,
   2
  ],
  "Count_HousingUnit_WithTotal4Rooms": [
-  5,
+  6,
   5,
   3
  ],
  "Count_HousingUnit_WithTotal5Rooms": [
-  5,
+  6,
   5,
   4
  ],
  "Count_HousingUnit_WithTotal6Rooms": [
-  5,
+  6,
   5,
   5
  ],
  "Count_HousingUnit_WithTotal7Rooms": [
-  5,
+  6,
   5,
   6
  ],
  "Count_HousingUnit_WithTotal8Rooms": [
-  5,
+  6,
   5,
   7
  ],
  "Count_HousingUnit_WithTotal9OrMoreRooms": [
-  5,
+  6,
   5,
   8
  ],
  "Count_HousingUnit_OccupiedHousingUnit": [
-  5,
+  6,
   6,
   0
  ],
  "Count_HousingUnit_VacantHousingUnit": [
-  5,
+  6,
   6,
   1
  ],
  "Count_HousingUnit_OwnerOccupied": [
-  5,
+  6,
   7,
   0
  ],
  "Count_HousingUnit_RenterOccupied": [
-  5,
+  6,
   7,
   1
  ],
  "Count_Household": [
-  6,
+  7,
   0
  ],
  "Count_Household_HouseholderAgeUpto25Years": [
-  6,
+  7,
   1,
   0
  ],
  "Count_Household_HouseholderAgeUpto25Years_IncomeOfUpto10000USDollar": [
-  6,
+  7,
   3,
   0,
   0,
   0
  ],
  "Count_Household_HouseholderAgeUpto25Years_HouseholderRaceAmericanIndianOrAlaskaNativeAlone_IncomeOfUpto10000USDollar": [
-  6,
+  7,
   3,
   0,
   1,
@@ -29622,7 +29622,7 @@
   0
  ],
  "Count_Household_HouseholderAgeUpto25Years_HouseholderRaceAsianAlone_IncomeOfUpto10000USDollar": [
-  6,
+  7,
   3,
   0,
   1,
@@ -29631,7 +29631,7 @@
   0
  ],
  "Count_Household_HouseholderAgeUpto25Years_HouseholderRaceBlackOrAfricanAmericanAlone_IncomeOfUpto10000USDollar": [
-  6,
+  7,
   3,
   0,
   1,
@@ -29640,7 +29640,7 @@
   0
  ],
  "Count_Household_HouseholderAgeUpto25Years_HouseholderRaceHispanicOrLatino_IncomeOfUpto10000USDollar": [
-  6,
+  7,
   3,
   0,
   1,
@@ -29649,7 +29649,7 @@
   0
  ],
  "Count_Household_HouseholderAgeUpto25Years_HouseholderRaceNativeHawaiianOrOtherPacificIslanderAlone_IncomeOfUpto10000USDollar": [
-  6,
+  7,
   3,
   0,
   1,
@@ -29658,7 +29658,7 @@
   0
  ],
  "Count_Household_HouseholderAgeUpto25Years_HouseholderRaceSomeOtherRaceAlone_IncomeOfUpto10000USDollar": [
-  6,
+  7,
   3,
   0,
   1,
@@ -29667,7 +29667,7 @@
   0
  ],
  "Count_Household_HouseholderAgeUpto25Years_HouseholderRaceTwoOrMoreRaces_IncomeOfUpto10000USDollar": [
-  6,
+  7,
   3,
   0,
   1,
@@ -29676,7 +29676,7 @@
   0
  ],
  "Count_Household_HouseholderAgeUpto25Years_HouseholderRaceWhiteAlone_IncomeOfUpto10000USDollar": [
-  6,
+  7,
   3,
   0,
   1,
@@ -29685,7 +29685,7 @@
   0
  ],
  "Count_Household_HouseholderAgeUpto25Years_HouseholderRaceWhiteAloneNotHispanicOrLatino_IncomeOfUpto10000USDollar": [
-  6,
+  7,
   3,
   0,
   1,
@@ -29694,14 +29694,14 @@
   0
  ],
  "Count_Household_HouseholderAgeUpto25Years_IncomeOf10000To14999USDollar": [
-  6,
+  7,
   3,
   1,
   0,
   0
  ],
  "Count_Household_HouseholderAgeUpto25Years_HouseholderRaceAmericanIndianOrAlaskaNativeAlone_IncomeOf10000To14999USDollar": [
-  6,
+  7,
   3,
   1,
   1,
@@ -29710,7 +29710,7 @@
   0
  ],
  "Count_Household_HouseholderAgeUpto25Years_HouseholderRaceAsianAlone_IncomeOf10000To14999USDollar": [
-  6,
+  7,
   3,
   1,
   1,
@@ -29719,7 +29719,7 @@
   0
  ],
  "Count_Household_HouseholderAgeUpto25Years_HouseholderRaceBlackOrAfricanAmericanAlone_IncomeOf10000To14999USDollar": [
-  6,
+  7,
   3,
   1,
   1,
@@ -29728,7 +29728,7 @@
   0
  ],
  "Count_Household_HouseholderAgeUpto25Years_HouseholderRaceHispanicOrLatino_IncomeOf10000To14999USDollar": [
-  6,
+  7,
   3,
   1,
   1,
@@ -29737,7 +29737,7 @@
   0
  ],
  "Count_Household_HouseholderAgeUpto25Years_HouseholderRaceNativeHawaiianOrOtherPacificIslanderAlone_IncomeOf10000To14999USDollar": [
-  6,
+  7,
   3,
   1,
   1,
@@ -29746,7 +29746,7 @@
   0
  ],
  "Count_Household_HouseholderAgeUpto25Years_HouseholderRaceSomeOtherRaceAlone_IncomeOf10000To14999USDollar": [
-  6,
+  7,
   3,
   1,
   1,
@@ -29755,7 +29755,7 @@
   0
  ],
  "Count_Household_HouseholderAgeUpto25Years_HouseholderRaceTwoOrMoreRaces_IncomeOf10000To14999USDollar": [
-  6,
+  7,
   3,
   1,
   1,
@@ -29764,7 +29764,7 @@
   0
  ],
  "Count_Household_HouseholderAgeUpto25Years_HouseholderRaceWhiteAlone_IncomeOf10000To14999USDollar": [
-  6,
+  7,
   3,
   1,
   1,
@@ -29773,7 +29773,7 @@
   0
  ],
  "Count_Household_HouseholderAgeUpto25Years_HouseholderRaceWhiteAloneNotHispanicOrLatino_IncomeOf10000To14999USDollar": [
-  6,
+  7,
   3,
   1,
   1,
@@ -29782,14 +29782,14 @@
   0
  ],
  "Count_Household_HouseholderAgeUpto25Years_IncomeOf15000To19999USDollar": [
-  6,
+  7,
   3,
   2,
   0,
   0
  ],
  "Count_Household_HouseholderAgeUpto25Years_HouseholderRaceAmericanIndianOrAlaskaNativeAlone_IncomeOf15000To19999USDollar": [
-  6,
+  7,
   3,
   2,
   1,
@@ -29798,7 +29798,7 @@
   0
  ],
  "Count_Household_HouseholderAgeUpto25Years_HouseholderRaceAsianAlone_IncomeOf15000To19999USDollar": [
-  6,
+  7,
   3,
   2,
   1,
@@ -29807,7 +29807,7 @@
   0
  ],
  "Count_Household_HouseholderAgeUpto25Years_HouseholderRaceBlackOrAfricanAmericanAlone_IncomeOf15000To19999USDollar": [
-  6,
+  7,
   3,
   2,
   1,
@@ -29816,7 +29816,7 @@
   0
  ],
  "Count_Household_HouseholderAgeUpto25Years_HouseholderRaceHispanicOrLatino_IncomeOf15000To19999USDollar": [
-  6,
+  7,
   3,
   2,
   1,
@@ -29825,7 +29825,7 @@
   0
  ],
  "Count_Household_HouseholderAgeUpto25Years_HouseholderRaceNativeHawaiianOrOtherPacificIslanderAlone_IncomeOf15000To19999USDollar": [
-  6,
+  7,
   3,
   2,
   1,
@@ -29834,7 +29834,7 @@
   0
  ],
  "Count_Household_HouseholderAgeUpto25Years_HouseholderRaceSomeOtherRaceAlone_IncomeOf15000To19999USDollar": [
-  6,
+  7,
   3,
   2,
   1,
@@ -29843,7 +29843,7 @@
   0
  ],
  "Count_Household_HouseholderAgeUpto25Years_HouseholderRaceTwoOrMoreRaces_IncomeOf15000To19999USDollar": [
-  6,
+  7,
   3,
   2,
   1,
@@ -29852,7 +29852,7 @@
   0
  ],
  "Count_Household_HouseholderAgeUpto25Years_HouseholderRaceWhiteAlone_IncomeOf15000To19999USDollar": [
-  6,
+  7,
   3,
   2,
   1,
@@ -29861,7 +29861,7 @@
   0
  ],
  "Count_Household_HouseholderAgeUpto25Years_HouseholderRaceWhiteAloneNotHispanicOrLatino_IncomeOf15000To19999USDollar": [
-  6,
+  7,
   3,
   2,
   1,
@@ -29870,14 +29870,14 @@
   0
  ],
  "Count_Household_HouseholderAgeUpto25Years_IncomeOf20000To24999USDollar": [
-  6,
+  7,
   3,
   3,
   0,
   0
  ],
  "Count_Household_HouseholderAgeUpto25Years_HouseholderRaceAmericanIndianOrAlaskaNativeAlone_IncomeOf20000To24999USDollar": [
-  6,
+  7,
   3,
   3,
   1,
@@ -29886,7 +29886,7 @@
   0
  ],
  "Count_Household_HouseholderAgeUpto25Years_HouseholderRaceAsianAlone_IncomeOf20000To24999USDollar": [
-  6,
+  7,
   3,
   3,
   1,
@@ -29895,7 +29895,7 @@
   0
  ],
  "Count_Household_HouseholderAgeUpto25Years_HouseholderRaceBlackOrAfricanAmericanAlone_IncomeOf20000To24999USDollar": [
-  6,
+  7,
   3,
   3,
   1,
@@ -29904,7 +29904,7 @@
   0
  ],
  "Count_Household_HouseholderAgeUpto25Years_HouseholderRaceHispanicOrLatino_IncomeOf20000To24999USDollar": [
-  6,
+  7,
   3,
   3,
   1,
@@ -29913,7 +29913,7 @@
   0
  ],
  "Count_Household_HouseholderAgeUpto25Years_HouseholderRaceNativeHawaiianOrOtherPacificIslanderAlone_IncomeOf20000To24999USDollar": [
-  6,
+  7,
   3,
   3,
   1,
@@ -29922,7 +29922,7 @@
   0
  ],
  "Count_Household_HouseholderAgeUpto25Years_HouseholderRaceSomeOtherRaceAlone_IncomeOf20000To24999USDollar": [
-  6,
+  7,
   3,
   3,
   1,
@@ -29931,7 +29931,7 @@
   0
  ],
  "Count_Household_HouseholderAgeUpto25Years_HouseholderRaceTwoOrMoreRaces_IncomeOf20000To24999USDollar": [
-  6,
+  7,
   3,
   3,
   1,
@@ -29940,7 +29940,7 @@
   0
  ],
  "Count_Household_HouseholderAgeUpto25Years_HouseholderRaceWhiteAlone_IncomeOf20000To24999USDollar": [
-  6,
+  7,
   3,
   3,
   1,
@@ -29949,7 +29949,7 @@
   0
  ],
  "Count_Household_HouseholderAgeUpto25Years_HouseholderRaceWhiteAloneNotHispanicOrLatino_IncomeOf20000To24999USDollar": [
-  6,
+  7,
   3,
   3,
   1,
@@ -29958,14 +29958,14 @@
   0
  ],
  "Count_Household_HouseholderAgeUpto25Years_IncomeOf25000To29999USDollar": [
-  6,
+  7,
   3,
   4,
   0,
   0
  ],
  "Count_Household_HouseholderAgeUpto25Years_HouseholderRaceAmericanIndianOrAlaskaNativeAlone_IncomeOf25000To29999USDollar": [
-  6,
+  7,
   3,
   4,
   1,
@@ -29974,7 +29974,7 @@
   0
  ],
  "Count_Household_HouseholderAgeUpto25Years_HouseholderRaceAsianAlone_IncomeOf25000To29999USDollar": [
-  6,
+  7,
   3,
   4,
   1,
@@ -29983,7 +29983,7 @@
   0
  ],
  "Count_Household_HouseholderAgeUpto25Years_HouseholderRaceBlackOrAfricanAmericanAlone_IncomeOf25000To29999USDollar": [
-  6,
+  7,
   3,
   4,
   1,
@@ -29992,7 +29992,7 @@
   0
  ],
  "Count_Household_HouseholderAgeUpto25Years_HouseholderRaceHispanicOrLatino_IncomeOf25000To29999USDollar": [
-  6,
+  7,
   3,
   4,
   1,
@@ -30001,7 +30001,7 @@
   0
  ],
  "Count_Household_HouseholderAgeUpto25Years_HouseholderRaceNativeHawaiianOrOtherPacificIslanderAlone_IncomeOf25000To29999USDollar": [
-  6,
+  7,
   3,
   4,
   1,
@@ -30010,7 +30010,7 @@
   0
  ],
  "Count_Household_HouseholderAgeUpto25Years_HouseholderRaceSomeOtherRaceAlone_IncomeOf25000To29999USDollar": [
-  6,
+  7,
   3,
   4,
   1,
@@ -30019,7 +30019,7 @@
   0
  ],
  "Count_Household_HouseholderAgeUpto25Years_HouseholderRaceTwoOrMoreRaces_IncomeOf25000To29999USDollar": [
-  6,
+  7,
   3,
   4,
   1,
@@ -30028,7 +30028,7 @@
   0
  ],
  "Count_Household_HouseholderAgeUpto25Years_HouseholderRaceWhiteAlone_IncomeOf25000To29999USDollar": [
-  6,
+  7,
   3,
   4,
   1,
@@ -30037,7 +30037,7 @@
   0
  ],
  "Count_Household_HouseholderAgeUpto25Years_HouseholderRaceWhiteAloneNotHispanicOrLatino_IncomeOf25000To29999USDollar": [
-  6,
+  7,
   3,
   4,
   1,
@@ -30046,14 +30046,14 @@
   0
  ],
  "Count_Household_HouseholderAgeUpto25Years_IncomeOf30000To34999USDollar": [
-  6,
+  7,
   3,
   5,
   0,
   0
  ],
  "Count_Household_HouseholderAgeUpto25Years_HouseholderRaceAmericanIndianOrAlaskaNativeAlone_IncomeOf30000To34999USDollar": [
-  6,
+  7,
   3,
   5,
   1,
@@ -30062,7 +30062,7 @@
   0
  ],
  "Count_Household_HouseholderAgeUpto25Years_HouseholderRaceAsianAlone_IncomeOf30000To34999USDollar": [
-  6,
+  7,
   3,
   5,
   1,
@@ -30071,7 +30071,7 @@
   0
  ],
  "Count_Household_HouseholderAgeUpto25Years_HouseholderRaceBlackOrAfricanAmericanAlone_IncomeOf30000To34999USDollar": [
-  6,
+  7,
   3,
   5,
   1,
@@ -30080,7 +30080,7 @@
   0
  ],
  "Count_Household_HouseholderAgeUpto25Years_HouseholderRaceHispanicOrLatino_IncomeOf30000To34999USDollar": [
-  6,
+  7,
   3,
   5,
   1,
@@ -30089,7 +30089,7 @@
   0
  ],
  "Count_Household_HouseholderAgeUpto25Years_HouseholderRaceNativeHawaiianOrOtherPacificIslanderAlone_IncomeOf30000To34999USDollar": [
-  6,
+  7,
   3,
   5,
   1,
@@ -30098,7 +30098,7 @@
   0
  ],
  "Count_Household_HouseholderAgeUpto25Years_HouseholderRaceSomeOtherRaceAlone_IncomeOf30000To34999USDollar": [
-  6,
+  7,
   3,
   5,
   1,
@@ -30107,7 +30107,7 @@
   0
  ],
  "Count_Household_HouseholderAgeUpto25Years_HouseholderRaceTwoOrMoreRaces_IncomeOf30000To34999USDollar": [
-  6,
+  7,
   3,
   5,
   1,
@@ -30116,7 +30116,7 @@
   0
  ],
  "Count_Household_HouseholderAgeUpto25Years_HouseholderRaceWhiteAlone_IncomeOf30000To34999USDollar": [
-  6,
+  7,
   3,
   5,
   1,
@@ -30125,7 +30125,7 @@
   0
  ],
  "Count_Household_HouseholderAgeUpto25Years_HouseholderRaceWhiteAloneNotHispanicOrLatino_IncomeOf30000To34999USDollar": [
-  6,
+  7,
   3,
   5,
   1,
@@ -30134,14 +30134,14 @@
   0
  ],
  "Count_Household_HouseholderAgeUpto25Years_IncomeOf35000To39999USDollar": [
-  6,
+  7,
   3,
   6,
   0,
   0
  ],
  "Count_Household_HouseholderAgeUpto25Years_HouseholderRaceAmericanIndianOrAlaskaNativeAlone_IncomeOf35000To39999USDollar": [
-  6,
+  7,
   3,
   6,
   1,
@@ -30150,7 +30150,7 @@
   0
  ],
  "Count_Household_HouseholderAgeUpto25Years_HouseholderRaceAsianAlone_IncomeOf35000To39999USDollar": [
-  6,
+  7,
   3,
   6,
   1,
@@ -30159,7 +30159,7 @@
   0
  ],
  "Count_Household_HouseholderAgeUpto25Years_HouseholderRaceBlackOrAfricanAmericanAlone_IncomeOf35000To39999USDollar": [
-  6,
+  7,
   3,
   6,
   1,
@@ -30168,7 +30168,7 @@
   0
  ],
  "Count_Household_HouseholderAgeUpto25Years_HouseholderRaceHispanicOrLatino_IncomeOf35000To39999USDollar": [
-  6,
+  7,
   3,
   6,
   1,
@@ -30177,7 +30177,7 @@
   0
  ],
  "Count_Household_HouseholderAgeUpto25Years_HouseholderRaceNativeHawaiianOrOtherPacificIslanderAlone_IncomeOf35000To39999USDollar": [
-  6,
+  7,
   3,
   6,
   1,
@@ -30186,7 +30186,7 @@
   0
  ],
  "Count_Household_HouseholderAgeUpto25Years_HouseholderRaceSomeOtherRaceAlone_IncomeOf35000To39999USDollar": [
-  6,
+  7,
   3,
   6,
   1,
@@ -30195,7 +30195,7 @@
   0
  ],
  "Count_Household_HouseholderAgeUpto25Years_HouseholderRaceTwoOrMoreRaces_IncomeOf35000To39999USDollar": [
-  6,
+  7,
   3,
   6,
   1,
@@ -30204,7 +30204,7 @@
   0
  ],
  "Count_Household_HouseholderAgeUpto25Years_HouseholderRaceWhiteAlone_IncomeOf35000To39999USDollar": [
-  6,
+  7,
   3,
   6,
   1,
@@ -30213,7 +30213,7 @@
   0
  ],
  "Count_Household_HouseholderAgeUpto25Years_HouseholderRaceWhiteAloneNotHispanicOrLatino_IncomeOf35000To39999USDollar": [
-  6,
+  7,
   3,
   6,
   1,
@@ -30222,14 +30222,14 @@
   0
  ],
  "Count_Household_HouseholderAgeUpto25Years_IncomeOf40000To44999USDollar": [
-  6,
+  7,
   3,
   7,
   0,
   0
  ],
  "Count_Household_HouseholderAgeUpto25Years_HouseholderRaceAmericanIndianOrAlaskaNativeAlone_IncomeOf40000To44999USDollar": [
-  6,
+  7,
   3,
   7,
   1,
@@ -30238,7 +30238,7 @@
   0
  ],
  "Count_Household_HouseholderAgeUpto25Years_HouseholderRaceAsianAlone_IncomeOf40000To44999USDollar": [
-  6,
+  7,
   3,
   7,
   1,
@@ -30247,7 +30247,7 @@
   0
  ],
  "Count_Household_HouseholderAgeUpto25Years_HouseholderRaceBlackOrAfricanAmericanAlone_IncomeOf40000To44999USDollar": [
-  6,
+  7,
   3,
   7,
   1,
@@ -30256,7 +30256,7 @@
   0
  ],
  "Count_Household_HouseholderAgeUpto25Years_HouseholderRaceHispanicOrLatino_IncomeOf40000To44999USDollar": [
-  6,
+  7,
   3,
   7,
   1,
@@ -30265,7 +30265,7 @@
   0
  ],
  "Count_Household_HouseholderAgeUpto25Years_HouseholderRaceNativeHawaiianOrOtherPacificIslanderAlone_IncomeOf40000To44999USDollar": [
-  6,
+  7,
   3,
   7,
   1,
@@ -30274,7 +30274,7 @@
   0
  ],
  "Count_Household_HouseholderAgeUpto25Years_HouseholderRaceSomeOtherRaceAlone_IncomeOf40000To44999USDollar": [
-  6,
+  7,
   3,
   7,
   1,
@@ -30283,7 +30283,7 @@
   0
  ],
  "Count_Household_HouseholderAgeUpto25Years_HouseholderRaceTwoOrMoreRaces_IncomeOf40000To44999USDollar": [
-  6,
+  7,
   3,
   7,
   1,
@@ -30292,7 +30292,7 @@
   0
  ],
  "Count_Household_HouseholderAgeUpto25Years_HouseholderRaceWhiteAlone_IncomeOf40000To44999USDollar": [
-  6,
+  7,
   3,
   7,
   1,
@@ -30301,7 +30301,7 @@
   0
  ],
  "Count_Household_HouseholderAgeUpto25Years_HouseholderRaceWhiteAloneNotHispanicOrLatino_IncomeOf40000To44999USDollar": [
-  6,
+  7,
   3,
   7,
   1,
@@ -30310,14 +30310,14 @@
   0
  ],
  "Count_Household_HouseholderAgeUpto25Years_IncomeOf45000To49999USDollar": [
-  6,
+  7,
   3,
   8,
   0,
   0
  ],
  "Count_Household_HouseholderAgeUpto25Years_HouseholderRaceAmericanIndianOrAlaskaNativeAlone_IncomeOf45000To49999USDollar": [
-  6,
+  7,
   3,
   8,
   1,
@@ -30326,7 +30326,7 @@
   0
  ],
  "Count_Household_HouseholderAgeUpto25Years_HouseholderRaceAsianAlone_IncomeOf45000To49999USDollar": [
-  6,
+  7,
   3,
   8,
   1,
@@ -30335,7 +30335,7 @@
   0
  ],
  "Count_Household_HouseholderAgeUpto25Years_HouseholderRaceBlackOrAfricanAmericanAlone_IncomeOf45000To49999USDollar": [
-  6,
+  7,
   3,
   8,
   1,
@@ -30344,7 +30344,7 @@
   0
  ],
  "Count_Household_HouseholderAgeUpto25Years_HouseholderRaceHispanicOrLatino_IncomeOf45000To49999USDollar": [
-  6,
+  7,
   3,
   8,
   1,
@@ -30353,7 +30353,7 @@
   0
  ],
  "Count_Household_HouseholderAgeUpto25Years_HouseholderRaceNativeHawaiianOrOtherPacificIslanderAlone_IncomeOf45000To49999USDollar": [
-  6,
+  7,
   3,
   8,
   1,
@@ -30362,7 +30362,7 @@
   0
  ],
  "Count_Household_HouseholderAgeUpto25Years_HouseholderRaceSomeOtherRaceAlone_IncomeOf45000To49999USDollar": [
-  6,
+  7,
   3,
   8,
   1,
@@ -30371,7 +30371,7 @@
   0
  ],
  "Count_Household_HouseholderAgeUpto25Years_HouseholderRaceTwoOrMoreRaces_IncomeOf45000To49999USDollar": [
-  6,
+  7,
   3,
   8,
   1,
@@ -30380,7 +30380,7 @@
   0
  ],
  "Count_Household_HouseholderAgeUpto25Years_HouseholderRaceWhiteAlone_IncomeOf45000To49999USDollar": [
-  6,
+  7,
   3,
   8,
   1,
@@ -30389,7 +30389,7 @@
   0
  ],
  "Count_Household_HouseholderAgeUpto25Years_HouseholderRaceWhiteAloneNotHispanicOrLatino_IncomeOf45000To49999USDollar": [
-  6,
+  7,
   3,
   8,
   1,
@@ -30398,14 +30398,14 @@
   0
  ],
  "Count_Household_HouseholderAgeUpto25Years_IncomeOf50000To59999USDollar": [
-  6,
+  7,
   3,
   9,
   0,
   0
  ],
  "Count_Household_HouseholderAgeUpto25Years_HouseholderRaceAmericanIndianOrAlaskaNativeAlone_IncomeOf50000To59999USDollar": [
-  6,
+  7,
   3,
   9,
   1,
@@ -30414,7 +30414,7 @@
   0
  ],
  "Count_Household_HouseholderAgeUpto25Years_HouseholderRaceAsianAlone_IncomeOf50000To59999USDollar": [
-  6,
+  7,
   3,
   9,
   1,
@@ -30423,7 +30423,7 @@
   0
  ],
  "Count_Household_HouseholderAgeUpto25Years_HouseholderRaceBlackOrAfricanAmericanAlone_IncomeOf50000To59999USDollar": [
-  6,
+  7,
   3,
   9,
   1,
@@ -30432,7 +30432,7 @@
   0
  ],
  "Count_Household_HouseholderAgeUpto25Years_HouseholderRaceHispanicOrLatino_IncomeOf50000To59999USDollar": [
-  6,
+  7,
   3,
   9,
   1,
@@ -30441,7 +30441,7 @@
   0
  ],
  "Count_Household_HouseholderAgeUpto25Years_HouseholderRaceNativeHawaiianOrOtherPacificIslanderAlone_IncomeOf50000To59999USDollar": [
-  6,
+  7,
   3,
   9,
   1,
@@ -30450,7 +30450,7 @@
   0
  ],
  "Count_Household_HouseholderAgeUpto25Years_HouseholderRaceSomeOtherRaceAlone_IncomeOf50000To59999USDollar": [
-  6,
+  7,
   3,
   9,
   1,
@@ -30459,7 +30459,7 @@
   0
  ],
  "Count_Household_HouseholderAgeUpto25Years_HouseholderRaceTwoOrMoreRaces_IncomeOf50000To59999USDollar": [
-  6,
+  7,
   3,
   9,
   1,
@@ -30468,7 +30468,7 @@
   0
  ],
  "Count_Household_HouseholderAgeUpto25Years_HouseholderRaceWhiteAlone_IncomeOf50000To59999USDollar": [
-  6,
+  7,
   3,
   9,
   1,
@@ -30477,7 +30477,7 @@
   0
  ],
  "Count_Household_HouseholderAgeUpto25Years_HouseholderRaceWhiteAloneNotHispanicOrLatino_IncomeOf50000To59999USDollar": [
-  6,
+  7,
   3,
   9,
   1,
@@ -30486,14 +30486,14 @@
   0
  ],
  "Count_Household_HouseholderAgeUpto25Years_IncomeOf60000To74999USDollar": [
-  6,
+  7,
   3,
   10,
   0,
   0
  ],
  "Count_Household_HouseholderAgeUpto25Years_HouseholderRaceAmericanIndianOrAlaskaNativeAlone_IncomeOf60000To74999USDollar": [
-  6,
+  7,
   3,
   10,
   1,
@@ -30502,7 +30502,7 @@
   0
  ],
  "Count_Household_HouseholderAgeUpto25Years_HouseholderRaceAsianAlone_IncomeOf60000To74999USDollar": [
-  6,
+  7,
   3,
   10,
   1,
@@ -30511,7 +30511,7 @@
   0
  ],
  "Count_Household_HouseholderAgeUpto25Years_HouseholderRaceBlackOrAfricanAmericanAlone_IncomeOf60000To74999USDollar": [
-  6,
+  7,
   3,
   10,
   1,
@@ -30520,7 +30520,7 @@
   0
  ],
  "Count_Household_HouseholderAgeUpto25Years_HouseholderRaceHispanicOrLatino_IncomeOf60000To74999USDollar": [
-  6,
+  7,
   3,
   10,
   1,
@@ -30529,7 +30529,7 @@
   0
  ],
  "Count_Household_HouseholderAgeUpto25Years_HouseholderRaceNativeHawaiianOrOtherPacificIslanderAlone_IncomeOf60000To74999USDollar": [
-  6,
+  7,
   3,
   10,
   1,
@@ -30538,7 +30538,7 @@
   0
  ],
  "Count_Household_HouseholderAgeUpto25Years_HouseholderRaceSomeOtherRaceAlone_IncomeOf60000To74999USDollar": [
-  6,
+  7,
   3,
   10,
   1,
@@ -30547,7 +30547,7 @@
   0
  ],
  "Count_Household_HouseholderAgeUpto25Years_HouseholderRaceTwoOrMoreRaces_IncomeOf60000To74999USDollar": [
-  6,
+  7,
   3,
   10,
   1,
@@ -30556,7 +30556,7 @@
   0
  ],
  "Count_Household_HouseholderAgeUpto25Years_HouseholderRaceWhiteAlone_IncomeOf60000To74999USDollar": [
-  6,
+  7,
   3,
   10,
   1,
@@ -30565,7 +30565,7 @@
   0
  ],
  "Count_Household_HouseholderAgeUpto25Years_HouseholderRaceWhiteAloneNotHispanicOrLatino_IncomeOf60000To74999USDollar": [
-  6,
+  7,
   3,
   10,
   1,
@@ -30574,14 +30574,14 @@
   0
  ],
  "Count_Household_HouseholderAgeUpto25Years_IncomeOf75000To99999USDollar": [
-  6,
+  7,
   3,
   11,
   0,
   0
  ],
  "Count_Household_HouseholderAgeUpto25Years_HouseholderRaceAmericanIndianOrAlaskaNativeAlone_IncomeOf75000To99999USDollar": [
-  6,
+  7,
   3,
   11,
   1,
@@ -30590,7 +30590,7 @@
   0
  ],
  "Count_Household_HouseholderAgeUpto25Years_HouseholderRaceAsianAlone_IncomeOf75000To99999USDollar": [
-  6,
+  7,
   3,
   11,
   1,
@@ -30599,7 +30599,7 @@
   0
  ],
  "Count_Household_HouseholderAgeUpto25Years_HouseholderRaceBlackOrAfricanAmericanAlone_IncomeOf75000To99999USDollar": [
-  6,
+  7,
   3,
   11,
   1,
@@ -30608,7 +30608,7 @@
   0
  ],
  "Count_Household_HouseholderAgeUpto25Years_HouseholderRaceHispanicOrLatino_IncomeOf75000To99999USDollar": [
-  6,
+  7,
   3,
   11,
   1,
@@ -30617,7 +30617,7 @@
   0
  ],
  "Count_Household_HouseholderAgeUpto25Years_HouseholderRaceNativeHawaiianOrOtherPacificIslanderAlone_IncomeOf75000To99999USDollar": [
-  6,
+  7,
   3,
   11,
   1,
@@ -30626,7 +30626,7 @@
   0
  ],
  "Count_Household_HouseholderAgeUpto25Years_HouseholderRaceSomeOtherRaceAlone_IncomeOf75000To99999USDollar": [
-  6,
+  7,
   3,
   11,
   1,
@@ -30635,7 +30635,7 @@
   0
  ],
  "Count_Household_HouseholderAgeUpto25Years_HouseholderRaceTwoOrMoreRaces_IncomeOf75000To99999USDollar": [
-  6,
+  7,
   3,
   11,
   1,
@@ -30644,7 +30644,7 @@
   0
  ],
  "Count_Household_HouseholderAgeUpto25Years_HouseholderRaceWhiteAlone_IncomeOf75000To99999USDollar": [
-  6,
+  7,
   3,
   11,
   1,
@@ -30653,7 +30653,7 @@
   0
  ],
  "Count_Household_HouseholderAgeUpto25Years_HouseholderRaceWhiteAloneNotHispanicOrLatino_IncomeOf75000To99999USDollar": [
-  6,
+  7,
   3,
   11,
   1,
@@ -30662,14 +30662,14 @@
   0
  ],
  "Count_Household_HouseholderAgeUpto25Years_IncomeOf100000To124999USDollar": [
-  6,
+  7,
   3,
   12,
   0,
   0
  ],
  "Count_Household_HouseholderAgeUpto25Years_HouseholderRaceAmericanIndianOrAlaskaNativeAlone_IncomeOf100000To124999USDollar": [
-  6,
+  7,
   3,
   12,
   1,
@@ -30678,7 +30678,7 @@
   0
  ],
  "Count_Household_HouseholderAgeUpto25Years_HouseholderRaceAsianAlone_IncomeOf100000To124999USDollar": [
-  6,
+  7,
   3,
   12,
   1,
@@ -30687,7 +30687,7 @@
   0
  ],
  "Count_Household_HouseholderAgeUpto25Years_HouseholderRaceBlackOrAfricanAmericanAlone_IncomeOf100000To124999USDollar": [
-  6,
+  7,
   3,
   12,
   1,
@@ -30696,7 +30696,7 @@
   0
  ],
  "Count_Household_HouseholderAgeUpto25Years_HouseholderRaceHispanicOrLatino_IncomeOf100000To124999USDollar": [
-  6,
+  7,
   3,
   12,
   1,
@@ -30705,7 +30705,7 @@
   0
  ],
  "Count_Household_HouseholderAgeUpto25Years_HouseholderRaceNativeHawaiianOrOtherPacificIslanderAlone_IncomeOf100000To124999USDollar": [
-  6,
+  7,
   3,
   12,
   1,
@@ -30714,7 +30714,7 @@
   0
  ],
  "Count_Household_HouseholderAgeUpto25Years_HouseholderRaceSomeOtherRaceAlone_IncomeOf100000To124999USDollar": [
-  6,
+  7,
   3,
   12,
   1,
@@ -30723,7 +30723,7 @@
   0
  ],
  "Count_Household_HouseholderAgeUpto25Years_HouseholderRaceTwoOrMoreRaces_IncomeOf100000To124999USDollar": [
-  6,
+  7,
   3,
   12,
   1,
@@ -30732,7 +30732,7 @@
   0
  ],
  "Count_Household_HouseholderAgeUpto25Years_HouseholderRaceWhiteAlone_IncomeOf100000To124999USDollar": [
-  6,
+  7,
   3,
   12,
   1,
@@ -30741,7 +30741,7 @@
   0
  ],
  "Count_Household_HouseholderAgeUpto25Years_HouseholderRaceWhiteAloneNotHispanicOrLatino_IncomeOf100000To124999USDollar": [
-  6,
+  7,
   3,
   12,
   1,
@@ -30750,14 +30750,14 @@
   0
  ],
  "Count_Household_HouseholderAgeUpto25Years_IncomeOf125000To149999USDollar": [
-  6,
+  7,
   3,
   13,
   0,
   0
  ],
  "Count_Household_HouseholderAgeUpto25Years_HouseholderRaceAmericanIndianOrAlaskaNativeAlone_IncomeOf125000To149999USDollar": [
-  6,
+  7,
   3,
   13,
   1,
@@ -30766,7 +30766,7 @@
   0
  ],
  "Count_Household_HouseholderAgeUpto25Years_HouseholderRaceAsianAlone_IncomeOf125000To149999USDollar": [
-  6,
+  7,
   3,
   13,
   1,
@@ -30775,7 +30775,7 @@
   0
  ],
  "Count_Household_HouseholderAgeUpto25Years_HouseholderRaceBlackOrAfricanAmericanAlone_IncomeOf125000To149999USDollar": [
-  6,
+  7,
   3,
   13,
   1,
@@ -30784,7 +30784,7 @@
   0
  ],
  "Count_Household_HouseholderAgeUpto25Years_HouseholderRaceHispanicOrLatino_IncomeOf125000To149999USDollar": [
-  6,
+  7,
   3,
   13,
   1,
@@ -30793,7 +30793,7 @@
   0
  ],
  "Count_Household_HouseholderAgeUpto25Years_HouseholderRaceNativeHawaiianOrOtherPacificIslanderAlone_IncomeOf125000To149999USDollar": [
-  6,
+  7,
   3,
   13,
   1,
@@ -30802,7 +30802,7 @@
   0
  ],
  "Count_Household_HouseholderAgeUpto25Years_HouseholderRaceSomeOtherRaceAlone_IncomeOf125000To149999USDollar": [
-  6,
+  7,
   3,
   13,
   1,
@@ -30811,7 +30811,7 @@
   0
  ],
  "Count_Household_HouseholderAgeUpto25Years_HouseholderRaceTwoOrMoreRaces_IncomeOf125000To149999USDollar": [
-  6,
+  7,
   3,
   13,
   1,
@@ -30820,7 +30820,7 @@
   0
  ],
  "Count_Household_HouseholderAgeUpto25Years_HouseholderRaceWhiteAlone_IncomeOf125000To149999USDollar": [
-  6,
+  7,
   3,
   13,
   1,
@@ -30829,7 +30829,7 @@
   0
  ],
  "Count_Household_HouseholderAgeUpto25Years_HouseholderRaceWhiteAloneNotHispanicOrLatino_IncomeOf125000To149999USDollar": [
-  6,
+  7,
   3,
   13,
   1,
@@ -30838,14 +30838,14 @@
   0
  ],
  "Count_Household_HouseholderAgeUpto25Years_IncomeOf150000To199999USDollar": [
-  6,
+  7,
   3,
   14,
   0,
   0
  ],
  "Count_Household_HouseholderAgeUpto25Years_HouseholderRaceAmericanIndianOrAlaskaNativeAlone_IncomeOf150000To199999USDollar": [
-  6,
+  7,
   3,
   14,
   1,
@@ -30854,7 +30854,7 @@
   0
  ],
  "Count_Household_HouseholderAgeUpto25Years_HouseholderRaceAsianAlone_IncomeOf150000To199999USDollar": [
-  6,
+  7,
   3,
   14,
   1,
@@ -30863,7 +30863,7 @@
   0
  ],
  "Count_Household_HouseholderAgeUpto25Years_HouseholderRaceBlackOrAfricanAmericanAlone_IncomeOf150000To199999USDollar": [
-  6,
+  7,
   3,
   14,
   1,
@@ -30872,7 +30872,7 @@
   0
  ],
  "Count_Household_HouseholderAgeUpto25Years_HouseholderRaceHispanicOrLatino_IncomeOf150000To199999USDollar": [
-  6,
+  7,
   3,
   14,
   1,
@@ -30881,7 +30881,7 @@
   0
  ],
  "Count_Household_HouseholderAgeUpto25Years_HouseholderRaceNativeHawaiianOrOtherPacificIslanderAlone_IncomeOf150000To199999USDollar": [
-  6,
+  7,
   3,
   14,
   1,
@@ -30890,7 +30890,7 @@
   0
  ],
  "Count_Household_HouseholderAgeUpto25Years_HouseholderRaceSomeOtherRaceAlone_IncomeOf150000To199999USDollar": [
-  6,
+  7,
   3,
   14,
   1,
@@ -30899,7 +30899,7 @@
   0
  ],
  "Count_Household_HouseholderAgeUpto25Years_HouseholderRaceTwoOrMoreRaces_IncomeOf150000To199999USDollar": [
-  6,
+  7,
   3,
   14,
   1,
@@ -30908,7 +30908,7 @@
   0
  ],
  "Count_Household_HouseholderAgeUpto25Years_HouseholderRaceWhiteAlone_IncomeOf150000To199999USDollar": [
-  6,
+  7,
   3,
   14,
   1,
@@ -30917,7 +30917,7 @@
   0
  ],
  "Count_Household_HouseholderAgeUpto25Years_HouseholderRaceWhiteAloneNotHispanicOrLatino_IncomeOf150000To199999USDollar": [
-  6,
+  7,
   3,
   14,
   1,
@@ -30926,14 +30926,14 @@
   0
  ],
  "Count_Household_HouseholderAgeUpto25Years_IncomeOf200000OrMoreUSDollar": [
-  6,
+  7,
   3,
   15,
   0,
   0
  ],
  "Count_Household_HouseholderAgeUpto25Years_HouseholderRaceAmericanIndianOrAlaskaNativeAlone_IncomeOf200000OrMoreUSDollar": [
-  6,
+  7,
   3,
   15,
   1,
@@ -30942,7 +30942,7 @@
   0
  ],
  "Count_Household_HouseholderAgeUpto25Years_HouseholderRaceAsianAlone_IncomeOf200000OrMoreUSDollar": [
-  6,
+  7,
   3,
   15,
   1,
@@ -30951,7 +30951,7 @@
   0
  ],
  "Count_Household_HouseholderAgeUpto25Years_HouseholderRaceBlackOrAfricanAmericanAlone_IncomeOf200000OrMoreUSDollar": [
-  6,
+  7,
   3,
   15,
   1,
@@ -30960,7 +30960,7 @@
   0
  ],
  "Count_Household_HouseholderAgeUpto25Years_HouseholderRaceHispanicOrLatino_IncomeOf200000OrMoreUSDollar": [
-  6,
+  7,
   3,
   15,
   1,
@@ -30969,7 +30969,7 @@
   0
  ],
  "Count_Household_HouseholderAgeUpto25Years_HouseholderRaceNativeHawaiianOrOtherPacificIslanderAlone_IncomeOf200000OrMoreUSDollar": [
-  6,
+  7,
   3,
   15,
   1,
@@ -30978,7 +30978,7 @@
   0
  ],
  "Count_Household_HouseholderAgeUpto25Years_HouseholderRaceSomeOtherRaceAlone_IncomeOf200000OrMoreUSDollar": [
-  6,
+  7,
   3,
   15,
   1,
@@ -30987,7 +30987,7 @@
   0
  ],
  "Count_Household_HouseholderAgeUpto25Years_HouseholderRaceTwoOrMoreRaces_IncomeOf200000OrMoreUSDollar": [
-  6,
+  7,
   3,
   15,
   1,
@@ -30996,7 +30996,7 @@
   0
  ],
  "Count_Household_HouseholderAgeUpto25Years_HouseholderRaceWhiteAlone_IncomeOf200000OrMoreUSDollar": [
-  6,
+  7,
   3,
   15,
   1,
@@ -31005,7 +31005,7 @@
   0
  ],
  "Count_Household_HouseholderAgeUpto25Years_HouseholderRaceWhiteAloneNotHispanicOrLatino_IncomeOf200000OrMoreUSDollar": [
-  6,
+  7,
   3,
   15,
   1,
@@ -31014,82 +31014,82 @@
   0
  ],
  "Count_Household_HouseholderAgeUpto25Years_HouseholderRaceAmericanIndianOrAlaskaNativeAlone": [
-  6,
+  7,
   2,
   0,
   1,
   0
  ],
  "Count_Household_HouseholderAgeUpto25Years_HouseholderRaceAsianAlone": [
-  6,
+  7,
   2,
   1,
   1,
   0
  ],
  "Count_Household_HouseholderAgeUpto25Years_HouseholderRaceBlackOrAfricanAmericanAlone": [
-  6,
+  7,
   2,
   2,
   1,
   0
  ],
  "Count_Household_HouseholderAgeUpto25Years_HouseholderRaceHispanicOrLatino": [
-  6,
+  7,
   2,
   3,
   1,
   0
  ],
  "Count_Household_HouseholderAgeUpto25Years_HouseholderRaceNativeHawaiianOrOtherPacificIslanderAlone": [
-  6,
+  7,
   2,
   4,
   1,
   0
  ],
  "Count_Household_HouseholderAgeUpto25Years_HouseholderRaceSomeOtherRaceAlone": [
-  6,
+  7,
   2,
   5,
   1,
   0
  ],
  "Count_Household_HouseholderAgeUpto25Years_HouseholderRaceTwoOrMoreRaces": [
-  6,
+  7,
   2,
   6,
   1,
   0
  ],
  "Count_Household_HouseholderAgeUpto25Years_HouseholderRaceWhiteAlone": [
-  6,
+  7,
   2,
   7,
   1,
   0
  ],
  "Count_Household_HouseholderAgeUpto25Years_HouseholderRaceWhiteAloneNotHispanicOrLatino": [
-  6,
+  7,
   2,
   8,
   1,
   0
  ],
  "Count_Household_HouseholderAge25To44Years": [
-  6,
+  7,
   1,
   1
  ],
  "Count_Household_HouseholderAge25To44Years_IncomeOfUpto10000USDollar": [
-  6,
+  7,
   3,
   0,
   0,
   1
  ],
  "Count_Household_HouseholderAge25To44Years_HouseholderRaceAmericanIndianOrAlaskaNativeAlone_IncomeOfUpto10000USDollar": [
-  6,
+  7,
   3,
   0,
   1,
@@ -31098,7 +31098,7 @@
   1
  ],
  "Count_Household_HouseholderAge25To44Years_HouseholderRaceAsianAlone_IncomeOfUpto10000USDollar": [
-  6,
+  7,
   3,
   0,
   1,
@@ -31107,7 +31107,7 @@
   1
  ],
  "Count_Household_HouseholderAge25To44Years_HouseholderRaceBlackOrAfricanAmericanAlone_IncomeOfUpto10000USDollar": [
-  6,
+  7,
   3,
   0,
   1,
@@ -31116,7 +31116,7 @@
   1
  ],
  "Count_Household_HouseholderAge25To44Years_HouseholderRaceHispanicOrLatino_IncomeOfUpto10000USDollar": [
-  6,
+  7,
   3,
   0,
   1,
@@ -31125,7 +31125,7 @@
   1
  ],
  "Count_Household_HouseholderAge25To44Years_HouseholderRaceNativeHawaiianOrOtherPacificIslanderAlone_IncomeOfUpto10000USDollar": [
-  6,
+  7,
   3,
   0,
   1,
@@ -31134,7 +31134,7 @@
   1
  ],
  "Count_Household_HouseholderAge25To44Years_HouseholderRaceSomeOtherRaceAlone_IncomeOfUpto10000USDollar": [
-  6,
+  7,
   3,
   0,
   1,
@@ -31143,7 +31143,7 @@
   1
  ],
  "Count_Household_HouseholderAge25To44Years_HouseholderRaceTwoOrMoreRaces_IncomeOfUpto10000USDollar": [
-  6,
+  7,
   3,
   0,
   1,
@@ -31152,7 +31152,7 @@
   1
  ],
  "Count_Household_HouseholderAge25To44Years_HouseholderRaceWhiteAlone_IncomeOfUpto10000USDollar": [
-  6,
+  7,
   3,
   0,
   1,
@@ -31161,7 +31161,7 @@
   1
  ],
  "Count_Household_HouseholderAge25To44Years_HouseholderRaceWhiteAloneNotHispanicOrLatino_IncomeOfUpto10000USDollar": [
-  6,
+  7,
   3,
   0,
   1,
@@ -31170,14 +31170,14 @@
   1
  ],
  "Count_Household_HouseholderAge25To44Years_IncomeOf10000To14999USDollar": [
-  6,
+  7,
   3,
   1,
   0,
   1
  ],
  "Count_Household_HouseholderAge25To44Years_HouseholderRaceAmericanIndianOrAlaskaNativeAlone_IncomeOf10000To14999USDollar": [
-  6,
+  7,
   3,
   1,
   1,
@@ -31186,7 +31186,7 @@
   1
  ],
  "Count_Household_HouseholderAge25To44Years_HouseholderRaceAsianAlone_IncomeOf10000To14999USDollar": [
-  6,
+  7,
   3,
   1,
   1,
@@ -31195,7 +31195,7 @@
   1
  ],
  "Count_Household_HouseholderAge25To44Years_HouseholderRaceBlackOrAfricanAmericanAlone_IncomeOf10000To14999USDollar": [
-  6,
+  7,
   3,
   1,
   1,
@@ -31204,7 +31204,7 @@
   1
  ],
  "Count_Household_HouseholderAge25To44Years_HouseholderRaceHispanicOrLatino_IncomeOf10000To14999USDollar": [
-  6,
+  7,
   3,
   1,
   1,
@@ -31213,7 +31213,7 @@
   1
  ],
  "Count_Household_HouseholderAge25To44Years_HouseholderRaceNativeHawaiianOrOtherPacificIslanderAlone_IncomeOf10000To14999USDollar": [
-  6,
+  7,
   3,
   1,
   1,
@@ -31222,7 +31222,7 @@
   1
  ],
  "Count_Household_HouseholderAge25To44Years_HouseholderRaceSomeOtherRaceAlone_IncomeOf10000To14999USDollar": [
-  6,
+  7,
   3,
   1,
   1,
@@ -31231,7 +31231,7 @@
   1
  ],
  "Count_Household_HouseholderAge25To44Years_HouseholderRaceTwoOrMoreRaces_IncomeOf10000To14999USDollar": [
-  6,
+  7,
   3,
   1,
   1,
@@ -31240,7 +31240,7 @@
   1
  ],
  "Count_Household_HouseholderAge25To44Years_HouseholderRaceWhiteAlone_IncomeOf10000To14999USDollar": [
-  6,
+  7,
   3,
   1,
   1,
@@ -31249,7 +31249,7 @@
   1
  ],
  "Count_Household_HouseholderAge25To44Years_HouseholderRaceWhiteAloneNotHispanicOrLatino_IncomeOf10000To14999USDollar": [
-  6,
+  7,
   3,
   1,
   1,
@@ -31258,14 +31258,14 @@
   1
  ],
  "Count_Household_HouseholderAge25To44Years_IncomeOf15000To19999USDollar": [
-  6,
+  7,
   3,
   2,
   0,
   1
  ],
  "Count_Household_HouseholderAge25To44Years_HouseholderRaceAmericanIndianOrAlaskaNativeAlone_IncomeOf15000To19999USDollar": [
-  6,
+  7,
   3,
   2,
   1,
@@ -31274,7 +31274,7 @@
   1
  ],
  "Count_Household_HouseholderAge25To44Years_HouseholderRaceAsianAlone_IncomeOf15000To19999USDollar": [
-  6,
+  7,
   3,
   2,
   1,
@@ -31283,7 +31283,7 @@
   1
  ],
  "Count_Household_HouseholderAge25To44Years_HouseholderRaceBlackOrAfricanAmericanAlone_IncomeOf15000To19999USDollar": [
-  6,
+  7,
   3,
   2,
   1,
@@ -31292,7 +31292,7 @@
   1
  ],
  "Count_Household_HouseholderAge25To44Years_HouseholderRaceHispanicOrLatino_IncomeOf15000To19999USDollar": [
-  6,
+  7,
   3,
   2,
   1,
@@ -31301,7 +31301,7 @@
   1
  ],
  "Count_Household_HouseholderAge25To44Years_HouseholderRaceNativeHawaiianOrOtherPacificIslanderAlone_IncomeOf15000To19999USDollar": [
-  6,
+  7,
   3,
   2,
   1,
@@ -31310,7 +31310,7 @@
   1
  ],
  "Count_Household_HouseholderAge25To44Years_HouseholderRaceSomeOtherRaceAlone_IncomeOf15000To19999USDollar": [
-  6,
+  7,
   3,
   2,
   1,
@@ -31319,7 +31319,7 @@
   1
  ],
  "Count_Household_HouseholderAge25To44Years_HouseholderRaceTwoOrMoreRaces_IncomeOf15000To19999USDollar": [
-  6,
+  7,
   3,
   2,
   1,
@@ -31328,7 +31328,7 @@
   1
  ],
  "Count_Household_HouseholderAge25To44Years_HouseholderRaceWhiteAlone_IncomeOf15000To19999USDollar": [
-  6,
+  7,
   3,
   2,
   1,
@@ -31337,7 +31337,7 @@
   1
  ],
  "Count_Household_HouseholderAge25To44Years_HouseholderRaceWhiteAloneNotHispanicOrLatino_IncomeOf15000To19999USDollar": [
-  6,
+  7,
   3,
   2,
   1,
@@ -31346,14 +31346,14 @@
   1
  ],
  "Count_Household_HouseholderAge25To44Years_IncomeOf20000To24999USDollar": [
-  6,
+  7,
   3,
   3,
   0,
   1
  ],
  "Count_Household_HouseholderAge25To44Years_HouseholderRaceAmericanIndianOrAlaskaNativeAlone_IncomeOf20000To24999USDollar": [
-  6,
+  7,
   3,
   3,
   1,
@@ -31362,7 +31362,7 @@
   1
  ],
  "Count_Household_HouseholderAge25To44Years_HouseholderRaceAsianAlone_IncomeOf20000To24999USDollar": [
-  6,
+  7,
   3,
   3,
   1,
@@ -31371,7 +31371,7 @@
   1
  ],
  "Count_Household_HouseholderAge25To44Years_HouseholderRaceBlackOrAfricanAmericanAlone_IncomeOf20000To24999USDollar": [
-  6,
+  7,
   3,
   3,
   1,
@@ -31380,7 +31380,7 @@
   1
  ],
  "Count_Household_HouseholderAge25To44Years_HouseholderRaceHispanicOrLatino_IncomeOf20000To24999USDollar": [
-  6,
+  7,
   3,
   3,
   1,
@@ -31389,7 +31389,7 @@
   1
  ],
  "Count_Household_HouseholderAge25To44Years_HouseholderRaceNativeHawaiianOrOtherPacificIslanderAlone_IncomeOf20000To24999USDollar": [
-  6,
+  7,
   3,
   3,
   1,
@@ -31398,7 +31398,7 @@
   1
  ],
  "Count_Household_HouseholderAge25To44Years_HouseholderRaceSomeOtherRaceAlone_IncomeOf20000To24999USDollar": [
-  6,
+  7,
   3,
   3,
   1,
@@ -31407,7 +31407,7 @@
   1
  ],
  "Count_Household_HouseholderAge25To44Years_HouseholderRaceTwoOrMoreRaces_IncomeOf20000To24999USDollar": [
-  6,
+  7,
   3,
   3,
   1,
@@ -31416,7 +31416,7 @@
   1
  ],
  "Count_Household_HouseholderAge25To44Years_HouseholderRaceWhiteAlone_IncomeOf20000To24999USDollar": [
-  6,
+  7,
   3,
   3,
   1,
@@ -31425,7 +31425,7 @@
   1
  ],
  "Count_Household_HouseholderAge25To44Years_HouseholderRaceWhiteAloneNotHispanicOrLatino_IncomeOf20000To24999USDollar": [
-  6,
+  7,
   3,
   3,
   1,
@@ -31434,14 +31434,14 @@
   1
  ],
  "Count_Household_HouseholderAge25To44Years_IncomeOf25000To29999USDollar": [
-  6,
+  7,
   3,
   4,
   0,
   1
  ],
  "Count_Household_HouseholderAge25To44Years_HouseholderRaceAmericanIndianOrAlaskaNativeAlone_IncomeOf25000To29999USDollar": [
-  6,
+  7,
   3,
   4,
   1,
@@ -31450,7 +31450,7 @@
   1
  ],
  "Count_Household_HouseholderAge25To44Years_HouseholderRaceAsianAlone_IncomeOf25000To29999USDollar": [
-  6,
+  7,
   3,
   4,
   1,
@@ -31459,7 +31459,7 @@
   1
  ],
  "Count_Household_HouseholderAge25To44Years_HouseholderRaceBlackOrAfricanAmericanAlone_IncomeOf25000To29999USDollar": [
-  6,
+  7,
   3,
   4,
   1,
@@ -31468,7 +31468,7 @@
   1
  ],
  "Count_Household_HouseholderAge25To44Years_HouseholderRaceHispanicOrLatino_IncomeOf25000To29999USDollar": [
-  6,
+  7,
   3,
   4,
   1,
@@ -31477,7 +31477,7 @@
   1
  ],
  "Count_Household_HouseholderAge25To44Years_HouseholderRaceNativeHawaiianOrOtherPacificIslanderAlone_IncomeOf25000To29999USDollar": [
-  6,
+  7,
   3,
   4,
   1,
@@ -31486,7 +31486,7 @@
   1
  ],
  "Count_Household_HouseholderAge25To44Years_HouseholderRaceSomeOtherRaceAlone_IncomeOf25000To29999USDollar": [
-  6,
+  7,
   3,
   4,
   1,
@@ -31495,7 +31495,7 @@
   1
  ],
  "Count_Household_HouseholderAge25To44Years_HouseholderRaceTwoOrMoreRaces_IncomeOf25000To29999USDollar": [
-  6,
+  7,
   3,
   4,
   1,
@@ -31504,7 +31504,7 @@
   1
  ],
  "Count_Household_HouseholderAge25To44Years_HouseholderRaceWhiteAlone_IncomeOf25000To29999USDollar": [
-  6,
+  7,
   3,
   4,
   1,
@@ -31513,7 +31513,7 @@
   1
  ],
  "Count_Household_HouseholderAge25To44Years_HouseholderRaceWhiteAloneNotHispanicOrLatino_IncomeOf25000To29999USDollar": [
-  6,
+  7,
   3,
   4,
   1,
@@ -31522,14 +31522,14 @@
   1
  ],
  "Count_Household_HouseholderAge25To44Years_IncomeOf30000To34999USDollar": [
-  6,
+  7,
   3,
   5,
   0,
   1
  ],
  "Count_Household_HouseholderAge25To44Years_HouseholderRaceAmericanIndianOrAlaskaNativeAlone_IncomeOf30000To34999USDollar": [
-  6,
+  7,
   3,
   5,
   1,
@@ -31538,7 +31538,7 @@
   1
  ],
  "Count_Household_HouseholderAge25To44Years_HouseholderRaceAsianAlone_IncomeOf30000To34999USDollar": [
-  6,
+  7,
   3,
   5,
   1,
@@ -31547,7 +31547,7 @@
   1
  ],
  "Count_Household_HouseholderAge25To44Years_HouseholderRaceBlackOrAfricanAmericanAlone_IncomeOf30000To34999USDollar": [
-  6,
+  7,
   3,
   5,
   1,
@@ -31556,7 +31556,7 @@
   1
  ],
  "Count_Household_HouseholderAge25To44Years_HouseholderRaceHispanicOrLatino_IncomeOf30000To34999USDollar": [
-  6,
+  7,
   3,
   5,
   1,
@@ -31565,7 +31565,7 @@
   1
  ],
  "Count_Household_HouseholderAge25To44Years_HouseholderRaceNativeHawaiianOrOtherPacificIslanderAlone_IncomeOf30000To34999USDollar": [
-  6,
+  7,
   3,
   5,
   1,
@@ -31574,7 +31574,7 @@
   1
  ],
  "Count_Household_HouseholderAge25To44Years_HouseholderRaceSomeOtherRaceAlone_IncomeOf30000To34999USDollar": [
-  6,
+  7,
   3,
   5,
   1,
@@ -31583,7 +31583,7 @@
   1
  ],
  "Count_Household_HouseholderAge25To44Years_HouseholderRaceTwoOrMoreRaces_IncomeOf30000To34999USDollar": [
-  6,
+  7,
   3,
   5,
   1,
@@ -31592,7 +31592,7 @@
   1
  ],
  "Count_Household_HouseholderAge25To44Years_HouseholderRaceWhiteAlone_IncomeOf30000To34999USDollar": [
-  6,
+  7,
   3,
   5,
   1,
@@ -31601,7 +31601,7 @@
   1
  ],
  "Count_Household_HouseholderAge25To44Years_HouseholderRaceWhiteAloneNotHispanicOrLatino_IncomeOf30000To34999USDollar": [
-  6,
+  7,
   3,
   5,
   1,
@@ -31610,14 +31610,14 @@
   1
  ],
  "Count_Household_HouseholderAge25To44Years_IncomeOf35000To39999USDollar": [
-  6,
+  7,
   3,
   6,
   0,
   1
  ],
  "Count_Household_HouseholderAge25To44Years_HouseholderRaceAmericanIndianOrAlaskaNativeAlone_IncomeOf35000To39999USDollar": [
-  6,
+  7,
   3,
   6,
   1,
@@ -31626,7 +31626,7 @@
   1
  ],
  "Count_Household_HouseholderAge25To44Years_HouseholderRaceAsianAlone_IncomeOf35000To39999USDollar": [
-  6,
+  7,
   3,
   6,
   1,
@@ -31635,7 +31635,7 @@
   1
  ],
  "Count_Household_HouseholderAge25To44Years_HouseholderRaceBlackOrAfricanAmericanAlone_IncomeOf35000To39999USDollar": [
-  6,
+  7,
   3,
   6,
   1,
@@ -31644,7 +31644,7 @@
   1
  ],
  "Count_Household_HouseholderAge25To44Years_HouseholderRaceHispanicOrLatino_IncomeOf35000To39999USDollar": [
-  6,
+  7,
   3,
   6,
   1,
@@ -31653,7 +31653,7 @@
   1
  ],
  "Count_Household_HouseholderAge25To44Years_HouseholderRaceNativeHawaiianOrOtherPacificIslanderAlone_IncomeOf35000To39999USDollar": [
-  6,
+  7,
   3,
   6,
   1,
@@ -31662,7 +31662,7 @@
   1
  ],
  "Count_Household_HouseholderAge25To44Years_HouseholderRaceSomeOtherRaceAlone_IncomeOf35000To39999USDollar": [
-  6,
+  7,
   3,
   6,
   1,
@@ -31671,7 +31671,7 @@
   1
  ],
  "Count_Household_HouseholderAge25To44Years_HouseholderRaceTwoOrMoreRaces_IncomeOf35000To39999USDollar": [
-  6,
+  7,
   3,
   6,
   1,
@@ -31680,7 +31680,7 @@
   1
  ],
  "Count_Household_HouseholderAge25To44Years_HouseholderRaceWhiteAlone_IncomeOf35000To39999USDollar": [
-  6,
+  7,
   3,
   6,
   1,
@@ -31689,7 +31689,7 @@
   1
  ],
  "Count_Household_HouseholderAge25To44Years_HouseholderRaceWhiteAloneNotHispanicOrLatino_IncomeOf35000To39999USDollar": [
-  6,
+  7,
   3,
   6,
   1,
@@ -31698,14 +31698,14 @@
   1
  ],
  "Count_Household_HouseholderAge25To44Years_IncomeOf40000To44999USDollar": [
-  6,
+  7,
   3,
   7,
   0,
   1
  ],
  "Count_Household_HouseholderAge25To44Years_HouseholderRaceAmericanIndianOrAlaskaNativeAlone_IncomeOf40000To44999USDollar": [
-  6,
+  7,
   3,
   7,
   1,
@@ -31714,7 +31714,7 @@
   1
  ],
  "Count_Household_HouseholderAge25To44Years_HouseholderRaceAsianAlone_IncomeOf40000To44999USDollar": [
-  6,
+  7,
   3,
   7,
   1,
@@ -31723,7 +31723,7 @@
   1
  ],
  "Count_Household_HouseholderAge25To44Years_HouseholderRaceBlackOrAfricanAmericanAlone_IncomeOf40000To44999USDollar": [
-  6,
+  7,
   3,
   7,
   1,
@@ -31732,7 +31732,7 @@
   1
  ],
  "Count_Household_HouseholderAge25To44Years_HouseholderRaceHispanicOrLatino_IncomeOf40000To44999USDollar": [
-  6,
+  7,
   3,
   7,
   1,
@@ -31741,7 +31741,7 @@
   1
  ],
  "Count_Household_HouseholderAge25To44Years_HouseholderRaceNativeHawaiianOrOtherPacificIslanderAlone_IncomeOf40000To44999USDollar": [
-  6,
+  7,
   3,
   7,
   1,
@@ -31750,7 +31750,7 @@
   1
  ],
  "Count_Household_HouseholderAge25To44Years_HouseholderRaceSomeOtherRaceAlone_IncomeOf40000To44999USDollar": [
-  6,
+  7,
   3,
   7,
   1,
@@ -31759,7 +31759,7 @@
   1
  ],
  "Count_Household_HouseholderAge25To44Years_HouseholderRaceTwoOrMoreRaces_IncomeOf40000To44999USDollar": [
-  6,
+  7,
   3,
   7,
   1,
@@ -31768,7 +31768,7 @@
   1
  ],
  "Count_Household_HouseholderAge25To44Years_HouseholderRaceWhiteAlone_IncomeOf40000To44999USDollar": [
-  6,
+  7,
   3,
   7,
   1,
@@ -31777,7 +31777,7 @@
   1
  ],
  "Count_Household_HouseholderAge25To44Years_HouseholderRaceWhiteAloneNotHispanicOrLatino_IncomeOf40000To44999USDollar": [
-  6,
+  7,
   3,
   7,
   1,
@@ -31786,14 +31786,14 @@
   1
  ],
  "Count_Household_HouseholderAge25To44Years_IncomeOf45000To49999USDollar": [
-  6,
+  7,
   3,
   8,
   0,
   1
  ],
  "Count_Household_HouseholderAge25To44Years_HouseholderRaceAmericanIndianOrAlaskaNativeAlone_IncomeOf45000To49999USDollar": [
-  6,
+  7,
   3,
   8,
   1,
@@ -31802,7 +31802,7 @@
   1
  ],
  "Count_Household_HouseholderAge25To44Years_HouseholderRaceAsianAlone_IncomeOf45000To49999USDollar": [
-  6,
+  7,
   3,
   8,
   1,
@@ -31811,7 +31811,7 @@
   1
  ],
  "Count_Household_HouseholderAge25To44Years_HouseholderRaceBlackOrAfricanAmericanAlone_IncomeOf45000To49999USDollar": [
-  6,
+  7,
   3,
   8,
   1,
@@ -31820,7 +31820,7 @@
   1
  ],
  "Count_Household_HouseholderAge25To44Years_HouseholderRaceHispanicOrLatino_IncomeOf45000To49999USDollar": [
-  6,
+  7,
   3,
   8,
   1,
@@ -31829,7 +31829,7 @@
   1
  ],
  "Count_Household_HouseholderAge25To44Years_HouseholderRaceNativeHawaiianOrOtherPacificIslanderAlone_IncomeOf45000To49999USDollar": [
-  6,
+  7,
   3,
   8,
   1,
@@ -31838,7 +31838,7 @@
   1
  ],
  "Count_Household_HouseholderAge25To44Years_HouseholderRaceSomeOtherRaceAlone_IncomeOf45000To49999USDollar": [
-  6,
+  7,
   3,
   8,
   1,
@@ -31847,7 +31847,7 @@
   1
  ],
  "Count_Household_HouseholderAge25To44Years_HouseholderRaceTwoOrMoreRaces_IncomeOf45000To49999USDollar": [
-  6,
+  7,
   3,
   8,
   1,
@@ -31856,7 +31856,7 @@
   1
  ],
  "Count_Household_HouseholderAge25To44Years_HouseholderRaceWhiteAlone_IncomeOf45000To49999USDollar": [
-  6,
+  7,
   3,
   8,
   1,
@@ -31865,7 +31865,7 @@
   1
  ],
  "Count_Household_HouseholderAge25To44Years_HouseholderRaceWhiteAloneNotHispanicOrLatino_IncomeOf45000To49999USDollar": [
-  6,
+  7,
   3,
   8,
   1,
@@ -31874,14 +31874,14 @@
   1
  ],
  "Count_Household_HouseholderAge25To44Years_IncomeOf50000To59999USDollar": [
-  6,
+  7,
   3,
   9,
   0,
   1
  ],
  "Count_Household_HouseholderAge25To44Years_HouseholderRaceAmericanIndianOrAlaskaNativeAlone_IncomeOf50000To59999USDollar": [
-  6,
+  7,
   3,
   9,
   1,
@@ -31890,7 +31890,7 @@
   1
  ],
  "Count_Household_HouseholderAge25To44Years_HouseholderRaceAsianAlone_IncomeOf50000To59999USDollar": [
-  6,
+  7,
   3,
   9,
   1,
@@ -31899,7 +31899,7 @@
   1
  ],
  "Count_Household_HouseholderAge25To44Years_HouseholderRaceBlackOrAfricanAmericanAlone_IncomeOf50000To59999USDollar": [
-  6,
+  7,
   3,
   9,
   1,
@@ -31908,7 +31908,7 @@
   1
  ],
  "Count_Household_HouseholderAge25To44Years_HouseholderRaceHispanicOrLatino_IncomeOf50000To59999USDollar": [
-  6,
+  7,
   3,
   9,
   1,
@@ -31917,7 +31917,7 @@
   1
  ],
  "Count_Household_HouseholderAge25To44Years_HouseholderRaceNativeHawaiianOrOtherPacificIslanderAlone_IncomeOf50000To59999USDollar": [
-  6,
+  7,
   3,
   9,
   1,
@@ -31926,7 +31926,7 @@
   1
  ],
  "Count_Household_HouseholderAge25To44Years_HouseholderRaceSomeOtherRaceAlone_IncomeOf50000To59999USDollar": [
-  6,
+  7,
   3,
   9,
   1,
@@ -31935,7 +31935,7 @@
   1
  ],
  "Count_Household_HouseholderAge25To44Years_HouseholderRaceTwoOrMoreRaces_IncomeOf50000To59999USDollar": [
-  6,
+  7,
   3,
   9,
   1,
@@ -31944,7 +31944,7 @@
   1
  ],
  "Count_Household_HouseholderAge25To44Years_HouseholderRaceWhiteAlone_IncomeOf50000To59999USDollar": [
-  6,
+  7,
   3,
   9,
   1,
@@ -31953,7 +31953,7 @@
   1
  ],
  "Count_Household_HouseholderAge25To44Years_HouseholderRaceWhiteAloneNotHispanicOrLatino_IncomeOf50000To59999USDollar": [
-  6,
+  7,
   3,
   9,
   1,
@@ -31962,14 +31962,14 @@
   1
  ],
  "Count_Household_HouseholderAge25To44Years_IncomeOf60000To74999USDollar": [
-  6,
+  7,
   3,
   10,
   0,
   1
  ],
  "Count_Household_HouseholderAge25To44Years_HouseholderRaceAmericanIndianOrAlaskaNativeAlone_IncomeOf60000To74999USDollar": [
-  6,
+  7,
   3,
   10,
   1,
@@ -31978,7 +31978,7 @@
   1
  ],
  "Count_Household_HouseholderAge25To44Years_HouseholderRaceAsianAlone_IncomeOf60000To74999USDollar": [
-  6,
+  7,
   3,
   10,
   1,
@@ -31987,7 +31987,7 @@
   1
  ],
  "Count_Household_HouseholderAge25To44Years_HouseholderRaceBlackOrAfricanAmericanAlone_IncomeOf60000To74999USDollar": [
-  6,
+  7,
   3,
   10,
   1,
@@ -31996,7 +31996,7 @@
   1
  ],
  "Count_Household_HouseholderAge25To44Years_HouseholderRaceHispanicOrLatino_IncomeOf60000To74999USDollar": [
-  6,
+  7,
   3,
   10,
   1,
@@ -32005,7 +32005,7 @@
   1
  ],
  "Count_Household_HouseholderAge25To44Years_HouseholderRaceNativeHawaiianOrOtherPacificIslanderAlone_IncomeOf60000To74999USDollar": [
-  6,
+  7,
   3,
   10,
   1,
@@ -32014,7 +32014,7 @@
   1
  ],
  "Count_Household_HouseholderAge25To44Years_HouseholderRaceSomeOtherRaceAlone_IncomeOf60000To74999USDollar": [
-  6,
+  7,
   3,
   10,
   1,
@@ -32023,7 +32023,7 @@
   1
  ],
  "Count_Household_HouseholderAge25To44Years_HouseholderRaceTwoOrMoreRaces_IncomeOf60000To74999USDollar": [
-  6,
+  7,
   3,
   10,
   1,
@@ -32032,7 +32032,7 @@
   1
  ],
  "Count_Household_HouseholderAge25To44Years_HouseholderRaceWhiteAlone_IncomeOf60000To74999USDollar": [
-  6,
+  7,
   3,
   10,
   1,
@@ -32041,7 +32041,7 @@
   1
  ],
  "Count_Household_HouseholderAge25To44Years_HouseholderRaceWhiteAloneNotHispanicOrLatino_IncomeOf60000To74999USDollar": [
-  6,
+  7,
   3,
   10,
   1,
@@ -32050,14 +32050,14 @@
   1
  ],
  "Count_Household_HouseholderAge25To44Years_IncomeOf75000To99999USDollar": [
-  6,
+  7,
   3,
   11,
   0,
   1
  ],
  "Count_Household_HouseholderAge25To44Years_HouseholderRaceAmericanIndianOrAlaskaNativeAlone_IncomeOf75000To99999USDollar": [
-  6,
+  7,
   3,
   11,
   1,
@@ -32066,7 +32066,7 @@
   1
  ],
  "Count_Household_HouseholderAge25To44Years_HouseholderRaceAsianAlone_IncomeOf75000To99999USDollar": [
-  6,
+  7,
   3,
   11,
   1,
@@ -32075,7 +32075,7 @@
   1
  ],
  "Count_Household_HouseholderAge25To44Years_HouseholderRaceBlackOrAfricanAmericanAlone_IncomeOf75000To99999USDollar": [
-  6,
+  7,
   3,
   11,
   1,
@@ -32084,7 +32084,7 @@
   1
  ],
  "Count_Household_HouseholderAge25To44Years_HouseholderRaceHispanicOrLatino_IncomeOf75000To99999USDollar": [
-  6,
+  7,
   3,
   11,
   1,
@@ -32093,7 +32093,7 @@
   1
  ],
  "Count_Household_HouseholderAge25To44Years_HouseholderRaceNativeHawaiianOrOtherPacificIslanderAlone_IncomeOf75000To99999USDollar": [
-  6,
+  7,
   3,
   11,
   1,
@@ -32102,7 +32102,7 @@
   1
  ],
  "Count_Household_HouseholderAge25To44Years_HouseholderRaceSomeOtherRaceAlone_IncomeOf75000To99999USDollar": [
-  6,
+  7,
   3,
   11,
   1,
@@ -32111,7 +32111,7 @@
   1
  ],
  "Count_Household_HouseholderAge25To44Years_HouseholderRaceTwoOrMoreRaces_IncomeOf75000To99999USDollar": [
-  6,
+  7,
   3,
   11,
   1,
@@ -32120,7 +32120,7 @@
   1
  ],
  "Count_Household_HouseholderAge25To44Years_HouseholderRaceWhiteAlone_IncomeOf75000To99999USDollar": [
-  6,
+  7,
   3,
   11,
   1,
@@ -32129,7 +32129,7 @@
   1
  ],
  "Count_Household_HouseholderAge25To44Years_HouseholderRaceWhiteAloneNotHispanicOrLatino_IncomeOf75000To99999USDollar": [
-  6,
+  7,
   3,
   11,
   1,
@@ -32138,14 +32138,14 @@
   1
  ],
  "Count_Household_HouseholderAge25To44Years_IncomeOf100000To124999USDollar": [
-  6,
+  7,
   3,
   12,
   0,
   1
  ],
  "Count_Household_HouseholderAge25To44Years_HouseholderRaceAmericanIndianOrAlaskaNativeAlone_IncomeOf100000To124999USDollar": [
-  6,
+  7,
   3,
   12,
   1,
@@ -32154,7 +32154,7 @@
   1
  ],
  "Count_Household_HouseholderAge25To44Years_HouseholderRaceAsianAlone_IncomeOf100000To124999USDollar": [
-  6,
+  7,
   3,
   12,
   1,
@@ -32163,7 +32163,7 @@
   1
  ],
  "Count_Household_HouseholderAge25To44Years_HouseholderRaceBlackOrAfricanAmericanAlone_IncomeOf100000To124999USDollar": [
-  6,
+  7,
   3,
   12,
   1,
@@ -32172,7 +32172,7 @@
   1
  ],
  "Count_Household_HouseholderAge25To44Years_HouseholderRaceHispanicOrLatino_IncomeOf100000To124999USDollar": [
-  6,
+  7,
   3,
   12,
   1,
@@ -32181,7 +32181,7 @@
   1
  ],
  "Count_Household_HouseholderAge25To44Years_HouseholderRaceNativeHawaiianOrOtherPacificIslanderAlone_IncomeOf100000To124999USDollar": [
-  6,
+  7,
   3,
   12,
   1,
@@ -32190,7 +32190,7 @@
   1
  ],
  "Count_Household_HouseholderAge25To44Years_HouseholderRaceSomeOtherRaceAlone_IncomeOf100000To124999USDollar": [
-  6,
+  7,
   3,
   12,
   1,
@@ -32199,7 +32199,7 @@
   1
  ],
  "Count_Household_HouseholderAge25To44Years_HouseholderRaceTwoOrMoreRaces_IncomeOf100000To124999USDollar": [
-  6,
+  7,
   3,
   12,
   1,
@@ -32208,7 +32208,7 @@
   1
  ],
  "Count_Household_HouseholderAge25To44Years_HouseholderRaceWhiteAlone_IncomeOf100000To124999USDollar": [
-  6,
+  7,
   3,
   12,
   1,
@@ -32217,7 +32217,7 @@
   1
  ],
  "Count_Household_HouseholderAge25To44Years_HouseholderRaceWhiteAloneNotHispanicOrLatino_IncomeOf100000To124999USDollar": [
-  6,
+  7,
   3,
   12,
   1,
@@ -32226,14 +32226,14 @@
   1
  ],
  "Count_Household_HouseholderAge25To44Years_IncomeOf125000To149999USDollar": [
-  6,
+  7,
   3,
   13,
   0,
   1
  ],
  "Count_Household_HouseholderAge25To44Years_HouseholderRaceAmericanIndianOrAlaskaNativeAlone_IncomeOf125000To149999USDollar": [
-  6,
+  7,
   3,
   13,
   1,
@@ -32242,7 +32242,7 @@
   1
  ],
  "Count_Household_HouseholderAge25To44Years_HouseholderRaceAsianAlone_IncomeOf125000To149999USDollar": [
-  6,
+  7,
   3,
   13,
   1,
@@ -32251,7 +32251,7 @@
   1
  ],
  "Count_Household_HouseholderAge25To44Years_HouseholderRaceBlackOrAfricanAmericanAlone_IncomeOf125000To149999USDollar": [
-  6,
+  7,
   3,
   13,
   1,
@@ -32260,7 +32260,7 @@
   1
  ],
  "Count_Household_HouseholderAge25To44Years_HouseholderRaceHispanicOrLatino_IncomeOf125000To149999USDollar": [
-  6,
+  7,
   3,
   13,
   1,
@@ -32269,7 +32269,7 @@
   1
  ],
  "Count_Household_HouseholderAge25To44Years_HouseholderRaceNativeHawaiianOrOtherPacificIslanderAlone_IncomeOf125000To149999USDollar": [
-  6,
+  7,
   3,
   13,
   1,
@@ -32278,7 +32278,7 @@
   1
  ],
  "Count_Household_HouseholderAge25To44Years_HouseholderRaceSomeOtherRaceAlone_IncomeOf125000To149999USDollar": [
-  6,
+  7,
   3,
   13,
   1,
@@ -32287,7 +32287,7 @@
   1
  ],
  "Count_Household_HouseholderAge25To44Years_HouseholderRaceTwoOrMoreRaces_IncomeOf125000To149999USDollar": [
-  6,
+  7,
   3,
   13,
   1,
@@ -32296,7 +32296,7 @@
   1
  ],
  "Count_Household_HouseholderAge25To44Years_HouseholderRaceWhiteAlone_IncomeOf125000To149999USDollar": [
-  6,
+  7,
   3,
   13,
   1,
@@ -32305,7 +32305,7 @@
   1
  ],
  "Count_Household_HouseholderAge25To44Years_HouseholderRaceWhiteAloneNotHispanicOrLatino_IncomeOf125000To149999USDollar": [
-  6,
+  7,
   3,
   13,
   1,
@@ -32314,14 +32314,14 @@
   1
  ],
  "Count_Household_HouseholderAge25To44Years_IncomeOf150000To199999USDollar": [
-  6,
+  7,
   3,
   14,
   0,
   1
  ],
  "Count_Household_HouseholderAge25To44Years_HouseholderRaceAmericanIndianOrAlaskaNativeAlone_IncomeOf150000To199999USDollar": [
-  6,
+  7,
   3,
   14,
   1,
@@ -32330,7 +32330,7 @@
   1
  ],
  "Count_Household_HouseholderAge25To44Years_HouseholderRaceAsianAlone_IncomeOf150000To199999USDollar": [
-  6,
+  7,
   3,
   14,
   1,
@@ -32339,7 +32339,7 @@
   1
  ],
  "Count_Household_HouseholderAge25To44Years_HouseholderRaceBlackOrAfricanAmericanAlone_IncomeOf150000To199999USDollar": [
-  6,
+  7,
   3,
   14,
   1,
@@ -32348,7 +32348,7 @@
   1
  ],
  "Count_Household_HouseholderAge25To44Years_HouseholderRaceHispanicOrLatino_IncomeOf150000To199999USDollar": [
-  6,
+  7,
   3,
   14,
   1,
@@ -32357,7 +32357,7 @@
   1
  ],
  "Count_Household_HouseholderAge25To44Years_HouseholderRaceNativeHawaiianOrOtherPacificIslanderAlone_IncomeOf150000To199999USDollar": [
-  6,
+  7,
   3,
   14,
   1,
@@ -32366,7 +32366,7 @@
   1
  ],
  "Count_Household_HouseholderAge25To44Years_HouseholderRaceSomeOtherRaceAlone_IncomeOf150000To199999USDollar": [
-  6,
+  7,
   3,
   14,
   1,
@@ -32375,7 +32375,7 @@
   1
  ],
  "Count_Household_HouseholderAge25To44Years_HouseholderRaceTwoOrMoreRaces_IncomeOf150000To199999USDollar": [
-  6,
+  7,
   3,
   14,
   1,
@@ -32384,7 +32384,7 @@
   1
  ],
  "Count_Household_HouseholderAge25To44Years_HouseholderRaceWhiteAlone_IncomeOf150000To199999USDollar": [
-  6,
+  7,
   3,
   14,
   1,
@@ -32393,7 +32393,7 @@
   1
  ],
  "Count_Household_HouseholderAge25To44Years_HouseholderRaceWhiteAloneNotHispanicOrLatino_IncomeOf150000To199999USDollar": [
-  6,
+  7,
   3,
   14,
   1,
@@ -32402,14 +32402,14 @@
   1
  ],
  "Count_Household_HouseholderAge25To44Years_IncomeOf200000OrMoreUSDollar": [
-  6,
+  7,
   3,
   15,
   0,
   1
  ],
  "Count_Household_HouseholderAge25To44Years_HouseholderRaceAmericanIndianOrAlaskaNativeAlone_IncomeOf200000OrMoreUSDollar": [
-  6,
+  7,
   3,
   15,
   1,
@@ -32418,7 +32418,7 @@
   1
  ],
  "Count_Household_HouseholderAge25To44Years_HouseholderRaceAsianAlone_IncomeOf200000OrMoreUSDollar": [
-  6,
+  7,
   3,
   15,
   1,
@@ -32427,7 +32427,7 @@
   1
  ],
  "Count_Household_HouseholderAge25To44Years_HouseholderRaceBlackOrAfricanAmericanAlone_IncomeOf200000OrMoreUSDollar": [
-  6,
+  7,
   3,
   15,
   1,
@@ -32436,7 +32436,7 @@
   1
  ],
  "Count_Household_HouseholderAge25To44Years_HouseholderRaceHispanicOrLatino_IncomeOf200000OrMoreUSDollar": [
-  6,
+  7,
   3,
   15,
   1,
@@ -32445,7 +32445,7 @@
   1
  ],
  "Count_Household_HouseholderAge25To44Years_HouseholderRaceNativeHawaiianOrOtherPacificIslanderAlone_IncomeOf200000OrMoreUSDollar": [
-  6,
+  7,
   3,
   15,
   1,
@@ -32454,7 +32454,7 @@
   1
  ],
  "Count_Household_HouseholderAge25To44Years_HouseholderRaceSomeOtherRaceAlone_IncomeOf200000OrMoreUSDollar": [
-  6,
+  7,
   3,
   15,
   1,
@@ -32463,7 +32463,7 @@
   1
  ],
  "Count_Household_HouseholderAge25To44Years_HouseholderRaceTwoOrMoreRaces_IncomeOf200000OrMoreUSDollar": [
-  6,
+  7,
   3,
   15,
   1,
@@ -32472,7 +32472,7 @@
   1
  ],
  "Count_Household_HouseholderAge25To44Years_HouseholderRaceWhiteAlone_IncomeOf200000OrMoreUSDollar": [
-  6,
+  7,
   3,
   15,
   1,
@@ -32481,7 +32481,7 @@
   1
  ],
  "Count_Household_HouseholderAge25To44Years_HouseholderRaceWhiteAloneNotHispanicOrLatino_IncomeOf200000OrMoreUSDollar": [
-  6,
+  7,
   3,
   15,
   1,
@@ -32490,82 +32490,82 @@
   1
  ],
  "Count_Household_HouseholderAge25To44Years_HouseholderRaceAmericanIndianOrAlaskaNativeAlone": [
-  6,
+  7,
   2,
   0,
   1,
   1
  ],
  "Count_Household_HouseholderAge25To44Years_HouseholderRaceAsianAlone": [
-  6,
+  7,
   2,
   1,
   1,
   1
  ],
  "Count_Household_HouseholderAge25To44Years_HouseholderRaceBlackOrAfricanAmericanAlone": [
-  6,
+  7,
   2,
   2,
   1,
   1
  ],
  "Count_Household_HouseholderAge25To44Years_HouseholderRaceHispanicOrLatino": [
-  6,
+  7,
   2,
   3,
   1,
   1
  ],
  "Count_Household_HouseholderAge25To44Years_HouseholderRaceNativeHawaiianOrOtherPacificIslanderAlone": [
-  6,
+  7,
   2,
   4,
   1,
   1
  ],
  "Count_Household_HouseholderAge25To44Years_HouseholderRaceSomeOtherRaceAlone": [
-  6,
+  7,
   2,
   5,
   1,
   1
  ],
  "Count_Household_HouseholderAge25To44Years_HouseholderRaceTwoOrMoreRaces": [
-  6,
+  7,
   2,
   6,
   1,
   1
  ],
  "Count_Household_HouseholderAge25To44Years_HouseholderRaceWhiteAlone": [
-  6,
+  7,
   2,
   7,
   1,
   1
  ],
  "Count_Household_HouseholderAge25To44Years_HouseholderRaceWhiteAloneNotHispanicOrLatino": [
-  6,
+  7,
   2,
   8,
   1,
   1
  ],
  "Count_Household_HouseholderAge45To64Years": [
-  6,
+  7,
   1,
   2
  ],
  "Count_Household_HouseholderAge45To64Years_IncomeOfUpto10000USDollar": [
-  6,
+  7,
   3,
   0,
   0,
   2
  ],
  "Count_Household_HouseholderAge45To64Years_HouseholderRaceAmericanIndianOrAlaskaNativeAlone_IncomeOfUpto10000USDollar": [
-  6,
+  7,
   3,
   0,
   1,
@@ -32574,7 +32574,7 @@
   2
  ],
  "Count_Household_HouseholderAge45To64Years_HouseholderRaceAsianAlone_IncomeOfUpto10000USDollar": [
-  6,
+  7,
   3,
   0,
   1,
@@ -32583,7 +32583,7 @@
   2
  ],
  "Count_Household_HouseholderAge45To64Years_HouseholderRaceBlackOrAfricanAmericanAlone_IncomeOfUpto10000USDollar": [
-  6,
+  7,
   3,
   0,
   1,
@@ -32592,7 +32592,7 @@
   2
  ],
  "Count_Household_HouseholderAge45To64Years_HouseholderRaceHispanicOrLatino_IncomeOfUpto10000USDollar": [
-  6,
+  7,
   3,
   0,
   1,
@@ -32601,7 +32601,7 @@
   2
  ],
  "Count_Household_HouseholderAge45To64Years_HouseholderRaceNativeHawaiianOrOtherPacificIslanderAlone_IncomeOfUpto10000USDollar": [
-  6,
+  7,
   3,
   0,
   1,
@@ -32610,7 +32610,7 @@
   2
  ],
  "Count_Household_HouseholderAge45To64Years_HouseholderRaceSomeOtherRaceAlone_IncomeOfUpto10000USDollar": [
-  6,
+  7,
   3,
   0,
   1,
@@ -32619,7 +32619,7 @@
   2
  ],
  "Count_Household_HouseholderAge45To64Years_HouseholderRaceTwoOrMoreRaces_IncomeOfUpto10000USDollar": [
-  6,
+  7,
   3,
   0,
   1,
@@ -32628,7 +32628,7 @@
   2
  ],
  "Count_Household_HouseholderAge45To64Years_HouseholderRaceWhiteAlone_IncomeOfUpto10000USDollar": [
-  6,
+  7,
   3,
   0,
   1,
@@ -32637,7 +32637,7 @@
   2
  ],
  "Count_Household_HouseholderAge45To64Years_HouseholderRaceWhiteAloneNotHispanicOrLatino_IncomeOfUpto10000USDollar": [
-  6,
+  7,
   3,
   0,
   1,
@@ -32646,14 +32646,14 @@
   2
  ],
  "Count_Household_HouseholderAge45To64Years_IncomeOf10000To14999USDollar": [
-  6,
+  7,
   3,
   1,
   0,
   2
  ],
  "Count_Household_HouseholderAge45To64Years_HouseholderRaceAmericanIndianOrAlaskaNativeAlone_IncomeOf10000To14999USDollar": [
-  6,
+  7,
   3,
   1,
   1,
@@ -32662,7 +32662,7 @@
   2
  ],
  "Count_Household_HouseholderAge45To64Years_HouseholderRaceAsianAlone_IncomeOf10000To14999USDollar": [
-  6,
+  7,
   3,
   1,
   1,
@@ -32671,7 +32671,7 @@
   2
  ],
  "Count_Household_HouseholderAge45To64Years_HouseholderRaceBlackOrAfricanAmericanAlone_IncomeOf10000To14999USDollar": [
-  6,
+  7,
   3,
   1,
   1,
@@ -32680,7 +32680,7 @@
   2
  ],
  "Count_Household_HouseholderAge45To64Years_HouseholderRaceHispanicOrLatino_IncomeOf10000To14999USDollar": [
-  6,
+  7,
   3,
   1,
   1,
@@ -32689,7 +32689,7 @@
   2
  ],
  "Count_Household_HouseholderAge45To64Years_HouseholderRaceNativeHawaiianOrOtherPacificIslanderAlone_IncomeOf10000To14999USDollar": [
-  6,
+  7,
   3,
   1,
   1,
@@ -32698,7 +32698,7 @@
   2
  ],
  "Count_Household_HouseholderAge45To64Years_HouseholderRaceSomeOtherRaceAlone_IncomeOf10000To14999USDollar": [
-  6,
+  7,
   3,
   1,
   1,
@@ -32707,7 +32707,7 @@
   2
  ],
  "Count_Household_HouseholderAge45To64Years_HouseholderRaceTwoOrMoreRaces_IncomeOf10000To14999USDollar": [
-  6,
+  7,
   3,
   1,
   1,
@@ -32716,7 +32716,7 @@
   2
  ],
  "Count_Household_HouseholderAge45To64Years_HouseholderRaceWhiteAlone_IncomeOf10000To14999USDollar": [
-  6,
+  7,
   3,
   1,
   1,
@@ -32725,7 +32725,7 @@
   2
  ],
  "Count_Household_HouseholderAge45To64Years_HouseholderRaceWhiteAloneNotHispanicOrLatino_IncomeOf10000To14999USDollar": [
-  6,
+  7,
   3,
   1,
   1,
@@ -32734,14 +32734,14 @@
   2
  ],
  "Count_Household_HouseholderAge45To64Years_IncomeOf15000To19999USDollar": [
-  6,
+  7,
   3,
   2,
   0,
   2
  ],
  "Count_Household_HouseholderAge45To64Years_HouseholderRaceAmericanIndianOrAlaskaNativeAlone_IncomeOf15000To19999USDollar": [
-  6,
+  7,
   3,
   2,
   1,
@@ -32750,7 +32750,7 @@
   2
  ],
  "Count_Household_HouseholderAge45To64Years_HouseholderRaceAsianAlone_IncomeOf15000To19999USDollar": [
-  6,
+  7,
   3,
   2,
   1,
@@ -32759,7 +32759,7 @@
   2
  ],
  "Count_Household_HouseholderAge45To64Years_HouseholderRaceBlackOrAfricanAmericanAlone_IncomeOf15000To19999USDollar": [
-  6,
+  7,
   3,
   2,
   1,
@@ -32768,7 +32768,7 @@
   2
  ],
  "Count_Household_HouseholderAge45To64Years_HouseholderRaceHispanicOrLatino_IncomeOf15000To19999USDollar": [
-  6,
+  7,
   3,
   2,
   1,
@@ -32777,7 +32777,7 @@
   2
  ],
  "Count_Household_HouseholderAge45To64Years_HouseholderRaceNativeHawaiianOrOtherPacificIslanderAlone_IncomeOf15000To19999USDollar": [
-  6,
+  7,
   3,
   2,
   1,
@@ -32786,7 +32786,7 @@
   2
  ],
  "Count_Household_HouseholderAge45To64Years_HouseholderRaceSomeOtherRaceAlone_IncomeOf15000To19999USDollar": [
-  6,
+  7,
   3,
   2,
   1,
@@ -32795,7 +32795,7 @@
   2
  ],
  "Count_Household_HouseholderAge45To64Years_HouseholderRaceTwoOrMoreRaces_IncomeOf15000To19999USDollar": [
-  6,
+  7,
   3,
   2,
   1,
@@ -32804,7 +32804,7 @@
   2
  ],
  "Count_Household_HouseholderAge45To64Years_HouseholderRaceWhiteAlone_IncomeOf15000To19999USDollar": [
-  6,
+  7,
   3,
   2,
   1,
@@ -32813,7 +32813,7 @@
   2
  ],
  "Count_Household_HouseholderAge45To64Years_HouseholderRaceWhiteAloneNotHispanicOrLatino_IncomeOf15000To19999USDollar": [
-  6,
+  7,
   3,
   2,
   1,
@@ -32822,14 +32822,14 @@
   2
  ],
  "Count_Household_HouseholderAge45To64Years_IncomeOf20000To24999USDollar": [
-  6,
+  7,
   3,
   3,
   0,
   2
  ],
  "Count_Household_HouseholderAge45To64Years_HouseholderRaceAmericanIndianOrAlaskaNativeAlone_IncomeOf20000To24999USDollar": [
-  6,
+  7,
   3,
   3,
   1,
@@ -32838,7 +32838,7 @@
   2
  ],
  "Count_Household_HouseholderAge45To64Years_HouseholderRaceAsianAlone_IncomeOf20000To24999USDollar": [
-  6,
+  7,
   3,
   3,
   1,
@@ -32847,7 +32847,7 @@
   2
  ],
  "Count_Household_HouseholderAge45To64Years_HouseholderRaceBlackOrAfricanAmericanAlone_IncomeOf20000To24999USDollar": [
-  6,
+  7,
   3,
   3,
   1,
@@ -32856,7 +32856,7 @@
   2
  ],
  "Count_Household_HouseholderAge45To64Years_HouseholderRaceHispanicOrLatino_IncomeOf20000To24999USDollar": [
-  6,
+  7,
   3,
   3,
   1,
@@ -32865,7 +32865,7 @@
   2
  ],
  "Count_Household_HouseholderAge45To64Years_HouseholderRaceNativeHawaiianOrOtherPacificIslanderAlone_IncomeOf20000To24999USDollar": [
-  6,
+  7,
   3,
   3,
   1,
@@ -32874,7 +32874,7 @@
   2
  ],
  "Count_Household_HouseholderAge45To64Years_HouseholderRaceSomeOtherRaceAlone_IncomeOf20000To24999USDollar": [
-  6,
+  7,
   3,
   3,
   1,
@@ -32883,7 +32883,7 @@
   2
  ],
  "Count_Household_HouseholderAge45To64Years_HouseholderRaceTwoOrMoreRaces_IncomeOf20000To24999USDollar": [
-  6,
+  7,
   3,
   3,
   1,
@@ -32892,7 +32892,7 @@
   2
  ],
  "Count_Household_HouseholderAge45To64Years_HouseholderRaceWhiteAlone_IncomeOf20000To24999USDollar": [
-  6,
+  7,
   3,
   3,
   1,
@@ -32901,7 +32901,7 @@
   2
  ],
  "Count_Household_HouseholderAge45To64Years_HouseholderRaceWhiteAloneNotHispanicOrLatino_IncomeOf20000To24999USDollar": [
-  6,
+  7,
   3,
   3,
   1,
@@ -32910,14 +32910,14 @@
   2
  ],
  "Count_Household_HouseholderAge45To64Years_IncomeOf25000To29999USDollar": [
-  6,
+  7,
   3,
   4,
   0,
   2
  ],
  "Count_Household_HouseholderAge45To64Years_HouseholderRaceAmericanIndianOrAlaskaNativeAlone_IncomeOf25000To29999USDollar": [
-  6,
+  7,
   3,
   4,
   1,
@@ -32926,7 +32926,7 @@
   2
  ],
  "Count_Household_HouseholderAge45To64Years_HouseholderRaceAsianAlone_IncomeOf25000To29999USDollar": [
-  6,
+  7,
   3,
   4,
   1,
@@ -32935,7 +32935,7 @@
   2
  ],
  "Count_Household_HouseholderAge45To64Years_HouseholderRaceBlackOrAfricanAmericanAlone_IncomeOf25000To29999USDollar": [
-  6,
+  7,
   3,
   4,
   1,
@@ -32944,7 +32944,7 @@
   2
  ],
  "Count_Household_HouseholderAge45To64Years_HouseholderRaceHispanicOrLatino_IncomeOf25000To29999USDollar": [
-  6,
+  7,
   3,
   4,
   1,
@@ -32953,7 +32953,7 @@
   2
  ],
  "Count_Household_HouseholderAge45To64Years_HouseholderRaceNativeHawaiianOrOtherPacificIslanderAlone_IncomeOf25000To29999USDollar": [
-  6,
+  7,
   3,
   4,
   1,
@@ -32962,7 +32962,7 @@
   2
  ],
  "Count_Household_HouseholderAge45To64Years_HouseholderRaceSomeOtherRaceAlone_IncomeOf25000To29999USDollar": [
-  6,
+  7,
   3,
   4,
   1,
@@ -32971,7 +32971,7 @@
   2
  ],
  "Count_Household_HouseholderAge45To64Years_HouseholderRaceTwoOrMoreRaces_IncomeOf25000To29999USDollar": [
-  6,
+  7,
   3,
   4,
   1,
@@ -32980,7 +32980,7 @@
   2
  ],
  "Count_Household_HouseholderAge45To64Years_HouseholderRaceWhiteAlone_IncomeOf25000To29999USDollar": [
-  6,
+  7,
   3,
   4,
   1,
@@ -32989,7 +32989,7 @@
   2
  ],
  "Count_Household_HouseholderAge45To64Years_HouseholderRaceWhiteAloneNotHispanicOrLatino_IncomeOf25000To29999USDollar": [
-  6,
+  7,
   3,
   4,
   1,
@@ -32998,14 +32998,14 @@
   2
  ],
  "Count_Household_HouseholderAge45To64Years_IncomeOf30000To34999USDollar": [
-  6,
+  7,
   3,
   5,
   0,
   2
  ],
  "Count_Household_HouseholderAge45To64Years_HouseholderRaceAmericanIndianOrAlaskaNativeAlone_IncomeOf30000To34999USDollar": [
-  6,
+  7,
   3,
   5,
   1,
@@ -33014,7 +33014,7 @@
   2
  ],
  "Count_Household_HouseholderAge45To64Years_HouseholderRaceAsianAlone_IncomeOf30000To34999USDollar": [
-  6,
+  7,
   3,
   5,
   1,
@@ -33023,7 +33023,7 @@
   2
  ],
  "Count_Household_HouseholderAge45To64Years_HouseholderRaceBlackOrAfricanAmericanAlone_IncomeOf30000To34999USDollar": [
-  6,
+  7,
   3,
   5,
   1,
@@ -33032,7 +33032,7 @@
   2
  ],
  "Count_Household_HouseholderAge45To64Years_HouseholderRaceHispanicOrLatino_IncomeOf30000To34999USDollar": [
-  6,
+  7,
   3,
   5,
   1,
@@ -33041,7 +33041,7 @@
   2
  ],
  "Count_Household_HouseholderAge45To64Years_HouseholderRaceNativeHawaiianOrOtherPacificIslanderAlone_IncomeOf30000To34999USDollar": [
-  6,
+  7,
   3,
   5,
   1,
@@ -33050,7 +33050,7 @@
   2
  ],
  "Count_Household_HouseholderAge45To64Years_HouseholderRaceSomeOtherRaceAlone_IncomeOf30000To34999USDollar": [
-  6,
+  7,
   3,
   5,
   1,
@@ -33059,7 +33059,7 @@
   2
  ],
  "Count_Household_HouseholderAge45To64Years_HouseholderRaceTwoOrMoreRaces_IncomeOf30000To34999USDollar": [
-  6,
+  7,
   3,
   5,
   1,
@@ -33068,7 +33068,7 @@
   2
  ],
  "Count_Household_HouseholderAge45To64Years_HouseholderRaceWhiteAlone_IncomeOf30000To34999USDollar": [
-  6,
+  7,
   3,
   5,
   1,
@@ -33077,7 +33077,7 @@
   2
  ],
  "Count_Household_HouseholderAge45To64Years_HouseholderRaceWhiteAloneNotHispanicOrLatino_IncomeOf30000To34999USDollar": [
-  6,
+  7,
   3,
   5,
   1,
@@ -33086,14 +33086,14 @@
   2
  ],
  "Count_Household_HouseholderAge45To64Years_IncomeOf35000To39999USDollar": [
-  6,
+  7,
   3,
   6,
   0,
   2
  ],
  "Count_Household_HouseholderAge45To64Years_HouseholderRaceAmericanIndianOrAlaskaNativeAlone_IncomeOf35000To39999USDollar": [
-  6,
+  7,
   3,
   6,
   1,
@@ -33102,7 +33102,7 @@
   2
  ],
  "Count_Household_HouseholderAge45To64Years_HouseholderRaceAsianAlone_IncomeOf35000To39999USDollar": [
-  6,
+  7,
   3,
   6,
   1,
@@ -33111,7 +33111,7 @@
   2
  ],
  "Count_Household_HouseholderAge45To64Years_HouseholderRaceBlackOrAfricanAmericanAlone_IncomeOf35000To39999USDollar": [
-  6,
+  7,
   3,
   6,
   1,
@@ -33120,7 +33120,7 @@
   2
  ],
  "Count_Household_HouseholderAge45To64Years_HouseholderRaceHispanicOrLatino_IncomeOf35000To39999USDollar": [
-  6,
+  7,
   3,
   6,
   1,
@@ -33129,7 +33129,7 @@
   2
  ],
  "Count_Household_HouseholderAge45To64Years_HouseholderRaceNativeHawaiianOrOtherPacificIslanderAlone_IncomeOf35000To39999USDollar": [
-  6,
+  7,
   3,
   6,
   1,
@@ -33138,7 +33138,7 @@
   2
  ],
  "Count_Household_HouseholderAge45To64Years_HouseholderRaceSomeOtherRaceAlone_IncomeOf35000To39999USDollar": [
-  6,
+  7,
   3,
   6,
   1,
@@ -33147,7 +33147,7 @@
   2
  ],
  "Count_Household_HouseholderAge45To64Years_HouseholderRaceTwoOrMoreRaces_IncomeOf35000To39999USDollar": [
-  6,
+  7,
   3,
   6,
   1,
@@ -33156,7 +33156,7 @@
   2
  ],
  "Count_Household_HouseholderAge45To64Years_HouseholderRaceWhiteAlone_IncomeOf35000To39999USDollar": [
-  6,
+  7,
   3,
   6,
   1,
@@ -33165,7 +33165,7 @@
   2
  ],
  "Count_Household_HouseholderAge45To64Years_HouseholderRaceWhiteAloneNotHispanicOrLatino_IncomeOf35000To39999USDollar": [
-  6,
+  7,
   3,
   6,
   1,
@@ -33174,14 +33174,14 @@
   2
  ],
  "Count_Household_HouseholderAge45To64Years_IncomeOf40000To44999USDollar": [
-  6,
+  7,
   3,
   7,
   0,
   2
  ],
  "Count_Household_HouseholderAge45To64Years_HouseholderRaceAmericanIndianOrAlaskaNativeAlone_IncomeOf40000To44999USDollar": [
-  6,
+  7,
   3,
   7,
   1,
@@ -33190,7 +33190,7 @@
   2
  ],
  "Count_Household_HouseholderAge45To64Years_HouseholderRaceAsianAlone_IncomeOf40000To44999USDollar": [
-  6,
+  7,
   3,
   7,
   1,
@@ -33199,7 +33199,7 @@
   2
  ],
  "Count_Household_HouseholderAge45To64Years_HouseholderRaceBlackOrAfricanAmericanAlone_IncomeOf40000To44999USDollar": [
-  6,
+  7,
   3,
   7,
   1,
@@ -33208,7 +33208,7 @@
   2
  ],
  "Count_Household_HouseholderAge45To64Years_HouseholderRaceHispanicOrLatino_IncomeOf40000To44999USDollar": [
-  6,
+  7,
   3,
   7,
   1,
@@ -33217,7 +33217,7 @@
   2
  ],
  "Count_Household_HouseholderAge45To64Years_HouseholderRaceNativeHawaiianOrOtherPacificIslanderAlone_IncomeOf40000To44999USDollar": [
-  6,
+  7,
   3,
   7,
   1,
@@ -33226,7 +33226,7 @@
   2
  ],
  "Count_Household_HouseholderAge45To64Years_HouseholderRaceSomeOtherRaceAlone_IncomeOf40000To44999USDollar": [
-  6,
+  7,
   3,
   7,
   1,
@@ -33235,7 +33235,7 @@
   2
  ],
  "Count_Household_HouseholderAge45To64Years_HouseholderRaceTwoOrMoreRaces_IncomeOf40000To44999USDollar": [
-  6,
+  7,
   3,
   7,
   1,
@@ -33244,7 +33244,7 @@
   2
  ],
  "Count_Household_HouseholderAge45To64Years_HouseholderRaceWhiteAlone_IncomeOf40000To44999USDollar": [
-  6,
+  7,
   3,
   7,
   1,
@@ -33253,7 +33253,7 @@
   2
  ],
  "Count_Household_HouseholderAge45To64Years_HouseholderRaceWhiteAloneNotHispanicOrLatino_IncomeOf40000To44999USDollar": [
-  6,
+  7,
   3,
   7,
   1,
@@ -33262,14 +33262,14 @@
   2
  ],
  "Count_Household_HouseholderAge45To64Years_IncomeOf45000To49999USDollar": [
-  6,
+  7,
   3,
   8,
   0,
   2
  ],
  "Count_Household_HouseholderAge45To64Years_HouseholderRaceAmericanIndianOrAlaskaNativeAlone_IncomeOf45000To49999USDollar": [
-  6,
+  7,
   3,
   8,
   1,
@@ -33278,7 +33278,7 @@
   2
  ],
  "Count_Household_HouseholderAge45To64Years_HouseholderRaceAsianAlone_IncomeOf45000To49999USDollar": [
-  6,
+  7,
   3,
   8,
   1,
@@ -33287,7 +33287,7 @@
   2
  ],
  "Count_Household_HouseholderAge45To64Years_HouseholderRaceBlackOrAfricanAmericanAlone_IncomeOf45000To49999USDollar": [
-  6,
+  7,
   3,
   8,
   1,
@@ -33296,7 +33296,7 @@
   2
  ],
  "Count_Household_HouseholderAge45To64Years_HouseholderRaceHispanicOrLatino_IncomeOf45000To49999USDollar": [
-  6,
+  7,
   3,
   8,
   1,
@@ -33305,7 +33305,7 @@
   2
  ],
  "Count_Household_HouseholderAge45To64Years_HouseholderRaceNativeHawaiianOrOtherPacificIslanderAlone_IncomeOf45000To49999USDollar": [
-  6,
+  7,
   3,
   8,
   1,
@@ -33314,7 +33314,7 @@
   2
  ],
  "Count_Household_HouseholderAge45To64Years_HouseholderRaceSomeOtherRaceAlone_IncomeOf45000To49999USDollar": [
-  6,
+  7,
   3,
   8,
   1,
@@ -33323,7 +33323,7 @@
   2
  ],
  "Count_Household_HouseholderAge45To64Years_HouseholderRaceTwoOrMoreRaces_IncomeOf45000To49999USDollar": [
-  6,
+  7,
   3,
   8,
   1,
@@ -33332,7 +33332,7 @@
   2
  ],
  "Count_Household_HouseholderAge45To64Years_HouseholderRaceWhiteAlone_IncomeOf45000To49999USDollar": [
-  6,
+  7,
   3,
   8,
   1,
@@ -33341,7 +33341,7 @@
   2
  ],
  "Count_Household_HouseholderAge45To64Years_HouseholderRaceWhiteAloneNotHispanicOrLatino_IncomeOf45000To49999USDollar": [
-  6,
+  7,
   3,
   8,
   1,
@@ -33350,14 +33350,14 @@
   2
  ],
  "Count_Household_HouseholderAge45To64Years_IncomeOf50000To59999USDollar": [
-  6,
+  7,
   3,
   9,
   0,
   2
  ],
  "Count_Household_HouseholderAge45To64Years_HouseholderRaceAmericanIndianOrAlaskaNativeAlone_IncomeOf50000To59999USDollar": [
-  6,
+  7,
   3,
   9,
   1,
@@ -33366,7 +33366,7 @@
   2
  ],
  "Count_Household_HouseholderAge45To64Years_HouseholderRaceAsianAlone_IncomeOf50000To59999USDollar": [
-  6,
+  7,
   3,
   9,
   1,
@@ -33375,7 +33375,7 @@
   2
  ],
  "Count_Household_HouseholderAge45To64Years_HouseholderRaceBlackOrAfricanAmericanAlone_IncomeOf50000To59999USDollar": [
-  6,
+  7,
   3,
   9,
   1,
@@ -33384,7 +33384,7 @@
   2
  ],
  "Count_Household_HouseholderAge45To64Years_HouseholderRaceHispanicOrLatino_IncomeOf50000To59999USDollar": [
-  6,
+  7,
   3,
   9,
   1,
@@ -33393,7 +33393,7 @@
   2
  ],
  "Count_Household_HouseholderAge45To64Years_HouseholderRaceNativeHawaiianOrOtherPacificIslanderAlone_IncomeOf50000To59999USDollar": [
-  6,
+  7,
   3,
   9,
   1,
@@ -33402,7 +33402,7 @@
   2
  ],
  "Count_Household_HouseholderAge45To64Years_HouseholderRaceSomeOtherRaceAlone_IncomeOf50000To59999USDollar": [
-  6,
+  7,
   3,
   9,
   1,
@@ -33411,7 +33411,7 @@
   2
  ],
  "Count_Household_HouseholderAge45To64Years_HouseholderRaceTwoOrMoreRaces_IncomeOf50000To59999USDollar": [
-  6,
+  7,
   3,
   9,
   1,
@@ -33420,7 +33420,7 @@
   2
  ],
  "Count_Household_HouseholderAge45To64Years_HouseholderRaceWhiteAlone_IncomeOf50000To59999USDollar": [
-  6,
+  7,
   3,
   9,
   1,
@@ -33429,7 +33429,7 @@
   2
  ],
  "Count_Household_HouseholderAge45To64Years_HouseholderRaceWhiteAloneNotHispanicOrLatino_IncomeOf50000To59999USDollar": [
-  6,
+  7,
   3,
   9,
   1,
@@ -33438,14 +33438,14 @@
   2
  ],
  "Count_Household_HouseholderAge45To64Years_IncomeOf60000To74999USDollar": [
-  6,
+  7,
   3,
   10,
   0,
   2
  ],
  "Count_Household_HouseholderAge45To64Years_HouseholderRaceAmericanIndianOrAlaskaNativeAlone_IncomeOf60000To74999USDollar": [
-  6,
+  7,
   3,
   10,
   1,
@@ -33454,7 +33454,7 @@
   2
  ],
  "Count_Household_HouseholderAge45To64Years_HouseholderRaceAsianAlone_IncomeOf60000To74999USDollar": [
-  6,
+  7,
   3,
   10,
   1,
@@ -33463,7 +33463,7 @@
   2
  ],
  "Count_Household_HouseholderAge45To64Years_HouseholderRaceBlackOrAfricanAmericanAlone_IncomeOf60000To74999USDollar": [
-  6,
+  7,
   3,
   10,
   1,
@@ -33472,7 +33472,7 @@
   2
  ],
  "Count_Household_HouseholderAge45To64Years_HouseholderRaceHispanicOrLatino_IncomeOf60000To74999USDollar": [
-  6,
+  7,
   3,
   10,
   1,
@@ -33481,7 +33481,7 @@
   2
  ],
  "Count_Household_HouseholderAge45To64Years_HouseholderRaceNativeHawaiianOrOtherPacificIslanderAlone_IncomeOf60000To74999USDollar": [
-  6,
+  7,
   3,
   10,
   1,
@@ -33490,7 +33490,7 @@
   2
  ],
  "Count_Household_HouseholderAge45To64Years_HouseholderRaceSomeOtherRaceAlone_IncomeOf60000To74999USDollar": [
-  6,
+  7,
   3,
   10,
   1,
@@ -33499,7 +33499,7 @@
   2
  ],
  "Count_Household_HouseholderAge45To64Years_HouseholderRaceTwoOrMoreRaces_IncomeOf60000To74999USDollar": [
-  6,
+  7,
   3,
   10,
   1,
@@ -33508,7 +33508,7 @@
   2
  ],
  "Count_Household_HouseholderAge45To64Years_HouseholderRaceWhiteAlone_IncomeOf60000To74999USDollar": [
-  6,
+  7,
   3,
   10,
   1,
@@ -33517,7 +33517,7 @@
   2
  ],
  "Count_Household_HouseholderAge45To64Years_HouseholderRaceWhiteAloneNotHispanicOrLatino_IncomeOf60000To74999USDollar": [
-  6,
+  7,
   3,
   10,
   1,
@@ -33526,14 +33526,14 @@
   2
  ],
  "Count_Household_HouseholderAge45To64Years_IncomeOf75000To99999USDollar": [
-  6,
+  7,
   3,
   11,
   0,
   2
  ],
  "Count_Household_HouseholderAge45To64Years_HouseholderRaceAmericanIndianOrAlaskaNativeAlone_IncomeOf75000To99999USDollar": [
-  6,
+  7,
   3,
   11,
   1,
@@ -33542,7 +33542,7 @@
   2
  ],
  "Count_Household_HouseholderAge45To64Years_HouseholderRaceAsianAlone_IncomeOf75000To99999USDollar": [
-  6,
+  7,
   3,
   11,
   1,
@@ -33551,7 +33551,7 @@
   2
  ],
  "Count_Household_HouseholderAge45To64Years_HouseholderRaceBlackOrAfricanAmericanAlone_IncomeOf75000To99999USDollar": [
-  6,
+  7,
   3,
   11,
   1,
@@ -33560,7 +33560,7 @@
   2
  ],
  "Count_Household_HouseholderAge45To64Years_HouseholderRaceHispanicOrLatino_IncomeOf75000To99999USDollar": [
-  6,
+  7,
   3,
   11,
   1,
@@ -33569,7 +33569,7 @@
   2
  ],
  "Count_Household_HouseholderAge45To64Years_HouseholderRaceNativeHawaiianOrOtherPacificIslanderAlone_IncomeOf75000To99999USDollar": [
-  6,
+  7,
   3,
   11,
   1,
@@ -33578,7 +33578,7 @@
   2
  ],
  "Count_Household_HouseholderAge45To64Years_HouseholderRaceSomeOtherRaceAlone_IncomeOf75000To99999USDollar": [
-  6,
+  7,
   3,
   11,
   1,
@@ -33587,7 +33587,7 @@
   2
  ],
  "Count_Household_HouseholderAge45To64Years_HouseholderRaceTwoOrMoreRaces_IncomeOf75000To99999USDollar": [
-  6,
+  7,
   3,
   11,
   1,
@@ -33596,7 +33596,7 @@
   2
  ],
  "Count_Household_HouseholderAge45To64Years_HouseholderRaceWhiteAlone_IncomeOf75000To99999USDollar": [
-  6,
+  7,
   3,
   11,
   1,
@@ -33605,7 +33605,7 @@
   2
  ],
  "Count_Household_HouseholderAge45To64Years_HouseholderRaceWhiteAloneNotHispanicOrLatino_IncomeOf75000To99999USDollar": [
-  6,
+  7,
   3,
   11,
   1,
@@ -33614,14 +33614,14 @@
   2
  ],
  "Count_Household_HouseholderAge45To64Years_IncomeOf100000To124999USDollar": [
-  6,
+  7,
   3,
   12,
   0,
   2
  ],
  "Count_Household_HouseholderAge45To64Years_HouseholderRaceAmericanIndianOrAlaskaNativeAlone_IncomeOf100000To124999USDollar": [
-  6,
+  7,
   3,
   12,
   1,
@@ -33630,7 +33630,7 @@
   2
  ],
  "Count_Household_HouseholderAge45To64Years_HouseholderRaceAsianAlone_IncomeOf100000To124999USDollar": [
-  6,
+  7,
   3,
   12,
   1,
@@ -33639,7 +33639,7 @@
   2
  ],
  "Count_Household_HouseholderAge45To64Years_HouseholderRaceBlackOrAfricanAmericanAlone_IncomeOf100000To124999USDollar": [
-  6,
+  7,
   3,
   12,
   1,
@@ -33648,7 +33648,7 @@
   2
  ],
  "Count_Household_HouseholderAge45To64Years_HouseholderRaceHispanicOrLatino_IncomeOf100000To124999USDollar": [
-  6,
+  7,
   3,
   12,
   1,
@@ -33657,7 +33657,7 @@
   2
  ],
  "Count_Household_HouseholderAge45To64Years_HouseholderRaceNativeHawaiianOrOtherPacificIslanderAlone_IncomeOf100000To124999USDollar": [
-  6,
+  7,
   3,
   12,
   1,
@@ -33666,7 +33666,7 @@
   2
  ],
  "Count_Household_HouseholderAge45To64Years_HouseholderRaceSomeOtherRaceAlone_IncomeOf100000To124999USDollar": [
-  6,
+  7,
   3,
   12,
   1,
@@ -33675,7 +33675,7 @@
   2
  ],
  "Count_Household_HouseholderAge45To64Years_HouseholderRaceTwoOrMoreRaces_IncomeOf100000To124999USDollar": [
-  6,
+  7,
   3,
   12,
   1,
@@ -33684,7 +33684,7 @@
   2
  ],
  "Count_Household_HouseholderAge45To64Years_HouseholderRaceWhiteAlone_IncomeOf100000To124999USDollar": [
-  6,
+  7,
   3,
   12,
   1,
@@ -33693,7 +33693,7 @@
   2
  ],
  "Count_Household_HouseholderAge45To64Years_HouseholderRaceWhiteAloneNotHispanicOrLatino_IncomeOf100000To124999USDollar": [
-  6,
+  7,
   3,
   12,
   1,
@@ -33702,14 +33702,14 @@
   2
  ],
  "Count_Household_HouseholderAge45To64Years_IncomeOf125000To149999USDollar": [
-  6,
+  7,
   3,
   13,
   0,
   2
  ],
  "Count_Household_HouseholderAge45To64Years_HouseholderRaceAmericanIndianOrAlaskaNativeAlone_IncomeOf125000To149999USDollar": [
-  6,
+  7,
   3,
   13,
   1,
@@ -33718,7 +33718,7 @@
   2
  ],
  "Count_Household_HouseholderAge45To64Years_HouseholderRaceAsianAlone_IncomeOf125000To149999USDollar": [
-  6,
+  7,
   3,
   13,
   1,
@@ -33727,7 +33727,7 @@
   2
  ],
  "Count_Household_HouseholderAge45To64Years_HouseholderRaceBlackOrAfricanAmericanAlone_IncomeOf125000To149999USDollar": [
-  6,
+  7,
   3,
   13,
   1,
@@ -33736,7 +33736,7 @@
   2
  ],
  "Count_Household_HouseholderAge45To64Years_HouseholderRaceHispanicOrLatino_IncomeOf125000To149999USDollar": [
-  6,
+  7,
   3,
   13,
   1,
@@ -33745,7 +33745,7 @@
   2
  ],
  "Count_Household_HouseholderAge45To64Years_HouseholderRaceNativeHawaiianOrOtherPacificIslanderAlone_IncomeOf125000To149999USDollar": [
-  6,
+  7,
   3,
   13,
   1,
@@ -33754,7 +33754,7 @@
   2
  ],
  "Count_Household_HouseholderAge45To64Years_HouseholderRaceSomeOtherRaceAlone_IncomeOf125000To149999USDollar": [
-  6,
+  7,
   3,
   13,
   1,
@@ -33763,7 +33763,7 @@
   2
  ],
  "Count_Household_HouseholderAge45To64Years_HouseholderRaceTwoOrMoreRaces_IncomeOf125000To149999USDollar": [
-  6,
+  7,
   3,
   13,
   1,
@@ -33772,7 +33772,7 @@
   2
  ],
  "Count_Household_HouseholderAge45To64Years_HouseholderRaceWhiteAlone_IncomeOf125000To149999USDollar": [
-  6,
+  7,
   3,
   13,
   1,
@@ -33781,7 +33781,7 @@
   2
  ],
  "Count_Household_HouseholderAge45To64Years_HouseholderRaceWhiteAloneNotHispanicOrLatino_IncomeOf125000To149999USDollar": [
-  6,
+  7,
   3,
   13,
   1,
@@ -33790,14 +33790,14 @@
   2
  ],
  "Count_Household_HouseholderAge45To64Years_IncomeOf150000To199999USDollar": [
-  6,
+  7,
   3,
   14,
   0,
   2
  ],
  "Count_Household_HouseholderAge45To64Years_HouseholderRaceAmericanIndianOrAlaskaNativeAlone_IncomeOf150000To199999USDollar": [
-  6,
+  7,
   3,
   14,
   1,
@@ -33806,7 +33806,7 @@
   2
  ],
  "Count_Household_HouseholderAge45To64Years_HouseholderRaceAsianAlone_IncomeOf150000To199999USDollar": [
-  6,
+  7,
   3,
   14,
   1,
@@ -33815,7 +33815,7 @@
   2
  ],
  "Count_Household_HouseholderAge45To64Years_HouseholderRaceBlackOrAfricanAmericanAlone_IncomeOf150000To199999USDollar": [
-  6,
+  7,
   3,
   14,
   1,
@@ -33824,7 +33824,7 @@
   2
  ],
  "Count_Household_HouseholderAge45To64Years_HouseholderRaceHispanicOrLatino_IncomeOf150000To199999USDollar": [
-  6,
+  7,
   3,
   14,
   1,
@@ -33833,7 +33833,7 @@
   2
  ],
  "Count_Household_HouseholderAge45To64Years_HouseholderRaceNativeHawaiianOrOtherPacificIslanderAlone_IncomeOf150000To199999USDollar": [
-  6,
+  7,
   3,
   14,
   1,
@@ -33842,7 +33842,7 @@
   2
  ],
  "Count_Household_HouseholderAge45To64Years_HouseholderRaceSomeOtherRaceAlone_IncomeOf150000To199999USDollar": [
-  6,
+  7,
   3,
   14,
   1,
@@ -33851,7 +33851,7 @@
   2
  ],
  "Count_Household_HouseholderAge45To64Years_HouseholderRaceTwoOrMoreRaces_IncomeOf150000To199999USDollar": [
-  6,
+  7,
   3,
   14,
   1,
@@ -33860,7 +33860,7 @@
   2
  ],
  "Count_Household_HouseholderAge45To64Years_HouseholderRaceWhiteAlone_IncomeOf150000To199999USDollar": [
-  6,
+  7,
   3,
   14,
   1,
@@ -33869,7 +33869,7 @@
   2
  ],
  "Count_Household_HouseholderAge45To64Years_HouseholderRaceWhiteAloneNotHispanicOrLatino_IncomeOf150000To199999USDollar": [
-  6,
+  7,
   3,
   14,
   1,
@@ -33878,14 +33878,14 @@
   2
  ],
  "Count_Household_HouseholderAge45To64Years_IncomeOf200000OrMoreUSDollar": [
-  6,
+  7,
   3,
   15,
   0,
   2
  ],
  "Count_Household_HouseholderAge45To64Years_HouseholderRaceAmericanIndianOrAlaskaNativeAlone_IncomeOf200000OrMoreUSDollar": [
-  6,
+  7,
   3,
   15,
   1,
@@ -33894,7 +33894,7 @@
   2
  ],
  "Count_Household_HouseholderAge45To64Years_HouseholderRaceAsianAlone_IncomeOf200000OrMoreUSDollar": [
-  6,
+  7,
   3,
   15,
   1,
@@ -33903,7 +33903,7 @@
   2
  ],
  "Count_Household_HouseholderAge45To64Years_HouseholderRaceBlackOrAfricanAmericanAlone_IncomeOf200000OrMoreUSDollar": [
-  6,
+  7,
   3,
   15,
   1,
@@ -33912,7 +33912,7 @@
   2
  ],
  "Count_Household_HouseholderAge45To64Years_HouseholderRaceHispanicOrLatino_IncomeOf200000OrMoreUSDollar": [
-  6,
+  7,
   3,
   15,
   1,
@@ -33921,7 +33921,7 @@
   2
  ],
  "Count_Household_HouseholderAge45To64Years_HouseholderRaceNativeHawaiianOrOtherPacificIslanderAlone_IncomeOf200000OrMoreUSDollar": [
-  6,
+  7,
   3,
   15,
   1,
@@ -33930,7 +33930,7 @@
   2
  ],
  "Count_Household_HouseholderAge45To64Years_HouseholderRaceSomeOtherRaceAlone_IncomeOf200000OrMoreUSDollar": [
-  6,
+  7,
   3,
   15,
   1,
@@ -33939,7 +33939,7 @@
   2
  ],
  "Count_Household_HouseholderAge45To64Years_HouseholderRaceTwoOrMoreRaces_IncomeOf200000OrMoreUSDollar": [
-  6,
+  7,
   3,
   15,
   1,
@@ -33948,7 +33948,7 @@
   2
  ],
  "Count_Household_HouseholderAge45To64Years_HouseholderRaceWhiteAlone_IncomeOf200000OrMoreUSDollar": [
-  6,
+  7,
   3,
   15,
   1,
@@ -33957,7 +33957,7 @@
   2
  ],
  "Count_Household_HouseholderAge45To64Years_HouseholderRaceWhiteAloneNotHispanicOrLatino_IncomeOf200000OrMoreUSDollar": [
-  6,
+  7,
   3,
   15,
   1,
@@ -33966,1466 +33966,1466 @@
   2
  ],
  "Count_Household_HouseholderAge45To64Years_HouseholderRaceAmericanIndianOrAlaskaNativeAlone": [
-  6,
+  7,
   2,
   0,
   1,
   2
  ],
  "Count_Household_HouseholderAge45To64Years_HouseholderRaceAsianAlone": [
-  6,
+  7,
   2,
   1,
   1,
   2
  ],
  "Count_Household_HouseholderAge45To64Years_HouseholderRaceBlackOrAfricanAmericanAlone": [
-  6,
+  7,
   2,
   2,
   1,
   2
  ],
  "Count_Household_HouseholderAge45To64Years_HouseholderRaceHispanicOrLatino": [
-  6,
+  7,
   2,
   3,
   1,
   2
  ],
  "Count_Household_HouseholderAge45To64Years_HouseholderRaceNativeHawaiianOrOtherPacificIslanderAlone": [
-  6,
+  7,
   2,
   4,
   1,
   2
  ],
  "Count_Household_HouseholderAge45To64Years_HouseholderRaceSomeOtherRaceAlone": [
-  6,
+  7,
   2,
   5,
   1,
   2
  ],
  "Count_Household_HouseholderAge45To64Years_HouseholderRaceTwoOrMoreRaces": [
-  6,
+  7,
   2,
   6,
   1,
   2
  ],
  "Count_Household_HouseholderAge45To64Years_HouseholderRaceWhiteAlone": [
-  6,
+  7,
   2,
   7,
   1,
   2
  ],
  "Count_Household_HouseholderAge45To64Years_HouseholderRaceWhiteAloneNotHispanicOrLatino": [
-  6,
+  7,
   2,
   8,
   1,
   2
  ],
  "Count_Household_HouseholderRaceAmericanIndianOrAlaskaNativeAlone": [
-  6,
+  7,
   2,
   0
  ],
  "Count_Household_HouseholderRaceAmericanIndianOrAlaskaNativeAlone_IncomeOfUpto10000USDollar": [
-  6,
+  7,
   3,
   0,
   1,
   0
  ],
  "Count_Household_HouseholderRaceAmericanIndianOrAlaskaNativeAlone_IncomeOf10000To14999USDollar": [
-  6,
+  7,
   3,
   1,
   1,
   0
  ],
  "Count_Household_HouseholderRaceAmericanIndianOrAlaskaNativeAlone_IncomeOf15000To19999USDollar": [
-  6,
+  7,
   3,
   2,
   1,
   0
  ],
  "Count_Household_HouseholderRaceAmericanIndianOrAlaskaNativeAlone_IncomeOf20000To24999USDollar": [
-  6,
+  7,
   3,
   3,
   1,
   0
  ],
  "Count_Household_HouseholderRaceAmericanIndianOrAlaskaNativeAlone_IncomeOf25000To29999USDollar": [
-  6,
+  7,
   3,
   4,
   1,
   0
  ],
  "Count_Household_HouseholderRaceAmericanIndianOrAlaskaNativeAlone_IncomeOf30000To34999USDollar": [
-  6,
+  7,
   3,
   5,
   1,
   0
  ],
  "Count_Household_HouseholderRaceAmericanIndianOrAlaskaNativeAlone_IncomeOf35000To39999USDollar": [
-  6,
+  7,
   3,
   6,
   1,
   0
  ],
  "Count_Household_HouseholderRaceAmericanIndianOrAlaskaNativeAlone_IncomeOf40000To44999USDollar": [
-  6,
+  7,
   3,
   7,
   1,
   0
  ],
  "Count_Household_HouseholderRaceAmericanIndianOrAlaskaNativeAlone_IncomeOf45000To49999USDollar": [
-  6,
+  7,
   3,
   8,
   1,
   0
  ],
  "Count_Household_HouseholderRaceAmericanIndianOrAlaskaNativeAlone_IncomeOf50000To59999USDollar": [
-  6,
+  7,
   3,
   9,
   1,
   0
  ],
  "Count_Household_HouseholderRaceAmericanIndianOrAlaskaNativeAlone_IncomeOf60000To74999USDollar": [
-  6,
+  7,
   3,
   10,
   1,
   0
  ],
  "Count_Household_HouseholderRaceAmericanIndianOrAlaskaNativeAlone_IncomeOf75000To99999USDollar": [
-  6,
+  7,
   3,
   11,
   1,
   0
  ],
  "Count_Household_HouseholderRaceAmericanIndianOrAlaskaNativeAlone_IncomeOf100000To124999USDollar": [
-  6,
+  7,
   3,
   12,
   1,
   0
  ],
  "Count_Household_HouseholderRaceAmericanIndianOrAlaskaNativeAlone_IncomeOf125000To149999USDollar": [
-  6,
+  7,
   3,
   13,
   1,
   0
  ],
  "Count_Household_HouseholderRaceAmericanIndianOrAlaskaNativeAlone_IncomeOf150000To199999USDollar": [
-  6,
+  7,
   3,
   14,
   1,
   0
  ],
  "Count_Household_HouseholderRaceAmericanIndianOrAlaskaNativeAlone_IncomeOf200000OrMoreUSDollar": [
-  6,
+  7,
   3,
   15,
   1,
   0
  ],
  "Count_Household_HouseholderRaceAsianAlone": [
-  6,
+  7,
   2,
   1
  ],
  "Count_Household_HouseholderRaceAsianAlone_IncomeOfUpto10000USDollar": [
-  6,
+  7,
   3,
   0,
   1,
   1
  ],
  "Count_Household_HouseholderRaceAsianAlone_IncomeOf10000To14999USDollar": [
-  6,
+  7,
   3,
   1,
   1,
   1
  ],
  "Count_Household_HouseholderRaceAsianAlone_IncomeOf15000To19999USDollar": [
-  6,
+  7,
   3,
   2,
   1,
   1
  ],
  "Count_Household_HouseholderRaceAsianAlone_IncomeOf20000To24999USDollar": [
-  6,
+  7,
   3,
   3,
   1,
   1
  ],
  "Count_Household_HouseholderRaceAsianAlone_IncomeOf25000To29999USDollar": [
-  6,
+  7,
   3,
   4,
   1,
   1
  ],
  "Count_Household_HouseholderRaceAsianAlone_IncomeOf30000To34999USDollar": [
-  6,
+  7,
   3,
   5,
   1,
   1
  ],
  "Count_Household_HouseholderRaceAsianAlone_IncomeOf35000To39999USDollar": [
-  6,
+  7,
   3,
   6,
   1,
   1
  ],
  "Count_Household_HouseholderRaceAsianAlone_IncomeOf40000To44999USDollar": [
-  6,
+  7,
   3,
   7,
   1,
   1
  ],
  "Count_Household_HouseholderRaceAsianAlone_IncomeOf45000To49999USDollar": [
-  6,
+  7,
   3,
   8,
   1,
   1
  ],
  "Count_Household_HouseholderRaceAsianAlone_IncomeOf50000To59999USDollar": [
-  6,
+  7,
   3,
   9,
   1,
   1
  ],
  "Count_Household_HouseholderRaceAsianAlone_IncomeOf60000To74999USDollar": [
-  6,
+  7,
   3,
   10,
   1,
   1
  ],
  "Count_Household_HouseholderRaceAsianAlone_IncomeOf75000To99999USDollar": [
-  6,
+  7,
   3,
   11,
   1,
   1
  ],
  "Count_Household_HouseholderRaceAsianAlone_IncomeOf100000To124999USDollar": [
-  6,
+  7,
   3,
   12,
   1,
   1
  ],
  "Count_Household_HouseholderRaceAsianAlone_IncomeOf125000To149999USDollar": [
-  6,
+  7,
   3,
   13,
   1,
   1
  ],
  "Count_Household_HouseholderRaceAsianAlone_IncomeOf150000To199999USDollar": [
-  6,
+  7,
   3,
   14,
   1,
   1
  ],
  "Count_Household_HouseholderRaceAsianAlone_IncomeOf200000OrMoreUSDollar": [
-  6,
+  7,
   3,
   15,
   1,
   1
  ],
  "Count_Household_HouseholderRaceBlackOrAfricanAmericanAlone": [
-  6,
+  7,
   2,
   2
  ],
  "Count_Household_HouseholderRaceBlackOrAfricanAmericanAlone_IncomeOfUpto10000USDollar": [
-  6,
+  7,
   3,
   0,
   1,
   2
  ],
  "Count_Household_HouseholderRaceBlackOrAfricanAmericanAlone_IncomeOf10000To14999USDollar": [
-  6,
+  7,
   3,
   1,
   1,
   2
  ],
  "Count_Household_HouseholderRaceBlackOrAfricanAmericanAlone_IncomeOf15000To19999USDollar": [
-  6,
+  7,
   3,
   2,
   1,
   2
  ],
  "Count_Household_HouseholderRaceBlackOrAfricanAmericanAlone_IncomeOf20000To24999USDollar": [
-  6,
+  7,
   3,
   3,
   1,
   2
  ],
  "Count_Household_HouseholderRaceBlackOrAfricanAmericanAlone_IncomeOf25000To29999USDollar": [
-  6,
+  7,
   3,
   4,
   1,
   2
  ],
  "Count_Household_HouseholderRaceBlackOrAfricanAmericanAlone_IncomeOf30000To34999USDollar": [
-  6,
+  7,
   3,
   5,
   1,
   2
  ],
  "Count_Household_HouseholderRaceBlackOrAfricanAmericanAlone_IncomeOf35000To39999USDollar": [
-  6,
+  7,
   3,
   6,
   1,
   2
  ],
  "Count_Household_HouseholderRaceBlackOrAfricanAmericanAlone_IncomeOf40000To44999USDollar": [
-  6,
+  7,
   3,
   7,
   1,
   2
  ],
  "Count_Household_HouseholderRaceBlackOrAfricanAmericanAlone_IncomeOf45000To49999USDollar": [
-  6,
+  7,
   3,
   8,
   1,
   2
  ],
  "Count_Household_HouseholderRaceBlackOrAfricanAmericanAlone_IncomeOf50000To59999USDollar": [
-  6,
+  7,
   3,
   9,
   1,
   2
  ],
  "Count_Household_HouseholderRaceBlackOrAfricanAmericanAlone_IncomeOf60000To74999USDollar": [
-  6,
+  7,
   3,
   10,
   1,
   2
  ],
  "Count_Household_HouseholderRaceBlackOrAfricanAmericanAlone_IncomeOf75000To99999USDollar": [
-  6,
+  7,
   3,
   11,
   1,
   2
  ],
  "Count_Household_HouseholderRaceBlackOrAfricanAmericanAlone_IncomeOf100000To124999USDollar": [
-  6,
+  7,
   3,
   12,
   1,
   2
  ],
  "Count_Household_HouseholderRaceBlackOrAfricanAmericanAlone_IncomeOf125000To149999USDollar": [
-  6,
+  7,
   3,
   13,
   1,
   2
  ],
  "Count_Household_HouseholderRaceBlackOrAfricanAmericanAlone_IncomeOf150000To199999USDollar": [
-  6,
+  7,
   3,
   14,
   1,
   2
  ],
  "Count_Household_HouseholderRaceBlackOrAfricanAmericanAlone_IncomeOf200000OrMoreUSDollar": [
-  6,
+  7,
   3,
   15,
   1,
   2
  ],
  "Count_Household_HouseholderRaceHispanicOrLatino": [
-  6,
+  7,
   2,
   3
  ],
  "Count_Household_HouseholderRaceHispanicOrLatino_IncomeOfUpto10000USDollar": [
-  6,
+  7,
   3,
   0,
   1,
   3
  ],
  "Count_Household_HouseholderRaceHispanicOrLatino_IncomeOf10000To14999USDollar": [
-  6,
+  7,
   3,
   1,
   1,
   3
  ],
  "Count_Household_HouseholderRaceHispanicOrLatino_IncomeOf15000To19999USDollar": [
-  6,
+  7,
   3,
   2,
   1,
   3
  ],
  "Count_Household_HouseholderRaceHispanicOrLatino_IncomeOf20000To24999USDollar": [
-  6,
+  7,
   3,
   3,
   1,
   3
  ],
  "Count_Household_HouseholderRaceHispanicOrLatino_IncomeOf25000To29999USDollar": [
-  6,
+  7,
   3,
   4,
   1,
   3
  ],
  "Count_Household_HouseholderRaceHispanicOrLatino_IncomeOf30000To34999USDollar": [
-  6,
+  7,
   3,
   5,
   1,
   3
  ],
  "Count_Household_HouseholderRaceHispanicOrLatino_IncomeOf35000To39999USDollar": [
-  6,
+  7,
   3,
   6,
   1,
   3
  ],
  "Count_Household_HouseholderRaceHispanicOrLatino_IncomeOf40000To44999USDollar": [
-  6,
+  7,
   3,
   7,
   1,
   3
  ],
  "Count_Household_HouseholderRaceHispanicOrLatino_IncomeOf45000To49999USDollar": [
-  6,
+  7,
   3,
   8,
   1,
   3
  ],
  "Count_Household_HouseholderRaceHispanicOrLatino_IncomeOf50000To59999USDollar": [
-  6,
+  7,
   3,
   9,
   1,
   3
  ],
  "Count_Household_HouseholderRaceHispanicOrLatino_IncomeOf60000To74999USDollar": [
-  6,
+  7,
   3,
   10,
   1,
   3
  ],
  "Count_Household_HouseholderRaceHispanicOrLatino_IncomeOf75000To99999USDollar": [
-  6,
+  7,
   3,
   11,
   1,
   3
  ],
  "Count_Household_HouseholderRaceHispanicOrLatino_IncomeOf100000To124999USDollar": [
-  6,
+  7,
   3,
   12,
   1,
   3
  ],
  "Count_Household_HouseholderRaceHispanicOrLatino_IncomeOf125000To149999USDollar": [
-  6,
+  7,
   3,
   13,
   1,
   3
  ],
  "Count_Household_HouseholderRaceHispanicOrLatino_IncomeOf150000To199999USDollar": [
-  6,
+  7,
   3,
   14,
   1,
   3
  ],
  "Count_Household_HouseholderRaceHispanicOrLatino_IncomeOf200000OrMoreUSDollar": [
-  6,
+  7,
   3,
   15,
   1,
   3
  ],
  "Count_Household_HouseholderRaceNativeHawaiianOrOtherPacificIslanderAlone": [
-  6,
+  7,
   2,
   4
  ],
  "Count_Household_HouseholderRaceNativeHawaiianOrOtherPacificIslanderAlone_IncomeOfUpto10000USDollar": [
-  6,
+  7,
   3,
   0,
   1,
   4
  ],
  "Count_Household_HouseholderRaceNativeHawaiianOrOtherPacificIslanderAlone_IncomeOf10000To14999USDollar": [
-  6,
+  7,
   3,
   1,
   1,
   4
  ],
  "Count_Household_HouseholderRaceNativeHawaiianOrOtherPacificIslanderAlone_IncomeOf15000To19999USDollar": [
-  6,
+  7,
   3,
   2,
   1,
   4
  ],
  "Count_Household_HouseholderRaceNativeHawaiianOrOtherPacificIslanderAlone_IncomeOf20000To24999USDollar": [
-  6,
+  7,
   3,
   3,
   1,
   4
  ],
  "Count_Household_HouseholderRaceNativeHawaiianOrOtherPacificIslanderAlone_IncomeOf25000To29999USDollar": [
-  6,
+  7,
   3,
   4,
   1,
   4
  ],
  "Count_Household_HouseholderRaceNativeHawaiianOrOtherPacificIslanderAlone_IncomeOf30000To34999USDollar": [
-  6,
+  7,
   3,
   5,
   1,
   4
  ],
  "Count_Household_HouseholderRaceNativeHawaiianOrOtherPacificIslanderAlone_IncomeOf35000To39999USDollar": [
-  6,
+  7,
   3,
   6,
   1,
   4
  ],
  "Count_Household_HouseholderRaceNativeHawaiianOrOtherPacificIslanderAlone_IncomeOf40000To44999USDollar": [
-  6,
+  7,
   3,
   7,
   1,
   4
  ],
  "Count_Household_HouseholderRaceNativeHawaiianOrOtherPacificIslanderAlone_IncomeOf45000To49999USDollar": [
-  6,
+  7,
   3,
   8,
   1,
   4
  ],
  "Count_Household_HouseholderRaceNativeHawaiianOrOtherPacificIslanderAlone_IncomeOf50000To59999USDollar": [
-  6,
+  7,
   3,
   9,
   1,
   4
  ],
  "Count_Household_HouseholderRaceNativeHawaiianOrOtherPacificIslanderAlone_IncomeOf60000To74999USDollar": [
-  6,
+  7,
   3,
   10,
   1,
   4
  ],
  "Count_Household_HouseholderRaceNativeHawaiianOrOtherPacificIslanderAlone_IncomeOf75000To99999USDollar": [
-  6,
+  7,
   3,
   11,
   1,
   4
  ],
  "Count_Household_HouseholderRaceNativeHawaiianOrOtherPacificIslanderAlone_IncomeOf100000To124999USDollar": [
-  6,
+  7,
   3,
   12,
   1,
   4
  ],
  "Count_Household_HouseholderRaceNativeHawaiianOrOtherPacificIslanderAlone_IncomeOf125000To149999USDollar": [
-  6,
+  7,
   3,
   13,
   1,
   4
  ],
  "Count_Household_HouseholderRaceNativeHawaiianOrOtherPacificIslanderAlone_IncomeOf150000To199999USDollar": [
-  6,
+  7,
   3,
   14,
   1,
   4
  ],
  "Count_Household_HouseholderRaceNativeHawaiianOrOtherPacificIslanderAlone_IncomeOf200000OrMoreUSDollar": [
-  6,
+  7,
   3,
   15,
   1,
   4
  ],
  "Count_Household_HouseholderRaceSomeOtherRaceAlone": [
-  6,
+  7,
   2,
   5
  ],
  "Count_Household_HouseholderRaceSomeOtherRaceAlone_IncomeOfUpto10000USDollar": [
-  6,
+  7,
   3,
   0,
   1,
   5
  ],
  "Count_Household_HouseholderRaceSomeOtherRaceAlone_IncomeOf10000To14999USDollar": [
-  6,
+  7,
   3,
   1,
   1,
   5
  ],
  "Count_Household_HouseholderRaceSomeOtherRaceAlone_IncomeOf15000To19999USDollar": [
-  6,
+  7,
   3,
   2,
   1,
   5
  ],
  "Count_Household_HouseholderRaceSomeOtherRaceAlone_IncomeOf20000To24999USDollar": [
-  6,
+  7,
   3,
   3,
   1,
   5
  ],
  "Count_Household_HouseholderRaceSomeOtherRaceAlone_IncomeOf25000To29999USDollar": [
-  6,
+  7,
   3,
   4,
   1,
   5
  ],
  "Count_Household_HouseholderRaceSomeOtherRaceAlone_IncomeOf30000To34999USDollar": [
-  6,
+  7,
   3,
   5,
   1,
   5
  ],
  "Count_Household_HouseholderRaceSomeOtherRaceAlone_IncomeOf35000To39999USDollar": [
-  6,
+  7,
   3,
   6,
   1,
   5
  ],
  "Count_Household_HouseholderRaceSomeOtherRaceAlone_IncomeOf40000To44999USDollar": [
-  6,
+  7,
   3,
   7,
   1,
   5
  ],
  "Count_Household_HouseholderRaceSomeOtherRaceAlone_IncomeOf45000To49999USDollar": [
-  6,
+  7,
   3,
   8,
   1,
   5
  ],
  "Count_Household_HouseholderRaceSomeOtherRaceAlone_IncomeOf50000To59999USDollar": [
-  6,
+  7,
   3,
   9,
   1,
   5
  ],
  "Count_Household_HouseholderRaceSomeOtherRaceAlone_IncomeOf60000To74999USDollar": [
-  6,
+  7,
   3,
   10,
   1,
   5
  ],
  "Count_Household_HouseholderRaceSomeOtherRaceAlone_IncomeOf75000To99999USDollar": [
-  6,
+  7,
   3,
   11,
   1,
   5
  ],
  "Count_Household_HouseholderRaceSomeOtherRaceAlone_IncomeOf100000To124999USDollar": [
-  6,
+  7,
   3,
   12,
   1,
   5
  ],
  "Count_Household_HouseholderRaceSomeOtherRaceAlone_IncomeOf125000To149999USDollar": [
-  6,
+  7,
   3,
   13,
   1,
   5
  ],
  "Count_Household_HouseholderRaceSomeOtherRaceAlone_IncomeOf150000To199999USDollar": [
-  6,
+  7,
   3,
   14,
   1,
   5
  ],
  "Count_Household_HouseholderRaceSomeOtherRaceAlone_IncomeOf200000OrMoreUSDollar": [
-  6,
+  7,
   3,
   15,
   1,
   5
  ],
  "Count_Household_HouseholderRaceTwoOrMoreRaces": [
-  6,
+  7,
   2,
   6
  ],
  "Count_Household_HouseholderRaceTwoOrMoreRaces_IncomeOfUpto10000USDollar": [
-  6,
+  7,
   3,
   0,
   1,
   6
  ],
  "Count_Household_HouseholderRaceTwoOrMoreRaces_IncomeOf10000To14999USDollar": [
-  6,
+  7,
   3,
   1,
   1,
   6
  ],
  "Count_Household_HouseholderRaceTwoOrMoreRaces_IncomeOf15000To19999USDollar": [
-  6,
+  7,
   3,
   2,
   1,
   6
  ],
  "Count_Household_HouseholderRaceTwoOrMoreRaces_IncomeOf20000To24999USDollar": [
-  6,
+  7,
   3,
   3,
   1,
   6
  ],
  "Count_Household_HouseholderRaceTwoOrMoreRaces_IncomeOf25000To29999USDollar": [
-  6,
+  7,
   3,
   4,
   1,
   6
  ],
  "Count_Household_HouseholderRaceTwoOrMoreRaces_IncomeOf30000To34999USDollar": [
-  6,
+  7,
   3,
   5,
   1,
   6
  ],
  "Count_Household_HouseholderRaceTwoOrMoreRaces_IncomeOf35000To39999USDollar": [
-  6,
+  7,
   3,
   6,
   1,
   6
  ],
  "Count_Household_HouseholderRaceTwoOrMoreRaces_IncomeOf40000To44999USDollar": [
-  6,
+  7,
   3,
   7,
   1,
   6
  ],
  "Count_Household_HouseholderRaceTwoOrMoreRaces_IncomeOf45000To49999USDollar": [
-  6,
+  7,
   3,
   8,
   1,
   6
  ],
  "Count_Household_HouseholderRaceTwoOrMoreRaces_IncomeOf50000To59999USDollar": [
-  6,
+  7,
   3,
   9,
   1,
   6
  ],
  "Count_Household_HouseholderRaceTwoOrMoreRaces_IncomeOf60000To74999USDollar": [
-  6,
+  7,
   3,
   10,
   1,
   6
  ],
  "Count_Household_HouseholderRaceTwoOrMoreRaces_IncomeOf75000To99999USDollar": [
-  6,
+  7,
   3,
   11,
   1,
   6
  ],
  "Count_Household_HouseholderRaceTwoOrMoreRaces_IncomeOf100000To124999USDollar": [
-  6,
+  7,
   3,
   12,
   1,
   6
  ],
  "Count_Household_HouseholderRaceTwoOrMoreRaces_IncomeOf125000To149999USDollar": [
-  6,
+  7,
   3,
   13,
   1,
   6
  ],
  "Count_Household_HouseholderRaceTwoOrMoreRaces_IncomeOf150000To199999USDollar": [
-  6,
+  7,
   3,
   14,
   1,
   6
  ],
  "Count_Household_HouseholderRaceTwoOrMoreRaces_IncomeOf200000OrMoreUSDollar": [
-  6,
+  7,
   3,
   15,
   1,
   6
  ],
  "Count_Household_HouseholderRaceWhiteAlone": [
-  6,
+  7,
   2,
   7
  ],
  "Count_Household_HouseholderRaceWhiteAlone_IncomeOfUpto10000USDollar": [
-  6,
+  7,
   3,
   0,
   1,
   7
  ],
  "Count_Household_HouseholderRaceWhiteAlone_IncomeOf10000To14999USDollar": [
-  6,
+  7,
   3,
   1,
   1,
   7
  ],
  "Count_Household_HouseholderRaceWhiteAlone_IncomeOf15000To19999USDollar": [
-  6,
+  7,
   3,
   2,
   1,
   7
  ],
  "Count_Household_HouseholderRaceWhiteAlone_IncomeOf20000To24999USDollar": [
-  6,
+  7,
   3,
   3,
   1,
   7
  ],
  "Count_Household_HouseholderRaceWhiteAlone_IncomeOf25000To29999USDollar": [
-  6,
+  7,
   3,
   4,
   1,
   7
  ],
  "Count_Household_HouseholderRaceWhiteAlone_IncomeOf30000To34999USDollar": [
-  6,
+  7,
   3,
   5,
   1,
   7
  ],
  "Count_Household_HouseholderRaceWhiteAlone_IncomeOf35000To39999USDollar": [
-  6,
+  7,
   3,
   6,
   1,
   7
  ],
  "Count_Household_HouseholderRaceWhiteAlone_IncomeOf40000To44999USDollar": [
-  6,
+  7,
   3,
   7,
   1,
   7
  ],
  "Count_Household_HouseholderRaceWhiteAlone_IncomeOf45000To49999USDollar": [
-  6,
+  7,
   3,
   8,
   1,
   7
  ],
  "Count_Household_HouseholderRaceWhiteAlone_IncomeOf50000To59999USDollar": [
-  6,
+  7,
   3,
   9,
   1,
   7
  ],
  "Count_Household_HouseholderRaceWhiteAlone_IncomeOf60000To74999USDollar": [
-  6,
+  7,
   3,
   10,
   1,
   7
  ],
  "Count_Household_HouseholderRaceWhiteAlone_IncomeOf75000To99999USDollar": [
-  6,
+  7,
   3,
   11,
   1,
   7
  ],
  "Count_Household_HouseholderRaceWhiteAlone_IncomeOf100000To124999USDollar": [
-  6,
+  7,
   3,
   12,
   1,
   7
  ],
  "Count_Household_HouseholderRaceWhiteAlone_IncomeOf125000To149999USDollar": [
-  6,
+  7,
   3,
   13,
   1,
   7
  ],
  "Count_Household_HouseholderRaceWhiteAlone_IncomeOf150000To199999USDollar": [
-  6,
+  7,
   3,
   14,
   1,
   7
  ],
  "Count_Household_HouseholderRaceWhiteAlone_IncomeOf200000OrMoreUSDollar": [
-  6,
+  7,
   3,
   15,
   1,
   7
  ],
  "Count_Household_HouseholderRaceWhiteAloneNotHispanicOrLatino": [
-  6,
+  7,
   2,
   8
  ],
  "Count_Household_HouseholderRaceWhiteAloneNotHispanicOrLatino_IncomeOfUpto10000USDollar": [
-  6,
+  7,
   3,
   0,
   1,
   8
  ],
  "Count_Household_HouseholderRaceWhiteAloneNotHispanicOrLatino_IncomeOf10000To14999USDollar": [
-  6,
+  7,
   3,
   1,
   1,
   8
  ],
  "Count_Household_HouseholderRaceWhiteAloneNotHispanicOrLatino_IncomeOf15000To19999USDollar": [
-  6,
+  7,
   3,
   2,
   1,
   8
  ],
  "Count_Household_HouseholderRaceWhiteAloneNotHispanicOrLatino_IncomeOf20000To24999USDollar": [
-  6,
+  7,
   3,
   3,
   1,
   8
  ],
  "Count_Household_HouseholderRaceWhiteAloneNotHispanicOrLatino_IncomeOf25000To29999USDollar": [
-  6,
+  7,
   3,
   4,
   1,
   8
  ],
  "Count_Household_HouseholderRaceWhiteAloneNotHispanicOrLatino_IncomeOf30000To34999USDollar": [
-  6,
+  7,
   3,
   5,
   1,
   8
  ],
  "Count_Household_HouseholderRaceWhiteAloneNotHispanicOrLatino_IncomeOf35000To39999USDollar": [
-  6,
+  7,
   3,
   6,
   1,
   8
  ],
  "Count_Household_HouseholderRaceWhiteAloneNotHispanicOrLatino_IncomeOf40000To44999USDollar": [
-  6,
+  7,
   3,
   7,
   1,
   8
  ],
  "Count_Household_HouseholderRaceWhiteAloneNotHispanicOrLatino_IncomeOf45000To49999USDollar": [
-  6,
+  7,
   3,
   8,
   1,
   8
  ],
  "Count_Household_HouseholderRaceWhiteAloneNotHispanicOrLatino_IncomeOf50000To59999USDollar": [
-  6,
+  7,
   3,
   9,
   1,
   8
  ],
  "Count_Household_HouseholderRaceWhiteAloneNotHispanicOrLatino_IncomeOf60000To74999USDollar": [
-  6,
+  7,
   3,
   10,
   1,
   8
  ],
  "Count_Household_HouseholderRaceWhiteAloneNotHispanicOrLatino_IncomeOf75000To99999USDollar": [
-  6,
+  7,
   3,
   11,
   1,
   8
  ],
  "Count_Household_HouseholderRaceWhiteAloneNotHispanicOrLatino_IncomeOf100000To124999USDollar": [
-  6,
+  7,
   3,
   12,
   1,
   8
  ],
  "Count_Household_HouseholderRaceWhiteAloneNotHispanicOrLatino_IncomeOf125000To149999USDollar": [
-  6,
+  7,
   3,
   13,
   1,
   8
  ],
  "Count_Household_HouseholderRaceWhiteAloneNotHispanicOrLatino_IncomeOf150000To199999USDollar": [
-  6,
+  7,
   3,
   14,
   1,
   8
  ],
  "Count_Household_HouseholderRaceWhiteAloneNotHispanicOrLatino_IncomeOf200000OrMoreUSDollar": [
-  6,
+  7,
   3,
   15,
   1,
   8
  ],
  "Count_Household_IncomeOfUpto10000USDollar": [
-  6,
+  7,
   3,
   0
  ],
  "Count_Household_IncomeOf10000To14999USDollar": [
-  6,
+  7,
   3,
   1
  ],
  "Count_Household_IncomeOf15000To19999USDollar": [
-  6,
+  7,
   3,
   2
  ],
  "Count_Household_IncomeOf20000To24999USDollar": [
-  6,
+  7,
   3,
   3
  ],
  "Count_Household_IncomeOf25000To29999USDollar": [
-  6,
+  7,
   3,
   4
  ],
  "Count_Household_IncomeOf30000To34999USDollar": [
-  6,
+  7,
   3,
   5
  ],
  "Count_Household_IncomeOf35000To39999USDollar": [
-  6,
+  7,
   3,
   6
  ],
  "Count_Household_IncomeOf40000To44999USDollar": [
-  6,
+  7,
   3,
   7
  ],
  "Count_Household_IncomeOf45000To49999USDollar": [
-  6,
+  7,
   3,
   8
  ],
  "Count_Household_IncomeOf50000To59999USDollar": [
-  6,
+  7,
   3,
   9
  ],
  "Count_Household_IncomeOf60000To74999USDollar": [
-  6,
+  7,
   3,
   10
  ],
  "Count_Household_IncomeOf75000To99999USDollar": [
-  6,
+  7,
   3,
   11
  ],
  "Count_Household_IncomeOf100000To124999USDollar": [
-  6,
+  7,
   3,
   12
  ],
  "Count_Household_IncomeOf125000To149999USDollar": [
-  6,
+  7,
   3,
   13
  ],
  "Count_Household_IncomeOf150000To199999USDollar": [
-  6,
+  7,
   3,
   14
  ],
  "Count_Household_IncomeOf200000OrMoreUSDollar": [
-  6,
+  7,
   3,
   15
  ],
  "Count_CycloneEvent": [
-  7,
+  8,
   0
  ],
  "Count_CycloneEvent_ExtratropicalCyclone": [
-  7,
+  8,
   0,
   0,
   0
  ],
  "Count_CycloneEvent_SubtropicalStorm": [
-  7,
+  8,
   0,
   0,
   1
  ],
  "Count_CycloneEvent_TropicalDisturbance": [
-  7,
+  8,
   0,
   0,
   2
  ],
  "Count_CycloneEvent_TropicalStorm": [
-  7,
+  8,
   0,
   0,
   3
  ],
  "Count_DroughtEvent": [
-  7,
+  8,
   1
  ],
  "Count_EarthquakeEvent": [
-  7,
+  8,
   2
  ],
  "Count_EarthquakeEvent_M3To4": [
-  7,
+  8,
   2,
   0,
   0
  ],
  "Count_EarthquakeEvent_M4To5": [
-  7,
+  8,
   2,
   0,
   1
  ],
  "Count_EarthquakeEvent_M5To6": [
-  7,
+  8,
   2,
   0,
   2
  ],
  "Count_EarthquakeEvent_M6To7": [
-  7,
+  8,
   2,
   0,
   3
  ],
  "Count_EarthquakeEvent_M7To8": [
-  7,
+  8,
   2,
   0,
   4
  ],
  "Count_EarthquakeEvent_M8To9": [
-  7,
+  8,
   2,
   0,
   5
  ],
  "Count_EarthquakeEvent_M3Onwards": [
-  7,
+  8,
   2,
   0,
   6
  ],
  "Count_EarthquakeEvent_M4Onwards": [
-  7,
+  8,
   2,
   0,
   7
  ],
  "Count_EarthquakeEvent_M5Onwards": [
-  7,
+  8,
   2,
   0,
   8
  ],
  "Count_EarthquakeEvent_M6Onwards": [
-  7,
+  8,
   2,
   0,
   9
  ],
  "Count_EarthquakeEvent_M7Onwards": [
-  7,
+  8,
   2,
   0,
   10
  ],
  "Count_EarthquakeEvent_M8Onwards": [
-  7,
+  8,
   2,
   0,
   11
  ],
  "Count_EarthquakeEvent_M9Onwards": [
-  7,
+  8,
   2,
   0,
   12
  ],
  "Count_FloodEvent": [
-  7,
+  8,
   3
  ],
  "Count_ThunderstormWindEvent": [
-  7,
+  8,
   4
  ],
  "Count_TornadoEvent": [
-  7,
+  8,
   5
  ],
  "Count_WildlandFireEvent": [
-  7,
+  8,
   6
  ],
  "Count_Establishment": [
-  9,
+  10,
   0
  ],
  "WagesAnnual_Establishment": [
-  9,
+  10,
   1
  ],
  "Count_Worker": [
-  9,
+  10,
   2
  ],
  "WagesAnnual_Establishment_NAICSAgricultureForestryFishingHunting": [
-  9,
+  10,
   3,
   0
  ],
  "WagesAnnual_Establishment_NAICSMiningQuarryingOilGasExtraction": [
-  9,
+  10,
   3,
   1
  ],
  "WagesAnnual_Establishment_NAICSUtilities": [
-  9,
+  10,
   3,
   2
  ],
  "WagesAnnual_Establishment_NAICSConstruction": [
-  9,
+  10,
   3,
   3
  ],
  "WagesAnnual_Establishment_NAICSWholesaleTrade": [
-  9,
+  10,
   3,
   4
  ],
  "WagesAnnual_Establishment_NAICSInformation": [
-  9,
+  10,
   3,
   5
  ],
  "WagesAnnual_Establishment_NAICSFinanceInsurance": [
-  9,
+  10,
   3,
   6
  ],
  "WagesAnnual_Establishment_NAICSRealEstateRentalLeasing": [
-  9,
+  10,
   3,
   7
  ],
  "WagesAnnual_Establishment_NAICSProfessionalScientificTechnicalServices": [
-  9,
+  10,
   3,
   8
  ],
  "WagesAnnual_Establishment_NAICSManagementOfCompaniesEnterprises": [
-  9,
+  10,
   3,
   9
  ],
  "WagesAnnual_Establishment_NAICSAdministrativeSupportWasteManagementRemediationServices": [
-  9,
+  10,
   3,
   10
  ],
  "WagesAnnual_Establishment_NAICSEducationalServices": [
-  9,
+  10,
   3,
   11
  ],
  "WagesAnnual_Establishment_NAICSHealthCareSocialAssistance": [
-  9,
+  10,
   3,
   12
  ],
  "WagesAnnual_Establishment_NAICSArtsEntertainmentRecreation": [
-  9,
+  10,
   3,
   13
  ],
  "WagesAnnual_Establishment_NAICSAccommodationFoodServices": [
-  9,
+  10,
   3,
   14
  ],
  "WagesAnnual_Establishment_NAICSOtherServices": [
-  9,
+  10,
   3,
   15
  ],
  "WagesAnnual_Establishment_NAICSNonclassifiable": [
-  9,
+  10,
   3,
   16
  ],
  "GrowthRate_Amount_EconomicActivity_GrossDomesticProduction": [
-  9,
+  10,
   4,
   0,
   0
  ],
  "Amount_EconomicActivity_GrossDomesticProduction_Nominal": [
-  9,
+  10,
   4,
   0,
   1
  ],
  "Amount_EconomicActivity_GrossDomesticProduction_RealValue": [
-  9,
+  10,
   4,
   0,
   2
  ],
  "Amount_EconomicActivity_GrossDomesticProduction_Nominal_PerCapita": [
-  9,
+  10,
   4,
   0,
   3
  ],
  "Amount_EconomicActivity_GrossNationalIncome_PurchasingPowerParity": [
-  9,
+  10,
   4,
   1,
   0
  ],
  "Amount_EconomicActivity_GrossNationalIncome_PurchasingPowerParity_PerCapita": [
-  9,
+  10,
   4,
   1,
   1
  ],
  "Amount_EconomicActivity_GrossValueAdded_RealValue": [
-  9,
+  10,
   4,
   2,
   0

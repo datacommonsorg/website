@@ -20,7 +20,7 @@ import collections
 
 
 VERTICALS = [
-    'Demographics', 'Crime', 'Education', 'Employment', 'Health', 'Housing',
+    'Demographics', 'Crime', 'Education', 'Employment', 'Health', 'COVID-19','Housing',
     'Household', 'Disasters', 'Environment', 'Economics'
 ]
 
