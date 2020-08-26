@@ -116,9 +116,13 @@ class PropertyNode:
                         self.pv.items() <= sv.pv.items()):
                     # matching statsVar found
                     if not sv.se or self.prop not in sv.se:  # no super enum
+                        # create a new level if 
+                        # the obs_prop is not specified as the same level 
+                        # and there's more than one obs_prop 
                         matching_stats_vars[sv.pv[self.prop]].append(
-                            ValueLeaf(self.pos.obs_props[idx].name,
-                                      [sv.dcid], addLevel, self.pos))
+                            ValueLeaf(self.pos.obs_props[idx].name,[sv.dcid], 
+                                (addLevel and not 
+                                self.pos.obs_props[idx].same_level), self.pos))
                     else:  # create new level for super enum
                         matching_stats_vars[sv.se[self.prop]].append(
                             ValueLeaf(sv.pv[self.prop],
@@ -263,7 +267,8 @@ def build_tree(max_level):
         for node in prop_nodes:
             # build property node blobs
             prop_blob = build_tree_recursive(node, max_level)
-            current_blob['cd'].append(prop_blob)
+            if (prop_blob['cd']):
+                current_blob['cd'].append(prop_blob)
         reorgnize(current_blob)
 
     stats_var_path = {}

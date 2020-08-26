@@ -39,6 +39,8 @@ def format_title(title):
     return constants.DEA_DRUGS[title]
   if title in constants.EQ_MAGNITUDES:
     return constants.EQ_MAGNITUDES[title]
+  if title in constants.NACE:
+    return constants.NACE[title]
   for key in RANGE_TEXT:
     if title.startswith(key):
       return format_range(title, key)

@@ -28,6 +28,7 @@ message ObsProp {
   optional string mqual = 3;
   optional string mdenom = 4;
   optional string name = 6;
+  optional bool same_level = 7;
 }
 
 // This proto contains the specification of a PopObs instance. It contains

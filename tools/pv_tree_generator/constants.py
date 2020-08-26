@@ -20,7 +20,7 @@ import collections
 
 
 VERTICALS = [
-    'Demographics', 'Crime', 'Education', 'Employment', 'Health', 'Housing',
+    'Demographics', 'Crime', 'Education', 'Employment', 'Health', 'COVID-19','Housing',
     'Household', 'Disasters', 'Environment', 'Economics'
 ]
 
@@ -40,6 +40,23 @@ NAICS = collections.OrderedDict([
     ('NAICS/72', 'Accommodation and Food Services'),
     ('NAICS/81', 'Other Services'), ('NAICS/92', 'Public Administration'),
     ('NAICS/99', 'Unclassified')
+])
+
+NACE = collections.OrderedDict([
+    ('NACE/A','Agriculture, forestry and fishing'),
+    ('NACE/B-E', 'Industry (except construction)'), 
+    ('NACE/C','Manufacturing'), 
+    ('NACE/F','Construction'),
+    ('NACE/G-J','Wholesale and retail trade, transport, accommodation and food service activities, information and communication'),
+    ('NACE/G-I','Wholesale and retail trade, transport, accommodation and food service'), 
+    ('NACE/J','Information and communication'),
+    ('NACE/K-N','Financial and insurance activities, real estate activities, professional, scientific and technical activities, administrative and support service'),
+    ('NACE/K','Financial and insurance activities'),
+    ('NACE/L','Real estate activities'),
+    ('NACE/M-N','Professional, scientific and technical activities, administrative and support service activities'),
+    ('NACE/O-U','Public administration and defence, compulsory social security, education, human health and social work activities, arts, entertainment and recreation'),
+    ('NACE/O-Q','Public administration, defence, education, human health and social work activities'),
+    ('NACE/R-U','Arts, entertainment and recreation, other service activities, activities of household and extra-territorial organizations and bodies')
 ])
 
 ICD10 = {

@@ -34,60 +34,6 @@
     ]
    },
    {
-    "l": "Citizenship",
-    "t": "p",
-    "c": 0,
-    "cd": []
-   },
-   {
-    "l": "Gender",
-    "t": "p",
-    "c": 0,
-    "cd": []
-   },
-   {
-    "l": "Income",
-    "t": "p",
-    "c": 0,
-    "cd": []
-   },
-   {
-    "l": "Marital Status",
-    "t": "p",
-    "c": 0,
-    "cd": []
-   },
-   {
-    "l": "Nativity",
-    "t": "p",
-    "c": 0,
-    "cd": []
-   },
-   {
-    "l": "Place Of Birth",
-    "t": "p",
-    "c": 0,
-    "cd": []
-   },
-   {
-    "l": "Poverty Status",
-    "t": "p",
-    "c": 0,
-    "cd": []
-   },
-   {
-    "l": "Race",
-    "t": "p",
-    "c": 0,
-    "cd": []
-   },
-   {
-    "l": "Veteran Status",
-    "t": "p",
-    "c": 0,
-    "cd": []
-   },
-   {
     "l": "Educational Attainment",
     "t": "p",
     "c": 3,
@@ -270,18 +216,6 @@
       "cd": []
      }
     ]
-   },
-   {
-    "l": "School Enrollment",
-    "t": "p",
-    "c": 0,
-    "cd": []
-   },
-   {
-    "l": "Detailed Level Of School",
-    "t": "p",
-    "c": 0,
-    "cd": []
    }
   ]
  },
@@ -325,12 +259,6 @@
       "cd": []
      }
     ]
-   },
-   {
-    "l": "Unemployment Insurance Claims",
-    "t": "p",
-    "c": 0,
-    "cd": []
    }
   ]
  },
@@ -340,62 +268,15 @@
   "t": "p",
   "e": "Health",
   "c": 0,
-  "cd": [
-   {
-    "l": "Health Outcomes",
-    "t": "p",
-    "c": 0,
-    "cd": []
-   },
-   {
-    "l": "Health Preventions",
-    "t": "p",
-    "c": 0,
-    "cd": []
-   },
-   {
-    "l": "Health Behaviors",
-    "t": "p",
-    "c": 0,
-    "cd": []
-   },
-   {
-    "l": "Age",
-    "t": "p",
-    "c": 0,
-    "cd": []
-   },
-   {
-    "l": "Cause Of Death",
-    "t": "p",
-    "c": 0,
-    "cd": []
-   },
-   {
-    "l": "Gender",
-    "t": "p",
-    "c": 0,
-    "cd": []
-   },
-   {
-    "l": "Race",
-    "t": "p",
-    "c": 0,
-    "cd": []
-   },
-   {
-    "l": "Drug Prescribed",
-    "t": "p",
-    "c": 0,
-    "cd": []
-   },
-   {
-    "l": "COVID-19 Incidents",
-    "t": "p",
-    "c": 0,
-    "cd": []
-   }
-  ]
+  "cd": []
+ },
+ "COVID-19": {
+  "sv": [],
+  "l": "COVID-19",
+  "t": "p",
+  "e": "COVID-19",
+  "c": 0,
+  "cd": []
  },
  "Housing": {
   "sv": [],
@@ -403,50 +284,7 @@
   "t": "p",
   "e": "Housing",
   "c": 0,
-  "cd": [
-   {
-    "l": "Housing Unit Cash Rent Status",
-    "t": "p",
-    "c": 0,
-    "cd": []
-   },
-   {
-    "l": "Housing Unit Gross Rent",
-    "t": "p",
-    "c": 0,
-    "cd": []
-   },
-   {
-    "l": "Housing Unit Home Value",
-    "t": "p",
-    "c": 0,
-    "cd": []
-   },
-   {
-    "l": "Housing Unit Householder Race",
-    "t": "p",
-    "c": 0,
-    "cd": []
-   },
-   {
-    "l": "Housing Unit Number of Rooms",
-    "t": "p",
-    "c": 0,
-    "cd": []
-   },
-   {
-    "l": "Housing Unit Occupancy Status",
-    "t": "p",
-    "c": 0,
-    "cd": []
-   },
-   {
-    "l": "Housing Unit Occupancy Tenure",
-    "t": "p",
-    "c": 0,
-    "cd": []
-   }
-  ]
+  "cd": []
  },
  "Household": {
   "sv": [],
@@ -454,26 +292,7 @@
   "t": "p",
   "e": "Household",
   "c": 0,
-  "cd": [
-   {
-    "l": "Household by Householder Age",
-    "t": "p",
-    "c": 0,
-    "cd": []
-   },
-   {
-    "l": "Household by Householder Race",
-    "t": "p",
-    "c": 0,
-    "cd": []
-   },
-   {
-    "l": "Household Income",
-    "t": "p",
-    "c": 0,
-    "cd": []
-   }
-  ]
+  "cd": []
  },
  "Disasters": {
   "sv": [],
@@ -557,12 +376,6 @@
   "e": "Economics",
   "c": 3,
   "cd": [
-   {
-    "l": "Annual Wages of Establishments by Industry",
-    "t": "p",
-    "c": 0,
-    "cd": []
-   },
    {
     "l": "Activity Source",
     "t": "p",
