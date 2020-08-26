@@ -49,6 +49,8 @@ EQUIVALENT_PLACE_TYPES = {
 
 CHILD_PLACE_LIMIT = 50
 
+MIN_POP = 5000
+
 # Contains statistical variable and the display name used for place rankings.
 RANKING_STATS = {
     'Count_Person': 'Largest Population',
@@ -331,8 +333,16 @@ def api_nearby_places(dcid):
         places.append(prop_value['value'].split('@'))
     places.sort(key=lambda x: x[1])
     dcids = [place[0] for place in places]
-    data = dc.get_property_values(dcids, 'typeOf', True)
-    return json.dumps(data)
+    pop = stats_api.get_stats_latest('^'.join(dcids), 'Count_Person')
+
+    filtered_dcids = []
+    # Filter out places that are smaller certain population.
+    for x, count in pop.items():
+        if count > MIN_POP:
+            filtered_dcids.append(x)
+    filtered_dcids.sort(key=lambda x: pop[x])
+    filtered_dcids.insert(0, dcid)
+    return json.dumps(filtered_dcids)
 
 
 @cache.memoize(timeout=3600 * 24)  # Cache for one day.
