@@ -273,19 +273,19 @@
   "l": "COVID-19",
   "t": "p",
   "e": "COVID-19",
-  "c": 25,
+  "c": 28,
   "cd": [
    {
     "sv": [
      "CumulativeCount_Person_COVID19PCRTest"
     ],
-    "l": "Tests",
+    "l": "PCR Tests",
     "t": "v",
-    "e": "Tests",
+    "e": "PCR Tests",
     "c": 1
    },
    {
-    "l": "Medical Incidents",
+    "l": "Medical Condition Incidents",
     "t": "p",
     "c": 14
    },
@@ -293,6 +293,11 @@
     "l": "Policies",
     "t": "p",
     "c": 4
+   },
+   {
+    "l": "Medical Tests",
+    "t": "p",
+    "c": 3
    },
    {
     "l": "Mobility Trend Place Categories",

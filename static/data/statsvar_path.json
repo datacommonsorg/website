@@ -29046,34 +29046,49 @@
   2,
   3
  ],
- "dc/n9rqwq8d3lcx3": [
+ "CumulativeCount_MedicalTest_ConditionCOVID_19_Negative": [
   5,
   3,
   0
  ],
- "dc/0ny9m7k0lzmn5": [
+ "CumulativeCount_MedicalTest_ConditionCOVID_19_Positive": [
   5,
   3,
   1
  ],
- "dc/p49ghylpwz93f": [
+ "dc/7ck14dlsnxrz2": [
   5,
   3,
   2
  ],
+ "dc/n9rqwq8d3lcx3": [
+  5,
+  4,
+  0
+ ],
+ "dc/0ny9m7k0lzmn5": [
+  5,
+  4,
+  1
+ ],
+ "dc/p49ghylpwz93f": [
+  5,
+  4,
+  2
+ ],
  "dc/7fmnve6yyc508": [
   5,
-  3,
+  4,
   3
  ],
  "dc/qdbhwwr88yhl7": [
   5,
-  3,
+  4,
   4
  ],
  "dc/tbbjnf9bk96yh": [
   5,
-  3,
+  4,
   5
  ],
  "Count_HousingUnit": [

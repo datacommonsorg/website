@@ -1938,7 +1938,7 @@ spec: {
   }
 
   vertical: "COVID-19"
-  name: "Medical Incidents"
+  name: "Medical Condition Incidents"
   dpv: {
     prop: "incidentType"
     val: "COVID_19"
@@ -2112,7 +2112,22 @@ spec: {
     mprop: "cumulativeCount"
     stat_type: "measuredValue"
   }
-  name: "Tests"
+  name: "PCR Tests"
+  vertical: "COVID-19"
+}
+
+spec: {
+  pop_type: "MedicalTest"
+  cprop: "testResult"
+  dpv: {
+    prop: "medicalCondition"
+    val: "COVID_19"
+  }
+  obs_props: {
+    mprop: "cumulativeCount"
+    stat_type: "measuredValue"
+  }
+  name: "Medical Tests"
   vertical: "COVID-19"
 }
 
