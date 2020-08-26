@@ -54,6 +54,7 @@ const /** !Array<string> */ PROD_HOST = [
   ];
 
 const /** !Array<string> */ STAGING_HOST = [
+    "localhost:8080",
     "staging.datacommons.org",
     "datcom-browser-staging.appspot.com",
   ];
@@ -79,7 +80,7 @@ function isBrowserInProdEnv() {
   if (STAGING_HOST.includes(host)) return false;
 
   // TODO: Default to prod for now, until we use async XHR
-  console.log("Unknown host: \"" + host + "\", treat as prod.");
+  console.log('Unknown host: "' + host + '", treat as prod.');
   return true;
 }
 
