@@ -119,7 +119,6 @@ def removeDuplicateStatsVar(stat_vars):
 def read_stat_var():
     """ Read all the statistical variables """
     sv_dcid = dc.get_sv_dcids()
-
     """
     example of triples for one statsitical variable
     ('dc/014es05x0d5l', 'measurementMethod', 'CensusACS5yrSurvey')

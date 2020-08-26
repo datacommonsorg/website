@@ -45,11 +45,12 @@ spec: {
     stat_type: "measuredValue"
     name: "Count"
   }
-  obs_props: {
-    mprop: "lifeExpectancy"
-    stat_type: "measuredValue"
-    name: "Life Expectancy"
-  }
+  #obs_props: {
+  #  mprop: "lifeExpectancy"
+  #  stat_type: "measuredValue"
+  #  name: "Life Expectancy"
+  #} # Currently not shown in the tree due to the filtered
+  # range values
   vertical: "Demographics"
   cprop: "age"
 }
@@ -210,11 +211,11 @@ spec: {
     stat_type: "measuredValue"
     name: "Count"
   }
-  obs_props: {
-    mprop: "lifeExpectancy",
-    stat_type: "measuredValue",
-    name: "Life Expectancy"
-  }
+#  obs_props: {
+#    mprop: "lifeExpectancy",
+#    stat_type: "measuredValue",
+#    name: "Life Expectancy"
+#  } not shown on the tree due to the filtered age value
   vertical: "Demographics"
   cprop: "age"
   cprop: "gender"

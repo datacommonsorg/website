@@ -72,7 +72,7 @@ test("Single place and single stats var", () => {
         .then(() => {
           wrapper.update();
           expect(window.location.hash).toEqual(
-            "place=geoId%2F05&statsVar=Median_Age_Person%2C0%2C1__Count_Person%2C0%2C0"
+            "place=geoId%2F05&statsVar=Median_Age_Person%2C0%2C2__Count_Person%2C0%2C0"
           );
           // test if the statsVar info and statsVarTitle is updated
           expect(wrapper.state().statsVarInfo).toEqual({
@@ -94,7 +94,7 @@ test("Single place and single stats var", () => {
             .then(() => {
               wrapper.update();
               expect(window.location.hash).toEqual(
-                "place=geoId%2F05&statsVar=Median_Age_Person%2C0%2C1"
+                "place=geoId%2F05&statsVar=Median_Age_Person%2C0%2C2"
               );
               expect(wrapper.state().statsVarInfo).toEqual({
                 Median_Age_Person: {
@@ -211,7 +211,7 @@ test("chart options", () => {
             "/api/stats/stats-var-property?dcid=Median_Age_Person"
           );
           expect(window.location.hash).toBe(
-            "place=geoId%2F05&statsVar=Median_Age_Person%2C0%2C1&chart=%257B%2522age%2522%253A%257B%2522pc%2522%253Afalse%257D%257D"
+            "place=geoId%2F05&statsVar=Median_Age_Person%2C0%2C2&chart=%257B%2522age%2522%253A%257B%2522pc%2522%253Afalse%257D%257D"
           );
 
           Promise.resolve(wrapper)

@@ -263,7 +263,8 @@ def build_tree(max_level):
         for node in prop_nodes:
             # build property node blobs
             prop_blob = build_tree_recursive(node, max_level)
-            current_blob['cd'].append(prop_blob)
+            if (prop_blob['cd']):
+                current_blob['cd'].append(prop_blob)
         reorgnize(current_blob)
 
     stats_var_path = {}

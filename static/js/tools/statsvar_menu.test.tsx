@@ -142,8 +142,8 @@ test("mount with multiple statsVars", () => {
     <Menu
       selectedNodes={{
         Count_Person: [["0", "0"]],
-        Median_Age_Person: [["0", "1"]],
-        Count_Person_Upto5Years: [["0", "3", "0"]],
+        Median_Age_Person: [["0", "2"]],
+        Count_Person_Upto5Years: [["0", "6", "0"]],
       }}
       setStatsVarTitle={setTitle}
       addStatsVar={jest.fn()}

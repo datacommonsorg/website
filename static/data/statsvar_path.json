@@ -26,7 +26,6 @@
  "Count_Person_Upto5Years": [
   0,
   6,
-  0,
   0
  ],
  "Count_Person_Upto5Years_Female": [
@@ -34,7 +33,6 @@
   8,
   0,
   2,
-  0,
   0
  ],
  "Count_Person_Upto5Years_Female_AsianAlone": [
@@ -277,7 +275,6 @@
   8,
   1,
   2,
-  0,
   0
  ],
  "Count_Person_Upto5Years_Male_AsianAlone": [
@@ -546,21 +543,20 @@
  "Count_Person_5To17Years": [
   0,
   6,
-  1,
-  0
+  1
  ],
  "Count_Person_5To17Years_AsianAndPacificIslandLanguagesSpokenAtHome": [
   0,
   6,
   1,
-  1,
+  0,
   0
  ],
  "Count_Person_SpeakEnglishNotAtAll_5To17Years_AsianAndPacificIslandLanguagesSpokenAtHome": [
   0,
   6,
   1,
-  1,
+  0,
   0,
   0,
   0
@@ -569,7 +565,7 @@
   0,
   6,
   1,
-  1,
+  0,
   0,
   0,
   1
@@ -578,7 +574,7 @@
   0,
   6,
   1,
-  1,
+  0,
   0,
   0,
   2
@@ -587,7 +583,7 @@
   0,
   6,
   1,
-  1,
+  0,
   0,
   0,
   3
@@ -596,21 +592,21 @@
   0,
   6,
   1,
-  1,
+  0,
   1
  ],
  "Count_Person_5To17Years_OtherIndoEuropeanLanguagesSpokenAtHome": [
   0,
   6,
   1,
-  1,
+  0,
   2
  ],
  "Count_Person_SpeakEnglishNotAtAll_5To17Years_OtherIndoEuropeanLanguagesSpokenAtHome": [
   0,
   6,
   1,
-  1,
+  0,
   2,
   0,
   0
@@ -619,7 +615,7 @@
   0,
   6,
   1,
-  1,
+  0,
   2,
   0,
   1
@@ -628,7 +624,7 @@
   0,
   6,
   1,
-  1,
+  0,
   2,
   0,
   2
@@ -637,7 +633,7 @@
   0,
   6,
   1,
-  1,
+  0,
   2,
   0,
   3
@@ -646,14 +642,14 @@
   0,
   6,
   1,
-  1,
+  0,
   3
  ],
  "Count_Person_SpeakEnglishNotAtAll_5To17Years_OtherLanguagesSpokenAtHome": [
   0,
   6,
   1,
-  1,
+  0,
   3,
   0,
   0
@@ -662,7 +658,7 @@
   0,
   6,
   1,
-  1,
+  0,
   3,
   0,
   1
@@ -671,7 +667,7 @@
   0,
   6,
   1,
-  1,
+  0,
   3,
   0,
   2
@@ -680,7 +676,7 @@
   0,
   6,
   1,
-  1,
+  0,
   3,
   0,
   3
@@ -689,14 +685,14 @@
   0,
   6,
   1,
-  1,
+  0,
   4
  ],
  "Count_Person_SpeakEnglishNotAtAll_5To17Years_SpanishSpokenAtHome": [
   0,
   6,
   1,
-  1,
+  0,
   4,
   0,
   0
@@ -705,7 +701,7 @@
   0,
   6,
   1,
-  1,
+  0,
   4,
   0,
   1
@@ -714,7 +710,7 @@
   0,
   6,
   1,
-  1,
+  0,
   4,
   0,
   2
@@ -723,7 +719,7 @@
   0,
   6,
   1,
-  1,
+  0,
   4,
   0,
   3
@@ -759,16 +755,14 @@
  "Count_Person_18To24Years": [
   0,
   6,
-  2,
-  0
+  2
  ],
  "Count_Person_18To24Years_Female": [
   0,
   8,
   0,
   2,
-  1,
-  0
+  1
  ],
  "Count_Person_18To24Years_EducationalAttainmentHighSchoolGraduateIncludesEquivalency_Female": [
   0,
@@ -803,7 +797,7 @@
   0,
   2,
   1,
-  2,
+  1,
   0
  ],
  "dc/40rjc7178vkrd": [
@@ -812,7 +806,7 @@
   0,
   2,
   1,
-  2,
+  1,
   1
  ],
  "dc/mhfv62j3s22rc": [
@@ -821,7 +815,7 @@
   0,
   2,
   1,
-  2,
+  1,
   2
  ],
  "dc/py9rzq2xytfe3": [
@@ -830,7 +824,7 @@
   0,
   2,
   1,
-  2,
+  1,
   3
  ],
  "dc/84bwvbpr5gnjb": [
@@ -839,7 +833,7 @@
   0,
   2,
   1,
-  2,
+  1,
   4
  ],
  "dc/f6tf40hb0n4k5": [
@@ -848,7 +842,7 @@
   0,
   2,
   1,
-  2,
+  1,
   5
  ],
  "Count_Person_18To24Years_NotEnrolledInCollegeOrGraduateSchool_Female": [
@@ -857,7 +851,7 @@
   0,
   2,
   1,
-  3,
+  2,
   0
  ],
  "Count_Person_18To24Years_EnrolledInPrivateCollegeOrGraduateSchool_Female": [
@@ -866,7 +860,7 @@
   0,
   2,
   1,
-  3,
+  2,
   1
  ],
  "Count_Person_18To24Years_EnrolledInPublicCollegeOrGraduateSchool_Female": [
@@ -875,7 +869,7 @@
   0,
   2,
   1,
-  3,
+  2,
   2
  ],
  "Count_Person_18To24Years_Female_AbovePovertyLevelInThePast12Months": [
@@ -1055,8 +1049,7 @@
   8,
   1,
   2,
-  1,
-  0
+  1
  ],
  "Count_Person_18To24Years_EducationalAttainmentHighSchoolGraduateIncludesEquivalency_Male": [
   0,
@@ -1091,7 +1084,7 @@
   1,
   2,
   1,
-  2,
+  1,
   0
  ],
  "dc/wch97nj65s85f": [
@@ -1100,7 +1093,7 @@
   1,
   2,
   1,
-  2,
+  1,
   1
  ],
  "dc/p8pjrf6ffdeb": [
@@ -1109,7 +1102,7 @@
   1,
   2,
   1,
-  2,
+  1,
   2
  ],
  "dc/gwzrfyg9jtrr8": [
@@ -1118,7 +1111,7 @@
   1,
   2,
   1,
-  2,
+  1,
   3
  ],
  "dc/gckggrepcf1q9": [
@@ -1127,7 +1120,7 @@
   1,
   2,
   1,
-  2,
+  1,
   4
  ],
  "dc/36effnw9h61yc": [
@@ -1136,7 +1129,7 @@
   1,
   2,
   1,
-  2,
+  1,
   5
  ],
  "Count_Person_18To24Years_NotEnrolledInCollegeOrGraduateSchool_Male": [
@@ -1145,7 +1138,7 @@
   1,
   2,
   1,
-  3,
+  2,
   0
  ],
  "Count_Person_18To24Years_EnrolledInPrivateCollegeOrGraduateSchool_Male": [
@@ -1154,7 +1147,7 @@
   1,
   2,
   1,
-  3,
+  2,
   1
  ],
  "Count_Person_18To24Years_EnrolledInPublicCollegeOrGraduateSchool_Male": [
@@ -1163,7 +1156,7 @@
   1,
   2,
   1,
-  3,
+  2,
   2
  ],
  "Count_Person_18To24Years_Male_AbovePovertyLevelInThePast12Months": [
@@ -1369,16 +1362,14 @@
  "Count_Person_25To34Years": [
   0,
   6,
-  3,
-  0
+  3
  ],
  "Count_Person_25To34Years_Female": [
   0,
   8,
   0,
   2,
-  2,
-  0
+  2
  ],
  "Count_Person_25To34Years_EducationalAttainmentHighSchoolGraduateIncludesEquivalency_Female": [
   0,
@@ -1413,7 +1404,7 @@
   0,
   2,
   2,
-  2,
+  1,
   0
  ],
  "dc/s11tttbvg3dzh": [
@@ -1422,7 +1413,7 @@
   0,
   2,
   2,
-  2,
+  1,
   1
  ],
  "dc/yjxmx3n02dx08": [
@@ -1431,7 +1422,7 @@
   0,
   2,
   2,
-  2,
+  1,
   2
  ],
  "dc/2ernkb6d9yem2": [
@@ -1440,7 +1431,7 @@
   0,
   2,
   2,
-  2,
+  1,
   3
  ],
  "dc/py9zwn3cvr096": [
@@ -1449,7 +1440,7 @@
   0,
   2,
   2,
-  2,
+  1,
   4
  ],
  "dc/nnzye2y5p5n48": [
@@ -1458,7 +1449,7 @@
   0,
   2,
   2,
-  2,
+  1,
   5
  ],
  "Count_Person_25To34Years_NotEnrolledInCollegeOrGraduateSchool_Female": [
@@ -1467,7 +1458,7 @@
   0,
   2,
   2,
-  3,
+  2,
   0
  ],
  "Count_Person_25To34Years_EnrolledInPrivateCollegeOrGraduateSchool_Female": [
@@ -1476,7 +1467,7 @@
   0,
   2,
   2,
-  3,
+  2,
   1
  ],
  "Count_Person_25To34Years_EnrolledInPublicCollegeOrGraduateSchool_Female": [
@@ -1485,7 +1476,7 @@
   0,
   2,
   2,
-  3,
+  2,
   2
  ],
  "Count_Person_25To34Years_Female_AbovePovertyLevelInThePast12Months": [
@@ -1692,8 +1683,7 @@
   8,
   1,
   2,
-  2,
-  0
+  2
  ],
  "Count_Person_25To34Years_EducationalAttainmentHighSchoolGraduateIncludesEquivalency_Male": [
   0,
@@ -1728,7 +1718,7 @@
   1,
   2,
   2,
-  2,
+  1,
   0
  ],
  "dc/4qk2e1c4zhsr8": [
@@ -1737,7 +1727,7 @@
   1,
   2,
   2,
-  2,
+  1,
   1
  ],
  "dc/t8p05s93nvjq1": [
@@ -1746,7 +1736,7 @@
   1,
   2,
   2,
-  2,
+  1,
   2
  ],
  "dc/szxvr8qqrgnx1": [
@@ -1755,7 +1745,7 @@
   1,
   2,
   2,
-  2,
+  1,
   3
  ],
  "dc/st8jg0y6ebe77": [
@@ -1764,7 +1754,7 @@
   1,
   2,
   2,
-  2,
+  1,
   4
  ],
  "dc/y7kz2r3lsj7t2": [
@@ -1773,7 +1763,7 @@
   1,
   2,
   2,
-  2,
+  1,
   5
  ],
  "Count_Person_25To34Years_NotEnrolledInCollegeOrGraduateSchool_Male": [
@@ -1782,7 +1772,7 @@
   1,
   2,
   2,
-  3,
+  2,
   0
  ],
  "Count_Person_25To34Years_EnrolledInPrivateCollegeOrGraduateSchool_Male": [
@@ -1791,7 +1781,7 @@
   1,
   2,
   2,
-  3,
+  2,
   1
  ],
  "Count_Person_25To34Years_EnrolledInPublicCollegeOrGraduateSchool_Male": [
@@ -1800,7 +1790,7 @@
   1,
   2,
   2,
-  3,
+  2,
   2
  ],
  "Count_Person_25To34Years_Male_AbovePovertyLevelInThePast12Months": [
@@ -2033,16 +2023,14 @@
  "Count_Person_35To44Years": [
   0,
   6,
-  4,
-  0
+  4
  ],
  "Count_Person_35To44Years_Female": [
   0,
   8,
   0,
   2,
-  3,
-  0
+  3
  ],
  "Count_Person_35To44Years_EducationalAttainmentHighSchoolGraduateIncludesEquivalency_Female": [
   0,
@@ -2077,7 +2065,7 @@
   0,
   2,
   3,
-  2,
+  1,
   0
  ],
  "dc/9cwrwgd2t1r95": [
@@ -2086,7 +2074,7 @@
   0,
   2,
   3,
-  2,
+  1,
   1
  ],
  "dc/h8123v7kk1xr": [
@@ -2095,7 +2083,7 @@
   0,
   2,
   3,
-  2,
+  1,
   2
  ],
  "dc/1hs676pfqqthd": [
@@ -2104,7 +2092,7 @@
   0,
   2,
   3,
-  2,
+  1,
   3
  ],
  "dc/4169hvs9klwb7": [
@@ -2113,7 +2101,7 @@
   0,
   2,
   3,
-  2,
+  1,
   4
  ],
  "dc/wtqr60f0ehj38": [
@@ -2122,7 +2110,7 @@
   0,
   2,
   3,
-  2,
+  1,
   5
  ],
  "Count_Person_35To44Years_Female_AsianAlone": [
@@ -2365,8 +2353,7 @@
   8,
   1,
   2,
-  3,
-  0
+  3
  ],
  "Count_Person_35To44Years_EducationalAttainmentHighSchoolGraduateIncludesEquivalency_Male": [
   0,
@@ -2401,7 +2388,7 @@
   1,
   2,
   3,
-  2,
+  1,
   0
  ],
  "dc/wyfvejhn9fe7": [
@@ -2410,7 +2397,7 @@
   1,
   2,
   3,
-  2,
+  1,
   1
  ],
  "dc/e922mrcqvemm6": [
@@ -2419,7 +2406,7 @@
   1,
   2,
   3,
-  2,
+  1,
   2
  ],
  "dc/js56cehzj7wf4": [
@@ -2428,7 +2415,7 @@
   1,
   2,
   3,
-  2,
+  1,
   3
  ],
  "dc/1empjxhy8f9j7": [
@@ -2437,7 +2424,7 @@
   1,
   2,
   3,
-  2,
+  1,
   4
  ],
  "dc/v0rckd8tzy4ff": [
@@ -2446,7 +2433,7 @@
   1,
   2,
   3,
-  2,
+  1,
   5
  ],
  "Count_Person_35To44Years_Male_AsianAlone": [
@@ -2715,16 +2702,14 @@
  "Count_Person_45To54Years": [
   0,
   6,
-  5,
-  0
+  5
  ],
  "Count_Person_45To54Years_Female": [
   0,
   8,
   0,
   2,
-  4,
-  0
+  4
  ],
  "dc/qhwj3qx90h4pd": [
   0,
@@ -2732,7 +2717,7 @@
   0,
   2,
   4,
-  1,
+  0,
   0
  ],
  "dc/60mq1lysnc39g": [
@@ -2741,7 +2726,7 @@
   0,
   2,
   4,
-  1,
+  0,
   1
  ],
  "dc/81xpj06sdg2kd": [
@@ -2750,7 +2735,7 @@
   0,
   2,
   4,
-  1,
+  0,
   2
  ],
  "dc/kkbq8kzlm6tw4": [
@@ -2759,7 +2744,7 @@
   0,
   2,
   4,
-  1,
+  0,
   3
  ],
  "dc/sjw48vcvjr4d2": [
@@ -2768,7 +2753,7 @@
   0,
   2,
   4,
-  1,
+  0,
   4
  ],
  "dc/4t34d32mwr7e9": [
@@ -2777,7 +2762,7 @@
   0,
   2,
   4,
-  1,
+  0,
   5
  ],
  "Count_Person_45To54Years_Female_AsianAlone": [
@@ -3020,8 +3005,7 @@
   8,
   1,
   2,
-  5,
-  0
+  5
  ],
  "dc/260gxgmeglpb": [
   0,
@@ -3029,7 +3013,7 @@
   1,
   2,
   5,
-  1,
+  0,
   0
  ],
  "dc/hycewjthgy8w": [
@@ -3038,7 +3022,7 @@
   1,
   2,
   5,
-  1,
+  0,
   1
  ],
  "dc/g9qp5cejpyhq5": [
@@ -3047,7 +3031,7 @@
   1,
   2,
   5,
-  1,
+  0,
   2
  ],
  "dc/yrmj9vp8b8n1d": [
@@ -3056,7 +3040,7 @@
   1,
   2,
   5,
-  1,
+  0,
   3
  ],
  "dc/k0xsgv4gfz9b5": [
@@ -3065,7 +3049,7 @@
   1,
   2,
   5,
-  1,
+  0,
   4
  ],
  "dc/crh2hrcst55t1": [
@@ -3074,7 +3058,7 @@
   1,
   2,
   5,
-  1,
+  0,
   5
  ],
  "Count_Person_45To54Years_Male_AsianAlone": [
@@ -3343,24 +3327,21 @@
  "Count_Person_55To59Years": [
   0,
   6,
-  6,
-  0
+  6
  ],
  "Count_Person_55To59Years_Female": [
   0,
   8,
   0,
   2,
-  6,
-  0
+  6
  ],
  "Count_Person_55To59Years_Male": [
   0,
   8,
   1,
   2,
-  6,
-  0
+  6
  ],
  "Count_Person_55To59Years_BornInOtherStateInTheUnitedStates": [
   0,
@@ -3393,24 +3374,21 @@
  "Count_Person_60To61Years": [
   0,
   6,
-  7,
-  0
+  7
  ],
  "Count_Person_60To61Years_Female": [
   0,
   8,
   0,
   2,
-  7,
-  0
+  7
  ],
  "Count_Person_60To61Years_Male": [
   0,
   8,
   1,
   2,
-  7,
-  0
+  7
  ],
  "Count_Person_60To61Years_BornInOtherStateInTheUnitedStates": [
   0,
@@ -3443,24 +3421,21 @@
  "Count_Person_62To64Years": [
   0,
   6,
-  8,
-  0
+  8
  ],
  "Count_Person_62To64Years_Female": [
   0,
   8,
   0,
   2,
-  8,
-  0
+  8
  ],
  "Count_Person_62To64Years_Male": [
   0,
   8,
   1,
   2,
-  8,
-  0
+  8
  ],
  "Count_Person_62To64Years_BornInOtherStateInTheUnitedStates": [
   0,
@@ -3493,8 +3468,7 @@
  "Count_Person_65To74Years": [
   0,
   6,
-  9,
-  0
+  9
  ],
  "Count_Person_65To74Years_BornInOtherStateInTheUnitedStates": [
   0,
@@ -3527,16 +3501,14 @@
  "Count_Person_75OrMoreYears": [
   0,
   6,
-  10,
-  0
+  10
  ],
  "Count_Person_75OrMoreYears_Female": [
   0,
   8,
   0,
   2,
-  9,
-  0
+  9
  ],
  "dc/zj152fzswgrw6": [
   0,
@@ -3544,7 +3516,7 @@
   0,
   2,
   9,
-  1,
+  0,
   0
  ],
  "dc/wrz9m375r1yy": [
@@ -3553,7 +3525,7 @@
   0,
   2,
   9,
-  1,
+  0,
   1
  ],
  "dc/qtmer196cydk": [
@@ -3562,7 +3534,7 @@
   0,
   2,
   9,
-  1,
+  0,
   2
  ],
  "dc/965mdb0c8tef9": [
@@ -3571,7 +3543,7 @@
   0,
   2,
   9,
-  1,
+  0,
   3
  ],
  "dc/khsmjk10b8ynb": [
@@ -3580,7 +3552,7 @@
   0,
   2,
   9,
-  1,
+  0,
   4
  ],
  "dc/8l880g9te1n53": [
@@ -3589,7 +3561,7 @@
   0,
   2,
   9,
-  1,
+  0,
   5
  ],
  "Count_Person_75OrMoreYears_Civilian_Female": [
@@ -3807,8 +3779,7 @@
   8,
   1,
   2,
-  9,
-  0
+  9
  ],
  "dc/nn4xz2lv98h5c": [
   0,
@@ -3816,7 +3787,7 @@
   1,
   2,
   9,
-  1,
+  0,
   0
  ],
  "dc/1ld59l0sp7z85": [
@@ -3825,7 +3796,7 @@
   1,
   2,
   9,
-  1,
+  0,
   1
  ],
  "dc/gc7lcsrrv1rm5": [
@@ -3834,7 +3805,7 @@
   1,
   2,
   9,
-  1,
+  0,
   2
  ],
  "dc/j8se7wv2gbdfd": [
@@ -3843,7 +3814,7 @@
   1,
   2,
   9,
-  1,
+  0,
   3
  ],
  "dc/ykdnhknvnz0rf": [
@@ -3852,7 +3823,7 @@
   1,
   2,
   9,
-  1,
+  0,
   4
  ],
  "dc/z1g2zpsbgbtn9": [
@@ -3861,7 +3832,7 @@
   1,
   2,
   9,
-  1,
+  0,
   5
  ],
  "Count_Person_75OrMoreYears_Civilian_Male": [
@@ -4144,8 +4115,7 @@
   8,
   0,
   2,
-  5,
-  0
+  5
  ],
  "Count_Person_45To64Years_EducationalAttainmentHighSchoolGraduateIncludesEquivalency_Female": [
   0,
@@ -9117,8 +9087,7 @@
   8,
   1,
   2,
-  4,
-  0
+  4
  ],
  "Count_Person_45To64Years_EducationalAttainmentHighSchoolGraduateIncludesEquivalency_Male": [
   0,

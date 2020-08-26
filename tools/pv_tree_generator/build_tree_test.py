@@ -74,6 +74,5 @@ class BuildTreeTest(unittest.TestCase):
         self.assertEqual(data, expected)
         return
 
-
 if __name__ == "__main__":
     unittest.main()
