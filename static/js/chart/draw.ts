@@ -139,7 +139,7 @@ function addYAxis(
           let tText = String(d);
           // When the y value is less than one, use the original value.
           // Otherwise 0.3 is formatted into 300m which is confusing to 300M.
-          if (Math.abs(d) > 1) {
+          if (d > 1 || d < -1) {
             tText = d3.formatPrefix(`.${p}`, yScale.domain()[1])(d);
           }
           const dollar = unit === "$" ? "$" : "";
