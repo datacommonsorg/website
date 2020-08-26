@@ -22,13 +22,15 @@ import dc_request as dc
 class ObsProps(object):
     """represent the properties of a statsVar observation"""
 
-    def __init__(self, stat_type, mprop, mqual, mdenom, name):
+    def __init__(self, stat_type, mprop, mqual, mdenom, name, same_level):
         self.stat_type = stat_type
         self.mprop = mprop
         self.mqual = mqual
         self.mdenom = mdenom
         self.name = name
         self.key = (stat_type, mprop, mqual, mdenom)
+        self.same_level = same_level # the statsVar is at the same level 
+        # as the value node
 
 
 class PopObsSpec(object):
@@ -76,7 +78,8 @@ def read_pop_obs_spec():
         obs_props = []
         for obs in pos.obs_props:
             obs_props.append(ObsProps(obs.stat_type, obs.mprop,
-                                      obs.mqual, obs.mdenom, obs.name))
+                                      obs.mqual, obs.mdenom, obs.name, 
+                                      obs.same_level))
         for v in pos.vertical:
             result[v][len(pos.cprop)].append(PopObsSpec(
                 pos.pop_type, list(pos.cprop), dpv, pos.name, obs_props))

@@ -19,7 +19,7 @@ DESCRIPTOR = _descriptor.FileDescriptor(
   package='datacommons.proto',
   syntax='proto2',
   serialized_options=None,
-  serialized_pb=_b('\n\x11stat_config.proto\x12\x11\x64\x61tacommons.proto\"X\n\x07ObsProp\x12\x11\n\tstat_type\x18\x01 \x01(\t\x12\r\n\x05mprop\x18\x02 \x01(\t\x12\r\n\x05mqual\x18\x03 \x01(\t\x12\x0e\n\x06mdenom\x18\x04 \x01(\t\x12\x0c\n\x04name\x18\x06 \x01(\t\"\xcc\x01\n\nPopObsSpec\x12\x10\n\x08pop_type\x18\x01 \x01(\t\x12\r\n\x05\x63prop\x18\x04 \x03(\t\x12-\n\x03\x64pv\x18\x05 \x03(\x0b\x32 .datacommons.proto.PopObsSpec.PV\x12\x0c\n\x04name\x18\x06 \x01(\t\x12\x10\n\x08vertical\x18\x07 \x03(\t\x12-\n\tobs_props\x18\x08 \x03(\x0b\x32\x1a.datacommons.proto.ObsProp\x1a\x1f\n\x02PV\x12\x0c\n\x04prop\x18\x01 \x01(\t\x12\x0b\n\x03val\x18\x02 \x01(\t\"=\n\x0ePopObsSpecList\x12+\n\x04spec\x18\x01 \x03(\x0b\x32\x1d.datacommons.proto.PopObsSpec')
+  serialized_pb=_b('\n\x11stat_config.proto\x12\x11\x64\x61tacommons.proto\"l\n\x07ObsProp\x12\x11\n\tstat_type\x18\x01 \x01(\t\x12\r\n\x05mprop\x18\x02 \x01(\t\x12\r\n\x05mqual\x18\x03 \x01(\t\x12\x0e\n\x06mdenom\x18\x04 \x01(\t\x12\x0c\n\x04name\x18\x06 \x01(\t\x12\x12\n\nsame_level\x18\x07 \x01(\x08\"\xcc\x01\n\nPopObsSpec\x12\x10\n\x08pop_type\x18\x01 \x01(\t\x12\r\n\x05\x63prop\x18\x04 \x03(\t\x12-\n\x03\x64pv\x18\x05 \x03(\x0b\x32 .datacommons.proto.PopObsSpec.PV\x12\x0c\n\x04name\x18\x06 \x01(\t\x12\x10\n\x08vertical\x18\x07 \x03(\t\x12-\n\tobs_props\x18\x08 \x03(\x0b\x32\x1a.datacommons.proto.ObsProp\x1a\x1f\n\x02PV\x12\x0c\n\x04prop\x18\x01 \x01(\t\x12\x0b\n\x03val\x18\x02 \x01(\t\"=\n\x0ePopObsSpecList\x12+\n\x04spec\x18\x01 \x03(\x0b\x32\x1d.datacommons.proto.PopObsSpec')
 )
 
 
@@ -67,6 +67,13 @@ _OBSPROP = _descriptor.Descriptor(
       message_type=None, enum_type=None, containing_type=None,
       is_extension=False, extension_scope=None,
       serialized_options=None, file=DESCRIPTOR),
+    _descriptor.FieldDescriptor(
+      name='same_level', full_name='datacommons.proto.ObsProp.same_level', index=5,
+      number=7, type=8, cpp_type=7, label=1,
+      has_default_value=False, default_value=False,
+      message_type=None, enum_type=None, containing_type=None,
+      is_extension=False, extension_scope=None,
+      serialized_options=None, file=DESCRIPTOR),
   ],
   extensions=[
   ],
@@ -80,7 +87,7 @@ _OBSPROP = _descriptor.Descriptor(
   oneofs=[
   ],
   serialized_start=40,
-  serialized_end=128,
+  serialized_end=148,
 )
 
 
@@ -117,8 +124,8 @@ _POPOBSSPEC_PV = _descriptor.Descriptor(
   extension_ranges=[],
   oneofs=[
   ],
-  serialized_start=304,
-  serialized_end=335,
+  serialized_start=324,
+  serialized_end=355,
 )
 
 _POPOBSSPEC = _descriptor.Descriptor(
@@ -182,8 +189,8 @@ _POPOBSSPEC = _descriptor.Descriptor(
   extension_ranges=[],
   oneofs=[
   ],
-  serialized_start=131,
-  serialized_end=335,
+  serialized_start=151,
+  serialized_end=355,
 )
 
 
@@ -213,8 +220,8 @@ _POPOBSSPECLIST = _descriptor.Descriptor(
   extension_ranges=[],
   oneofs=[
   ],
-  serialized_start=337,
-  serialized_end=398,
+  serialized_start=357,
+  serialized_end=418,
 )
 
 _POPOBSSPEC_PV.containing_type = _POPOBSSPEC
