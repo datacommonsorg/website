@@ -23,16 +23,16 @@ from services.datacommons import fetch_data
 import routes.api.stats as stats_api
 
 # Place types to keep for list of child places, keyed by parent place type.
-WANTED_PLACE_TYPES = {}
-WANTED_PLACE_TYPES['Country'] = [
-    "State", "Province", "County", "EurostatNUTS1", "EurostatNUTS2",
-    "AdministrativeArea1"
-]
-WANTED_PLACE_TYPES['State'] = ["Province", "County"]
-WANTED_PLACE_TYPES['County'] = ["City", "Town", "Village", "Borough"]
+WANTED_PLACE_TYPES = {
+    'Country': [
+        "State", "EurostatNUTS1", "EurostatNUTS2", "AdministrativeArea1"
+    ],
+    'State': ["County"],
+    'County': ["City", "Town", "Village", "Borough"],
+}
 ALL_WANTED_PLACE_TYPES = [
-    "Country", "State", "Province", "County", "City", "Town", "Village",
-    "Borough", "CensusZipCodeTabulationArea", "EurostatNUTS1", "EurostatNUTS2",
+    "Country", "State", "County", "City", "Town", "Village", "Borough",
+    "CensusZipCodeTabulationArea", "EurostatNUTS1", "EurostatNUTS2",
     "EurostatNUTS3", "AdministrativeArea1", "AdministrativeArea2",
     "AdministrativeArea3", "AdministrativeArea4", "AdministrativeArea5"
 ]
@@ -47,7 +47,7 @@ EQUIVALENT_PLACE_TYPES = {
     "Village": "City",
 }
 
-CHILD_PLACE_LIMIT = 20
+CHILD_PLACE_LIMIT = 50
 
 # Contains statistical variable and the display name used for place rankings.
 RANKING_STATS = {
@@ -73,7 +73,8 @@ def get_place_type(place_dcid):
     # "AdministrativeArea"
     chosen_type = None
     for place_type in place_types:
-        if not chosen_type or chosen_type.startswith('AdministrativeArea'):
+        if not chosen_type or chosen_type.startswith('AdministrativeArea') \
+            or chosen_type == 'Place':
             chosen_type = place_type
     return chosen_type
 
@@ -178,13 +179,14 @@ def child_fetch(dcid):
                     'pop': place_pop,
                 })
 
-    # Filter equivalent place types
+    # Filter equivalent place types - if a child place occurs in multiple groups, keep it in the preferred group type.
     for (preferred, equivalent) in EQUIVALENT_PLACE_TYPES.items():
         if preferred in result and equivalent in result:
             for preferred_place in result[preferred]:
                 for i, equivalent_place in enumerate(result[equivalent]):
                     if preferred_place['dcid'] == equivalent_place['dcid']:
                         del result[equivalent][i]
+                        break
 
     # Drop empty categories
     result = dict(filter(lambda x: len(x) > 0, result.items()))
