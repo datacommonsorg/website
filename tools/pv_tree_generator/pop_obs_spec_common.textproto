@@ -21,8 +21,18 @@ spec: {
   obs_props: {
     mprop: "count"
     stat_type: "measuredValue"
+    name: "Population"
   }
-  name: "Population"
+  vertical: "Demographics"
+}
+
+spec: {
+  pop_type: "Person"
+  obs_props: {
+    mprop: "lifeExpectancy"
+    stat_type: "measuredValue"
+    name: "Life Expectancy"
+  }
   vertical: "Demographics"
 }
 
@@ -33,6 +43,12 @@ spec: {
   obs_props: {
     mprop: "count"
     stat_type: "measuredValue"
+    name: "Count"
+  }
+  obs_props: {
+    mprop: "lifeExpectancy"
+    stat_type: "measuredValue"
+    name: "Life Expectancy"
   }
   vertical: "Demographics"
   cprop: "age"
@@ -53,6 +69,12 @@ spec: {
   obs_props: {
     mprop: "count"
     stat_type: "measuredValue"
+    name: "Count"
+  }
+  obs_props: {
+    mprop: "lifeExpectancy"
+    stat_type: "measuredValue"
+    name: "Life Expectancy"
   }
   vertical: "Demographics"
   cprop: "gender"
@@ -186,6 +208,12 @@ spec: {
   obs_props: {
     mprop: "count"
     stat_type: "measuredValue"
+    name: "Count"
+  }
+  obs_props: {
+    mprop: "lifeExpectancy",
+    stat_type: "measuredValue",
+    name: "Life Expectancy"
   }
   vertical: "Demographics"
   cprop: "age"
@@ -487,6 +515,19 @@ spec: {
   cprop: "age"
   cprop: "gender"
   cprop: "educationalAttainment"
+}
+
+spec: {
+  pop_type: "Person"
+  obs_props: {
+    mprop: "count",
+    stat_type: "measuredValue"
+    mdenom: "Count_Person_25To64Years_Male"
+  }
+  cprop: "age"
+  cprop: "gender"
+  cprop: "enrollmentStatus"
+  vertical: "Demographics"
 }
 
 spec: {
@@ -1879,7 +1920,19 @@ spec: {
   obs_props: {
     mprop: "cumulativeCount"
     stat_type: "measuredValue"
+    name: "Cumulative Count"
   }
+  obs_props: {
+    mprop: "count"
+    stat_type: "measuredValue"
+    name: "Count"
+  }
+  obs_props: {
+    mprop: "incrementalCount"
+    stat_type: "measuredValue"
+    name: "Incremental Count"
+  }
+
   vertical: "Health"
   name: "COVID-19 Incidents"
   dpv: {
@@ -1999,7 +2052,7 @@ spec: {
     mprop: "amount"
     stat_type: "measuredValue"
     mqual: "RealValue"
-    name: "Real value"
+    name: "Real Value"
   }
 
   obs_props:{
@@ -2024,4 +2077,83 @@ spec: {
     mdenom: "PerCapita"
     name: "Purchasing Power Parity Per Capita"
   }
+}
+
+spec:{
+  pop_type: "Legislation"
+  cprop: "policyType"
+  dpv: {
+    prop: "category"
+    val: "COVID19Pandemic"
+  }
+  dpv: {
+    prop: "legislationPassedBy"
+    val: "GovernmentOrganization"
+  }
+  obs_props: {
+    mprop: "policyExtent"
+  }
+  name: "COVID-19 Policy"
+  vertical: "Health"
+}
+
+spec: {
+  pop_type: "Person"
+  dpv: {
+    prop: "healthPrevention"
+    val: "COVID19PCRTest"
+  }
+  obs_props: {
+    mprop: "cumulativeCount"
+    stat_type: "measuredValue"
+  }
+  name: "COVID-19 Test"
+  vertical: "Health"
+}
+
+spec: {
+  pop_type: "Person"
+  obs_props: {
+    mprop: "count"
+    stat_type: "measuredValue"
+    mdenom: "area"
+    name: "Population Density"
+  }
+  vertical: "Demographics"
+}
+
+spec: {
+  pop_type: "Person"
+  cprop: "economicSector"
+  dpv: {
+    prop: "employment"
+    val: "Employed"
+  }
+  obs_props: {
+    mprop: "count"
+    stat_type: "measuredValue"
+    name: "Employment"
+  }
+  vertical: "Employment"
+}
+
+spec: {
+  pop_type: "BirthEvent"
+  obs_props: {
+    mprop: "count"
+    stat_type: "measuredValue"
+    name: "Crude Birth Rate"
+  }
+  vertical: "Demographics"
+}
+
+spec: {
+  pop_type: "PlaceVisitEvent"
+  cprop: "placeCategory"
+  obs_props: {
+    mprop: "covid19MobilityTrend"
+    stat_type: "measuredValue"
+  }
+  name: "COVID-19 Mobility Trend Place Category"
+  vertical: "Health"
 }

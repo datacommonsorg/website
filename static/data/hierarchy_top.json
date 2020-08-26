@@ -4,7 +4,7 @@
   "l": "Demographics",
   "t": "p",
   "e": "Demographics",
-  "c": 1787,
+  "c": 1792,
   "cd": [
    {
     "sv": [
@@ -13,6 +13,15 @@
     "l": "Population",
     "t": "v",
     "e": "Population",
+    "c": 1
+   },
+   {
+    "sv": [
+     "LifeExpectancy_Person"
+    ],
+    "l": "Life Expectancy",
+    "t": "v",
+    "e": "Life Expectancy",
     "c": 1
    },
    {
@@ -34,6 +43,24 @@
     "c": 1
    },
    {
+    "sv": [
+     "Count_Person_PerArea"
+    ],
+    "l": "Population Density",
+    "t": "v",
+    "e": "Population Density",
+    "c": 1
+   },
+   {
+    "sv": [
+     "Count_BirthEvent"
+    ],
+    "l": "Crude Birth Rate",
+    "t": "v",
+    "e": "Crude Birth Rate",
+    "c": 1
+   },
+   {
     "l": "Age",
     "t": "p",
     "c": 432
@@ -46,7 +73,7 @@
    {
     "l": "Gender",
     "t": "p",
-    "c": 1342
+    "c": 1344
    },
    {
     "l": "Income",
@@ -143,7 +170,7 @@
   "l": "Employment",
   "t": "p",
   "e": "Employment",
-  "c": 196,
+  "c": 210,
   "cd": [
    {
     "sv": [
@@ -195,6 +222,11 @@
     "l": "Unemployment Insurance Claims",
     "t": "p",
     "c": 12
+   },
+   {
+    "l": "Economic Sector",
+    "t": "p",
+    "c": 14
    }
   ]
  },
@@ -203,7 +235,7 @@
   "l": "Health",
   "t": "p",
   "e": "Health",
-  "c": 1213,
+  "c": 1231,
   "cd": [
    {
     "sv": [
@@ -213,6 +245,15 @@
     "t": "v",
     "e": "Mortality",
     "c": 1101
+   },
+   {
+    "sv": [
+     "CumulativeCount_Person_COVID19PCRTest"
+    ],
+    "l": "COVID-19 Test",
+    "t": "v",
+    "e": "COVID-19 Test",
+    "c": 1
    },
    {
     "l": "Health Outcomes",
@@ -237,7 +278,17 @@
    {
     "l": "COVID-19 Incidents",
     "t": "p",
-    "c": 7
+    "c": 14
+   },
+   {
+    "l": "COVID-19 Policy",
+    "t": "p",
+    "c": 4
+   },
+   {
+    "l": "COVID-19 Mobility Trend Place Category",
+    "t": "p",
+    "c": 6
    }
   ]
  },
