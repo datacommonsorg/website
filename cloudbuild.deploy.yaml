@@ -20,6 +20,7 @@ steps:
   - id: deploy
     name: "gcr.io/cloud-builders/gcloud"
     entrypoint: /bin/bash
+    timeout: 1200s
     args:
       - -c
       - |
