@@ -49,6 +49,7 @@ EQUIVALENT_PLACE_TYPES = {
 
 CHILD_PLACE_LIMIT = 50
 
+# Minimal population count for a place to show up in nearby places list.
 MIN_POP = 5000
 
 # Contains statistical variable and the display name used for place rankings.
