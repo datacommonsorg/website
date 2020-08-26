@@ -783,12 +783,24 @@ class Chart extends Component<ChartPropType, ChartStateType> {
             } else if (this.placeRelation === placeRelationEnum.CONTAINING) {
               placesPromise = this.props.childPlacesPromise.then(
                 (childPlaces) => {
-                  // TODO(boxu): figure out a better way to pick child places.
+                  // Choose the place type that has the highest average
+                  // population
+                  let avgPop = 0;
+                  let result: string[];
                   for (const placeType in childPlaces) {
-                    return childPlaces[placeType]
-                      .slice(0, 5)
-                      .map((place) => place.dcid);
+                    const children = childPlaces[placeType];
+                    const pop =
+                      children
+                        .map((place) => place["pop"])
+                        .reduce(function (a, b) {
+                          return a + b;
+                        }, 0) / children.length;
+                    if (pop > avgPop) {
+                      avgPop = pop;
+                      result = children.slice(0, 5).map((place) => place.dcid);
+                    }
                   }
+                  return result;
                 }
               );
             } else if (this.placeRelation === placeRelationEnum.SIMILAR) {
