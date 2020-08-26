@@ -20,7 +20,6 @@ steps:
   - id: deploy
     name: "gcr.io/cloud-builders/gcloud"
     entrypoint: /bin/bash
-    timeout: 1200s
     args:
       - -c
       - |
@@ -53,3 +52,5 @@ steps:
         git add website/staging/commit_hash.txt
         git commit -m "Deployed website to staging at commit https://github.com/datacommonsorg/website/commit/$SHORT_SHA"
         git push origin master
+
+timeout: 1200s
