@@ -19,8 +19,8 @@ entrypoint: gunicorn -b :$PORT main:app
 runtime_config:
   python_version: 3
 
-automatic_scaling:
-  min_instances: 3
+manual_scaling:
+  instances: 10
 resources:
   cpu: 1
   memory_gb: 3
