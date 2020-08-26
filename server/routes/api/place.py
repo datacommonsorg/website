@@ -22,23 +22,12 @@ from cache import cache
 from services.datacommons import fetch_data
 from routes.api.stats import get_stats_wrapper
 
-WANTED_PLACE_TYPES = ["Country",
-                      "State",
-                      "Province",
-                      "County",
-                      "City",
-                      "Town",
-                      "Village",
-                      "Borough",
-                      "CensusZipCodeTabulationArea",
-                      "EurostatNUTS1",
-                      "EurostatNUTS2",
-                      "EurostatNUTS3",
-                      "AdministrativeArea1",
-                      "AdministrativeArea2",
-                      "AdministrativeArea3",
-                      "AdministrativeArea4",
-                      "AdministrativeArea5"]
+WANTED_PLACE_TYPES = [
+    "Country", "State", "Province", "County", "City", "Town", "Village",
+    "Borough", "CensusZipCodeTabulationArea", "EurostatNUTS1", "EurostatNUTS2",
+    "EurostatNUTS3", "AdministrativeArea1", "AdministrativeArea2",
+    "AdministrativeArea3", "AdministrativeArea4", "AdministrativeArea5"
+]
 
 # These place types are equivalent: prefer the key.
 EQUIVALENT_PLACE_TYPES = {
@@ -61,27 +50,20 @@ RANKING_STATS = {
 }
 
 # Define blueprint
-bp = Blueprint(
-    "api.place",
-    __name__,
-    url_prefix='/api/place'
-)
+bp = Blueprint("api.place", __name__, url_prefix='/api/place')
 
 
 @bp.route('/name')
 def name():
     """Get place names."""
     dcids = request.args.getlist('dcid')
-    response = fetch_data(
-        '/node/property-values',
-        {
-            'dcids': dcids,
-            'property': 'name',
-            'direction': 'out'
-        },
-        compress=False,
-        post=True
-    )
+    response = fetch_data('/node/property-values', {
+        'dcids': dcids,
+        'property': 'name',
+        'direction': 'out'
+    },
+                          compress=False,
+                          post=True)
     result = {}
     for dcid in dcids:
         values = response[dcid].get('out')
@@ -108,16 +90,13 @@ def statsvars(dcid):
     """
     Get all the statistical variable dcids for a place.
     """
-    response = fetch_data(
-        '/place/stats-var',
-        {
-            'dcids': [dcid],
-        },
-        compress=False,
-        post=False,
-        has_payload=False
-    )
-    return response['places'][dcid]['statsVars']
+    response = fetch_data('/place/stats-var', {
+        'dcids': [dcid],
+    },
+                          compress=False,
+                          post=False,
+                          has_payload=False)
+    return response['places'][dcid].get('statsVars', [])
 
 
 @bp.route('/child/<path:dcid>')
@@ -135,23 +114,21 @@ def child(dcid):
 
 @cache.memoize(timeout=3600 * 24)  # Cache for one day.
 def child_fetch(dcid):
-    response = fetch_data(
-        '/node/property-values',
-        {
-            'dcids': [dcid],
-            'property': 'containedInPlace',
-            'direction': 'in'
-        },
-        compress=False,
-        post=True
-    )
+    response = fetch_data('/node/property-values', {
+        'dcids': [dcid],
+        'property': 'containedInPlace',
+        'direction': 'in'
+    },
+                          compress=False,
+                          post=True)
     places = response[dcid].get('in', [])
     dcid_str = '^'.join(sorted(map(lambda x: x['dcid'], places)))
     pop = json.loads(get_stats_wrapper(dcid_str, 'Count_Person'))
 
     pop = {
         dcid: stats.get('data', {}).get('2018', 0)
-        for dcid, stats in pop.items() if stats
+        for dcid, stats in pop.items()
+        if stats
     }
 
     result = collections.defaultdict(list)
@@ -159,7 +136,7 @@ def child_fetch(dcid):
         for place_type in place['types']:
             if place_type in WANTED_PLACE_TYPES:
                 result[place_type].append({
-                    'name': place['name'],
+                    'name': place.get('name', place['dcid']),
                     'dcid': place['dcid'],
                     'pop': pop.get(place['dcid'], 0)
                 })
@@ -183,6 +160,8 @@ def parent_place(dcid):
     # https://datacommons.org/browser/geoId/0649670
     # Here calling get_parent_place twice to get to the top parents.
     parents1 = get_parent_place(dcid)
+    if len(parents1) == 0:
+        return []
     parents2 = get_parent_place(parents1[-1]['dcid'])
     parents1.extend(parents2)
     if parents2:
@@ -193,23 +172,21 @@ def parent_place(dcid):
 
 @cache.memoize(timeout=3600 * 24)  # Cache for one day.
 def get_parent_place(dcid):
-    response = fetch_data(
-        '/node/property-values',
-        {
-            'dcids': [dcid],
-            'property': 'containedInPlace',
-            'direction': 'out'
-        },
-        compress=False,
-        post=True
-    )
+    response = fetch_data('/node/property-values', {
+        'dcids': [dcid],
+        'property': 'containedInPlace',
+        'direction': 'out'
+    },
+                          compress=False,
+                          post=True)
     parents = response[dcid].get('out', [])
     parents.sort(key=lambda x: x['dcid'], reverse=True)
     for i in range(len(parents)):
         if len(parents[i]['types']) > 1:
             parents[i]['types'] = [
                 x for x in parents[i]['types']
-                if not x.startswith('AdministrativeArea')]
+                if not x.startswith('AdministrativeArea')
+            ]
     return parents
 
 
@@ -238,8 +215,8 @@ def api_mapinfo(dcid):
 
     coordinate_groups = kmlCoordinates[0].split('</coordinates><coordinates>')
     for coordinate_group in coordinate_groups:
-        coordinates = coordinate_group.replace(
-            '<coordinates>', '').replace('</coordinates>', '').split(' ')
+        coordinates = coordinate_group.replace('<coordinates>', '').replace(
+            '</coordinates>', '').split(' ')
         coordinate_sequence = []
         for coordinate in coordinates:
             v = coordinate.split(',')
@@ -266,14 +243,18 @@ def api_mapinfo(dcid):
 
 
 @cache.memoize(timeout=3600 * 24)  # Cache for one day.
-def get_related_place(
-        dcid, stats_vars_string, same_place_type=None, within_place=None,
-        is_per_capita=None):
+def get_related_place(dcid,
+                      stats_vars_string,
+                      same_place_type=None,
+                      within_place=None,
+                      is_per_capita=None):
     stats_vars = stats_vars_string.split('^')
 
-    return dc.get_related_place(
-        dcid, stats_vars, same_place_type=same_place_type,
-        within_place=within_place, is_per_capita=is_per_capita)
+    return dc.get_related_place(dcid,
+                                stats_vars,
+                                same_place_type=same_place_type,
+                                within_place=within_place,
+                                is_per_capita=is_per_capita)
 
 
 @cache.memoize(timeout=3600 * 24)  # Cache for one day.
@@ -282,8 +263,8 @@ def api_similar_places(stats_var, dcid):
     """
     Get the similar places for a given place by stats var.
     """
-    return dc.get_related_place(
-        dcid, [stats_var], same_place_type=True).get(stats_var, {})
+    return dc.get_related_place(dcid, [stats_var],
+                                same_place_type=True).get(stats_var, {})
 
 
 @cache.memoize(timeout=3600 * 24)  # Cache for one day.
@@ -292,8 +273,7 @@ def api_nearby_places(dcid):
     """
     Get the nearby places for a given place.
     """
-    req_json = {'dcids': [dcid],
-                'property': 'nearbyPlaces', 'direction': 'out'}
+    req_json = {'dcids': [dcid], 'property': 'nearbyPlaces', 'direction': 'out'}
     url = dc.API_ROOT + dc.API_ENDPOINTS['get_property_values']
     payload = dc.send_request(url, req_json=req_json)
     prop_values = payload[dcid].get('out')
@@ -331,23 +311,32 @@ def api_ranking(dcid):
     result = collections.defaultdict(list)
     for parent in selected_parents:
         stats_var_string = '^'.join(RANKING_STATS.keys())
-        response = get_related_place(
-            dcid, stats_var_string, same_place_type=True, within_place=parent)
+        response = get_related_place(dcid,
+                                     stats_var_string,
+                                     same_place_type=True,
+                                     within_place=parent)
         for stats_var, data in response.items():
-            result[RANKING_STATS[stats_var]].append(
-                {'name': parent_names[parent], 'data': data})
+            result[RANKING_STATS[stats_var]].append({
+                'name': parent_names[parent],
+                'data': data
+            })
 
         # Crime stats var is separted from RANKING_STATS as it uses perCapita
         # option.
         # TOOD(shifucun): merge this once https://github.com/datacommonsorg/mixer/issues/262 is fixed.
         crime_statsvar = {
-            'Count_CriminalActivities_CombinedCrime': 'Crime per capita'}
-        response = get_related_place(
-            dcid, '^'.join(crime_statsvar.keys()), same_place_type=True,
-            within_place=parent, is_per_capita=True)
+            'Count_CriminalActivities_CombinedCrime': 'Crime per capita'
+        }
+        response = get_related_place(dcid,
+                                     '^'.join(crime_statsvar.keys()),
+                                     same_place_type=True,
+                                     within_place=parent,
+                                     is_per_capita=True)
         for stats_var, data in response.items():
-            result[crime_statsvar[stats_var]].append(
-                {'name': parent_names[parent], 'data': data})
+            result[crime_statsvar[stats_var]].append({
+                'name': parent_names[parent],
+                'data': data
+            })
 
     result['label'] = list(RANKING_STATS.values()) + \
         list(crime_statsvar.values())

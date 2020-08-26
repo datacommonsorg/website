@@ -11,7 +11,6 @@
 # WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 # See the License for the specific language governing permissions and
 # limitations under the License.
-
 """Main entry module specified in app.yaml.
 
 This module contains the request handler codes and the main app.
@@ -31,11 +30,8 @@ from lib import translator
 from __init__ import create_app
 from cache import cache
 
-
-logging.basicConfig(
-    level=logging.DEBUG,
-    format='%(asctime)s %(levelname)s %(lineno)d : %(message)s')
-
+logging.basicConfig(level=logging.DEBUG,
+                    format='%(asctime)s %(levelname)s %(lineno)d : %(message)s')
 
 app = create_app()
 
@@ -60,10 +56,9 @@ def api_placeid2dcid(placeid):
 
 @app.route('/translator')
 def translator_handler():
-    return flask.render_template(
-        'translator.html',
-        schema_mapping=translator.SCHEMA_MAPPING,
-        sample_query=translator.SAMPLE_QUERY)
+    return flask.render_template('translator.html',
+                                 schema_mapping=translator.SCHEMA_MAPPING,
+                                 sample_query=translator.SAMPLE_QUERY)
 
 
 @app.route('/search')
@@ -93,8 +88,8 @@ def search_dc():
             name_tokens = set(name_tokens)
             if not name_tokens & query_tokens:
                 continue
-            entity['rank'] = len(name_tokens & query_tokens) / len(name_tokens
-                                                                   | query_tokens)
+            entity['rank'] = len(name_tokens & query_tokens) / len(name_tokens |
+                                                                   query_tokens)
             entities.append(entity)
         entities = sorted(entities, key=lambda e: (e['rank']), reverse=True)
         if entities:
@@ -102,7 +97,9 @@ def search_dc():
                 'type': section['typeName'],
                 'entities': entities,
             })
-    return flask.render_template('search_dc.html', query_text=query_text, results=results)
+    return flask.render_template('search_dc.html',
+                                 query_text=query_text,
+                                 results=results)
 
 
 @app.route('/weather')
@@ -121,13 +118,15 @@ def get_weather():
                     ' ?o measuredProperty {prop} .'
                     ' ?o observationDate ?date .'
                     ' ?o unit ?unit .'
-                    ' ?o meanValue ?mean .}}').format(
-        dcid=dcid, prop=prop)
+                    ' ?o meanValue ?mean .}}').format(dcid=dcid, prop=prop)
 
     _, rows = dc.query(query_string)
 
     observations = []
     for row in rows:
+        if ('value' not in row['cells'][0] or 'value' not in row['cells'][1] or
+                'value' not in row['cells'][2]):
+            continue
         date = row['cells'][0]['value']
         if date < '2000':
             continue

@@ -11,7 +11,6 @@
 # WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 # See the License for the specific language governing permissions and
 # limitations under the License.
-
 """Copy of Data Commons Python Client API Core without pandas dependency."""
 
 import base64
@@ -41,8 +40,8 @@ if os.environ.get('FLASK_ENV') == 'test':
 else:
     # Read the api key from Google Cloud Secret Manager
     secret_client = secretmanager.SecretManagerServiceClient()
-    secret_name = secret_client.secret_version_path(
-        API_PROJECT, 'mixer-api-key', '1')
+    secret_name = secret_client.secret_version_path(API_PROJECT,
+                                                    'mixer-api-key', '1')
     secret_response = secret_client.access_secret_version(secret_name)
     DC_API_KEY = secret_response.payload.data.decode('UTF-8')
 
@@ -70,21 +69,20 @@ API_ENDPOINTS = {
 # The default value to limit to
 _MAX_LIMIT = 100
 
-
 # ----------------------------- WRAPPER FUNCTIONS -----------------------------
+
 
 def search(query_text, max_results):
     req_url = API_ROOT + API_ENDPOINTS['search']
     req_url += '?key={}&query={}&max_results={}'.format(
-        DC_API_KEY,
-        urllib.parse.quote(query_text.replace(',', ' ')),
+        DC_API_KEY, urllib.parse.quote(query_text.replace(',', ' ')),
         max_results)
     response = requests.get(req_url)
     if response.status_code != 200:
         raise ValueError(
             'Response error: An HTTP {} code was returned by the mixer. '
-            'Printing response\n{}'.format(
-                response.status_code, response.reason))
+            'Printing response\n{}'.format(response.status_code,
+                                           response.reason))
     return response.json()
 
 
@@ -182,11 +180,12 @@ def get_triples(dcids, limit=_MAX_LIMIT):
 def get_places_in(dcids, place_type):
     # Convert the dcids field and format the request to GetPlacesIn
     url = API_ROOT + API_ENDPOINTS['get_places_in']
-    payload = send_request(
-        url, req_json={
-            'dcids': dcids,
-            'place_type': place_type,
-        }, post=False)
+    payload = send_request(url,
+                           req_json={
+                               'dcids': dcids,
+                               'place_type': place_type,
+                           },
+                           post=False)
 
     # Create the results and format it appropriately
     result = _format_expand_payload(payload, 'place', must_exist=dcids)
@@ -195,16 +194,17 @@ def get_places_in(dcids, place_type):
 
 def get_populations(dcids, population_type, constraining_properties={}):
     # Convert the dcids field and format the request to GetPopulations
-    pv = [{'property': k, 'value': v}
-          for k, v in constraining_properties.items()]
+    pv = [{
+        'property': k,
+        'value': v
+    } for k, v in constraining_properties.items()]
     url = API_ROOT + API_ENDPOINTS['get_populations']
-    payload = send_request(
-        url,
-        req_json={
-            'dcids': dcids,
-            'population_type': population_type,
-            'pvs': pv,
-        })
+    payload = send_request(url,
+                           req_json={
+                               'dcids': dcids,
+                               'population_type': population_type,
+                               'pvs': pv,
+                           })
 
     # Create the results and format it appropriately
     result = _format_expand_payload(payload, 'population', must_exist=dcids)
@@ -260,51 +260,47 @@ def get_place_obs(place_type,
                   population_type,
                   constraining_properties={}):
     # Create the json payload and send it to the REST API.
-    pv = [{'property': k, 'value': v}
-          for k, v in constraining_properties.items()]
+    pv = [{
+        'property': k,
+        'value': v
+    } for k, v in constraining_properties.items()]
     url = API_ROOT + API_ENDPOINTS['get_place_obs']
-    payload = send_request(
-        url,
-        req_json={
-            'place_type': place_type,
-            'observation_date': observation_date,
-            'population_type': population_type,
-            'pvs': pv,
-        },
-        compress=True)
+    payload = send_request(url,
+                           req_json={
+                               'place_type': place_type,
+                               'observation_date': observation_date,
+                               'population_type': population_type,
+                               'pvs': pv,
+                           },
+                           compress=True)
     return payload['places']
 
 
 def query(query_string):
     # Get the API Key and perform the POST request.
     logging.info("[ Mixer Request ]: query")
-    headers = {
-        'x-api-key': DC_API_KEY,
-        'Content-Type': 'application/json'
-    }
+    headers = {'x-api-key': DC_API_KEY, 'Content-Type': 'application/json'}
     req_url = API_ROOT + API_ENDPOINTS['query']
-    response = requests.post(
-        req_url,
-        json={'sparql': query_string},
-        headers=headers,
-        timeout=60)
+    response = requests.post(req_url,
+                             json={'sparql': query_string},
+                             headers=headers,
+                             timeout=60)
     if response.status_code != 200:
         raise ValueError(
             'Response error: An HTTP {} code was returned by the mixer. '
-            'Printing response\n{}'.format(
-                response.status_code, response.reason))
+            'Printing response\n{}'.format(response.status_code,
+                                           response.reason))
     res_json = response.json()
-    return res_json['header'], res_json['rows']
+    return res_json['header'], res_json.get('rows', [])
 
 
-def get_related_place(
-        dcid, stats_vars, same_place_type=None, within_place=None,
-        is_per_capita=None):
+def get_related_place(dcid,
+                      stats_vars,
+                      same_place_type=None,
+                      within_place=None,
+                      is_per_capita=None):
     url = API_ROOT + API_ENDPOINTS['get_related_places']
-    req_json = {
-        'dcid': dcid,
-        'stat_var_dcids': stats_vars
-    }
+    req_json = {'dcid': dcid, 'stat_var_dcids': stats_vars}
     if same_place_type:
         req_json['same_place_type'] = same_place_type
     if within_place:
@@ -320,19 +316,20 @@ def get_interesting_places(dcids):
     payload = send_request(url, req_json, post=False)
     return payload
 
+
 # ------------------------- INTERNAL HELPER FUNCTIONS -------------------------
 
 
-def send_request(
-        req_url, req_json={}, compress=False, post=True, has_payload=True):
+def send_request(req_url,
+                 req_json={},
+                 compress=False,
+                 post=True,
+                 has_payload=True):
     """ Sends a POST/GET request to req_url with req_json, default to POST.
     Returns:
       The payload returned by sending the POST/GET request formatted as a dict.
     """
-    headers = {
-        'x-api-key': DC_API_KEY,
-        'Content-Type': 'application/json'
-    }
+    headers = {'x-api-key': DC_API_KEY, 'Content-Type': 'application/json'}
     logging.info("Send request to %s", req_url)
 
     # Send the request and verify the request succeeded
@@ -344,8 +341,8 @@ def send_request(
     if response.status_code != 200:
         raise ValueError(
             'Response error: An HTTP {} code was returned by the mixer. '
-            'Printing response\n{}'.format(
-                response.status_code, response.reason))
+            'Printing response\n{}'.format(response.status_code,
+                                           response.reason))
 
     # Get the JSON
     res_json = response.json()
@@ -354,8 +351,8 @@ def send_request(
     if has_payload:
         res_json = res_json['payload']
         if compress:
-            res_json = zlib.decompress(
-                base64.b64decode(res_json), zlib.MAX_WBITS | 32)
+            res_json = zlib.decompress(base64.b64decode(res_json),
+                                       zlib.MAX_WBITS | 32)
         res_json = json.loads(res_json)
     return res_json
 
