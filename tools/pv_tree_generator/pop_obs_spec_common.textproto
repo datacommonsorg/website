@@ -46,6 +46,7 @@ spec: {
     name: "Count"
     same_level: True
   }
+  # TODO: add a separate age list for lifeExpectancy
   obs_props: {
     mprop: "lifeExpectancy"
     stat_type: "measuredValue"
