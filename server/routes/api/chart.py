@@ -26,7 +26,7 @@ import services.datacommons as dc_service
 import routes.api.place as place_api
 
 from cache import cache
-from flask import Blueprint, current_app, url_for
+from flask import Blueprint, current_app, Response, url_for
 
 # Define blueprint
 bp = Blueprint(
@@ -176,4 +176,4 @@ def config(dcid):
         'data': cached_chart_data,
     }
 
-    return json.dumps(response)
+    return Response(response, 200, mimetype='application/json')

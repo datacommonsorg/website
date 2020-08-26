@@ -66,6 +66,7 @@ interface ConfigType {
   topic: string;
   chartType: string;
   statsVars: string[];
+  denominator: string[];
   source: string;
   url: string;
   axis: string;
@@ -747,6 +748,7 @@ class Chart extends Component<ChartPropType, ChartStateType> {
           config.statsVars,
           perCapita,
           scaling,
+          config.denominator,
           this.props.chartData
         ).then((data) => {
           const dataGroups = data.getStatsVarGroupWithTime(dcid);
@@ -764,6 +766,7 @@ class Chart extends Component<ChartPropType, ChartStateType> {
           config.statsVars,
           perCapita,
           scaling,
+          config.denominator,
           this.props.chartData
         ).then((data) => {
           this.setState({
@@ -818,6 +821,7 @@ class Chart extends Component<ChartPropType, ChartStateType> {
                 config.statsVars,
                 perCapita,
                 scaling,
+                config.denominator,
                 this.props.chartData
               ).then((data) => {
                 this.setState({
@@ -835,6 +839,7 @@ class Chart extends Component<ChartPropType, ChartStateType> {
               config.statsVars,
               perCapita,
               scaling,
+              config.denominator,
               this.props.chartData
             ).then((data) => {
               this.setState({
