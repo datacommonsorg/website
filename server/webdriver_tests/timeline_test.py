@@ -20,7 +20,7 @@ import time
 
 
 TIMELINE_URL = '/tools/timeline'
-URL_HASH_1 = '#&statsVar=Median_Age_Person,0,1__Median_Income_Person,0,2__Count_Person_Upto5Years,'\
+URL_HASH_1 = '#&statsVar=Median_Age_Person,0,2__Median_Income_Person,0,3__Count_Person_Upto5Years,'\
     '0,3,0__Count_Person_5To17Years,0,3,1&place=geoId/06,geoId/08'
 GEO_URL_1 = '#&place=geoId/06'
 STATVAR_URL_1 = '#&statsVar=Count_Person'
