@@ -25,37 +25,17 @@ import routes.api.stats as stats_api
 # Place types to keep for list of child places, keyed by parent place type.
 WANTED_PLACE_TYPES = {}
 WANTED_PLACE_TYPES['Country'] = [
-                      "State",
-                      "Province",
-                      "County",
-                      "EurostatNUTS1",
-                      "EurostatNUTS2",
-                      "AdministrativeArea1"]
-WANTED_PLACE_TYPES['State'] = [
-                      "Province",
-                      "County"]
-WANTED_PLACE_TYPES['County'] = [
-                      "City",
-                      "Town",
-                      "Village",
-                      "Borough"]
-ALL_WANTED_PLACE_TYPES = ["Country",
-                      "State",
-                      "Province",
-                      "County",
-                      "City",
-                      "Town",
-                      "Village",
-                      "Borough",
-                      "CensusZipCodeTabulationArea",
-                      "EurostatNUTS1",
-                      "EurostatNUTS2",
-                      "EurostatNUTS3",
-                      "AdministrativeArea1",
-                      "AdministrativeArea2",
-                      "AdministrativeArea3",
-                      "AdministrativeArea4",
-                      "AdministrativeArea5"]
+    "State", "Province", "County", "EurostatNUTS1", "EurostatNUTS2",
+    "AdministrativeArea1"
+]
+WANTED_PLACE_TYPES['State'] = ["Province", "County"]
+WANTED_PLACE_TYPES['County'] = ["City", "Town", "Village", "Borough"]
+ALL_WANTED_PLACE_TYPES = [
+    "Country", "State", "Province", "County", "City", "Town", "Village",
+    "Borough", "CensusZipCodeTabulationArea", "EurostatNUTS1", "EurostatNUTS2",
+    "EurostatNUTS3", "AdministrativeArea1", "AdministrativeArea2",
+    "AdministrativeArea3", "AdministrativeArea4", "AdministrativeArea5"
+]
 
 # These place types are equivalent: prefer the key.
 EQUIVALENT_PLACE_TYPES = {
@@ -127,7 +107,9 @@ def statsvars_route(dcid):
     Returns:
       A list of statistical variable dcids.
     """
-    return Response(json.dumps(statsvars(dcid)), 200, mimetype='application/json')
+    return Response(json.dumps(statsvars(dcid)),
+                    200,
+                    mimetype='application/json')
 
 
 @cache.memoize(timeout=3600 * 24)  # Cache for one day.
@@ -164,20 +146,18 @@ def child_fetch(dcid):
         'property': 'containedInPlace',
         'direction': 'in'
     },
-                          compress=False,
-                          post=True)
+                                    compress=False,
+                                    post=True)
 
-    overlaps_response = fetch_data(
-        '/node/property-values',
-        {
-            'dcids': [dcid],
-            'property': 'geoOverlaps',
-            'direction': 'in'
-        },
-        compress=False,
-        post=True
-    )
-    places =  contained_response[dcid].get('in', []) + overlaps_response[dcid].get('in', [])
+    overlaps_response = fetch_data('/node/property-values', {
+        'dcids': [dcid],
+        'property': 'geoOverlaps',
+        'direction': 'in'
+    },
+                                   compress=False,
+                                   post=True)
+    places = contained_response[dcid].get(
+        'in', []) + overlaps_response[dcid].get('in', [])
 
     dcid_str = '^'.join(sorted(map(lambda x: x['dcid'], places)))
     pop = stats_api.get_stats_latest(dcid_str, 'Count_Person')
