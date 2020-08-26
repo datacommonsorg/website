@@ -448,14 +448,20 @@ function computeRanges(dataGroupsDict: { [geoId: string]: DataGroup[] }) {
 
   let dataGroups: DataGroup[];
   let maxV = 0;
+  let minV = 0; // calculate the min value when its less than 0
   for (const geoId in dataGroupsDict) {
     dataGroups = dataGroupsDict[geoId];
     maxV = Math.max(
       maxV,
       Math.max(...dataGroups.map((dataGroup) => dataGroup.max()))
     );
+    minV = Math.min(
+      minV,
+      Math.min(...dataGroups.map((dataGroup) => dataGroup.min()))
+    );
   }
   range.maxV = maxV;
+  range.minV = minV;
   return range;
 }
 
