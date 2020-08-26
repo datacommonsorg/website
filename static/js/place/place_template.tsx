@@ -179,13 +179,15 @@ class Ranking extends Component<RankingPropsType, RankingStateType> {
               <thead>
                 <tr>
                   <th scope="col">Rankings (in) </th>
-                  {this.state.data[this.state.data.label[0]].map((item, index) => {
-                    return (
-                      <th scope="col" key={index}>
-                        {item.name}
-                      </th>
-                    );
-                  })}
+                  {this.state.data[this.state.data.label[0]].map(
+                    (item, index) => {
+                      return (
+                        <th scope="col" key={index}>
+                          {item.name}
+                        </th>
+                      );
+                    }
+                  )}
                 </tr>
               </thead>
               <tbody>
