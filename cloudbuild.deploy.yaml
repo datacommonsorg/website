@@ -26,7 +26,7 @@ steps:
         set -x
         cd server
         gcloud config set project datcom-browser-staging
-        # bdist_wheel for grpcio takes a long time, seeting timeout to be 1200s
+        # bdist_wheel for grpcio takes a long time, setting timeout to be 1200s
         gcloud config set app/cloud_build_timeout 1200
         gcloud app deploy app_staging.yaml -q --version=$SHORT_SHA
         # Keep at most 5 recent versions
