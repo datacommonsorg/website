@@ -179,13 +179,15 @@ class Ranking extends Component<RankingPropsType, RankingStateType> {
               <thead>
                 <tr>
                   <th scope="col">Rankings (in) </th>
-                  {this.state.data.Population.map((item, index) => {
-                    return (
-                      <th scope="col" key={index}>
-                        {item.name}
-                      </th>
-                    );
-                  })}
+                  {this.state.data[this.state.data.label[0]].map(
+                    (item, index) => {
+                      return (
+                        <th scope="col" key={index}>
+                          {item.name}
+                        </th>
+                      );
+                    }
+                  )}
                 </tr>
               </thead>
               <tbody>
@@ -318,7 +320,7 @@ interface MainPanePropType {
   /**
    * A promise resolves to nearby places dcids.
    */
-  nearbyPlacesPromise: Promise<{ dcid: string; name: string }>;
+  nearbyPlacesPromise: Promise<string[]>;
   /**
    * An object from statsvar dcid to the url tokens used by timeline tool.
    */
@@ -510,7 +512,7 @@ interface ChartPropType {
   /**
    * The nearby places promise.
    */
-  nearbyPlacesPromise: Promise<{ dcid: string; name: string }>;
+  nearbyPlacesPromise: Promise<string[]>;
   /**
    * Cached stat var data for filling in charts.
    */
@@ -807,7 +809,7 @@ class Chart extends Component<ChartPropType, ChartStateType> {
               placesPromise = this.props.similarPlacesPromise;
             } else if (this.placeRelation === placeRelationEnum.NEARBY) {
               placesPromise = this.props.nearbyPlacesPromise.then((data) => {
-                return Object.keys(data);
+                return data;
               });
             }
             placesPromise.then((places) => {
