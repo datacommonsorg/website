@@ -319,7 +319,7 @@ def api_similar_places(stats_var, dcid):
     """
     result = dc.get_related_place(dcid, [stats_var],
                                   same_place_type=True).get(stats_var, {})
-    return Response(result, 200, mimetype='application/json')
+    return Response(json.dumps(result), 200, mimetype='application/json')
 
 
 @cache.memoize(timeout=3600 * 24)  # Cache for one day.
