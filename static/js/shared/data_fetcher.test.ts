@@ -175,9 +175,7 @@ test("fetch stats data with per capita with population size 0", () => {
           },
         },
       });
-    } else if (
-      url === "/api/stats/Count_Person_Male?&dcid=geoId/05"
-    ) {
+    } else if (url === "/api/stats/Count_Person_Male?&dcid=geoId/05") {
       return Promise.resolve({
         data: {
           "geoId/05": {
@@ -194,29 +192,28 @@ test("fetch stats data with per capita with population size 0", () => {
   });
 
   return fetchStatsData(
-    ["geoId/05"],
-    ["Count_Person_Male"],
-    true
-  ).then((data) => {
-    expect(data).toEqual({
-      data: {
-        Count_Person_Male: {
-          "geoId/05": {
-            data: {
-              "2011": 0,
-              "2012": 0,
+    ["geoId/05"], ["Count_Person_Male"], true).then(
+      (data) => {
+        expect(data).toEqual({
+          data: {
+            Count_Person_Male: {
+              "geoId/05": {
+                data: {
+                  "2011": 0,
+                  "2012": 0,
+                },
+                placeName: "Arkansas",
+                provenanceDomain: "source1",
+              },
             },
-            placeName: "Arkansas",
-            provenanceDomain: "source1",
           },
-        },
-      },
-      dates: ["2011", "2012"],
-      places: ["geoId/05"],
-      statsVars: ["Count_Person_Male"],
-      sources: new Set(["source1"]),
-    });
-  });
+          dates: ["2011", "2012"],
+          places: ["geoId/05"],
+          statsVars: ["Count_Person_Male"],
+          sources: new Set(["source1"]),
+        });
+      }
+    );
 });
 
 test("StatsData test", () => {
