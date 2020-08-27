@@ -151,15 +151,6 @@ const STATS_VAR_TEXT: { [key: string]: string } = {
   // Employment
   UnemploymentRate_Person_Male: "Male",
   UnemploymentRate_Person_Female: "Female",
-  // TEST
-  Count_Person_BelowPovertyLevelInThePast12Months_AmericanIndianOrAlaskaNativeAlone: "Native american",
-  Count_Person_BelowPovertyLevelInThePast12Months_AsianAlone: "Asian",
-  Count_Person_BelowPovertyLevelInThePast12Months_BlackOrAfricanAmericanAlone: "Black",
-  Count_Person_BelowPovertyLevelInThePast12Months_HispanicOrLatino: "Hispanic",
-  Count_Person_BelowPovertyLevelInThePast12Months_NativeHawaiianOrOtherPacificIslanderAlone: "Native Hawaiian",
-  Count_Person_BelowPovertyLevelInThePast12Months_SomeOtherRaceAlone: "Other",
-  Count_Person_BelowPovertyLevelInThePast12Months_TwoOrMoreRaces: "Two or more",
-  Count_Person_BelowPovertyLevelInThePast12Months_WhiteAlone: "White",
 };
 
 export { STATS_VAR_TEXT };
