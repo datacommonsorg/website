@@ -20,6 +20,7 @@ import { DataPoint, DataGroup } from "../chart/base";
 import { STATS_VAR_TEXT } from "./stats_var";
 
 const TOTAL_POPULATION_SV = "Count_Person";
+const ZERO_POPULATION = 0;
 
 interface TimeSeries {
   data: {
@@ -323,8 +324,8 @@ function computePerCapita(
       } else {
         pop = population[yearMax];
       }
-      if (pop === 0) {
-        result[place].data[date] = 0;
+      if (pop === ZERO_POPULATION) {
+        result[place].data[date] = ZERO_POPULATION;
       } else {
         result[place].data[date] /= pop / scaling;
       }
