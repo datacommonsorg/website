@@ -216,7 +216,7 @@ def parent_place(dcid):
     if parents2:
         parents3 = get_parent_place(parents2[-1]['dcid'])
         parents1.extend(parents3)
-    return Response(json.dumps(parents1), 200, mimetype='application/json')
+    return json.dumps(parents1)
 
 
 @cache.memoize(timeout=3600 * 24)  # Cache for one day.
