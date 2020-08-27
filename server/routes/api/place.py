@@ -152,6 +152,7 @@ def child_fetch(dcid):
     },
                                     compress=False,
                                     post=True)
+    places = contained_response[dcid].get('in', [])
 
     overlaps_response = fetch_data('/node/property-values', {
         'dcids': [dcid],
@@ -160,8 +161,7 @@ def child_fetch(dcid):
     },
                                    compress=False,
                                    post=True)
-    places = contained_response[dcid].get(
-        'in', []) + overlaps_response[dcid].get('in', [])
+    places = places + overlaps_response[dcid].get('in', [])
 
     dcid_str = '^'.join(sorted(map(lambda x: x['dcid'], places)))
     pop = stats_api.get_stats_latest(dcid_str, 'Count_Person')
@@ -196,15 +196,19 @@ def child_fetch(dcid):
     return result
 
 
-@cache.memoize(timeout=3600 * 24)  # Cache for one day.
 @bp.route('/parent/<path:dcid>')
-def parent_place(dcid):
+def api_parent_places(dcid):
+    return Response(parent_places(dcid), 200, mimetype='application/json')
+
+
+@cache.memoize(timeout=3600 * 24)  # Cache for one day.
+def parent_places(dcid):
     """
-    Get the parent places for a place.
+    Get the parent place chain for a place.
     """
     # In DataCommons knowledge graph, places has multiple containedInPlace
     # relation with parent places, but it might not be comprehensive. For
-    # example, "Moutain View" is containedInPlace for "Santa Clara County" and
+    # example, "Mountain View" is containedInPlace for "Santa Clara County" and
     # "California" but not "United States":
     # https://datacommons.org/browser/geoId/0649670
     # Here calling get_parent_place twice to get to the top parents.
@@ -216,7 +220,7 @@ def parent_place(dcid):
     if parents2:
         parents3 = get_parent_place(parents2[-1]['dcid'])
         parents1.extend(parents3)
-    return Response(json.dumps(parents1), 200, mimetype='application/json')
+    return json.dumps(parents1)
 
 
 @cache.memoize(timeout=3600 * 24)  # Cache for one day.
@@ -282,13 +286,14 @@ def api_mapinfo(dcid):
     y_spread = up - down
     margin = 0.02
 
-    return {
+    result = {
         'left': left - margin * x_spread,
         'right': right + margin * x_spread,
         'up': up + margin * y_spread,
         'down': down - margin * y_spread,
         'coordinateSequenceSet': coordinate_sequence_set
     }
+    return Response(json.dumps(result), 200, mimetype='application/json')
 
 
 @cache.memoize(timeout=3600 * 24)  # Cache for one day.
@@ -312,8 +317,9 @@ def api_similar_places(stats_var, dcid):
     """
     Get the similar places for a given place by stats var.
     """
-    return dc.get_related_place(dcid, [stats_var],
-                                same_place_type=True).get(stats_var, {})
+    result = dc.get_related_place(dcid, [stats_var],
+                                  same_place_type=True).get(stats_var, {})
+    return Response(json.dumps(result), 200, mimetype='application/json')
 
 
 @cache.memoize(timeout=3600 * 24)  # Cache for one day.
@@ -353,7 +359,7 @@ def api_ranking(dcid):
     """
     Get the ranking information for a given place.
     """
-    parents = json.loads(parent_place(dcid))
+    parents = json.loads(parent_places(dcid))
     selected_parents = []
     parent_names = {}
     for parent in parents:
@@ -402,4 +408,4 @@ def api_ranking(dcid):
     for label in result['label']:
         result[label] = [x for x in result[label] if x['data']]
     result['label'] = [x for x in result['label'] if result[x]]
-    return result
+    return Response(json.dumps(result), 200, mimetype='application/json')

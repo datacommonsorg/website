@@ -55,7 +55,7 @@ class TestPlaceExplorer(WebdriverBaseTest):
         time.sleep(3)
         self.assertEqual("California | Place Explorer | Data Commons", self.driver.title)
 
-    def test_demograpgics_link_and_switch_to_similar(self):
+    def test_demographics_link_and_switch_to_similar(self):
         """
         Test the demographics link can work correctly, and when changing from containing to similar,
         the chart should change accordingly.
