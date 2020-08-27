@@ -16,15 +16,23 @@ import collections
 import json
 import services.datacommons as dc
 
-from flask import Blueprint, request, jsonify
+from flask import Blueprint, jsonify, request, Response
 
 from cache import cache
 from services.datacommons import fetch_data
-from routes.api.stats import get_stats_wrapper
+import routes.api.stats as stats_api
 
-WANTED_PLACE_TYPES = [
-    "Country", "State", "Province", "County", "City", "Town", "Village",
-    "Borough", "CensusZipCodeTabulationArea", "EurostatNUTS1", "EurostatNUTS2",
+# Place types to keep for list of child places, keyed by parent place type.
+WANTED_PLACE_TYPES = {
+    'Country': [
+        "State", "EurostatNUTS1", "EurostatNUTS2", "AdministrativeArea1"
+    ],
+    'State': ["County"],
+    'County': ["City", "Town", "Village", "Borough"],
+}
+ALL_WANTED_PLACE_TYPES = [
+    "Country", "State", "County", "City", "Town", "Village", "Borough",
+    "CensusZipCodeTabulationArea", "EurostatNUTS1", "EurostatNUTS2",
     "EurostatNUTS3", "AdministrativeArea1", "AdministrativeArea2",
     "AdministrativeArea3", "AdministrativeArea4", "AdministrativeArea5"
 ]
@@ -39,18 +47,36 @@ EQUIVALENT_PLACE_TYPES = {
     "Village": "City",
 }
 
-CHILD_PLACE_LIMIT = 20
+CHILD_PLACE_LIMIT = 50
 
 # Contains statistical variable and the display name used for place rankings.
 RANKING_STATS = {
-    'Count_Person': 'Population',
-    'Median_Income_Person': 'Median Income',
-    'Median_Age_Person': 'Median Age',
-    'UnemploymentRate_Person': 'Unemployment Rate',
+    'Count_Person': 'Largest Population',
+    'Median_Income_Person': 'Highest Median Income',
+    'Median_Age_Person': 'Highest Median Age',
+    'UnemploymentRate_Person': 'Highest Unemployment Rate',
 }
 
 # Define blueprint
 bp = Blueprint("api.place", __name__, url_prefix='/api/place')
+
+
+@cache.memoize(timeout=3600 * 24)  # Cache for one day.
+def get_property_value(dcid, prop, out=True):
+    return dc.get_property_values([dcid], prop, out)[dcid]
+
+
+@cache.memoize(timeout=3600 * 24)  # Cache for one day.
+def get_place_type(place_dcid):
+    place_types = get_property_value(place_dcid, 'typeOf')
+    # We prefer to use specific type like "State", "County" over
+    # "AdministrativeArea"
+    chosen_type = None
+    for place_type in place_types:
+        if not chosen_type or chosen_type.startswith('AdministrativeArea') \
+            or chosen_type == 'Place':
+            chosen_type = place_type
+    return chosen_type
 
 
 @bp.route('/name')
@@ -68,7 +94,7 @@ def name():
     for dcid in dcids:
         values = response[dcid].get('out')
         result[dcid] = values[0]['value'] if values else ''
-    return json.dumps(result)
+    return Response(json.dumps(result), 200, mimetype='application/json')
 
 
 @bp.route('/statsvars/<path:dcid>')
@@ -82,7 +108,9 @@ def statsvars_route(dcid):
     Returns:
       A list of statistical variable dcids.
     """
-    return json.dumps(statsvars(dcid))
+    return Response(json.dumps(statsvars(dcid)),
+                    200,
+                    mimetype='application/json')
 
 
 @cache.memoize(timeout=3600 * 24)  # Cache for one day.
@@ -114,36 +142,55 @@ def child(dcid):
 
 @cache.memoize(timeout=3600 * 24)  # Cache for one day.
 def child_fetch(dcid):
-    response = fetch_data('/node/property-values', {
+    contained_response = fetch_data('/node/property-values', {
         'dcids': [dcid],
         'property': 'containedInPlace',
         'direction': 'in'
     },
-                          compress=False,
-                          post=True)
-    places = response[dcid].get('in', [])
+                                    compress=False,
+                                    post=True)
+
+    overlaps_response = fetch_data('/node/property-values', {
+        'dcids': [dcid],
+        'property': 'geoOverlaps',
+        'direction': 'in'
+    },
+                                   compress=False,
+                                   post=True)
+    places = contained_response[dcid].get(
+        'in', []) + overlaps_response[dcid].get('in', [])
+
     dcid_str = '^'.join(sorted(map(lambda x: x['dcid'], places)))
-    pop = json.loads(get_stats_wrapper(dcid_str, 'Count_Person'))
+    pop = stats_api.get_stats_latest(dcid_str, 'Count_Person')
 
-    pop = {
-        dcid: stats.get('data', {}).get('2018', 0)
-        for dcid, stats in pop.items()
-        if stats
-    }
-
+    place_type = get_place_type(dcid)
+    wanted_types = WANTED_PLACE_TYPES.get(place_type, ALL_WANTED_PLACE_TYPES)
     result = collections.defaultdict(list)
     for place in places:
         for place_type in place['types']:
-            if place_type in WANTED_PLACE_TYPES:
+            place_pop = pop.get(place['dcid'], 0)
+            # TODO(beets): Remove this when we push resolved places to prod.
+            if place['dcid'].startswith('geoNames'):
+                continue
+            if place_type in wanted_types and place_pop > 0:
                 result[place_type].append({
                     'name': place.get('name', place['dcid']),
                     'dcid': place['dcid'],
-                    'pop': pop.get(place['dcid'], 0)
+                    'pop': place_pop,
                 })
-    # Filter equivalent place types
+
+    # Filter equivalent place types - if a child place occurs in multiple groups, keep it in the preferred group type.
     for (preferred, equivalent) in EQUIVALENT_PLACE_TYPES.items():
         if preferred in result and equivalent in result:
-            del result[equivalent]
+            for preferred_place in result[preferred]:
+                for i, equivalent_place in enumerate(result[equivalent]):
+                    if preferred_place['dcid'] == equivalent_place['dcid']:
+                        del result[equivalent][i]
+                        break
+
+    # Drop empty categories
+    result = dict(filter(lambda x: len(x) > 0, result.items()))
+
     return result
 
 
@@ -325,7 +372,7 @@ def api_ranking(dcid):
         # option.
         # TOOD(shifucun): merge this once https://github.com/datacommonsorg/mixer/issues/262 is fixed.
         crime_statsvar = {
-            'Count_CriminalActivities_CombinedCrime': 'Crime per capita'
+            'Count_CriminalActivities_CombinedCrime': 'Highest Crime Per Capita'
         }
         response = get_related_place(dcid,
                                      '^'.join(crime_statsvar.keys()),
