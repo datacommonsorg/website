@@ -255,7 +255,9 @@ function getStatsDataFromCachedData(
   cachedData: CachedStatVarDataMap = {}
 ): StatsData {
   if (denominators.length && denominators.length != statsVars.length) {
-    console.log("StatVars must have the same number of denominators, if specified");
+    console.log(
+      "StatVars must have the same number of denominators, if specified"
+    );
     return;
   }
   const result = new StatsData(places, statsVars, [], {});
@@ -347,7 +349,9 @@ function fetchStatsData(
   cachedData: CachedStatVarDataMap = {}
 ): Promise<StatsData> {
   if (denominators.length && denominators.length != statsVars.length) {
-    console.log("StatVars must have the same number of denominators, if specified");
+    console.log(
+      "StatVars must have the same number of denominators, if specified"
+    );
     return;
   }
 
@@ -420,8 +424,4 @@ function fetchStatsData(
   });
 }
 
-export {
-  CachedStatVarDataMap,
-  StatsData,
-  fetchStatsData,
-};
+export { CachedStatVarDataMap, StatsData, fetchStatsData };

@@ -329,34 +329,34 @@ test("Per capita with specified denominators test from cache", () => {
         Count_Person_Male: {
           data: {
             "2011": 1300,
-            "2012": 2100
+            "2012": 2100,
           },
-          provenanceDomain: "source1"
+          provenanceDomain: "source1",
         },
         Count_Person_Female: {
           data: {
             "2011": 500,
-            "2012": 300
+            "2012": 300,
           },
-          provenanceDomain: "source1"
-        }
+          provenanceDomain: "source1",
+        },
       },
       "geoId/06": {
         Count_Person_Male: {
           data: {
             "2011": 200,
-            "2012": 300
+            "2012": 300,
           },
-          provenanceDomain: "source2"
+          provenanceDomain: "source2",
         },
         Count_Person_Female: {
           data: {
             "2011": 1000,
-            "2012": 3000
+            "2012": 3000,
           },
-          provenanceDomain: "source2"
-        }
-      }
+          provenanceDomain: "source2",
+        },
+      },
     }
   ).then((data) => {
     expect(data).toEqual({
