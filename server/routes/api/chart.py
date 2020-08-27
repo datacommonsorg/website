@@ -176,4 +176,4 @@ def config(dcid):
         'data': cached_chart_data,
     }
 
-    return Response(response, 200, mimetype='application/json')
+    return Response(json.dumps(response), 200, mimetype='application/json')
