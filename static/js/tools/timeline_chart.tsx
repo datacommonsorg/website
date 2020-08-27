@@ -152,6 +152,7 @@ class Chart extends Component<ChartPropsType, unknown> {
       Object.keys(this.props.statsVars),
       this.props.perCapita,
       1,
+      [],
       {}
     ).then((statsData) => {
       this.statsData = statsData;
