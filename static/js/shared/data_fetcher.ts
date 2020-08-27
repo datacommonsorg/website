@@ -254,6 +254,10 @@ function getStatsDataFromCachedData(
   denominators: string[] = [],
   cachedData: CachedStatVarDataMap = {}
 ): StatsData {
+  if (denominators.length && denominators.length != statsVars.length) {
+    console.log("StatVars must have the same number of denominators, if specified");
+    return;
+  }
   const result = new StatsData(places, statsVars, [], {});
   const dates: Set<string> = new Set();
   for (let i = 0; i < statsVars.length; i++) {
@@ -342,6 +346,11 @@ function fetchStatsData(
   denominators: string[] = [],
   cachedData: CachedStatVarDataMap = {}
 ): Promise<StatsData> {
+  if (denominators.length && denominators.length != statsVars.length) {
+    console.log("StatVars must have the same number of denominators, if specified");
+    return;
+  }
+
   if (isAllCachedDataAvailable(places, statsVars, denominators, cachedData)) {
     return new Promise((resolve) => {
       resolve(
