@@ -140,7 +140,7 @@ def child(dcid):
     for place_type in child_places:
         child_places[place_type].sort(key=lambda x: x['pop'], reverse=True)
         child_places[place_type] = child_places[place_type][:CHILD_PLACE_LIMIT]
-    return json.dumps(child_places)
+    return Response(json.dumps(child_places), 200, mimetype='application/json')
 
 
 @cache.memoize(timeout=3600 * 24)  # Cache for one day.
@@ -193,7 +193,6 @@ def child_fetch(dcid):
 
     # Drop empty categories
     result = dict(filter(lambda x: len(x) > 0, result.items()))
-
     return result
 
 
@@ -217,7 +216,7 @@ def parent_place(dcid):
     if parents2:
         parents3 = get_parent_place(parents2[-1]['dcid'])
         parents1.extend(parents3)
-    return json.dumps(parents1)
+    return Response(json.dumps(parents1), 200, mimetype='application/json')
 
 
 @cache.memoize(timeout=3600 * 24)  # Cache for one day.
@@ -343,7 +342,9 @@ def api_nearby_places(dcid):
             filtered_dcids.append(x)
     filtered_dcids.sort(key=lambda x: pop[x])
     filtered_dcids.insert(0, dcid)
-    return json.dumps(filtered_dcids)
+    return Response(json.dumps(filtered_dcids),
+                    200,
+                    mimetype='application/json')
 
 
 @cache.memoize(timeout=3600 * 24)  # Cache for one day.
