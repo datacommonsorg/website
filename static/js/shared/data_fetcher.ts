@@ -323,7 +323,11 @@ function computePerCapita(
       } else {
         pop = population[yearMax];
       }
-      result[place].data[date] /= pop / scaling;
+      if (pop === 0) {
+        result[place].data[date] = 0;
+      } else {
+        result[place].data[date] /= pop / scaling;
+      }
     }
   }
   return result;
