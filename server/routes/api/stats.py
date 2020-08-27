@@ -26,6 +26,27 @@ bp = Blueprint(
 
 # TODO(shifucun): add unittest for this module
 
+def get_stats_latest(dcid_str, stats_var):
+    """ Returns the most recent data as from a DataCommons API payload.
+    
+    Args:
+        dcid_str: place dcids concatenated by "^".
+        stats_var: the dcid of the statistical variable.
+    Returns:
+        An object keyed by dcid, with the most recent value available for
+        that dcid.
+    """
+    response = json.loads(get_stats_wrapper(dcid_str, stats_var))
+    result = {}
+    for dcid, stats in response.items():
+        if not stats or not 'data' in stats:
+            result[dcid] = 0
+        else:
+            data = stats['data']
+            max_date = max(data.keys())
+            result[dcid] = data[max_date]
+    return result
+
 
 @cache.memoize(timeout=3600 * 24)  # Cache for one day.
 def get_stats_wrapper(dcid_str, stats_var):
