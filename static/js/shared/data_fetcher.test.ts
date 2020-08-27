@@ -160,9 +160,9 @@ test("fetch stats data", () => {
   });
 });
 
-test("fetch stats data with per capita", () => {
+test("fetch stats data with per capita with population size 0", () => {
   mockedAxios.get.mockImplementation((url: string) => {
-    if (url === "/api/stats/Count_Person?&dcid=geoId/05&dcid=geoId/06") {
+    if (url === "/api/stats/Count_Person?&dcid=geoId/05") {
       return Promise.resolve({
         data: {
           "geoId/05": {
@@ -173,18 +173,10 @@ test("fetch stats data with per capita", () => {
             placeName: "Arkansas",
             provenanceDomain: "source1",
           },
-          "geoId/06": {
-            data: {
-              "2011": 31000,
-              "2012": 32000,
-            },
-            placeName: "California",
-            provenanceDomain: "source2",
-          },
         },
       });
     } else if (
-      url === "/api/stats/Count_Person_Male?&dcid=geoId/05&dcid=geoId/06"
+      url === "/api/stats/Count_Person_Male?&dcid=geoId/05"
     ) {
       return Promise.resolve({
         data: {
@@ -196,21 +188,13 @@ test("fetch stats data with per capita", () => {
             placeName: "Arkansas",
             provenanceDomain: "source1",
           },
-          "geoId/06": {
-            data: {
-              "2011": 15000,
-              "2012": 16000,
-            },
-            placeName: "California",
-            provenanceDomain: "source2",
-          },
         },
       });
     }
   });
 
   return fetchStatsData(
-    ["geoId/05", "geoId/06"],
+    ["geoId/05"],
     ["Count_Person_Male"],
     true
   ).then((data) => {
@@ -225,20 +209,12 @@ test("fetch stats data with per capita", () => {
             placeName: "Arkansas",
             provenanceDomain: "source1",
           },
-          "geoId/06": {
-            data: {
-              "2011": 15000 / 31000,
-              "2012": 16000 / 32000,
-            },
-            placeName: "California",
-            provenanceDomain: "source2",
-          },
         },
       },
       dates: ["2011", "2012"],
-      places: ["geoId/05", "geoId/06"],
+      places: ["geoId/05"],
       statsVars: ["Count_Person_Male"],
-      sources: new Set(["source1", "source2"]),
+      sources: new Set(["source1"]),
     });
   });
 });
