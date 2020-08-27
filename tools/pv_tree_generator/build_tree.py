@@ -104,6 +104,8 @@ class ValueLeaf:
             result['sv_set'].update(node.dcids)
         if not result['sv']:
             result['t'] = 'p'
+        if result['cd']:
+            result['cd'] = text_format.filter_and_sort(self.name, result['cd'])
         return result
 
 class PropertyNode:
@@ -290,6 +292,8 @@ class ValueNode:
             result['sv_set'].update(node.dcids)
         if not result['sv']:
             result['t'] = 'p'
+        if result['cd']:
+            result['cd'] = text_format.filter_and_sort(self.value, result['cd'])
         return result
 
 
@@ -336,7 +340,7 @@ def build_tree_recursive(node: PropertyNode, max_level):
                 prop_blob = build_tree_recursive(prop, max_level)
                 if (prop_blob['cd']):
                     value_blob['cd'].append(prop_blob)
-    result['cd'] = text_format.filter_and_sort(node.prop, result['cd'], False)
+    result['cd'] = text_format.filter_and_sort(node.prop, result['cd'])
     return result
 
 

@@ -127,31 +127,32 @@ def sort_func(prop):
     return lambda o: order.get(o['l'], DEFAULT_RANK)
   elif prop == 'detailedLevelOfSchool':
     return lambda o: constants.GRADE.get(o['l'], DEFAULT_RANK)
+  elif prop == 'Demographics':
+    return lambda o: constants.Demographics.get(o['l'], DEFAULT_RANK)
   else:
     return lambda o: o['l']
 
 
-def filter_and_sort(prop, children, show_all):
+def filter_and_sort(prop, children):
   """Filter enum nodes by ordering rules or alphabetically."""
   target_titles = None
-  if not show_all:
-    if prop == 'age' or prop == 'householderAge':
-      if children and children[0]['populationType'] == 'MortalityEvent':
-        target_titles = constants.IDC10_AGES
-      else:
-        target_titles = constants.AGES
-    if prop == 'race':
-      target_titles = constants.RACES
-    if prop == 'educationalAttainment':
-      target_titles = set(list(constants.EDUCATIONS.keys()))
-    if prop == 'causeOfDeath':
-      target_titles = set(list(constants.ICD10.values()))
-    if prop == 'naics':
-      target_titles = set(list(constants.NAICS.values()))
-    if prop == 'detailedLevelOfSchool':
-      target_titles = set(list(constants.GRADE.keys()))
-    if prop == 'drugPrescribed':
-      target_titles = set(list(constants.DEA_DRUGS.values()))
+  if prop == 'age' or prop == 'householderAge':
+    if children and children[0]['populationType'] == 'MortalityEvent':
+      target_titles = constants.IDC10_AGES
+    else:
+      target_titles = constants.AGES
+  if prop == 'race':
+    target_titles = constants.RACES
+  if prop == 'educationalAttainment':
+    target_titles = set(list(constants.EDUCATIONS.keys()))
+  if prop == 'causeOfDeath':
+    target_titles = set(list(constants.ICD10.values()))
+  if prop == 'naics':
+    target_titles = set(list(constants.NAICS.values()))
+  if prop == 'detailedLevelOfSchool':
+    target_titles = set(list(constants.GRADE.keys()))
+  if prop == 'drugPrescribed':
+    target_titles = set(list(constants.DEA_DRUGS.values()))
 
   if target_titles:
     used_children = [c for c in children if c['l'] in target_titles]
