@@ -28938,174 +28938,175 @@
   4,
   77
  ],
- "CumulativeCount_Person_COVID19PCRTest": [
-  5,
-  0
- ],
  "CumulativeCount_MedicalConditionIncident_COVID_19_ConfirmedCase": [
   5,
-  1,
+  0,
   0,
   0,
   0
  ],
  "IncrementalCount_MedicalConditionIncident_COVID_19_ConfirmedCase": [
   5,
-  1,
+  0,
   0,
   0,
   1
  ],
  "CumulativeCount_MedicalConditionIncident_COVID_19_PatientHospitalized": [
   5,
-  1,
+  0,
   0,
   1,
   0
  ],
  "Count_MedicalConditionIncident_COVID_19_PatientHospitalized": [
   5,
-  1,
+  0,
   0,
   1,
   1
  ],
  "IncrementalCount_MedicalConditionIncident_COVID_19_PatientHospitalized": [
   5,
-  1,
+  0,
   0,
   1,
   2
  ],
  "CumulativeCount_MedicalConditionIncident_COVID_19_PatientOnVentilator": [
   5,
-  1,
+  0,
   0,
   2,
   0
  ],
  "Count_MedicalConditionIncident_COVID_19_PatientOnVentilator": [
   5,
-  1,
+  0,
   0,
   2,
   1
  ],
  "CumulativeCount_MedicalConditionIncident_COVID_19_PatientRecovered": [
   5,
-  1,
+  0,
   0,
   3,
   0
  ],
  "CumulativeCount_MedicalConditionIncident_COVID_19_PatientDeceased": [
   5,
-  1,
+  0,
   0,
   4,
   0
  ],
  "IncrementalCount_MedicalConditionIncident_COVID_19_PatientDeceased": [
   5,
-  1,
+  0,
   0,
   4,
   1
  ],
  "CumulativeCount_MedicalConditionIncident_COVID_19_PatientInICU": [
   5,
-  1,
+  0,
   0,
   5,
   0
  ],
  "Count_MedicalConditionIncident_COVID_19_PatientInICU": [
   5,
-  1,
+  0,
   0,
   5,
   1
  ],
  "CumulativeCount_MedicalConditionIncident_COVID_19_ConfirmedOrProbableCase": [
   5,
-  1,
+  0,
   0,
   6,
   0
  ],
  "IncrementalCount_MedicalConditionIncident_COVID_19_ConfirmedOrProbableCase": [
   5,
-  1,
+  0,
   0,
   6,
   1
  ],
  "PolicyExtent_Legislation_COVID19Pandemic_GovernmentOrganization_ContactTracing": [
   5,
-  2,
+  1,
   0
  ],
  "PolicyExtent_Legislation_COVID19Pandemic_GovernmentOrganization_GovernmentBenefit_DebtOrContractRelief": [
   5,
-  2,
+  1,
   1
  ],
  "PolicyExtent_Legislation_COVID19Pandemic_GovernmentOrganization_InternationalTravelRestriction": [
   5,
-  2,
+  1,
   2
  ],
  "PolicyExtent_Legislation_COVID19Pandemic_GovernmentOrganization_TestingEligibility": [
   5,
-  2,
+  1,
   3
  ],
  "CumulativeCount_MedicalTest_ConditionCOVID_19_Negative": [
   5,
-  3,
+  2,
   0,
   0
  ],
  "CumulativeCount_MedicalTest_ConditionCOVID_19_Positive": [
   5,
-  3,
+  2,
   0,
   1
  ],
  "dc/7ck14dlsnxrz2": [
   5,
-  3,
+  2,
   0,
   2
  ],
+ "CumulativeCount_Person_COVID19PCRTest": [
+  5,
+  2,
+  1
+ ],
  "dc/n9rqwq8d3lcx3": [
   5,
-  4,
+  3,
   0
  ],
  "dc/0ny9m7k0lzmn5": [
   5,
-  4,
+  3,
   1
  ],
  "dc/p49ghylpwz93f": [
   5,
-  4,
+  3,
   2
  ],
  "dc/7fmnve6yyc508": [
   5,
-  4,
+  3,
   3
  ],
  "dc/qdbhwwr88yhl7": [
   5,
-  4,
+  3,
   4
  ],
  "dc/tbbjnf9bk96yh": [
   5,
-  4,
+  3,
   5
  ],
  "Count_HousingUnit": [

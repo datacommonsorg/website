@@ -276,15 +276,6 @@
   "c": 28,
   "cd": [
    {
-    "sv": [
-     "CumulativeCount_Person_COVID19PCRTest"
-    ],
-    "l": "PCR Tests",
-    "t": "v",
-    "e": "PCR Tests",
-    "c": 1
-   },
-   {
     "l": "Medical Condition Incidents",
     "t": "p",
     "c": 14
@@ -297,7 +288,7 @@
    {
     "l": "Medical Tests",
     "t": "p",
-    "c": 3
+    "c": 4
    },
    {
     "l": "Mobility Trend Place Categories",

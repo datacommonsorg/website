@@ -48,7 +48,8 @@ def get_root_children(pop_obs_spec_all, stats_vars_all) -> List['ValueNode']:
         for pos in pop_obs_spec_all[vertical][1]:
             props.append((pos.cprops[0], pos))
         valueNodes.append(ValueNode(vertical, leafs, props, None,
-                                    pop_obs_spec_all[vertical], stats_vars_all))
+                                    pop_obs_spec_all[vertical], 
+                                    stats_vars_all))
     return valueNodes
 
 
@@ -156,19 +157,24 @@ class PropertyNode:
                             # of super enum, and add the statsVars of each 
                             # obs_props as the eafs of the super enum
                             sv_added = False
-                            for se_leaf in matching_stats_vars[sv.se[self.prop]]:
+                            for se_leaf in matching_stats_vars[
+                                            sv.se[self.prop]]:
                                 if se_leaf.name == sv.pv[self.prop]:
                                     # if the super enum exists
-                                    se_leaf.leafs.append(ValueLeaf(self.pos.obs_props[idx].name,
-                                    [sv.dcid], True, self.pos, []))
+                                    se_leaf.leafs.append(
+                                        ValueLeaf(self.pos.obs_props[idx].name,
+                                            [sv.dcid], True, self.pos, []))
                                     sv_added = True
                             if not sv_added:
                                 # if the super enum does not exist
                                 # create the super enum leaf and its child
-                                se_leaf = ValueLeaf(sv.pv[self.prop], [], True, self.pos, [])
-                                se_leaf.leafs.append(ValueLeaf(self.pos.obs_props[idx].name,
+                                se_leaf = ValueLeaf(sv.pv[self.prop], 
+                                            [], True, self.pos, [])
+                                se_leaf.leafs.append(
+                                    ValueLeaf(self.pos.obs_props[idx].name,
                                     [sv.dcid], True, self.pos, []))
-                                matching_stats_vars[sv.se[self.prop]].append(se_leaf)                            
+                                matching_stats_vars[
+                                    sv.se[self.prop]].append(se_leaf)                            
                         else:
                             # there's no additional level under super enum
                             matching_stats_vars[sv.se[self.prop]].append(
@@ -373,7 +379,7 @@ def reorgnize(vertical):
     """ Move certain property nodes as child of certain leaf nodes"""
     target_leaf_node = {}
     target_property_node = collections.defaultdict(list)
-    # find the target leaf nodes and property ndoes
+    # find the target leaf nodes and property nodes
     for node in vertical['cd']:
         if node["populationType"] in ['EarthquakeEvent', 'CycloneEvent',
                                       'MortalityEvent']:
@@ -387,6 +393,17 @@ def reorgnize(vertical):
         for node in target_property_node[pop_type]:
             leaf['cd'].append(node)
             vertical['cd'].remove(node)
+    # move certain leaf node as the child of certain top level property node
+    target_leaf = None
+    target_property = None
+    for node in vertical['cd']:
+        if node['t'] == 'v' and node['sv'] == ['CumulativeCount_Person_COVID19PCRTest']:
+            target_leaf = node
+        if node['t'] == 'p' and node['l'] == "Medical Tests":
+            target_property = node
+    if target_property and target_leaf:
+        target_property['cd'].append(target_leaf)
+        vertical['cd'].remove(target_leaf)
     return
 
 

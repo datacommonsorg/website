@@ -2112,7 +2112,7 @@ spec: {
     mprop: "cumulativeCount"
     stat_type: "measuredValue"
   }
-  name: "PCR Tests"
+  name: "PCR-Tested"
   vertical: "COVID-19"
 }
 

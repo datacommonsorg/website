@@ -189,7 +189,7 @@ def read_stat_var():
         if 'testResult' in prop_val:
             v = prop_val.get('testResult', '')
             if v in ['Negative', 'Positive', 'Ready']:
-                se = {'testResult': 'TestResult'}
+                se = {'testResult': 'TestResults'}
         if 'medicalStatus' in prop_val:
             v = prop_val.get('medicalStatus', '')
             if v in ['ConfirmedCase', 'ConfirmedOrProbableCase', 'PatientDeceased',
