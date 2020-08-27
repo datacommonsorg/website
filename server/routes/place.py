@@ -16,6 +16,7 @@
 
 import flask
 import services.datacommons as dc
+import routes.api.place as place_api
 
 from cache import cache
 # import main
@@ -30,24 +31,13 @@ bp = flask.Blueprint(
 )
 
 
-@cache.memoize(timeout=3600 * 24)  # Cache for one day.
-def get_property_value(dcid, prop, out=True):
-    return dc.get_property_values([dcid], prop, out)[dcid]
-
-
 @bp.route('', strict_slashes=False)
 def place():
     place_dcid = flask.request.args.get('dcid')
     if not place_dcid:
         return flask.redirect(flask.url_for('place.place', dcid='country/USA'))
-    place_types = get_property_value(place_dcid, 'typeOf')
-    # We prefer to use specific type like "State", "County" over
-    # "AdministrativeArea"
-    chosen_type = None
-    for place_type in place_types:
-        if not chosen_type or chosen_type.startswith('AdministrativeArea'):
-            chosen_type = place_type
-    place_names = get_property_value(place_dcid, 'name')
+    place_type = place_api.get_place_type(place_dcid)
+    place_names = place_api.get_property_value(place_dcid, 'name')
     if place_names:
         place_name = place_names[0]
     else:
@@ -55,7 +45,7 @@ def place():
     topic = flask.request.args.get('topic', '')
     return flask.render_template(
         'place.html',
-        place_type=chosen_type,
+        place_type=place_type,
         place_name=place_name,
         place_dcid=place_dcid,
         topic=topic)

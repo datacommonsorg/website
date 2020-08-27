@@ -139,7 +139,7 @@ function addYAxis(
           let tText = String(d);
           // When the y value is less than one, use the original value.
           // Otherwise 0.3 is formatted into 300m which is confusing to 300M.
-          if (d > 1) {
+          if (d > 1 || d < -1) {
             tText = d3.formatPrefix(`.${p}`, yScale.domain()[1])(d);
           }
           const dollar = unit === "$" ? "$" : "";
@@ -448,14 +448,20 @@ function computeRanges(dataGroupsDict: { [geoId: string]: DataGroup[] }) {
 
   let dataGroups: DataGroup[];
   let maxV = 0;
+  let minV = 0; // calculate the min value when its less than 0
   for (const geoId in dataGroupsDict) {
     dataGroups = dataGroupsDict[geoId];
     maxV = Math.max(
       maxV,
       Math.max(...dataGroups.map((dataGroup) => dataGroup.max()))
     );
+    minV = Math.min(
+      minV,
+      Math.min(...dataGroups.map((dataGroup) => dataGroup.min()))
+    );
   }
   range.maxV = maxV;
+  range.minV = minV;
   return range;
 }
 
