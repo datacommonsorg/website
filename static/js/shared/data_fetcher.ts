@@ -34,7 +34,7 @@ interface StatApiResponse {
   [placeDcid: string]: TimeSeries | null;
 }
 
-interface CachedStatsVarDataMap {
+interface CachedStatVarDataMap {
   [geoId: string]: {
     [statVar: string]: TimeSeries;
   };
@@ -198,7 +198,7 @@ function isAllCachedDataAvailable(
   places: string[],
   statsVars: string[],
   denominators: string[],
-  cachedData: CachedStatsVarDataMap
+  cachedData: CachedStatVarDataMap
 ): boolean {
   for (const place of places) {
     if (!(place in cachedData)) {
@@ -221,11 +221,10 @@ function isAllCachedDataAvailable(
  *
  * @return StatApiResponse object with the place and input.
  */
-//function statApiResponseFromCacheData(place: string, input: TimeSeries): StatApiResponse {
 function statApiResponseFromCacheData(
   statVar: string,
   places: string[],
-  cachedData: CachedStatsVarDataMap
+  cachedData: CachedStatVarDataMap
 ): StatApiResponse {
   const result = {};
   for (const place of places) {
@@ -253,8 +252,14 @@ function getStatsDataFromCachedData(
   perCapita = false,
   scaling = 1,
   denominators: string[] = [],
-  cachedData: CachedStatsVarDataMap = {}
+  cachedData: CachedStatVarDataMap = {}
 ): StatsData {
+  if (denominators.length && denominators.length != statsVars.length) {
+    console.log(
+      "StatVars must have the same number of denominators, if specified"
+    );
+    return;
+  }
   const result = new StatsData(places, statsVars, [], {});
   const dates: Set<string> = new Set();
   for (let i = 0; i < statsVars.length; i++) {
@@ -341,8 +346,14 @@ function fetchStatsData(
   perCapita = false,
   scaling = 1,
   denominators: string[] = [],
-  cachedData: CachedStatsVarDataMap = {}
+  cachedData: CachedStatVarDataMap = {}
 ): Promise<StatsData> {
+  if (denominators.length && denominators.length != statsVars.length) {
+    console.log(
+      "StatVars must have the same number of denominators, if specified"
+    );
+    return;
+  }
   if (isAllCachedDataAvailable(places, statsVars, denominators, cachedData)) {
     return new Promise((resolve) => {
       resolve(
@@ -412,8 +423,4 @@ function fetchStatsData(
   });
 }
 
-export {
-  CachedStatsVarDataMap,
-  StatsData,
-  fetchStatsData,
-};
+export { CachedStatVarDataMap, StatsData, fetchStatsData };

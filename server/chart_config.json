@@ -71,9 +71,9 @@
         "url": "https://www.census.gov/"
       },
       {
-        "title": "Unemployment Rate by Gender",
-        "chartType": "GROUP_BAR",
-        "axis": "PLACE",
+        "title": "Unemployment Rate by Gender Over Time",
+        "chartType": "LINE",
+        "axis": "TIME",
         "statsVars": [
           "UnemploymentRate_Person_Male",
           "UnemploymentRate_Person_Female"

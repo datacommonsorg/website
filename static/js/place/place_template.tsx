@@ -26,7 +26,7 @@ import {
   drawStackBarChart,
   drawGroupBarChart,
 } from "../chart/draw";
-import { CachedStatsVarDataMap, fetchStatsData } from "../shared/data_fetcher";
+import { CachedStatVarDataMap, fetchStatsData } from "../shared/data_fetcher";
 import { updatePageLayoutState } from "./place";
 import { STATS_VAR_TEXT } from "../shared/stats_var";
 
@@ -329,7 +329,7 @@ interface MainPanePropType {
   /**
    * Cached stat var data for filling in charts.
    */
-  chartData: CachedStatsVarDataMap;
+  chartData: CachedStatVarDataMap;
 }
 
 class MainPane extends Component<MainPanePropType, unknown> {
@@ -517,7 +517,7 @@ interface ChartPropType {
   /**
    * Cached stat var data for filling in charts.
    */
-  chartData: CachedStatsVarDataMap;
+  chartData: CachedStatVarDataMap;
 }
 
 interface ChartStateType {
