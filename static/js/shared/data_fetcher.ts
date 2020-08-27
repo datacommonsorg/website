@@ -25,8 +25,8 @@ interface TimeSeries {
   data: {
     [date: string]: number; // Date might be "latest" if it's from the cache
   };
-  placeName: string;
-  placeDcid: string;
+  placeName?: string;
+  placeDcid?: string;
   provenanceDomain: string;
 }
 
@@ -197,13 +197,14 @@ class StatsData {
 function isAllCachedDataAvailable(
   places: string[],
   statsVars: string[],
+  denominators: string[],
   cachedData: CachedStatsVarDataMap
 ): boolean {
   for (const place of places) {
     if (!(place in cachedData)) {
       return false;
     }
-    for (const sv of statsVars) {
+    for (const sv of statsVars.concat(denominators)) {
       if (!(sv in cachedData[place])) {
         return false;
       }
@@ -220,9 +221,16 @@ function isAllCachedDataAvailable(
  *
  * @return StatApiResponse object with the place and input.
  */
-function statApiResponse(place: string, input: TimeSeries): StatApiResponse {
+//function statApiResponseFromCacheData(place: string, input: TimeSeries): StatApiResponse {
+function statApiResponseFromCacheData(
+  statVar: string,
+  places: string[],
+  cachedData: CachedStatsVarDataMap
+): StatApiResponse {
   const result = {};
-  result[place] = input;
+  for (const place of places) {
+    result[place] = cachedData[place][statVar];
+  }
   return result;
 }
 
@@ -244,20 +252,28 @@ function getStatsDataFromCachedData(
   statsVars: string[],
   perCapita = false,
   scaling = 1,
+  denominators: string[] = [],
   cachedData: CachedStatsVarDataMap = {}
 ): StatsData {
   const result = new StatsData(places, statsVars, [], {});
   const dates: Set<string> = new Set();
-  for (const place of places) {
-    for (const sv of statsVars) {
-      result.data[sv] = statApiResponse(place, cachedData[place][sv]);
-      if (perCapita) {
-        result.data[sv] = computePerCapita(
-          result.data[sv],
-          statApiResponse(place, cachedData[place][TOTAL_POPULATION_SV]),
-          scaling
-        );
-      }
+  for (let i = 0; i < statsVars.length; i++) {
+    const sv = statsVars[i];
+    result.data[sv] = statApiResponseFromCacheData(sv, places, cachedData);
+    if (perCapita) {
+      result.data[sv] = computePerCapita(
+        result.data[sv],
+        statApiResponseFromCacheData(TOTAL_POPULATION_SV, places, cachedData),
+        scaling
+      );
+    } else if (denominators.length) {
+      result.data[sv] = computePerCapita(
+        result.data[sv],
+        statApiResponseFromCacheData(denominators[i], places, cachedData),
+        scaling
+      );
+    }
+    for (const place of places) {
       const timeSeries = result.data[sv][place];
       result.sources.add(timeSeries.provenanceDomain);
       for (const date in timeSeries.data) {
@@ -324,9 +340,10 @@ function fetchStatsData(
   statsVars: string[],
   perCapita = false,
   scaling = 1,
+  denominators: string[] = [],
   cachedData: CachedStatsVarDataMap = {}
 ): Promise<StatsData> {
-  if (isAllCachedDataAvailable(places, statsVars, cachedData)) {
+  if (isAllCachedDataAvailable(places, statsVars, denominators, cachedData)) {
     return new Promise((resolve) => {
       resolve(
         getStatsDataFromCachedData(
@@ -334,6 +351,7 @@ function fetchStatsData(
           statsVars,
           perCapita,
           scaling,
+          denominators,
           cachedData
         )
       );
@@ -353,6 +371,10 @@ function fetchStatsData(
     apiDataPromises.push(
       axios.get(`/api/stats/${TOTAL_POPULATION_SV}${dcidParams}`)
     );
+  } else {
+    for (const denom of denominators) {
+      apiDataPromises.push(axios.get(`/api/stats/${denom}${dcidParams}`));
+    }
   }
 
   return Promise.all(apiDataPromises).then((allResp) => {
@@ -365,6 +387,12 @@ function fetchStatsData(
         result.data[sv] = computePerCapita(
           allResp[i].data,
           allResp[numStatsVars].data,
+          scaling
+        );
+      } else if (denominators.length) {
+        result.data[sv] = computePerCapita(
+          allResp[i].data,
+          allResp[i + numStatsVars].data,
           scaling
         );
       }
@@ -385,7 +413,7 @@ function fetchStatsData(
 }
 
 export {
-  CachedStatsVarDataMap as CachedStatVarDataMap,
+  CachedStatsVarDataMap,
   StatsData,
   fetchStatsData,
 };

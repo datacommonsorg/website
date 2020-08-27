@@ -26,7 +26,7 @@ import {
   drawStackBarChart,
   drawGroupBarChart,
 } from "../chart/draw";
-import { CachedStatVarDataMap, fetchStatsData } from "../shared/data_fetcher";
+import { CachedStatsVarDataMap, fetchStatsData } from "../shared/data_fetcher";
 import { updatePageLayoutState } from "./place";
 import { STATS_VAR_TEXT } from "../shared/stats_var";
 
@@ -66,6 +66,7 @@ interface ConfigType {
   topic: string;
   chartType: string;
   statsVars: string[];
+  denominator: string[];
   source: string;
   url: string;
   axis: string;
@@ -328,7 +329,7 @@ interface MainPanePropType {
   /**
    * Cached stat var data for filling in charts.
    */
-  chartData: CachedStatVarDataMap;
+  chartData: CachedStatsVarDataMap;
 }
 
 class MainPane extends Component<MainPanePropType, unknown> {
@@ -516,7 +517,7 @@ interface ChartPropType {
   /**
    * Cached stat var data for filling in charts.
    */
-  chartData: CachedStatVarDataMap;
+  chartData: CachedStatsVarDataMap;
 }
 
 interface ChartStateType {
@@ -736,6 +737,7 @@ class Chart extends Component<ChartPropType, ChartStateType> {
     const config = this.props.config;
     const chartType = config.chartType;
     const perCapita = !!config.perCapita;
+    // const hasDenominator = config.denominator && config.denominator.length > 0;
     let scaling = 1;
     if (config.scaling) {
       scaling = config.scaling;
@@ -747,6 +749,7 @@ class Chart extends Component<ChartPropType, ChartStateType> {
           config.statsVars,
           perCapita,
           scaling,
+          config.denominator,
           this.props.chartData
         ).then((data) => {
           const dataGroups = data.getStatsVarGroupWithTime(dcid);
@@ -764,6 +767,7 @@ class Chart extends Component<ChartPropType, ChartStateType> {
           config.statsVars,
           perCapita,
           scaling,
+          config.denominator,
           this.props.chartData
         ).then((data) => {
           this.setState({
@@ -818,6 +822,7 @@ class Chart extends Component<ChartPropType, ChartStateType> {
                 config.statsVars,
                 perCapita,
                 scaling,
+                config.denominator,
                 this.props.chartData
               ).then((data) => {
                 this.setState({
@@ -835,6 +840,7 @@ class Chart extends Component<ChartPropType, ChartStateType> {
               config.statsVars,
               perCapita,
               scaling,
+              config.denominator,
               this.props.chartData
             ).then((data) => {
               this.setState({

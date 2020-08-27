@@ -1,5 +1,165 @@
 [
   {
+    "label": "Inequality",
+    "charts": [
+      {
+        "title": "Poverty Rate by Race Across Places",
+        "chartType": "GROUP_BAR",
+        "axis": "PLACE",
+        "statsVars": [
+          "Count_Person_BelowPovertyLevelInThePast12Months_AmericanIndianOrAlaskaNativeAlone",
+          "Count_Person_BelowPovertyLevelInThePast12Months_AsianAlone",
+          "Count_Person_BelowPovertyLevelInThePast12Months_BlackOrAfricanAmericanAlone",
+          "Count_Person_BelowPovertyLevelInThePast12Months_HispanicOrLatino",
+          "Count_Person_BelowPovertyLevelInThePast12Months_NativeHawaiianOrOtherPacificIslanderAlone",
+          "Count_Person_BelowPovertyLevelInThePast12Months_WhiteAlone"
+        ],
+        "denominator": [
+          "Count_Person_AmericanIndianOrAlaskaNativeAlone",
+          "Count_Person_AsianAlone",
+          "Count_Person_BlackOrAfricanAmericanAlone",
+          "Count_Person_HispanicOrLatino",
+          "Count_Person_NativeHawaiianOrOtherPacificIslanderAlone",
+          "Count_Person_WhiteAlone"
+        ],
+        "scaling": 100,
+        "unit": "%",
+        "source": "US Census",
+        "url": "https://www.census.gov/"
+      },
+      {
+        "title": "Poverty Rate by Gender Across Places",
+        "chartType": "GROUP_BAR",
+        "axis": "PLACE",
+        "statsVars": [
+          "Count_Person_Female_BelowPovertyLevelInThePast12Months",
+          "Count_Person_Male_BelowPovertyLevelInThePast12Months"
+        ],
+        "denominator": [
+          "Count_Person_Female",
+          "Count_Person_Male"
+        ],
+        "scaling": 100,
+        "unit": "%",
+        "source": "US Census",
+        "url": "https://www.census.gov/"
+      },
+      {
+        "title": "Income Comparison by Race Across Places",
+        "chartType": "GROUP_BAR",
+        "axis": "PLACE",
+        "statsVars": [
+          "Median_Income_Household_HouseholderRaceAmericanIndianOrAlaskaNativeAlone",
+          "Median_Income_Household_HouseholderRaceAsianAlone",
+          "Median_Income_Household_HouseholderRaceBlackOrAfricanAmericanAlone",
+          "Median_Income_Household_HouseholderRaceHispanicOrLatino",
+          "Median_Income_Household_HouseholderRaceNativeHawaiianOrOtherPacificIslanderAlone",
+          "Median_Income_Household_HouseholderRaceWhiteAlone"
+        ],
+        "source": "US Census",
+        "url": "https://www.census.gov/"
+      },
+      {
+        "title": "Income Comparison by Gender Across Places",
+        "chartType": "GROUP_BAR",
+        "axis": "PLACE",
+        "statsVars": [
+          "Median_Income_Person_15OrMoreYears_Female_WithIncome",
+          "Median_Income_Person_15OrMoreYears_Male_WithIncome"
+        ],
+        "source": "US Census",
+        "url": "https://www.census.gov/"
+      },
+      {
+        "title": "Unemployment Rate by Gender",
+        "chartType": "GROUP_BAR",
+        "axis": "PLACE",
+        "statsVars": [
+          "UnemploymentRate_Person_Male",
+          "UnemploymentRate_Person_Female"
+        ],
+        "source": "EurostatData",
+        "url": "https://ec.europa.eu/eurostat/data/database"
+      }
+    ],
+    "children": [
+      {
+        "label":"Poverty",
+        "charts": [
+          {
+            "title": "Poverty by Race Across Places",
+            "chartType": "GROUP_BAR",
+            "axis": "PLACE",
+            "statsVars": [
+              "Count_Person_BelowPovertyLevelInThePast12Months_AmericanIndianOrAlaskaNativeAlone",
+              "Count_Person_BelowPovertyLevelInThePast12Months_AsianAlone",
+              "Count_Person_BelowPovertyLevelInThePast12Months_BlackOrAfricanAmericanAlone",
+              "Count_Person_BelowPovertyLevelInThePast12Months_HispanicOrLatino",
+              "Count_Person_BelowPovertyLevelInThePast12Months_NativeHawaiianOrOtherPacificIslanderAlone",
+              "Count_Person_BelowPovertyLevelInThePast12Months_SomeOtherRaceAlone",
+              "Count_Person_BelowPovertyLevelInThePast12Months_TwoOrMoreRaces",
+              "Count_Person_BelowPovertyLevelInThePast12Months_WhiteAlone"
+            ],
+            "perCapita": true,
+            "scaling": 100,
+            "unit": "%",
+            "source": "US Census",
+            "url": "https://www.census.gov/"
+          },
+          {
+            "title": "Poverty by Gender Across Places",
+            "chartType": "GROUP_BAR",
+            "axis": "PLACE",
+            "statsVars": [
+              "Count_Person_Female_BelowPovertyLevelInThePast12Months",
+              "Count_Person_Male_BelowPovertyLevelInThePast12Months"
+            ],
+            "perCapita": true,
+            "scaling": 100,
+            "unit": "%",
+            "source": "US Census",
+            "url": "https://www.census.gov/"
+          }
+        ]
+      },
+      {
+        "label": "Education",
+        "charts": [
+          {
+            "title": "Highschool Attainment by Gender Across Places",
+            "chartType": "GROUP_BAR",
+            "axis": "PLACE",
+            "statsVars": [
+              "Count_Person_18To24Years_EducationalAttainmentHighSchoolGraduateIncludesEquivalency_Female",
+              "Count_Person_18To24Years_EducationalAttainmentHighSchoolGraduateIncludesEquivalency_Male"
+            ],
+            "perCapita": true,
+            "scaling": 100,
+            "unit": "%",
+            "source": "US Census",
+            "url": "https://www.census.gov/"
+          }
+        ]
+      },
+      {
+        "label": "Income",
+        "charts": [
+          {
+            "title": "Income Comparison By Gender Across Places",
+            "chartType": "GROUP_BAR",
+            "axis": "PLACE",
+            "statsVars": [
+              "Median_Income_Person_15OrMoreYears_Male_WithIncome",
+              "Median_Income_Person_15OrMoreYears_Female_WithIncome"
+            ],
+            "source": "US Census",
+            "url": "https://www.census.gov/"
+          }
+        ]
+      }
+    ]
+  },
+  {
     "label": "Economics",
     "charts": [
       {
@@ -133,6 +293,16 @@
             "statsVars": [
               "UnemploymentRate_Person_Male",
               "UnemploymentRate_Person_Female"
+            ],
+            "source": "EurostatData",
+            "url": "https://ec.europa.eu/eurostat/data/database"
+          },
+          {
+            "title": "Unemployment Rate Across Places",
+            "chartType": "GROUP_BAR",
+            "axis": "PLACE",
+            "statsVars": [
+              "UnemploymentRate_Person"
             ],
             "source": "EurostatData",
             "url": "https://ec.europa.eu/eurostat/data/database"

@@ -151,6 +151,25 @@ const STATS_VAR_TEXT: { [key: string]: string } = {
   // Employment
   UnemploymentRate_Person_Male: "Male",
   UnemploymentRate_Person_Female: "Female",
+  // Inequality
+  Count_Person_BelowPovertyLevelInThePast12Months_AmericanIndianOrAlaskaNativeAlone: "American Indian or Alaska Native",
+  Count_Person_BelowPovertyLevelInThePast12Months_AsianAlone: "Asian",
+  Count_Person_BelowPovertyLevelInThePast12Months_BlackOrAfricanAmericanAlone: "Black or African American",
+  Count_Person_BelowPovertyLevelInThePast12Months_HispanicOrLatino: "Hispanic or Latino",
+  Count_Person_BelowPovertyLevelInThePast12Months_NativeHawaiianOrOtherPacificIslanderAlone: "Native Hawaiian or Other Paciific Islander",
+  Count_Person_BelowPovertyLevelInThePast12Months_WhiteAlone: "White",
+  Median_Income_Person_15OrMoreYears_Male_WithIncome: "Male",
+  Median_Income_Person_15OrMoreYears_Female_WithIncome: "Female",
+  Count_Person_Female_BelowPovertyLevelInThePast12Months: "Female",
+  Count_Person_Male_BelowPovertyLevelInThePast12Months: "Male",
+  Count_Person_18To24Years_EducationalAttainmentHighSchoolGraduateIncludesEquivalency_Female: "Female",
+  Count_Person_18To24Years_EducationalAttainmentHighSchoolGraduateIncludesEquivalency_Male: "Male",
+  Median_Income_Household_HouseholderRaceAmericanIndianOrAlaskaNativeAlone: "American Indian or Alaska Native",
+  Median_Income_Household_HouseholderRaceAsianAlone: "Asian",
+  Median_Income_Household_HouseholderRaceBlackOrAfricanAmericanAlone: "Black or African American",
+  Median_Income_Household_HouseholderRaceHispanicOrLatino: "Hispanic or Latino",
+  Median_Income_Household_HouseholderRaceNativeHawaiianOrOtherPacificIslanderAlone: "Native Hawaiian or Other Pacific Islander",
+  Median_Income_Household_HouseholderRaceWhiteAlone: "White",
 };
 
 export { STATS_VAR_TEXT };
