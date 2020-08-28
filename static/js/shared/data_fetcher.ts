@@ -82,18 +82,18 @@ class StatsData {
       const dataPoints: DataPoint[] = [];
       let placeName: string;
       for (const statsVar of this.statsVars) {
-        let value = 0;
-        if (this.data[statsVar] && this.data[statsVar][place]) {
-          const timeSeries = this.data[statsVar][place];
-          if (timeSeries.data && timeSeries.data[date]) {
-            value = timeSeries.data[date];
-          }
+        if (!this.data[statsVar]) {
+          continue;
+        }
+        if (!this.data[statsVar][place]) continue;
+        const timeSeries = this.data[statsVar][place];
+        if (timeSeries.data) {
+          dataPoints.push({
+            label: STATS_VAR_TEXT[statsVar],
+            value: timeSeries.data[date],
+          });
           placeName = timeSeries.placeName;
         }
-        dataPoints.push({
-          label: STATS_VAR_TEXT[statsVar],
-          value: value,
-        });
       }
       if (dataPoints.length > 0) {
         result.push(new DataGroup(placeName, dataPoints));

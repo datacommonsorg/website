@@ -14,7 +14,7 @@
 
 import json
 
-from flask import Blueprint, request, Response
+from flask import Blueprint, request
 from cache import cache
 import services.datacommons as dc
 
@@ -84,8 +84,7 @@ def stats(stats_var):
         with value to be the observation time series.
     """
     place_dcids = request.args.getlist('dcid')
-    result = get_stats_wrapper('^'.join(place_dcids), stats_var)
-    return Response(result, 200, mimetype='application/json')
+    return get_stats_wrapper('^'.join(place_dcids), stats_var)
 
 
 @bp.route('/api/stats/stats-var-property')
@@ -97,8 +96,7 @@ def stats_var_property():
         all the properties of each stats var.
     """
     dcids = request.args.getlist('dcid')
-    result = stats_var_property_wrapper(dcids)
-    return Response(json.dumps(result), 200, mimetype='application/json')
+    return stats_var_property_wrapper(dcids)
 
 
 def stats_var_property_wrapper(dcids):
