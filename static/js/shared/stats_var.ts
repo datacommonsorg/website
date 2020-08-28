@@ -44,8 +44,14 @@ const STATS_VAR_TEXT: { [key: string]: string } = {
   Amount_Emissions_CarbonDioxide_PerCapita: "CO2 Emissions Per Capita",
   Amount_Consumption_Electricity_PerCapita:
     "Electricity Consumption Per Capita",
-  Count_EarthquakeEvent: "Earthquake Event",
-  Count_CycloneEvent: "Cyclone Event",
+  Count_EarthquakeEvent: "Earthquake",
+  Count_CycloneEvent: "Cyclone",
+  Count_StormSurgeTideEvent: "Storm Surge Tide",
+  Count_WildlandFireEvent: "Wildland Fire",
+  Count_TornadoEvent: "Tornado",
+  Count_ThunderstormWindEvent: "Thunderstorm",
+  Count_FloodEvent: "Flood",
+  Count_DroughtEvent: "Drought",
 
   // age
   Count_Person_Upto5Years: "0-5",
@@ -72,6 +78,29 @@ const STATS_VAR_TEXT: { [key: string]: string } = {
   // gender
   Count_Person_Male: "Male",
   Count_Person_Female: "Female",
+  Median_Age_Person_Male: "Male",
+  Median_Age_Person_Female: "Female",
+  // race
+  Count_Person_AmericanIndianOrAlaskaNativeAlone:
+    "American Indian or Alaska Native",
+  Count_Person_AsianAlone: "Asian Alone",
+  Count_Person_BlackOrAfricanAmericanAlone: "Black or African American",
+  Count_Person_HispanicOrLatino: "Hispanic or Latino",
+  Count_Person_NativeHawaiianAndOtherPacificIslanderAlone:
+    "Native Hawaiian and Pacific Islander",
+  Count_Person_SomeOtherRaceAlone: "Some other race",
+  Count_Person_TwoOrMoreRaces: "Two or more races",
+  Count_Person_WhiteAlone: "White Alone",
+  Median_Age_Person_AmericanIndianOrAlaskaNativeAlone:
+    "American Indian or Alaska Native",
+  Median_Age_Person_AsianAlone: "Asian Alone",
+  Median_Age_Person_BlackOrAfricanAmericanAlone: "Black or African American",
+  Median_Age_Person_HispanicOrLatino: "Hispanic or Latino",
+  Median_Age_Person_NativeHawaiianAndOtherPacificIslanderAlone:
+    "Native Hawaiian and Pacific Islander",
+  Median_Age_Person_SomeOtherRaceAlone: "Some other race",
+  Median_Age_Person_TwoOrMoreRaces: "Two or more races",
+  Median_Age_Person_WhiteAlone: "White Alone",
   // income
   Count_Person_IncomeOfUpto9999USDollar: "Under $10K",
   Count_Person_IncomeOf10000To14999USDollar: "$10K to $15K",
@@ -162,21 +191,12 @@ const STATS_VAR_TEXT: { [key: string]: string } = {
   Median_Income_Person_15OrMoreYears_Female_WithIncome: "Female",
   Count_Person_Female_BelowPovertyLevelInThePast12Months: "Female",
   Count_Person_Male_BelowPovertyLevelInThePast12Months: "Male",
-  Count_Person_18To24Years_EducationalAttainmentHighSchoolGraduateIncludesEquivalency_Female: "Female",
-  Count_Person_18To24Years_EducationalAttainmentHighSchoolGraduateIncludesEquivalency_Male: "Male",
   Median_Income_Household_HouseholderRaceAmericanIndianOrAlaskaNativeAlone: "American Indian or Alaska Native",
   Median_Income_Household_HouseholderRaceAsianAlone: "Asian",
   Median_Income_Household_HouseholderRaceBlackOrAfricanAmericanAlone: "Black or African American",
   Median_Income_Household_HouseholderRaceHispanicOrLatino: "Hispanic or Latino",
   Median_Income_Household_HouseholderRaceNativeHawaiianOrOtherPacificIslanderAlone: "Native Hawaiian or Other Pacific Islander",
   Median_Income_Household_HouseholderRaceWhiteAlone: "White",
-  Count_Person_18To64Years_Female_NoHealthInsurance: "Female",
-  Count_Person_18To64Years_Female_WithHealthInsurance: "Female",
-  Count_Person_18To64Years_Male_NoHealthInsurance: "Male",
-  Count_Person_18To64Years_Male_WithHealthInsurance: "Male",
-  Count_Person_18To64Years_WithHealthInsurance_BlackOrAfricanAmericanAlone: "Black Or African American",
-  Count_Person_18To64Years_WithHealthInsurance_HispanicOrLatino: "Hispanic or Latino",
-  Count_Person_18To64Years_WithHealthInsurance_WhiteAlone: "White",
   Percent_Person_18To64Years_Female_NoHealthInsurance: "Female",
   Percent_Person_18To64Years_Male_NoHealthInsurance: "Male",
   Percent_Person_18To64Years_NoHealthInsurance_BlackOrAfricanAmericanAlone: "Black Or African American",

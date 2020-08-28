@@ -63,7 +63,6 @@ const CHART_HEIGHT = 194;
 
 interface ConfigType {
   title: string;
-  topic: string;
   chartType: string;
   statsVars: string[];
   denominator: string[];
@@ -737,7 +736,6 @@ class Chart extends Component<ChartPropType, ChartStateType> {
     const config = this.props.config;
     const chartType = config.chartType;
     const perCapita = !!config.perCapita;
-    // const hasDenominator = config.denominator && config.denominator.length > 0;
     let scaling = 1;
     if (config.scaling) {
       scaling = config.scaling;
