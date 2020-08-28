@@ -160,6 +160,61 @@ test("fetch stats data", () => {
   });
 });
 
+test("fetch stats data with per capita with population size 0", () => {
+  mockedAxios.get.mockImplementation((url: string) => {
+    if (url === "/api/stats/Count_Person?&dcid=geoId/05") {
+      return Promise.resolve({
+        data: {
+          "geoId/05": {
+            data: {
+              "2011": 0,
+              "2012": 0,
+            },
+            placeName: "Arkansas",
+            provenanceDomain: "source1",
+          },
+        },
+      });
+    } else if (url === "/api/stats/Count_Person_Male?&dcid=geoId/05") {
+      return Promise.resolve({
+        data: {
+          "geoId/05": {
+            data: {
+              "2011": 11000,
+              "2012": 13000,
+            },
+            placeName: "Arkansas",
+            provenanceDomain: "source1",
+          },
+        },
+      });
+    }
+  });
+
+  return fetchStatsData(["geoId/05"], ["Count_Person_Male"], true).then(
+    (data) => {
+      expect(data).toEqual({
+        data: {
+          Count_Person_Male: {
+            "geoId/05": {
+              data: {
+                "2011": 0,
+                "2012": 0,
+              },
+              placeName: "Arkansas",
+              provenanceDomain: "source1",
+            },
+          },
+        },
+        dates: ["2011", "2012"],
+        places: ["geoId/05"],
+        sources: new Set(["source1"]),
+        statsVars: ["Count_Person_Male"],
+      });
+    }
+  );
+});
+
 test("StatsData test", () => {
   // Test partial data
   const statsData = new StatsData([], [], [], {
