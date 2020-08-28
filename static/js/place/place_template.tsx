@@ -63,7 +63,6 @@ const CHART_HEIGHT = 194;
 
 interface ConfigType {
   title: string;
-  topic: string;
   chartType: string;
   statsVars: string[];
   denominator: string[];
