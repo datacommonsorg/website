@@ -41,7 +41,7 @@ def filter_charts(charts, all_stats_vars):
     """Filter charts from template specs based on statsitical variable.
 
     The input charts might have statistical variables that do not exist in the
-    valid statstical variable set for a given place. This function filters and
+    valid statistical variable set for a given place. This function filters and
     keep the ones that are valid.
 
     Args:
