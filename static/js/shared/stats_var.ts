@@ -81,19 +81,23 @@ const STATS_VAR_TEXT: { [key: string]: string } = {
   Median_Age_Person_Male: "Male",
   Median_Age_Person_Female: "Female",
   // race
-  Count_Person_AmericanIndianOrAlaskaNativeAlone: "American Indian or Alaska Native",
+  Count_Person_AmericanIndianOrAlaskaNativeAlone:
+    "American Indian or Alaska Native",
   Count_Person_AsianAlone: "Asian Alone",
   Count_Person_BlackOrAfricanAmericanAlone: "Black or African American",
   Count_Person_HispanicOrLatino: "Hispanic or Latino",
-  Count_Person_NativeHawaiianAndOtherPacificIslanderAlone: "Native Hawaiian and Pacific Islander",
+  Count_Person_NativeHawaiianAndOtherPacificIslanderAlone:
+    "Native Hawaiian and Pacific Islander",
   Count_Person_SomeOtherRaceAlone: "Some other race",
   Count_Person_TwoOrMoreRaces: "Two or more races",
   Count_Person_WhiteAlone: "White Alone",
-  Median_Age_Person_AmericanIndianOrAlaskaNativeAlone: "American Indian or Alaska Native",
+  Median_Age_Person_AmericanIndianOrAlaskaNativeAlone:
+    "American Indian or Alaska Native",
   Median_Age_Person_AsianAlone: "Asian Alone",
   Median_Age_Person_BlackOrAfricanAmericanAlone: "Black or African American",
   Median_Age_Person_HispanicOrLatino: "Hispanic or Latino",
-  Median_Age_Person_NativeHawaiianAndOtherPacificIslanderAlone: "Native Hawaiian and Pacific Islander",
+  Median_Age_Person_NativeHawaiianAndOtherPacificIslanderAlone:
+    "Native Hawaiian and Pacific Islander",
   Median_Age_Person_SomeOtherRaceAlone: "Some other race",
   Median_Age_Person_TwoOrMoreRaces: "Two or more races",
   Median_Age_Person_WhiteAlone: "White Alone",
