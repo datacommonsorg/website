@@ -100,7 +100,7 @@ sudo chmod +x /usr/bin/chromedriver
 
 Note: You can change `84.0.4147.30`(version number) to the lastet version [here](https://chromedriver.storage.googleapis.com/LATEST_RELEASE).
 
-#### Run all the tests
+#### Run all tests
 
 ```bash
 ./run_test.sh -a
