@@ -43,7 +43,6 @@
       },
       {
         "title": "Gross Domestic Product",
-        "topic": "Economics",
         "chartType": "LINE",
         "statsVars": [
           "Amount_EconomicActivity_GrossDomesticProduction_Nominal"
@@ -62,7 +61,6 @@
       },
       {
         "title": "Government Debt",
-        "topic": "Economics",
         "chartType": "LINE",
         "statsVars": [
           "Amount_Debt_Government"
@@ -72,7 +70,6 @@
       },
       {
         "title": "Median Individual Income",
-        "topic": "Income",
         "chartType": "LINE",
         "statsVars": [
           "Median_Income_Person"
@@ -160,7 +157,6 @@
         "charts": [
           {
             "title": "Gross Domestic Product",
-            "topic": "Economics",
             "chartType": "LINE",
             "statsVars": [
               "Amount_EconomicActivity_GrossDomesticProduction_Nominal"
@@ -170,7 +166,6 @@
           },
           {
             "title": "Gross Domestic Product, Per Capita",
-            "topic": "Economics",
             "chartType": "LINE",
             "statsVars": [
               "Amount_EconomicActivity_GrossDomesticProduction_Nominal_PerCapita"
@@ -189,7 +184,6 @@
           },
           {
             "title": "Gross National Income, Per Capita (Purchasing Power Parity)",
-            "topic": "Economics",
             "chartType": "LINE",
             "statsVars": [
               "Amount_EconomicActivity_GrossNationalIncome_PurchasingPowerParity_PerCapita"
@@ -199,7 +193,6 @@
           },
           {
             "title": "Gross National Income (Purchasing Power Parity)",
-            "topic": "Economics",
             "chartType": "LINE",
             "statsVars": [
               "Amount_EconomicActivity_GrossNationalIncome_PurchasingPowerParity"
@@ -209,7 +202,6 @@
           },
           {
             "title": "Government Debt",
-            "topic": "Economics",
             "chartType": "LINE",
             "statsVars": [
               "Amount_Debt_Government"
@@ -234,7 +226,6 @@
           },
           {
             "title": "Individual Income Breakdown",
-            "topic": "Income",
             "chartType": "SINGLE_BAR",
             "statsVars": [
               "Count_Person_IncomeOfUpto9999USDollar",
@@ -508,7 +499,6 @@
         "charts": [
           {
             "title": "Mortality Trend",
-            "topic": "Health",
             "chartType": "LINE",
             "statsVars": [
               "Count_Death_DiseasesOfTheCirculatorySystem",
@@ -522,7 +512,6 @@
           },
           {
             "title": "Mortality Across Places",
-            "topic": "Health",
             "chartType": "GROUP_BAR",
             "axis": "PLACE",
             "statsVars": [
@@ -559,7 +548,6 @@
           },
           {
             "title": "Outcomes Across Places",
-            "topic": "Health",
             "chartType": "GROUP_BAR",
             "axis": "PLACE",
             "statsVars": [
@@ -594,7 +582,6 @@
           },
           {
             "title": "Behaviors Across Places",
-            "topic": "Health",
             "chartType": "GROUP_BAR",
             "axis": "PLACE",
             "statsVars": [
@@ -628,7 +615,6 @@
           },
           {
             "title": "Drug Prescribed Across Places",
-            "topic": "Health",
             "chartType": "GROUP_BAR",
             "axis": "PLACE",
             "statsVars": [
@@ -651,7 +637,6 @@
     "charts": [
       {
         "title": "Total Crime",
-        "topic": "Crime",
         "chartType": "LINE",
         "statsVars": [
           "Count_CriminalActivities_CombinedCrime"
@@ -661,7 +646,6 @@
       },
       {
         "title": "Violent Crime",
-        "topic": "Crime",
         "chartType": "LINE",
         "statsVars": [
           "Count_CriminalActivities_ViolentCrime"
@@ -671,7 +655,6 @@
       },
       {
         "title": "Property Crime",
-        "topic": "Crime",
         "chartType": "LINE",
         "statsVars": [
           "Count_CriminalActivities_PropertyCrime"
@@ -681,7 +664,6 @@
       },
       {
         "title": "Arson",
-        "topic": "Crime",
         "chartType": "LINE",
         "statsVars": [
           "Count_CriminalActivities_Arson"
@@ -696,7 +678,6 @@
         "charts": [
           {
             "title": "Total Crime",
-            "topic": "Crime",
             "chartType": "LINE",
             "statsVars": [
               "Count_CriminalActivities_CombinedCrime"
@@ -706,7 +687,6 @@
           },
           {
             "title": "Combined Crime Per 1000 People",
-            "topic": "Crime",
             "chartType": "GROUP_BAR",
             "axis": "PLACE",
             "statsVars": [
@@ -724,7 +704,6 @@
         "charts": [
           {
             "title": "Violent Crime",
-            "topic": "Crime",
             "chartType": "LINE",
             "statsVars": [
               "Count_CriminalActivities_ViolentCrime"
@@ -734,7 +713,6 @@
           },
           {
             "title": "Violent Crime Per 1000 People",
-            "topic": "Crime",
             "chartType": "GROUP_BAR",
             "axis": "PLACE",
             "statsVars": [
@@ -752,7 +730,6 @@
         "charts": [
           {
             "title": "Property Crime",
-            "topic": "Crime",
             "chartType": "LINE",
             "statsVars": [
               "Count_CriminalActivities_PropertyCrime"
@@ -762,7 +739,6 @@
           },
           {
             "title": "Property Crime Per 1000 People",
-            "topic": "Crime",
             "chartType": "GROUP_BAR",
             "axis": "PLACE",
             "statsVars": [
@@ -780,7 +756,6 @@
         "charts": [
           {
             "title": "Arson",
-            "topic": "Crime",
             "chartType": "LINE",
             "statsVars": [
               "Count_CriminalActivities_Arson"
@@ -790,7 +765,6 @@
           },
           {
             "title": "Arson Crime Per 1000 People",
-            "topic": "Crime",
             "chartType": "GROUP_BAR",
             "axis": "PLACE",
             "statsVars": [
@@ -851,7 +825,6 @@
           },
           {
             "title": "Attainment Trend",
-            "topic": "Attainment",
             "chartType": "STACK_BAR",
             "axis": "TIME",
             "statsVars": [
@@ -866,7 +839,6 @@
           },
           {
             "title": "Attainment Across Places",
-            "topic": "Attainment",
             "chartType": "GROUP_BAR",
             "axis": "PLACE",
             "statsVars": [
@@ -899,7 +871,6 @@
           },
           {
             "title": "Enrollment Trend",
-            "topic": "Enrollment",
             "chartType": "STACK_BAR",
             "axis": "TIME",
             "statsVars": [
@@ -911,7 +882,6 @@
           },
           {
             "title": "Enrollment Across Places",
-            "topic": "Enrollment",
             "chartType": "GROUP_BAR",
             "axis": "PLACE",
             "statsVars": [
@@ -933,7 +903,6 @@
     "charts": [
       {
         "title": "Population",
-        "topic": "Population",
         "chartType": "LINE",
         "statsVars": [
           "Count_Person"
@@ -943,7 +912,6 @@
       },
       {
         "title": "Population Growth Rate",
-        "topic": "Population",
         "chartType": "LINE",
         "statsVars": [
           "GrowthRate_Count_Person"
@@ -953,7 +921,6 @@
       },
       {
         "title": "Person Per Area",
-        "topic": "Population",
         "chartType": "LINE",
         "statsVars": [
           "Count_Person_PerArea"
@@ -963,7 +930,6 @@
       },
       {
         "title": "Fertility Rate",
-        "topic": "Population",
         "chartType": "LINE",
         "statsVars": [
           "FertilityRate_Person_Female"
@@ -973,7 +939,6 @@
       },
       {
         "title": "Median Age",
-        "topic": "Age",
         "chartType": "LINE",
         "statsVars": [
           "Median_Age_Person"
@@ -983,7 +948,6 @@
       },
       {
         "title": "Citizenship",
-        "topic": "Citizenship",
         "chartType": "SINGLE_BAR",
         "statsVars": [
           "Count_Person_USCitizenBornInTheUnitedStates",
@@ -996,7 +960,6 @@
       },
       {
         "title": "Marital Status",
-        "topic": "Marital Status",
         "chartType": "SINGLE_BAR",
         "statsVars": [
           "Count_Person_MarriedAndNotSeparated",
@@ -1015,7 +978,6 @@
         "charts": [
           {
             "title": "Population",
-            "topic": "Population",
             "chartType": "LINE",
             "statsVars": [
               "Count_Person"
@@ -1025,7 +987,6 @@
           },
           {
             "title": "Population Growth Rate",
-            "topic": "Population",
             "chartType": "LINE",
             "statsVars": [
               "GrowthRate_Count_Person"
@@ -1035,7 +996,6 @@
           },
           {
             "title": "Person Per Area",
-            "topic": "Population",
             "chartType": "LINE",
             "statsVars": [
               "Count_Person_PerArea"
@@ -1045,7 +1005,6 @@
           },
           {
             "title": "Life Expectancy",
-            "topic": "Population",
             "chartType": "LINE",
             "statsVars": [
               "LifeExpectancy_Person"
@@ -1055,7 +1014,6 @@
           },
           {
             "title": "Fertility Rate",
-            "topic": "Population",
             "chartType": "LINE",
             "statsVars": [
               "FertilityRate_Person_Female"
@@ -1070,7 +1028,6 @@
         "charts": [
           {
             "title": "Population by Gender",
-            "topic": "Gender",
             "chartType": "GROUP_BAR",
             "axis": "TIME",
             "statsVars": [
@@ -1082,7 +1039,6 @@
           },
           {
             "title": "Median Age by Gender",
-            "topic": "Gender",
             "chartType": "LINE",
             "statsVars": [
               "Median_Age_Person_Female",
@@ -1098,7 +1054,6 @@
         "charts": [
           {
             "title": "Population by Race",
-            "topic": "Race",
             "chartType": "SINGLE_BAR",
             "statsVars": [
               "Count_Person_AmericanIndianOrAlaskaNativeAlone",
@@ -1115,7 +1070,6 @@
           },
           {
             "title": "Median Age by Race",
-            "topic": "Race",
             "chartType": "SINGLE_BAR",
             "statsVars": [
               "Median_Age_Person_AmericanIndianOrAlaskaNativeAlone",
@@ -1137,7 +1091,6 @@
         "charts": [
           {
             "title": "Median Age",
-            "topic": "Age",
             "chartType": "LINE",
             "statsVars": [
               "Median_Age_Person"
@@ -1147,7 +1100,6 @@
           },
           {
             "title": "Age Trend",
-            "topic": "Age",
             "chartType": "STACK_BAR",
             "axis": "TIME",
             "statsVars": [
@@ -1171,7 +1123,6 @@
           },
           {
             "title": "Age Across Places",
-            "topic": "Age",
             "chartType": "GROUP_BAR",
             "axis": "PLACE",
             "statsVars": [
@@ -1203,7 +1154,6 @@
         "charts": [
           {
             "title": "Citizenship Trend",
-            "topic": "Citizenship",
             "chartType": "STACK_BAR",
             "axis": "TIME",
             "statsVars": [
@@ -1217,7 +1167,6 @@
           },
           {
             "title": "Citizenship Across Places",
-            "topic": "Citizenship",
             "chartType": "GROUP_BAR",
             "axis": "PLACE",
             "statsVars": [
@@ -1239,7 +1188,6 @@
         "charts": [
           {
             "title": "Marital Status Trend",
-            "topic": "Marital Status",
             "chartType": "STACK_BAR",
             "axis": "TIME",
             "statsVars": [
@@ -1254,7 +1202,6 @@
           },
           {
             "title": "Marital Status Across Places",
-            "topic": "Marital Status",
             "chartType": "GROUP_BAR",
             "axis": "PLACE",
             "statsVars": [
@@ -1287,7 +1234,6 @@
         "url": "https://ec.europa.eu/eurostat/data/database"
       },
       {
-        "topic": "Environment",
         "title": "CO2 Emissions Per Capita",
         "chartType": "LINE",
         "statsVars": [
@@ -1297,7 +1243,6 @@
         "url": "https://ec.europa.eu/eurostat/data/database"
       },
       {
-        "topic": "Environment",
         "title": "Disasters",
         "chartType": "SINGLE_BAR",
         "statsVars": [
@@ -1328,7 +1273,6 @@
             "url": "https://ec.europa.eu/eurostat/data/database"
           },
           {
-            "topic": "Environment",
             "title": "CO2 Emissions Per Capita",
             "chartType": "LINE",
             "statsVars": [
@@ -1339,7 +1283,6 @@
           },
           {
             "title": "Electricity Consumption Per Capita",
-            "topic": "Environment",
             "chartType": "LINE",
             "statsVars": [
               "Amount_Consumption_Electricity_PerCapita"
@@ -1353,7 +1296,6 @@
         "label": "Disaster",
         "charts": [
           {
-            "topic": "Environment",
             "title": "Disasters",
             "chartType": "SINGLE_BAR",
             "statsVars": [
@@ -1370,7 +1312,6 @@
             "url": "https://ec.europa.eu/eurostat/data/database"
           },
           {
-            "topic": "Environment",
             "title": "Disasters across places",
             "chartType": "GROUP_BAR",
             "axis": "PLACE",
@@ -1388,7 +1329,6 @@
             "url": "https://ec.europa.eu/eurostat/data/database"
           },
           {
-            "topic": "Environment",
             "title": "Earthquake Event",
             "chartType": "LINE",
             "statsVars": [
@@ -1398,7 +1338,6 @@
             "url": "https://ec.europa.eu/eurostat/data/database"
           },
           {
-            "topic": "Environment",
             "title": "Cyclone Event",
             "chartType": "LINE",
             "statsVars": [
