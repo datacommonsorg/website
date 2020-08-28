@@ -354,7 +354,7 @@ def post_process(root, path, statsvar_path):
     # The path is a list of numbers,
     # e.g. path of Count_Person_Upto5Years is [0, 3, 0].
     # It means its path is Oth node ("Demographics") -> 3rd node ("Age")
-    # -> 0th node ("Less than 5 Years")
+    # -> 0th node ("Less than 5 Years").
     if root['t'] == 'v':
         for sv in root['sv']:
             statsvar_path[sv] = path
