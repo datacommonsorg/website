@@ -112,16 +112,15 @@ def get_landing_page_data(dcid):
 
 
 @bp.route('/config/<path:dcid>')
-#@cache.memoize(timeout=3600 * 24)  # Cache for one day.
+@cache.memoize(timeout=3600 * 24)  # Cache for one day.
 def config(dcid):
     """
     Get chart config for a given place.
     """
-    # chart_config = current_app.config['CHART_CONFIG']
-    # chart_config
-    # if os.environ.get('FLASK_ENV') == 'development':
-    with bp.open_resource('../../chart_config.json') as f:
-        chart_config = json.load(f)
+    chart_config = current_app.config['CHART_CONFIG']
+    if os.environ.get('FLASK_ENV') == 'development':
+        with bp.open_resource('../../chart_config.json') as f:
+            chart_config = json.load(f)
 
     all_stats_vars = set(place_api.statsvars(dcid))
 
