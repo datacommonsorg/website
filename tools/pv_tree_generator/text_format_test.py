@@ -81,7 +81,7 @@ class TextFormatTest(unittest.TestCase):
         ("race1", "race", [node3, node4], [node3]),
         ("education", "educationalAttainment", [node6, node5, node7], sorted2)])
     def test_filter_and_sort(self, name, prop, children, expected):
-        self.assertEqual(text_format.filter_and_sort(prop, children, False), expected)
+        self.assertEqual(text_format.filter_and_sort(prop, children), expected)
 
 
 if __name__ == '__main__':

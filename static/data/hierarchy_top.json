@@ -17,11 +17,11 @@
    },
    {
     "sv": [
-     "LifeExpectancy_Person"
+     "Count_Person_PerArea"
     ],
-    "l": "Life Expectancy",
+    "l": "Population Density",
     "t": "v",
-    "e": "Life Expectancy",
+    "e": "Population Density",
     "c": 1
    },
    {
@@ -44,11 +44,11 @@
    },
    {
     "sv": [
-     "Count_Person_PerArea"
+     "LifeExpectancy_Person"
     ],
-    "l": "Population Density",
+    "l": "Life Expectancy",
     "t": "v",
-    "e": "Population Density",
+    "e": "Life Expectancy",
     "c": 1
    },
    {
@@ -174,11 +174,11 @@
   "cd": [
    {
     "sv": [
-     "UnemploymentRate_Person"
+     "Count_Person_Employed"
     ],
-    "l": "Unemployment Rate",
+    "l": "Employed",
     "t": "v",
-    "e": "Unemployment Rate",
+    "e": "Employed",
     "c": 1
    },
    {
@@ -192,20 +192,20 @@
    },
    {
     "sv": [
-     "Count_Person_Employed"
-    ],
-    "l": "Employed",
-    "t": "v",
-    "e": "Employed",
-    "c": 1
-   },
-   {
-    "sv": [
      "Count_Person_Unemployed"
     ],
     "l": "Unemployed",
     "t": "v",
     "e": "Unemployed",
+    "c": 1
+   },
+   {
+    "sv": [
+     "UnemploymentRate_Person"
+    ],
+    "l": "Unemployment Rate",
+    "t": "v",
+    "e": "Unemployment Rate",
     "c": 1
    },
    {
@@ -273,24 +273,20 @@
   "l": "COVID-19",
   "t": "p",
   "e": "COVID-19",
-  "c": 25,
+  "c": 28,
   "cd": [
    {
-    "sv": [
-     "CumulativeCount_Person_COVID19PCRTest"
-    ],
-    "l": "Tests",
-    "t": "v",
-    "e": "Tests",
-    "c": 1
-   },
-   {
-    "l": "Medical Incidents",
+    "l": "Medical Condition Incidents",
     "t": "p",
     "c": 14
    },
    {
     "l": "Policies",
+    "t": "p",
+    "c": 4
+   },
+   {
+    "l": "Medical Tests",
     "t": "p",
     "c": 4
    },
@@ -468,15 +464,6 @@
   "cd": [
    {
     "sv": [
-     "Count_Establishment"
-    ],
-    "l": "Number of Establishments",
-    "t": "v",
-    "e": "Number of Establishments",
-    "c": 1
-   },
-   {
-    "sv": [
      "WagesAnnual_Establishment"
     ],
     "l": "Annual Wages of Establishments",
@@ -491,6 +478,15 @@
     "l": "Labor Force",
     "t": "v",
     "e": "Labor Force",
+    "c": 1
+   },
+   {
+    "sv": [
+     "Count_Establishment"
+    ],
+    "l": "Number of Establishments",
+    "t": "v",
+    "e": "Number of Establishments",
     "c": 1
    },
    {

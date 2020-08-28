@@ -24,6 +24,14 @@ VERTICALS = [
     'Household', 'Disasters', 'Environment', 'Economics'
 ]
 
+Demographics = {'Population': 0,
+                'Population Density': 1,
+                'Median age': 2,
+                'Median income': 3,
+                'Life Expectancy':4, 
+                'Crude Birth Rate': 5,
+}
+
 NAICS = collections.OrderedDict([
     ('NAICS/10', 'All Industries'),
     ('NAICS/11', 'Agriculture, Fishing, Forestry, Hunting'),
