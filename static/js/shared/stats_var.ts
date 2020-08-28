@@ -44,8 +44,14 @@ const STATS_VAR_TEXT: { [key: string]: string } = {
   Amount_Emissions_CarbonDioxide_PerCapita: "CO2 Emissions Per Capita",
   Amount_Consumption_Electricity_PerCapita:
     "Electricity Consumption Per Capita",
-  Count_EarthquakeEvent: "Earthquake Event",
-  Count_CycloneEvent: "Cyclone Event",
+  Count_EarthquakeEvent: "Earthquake",
+  Count_CycloneEvent: "Cyclone",
+  Count_StormSurgeTideEvent: "Storm Surge Tide",
+  Count_WildlandFireEvent: "Wildland Fire",
+  Count_TornadoEvent: "Tornado",
+  Count_ThunderstormWindEvent: "Thunderstorm",
+  Count_FloodEvent: "Flood",
+  Count_DroughtEvent: "Drought",
 
   // age
   Count_Person_Upto5Years: "0-5",
@@ -72,6 +78,29 @@ const STATS_VAR_TEXT: { [key: string]: string } = {
   // gender
   Count_Person_Male: "Male",
   Count_Person_Female: "Female",
+  Median_Age_Person_Male: "Male",
+  Median_Age_Person_Female: "Female",
+  // race
+  Count_Person_AmericanIndianOrAlaskaNativeAlone:
+    "American Indian or Alaska Native",
+  Count_Person_AsianAlone: "Asian Alone",
+  Count_Person_BlackOrAfricanAmericanAlone: "Black or African American",
+  Count_Person_HispanicOrLatino: "Hispanic or Latino",
+  Count_Person_NativeHawaiianAndOtherPacificIslanderAlone:
+    "Native Hawaiian and Pacific Islander",
+  Count_Person_SomeOtherRaceAlone: "Some other race",
+  Count_Person_TwoOrMoreRaces: "Two or more races",
+  Count_Person_WhiteAlone: "White Alone",
+  Median_Age_Person_AmericanIndianOrAlaskaNativeAlone:
+    "American Indian or Alaska Native",
+  Median_Age_Person_AsianAlone: "Asian Alone",
+  Median_Age_Person_BlackOrAfricanAmericanAlone: "Black or African American",
+  Median_Age_Person_HispanicOrLatino: "Hispanic or Latino",
+  Median_Age_Person_NativeHawaiianAndOtherPacificIslanderAlone:
+    "Native Hawaiian and Pacific Islander",
+  Median_Age_Person_SomeOtherRaceAlone: "Some other race",
+  Median_Age_Person_TwoOrMoreRaces: "Two or more races",
+  Median_Age_Person_WhiteAlone: "White Alone",
   // income
   Count_Person_IncomeOfUpto9999USDollar: "Under $10K",
   Count_Person_IncomeOf10000To14999USDollar: "$10K to $15K",

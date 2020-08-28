@@ -18,6 +18,7 @@ from webdriver_tests.base_test import WebdriverBaseTest
 from selenium.webdriver.support.ui import Select
 import time
 
+import logging
 
 USA_URL = '/place?dcid=country/USA'
 CA_URL = '/place?dcid=geoId/06'
@@ -67,9 +68,11 @@ class TestPlaceExplorer(WebdriverBaseTest):
         time.sleep(5)
         self.assertTrue("Demographics" in self.driver.current_url)
         subtopics = self.driver.find_elements_by_class_name("subtopic")
-        age_topic = subtopics[1]
+        age_topic = subtopics[3]
         age_charts = age_topic.find_elements_by_class_name("col")
         age_across_places_chart = age_charts[2]
+        chart_title = age_across_places_chart.find_element_by_tag_name("h4").text
+        self.assertEqual("AGE ACROSS PLACES", chart_title)
         origin = age_across_places_chart.find_element_by_class_name("svg-container").get_attribute("innerHTML")
         selects = Select(age_across_places_chart.find_element_by_tag_name("select"))
         # Select containing to see the change.
@@ -83,9 +86,10 @@ class TestPlaceExplorer(WebdriverBaseTest):
         time.sleep(3)
         legends = age_across_places_chart.find_element_by_class_name("x").find_elements_by_class_name("tick")
         self.assertEqual(len(legends), 3)
-        elem3 = age_across_places_chart.find_element_by_tag_name("svg").find_elements_by_xpath("*")[2]
-        elem3_bars = elem3.find_elements_by_tag_name("g")
-        self.assertEqual(len(elem3_bars), 14)
+        chart_areas = age_across_places_chart.find_element_by_tag_name("svg").find_elements_by_xpath("*")
+        self.assertEqual(len(chart_areas), 3)
+        all_bars = chart_areas[2].find_elements_by_tag_name("rect")
+        self.assertEqual(len(all_bars), 42)
 
 
 if __name__ == '__main__':

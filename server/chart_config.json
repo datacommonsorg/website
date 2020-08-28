@@ -5,7 +5,9 @@
       {
         "title": "Unemployment Rate",
         "chartType": "LINE",
-        "statsVars": ["UnemploymentRate_Person"],
+        "statsVars": [
+          "UnemploymentRate_Person"
+        ],
         "source": "BLS",
         "url": "https://bls.gov/"
       },
@@ -21,14 +23,18 @@
       {
         "title": "Employed People",
         "chartType": "LINE",
-        "statsVars": ["Count_Person_Employed"],
+        "statsVars": [
+          "Count_Person_Employed"
+        ],
         "source": "BLS",
         "url": "https://bls.gov/"
       },
       {
         "title": "Labor Force Participation",
         "chartType": "LINE",
-        "statsVars": ["Count_Person_InLaborForce"],
+        "statsVars": [
+          "Count_Person_InLaborForce"
+        ],
         "perCapita": true,
         "scaling": 100,
         "unit": "%",
@@ -37,7 +43,6 @@
       },
       {
         "title": "Gross Domestic Product",
-        "topic": "Economics",
         "chartType": "LINE",
         "statsVars": [
           "Amount_EconomicActivity_GrossDomesticProduction_Nominal"
@@ -56,17 +61,19 @@
       },
       {
         "title": "Government Debt",
-        "topic": "Economics",
         "chartType": "LINE",
-        "statsVars": ["Amount_Debt_Government"],
+        "statsVars": [
+          "Amount_Debt_Government"
+        ],
         "source": "EurostatData",
         "url": "https://ec.europa.eu/eurostat/data/database"
       },
       {
         "title": "Median Individual Income",
-        "topic": "Income",
         "chartType": "LINE",
-        "statsVars": ["Median_Income_Person"],
+        "statsVars": [
+          "Median_Income_Person"
+        ],
         "source": "US Census",
         "url": "https://www.census.gov/"
       },
@@ -97,7 +104,9 @@
           {
             "title": "Unemployment Rate",
             "chartType": "LINE",
-            "statsVars": ["UnemploymentRate_Person"],
+            "statsVars": [
+              "UnemploymentRate_Person"
+            ],
             "source": "BLS",
             "url": "https://bls.gov/"
           },
@@ -113,14 +122,18 @@
           {
             "title": "Employed People",
             "chartType": "LINE",
-            "statsVars": ["Count_Person_Employed"],
+            "statsVars": [
+              "Count_Person_Employed"
+            ],
             "source": "BLS",
             "url": "https://bls.gov/"
           },
           {
             "title": "Labor Force Participation",
             "chartType": "LINE",
-            "statsVars": ["Count_Person_InLaborForce"],
+            "statsVars": [
+              "Count_Person_InLaborForce"
+            ],
             "perCapita": true,
             "scaling": 100,
             "unit": "%",
@@ -144,7 +157,6 @@
         "charts": [
           {
             "title": "Gross Domestic Product",
-            "topic": "Economics",
             "chartType": "LINE",
             "statsVars": [
               "Amount_EconomicActivity_GrossDomesticProduction_Nominal"
@@ -154,7 +166,6 @@
           },
           {
             "title": "Gross Domestic Product, Per Capita",
-            "topic": "Economics",
             "chartType": "LINE",
             "statsVars": [
               "Amount_EconomicActivity_GrossDomesticProduction_Nominal_PerCapita"
@@ -173,7 +184,6 @@
           },
           {
             "title": "Gross National Income, Per Capita (Purchasing Power Parity)",
-            "topic": "Economics",
             "chartType": "LINE",
             "statsVars": [
               "Amount_EconomicActivity_GrossNationalIncome_PurchasingPowerParity_PerCapita"
@@ -183,7 +193,6 @@
           },
           {
             "title": "Gross National Income (Purchasing Power Parity)",
-            "topic": "Economics",
             "chartType": "LINE",
             "statsVars": [
               "Amount_EconomicActivity_GrossNationalIncome_PurchasingPowerParity"
@@ -193,9 +202,10 @@
           },
           {
             "title": "Government Debt",
-            "topic": "Economics",
             "chartType": "LINE",
-            "statsVars": ["Amount_Debt_Government"],
+            "statsVars": [
+              "Amount_Debt_Government"
+            ],
             "source": "EurostatData",
             "url": "https://ec.europa.eu/eurostat/data/database"
           }
@@ -207,14 +217,15 @@
           {
             "title": "Median Individual Income",
             "chartType": "LINE",
-            "statsVars": ["Median_Income_Person"],
+            "statsVars": [
+              "Median_Income_Person"
+            ],
             "unit": "$",
             "source": "US Census",
             "url": "https://www.census.gov/"
           },
           {
             "title": "Individual Income Breakdown",
-            "topic": "Income",
             "chartType": "SINGLE_BAR",
             "statsVars": [
               "Count_Person_IncomeOfUpto9999USDollar",
@@ -265,16 +276,18 @@
             "unit": "%",
             "source": "US Census",
             "url": "https://www.census.gov/"
-      }
-    ]
-  },
-  {
+          }
+        ]
+      },
+      {
         "label": "Household Income",
         "charts": [
           {
             "title": "Median Household Income",
             "chartType": "LINE",
-            "statsVars": ["Median_Income_Household"],
+            "statsVars": [
+              "Median_Income_Household"
+            ],
             "unit": "$",
             "source": "US Census",
             "url": "https://www.census.gov/"
@@ -335,6 +348,9 @@
               "Count_Household_IncomeOf150000To199999USDollar",
               "Count_Household_IncomeOf200000OrMoreUSDollar"
             ],
+            "perCapita": true,
+            "scaling": 100,
+            "unit": "%",
             "source": "US Census",
             "url": "https://www.census.gov/"
           }
@@ -345,6 +361,16 @@
   {
     "label": "Health",
     "charts": [
+      {
+        "title": "COVID-19 Cumulative Cases",
+        "chartType": "LINE",
+        "statsVars": [
+          "CumulativeCount_MedicalConditionIncident_COVID_19_ConfirmedOrProbableCase",
+          "CumulativeCount_MedicalConditionIncident_COVID_19_PatientDeceased"
+        ],
+        "source": "The New York Times",
+        "url": "https://www.nytimes.com/article/coronavirus-county-data-us.html"
+      },
       {
         "title": "Mortality",
         "chartType": "SINGLE_BAR",
@@ -398,222 +424,9 @@
         ],
         "source": "DEA",
         "url": "https://www.deadiversion.usdoj.gov"
-      },
-      {
-        "title": "COVID-19 Cumulative Cases",
-        "chartType": "LINE",
-        "statsVars": [
-          "CumulativeCount_MedicalConditionIncident_COVID_19_ConfirmedOrProbableCase",
-          "CumulativeCount_MedicalConditionIncident_COVID_19_PatientDeceased"
-        ],
-        "source": "The New York Times",
-        "url": "https://www.nytimes.com/article/coronavirus-county-data-us.html"
       }
     ],
     "children": [
-      {
-        "label": "Mortality",
-        "charts": [
-          {
-            "title": "Mortality Trend",
-            "topic": "Health",
-            "chartType": "LINE",
-            "statsVars": [
-              "Count_Death_DiseasesOfTheCirculatorySystem",
-              "Count_Death_Neoplasms",
-              "Count_Death_DiseasesOfTheRespiratorySystem",
-              "Count_Death_ExternalCauses",
-              "Count_Death_DiseasesOfTheNervousSystem"
-            ],
-            "source": "CDC",
-            "url": "https://www.cdc.gov/"
-          },
-          {
-            "title": "Mortality Across Places",
-            "topic": "Health",
-            "chartType": "STACK_BAR",
-            "axis": "PLACE",
-            "statsVars": [
-              "Count_Death_DiseasesOfTheCirculatorySystem",
-              "Count_Death_Neoplasms",
-              "Count_Death_DiseasesOfTheRespiratorySystem",
-              "Count_Death_ExternalCauses",
-              "Count_Death_DiseasesOfTheNervousSystem"
-            ],
-            "source": "CDC",
-            "url": "https://www.cdc.gov/"
-          },
-          {
-            "title": "Mortality Across Places",
-            "topic": "Health",
-            "chartType": "GROUP_BAR",
-            "axis": "PLACE",
-            "statsVars": [
-              "Count_Death_DiseasesOfTheCirculatorySystem",
-              "Count_Death_Neoplasms",
-              "Count_Death_DiseasesOfTheRespiratorySystem",
-              "Count_Death_ExternalCauses",
-              "Count_Death_DiseasesOfTheNervousSystem"
-            ],
-            "perCapita": true,
-            "scaling": 100,
-            "unit": "%",
-            "source": "CDC",
-            "url": "https://www.cdc.gov/"
-          }
-        ]
-      },
-      {
-        "label": "Health Outcomes",
-        "charts": [
-          {
-            "title": "Outcomes",
-            "chartType": "SINGLE_BAR",
-            "statsVars": [
-              "Percent_Person_WithHighCholesterol",
-              "Percent_Person_WithHighBloodPressure",
-              "Percent_Person_WithArthritis",
-              "Percent_Person_WithMentalHealthNotGood",
-              "Percent_Person_WithPhysicalHealthNotGood"
-            ],
-            "unit": "%",
-            "source": "CDC",
-            "url": "https://www.cdc.gov/"
-          },
-          {
-            "title": "Outcomes Across Places",
-            "topic": "Health",
-            "chartType": "STACK_BAR",
-            "axis": "PLACE",
-            "statsVars": [
-              "Percent_Person_WithHighCholesterol",
-              "Percent_Person_WithHighBloodPressure",
-              "Percent_Person_WithArthritis",
-              "Percent_Person_WithMentalHealthNotGood",
-              "Percent_Person_WithPhysicalHealthNotGood"
-            ],
-            "unit": "%",
-            "source": "CDC",
-            "url": "https://www.cdc.gov/"
-          },
-          {
-            "title": "Outcomes Across Places",
-            "topic": "Health",
-            "chartType": "GROUP_BAR",
-            "axis": "PLACE",
-            "statsVars": [
-              "Percent_Person_WithHighCholesterol",
-              "Percent_Person_WithHighBloodPressure",
-              "Percent_Person_WithArthritis",
-              "Percent_Person_WithMentalHealthNotGood",
-              "Percent_Person_WithPhysicalHealthNotGood"
-            ],
-            "unit": "%",
-            "source": "CDC",
-            "url": "https://www.cdc.gov/"
-          }
-        ]
-      },
-      {
-        "label": "Health Behaviors",
-        "charts": [
-          {
-            "title": "Behaviors",
-            "chartType": "SINGLE_BAR",
-            "statsVars": [
-              "Percent_Person_SleepLessThan7Hours",
-              "Percent_Person_Obesity",
-              "Percent_Person_BingeDrinking",
-              "Percent_Person_PhysicalInactivity",
-              "Percent_Person_Smoking"
-            ],
-            "unit": "%",
-            "source": "CDC",
-            "url": "https://www.cdc.gov/"
-          },
-          {
-            "title": "Behaviors Across Places",
-            "topic": "Health",
-            "chartType": "STACK_BAR",
-            "axis": "PLACE",
-            "statsVars": [
-              "Percent_Person_SleepLessThan7Hours",
-              "Percent_Person_Obesity",
-              "Percent_Person_BingeDrinking",
-              "Percent_Person_PhysicalInactivity",
-              "Percent_Person_Smoking"
-            ],
-            "unit": "%",
-            "source": "CDC",
-            "url": "https://www.cdc.gov/"
-          },
-          {
-            "title": "Behaviors Across Places",
-            "topic": "Health",
-            "chartType": "GROUP_BAR",
-            "axis": "PLACE",
-            "statsVars": [
-              "Percent_Person_SleepLessThan7Hours",
-              "Percent_Person_Obesity",
-              "Percent_Person_BingeDrinking",
-              "Percent_Person_PhysicalInactivity",
-              "Percent_Person_Smoking"
-            ],
-            "unit": "%",
-            "source": "CDC",
-            "url": "https://www.cdc.gov/"
-          }
-        ]
-      },
-      {
-        "label": "Drug Prescribed",
-        "charts": [
-          {
-            "title": "Drug Prescribed (in Grams)",
-            "chartType": "SINGLE_BAR",
-            "statsVars": [
-              "RetailDrugDistribution_DrugDistribution_Oxycodone",
-              "RetailDrugDistribution_DrugDistribution_Hydrocodone",
-              "RetailDrugDistribution_DrugDistribution_Codeine",
-              "RetailDrugDistribution_DrugDistribution_Amphetamine",
-              "RetailDrugDistribution_DrugDistribution_Morphine"
-            ],
-            "source": "DEA",
-            "url": "https://www.deadiversion.usdoj.gov"
-          },
-          {
-            "title": "Drug Prescribed Across Places (in Grams)",
-            "topic": "Health",
-            "chartType": "STACK_BAR",
-            "axis": "PLACE",
-            "statsVars": [
-              "RetailDrugDistribution_DrugDistribution_Oxycodone",
-              "RetailDrugDistribution_DrugDistribution_Hydrocodone",
-              "RetailDrugDistribution_DrugDistribution_Codeine",
-              "RetailDrugDistribution_DrugDistribution_Amphetamine",
-              "RetailDrugDistribution_DrugDistribution_Morphine"
-            ],
-            "source": "DEA",
-            "url": "https://www.deadiversion.usdoj.gov"
-          },
-          {
-            "title": "Drug Prescribed Across Places",
-            "topic": "Health",
-            "chartType": "GROUP_BAR",
-            "axis": "PLACE",
-            "statsVars": [
-              "RetailDrugDistribution_DrugDistribution_Oxycodone",
-              "RetailDrugDistribution_DrugDistribution_Hydrocodone",
-              "RetailDrugDistribution_DrugDistribution_Codeine",
-              "RetailDrugDistribution_DrugDistribution_Amphetamine",
-              "RetailDrugDistribution_DrugDistribution_Morphine"
-            ],
-            "perCapita": true,
-            "source": "DEA",
-            "url": "https://www.deadiversion.usdoj.gov"
-          }
-        ]
-      },
       {
         "label": "COVID-19",
         "charts": [
@@ -680,6 +493,142 @@
             "url": "https://www.nytimes.com/article/coronavirus-county-data-us.html"
           }
         ]
+      },
+      {
+        "label": "Mortality",
+        "charts": [
+          {
+            "title": "Mortality Trend",
+            "chartType": "LINE",
+            "statsVars": [
+              "Count_Death_DiseasesOfTheCirculatorySystem",
+              "Count_Death_Neoplasms",
+              "Count_Death_DiseasesOfTheRespiratorySystem",
+              "Count_Death_ExternalCauses",
+              "Count_Death_DiseasesOfTheNervousSystem"
+            ],
+            "source": "CDC",
+            "url": "https://www.cdc.gov/"
+          },
+          {
+            "title": "Mortality Across Places",
+            "chartType": "GROUP_BAR",
+            "axis": "PLACE",
+            "statsVars": [
+              "Count_Death_DiseasesOfTheCirculatorySystem",
+              "Count_Death_Neoplasms",
+              "Count_Death_DiseasesOfTheRespiratorySystem",
+              "Count_Death_ExternalCauses",
+              "Count_Death_DiseasesOfTheNervousSystem"
+            ],
+            "perCapita": true,
+            "scaling": 100,
+            "unit": "%",
+            "source": "CDC",
+            "url": "https://www.cdc.gov/"
+          }
+        ]
+      },
+      {
+        "label": "Health Outcomes",
+        "charts": [
+          {
+            "title": "Outcomes",
+            "chartType": "SINGLE_BAR",
+            "statsVars": [
+              "Percent_Person_WithHighCholesterol",
+              "Percent_Person_WithHighBloodPressure",
+              "Percent_Person_WithArthritis",
+              "Percent_Person_WithMentalHealthNotGood",
+              "Percent_Person_WithPhysicalHealthNotGood"
+            ],
+            "unit": "%",
+            "source": "CDC",
+            "url": "https://www.cdc.gov/"
+          },
+          {
+            "title": "Outcomes Across Places",
+            "chartType": "GROUP_BAR",
+            "axis": "PLACE",
+            "statsVars": [
+              "Percent_Person_WithHighCholesterol",
+              "Percent_Person_WithHighBloodPressure",
+              "Percent_Person_WithArthritis",
+              "Percent_Person_WithMentalHealthNotGood",
+              "Percent_Person_WithPhysicalHealthNotGood"
+            ],
+            "unit": "%",
+            "source": "CDC",
+            "url": "https://www.cdc.gov/"
+          }
+        ]
+      },
+      {
+        "label": "Health Behaviors",
+        "charts": [
+          {
+            "title": "Behaviors",
+            "chartType": "SINGLE_BAR",
+            "statsVars": [
+              "Percent_Person_SleepLessThan7Hours",
+              "Percent_Person_Obesity",
+              "Percent_Person_BingeDrinking",
+              "Percent_Person_PhysicalInactivity",
+              "Percent_Person_Smoking"
+            ],
+            "unit": "%",
+            "source": "CDC",
+            "url": "https://www.cdc.gov/"
+          },
+          {
+            "title": "Behaviors Across Places",
+            "chartType": "GROUP_BAR",
+            "axis": "PLACE",
+            "statsVars": [
+              "Percent_Person_SleepLessThan7Hours",
+              "Percent_Person_Obesity",
+              "Percent_Person_BingeDrinking",
+              "Percent_Person_PhysicalInactivity",
+              "Percent_Person_Smoking"
+            ],
+            "unit": "%",
+            "source": "CDC",
+            "url": "https://www.cdc.gov/"
+          }
+        ]
+      },
+      {
+        "label": "Drug Prescribed",
+        "charts": [
+          {
+            "title": "Drug Prescribed (in Grams)",
+            "chartType": "SINGLE_BAR",
+            "statsVars": [
+              "RetailDrugDistribution_DrugDistribution_Oxycodone",
+              "RetailDrugDistribution_DrugDistribution_Hydrocodone",
+              "RetailDrugDistribution_DrugDistribution_Codeine",
+              "RetailDrugDistribution_DrugDistribution_Amphetamine",
+              "RetailDrugDistribution_DrugDistribution_Morphine"
+            ],
+            "source": "DEA",
+            "url": "https://www.deadiversion.usdoj.gov"
+          },
+          {
+            "title": "Drug Prescribed Across Places",
+            "chartType": "GROUP_BAR",
+            "axis": "PLACE",
+            "statsVars": [
+              "RetailDrugDistribution_DrugDistribution_Oxycodone",
+              "RetailDrugDistribution_DrugDistribution_Hydrocodone",
+              "RetailDrugDistribution_DrugDistribution_Codeine",
+              "RetailDrugDistribution_DrugDistribution_Amphetamine",
+              "RetailDrugDistribution_DrugDistribution_Morphine"
+            ],
+            "perCapita": true,
+            "source": "DEA",
+            "url": "https://www.deadiversion.usdoj.gov"
+          }
+        ]
       }
     ]
   },
@@ -688,33 +637,37 @@
     "charts": [
       {
         "title": "Total Crime",
-        "topic": "Crime",
         "chartType": "LINE",
-        "statsVars": ["Count_CriminalActivities_CombinedCrime"],
+        "statsVars": [
+          "Count_CriminalActivities_CombinedCrime"
+        ],
         "source": "FBI",
         "url": "https://www.fbi.gov/"
       },
       {
         "title": "Violent Crime",
-        "topic": "Crime",
         "chartType": "LINE",
-        "statsVars": ["Count_CriminalActivities_ViolentCrime"],
+        "statsVars": [
+          "Count_CriminalActivities_ViolentCrime"
+        ],
         "source": "FBI",
         "url": "https://www.fbi.gov/"
       },
       {
         "title": "Property Crime",
-        "topic": "Crime",
         "chartType": "LINE",
-        "statsVars": ["Count_CriminalActivities_PropertyCrime"],
+        "statsVars": [
+          "Count_CriminalActivities_PropertyCrime"
+        ],
         "source": "FBI",
         "url": "https://www.fbi.gov/"
       },
       {
         "title": "Arson",
-        "topic": "Crime",
         "chartType": "LINE",
-        "statsVars": ["Count_CriminalActivities_Arson"],
+        "statsVars": [
+          "Count_CriminalActivities_Arson"
+        ],
         "source": "FBI",
         "url": "https://www.fbi.gov/"
       }
@@ -724,20 +677,21 @@
         "label": "Combined Crime",
         "charts": [
           {
-            "title": "Combined Crime Across Places",
-            "topic": "Crime",
-            "chartType": "STACK_BAR",
-            "axis": "PLACE",
-            "statsVars": ["Count_CriminalActivities_CombinedCrime"],
+            "title": "Total Crime",
+            "chartType": "LINE",
+            "statsVars": [
+              "Count_CriminalActivities_CombinedCrime"
+            ],
             "source": "FBI",
             "url": "https://www.fbi.gov/"
           },
           {
             "title": "Combined Crime Per 1000 People",
-            "topic": "Crime",
             "chartType": "GROUP_BAR",
             "axis": "PLACE",
-            "statsVars": ["Count_CriminalActivities_CombinedCrime"],
+            "statsVars": [
+              "Count_CriminalActivities_CombinedCrime"
+            ],
             "perCapita": true,
             "scaling": 1000,
             "source": "FBI",
@@ -749,20 +703,21 @@
         "label": "Violent",
         "charts": [
           {
-            "title": "Violent Crime Across Places",
-            "topic": "Crime",
-            "chartType": "STACK_BAR",
-            "axis": "PLACE",
-            "statsVars": ["Count_CriminalActivities_ViolentCrime"],
+            "title": "Violent Crime",
+            "chartType": "LINE",
+            "statsVars": [
+              "Count_CriminalActivities_ViolentCrime"
+            ],
             "source": "FBI",
             "url": "https://www.fbi.gov/"
           },
           {
             "title": "Violent Crime Per 1000 People",
-            "topic": "Crime",
             "chartType": "GROUP_BAR",
             "axis": "PLACE",
-            "statsVars": ["Count_CriminalActivities_ViolentCrime"],
+            "statsVars": [
+              "Count_CriminalActivities_ViolentCrime"
+            ],
             "perCapita": true,
             "scaling": 1000,
             "source": "FBI",
@@ -774,20 +729,21 @@
         "label": "Property",
         "charts": [
           {
-            "title": "Property Crime Across Places",
-            "topic": "Crime",
-            "chartType": "STACK_BAR",
-            "axis": "PLACE",
-            "statsVars": ["Count_CriminalActivities_PropertyCrime"],
+            "title": "Property Crime",
+            "chartType": "LINE",
+            "statsVars": [
+              "Count_CriminalActivities_PropertyCrime"
+            ],
             "source": "FBI",
             "url": "https://www.fbi.gov/"
           },
           {
             "title": "Property Crime Per 1000 People",
-            "topic": "Crime",
             "chartType": "GROUP_BAR",
             "axis": "PLACE",
-            "statsVars": ["Count_CriminalActivities_PropertyCrime"],
+            "statsVars": [
+              "Count_CriminalActivities_PropertyCrime"
+            ],
             "perCapita": true,
             "scaling": 1000,
             "source": "FBI",
@@ -799,20 +755,21 @@
         "label": "Arson",
         "charts": [
           {
-            "title": "Arson Crime Across Places",
-            "topic": "Crime",
-            "chartType": "STACK_BAR",
-            "axis": "PLACE",
-            "statsVars": ["Count_CriminalActivities_Arson"],
+            "title": "Arson",
+            "chartType": "LINE",
+            "statsVars": [
+              "Count_CriminalActivities_Arson"
+            ],
             "source": "FBI",
             "url": "https://www.fbi.gov/"
           },
           {
             "title": "Arson Crime Per 1000 People",
-            "topic": "Crime",
             "chartType": "GROUP_BAR",
             "axis": "PLACE",
-            "statsVars": ["Count_CriminalActivities_Arson"],
+            "statsVars": [
+              "Count_CriminalActivities_Arson"
+            ],
             "perCapita": true,
             "scaling": 1000,
             "source": "FBI",
@@ -854,8 +811,20 @@
         "label": "Attainment",
         "charts": [
           {
+            "title": "Education Attainment",
+            "chartType": "SINGLE_BAR",
+            "statsVars": [
+              "Count_Person_EducationalAttainmentNoSchoolingCompleted",
+              "Count_Person_EducationalAttainmentRegularHighSchoolDiploma",
+              "Count_Person_EducationalAttainmentBachelorsDegree",
+              "Count_Person_EducationalAttainmentMastersDegree",
+              "Count_Person_EducationalAttainmentDoctorateDegree"
+            ],
+            "source": "US Census",
+            "url": "https://www.census.gov/"
+          },
+          {
             "title": "Attainment Trend",
-            "topic": "Attainment",
             "chartType": "STACK_BAR",
             "axis": "TIME",
             "statsVars": [
@@ -870,22 +839,6 @@
           },
           {
             "title": "Attainment Across Places",
-            "topic": "Attainment",
-            "chartType": "STACK_BAR",
-            "axis": "PLACE",
-            "statsVars": [
-              "Count_Person_EducationalAttainmentNoSchoolingCompleted",
-              "Count_Person_EducationalAttainmentRegularHighSchoolDiploma",
-              "Count_Person_EducationalAttainmentBachelorsDegree",
-              "Count_Person_EducationalAttainmentMastersDegree",
-              "Count_Person_EducationalAttainmentDoctorateDegree"
-            ],
-            "source": "US Census",
-            "url": "https://www.census.gov/"
-          },
-          {
-            "title": "Attainment Across Places",
-            "topic": "Attainment",
             "chartType": "GROUP_BAR",
             "axis": "PLACE",
             "statsVars": [
@@ -907,8 +860,17 @@
         "label": "Enrollment",
         "charts": [
           {
+            "title": "School Enrollment",
+            "chartType": "SINGLE_BAR",
+            "statsVars": [
+              "Count_Person_EnrolledInSchool",
+              "Count_Person_NotEnrolledInSchool"
+            ],
+            "source": "US Census",
+            "url": "https://www.census.gov/"
+          },
+          {
             "title": "Enrollment Trend",
-            "topic": "Enrollment",
             "chartType": "STACK_BAR",
             "axis": "TIME",
             "statsVars": [
@@ -920,19 +882,6 @@
           },
           {
             "title": "Enrollment Across Places",
-            "topic": "Enrollment",
-            "chartType": "STACK_BAR",
-            "axis": "PLACE",
-            "statsVars": [
-              "Count_Person_EnrolledInSchool",
-              "Count_Person_NotEnrolledInSchool"
-            ],
-            "source": "US Census",
-            "url": "https://www.census.gov/"
-          },
-          {
-            "title": "Enrollment Across Places",
-            "topic": "Enrollment",
             "chartType": "GROUP_BAR",
             "axis": "PLACE",
             "statsVars": [
@@ -954,55 +903,51 @@
     "charts": [
       {
         "title": "Population",
-        "topic": "Population",
         "chartType": "LINE",
-        "statsVars": ["Count_Person"],
+        "statsVars": [
+          "Count_Person"
+        ],
         "source": "US Census",
         "url": "https://www.census.gov/"
       },
       {
         "title": "Population Growth Rate",
-        "topic": "Population",
         "chartType": "LINE",
-        "statsVars": ["GrowthRate_Count_Person"],
+        "statsVars": [
+          "GrowthRate_Count_Person"
+        ],
         "source": "EurostatData",
         "url": "https://ec.europa.eu/eurostat/data/database"
       },
       {
         "title": "Person Per Area",
-        "topic": "Population",
         "chartType": "LINE",
-        "statsVars": ["Count_Person_PerArea"],
-        "source": "EurostatData",
-        "url": "https://ec.europa.eu/eurostat/data/database"
-      },
-      {
-        "title": "Life Expectancy",
-        "topic": "Population",
-        "chartType": "LINE",
-        "statsVars": ["LifeExpectancy_Person"],
+        "statsVars": [
+          "Count_Person_PerArea"
+        ],
         "source": "EurostatData",
         "url": "https://ec.europa.eu/eurostat/data/database"
       },
       {
         "title": "Fertility Rate",
-        "topic": "Population",
         "chartType": "LINE",
-        "statsVars": ["FertilityRate_Person_Female"],
+        "statsVars": [
+          "FertilityRate_Person_Female"
+        ],
         "source": "EurostatData",
         "url": "https://ec.europa.eu/eurostat/data/database"
       },
       {
         "title": "Median Age",
-        "topic": "Age",
         "chartType": "LINE",
-        "statsVars": ["Median_Age_Person"],
+        "statsVars": [
+          "Median_Age_Person"
+        ],
         "source": "US Census",
         "url": "https://www.census.gov/"
       },
       {
         "title": "Citizenship",
-        "topic": "Citizenship",
         "chartType": "SINGLE_BAR",
         "statsVars": [
           "Count_Person_USCitizenBornInTheUnitedStates",
@@ -1015,7 +960,6 @@
       },
       {
         "title": "Marital Status",
-        "topic": "Marital Status",
         "chartType": "SINGLE_BAR",
         "statsVars": [
           "Count_Person_MarriedAndNotSeparated",
@@ -1030,15 +974,115 @@
     ],
     "children": [
       {
+        "label": "Population",
+        "charts": [
+          {
+            "title": "Population",
+            "chartType": "LINE",
+            "statsVars": [
+              "Count_Person"
+            ],
+            "source": "US Census",
+            "url": "https://www.census.gov/"
+          },
+          {
+            "title": "Population Growth Rate",
+            "chartType": "LINE",
+            "statsVars": [
+              "GrowthRate_Count_Person"
+            ],
+            "source": "EurostatData",
+            "url": "https://ec.europa.eu/eurostat/data/database"
+          },
+          {
+            "title": "Person Per Area",
+            "chartType": "LINE",
+            "statsVars": [
+              "Count_Person_PerArea"
+            ],
+            "source": "EurostatData",
+            "url": "https://ec.europa.eu/eurostat/data/database"
+          },
+          {
+            "title": "Life Expectancy",
+            "chartType": "LINE",
+            "statsVars": [
+              "LifeExpectancy_Person"
+            ],
+            "source": "EurostatData",
+            "url": "https://ec.europa.eu/eurostat/data/database"
+          },
+          {
+            "title": "Fertility Rate",
+            "chartType": "LINE",
+            "statsVars": [
+              "FertilityRate_Person_Female"
+            ],
+            "source": "EurostatData",
+            "url": "https://ec.europa.eu/eurostat/data/database"
+          }
+        ]
+      },
+      {
         "label": "Gender",
         "charts": [
           {
             "title": "Population by Gender",
-            "topic": "Gender",
-            "chartType": "SINGLE_BAR",
-            "statsVars": ["Count_Person_Male", "Count_Person_Female"],
+            "chartType": "GROUP_BAR",
+            "axis": "TIME",
+            "statsVars": [
+              "Count_Person_Male",
+              "Count_Person_Female"
+            ],
             "source": "US Census",
             "url": "https://www.census.gov/"
+          },
+          {
+            "title": "Median Age by Gender",
+            "chartType": "LINE",
+            "statsVars": [
+              "Median_Age_Person_Female",
+              "Median_Age_Person_Male"
+            ],
+            "source": "US Census",
+            "url": "https://www.census.gov"
+          }
+        ]
+      },
+      {
+        "label": "Race",
+        "charts": [
+          {
+            "title": "Population by Race",
+            "chartType": "SINGLE_BAR",
+            "statsVars": [
+              "Count_Person_AmericanIndianOrAlaskaNativeAlone",
+              "Count_Person_AsianAlone",
+              "Count_Person_BlackOrAfricanAmericanAlone",
+              "Count_Person_HispanicOrLatino",
+              "Count_Person_NativeHawaiianAndOtherPacificIslanderAlone",
+              "Count_Person_SomeOtherRaceAlone",
+              "Count_Person_TwoOrMoreRaces",
+              "Count_Person_WhiteAlone"
+            ],
+            "source": "US Census",
+            "url": "https://www.census.gov"
+          },
+          {
+            "title": "Median Age by Race",
+            "chartType": "SINGLE_BAR",
+            "statsVars": [
+              "Median_Age_Person_AmericanIndianOrAlaskaNativeAlone",
+              "Median_Age_Person_AsianAlone",
+              "Median_Age_Person_BlackOrAfricanAmericanAlone",
+              "Median_Age_Person_HispanicOrLatino",
+              "Median_Age_Person_NativeHawaiianAndOtherPacificIslanderAlone",
+              "Median_Age_Person_SomeOtherRaceAlone",
+              "Median_Age_Person_TwoOrMoreRaces",
+              "Median_Age_Person_WhiteAlone"
+            ],
+            "source": "US Census",
+            "url": "https://www.census.gov"
           }
         ]
       },
@@ -1047,15 +1091,15 @@
         "charts": [
           {
             "title": "Median Age",
-            "topic": "Age",
             "chartType": "LINE",
-            "statsVars": ["Median_Age_Person"],
+            "statsVars": [
+              "Median_Age_Person"
+            ],
             "source": "US Census",
             "url": "https://www.census.gov/"
           },
           {
             "title": "Age Trend",
-            "topic": "Age",
             "chartType": "STACK_BAR",
             "axis": "TIME",
             "statsVars": [
@@ -1079,31 +1123,6 @@
           },
           {
             "title": "Age Across Places",
-            "topic": "Age",
-            "chartType": "STACK_BAR",
-            "axis": "PLACE",
-            "statsVars": [
-              "Count_Person_Upto5Years",
-              "Count_Person_5To17Years",
-              "Count_Person_20To24Years",
-              "Count_Person_25To34Years",
-              "Count_Person_30To34Years",
-              "Count_Person_35To39Years",
-              "Count_Person_35To44Years",
-              "Count_Person_40To44Years",
-              "Count_Person_45To49Years",
-              "Count_Person_45To54Years",
-              "Count_Person_50To54Years",
-              "Count_Person_55To59Years",
-              "Count_Person_60To64Years",
-              "Count_Person_65OrMoreYears"
-            ],
-            "source": "US Census",
-            "url": "https://www.census.gov/"
-          },
-          {
-            "title": "Age Across Places",
-            "topic": "Age",
             "chartType": "GROUP_BAR",
             "axis": "PLACE",
             "statsVars": [
@@ -1135,7 +1154,6 @@
         "charts": [
           {
             "title": "Citizenship Trend",
-            "topic": "Citizenship",
             "chartType": "STACK_BAR",
             "axis": "TIME",
             "statsVars": [
@@ -1149,21 +1167,6 @@
           },
           {
             "title": "Citizenship Across Places",
-            "topic": "Citizenship",
-            "chartType": "STACK_BAR",
-            "axis": "PLACE",
-            "statsVars": [
-              "Count_Person_USCitizenBornInTheUnitedStates",
-              "Count_Person_USCitizenByNaturalization",
-              "Count_Person_NotAUSCitizen",
-              "Count_Person_USCitizenBornAbroadOfAmericanParents"
-            ],
-            "source": "US Census",
-            "url": "https://www.census.gov/"
-          },
-          {
-            "title": "Citizenship Across Places",
-            "topic": "Citizenship",
             "chartType": "GROUP_BAR",
             "axis": "PLACE",
             "statsVars": [
@@ -1175,93 +1178,6 @@
             "perCapita": true,
             "scaling": 100,
             "unit": "%",
-            "source": "US Census",
-            "url": "https://www.census.gov/"
-          }
-        ]
-      },
-      {
-        "label": "Income",
-        "charts": [
-          {
-            "title": "Median Income",
-            "topic": "Income",
-            "chartType": "LINE",
-            "statsVars": ["Median_Income_Person"],
-            "unit": "$",
-            "source": "US Census",
-            "url": "https://www.census.gov/"
-          },
-          {
-            "title": "Income Trend",
-            "topic": "Income",
-            "chartType": "STACK_BAR",
-            "axis": "TIME",
-            "statsVars": [
-              "Count_Person_IncomeOfUpto9999USDollar",
-              "Count_Person_IncomeOf10000To14999USDollar",
-              "Count_Person_IncomeOf15000To24999USDollar",
-              "Count_Person_IncomeOf25000To34999USDollar",
-              "Count_Person_IncomeOf35000To49999USDollar",
-              "Count_Person_IncomeOf50000To64999USDollar",
-              "Count_Person_IncomeOf65000To74999USDollar",
-              "Count_Person_IncomeOf75000OrMoreUSDollar"
-            ],
-            "source": "US Census",
-            "url": "https://www.census.gov/"
-          },
-          {
-            "title": "Income Across Places",
-            "topic": "Income",
-            "chartType": "STACK_BAR",
-            "axis": "PLACE",
-            "statsVars": [
-              "Count_Person_IncomeOfUpto9999USDollar",
-              "Count_Person_IncomeOf10000To14999USDollar",
-              "Count_Person_IncomeOf15000To24999USDollar",
-              "Count_Person_IncomeOf25000To34999USDollar",
-              "Count_Person_IncomeOf35000To49999USDollar",
-              "Count_Person_IncomeOf50000To64999USDollar",
-              "Count_Person_IncomeOf65000To74999USDollar",
-              "Count_Person_IncomeOf75000OrMoreUSDollar"
-            ],
-            "source": "US Census",
-            "url": "https://www.census.gov/"
-          },
-          {
-            "title": "Income Across Places",
-            "topic": "Income",
-            "chartType": "GROUP_BAR",
-            "axis": "PLACE",
-            "statsVars": [
-              "Count_Person_IncomeOfUpto9999USDollar",
-              "Count_Person_IncomeOf10000To14999USDollar",
-              "Count_Person_IncomeOf15000To24999USDollar",
-              "Count_Person_IncomeOf25000To34999USDollar",
-              "Count_Person_IncomeOf35000To49999USDollar",
-              "Count_Person_IncomeOf50000To64999USDollar",
-              "Count_Person_IncomeOf65000To74999USDollar",
-              "Count_Person_IncomeOf75000OrMoreUSDollar"
-            ],
-            "perCapita": true,
-            "scaling": 100,
-            "unit": "%",
-            "source": "US Census",
-            "url": "https://www.census.gov/"
-          },
-          {
-            "title": "Income",
-            "chartType": "SINGLE_BAR",
-            "statsVars": [
-              "Count_Person_IncomeOfUpto9999USDollar",
-              "Count_Person_IncomeOf10000To14999USDollar",
-              "Count_Person_IncomeOf15000To24999USDollar",
-              "Count_Person_IncomeOf25000To34999USDollar",
-              "Count_Person_IncomeOf35000To49999USDollar",
-              "Count_Person_IncomeOf50000To64999USDollar",
-              "Count_Person_IncomeOf65000To74999USDollar",
-              "Count_Person_IncomeOf75000OrMoreUSDollar"
-            ],
             "source": "US Census",
             "url": "https://www.census.gov/"
           }
@@ -1271,8 +1187,7 @@
         "label": "Marital Status",
         "charts": [
           {
-            "title": "Marital Status across Places",
-            "topic": "Marital Status",
+            "title": "Marital Status Trend",
             "chartType": "STACK_BAR",
             "axis": "TIME",
             "statsVars": [
@@ -1287,22 +1202,6 @@
           },
           {
             "title": "Marital Status Across Places",
-            "topic": "Marital Status",
-            "chartType": "STACK_BAR",
-            "axis": "PLACE",
-            "statsVars": [
-              "Count_Person_MarriedAndNotSeparated",
-              "Count_Person_Divorced",
-              "Count_Person_NeverMarried",
-              "Count_Person_Widowed",
-              "Count_Person_Separated"
-            ],
-            "source": "US Census",
-            "url": "https://www.census.gov/"
-          },
-          {
-            "title": "Marital Status Across Places",
-            "topic": "Marital Status",
             "chartType": "GROUP_BAR",
             "axis": "PLACE",
             "statsVars": [
@@ -1333,6 +1232,31 @@
         ],
         "source": "EurostatData",
         "url": "https://ec.europa.eu/eurostat/data/database"
+      },
+      {
+        "title": "CO2 Emissions Per Capita",
+        "chartType": "LINE",
+        "statsVars": [
+          "Amount_Emissions_CarbonDioxide_PerCapita"
+        ],
+        "source": "EurostatData",
+        "url": "https://ec.europa.eu/eurostat/data/database"
+      },
+      {
+        "title": "Disasters",
+        "chartType": "SINGLE_BAR",
+        "statsVars": [
+          "Count_CycloneEvent",
+          "Count_DroughtEvent",
+          "Count_EarthquakeEvent",
+          "Count_FloodEvent",
+          "Count_StormSurgeTideEvent",
+          "Count_ThunderstormWindEvent",
+          "Count_TornadoEvent",
+          "Count_WildlandFireEvent"
+        ],
+        "source": "EurostatData",
+        "url": "https://ec.europa.eu/eurostat/data/database"
       }
     ],
     "children": [
@@ -1340,18 +1264,29 @@
         "label": "Energy",
         "charts": [
           {
-            "topic": "Environment",
+            "title": "Energy comsumption Per Capita",
+            "chartType": "LINE",
+            "statsVars": [
+              "Amount_Consumption_Energy_PerCapita"
+            ],
+            "source": "EurostatData",
+            "url": "https://ec.europa.eu/eurostat/data/database"
+          },
+          {
             "title": "CO2 Emissions Per Capita",
             "chartType": "LINE",
-            "statsVars": ["Amount_Emissions_CarbonDioxide_PerCapita"],
+            "statsVars": [
+              "Amount_Emissions_CarbonDioxide_PerCapita"
+            ],
             "source": "EurostatData",
             "url": "https://ec.europa.eu/eurostat/data/database"
           },
           {
             "title": "Electricity Consumption Per Capita",
-            "topic": "Environment",
             "chartType": "LINE",
-            "statsVars": ["Amount_Consumption_Electricity_PerCapita"],
+            "statsVars": [
+              "Amount_Consumption_Electricity_PerCapita"
+            ],
             "source": "EurostatData",
             "url": "https://ec.europa.eu/eurostat/data/database"
           }
@@ -1361,18 +1296,53 @@
         "label": "Disaster",
         "charts": [
           {
-            "topic": "Environment",
-            "title": "Earthquake Event",
-            "chartType": "LINE",
-            "statsVars": ["Count_EarthquakeEvent"],
+            "title": "Disasters",
+            "chartType": "SINGLE_BAR",
+            "statsVars": [
+              "Count_CycloneEvent",
+              "Count_DroughtEvent",
+              "Count_EarthquakeEvent",
+              "Count_FloodEvent",
+              "Count_StormSurgeTideEvent",
+              "Count_ThunderstormWindEvent",
+              "Count_TornadoEvent",
+              "Count_WildlandFireEvent"
+            ],
             "source": "EurostatData",
             "url": "https://ec.europa.eu/eurostat/data/database"
           },
           {
-            "topic": "Environment",
+            "title": "Disasters across places",
+            "chartType": "GROUP_BAR",
+            "axis": "PLACE",
+            "statsVars": [
+              "Count_CycloneEvent",
+              "Count_DroughtEvent",
+              "Count_EarthquakeEvent",
+              "Count_FloodEvent",
+              "Count_StormSurgeTideEvent",
+              "Count_ThunderstormWindEvent",
+              "Count_TornadoEvent",
+              "Count_WildlandFireEvent"
+            ],
+            "source": "EurostatData",
+            "url": "https://ec.europa.eu/eurostat/data/database"
+          },
+          {
+            "title": "Earthquake Event",
+            "chartType": "LINE",
+            "statsVars": [
+              "Count_EarthquakeEvent"
+            ],
+            "source": "EurostatData",
+            "url": "https://ec.europa.eu/eurostat/data/database"
+          },
+          {
             "title": "Cyclone Event",
             "chartType": "LINE",
-            "statsVars": ["Count_CycloneEvent"],
+            "statsVars": [
+              "Count_CycloneEvent"
+            ],
             "source": "EurostatData",
             "url": "https://ec.europa.eu/eurostat/data/database"
           }
