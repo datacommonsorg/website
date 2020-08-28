@@ -24,6 +24,7 @@ import json
 import urllib
 import services.datacommons as dc_service
 import routes.api.place as place_api
+import os
 
 from cache import cache
 from flask import Blueprint, current_app, Response, url_for
@@ -111,17 +112,23 @@ def get_landing_page_data(dcid):
 
 
 @bp.route('/config/<path:dcid>')
-@cache.memoize(timeout=3600 * 24)  # Cache for one day.
+#@cache.memoize(timeout=3600 * 24)  # Cache for one day.
 def config(dcid):
     """
     Get chart config for a given place.
     """
+    # chart_config = current_app.config['CHART_CONFIG']
+    # chart_config
+    # if os.environ.get('FLASK_ENV') == 'development':
+    with bp.open_resource('../../chart_config.json') as f:
+        chart_config = json.load(f)
+
     all_stats_vars = set(place_api.statsvars(dcid))
 
     # Build the chart config by filtering the source configuration based on
     # available statistical variables.
     cc = []
-    for src_section in current_app.config['CHART_CONFIG']:
+    for src_section in chart_config:
         target_section = {
             "label": src_section["label"],
             "charts": filter_charts(
