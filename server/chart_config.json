@@ -1,5 +1,430 @@
 [
   {
+    "label": "Inequality",
+    "charts": [
+      {
+        "title": "Poverty Rate by Race Across Places",
+        "chartType": "GROUP_BAR",
+        "axis": "PLACE",
+        "statsVars": [
+          "Count_Person_BelowPovertyLevelInThePast12Months_AmericanIndianOrAlaskaNativeAlone",
+          "Count_Person_BelowPovertyLevelInThePast12Months_AsianAlone",
+          "Count_Person_BelowPovertyLevelInThePast12Months_BlackOrAfricanAmericanAlone",
+          "Count_Person_BelowPovertyLevelInThePast12Months_HispanicOrLatino",
+          "Count_Person_BelowPovertyLevelInThePast12Months_NativeHawaiianOrOtherPacificIslanderAlone",
+          "Count_Person_BelowPovertyLevelInThePast12Months_WhiteAlone"
+        ],
+        "denominator": [
+          "Count_Person_AmericanIndianOrAlaskaNativeAlone",
+          "Count_Person_AsianAlone",
+          "Count_Person_BlackOrAfricanAmericanAlone",
+          "Count_Person_HispanicOrLatino",
+          "Count_Person_NativeHawaiianOrOtherPacificIslanderAlone",
+          "Count_Person_WhiteAlone"
+        ],
+        "scaling": 100,
+        "unit": "%",
+        "source": "US Census",
+        "url": "https://www.census.gov/"
+      },
+      {
+        "title": "Poverty Rate by Gender Across Places",
+        "chartType": "GROUP_BAR",
+        "axis": "PLACE",
+        "statsVars": [
+          "Count_Person_Female_BelowPovertyLevelInThePast12Months",
+          "Count_Person_Male_BelowPovertyLevelInThePast12Months"
+        ],
+        "denominator": [
+          "Count_Person_Female",
+          "Count_Person_Male"
+        ],
+        "scaling": 100,
+        "unit": "%",
+        "source": "US Census",
+        "url": "https://www.census.gov/"
+      },
+      {
+        "title": "Median Household Income by Race Across Places",
+        "chartType": "GROUP_BAR",
+        "axis": "PLACE",
+        "statsVars": [
+          "Median_Income_Household_HouseholderRaceAmericanIndianOrAlaskaNativeAlone",
+          "Median_Income_Household_HouseholderRaceAsianAlone",
+          "Median_Income_Household_HouseholderRaceBlackOrAfricanAmericanAlone",
+          "Median_Income_Household_HouseholderRaceHispanicOrLatino",
+          "Median_Income_Household_HouseholderRaceNativeHawaiianOrOtherPacificIslanderAlone",
+          "Median_Income_Household_HouseholderRaceWhiteAlone"
+        ],
+        "source": "US Census",
+        "url": "https://www.census.gov/"
+      },
+      {
+        "title": "Median Income by Gender Across Places",
+        "chartType": "GROUP_BAR",
+        "axis": "PLACE",
+        "statsVars": [
+          "Median_Income_Person_15OrMoreYears_Female_WithIncome",
+          "Median_Income_Person_15OrMoreYears_Male_WithIncome"
+        ],
+        "source": "US Census",
+        "url": "https://www.census.gov/"
+      },
+      {
+        "title": "Unemployment Rate by Gender Over Time",
+        "chartType": "LINE",
+        "axis": "TIME",
+        "statsVars": [
+          "UnemploymentRate_Person_Female",
+          "UnemploymentRate_Person_Male"
+        ],
+        "source": "EurostatData",
+        "url": "https://ec.europa.eu/eurostat/data/database"
+      },
+      {
+        "title": "Percent of People Without Health Insurance by Gender Across Places",
+        "chartType": "GROUP_BAR",
+        "axis": "PLACE",
+        "statsVars": [
+          "Percent_Person_18To64Years_Female_NoHealthInsurance",
+          "Percent_Person_18To64Years_Male_NoHealthInsurance"
+        ],
+        "unit": "%",
+        "source": "US Census",
+        "url": "https://www.census.gov/"
+      },
+      {
+        "title": "Percent of People Without Health Insurance by Race Across Places",
+        "chartType": "GROUP_BAR",
+        "axis": "PLACE",
+        "statsVars": [
+          "Percent_Person_18To64Years_NoHealthInsurance_BlackOrAfricanAmericanAlone",
+          "Percent_Person_18To64Years_NoHealthInsurance_HispanicOrLatino",
+          "Percent_Person_18To64Years_NoHealthInsurance_WhiteAlone"
+        ],
+        "unit": "%",
+        "source": "US Census",
+        "url": "https://www.census.gov/"
+      }
+    ],
+    "children": [
+      {
+        "label":"Economics",
+        "charts": [
+          {
+            "title": "Poverty Rate by Race Across Places",
+            "chartType": "GROUP_BAR",
+            "axis": "PLACE",
+            "statsVars": [
+              "Count_Person_BelowPovertyLevelInThePast12Months_AmericanIndianOrAlaskaNativeAlone",
+              "Count_Person_BelowPovertyLevelInThePast12Months_AsianAlone",
+              "Count_Person_BelowPovertyLevelInThePast12Months_BlackOrAfricanAmericanAlone",
+              "Count_Person_BelowPovertyLevelInThePast12Months_HispanicOrLatino",
+              "Count_Person_BelowPovertyLevelInThePast12Months_NativeHawaiianOrOtherPacificIslanderAlone",
+              "Count_Person_BelowPovertyLevelInThePast12Months_WhiteAlone"
+            ],
+            "denominator": [
+              "Count_Person_AmericanIndianOrAlaskaNativeAlone",
+              "Count_Person_AsianAlone",
+              "Count_Person_BlackOrAfricanAmericanAlone",
+              "Count_Person_HispanicOrLatino",
+              "Count_Person_NativeHawaiianOrOtherPacificIslanderAlone",
+              "Count_Person_WhiteAlone"
+            ],
+            "scaling": 100,
+            "unit": "%",
+            "source": "US Census",
+            "url": "https://www.census.gov/"
+          },
+          {
+            "title": "Poverty Rate by Gender Across Places",
+            "chartType": "GROUP_BAR",
+            "axis": "PLACE",
+            "statsVars": [
+              "Count_Person_Female_BelowPovertyLevelInThePast12Months",
+              "Count_Person_Male_BelowPovertyLevelInThePast12Months"
+            ],
+            "denominator": [
+              "Count_Person_Female",
+              "Count_Person_Male"
+            ],
+            "scaling": 100,
+            "unit": "%",
+            "source": "US Census",
+            "url": "https://www.census.gov/"
+          },
+          {
+            "title": "Median Household Income by Race Across Places",
+            "chartType": "GROUP_BAR",
+            "axis": "PLACE",
+            "statsVars": [
+              "Median_Income_Household_HouseholderRaceAmericanIndianOrAlaskaNativeAlone",
+              "Median_Income_Household_HouseholderRaceAsianAlone",
+              "Median_Income_Household_HouseholderRaceBlackOrAfricanAmericanAlone",
+              "Median_Income_Household_HouseholderRaceHispanicOrLatino",
+              "Median_Income_Household_HouseholderRaceNativeHawaiianOrOtherPacificIslanderAlone",
+              "Median_Income_Household_HouseholderRaceWhiteAlone"
+            ],
+            "source": "US Census",
+            "url": "https://www.census.gov/"
+          },
+          {
+            "title": "Median Income by Gender Across Places",
+            "chartType": "GROUP_BAR",
+            "axis": "PLACE",
+            "statsVars": [
+              "Median_Income_Person_15OrMoreYears_Female_WithIncome",
+              "Median_Income_Person_15OrMoreYears_Male_WithIncome"
+            ],
+            "source": "US Census",
+            "url": "https://www.census.gov/"
+          },
+          {
+            "title": "Poverty Rate by Race Over Time",
+            "chartType": "GROUP_BAR",
+            "axis": "TIME",
+            "statsVars": [
+              "Count_Person_BelowPovertyLevelInThePast12Months_AmericanIndianOrAlaskaNativeAlone",
+              "Count_Person_BelowPovertyLevelInThePast12Months_AsianAlone",
+              "Count_Person_BelowPovertyLevelInThePast12Months_BlackOrAfricanAmericanAlone",
+              "Count_Person_BelowPovertyLevelInThePast12Months_HispanicOrLatino",
+              "Count_Person_BelowPovertyLevelInThePast12Months_NativeHawaiianOrOtherPacificIslanderAlone",
+              "Count_Person_BelowPovertyLevelInThePast12Months_WhiteAlone"
+            ],
+            "denominator": [
+              "Count_Person_AmericanIndianOrAlaskaNativeAlone",
+              "Count_Person_AsianAlone",
+              "Count_Person_BlackOrAfricanAmericanAlone",
+              "Count_Person_HispanicOrLatino",
+              "Count_Person_NativeHawaiianOrOtherPacificIslanderAlone",
+              "Count_Person_WhiteAlone"
+            ],
+            "scaling": 100,
+            "unit": "%",
+            "source": "US Census",
+            "url": "https://www.census.gov/"
+          },
+          {
+            "title": "Poverty Rate by Gender Over Time",
+            "chartType": "GROUP_BAR",
+            "axis": "TIME",
+            "statsVars": [
+              "Count_Person_Female_BelowPovertyLevelInThePast12Months",
+              "Count_Person_Male_BelowPovertyLevelInThePast12Months"
+            ],
+            "denominator": [
+              "Count_Person_Female",
+              "Count_Person_Male"
+            ],
+            "scaling": 100,
+            "unit": "%",
+            "source": "US Census",
+            "url": "https://www.census.gov/"
+          },
+          {
+            "title": "Median Household Income by Race Over Time",
+            "chartType": "GROUP_BAR",
+            "axis": "TIME",
+            "statsVars": [
+              "Median_Income_Household_HouseholderRaceAmericanIndianOrAlaskaNativeAlone",
+              "Median_Income_Household_HouseholderRaceAsianAlone",
+              "Median_Income_Household_HouseholderRaceBlackOrAfricanAmericanAlone",
+              "Median_Income_Household_HouseholderRaceHispanicOrLatino",
+              "Median_Income_Household_HouseholderRaceNativeHawaiianOrOtherPacificIslanderAlone",
+              "Median_Income_Household_HouseholderRaceWhiteAlone"
+            ],
+            "source": "US Census",
+            "url": "https://www.census.gov/"
+          },
+          {
+            "title": "Median Income by Gender Over Time",
+            "chartType": "GROUP_BAR",
+            "axis": "TIME",
+            "statsVars": [
+              "Median_Income_Person_15OrMoreYears_Female_WithIncome",
+              "Median_Income_Person_15OrMoreYears_Male_WithIncome"
+            ],
+            "source": "US Census",
+            "url": "https://www.census.gov/"
+          },
+          {
+            "title": "Unemployment Rate by Gender Over Time",
+            "chartType": "LINE",
+            "axis": "TIME",
+            "statsVars": [
+              "UnemploymentRate_Person_Female",
+              "UnemploymentRate_Person_Male"
+            ],
+            "source": "EurostatData",
+            "url": "https://ec.europa.eu/eurostat/data/database"
+          }
+        ]
+      },
+      {
+        "label": "Health Insurance",
+        "charts": [
+          {
+            "title": "Percent of People Without Health Insurance by Gender Across Places",
+            "chartType": "GROUP_BAR",
+            "axis": "PLACE",
+            "statsVars": [
+              "Percent_Person_18To64Years_Female_NoHealthInsurance",
+              "Percent_Person_18To64Years_Male_NoHealthInsurance"
+            ],
+            "unit": "%",
+            "source": "US Census",
+            "url": "https://www.census.gov/"
+          },
+          {
+            "title": "Percent of People Without Health Insurance by Race Across Places",
+            "chartType": "GROUP_BAR",
+            "axis": "PLACE",
+            "statsVars": [
+              "Percent_Person_18To64Years_NoHealthInsurance_BlackOrAfricanAmericanAlone",
+              "Percent_Person_18To64Years_NoHealthInsurance_HispanicOrLatino",
+              "Percent_Person_18To64Years_NoHealthInsurance_WhiteAlone"
+            ],
+            "unit": "%",
+            "source": "US Census",
+            "url": "https://www.census.gov/"
+          },
+          {
+            "title": "Percent of People Without Health Insurance by Gender Over Time",
+            "chartType": "GROUP_BAR",
+            "axis": "TIME",
+            "statsVars": [
+              "Percent_Person_18To64Years_Female_NoHealthInsurance",
+              "Percent_Person_18To64Years_Male_NoHealthInsurance"
+            ],
+            "unit": "%",
+            "source": "US Census",
+            "url": "https://www.census.gov/"
+          },
+          {
+            "title": "Percent of People Without Health Insurance by Race Over Time",
+            "chartType": "GROUP_BAR",
+            "axis": "TIME",
+            "statsVars": [
+              "Percent_Person_18To64Years_NoHealthInsurance_BlackOrAfricanAmericanAlone",
+              "Percent_Person_18To64Years_NoHealthInsurance_HispanicOrLatino",
+              "Percent_Person_18To64Years_NoHealthInsurance_WhiteAlone"
+            ],
+            "unit": "%",
+            "source": "US Census",
+            "url": "https://www.census.gov/"
+          }
+        ]
+      },
+      {
+        "label": "Education Attainment",
+        "charts": [
+          {
+            "title": "Rate of Associate Degree Attainment by Gender across Places (25-34 Years)",
+            "chartType": "GROUP_BAR",
+            "axis": "PLACE",
+            "statsVars": [
+              "Count_Person_25To34Years_EducationalAttainmentAssociatesDegree_Female",
+              "Count_Person_25To34Years_EducationalAttainmentAssociatesDegree_Male"
+            ],
+            "denominator": [
+              "Count_Person_25To34Years_Female",
+              "Count_Person_25To34Years_Male"
+            ],
+            "scaling": 100,
+            "unit": "%",
+            "source": "US Census",
+            "url": "https://www.census.gov/"
+          },
+          {
+            "title": "Rate of Bachelor's Degree Attainment by Gender across Places (25-34 Years)",
+            "chartType": "GROUP_BAR",
+            "axis": "PLACE",
+            "statsVars": [
+              "Count_Person_25To34Years_EducationalAttainmentBachelorsDegree_Female",
+              "Count_Person_25To34Years_EducationalAttainmentBachelorsDegree_Male"
+            ],
+            "denominator": [
+              "Count_Person_25To34Years_Female",
+              "Count_Person_25To34Years_Male"
+            ],
+            "scaling": 100,
+            "unit": "%",
+            "source": "US Census",
+            "url": "https://www.census.gov/"
+          },
+          {
+            "title": "Rate of Graduate or Professional Degree Attainment by Gender across Places (25-34 Years)",
+            "chartType": "GROUP_BAR",
+            "axis": "PLACE",
+            "statsVars": [
+              "Count_Person_25To34Years_EducationalAttainmentGraduateOrProfessionalDegree_Female",
+              "Count_Person_25To34Years_EducationalAttainmentGraduateOrProfessionalDegree_Male"
+            ],
+            "denominator": [
+              "Count_Person_25To34Years_Female",
+              "Count_Person_25To34Years_Male"
+            ],
+            "scaling": 100,
+            "unit": "%",
+            "source": "US Census",
+            "url": "https://www.census.gov/"
+          },
+          {
+            "title": "Rate of Associate Degree Attainment by Gender Over Time (25-34 Years)",
+            "chartType": "GROUP_BAR",
+            "axis": "TIME",
+            "statsVars": [
+              "Count_Person_25To34Years_EducationalAttainmentAssociatesDegree_Female",
+              "Count_Person_25To34Years_EducationalAttainmentAssociatesDegree_Male"
+            ],
+            "denominator": [
+              "Count_Person_25To34Years_Female",
+              "Count_Person_25To34Years_Male"
+            ],
+            "scaling": 100,
+            "unit": "%",
+            "source": "US Census",
+            "url": "https://www.census.gov/"
+          },
+          {
+            "title": "Rate of Bachelor's Degree Attainment by Gender Over Time (25-34 Years)",
+            "chartType": "GROUP_BAR",
+            "axis": "TIME",
+            "statsVars": [
+              "Count_Person_25To34Years_EducationalAttainmentBachelorsDegree_Female",
+              "Count_Person_25To34Years_EducationalAttainmentBachelorsDegree_Male"
+            ],
+            "denominator": [
+              "Count_Person_25To34Years_Female",
+              "Count_Person_25To34Years_Male"
+            ],
+            "scaling": 100,
+            "unit": "%",
+            "source": "US Census",
+            "url": "https://www.census.gov/"
+          },
+          {
+            "title": "Rate of Graduate or Professional Degree Attainment by Gender Over Time (25-34 Years)",
+            "chartType": "GROUP_BAR",
+            "axis": "TIME",
+            "statsVars": [
+              "Count_Person_25To34Years_EducationalAttainmentGraduateOrProfessionalDegree_Female",
+              "Count_Person_25To34Years_EducationalAttainmentGraduateOrProfessionalDegree_Male"
+            ],
+            "denominator": [
+              "Count_Person_25To34Years_Female",
+              "Count_Person_25To34Years_Male"
+            ],
+            "scaling": 100,
+            "unit": "%",
+            "source": "US Census",
+            "url": "https://www.census.gov/"
+          }
+        ]
+      }
+    ]
+  },
+  {
     "label": "Economics",
     "charts": [
       {
@@ -1031,8 +1456,8 @@
             "chartType": "GROUP_BAR",
             "axis": "TIME",
             "statsVars": [
-              "Count_Person_Male",
-              "Count_Person_Female"
+              "Count_Person_Female",
+              "Count_Person_Male"
             ],
             "source": "US Census",
             "url": "https://www.census.gov/"
