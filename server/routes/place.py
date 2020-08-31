@@ -35,7 +35,7 @@ bp = flask.Blueprint(
 def place():
     place_dcid = flask.request.args.get('dcid')
     if not place_dcid:
-        return flask.redirect(flask.url_for('place.place', dcid='country/USA'))
+        return flask.redirect(flask.url_for('place.place', dcid='geoId/0649670'))
     place_type = place_api.get_place_type(place_dcid)
     place_names = place_api.get_property_value(place_dcid, 'name')
     if place_names:
