@@ -186,6 +186,16 @@ def read_stat_var():
                 se = {'crimeType': 'ViolentCrime'}
             elif v in ['MotorVehicleTheft', 'LarcenyTheft', 'Burglary']:
                 se = {'crimeType': 'PropertyCrime'}
+        if 'testResult' in prop_val:
+            v = prop_val.get('testResult', '')
+            if v in ['Negative', 'Positive', 'Ready']:
+                se = {'testResult': 'TestResults'}
+        if 'medicalStatus' in prop_val:
+            v = prop_val.get('medicalStatus', '')
+            if v in ['ConfirmedCase', 'ConfirmedOrProbableCase', 'PatientDeceased',
+                    'PatientHospitalized', 'PatientInICU', 'PatientOnVentilator',
+                    'PatientRecovered']:
+                se = {'medicalStatus': 'PatientStatus'}
         # create the statsVar object
         sv = StatsVar(sv_dict["populationType"],
                       sv_dict["measuredProperty"],

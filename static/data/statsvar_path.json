@@ -3,7 +3,7 @@
   0,
   0
  ],
- "LifeExpectancy_Person": [
+ "Count_Person_PerArea": [
   0,
   1
  ],
@@ -15,7 +15,7 @@
   0,
   3
  ],
- "Count_Person_PerArea": [
+ "LifeExpectancy_Person": [
   0,
   4
  ],
@@ -16666,13 +16666,13 @@
   2,
   0
  ],
- "Count_CriminalActivities_MotorVehicleTheft": [
+ "Count_CriminalActivities_LarcenyTheft": [
   1,
   0,
   2,
   1
  ],
- "Count_CriminalActivities_LarcenyTheft": [
+ "Count_CriminalActivities_MotorVehicleTheft": [
   1,
   0,
   2,
@@ -16683,13 +16683,13 @@
   0,
   3
  ],
- "Count_CriminalActivities_ForcibleRape": [
+ "Count_CriminalActivities_AggravatedAssault": [
   1,
   0,
   3,
   0
  ],
- "Count_CriminalActivities_Robbery": [
+ "Count_CriminalActivities_ForcibleRape": [
   1,
   0,
   3,
@@ -16701,7 +16701,7 @@
   3,
   2
  ],
- "Count_CriminalActivities_AggravatedAssault": [
+ "Count_CriminalActivities_Robbery": [
   1,
   0,
   3,
@@ -16797,7 +16797,7 @@
   3,
   15
  ],
- "UnemploymentRate_Person": [
+ "Count_Person_Employed": [
   3,
   0
  ],
@@ -16805,11 +16805,11 @@
   3,
   1
  ],
- "Count_Person_Employed": [
+ "Count_Person_Unemployed": [
   3,
   2
  ],
- "Count_Person_Unemployed": [
+ "UnemploymentRate_Person": [
   3,
   3
  ],
@@ -28938,113 +28938,146 @@
   4,
   77
  ],
- "CumulativeCount_Person_COVID19PCRTest": [
-  5,
-  0
- ],
  "CumulativeCount_MedicalConditionIncident_COVID_19_ConfirmedCase": [
   5,
-  1,
+  0,
+  0,
   0,
   0
  ],
  "IncrementalCount_MedicalConditionIncident_COVID_19_ConfirmedCase": [
   5,
-  1,
+  0,
+  0,
   0,
   1
  ],
  "CumulativeCount_MedicalConditionIncident_COVID_19_ConfirmedOrProbableCase": [
   5,
-  1,
+  0,
+  0,
   1,
   0
  ],
  "IncrementalCount_MedicalConditionIncident_COVID_19_ConfirmedOrProbableCase": [
   5,
-  1,
+  0,
+  0,
   1,
   1
  ],
  "CumulativeCount_MedicalConditionIncident_COVID_19_PatientDeceased": [
   5,
-  1,
+  0,
+  0,
   2,
   0
  ],
  "IncrementalCount_MedicalConditionIncident_COVID_19_PatientDeceased": [
   5,
-  1,
+  0,
+  0,
   2,
   1
  ],
- "CumulativeCount_MedicalConditionIncident_COVID_19_PatientHospitalized": [
+ "Count_MedicalConditionIncident_COVID_19_PatientHospitalized": [
   5,
-  1,
+  0,
+  0,
   3,
   0
  ],
- "Count_MedicalConditionIncident_COVID_19_PatientHospitalized": [
+ "CumulativeCount_MedicalConditionIncident_COVID_19_PatientHospitalized": [
   5,
-  1,
+  0,
+  0,
   3,
   1
  ],
  "IncrementalCount_MedicalConditionIncident_COVID_19_PatientHospitalized": [
   5,
-  1,
+  0,
+  0,
   3,
   2
  ],
- "CumulativeCount_MedicalConditionIncident_COVID_19_PatientInICU": [
+ "Count_MedicalConditionIncident_COVID_19_PatientInICU": [
   5,
-  1,
+  0,
+  0,
   4,
   0
  ],
- "Count_MedicalConditionIncident_COVID_19_PatientInICU": [
+ "CumulativeCount_MedicalConditionIncident_COVID_19_PatientInICU": [
   5,
-  1,
+  0,
+  0,
   4,
   1
  ],
- "CumulativeCount_MedicalConditionIncident_COVID_19_PatientOnVentilator": [
+ "Count_MedicalConditionIncident_COVID_19_PatientOnVentilator": [
   5,
-  1,
+  0,
+  0,
   5,
   0
  ],
- "Count_MedicalConditionIncident_COVID_19_PatientOnVentilator": [
+ "CumulativeCount_MedicalConditionIncident_COVID_19_PatientOnVentilator": [
   5,
-  1,
+  0,
+  0,
   5,
   1
  ],
  "CumulativeCount_MedicalConditionIncident_COVID_19_PatientRecovered": [
   5,
-  1,
+  0,
+  0,
   6,
   0
  ],
  "PolicyExtent_Legislation_COVID19Pandemic_GovernmentOrganization_ContactTracing": [
   5,
-  2,
+  1,
   0
  ],
  "PolicyExtent_Legislation_COVID19Pandemic_GovernmentOrganization_GovernmentBenefit_DebtOrContractRelief": [
   5,
-  2,
+  1,
   1
  ],
  "PolicyExtent_Legislation_COVID19Pandemic_GovernmentOrganization_InternationalTravelRestriction": [
   5,
-  2,
+  1,
   2
  ],
  "PolicyExtent_Legislation_COVID19Pandemic_GovernmentOrganization_TestingEligibility": [
   5,
-  2,
+  1,
   3
+ ],
+ "CumulativeCount_MedicalTest_ConditionCOVID_19_Negative": [
+  5,
+  2,
+  0,
+  0
+ ],
+ "CumulativeCount_MedicalTest_ConditionCOVID_19_Positive": [
+  5,
+  2,
+  0,
+  1
+ ],
+ "dc/7ck14dlsnxrz2": [
+  5,
+  2,
+  0,
+  2
+ ],
+ "CumulativeCount_Person_COVID19PCRTest": [
+  5,
+  2,
+  1
  ],
  "dc/n9rqwq8d3lcx3": [
   5,
@@ -35291,15 +35324,15 @@
   8,
   6
  ],
- "Count_Establishment": [
+ "WagesAnnual_Establishment": [
   10,
   0
  ],
- "WagesAnnual_Establishment": [
+ "Count_Worker": [
   10,
   1
  ],
- "Count_Worker": [
+ "Count_Establishment": [
   10,
   2
  ],
@@ -35400,13 +35433,13 @@
   0,
   1
  ],
- "Amount_EconomicActivity_GrossDomesticProduction_RealValue": [
+ "Amount_EconomicActivity_GrossDomesticProduction_Nominal_PerCapita": [
   10,
   4,
   0,
   2
  ],
- "Amount_EconomicActivity_GrossDomesticProduction_Nominal_PerCapita": [
+ "Amount_EconomicActivity_GrossDomesticProduction_RealValue": [
   10,
   4,
   0,

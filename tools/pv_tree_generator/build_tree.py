@@ -41,14 +41,15 @@ def get_root_children(pop_obs_spec_all, stats_vars_all) -> List['ValueNode']:
                     ValueLeaf(get_root_leaf_name(pos, matching_statsVar),
                               [sv.dcid for sv in matching_statsVar],
                               True,
-                              pos))
+                              pos, []))
         # property specs that is children of the value node for building
         # the next level of the tree
         props = []
         for pos in pop_obs_spec_all[vertical][1]:
             props.append((pos.cprops[0], pos))
         valueNodes.append(ValueNode(vertical, leafs, props, None,
-                                    pop_obs_spec_all[vertical], stats_vars_all))
+                                    pop_obs_spec_all[vertical], 
+                                    stats_vars_all))
     return valueNodes
 
 
@@ -74,12 +75,38 @@ class ValueLeaf:
     """
 
     def __init__(self, name: str, dcids: List[str], addLevel: bool,
-                 pos: PopObsSpec):
+                 pos: PopObsSpec, leafs: 'ValueLeaf'):
+        # when there's both super enum and multiple obs_props,
+        # the Value leaf has its child leafs
         self.name = name
         self.dcids = dcids
         self.addLevel = addLevel
         self.pop_type = pos.pop_type
+        self.leafs = leafs
 
+    def json_blob(self):
+        result = {
+                'populationType': self.pop_type,
+                'sv': self.dcids,
+                'l': text_format.format_title(self.name),
+                't': 'v',
+                'e': self.name,
+                'c': 1,
+                'cd': [],
+                'sv_set': set(self.dcids)
+                }
+        for node in self.leafs:
+            if node.addLevel:
+                result['cd'].append(node.json_blob())
+            else:
+                # add the statsVar dcids to the value ndoe
+                result['sv'].extend(node.dcids)
+            result['sv_set'].update(node.dcids)
+        if not result['sv']:
+            result['t'] = 'p'
+        if result['cd']:
+            result['cd'] = text_format.filter_and_sort(self.name, result['cd'])
+        return result
 
 class PropertyNode:
     """ Represent a property node in the PV tree
@@ -122,12 +149,40 @@ class PropertyNode:
                         matching_stats_vars[sv.pv[self.prop]].append(
                             ValueLeaf(self.pos.obs_props[idx].name,[sv.dcid], 
                                 (addLevel and not 
-                                self.pos.obs_props[idx].same_level), self.pos))
+                                self.pos.obs_props[idx].same_level), 
+                                self.pos, []))
                     else:  # create new level for super enum
-                        matching_stats_vars[sv.se[self.prop]].append(
-                            ValueLeaf(sv.pv[self.prop],
-                                      [sv.dcid], True, self.pos))
-
+                        if (addLevel and 
+                            not self.pos.obs_props[idx].same_level):
+                            # This handles the case of super enum 
+                            # with multiple obs_props. We create a leaf node
+                            # of super enum, and add the statsVars of each 
+                            # obs_props as the eafs of the super enum
+                            sv_added = False
+                            for se_leaf in matching_stats_vars[
+                                            sv.se[self.prop]]:
+                                if se_leaf.name == sv.pv[self.prop]:
+                                    # if the super enum exists
+                                    se_leaf.leafs.append(
+                                        ValueLeaf(self.pos.obs_props[idx].name,
+                                            [sv.dcid], True, self.pos, []))
+                                    sv_added = True
+                            if not sv_added:
+                                # if the super enum does not exist
+                                # create the super enum leaf and its child
+                                se_leaf = ValueLeaf(sv.pv[self.prop], 
+                                            [], True, self.pos, [])
+                                se_leaf.leafs.append(
+                                    ValueLeaf(self.pos.obs_props[idx].name,
+                                    [sv.dcid], True, self.pos, []))
+                                matching_stats_vars[
+                                    sv.se[self.prop]].append(se_leaf)                            
+                        else:
+                            # there's no additional level under super enum
+                            matching_stats_vars[sv.se[self.prop]].append(
+                                        ValueLeaf(sv.pv[self.prop],[sv.dcid], 
+                                            True, self.pos,[]))
+                        
         # create a list of value Nodes
         value_nodes = []
         child_props = self.child_props()
@@ -143,7 +198,7 @@ class PropertyNode:
         return value_nodes
 
     def child_props(self):
-        """ eturns a list of new prop and 
+        """ Returns a list of new prop and 
             corresponding specs for building the next level"""
         child_pos = []
         for c_pos in self.pop_obs_spec[self.level + 1]:
@@ -230,24 +285,15 @@ class ValueNode:
         }
         for node in self.leafs:
             if node.addLevel:
-                # create a new node as the child of the value node
-                value_blob = {
-                    'populationType': node.pop_type,
-                    'sv': node.dcids,
-                    'l': text_format.format_title(node.name),
-                    't': 'v',
-                    'e': node.name,
-                    'c': 1,
-                    'cd': [],
-                    'sv_set': set(node.dcids)
-                }
-                result['cd'].append(value_blob)
+                result['cd'].append(node.json_blob())
             else:
                 # add the statsVar dcids to the value ndoe
                 result['sv'].extend(node.dcids)
             result['sv_set'].update(node.dcids)
         if not result['sv']:
             result['t'] = 'p'
+        if result['cd']:
+            result['cd'] = text_format.filter_and_sort(self.value, result['cd'])
         return result
 
 
@@ -294,7 +340,7 @@ def build_tree_recursive(node: PropertyNode, max_level):
                 prop_blob = build_tree_recursive(prop, max_level)
                 if (prop_blob['cd']):
                     value_blob['cd'].append(prop_blob)
-    result['cd'] = text_format.filter_and_sort(node.prop, result['cd'], False)
+    result['cd'] = text_format.filter_and_sort(node.prop, result['cd'])
     return result
 
 
@@ -308,7 +354,7 @@ def post_process(root, path, statsvar_path):
     # The path is a list of numbers,
     # e.g. path of Count_Person_Upto5Years is [0, 3, 0].
     # It means its path is Oth node ("Demographics") -> 3rd node ("Age")
-    # -> 0th node ("Less than 5 Years")
+    # -> 0th node ("Less than 5 Years").
     if root['t'] == 'v':
         for sv in root['sv']:
             statsvar_path[sv] = path
@@ -337,7 +383,7 @@ def reorgnize(vertical):
     """ Move certain property nodes as child of certain leaf nodes"""
     target_leaf_node = {}
     target_property_node = collections.defaultdict(list)
-    # find the target leaf nodes and property ndoes
+    # find the target leaf nodes and property nodes
     for node in vertical['cd']:
         if node["populationType"] in ['EarthquakeEvent', 'CycloneEvent',
                                       'MortalityEvent']:
@@ -351,6 +397,17 @@ def reorgnize(vertical):
         for node in target_property_node[pop_type]:
             leaf['cd'].append(node)
             vertical['cd'].remove(node)
+    # move certain leaf node as the child of certain top level property node
+    target_leaf = None
+    target_property = None
+    for node in vertical['cd']:
+        if node['t'] == 'v' and node['sv'] == ['CumulativeCount_Person_COVID19PCRTest']:
+            target_leaf = node
+        if node['t'] == 'p' and node['l'] == "Medical Tests":
+            target_property = node
+    if target_property and target_leaf:
+        target_property['cd'].append(target_leaf)
+        vertical['cd'].remove(target_leaf)
     return
 
 

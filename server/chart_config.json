@@ -45,7 +45,7 @@
         "url": "https://www.census.gov/"
       },
       {
-        "title": "Income Comparison by Race Across Places",
+        "title": "Median Household Income by Race Across Places",
         "chartType": "GROUP_BAR",
         "axis": "PLACE",
         "statsVars": [
@@ -60,7 +60,7 @@
         "url": "https://www.census.gov/"
       },
       {
-        "title": "Income Comparison by Gender Across Places",
+        "title": "Median Income by Gender Across Places",
         "chartType": "GROUP_BAR",
         "axis": "PLACE",
         "statsVars": [
@@ -75,8 +75,8 @@
         "chartType": "LINE",
         "axis": "TIME",
         "statsVars": [
-          "UnemploymentRate_Person_Male",
-          "UnemploymentRate_Person_Female"
+          "UnemploymentRate_Person_Female",
+          "UnemploymentRate_Person_Male"
         ],
         "source": "EurostatData",
         "url": "https://ec.europa.eu/eurostat/data/database"
@@ -154,7 +154,7 @@
             "url": "https://www.census.gov/"
           },
           {
-            "title": "Income Comparison by Race Across Places",
+            "title": "Median Household Income by Race Across Places",
             "chartType": "GROUP_BAR",
             "axis": "PLACE",
             "statsVars": [
@@ -169,7 +169,7 @@
             "url": "https://www.census.gov/"
           },
           {
-            "title": "Income Comparison by Gender Across Places",
+            "title": "Median Income by Gender Across Places",
             "chartType": "GROUP_BAR",
             "axis": "PLACE",
             "statsVars": [
@@ -222,7 +222,7 @@
             "url": "https://www.census.gov/"
           },
           {
-            "title": "Income Comparison by Race Over Time",
+            "title": "Median Household Income by Race Over Time",
             "chartType": "GROUP_BAR",
             "axis": "TIME",
             "statsVars": [
@@ -237,7 +237,7 @@
             "url": "https://www.census.gov/"
           },
           {
-            "title": "Income Comparison by Gender Over Time",
+            "title": "Median Income by Gender Over Time",
             "chartType": "GROUP_BAR",
             "axis": "TIME",
             "statsVars": [
@@ -252,8 +252,8 @@
             "chartType": "LINE",
             "axis": "TIME",
             "statsVars": [
-              "UnemploymentRate_Person_Male",
-              "UnemploymentRate_Person_Female"
+              "UnemploymentRate_Person_Female",
+              "UnemploymentRate_Person_Male"
             ],
             "source": "EurostatData",
             "url": "https://ec.europa.eu/eurostat/data/database"
@@ -1456,8 +1456,8 @@
             "chartType": "GROUP_BAR",
             "axis": "TIME",
             "statsVars": [
-              "Count_Person_Male",
-              "Count_Person_Female"
+              "Count_Person_Female",
+              "Count_Person_Male"
             ],
             "source": "US Census",
             "url": "https://www.census.gov/"
