@@ -565,3 +565,84 @@ test("Per capita with specified denominators test - missing place data", () => {
     ]);
   });
 });
+
+test("getTimeGroupWithStatsVar with missing data", () => {
+  mockedAxios.get.mockImplementation((url: string) => {
+    if (url === "/api/stats/Count_Person_Female?&dcid=geoId/05") {
+      return Promise.resolve({
+        data: {
+          "geoId/05": {
+            data: {
+              "2012": 150,
+              "2013": 0,
+            },
+            placeName: "Arkansas",
+            provenanceDomain: "source1",
+          },
+        },
+      });
+    } else if (url === "/api/stats/Count_Person_Male?&dcid=geoId/05") {
+      return Promise.resolve({
+        data: {
+          "geoId/05": {
+            data: {
+              "2011": 11000,
+              "2012": 13000,
+            },
+            placeName: "Arkansas",
+            provenanceDomain: "source1",
+          },
+        },
+      });
+    }
+  });
+
+  return fetchStatsData(
+    ["geoId/05"],
+    ["Count_Person_Female", "Count_Person_Male"]
+  ).then((data) => {
+    expect(data).toEqual({
+      data: {
+        Count_Person_Female: {
+          "geoId/05": {
+            data: {
+              "2012": 150,
+              "2013": 0,
+            },
+            placeName: "Arkansas",
+            provenanceDomain: "source1",
+          },
+        },
+        Count_Person_Male: {
+          "geoId/05": {
+            data: {
+              "2011": 11000,
+              "2012": 13000,
+            },
+            placeName: "Arkansas",
+            provenanceDomain: "source1",
+          },
+        },
+      },
+      dates: ["2011", "2012", "2013"],
+      places: ["geoId/05"],
+      sources: new Set(["source1"]),
+      statsVars: ["Count_Person_Female", "Count_Person_Male"],
+    });
+
+    expect(data.getTimeGroupWithStatsVar("geoId/05")).toEqual([
+      new DataGroup("2011", [
+        { label: "Female", value: 0 },
+        { label: "Male", value: 11000 },
+      ]),
+      new DataGroup("2012", [
+        { label: "Female", value: 150 },
+        { label: "Male", value: 13000 },
+      ]),
+      new DataGroup("2013", [
+        { label: "Female", value: 0 },
+        { label: "Male", value: 0 },
+      ]),
+    ]);
+  });
+});

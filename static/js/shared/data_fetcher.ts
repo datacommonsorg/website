@@ -144,9 +144,14 @@ class StatsData {
       for (const statsVar of this.statsVars) {
         if (!this.data[statsVar][place]) continue;
         const timeSeries = this.data[statsVar][place];
+        // TODO: Using 0 to handle missing values for now. In the future, use another treatment.
+        let value = 0;
+        if (timeSeries.data[date]) {
+          value = timeSeries.data[date];
+        }
         dataPoints.push({
           label: STATS_VAR_TEXT[statsVar],
-          value: timeSeries.data[date],
+          value: value,
         });
       }
       result.push(new DataGroup(date, dataPoints));
