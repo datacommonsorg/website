@@ -374,6 +374,12 @@ def api_ranking(dcid):
         if len(selected_parents) == 3:
             break
     result = collections.defaultdict(list)
+    # Crime stats var is separted from RANKING_STATS as it uses perCapita
+    # option.
+    # TOOD(shifucun): merge this once https://github.com/datacommonsorg/mixer/issues/262 is fixed.
+    crime_statsvar = {
+        'Count_CriminalActivities_CombinedCrime': 'Highest Crime Per Capita'
+    }
     for parent in selected_parents:
         stats_var_string = '^'.join(RANKING_STATS.keys())
         response = get_related_place(dcid,
@@ -385,13 +391,6 @@ def api_ranking(dcid):
                 'name': parent_names[parent],
                 'data': data
             })
-
-        # Crime stats var is separted from RANKING_STATS as it uses perCapita
-        # option.
-        # TOOD(shifucun): merge this once https://github.com/datacommonsorg/mixer/issues/262 is fixed.
-        crime_statsvar = {
-            'Count_CriminalActivities_CombinedCrime': 'Highest Crime Per Capita'
-        }
         response = get_related_place(dcid,
                                      '^'.join(crime_statsvar.keys()),
                                      same_place_type=True,
