@@ -315,9 +315,16 @@ def get_related_place(dcid,
 @bp.route('/similar/<stats_var>/<path:dcid>')
 def api_similar_places(stats_var, dcid):
     """
-    Get the similar places for a given place by stats var.
+    Get the similar places for a given place by stats var within the same place.
     """
+    parents = json.loads(parent_places(dcid))
+    # scope similar places to the same country if possible
+    parent_dcid = None
+    if parents and len(parents):
+        if len(parents) >= 2:  # has [..., country, continent]
+            parent_dcid = parents[-2]['dcid']
     result = dc.get_related_place(dcid, [stats_var],
+                                  within_place=parent_dcid,
                                   same_place_type=True).get(stats_var, {})
     return Response(json.dumps(result), 200, mimetype='application/json')
 
