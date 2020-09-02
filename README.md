@@ -74,6 +74,11 @@ the environment variable in your ~/.bash_profile or ~/.bashrc file
 export GOOGLE_APPLICATION_CREDENTIALS=<JSON_CREDENTIAL_PATH>
 ```
 
+#### Install node.js
+
+Before running client-side tests and packages, install [nodejs](https://nodejs.org/en/download/)
+
+
 #### Install web browser and webdriver
 
 Before running the tests, install the browser and webdriver. Here we recommend you use Google Chrome browser and ChromeDriver.
