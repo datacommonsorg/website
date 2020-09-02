@@ -173,7 +173,7 @@ function getObsName(obs) {
       } else {
         name_parts.push(
           `, ${obs["measuredProperty"]}:${stats.replace("Value", "")}=${
-            obs[stats]
+          obs[stats]
           }`
         );
       }
@@ -854,8 +854,8 @@ function renderKGPage(
                 textView,
                 pvs,
                 prop.split(",")[0] +
-                  " " +
-                  util.getStatsString(currData[0], richTitle)
+                " " +
+                util.getStatsString(currData[0], richTitle)
               );
               oneCard.render();
               populationElem.appendChild(cardElem);
@@ -1015,7 +1015,9 @@ window.onload = () => {
   // Remove predicate that should not be displayed.
   outArcs = outArcs.filter(
     (p) =>
-      !["provenance", "kmlCoordinates", "geoJsonCoordinates"].includes(
+      !["provenance", "kmlCoordinates", "geoJsonCoordinates",
+        "geoJsonCoordinatesDP1", "geoJsonCoordinatesDP2", "geoJsonCoordinatesDP3"
+      ].includes(
         p["predicate"]
       )
   );
