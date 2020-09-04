@@ -9,28 +9,30 @@ class Config:
     TEST = False
     WEBDRIVER = False
     CACHE_TYPE = 'simple'  # Flask-Caching related configs
-    GAE_VERSION = (
-        os.environ.get('GAE_VERSION') or
-        datetime.datetime.today().strftime("%m-%d-%H-%M"))
+    GAE_VERSION = (os.environ.get('GAE_VERSION') or
+                   datetime.datetime.today().strftime("%m-%d-%H-%M"))
 
 
 class ProductionConfig(Config):
     API_PROJECT = 'datcom-mixer'
     API_ROOT = 'https://api.datacommons.org'
-    GCS_BUCKET = "datcom-browser-prod.appspot.com"
+    GCS_BUCKET = 'datcom-browser-prod.appspot.com'
+    GA_ACCOUNT = 'UA-117119267-1'
 
 
 class DevelopmentConfig(Config):
     API_PROJECT = 'datcom-mixer-staging'
     API_ROOT = 'https://datacommons.endpoints.datcom-mixer-staging.cloud.goog'
-    GCS_BUCKET = "datcom-browser-staging.appspot.com"
+    GCS_BUCKET = 'datcom-browser-staging.appspot.com'
+    GA_ACCOUNT = 'UA-117119267-2'
 
 
 class WebdriverConfig(Config):
     WEBDRIVER = True
     API_PROJECT = 'datcom-mixer-staging'
     API_ROOT = 'https://datacommons.endpoints.datcom-mixer-staging.cloud.goog'
-    GCS_BUCKET = ""
+    GCS_BUCKET = ''
+    GA_ACCOUNT = ''
 
 
 class TestConfig(Config):
@@ -38,3 +40,4 @@ class TestConfig(Config):
     API_PROJECT = 'api-project'
     API_ROOT = 'api-root'
     GCS_BUCKET = 'gcs-bucket'
+    GA_ACCOUNT = ''

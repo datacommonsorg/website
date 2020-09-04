@@ -34,6 +34,7 @@ logging.basicConfig(level=logging.DEBUG,
                     format='%(asctime)s %(levelname)s %(lineno)d : %(message)s')
 
 app = create_app()
+app.jinja_env.globals['GA_ACCOUNT'] = app.config['GA_ACCOUNT']
 
 GCS_BUCKET = app.config['GCS_BUCKET']
 _MAX_SEARCH_RESULTS = 1000
