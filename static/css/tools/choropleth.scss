@@ -20,7 +20,6 @@
 
 #map_container {
   margin-left: 5%;
-  margin-right: 12%;
 }
 
 .border {
@@ -42,9 +41,19 @@
   width: 25%;
 }
 
+#legend-container {
+  width: 400px;
+  float: right;
+  display: flex;
+  align-items: center;
+}
+
 #legend {
   float: right;
-  margin-right: 20%;
+}
+
+#date {
+  float: left;
 }
 
 #explore #percapita-link {
@@ -60,7 +69,6 @@
   float: left;
   height: 30px;
   width: 100%;
-  margin-left: 15px;
 }
 
 #hover-text-display {

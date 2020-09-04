@@ -33,7 +33,7 @@ bp = flask.Blueprint(
   url_prefix='/api/choropleth'
 )
 
-def get_latest_data(payload_for_geo):
+def get_data(payload_for_geo):
     """ Returns the most recent data as from a DataCommons API payload.
     
     Args:
@@ -44,8 +44,7 @@ def get_latest_data(payload_for_geo):
     """
     time_series = payload_for_geo.get('data')
     if not time_series: return None
-    max_date = max(time_series)
-    return time_series[max_date]
+    return time_series
 
 @bp.route('/values')
 def choropleth_values():
@@ -85,7 +84,7 @@ def choropleth_values():
     populations_by_geo = {}
     for geo_id, payload in values_by_geo.items():
         if payload and "data" in payload:
-            latest_data = get_latest_data(payload)
+            latest_data = get_data(payload)
             if latest_data:
                 populations_by_geo[geo_id] = latest_data
 
@@ -174,10 +173,11 @@ def choropleth_geo():
             # Process Statistical Observation if valid.
             if ('data' in population_by_geo.get(geo_id, [])
                     and population_by_geo[geo_id]['data']):
-                # Grab the latest available data.
-                latest_data = get_latest_data(population_by_geo[geo_id])
-                if latest_data:
-                    geo_feature["properties"]["pop"] = latest_data
+                # Grab the data.
+                data = get_data(population_by_geo[geo_id])
+                if data:
+                    max_date = max(data)
+                    geo_feature["properties"]["pop"] = data[max_date]
 
             # Add to main dataframe.
             features.append(geo_feature)

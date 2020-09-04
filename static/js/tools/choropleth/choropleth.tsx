@@ -21,6 +21,7 @@
 import React, { Component } from "react";
 import axios from "axios";
 import * as d3 from "d3";
+import ReactDOM from 'react-dom';
 
 type PropsType = {}
 
@@ -81,11 +82,12 @@ class ChoroplethMap extends Component<PropsType, StateType>{
 
     Promise.all([geoPromise, valuePromise]).then(
       (values) => {
+        const geoJson = values[0].data[0]
         const data = values[1].data[0]
         const geoIdToValues = this.filterByDate(data, "latest")
 
         this.setState({
-          geoJson: values[0].data[0],
+          geoJson: geoJson,
           values: geoIdToValues,
           data: data
         });
@@ -114,9 +116,13 @@ class ChoroplethMap extends Component<PropsType, StateType>{
 
     axios.get(baseUrl).then(
       (resp) => {
+        // Because this is the first time loading the page,
+        // filter the value by "latest" date.
         const data = resp.data[0]
         const geoIdToValues = this.filterByDate(data, "latest")
 
+        // values contains only the data for the date being observed.
+        // data contains the raw data. In case the user wants to switch date.
         this.setState({
           values: geoIdToValues,
           data: data
@@ -251,7 +257,7 @@ getMinMaxDate = (dates: string[], minMax?: 'min' | 'max'): string => {
       .select("#main-pane g.map")
       .selectAll("path")
       .data(geojson.features)
-      .attr("id", function (_, index) {
+      .attr("id", (_, index) => {
         return "geoPath/" + index;
       });
 
@@ -383,15 +389,19 @@ getMinMaxDate = (dates: string[], minMax?: 'min' | 'max'): string => {
           .attr("font-weight", "bold")
           .text(title)
       );
+
+      const dateComponent = 
+    
+      ReactDOM.render(this.datePicker(), document.getElementById('date'));
+
   };
 
   changeDate = (event) => {
     const newDate: string = event.target.value
     const data = this.state['data']
     const geoIdToValue = this.filterByDate(data, newDate)
+    // Store the new date and the new values.
     this.setState({date: newDate, values: geoIdToValue})
-    //TODO(edumorales): Investigate if this can be moved to
-    //shouldComponentUpdate.
     this.renderGeoMap();
     this.updateGeoValues();
     this.forceUpdate()
@@ -440,7 +450,7 @@ getMinMaxDate = (dates: string[], minMax?: 'min' | 'max'): string => {
       properties: {
         name: string;
         geoDcid: string;
-        pop: number,
+        pop: number;
         hasSublevel: boolean;
       };
     },
@@ -460,8 +470,6 @@ getMinMaxDate = (dates: string[], minMax?: 'min' | 'max'): string => {
         }
       }
     }
-
-    console.log(geoValue)
 
     document.getElementById("hover-text-display").innerHTML =
       name + " - " + formatGeoValue(geoValue, this.state["pc"]);
@@ -503,38 +511,50 @@ getMinMaxDate = (dates: string[], minMax?: 'min' | 'max'): string => {
     }
   };
 
+  /**
+   * Returns the complete select/dropdown component
+   * with the available dates as options.
+   */
+  datePicker = () => {
+        // Dates are not repeated, so store them as a set.
+        const allDates: Set<string> = new Set()
+        Object.entries(this.state['data'])?.forEach(([geoId, dateToValue]) => {
+          const dates = Object.keys(dateToValue)
+          dates.forEach(date => {
+            allDates.add(date)
+          })
+        })
+    
+        // Sort the dates in descending order.
+        const sortedDates = Array.from(allDates).sort().reverse()
+    
+        // Create the option components.
+        const dateComponents = sortedDates.map(date => {
+          return <option key={date} value={date}>{date}</option>
+          })
+
+        // Return the select component.
+        return (
+          <select onChange={this.changeDate} value={this.state['date']}>
+            {[<option value={"latest"}>
+              Latest Date
+              </option>,
+              ...dateComponents]}
+          </select>
+        )
+  }
+
   render = (): JSX.Element => {
     // TODO(fpernice-google): Handle window resize event to update map size.
     const w = window.innerWidth;
     const h = window.innerHeight;
-    // Dates are not repeated, so store them as a set.
-    const allDates: Set<string> = new Set()
-    Object.entries(this.state['data'])?.forEach(([geoId, dateToValue]) => {
-      const dates = Object.keys(dateToValue)
-      dates.forEach(date => {
-        allDates.add(date)
-      })
-    })
-
-    // Sort the dates and reverse so that 
-    const sortedDates = Array.from(allDates).sort((a, b) => Number(a > b))
-
-    const dateComponents = sortedDates.map(date => {
-      return <option key={date} value={date}>{date}</option>
-      })
 
     return (
       <>
-      <div style={{textAlign: 'center'}}>
-        <select onChange={this.changeDate} value={this.state['date']}>
-          <label>Pick a date:</label>
-          {[<option value={"latest"}>Latest Date</option>, ...dateComponents]}
-        </select>
-        </div>
         <svg
           id="map_container"
           width={`${(w * 2) / 3}px`}
-          height={`${(h * 2) / 3}px`}
+          height={`${(h * 2) / 3.5}px`}
         >
           <g className="map"/>
         </svg>
@@ -566,7 +586,7 @@ const buildChoroplethParams = (fieldsToInclude: string[]): string =>  {
  * @param {string} human-readable current geo, e.g. United States when geoDcid
  *                 is country/USA.
  */
-function redirectToGeo(geoDcid: string, curGeo: string): void {
+const redirectToGeo = (geoDcid: string, curGeo: string): void => {
   const url = new URL(window.location.href);
 
   let baseUrl = "/tools/choropleth";
@@ -586,15 +606,15 @@ function redirectToGeo(geoDcid: string, curGeo: string): void {
 
 /**
  * Generates the breadcrumbs text from browser url.
- * @param {string} human-readable current geo to display at end of list of
- *                 hierarchy of locations.
+ * @param {string} human-readable current geo to display
+ * at end of list of hierarchy of locations.
  */
-function generateBreadCrumbs(curGeo: string): void {
+const generateBreadCrumbs = (curGeo: string): void => {
   const url = new URL(window.location.href);
 
   const breadcrumbs = url.searchParams.get("bc");
-  if (breadcrumbs != null && breadcrumbs !== "") {
-    const breadcrumbsDisplay = document.getElementById("breadcrumbs");
+
+  if (breadcrumbs) {
     const crumbs = breadcrumbs.split(";");
 
     // Build url for each reference in the breadcrumbs.
@@ -603,20 +623,21 @@ function generateBreadCrumbs(curGeo: string): void {
     baseUrl += "&geoDcid=";
 
     let breadcrumbsUpto = "";
-    for (const index in crumbs) {
-      // The geoDcid reference and human-readable curGeo are separated by a '~'.
-      const levelRef = crumbs[index].split("~")[0];
-      const humanName = crumbs[index].split("~")[1];
 
-      if (levelRef !== "") {
-        // TODO(iancostello): Turn into react component to sanitize.
-        const currUrl = baseUrl + levelRef + "&bc=" + breadcrumbsUpto;
-        breadcrumbsDisplay.innerHTML +=
-          '<a href="' + currUrl + '">' + humanName + "</a>" + " > ";
-        breadcrumbsUpto += crumbs[index] + ";";
-      }
-    }
-    breadcrumbsDisplay.innerHTML += curGeo;
+
+    const breadcrumbsDisplay = crumbs.map(crumb => {
+      // The geoDcid reference and human-readable curGeo are separated by a '~'.	
+      const [levelRef, humanName] = crumb.split("~");
+      const currUrl = baseUrl + levelRef + "&bc=" + breadcrumbsUpto;
+      breadcrumbsUpto += crumb + ";";
+      if (levelRef) return <a href={currUrl}>{humanName + " > "}</a>
+    }).filter(obj => obj) // Ommit any null components.
+
+    // Add breadcrumbs + currentgeoId
+    // Example: "USA" > "FL" > "Miami-Dade"
+    // Where Miami-Dade is the current id
+    ReactDOM.render([breadcrumbsDisplay, curGeo],
+      document.getElementById('breadcrumbs'));
   }
 }
 
@@ -647,7 +668,7 @@ const determineColorPalette = (dict, pc: boolean, popMap): number[] => {
   // Find 9 values with equal separation from one another.
   const steps = 9;
   if (len >= steps) {
-    return d3.range(0, steps).map(function (d) {
+    return d3.range(0, steps).map(d => {
       return values[Math.floor(((len - 1) * d) / (steps - 1))];
     });
   } else {
@@ -657,7 +678,7 @@ const determineColorPalette = (dict, pc: boolean, popMap): number[] => {
     );
     return [0, 0, 0, 0, 0, 0, 0, 0, 0];
   }
-}
+}  
 
 /**
  * Returns a nicely formatted hover value for the value of statistical variables

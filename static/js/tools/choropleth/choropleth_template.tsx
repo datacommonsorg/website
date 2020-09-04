@@ -165,7 +165,10 @@ class MainPane extends Component {
                 ref={this.state && this.state["choroplethMap"]}
               ></ChoroplethMap>
             </div>
-            <div id="legend"></div>
+            <div id="legend-container">
+              <div id="date"></div>
+              <div id="legend"></div>
+            </div>
           </React.Fragment>
         </div>
       </div>
