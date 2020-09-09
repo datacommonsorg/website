@@ -53,18 +53,21 @@ class StatsData {
     [statsVar: string]: StatApiResponse;
   };
   sources: Set<string>;
+  dateToSelect: string;
 
   constructor(
     places: string[],
     statsVars: string[],
     dates: string[],
-    data: { [statsVar: string]: StatApiResponse }
+    data: { [statsVar: string]: StatApiResponse },
+    dateToSelect: string
   ) {
     this.places = places;
     this.statsVars = statsVars;
     this.dates = dates;
     this.data = data;
     this.sources = new Set<string>();
+    this.dateToSelect = dateToSelect;
   }
 
   /**
@@ -75,7 +78,7 @@ class StatsData {
    */
   getPlaceGroupWithStatsVar(date?: string): DataGroup[] {
     if (!date) {
-      date = this.dates.slice(-1)[0];
+      date = this.dateToSelect;
     }
     const result: DataGroup[] = [];
     for (const place of this.places) {
@@ -176,7 +179,7 @@ class StatsData {
       place = this.places[0];
     }
     if (!date) {
-      date = this.dates.slice(-1)[0];
+      date = this.dateToSelect;
     }
     const result: DataPoint[] = [];
     for (const statsVar of this.statsVars) {
@@ -184,7 +187,7 @@ class StatsData {
       const timeSeries = this.data[statsVar][place];
       result.push({
         label: STATS_VAR_TEXT[statsVar],
-        value: timeSeries.data[date],
+        value: timeSeries.data[date] || 0,
       });
     }
     return result;
@@ -266,8 +269,9 @@ function getStatsDataFromCachedData(
     );
     return;
   }
-  const result = new StatsData(places, statsVars, [], {});
-  const dates: Set<string> = new Set();
+  const result = new StatsData(places, statsVars, [], {}, "");
+  const dates: { [key: string]: number } = {};
+  const numStatVarsPerPlace: { [key: string]: number } = {};
   for (let i = 0; i < statsVars.length; i++) {
     const sv = statsVars[i];
     result.data[sv] = statApiResponseFromCacheData(sv, places, cachedData);
@@ -285,16 +289,40 @@ function getStatsDataFromCachedData(
       );
     }
     for (const place of places) {
+      if (!(place in numStatVarsPerPlace)) {
+        numStatVarsPerPlace[place] = 0;
+      }
       const timeSeries = result.data[sv][place];
       result.sources.add(timeSeries.provenanceDomain);
+      if (Object.keys(timeSeries.data).length > 0) {
+        numStatVarsPerPlace[place] = numStatVarsPerPlace[place] + 1;
+      }
       for (const date in timeSeries.data) {
-        dates.add(date);
+        if (date in dates) {
+          dates[date] = dates[date] + 1;
+        } else {
+          dates[date] = 1;
+        }
       }
     }
   }
 
-  result.dates = Array.from(dates.values());
+  result.dates = Object.keys(dates);
   result.dates.sort();
+
+  result.dateToSelect = result.dates[result.dates.length - 1];
+  const numPlacesWithData: number = places.filter(
+    (place) => numStatVarsPerPlace[place] > 0
+  ).length;
+  let idx = result.dates.length - 1;
+  while (idx >= 0) {
+    const currDate = result.dates[idx];
+    if (dates[currDate] == numPlacesWithData * statsVars.length) {
+      result.dateToSelect = currDate;
+      return result;
+    }
+    idx--;
+  }
   return result;
 }
 
@@ -400,8 +428,9 @@ function fetchStatsData(
   }
 
   return Promise.all(apiDataPromises).then((allResp) => {
-    const result = new StatsData(places, statsVars, [], {});
-    const dates: { [key: string]: boolean } = {};
+    const result = new StatsData(places, statsVars, [], {}, "");
+    const dates: { [key: string]: number } = {};
+    const numStatVarsPerPlace: { [key: string]: number } = {};
     for (let i = 0; i < numStatsVars; i++) {
       const sv = statsVars[i];
       result.data[sv] = allResp[i].data;
@@ -420,16 +449,39 @@ function fetchStatsData(
       }
       // Build the dates collection, get the union of available dates for all data
       for (const place in allResp[i].data) {
+        if (!(place in numStatVarsPerPlace)) {
+          numStatVarsPerPlace[place] = 0;
+        }
         if (!allResp[i].data[place]) continue;
         const timeSeries = allResp[i].data[place];
+        if (Object.keys(timeSeries.data).length > 0) {
+          numStatVarsPerPlace[place] = numStatVarsPerPlace[place] + 1;
+        }
         result.sources.add(timeSeries.provenanceDomain);
         for (const date in timeSeries.data) {
-          dates[date] = true;
+          if (date in dates) {
+            dates[date] = dates[date] + 1;
+          } else {
+            dates[date] = 1;
+          }
         }
       }
     }
     result.dates = Object.keys(dates);
     result.dates.sort();
+    result.dateToSelect = result.dates[result.dates.length - 1];
+    const numPlacesWithData: number = places.filter(
+      (place) => numStatVarsPerPlace[place] > 0
+    ).length;
+    let idx = result.dates.length - 1;
+    while (idx >= 0) {
+      const currDate = result.dates[idx];
+      if (dates[currDate] == numPlacesWithData * statsVars.length) {
+        result.dateToSelect = currDate;
+        return result;
+      }
+      idx--;
+    }
     return result;
   });
 }
