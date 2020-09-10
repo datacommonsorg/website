@@ -19,10 +19,6 @@ import services.datacommons as dc
 import routes.api.place as place_api
 
 from cache import cache
-# import main
-# import services.util
-
-# from flask import Blueprint, render_template
 
 bp = flask.Blueprint(
   'place',
@@ -49,4 +45,3 @@ def place():
         place_name=place_name,
         place_dcid=place_dcid,
         topic=topic)
-

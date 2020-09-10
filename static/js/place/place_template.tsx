@@ -28,7 +28,7 @@ import {
 } from "../chart/draw";
 import { CachedStatVarDataMap, fetchStatsData } from "../shared/data_fetcher";
 import { updatePageLayoutState } from "./place";
-import { STATS_VAR_TEXT } from "../shared/stats_var";
+import { STATS_VAR_LABEL } from "../shared/stats_var_labels";
 
 const chartTypeEnum = {
   LINE: "LINE",
@@ -221,7 +221,7 @@ class Ranking extends Component<RankingPropsType, RankingStateType> {
   }
 
   componentDidMount() {
-    axios.get(`api/place/ranking/${this.props.dcid}`).then((resp) => {
+    axios.get(`/api/place/ranking/${this.props.dcid}`).then((resp) => {
       this.setState({ data: resp.data });
     });
   }
@@ -752,7 +752,7 @@ class Chart extends Component<ChartPropType, ChartStateType> {
         ).then((data) => {
           const dataGroups = data.getStatsVarGroupWithTime(dcid);
           for (const dataGroup of dataGroups) {
-            dataGroup.label = STATS_VAR_TEXT[dataGroup.label];
+            dataGroup.label = STATS_VAR_LABEL[dataGroup.label];
           }
           this.setState({
             dataGroups,
@@ -824,7 +824,10 @@ class Chart extends Component<ChartPropType, ChartStateType> {
                 this.props.chartData
               ).then((data) => {
                 this.setState({
-                  dataGroups: data.getPlaceGroupWithStatsVar(),
+                  dataGroups: data.getPlaceGroupWithStatsVar(
+                    null,
+                    (dcid) => `/place?dcid=${dcid}`
+                  ),
                 });
               });
             });

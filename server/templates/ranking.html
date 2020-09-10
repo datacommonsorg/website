@@ -1,0 +1,42 @@
+{#
+ Copyright 2020 Google LLC
+
+ Licensed under the Apache License, Version 2.0 (the "License");
+ you may not use this file except in compliance with the License.
+ You may obtain a copy of the License at
+
+      http://www.apache.org/licenses/LICENSE-2.0
+
+ Unless required by applicable law or agreed to in writing, software
+ distributed under the License is distributed on an "AS IS" BASIS,
+ WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ See the License for the specific language governing permissions and
+ limitations under the License.
+#}
+{%- extends 'base.html' -%}
+
+{% set is_hide_full_footer = true %}
+{% set title = place_name + ' | Place Rankings' %} {# TODO: Add stats var to title #}
+{% set subpage_title = 'Place Rankings' %}
+
+{% block head %}
+<link rel="stylesheet" href={{url_for('static', filename='css/ranking.min.css', t=config['GAE_VERSION'])}}>
+{% endblock %}
+
+{% block content %}
+<div id="within-place-dcid" data-pwp="{{ place_dcid }}"></div>
+<div id="place-type" data-pt="{{ place_type }}"></div>
+<div id="body" class="container">
+  <div class="row">
+    <h1 class="col-12">{{ place_name }} Rankings</h1>
+  </div>
+  <div class="row mt-3">
+    <div id="main-pane" class="col-12"></div>
+  </div>
+  </div>
+</div>
+{% endblock %}
+
+{% block footer %}
+<script src={{url_for('static', filename='ranking.js', t=config['GAE_VERSION'])}}></script>
+{% endblock %}

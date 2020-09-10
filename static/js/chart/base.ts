@@ -33,9 +33,12 @@ class DataGroup {
   // For example, the label of a data point could be date string, while the
   // label of the DataGroup is a place name.
   label: string;
-  constructor(label: string, value: DataPoint[]) {
+  // Label link to show on UI element (optional)
+  link?: string;
+  constructor(label: string, value: DataPoint[], link?: string) {
     this.value = value;
     this.label = label;
+    this.link = link;
   }
   sum(): number {
     return this.value

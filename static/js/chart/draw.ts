@@ -21,6 +21,7 @@ import { DataGroup, DataPoint, PlotParams, Style, getColorFn } from "./base";
 const NUM_X_TICKS = 5;
 const NUM_Y_TICKS = 5;
 const MARGIN = { top: 20, right: 10, bottom: 30, left: 35, yAxis: 3, grid: 5 };
+const ROTATE_MARGIN_BOTTOM = 75; // margin bottom to use for histogram
 const LEGEND = {
   ratio: 0.2,
   minTextWidth: 100,
@@ -101,16 +102,34 @@ function wrap(
 function addXAxis(
   svg: d3.Selection<SVGElement, any, any, any>,
   height: number,
-  xScale: d3.AxisScale<any>
+  xScale: d3.AxisScale<any>,
+  shouldRotate?: boolean
 ) {
+  const d3Axis = d3.axisBottom(xScale).ticks(NUM_X_TICKS).tickSizeOuter(0);
+  if (shouldRotate && typeof xScale.bandwidth == "function") {
+    if (xScale.bandwidth() < 5) {
+      d3Axis.tickValues(xScale.domain().filter((v, i) => i % 5 == 0));
+    } else if (xScale.bandwidth() < 15) {
+      d3Axis.tickValues(xScale.domain().filter((v, i) => i % 3 == 0));
+    }
+  }
+
   const axis = svg
     .append("g")
     .attr("class", "x axis")
     .attr("transform", `translate(0, ${height - MARGIN.bottom})`)
-    .call(d3.axisBottom(xScale).ticks(NUM_X_TICKS).tickSizeOuter(0))
+    .call(d3Axis)
     .call((g) => g.select(".domain").remove());
 
-  if (typeof xScale.bandwidth === "function") {
+  if (shouldRotate) {
+    axis
+      .attr("transform", `translate(0, ${height - ROTATE_MARGIN_BOTTOM})`)
+      .selectAll("text")
+      .style("text-anchor", "end")
+      .attr("dx", "-.8em")
+      .attr("dy", ".15em")
+      .attr("transform", "rotate(-35)");
+  } else if (typeof xScale.bandwidth === "function") {
     axis.selectAll(".tick text").call(wrap, xScale.bandwidth());
   }
 }
@@ -162,6 +181,60 @@ function addYAxis(
         .attr("x", -width + MARGIN.left + MARGIN.yAxis)
         .attr("dy", -4)
     );
+}
+
+/**
+ * Draw histogram. Used for ranking pages.
+ * @param id
+ * @param width
+ * @param height
+ * @param dataPoints
+ * @param unit
+ */
+function drawHistogram(
+  id: string,
+  width: number,
+  height: number,
+  dataPoints: DataPoint[],
+  unit?: string
+): void {
+  const textList = dataPoints.map((dataPoint) => dataPoint.label);
+  const values = dataPoints.map((dataPoint) => dataPoint.value);
+
+  const x = d3
+    .scaleBand()
+    .domain(textList)
+    .rangeRound([MARGIN.left, width - MARGIN.right])
+    .paddingInner(0.1)
+    .paddingOuter(0.1);
+
+  const y = d3
+    .scaleLinear()
+    .domain([0, d3.max(values)])
+    .nice()
+    .rangeRound([height - ROTATE_MARGIN_BOTTOM, MARGIN.top]);
+
+  const color = getColorFn(["a"])("a"); // we only need one color
+
+  const svg = d3
+    .select("#" + id)
+    .append("svg")
+    .attr("width", width)
+    .attr("height", height);
+
+  addXAxis(svg, height, x, true);
+  addYAxis(svg, width, y, unit);
+
+  svg
+    .append("g")
+    .selectAll("rect")
+    .data(dataPoints)
+    .join("rect")
+    .attr("x", (d) => x(d.label))
+    .attr("y", (d) => y(d.value))
+    .attr("width", x.bandwidth())
+    .attr("height", (d) => y(0) - y(d.value))
+    .attr("fill", color);
 }
 
 /**
@@ -305,6 +378,10 @@ function drawGroupBarChart(
   dataGroups: DataGroup[],
   unit?: string
 ): void {
+  const labelToLink = {};
+  for (const dataGroup of dataGroups) {
+    labelToLink[dataGroup.label] = dataGroup.link;
+  }
   const keys = dataGroups[0].value.map((dp) => dp.label);
   const x0 = d3
     .scaleBand()
@@ -352,6 +429,18 @@ function drawGroupBarChart(
     .attr("fill", (d) => colorFn(d.key));
 
   appendLegendElem(id, colorFn, keys);
+
+  // Add link to place name labels.
+  svg
+    .select(".x.axis")
+    .selectAll(".tick text")
+    .filter(function (this) {
+      return !!labelToLink[d3.select(this).text()];
+    })
+    .attr("class", "place-tick")
+    .on("click", function (this) {
+      window.open(labelToLink[d3.select(this).text()], "_blank");
+    });
 }
 
 /**
@@ -648,9 +737,10 @@ function buildInChartLegend(
 
 export {
   appendLegendElem,
-  drawLineChart,
+  drawGroupBarChart,
   drawGroupLineChart,
+  drawHistogram,
+  drawLineChart,
   drawSingleBarChart,
   drawStackBarChart,
-  drawGroupBarChart,
 };

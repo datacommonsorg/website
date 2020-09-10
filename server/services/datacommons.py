@@ -59,6 +59,7 @@ API_ENDPOINTS = {
     'get_observations': '/node/observations',
     'get_pop_obs': '/bulk/pop-obs',
     'get_place_obs': '/bulk/place-obs',
+    'get_place_ranking': '/node/ranking-locations',
     'get_chart_data': '/node/chart-data',
     'get_stats': '/bulk/stats',
     # TODO(shifucun): switch back to /node/related-places after data switch.
@@ -102,6 +103,16 @@ def get_chart_data(keys):
         'keys': keys,
     }
     return send_request(url, req_json=req_json)
+
+
+def get_place_ranking(stat_vars, place_type, within_place=None):
+    url = API_ROOT + API_ENDPOINTS['get_place_ranking']
+    req_json = {
+        'stat_var_dcids': stat_vars,
+        'place_type': place_type,
+        'within_place': within_place,
+    }
+    return send_request(url, req_json=req_json, post=True, has_payload=False)
 
 
 def get_property_labels(dcids, out=True):
