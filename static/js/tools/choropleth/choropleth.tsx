@@ -25,7 +25,7 @@ import ReactDOM from 'react-dom';
 
 type PropsType = {}
 
-// TODO: get rid of "any" type.
+// TODO(eduardo): get rid of "any" type.
 type StateType = {
   geoJson: any,
   mapContent: any
@@ -141,7 +141,7 @@ class ChoroplethMap extends Component<PropsType, StateType>{
 
 
 /**
- * Gets the min or max date in a list of ISO dates.
+ * Gets the min or max date in a list of ISO 8601 dates.
  * @param: dates: a list of dates in ISO format. Example: "2020-01-02".
  * @param: minMax: whether to return "min" or "max" of dates.
  * Default is "max".
