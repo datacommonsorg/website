@@ -116,7 +116,7 @@ def get_name(dcids):
     Returns:
         A dictionary of display place names, keyed by dcid.
     """
-    return cached_name('^'.join(dcids))
+    return cached_name('^'.join((sorted(dcids))))
 
 
 @bp.route('/name')
