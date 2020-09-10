@@ -14,7 +14,11 @@
  * limitations under the License.
  */
 
-const STATS_VAR_TEXT: { [key: string]: string } = {
+/**
+ * Chart labels for each stats var. Used to distinguish between stats var in
+ * grouped charts.
+ */
+const STATS_VAR_LABEL: { [key: string]: string } = {
   // No PVs
   Median_Age_Person: "Median Age",
   Median_Income_Person: "Median Income",
@@ -32,7 +36,7 @@ const STATS_VAR_TEXT: { [key: string]: string } = {
   // Economics
   Amount_EconomicActivity_GrossDomesticProduction_Nominal: "GDP",
   GrowthRate_Amount_EconomicActivity_GrossDomesticProduction: "GDP Growth Rate",
-  Amount_Debt_Government: "GDP",
+  Amount_Debt_Government: "Government Debt",
   Amount_EconomicActivity_GrossDomesticProduction_Nominal_PerCapita:
     "GDP Per Capita",
   Amount_EconomicActivity_GrossNationalIncome_PurchasingPowerParity_PerCapita:
@@ -135,6 +139,7 @@ const STATS_VAR_TEXT: { [key: string]: string } = {
   Count_Household_IncomeOf125000To149999USDollar: "$125K to $150K",
   Count_Household_IncomeOf150000To199999USDollar: "$150K to $200K",
   Count_Household_IncomeOf200000OrMoreUSDollar: "Over $200K",
+  Median_Income_Household: "Median Household Income",
   // COVID-19
   CumulativeCount_MedicalConditionIncident_COVID_19_ConfirmedOrProbableCase:
     "COVID-19 Cumulative Cases",
@@ -223,4 +228,4 @@ const STATS_VAR_TEXT: { [key: string]: string } = {
     "Male",
 };
 
-export { STATS_VAR_TEXT };
+export { STATS_VAR_LABEL };

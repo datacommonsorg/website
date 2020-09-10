@@ -35,6 +35,10 @@ const config = {
       __dirname + "/js/place/place.ts",
       __dirname + "/css/place/place.scss",
     ],
+    ranking: [
+      __dirname + "/js/ranking/ranking.ts",
+      __dirname + "/css/ranking.scss",
+    ],
     scatter: [
       __dirname + "/js/tools/scatter.js",
       __dirname + "/css/scatter.scss",
