@@ -40,7 +40,7 @@ def get_data(payload_for_geo):
         payload_for_geo -> The payload from a get_stats call for a
             particular dcid.
     Returns:
-        The most recent data available for that dcid.
+        The full timeseries data available for that dcid.
     """
     time_series = payload_for_geo.get('data')
     if not time_series: return None
