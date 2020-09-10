@@ -82,10 +82,8 @@ def get_place_type(place_dcid):
     return chosen_type
 
 
-@bp.route('/name')
-def name():
-    """Get place names."""
-    dcids = request.args.getlist('dcid')
+@cache.memoize(timeout=3600 * 24)  # Cache for one day.
+def get_name(dcids):
     response = fetch_data('/node/property-values', {
         'dcids': dcids,
         'property': 'name',
@@ -97,6 +95,14 @@ def name():
     for dcid in dcids:
         values = response[dcid].get('out')
         result[dcid] = values[0]['value'] if values else ''
+    return result
+
+
+@bp.route('/name')
+def api_name():
+    """Get place names."""
+    dcids = request.args.getlist('dcid')
+    result = get_name(dcids)
     return Response(json.dumps(result), 200, mimetype='application/json')
 
 

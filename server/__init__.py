@@ -44,9 +44,10 @@ def create_app():
 
     # apply the blueprints to the app
     from routes import (
-        browser, dev, factcheck, redirects, place, placelist, static, tools)
+        browser, dev, factcheck, place, placelist, ranking, redirects, static, tools)
     app.register_blueprint(browser.bp)
     app.register_blueprint(dev.bp)
+    app.register_blueprint(ranking.bp)
     app.register_blueprint(redirects.bp)
     app.register_blueprint(place.bp)
     app.register_blueprint(placelist.bp)
