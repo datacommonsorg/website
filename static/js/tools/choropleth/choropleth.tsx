@@ -141,7 +141,7 @@ class ChoroplethMap extends Component<PropsType, StateType>{
 
 
 /**
- * Gets the min or max date in a list of ISO dates.
+ * Gets the min or max date in a list of ISO 8601 dates.
  * @param: dates: a list of dates in ISO format. Example: "2020-01-02".
  * @param: minMax: whether to return "min" or "max" of dates.
  * Default is "max".
