@@ -118,6 +118,7 @@ test("fetch stats data", () => {
       places: ["geoId/05", "geoId/06"],
       statsVars: ["Count_Person", "Count_Person_Male"],
       sources: new Set(["source1", "source2"]),
+      latestCommonDate: "2012",
     });
 
     expect(data.getPlaceGroupWithStatsVar()).toEqual([
@@ -157,6 +158,252 @@ test("fetch stats data", () => {
       { label: "Total", value: 32000 },
       { label: "Male", value: 16000 },
     ]);
+  });
+});
+
+test("fetch stats data where latest date with data for all stat vars is not the latest date", () => {
+  const testData = {
+    "geoId/05": {
+      data: {
+        "2011": 21000,
+        "2012": 22000,
+      },
+      placeName: "Arkansas",
+      provenanceDomain: "source1",
+    },
+    "geoId/06": {
+      data: {
+        "2011": 31000,
+        "2013": 32000,
+      },
+      placeName: "California",
+      provenanceDomain: "source2",
+    },
+  };
+  mockedAxios.get.mockImplementation((url: string) => {
+    if (url === "/api/stats/Count_Person?&dcid=geoId/05&dcid=geoId/06") {
+      return Promise.resolve({
+        data: testData,
+      });
+    }
+  });
+
+  return fetchStatsData(["geoId/05", "geoId/06"], ["Count_Person"]).then(
+    (data) => {
+      expect(data).toEqual({
+        data: {
+          Count_Person: testData,
+        },
+        dates: ["2011", "2012", "2013"],
+        places: ["geoId/05", "geoId/06"],
+        statsVars: ["Count_Person"],
+        sources: new Set(["source1", "source2"]),
+        latestCommonDate: "2011",
+      });
+
+      expect(data.getPlaceGroupWithStatsVar()).toEqual([
+        new DataGroup("Arkansas", [{ label: "Total", value: 21000 }]),
+        new DataGroup("California", [{ label: "Total", value: 31000 }]),
+      ]);
+
+      expect(data.getStatsVarGroupWithTime("geoId/06")).toEqual([
+        new DataGroup("Count_Person", [
+          { label: "2011", value: 31000 },
+          { label: "2012", value: null },
+          { label: "2013", value: 32000 },
+        ]),
+      ]);
+
+      expect(data.getTimeGroupWithStatsVar("geoId/06")).toEqual([
+        new DataGroup("2011", [{ label: "Total", value: 31000 }]),
+        new DataGroup("2012", [{ label: "Total", value: 0 }]),
+        new DataGroup("2013", [{ label: "Total", value: 32000 }]),
+      ]);
+
+      expect(data.getStatsPoint("geoId/06")).toEqual([
+        { label: "Total", value: 31000 },
+      ]);
+    }
+  );
+});
+
+test("fetch stats data where there is no date with data for all stat vars", () => {
+  const testData = {
+    "geoId/05": {
+      data: {
+        "2010": 21000,
+        "2013": 22000,
+      },
+      placeName: "Arkansas",
+      provenanceDomain: "source1",
+    },
+    "geoId/06": {
+      data: {
+        "2011": 31000,
+        "2012": 32000,
+      },
+      placeName: "California",
+      provenanceDomain: "source2",
+    },
+  };
+  mockedAxios.get.mockImplementation((url: string) => {
+    if (url === "/api/stats/Count_Person?&dcid=geoId/05&dcid=geoId/06") {
+      return Promise.resolve({
+        data: testData,
+      });
+    }
+  });
+
+  return fetchStatsData(["geoId/05", "geoId/06"], ["Count_Person"]).then(
+    (data) => {
+      expect(data).toEqual({
+        data: {
+          Count_Person: testData,
+        },
+        dates: ["2010", "2011", "2012", "2013"],
+        places: ["geoId/05", "geoId/06"],
+        statsVars: ["Count_Person"],
+        sources: new Set(["source1", "source2"]),
+        latestCommonDate: "2013",
+      });
+
+      expect(data.getPlaceGroupWithStatsVar()).toEqual([
+        new DataGroup("Arkansas", [{ label: "Total", value: 22000 }]),
+        new DataGroup("California", [{ label: "Total", value: 0 }]),
+      ]);
+
+      expect(data.getStatsVarGroupWithTime("geoId/06")).toEqual([
+        new DataGroup("Count_Person", [
+          { label: "2010", value: null },
+          { label: "2011", value: 31000 },
+          { label: "2012", value: 32000 },
+          { label: "2013", value: null },
+        ]),
+      ]);
+
+      expect(data.getTimeGroupWithStatsVar("geoId/06")).toEqual([
+        new DataGroup("2010", [{ label: "Total", value: 0 }]),
+        new DataGroup("2011", [{ label: "Total", value: 31000 }]),
+        new DataGroup("2012", [{ label: "Total", value: 32000 }]),
+        new DataGroup("2013", [{ label: "Total", value: 0 }]),
+      ]);
+
+      expect(data.getStatsPoint("geoId/06")).toEqual([
+        { label: "Total", value: 0 },
+      ]);
+    }
+  );
+});
+
+test("fetch stats data from cache where latest date with data for all stat vars is not the latest date", () => {
+  return fetchStatsData(
+    ["geoId/05", "geoId/06"],
+    ["Count_Person"],
+    false,
+    1,
+    [],
+    {
+      "geoId/05": {
+        Count_Person: {
+          data: {
+            "2011": 1300,
+            "2012": 2100,
+          },
+          provenanceDomain: "source1",
+        },
+      },
+      "geoId/06": {
+        Count_Person: {
+          data: {
+            "2011": 200,
+            "2013": 300,
+          },
+          provenanceDomain: "source2",
+        },
+      },
+    }
+  ).then((data) => {
+    expect(data).toEqual({
+      data: {
+        Count_Person: {
+          "geoId/05": {
+            data: {
+              "2011": 1300,
+              "2012": 2100,
+            },
+            provenanceDomain: "source1",
+          },
+          "geoId/06": {
+            data: {
+              "2011": 200,
+              "2013": 300,
+            },
+            provenanceDomain: "source2",
+          },
+        },
+      },
+      dates: ["2011", "2012", "2013"],
+      places: ["geoId/05", "geoId/06"],
+      statsVars: ["Count_Person"],
+      sources: new Set(["source1", "source2"]),
+      latestCommonDate: "2011",
+    });
+  });
+});
+
+test("fetch stats data from cache where there is no date with data for all stat vars", () => {
+  return fetchStatsData(
+    ["geoId/05", "geoId/06"],
+    ["Count_Person"],
+    false,
+    1,
+    [],
+    {
+      "geoId/05": {
+        Count_Person: {
+          data: {
+            "2010": 1300,
+            "2012": 2100,
+          },
+          provenanceDomain: "source1",
+        },
+      },
+      "geoId/06": {
+        Count_Person: {
+          data: {
+            "2011": 200,
+            "2013": 300,
+          },
+          provenanceDomain: "source2",
+        },
+      },
+    }
+  ).then((data) => {
+    expect(data).toEqual({
+      data: {
+        Count_Person: {
+          "geoId/05": {
+            data: {
+              "2010": 1300,
+              "2012": 2100,
+            },
+            provenanceDomain: "source1",
+          },
+          "geoId/06": {
+            data: {
+              "2011": 200,
+              "2013": 300,
+            },
+            provenanceDomain: "source2",
+          },
+        },
+      },
+      dates: ["2010", "2011", "2012", "2013"],
+      places: ["geoId/05", "geoId/06"],
+      statsVars: ["Count_Person"],
+      sources: new Set(["source1", "source2"]),
+      latestCommonDate: "2013",
+    });
   });
 });
 
@@ -210,6 +457,7 @@ test("fetch stats data with per capita with population size 0", () => {
         places: ["geoId/05"],
         sources: new Set(["source1"]),
         statsVars: ["Count_Person_Male"],
+        latestCommonDate: "2012",
       });
     }
   );
@@ -217,17 +465,23 @@ test("fetch stats data with per capita with population size 0", () => {
 
 test("StatsData test", () => {
   // Test partial data
-  const statsData = new StatsData([], [], [], {
-    Count_Person: {
-      "geoId/01": null,
-      "geoId/02": {
-        placeDcid: "geoId/02",
-        placeName: "Place2",
-        provenanceDomain: "test.domain",
-        data: { "1990": 10, "1992": 20 },
+  const statsData = new StatsData(
+    [],
+    [],
+    [],
+    {
+      Count_Person: {
+        "geoId/01": null,
+        "geoId/02": {
+          placeDcid: "geoId/02",
+          placeName: "Place2",
+          provenanceDomain: "test.domain",
+          data: { "1990": 10, "1992": 20 },
+        },
       },
     },
-  });
+    ""
+  );
   expect(statsData.getStatsVarGroupWithTime("geoId/01")).toEqual([]);
 });
 
@@ -330,6 +584,7 @@ test("Per capita with specified denominators test", () => {
       places: ["geoId/05", "geoId/06"],
       statsVars: ["Count_Person_Male", "Count_Person_Female"],
       sources: new Set(["source1", "source2"]),
+      latestCommonDate: "2012",
     });
 
     expect(data.getPlaceGroupWithStatsVar()).toEqual([
@@ -453,6 +708,7 @@ test("Per capita with specified denominators test from cache", () => {
       places: ["geoId/05", "geoId/06"],
       statsVars: ["Count_Person_Male", "Count_Person_Female"],
       sources: new Set(["source1", "source2"]),
+      latestCommonDate: "2012",
     });
   });
 });
@@ -535,6 +791,7 @@ test("Per capita with specified denominators test - missing place data", () => {
         "UnemploymentRate_Person_Female",
       ],
       sources: new Set(["source1", "source2"]),
+      latestCommonDate: "2012",
     });
 
     expect(data.getPlaceGroupWithStatsVar()).toEqual([
@@ -567,82 +824,47 @@ test("Per capita with specified denominators test - missing place data", () => {
 });
 
 test("getTimeGroupWithStatsVar with missing data", () => {
-  mockedAxios.get.mockImplementation((url: string) => {
-    if (url === "/api/stats/Count_Person_Female?&dcid=geoId/05") {
-      return Promise.resolve({
-        data: {
-          "geoId/05": {
-            data: {
-              "2012": 150,
-              "2013": 0,
-            },
-            placeName: "Arkansas",
-            provenanceDomain: "source1",
-          },
-        },
-      });
-    } else if (url === "/api/stats/Count_Person_Male?&dcid=geoId/05") {
-      return Promise.resolve({
-        data: {
-          "geoId/05": {
-            data: {
-              "2011": 11000,
-              "2012": 13000,
-            },
-            placeName: "Arkansas",
-            provenanceDomain: "source1",
-          },
-        },
-      });
-    }
-  });
-
-  return fetchStatsData(
+  const statsData = new StatsData(
     ["geoId/05"],
-    ["Count_Person_Female", "Count_Person_Male"]
-  ).then((data) => {
-    expect(data).toEqual({
-      data: {
-        Count_Person_Female: {
-          "geoId/05": {
-            data: {
-              "2012": 150,
-              "2013": 0,
-            },
-            placeName: "Arkansas",
-            provenanceDomain: "source1",
+    ["Count_Person_Female", "Count_Person_Male"],
+    ["2011", "2012", "2013"],
+    {
+      Count_Person_Female: {
+        "geoId/05": {
+          data: {
+            "2012": 150,
+            "2013": 0,
           },
-        },
-        Count_Person_Male: {
-          "geoId/05": {
-            data: {
-              "2011": 11000,
-              "2012": 13000,
-            },
-            placeName: "Arkansas",
-            provenanceDomain: "source1",
-          },
+          placeName: "Arkansas",
+          provenanceDomain: "source1",
         },
       },
-      dates: ["2011", "2012", "2013"],
-      places: ["geoId/05"],
-      sources: new Set(["source1"]),
-      statsVars: ["Count_Person_Female", "Count_Person_Male"],
-    });
+      Count_Person_Male: {
+        "geoId/05": {
+          data: {
+            "2011": 11000,
+            "2012": 13000,
+          },
+          placeName: "Arkansas",
+          provenanceDomain: "source1",
+        },
+      },
+    },
+    "2012"
+  );
 
-    expect(data.getTimeGroupWithStatsVar("geoId/05")).toEqual([
-      new DataGroup("2011", [
-        { label: "Female", value: 0 },
-        { label: "Male", value: 11000 },
-      ]),
-      new DataGroup("2012", [
-        { label: "Female", value: 150 },
-        { label: "Male", value: 13000 },
-      ]),
-      new DataGroup("2013", [
-        { label: "Female", value: 0 },
-        { label: "Male", value: 0 },
-      ]),
-    ]);
-  });
+  expect(statsData.getTimeGroupWithStatsVar("geoId/05")).toEqual([
+    new DataGroup("2011", [
+      { label: "Female", value: 0 },
+      { label: "Male", value: 11000 },
+    ]),
+    new DataGroup("2012", [
+      { label: "Female", value: 150 },
+      { label: "Male", value: 13000 },
+    ]),
+    new DataGroup("2013", [
+      { label: "Female", value: 0 },
+      { label: "Male", value: 0 },
+    ]),
+  ]);
 });
