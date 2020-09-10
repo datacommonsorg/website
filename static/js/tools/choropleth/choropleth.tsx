@@ -25,7 +25,7 @@ import ReactDOM from 'react-dom';
 
 type PropsType = {}
 
-// TODO: get rid of "any" type.
+// TODO(eduardo): get rid of "any" type.
 type StateType = {
   geoJson: any,
   mapContent: any
