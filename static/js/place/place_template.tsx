@@ -824,7 +824,10 @@ class Chart extends Component<ChartPropType, ChartStateType> {
                 this.props.chartData
               ).then((data) => {
                 this.setState({
-                  dataGroups: data.getPlaceGroupWithStatsVar(),
+                  dataGroups: data.getPlaceGroupWithStatsVar(
+                    null,
+                    (dcid) => `/place?dcid=${dcid}`
+                  ),
                 });
               });
             });

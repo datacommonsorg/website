@@ -140,7 +140,12 @@ function addYAxis(
           // When the y value is less than one, use the original value.
           // Otherwise 0.3 is formatted into 300m which is confusing to 300M.
           if (d > 1 || d < -1) {
-            tText = d3.formatPrefix(`.${p}`, yScale.domain()[1])(d);
+            tText = d3
+              .formatPrefix(
+                `.${p}`,
+                yScale.domain()[1]
+              )(d)
+              .replace(/G/, "B");
           }
           const dollar = unit === "$" ? "$" : "";
           const percent = unit === "%" ? "%" : "";
@@ -300,6 +305,10 @@ function drawGroupBarChart(
   dataGroups: DataGroup[],
   unit?: string
 ): void {
+  const labelToLink = {};
+  for (const dataGroup of dataGroups) {
+    labelToLink[dataGroup.label] = dataGroup.link;
+  }
   const keys = dataGroups[0].value.map((dp) => dp.label);
   const x0 = d3
     .scaleBand()
@@ -347,6 +356,18 @@ function drawGroupBarChart(
     .attr("fill", (d) => colorFn(d.key));
 
   appendLegendElem(id, colorFn, keys);
+
+  // Add link to place name labels.
+  svg
+    .select(".x.axis")
+    .selectAll(".tick text")
+    .filter(function (this) {
+      return !!labelToLink[d3.select(this).text()];
+    })
+    .attr("class", "place-tick")
+    .on("click", function (this) {
+      window.open(labelToLink[d3.select(this).text()], "_blank");
+    });
 }
 
 /**
