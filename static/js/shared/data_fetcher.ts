@@ -72,8 +72,13 @@ class StatsData {
    *
    * @param date? The date of the data point. By default pick the last date
    * in the time series.
+   *
+   * @param linkFn? An function to generate chart link from place dcid.
    */
-  getPlaceGroupWithStatsVar(date?: string): DataGroup[] {
+  getPlaceGroupWithStatsVar(
+    date?: string,
+    linkFn?: (s: string) => string
+  ): DataGroup[] {
     if (!date) {
       date = this.dates.slice(-1)[0];
     }
@@ -96,7 +101,11 @@ class StatsData {
         });
       }
       if (dataPoints.length > 0) {
-        result.push(new DataGroup(placeName, dataPoints));
+        const dg = new DataGroup(placeName, dataPoints);
+        if (linkFn) {
+          dg.link = linkFn(place);
+        }
+        result.push(dg);
       }
     }
     return result;

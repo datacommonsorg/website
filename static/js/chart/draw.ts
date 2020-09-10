@@ -305,6 +305,10 @@ function drawGroupBarChart(
   dataGroups: DataGroup[],
   unit?: string
 ): void {
+  const labelToLink = {};
+  for (const dataGroup of dataGroups) {
+    labelToLink[dataGroup.label] = dataGroup.link;
+  }
   const keys = dataGroups[0].value.map((dp) => dp.label);
   const x0 = d3
     .scaleBand()
@@ -352,6 +356,18 @@ function drawGroupBarChart(
     .attr("fill", (d) => colorFn(d.key));
 
   appendLegendElem(id, colorFn, keys);
+
+  // Add link to place name labels.
+  svg
+    .select(".x.axis")
+    .selectAll(".tick text")
+    .filter(function (this) {
+      return !!labelToLink[d3.select(this).text()];
+    })
+    .attr("class", "place-tick")
+    .on("click", function (this) {
+      window.open(labelToLink[d3.select(this).text()], "_blank");
+    });
 }
 
 /**
