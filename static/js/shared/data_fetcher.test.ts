@@ -118,7 +118,7 @@ test("fetch stats data", () => {
       places: ["geoId/05", "geoId/06"],
       statsVars: ["Count_Person", "Count_Person_Male"],
       sources: new Set(["source1", "source2"]),
-      dateToSelect: "2012",
+      latestCommonDate: "2012",
     });
 
     expect(data.getPlaceGroupWithStatsVar()).toEqual([
@@ -162,27 +162,28 @@ test("fetch stats data", () => {
 });
 
 test("fetch stats data where latest date with data for all stat vars is not the latest date", () => {
+  const testData = {
+    "geoId/05": {
+      data: {
+        "2011": 21000,
+        "2012": 22000,
+      },
+      placeName: "Arkansas",
+      provenanceDomain: "source1",
+    },
+    "geoId/06": {
+      data: {
+        "2011": 31000,
+        "2013": 32000,
+      },
+      placeName: "California",
+      provenanceDomain: "source2",
+    },
+  };
   mockedAxios.get.mockImplementation((url: string) => {
     if (url === "/api/stats/Count_Person?&dcid=geoId/05&dcid=geoId/06") {
       return Promise.resolve({
-        data: {
-          "geoId/05": {
-            data: {
-              "2011": 21000,
-              "2012": 22000,
-            },
-            placeName: "Arkansas",
-            provenanceDomain: "source1",
-          },
-          "geoId/06": {
-            data: {
-              "2011": 31000,
-              "2013": 32000,
-            },
-            placeName: "California",
-            provenanceDomain: "source2",
-          },
-        },
+        data: testData,
       });
     }
   });
@@ -191,30 +192,13 @@ test("fetch stats data where latest date with data for all stat vars is not the 
     (data) => {
       expect(data).toEqual({
         data: {
-          Count_Person: {
-            "geoId/05": {
-              data: {
-                "2011": 21000,
-                "2012": 22000,
-              },
-              placeName: "Arkansas",
-              provenanceDomain: "source1",
-            },
-            "geoId/06": {
-              data: {
-                "2011": 31000,
-                "2013": 32000,
-              },
-              placeName: "California",
-              provenanceDomain: "source2",
-            },
-          },
+          Count_Person: testData,
         },
         dates: ["2011", "2012", "2013"],
         places: ["geoId/05", "geoId/06"],
         statsVars: ["Count_Person"],
         sources: new Set(["source1", "source2"]),
-        dateToSelect: "2011",
+        latestCommonDate: "2011",
       });
 
       expect(data.getPlaceGroupWithStatsVar()).toEqual([
@@ -244,27 +228,28 @@ test("fetch stats data where latest date with data for all stat vars is not the 
 });
 
 test("fetch stats data where there is no date with data for all stat vars", () => {
+  const testData = {
+    "geoId/05": {
+      data: {
+        "2010": 21000,
+        "2013": 22000,
+      },
+      placeName: "Arkansas",
+      provenanceDomain: "source1",
+    },
+    "geoId/06": {
+      data: {
+        "2011": 31000,
+        "2012": 32000,
+      },
+      placeName: "California",
+      provenanceDomain: "source2",
+    },
+  };
   mockedAxios.get.mockImplementation((url: string) => {
     if (url === "/api/stats/Count_Person?&dcid=geoId/05&dcid=geoId/06") {
       return Promise.resolve({
-        data: {
-          "geoId/05": {
-            data: {
-              "2010": 21000,
-              "2013": 22000,
-            },
-            placeName: "Arkansas",
-            provenanceDomain: "source1",
-          },
-          "geoId/06": {
-            data: {
-              "2011": 31000,
-              "2012": 32000,
-            },
-            placeName: "California",
-            provenanceDomain: "source2",
-          },
-        },
+        data: testData,
       });
     }
   });
@@ -273,30 +258,13 @@ test("fetch stats data where there is no date with data for all stat vars", () =
     (data) => {
       expect(data).toEqual({
         data: {
-          Count_Person: {
-            "geoId/05": {
-              data: {
-                "2010": 21000,
-                "2013": 22000,
-              },
-              placeName: "Arkansas",
-              provenanceDomain: "source1",
-            },
-            "geoId/06": {
-              data: {
-                "2011": 31000,
-                "2012": 32000,
-              },
-              placeName: "California",
-              provenanceDomain: "source2",
-            },
-          },
+          Count_Person: testData,
         },
         dates: ["2010", "2011", "2012", "2013"],
         places: ["geoId/05", "geoId/06"],
         statsVars: ["Count_Person"],
         sources: new Set(["source1", "source2"]),
-        dateToSelect: "2013",
+        latestCommonDate: "2013",
       });
 
       expect(data.getPlaceGroupWithStatsVar()).toEqual([
@@ -378,7 +346,7 @@ test("fetch stats data from cache where latest date with data for all stat vars 
       places: ["geoId/05", "geoId/06"],
       statsVars: ["Count_Person"],
       sources: new Set(["source1", "source2"]),
-      dateToSelect: "2011",
+      latestCommonDate: "2011",
     });
   });
 });
@@ -434,7 +402,7 @@ test("fetch stats data from cache where there is no date with data for all stat 
       places: ["geoId/05", "geoId/06"],
       statsVars: ["Count_Person"],
       sources: new Set(["source1", "source2"]),
-      dateToSelect: "2013",
+      latestCommonDate: "2013",
     });
   });
 });
@@ -489,7 +457,7 @@ test("fetch stats data with per capita with population size 0", () => {
         places: ["geoId/05"],
         sources: new Set(["source1"]),
         statsVars: ["Count_Person_Male"],
-        dateToSelect: "2012",
+        latestCommonDate: "2012",
       });
     }
   );
@@ -616,7 +584,7 @@ test("Per capita with specified denominators test", () => {
       places: ["geoId/05", "geoId/06"],
       statsVars: ["Count_Person_Male", "Count_Person_Female"],
       sources: new Set(["source1", "source2"]),
-      dateToSelect: "2012",
+      latestCommonDate: "2012",
     });
 
     expect(data.getPlaceGroupWithStatsVar()).toEqual([
@@ -740,7 +708,7 @@ test("Per capita with specified denominators test from cache", () => {
       places: ["geoId/05", "geoId/06"],
       statsVars: ["Count_Person_Male", "Count_Person_Female"],
       sources: new Set(["source1", "source2"]),
-      dateToSelect: "2012",
+      latestCommonDate: "2012",
     });
   });
 });
@@ -823,7 +791,7 @@ test("Per capita with specified denominators test - missing place data", () => {
         "UnemploymentRate_Person_Female",
       ],
       sources: new Set(["source1", "source2"]),
-      dateToSelect: "2012",
+      latestCommonDate: "2012",
     });
 
     expect(data.getPlaceGroupWithStatsVar()).toEqual([

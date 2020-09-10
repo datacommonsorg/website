@@ -19,7 +19,7 @@ from unittest.mock import patch
 from main import app
 
 class TestRoute(unittest.TestCase):
-    
+
     @patch('routes.api.chart.dc_service.fetch_data')
     @patch('routes.api.chart.place_api.statsvars')
     def test_cache_necessary_dates(self, mock_stat_vars, mock_landing_page):

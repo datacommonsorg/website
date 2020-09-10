@@ -97,9 +97,9 @@ def keep_latest_data(timeseries):
     max_date = max(timeseries)
     return { max_date: timeseries[max_date] }
 
-    
-def keep_necessary_data(timeseries, dates):
-    """Only keep the necessary timestamped data from the timeseries
+
+def keep_specified_data(timeseries, dates):
+    """Only keep the timestamped data from the timeseries specified by the set of dates
 
     Args:
         timeseries: GetStats timeseries, dictionary of date: value
@@ -126,17 +126,16 @@ def get_landing_page_data(dcid):
     )
     return response
 
-def get_date_to_add_for_chart(chart, sv_data):
-    """Get the date for which data is needed for a specific chart
+def get_latest_common_date_for_chart(chart, sv_data):
+    """Get the latest date for which there is data for every stat var included in this chart if there is such date
     
     Args:
         chart: the chart object that we currently care about (a single chart object from chart_config.json)
         sv_data: the object returned from get_landing_page_data
     
     Returns:
-        date as a string
+        date as a string or None
     """
-    stat_vars = []
     dates = set()
     dates_initialized = False
     for sv in chart['statsVars']:
@@ -147,14 +146,15 @@ def get_date_to_add_for_chart(chart, sv_data):
                 dates.update(sv_data[sv]['data'])
         dates_initialized = True
     sorted_dates = sorted(dates)
-    date_to_add = ''
+    date_to_add = None
     if len(sorted_dates) > 0:
         date_to_add = sorted_dates[-1]
     return date_to_add
     
     
 def get_dates_for_stat_vars(chart_config, sv_data):
-    """Get the dates needed for each stat var
+    """For each stat var, get the list of dates needed for every chart it is involved in. List of dates needed are a 
+    list of the latest date for which every stat var in a chart has data for or the latest date that stat var has data for.
     
     Args:
         chart_config: the chart config from chart_config.json
@@ -168,22 +168,22 @@ def get_dates_for_stat_vars(chart_config, sv_data):
     
     for topic in chart_config:
         for chart in topic['charts']:
-            date_to_add = get_date_to_add_for_chart(chart, sv_data)
+            date_to_add = get_latest_common_date_for_chart(chart, sv_data)
             for sv in chart['statsVars']:
                 if sv in sv_data:
                     curr_date_to_add = date_to_add
-                    if date_to_add == '':
+                    if date_to_add is None:
                         curr_date_to_add = max(sv_data[sv]['data'])
                     if not sv in sv_dates:
                         sv_dates[sv] = set()
                     sv_dates[sv].add(curr_date_to_add)
         for section in topic['children']:
             for chart in section['charts']:
-                date_to_add = get_date_to_add_for_chart(chart, sv_data)
+                date_to_add = get_latest_common_date_for_chart(chart, sv_data)
                 for sv in chart['statsVars']:
                     if sv in sv_data:
                         curr_date_to_add = date_to_add
-                        if date_to_add == '':
+                        if date_to_add is None:
                             curr_date_to_add = max(sv_data[sv]['data'])
                         if not sv in sv_dates:
                             sv_dates[sv] = set()
@@ -238,13 +238,13 @@ def config(dcid):
     cached_chart_data = {}
     if chart_stats_vars.get(dcid) and len(chart_stats_vars[dcid]):
         cached_chart_data = chart_stats_vars
-        # Only keep data for the necessary dates if possible
+        # Only keep data for the specified dates or latest date if possible
         for place in cached_chart_data:
             sv_dates = get_dates_for_stat_vars(cc, cached_chart_data[place])
             for sv in cached_chart_data[place]:
                 if not sv in sv_keep_all_dates:
                     if sv in sv_dates:
-                        cached_chart_data[place][sv]['data'] = keep_necessary_data(
+                        cached_chart_data[place][sv]['data'] = keep_specified_data(
                             cached_chart_data[place][sv]['data'], sv_dates[sv])
                     else:
                         cached_chart_data[place][sv]['data'] = keep_latest_data(

@@ -53,21 +53,21 @@ class StatsData {
     [statsVar: string]: StatApiResponse;
   };
   sources: Set<string>;
-  dateToSelect: string;
+  latestCommonDate: string;
 
   constructor(
     places: string[],
     statsVars: string[],
     dates: string[],
     data: { [statsVar: string]: StatApiResponse },
-    dateToSelect: string
+    latestCommonDate: string
   ) {
     this.places = places;
     this.statsVars = statsVars;
     this.dates = dates;
     this.data = data;
     this.sources = new Set<string>();
-    this.dateToSelect = dateToSelect;
+    this.latestCommonDate = latestCommonDate;
   }
 
   /**
@@ -78,7 +78,7 @@ class StatsData {
    */
   getPlaceGroupWithStatsVar(date?: string): DataGroup[] {
     if (!date) {
-      date = this.dateToSelect;
+      date = this.latestCommonDate;
     }
     const result: DataGroup[] = [];
     for (const place of this.places) {
@@ -179,7 +179,7 @@ class StatsData {
       place = this.places[0];
     }
     if (!date) {
-      date = this.dateToSelect;
+      date = this.latestCommonDate;
     }
     const result: DataPoint[] = [];
     for (const statsVar of this.statsVars) {
@@ -270,7 +270,7 @@ function getStatsDataFromCachedData(
     return;
   }
   const result = new StatsData(places, statsVars, [], {}, "");
-  const dates: { [key: string]: number } = {};
+  const numOccurencesPerDate: { [key: string]: number } = {};
   const numStatVarsPerPlace: { [key: string]: number } = {};
   for (let i = 0; i < statsVars.length; i++) {
     const sv = statsVars[i];
@@ -298,31 +298,35 @@ function getStatsDataFromCachedData(
         numStatVarsPerPlace[place] = numStatVarsPerPlace[place] + 1;
       }
       for (const date in timeSeries.data) {
-        if (date in dates) {
-          dates[date] = dates[date] + 1;
+        if (date in numOccurencesPerDate) {
+          numOccurencesPerDate[date] = numOccurencesPerDate[date] + 1;
         } else {
-          dates[date] = 1;
+          numOccurencesPerDate[date] = 1;
         }
       }
     }
   }
 
-  result.dates = Object.keys(dates);
+  result.dates = Object.keys(numOccurencesPerDate);
   result.dates.sort();
-
-  result.dateToSelect = result.dates[result.dates.length - 1];
+  // Get the number of places that have data, then get the latest date which has data for every stat var for every place with data.
+  // If there's no such date, choose the latest date with data for any stat var
   const numPlacesWithData: number = places.filter(
     (place) => numStatVarsPerPlace[place] > 0
   ).length;
   let idx = result.dates.length - 1;
   while (idx >= 0) {
     const currDate = result.dates[idx];
-    if (dates[currDate] == numPlacesWithData * statsVars.length) {
-      result.dateToSelect = currDate;
+    if (
+      numOccurencesPerDate[currDate] ===
+      numPlacesWithData * statsVars.length
+    ) {
+      result.latestCommonDate = currDate;
       return result;
     }
     idx--;
   }
+  result.latestCommonDate = result.dates[result.dates.length - 1];
   return result;
 }
 
@@ -429,7 +433,7 @@ function fetchStatsData(
 
   return Promise.all(apiDataPromises).then((allResp) => {
     const result = new StatsData(places, statsVars, [], {}, "");
-    const dates: { [key: string]: number } = {};
+    const numOccurencesPerDate: { [key: string]: number } = {};
     const numStatVarsPerPlace: { [key: string]: number } = {};
     for (let i = 0; i < numStatsVars; i++) {
       const sv = statsVars[i];
@@ -459,29 +463,34 @@ function fetchStatsData(
         }
         result.sources.add(timeSeries.provenanceDomain);
         for (const date in timeSeries.data) {
-          if (date in dates) {
-            dates[date] = dates[date] + 1;
+          if (date in numOccurencesPerDate) {
+            numOccurencesPerDate[date] = numOccurencesPerDate[date] + 1;
           } else {
-            dates[date] = 1;
+            numOccurencesPerDate[date] = 1;
           }
         }
       }
     }
-    result.dates = Object.keys(dates);
+    result.dates = Object.keys(numOccurencesPerDate);
     result.dates.sort();
-    result.dateToSelect = result.dates[result.dates.length - 1];
+    // Get the number of places that have data, then get the latest date which has data for every stat var for every place with data.
+    // If there's no such date, choose the latest date with data for any stat var
     const numPlacesWithData: number = places.filter(
       (place) => numStatVarsPerPlace[place] > 0
     ).length;
     let idx = result.dates.length - 1;
     while (idx >= 0) {
       const currDate = result.dates[idx];
-      if (dates[currDate] == numPlacesWithData * statsVars.length) {
-        result.dateToSelect = currDate;
+      if (
+        numOccurencesPerDate[currDate] ===
+        numPlacesWithData * statsVars.length
+      ) {
+        result.latestCommonDate = currDate;
         return result;
       }
       idx--;
     }
+    result.latestCommonDate = result.dates[result.dates.length - 1];
     return result;
   });
 }
