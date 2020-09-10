@@ -105,7 +105,7 @@ function addXAxis(
   xScale: d3.AxisScale<any>,
   shouldRotate?: boolean
 ) {
-  let d3Axis = d3.axisBottom(xScale).ticks(NUM_X_TICKS).tickSizeOuter(0);
+  const d3Axis = d3.axisBottom(xScale).ticks(NUM_X_TICKS).tickSizeOuter(0);
   if (shouldRotate && typeof xScale.bandwidth == "function") {
     if (xScale.bandwidth() < 5) {
       d3Axis.tickValues(xScale.domain().filter((v, i) => i % 5 == 0));

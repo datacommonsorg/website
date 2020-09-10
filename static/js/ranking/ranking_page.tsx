@@ -55,10 +55,10 @@ class Page extends Component<RankingPagePropType, RankingPageStateType> {
       );
     }
 
-    let statVarFragments = [];
-    for (let statVar in this.state.data) {
-      let svData = this.state.data[statVar];
-      let ranking = svData.rankAll || svData.rankTop1000;
+    const statVarFragments = [];
+    for (const statVar in this.state.data) {
+      const svData = this.state.data[statVar];
+      const ranking = svData.rankAll || svData.rankTop1000;
       console.log(ranking);
       statVarFragments.push(
         <div key={statVar}>
