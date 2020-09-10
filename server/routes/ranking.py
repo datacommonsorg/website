@@ -55,7 +55,6 @@ def ranking(place_type, place_dcid=''):
 
 @bp.route('/api/<place_type>/')
 @bp.route('/api/<place_type>/<path:place>')
-@cache.memoize(timeout=3600 * 24)  # Cache for one day.
 def ranking_api(place_type, place=None):
     """Returns top 100 rankings for a stats var, grouped by place type and
     optionally scoped by a containing place. Each place in the ranking has

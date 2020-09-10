@@ -33,7 +33,7 @@ class RankingHistogram extends Component<
   RankingHistogramPropType,
   RankingHistogramStateType
 > {
-  chartElement: React.RefObject<HTMLDivElement>;
+  chartElementRef: React.RefObject<HTMLDivElement>;
 
   constructor(props: RankingHistogramPropType) {
     super(props);
@@ -44,7 +44,7 @@ class RankingHistogram extends Component<
     // small screen sizes
     this._handleWindowResize = this._handleWindowResize.bind(this);
     this.drawChart = this.drawChart.bind(this);
-    this.chartElement = createRef();
+    this.chartElementRef = createRef();
   }
 
   render(): JSX.Element {
@@ -52,7 +52,7 @@ class RankingHistogram extends Component<
       <div
         key={this.props.id}
         id={this.props.id}
-        ref={this.chartElement}
+        ref={this.chartElementRef}
         className="chart-container"
       ></div>
     );
@@ -62,12 +62,11 @@ class RankingHistogram extends Component<
     const rankList = this.props.ranking.info;
     const dataPoints = rankList.map((d) => new DataPoint(d.placeName, d.value));
 
-    const elem = document.getElementById(this.props.id);
-    elem.innerHTML = "";
+    this.chartElementRef.current.innerHTML = "";
     drawHistogram(
       this.props.id,
-      elem.offsetWidth,
-      elem.offsetHeight,
+      this.chartElementRef.current.offsetWidth,
+      this.chartElementRef.current.offsetHeight,
       dataPoints
     );
   }

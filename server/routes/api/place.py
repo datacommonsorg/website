@@ -83,7 +83,16 @@ def get_place_type(place_dcid):
 
 
 @cache.memoize(timeout=3600 * 24)  # Cache for one day.
-def get_name(dcids):
+def cached_name(dcids):
+    """Returns display names for set of dcids.
+
+    Args:
+        dcids: ^ separated string of dcids. It must be a single string for the cache.
+
+    Returns:
+        A dictionary of display place names, keyed by dcid.
+    """
+    dcids = dcids.split('^')
     response = fetch_data('/node/property-values', {
         'dcids': dcids,
         'property': 'name',
@@ -96,6 +105,18 @@ def get_name(dcids):
         values = response[dcid].get('out')
         result[dcid] = values[0]['value'] if values else ''
     return result
+
+
+def get_name(dcids):
+    """Returns display names for set of dcids.
+
+    Args:
+        dcids: A list of place dcids.
+
+    Returns:
+        A dictionary of display place names, keyed by dcid.
+    """
+    return cached_name('^'.join(dcids))
 
 
 @bp.route('/name')
