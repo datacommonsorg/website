@@ -20,70 +20,69 @@ import { STATS_VAR_TITLES } from "../shared/stats_var_titles";
 import { RankingTable } from "./ranking_table";
 import { LocationRankData } from "./ranking_types";
 import { RankingHistogram } from "./ranking_histogram";
+import { pluralizedDisplayNameForPlaceType, randDomId } from "../shared/util";
 
 interface RankingPagePropType {
+  placeName: string;
   placeType: string;
   withinPlace: string;
-  statVars: string[];
+  statVar: string;
 }
 
 interface RankingPageStateType {
-  data: {
-    [statVar: string]: LocationRankData;
-  };
+  data: LocationRankData;
 }
 
 class Page extends Component<RankingPagePropType, RankingPageStateType> {
   constructor(props: RankingPagePropType) {
     super(props);
     this.state = {
-      data: {},
+      data: undefined,
     };
   }
   render(): JSX.Element {
-    function renderRankInfo(statVar, rankInfo) {
-      return (
-        <tr key={[statVar, "-", rankInfo.rank].join()}>
-          <td>{(rankInfo.rank ? rankInfo.rank : 0) + 1}</td>
-          <td>
-            <a href={`/place?dcid=${rankInfo.placeDcid}`}>
-              {rankInfo.placeName || rankInfo.placeDcid}
-            </a>
-          </td>
-          <td className="text-right">{rankInfo.value.toLocaleString()}</td>
-        </tr>
-      );
+    const statVar = this.props.statVar;
+    const svData = this.state.data;
+    if (svData === undefined) {
+      return <div>Loading...</div>;
+    } else if (svData === null) {
+      return <div>There is no ranking data for {statVar}</div>;
     }
-
-    const statVarFragments = [];
-    for (const statVar in this.state.data) {
-      const svData = this.state.data[statVar];
-      const ranking = svData.rankAll || svData.rankTop1000;
-      console.log(ranking);
-      statVarFragments.push(
-        <div key={statVar}>
-          <h3>{STATS_VAR_TITLES[statVar]}</h3>
-          <RankingHistogram
-            ranking={ranking}
-            id={[statVar, "chart"].join("-")}
-          />
-          <RankingTable ranking={ranking} id={[statVar, "table"].join("-")} />
-        </div>
-      );
-    }
-
-    return <div>{statVarFragments}</div>;
+    const ranking = svData.rankAll || svData.rankTop1000;
+    return (
+      <div key={statVar}>
+        <h1>Rankings of {STATS_VAR_TITLES[statVar]}</h1>
+        <h3>
+          {pluralizedDisplayNameForPlaceType(this.props.placeType)} in{" "}
+          {this.props.placeName}
+        </h3>
+        <RankingHistogram ranking={ranking} id={"ranking-chart"} />
+        <RankingTable
+          ranking={ranking}
+          id={"ranking-table"}
+          placeType={this.props.placeType}
+        />
+      </div>
+    );
   }
 
   componentDidMount() {
-    const statsParam = this.props.statVars.map((x) => `stat=${x}`).join("&");
     return axios
       .get(
-        `/ranking/api/${this.props.placeType}/${this.props.withinPlace}?${statsParam}`
+        `/api/ranking/${this.props.statVar}/${this.props.placeType}/${this.props.withinPlace}`
       )
       .then((resp) => {
+        let respData = null;
+        if (resp.data.payload[this.props.statVar]) {
+          respData = resp.data.payload[this.props.statVar];
+          document.title = `${
+            STATS_VAR_TITLES[this.props.statVar]
+          } of ${pluralizedDisplayNameForPlaceType(this.props.placeType)} in ${
+            this.props.placeName
+          } | Place Rankings`;
+        }
         this.setState({
-          data: resp.data.payload,
+          data: respData,
         });
       });
   }

@@ -20,6 +20,7 @@ import { Ranking, RankInfo } from "./ranking_types";
 interface RankingTablePropType {
   ranking: Ranking;
   id: string;
+  placeType: string;
 }
 
 class RankingTable extends Component<RankingTablePropType> {
@@ -47,7 +48,7 @@ class RankingTable extends Component<RankingTablePropType> {
         <thead>
           <tr>
             <th scope="col">Rank</th>
-            <th scope="col">Place</th>
+            <th scope="col">{this.props.placeType}</th>
             <th scope="col" className="text-center">
               Value
             </th>
