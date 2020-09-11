@@ -130,7 +130,7 @@ class ChoroplethMap extends Component<PropsType, StateType> {
   };
 
   /**
-   * Set Per Capita on the State.
+   * Set per capita on the state.
    */
   public setPerCapita = (pc: boolean): void => {
     // Wait for state to update before redrawing.
