@@ -17,7 +17,6 @@
 /**
  * Creates and manages choropleth rendering.
  */
-
 import React, { Component } from "react";
 import axios from "axios";
 import * as d3 from "d3";
@@ -27,19 +26,21 @@ type PropsType = unknown;
 
 // TODO(eduardo): get rid of "any" type.
 type StateType = {
-  geoJson: unknown;
-  mapContent: unknown;
+  geoJson: any;
+  mapContent: any;
   values: { [geoId: string]: number };
   data: { [geoId: string]: { [date: string]: number } };
+  date: string;
   pc: boolean;
   popMap: { [geoId: string]: number };
 };
 
 class ChoroplethMap extends Component<PropsType, StateType> {
   public state = {
-    data: {},
     geoJson: [] as any,
     mapContent: {} as any,
+    data: {},
+    date: "latest",
     pc: false,
     popMap: {},
     values: {},
@@ -81,11 +82,13 @@ class ChoroplethMap extends Component<PropsType, StateType> {
     Promise.all([geoPromise, valuePromise]).then(
       (values) => {
         const geoJson = values[0].data[0];
-        const geoIdToValues = values[1].data[0];
+        const data = values[1].data[0];
+        const geoIdToValues = this.filterByDate(data, "latest");
 
         this.setState({
           geoJson: geoJson,
           values: geoIdToValues,
+          data: data,
         });
 
         //TODO(iancostello): Investigate if this can be moved to
@@ -112,10 +115,17 @@ class ChoroplethMap extends Component<PropsType, StateType> {
 
     axios.get(baseUrl).then(
       (resp) => {
-        const geoIdToValues = resp.data[0];
+        // Because this is the first time loading the page,
+        // filter the value by "latest" date.
+        const data = resp.data[0];
+        const geoIdToValues = this.filterByDate(data, "latest");
 
+        // values contains only the data for the date being observed.
+        // data contains the raw data.
+        // In case the user wants to switch date xor data.
         this.setState({
           values: geoIdToValues,
+          data: data,
         });
 
         this.updateGeoValues();
@@ -127,6 +137,19 @@ class ChoroplethMap extends Component<PropsType, StateType> {
           "statistical variable choice! Please select a new variable.";
       }
     );
+  };
+
+  /**
+   * Gets the max date in a list of ISO 8601 dates.
+   * @param dates: a list of dates in ISO 8601 format.
+   * Example: "2020-01-02".
+   */
+  public getMaxDate = (dates: string[]): string => {
+    if (!dates.length) return "";
+
+    return dates.reduce((a, b) => {
+      return new Date(a) > new Date(b) ? a : b;
+    });
   };
 
   /**
@@ -361,6 +384,63 @@ class ChoroplethMap extends Component<PropsType, StateType> {
           .attr("font-weight", "bold")
           .text(title)
       );
+
+    const datePickerComponent = this.datePicker();
+    ReactDOM.render(datePickerComponent, document.getElementById("date"));
+  };
+
+  /**
+   *
+   * Changes the date and updates the values on the state.
+   * This causes a re-render that makes the map be updated
+   * to reflect the new data.
+   * @param event: an 'onChange' event.
+   */
+  public changeDate = (event): void => {
+    // Get the newly selected date as a string.
+    const newDate: string = event.target.value;
+    const data = this.state["data"];
+    // Re-update this.values to only include data for that given date.
+    const geoIdToValue = this.filterByDate(data, newDate);
+    // Store the new date and the new values.
+    this.setState({ date: newDate, values: geoIdToValue });
+
+    // Re-render component and map.
+    this.renderGeoMap();
+    this.updateGeoValues();
+
+    // TODO(edumorales): for some reason, setState auto-render
+    // was disabled by previous developers.
+    // Figure out why, and re-enable setState() to automatically re-render.
+    // This is one of the main benefits of React.
+    this.forceUpdate();
+  };
+
+  /**
+   *
+   * @param values: the data in the form of geoId->date->value.
+   * @param date: a date in ISO 8601 format string.
+   * Example: "2020-01-02".
+   */
+
+  public filterByDate = (
+    values: { [geoId: string]: { [date: string]: number } },
+    date: string
+  ): { [geoId: string]: number } => {
+    const geoIdToValue = {};
+    let queryByDate = date;
+
+    Object.entries(values).forEach(([geoId, dateToValue]) => {
+      if (date === "latest") {
+        const dates = Object.keys(dateToValue);
+        queryByDate = this.getMaxDate(dates);
+      }
+
+      const value = dateToValue?.[queryByDate];
+      if (value) geoIdToValue[geoId] = value;
+    });
+
+    return geoIdToValue;
   };
 
   /**
@@ -424,7 +504,7 @@ class ChoroplethMap extends Component<PropsType, StateType> {
   /**
    * Clears output after leaving a geo.
    */
-  mouseLeave = (_geo: { ref: string }, index: number): void => {
+  public mouseLeave = (geo: { ref: string }, index: number): void => {
     // Remove hover text.
     document.getElementById("hover-text-display").innerHTML = "";
 
@@ -437,7 +517,7 @@ class ChoroplethMap extends Component<PropsType, StateType> {
    * user into that geo in the choropleth tool.
    * @param {json} geo is the geoJson content for the clicked geo.
    */
-  handleMapClick = (geo: {
+  public handleMapClick = (geo: {
     properties: { geoDcid: string; hasSublevel: boolean };
   }): void => {
     if (geo.properties.hasSublevel) {
@@ -448,6 +528,45 @@ class ChoroplethMap extends Component<PropsType, StateType> {
     } else {
       alert("This geo has no further sublevels!");
     }
+  };
+
+  /**
+   * Returns the complete select/dropdown component
+   * with the available dates as options.
+   */
+  public datePicker = (): JSX.Element => {
+    // Dates are not repeated, so store them as a set.
+    const allDates: Set<string> = new Set();
+    Object.entries(this.state["data"])?.forEach(([, dateToValue]) => {
+      const dates = Object.keys(dateToValue);
+      dates.forEach((date) => {
+        allDates.add(date);
+      });
+    });
+
+    // Sort the dates in descending order.
+    const sortedDates = Array.from(allDates).sort().reverse();
+
+    // Create the option components.
+    const dateComponents = sortedDates.map((date) => {
+      return (
+        <option key={date} value={date}>
+          {date}
+        </option>
+      );
+    });
+
+    // Return the select component.
+    return (
+      <select onChange={this.changeDate} value={this.state["date"]}>
+        {[
+          <option key={"latest"} value={"latest"}>
+            Latest Date
+          </option>,
+          ...dateComponents,
+        ]}
+      </select>
+    );
   };
 
   public render = (): JSX.Element => {
@@ -539,10 +658,10 @@ const generateBreadCrumbs = (curGeo: string): void => {
         if (levelRef) {
           return <a href={currUrl}>{humanName + " > "}</a>;
         }
-      })
+        })
       .filter((obj) => obj); // Ommit any null components.
 
-    // Add breadcrumbs + currentgeoId
+    // Add breadcrumbs + current geoId
     // Example: "USA" > "FL" > "Miami-Dade"
     // Where Miami-Dade is the current id
     ReactDOM.render(
