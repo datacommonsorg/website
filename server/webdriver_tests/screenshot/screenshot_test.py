@@ -12,7 +12,6 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-
 import time
 from webdriver_tests.base_test import WebdriverBaseTest
 
@@ -41,23 +40,47 @@ TEST_URLS = [
         'height': 3300
     },
     {
-        'url': '/tools/timeline#&place=geoId/0606000,geoId/2511000,geoId/2603000,geoId/1777005,geoId/1225175,geoId/4815976&statsVar=Median_Age_Person',
-        'filename_suffix': 'median_age_six_places.png',
-        'test_class': 'card',
-        'height': 1000
+        'url':
+            '/tools/timeline#&place=geoId/0606000,geoId/2511000,geoId/2603000,geoId/1777005,geoId/1225175,geoId/4815976&statsVar=Median_Age_Person',
+        'filename_suffix':
+            'median_age_six_places.png',
+        'test_class':
+            'card',
+        'height':
+            1000
     },
     {
-        'url': '/tools/timeline#&place=geoId/0606000,geoId/2511000,geoId/2603000,geoId/1777005,geoId/1225175,geoId/4815976&statsVar=Count_CriminalActivities_ViolentCrime',
-        'filename_suffix': 'violentcrime_six_places.png',
-        'test_class': 'card',
-        'height': 1000
+        'url':
+            '/tools/timeline#&place=geoId/0606000,geoId/2511000,geoId/2603000,geoId/1777005,geoId/1225175,geoId/4815976&statsVar=Count_CriminalActivities_ViolentCrime',
+        'filename_suffix':
+            'violentcrime_six_places.png',
+        'test_class':
+            'card',
+        'height':
+            1000
     },
     {
-        'url': '/tools/timeline#place=country%2FUSA%2CgeoId%2F06085&pc=1&statsVar=CumulativeCount_MedicalConditionIncident_COVID_19_ConfirmedOrProbableCase',
-        'filename_suffix': 'covid_19_cases_two_places.png',
-        'test_class': 'card',
-        'height': 1000
-    }
+        'url':
+            '/tools/timeline#place=country%2FUSA%2CgeoId%2F06085&pc=1&statsVar=CumulativeCount_MedicalConditionIncident_COVID_19_ConfirmedOrProbableCase',
+        'filename_suffix':
+            'covid_19_cases_two_places.png',
+        'test_class':
+            'card',
+        'height':
+            1000
+    },
+    {
+        'url': '/ranking/Median_Income_Person/County/country/USA',
+        'filename_suffix': 'ranking_median_income_counties.png',
+        'test_class': 'chart-container',
+        'height': 600
+    },
+    {
+        'url': '/ranking/Count_Person/Country',
+        'filename_suffix': 'ranking_population_countries.png',
+        'test_class': 'chart-container',
+        'height': 600
+    },
 ]
 
 
@@ -70,15 +93,13 @@ class TestScreenShot(WebdriverBaseTest):
         for test_info in TEST_URLS:
             self.driver.get(self.url_ + test_info['url'])
             time.sleep(5)
-            self.driver.set_window_size(
-                width=WIDTH,
-                height=test_info['height'],
-                windowHandle='current')
+            self.driver.set_window_size(width=WIDTH,
+                                        height=test_info['height'],
+                                        windowHandle='current')
             charts = self.driver.find_elements_by_class_name(
                 test_info['test_class'])
             # Assert there are charts.
             self.assertGreater(len(charts), 0)
-            self.driver.save_screenshot(
-                '{}{}_{}'.format(
-                    SCREENSHOTS_FOLDER, index, test_info['filename_suffix']))
+            self.driver.save_screenshot('{}{}_{}'.format(
+                SCREENSHOTS_FOLDER, index, test_info['filename_suffix']))
             index += 1

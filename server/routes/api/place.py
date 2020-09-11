@@ -16,7 +16,7 @@ import collections
 import json
 import services.datacommons as dc
 
-from flask import Blueprint, jsonify, request, Response
+from flask import Blueprint, jsonify, request, Response, url_for
 
 from cache import cache
 from services.datacommons import fetch_data
@@ -387,12 +387,20 @@ def api_nearby_places(dcid):
                     mimetype='application/json')
 
 
+def get_ranking_url(containing_dcid, place_type, stat_var):
+    return url_for('ranking.ranking',
+                   stat_var=stat_var,
+                   place_type=place_type,
+                   place_dcid=containing_dcid)
+
+
 @cache.memoize(timeout=3600 * 24)  # Cache for one day.
 @bp.route('/ranking/<path:dcid>')
 def api_ranking(dcid):
     """
     Get the ranking information for a given place.
     """
+    current_place_type = get_place_type(dcid)
     parents = json.loads(parent_places(dcid))
     selected_parents = []
     parent_names = {}
@@ -414,31 +422,40 @@ def api_ranking(dcid):
     crime_statsvar = {
         'Count_CriminalActivities_CombinedCrime': 'Highest Crime Per Capita'
     }
-    for parent in selected_parents:
+    for parent_dcid in selected_parents:
         stats_var_string = '^'.join(RANKING_STATS.keys())
         response = get_related_place(dcid,
                                      stats_var_string,
                                      same_place_type=True,
-                                     within_place=parent)
+                                     within_place=parent_dcid)
         for stats_var, data in response.items():
             result[RANKING_STATS[stats_var]].append({
-                'name': parent_names[parent],
-                'data': data
+                'name':
+                    parent_names[parent_dcid],
+                'data':
+                    data,
+                'rankingUrl':
+                    get_ranking_url(parent_dcid, current_place_type, stats_var)
             })
         response = get_related_place(dcid,
                                      '^'.join(crime_statsvar.keys()),
                                      same_place_type=True,
-                                     within_place=parent,
+                                     within_place=parent_dcid,
                                      is_per_capita=True)
         for stats_var, data in response.items():
             result[crime_statsvar[stats_var]].append({
-                'name': parent_names[parent],
-                'data': data
+                'name':
+                    parent_names[parent_dcid],
+                'data':
+                    data,
+                'rankingUrl':
+                    get_ranking_url(parent_dcid, current_place_type, stats_var)
             })
 
-    result['label'] = list(RANKING_STATS.values()) + \
+    all_labels = list(RANKING_STATS.values()) + \
         list(crime_statsvar.values())
-    for label in result['label']:
-        result[label] = [x for x in result[label] if x['data']]
-    result['label'] = [x for x in result['label'] if result[x]]
+    for label in all_labels:
+        if label in result:
+            result[label] = [x for x in result[label] if 'data' in x]
+    result['label'] = [x for x in all_labels if x in result]
     return Response(json.dumps(result), 200, mimetype='application/json')

@@ -16,10 +16,9 @@
 
 import React, { Component, createRef } from "react";
 import axios from "axios";
-import pluralize from "pluralize";
 import { DataPoint, DataGroup } from "../chart/base";
 
-import { randDomId } from "../shared/util";
+import { pluralizedDisplayNameForPlaceType, randDomId } from "../shared/util";
 import {
   drawLineChart,
   drawSingleBarChart,
@@ -94,19 +93,6 @@ function displayNameForPlaceType(placeType: string): string {
   return placeType;
 }
 
-function pluralizedDisplayNameForPlaceType(placeType: string): string {
-  if (placeType.startsWith("AdministrativeArea")) {
-    return placeType.replace("AdministrativeArea", "Administrative Area ");
-  }
-  if (placeType.startsWith("Eurostat")) {
-    return placeType.replace("EurostatNUTS", "Eurostat NUTS ");
-  }
-  if (placeType == "CensusZipCodeTabulationArea") {
-    return "Zip Codes";
-  }
-  return pluralize(placeType);
-}
-
 interface ParentPlacePropsType {
   parentPlaces: { dcid: string; name: string; types: string[] }[];
   placeType: string;
@@ -171,38 +157,41 @@ class Ranking extends Component<RankingPropsType, RankingStateType> {
     };
   }
   render() {
+    const data = this.state.data;
     return (
       <React.Fragment>
-        {this.state.data.label.length > 0 && (
+        {data.label.length > 0 && (
           <React.Fragment>
             <table id="ranking-table" className="table">
               <thead>
                 <tr>
                   <th scope="col">Rankings (in) </th>
-                  {this.state.data[this.state.data.label[0]].map(
-                    (item, index) => {
-                      return (
-                        <th scope="col" key={index}>
-                          {item.name}
-                        </th>
-                      );
-                    }
-                  )}
+                  {data[data.label[0]].map((item, index) => {
+                    return (
+                      <th scope="col" key={index}>
+                        {item.name}
+                      </th>
+                    );
+                  })}
                 </tr>
               </thead>
               <tbody>
-                {this.state.data.label.map((item, index) => {
+                {data.label.map((item, index) => {
                   return (
                     <tr key={index}>
                       <th scope="row">{item}</th>
-                      {this.state.data[item].map((rankingInfo) => {
+                      {data[item].map((rankingInfo) => {
                         const top = rankingInfo.data.rankFromTop;
                         const bottom = rankingInfo.data.rankFromBottom;
                         let text = "";
                         if (!isNaN(top) && !isNaN(bottom)) {
                           text = `${top} of ${top + bottom}`;
                         }
-                        return <td key={text}>{text}</td>;
+                        return (
+                          <td key={text}>
+                            <a href={rankingInfo.rankingUrl}>{text}</a>
+                          </td>
+                        );
                       })}
                     </tr>
                   );

@@ -25,13 +25,14 @@ import { Page } from "./ranking_page";
 window.onload = () => {
   const withinPlace = document.getElementById("within-place-dcid").dataset.pwp;
   const placeType = document.getElementById("place-type").dataset.pt;
-  const urlParams = new URLSearchParams(window.location.search);
-  const statVars = urlParams.getAll("stat");
+  const placeName = document.getElementById("place-name").dataset.pn;
+  const statVar = document.getElementById("stat-var").dataset.sv;
   ReactDOM.render(
     React.createElement(Page, {
+      placeName,
       placeType,
       withinPlace,
-      statVars,
+      statVar,
     }),
     document.getElementById("main-pane")
   );

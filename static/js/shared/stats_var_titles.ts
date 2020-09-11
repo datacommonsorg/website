@@ -21,7 +21,7 @@
 const STATS_VAR_TITLES: { [key: string]: string } = {
   // No PVs
   Median_Age_Person: "Median Age",
-  Median_Income_Person: "Individual Median Income",
+  Median_Income_Person: "Median Individual Income",
   UnemploymentRate_Person: "Unemployment Rate",
   Count_UnemploymentInsuranceClaim_StateUnemploymentInsurance:
     "State Unemployment Insurance Claims",
@@ -264,9 +264,9 @@ const STATS_VAR_TITLES: { [key: string]: string } = {
     "Population Below Poverty Level in the Past 12 Months (White)",
 
   Median_Income_Person_15OrMoreYears_Male_WithIncome:
-    "Individual Median Income (Male)",
+    "Median Individual Income (Male)",
   Median_Income_Person_15OrMoreYears_Female_WithIncome:
-    "Individual Median Income (Female)",
+    "Median Individual Income (Female)",
 
   Count_Person_Female_BelowPovertyLevelInThePast12Months:
     "Population Below Poverty Level in the Past 12 Months (Female)",

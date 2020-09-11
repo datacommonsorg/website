@@ -26,17 +26,9 @@ RANK_KEYS = ['rankAll', 'rankTop1000']
 RANK_SIZE = 100
 
 
-def stat_var_to_string(stat_var):
-    parts = stat_var.split('_')
-    if len(parts) < 2:
-        return {}
-    measured_property = parts[0]
-    pop_type = parts[1]
-
-
-@bp.route('/<place_type>')
-@bp.route('/<place_type>/<path:place_dcid>')
-def ranking(place_type, place_dcid=''):
+@bp.route('/<stat_var>/<place_type>')
+@bp.route('/<stat_var>/<place_type>/<path:place_dcid>')
+def ranking(stat_var, place_type, place_dcid=''):
     place_name = ''
     if place_dcid:
         place_names = place_api.get_name([place_dcid])
@@ -45,41 +37,39 @@ def ranking(place_type, place_dcid=''):
             place_name = place_dcid
     else:
         place_name = 'World'
-    stat_vars = flask.request.args.getlist('stat')
     return flask.render_template('ranking.html',
                                  place_name=place_name,
                                  place_dcid=place_dcid,
                                  place_type=place_type,
-                                 stat_vars=stat_vars)
+                                 stat_var=stat_var)
 
 
-@bp.route('/api/<place_type>/')
-@bp.route('/api/<place_type>/<path:place>')
-def ranking_api(place_type, place=None):
+# TODO(beets): Add support for per-capita
+@bp.route('/api/<stat_var>/<place_type>/')
+@bp.route('/api/<stat_var>/<place_type>/<path:place>')
+def ranking_api(stat_var, place_type, place=None):
     """Returns top 100 rankings for a stats var, grouped by place type and
     optionally scoped by a containing place. Each place in the ranking has
     it's named returned, if available.
     """
-    stats = flask.request.args.getlist('stat')
-    ranking_results = dc.get_place_ranking(stats, place_type, place)
+    ranking_results = dc.get_place_ranking([stat_var], place_type, place)
     if not 'payload' in ranking_results:
         return ranking_results
     payload = ranking_results['payload']
     dcids = set()
-    for sv in payload:
-        try:
-            del payload[sv]['rankBottom1000']
-        except KeyError:
-            pass  # key might not exist for fewer than 1000 places
-        for k in RANK_KEYS:
-            if k in payload[sv] and 'info' in payload[sv][k]:
-                payload[sv][k]['info'] = payload[sv][k]['info'][:RANK_SIZE]
-                for r in payload[sv][k]['info']:
-                    dcids.add(r['placeDcid'])
+    try:
+        del payload[stat_var]['rankBottom1000']
+    except KeyError:
+        pass  # key might not exist for fewer than 1000 places
+    for k in RANK_KEYS:
+        if k in payload[stat_var] and 'info' in payload[stat_var][k]:
+            payload[stat_var][k]['info'] = payload[stat_var][k][
+                'info'][:RANK_SIZE]
+            for r in payload[stat_var][k]['info']:
+                dcids.add(r['placeDcid'])
     place_names = place_api.get_name(list(dcids))
-    for sv in payload:
-        for k in RANK_KEYS:
-            if k in payload[sv] and 'info' in payload[sv][k]:
-                for r in payload[sv][k]['info']:
-                    r['placeName'] = place_names[r['placeDcid']]
+    for k in RANK_KEYS:
+        if k in payload[stat_var] and 'info' in payload[stat_var][k]:
+            for r in payload[stat_var][k]['info']:
+                r['placeName'] = place_names[r['placeDcid']]
     return ranking_results
