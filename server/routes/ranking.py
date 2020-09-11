@@ -14,16 +14,9 @@
 """Place Ranking related handlers."""
 
 import flask
-import services.datacommons as dc
 import routes.api.place as place_api
 
-from cache import cache
-
 bp = flask.Blueprint('ranking', __name__, url_prefix='/ranking')
-
-# Only show the top 100 places in rankings for now
-RANK_KEYS = ['rankAll', 'rankTop1000']
-RANK_SIZE = 100
 
 
 @bp.route('/<stat_var>/<place_type>')
@@ -42,34 +35,3 @@ def ranking(stat_var, place_type, place_dcid=''):
                                  place_dcid=place_dcid,
                                  place_type=place_type,
                                  stat_var=stat_var)
-
-
-# TODO(beets): Add support for per-capita
-@bp.route('/api/<stat_var>/<place_type>/')
-@bp.route('/api/<stat_var>/<place_type>/<path:place>')
-def ranking_api(stat_var, place_type, place=None):
-    """Returns top 100 rankings for a stats var, grouped by place type and
-    optionally scoped by a containing place. Each place in the ranking has
-    it's named returned, if available.
-    """
-    ranking_results = dc.get_place_ranking([stat_var], place_type, place)
-    if not 'payload' in ranking_results:
-        return ranking_results
-    payload = ranking_results['payload']
-    dcids = set()
-    try:
-        del payload[stat_var]['rankBottom1000']
-    except KeyError:
-        pass  # key might not exist for fewer than 1000 places
-    for k in RANK_KEYS:
-        if k in payload[stat_var] and 'info' in payload[stat_var][k]:
-            payload[stat_var][k]['info'] = payload[stat_var][k][
-                'info'][:RANK_SIZE]
-            for r in payload[stat_var][k]['info']:
-                dcids.add(r['placeDcid'])
-    place_names = place_api.get_name(list(dcids))
-    for k in RANK_KEYS:
-        if k in payload[stat_var] and 'info' in payload[stat_var][k]:
-            for r in payload[stat_var][k]['info']:
-                r['placeName'] = place_names[r['placeDcid']]
-    return ranking_results

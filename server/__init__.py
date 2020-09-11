@@ -21,11 +21,7 @@ from werkzeug.utils import import_string
 
 
 def create_app():
-    app = Flask(
-        __name__,
-        static_folder="dist",
-        static_url_path=""
-    )
+    app = Flask(__name__, static_folder="dist", static_url_path="")
 
     # Setup flask config
     if os.environ.get('FLASK_ENV') == 'test':
@@ -43,8 +39,8 @@ def create_app():
     cache.init_app(app)
 
     # apply the blueprints to the app
-    from routes import (
-        browser, dev, factcheck, place, placelist, ranking, redirects, static, tools)
+    from routes import (browser, dev, factcheck, place, placelist, ranking,
+                        redirects, static, tools)
     app.register_blueprint(browser.bp)
     app.register_blueprint(dev.bp)
     app.register_blueprint(ranking.bp)
@@ -52,11 +48,12 @@ def create_app():
     app.register_blueprint(place.bp)
     app.register_blueprint(placelist.bp)
     app.register_blueprint(tools.bp)
-    from routes.api import chart, choropleth, place as place_api, stats
+    from routes.api import chart, choropleth, place as place_api, ranking as ranking_api, stats
     app.register_blueprint(chart.bp)
     app.register_blueprint(choropleth.bp)
     app.register_blueprint(factcheck.bp)
     app.register_blueprint(place_api.bp)
+    app.register_blueprint(ranking_api.bp)
     app.register_blueprint(static.bp)
     app.register_blueprint(stats.bp)
 
@@ -68,7 +65,8 @@ def create_app():
     if cfg.TEST or cfg.WEBDRIVER:
         app.config['PLACEID2DCID'] = {
             "ChIJCzYy5IS16lQRQrfeQ5K5Oxw": "country/USA",
-            "ChIJPV4oX_65j4ARVW8IJ6IJUYs": "geoId/06"}
+            "ChIJPV4oX_65j4ARVW8IJ6IJUYs": "geoId/06"
+        }
     else:
         # Load placeid2dcid mapping from GCS
         storage_client = storage.Client()

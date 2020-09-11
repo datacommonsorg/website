@@ -69,7 +69,7 @@ class Page extends Component<RankingPagePropType, RankingPageStateType> {
   componentDidMount() {
     return axios
       .get(
-        `/ranking/api/${this.props.statVar}/${this.props.placeType}/${this.props.withinPlace}`
+        `/api/ranking/${this.props.statVar}/${this.props.placeType}/${this.props.withinPlace}`
       )
       .then((resp) => {
         let respData = null;
