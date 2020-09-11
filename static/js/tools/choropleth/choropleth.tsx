@@ -21,41 +21,54 @@
 import React, { Component } from "react";
 import axios from "axios";
 import * as d3 from "d3";
+import ReactDOM from "react-dom";
 
-class ChoroplethMap extends Component {
-  constructor() {
-    super({});
-    // Add default state and bind function contexts.
+type PropsType = unknown;
+
+// TODO(eduardo): get rid of "any" type.
+type StateType = {
+  geoJson: unknown;
+  mapContent: unknown;
+  values: { [geoId: string]: number };
+  data: { [geoId: string]: { [date: string]: number } };
+  pc: boolean;
+  popMap: { [geoId: string]: number };
+};
+
+class ChoroplethMap extends Component<PropsType, StateType> {
+  public state = {
+    data: {},
+    geoJson: [] as any,
+    mapContent: {} as any,
+    pc: false,
+    popMap: {},
+    values: {},
+  };
+
+  public componentDidMount = (): void => {
     const urlParams = new URLSearchParams(window.location.search);
-    this.state = {
-      geojson: [],
-      pc:
-        urlParams.has("pc") &&
-        ["t", "true", "1"].includes(urlParams.get("pc").toLowerCase()),
-      values: {},
-    };
-    this.loadGeoJson = this.loadGeoJson.bind(this);
-    this.renderGeoMap = this.renderGeoMap.bind(this);
-    this.loadValues = this.loadValues.bind(this);
-    this.handleMapHover = this.handleMapHover.bind(this);
-    this.updateGeoValues = this.updateGeoValues.bind(this);
-    this.handleMapClick = this.handleMapClick.bind(this);
+    const isPerCapita =
+      urlParams.has("pc") &&
+      ["t", "true", "1"].includes(urlParams.get("pc").toLowerCase());
+    this.setState({
+      pc: isPerCapita,
+    });
     this.loadGeoJson();
-  }
+  };
 
   /**
    * Refreshes are currently never done through state updates.
    * TODO(iancostello): Refactor this component to update via state.
    */
-  shouldComponentUpdate(): boolean {
+  public shouldComponentUpdate = (): boolean => {
     return false;
-  }
+  };
 
   /**
    * Loads and renders blank GeoJson map for current geoDcid.
    * After loading, values for a particular StatVar are pulled.
    */
-  loadGeoJson(): void {
+  public loadGeoJson = (): void => {
     let geoUrl = "/api/choropleth/geo";
     geoUrl += buildChoroplethParams(["pc", "geoDcid", "level", "mdom"]);
     let valueUrl = "/api/choropleth/values";
@@ -67,10 +80,14 @@ class ChoroplethMap extends Component {
 
     Promise.all([geoPromise, valuePromise]).then(
       (values) => {
+        const geoJson = values[0].data[0];
+        const geoIdToValues = values[1].data[0];
+
         this.setState({
-          geojson: values[0].data[0],
-          values: values[1].data[0],
+          geoJson: geoJson,
+          values: geoIdToValues,
         });
+
         //TODO(iancostello): Investigate if this can be moved to
         //shouldComponentUpdate.
         this.renderGeoMap();
@@ -84,18 +101,23 @@ class ChoroplethMap extends Component {
           '<a href="/tools/choropleth"> Access here.</a>';
       }
     );
-  }
+  };
 
   /**
    * Loads values for the current geoDcid and updates map.
    */
-  loadValues(): void {
+  public loadValues = (): void => {
     let baseUrl = "/api/choropleth/values";
     baseUrl += buildChoroplethParams(["geoDcid", "level", "statVar"]);
 
     axios.get(baseUrl).then(
       (resp) => {
-        this.setState({ values: resp.data[0] });
+        const geoIdToValues = resp.data[0];
+
+        this.setState({
+          values: geoIdToValues,
+        });
+
         this.updateGeoValues();
       },
       () => {
@@ -105,23 +127,23 @@ class ChoroplethMap extends Component {
           "statistical variable choice! Please select a new variable.";
       }
     );
-  }
+  };
 
   /**
-   * Set Per Capita.
+   * Set per capita on the state.
    */
-  setPerCapita(pc: boolean): void {
+  public setPerCapita = (pc: boolean): void => {
     // Wait for state to update before redrawing.
     this.setState({ pc }, this.updateGeoValues);
-  }
+  };
 
   /**
    * Handles rendering the basic blank geoJson map.
    * Requires state geojson to be set with valid geoJson mapping object.
    */
-  renderGeoMap(): void {
+  public renderGeoMap = (): void => {
     // Combine path elements from D3 content.
-    const geojson = this.state["geojson"];
+    const geojson = this.state["geoJson"];
     const mapContent = d3
       .select("#main-pane g.map")
       .selectAll("path")
@@ -155,23 +177,27 @@ class ChoroplethMap extends Component {
       const content = geojson.features[index];
       popMap[content.id] = content.properties.pop;
     }
+
     this.setState(() => {
       return { popMap };
     });
 
+    this.forceUpdate();
+
     // Generate breadcrumbs.
     // TODO(fpernice-google): Derive the curGeo value from geoDcid instead
     // of embedding in url.
-    generateBreadCrumbs(this.state["geojson"]["properties"]["current_geo"]);
-  }
+    generateBreadCrumbs(this.state["geoJson"]["properties"]["current_geo"]);
+  };
 
   /**
    * Updates geoJson map with current values loaded in state.
    * Requires geoJson map to be rendered and state values to be set.
    */
-  updateGeoValues(): void {
-    const values = this.state["values"];
+  public updateGeoValues = (): void => {
+    const geoIdToValue = this.state["values"];
     const isPerCapita = this.state["pc"];
+    const geoIdToPopulation = this.state["popMap"];
 
     // Build chart display options.
     const blues = [
@@ -186,47 +212,49 @@ class ChoroplethMap extends Component {
       "#08306b",
     ];
     const colorVals = determineColorPalette(
-      values,
-      this.state["pc"],
-      this.state["popMap"]
+      geoIdToValue,
+      isPerCapita,
+      geoIdToPopulation
     );
+
     const colorScale = d3
       .scaleLinear()
       .domain(colorVals)
       .range((blues as unknown) as number[]);
 
     // Select D3 paths via geojson data.
-    const geojson = this.state["geojson"];
+    const geojson = this.state["geoJson"];
     const mapContent = d3
       .select("#main-pane g.map")
       .selectAll("path")
       .data(geojson.features)
-      .attr("id", function (_, index) {
+      .attr("id", (_, index) => {
         return "geoPath/" + index;
       });
 
     // Create new infill.
-    mapContent.attr("fill", function (d: {
-      properties: { geoDcid: string; pop: number };
-    }) {
-      if (d.properties.geoDcid in values) {
-        const value = values[d.properties.geoDcid];
-        if (isPerCapita) {
-          if (Object.prototype.hasOwnProperty.call(d.properties, "pop")) {
-            return colorScale(value / d.properties.pop);
+    mapContent.attr(
+      "fill",
+      (d: { properties: { geoDcid: string; pop: number } }) => {
+        if (d.properties.geoDcid in geoIdToValue) {
+          const value = geoIdToValue[d.properties.geoDcid];
+          if (isPerCapita) {
+            if (Object.prototype.hasOwnProperty.call(d.properties, "pop")) {
+              return colorScale(value / d.properties.pop);
+            }
+            return "gray";
           }
+          return colorScale(value);
+        } else {
           return "gray";
         }
-        return colorScale(value);
-      } else {
-        return "gray";
       }
-    });
+    );
 
     // Update title.
     // TODO(iancostello): Use react component instead of innerHTML throughout.
     const url = new URL(window.location.href);
-    const currentGeo = this.state["geojson"]["properties"]["current_geo"];
+    const currentGeo = this.state["geoJson"]["properties"]["current_geo"];
     const currentStatVar = url.searchParams.get("statVar");
     if (currentStatVar) {
       document.getElementById("heading").innerHTML =
@@ -237,17 +265,17 @@ class ChoroplethMap extends Component {
         "Pick a statistical variable to get started!";
     }
     this.generateLegend(colorScale);
-  }
+  };
 
   /**
    * Create a canvas object with a color gradient to be used as a color scale.
    * @param color  d3.scaleLinear object that encodes the desired color gradient.
    * @param n Number of color tones to transition between.
    */
-  genScaleImg(
+  public genScaleImg = (
     color: d3.ScaleLinear<number, number>,
     n = 256
-  ): HTMLCanvasElement {
+  ): HTMLCanvasElement => {
     const canvas = document.createElement("canvas");
     canvas.width = n;
     canvas.height = 1;
@@ -257,14 +285,14 @@ class ChoroplethMap extends Component {
       context.fillRect(i, 0, 1, 1);
     }
     return canvas;
-  }
+  };
 
   /**
    * Draw a color scale legend.
    * @param color The d3 linearScale that encodes the color gradient to be
    *        plotted.
    */
-  generateLegend(color: d3.ScaleLinear<number, number>): void {
+  public generateLegend = (color: d3.ScaleLinear<number, number>): void => {
     const width = 300;
     const height = 60;
     const tickSize = 6;
@@ -333,13 +361,14 @@ class ChoroplethMap extends Component {
           .attr("font-weight", "bold")
           .text(title)
       );
-  }
+  };
+
   /**
    * Updates the current map and URL to a new statistical variable without
    * a full page refresh.
    * @param statVar to update to.
    */
-  handleStatVarChange(statVar: string): void {
+  public handleStatVarChange = (statVar: string): void => {
     // Update URL history.
     let baseUrl = "/tools/choropleth";
     baseUrl += buildChoroplethParams(["geoDcid", "bc", "pc", "level", "mdom"]);
@@ -348,13 +377,13 @@ class ChoroplethMap extends Component {
 
     // TODO(iancostello): Manage through component's state.
     this.loadValues();
-  }
+  };
 
   /**
    * Capture hover event on geo and displays relevant information.
    * @param {json} geo is the geoJson content for the hovered geo.
    */
-  handleMapHover(
+  public handleMapHover = (
     geo: {
       ref: string;
       properties: {
@@ -365,14 +394,15 @@ class ChoroplethMap extends Component {
       };
     },
     index: number
-  ): void {
+  ): void => {
     // Display statistical variable information on hover.
     const name = geo.properties.name;
     const geoDcid = geo.properties.geoDcid;
     const values = this.state["values"];
-    let geoValue: any = "No Value";
+    let geoValue: number | string = "No Value";
     if (geoDcid in values) {
-      geoValue = values[geoDcid];
+      geoValue = values[geoDcid] as number;
+
       if (this.state["pc"]) {
         if (Object.prototype.hasOwnProperty.call(geo.properties, "pop")) {
           geoValue /= geo.properties.pop;
@@ -389,60 +419,61 @@ class ChoroplethMap extends Component {
       objClass += " clickable";
     }
     document.getElementById("geoPath/" + index).setAttribute("class", objClass);
-  }
+  };
 
   /**
    * Clears output after leaving a geo.
    */
-  mouseLeave(geo: { ref: string }, index: number): void {
+  mouseLeave = (_geo: { ref: string }, index: number): void => {
     // Remove hover text.
     document.getElementById("hover-text-display").innerHTML = "";
 
     // Remove geo display effect.
     document.getElementById("geoPath/" + index).setAttribute("class", "border");
-  }
+  };
 
   /**
    * Capture click event on geo and zooms
    * user into that geo in the choropleth tool.
    * @param {json} geo is the geoJson content for the clicked geo.
    */
-  handleMapClick(geo: {
+  handleMapClick = (geo: {
     properties: { geoDcid: string; hasSublevel: boolean };
-  }): void {
+  }): void => {
     if (geo.properties.hasSublevel) {
       redirectToGeo(
         geo.properties.geoDcid,
-        this.state["geojson"]["properties"]["current_geo"]
+        this.state["geoJson"]["properties"]["current_geo"]
       );
     } else {
       alert("This geo has no further sublevels!");
     }
-  }
+  };
 
-  render(): JSX.Element {
+  public render = (): JSX.Element => {
     // TODO(fpernice-google): Handle window resize event to update map size.
     const w = window.innerWidth;
     const h = window.innerHeight;
+
     return (
-      <React.Fragment>
+      <>
         <svg
           id="map_container"
           width={`${(w * 2) / 3}px`}
-          height={`${(h * 2) / 3}px`}
+          height={`${(h * 2) / 3.5}px`}
         >
-          <g className="map"></g>
+          <g className="map" />
         </svg>
-      </React.Fragment>
+      </>
     );
-  }
+  };
 }
 
 /**
  * Builds a redirect link given the fields to include from search params.
  * @param fieldsToInclude
  */
-function buildChoroplethParams(fieldsToInclude: string[]): string {
+const buildChoroplethParams = (fieldsToInclude: string[]): string => {
   let params = "?";
   const url = new URL(window.location.href);
   for (const index in fieldsToInclude) {
@@ -453,7 +484,7 @@ function buildChoroplethParams(fieldsToInclude: string[]): string {
     }
   }
   return params;
-}
+};
 
 /**
  * Redirects the webclient to a particular geo. Handles breadcrumbs in redirect.
@@ -461,7 +492,7 @@ function buildChoroplethParams(fieldsToInclude: string[]): string {
  * @param {string} human-readable current geo, e.g. United States when geoDcid
  *                 is country/USA.
  */
-function redirectToGeo(geoDcid: string, curGeo: string): void {
+const redirectToGeo = (geoDcid: string, curGeo: string): void => {
   const url = new URL(window.location.href);
 
   let baseUrl = "/tools/choropleth";
@@ -477,19 +508,19 @@ function redirectToGeo(geoDcid: string, curGeo: string): void {
   // Adds zoomed-in geoDcid and human-readable curGeo.
   baseUrl += url.searchParams.get("geoDcid") + "~" + curGeo;
   window.location.href = baseUrl;
-}
+};
 
 /**
  * Generates the breadcrumbs text from browser url.
- * @param {string} human-readable current geo to display at end of list of
- *                 hierarchy of locations.
+ * @param {string} human-readable current geo to display
+ * at end of list of hierarchy of locations.
  */
-function generateBreadCrumbs(curGeo: string): void {
+const generateBreadCrumbs = (curGeo: string): void => {
   const url = new URL(window.location.href);
 
   const breadcrumbs = url.searchParams.get("bc");
-  if (breadcrumbs != null && breadcrumbs !== "") {
-    const breadcrumbsDisplay = document.getElementById("breadcrumbs");
+
+  if (breadcrumbs) {
     const crumbs = breadcrumbs.split(";");
 
     // Build url for each reference in the breadcrumbs.
@@ -498,22 +529,28 @@ function generateBreadCrumbs(curGeo: string): void {
     baseUrl += "&geoDcid=";
 
     let breadcrumbsUpto = "";
-    for (const index in crumbs) {
-      // The geoDcid reference and human-readable curGeo are separated by a '~'.
-      const levelRef = crumbs[index].split("~")[0];
-      const humanName = crumbs[index].split("~")[1];
 
-      if (levelRef !== "") {
-        // TODO(iancostello): Turn into react component to sanitize.
+    const breadcrumbsDisplay = crumbs
+      .map((crumb) => {
+        // The geoDcid reference and human-readable curGeo are separated by a '~'.
+        const [levelRef, humanName] = crumb.split("~");
         const currUrl = baseUrl + levelRef + "&bc=" + breadcrumbsUpto;
-        breadcrumbsDisplay.innerHTML +=
-          '<a href="' + currUrl + '">' + humanName + "</a>" + " > ";
-        breadcrumbsUpto += crumbs[index] + ";";
-      }
-    }
-    breadcrumbsDisplay.innerHTML += curGeo;
+        breadcrumbsUpto += crumb + ";";
+        if (levelRef) {
+          return <a href={currUrl}>{humanName + " > "}</a>;
+        }
+      })
+      .filter((obj) => obj); // Ommit any null components.
+
+    // Add breadcrumbs + currentgeoId
+    // Example: "USA" > "FL" > "Miami-Dade"
+    // Where Miami-Dade is the current id
+    ReactDOM.render(
+      [breadcrumbsDisplay, curGeo],
+      document.getElementById("breadcrumbs")
+    );
   }
-}
+};
 
 /**
  * Returns domain of color palette as len 9 numerical array for plotting.
@@ -521,10 +558,9 @@ function generateBreadCrumbs(curGeo: string): void {
  * @param pc boolean if plotting pc.
  * @param popMap json object mapping geoDcid to total population.
  *
- * TODO(fpernice-google): investigate built-in color palettes in d3 like
- *                        d3.schemeBlues.
+ * TODO(fpernice-google): investigate built-in color palettes in d3 like d3.schemeBlues.
  */
-function determineColorPalette(dict, pc: boolean, popMap: []): number[] {
+const determineColorPalette = (dict, pc: boolean, popMap): number[] => {
   // Create a sorted list of values.
   const values = [];
   for (const key in dict) {
@@ -536,15 +572,14 @@ function determineColorPalette(dict, pc: boolean, popMap: []): number[] {
       values.push(dict[key]);
     }
   }
-  values.sort(function (a, b) {
-    return a - b;
-  });
+  values.sort((a, b) => a - b);
   const len = values.length;
 
   // Find 9 values with equal separation from one another.
   const steps = 9;
   if (len >= steps) {
-    return d3.range(0, steps).map(function (d) {
+    const start = 0;
+    return d3.range(start, steps).map((d) => {
       return values[Math.floor(((len - 1) * d) / (steps - 1))];
     });
   } else {
@@ -554,7 +589,7 @@ function determineColorPalette(dict, pc: boolean, popMap: []): number[] {
     );
     return [0, 0, 0, 0, 0, 0, 0, 0, 0];
   }
-}
+};
 
 /**
  * Returns a nicely formatted hover value for the value of statistical variables
@@ -562,7 +597,7 @@ function determineColorPalette(dict, pc: boolean, popMap: []): number[] {
  * @param geoValue statistical variable value to display.
  * @param isPerCapita whether the value is a per capita indicator.
  */
-function formatGeoValue(geoValue, isPerCapita) {
+const formatGeoValue = (geoValue: number | string, isPerCapita: boolean) => {
   // Per capita values may be difficult to read so add a per count field.
   // E.g. 0.0052 or 5.2 per 1000.
   if (!isPerCapita || geoValue === "No Value") {
@@ -571,18 +606,18 @@ function formatGeoValue(geoValue, isPerCapita) {
     // Find a multiplier such that the value is greater than 1.
     if (geoValue < 1) {
       let multiplier = 1;
-      let dispValue = geoValue;
+      let dispValue = geoValue as number;
       while (dispValue && dispValue < 1) {
         dispValue *= 10;
         multiplier *= 10;
       }
-      return `${geoValue.toFixed(
+      return `${(geoValue as number).toFixed(
         6
       )} or ${dispValue.toLocaleString()} per ${multiplier.toLocaleString()} people`;
     } else {
       return geoValue.toLocaleString() + " per capita";
     }
   }
-}
+};
 
 export { ChoroplethMap };
