@@ -153,7 +153,7 @@ class MainPane extends Component {
           </div>
         </div>
         <div id="main-content">
-          <React.Fragment>
+          <>
             <div className="column" id="breadcrumbs"></div>
             <div id="heading">Loading...</div>
             <div id="error"></div>
@@ -169,7 +169,7 @@ class MainPane extends Component {
               <div id="date"></div>
               <div id="legend"></div>
             </div>
-          </React.Fragment>
+          </>
         </div>
       </div>
     );
