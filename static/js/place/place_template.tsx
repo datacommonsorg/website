@@ -565,9 +565,7 @@ class Chart extends Component<ChartPropType, ChartStateType> {
         <div className="chart-container">
           <h4>
             {config.title}
-            <span className="sub-title">
-              {dateString}
-            </span>
+            <span className="sub-title">{dateString}</span>
           </h4>
           {config.axis === axisEnum.PLACE && (
             <div>

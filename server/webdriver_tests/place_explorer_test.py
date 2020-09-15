@@ -72,7 +72,7 @@ class TestPlaceExplorer(WebdriverBaseTest):
         age_charts = age_topic.find_elements_by_class_name("col")
         age_across_places_chart = age_charts[2]
         chart_title = age_across_places_chart.find_element_by_tag_name("h4").text
-        self.assertEqual("AGE ACROSS PLACES", chart_title)
+        self.assertEqual("AGE ACROSS PLACES(2018)", chart_title)
         origin = age_across_places_chart.find_element_by_class_name("svg-container").get_attribute("innerHTML")
         selects = Select(age_across_places_chart.find_element_by_tag_name("select"))
         # Select containing to see the change.
