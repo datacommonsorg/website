@@ -23,8 +23,8 @@ function run_npm_test {
   cd ..
 }
 
-# Tests if lint is required on client side code
-function run_npm_lint_test {
+# Tests if lint is required
+function run_lint_test {
   cd static
   npm list eslint || npm install eslint
   if ! npm run test-lint; then
@@ -32,14 +32,19 @@ function run_npm_lint_test {
     exit 1
   fi
   cd ..
+  if ! yapf --recursive --diff --style=google server/ tools/; then
+    echo "\nFix lint errors by running ./run_test.sh -f"
+    exit 1
+  fi
 }
 
-# Fixes client side lint
-function run_npm_lint_fix {
+# Fixes lint
+function run_lint_fix {
   cd static
   npm list eslint || npm install eslint
   npm run lint
   cd ..
+  yapf --recursive --i --style=google server/ tools/
 }
 
 # Build client side code
@@ -105,7 +110,7 @@ function run_all_tests {
   run_npm_build
   run_webdriver_test
   run_screenshot_test
-  run_npm_lint_test
+  run_lint_test
   run_npm_test
 }
 
@@ -114,11 +119,11 @@ function help {
   echo "-p       Run server python tests"
   echo "-w       Run webdriver tests"
   echo "-b       Run client install and build"
-  echo "-l       Run client lint test"
+  echo "-l       Run lint test"
   echo "-c       Run client tests"
   echo "-s       Run screenshot tests"
   echo "-a       Run all tests"
-  echo "-f       Fix client lint"
+  echo "-f       Fix lint"
   echo "No args  Run all tests"
   exit 1
 }
@@ -138,8 +143,8 @@ while getopts pwblcsaf OPTION; do
         run_npm_build
         ;;
     l)
-        echo -e "### Running client-side lint"
-        run_npm_lint_test
+        echo -e "### Running lint"
+        run_lint_test
         ;;
     c)
         echo -e "### Running client tests"
@@ -151,7 +156,7 @@ while getopts pwblcsaf OPTION; do
         ;;
     f)
         echo -e "### Fix lint errors"
-        run_npm_lint_fix
+        run_lint_fix
         ;;
     a)
         echo -e "### Running all tests"

@@ -1,5 +1,11 @@
 # Run Python tests, lint, etc.
 steps:
+- id: python_format_check
+  name: python:3.7-slim
+  entrypoint: /bin/sh
+  args:
+  - -c
+  - ./run_test.sh -p
 
 - id: flask_test
   name: python:3.7-slim
@@ -9,7 +15,7 @@ steps:
   - ./run_test.sh -p
 
 - id: package_js
-  name: 'node'
+  name: "node"
   entrypoint: /bin/bash
   args:
   - -c
@@ -32,6 +38,5 @@ steps:
   entrypoint: /bin/sh
   args:
   - -c
-  - 'cd tools/pv_tree_generator && pip install -r requirements.txt && python -m pytest'
-
-# TODO: Add Python linter, format checker, and any other useful code health tools.
+  - "cd tools/pv_tree_generator && pip install -r requirements.txt && python -m pytest"
+# TODO: Add Python linter and any other useful code health tools.
