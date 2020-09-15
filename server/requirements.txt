@@ -12,3 +12,4 @@ wheel
 gunicorn
 selenium
 flask_testing
+yapf

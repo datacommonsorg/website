@@ -4,3 +4,4 @@ pytest
 requests
 google-cloud-secret-manager
 google-cloud-storage
+yapf
