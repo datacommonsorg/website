@@ -512,6 +512,7 @@ interface ChartStateType {
   dataPoints?: DataPoint[];
   dataGroups?: DataGroup[];
   elemWidth: number;
+  dateSelected?: string;
 }
 
 class Chart extends Component<ChartPropType, ChartStateType> {
@@ -558,6 +559,9 @@ class Chart extends Component<ChartPropType, ChartStateType> {
 
   render() {
     const config = this.props.config;
+    const dateString = this.state.dateSelected
+      ? "(" + this.state.dateSelected + ")"
+      : "";
     return (
       <div className="col" ref={this.chartElement}>
         <div className="chart-container">
@@ -593,7 +597,7 @@ class Chart extends Component<ChartPropType, ChartStateType> {
           <div id={this.props.id} className="svg-container"></div>
           <footer className="row explore-more-container">
             <div>
-              Data from <a href={config.url}>{config.source}</a>
+              Data from <a href={config.url}>{config.source}</a> {dateString}
             </div>
             <div>
               <a
@@ -759,6 +763,7 @@ class Chart extends Component<ChartPropType, ChartStateType> {
         ).then((data) => {
           this.setState({
             dataPoints: data.getStatsPoint(dcid),
+            dateSelected: data.latestCommonDate,
           });
         });
         break;
@@ -817,6 +822,7 @@ class Chart extends Component<ChartPropType, ChartStateType> {
                     null,
                     (dcid) => `/place?dcid=${dcid}`
                   ),
+                  dateSelected: data.latestCommonDate,
                 });
               });
             });
