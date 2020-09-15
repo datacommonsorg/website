@@ -522,7 +522,6 @@ class Chart extends Component<ChartPropType, ChartStateType> {
   parentRef: React.RefObject<HTMLOptionElement>;
   childrenRef: React.RefObject<HTMLOptionElement>;
   dcid: string;
-  titleSuffix: string;
   placeRelation: string;
 
   constructor(props: ChartPropType) {
@@ -541,7 +540,6 @@ class Chart extends Component<ChartPropType, ChartStateType> {
     this._handleWindowResize = this._handleWindowResize.bind(this);
     this._handlePlaceSelection = this._handlePlaceSelection.bind(this);
     this.dcid = props.dcid;
-    this.titleSuffix = "";
     // Default use similar places.
     if (this.props.placeType === "Country") {
       this.placeRelation = placeRelationEnum.CONTAINING;
@@ -568,7 +566,6 @@ class Chart extends Component<ChartPropType, ChartStateType> {
           <h4>
             {config.title}
             <span className="sub-title">
-              {this.titleSuffix}
               {dateString}
             </span>
           </h4>
