@@ -11,7 +11,6 @@
 # WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 # See the License for the specific language governing permissions and
 # limitations under the License.
-
 """utility functions used to build the property-value tree structure """
 from google.protobuf import text_format
 import collections
@@ -29,7 +28,7 @@ class ObsProps(object):
         self.mdenom = mdenom
         self.name = name
         self.key = (stat_type, mprop, mqual, mdenom)
-        self.same_level = same_level # the statsVar is at the same level 
+        self.same_level = same_level  # the statsVar is at the same level
         # as the value node
 
 
@@ -77,12 +76,13 @@ def read_pop_obs_spec():
             dpv[pv.prop] = pv.val
         obs_props = []
         for obs in pos.obs_props:
-            obs_props.append(ObsProps(obs.stat_type, obs.mprop,
-                                      obs.mqual, obs.mdenom, obs.name, 
-                                      obs.same_level))
+            obs_props.append(
+                ObsProps(obs.stat_type, obs.mprop, obs.mqual, obs.mdenom,
+                         obs.name, obs.same_level))
         for v in pos.vertical:
-            result[v][len(pos.cprop)].append(PopObsSpec(
-                pos.pop_type, list(pos.cprop), dpv, pos.name, obs_props))
+            result[v][len(pos.cprop)].append(
+                PopObsSpec(pos.pop_type, list(pos.cprop), dpv, pos.name,
+                           obs_props))
     return result
 
 
@@ -142,15 +142,15 @@ def read_stat_var():
     # trunk statsVar dcids into smaller size and
     # get the triples
     trunk_size = 10000
-    n_trunk = len(sv_dcid)//trunk_size
+    n_trunk = len(sv_dcid) // trunk_size
     sv_triples = {}
-    for i in range(n_trunk+1):
+    for i in range(n_trunk + 1):
         if i == n_trunk:
-            trunk_triples = dc.get_triples(sv_dcid[i*trunk_size:])
+            trunk_triples = dc.get_triples(sv_dcid[i * trunk_size:])
             sv_triples.update(trunk_triples)
         else:
-            trunk_triples = dc.get_triples(
-                sv_dcid[i*trunk_size:(i+1)*trunk_size])
+            trunk_triples = dc.get_triples(sv_dcid[i * trunk_size:(i + 1) *
+                                                   trunk_size])
             sv_triples.update(trunk_triples)
     # group all the statsVars according to the triples
     stat_vars = collections.defaultdict(list)
@@ -172,8 +172,9 @@ def read_stat_var():
         prop_val = {}
         for property in constraint_properties:
             if property not in sv_dict:
-                raise Exception('constraint property:{} not found in statistical'
-                                'variable with dcid: {}'.format(property, dcid))
+                raise Exception(
+                    'constraint property:{} not found in statistical'
+                    'variable with dcid: {}'.format(property, dcid))
             prop_val[property] = sv_dict[property]
         # create super enum, i.e. group statsvars with different p-v pairs:
         # (p,v1); (p,v2) by adding a common value: (p, v),
@@ -181,8 +182,10 @@ def read_stat_var():
         se = {}
         if 'crimeType' in prop_val:
             v = prop_val.get('crimeType', '')
-            if v in ['AggravatedAssault', 'ForcibleRape', 'Robbery',
-                     'MurderAndNonNegligentManslaughter']:
+            if v in [
+                    'AggravatedAssault', 'ForcibleRape', 'Robbery',
+                    'MurderAndNonNegligentManslaughter'
+            ]:
                 se = {'crimeType': 'ViolentCrime'}
             elif v in ['MotorVehicleTheft', 'LarcenyTheft', 'Burglary']:
                 se = {'crimeType': 'PropertyCrime'}
@@ -192,19 +195,16 @@ def read_stat_var():
                 se = {'testResult': 'TestResults'}
         if 'medicalStatus' in prop_val:
             v = prop_val.get('medicalStatus', '')
-            if v in ['ConfirmedCase', 'ConfirmedOrProbableCase', 'PatientDeceased',
-                    'PatientHospitalized', 'PatientInICU', 'PatientOnVentilator',
-                    'PatientRecovered']:
+            if v in [
+                    'ConfirmedCase', 'ConfirmedOrProbableCase',
+                    'PatientDeceased', 'PatientHospitalized', 'PatientInICU',
+                    'PatientOnVentilator', 'PatientRecovered'
+            ]:
                 se = {'medicalStatus': 'PatientStatus'}
         # create the statsVar object
-        sv = StatsVar(sv_dict["populationType"],
-                      sv_dict["measuredProperty"],
-                      sv_dict["statType"],
-                      sv_dict["measurementQualifier"],
-                      sv_dict["measurementDenominator"],
-                      prop_val,
-                      dcid,
-                      se)
+        sv = StatsVar(sv_dict["populationType"], sv_dict["measuredProperty"],
+                      sv_dict["statType"], sv_dict["measurementQualifier"],
+                      sv_dict["measurementDenominator"], prop_val, dcid, se)
         stat_vars[sv.key].append(sv)
     stat_vars = removeDuplicateStatsVar(stat_vars)
     return stat_vars

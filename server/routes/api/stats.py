@@ -20,11 +20,12 @@ import services.datacommons as dc
 
 # Define blueprint
 bp = Blueprint(
-  "stats",
-  __name__,
+    "stats",
+    __name__,
 )
 
 # TODO(shifucun): add unittest for this module
+
 
 def get_stats_latest(dcid_str, stats_var):
     """ Returns the most recent data as from a DataCommons API payload.
@@ -103,14 +104,11 @@ def stats_var_property():
 
 def stats_var_property_wrapper(dcids):
     """Function to get properties for give statistical variables."""
-    data = dc.fetch_data(
-      '/node/triples',
-      {
+    data = dc.fetch_data('/node/triples', {
         'dcids': dcids,
-      },
-      compress=False,
-      post=True
-    )
+    },
+                         compress=False,
+                         post=True)
     result = {}
     # Get all the constraint properties
     for dcid, triples in data.items():

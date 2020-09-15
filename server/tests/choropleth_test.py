@@ -20,21 +20,27 @@ from unittest.mock import patch
 
 from main import app
 
+
 class TestRoute(unittest.TestCase):
+
     def required_fields(self):
         """Failure if required fields are not present."""
-        no_stat_var = app.test_client().get('/choropleth/download?&perCapita=false&place=country/USA')
+        no_stat_var = app.test_client().get(
+            '/choropleth/download?&perCapita=false&place=country/USA')
         assert no_stat_var.status_code == 400
 
-        no_place = app.test_client().get('/choropleth/download?statVar=Count_Person_InLaborForce&perCapita=false')
+        no_place = app.test_client().get(
+            '/choropleth/download?statVar=Count_Person_InLaborForce&perCapita=false'
+        )
         assert no_place.status_code == 400
 
     def sublevel_geos_returned(self):
         """Ensures that features are returned."""
-        state_geos = app.test_client().get('/choropleth/download?&statVar=Count_Person_InLaborForce&perCapita=true&place=country/USA')
+        state_geos = app.test_client().get(
+            '/choropleth/download?&statVar=Count_Person_InLaborForce&perCapita=true&place=country/USA'
+        )
         response_json = json.loads(state_geos)
 
         assert 'geoJson' in response_json
         assert 'features' in response_json['geoJson']
         assert len(response_json['geoJson']['features']) >= 50
-

@@ -15,11 +15,7 @@
 import flask
 import os
 
-bp = flask.Blueprint(
-  "tools",
-  __name__,
-  url_prefix='/tools'
-)
+bp = flask.Blueprint("tools", __name__, url_prefix='/tools')
 
 
 @bp.route('/timeline')

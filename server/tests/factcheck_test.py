@@ -20,7 +20,9 @@ from unittest.mock import patch
 
 from main import app
 
+
 class TestRoute(unittest.TestCase):
+
     def test_homepage(self):
         response = app.test_client().get('/factcheck')
         assert response.status_code == 308  # redirect to /factcheck/
@@ -35,6 +37,6 @@ class TestRoute(unittest.TestCase):
 
     @patch('routes.factcheck.list_blobs')
     def test_download(self, mock_list_blobs):
-        mock_list_blobs.side_effect = (lambda bucket, max_blobs : [])
+        mock_list_blobs.side_effect = (lambda bucket, max_blobs: [])
         response = app.test_client().get('/factcheck/download')
         assert response.status_code == 200
