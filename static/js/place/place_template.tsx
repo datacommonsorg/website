@@ -567,7 +567,10 @@ class Chart extends Component<ChartPropType, ChartStateType> {
         <div className="chart-container">
           <h4>
             {config.title}
-            <span className="sub-title">{this.titleSuffix}</span>
+            <span className="sub-title">
+              {this.titleSuffix}
+              {dateString}
+            </span>
           </h4>
           {config.axis === axisEnum.PLACE && (
             <div>
@@ -597,7 +600,7 @@ class Chart extends Component<ChartPropType, ChartStateType> {
           <div id={this.props.id} className="svg-container"></div>
           <footer className="row explore-more-container">
             <div>
-              Data from <a href={config.url}>{config.source}</a> {dateString}
+              Data from <a href={config.url}>{config.source}</a>
             </div>
             <div>
               <a
