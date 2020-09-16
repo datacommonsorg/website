@@ -58,7 +58,7 @@ def create_app():
     app.register_blueprint(stats.bp)
 
     # Load chart config
-    with open('chart_config.json') as f:
+    with open('chart_config_new.json') as f:
         chart_config = json.load(f)
     app.config['CHART_CONFIG'] = chart_config
 

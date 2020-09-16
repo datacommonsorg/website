@@ -132,7 +132,7 @@ function getNearbyPlaces(dcid: string) {
  * Get the chart configuration.
  */
 function getChartConfigData(dcid) {
-  return axios.get("/api/chart/config/" + dcid).then((resp) => {
+  return axios.get("/api/chart/data/" + dcid).then((resp) => {
     return resp.data;
   });
 }
@@ -185,19 +185,31 @@ function renderPage(dcid: string) {
     );
   });
 
-  Promise.all([chartConfigDataPromise, parentPlacesPromise]).then(
-    (resolvedValues) => {
+  Promise.all([
+    chartConfigDataPromise,
+    parentPlacesPromise,
+    childPlacesPromise,
+    similarPlacesPromise,
+    nearbyPlacesPromise,
+  ]).then(
+    ([
+      chartConfigData,
+      parentPlaces,
+      childPlaces,
+      similarPlaces,
+      nearbyPlaces,
+    ]) => {
       ReactDOM.render(
         React.createElement(MainPane, {
           dcid,
           placeType,
           topic,
-          chartConfig: resolvedValues[0].config,
-          chartData: resolvedValues[0].data,
-          parentPlaces: resolvedValues[1],
-          childPlacesPromise,
-          similarPlacesPromise,
-          nearbyPlacesPromise,
+          chartConfig: chartConfigData.config,
+          chartData: chartConfigData.data,
+          parentPlaces: parentPlaces,
+          childPlaces: childPlaces,
+          similarPlaces,
+          nearbyPlaces,
         }),
         document.getElementById("main-pane")
       );
