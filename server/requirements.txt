@@ -2,7 +2,7 @@ Flask==1.1.2
 Flask-Caching
 attrs==19.3.0
 google-cloud-storage
-google-cloud-secret-manager
+google-cloud-secret-manager==1.0.0
 jinja2
 parameterized
 pytest
