@@ -31,14 +31,14 @@ function run_lint_test {
     echo "\nFix lint errors by running ./run_test.sh -f"
     exit 1
   fi
-  cd ..
+  cd ../server
   python3 -m venv .env
   source .env/bin/activate
   if ! command -v yapf &> /dev/null
   then
     pip3 install yapf -q
   fi
-  if ! yapf --recursive --diff --style=google server/ tools/; then
+  if ! yapf --recursive --diff --style=google . ../tools/; then
     echo "\nFix lint errors by running ./run_test.sh -f"
     exit 1
   fi
@@ -49,14 +49,14 @@ function run_lint_fix {
   cd static
   npm list eslint || npm install eslint
   npm run lint
-  cd ..
+  cd ../server
   python3 -m venv .env
   source .env/bin/activate
   if ! command -v yapf &> /dev/null
   then
     pip3 install yapf -q
   fi
-  yapf --recursive --i --style=google server/ tools/
+  yapf --recursive --i --style=google . ../tools/
 }
 
 # Build client side code
