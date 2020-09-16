@@ -27,6 +27,8 @@ from google.cloud import secretmanager
 
 if os.environ.get('FLASK_ENV') == 'test':
     cfg = import_string('configmodule.TestConfig')()
+elif os.environ.get('FLASK_ENV') == 'webdriver':
+    cfg = import_string('configmodule.WebdriverConfig')()
 elif os.environ.get('FLASK_ENV') == 'production':
     cfg = import_string('configmodule.ProductionConfig')()
 else:

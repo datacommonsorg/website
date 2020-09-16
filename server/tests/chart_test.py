@@ -18,20 +18,15 @@ from unittest.mock import patch
 
 from main import app
 
+
 class TestRoute(unittest.TestCase):
 
     @patch('routes.api.chart.dc_service.fetch_data')
     @patch('routes.api.chart.place_api.statsvars')
     def test_cache_necessary_dates(self, mock_stat_vars, mock_landing_page):
         mock_stat_vars.return_value = [
-            'StatVar1',
-            'StatVar2',
-            'StatVar3',
-            'StatVar4',
-            'StatVar5',
-            'StatVar6',
-            'StatVar7',
-            'StatVar8'
+            'StatVar1', 'StatVar2', 'StatVar3', 'StatVar4', 'StatVar5',
+            'StatVar6', 'StatVar7', 'StatVar8'
         ]
         mock_landing_page.return_value = {
             'geoId/06': {
@@ -94,43 +89,42 @@ class TestRoute(unittest.TestCase):
             }
         }
         with app.app_context():
-            app.config['CHART_CONFIG'] = [
-                {
-                    'label': 'Test',
-                    'charts': [
-                        {
-                            'title': 'Test1',
-                            "chartType": "GROUP_BAR",
-                            "axis": "PLACE",
-                            "statsVars": [
-                              "StatVar1",
-                              "StatVar2",
-                              "StatVar3",
-                              "StatVar4",
-                              "StatVar5",
-                            ]
-                        }
-                    ],
-                    'children': [
-                        {
-                            'label': 'Test',
-                            'charts': [
-                                {
-                                    'title': 'Test2',
-                                    "chartType": "SINGLE_BAR",
-                                    "statsVars": [
-                                      "StatVar1",
-                                      "StatVar2",
-                                      "StatVar6",
-                                      "StatVar7",
-                                      "StatVar8",
-                                    ]
-                                }
-                            ]
-                        }
+            app.config['CHART_CONFIG'] = [{
+                'label':
+                    'Test',
+                'charts': [{
+                    'title':
+                        'Test1',
+                    "chartType":
+                        "GROUP_BAR",
+                    "axis":
+                        "PLACE",
+                    "statsVars": [
+                        "StatVar1",
+                        "StatVar2",
+                        "StatVar3",
+                        "StatVar4",
+                        "StatVar5",
                     ]
-                }
-            ]
+                }],
+                'children': [{
+                    'label':
+                        'Test',
+                    'charts': [{
+                        'title':
+                            'Test2',
+                        "chartType":
+                            "SINGLE_BAR",
+                        "statsVars": [
+                            "StatVar1",
+                            "StatVar2",
+                            "StatVar6",
+                            "StatVar7",
+                            "StatVar8",
+                        ]
+                    }]
+                }]
+            }]
             response = app.test_client().get('api/chart/config/geoId/06')
             assert response.status_code == 200
             assert json.loads(response.data)['data'] == {

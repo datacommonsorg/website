@@ -11,7 +11,6 @@
 # WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 # See the License for the specific language governing permissions and
 # limitations under the License.
-
 """Permanent redirects to support the website re-organization and merging of
 browser.datacommons.org with datacommons.org
 """
@@ -19,8 +18,8 @@ browser.datacommons.org with datacommons.org
 from flask import Blueprint, redirect, request, url_for
 
 bp = Blueprint(
-  "redirects",
-  __name__,
+    "redirects",
+    __name__,
 )
 
 
@@ -57,5 +56,5 @@ def colab():
 # This is used to handle explore more link from Google search. Do not remove.
 @bp.route('/explore/place')
 def explore():
-    return redirect(
-        url_for('place.place', dcid=request.args.get('dcid')), code=302)
+    return redirect(url_for('place.place', dcid=request.args.get('dcid')),
+                    code=302)

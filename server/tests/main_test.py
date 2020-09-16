@@ -18,6 +18,7 @@ from main import app
 
 
 class TestRoute(unittest.TestCase):
+
     def test_dev(self):
         response = app.test_client().get('/translator')
         assert response.status_code == 200

@@ -18,6 +18,7 @@ from main import app
 
 
 class TestStaticPage(unittest.TestCase):
+
     def test_kg_static(self):
         response = app.test_client().get('/browser/')
         assert response.status_code == 200

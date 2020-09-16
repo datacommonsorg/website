@@ -1,37 +1,35 @@
 # Run Python tests, lint, etc.
 steps:
+  - id: flask_test
+    name: python:3.7-slim
+    entrypoint: /bin/sh
+    args:
+      - -c
+      - ./run_test.sh -p
 
-- id: flask_test
-  name: python:3.7-slim
-  entrypoint: /bin/sh
-  args:
-  - -c
-  - ./run_test.sh -p
+  - id: package_js
+    name: "node"
+    entrypoint: /bin/bash
+    args:
+      - -c
+      - |
+        set -x
+        # ./run_test.sh -b can run npm run-script build command which can build all the js files.
+        # These js files generated will be necessery for the flask_webdriver_test task.
+        ./run_test.sh -b
 
-- id: package_js
-  name: 'node'
-  entrypoint: /bin/bash
-  args:
-  - -c
-  - |
-    set -x
-    # ./run_test.sh -b can run npm run-script build command which can build all the js files.
-    # These js files generated will be necessery for the flask_webdriver_test task.
-    ./run_test.sh -b
+  - id: flask_webdriver_test
+    name: gcr.io/datcom-ci/webdriver-chrome
+    entrypoint: /bin/sh
+    args:
+      - -c
+      - |
+        ./run_test.sh -w
 
-- id: flask_webdriver_test
-  name: gcr.io/datcom-ci/webdriver-chrome
-  entrypoint: /bin/sh
-  args:
-  - -c
-  - |
-    ./run_test.sh -w
-
-- id: pv_tree_generator
-  name: python:3.7-slim
-  entrypoint: /bin/sh
-  args:
-  - -c
-  - 'cd tools/pv_tree_generator && pip install -r requirements.txt && python -m pytest'
-
-# TODO: Add Python linter, format checker, and any other useful code health tools.
+  - id: pv_tree_generator
+    name: python:3.7-slim
+    entrypoint: /bin/sh
+    args:
+      - -c
+      - "cd tools/pv_tree_generator && pip install -r requirements.txt && python -m pytest"
+# TODO: Add Python linter and any other useful code health tools.

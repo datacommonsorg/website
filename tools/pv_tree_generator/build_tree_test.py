@@ -35,25 +35,28 @@ class BuildTreeTest(unittest.TestCase):
                   e.g. "Count_Establishment_NAICSTotalAllIndustries",
                        "Count_Worker_NAICSTotalAllIndustries"
         """
-        sv_dcid = ["Count_Person",
-                   "GrowthRate_Amount_EconomicActivity_GrossDomesticProduction",
-                   "Amount_EconomicActivity_GrossDomesticProduction_Nominal",
-                   "Amount_EconomicActivity_GrossNationalIncome_PurchasingPowerParity",
-                   "Count_Person_Upto5Years",
-                   "Count_CriminalActivities_Arson",
-                   "Count_CriminalActivities_ViolentCrime",
-                   "Count_CriminalActivities_AggravatedAssault",
-                   "Count_CycloneEvent", "Count_EarthquakeEvent", "Count_FloodEvent",
-                   "Count_EarthquakeEvent_M3To4",
-                   "Count_CycloneEvent_ExtratropicalCyclone",
-                   "Count_Person_EnrolledInGrade1ToGrade4",
-                   "Count_Person_EnrolledInGrade5ToGrade8",
-                   "Count_Person_EducationalAttainmentNoSchoolingCompleted",
-                   "Count_Person_EducationalAttainmentKindergarten",
-                   "Count_Person_EducationalAttainmentNurserySchool",
-                   "Count_Establishment_NAICSTotalAllIndustries",
-                   "Count_Worker_NAICSTotalAllIndustries",
-                   ]
+        sv_dcid = [
+            "Count_Person",
+            "GrowthRate_Amount_EconomicActivity_GrossDomesticProduction",
+            "Amount_EconomicActivity_GrossDomesticProduction_Nominal",
+            "Amount_EconomicActivity_GrossNationalIncome_PurchasingPowerParity",
+            "Count_Person_Upto5Years",
+            "Count_CriminalActivities_Arson",
+            "Count_CriminalActivities_ViolentCrime",
+            "Count_CriminalActivities_AggravatedAssault",
+            "Count_CycloneEvent",
+            "Count_EarthquakeEvent",
+            "Count_FloodEvent",
+            "Count_EarthquakeEvent_M3To4",
+            "Count_CycloneEvent_ExtratropicalCyclone",
+            "Count_Person_EnrolledInGrade1ToGrade4",
+            "Count_Person_EnrolledInGrade5ToGrade8",
+            "Count_Person_EducationalAttainmentNoSchoolingCompleted",
+            "Count_Person_EducationalAttainmentKindergarten",
+            "Count_Person_EducationalAttainmentNurserySchool",
+            "Count_Establishment_NAICSTotalAllIndustries",
+            "Count_Worker_NAICSTotalAllIndustries",
+        ]
         return sv_dcid
 
     @staticmethod
@@ -73,6 +76,7 @@ class BuildTreeTest(unittest.TestCase):
         expected = json.load(open("./hierarchy_golden.json", "r"))
         self.assertEqual(data, expected)
         return
+
 
 if __name__ == "__main__":
     unittest.main()

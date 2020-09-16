@@ -12,12 +12,10 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-
 import unittest
 from webdriver_tests.base_test import WebdriverBaseTest
 from selenium.webdriver.support.ui import Select
 import time
-
 
 SCATTER_URL = '/scatter'
 

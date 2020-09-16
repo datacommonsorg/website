@@ -28,7 +28,7 @@ def create_app():
         cfg = import_string('configmodule.TestConfig')()
     elif os.environ.get('FLASK_ENV') == 'production':
         cfg = import_string('configmodule.ProductionConfig')()
-    elif os.environ.get('FLASK_ENV') == 'WEBDRIVER':
+    elif os.environ.get('FLASK_ENV') == 'webdriver':
         cfg = import_string('configmodule.WebdriverConfig')()
     else:
         cfg = import_string('configmodule.DevelopmentConfig')()
