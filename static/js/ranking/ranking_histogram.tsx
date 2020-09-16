@@ -15,8 +15,7 @@
  */
 
 import React, { Component, createRef } from "react";
-import { Ranking, RankInfo } from "./ranking_types";
-import * as d3 from "d3";
+import { Ranking } from "./ranking_types";
 import { DataPoint } from "../chart/base";
 import { drawHistogram } from "../chart/draw";
 
@@ -58,7 +57,7 @@ class RankingHistogram extends Component<
     );
   }
 
-  drawChart() {
+  drawChart(): void {
     const rankList = this.props.ranking.info;
     const dataPoints = rankList.map((d) => new DataPoint(d.placeName, d.value));
 
@@ -71,20 +70,20 @@ class RankingHistogram extends Component<
     );
   }
 
-  componentWillUnmount() {
+  componentWillUnmount(): void {
     window.removeEventListener("resize", this._handleWindowResize);
   }
 
-  componentDidMount() {
+  componentDidMount(): void {
     window.addEventListener("resize", this._handleWindowResize);
     this.drawChart();
   }
 
-  componentDidUpdate() {
+  componentDidUpdate(): void {
     this.drawChart();
   }
 
-  _handleWindowResize() {
+  _handleWindowResize(): void {
     const svgElement = document.getElementById(this.props.id);
     if (!svgElement) {
       return;

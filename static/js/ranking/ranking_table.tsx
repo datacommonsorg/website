@@ -15,7 +15,7 @@
  */
 
 import React, { Component } from "react";
-import { Ranking, RankInfo } from "./ranking_types";
+import { Ranking } from "./ranking_types";
 
 interface RankingTablePropType {
   ranking: Ranking;

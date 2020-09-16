@@ -20,13 +20,14 @@ import { STATS_VAR_TITLES } from "../shared/stats_var_titles";
 import { RankingTable } from "./ranking_table";
 import { LocationRankData } from "./ranking_types";
 import { RankingHistogram } from "./ranking_histogram";
-import { pluralizedDisplayNameForPlaceType, randDomId } from "../shared/util";
+import { pluralizedDisplayNameForPlaceType } from "../shared/util";
 
 interface RankingPagePropType {
   placeName: string;
   placeType: string;
   withinPlace: string;
   statVar: string;
+  isPerCapita: boolean;
 }
 
 interface RankingPageStateType {
@@ -49,12 +50,17 @@ class Page extends Component<RankingPagePropType, RankingPageStateType> {
       return <div>There is no ranking data for {statVar}</div>;
     }
     const ranking = svData.rankAll || svData.rankTop1000;
+    let subtitle = "";
+    if (this.props.isPerCapita) {
+      subtitle = ", Per Capita";
+    }
     return (
       <div key={statVar}>
         <h1>Rankings of {STATS_VAR_TITLES[statVar]}</h1>
         <h3>
           {pluralizedDisplayNameForPlaceType(this.props.placeType)} in{" "}
           {this.props.placeName}
+          {subtitle}
         </h3>
         <RankingHistogram ranking={ranking} id={"ranking-chart"} />
         <RankingTable
@@ -66,14 +72,20 @@ class Page extends Component<RankingPagePropType, RankingPageStateType> {
     );
   }
 
-  componentDidMount() {
-    return axios
-      .get(
-        `/api/ranking/${this.props.statVar}/${this.props.placeType}/${this.props.withinPlace}`
-      )
+  componentDidMount(): void {
+    let url = `/api/ranking/${this.props.statVar}/${this.props.placeType}/${this.props.withinPlace}`;
+    if (this.props.isPerCapita) {
+      url += "?pc";
+    }
+    axios
+      .get(url)
       .then((resp) => {
         let respData = null;
-        if (resp.data.payload[this.props.statVar]) {
+        if (
+          resp.data &&
+          resp.data.payload &&
+          this.props.statVar in resp.data.payload
+        ) {
           respData = resp.data.payload[this.props.statVar];
           document.title = `${
             STATS_VAR_TITLES[this.props.statVar]
@@ -83,6 +95,12 @@ class Page extends Component<RankingPagePropType, RankingPageStateType> {
         }
         this.setState({
           data: respData,
+        });
+      })
+      .catch((error) => {
+        // TODO(beets): Add better error handling messages
+        this.setState({
+          data: null,
         });
       });
   }
