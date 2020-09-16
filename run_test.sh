@@ -32,6 +32,8 @@ function run_lint_test {
     exit 1
   fi
   cd ..
+  python3 -m venv .env
+  source .env/bin/activate
   if ! command -v yapf &> /dev/null
   then
     pip3 install yapf -q
@@ -48,6 +50,8 @@ function run_lint_fix {
   npm list eslint || npm install eslint
   npm run lint
   cd ..
+  python3 -m venv .env
+  source .env/bin/activate
   if ! command -v yapf &> /dev/null
   then
     pip3 install yapf -q
