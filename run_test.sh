@@ -31,6 +31,7 @@ function run_lint_test {
     echo "\nFix lint errors by running ./run_test.sh -f"
     exit 1
   fi
+  cd ..
 }
 
 # Fixes lint
@@ -50,6 +51,7 @@ function run_lint_fix {
   fi
   yapf --recursive --i --style=google . ../tools/
   deactivate
+  cd ..
 }
 
 # Build client side code
