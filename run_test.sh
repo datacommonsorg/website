@@ -88,7 +88,7 @@ function run_webdriver_test {
     echo "no dist folder, please run ./run_test.sh -b to build js first."
     exit 1
   fi
-  export FLASK_ENV=WEBDRIVER
+  export FLASK_ENV=webdriver
   export GOOGLE_CLOUD_PROJECT=datcom-browser-staging
   pip3 install -r requirements.txt -q
   python3 -m pytest webdriver_tests/*.py
