@@ -60,6 +60,9 @@ RANKING_STATS = {
     'UnemploymentRate_Person': 'Highest Unemployment Rate',
 }
 
+STATE_EQUIVALENTS = {"State", "AdministrativeArea1"}
+US_ISO_CODE_PREFIX = 'US'
+
 # Define blueprint
 bp = Blueprint("api.place", __name__, url_prefix='/api/place')
 
@@ -459,3 +462,61 @@ def api_ranking(dcid):
             result[label] = [x for x in result[label] if 'data' in x]
     result['label'] = [x for x in all_labels if x in result]
     return Response(json.dumps(result), 200, mimetype='application/json')
+
+
+@cache.memoize(timeout=3600 * 24) # Cache for one day.
+def get_state_code(dcid):
+    """Get state code for places that have a US State as one of its parent places
+
+    Args:
+        dcid: dcid of place we are looking for the state code for
+
+    Returns:
+        state code as a string or None if there is no US state code
+    """
+    state_code = None
+    for parent_place in json.loads(parent_places(dcid)):
+        parent_dcid = parent_place['dcid']
+        place_types = parent_place['types']
+        for place_type in place_types:
+            if place_type in STATE_EQUIVALENTS:
+                iso_code = get_property_value(parent_dcid, 'isoCode')
+                if iso_code:
+                    split_iso_code = iso_code[0].split("-")
+                    if split_iso_code[0] == US_ISO_CODE_PREFIX:
+                        state_code = split_iso_code[1]
+    return state_code
+
+
+@cache.memoize(timeout=3600 * 24)  # Cache for one day.
+def get_display_name(dcids):
+    """ Get display names for a list of places. Display name is place name with state code 
+    if it has a parent place that is a state.
+
+    Args:
+        dcids: ^ separated string of dcids. It must be a single string for the cache.
+
+    Returns:
+        A dictionary of display names, keyed by dcid.
+    """
+    place_names = cached_name(dcids)
+    dcids = dcids.split('^')
+    result = {}
+    for dcid in dcids:
+        state_code = get_state_code(dcid)
+        display_name = place_names[dcid]
+        if state_code:
+            display_name = display_name + ', ' + state_code
+        result[dcid] = display_name
+    return result
+
+
+@bp.route('/displayname')
+def api_display_name():
+    """
+    Get display names for a list of places.
+    """
+    dcids = request.args.getlist('dcid')
+    result = get_display_name('^'.join((sorted(dcids))))
+    return Response(json.dumps(result), 200, mimetype='application/json')
+    

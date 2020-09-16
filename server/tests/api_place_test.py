@@ -20,37 +20,56 @@ from main import app
 
 
 class TestRoute(unittest.TestCase):
-    @patch('routes.api.place.fetch_data')
-    @patch('routes.api.place.get_stats_wrapper')
-    def test_index(self, mock_get_stats, mock_fetch_data):
-        mock_response = {
-            'geoId/06': {
-                'in': [
-                    {
-                        'dcid': 'dcid1',
-                        'name': 'name1',
-                        'types': ['County', 'AdministrativeArea'],
-                    },
-                    {
-                        'dcid': 'dcid2',
-                        'name': 'name2',
-                        'types': ['County'],
-                    },
-                    {
-                        'dcid': 'dcid3',
-                        'name': 'name3',
-                        'types': ['State'],
-                    },
-                    {
-                        'dcid': 'dcid4',
-                        'name': 'name4',
-                        'types': ['CensusTract'],
-                    }
-                ]
+    @staticmethod
+    def side_effect(url, req, compress, post):
+        print(req)
+        if 'containedInPlace' == req['property']:
+            return {
+                'geoId/06': {
+                    'in': [
+                        {
+                            'dcid': 'dcid1',
+                            'name': 'name1',
+                            'types': ['County', 'AdministrativeArea2'],
+                        },
+                        {
+                            'dcid': 'dcid2',
+                            'name': 'name2',
+                            'types': ['County'],
+                        },
+                        {
+                            'dcid': 'dcid4',
+                            'name': 'name4',
+                            'types': ['CensusTract'],
+                        }
+                    ]
+                }
             }
-        }
-        mock_fetch_data.side_effect = (
-            lambda url, req, compress, post: mock_response)
+        elif 'geoOverlaps' == req['property']:
+            return {
+                'geoId/06': {
+                    'in': [
+                        {
+                            'dcid': 'dcid3',
+                            'name': 'name3',
+                            'types': ['State'],
+                        },
+                        {
+                            'dcid': 'dcid5',
+                            'name': 'name5',
+                            'types': ['AdministrativeArea2'],
+                        },
+                    ]
+                }
+            }
+        else:
+            return {req['dcids'][0]: {}}
+
+    @patch('routes.api.place.dc.get_property_values')
+    @patch('routes.api.place.fetch_data')
+    @patch('routes.api.place.stats_api.get_stats_wrapper')
+    def test_index(self, mock_get_stats, mock_fetch_data, mock_get_place_type):
+        mock_fetch_data.side_effect = self.side_effect
 
         mock_get_stats.return_value = json.dumps({
             'dcid1': {'data': {'2018': 200}},
@@ -58,6 +77,10 @@ class TestRoute(unittest.TestCase):
             'dcid3': {'data': {'2018': 100}},
             'dcid4': {'data': {'2018': 500}},
         })
+
+        mock_get_place_type.return_value = {
+            'geoId/06': ['State']
+        }
 
         response = app.test_client().get('/api/place/child/geoId/06')
         assert response.status_code == 200
@@ -72,13 +95,6 @@ class TestRoute(unittest.TestCase):
                     'dcid': 'dcid1',
                     'name': 'name1',
                     'pop': 200
-                }
-            ],
-            'State': [
-                {
-                    'dcid': 'dcid3',
-                    'name': 'name3',
-                    'pop': 100
                 }
             ]
         }
@@ -177,3 +193,54 @@ class TestApiPlaceName(unittest.TestCase):
         assert response.status_code == 200
         assert json.loads(response.data) == {
             'geoId/06': 'California', 'geoId/07': '', 'geoId/08': 'Colorado'}
+
+
+class TestApiDisplayName(unittest.TestCase):
+    @patch('routes.api.place.get_property_value')
+    @patch('routes.api.place.parent_places')
+    @patch('routes.api.place.cached_name')
+    def test_api_display_name(self, mock_cached_name, mock_parent_places, mock_iso_code):
+        dcid1 = 'dcid1'
+        dcid2 = 'dcid2'
+        dcid3 = 'dcid3'
+        us_state_parent = 'parent1'
+        us_country_parent = 'parent2'
+        cad_state_parent = 'parent3'
+        cached_name_mapping = {
+            dcid1: dcid1,
+            dcid2: dcid2,
+            dcid3: dcid3
+        }
+        mock_cached_name.return_value = cached_name_mapping
+        dcid1_parent_places = json.dumps([
+            {'dcid': us_state_parent, 'name': us_state_parent, 'provenanceId': us_state_parent, 'types': ['State']},
+            {'dcid': us_country_parent, 'name': us_country_parent, 'provenanceId': us_country_parent, 'types': ['Country']},
+
+        ])
+        dcid2_parent_places = json.dumps([
+            {'dcid': us_country_parent, 'name': us_country_parent, 'provenanceId': us_country_parent, 'types': ['Country']},
+
+        ])
+        dcid3_parent_places = json.dumps([
+            {'dcid': cad_state_parent, 'name': cad_state_parent, 'provenanceId': cad_state_parent, 'types': ['State']},
+        ])
+        parent_places_mapping = {
+            dcid1: dcid1_parent_places,
+            dcid2: dcid2_parent_places,
+            dcid3: dcid3_parent_places
+        }
+        mock_parent_places.side_effect = parent_places_mapping.get
+        iso_code_mapping = {
+            us_state_parent: ['US-CA'],
+            cad_state_parent: ['CA-BC']
+        }
+        mock_iso_code.side_effect = iso_code_mapping.get
+
+        response = app.test_client().get(
+            '/api/place/displayname?dcid=dcid1&dcid=dcid2&dcid=dcid3')
+        assert response.status_code == 200
+        assert json.loads(response.data) == {
+            dcid1: dcid1 + ', CA',
+            dcid2: dcid2,
+            dcid3: dcid3
+        }

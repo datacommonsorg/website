@@ -35,6 +35,10 @@ interface StatApiResponse {
   [placeDcid: string]: TimeSeries | null;
 }
 
+interface DisplayNameApiResponse {
+  [placeDcid: string]: string;
+}
+
 interface CachedStatVarDataMap {
   [geoId: string]: {
     [statVar: string]: TimeSeries;
@@ -439,11 +443,21 @@ function fetchStatsData(
       apiDataPromises.push(axios.get(`/api/stats/${denom}${dcidParams}`));
     }
   }
+  const displayNamesPromise: Promise<AxiosResponse<
+    DisplayNameApiResponse
+  >> = axios.get(`/api/place/displayname${dcidParams}`);
 
-  return Promise.all(apiDataPromises).then((allResp) => {
+  // create list of promises containing apiDataPromises followed by displayNamesPromise
+  const apiPromises: Promise<AxiosResponse<any>>[] = [];
+  apiPromises.push(...apiDataPromises);
+  apiPromises.push(displayNamesPromise);
+
+  return Promise.all(apiPromises).then((allResp) => {
     const result = new StatsData(places, statsVars, [], {}, "");
     const numOccurencesPerDate: { [key: string]: number } = {};
     const numStatVarsPerPlace: { [key: string]: number } = {};
+    const displayNameMapping =
+      allResp.length > 0 ? allResp[allResp.length - 1].data : {};
     for (let i = 0; i < numStatsVars; i++) {
       const sv = statsVars[i];
       result.data[sv] = allResp[i].data;
@@ -466,6 +480,9 @@ function fetchStatsData(
           numStatVarsPerPlace[place] = 0;
         }
         if (!allResp[i].data[place]) continue;
+        if (displayNameMapping[place]) {
+          result.data[sv][place].placeName = displayNameMapping[place];
+        }
         const timeSeries = allResp[i].data[place];
         if (Object.keys(timeSeries.data).length > 0) {
           numStatVarsPerPlace[place] = numStatVarsPerPlace[place] + 1;
