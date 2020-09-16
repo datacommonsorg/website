@@ -23,8 +23,8 @@ function run_npm_test {
   cd ..
 }
 
-# Tests if lint is required
-function run_lint_test {
+# Tests if lint is required on client side code
+function run_npm_lint_test {
   cd static
   npm list eslint || npm install eslint
   if ! npm run test-lint; then
@@ -122,7 +122,7 @@ function run_all_tests {
   run_npm_build
   run_webdriver_test
   run_screenshot_test
-  run_lint_test
+  run_npm_lint_test
   run_npm_test
 }
 
@@ -131,7 +131,7 @@ function help {
   echo "-p       Run server python tests"
   echo "-w       Run webdriver tests"
   echo "-b       Run client install and build"
-  echo "-l       Run lint test"
+  echo "-l       Run client lint test"
   echo "-c       Run client tests"
   echo "-s       Run screenshot tests"
   echo "-a       Run all tests"
@@ -156,7 +156,7 @@ while getopts pwblcsaf OPTION; do
         ;;
     l)
         echo -e "### Running lint"
-        run_lint_test
+        run_npm_lint_test
         ;;
     c)
         echo -e "### Running client tests"
