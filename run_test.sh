@@ -104,7 +104,7 @@ function run_screenshot_test {
     echo "no dist folder, please run ./run_test.sh -b to build js first."
     exit 1
   fi
-  export FLASK_ENV=WEBDRIVER
+  export FLASK_ENV=webdriver
   export GOOGLE_CLOUD_PROJECT=datcom-browser-staging
   pip3 install -r requirements.txt -q
   if [  -d test_screenshots  ]
