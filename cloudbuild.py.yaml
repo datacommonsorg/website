@@ -1,18 +1,20 @@
 # Run Python tests, lint, etc.
 steps:
-  - id: python_format_check
-    name: python:3.7-slim
-    entrypoint: /bin/sh
-    args:
-      - -c
-      - ./run_test.sh -p
-
   - id: flask_test
     name: python:3.7-slim
     entrypoint: /bin/sh
     args:
       - -c
       - ./run_test.sh -p
+
+  - id: python_format_check
+    name: python:3.7-slim
+    entrypoint: /bin/sh
+    args:
+      - -c
+      - ./run_test.sh -p
+    waitFor:
+      - flask_test
 
   - id: package_js
     name: "node"

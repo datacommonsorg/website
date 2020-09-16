@@ -32,6 +32,10 @@ function run_lint_test {
     exit 1
   fi
   cd ..
+  if ! command -v yapf &> /dev/null
+  then
+    pip3 install yapf -q
+  fi
   if ! yapf --recursive --diff --style=google server/ tools/; then
     echo "\nFix lint errors by running ./run_test.sh -f"
     exit 1
@@ -44,6 +48,10 @@ function run_lint_fix {
   npm list eslint || npm install eslint
   npm run lint
   cd ..
+  if ! command -v yapf &> /dev/null
+  then
+    pip3 install yapf -q
+  fi
   yapf --recursive --i --style=google server/ tools/
 }
 

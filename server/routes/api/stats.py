@@ -19,10 +19,7 @@ from cache import cache
 import services.datacommons as dc
 
 # Define blueprint
-bp = Blueprint(
-    "stats",
-    __name__,
-)
+bp = Blueprint("stats", __name__)
 
 # TODO(shifucun): add unittest for this module
 
