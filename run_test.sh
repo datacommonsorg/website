@@ -31,24 +31,16 @@ function run_lint_test {
     echo "\nFix lint errors by running ./run_test.sh -f"
     exit 1
   fi
-  cd ../server
-  python3 -m venv .env
-  source .env/bin/activate
-  if ! command -v yapf &> /dev/null
-  then
-    pip3 install yapf -q
-  fi
-  if ! yapf --recursive --diff --style=google . ../tools/; then
-    echo "\nFix lint errors by running ./run_test.sh -f"
-    exit 1
-  fi
 }
 
 # Fixes lint
 function run_lint_fix {
+  echo -e "#### Fixing client-side code"
   cd static
   npm list eslint || npm install eslint
   npm run lint
+
+  echo -e "#### Fixing Python code"
   cd ../server
   python3 -m venv .env
   source .env/bin/activate
@@ -57,6 +49,7 @@ function run_lint_fix {
     pip3 install yapf -q
   fi
   yapf --recursive --i --style=google . ../tools/
+  deactivate
 }
 
 # Build client side code
@@ -67,7 +60,7 @@ function run_npm_build {
   cd ..
 }
 
-# Run test for server side code.
+# Run test and check lint for Python code.
 function run_py_test {
   python3 -m venv .env
   source .env/bin/activate
@@ -75,6 +68,11 @@ function run_py_test {
   export FLASK_ENV=test
   pip3 install -r requirements.txt -q
   python3 -m pytest tests/**.py
+  echo -e "#### Checking Python style"
+  if ! yapf --recursive --diff --style=google . ../tools/; then
+    echo "\nFix lint errors by running ./run_test.sh -f"
+    exit 1
+  fi
   cd ..
 }
 
