@@ -112,6 +112,14 @@ export function axios_mock(): void {
         },
       },
     });
+
+  when(axios.get)
+    .calledWith("/api/place/displayname?&dcid=geoId/05")
+    .mockResolvedValue({
+      data: {
+        "geoId/05": "Arkansas",
+      },
+    });
 }
 
 export function mock_hierarchy_complete(): void {
