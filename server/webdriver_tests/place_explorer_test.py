@@ -20,6 +20,7 @@ import time
 
 import logging
 
+MTV_URL = '/place?dcid=geoId/0649670'
 USA_URL = '/place?dcid=country/USA'
 CA_URL = '/place?dcid=geoId/06'
 PLACE_SEARCH = 'California, USA'
@@ -28,11 +29,11 @@ PLACE_SEARCH = 'California, USA'
 # Class to test place explorer tool.
 class TestPlaceExplorer(WebdriverBaseTest):
 
-    def test_page_serve(self):
-        """Test the place explorer tool page can be loaded successfullly."""
+    def test_page_serve_usa(self):
+        """Test the place explorer page for USA can be loaded successfullly."""
         self.driver.get(self.url_ + USA_URL)
-        # Using implicit wait here to wait for loading page.
-        self.driver.implicitly_wait(5)
+        # Wait for the XHR's to complete.
+        time.sleep(5)
         req = urllib.request.Request(self.driver.current_url)
         with urllib.request.urlopen(req) as response:
             self.assertEqual(response.getcode(), 200)
@@ -42,6 +43,23 @@ class TestPlaceExplorer(WebdriverBaseTest):
             self.assertEqual(response.getcode(), 200)
         self.assertEqual("United States | Place Explorer | Data Commons",
                          self.driver.title)
+        title = self.driver.find_element_by_id("place-name")
+        self.assertEqual("United States", title.text)
+        subtitle = self.driver.find_element_by_id("place-type")
+        self.assertEqual("A Country in North America", subtitle.text)
+
+    def test_page_serve_mtv(self):
+        """Test the place explorer page for MTV can be loaded successfullly."""
+        self.driver.get(self.url_ + MTV_URL)
+        time.sleep(5)
+        self.assertEqual("Mountain View | Place Explorer | Data Commons",
+                         self.driver.title)
+        title = self.driver.find_element_by_id("place-name")
+        self.assertEqual("Mountain View", title.text)
+        subtitle = self.driver.find_element_by_id("place-type")
+        self.assertEqual(
+            "A City in Santa Clara County, California, United States, North America",
+            subtitle.text)
 
     def test_place_search(self):
         """Test the place search box can work correctly."""
