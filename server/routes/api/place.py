@@ -505,13 +505,13 @@ def api_ranking(dcid):
 
 @cache.memoize(timeout=3600 * 24)  # Cache for one day.
 def get_state_code(dcids):
-    """Get state code for list of places
+    """Get state codes for a list of places that are state equivalents
 
     Args:
-        dcids: dcids of places we want the state code for
+        dcids: ^ separated string of dcids of places that are state equivalents
 
     Returns:
-        state code as a string or None if there is no US state code
+        A dictionary of state codes, keyed by dcid
     """
     result = {}
     if not dcids:
