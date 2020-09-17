@@ -107,14 +107,18 @@ def get_chart_data(keys):
     return send_request(url, req_json=req_json)
 
 
-def get_place_ranking(stat_vars, place_type, within_place=None):
+def get_place_ranking(stat_vars,
+                      place_type,
+                      within_place=None,
+                      is_per_capita=False):
     url = API_ROOT + API_ENDPOINTS['get_place_ranking']
     req_json = {
         'stat_var_dcids': stat_vars,
         'place_type': place_type,
         'within_place': within_place,
+        'is_per_capita': is_per_capita,
     }
-    return send_request(url, req_json=req_json, post=True, has_payload=False)
+    return send_request(url, req_json=req_json, post=False, has_payload=False)
 
 
 def get_property_labels(dcids, out=True):

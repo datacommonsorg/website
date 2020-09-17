@@ -272,6 +272,7 @@ def parent_places(dcids):
     parents3 = get_parent_place('^'.join(dcid_parents2_mapping.values()))
     for dcid in dcid_parents2_mapping.keys():
         result[dcid].extend(parents3[dcid_parents2_mapping[dcid]])
+        result[dcid] = [x for x in result[dcid] if x['dcid'] != 'Earth']
 
     return result
 

@@ -27,12 +27,16 @@ window.onload = () => {
   const placeType = document.getElementById("place-type").dataset.pt;
   const placeName = document.getElementById("place-name").dataset.pn;
   const statVar = document.getElementById("stat-var").dataset.sv;
+  const isPerCapita = JSON.parse(
+    document.getElementById("per-capita").dataset.pc.toLowerCase()
+  );
   ReactDOM.render(
     React.createElement(Page, {
       placeName,
       placeType,
       withinPlace,
       statVar,
+      isPerCapita,
     }),
     document.getElementById("main-pane")
   );

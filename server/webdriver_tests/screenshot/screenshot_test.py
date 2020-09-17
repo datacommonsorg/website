@@ -69,18 +69,18 @@ TEST_URLS = [
         'height':
             1000
     },
-    # {
-    #     'url': '/ranking/Median_Income_Person/County/country/USA',
-    #     'filename_suffix': 'ranking_median_income_counties.png',
-    #     'test_class': 'chart-container',
-    #     'height': 600
-    # },
-    # {
-    #     'url': '/ranking/Count_Person/Country',
-    #     'filename_suffix': 'ranking_population_countries.png',
-    #     'test_class': 'chart-container',
-    #     'height': 600
-    # },
+    {
+        'url': '/ranking/Median_Income_Person/County/country/USA',
+        'filename_suffix': 'ranking_median_income_counties.png',
+        'test_class': 'chart-container',
+        'height': 600
+    },
+    {
+        'url': '/ranking/Count_Person/Country',
+        'filename_suffix': 'ranking_population_countries.png',
+        'test_class': 'chart-container',
+        'height': 600
+    },
 ]
 
 
