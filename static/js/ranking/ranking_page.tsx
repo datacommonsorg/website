@@ -57,7 +57,7 @@ class Page extends React.Component<RankingPagePropType, RankingPageStateType> {
       return <a href={href}>Show Top {RANK_SIZE}</a>;
     }
     // show link to bottom 100
-    let search = window.location.search;
+    const search = window.location.search;
     const href =
       window.location.pathname +
       (search == "" ? "?" : search + "&") +
