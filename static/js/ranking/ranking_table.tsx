@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-import React, { Component } from "react";
+import React from "react";
 import { Ranking } from "./ranking_types";
 
 interface RankingTablePropType {
@@ -23,7 +23,7 @@ interface RankingTablePropType {
   placeType: string;
 }
 
-class RankingTable extends Component<RankingTablePropType> {
+class RankingTable extends React.Component<RankingTablePropType> {
   constructor(props: RankingTablePropType) {
     super(props);
   }

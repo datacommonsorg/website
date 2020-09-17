@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-import React, { Component, createRef } from "react";
+import React from "react";
 import { Ranking } from "./ranking_types";
 import { DataPoint } from "../chart/base";
 import { drawHistogram } from "../chart/draw";
@@ -28,7 +28,7 @@ interface RankingHistogramStateType {
   elemWidth: number;
 }
 
-class RankingHistogram extends Component<
+class RankingHistogram extends React.Component<
   RankingHistogramPropType,
   RankingHistogramStateType
 > {
@@ -43,7 +43,7 @@ class RankingHistogram extends Component<
     // small screen sizes
     this._handleWindowResize = this._handleWindowResize.bind(this);
     this.drawChart = this.drawChart.bind(this);
-    this.chartElementRef = createRef();
+    this.chartElementRef = React.createRef();
   }
 
   render(): JSX.Element {

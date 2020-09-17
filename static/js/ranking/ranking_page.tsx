@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-import React, { Component } from "react";
+import React from "react";
 import axios from "axios";
 import { STATS_VAR_TITLES } from "../shared/stats_var_titles";
 import { RankingTable } from "./ranking_table";
@@ -34,7 +34,7 @@ interface RankingPageStateType {
   data: LocationRankData;
 }
 
-class Page extends Component<RankingPagePropType, RankingPageStateType> {
+class Page extends React.Component<RankingPagePropType, RankingPageStateType> {
   constructor(props: RankingPagePropType) {
     super(props);
     this.state = {
