@@ -228,13 +228,19 @@ def child_fetch(dcid):
 
 @bp.route('/parent/<path:dcid>')
 def api_parent_places(dcid):
-    return Response(parent_places(dcid), 200, mimetype='application/json')
+    result = parent_places(dcid)[dcid]
+    return Response(json.dumps(result), 200, mimetype='application/json')
 
 
 @cache.memoize(timeout=3600 * 24)  # Cache for one day.
-def parent_places(dcid):
-    """
-    Get the parent place chain for a place.
+def parent_places(dcids):
+    """ Get the parent place chain for a list of places.
+
+    Args:
+        dcids: ^ separated string of dcids. It must be a single string for the cache.
+
+    Returns:
+        A dictionary of lists of parent places, keyed by dcid.
     """
     # In DataCommons knowledge graph, places has multiple containedInPlace
     # relation with parent places, but it might not be comprehensive. For
@@ -242,35 +248,67 @@ def parent_places(dcid):
     # "California" but not "United States":
     # https://datacommons.org/browser/geoId/0649670
     # Here calling get_parent_place twice to get to the top parents.
-    parents1 = get_parent_place(dcid)
-    if len(parents1) == 0:
-        return json.dumps([])
-    parents2 = get_parent_place(parents1[-1]['dcid'])
-    parents1.extend(parents2)
-    if parents2:
-        parents3 = get_parent_place(parents2[-1]['dcid'])
-        parents1.extend(parents3)
-    return json.dumps(parents1)
+    result = {}
+
+    parents1 = get_parent_place(dcids)
+    if not dcids:
+        return result
+    dcids = dcids.split('^')
+    dcid_parents1_mapping = {}
+    for dcid in dcids:
+        first_parents = parents1[dcid]
+        result[dcid] = first_parents
+        if first_parents:
+            dcid_parents1_mapping[dcid] = first_parents[-1]['dcid']
+    
+    parents2 = get_parent_place('^'.join(dcid_parents1_mapping.values()))
+    dcid_parents2_mapping = {}
+    for dcid in dcid_parents1_mapping.keys():
+        second_parents = parents2[dcid_parents1_mapping[dcid]]
+        result[dcid].extend(second_parents)
+        if second_parents:
+            dcid_parents2_mapping[dcid] = second_parents[-1]['dcid']
+        
+    parents3 = get_parent_place('^'.join(dcid_parents2_mapping.values()))
+    for dcid in dcid_parents2_mapping.keys():
+        result[dcid].extend(parents3[dcid_parents2_mapping[dcid]])
+
+    return result
 
 
 @cache.memoize(timeout=3600 * 24)  # Cache for one day.
-def get_parent_place(dcid):
+def get_parent_place(dcids):
+    """ Get containedInPlace for each place in a list of places
+
+    Args:
+        dcids: ^ separated string of dcids. It must be a single string for the cache.
+
+    Returns:
+        A dictionary of lists of containedInPlace, keyed by dcid.
+    """
+    if dcids:
+        dcids = dcids.split('^')
+    else:
+        dcids = []
     response = fetch_data('/node/property-values', {
-        'dcids': [dcid],
+        'dcids': dcids,
         'property': 'containedInPlace',
         'direction': 'out'
     },
                           compress=False,
                           post=True)
-    parents = response[dcid].get('out', [])
-    parents.sort(key=lambda x: x['dcid'], reverse=True)
-    for i in range(len(parents)):
-        if len(parents[i]['types']) > 1:
-            parents[i]['types'] = [
-                x for x in parents[i]['types']
-                if not x.startswith('AdministrativeArea')
-            ]
-    return parents
+    result = {}
+    for dcid in dcids:
+        parents = response[dcid].get('out', [])
+        parents.sort(key=lambda x: x['dcid'], reverse=True)
+        for i in range(len(parents)):
+            if len(parents[i]['types']) > 1:
+                parents[i]['types'] = [
+                    x for x in parents[i]['types']
+                    if not x.startswith('AdministrativeArea')
+                ]
+        result[dcid] = parents
+    return result
 
 
 @cache.memoize(timeout=3600 * 24)  # Cache for one day.
@@ -347,7 +385,7 @@ def api_similar_places(stats_var, dcid):
     """
     Get the similar places for a given place by stats var within the same place.
     """
-    parents = json.loads(parent_places(dcid))
+    parents = parent_places(dcid)[dcid]
     # scope similar places to the same country if possible
     parent_dcid = None
     if parents and len(parents):
@@ -404,7 +442,7 @@ def api_ranking(dcid):
     Get the ranking information for a given place.
     """
     current_place_type = get_place_type(dcid)
-    parents = json.loads(parent_places(dcid))
+    parents = parent_places(dcid)[dcid]
     selected_parents = []
     parent_names = {}
     for parent in parents:
@@ -465,27 +503,31 @@ def api_ranking(dcid):
 
 
 @cache.memoize(timeout=3600 * 24) # Cache for one day.
-def get_state_code(dcid):
-    """Get state code for places that have a US State as one of its parent places
+def get_state_code(dcids):
+    """Get state code for list of places
 
     Args:
-        dcid: dcid of place we are looking for the state code for
+        dcids: dcids of places we want the state code for
 
     Returns:
         state code as a string or None if there is no US state code
     """
-    state_code = None
-    for parent_place in json.loads(parent_places(dcid)):
-        parent_dcid = parent_place['dcid']
-        place_types = parent_place['types']
-        for place_type in place_types:
-            if place_type in STATE_EQUIVALENTS:
-                iso_code = get_property_value(parent_dcid, 'isoCode')
-                if iso_code:
-                    split_iso_code = iso_code[0].split("-")
-                    if split_iso_code[0] == US_ISO_CODE_PREFIX:
-                        state_code = split_iso_code[1]
-    return state_code
+    result = {}
+    if not dcids:
+        return result
+    dcids = dcids.split('^')
+    iso_codes = dc.get_property_values(dcids, 'isoCode', True)
+
+    for dcid in dcids:
+        state_code = None
+        iso_code = iso_codes[dcid]
+        if iso_code:
+            split_iso_code = iso_code[0].split("-")
+            if len(split_iso_code) > 1 and split_iso_code[0] == US_ISO_CODE_PREFIX:
+                state_code = split_iso_code[1]
+        result[dcid] = state_code
+    
+    return result
 
 
 @cache.memoize(timeout=3600 * 24)  # Cache for one day.
@@ -500,14 +542,25 @@ def get_display_name(dcids):
         A dictionary of display names, keyed by dcid.
     """
     place_names = cached_name(dcids)
+    parents = parent_places(dcids)
     dcids = dcids.split('^')
     result = {}
+    dcid_state_mapping = {}
     for dcid in dcids:
-        state_code = get_state_code(dcid)
-        display_name = place_names[dcid]
+        for parent_place in parents[dcid]:
+            parent_dcid = parent_place['dcid']
+            place_types = parent_place['types']
+            for place_type in place_types:
+                if place_type in STATE_EQUIVALENTS:
+                    dcid_state_mapping[dcid] = parent_dcid
+                    break
+        result[dcid] = place_names[dcid]
+    
+    state_codes = get_state_code('^'.join((sorted(dcid_state_mapping.values())))) 
+    for dcid in dcid_state_mapping.keys():
+        state_code = state_codes[dcid_state_mapping[dcid]]
         if state_code:
-            display_name = display_name + ', ' + state_code
-        result[dcid] = display_name
+            result[dcid] = result[dcid] + ', ' + state_code
     return result
 
 

@@ -22,7 +22,6 @@ from main import app
 class TestRoute(unittest.TestCase):
     @staticmethod
     def side_effect(url, req, compress, post):
-        print(req)
         if 'containedInPlace' == req['property']:
             return {
                 'geoId/06': {
@@ -196,46 +195,86 @@ class TestApiPlaceName(unittest.TestCase):
 
 
 class TestApiDisplayName(unittest.TestCase):
-    @patch('routes.api.place.get_property_value')
-    @patch('routes.api.place.parent_places')
-    @patch('routes.api.place.cached_name')
-    def test_api_display_name(self, mock_cached_name, mock_parent_places, mock_iso_code):
+    @patch('routes.api.place.dc.get_property_values')
+    @patch('routes.api.place.fetch_data')
+    def test_api_display_name(self, mock_data_fetcher, mock_iso_codes):
         dcid1 = 'dcid1'
         dcid2 = 'dcid2'
         dcid3 = 'dcid3'
         us_state_parent = 'parent1'
         us_country_parent = 'parent2'
         cad_state_parent = 'parent3'
-        cached_name_mapping = {
-            dcid1: dcid1,
-            dcid2: dcid2,
-            dcid3: dcid3
-        }
-        mock_cached_name.return_value = cached_name_mapping
-        dcid1_parent_places = json.dumps([
-            {'dcid': us_state_parent, 'name': us_state_parent, 'provenanceId': us_state_parent, 'types': ['State']},
-            {'dcid': us_country_parent, 'name': us_country_parent, 'provenanceId': us_country_parent, 'types': ['Country']},
+        def side_effect(url, req, compress, post):
+            if 'containedInPlace' == req['property']:
+                return {
+                    dcid1: {
+                        'out': [
+                            {
+                                'dcid': us_state_parent,
+                                'name': us_state_parent,
+                                'types': ['State'],
+                            },
+                            {
+                                'dcid': us_country_parent,
+                                'name': us_country_parent,
+                                'types': ['Country'],
+                            },
+                        ]
+                    },
+                    dcid2: {
+                        'out': [
+                            {
+                                'dcid': us_country_parent,
+                                'name': us_country_parent,
+                                'types': ['Country'],
+                            },
+                        ]
+                    },
+                    dcid3: {
+                        'out': [
+                            {
+                                'dcid': cad_state_parent,
+                                'name': cad_state_parent,
+                                'types': ['State'],
+                            },
+                        ]
+                    },
+                    cad_state_parent: {
+                        'out': []
+                    },
+                    us_state_parent: {
+                        'out': []
+                    },
+                    us_country_parent: {
+                        'out': []
+                    }
+                }
+            elif 'name' == req['property']:
+                return {
+                    dcid1: {
+                        'out': [
+                            {'value': dcid1}
+                        ]
+                    },
+                    dcid2: {
+                        'out': [
+                            {'value': dcid2}
+                        ]
+                    },
+                    dcid3: {
+                        'out': [
+                            {'value': dcid3}
+                        ]
+                    },
+                }
+            else:
+                return {req['dcids'][0]: {}}
 
-        ])
-        dcid2_parent_places = json.dumps([
-            {'dcid': us_country_parent, 'name': us_country_parent, 'provenanceId': us_country_parent, 'types': ['Country']},
-
-        ])
-        dcid3_parent_places = json.dumps([
-            {'dcid': cad_state_parent, 'name': cad_state_parent, 'provenanceId': cad_state_parent, 'types': ['State']},
-        ])
-        parent_places_mapping = {
-            dcid1: dcid1_parent_places,
-            dcid2: dcid2_parent_places,
-            dcid3: dcid3_parent_places
-        }
-        mock_parent_places.side_effect = parent_places_mapping.get
-        iso_code_mapping = {
+        mock_data_fetcher.side_effect = side_effect
+        mock_iso_codes.return_value = {
             us_state_parent: ['US-CA'],
             cad_state_parent: ['CA-BC']
         }
-        mock_iso_code.side_effect = iso_code_mapping.get
-
         response = app.test_client().get(
             '/api/place/displayname?dcid=dcid1&dcid=dcid2&dcid=dcid3')
         assert response.status_code == 200
