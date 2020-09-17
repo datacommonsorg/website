@@ -20,28 +20,25 @@ from main import app
 
 
 class TestRoute(unittest.TestCase):
+
     @staticmethod
     def side_effect(url, req, compress, post):
         if 'containedInPlace' == req['property']:
             return {
                 'geoId/06': {
-                    'in': [
-                        {
-                            'dcid': 'dcid1',
-                            'name': 'name1',
-                            'types': ['County', 'AdministrativeArea2'],
-                        },
-                        {
-                            'dcid': 'dcid2',
-                            'name': 'name2',
-                            'types': ['County'],
-                        },
-                        {
-                            'dcid': 'dcid4',
-                            'name': 'name4',
-                            'types': ['CensusTract'],
-                        }
-                    ]
+                    'in': [{
+                        'dcid': 'dcid1',
+                        'name': 'name1',
+                        'types': ['County', 'AdministrativeArea2'],
+                    }, {
+                        'dcid': 'dcid2',
+                        'name': 'name2',
+                        'types': ['County'],
+                    }, {
+                        'dcid': 'dcid4',
+                        'name': 'name4',
+                        'types': ['CensusTract'],
+                    }]
                 }
             }
         elif 'geoOverlaps' == req['property']:
@@ -71,67 +68,74 @@ class TestRoute(unittest.TestCase):
         mock_fetch_data.side_effect = self.side_effect
 
         mock_get_stats.return_value = json.dumps({
-            'dcid1': {'data': {'2018': 200}},
-            'dcid2': {'data': {'2018': 300}},
-            'dcid3': {'data': {'2018': 100}},
-            'dcid4': {'data': {'2018': 500}},
+            'dcid1': {
+                'data': {
+                    '2018': 200
+                }
+            },
+            'dcid2': {
+                'data': {
+                    '2018': 300
+                }
+            },
+            'dcid3': {
+                'data': {
+                    '2018': 100
+                }
+            },
+            'dcid4': {
+                'data': {
+                    '2018': 500
+                }
+            },
         })
 
-        mock_get_place_type.return_value = {
-            'geoId/06': ['State']
-        }
+        mock_get_place_type.return_value = {'geoId/06': ['State']}
 
         response = app.test_client().get('/api/place/child/geoId/06')
         assert response.status_code == 200
         assert json.loads(response.data) == {
-            'County': [
-                {
-                    'dcid': 'dcid2',
-                    'name': 'name2',
-                    'pop': 300
-                },
-                {
-                    'dcid': 'dcid1',
-                    'name': 'name1',
-                    'pop': 200
-                }
-            ]
+            'County': [{
+                'dcid': 'dcid2',
+                'name': 'name2',
+                'pop': 300
+            }, {
+                'dcid': 'dcid1',
+                'name': 'name1',
+                'pop': 200
+            }]
         }
 
 
 class TestApiParentPlaces(unittest.TestCase):
+
     @staticmethod
     def side_effect(url, req, compress, post):
         if 'geoId/0649670' == req['dcids'][0]:
             return {
                 'geoId/0649670': {
-                    'out': [
-                        {
-                            'dcid': 'geoId/06085',
-                            'name': 'Santa Clara County',
-                            'provenanceId': 'dc/sm3m2w3',
-                            'types': ['AdministrativeArea', 'County']
-                        },
-                        {
-                            'dcid': 'geoId/06',
-                            'name': 'California',
-                            'provenanceId': 'dc/sm3m2w3',
-                            'types': ['AdministrativeArea', 'State']
-                        }
-                    ]
+                    'out': [{
+                        'dcid': 'geoId/06085',
+                        'name': 'Santa Clara County',
+                        'provenanceId': 'dc/sm3m2w3',
+                        'types': ['AdministrativeArea', 'County']
+                    }, {
+                        'dcid': 'geoId/06',
+                        'name': 'California',
+                        'provenanceId': 'dc/sm3m2w3',
+                        'types': ['AdministrativeArea', 'State']
+                    }]
                 }
             }
         elif 'geoId/06' == req['dcids'][0]:
             return {
                 'geoId/06': {
-                    'out': [
-                        {
-                            'dcid': 'country/USA',
-                            'name': 'United States',
-                            'provenanceId': 'dc/sm3m2w3',
-                            'types': ['Country']
-                        }
-                    ]
+                    'out': [{
+                        'dcid': 'country/USA',
+                        'name': 'United States',
+                        'provenanceId': 'dc/sm3m2w3',
+                        'types': ['Country']
+                    }]
                 }
             }
         else:
@@ -142,29 +146,26 @@ class TestApiParentPlaces(unittest.TestCase):
         mock_fetch_data.side_effect = self.side_effect
         response = app.test_client().get('/api/place/parent/geoId/0649670')
         assert response.status_code == 200
-        assert json.loads(response.data) == [
-            {
-                'dcid': 'geoId/06085',
-                'name': 'Santa Clara County',
-                'provenanceId': 'dc/sm3m2w3',
-                'types': ['County']
-            },
-            {
-                'dcid': 'geoId/06',
-                'name': 'California',
-                'provenanceId': 'dc/sm3m2w3',
-                'types': ['State']
-            },
-            {
-                'dcid': 'country/USA',
-                'name': 'United States',
-                'provenanceId': 'dc/sm3m2w3',
-                'types': ['Country']
-            }
-        ]
+        assert json.loads(response.data) == [{
+            'dcid': 'geoId/06085',
+            'name': 'Santa Clara County',
+            'provenanceId': 'dc/sm3m2w3',
+            'types': ['County']
+        }, {
+            'dcid': 'geoId/06',
+            'name': 'California',
+            'provenanceId': 'dc/sm3m2w3',
+            'types': ['State']
+        }, {
+            'dcid': 'country/USA',
+            'name': 'United States',
+            'provenanceId': 'dc/sm3m2w3',
+            'types': ['Country']
+        }]
 
 
 class TestApiPlaceName(unittest.TestCase):
+
     @patch('routes.api.place.fetch_data')
     def test_parent_places(self, mock_fetch_data):
         mock_response = {
@@ -191,10 +192,14 @@ class TestApiPlaceName(unittest.TestCase):
             '/api/place/name?dcid=geoId/06&dcid=geoId/07&dcid=geoId/08')
         assert response.status_code == 200
         assert json.loads(response.data) == {
-            'geoId/06': 'California', 'geoId/07': '', 'geoId/08': 'Colorado'}
+            'geoId/06': 'California',
+            'geoId/07': '',
+            'geoId/08': 'Colorado'
+        }
 
 
 class TestApiDisplayName(unittest.TestCase):
+
     @patch('routes.api.place.dc.get_property_values')
     @patch('routes.api.place.fetch_data')
     def test_api_display_name(self, mock_data_fetcher, mock_iso_codes):
@@ -204,6 +209,7 @@ class TestApiDisplayName(unittest.TestCase):
         us_state_parent = 'parent1'
         us_country_parent = 'parent2'
         cad_state_parent = 'parent3'
+
         def side_effect(url, req, compress, post):
             if 'containedInPlace' == req['property']:
                 return {
@@ -222,22 +228,18 @@ class TestApiDisplayName(unittest.TestCase):
                         ]
                     },
                     dcid2: {
-                        'out': [
-                            {
-                                'dcid': us_country_parent,
-                                'name': us_country_parent,
-                                'types': ['Country'],
-                            },
-                        ]
+                        'out': [{
+                            'dcid': us_country_parent,
+                            'name': us_country_parent,
+                            'types': ['Country'],
+                        },]
                     },
                     dcid3: {
-                        'out': [
-                            {
-                                'dcid': cad_state_parent,
-                                'name': cad_state_parent,
-                                'types': ['State'],
-                            },
-                        ]
+                        'out': [{
+                            'dcid': cad_state_parent,
+                            'name': cad_state_parent,
+                            'types': ['State'],
+                        },]
                     },
                     cad_state_parent: {
                         'out': []
@@ -252,19 +254,19 @@ class TestApiDisplayName(unittest.TestCase):
             elif 'name' == req['property']:
                 return {
                     dcid1: {
-                        'out': [
-                            {'value': dcid1}
-                        ]
+                        'out': [{
+                            'value': dcid1
+                        }]
                     },
                     dcid2: {
-                        'out': [
-                            {'value': dcid2}
-                        ]
+                        'out': [{
+                            'value': dcid2
+                        }]
                     },
                     dcid3: {
-                        'out': [
-                            {'value': dcid3}
-                        ]
+                        'out': [{
+                            'value': dcid3
+                        }]
                     },
                 }
             else:

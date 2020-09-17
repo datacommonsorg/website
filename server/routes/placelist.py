@@ -23,29 +23,26 @@ from services.datacommons import fetch_data
 
 # Define blueprint
 bp = Blueprint(
-  "placelist",
-  __name__,
+    "placelist",
+    __name__,
 )
 
 
 @bp.route('/placelist')
 @cache.memoize(timeout=3600 * 24)  # Cache for one day.
 def index():
-    response = fetch_data(
-      '/node/property-values',
-      {
+    response = fetch_data('/node/property-values', {
         'dcids': ['Country'],
         'property': 'typeOf',
         'direction': 'in'
-      },
-      compress=False,
-      post=True
-    )
+    },
+                          compress=False,
+                          post=True)
     countries = {'Country': []}
     for place in response['Country']['in']:
         countries['Country'].append({
-          'dcid': place['dcid'],
-          'name': place.get('name', place['dcid'])
+            'dcid': place['dcid'],
+            'name': place.get('name', place['dcid'])
         })
         countries['Country'].sort(key=lambda x: x['name'])
     return render_template('placelist.html', place_by_type=countries)
@@ -61,12 +58,13 @@ def node(dcid):
             for place_type in child.get('types', [""]):
                 if not place_type.startswith('AdministrativeArea'):
                     place_by_type[place_type].append({
-                      'dcid': child['dcid'],
-                      'name': child['name']
+                        'dcid': child['dcid'],
+                        'name': child['name']
                     })
                     break
     for place_type in place_by_type:
         place_by_type[place_type].sort(key=lambda x: x['name'])
 
-    return render_template(
-      'placelist.html', place_by_type=place_by_type, dcid=dcid)
+    return render_template('placelist.html',
+                           place_by_type=place_by_type,
+                           dcid=dcid)

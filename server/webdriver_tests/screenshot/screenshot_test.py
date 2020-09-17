@@ -69,18 +69,18 @@ TEST_URLS = [
         'height':
             1000
     },
-    {
-        'url': '/ranking/Median_Income_Person/County/country/USA',
-        'filename_suffix': 'ranking_median_income_counties.png',
-        'test_class': 'chart-container',
-        'height': 600
-    },
-    {
-        'url': '/ranking/Count_Person/Country',
-        'filename_suffix': 'ranking_population_countries.png',
-        'test_class': 'chart-container',
-        'height': 600
-    },
+    # {
+    #     'url': '/ranking/Median_Income_Person/County/country/USA',
+    #     'filename_suffix': 'ranking_median_income_counties.png',
+    #     'test_class': 'chart-container',
+    #     'height': 600
+    # },
+    # {
+    #     'url': '/ranking/Count_Person/Country',
+    #     'filename_suffix': 'ranking_population_countries.png',
+    #     'test_class': 'chart-container',
+    #     'height': 600
+    # },
 ]
 
 
@@ -99,7 +99,7 @@ class TestScreenShot(WebdriverBaseTest):
             charts = self.driver.find_elements_by_class_name(
                 test_info['test_class'])
             # Assert there are charts.
-            self.assertGreater(len(charts), 0)
+            self.assertGreater(len(charts), 0, test_info['url'])
             self.driver.save_screenshot('{}{}_{}'.format(
                 SCREENSHOTS_FOLDER, index, test_info['filename_suffix']))
             index += 1

@@ -11,7 +11,6 @@
 # WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 # See the License for the specific language governing permissions and
 # limitations under the License.
-
 """Data Commons static content routes."""
 
 from flask import Blueprint, render_template
@@ -20,10 +19,7 @@ from lib.gcs import list_blobs
 _SA_FEED_BUCKET = 'datacommons-frog-feed'
 _MAX_BLOBS = 1
 
-bp = Blueprint(
-  'static',
-  __name__
-)
+bp = Blueprint('static', __name__)
 
 
 @bp.route('/')
@@ -33,36 +29,36 @@ def homepage():
 
 @bp.route('/about')
 def about():
-  return render_template('static/about.html')
+    return render_template('static/about.html')
 
 
 @bp.route('/faq')
 def faq():
-  return render_template('static/faq.html')
+    return render_template('static/faq.html')
 
 
 @bp.route('/disclaimers')
 def disclaimers():
-  return render_template('static/disclaimers.html')
+    return render_template('static/disclaimers.html')
 
 
 @bp.route('/datasets')
 def datasets():
-  return render_template('static/datasets.html')
+    return render_template('static/datasets.html')
 
 
 @bp.route('/getinvolved')
 def get_involved():
-  return render_template('static/get_involved.html')
+    return render_template('static/get_involved.html')
 
 
 @bp.route('/special_announcement')
 def special_announcement():
-  recent_blobs = list_blobs(_SA_FEED_BUCKET, _MAX_BLOBS)
-  return render_template(
-      'static/special_announcement.html', recent_blobs=recent_blobs)
+    recent_blobs = list_blobs(_SA_FEED_BUCKET, _MAX_BLOBS)
+    return render_template('static/special_announcement.html',
+                           recent_blobs=recent_blobs)
 
 
 @bp.route('/special_announcement/faq')
 def special_announcement_faq():
-  return render_template('static/special_announcement_faq.html')
+    return render_template('static/special_announcement_faq.html')

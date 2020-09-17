@@ -13,23 +13,22 @@
 # WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 # See the License for the specific language governing permissions and
 # limitations under the License.
-
 """constants used when creating the pv tree."""
 
 import collections
 
-
 VERTICALS = [
-    'Demographics', 'Crime', 'Education', 'Employment', 'Health', 'COVID-19','Housing',
-    'Household', 'Disasters', 'Environment', 'Economics'
+    'Demographics', 'Crime', 'Education', 'Employment', 'Health', 'COVID-19',
+    'Housing', 'Household', 'Disasters', 'Environment', 'Economics'
 ]
 
-Demographics = {'Population': 0,
-                'Population Density': 1,
-                'Median age': 2,
-                'Median income': 3,
-                'Life Expectancy':4, 
-                'Crude Birth Rate': 5,
+Demographics = {
+    'Population': 0,
+    'Population Density': 1,
+    'Median age': 2,
+    'Median income': 3,
+    'Life Expectancy': 4,
+    'Crude Birth Rate': 5,
 }
 
 NAICS = collections.OrderedDict([
@@ -51,20 +50,31 @@ NAICS = collections.OrderedDict([
 ])
 
 NACE = collections.OrderedDict([
-    ('NACE/A','Agriculture, forestry and fishing'),
-    ('NACE/B-E', 'Industry (except construction)'), 
-    ('NACE/C','Manufacturing'), 
-    ('NACE/F','Construction'),
-    ('NACE/G-J','Wholesale and retail trade, transport, accommodation and food service activities, information and communication'),
-    ('NACE/G-I','Wholesale and retail trade, transport, accommodation and food service'), 
-    ('NACE/J','Information and communication'),
-    ('NACE/K-N','Financial and insurance activities, real estate activities, professional, scientific and technical activities, administrative and support service'),
-    ('NACE/K','Financial and insurance activities'),
-    ('NACE/L','Real estate activities'),
-    ('NACE/M-N','Professional, scientific and technical activities, administrative and support service activities'),
-    ('NACE/O-U','Public administration and defence, compulsory social security, education, human health and social work activities, arts, entertainment and recreation'),
-    ('NACE/O-Q','Public administration, defence, education, human health and social work activities'),
-    ('NACE/R-U','Arts, entertainment and recreation, other service activities, activities of household and extra-territorial organizations and bodies')
+    ('NACE/A', 'Agriculture, forestry and fishing'),
+    ('NACE/B-E', 'Industry (except construction)'), ('NACE/C', 'Manufacturing'),
+    ('NACE/F', 'Construction'),
+    ('NACE/G-J',
+     'Wholesale and retail trade, transport, accommodation and food service activities, information and communication'
+    ),
+    ('NACE/G-I',
+     'Wholesale and retail trade, transport, accommodation and food service'),
+    ('NACE/J', 'Information and communication'),
+    ('NACE/K-N',
+     'Financial and insurance activities, real estate activities, professional, scientific and technical activities, administrative and support service'
+    ), ('NACE/K', 'Financial and insurance activities'),
+    ('NACE/L', 'Real estate activities'),
+    ('NACE/M-N',
+     'Professional, scientific and technical activities, administrative and support service activities'
+    ),
+    ('NACE/O-U',
+     'Public administration and defence, compulsory social security, education, human health and social work activities, arts, entertainment and recreation'
+    ),
+    ('NACE/O-Q',
+     'Public administration, defence, education, human health and social work activities'
+    ),
+    ('NACE/R-U',
+     'Arts, entertainment and recreation, other service activities, activities of household and extra-territorial organizations and bodies'
+    )
 ])
 
 ICD10 = {

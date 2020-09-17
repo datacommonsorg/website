@@ -512,6 +512,7 @@ interface ChartStateType {
   dataPoints?: DataPoint[];
   dataGroups?: DataGroup[];
   elemWidth: number;
+  dateSelected?: string;
 }
 
 class Chart extends Component<ChartPropType, ChartStateType> {
@@ -521,7 +522,6 @@ class Chart extends Component<ChartPropType, ChartStateType> {
   parentRef: React.RefObject<HTMLOptionElement>;
   childrenRef: React.RefObject<HTMLOptionElement>;
   dcid: string;
-  titleSuffix: string;
   placeRelation: string;
 
   constructor(props: ChartPropType) {
@@ -540,7 +540,6 @@ class Chart extends Component<ChartPropType, ChartStateType> {
     this._handleWindowResize = this._handleWindowResize.bind(this);
     this._handlePlaceSelection = this._handlePlaceSelection.bind(this);
     this.dcid = props.dcid;
-    this.titleSuffix = "";
     // Default use similar places.
     if (this.props.placeType === "Country") {
       this.placeRelation = placeRelationEnum.CONTAINING;
@@ -558,12 +557,15 @@ class Chart extends Component<ChartPropType, ChartStateType> {
 
   render() {
     const config = this.props.config;
+    const dateString = this.state.dateSelected
+      ? "(" + this.state.dateSelected + ")"
+      : "";
     return (
       <div className="col" ref={this.chartElement}>
         <div className="chart-container">
           <h4>
             {config.title}
-            <span className="sub-title">{this.titleSuffix}</span>
+            <span className="sub-title">{dateString}</span>
           </h4>
           {config.axis === axisEnum.PLACE && (
             <div>
@@ -759,6 +761,7 @@ class Chart extends Component<ChartPropType, ChartStateType> {
         ).then((data) => {
           this.setState({
             dataPoints: data.getStatsPoint(dcid),
+            dateSelected: data.latestCommonDate,
           });
         });
         break;
@@ -817,6 +820,7 @@ class Chart extends Component<ChartPropType, ChartStateType> {
                     null,
                     (dcid) => `/place?dcid=${dcid}`
                   ),
+                  dateSelected: data.latestCommonDate,
                 });
               });
             });

@@ -11,7 +11,6 @@
 # WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 # See the License for the specific language governing permissions and
 # limitations under the License.
-
 """Place Explorer related handlers."""
 
 import flask
@@ -20,18 +19,15 @@ import routes.api.place as place_api
 
 from cache import cache
 
-bp = flask.Blueprint(
-  'place',
-  __name__,
-  url_prefix='/place'
-)
+bp = flask.Blueprint('place', __name__, url_prefix='/place')
 
 
 @bp.route('', strict_slashes=False)
 def place():
     place_dcid = flask.request.args.get('dcid')
     if not place_dcid:
-        return flask.redirect(flask.url_for('place.place', dcid='geoId/0649670'))
+        return flask.redirect(flask.url_for('place.place',
+                                            dcid='geoId/0649670'))
     place_type = place_api.get_place_type(place_dcid)
     place_names = place_api.get_property_value(place_dcid, 'name')
     if place_names:
@@ -39,9 +35,8 @@ def place():
     else:
         place_name = place_dcid
     topic = flask.request.args.get('topic', '')
-    return flask.render_template(
-        'place.html',
-        place_type=place_type,
-        place_name=place_name,
-        place_dcid=place_dcid,
-        topic=topic)
+    return flask.render_template('place.html',
+                                 place_type=place_type,
+                                 place_name=place_name,
+                                 place_dcid=place_dcid,
+                                 topic=topic)

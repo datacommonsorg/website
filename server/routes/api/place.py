@@ -260,7 +260,7 @@ def parent_places(dcids):
         result[dcid] = first_parents
         if first_parents:
             dcid_parents1_mapping[dcid] = first_parents[-1]['dcid']
-    
+
     parents2 = get_parent_place('^'.join(dcid_parents1_mapping.values()))
     dcid_parents2_mapping = {}
     for dcid in dcid_parents1_mapping.keys():
@@ -268,7 +268,7 @@ def parent_places(dcids):
         result[dcid].extend(second_parents)
         if second_parents:
             dcid_parents2_mapping[dcid] = second_parents[-1]['dcid']
-        
+
     parents3 = get_parent_place('^'.join(dcid_parents2_mapping.values()))
     for dcid in dcid_parents2_mapping.keys():
         result[dcid].extend(parents3[dcid_parents2_mapping[dcid]])
@@ -502,7 +502,7 @@ def api_ranking(dcid):
     return Response(json.dumps(result), 200, mimetype='application/json')
 
 
-@cache.memoize(timeout=3600 * 24) # Cache for one day.
+@cache.memoize(timeout=3600 * 24)  # Cache for one day.
 def get_state_code(dcids):
     """Get state code for list of places
 
@@ -523,10 +523,11 @@ def get_state_code(dcids):
         iso_code = iso_codes[dcid]
         if iso_code:
             split_iso_code = iso_code[0].split("-")
-            if len(split_iso_code) > 1 and split_iso_code[0] == US_ISO_CODE_PREFIX:
+            if len(split_iso_code
+                  ) > 1 and split_iso_code[0] == US_ISO_CODE_PREFIX:
                 state_code = split_iso_code[1]
         result[dcid] = state_code
-    
+
     return result
 
 
@@ -555,8 +556,9 @@ def get_display_name(dcids):
                     dcid_state_mapping[dcid] = parent_dcid
                     break
         result[dcid] = place_names[dcid]
-    
-    state_codes = get_state_code('^'.join((sorted(dcid_state_mapping.values())))) 
+
+    state_codes = get_state_code('^'.join(
+        (sorted(dcid_state_mapping.values()))))
     for dcid in dcid_state_mapping.keys():
         state_code = state_codes[dcid_state_mapping[dcid]]
         if state_code:
@@ -572,4 +574,3 @@ def api_display_name():
     dcids = request.args.getlist('dcid')
     result = get_display_name('^'.join((sorted(dcids))))
     return Response(json.dumps(result), 200, mimetype='application/json')
-    

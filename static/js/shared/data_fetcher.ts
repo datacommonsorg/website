@@ -457,7 +457,9 @@ function fetchStatsData(
     const numOccurencesPerDate: { [key: string]: number } = {};
     const numStatVarsPerPlace: { [key: string]: number } = {};
     const displayNameMapping =
-      allResp.length > 0 && allResp[allResp.length - 1].data ? allResp[allResp.length - 1].data : {};
+      allResp.length > 0 && allResp[allResp.length - 1].data
+        ? allResp[allResp.length - 1].data
+        : {};
     for (let i = 0; i < numStatsVars; i++) {
       const sv = statsVars[i];
       result.data[sv] = allResp[i].data;
