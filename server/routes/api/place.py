@@ -429,11 +429,14 @@ def api_nearby_places(dcid):
                     mimetype='application/json')
 
 
-def get_ranking_url(containing_dcid, place_type, stat_var):
-    return url_for('ranking.ranking',
-                   stat_var=stat_var,
-                   place_type=place_type,
-                   place_dcid=containing_dcid)
+def get_ranking_url(containing_dcid, place_type, stat_var, is_per_capita=False):
+    url = url_for('ranking.ranking',
+                  stat_var=stat_var,
+                  place_type=place_type,
+                  place_dcid=containing_dcid)
+    if is_per_capita:
+        url = url + "?pc"
+    return url
 
 
 @cache.memoize(timeout=3600 * 24)  # Cache for one day.
@@ -491,7 +494,10 @@ def api_ranking(dcid):
                 'data':
                     data,
                 'rankingUrl':
-                    get_ranking_url(parent_dcid, current_place_type, stats_var)
+                    get_ranking_url(parent_dcid,
+                                    current_place_type,
+                                    stats_var,
+                                    is_per_capita=True)
             })
 
     all_labels = list(RANKING_STATS.values()) + \
