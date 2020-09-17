@@ -247,7 +247,8 @@ def parent_places(dcid):
     if parents2:
         parents3 = get_parent_place(parents2[-1]['dcid'])
         parents1.extend(parents3)
-    return json.dumps(parents1)
+    ret = [x for x in parents1 if x['dcid'] != 'Earth']
+    return json.dumps(ret)
 
 
 @cache.memoize(timeout=3600 * 24)  # Cache for one day.
