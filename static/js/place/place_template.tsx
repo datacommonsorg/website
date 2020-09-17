@@ -491,15 +491,15 @@ interface ChartBlockPropType {
    */
   parentPlaces: { dcid: string; name: string }[];
   /**
-   * The child places promise.
+   * The child places keyed by place types.
    */
   childPlaces: { [key: string]: { dcid: string }[] };
   /**
-   * The similar places promise.
+   * The similar places.
    */
   similarPlaces: string[];
   /**
-   * The nearby places promise.
+   * The nearby places.
    */
   nearbyPlaces: string[];
   /**
@@ -580,21 +580,12 @@ class ChartBlock extends Component<ChartBlockPropType, unknown> {
       conf.axis = "PLACE";
       conf.title = "Nearby Places";
       result.push(conf);
-
       // Similar places
       conf = { ...config };
       conf.chartType = chartTypeEnum.GROUP_BAR;
       conf.placeRelation = placeRelationEnum.SIMILAR;
       conf.axis = "PLACE";
       conf.title = "Similar Places";
-      result.push(conf);
-
-      // Parent places.
-      conf = { ...config };
-      conf.chartType = chartTypeEnum.GROUP_BAR;
-      conf.placeRelation = placeRelationEnum.CONTAINED;
-      conf.axis = "PLACE";
-      conf.title = "Parent Places";
       result.push(conf);
     }
     if (placeType != "City") {
@@ -604,6 +595,15 @@ class ChartBlock extends Component<ChartBlockPropType, unknown> {
       conf.placeRelation = placeRelationEnum.CONTAINING;
       conf.axis = "PLACE";
       conf.title = "Children Places";
+      result.push(conf);
+    } else {
+      // Parent places.
+      conf = { ...config };
+      conf.chartType = chartTypeEnum.GROUP_BAR;
+      conf.placeRelation = placeRelationEnum.CONTAINED;
+      conf.axis = "PLACE";
+      conf.title = "Parent Places";
+      config.perCapita = true;
       result.push(conf);
     }
     return result;
@@ -635,15 +635,15 @@ interface ChartPropType {
    */
   parentPlaces: { dcid: string; name: string }[];
   /**
-   * The child places promise.
+   * The child places keyed by place type.
    */
   childPlaces: { [key: string]: { dcid: string }[] };
   /**
-   * The similar places promise.
+   * The similar places.
    */
   similarPlaces: string[];
   /**
-   * The nearby places promise.
+   * The nearby places.
    */
   nearbyPlaces: string[];
   /**
@@ -697,6 +697,24 @@ class Chart extends Component<ChartPropType, ChartStateType> {
     const dateString = this.state.dateSelected
       ? "(" + this.state.dateSelected + ")"
       : "";
+    if (
+      this.props.config.placeRelation == placeRelationEnum.CONTAINED &&
+      this.props.parentPlaces.length == 0
+    ) {
+      return "";
+    }
+    if (
+      this.props.config.placeRelation == placeRelationEnum.CONTAINING &&
+      Object.keys(this.props.childPlaces).length == 0
+    ) {
+      return "";
+    }
+    if (
+      this.props.config.placeRelation == placeRelationEnum.SIMILAR &&
+      this.props.similarPlaces.length == 1
+    ) {
+      return "";
+    }
     return (
       <div className="col" ref={this.chartElement}>
         <div className="chart-container">
