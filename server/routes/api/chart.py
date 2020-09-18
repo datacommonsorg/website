@@ -62,6 +62,8 @@ def build_url(dcid, stats_vars):
     return urllib.parse.unquote(url_for('tools.timeline', _anchor=anchor))
 
 
+# TODO(shifucun): This function can be removed since data for all dates are
+# used.
 def get_statsvars_need_all_dates(chart_list):
     """Pulls out stats vars from the list of chart configs that require all dates kept
     i.e., line charts sv's
@@ -74,9 +76,8 @@ def get_statsvars_need_all_dates(chart_list):
     """
     result = set()
     for chart in chart_list:
-        if chart['chartType'] == 'LINE' or chart.get('axis', '') == 'TIME':
-            for sv in chart['statsVars']:
-                result.add(sv)
+        for sv in chart['statsVars']:
+            result.add(sv)
     return result
 
 
@@ -123,11 +124,11 @@ def get_landing_page_data(dcid):
 
 def get_latest_common_date_for_chart(chart, sv_data):
     """Get the latest date for which there is data for every stat var included in this chart if there is such date
-    
+
     Args:
         chart: the chart object that we currently care about (a single chart object from chart_config.json)
         sv_data: the object returned from get_landing_page_data
-    
+
     Returns:
         date as a string or None
     """
@@ -147,17 +148,19 @@ def get_latest_common_date_for_chart(chart, sv_data):
     return date_to_add
 
 
+# TODO(shifucun): This function can be removed since data for all dates are
+# used.
 def get_dates_for_stat_vars(chart_config, sv_data):
-    """For each stat var, get the list of dates needed for every chart it is involved in. List of dates needed are a 
+    """For each stat var, get the list of dates needed for every chart it is involved in. List of dates needed are a
     list of the latest date for which every stat var in a chart has data for or the latest date that stat var has data for.
-    
+
     Args:
         chart_config: the chart config from chart_config.json
         sv_data: the object returned from get_landing_page_data
-    
+
     Returns:
         dictionary of statVar: list of dates
-    
+
     """
     sv_dates = {}
 
@@ -186,16 +189,48 @@ def get_dates_for_stat_vars(chart_config, sv_data):
     return sv_dates
 
 
-@bp.route('/config/<path:dcid>')
+def build_config(raw_config):
+    """Builds hierachical config based on raw config."""
+    category_map = {}
+    for config in raw_config:
+        is_overview = ('isOverview' in config and config['isOverview'])
+        # isOverview field is not used in the built chart config.
+        if 'isOverview' in config:
+            del config['isOverview']
+        category, topic = config['category']
+        del config['category']
+        if category not in category_map:
+            category_map[category] = {
+                'label': category,
+                'charts': [],
+                'children': []
+            }
+        if is_overview:
+            category_map[category]['charts'].append(config)
+        added = False
+        for section in category_map[category]['children']:
+            if section['label'] == topic:
+                section['charts'].append(config)
+                added = True
+        if not added:
+            category_map[category]['children'].append({
+                'label': topic,
+                'charts': [config]
+            })
+    return list(category_map.values())
+
+
+@bp.route('/data/<path:dcid>')
 @cache.memoize(timeout=3600 * 24)  # Cache for one day.
 def config(dcid):
     """
-    Get chart config for a given place.
+    Get chart config and cache data for a given place.
     """
-    chart_config = current_app.config['CHART_CONFIG']
+    raw_config = current_app.config['CHART_CONFIG']
     if os.environ.get('FLASK_ENV') == 'development':
         with bp.open_resource('../../chart_config.json') as f:
-            chart_config = json.load(f)
+            raw_config = json.load(f)
+    chart_config = build_config(raw_config)
 
     all_stats_vars = set(place_api.statsvars(dcid))
 

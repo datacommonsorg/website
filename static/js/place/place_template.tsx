@@ -72,6 +72,7 @@ interface ConfigType {
   perCapita: boolean;
   unit: string;
   exploreUrl: string;
+  placeRelation?: string;
 }
 
 interface ChartCategory {
@@ -87,7 +88,7 @@ function displayNameForPlaceType(placeType: string): string {
   ) {
     return "Place";
   }
-  if (placeType == "CensusZipCodeTabulationArea") {
+  if (placeType === "CensusZipCodeTabulationArea") {
     return "Zip Code";
   }
   return placeType;
@@ -287,6 +288,10 @@ interface MainPanePropType {
    */
   dcid: string;
   /**
+   * The place name.
+   */
+  placeName: string;
+  /**
    * The place type.
    */
   placeType: string;
@@ -299,17 +304,17 @@ interface MainPanePropType {
    */
   parentPlaces: { dcid: string; name: string }[];
   /**
-   * A promise resolves to child places dcids.
+   * An object from child place types to child places dcids.
    */
-  childPlacesPromise: Promise<{ [key: string]: { dcid: string }[] }>;
+  childPlaces: { [key: string]: { dcid: string }[] };
   /**
-   * A promise resolves to similar places dcids.
+   * Similar places dcids.
    */
-  similarPlacesPromise: Promise<string[]>;
+  similarPlaces: string[];
   /**
-   * A promise resolves to nearby places dcids.
+   * Nearby places dcids.
    */
-  nearbyPlacesPromise: Promise<string[]>;
+  nearbyPlaces: string[];
   /**
    * An object from statsvar dcid to the url tokens used by timeline tool.
    */
@@ -328,7 +333,7 @@ class MainPane extends Component<MainPanePropType, unknown> {
   render(): JSX.Element {
     let configData = [];
     const isOverview = !this.props.topic;
-    if (!this.props.topic) {
+    if (isOverview) {
       configData = this.props.chartConfig;
     } else {
       for (const group of this.props.chartConfig) {
@@ -345,7 +350,7 @@ class MainPane extends Component<MainPanePropType, unknown> {
           <Overview topic={this.props.topic} dcid={this.props.dcid} />
         )}
         {configData.map((item, index) => {
-          let subtopicHeader;
+          let subtopicHeader: JSX.Element;
           if (isOverview) {
             subtopicHeader = (
               <h3 id={item.label}>
@@ -367,20 +372,20 @@ class MainPane extends Component<MainPanePropType, unknown> {
           return (
             <section className="subtopic col-12" key={index}>
               {subtopicHeader}
-              <div className="row row-cols-md-2 row-cols-1">
-                {item.charts.map((config: ConfigType) => {
-                  const id = randDomId();
+              <div>
+                {item.charts.map((config: ConfigType, index) => {
                   return (
-                    <Chart
-                      key={id}
-                      id={id}
+                    <ChartBlock
+                      key={index}
+                      isOverview={isOverview}
                       config={config}
                       dcid={this.props.dcid}
+                      placeName={this.props.placeName}
                       placeType={this.props.placeType}
                       parentPlaces={this.props.parentPlaces}
-                      childPlacesPromise={this.props.childPlacesPromise}
-                      similarPlacesPromise={this.props.similarPlacesPromise}
-                      nearbyPlacesPromise={this.props.nearbyPlacesPromise}
+                      childPlaces={this.props.childPlaces}
+                      similarPlaces={this.props.similarPlaces}
+                      nearbyPlaces={this.props.nearbyPlaces}
                       chartData={this.props.chartData}
                     />
                   );
@@ -466,6 +471,169 @@ class ChildPlace extends Component<ChildPlacePropType, unknown> {
   }
 }
 
+interface ChartBlockPropType {
+  /**
+   * The place dcid.
+   */
+  dcid: string;
+  /**
+   * The place name.
+   */
+  placeName: string;
+  /**
+   * The place type.
+   */
+  placeType: string;
+  /**
+   * If the chart block is in overview page.
+   */
+  isOverview: boolean;
+  /**
+   * An object of the chart config.
+   */
+  config: ConfigType;
+  /**
+   * The parent places object array.
+   *
+   * Parent object are sorted by enclosing order. For example:
+   * "San Jose", "Santa Clara County", "California"
+   */
+  parentPlaces: { dcid: string; name: string }[];
+  /**
+   * The child places keyed by place types.
+   */
+  childPlaces: { [key: string]: { dcid: string }[] };
+  /**
+   * The similar places.
+   */
+  similarPlaces: string[];
+  /**
+   * The nearby places.
+   */
+  nearbyPlaces: string[];
+  /**
+   * Cached stat var data for filling in charts.
+   */
+  chartData: CachedStatVarDataMap;
+}
+
+// TODO(shifucun): Create new file for Chart related componenets.
+class ChartBlock extends Component<ChartBlockPropType, unknown> {
+  constructor(props: ChartBlockPropType) {
+    super(props);
+  }
+
+  render() {
+    const configList = this.props.isOverview
+      ? this.buildOverviewConfig(this.props.placeType, this.props.config)
+      : this.buildTopicConfig(
+          this.props.placeName,
+          this.props.placeType,
+          this.props.config
+        );
+    return (
+      <div className="chart-block">
+        <div className="chart-block-title">{this.props.config.title}</div>
+        <div className="row row-cols-md-2 row-cols-1">
+          {configList.map((item) => {
+            const id = randDomId();
+            return (
+              <Chart
+                key={id}
+                id={id}
+                config={item}
+                dcid={this.props.dcid}
+                placeType={this.props.placeType}
+                parentPlaces={this.props.parentPlaces}
+                childPlaces={this.props.childPlaces}
+                similarPlaces={this.props.similarPlaces}
+                nearbyPlaces={this.props.nearbyPlaces}
+                chartData={this.props.chartData}
+              />
+            );
+          })}
+        </div>
+      </div>
+    );
+  }
+
+  // TODO(shifucun): Add more config to indicate whether to use perCapita for
+  // place comparison.
+  private buildOverviewConfig(
+    placeType: string,
+    config: ConfigType
+  ): ConfigType[] {
+    const result = [];
+    let conf = { ...config };
+    conf.chartType = chartTypeEnum.LINE;
+    conf.title = "TREND";
+    result.push(conf);
+
+    conf = { ...config };
+    conf.chartType = chartTypeEnum.GROUP_BAR;
+    conf.axis = "PLACE";
+    if (placeType === "Country") {
+      // Containing place chart
+      conf.title = "Places within " + this.props.placeName;
+      conf.placeRelation = placeRelationEnum.CONTAINING;
+    } else {
+      conf.title = "Places near " + this.props.placeName;
+      conf.placeRelation = placeRelationEnum.NEARBY;
+    }
+    result.push(conf);
+    return result;
+  }
+
+  private buildTopicConfig(
+    placeName: string,
+    placeType: string,
+    config: ConfigType
+  ) {
+    const result: ConfigType[] = [];
+    let conf = { ...config };
+    conf.chartType = chartTypeEnum.LINE;
+    conf.title = "TREND";
+    result.push(conf);
+
+    if (placeType !== "Country") {
+      // Nearby places
+      conf = { ...config };
+      conf.chartType = chartTypeEnum.GROUP_BAR;
+      conf.placeRelation = placeRelationEnum.NEARBY;
+      conf.axis = "PLACE";
+      conf.title = "Places near " + placeName;
+      result.push(conf);
+      // Similar places
+      conf = { ...config };
+      conf.chartType = chartTypeEnum.GROUP_BAR;
+      conf.placeRelation = placeRelationEnum.SIMILAR;
+      conf.axis = "PLACE";
+      conf.title = "Other " + placeType;
+      result.push(conf);
+    }
+    if (placeType !== "City") {
+      // Children places
+      conf = { ...config };
+      conf.chartType = chartTypeEnum.GROUP_BAR;
+      conf.placeRelation = placeRelationEnum.CONTAINING;
+      conf.axis = "PLACE";
+      conf.title = "Places within " + placeName;
+      result.push(conf);
+    } else {
+      // Parent places.
+      // TODO(shifucun): Add perCapita option if appropriate, this should be
+      // based on the chart config.
+      conf = { ...config };
+      conf.chartType = chartTypeEnum.GROUP_BAR;
+      conf.placeRelation = placeRelationEnum.CONTAINED;
+      conf.axis = "PLACE";
+      conf.title = "Places that contains " + placeName;
+      result.push(conf);
+    }
+    return result;
+  }
+}
+
 interface ChartPropType {
   /**
    * The place dcid.
@@ -491,17 +659,17 @@ interface ChartPropType {
    */
   parentPlaces: { dcid: string; name: string }[];
   /**
-   * The child places promise.
+   * The child places keyed by place type.
    */
-  childPlacesPromise: Promise<{ [key: string]: { dcid: string }[] }>;
+  childPlaces: { [key: string]: { dcid: string }[] };
   /**
-   * The similar places promise.
+   * The similar places.
    */
-  similarPlacesPromise: Promise<string[]>;
+  similarPlaces: string[];
   /**
-   * The nearby places promise.
+   * The nearby places.
    */
-  nearbyPlacesPromise: Promise<string[]>;
+  nearbyPlaces: string[];
   /**
    * Cached stat var data for filling in charts.
    */
@@ -538,14 +706,7 @@ class Chart extends Component<ChartPropType, ChartStateType> {
     // Consider debouncing / throttling this if it gets expensive at
     // small screen sizes
     this._handleWindowResize = this._handleWindowResize.bind(this);
-    this._handlePlaceSelection = this._handlePlaceSelection.bind(this);
     this.dcid = props.dcid;
-    // Default use similar places.
-    if (this.props.placeType === "Country") {
-      this.placeRelation = placeRelationEnum.CONTAINING;
-    } else {
-      this.placeRelation = placeRelationEnum.SIMILAR;
-    }
   }
 
   showParent() {
@@ -560,6 +721,24 @@ class Chart extends Component<ChartPropType, ChartStateType> {
     const dateString = this.state.dateSelected
       ? "(" + this.state.dateSelected + ")"
       : "";
+    if (
+      this.props.config.placeRelation === placeRelationEnum.CONTAINED &&
+      this.props.parentPlaces.length === 0
+    ) {
+      return "";
+    }
+    if (
+      this.props.config.placeRelation === placeRelationEnum.CONTAINING &&
+      Object.keys(this.props.childPlaces).length === 0
+    ) {
+      return "";
+    }
+    if (
+      this.props.config.placeRelation === placeRelationEnum.SIMILAR &&
+      this.props.similarPlaces.length === 1
+    ) {
+      return "";
+    }
     return (
       <div className="col" ref={this.chartElement}>
         <div className="chart-container">
@@ -567,31 +746,6 @@ class Chart extends Component<ChartPropType, ChartStateType> {
             {config.title}
             <span className="sub-title">{dateString}</span>
           </h4>
-          {config.axis === axisEnum.PLACE && (
-            <div>
-              <label htmlFor={"select-" + this.props.id}>Choose places:</label>
-              <select
-                id={"select-" + this.props.id}
-                value={this.placeRelation}
-                onChange={this._handlePlaceSelection}
-              >
-                <option value="SIMILAR" ref={this.similarRef}>
-                  similar
-                </option>
-                {this.showParent() && (
-                  <option value="CONTAINED" ref={this.parentRef}>
-                    contained
-                  </option>
-                )}
-                <option value="CONTAINING" ref={this.childrenRef}>
-                  containing
-                </option>
-                <option value="NEARBY" ref={this.nearbyRef}>
-                  nearby
-                </option>
-              </select>
-            </div>
-          )}
           <div id={this.props.id} className="svg-container"></div>
           <footer className="row explore-more-container">
             <div>
@@ -621,12 +775,6 @@ class Chart extends Component<ChartPropType, ChartStateType> {
       (dp && dp.length === 0) ||
       (dg && (dg.length === 0 || (dg.length === 1 && dg[0].value.length === 0)))
     ) {
-      if (this.placeRelation === placeRelationEnum.CONTAINING) {
-        this.childrenRef.current.style.display = "none";
-      } else if (this.placeRelation === placeRelationEnum.CONTAINED) {
-        this.parentRef.current.style.display = "none";
-      }
-      this.placeRelation = placeRelationEnum.SIMILAR;
       this.fetchData();
       return;
     }
@@ -645,23 +793,7 @@ class Chart extends Component<ChartPropType, ChartStateType> {
 
   componentDidMount() {
     window.addEventListener("resize", this._handleWindowResize);
-    Promise.all([
-      this.props.similarPlacesPromise,
-      this.props.childPlacesPromise,
-      this.props.nearbyPlacesPromise,
-    ]).then((values) => {
-      if (this.childrenRef.current && Object.keys(values[1]).length === 0) {
-        this.childrenRef.current.style.display = "none";
-        this.placeRelation = placeRelationEnum.SIMILAR;
-      }
-      if (this.nearbyRef.current && Object.keys(values[2]).length === 0) {
-        this.nearbyRef.current.style.display = "none";
-      }
-      if (this.similarRef.current && Object.keys(values[0]).length === 0) {
-        this.similarRef.current.style.display = "none";
-      }
-      this.fetchData();
-    });
+    this.fetchData();
   }
 
   _handleWindowResize() {
@@ -676,11 +808,6 @@ class Chart extends Component<ChartPropType, ChartStateType> {
         elemWidth: width,
       });
     }
-  }
-
-  _handlePlaceSelection(event) {
-    this.placeRelation = event.target.value;
-    this.fetchData();
   }
 
   drawChart() {
@@ -770,58 +897,56 @@ class Chart extends Component<ChartPropType, ChartStateType> {
       case chartTypeEnum.STACK_BAR:
         switch (config.axis) {
           case axisEnum.PLACE: {
-            let placesPromise;
-            if (this.placeRelation === placeRelationEnum.CONTAINED) {
-              placesPromise = Promise.resolve([
+            let places: string[];
+            if (
+              this.props.config.placeRelation === placeRelationEnum.CONTAINED
+            ) {
+              places = [
                 dcid,
                 ...this.props.parentPlaces.map((parent) => parent.dcid),
-              ]);
-            } else if (this.placeRelation === placeRelationEnum.CONTAINING) {
-              placesPromise = this.props.childPlacesPromise.then(
-                (childPlaces) => {
-                  // Choose the place type that has the highest average
-                  // population
-                  let avgPop = 0;
-                  let result: string[];
-                  for (const placeType in childPlaces) {
-                    const children = childPlaces[placeType];
-                    const pop =
-                      children
-                        .map((place) => place["pop"])
-                        .reduce(function (a, b) {
-                          return a + b;
-                        }, 0) / children.length;
-                    if (pop > avgPop) {
-                      avgPop = pop;
-                      result = children.slice(0, 5).map((place) => place.dcid);
-                    }
-                  }
-                  return result;
+              ];
+            } else if (
+              this.props.config.placeRelation === placeRelationEnum.CONTAINING
+            ) {
+              // Choose the place type that has the highest average
+              // population
+              let avgPop = 0;
+              for (const placeType in this.props.childPlaces) {
+                const children = this.props.childPlaces[placeType];
+                const pop =
+                  children
+                    .map((place) => place["pop"])
+                    .reduce(function (a, b) {
+                      return a + b;
+                    }, 0) / children.length;
+                if (pop > avgPop) {
+                  avgPop = pop;
+                  places = children.slice(0, 5).map((place) => place.dcid);
                 }
-              );
-            } else if (this.placeRelation === placeRelationEnum.SIMILAR) {
-              placesPromise = this.props.similarPlacesPromise;
-            } else if (this.placeRelation === placeRelationEnum.NEARBY) {
-              placesPromise = this.props.nearbyPlacesPromise.then((data) => {
-                return data;
-              });
+              }
+            } else if (
+              this.props.config.placeRelation === placeRelationEnum.SIMILAR
+            ) {
+              places = this.props.similarPlaces;
+            } else if (
+              this.props.config.placeRelation === placeRelationEnum.NEARBY
+            ) {
+              places = this.props.nearbyPlaces;
             }
-            placesPromise.then((places) => {
-              fetchStatsData(
-                places,
-                config.statsVars,
-                perCapita,
-                scaling,
-                config.denominator,
-                this.props.chartData
-              ).then((data) => {
-                this.setState({
-                  dataGroups: data.getPlaceGroupWithStatsVar(
-                    null,
-                    (dcid) => `/place?dcid=${dcid}`
-                  ),
-                  dateSelected: data.latestCommonDate,
-                });
+            fetchStatsData(
+              places,
+              config.statsVars,
+              perCapita,
+              scaling,
+              config.denominator,
+              this.props.chartData
+            ).then((data) => {
+              this.setState({
+                dataGroups: data.getPlaceGroupWithStatsVar(
+                  null,
+                  (dcid) => `/place?dcid=${dcid}`
+                ),
+                dateSelected: data.latestCommonDate,
               });
             });
             break;
