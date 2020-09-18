@@ -62,6 +62,8 @@ def build_url(dcid, stats_vars):
     return urllib.parse.unquote(url_for('tools.timeline', _anchor=anchor))
 
 
+# TODO(shifucun): This function can be removed since data for all dates are
+# used.
 def get_statsvars_need_all_dates(chart_list):
     """Pulls out stats vars from the list of chart configs that require all dates kept
     i.e., line charts sv's
@@ -146,6 +148,8 @@ def get_latest_common_date_for_chart(chart, sv_data):
     return date_to_add
 
 
+# TODO(shifucun): This function can be removed since data for all dates are
+# used.
 def get_dates_for_stat_vars(chart_config, sv_data):
     """For each stat var, get the list of dates needed for every chart it is involved in. List of dates needed are a
     list of the latest date for which every stat var in a chart has data for or the latest date that stat var has data for.
