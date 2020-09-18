@@ -205,12 +205,12 @@ function renderPage(dcid: string) {
           placeName,
           placeType,
           topic,
+          parentPlaces,
+          childPlaces,
+          similarPlaces,
+          nearbyPlaces,
           chartConfig: chartConfigData.config,
           chartData: chartConfigData.data,
-          parentPlaces: parentPlaces,
-          childPlaces: childPlaces,
-          similarPlaces: similarPlaces,
-          nearbyPlaces: nearbyPlaces,
         }),
         document.getElementById("main-pane")
       );

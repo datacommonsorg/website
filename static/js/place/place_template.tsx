@@ -88,7 +88,7 @@ function displayNameForPlaceType(placeType: string): string {
   ) {
     return "Place";
   }
-  if (placeType == "CensusZipCodeTabulationArea") {
+  if (placeType === "CensusZipCodeTabulationArea") {
     return "Zip Code";
   }
   return placeType;
@@ -559,7 +559,10 @@ class ChartBlock extends Component<ChartBlockPropType, unknown> {
 
   // TODO(shifucun): Add more config to indicate whether to use perCapita for
   // place comparison.
-  private buildOverviewConfig(placeType: string, config: ConfigType) {
+  private buildOverviewConfig(
+    placeType: string,
+    config: ConfigType
+  ): ConfigType[] {
     const result = [];
     let conf = { ...config };
     conf.chartType = chartTypeEnum.LINE;
@@ -569,7 +572,7 @@ class ChartBlock extends Component<ChartBlockPropType, unknown> {
     conf = { ...config };
     conf.chartType = chartTypeEnum.GROUP_BAR;
     conf.axis = "PLACE";
-    if (placeType == "Country") {
+    if (placeType === "Country") {
       // Containing place chart
       conf.title = "Places within " + this.props.placeName;
       conf.placeRelation = placeRelationEnum.CONTAINING;
@@ -592,7 +595,7 @@ class ChartBlock extends Component<ChartBlockPropType, unknown> {
     conf.title = "TREND";
     result.push(conf);
 
-    if (placeType != "Country") {
+    if (placeType !== "Country") {
       // Nearby places
       conf = { ...config };
       conf.chartType = chartTypeEnum.GROUP_BAR;
@@ -608,7 +611,7 @@ class ChartBlock extends Component<ChartBlockPropType, unknown> {
       conf.title = "Other " + placeType;
       result.push(conf);
     }
-    if (placeType != "City") {
+    if (placeType !== "City") {
       // Children places
       conf = { ...config };
       conf.chartType = chartTypeEnum.GROUP_BAR;
@@ -719,20 +722,20 @@ class Chart extends Component<ChartPropType, ChartStateType> {
       ? "(" + this.state.dateSelected + ")"
       : "";
     if (
-      this.props.config.placeRelation == placeRelationEnum.CONTAINED &&
-      this.props.parentPlaces.length == 0
+      this.props.config.placeRelation === placeRelationEnum.CONTAINED &&
+      this.props.parentPlaces.length === 0
     ) {
       return "";
     }
     if (
-      this.props.config.placeRelation == placeRelationEnum.CONTAINING &&
-      Object.keys(this.props.childPlaces).length == 0
+      this.props.config.placeRelation === placeRelationEnum.CONTAINING &&
+      Object.keys(this.props.childPlaces).length === 0
     ) {
       return "";
     }
     if (
-      this.props.config.placeRelation == placeRelationEnum.SIMILAR &&
-      this.props.similarPlaces.length == 1
+      this.props.config.placeRelation === placeRelationEnum.SIMILAR &&
+      this.props.similarPlaces.length === 1
     ) {
       return "";
     }
