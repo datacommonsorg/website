@@ -288,6 +288,10 @@ interface MainPanePropType {
    */
   dcid: string;
   /**
+   * The place name.
+   */
+  placeName: string;
+  /**
    * The place type.
    */
   placeType: string;
@@ -376,6 +380,7 @@ class MainPane extends Component<MainPanePropType, unknown> {
                       isOverview={isOverview}
                       config={config}
                       dcid={this.props.dcid}
+                      placeName={this.props.placeName}
                       placeType={this.props.placeType}
                       parentPlaces={this.props.parentPlaces}
                       childPlaces={this.props.childPlaces}
@@ -472,6 +477,10 @@ interface ChartBlockPropType {
    */
   dcid: string;
   /**
+   * The place name.
+   */
+  placeName: string;
+  /**
    * The place type.
    */
   placeType: string;
@@ -508,6 +517,7 @@ interface ChartBlockPropType {
   chartData: CachedStatVarDataMap;
 }
 
+// TODO(shifucun): Create new file for Chart related componenets.
 class ChartBlock extends Component<ChartBlockPropType, unknown> {
   constructor(props: ChartBlockPropType) {
     super(props);
@@ -516,7 +526,11 @@ class ChartBlock extends Component<ChartBlockPropType, unknown> {
   render() {
     const configList = this.props.isOverview
       ? this.buildOverviewConfig(this.props.placeType, this.props.config)
-      : this.buildTopicConfig(this.props.placeType, this.props.config);
+      : this.buildTopicConfig(
+          this.props.placeName,
+          this.props.placeType,
+          this.props.config
+        );
     return (
       <div className="chart-block">
         <div className="chart-block-title">{this.props.config.title}</div>
@@ -543,6 +557,8 @@ class ChartBlock extends Component<ChartBlockPropType, unknown> {
     );
   }
 
+  // TODO(shifucun): Add more config to indicate whether to use perCapita for
+  // place comparison.
   private buildOverviewConfig(placeType: string, config: ConfigType) {
     const result = [];
     let conf = { ...config };
@@ -555,17 +571,21 @@ class ChartBlock extends Component<ChartBlockPropType, unknown> {
     conf.axis = "PLACE";
     if (placeType == "Country") {
       // Containing place chart
-      conf.title = "Containing Places";
+      conf.title = "Places within " + this.props.placeName;
       conf.placeRelation = placeRelationEnum.CONTAINING;
     } else {
-      conf.title = "Nearby Places";
+      conf.title = "Places near " + this.props.placeName;
       conf.placeRelation = placeRelationEnum.NEARBY;
     }
     result.push(conf);
     return result;
   }
 
-  private buildTopicConfig(placeType: string, config: ConfigType) {
+  private buildTopicConfig(
+    placeName: string,
+    placeType: string,
+    config: ConfigType
+  ) {
     const result: ConfigType[] = [];
     let conf = { ...config };
     conf.chartType = chartTypeEnum.LINE;
@@ -578,14 +598,14 @@ class ChartBlock extends Component<ChartBlockPropType, unknown> {
       conf.chartType = chartTypeEnum.GROUP_BAR;
       conf.placeRelation = placeRelationEnum.NEARBY;
       conf.axis = "PLACE";
-      conf.title = "Nearby Places";
+      conf.title = "Places near " + placeName;
       result.push(conf);
       // Similar places
       conf = { ...config };
       conf.chartType = chartTypeEnum.GROUP_BAR;
       conf.placeRelation = placeRelationEnum.SIMILAR;
       conf.axis = "PLACE";
-      conf.title = "Similar Places";
+      conf.title = "Other " + placeType;
       result.push(conf);
     }
     if (placeType != "City") {
@@ -594,16 +614,17 @@ class ChartBlock extends Component<ChartBlockPropType, unknown> {
       conf.chartType = chartTypeEnum.GROUP_BAR;
       conf.placeRelation = placeRelationEnum.CONTAINING;
       conf.axis = "PLACE";
-      conf.title = "Children Places";
+      conf.title = "Places within " + placeName;
       result.push(conf);
     } else {
       // Parent places.
+      // TODO(shifucun): Add perCapita option if appropriate, this should be
+      // based on the chart config.
       conf = { ...config };
       conf.chartType = chartTypeEnum.GROUP_BAR;
       conf.placeRelation = placeRelationEnum.CONTAINED;
       conf.axis = "PLACE";
-      conf.title = "Parent Places";
-      config.perCapita = true;
+      conf.title = "Places that contains " + placeName;
       result.push(conf);
     }
     return result;

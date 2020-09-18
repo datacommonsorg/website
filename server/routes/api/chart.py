@@ -190,7 +190,8 @@ def build_config(raw_config):
     category_map = {}
     for config in raw_config:
         is_overview = ('isOverview' in config and config['isOverview'])
-        if is_overview:
+        # isOverview field is not used in the built chart config.
+        if 'isOverview' in config:
             del config['isOverview']
         category, topic = config['category']
         del config['category']
@@ -223,7 +224,7 @@ def config(dcid):
     """
     raw_config = current_app.config['CHART_CONFIG']
     if os.environ.get('FLASK_ENV') == 'development':
-        with bp.open_resource('../../chart_config_new.json') as f:
+        with bp.open_resource('../../chart_config.json') as f:
             raw_config = json.load(f)
     chart_config = build_config(raw_config)
 

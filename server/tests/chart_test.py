@@ -1,13 +1,13 @@
 # Copyright 2020 Google LLC
 #
-# Licensed under the Apache License, Version 2.0 (the "License");
+# Licensed under the Apache License, Version 2.0 (the 'License');
 # you may not use this file except in compliance with the License.
 # You may obtain a copy of the License at
 #
 #      http://www.apache.org/licenses/LICENSE-2.0
 #
 # Unless required by applicable law or agreed to in writing, software
-# distributed under the License is distributed on an "AS IS" BASIS,
+# distributed under the License is distributed on an 'AS IS' BASIS,
 # WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 # See the License for the specific language governing permissions and
 # limitations under the License.
@@ -17,6 +17,8 @@ import json
 from unittest.mock import patch
 
 from main import app
+
+import routes.api.chart as chart_api
 
 
 class TestRoute(unittest.TestCase):
@@ -90,18 +92,18 @@ class TestRoute(unittest.TestCase):
         }
         with app.app_context():
             app.config['CHART_CONFIG'] = [{
-                "category": ["Test", "Test1"],
-                "title": "Test1",
-                "statsVars": [
-                    "StatVar1", "StatVar2", "StatVar3", "StatVar4", "StatVar5"
+                'category': ['Test', 'Test1'],
+                'title': 'Test1',
+                'statsVars': [
+                    'StatVar1', 'StatVar2', 'StatVar3', 'StatVar4', 'StatVar5'
                 ],
-                "isOverview": True
+                'isOverview': True
             }, {
-                "category": ["Test", "Test2"],
-                "title":
-                    "Test2",
-                "statsVars": [
-                    "StatVar1", "StatVar2", "StatVar6", "StatVar7", "StatVar8"
+                'category': ['Test', 'Test2'],
+                'title':
+                    'Test2',
+                'statsVars': [
+                    'StatVar1', 'StatVar2', 'StatVar6', 'StatVar7', 'StatVar8'
                 ]
             }]
             response = app.test_client().get('api/chart/data/geoId/06')
@@ -166,3 +168,23 @@ class TestRoute(unittest.TestCase):
                     }
                 }
             }
+
+
+class TestBuildConfig(unittest.TestCase):
+    chart_config = [{
+        'category': ['Economics', 'Unemployment'],
+        'title': 'Unemployment Rate',
+        'statsVars': ['UnemploymentRate_Person'],
+        'isOverview': True
+    }, {
+        'category': ['Economics', 'Unemployment'],
+        'title': 'Labor Force Participation',
+        'statsVars': ['Count_Person_InLaborForce'],
+        'perCapita': True,
+        'scaling': 100,
+        'unit': '%',
+    }]
+    result = chart_api.build_config(chart_config)
+    with open('tests/test_data/golden_config.json') as f:
+        expected = json.load(f)
+        assert expected == result
