@@ -34,11 +34,23 @@ function run_npm_lint_test {
   cd ..
 }
 
-# Fixes client side lint
-function run_npm_lint_fix {
+# Fixes lint
+function run_lint_fix {
+  echo -e "#### Fixing client-side code"
   cd static
   npm list eslint || npm install eslint
   npm run lint
+
+  echo -e "#### Fixing Python code"
+  cd ../server
+  python3 -m venv .env
+  source .env/bin/activate
+  if ! command -v yapf &> /dev/null
+  then
+    pip3 install yapf -q
+  fi
+  yapf --recursive --i --style=google . ../tools/
+  deactivate
   cd ..
 }
 
@@ -50,7 +62,7 @@ function run_npm_build {
   cd ..
 }
 
-# Run test for server side code.
+# Run test and check lint for Python code.
 function run_py_test {
   python3 -m venv .env
   source .env/bin/activate
@@ -58,6 +70,11 @@ function run_py_test {
   export FLASK_ENV=test
   pip3 install -r requirements.txt -q
   python3 -m pytest tests/**.py
+  echo -e "#### Checking Python style"
+  if ! yapf --recursive --diff --style=google . ../tools/; then
+    echo "\nFix lint errors by running ./run_test.sh -f"
+    exit 1
+  fi
   cd ..
 }
 
@@ -71,7 +88,7 @@ function run_webdriver_test {
     echo "no dist folder, please run ./run_test.sh -b to build js first."
     exit 1
   fi
-  export FLASK_ENV=WEBDRIVER
+  export FLASK_ENV=webdriver
   export GOOGLE_CLOUD_PROJECT=datcom-browser-staging
   pip3 install -r requirements.txt -q
   python3 -m pytest webdriver_tests/*.py
@@ -87,7 +104,7 @@ function run_screenshot_test {
     echo "no dist folder, please run ./run_test.sh -b to build js first."
     exit 1
   fi
-  export FLASK_ENV=WEBDRIVER
+  export FLASK_ENV=webdriver
   export GOOGLE_CLOUD_PROJECT=datcom-browser-staging
   pip3 install -r requirements.txt -q
   if [  -d test_screenshots  ]
@@ -118,7 +135,7 @@ function help {
   echo "-c       Run client tests"
   echo "-s       Run screenshot tests"
   echo "-a       Run all tests"
-  echo "-f       Fix client lint"
+  echo "-f       Fix lint"
   echo "No args  Run all tests"
   exit 1
 }
@@ -138,7 +155,7 @@ while getopts pwblcsaf OPTION; do
         run_npm_build
         ;;
     l)
-        echo -e "### Running client-side lint"
+        echo -e "### Running lint"
         run_npm_lint_test
         ;;
     c)
@@ -151,7 +168,7 @@ while getopts pwblcsaf OPTION; do
         ;;
     f)
         echo -e "### Fix lint errors"
-        run_npm_lint_fix
+        run_lint_fix
         ;;
     a)
         echo -e "### Running all tests"

@@ -34,7 +34,7 @@ bp = flask.Blueprint(
 )
 
 def get_data(payload_for_geo):
-    """ Returns the most recent data as from a DataCommons API payload.
+    """ Returns the full timeseries data as from a DataCommons API payload.
     
     Args:
         payload_for_geo -> The payload from a get_stats call for a
@@ -43,7 +43,8 @@ def get_data(payload_for_geo):
         The full timeseries data available for that dcid.
     """
     time_series = payload_for_geo.get('data')
-    if not time_series: return None
+    if not time_series:
+        return {}
     return time_series
 
 @bp.route('/values')
@@ -170,14 +171,13 @@ def choropleth_geo():
                 coerce_geojson_to_righthand_rule(
                                     geojson['coordinates'],
                                     geojson['type']))
-            # Process Statistical Observation if valid.
-            if ('data' in population_by_geo.get(geo_id, [])
-                    and population_by_geo[geo_id]['data']):
-                # Grab the data.
-                data = get_data(population_by_geo[geo_id])
-                if data:
-                    max_date = max(data)
-                    geo_feature["properties"]["pop"] = data[max_date]
+
+            data = get_data(population_by_geo[geo_id])
+            # TODO(edumorales): return all populations
+            # get the selectedDate population in front-end.
+            if data:
+                max_date = max(data)
+                geo_feature["properties"]["pop"] = data[max_date]
 
             # Add to main dataframe.
             features.append(geo_feature)

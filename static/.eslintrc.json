@@ -7,14 +7,16 @@
     "plugin:@typescript-eslint/eslint-recommended",
     "plugin:@typescript-eslint/recommended"
   ],
-  "plugins": [
-    "react",
-    "prettier"
-  ],
+  "plugins": ["react", "prettier"],
   "rules": {
     "prettier/prettier": ["error"],
     "semi": ["error", "always"],
     "@typescript-eslint/no-explicit-any": "off",
     "no-fallthrough": "off"
+  },
+  "settings": {
+    "react": {
+      "version": "detect"
+    }
   }
 }

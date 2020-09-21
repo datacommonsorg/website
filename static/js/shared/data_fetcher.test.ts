@@ -68,6 +68,13 @@ test("fetch stats data", () => {
           },
         },
       });
+    } else if (url === "/api/place/displayname?&dcid=geoId/05&dcid=geoId/06") {
+      return Promise.resolve({
+        data: {
+          "geoId/05": "Arkansas",
+          "geoId/06": "California",
+        },
+      });
     }
   });
 
@@ -161,6 +168,79 @@ test("fetch stats data", () => {
   });
 });
 
+test("fetch stats data with state code", () => {
+  mockedAxios.get.mockImplementation((url: string) => {
+    if (url === "/api/stats/Count_Person?&dcid=geoId/05&dcid=geoId/06085") {
+      return Promise.resolve({
+        data: {
+          "geoId/05": {
+            data: {
+              "2011": 21000,
+              "2012": 22000,
+            },
+            placeName: "Arkansas",
+            provenanceDomain: "source1",
+          },
+          "geoId/06085": {
+            data: {
+              "2011": 31000,
+              "2012": 32000,
+            },
+            placeName: "Santa Clara",
+            provenanceDomain: "source2",
+          },
+        },
+      });
+    } else if (
+      url === "/api/place/displayname?&dcid=geoId/05&dcid=geoId/06085"
+    ) {
+      return Promise.resolve({
+        data: {
+          "geoId/05": "Arkansas",
+          "geoId/06085": "Santa Clara, CA",
+        },
+      });
+    }
+  });
+
+  return fetchStatsData(["geoId/05", "geoId/06085"], ["Count_Person"]).then(
+    (data) => {
+      expect(data).toEqual({
+        data: {
+          Count_Person: {
+            "geoId/05": {
+              data: {
+                "2011": 21000,
+                "2012": 22000,
+              },
+              placeName: "Arkansas",
+              provenanceDomain: "source1",
+            },
+            "geoId/06085": {
+              data: {
+                "2011": 31000,
+                "2012": 32000,
+              },
+              placeName: "Santa Clara, CA",
+              provenanceDomain: "source2",
+            },
+          },
+        },
+        dates: ["2011", "2012"],
+        places: ["geoId/05", "geoId/06085"],
+        statsVars: ["Count_Person"],
+        sources: new Set(["source1", "source2"]),
+        latestCommonDate: "2012",
+      });
+
+      expect(data.getPlaceGroupWithStatsVar()).toEqual([
+        new DataGroup("Arkansas", [{ label: "Total", value: 22000 }]),
+        new DataGroup("Santa Clara, CA", [{ label: "Total", value: 32000 }]),
+      ]);
+    }
+  );
+});
+
 test("fetch stats data where latest date with data for all stat vars is not the latest date", () => {
   const testData = {
     "geoId/05": {
@@ -184,6 +264,13 @@ test("fetch stats data where latest date with data for all stat vars is not the 
     if (url === "/api/stats/Count_Person?&dcid=geoId/05&dcid=geoId/06") {
       return Promise.resolve({
         data: testData,
+      });
+    } else if (url === "/api/place/displayname?&dcid=geoId/05&dcid=geoId/06") {
+      return Promise.resolve({
+        data: {
+          "geoId/05": "Arkansas",
+          "geoId/06": "California",
+        },
       });
     }
   });
@@ -250,6 +337,13 @@ test("fetch stats data where there is no date with data for all stat vars", () =
     if (url === "/api/stats/Count_Person?&dcid=geoId/05&dcid=geoId/06") {
       return Promise.resolve({
         data: testData,
+      });
+    } else if (url === "/api/place/displayname?&dcid=geoId/05&dcid=geoId/06") {
+      return Promise.resolve({
+        data: {
+          "geoId/05": "Arkansas",
+          "geoId/06": "California",
+        },
       });
     }
   });
@@ -435,6 +529,12 @@ test("fetch stats data with per capita with population size 0", () => {
           },
         },
       });
+    } else if (url === "/api/place/displayname?&dcid=geoId/05") {
+      return Promise.resolve({
+        data: {
+          "geoId/05": "Arkansas",
+        },
+      });
     }
   });
 
@@ -529,6 +629,13 @@ test("Per capita with specified denominators test", () => {
             placeName: "California",
             provenanceDomain: "source2",
           },
+        },
+      });
+    } else if (url === "/api/place/displayname?&dcid=geoId/05&dcid=geoId/06") {
+      return Promise.resolve({
+        data: {
+          "geoId/05": "Arkansas",
+          "geoId/06": "California",
         },
       });
     }
@@ -747,6 +854,15 @@ test("Per capita with specified denominators test - missing place data", () => {
             provenanceDomain: "source2",
           },
           "country/USA": null,
+        },
+      });
+    } else if (
+      url === "/api/place/displayname?&dcid=geoId/05&dcid=country/USA"
+    ) {
+      return Promise.resolve({
+        data: {
+          "geoId/05": "Arkansas",
+          "country/USA": "USA",
         },
       });
     }

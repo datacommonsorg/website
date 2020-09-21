@@ -5,3 +5,4 @@ geojson==2.5.0
 geopandas==0.8.1
 matplotlib==3.3.0
 rdp==0.8
+yapf

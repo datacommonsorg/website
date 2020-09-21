@@ -1,7 +1,7 @@
 steps:
-- id: 'client-test'
-  name: 'node'
-  entrypoint: /bin/sh
-  args:
-  - -c
-  - ./run_test.sh -lbc
+  - id: "client-test"
+    name: "node"
+    entrypoint: /bin/sh
+    args:
+      - -c
+      - ./run_test.sh -lbc

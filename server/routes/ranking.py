@@ -30,8 +30,10 @@ def ranking(stat_var, place_type, place_dcid=''):
             place_name = place_dcid
     else:
         place_name = 'World'
+    per_capita = flask.request.args.get('pc', False) != False
     return flask.render_template('ranking.html',
                                  place_name=place_name,
                                  place_dcid=place_dcid,
                                  place_type=place_type,
+                                 per_capita=per_capita,
                                  stat_var=stat_var)

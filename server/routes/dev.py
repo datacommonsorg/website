@@ -19,15 +19,10 @@ from flask import Blueprint
 
 from lib.gcs import list_png
 
-
 SCREENSHOT_BUCKET = 'datcom-browser-screenshot'
 
 # Define blueprint
-bp = Blueprint(
-    "dev",
-    __name__,
-    url_prefix='/dev'
-)
+bp = Blueprint("dev", __name__, url_prefix='/dev')
 
 
 @bp.route('/')

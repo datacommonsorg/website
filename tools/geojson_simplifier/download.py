@@ -84,15 +84,13 @@ class GeojsonDownloader:
         Raises:
             ValueError: If a Data Commons API call fails.
         """
-        geolevel = dc.get_property_values([place],
-                                          "typeOf")
+        geolevel = dc.get_property_values([place], "typeOf")
         # There is an extra level of nesting in geojson files, so we have
         # to get the 0th element explicitly.
         assert len(geolevel[place]) == 1
         geolevel = geolevel[place][0]
         geos_contained_in_place = dc.get_places_in(
-                                    [place],
-                                    self.LEVEL_MAP[geolevel])[place]
+            [place], self.LEVEL_MAP[geolevel])[place]
         self.geojsons = dc.get_property_values(geos_contained_in_place,
                                                "geoJsonCoordinates")
 

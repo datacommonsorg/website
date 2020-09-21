@@ -20,33 +20,31 @@ import datacommons as dc
 
 logging.getLogger().setLevel(logging.INFO)
 
-
 PLACES = [
-  'CensusZipCodeTabulationArea',
-  'City',
-  'County',
-  'CensusTract',
-  'SchoolDistrict',
-  'CensusCountyDivision',
-  'CongressionalDistrict',
-  'CensusCoreBasedStatisticalArea',
-  'HighSchoolDistrict',
-  'ElementarySchoolDistrict',
-  'State',
-  'Country',
-  'CommutingZone',
-  'EurostatNUTS1',
-  'EurostatNUTS2',
-  'EurostatNUTS3',
-  'StateComponent',
-  'AdministrativeArea1',
-  'AdministrativeArea2',
-  'AdministrativeArea3',
-  'AdministrativeArea4',
-  'Province',
-  'Continent',
-  ]
-
+    'CensusZipCodeTabulationArea',
+    'City',
+    'County',
+    'CensusTract',
+    'SchoolDistrict',
+    'CensusCountyDivision',
+    'CongressionalDistrict',
+    'CensusCoreBasedStatisticalArea',
+    'HighSchoolDistrict',
+    'ElementarySchoolDistrict',
+    'State',
+    'Country',
+    'CommutingZone',
+    'EurostatNUTS1',
+    'EurostatNUTS2',
+    'EurostatNUTS3',
+    'StateComponent',
+    'AdministrativeArea1',
+    'AdministrativeArea2',
+    'AdministrativeArea3',
+    'AdministrativeArea4',
+    'Province',
+    'Continent',
+]
 
 SITE_PREFIX = 'https://datacommons.org/place?dcid='
 SAVE_PATH = '../../static/sitemap/'
@@ -93,7 +91,7 @@ def updateRobotTxt():
     with open('../../static/robots.txt', 'w') as robot:
         for f in os.listdir(SAVE_PATH):
             robot.write(
-              'Sitemap: https://datacommons.org/sitemap/{}\n'.format(f))
+                'Sitemap: https://datacommons.org/sitemap/{}\n'.format(f))
 
 
 def main():

@@ -11,7 +11,6 @@
 # WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 # See the License for the specific language governing permissions and
 # limitations under the License.
-
 """functions for reading data from datacommons"""
 
 import requests
@@ -21,23 +20,28 @@ from google.cloud import secretmanager
 
 API_ROOT = 'https://datacommons.endpoints.datcom-mixer-staging.cloud.goog'
 
+
 def get_api_key():
     secret_client = secretmanager.SecretManagerServiceClient()
-    secret_name = secret_client.secret_version_path(
-        'datcom-mixer-staging', 'mixer-api-key', '1')
+    secret_name = secret_client.secret_version_path('datcom-mixer-staging',
+                                                    'mixer-api-key', '1')
     secret_response = secret_client.access_secret_version(secret_name)
     DC_API_KEY = secret_response.payload.data.decode('UTF-8')
     return DC_API_KEY
 
+
 def get_sv_dcids():
     req_url = API_ROOT + "/query"
     query_str = "SELECT ?a WHERE {?a typeOf StatisticalVariable}"
-    headers =  {'x-api-key': get_api_key(), 'Content-Type':'application/json'}
-    response = requests.post(req_url, json = {'sparql':query_str},
-        headers = headers, timeout=60)
+    headers = {'x-api-key': get_api_key(), 'Content-Type': 'application/json'}
+    response = requests.post(req_url,
+                             json={'sparql': query_str},
+                             headers=headers,
+                             timeout=60)
     result = response.json()
     sv_dcid = [temp['cells'][0]['value'] for temp in result['rows']]
     return sv_dcid
+
 
 def get_triples(dcids):
     # Generate the GetTriple query and send the request.
@@ -58,15 +62,13 @@ def get_triples(dcids):
                     (t['subjectId'], t['predicate'], t['objectValue']))
     return dict(results)
 
+
 def send_request(req_url, req_json={}, compress=False, post=True):
     """ Sends a POST/GET request to req_url with req_json, default to POST.
     Returns:
       The payload returned by sending the POST/GET request formatted as a dict.
     """
-    headers = {
-        'x-api-key': get_api_key(),
-        'Content-Type': 'application/json'
-    }
+    headers = {'x-api-key': get_api_key(), 'Content-Type': 'application/json'}
 
     # Send the request and verify the request succeeded
     if post:
@@ -89,6 +91,6 @@ def send_request(req_url, req_json={}, compress=False, post=True):
     # If the payload is compressed, decompress and decode it
     payload = res_json['payload']
     if compress:
-        payload = zlib.decompress(
-            base64.b64decode(payload), zlib.MAX_WBITS | 32)
+        payload = zlib.decompress(base64.b64decode(payload),
+                                  zlib.MAX_WBITS | 32)
     return json.loads(payload)

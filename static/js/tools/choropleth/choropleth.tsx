@@ -153,7 +153,7 @@ class ChoroplethMap extends Component<PropsType, StateType> {
     }
 
     return dates.reduce((a, b) => {
-      return new Date(a) > new Date(b) ? a : b;
+      return new Date(a) >= new Date(b) ? a : b;
     });
   };
 
@@ -402,21 +402,22 @@ class ChoroplethMap extends Component<PropsType, StateType> {
    * to reflect the new data.
    * @param event: an 'onChange' event.
    */
-  public changeDate = (event): void => {
+  public changeDate = (event: { target: { value: string } }): void => {
     // Get the newly selected date as a string.
     const newDate: string = event.target.value;
-    console.log(newDate)
+    console.log(newDate);
     const data = this.state["data"];
     // Re-update this.values to only include data for that given date.
     const geoIdToValue = this.filterByDate(data, newDate);
     // Store the new date and the new values.
-    this.setState({ date: newDate, values: geoIdToValue });
+    this.state.values = geoIdToValue;
+    this.setState({ date: newDate });
 
     // Re-render component and map.
     this.renderGeoMap();
     this.updateGeoValues();
 
-    // TODO(edumorales): for some reason, setState auto-render
+    // TODO(edumorales): for some reason, the setState auto-render
     // was disabled by previous developers.
     // Figure out why, and re-enable setState() to automatically re-render.
     // This is one of the main benefits of React.
@@ -569,8 +570,7 @@ class ChoroplethMap extends Component<PropsType, StateType> {
 
     // Return the select component.
     return (
-      <select onChange={this.changeDate}
-              defaultValue={this.state["date"]}>
+      <select onChange={this.changeDate} defaultValue={this.state["date"]}>
         {[
           <option key={"latest"} value={"latest"}>
             Latest Date
