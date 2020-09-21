@@ -36,7 +36,9 @@ def list_blobs(bucket_name, max_blobs):
         if b.name.endswith('.json'):
             json_blobs.append(b)
 
-    recent_blobs = sorted(json_blobs, key=lambda blob: blob.updated, reverse=True)
+    recent_blobs = sorted(json_blobs,
+                          key=lambda blob: blob.updated,
+                          reverse=True)
     d = collections.OrderedDict()
     num_blobs = 0
     for b in recent_blobs:

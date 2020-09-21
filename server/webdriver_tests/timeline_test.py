@@ -12,12 +12,10 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-
 import unittest
 import urllib
 from webdriver_tests.base_test import WebdriverBaseTest
 import time
-
 
 TIMELINE_URL = '/tools/timeline'
 URL_HASH_1 = '#&statsVar=Median_Age_Person,0,2__Median_Income_Person,0,3__Count_Person_Upto5Years,'\
@@ -119,7 +117,8 @@ class TestCharts(WebdriverBaseTest):
         self.assertEqual(len(lines), 2)
 
         # Remove California from place search box.
-        delete_button = search_box.find_element_by_class_name("mdl-chip__action")
+        delete_button = search_box.find_element_by_class_name(
+            "mdl-chip__action")
         delete_button.click()
         time.sleep(3)
         charts = self.driver.find_elements_by_class_name("card")

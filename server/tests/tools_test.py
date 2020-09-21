@@ -18,6 +18,7 @@ from main import app
 
 
 class TestStaticPage(unittest.TestCase):
+
     def test_timeline(self):
         response = app.test_client().get('/tools/timeline')
         assert response.status_code == 200
@@ -27,7 +28,6 @@ class TestStaticPage(unittest.TestCase):
         response = app.test_client().get('/tools/scatter')
         assert response.status_code == 200
         assert b"Please select two variables from the left menu" in response.data
-
 
     def test_choropleth(self):
         response = app.test_client().get('/tools/choropleth')

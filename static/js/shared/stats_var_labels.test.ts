@@ -18,18 +18,9 @@ import { STATS_VAR_LABEL } from "./stats_var_labels";
 import chartConfig from "../../../server/chart_config.json";
 
 test("stats var label", () => {
-  for (const section of chartConfig) {
-    for (const chart of section.charts) {
-      for (const statsVar of chart.statsVars) {
-        expect(STATS_VAR_LABEL[statsVar]).toBeTruthy();
-      }
-    }
-    for (const child of section.children) {
-      for (const chart of child.charts) {
-        for (const statsVar of chart.statsVars) {
-          expect(STATS_VAR_LABEL[statsVar]).toBeTruthy();
-        }
-      }
+  for (const chart of chartConfig) {
+    for (const statsVar of chart.statsVars) {
+      expect(STATS_VAR_LABEL[statsVar]).toBeTruthy();
     }
   }
 });

@@ -99,7 +99,7 @@ class TestScreenShot(WebdriverBaseTest):
             charts = self.driver.find_elements_by_class_name(
                 test_info['test_class'])
             # Assert there are charts.
-            self.assertGreater(len(charts), 0)
+            self.assertGreater(len(charts), 0, test_info['url'])
             self.driver.save_screenshot('{}{}_{}'.format(
                 SCREENSHOTS_FOLDER, index, test_info['filename_suffix']))
             index += 1

@@ -14,6 +14,7 @@
 """Place Ranking related handlers."""
 
 import flask
+import json
 import services.datacommons as dc
 import routes.api.place as place_api
 
@@ -24,7 +25,6 @@ RANK_KEYS = ['rankAll', 'rankTop1000']
 RANK_SIZE = 100
 
 
-# TODO(beets): Add support for per-capita
 @bp.route('/<stat_var>/<place_type>/')
 @bp.route('/<stat_var>/<place_type>/<path:place>')
 def ranking_api(stat_var, place_type, place=None):
@@ -32,10 +32,14 @@ def ranking_api(stat_var, place_type, place=None):
     optionally scoped by a containing place. Each place in the ranking has
     it's named returned, if available.
     """
-    ranking_results = dc.get_place_ranking([stat_var], place_type, place)
+    is_per_capita = flask.request.args.get('pc', False) != False
+    ranking_results = dc.get_place_ranking([stat_var], place_type, place,
+                                           is_per_capita)
     if not 'payload' in ranking_results:
-        return ranking_results
+        flask.abort(500)
     payload = ranking_results['payload']
+    if not stat_var in ranking_results['payload']:
+        flask.abort(500)
     dcids = set()
     try:
         del payload[stat_var]['rankBottom1000']
@@ -52,4 +56,6 @@ def ranking_api(stat_var, place_type, place=None):
         if k in payload[stat_var] and 'info' in payload[stat_var][k]:
             for r in payload[stat_var][k]['info']:
                 r['placeName'] = place_names[r['placeDcid']]
-    return ranking_results
+    return flask.Response(json.dumps(ranking_results),
+                          200,
+                          mimetype='application/json')

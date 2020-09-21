@@ -14,13 +14,13 @@
  * limitations under the License.
  */
 
-@import '../base';
-@import '../draw';
-@import 'place_search';
+@import "../base";
+@import "../draw";
+@import "place_search";
 
 $vertical-section-border: 1px solid var(--dc-gray-lite);
 $vertical-section-margin: 2rem;
-$sidebar-top-padding: 132px;  // Keep in sync with place.ts: Y_SCROLL_LIMIT
+$sidebar-top-padding: 132px; // Keep in sync with place.ts: Y_SCROLL_LIMIT
 
 #dc-places {
   margin-left: 1.5rem;
@@ -56,16 +56,16 @@ $sidebar-top-padding: 132px;  // Keep in sync with place.ts: Y_SCROLL_LIMIT
 #topics a {
   color: var(--dc-gray);
   display: inline-block;
-  font-size: .9rem;
+  font-size: 0.9rem;
   font-weight: 500;
   line-height: 1.2rem;
-  padding: .3rem 0;
+  padding: 0.3rem 0;
   text-decoration: none;
 }
 
 #topics .nav-item .nav-item a {
   font-weight: 300;
-  padding: .25rem 0;
+  padding: 0.25rem 0;
 }
 
 #topics a.active {
@@ -107,7 +107,7 @@ $sidebar-top-padding: 132px;  // Keep in sync with place.ts: Y_SCROLL_LIMIT
 #body .subtopic h3 .more a {
   color: var(--dc-gray);
   font-weight: 400;
-  font-size: .8rem;
+  font-size: 0.8rem;
   float: right;
   margin-top: 2px;
   text-decoration: none;
@@ -118,19 +118,19 @@ $sidebar-top-padding: 132px;  // Keep in sync with place.ts: Y_SCROLL_LIMIT
 }
 
 .subtopic .row {
-  margin-left: -.5rem;
-  margin-right: -.5rem;
+  margin-left: -0.5rem;
+  margin-right: -0.5rem;
 }
 
 .subtopic .row .col {
-  padding: .5rem;
+  padding: 0.5rem;
 }
 
 .btn-dc {
   color: #fff;
   background-color: var(--dc-red-lite);
   border-color: none;
-  padding: .2rem .6rem;
+  padding: 0.2rem 0.6rem;
 }
 
 .btn-dc:hover {
@@ -151,7 +151,7 @@ $sidebar-top-padding: 132px;  // Keep in sync with place.ts: Y_SCROLL_LIMIT
 }
 
 .chart-container {
-  border: .5px solid #dee2e6;
+  border: 0.5px solid #dee2e6;
   border-radius: 3px;
   height: 100%;
   padding: 10px;
@@ -163,33 +163,34 @@ $sidebar-top-padding: 132px;  // Keep in sync with place.ts: Y_SCROLL_LIMIT
 .chart-container h4 {
   color: var(--dc-gray);
   font-weight: 500;
-  font-size: .8rem;
+  font-size: 0.8rem;
   text-transform: uppercase;
-  margin-bottom: .5rem;
+  margin-bottom: 0.5rem;
   display: inline;
 }
 
 .chart-container h4 .sub-title {
   color: #999;
+  padding-left: 0.25rem;
 }
 
 .chart-container label {
-  font-size: .9rem;
-  margin-right: .5rem;
+  font-size: 0.9rem;
+  margin-right: 0.5rem;
 }
 
 .chart-container select {
-  font-size: .9rem;
+  font-size: 0.9rem;
   border-radius: 3px;
-  padding: .1rem;
+  padding: 0.1rem;
   border-color: var(--dc-gray-lite);
 }
 
 .factoid footer,
 .chart-container footer {
-  font-size: .5rem;
+  font-size: 0.5rem;
   color: var(--dc-gray);
-  margin-top: .5rem;
+  margin-top: 0.5rem;
 }
 
 .factoid .table thead th {
@@ -198,8 +199,8 @@ $sidebar-top-padding: 132px;  // Keep in sync with place.ts: Y_SCROLL_LIMIT
 
 .factoid th,
 .factoid td {
-  font-size: .9rem;
-  padding: .25rem;
+  font-size: 0.9rem;
+  padding: 0.25rem;
 }
 
 #map-container {
@@ -241,13 +242,13 @@ $sidebar-top-padding: 132px;  // Keep in sync with place.ts: Y_SCROLL_LIMIT
 
 #child-place-head {
   font-weight: 500;
-  font-size: .9rem;
+  font-size: 0.9rem;
   color: var(--dc-gray);
 }
 
 .child-place-group {
   margin-bottom: 1rem;
-  margin-top: .5rem;
+  margin-top: 0.5rem;
 }
 
 .child-place-type {
@@ -273,7 +274,7 @@ $sidebar-top-padding: 132px;  // Keep in sync with place.ts: Y_SCROLL_LIMIT
 }
 
 .explore-more {
-  font-size: .7rem;
+  font-size: 0.7rem;
   color: var(--dc-red-strong);
 }
 
@@ -281,4 +282,13 @@ $sidebar-top-padding: 132px;  // Keep in sync with place.ts: Y_SCROLL_LIMIT
   font-size: 0.5rem;
   color: var(--dc-gray);
   margin-top: 0.5rem;
+}
+
+.chart-block-title {
+  font-size: 1.2rem;
+  font-weight: 700;
+}
+
+.chart-block {
+  margin-bottom: 15px;
 }

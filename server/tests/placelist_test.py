@@ -17,25 +17,24 @@ from unittest.mock import patch
 
 from main import app
 
+
 class TestRoute(unittest.TestCase):
+
     @patch('routes.placelist.fetch_data')
     def test_index(self, mock_fetch_data):
         mock_response = {
-          'Country': {
-            'in': [
-              {
-                'dcid': 'country/USA',
-                'name': 'United States',
-              },
-              {
-                'dcid': 'country/test',
-                'name': 'test country',
-              }
-            ]
-          }
+            'Country': {
+                'in': [{
+                    'dcid': 'country/USA',
+                    'name': 'United States',
+                }, {
+                    'dcid': 'country/test',
+                    'name': 'test country',
+                }]
+            }
         }
         mock_fetch_data.side_effect = (
-          lambda url, req, compress, post: mock_response)
+            lambda url, req, compress, post: mock_response)
         response = app.test_client().get('/placelist')
         assert response.status_code == 200
         assert b'United States' in response.data
@@ -43,22 +42,17 @@ class TestRoute(unittest.TestCase):
     @patch('routes.placelist.child_fetch')
     def test_node(self, mock_child_fetch):
         mock_response = {
-          'County': [
-            {
-              'dcid': 'geoId/12345',
-              'name': 'county 1',
-            },
-            {
-              'dcid': 'geoId/12222',
-              'name': 'county 2',
-            }
-          ],
-          'City': [
-            {
-              'dcid': 'geoId/6666666',
-              'name': 'city 1',
-            }
-          ]
+            'County': [{
+                'dcid': 'geoId/12345',
+                'name': 'county 1',
+            }, {
+                'dcid': 'geoId/12222',
+                'name': 'county 2',
+            }],
+            'City': [{
+                'dcid': 'geoId/6666666',
+                'name': 'city 1',
+            }]
         }
         mock_child_fetch.return_value = mock_response
 

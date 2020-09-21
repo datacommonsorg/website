@@ -11,7 +11,6 @@
 # WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 # See the License for the specific language governing permissions and
 # limitations under the License.
-
 """This module defines the routes for retrieving chart config and metadata
 for the Place Explorer.
 
@@ -30,11 +29,7 @@ from cache import cache
 from flask import Blueprint, current_app, Response, url_for
 
 # Define blueprint
-bp = Blueprint(
-    "api_chart",
-    __name__,
-    url_prefix='/api/chart'
-)
+bp = Blueprint("api_chart", __name__, url_prefix='/api/chart')
 
 
 def filter_charts(charts, all_stats_vars):
@@ -55,7 +50,8 @@ def filter_charts(charts, all_stats_vars):
     for chart in charts:
         chart_copy = copy.copy(chart)
         chart_copy['statsVars'] = [
-            x for x in chart['statsVars'] if x in all_stats_vars]
+            x for x in chart['statsVars'] if x in all_stats_vars
+        ]
         if chart_copy['statsVars']:
             result.append(chart_copy)
     return result
@@ -66,6 +62,8 @@ def build_url(dcid, stats_vars):
     return urllib.parse.unquote(url_for('tools.timeline', _anchor=anchor))
 
 
+# TODO(shifucun): This function can be removed since data for all dates are
+# used.
 def get_statsvars_need_all_dates(chart_list):
     """Pulls out stats vars from the list of chart configs that require all dates kept
     i.e., line charts sv's
@@ -78,9 +76,8 @@ def get_statsvars_need_all_dates(chart_list):
     """
     result = set()
     for chart in chart_list:
-        if chart['chartType'] == 'LINE' or chart.get('axis', '') == 'TIME':
-            for sv in chart['statsVars']:
-                result.add(sv)
+        for sv in chart['statsVars']:
+            result.add(sv)
     return result
 
 
@@ -93,9 +90,10 @@ def keep_latest_data(timeseries):
     Returns:
         GetStats timeseries with only one date/value, or None
     """
-    if not timeseries: return None
+    if not timeseries:
+        return None
     max_date = max(timeseries)
-    return { max_date: timeseries[max_date] }
+    return {max_date: timeseries[max_date]}
 
 
 def keep_specified_data(timeseries, dates):
@@ -115,24 +113,22 @@ def keep_specified_data(timeseries, dates):
 
 
 def get_landing_page_data(dcid):
-    response = dc_service.fetch_data(
-        '/node/landing-page',
-        {
-            'dcids': [dcid],
-        },
-        compress=False,
-        post=True,
-        has_payload=True
-    )
+    response = dc_service.fetch_data('/node/landing-page', {
+        'dcids': [dcid],
+    },
+                                     compress=False,
+                                     post=True,
+                                     has_payload=True)
     return response
+
 
 def get_latest_common_date_for_chart(chart, sv_data):
     """Get the latest date for which there is data for every stat var included in this chart if there is such date
-    
+
     Args:
         chart: the chart object that we currently care about (a single chart object from chart_config.json)
         sv_data: the object returned from get_landing_page_data
-    
+
     Returns:
         date as a string or None
     """
@@ -150,22 +146,24 @@ def get_latest_common_date_for_chart(chart, sv_data):
     if len(sorted_dates) > 0:
         date_to_add = sorted_dates[-1]
     return date_to_add
-    
-    
+
+
+# TODO(shifucun): This function can be removed since data for all dates are
+# used.
 def get_dates_for_stat_vars(chart_config, sv_data):
-    """For each stat var, get the list of dates needed for every chart it is involved in. List of dates needed are a 
+    """For each stat var, get the list of dates needed for every chart it is involved in. List of dates needed are a
     list of the latest date for which every stat var in a chart has data for or the latest date that stat var has data for.
-    
+
     Args:
         chart_config: the chart config from chart_config.json
         sv_data: the object returned from get_landing_page_data
-    
+
     Returns:
         dictionary of statVar: list of dates
-    
+
     """
     sv_dates = {}
-    
+
     for topic in chart_config:
         for chart in topic['charts']:
             date_to_add = get_latest_common_date_for_chart(chart, sv_data)
@@ -189,18 +187,50 @@ def get_dates_for_stat_vars(chart_config, sv_data):
                             sv_dates[sv] = set()
                         sv_dates[sv].add(curr_date_to_add)
     return sv_dates
-    
 
-@bp.route('/config/<path:dcid>')
+
+def build_config(raw_config):
+    """Builds hierachical config based on raw config."""
+    category_map = {}
+    for config in raw_config:
+        is_overview = ('isOverview' in config and config['isOverview'])
+        # isOverview field is not used in the built chart config.
+        if 'isOverview' in config:
+            del config['isOverview']
+        category, topic = config['category']
+        del config['category']
+        if category not in category_map:
+            category_map[category] = {
+                'label': category,
+                'charts': [],
+                'children': []
+            }
+        if is_overview:
+            category_map[category]['charts'].append(config)
+        added = False
+        for section in category_map[category]['children']:
+            if section['label'] == topic:
+                section['charts'].append(config)
+                added = True
+        if not added:
+            category_map[category]['children'].append({
+                'label': topic,
+                'charts': [config]
+            })
+    return list(category_map.values())
+
+
+@bp.route('/data/<path:dcid>')
 @cache.memoize(timeout=3600 * 24)  # Cache for one day.
 def config(dcid):
     """
-    Get chart config for a given place.
+    Get chart config and cache data for a given place.
     """
-    chart_config = current_app.config['CHART_CONFIG']
+    raw_config = current_app.config['CHART_CONFIG']
     if os.environ.get('FLASK_ENV') == 'development':
         with bp.open_resource('../../chart_config.json') as f:
-            chart_config = json.load(f)
+            raw_config = json.load(f)
+    chart_config = build_config(raw_config)
 
     all_stats_vars = set(place_api.statsvars(dcid))
 
@@ -209,9 +239,10 @@ def config(dcid):
     cc = []
     for src_section in chart_config:
         target_section = {
-            "label": src_section["label"],
-            "charts": filter_charts(
-                src_section.get('charts', []), all_stats_vars),
+            "label":
+                src_section["label"],
+            "charts":
+                filter_charts(src_section.get('charts', []), all_stats_vars),
             "children": []
         }
         for child in src_section.get('children', []):
@@ -229,12 +260,13 @@ def config(dcid):
     for topic in cc:
         sv_keep_all_dates.update(get_statsvars_need_all_dates(topic['charts']))
         for section in topic['children']:
-            sv_keep_all_dates.update(get_statsvars_need_all_dates(section['charts']))
+            sv_keep_all_dates.update(
+                get_statsvars_need_all_dates(section['charts']))
 
     # Add cached chart data available
     # TODO: Request uncached data from the mixer
     chart_stats_vars = get_landing_page_data(dcid)
-    
+
     cached_chart_data = {}
     if chart_stats_vars.get(dcid) and len(chart_stats_vars[dcid]):
         cached_chart_data = chart_stats_vars
@@ -244,8 +276,10 @@ def config(dcid):
             for sv in cached_chart_data[place]:
                 if not sv in sv_keep_all_dates:
                     if sv in sv_dates:
-                        cached_chart_data[place][sv]['data'] = keep_specified_data(
-                            cached_chart_data[place][sv]['data'], sv_dates[sv])
+                        cached_chart_data[place][sv][
+                            'data'] = keep_specified_data(
+                                cached_chart_data[place][sv]['data'],
+                                sv_dates[sv])
                     else:
                         cached_chart_data[place][sv]['data'] = keep_latest_data(
                             cached_chart_data[place][sv]['data'])
@@ -260,8 +294,7 @@ def config(dcid):
         for j in range(len(cc[i].get('children', []))):
             for k in range(len(cc[i]['children'][j]['charts'])):
                 cc[i]['children'][j]['charts'][k]['exploreUrl'] = build_url(
-                    dcid,
-                    cc[i]['children'][j]['charts'][k]['statsVars'])
+                    dcid, cc[i]['children'][j]['charts'][k]['statsVars'])
 
     response = {
         'config': cc,

@@ -1,4 +1,3 @@
-
 # Copyright 2020 Google LLC
 #
 # Licensed under the Apache License, Version 2.0 (the "License");
@@ -19,6 +18,7 @@ from main import app
 
 
 class TestRedirects(unittest.TestCase):
+
     def test_gni(self):
         response = app.test_client().get('/gni', follow_redirects=True)
         assert response.status_code == 200
@@ -35,12 +35,14 @@ class TestRedirects(unittest.TestCase):
         assert b"The Data Commons Graph is constructed by" in response.data
 
     def test_browser_with_args(self):
-        response = app.test_client().get('/kg?dcid=geoId/06', follow_redirects=True)
+        response = app.test_client().get('/kg?dcid=geoId/06',
+                                         follow_redirects=True)
         assert response.status_code == 200
         assert b"geoId/06" in response.data
 
     def test_documentation(self):
-        response = app.test_client().get('/documentation', follow_redirects=False)
+        response = app.test_client().get('/documentation',
+                                         follow_redirects=False)
         assert response.status_code == 302
 
     def test_colab(self):
@@ -48,6 +50,6 @@ class TestRedirects(unittest.TestCase):
         assert response.status_code == 302
 
     def test_explore(self):
-        response = app.test_client().get(
-            '/explore/place?dcid=geoId/06', follow_redirects=False)
+        response = app.test_client().get('/explore/place?dcid=geoId/06',
+                                         follow_redirects=False)
         assert response.status_code == 302
