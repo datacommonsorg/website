@@ -753,9 +753,11 @@ class Chart extends Component<ChartPropType, ChartStateType> {
             <div>
               <span>Data from </span>
               {this.state.sources.map((source, index) => {
+                // TDOO(shifucun): Use provenance name and url from cache data
+                // https://github.com/datacommonsorg/website/issues/429
                 return (
                   <span key={source}>
-                    <a href={"http://" + source}>{source}</a>
+                    <a href={"https://" + source}>{source}</a>
                     {index < this.state.sources.length - 1 ? ", " : ""}
                   </span>
                 );
