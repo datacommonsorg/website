@@ -681,6 +681,7 @@ interface ChartStateType {
   dataGroups?: DataGroup[];
   elemWidth: number;
   dateSelected?: string;
+  sources: string[];
 }
 
 class Chart extends Component<ChartPropType, ChartStateType> {
@@ -702,6 +703,7 @@ class Chart extends Component<ChartPropType, ChartStateType> {
 
     this.state = {
       elemWidth: 0,
+      sources: [],
     };
     // Consider debouncing / throttling this if it gets expensive at
     // small screen sizes
@@ -749,7 +751,15 @@ class Chart extends Component<ChartPropType, ChartStateType> {
           <div id={this.props.id} className="svg-container"></div>
           <footer className="row explore-more-container">
             <div>
-              Data from <a href={config.url}>{config.source}</a>
+              <span>Data from </span>
+              {this.state.sources.map((source, index) => {
+                return (
+                  <span key={source}>
+                    <a href={"http://" + source}>{source}</a>
+                    {index < this.state.sources.length - 1 ? ", " : ""}
+                  </span>
+                );
+              })}
             </div>
             <div>
               <a
@@ -874,6 +884,7 @@ class Chart extends Component<ChartPropType, ChartStateType> {
           }
           this.setState({
             dataGroups,
+            sources: Array.from(data.sources),
           });
         });
         break;
@@ -889,6 +900,7 @@ class Chart extends Component<ChartPropType, ChartStateType> {
           this.setState({
             dataPoints: data.getStatsPoint(dcid),
             dateSelected: data.latestCommonDate,
+            sources: Array.from(data.sources),
           });
         });
         break;
@@ -947,6 +959,7 @@ class Chart extends Component<ChartPropType, ChartStateType> {
                   (dcid) => `/place?dcid=${dcid}`
                 ),
                 dateSelected: data.latestCommonDate,
+                sources: Array.from(data.sources),
               });
             });
             break;
@@ -964,6 +977,7 @@ class Chart extends Component<ChartPropType, ChartStateType> {
             ).then((data) => {
               this.setState({
                 dataGroups: data.getTimeGroupWithStatsVar(dcid),
+                sources: Array.from(data.sources),
               });
             });
             break;
