@@ -158,8 +158,7 @@ class StatsData {
       for (const statsVar of this.statsVars) {
         if (!this.data[statsVar][place]) continue;
         const timeSeries = this.data[statsVar][place];
-        // TODO: Using 0 to handle missing values for now. In the future, use another treatment.
-        let value = 0;
+        let value;
         if (timeSeries.data[date]) {
           value = timeSeries.data[date];
         }

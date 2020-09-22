@@ -485,7 +485,7 @@ function drawLineChart(
   addYAxis(svg, width, yScale, unit);
 
   const legendText = dataGroups.map((dataGroup) =>
-    dataGroup.label ? dataGroup.label : "a"
+    dataGroup.label ? dataGroup.label : "A"
   );
   const colorFn = getColorFn(legendText);
 
@@ -493,9 +493,11 @@ function drawLineChart(
     const dataset = dataGroup.value.map((dp) => {
       return [new Date(dp.label).getTime(), dp.value];
     });
+    console.log(dataset);
     const shouldAddDots = dataset.length < 12;
     let line = d3
       .line()
+      .defined((d) => d[1] !== null)
       .x((d) => xScale(d[0]))
       .y((d) => yScale(d[1]));
 
@@ -512,6 +514,7 @@ function drawLineChart(
 
     if (shouldAddDots) {
       svg
+        .append("g")
         .selectAll(".dot")
         .data(dataset)
         .enter()
@@ -520,7 +523,7 @@ function drawLineChart(
         .attr("cx", (d) => xScale(d[0]))
         .attr("cy", (d) => yScale(d[1]))
         .attr("fill", colorFn(dataGroup.label))
-        .attr("r", 3);
+        .attr("r", (d) => (d[1] === null ? 0 : 3));
     }
   }
 

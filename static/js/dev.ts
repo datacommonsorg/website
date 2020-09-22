@@ -167,6 +167,28 @@ window.onload = () => {
   containerId = addChartContainer();
   drawLineChart(containerId, width, height, dataGroups);
 
+  // Draw line chart with missing values.
+  dataGroups = [
+    new DataGroup("label-1", [
+      new DataPoint("01-01-2011", 702134),
+      new DataPoint("01-02-2011", 1002342),
+      new DataPoint("01-03-2011", 3002342),
+      new DataPoint("01-04-2011", 9520234),
+      new DataPoint("01-05-2011", 3520234),
+      new DataPoint("01-06-2011", 7520234),
+    ]),
+    new DataGroup("label-2", [
+      new DataPoint("01-01-2011", 2134),
+      new DataPoint("01-02-2011", null),
+      new DataPoint("01-03-2011", 2342),
+      new DataPoint("01-04-2011", null),
+      new DataPoint("01-05-2011", 520234),
+      new DataPoint("01-06-2011", 520234),
+    ]),
+  ];
+  containerId = addChartContainer();
+  drawLineChart(containerId, width, height, dataGroups);
+
   // Test group line chart
   width = 500;
   const years = [
