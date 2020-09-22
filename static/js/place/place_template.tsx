@@ -331,7 +331,6 @@ class MainPane extends Component<MainPanePropType, unknown> {
   }
 
   render(): JSX.Element {
-    console.log(this.props.nearbyPlaces);
     let configData = [];
     const isOverview = !this.props.topic;
     if (isOverview) {
