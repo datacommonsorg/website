@@ -40,18 +40,17 @@ function run_lint_fix {
   cd static
   npm list eslint || npm install eslint
   npm run lint
+  cd ..
 
   echo -e "#### Fixing Python code"
-  cd ../server
   python3 -m venv .env
   source .env/bin/activate
   if ! command -v yapf &> /dev/null
   then
     pip3 install yapf -q
   fi
-  yapf --recursive --i --style=google . ../tools/
+  yapf -r -i -p -vv --style=google server/ tools/
   deactivate
-  cd ..
 }
 
 # Build client side code
@@ -70,12 +69,12 @@ function run_py_test {
   export FLASK_ENV=test
   pip3 install -r requirements.txt -q
   python3 -m pytest tests/**.py
+  cd ..
   echo -e "#### Checking Python style"
-  if ! yapf --recursive --diff --style=google . ../tools/; then
+  if ! yapf --recursive --diff --style=google -p -vv server/ tools/; then
     echo "\nFix lint errors by running ./run_test.sh -f"
     exit 1
   fi
-  cd ..
 }
 
 # Run test for webdriver automation test codes.
