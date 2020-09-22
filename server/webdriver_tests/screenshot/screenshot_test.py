@@ -73,23 +73,13 @@ TEST_URLS = [
         'url': '/ranking/Median_Income_Person/County/country/USA',
         'filename_suffix': 'ranking_median_income_counties.png',
         'test_class': 'chart-container',
-        'height': 1000
+        'height': 600
     },
     {
         'url': '/ranking/Count_Person/Country',
         'filename_suffix': 'ranking_population_countries.png',
         'test_class': 'chart-container',
-        'height': 1000
-    },
-    {
-        'url':
-            '/ranking/Count_CriminalActivities_CombinedCrime/City/geoId/06085?pc',
-        'filename_suffix':
-            'ranking_crime_per_capita.png',
-        'test_class':
-            'chart-container',
-        'height':
-            1000
+        'height': 600
     },
 ]
 
