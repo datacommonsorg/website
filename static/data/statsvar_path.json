@@ -29629,11 +29629,11 @@
   7,
   1
  ],
- "Count_Household": [
+ "Median_Income_Household": [
   7,
   0
  ],
- "Median_Income_Household": [
+ "Count_Household": [
   7,
   1
  ],
@@ -34065,13 +34065,13 @@
   3,
   2
  ],
- "Count_Household_HouseholderRaceAmericanIndianOrAlaskaNativeAlone": [
+ "Median_Income_Household_HouseholderRaceAmericanIndianOrAlaskaNativeAlone": [
   7,
   3,
   0,
   0
  ],
- "Median_Income_Household_HouseholderRaceAmericanIndianOrAlaskaNativeAlone": [
+ "Count_Household_HouseholderRaceAmericanIndianOrAlaskaNativeAlone": [
   7,
   3,
   0,
@@ -34189,13 +34189,13 @@
   1,
   0
  ],
- "Count_Household_HouseholderRaceAsianAlone": [
+ "Median_Income_Household_HouseholderRaceAsianAlone": [
   7,
   3,
   1,
   0
  ],
- "Median_Income_Household_HouseholderRaceAsianAlone": [
+ "Count_Household_HouseholderRaceAsianAlone": [
   7,
   3,
   1,
@@ -34313,13 +34313,13 @@
   1,
   1
  ],
- "Count_Household_HouseholderRaceBlackOrAfricanAmericanAlone": [
+ "Median_Income_Household_HouseholderRaceBlackOrAfricanAmericanAlone": [
   7,
   3,
   2,
   0
  ],
- "Median_Income_Household_HouseholderRaceBlackOrAfricanAmericanAlone": [
+ "Count_Household_HouseholderRaceBlackOrAfricanAmericanAlone": [
   7,
   3,
   2,
@@ -34437,13 +34437,13 @@
   1,
   2
  ],
- "Count_Household_HouseholderRaceHispanicOrLatino": [
+ "Median_Income_Household_HouseholderRaceHispanicOrLatino": [
   7,
   3,
   3,
   0
  ],
- "Median_Income_Household_HouseholderRaceHispanicOrLatino": [
+ "Count_Household_HouseholderRaceHispanicOrLatino": [
   7,
   3,
   3,
@@ -34561,13 +34561,13 @@
   1,
   3
  ],
- "Count_Household_HouseholderRaceNativeHawaiianOrOtherPacificIslanderAlone": [
+ "Median_Income_Household_HouseholderRaceNativeHawaiianOrOtherPacificIslanderAlone": [
   7,
   3,
   4,
   0
  ],
- "Median_Income_Household_HouseholderRaceNativeHawaiianOrOtherPacificIslanderAlone": [
+ "Count_Household_HouseholderRaceNativeHawaiianOrOtherPacificIslanderAlone": [
   7,
   3,
   4,
@@ -34685,13 +34685,13 @@
   1,
   4
  ],
- "Count_Household_HouseholderRaceSomeOtherRaceAlone": [
+ "Median_Income_Household_HouseholderRaceSomeOtherRaceAlone": [
   7,
   3,
   5,
   0
  ],
- "Median_Income_Household_HouseholderRaceSomeOtherRaceAlone": [
+ "Count_Household_HouseholderRaceSomeOtherRaceAlone": [
   7,
   3,
   5,
@@ -34809,13 +34809,13 @@
   1,
   5
  ],
- "Count_Household_HouseholderRaceTwoOrMoreRaces": [
+ "Median_Income_Household_HouseholderRaceTwoOrMoreRaces": [
   7,
   3,
   6,
   0
  ],
- "Median_Income_Household_HouseholderRaceTwoOrMoreRaces": [
+ "Count_Household_HouseholderRaceTwoOrMoreRaces": [
   7,
   3,
   6,
@@ -34933,13 +34933,13 @@
   1,
   6
  ],
- "Count_Household_HouseholderRaceWhiteAlone": [
+ "Median_Income_Household_HouseholderRaceWhiteAlone": [
   7,
   3,
   7,
   0
  ],
- "Median_Income_Household_HouseholderRaceWhiteAlone": [
+ "Count_Household_HouseholderRaceWhiteAlone": [
   7,
   3,
   7,
@@ -35057,13 +35057,13 @@
   1,
   7
  ],
- "Count_Household_HouseholderRaceWhiteAloneNotHispanicOrLatino": [
+ "Median_Income_Household_HouseholderRaceWhiteAloneNotHispanicOrLatino": [
   7,
   3,
   8,
   0
  ],
- "Median_Income_Household_HouseholderRaceWhiteAloneNotHispanicOrLatino": [
+ "Count_Household_HouseholderRaceWhiteAloneNotHispanicOrLatino": [
   7,
   3,
   8,

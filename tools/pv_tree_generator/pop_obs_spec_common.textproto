@@ -1288,7 +1288,7 @@ spec: {
     mprop: "count"
     stat_type: "measuredValue"
   }
-  name: "Count"
+  name: "Population"
   vertical: "Household"
 }
 
@@ -1298,7 +1298,7 @@ spec: {
     mprop: "income"
     stat_type: "medianValue"
   }
-  name: "Median Income"
+  name: "Median Household Income"
   vertical: "Household"
 }
 
@@ -1318,12 +1318,12 @@ spec: {
   obs_props: {
     mprop: "count"
     stat_type: "measuredValue"
-    name: "Count"
+    name: "Population"
   }
   obs_props: {
     mprop: "income"
     stat_type: "medianValue"
-    name: "Median Income"
+    name: "Median Household Income"
   }
   vertical: "Household"
   cprop: "householderRace"

@@ -359,20 +359,20 @@
   "cd": [
    {
     "sv": [
-     "Count_Household"
+     "Median_Income_Household"
     ],
-    "l": "Count",
+    "l": "Median Household Income",
     "t": "v",
-    "e": "Count",
+    "e": "Median Household Income",
     "c": 1
    },
    {
     "sv": [
-     "Median_Income_Household"
+     "Count_Household"
     ],
-    "l": "Median Income",
+    "l": "Population",
     "t": "v",
-    "e": "Median Income",
+    "e": "Population",
     "c": 1
    },
    {
