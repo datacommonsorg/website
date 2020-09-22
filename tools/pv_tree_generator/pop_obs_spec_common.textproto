@@ -12,7 +12,7 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-## This file specifies a list of populations with different constraint properties and dependent property-value pairs under each vertical. 
+## This file specifies a list of populations with different constraint properties and dependent property-value pairs under each vertical.
 
 ## Person Count ##
 
@@ -51,7 +51,7 @@ spec: {
     mprop: "lifeExpectancy"
     stat_type: "measuredValue"
     name: "Life Expectancy"
-  } 
+  }
   vertical: "Demographics"
   cprop: "age"
 }
@@ -218,7 +218,7 @@ spec: {
     mprop: "lifeExpectancy",
     stat_type: "measuredValue",
     name: "Life Expectancy"
-  } 
+  }
   vertical: "Demographics"
   cprop: "age"
   cprop: "gender"
@@ -1288,8 +1288,18 @@ spec: {
     mprop: "count"
     stat_type: "measuredValue"
   }
+  name: "Population"
   vertical: "Household"
-  name: "Household"
+}
+
+spec: {
+  pop_type: "Household"
+  obs_props: {
+    mprop: "income"
+    stat_type: "medianValue"
+  }
+  name: "Median Household Income"
+  vertical: "Household"
 }
 
 spec: {
@@ -1308,6 +1318,12 @@ spec: {
   obs_props: {
     mprop: "count"
     stat_type: "measuredValue"
+    name: "Population"
+  }
+  obs_props: {
+    mprop: "income"
+    stat_type: "medianValue"
+    name: "Median Household Income"
   }
   vertical: "Household"
   cprop: "householderRace"
@@ -1322,7 +1338,7 @@ spec: {
   }
   vertical: "Household"
   cprop: "income"
-  name: "Household Income"
+  name: "Household by Income"
 }
 
 spec: {

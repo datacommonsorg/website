@@ -355,15 +355,24 @@
   "l": "Household",
   "t": "p",
   "e": "Household",
-  "c": 680,
+  "c": 690,
   "cd": [
+   {
+    "sv": [
+     "Median_Income_Household"
+    ],
+    "l": "Median Household Income",
+    "t": "v",
+    "e": "Median Household Income",
+    "c": 1
+   },
    {
     "sv": [
      "Count_Household"
     ],
-    "l": "Household",
+    "l": "Population",
     "t": "v",
-    "e": "Household",
+    "e": "Population",
     "c": 1
    },
    {
@@ -374,10 +383,10 @@
    {
     "l": "Household by Householder Race",
     "t": "p",
-    "c": 612
+    "c": 621
    },
    {
-    "l": "Household Income",
+    "l": "Household by Income",
     "t": "p",
     "c": 640
    }
