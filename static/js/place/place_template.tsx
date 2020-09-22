@@ -73,6 +73,7 @@ interface ConfigType {
   unit: string;
   exploreUrl: string;
   placeRelation?: string;
+  canScale: boolean;
 }
 
 interface ChartCategory {
@@ -556,8 +557,18 @@ class ChartBlock extends Component<ChartBlockPropType, unknown> {
     );
   }
 
-  // TODO(shifucun): Add more config to indicate whether to use perCapita for
-  // place comparison.
+  private copyAndUpdateConfig(config: ConfigType) {
+    const conf = { ...config };
+    conf.chartType = chartTypeEnum.GROUP_BAR;
+    conf.axis = "PLACE";
+    if (conf.canScale == null || conf.canScale) {
+      conf.perCapita = true;
+      conf.unit = "%";
+      conf.scaling = 100;
+    }
+    return conf;
+  }
+
   private buildOverviewConfig(
     placeType: string,
     config: ConfigType
@@ -568,9 +579,7 @@ class ChartBlock extends Component<ChartBlockPropType, unknown> {
     conf.title = conf.title + " in " + this.props.placeName;
     result.push(conf);
 
-    conf = { ...config };
-    conf.chartType = chartTypeEnum.GROUP_BAR;
-    conf.axis = "PLACE";
+    conf = this.copyAndUpdateConfig(config);
     if (placeType === "Country") {
       // Containing place chart
       conf.title = conf.title + " for places within " + this.props.placeName;
@@ -594,41 +603,36 @@ class ChartBlock extends Component<ChartBlockPropType, unknown> {
     conf.title = conf.title + " in " + this.props.placeName;
     result.push(conf);
 
+    let displayPlaceType = placeType;
     if (placeType !== "Country") {
-      const displayPlaceType = pluralizedDisplayNameForPlaceType(
+      displayPlaceType = pluralizedDisplayNameForPlaceType(
         placeType
       ).toLocaleLowerCase();
+    }
+    if (placeType !== "Country") {
       // Nearby places
-      conf = { ...config };
-      conf.chartType = chartTypeEnum.GROUP_BAR;
+      conf = this.copyAndUpdateConfig(config);
       conf.placeRelation = placeRelationEnum.NEARBY;
-      conf.axis = "PLACE";
       conf.title = `${conf.title} for ${displayPlaceType} near ${this.props.placeName}`;
       result.push(conf);
+    }
+    if (placeType !== "Country") {
       // Similar places
-      conf = { ...config };
-      conf.chartType = chartTypeEnum.GROUP_BAR;
+      conf = this.copyAndUpdateConfig(config);
       conf.placeRelation = placeRelationEnum.SIMILAR;
-      conf.axis = "PLACE";
       conf.title = `${conf.title} for other ${displayPlaceType}`;
       result.push(conf);
     }
     if (placeType !== "City") {
       // Children places
-      conf = { ...config };
-      conf.chartType = chartTypeEnum.GROUP_BAR;
+      conf = this.copyAndUpdateConfig(config);
       conf.placeRelation = placeRelationEnum.CONTAINING;
-      conf.axis = "PLACE";
       conf.title = conf.title + " for places within " + this.props.placeName;
       result.push(conf);
     } else {
       // Parent places.
-      // TODO(shifucun): Add perCapita option if appropriate, this should be
-      // based on the chart config.
-      conf = { ...config };
-      conf.chartType = chartTypeEnum.GROUP_BAR;
+      conf = this.copyAndUpdateConfig(config);
       conf.placeRelation = placeRelationEnum.CONTAINED;
-      conf.axis = "PLACE";
       conf.title =
         conf.title + " for places that contain " + this.props.placeName;
       result.push(conf);

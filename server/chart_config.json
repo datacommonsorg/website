@@ -3,8 +3,9 @@
     "category": ["Economics", "Unemployment"],
     "title": "Unemployment Rate",
     "statsVars": ["UnemploymentRate_Person"],
-    "isOverview": true,
-    "unit": "%"
+    "canScale": false,
+    "unit": "%",
+    "isOverview": true
   },
   {
     "category": ["Economics", "Unemployment"],
@@ -30,30 +31,33 @@
     "isOverview": true
   },
   {
-    "category": ["Economics", "Unemployment"],
-    "title": "Unemployment Rate by Gender",
-    "statsVars": [
-      "UnemploymentRate_Person_Male",
-      "UnemploymentRate_Person_Female"
-    ]
-  },
-  {
     "category": ["Economics", "Economic Activity"],
     "title": "Gross Domestic Product",
     "statsVars": ["Amount_EconomicActivity_GrossDomesticProduction_Nominal"],
     "isOverview": true
   },
   {
+    "category": ["Economics", "Unemployment"],
+    "title": "Unemployment Rate by Gender",
+    "statsVars": [
+      "UnemploymentRate_Person_Male",
+      "UnemploymentRate_Person_Female"
+    ],
+    "canScale": false
+  },
+  {
     "category": ["Economics", "Economic Activity"],
     "title": "Gross Domestic Product, Per Capita",
     "statsVars": [
       "Amount_EconomicActivity_GrossDomesticProduction_Nominal_PerCapita"
-    ]
+    ],
+    "canScale": false
   },
   {
     "category": ["Economics", "Economic Activity"],
     "title": "Gross Domestic Product Growth Rate",
     "statsVars": ["GrowthRate_Amount_EconomicActivity_GrossDomesticProduction"],
+    "canScale": false,
     "isOverview": true
   },
   {
@@ -61,19 +65,22 @@
     "title": "Gross National Income, Per Capita (Purchasing Power Parity)",
     "statsVars": [
       "Amount_EconomicActivity_GrossNationalIncome_PurchasingPowerParity_PerCapita"
-    ]
+    ],
+    "canScale": false
   },
   {
     "category": ["Economics", "Economic Activity"],
     "title": "Gross National Income (Purchasing Power Parity)",
     "statsVars": [
       "Amount_EconomicActivity_GrossNationalIncome_PurchasingPowerParity"
-    ]
+    ],
+    "canScale": false
   },
   {
     "category": ["Economics", "Economic Activity"],
     "title": "Government Debt",
     "statsVars": ["Amount_Debt_Government"],
+    "canScale": false,
     "isOverview": true
   },
 
@@ -82,13 +89,11 @@
     "title": "Median Individual Income",
     "statsVars": ["Median_Income_Person"],
     "unit": "$",
+    "canScale": false,
     "isOverview": true
   },
   {
-    "category": [
-      "Economics",
-      "Individual Income"
-    ],
+    "category": ["Economics", "Individual Income"],
     "title": "Individual Income",
     "statsVars": [
       "Count_Person_IncomeOfUpto9999USDollar",
@@ -99,22 +104,17 @@
       "Count_Person_IncomeOf50000To64999USDollar",
       "Count_Person_IncomeOf65000To74999USDollar",
       "Count_Person_IncomeOf75000OrMoreUSDollar"
-    ],
-    "perCapita": true,
-    "scaling": 100,
-    "unit": "%"
+    ]
   },
   {
     "category": ["Economics", "Household Income"],
     "title": "Median Household Income",
     "statsVars": ["Median_Income_Household"],
+    "canScale": false,
     "unit": "$"
   },
   {
-    "category": [
-      "Economics",
-      "Household Income"
-    ],
+    "category": ["Economics", "Household Income"],
     "title": "Household Income",
     "statsVars": [
       "Count_Household_IncomeOfUpto10000USDollar",
@@ -129,9 +129,7 @@
       "Count_Household_IncomeOf150000To199999USDollar",
       "Count_Household_IncomeOf200000OrMoreUSDollar"
     ],
-    "perCapita": true,
-    "scaling": 100,
-    "unit": "%"
+    "canScale": false
   },
 
   {
@@ -163,7 +161,7 @@
   },
   {
     "category": ["Health", "Mortality"],
-    "title": "Mortality",
+    "title": "Mortality Trend",
     "statsVars": [
       "Count_Death_DiseasesOfTheCirculatorySystem",
       "Count_Death_Neoplasms",
@@ -171,9 +169,7 @@
       "Count_Death_ExternalCauses",
       "Count_Death_DiseasesOfTheNervousSystem"
     ],
-    "perCapita": true,
-    "scaling": 100,
-    "unit": "%"
+    "isOverview": true
   },
   {
     "category": ["Health", "Health Outcomes"],
@@ -186,6 +182,7 @@
       "Percent_Person_WithPhysicalHealthNotGood"
     ],
     "unit": "%",
+    "canScale": false,
     "isOverview": true
   },
   {
@@ -199,6 +196,7 @@
       "Percent_Person_Smoking"
     ],
     "unit": "%",
+    "canScale": false,
     "isOverview": true
   },
   {
@@ -234,6 +232,7 @@
     ],
     "scaling": 100,
     "unit": "%",
+    "canScale": false,
     "isOverview": true
   },
   {
@@ -246,6 +245,7 @@
     "denominator": ["Count_Person_Female", "Count_Person_Male"],
     "scaling": 100,
     "unit": "%",
+    "canScale": false,
     "isOverview": true
   },
   {
@@ -259,6 +259,7 @@
       "Median_Income_Household_HouseholderRaceNativeHawaiianOrOtherPacificIslanderAlone",
       "Median_Income_Household_HouseholderRaceWhiteAlone"
     ],
+    "canScale": false,
     "isOverview": true
   },
   {
@@ -268,6 +269,7 @@
       "Median_Income_Person_15OrMoreYears_Female_WithIncome",
       "Median_Income_Person_15OrMoreYears_Male_WithIncome"
     ],
+    "canScale": false,
     "isOverview": true
   },
   {
@@ -289,6 +291,7 @@
       "Count_Person_NativeHawaiianOrOtherPacificIslanderAlone",
       "Count_Person_WhiteAlone"
     ],
+    "canScale": false,
     "scaling": 100,
     "unit": "%"
   },
@@ -300,6 +303,7 @@
       "Count_Person_Male_BelowPovertyLevelInThePast12Months"
     ],
     "denominator": ["Count_Person_Female", "Count_Person_Male"],
+    "canScale": false,
     "scaling": 100,
     "unit": "%"
   },
@@ -313,7 +317,8 @@
       "Median_Income_Household_HouseholderRaceHispanicOrLatino",
       "Median_Income_Household_HouseholderRaceNativeHawaiianOrOtherPacificIslanderAlone",
       "Median_Income_Household_HouseholderRaceWhiteAlone"
-    ]
+    ],
+    "canScale": false
   },
   {
     "category": ["Inequality", "Economics"],
@@ -321,7 +326,8 @@
     "statsVars": [
       "Median_Income_Person_15OrMoreYears_Female_WithIncome",
       "Median_Income_Person_15OrMoreYears_Male_WithIncome"
-    ]
+    ],
+    "canScale": false
   },
   {
     "category": ["Inequality", "Economics"],
@@ -330,6 +336,7 @@
       "UnemploymentRate_Person_Female",
       "UnemploymentRate_Person_Male"
     ],
+    "canScale": false,
     "isOverview": true
   },
   {
@@ -339,8 +346,19 @@
       "Percent_Person_18To64Years_Female_NoHealthInsurance",
       "Percent_Person_18To64Years_Male_NoHealthInsurance"
     ],
+    "canScale": false,
     "unit": "%",
     "isOverview": true
+  },
+  {
+    "category": ["Inequality", "Health Insurance"],
+    "title": "Percent of People Without Health Insurance by Gender",
+    "statsVars": [
+      "Percent_Person_18To64Years_Female_NoHealthInsurance",
+      "Percent_Person_18To64Years_Male_NoHealthInsurance"
+    ],
+    "canScale": false,
+    "unit": "%"
   },
   {
     "category": ["Inequality", "Health Insurance"],
@@ -350,8 +368,8 @@
       "Percent_Person_18To64Years_NoHealthInsurance_HispanicOrLatino",
       "Percent_Person_18To64Years_NoHealthInsurance_WhiteAlone"
     ],
-    "unit": "%",
-    "isOverview": true
+    "canScale": false,
+    "unit": "%"
   },
   {
     "category": ["Inequality", "Education Attainment"],
@@ -364,6 +382,7 @@
       "Count_Person_25To34Years_Female",
       "Count_Person_25To34Years_Male"
     ],
+    "canScale": false,
     "scaling": 100,
     "unit": "%"
   },
@@ -378,6 +397,7 @@
       "Count_Person_25To34Years_Female",
       "Count_Person_25To34Years_Male"
     ],
+    "canScale": false,
     "scaling": 100,
     "unit": "%"
   },
@@ -392,12 +412,13 @@
       "Count_Person_25To34Years_Female",
       "Count_Person_25To34Years_Male"
     ],
+    "canScale": false,
     "scaling": 100,
     "unit": "%"
   },
   {
     "category": ["Inequality", "Education Attainment"],
-    "title": "Rate of Associate Degree Attainment by Gender",
+    "title": "Rate of Associate Degree Attainment by Gender (25-34 Years)",
     "statsVars": [
       "Count_Person_25To34Years_EducationalAttainmentAssociatesDegree_Female",
       "Count_Person_25To34Years_EducationalAttainmentAssociatesDegree_Male"
@@ -406,12 +427,13 @@
       "Count_Person_25To34Years_Female",
       "Count_Person_25To34Years_Male"
     ],
+    "canScale": false,
     "scaling": 100,
     "unit": "%"
   },
   {
     "category": ["Inequality", "Education Attainment"],
-    "title": "Rate of Bachelor's Degree Attainment by Gender",
+    "title": "Rate of Bachelor's Degree Attainment by Gender (25-34 Years)",
     "statsVars": [
       "Count_Person_25To34Years_EducationalAttainmentBachelorsDegree_Female",
       "Count_Person_25To34Years_EducationalAttainmentBachelorsDegree_Male"
@@ -420,12 +442,13 @@
       "Count_Person_25To34Years_Female",
       "Count_Person_25To34Years_Male"
     ],
+    "canScale": false,
     "scaling": 100,
     "unit": "%"
   },
   {
     "category": ["Inequality", "Education Attainment"],
-    "title": "Rate of Graduate or Professional Degree Attainment by Gender",
+    "title": "Rate of Graduate or Professional Degree Attainment by Gender (25-34 Years)",
     "statsVars": [
       "Count_Person_25To34Years_EducationalAttainmentGraduateOrProfessionalDegree_Female",
       "Count_Person_25To34Years_EducationalAttainmentGraduateOrProfessionalDegree_Male"
@@ -434,6 +457,7 @@
       "Count_Person_25To34Years_Female",
       "Count_Person_25To34Years_Male"
     ],
+    "canScale": false,
     "scaling": 100,
     "unit": "%"
   },
@@ -486,30 +510,35 @@
     "category": ["Demographics", "Population"],
     "title": "Population",
     "statsVars": ["Count_Person"],
+    "canScale": false,
     "isOverview": true
   },
   {
     "category": ["Demographics", "Population"],
     "title": "Population Growth Rate",
     "statsVars": ["GrowthRate_Count_Person"],
+    "canScale": false,
     "isOverview": true
   },
   {
     "category": ["Demographics", "Population"],
     "title": "Person Per Area",
     "statsVars": ["Count_Person_PerArea"],
+    "canScale": false,
     "isOverview": true
   },
   {
     "category": ["Demographics", "Population"],
     "title": "Life Expectancy",
     "statsVars": ["LifeExpectancy_Person"],
+    "canScale": false,
     "isOverview": true
   },
   {
     "category": ["Demographics", "Population"],
     "title": "Fertility Rate",
     "statsVars": ["FertilityRate_Person_Female"],
+    "canScale": false,
     "isOverview": true
   },
   {
@@ -520,7 +549,8 @@
   {
     "category": ["Demographics", "Gender"],
     "title": "Median Age by Gender",
-    "statsVars": ["Median_Age_Person_Female", "Median_Age_Person_Male"]
+    "statsVars": ["Median_Age_Person_Female", "Median_Age_Person_Male"],
+    "canScale": false
   },
   {
     "category": ["Demographics", "Race"],
@@ -548,19 +578,18 @@
       "Median_Age_Person_SomeOtherRaceAlone",
       "Median_Age_Person_TwoOrMoreRaces",
       "Median_Age_Person_WhiteAlone"
-    ]
+    ],
+    "canScale": false
   },
   {
     "category": ["Demographics", "Age"],
     "title": "Median Age",
     "statsVars": ["Median_Age_Person"],
+    "canScale": false,
     "isOverview": true
   },
   {
-    "category": [
-      "Demographics",
-      "Age"
-    ],
+    "category": ["Demographics", "Age"],
     "title": "Age",
     "statsVars": [
       "Count_Person_Upto5Years",
@@ -577,14 +606,11 @@
       "Count_Person_55To59Years",
       "Count_Person_60To64Years",
       "Count_Person_65OrMoreYears"
-    ],
-    "perCapita": true,
-    "scaling": 100,
-    "unit": "%"
+    ]
   },
   {
     "category": ["Demographics", "Citizenship"],
-    "title": "Citizenship Trend",
+    "title": "Citizenship",
     "statsVars": [
       "Count_Person_USCitizenBornInTheUnitedStates",
       "Count_Person_USCitizenByNaturalization",
@@ -595,7 +621,7 @@
   },
   {
     "category": ["Demographics", "Marital Status"],
-    "title": "Marital Status Trend",
+    "title": "Marital Status",
     "statsVars": [
       "Count_Person_MarriedAndNotSeparated",
       "Count_Person_Divorced",
@@ -609,18 +635,21 @@
     "category": ["Environment", "Energy"],
     "title": "Energy comsumption Per Capita",
     "statsVars": ["Amount_Consumption_Energy_PerCapita"],
+    "canScale": false,
     "isOverview": true
   },
   {
     "category": ["Environment", "Energy"],
     "title": "CO2 Emissions Per Capita",
     "statsVars": ["Amount_Emissions_CarbonDioxide_PerCapita"],
+    "canScale": false,
     "isOverview": true
   },
   {
     "category": ["Environment", "Energy"],
     "title": "Electricity Consumption Per Capita",
-    "statsVars": ["Amount_Consumption_Electricity_PerCapita"]
+    "statsVars": ["Amount_Consumption_Electricity_PerCapita"],
+    "canScale": false
   },
   {
     "category": ["Environment", "Disaster"],
@@ -638,10 +667,7 @@
     "isOverview": true
   },
   {
-    "category": [
-      "Environment",
-      "Disaster"
-    ],
+    "category": ["Environment", "Disaster"],
     "title": "Earthquake Event",
     "statsVars": ["Count_EarthquakeEvent"]
   },
