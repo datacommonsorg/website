@@ -15,7 +15,7 @@
  */
 
 import React from "react";
-import { Ranking, RankInfo } from "./ranking_types";
+import { Ranking } from "./ranking_types";
 import { DataPoint } from "../chart/base";
 import { drawHistogram } from "../chart/draw";
 
@@ -33,18 +33,12 @@ class RankingHistogram extends React.Component<
   RankingHistogramStateType
 > {
   chartElementRef: React.RefObject<HTMLDivElement>;
-  info: RankInfo[];
 
   constructor(props: RankingHistogramPropType) {
     super(props);
     this.state = {
       elemWidth: 0,
     };
-    // Always display the histogram from low to high rank
-    this.info = [...this.props.ranking.info];
-    this.info.sort((a, b) => {
-      return a.rank - b.rank;
-    });
     // Consider debouncing / throttling this if it gets expensive at
     // small screen sizes
     this._handleWindowResize = this._handleWindowResize.bind(this);

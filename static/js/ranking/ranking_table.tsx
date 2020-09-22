@@ -15,29 +15,17 @@
  */
 
 import React from "react";
-import { Ranking, RankInfo } from "./ranking_types";
+import { Ranking } from "./ranking_types";
 
 interface RankingTablePropType {
   ranking: Ranking;
   id: string;
   placeType: string;
-  sortAscending: boolean;
 }
 
 class RankingTable extends React.Component<RankingTablePropType> {
-  info: RankInfo[];
-
   constructor(props: RankingTablePropType) {
     super(props);
-    // Clone and sort the copy since there might be a different sort ordering elsewhere (e.g. histogram)
-    this.info = [...this.props.ranking.info];
-    this.info.sort((a, b) => {
-      if (this.props.sortAscending) {
-        return a.rank - b.rank;
-      } else {
-        return b.rank - a.rank;
-      }
-    });
   }
 
   render(): JSX.Element {
@@ -50,9 +38,7 @@ class RankingTable extends React.Component<RankingTablePropType> {
               {rankInfo.placeName || rankInfo.placeDcid}
             </a>
           </td>
-          <td className="text-right">
-            {rankInfo.value ? rankInfo.value.toLocaleString() : "0"}
-          </td>
+          <td className="text-right">{rankInfo.value.toLocaleString()}</td>
         </tr>
       );
     }
@@ -69,8 +55,8 @@ class RankingTable extends React.Component<RankingTablePropType> {
           </tr>
         </thead>
         <tbody>
-          {this.info &&
-            this.info.map((rankInfo) => {
+          {this.props.ranking &&
+            this.props.ranking.info.map((rankInfo) => {
               return renderRankInfo(rankInfo);
             })}
         </tbody>
