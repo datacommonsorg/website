@@ -42,7 +42,11 @@ def get_data(payload_for_geo):
     Returns:
         The full timeseries data available for that dcid.
     """
+    if not payload_for_geo:
+        return {}
+    
     time_series = payload_for_geo.get('data')
+
     if not time_series:
         return {}
     return time_series
@@ -84,10 +88,9 @@ def choropleth_values():
     # Add to dictionary for response.
     populations_by_geo = {}
     for geo_id, payload in values_by_geo.items():
-        if payload and "data" in payload:
-            latest_data = get_data(payload)
-            if latest_data:
-                populations_by_geo[geo_id] = latest_data
+        data = get_data(payload)
+        if data:
+            populations_by_geo[geo_id] = data
 
     # Return as json payload.
     return flask.jsonify(populations_by_geo, 200)
@@ -144,43 +147,53 @@ def choropleth_geo():
                                      measurement_denominator)
 
     # Process into a combined json object.
-    features, values = [], []
+    features = []
     for geo_id, json_text in geojson_by_geo.items():
         # Valid response needs at least geometry and a name.
-        if json_text and geo_id in names_by_geo:
-            geo_feature = {
-                    "type": "Feature",
-                    "geometry": {
-                        "type": "MultiPolygon",
-                    },
-                    "id": geo_id,
-                    "properties": {
-                        # Choose the first name when multiple are present.
-                        "name": names_by_geo.get(geo_id, ["Unnamed Area"])[0],
-                        "hasSublevel": 
-                            (display_level in LEVEL_MAP),
-                        "geoDcid": geo_id,
-                    }
+        if not json_text:
+            continue
+        if geo_id not in names_by_geo:
+            continue
+        geo_feature = {
+                "type": "Feature",
+                "geometry": {
+                    "type": "MultiPolygon",
+                },
+                "id": geo_id,
+                "properties": {
+                    # Choose the first name when multiple are present.
+                    "name": names_by_geo.get(geo_id, ["Unnamed Area"])[0],
+                    "hasSublevel": 
+                        (display_level in LEVEL_MAP),
+                    "geoDcid": geo_id,
                 }
-            # Load, simplify, and add geoJSON coordinates.
-            # Exclude geo if no or multiple renderings are present.
-            if len(json_text) != 1:
-                continue
-            geojson = json.loads(json_text[0])
-            geo_feature['geometry']['coordinates'] = (
-                coerce_geojson_to_righthand_rule(
-                                    geojson['coordinates'],
-                                    geojson['type']))
+            }
 
-            data = get_data(population_by_geo[geo_id])
-            # TODO(edumorales): return all populations
-            # get the selectedDate population in front-end.
-            if data:
-                max_date = max(data)
-                geo_feature["properties"]["pop"] = data[max_date]
+        # Load, simplify, and add geoJSON coordinates.
+        # Exclude geo if no or multiple renderings are present.
+        if len(json_text) != 1:
+            continue
 
-            # Add to main dataframe.
-            features.append(geo_feature)
+        geojson = json.loads(json_text[0])
+        geo_feature['geometry']['coordinates'] = (
+            coerce_geojson_to_righthand_rule(
+                                geojson['coordinates'],
+                                geojson['type']))
+        
+        if geo_id not in population_by_geo:
+            continue
+
+        population_payload = population_by_geo[geo_id]
+        data = get_data(population_payload)
+
+        # TODO(edumorales): return the population
+        # for N date that all places have in common.
+        if data:
+            max_date = max(data)
+            geo_feature["properties"]["pop"] = data[max_date]
+
+        # Add to main dataframe.
+        features.append(geo_feature)
 
     # Return as json payload.
     return flask.jsonify({

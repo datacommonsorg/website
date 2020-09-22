@@ -69,7 +69,7 @@ class ChoroplethMap extends Component<PropsType, StateType> {
    * Loads and renders blank GeoJson map for current geoDcid.
    * After loading, values for a particular StatVar are pulled.
    */
-  public loadGeoJson = (): void => {
+  private loadGeoJson = (): void => {
     let geoUrl = "/api/choropleth/geo";
     geoUrl += buildChoroplethParams(["pc", "geoDcid", "level", "mdom"]);
     let valueUrl = "/api/choropleth/values";
@@ -96,8 +96,8 @@ class ChoroplethMap extends Component<PropsType, StateType> {
 
         //TODO(iancostello): Investigate if this can be moved to
         //shouldComponentUpdate.
-        this.renderGeoMap();
-        this.updateGeoValues();
+        this.drawBlankGeoMap();
+        this.addColorToGeoMap();
       },
       () => {
         document.getElementById("heading").innerHTML = "";
@@ -112,7 +112,7 @@ class ChoroplethMap extends Component<PropsType, StateType> {
   /**
    * Loads values for the current geoDcid and updates map.
    */
-  public loadValues = (): void => {
+  private loadValues = (): void => {
     let baseUrl = "/api/choropleth/values";
     baseUrl += buildChoroplethParams(["geoDcid", "level", "statVar"]);
 
@@ -131,7 +131,7 @@ class ChoroplethMap extends Component<PropsType, StateType> {
           data: data,
         });
 
-        this.updateGeoValues();
+        this.addColorToGeoMap();
       },
       () => {
         document.getElementById("heading").innerHTML = "";
@@ -143,11 +143,11 @@ class ChoroplethMap extends Component<PropsType, StateType> {
   };
 
   /**
-   * Gets the max date in a list of ISO 8601 dates.
+   * Gets the latest date in a list of ISO 8601 dates.
    * @param dates: a list of dates in ISO 8601 format.
    * Example: "2020-01-02".
    */
-  public getMaxDate = (dates: string[]): string => {
+  private getLatestDate = (dates: string[]): string => {
     if (!dates.length) {
       return "";
     }
@@ -157,19 +157,19 @@ class ChoroplethMap extends Component<PropsType, StateType> {
     });
   };
 
-  /**
+   /**
    * Set per capita on the state.
    */
   public setPerCapita = (pc: boolean): void => {
     // Wait for state to update before redrawing.
-    this.setState({ pc }, this.updateGeoValues);
+    this.setState({ pc }, this.addColorToGeoMap);
   };
 
   /**
    * Handles rendering the basic blank geoJson map.
    * Requires state geojson to be set with valid geoJson mapping object.
    */
-  public renderGeoMap = (): void => {
+  private drawBlankGeoMap = (): void => {
     // Combine path elements from D3 content.
     const geojson = this.state["geoJson"];
     const mapContent = d3
@@ -220,9 +220,9 @@ class ChoroplethMap extends Component<PropsType, StateType> {
 
   /**
    * Updates geoJson map with current values loaded in state.
-   * Requires geoJson map to be rendered and state values to be set.
+   * Requires blank geoJson map to be rendered and state values to be set.
    */
-  public updateGeoValues = (): void => {
+  private addColorToGeoMap = (): void => {
     const geoIdToValue = this.state["values"];
     const isPerCapita = this.state["pc"];
     const geoIdToPopulation = this.state["popMap"];
@@ -300,7 +300,7 @@ class ChoroplethMap extends Component<PropsType, StateType> {
    * @param color  d3.scaleLinear object that encodes the desired color gradient.
    * @param n Number of color tones to transition between.
    */
-  public genScaleImg = (
+  private genScaleImg = (
     color: d3.ScaleLinear<number, number>,
     n = 256
   ): HTMLCanvasElement => {
@@ -320,7 +320,7 @@ class ChoroplethMap extends Component<PropsType, StateType> {
    * @param color The d3 linearScale that encodes the color gradient to be
    *        plotted.
    */
-  public generateLegend = (color: d3.ScaleLinear<number, number>): void => {
+  private generateLegend = (color: d3.ScaleLinear<number, number>): void => {
     const width = 300;
     const height = 60;
     const tickSize = 6;
@@ -390,22 +390,37 @@ class ChoroplethMap extends Component<PropsType, StateType> {
           .text(title)
       );
 
+    // Get the list of dates and create a dropdown so the user can select.
+    const allDates: Set<string> = new Set();
+    Object.entries(this.state.data)?.forEach(([, dateToValue]) => {
+      const dates = Object.keys(dateToValue);
+      dates.forEach((date) => {
+        allDates.add(date);
+      });
+    });
+
     // Place the date dropdown on the screen.
-    const datePickerComponent = this.datePicker();
-    ReactDOM.render(datePickerComponent, document.getElementById("date"));
+    ReactDOM.render(
+      <DatePicker
+        dates={Array.from(allDates)}
+        selectedDate={this.state.date}
+        onSelectedDateChanged={this.onSelectedDateChanged}
+      />,
+      document.getElementById("date")
+    );
   };
 
   /**
-   *
    * Changes the date and updates the values on the state.
    * This causes a re-render that makes the map be updated
    * to reflect the new data.
    * @param event: an 'onChange' event.
    */
-  public changeDate = (event: { target: { value: string } }): void => {
+  private onSelectedDateChanged = (event: {
+    target: { value: string };
+  }): void => {
     // Get the newly selected date as a string.
     const newDate: string = event.target.value;
-    console.log(newDate);
     const data = this.state["data"];
     // Re-update this.values to only include data for that given date.
     const geoIdToValue = this.filterByDate(data, newDate);
@@ -414,8 +429,8 @@ class ChoroplethMap extends Component<PropsType, StateType> {
     this.setState({ date: newDate });
 
     // Re-render component and map.
-    this.renderGeoMap();
-    this.updateGeoValues();
+    this.drawBlankGeoMap();
+    this.addColorToGeoMap();
 
     // TODO(edumorales): for some reason, the setState auto-render
     // was disabled by previous developers.
@@ -430,7 +445,7 @@ class ChoroplethMap extends Component<PropsType, StateType> {
    * @param date: a date in ISO 8601 format string.
    * Example: "2020-01-02".
    */
-  public filterByDate = (
+  private filterByDate = (
     values: { [geoId: string]: { [date: string]: number } },
     date: string
   ): { [geoId: string]: number } => {
@@ -442,7 +457,7 @@ class ChoroplethMap extends Component<PropsType, StateType> {
       // figure out what the latest date is.
       if (date === "latest") {
         const dates = Object.keys(dateToValue);
-        realISOdate = this.getMaxDate(dates);
+        realISOdate = this.getLatestDate(dates);
       }
 
       // Store the value for that date.
@@ -540,45 +555,6 @@ class ChoroplethMap extends Component<PropsType, StateType> {
     } else {
       alert("This geo has no further sublevels!");
     }
-  };
-
-  /**
-   * Returns the complete select/dropdown component
-   * with the available dates as options.
-   */
-  public datePicker = (): JSX.Element => {
-    // Dates are not repeated, so store them as a set.
-    const allDates: Set<string> = new Set();
-    Object.entries(this.state["data"])?.forEach(([, dateToValue]) => {
-      const dates = Object.keys(dateToValue);
-      dates.forEach((date) => {
-        allDates.add(date);
-      });
-    });
-
-    // Sort the dates in descending order.
-    const sortedDates = Array.from(allDates).sort().reverse();
-
-    // Create the option components.
-    const dateComponents = sortedDates.map((date) => {
-      return (
-        <option key={date} value={date}>
-          {date}
-        </option>
-      );
-    });
-
-    // Return the select component.
-    return (
-      <select onChange={this.changeDate} defaultValue={this.state["date"]}>
-        {[
-          <option key={"latest"} value={"latest"}>
-            Latest Date
-          </option>,
-          ...dateComponents,
-        ]}
-      </select>
-    );
   };
 
   public render = (): JSX.Element => {
@@ -749,6 +725,44 @@ const formatGeoValue = (geoValue: number | string, isPerCapita: boolean) => {
       return geoValue.toLocaleString() + " per capita";
     }
   }
+};
+
+type DatePickerPropsType = {
+  dates: string[];
+  selectedDate: string;
+  onSelectedDateChanged: (event: { target: { value: string } }) => void;
+};
+
+/**
+ * Select or Dropdown component with the available dates as options.
+ */
+const DatePicker = (props: DatePickerPropsType): JSX.Element => {
+  // Sort the dates in descending order.
+  const sortedDates = props.dates.sort().reverse();
+
+  // Create the option components.
+  const dateComponents = sortedDates.map((date) => {
+    return (
+      <option key={date} value={date}>
+        {date}
+      </option>
+    );
+  });
+
+  // Return the select component.
+  return (
+    <select
+      onChange={props.onSelectedDateChanged}
+      defaultValue={props.selectedDate}
+    >
+      {[
+        <option key={"latest"} value={"latest"}>
+          Latest Date
+        </option>,
+        ...dateComponents,
+      ]}
+    </select>
+  );
 };
 
 export { ChoroplethMap };
