@@ -63,10 +63,10 @@ class TestPlaceExplorer(WebdriverBaseTest):
         """Test the place search box can work correctly."""
         self.driver.get(self.url_ + USA_URL)
         # Using implicit wait here to wait for loading page.
-        self.driver.implicitly_wait(5)
+        self.driver.implicitly_wait(10)
         search_box = self.driver.find_element_by_class_name("pac-target-input")
         search_box.send_keys(PLACE_SEARCH)
-        self.driver.implicitly_wait(3)
+        self.driver.implicitly_wait(10)
         search_results = self.driver.find_elements_by_class_name("pac-item")
         ca_result = search_results[0]
         ca_result.click()

@@ -21,7 +21,7 @@ import copy
 
 
 def get_root_children(pop_obs_spec_all, stats_vars_all) -> List['ValueNode']:
-    """ Returns the list of vertical nodes, such as "Demographics", "Economics"
+    """Returns the list of vertical nodes, such as "Demographics", "Economics".
     """
     valueNodes = []
     for vertical in pop_obs_spec_all:
@@ -53,8 +53,7 @@ def get_root_children(pop_obs_spec_all, stats_vars_all) -> List['ValueNode']:
 
 
 def get_root_leaf_name(pos: PopObsSpec, stats_vars: List[StatsVar]):
-    """ Get the name of the leaf nodes of verticals, 
-        e.g.: Count_Person"""
+    """ Get the name of the leaf nodes of verticals, e.g.: Count_Person"""
     if pos.obs_props[0].name:
         name = pos.obs_props[0].name
     elif pos.name:
@@ -126,8 +125,7 @@ class PropertyNode:
         self.stats_vars_all = stats_vars_all
 
     def children(self) -> List['ValueNode']:
-        """ Returns a list of value nodes as 
-            the children of the property node
+        """ Returns a list of value nodes as the children of the property node.
         """
         # Add a new level if more than one statsVar observation properties
         # are defined in the pop_obs_spec
@@ -193,7 +191,7 @@ class PropertyNode:
         return value_nodes
 
     def child_props(self):
-        """ Returns a list of new prop and 
+        """ Returns a list of new prop and
             corresponding specs for building the next level"""
         child_pos = []
         for c_pos in self.pop_obs_spec[self.level + 1]:
@@ -227,7 +225,7 @@ class ValueNode:
         The value node can be
             - a real value node representing a statsVar
             - the node of a vertical, such as the node "Demographics"
-            - a pseudo value node of super enums, such as the node 
+            - a pseudo value node of super enums, such as the node
               "violent" under crimeType
     """
 
@@ -243,7 +241,7 @@ class ValueNode:
         self.stats_vars_all = stats_vars_all
 
     def children(self):
-        """ Return a list of property nodes as the children of the value node. 
+        """ Return a list of property nodes as the children of the value node.
         """
         propertyNodes = []
         for prop, pos in self.child_props:
@@ -260,7 +258,7 @@ class ValueNode:
         return propertyNodes
 
     def json_blob(self):
-        """ Generate the json blob of a value node, including the node itself 
+        """ Generate the json blob of a value node, including the node itself
             and its leaf children. """
         if self.leafs:
             pop_type = self.leafs[0].pop_type
@@ -320,7 +318,7 @@ def build_tree(max_level):
 
 
 def build_tree_recursive(node: PropertyNode, max_level):
-    """ Build a property node and its children recusively 
+    """ Build a property node and its children recusively
         until the maximum level."""
     result = node.json_blob()  # build the property node blobs
     value_nodes = node.children()  # get the child value nodes
@@ -343,7 +341,7 @@ def post_process(root, path, statsvar_path):
     """ After the tree is built, this function:
         - removes the unused fields such as "population Type" in the tree
         - count the number of statsVars under each node
-        - create a map of the statsVar dcid and one of its path in the tree 
+        - create a map of the statsVar dcid and one of its path in the tree
     """
     # Build the map from statsVar dcid to its path in the tree
     # The path is a list of numbers,
