@@ -20,7 +20,6 @@ import routes.api.place as place_api
 
 bp = flask.Blueprint('api.ranking', __name__, url_prefix='/api/ranking')
 
-# Only show the top 100 places in rankings for now
 ALL_KEYS = ['rankAll', 'rankTop1000', 'rankBottom1000']
 TOP_KEYS_KEEP = ['rankAll', 'rankTop1000']
 TOP_KEYS_DEL = ['rankBottom1000']
@@ -32,9 +31,10 @@ RANK_SIZE = 100
 @bp.route('/<stat_var>/<place_type>/')
 @bp.route('/<stat_var>/<place_type>/<path:place>')
 def ranking_api(stat_var, place_type, place=None):
-    """Returns top 100 rankings for a stats var, grouped by place type and
-    optionally scoped by a containing place. Each place in the ranking has
-    it's named returned, if available.
+    """Returns top 100, bottom 100 or all rankings for a stats var, grouped
+    by place type and optionally scoped by a containing place (all is
+    returned if there are fewer than 100 places in the group). Each place in
+    the ranking has it's name returned, if available.
 
     Optional GET args:
         pc (per capita - the presence of the key enables it)
