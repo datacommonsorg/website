@@ -75,17 +75,12 @@ function getDashes(n: number): string[] {
 }
 
 function getColorFn(labels: string[]): d3.ScaleOrdinal<string, string> {
-  let domain = labels;
   let range;
-  if (labels.length == 2 && labels[0] == "Female") {
-    range = ["#a60000", "#3288bd"];
+  if (labels.length === 1) {
+    range = ["#930000"];
+  } else if (labels.length === 2) {
+    range = ["#930000", "#3288bd"];
   } else {
-    if (labels.length == 1) {
-      // Get varied but stable color scheme for single stat var charts.
-      domain = Array.from("ABCDEFGHIJKLMNOPQRSTUVWXYZ");
-      domain = domain.concat(labels);
-      domain.sort();
-    }
     range = d3.quantize(
       d3.interpolateRgbBasis([
         "#930000",
@@ -97,10 +92,10 @@ function getColorFn(labels: string[]): d3.ScaleOrdinal<string, string> {
         "#3288bd",
         "#5e4fa2",
       ]),
-      domain.length
+      labels.length
     );
   }
-  return d3.scaleOrdinal<string, string>().domain(domain).range(range);
+  return d3.scaleOrdinal<string, string>().domain(labels).range(range);
 }
 
 interface Style {
