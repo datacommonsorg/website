@@ -156,10 +156,10 @@ function computePlotParams(
 }
 
 function shouldFillInValues(series: number[][]): boolean {
-  let defined = (d) => {
+  const defined = (d) => {
     return d[1] !== null;
   };
-  let n = series.length;
+  const n = series.length;
 
   // "Trim" the ends
   let i = 0;
@@ -167,14 +167,14 @@ function shouldFillInValues(series: number[][]): boolean {
     if (!defined(series[i])) i++;
     else break;
   }
-  let firstNonNullIndex = i;
+  const firstNonNullIndex = i;
 
   i = n - 1;
   while (i >= 0) {
     if (!defined(series[i])) i--;
     else break;
   }
-  let lastNonNullIndex = i;
+  const lastNonNullIndex = i;
 
   // Find if there are gaps in the middle
   for (let i = firstNonNullIndex; i <= lastNonNullIndex; i++) {
