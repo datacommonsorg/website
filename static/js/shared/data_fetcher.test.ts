@@ -363,7 +363,6 @@ test("fetch stats data where there is no date with data for all stat vars", () =
 
       expect(data.getPlaceGroupWithStatsVar()).toEqual([
         new DataGroup("Arkansas", [{ label: "Total", value: 22000 }]),
-        new DataGroup("California", [{ label: "Total", value: 0 }]),
       ]);
 
       expect(data.getStatsVarGroupWithTime("geoId/06")).toEqual([
@@ -911,14 +910,8 @@ test("Per capita with specified denominators test - missing place data", () => {
     });
 
     expect(data.getPlaceGroupWithStatsVar()).toEqual([
-      new DataGroup("Arkansas", [
-        { label: "Male", value: 0 },
-        { label: "Female", value: 2 },
-      ]),
-      new DataGroup("USA", [
-        { label: "Male", value: 22000 },
-        { label: "Female", value: 0 },
-      ]),
+      new DataGroup("Arkansas", [{ label: "Female", value: 2 }]),
+      new DataGroup("USA", [{ label: "Male", value: 22000 }]),
     ]);
 
     expect(data.getStatsVarGroupWithTime("geoId/05")).toEqual([

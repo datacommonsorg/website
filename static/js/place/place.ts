@@ -199,13 +199,19 @@ function renderPage(dcid: string) {
       similarPlaces,
       nearbyPlaces,
     ]) => {
+      const parentPlacesWithData = [];
+      for (const place of parentPlaces) {
+        if (place["types"][0] !== "Continent") {
+          parentPlacesWithData.push(place);
+        }
+      }
       ReactDOM.render(
         React.createElement(MainPane, {
           dcid,
           placeName,
           placeType,
           topic,
-          parentPlaces,
+          parentPlaces: parentPlacesWithData,
           childPlaces,
           similarPlaces,
           nearbyPlaces,
