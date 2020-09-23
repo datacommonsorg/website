@@ -450,6 +450,8 @@ function drawGroupBarChart(
  * @param height
  * @param dataGroups
  * @param unit
+ *
+ * @return false if there were missing points in the line
  */
 function drawLineChart(
   id: string,
@@ -457,7 +459,7 @@ function drawLineChart(
   height: number,
   dataGroups: DataGroup[],
   unit?: string
-): void {
+): boolean {
   const maxV = Math.max(...dataGroups.map((dataGroup) => dataGroup.max()));
   let minV = Math.min(...dataGroups.map((dataGroup) => dataGroup.min()));
   if (minV > 0) {
@@ -489,6 +491,7 @@ function drawLineChart(
   );
   const colorFn = getColorFn(legendText);
 
+  let hasFilledInValues = false;
   for (const dataGroup of dataGroups) {
     const dataset = dataGroup.value.map((dp) => {
       return [new Date(dp.label).getTime(), dp.value];
@@ -496,6 +499,7 @@ function drawLineChart(
     const hasNullValues = dataset.reduce((accumulator, currentValue) => {
       return accumulator || currentValue[1] === null;
     }, false);
+    hasFilledInValues = hasFilledInValues || hasNullValues;
     const shouldAddDots = dataset.length < 12;
 
     const line = d3
@@ -540,6 +544,8 @@ function drawLineChart(
   if (dataGroups.length > 1) {
     appendLegendElem(id, colorFn, legendText);
   }
+
+  return !hasFilledInValues;
 }
 
 /**
