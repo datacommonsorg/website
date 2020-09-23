@@ -26,8 +26,8 @@ test("svg test", () => {
 
   expect(document.getElementById("chart").innerHTML).toEqual(
     '<div class="legend">' +
-      '<div style="background: #930000"><span>San Jose</span></div>' +
-      '<div style="background: #3288bd"><span>Palo Alto</span></div>' +
+      '<div style="background: rgb(147, 0, 0)"><span>San Jose</span></div>' +
+      '<div style="background: rgb(94, 79, 162)"><span>Palo Alto</span></div>' +
       "</div>"
   );
 });
