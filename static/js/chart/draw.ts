@@ -214,7 +214,7 @@ function drawHistogram(
     .nice()
     .rangeRound([height - ROTATE_MARGIN_BOTTOM, MARGIN.top]);
 
-  const color = getColorFn(["a"])("a"); // we only need one color
+  const color = getColorFn(["A"])("A"); // we only need one color
 
   const svg = d3
     .select("#" + id)

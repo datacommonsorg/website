@@ -131,8 +131,8 @@ function getNearbyPlaces(dcid: string) {
 /**
  * Get the chart configuration.
  */
-function getChartConfigData(dcid) {
-  return axios.get("/api/chart/config/" + dcid).then((resp) => {
+function getChartConfigData(dcid: string) {
+  return axios.get("/api/chart/data/" + dcid).then((resp) => {
     return resp.data;
   });
 }
@@ -185,19 +185,32 @@ function renderPage(dcid: string) {
     );
   });
 
-  Promise.all([chartConfigDataPromise, parentPlacesPromise]).then(
-    (resolvedValues) => {
+  Promise.all([
+    chartConfigDataPromise,
+    parentPlacesPromise,
+    childPlacesPromise,
+    similarPlacesPromise,
+    nearbyPlacesPromise,
+  ]).then(
+    ([
+      chartConfigData,
+      parentPlaces,
+      childPlaces,
+      similarPlaces,
+      nearbyPlaces,
+    ]) => {
       ReactDOM.render(
         React.createElement(MainPane, {
           dcid,
+          placeName,
           placeType,
           topic,
-          chartConfig: resolvedValues[0].config,
-          chartData: resolvedValues[0].data,
-          parentPlaces: resolvedValues[1],
-          childPlacesPromise,
-          similarPlacesPromise,
-          nearbyPlacesPromise,
+          parentPlaces,
+          childPlaces,
+          similarPlaces,
+          nearbyPlaces,
+          chartConfig: chartConfigData.config,
+          chartData: chartConfigData.data,
         }),
         document.getElementById("main-pane")
       );
@@ -236,7 +249,7 @@ function getPlaceAndRender() {
       window.location.search = urlParams.toString();
     })
     .catch(() => {
-      alert("Sorry, but we don't have any data about " + name);
+      alert("Sorry, but we don't have any data about " + place.name);
       const acElem = document.getElementById(
         "place-autocomplete"
       ) as HTMLInputElement;
