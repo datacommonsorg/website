@@ -106,12 +106,23 @@ function wrap(
   });
 }
 
+/**
+ * Adds an X-Axis to the svg chart. Tick labels will be wrapped if necessary (unless shouldRotate).
+ *
+ * @param svg: d3-selection with an SVG element to add the x-axis to
+ * @param chartHeight: The height of the SVG chart
+ * @param chartWidth: The width of the SVG chart
+ * @param xScale: d3-scale for the x-axis
+ * @param shouldRotate: true if the x-ticks should be rotated (no wrapping applied).
+ *
+ * @return the height of the x-axis bounding-box.
+ */
 function addXAxis(
   svg: d3.Selection<SVGElement, any, any, any>,
-  height: number,
+  chartHeight: number,
   xScale: d3.AxisScale<any>,
   shouldRotate?: boolean
-) {
+): number {
   const d3Axis = d3.axisBottom(xScale).ticks(NUM_X_TICKS).tickSizeOuter(0);
   if (shouldRotate && typeof xScale.bandwidth == "function") {
     if (xScale.bandwidth() < 5) {
@@ -124,13 +135,13 @@ function addXAxis(
   const axis = svg
     .append("g")
     .attr("class", "x axis")
-    .attr("transform", `translate(0, ${height - MARGIN.bottom})`)
+    .attr("transform", `translate(0, ${chartHeight - MARGIN.bottom})`)
     .call(d3Axis)
     .call((g) => g.select(".domain").remove());
 
   if (shouldRotate) {
     axis
-      .attr("transform", `translate(0, ${height - ROTATE_MARGIN_BOTTOM})`)
+      .attr("transform", `translate(0, ${chartHeight - ROTATE_MARGIN_BOTTOM})`)
       .selectAll("text")
       .style("text-anchor", "end")
       .attr("dx", "-.8em")
@@ -139,6 +150,14 @@ function addXAxis(
   } else if (typeof xScale.bandwidth === "function") {
     axis.selectAll(".tick text").call(wrap, xScale.bandwidth());
   }
+
+  let axisHeight = axis.node().getBBox().height;
+  if (axisHeight > MARGIN.bottom) {
+    axis.attr("transform", `translate(0, ${chartHeight - axisHeight})`);
+  } else {
+    axisHeight = MARGIN.bottom;
+  }
+  return axisHeight;
 }
 
 function addYAxis(
@@ -229,7 +248,7 @@ function drawHistogram(
     .attr("width", width)
     .attr("height", height);
 
-  addXAxis(svg, height, x, true);
+  const bottomHeight = addXAxis(svg, height, x, true);
   addYAxis(svg, width, y, unit);
 
   svg
@@ -247,44 +266,45 @@ function drawHistogram(
 /**
  * Draw single bar chart.
  * @param id
- * @param width
- * @param height
+ * @param chartWidth
+ * @param chartHeight
  * @param dataPoints
  * @param unit
  */
 function drawSingleBarChart(
   id: string,
-  width: number,
-  height: number,
+  chartWidth: number,
+  chartHeight: number,
   dataPoints: DataPoint[],
   unit?: string
 ): void {
   const textList = dataPoints.map((dataPoint) => dataPoint.label);
   const values = dataPoints.map((dataPoint) => dataPoint.value);
-
-  const x = d3
-    .scaleBand()
-    .domain(textList)
-    .rangeRound([MARGIN.left, width - MARGIN.right])
-    .paddingInner(0.1)
-    .paddingOuter(0.1);
-
-  const y = d3
-    .scaleLinear()
-    .domain([0, d3.max(values)])
-    .nice()
-    .rangeRound([height - MARGIN.bottom, MARGIN.top]);
-
   const color = getColorFn(textList);
 
   const svg = d3
     .select("#" + id)
     .append("svg")
-    .attr("width", width)
-    .attr("height", height);
+    .attr("width", chartWidth)
+    .attr("height", chartHeight);
 
-  addXAxis(svg, height, x);
-  addYAxis(svg, width, y, unit);
+  const x = d3
+    .scaleBand()
+    .domain(textList)
+    .rangeRound([MARGIN.left, chartWidth - MARGIN.right])
+    .paddingInner(0.1)
+    .paddingOuter(0.1);
+
+  const bottomHeight = addXAxis(svg, chartHeight, x);
+  console.log(bottomHeight);
+
+  const y = d3
+    .scaleLinear()
+    .domain([0, d3.max(values)])
+    .nice()
+    .rangeRound([chartHeight - bottomHeight, MARGIN.top]);
+
+  addYAxis(svg, chartWidth, y, unit);
 
   svg
     .append("g")
@@ -302,15 +322,15 @@ function drawSingleBarChart(
  * Draw stack bar chart.
  *
  * @param id
- * @param width
- * @param height
+ * @param chartWidth
+ * @param chartHeight
  * @param dataGroups
  * @param unit
  */
 function drawStackBarChart(
   id: string,
-  width: number,
-  height: number,
+  chartWidth: number,
+  chartHeight: number,
   dataGroups: DataGroup[],
   unit?: string
 ): void {
@@ -327,29 +347,30 @@ function drawStackBarChart(
 
   const series = d3.stack().keys(keys)(data);
 
+  const svg = d3
+    .select("#" + id)
+    .append("svg")
+    .attr("width", chartWidth)
+    .attr("height", chartHeight);
+
   const x = d3
     .scaleBand()
     .domain(dataGroups.map((dg) => dg.label))
-    .rangeRound([MARGIN.left, width - MARGIN.right])
+    .rangeRound([MARGIN.left, chartWidth - MARGIN.right])
     .paddingInner(0.1)
     .paddingOuter(0.1);
+
+  const bottomHeight = addXAxis(svg, chartHeight, x);
 
   const y = d3
     .scaleLinear()
     .domain([0, d3.max(series, (d) => d3.max(d, (d1) => d1[1]))])
     .nice()
-    .rangeRound([height - MARGIN.bottom, MARGIN.top]);
+    .rangeRound([chartHeight - bottomHeight, MARGIN.top]);
+
+  addYAxis(svg, chartWidth, y, unit);
 
   const color = getColorFn(keys);
-
-  const svg = d3
-    .select("#" + id)
-    .append("svg")
-    .attr("width", width)
-    .attr("height", height);
-
-  addXAxis(svg, height, x);
-  addYAxis(svg, width, y, unit);
 
   svg
     .append("g")
@@ -373,15 +394,15 @@ function drawStackBarChart(
  * Draw group bar chart.
  *
  * @param id
- * @param width
- * @param height
+ * @param chartWidth
+ * @param chartHeight
  * @param dataGroups
  * @param unit
  */
 function drawGroupBarChart(
   id: string,
-  width: number,
-  height: number,
+  chartWidth: number,
+  chartHeight: number,
   dataGroups: DataGroup[],
   unit?: string
 ): void {
@@ -393,7 +414,7 @@ function drawGroupBarChart(
   const x0 = d3
     .scaleBand()
     .domain(dataGroups.map((dg) => dg.label))
-    .rangeRound([MARGIN.left, width - MARGIN.right])
+    .rangeRound([MARGIN.left, chartWidth - MARGIN.right])
     .paddingInner(0.1)
     .paddingOuter(0.1);
 
@@ -403,23 +424,25 @@ function drawGroupBarChart(
     .rangeRound([0, x0.bandwidth()])
     .padding(0.05);
 
+  const svg = d3
+    .select("#" + id)
+    .append("svg")
+    .attr("width", chartWidth)
+    .attr("height", chartHeight);
+
+  const bottomHeight = addXAxis(svg, chartHeight, x0);
+
   const maxV = Math.max(...dataGroups.map((dataGroup) => dataGroup.max()));
   const y = d3
     .scaleLinear()
     .domain([0, maxV])
     .nice()
-    .rangeRound([height - MARGIN.bottom, MARGIN.top]);
+    .rangeRound([chartHeight - bottomHeight, MARGIN.top]);
+
+  addYAxis(svg, chartWidth, y, unit);
 
   const colorFn = getColorFn(keys);
 
-  const svg = d3
-    .select("#" + id)
-    .append("svg")
-    .attr("width", width)
-    .attr("height", height);
-
-  addXAxis(svg, height, x0);
-  addYAxis(svg, width, y, unit);
   svg
     .append("g")
     .selectAll("g")
