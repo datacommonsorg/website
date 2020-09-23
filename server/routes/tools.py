@@ -34,3 +34,11 @@ def choropleth():
     if os.environ.get('FLASK_ENV') == 'production':
         flask.abort(404)
     return flask.render_template('tools/choropleth.html')
+
+
+@bp.route('/scatter2')
+def scatter2():
+    # TODO(intrepiditee): Permit production use after development finishes.
+    if os.environ.get('FLASK_ENV') == 'production':
+        flask.abort(404)
+    return flask.render_template('tools/scatter2.html')
