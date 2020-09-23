@@ -524,9 +524,7 @@ function drawLineChart(
     }
   }
 
-  if (dataGroups.length > 1) {
-    appendLegendElem(id, colorFn, legendText);
-  }
+  appendLegendElem(id, colorFn, legendText);
 }
 
 /**

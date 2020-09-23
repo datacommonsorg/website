@@ -533,7 +533,6 @@ class ChartBlock extends Component<ChartBlockPropType, unknown> {
         );
     return (
       <div className="chart-block">
-        <div className="chart-block-title">{this.props.config.title}</div>
         <div className="row row-cols-md-2 row-cols-1">
           {configList.map((item) => {
             const id = randDomId();
@@ -566,7 +565,7 @@ class ChartBlock extends Component<ChartBlockPropType, unknown> {
     const result = [];
     let conf = { ...config };
     conf.chartType = chartTypeEnum.LINE;
-    conf.title = "TREND";
+    conf.title = conf.title + " in " + this.props.placeName;
     result.push(conf);
 
     conf = { ...config };
@@ -574,10 +573,10 @@ class ChartBlock extends Component<ChartBlockPropType, unknown> {
     conf.axis = "PLACE";
     if (placeType === "Country") {
       // Containing place chart
-      conf.title = "Places within " + this.props.placeName;
+      conf.title = conf.title + " for places within " + this.props.placeName;
       conf.placeRelation = placeRelationEnum.CONTAINING;
     } else {
-      conf.title = "Places near " + this.props.placeName;
+      conf.title = conf.title + " for places near " + this.props.placeName;
       conf.placeRelation = placeRelationEnum.NEARBY;
     }
     result.push(conf);
@@ -592,23 +591,26 @@ class ChartBlock extends Component<ChartBlockPropType, unknown> {
     const result: ConfigType[] = [];
     let conf = { ...config };
     conf.chartType = chartTypeEnum.LINE;
-    conf.title = "TREND";
+    conf.title = conf.title + " in " + this.props.placeName;
     result.push(conf);
 
     if (placeType !== "Country") {
+      const displayPlaceType = pluralizedDisplayNameForPlaceType(
+        placeType
+      ).toLocaleLowerCase();
       // Nearby places
       conf = { ...config };
       conf.chartType = chartTypeEnum.GROUP_BAR;
       conf.placeRelation = placeRelationEnum.NEARBY;
       conf.axis = "PLACE";
-      conf.title = "Places near " + placeName;
+      conf.title = `${conf.title} for ${displayPlaceType} near ${this.props.placeName}`;
       result.push(conf);
       // Similar places
       conf = { ...config };
       conf.chartType = chartTypeEnum.GROUP_BAR;
       conf.placeRelation = placeRelationEnum.SIMILAR;
       conf.axis = "PLACE";
-      conf.title = "Other " + placeType;
+      conf.title = `${conf.title} for other ${displayPlaceType}`;
       result.push(conf);
     }
     if (placeType !== "City") {
@@ -617,7 +619,7 @@ class ChartBlock extends Component<ChartBlockPropType, unknown> {
       conf.chartType = chartTypeEnum.GROUP_BAR;
       conf.placeRelation = placeRelationEnum.CONTAINING;
       conf.axis = "PLACE";
-      conf.title = "Places within " + placeName;
+      conf.title = conf.title + " for places within " + this.props.placeName;
       result.push(conf);
     } else {
       // Parent places.
@@ -627,7 +629,8 @@ class ChartBlock extends Component<ChartBlockPropType, unknown> {
       conf.chartType = chartTypeEnum.GROUP_BAR;
       conf.placeRelation = placeRelationEnum.CONTAINED;
       conf.axis = "PLACE";
-      conf.title = "Places that contains " + placeName;
+      conf.title =
+        conf.title + " for places that contain " + this.props.placeName;
       result.push(conf);
     }
     return result;
