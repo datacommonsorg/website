@@ -63,11 +63,11 @@ window.onload = () => {
   let dataGroups = [
     new DataGroup("San Jose", [
       new DataPoint("2011", 21000),
-      new DataPoint("2012", 22000),
+      new DataPoint("2012", null),
       new DataPoint("2013", 23000),
     ]),
     new DataGroup("Fremont", [
-      new DataPoint("2011", 22000),
+      new DataPoint("2011", null),
       new DataPoint("2012", 26000),
       new DataPoint("2013", 24000),
     ]),

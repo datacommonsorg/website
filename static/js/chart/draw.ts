@@ -493,16 +493,24 @@ function drawLineChart(
     const dataset = dataGroup.value.map((dp) => {
       return [new Date(dp.label).getTime(), dp.value];
     });
-    console.log(dataset);
+    const hasNullValues = dataset.reduce((accumulator, currentValue) => {
+      return accumulator || currentValue[1] === null;
+    }, false);
     const shouldAddDots = dataset.length < 12;
-    let line = d3
+
+    const line = d3
       .line()
       .defined((d) => d[1] !== null)
       .x((d) => xScale(d[0]))
       .y((d) => yScale(d[1]));
 
-    if (shouldAddDots) {
-      line = line.curve(d3.curveMonotoneX);
+    if (hasNullValues) {
+      svg
+        .append("path")
+        .datum(dataset.filter(line.defined()))
+        .attr("class", "line fill")
+        .style("stroke", colorFn(dataGroup.label))
+        .attr("d", line);
     }
 
     svg
