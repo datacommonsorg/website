@@ -16,3 +16,4 @@
 cd static
 npm install --update
 npm run-script watch
+cd ..

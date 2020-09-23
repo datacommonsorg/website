@@ -20,6 +20,10 @@ const FixStyleOnlyEntriesPlugin = require("webpack-fix-style-only-entries");
 
 const config = {
   entry: {
+    scatter2: [
+      __dirname + "/js/tools/scatter2/scatter2.tsx",
+      __dirname + "/css/tools/scatter2.scss",
+    ],
     choropleth: [
       __dirname + "/js/tools/choropleth/choropleth_template.tsx",
       __dirname + "/css/tools/choropleth.scss",
