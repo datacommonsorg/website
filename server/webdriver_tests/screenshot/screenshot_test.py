@@ -94,7 +94,7 @@ TEST_URLS = [
     {
         'url': '/dev',
         'filename_suffix': 'dev_charts.png',
-        'test_class': 'chart-container',
+        'test_class': 'chart',
         'height': 1000
     },
 ]
@@ -108,7 +108,7 @@ class TestScreenShot(WebdriverBaseTest):
         index = 1
         for test_info in TEST_URLS:
             self.driver.get(self.url_ + test_info['url'])
-            time.sleep(5)
+            time.sleep(10)
             self.driver.set_window_size(width=WIDTH,
                                         height=test_info['height'],
                                         windowHandle='current')

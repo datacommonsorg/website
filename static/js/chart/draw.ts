@@ -500,14 +500,16 @@ function drawLineChart(
 
     const line = d3
       .line()
-      .defined((d) => d[1] !== null)
+      .defined((d) => d[1] !== null) // Ignore points that are null
       .x((d) => xScale(d[0]))
       .y((d) => yScale(d[1]));
 
     if (hasNullValues) {
+      // Draw a second line behind the main line with a different styling to
+      // fill in gaps.
       svg
         .append("path")
-        .datum(dataset.filter(line.defined()))
+        .datum(dataset.filter(line.defined())) // Only plot points that are defined
         .attr("class", "line fill")
         .style("stroke", colorFn(dataGroup.label))
         .attr("d", line);
