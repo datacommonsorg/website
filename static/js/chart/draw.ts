@@ -16,7 +16,14 @@
 
 import * as d3 from "d3";
 
-import { DataGroup, DataPoint, PlotParams, Style, getColorFn } from "./base";
+import {
+  DataGroup,
+  DataPoint,
+  PlotParams,
+  Style,
+  getColorFn,
+  shouldFillInValues,
+} from "./base";
 
 const NUM_X_TICKS = 5;
 const NUM_Y_TICKS = 5;
@@ -451,7 +458,7 @@ function drawGroupBarChart(
  * @param dataGroups
  * @param unit
  *
- * @return false if there were missing points in the line
+ * @return false if any series in the chart was filled in
  */
 function drawLineChart(
   id: string,
@@ -496,10 +503,8 @@ function drawLineChart(
     const dataset = dataGroup.value.map((dp) => {
       return [new Date(dp.label).getTime(), dp.value];
     });
-    const hasNullValues = dataset.reduce((accumulator, currentValue) => {
-      return accumulator || currentValue[1] === null;
-    }, false);
-    hasFilledInValues = hasFilledInValues || hasNullValues;
+    const hasGap = shouldFillInValues(dataset);
+    hasFilledInValues = hasFilledInValues || hasGap;
     const shouldAddDots = dataset.length < 12;
 
     const line = d3
@@ -508,7 +513,7 @@ function drawLineChart(
       .x((d) => xScale(d[0]))
       .y((d) => yScale(d[1]));
 
-    if (hasNullValues) {
+    if (hasGap) {
       // Draw a second line behind the main line with a different styling to
       // fill in gaps.
       svg
