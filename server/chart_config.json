@@ -3,7 +3,8 @@
     "category": ["Economics", "Unemployment"],
     "title": "Unemployment Rate",
     "statsVars": ["UnemploymentRate_Person"],
-    "isOverview": true
+    "isOverview": true,
+    "unit": "%"
   },
   {
     "category": ["Economics", "Unemployment"],
