@@ -18,6 +18,8 @@ from unittest.mock import patch
 
 from main import app
 
+import routes.api.chart as chart_api
+
 
 class TestRoute(unittest.TestCase):
 
@@ -90,85 +92,99 @@ class TestRoute(unittest.TestCase):
         }
         with app.app_context():
             app.config['CHART_CONFIG'] = [{
-                'label':
-                    'Test',
-                'charts': [{
-                    'title':
-                        'Test1',
-                    "chartType":
-                        "GROUP_BAR",
-                    "axis":
-                        "PLACE",
-                    "statsVars": [
-                        "StatVar1",
-                        "StatVar2",
-                        "StatVar3",
-                        "StatVar4",
-                        "StatVar5",
-                    ]
-                }],
-                'children': [{
-                    'label':
-                        'Test',
-                    'charts': [{
-                        'title':
-                            'Test2',
-                        "chartType":
-                            "SINGLE_BAR",
-                        "statsVars": [
-                            "StatVar1",
-                            "StatVar2",
-                            "StatVar6",
-                            "StatVar7",
-                            "StatVar8",
-                        ]
-                    }]
-                }]
+                'category': ['Test', 'Test1'],
+                'title': 'Test1',
+                'statsVars': [
+                    'StatVar1', 'StatVar2', 'StatVar3', 'StatVar4', 'StatVar5'
+                ],
+                'isOverview': True
+            }, {
+                'category': ['Test', 'Test2'],
+                'title':
+                    'Test2',
+                'statsVars': [
+                    'StatVar1', 'StatVar2', 'StatVar6', 'StatVar7', 'StatVar8'
+                ]
             }]
-            response = app.test_client().get('api/chart/config/geoId/06')
+            response = app.test_client().get('api/chart/data/geoId/06')
             assert response.status_code == 200
             assert json.loads(response.data)['data'] == {
                 'geoId/06': {
                     'StatVar1': {
                         'data': {
+                            '2010': 200,
                             '2019': 200,
                             '2020': 200
                         }
                     },
                     'StatVar2': {
                         'data': {
+                            '2017': 200,
+                            '2018': 200,
                             '2019': 200
                         }
                     },
                     'StatVar3': {
                         'data': {
+                            '2017': 200,
+                            '2018': 200,
                             '2019': 200
                         }
                     },
                     'StatVar4': {
                         'data': {
+                            '2016': 200,
+                            '2018': 200,
                             '2020': 200
                         }
                     },
                     'StatVar5': {
                         'data': {
+                            '2011': 200,
+                            '2012': 200,
                             '2013': 200
                         }
                     },
                     'StatVar6': {
                         'data': {
-                            '2019': 200
+                            '2018': 200,
+                            '2019': 200,
+                            '2020': 200
                         }
                     },
                     'StatVar7': {
                         'data': {
+                            '2015': 200,
+                            '2017': 200,
                             '2019': 200
                         }
                     },
                     'StatVar8': {
                         'data': {
-                            '2019': 200
+                            '2018': 200,
+                            '2019': 200,
+                            '2020': 200
                         }
                     }
                 }
             }
+
+
+class TestBuildConfig(unittest.TestCase):
+    chart_config = [{
+        'category': ['Economics', 'Unemployment'],
+        'title': 'Unemployment Rate',
+        'statsVars': ['UnemploymentRate_Person'],
+        'isOverview': True
+    }, {
+        'category': ['Economics', 'Unemployment'],
+        'title': 'Labor Force Participation',
+        'statsVars': ['Count_Person_InLaborForce'],
+        'perCapita': True,
+        'scaling': 100,
+        'unit': '%',
+    }]
+    result = chart_api.build_config(chart_config)
+    with open('tests/test_data/golden_config.json') as f:
+        expected = json.load(f)
+        assert expected == result
