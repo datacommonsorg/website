@@ -85,35 +85,10 @@
     "isOverview": true
   },
   {
-    "category": ["Economics", "Individual Income"],
-    "title": "Individual Income Breakdown",
-    "statsVars": [
-      "Count_Person_IncomeOfUpto9999USDollar",
-      "Count_Person_IncomeOf10000To14999USDollar",
-      "Count_Person_IncomeOf15000To24999USDollar",
-      "Count_Person_IncomeOf25000To34999USDollar",
-      "Count_Person_IncomeOf35000To49999USDollar",
-      "Count_Person_IncomeOf50000To64999USDollar",
-      "Count_Person_IncomeOf65000To74999USDollar",
-      "Count_Person_IncomeOf75000OrMoreUSDollar"
-    ]
-  },
-  {
-    "category": ["Economics", "Individual Income"],
-    "title": "Individual Income Trend",
-    "statsVars": [
-      "Count_Person_IncomeOfUpto9999USDollar",
-      "Count_Person_IncomeOf10000To14999USDollar",
-      "Count_Person_IncomeOf15000To24999USDollar",
-      "Count_Person_IncomeOf25000To34999USDollar",
-      "Count_Person_IncomeOf35000To49999USDollar",
-      "Count_Person_IncomeOf50000To64999USDollar",
-      "Count_Person_IncomeOf65000To74999USDollar",
-      "Count_Person_IncomeOf75000OrMoreUSDollar"
-    ]
-  },
-  {
-    "category": ["Economics", "Individual Income"],
+    "category": [
+      "Economics",
+      "Individual Income"
+    ],
     "title": "Individual Income",
     "statsVars": [
       "Count_Person_IncomeOfUpto9999USDollar",
@@ -136,42 +111,10 @@
     "unit": "$"
   },
   {
-    "category": ["Economics", "Household Income"],
-    "title": "Household Income Breakdown",
-    "statsVars": [
-      "Count_Household_IncomeOfUpto10000USDollar",
-      "Count_Household_IncomeOf10000To14999USDollar",
-      "Count_Household_IncomeOf20000To24999USDollar",
-      "Count_Household_IncomeOf40000To44999USDollar",
-      "Count_Household_IncomeOf50000To59999USDollar",
-      "Count_Household_IncomeOf60000To74999USDollar",
-      "Count_Household_IncomeOf75000To99999USDollar",
-      "Count_Household_IncomeOf100000To124999USDollar",
-      "Count_Household_IncomeOf125000To149999USDollar",
-      "Count_Household_IncomeOf150000To199999USDollar",
-      "Count_Household_IncomeOf200000OrMoreUSDollar"
+    "category": [
+      "Economics",
+      "Household Income"
     ],
-    "isOverview": true
-  },
-  {
-    "category": ["Economics", "Household Income"],
-    "title": "Household Income Trend",
-    "statsVars": [
-      "Count_Household_IncomeOfUpto10000USDollar",
-      "Count_Household_IncomeOf10000To14999USDollar",
-      "Count_Household_IncomeOf20000To24999USDollar",
-      "Count_Household_IncomeOf40000To44999USDollar",
-      "Count_Household_IncomeOf50000To59999USDollar",
-      "Count_Household_IncomeOf60000To74999USDollar",
-      "Count_Household_IncomeOf75000To99999USDollar",
-      "Count_Household_IncomeOf100000To124999USDollar",
-      "Count_Household_IncomeOf125000To149999USDollar",
-      "Count_Household_IncomeOf150000To199999USDollar",
-      "Count_Household_IncomeOf200000OrMoreUSDollar"
-    ]
-  },
-  {
-    "category": ["Economics", "Household Income"],
     "title": "Household Income",
     "statsVars": [
       "Count_Household_IncomeOfUpto10000USDollar",
@@ -218,19 +161,6 @@
     "perCapita": true,
     "scaling": 1000
   },
-
-  {
-    "category": ["Health", "Mortality"],
-    "title": "Mortality Trend",
-    "statsVars": [
-      "Count_Death_DiseasesOfTheCirculatorySystem",
-      "Count_Death_Neoplasms",
-      "Count_Death_DiseasesOfTheRespiratorySystem",
-      "Count_Death_ExternalCauses",
-      "Count_Death_DiseasesOfTheNervousSystem"
-    ],
-    "isOverview": true
-  },
   {
     "category": ["Health", "Mortality"],
     "title": "Mortality",
@@ -247,7 +177,7 @@
   },
   {
     "category": ["Health", "Health Outcomes"],
-    "title": "Outcomes",
+    "title": "Health Outcomes",
     "statsVars": [
       "Percent_Person_WithHighCholesterol",
       "Percent_Person_WithHighBloodPressure",
@@ -259,20 +189,8 @@
     "isOverview": true
   },
   {
-    "category": ["Health", "Health Outcomes"],
-    "title": "Outcomes",
-    "statsVars": [
-      "Percent_Person_WithHighCholesterol",
-      "Percent_Person_WithHighBloodPressure",
-      "Percent_Person_WithArthritis",
-      "Percent_Person_WithMentalHealthNotGood",
-      "Percent_Person_WithPhysicalHealthNotGood"
-    ],
-    "unit": "%"
-  },
-  {
     "category": ["Health", "Health Behaviors"],
-    "title": "Behaviors",
+    "title": "Health Behaviors",
     "statsVars": [
       "Percent_Person_SleepLessThan7Hours",
       "Percent_Person_Obesity",
@@ -282,18 +200,6 @@
     ],
     "unit": "%",
     "isOverview": true
-  },
-  {
-    "category": ["Health", "Health Behaviors"],
-    "title": "Behaviors",
-    "statsVars": [
-      "Percent_Person_SleepLessThan7Hours",
-      "Percent_Person_Obesity",
-      "Percent_Person_BingeDrinking",
-      "Percent_Person_PhysicalInactivity",
-      "Percent_Person_Smoking"
-    ],
-    "unit": "%"
   },
   {
     "category": ["Health", "Drug Prescribed"],
@@ -306,18 +212,6 @@
       "RetailDrugDistribution_DrugDistribution_Morphine"
     ],
     "isOverview": true
-  },
-  {
-    "category": ["Health", "Drug Prescribed"],
-    "title": "Drug Prescribed",
-    "statsVars": [
-      "RetailDrugDistribution_DrugDistribution_Oxycodone",
-      "RetailDrugDistribution_DrugDistribution_Hydrocodone",
-      "RetailDrugDistribution_DrugDistribution_Codeine",
-      "RetailDrugDistribution_DrugDistribution_Amphetamine",
-      "RetailDrugDistribution_DrugDistribution_Morphine"
-    ],
-    "perCapita": true
   },
   {
     "category": ["Inequality", "Economics"],
@@ -378,7 +272,7 @@
   },
   {
     "category": ["Inequality", "Economics"],
-    "title": "Poverty Rate by Race Over Time",
+    "title": "Poverty Rate by Race",
     "statsVars": [
       "Count_Person_BelowPovertyLevelInThePast12Months_AmericanIndianOrAlaskaNativeAlone",
       "Count_Person_BelowPovertyLevelInThePast12Months_AsianAlone",
@@ -400,7 +294,7 @@
   },
   {
     "category": ["Inequality", "Economics"],
-    "title": "Poverty Rate by Gender Over Time",
+    "title": "Poverty Rate by Gender",
     "statsVars": [
       "Count_Person_Female_BelowPovertyLevelInThePast12Months",
       "Count_Person_Male_BelowPovertyLevelInThePast12Months"
@@ -411,7 +305,7 @@
   },
   {
     "category": ["Inequality", "Economics"],
-    "title": "Median Household Income by Race Over Time",
+    "title": "Median Household Income by Race",
     "statsVars": [
       "Median_Income_Household_HouseholderRaceAmericanIndianOrAlaskaNativeAlone",
       "Median_Income_Household_HouseholderRaceAsianAlone",
@@ -423,7 +317,7 @@
   },
   {
     "category": ["Inequality", "Economics"],
-    "title": "Median Income by Gender Over Time",
+    "title": "Median Income by Gender",
     "statsVars": [
       "Median_Income_Person_15OrMoreYears_Female_WithIncome",
       "Median_Income_Person_15OrMoreYears_Male_WithIncome"
@@ -431,7 +325,7 @@
   },
   {
     "category": ["Inequality", "Economics"],
-    "title": "Unemployment Rate by Gender Over Time",
+    "title": "Unemployment Rate by Gender",
     "statsVars": [
       "UnemploymentRate_Person_Female",
       "UnemploymentRate_Person_Male"
@@ -460,27 +354,8 @@
     "isOverview": true
   },
   {
-    "category": ["Inequality", "Health Insurance"],
-    "title": "Percent of People Without Health Insurance by Gender Over Time",
-    "statsVars": [
-      "Percent_Person_18To64Years_Female_NoHealthInsurance",
-      "Percent_Person_18To64Years_Male_NoHealthInsurance"
-    ],
-    "unit": "%"
-  },
-  {
-    "category": ["Inequality", "Health Insurance"],
-    "title": "Percent of People Without Health Insurance by Race Over Time",
-    "statsVars": [
-      "Percent_Person_18To64Years_NoHealthInsurance_BlackOrAfricanAmericanAlone",
-      "Percent_Person_18To64Years_NoHealthInsurance_HispanicOrLatino",
-      "Percent_Person_18To64Years_NoHealthInsurance_WhiteAlone"
-    ],
-    "unit": "%"
-  },
-  {
     "category": ["Inequality", "Education Attainment"],
-    "title": "Rate of Associate Degree Attainment by Gender across Places (25-34 Years)",
+    "title": "Rate of Associate Degree Attainment by Gender across Places",
     "statsVars": [
       "Count_Person_25To34Years_EducationalAttainmentAssociatesDegree_Female",
       "Count_Person_25To34Years_EducationalAttainmentAssociatesDegree_Male"
@@ -494,7 +369,7 @@
   },
   {
     "category": ["Inequality", "Education Attainment"],
-    "title": "Rate of Bachelor's Degree Attainment by Gender across Places (25-34 Years)",
+    "title": "Rate of Bachelor's Degree Attainment by Gender",
     "statsVars": [
       "Count_Person_25To34Years_EducationalAttainmentBachelorsDegree_Female",
       "Count_Person_25To34Years_EducationalAttainmentBachelorsDegree_Male"
@@ -508,7 +383,7 @@
   },
   {
     "category": ["Inequality", "Education Attainment"],
-    "title": "Rate of Graduate or Professional Degree Attainment by Gender across Places (25-34 Years)",
+    "title": "Rate of Graduate or Professional Degree Attainment by Gender",
     "statsVars": [
       "Count_Person_25To34Years_EducationalAttainmentGraduateOrProfessionalDegree_Female",
       "Count_Person_25To34Years_EducationalAttainmentGraduateOrProfessionalDegree_Male"
@@ -522,7 +397,7 @@
   },
   {
     "category": ["Inequality", "Education Attainment"],
-    "title": "Rate of Associate Degree Attainment by Gender Over Time (25-34 Years)",
+    "title": "Rate of Associate Degree Attainment by Gender",
     "statsVars": [
       "Count_Person_25To34Years_EducationalAttainmentAssociatesDegree_Female",
       "Count_Person_25To34Years_EducationalAttainmentAssociatesDegree_Male"
@@ -536,7 +411,7 @@
   },
   {
     "category": ["Inequality", "Education Attainment"],
-    "title": "Rate of Bachelor's Degree Attainment by Gender Over Time (25-34 Years)",
+    "title": "Rate of Bachelor's Degree Attainment by Gender",
     "statsVars": [
       "Count_Person_25To34Years_EducationalAttainmentBachelorsDegree_Female",
       "Count_Person_25To34Years_EducationalAttainmentBachelorsDegree_Male"
@@ -550,7 +425,7 @@
   },
   {
     "category": ["Inequality", "Education Attainment"],
-    "title": "Rate of Graduate or Professional Degree Attainment by Gender Over Time (25-34 Years)",
+    "title": "Rate of Graduate or Professional Degree Attainment by Gender",
     "statsVars": [
       "Count_Person_25To34Years_EducationalAttainmentGraduateOrProfessionalDegree_Female",
       "Count_Person_25To34Years_EducationalAttainmentGraduateOrProfessionalDegree_Male"
@@ -569,24 +444,10 @@
     "isOverview": true
   },
   {
-    "category": ["Crime", "Combined Crime"],
-    "title": "Combined Crime Per 1000 People",
-    "statsVars": ["Count_CriminalActivities_CombinedCrime"],
-    "perCapita": true,
-    "scaling": 1000
-  },
-  {
     "category": ["Crime", "Violent"],
     "title": "Violent Crime",
     "statsVars": ["Count_CriminalActivities_ViolentCrime"],
     "isOverview": true
-  },
-  {
-    "category": ["Crime", "Violent"],
-    "title": "Violent Crime Per 1000 People",
-    "statsVars": ["Count_CriminalActivities_ViolentCrime"],
-    "perCapita": true,
-    "scaling": 1000
   },
   {
     "category": ["Crime", "Property"],
@@ -595,24 +456,10 @@
     "isOverview": true
   },
   {
-    "category": ["Crime", "Property"],
-    "title": "Property Crime Per 1000 People",
-    "statsVars": ["Count_CriminalActivities_PropertyCrime"],
-    "perCapita": true,
-    "scaling": 1000
-  },
-  {
     "category": ["Crime", "Arson"],
     "title": "Arson",
     "statsVars": ["Count_CriminalActivities_Arson"],
     "isOverview": true
-  },
-  {
-    "category": ["Crime", "Arson"],
-    "title": "Arson Crime Per 1000 People",
-    "statsVars": ["Count_CriminalActivities_Arson"],
-    "perCapita": true,
-    "scaling": 1000
   },
   {
     "category": ["Education", "Attainment"],
@@ -627,31 +474,6 @@
     "isOverview": true
   },
   {
-    "category": ["Education", "Attainment"],
-    "title": "Attainment Trend",
-    "statsVars": [
-      "Count_Person_EducationalAttainmentNoSchoolingCompleted",
-      "Count_Person_EducationalAttainmentRegularHighSchoolDiploma",
-      "Count_Person_EducationalAttainmentBachelorsDegree",
-      "Count_Person_EducationalAttainmentMastersDegree",
-      "Count_Person_EducationalAttainmentDoctorateDegree"
-    ]
-  },
-  {
-    "category": ["Education", "Attainment"],
-    "title": "Attainment",
-    "statsVars": [
-      "Count_Person_EducationalAttainmentNoSchoolingCompleted",
-      "Count_Person_EducationalAttainmentRegularHighSchoolDiploma",
-      "Count_Person_EducationalAttainmentBachelorsDegree",
-      "Count_Person_EducationalAttainmentMastersDegree",
-      "Count_Person_EducationalAttainmentDoctorateDegree"
-    ],
-    "perCapita": true,
-    "scaling": 100,
-    "unit": "%"
-  },
-  {
     "category": ["Education", "Enrollment"],
     "title": "School Enrollment",
     "statsVars": [
@@ -659,25 +481,6 @@
       "Count_Person_NotEnrolledInSchool"
     ],
     "isOverview": true
-  },
-  {
-    "category": ["Education", "Enrollment"],
-    "title": "Enrollment Trend",
-    "statsVars": [
-      "Count_Person_EnrolledInSchool",
-      "Count_Person_NotEnrolledInSchool"
-    ]
-  },
-  {
-    "category": ["Education", "Enrollment"],
-    "title": "Enrollment",
-    "statsVars": [
-      "Count_Person_EnrolledInSchool",
-      "Count_Person_NotEnrolledInSchool"
-    ],
-    "perCapita": true,
-    "scaling": 100,
-    "unit": "%"
   },
   {
     "category": ["Demographics", "Population"],
@@ -754,27 +557,10 @@
     "isOverview": true
   },
   {
-    "category": ["Demographics", "Age"],
-    "title": "Age Trend",
-    "statsVars": [
-      "Count_Person_Upto5Years",
-      "Count_Person_5To17Years",
-      "Count_Person_20To24Years",
-      "Count_Person_25To34Years",
-      "Count_Person_30To34Years",
-      "Count_Person_35To39Years",
-      "Count_Person_35To44Years",
-      "Count_Person_40To44Years",
-      "Count_Person_45To49Years",
-      "Count_Person_45To54Years",
-      "Count_Person_50To54Years",
-      "Count_Person_55To59Years",
-      "Count_Person_60To64Years",
-      "Count_Person_65OrMoreYears"
-    ]
-  },
-  {
-    "category": ["Demographics", "Age"],
+    "category": [
+      "Demographics",
+      "Age"
+    ],
     "title": "Age",
     "statsVars": [
       "Count_Person_Upto5Years",
@@ -808,19 +594,6 @@
     "isOverview": true
   },
   {
-    "category": ["Demographics", "Citizenship"],
-    "title": "Citizenship",
-    "statsVars": [
-      "Count_Person_USCitizenBornInTheUnitedStates",
-      "Count_Person_USCitizenByNaturalization",
-      "Count_Person_NotAUSCitizen",
-      "Count_Person_USCitizenBornAbroadOfAmericanParents"
-    ],
-    "perCapita": true,
-    "scaling": 100,
-    "unit": "%"
-  },
-  {
     "category": ["Demographics", "Marital Status"],
     "title": "Marital Status Trend",
     "statsVars": [
@@ -831,20 +604,6 @@
       "Count_Person_Separated"
     ],
     "isOverview": true
-  },
-  {
-    "category": ["Demographics", "Marital Status"],
-    "title": "Marital Status",
-    "statsVars": [
-      "Count_Person_MarriedAndNotSeparated",
-      "Count_Person_Divorced",
-      "Count_Person_NeverMarried",
-      "Count_Person_Widowed",
-      "Count_Person_Separated"
-    ],
-    "perCapita": true,
-    "scaling": 100,
-    "unit": "%"
   },
   {
     "category": ["Environment", "Energy"],
@@ -879,21 +638,10 @@
     "isOverview": true
   },
   {
-    "category": ["Environment", "Disaster"],
-    "title": "Disasters across places",
-    "statsVars": [
-      "Count_CycloneEvent",
-      "Count_DroughtEvent",
-      "Count_EarthquakeEvent",
-      "Count_FloodEvent",
-      "Count_StormSurgeTideEvent",
-      "Count_ThunderstormWindEvent",
-      "Count_TornadoEvent",
-      "Count_WildlandFireEvent"
-    ]
-  },
-  {
-    "category": ["Environment", "Disaster"],
+    "category": [
+      "Environment",
+      "Disaster"
+    ],
     "title": "Earthquake Event",
     "statsVars": ["Count_EarthquakeEvent"]
   },
