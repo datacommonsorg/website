@@ -362,16 +362,6 @@
   },
   {
     "category": ["Inequality", "Health Insurance"],
-    "title": "Percent of People Without Health Insurance by Gender",
-    "statsVars": [
-      "Percent_Person_18To64Years_Female_NoHealthInsurance",
-      "Percent_Person_18To64Years_Male_NoHealthInsurance"
-    ],
-    "canScale": false,
-    "unit": "%"
-  },
-  {
-    "category": ["Inequality", "Health Insurance"],
     "title": "Percent of People Without Health Insurance by Race",
     "statsVars": [
       "Percent_Person_18To64Years_NoHealthInsurance_BlackOrAfricanAmericanAlone",
@@ -379,7 +369,8 @@
       "Percent_Person_18To64Years_NoHealthInsurance_WhiteAlone"
     ],
     "canScale": false,
-    "unit": "%"
+    "unit": "%",
+    "isOverview": true
   },
   {
     "category": ["Inequality", "Education Attainment"],
@@ -428,7 +419,7 @@
   },
   {
     "category": ["Inequality", "Education Attainment"],
-    "title": "Rate of Associate Degree Attainment by Gender (25-34 Years)",
+    "title": "Rate of Associate Degree Attainment by Gender",
     "statsVars": [
       "Count_Person_25To34Years_EducationalAttainmentAssociatesDegree_Female",
       "Count_Person_25To34Years_EducationalAttainmentAssociatesDegree_Male"
@@ -443,7 +434,7 @@
   },
   {
     "category": ["Inequality", "Education Attainment"],
-    "title": "Rate of Bachelor's Degree Attainment by Gender (25-34 Years)",
+    "title": "Rate of Bachelor's Degree Attainment by Gender",
     "statsVars": [
       "Count_Person_25To34Years_EducationalAttainmentBachelorsDegree_Female",
       "Count_Person_25To34Years_EducationalAttainmentBachelorsDegree_Male"
@@ -458,7 +449,7 @@
   },
   {
     "category": ["Inequality", "Education Attainment"],
-    "title": "Rate of Graduate or Professional Degree Attainment by Gender (25-34 Years)",
+    "title": "Rate of Graduate or Professional Degree Attainment by Gender",
     "statsVars": [
       "Count_Person_25To34Years_EducationalAttainmentGraduateOrProfessionalDegree_Female",
       "Count_Person_25To34Years_EducationalAttainmentGraduateOrProfessionalDegree_Male"
