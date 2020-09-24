@@ -90,7 +90,9 @@ class TestPlaceExplorer(WebdriverBaseTest):
         age_across_places_chart = age_charts[1]
         chart_title = age_across_places_chart.find_element_by_tag_name(
             "h4").text
-        self.assertEqual("PLACES NEAR CALIFORNIA(2018)", chart_title)
+        self.assertEqual(
+            "Population by Gender for states near California(2018)",
+            chart_title)
 
 
 if __name__ == '__main__':
