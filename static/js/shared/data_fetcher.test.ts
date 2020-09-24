@@ -303,7 +303,7 @@ test("fetch stats data where latest date with data for all stat vars is not the 
 
       expect(data.getTimeGroupWithStatsVar("geoId/06")).toEqual([
         new DataGroup("2011", [{ label: "Total", value: 31000 }]),
-        new DataGroup("2012", [{ label: "Total", value: 0 }]),
+        new DataGroup("2012", [{ label: "Total", value: undefined }]),
         new DataGroup("2013", [{ label: "Total", value: 32000 }]),
       ]);
 
@@ -375,10 +375,10 @@ test("fetch stats data where there is no date with data for all stat vars", () =
       ]);
 
       expect(data.getTimeGroupWithStatsVar("geoId/06")).toEqual([
-        new DataGroup("2010", [{ label: "Total", value: 0 }]),
+        new DataGroup("2010", [{ label: "Total", value: undefined }]),
         new DataGroup("2011", [{ label: "Total", value: 31000 }]),
         new DataGroup("2012", [{ label: "Total", value: 32000 }]),
-        new DataGroup("2013", [{ label: "Total", value: 0 }]),
+        new DataGroup("2013", [{ label: "Total", value: undefined }]),
       ]);
 
       expect(data.getStatsPoint("geoId/06")).toEqual([
@@ -964,7 +964,7 @@ test("getTimeGroupWithStatsVar with missing data", () => {
 
   expect(statsData.getTimeGroupWithStatsVar("geoId/05")).toEqual([
     new DataGroup("2011", [
-      { label: "Female", value: 0 },
+      { label: "Female", value: undefined },
       { label: "Male", value: 11000 },
     ]),
     new DataGroup("2012", [
@@ -972,8 +972,8 @@ test("getTimeGroupWithStatsVar with missing data", () => {
       { label: "Male", value: 13000 },
     ]),
     new DataGroup("2013", [
-      { label: "Female", value: 0 },
-      { label: "Male", value: 0 },
+      { label: "Female", value: undefined },
+      { label: "Male", value: undefined },
     ]),
   ]);
 });
