@@ -296,7 +296,6 @@ function drawSingleBarChart(
     .paddingOuter(0.1);
 
   const bottomHeight = addXAxis(svg, chartHeight, x);
-  console.log(bottomHeight);
 
   const y = d3
     .scaleLinear()
