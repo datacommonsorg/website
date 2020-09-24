@@ -11,7 +11,6 @@
 # WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 # See the License for the specific language governing permissions and
 # limitations under the License.
-
 """Defines endpoints to support choropleth map."""
 import flask
 import statistics
@@ -27,11 +26,8 @@ LEVEL_MAP = {
 }
 
 # All choropleth endpoints are defined with the choropleth/ prefix.
-bp = flask.Blueprint(
-  "choropleth",
-  __name__,
-  url_prefix='/api/choropleth'
-)
+bp = flask.Blueprint("choropleth", __name__, url_prefix='/api/choropleth')
+
 
 def get_data(payload_for_geo):
     """ Returns the full timeseries data as from a DataCommons API payload.
@@ -44,12 +40,13 @@ def get_data(payload_for_geo):
     """
     if not payload_for_geo:
         return {}
-    
+
     time_series = payload_for_geo.get('data')
 
     if not time_series:
         return {}
     return time_series
+
 
 @bp.route('/values')
 def choropleth_values():
@@ -76,13 +73,18 @@ def choropleth_values():
     display_level = get_sublevel(requested_geoDcid,
                                  flask.request.args.get("level"))
     if not display_level:
-        return flask.jsonify({"error":
-           f"Failed to automatically resolve geographic subdivision level for" +
-           f"{requested_geoDcid}. Please provide a 'level' field manually."}, 400)
+        return flask.jsonify(
+            {
+                "error":
+                    f"Failed to automatically resolve geographic subdivision level for"
+                    +
+                    f"{requested_geoDcid}. Please provide a 'level' field manually."
+            }, 400)
 
     # Get all subgeos.
-    geos_contained_in_place = dc.get_places_in(
-            [requested_geoDcid], display_level).get(requested_geoDcid, [])
+    geos_contained_in_place = dc.get_places_in([requested_geoDcid],
+                                               display_level).get(
+                                                   requested_geoDcid, [])
     values_by_geo = dc.get_stats(geos_contained_in_place, stat_var)
 
     # Add to dictionary for response.
@@ -94,6 +96,7 @@ def choropleth_values():
 
     # Return as json payload.
     return flask.jsonify(populations_by_geo, 200)
+
 
 @bp.route('/geo')
 def choropleth_geo():
@@ -119,24 +122,27 @@ def choropleth_geo():
     display_level = get_sublevel(requested_geoDcid,
                                  flask.request.args.get("level"))
     if not display_level:
-        return flask.jsonify({"error":
-           f"Failed to automatically resolve geographic subdivision level for" +
-           f"{requested_geoDcid}. Please provide a 'level' field manually."}, 400) 
+        return flask.jsonify(
+            {
+                "error":
+                    f"Failed to automatically resolve geographic subdivision level for"
+                    +
+                    f"{requested_geoDcid}. Please provide a 'level' field manually."
+            }, 400)
 
     # Get optional fields.
     measurement_denominator = flask.request.args.get("mdom",
                                                      default="Count_Person")
 
     # Get list of all contained places.
-    geos_contained_in_place = dc.get_places_in(
-            [requested_geoDcid], display_level).get(requested_geoDcid, [])
-
+    geos_contained_in_place = dc.get_places_in([requested_geoDcid],
+                                               display_level).get(
+                                                   requested_geoDcid, [])
 
     # Download statistical variable, names, and geojson for subgeos.
     # Also, handle the case where only a fraction of values are returned.
-    names_by_geo = dc.get_property_values(geos_contained_in_place
-                                          + [requested_geoDcid],
-                                          "name")
+    names_by_geo = dc.get_property_values(
+        geos_contained_in_place + [requested_geoDcid], "name")
     geojson_by_geo = dc.get_property_values(geos_contained_in_place,
                                             "geoJsonCoordinates")
 
@@ -155,19 +161,18 @@ def choropleth_geo():
         if geo_id not in names_by_geo:
             continue
         geo_feature = {
-                "type": "Feature",
-                "geometry": {
-                    "type": "MultiPolygon",
-                },
-                "id": geo_id,
-                "properties": {
-                    # Choose the first name when multiple are present.
-                    "name": names_by_geo.get(geo_id, ["Unnamed Area"])[0],
-                    "hasSublevel": 
-                        (display_level in LEVEL_MAP),
-                    "geoDcid": geo_id,
-                }
+            "type": "Feature",
+            "geometry": {
+                "type": "MultiPolygon",
+            },
+            "id": geo_id,
+            "properties": {
+                # Choose the first name when multiple are present.
+                "name": names_by_geo.get(geo_id, ["Unnamed Area"])[0],
+                "hasSublevel": (display_level in LEVEL_MAP),
+                "geoDcid": geo_id,
             }
+        }
 
         # Load, simplify, and add geoJSON coordinates.
         # Exclude geo if no or multiple renderings are present.
@@ -176,10 +181,9 @@ def choropleth_geo():
 
         geojson = json.loads(json_text[0])
         geo_feature['geometry']['coordinates'] = (
-            coerce_geojson_to_righthand_rule(
-                                geojson['coordinates'],
-                                geojson['type']))
-        
+            coerce_geojson_to_righthand_rule(geojson['coordinates'],
+                                             geojson['type']))
+
         if geo_id not in population_by_geo:
             continue
 
@@ -196,14 +200,16 @@ def choropleth_geo():
         features.append(geo_feature)
 
     # Return as json payload.
-    return flask.jsonify({
-        "type": "FeatureCollection",
-        "features": features,
-        "properties": {
-            "current_geo":
-                names_by_geo.get(requested_geoDcid, ["Unnamed Area"])[0]
-        }
-    }, 200)
+    return flask.jsonify(
+        {
+            "type": "FeatureCollection",
+            "features": features,
+            "properties": {
+                "current_geo":
+                    names_by_geo.get(requested_geoDcid, ["Unnamed Area"])[0]
+            }
+        }, 200)
+
 
 def get_sublevel(requested_geoDcid, display_level):
     """Returns the best sublevel display for a geoDcid.
@@ -223,6 +229,7 @@ def get_sublevel(requested_geoDcid, display_level):
             if level in LEVEL_MAP:
                 return LEVEL_MAP[level]
     return display_level
+
 
 def coerce_geojson_to_righthand_rule(geoJsonCords, obj_type):
     """Changes GeoJSON handedness to the right-hand rule.
@@ -247,12 +254,15 @@ def coerce_geojson_to_righthand_rule(geoJsonCords, obj_type):
     else:
         assert False, f"Type {obj_type} unknown!"
 
+
 # Defines the map from higher geos to their respective subgeos.
 SUB_GEO_LEVEL_MAP = {
     "Country": "AdministrativeArea1",
     "AdministrativeArea1": "AdministrativeArea2",
     "AdministrativeArea2": "City"
 }
+
+
 @bp.route('child/statvars')
 def child_statvars():
     """
@@ -272,16 +282,17 @@ def child_statvars():
     dcid = flask.request.args.get("dcid")
     if not dcid:
         return flask.jsonify({"error": "Must provide a 'dcid' field!"}, 400)
-    requested_level = get_sublevel(dcid,
-                                   flask.request.args.get("level"))
+    requested_level = get_sublevel(dcid, flask.request.args.get("level"))
     if not requested_level:
-        return flask.jsonify({"error":
-           f"Failed to automatically resolve geographic subdivision level for" +
-           f"{dcid}. Please provide a 'level' field manually."}, 400) 
+        return flask.jsonify(
+            {
+                "error":
+                    f"Failed to automatically resolve geographic subdivision level for"
+                    + f"{dcid}. Please provide a 'level' field manually."
+            }, 400)
 
     # Get sublevels.
-    geos_contained_in_place = dc.get_places_in(
-        [dcid], requested_level)
+    geos_contained_in_place = dc.get_places_in([dcid], requested_level)
     if dcid not in geos_contained_in_place:
         return flask.jsonify({"error": "Internal server error."}, 500)
     geos_contained_in_place = geos_contained_in_place[dcid]

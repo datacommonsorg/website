@@ -157,7 +157,7 @@ class ChoroplethMap extends Component<PropsType, StateType> {
     });
   };
 
-   /**
+  /**
    * Set per capita on the state.
    */
   public setPerCapita = (pc: boolean): void => {
@@ -425,18 +425,20 @@ class ChoroplethMap extends Component<PropsType, StateType> {
     // Re-update this.values to only include data for that given date.
     const geoIdToValue = this.filterByDate(data, newDate);
     // Store the new date and the new values.
-    this.state.values = geoIdToValue;
-    this.setState({ date: newDate });
+    this.setState({ date: newDate, values: geoIdToValue }, () => {
+      // Re-render component and map.
+      this.drawBlankGeoMap();
+      this.addColorToGeoMap();
 
-    // Re-render component and map.
-    this.drawBlankGeoMap();
-    this.addColorToGeoMap();
+      // TODO(edumorales): show the range of dates somewhere so that
+      // the user knows what dates are being shown.
 
-    // TODO(edumorales): for some reason, the setState auto-render
-    // was disabled by previous developers.
-    // Figure out why, and re-enable setState() to automatically re-render.
-    // This is one of the main benefits of React.
-    this.forceUpdate();
+      // TODO(edumorales): for some reason, the setState auto-render
+      // was disabled by previous developers.
+      // Figure out why, and re-enable setState() to automatically re-render.
+      // This is one of the main benefits of React.
+      this.forceUpdate();
+    });
   };
 
   /**
