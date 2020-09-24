@@ -533,7 +533,6 @@ class ChartBlock extends Component<ChartBlockPropType, unknown> {
         );
     return (
       <div className="chart-block">
-        <div className="chart-block-title">{this.props.config.title}</div>
         <div className="row row-cols-md-2 row-cols-1">
           {configList.map((item) => {
             const id = randDomId();
@@ -566,7 +565,7 @@ class ChartBlock extends Component<ChartBlockPropType, unknown> {
     const result = [];
     let conf = { ...config };
     conf.chartType = chartTypeEnum.LINE;
-    conf.title = "TREND";
+    conf.title = conf.title + " in " + this.props.placeName;
     result.push(conf);
 
     conf = { ...config };
@@ -574,10 +573,10 @@ class ChartBlock extends Component<ChartBlockPropType, unknown> {
     conf.axis = "PLACE";
     if (placeType === "Country") {
       // Containing place chart
-      conf.title = "Places within " + this.props.placeName;
+      conf.title = conf.title + " for places within " + this.props.placeName;
       conf.placeRelation = placeRelationEnum.CONTAINING;
     } else {
-      conf.title = "Places near " + this.props.placeName;
+      conf.title = conf.title + " for places near " + this.props.placeName;
       conf.placeRelation = placeRelationEnum.NEARBY;
     }
     result.push(conf);
@@ -592,23 +591,26 @@ class ChartBlock extends Component<ChartBlockPropType, unknown> {
     const result: ConfigType[] = [];
     let conf = { ...config };
     conf.chartType = chartTypeEnum.LINE;
-    conf.title = "TREND";
+    conf.title = conf.title + " in " + this.props.placeName;
     result.push(conf);
 
     if (placeType !== "Country") {
+      const displayPlaceType = pluralizedDisplayNameForPlaceType(
+        placeType
+      ).toLocaleLowerCase();
       // Nearby places
       conf = { ...config };
       conf.chartType = chartTypeEnum.GROUP_BAR;
       conf.placeRelation = placeRelationEnum.NEARBY;
       conf.axis = "PLACE";
-      conf.title = "Places near " + placeName;
+      conf.title = `${conf.title} for ${displayPlaceType} near ${this.props.placeName}`;
       result.push(conf);
       // Similar places
       conf = { ...config };
       conf.chartType = chartTypeEnum.GROUP_BAR;
       conf.placeRelation = placeRelationEnum.SIMILAR;
       conf.axis = "PLACE";
-      conf.title = "Other " + placeType;
+      conf.title = `${conf.title} for other ${displayPlaceType}`;
       result.push(conf);
     }
     if (placeType !== "City") {
@@ -617,7 +619,7 @@ class ChartBlock extends Component<ChartBlockPropType, unknown> {
       conf.chartType = chartTypeEnum.GROUP_BAR;
       conf.placeRelation = placeRelationEnum.CONTAINING;
       conf.axis = "PLACE";
-      conf.title = "Places within " + placeName;
+      conf.title = conf.title + " for places within " + this.props.placeName;
       result.push(conf);
     } else {
       // Parent places.
@@ -627,7 +629,8 @@ class ChartBlock extends Component<ChartBlockPropType, unknown> {
       conf.chartType = chartTypeEnum.GROUP_BAR;
       conf.placeRelation = placeRelationEnum.CONTAINED;
       conf.axis = "PLACE";
-      conf.title = "Places that contains " + placeName;
+      conf.title =
+        conf.title + " for places that contain " + this.props.placeName;
       result.push(conf);
     }
     return result;
@@ -682,6 +685,7 @@ interface ChartStateType {
   elemWidth: number;
   dateSelected?: string;
   sources: string[];
+  display: boolean;
 }
 
 class Chart extends Component<ChartPropType, ChartStateType> {
@@ -704,6 +708,7 @@ class Chart extends Component<ChartPropType, ChartStateType> {
     this.state = {
       elemWidth: 0,
       sources: [],
+      display: true,
     };
     // Consider debouncing / throttling this if it gets expensive at
     // small screen sizes
@@ -719,6 +724,9 @@ class Chart extends Component<ChartPropType, ChartStateType> {
   }
 
   render() {
+    if (!this.state.display) {
+      return "";
+    }
     const config = this.props.config;
     const dateString = this.state.dateSelected
       ? "(" + this.state.dateSelected + ")"
@@ -762,6 +770,10 @@ class Chart extends Component<ChartPropType, ChartStateType> {
                   </span>
                 );
               })}
+              <span className="dotted-warning d-none">
+                {" "}
+                (dotted line denotes missing data)
+              </span>
             </div>
             <div>
               <a
@@ -780,14 +792,22 @@ class Chart extends Component<ChartPropType, ChartStateType> {
   }
 
   componentDidUpdate() {
-    // When there is no data, do not show the current chart.
+    if (!this.state.display) {
+      return;
+    }
     const dp = this.state.dataPoints;
     const dg = this.state.dataGroups;
     if (
       (dp && dp.length === 0) ||
       (dg && (dg.length === 0 || (dg.length === 1 && dg[0].value.length === 0)))
     ) {
-      this.fetchData();
+      // When there is no data, do not show the current chart.
+      console.log(
+        `no data for ${this.props.dcid}: ${this.props.config.statsVars}`
+      );
+      this.setState({
+        display: false,
+      });
       return;
     }
     // Draw chart.
@@ -827,13 +847,18 @@ class Chart extends Component<ChartPropType, ChartStateType> {
     const elem = document.getElementById(this.props.id);
     elem.innerHTML = "";
     if (chartType === chartTypeEnum.LINE) {
-      drawLineChart(
+      const isCompleteLine = drawLineChart(
         this.props.id,
         elem.offsetWidth,
         CHART_HEIGHT,
         this.state.dataGroups,
         this.props.config.unit
       );
+      if (!isCompleteLine) {
+        this.chartElement.current!.querySelectorAll(
+          ".dotted-warning"
+        )[0].className += " d-inline";
+      }
     } else if (chartType === chartTypeEnum.SINGLE_BAR) {
       drawSingleBarChart(
         this.props.id,

@@ -75,12 +75,17 @@ function getDashes(n: number): string[] {
 }
 
 function getColorFn(labels: string[]): d3.ScaleOrdinal<string, string> {
+  let domain = labels;
   let range;
-  if (labels.length === 1) {
-    range = ["#930000"];
-  } else if (labels.length === 2) {
-    range = ["#930000", "#3288bd"];
+  if (labels.length == 2 && labels[0] == "Female") {
+    range = ["#a60000", "#3288bd"];
   } else {
+    if (labels.length == 1) {
+      // Get varied but stable color scheme for single stat var charts.
+      domain = Array.from("ABCDEFGHIJKLMNOPQRSTUVWXYZ");
+      domain = domain.concat(labels);
+      domain.sort();
+    }
     range = d3.quantize(
       d3.interpolateRgbBasis([
         "#930000",
@@ -92,10 +97,10 @@ function getColorFn(labels: string[]): d3.ScaleOrdinal<string, string> {
         "#3288bd",
         "#5e4fa2",
       ]),
-      labels.length
+      domain.length
     );
   }
-  return d3.scaleOrdinal<string, string>().domain(labels).range(range);
+  return d3.scaleOrdinal<string, string>().domain(domain).range(range);
 }
 
 interface Style {
@@ -150,6 +155,36 @@ function computePlotParams(
   return { lines, legend };
 }
 
+function shouldFillInValues(series: number[][]): boolean {
+  const defined = (d) => {
+    return d[1] !== null;
+  };
+  const n = series.length;
+
+  // "Trim" the ends
+  let i = 0;
+  while (i < n) {
+    if (!defined(series[i])) i++;
+    else break;
+  }
+  const firstNonNullIndex = i;
+
+  i = n - 1;
+  while (i >= 0) {
+    if (!defined(series[i])) i--;
+    else break;
+  }
+  const lastNonNullIndex = i;
+
+  // Find if there are gaps in the middle
+  for (let i = firstNonNullIndex; i <= lastNonNullIndex; i++) {
+    if (!defined(series[i])) {
+      return true;
+    }
+  }
+  return false;
+}
+
 interface Range {
   // min value of the range.
   minV: number;
@@ -166,4 +201,5 @@ export {
   computePlotParams,
   getColorFn,
   getDashes,
+  shouldFillInValues,
 };

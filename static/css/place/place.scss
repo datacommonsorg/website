@@ -21,6 +21,8 @@
 $vertical-section-border: 1px solid var(--dc-gray-lite);
 $vertical-section-margin: 2rem;
 $sidebar-top-padding: 132px; // Keep in sync with place.ts: Y_SCROLL_LIMIT
+$subtopic-background: rgba(0,0,0,.05);
+$subtopic-color: #222;
 
 #dc-places {
   margin-left: 1.5rem;
@@ -82,21 +84,26 @@ $sidebar-top-padding: 132px; // Keep in sync with place.ts: Y_SCROLL_LIMIT
 }
 
 #main-pane section {
-  border-top: $vertical-section-border;
   margin-top: $vertical-section-margin;
 }
 
-#main-pane section:first-of-type {
+#main-pane section.factoid {
   border: none;
+}
+
+#main-pane section:first-of-type {
   margin-top: 0;
 }
 
 #body .subtopic h3 {
-  color: var(--dc-gray);
+  color: $subtopic-color;
   font-weight: 700;
   font-size: 1rem;
   text-transform: uppercase;
-  margin: 15px 0 10px;
+  margin: 15px -12px 10px -12px;
+  padding: 6px 12px;
+  border-radius: 3px;
+  background: $subtopic-background;
 }
 
 #body .subtopic h3 a {
@@ -163,9 +170,7 @@ $sidebar-top-padding: 132px; // Keep in sync with place.ts: Y_SCROLL_LIMIT
 .chart-container h4 {
   color: var(--dc-gray);
   font-weight: 500;
-  font-size: 0.8rem;
-  text-transform: uppercase;
-  margin-bottom: 0.5rem;
+  font-size: 0.85rem;
   display: inline;
 }
 

@@ -73,13 +73,29 @@ TEST_URLS = [
         'url': '/ranking/Median_Income_Person/County/country/USA',
         'filename_suffix': 'ranking_median_income_counties.png',
         'test_class': 'chart-container',
-        'height': 600
+        'height': 1000
     },
     {
         'url': '/ranking/Count_Person/Country',
         'filename_suffix': 'ranking_population_countries.png',
         'test_class': 'chart-container',
-        'height': 600
+        'height': 1000
+    },
+    {
+        'url':
+            '/ranking/Count_CriminalActivities_CombinedCrime/City/geoId/06085?pc',
+        'filename_suffix':
+            'ranking_crime_per_capita.png',
+        'test_class':
+            'chart-container',
+        'height':
+            1000
+    },
+    {
+        'url': '/dev',
+        'filename_suffix': 'dev_charts.png',
+        'test_class': 'chart',
+        'height': 1000
     },
 ]
 
@@ -92,7 +108,7 @@ class TestScreenShot(WebdriverBaseTest):
         index = 1
         for test_info in TEST_URLS:
             self.driver.get(self.url_ + test_info['url'])
-            time.sleep(5)
+            time.sleep(10)
             self.driver.set_window_size(width=WIDTH,
                                         height=test_info['height'],
                                         windowHandle='current')
