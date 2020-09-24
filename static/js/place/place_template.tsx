@@ -682,6 +682,7 @@ interface ChartStateType {
   elemWidth: number;
   dateSelected?: string;
   sources: string[];
+  display: boolean;
 }
 
 class Chart extends Component<ChartPropType, ChartStateType> {
@@ -704,6 +705,7 @@ class Chart extends Component<ChartPropType, ChartStateType> {
     this.state = {
       elemWidth: 0,
       sources: [],
+      display: true,
     };
     // Consider debouncing / throttling this if it gets expensive at
     // small screen sizes
@@ -719,6 +721,9 @@ class Chart extends Component<ChartPropType, ChartStateType> {
   }
 
   render() {
+    if (!this.state.display) {
+      return "";
+    }
     const config = this.props.config;
     const dateString = this.state.dateSelected
       ? "(" + this.state.dateSelected + ")"
@@ -784,14 +789,22 @@ class Chart extends Component<ChartPropType, ChartStateType> {
   }
 
   componentDidUpdate() {
-    // When there is no data, do not show the current chart.
+    if (!this.state.display) {
+      return;
+    }
     const dp = this.state.dataPoints;
     const dg = this.state.dataGroups;
     if (
       (dp && dp.length === 0) ||
       (dg && (dg.length === 0 || (dg.length === 1 && dg[0].value.length === 0)))
     ) {
-      this.fetchData();
+      // When there is no data, do not show the current chart.
+      console.log(
+        `no data for ${this.props.dcid}: ${this.props.config.statsVars}`
+      );
+      this.setState({
+        display: false,
+      });
       return;
     }
     // Draw chart.
