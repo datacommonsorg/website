@@ -16,7 +16,14 @@
 
 import * as d3 from "d3";
 
-import { DataGroup, DataPoint, PlotParams, Style, getColorFn } from "./base";
+import {
+  DataGroup,
+  DataPoint,
+  PlotParams,
+  Style,
+  getColorFn,
+  shouldFillInValues,
+} from "./base";
 
 const NUM_X_TICKS = 5;
 const NUM_Y_TICKS = 5;
@@ -450,6 +457,8 @@ function drawGroupBarChart(
  * @param height
  * @param dataGroups
  * @param unit
+ *
+ * @return false if any series in the chart was filled in
  */
 function drawLineChart(
   id: string,
@@ -457,7 +466,7 @@ function drawLineChart(
   height: number,
   dataGroups: DataGroup[],
   unit?: string
-): void {
+): boolean {
   const maxV = Math.max(...dataGroups.map((dataGroup) => dataGroup.max()));
   let minV = Math.min(...dataGroups.map((dataGroup) => dataGroup.min()));
   if (minV > 0) {
@@ -485,22 +494,34 @@ function drawLineChart(
   addYAxis(svg, width, yScale, unit);
 
   const legendText = dataGroups.map((dataGroup) =>
-    dataGroup.label ? dataGroup.label : "a"
+    dataGroup.label ? dataGroup.label : "A"
   );
   const colorFn = getColorFn(legendText);
 
+  let hasFilledInValues = false;
   for (const dataGroup of dataGroups) {
     const dataset = dataGroup.value.map((dp) => {
       return [new Date(dp.label).getTime(), dp.value];
     });
+    const hasGap = shouldFillInValues(dataset);
+    hasFilledInValues = hasFilledInValues || hasGap;
     const shouldAddDots = dataset.length < 12;
-    let line = d3
+
+    const line = d3
       .line()
+      .defined((d) => d[1] !== null) // Ignore points that are null
       .x((d) => xScale(d[0]))
       .y((d) => yScale(d[1]));
 
-    if (shouldAddDots) {
-      line = line.curve(d3.curveMonotoneX);
+    if (hasGap) {
+      // Draw a second line behind the main line with a different styling to
+      // fill in gaps.
+      svg
+        .append("path")
+        .datum(dataset.filter(line.defined())) // Only plot points that are defined
+        .attr("class", "line fill")
+        .style("stroke", colorFn(dataGroup.label))
+        .attr("d", line);
     }
 
     svg
@@ -512,6 +533,7 @@ function drawLineChart(
 
     if (shouldAddDots) {
       svg
+        .append("g")
         .selectAll(".dot")
         .data(dataset)
         .enter()
@@ -520,13 +542,15 @@ function drawLineChart(
         .attr("cx", (d) => xScale(d[0]))
         .attr("cy", (d) => yScale(d[1]))
         .attr("fill", colorFn(dataGroup.label))
-        .attr("r", 3);
+        .attr("r", (d) => (d[1] === null ? 0 : 3));
     }
   }
 
   if (dataGroups.length > 1) {
     appendLegendElem(id, colorFn, legendText);
   }
+
+  return !hasFilledInValues;
 }
 
 /**

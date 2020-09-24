@@ -767,6 +767,10 @@ class Chart extends Component<ChartPropType, ChartStateType> {
                   </span>
                 );
               })}
+              <span className="dotted-warning d-none">
+                {" "}
+                (dotted line denotes missing data)
+              </span>
             </div>
             <div>
               <a
@@ -840,13 +844,18 @@ class Chart extends Component<ChartPropType, ChartStateType> {
     const elem = document.getElementById(this.props.id);
     elem.innerHTML = "";
     if (chartType === chartTypeEnum.LINE) {
-      drawLineChart(
+      const isCompleteLine = drawLineChart(
         this.props.id,
         elem.offsetWidth,
         CHART_HEIGHT,
         this.state.dataGroups,
         this.props.config.unit
       );
+      if (!isCompleteLine) {
+        this.chartElement.current!.querySelectorAll(
+          ".dotted-warning"
+        )[0].className += " d-inline";
+      }
     } else if (chartType === chartTypeEnum.SINGLE_BAR) {
       drawSingleBarChart(
         this.props.id,

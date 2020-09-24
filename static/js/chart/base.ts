@@ -155,6 +155,36 @@ function computePlotParams(
   return { lines, legend };
 }
 
+function shouldFillInValues(series: number[][]): boolean {
+  const defined = (d) => {
+    return d[1] !== null;
+  };
+  const n = series.length;
+
+  // "Trim" the ends
+  let i = 0;
+  while (i < n) {
+    if (!defined(series[i])) i++;
+    else break;
+  }
+  const firstNonNullIndex = i;
+
+  i = n - 1;
+  while (i >= 0) {
+    if (!defined(series[i])) i--;
+    else break;
+  }
+  const lastNonNullIndex = i;
+
+  // Find if there are gaps in the middle
+  for (let i = firstNonNullIndex; i <= lastNonNullIndex; i++) {
+    if (!defined(series[i])) {
+      return true;
+    }
+  }
+  return false;
+}
+
 interface Range {
   // min value of the range.
   minV: number;
@@ -171,4 +201,5 @@ export {
   computePlotParams,
   getColorFn,
   getDashes,
+  shouldFillInValues,
 };
