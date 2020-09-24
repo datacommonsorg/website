@@ -197,7 +197,7 @@ def build_config(raw_config):
         # isOverview field is not used in the built chart config.
         if 'isOverview' in config:
             del config['isOverview']
-        category, topic = config['category']
+        category, _ = config['category']
         del config['category']
         if category not in category_map:
             category_map[category] = {
@@ -207,16 +207,12 @@ def build_config(raw_config):
             }
         if is_overview:
             category_map[category]['charts'].append(config)
-        added = False
-        for section in category_map[category]['children']:
-            if section['label'] == topic:
-                section['charts'].append(config)
-                added = True
-        if not added:
-            category_map[category]['children'].append({
-                'label': topic,
-                'charts': [config]
-            })
+        # Turn each chart into a new topic since we render multiple types per
+        # chart
+        category_map[category]['children'].append({
+            'label': config['title'],
+            'charts': [config]
+        })
     return list(category_map.values())
 
 

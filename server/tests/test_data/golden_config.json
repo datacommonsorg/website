@@ -9,12 +9,17 @@
     ],
     "children": [
       {
-        "label": "Unemployment",
+        "label": "Unemployment Rate",
         "charts": [
           {
             "title": "Unemployment Rate",
             "statsVars": ["UnemploymentRate_Person"]
-          },
+          }
+        ]
+      },
+      {
+        "label": "Labor Force Participation",
+        "charts": [
           {
             "title": "Labor Force Participation",
             "statsVars": ["Count_Person_InLaborForce"],

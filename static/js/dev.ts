@@ -63,11 +63,11 @@ window.onload = () => {
   let dataGroups = [
     new DataGroup("San Jose", [
       new DataPoint("2011", 21000),
-      new DataPoint("2012", 22000),
+      new DataPoint("2012", null),
       new DataPoint("2013", 23000),
     ]),
     new DataGroup("Fremont", [
-      new DataPoint("2011", 22000),
+      new DataPoint("2011", null),
       new DataPoint("2012", 26000),
       new DataPoint("2013", 24000),
     ]),
@@ -162,6 +162,28 @@ window.onload = () => {
     new DataGroup("label-1", [
       new DataPoint("01-01-2011", 7),
       new DataPoint("01-02-2011", 10),
+    ]),
+  ];
+  containerId = addChartContainer();
+  drawLineChart(containerId, width, height, dataGroups);
+
+  // Draw line chart with missing values.
+  dataGroups = [
+    new DataGroup("label-1", [
+      new DataPoint("01-01-2011", 702134),
+      new DataPoint("01-02-2011", 1002342),
+      new DataPoint("01-03-2011", 3002342),
+      new DataPoint("01-04-2011", 9520234),
+      new DataPoint("01-05-2011", 3520234),
+      new DataPoint("01-06-2011", 7520234),
+    ]),
+    new DataGroup("label-2", [
+      new DataPoint("01-01-2011", 2134),
+      new DataPoint("01-02-2011", null),
+      new DataPoint("01-03-2011", 2342),
+      new DataPoint("01-04-2011", null),
+      new DataPoint("01-05-2011", 520234),
+      new DataPoint("01-06-2011", 520234),
     ]),
   ];
   containerId = addChartContainer();

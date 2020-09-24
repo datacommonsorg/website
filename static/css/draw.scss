@@ -19,6 +19,11 @@ path.line {
   stroke-width: 2.5;
 }
 
+path.line.fill {
+  opacity: .4;
+  stroke-dasharray: 2;
+}
+
 .axis line {
   stroke: #999;
   stroke-width: 0.5;
