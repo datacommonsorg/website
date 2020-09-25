@@ -3,7 +3,6 @@
     "category": ["Economics", "Unemployment"],
     "title": "Unemployment Rate",
     "statsVars": ["UnemploymentRate_Person"],
-    "isRate": true,
     "unit": "%",
     "isOverview": true
   },
@@ -13,19 +12,31 @@
     "statsVars": [
       "Count_UnemploymentInsuranceClaim_StateUnemploymentInsurance"
     ],
-    "isOverview": true
+    "isOverview": true,
+    "relatedChart": {
+      "scale": true,
+      "denominator": "Count_Person"
+    }
   },
   {
     "category": ["Economics", "Unemployment"],
     "title": "Employed People",
     "statsVars": ["Count_Person_Employed"],
-    "isOverview": true
+    "isOverview": true,
+    "relatedChart": {
+      "scale": true,
+      "denominator": "Count_Person"
+    }
   },
   {
     "category": ["Economics", "Unemployment"],
     "title": "Labor Force Participation",
     "statsVars": ["Count_Person_InLaborForce"],
-    "isOverview": true
+    "isOverview": true,
+    "relatedChart": {
+      "scale": true,
+      "denominator": "Count_Person"
+    }
   },
   {
     "category": ["Economics", "Unemployment"],
@@ -34,33 +45,29 @@
       "UnemploymentRate_Person_Male",
       "UnemploymentRate_Person_Female"
     ],
-    "canScale": false
+    "relatedChart": {
+      "scale": false
+    }
   },
   {
     "category": ["Economics", "Economic Activity"],
     "title": "Gross Domestic Product",
     "statsVars": ["Amount_EconomicActivity_GrossDomesticProduction_Nominal"],
-    "canScale": false,
     "unit": "$",
-    "isOverview": true
-  },
-
-  {
-    "category": ["Economics", "Economic Activity"],
-    "title": "Gross Domestic Product, Per Capita",
-    "statsVars": [
-      "Amount_EconomicActivity_GrossDomesticProduction_Nominal_PerCapita"
-    ],
-    "canScale": false,
-    "unit": "$"
+    "isOverview": true,
+    "relatedChart": {
+      "scale": false
+    }
   },
   {
     "category": ["Economics", "Economic Activity"],
     "title": "Gross Domestic Product Growth Rate",
     "statsVars": ["GrowthRate_Amount_EconomicActivity_GrossDomesticProduction"],
-    "canScale": false,
     "unit": "%",
-    "isOverview": true
+    "isOverview": true,
+    "relatedChart": {
+      "scale": false
+    }
   },
   {
     "category": ["Economics", "Economic Activity"],
@@ -68,8 +75,10 @@
     "statsVars": [
       "Amount_EconomicActivity_GrossNationalIncome_PurchasingPowerParity_PerCapita"
     ],
-    "canScale": false,
-    "unit": "$"
+    "unit": "$",
+    "relatedChart": {
+      "scale": false
+    }
   },
   {
     "category": ["Economics", "Economic Activity"],
@@ -77,14 +86,20 @@
     "statsVars": [
       "Amount_EconomicActivity_GrossNationalIncome_PurchasingPowerParity"
     ],
-    "canScale": false,
-    "unit": "$"
+    "unit": "$",
+    "relatedChart": {
+      "scale": false
+    }
   },
   {
     "category": ["Economics", "Economic Activity"],
     "title": "Government Debt",
     "statsVars": ["Amount_Debt_Government"],
-    "isOverview": true
+    "isOverview": true,
+    "relatedChart": {
+      "scale": true,
+      "denominator": "Count_Person"
+    }
   },
 
   {
@@ -92,8 +107,10 @@
     "title": "Median Individual Income",
     "statsVars": ["Median_Income_Person"],
     "unit": "$",
-    "canScale": false,
-    "isOverview": true
+    "isOverview": true,
+    "relatedChart": {
+      "scale": false
+    }
   },
   {
     "category": ["Economics", "Individual Income"],
@@ -107,14 +124,20 @@
       "Count_Person_IncomeOf50000To64999USDollar",
       "Count_Person_IncomeOf65000To74999USDollar",
       "Count_Person_IncomeOf75000OrMoreUSDollar"
-    ]
+    ],
+    "relatedChart": {
+      "scale": true,
+      "denominator": "Count_Person"
+    }
   },
   {
     "category": ["Economics", "Household Income"],
     "title": "Median Household Income",
     "statsVars": ["Median_Income_Household"],
-    "canScale": false,
-    "unit": "$"
+    "unit": "$",
+    "relatedChart": {
+      "scale": false
+    }
   },
   {
     "category": ["Economics", "Household Income"],
@@ -132,28 +155,22 @@
       "Count_Household_IncomeOf150000To199999USDollar",
       "Count_Household_IncomeOf200000OrMoreUSDollar"
     ],
-    "denominator": [
-      "Count_Household",
-      "Count_Household",
-      "Count_Household",
-      "Count_Household",
-      "Count_Household",
-      "Count_Household",
-      "Count_Household",
-      "Count_Household",
-      "Count_Household",
-      "Count_Household",
-      "Count_Household"
-    ]
+    "relatedChart": {
+      "scale": true,
+      "denominator": "Count_Household"
+    }
   },
-
   {
     "category": ["Health", "COVID-19"],
     "title": "COVID-19 Cumulative Cases",
     "statsVars": [
       "CumulativeCount_MedicalConditionIncident_COVID_19_ConfirmedOrProbableCase"
     ],
-    "isOverview": true
+    "isOverview": true,
+    "relatedChart": {
+      "scale": true,
+      "denominator": "Count_Person"
+    }
   },
   {
     "category": ["Health", "COVID-19"],
@@ -161,7 +178,11 @@
     "statsVars": [
       "CumulativeCount_MedicalConditionIncident_COVID_19_PatientDeceased"
     ],
-    "isOverview": true
+    "isOverview": true,
+    "relatedChart": {
+      "scale": true,
+      "denominator": "Count_Person"
+    }
   },
   {
     "category": ["Health", "Mortality"],
@@ -173,7 +194,11 @@
       "Count_Death_ExternalCauses",
       "Count_Death_DiseasesOfTheNervousSystem"
     ],
-    "isOverview": true
+    "isOverview": true,
+    "relatedChart": {
+      "scale": true,
+      "denominator": "Count_Person"
+    }
   },
   {
     "category": ["Health", "Health Outcomes"],
@@ -186,10 +211,11 @@
       "Percent_Person_WithPhysicalHealthNotGood"
     ],
     "unit": "%",
-    "canScale": false,
-    "isOverview": true
+    "isOverview": true,
+    "relatedChart": {
+      "scale": false
+    }
   },
-  // isRateChart ?
   {
     "category": ["Health", "Health Behaviors"],
     "title": "Health Behaviors",
@@ -201,8 +227,10 @@
       "Percent_Person_Smoking"
     ],
     "unit": "%",
-    "canScale": false,
-    "isOverview": true
+    "isOverview": true,
+    "relatedChart": {
+      "scale": false
+    }
   },
   {
     "category": ["Health", "Drug Prescribed"],
@@ -214,7 +242,11 @@
       "RetailDrugDistribution_DrugDistribution_Amphetamine",
       "RetailDrugDistribution_DrugDistribution_Morphine"
     ],
-    "isOverview": true
+    "isOverview": true,
+    "relatedChart": {
+      "scale": true,
+      "denominator": "Count_Person"
+    }
   },
   {
     "category": ["Inequality", "Economics"],
@@ -237,8 +269,10 @@
     ],
     "scaling": 100,
     "unit": "%",
-    "canScale": false,
-    "isOverview": true
+    "isOverview": true,
+    "relatedChart": {
+      "scale": false
+    }
   },
   {
     "category": ["Inequality", "Economics"],
@@ -250,8 +284,11 @@
     "denominator": ["Count_Person_Female", "Count_Person_Male"],
     "scaling": 100,
     "unit": "%",
-    "canScale": false,
-    "isOverview": true
+    "isOverview": true,
+    "relatedChart": {
+      "scale": true,
+      "denominator": "Count_Person"
+    }
   },
   {
     "category": ["Inequality", "Economics"],
@@ -264,8 +301,10 @@
       "Median_Income_Household_HouseholderRaceNativeHawaiianOrOtherPacificIslanderAlone",
       "Median_Income_Household_HouseholderRaceWhiteAlone"
     ],
-    "canScale": false,
-    "isOverview": true
+    "isOverview": true,
+    "relatedChart": {
+      "scale": false
+    }
   },
   {
     "category": ["Inequality", "Economics"],
@@ -274,8 +313,10 @@
       "Median_Income_Person_15OrMoreYears_Female_WithIncome",
       "Median_Income_Person_15OrMoreYears_Male_WithIncome"
     ],
-    "canScale": false,
-    "isOverview": true
+    "isOverview": true,
+    "relatedChart": {
+      "scale": false
+    }
   },
   {
     "category": ["Inequality", "Economics"],
@@ -296,9 +337,11 @@
       "Count_Person_NativeHawaiianOrOtherPacificIslanderAlone",
       "Count_Person_WhiteAlone"
     ],
-    "canScale": false,
     "scaling": 100,
-    "unit": "%"
+    "unit": "%",
+    "relatedChart": {
+      "scale": false
+    }
   },
   {
     "category": ["Inequality", "Economics"],
@@ -308,9 +351,11 @@
       "Count_Person_Male_BelowPovertyLevelInThePast12Months"
     ],
     "denominator": ["Count_Person_Female", "Count_Person_Male"],
-    "canScale": false,
     "scaling": 100,
-    "unit": "%"
+    "unit": "%",
+    "relatedChart": {
+      "scale": false
+    }
   },
   {
     "category": ["Inequality", "Economics"],
@@ -323,7 +368,9 @@
       "Median_Income_Household_HouseholderRaceNativeHawaiianOrOtherPacificIslanderAlone",
       "Median_Income_Household_HouseholderRaceWhiteAlone"
     ],
-    "canScale": false
+    "relatedChart": {
+      "scale": false
+    }
   },
   {
     "category": ["Inequality", "Economics"],
@@ -332,7 +379,9 @@
       "Median_Income_Person_15OrMoreYears_Female_WithIncome",
       "Median_Income_Person_15OrMoreYears_Male_WithIncome"
     ],
-    "canScale": false
+    "relatedChart": {
+      "scale": false
+    }
   },
   {
     "category": ["Inequality", "Economics"],
@@ -341,8 +390,10 @@
       "UnemploymentRate_Person_Female",
       "UnemploymentRate_Person_Male"
     ],
-    "canScale": false,
-    "isOverview": true
+    "isOverview": true,
+    "relatedChart": {
+      "scale": false
+    }
   },
   {
     "category": ["Inequality", "Health Insurance"],
@@ -351,9 +402,11 @@
       "Percent_Person_18To64Years_Female_NoHealthInsurance",
       "Percent_Person_18To64Years_Male_NoHealthInsurance"
     ],
-    "canScale": false,
     "unit": "%",
-    "isOverview": true
+    "isOverview": true,
+    "relatedChart": {
+      "scale": false
+    }
   },
   {
     "category": ["Inequality", "Health Insurance"],
@@ -363,9 +416,11 @@
       "Percent_Person_18To64Years_NoHealthInsurance_HispanicOrLatino",
       "Percent_Person_18To64Years_NoHealthInsurance_WhiteAlone"
     ],
-    "canScale": false,
     "unit": "%",
-    "isOverview": true
+    "isOverview": true,
+    "relatedChart": {
+      "scale": false
+    }
   },
   {
     "category": ["Inequality", "Education Attainment"],
@@ -378,9 +433,11 @@
       "Count_Person_25To34Years_Female",
       "Count_Person_25To34Years_Male"
     ],
-    "canScale": false,
     "scaling": 100,
-    "unit": "%"
+    "unit": "%",
+    "relatedChart": {
+      "scale": false
+    }
   },
   {
     "category": ["Inequality", "Education Attainment"],
@@ -393,9 +450,11 @@
       "Count_Person_25To34Years_Female",
       "Count_Person_25To34Years_Male"
     ],
-    "canScale": false,
     "scaling": 100,
-    "unit": "%"
+    "unit": "%",
+    "relatedChart": {
+      "scale": false
+    }
   },
   {
     "category": ["Inequality", "Education Attainment"],
@@ -408,9 +467,11 @@
       "Count_Person_25To34Years_Female",
       "Count_Person_25To34Years_Male"
     ],
-    "canScale": false,
     "scaling": 100,
-    "unit": "%"
+    "unit": "%",
+    "relatedChart": {
+      "scale": false
+    }
   },
   {
     "category": ["Inequality", "Education Attainment"],
@@ -423,9 +484,11 @@
       "Count_Person_25To34Years_Female",
       "Count_Person_25To34Years_Male"
     ],
-    "canScale": false,
     "scaling": 100,
-    "unit": "%"
+    "unit": "%",
+    "relatedChart": {
+      "scale": false
+    }
   },
   {
     "category": ["Inequality", "Education Attainment"],
@@ -438,9 +501,11 @@
       "Count_Person_25To34Years_Female",
       "Count_Person_25To34Years_Male"
     ],
-    "canScale": false,
     "scaling": 100,
-    "unit": "%"
+    "unit": "%",
+    "relatedChart": {
+      "scale": false
+    }
   },
   {
     "category": ["Inequality", "Education Attainment"],
@@ -453,33 +518,51 @@
       "Count_Person_25To34Years_Female",
       "Count_Person_25To34Years_Male"
     ],
-    "canScale": false,
     "scaling": 100,
-    "unit": "%"
+    "unit": "%",
+    "relatedChart": {
+      "scale": false
+    }
   },
   {
     "category": ["Crime", "Combined Crime"],
     "title": "Total Crime",
     "statsVars": ["Count_CriminalActivities_CombinedCrime"],
-    "isOverview": true
+    "isOverview": true,
+    "relatedChart": {
+      "scale": true,
+      "denominator": "Count_Person"
+    }
   },
   {
     "category": ["Crime", "Violent"],
     "title": "Violent Crime",
     "statsVars": ["Count_CriminalActivities_ViolentCrime"],
-    "isOverview": true
+    "isOverview": true,
+    "relatedChart": {
+      "scale": true,
+      "denominator": "Count_Person"
+    }
   },
   {
     "category": ["Crime", "Property"],
     "title": "Property Crime",
     "statsVars": ["Count_CriminalActivities_PropertyCrime"],
-    "isOverview": true
+    "isOverview": true,
+    "relatedChart": {
+      "scale": true,
+      "denominator": "Count_Person"
+    }
   },
   {
     "category": ["Crime", "Arson"],
     "title": "Arson",
     "statsVars": ["Count_CriminalActivities_Arson"],
-    "isOverview": true
+    "isOverview": true,
+    "relatedChart": {
+      "scale": true,
+      "denominator": "Count_Person"
+    }
   },
   {
     "category": ["Education", "Attainment"],
@@ -491,14 +574,17 @@
       "Count_Person_EducationalAttainmentMastersDegree",
       "Count_Person_EducationalAttainmentDoctorateDegree"
     ],
-    "denominator": [
-      "Count_Person_25OrMoreYears",
-      "Count_Person_25OrMoreYears",
-      "Count_Person_25OrMoreYears",
-      "Count_Person_25OrMoreYears",
-      "Count_Person_25OrMoreYears"
-    ],
-    "isOverview": true
+    "isOverview": true,
+    "relatedChart": {
+      "scale": true,
+      "denominator": [
+        "Count_Person_25OrMoreYears",
+        "Count_Person_25OrMoreYears",
+        "Count_Person_25OrMoreYears",
+        "Count_Person_25OrMoreYears",
+        "Count_Person_25OrMoreYears"
+      ]
+    }
   },
   {
     "category": ["Education", "Enrollment"],
@@ -507,54 +593,71 @@
       "Count_Person_EnrolledInSchool",
       "Count_Person_NotEnrolledInSchool"
     ],
-    "denominator": ["Count_Person_3OrMoreYears", "Count_Person_3OrMoreYears"],
-    "isOverview": true
+    "isOverview": true,
+    "relatedChart": {
+      "scale": true,
+      "denominator": ["Count_Person_3OrMoreYears", "Count_Person_3OrMoreYears"]
+    }
   },
   {
     "category": ["Demographics", "Population"],
     "title": "Population",
     "statsVars": ["Count_Person"],
-    "canScale": false,
-    "isOverview": true
+    "isOverview": true,
+    "relatedChart": {
+      "scale": false
+    }
   },
   {
     "category": ["Demographics", "Population"],
     "title": "Population Growth Rate",
     "statsVars": ["GrowthRate_Count_Person"],
-    "canScale": false,
-    "isOverview": true
+    "isOverview": true,
+    "relatedChart": {
+      "scale": false
+    }
   },
   {
     "category": ["Demographics", "Population"],
     "title": "Person Per Area",
     "statsVars": ["Count_Person_PerArea"],
-    "canScale": false,
+    "nonDividable": true,
     "isOverview": true
   },
   {
     "category": ["Demographics", "Population"],
     "title": "Life Expectancy",
     "statsVars": ["LifeExpectancy_Person"],
-    "canScale": false,
-    "isOverview": true
+    "isOverview": true,
+    "relatedChart": {
+      "scale": false
+    }
   },
   {
     "category": ["Demographics", "Population"],
     "title": "Fertility Rate",
     "statsVars": ["FertilityRate_Person_Female"],
-    "canScale": false,
-    "isOverview": true
+    "isOverview": true,
+    "relatedChart": {
+      "scale": false
+    }
   },
   {
     "category": ["Demographics", "Gender"],
     "title": "Population by Gender",
-    "statsVars": ["Count_Person_Female", "Count_Person_Male"]
+    "statsVars": ["Count_Person_Female", "Count_Person_Male"],
+    "relatedChart": {
+      "scale": false,
+      "denominator": "Count_Person"
+    }
   },
   {
     "category": ["Demographics", "Gender"],
     "title": "Median Age by Gender",
     "statsVars": ["Median_Age_Person_Female", "Median_Age_Person_Male"],
-    "canScale": false
+    "relatedChart": {
+      "scale": false
+    }
   },
   {
     "category": ["Demographics", "Race"],
@@ -568,7 +671,11 @@
       "Count_Person_SomeOtherRaceAlone",
       "Count_Person_TwoOrMoreRaces",
       "Count_Person_WhiteAlone"
-    ]
+    ],
+    "relatedChart": {
+      "scale": true,
+      "denominator": "Count_Person"
+    }
   },
   {
     "category": ["Demographics", "Race"],
@@ -583,14 +690,18 @@
       "Median_Age_Person_TwoOrMoreRaces",
       "Median_Age_Person_WhiteAlone"
     ],
-    "canScale": false
+    "relatedChart": {
+      "scale": false
+    }
   },
   {
     "category": ["Demographics", "Age"],
     "title": "Median Age",
     "statsVars": ["Median_Age_Person"],
-    "canScale": false,
-    "isOverview": true
+    "isOverview": true,
+    "relatedChart": {
+      "scale": false
+    }
   },
   {
     "category": ["Demographics", "Age"],
@@ -610,7 +721,11 @@
       "Count_Person_55To59Years",
       "Count_Person_60To64Years",
       "Count_Person_65OrMoreYears"
-    ]
+    ],
+    "relatedChart": {
+      "scale": true,
+      "denominator": "Count_Person"
+    }
   },
   {
     "category": ["Demographics", "Citizenship"],
@@ -621,7 +736,11 @@
       "Count_Person_NotAUSCitizen",
       "Count_Person_USCitizenBornAbroadOfAmericanParents"
     ],
-    "isOverview": true
+    "isOverview": true,
+    "relatedChart": {
+      "scale": true,
+      "denominator": "Count_Person"
+    }
   },
   {
     "category": ["Demographics", "Marital Status"],
@@ -633,27 +752,38 @@
       "Count_Person_Widowed",
       "Count_Person_Separated"
     ],
-    "isOverview": true
+    "isOverview": true,
+    "relatedChart": {
+      "scale": true,
+      "denominator": "Count_Person"
+    }
   },
   {
     "category": ["Environment", "Energy"],
     "title": "Energy comsumption Per Capita",
     "statsVars": ["Amount_Consumption_Energy_PerCapita"],
-    "canScale": false,
-    "isOverview": true
+    "isOverview": true,
+    "relatedChart": {
+      "scale": false
+    }
   },
   {
     "category": ["Environment", "Energy"],
     "title": "CO2 Emissions Per Capita",
     "statsVars": ["Amount_Emissions_CarbonDioxide_PerCapita"],
-    "canScale": false,
-    "isOverview": true
+    "isOverview": true,
+    "relatedChart": {
+      "scale": false
+    }
   },
   {
     "category": ["Environment", "Energy"],
     "title": "Electricity Consumption Per Capita",
     "statsVars": ["Amount_Consumption_Electricity_PerCapita"],
-    "canScale": false
+    "nonDividable": true,
+    "relatedChart": {
+      "scale": false
+    }
   },
   {
     "category": ["Environment", "Disaster"],
@@ -668,19 +798,25 @@
       "Count_TornadoEvent",
       "Count_WildlandFireEvent"
     ],
-    "canScale": false,
-    "isOverview": true
+    "isOverview": true,
+    "relatedChart": {
+      "scale": false
+    }
   },
   {
     "category": ["Environment", "Disaster"],
     "title": "Earthquake Event",
     "statsVars": ["Count_EarthquakeEvent"],
-    "canScale": false
+    "relatedChart": {
+      "scale": false
+    }
   },
   {
     "category": ["Environment", "Disaster"],
     "title": "Cyclone Event",
     "statsVars": ["Count_CycloneEvent"],
-    "canScale": false
+    "relatedChart": {
+      "scale": false
+    }
   }
 ]

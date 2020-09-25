@@ -73,7 +73,7 @@ interface ConfigType {
   unit: string;
   exploreUrl: string;
   placeRelation?: string;
-  canScale: boolean;
+  relatedChart: { scale: boolean; denominator: string };
 }
 
 interface ChartCategory {
@@ -557,7 +557,7 @@ class ChartBlock extends Component<ChartBlockPropType, unknown> {
     const conf = { ...config };
     conf.chartType = chartTypeEnum.GROUP_BAR;
     conf.axis = "PLACE";
-    if (conf.canScale == null || conf.canScale) {
+    if (conf.relatedChart != null && conf.relatedChart.scale) {
       conf.perCapita = true;
       conf.unit = "%";
       conf.scaling = 100;
