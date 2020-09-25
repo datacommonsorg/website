@@ -153,7 +153,7 @@ class MainPane extends Component {
           </div>
         </div>
         <div id="main-content">
-          <React.Fragment>
+          <>
             <div className="column" id="breadcrumbs"></div>
             <div id="heading">Loading...</div>
             <div id="error"></div>
@@ -165,8 +165,11 @@ class MainPane extends Component {
                 ref={this.state && this.state["choroplethMap"]}
               ></ChoroplethMap>
             </div>
-            <div id="legend"></div>
-          </React.Fragment>
+            <div id="legend-container">
+              <div id="date"></div>
+              <div id="legend"></div>
+            </div>
+          </>
         </div>
       </div>
     );
