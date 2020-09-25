@@ -581,6 +581,10 @@ class ChartBlock extends Component<ChartBlockPropType, unknown> {
     conf.chartType = chartTypeEnum.LINE;
     conf.title = conf.title + " in " + this.props.placeName;
     result.push(conf);
+    if (!isPlaceInUsa(this.props.parentPlaces)) {
+      // Temporarily drop comparison charts for non-US Places
+      return result;
+    }
 
     conf = { ...config };
     conf.chartType = chartTypeEnum.GROUP_BAR;
