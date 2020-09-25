@@ -613,7 +613,7 @@
   },
   {
     "category": ["Demographics", "Population"],
-    "title": "Person Per Area",
+    "title": "Population Density",
     "statsVars": ["Count_Person_PerArea"],
     "nonDividable": true,
     "isOverview": true
