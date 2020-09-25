@@ -81,7 +81,7 @@ window.onload = () => {
       new DataPoint("2012", 5000),
       new DataPoint("2013", 2000),
     ]),
-    new DataGroup("VeryLongCityName", [
+    new DataGroup("Very-Long-City-Name", [
       new DataPoint("2011", 1000),
       new DataPoint("2012", 5000),
       new DataPoint("2013", 2000),
