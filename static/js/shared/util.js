@@ -500,23 +500,24 @@ function randDomId() {
 }
 
 /**
- * Returns pluralized place type.
+ * Returns place type, possibly pluralized if requested.
  *
  * @param {string} placeType PlaceType, as taken from the Data Commons Graph (in CamelCase).
+ * @param {boolean} isPlural True if the result should be pluralized.
  *
  * @return {string} Pluralized string for display.
  */
-function pluralizedDisplayNameForPlaceType(placeType) {
-  if (placeType.startsWith("AdministrativeArea")) {
-    return placeType.replace("AdministrativeArea", "Administrative Area ");
+function displayNameForPlaceType(placeType, isPlural = false) {
+  if (
+    placeType.startsWith("AdministrativeArea") ||
+    placeType.startsWith("Eurostat")
+  ) {
+    return isPlural ? "Places" : "Place";
   }
-  if (placeType.startsWith("Eurostat")) {
-    return placeType.replace("EurostatNUTS", "Eurostat NUTS ");
+  if (placeType === "CensusZipCodeTabulationArea") {
+    return isPlural ? "Zip Codes" : "Zip Code";
   }
-  if (placeType == "CensusZipCodeTabulationArea") {
-    return "Zip Codes";
-  }
-  return pluralize(placeType);
+  return isPlural ? pluralize(placeType) : placeType;
 }
 
 export {
@@ -547,5 +548,5 @@ export {
   unzip,
   setElementShown,
   randDomId,
-  pluralizedDisplayNameForPlaceType,
+  displayNameForPlaceType,
 };
