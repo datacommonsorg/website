@@ -192,7 +192,8 @@ def get_dates_for_stat_vars(chart_config, sv_data):
 def build_config(raw_config):
     """Builds hierachical config based on raw config."""
     category_map = {}
-    for config in raw_config:
+    for conf in raw_config:
+        config = copy.deepcopy(conf)
         is_overview = ('isOverview' in config and config['isOverview'])
         # isOverview field is not used in the built chart config.
         if 'isOverview' in config:
@@ -223,9 +224,6 @@ def config(dcid):
     Get chart config and cache data for a given place.
     """
     raw_config = current_app.config['CHART_CONFIG']
-    if os.environ.get('FLASK_ENV') == 'development':
-        with bp.open_resource('../../chart_config.json') as f:
-            raw_config = json.load(f)
     chart_config = build_config(raw_config)
 
     all_stats_vars = set(place_api.statsvars(dcid))
