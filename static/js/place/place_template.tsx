@@ -372,7 +372,7 @@ class MainPane extends Component<MainPanePropType, unknown> {
           return (
             <section className="subtopic col-12" key={index}>
               {subtopicHeader}
-              <div>
+              <div className="row row-cols-md-2 row-cols-1">
                 {item.charts.map((config: ConfigType, index) => {
                   return (
                     <ChartBlock
@@ -532,27 +532,25 @@ class ChartBlock extends Component<ChartBlockPropType, unknown> {
           this.props.config
         );
     return (
-      <div className="chart-block">
-        <div className="row row-cols-md-2 row-cols-1">
-          {configList.map((item) => {
-            const id = randDomId();
-            return (
-              <Chart
-                key={id}
-                id={id}
-                config={item}
-                dcid={this.props.dcid}
-                placeType={this.props.placeType}
-                parentPlaces={this.props.parentPlaces}
-                childPlaces={this.props.childPlaces}
-                similarPlaces={this.props.similarPlaces}
-                nearbyPlaces={this.props.nearbyPlaces}
-                chartData={this.props.chartData}
-              />
-            );
-          })}
-        </div>
-      </div>
+      <>
+        {configList.map((item) => {
+          const id = randDomId();
+          return (
+            <Chart
+              key={id}
+              id={id}
+              config={item}
+              dcid={this.props.dcid}
+              placeType={this.props.placeType}
+              parentPlaces={this.props.parentPlaces}
+              childPlaces={this.props.childPlaces}
+              similarPlaces={this.props.similarPlaces}
+              nearbyPlaces={this.props.nearbyPlaces}
+              chartData={this.props.chartData}
+            />
+          );
+        })}
+      </>
     );
   }
 
