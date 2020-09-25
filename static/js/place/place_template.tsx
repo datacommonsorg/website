@@ -797,7 +797,12 @@ class Chart extends Component<ChartPropType, ChartStateType> {
     const dg = this.state.dataGroups;
     if (
       (dp && dp.length === 0) ||
-      (dg && (dg.length === 0 || (dg.length === 1 && dg[0].value.length === 0)))
+      (dg &&
+        (dg.length === 0 || (dg.length === 1 && dg[0].value.length === 0))) ||
+      (this.props.config.chartType == "LINE" &&
+        dg &&
+        dg.length === 1 &&
+        dg[0].value.length === 1)
     ) {
       // When there is no data, do not show the current chart.
       console.log(
