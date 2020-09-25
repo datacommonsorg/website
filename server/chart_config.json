@@ -3,7 +3,7 @@
     "category": ["Economics", "Unemployment"],
     "title": "Unemployment Rate",
     "statsVars": ["UnemploymentRate_Person"],
-    "canScale": false,
+    "isRate": true,
     "unit": "%",
     "isOverview": true
   },
@@ -40,6 +40,7 @@
     "category": ["Economics", "Economic Activity"],
     "title": "Gross Domestic Product",
     "statsVars": ["Amount_EconomicActivity_GrossDomesticProduction_Nominal"],
+    "canScale": false,
     "unit": "$",
     "isOverview": true
   },
@@ -172,13 +173,6 @@
       "Count_Death_ExternalCauses",
       "Count_Death_DiseasesOfTheNervousSystem"
     ],
-    "denominator": [
-      "Count_Death",
-      "Count_Death",
-      "Count_Death",
-      "Count_Death",
-      "Count_Death"
-    ],
     "isOverview": true
   },
   {
@@ -195,6 +189,7 @@
     "canScale": false,
     "isOverview": true
   },
+  // isRateChart ?
   {
     "category": ["Health", "Health Behaviors"],
     "title": "Health Behaviors",
@@ -496,6 +491,13 @@
       "Count_Person_EducationalAttainmentMastersDegree",
       "Count_Person_EducationalAttainmentDoctorateDegree"
     ],
+    "denominator": [
+      "Count_Person_25OrMoreYears",
+      "Count_Person_25OrMoreYears",
+      "Count_Person_25OrMoreYears",
+      "Count_Person_25OrMoreYears",
+      "Count_Person_25OrMoreYears"
+    ],
     "isOverview": true
   },
   {
@@ -505,6 +507,7 @@
       "Count_Person_EnrolledInSchool",
       "Count_Person_NotEnrolledInSchool"
     ],
+    "denominator": ["Count_Person_3OrMoreYears", "Count_Person_3OrMoreYears"],
     "isOverview": true
   },
   {

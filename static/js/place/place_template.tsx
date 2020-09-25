@@ -527,11 +527,7 @@ class ChartBlock extends Component<ChartBlockPropType, unknown> {
   render() {
     const configList = this.props.isOverview
       ? this.buildOverviewConfig(this.props.placeType, this.props.config)
-      : this.buildTopicConfig(
-          this.props.placeName,
-          this.props.placeType,
-          this.props.config
-        );
+      : this.buildTopicConfig(this.props.placeType, this.props.config);
     return (
       <div className="chart-block">
         <div className="row row-cols-md-2 row-cols-1">
@@ -592,11 +588,7 @@ class ChartBlock extends Component<ChartBlockPropType, unknown> {
     return result;
   }
 
-  private buildTopicConfig(
-    placeName: string,
-    placeType: string,
-    config: ConfigType
-  ) {
+  private buildTopicConfig(placeType: string, config: ConfigType) {
     const result: ConfigType[] = [];
     let conf = { ...config };
     conf.chartType = chartTypeEnum.LINE;
