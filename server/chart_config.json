@@ -577,13 +577,7 @@
     "isOverview": true,
     "relatedChart": {
       "scale": true,
-      "denominator": [
-        "Count_Person_25OrMoreYears",
-        "Count_Person_25OrMoreYears",
-        "Count_Person_25OrMoreYears",
-        "Count_Person_25OrMoreYears",
-        "Count_Person_25OrMoreYears"
-      ]
+      "denominator": "Count_Person_25OrMoreYears"
     }
   },
   {
@@ -596,7 +590,7 @@
     "isOverview": true,
     "relatedChart": {
       "scale": true,
-      "denominator": ["Count_Person_3OrMoreYears", "Count_Person_3OrMoreYears"]
+      "denominator": "Count_Person_3OrMoreYears"
     }
   },
   {
