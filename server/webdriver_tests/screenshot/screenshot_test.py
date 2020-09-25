@@ -95,7 +95,7 @@ TEST_URLS = [
         'url': '/dev',
         'filename_suffix': 'dev_charts.png',
         'test_class': 'chart',
-        'height': 1000
+        'height': 5000
     },
 ]
 
