@@ -467,19 +467,18 @@ class ChildPlace extends Component<ChildPlacePropType, unknown> {
             <div className="child-place-type">
               {displayNameForPlaceType(placeType, true /* isPlural */)}
             </div>
-            {this.props.childPlaces[placeType]
-              .map((place, i) => (
-                <a
-                  key={place.dcid}
-                  className="child-place-link"
-                  href={"/place?dcid=" + place.dcid}
-                >
-                  {place.name}
-                  {i < this.props.childPlaces[placeType].length - 1 && (
-                    <span>,</span>
-                  )}
-                </a>
-              ))}
+            {this.props.childPlaces[placeType].map((place, i) => (
+              <a
+                key={place.dcid}
+                className="child-place-link"
+                href={"/place?dcid=" + place.dcid}
+              >
+                {place.name}
+                {i < this.props.childPlaces[placeType].length - 1 && (
+                  <span>,</span>
+                )}
+              </a>
+            ))}
           </div>
         ))}
       </React.Fragment>
@@ -646,8 +645,9 @@ class ChartBlock extends Component<ChartBlockPropType, unknown> {
       conf.axis = "PLACE";
       const childPlaceType = isPlaceInUsa(this.props.parentPlaces)
         ? displayNameForPlaceType(
-            childPlaceTypeWithMostPlaces(this.props.childPlaces)
-            .toLocaleLowerCase(),
+            childPlaceTypeWithMostPlaces(
+              this.props.childPlaces
+            ).toLocaleLowerCase(),
             true /* isPlural */
           )
         : "places";
@@ -661,8 +661,7 @@ class ChartBlock extends Component<ChartBlockPropType, unknown> {
       conf.chartType = chartTypeEnum.GROUP_BAR;
       conf.placeRelation = placeRelationEnum.CONTAINED;
       conf.axis = "PLACE";
-      conf.title =
-        `${conf.title} across places that contain ${this.props.placeName}`;
+      conf.title = `${conf.title} across places that contain ${this.props.placeName}`;
       result.push(conf);
     }
     return result;
