@@ -188,3 +188,95 @@ class TestBuildConfig(unittest.TestCase):
     with open('tests/test_data/golden_config.json') as f:
         expected = json.load(f)
         assert expected == result
+
+
+class TestChoroplethPlaces(unittest.TestCase):
+
+    @patch('routes.api.chart.dc_service.get_places_in')
+    @patch('routes.api.chart.place_api.get_place_type')
+    def test_get_choropleth_places_has_display_level(self, mock_place_type,
+                                                     mock_places_in):
+        dcid = "test_dcid1"
+        expected = ["dcid1", "dcid2"]
+
+        def get_places_in_(*args):
+            if args[1] == "AdministrativeArea1":
+                return {dcid: expected}
+            else:
+                return {dcid: []}
+
+        mock_place_type.return_value = "Country"
+        mock_places_in.side_effect = get_places_in_
+        result = chart_api.get_choropleth_places(dcid)
+        assert result == expected
+
+    @patch('routes.api.chart.dc_service.get_places_in')
+    @patch('routes.api.chart.place_api.get_place_type')
+    def test_get_choropleth_places_equivalent_has_display_level(
+            self, mock_place_type, mock_places_in):
+        dcid = "test_dcid2"
+        expected = ["dcid1", "dcid2"]
+
+        def get_places_in_(*args):
+            if args[1] == "AdministrativeArea2":
+                return {dcid: expected}
+            else:
+                return {dcid: []}
+
+        mock_place_type.return_value = "AdministrativeArea1"
+        mock_places_in.side_effect = get_places_in_
+        result = chart_api.get_choropleth_places(dcid)
+        assert result == expected
+
+    @patch('routes.api.chart.dc_service.get_places_in')
+    @patch('routes.api.chart.place_api.get_place_type')
+    def test_get_choropleth_places_has_no_display_level(self, mock_place_type,
+                                                        mock_places_in):
+        dcid = "test_dcid3"
+
+        def get_places_in_(*args):
+            if args[1] == "AdministrativeArea1":
+                return {dcid: ["dcid1", "dcid2"]}
+            elif args[1] == "AdministrativeArea2":
+                return {dcid: ["dcid1", "dcid2"]}
+            else:
+                return {dcid: []}
+
+        mock_place_type.return_value = "County"
+        mock_places_in.side_effect = get_places_in_
+        result = chart_api.get_choropleth_places(dcid)
+        assert result == []
+
+    class TestGetGeoJson(unittest.TestCase):
+
+        @staticmethod
+        def side_effect(*args):
+            return args[0]
+
+        @patch(
+            'routes.api.chart.choropleth_api.coerce_geojson_to_righthand_rule')
+        @patch('routes.api.chart.dc_service.get_property_values')
+        @patch('routes.api.chart.place_api.get_display_name')
+        @patch('routes.api.chart.get_choropleth_places')
+        def test_get_geojson(self, mock_places, mock_display_name,
+                             mock_geojson_values, mock_choropleth_helper):
+            dcid1 = "dcid1"
+            dcid2 = "dcid2"
+            mock_places.return_value = [dcid1, dcid2]
+            mock_display_name.return_value = {dcid1: dcid1, dcid2: dcid2}
+            mock_geojson_values.return_value = {
+                dcid1: json.dumps({
+                    "coordinates": [],
+                    "type": "Polygon"
+                }),
+                dcid2: json.dumps({
+                    "coordinates": [],
+                    "type": "MultiPolygon"
+                })
+            }
+            mock_choropleth_helper.side_effect = self.side_effect
+            response = app.test_client().get('/api/chart/geojson/' + dcid1)
+            assert response.status_code == 200
+            response_data = json.loads(response.data)
+            assert len(response_data['features']) == 2
+            assert len(response_data['properties']['current_geo']) == dcid1
