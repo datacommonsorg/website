@@ -91,7 +91,7 @@ class TestPlaceExplorer(WebdriverBaseTest):
         chart_title = age_across_places_chart.find_element_by_tag_name(
             "h4").text
         self.assertEqual(
-            "Population by Gender acrosst  states near California(2018)",
+            "Population by Gender across states near California(2018)",
             chart_title)
 
 
