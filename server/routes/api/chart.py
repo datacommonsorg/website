@@ -24,12 +24,21 @@ import urllib
 import services.datacommons as dc_service
 import routes.api.place as place_api
 import os
+import routes.api.choropleth as choropleth_api
 
 from cache import cache
-from flask import Blueprint, current_app, Response, url_for
-
+from flask import Blueprint, current_app, Response, url_for, jsonify
+from routes.api.place import EQUIVALENT_PLACE_TYPES
 # Define blueprint
 bp = Blueprint("api_chart", __name__, url_prefix='/api/chart')
+
+# Place type to get choropleth for, keyed by place type
+# TODO: Come up with a catch all way to determine place type to get choropleth for because
+# this works for US places, but hierarchy of places in other countries may be different
+CHOROPLETH_DISPLAY_LEVEL_MAP = {
+    "Country": "AdministrativeArea1",
+    "AdministrativeArea1": "AdministrativeArea2"
+}
 
 
 def filter_charts(charts, all_stats_vars):
@@ -296,3 +305,76 @@ def config(dcid):
     }
 
     return Response(json.dumps(response), 200, mimetype='application/json')
+
+
+@cache.memoize(timeout=3600 * 24)  # Cache for one day.
+def get_choropleth_places(geoDcid):
+    """ Get the list of places to show on a choropleth chart for a given place
+
+    Args:
+        geoDcid: dcid of the place of interest
+    
+    Returns:
+        list of dcids
+    """
+    result = []
+    place_type = place_api.get_place_type(geoDcid)
+    display_level = None
+    if place_type in CHOROPLETH_DISPLAY_LEVEL_MAP:
+        display_level = CHOROPLETH_DISPLAY_LEVEL_MAP[place_type]
+    elif place_type in EQUIVALENT_PLACE_TYPES and EQUIVALENT_PLACE_TYPES[
+            place_type] in CHOROPLETH_DISPLAY_LEVEL_MAP:
+        place_type = EQUIVALENT_PLACE_TYPES[place_type]
+        display_level = CHOROPLETH_DISPLAY_LEVEL_MAP[place_type]
+    else:
+        return result
+    result = dc_service.get_places_in([geoDcid], display_level).get(geoDcid, [])
+    return result
+
+
+@bp.route('/geojson/<path:dcid>')
+@cache.memoize(timeout=3600 * 24)  # Cache for one day.
+def geojson(dcid):
+    """
+    Get geoJson data for a given place
+    """
+    geos = get_choropleth_places(dcid)
+    if not geos:
+        return Response(json.dumps({}), 200, mimetype='application/json')
+
+    names_by_geo = place_api.get_display_name('^'.join(geos))
+    geojson_by_geo = dc_service.get_property_values(geos,
+                                                    "geoJsonCoordinatesDP3")
+    features = []
+    for geo_id, json_text in geojson_by_geo.items():
+        if json_text and geo_id in names_by_geo:
+            geo_feature = {
+                "type": "Feature",
+                "geometry": {
+                    "type": "MultiPolygon",
+                },
+                "id": geo_id,
+                "properties": {
+                    "name": names_by_geo.get(geo_id, "Unnamed Area"),
+                    "hasSublevel": False,
+                    "geoDcid": geo_id,
+                }
+            }
+            # Load, simplify, and add geoJSON coordinates.
+            # Exclude geo if no or multiple renderings are present.
+            if len(json_text) != 1:
+                continue
+            geojson = json.loads(json_text[0])
+            geo_feature['geometry']['coordinates'] = (
+                choropleth_api.coerce_geojson_to_righthand_rule(
+                    geojson['coordinates'], geojson['type']))
+            features.append(geo_feature)
+    return Response(json.dumps({
+        "type": "FeatureCollection",
+        "features": features,
+        "properties": {
+            "current_geo": dcid
+        }
+    }),
+                    200,
+                    mimetype='application/json')
