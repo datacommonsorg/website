@@ -18,7 +18,7 @@ import React, { Component, createRef } from "react";
 import axios from "axios";
 import { DataPoint, DataGroup } from "../chart/base";
 
-import { pluralizedDisplayNameForPlaceType, randDomId } from "../shared/util";
+import { displayNameForPlaceType, randDomId } from "../shared/util";
 import {
   drawLineChart,
   drawSingleBarChart,
@@ -76,23 +76,40 @@ interface ConfigType {
   relatedChart: { scale: boolean; denominator: string };
 }
 
+type parentPlacesType = { dcid: string; name: string }[];
+type childPlacesType = {
+  [type: string]: { dcid: string; name: string; pop: number }[];
+};
+
 interface ChartCategory {
   label: string;
   charts: ConfigType[];
   children: { label: string; charts: ConfigType[] }[];
 }
 
-function displayNameForPlaceType(placeType: string): string {
-  if (
-    placeType.startsWith("AdministrativeArea") ||
-    placeType.startsWith("Eurostat")
-  ) {
-    return "Place";
+/**
+ * Given a list of parent places, return true if the place is in USA.
+ */
+function isPlaceInUsa(parentPlaces: parentPlacesType): boolean {
+  for (const parent of parentPlaces) {
+    if (parent.dcid == "country/USA") {
+      return true;
+    }
   }
-  if (placeType === "CensusZipCodeTabulationArea") {
-    return "Zip Code";
+  return false;
+}
+
+function childPlaceTypeWithMostPlaces(childPlaces: childPlacesType): string {
+  let maxType = "place";
+  let maxChildren = 0;
+  for (const type in childPlaces) {
+    const children = childPlaces[type];
+    if (children.length > maxChildren) {
+      maxChildren = children.length;
+      maxType = type;
+    }
   }
-  return placeType;
+  return maxType;
 }
 
 interface ParentPlacePropsType {
@@ -303,11 +320,11 @@ interface MainPanePropType {
   /**
    * An array of parent place objects.
    */
-  parentPlaces: { dcid: string; name: string }[];
+  parentPlaces: parentPlacesType;
   /**
    * An object from child place types to child places dcids.
    */
-  childPlaces: { [key: string]: { dcid: string }[] };
+  childPlaces: childPlacesType;
   /**
    * Similar places dcids.
    */
@@ -346,7 +363,7 @@ class MainPane extends Component<MainPanePropType, unknown> {
     }
     return (
       <React.Fragment>
-        {this.props.dcid.startsWith("geoId") && (
+        {isPlaceInUsa(this.props.parentPlaces) && (
           // Only Show map and ranking for US places.
           <Overview topic={this.props.topic} dcid={this.props.dcid} />
         )}
@@ -434,7 +451,7 @@ class Overview extends Component<OverviewPropType, unknown> {
 }
 
 interface ChildPlacePropType {
-  childPlaces: { string: { dcid: string; name: string }[] };
+  childPlaces: childPlacesType;
   placeName: string;
 }
 
@@ -449,22 +466,20 @@ class ChildPlace extends Component<ChildPlacePropType, unknown> {
         {Object.keys(this.props.childPlaces).map((placeType) => (
           <div key={placeType} className="child-place-group">
             <div className="child-place-type">
-              {pluralizedDisplayNameForPlaceType(placeType)}
+              {displayNameForPlaceType(placeType, true /* isPlural */)}
             </div>
-            {this.props.childPlaces[placeType]
-              .sort((a, b) => a.name > b.name)
-              .map((place, i) => (
-                <a
-                  key={place.dcid}
-                  className="child-place-link"
-                  href={"/place?dcid=" + place.dcid}
-                >
-                  {place.name}
-                  {i < this.props.childPlaces[placeType].length - 1 && (
-                    <span>,</span>
-                  )}
-                </a>
-              ))}
+            {this.props.childPlaces[placeType].map((place, i) => (
+              <a
+                key={place.dcid}
+                className="child-place-link"
+                href={"/place?dcid=" + place.dcid}
+              >
+                {place.name}
+                {i < this.props.childPlaces[placeType].length - 1 && (
+                  <span>,</span>
+                )}
+              </a>
+            ))}
           </div>
         ))}
       </React.Fragment>
@@ -499,11 +514,11 @@ interface ChartBlockPropType {
    * Parent object are sorted by enclosing order. For example:
    * "San Jose", "Santa Clara County", "California"
    */
-  parentPlaces: { dcid: string; name: string }[];
+  parentPlaces: parentPlacesType;
   /**
    * The child places keyed by place types.
    */
-  childPlaces: { [key: string]: { dcid: string }[] };
+  childPlaces: childPlacesType;
   /**
    * The similar places.
    */
@@ -572,14 +587,24 @@ class ChartBlock extends Component<ChartBlockPropType, unknown> {
     conf.chartType = chartTypeEnum.LINE;
     conf.title = conf.title + " in " + this.props.placeName;
     result.push(conf);
+    if (!isPlaceInUsa(this.props.parentPlaces)) {
+      // Temporarily drop comparison charts for non-US Places
+      return result;
+    }
 
     conf = this.copyAndUpdateConfig(config);
     if (placeType === "Country") {
       // Containing place chart
-      conf.title = conf.title + " for places within " + this.props.placeName;
+      const childPlaceType =
+        this.props.dcid == "country/USA" ? "states" : "places";
+      conf.title = `${conf.title} across ${childPlaceType} within ${this.props.placeName}`;
       conf.placeRelation = placeRelationEnum.CONTAINING;
     } else {
-      conf.title = conf.title + " for places near " + this.props.placeName;
+      const displayPlaceType = displayNameForPlaceType(
+        placeType,
+        true /* isPlural */
+      ).toLocaleLowerCase();
+      conf.title = `${conf.title} across ${displayPlaceType} near ${this.props.placeName}`;
       conf.placeRelation = placeRelationEnum.NEARBY;
     }
     result.push(conf);
@@ -593,38 +618,43 @@ class ChartBlock extends Component<ChartBlockPropType, unknown> {
     conf.title = conf.title + " in " + this.props.placeName;
     result.push(conf);
 
-    let displayPlaceType = placeType;
-    if (placeType !== "Country") {
-      displayPlaceType = pluralizedDisplayNameForPlaceType(
-        placeType
-      ).toLocaleLowerCase();
-    }
+    const displayPlaceType = displayNameForPlaceType(
+      placeType,
+      true /* isPlural */
+    ).toLocaleLowerCase();
     if (placeType !== "Country") {
       // Nearby places
       conf = this.copyAndUpdateConfig(config);
       conf.placeRelation = placeRelationEnum.NEARBY;
-      conf.title = `${conf.title} for ${displayPlaceType} near ${this.props.placeName}`;
+      conf.title = `${conf.title} across ${displayPlaceType} near ${this.props.placeName}`;
       result.push(conf);
     }
     if (placeType !== "Country") {
       // Similar places
       conf = this.copyAndUpdateConfig(config);
       conf.placeRelation = placeRelationEnum.SIMILAR;
-      conf.title = `${conf.title} for other ${displayPlaceType}`;
+      conf.title = `${conf.title} across other ${displayPlaceType}`;
       result.push(conf);
     }
     if (placeType !== "City") {
       // Children places
       conf = this.copyAndUpdateConfig(config);
       conf.placeRelation = placeRelationEnum.CONTAINING;
-      conf.title = conf.title + " for places within " + this.props.placeName;
+      const childPlaceType = isPlaceInUsa(this.props.parentPlaces)
+        ? displayNameForPlaceType(
+            childPlaceTypeWithMostPlaces(
+              this.props.childPlaces
+            ).toLocaleLowerCase(),
+            true /* isPlural */
+          )
+        : "places";
+      conf.title = `${conf.title} across ${childPlaceType} within ${this.props.placeName}`;
       result.push(conf);
     } else {
       // Parent places.
       conf = this.copyAndUpdateConfig(config);
       conf.placeRelation = placeRelationEnum.CONTAINED;
-      conf.title =
-        conf.title + " for places that contain " + this.props.placeName;
+      conf.title = `${conf.title} across places that contain ${this.props.placeName}`;
       result.push(conf);
     }
     return result;
@@ -654,11 +684,11 @@ interface ChartPropType {
    * Parent object are sorted by enclosing order. For example:
    * "San Jose", "Santa Clara County", "California"
    */
-  parentPlaces: { dcid: string; name: string }[];
+  parentPlaces: parentPlacesType;
   /**
    * The child places keyed by place type.
    */
-  childPlaces: { [key: string]: { dcid: string }[] };
+  childPlaces: childPlacesType;
   /**
    * The similar places.
    */
@@ -797,8 +827,9 @@ class Chart extends Component<ChartPropType, ChartStateType> {
         (dg.length === 0 || (dg.length === 1 && dg[0].value.length === 0))) ||
       (this.props.config.chartType == "LINE" &&
         dg &&
-        dg.length === 1 &&
-        dg[0].value.length === 1)
+        dg.reduce((accum, group) => {
+          return accum || group.value.length === 1;
+        }, false))
     ) {
       // When there is no data, do not show the current chart.
       console.log(

@@ -20,7 +20,7 @@ import { STATS_VAR_TITLES } from "../shared/stats_var_titles";
 import { LocationRankData } from "./ranking_types";
 import { RankingHistogram } from "./ranking_histogram";
 import { RankingTable } from "./ranking_table";
-import { pluralizedDisplayNameForPlaceType } from "../shared/util";
+import { displayNameForPlaceType } from "../shared/util";
 
 const GET_BOTTOM_PARAM = "bottom";
 const RANK_SIZE = 100;
@@ -96,8 +96,8 @@ class Page extends React.Component<RankingPagePropType, RankingPageStateType> {
             : svData.rankTop1000
             ? "Top " + RANK_SIZE
             : "Bottom " + RANK_SIZE}{" "}
-          {pluralizedDisplayNameForPlaceType(this.props.placeType)} in{" "}
-          {this.props.placeName}
+          {displayNameForPlaceType(this.props.placeType, true /* isPlural */)}{" "}
+          in {this.props.placeName}
           {subtitle}
           {this.renderToggle()}
         </h3>
@@ -128,9 +128,10 @@ class Page extends React.Component<RankingPagePropType, RankingPageStateType> {
           respData = resp.data.payload[this.props.statVar];
           document.title = `${
             STATS_VAR_TITLES[this.props.statVar]
-          } of ${pluralizedDisplayNameForPlaceType(this.props.placeType)} in ${
-            this.props.placeName
-          } | Place Rankings`;
+          } of ${displayNameForPlaceType(
+            this.props.placeType,
+            true /* isPlural */
+          )} in ${this.props.placeName} | Place Rankings`;
         }
         this.setState({
           data: respData,
