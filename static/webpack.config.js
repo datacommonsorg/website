@@ -22,7 +22,7 @@ const config = {
   entry: {
     // TODO(intrepiditee): Rename to scatter when ready.
     scatter2: [
-      __dirname + "/js/tools/scatter2/scatter2.tsx",
+      __dirname + "/js/tools/scatter2/scatter2.ts",
       __dirname + "/css/tools/scatter2.scss",
     ],
     choropleth: [
