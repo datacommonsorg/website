@@ -14,7 +14,8 @@
  * limitations under the License.
  */
 
-import React, { Component, createRef } from "react";
+import React from "react";
+import ReactDOM from "react-dom";
 import { DataPoint, DataGroup } from "../chart/base";
 import {
   drawLineChart,
@@ -34,6 +35,7 @@ import {
   placeRelationEnum,
 } from "./types";
 import { updatePageLayoutState } from "./place";
+import { ChartEmbed } from "./chart_embed";
 
 const CHART_HEIGHT = 194;
 
@@ -86,32 +88,31 @@ interface ChartStateType {
   dateSelected?: string;
   sources: string[];
   display: boolean;
+  showModal: boolean;
 }
 
-class Chart extends Component<ChartPropType, ChartStateType> {
+class Chart extends React.Component<ChartPropType, ChartStateType> {
   chartElement: React.RefObject<HTMLDivElement>;
-  similarRef: React.RefObject<HTMLOptionElement>;
-  nearbyRef: React.RefObject<HTMLOptionElement>;
-  parentRef: React.RefObject<HTMLOptionElement>;
-  childrenRef: React.RefObject<HTMLOptionElement>;
+  svgContainerElement: React.RefObject<HTMLDivElement>;
+  embedModalElement: React.RefObject<ChartEmbed>;
   dcid: string;
 
   constructor(props: ChartPropType) {
     super(props);
-    this.chartElement = createRef();
-    this.similarRef = createRef();
-    this.nearbyRef = createRef();
-    this.parentRef = createRef();
-    this.childrenRef = createRef();
+    this.chartElement = React.createRef();
+    this.svgContainerElement = React.createRef();
+    this.embedModalElement = React.createRef();
 
     this.state = {
-      elemWidth: 0,
-      sources: [],
       display: true,
+      elemWidth: 0,
+      showModal: false,
+      sources: [],
     };
     // Consider debouncing / throttling this if it gets expensive at
     // small screen sizes
     this._handleWindowResize = this._handleWindowResize.bind(this);
+    this._handleEmbed = this._handleEmbed.bind(this);
     this.dcid = props.dcid;
   }
 
@@ -123,6 +124,7 @@ class Chart extends Component<ChartPropType, ChartStateType> {
   }
 
   render(): JSX.Element {
+    console.log(this.state);
     if (!this.state.display) {
       return null;
     }
@@ -155,7 +157,11 @@ class Chart extends Component<ChartPropType, ChartStateType> {
             {config.title}
             <span className="sub-title">{dateString}</span>
           </h4>
-          <div id={this.props.id} className="svg-container"></div>
+          <div
+            id={this.props.id}
+            ref={this.svgContainerElement}
+            className="svg-container"
+          ></div>
           <footer className="row explore-more-container">
             <div>
               <span>Data from </span>
@@ -175,9 +181,11 @@ class Chart extends Component<ChartPropType, ChartStateType> {
               </span>
             </div>
             <div>
+              <a href="#" onClick={this._handleEmbed}>
+                Embed
+              </a>
               <a
                 target="_blank"
-                rel="noreferrer"
                 className="explore-more"
                 href={config.exploreUrl}
               >
@@ -186,6 +194,7 @@ class Chart extends Component<ChartPropType, ChartStateType> {
             </div>
           </footer>
         </div>
+        <ChartEmbed ref={this.embedModalElement} />
       </div>
     );
   }
@@ -237,17 +246,40 @@ class Chart extends Component<ChartPropType, ChartStateType> {
   }
 
   _handleWindowResize(): void {
-    const svgElement = document.getElementById(this.props.id);
+    const svgElement = this.svgContainerElement.current;
     if (!svgElement) {
       return;
     }
     // Chart resizes at bootstrap breakpoints
-    const width = svgElement.offsetWidth;
+    const width = this.svgContainerElement.current.offsetWidth;
     if (width !== this.state.elemWidth) {
       this.setState({
         elemWidth: width,
       });
     }
+  }
+
+  /**
+   * Handle clicks on "embed chart" link.
+   */
+  _handleEmbed(e): void {
+    e.preventDefault();
+    // const svgElem = this.svgCh
+    const svgHTML = this.svgContainerElement.current.innerHTML;
+    this.embedModalElement.current.show(svgHTML);
+    /*
+    ReactDOM.render(
+      React.createElement(ChartEmbed, {
+        svgHTML: this.svgContainerElement.current.innerHTML,
+      }),
+      document.getElementById("modal")
+    );
+    */
+    // ReactDOM.createPortal(
+    //   <ChartEmbed svgHTML={this.svgContainerElement.current.innerHTML} />,
+    //   document.body
+    // );
+    // <ChartEmbed />);
   }
 
   drawChart(): void {
