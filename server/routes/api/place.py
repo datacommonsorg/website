@@ -16,6 +16,7 @@ import collections
 import json
 import random
 import re
+import time
 
 from flask import Blueprint, jsonify, request, Response, url_for
 
@@ -50,6 +51,7 @@ EQUIVALENT_PLACE_TYPES = {
 }
 
 CHILD_PLACE_LIMIT = 50
+SIMILAR_PLACE_LIMIT = 5
 
 # Minimal population count for a place to show up in nearby places list.
 MIN_POP = 5000
@@ -399,6 +401,8 @@ def api_similar_places(stats_var, dcid):
     selected from curated cohort. Otherwise, the similar places are by stats
     var within the same place.
     """
+    # Seed with current day of the year
+    random.seed(time.localtime().tm_yday)
     # Choose city from US city cohort.
     match = re.match(r'geoId/\d{7}', dcid)
     if match:
@@ -408,7 +412,7 @@ def api_similar_places(stats_var, dcid):
         for city in city_cohort:
             if city != dcid:
                 result.append(city)
-            if len(result) == 5:
+            if len(result) == SIMILAR_PLACE_LIMIT:
                 return Response(json.dumps(result),
                                 200,
                                 mimetype='application/json')
@@ -420,7 +424,7 @@ def api_similar_places(stats_var, dcid):
         for county in county_cohort:
             if county != dcid:
                 result.append(county)
-            if len(result) == 5:
+            if len(result) == SIMILAR_PLACE_LIMIT:
                 return Response(json.dumps(result),
                                 200,
                                 mimetype='application/json')
