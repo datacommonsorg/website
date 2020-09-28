@@ -402,7 +402,7 @@ def api_similar_places(stats_var, dcid):
     var within the same place.
     """
     # Seed with current day of the year
-    random.seed(time.localtime().tm_yday)
+    random.seed(dcid + str(time.localtime().tm_yday))
     # Choose city from US city cohort.
     match = re.match(r'geoId/\d{7}', dcid)
     if match:
