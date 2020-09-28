@@ -20,7 +20,7 @@ import { STATS_VAR_TITLES } from "../shared/stats_var_titles";
 import { LocationRankData } from "./ranking_types";
 import { RankingHistogram } from "./ranking_histogram";
 import { RankingTable } from "./ranking_table";
-import { displayNameForPlaceType } from "../shared/util";
+import { displayNameForPlaceType } from "../place/util";
 
 const GET_BOTTOM_PARAM = "bottom";
 const RANK_SIZE = 100;
@@ -137,7 +137,7 @@ class Page extends React.Component<RankingPagePropType, RankingPageStateType> {
           data: respData,
         });
       })
-      .catch((error) => {
+      .catch(() => {
         // TODO(beets): Add better error handling messages
         this.setState({
           data: null,

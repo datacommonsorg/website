@@ -18,7 +18,10 @@ import React from "react";
 import ReactDOM from "react-dom";
 import axios from "axios";
 
-import { ChildPlace, MainPane, Menu, ParentPlace } from "./place_template";
+import { ChildPlace } from "./child_places_menu";
+import { Menu } from "./topic_menu";
+import { ParentPlace } from "./parent_breadcrumbs";
+import { MainPane } from "./main";
 
 let ac: google.maps.places.Autocomplete;
 
