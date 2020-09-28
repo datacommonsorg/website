@@ -95,7 +95,6 @@ class Chart extends Component<ChartPropType, ChartStateType> {
   parentRef: React.RefObject<HTMLOptionElement>;
   childrenRef: React.RefObject<HTMLOptionElement>;
   dcid: string;
-  placeRelation: string;
 
   constructor(props: ChartPropType) {
     super(props);
@@ -205,7 +204,10 @@ class Chart extends Component<ChartPropType, ChartStateType> {
         dg &&
         dg.reduce((accum, group) => {
           return accum || group.value.length === 1;
-        }, false))
+        }, false)) ||
+      (this.props.config.placeRelation === placeRelationEnum.CONTAINED &&
+        dg &&
+        dg.length === 1)
     ) {
       // When there is no data, do not show the current chart.
       console.log(
