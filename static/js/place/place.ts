@@ -102,8 +102,8 @@ function getSimilarPlaces(dcid: string) {
   return axios.get(`/api/place/similar/Count_Person/${dcid}`).then((resp) => {
     const places = resp.data;
     const result = [dcid];
-    if (places.relatedPlaces) {
-      result.push(...places.relatedPlaces.slice(0, 4));
+    if (places) {
+      result.push(...places.slice(0, 4));
     }
     return result;
   });
