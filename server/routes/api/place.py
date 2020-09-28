@@ -254,11 +254,11 @@ def parent_places(dcids):
     # "California" but not "United States":
     # https://datacommons.org/browser/geoId/0649670
     # Here calling get_parent_place twice to get to the top parents.
-    result = {}
-
-    parents1 = get_parent_place(dcids)
     if not dcids:
-        return result
+        return {}
+
+    result = {}
+    parents1 = get_parent_place(dcids)
     dcids = dcids.split('^')
     dcid_parents1_mapping = {}
     for dcid in dcids:
@@ -266,6 +266,8 @@ def parent_places(dcids):
         result[dcid] = first_parents
         if first_parents:
             dcid_parents1_mapping[dcid] = first_parents[-1]['dcid']
+    if not dcid_parents1_mapping:
+        return result
 
     parents2 = get_parent_place('^'.join(dcid_parents1_mapping.values()))
     dcid_parents2_mapping = {}
@@ -274,12 +276,13 @@ def parent_places(dcids):
         result[dcid].extend(second_parents)
         if second_parents:
             dcid_parents2_mapping[dcid] = second_parents[-1]['dcid']
+    if not dcid_parents2_mapping:
+        return result
 
     parents3 = get_parent_place('^'.join(dcid_parents2_mapping.values()))
     for dcid in dcid_parents2_mapping.keys():
         result[dcid].extend(parents3[dcid_parents2_mapping[dcid]])
         result[dcid] = [x for x in result[dcid] if x['dcid'] != 'Earth']
-
     return result
 
 
