@@ -22,14 +22,14 @@ import {
   childPlacesType,
   parentPlacesType,
   placeRelationEnum,
-} from "./place_types";
+} from "./types";
 import { randDomId } from "../shared/util";
-import { Chart } from "./place_chart";
+import { Chart } from "./chart";
 import {
   displayNameForPlaceType,
   isPlaceInUsa,
   childPlaceTypeWithMostPlaces,
-} from "./place_util";
+} from "./util";
 
 interface ChartBlockPropType {
   /**
@@ -82,7 +82,7 @@ class ChartBlock extends React.Component<ChartBlockPropType, unknown> {
     super(props);
   }
 
-  render() {
+  render(): JSX.Element {
     const configList = this.props.isOverview
       ? this.buildOverviewConfig(this.props.placeType, this.props.config)
       : this.buildTopicConfig(this.props.placeType, this.props.config);

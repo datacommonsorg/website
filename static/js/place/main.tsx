@@ -15,15 +15,15 @@
  */
 import React from "react";
 import { CachedStatVarDataMap } from "../shared/data_fetcher";
-import { ChartBlock } from "./place_chart_block";
-import { Overview } from "./place_overview";
+import { ChartBlock } from "./chart_block";
+import { Overview } from "./overview";
 import {
   ChartCategory,
   ConfigType,
   childPlacesType,
   parentPlacesType,
-} from "./place_types";
-import { isPlaceInUsa } from "./place_util";
+} from "./types";
+import { isPlaceInUsa } from "./util";
 
 interface MainPanePropType {
   /**

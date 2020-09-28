@@ -32,7 +32,7 @@ import {
   childPlacesType,
   parentPlacesType,
   placeRelationEnum,
-} from "./place_types";
+} from "./types";
 import { updatePageLayoutState } from "./place";
 
 const CHART_HEIGHT = 194;
@@ -116,16 +116,16 @@ class Chart extends Component<ChartPropType, ChartStateType> {
     this.dcid = props.dcid;
   }
 
-  showParent() {
+  showParent(): boolean {
     return (
       this.props.parentPlaces.length > 0 &&
       !CONTINENTS.has(this.props.parentPlaces[0].dcid)
     );
   }
 
-  render() {
+  render(): JSX.Element {
     if (!this.state.display) {
-      return "";
+      return null;
     }
     const config = this.props.config;
     const dateString = this.state.dateSelected
@@ -135,19 +135,19 @@ class Chart extends Component<ChartPropType, ChartStateType> {
       this.props.config.placeRelation === placeRelationEnum.CONTAINED &&
       this.props.parentPlaces.length === 0
     ) {
-      return "";
+      return null;
     }
     if (
       this.props.config.placeRelation === placeRelationEnum.CONTAINING &&
       Object.keys(this.props.childPlaces).length === 0
     ) {
-      return "";
+      return null;
     }
     if (
       this.props.config.placeRelation === placeRelationEnum.SIMILAR &&
       this.props.similarPlaces.length === 1
     ) {
-      return "";
+      return null;
     }
     return (
       <div className="col" ref={this.chartElement}>
@@ -191,7 +191,7 @@ class Chart extends Component<ChartPropType, ChartStateType> {
     );
   }
 
-  componentDidUpdate() {
+  componentDidUpdate(): void {
     if (!this.state.display) {
       return;
     }
@@ -225,16 +225,16 @@ class Chart extends Component<ChartPropType, ChartStateType> {
     updatePageLayoutState();
   }
 
-  componentWillUnmount() {
+  componentWillUnmount(): void {
     window.removeEventListener("resize", this._handleWindowResize);
   }
 
-  componentDidMount() {
+  componentDidMount(): void {
     window.addEventListener("resize", this._handleWindowResize);
     this.fetchData();
   }
 
-  _handleWindowResize() {
+  _handleWindowResize(): void {
     const svgElement = document.getElementById(this.props.id);
     if (!svgElement) {
       return;
@@ -248,7 +248,7 @@ class Chart extends Component<ChartPropType, ChartStateType> {
     }
   }
 
-  drawChart() {
+  drawChart(): void {
     const chartType = this.props.config.chartType;
     const elem = document.getElementById(this.props.id);
     elem.innerHTML = "";
@@ -292,7 +292,7 @@ class Chart extends Component<ChartPropType, ChartStateType> {
     }
   }
 
-  async fetchData() {
+  async fetchData(): Promise<void> {
     const dcid = this.dcid;
     const config = this.props.config;
     const chartType = config.chartType;

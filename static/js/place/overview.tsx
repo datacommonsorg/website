@@ -15,8 +15,8 @@
  */
 
 import React from "react";
-import { Map } from "./place_map";
-import { Ranking } from "./place_ranking";
+import { Map } from "./map";
+import { Ranking } from "./ranking";
 
 interface OverviewPropType {
   /**
@@ -30,7 +30,7 @@ interface OverviewPropType {
 }
 
 class Overview extends React.Component<OverviewPropType, unknown> {
-  render() {
+  render(): JSX.Element {
     if (!this.props.topic) {
       return (
         <React.Fragment>

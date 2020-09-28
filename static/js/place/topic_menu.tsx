@@ -15,7 +15,7 @@
  */
 
 import React from "react";
-import { ChartCategory } from "./place_types";
+import { ChartCategory } from "./types";
 
 interface MenuPropsType {
   dcid: string;

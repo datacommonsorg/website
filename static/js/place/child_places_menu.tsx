@@ -15,8 +15,8 @@
  */
 
 import React from "react";
-import { childPlacesType } from "./place_types";
-import { displayNameForPlaceType } from "./place_util";
+import { childPlacesType } from "./types";
+import { displayNameForPlaceType } from "./util";
 
 interface ChildPlacePropType {
   childPlaces: childPlacesType;

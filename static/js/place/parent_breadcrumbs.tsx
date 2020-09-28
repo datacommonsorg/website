@@ -15,7 +15,7 @@
  */
 
 import React from "react";
-import { displayNameForPlaceType } from "./place_util";
+import { displayNameForPlaceType } from "./util";
 
 interface ParentPlacePropsType {
   parentPlaces: { dcid: string; name: string; types: string[] }[];

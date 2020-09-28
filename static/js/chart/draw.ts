@@ -262,7 +262,7 @@ function drawHistogram(
     .attr("width", width)
     .attr("height", height);
 
-  const bottomHeight = addXAxis(svg, height, x, true);
+  addXAxis(svg, height, x, true);
   addYAxis(svg, width, y, unit);
 
   svg

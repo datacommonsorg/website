@@ -29,13 +29,13 @@ interface RankingStateType {
 }
 
 class Ranking extends React.Component<RankingPropsType, RankingStateType> {
-  constructor(props) {
+  constructor(props: RankingPropsType) {
     super(props);
     this.state = {
       data: { label: [], Population: [] },
     };
   }
-  render() {
+  render(): JSX.Element {
     const data = this.state.data;
     return (
       <React.Fragment>
@@ -88,7 +88,7 @@ class Ranking extends React.Component<RankingPropsType, RankingStateType> {
     );
   }
 
-  componentDidMount() {
+  componentDidMount(): void {
     axios.get(`/api/place/ranking/${this.props.dcid}`).then((resp) => {
       this.setState({ data: resp.data });
     });

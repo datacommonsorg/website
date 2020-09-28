@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-import { childPlacesType, parentPlacesType } from "./place_types";
+import { childPlacesType, parentPlacesType } from "./types";
 import pluralize from "pluralize";
 
 export function childPlaceTypeWithMostPlaces(
@@ -54,7 +54,7 @@ export function isPlaceInUsa(parentPlaces: parentPlacesType): boolean {
  */
 export function displayNameForPlaceType(
   placeType: string,
-  isPlural: boolean = false
+  isPlural = false
 ): string {
   if (
     placeType.startsWith("AdministrativeArea") ||

@@ -27,15 +27,15 @@ interface MapPropType {
 class Map extends React.Component<MapPropType, unknown> {
   div: React.RefObject<HTMLDivElement>;
 
-  constructor(props) {
+  constructor(props: MapPropType) {
     super(props);
     this.div = React.createRef();
   }
-  render() {
+  render(): JSX.Element {
     return <div id="map-container" ref={this.div}></div>;
   }
 
-  componentDidMount() {
+  componentDidMount(): void {
     axios.get(`/api/place/mapinfo/${this.props.dcid}`).then(
       function (resp) {
         const mapInfo = resp.data;
