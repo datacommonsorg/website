@@ -137,7 +137,7 @@ class Page extends React.Component<RankingPagePropType, RankingPageStateType> {
           data: respData,
         });
       })
-      .catch((error) => {
+      .catch(() => {
         // TODO(beets): Add better error handling messages
         this.setState({
           data: null,

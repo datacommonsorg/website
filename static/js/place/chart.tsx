@@ -261,7 +261,7 @@ class Chart extends Component<ChartPropType, ChartStateType> {
         this.props.config.unit
       );
       if (!isCompleteLine) {
-        this.chartElement.current!.querySelectorAll(
+        this.chartElement.current.querySelectorAll(
           ".dotted-warning"
         )[0].className += " d-inline";
       }
