@@ -424,6 +424,7 @@ def api_similar_places(stats_var, dcid):
     if match:
         county_cohort = get_place_cohort(COUNTY_COHORT)
         random.shuffle(county_cohort)
+        result = []
         for county in county_cohort:
             if county != dcid:
                 result.append(county)
