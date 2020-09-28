@@ -14,8 +14,6 @@
  * limitations under the License.
  */
 
-import pluralize from "pluralize";
-
 const pako = require("pako");
 
 const POPULATION = "StatisticalPopulation";
@@ -499,27 +497,6 @@ function randDomId() {
     .substr(2, 10);
 }
 
-/**
- * Returns place type, possibly pluralized if requested.
- *
- * @param {string} placeType PlaceType, as taken from the Data Commons Graph (in CamelCase).
- * @param {boolean} isPlural True if the result should be pluralized.
- *
- * @return {string} Pluralized string for display.
- */
-function displayNameForPlaceType(placeType, isPlural = false) {
-  if (
-    placeType.startsWith("AdministrativeArea") ||
-    placeType.startsWith("Eurostat")
-  ) {
-    return isPlural ? "Places" : "Place";
-  }
-  if (placeType === "CensusZipCodeTabulationArea") {
-    return isPlural ? "Zip Codes" : "Zip Code";
-  }
-  return isPlural ? pluralize(placeType) : placeType;
-}
-
 export {
   STATS,
   OBS_KEYS,
@@ -548,5 +525,4 @@ export {
   unzip,
   setElementShown,
   randDomId,
-  displayNameForPlaceType,
 };
