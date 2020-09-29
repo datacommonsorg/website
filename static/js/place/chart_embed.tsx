@@ -15,7 +15,13 @@
  */
 
 import React from "react";
-import { Button, Modal, ModalHeader, ModalBody, ModalFooter } from "reactstrap";
+import {
+  Button,
+  Modal,
+  ModalHeader,
+  ModalBody,
+  ModalFooter,
+} from "reactstrap";
 import { randDomId, saveToFile } from "../shared/util";
 
 interface ChartEmbedStateType {
@@ -30,9 +36,8 @@ interface ChartEmbedStateType {
  * in a Modal
  */
 class ChartEmbed extends React.Component<unknown, ChartEmbedStateType> {
-  modalElement: React.RefObject<Modal>;
-  textareaElement: React.RefObject<HTMLTextAreaElement>;
-  objectId: string;
+  private textareaElement: React.RefObject<HTMLTextAreaElement>;
+  private modalId: string;
 
   constructor(props: unknown) {
     super(props);
@@ -42,8 +47,7 @@ class ChartEmbed extends React.Component<unknown, ChartEmbedStateType> {
       chartDom: null,
       dataCsv: "",
     };
-    this.objectId = randDomId();
-    this.modalElement = React.createRef();
+    this.modalId = randDomId();
     this.textareaElement = React.createRef();
     this.toggle = this.toggle.bind(this);
     this.onOpened = this.onOpened.bind(this);
@@ -77,11 +81,12 @@ class ChartEmbed extends React.Component<unknown, ChartEmbedStateType> {
    * Callback for after the modal has been rendered and added to the DOM.
    */
   public onOpened(): void {
-    if (!this.modalElement.current || !this.state.chartDom) {
+    const modalElement = document.getElementById(this.modalId);
+    if (!modalElement || !this.state.chartDom) {
       return;
     }
     // Append cloned chart DOM to the modal.
-    const containerElem = this.modalElement.current._element.querySelector(
+    const containerElem = modalElement.querySelector(
       ".modal-chart-container"
     );
     if (containerElem) {
@@ -89,7 +94,7 @@ class ChartEmbed extends React.Component<unknown, ChartEmbedStateType> {
       const chartElem = containerElem.querySelector(".chart-container");
       if (chartElem) {
         // Update width of textarea to match the width of the chart.
-        const textarea = this.modalElement.current._element.querySelector(
+        const textarea = modalElement.querySelector(
           "textarea"
         );
         if (textarea) {
@@ -142,7 +147,7 @@ class ChartEmbed extends React.Component<unknown, ChartEmbedStateType> {
         toggle={this.toggle}
         className="modal-dialog-centered modal-lg"
         onOpened={this.onOpened}
-        ref={this.modalElement}
+        id={this.modalId}
       >
         <ModalHeader toggle={this.toggle}>Embed this chart</ModalHeader>
         <ModalBody>
