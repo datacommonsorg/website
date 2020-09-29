@@ -15,8 +15,7 @@
  */
 
 import React from "react";
-import ReactDOM from "react-dom";
-import { DataPoint, DataGroup } from "../chart/base";
+import { DataPoint, DataGroup, dataGroupsToCsv } from "../chart/base";
 import {
   drawLineChart,
   drawSingleBarChart,
@@ -150,8 +149,8 @@ class Chart extends React.Component<ChartPropType, ChartStateType> {
       return null;
     }
     return (
-      <div className="col" ref={this.chartElement}>
-        <div className="chart-container">
+      <div className="col">
+        <div className="chart-container" ref={this.chartElement}>
           <h4>
             {config.title}
             <span className="sub-title">{dateString}</span>
@@ -179,15 +178,11 @@ class Chart extends React.Component<ChartPropType, ChartStateType> {
                 (dotted line denotes missing data)
               </span>
             </div>
-            <div>
+            <div className="outlinks">
               <a href="#" onClick={this._handleEmbed}>
                 Embed
               </a>
-              <a
-                target="_blank"
-                className="explore-more"
-                href={config.exploreUrl}
-              >
+              <a className="explore-more" href={config.exploreUrl}>
                 Explore More ›
               </a>
             </div>
@@ -259,14 +254,33 @@ class Chart extends React.Component<ChartPropType, ChartStateType> {
   }
 
   /**
+   * Returns data used to draw chart as a CSV.
+   */
+  private dataCsv(): string {
+    // TODO(beets): Handle this.state.dataPoints too.
+    const dp = this.state.dataPoints;
+    if (dp && dp.length > 0) {
+      console.log("Implement CSV function for data points");
+      return;
+    }
+    return dataGroupsToCsv(this.state.dataGroups);
+  }
+
+  /**
    * Handle clicks on "embed chart" link.
    */
-  _handleEmbed(e): void {
+  _handleEmbed(e: React.MouseEvent<HTMLAnchorElement, MouseEvent>): void {
     e.preventDefault();
-    // Do this some where else (after chart is rendered?). We don't need HTML if we are already getting the DOM
-    const svgHTML = this.svgContainerElement.current.innerHTML;
-    const svgDOM = this.chartElement.current.cloneNode(true);
-    this.embedModalElement.current.show(svgHTML, svgDOM);
+    // Node does not have innerHTML property so we need to pass both in.
+    const svgElems = this.svgContainerElement.current.getElementsByTagName(
+      "svg"
+    );
+    let svgHtml: string;
+    if (svgElems.length) {
+      svgHtml = svgElems.item(0).innerHTML;
+    }
+    const svgDom = this.chartElement.current.cloneNode(true);
+    this.embedModalElement.current.show(svgHtml, svgDom, this.dataCsv());
   }
 
   drawChart(): void {

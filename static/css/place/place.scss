@@ -23,6 +23,7 @@ $vertical-section-margin: 2rem;
 $sidebar-top-padding: 132px; // Keep in sync with place.ts: Y_SCROLL_LIMIT
 $subtopic-background: rgba(0,0,0,.05);
 $subtopic-color: #222;
+$chart-border: 0.5px solid #dee2e6;
 
 #dc-places {
   margin-left: 1.5rem;
@@ -124,6 +125,7 @@ $subtopic-color: #222;
   text-decoration: underline;
 }
 
+.chart-container footer,
 .subtopic .row {
   margin-left: -0.5rem;
   margin-right: -0.5rem;
@@ -158,7 +160,7 @@ $subtopic-color: #222;
 }
 
 .chart-container {
-  border: 0.5px solid #dee2e6;
+  border: $chart-border;
   border-radius: 3px;
   height: 100%;
   padding: 10px;
@@ -296,4 +298,28 @@ $subtopic-color: #222;
 
 .chart-block {
   margin-bottom: 15px;
+}
+
+.modal .modal-chart-container {
+  display: flex;
+  justify-content: center;
+}
+
+.modal .chart-container {
+  display: inline-block;
+}
+
+.modal .outlinks {
+  display: none;
+}
+
+.modal .copy-svg {
+  background: #efefef;
+  border-radius: 3px;
+  border: $chart-border;
+  display: flex;
+  font-family: monospace;
+  height: 6rem;
+  margin: auto;
+  padding: .5rem;
 }

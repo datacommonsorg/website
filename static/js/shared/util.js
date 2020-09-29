@@ -497,6 +497,24 @@ function randDomId() {
     .substr(2, 10);
 }
 
+/**
+ * Saves csv to filename.
+ * @param {filename} string
+ * @param {csv} string
+ * @return void
+ */
+function saveToFile(filename, csv) {
+  if (!csv.match(/^data:text\/csv/i)) {
+    csv = "data:text/csv;charset=utf-8," + csv;
+  }
+  const data = encodeURI(csv);
+  const link = document.createElement("a");
+  link.setAttribute("href", data);
+  link.setAttribute("download", filename);
+  link.click();
+}
+
+
 export {
   STATS,
   OBS_KEYS,
@@ -522,7 +540,8 @@ export {
   getApiKey,
   getApiRoot,
   isSetsEqual,
-  unzip,
-  setElementShown,
   randDomId,
+  saveToFile,
+  setElementShown,
+  unzip,
 };

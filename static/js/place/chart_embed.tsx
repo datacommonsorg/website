@@ -16,64 +16,126 @@
 
 import React from "react";
 import { Button, Modal, ModalHeader, ModalBody, ModalFooter } from "reactstrap";
-import { randDomId } from "../shared/util";
-
-interface ChartEmbedPropType {}
+import { randDomId, saveToFile } from "../shared/util";
 
 interface ChartEmbedStateType {
   modal: boolean;
-  chartDOM: Node;
-  svgHTML: string;
+  chartDom: Node;
+  svgHtml: string;
+  dataCsv: string;
 }
 
-class ChartEmbed extends React.Component<
-  ChartEmbedPropType,
-  ChartEmbedStateType
-> {
+/**
+ * A component to include with each Chart, that displays embed information and data for a chart
+ * in a Modal
+ */
+class ChartEmbed extends React.Component<unknown, ChartEmbedStateType> {
   modalElement: React.RefObject<Modal>;
+  textareaElement: React.RefObject<HTMLTextAreaElement>;
   objectId: string;
 
-  constructor(props: ChartEmbedPropType) {
+  constructor(props: unknown) {
     super(props);
     this.state = {
       modal: false,
-      svgHTML: "",
-      chartDOM: null,
+      svgHtml: "",
+      chartDom: null,
+      dataCsv: "",
     };
     this.objectId = randDomId();
     this.modalElement = React.createRef();
+    this.textareaElement = React.createRef();
     this.toggle = this.toggle.bind(this);
     this.onOpened = this.onOpened.bind(this);
+    this.copySvgToClipboard = this.copySvgToClipboard.bind(this);
+    this.downloadData = this.downloadData.bind(this);
+    this.onClickTextarea = this.onClickTextarea.bind(this);
   }
 
-  public toggle() {
+  /**
+   * Toggles the view state of the modal.
+   */
+  public toggle(): void {
     this.setState({
       modal: !this.state.modal,
     });
   }
 
-  public show(svgHTML: string, chartDOM: Node) {
+  /**
+   * Updates the view state of the modal to true, and includes the data necessary for displaying the modal.
+   */
+  public show(svgHTML: string, chartDOM: Node, dataCsv: string): void {
     this.setState({
       modal: true,
-      svgHTML: svgHTML,
-      chartDOM: chartDOM,
+      svgHtml: svgHTML,
+      chartDom: chartDOM,
+      dataCsv: dataCsv,
     });
   }
 
+  /**
+   * Callback for after the modal has been rendered and added to the DOM.
+   */
   public onOpened(): void {
-    if (!this.modalElement.current || !this.state.chartDOM) {
-      console.log(this.modalElement);
-      console.log(this.state.chartDOM);
-      console.log("skipping update");
+    if (!this.modalElement.current || !this.state.chartDom) {
       return;
     }
-    let containerElem = this.modalElement.current._element.querySelector(
+    // Append cloned chart DOM to the modal.
+    const containerElem = this.modalElement.current._element.querySelector(
       ".modal-chart-container"
     );
-    containerElem && containerElem.appendChild(this.state.chartDOM);
+    if (containerElem) {
+      containerElem.appendChild(this.state.chartDom);
+      const chartElem = containerElem.querySelector(".chart-container");
+      if (chartElem) {
+        // Update width of textarea to match the width of the chart.
+        const textarea = this.modalElement.current._element.querySelector(
+          "textarea"
+        );
+        if (textarea) {
+          textarea.style.width = chartElem.clientWidth + "px";
+        }
+      }
+    }
   }
 
-  render(): JSX.Element {
+  /**
+   * On click handler on the text area - auto-selects all the text.
+   */
+  public onClickTextarea(): void {
+    this.textareaElement.current.focus();
+    this.textareaElement.current.setSelectionRange(
+      0,
+      this.textareaElement.current.value.length
+    );
+  }
+
+  /**
+   * On click handler for "Copy SVG to clipboard button".
+   */
+  public copySvgToClipboard(): void {
+    const currentFocus = document.activeElement;
+    this.onClickTextarea();
+    document.execCommand("copy");
+
+    // restore original focus
+    if (
+      currentFocus &&
+      currentFocus instanceof HTMLElement &&
+      typeof currentFocus.focus === "function"
+    ) {
+      currentFocus.focus();
+    }
+  }
+
+  /**
+   * On click handler for "Download Data" button.
+   */
+  public downloadData(): void {
+    saveToFile("export.csv", this.state.dataCsv);
+  }
+
+  public render(): JSX.Element {
     return (
       <Modal
         isOpen={this.state.modal}
@@ -82,17 +144,23 @@ class ChartEmbed extends React.Component<
         onOpened={this.onOpened}
         ref={this.modalElement}
       >
-        <ModalHeader>Embed this chart</ModalHeader>
+        <ModalHeader toggle={this.toggle}>Embed this chart</ModalHeader>
         <ModalBody>
           <div className="modal-chart-container"></div>
-          <textarea value={this.state.svgHTML} readOnly></textarea>
+          <textarea
+            className="copy-svg mt-3"
+            value={this.state.svgHtml}
+            readOnly
+            ref={this.textareaElement}
+            onClick={this.onClickTextarea}
+          ></textarea>
         </ModalBody>
         <ModalFooter>
-          <Button color="primary" onClick={this.toggle}>
-            Do Something
+          <Button color="primary" onClick={this.copySvgToClipboard}>
+            Copy SVG to clipboard
           </Button>{" "}
-          <Button color="secondary" onClick={this.toggle}>
-            Cancel
+          <Button color="primary" onClick={this.downloadData}>
+            Download Data
           </Button>
         </ModalFooter>
       </Modal>
