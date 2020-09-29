@@ -16,11 +16,13 @@
 
 import React from "react";
 import { Button, Modal, ModalHeader, ModalBody, ModalFooter } from "reactstrap";
+import { randDomId } from "../shared/util";
 
 interface ChartEmbedPropType {}
 
 interface ChartEmbedStateType {
   modal: boolean;
+  chartDOM: Node;
   svgHTML: string;
 }
 
@@ -28,16 +30,20 @@ class ChartEmbed extends React.Component<
   ChartEmbedPropType,
   ChartEmbedStateType
 > {
-  modalElement: React.RefObject<HTMLDivElement>;
+  modalElement: React.RefObject<Modal>;
+  objectId: string;
 
   constructor(props: ChartEmbedPropType) {
     super(props);
     this.state = {
       modal: false,
       svgHTML: "",
+      chartDOM: null,
     };
+    this.objectId = randDomId();
     this.modalElement = React.createRef();
     this.toggle = this.toggle.bind(this);
+    this.onOpened = this.onOpened.bind(this);
   }
 
   public toggle() {
@@ -46,11 +52,25 @@ class ChartEmbed extends React.Component<
     });
   }
 
-  public show(svgHTML: string) {
+  public show(svgHTML: string, chartDOM: Node) {
     this.setState({
       modal: true,
       svgHTML: svgHTML,
+      chartDOM: chartDOM,
     });
+  }
+
+  public onOpened(): void {
+    if (!this.modalElement.current || !this.state.chartDOM) {
+      console.log(this.modalElement);
+      console.log(this.state.chartDOM);
+      console.log("skipping update");
+      return;
+    }
+    let containerElem = this.modalElement.current._element.querySelector(
+      ".modal-chart-container"
+    );
+    containerElem && containerElem.appendChild(this.state.chartDOM);
   }
 
   render(): JSX.Element {
@@ -58,10 +78,15 @@ class ChartEmbed extends React.Component<
       <Modal
         isOpen={this.state.modal}
         toggle={this.toggle}
-        // className={this.props.className}
+        className="modal-dialog-centered modal-lg"
+        onOpened={this.onOpened}
+        ref={this.modalElement}
       >
-        <ModalHeader toggle={this.toggle}>Modal title</ModalHeader>
-        <ModalBody>{this.state.svgHTML}</ModalBody>
+        <ModalHeader>Embed this chart</ModalHeader>
+        <ModalBody>
+          <div className="modal-chart-container"></div>
+          <textarea value={this.state.svgHTML} readOnly></textarea>
+        </ModalBody>
         <ModalFooter>
           <Button color="primary" onClick={this.toggle}>
             Do Something

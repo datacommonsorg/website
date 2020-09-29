@@ -124,7 +124,6 @@ class Chart extends React.Component<ChartPropType, ChartStateType> {
   }
 
   render(): JSX.Element {
-    console.log(this.state);
     if (!this.state.display) {
       return null;
     }
@@ -264,22 +263,10 @@ class Chart extends React.Component<ChartPropType, ChartStateType> {
    */
   _handleEmbed(e): void {
     e.preventDefault();
-    // const svgElem = this.svgCh
+    // Do this some where else (after chart is rendered?). We don't need HTML if we are already getting the DOM
     const svgHTML = this.svgContainerElement.current.innerHTML;
-    this.embedModalElement.current.show(svgHTML);
-    /*
-    ReactDOM.render(
-      React.createElement(ChartEmbed, {
-        svgHTML: this.svgContainerElement.current.innerHTML,
-      }),
-      document.getElementById("modal")
-    );
-    */
-    // ReactDOM.createPortal(
-    //   <ChartEmbed svgHTML={this.svgContainerElement.current.innerHTML} />,
-    //   document.body
-    // );
-    // <ChartEmbed />);
+    const svgDOM = this.chartElement.current.cloneNode(true);
+    this.embedModalElement.current.show(svgHTML, svgDOM);
   }
 
   drawChart(): void {
