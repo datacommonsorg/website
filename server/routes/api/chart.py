@@ -378,3 +378,165 @@ def geojson(dcid):
     }),
                     200,
                     mimetype='application/json')
+
+
+def get_choropleth_sv():
+    """ Gets all the stat vars and accompanying denominators that will have a choropleth chart drawn for them
+    ie. charts with the hasChoropleth property set as true
+
+    Returns: 
+        a tuple consisting of:
+            set of all stat vars including both the stat vars of the charts and stat vars of denominators
+            dictionary of stat var: list of denominators
+    """
+    chart_config = current_app.config['CHART_CONFIG']
+    if os.environ.get('FLASK_ENV') == 'development':
+        with bp.open_resource('../../chart_config.json') as f:
+            raw_config = json.load(f)
+    default_denom = 'Count_Person'
+    all_sv = set()
+    sv_denom_mapping = {}
+    for config in chart_config:
+        if 'hasChoropleth' in config and config['hasChoropleth']:
+            # we should only be making choropleths for charts with a single stat var
+            sv = config['statsVars'][0]
+            all_sv.add(sv)
+            denom = ''
+            if 'denominator' in config:
+                denom = config['denominator'][0]
+                all_sv.add(denom)
+            if 'perCapita' in config and config['perCapita']:
+                all_sv.add(default_denom)
+                denom = default_denom
+            if sv not in sv_denom_mapping:
+                sv_denom_mapping[sv] = set()
+            sv_denom_mapping[sv].add(denom)
+    return all_sv, sv_denom_mapping
+
+
+def get_data_for_statvar(sv, geos, all_sv_data):
+    """ Gets all the data for a specific stat var with the source series data flattened out
+    
+    Args:
+        sv: the stat var we are returning data for
+        geos: list of place dcids we are returning data for
+        all_sv_data: value of the key placeData in the object received from getStatsAll
+
+    Returns:
+        dictionary of dictionary of date: data, keyed by place dcid
+    """
+    result = {}
+    for geo in geos:
+        result[geo] = dict()
+        if geo in all_sv_data and 'statVarData' in all_sv_data[geo]:
+            sv_data = all_sv_data[geo]['statVarData']
+            if sv not in sv_data:
+                continue
+            data = sv_data[sv]
+            if 'sourceSeries' not in data:
+                continue
+            for source in data['sourceSeries']:
+                result[geo].update(source['val'])
+    return result
+
+
+# TODO: Update method of getting dates to ensure stat var date and denominator date matches
+def get_latest_common_date_for_sv(sv_data):
+    """Finds the latest common date
+    
+    Args:
+        sv_data: dictionary of dictionary of date: data, keyed by place dcid
+
+    Returns:
+        date as a string 
+    """
+    common_dates = None
+    all_dates = set()
+    if not sv_data:
+        return None
+    for place, data in sv_data.items():
+        if common_dates:
+            common_dates = common_dates.intersection(data.keys())
+        else:
+            common_dates = set(data.keys())
+        all_dates.update(data.keys())
+    sv_date = None
+    if common_dates:
+        sorted_dates = sorted(common_dates)
+        if len(sorted_dates) > 0:
+            sv_date = sorted_dates[-1]
+    if not sv_date and all_dates:
+        sorted_dates = sorted(all_dates)
+        if len(sorted_dates) > 0:
+            sv_date = sorted_dates[-1]
+    return sv_date
+
+
+@bp.route('/choroplethdata/<path:dcid>')
+@cache.memoize(timeout=3600 * 24)  # Cache for one day.
+def choropleth_data(dcid):
+    """
+    Get stats var data needed for choropleth charts for a given place
+
+    API Returns:
+        Dictionary with 
+            key as stat var and denominator separated by '^'
+            value as object with date and dictionary of place: value
+    """
+    all_stat_vars, sv_denoms_mapping = get_choropleth_sv()
+    geos = get_choropleth_places(dcid)
+    if not all_stat_vars or not geos:
+        return Response(json.dumps({}), 200, mimetype='application/json')
+    # Get data for all the stat vars for every place we will need
+    all_sv_data = dc_service.get_stats_all(geos, list(all_stat_vars))
+    if not 'placeData' in all_sv_data:
+        return Response(json.dumps({}), 200, mimetype='application/json')
+    all_sv_data = all_sv_data['placeData']
+
+    result = {}
+    # We have the potential of reusing denom data so keep track of what we've already seen
+    # to prevent recalculation
+    processed_denom_data = {}
+    calculated_denom_date = {}
+    for sv, denoms in sv_denoms_mapping.items():
+        # process sv data and get latest common date for that sv
+        sv_data = get_data_for_statvar(sv, geos, all_sv_data)
+        sv_date = get_latest_common_date_for_sv(sv_data)
+        if not sv_date:
+            continue
+        # get result for each denom
+        for denom in denoms:
+            denom_data = None
+            denom_date = None
+            key = sv
+            if denom:
+                # get processed denom data and latest common date for the denom
+                if denom in processed_denom_data:
+                    denom_data = processed_denom_data[denom]
+                else:
+                    denom_data = get_data_for_statvar(denom, geos, all_sv_data)
+                    processed_denom_data[denom] = denom_data
+                if denom in calculated_denom_date:
+                    denom_date = calculated_denom_date[denom]
+                else:
+                    denom_date = get_latest_common_date_for_sv(denom_data)
+                    calculated_denom_date[denom] = denom_date
+                if not denom_date:
+                    continue
+                key = key + '^' + denom
+            geo_data = {}
+            # calculate value for each geo for current stat var and denom combination
+            for geo in geos:
+                geo_data[geo] = None
+                if not geo in sv_data or not sv_date in sv_data[geo]:
+                    continue
+                if denom_data:
+                    if geo in denom_data and denom_date in denom_data[geo]:
+                        geo_data[geo] = sv_data[geo][sv_date] / denom_data[geo][
+                            denom_date]
+                else:
+                    geo_data[geo] = sv_data[geo][sv_date]
+            sv_denom_result = {'date': sv_date, 'data': geo_data}
+            result[key] = sv_denom_result
+
+    return Response(json.dumps(result), 200, mimetype='application/json')
