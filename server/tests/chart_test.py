@@ -305,21 +305,32 @@ class TestChoroplethDataHelpers(unittest.TestCase):
                 'category': ['Test', 'Test2'],
                 'title': 'Test2',
                 'statsVars': ['StatVar4'],
-                'perCapita': True,
-                'hasChoropleth': True
+                'hasChoropleth': True,
+                'relatedChart': {
+                    'scale': True,
+                    'denominator': 'Test_Denominator'
+                }
             }, {
                 'category': ['Test', 'Test2'],
                 'title': 'Test2',
                 'statsVars': ['StatVar3'],
                 'denominator': ['StatVar10'],
                 'hasChoropleth': True
+            },{
+                'category': ['Test', 'Test2'],
+                'title': 'Test2',
+                'statsVars': ['StatVar4'],
+                'hasChoropleth': True,
+                'relatedChart': {
+                    'scale': True
+                }
             }]
             expected_sv_set = {
-                'StatVar3', 'StatVar4', 'StatVar10', 'Count_Person'
+                'StatVar3', 'StatVar4', 'StatVar10', 'Count_Person', 'Test_Denominator'
             }
             expected_sv_denom_mapping = {
                 'StatVar3': {'', 'StatVar10'},
-                'StatVar4': {'Count_Person'}
+                'StatVar4': {'Test_Denominator', 'Count_Person'}
             }
             actual_sv_set, actual_sv_denom_mapping = chart_api.get_choropleth_sv(
             )

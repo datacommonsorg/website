@@ -390,24 +390,22 @@ def get_choropleth_sv():
             dictionary of stat var: list of denominators
     """
     chart_config = current_app.config['CHART_CONFIG']
-    if os.environ.get('FLASK_ENV') == 'development':
-        with bp.open_resource('../../chart_config.json') as f:
-            raw_config = json.load(f)
     all_sv = set()
     sv_denom_mapping = {}
     for config in chart_config:
-        if 'hasChoropleth' in config and config['hasChoropleth']:
+        if config.get('hasChoropleth', False):
             # we should only be making choropleths for configs with a single stat var
+            # TODO(chejennifer) add test for chart config to ensure hasChoropleth is only added to charts with single statvar
             sv = config['statsVars'][0]
             all_sv.add(sv)
             denom = ''
-            if 'denominator' in config:
+            if config.get('relatedChart',
+                          {}) and config['relatedChart'].get('scale', False):
+                denom = config['relatedChart'].get('denominator', 'Count_Person')
+                all_sv.add(denom)
+            elif 'denominator' in config:
                 denom = config['denominator'][0]
                 all_sv.add(denom)
-            elif 'perCapita' in config and config['perCapita']:
-                # The denominator used for perCapita is total population
-                all_sv.add('Count_Person')
-                denom = 'Count_Person'
             if sv not in sv_denom_mapping:
                 sv_denom_mapping[sv] = set()
             sv_denom_mapping[sv].add(denom)
@@ -440,7 +438,7 @@ def get_data_for_statvar(sv, geos, all_sv_data):
     return result
 
 
-# TODO: Update method of getting dates to ensure stat var date and denominator date matches
+# TODO (chejennifer): Update method of getting dates to ensure stat var date and denominator date matches
 def get_latest_common_date_for_sv(sv_data):
     """Finds the latest common date
     
@@ -472,6 +470,7 @@ def get_latest_common_date_for_sv(sv_data):
     return sv_date
 
 
+#TODO (chejennifer): also return provenance url to be used in chart footnote
 @bp.route('/choroplethdata/<path:dcid>')
 @cache.memoize(timeout=3600 * 24)  # Cache for one day.
 def choropleth_data(dcid):
