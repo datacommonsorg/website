@@ -393,21 +393,21 @@ def get_choropleth_sv():
     if os.environ.get('FLASK_ENV') == 'development':
         with bp.open_resource('../../chart_config.json') as f:
             raw_config = json.load(f)
-    default_denom = 'Count_Person'
     all_sv = set()
     sv_denom_mapping = {}
     for config in chart_config:
         if 'hasChoropleth' in config and config['hasChoropleth']:
-            # we should only be making choropleths for charts with a single stat var
+            # we should only be making choropleths for configs with a single stat var
             sv = config['statsVars'][0]
             all_sv.add(sv)
             denom = ''
             if 'denominator' in config:
                 denom = config['denominator'][0]
                 all_sv.add(denom)
-            if 'perCapita' in config and config['perCapita']:
-                all_sv.add(default_denom)
-                denom = default_denom
+            elif 'perCapita' in config and config['perCapita']:
+                # The denominator used for perCapita is total population
+                all_sv.add('Count_Person')
+                denom = 'Count_Person'
             if sv not in sv_denom_mapping:
                 sv_denom_mapping[sv] = set()
             sv_denom_mapping[sv].add(denom)
@@ -432,10 +432,10 @@ def get_data_for_statvar(sv, geos, all_sv_data):
             sv_data = all_sv_data[geo]['statVarData']
             if sv not in sv_data:
                 continue
-            data = sv_data[sv]
-            if 'sourceSeries' not in data:
+            sv_data = sv_data[sv]
+            if 'sourceSeries' not in sv_data:
                 continue
-            for source in data['sourceSeries']:
+            for source in sv_data['sourceSeries']:
                 result[geo].update(source['val'])
     return result
 
@@ -496,10 +496,10 @@ def choropleth_data(dcid):
     result = {}
     # We have the potential of reusing denom data so keep track of what we've already seen
     # to prevent recalculation
-    processed_denom_data = {}
+    retrieved_denom_data = {}
     calculated_denom_date = {}
     for sv, denoms in sv_denoms_mapping.items():
-        # process sv data and get latest common date for that sv
+        # retrieve sv data and get latest common date for current sv
         sv_data = get_data_for_statvar(sv, geos, all_sv_data)
         sv_date = get_latest_common_date_for_sv(sv_data)
         if not sv_date:
@@ -510,12 +510,12 @@ def choropleth_data(dcid):
             denom_date = None
             key = sv
             if denom:
-                # get processed denom data and latest common date for the denom
-                if denom in processed_denom_data:
-                    denom_data = processed_denom_data[denom]
+                # get denom data and latest common date for the denom
+                if denom in retrieved_denom_data:
+                    denom_data = retrieved_denom_data[denom]
                 else:
                     denom_data = get_data_for_statvar(denom, geos, all_sv_data)
-                    processed_denom_data[denom] = denom_data
+                    retrieved_denom_data[denom] = denom_data
                 if denom in calculated_denom_date:
                     denom_date = calculated_denom_date[denom]
                 else:
@@ -538,5 +538,4 @@ def choropleth_data(dcid):
                     geo_data[geo] = sv_data[geo][sv_date]
             sv_denom_result = {'date': sv_date, 'data': geo_data}
             result[key] = sv_denom_result
-
     return Response(json.dumps(result), 200, mimetype='application/json')
