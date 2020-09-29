@@ -192,7 +192,7 @@ function shouldFillInValues(series: number[][]): boolean {
 function findDataPointOrNull(
   dataPoints: DataPoint[],
   label: string
-): number | string {
+): number | null {
   for (const dp of dataPoints) {
     if (dp.label == label) {
       return dp.value;

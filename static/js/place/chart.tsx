@@ -239,7 +239,7 @@ class Chart extends React.Component<ChartPropType, ChartStateType> {
     this.fetchData();
   }
 
-  _handleWindowResize(): void {
+  private _handleWindowResize(): void {
     const svgElement = this.svgContainerElement.current;
     if (!svgElement) {
       return;
@@ -269,7 +269,9 @@ class Chart extends React.Component<ChartPropType, ChartStateType> {
   /**
    * Handle clicks on "embed chart" link.
    */
-  _handleEmbed(e: React.MouseEvent<HTMLAnchorElement, MouseEvent>): void {
+  private _handleEmbed(
+    e: React.MouseEvent<HTMLAnchorElement, MouseEvent>
+  ): void {
     e.preventDefault();
     // Node does not have innerHTML property so we need to pass both in.
     const svgElems = this.svgContainerElement.current.getElementsByTagName(

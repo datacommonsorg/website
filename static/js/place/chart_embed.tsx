@@ -15,13 +15,7 @@
  */
 
 import React from "react";
-import {
-  Button,
-  Modal,
-  ModalHeader,
-  ModalBody,
-  ModalFooter,
-} from "reactstrap";
+import { Button, Modal, ModalHeader, ModalBody, ModalFooter } from "reactstrap";
 import { randDomId, saveToFile } from "../shared/util";
 
 interface ChartEmbedStateType {
@@ -86,17 +80,13 @@ class ChartEmbed extends React.Component<unknown, ChartEmbedStateType> {
       return;
     }
     // Append cloned chart DOM to the modal.
-    const containerElem = modalElement.querySelector(
-      ".modal-chart-container"
-    );
+    const containerElem = modalElement.querySelector(".modal-chart-container");
     if (containerElem) {
       containerElem.appendChild(this.state.chartDom);
       const chartElem = containerElem.querySelector(".chart-container");
       if (chartElem) {
         // Update width of textarea to match the width of the chart.
-        const textarea = modalElement.querySelector(
-          "textarea"
-        );
+        const textarea = modalElement.querySelector("textarea");
         if (textarea) {
           textarea.style.width = chartElem.clientWidth + "px";
         }
