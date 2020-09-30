@@ -316,7 +316,7 @@ class TestChoroplethDataHelpers(unittest.TestCase):
                 'statsVars': ['StatVar3'],
                 'denominator': ['StatVar10'],
                 'hasChoropleth': True
-            },{
+            }, {
                 'category': ['Test', 'Test2'],
                 'title': 'Test2',
                 'statsVars': ['StatVar4'],
@@ -326,7 +326,8 @@ class TestChoroplethDataHelpers(unittest.TestCase):
                 }
             }]
             expected_sv_set = {
-                'StatVar3', 'StatVar4', 'StatVar10', 'Count_Person', 'Test_Denominator'
+                'StatVar3', 'StatVar4', 'StatVar10', 'Count_Person',
+                'Test_Denominator'
             }
             expected_sv_denom_mapping = {
                 'StatVar3': {'', 'StatVar10'},

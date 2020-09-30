@@ -399,9 +399,10 @@ def get_choropleth_sv():
             sv = config['statsVars'][0]
             all_sv.add(sv)
             denom = ''
-            if config.get('relatedChart',
-                          {}) and config['relatedChart'].get('scale', False):
-                denom = config['relatedChart'].get('denominator', 'Count_Person')
+            if config.get('relatedChart', {}) and config['relatedChart'].get(
+                    'scale', False):
+                denom = config['relatedChart'].get('denominator',
+                                                   'Count_Person')
                 all_sv.add(denom)
             elif 'denominator' in config:
                 denom = config['denominator'][0]
