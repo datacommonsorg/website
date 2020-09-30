@@ -47,7 +47,6 @@ class ChartRegion extends Component<ChartRegionPropsType, unknown> {
         saveToFile("export.csv", this.createDataCsv());
       };
     }
-    console.log("ChartRegion", this.props.statsVars);
   }
 
   render(): JSX.Element {

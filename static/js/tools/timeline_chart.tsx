@@ -73,7 +73,9 @@ class Chart extends Component<ChartPropsType, unknown> {
     super(props);
     this.svgContainer = React.createRef();
     this.handleWindowResize = this.handleWindowResize.bind(this);
+    console.log("Chart", this.props.denominators);
   }
+
   render(): JSX.Element {
     const statsVars = Object.keys(this.props.statsVars);
     // TODO(shifucun): investigate on stats var title, now this is updated
@@ -107,7 +109,7 @@ class Chart extends Component<ChartPropsType, unknown> {
         <div ref={this.svgContainer} className="chart-svg"></div>
         <div className="statsVarChipRegion">
           {statsVars.map(
-            function (statsVar) {
+            function (statsVar: string) {
               let color: string;
               const title = this.props.statsVarTitle[statsVar];
               if (statsVars.length > 1) {
