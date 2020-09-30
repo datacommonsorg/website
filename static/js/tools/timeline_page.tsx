@@ -110,6 +110,11 @@ class Page extends Component<Record<string, unknown>, PageStateType> {
       placesPromise,
       validStatsVarPromise,
     ]).then(([statsVarInfo, placeIdNames, statsVarValid]) => {
+      for (const sv in this.state.statsVarInfo) {
+        statsVarInfo[sv].denominators = this.state.statsVarInfo[
+          sv
+        ].denominators;
+      }
       this.setState({
         statsVarInfo: statsVarInfo,
         placeIdNames: placeIdNames,
@@ -119,15 +124,22 @@ class Page extends Component<Record<string, unknown>, PageStateType> {
   }
 
   // add one statsVar with nodePath
-  private addStatsVar(statsVar: string, nodePath: string[]): void {
+  private addStatsVar(
+    statsVar: string,
+    nodePath: string[],
+    denominators?: string[]
+  ): void {
     if (this.params.addStatsVar(statsVar, nodePath)) {
       getStatsVarInfo(this.params.getStatsVarDcids()).then((data) => {
+        for (const sv in this.state.statsVarInfo) {
+          data[sv].denominators = this.state.statsVarInfo[sv].denominators;
+        }
+        data[statsVar].denominators = denominators;
         this.setState({
           statsVarInfo: data,
           statsVarNodes: _.cloneDeep(this.params.statsVarNodes),
         });
       });
-      this.params.setUrlStatsVars();
     }
   }
 
@@ -195,8 +207,8 @@ class Page extends Component<Record<string, unknown>, PageStateType> {
   }
 
   // set PerCapita for a chart
-  setChartPerCapita(mprop: string, pc: boolean): void {
-    if (this.params.setChartPC(mprop, pc)) {
+  setChartPerCapita(mprop: string, pc: boolean, denominator?: string): void {
+    if (this.params.setChartPC(mprop, pc, denominator)) {
       this.setState({
         chartOptions: _.cloneDeep(this.params.chartOptions),
       });

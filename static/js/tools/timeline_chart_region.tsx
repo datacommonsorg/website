@@ -27,7 +27,12 @@ interface ChartRegionPropsType {
   statsVarTitle: Record<string, string>;
   removeStatsVar: (statsVar: string, nodePath?: string[]) => void;
   chartOptions: ChartOptions;
-  setPC: (mprop: string, pc: boolean) => void;
+  setPC: (
+    mprop: string,
+    pc: boolean,
+    denominator?: string,
+    denominators?: string[]
+  ) => void;
 }
 
 class ChartRegion extends Component<ChartRegionPropsType, unknown> {
@@ -76,6 +81,16 @@ class ChartRegion extends Component<ChartRegionPropsType, unknown> {
                   ? this.props.chartOptions[groupId].pc
                   : false
               }
+              denominator={
+                groupId in this.props.chartOptions
+                  ? this.props.chartOptions[groupId].denominator
+                  : ""
+              }
+              denominators={
+                groupId in this.props.chartOptions
+                  ? this.props.chartOptions[groupId].denominators
+                  : []
+              }
               onDataUpdate={this.onDataUpdate.bind(this)}
               statsVarTitle={statsVarTitle}
               removeStatsVar={this.props.removeStatsVar}
@@ -112,8 +127,21 @@ class ChartRegion extends Component<ChartRegionPropsType, unknown> {
         groups[mprop] = [];
       }
       groups[mprop].push(statsVarId);
+      // this.props.setPC(mprop, false, "", statsVars[statsVarId].denominators);
     }
     return groups;
+  }
+
+  componentDidMount(): void {
+    const statsVars = this.props.statsVars;
+    for (const statsVarId in statsVars) {
+      this.props.setPC(
+        statsVars[statsVarId].mprop,
+        false,
+        "",
+        statsVars[statsVarId].denominators
+      );
+    }
   }
 
   private createDataCsv() {

@@ -23,6 +23,7 @@ interface StatsVarInfo {
   pt: string;
   pvs: { [key: string]: string };
   title: string;
+  denominators?: string[];
 }
 
 function getPlaceNames(dcids: string[]): Promise<{ [key: string]: string }> {
@@ -85,6 +86,8 @@ interface ChartOptions {
   [key: string]: {
     // key: mprop
     pc: boolean;
+    denominator?: string;
+    denominators?: string[];
   };
 }
 // keeps parameters used in Timeline page
@@ -110,12 +113,29 @@ class TimelineParams {
   }
 
   // set PerCaptia for a chart
-  public setChartPC(groupId: string, pc: boolean): boolean {
+  public setChartPC(
+    groupId: string,
+    pc: boolean,
+    denominator?: string,
+    denominators?: string[]
+  ): boolean {
     if (!this.chartOptions || !(groupId in this.chartOptions)) {
       this.chartOptions[groupId] = { pc: pc };
+      if (denominator && denominators) {
+        this.chartOptions[groupId].denominator = denominator;
+        this.chartOptions[groupId].denominators = denominators;
+      }
       return pc === true;
-    } else if (this.chartOptions[groupId].pc !== pc) {
+    } else if (
+      this.chartOptions[groupId].pc !== pc ||
+      (denominator && this.chartOptions[groupId].denominator !== denominator) ||
+      (denominators && this.chartOptions[groupId].denominators !== denominators)
+    ) {
       this.chartOptions[groupId].pc = pc;
+      if (denominator && denominators) {
+        this.chartOptions[groupId].denominator = denominator;
+        this.chartOptions[groupId].denominators = denominators;
+      }
       return true;
     }
     return false;

@@ -56,10 +56,12 @@ interface ChartPropsType {
   places: Record<string, string>;
   statsVars: { [key: string]: StatsVarInfo };
   perCapita: boolean;
+  denominator?: string;
+  denominators?: string[];
   onDataUpdate: (groupId: string, data: StatsData) => void;
   statsVarTitle: Record<string, string>;
   removeStatsVar: (statsVar: string, nodePath?: string[]) => void;
-  setPC: (groupId: string, pc: boolean) => void;
+  setPC: (groupId: string, pc: boolean, denominator?: string) => void;
 }
 
 class Chart extends Component<ChartPropsType, unknown> {
@@ -98,6 +100,20 @@ class Chart extends Component<ChartPropsType, unknown> {
               this.props.setPC(this.props.groupId, !this.props.perCapita);
             }}
           ></button>
+          <select
+            className="chartDenominators"
+            onChange={(select) =>
+              this.props.setPC(this.props.groupId, true, select.target.value)
+            }
+          >
+            <option value="N/A">N/A</option>
+            {this.props.denominators &&
+              this.props.denominators.map((denom) => (
+                <option value={denom} key={denom}>
+                  {denom}
+                </option>
+              ))}
+          </select>
         </span>
         <div ref={this.svgContainer} className="chart-svg"></div>
         <div className="statsVarChipRegion">
@@ -150,9 +166,13 @@ class Chart extends Component<ChartPropsType, unknown> {
     fetchStatsData(
       Object.keys(this.props.places),
       Object.keys(this.props.statsVars),
-      this.props.perCapita,
+      this.props.denominator ? false : this.props.perCapita,
       1,
-      [],
+      this.props.denominator
+        ? Array(Object.keys(this.props.statsVars).length).fill(
+            this.props.denominator
+          )
+        : [],
       {}
     ).then((statsData) => {
       this.statsData = statsData;
