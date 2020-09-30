@@ -101,7 +101,6 @@
       "denominator": "Count_Person"
     }
   },
-
   {
     "category": ["Economics", "Individual Income"],
     "title": "Median Individual Income",
@@ -159,6 +158,12 @@
       "scale": true,
       "denominator": "Count_Household"
     }
+  },
+  {
+    "category": ["Health", "Life Expectancy"],
+    "title": "Life Expectancy",
+    "statsVars": ["LifeExpectancy_Person"],
+    "isOverview": true
   },
   {
     "category": ["Health", "COVID-19"],
