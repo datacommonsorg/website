@@ -125,13 +125,6 @@ class ChartRegion extends Component<ChartRegionPropsType, unknown> {
     return groups;
   }
 
-  componentDidMount(): void {
-    const statsVars = this.props.statsVars;
-    for (const statsVarId in statsVars) {
-      this.props.setPC(statsVars[statsVarId].mprop, "");
-    }
-  }
-
   private createDataCsv() {
     // Get all the dates
     let allDates = new Set<string>();
