@@ -200,9 +200,7 @@ class Page extends Component<Record<string, unknown>, PageStateType> {
 
   // set PerCapita for a chart
   setChartPerCapita(mprop: string, denominator: string): void {
-    console.log(`setChartPerCapita ${mprop}, ${denominator}`);
     if (this.params.setChartPC(mprop, denominator)) {
-      console.log("this.params.setChartPC returned true");
       this.setState({
         chartOptions: _.cloneDeep(this.params.chartOptions),
       });
@@ -253,10 +251,10 @@ class Page extends Component<Record<string, unknown>, PageStateType> {
                     setPC={this.setChartPerCapita.bind(this)}
                     denominators={Object.entries(
                       this.state.statsVarNodes
-                    ).reduce(
-                      (res, entry) => (res[entry[0]] = entry[1].denominators),
-                      {}
-                    )}
+                    ).reduce((res, entry) => {
+                      res[entry[0]] = entry[1].denominators;
+                      return res;
+                    }, {})}
                   ></ChartRegion>
                 </div>
               )}

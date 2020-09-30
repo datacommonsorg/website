@@ -73,7 +73,6 @@ class Chart extends Component<ChartPropsType, unknown> {
     super(props);
     this.svgContainer = React.createRef();
     this.handleWindowResize = this.handleWindowResize.bind(this);
-    console.log("Chart", this.props.denominators);
   }
 
   render(): JSX.Element {
@@ -97,7 +96,7 @@ class Chart extends Component<ChartPropsType, unknown> {
               this.props.setPC(this.props.groupId, select.target.value)
             }
           >
-            <option value="N/A">N/A</option>
+            <option value=""></option>
             {this.props.denominators &&
               this.props.denominators.map((denom) => (
                 <option value={denom} key={denom}>

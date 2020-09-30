@@ -145,7 +145,7 @@ class Node extends Component<NodePropType, NodeStateType> {
     let check = false;
     let expand = this.state.expanded;
     for (const statsVar in this.props.selectedNodes) {
-      for (const nodePath of this.props.selectedNodes[statsVar]) {
+      for (const nodePath of this.props.selectedNodes[statsVar].paths) {
         if (nodePath.length === this.props.nodePath.length) {
           // if node Path has the same length, check if the node path matches
           if (_.isEqual(nodePath, this.props.nodePath)) {

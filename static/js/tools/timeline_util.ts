@@ -78,7 +78,7 @@ const nodePathSep = ",";
 const statsVarSep = "__";
 
 interface StatsVarNode {
-  [key: string]: { paths: string[][]; denominators: string[] }; // key: statsVar Id, value: array of nodePath
+  [key: string]: { paths: string[][]; denominators?: string[] }; // key: statsVar Id, value: array of nodePath
 }
 
 interface ChartOptions {

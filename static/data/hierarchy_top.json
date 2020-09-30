@@ -13,7 +13,8 @@
     "l": "Population",
     "t": "v",
     "e": "Population",
-    "c": 1
+    "c": 1,
+    "d": []
    },
    {
     "sv": [
@@ -22,7 +23,8 @@
     "l": "Population Density",
     "t": "v",
     "e": "Population Density",
-    "c": 1
+    "c": 1,
+    "d": []
    },
    {
     "sv": [
@@ -31,7 +33,8 @@
     "l": "Median age",
     "t": "v",
     "e": "median age",
-    "c": 1
+    "c": 1,
+    "d": []
    },
    {
     "sv": [
@@ -40,7 +43,8 @@
     "l": "Median income",
     "t": "v",
     "e": "median income",
-    "c": 1
+    "c": 1,
+    "d": []
    },
    {
     "sv": [
@@ -49,7 +53,8 @@
     "l": "Life Expectancy",
     "t": "v",
     "e": "Life Expectancy",
-    "c": 1
+    "c": 1,
+    "d": []
    },
    {
     "sv": [
@@ -58,7 +63,8 @@
     "l": "Crude Birth Rate",
     "t": "v",
     "e": "Crude Birth Rate",
-    "c": 1
+    "c": 1,
+    "d": []
    },
    {
     "l": "Age",
@@ -120,7 +126,8 @@
     "t": "p",
     "c": 43
    }
-  ]
+  ],
+  "d": []
  },
  "Crime": {
   "sv": [],
@@ -134,7 +141,8 @@
     "t": "p",
     "c": 11
    }
-  ]
+  ],
+  "d": []
  },
  "Education": {
   "sv": [],
@@ -163,7 +171,8 @@
     "t": "p",
     "c": 128
    }
-  ]
+  ],
+  "d": []
  },
  "Employment": {
   "sv": [],
@@ -179,7 +188,10 @@
     "l": "Employed",
     "t": "v",
     "e": "Employed",
-    "c": 1
+    "c": 1,
+    "d": [
+     "Count_Person"
+    ]
    },
    {
     "sv": [
@@ -188,7 +200,10 @@
     "l": "Labor Force",
     "t": "v",
     "e": "Labor Force",
-    "c": 1
+    "c": 1,
+    "d": [
+     "Count_Person"
+    ]
    },
    {
     "sv": [
@@ -197,7 +212,10 @@
     "l": "Unemployed",
     "t": "v",
     "e": "Unemployed",
-    "c": 1
+    "c": 1,
+    "d": [
+     "Count_Person"
+    ]
    },
    {
     "sv": [
@@ -206,7 +224,8 @@
     "l": "Unemployment Rate",
     "t": "v",
     "e": "Unemployment Rate",
-    "c": 1
+    "c": 1,
+    "d": []
    },
    {
     "l": "Establishments by Industry",
@@ -228,7 +247,8 @@
     "t": "p",
     "c": 14
    }
-  ]
+  ],
+  "d": []
  },
  "Health": {
   "sv": [],
@@ -244,7 +264,8 @@
     "l": "Mortality",
     "t": "v",
     "e": "Mortality",
-    "c": 1101
+    "c": 1101,
+    "d": []
    },
    {
     "l": "Health Outcomes",
@@ -266,7 +287,8 @@
     "t": "p",
     "c": 78
    }
-  ]
+  ],
+  "d": []
  },
  "COVID-19": {
   "sv": [],
@@ -295,7 +317,8 @@
     "t": "p",
     "c": 6
    }
-  ]
+  ],
+  "d": []
  },
  "Housing": {
   "sv": [],
@@ -311,7 +334,8 @@
     "l": "Housing Units",
     "t": "v",
     "e": "Housing Units",
-    "c": 1
+    "c": 1,
+    "d": []
    },
    {
     "l": "Housing Unit Cash Rent Status",
@@ -348,7 +372,8 @@
     "t": "p",
     "c": 20
    }
-  ]
+  ],
+  "d": []
  },
  "Household": {
   "sv": [],
@@ -364,7 +389,8 @@
     "l": "Median Household Income",
     "t": "v",
     "e": "Median Household Income",
-    "c": 1
+    "c": 1,
+    "d": []
    },
    {
     "sv": [
@@ -373,7 +399,8 @@
     "l": "Population",
     "t": "v",
     "e": "Population",
-    "c": 1
+    "c": 1,
+    "d": []
    },
    {
     "l": "Household by Householder Age",
@@ -390,7 +417,8 @@
     "t": "p",
     "c": 640
    }
-  ]
+  ],
+  "d": []
  },
  "Disasters": {
   "sv": [],
@@ -406,7 +434,8 @@
     "l": "Cyclones",
     "t": "v",
     "e": "Cyclones",
-    "c": 5
+    "c": 5,
+    "d": []
    },
    {
     "sv": [
@@ -415,7 +444,8 @@
     "l": "Droughts",
     "t": "v",
     "e": "Droughts",
-    "c": 1
+    "c": 1,
+    "d": []
    },
    {
     "sv": [
@@ -424,7 +454,8 @@
     "l": "Earthquakes",
     "t": "v",
     "e": "Earthquakes",
-    "c": 14
+    "c": 14,
+    "d": []
    },
    {
     "sv": [
@@ -433,7 +464,8 @@
     "l": "Floods",
     "t": "v",
     "e": "Floods",
-    "c": 1
+    "c": 1,
+    "d": []
    },
    {
     "sv": [
@@ -442,7 +474,8 @@
     "l": "Thunderstorm Wind Gusts",
     "t": "v",
     "e": "Thunderstorm Wind Gusts",
-    "c": 1
+    "c": 1,
+    "d": []
    },
    {
     "sv": [
@@ -451,7 +484,8 @@
     "l": "Tornadoes",
     "t": "v",
     "e": "Tornadoes",
-    "c": 1
+    "c": 1,
+    "d": []
    },
    {
     "sv": [
@@ -460,9 +494,11 @@
     "l": "Wildland Fires",
     "t": "v",
     "e": "Wildland Fires",
-    "c": 1
+    "c": 1,
+    "d": []
    }
-  ]
+  ],
+  "d": []
  },
  "Economics": {
   "sv": [],
@@ -478,7 +514,8 @@
     "l": "Annual Wages of Establishments",
     "t": "v",
     "e": "Annual Wages of Establishments",
-    "c": 1
+    "c": 1,
+    "d": []
    },
    {
     "sv": [
@@ -487,7 +524,8 @@
     "l": "Labor Force",
     "t": "v",
     "e": "Labor Force",
-    "c": 1
+    "c": 1,
+    "d": []
    },
    {
     "sv": [
@@ -496,7 +534,8 @@
     "l": "Number of Establishments",
     "t": "v",
     "e": "Number of Establishments",
-    "c": 1
+    "c": 1,
+    "d": []
    },
    {
     "l": "Annual Wages of Establishments by Industry",
@@ -508,6 +547,7 @@
     "t": "p",
     "c": 7
    }
-  ]
+  ],
+  "d": []
  }
 }
