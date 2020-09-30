@@ -14,8 +14,8 @@
  * limitations under the License.
  */
 
-import React, { Component, createRef } from "react";
-import { DataPoint, DataGroup } from "../chart/base";
+import React from "react";
+import { DataPoint, DataGroup, dataGroupsToCsv } from "../chart/base";
 import {
   drawLineChart,
   drawSingleBarChart,
@@ -34,6 +34,7 @@ import {
   placeRelationEnum,
 } from "./types";
 import { updatePageLayoutState } from "./place";
+import { ChartEmbed } from "./chart_embed";
 
 const CHART_HEIGHT = 194;
 
@@ -86,32 +87,31 @@ interface ChartStateType {
   dateSelected?: string;
   sources: string[];
   display: boolean;
+  showModal: boolean;
 }
 
-class Chart extends Component<ChartPropType, ChartStateType> {
+class Chart extends React.Component<ChartPropType, ChartStateType> {
   chartElement: React.RefObject<HTMLDivElement>;
-  similarRef: React.RefObject<HTMLOptionElement>;
-  nearbyRef: React.RefObject<HTMLOptionElement>;
-  parentRef: React.RefObject<HTMLOptionElement>;
-  childrenRef: React.RefObject<HTMLOptionElement>;
+  svgContainerElement: React.RefObject<HTMLDivElement>;
+  embedModalElement: React.RefObject<ChartEmbed>;
   dcid: string;
 
   constructor(props: ChartPropType) {
     super(props);
-    this.chartElement = createRef();
-    this.similarRef = createRef();
-    this.nearbyRef = createRef();
-    this.parentRef = createRef();
-    this.childrenRef = createRef();
+    this.chartElement = React.createRef();
+    this.svgContainerElement = React.createRef();
+    this.embedModalElement = React.createRef();
 
     this.state = {
-      elemWidth: 0,
-      sources: [],
       display: true,
+      elemWidth: 0,
+      showModal: false,
+      sources: [],
     };
     // Consider debouncing / throttling this if it gets expensive at
     // small screen sizes
     this._handleWindowResize = this._handleWindowResize.bind(this);
+    this._handleEmbed = this._handleEmbed.bind(this);
     this.dcid = props.dcid;
   }
 
@@ -149,13 +149,17 @@ class Chart extends Component<ChartPropType, ChartStateType> {
       return null;
     }
     return (
-      <div className="col" ref={this.chartElement}>
-        <div className="chart-container">
+      <div className="col">
+        <div className="chart-container" ref={this.chartElement}>
           <h4>
             {config.title}
             <span className="sub-title">{dateString}</span>
           </h4>
-          <div id={this.props.id} className="svg-container"></div>
+          <div
+            id={this.props.id}
+            ref={this.svgContainerElement}
+            className="svg-container"
+          ></div>
           <footer className="row explore-more-container">
             <div>
               <span>Data from </span>
@@ -174,18 +178,17 @@ class Chart extends Component<ChartPropType, ChartStateType> {
                 (dotted line denotes missing data)
               </span>
             </div>
-            <div>
-              <a
-                target="_blank"
-                rel="noreferrer"
-                className="explore-more"
-                href={config.exploreUrl}
-              >
+            <div className="outlinks">
+              <a href="#" onClick={this._handleEmbed}>
+                Embed
+              </a>
+              <a className="explore-more" href={config.exploreUrl}>
                 Explore More ›
               </a>
             </div>
           </footer>
         </div>
+        <ChartEmbed ref={this.embedModalElement} />
       </div>
     );
   }
@@ -236,18 +239,50 @@ class Chart extends Component<ChartPropType, ChartStateType> {
     this.fetchData();
   }
 
-  _handleWindowResize(): void {
-    const svgElement = document.getElementById(this.props.id);
+  private _handleWindowResize(): void {
+    const svgElement = this.svgContainerElement.current;
     if (!svgElement) {
       return;
     }
     // Chart resizes at bootstrap breakpoints
-    const width = svgElement.offsetWidth;
+    const width = this.svgContainerElement.current.offsetWidth;
     if (width !== this.state.elemWidth) {
       this.setState({
         elemWidth: width,
       });
     }
+  }
+
+  /**
+   * Returns data used to draw chart as a CSV.
+   */
+  private dataCsv(): string {
+    // TODO(beets): Handle this.state.dataPoints too.
+    const dp = this.state.dataPoints;
+    if (dp && dp.length > 0) {
+      console.log("Implement CSV function for data points");
+      return;
+    }
+    return dataGroupsToCsv(this.state.dataGroups);
+  }
+
+  /**
+   * Handle clicks on "embed chart" link.
+   */
+  private _handleEmbed(
+    e: React.MouseEvent<HTMLAnchorElement, MouseEvent>
+  ): void {
+    e.preventDefault();
+    // Node does not have innerHTML property so we need to pass both in.
+    const svgElems = this.svgContainerElement.current.getElementsByTagName(
+      "svg"
+    );
+    let svgHtml: string;
+    if (svgElems.length) {
+      svgHtml = svgElems.item(0).innerHTML;
+    }
+    const svgDom = this.chartElement.current.cloneNode(true);
+    this.embedModalElement.current.show(svgHtml, svgDom, this.dataCsv());
   }
 
   drawChart(): void {
