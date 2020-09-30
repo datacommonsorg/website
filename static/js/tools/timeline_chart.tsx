@@ -55,13 +55,12 @@ interface ChartPropsType {
   groupId: string; // unique identifier of the chart
   places: Record<string, string>;
   statsVars: { [key: string]: StatsVarInfo };
-  perCapita: boolean;
-  denominator?: string;
-  denominators?: string[];
   onDataUpdate: (groupId: string, data: StatsData) => void;
   statsVarTitle: Record<string, string>;
   removeStatsVar: (statsVar: string, nodePath?: string[]) => void;
-  setPC: (groupId: string, pc: boolean, denominator?: string) => void;
+  setPC: (groupId: string, denominator: string) => void;
+  denominator?: string;
+  denominators?: string[];
 }
 
 class Chart extends Component<ChartPropsType, unknown> {
@@ -90,20 +89,10 @@ class Chart extends Component<ChartPropsType, unknown> {
       <div className="card">
         <span className="chartPerCapita">
           Per capita
-          <button
-            className={
-              this.props.perCapita
-                ? "perCapitaCheckbox checked"
-                : "perCapitaCheckbox"
-            }
-            onClick={() => {
-              this.props.setPC(this.props.groupId, !this.props.perCapita);
-            }}
-          ></button>
           <select
             className="chartDenominators"
             onChange={(select) =>
-              this.props.setPC(this.props.groupId, true, select.target.value)
+              this.props.setPC(this.props.groupId, select.target.value)
             }
           >
             <option value="N/A">N/A</option>
@@ -148,7 +137,7 @@ class Chart extends Component<ChartPropsType, unknown> {
   componentWillUnmount(): void {
     window.removeEventListener("resize", this.handleWindowResize);
     // reset the options to default value if the chart is removed
-    this.props.setPC(this.props.groupId, false);
+    this.props.setPC(this.props.groupId, "");
   }
 
   componentDidUpdate(): void {
@@ -166,7 +155,7 @@ class Chart extends Component<ChartPropsType, unknown> {
     fetchStatsData(
       Object.keys(this.props.places),
       Object.keys(this.props.statsVars),
-      this.props.denominator ? false : this.props.perCapita,
+      false,
       1,
       this.props.denominator
         ? Array(Object.keys(this.props.statsVars).length).fill(

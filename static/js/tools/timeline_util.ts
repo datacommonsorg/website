@@ -23,7 +23,6 @@ interface StatsVarInfo {
   pt: string;
   pvs: { [key: string]: string };
   title: string;
-  denominators?: string[];
 }
 
 function getPlaceNames(dcids: string[]): Promise<{ [key: string]: string }> {
@@ -79,15 +78,13 @@ const nodePathSep = ",";
 const statsVarSep = "__";
 
 interface StatsVarNode {
-  [key: string]: string[][]; // key: statsVar Id, value: array of nodePath
+  [key: string]: { paths: string[][]; denominators: string[] }; // key: statsVar Id, value: array of nodePath
 }
 
 interface ChartOptions {
   [key: string]: {
     // key: mprop
-    pc: boolean;
-    denominator?: string;
-    denominators?: string[];
+    denominator: string;
   };
 }
 // keeps parameters used in Timeline page
@@ -113,29 +110,16 @@ class TimelineParams {
   }
 
   // set PerCaptia for a chart
-  public setChartPC(
-    groupId: string,
-    pc: boolean,
-    denominator?: string,
-    denominators?: string[]
-  ): boolean {
+  public setChartPC(groupId: string, denominator: string): boolean {
     if (!this.chartOptions || !(groupId in this.chartOptions)) {
-      this.chartOptions[groupId] = { pc: pc };
-      if (denominator && denominators) {
-        this.chartOptions[groupId].denominator = denominator;
-        this.chartOptions[groupId].denominators = denominators;
+      this.chartOptions[groupId] = { denominator: denominator };
+      if (denominator) {
+        return true;
       }
-      return pc === true;
-    } else if (
-      this.chartOptions[groupId].pc !== pc ||
-      (denominator && this.chartOptions[groupId].denominator !== denominator) ||
-      (denominators && this.chartOptions[groupId].denominators !== denominators)
-    ) {
-      this.chartOptions[groupId].pc = pc;
-      if (denominator && denominators) {
-        this.chartOptions[groupId].denominator = denominator;
-        this.chartOptions[groupId].denominators = denominators;
-      }
+      return false;
+    } else if (this.chartOptions[groupId].denominator !== denominator) {
+      this.chartOptions[groupId] = { denominator: denominator };
+
       return true;
     }
     return false;
@@ -161,16 +145,30 @@ class TimelineParams {
   }
 
   // add one statsVar with Path, return true if this.statsVarNodes changed
-  public addStatsVar(statsVar: string, nodePath: string[]): boolean {
+  public addStatsVar(
+    statsVar: string,
+    nodePath: string[],
+    denominators?: string[]
+  ): boolean {
+    const node = {
+      paths: [nodePath],
+      denominators: denominators,
+    };
+    if (!denominators) {
+      delete node.denominators;
+    }
     if (!(statsVar in this.statsVarNodes)) {
-      this.statsVarNodes[statsVar] = [nodePath];
+      this.statsVarNodes[statsVar] = node;
       return true;
     } else if (
-      _.findIndex(this.statsVarNodes[statsVar], function (obj) {
+      _.findIndex(this.statsVarNodes[statsVar].paths, function (obj) {
         return _.isEqual(obj, nodePath);
       }) === -1
     ) {
-      this.statsVarNodes[statsVar].push(nodePath);
+      this.statsVarNodes[statsVar].paths.push(nodePath);
+      if (denominators) {
+        this.statsVarNodes[statsVar].denominators = denominators;
+      }
       return true;
     }
     return false;
@@ -186,12 +184,14 @@ class TimelineParams {
       }
       // if Path is provided, delete the statsVar with the same Path only
       else {
-        const idx = _.findIndex(this.statsVarNodes[statsVar], function (obj) {
+        const idx = _.findIndex(this.statsVarNodes[statsVar].paths, function (
+          obj
+        ) {
           return _.isEqual(obj, nodePath);
         });
         if (idx !== -1) {
-          this.statsVarNodes[statsVar].splice(idx, 1);
-          if (this.statsVarNodes[statsVar].length === 0) {
+          this.statsVarNodes[statsVar].paths.splice(idx, 1);
+          if (this.statsVarNodes[statsVar].paths.length === 0) {
             delete this.statsVarNodes[statsVar];
           }
           return true;
@@ -213,7 +213,11 @@ class TimelineParams {
     const statsVarArray = [];
     for (const statsVar in this.statsVarNodes) {
       statsVarArray.push(
-        statsVar + nodePathSep + this.statsVarNodes[statsVar].join(nodePathSep)
+        statsVar +
+          nodePathSep +
+          this.statsVarNodes[statsVar].paths.join(nodePathSep) +
+          nodePathSep +
+          this.statsVarNodes[statsVar].denominators.join(nodePathSep)
       );
     }
     this.urlParams.set("statsVar", statsVarArray.join(statsVarSep));
@@ -238,7 +242,7 @@ class TimelineParams {
   public getStatsVarPaths(): string[][] {
     const statsVarPaths = [];
     for (const statsVar in this.statsVarNodes) {
-      for (const nodePath of this.statsVarNodes[statsVar]) {
+      for (const nodePath of this.statsVarNodes[statsVar].paths) {
         statsVarPaths.push(nodePath);
       }
     }
@@ -274,10 +278,15 @@ class TimelineParams {
               statsVarPathMap[statsVarInfo[0]].map((x: number) => x.toString())
             );
           } else {
-            this.addStatsVar(statsVarInfo[0], []);
+            this.addStatsVar(statsVarInfo[0], [], []);
           }
         } else {
-          this.addStatsVar(statsVarInfo[0], statsVarInfo.splice(1));
+          const pathsAndDenoms = statsVarInfo.splice(1);
+          this.addStatsVar(
+            statsVarInfo[0],
+            pathsAndDenoms.filter((elem) => "0" <= elem[0] && elem[0] <= "9"),
+            pathsAndDenoms.filter((elem) => "0" > elem[0] || elem[0] > "9")
+          );
         }
       }
     }

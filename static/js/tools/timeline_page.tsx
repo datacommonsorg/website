@@ -110,11 +110,6 @@ class Page extends Component<Record<string, unknown>, PageStateType> {
       placesPromise,
       validStatsVarPromise,
     ]).then(([statsVarInfo, placeIdNames, statsVarValid]) => {
-      for (const sv in this.state.statsVarInfo) {
-        statsVarInfo[sv].denominators = this.state.statsVarInfo[
-          sv
-        ].denominators;
-      }
       this.setState({
         statsVarInfo: statsVarInfo,
         placeIdNames: placeIdNames,
@@ -129,12 +124,8 @@ class Page extends Component<Record<string, unknown>, PageStateType> {
     nodePath: string[],
     denominators?: string[]
   ): void {
-    if (this.params.addStatsVar(statsVar, nodePath)) {
+    if (this.params.addStatsVar(statsVar, nodePath, denominators)) {
       getStatsVarInfo(this.params.getStatsVarDcids()).then((data) => {
-        for (const sv in this.state.statsVarInfo) {
-          data[sv].denominators = this.state.statsVarInfo[sv].denominators;
-        }
-        data[statsVar].denominators = denominators;
         this.setState({
           statsVarInfo: data,
           statsVarNodes: _.cloneDeep(this.params.statsVarNodes),
@@ -207,8 +198,10 @@ class Page extends Component<Record<string, unknown>, PageStateType> {
   }
 
   // set PerCapita for a chart
-  setChartPerCapita(mprop: string, pc: boolean, denominator?: string): void {
-    if (this.params.setChartPC(mprop, pc, denominator)) {
+  setChartPerCapita(mprop: string, denominator: string): void {
+    console.log(`setChartPerCapita ${mprop}, ${denominator}`);
+    if (this.params.setChartPC(mprop, denominator)) {
+      console.log("this.params.setChartPC returned true");
       this.setState({
         chartOptions: _.cloneDeep(this.params.chartOptions),
       });
@@ -257,6 +250,12 @@ class Page extends Component<Record<string, unknown>, PageStateType> {
                     removeStatsVar={this.removeStatsVar.bind(this)}
                     chartOptions={this.state.chartOptions}
                     setPC={this.setChartPerCapita.bind(this)}
+                    denominators={Object.entries(
+                      this.state.statsVarNodes
+                    ).reduce(
+                      (res, entry) => (res[entry[0]] = entry[1].denominators),
+                      {}
+                    )}
                   ></ChartRegion>
                 </div>
               )}

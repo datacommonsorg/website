@@ -15,6 +15,7 @@
  */
 
 import React, { Component } from "react";
+import _ from "lodash";
 import { StatsData } from "../shared/data_fetcher";
 import { StatsVarInfo, ChartOptions } from "./timeline_util";
 import { saveToFile } from "../shared/util";
@@ -27,12 +28,8 @@ interface ChartRegionPropsType {
   statsVarTitle: Record<string, string>;
   removeStatsVar: (statsVar: string, nodePath?: string[]) => void;
   chartOptions: ChartOptions;
-  setPC: (
-    mprop: string,
-    pc: boolean,
-    denominator?: string,
-    denominators?: string[]
-  ) => void;
+  setPC: (mprop: string, denominator: string) => void;
+  denominators: { [key: string]: string[] };
 }
 
 class ChartRegion extends Component<ChartRegionPropsType, unknown> {
@@ -50,6 +47,7 @@ class ChartRegion extends Component<ChartRegionPropsType, unknown> {
         saveToFile("export.csv", this.createDataCsv());
       };
     }
+    console.log("ChartRegion", this.props.statsVars);
   }
 
   render(): JSX.Element {
@@ -66,6 +64,9 @@ class ChartRegion extends Component<ChartRegionPropsType, unknown> {
           const statsVarDcids = groups[groupId];
           const statsVars = {};
           const statsVarTitle = {};
+          const denominators = _.intersection(
+            ...statsVarDcids.map((dcid) => this.props.denominators[dcid])
+          );
           for (const id of statsVarDcids) {
             statsVars[id] = this.props.statsVars[id];
             statsVarTitle[id] = this.props.statsVarTitle[id];
@@ -76,25 +77,16 @@ class ChartRegion extends Component<ChartRegionPropsType, unknown> {
               groupId={groupId}
               places={this.props.places}
               statsVars={statsVars}
-              perCapita={
-                groupId in this.props.chartOptions
-                  ? this.props.chartOptions[groupId].pc
-                  : false
-              }
+              onDataUpdate={this.onDataUpdate.bind(this)}
+              statsVarTitle={statsVarTitle}
+              removeStatsVar={this.props.removeStatsVar}
+              setPC={this.props.setPC}
               denominator={
                 groupId in this.props.chartOptions
                   ? this.props.chartOptions[groupId].denominator
                   : ""
               }
-              denominators={
-                groupId in this.props.chartOptions
-                  ? this.props.chartOptions[groupId].denominators
-                  : []
-              }
-              onDataUpdate={this.onDataUpdate.bind(this)}
-              statsVarTitle={statsVarTitle}
-              removeStatsVar={this.props.removeStatsVar}
-              setPC={this.props.setPC}
+              denominators={denominators}
             ></Chart>
           );
         }, this)}
@@ -119,7 +111,9 @@ class ChartRegion extends Component<ChartRegionPropsType, unknown> {
    *
    * @param statsVars All the input stats vars.
    */
-  private groupStatsVars(statsVars: { [key: string]: StatsVarInfo }) {
+  private groupStatsVars(statsVars: {
+    [key: string]: StatsVarInfo;
+  }): { [key: string]: string[] } {
     const groups = {};
     for (const statsVarId in statsVars) {
       const mprop = statsVars[statsVarId].mprop;
@@ -127,7 +121,6 @@ class ChartRegion extends Component<ChartRegionPropsType, unknown> {
         groups[mprop] = [];
       }
       groups[mprop].push(statsVarId);
-      // this.props.setPC(mprop, false, "", statsVars[statsVarId].denominators);
     }
     return groups;
   }
@@ -135,12 +128,7 @@ class ChartRegion extends Component<ChartRegionPropsType, unknown> {
   componentDidMount(): void {
     const statsVars = this.props.statsVars;
     for (const statsVarId in statsVars) {
-      this.props.setPC(
-        statsVars[statsVarId].mprop,
-        false,
-        "",
-        statsVars[statsVarId].denominators
-      );
+      this.props.setPC(statsVars[statsVarId].mprop, "");
     }
   }
 
