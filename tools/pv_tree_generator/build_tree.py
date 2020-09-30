@@ -12,6 +12,7 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
+from itertools import chain, combinations
 from typing import Dict, List, Tuple
 from util import PopObsSpec, StatsVar, read_pop_obs_spec, read_stat_var
 import collections
@@ -40,7 +41,7 @@ def get_root_children(pop_obs_spec_all, stats_vars_all) -> List['ValueNode']:
                 leafs.append(
                     ValueLeaf(get_root_leaf_name(pos, matching_statsVar),
                               [sv.dcid for sv in matching_statsVar], True, pos,
-                              []))
+                              [], stats_vars_all))
         # property specs that is children of the value node for building
         # the next level of the tree
         props = []
@@ -73,7 +74,7 @@ class ValueLeaf:
     """
 
     def __init__(self, name: str, dcids: List[str], addLevel: bool,
-                 pos: PopObsSpec, leafs: 'ValueLeaf'):
+                 pos: PopObsSpec, leafs: 'ValueLeaf', stats_vars_all):
         # when there's both super enum and multiple obs_props,
         # the Value leaf has its child leafs
         self.name = name
@@ -81,6 +82,8 @@ class ValueLeaf:
         self.addLevel = addLevel
         self.pop_type = pos.pop_type
         self.leafs = leafs
+        self.pos = pos
+        self.stats_vars_all = stats_vars_all
 
     def json_blob(self):
         result = {
@@ -91,7 +94,7 @@ class ValueLeaf:
             'e': self.name,
             'c': 1,
             'cd': [],
-            'sv_set': set(self.dcids)
+            'sv_set': set(self.dcids),
         }
         for node in self.leafs:
             if node.addLevel:
@@ -104,7 +107,39 @@ class ValueLeaf:
             result['t'] = 'p'
         if result['cd']:
             result['cd'] = text_format.filter_and_sort(self.name, result['cd'])
+        result['d'] = find_denominators(self.pos, self.stats_vars_all,
+                                        result['sv'])
+
         return result
+
+
+def powerset(iterable):
+    """Returns all subsets of a set.
+    https://docs.python.org/3/library/itertools.html#itertools-recipes
+    
+    """
+    "powerset([1,2,3]) --> () (1,) (2,) (3,) (1,2) (1,3) (2,3) (1,2,3)"
+    s = list(iterable)
+    return chain.from_iterable(combinations(s, r) for r in range(len(s) + 1))
+
+
+def find_denominators(pop_obs: PopObsSpec, stats_vars_all: List[StatsVar],
+                      stats_vars_to_exclude: List[str]) -> List[str]:
+    """Finds possible StatVars that can be used as a per capita denominator."""
+    denominators = set()
+    for obs_prop in pop_obs.obs_props:
+        key_without_pv = (pop_obs.pop_type,) + obs_prop.key
+        matching_statvars = tuple(stats_vars_all.get(key_without_pv, ()))
+        if pop_obs.dpv:
+            for dpv_key_subset in powerset(pop_obs.dpv.keys()):
+                key_with_pv = ((pop_obs.pop_type,) + obs_prop.key +
+                               tuple(sorted(dpv_key_subset)))
+                matching_statvars += tuple(stats_vars_all.get(key_with_pv, ()))
+        for sv in matching_statvars:
+            if (set(sv.pv.items()) <= set(pop_obs.dpv.items()) and
+                    sv.dcid not in stats_vars_to_exclude):
+                denominators.add(sv.dcid)
+    return list(denominators)
 
 
 class PropertyNode:
@@ -147,7 +182,7 @@ class PropertyNode:
                             ValueLeaf(self.pos.obs_props[idx].name, [sv.dcid],
                                       (addLevel and
                                        not self.pos.obs_props[idx].same_level),
-                                      self.pos, []))
+                                      self.pos, [], self.stats_vars_all))
                     else:  # create new level for super enum
                         if (addLevel and
                                 not self.pos.obs_props[idx].same_level):
@@ -162,24 +197,26 @@ class PropertyNode:
                                     # if the super enum exists
                                     se_leaf.leafs.append(
                                         ValueLeaf(self.pos.obs_props[idx].name,
-                                                  [sv.dcid], True, self.pos,
-                                                  []))
+                                                  [sv.dcid], True, self.pos, [],
+                                                  self.stats_vars_all))
                                     sv_added = True
                             if not sv_added:
                                 # if the super enum does not exist
                                 # create the super enum leaf and its child
                                 se_leaf = ValueLeaf(sv.pv[self.prop], [], True,
-                                                    self.pos, [])
+                                                    self.pos, [],
+                                                    self.stats_vars_all)
                                 se_leaf.leafs.append(
                                     ValueLeaf(self.pos.obs_props[idx].name,
-                                              [sv.dcid], True, self.pos, []))
+                                              [sv.dcid], True, self.pos, [],
+                                              self.stats_vars_all))
                                 matching_stats_vars[sv.se[self.prop]].append(
                                     se_leaf)
                         else:
                             # there's no additional level under super enum
                             matching_stats_vars[sv.se[self.prop]].append(
                                 ValueLeaf(sv.pv[self.prop], [sv.dcid], True,
-                                          self.pos, []))
+                                          self.pos, [], self.stats_vars_all))
 
         # create a list of value Nodes
         value_nodes = []
@@ -275,6 +312,7 @@ class ValueNode:
             'c': 0,
             'sv_set': set([]),
             'cd': [],
+            'd': []
         }
         for node in self.leafs:
             if node.addLevel:
@@ -287,6 +325,9 @@ class ValueNode:
             result['t'] = 'p'
         if result['cd']:
             result['cd'] = text_format.filter_and_sort(self.value, result['cd'])
+        if self.parent:
+            result['d'] = find_denominators(self.parent.pos,
+                                            self.stats_vars_all, result['sv'])
         return result
 
 
