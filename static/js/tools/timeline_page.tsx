@@ -131,6 +131,7 @@ class Page extends Component<Record<string, unknown>, PageStateType> {
           statsVarNodes: _.cloneDeep(this.params.statsVarNodes),
         });
       });
+      this.params.setUrlStatsVars();
     }
   }
 
