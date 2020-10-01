@@ -277,6 +277,8 @@ def config(dcid):
         for place in cached_chart_data:
             sv_dates = get_dates_for_stat_vars(cc, cached_chart_data[place])
             for sv in cached_chart_data[place]:
+                if not 'data' in cached_chart_data[place][sv]:
+                    continue
                 if not sv in sv_keep_all_dates:
                     if sv in sv_dates:
                         cached_chart_data[place][sv][
