@@ -340,7 +340,8 @@ class ValueNode:
             result['d'] = []
             if self.parent:
                 result['d'] = find_denominators(self.parent.pos,
-                                                self.stats_vars_all, result['sv'])
+                                                self.stats_vars_all,
+                                                result['sv'])
         return result
 
 
