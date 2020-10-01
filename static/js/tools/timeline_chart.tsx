@@ -99,7 +99,11 @@ class Chart extends Component<ChartPropsType, unknown> {
             <option value=""></option>
             {this.props.denominators &&
               this.props.denominators.map((denom) => (
-                <option value={denom} key={denom}>
+                <option
+                  value={denom}
+                  key={denom}
+                  selected={this.props.denominator === denom}
+                >
                   {denom}
                 </option>
               ))}
