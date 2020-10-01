@@ -85,7 +85,7 @@ class ValueLeaf:
         self.pos = pos
         self.stats_vars_all = stats_vars_all
 
-    def json_blob(self):
+    def json_blob(self, pvs: Dict[str, str]):
         result = {
             'populationType': self.pop_type,
             'sv': self.dcids,
@@ -98,7 +98,7 @@ class ValueLeaf:
         }
         for node in self.leafs:
             if node.addLevel:
-                result['cd'].append(node.json_blob())
+                result['cd'].append(node.json_blob(pvs))
             else:
                 # add the statsVar dcids to the value ndoe
                 result['sv'].extend(node.dcids)
@@ -108,7 +108,7 @@ class ValueLeaf:
         if result['cd']:
             result['cd'] = text_format.filter_and_sort(self.name, result['cd'])
         if result['t'] == 'v':
-            result['d'] = find_denominators(self.pos, self.stats_vars_all,
+            result['d'] = find_denominators(self.pos, pvs, self.stats_vars_all,
                                             result['sv'])
 
         return result
@@ -124,32 +124,37 @@ def powerset(iterable: List) -> Iterator:
     return chain.from_iterable(combinations(s, r) for r in range(len(s) + 1))
 
 
-def find_denominators(pop_obs: PopObsSpec, stats_vars_all: Dict[str,
-                                                                List[StatsVar]],
+def find_denominators(pop_obs: PopObsSpec, cpvs: Dict[str, str],
+                      stats_vars_all: Dict[str, List[StatsVar]],
                       stats_vars_to_exclude: List[str]) -> List[str]:
     """Finds possible StatVars that can be used as per capita denominators for
     a StatVar.
 
+    The dpvs of "pop_obs" and "cpvs" are combined to from the final pv mapping.
+    A denominator is included if its pvs are a subset of the final pv mapping.
+    E.g., if dpvs is {'age': '15YearsOnwards'} and cpvs is {'gender': 'female'},
+    the denominators are 'Count_Person', 'Count_Person_Female',
+    'Count_Person_15OrMoreYears', and 'Count_Person_Female_15OrMoreYears'.
+
     Args:
         pop_obs: Population measured by the StatVar.
+        pvs: Constraint property-value pairs from the root to the
+            node with "pop_obs".
         stats_vars_all: Mapping from keys to candidate StatVars.
         stats_vars_to_exclude: StatVars to exclude from the answer.
     """
     denominators = set()
+    pvs_merged = {**pop_obs.dpv, **cpvs}
+    pv_key_subsets = list(
+        tuple(sorted(subset)) for subset in powerset(pvs_merged.keys()))
     for obs_prop in pop_obs.obs_props:
-        # This key should capture denominators with out PVs such as
-        # 'Count_Person' and 'Count_Household'
-        key_without_pv = (pop_obs.pop_type,) + obs_prop.key
-        matching_statvars = tuple(stats_vars_all.get(key_without_pv, ()))
-        if pop_obs.dpv:
-            for dpv_key_subset in powerset(pop_obs.dpv.keys()):
-                # This key should capture denominators with PVs such as
-                # 'Count_Person_15OrMoreYears'
-                key_with_pv = ((pop_obs.pop_type,) + obs_prop.key +
-                               tuple(sorted(dpv_key_subset)))
-                matching_statvars += tuple(stats_vars_all.get(key_with_pv, ()))
+        # This key should capture denominators with out PVs
+        matching_statvars = tuple()
+        for subset in pv_key_subsets:
+            key = (pop_obs.pop_type,) + obs_prop.key + subset
+            matching_statvars += tuple(stats_vars_all.get(key, ()))
         for sv in matching_statvars:
-            if (set(sv.pv.items()) <= set(pop_obs.dpv.items()) and
+            if (set(sv.pv.items()) <= set(pvs_merged.items()) and
                     sv.dcid not in stats_vars_to_exclude):
                 denominators.add(sv.dcid)
     return list(sorted(denominators))
@@ -307,7 +312,7 @@ class ValueNode:
                              self.stats_vars_all))
         return propertyNodes
 
-    def json_blob(self):
+    def json_blob(self, pvs: Dict[str, str]):
         """ Generate the json blob of a value node, including the node itself
             and its leaf children. """
         if self.leafs:
@@ -328,7 +333,7 @@ class ValueNode:
         }
         for node in self.leafs:
             if node.addLevel:
-                result['cd'].append(node.json_blob())
+                result['cd'].append(node.json_blob(pvs))
             else:
                 # add the statsVar dcids to the value ndoe
                 result['sv'].extend(node.dcids)
@@ -340,7 +345,7 @@ class ValueNode:
         if result['t'] == 'v':
             result['d'] = []
             if self.parent:
-                result['d'] = find_denominators(self.parent.pos,
+                result['d'] = find_denominators(self.parent.pos, pvs,
                                                 self.stats_vars_all,
                                                 result['sv'])
         return result
@@ -354,7 +359,7 @@ def build_tree(max_level):
     vertical_nodes = get_root_children(pop_obs_spec, stats_vars)
     vertical_nodes.sort(key=lambda node: VERTICALS.index(node.value))
     for vertical in vertical_nodes:
-        current_blob = vertical.json_blob()
+        current_blob = vertical.json_blob({})
         # build the vertical nodes blobs
         data[vertical.value] = current_blob
         # get the property nodes of each vertical
@@ -373,20 +378,24 @@ def build_tree(max_level):
     return data, stats_var_path
 
 
-def build_tree_recursive(node: PropertyNode, max_level):
+def build_tree_recursive(node: PropertyNode,
+                         max_level,
+                         pvs: Dict[str, str] = {}):
     """ Build a property node and its children recusively
         until the maximum level."""
     result = node.json_blob()  # build the property node blobs
     value_nodes = node.children()  # get the child value nodes
     for value in value_nodes:
         # build the child value node blobs
-        value_blob = value.json_blob()
+        value_blob = value.json_blob(pvs)
         result['cd'].append(value_blob)
         prop_children = value.children()
+        pvs_new = dict(pvs)
+        pvs_new[node.prop] = value.value
         if node.level < max_level:
             for prop in prop_children:
                 # build the next level
-                prop_blob = build_tree_recursive(prop, max_level)
+                prop_blob = build_tree_recursive(prop, max_level, pvs_new)
                 if (prop_blob['cd']):
                     value_blob['cd'].append(prop_blob)
     result['cd'] = text_format.filter_and_sort(node.prop, result['cd'])
