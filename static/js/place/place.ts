@@ -21,7 +21,8 @@ import axios from "axios";
 import { ChildPlace } from "./child_places_menu";
 import { Menu } from "./topic_menu";
 import { ParentPlace } from "./parent_breadcrumbs";
-import { MainPane } from "./main";
+
+import { PageData } from "./types";
 
 let ac: google.maps.places.Autocomplete;
 
@@ -82,64 +83,6 @@ function adjustMenuPosition() {
   }
 }
 
-/**
- * Get child places with filtering.
- *
- * @param {string} dcid
- */
-function getChildPlaces(dcid) {
-  return axios.get(`/api/place/child/${dcid}`).then((resp) => {
-    return resp.data;
-  });
-}
-
-/**
- * Get similar places, now using total population as the metric.
- *
- * @param dcid The place dcid
- */
-function getSimilarPlaces(dcid: string) {
-  return axios.get(`/api/place/similar/Count_Person/${dcid}`).then((resp) => {
-    const places = resp.data;
-    const result = [dcid];
-    if (places) {
-      result.push(...places.slice(0, 4));
-    }
-    return result;
-  });
-}
-
-/**
- * Get parent places.
- *
- * @param dcid The place dcid.
- */
-function getParentPlaces(dcid: string) {
-  return axios.get(`/api/place/parent/${dcid}`).then((resp) => {
-    return resp.data;
-  });
-}
-
-/**
- * Get nearby places.
- *
- * @param dcid The place dcid.
- */
-function getNearbyPlaces(dcid: string) {
-  return axios.get(`/api/place/nearby/${dcid}`).then((resp) => {
-    return resp.data;
-  });
-}
-
-/**
- * Get the chart configuration.
- */
-function getChartConfigData(dcid: string) {
-  return axios.get("/api/chart/data/" + dcid).then((resp) => {
-    return resp.data;
-  });
-}
-
 function renderPage(dcid: string) {
   const urlParams = new URLSearchParams(window.location.search);
   // Get topic and render menu.
@@ -147,84 +90,42 @@ function renderPage(dcid: string) {
   const placeName = document.getElementById("place-name").dataset.pn;
   const placeType = document.getElementById("place-type").dataset.pt;
 
-  // Get parent, child and similiar places and render main pane.
-  const parentPlacesPromise = getParentPlaces(dcid);
-  const childPlacesPromise = getChildPlaces(dcid);
-  const similarPlacesPromise = getSimilarPlaces(dcid);
-  const nearbyPlacesPromise = getNearbyPlaces(dcid);
-  const chartConfigDataPromise = getChartConfigData(dcid);
-
-  chartConfigDataPromise.then((chartConfigData) => {
+  axios.get("/api/place/new/data/" + dcid).then((resp) => {
+    const data: PageData = resp.data;
     ReactDOM.render(
       React.createElement(Menu, {
         dcid,
         topic,
-        chartConfig: chartConfigData.config,
+        configStat: data.configStat,
       }),
       document.getElementById("topics")
     );
-  });
 
-  parentPlacesPromise.then((parentPlaces) => {
     ReactDOM.render(
-      React.createElement(ParentPlace, { parentPlaces, placeType }),
+      React.createElement(ParentPlace, {
+        parentPlaces: data.parentPlaces,
+        placeType,
+      }),
       document.getElementById("place-type")
     );
     // Readjust sidebar based on parent places.
     updatePageLayoutState();
-  });
 
-  childPlacesPromise.then((childPlaces) => {
     // Display child places alphabetically
-    for (const placeType in childPlaces) {
-      childPlaces[placeType].sort((a, b) =>
+    for (const placeType in data.childPlaces) {
+      data.allChildPlaces[placeType].sort((a, b) =>
         a.name < b.name ? -1 : a.name > b.name ? 1 : 0
       );
     }
 
     ReactDOM.render(
-      React.createElement(ChildPlace, { childPlaces, placeName }),
+      React.createElement(ChildPlace, {
+        childPlaces: data.allChildPlaces,
+        placeName,
+      }),
       document.getElementById("child-place")
     );
   });
-
-  Promise.all([
-    chartConfigDataPromise,
-    parentPlacesPromise,
-    childPlacesPromise,
-    similarPlacesPromise,
-    nearbyPlacesPromise,
-  ]).then(
-    ([
-      chartConfigData,
-      parentPlaces,
-      childPlaces,
-      similarPlaces,
-      nearbyPlaces,
-    ]) => {
-      const parentPlacesWithData = [];
-      for (const place of parentPlaces) {
-        if (place["types"][0] !== "Continent") {
-          parentPlacesWithData.push(place);
-        }
-      }
-      ReactDOM.render(
-        React.createElement(MainPane, {
-          dcid,
-          placeName,
-          placeType,
-          topic,
-          parentPlaces: parentPlacesWithData,
-          childPlaces,
-          similarPlaces,
-          nearbyPlaces,
-          chartConfig: chartConfigData.config,
-          chartData: chartConfigData.data,
-        }),
-        document.getElementById("main-pane")
-      );
-    }
-  );
 }
 
 /**

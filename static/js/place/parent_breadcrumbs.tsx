@@ -18,7 +18,7 @@ import React from "react";
 import { displayNameForPlaceType } from "./util";
 
 interface ParentPlacePropsType {
-  parentPlaces: { dcid: string; name: string; types: string[] }[];
+  parentPlaces: { dcid: string; name: string }[];
   placeType: string;
 }
 
@@ -33,9 +33,6 @@ class ParentPlace extends React.Component<ParentPlacePropsType, unknown> {
       <React.Fragment>
         <span>A {displayNameForPlaceType(this.props.placeType)} in </span>
         {this.props.parentPlaces.map((item, index) => {
-          if (item.types[0] === "Continent") {
-            return <span key={item.dcid}>{item.name}</span>;
-          }
           return (
             <React.Fragment key={item.dcid}>
               <a

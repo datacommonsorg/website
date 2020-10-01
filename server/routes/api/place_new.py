@@ -18,6 +18,7 @@ import json
 import random
 import re
 import time
+import urllib
 
 from flask import Blueprint, current_app, jsonify, request, Response, url_for
 
@@ -40,6 +41,12 @@ def get_landing_page_data(dcid):
                                      post=True,
                                      has_payload=True)
     return response
+
+
+def build_url(dcids, stats_vars):
+    anchor = '&place={}&statsVar={}'.format(','.join(dcids),
+                                            '__'.join(stats_vars))
+    return urllib.parse.unquote(url_for('tools.timeline', _anchor=anchor))
 
 
 def build_config(raw_config):
@@ -81,27 +88,66 @@ def data(dcid):
     cache_data = get_landing_page_data(dcid)
 
     # Build the reponse from config
-    response = copy.deepcopy(config)
+    config_data = copy.deepcopy(config)
 
-    for category in response:
+    for category in config_data:
         for chart in category['charts']:
             # Populate the overview page data.
+
             # Trend data
-            series, sources = get_trend_data(chart, cache_data['data'], dcid)
-            if series:
-                chart['trend'] = {'series': series, 'sources': sources}
+            chart['trend'] = get_trend_data(chart, cache_data['data'], dcid)
             # Parent places data
-            parent_data = get_bar_data(chart, cache_data['data'],
-                                       cache_data['parentPlaces'])
-            if parent_data:
-                chart['parent'] = parent_data
+            chart['parent'] = get_bar_data(chart, cache_data['data'],
+                                           cache_data['parentPlaces'])
+            # Similar places data
+            chart['similar'] = get_bar_data(chart, cache_data['data'],
+                                            cache_data['similarPlaces'])
+            # Nearby places data
+            chart['nearby'] = get_bar_data(chart, cache_data['data'],
+                                           cache_data['nearbyPlaces'])
+            # Nearby places data
+            chart['child'] = get_bar_data(chart, cache_data['data'],
+                                          cache_data['childPlaces'])
+
+            # Populate topic page data.
             for child in category['children']:
                 for chart in child['charts']:
-                    series, sources = get_trend_data(chart, cache_data['data'],
-                                                     dcid)
-                    if series:
-                        chart['trend'] = {'series': series, 'sources': sources}
+                    # Trend data
+                    chart['trend'] = get_trend_data(chart, cache_data['data'],
+                                                    dcid)
+                    # Parent places data
+                    chart['parent'] = get_bar_data(chart, cache_data['data'],
+                                                   cache_data['parentPlaces'])
+                    # Similar places data
+                    chart['similar'] = get_bar_data(chart, cache_data['data'],
+                                                    cache_data['similarPlaces'])
+                    # Nearby places data
+                    chart['nearby'] = get_bar_data(chart, cache_data['data'],
+                                                   cache_data['nearbyPlaces'])
+                    # Child places data
+                    chart['child'] = get_bar_data(chart, cache_data['data'],
+                                                  cache_data['childPlaces'])
 
+    # Populate the timeline tool url for each chart.
+    # for i in range(len(cc)):
+    #     # Populate timeline tool url for charts
+    #     for j in range(len(cc[i]['charts'])):
+    #         cc[i]['charts'][j]['exploreUrl'] = build_url(
+    #             dcid, cc[i]['charts'][j]['statsVars'])
+    #     # Populate timeline tool url for children
+    #     for j in range(len(cc[i].get('children', []))):
+    #         for k in range(len(cc[i]['children'][j]['charts'])):
+    #             cc[i]['children'][j]['charts'][k]['exploreUrl'] = build_url(
+    #                 dcid, cc[i]['children'][j]['charts'][k]['statsVars'])
+
+    response = {
+        'configData': config_data,
+        'allChildPlaces': cache_data['allChildPlaces'],
+        'childPlaces': cache_data['childPlaces'],
+        'parentPlaces': cache_data['parentPlaces'],
+        'similarPlaces': cache_data['similarPlaces'],
+        'nearbyPlaces': cache_data['nearbyPlaces'],
+    }
     return Response(json.dumps(response), 200, mimetype='application/json')
 
 
@@ -120,22 +166,28 @@ def get_bar_data(cc, data, places):
     if 'relatedChart' in cc and cc['relatedChart'].get('scale', False):
         denominator_stat_var = cc['relatedChart'].get('denominator',
                                                       'Count_Person')
+
+    sources = set()
     for place in places:
         dcid = place['dcid']
         if dcid not in data:
             continue
         for stat_var in cc['statsVars']:
-            series = data[dcid].get(stat_var, {}).get('data', {})
-            if not series:
+            series_raw = data[dcid].get(stat_var, {})
+            if not series_raw:
                 continue
             if denominator_stat_var is not None:
-                denominator = data[dcid].get(denominator_stat_var,
-                                             {}).get('data', {})
-                if not denominator:
+                denominator_raw = data[dcid].get(denominator_stat_var, {})
+                if not denominator_raw:
                     continue
-                series = {k: v for k, v in scale_series(series, denominator)}
-            for date, value in series.items():
+                series = scale_series(series_raw['data'],
+                                      denominator_raw['data'])
+                sources.add(series_raw['provenanceDomain'])
+                sources.add(denominator_raw['provenanceDomain'])
+            for date, value in series_raw['data'].items():
                 date_to_data[date][dcid].append((stat_var, value))
+                sources.add(series_raw['provenanceDomain'])
+
     dates = sorted(date_to_data.keys(), reverse=True)
     if not dates:
         return {}
@@ -145,7 +197,7 @@ def get_bar_data(cc, data, places):
         if len(date_to_data[date]) > count:
             count = len(date_to_data[date])
             chosen_date = date
-    result = {'date': chosen_date, 'data': []}
+    result = {'date': chosen_date, 'data': [], 'sources': list(sources)}
     for place in places:
         points = {}
         for stat_var, value in date_to_data[chosen_date][place['dcid']]:
@@ -153,28 +205,30 @@ def get_bar_data(cc, data, places):
         if points:
             result['data'].append({
                 'dcid': place['dcid'],
-                'name': place['name'],
+                # 'name': place['name'],
                 'data': points
             })
     # Should have data other than the primary place. Return empty struct to
     # so client won't draw chart.
     if len(result['data']) == 1:
         return {}
+    result['explorUrl'] = build_url([p['dcid'] for p in places],
+                                    cc['statsVars'])
     return result
 
 
 def get_trend_data(cc, data, place):
     """Get the time series data for a place."""
-    series = {}
-    sources = set()
     if place not in data:
-        return series, sources
+        return {}
 
     if 'denominator' in cc:
         if len(cc['denominator']) < len(cc['statsVars']):
             logging.error('Missing denominator in %s', cc)
-            return series, sources
+            return {}
 
+    series = {}
+    sources = set()
     for i, stat_var in enumerate(cc['statsVars']):
         numerator_raw = data[place].get(stat_var, {})
         if not numerator_raw:
@@ -189,9 +243,15 @@ def get_trend_data(cc, data, place):
             sources.add(numerator_raw['provenanceDomain'])
             sources.add(denominator_raw['provenanceDomain'])
         else:
-            series[stat_var] = numerator_raw
+            series[stat_var] = numerator_raw['data']
             sources.add(numerator_raw['provenanceDomain'])
-    return series, list(sources)
+    if not series:
+        return {}
+    return {
+        'series': series,
+        'sources': list(sources),
+        'exploreUrl': build_url([place], cc['statsVars'])
+    }
 
 
 def scale_series(numerator, denominator):
@@ -209,18 +269,4 @@ def scale_series(numerator, denominator):
             parts = date.split('-')
             if len(parts) > 1 and parts[0] in denominator:
                 data[date] = value / denominator[parts[0]]
-    return [(date, data[date]) for date in sorted(data.keys())]
-
-    # Populate the timeline tool url for each chart.
-    # for i in range(len(cc)):
-    #     # Populate timeline tool url for charts
-    #     for j in range(len(cc[i]['charts'])):
-    #         cc[i]['charts'][j]['exploreUrl'] = build_url(
-    #             dcid, cc[i]['charts'][j]['statsVars'])
-    #     # Populate timeline tool url for children
-    #     for j in range(len(cc[i].get('children', []))):
-    #         for k in range(len(cc[i]['children'][j]['charts'])):
-    #             cc[i]['children'][j]['charts'][k]['exploreUrl'] = build_url(
-    #                 dcid, cc[i]['children'][j]['charts'][k]['statsVars'])
-
-    return Response(json.dumps(response), 200, mimetype='application/json')
+    return data
