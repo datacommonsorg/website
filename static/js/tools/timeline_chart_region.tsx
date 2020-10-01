@@ -16,7 +16,8 @@
 
 import React, { Component } from "react";
 import { StatsData } from "../shared/data_fetcher";
-import { StatsVarInfo, saveToFile, ChartOptions } from "./timeline_util";
+import { StatsVarInfo, ChartOptions } from "./timeline_util";
+import { saveToFile } from "../shared/util";
 import { Chart } from "./timeline_chart";
 
 interface ChartRegionPropsType {

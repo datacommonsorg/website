@@ -144,6 +144,7 @@ class TestApiParentPlaces(unittest.TestCase):
     @patch('routes.api.place.fetch_data')
     def test_parent_places(self, mock_fetch_data):
         mock_fetch_data.side_effect = self.side_effect
+
         response = app.test_client().get('/api/place/parent/geoId/0649670')
         assert response.status_code == 200
         assert json.loads(response.data) == [{
@@ -162,6 +163,10 @@ class TestApiParentPlaces(unittest.TestCase):
             'provenanceId': 'dc/sm3m2w3',
             'types': ['Country']
         }]
+
+        response = app.test_client().get('/api/place/parent/Earth')
+        assert response.status_code == 200
+        assert json.loads(response.data) == []
 
 
 class TestApiPlaceName(unittest.TestCase):

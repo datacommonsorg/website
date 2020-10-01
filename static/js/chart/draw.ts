@@ -63,6 +63,14 @@ function appendLegendElem(
     .text((d) => d);
 }
 
+function getWrapLineSeparator(line: string[]): string {
+  return line.length > 0
+    ? line[line.length - 1].slice(-1) === "-"
+      ? ""
+      : " "
+    : "";
+}
+
 /**
  * From https://bl.ocks.org/mbostock/7555321
  * Wraps axis text by fitting as many words per line as would fit a given width.
@@ -73,7 +81,11 @@ function wrap(
 ) {
   texts.each(function () {
     const text = d3.select(this);
-    const words = text.text().split(/\s+/).reverse();
+    const words = text
+      .text()
+      .split(/(?<=[-\s])/)
+      .filter((w) => w.trim() != "")
+      .reverse();
     let line: string[] = [];
     let lineNumber = 0;
     const lineHeight = 1.1; // ems
@@ -88,11 +100,13 @@ function wrap(
     let word: string;
     word = words.pop();
     while (word) {
+      let separator = getWrapLineSeparator(line);
       line.push(word);
-      tspan.text(line.join(" "));
+      tspan.text(line.join(separator));
       if (tspan.node().getComputedTextLength() > width) {
         line.pop();
-        tspan.text(line.join(" "));
+        separator = getWrapLineSeparator(line);
+        tspan.text(line.join(separator));
         line = [word];
         tspan = text
           .append("tspan")
@@ -248,7 +262,7 @@ function drawHistogram(
     .attr("width", width)
     .attr("height", height);
 
-  const bottomHeight = addXAxis(svg, height, x, true);
+  addXAxis(svg, height, x, true);
   addYAxis(svg, width, y, unit);
 
   svg

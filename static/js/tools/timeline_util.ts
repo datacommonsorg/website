@@ -73,17 +73,6 @@ function getStatsVar(dcids: string[]): Promise<Set<string>> {
   }) as Promise<Set<string>>;
 }
 
-function saveToFile(filename: string, csv: string): void {
-  if (!csv.match(/^data:text\/csv/i)) {
-    csv = "data:text/csv;charset=utf-8," + csv;
-  }
-  const data = encodeURI(csv);
-  const link = document.createElement("a");
-  link.setAttribute("href", data);
-  link.setAttribute("download", filename);
-  link.click();
-}
-
 const placeSep = ",";
 const nodePathSep = ",";
 const statsVarSep = "__";
@@ -288,7 +277,6 @@ export {
   getStatsVarInfo,
   getPlaceNames,
   getStatsVar,
-  saveToFile,
   TimelineParams,
   StatsVarNode,
   ChartOptions,

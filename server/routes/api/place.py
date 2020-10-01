@@ -14,11 +14,14 @@
 
 import collections
 import json
-import services.datacommons as dc
+import random
+import re
+import time
 
 from flask import Blueprint, jsonify, request, Response, url_for
 
 from cache import cache
+import services.datacommons as dc
 from services.datacommons import fetch_data
 import routes.api.stats as stats_api
 
@@ -48,6 +51,7 @@ EQUIVALENT_PLACE_TYPES = {
 }
 
 CHILD_PLACE_LIMIT = 50
+SIMILAR_PLACE_LIMIT = 5
 
 # Minimal population count for a place to show up in nearby places list.
 MIN_POP = 5000
@@ -62,6 +66,8 @@ RANKING_STATS = {
 
 STATE_EQUIVALENTS = {"State", "AdministrativeArea1"}
 US_ISO_CODE_PREFIX = 'US'
+CITY_COHORT = 'PlacePagesComparisonCityCohort'
+COUNTY_COHORT = 'PlacePagesComparisonCountyCohort'
 
 # Define blueprint
 bp = Blueprint("api.place", __name__, url_prefix='/api/place')
@@ -248,11 +254,11 @@ def parent_places(dcids):
     # "California" but not "United States":
     # https://datacommons.org/browser/geoId/0649670
     # Here calling get_parent_place twice to get to the top parents.
-    result = {}
-
-    parents1 = get_parent_place(dcids)
     if not dcids:
-        return result
+        return {}
+
+    result = {}
+    parents1 = get_parent_place(dcids)
     dcids = dcids.split('^')
     dcid_parents1_mapping = {}
     for dcid in dcids:
@@ -260,6 +266,8 @@ def parent_places(dcids):
         result[dcid] = first_parents
         if first_parents:
             dcid_parents1_mapping[dcid] = first_parents[-1]['dcid']
+    if not dcid_parents1_mapping:
+        return result
 
     parents2 = get_parent_place('^'.join(dcid_parents1_mapping.values()))
     dcid_parents2_mapping = {}
@@ -268,12 +276,13 @@ def parent_places(dcids):
         result[dcid].extend(second_parents)
         if second_parents:
             dcid_parents2_mapping[dcid] = second_parents[-1]['dcid']
+    if not dcid_parents2_mapping:
+        return result
 
     parents3 = get_parent_place('^'.join(dcid_parents2_mapping.values()))
     for dcid in dcid_parents2_mapping.keys():
         result[dcid].extend(parents3[dcid_parents2_mapping[dcid]])
         result[dcid] = [x for x in result[dcid] if x['dcid'] != 'Earth']
-
     return result
 
 
@@ -380,22 +389,63 @@ def get_related_place(dcid,
                                 is_per_capita=is_per_capita)
 
 
-@cache.memoize(timeout=3600 * 24)  # Cache for one day.
+@cache.memoize(timeout=3600 * 24)
+def get_place_cohort(cohort):
+    """Get all the place dcids for a cohort set."""
+    return dc.get_property_values([cohort], 'member')[cohort]
+
+
 @bp.route('/similar/<stats_var>/<path:dcid>')
 def api_similar_places(stats_var, dcid):
     """
-    Get the similar places for a given place by stats var within the same place.
+    Get the similar places for a given place.
+
+    If the place is a USA city or county, the similar places are randomly
+    selected from curated cohort. Otherwise, the similar places are by stats
+    var within the same place.
     """
+    # Seed with current day of the year
+    random.seed(dcid + str(time.localtime().tm_yday))
+    # Choose city from US city cohort.
+    match = re.match(r'geoId/\d{7}', dcid)
+    if match:
+        city_cohort = get_place_cohort(CITY_COHORT)
+        random.shuffle(city_cohort)
+        result = []
+        for city in city_cohort:
+            if city != dcid:
+                result.append(city)
+            if len(result) == SIMILAR_PLACE_LIMIT:
+                return Response(json.dumps(result),
+                                200,
+                                mimetype='application/json')
+
+    match = re.match(r'geoId/\d{5}', dcid)
+    if match:
+        county_cohort = get_place_cohort(COUNTY_COHORT)
+        random.shuffle(county_cohort)
+        result = []
+        for county in county_cohort:
+            if county != dcid:
+                result.append(county)
+            if len(result) == SIMILAR_PLACE_LIMIT:
+                return Response(json.dumps(result),
+                                200,
+                                mimetype='application/json')
+
     parents = parent_places(dcid)[dcid]
     # scope similar places to the same country if possible
     parent_dcid = None
     if parents and len(parents):
         if len(parents) >= 2:  # has [..., country, continent]
             parent_dcid = parents[-2]['dcid']
-    result = dc.get_related_place(dcid, [stats_var],
-                                  within_place=parent_dcid,
-                                  same_place_type=True).get(stats_var, {})
-    return Response(json.dumps(result), 200, mimetype='application/json')
+    result = get_related_place(dcid,
+                               stats_var,
+                               within_place=parent_dcid,
+                               same_place_type=True).get(stats_var, {})
+    return Response(json.dumps(result['relatedPlaces']),
+                    200,
+                    mimetype='application/json')
 
 
 @cache.memoize(timeout=3600 * 24)  # Cache for one day.
@@ -540,7 +590,7 @@ def get_state_code(dcids):
 
 @cache.memoize(timeout=3600 * 24)  # Cache for one day.
 def get_display_name(dcids):
-    """ Get display names for a list of places. Display name is place name with state code 
+    """ Get display names for a list of places. Display name is place name with state code
     if it has a parent place that is a state.
 
     Args:
