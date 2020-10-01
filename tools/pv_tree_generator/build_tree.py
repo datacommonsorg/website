@@ -13,7 +13,7 @@
 # limitations under the License.
 
 from itertools import chain, combinations
-from typing import Dict, List, Tuple, Iterator
+from typing import Dict, List, Iterator
 from util import PopObsSpec, StatsVar, read_pop_obs_spec, read_stat_var
 import collections
 import text_format
@@ -116,6 +116,7 @@ class ValueLeaf:
 
 def powerset(iterable: List) -> Iterator:
     """Returns all subsets of a set.
+
     powerset([1,2,3]) --> () (1,) (2,) (3,) (1,2) (1,3) (2,3) (1,2,3)
     https://docs.python.org/3/library/itertools.html#itertools-recipes
     """
@@ -128,11 +129,11 @@ def find_denominators(pop_obs: PopObsSpec, stats_vars_all: Dict[str,
                       stats_vars_to_exclude: List[str]) -> List[str]:
     """Finds possible StatVars that can be used as per capita denominators for
     a StatVar.
-    
+
     Args:
         pop_obs: Population measured by the StatVar.
         stats_vars_all: Mapping from keys to candidate StatVars.
-        stats_vars_to_exclude: StatVars to exclude from the answer 
+        stats_vars_to_exclude: StatVars to exclude from the answer.
     """
     denominators = set()
     for obs_prop in pop_obs.obs_props:
@@ -143,7 +144,7 @@ def find_denominators(pop_obs: PopObsSpec, stats_vars_all: Dict[str,
         if pop_obs.dpv:
             for dpv_key_subset in powerset(pop_obs.dpv.keys()):
                 # This key should capture denominators with PVs such as
-                'Count_Person_15OrMoreYears'
+                # 'Count_Person_15OrMoreYears'
                 key_with_pv = ((pop_obs.pop_type,) + obs_prop.key +
                                tuple(sorted(dpv_key_subset)))
                 matching_statvars += tuple(stats_vars_all.get(key_with_pv, ()))

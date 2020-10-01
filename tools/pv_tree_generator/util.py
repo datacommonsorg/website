@@ -32,6 +32,7 @@ class ObsProps(object):
         # as the value node
 
     def __str__(self):
+        """Returns a string describing the ObsProps."""
         return ('ObsProps{'
                 f'stat_type: {self.stat_type}, '
                 f'mprop: {self.mprop}, '
@@ -42,6 +43,7 @@ class ObsProps(object):
                 '}')
 
     def __repr__(self):
+        """Returns a string describing the ObsProps."""
         return self.__str__()
 
 
@@ -58,6 +60,7 @@ class PopObsSpec(object):
         self.obs_props = obs_props  # list of ObsProps
 
     def __str__(self):
+        """Returns a string describing the PopObsSpec."""
         return ('PopObsSpec{'
                 f'pop_type: {self.pop_type}, '
                 f'cprops: {self.cprops}, '
@@ -68,6 +71,7 @@ class PopObsSpec(object):
                 '}')
 
     def __repr__(self):
+        """Returns a string describing the PopObsSpec."""
         return self.__str__()
 
 
