@@ -14,7 +14,8 @@
     "t": "v",
     "e": "Population",
     "c": 1,
-    "cd": []
+    "cd": [],
+    "d": []
    },
    {
     "l": "Age",
@@ -29,7 +30,8 @@
       "t": "v",
       "e": "YearsUpto5",
       "c": 1,
-      "cd": []
+      "cd": [],
+      "d": ["Count_Person"]
      }
     ]
    },
@@ -46,7 +48,8 @@
       "t": "v",
       "e": "NoSchoolingCompleted",
       "c": 1,
-      "cd": []
+      "cd": [],
+      "d": ["Count_Person", "Count_Person_25OrMoreYears"]
      },
      {
       "sv": [
@@ -56,7 +59,8 @@
       "t": "v",
       "e": "NurserySchool",
       "c": 1,
-      "cd": []
+      "cd": [],
+      "d": ["Count_Person", "Count_Person_25OrMoreYears"]
      },
      {
       "sv": [
@@ -66,7 +70,8 @@
       "t": "v",
       "e": "Kindergarten",
       "c": 1,
-      "cd": []
+      "cd": [],
+      "d": ["Count_Person", "Count_Person_25OrMoreYears"]
      }
     ]
    },
@@ -83,7 +88,12 @@
       "t": "v",
       "e": "EnrolledInGrade1ToGrade4",
       "c": 1,
-      "cd": []
+      "cd": [],
+      "d": [
+        "Count_Person",
+        "Count_Person_3OrMoreYears",
+        "Count_Person_EnrolledInSchool"
+      ]
      },
      {
       "sv": [
@@ -93,7 +103,12 @@
       "t": "v",
       "e": "EnrolledInGrade5ToGrade8",
       "c": 1,
-      "cd": []
+      "cd": [],
+      "d": [
+        "Count_Person",
+        "Count_Person_3OrMoreYears",
+        "Count_Person_EnrolledInSchool"
+      ]
      }
     ]
    }
@@ -119,7 +134,8 @@
       "t": "v",
       "e": "Arson",
       "c": 1,
-      "cd": []
+      "cd": [],
+      "d": []
      },
      {
       "sv": [
@@ -129,6 +145,7 @@
       "t": "v",
       "e": "ViolentCrime",
       "c": 2,
+      "d": [],
       "cd": [
        {
         "sv": [
@@ -138,7 +155,8 @@
         "t": "v",
         "e": "AggravatedAssault",
         "c": 1,
-        "cd": []
+        "cd": [],
+        "d": []
        }
       ]
      }
@@ -151,7 +169,7 @@
   "l": "Education",
   "t": "p",
   "e": "Education",
-  "c": 5,
+  "c": 6,
   "cd": [
    {
     "l": "Educational Attainment",
@@ -166,7 +184,8 @@
       "t": "v",
       "e": "NoSchoolingCompleted",
       "c": 1,
-      "cd": []
+      "cd": [],
+      "d": ["Count_Person", "Count_Person_25OrMoreYears"]
      },
      {
       "sv": [
@@ -176,7 +195,8 @@
       "t": "v",
       "e": "NurserySchool",
       "c": 1,
-      "cd": []
+      "cd": [],
+      "d": ["Count_Person", "Count_Person_25OrMoreYears"]
      },
      {
       "sv": [
@@ -186,7 +206,8 @@
       "t": "v",
       "e": "Kindergarten",
       "c": 1,
-      "cd": []
+      "cd": [],
+      "d": ["Count_Person", "Count_Person_25OrMoreYears"]
      }
     ]
    },
@@ -203,7 +224,12 @@
       "t": "v",
       "e": "EnrolledInGrade1ToGrade4",
       "c": 1,
-      "cd": []
+      "cd": [],
+      "d": [
+        "Count_Person",
+        "Count_Person_3OrMoreYears",
+        "Count_Person_EnrolledInSchool"
+      ]
      },
      {
       "sv": [
@@ -213,8 +239,34 @@
       "t": "v",
       "e": "EnrolledInGrade5ToGrade8",
       "c": 1,
-      "cd": []
+      "cd": [],
+      "d": [
+        "Count_Person",
+        "Count_Person_3OrMoreYears",
+        "Count_Person_EnrolledInSchool"
+      ]
      }
+    ]
+   },
+   {
+    "l": "School Enrollment",
+    "t": "p",
+    "c": 1,
+    "cd": [
+      {
+        "sv": [
+          "Count_Person_EnrolledInSchool"
+        ],
+        "l": "Enrolled In School",
+        "t": "v",
+        "e": "EnrolledInSchool",
+        "c": 1,
+        "cd": [],
+        "d": [
+          "Count_Person",
+          "Count_Person_3OrMoreYears"
+        ]
+      }
     ]
    }
   ]
@@ -239,7 +291,8 @@
       "t": "v",
       "e": "NAICS/10",
       "c": 1,
-      "cd": []
+      "cd": [],
+      "d": []
      }
     ]
    },
@@ -256,7 +309,8 @@
       "t": "v",
       "e": "NAICS/10",
       "c": 1,
-      "cd": []
+      "cd": [],
+      "d": []
      }
     ]
    }
@@ -309,6 +363,7 @@
     "t": "v",
     "e": "Cyclones",
     "c": 2,
+    "d": [],
     "cd": [
      {
       "l": "Max Classification",
@@ -323,7 +378,8 @@
         "t": "v",
         "e": "ExtratropicalCyclone",
         "c": 1,
-        "cd": []
+        "cd": [],
+        "d": ["Count_CycloneEvent"]
        }
       ]
      }
@@ -337,6 +393,7 @@
     "t": "v",
     "e": "Earthquakes",
     "c": 2,
+    "d": [],
     "cd": [
      {
       "l": "Magnitude",
@@ -351,7 +408,8 @@
         "t": "v",
         "e": "M3To4",
         "c": 1,
-        "cd": []
+        "cd": [],
+        "d": ["Count_EarthquakeEvent"]
        }
       ]
      }
@@ -365,7 +423,8 @@
     "t": "v",
     "e": "Floods",
     "c": 1,
-    "cd": []
+    "cd": [],
+    "d": []
    }
   ]
  },
@@ -396,7 +455,8 @@
         "t": "v",
         "e": "Growth Rate",
         "c": 1,
-        "cd": []
+        "cd": [],
+        "d": []
        },
        {
         "sv": [
@@ -406,7 +466,8 @@
         "t": "v",
         "e": "Nominal",
         "c": 1,
-        "cd": []
+        "cd": [],
+        "d": []
        }
       ]
      },
@@ -425,7 +486,8 @@
         "t": "v",
         "e": "Purchasing Power Parity",
         "c": 1,
-        "cd": []
+        "cd": [],
+        "d": []
        }
       ]
      }

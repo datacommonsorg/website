@@ -13,7 +13,7 @@
 # limitations under the License.
 
 from itertools import chain, combinations
-from typing import Dict, List, Tuple
+from typing import Dict, List, Tuple, Iterator
 from util import PopObsSpec, StatsVar, read_pop_obs_spec, read_stat_var
 import collections
 import text_format
@@ -107,31 +107,43 @@ class ValueLeaf:
             result['t'] = 'p'
         if result['cd']:
             result['cd'] = text_format.filter_and_sort(self.name, result['cd'])
-        result['d'] = find_denominators(self.pos, self.stats_vars_all,
-                                        result['sv'])
+        if result['t'] == 'v':
+            result['d'] = find_denominators(self.pos, self.stats_vars_all,
+                                            result['sv'])
 
         return result
 
 
-def powerset(iterable):
+def powerset(iterable: List) -> Iterator:
     """Returns all subsets of a set.
+    powerset([1,2,3]) --> () (1,) (2,) (3,) (1,2) (1,3) (2,3) (1,2,3)
     https://docs.python.org/3/library/itertools.html#itertools-recipes
-    
     """
-    "powerset([1,2,3]) --> () (1,) (2,) (3,) (1,2) (1,3) (2,3) (1,2,3)"
     s = list(iterable)
     return chain.from_iterable(combinations(s, r) for r in range(len(s) + 1))
 
 
-def find_denominators(pop_obs: PopObsSpec, stats_vars_all: List[StatsVar],
+def find_denominators(pop_obs: PopObsSpec, stats_vars_all: Dict[str,
+                                                                List[StatsVar]],
                       stats_vars_to_exclude: List[str]) -> List[str]:
-    """Finds possible StatVars that can be used as a per capita denominator."""
+    """Finds possible StatVars that can be used as per capita denominators for
+    a StatVar.
+    
+    Args:
+        pop_obs: Population measured by the StatVar.
+        stats_vars_all: Mapping from keys to candidate StatVars.
+        stats_vars_to_exclude: StatVars to exclude from the answer 
+    """
     denominators = set()
     for obs_prop in pop_obs.obs_props:
+        # This key should capture denominators with out PVs such as
+        # 'Count_Person' and 'Count_Household'
         key_without_pv = (pop_obs.pop_type,) + obs_prop.key
         matching_statvars = tuple(stats_vars_all.get(key_without_pv, ()))
         if pop_obs.dpv:
             for dpv_key_subset in powerset(pop_obs.dpv.keys()):
+                # This key should capture denominators with PVs such as
+                'Count_Person_15OrMoreYears'
                 key_with_pv = ((pop_obs.pop_type,) + obs_prop.key +
                                tuple(sorted(dpv_key_subset)))
                 matching_statvars += tuple(stats_vars_all.get(key_with_pv, ()))
@@ -139,7 +151,7 @@ def find_denominators(pop_obs: PopObsSpec, stats_vars_all: List[StatsVar],
             if (set(sv.pv.items()) <= set(pop_obs.dpv.items()) and
                     sv.dcid not in stats_vars_to_exclude):
                 denominators.add(sv.dcid)
-    return list(denominators)
+    return list(sorted(denominators))
 
 
 class PropertyNode:
@@ -312,7 +324,6 @@ class ValueNode:
             'c': 0,
             'sv_set': set([]),
             'cd': [],
-            'd': []
         }
         for node in self.leafs:
             if node.addLevel:
@@ -325,9 +336,11 @@ class ValueNode:
             result['t'] = 'p'
         if result['cd']:
             result['cd'] = text_format.filter_and_sort(self.value, result['cd'])
-        if self.parent:
-            result['d'] = find_denominators(self.parent.pos,
-                                            self.stats_vars_all, result['sv'])
+        if result['t'] == 'v':
+            result['d'] = []
+            if self.parent:
+                result['d'] = find_denominators(self.parent.pos,
+                                                self.stats_vars_all, result['sv'])
         return result
 
 

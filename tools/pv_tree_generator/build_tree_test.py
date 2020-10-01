@@ -56,6 +56,9 @@ class BuildTreeTest(unittest.TestCase):
             "Count_Person_EducationalAttainmentNurserySchool",
             "Count_Establishment_NAICSTotalAllIndustries",
             "Count_Worker_NAICSTotalAllIndustries",
+            "Count_Person_25OrMoreYears",
+            "Count_Person_EnrolledInSchool",
+            "Count_Person_3OrMoreYears"
         ]
         return sv_dcid
 
