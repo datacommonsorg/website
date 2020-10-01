@@ -180,7 +180,7 @@ class Chart extends React.Component<ChartPropType, ChartStateType> {
             </div>
             <div className="outlinks">
               <a href="#" onClick={this._handleEmbed}>
-                Embed
+                Export
               </a>
               <a className="explore-more" href={config.exploreUrl}>
                 Explore More ›
@@ -279,7 +279,7 @@ class Chart extends React.Component<ChartPropType, ChartStateType> {
     );
     let svgHtml: string;
     if (svgElems.length) {
-      svgHtml = svgElems.item(0).innerHTML;
+      svgHtml = svgElems.item(0).outerHTML;
     }
     const svgDom = this.chartElement.current.cloneNode(true);
     this.embedModalElement.current.show(svgHtml, svgDom, this.dataCsv());

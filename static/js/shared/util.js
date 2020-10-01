@@ -500,14 +500,21 @@ function randDomId() {
 /**
  * Saves csv to filename.
  * @param {filename} string
- * @param {csv} string
+ * @param {contents} string
+ * @param {=header} string optional file header to prepend to the file contents
  * @return void
  */
-function saveToFile(filename, csv) {
-  if (!csv.match(/^data:text\/csv/i)) {
-    csv = "data:text/csv;charset=utf-8," + csv;
+function saveToFile(filename, contents) {
+  if (filename.match(/\.csv$/i)) {
+    if (!contents.match(/^data:text\/csv/i)) {
+      contents = "data:text/csv;charset=utf-8," + contents;
+    }
+  } else if (filename.match(/\.svg$/i)) {
+    if (!contents.match(/^data:image\/svg/i)) {
+      contents = "data:image/svg+xml;charset=utf-8," + contents;
+    }
   }
-  const data = encodeURI(csv);
+  const data = encodeURI(contents);
   const link = document.createElement("a");
   link.setAttribute("href", data);
   link.setAttribute("download", filename);

@@ -21,7 +21,7 @@ import { randDomId, saveToFile } from "../shared/util";
 interface ChartEmbedStateType {
   modal: boolean;
   chartDom: Node;
-  svgHtml: string;
+  svgXml: string;
   dataCsv: string;
 }
 
@@ -37,7 +37,7 @@ class ChartEmbed extends React.Component<unknown, ChartEmbedStateType> {
     super(props);
     this.state = {
       modal: false,
-      svgHtml: "",
+      svgXml: "",
       chartDom: null,
       dataCsv: "",
     };
@@ -45,8 +45,8 @@ class ChartEmbed extends React.Component<unknown, ChartEmbedStateType> {
     this.textareaElement = React.createRef();
     this.toggle = this.toggle.bind(this);
     this.onOpened = this.onOpened.bind(this);
-    this.copySvgToClipboard = this.copySvgToClipboard.bind(this);
-    this.downloadData = this.downloadData.bind(this);
+    this.onDownloadSvg = this.onDownloadSvg.bind(this);
+    this.onDownloadData = this.onDownloadData.bind(this);
     this.onClickTextarea = this.onClickTextarea.bind(this);
   }
 
@@ -62,11 +62,11 @@ class ChartEmbed extends React.Component<unknown, ChartEmbedStateType> {
   /**
    * Updates the view state of the modal to true, and includes the data necessary for displaying the modal.
    */
-  public show(svgHTML: string, chartDOM: Node, dataCsv: string): void {
+  public show(svgXml: string, chartDom: Node, dataCsv: string): void {
     this.setState({
       modal: true,
-      svgHtml: svgHTML,
-      chartDom: chartDOM,
+      svgXml: svgXml,
+      chartDom: chartDom,
       dataCsv: dataCsv,
     });
   }
@@ -108,25 +108,14 @@ class ChartEmbed extends React.Component<unknown, ChartEmbedStateType> {
   /**
    * On click handler for "Copy SVG to clipboard button".
    */
-  public copySvgToClipboard(): void {
-    const currentFocus = document.activeElement;
-    this.onClickTextarea();
-    document.execCommand("copy");
-
-    // restore original focus
-    if (
-      currentFocus &&
-      currentFocus instanceof HTMLElement &&
-      typeof currentFocus.focus === "function"
-    ) {
-      currentFocus.focus();
-    }
+  public onDownloadSvg(): void {
+    saveToFile("chart.svg", this.state.svgXml);
   }
 
   /**
    * On click handler for "Download Data" button.
    */
-  public downloadData(): void {
+  public onDownloadData(): void {
     saveToFile("export.csv", this.state.dataCsv);
   }
 
@@ -144,18 +133,18 @@ class ChartEmbed extends React.Component<unknown, ChartEmbedStateType> {
           <div className="modal-chart-container"></div>
           <textarea
             className="copy-svg mt-3"
-            value={this.state.svgHtml}
+            value={this.state.svgXml}
             readOnly
             ref={this.textareaElement}
             onClick={this.onClickTextarea}
           ></textarea>
         </ModalBody>
         <ModalFooter>
-          <Button color="primary" onClick={this.copySvgToClipboard}>
-            Copy SVG to clipboard
+          <Button color="primary" onClick={this.onDownloadSvg}>
+            Download chart as SVG
           </Button>{" "}
-          <Button color="primary" onClick={this.downloadData}>
-            Download Data
+          <Button color="primary" onClick={this.onDownloadData}>
+            Download Data as CSV
           </Button>
         </ModalFooter>
       </Modal>
