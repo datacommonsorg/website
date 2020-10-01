@@ -90,6 +90,7 @@ class StatsVar(object):
         self.se = se  # super enum
 
     def __str__(self):
+        """Returns a string describing the StatsVar."""
         return ('StatsVar{'
                 f'mprop: {self.mprop}, '
                 f'stats: {self.stats}, '
@@ -101,6 +102,7 @@ class StatsVar(object):
                 '}')
 
     def __repr__(self):
+        """Returns a string describing the StatsVar."""
         return self.__str__()
 
 
