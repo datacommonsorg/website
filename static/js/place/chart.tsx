@@ -23,10 +23,9 @@ import {
   drawGroupBarChart,
 } from "../chart/draw";
 import { STATS_VAR_LABEL } from "../shared/stats_var_labels";
-import { chartTypeEnum, TrendData } from "./types";
+import { chartTypeEnum, TrendData, SnapshotData } from "./types";
 import { updatePageLayoutState } from "./place";
 import { ChartEmbed } from "./chart_embed";
-import { SnapshotData } from "./types";
 
 const CHART_HEIGHT = 194;
 
@@ -114,9 +113,6 @@ class Chart extends React.Component<ChartPropType, ChartStateType> {
     const sources = this.props.trend
       ? this.props.trend.sources
       : this.props.snapshot.sources;
-    if (!sources) {
-      console.log(this.props);
-    }
     const explorUrl = this.props.trend
       ? this.props.trend.explorUrl
       : this.props.snapshot.explorUrl;
@@ -330,7 +326,7 @@ class Chart extends React.Component<ChartPropType, ChartStateType> {
           });
         }
         this.setState({
-          dataPoints: dataPoints,
+          dataPoints,
         });
         break;
       case chartTypeEnum.GROUP_BAR:

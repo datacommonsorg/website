@@ -101,7 +101,7 @@ class ChartBlock extends React.Component<ChartBlockPropType, unknown> {
         // Show child place(state) chart for USA page, otherwise show nearby
         // places.
         const id = randDomId();
-        if (this.props.dcid == "country/USA") {
+        if (this.props.dcid === "country/USA") {
           if (!_.isEmpty(this.props.data.child)) {
             chartElements.push(
               <Chart
@@ -137,7 +137,7 @@ class ChartBlock extends React.Component<ChartBlockPropType, unknown> {
           }
         }
       } else {
-        if (this.props.dcid != "country/USA") {
+        if (this.props.dcid !== "country/USA") {
           if (!_.isEmpty(this.props.data.nearby)) {
             const id = randDomId();
             chartElements.push(

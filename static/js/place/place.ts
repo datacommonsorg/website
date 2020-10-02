@@ -98,17 +98,17 @@ function renderPage(dcid: string) {
 
     ReactDOM.render(
       React.createElement(Menu, {
+        configData: data.configData,
         dcid,
         topic,
-        configData: data.configData,
       }),
       document.getElementById("topics")
     );
 
     ReactDOM.render(
       React.createElement(ParentPlace, {
-        parentPlaces: data.parentPlaces,
         names: data.names,
+        parentPlaces: data.parentPlaces,
         placeType,
       }),
       document.getElementById("place-type")
@@ -132,13 +132,13 @@ function renderPage(dcid: string) {
 
     ReactDOM.render(
       React.createElement(MainPane, {
+        configData: data.configData,
         dcid,
+        isUsaPlace,
+        names: data.names,
         placeName,
         placeType,
         topic,
-        isUsaPlace,
-        names: data.names,
-        configData: data.configData,
       }),
       document.getElementById("main-pane")
     );

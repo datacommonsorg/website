@@ -15,17 +15,12 @@
 import collections
 import copy
 import json
-import random
-import re
-import time
 import urllib
 
-from flask import Blueprint, current_app, jsonify, request, Response, url_for
+from flask import Blueprint, current_app, request, Response, url_for
 
 from cache import cache
 import services.datacommons as dc_service
-from services.datacommons import fetch_data
-import routes.api.stats as stats_api
 import routes.api.place as place_api
 
 import logging

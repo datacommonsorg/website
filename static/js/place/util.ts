@@ -24,7 +24,7 @@ export function isPlaceInUsa(dcid: string, parentPlaces: string[]): boolean {
     return true;
   }
   for (const parent of parentPlaces) {
-    if (parent == "country/USA") {
+    if (parent === "country/USA") {
       return true;
     }
   }
