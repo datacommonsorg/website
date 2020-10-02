@@ -36,7 +36,7 @@ class ParentPlace extends React.Component<ParentPlacePropsType, unknown> {
         {this.props.parentPlaces.map((dcid, index) => {
           const name = this.props.names[dcid].split(",")[0];
           if (index === num - 1) {
-            return <span key={dcid}>{dcid}</span>;
+            return <span key={dcid}>{name}</span>;
           }
           return (
             <React.Fragment key={dcid}>

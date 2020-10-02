@@ -56,7 +56,7 @@ class TestPlaceExplorer(WebdriverBaseTest):
         self.assertEqual("Mountain View", title.text)
         subtitle = self.driver.find_element_by_id("place-type")
         self.assertEqual(
-            "A City in Santa Clara County, California, United States, North America",
+            "A City in Santa Clara County, California, United States of America, North America",
             subtitle.text)
 
     def test_place_search(self):
