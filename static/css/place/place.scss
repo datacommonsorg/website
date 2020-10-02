@@ -16,6 +16,7 @@
 
 @import "../base";
 @import "../draw";
+@import "../draw_choropleth";
 @import "place_search";
 
 $vertical-section-border: 1px solid var(--dc-gray-lite);
