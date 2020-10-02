@@ -314,13 +314,22 @@ $chart-border: 0.5px solid #dee2e6;
   display: none;
 }
 
-.modal .copy-svg {
+.modal .modal-chart-container > svg {
+  visibility: hidden;
+}
+
+.modal .modal-chart-container img {
+  border-radius: 3px;
+  border: $chart-border;
+}
+
+.modal textarea {
   background: #efefef;
   border-radius: 3px;
   border: $chart-border;
   display: flex;
   font-family: monospace;
-  height: 6rem;
+  height: 8rem;
   margin: auto;
   padding: .5rem;
 }

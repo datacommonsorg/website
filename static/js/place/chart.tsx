@@ -273,16 +273,22 @@ class Chart extends React.Component<ChartPropType, ChartStateType> {
     e: React.MouseEvent<HTMLAnchorElement, MouseEvent>
   ): void {
     e.preventDefault();
-    // Node does not have innerHTML property so we need to pass both in.
     const svgElems = this.svgContainerElement.current.getElementsByTagName(
       "svg"
     );
-    let svgHtml: string;
+    let svgXml: string;
     if (svgElems.length) {
-      svgHtml = svgElems.item(0).outerHTML;
+      svgXml = svgElems.item(0).outerHTML;
     }
-    const svgDom = this.chartElement.current.cloneNode(true);
-    this.embedModalElement.current.show(svgHtml, svgDom, this.dataCsv());
+    this.embedModalElement.current.show(
+      svgXml,
+      this.dataCsv(),
+      this.chartElement.current.offsetWidth,
+      CHART_HEIGHT,
+      this.props.config.title,
+      this.state.dateSelected,
+      this.state.sources
+    );
   }
 
   drawChart(): void {

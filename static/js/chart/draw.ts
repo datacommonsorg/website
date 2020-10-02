@@ -46,6 +46,8 @@ const YLABEL = {
   topMargin: 10,
   height: 15,
 };
+const SVGNS = "http://www.w3.org/2000/svg";
+const XLINKNS = "http://www.w3.org/1999/xlink";
 
 function appendLegendElem(
   elem: string,
@@ -276,7 +278,8 @@ function drawHistogram(
   const svg = d3
     .select("#" + id)
     .append("svg")
-    .attr("xmlns", "http://www.w3.org/2000/svg")
+    .attr("xmlns", SVGNS)
+    .attr("xmlns:xlink", XLINKNS)
     .attr("width", width)
     .attr("height", height);
 
@@ -317,7 +320,8 @@ function drawSingleBarChart(
   const svg = d3
     .select("#" + id)
     .append("svg")
-    .attr("xmlns", "http://www.w3.org/2000/svg")
+    .attr("xmlns", SVGNS)
+    .attr("xmlns:xlink", XLINKNS)
     .attr("width", chartWidth)
     .attr("height", chartHeight);
 
@@ -382,7 +386,8 @@ function drawStackBarChart(
   const svg = d3
     .select("#" + id)
     .append("svg")
-    .attr("xmlns", "http://www.w3.org/2000/svg")
+    .attr("xmlns", SVGNS)
+    .attr("xmlns:xlink", XLINKNS)
     .attr("width", chartWidth)
     .attr("height", chartHeight);
 
@@ -460,7 +465,8 @@ function drawGroupBarChart(
   const svg = d3
     .select("#" + id)
     .append("svg")
-    .attr("xmlns", "http://www.w3.org/2000/svg")
+    .attr("xmlns", SVGNS)
+    .attr("xmlns:xlink", XLINKNS)
     .attr("width", chartWidth)
     .attr("height", chartHeight);
 
@@ -535,7 +541,8 @@ function drawLineChart(
   const svg = d3
     .select("#" + id)
     .append("svg")
-    .attr("xmlns", "http://www.w3.org/2000/svg")
+    .attr("xmlns", SVGNS)
+    .attr("xmlns:xlink", XLINKNS)
     .attr("width", width)
     .attr("height", height);
 
@@ -704,7 +711,8 @@ function drawGroupLineChart(
 
   const svg = container
     .append("svg")
-    .attr("xmlns", "http://www.w3.org/2000/svg")
+    .attr("xmlns", SVGNS)
+    .attr("xmlns:xlink", XLINKNS)
     .attr("width", width)
     .attr("height", height + SOURCE.height);
 
