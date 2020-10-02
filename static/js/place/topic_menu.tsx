@@ -20,7 +20,7 @@ import { CategoryData } from "./types";
 interface MenuPropsType {
   dcid: string;
   topic: string;
-  configStat: CategoryData[];
+  configData: CategoryData[];
 }
 
 class Menu extends React.Component<MenuPropsType, unknown> {
@@ -37,7 +37,7 @@ class Menu extends React.Component<MenuPropsType, unknown> {
             Overview
           </a>
         </li>
-        {this.props.configStat.map((item: CategoryData) => {
+        {this.props.configData.map((item: CategoryData) => {
           return (
             <React.Fragment key={item.label}>
               {item.children.length > 0 && (

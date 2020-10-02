@@ -48,13 +48,13 @@ def create_app():
     app.register_blueprint(place.bp)
     app.register_blueprint(placelist.bp)
     app.register_blueprint(tools.bp)
-    from routes.api import (chart, choropleth, place as place_api, place_new,
+    from routes.api import (chart, choropleth, place as place_api, landingpage,
                             ranking as ranking_api, stats)
     app.register_blueprint(chart.bp)
     app.register_blueprint(choropleth.bp)
     app.register_blueprint(factcheck.bp)
     app.register_blueprint(place_api.bp)
-    app.register_blueprint(place_new.bp)
+    app.register_blueprint(landingpage.bp)
     app.register_blueprint(ranking_api.bp)
     app.register_blueprint(static.bp)
     app.register_blueprint(stats.bp)

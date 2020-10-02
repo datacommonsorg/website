@@ -96,12 +96,7 @@ export interface ChartBlockData {
   relatedChart: {
     scale: boolean;
   };
-}
-
-export interface Place {
-  dcid: string;
-  name: string;
-  pop: number;
+  scaling: number;
 }
 
 export interface CategoryData {
@@ -114,12 +109,13 @@ export interface CategoryData {
 }
 
 export interface PageData {
-  configStat: CategoryData[];
+  configData: CategoryData[];
   allChildPlaces: {
-    string: Place[];
+    string: string[];
   };
-  childPlaces: Place[];
-  parentPlaces: Place[];
-  similarPlaces: Place[];
-  nearbyPlaces: Place[];
+  childPlaces: string[];
+  parentPlaces: string[];
+  similarPlaces: string[];
+  nearbyPlaces: string[];
+  names: { string: string };
 }

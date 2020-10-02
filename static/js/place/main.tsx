@@ -16,8 +16,7 @@
 import React from "react";
 import { ChartBlock } from "./chart_block";
 import { Overview } from "./overview";
-import { CategoryData, ChartBlockData, Place } from "./types";
-import { isPlaceInUsa } from "./util";
+import { CategoryData, ChartBlockData } from "./types";
 
 interface MainPanePropType {
   /**
@@ -36,16 +35,19 @@ interface MainPanePropType {
    * The topic of the current page.
    */
   topic: string;
-
   /**
    * The config and stat data.
    */
-  configStat: CategoryData[];
+  configData: CategoryData[];
 
   /**
-   * Parent places.
+   * If the primary place is in USA.
    */
-  parentPlaces: Place[];
+  isUsaPlace: boolean;
+  /**
+   * All place names
+   */
+  names: { [key: string]: string };
 }
 
 class MainPane extends React.Component<MainPanePropType, unknown> {
@@ -57,9 +59,9 @@ class MainPane extends React.Component<MainPanePropType, unknown> {
     let config: { label: string; charts: ChartBlockData[] }[] = [];
     const isOverview = !this.props.topic;
     if (isOverview) {
-      config = this.props.configStat;
+      config = this.props.configData;
     } else {
-      for (const group of this.props.configStat) {
+      for (const group of this.props.configData) {
         if (group.label === this.props.topic) {
           config = group.children;
           break;
@@ -67,8 +69,8 @@ class MainPane extends React.Component<MainPanePropType, unknown> {
       }
     }
     return (
-      <React.Fragment>
-        {isPlaceInUsa(this.props.parentPlaces) && (
+      <>
+        {this.props.isUsaPlace && this.props.placeType != "Country" && (
           // Only Show map and ranking for US places.
           <Overview topic={this.props.topic} dcid={this.props.dcid} />
         )}
@@ -104,7 +106,8 @@ class MainPane extends React.Component<MainPanePropType, unknown> {
                       dcid={this.props.dcid}
                       placeName={this.props.placeName}
                       placeType={this.props.placeType}
-                      parentPlaces={this.props.parentPlaces}
+                      isUsaPlace={this.props.isUsaPlace}
+                      names={this.props.names}
                       data={data}
                     />
                   );
@@ -113,7 +116,7 @@ class MainPane extends React.Component<MainPanePropType, unknown> {
             </section>
           );
         })}
-      </React.Fragment>
+      </>
     );
   }
 }

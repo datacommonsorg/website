@@ -14,15 +14,17 @@
  * limitations under the License.
  */
 
-import { Place } from "./types";
 import pluralize from "pluralize";
 
 /**
  * Given a list of parent places, return true if the place is in USA.
  */
-export function isPlaceInUsa(parentPlaces: Place[]): boolean {
+export function isPlaceInUsa(dcid: string, parentPlaces: string[]): boolean {
+  if (dcid === "country/USA") {
+    return true;
+  }
   for (const parent of parentPlaces) {
-    if (parent.dcid == "country/USA") {
+    if (parent == "country/USA") {
       return true;
     }
   }

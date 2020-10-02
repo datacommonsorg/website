@@ -26,11 +26,12 @@ from cache import cache
 import services.datacommons as dc_service
 from services.datacommons import fetch_data
 import routes.api.stats as stats_api
+import routes.api.place as place_api
 
 import logging
 
 # Define blueprint
-bp = Blueprint("api.place.new", __name__, url_prefix='/api/place/new')
+bp = Blueprint("api.landingpage", __name__, url_prefix='/api/landingpage')
 
 
 def get_landing_page_data(dcid):
@@ -91,6 +92,7 @@ def data(dcid):
     config_data = copy.deepcopy(config)
 
     for category in config_data:
+        filtered_charts = []
         for chart in category['charts']:
             # Populate the overview page data.
 
@@ -98,55 +100,69 @@ def data(dcid):
             chart['trend'] = get_trend_data(chart, cache_data['data'], dcid)
             # Parent places data
             chart['parent'] = get_bar_data(chart, cache_data['data'],
-                                           cache_data['parentPlaces'])
+                                           cache_data.get('parentPlaces', []))
             # Similar places data
             chart['similar'] = get_bar_data(chart, cache_data['data'],
-                                            cache_data['similarPlaces'])
+                                            cache_data.get('similarPlaces', []))
             # Nearby places data
             chart['nearby'] = get_bar_data(chart, cache_data['data'],
-                                           cache_data['nearbyPlaces'])
+                                           cache_data.get('nearbyPlaces', []))
             # Nearby places data
             chart['child'] = get_bar_data(chart, cache_data['data'],
-                                          cache_data['childPlaces'])
+                                          cache_data.get('childPlaces', []))
+            if (chart['trend'] or chart['parent'] or chart['similar'] or
+                    chart['nearby'] or chart['child']):
+                filtered_charts.append(chart)
+        category['charts'] = filtered_charts
 
-            # Populate topic page data.
-            for child in category['children']:
-                for chart in child['charts']:
-                    # Trend data
-                    chart['trend'] = get_trend_data(chart, cache_data['data'],
-                                                    dcid)
-                    # Parent places data
-                    chart['parent'] = get_bar_data(chart, cache_data['data'],
-                                                   cache_data['parentPlaces'])
-                    # Similar places data
-                    chart['similar'] = get_bar_data(chart, cache_data['data'],
-                                                    cache_data['similarPlaces'])
-                    # Nearby places data
-                    chart['nearby'] = get_bar_data(chart, cache_data['data'],
-                                                   cache_data['nearbyPlaces'])
-                    # Child places data
-                    chart['child'] = get_bar_data(chart, cache_data['data'],
-                                                  cache_data['childPlaces'])
+        # Populate topic page data.
+        filtered_children = []
+        for child in category['children']:
+            child_charts = []
+            for chart in child['charts']:
+                # Trend data
+                chart['trend'] = get_trend_data(chart, cache_data['data'], dcid)
+                # Parent places data
+                chart['parent'] = get_bar_data(
+                    chart, cache_data['data'],
+                    [dcid] + cache_data.get('parentPlaces', []))
+                # Similar places data
+                chart['similar'] = get_bar_data(
+                    chart, cache_data['data'],
+                    [dcid] + cache_data.get('similarPlaces', []))
+                # Nearby places data
+                chart['nearby'] = get_bar_data(
+                    chart, cache_data['data'],
+                    [dcid] + cache_data.get('nearbyPlaces', []))
+                # Child places data
+                chart['child'] = get_bar_data(chart, cache_data['data'],
+                                              [dcid] +
+                                              cache_data.get('childPlaces', []))
+                if (chart['trend'] or chart['parent'] or chart['similar'] or
+                        chart['nearby'] or chart['child']):
+                    child_charts.append(chart)
+            if child_charts:
+                child['charts'] = child_charts
+                filtered_children.append(child)
+        if filtered_children:
+            category['children'] = filtered_children
 
-    # Populate the timeline tool url for each chart.
-    # for i in range(len(cc)):
-    #     # Populate timeline tool url for charts
-    #     for j in range(len(cc[i]['charts'])):
-    #         cc[i]['charts'][j]['exploreUrl'] = build_url(
-    #             dcid, cc[i]['charts'][j]['statsVars'])
-    #     # Populate timeline tool url for children
-    #     for j in range(len(cc[i].get('children', []))):
-    #         for k in range(len(cc[i]['children'][j]['charts'])):
-    #             cc[i]['children'][j]['charts'][k]['exploreUrl'] = build_url(
-    #                 dcid, cc[i]['children'][j]['charts'][k]['statsVars'])
+    allPlaces = [dcid]
+    for relation in [
+            'parentPlaces', 'similarPlaces', 'nearbyPlaces', 'childPlaces'
+    ]:
+        allPlaces.extend(cache_data.get(relation, []))
+
+    names = place_api.get_display_name('^'.join(sorted(allPlaces)))
 
     response = {
         'configData': config_data,
-        'allChildPlaces': cache_data['allChildPlaces'],
-        'childPlaces': cache_data['childPlaces'],
-        'parentPlaces': cache_data['parentPlaces'],
-        'similarPlaces': cache_data['similarPlaces'],
-        'nearbyPlaces': cache_data['nearbyPlaces'],
+        'allChildPlaces': cache_data.get('allChildPlaces', {}),
+        'childPlaces': cache_data.get('childPlaces', []),
+        'parentPlaces': cache_data.get('parentPlaces', []),
+        'similarPlaces': cache_data.get('similarPlaces', []),
+        'nearbyPlaces': cache_data.get('nearbyPlaces', []),
+        'names': names,
     }
     return Response(json.dumps(response), 200, mimetype='application/json')
 
@@ -168,14 +184,15 @@ def get_bar_data(cc, data, places):
                                                       'Count_Person')
 
     sources = set()
-    for place in places:
-        dcid = place['dcid']
+    for dcid in places:
         if dcid not in data:
             continue
-        for stat_var in cc['statsVars']:
+        for i, stat_var in enumerate(cc['statsVars']):
             series_raw = data[dcid].get(stat_var, {})
             if not series_raw:
                 continue
+            if 'denominator' in cc:
+                denominator_stat_var = cc['denominator'][i]
             if denominator_stat_var is not None:
                 denominator_raw = data[dcid].get(denominator_stat_var, {})
                 if not denominator_raw:
@@ -184,9 +201,12 @@ def get_bar_data(cc, data, places):
                                       denominator_raw['data'])
                 sources.add(series_raw['provenanceDomain'])
                 sources.add(denominator_raw['provenanceDomain'])
-            for date, value in series_raw['data'].items():
-                date_to_data[date][dcid].append((stat_var, value))
+            else:
+                series = series_raw['data']
                 sources.add(series_raw['provenanceDomain'])
+            # Turn the value to be keyed by date.
+            for date, value in series.items():
+                date_to_data[date][dcid].append((stat_var, value))
 
     dates = sorted(date_to_data.keys(), reverse=True)
     if not dates:
@@ -200,11 +220,11 @@ def get_bar_data(cc, data, places):
     result = {'date': chosen_date, 'data': [], 'sources': list(sources)}
     for place in places:
         points = {}
-        for stat_var, value in date_to_data[chosen_date][place['dcid']]:
+        for stat_var, value in date_to_data[chosen_date][place]:
             points[stat_var] = value
         if points:
             result['data'].append({
-                'dcid': place['dcid'],
+                'dcid': place,
                 # 'name': place['name'],
                 'data': points
             })
@@ -212,8 +232,7 @@ def get_bar_data(cc, data, places):
     # so client won't draw chart.
     if len(result['data']) == 1:
         return {}
-    result['explorUrl'] = build_url([p['dcid'] for p in places],
-                                    cc['statsVars'])
+    result['explorUrl'] = build_url(places, cc['statsVars'])
     return result
 
 
@@ -264,9 +283,15 @@ def scale_series(numerator, denominator):
     data = {}
     for date, value in numerator.items():
         if date in denominator:
-            data[date] = value / denominator[date]
+            if denominator[date] > 0:
+                data[date] = value / denominator[date]
+            else:
+                data[date] = 0
         else:
             parts = date.split('-')
             if len(parts) > 1 and parts[0] in denominator:
-                data[date] = value / denominator[parts[0]]
+                if denominator[parts[0]] > 0:
+                    data[date] = value / denominator[parts[0]]
+                else:
+                    data[date] = 0
     return data

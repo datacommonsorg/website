@@ -63,6 +63,14 @@ interface ChartPropType {
    * The unit of stat value
    */
   unit: string;
+  /**
+   * All place names
+   */
+  names: { [key: string]: string };
+  /**
+   * Scale number
+   */
+  scaling?: number;
 }
 
 interface ChartStateType {
@@ -100,10 +108,15 @@ class Chart extends React.Component<ChartPropType, ChartStateType> {
     if (!this.state.display) {
       return null;
     }
-    const dateString = this.props.snapshot ? this.props.snapshot.date : "";
+    const dateString = this.props.snapshot
+      ? "(" + this.props.snapshot.date + ")"
+      : "";
     const sources = this.props.trend
       ? this.props.trend.sources
       : this.props.snapshot.sources;
+    if (!sources) {
+      console.log(this.props);
+    }
     const explorUrl = this.props.trend
       ? this.props.trend.explorUrl
       : this.props.snapshot.explorUrl;
@@ -261,20 +274,49 @@ class Chart extends React.Component<ChartPropType, ChartStateType> {
     }
   }
 
+  private expandDataPoints(
+    dataPoints: DataPoint[],
+    dates: Set<string>
+  ): DataPoint[] {
+    const result: DataPoint[] = dataPoints;
+    for (const dp of dataPoints) {
+      if (dates.has(dp.label)) {
+        dates.delete(dp.label);
+      }
+    }
+    dates.forEach((date) => {
+      result.push({ label: date, value: null });
+    });
+
+    result.sort(function (a, b) {
+      return a.label > b.label ? -1 : 1;
+    });
+    return result;
+  }
+
   private processData(): void {
     const dataGroups: DataGroup[] = [];
     const dataPoints: DataPoint[] = [];
+    const allDates = new Set<string>();
+    const scaling = this.props.scaling ? this.props.scaling : 1;
     switch (this.props.chartType) {
       case chartTypeEnum.LINE:
         for (const statVar in this.props.trend.series) {
           const dataPoints: DataPoint[] = [];
           for (const date in this.props.trend.series[statVar]) {
+            allDates.add(date);
             dataPoints.push({
               label: date,
-              value: this.props.trend.series[statVar][date],
+              value: this.props.trend.series[statVar][date] * scaling,
             });
           }
           dataGroups.push(new DataGroup(STATS_VAR_LABEL[statVar], dataPoints));
+        }
+        for (let i = 0; i < dataGroups.length; i++) {
+          dataGroups[i].value = this.expandDataPoints(
+            dataGroups[i].value,
+            allDates
+          );
         }
         this.setState({
           dataGroups,
@@ -284,7 +326,7 @@ class Chart extends React.Component<ChartPropType, ChartStateType> {
         for (const statVar in this.props.snapshot.data[0].data) {
           dataPoints.push({
             label: STATS_VAR_LABEL[statVar],
-            value: this.props.snapshot.data[0].data[statVar],
+            value: this.props.snapshot.data[0].data[statVar] * scaling,
           });
         }
         this.setState({
@@ -299,10 +341,12 @@ class Chart extends React.Component<ChartPropType, ChartStateType> {
           for (const statVar in placeData.data) {
             dataPoints.push({
               label: STATS_VAR_LABEL[statVar],
-              value: placeData[statVar],
+              value: placeData.data[statVar] * scaling,
             });
           }
-          dataGroups.push(new DataGroup(placeData.dcid, dataPoints));
+          dataGroups.push(
+            new DataGroup(this.props.names[placeData.dcid], dataPoints)
+          );
         }
         this.setState({
           dataGroups: dataGroups,

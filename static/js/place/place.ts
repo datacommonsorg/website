@@ -21,6 +21,8 @@ import axios from "axios";
 import { ChildPlace } from "./child_places_menu";
 import { Menu } from "./topic_menu";
 import { ParentPlace } from "./parent_breadcrumbs";
+import { MainPane } from "./main";
+import { isPlaceInUsa } from "./util";
 
 import { PageData } from "./types";
 
@@ -90,13 +92,15 @@ function renderPage(dcid: string) {
   const placeName = document.getElementById("place-name").dataset.pn;
   const placeType = document.getElementById("place-type").dataset.pt;
 
-  axios.get("/api/place/new/data/" + dcid).then((resp) => {
+  axios.get("/api/landingpage/data/" + dcid).then((resp) => {
     const data: PageData = resp.data;
+    const isUsaPlace = isPlaceInUsa(dcid, data.parentPlaces);
+
     ReactDOM.render(
       React.createElement(Menu, {
         dcid,
         topic,
-        configStat: data.configStat,
+        configData: data.configData,
       }),
       document.getElementById("topics")
     );
@@ -104,6 +108,7 @@ function renderPage(dcid: string) {
     ReactDOM.render(
       React.createElement(ParentPlace, {
         parentPlaces: data.parentPlaces,
+        names: data.names,
         placeType,
       }),
       document.getElementById("place-type")
@@ -112,18 +117,30 @@ function renderPage(dcid: string) {
     updatePageLayoutState();
 
     // Display child places alphabetically
-    for (const placeType in data.childPlaces) {
+    for (const placeType in data.allChildPlaces) {
       data.allChildPlaces[placeType].sort((a, b) =>
         a.name < b.name ? -1 : a.name > b.name ? 1 : 0
       );
     }
-
     ReactDOM.render(
       React.createElement(ChildPlace, {
         childPlaces: data.allChildPlaces,
         placeName,
       }),
       document.getElementById("child-place")
+    );
+
+    ReactDOM.render(
+      React.createElement(MainPane, {
+        dcid,
+        placeName,
+        placeType,
+        topic,
+        isUsaPlace,
+        names: data.names,
+        configData: data.configData,
+      }),
+      document.getElementById("main-pane")
     );
   });
 }

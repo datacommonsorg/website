@@ -15,11 +15,10 @@
  */
 
 import React from "react";
-import { Place } from "./types";
 import { displayNameForPlaceType } from "./util";
 
 interface ChildPlacePropType {
-  childPlaces: { string: Place[] };
+  childPlaces: { string: string[] };
   placeName: string;
 }
 
