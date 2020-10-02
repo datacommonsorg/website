@@ -140,6 +140,36 @@ function getChartConfigData(dcid: string) {
   });
 }
 
+/**
+ * Get the geo json info for the chart.
+ */
+async function getChartGeoJsonData(dcid: string, placeType: string) {
+  if (placeType == "Country" || placeType == "State") {
+    return axios.get("/api/chart/geojson/" + dcid).then((resp) => {
+      return resp.data;
+    });
+  } else {
+    return new Promise((resolve) => {
+      resolve({});
+    });
+  }
+}
+
+/**
+ * Get the stat var data for the chart.
+ */
+async function getChartChoroplethData(dcid: string, placeType: string) {
+  if (placeType == "Country" || placeType == "State") {
+    return axios.get("/api/chart/choroplethdata/" + dcid).then((resp) => {
+      return resp.data;
+    });
+  } else {
+    return new Promise((resolve) => {
+      resolve({});
+    });
+  }
+}
+
 function renderPage(dcid: string) {
   const urlParams = new URLSearchParams(window.location.search);
   // Get topic and render menu.
@@ -153,6 +183,8 @@ function renderPage(dcid: string) {
   const similarPlacesPromise = getSimilarPlaces(dcid);
   const nearbyPlacesPromise = getNearbyPlaces(dcid);
   const chartConfigDataPromise = getChartConfigData(dcid);
+  const chartGeoJsonPromise = getChartGeoJsonData(dcid, placeType);
+  const choroplethDataPromise = getChartChoroplethData(dcid, placeType);
 
   chartConfigDataPromise.then((chartConfigData) => {
     ReactDOM.render(
@@ -194,6 +226,8 @@ function renderPage(dcid: string) {
     childPlacesPromise,
     similarPlacesPromise,
     nearbyPlacesPromise,
+    chartGeoJsonPromise,
+    choroplethDataPromise,
   ]).then(
     ([
       chartConfigData,
@@ -201,6 +235,8 @@ function renderPage(dcid: string) {
       childPlaces,
       similarPlaces,
       nearbyPlaces,
+      chartGeoJson,
+      choroplethData,
     ]) => {
       const parentPlacesWithData = [];
       for (const place of parentPlaces) {
@@ -208,6 +244,7 @@ function renderPage(dcid: string) {
           parentPlacesWithData.push(place);
         }
       }
+      console.log(chartConfigData);
       ReactDOM.render(
         React.createElement(MainPane, {
           dcid,
@@ -220,6 +257,8 @@ function renderPage(dcid: string) {
           nearbyPlaces,
           chartConfig: chartConfigData.config,
           chartData: chartConfigData.data,
+          geoJsonData: chartGeoJson,
+          choroplethData: choroplethData,
         }),
         document.getElementById("main-pane")
       );
