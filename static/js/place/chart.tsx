@@ -33,11 +33,14 @@ import {
   parentPlacesType,
   placeRelationEnum,
   CachedChoroplethData,
-  ChoroplethDataGroup
+  ChoroplethDataGroup,
 } from "./types";
 import { updatePageLayoutState } from "./place";
 import { ChartEmbed } from "./chart_embed";
-import { CHOROPLETH_MIN_DATAPOINTS, drawChoropleth } from "../chart/drawChoropleth";
+import {
+  CHOROPLETH_MIN_DATAPOINTS,
+  drawChoropleth,
+} from "../chart/drawChoropleth";
 
 const CHART_HEIGHT = 194;
 
@@ -86,7 +89,7 @@ interface ChartPropType {
    */
   geoJsonData: unknown;
   /**
-   * Values of statvar/denominator combinations for places one level down of current dcid 
+   * Values of statvar/denominator combinations for places one level down of current dcid
    */
   choroplethData: CachedChoroplethData;
 }
@@ -160,8 +163,11 @@ class Chart extends React.Component<ChartPropType, ChartStateType> {
     ) {
       return null;
     }
-    if (this.props.config.chartType === chartTypeEnum.CHOROPLETH &&
-        (!this.state.choroplethDataGroup || this.state.choroplethDataGroup.numDataPoints < CHOROPLETH_MIN_DATAPOINTS)
+    if (
+      this.props.config.chartType === chartTypeEnum.CHOROPLETH &&
+      (!this.state.choroplethDataGroup ||
+        this.state.choroplethDataGroup.numDataPoints <
+          CHOROPLETH_MIN_DATAPOINTS)
     ) {
       return null;
     }
@@ -343,7 +349,10 @@ class Chart extends React.Component<ChartPropType, ChartStateType> {
         this.state.dataGroups,
         this.props.config.unit
       );
-    } else if (chartType === chartTypeEnum.CHOROPLETH && this.state.choroplethDataGroup) {
+    } else if (
+      chartType === chartTypeEnum.CHOROPLETH &&
+      this.state.choroplethDataGroup
+    ) {
       drawChoropleth(
         this.props.id,
         this.props.geoJsonData,
@@ -480,25 +489,40 @@ class Chart extends React.Component<ChartPropType, ChartStateType> {
         }
         break;
       case chartTypeEnum.CHOROPLETH:
-        let statsKey: string = config.statsVars[0];
-        if (perCapita) {
-          if (config.relatedChart && config.relatedChart.denominator) {
-            statsKey = statsKey + "^" + config.relatedChart.denominator;
-          } else {
-            statsKey = statsKey + "^Count_Person";
-          }
-        } else if (config.denominator && config.denominator.length > 0) {
-          statsKey = statsKey + "^" + config.denominator[0];
-        }
-        if (this.props.choroplethData && this.props.choroplethData[statsKey]) {
+        if (
+          this.props.choroplethData &&
+          this.props.choroplethData[this.choroplethKey()]
+        ) {
           this.setState({
-            choroplethDataGroup: this.props.choroplethData[statsKey]
+            choroplethDataGroup: this.props.choroplethData[
+              this.choroplethKey()
+            ],
           });
         }
         break;
       default:
         break;
     }
+  }
+
+  private choroplethKey() {
+    let statsKey: string = this.props.config.statsVars[0];
+    if (this.props.config.perCapita) {
+      if (
+        this.props.config.relatedChart &&
+        this.props.config.relatedChart.denominator
+      ) {
+        statsKey = statsKey + "^" + this.props.config.relatedChart.denominator;
+      } else {
+        statsKey = statsKey + "^Count_Person";
+      }
+    } else if (
+      this.props.config.denominator &&
+      this.props.config.denominator.length > 0
+    ) {
+      statsKey = statsKey + "^" + this.props.config.denominator[0];
+    }
+    return statsKey;
   }
 }
 

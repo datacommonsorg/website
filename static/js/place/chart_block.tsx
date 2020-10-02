@@ -81,7 +81,7 @@ interface ChartBlockPropType {
    */
   geoJsonData: unknown;
   /**
-   * Values of statvar/denominator combinations for places one level down of current dcid 
+   * Values of statvar/denominator combinations for places one level down of current dcid
    */
   choroplethData: CachedChoroplethData;
 }

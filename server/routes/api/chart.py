@@ -541,6 +541,10 @@ def choropleth_data(dcid):
                 else:
                     geo_data[geo] = sv_data[geo][sv_date]
                     num_data_points += 1
-            sv_denom_result = {'date': sv_date, 'data': geo_data, 'numDataPoints': num_data_points}
+            sv_denom_result = {
+                'date': sv_date,
+                'data': geo_data,
+                'numDataPoints': num_data_points
+            }
             result[key] = sv_denom_result
     return Response(json.dumps(result), 200, mimetype='application/json')

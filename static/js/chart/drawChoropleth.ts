@@ -32,8 +32,8 @@ const blues = [
   "#08519c",
   "#08306b",
 ];
-const MISSING_DATA_COLOR = "black"
-const TOOLTIP_ID = "tooltip"
+const MISSING_DATA_COLOR = "black";
+const TOOLTIP_ID = "tooltip";
 
 function drawChoropleth(
   container_id: string,
@@ -52,8 +52,7 @@ function drawChoropleth(
     .range((blues as unknown) as number[]);
 
   // Add svg for the map to the div holding the chart.
-  d3
-    .select("#" + container_id)
+  d3.select("#" + container_id)
     .append("svg")
     .attr("width", chartWidth)
     .attr("height", chartHeight)
@@ -79,9 +78,12 @@ function drawChoropleth(
     .attr("d", geomap)
     // Add CSS class to each path for border outlining.
     .attr("class", "border")
-    // fill with the colors that match each value. 
+    // fill with the colors that match each value.
     .attr("fill", (d: { properties: { geoDcid: string } }) => {
-      if (d.properties.geoDcid in dataValues && dataValues[d.properties.geoDcid]) {
+      if (
+        d.properties.geoDcid in dataValues &&
+        dataValues[d.properties.geoDcid]
+      ) {
         const value = dataValues[d.properties.geoDcid];
         return colorScale(value);
       } else {
@@ -106,26 +108,34 @@ const onMouseOver = (container_id: string) => (_, index): void => {
     .classed("border-highlighted", true);
   // show tooltip
   d3.select("#" + container_id + " #" + TOOLTIP_ID).style("display", "block");
-}
+};
 
-const onMouseOut = (container_id: string) => (_, index) : void => {
+const onMouseOut = (container_id: string) => (_, index): void => {
   d3.select("#geoPath" + index)
     .classed("border", true)
     .classed("border-highlighted", false);
   d3.select("#" + container_id + " #" + TOOLTIP_ID).style("display", "none");
-}
+};
 
-const onMouseMove = (container_id: string, dataValues: {[placeDcid: string]: number}, unit: string) => (e) => {
+const onMouseMove = (
+  container_id: string,
+  dataValues: { [placeDcid: string]: number },
+  unit: string
+) => (e) => {
   const placeName = e["properties"].name;
-  const value = unit ? dataValues[e["properties"].geoDcid] + unit : dataValues[e["properties"].geoDcid];
+  const value = unit
+    ? dataValues[e["properties"].geoDcid] + unit
+    : dataValues[e["properties"].geoDcid];
   const text = placeName + ": " + value;
   d3.select("#" + container_id + " #tooltip")
     .text(text)
     .style("left", d3.event.offsetX + 3 + "px")
     .style("top", d3.event.offsetY - 3 + "px");
-}
+};
 
-function determineColorPalette(dataValues: { [placeDcid: string]: number }): number[] {
+function determineColorPalette(dataValues: {
+  [placeDcid: string]: number;
+}): number[] {
   // Create a sorted list of values.
   const values = [];
   for (const key in dataValues) {
@@ -158,11 +168,15 @@ function addTooltip(container_id: string) {
  * @param color The d3 linearScale that encodes the color gradient to be
  *        plotted.
  */
-function generateLegend(id: string, color: d3.ScaleLinear<number, number>, unit: string) {
+function generateLegend(
+  id: string,
+  color: d3.ScaleLinear<number, number>,
+  unit: string
+) {
   const width = 250;
   const height = 50;
   const tickSize = 6;
-  const title = unit? "Color Scale (" + unit + ")" : "Color Scale";
+  const title = unit ? "Color Scale (" + unit + ")" : "Color Scale";
   const marginTop = 18;
   const marginBottom = 16 + tickSize;
   const marginSides = 15;
@@ -177,7 +191,7 @@ function generateLegend(id: string, color: d3.ScaleLinear<number, number>, unit:
     .select("#" + id + " .choropleth-legend")
     .append("svg")
     .attr("width", width)
-    .attr("height", height)
+    .attr("height", height);
 
   const n = Math.min(color.domain().length, color.range().length);
 
@@ -243,7 +257,4 @@ const genScaleImg = (
   return canvas;
 };
 
-export {
-  CHOROPLETH_MIN_DATAPOINTS,
-  drawChoropleth
-};
+export { CHOROPLETH_MIN_DATAPOINTS, drawChoropleth };

@@ -73,7 +73,7 @@ export interface ChartCategory {
 }
 
 export interface CachedChoroplethData {
-  [statVarDenomPair: string]: ChoroplethDataGroup
+  [statVarDenomPair: string]: ChoroplethDataGroup;
 }
 
 export interface ChoroplethDataGroup {
