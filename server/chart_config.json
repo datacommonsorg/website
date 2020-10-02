@@ -20,7 +20,7 @@
   },
   {
     "category": ["Economics", "Unemployment"],
-    "title": "Employed People",
+    "title": "Number of People Employed",
     "statsVars": ["Count_Person_Employed"],
     "isOverview": true,
     "relatedChart": {
@@ -249,7 +249,10 @@
     }
   },
   {
-    "category": ["Equality", "Economics"],
+    "category": [
+      "Equity",
+      "Economics"
+    ],
     "title": "Poverty Rate by Race",
     "statsVars": [
       "Count_Person_BelowPovertyLevelInThePast12Months_AmericanIndianOrAlaskaNativeAlone",
@@ -275,7 +278,10 @@
     }
   },
   {
-    "category": ["Equality", "Economics"],
+    "category": [
+      "Equity",
+      "Economics"
+    ],
     "title": "Poverty Rate by Gender",
     "statsVars": [
       "Count_Person_Female_BelowPovertyLevelInThePast12Months",
@@ -291,7 +297,10 @@
     }
   },
   {
-    "category": ["Equality", "Economics"],
+    "category": [
+      "Equity",
+      "Economics"
+    ],
     "title": "Median Household Income by Race",
     "statsVars": [
       "Median_Income_Household_HouseholderRaceAmericanIndianOrAlaskaNativeAlone",
@@ -307,7 +316,10 @@
     }
   },
   {
-    "category": ["Equality", "Economics"],
+    "category": [
+      "Equity",
+      "Economics"
+    ],
     "title": "Median Income by Gender",
     "statsVars": [
       "Median_Income_Person_15OrMoreYears_Female_WithIncome",
@@ -319,7 +331,10 @@
     }
   },
   {
-    "category": ["Equality", "Economics"],
+    "category": [
+      "Equity",
+      "Economics"
+    ],
     "title": "Poverty Rate by Race",
     "statsVars": [
       "Count_Person_BelowPovertyLevelInThePast12Months_AmericanIndianOrAlaskaNativeAlone",
@@ -344,7 +359,10 @@
     }
   },
   {
-    "category": ["Equality", "Economics"],
+    "category": [
+      "Equity",
+      "Economics"
+    ],
     "title": "Poverty Rate by Gender",
     "statsVars": [
       "Count_Person_Female_BelowPovertyLevelInThePast12Months",
@@ -358,7 +376,10 @@
     }
   },
   {
-    "category": ["Equality", "Economics"],
+    "category": [
+      "Equity",
+      "Economics"
+    ],
     "title": "Median Household Income by Race",
     "statsVars": [
       "Median_Income_Household_HouseholderRaceAmericanIndianOrAlaskaNativeAlone",
@@ -373,7 +394,10 @@
     }
   },
   {
-    "category": ["Equality", "Economics"],
+    "category": [
+      "Equity",
+      "Economics"
+    ],
     "title": "Median Income by Gender",
     "statsVars": [
       "Median_Income_Person_15OrMoreYears_Female_WithIncome",
@@ -384,7 +408,10 @@
     }
   },
   {
-    "category": ["Equality", "Economics"],
+    "category": [
+      "Equity",
+      "Economics"
+    ],
     "title": "Unemployment Rate by Gender",
     "statsVars": [
       "UnemploymentRate_Person_Female",
@@ -396,7 +423,10 @@
     }
   },
   {
-    "category": ["Equality", "Health Insurance"],
+    "category": [
+      "Equity",
+      "Health Insurance"
+    ],
     "title": "Percent of People Without Health Insurance by Gender",
     "statsVars": [
       "Percent_Person_18To64Years_Female_NoHealthInsurance",
@@ -409,7 +439,10 @@
     }
   },
   {
-    "category": ["Equality", "Health Insurance"],
+    "category": [
+      "Equity",
+      "Health Insurance"
+    ],
     "title": "Percent of People Without Health Insurance by Race",
     "statsVars": [
       "Percent_Person_18To64Years_NoHealthInsurance_BlackOrAfricanAmericanAlone",
@@ -423,7 +456,10 @@
     }
   },
   {
-    "category": ["Equality", "Education Attainment"],
+    "category": [
+      "Equity",
+      "Education Attainment"
+    ],
     "title": "Rate of Associate Degree Attainment by Gender across Places",
     "statsVars": [
       "Count_Person_25To34Years_EducationalAttainmentAssociatesDegree_Female",
@@ -440,7 +476,10 @@
     }
   },
   {
-    "category": ["Equality", "Education Attainment"],
+    "category": [
+      "Equity",
+      "Education Attainment"
+    ],
     "title": "Rate of Bachelor's Degree Attainment by Gender",
     "statsVars": [
       "Count_Person_25To34Years_EducationalAttainmentBachelorsDegree_Female",
@@ -457,7 +496,10 @@
     }
   },
   {
-    "category": ["Equality", "Education Attainment"],
+    "category": [
+      "Equity",
+      "Education Attainment"
+    ],
     "title": "Rate of Graduate or Professional Degree Attainment by Gender",
     "statsVars": [
       "Count_Person_25To34Years_EducationalAttainmentGraduateOrProfessionalDegree_Female",
@@ -474,7 +516,10 @@
     }
   },
   {
-    "category": ["Equality", "Education Attainment"],
+    "category": [
+      "Equity",
+      "Education Attainment"
+    ],
     "title": "Rate of Associate Degree Attainment by Gender",
     "statsVars": [
       "Count_Person_25To34Years_EducationalAttainmentAssociatesDegree_Female",
@@ -491,7 +536,10 @@
     }
   },
   {
-    "category": ["Equality", "Education Attainment"],
+    "category": [
+      "Equity",
+      "Education Attainment"
+    ],
     "title": "Rate of Bachelor's Degree Attainment by Gender",
     "statsVars": [
       "Count_Person_25To34Years_EducationalAttainmentBachelorsDegree_Female",
@@ -508,7 +556,10 @@
     }
   },
   {
-    "category": ["Equality", "Education Attainment"],
+    "category": [
+      "Equity",
+      "Education Attainment"
+    ],
     "title": "Rate of Graduate or Professional Degree Attainment by Gender",
     "statsVars": [
       "Count_Person_25To34Years_EducationalAttainmentGraduateOrProfessionalDegree_Female",

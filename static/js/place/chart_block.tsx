@@ -112,7 +112,7 @@ class ChartBlock extends React.Component<ChartBlockPropType, unknown> {
                 placeType={this.props.placeType}
                 chartType={chartType}
                 snapshot={this.props.data.child}
-                title={`${this.props.data.title} across states within ${this.props.placeName}`}
+                title={`${this.props.data.title}: states within ${this.props.placeName}`}
                 unit={unit}
                 names={this.props.names}
                 scaling={scaling}
@@ -129,7 +129,7 @@ class ChartBlock extends React.Component<ChartBlockPropType, unknown> {
                 placeType={this.props.placeType}
                 chartType={chartType}
                 snapshot={this.props.data.nearby}
-                title={`${this.props.data.title} across ${displayPlaceType} near ${this.props.placeName}`}
+                title={`${this.props.data.title}: ${displayPlaceType} near ${this.props.placeName}`}
                 unit={unit}
                 names={this.props.names}
                 scaling={scaling}
@@ -149,7 +149,7 @@ class ChartBlock extends React.Component<ChartBlockPropType, unknown> {
                 placeType={this.props.placeType}
                 chartType={chartType}
                 snapshot={this.props.data.nearby}
-                title={`${this.props.data.title} across ${displayPlaceType} near ${this.props.placeName}`}
+                title={`${this.props.data.title}: ${displayPlaceType} near ${this.props.placeName}`}
                 unit={unit}
                 names={this.props.names}
                 scaling={scaling}
@@ -166,7 +166,7 @@ class ChartBlock extends React.Component<ChartBlockPropType, unknown> {
                 placeType={this.props.placeType}
                 chartType={chartType}
                 snapshot={this.props.data.similar}
-                title={`${this.props.data.title} across other ${displayPlaceType}`}
+                title={`${this.props.data.title}: other ${displayPlaceType}`}
                 unit={unit}
                 names={this.props.names}
                 scaling={scaling}
@@ -186,7 +186,7 @@ class ChartBlock extends React.Component<ChartBlockPropType, unknown> {
                 placeType={this.props.placeType}
                 chartType={chartType}
                 snapshot={this.props.data.child}
-                title={`${this.props.data.title} across places within ${this.props.placeName}`}
+                title={`${this.props.data.title}: places within ${this.props.placeName}`}
                 unit={unit}
                 names={this.props.names}
                 scaling={scaling}
@@ -205,7 +205,7 @@ class ChartBlock extends React.Component<ChartBlockPropType, unknown> {
                 placeType={this.props.placeType}
                 chartType={chartType}
                 snapshot={this.props.data.parent}
-                title={`${this.props.data.title} across places that contains ${this.props.placeName}`}
+                title={`${this.props.data.title}: places that contains ${this.props.placeName}`}
                 unit={unit}
                 names={this.props.names}
                 scaling={scaling}
