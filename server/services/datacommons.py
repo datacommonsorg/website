@@ -64,6 +64,7 @@ API_ENDPOINTS = {
     'get_place_ranking': '/node/ranking-locations',
     'get_chart_data': '/node/chart-data',
     'get_stats': '/bulk/stats',
+    'get_stats_all': '/stat/all',
     # TODO(shifucun): switch back to /node/related-places after data switch.
     'get_related_places': '/node/related-locations',
     'get_interesting_places': '/node/interesting-place-aspects',
@@ -96,6 +97,15 @@ def get_stats(place_dcids, stats_var):
         'stats_var': stats_var,
     }
     return send_request(url, req_json=req_json)
+
+
+def get_stats_all(place_dcids, stat_vars):
+    url = API_ROOT + API_ENDPOINTS['get_stats_all']
+    req_json = {
+        'places': place_dcids,
+        'stat_vars': stat_vars,
+    }
+    return send_request(url, req_json=req_json, has_payload=False)
 
 
 def get_chart_data(keys):
