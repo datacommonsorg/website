@@ -46,6 +46,12 @@ const YLABEL = {
   topMargin: 10,
   height: 15,
 };
+const SVGNS = "http://www.w3.org/2000/svg";
+const XLINKNS = "http://www.w3.org/1999/xlink";
+
+const TEXT_FONT_FAMILY = "Roboto";
+const AXIS_TEXT_FILL = "#2b2929";
+const AXIS_GRID_FILL = "#999";
 
 function appendLegendElem(
   elem: string,
@@ -150,6 +156,8 @@ function addXAxis(
     .append("g")
     .attr("class", "x axis")
     .attr("transform", `translate(0, ${chartHeight - MARGIN.bottom})`)
+    .style("stroke", AXIS_GRID_FILL)
+    .style("stroke-width", "0.5px")
     .call(d3Axis)
     .call((g) => g.select(".domain").remove());
 
@@ -162,7 +170,12 @@ function addXAxis(
       .attr("dy", ".15em")
       .attr("transform", "rotate(-35)");
   } else if (typeof xScale.bandwidth === "function") {
-    axis.selectAll(".tick text").call(wrap, xScale.bandwidth());
+    axis
+      .selectAll(".tick text")
+      .style("fill", AXIS_TEXT_FILL)
+      .style("font-family", TEXT_FONT_FAMILY)
+      .style("shape-rendering", "crispEdges")
+      .call(wrap, xScale.bandwidth());
   }
 
   let axisHeight = axis.node().getBBox().height;
@@ -213,13 +226,26 @@ function addYAxis(
     )
     .call((g) => g.select(".domain").remove())
     .call((g) =>
-      g.selectAll(".tick:not(:first-of-type) line").attr("class", "grid-line")
+      g
+        .selectAll("line")
+        .style("stroke", AXIS_GRID_FILL)
+        .style("stroke-width", "0.5")
+    )
+    .call((g) =>
+      g
+        .selectAll(".tick:not(:first-of-type) line")
+        .attr("class", "grid-line")
+        .style("stroke-opacity", "0.5")
+        .style("stroke-dasharray", "2, 2")
     )
     .call((g) =>
       g
         .selectAll(".tick text")
         .attr("x", -width + MARGIN.left + MARGIN.yAxis)
         .attr("dy", -4)
+        .style("fill", AXIS_TEXT_FILL)
+        .style("font-family", TEXT_FONT_FAMILY)
+        .style("shape-rendering", "crispEdges")
     );
 }
 
@@ -259,6 +285,8 @@ function drawHistogram(
   const svg = d3
     .select("#" + id)
     .append("svg")
+    .attr("xmlns", SVGNS)
+    .attr("xmlns:xlink", XLINKNS)
     .attr("width", width)
     .attr("height", height);
 
@@ -299,6 +327,8 @@ function drawSingleBarChart(
   const svg = d3
     .select("#" + id)
     .append("svg")
+    .attr("xmlns", SVGNS)
+    .attr("xmlns:xlink", XLINKNS)
     .attr("width", chartWidth)
     .attr("height", chartHeight);
 
@@ -363,6 +393,8 @@ function drawStackBarChart(
   const svg = d3
     .select("#" + id)
     .append("svg")
+    .attr("xmlns", SVGNS)
+    .attr("xmlns:xlink", XLINKNS)
     .attr("width", chartWidth)
     .attr("height", chartHeight);
 
@@ -440,6 +472,8 @@ function drawGroupBarChart(
   const svg = d3
     .select("#" + id)
     .append("svg")
+    .attr("xmlns", SVGNS)
+    .attr("xmlns:xlink", XLINKNS)
     .attr("width", chartWidth)
     .attr("height", chartHeight);
 
@@ -481,6 +515,8 @@ function drawGroupBarChart(
       return !!labelToLink[d3.select(this).text()];
     })
     .attr("class", "place-tick")
+    .style("cursor", "pointer")
+    .style("text-decoration", "underline")
     .on("click", function (this) {
       window.open(labelToLink[d3.select(this).text()], "_blank");
     });
@@ -512,6 +548,8 @@ function drawLineChart(
   const svg = d3
     .select("#" + id)
     .append("svg")
+    .attr("xmlns", SVGNS)
+    .attr("xmlns:xlink", XLINKNS)
     .attr("width", width)
     .attr("height", height);
 
@@ -556,8 +594,12 @@ function drawLineChart(
         .append("path")
         .datum(dataset.filter(line.defined())) // Only plot points that are defined
         .attr("class", "line fill")
+        .attr("d", line)
+        .style("fill", "none")
+        .style("stroke-width", "2.5px")
         .style("stroke", colorFn(dataGroup.label))
-        .attr("d", line);
+        .style("opacity", 0.4)
+        .style("stroke-dasharray", 2);
     }
 
     svg
@@ -565,7 +607,10 @@ function drawLineChart(
       .datum(dataset)
       .attr("class", "line")
       .style("stroke", colorFn(dataGroup.label))
-      .attr("d", line);
+      .attr("d", line)
+      .style("fill", "none")
+      .style("stroke-width", "2.5px")
+      .style("stroke", colorFn(dataGroup.label));
 
     if (shouldAddDots) {
       svg
@@ -577,8 +622,9 @@ function drawLineChart(
         .attr("class", "dot")
         .attr("cx", (d) => xScale(d[0]))
         .attr("cy", (d) => yScale(d[1]))
-        .attr("fill", colorFn(dataGroup.label))
-        .attr("r", (d) => (d[1] === null ? 0 : 3));
+        .attr("r", (d) => (d[1] === null ? 0 : 3))
+        .style("fill", colorFn(dataGroup.label))
+        .style("stroke", "#fff");
     }
   }
 
@@ -672,6 +718,8 @@ function drawGroupLineChart(
 
   const svg = container
     .append("svg")
+    .attr("xmlns", SVGNS)
+    .attr("xmlns:xlink", XLINKNS)
     .attr("width", width)
     .attr("height", height + SOURCE.height);
 
@@ -695,6 +743,7 @@ function drawGroupLineChart(
     .attr("class", "label")
     .attr("text-anchor", "start")
     .attr("transform", `translate(${MARGIN.grid}, ${YLABEL.topMargin})`)
+    .style("font-size", "12px")
     .text(ylabel);
 
   for (const place in dataGroupsDict) {
