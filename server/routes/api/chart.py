@@ -346,7 +346,7 @@ def geojson(dcid):
 
     names_by_geo = place_api.get_display_name('^'.join(geos))
     geojson_by_geo = dc_service.get_property_values(geos,
-                                                    "geoJsonCoordinatesDP1")
+                                                    "geoJsonCoordinatesDP3")
     features = []
     for geo_id, json_text in geojson_by_geo.items():
         if json_text and geo_id in names_by_geo:
@@ -527,7 +527,6 @@ def choropleth_data(dcid):
                     continue
                 key = key + '^' + denom
             geo_data = {}
-            num_data_points = 0
             # calculate value for each geo for current stat var and denom combination
             for geo in geos:
                 geo_data[geo] = None
@@ -537,14 +536,8 @@ def choropleth_data(dcid):
                     if geo in denom_data and denom_date in denom_data[geo]:
                         geo_data[geo] = sv_data[geo][sv_date] / denom_data[geo][
                             denom_date]
-                        num_data_points += 1
                 else:
                     geo_data[geo] = sv_data[geo][sv_date]
-                    num_data_points += 1
-            sv_denom_result = {
-                'date': sv_date,
-                'data': geo_data,
-                'numDataPoints': num_data_points
-            }
+            sv_denom_result = {'date': sv_date, 'data': geo_data}
             result[key] = sv_denom_result
     return Response(json.dumps(result), 200, mimetype='application/json')

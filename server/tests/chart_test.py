@@ -460,16 +460,16 @@ class TestChoroplethData(unittest.TestCase):
                 'data': {
                     geo1: sv1_val,
                     geo2: sv1_val
-                },
-                'numDataPoints': 2
+                }
             },
             'StatVar1^StatVar2': {
                 'date': sv1_date,
                 'data': {
                     geo1: sv1_val / sv2_val,
                     geo2: sv1_val / sv2_val
-                },
-                'numDataPoints': 2
+                }
             }
         }
+        print('expected')
+        print(expected_data)
         assert response_data == expected_data

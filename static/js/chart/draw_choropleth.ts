@@ -36,7 +36,7 @@ const MISSING_DATA_COLOR = "black";
 const TOOLTIP_ID = "tooltip";
 
 function drawChoropleth(
-  container_id: string,
+  containerId: string,
   geoJson: any,
   chartHeight: number,
   chartWidth: number,
@@ -44,7 +44,7 @@ function drawChoropleth(
     [placeDcid: string]: number;
   },
   unit: string
-) {
+): void {
   const colorVals = determineColorPalette(dataValues);
   const colorScale = d3
     .scaleLinear()
@@ -52,7 +52,7 @@ function drawChoropleth(
     .range((blues as unknown) as number[]);
 
   // Add svg for the map to the div holding the chart.
-  d3.select("#" + container_id)
+  d3.select("#" + containerId)
     .append("svg")
     .attr("width", chartWidth)
     .attr("height", chartHeight)
@@ -61,7 +61,7 @@ function drawChoropleth(
 
   // Combine path elements from D3 content.
   const mapContent = d3
-    .select("#" + container_id + " g.map")
+    .select("#" + containerId + " g.map")
     .selectAll("path")
     .data(geoJson.features);
 
@@ -93,46 +93,50 @@ function drawChoropleth(
     .attr("id", (_, index) => {
       return "geoPath" + index;
     })
-    .on("mouseover", onMouseOver(container_id))
-    .on("mouseout", onMouseOut(container_id))
-    .on("mousemove", onMouseMove(container_id, dataValues, unit));
+    .on("mouseover", onMouseOver(containerId))
+    .on("mouseout", onMouseOut(containerId))
+    .on("mousemove", onMouseMove(containerId, dataValues, unit));
 
-  generateLegend(container_id, colorScale, unit);
-  addTooltip(container_id);
+  generateLegend(containerId, colorScale, unit);
+  addTooltip(containerId);
 }
 
-const onMouseOver = (container_id: string) => (_, index): void => {
+const onMouseOver = (containerId: string) => (_, index): void => {
   // show highlighted border
   d3.select("#geoPath" + index)
     .classed("border", false)
     .classed("border-highlighted", true);
   // show tooltip
-  d3.select("#" + container_id + " #" + TOOLTIP_ID).style("display", "block");
+  d3.select("#" + containerId + " #" + TOOLTIP_ID).style("display", "block");
 };
 
-const onMouseOut = (container_id: string) => (_, index): void => {
+const onMouseOut = (containerId: string) => (_, index): void => {
   d3.select("#geoPath" + index)
     .classed("border", true)
     .classed("border-highlighted", false);
-  d3.select("#" + container_id + " #" + TOOLTIP_ID).style("display", "none");
+  d3.select("#" + containerId + " #" + TOOLTIP_ID).style("display", "none");
 };
 
 const onMouseMove = (
-  container_id: string,
+  containerId: string,
   dataValues: { [placeDcid: string]: number },
   unit: string
 ) => (e) => {
-  const placeName = e["properties"].name;
+  const geoProperties = e["properties"];
+  const placeName = geoProperties.name;
   const value = unit
-    ? dataValues[e["properties"].geoDcid] + unit
-    : dataValues[e["properties"].geoDcid];
+    ? dataValues[geoProperties.geoDcid] + unit
+    : dataValues[geoProperties.geoDcid];
   const text = placeName + ": " + value;
-  d3.select("#" + container_id + " #tooltip")
+  const leftOffset = 3;
+  const topOffset = -3;
+  d3.select("#" + containerId + " #tooltip")
     .text(text)
-    .style("left", d3.event.offsetX + 3 + "px")
-    .style("top", d3.event.offsetY - 3 + "px");
+    .style("left", d3.event.offsetX + leftOffset + "px")
+    .style("top", d3.event.offsetY + topOffset + "px");
 };
 
+//TODO(chejennifer): use viridis or another standard d3 scale
 function determineColorPalette(dataValues: {
   [placeDcid: string]: number;
 }): number[] {
@@ -156,8 +160,8 @@ function determineColorPalette(dataValues: {
   }
 }
 
-function addTooltip(container_id: string) {
-  d3.select("#" + container_id)
+function addTooltip(containerId: string) {
+  d3.select("#" + containerId)
     .append("div")
     .attr("id", TOOLTIP_ID)
     .attr("style", "position: absolute; display: none; z-index: 10");
@@ -173,10 +177,11 @@ function generateLegend(
   color: d3.ScaleLinear<number, number>,
   unit: string
 ) {
+  // TODO(chejennifer): Make these values relative to container size
   const width = 250;
   const height = 50;
   const tickSize = 6;
-  const title = unit ? "Color Scale (" + unit + ")" : "Color Scale";
+  const title = unit ? "Scale (" + unit + ")" : "Scale";
   const marginTop = 18;
   const marginBottom = 16 + tickSize;
   const marginSides = 15;
@@ -185,15 +190,13 @@ function generateLegend(
 
   d3.select("#" + id)
     .append("div")
-    .attr("class", "choropleth-legend");
-
-  const svg = d3
-    .select("#" + id + " .choropleth-legend")
+    .attr("class", "choropleth-legend")
     .append("svg")
     .attr("width", width)
     .attr("height", height);
 
   const n = Math.min(color.domain().length, color.range().length);
+  const svg = d3.select("#" + id + " .choropleth-legend svg");
 
   svg
     .append("image")

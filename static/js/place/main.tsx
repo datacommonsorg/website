@@ -22,7 +22,6 @@ import {
   ConfigType,
   childPlacesType,
   parentPlacesType,
-  CachedChoroplethData,
 } from "./types";
 import { isPlaceInUsa } from "./util";
 
@@ -67,14 +66,6 @@ interface MainPanePropType {
    * Cached stat var data for filling in charts.
    */
   chartData: CachedStatVarDataMap;
-  /**
-   * Geojson data for places one level down of current dcid.
-   */
-  geoJsonData: unknown;
-  /**
-   * Values of statvar/denominator combinations for places one level down of current dcid
-   */
-  choroplethData: CachedChoroplethData;
 }
 
 class MainPane extends React.Component<MainPanePropType, unknown> {
@@ -139,8 +130,6 @@ class MainPane extends React.Component<MainPanePropType, unknown> {
                       similarPlaces={this.props.similarPlaces}
                       nearbyPlaces={this.props.nearbyPlaces}
                       chartData={this.props.chartData}
-                      geoJsonData={this.props.geoJsonData}
-                      choroplethData={this.props.choroplethData}
                     />
                   );
                 })}

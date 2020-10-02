@@ -22,7 +22,6 @@ import {
   childPlacesType,
   parentPlacesType,
   placeRelationEnum,
-  CachedChoroplethData,
 } from "./types";
 import { randDomId } from "../shared/util";
 import { Chart } from "./chart";
@@ -76,14 +75,6 @@ interface ChartBlockPropType {
    * Cached stat var data for filling in charts.
    */
   chartData: CachedStatVarDataMap;
-  /**
-   * Geojson data for places one level down of current dcid.
-   */
-  geoJsonData: unknown;
-  /**
-   * Values of statvar/denominator combinations for places one level down of current dcid
-   */
-  choroplethData: CachedChoroplethData;
 }
 
 class ChartBlock extends React.Component<ChartBlockPropType, unknown> {
@@ -111,8 +102,6 @@ class ChartBlock extends React.Component<ChartBlockPropType, unknown> {
               similarPlaces={this.props.similarPlaces}
               nearbyPlaces={this.props.nearbyPlaces}
               chartData={this.props.chartData}
-              geoJsonData={this.props.geoJsonData}
-              choroplethData={this.props.choroplethData}
             />
           );
         })}
@@ -209,28 +198,6 @@ class ChartBlock extends React.Component<ChartBlockPropType, unknown> {
       conf = this.copyAndUpdateConfig(config);
       conf.placeRelation = placeRelationEnum.CONTAINED;
       conf.title = `${conf.title} across places that contain ${this.props.placeName}`;
-      result.push(conf);
-    }
-    // Only drawing choropleth charts for countries and states for now
-    if (
-      config.hasChoropleth &&
-      (placeType == "Country" || placeType == "State")
-    ) {
-      const conf = { ...config };
-      conf.chartType = chartTypeEnum.CHOROPLETH;
-      if (conf.relatedChart != null && conf.relatedChart.scale) {
-        conf.perCapita = true;
-        conf.unit = "%";
-      }
-      const childPlaceType = isPlaceInUsa(this.props.parentPlaces)
-        ? displayNameForPlaceType(
-            childPlaceTypeWithMostPlaces(
-              this.props.childPlaces
-            ).toLocaleLowerCase(),
-            true /* isPlural */
-          )
-        : "places";
-      conf.title = `${conf.title} across ${childPlaceType} within ${this.props.placeName}`;
       result.push(conf);
     }
     return result;

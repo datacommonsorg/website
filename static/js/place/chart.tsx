@@ -32,15 +32,9 @@ import {
   childPlacesType,
   parentPlacesType,
   placeRelationEnum,
-  CachedChoroplethData,
-  ChoroplethDataGroup,
 } from "./types";
 import { updatePageLayoutState } from "./place";
 import { ChartEmbed } from "./chart_embed";
-import {
-  CHOROPLETH_MIN_DATAPOINTS,
-  drawChoropleth,
-} from "../chart/drawChoropleth";
 
 const CHART_HEIGHT = 194;
 
@@ -84,20 +78,11 @@ interface ChartPropType {
    * Cached stat var data for filling in charts.
    */
   chartData: CachedStatVarDataMap;
-  /**
-   * Geojson data for places one level down of current dcid.
-   */
-  geoJsonData: unknown;
-  /**
-   * Values of statvar/denominator combinations for places one level down of current dcid
-   */
-  choroplethData: CachedChoroplethData;
 }
 
 interface ChartStateType {
   dataPoints?: DataPoint[];
   dataGroups?: DataGroup[];
-  choroplethDataGroup?: ChoroplethDataGroup;
   elemWidth: number;
   dateSelected?: string;
   sources: string[];
@@ -160,14 +145,6 @@ class Chart extends React.Component<ChartPropType, ChartStateType> {
     if (
       this.props.config.placeRelation === placeRelationEnum.SIMILAR &&
       this.props.similarPlaces.length === 1
-    ) {
-      return null;
-    }
-    if (
-      this.props.config.chartType === chartTypeEnum.CHOROPLETH &&
-      (!this.state.choroplethDataGroup ||
-        this.state.choroplethDataGroup.numDataPoints <
-          CHOROPLETH_MIN_DATAPOINTS)
     ) {
       return null;
     }
@@ -349,18 +326,6 @@ class Chart extends React.Component<ChartPropType, ChartStateType> {
         this.state.dataGroups,
         this.props.config.unit
       );
-    } else if (
-      chartType === chartTypeEnum.CHOROPLETH &&
-      this.state.choroplethDataGroup
-    ) {
-      drawChoropleth(
-        this.props.id,
-        this.props.geoJsonData,
-        CHART_HEIGHT,
-        elem.offsetWidth,
-        this.state.choroplethDataGroup.data,
-        this.props.config.unit
-      );
     }
   }
 
@@ -488,41 +453,9 @@ class Chart extends React.Component<ChartPropType, ChartStateType> {
             break;
         }
         break;
-      case chartTypeEnum.CHOROPLETH:
-        if (
-          this.props.choroplethData &&
-          this.props.choroplethData[this.choroplethKey()]
-        ) {
-          this.setState({
-            choroplethDataGroup: this.props.choroplethData[
-              this.choroplethKey()
-            ],
-          });
-        }
-        break;
       default:
         break;
     }
-  }
-
-  private choroplethKey() {
-    let statsKey: string = this.props.config.statsVars[0];
-    if (this.props.config.perCapita) {
-      if (
-        this.props.config.relatedChart &&
-        this.props.config.relatedChart.denominator
-      ) {
-        statsKey = statsKey + "^" + this.props.config.relatedChart.denominator;
-      } else {
-        statsKey = statsKey + "^Count_Person";
-      }
-    } else if (
-      this.props.config.denominator &&
-      this.props.config.denominator.length > 0
-    ) {
-      statsKey = statsKey + "^" + this.props.config.denominator[0];
-    }
-    return statsKey;
   }
 }
 
