@@ -224,11 +224,11 @@ class Chart extends React.Component<ChartPropType, ChartStateType> {
     this.embedModalElement.current.show(
       svgXml,
       this.dataCsv(),
-      this.chartElement.current.offsetWidth,
+      this.svgContainerElement.current.offsetWidth,
       CHART_HEIGHT,
-      this.props.config.title,
-      this.state.dateSelected,
-      this.state.sources
+      this.props.title,
+      this.props.snapshot ? this.props.snapshot.date : "",
+      this.props.snapshot ? this.props.snapshot.sources : []
     );
   }
 

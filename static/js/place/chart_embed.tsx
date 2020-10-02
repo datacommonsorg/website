@@ -23,7 +23,7 @@ import * as d3 from "d3";
 const TITLE_HEIGHT = 20;
 const TITLE_MARGIN = 10;
 const SOURCES_HEIGHT = 10;
-const SOURCES_MARGIN = 10;
+const SOURCES_MARGIN = 30;
 const SVGNS = "http://www.w3.org/2000/svg";
 const XLINKNS = "http://www.w3.org/1999/xlink";
 
