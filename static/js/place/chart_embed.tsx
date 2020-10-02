@@ -60,7 +60,7 @@ class ChartEmbed extends React.Component<unknown, ChartEmbedStateType> {
       chartDate: "",
       sources: [],
     };
-    this.chartDownloadXml = '';
+    this.chartDownloadXml = "";
     this.modalId = randDomId();
     this.svgContainerElement = React.createRef();
     this.textareaElement = React.createRef();
@@ -182,8 +182,9 @@ class ChartEmbed extends React.Component<unknown, ChartEmbedStateType> {
 
     this.chartDownloadXml = this.decorateSvgChart();
 
-    const imageElement =  document.createElement("img");
-    const chartBase64 = "data:image/svg+xml;base64," + btoa(this.chartDownloadXml);
+    const imageElement = document.createElement("img");
+    const chartBase64 =
+      "data:image/svg+xml;base64," + btoa(this.chartDownloadXml);
     imageElement.src = chartBase64;
     this.svgContainerElement.current.append(imageElement);
   }
@@ -214,7 +215,6 @@ class ChartEmbed extends React.Component<unknown, ChartEmbedStateType> {
   }
 
   public render(): JSX.Element {
-    console.log("render");
     return (
       <Modal
         isOpen={this.state.modal}
@@ -223,7 +223,7 @@ class ChartEmbed extends React.Component<unknown, ChartEmbedStateType> {
         onOpened={this.onOpened}
         id={this.modalId}
       >
-        <ModalHeader toggle={this.toggle}>Embed this chart</ModalHeader>
+        <ModalHeader toggle={this.toggle}>Export this chart</ModalHeader>
         <ModalBody>
           <div
             ref={this.svgContainerElement}

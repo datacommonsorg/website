@@ -49,6 +49,10 @@ const YLABEL = {
 const SVGNS = "http://www.w3.org/2000/svg";
 const XLINKNS = "http://www.w3.org/1999/xlink";
 
+const TEXT_FONT_FAMILY = "Roboto";
+const AXIS_TEXT_FILL = "#2b2929";
+const AXIS_GRID_FILL = "#999";
+
 function appendLegendElem(
   elem: string,
   color: d3.ScaleOrdinal<string, string>,
@@ -152,7 +156,7 @@ function addXAxis(
     .append("g")
     .attr("class", "x axis")
     .attr("transform", `translate(0, ${chartHeight - MARGIN.bottom})`)
-    .style("stroke", "#999")
+    .style("stroke", AXIS_GRID_FILL)
     .style("stroke-width", "0.5px")
     .call(d3Axis)
     .call((g) => g.select(".domain").remove());
@@ -168,8 +172,8 @@ function addXAxis(
   } else if (typeof xScale.bandwidth === "function") {
     axis
       .selectAll(".tick text")
-      .style("fill", "#2b2929")
-      .style("font-family", "Roboto")
+      .style("fill", AXIS_TEXT_FILL)
+      .style("font-family", TEXT_FONT_FAMILY)
       .style("shape-rendering", "crispEdges")
       .call(wrap, xScale.bandwidth());
   }
@@ -222,7 +226,10 @@ function addYAxis(
     )
     .call((g) => g.select(".domain").remove())
     .call((g) =>
-      g.selectAll("line").style("stroke", "#999").style("stroke-width", "0.5")
+      g
+        .selectAll("line")
+        .style("stroke", AXIS_GRID_FILL)
+        .style("stroke-width", "0.5")
     )
     .call((g) =>
       g
@@ -236,8 +243,8 @@ function addYAxis(
         .selectAll(".tick text")
         .attr("x", -width + MARGIN.left + MARGIN.yAxis)
         .attr("dy", -4)
-        .style("fill", "#2b2929")
-        .style("font-family", "Roboto")
+        .style("fill", AXIS_TEXT_FILL)
+        .style("font-family", TEXT_FONT_FAMILY)
         .style("shape-rendering", "crispEdges")
     );
 }
