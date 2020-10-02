@@ -80,7 +80,6 @@ class ChartBlock extends React.Component<ChartBlockPropType, unknown> {
 
     // Only add comparison chart for US places.
     if (this.props.isUsaPlace) {
-      const id = randDomId();
       // Prepare parameters for related charts.
       let unit = this.props.data.unit;
       let scaling = this.props.data.scaling;
@@ -97,6 +96,8 @@ class ChartBlock extends React.Component<ChartBlockPropType, unknown> {
         true /* isPlural */
       ).toLocaleLowerCase();
 
+      // TODO(shifucun): simplify the code below to use a for loop with the
+      // params built first.
       if (this.props.isOverview) {
         // Show child place(state) chart for USA page, otherwise show nearby
         // places.

@@ -113,9 +113,9 @@ class Chart extends React.Component<ChartPropType, ChartStateType> {
     const sources = this.props.trend
       ? this.props.trend.sources
       : this.props.snapshot.sources;
-    const explorUrl = this.props.trend
-      ? this.props.trend.explorUrl
-      : this.props.snapshot.explorUrl;
+    const exploreUrl = this.props.trend
+      ? this.props.trend.exploreUrl
+      : this.props.snapshot.exploreUrl;
     return (
       <div className="col">
         <div className="chart-container" ref={this.chartElement}>
@@ -150,7 +150,7 @@ class Chart extends React.Component<ChartPropType, ChartStateType> {
               <a href="#" onClick={this._handleEmbed}>
                 Embed
               </a>
-              <a className="explore-more" href={explorUrl}>
+              <a className="explore-more" href={exploreUrl}>
                 Explore More ›
               </a>
             </div>

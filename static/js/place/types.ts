@@ -70,7 +70,7 @@ export interface Series {
 export interface TrendData {
   series: { string: Series };
   sources: string[];
-  explorUrl: string;
+  exploreUrl: string;
 }
 
 export interface SnapshotData {
@@ -81,7 +81,7 @@ export interface SnapshotData {
     data: { string: number };
   }[];
   sources: string[];
-  explorUrl: string;
+  exploreUrl: string;
 }
 
 export interface ChartBlockData {
