@@ -15,12 +15,12 @@
  */
 
 import React from "react";
-import { ChartCategory } from "./types";
+import { CategoryData } from "./types";
 
 interface MenuPropsType {
   dcid: string;
   topic: string;
-  chartConfig: ChartCategory[];
+  configData: CategoryData[];
 }
 
 class Menu extends React.Component<MenuPropsType, unknown> {
@@ -37,7 +37,7 @@ class Menu extends React.Component<MenuPropsType, unknown> {
             Overview
           </a>
         </li>
-        {this.props.chartConfig.map((item: ChartCategory) => {
+        {this.props.configData.map((item: CategoryData) => {
           return (
             <React.Fragment key={item.label}>
               {item.children.length > 0 && (
