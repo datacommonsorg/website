@@ -14,16 +14,9 @@
  * limitations under the License.
  */
 import React from "react";
-import { CachedStatVarDataMap } from "../shared/data_fetcher";
 import { ChartBlock } from "./chart_block";
 import { Overview } from "./overview";
-import {
-  ChartCategory,
-  ConfigType,
-  childPlacesType,
-  parentPlacesType,
-} from "./types";
-import { isPlaceInUsa } from "./util";
+import { CategoryData, ChartBlockData } from "./types";
 
 interface MainPanePropType {
   /**
@@ -43,29 +36,18 @@ interface MainPanePropType {
    */
   topic: string;
   /**
-   * An array of parent place objects.
+   * The config and stat data.
    */
-  parentPlaces: parentPlacesType;
+  configData: CategoryData[];
+
   /**
-   * An object from child place types to child places dcids.
+   * If the primary place is in USA.
    */
-  childPlaces: childPlacesType;
+  isUsaPlace: boolean;
   /**
-   * Similar places dcids.
+   * All place names
    */
-  similarPlaces: string[];
-  /**
-   * Nearby places dcids.
-   */
-  nearbyPlaces: string[];
-  /**
-   * An object from statsvar dcid to the url tokens used by timeline tool.
-   */
-  chartConfig: ChartCategory[];
-  /**
-   * Cached stat var data for filling in charts.
-   */
-  chartData: CachedStatVarDataMap;
+  names: { [key: string]: string };
 }
 
 class MainPane extends React.Component<MainPanePropType, unknown> {
@@ -74,25 +56,25 @@ class MainPane extends React.Component<MainPanePropType, unknown> {
   }
 
   render(): JSX.Element {
-    let configData = [];
+    let config: { label: string; charts: ChartBlockData[] }[] = [];
     const isOverview = !this.props.topic;
     if (isOverview) {
-      configData = this.props.chartConfig;
+      config = this.props.configData;
     } else {
-      for (const group of this.props.chartConfig) {
+      for (const group of this.props.configData) {
         if (group.label === this.props.topic) {
-          configData = group.children;
+          config = group.children;
           break;
         }
       }
     }
     return (
-      <React.Fragment>
-        {isPlaceInUsa(this.props.parentPlaces) && (
+      <>
+        {this.props.isUsaPlace && this.props.placeType != "Country" && (
           // Only Show map and ranking for US places.
           <Overview topic={this.props.topic} dcid={this.props.dcid} />
         )}
-        {configData.map((item, index) => {
+        {config.map((item, index) => {
           let subtopicHeader: JSX.Element;
           if (isOverview) {
             subtopicHeader = (
@@ -116,20 +98,17 @@ class MainPane extends React.Component<MainPanePropType, unknown> {
             <section className="subtopic col-12" key={index}>
               {subtopicHeader}
               <div className="row row-cols-md-2 row-cols-1">
-                {item.charts.map((config: ConfigType, index) => {
+                {item.charts.map((data: ChartBlockData, index: number) => {
                   return (
                     <ChartBlock
                       key={index}
                       isOverview={isOverview}
-                      config={config}
                       dcid={this.props.dcid}
                       placeName={this.props.placeName}
                       placeType={this.props.placeType}
-                      parentPlaces={this.props.parentPlaces}
-                      childPlaces={this.props.childPlaces}
-                      similarPlaces={this.props.similarPlaces}
-                      nearbyPlaces={this.props.nearbyPlaces}
-                      chartData={this.props.chartData}
+                      isUsaPlace={this.props.isUsaPlace}
+                      names={this.props.names}
+                      data={data}
                     />
                   );
                 })}
@@ -137,7 +116,7 @@ class MainPane extends React.Component<MainPanePropType, unknown> {
             </section>
           );
         })}
-      </React.Fragment>
+      </>
     );
   }
 }

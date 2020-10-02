@@ -15,21 +15,11 @@
  */
 
 import React from "react";
-import { CachedStatVarDataMap } from "../shared/data_fetcher";
-import {
-  ConfigType,
-  chartTypeEnum,
-  childPlacesType,
-  parentPlacesType,
-  placeRelationEnum,
-} from "./types";
+import { chartTypeEnum, ChartBlockData } from "./types";
 import { randDomId } from "../shared/util";
 import { Chart } from "./chart";
-import {
-  displayNameForPlaceType,
-  isPlaceInUsa,
-  childPlaceTypeWithMostPlaces,
-} from "./util";
+import { displayNameForPlaceType } from "./util";
+import _ from "lodash";
 
 interface ChartBlockPropType {
   /**
@@ -49,32 +39,17 @@ interface ChartBlockPropType {
    */
   isOverview: boolean;
   /**
-   * An object of the chart config.
+   * All place names
    */
-  config: ConfigType;
+  names: { [key: string]: string };
   /**
-   * The parent places object array.
-   *
-   * Parent object are sorted by enclosing order. For example:
-   * "San Jose", "Santa Clara County", "California"
+   * Data for this chart block
    */
-  parentPlaces: parentPlacesType;
+  data: ChartBlockData;
   /**
-   * The child places keyed by place types.
+   * If the primary place is in USA.
    */
-  childPlaces: childPlacesType;
-  /**
-   * The similar places.
-   */
-  similarPlaces: string[];
-  /**
-   * The nearby places.
-   */
-  nearbyPlaces: string[];
-  /**
-   * Cached stat var data for filling in charts.
-   */
-  chartData: CachedStatVarDataMap;
+  isUsaPlace: boolean;
 }
 
 class ChartBlock extends React.Component<ChartBlockPropType, unknown> {
@@ -83,124 +58,164 @@ class ChartBlock extends React.Component<ChartBlockPropType, unknown> {
   }
 
   render(): JSX.Element {
-    const configList = this.props.isOverview
-      ? this.buildOverviewConfig(this.props.placeType, this.props.config)
-      : this.buildTopicConfig(this.props.placeType, this.props.config);
-    return (
-      <>
-        {configList.map((item) => {
-          const id = randDomId();
-          return (
-            <Chart
-              key={id}
-              id={id}
-              config={item}
-              dcid={this.props.dcid}
-              placeType={this.props.placeType}
-              parentPlaces={this.props.parentPlaces}
-              childPlaces={this.props.childPlaces}
-              similarPlaces={this.props.similarPlaces}
-              nearbyPlaces={this.props.nearbyPlaces}
-              chartData={this.props.chartData}
-            />
-          );
-        })}
-      </>
-    );
-  }
-
-  private copyAndUpdateConfig(config: ConfigType) {
-    const conf = { ...config };
-    conf.chartType = chartTypeEnum.GROUP_BAR;
-    conf.axis = "PLACE";
-    if (conf.relatedChart != null && conf.relatedChart.scale) {
-      conf.perCapita = true;
-      conf.unit = "%";
-      conf.scaling = 100;
-    }
-    return conf;
-  }
-
-  private buildOverviewConfig(
-    placeType: string,
-    config: ConfigType
-  ): ConfigType[] {
-    const result = [];
-    let conf = { ...config };
-    conf.chartType = chartTypeEnum.LINE;
-    conf.title = conf.title + " in " + this.props.placeName;
-    result.push(conf);
-    if (!isPlaceInUsa(this.props.parentPlaces)) {
-      // Temporarily drop comparison charts for non-US Places
-      return result;
+    const chartElements: JSX.Element[] = [];
+    // Plot trend data in overview and topic page.
+    if (!_.isEmpty(this.props.data.trend)) {
+      const id = randDomId();
+      chartElements.push(
+        <Chart
+          key={id}
+          id={id}
+          dcid={this.props.dcid}
+          placeType={this.props.placeType}
+          chartType={chartTypeEnum.LINE}
+          trend={this.props.data.trend}
+          title={`${this.props.data.title} in ${this.props.placeName}`}
+          unit={this.props.data.unit}
+          names={this.props.names}
+          scaling={this.props.data.scaling}
+        ></Chart>
+      );
     }
 
-    conf = this.copyAndUpdateConfig(config);
-    if (placeType === "Country") {
-      // Containing place chart
-      const childPlaceType =
-        this.props.dcid == "country/USA" ? "states" : "places";
-      conf.title = `${conf.title} across ${childPlaceType} within ${this.props.placeName}`;
-      conf.placeRelation = placeRelationEnum.CONTAINING;
-    } else {
+    // Only add comparison chart for US places.
+    if (this.props.isUsaPlace) {
+      // Prepare parameters for related charts.
+      let unit = this.props.data.unit;
+      let scaling = this.props.data.scaling;
+      if (this.props.data.relatedChart && this.props.data.relatedChart.scale) {
+        unit = "%";
+        scaling = 100;
+      }
+      const chartType =
+        this.props.data.statsVars.length == 1
+          ? chartTypeEnum.STACK_BAR
+          : chartTypeEnum.GROUP_BAR;
       const displayPlaceType = displayNameForPlaceType(
-        placeType,
+        this.props.placeType,
         true /* isPlural */
       ).toLocaleLowerCase();
-      conf.title = `${conf.title} across ${displayPlaceType} near ${this.props.placeName}`;
-      conf.placeRelation = placeRelationEnum.NEARBY;
-    }
-    result.push(conf);
-    return result;
-  }
 
-  private buildTopicConfig(placeType: string, config: ConfigType) {
-    const result: ConfigType[] = [];
-    let conf = { ...config };
-    conf.chartType = chartTypeEnum.LINE;
-    conf.title = conf.title + " in " + this.props.placeName;
-    result.push(conf);
-
-    const displayPlaceType = displayNameForPlaceType(
-      placeType,
-      true /* isPlural */
-    ).toLocaleLowerCase();
-    if (placeType !== "Country") {
-      // Nearby places
-      conf = this.copyAndUpdateConfig(config);
-      conf.placeRelation = placeRelationEnum.NEARBY;
-      conf.title = `${conf.title} across ${displayPlaceType} near ${this.props.placeName}`;
-      result.push(conf);
+      // TODO(shifucun): simplify the code below to use a for loop with the
+      // params built first.
+      if (this.props.isOverview) {
+        // Show child place(state) chart for USA page, otherwise show nearby
+        // places.
+        const id = randDomId();
+        if (this.props.dcid === "country/USA") {
+          if (!_.isEmpty(this.props.data.child)) {
+            chartElements.push(
+              <Chart
+                key={id}
+                id={id}
+                dcid={this.props.dcid}
+                placeType={this.props.placeType}
+                chartType={chartType}
+                snapshot={this.props.data.child}
+                title={`${this.props.data.title} across states within ${this.props.placeName}`}
+                unit={unit}
+                names={this.props.names}
+                scaling={scaling}
+              ></Chart>
+            );
+          }
+        } else {
+          if (!_.isEmpty(this.props.data.nearby)) {
+            chartElements.push(
+              <Chart
+                key={id}
+                id={id}
+                dcid={this.props.dcid}
+                placeType={this.props.placeType}
+                chartType={chartType}
+                snapshot={this.props.data.nearby}
+                title={`${this.props.data.title} across ${displayPlaceType} near ${this.props.placeName}`}
+                unit={unit}
+                names={this.props.names}
+                scaling={scaling}
+              ></Chart>
+            );
+          }
+        }
+      } else {
+        if (this.props.dcid !== "country/USA") {
+          if (!_.isEmpty(this.props.data.nearby)) {
+            const id = randDomId();
+            chartElements.push(
+              <Chart
+                key={id}
+                id={id}
+                dcid={this.props.dcid}
+                placeType={this.props.placeType}
+                chartType={chartType}
+                snapshot={this.props.data.nearby}
+                title={`${this.props.data.title} across ${displayPlaceType} near ${this.props.placeName}`}
+                unit={unit}
+                names={this.props.names}
+                scaling={scaling}
+              ></Chart>
+            );
+          }
+          if (!_.isEmpty(this.props.data.similar)) {
+            const id = randDomId();
+            chartElements.push(
+              <Chart
+                key={id}
+                id={id}
+                dcid={this.props.dcid}
+                placeType={this.props.placeType}
+                chartType={chartType}
+                snapshot={this.props.data.similar}
+                title={`${this.props.data.title} across other ${displayPlaceType}`}
+                unit={unit}
+                names={this.props.names}
+                scaling={scaling}
+              ></Chart>
+            );
+          }
+        }
+        if (this.props.placeType !== "City") {
+          // TODO(shifucun): Get the child place type in mixer.
+          const id = randDomId();
+          if (!_.isEmpty(this.props.data.child)) {
+            chartElements.push(
+              <Chart
+                key={id}
+                id={id}
+                dcid={this.props.dcid}
+                placeType={this.props.placeType}
+                chartType={chartType}
+                snapshot={this.props.data.child}
+                title={`${this.props.data.title} across places within ${this.props.placeName}`}
+                unit={unit}
+                names={this.props.names}
+                scaling={scaling}
+              ></Chart>
+            );
+          }
+        }
+        if (this.props.placeType !== "State") {
+          const id = randDomId();
+          if (!_.isEmpty(this.props.data.parent)) {
+            chartElements.push(
+              <Chart
+                key={id}
+                id={id}
+                dcid={this.props.dcid}
+                placeType={this.props.placeType}
+                chartType={chartType}
+                snapshot={this.props.data.parent}
+                title={`${this.props.data.title} across places that contains ${this.props.placeName}`}
+                unit={unit}
+                names={this.props.names}
+                scaling={scaling}
+              ></Chart>
+            );
+          }
+        }
+      }
     }
-    if (placeType !== "Country") {
-      // Similar places
-      conf = this.copyAndUpdateConfig(config);
-      conf.placeRelation = placeRelationEnum.SIMILAR;
-      conf.title = `${conf.title} across other ${displayPlaceType}`;
-      result.push(conf);
-    }
-    if (placeType !== "City") {
-      // Children places
-      conf = this.copyAndUpdateConfig(config);
-      conf.placeRelation = placeRelationEnum.CONTAINING;
-      const childPlaceType = isPlaceInUsa(this.props.parentPlaces)
-        ? displayNameForPlaceType(
-            childPlaceTypeWithMostPlaces(
-              this.props.childPlaces
-            ).toLocaleLowerCase(),
-            true /* isPlural */
-          )
-        : "places";
-      conf.title = `${conf.title} across ${childPlaceType} within ${this.props.placeName}`;
-      result.push(conf);
-    } else {
-      // Parent places.
-      conf = this.copyAndUpdateConfig(config);
-      conf.placeRelation = placeRelationEnum.CONTAINED;
-      conf.title = `${conf.title} across places that contain ${this.props.placeName}`;
-      result.push(conf);
-    }
-    return result;
+    return <>{chartElements}</>;
   }
 }
 
