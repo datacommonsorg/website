@@ -54,7 +54,13 @@ export interface ConfigType {
   unit: string;
   exploreUrl: string;
   placeRelation?: string;
-  relatedChart: { scale: boolean; denominator: string };
+  relatedChart: {
+    scale: boolean;
+    denominator: string;
+    title?: string;
+    unit?: string;
+    scaling?: number;
+  };
 }
 
 export interface ChartCategory {
@@ -94,7 +100,10 @@ export interface ChartBlockData {
   nearby: SnapshotData;
   child: SnapshotData;
   relatedChart: {
+    title?: string;
     scale: boolean;
+    scaling?: number;
+    unit?: string;
   };
   scaling: number;
 }
