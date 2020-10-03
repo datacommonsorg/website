@@ -106,6 +106,7 @@ function wrap(
     let word: string;
     word = words.pop();
     while (word) {
+      word = word.trim();
       let separator = getWrapLineSeparator(line);
       line.push(word);
       tspan.text(line.join(separator));
@@ -380,6 +381,11 @@ function drawStackBarChart(
   dataGroups: DataGroup[],
   unit?: string
 ): void {
+  const labelToLink = {};
+  for (const dataGroup of dataGroups) {
+    labelToLink[dataGroup.label] = dataGroup.link;
+  }
+
   const keys = dataGroups[0].value.map((dp) => dp.label);
 
   const data = [];
@@ -439,6 +445,20 @@ function drawStackBarChart(
     .attr("height", (d) => (Number.isNaN(d[1]) ? 0 : y(d[0]) - y(d[1])));
 
   appendLegendElem(id, color, keys);
+
+  // Add link to place name labels.
+  svg
+    .select(".x.axis")
+    .selectAll(".tick text")
+    .filter(function (this) {
+      return !!labelToLink[d3.select(this).text()];
+    })
+    .attr("class", "place-tick")
+    .style("cursor", "pointer")
+    .style("text-decoration", "underline")
+    .on("click", function (this) {
+      window.open(labelToLink[d3.select(this).text()], "_blank");
+    });
 }
 
 /**
