@@ -329,13 +329,15 @@ class Chart extends React.Component<ChartPropType, ChartStateType> {
         });
         break;
       case chartTypeEnum.SINGLE_BAR:
-        const snapshotData = this.props.snapshot.data[0];
-        for (const statVar in snapshotData.data) {
-          dataPoints.push({
-            label: STATS_VAR_LABEL[statVar],
-            value: snapshotData.data[statVar] * scaling,
-            dcid: snapshotData.dcid,
-          });
+        {
+          const snapshotData = this.props.snapshot.data[0];
+          for (const statVar in snapshotData.data) {
+            dataPoints.push({
+              label: STATS_VAR_LABEL[statVar],
+              value: snapshotData.data[statVar] * scaling,
+              dcid: snapshotData.dcid,
+            });
+          }
         }
         this.setState({
           dataPoints,
