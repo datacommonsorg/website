@@ -83,9 +83,10 @@ class ChartBlock extends React.Component<ChartBlockPropType, unknown> {
       // Prepare parameters for related charts.
       let unit = this.props.data.unit;
       let scaling = this.props.data.scaling;
-      if (this.props.data.relatedChart && this.props.data.relatedChart.scale) {
-        unit = "%";
-        scaling = 100;
+      const relatedChart = this.props.data.relatedChart;
+      if (relatedChart && relatedChart.scale) {
+        unit = relatedChart.unit;
+        scaling = relatedChart.scaling ? relatedChart.scaling : 1;
       }
       const chartType =
         this.props.data.statsVars.length == 1
@@ -96,8 +97,19 @@ class ChartBlock extends React.Component<ChartBlockPropType, unknown> {
         true /* isPlural */
       ).toLocaleLowerCase();
 
-      // TODO(shifucun): simplify the code below to use a for loop with the
-      // params built first.
+      const relatedChartTitle =
+        this.props.data.relatedChart && this.props.data.relatedChart.title
+          ? this.props.data.relatedChart.title
+          : this.props.data.title;
+
+      const sharedProps = {
+        dcid: this.props.dcid,
+        placeType: this.props.placeType,
+        chartType: chartType,
+        unit: unit,
+        names: this.props.names,
+        scaling: scaling,
+      };
       if (this.props.isOverview) {
         // Show child place(state) chart for USA page, otherwise show nearby
         // places.
@@ -108,14 +120,9 @@ class ChartBlock extends React.Component<ChartBlockPropType, unknown> {
               <Chart
                 key={id}
                 id={id}
-                dcid={this.props.dcid}
-                placeType={this.props.placeType}
-                chartType={chartType}
                 snapshot={this.props.data.child}
-                title={`${this.props.data.title}: states within ${this.props.placeName}`}
-                unit={unit}
-                names={this.props.names}
-                scaling={scaling}
+                title={`${relatedChartTitle}: states within ${this.props.placeName}`}
+                {...sharedProps}
               ></Chart>
             );
           }
@@ -125,14 +132,9 @@ class ChartBlock extends React.Component<ChartBlockPropType, unknown> {
               <Chart
                 key={id}
                 id={id}
-                dcid={this.props.dcid}
-                placeType={this.props.placeType}
-                chartType={chartType}
                 snapshot={this.props.data.nearby}
-                title={`${this.props.data.title}: ${displayPlaceType} near ${this.props.placeName}`}
-                unit={unit}
-                names={this.props.names}
-                scaling={scaling}
+                title={`${relatedChartTitle}: ${displayPlaceType} near ${this.props.placeName}`}
+                {...sharedProps}
               ></Chart>
             );
           }
@@ -145,14 +147,9 @@ class ChartBlock extends React.Component<ChartBlockPropType, unknown> {
               <Chart
                 key={id}
                 id={id}
-                dcid={this.props.dcid}
-                placeType={this.props.placeType}
-                chartType={chartType}
                 snapshot={this.props.data.nearby}
-                title={`${this.props.data.title}: ${displayPlaceType} near ${this.props.placeName}`}
-                unit={unit}
-                names={this.props.names}
-                scaling={scaling}
+                title={`${relatedChartTitle}: ${displayPlaceType} near ${this.props.placeName}`}
+                {...sharedProps}
               ></Chart>
             );
           }
@@ -162,53 +159,38 @@ class ChartBlock extends React.Component<ChartBlockPropType, unknown> {
               <Chart
                 key={id}
                 id={id}
-                dcid={this.props.dcid}
-                placeType={this.props.placeType}
-                chartType={chartType}
                 snapshot={this.props.data.similar}
-                title={`${this.props.data.title}: other ${displayPlaceType}`}
-                unit={unit}
-                names={this.props.names}
-                scaling={scaling}
+                title={`${relatedChartTitle}: other ${displayPlaceType}`}
+                {...sharedProps}
               ></Chart>
             );
           }
         }
         if (this.props.placeType !== "City") {
           // TODO(shifucun): Get the child place type in mixer.
-          const id = randDomId();
           if (!_.isEmpty(this.props.data.child)) {
+            const id = randDomId();
             chartElements.push(
               <Chart
                 key={id}
                 id={id}
-                dcid={this.props.dcid}
-                placeType={this.props.placeType}
-                chartType={chartType}
                 snapshot={this.props.data.child}
-                title={`${this.props.data.title}: places within ${this.props.placeName}`}
-                unit={unit}
-                names={this.props.names}
-                scaling={scaling}
+                title={`${relatedChartTitle}: places within ${this.props.placeName}`}
+                {...sharedProps}
               ></Chart>
             );
           }
         }
         if (this.props.placeType !== "State") {
-          const id = randDomId();
           if (!_.isEmpty(this.props.data.parent)) {
+            const id = randDomId();
             chartElements.push(
               <Chart
                 key={id}
                 id={id}
-                dcid={this.props.dcid}
-                placeType={this.props.placeType}
-                chartType={chartType}
                 snapshot={this.props.data.parent}
-                title={`${this.props.data.title}: places that contains ${this.props.placeName}`}
-                unit={unit}
-                names={this.props.names}
-                scaling={scaling}
+                title={`${relatedChartTitle}: places that contains ${this.props.placeName}`}
+                {...sharedProps}
               ></Chart>
             );
           }
