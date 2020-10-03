@@ -74,6 +74,7 @@ class ChartBlock extends React.Component<ChartBlockPropType, unknown> {
           unit={this.props.data.unit}
           names={this.props.names}
           scaling={this.props.data.scaling}
+          statsVars={this.props.data.statsVars}
         ></Chart>
       );
     }
@@ -109,6 +110,7 @@ class ChartBlock extends React.Component<ChartBlockPropType, unknown> {
         unit: unit,
         names: this.props.names,
         scaling: scaling,
+        statsVars: this.props.data.statsVars,
       };
       if (this.props.isOverview) {
         // Show child place(state) chart for USA page, otherwise show nearby

@@ -70,6 +70,10 @@ interface ChartPropType {
    * Scale number
    */
   scaling?: number;
+  /**
+   * All stats vars for this chart
+   */
+  statsVars: string[];
 }
 
 interface ChartStateType {
@@ -325,11 +329,15 @@ class Chart extends React.Component<ChartPropType, ChartStateType> {
         });
         break;
       case chartTypeEnum.SINGLE_BAR:
-        for (const statVar in this.props.snapshot.data[0].data) {
-          dataPoints.push({
-            label: STATS_VAR_LABEL[statVar],
-            value: this.props.snapshot.data[0].data[statVar] * scaling,
-          });
+        {
+          const snapshotData = this.props.snapshot.data[0];
+          for (const statVar in snapshotData.data) {
+            dataPoints.push({
+              label: STATS_VAR_LABEL[statVar],
+              value: snapshotData.data[statVar] * scaling,
+              dcid: snapshotData.dcid,
+            });
+          }
         }
         this.setState({
           dataPoints,
@@ -340,14 +348,20 @@ class Chart extends React.Component<ChartPropType, ChartStateType> {
       case chartTypeEnum.STACK_BAR:
         for (const placeData of this.props.snapshot.data) {
           const dataPoints: DataPoint[] = [];
-          for (const statVar in placeData.data) {
+          for (const statVar of this.props.statsVars) {
+            const val = placeData.data[statVar];
             dataPoints.push({
               label: STATS_VAR_LABEL[statVar],
-              value: placeData.data[statVar] * scaling,
+              value: val ? val * scaling : null,
+              dcid: placeData.dcid,
             });
           }
           dataGroups.push(
-            new DataGroup(this.props.names[placeData.dcid], dataPoints)
+            new DataGroup(
+              this.props.names[placeData.dcid],
+              dataPoints,
+              `/place?dcid=${placeData.dcid}`
+            )
           );
         }
         this.setState({
