@@ -17,14 +17,14 @@
 import React from "react";
 import { PageChart } from "./types";
 
-interface CategoryPropsType {
+interface MenuCategoryPropsType {
   dcid: string;
   selectCategory: string;
   category: string;
   topics: string[];
 }
 
-class Category extends React.Component<CategoryPropsType, unknown> {
+class MenuCategory extends React.Component<MenuCategoryPropsType, unknown> {
   render(): JSX.Element {
     const dcid = this.props.dcid;
     const selectCategory = this.props.selectCategory;
@@ -91,7 +91,7 @@ class Menu extends React.Component<MenuPropsType, unknown> {
           const topics = Object.keys(this.props.pageChart[category]);
           if (category !== "Overview") {
             return (
-              <Category
+              <MenuCategory
                 key={category}
                 dcid={dcid}
                 selectCategory={topic}

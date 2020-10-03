@@ -34,7 +34,7 @@ import logging
 # Define blueprint
 bp = Blueprint("api.landing_page", __name__, url_prefix='/api/landingpage')
 
-CHART_TYPES = ['parent', 'similar', 'nearby', 'child']
+BAR_CHART_TYPES = ['parent', 'similar', 'nearby', 'child']
 
 
 def get_landing_page_data(dcid):
@@ -235,13 +235,13 @@ def data(dcid):
     all_stat = raw_page_data['data']
     for category in spec_and_stat:
         chart_types = ['nearby', 'child'
-                      ] if category == 'Overview' else CHART_TYPES
+                      ] if category == 'Overview' else BAR_CHART_TYPES
         for topic in spec_and_stat[category]:
             for chart in spec_and_stat[category][topic]:
                 # Trend data
                 chart['trend'] = get_trend(chart, all_stat, dcid)
                 # Bar data
-                for t in CHART_TYPES:
+                for t in BAR_CHART_TYPES:
                     chart[t] = get_bar(chart, all_stat, [dcid] +
                                        raw_page_data.get(t + 'Places', []))
     # Remove empty category and topics
@@ -251,7 +251,7 @@ def data(dcid):
             filtered_charts = []
             for chart in spec_and_stat[category][topic]:
                 keep_chart = False
-                for t in ['trend'] + CHART_TYPES:
+                for t in ['trend'] + BAR_CHART_TYPES:
                     if chart[t]:
                         keep_chart = True
                         break
@@ -265,7 +265,7 @@ def data(dcid):
             del spec_and_stat[category]
     # Get display name for all places
     allPlaces = [dcid]
-    for t in CHART_TYPES:
+    for t in BAR_CHART_TYPES:
         allPlaces.extend(raw_page_data.get(t + 'Places', []))
     names = place_api.get_display_name('^'.join(sorted(allPlaces)))
 
