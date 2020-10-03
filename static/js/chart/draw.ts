@@ -157,16 +157,21 @@ function addXAxis(
     .append("g")
     .attr("class", "x axis")
     .attr("transform", `translate(0, ${chartHeight - MARGIN.bottom})`)
-    .style("stroke", AXIS_GRID_FILL)
-    .style("stroke-width", "0.5px")
     .call(d3Axis)
-    .call((g) => g.select(".domain").remove());
+    .call((g) => g.select(".domain").remove())
+    .call((g) =>
+      g
+        .selectAll("line")
+        .attr("stroke", AXIS_GRID_FILL)
+        .attr("stroke-width", "0.5")
+    );
 
   if (shouldRotate) {
     axis
       .attr("transform", `translate(0, ${chartHeight - ROTATE_MARGIN_BOTTOM})`)
       .selectAll("text")
       .style("text-anchor", "end")
+      .style("text-rendering", "optimizedLegibility")
       .attr("dx", "-.8em")
       .attr("dy", ".15em")
       .attr("transform", "rotate(-35)");
@@ -175,7 +180,7 @@ function addXAxis(
       .selectAll(".tick text")
       .style("fill", AXIS_TEXT_FILL)
       .style("font-family", TEXT_FONT_FAMILY)
-      .style("shape-rendering", "crispEdges")
+      .style("text-rendering", "optimizedLegibility")
       .call(wrap, xScale.bandwidth());
   }
 
@@ -774,6 +779,7 @@ function drawGroupLineChart(
     .attr("text-anchor", "start")
     .attr("transform", `translate(${MARGIN.grid}, ${YLABEL.topMargin})`)
     .style("font-size", "12px")
+    .style("text-rendering", "optimizedLegibility")
     .text(ylabel);
 
   for (const place in dataGroupsDict) {
@@ -794,10 +800,11 @@ function drawGroupLineChart(
         .append("path")
         .datum(dataset)
         .attr("class", "line")
-        .style("stroke", lineStyle.color)
         .attr("d", line)
-        .attr("stroke-width", "1")
-        .attr("stroke-dasharray", lineStyle.dash);
+        .style("fill", "none")
+        .style("stroke", lineStyle.color)
+        .style("stroke-width", "2px")
+        .style("stroke-dasharray", lineStyle.dash);
     }
   }
   // add source info to the chart
@@ -806,12 +813,14 @@ function drawGroupLineChart(
     svg
       .append("text")
       .attr("class", "label")
-      .attr("text-anchor", "start")
       .attr(
         "transform",
         `translate(${MARGIN.grid}, ${height + SOURCE.topMargin})`
       )
-      .attr("fill", "#808080")
+      .style("fill", "#808080")
+      .style("font-size", "12px")
+      .style("text-anchor", "start")
+      .style("text-rendering", "optimizedLegibility")
       .text(sourceText);
   }
 
@@ -853,8 +862,8 @@ function buildInChartLegend(
         .attr("class", "legend-line")
         .attr("x1", "0")
         .attr("x2", `${LEGEND.dashWidth - 3}`)
-        .attr("stroke", LEGEND.defaultColor)
-        .attr("stroke-dasharray", `${legendStyle.dash}`);
+        .style("stroke", LEGEND.defaultColor)
+        .style("stroke-dasharray", `${legendStyle.dash}`);
       dashWidth = LEGEND.dashWidth;
     }
     // Draw the text.
@@ -865,7 +874,8 @@ function buildInChartLegend(
       .attr("y", "0.3em")
       .attr("dy", "0")
       .text(label)
-      .attr("fill", `${legendStyle.color}`)
+      .style("text-rendering", "optimizedLegibility")
+      .style("fill", `${legendStyle.color}`)
       .call(wrap, legendTextdWidth);
     yOffset += lgGroup.node().getBBox().height + LEGEND.lineMargin;
   }
