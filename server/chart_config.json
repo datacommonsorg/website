@@ -625,15 +625,6 @@
   },
   {
     "category": ["Demographics", "Population"],
-    "title": "Life Expectancy",
-    "statsVars": ["LifeExpectancy_Person"],
-    "isOverview": true,
-    "relatedChart": {
-      "scale": false
-    }
-  },
-  {
-    "category": ["Demographics", "Population"],
     "title": "Fertility Rate",
     "statsVars": ["FertilityRate_Person_Female"],
     "isOverview": true,
