@@ -355,6 +355,8 @@ function drawSingleBarChart(
     .selectAll("rect")
     .data(dataPoints)
     .join("rect")
+    .classed("g-bar", true)
+    .attr("data-dcid", (d) => d.dcid)
     .attr("x", (d) => x(d.label))
     .attr("y", (d) => y(d.value))
     .attr("width", x.bandwidth())
@@ -385,6 +387,7 @@ function drawStackBarChart(
     const curr: { [property: string]: any } = { label: dataGroup.label };
     for (const dataPoint of dataGroup.value) {
       curr[dataPoint.label] = dataPoint.value;
+      curr.dcid = dataPoint.dcid;
     }
     data.push(curr);
   }
@@ -428,6 +431,8 @@ function drawStackBarChart(
     .selectAll("rect")
     .data((d) => d)
     .join("rect")
+    .classed("g-bar", true)
+    .attr("data-dcid", (d) => d.data.dcid)
     .attr("x", (d) => x(String(d.data.label)))
     .attr("y", (d) => (Number.isNaN(d[1]) ? y(d[0]) : y(d[1])))
     .attr("width", x.bandwidth())
@@ -498,8 +503,12 @@ function drawGroupBarChart(
     .join("g")
     .attr("transform", (dg) => `translate(${x0(dg.label)},0)`)
     .selectAll("rect")
-    .data((dg) => dg.value.map((dp) => ({ key: dp.label, value: dp.value })))
+    .data((dg) =>
+      dg.value.map((dp) => ({ key: dp.label, value: dp.value, dcid: dp.dcid }))
+    )
     .join("rect")
+    .classed("g-bar", true)
+    .attr("data-dcid", (d) => d.dcid)
     .attr("x", (d) => x1(d.key))
     .attr("y", (d) => y(d.value))
     .attr("width", x1.bandwidth())
