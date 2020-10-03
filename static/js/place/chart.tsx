@@ -70,6 +70,10 @@ interface ChartPropType {
    * Scale number
    */
   scaling?: number;
+  /**
+   * All stats vars for this chart
+   */
+  statsVars: string[];
 }
 
 interface ChartStateType {
@@ -340,10 +344,11 @@ class Chart extends React.Component<ChartPropType, ChartStateType> {
       case chartTypeEnum.STACK_BAR:
         for (const placeData of this.props.snapshot.data) {
           const dataPoints: DataPoint[] = [];
-          for (const statVar in placeData.data) {
+          for (const statVar of this.props.statsVars) {
+            const val = placeData.data[statVar];
             dataPoints.push({
               label: STATS_VAR_LABEL[statVar],
-              value: placeData.data[statVar] * scaling,
+              value: val ? val * scaling : null,
             });
           }
           dataGroups.push(
