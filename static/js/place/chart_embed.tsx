@@ -17,12 +17,25 @@
 import React from "react";
 import { Button, Modal, ModalHeader, ModalBody, ModalFooter } from "reactstrap";
 import { randDomId, saveToFile } from "../shared/util";
+import * as d3 from "d3";
+
+// SVG adjustment related constants
+const TITLE_HEIGHT = 20;
+const TITLE_MARGIN = 10;
+const SOURCES_HEIGHT = 10;
+const SOURCES_MARGIN = 30;
+const SVGNS = "http://www.w3.org/2000/svg";
+const XLINKNS = "http://www.w3.org/1999/xlink";
 
 interface ChartEmbedStateType {
   modal: boolean;
-  chartDom: Node;
-  svgHtml: string;
+  svgXml: string;
   dataCsv: string;
+  chartWidth: number;
+  chartHeight: number;
+  chartTitle: string;
+  chartDate: string;
+  sources: string[];
 }
 
 /**
@@ -30,23 +43,32 @@ interface ChartEmbedStateType {
  * in a Modal
  */
 class ChartEmbed extends React.Component<unknown, ChartEmbedStateType> {
-  private textareaElement: React.RefObject<HTMLTextAreaElement>;
+  private chartDownloadXml: string;
   private modalId: string;
+  private svgContainerElement: React.RefObject<HTMLDivElement>;
+  private textareaElement: React.RefObject<HTMLTextAreaElement>;
 
   constructor(props: unknown) {
     super(props);
     this.state = {
       modal: false,
-      svgHtml: "",
-      chartDom: null,
+      svgXml: "",
       dataCsv: "",
+      chartWidth: 0,
+      chartHeight: 0,
+      chartTitle: "",
+      chartDate: "",
+      sources: [],
     };
+    this.chartDownloadXml = "";
     this.modalId = randDomId();
+    this.svgContainerElement = React.createRef();
     this.textareaElement = React.createRef();
+
     this.toggle = this.toggle.bind(this);
     this.onOpened = this.onOpened.bind(this);
-    this.copySvgToClipboard = this.copySvgToClipboard.bind(this);
-    this.downloadData = this.downloadData.bind(this);
+    this.onDownloadSvg = this.onDownloadSvg.bind(this);
+    this.onDownloadData = this.onDownloadData.bind(this);
     this.onClickTextarea = this.onClickTextarea.bind(this);
   }
 
@@ -62,36 +84,109 @@ class ChartEmbed extends React.Component<unknown, ChartEmbedStateType> {
   /**
    * Updates the view state of the modal to true, and includes the data necessary for displaying the modal.
    */
-  public show(svgHTML: string, chartDOM: Node, dataCsv: string): void {
+  public show(
+    svgXml: string,
+    dataCsv: string,
+    chartWidth: number,
+    chartHeight: number,
+    chartTitle: string,
+    chartDate: string,
+    sources: string[]
+  ): void {
     this.setState({
       modal: true,
-      svgHtml: svgHTML,
-      chartDom: chartDOM,
+      svgXml: svgXml,
       dataCsv: dataCsv,
+      chartWidth: chartWidth,
+      chartHeight: chartHeight,
+      chartTitle: chartTitle,
+      chartDate: chartDate ? "(" + chartDate + ")" : "",
+      sources: sources,
     });
+  }
+
+  /**
+   * Decorates svgXml with title and provenance information embeded in an enclosing
+   * SVG node. Returns the SVG contents as a string.
+   */
+  private decorateSvgChart(): string {
+    const container = this.svgContainerElement.current;
+    container.innerHTML = "";
+
+    // Decorate a hidden chart svg with title and provenance
+    const svg = d3
+      .select(container)
+      .append("svg")
+      .attr("xmlns", SVGNS)
+      .attr("xmlns:xlink", XLINKNS)
+      .attr("width", this.state.chartWidth)
+      .attr(
+        "height",
+        this.state.chartHeight +
+          TITLE_HEIGHT +
+          TITLE_MARGIN +
+          SOURCES_HEIGHT +
+          SOURCES_MARGIN
+      );
+
+    svg
+      .append("g")
+      .attr(
+        "transform",
+        `translate(${this.state.chartWidth / 2}, ${TITLE_HEIGHT})`
+      )
+      .append("text")
+      .style("font-family", "sans-serif")
+      .style("fill", "#3b3b3b")
+      .style("font-size", ".85rem")
+      .style("font-weight", "bold")
+      .style("text-anchor", "middle")
+      .text(`${this.state.chartTitle} ${this.state.chartDate}`);
+
+    svg
+      .append("g")
+      .attr("transform", `translate(0, ${TITLE_HEIGHT + TITLE_MARGIN})`)
+      .append("svg")
+      .html(this.state.svgXml);
+
+    svg
+      .append("g")
+      .attr(
+        "transform",
+        `translate(5, ${
+          TITLE_HEIGHT + TITLE_MARGIN + this.state.chartHeight + SOURCES_MARGIN
+        })`
+      )
+      .append("text")
+      .style("fill", "#3b3b3b")
+      .style("font-family", "sans-serif")
+      .style("font-size", ".7rem")
+      .text(`Data from ${this.state.sources.join(",")} via Data Commons`);
+
+    const svgXml = svg.node().outerHTML;
+    container.innerHTML = "";
+
+    return svgXml;
   }
 
   /**
    * Callback for after the modal has been rendered and added to the DOM.
    */
   public onOpened(): void {
-    const modalElement = document.getElementById(this.modalId);
-    if (!modalElement || !this.state.chartDom) {
+    if (!this.svgContainerElement.current) {
       return;
     }
-    // Append cloned chart DOM to the modal.
-    const containerElem = modalElement.querySelector(".modal-chart-container");
-    if (containerElem) {
-      containerElem.appendChild(this.state.chartDom);
-      const chartElem = containerElem.querySelector(".chart-container");
-      if (chartElem) {
-        // Update width of textarea to match the width of the chart.
-        const textarea = modalElement.querySelector("textarea");
-        if (textarea) {
-          textarea.style.width = chartElem.clientWidth + "px";
-        }
-      }
+    if (this.textareaElement.current) {
+      this.textareaElement.current.style.width = this.state.chartWidth + "px";
     }
+
+    this.chartDownloadXml = this.decorateSvgChart();
+
+    const imageElement = document.createElement("img");
+    const chartBase64 =
+      "data:image/svg+xml;base64," + btoa(this.chartDownloadXml);
+    imageElement.src = chartBase64;
+    this.svgContainerElement.current.append(imageElement);
   }
 
   /**
@@ -108,25 +203,14 @@ class ChartEmbed extends React.Component<unknown, ChartEmbedStateType> {
   /**
    * On click handler for "Copy SVG to clipboard button".
    */
-  public copySvgToClipboard(): void {
-    const currentFocus = document.activeElement;
-    this.onClickTextarea();
-    document.execCommand("copy");
-
-    // restore original focus
-    if (
-      currentFocus &&
-      currentFocus instanceof HTMLElement &&
-      typeof currentFocus.focus === "function"
-    ) {
-      currentFocus.focus();
-    }
+  public onDownloadSvg(): void {
+    saveToFile("chart.svg", this.chartDownloadXml);
   }
 
   /**
    * On click handler for "Download Data" button.
    */
-  public downloadData(): void {
+  public onDownloadData(): void {
     saveToFile("export.csv", this.state.dataCsv);
   }
 
@@ -139,23 +223,26 @@ class ChartEmbed extends React.Component<unknown, ChartEmbedStateType> {
         onOpened={this.onOpened}
         id={this.modalId}
       >
-        <ModalHeader toggle={this.toggle}>Embed this chart</ModalHeader>
+        <ModalHeader toggle={this.toggle}>Export this chart</ModalHeader>
         <ModalBody>
-          <div className="modal-chart-container"></div>
+          <div
+            ref={this.svgContainerElement}
+            className="modal-chart-container"
+          ></div>
           <textarea
             className="copy-svg mt-3"
-            value={this.state.svgHtml}
+            value={this.state.dataCsv}
             readOnly
             ref={this.textareaElement}
             onClick={this.onClickTextarea}
           ></textarea>
         </ModalBody>
         <ModalFooter>
-          <Button color="primary" onClick={this.copySvgToClipboard}>
-            Copy SVG to clipboard
+          <Button color="primary" onClick={this.onDownloadSvg}>
+            Download Chart Image
           </Button>{" "}
-          <Button color="primary" onClick={this.downloadData}>
-            Download Data
+          <Button color="primary" onClick={this.onDownloadData}>
+            Download Data as CSV
           </Button>
         </ModalFooter>
       </Modal>
