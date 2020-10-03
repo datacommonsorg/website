@@ -241,12 +241,11 @@ def data(dcid):
                 # Trend data
                 chart['trend'] = get_trend(chart, all_stat, dcid)
                 # Bar data
-                for t in BAR_CHART_TYPES:
+                for t in chart_types:
                     chart[t] = get_bar(chart, all_stat, [dcid] +
                                        raw_page_data.get(t + 'Places', []))
     # Remove empty category and topics
     for category in list(spec_and_stat.keys()):
-        is_empty_category = True
         for topic in list(spec_and_stat[category].keys()):
             filtered_charts = []
             for chart in spec_and_stat[category][topic]:
