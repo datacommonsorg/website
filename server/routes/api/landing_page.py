@@ -234,7 +234,8 @@ def data(dcid):
     # Populate the data for each chart
     all_stat = raw_page_data['data']
     for category in spec_and_stat:
-        chart_types = category == 'Overview' if ['nearby'] else CHART_TYPES
+        chart_types = ['nearby', 'child'
+                      ] if category == 'Overview' else CHART_TYPES
         for topic in spec_and_stat[category]:
             for chart in spec_and_stat[category][topic]:
                 # Trend data
