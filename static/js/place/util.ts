@@ -14,30 +14,17 @@
  * limitations under the License.
  */
 
-import { childPlacesType, parentPlacesType } from "./types";
 import pluralize from "pluralize";
-
-export function childPlaceTypeWithMostPlaces(
-  childPlaces: childPlacesType
-): string {
-  let maxType = "place";
-  let maxChildren = 0;
-  for (const type in childPlaces) {
-    const children = childPlaces[type];
-    if (children.length > maxChildren) {
-      maxChildren = children.length;
-      maxType = type;
-    }
-  }
-  return maxType;
-}
 
 /**
  * Given a list of parent places, return true if the place is in USA.
  */
-export function isPlaceInUsa(parentPlaces: parentPlacesType): boolean {
+export function isPlaceInUsa(dcid: string, parentPlaces: string[]): boolean {
+  if (dcid === "country/USA") {
+    return true;
+  }
   for (const parent of parentPlaces) {
-    if (parent.dcid == "country/USA") {
+    if (parent === "country/USA") {
       return true;
     }
   }

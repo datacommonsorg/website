@@ -51,21 +51,80 @@ export interface ConfigType {
   source: string;
   url: string;
   axis: string;
-  scaling: number;
-  perCapita: boolean;
   unit: string;
   exploreUrl: string;
   placeRelation?: string;
-  relatedChart: { scale: boolean; denominator: string };
+  relatedChart: {
+    scale: boolean;
+    denominator: string;
+    title?: string;
+    unit?: string;
+    scaling?: number;
+  };
 }
-
-export type parentPlacesType = { dcid: string; name: string }[];
-export type childPlacesType = {
-  [type: string]: { dcid: string; name: string; pop: number }[];
-};
 
 export interface ChartCategory {
   label: string;
   charts: ConfigType[];
   children: { label: string; charts: ConfigType[] }[];
+}
+
+export interface Series {
+  [key: string]: number;
+}
+
+export interface TrendData {
+  series: { string: Series };
+  sources: string[];
+  exploreUrl: string;
+}
+
+export interface SnapshotData {
+  date: string;
+  data: {
+    dcid: string;
+    name: string;
+    data: { string: number };
+  }[];
+  sources: string[];
+  exploreUrl: string;
+}
+
+export interface ChartBlockData {
+  title: string;
+  statsVars: string[];
+  unit: string;
+  trend: TrendData;
+  parent: SnapshotData;
+  similar: SnapshotData;
+  nearby: SnapshotData;
+  child: SnapshotData;
+  relatedChart: {
+    title?: string;
+    scale: boolean;
+    scaling?: number;
+    unit?: string;
+  };
+  scaling: number;
+}
+
+export interface CategoryData {
+  label: string;
+  charts: ChartBlockData[];
+  children: {
+    label: string;
+    charts: ChartBlockData[];
+  }[];
+}
+
+export interface PageData {
+  configData: CategoryData[];
+  allChildPlaces: {
+    string: string[];
+  };
+  childPlaces: string[];
+  parentPlaces: string[];
+  similarPlaces: string[];
+  nearbyPlaces: string[];
+  names: { string: string };
 }

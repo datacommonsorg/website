@@ -21,9 +21,12 @@ const DEFAULT_COLOR = "#000";
 class DataPoint {
   value: number;
   label: string;
-  constructor(label: string, value: number) {
+  // Optional DCID to add to a chart as a data atttribute
+  dcid?: string;
+  constructor(label: string, value: number, dcid?: string) {
     this.value = value;
     this.label = label;
+    this.dcid = dcid;
   }
 }
 

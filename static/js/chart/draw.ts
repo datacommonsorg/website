@@ -46,6 +46,12 @@ const YLABEL = {
   topMargin: 10,
   height: 15,
 };
+const SVGNS = "http://www.w3.org/2000/svg";
+const XLINKNS = "http://www.w3.org/1999/xlink";
+
+const TEXT_FONT_FAMILY = "Roboto";
+const AXIS_TEXT_FILL = "#2b2929";
+const AXIS_GRID_FILL = "#999";
 
 function appendLegendElem(
   elem: string,
@@ -100,6 +106,7 @@ function wrap(
     let word: string;
     word = words.pop();
     while (word) {
+      word = word.trim();
       let separator = getWrapLineSeparator(line);
       line.push(word);
       tspan.text(line.join(separator));
@@ -151,18 +158,30 @@ function addXAxis(
     .attr("class", "x axis")
     .attr("transform", `translate(0, ${chartHeight - MARGIN.bottom})`)
     .call(d3Axis)
-    .call((g) => g.select(".domain").remove());
+    .call((g) => g.select(".domain").remove())
+    .call((g) =>
+      g
+        .selectAll("line")
+        .attr("stroke", AXIS_GRID_FILL)
+        .attr("stroke-width", "0.5")
+    );
 
   if (shouldRotate) {
     axis
       .attr("transform", `translate(0, ${chartHeight - ROTATE_MARGIN_BOTTOM})`)
       .selectAll("text")
       .style("text-anchor", "end")
+      .style("text-rendering", "optimizedLegibility")
       .attr("dx", "-.8em")
       .attr("dy", ".15em")
       .attr("transform", "rotate(-35)");
   } else if (typeof xScale.bandwidth === "function") {
-    axis.selectAll(".tick text").call(wrap, xScale.bandwidth());
+    axis
+      .selectAll(".tick text")
+      .style("fill", AXIS_TEXT_FILL)
+      .style("font-family", TEXT_FONT_FAMILY)
+      .style("text-rendering", "optimizedLegibility")
+      .call(wrap, xScale.bandwidth());
   }
 
   let axisHeight = axis.node().getBBox().height;
@@ -208,18 +227,32 @@ function addYAxis(
           }
           const dollar = unit === "$" ? "$" : "";
           const percent = unit === "%" ? "%" : "";
-          return `${dollar}${tText}${percent}`;
+          const grams = unit === "g" ? "g" : "";
+          return `${dollar}${tText}${percent}${grams}`;
         })
     )
     .call((g) => g.select(".domain").remove())
     .call((g) =>
-      g.selectAll(".tick:not(:first-of-type) line").attr("class", "grid-line")
+      g
+        .selectAll("line")
+        .style("stroke", AXIS_GRID_FILL)
+        .style("stroke-width", "0.5")
+    )
+    .call((g) =>
+      g
+        .selectAll(".tick:not(:first-of-type) line")
+        .attr("class", "grid-line")
+        .style("stroke-opacity", "0.5")
+        .style("stroke-dasharray", "2, 2")
     )
     .call((g) =>
       g
         .selectAll(".tick text")
         .attr("x", -width + MARGIN.left + MARGIN.yAxis)
         .attr("dy", -4)
+        .style("fill", AXIS_TEXT_FILL)
+        .style("font-family", TEXT_FONT_FAMILY)
+        .style("shape-rendering", "crispEdges")
     );
 }
 
@@ -259,6 +292,8 @@ function drawHistogram(
   const svg = d3
     .select("#" + id)
     .append("svg")
+    .attr("xmlns", SVGNS)
+    .attr("xmlns:xlink", XLINKNS)
     .attr("width", width)
     .attr("height", height);
 
@@ -299,6 +334,8 @@ function drawSingleBarChart(
   const svg = d3
     .select("#" + id)
     .append("svg")
+    .attr("xmlns", SVGNS)
+    .attr("xmlns:xlink", XLINKNS)
     .attr("width", chartWidth)
     .attr("height", chartHeight);
 
@@ -324,6 +361,8 @@ function drawSingleBarChart(
     .selectAll("rect")
     .data(dataPoints)
     .join("rect")
+    .classed("g-bar", true)
+    .attr("data-dcid", (d) => d.dcid)
     .attr("x", (d) => x(d.label))
     .attr("y", (d) => y(d.value))
     .attr("width", x.bandwidth())
@@ -347,6 +386,11 @@ function drawStackBarChart(
   dataGroups: DataGroup[],
   unit?: string
 ): void {
+  const labelToLink = {};
+  for (const dataGroup of dataGroups) {
+    labelToLink[dataGroup.label] = dataGroup.link;
+  }
+
   const keys = dataGroups[0].value.map((dp) => dp.label);
 
   const data = [];
@@ -354,6 +398,7 @@ function drawStackBarChart(
     const curr: { [property: string]: any } = { label: dataGroup.label };
     for (const dataPoint of dataGroup.value) {
       curr[dataPoint.label] = dataPoint.value;
+      curr.dcid = dataPoint.dcid;
     }
     data.push(curr);
   }
@@ -363,6 +408,8 @@ function drawStackBarChart(
   const svg = d3
     .select("#" + id)
     .append("svg")
+    .attr("xmlns", SVGNS)
+    .attr("xmlns:xlink", XLINKNS)
     .attr("width", chartWidth)
     .attr("height", chartHeight);
 
@@ -395,12 +442,28 @@ function drawStackBarChart(
     .selectAll("rect")
     .data((d) => d)
     .join("rect")
+    .classed("g-bar", true)
+    .attr("data-dcid", (d) => d.data.dcid)
     .attr("x", (d) => x(String(d.data.label)))
     .attr("y", (d) => (Number.isNaN(d[1]) ? y(d[0]) : y(d[1])))
     .attr("width", x.bandwidth())
     .attr("height", (d) => (Number.isNaN(d[1]) ? 0 : y(d[0]) - y(d[1])));
 
   appendLegendElem(id, color, keys);
+
+  // Add link to place name labels.
+  svg
+    .select(".x.axis")
+    .selectAll(".tick text")
+    .filter(function (this) {
+      return !!labelToLink[d3.select(this).text()];
+    })
+    .attr("class", "place-tick")
+    .style("cursor", "pointer")
+    .style("text-decoration", "underline")
+    .on("click", function (this) {
+      window.open(labelToLink[d3.select(this).text()], "_blank");
+    });
 }
 
 /**
@@ -440,6 +503,8 @@ function drawGroupBarChart(
   const svg = d3
     .select("#" + id)
     .append("svg")
+    .attr("xmlns", SVGNS)
+    .attr("xmlns:xlink", XLINKNS)
     .attr("width", chartWidth)
     .attr("height", chartHeight);
 
@@ -463,8 +528,12 @@ function drawGroupBarChart(
     .join("g")
     .attr("transform", (dg) => `translate(${x0(dg.label)},0)`)
     .selectAll("rect")
-    .data((dg) => dg.value.map((dp) => ({ key: dp.label, value: dp.value })))
+    .data((dg) =>
+      dg.value.map((dp) => ({ key: dp.label, value: dp.value, dcid: dp.dcid }))
+    )
     .join("rect")
+    .classed("g-bar", true)
+    .attr("data-dcid", (d) => d.dcid)
     .attr("x", (d) => x1(d.key))
     .attr("y", (d) => y(d.value))
     .attr("width", x1.bandwidth())
@@ -481,6 +550,8 @@ function drawGroupBarChart(
       return !!labelToLink[d3.select(this).text()];
     })
     .attr("class", "place-tick")
+    .style("cursor", "pointer")
+    .style("text-decoration", "underline")
     .on("click", function (this) {
       window.open(labelToLink[d3.select(this).text()], "_blank");
     });
@@ -512,6 +583,8 @@ function drawLineChart(
   const svg = d3
     .select("#" + id)
     .append("svg")
+    .attr("xmlns", SVGNS)
+    .attr("xmlns:xlink", XLINKNS)
     .attr("width", width)
     .attr("height", height);
 
@@ -556,8 +629,12 @@ function drawLineChart(
         .append("path")
         .datum(dataset.filter(line.defined())) // Only plot points that are defined
         .attr("class", "line fill")
+        .attr("d", line)
+        .style("fill", "none")
+        .style("stroke-width", "2.5px")
         .style("stroke", colorFn(dataGroup.label))
-        .attr("d", line);
+        .style("opacity", 0.4)
+        .style("stroke-dasharray", 2);
     }
 
     svg
@@ -565,7 +642,10 @@ function drawLineChart(
       .datum(dataset)
       .attr("class", "line")
       .style("stroke", colorFn(dataGroup.label))
-      .attr("d", line);
+      .attr("d", line)
+      .style("fill", "none")
+      .style("stroke-width", "2.5px")
+      .style("stroke", colorFn(dataGroup.label));
 
     if (shouldAddDots) {
       svg
@@ -577,8 +657,9 @@ function drawLineChart(
         .attr("class", "dot")
         .attr("cx", (d) => xScale(d[0]))
         .attr("cy", (d) => yScale(d[1]))
-        .attr("fill", colorFn(dataGroup.label))
-        .attr("r", (d) => (d[1] === null ? 0 : 3));
+        .attr("r", (d) => (d[1] === null ? 0 : 3))
+        .style("fill", colorFn(dataGroup.label))
+        .style("stroke", "#fff");
     }
   }
 
@@ -672,6 +753,8 @@ function drawGroupLineChart(
 
   const svg = container
     .append("svg")
+    .attr("xmlns", SVGNS)
+    .attr("xmlns:xlink", XLINKNS)
     .attr("width", width)
     .attr("height", height + SOURCE.height);
 
@@ -695,6 +778,8 @@ function drawGroupLineChart(
     .attr("class", "label")
     .attr("text-anchor", "start")
     .attr("transform", `translate(${MARGIN.grid}, ${YLABEL.topMargin})`)
+    .style("font-size", "12px")
+    .style("text-rendering", "optimizedLegibility")
     .text(ylabel);
 
   for (const place in dataGroupsDict) {
@@ -715,10 +800,11 @@ function drawGroupLineChart(
         .append("path")
         .datum(dataset)
         .attr("class", "line")
-        .style("stroke", lineStyle.color)
         .attr("d", line)
-        .attr("stroke-width", "1")
-        .attr("stroke-dasharray", lineStyle.dash);
+        .style("fill", "none")
+        .style("stroke", lineStyle.color)
+        .style("stroke-width", "2px")
+        .style("stroke-dasharray", lineStyle.dash);
     }
   }
   // add source info to the chart
@@ -727,12 +813,14 @@ function drawGroupLineChart(
     svg
       .append("text")
       .attr("class", "label")
-      .attr("text-anchor", "start")
       .attr(
         "transform",
         `translate(${MARGIN.grid}, ${height + SOURCE.topMargin})`
       )
-      .attr("fill", "#808080")
+      .style("fill", "#808080")
+      .style("font-size", "12px")
+      .style("text-anchor", "start")
+      .style("text-rendering", "optimizedLegibility")
       .text(sourceText);
   }
 
@@ -774,8 +862,8 @@ function buildInChartLegend(
         .attr("class", "legend-line")
         .attr("x1", "0")
         .attr("x2", `${LEGEND.dashWidth - 3}`)
-        .attr("stroke", LEGEND.defaultColor)
-        .attr("stroke-dasharray", `${legendStyle.dash}`);
+        .style("stroke", LEGEND.defaultColor)
+        .style("stroke-dasharray", `${legendStyle.dash}`);
       dashWidth = LEGEND.dashWidth;
     }
     // Draw the text.
@@ -786,7 +874,8 @@ function buildInChartLegend(
       .attr("y", "0.3em")
       .attr("dy", "0")
       .text(label)
-      .attr("fill", `${legendStyle.color}`)
+      .style("text-rendering", "optimizedLegibility")
+      .style("fill", `${legendStyle.color}`)
       .call(wrap, legendTextdWidth);
     yOffset += lgGroup.node().getBBox().height + LEGEND.lineMargin;
   }

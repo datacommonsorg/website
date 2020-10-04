@@ -13,27 +13,27 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
+ 
+ .border {
+  stroke: gray;
+  stroke-width: 0.5px;
+}
 
-.legend {
-  margin-left: 35px;
+.border-highlighted {
+  stroke: black;
+  stroke-width: 1px;
+}
+
+#tooltip {
+  background-color: #fff;
+  color: #3b3b3b;;
+  font-size: 0.8rem;
+  border-radius: 3px;
+  border: 0.5px solid #dee2e6;
+  padding: 0.3rem;
+}
+
+.choropleth-legend {
+  margin-top: 0.5rem;
   text-align: center;
-}
-
-.legend div {
-  display: inline-block;
-  padding: 1px 5px;
-  font-size: 10px;
-  line-height: 14px;
-  color: white;
-  margin: 2px;
-  border-radius: 2px;
-  text-shadow: rgba(0, 0, 0, 0.3) 0px 0 5px;
-}
-
-.legend-line {
-  stroke-width: 2;
-}
-
-.legend-text {
-  font-size: 14px;
 }
