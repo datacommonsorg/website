@@ -16,7 +16,7 @@
 import React from "react";
 import { ChartBlock } from "./chart_block";
 import { Overview } from "./overview";
-import { CategoryData, ChartBlockData } from "./types";
+import { PageChart, ChartBlockData } from "./types";
 
 interface MainPanePropType {
   /**
@@ -32,13 +32,13 @@ interface MainPanePropType {
    */
   placeType: string;
   /**
-   * The topic of the current page.
+   * The category of the current page.
    */
-  topic: string;
+  category: string;
   /**
    * The config and stat data.
    */
-  configData: CategoryData[];
+  pageChart: PageChart;
 
   /**
    * If the primary place is in USA.
@@ -56,52 +56,41 @@ class MainPane extends React.Component<MainPanePropType, unknown> {
   }
 
   render(): JSX.Element {
-    let config: { label: string; charts: ChartBlockData[] }[] = [];
-    const isOverview = !this.props.topic;
-    if (isOverview) {
-      config = this.props.configData;
-    } else {
-      for (const group of this.props.configData) {
-        if (group.label === this.props.topic) {
-          config = group.children;
-          break;
-        }
-      }
-    }
+    const topicData = this.props.pageChart[this.props.category];
+    const category = this.props.category;
+    const isOverview = category === "Overview";
     return (
       <>
         {this.props.isUsaPlace && this.props.placeType != "Country" && (
           // Only Show map and ranking for US places.
-          <Overview topic={this.props.topic} dcid={this.props.dcid} />
+          <Overview topic={this.props.category} dcid={this.props.dcid} />
         )}
-        {config.map((item, index) => {
+        {Object.keys(topicData).map((topic: string) => {
           let subtopicHeader: JSX.Element;
           if (isOverview) {
             subtopicHeader = (
-              <h3 id={item.label}>
-                <a href={`/place?dcid=${this.props.dcid}&topic=${item.label}`}>
-                  {item.label}
+              <h3 id={topic}>
+                <a href={`/place?dcid=${this.props.dcid}&topic=${topic}`}>
+                  {topic}
                 </a>
                 <span className="more">
-                  <a
-                    href={`/place?dcid=${this.props.dcid}&topic=${item.label}`}
-                  >
+                  <a href={`/place?dcid=${this.props.dcid}&topic=${topic}`}>
                     More charts ›
                   </a>
                 </span>
               </h3>
             );
           } else {
-            subtopicHeader = <h3 id={item.label}>{item.label}</h3>;
+            subtopicHeader = <h3 id={topic}>{topic}</h3>;
           }
           return (
-            <section className="subtopic col-12" key={index}>
+            <section className="subtopic col-12" key={topic}>
               {subtopicHeader}
               <div className="row row-cols-md-2 row-cols-1">
-                {item.charts.map((data: ChartBlockData, index: number) => {
+                {topicData[topic].map((data: ChartBlockData) => {
                   return (
                     <ChartBlock
-                      key={index}
+                      key={data.title}
                       isOverview={isOverview}
                       dcid={this.props.dcid}
                       placeName={this.props.placeName}
