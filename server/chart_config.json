@@ -105,7 +105,6 @@
       "denominator": "Count_Person"
     }
   },
-
   {
     "category": "Economics",
     "title": "Median Individual Income",
@@ -168,6 +167,15 @@
       "denominator": "Count_Household",
       "unit": "%",
       "scaling": 100
+    }
+  },
+  {
+    "category": "Health",
+    "title": "Life Expectancy",
+    "statsVars": ["LifeExpectancy_Person"],
+    "isOverview": true,
+    "relatedChart": {
+      "scale": false
     }
   },
   {
@@ -675,15 +683,6 @@
     "statsVars": ["Count_Person_PerArea"],
     "nonDividable": true,
     "isOverview": true
-  },
-  {
-    "category": "Demographics",
-    "title": "Life Expectancy",
-    "statsVars": ["LifeExpectancy_Person"],
-    "isOverview": true,
-    "relatedChart": {
-      "scale": false
-    }
   },
   {
     "category": "Demographics",
