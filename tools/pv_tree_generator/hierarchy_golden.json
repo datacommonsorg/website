@@ -31,7 +31,9 @@
       "e": "YearsUpto5",
       "c": 1,
       "cd": [],
-      "d": ["Count_Person"]
+      "d": [
+        "Count_Person"
+      ]
      }
     ]
    },
@@ -49,7 +51,10 @@
       "e": "NoSchoolingCompleted",
       "c": 1,
       "cd": [],
-      "d": ["Count_Person", "Count_Person_25OrMoreYears"]
+      "d": [
+        "Count_Person_25OrMoreYears",
+        "Count_Person"
+      ]
      },
      {
       "sv": [
@@ -60,7 +65,10 @@
       "e": "NurserySchool",
       "c": 1,
       "cd": [],
-      "d": ["Count_Person", "Count_Person_25OrMoreYears"]
+      "d": [
+        "Count_Person_25OrMoreYears",
+        "Count_Person"
+      ]
      },
      {
       "sv": [
@@ -71,7 +79,10 @@
       "e": "Kindergarten",
       "c": 1,
       "cd": [],
-      "d": ["Count_Person", "Count_Person_25OrMoreYears"]
+      "d": [
+        "Count_Person_25OrMoreYears",
+        "Count_Person"
+      ]
      }
     ]
    },
@@ -90,9 +101,9 @@
       "c": 1,
       "cd": [],
       "d": [
+        "Count_Person_EnrolledInSchool",
         "Count_Person",
-        "Count_Person_3OrMoreYears",
-        "Count_Person_EnrolledInSchool"
+        "Count_Person_3OrMoreYears"
       ]
      },
      {
@@ -105,9 +116,9 @@
       "c": 1,
       "cd": [],
       "d": [
+        "Count_Person_EnrolledInSchool",
         "Count_Person",
-        "Count_Person_3OrMoreYears",
-        "Count_Person_EnrolledInSchool"
+        "Count_Person_3OrMoreYears"
       ]
      }
     ]
@@ -185,7 +196,10 @@
       "e": "NoSchoolingCompleted",
       "c": 1,
       "cd": [],
-      "d": ["Count_Person", "Count_Person_25OrMoreYears"]
+      "d": [
+        "Count_Person_25OrMoreYears",
+        "Count_Person"
+      ]
      },
      {
       "sv": [
@@ -196,7 +210,10 @@
       "e": "NurserySchool",
       "c": 1,
       "cd": [],
-      "d": ["Count_Person", "Count_Person_25OrMoreYears"]
+      "d": [
+        "Count_Person_25OrMoreYears",
+        "Count_Person"
+      ]
      },
      {
       "sv": [
@@ -207,7 +224,10 @@
       "e": "Kindergarten",
       "c": 1,
       "cd": [],
-      "d": ["Count_Person", "Count_Person_25OrMoreYears"]
+      "d": [
+        "Count_Person_25OrMoreYears",
+        "Count_Person"
+      ]
      }
     ]
    },
@@ -226,9 +246,9 @@
       "c": 1,
       "cd": [],
       "d": [
+        "Count_Person_EnrolledInSchool",
         "Count_Person",
-        "Count_Person_3OrMoreYears",
-        "Count_Person_EnrolledInSchool"
+        "Count_Person_3OrMoreYears"
       ]
      },
      {
@@ -241,9 +261,9 @@
       "c": 1,
       "cd": [],
       "d": [
+        "Count_Person_EnrolledInSchool",
         "Count_Person",
-        "Count_Person_3OrMoreYears",
-        "Count_Person_EnrolledInSchool"
+        "Count_Person_3OrMoreYears"
       ]
      }
     ]
@@ -263,8 +283,8 @@
         "c": 1,
         "cd": [],
         "d": [
-          "Count_Person",
-          "Count_Person_3OrMoreYears"
+          "Count_Person_3OrMoreYears",
+          "Count_Person"
         ]
       }
     ]
@@ -379,7 +399,9 @@
         "e": "ExtratropicalCyclone",
         "c": 1,
         "cd": [],
-        "d": ["Count_CycloneEvent"]
+        "d": [
+          "Count_CycloneEvent"
+        ]
        }
       ]
      }
@@ -409,7 +431,9 @@
         "e": "M3To4",
         "c": 1,
         "cd": [],
-        "d": ["Count_EarthquakeEvent"]
+        "d": [
+          "Count_EarthquakeEvent"
+        ]
        }
       ]
      }

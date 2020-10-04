@@ -133,8 +133,9 @@ def find_denominators(pop_obs: PopObsSpec, cpvs: Dict[str, str],
     The dpvs of "pop_obs" and "cpvs" are combined to form the final pv mapping.
     A denominator is included if its pvs are a subset of the final pv mapping.
     E.g., if dpvs is {'age': '15YearsOnwards'} and cpvs is {'gender': 'female'},
-    the denominators are 'Count_Person', 'Count_Person_Female',
-    'Count_Person_15OrMoreYears', and 'Count_Person_Female_15OrMoreYears'.
+    the denominators are 'Count_Person_15OrMoreYears', 'Count_Person',
+    'Count_Person_Female', and 'Count_Person_Female_15OrMoreYears' returned in
+    that order.
 
     Args:
         pop_obs: Population measured by the StatVar.
@@ -142,9 +143,18 @@ def find_denominators(pop_obs: PopObsSpec, cpvs: Dict[str, str],
             node with "pop_obs".
         stats_vars_all: Mapping from keys to candidate StatVars.
         stats_vars_to_exclude: StatVars to exclude from the answer.
+    
+    Returns:
+        The denominators in a specific order: the denominator that match all the
+        dpvs, the denominator without any dpv, and the denominators with a mix
+        of dpvs and cpvs.
     """
-    denominators = set()
+    denominator_all_dpvs = []
+    denominator_without_dpv = []
+    denominators_mix = set()
     pvs_merged = {**pop_obs.dpv, **cpvs}
+    dpv_entries = set(pop_obs.dpv.items())
+    merged_entries = set(pvs_merged.items())
     pv_key_subsets = list(
         tuple(sorted(subset)) for subset in powerset(pvs_merged.keys()))
     for obs_prop in pop_obs.obs_props:
@@ -154,10 +164,17 @@ def find_denominators(pop_obs: PopObsSpec, cpvs: Dict[str, str],
             key = (pop_obs.pop_type,) + obs_prop.key + subset
             matching_statvars += tuple(stats_vars_all.get(key, ()))
         for sv in matching_statvars:
-            if (set(sv.pv.items()) <= set(pvs_merged.items()) and
-                    sv.dcid not in stats_vars_to_exclude):
-                denominators.add(sv.dcid)
-    return list(sorted(denominators))
+            if sv.dcid in stats_vars_to_exclude:
+                continue
+            sv_entries = set(sv.pv.items())
+            if sv_entries == dpv_entries:
+                denominator_all_dpvs = [sv.dcid]
+            elif not sv_entries:
+                denominator_without_dpv = [sv.dcid]
+            elif sv_entries < merged_entries:
+                denominators_mix.add(sv.dcid)
+    return (denominator_all_dpvs + denominator_without_dpv +
+            sorted(denominators_mix))
 
 
 class PropertyNode:
