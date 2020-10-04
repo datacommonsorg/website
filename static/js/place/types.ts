@@ -21,54 +21,6 @@ export const chartTypeEnum = {
   GROUP_BAR: "GROUP_BAR",
 };
 
-export const axisEnum = {
-  TIME: "TIME",
-  PLACE: "PLACE",
-};
-
-export const CONTINENTS = new Set([
-  "africa",
-  "antarctica",
-  "northamerica",
-  "oceania",
-  "europe",
-  "asia",
-  "southamerica",
-]);
-
-export const placeRelationEnum = {
-  CONTAINING: "CONTAINING",
-  CONTAINED: "CONTAINED",
-  SIMILAR: "SIMILAR",
-  NEARBY: "NEARBY",
-};
-
-export interface ConfigType {
-  title: string;
-  chartType: string;
-  statsVars: string[];
-  denominator: string[];
-  source: string;
-  url: string;
-  axis: string;
-  unit: string;
-  exploreUrl: string;
-  placeRelation?: string;
-  relatedChart: {
-    scale: boolean;
-    denominator: string;
-    title?: string;
-    unit?: string;
-    scaling?: number;
-  };
-}
-
-export interface ChartCategory {
-  label: string;
-  charts: ConfigType[];
-  children: { label: string; charts: ConfigType[] }[];
-}
-
 export interface Series {
   [key: string]: number;
 }
@@ -108,17 +60,14 @@ export interface ChartBlockData {
   scaling: number;
 }
 
-export interface CategoryData {
-  label: string;
-  charts: ChartBlockData[];
-  children: {
-    label: string;
-    charts: ChartBlockData[];
-  }[];
+export interface PageChart {
+  [key: string]: {
+    [key: string]: ChartBlockData[];
+  };
 }
 
 export interface PageData {
-  configData: CategoryData[];
+  pageChart: PageChart;
   allChildPlaces: {
     string: string[];
   };

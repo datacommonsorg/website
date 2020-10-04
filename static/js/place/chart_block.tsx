@@ -139,6 +139,16 @@ class ChartBlock extends React.Component<ChartBlockPropType, unknown> {
                 {...sharedProps}
               ></Chart>
             );
+          } else if (!_.isEmpty(this.props.data.child)) {
+            chartElements.push(
+              <Chart
+                key={id}
+                id={id}
+                snapshot={this.props.data.child}
+                title={`${relatedChartTitle}: places within ${this.props.placeName}`}
+                {...sharedProps}
+              ></Chart>
+            );
           }
         }
       } else {

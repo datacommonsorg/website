@@ -15,18 +15,68 @@
  */
 
 import React from "react";
-import { CategoryData } from "./types";
+import { PageChart } from "./types";
+
+interface MenuCategoryPropsType {
+  dcid: string;
+  selectCategory: string;
+  category: string;
+  topics: string[];
+}
+
+class MenuCategory extends React.Component<MenuCategoryPropsType, unknown> {
+  render(): JSX.Element {
+    const dcid = this.props.dcid;
+    const selectCategory = this.props.selectCategory;
+    const category = this.props.category;
+    const topics = this.props.topics;
+
+    return (
+      <li className="nav-item">
+        <a
+          href={`/place?dcid=${dcid}&topic=${category}`}
+          className={`nav-link ${selectCategory === category ? "active" : ""}`}
+        >
+          {category}
+        </a>
+        <ul
+          className={
+            "nav flex-column ml-3 " +
+            (category !== selectCategory ? "collapse" : "")
+          }
+          data-parent="#nav-topics"
+        >
+          <div className="d-block">
+            {topics.map((topic: string) => {
+              return (
+                <li className="nav-item" key={topic}>
+                  <a
+                    href={`/place?dcid=${dcid}&topic=${category}#${topic}`}
+                    className="nav-link"
+                  >
+                    {topic}
+                  </a>
+                </li>
+              );
+            })}
+          </div>
+        </ul>
+      </li>
+    );
+  }
+}
 
 interface MenuPropsType {
   dcid: string;
   topic: string;
-  configData: CategoryData[];
+  pageChart: PageChart;
 }
 
 class Menu extends React.Component<MenuPropsType, unknown> {
   render(): JSX.Element {
     const dcid = this.props.dcid;
     const topic = this.props.topic;
+    const categories = Object.keys(this.props.pageChart);
     return (
       <ul id="nav-topics" className="nav flex-column accordion">
         <li className="nav-item">
@@ -37,45 +87,19 @@ class Menu extends React.Component<MenuPropsType, unknown> {
             Overview
           </a>
         </li>
-        {this.props.configData.map((item: CategoryData) => {
-          return (
-            <React.Fragment key={item.label}>
-              {item.children.length > 0 && (
-                <li className="nav-item">
-                  <a
-                    href={`/place?dcid=${dcid}&topic=${item.label}`}
-                    className={`nav-link ${
-                      topic === item.label ? "active" : ""
-                    }`}
-                  >
-                    {item.label}
-                  </a>
-                  <ul
-                    className={
-                      "nav flex-column ml-3 " +
-                      (item.label !== topic ? "collapse" : "")
-                    }
-                    data-parent="#nav-topics"
-                  >
-                    <div className="d-block">
-                      {item.children.map((child, index) => {
-                        return (
-                          <li className="nav-item" key={index}>
-                            <a
-                              href={`/place?dcid=${dcid}&topic=${item.label}#${child.label}`}
-                              className="nav-link"
-                            >
-                              {child.label}
-                            </a>
-                          </li>
-                        );
-                      })}
-                    </div>
-                  </ul>
-                </li>
-              )}
-            </React.Fragment>
-          );
+        {categories.map((category: string) => {
+          const topics = Object.keys(this.props.pageChart[category]);
+          if (category !== "Overview") {
+            return (
+              <MenuCategory
+                key={category}
+                dcid={dcid}
+                selectCategory={topic}
+                category={category}
+                topics={topics}
+              />
+            );
+          }
         })}
       </ul>
     );
