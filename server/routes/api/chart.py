@@ -542,11 +542,8 @@ def choropleth_data(dcid):
                 else:
                     geo_data[geo] = sv_data[geo][sv_date]
                     num_data_points += 1
-            exploreUrl = None
-            if denom_data:
-                exploreUrl = landing_page_api.build_url([dcid], [sv], True)
-            else:
-                exploreUrl = landing_page_api.build_url([dcid], [sv])
+            exploreUrl = landing_page_api.build_url([dcid], [sv],
+                                                    bool(denom_data))
             sv_denom_result = {
                 'date': sv_date,
                 'data': geo_data,
