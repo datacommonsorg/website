@@ -19,10 +19,12 @@ in chart.py and place.py
 
 import collections
 import copy
+import datetime
 import json
 import urllib
 
 from flask import Blueprint, current_app, request, Response, url_for
+from collections import defaultdict
 
 from cache import cache
 import services.datacommons as dc_service
@@ -33,10 +35,16 @@ import logging
 # Define blueprint
 bp = Blueprint("api.landing_page", __name__, url_prefix='/api/landingpage')
 
+BAR_CHART_TYPES = ['parent', 'similar', 'nearby', 'child']
+MAX_DENOMINATOR_BACK_YEAR = 3
+MIN_CHART_TO_KEEP_TOPICS = 30
+OVERVIEW = 'Overview'
 
-def get_landing_page_data(dcid):
+
+def get_landing_page_data(dcid, stat_vars):
     response = dc_service.fetch_data('/landing-page', {
         'place': dcid,
+        'statVars': stat_vars,
     },
                                      compress=False,
                                      post=True,
@@ -49,38 +57,29 @@ def build_url(dcids, stats_vars):
                                             '__'.join(stats_vars))
     return urllib.parse.unquote(url_for('tools.timeline', _anchor=anchor))
 
-
 # TODO: add test for chart_config for assumption that each combination of stat vars will only have one config in chart_config.
-def build_config(raw_config):
-    """Builds hierachical config based on raw config."""
-    category_map = {}
-    for conf in raw_config:
+def build_spec(chart_config):
+    """Builds hierachical spec based on chart config."""
+    spec = defaultdict(lambda: defaultdict(list))
+    stat_vars = []
+    # Map: category -> topic -> [config]
+    for conf in chart_config:
         config = copy.deepcopy(conf)
         is_overview = ('isOverview' in config and config['isOverview'])
-        # isOverview field is not used in the built chart config.
+        category = config['category']
         if 'isOverview' in config:
             del config['isOverview']
-        category, _ = config['category']
         del config['category']
-        if category not in category_map:
-            category_map[category] = {
-                'label': category,
-                'charts': [],
-                'children': []
-            }
         if is_overview:
-            category_map[category]['charts'].append(config)
-        # Turn each chart into a new topic since we render multiple types per
-        # chart
-        category_map[category]['children'].append({
-            'label': config['title'],
-            'charts': [config]
-        })
-    return list(category_map.values())
+            spec[OVERVIEW][category].append(config)
+        spec[category][config['title']].append(config)
+        stat_vars.extend(config['statsVars'])
+        stat_vars.extend(config.get('denominator', []))
+    return spec, stat_vars
 
 
 # TODO(shifucun): Add unittest for these helper functions
-def get_bar_data(cc, data, places):
+def get_bar(cc, data, places):
     """Get the bar data across a few places.
 
     This will scale the value if required and pick the latest date that has the
@@ -166,7 +165,7 @@ def get_bar_data(cc, data, places):
     return result
 
 
-def get_trend_data(cc, data, place):
+def get_trend(cc, data, place):
     """Get the time series data for a place."""
     if place not in data:
         return {}
@@ -195,13 +194,22 @@ def get_trend_data(cc, data, place):
         else:
             series[stat_var] = numerator_raw['data']
             sources.add(numerator_raw['provenanceDomain'])
-    if not series:
+    if not series or len(series) == 1:
         return {}
     return {
         'series': series,
         'sources': list(sources),
         'exploreUrl': build_url([place], cc['statsVars'])
     }
+
+
+def get_year(date):
+    for fmt in ('%Y', '%Y-%m', '%Y-%m-%d'):
+        try:
+            return datetime.datetime.strptime(date, fmt).year
+        except ValueError:
+            pass
+    raise ValueError('no valid date format found')
 
 
 # TODO(shifucun): Add unittest.
@@ -220,14 +228,19 @@ def scale_series(numerator, denominator):
             else:
                 data[date] = 0
         else:
-            # TODO(shifucun): Use https://docs.python.org/3.7/library/datetime.html#datetime.datetime.strptime
-            parts = date.split('-')
-            year = parts[0]
-            if len(parts) > 1 and year in denominator:
-                if denominator[year] > 0:
-                    data[date] = value / denominator[year]
-                else:
-                    data[date] = 0
+            try:
+                numerator_year = get_year(date)
+                for i in range(0, MAX_DENOMINATOR_BACK_YEAR + 1):
+                    year = str(numerator_year - i)
+                    if year in denominator:
+                        if denominator[year] > 0:
+                            data[date] = value / denominator[year]
+                        else:
+                            data[date] = 0
+                        break
+            except ValueError:
+                return {}
+
     return data
 
 
@@ -235,83 +248,95 @@ def scale_series(numerator, denominator):
 @cache.memoize(timeout=3600 * 24)  # Cache for one day.
 def data(dcid):
     """
-    Get chart config and stats data of the landing page for a given place.
+    Get chart spec and stats data of the landing page for a given place.
     """
-    raw_config = current_app.config['CHART_CONFIG']
-    config_data = build_config(raw_config)
-    cache_data = get_landing_page_data(dcid)
+    spec_and_stat, stat_vars = build_spec(current_app.config['CHART_CONFIG'])
+    raw_page_data = get_landing_page_data(dcid, stat_vars)
 
-    for category in config_data:
-        filtered_charts = []
-        for chart in category['charts']:
-            # Populate the overview page data.
-            # TODO(shifucun/beets): simplify the logic in here.
-            # Trend data
-            chart['trend'] = get_trend_data(chart, cache_data['data'], dcid)
-            # Parent places data
-            chart['parent'] = get_bar_data(chart, cache_data['data'], [dcid] +
-                                           cache_data.get('parentPlaces', []))
-            # Similar places data
-            chart['similar'] = get_bar_data(chart, cache_data['data'], [dcid] +
-                                            cache_data.get('similarPlaces', []))
-            # Nearby places data
-            chart['nearby'] = get_bar_data(chart, cache_data['data'], [dcid] +
-                                           cache_data.get('nearbyPlaces', []))
-            # Nearby places data
-            chart['child'] = get_bar_data(chart, cache_data['data'], [dcid] +
-                                          cache_data.get('childPlaces', []))
-            if (chart['trend'] or chart['parent'] or chart['similar'] or
-                    chart['nearby'] or chart['child']):
-                filtered_charts.append(chart)
-        category['charts'] = filtered_charts
+    # Only US places have comparison charts.
+    is_usa_place = False
+    for place in [dcid] + raw_page_data.get('parentPlaces', []):
+        if place == 'country/USA':
+            is_usa_place = True
+            break
 
-        # Populate topic page data.
-        filtered_topic = []
-        for child in category['children']:
-            potential_child_charts = []
-            for chart in child['charts']:
+    # Populate the data for each chart
+    all_stat = raw_page_data['data']
+    for category in spec_and_stat:
+        if not is_usa_place:
+            chart_types = []
+        elif category == 'Overview':
+            chart_types = ['nearby', 'child']
+        else:
+            chart_types = BAR_CHART_TYPES
+        for topic in spec_and_stat[category]:
+            for chart in spec_and_stat[category][topic]:
                 # Trend data
-                chart['trend'] = get_trend_data(chart, cache_data['data'], dcid)
-                # Parent places data
-                chart['parent'] = get_bar_data(
-                    chart, cache_data['data'],
-                    [dcid] + cache_data.get('parentPlaces', []))
-                # Similar places data
-                chart['similar'] = get_bar_data(
-                    chart, cache_data['data'],
-                    [dcid] + cache_data.get('similarPlaces', []))
-                # Nearby places data
-                chart['nearby'] = get_bar_data(
-                    chart, cache_data['data'],
-                    [dcid] + cache_data.get('nearbyPlaces', []))
-                # Child places data
-                chart['child'] = get_bar_data(chart, cache_data['data'],
-                                              [dcid] +
-                                              cache_data.get('childPlaces', []))
-                if (chart['trend'] or chart['parent'] or chart['similar'] or
-                        chart['nearby'] or chart['child']):
-                    potential_child_charts.append(chart)
-            if potential_child_charts:
-                child['charts'] = potential_child_charts
-                filtered_topic.append(child)
-        if filtered_topic:
-            category['children'] = filtered_topic
+                chart['trend'] = get_trend(chart, all_stat, dcid)
+                # Bar data
+                for t in chart_types:
+                    chart[t] = get_bar(chart, all_stat, [dcid] +
+                                       raw_page_data.get(t + 'Places', []))
+    # Remove empty category and topics
+    for category in list(spec_and_stat.keys()):
+        for topic in list(spec_and_stat[category].keys()):
+            filtered_charts = []
+            for chart in spec_and_stat[category][topic]:
+                keep_chart = False
+                for t in ['trend'] + BAR_CHART_TYPES:
+                    if chart.get(t, None):
+                        keep_chart = True
+                        break
+                if keep_chart:
+                    filtered_charts.append(chart)
+            if not filtered_charts:
+                del spec_and_stat[category][topic]
+            else:
+                spec_and_stat[category][topic] = filtered_charts
+        if not spec_and_stat[category]:
+            del spec_and_stat[category]
+    # For non US places, only keep the "Overview" category if the number of
+    # total chart is less than certain threshold.
+    if not is_usa_place:
+        overview_set = set()
+        non_overview_set = set()
+        chart_count = 0
+        # Get the overview charts
+        for topic, charts in spec_and_stat['Overview'].items():
+            for chart in charts:
+                overview_set.add((topic, chart['title']))
+                chart_count += 1
+        # Get the non overview charts
+        for category, topic_data in spec_and_stat.items():
+            if category == 'Overview':
+                continue
+            for topic in topic_data:
+                if (category, topic) not in overview_set:
+                    non_overview_set.add((category, topic))
+                    chart_count += 1
+        # If the total number of chart is too small, then merge all charts to
+        # the overview category and remove other categories
+        if chart_count < MIN_CHART_TO_KEEP_TOPICS:
+            for category, topic in non_overview_set:
+                spec_and_stat['Overview'][category].extend(
+                    spec_and_stat[category][topic])
+            for category in list(spec_and_stat.keys()):
+                if category != 'Overview':
+                    del spec_and_stat[category]
 
-    allPlaces = [dcid]
-    for relation in [
-            'parentPlaces', 'similarPlaces', 'nearbyPlaces', 'childPlaces'
-    ]:
-        allPlaces.extend(cache_data.get(relation, []))
-
-    names = place_api.get_display_name('^'.join(sorted(allPlaces)))
+    # Get display name for all places
+    all_places = [dcid]
+    for t in BAR_CHART_TYPES:
+        all_places.extend(raw_page_data.get(t + 'Places', []))
+    names = place_api.get_display_name('^'.join(sorted(all_places)))
 
     response = {
-        'configData': config_data,
-        'allChildPlaces': cache_data.get('allChildPlaces', {}),
-        'childPlaces': cache_data.get('childPlaces', []),
-        'parentPlaces': cache_data.get('parentPlaces', []),
-        'similarPlaces': cache_data.get('similarPlaces', []),
-        'nearbyPlaces': cache_data.get('nearbyPlaces', []),
+        'pageChart': spec_and_stat,
+        'allChildPlaces': raw_page_data.get('allChildPlaces', {}),
+        'childPlaces': raw_page_data.get('childPlaces', []),
+        'parentPlaces': raw_page_data.get('parentPlaces', []),
+        'similarPlaces': raw_page_data.get('similarPlaces', []),
+        'nearbyPlaces': raw_page_data.get('nearbyPlaces', []),
         'names': names,
     }
     return Response(json.dumps(response), 200, mimetype='application/json')

@@ -72,24 +72,24 @@ window.onload = () => {
       new DataPoint("2013", 24000),
     ]),
     new DataGroup("San Francisco", [
-      new DataPoint("2011", 21000),
+      new DataPoint("2011", null),
       new DataPoint("2012", 25000),
       new DataPoint("2013", 22000),
     ]),
     new DataGroup("Mountain View", [
-      new DataPoint("2011", 1000),
+      new DataPoint("2011", null),
       new DataPoint("2012", 5000),
       new DataPoint("2013", 2000),
     ]),
     new DataGroup("Very-Long-City-Name", [
       new DataPoint("2011", 1000),
       new DataPoint("2012", 5000),
-      new DataPoint("2013", 2000),
+      new DataPoint("2013", null),
     ]),
     new DataGroup("Multi several very long city name long", [
       new DataPoint("2011", 1000),
       new DataPoint("2012", 5000),
-      new DataPoint("2013", 2000),
+      new DataPoint("2013", null),
     ]),
   ];
 

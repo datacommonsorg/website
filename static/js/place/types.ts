@@ -22,48 +22,6 @@ export const chartTypeEnum = {
   CHOROPLETH: "CHOROPLETH",
 };
 
-export const axisEnum = {
-  TIME: "TIME",
-  PLACE: "PLACE",
-};
-
-export const CONTINENTS = new Set([
-  "africa",
-  "antarctica",
-  "northamerica",
-  "oceania",
-  "europe",
-  "asia",
-  "southamerica",
-]);
-
-export const placeRelationEnum = {
-  CONTAINING: "CONTAINING",
-  CONTAINED: "CONTAINED",
-  SIMILAR: "SIMILAR",
-  NEARBY: "NEARBY",
-};
-
-export interface ConfigType {
-  title: string;
-  chartType: string;
-  statsVars: string[];
-  denominator: string[];
-  source: string;
-  url: string;
-  axis: string;
-  unit: string;
-  exploreUrl: string;
-  placeRelation?: string;
-  relatedChart: { scale: boolean; denominator: string };
-}
-
-export interface ChartCategory {
-  label: string;
-  charts: ConfigType[];
-  children: { label: string; charts: ConfigType[] }[];
-}
-
 export interface Series {
   [key: string]: number;
 }
@@ -95,23 +53,23 @@ export interface ChartBlockData {
   nearby: SnapshotData;
   child: SnapshotData;
   relatedChart: {
+    title?: string;
     scale: boolean;
+    scaling?: number;
+    unit?: string;
   };
   scaling: number;
   isChoropleth?: boolean;
 }
 
-export interface CategoryData {
-  label: string;
-  charts: ChartBlockData[];
-  children: {
-    label: string;
-    charts: ChartBlockData[];
-  }[];
+export interface PageChart {
+  [key: string]: {
+    [key: string]: ChartBlockData[];
+  };
 }
 
 export interface PageData {
-  configData: CategoryData[];
+  pageChart: PageChart;
   allChildPlaces: {
     string: string[];
   };

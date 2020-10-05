@@ -85,6 +85,10 @@ interface ChartPropType {
    * Values of statvar/denominator combinations for places one level down of current dcid
    */
   choroplethData?: ChoroplethDataGroup;
+   /**
+    * All stats vars for this chart
+    */
+  statsVars: string[];
 }
 
 interface ChartStateType {
@@ -178,7 +182,7 @@ class Chart extends React.Component<ChartPropType, ChartStateType> {
             </div>
             <div className="outlinks">
               <a href="#" onClick={this._handleEmbed}>
-                Embed
+                Export
               </a>
               <a className="explore-more" href={exploreUrl}>
                 Explore More ›
@@ -244,16 +248,22 @@ class Chart extends React.Component<ChartPropType, ChartStateType> {
     e: React.MouseEvent<HTMLAnchorElement, MouseEvent>
   ): void {
     e.preventDefault();
-    // Node does not have innerHTML property so we need to pass both in.
     const svgElems = this.svgContainerElement.current.getElementsByTagName(
       "svg"
     );
-    let svgHtml: string;
+    let svgXml: string;
     if (svgElems.length) {
-      svgHtml = svgElems.item(0).innerHTML;
+      svgXml = svgElems.item(0).outerHTML;
     }
-    const svgDom = this.chartElement.current.cloneNode(true);
-    this.embedModalElement.current.show(svgHtml, svgDom, this.dataCsv());
+    this.embedModalElement.current.show(
+      svgXml,
+      this.dataCsv(),
+      this.svgContainerElement.current.offsetWidth,
+      CHART_HEIGHT,
+      this.props.title,
+      this.props.snapshot ? this.props.snapshot.date : "",
+      this.props.snapshot ? this.props.snapshot.sources : []
+    );
   }
 
   drawChart(): void {
@@ -361,11 +371,15 @@ class Chart extends React.Component<ChartPropType, ChartStateType> {
         });
         break;
       case chartTypeEnum.SINGLE_BAR:
-        for (const statVar in this.props.snapshot.data[0].data) {
-          dataPoints.push({
-            label: STATS_VAR_LABEL[statVar],
-            value: this.props.snapshot.data[0].data[statVar] * scaling,
-          });
+        {
+          const snapshotData = this.props.snapshot.data[0];
+          for (const statVar in snapshotData.data) {
+            dataPoints.push({
+              label: STATS_VAR_LABEL[statVar],
+              value: snapshotData.data[statVar] * scaling,
+              dcid: snapshotData.dcid,
+            });
+          }
         }
         this.setState({
           dataPoints,
@@ -376,14 +390,20 @@ class Chart extends React.Component<ChartPropType, ChartStateType> {
       case chartTypeEnum.STACK_BAR:
         for (const placeData of this.props.snapshot.data) {
           const dataPoints: DataPoint[] = [];
-          for (const statVar in placeData.data) {
+          for (const statVar of this.props.statsVars) {
+            const val = placeData.data[statVar];
             dataPoints.push({
               label: STATS_VAR_LABEL[statVar],
-              value: placeData.data[statVar] * scaling,
+              value: val ? val * scaling : null,
+              dcid: placeData.dcid,
             });
           }
           dataGroups.push(
-            new DataGroup(this.props.names[placeData.dcid], dataPoints)
+            new DataGroup(
+              this.props.names[placeData.dcid],
+              dataPoints,
+              `/place?dcid=${placeData.dcid}`
+            )
           );
         }
         this.setState({

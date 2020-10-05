@@ -14,42 +14,6 @@
  * limitations under the License.
  */
 
-path.line {
-  fill: none;
-  stroke-width: 2.5;
-}
-
-path.line.fill {
-  opacity: .4;
-  stroke-dasharray: 2;
-}
-
-.axis line {
-  stroke: #999;
-  stroke-width: 0.5;
-}
-
-.axis path {
-  stroke: #999;
-  stroke-width: 0.5;
-  shape-rendering: crispEdges;
-}
-
-.axis text {
-  fill: #2b2929;
-  font-family: Roboto;
-  shape-rendering: crispEdges;
-}
-
-.y.axis line.grid-line {
-  stroke-opacity: 0.5;
-  stroke-dasharray: 2, 2;
-}
-
-.dot {
-  stroke: #fff;
-}
-
 .legend {
   margin-left: 35px;
   text-align: center;
@@ -72,13 +36,4 @@ path.line.fill {
 
 .legend-text {
   font-size: 14px;
-}
-
-.label {
-  font-size: 12px;
-}
-
-.place-tick {
-  cursor: pointer;
-  text-decoration: underline;
 }
