@@ -19,6 +19,7 @@ export const chartTypeEnum = {
   SINGLE_BAR: "SINGLE_BAR",
   STACK_BAR: "STACK_BAR",
   GROUP_BAR: "GROUP_BAR",
+  CHOROPLETH: "CHOROPLETH",
 };
 
 export interface Series {
@@ -58,6 +59,7 @@ export interface ChartBlockData {
     unit?: string;
   };
   scaling: number;
+  isChoropleth?: boolean;
 }
 
 export interface PageChart {
@@ -81,4 +83,16 @@ export interface PageData {
   nearbyPlaces: string[];
   names: { string: string };
   highlight: PageHighlight;
+}
+
+export interface CachedChoroplethData {
+  [statVar: string]: ChoroplethDataGroup;
+}
+
+export interface ChoroplethDataGroup {
+  date: string;
+  data: {
+    [placeDcid: string]: number;
+  };
+  numDataPoints: number;
 }
