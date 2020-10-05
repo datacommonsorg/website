@@ -105,7 +105,7 @@ const STATS_VAR_LABEL: { [key: string]: string } = {
   Count_Person_HispanicOrLatino: "Hispanic or Latino",
   Count_Person_NativeHawaiianAndOtherPacificIslanderAlone:
     "Native Hawaiian and Pacific Islander",
-  Count_Person_SomeOtherRaceAlone: "SomeOther Race",
+  Count_Person_SomeOtherRaceAlone: "Some Other Race",
   Count_Person_TwoOrMoreRaces: "Two or more races",
   Count_Person_WhiteAlone: "White Alone",
   Median_Age_Person_AmericanIndianOrAlaskaNativeAlone:
@@ -115,7 +115,7 @@ const STATS_VAR_LABEL: { [key: string]: string } = {
   Median_Age_Person_HispanicOrLatino: "Hispanic or Latino",
   Median_Age_Person_NativeHawaiianAndOtherPacificIslanderAlone:
     "Native Hawaiian and Pacific Islander",
-  Median_Age_Person_SomeOtherRaceAlone: "SomeOther Race",
+  Median_Age_Person_SomeOtherRaceAlone: "Some Other Race",
   Median_Age_Person_TwoOrMoreRaces: "Two or more races",
   Median_Age_Person_WhiteAlone: "White Alone",
   // income
