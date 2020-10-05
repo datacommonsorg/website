@@ -238,10 +238,10 @@ const STATS_VAR_TITLES: { [key: string]: string } = {
   Percent_Person_SleepLessThan7Hours:
     "Percentage of People Who Sleep Less Than 7 Hours",
   Percent_Person_Obesity: "Percentage of People with Obesity",
-  Percent_Person_BingeDrinking: "Percentage of People who Binge Drink",
+  Percent_Person_BingeDrinking: "Percentage of People That Binge Drink",
   Percent_Person_PhysicalInactivity:
     "Percentage of People with Physical Inactivity",
-  Percent_Person_Smoking: "Percentage of People who Smoke",
+  Percent_Person_Smoking: "Percentage of People That Smoke",
   "WorldBank/SH_ALC_PCAP_LI": "Alcohol Consumption Per Capita (Annual)",
 
   // Drug Prescribed
