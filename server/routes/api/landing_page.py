@@ -318,7 +318,7 @@ def data(dcid):
         # the overview category and remove other categories
         if chart_count < MIN_CHART_TO_KEEP_TOPICS:
             for category, topic in non_overview_set:
-                spec_and_stat['Overview'][category].append(
+                spec_and_stat['Overview'][category].extend(
                     spec_and_stat[category][topic])
             for category in list(spec_and_stat.keys()):
                 if category != 'Overview':
