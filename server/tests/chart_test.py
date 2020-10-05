@@ -368,13 +368,14 @@ class TestChoroplethDataHelpers(unittest.TestCase):
 
 class TestChoroplethData(unittest.TestCase):
 
+    @patch('routes.api.chart.build_url')
     @patch('routes.api.chart.get_latest_common_date_for_sv')
     @patch('routes.api.chart.get_data_for_statvar')
     @patch('routes.api.chart.dc_service.get_stats_all')
     @patch('routes.api.chart.get_choropleth_places')
     @patch('routes.api.chart.get_choropleth_sv')
     def testRoute(self, mock_choropleth_sv, mock_choropleth_places,
-                  mock_all_stats, mock_sv_data, mock_sv_date):
+                  mock_all_stats, mock_sv_data, mock_sv_date, mock_explore_url):
         test_dcid = 'test_dcid'
         geo1 = 'dcid1'
         geo2 = 'dcid2'
@@ -435,6 +436,19 @@ class TestChoroplethData(unittest.TestCase):
 
         mock_sv_date.side_effect = sv_date_side_effect
 
+        test_url = 'test/url/1'
+        test_url2 = 'test/url/2'
+
+        def build_url_side_effect(*args):
+            if args[0] == test_dcid and args[1] == ['StatVar1']:
+                return test_url
+            elif args[0] == test_dcid and args[1] == ['StatVar3']:
+                return test_url2
+            else:
+                return None
+
+        mock_explore_url.side_effect = build_url_side_effect
+
         response = app.test_client().get('/api/chart/choroplethdata/' +
                                          test_dcid)
         assert response.status_code == 200
@@ -446,7 +460,8 @@ class TestChoroplethData(unittest.TestCase):
                     geo1: sv_val1,
                     geo2: sv_val1
                 },
-                'numDataPoints': 2
+                'numDataPoints': 2,
+                'exploreUrl': test_url
             },
             'StatVar3': {
                 'date': sv_date1,
@@ -454,7 +469,8 @@ class TestChoroplethData(unittest.TestCase):
                     geo1: sv_val1 / sv_val2,
                     geo2: sv_val1 / sv_val2
                 },
-                'numDataPoints': 2
+                'numDataPoints': 2,
+                'exploreUrl': test_url2
             }
         }
         assert response_data == expected_data

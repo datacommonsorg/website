@@ -95,4 +95,5 @@ export interface ChoroplethDataGroup {
     [placeDcid: string]: number;
   };
   numDataPoints: number;
+  exploreUrl: string;
 }

@@ -544,7 +544,9 @@ def choropleth_data(dcid):
             sv_denom_result = {
                 'date': sv_date,
                 'data': geo_data,
-                'numDataPoints': num_data_points
+                'numDataPoints': num_data_points,
+                # TODO (chejennifer): exploreUrl should link to choropleth tool once the tool is ready
+                'exploreUrl': build_url(dcid, [sv])
             }
             result[key] = sv_denom_result
     return Response(json.dumps(result), 200, mimetype='application/json')
