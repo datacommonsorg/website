@@ -22,7 +22,7 @@ import { ChildPlace } from "./child_places_menu";
 import { MainPane } from "./main";
 import { Menu } from "./topic_menu";
 import { ParentPlace } from "./parent_breadcrumbs";
-import { Subtitle } from "./subtitle";
+import { PageSubtitle } from "./page_subtitle";
 import { isPlaceInUsa } from "./util";
 
 import { PageData } from "./types";
@@ -138,7 +138,7 @@ function renderPage(dcid: string) {
     );
 
     ReactDOM.render(
-      React.createElement(Subtitle, {
+      React.createElement(PageSubtitle, {
         category: topic,
         dcid,
       }),

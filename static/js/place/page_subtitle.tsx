@@ -16,12 +16,16 @@
 
 import React from "react";
 
-interface SubtitlePropsType {
+interface PageSubtitlePropsType {
   category: string;
   dcid: string;
 }
 
-class Subtitle extends React.Component<SubtitlePropsType, unknown> {
+/**
+ * A componenet to display the subtitle above chart section. It includes
+ * the category name and a navigation link for non-overview pages.
+ */
+class PageSubtitle extends React.Component<PageSubtitlePropsType, unknown> {
   render(): JSX.Element {
     const dcid = this.props.dcid;
     const category = this.props.category;
@@ -46,4 +50,4 @@ class Subtitle extends React.Component<SubtitlePropsType, unknown> {
   }
 }
 
-export { Subtitle };
+export { PageSubtitle };
