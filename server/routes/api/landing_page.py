@@ -41,9 +41,10 @@ MIN_CHART_TO_KEEP_TOPICS = 30
 OVERVIEW = 'Overview'
 
 
-def get_landing_page_data(dcid):
+def get_landing_page_data(dcid, stat_vars):
     response = dc_service.fetch_data('/landing-page', {
         'place': dcid,
+        'statVars': stat_vars,
     },
                                      compress=False,
                                      post=True,
@@ -60,6 +61,7 @@ def build_url(dcids, stats_vars):
 def build_spec(chart_config):
     """Builds hierachical spec based on chart config."""
     spec = defaultdict(lambda: defaultdict(list))
+    stat_vars = []
     # Map: category -> topic -> [config]
     for conf in chart_config:
         config = copy.deepcopy(conf)
@@ -71,7 +73,9 @@ def build_spec(chart_config):
         if is_overview:
             spec[OVERVIEW][category].append(config)
         spec[category][config['title']].append(config)
-    return spec
+        stat_vars.extend(config['statsVars'])
+        stat_vars.extend(config.get('denominator', []))
+    return spec, stat_vars
 
 
 def get_snapshot_across_places(cc, data, places):
@@ -258,8 +262,8 @@ def data(dcid):
     """
     Get chart spec and stats data of the landing page for a given place.
     """
-    spec_and_stat = build_spec(current_app.config['CHART_CONFIG'])
-    raw_page_data = get_landing_page_data(dcid)
+    spec_and_stat, stat_vars = build_spec(current_app.config['CHART_CONFIG'])
+    raw_page_data = get_landing_page_data(dcid, stat_vars)
 
     # Only US places have comparison charts.
     is_usa_place = False
@@ -326,7 +330,7 @@ def data(dcid):
         # the overview category and remove other categories
         if chart_count < MIN_CHART_TO_KEEP_TOPICS:
             for category, topic in non_overview_set:
-                spec_and_stat['Overview'][category].append(
+                spec_and_stat['Overview'][category].extend(
                     spec_and_stat[category][topic])
             for category in list(spec_and_stat.keys()):
                 if category != 'Overview':

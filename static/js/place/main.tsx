@@ -61,10 +61,12 @@ class MainPane extends React.Component<MainPanePropType, unknown> {
     const isOverview = category === "Overview";
     return (
       <>
-        {this.props.isUsaPlace && this.props.placeType != "Country" && (
-          // Only Show map and ranking for US places.
-          <Overview topic={this.props.category} dcid={this.props.dcid} />
-        )}
+        {this.props.isUsaPlace &&
+          this.props.placeType != "Country" &&
+          isOverview && (
+            // Only Show map and ranking for US places.
+            <Overview dcid={this.props.dcid} />
+          )}
         {Object.keys(topicData).map((topic: string) => {
           let subtopicHeader: JSX.Element;
           if (isOverview && Object.keys(this.props.pageChart).length > 1) {
