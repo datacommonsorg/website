@@ -19,6 +19,7 @@ in chart.py and place.py
 
 import collections
 import copy
+import datetime
 import json
 import urllib
 
@@ -35,6 +36,9 @@ import logging
 bp = Blueprint("api.landing_page", __name__, url_prefix='/api/landingpage')
 
 BAR_CHART_TYPES = ['parent', 'similar', 'nearby', 'child']
+MAX_DENOMINATOR_BACK_YEAR = 3
+MIN_CHART_TO_KEEP_TOPICS = 30
+OVERVIEW = 'Overview'
 
 
 def get_landing_page_data(dcid):
@@ -65,7 +69,7 @@ def build_spec(chart_config):
             del config['isOverview']
         del config['category']
         if is_overview:
-            spec['Overview'][category].append(config)
+            spec[OVERVIEW][category].append(config)
         spec[category][config['title']].append(config)
     return spec
 
@@ -195,6 +199,15 @@ def get_trend(cc, data, place):
     }
 
 
+def get_year(date):
+    for fmt in ('%Y', '%Y-%m', '%Y-%m-%d'):
+        try:
+            return datetime.datetime.strptime(date, fmt).year
+        except ValueError:
+            pass
+    raise ValueError('no valid date format found')
+
+
 # TODO(shifucun): Add unittest.
 def scale_series(numerator, denominator):
     """Scale two time series.
@@ -211,14 +224,19 @@ def scale_series(numerator, denominator):
             else:
                 data[date] = 0
         else:
-            # TODO(shifucun): Use https://docs.python.org/3.7/library/datetime.html#datetime.datetime.strptime
-            parts = date.split('-')
-            year = parts[0]
-            if len(parts) > 1 and year in denominator:
-                if denominator[year] > 0:
-                    data[date] = value / denominator[year]
-                else:
-                    data[date] = 0
+            try:
+                numerator_year = get_year(date)
+                for i in range(0, MAX_DENOMINATOR_BACK_YEAR + 1):
+                    year = str(numerator_year - i)
+                    if year in denominator:
+                        if denominator[year] > 0:
+                            data[date] = value / denominator[year]
+                        else:
+                            data[date] = 0
+                        break
+            except ValueError:
+                return {}
+
     return data
 
 
@@ -262,11 +280,45 @@ def data(dcid):
                 spec_and_stat[category][topic] = filtered_charts
         if not spec_and_stat[category]:
             del spec_and_stat[category]
+    # For non US places, only keep the "Overview" category if the number of
+    # total chart is less than certain threshold.
+    is_usa_place = False
+    for place in [dcid] + raw_page_data.get('parentPlaces', []):
+        if place == 'country/USA':
+            is_usa_place = True
+            break
+    if not is_usa_place:
+        overview_set = set()
+        non_overview_set = set()
+        chart_count = 0
+        # Get the overview charts
+        for topic, charts in spec_and_stat['Overview'].items():
+            for chart in charts:
+                overview_set.add((topic, chart['title']))
+                chart_count += 1
+        # Get the non overview charts
+        for category, topic_data in spec_and_stat.items():
+            if category == 'Overview':
+                continue
+            for topic in topic_data:
+                if (category, topic) not in overview_set:
+                    non_overview_set.add((category, topic))
+                    chart_count += 1
+        # If the total number of chart is too small, then merge all charts to
+        # the overview category and remove other categories
+        if chart_count < MIN_CHART_TO_KEEP_TOPICS:
+            for category, topic in non_overview_set:
+                spec_and_stat['Overview'][category].append(
+                    spec_and_stat[category][topic])
+            for category in list(spec_and_stat.keys()):
+                if category != 'Overview':
+                    del spec_and_stat[category]
+
     # Get display name for all places
-    allPlaces = [dcid]
+    all_places = [dcid]
     for t in BAR_CHART_TYPES:
-        allPlaces.extend(raw_page_data.get(t + 'Places', []))
-    names = place_api.get_display_name('^'.join(sorted(allPlaces)))
+        all_places.extend(raw_page_data.get(t + 'Places', []))
+    names = place_api.get_display_name('^'.join(sorted(all_places)))
 
     response = {
         'pageChart': spec_and_stat,
