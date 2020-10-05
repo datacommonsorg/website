@@ -335,8 +335,8 @@ const STATS_VAR_TITLES: { [key: string]: string } = {
   Count_Person_25To34Years_EducationalAttainmentGraduateOrProfessionalDegree_Male:
     "Count of Males with Graduate or Professional Degrees",
 
-  "WorldBank/SL_TLF_0714_FE_ZS": "Children Ages 7-14 in Employment (Female)",
-  "WorldBank/SL_TLF_0714_MA_ZS": "Children Ages 7-14 in Employment (Male)",
+  "WorldBank/SL_TLF_0714_FE_ZS": "Children in Employment (Female)",
+  "WorldBank/SL_TLF_0714_MA_ZS": "Children in Employment (Male)",
 
   "WorldBank/SP_DYN_IMRT_FE_IN": "Infant Mortality Rate (Female)",
   "WorldBank/SP_DYN_IMRT_MA_IN": "Infant Mortality Rate (Male)",
