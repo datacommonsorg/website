@@ -122,7 +122,7 @@ class Page extends Component<Record<string, unknown>, PageStateType> {
   private addStatsVar(
     statsVar: string,
     nodePath: string[],
-    denominators?: string[]
+    denominators: string[]
   ): void {
     if (this.params.addStatsVar(statsVar, nodePath, denominators)) {
       getStatsVarInfo(this.params.getStatsVarDcids()).then((data) => {
@@ -199,8 +199,8 @@ class Page extends Component<Record<string, unknown>, PageStateType> {
   }
 
   // set PerCapita for a chart
-  setChartPerCapita(mprop: string, denominator: string): void {
-    if (this.params.setChartPC(mprop, denominator)) {
+  setChartPerCapita(mprop: string, pc: boolean): void {
+    if (this.params.setChartPC(mprop, pc)) {
       this.setState({
         chartOptions: _.cloneDeep(this.params.chartOptions),
       });
@@ -251,9 +251,9 @@ class Page extends Component<Record<string, unknown>, PageStateType> {
                     setPC={this.setChartPerCapita.bind(this)}
                     denominators={Object.entries(
                       this.state.statsVarNodes
-                    ).reduce((res, entry) => {
-                      res[entry[0]] = entry[1].denominators;
-                      return res;
+                    ).reduce((denominators, [dcid, node]) => {
+                      denominators[dcid] = node.denominators;
+                      return denominators;
                     }, {})}
                   ></ChartRegion>
                 </div>

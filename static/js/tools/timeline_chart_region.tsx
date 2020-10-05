@@ -15,7 +15,6 @@
  */
 
 import React, { Component } from "react";
-import _ from "lodash";
 import { StatsData } from "../shared/data_fetcher";
 import { StatsVarInfo, ChartOptions } from "./timeline_util";
 import { saveToFile } from "../shared/util";
@@ -28,7 +27,8 @@ interface ChartRegionPropsType {
   statsVarTitle: Record<string, string>;
   removeStatsVar: (statsVar: string, nodePath?: string[]) => void;
   chartOptions: ChartOptions;
-  setPC: (mprop: string, denominator: string) => void;
+  setPC: (mprop: string, pc: boolean) => void;
+  // mappings from StatVar DCIDs to all their possible per capita denominators
   denominators: { [key: string]: string[] };
 }
 
@@ -63,12 +63,11 @@ class ChartRegion extends Component<ChartRegionPropsType, unknown> {
           const statsVarDcids = groups[groupId];
           const statsVars = {};
           const statsVarTitle = {};
-          const denominators = _.intersection(
-            ...statsVarDcids.map((dcid) => this.props.denominators[dcid])
-          );
+          const denominators = {};
           for (const id of statsVarDcids) {
             statsVars[id] = this.props.statsVars[id];
             statsVarTitle[id] = this.props.statsVarTitle[id];
+            denominators[id] = this.props.denominators[id][0];
           }
           return (
             <Chart
@@ -76,15 +75,15 @@ class ChartRegion extends Component<ChartRegionPropsType, unknown> {
               groupId={groupId}
               places={this.props.places}
               statsVars={statsVars}
+              perCapita={
+                groupId in this.props.chartOptions
+                  ? this.props.chartOptions[groupId].pc
+                  : false
+              }
               onDataUpdate={this.onDataUpdate.bind(this)}
               statsVarTitle={statsVarTitle}
               removeStatsVar={this.props.removeStatsVar}
               setPC={this.props.setPC}
-              denominator={
-                groupId in this.props.chartOptions
-                  ? this.props.chartOptions[groupId].denominator
-                  : ""
-              }
               denominators={denominators}
             ></Chart>
           );

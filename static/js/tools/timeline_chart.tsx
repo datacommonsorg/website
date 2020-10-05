@@ -15,6 +15,7 @@
  */
 
 import React, { Component } from "react";
+import _ from "lodash";
 import { StatsVarInfo } from "./timeline_util";
 import { fetchStatsData, StatsData } from "../shared/data_fetcher";
 import { drawGroupLineChart } from "../chart/draw";
@@ -51,16 +52,16 @@ class StatsVarChip extends Component<StatsVarChipPropsType, unknown> {
 }
 
 interface ChartPropsType {
-  // An array of place dcids.
   groupId: string; // unique identifier of the chart
-  places: Record<string, string>;
+  places: Record<string, string>; // An array of place dcids.
   statsVars: { [key: string]: StatsVarInfo };
+  perCapita: boolean;
   onDataUpdate: (groupId: string, data: StatsData) => void;
   statsVarTitle: Record<string, string>;
   removeStatsVar: (statsVar: string, nodePath?: string[]) => void;
-  setPC: (groupId: string, denominator: string) => void;
-  denominator?: string;
-  denominators?: string[];
+  setPC: (groupId: string, pc: boolean) => void;
+  // mappings from StatVar DCIDs to their per capita denominators
+  denominators: { [key: string]: string };
 }
 
 class Chart extends Component<ChartPropsType, unknown> {
@@ -90,24 +91,16 @@ class Chart extends Component<ChartPropsType, unknown> {
       <div className="card">
         <span className="chartPerCapita">
           Per capita
-          <select
-            className="chartDenominators"
-            onChange={(select) =>
-              this.props.setPC(this.props.groupId, select.target.value)
+          <button
+            className={
+              this.props.perCapita
+                ? "perCapitaCheckbox checked"
+                : "perCapitaCheckbox"
             }
-          >
-            <option value=""></option>
-            {this.props.denominators &&
-              this.props.denominators.map((denom) => (
-                <option
-                  value={denom}
-                  key={denom}
-                  selected={this.props.denominator === denom}
-                >
-                  {denom}
-                </option>
-              ))}
-          </select>
+            onClick={() => {
+              this.props.setPC(this.props.groupId, !this.props.perCapita);
+            }}
+          ></button>
         </span>
         <div ref={this.svgContainer} className="chart-svg"></div>
         <div className="statsVarChipRegion">
@@ -142,7 +135,7 @@ class Chart extends Component<ChartPropsType, unknown> {
   componentWillUnmount(): void {
     window.removeEventListener("resize", this.handleWindowResize);
     // reset the options to default value if the chart is removed
-    this.props.setPC(this.props.groupId, "");
+    this.props.setPC(this.props.groupId, false);
   }
 
   componentDidUpdate(): void {
@@ -160,11 +153,11 @@ class Chart extends Component<ChartPropsType, unknown> {
     fetchStatsData(
       Object.keys(this.props.places),
       Object.keys(this.props.statsVars),
-      false,
+      this.props.perCapita && _.isEmpty(this.props.denominators),
       1,
-      this.props.denominator
-        ? Array(Object.keys(this.props.statsVars).length).fill(
-            this.props.denominator
+      this.props.perCapita && !_.isEmpty(this.props.denominators)
+        ? Object.keys(this.props.statsVars).map(
+            (dcid) => this.props.denominators[dcid] || "Count_Person"
           )
         : [],
       {}

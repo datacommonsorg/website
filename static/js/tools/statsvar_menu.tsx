@@ -45,7 +45,7 @@ interface NodePropType {
   addStatsVar: (
     statsVar: string,
     nodePath: string[],
-    denominators?: string[]
+    denominators: string[]
   ) => void; // function for adding statsVar
   removeStatsVar: (statsVar: string, nodePath?: string[]) => void; // function for removing statsVar
   statsVarFilter: StatsVarFilterInterface; // filtering the statsVar

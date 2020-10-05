@@ -36,15 +36,15 @@ test("test TimelineParams", () => {
   expect(urltest.placeDcids).toStrictEqual(["country/USA"]);
 
   // add one statsVar
-  urltest.addStatsVar("Count_Person", ["0", "0"]);
+  urltest.addStatsVar("Count_Person", ["0", "0"], []);
   expect(urltest.statsVarNodes).toStrictEqual({ Count_Person: [["0", "0"]] });
 
   // add duplicated statsVar
-  urltest.addStatsVar("Count_Person", ["0", "0"]);
+  urltest.addStatsVar("Count_Person", ["0", "0"], []);
   expect(urltest.statsVarNodes).toStrictEqual({ Count_Person: [["0", "0"]] });
 
   // add duplicated statsVar with different Path
-  urltest.addStatsVar("Count_Person", ["0", "5"]);
+  urltest.addStatsVar("Count_Person", ["0", "5"], []);
   expect(urltest.statsVarNodes).toStrictEqual({
     Count_Person: [
       ["0", "0"],
@@ -53,7 +53,7 @@ test("test TimelineParams", () => {
   });
 
   // add one more statsVar
-  urltest.addStatsVar("Median_Age_Person", ["0", "1"]);
+  urltest.addStatsVar("Median_Age_Person", ["0", "1"], []);
   expect(urltest.statsVarNodes).toStrictEqual({
     Count_Person: [
       ["0", "0"],
