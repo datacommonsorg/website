@@ -40,13 +40,10 @@ class BuildTreeTest(unittest.TestCase):
             "GrowthRate_Amount_EconomicActivity_GrossDomesticProduction",
             "Amount_EconomicActivity_GrossDomesticProduction_Nominal",
             "Amount_EconomicActivity_GrossNationalIncome_PurchasingPowerParity",
-            "Count_Person_Upto5Years",
-            "Count_CriminalActivities_Arson",
+            "Count_Person_Upto5Years", "Count_CriminalActivities_Arson",
             "Count_CriminalActivities_ViolentCrime",
-            "Count_CriminalActivities_AggravatedAssault",
-            "Count_CycloneEvent",
-            "Count_EarthquakeEvent",
-            "Count_FloodEvent",
+            "Count_CriminalActivities_AggravatedAssault", "Count_CycloneEvent",
+            "Count_EarthquakeEvent", "Count_FloodEvent",
             "Count_EarthquakeEvent_M3To4",
             "Count_CycloneEvent_ExtratropicalCyclone",
             "Count_Person_EnrolledInGrade1ToGrade4",
@@ -56,6 +53,8 @@ class BuildTreeTest(unittest.TestCase):
             "Count_Person_EducationalAttainmentNurserySchool",
             "Count_Establishment_NAICSTotalAllIndustries",
             "Count_Worker_NAICSTotalAllIndustries",
+            "Count_Person_25OrMoreYears", "Count_Person_EnrolledInSchool",
+            "Count_Person_3OrMoreYears"
         ]
         return sv_dcid
 

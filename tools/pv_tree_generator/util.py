@@ -31,6 +31,21 @@ class ObsProps(object):
         self.same_level = same_level  # the statsVar is at the same level
         # as the value node
 
+    def __str__(self):
+        """Returns a string describing the ObsProps."""
+        return ('ObsProps{'
+                f'stat_type: {self.stat_type}, '
+                f'mprop: {self.mprop}, '
+                f'mdenom: {self.mdenom}, '
+                f'name: {self.name}, '
+                f'key: {self.key}, '
+                f'same_level: {self.same_level}'
+                '}')
+
+    def __repr__(self):
+        """Returns a string describing the ObsProps."""
+        return self.__str__()
+
 
 class PopObsSpec(object):
     """Represents a UI node with multiple statsVars specified in obs_Props"""
@@ -43,6 +58,21 @@ class PopObsSpec(object):
         self.name = name
         self.prop_all = tuple(sorted(cprops + list(dpv.keys())))
         self.obs_props = obs_props  # list of ObsProps
+
+    def __str__(self):
+        """Returns a string describing the PopObsSpec."""
+        return ('PopObsSpec{'
+                f'pop_type: {self.pop_type}, '
+                f'cprops: {self.cprops}, '
+                f'dpv: {self.dpv}, '
+                f'name: {self.name}, '
+                f'prop_all: {self.prop_all}, '
+                f'obs_props: {self.obs_props}'
+                '}')
+
+    def __repr__(self):
+        """Returns a string describing the PopObsSpec."""
+        return self.__str__()
 
 
 class StatsVar(object):
@@ -58,6 +88,22 @@ class StatsVar(object):
         self.key = (pop_type, stats, mprop, mqual, mdenom) + \
             tuple(sorted(list(pv.keys())))
         self.se = se  # super enum
+
+    def __str__(self):
+        """Returns a string describing the StatsVar."""
+        return ('StatsVar{'
+                f'mprop: {self.mprop}, '
+                f'stats: {self.stats}, '
+                f'mqual: {self.mqual}, '
+                f'pv: {self.pv}, '
+                f'dcid: {self.dcid}, '
+                f'key: {self.key}, '
+                f'se: {self.se}, '
+                '}')
+
+    def __repr__(self):
+        """Returns a string describing the StatsVar."""
+        return self.__str__()
 
 
 def read_pop_obs_spec():
