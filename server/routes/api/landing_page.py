@@ -194,11 +194,11 @@ def get_trend(cc, data, place):
         else:
             series[stat_var] = numerator_raw['data']
             sources.add(numerator_raw['provenanceDomain'])
-    if not series:
-        return {}
     for stat_var in list(series.keys()):
         if len(series[stat_var]) <= 1:
             del series[stat_var]
+    if not series:
+        return {}
     return {
         'series': series,
         'sources': list(sources),
