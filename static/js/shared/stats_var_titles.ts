@@ -114,7 +114,7 @@ const STATS_VAR_TITLES: { [key: string]: string } = {
   Count_Person_NativeHawaiianAndOtherPacificIslanderAlone:
     "Population (Native Hawaiian and Pacific Islander)",
   Count_Person_SomeOtherRaceAlone: "Population (Some other race)",
-  Count_Person_TwoOrMoreRaces: "Population (Two or more races)",
+  Count_Person_TwoOrMoreRaces: "Population (Two or More Races)",
   Count_Person_WhiteAlone: "Population (White Alone)",
 
   Median_Age_Person_AmericanIndianOrAlaskaNativeAlone:
@@ -126,7 +126,7 @@ const STATS_VAR_TITLES: { [key: string]: string } = {
   Median_Age_Person_NativeHawaiianAndOtherPacificIslanderAlone:
     "Median Age (Native Hawaiian and Pacific Islander)",
   Median_Age_Person_SomeOtherRaceAlone: "Median Age (Some other race)",
-  Median_Age_Person_TwoOrMoreRaces: "Median Age (Two or more races)",
+  Median_Age_Person_TwoOrMoreRaces: "Median Age (Two or More Races)",
   Median_Age_Person_WhiteAlone: "Median Age (White Alone)",
 
   // income
