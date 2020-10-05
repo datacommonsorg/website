@@ -27,7 +27,9 @@
   <h1>Data Sources</h1>
 <p>
   Data in Data Commons comes from the following sources. Each source
-  often includes different surveys.  The sources (and surveys)
+  often includes different surveys. Some sources/surveys include a
+  very large number of variables, some of which might not yet have
+  been imported into Data Commons. The sources
   are listed alphabetically. 
   </p>
   
@@ -45,6 +47,11 @@
       <a class="nav-link" id="bio-tab" data-toggle="tab" href="#bioDatasets" role="tab" aria-controls="bioDatasets"
         aria-selected="false">Biomedical Data</a>
     </li>
+        <li class="nav-item">
+      <a class="nav-link" id="covid-tab" data-toggle="tab" href="#covidDatasets" role="tab" aria-controls="covidDatasets"
+        aria-selected="false">Covid-19 Data</a>
+    </li>
+
   </ul>
   <div class="tab-content" id="datasetsTabBarContent">
     <div class="tab-pane fade show active" id="usDatasets" role="tabpanel" aria-labelledby="us-tab">
@@ -393,25 +400,6 @@ school district, census tract levels, and more. </li>
             of use</a>.
         </p>
 	  -->
-
-        <h3><a href="https://covidtracking.com/">The COVID Tracking Project</a></h3>
-      <ul>
-	  
-        <li><a href="https://covidtracking.com/about-data">The
-        COVID Tracking Project US State & County Data</a>: The COVID Tracking Project collects, cross-checks, and publishes COVID-19 testing and patient outcome
-          data from 56 US
-          states and territories. 
-	</li>
-      </ul>
-      
-        <p> <a
-            href="http://creativecommons.org/licenses/by-nc/4.0/">Terms
-            of Use</a>
-        </p>
-      </article> <!-- end of id="state-govt-data" -->
-
-      <article id="non-govt-data">
-
         <h3><a href="https://www.dartmouthatlas.org/">The Dartmouth Atlas of Health Care</a></h3>
         <p> The Dartmouth Atlas Project "uses Medicare and Medicaid data to provide information and analysis about
           national,
@@ -426,48 +414,7 @@ school district, census tract levels, and more. </li>
             Terms of Use</a>.
         </p>
 
-        <h3><a href="http://web.stanford.edu/group/deepsolar/home">DeepSolar</a></h3>
-        <p> DeepSolar "analyzes satellite imagery to identify the GPS locations and sizes of solar photovoltaic (PV)
-          panels
-          for
-          the contiguous U.S." Data Commons includes the count and total area of solar arrays at the state, county,
-          and
-          census
-          tract level.
-        </p>
-        <p> Data is publicly available by <a href="http://web.stanford.edu/group/deepsolar/home">The DeepSolar
-            Project</a>.
-        </p>
-
-        <h3>Google Health Reconciled COVID-19 Data</h3>
-        <p> Google Health reconciles COVID data from The COVID Tracking Project, Johns Hopkins University, California
-          Health
-          and
-          Human Services and makes the reconciled dataset publicly available for research and prediction use via Data
-          Commons.
-        </p>
-
-        <h3><a href="https://github.com/nytimes/covid-19-data/">The New York Times Coronavirus (Covid-19) Data in the
-            United
-            States</a></h3>
-        <p> The New York Times releases cumulative counts of coronavirus cases in the United States at the country,
-          state,
-          and
-          county level, over time. The New York Times compiles this time series data from state and local governments
-          and
-          health
-          departments in an attempt to provide a complete record of the ongoing outbreak. Data Commons imports this
-          data
-          and
-          computes incremental counts for users.
-        </p>
-        <p> Data made <a href="https://github.com/nytimes/covid-19-data/blob/master/LICENSE">available for
-            non-commercial
-            purposes
-            only with proper citation</a>.
-        </p>
-
-        <h3><a href="https://opportunityinsights.org/">Collaboration: Opportunity Insights - Outcomes and Neighborhood
+              <h3><a href="https://opportunityinsights.org/">Collaboration: Opportunity Insights - Outcomes and Neighborhood
             Datasets</a></h3>
         <p> Opportunity Insights provides datasets on "social mobility and a variety of other outcomes from life
           expectancy
@@ -492,19 +439,6 @@ school district, census tract levels, and more. </li>
             Data
             Usage</a>.
         </p>
-
-        <h3><a
-            href="https://energy.stanford.edu/research/seed-grants/western-interconnection-data-analytics-project-widap">Collaboration:
-            Western Interconnection Data Analytics (WIDAP) Project</a></h3>
-        <p> Data Commons includes power plants in the Western grid up until 2017, with each power plant's name,
-          latitude,
-          longitude, county, Office of the Regulatory Information System PLant code (ORISPL) code, and the names of
-          its
-          power
-          plant units. The data is made available on Data Commons through a collaboration with the WIDAP project.
-        </p>
-      </article> <!-- end of id="non-govt-data" -->
-    </div>
     <div class="tab-pane fade" id="intlDatasets" role="tabpanel" aria-labelledby="intl-tab">
       <h3><a href="https://ec.europa.eu/eurostat/data/database">Eurostat Database Regional Statistics by NUTS
           Classification</a></h3>
@@ -581,18 +515,7 @@ school district, census tract levels, and more. </li>
           1995 -
           today Copyright Notice.</a>
       </p>
-      <h3><a href="https://www.google.com/covid19/mobility/">Google Community Mobility Reports</a></h3>
-      <p> Google's COVID-19 Community Mobility Reports "chart movement trends over time by geography, across different
-        categories of places such as retail and recreation, groceries and pharmacies, parks, transit stations,
-        workplaces,
-        and
-        residential." Data Commons includes all statistics for countries, US states, and US counties.
-      </p>
-      <p> Data made publicly available under the standard <a href="https://policies.google.com/terms?hl=en">Google
-          Terms
-          of
-          Service</a>.
-      </p>
+
       <h3><a href="https://www.ncdc.noaa.gov/ibtracs/index.php?name=ib-v4-access">NOAA International Best Track
           Archive
           for
@@ -1060,7 +983,66 @@ school district, census tract levels, and more. </li>
         plants,
         fungi, and algae.
       </p>
-    </div>
+</div>
+</div>
+    <div class="tab-pane fade" id="covidDatasets" role="tabpanel"
+      aria-labelledby="covid-tab">
+              <h3><a href="https://covidtracking.com/">The COVID Tracking Project</a></h3>
+      <ul>
+	  
+        <li><a href="https://covidtracking.com/about-data">The
+        COVID Tracking Project US State & County Data</a>: The COVID Tracking Project collects, cross-checks, and publishes COVID-19 testing and patient outcome
+          data from 56 US
+          states and territories. 
+	</li>
+      </ul>
+      
+        <p> <a
+            href="http://creativecommons.org/licenses/by-nc/4.0/">Terms
+            of Use</a>
+        </p>
+      </article> <!-- end of id="state-govt-data" -->
+
+      <article id="non-govt-data">
+
+
+
+	<h3>Google Health Reconciled COVID-19 Data</h3>
+         <ul><li> Google Health reconciles COVID data from The COVID Tracking Project, Johns Hopkins University, California
+          Health
+          and
+          Human Services and makes the reconciled dataset publicly available for research and prediction use via Data
+	   Commons. </li>
+	   </ul>
+        </p>
+
+        <h3><a href="https://github.com/nytimes/covid-19-data/">The New York Times Coronavirus (Covid-19) Data in the
+            United States</a></h3>
+        <ul><li>The New York Times releases cumulative counts of coronavirus cases in the United States at the country,
+          state, and county level, over time. The New York Times compiles this time series data from state and local governments
+          and health departments in an attempt to provide a complete record of the ongoing outbreak. Data Commons imports this
+          data and computes incremental counts for users.
+        </li></ul>
+        <p> Data made <a href="https://github.com/nytimes/covid-19-data/blob/master/LICENSE">available for
+            non-commercial purposes only with proper citation</a>.
+        </p>
+
+	  <h3><a href="https://www.google.com/covid19/mobility/">Google Community Mobility Reports</a></h3>
+	  <ul>
+	    <li>Google's COVID-19 Community Mobility Reports "chart movement trends over time by geography, across different
+        categories of places such as retail and recreation, groceries and pharmacies, parks, transit stations,
+        workplaces,
+        and
+        residential." Data Commons includes all statistics for countries, US states, and US counties.
+	    </li>
+	    </ul>
+      <p> Data made publicly available under the standard <a href="https://policies.google.com/terms?hl=en">Google
+          Terms
+          of
+          Service</a>.
+      </p>
+
+</div>
   </div>
 </div>
 {% endblock %}
