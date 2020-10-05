@@ -45,6 +45,20 @@ const STATS_VAR_TITLES: { [key: string]: string } = {
     "Gross National Income (Purchasing Power Parity) Per Capita",
   Amount_EconomicActivity_GrossNationalIncome_PurchasingPowerParity:
     "Gross National Income (Purchasing Power Parity)",
+  "WorldBank/SL_TLF_0714_ZS": "Children Ages 7-14 in Employment",
+  "WorldBank/SE_XPD_TOTL_GB_ZS":
+    "Government Expenditures on Education (% of Government Expenditures)",
+  "WorldBank/SE_XPD_TOTL_GD_ZS":
+    "Government Expenditures on Education (% of GDP)",
+  "WorldBank/MS_MIL_XPND_CD": "Government Expenditures on Military",
+  "WorldBank/MS_MIL_XPND_GD_ZS":
+    "Government Expenditures on Military (% of GDP)",
+  "WorldBank/CM_MKT_LCAP_CD": "Market Capitalization of Domestic Companies",
+  "WorldBank/CM_MKT_LCAP_GD_ZS":
+    "Market Capitalization of Domestic Companies (% of GDP)",
+  "WorldBank/BX_TRF_PWKR_CD_DT": "Inward Remittance",
+  "WorldBank/BX_TRF_PWKR_DT_GD_ZS": "Inward Remittance (% of GDP)",
+  "WorldBank/BM_TRF_PWKR_CD_DT": "Outward Remittance",
 
   // Environment
   Amount_Consumption_Energy_PerCapita: "Energy comsumption Per Capita",
@@ -140,6 +154,10 @@ const STATS_VAR_TITLES: { [key: string]: string } = {
   Count_Person_Widowed: "Population (Widowed)",
   Count_Person_Separated: "Population (Separated)",
 
+  // living situation
+  "WorldBank/SP_URB_TOTL": "Population (Urban)",
+  "WorldBank/SP_RUR_TOTL": "Population (Rural)",
+
   // education/poulation
   Count_Person_EducationalAttainmentNoSchoolingCompleted:
     "Population (No Schooling)",
@@ -190,6 +208,9 @@ const STATS_VAR_TITLES: { [key: string]: string } = {
   Count_Person_NotAUSCitizen: "Population (Not a Citizen)",
   Count_Person_USCitizenBornAbroadOfAmericanParents: "Population (Born Abroad)",
 
+  // Mortality
+  "WorldBank/SP_DYN_IMRT_IN": "Infant Mortality Rate",
+
   // Mortality cause
   Count_Death_DiseasesOfTheCirculatorySystem:
     "Deaths Caused By Diseases of the Circulatory System",
@@ -210,15 +231,19 @@ const STATS_VAR_TITLES: { [key: string]: string } = {
     "Percentage of People with Mental Health Not Good",
   Percent_Person_WithPhysicalHealthNotGood:
     "Percentage of People with Physical Health Not Good",
+  "WorldBank/SH_STA_WAST_ZS": "Wasting in Children Under 5",
+  "WorldBank/SH_SVR_WAST_ZS": "Severe Wasting in Children Under 5",
 
   // Behaviors
   Percent_Person_SleepLessThan7Hours:
     "Percentage of People Who Sleep Less Than 7 Hours",
   Percent_Person_Obesity: "Percentage of People with Obesity",
-  Percent_Person_BingeDrinking: "Percentage of People with Binge Drinking",
+  Percent_Person_BingeDrinking: "Percentage of People who Binge Drink",
   Percent_Person_PhysicalInactivity:
     "Percentage of People with Physical Inactivity",
-  Percent_Person_Smoking: "Percentage of People who Smoking",
+  Percent_Person_Smoking: "Percentage of People who Smoke",
+  "WorldBank/SH_ALC_PCAP_LI":
+    "Alcohol Consumption Per Capita (15+ Years of Age)",
 
   // Drug Prescribed
   RetailDrugDistribution_DrugDistribution_Oxycodone:
@@ -310,6 +335,19 @@ const STATS_VAR_TITLES: { [key: string]: string } = {
     "Count of Females with Graduate or Professional Degrees",
   Count_Person_25To34Years_EducationalAttainmentGraduateOrProfessionalDegree_Male:
     "Count of Males with Graduate or Professional Degrees",
+
+  "WorldBank/SL_TLF_0714_FE_ZS": "Children Ages 7-14 in Employment (Female)",
+  "WorldBank/SL_TLF_0714_MA_ZS": "Children Ages 7-14 in Employment (Male)",
+
+  "WorldBank/SP_DYN_IMRT_FE_IN": "Infant Mortality Rate (Female)",
+  "WorldBank/SP_DYN_IMRT_MA_IN": "Infant Mortality Rate (Male)",
+
+  "WorldBank/SH_STA_WAST_FE_ZS": "Wasting in Children Under 5 (Female)",
+  "WorldBank/SH_SVR_WAST_FE_ZS": "Severe Wasting in Children Under 5 (Female)",
+  "WorldBank/SH_STA_WAST_MA_ZS": "Wasting in Children Under 5 (Male)",
+  "WorldBank/SH_SVR_WAST_MA_ZS": "Severe Wasting in Children Under 5 (Male",
+
+  "WorldBank/SI_POV_GINI": "Gini Index",
 };
 
 export { STATS_VAR_TITLES };
