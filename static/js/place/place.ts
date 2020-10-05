@@ -19,9 +19,10 @@ import ReactDOM from "react-dom";
 import axios from "axios";
 
 import { ChildPlace } from "./child_places_menu";
+import { MainPane } from "./main";
 import { Menu } from "./topic_menu";
 import { ParentPlace } from "./parent_breadcrumbs";
-import { MainPane } from "./main";
+import { PageSubtitle } from "./page_subtitle";
 import { isPlaceInUsa } from "./util";
 
 import { PageData } from "./types";
@@ -88,14 +89,16 @@ function adjustMenuPosition() {
 function renderPage(dcid: string) {
   const urlParams = new URLSearchParams(window.location.search);
   // Get topic and render menu.
-  const topic = urlParams.get("topic") || "Overview";
+  let topic = urlParams.get("topic") || "Overview";
   const placeName = document.getElementById("place-name").dataset.pn;
   const placeType = document.getElementById("place-type").dataset.pt;
 
   axios.get("/api/landingpage/data/" + dcid).then((resp) => {
     const data: PageData = resp.data;
     const isUsaPlace = isPlaceInUsa(dcid, data.parentPlaces);
-
+    if (Object.keys(data.pageChart).length == 1) {
+      topic = "Overview";
+    }
     ReactDOM.render(
       React.createElement(Menu, {
         pageChart: data.pageChart,
@@ -105,14 +108,18 @@ function renderPage(dcid: string) {
       document.getElementById("topics")
     );
 
-    ReactDOM.render(
-      React.createElement(ParentPlace, {
-        names: data.names,
-        parentPlaces: data.parentPlaces,
-        placeType,
-      }),
-      document.getElementById("place-type")
-    );
+    // Earth has no parent places.
+    if (data.parentPlaces.length > 0) {
+      ReactDOM.render(
+        React.createElement(ParentPlace, {
+          names: data.names,
+          parentPlaces: data.parentPlaces,
+          placeType,
+        }),
+        document.getElementById("place-type")
+      );
+    }
+
     // Readjust sidebar based on parent places.
     updatePageLayoutState();
 
@@ -128,6 +135,14 @@ function renderPage(dcid: string) {
         placeName,
       }),
       document.getElementById("child-place")
+    );
+
+    ReactDOM.render(
+      React.createElement(PageSubtitle, {
+        category: topic,
+        dcid,
+      }),
+      document.getElementById("subtitle")
     );
 
     ReactDOM.render(
