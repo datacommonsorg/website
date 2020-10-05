@@ -245,6 +245,7 @@ class Page extends Component<Record<string, unknown>, PageStateType> {
                     removeStatsVar={this.removeStatsVar.bind(this)}
                     chartOptions={this.state.chartOptions}
                     setPC={this.setChartPerCapita.bind(this)}
+                    initialPC={this.params.allPerCapita}
                   ></ChartRegion>
                 </div>
               )}
