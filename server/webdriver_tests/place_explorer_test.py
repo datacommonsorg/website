@@ -56,7 +56,7 @@ class TestPlaceExplorer(WebdriverBaseTest):
         self.assertEqual("Mountain View", title.text)
         subtitle = self.driver.find_element_by_id("place-type")
         self.assertEqual(
-            "A City in Santa Clara County, California, United States, North America",
+            "A City in Santa Clara County, California, United States of America, North America",
             subtitle.text)
 
     def test_place_search(self):
@@ -90,9 +90,8 @@ class TestPlaceExplorer(WebdriverBaseTest):
         age_across_places_chart = age_charts[1]
         chart_title = age_across_places_chart.find_element_by_tag_name(
             "h4").text
-        self.assertEqual(
-            "Population by Gender across states near California(2018)",
-            chart_title)
+        self.assertEqual("Median Age by Gender: states near California(2018)",
+                         chart_title, chart_title)
 
 
 if __name__ == '__main__':

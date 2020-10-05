@@ -23,31 +23,22 @@ interface OverviewPropType {
    * The place dcid.
    */
   dcid: string;
-  /**
-   * The topic of the current page.
-   */
-  topic: string;
 }
 
 class Overview extends React.Component<OverviewPropType, unknown> {
   render(): JSX.Element {
-    if (!this.props.topic) {
-      return (
-        <React.Fragment>
-          <section className="factoid col-12">
-            <div className="row">
-              <div className="col-12 col-md-4">
-                <Map dcid={this.props.dcid}></Map>
-              </div>
-              <div className="col-12 col-md-8">
-                <Ranking dcid={this.props.dcid}></Ranking>
-              </div>
-            </div>
-          </section>
-        </React.Fragment>
-      );
-    }
-    return <React.Fragment></React.Fragment>;
+    return (
+      <section className="factoid col-12">
+        <div className="row">
+          <div className="col-12 col-md-4">
+            <Map dcid={this.props.dcid}></Map>
+          </div>
+          <div className="col-12 col-md-8">
+            <Ranking dcid={this.props.dcid}></Ranking>
+          </div>
+        </div>
+      </section>
+    );
   }
 }
 

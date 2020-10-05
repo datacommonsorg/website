@@ -18,8 +18,9 @@ import React from "react";
 import { displayNameForPlaceType } from "./util";
 
 interface ParentPlacePropsType {
-  parentPlaces: { dcid: string; name: string; types: string[] }[];
+  parentPlaces: string[];
   placeType: string;
+  names: { string: string };
 }
 
 class ParentPlace extends React.Component<ParentPlacePropsType, unknown> {
@@ -32,18 +33,19 @@ class ParentPlace extends React.Component<ParentPlacePropsType, unknown> {
     return (
       <React.Fragment>
         <span>A {displayNameForPlaceType(this.props.placeType)} in </span>
-        {this.props.parentPlaces.map((item, index) => {
-          if (item.types[0] === "Continent") {
-            return <span key={item.dcid}>{item.name}</span>;
+        {this.props.parentPlaces.map((dcid, index) => {
+          const name = this.props.names[dcid].split(",")[0];
+          if (index === num - 1) {
+            return <span key={dcid}>{name}</span>;
           }
           return (
-            <React.Fragment key={item.dcid}>
+            <React.Fragment key={dcid}>
               <a
                 className="place-links"
                 href="#"
-                onClick={this._handleClick.bind(this, item.dcid)}
+                onClick={this._handleClick.bind(this, dcid)}
               >
-                {item.name}
+                {name}
               </a>
               {index < num - 1 && <span>, </span>}
             </React.Fragment>

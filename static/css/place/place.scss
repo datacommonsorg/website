@@ -16,6 +16,7 @@
 
 @import "../base";
 @import "../draw";
+@import "../draw_choropleth";
 @import "place_search";
 
 $vertical-section-border: 1px solid var(--dc-gray-lite);
@@ -195,7 +196,7 @@ $chart-border: 0.5px solid #dee2e6;
 
 .factoid footer,
 .chart-container footer {
-  font-size: 0.5rem;
+  font-size: 0.7rem;
   color: var(--dc-gray);
   margin-top: 0.5rem;
 }
@@ -277,7 +278,7 @@ $chart-border: 0.5px solid #dee2e6;
   display: flex;
   justify-content: space-between;
   align-items: center;
-  padding: 0 4px;
+  padding: 0 10px;
 }
 
 .outlinks a {
@@ -314,13 +315,22 @@ $chart-border: 0.5px solid #dee2e6;
   display: none;
 }
 
-.modal .copy-svg {
+.modal .modal-chart-container > svg {
+  visibility: hidden;
+}
+
+.modal .modal-chart-container img {
+  border-radius: 3px;
+  border: $chart-border;
+}
+
+.modal textarea {
   background: #efefef;
   border-radius: 3px;
   border: $chart-border;
   display: flex;
   font-family: monospace;
-  height: 6rem;
+  height: 8rem;
   margin: auto;
   padding: .5rem;
 }

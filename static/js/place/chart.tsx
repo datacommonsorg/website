@@ -22,17 +22,8 @@ import {
   drawStackBarChart,
   drawGroupBarChart,
 } from "../chart/draw";
-import { CachedStatVarDataMap, fetchStatsData } from "../shared/data_fetcher";
 import { STATS_VAR_LABEL } from "../shared/stats_var_labels";
-import {
-  CONTINENTS,
-  ConfigType,
-  axisEnum,
-  chartTypeEnum,
-  childPlacesType,
-  parentPlacesType,
-  placeRelationEnum,
-} from "./types";
+import { chartTypeEnum, TrendData, SnapshotData } from "./types";
 import { updatePageLayoutState } from "./place";
 import { ChartEmbed } from "./chart_embed";
 
@@ -52,40 +43,43 @@ interface ChartPropType {
    */
   placeType: string;
   /**
-   * An object of the chart config.
+   * The chart title
    */
-  config: ConfigType;
+  title: string;
   /**
-   * The parent places object array.
-   *
-   * Parent object are sorted by enclosing order. For example:
-   * "San Jose", "Santa Clara County", "California"
+   * Time series data
    */
-  parentPlaces: parentPlacesType;
+  trend?: TrendData;
   /**
-   * The child places keyed by place type.
+   * Snapshot data
    */
-  childPlaces: childPlacesType;
+  snapshot?: SnapshotData;
   /**
-   * The similar places.
+   * The chart type, could be line, single bar or group bar chart.
    */
-  similarPlaces: string[];
+  chartType: string;
   /**
-   * The nearby places.
+   * The unit of stat value
    */
-  nearbyPlaces: string[];
+  unit: string;
   /**
-   * Cached stat var data for filling in charts.
+   * All place names
    */
-  chartData: CachedStatVarDataMap;
+  names: { [key: string]: string };
+  /**
+   * Scale number
+   */
+  scaling?: number;
+  /**
+   * All stats vars for this chart
+   */
+  statsVars: string[];
 }
 
 interface ChartStateType {
   dataPoints?: DataPoint[];
   dataGroups?: DataGroup[];
   elemWidth: number;
-  dateSelected?: string;
-  sources: string[];
   display: boolean;
   showModal: boolean;
 }
@@ -106,53 +100,31 @@ class Chart extends React.Component<ChartPropType, ChartStateType> {
       display: true,
       elemWidth: 0,
       showModal: false,
-      sources: [],
     };
     // Consider debouncing / throttling this if it gets expensive at
     // small screen sizes
     this._handleWindowResize = this._handleWindowResize.bind(this);
     this._handleEmbed = this._handleEmbed.bind(this);
-    this.dcid = props.dcid;
-  }
-
-  showParent(): boolean {
-    return (
-      this.props.parentPlaces.length > 0 &&
-      !CONTINENTS.has(this.props.parentPlaces[0].dcid)
-    );
   }
 
   render(): JSX.Element {
     if (!this.state.display) {
       return null;
     }
-    const config = this.props.config;
-    const dateString = this.state.dateSelected
-      ? "(" + this.state.dateSelected + ")"
+    const dateString = this.props.snapshot
+      ? "(" + this.props.snapshot.date + ")"
       : "";
-    if (
-      this.props.config.placeRelation === placeRelationEnum.CONTAINED &&
-      this.props.parentPlaces.length === 0
-    ) {
-      return null;
-    }
-    if (
-      this.props.config.placeRelation === placeRelationEnum.CONTAINING &&
-      Object.keys(this.props.childPlaces).length === 0
-    ) {
-      return null;
-    }
-    if (
-      this.props.config.placeRelation === placeRelationEnum.SIMILAR &&
-      this.props.similarPlaces.length === 1
-    ) {
-      return null;
-    }
+    const sources = this.props.trend
+      ? this.props.trend.sources
+      : this.props.snapshot.sources;
+    const exploreUrl = this.props.trend
+      ? this.props.trend.exploreUrl
+      : this.props.snapshot.exploreUrl;
     return (
       <div className="col">
         <div className="chart-container" ref={this.chartElement}>
           <h4>
-            {config.title}
+            {this.props.title}
             <span className="sub-title">{dateString}</span>
           </h4>
           <div
@@ -163,13 +135,13 @@ class Chart extends React.Component<ChartPropType, ChartStateType> {
           <footer className="row explore-more-container">
             <div>
               <span>Data from </span>
-              {this.state.sources.map((source, index) => {
+              {sources.map((source, index) => {
                 // TDOO(shifucun): Use provenance name and url from cache data
                 // https://github.com/datacommonsorg/website/issues/429
                 return (
                   <span key={source}>
                     <a href={"https://" + source}>{source}</a>
-                    {index < this.state.sources.length - 1 ? ", " : ""}
+                    {index < sources.length - 1 ? ", " : ""}
                   </span>
                 );
               })}
@@ -180,9 +152,9 @@ class Chart extends React.Component<ChartPropType, ChartStateType> {
             </div>
             <div className="outlinks">
               <a href="#" onClick={this._handleEmbed}>
-                Embed
+                Export
               </a>
-              <a className="explore-more" href={config.exploreUrl}>
+              <a className="explore-more" href={exploreUrl}>
                 Explore More ›
               </a>
             </div>
@@ -194,33 +166,6 @@ class Chart extends React.Component<ChartPropType, ChartStateType> {
   }
 
   componentDidUpdate(): void {
-    if (!this.state.display) {
-      return;
-    }
-    const dp = this.state.dataPoints;
-    const dg = this.state.dataGroups;
-    if (
-      (dp && dp.length === 0) ||
-      (dg &&
-        (dg.length === 0 || (dg.length === 1 && dg[0].value.length === 0))) ||
-      (this.props.config.chartType == "LINE" &&
-        dg &&
-        dg.reduce((accum, group) => {
-          return accum || group.value.length === 1;
-        }, false)) ||
-      (this.props.config.placeRelation === placeRelationEnum.CONTAINED &&
-        dg &&
-        dg.length === 1)
-    ) {
-      // When there is no data, do not show the current chart.
-      console.log(
-        `no data for ${this.props.dcid}: ${this.props.config.statsVars}`
-      );
-      this.setState({
-        display: false,
-      });
-      return;
-    }
     // Draw chart.
     try {
       this.drawChart();
@@ -236,7 +181,7 @@ class Chart extends React.Component<ChartPropType, ChartStateType> {
 
   componentDidMount(): void {
     window.addEventListener("resize", this._handleWindowResize);
-    this.fetchData();
+    this.processData();
   }
 
   private _handleWindowResize(): void {
@@ -273,20 +218,26 @@ class Chart extends React.Component<ChartPropType, ChartStateType> {
     e: React.MouseEvent<HTMLAnchorElement, MouseEvent>
   ): void {
     e.preventDefault();
-    // Node does not have innerHTML property so we need to pass both in.
     const svgElems = this.svgContainerElement.current.getElementsByTagName(
       "svg"
     );
-    let svgHtml: string;
+    let svgXml: string;
     if (svgElems.length) {
-      svgHtml = svgElems.item(0).innerHTML;
+      svgXml = svgElems.item(0).outerHTML;
     }
-    const svgDom = this.chartElement.current.cloneNode(true);
-    this.embedModalElement.current.show(svgHtml, svgDom, this.dataCsv());
+    this.embedModalElement.current.show(
+      svgXml,
+      this.dataCsv(),
+      this.svgContainerElement.current.offsetWidth,
+      CHART_HEIGHT,
+      this.props.title,
+      this.props.snapshot ? this.props.snapshot.date : "",
+      this.props.snapshot ? this.props.snapshot.sources : []
+    );
   }
 
   drawChart(): void {
-    const chartType = this.props.config.chartType;
+    const chartType = this.props.chartType;
     const elem = document.getElementById(this.props.id);
     elem.innerHTML = "";
     if (chartType === chartTypeEnum.LINE) {
@@ -295,7 +246,7 @@ class Chart extends React.Component<ChartPropType, ChartStateType> {
         elem.offsetWidth,
         CHART_HEIGHT,
         this.state.dataGroups,
-        this.props.config.unit
+        this.props.unit
       );
       if (!isCompleteLine) {
         this.chartElement.current.querySelectorAll(
@@ -308,7 +259,7 @@ class Chart extends React.Component<ChartPropType, ChartStateType> {
         elem.offsetWidth,
         CHART_HEIGHT,
         this.state.dataPoints,
-        this.props.config.unit
+        this.props.unit
       );
     } else if (chartType === chartTypeEnum.STACK_BAR) {
       drawStackBarChart(
@@ -316,7 +267,7 @@ class Chart extends React.Component<ChartPropType, ChartStateType> {
         elem.offsetWidth,
         CHART_HEIGHT,
         this.state.dataGroups,
-        this.props.config.unit
+        this.props.unit
       );
     } else if (chartType === chartTypeEnum.GROUP_BAR) {
       drawGroupBarChart(
@@ -324,134 +275,98 @@ class Chart extends React.Component<ChartPropType, ChartStateType> {
         elem.offsetWidth,
         CHART_HEIGHT,
         this.state.dataGroups,
-        this.props.config.unit
+        this.props.unit
       );
     }
   }
 
-  async fetchData(): Promise<void> {
-    const dcid = this.dcid;
-    const config = this.props.config;
-    const chartType = config.chartType;
-    const perCapita = !!config.perCapita;
-    let scaling = 1;
-    if (config.scaling) {
-      scaling = config.scaling;
+  private expandDataPoints(
+    dataPoints: DataPoint[],
+    dates: Set<string>
+  ): DataPoint[] {
+    const result: DataPoint[] = dataPoints;
+    for (const dp of dataPoints) {
+      if (dates.has(dp.label)) {
+        dates.delete(dp.label);
+      }
     }
-    switch (chartType) {
+    dates.forEach((date) => {
+      result.push({ label: date, value: null });
+    });
+
+    result.sort(function (a, b) {
+      return a.label > b.label ? -1 : 1;
+    });
+    return result;
+  }
+
+  private processData(): void {
+    const dataGroups: DataGroup[] = [];
+    const dataPoints: DataPoint[] = [];
+    const allDates = new Set<string>();
+    const scaling = this.props.scaling ? this.props.scaling : 1;
+    switch (this.props.chartType) {
       case chartTypeEnum.LINE:
-        fetchStatsData(
-          [dcid],
-          config.statsVars,
-          perCapita,
-          scaling,
-          config.denominator,
-          this.props.chartData
-        ).then((data) => {
-          const dataGroups = data.getStatsVarGroupWithTime(dcid);
-          for (const dataGroup of dataGroups) {
-            dataGroup.label = STATS_VAR_LABEL[dataGroup.label];
+        for (const statVar in this.props.trend.series) {
+          const dataPoints: DataPoint[] = [];
+          for (const date in this.props.trend.series[statVar]) {
+            allDates.add(date);
+            dataPoints.push({
+              label: date,
+              value: this.props.trend.series[statVar][date] * scaling,
+            });
           }
-          this.setState({
-            dataGroups,
-            sources: Array.from(data.sources),
-          });
+          dataGroups.push(new DataGroup(STATS_VAR_LABEL[statVar], dataPoints));
+        }
+        for (let i = 0; i < dataGroups.length; i++) {
+          dataGroups[i].value = this.expandDataPoints(
+            dataGroups[i].value,
+            allDates
+          );
+        }
+        this.setState({
+          dataGroups,
         });
         break;
       case chartTypeEnum.SINGLE_BAR:
-        fetchStatsData(
-          [dcid],
-          config.statsVars,
-          perCapita,
-          scaling,
-          config.denominator,
-          this.props.chartData
-        ).then((data) => {
-          this.setState({
-            dataPoints: data.getStatsPoint(dcid),
-            dateSelected: data.latestCommonDate,
-            sources: Array.from(data.sources),
-          });
+        {
+          const snapshotData = this.props.snapshot.data[0];
+          for (const statVar in snapshotData.data) {
+            dataPoints.push({
+              label: STATS_VAR_LABEL[statVar],
+              value: snapshotData.data[statVar] * scaling,
+              dcid: snapshotData.dcid,
+            });
+          }
+        }
+        this.setState({
+          dataPoints,
         });
         break;
       case chartTypeEnum.GROUP_BAR:
       // Fall-through
       case chartTypeEnum.STACK_BAR:
-        switch (config.axis) {
-          case axisEnum.PLACE: {
-            let places: string[];
-            if (
-              this.props.config.placeRelation === placeRelationEnum.CONTAINED
-            ) {
-              places = [
-                dcid,
-                ...this.props.parentPlaces.map((parent) => parent.dcid),
-              ];
-            } else if (
-              this.props.config.placeRelation === placeRelationEnum.CONTAINING
-            ) {
-              // Choose the place type that has the highest average
-              // population
-              let avgPop = 0;
-              for (const placeType in this.props.childPlaces) {
-                const children = this.props.childPlaces[placeType];
-                const pop =
-                  children
-                    .map((place) => place["pop"])
-                    .reduce(function (a, b) {
-                      return a + b;
-                    }, 0) / children.length;
-                if (pop > avgPop) {
-                  avgPop = pop;
-                  places = children.slice(0, 5).map((place) => place.dcid);
-                }
-              }
-            } else if (
-              this.props.config.placeRelation === placeRelationEnum.SIMILAR
-            ) {
-              places = this.props.similarPlaces;
-            } else if (
-              this.props.config.placeRelation === placeRelationEnum.NEARBY
-            ) {
-              places = this.props.nearbyPlaces;
-            }
-            fetchStatsData(
-              places,
-              config.statsVars,
-              perCapita,
-              scaling,
-              config.denominator,
-              this.props.chartData
-            ).then((data) => {
-              this.setState({
-                dataGroups: data.getPlaceGroupWithStatsVar(
-                  null,
-                  (dcid) => `/place?dcid=${dcid}`
-                ),
-                dateSelected: data.latestCommonDate,
-                sources: Array.from(data.sources),
-              });
+        for (const placeData of this.props.snapshot.data) {
+          const dataPoints: DataPoint[] = [];
+          for (const statVar of this.props.statsVars) {
+            const val = placeData.data[statVar];
+            dataPoints.push({
+              label: STATS_VAR_LABEL[statVar],
+              value: val ? val * scaling : null,
+              dcid: placeData.dcid,
             });
-            break;
           }
-          case axisEnum.TIME:
-          // Fall-through;
-          default:
-            fetchStatsData(
-              [dcid],
-              config.statsVars,
-              perCapita,
-              scaling,
-              config.denominator,
-              this.props.chartData
-            ).then((data) => {
-              this.setState({
-                dataGroups: data.getTimeGroupWithStatsVar(dcid),
-                sources: Array.from(data.sources),
-              });
-            });
-            break;
+          dataGroups.push(
+            new DataGroup(
+              this.props.names[placeData.dcid],
+              dataPoints,
+              `/place?dcid=${placeData.dcid}`
+            )
+          );
         }
+        this.setState({
+          dataGroups: dataGroups,
+        });
         break;
       default:
         break;

@@ -21,51 +21,59 @@ export const chartTypeEnum = {
   GROUP_BAR: "GROUP_BAR",
 };
 
-export const axisEnum = {
-  TIME: "TIME",
-  PLACE: "PLACE",
-};
-
-export const CONTINENTS = new Set([
-  "africa",
-  "antarctica",
-  "northamerica",
-  "oceania",
-  "europe",
-  "asia",
-  "southamerica",
-]);
-
-export const placeRelationEnum = {
-  CONTAINING: "CONTAINING",
-  CONTAINED: "CONTAINED",
-  SIMILAR: "SIMILAR",
-  NEARBY: "NEARBY",
-};
-
-export interface ConfigType {
-  title: string;
-  chartType: string;
-  statsVars: string[];
-  denominator: string[];
-  source: string;
-  url: string;
-  axis: string;
-  scaling: number;
-  perCapita: boolean;
-  unit: string;
-  exploreUrl: string;
-  placeRelation?: string;
-  relatedChart: { scale: boolean; denominator: string };
+export interface Series {
+  [key: string]: number;
 }
 
-export type parentPlacesType = { dcid: string; name: string }[];
-export type childPlacesType = {
-  [type: string]: { dcid: string; name: string; pop: number }[];
-};
+export interface TrendData {
+  series: { string: Series };
+  sources: string[];
+  exploreUrl: string;
+}
 
-export interface ChartCategory {
-  label: string;
-  charts: ConfigType[];
-  children: { label: string; charts: ConfigType[] }[];
+export interface SnapshotData {
+  date: string;
+  data: {
+    dcid: string;
+    name: string;
+    data: { string: number };
+  }[];
+  sources: string[];
+  exploreUrl: string;
+}
+
+export interface ChartBlockData {
+  title: string;
+  statsVars: string[];
+  unit: string;
+  trend: TrendData;
+  parent: SnapshotData;
+  similar: SnapshotData;
+  nearby: SnapshotData;
+  child: SnapshotData;
+  relatedChart: {
+    title?: string;
+    scale: boolean;
+    scaling?: number;
+    unit?: string;
+  };
+  scaling: number;
+}
+
+export interface PageChart {
+  [key: string]: {
+    [key: string]: ChartBlockData[];
+  };
+}
+
+export interface PageData {
+  pageChart: PageChart;
+  allChildPlaces: {
+    string: string[];
+  };
+  childPlaces: string[];
+  parentPlaces: string[];
+  similarPlaces: string[];
+  nearbyPlaces: string[];
+  names: { string: string };
 }
