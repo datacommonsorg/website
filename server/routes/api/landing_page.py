@@ -52,12 +52,15 @@ def get_landing_page_data(dcid, stat_vars):
     return response
 
 
-def build_url(dcids, stats_vars):
+def build_url(dcids, stats_vars, is_scaled=False):
     anchor = '&place={}&statsVar={}'.format(','.join(dcids),
                                             '__'.join(stats_vars))
+    if is_scaled:
+        anchor = anchor + '&pc=1'
     return urllib.parse.unquote(url_for('tools.timeline', _anchor=anchor))
 
 
+# TODO: add test for chart_config for assumption that each combination of stat vars will only have one config in chart_config.
 def build_spec(chart_config):
     """Builds hierachical spec based on chart config."""
     spec = defaultdict(lambda: defaultdict(list))
@@ -173,7 +176,10 @@ def get_bar(cc, data, places):
     # so client won't draw chart.
     if len(result['data']) <= 1:
         return {}
-    result['exploreUrl'] = build_url(places, cc['statsVars'])
+    is_scaled = (('relatedChart' in cc and
+                  cc['relatedChart'].get('scale', False)) or
+                 ('denominator' in cc))
+    result['exploreUrl'] = build_url(places, cc['statsVars'], is_scaled)
     return result
 
 
@@ -211,10 +217,12 @@ def get_trend(cc, data, place):
             del series[stat_var]
     if not series:
         return {}
+
+    is_scaled = ('denominator' in cc)
     return {
         'series': series,
         'sources': list(sources),
-        'exploreUrl': build_url([place], cc['statsVars'])
+        'exploreUrl': build_url([place], cc['statsVars'], is_scaled)
     }
 
 
