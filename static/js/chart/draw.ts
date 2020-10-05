@@ -228,7 +228,8 @@ function addYAxis(
           const dollar = unit === "$" ? "$" : "";
           const percent = unit === "%" ? "%" : "";
           const grams = unit === "g" ? "g" : "";
-          return `${dollar}${tText}${percent}${grams}`;
+          const liters = unit === "L" ? "L" : "";
+          return `${dollar}${tText}${percent}${grams}${liters}`;
         })
     )
     .call((g) => g.select(".domain").remove())
