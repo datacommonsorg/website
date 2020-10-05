@@ -25,6 +25,7 @@ import services.datacommons as dc_service
 import routes.api.place as place_api
 import os
 import routes.api.choropleth as choropleth_api
+import routes.api.landing_page as landing_page_api
 
 from cache import cache
 from flask import Blueprint, current_app, Response, url_for, jsonify
@@ -541,12 +542,17 @@ def choropleth_data(dcid):
                 else:
                     geo_data[geo] = sv_data[geo][sv_date]
                     num_data_points += 1
+            exploreUrl = None
+            if denom_data:
+                exploreUrl = landing_page_api.build_url([dcid], [sv], True)
+            else:
+                exploreUrl = landing_page_api.build_url([dcid], [sv])
             sv_denom_result = {
                 'date': sv_date,
                 'data': geo_data,
                 'numDataPoints': num_data_points,
                 # TODO (chejennifer): exploreUrl should link to choropleth tool once the tool is ready
-                'exploreUrl': build_url(dcid, [sv])
+                'exploreUrl': exploreUrl
             }
             result[key] = sv_denom_result
     return Response(json.dumps(result), 200, mimetype='application/json')

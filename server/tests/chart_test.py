@@ -368,7 +368,7 @@ class TestChoroplethDataHelpers(unittest.TestCase):
 
 class TestChoroplethData(unittest.TestCase):
 
-    @patch('routes.api.chart.build_url')
+    @patch('routes.api.chart.landing_page_api.build_url')
     @patch('routes.api.chart.get_latest_common_date_for_sv')
     @patch('routes.api.chart.get_data_for_statvar')
     @patch('routes.api.chart.dc_service.get_stats_all')
@@ -440,9 +440,10 @@ class TestChoroplethData(unittest.TestCase):
         test_url2 = 'test/url/2'
 
         def build_url_side_effect(*args):
-            if args[0] == test_dcid and args[1] == ['StatVar1']:
+            if args[0] == [test_dcid] and args[1] == ['StatVar1']:
                 return test_url
-            elif args[0] == test_dcid and args[1] == ['StatVar3']:
+            elif args[0] == [test_dcid] and args[1] == ['StatVar3'
+                                                       ] and args[2] == True:
                 return test_url2
             else:
                 return None
