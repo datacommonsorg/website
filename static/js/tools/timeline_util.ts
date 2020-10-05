@@ -95,6 +95,7 @@ class TimelineParams {
   urlParams: URLSearchParams;
   listenHashChange: boolean;
   chartOptions: ChartOptions;
+  allPerCapita: boolean;
 
   constructor() {
     this.statsVarNodes = {};
@@ -109,7 +110,7 @@ class TimelineParams {
     this.chartOptions = {};
   }
 
-  // set PerCaptia for a chart
+  // set PerCapita for a chart
   public setChartPC(groupId: string, pc: boolean): boolean {
     if (!this.chartOptions || !(groupId in this.chartOptions)) {
       this.chartOptions[groupId] = { pc: pc };
@@ -203,8 +204,9 @@ class TimelineParams {
 
   // set chartOptions in url
   public setUrlChartOptions(): void {
-    const chartOptions = encodeURIComponent(JSON.stringify(this.chartOptions));
+    const chartOptions = JSON.stringify(this.chartOptions);
     this.urlParams.set("chart", chartOptions);
+    this.urlParams.delete("pc");
     this.listenHashChange = false;
     window.location.hash = this.urlParams.toString();
   }
@@ -245,7 +247,7 @@ class TimelineParams {
     if (statsVars) {
       for (const statsVarString of statsVars.split(statsVarSep)) {
         const statsVarInfo = statsVarString.split(nodePathSep);
-        // if statsVar path is not include in url
+        // if statsVar path is not included in url
         // load the path from pre-built map
         if (statsVarInfo.length === 1) {
           if (statsVarInfo[0] in statsVarPathMap) {
@@ -261,9 +263,11 @@ class TimelineParams {
         }
       }
     }
-    const chartOptions = JSON.parse(
-      decodeURIComponent(this.urlParams.get("chart"))
-    );
+
+    // set per-capita for links from place-explorer
+    const pc = this.urlParams.get("pc");
+    this.allPerCapita = pc !== null && pc !== "0";
+    const chartOptions = JSON.parse(this.urlParams.get("chart"));
     if (chartOptions) {
       this.chartOptions = chartOptions;
     } else {
