@@ -65,6 +65,9 @@ def build_spec(chart_config):
         config = copy.deepcopy(conf)
         is_overview = ('isOverview' in config and config['isOverview'])
         category = config['category']
+        if 'isOverview' in config:
+            del config['isOverview']
+        del config['category']
         if is_overview:
             spec[OVERVIEW][category].append(config)
         spec[category][config['title']].append(config)
