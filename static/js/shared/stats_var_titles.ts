@@ -28,7 +28,7 @@ const STATS_VAR_TITLES: { [key: string]: string } = {
   Count_Person_Employed: "Count of Employed People",
   Count_Person_InLaborForce: "Count of People in Labor Force",
   Count_Person: "Population",
-  Count_Person_PerArea: "Person per Area",
+  Count_Person_PerArea: "Person Per Area",
   LifeExpectancy_Person: "Life Expectancy",
   GrowthRate_Count_Person: "Population Growth Rate",
   FertilityRate_Person_Female: "Fertility Rate",
@@ -61,7 +61,7 @@ const STATS_VAR_TITLES: { [key: string]: string } = {
   "WorldBank/BM_TRF_PWKR_CD_DT": "Outward Remittance",
 
   // Environment
-  Amount_Consumption_Energy_PerCapita: "Energy comsumption Per Capita",
+  Amount_Consumption_Energy_PerCapita: "Energy Consumption Per Capita",
   Amount_Emissions_CarbonDioxide_PerCapita:
     "Carbon Dioxide Emissions Per Capita",
   Amount_Consumption_Electricity_PerCapita:
@@ -231,8 +231,8 @@ const STATS_VAR_TITLES: { [key: string]: string } = {
     "Percentage of People with Mental Health Not Good",
   Percent_Person_WithPhysicalHealthNotGood:
     "Percentage of People with Physical Health Not Good",
-  "WorldBank/SH_STA_WAST_ZS": "Wasting in Children Under 5",
-  "WorldBank/SH_SVR_WAST_ZS": "Severe Wasting in Children Under 5",
+  "WorldBank/SH_STA_WAST_ZS": "Wasting among Children under 5",
+  "WorldBank/SH_SVR_WAST_ZS": "Severe Wasting among Children under 5",
 
   // Behaviors
   Percent_Person_SleepLessThan7Hours:
@@ -242,8 +242,7 @@ const STATS_VAR_TITLES: { [key: string]: string } = {
   Percent_Person_PhysicalInactivity:
     "Percentage of People with Physical Inactivity",
   Percent_Person_Smoking: "Percentage of People who Smoke",
-  "WorldBank/SH_ALC_PCAP_LI":
-    "Alcohol Consumption Per Capita (15+ Years of Age)",
+  "WorldBank/SH_ALC_PCAP_LI": "Alcohol Consumption Per Capita (Annual)",
 
   // Drug Prescribed
   RetailDrugDistribution_DrugDistribution_Oxycodone:
@@ -342,10 +341,11 @@ const STATS_VAR_TITLES: { [key: string]: string } = {
   "WorldBank/SP_DYN_IMRT_FE_IN": "Infant Mortality Rate (Female)",
   "WorldBank/SP_DYN_IMRT_MA_IN": "Infant Mortality Rate (Male)",
 
-  "WorldBank/SH_STA_WAST_FE_ZS": "Wasting in Children Under 5 (Female)",
-  "WorldBank/SH_SVR_WAST_FE_ZS": "Severe Wasting in Children Under 5 (Female)",
-  "WorldBank/SH_STA_WAST_MA_ZS": "Wasting in Children Under 5 (Male)",
-  "WorldBank/SH_SVR_WAST_MA_ZS": "Severe Wasting in Children Under 5 (Male",
+  "WorldBank/SH_STA_WAST_FE_ZS": "Wasting among Children under 5 (Female)",
+  "WorldBank/SH_SVR_WAST_FE_ZS":
+    "Severe Wasting among Children under 5 (Female)",
+  "WorldBank/SH_STA_WAST_MA_ZS": "Wasting among Children under 5 (Male)",
+  "WorldBank/SH_SVR_WAST_MA_ZS": "Severe Wasting among Children under 5 (Male)",
 
   "WorldBank/SI_POV_GINI": "Gini Index",
 };

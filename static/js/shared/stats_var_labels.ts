@@ -28,7 +28,7 @@ const STATS_VAR_LABEL: { [key: string]: string } = {
   Count_Person_Employed: "Employed People",
   Count_Person_InLaborForce: "People in Labor Force",
   Count_Person: "Total",
-  Count_Person_PerArea: "Person per Area",
+  Count_Person_PerArea: "Persons Per Area",
   LifeExpectancy_Person: "Life Expectancy",
   GrowthRate_Count_Person: "Population Growth Rate",
   FertilityRate_Person_Female: "Fertility Rate",
@@ -58,10 +58,9 @@ const STATS_VAR_LABEL: { [key: string]: string } = {
   "WorldBank/BM_TRF_PWKR_CD_DT": "Outward Remittance",
 
   // Environment
-  Amount_Consumption_Energy_PerCapita: "Energy comsumption Per Capita",
-  Amount_Emissions_CarbonDioxide_PerCapita: "CO2 Emissions Per Capita",
-  Amount_Consumption_Electricity_PerCapita:
-    "Electricity Consumption Per Capita",
+  Amount_Consumption_Energy_PerCapita: "Energy Consumption",
+  Amount_Emissions_CarbonDioxide_PerCapita: "CO2 Emissions",
+  Amount_Consumption_Electricity_PerCapita: "Electricity Consumption",
   Count_EarthquakeEvent: "Earthquake",
   Count_CycloneEvent: "Cyclone",
   Count_StormSurgeTideEvent: "Storm Surge Tide",
@@ -106,7 +105,7 @@ const STATS_VAR_LABEL: { [key: string]: string } = {
   Count_Person_HispanicOrLatino: "Hispanic or Latino",
   Count_Person_NativeHawaiianAndOtherPacificIslanderAlone:
     "Native Hawaiian and Pacific Islander",
-  Count_Person_SomeOtherRaceAlone: "Some other race",
+  Count_Person_SomeOtherRaceAlone: "SomeOther Race",
   Count_Person_TwoOrMoreRaces: "Two or more races",
   Count_Person_WhiteAlone: "White Alone",
   Median_Age_Person_AmericanIndianOrAlaskaNativeAlone:
@@ -116,7 +115,7 @@ const STATS_VAR_LABEL: { [key: string]: string } = {
   Median_Age_Person_HispanicOrLatino: "Hispanic or Latino",
   Median_Age_Person_NativeHawaiianAndOtherPacificIslanderAlone:
     "Native Hawaiian and Pacific Islander",
-  Median_Age_Person_SomeOtherRaceAlone: "Some other race",
+  Median_Age_Person_SomeOtherRaceAlone: "SomeOther Race",
   Median_Age_Person_TwoOrMoreRaces: "Two or more races",
   Median_Age_Person_WhiteAlone: "White Alone",
   // income
@@ -135,8 +134,8 @@ const STATS_VAR_LABEL: { [key: string]: string } = {
   Count_Person_Widowed: "Widowed",
   Count_Person_Separated: "Separated",
   // living situation
-  "WorldBank/SP_URB_TOTL": "Urban",
-  "WorldBank/SP_RUR_TOTL": "Rural",
+  "WorldBank/SP_URB_TOTL": "Urban Population",
+  "WorldBank/SP_RUR_TOTL": "Rural Population",
   // education/poulation
   Count_Person_EducationalAttainmentNoSchoolingCompleted: "No Schooling",
   Count_Person_EducationalAttainmentRegularHighSchoolDiploma: "High School",
@@ -181,15 +180,15 @@ const STATS_VAR_LABEL: { [key: string]: string } = {
   Percent_Person_WithArthritis: "Arthritis",
   Percent_Person_WithMentalHealthNotGood: "Mental Health Not Good",
   Percent_Person_WithPhysicalHealthNotGood: "Physical Health Not Good",
-  "WorldBank/SH_STA_WAST_ZS": "Wasting in Children Under 5",
-  "WorldBank/SH_SVR_WAST_ZS": "Severe Wasting in Children Under 5",
+  "WorldBank/SH_STA_WAST_ZS": "Wasted Children under 5",
+  "WorldBank/SH_SVR_WAST_ZS": "Severely Wasted Children under 5",
   // Behaviors
   Percent_Person_SleepLessThan7Hours: "Sleep Less Than 7 Hours",
   Percent_Person_Obesity: "Obesity",
   Percent_Person_BingeDrinking: "Binge Drinking",
   Percent_Person_PhysicalInactivity: "Physical Inactivity",
   Percent_Person_Smoking: "Smoking",
-  "WorldBank/SH_ALC_PCAP_LI": "Alcohol Consumption Per Capita",
+  "WorldBank/SH_ALC_PCAP_LI": "Pure Alcohol Consumption",
   // Drug Prescribed
   RetailDrugDistribution_DrugDistribution_Oxycodone: "Oxycodone",
   RetailDrugDistribution_DrugDistribution_Hydrocodone: "Hydrocodone",
