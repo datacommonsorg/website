@@ -42,9 +42,21 @@ $chart-border: 0.5px solid #dee2e6;
 }
 
 #dc-places h3 {
-  font-size: 1rem;
   color: var(--secondary);
+  font-size: 1rem;
+  font-weight: 600;
   line-height: 1.4rem;
+}
+
+#dc-places #place-highlight h4 {
+  color: var(--secondary);
+  font-size: .9rem;
+  font-weight: 300;
+  line-height: 1.4rem;
+}
+
+#dc-places #place-highlight span {
+  font-style: italic;
 }
 
 #main .place-links {
@@ -78,7 +90,7 @@ $chart-border: 0.5px solid #dee2e6;
 
 #main h2 {
   color: var(--dc-gray);
-  font-weight: 500;
+  font-weight: 600;
   font-size: 1.1rem;
   text-transform: uppercase;
   line-height: 1.5rem;
@@ -99,7 +111,7 @@ $chart-border: 0.5px solid #dee2e6;
 
 #body .subtopic h3 {
   color: $subtopic-color;
-  font-weight: 700;
+  font-weight: 600;
   font-size: 1rem;
   text-transform: uppercase;
   margin: 15px -12px 10px -12px;
@@ -115,7 +127,7 @@ $chart-border: 0.5px solid #dee2e6;
 #main h2 .more a,
 #body .subtopic h3 .more a {
   color: var(--dc-gray);
-  font-weight: 400;
+  font-weight: 300;
   font-size: 0.8rem;
   float: right;
   margin-top: 2px;
@@ -172,7 +184,7 @@ $chart-border: 0.5px solid #dee2e6;
 
 .chart-container h4 {
   color: var(--dc-gray);
-  font-weight: 500;
+  font-weight: 600;
   font-size: 0.85rem;
   display: inline;
 }

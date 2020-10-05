@@ -68,6 +68,10 @@ export interface PageChart {
   };
 }
 
+export interface PageHighlight {
+  [title: string]: SnapshotData;
+}
+
 export interface PageData {
   pageChart: PageChart;
   allChildPlaces: {
@@ -78,6 +82,7 @@ export interface PageData {
   similarPlaces: string[];
   nearbyPlaces: string[];
   names: { string: string };
+  highlight: PageHighlight;
 }
 
 export interface CachedChoroplethData {

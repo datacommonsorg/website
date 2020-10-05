@@ -22,6 +22,7 @@ import { ChildPlace } from "./child_places_menu";
 import { MainPane } from "./main";
 import { Menu } from "./topic_menu";
 import { ParentPlace } from "./parent_breadcrumbs";
+import { PlaceHighlight } from "./place_highlight";
 import { PageSubtitle } from "./page_subtitle";
 import { isPlaceInUsa } from "./util";
 
@@ -165,6 +166,13 @@ function renderPage(dcid: string) {
         document.getElementById("place-type")
       );
     }
+    ReactDOM.render(
+      React.createElement(PlaceHighlight, {
+        dcid,
+        highlight: data.highlight,
+      }),
+      document.getElementById("place-highlight")
+    );
 
     // Readjust sidebar based on parent places.
     updatePageLayoutState();
