@@ -67,7 +67,7 @@ class MainPane extends React.Component<MainPanePropType, unknown> {
         )}
         {Object.keys(topicData).map((topic: string) => {
           let subtopicHeader: JSX.Element;
-          if (isOverview) {
+          if (isOverview && Object.keys(this.props.pageChart).length > 1) {
             subtopicHeader = (
               <h3 id={topic}>
                 <a href={`/place?dcid=${this.props.dcid}&topic=${topic}`}>
