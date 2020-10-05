@@ -74,9 +74,8 @@ def build_spec(chart_config):
     return spec
 
 
-# TODO(shifucun): Add unittest for these helper functions
-def get_bar(cc, data, places):
-    """Get the bar data across a few places.
+def get_snapshot_across_places(cc, data, places):
+    """Get the snapshot used for bar data across a few places.
 
     This will scale the value if required and pick the latest date that has the
     most <place, stat_var> entries.
@@ -153,6 +152,19 @@ def get_bar(cc, data, places):
             points[stat_var] = value
         if points:
             result['data'].append({'dcid': place, 'data': points})
+    return result
+
+
+# TODO(shifucun): Add unittest for these helper functions
+def get_bar(cc, data, places):
+    """Get the bar data across a few places.
+
+    This will scale the value if required and pick the latest date that has the
+    most <place, stat_var> entries.
+    """
+    result = get_snapshot_across_places(cc, data, places)
+    if not result:
+        return {}
     # Should have data other than the primary place. Return empty struct to
     # so client won't draw chart.
     if len(result['data']) <= 1:
@@ -326,6 +338,13 @@ def data(dcid):
         all_places.extend(raw_page_data.get(t + 'Places', []))
     names = place_api.get_display_name('^'.join(sorted(all_places)))
 
+    # Pick data to highlight - only population for now
+    highlight = {
+        'Population':
+            get_snapshot_across_places({'statsVars': ['Count_Person']},
+                                       all_stat, [dcid])
+    }
+
     response = {
         'pageChart': spec_and_stat,
         'allChildPlaces': raw_page_data.get('allChildPlaces', {}),
@@ -334,5 +353,6 @@ def data(dcid):
         'similarPlaces': raw_page_data.get('similarPlaces', []),
         'nearbyPlaces': raw_page_data.get('nearbyPlaces', []),
         'names': names,
+        'highlight': highlight,
     }
     return Response(json.dumps(response), 200, mimetype='application/json')
