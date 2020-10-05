@@ -85,9 +85,9 @@ interface ChartPropType {
    * Values of statvar/denominator combinations for places one level down of current dcid
    */
   choroplethData?: ChoroplethDataGroup;
-   /**
-    * All stats vars for this chart
-    */
+  /**
+   * All stats vars for this chart
+   */
   statsVars: string[];
 }
 

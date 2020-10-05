@@ -201,7 +201,7 @@ function renderPage(dcid: string) {
         placeName,
         placeType,
         geoJsonData,
-        choroplethData
+        choroplethData,
       }),
       document.getElementById("main-pane")
     );

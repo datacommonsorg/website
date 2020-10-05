@@ -57,6 +57,7 @@ def build_url(dcids, stats_vars):
                                             '__'.join(stats_vars))
     return urllib.parse.unquote(url_for('tools.timeline', _anchor=anchor))
 
+
 # TODO: add test for chart_config for assumption that each combination of stat vars will only have one config in chart_config.
 def build_spec(chart_config):
     """Builds hierachical spec based on chart config."""
