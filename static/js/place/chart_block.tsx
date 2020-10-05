@@ -15,7 +15,7 @@
  */
 
 import React from "react";
-import { chartTypeEnum, ChartBlockData } from "./types";
+import { chartTypeEnum, ChartBlockData, CachedChoroplethData } from "./types";
 import { randDomId } from "../shared/util";
 import { Chart } from "./chart";
 import { displayNameForPlaceType } from "./util";
@@ -50,6 +50,14 @@ interface ChartBlockPropType {
    * If the primary place is in USA.
    */
   isUsaPlace: boolean;
+  /**
+   * Geojson data for places one level down of current dcid.
+   */
+  geoJsonData: unknown;
+  /**
+   * Values of statvar/denominator combinations for places one level down of current dcid
+   */
+  choroplethData: CachedChoroplethData;
 }
 
 class ChartBlock extends React.Component<ChartBlockPropType, unknown> {
@@ -209,6 +217,34 @@ class ChartBlock extends React.Component<ChartBlockPropType, unknown> {
                 unit={unit}
                 names={this.props.names}
                 scaling={scaling}
+              ></Chart>
+            );
+          }
+        }
+        if (
+          (!!this.props.data.isChoropleth &&
+            this.props.placeType === "Country") ||
+          this.props.placeType === "State"
+        ) {
+          const id = randDomId();
+          const sv = !_.isEmpty(this.props.data.statsVars)
+            ? this.props.data.statsVars[0]
+            : "";
+          const svChoroplethData = this.props.choroplethData[sv];
+          if (!_.isEmpty(this.props.geoJsonData) && !!svChoroplethData) {
+            chartElements.push(
+              <Chart
+                key={id}
+                id={id}
+                dcid={this.props.dcid}
+                placeType={this.props.placeType}
+                chartType={chartTypeEnum.CHOROPLETH}
+                title={`${this.props.data.title} across places that contains ${this.props.placeName}`}
+                unit={unit}
+                names={this.props.names}
+                scaling={scaling}
+                geoJsonData={this.props.geoJsonData}
+                choroplethData={svChoroplethData}
               ></Chart>
             );
           }

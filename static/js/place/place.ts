@@ -85,20 +85,65 @@ function adjustMenuPosition() {
   }
 }
 
+/**
+ * Get the geo json info for choropleth charts.
+ */
+async function getGeoJsonData(dcid: string, placeType: string) {
+  if (placeType == "Country" || placeType == "State") {
+    return axios.get("/api/chart/geojson/" + dcid).then((resp) => {
+      return resp.data;
+    });
+  } else {
+    return new Promise((resolve) => {
+      resolve({});
+    });
+  }
+}
+
+/**
+ * Get the stat var data for choropleth charts.
+ */
+async function getChoroplethData(dcid: string, placeType: string) {
+  if (placeType == "Country" || placeType == "State") {
+    return axios.get("/api/chart/choroplethdata/" + dcid).then((resp) => {
+      return resp.data;
+    });
+  } else {
+    return new Promise((resolve) => {
+      resolve({});
+    });
+  }
+}
+
+/**
+ * Get the landing page data
+ */
+async function getLandingPageData(dcid: string): Promise<PageData> {
+  return axios.get("/api/landingpage/data/" + dcid).then((resp) => {
+    return resp.data;
+  });
+}
+
 function renderPage(dcid: string) {
   const urlParams = new URLSearchParams(window.location.search);
   // Get topic and render menu.
   const topic = urlParams.get("topic");
   const placeName = document.getElementById("place-name").dataset.pn;
   const placeType = document.getElementById("place-type").dataset.pt;
+  const landingPagePromise = getLandingPageData(dcid);
+  const chartGeoJsonPromise = getGeoJsonData(dcid, placeType);
+  const choroplethDataPromise = getChoroplethData(dcid, placeType);
 
-  axios.get("/api/landingpage/data/" + dcid).then((resp) => {
-    const data: PageData = resp.data;
-    const isUsaPlace = isPlaceInUsa(dcid, data.parentPlaces);
+  Promise.all([
+    landingPagePromise,
+    chartGeoJsonPromise,
+    choroplethDataPromise,
+  ]).then(([landingPageData, geoJsonData, choroplethData]) => {
+    const isUsaPlace = isPlaceInUsa(dcid, landingPageData.parentPlaces);
 
     ReactDOM.render(
       React.createElement(Menu, {
-        configData: data.configData,
+        configData: landingPageData.configData,
         dcid,
         topic,
       }),
@@ -107,8 +152,8 @@ function renderPage(dcid: string) {
 
     ReactDOM.render(
       React.createElement(ParentPlace, {
-        names: data.names,
-        parentPlaces: data.parentPlaces,
+        names: landingPageData.names,
+        parentPlaces: landingPageData.parentPlaces,
         placeType,
       }),
       document.getElementById("place-type")
@@ -117,14 +162,14 @@ function renderPage(dcid: string) {
     updatePageLayoutState();
 
     // Display child places alphabetically
-    for (const placeType in data.allChildPlaces) {
-      data.allChildPlaces[placeType].sort((a, b) =>
+    for (const placeType in landingPageData.allChildPlaces) {
+      landingPageData.allChildPlaces[placeType].sort((a, b) =>
         a.name < b.name ? -1 : a.name > b.name ? 1 : 0
       );
     }
     ReactDOM.render(
       React.createElement(ChildPlace, {
-        childPlaces: data.allChildPlaces,
+        childPlaces: landingPageData.allChildPlaces,
         placeName,
       }),
       document.getElementById("child-place")
@@ -132,13 +177,15 @@ function renderPage(dcid: string) {
 
     ReactDOM.render(
       React.createElement(MainPane, {
-        configData: data.configData,
+        configData: landingPageData.configData,
         dcid,
         isUsaPlace,
-        names: data.names,
+        names: landingPageData.names,
         placeName,
         placeType,
         topic,
+        geoJsonData,
+        choroplethData,
       }),
       document.getElementById("main-pane")
     );

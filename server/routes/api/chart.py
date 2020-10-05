@@ -384,7 +384,7 @@ def geojson(dcid):
 
 def get_choropleth_sv():
     """ Gets all the stat vars and accompanying denominators that will have a choropleth chart drawn for them
-    ie. charts with the hasChoropleth property set as true
+    ie. charts with the isChoropleth property set as true
 
     Returns: 
         a tuple consisting of:
@@ -395,9 +395,9 @@ def get_choropleth_sv():
     all_sv = set()
     sv_denom_mapping = {}
     for config in chart_config:
-        if config.get('hasChoropleth', False):
+        if config.get('isChoropleth', False):
             # we should only be making choropleths for configs with a single stat var
-            # TODO(chejennifer) add test for chart config to ensure hasChoropleth is only added to charts with single statvar
+            # TODO(chejennifer) add test for chart config to ensure isChoropleth is only added to charts with single statvar
             sv = config['statsVars'][0]
             all_sv.add(sv)
             denom = ''
@@ -494,7 +494,6 @@ def choropleth_data(dcid):
     if not 'placeData' in all_sv_data:
         return Response(json.dumps({}), 200, mimetype='application/json')
     all_sv_data = all_sv_data['placeData']
-
     result = {}
     # We have the potential of reusing denom data so keep track of what we've already seen
     # to prevent recalculation
@@ -510,6 +509,8 @@ def choropleth_data(dcid):
         for denom in denoms:
             denom_data = None
             denom_date = None
+            # assume that each stat var will only have one chart config. ie. if there's already a config
+            # for statvarA with no denominator, there won't be another one but with a denominator
             key = sv
             if denom:
                 # get denom data and latest common date for the denom
@@ -525,7 +526,6 @@ def choropleth_data(dcid):
                     calculated_denom_date[denom] = denom_date
                 if not denom_date:
                     continue
-                key = key + '^' + denom
             geo_data = {}
             num_data_points = 0
             # calculate value for each geo for current stat var and denom combination

@@ -16,7 +16,7 @@
 import React from "react";
 import { ChartBlock } from "./chart_block";
 import { Overview } from "./overview";
-import { CategoryData, ChartBlockData } from "./types";
+import { CachedChoroplethData, CategoryData, ChartBlockData } from "./types";
 
 interface MainPanePropType {
   /**
@@ -48,6 +48,14 @@ interface MainPanePropType {
    * All place names
    */
   names: { [key: string]: string };
+  /**
+   * Geojson data for places one level down of current dcid.
+   */
+  geoJsonData: unknown;
+  /**
+   * Values of statvar/denominator combinations for places one level down of current dcid
+   */
+  choroplethData: CachedChoroplethData;
 }
 
 class MainPane extends React.Component<MainPanePropType, unknown> {
@@ -109,6 +117,8 @@ class MainPane extends React.Component<MainPanePropType, unknown> {
                       isUsaPlace={this.props.isUsaPlace}
                       names={this.props.names}
                       data={data}
+                      geoJsonData={this.props.geoJsonData}
+                      choroplethData={this.props.choroplethData}
                     />
                   );
                 })}
