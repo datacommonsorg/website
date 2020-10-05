@@ -222,7 +222,8 @@
     "isOverview": true,
     "relatedChart": {
       "scale": false
-    }
+    },
+    "isChoropleth": true
   },
   {
     "category": "Economics",
@@ -252,7 +253,8 @@
     "unit": "$",
     "relatedChart": {
       "scale": false
-    }
+    },
+    "isChoropleth": true
   },
   {
     "category": "Economics",
@@ -300,7 +302,8 @@
       "denominator": "Count_Person",
       "unit": "%",
       "scaling": 100
-    }
+    },
+    "isChoropleth": true
   },
   {
     "category": "Health",
@@ -315,7 +318,8 @@
       "denominator": "Count_Person",
       "unit": "%",
       "scaling": 100
-    }
+    },
+    "isChoropleth": true
   },
   {
     "category": "Health",
@@ -849,7 +853,8 @@
     "isOverview": true,
     "relatedChart": {
       "scale": false
-    }
+    },
+    "isChoropleth": true
   },
   {
     "category": "Demographics",
@@ -950,7 +955,8 @@
     "isOverview": true,
     "relatedChart": {
       "scale": false
-    }
+    },
+    "isChoropleth": true
   },
   {
     "category": "Demographics",

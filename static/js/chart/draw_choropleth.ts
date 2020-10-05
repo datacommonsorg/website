@@ -32,7 +32,7 @@ const blues = [
   "#08519c",
   "#08306b",
 ];
-const MISSING_DATA_COLOR = "black";
+const MISSING_DATA_COLOR = "grey";
 const TOOLTIP_ID = "tooltip";
 
 function drawChoropleth(
