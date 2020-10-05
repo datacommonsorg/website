@@ -249,11 +249,22 @@ def data(dcid):
     spec_and_stat = build_spec(current_app.config['CHART_CONFIG'])
     raw_page_data = get_landing_page_data(dcid)
 
+    # Only US places have comparison charts.
+    is_usa_place = False
+    for place in [dcid] + raw_page_data.get('parentPlaces', []):
+        if place == 'country/USA':
+            is_usa_place = True
+            break
+
     # Populate the data for each chart
     all_stat = raw_page_data['data']
     for category in spec_and_stat:
-        chart_types = ['nearby', 'child'
-                      ] if category == 'Overview' else BAR_CHART_TYPES
+        if not is_usa_place:
+            chart_types = []
+        elif category == 'Overview':
+            chart_types = ['nearby', 'child']
+        else:
+            chart_types = BAR_CHART_TYPES
         for topic in spec_and_stat[category]:
             for chart in spec_and_stat[category][topic]:
                 # Trend data
@@ -269,7 +280,7 @@ def data(dcid):
             for chart in spec_and_stat[category][topic]:
                 keep_chart = False
                 for t in ['trend'] + BAR_CHART_TYPES:
-                    if chart[t]:
+                    if chart.get(t, None):
                         keep_chart = True
                         break
                 if keep_chart:
@@ -282,11 +293,6 @@ def data(dcid):
             del spec_and_stat[category]
     # For non US places, only keep the "Overview" category if the number of
     # total chart is less than certain threshold.
-    is_usa_place = False
-    for place in [dcid] + raw_page_data.get('parentPlaces', []):
-        if place == 'country/USA':
-            is_usa_place = True
-            break
     if not is_usa_place:
         overview_set = set()
         non_overview_set = set()

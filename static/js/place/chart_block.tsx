@@ -201,7 +201,7 @@ class ChartBlock extends React.Component<ChartBlockPropType, unknown> {
                 key={id}
                 id={id}
                 snapshot={this.props.data.parent}
-                title={`${relatedChartTitle}: places that contains ${this.props.placeName}`}
+                title={`${relatedChartTitle}: places that contain ${this.props.placeName}`}
                 {...sharedProps}
               ></Chart>
             );
