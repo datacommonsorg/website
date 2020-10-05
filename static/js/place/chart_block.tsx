@@ -216,9 +216,9 @@ class ChartBlock extends React.Component<ChartBlockPropType, unknown> {
           }
         }
         if (
-          (!!this.props.data.isChoropleth &&
-            this.props.placeType === "Country") ||
-          this.props.placeType === "State"
+          !!this.props.data.isChoropleth &&
+          (this.props.placeType === "Country" ||
+            this.props.placeType === "State")
         ) {
           const id = randDomId();
           const sv = !_.isEmpty(this.props.data.statsVars)

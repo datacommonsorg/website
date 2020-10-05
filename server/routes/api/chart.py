@@ -371,6 +371,8 @@ def geojson(dcid):
                 choropleth_api.coerce_geojson_to_righthand_rule(
                     geojson['coordinates'], geojson['type']))
             features.append(geo_feature)
+    print("here\n")
+    print(features)
     return Response(json.dumps({
         "type": "FeatureCollection",
         "features": features,

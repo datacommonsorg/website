@@ -130,12 +130,14 @@ class Chart extends React.Component<ChartPropType, ChartStateType> {
     const dateString = this.props.snapshot
       ? "(" + this.props.snapshot.date + ")"
       : "";
+    // TODO(chejennifer): get sources for choropleth charts
     let sources = [];
     if (this.props.chartType !== chartTypeEnum.CHOROPLETH) {
       sources = this.props.trend
         ? this.props.trend.sources
         : this.props.snapshot.sources;
     }
+    // TODO(chejennifer): get exploreURL for choropleth charts
     let exploreUrl = "";
     if (this.props.chartType !== chartTypeEnum.CHOROPLETH) {
       exploreUrl = this.props.trend

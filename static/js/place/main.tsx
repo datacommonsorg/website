@@ -50,6 +50,7 @@ interface MainPanePropType {
   names: { [key: string]: string };
   /**
    * Geojson data for places one level down of current dcid.
+   * TODO(chejennifer): replace unknown type with type for geojson
    */
   geoJsonData: unknown;
   /**
