@@ -30,7 +30,9 @@ class TestBuildSpec(unittest.TestCase):
         'scaling': 100,
         'unit': '%',
     }]
-    result = landing_page.build_spec(chart_config)
+    result, stat_vars = landing_page.build_spec(chart_config)
     with open('tests/test_data/golden_config.json') as f:
         expected = json.load(f)
         assert expected == result
+        assert ['UnemploymentRate_Person',
+                'Count_Person_InLaborForce'] == stat_vars
