@@ -170,26 +170,6 @@ class TestRoute(unittest.TestCase):
             }
 
 
-class TestBuildConfig(unittest.TestCase):
-    chart_config = [{
-        'category': ['Economics', 'Unemployment'],
-        'title': 'Unemployment Rate',
-        'statsVars': ['UnemploymentRate_Person'],
-        'isOverview': True
-    }, {
-        'category': ['Economics', 'Unemployment'],
-        'title': 'Labor Force Participation',
-        'statsVars': ['Count_Person_InLaborForce'],
-        'perCapita': True,
-        'scaling': 100,
-        'unit': '%',
-    }]
-    result = chart_api.build_config(chart_config)
-    with open('tests/test_data/golden_config.json') as f:
-        expected = json.load(f)
-        assert expected == result
-
-
 class TestChoroplethPlaces(unittest.TestCase):
 
     @patch('routes.api.chart.dc_service.get_places_in')

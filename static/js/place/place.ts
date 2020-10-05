@@ -88,7 +88,7 @@ function adjustMenuPosition() {
 function renderPage(dcid: string) {
   const urlParams = new URLSearchParams(window.location.search);
   // Get topic and render menu.
-  const topic = urlParams.get("topic");
+  const topic = urlParams.get("topic") || "Overview";
   const placeName = document.getElementById("place-name").dataset.pn;
   const placeType = document.getElementById("place-type").dataset.pt;
 
@@ -98,7 +98,7 @@ function renderPage(dcid: string) {
 
     ReactDOM.render(
       React.createElement(Menu, {
-        configData: data.configData,
+        pageChart: data.pageChart,
         dcid,
         topic,
       }),
@@ -132,13 +132,13 @@ function renderPage(dcid: string) {
 
     ReactDOM.render(
       React.createElement(MainPane, {
-        configData: data.configData,
+        category: topic,
         dcid,
         isUsaPlace,
         names: data.names,
+        pageChart: data.pageChart,
         placeName,
         placeType,
-        topic,
       }),
       document.getElementById("main-pane")
     );
