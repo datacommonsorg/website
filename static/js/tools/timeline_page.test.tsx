@@ -154,6 +154,8 @@ test("statsVar not in PV-tree", () => {
     });
 });
 
+// TODO: Add test that loading from URL with these options works as expected
+// TODO: Add test that URL with &pc=1 set works as expected, and is cleared after the option is set.
 test("chart options", () => {
   // test if the chart options are correctly set
   Object.defineProperty(window, "location", {
