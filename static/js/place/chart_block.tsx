@@ -123,7 +123,7 @@ class ChartBlock extends React.Component<ChartBlockPropType, unknown> {
                 key={id}
                 id={id}
                 snapshot={this.props.data.child}
-                title={`${relatedChartTitle}: states within ${this.props.placeName}`}
+                title={`${relatedChartTitle}: States within ${this.props.placeName}`}
                 {...sharedProps}
               ></Chart>
             );
@@ -145,7 +145,7 @@ class ChartBlock extends React.Component<ChartBlockPropType, unknown> {
                 key={id}
                 id={id}
                 snapshot={this.props.data.child}
-                title={`${relatedChartTitle}: places within ${this.props.placeName}`}
+                title={`${relatedChartTitle}: Places within ${this.props.placeName}`}
                 {...sharedProps}
               ></Chart>
             );
@@ -187,7 +187,7 @@ class ChartBlock extends React.Component<ChartBlockPropType, unknown> {
                 key={id}
                 id={id}
                 snapshot={this.props.data.child}
-                title={`${relatedChartTitle}: places within ${this.props.placeName}`}
+                title={`${relatedChartTitle}: Places within ${this.props.placeName}`}
                 {...sharedProps}
               ></Chart>
             );
