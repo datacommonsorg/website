@@ -194,7 +194,7 @@ def get_trend(cc, data, place):
         else:
             series[stat_var] = numerator_raw['data']
             sources.add(numerator_raw['provenanceDomain'])
-    if not series:
+    if not series or len(series) == 1:
         return {}
     return {
         'series': series,
