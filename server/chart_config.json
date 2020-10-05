@@ -43,7 +43,7 @@
   },
   {
     "category": "Economics",
-    "title": "Children in Employment (% of Children Ages 7-14)",
+    "title": "Children in Employment",
     "statsVars": ["WorldBank/SL_TLF_0714_ZS"],
     "unit": "%",
     "isOverview": true,
@@ -64,7 +64,7 @@
   },
   {
     "category": "Economics",
-    "title": "Children in Employment (% of Children Ages 7-14) by Gender",
+    "title": "Children in Employment by Gender",
     "statsVars": ["WorldBank/SL_TLF_0714_FE_ZS", "WorldBank/SL_TLF_0714_MA_ZS"],
     "unit": "%",
     "relatedChart": {
@@ -126,7 +126,7 @@
   },
   {
     "category": "Economics",
-    "title": "Government Expenditures on Education (% of government expenditure)",
+    "title": "Government Expenditures on Education (% of Government Expenditure)",
     "statsVars": ["WorldBank/SE_XPD_TOTL_GB_ZS"],
     "unit": "%",
     "isOverview": true,
@@ -357,7 +357,7 @@
   },
   {
     "category": "Health",
-    "title": "Wasting in Children Under 5",
+    "title": "Wasting among Children under 5",
     "statsVars": ["WorldBank/SH_STA_WAST_ZS"],
     "unit": "%",
     "isOverview": true,
@@ -367,7 +367,7 @@
   },
   {
     "category": "Health",
-    "title": "Wasting in Children Under 5 by Gender",
+    "title": "Wasting among Children under 5 by Gender",
     "statsVars": ["WorldBank/SH_STA_WAST_MA_ZS", "WorldBank/SH_STA_WAST_FE_ZS"],
     "unit": "%",
     "relatedChart": {
@@ -376,7 +376,7 @@
   },
   {
     "category": "Health",
-    "title": "Severe Wasting in Children Under 5",
+    "title": "Severe Wasting among Children under 5",
     "statsVars": ["WorldBank/SH_SVR_WAST_ZS"],
     "unit": "%",
     "isOverview": true,
@@ -386,7 +386,7 @@
   },
   {
     "category": "Health",
-    "title": "Severe Wasting in Children Under 5 by Gender",
+    "title": "Severe Wasting among Children under 5 by Gender",
     "statsVars": ["WorldBank/SH_SVR_WAST_MA_ZS", "WorldBank/SH_SVR_WAST_FE_ZS"],
     "unit": "%",
     "relatedChart": {
@@ -427,7 +427,7 @@
   },
   {
     "category": "Health",
-    "title": "Prescribed Drugs",
+    "title": "Prescribed Drugs (Quarterly)",
     "statsVars": [
       "RetailDrugDistribution_DrugDistribution_Oxycodone",
       "RetailDrugDistribution_DrugDistribution_Hydrocodone",
@@ -438,7 +438,7 @@
     "isOverview": true,
     "unit": "g",
     "relatedChart": {
-      "title": "Prescribed Drugs Per Capita",
+      "title": "Prescribed Drugs Per Capita (Quarterly)",
       "scale": true,
       "denominator": "Count_Person",
       "unit": "g"
@@ -446,7 +446,7 @@
   },
   {
     "category": "Health",
-    "title": "Alcohol Consumption Per Capita (15+ Years of age)",
+    "title": "Alcohol Consumption Per Capita (Annual)",
     "statsVars": ["WorldBank/SH_ALC_PCAP_LI"],
     "unit": "L",
     "isOverview": true,
@@ -954,7 +954,7 @@
   },
   {
     "category": "Demographics",
-    "title": "Age",
+    "title": "Population by Age",
     "statsVars": [
       "Count_Person_Upto5Years",
       "Count_Person_5To17Years",
@@ -1018,7 +1018,7 @@
   },
   {
     "category": "Environment",
-    "title": "Energy comsumption Per Capita",
+    "title": "Energy Consumption Per Capita",
     "statsVars": ["Amount_Consumption_Energy_PerCapita"],
     "isOverview": true,
     "relatedChart": {
