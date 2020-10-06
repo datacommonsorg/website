@@ -266,23 +266,24 @@ class TimelineParams {
     if (statsVars) {
       for (const statsVarString of statsVars.split(statsVarSep)) {
         const statsVarInfo = statsVarString.split(nodePathSep);
+        const dcid = statsVarInfo[0];
         // if statsVar path is not included in url
         // load the path from pre-built map
         if (statsVarInfo.length === 1) {
-          if (statsVarInfo[0] in statsVarPathMap) {
+          if (dcid in statsVarPathMap) {
             this.addStatsVar(
-              statsVarInfo[0],
-              statsVarPathMap[statsVarInfo[0]].map((x: number) => x.toString()),
+              dcid,
+              statsVarPathMap[dcid].map((x: number) => x.toString()),
               // TODO: Consider adding denominators to the pre-built map
               []
             );
           } else {
-            this.addStatsVar(statsVarInfo[0], [], []);
+            this.addStatsVar(dcid, [], []);
           }
         } else {
           const pathsAndDenominators = statsVarInfo.splice(1);
           this.addStatsVar(
-            statsVarInfo[0],
+            dcid,
             pathsAndDenominators.filter(
               (elem) => "0" <= elem[0] && elem[0] <= "9"
             ),

@@ -112,10 +112,12 @@ class TestScreenShot(WebdriverBaseTest):
             self.driver.set_window_size(width=WIDTH,
                                         height=test_info['height'],
                                         windowHandle='current')
-            time.sleep(2)
             charts = self.driver.find_elements_by_class_name(
                 test_info['test_class'])
             # Assert there are charts.
+            if not len(charts):
+                for entry in self.driver.get_log('browser'):
+                    print(entry)
             self.assertGreater(len(charts), 0, test_info['url'])
             self.driver.save_screenshot('{}{}_{}'.format(
                 SCREENSHOTS_FOLDER, index, test_info['filename_suffix']))
