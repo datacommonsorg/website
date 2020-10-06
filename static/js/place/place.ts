@@ -178,10 +178,18 @@ function renderPage(dcid: string) {
     updatePageLayoutState();
 
     // Display child places alphabetically
+    let childPlaceType: string;
+    let childPlaceTypeCount = 0;
     for (const placeType in data.allChildPlaces) {
       data.allChildPlaces[placeType].sort((a, b) =>
         a.name < b.name ? -1 : a.name > b.name ? 1 : 0
       );
+      // TODO(beets): Remove this logic after we add this to the mixer response.
+      const numChildren = data.allChildPlaces[placeType].length;
+      if (numChildren > childPlaceTypeCount) {
+        childPlaceTypeCount = numChildren;
+        childPlaceType = placeType;
+      }
     }
     ReactDOM.render(
       React.createElement(ChildPlace, {
@@ -210,6 +218,9 @@ function renderPage(dcid: string) {
         placeType,
         geoJsonData,
         choroplethData,
+        childPlaceType,
+        parentPlaceDcid:
+          data.parentPlaces.length > 0 ? data.parentPlaces[0] : null,
       }),
       document.getElementById("main-pane")
     );

@@ -46,6 +46,7 @@ export interface SnapshotData {
 export interface ChartBlockData {
   title: string;
   statsVars: string[];
+  denominator?: string[];
   unit: string;
   trend: TrendData;
   parent: SnapshotData;

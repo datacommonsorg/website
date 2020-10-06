@@ -56,7 +56,10 @@ const AXIS_GRID_FILL = "#999";
 function appendLegendElem(
   elem: string,
   color: d3.ScaleOrdinal<string, string>,
-  keys: string[]
+  keys: {
+    label: string;
+    link?: string;
+  }[]
 ): void {
   d3.select("#" + elem)
     .append("div")
@@ -64,9 +67,10 @@ function appendLegendElem(
     .selectAll("div")
     .data(keys)
     .join("div")
-    .attr("style", (d) => `background: ${color(d)}`)
-    .append("span")
-    .text((d) => d);
+    .attr("style", (d) => `background: ${color(d.label)}`)
+    .append("a")
+    .text((d) => d.label)
+    .attr("href", (d) => d.link || null);
 }
 
 function getWrapLineSeparator(line: string[]): string {
@@ -291,21 +295,6 @@ function drawHistogram(
   const textList = dataPoints.map((dataPoint) => dataPoint.label);
   const values = dataPoints.map((dataPoint) => dataPoint.value);
 
-  const x = d3
-    .scaleBand()
-    .domain(textList)
-    .rangeRound([MARGIN.left, width - MARGIN.right])
-    .paddingInner(0.1)
-    .paddingOuter(0.1);
-
-  const y = d3
-    .scaleLinear()
-    .domain([0, d3.max(values)])
-    .nice()
-    .rangeRound([height - ROTATE_MARGIN_BOTTOM, MARGIN.top]);
-
-  const color = getColorFn(["A"])("A"); // we only need one color
-
   const svg = d3
     .select("#" + id)
     .append("svg")
@@ -314,7 +303,23 @@ function drawHistogram(
     .attr("width", width)
     .attr("height", height);
 
-  addXAxis(svg, height, x, true);
+  const x = d3
+    .scaleBand()
+    .domain(textList)
+    .rangeRound([MARGIN.left, width - MARGIN.right])
+    .paddingInner(0.1)
+    .paddingOuter(0.1);
+
+  const bottomHeight = addXAxis(svg, height, x, true);
+
+  const y = d3
+    .scaleLinear()
+    .domain([0, d3.max(values)])
+    .nice()
+    .rangeRound([height - bottomHeight, MARGIN.top]);
+
+  const color = getColorFn(["A"])("A"); // we only need one color
+
   addYAxis(svg, width, y, unit);
 
   svg
@@ -466,7 +471,14 @@ function drawStackBarChart(
     .attr("width", x.bandwidth())
     .attr("height", (d) => (Number.isNaN(d[1]) ? 0 : y(d[0]) - y(d[1])));
 
-  appendLegendElem(id, color, keys);
+  appendLegendElem(
+    id,
+    color,
+    dataGroups[0].value.map((dp) => ({
+      label: dp.label,
+      link: dp.link,
+    }))
+  );
 }
 
 /**
@@ -543,7 +555,14 @@ function drawGroupBarChart(
     .attr("height", (d) => y(0) - y(d.value))
     .attr("fill", (d) => colorFn(d.key));
 
-  appendLegendElem(id, colorFn, keys);
+  appendLegendElem(
+    id,
+    colorFn,
+    dataGroups[0].value.map((dp) => ({
+      label: dp.label,
+      link: dp.link,
+    }))
+  );
 }
 
 /**
@@ -652,7 +671,16 @@ function drawLineChart(
     }
   }
 
-  appendLegendElem(id, colorFn, legendText);
+  // appendLegendElem(id, colorFn, legendText);
+
+  appendLegendElem(
+    id,
+    colorFn,
+    dataGroups.map((dg) => ({
+      label: dg.label,
+      link: dg.link,
+    }))
+  );
   return !hasFilledInValues;
 }
 
