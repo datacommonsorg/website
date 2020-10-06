@@ -362,6 +362,7 @@ def data(dcid):
     response = {
         'pageChart': spec_and_stat,
         'allChildPlaces': raw_page_data.get('allChildPlaces', {}),
+        'childPlacesType': raw_page_data.get('childPlacesType', ""),
         'childPlaces': raw_page_data.get('childPlaces', []),
         'parentPlaces': raw_page_data.get('parentPlaces', []),
         'similarPlaces': raw_page_data.get('similarPlaces', []),
