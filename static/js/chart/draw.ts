@@ -278,21 +278,6 @@ function drawHistogram(
   const textList = dataPoints.map((dataPoint) => dataPoint.label);
   const values = dataPoints.map((dataPoint) => dataPoint.value);
 
-  const x = d3
-    .scaleBand()
-    .domain(textList)
-    .rangeRound([MARGIN.left, width - MARGIN.right])
-    .paddingInner(0.1)
-    .paddingOuter(0.1);
-
-  const y = d3
-    .scaleLinear()
-    .domain([0, d3.max(values)])
-    .nice()
-    .rangeRound([height - ROTATE_MARGIN_BOTTOM, MARGIN.top]);
-
-  const color = getColorFn(["A"])("A"); // we only need one color
-
   const svg = d3
     .select("#" + id)
     .append("svg")
@@ -301,7 +286,23 @@ function drawHistogram(
     .attr("width", width)
     .attr("height", height);
 
-  addXAxis(svg, height, x, true);
+  const x = d3
+    .scaleBand()
+    .domain(textList)
+    .rangeRound([MARGIN.left, width - MARGIN.right])
+    .paddingInner(0.1)
+    .paddingOuter(0.1);
+
+  const bottomHeight = addXAxis(svg, height, x, true);
+
+  const y = d3
+    .scaleLinear()
+    .domain([0, d3.max(values)])
+    .nice()
+    .rangeRound([height - bottomHeight, MARGIN.top]);
+
+  const color = getColorFn(["A"])("A"); // we only need one color
+
   addYAxis(svg, width, y, unit);
 
   svg

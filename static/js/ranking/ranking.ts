@@ -30,6 +30,10 @@ window.onload = () => {
   const isPerCapita = JSON.parse(
     document.getElementById("per-capita").dataset.pc.toLowerCase()
   );
+  const urlParams = new URLSearchParams(window.location.search);
+  const unit = urlParams.get("unit");
+  let scaling = Number(urlParams.get("scaling"));
+  scaling = isNaN(scaling) || scaling == 0 ? 1 : scaling;
   ReactDOM.render(
     React.createElement(Page, {
       placeName,
@@ -37,6 +41,8 @@ window.onload = () => {
       withinPlace,
       statVar,
       isPerCapita,
+      unit,
+      scaling,
     }),
     document.getElementById("main-pane")
   );

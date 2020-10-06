@@ -22,6 +22,8 @@ interface RankingTablePropType {
   id: string;
   placeType: string;
   sortAscending: boolean;
+  scaling: number;
+  unit: string;
 }
 
 class RankingTable extends React.Component<RankingTablePropType> {
@@ -41,7 +43,9 @@ class RankingTable extends React.Component<RankingTablePropType> {
   }
 
   render(): JSX.Element {
-    function renderRankInfo(rankInfo) {
+    function renderRankInfo(rankInfo: RankInfo, scaling: number) {
+      let value = rankInfo.value ? rankInfo.value : 0;
+      value = value * scaling;
       return (
         <tr key={rankInfo.rank}>
           <td>{rankInfo.rank ? rankInfo.rank : 0}</td>
@@ -51,7 +55,9 @@ class RankingTable extends React.Component<RankingTablePropType> {
             </a>
           </td>
           <td className="text-right">
-            {rankInfo.value ? rankInfo.value.toLocaleString() : "0"}
+            {value.toLocaleString(undefined, {
+              maximumFractionDigits: 1,
+            })}
           </td>
         </tr>
       );
@@ -64,14 +70,14 @@ class RankingTable extends React.Component<RankingTablePropType> {
             <th scope="col">Rank</th>
             <th scope="col">{this.props.placeType}</th>
             <th scope="col" className="text-center">
-              Value
+              {this.props.unit ? this.props.unit : "Value"}
             </th>
           </tr>
         </thead>
         <tbody>
           {this.info &&
             this.info.map((rankInfo) => {
-              return renderRankInfo(rankInfo);
+              return renderRankInfo(rankInfo, this.props.scaling);
             })}
         </tbody>
       </table>
