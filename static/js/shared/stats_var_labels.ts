@@ -28,7 +28,7 @@ const STATS_VAR_LABEL: { [key: string]: string } = {
   Count_Person_Employed: "Employed People",
   Count_Person_InLaborForce: "People in Labor Force",
   Count_Person: "Total",
-  Count_Person_PerArea: "Person per Area",
+  Count_Person_PerArea: "Persons Per Area",
   LifeExpectancy_Person: "Life Expectancy",
   GrowthRate_Count_Person: "Population Growth Rate",
   FertilityRate_Person_Female: "Fertility Rate",
@@ -42,12 +42,25 @@ const STATS_VAR_LABEL: { [key: string]: string } = {
   Amount_EconomicActivity_GrossNationalIncome_PurchasingPowerParity_PerCapita:
     "GNI PPP Per Capita",
   Amount_EconomicActivity_GrossNationalIncome_PurchasingPowerParity: "GNI PPP",
+  "WorldBank/SL_TLF_0714_ZS": "Children in Employment",
+  "WorldBank/SE_XPD_TOTL_GB_ZS":
+    "Government Expenditures on Education (% of Government Expenditures)",
+  "WorldBank/SE_XPD_TOTL_GD_ZS":
+    "Government Expenditures on Education (% of GDP)",
+  "WorldBank/MS_MIL_XPND_CD": "Government Expenditures on Military",
+  "WorldBank/MS_MIL_XPND_GD_ZS":
+    "Government Expenditures on Military (% of GDP)",
+  "WorldBank/CM_MKT_LCAP_CD": "Market Capitalization of Domestic Companies",
+  "WorldBank/CM_MKT_LCAP_GD_ZS":
+    "Market Capitalization of Domestic Companies (% of GDP)",
+  "WorldBank/BX_TRF_PWKR_CD_DT": "Inward Remittance",
+  "WorldBank/BX_TRF_PWKR_DT_GD_ZS": "Inward Remittance (% of GDP)",
+  "WorldBank/BM_TRF_PWKR_CD_DT": "Outward Remittance",
 
   // Environment
-  Amount_Consumption_Energy_PerCapita: "Energy comsumption Per Capita",
-  Amount_Emissions_CarbonDioxide_PerCapita: "CO2 Emissions Per Capita",
-  Amount_Consumption_Electricity_PerCapita:
-    "Electricity Consumption Per Capita",
+  Amount_Consumption_Energy_PerCapita: "Energy Consumption",
+  Amount_Emissions_CarbonDioxide_PerCapita: "CO2 Emissions",
+  Amount_Consumption_Electricity_PerCapita: "Electricity Consumption",
   Count_EarthquakeEvent: "Earthquake",
   Count_CycloneEvent: "Cyclone",
   Count_StormSurgeTideEvent: "Storm Surge Tide",
@@ -92,8 +105,8 @@ const STATS_VAR_LABEL: { [key: string]: string } = {
   Count_Person_HispanicOrLatino: "Hispanic or Latino",
   Count_Person_NativeHawaiianAndOtherPacificIslanderAlone:
     "Native Hawaiian and Pacific Islander",
-  Count_Person_SomeOtherRaceAlone: "Some other race",
-  Count_Person_TwoOrMoreRaces: "Two or more races",
+  Count_Person_SomeOtherRaceAlone: "Some Other Race",
+  Count_Person_TwoOrMoreRaces: "Two or More Races",
   Count_Person_WhiteAlone: "White Alone",
   Median_Age_Person_AmericanIndianOrAlaskaNativeAlone:
     "American Indian or Alaska Native",
@@ -102,8 +115,8 @@ const STATS_VAR_LABEL: { [key: string]: string } = {
   Median_Age_Person_HispanicOrLatino: "Hispanic or Latino",
   Median_Age_Person_NativeHawaiianAndOtherPacificIslanderAlone:
     "Native Hawaiian and Pacific Islander",
-  Median_Age_Person_SomeOtherRaceAlone: "Some other race",
-  Median_Age_Person_TwoOrMoreRaces: "Two or more races",
+  Median_Age_Person_SomeOtherRaceAlone: "Some Other Race",
+  Median_Age_Person_TwoOrMoreRaces: "Two or More Races",
   Median_Age_Person_WhiteAlone: "White Alone",
   // income
   Count_Person_IncomeOfUpto9999USDollar: "Under $10K",
@@ -120,6 +133,9 @@ const STATS_VAR_LABEL: { [key: string]: string } = {
   Count_Person_NeverMarried: "Never Married",
   Count_Person_Widowed: "Widowed",
   Count_Person_Separated: "Separated",
+  // living situation
+  "WorldBank/SP_URB_TOTL": "Urban Population",
+  "WorldBank/SP_RUR_TOTL": "Rural Population",
   // education/poulation
   Count_Person_EducationalAttainmentNoSchoolingCompleted: "No Schooling",
   Count_Person_EducationalAttainmentRegularHighSchoolDiploma: "High School",
@@ -150,6 +166,8 @@ const STATS_VAR_LABEL: { [key: string]: string } = {
   Count_Person_USCitizenByNaturalization: "Citizen by Naturalization",
   Count_Person_NotAUSCitizen: "Not a Citizen",
   Count_Person_USCitizenBornAbroadOfAmericanParents: "Born Abroad",
+  // Mortality
+  "WorldBank/SP_DYN_IMRT_IN": "Infant Mortality Rate",
   // Mortality cause
   Count_Death_DiseasesOfTheCirculatorySystem: "Circulatory System",
   Count_Death_Neoplasms: "Neoplasms",
@@ -162,12 +180,15 @@ const STATS_VAR_LABEL: { [key: string]: string } = {
   Percent_Person_WithArthritis: "Arthritis",
   Percent_Person_WithMentalHealthNotGood: "Mental Health Not Good",
   Percent_Person_WithPhysicalHealthNotGood: "Physical Health Not Good",
+  "WorldBank/SH_STA_WAST_ZS": "Wasted Children under 5",
+  "WorldBank/SH_SVR_WAST_ZS": "Severely Wasted Children under 5",
   // Behaviors
   Percent_Person_SleepLessThan7Hours: "Sleep Less Than 7 Hours",
   Percent_Person_Obesity: "Obesity",
   Percent_Person_BingeDrinking: "Binge Drinking",
   Percent_Person_PhysicalInactivity: "Physical Inactivity",
   Percent_Person_Smoking: "Smoking",
+  "WorldBank/SH_ALC_PCAP_LI": "Pure Alcohol Consumption",
   // Drug Prescribed
   RetailDrugDistribution_DrugDistribution_Oxycodone: "Oxycodone",
   RetailDrugDistribution_DrugDistribution_Hydrocodone: "Hydrocodone",
@@ -226,6 +247,19 @@ const STATS_VAR_LABEL: { [key: string]: string } = {
     "Female",
   Count_Person_25To34Years_EducationalAttainmentGraduateOrProfessionalDegree_Male:
     "Male",
+
+  "WorldBank/SL_TLF_0714_FE_ZS": "Female",
+  "WorldBank/SL_TLF_0714_MA_ZS": "Male",
+
+  "WorldBank/SP_DYN_IMRT_FE_IN": "Female",
+  "WorldBank/SP_DYN_IMRT_MA_IN": "Male",
+
+  "WorldBank/SH_STA_WAST_FE_ZS": "Female",
+  "WorldBank/SH_SVR_WAST_FE_ZS": "Female",
+  "WorldBank/SH_STA_WAST_MA_ZS": "Male",
+  "WorldBank/SH_SVR_WAST_MA_ZS": "Male",
+
+  "WorldBank/SI_POV_GINI": "Gini Index",
 };
 
 export { STATS_VAR_LABEL };
