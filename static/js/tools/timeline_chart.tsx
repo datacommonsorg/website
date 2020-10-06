@@ -100,6 +100,9 @@ class Chart extends Component<ChartPropsType, unknown> {
               this.props.setPC(this.props.groupId, !this.props.perCapita);
             }}
           ></button>
+          <a href="/faq">
+            <span>&#42;</span>
+          </a>
         </span>
         <div ref={this.svgContainer} className="chart-svg"></div>
         <div className="statsVarChipRegion">
