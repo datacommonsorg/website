@@ -19,7 +19,7 @@ import routes.api.place as place_api
 bp = flask.Blueprint('ranking', __name__, url_prefix='/ranking')
 
 
-@bp.route('/<stat_var>/<place_type>')
+@bp.route('/<stat_var>/<place_type>', strict_slashes=False)
 @bp.route('/<stat_var>/<place_type>/<path:place_dcid>')
 def ranking(stat_var, place_type, place_dcid=''):
     place_name = ''
