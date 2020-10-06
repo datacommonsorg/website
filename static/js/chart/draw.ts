@@ -135,6 +135,7 @@ function wrap(
  * @param chartWidth: The width of the SVG chart
  * @param xScale: d3-scale for the x-axis
  * @param shouldRotate: true if the x-ticks should be rotated (no wrapping applied).
+ * @param labelToLink: optional map of [label] -> link for each ordinal tick
  *
  * @return the height of the x-axis bounding-box.
  */
@@ -142,7 +143,8 @@ function addXAxis(
   svg: d3.Selection<SVGElement, any, any, any>,
   chartHeight: number,
   xScale: d3.AxisScale<any>,
-  shouldRotate?: boolean
+  shouldRotate?: boolean,
+  labelToLink?: { [label: string]: string }
 ): number {
   const d3Axis = d3.axisBottom(xScale).ticks(NUM_X_TICKS).tickSizeOuter(0);
   if (shouldRotate && typeof xScale.bandwidth == "function") {
@@ -165,6 +167,20 @@ function addXAxis(
         .attr("stroke", AXIS_GRID_FILL)
         .attr("stroke-width", "0.5")
     );
+
+  if (labelToLink) {
+    axis
+      .selectAll(".tick text")
+      .attr("data-link", (label: string) => {
+        return label in labelToLink ? labelToLink[label] : null;
+      })
+      .attr("class", "place-tick")
+      .style("cursor", "pointer")
+      .style("text-decoration", "underline")
+      .on("click", function () {
+        window.open((<SVGElement>this).dataset.link, "_blank");
+      });
+  }
 
   if (shouldRotate) {
     axis
@@ -421,7 +437,7 @@ function drawStackBarChart(
     .paddingInner(0.1)
     .paddingOuter(0.1);
 
-  const bottomHeight = addXAxis(svg, chartHeight, x);
+  const bottomHeight = addXAxis(svg, chartHeight, x, false, labelToLink);
 
   const y = d3
     .scaleLinear()
@@ -451,20 +467,6 @@ function drawStackBarChart(
     .attr("height", (d) => (Number.isNaN(d[1]) ? 0 : y(d[0]) - y(d[1])));
 
   appendLegendElem(id, color, keys);
-
-  // Add link to place name labels.
-  svg
-    .select(".x.axis")
-    .selectAll(".tick text")
-    .filter(function (this) {
-      return !!labelToLink[d3.select(this).text()];
-    })
-    .attr("class", "place-tick")
-    .style("cursor", "pointer")
-    .style("text-decoration", "underline")
-    .on("click", function (this) {
-      window.open(labelToLink[d3.select(this).text()], "_blank");
-    });
 }
 
 /**
@@ -509,7 +511,7 @@ function drawGroupBarChart(
     .attr("width", chartWidth)
     .attr("height", chartHeight);
 
-  const bottomHeight = addXAxis(svg, chartHeight, x0);
+  const bottomHeight = addXAxis(svg, chartHeight, x0, false, labelToLink);
 
   const maxV = Math.max(...dataGroups.map((dataGroup) => dataGroup.max()));
   const y = d3
@@ -542,20 +544,6 @@ function drawGroupBarChart(
     .attr("fill", (d) => colorFn(d.key));
 
   appendLegendElem(id, colorFn, keys);
-
-  // Add link to place name labels.
-  svg
-    .select(".x.axis")
-    .selectAll(".tick text")
-    .filter(function (this) {
-      return !!labelToLink[d3.select(this).text()];
-    })
-    .attr("class", "place-tick")
-    .style("cursor", "pointer")
-    .style("text-decoration", "underline")
-    .on("click", function (this) {
-      window.open(labelToLink[d3.select(this).text()], "_blank");
-    });
 }
 
 /**
