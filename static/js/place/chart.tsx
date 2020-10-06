@@ -151,13 +151,7 @@ class Chart extends React.Component<ChartPropType, ChartStateType> {
         ? this.props.trend.sources
         : this.props.snapshot.sources;
     }
-    // TODO(chejennifer): get exploreURL for choropleth charts
-    let exploreUrl = "";
-    if (this.props.chartType !== chartTypeEnum.CHOROPLETH) {
-      exploreUrl = this.props.trend
-        ? this.props.trend.exploreUrl
-        : this.props.snapshot.exploreUrl;
-    }
+    const exploreUrl = this.getExploreUrl();
     if (
       this.props.chartType === chartTypeEnum.CHOROPLETH &&
       (!this.state.choroplethDataGroup ||
@@ -442,6 +436,18 @@ class Chart extends React.Component<ChartPropType, ChartStateType> {
         break;
       default:
         break;
+    }
+  }
+
+  private getExploreUrl(): string {
+    if (this.props.chartType === chartTypeEnum.CHOROPLETH) {
+      return this.props.choroplethData
+        ? this.props.choroplethData.exploreUrl
+        : "";
+    } else {
+      return this.props.trend
+        ? this.props.trend.exploreUrl
+        : this.props.snapshot.exploreUrl;
     }
   }
 }
