@@ -78,6 +78,7 @@ export interface PageData {
   allChildPlaces: {
     string: string[];
   };
+  childPlacesType: string;
   childPlaces: string[];
   parentPlaces: string[];
   similarPlaces: string[];
