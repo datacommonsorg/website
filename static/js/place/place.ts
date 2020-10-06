@@ -184,6 +184,7 @@ function renderPage(dcid: string) {
       data.allChildPlaces[placeType].sort((a, b) =>
         a.name < b.name ? -1 : a.name > b.name ? 1 : 0
       );
+      // TODO(beets): Remove this logic after we add this to the mixer response.
       const numChildren = data.allChildPlaces[placeType].length;
       if (numChildren > childPlaceTypeCount) {
         childPlaceTypeCount = numChildren;
