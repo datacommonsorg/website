@@ -205,12 +205,14 @@ class TimelineParams {
   public setUrlStatsVars(): void {
     const statsVarArray = [];
     for (const statsVar in this.statsVarNodes) {
+      const node = this.statsVarNodes[statsVar];
       statsVarArray.push(
         statsVar +
           nodePathSep +
-          this.statsVarNodes[statsVar].paths.join(nodePathSep) +
-          nodePathSep +
-          this.statsVarNodes[statsVar].denominators.join(nodePathSep)
+          node.paths.join(nodePathSep) +
+          (_.isEmpty(node.denominators)
+            ? ""
+            : nodePathSep + node.denominators.join(nodePathSep))
       );
     }
     this.urlParams.set("statsVar", statsVarArray.join(statsVarSep));

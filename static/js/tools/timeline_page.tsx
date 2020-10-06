@@ -124,7 +124,9 @@ class Page extends Component<Record<string, unknown>, PageStateType> {
     nodePath: string[],
     denominators: string[]
   ): void {
-    if (this.params.addStatsVar(statsVar, nodePath, denominators)) {
+    if (
+      this.params.addStatsVar(statsVar, nodePath, denominators.splice(0, 1))
+    ) {
       getStatsVarInfo(this.params.getStatsVarDcids()).then((data) => {
         this.setState({
           statsVarInfo: data,
