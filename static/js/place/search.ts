@@ -21,7 +21,7 @@ let ac: google.maps.places.Autocomplete;
 /**
  * Setup search input autocomplete
  */
-function initSearchAutocomplete() {
+function initSearchAutocomplete(): void {
   // Create the autocomplete object, restricting the search predictions to
   // geographical location types.
   const options = {
@@ -38,7 +38,7 @@ function initSearchAutocomplete() {
 /*
  * Get place from autocomplete object and update url
  */
-function getPlaceAndRender() {
+function getPlaceAndRender(): void {
   // Get the place details from the autocomplete object.
   const place = ac.getPlace();
   axios

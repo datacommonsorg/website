@@ -239,18 +239,18 @@ class Page extends Component<Record<string, unknown>, PageStateType> {
             </div>
             {numPlaces === 0 && <Info />}
             {numPlaces !== 0 && numStatsVarInfo !== 0 && (
-                <div id="chart-region">
-                  <ChartRegion
-                    places={this.state.placeIdNames}
-                    statsVars={this.state.statsVarInfo}
-                    statsVarTitle={this.state.statsVarTitle}
-                    removeStatsVar={this.removeStatsVar.bind(this)}
-                    chartOptions={this.state.chartOptions}
-                    setPC={this.setChartPerCapita.bind(this)}
-                    initialPC={this.params.allPerCapita}
-                  ></ChartRegion>
-                </div>
-              )}
+              <div id="chart-region">
+                <ChartRegion
+                  places={this.state.placeIdNames}
+                  statsVars={this.state.statsVarInfo}
+                  statsVarTitle={this.state.statsVarTitle}
+                  removeStatsVar={this.removeStatsVar.bind(this)}
+                  chartOptions={this.state.chartOptions}
+                  setPC={this.setChartPerCapita.bind(this)}
+                  initialPC={this.params.allPerCapita}
+                ></ChartRegion>
+              </div>
+            )}
           </div>
         </div>
       </div>
