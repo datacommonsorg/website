@@ -38,7 +38,7 @@ test("test TimelineParams", () => {
   // add one statsVar
   urltest.addStatsVar("Count_Person", ["0", "0"], []);
   expect(urltest.statsVarNodes).toStrictEqual({
-    Count_Person: { paths: [["0", "0"]], denominators: [] }
+    Count_Person: { paths: [["0", "0"]], denominators: [] },
   });
 
   // add duplicated statsVar
