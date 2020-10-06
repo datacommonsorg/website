@@ -72,7 +72,7 @@ class ChartBlock extends React.Component<ChartBlockPropType, unknown> {
     // Plot trend data in overview and topic page.
     if (!_.isEmpty(this.props.data.trend)) {
       const id = randDomId();
-      let rankingParam = new URLSearchParams(`h=${this.props.dcid}`);
+      const rankingParam = new URLSearchParams(`h=${this.props.dcid}`);
       this.props.data.denominator && rankingParam.set("pc", "1");
       this.props.data.scaling && rankingParam.set("scaling", "100");
       this.props.data.unit && rankingParam.set("unit", this.props.data.unit);
@@ -129,7 +129,7 @@ class ChartBlock extends React.Component<ChartBlockPropType, unknown> {
         scaling: scaling,
         statsVars: this.props.data.statsVars,
       };
-      let rankingParam = new URLSearchParams(`h=${this.props.dcid}`);
+      const rankingParam = new URLSearchParams(`h=${this.props.dcid}`);
       if (
         this.props.data.denominator ||
         (!!this.props.data.relatedChart && this.props.data.relatedChart.scale)
@@ -138,7 +138,7 @@ class ChartBlock extends React.Component<ChartBlockPropType, unknown> {
       }
       scaling && rankingParam.set("scaling", String(scaling));
       unit && rankingParam.set("unit", unit);
-      let rankingArg = `?${rankingParam.toString()}`;
+      const rankingArg = `?${rankingParam.toString()}`;
 
       if (this.props.isOverview) {
         // Show child place(state) chart for USA page, otherwise show nearby

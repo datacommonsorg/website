@@ -56,10 +56,10 @@ class RankingTable extends React.Component<RankingTablePropType> {
           </td>
           <td className="text-center">
             <span className="num-value">
-                {value.toLocaleString(undefined, {
-                  maximumFractionDigits: 1,
-                  minimumFractionDigits: 1,
-                })}
+              {value.toLocaleString(undefined, {
+                maximumFractionDigits: 1,
+                minimumFractionDigits: 1,
+              })}
             </span>
           </td>
         </tr>
