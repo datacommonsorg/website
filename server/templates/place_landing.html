@@ -50,12 +50,12 @@
     on the demographics, education, economics, etc., of the place,
     placing them in context with comparisons to other places.
     You can also see how different places rank along different
-    metrics line unemployment, crime and income.
+    metrics line unemployment, crime and income.</p>
 
   <p>You can dive into the charts for your favorite city, zipcode, county,
-    state or country using the search box above.
+    state or country using the search box above.</p>
 
-  <p>Or, start exploring some well known places ...
+  <p>Or, start exploring some well known places ...</p>
 
   <h3>Places</h3>
   <ul>
@@ -64,11 +64,13 @@
       <a href="{{ place_url('geoId/4805000') }}">Austin, TX</a>,
       <a href="{{ place_url('geoId/0667000') }}">San Francisco, CA</a>,
       <a href="{{ place_url('geoId/5363000') }}">Seattle, WA</a>
+    </li>
     <li><strong>Counties</strong>:
       <a href="{{ place_url('geoId/17031') }}">Cook County, IL</a>,
       <a href="{{ place_url('geoId/06059') }}">Orange County, CA</a>,
       <a href="{{ place_url('geoId/48201') }}">Harris County, TX</a>,
       <a href="{{ place_url('geoId/06085') }}">Santa Clara County, CA</a>
+    </li>
     <li><strong>States</strong>:
       <a href="{{ place_url('geoId/06') }}">California</a>,
       <a href="{{ place_url('geoId/48') }}">Texas</a>,
@@ -76,6 +78,7 @@
       <a href="{{ place_url('geoId/21') }}">Kentucky</a>,
       <a href="{{ place_url('geoId/36') }}">New York</a>,
       <a href="{{ place_url('geoId/26') }}">Michigan</a>
+    </li>
     <li><strong>Countries</strong>:
       <a href="{{ place_url('country/CAN') }}">Canada</a>,
       <a href="{{ place_url('country/USA') }}">United
@@ -83,6 +86,7 @@
       <a href="{{ place_url('country/IND') }}">India</a>,
       <a href="{{ place_url('country/MYS') }}">Malaysia</a>,
       <a href="{{ place_url('country/DEU') }}">Germany</a>
+    </li>
   </ul>
 
   <h3>Rankings</h3>
@@ -97,6 +101,7 @@
       <a
         href="{{ ranking_url('Median_Income_Person', 'State', 'country/USA') }}">by
         state</a>
+    </li>
     <li><strong>Unemployment Rate in United States</strong>:
       <a
         href="{{ ranking_url('UnemploymentRate_Person', 'City', 'country/USA', unit='%') }}">by
@@ -107,7 +112,8 @@
       <a
         href="{{ ranking_url('UnemploymentRate_Person', 'State', 'country/USA', unit='%') }}">by
         state</a>
-    <li><strong>Poverty in the United States</strong>:
+    </li>
+    <li><strong>Poverty in United States</strong>:
       <a
         href="{{ ranking_url('Count_Person_BelowPovertyLevelInThePast12Months', 'City', 'country/USA', pc='') }}">by
         city</a>,
@@ -117,12 +123,14 @@
       <a
         href="{{ ranking_url('Count_Person_BelowPovertyLevelInThePast12Months', 'State', 'country/USA', pc='') }}">by
         state</a>
+    </li>
     <li><strong>COVID-19 Deaths</strong>:
       <a
         href="{{ ranking_url('CumulativeCount_MedicalConditionIncident_COVID_19_PatientDeceased', 'Country') }}">worldwide</a>,
       <a
         href="{{ ranking_url('CumulativeCount_MedicalConditionIncident_COVID_19_PatientDeceased', 'State', 'country/USA') }}">
         United States</a>
+    </li>
   </ul>
 </div>
 {% endblock %}
