@@ -54,11 +54,13 @@ class RankingTable extends React.Component<RankingTablePropType> {
               {rankInfo.placeName || rankInfo.placeDcid}
             </a>
           </td>
-          <td className="text-right">
-            {value.toLocaleString(undefined, {
-              maximumFractionDigits: 1,
-              minimumFractionDigits: 1,
-            })}
+          <td className="text-center">
+            <span className="num-value">
+                {value.toLocaleString(undefined, {
+                  maximumFractionDigits: 1,
+                  minimumFractionDigits: 1,
+                })}
+            </span>
           </td>
         </tr>
       );
