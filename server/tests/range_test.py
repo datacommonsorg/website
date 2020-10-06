@@ -55,16 +55,16 @@ class TestBuildRangeGroup(unittest.TestCase):
             'Count_Person_75OrMoreYears'
         ]
         expected = {
-            'Count_Person_5To17Years': 'Count_Person_5To17Years',
-            'Count_Person_18To24Years': 'Count_Person_18To24Years',
-            'Count_Person_25To34Years': 'Count_Person_25To34Years',
-            'Count_Person_35To44Years': 'Count_Person_35To44Years',
-            'Count_Person_45To54Years': 'Count_Person_45To54Years',
+            'Count_Person_5To17Years': ['Count_Person_5To17Years'],
+            'Count_Person_18To24Years': ['Count_Person_18To24Years'],
+            'Count_Person_25To34Years': ['Count_Person_25To34Years'],
+            'Count_Person_35To44Years': ['Count_Person_35To44Years'],
+            'Count_Person_45To54Years': ['Count_Person_45To54Years'],
             'Count_Person_55To64Years': [
                 'Count_Person_55To59Years', 'Count_Person_60To61Years',
                 'Count_Person_62To64Years'
             ],
-            'Count_Person_65To74Years': 'Count_Person_65To74Years',
-            'Count_Person_75OrMoreYears': 'Count_Person_75OrMoreYears'
+            'Count_Person_65To74Years': ['Count_Person_65To74Years'],
+            'Count_Person_75OrMoreYears': ['Count_Person_75OrMoreYears']
         }
         assert lib_range.build_stat_var_range_group(input, 'age') == expected

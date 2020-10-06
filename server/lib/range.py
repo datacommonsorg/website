@@ -134,12 +134,11 @@ def build_stat_var_range_group(stat_vars, range_type):
     result = {}
     for group in range_groups:
         if len(group) == 1:
-            result[range_to_stat_var(group[0], fmt)] = [
-              range_to_stat_var(group[0], fmt]
+            sv = range_to_stat_var(group[0], fmt)
+            result[sv] = [sv]
         else:
             low = group[0][0]
             high = group[-1][1]
-            result[range_to_stat_var(
-                (low, high),
-                fmt)] = [range_to_stat_var(item, fmt) for item in group]
+            key = range_to_stat_var((low, high), fmt)
+            result[key] = [range_to_stat_var(item, fmt) for item in group]
     return result
