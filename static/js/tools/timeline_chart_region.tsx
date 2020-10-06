@@ -67,8 +67,7 @@ class ChartRegion extends Component<ChartRegionPropsType, unknown> {
           for (const id of statsVarDcids) {
             statsVars[id] = this.props.statsVars[id];
             statsVarTitle[id] = this.props.statsVarTitle[id];
-            denominators[id] =
-              this.props.denominators[id][0] || "Count_Persons";
+            denominators[id] = this.props.denominators[id][0] || "Count_Person";
           }
           return (
             <Chart

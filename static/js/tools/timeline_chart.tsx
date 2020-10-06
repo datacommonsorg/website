@@ -157,7 +157,7 @@ class Chart extends Component<ChartPropsType, unknown> {
       1,
       this.props.perCapita && !_.isEmpty(this.props.denominators)
         ? Object.keys(this.props.statsVars).map(
-            (dcid) => this.props.denominators[dcid] || "Count_Person"
+            (dcid) => this.props.denominators[dcid]
           )
         : [],
       {}

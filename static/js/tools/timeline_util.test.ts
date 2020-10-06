@@ -37,29 +37,39 @@ test("test TimelineParams", () => {
 
   // add one statsVar
   urltest.addStatsVar("Count_Person", ["0", "0"], []);
-  expect(urltest.statsVarNodes).toStrictEqual({ Count_Person: [["0", "0"]] });
+  expect(urltest.statsVarNodes).toStrictEqual({
+    Count_Person: { paths: [["0", "0"]], denominators: [] }
+  });
 
   // add duplicated statsVar
   urltest.addStatsVar("Count_Person", ["0", "0"], []);
-  expect(urltest.statsVarNodes).toStrictEqual({ Count_Person: [["0", "0"]] });
+  expect(urltest.statsVarNodes).toStrictEqual({
+    Count_Person: { paths: [["0", "0"]], denominators: [] },
+  });
 
   // add duplicated statsVar with different Path
   urltest.addStatsVar("Count_Person", ["0", "5"], []);
   expect(urltest.statsVarNodes).toStrictEqual({
-    Count_Person: [
-      ["0", "0"],
-      ["0", "5"],
-    ],
+    Count_Person: {
+      paths: [
+        ["0", "0"],
+        ["0", "5"],
+      ],
+      denominators: [],
+    },
   });
 
   // add one more statsVar
   urltest.addStatsVar("Median_Age_Person", ["0", "1"], []);
   expect(urltest.statsVarNodes).toStrictEqual({
-    Count_Person: [
-      ["0", "0"],
-      ["0", "5"],
-    ],
-    Median_Age_Person: [["0", "1"]],
+    Count_Person: {
+      paths: [
+        ["0", "0"],
+        ["0", "5"],
+      ],
+      denominators: [],
+    },
+    Median_Age_Person: { paths: [["0", "1"]], denominators: [] },
   });
 
   // get statsVarDcids
@@ -82,13 +92,15 @@ test("test TimelineParams", () => {
   // remove statsVar with one Path when there're multiple paths
   urltest.removeStatsVar("Count_Person", ["0", "5"]);
   expect(urltest.statsVarNodes).toStrictEqual({
-    Count_Person: [["0", "0"]],
-    Median_Age_Person: [["0", "1"]],
+    Count_Person: { paths: [["0", "0"]], denominators: [] },
+    Median_Age_Person: { paths: [["0", "1"]], denominators: [] },
   });
 
   // remove statsVar without Path
   urltest.removeStatsVar("Median_Age_Person");
-  expect(urltest.statsVarNodes).toStrictEqual({ Count_Person: [["0", "0"]] });
+  expect(urltest.statsVarNodes).toStrictEqual({
+    Count_Person: { paths: [["0", "0"]], denominators: [] },
+  });
 
   // remove statsVar with Path
   urltest.removeStatsVar("Count_Person", ["0", "0"]);
@@ -111,8 +123,8 @@ test("test function of parsing the timeline parameters from the url", () => {
     "&statsVar=Count_Person__Median_Age_Person,0,1__Unknown";
   params.getParamsFromUrl();
   expect(params.statsVarNodes).toStrictEqual({
-    Count_Person: [["0", "0"]],
-    Median_Age_Person: [["0", "1"]],
-    Unknown: [[]],
+    Count_Person: { paths: [["0", "0"]], denominators: [] },
+    Median_Age_Person: { paths: [["0", "1"]], denominators: [] },
+    Unknown: { paths: [[]], denominators: [] },
   });
 });
