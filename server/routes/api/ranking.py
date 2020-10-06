@@ -82,7 +82,7 @@ def ranking_api(stat_var, place_type, place=None):
                 dcids.add(r['placeDcid'])
             payload[stat_var][k]['info'] = info
             # payload[stat_var][k]['count'] = count
-    place_names = place_api.get_name(list(dcids))
+    place_names = place_api.get_display_name('^'.join(sorted(list(dcids))))
     for k in rank_keys:
         if k in payload[stat_var] and 'info' in payload[stat_var][k]:
             for r in payload[stat_var][k]['info']:
