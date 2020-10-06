@@ -29,6 +29,7 @@ from collections import defaultdict
 from cache import cache
 import services.datacommons as dc_service
 import routes.api.place as place_api
+import lib.range as lib_range
 
 import logging
 
@@ -81,6 +82,73 @@ def build_spec(chart_config):
     return spec, stat_vars
 
 
+def get_denom(cc, related_chart=False):
+    """Get the numerator and denominator map."""
+    result = {}
+    # If chart requires denominator, use itfor both primary and related charts.
+    if 'denominator' in cc:
+        if len(cc['denominator']) != len(cc['statsVars']):
+            raise ValueError('Denominator number not matching: %s', cc)
+        for num, denom in zip(cc['statsVars'], cc['denominator']):
+            result[num] = denom
+        return result
+    # For related chart, use the denominator that is specified in the
+    # 'relatedChart' field if present.
+    if related_chart and cc.get('relatedChart', {}).get('scale', False):
+        denom = cc.get['relatedChart'].get('denominator', 'Count_Person')
+        for num in cc['statsVars']:
+            result[num] = denom
+    return {}
+
+
+def get_series(data, place, stat_vars):
+    """Get time series from the landing page data.
+
+    Aggregate for all the stat vars and return empty series if any stat var data
+    is missing
+
+    Returns:
+        series and sources.
+    """
+    all_series = []
+    sources = set()
+    num_sv = len(stat_vars)
+    for sv in stat_vars:
+        if not data[place].get(sv, {}):
+            return {}, []
+        series = data[place][sv]
+        all_series.append(series['data'])
+        sources.add(series['provenanceDomain'])
+    # One series, no need to aggregate
+    if num_sv == 1:
+        return all_series[0], sources
+    merged_series = defaultdict(list)
+    for series in all_series:
+        for date, value in series.items():
+            merged_series[date].append(value)
+    # Aggregate
+    agg_series = {}
+    for date, values in merged_series.items():
+        if len(values) == num_sv:
+            agg_series[date] = sum(values)
+    return agg_series, sources
+
+
+def get_stat_var_group(cc, data, place):
+    """Get the stat var grouping for aggregation."""
+    if cc.get('aggregate', False):
+        # For stat vars that need aggregation, use quantify range aggregation.
+        # TODO(shifucun): support more quantify range besides "age"
+        stat_var_list = []
+        for sv in cc['statsVars']:
+            if data[place][sv]:
+                stat_var_list.append(sv)
+        if stat_var_list:
+            return lib_range.build_stat_var_range_group(stat_var_list, 'age')
+        return {}
+    return {sv: [sv] for sv in cc['statsVars']}
+
+
 def get_snapshot_across_places(cc, data, places):
     """Get the snapshot used for bar data across a few places.
 
@@ -89,11 +157,6 @@ def get_snapshot_across_places(cc, data, places):
     """
     if not places:
         return {}
-
-    if 'denominator' in cc:
-        if len(cc['denominator']) < len(cc['statsVars']):
-            logging.error('Missing denominator in %s', cc)
-            return {}
 
     # date_to_data is a dictionary from date to place and a tuple of
     # (stat_var, value) pair.
@@ -113,36 +176,31 @@ def get_snapshot_across_places(cc, data, places):
 
     # TODO(shifucun/beets): add a unittest to ensure denominator is set
     # explicitly when scale==True
-    denominator_stat_var = None
-    if 'relatedChart' in cc and cc['relatedChart'].get('scale', False):
-        denominator_stat_var = cc['relatedChart'].get('denominator',
-                                                      'Count_Person')
-
+    num_denom = get_denom(cc)
     sources = set()
-    for dcid in places:
-        if dcid not in data:
+    for place in places:
+        if place not in data:
             continue
-        for i, stat_var in enumerate(cc['statsVars']):
-            series_raw = data[dcid].get(stat_var, {})
-            if not series_raw:
+        stat_var_group = get_stat_var_group(cc, data, place)
+        for num_sv, sv_list in stat_var_group.items():
+            num_series, num_sources = get_series(data, place, sv_list)
+            if not num_series:
                 continue
-            if 'denominator' in cc:
-                denominator_stat_var = cc['denominator'][i]
-            if denominator_stat_var is not None:
-                denominator_raw = data[dcid].get(denominator_stat_var, {})
-                if not denominator_raw:
+            sources.update(num_sources)
+            if num_sv in num_denom:
+                denom_sv = num_denom[num_sv]
+                denom_series, denom_sources = get_series(
+                    data, place, [denom_sv])
+                if not denom_series:
                     continue
-                series = scale_series(series_raw['data'],
-                                      denominator_raw['data'])
-                sources.add(series_raw['provenanceDomain'])
-                sources.add(denominator_raw['provenanceDomain'])
+                sources.update(denom_sources)
+                result_series = scale_series(num_series, denom_series)
             else:
-                series = series_raw['data']
-                sources.add(series_raw['provenanceDomain'])
+                result_series = num_series
             # Turn the value to be keyed by date.
-            for date, value in series.items():
-                date_to_data[date][dcid].append((stat_var, value))
-
+            for date, value in result_series.items():
+                date_to_data[date][place].append((num_sv, value))
+    # Pick a date that has the most series across places.
     dates = sorted(date_to_data.keys(), reverse=True)
     if not dates:
         return {}
@@ -189,39 +247,34 @@ def get_trend(cc, data, place):
     if place not in data:
         return {}
 
-    if 'denominator' in cc:
-        if len(cc['denominator']) < len(cc['statsVars']):
-            logging.error('Missing denominator in %s', cc)
-            return {}
-
-    series = {}
+    result_series = {}
     sources = set()
-    for i, stat_var in enumerate(cc['statsVars']):
-        numerator_raw = data[place].get(stat_var, {})
-        if not numerator_raw:
+    num_denom = get_denom(cc)
+    stat_var_group = get_stat_var_group(cc, data, place)
+    for num_sv, sv_list in stat_var_group.items():
+        num_series, num_sources = get_series(data, place, sv_list)
+        if not num_series:
             continue
-        if 'denominator' in cc:
-            denominator_raw = data[place].get(cc['denominator'][i], {})
-            if not denominator_raw:
+        sources.update(num_sources)
+        if num_sv in num_denom:
+            denom_sv = num_denom[num_sv]
+            denom_series, denom_sources = get_series(data, place, [denom_sv])
+            if not denom_series:
                 continue
-            series[stat_var] = scale_series(numerator_raw['data'],
-                                            denominator_raw['data'])
-            # TODO(shifucun): ensure the source is added only when the data
-            # is included.
-            sources.add(numerator_raw['provenanceDomain'])
-            sources.add(denominator_raw['provenanceDomain'])
+            sources.update(denom_sources)
+            result_series[num_sv] = scale_series(num_series, denom_series)
         else:
-            series[stat_var] = numerator_raw['data']
-            sources.add(numerator_raw['provenanceDomain'])
-    for stat_var in list(series.keys()):
-        if len(series[stat_var]) <= 1:
-            del series[stat_var]
-    if not series:
+            result_series[num_sv] = num_series
+    # filter out time series with single data point.
+    for sv in list(result_series.keys()):
+        if len(result_series[sv]) <= 1:
+            del result_series[sv]
+    if not result_series:
         return {}
 
     is_scaled = ('denominator' in cc)
     return {
-        'series': series,
+        'series': result_series,
         'sources': list(sources),
         'exploreUrl': build_url([place], cc['statsVars'], is_scaled)
     }
@@ -300,6 +353,16 @@ def data(dcid):
                 for t in chart_types:
                     chart[t] = get_bar(chart, all_stat, [dcid] +
                                        raw_page_data.get(t + 'Places', []))
+                # Update stat vars for aggregated stats
+                if chart.get('aggregate', False):
+                    chart['statsVars'] = []
+                    sv_set = set()
+                    sv_set.update(list(chart['trend'].get('series', {}).keys()))
+                    for t in chart_types:
+                        for place_data in chart[t].get('data', []):
+                            sv_set.update(list(place_data['data'].keys()))
+                    chart['statsVars'] = list(sv_set)
+
     # Remove empty category and topics
     for category in list(spec_and_stat.keys()):
         for topic in list(spec_and_stat[category].keys()):
