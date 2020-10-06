@@ -40,6 +40,7 @@ const config = {
       __dirname + "/js/place/place.ts",
       __dirname + "/css/place/place.scss",
     ],
+    place_landing: [__dirname + "/js/place/place_landing.ts"],
     ranking: [
       __dirname + "/js/ranking/ranking.ts",
       __dirname + "/css/ranking.scss",
