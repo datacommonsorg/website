@@ -108,10 +108,11 @@ class TestScreenShot(WebdriverBaseTest):
         index = 1
         for test_info in TEST_URLS:
             self.driver.get(self.url_ + test_info['url'])
-            time.sleep(15)
+            time.sleep(10)
             self.driver.set_window_size(width=WIDTH,
                                         height=test_info['height'],
                                         windowHandle='current')
+            time.sleep(2)
             charts = self.driver.find_elements_by_class_name(
                 test_info['test_class'])
             # Assert there are charts.
