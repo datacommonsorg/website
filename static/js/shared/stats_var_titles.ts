@@ -219,7 +219,7 @@ const STATS_VAR_TITLES: { [key: string]: string } = {
     "Deaths Caused By Diseases of the Respiratory System",
   Count_Death_ExternalCauses: "Deaths Caused By External Causes",
   Count_Death_DiseasesOfTheNervousSystem:
-    "Deaths Caused By Diseases of the jNervous System",
+    "Deaths Caused By Diseases of the Nervous System",
 
   // Outcomes
   Percent_Person_WithHighCholesterol:

@@ -58,6 +58,8 @@ interface ChartBlockPropType {
    * Values of statvar/denominator combinations for places one level down of current dcid
    */
   choroplethData: CachedChoroplethData;
+  childPlaceType: string;
+  parentPlaceDcid: string;
 }
 
 class ChartBlock extends React.Component<ChartBlockPropType, unknown> {
@@ -70,6 +72,10 @@ class ChartBlock extends React.Component<ChartBlockPropType, unknown> {
     // Plot trend data in overview and topic page.
     if (!_.isEmpty(this.props.data.trend)) {
       const id = randDomId();
+      const rankingParam = new URLSearchParams(`h=${this.props.dcid}`);
+      this.props.data.denominator && rankingParam.set("pc", "1");
+      this.props.data.scaling && rankingParam.set("scaling", "100");
+      this.props.data.unit && rankingParam.set("unit", this.props.data.unit);
       chartElements.push(
         <Chart
           key={id}
@@ -83,6 +89,9 @@ class ChartBlock extends React.Component<ChartBlockPropType, unknown> {
           names={this.props.names}
           scaling={this.props.data.scaling}
           statsVars={this.props.data.statsVars}
+          rankingTemplateUrl={`/ranking/_sv_/${this.props.placeType}/${
+            this.props.parentPlaceDcid
+          }?${rankingParam.toString()}`}
         ></Chart>
       );
     }
@@ -120,6 +129,17 @@ class ChartBlock extends React.Component<ChartBlockPropType, unknown> {
         scaling: scaling,
         statsVars: this.props.data.statsVars,
       };
+      const rankingParam = new URLSearchParams(`h=${this.props.dcid}`);
+      if (
+        this.props.data.denominator ||
+        (!!this.props.data.relatedChart && this.props.data.relatedChart.scale)
+      ) {
+        rankingParam.set("pc", "1");
+      }
+      scaling && rankingParam.set("scaling", String(scaling));
+      unit && rankingParam.set("unit", unit);
+      const rankingArg = `?${rankingParam.toString()}`;
+
       if (this.props.isOverview) {
         // Show child place(state) chart for USA page, otherwise show nearby
         // places.
@@ -132,6 +152,7 @@ class ChartBlock extends React.Component<ChartBlockPropType, unknown> {
                 id={id}
                 snapshot={this.props.data.child}
                 title={`${relatedChartTitle}: States within ${this.props.placeName}`}
+                rankingTemplateUrl={`/ranking/_sv_/State/country/USA${rankingArg}`}
                 {...sharedProps}
               ></Chart>
             );
@@ -144,6 +165,7 @@ class ChartBlock extends React.Component<ChartBlockPropType, unknown> {
                 id={id}
                 snapshot={this.props.data.nearby}
                 title={`${relatedChartTitle}: ${displayPlaceType} near ${this.props.placeName}`}
+                rankingTemplateUrl={`/ranking/_sv_/${this.props.placeType}/${this.props.parentPlaceDcid}${rankingArg}`}
                 {...sharedProps}
               ></Chart>
             );
@@ -154,12 +176,14 @@ class ChartBlock extends React.Component<ChartBlockPropType, unknown> {
                 id={id}
                 snapshot={this.props.data.child}
                 title={`${relatedChartTitle}: Places within ${this.props.placeName}`}
+                rankingTemplateUrl={`/ranking/_sv_/${this.props.childPlaceType}/${this.props.dcid}${rankingArg}`}
                 {...sharedProps}
               ></Chart>
             );
           }
         }
       } else {
+        // Topic page
         if (this.props.dcid !== "country/USA") {
           if (!_.isEmpty(this.props.data.nearby)) {
             const id = randDomId();
@@ -169,6 +193,7 @@ class ChartBlock extends React.Component<ChartBlockPropType, unknown> {
                 id={id}
                 snapshot={this.props.data.nearby}
                 title={`${relatedChartTitle}: ${displayPlaceType} near ${this.props.placeName}`}
+                rankingTemplateUrl={`/ranking/_sv_/${this.props.placeType}/${this.props.parentPlaceDcid}${rankingArg}`}
                 {...sharedProps}
               ></Chart>
             );
@@ -181,6 +206,7 @@ class ChartBlock extends React.Component<ChartBlockPropType, unknown> {
                 id={id}
                 snapshot={this.props.data.similar}
                 title={`${relatedChartTitle}: other ${displayPlaceType}`}
+                rankingTemplateUrl={`/ranking/_sv_/${this.props.placeType}/country/USA${rankingArg}`}
                 {...sharedProps}
               ></Chart>
             );
@@ -196,6 +222,7 @@ class ChartBlock extends React.Component<ChartBlockPropType, unknown> {
                 id={id}
                 snapshot={this.props.data.child}
                 title={`${relatedChartTitle}: Places within ${this.props.placeName}`}
+                rankingTemplateUrl={`/ranking/_sv_/${this.props.childPlaceType}/${this.props.dcid}${rankingArg}`}
                 {...sharedProps}
               ></Chart>
             );
@@ -210,6 +237,7 @@ class ChartBlock extends React.Component<ChartBlockPropType, unknown> {
                 id={id}
                 snapshot={this.props.data.parent}
                 title={`${relatedChartTitle}: places that contain ${this.props.placeName}`}
+                rankingTemplateUrl={`/ranking/_sv_/${this.props.placeType}/country/USA${rankingArg}`}
                 {...sharedProps}
               ></Chart>
             );
@@ -240,6 +268,7 @@ class ChartBlock extends React.Component<ChartBlockPropType, unknown> {
                 geoJsonData={this.props.geoJsonData}
                 choroplethData={svChoroplethData}
                 statsVars={this.props.data.statsVars}
+                rankingTemplateUrl={`/ranking/_sv_/${this.props.placeType}/${this.props.dcid}${rankingArg}`}
               ></Chart>
             );
           }

@@ -210,6 +210,9 @@ function renderPage(dcid: string) {
         placeType,
         geoJsonData,
         choroplethData,
+        childPlacesType: data.childPlacesType,
+        parentPlaceDcid:
+          data.parentPlaces.length > 0 ? data.parentPlaces[0] : null,
       }),
       document.getElementById("main-pane")
     );

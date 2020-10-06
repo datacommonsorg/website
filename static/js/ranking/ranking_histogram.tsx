@@ -22,6 +22,8 @@ import { drawHistogram } from "../chart/draw";
 interface RankingHistogramPropType {
   ranking: Ranking;
   id: string;
+  scaling: number;
+  unit: string;
 }
 
 interface RankingHistogramStateType {
@@ -65,14 +67,17 @@ class RankingHistogram extends React.Component<
 
   drawChart(): void {
     const rankList = this.props.ranking.info;
-    const dataPoints = rankList.map((d) => new DataPoint(d.placeName, d.value));
+    const dataPoints = rankList.map(
+      (d) => new DataPoint(d.placeName, d.value * this.props.scaling)
+    );
 
     this.chartElementRef.current.innerHTML = "";
     drawHistogram(
       this.props.id,
       this.chartElementRef.current.offsetWidth,
       this.chartElementRef.current.offsetHeight,
-      dataPoints
+      dataPoints,
+      this.props.unit
     );
   }
 
