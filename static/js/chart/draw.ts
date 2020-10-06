@@ -56,7 +56,10 @@ const AXIS_GRID_FILL = "#999";
 function appendLegendElem(
   elem: string,
   color: d3.ScaleOrdinal<string, string>,
-  keys: string[]
+  keys: {
+    label: string;
+    link?: string;
+  }[]
 ): void {
   d3.select("#" + elem)
     .append("div")
@@ -64,9 +67,10 @@ function appendLegendElem(
     .selectAll("div")
     .data(keys)
     .join("div")
-    .attr("style", (d) => `background: ${color(d)}`)
-    .append("span")
-    .text((d) => d);
+    .attr("style", (d) => `background: ${color(d.label)}`)
+    .append("a")
+    .text((d) => d.label)
+    .attr("href", (d) => d.link || null);
 }
 
 function getWrapLineSeparator(line: string[]): string {
@@ -449,7 +453,14 @@ function drawStackBarChart(
     .attr("width", x.bandwidth())
     .attr("height", (d) => (Number.isNaN(d[1]) ? 0 : y(d[0]) - y(d[1])));
 
-  appendLegendElem(id, color, keys);
+  appendLegendElem(
+    id,
+    color,
+    dataGroups[0].value.map((dp) => ({
+      label: dp.label,
+      link: dp.link,
+    }))
+  );
 
   // Add link to place name labels.
   svg
@@ -540,7 +551,14 @@ function drawGroupBarChart(
     .attr("height", (d) => y(0) - y(d.value))
     .attr("fill", (d) => colorFn(d.key));
 
-  appendLegendElem(id, colorFn, keys);
+  appendLegendElem(
+    id,
+    colorFn,
+    dataGroups[0].value.map((dp) => ({
+      label: dp.label,
+      link: dp.link,
+    }))
+  );
 
   // Add link to place name labels.
   svg
@@ -663,7 +681,16 @@ function drawLineChart(
     }
   }
 
-  appendLegendElem(id, colorFn, legendText);
+  // appendLegendElem(id, colorFn, legendText);
+
+  appendLegendElem(
+    id,
+    colorFn,
+    dataGroups.map((dg) => ({
+      label: dg.label,
+      link: dg.link,
+    }))
+  );
   return !hasFilledInValues;
 }
 

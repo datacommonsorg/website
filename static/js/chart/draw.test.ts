@@ -20,14 +20,18 @@ import { appendLegendElem } from "./draw";
 
 test("svg test", () => {
   document.body.innerHTML = '<div id="chart"></div>';
-  const keys = ["San Jose", "Palo Alto"];
+  const data = [
+    { label: "San Jose", link: "about:blank" },
+    { label: "Palo Alto", link: "/foo/bar" },
+  ];
+  const keys = data.map((d) => d.label);
   const color = getColorFn(keys);
-  appendLegendElem("chart", color, keys);
+  appendLegendElem("chart", color, data);
 
   expect(document.getElementById("chart").innerHTML).toEqual(
     '<div class="legend">' +
-      '<div style="background: rgb(147, 0, 0)"><span>San Jose</span></div>' +
-      '<div style="background: rgb(94, 79, 162)"><span>Palo Alto</span></div>' +
+      '<div style="background: rgb(147, 0, 0)"><a href="about:blank">San Jose</a></div>' +
+      '<div style="background: rgb(94, 79, 162)"><a href="/foo/bar">Palo Alto</a></div>' +
       "</div>"
   );
 });

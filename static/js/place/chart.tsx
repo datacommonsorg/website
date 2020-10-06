@@ -89,6 +89,10 @@ interface ChartPropType {
    * All stats vars for this chart
    */
   statsVars: string[];
+  /**
+   * Template to create links to place rankings (replace _sv_ with a StatVar)
+   */
+  rankingTemplateUrl: string;
 }
 
 interface ChartStateType {
@@ -105,6 +109,7 @@ class Chart extends React.Component<ChartPropType, ChartStateType> {
   svgContainerElement: React.RefObject<HTMLDivElement>;
   embedModalElement: React.RefObject<ChartEmbed>;
   dcid: string;
+  rankingUrlByStatVar: { [statVar: string]: string };
 
   constructor(props: ChartPropType) {
     super(props);
@@ -121,6 +126,15 @@ class Chart extends React.Component<ChartPropType, ChartStateType> {
     // small screen sizes
     this._handleWindowResize = this._handleWindowResize.bind(this);
     this._handleEmbed = this._handleEmbed.bind(this);
+
+    this.rankingUrlByStatVar = {};
+    for (const statVar of this.props.statsVars) {
+      this.rankingUrlByStatVar[statVar] = this.props.rankingTemplateUrl.replace(
+        "_sv_",
+
+        statVar
+      );
+    }
   }
 
   render(): JSX.Element {
@@ -360,7 +374,13 @@ class Chart extends React.Component<ChartPropType, ChartStateType> {
               value: this.props.trend.series[statVar][date] * scaling,
             });
           }
-          dataGroups.push(new DataGroup(STATS_VAR_LABEL[statVar], dataPoints));
+          dataGroups.push(
+            new DataGroup(
+              STATS_VAR_LABEL[statVar],
+              dataPoints,
+              this.rankingUrlByStatVar[statVar]
+            )
+          );
         }
         for (let i = 0; i < dataGroups.length; i++) {
           dataGroups[i].value = this.expandDataPoints(
@@ -398,6 +418,7 @@ class Chart extends React.Component<ChartPropType, ChartStateType> {
               label: STATS_VAR_LABEL[statVar],
               value: val ? val * scaling : null,
               dcid: placeData.dcid,
+              link: this.rankingUrlByStatVar[statVar],
             });
           }
           dataGroups.push(

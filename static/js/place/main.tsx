@@ -57,6 +57,8 @@ interface MainPanePropType {
    * Values of statvar/denominator combinations for places one level down of current dcid
    */
   choroplethData: CachedChoroplethData;
+  childPlaceType: string;
+  parentPlaceDcid: string;
 }
 
 class MainPane extends React.Component<MainPanePropType, unknown> {
@@ -111,6 +113,8 @@ class MainPane extends React.Component<MainPanePropType, unknown> {
                       data={data}
                       geoJsonData={this.props.geoJsonData}
                       choroplethData={this.props.choroplethData}
+                      childPlaceType={this.props.childPlaceType}
+                      parentPlaceDcid={this.props.parentPlaceDcid}
                     />
                   );
                 })}
