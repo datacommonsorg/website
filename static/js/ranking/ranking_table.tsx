@@ -47,7 +47,7 @@ class RankingTable extends React.Component<RankingTablePropType> {
       let value = rankInfo.value ? rankInfo.value : 0;
       value = value * scaling;
       return (
-        <tr key={rankInfo.rank}>
+        <tr key={rankInfo.rank} data-dcid={rankInfo.placeDcid}>
           <td>{rankInfo.rank ? rankInfo.rank : 0}</td>
           <td>
             <a href={`/place?dcid=${rankInfo.placeDcid}`}>
@@ -57,6 +57,7 @@ class RankingTable extends React.Component<RankingTablePropType> {
           <td className="text-right">
             {value.toLocaleString(undefined, {
               maximumFractionDigits: 1,
+              minimumFractionDigits: 1,
             })}
           </td>
         </tr>

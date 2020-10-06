@@ -103,10 +103,12 @@ class Page extends React.Component<RankingPagePropType, RankingPageStateType> {
           {subtitle}
           {this.renderToggle()}
         </h3>
-        <RankingHistogram ranking={ranking} id={"ranking-chart"}
+        <RankingHistogram
+          ranking={ranking}
+          id={"ranking-chart"}
           scaling={this.props.scaling}
           unit={this.props.unit}
-          />
+        />
         <RankingTable
           ranking={ranking}
           id={"ranking-table"}
