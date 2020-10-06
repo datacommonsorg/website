@@ -15,7 +15,6 @@
  */
 
 import React, { Component } from "react";
-import _ from "lodash";
 import { StatsVarInfo } from "./timeline_util";
 import { fetchStatsData, StatsData } from "../shared/data_fetcher";
 import { drawGroupLineChart } from "../chart/draw";
@@ -150,12 +149,16 @@ class Chart extends Component<ChartPropsType, unknown> {
   }
 
   private loadDataAndDrawChart() {
+    const statVars = Object.keys(this.props.statsVars);
+    const hasAllDenominators = statVars.every(
+      (dcid) => dcid in this.props.denominators
+    );
     fetchStatsData(
       Object.keys(this.props.places),
       Object.keys(this.props.statsVars),
-      this.props.perCapita && _.isEmpty(this.props.denominators),
+      this.props.perCapita && !hasAllDenominators,
       1,
-      this.props.perCapita && !_.isEmpty(this.props.denominators)
+      this.props.perCapita && hasAllDenominators
         ? Object.keys(this.props.statsVars).map(
             (dcid) => this.props.denominators[dcid]
           )
