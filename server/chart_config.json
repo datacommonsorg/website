@@ -43,11 +43,30 @@
   },
   {
     "category": "Economics",
+    "title": "Children in Employment",
+    "statsVars": ["WorldBank/SL_TLF_0714_ZS"],
+    "unit": "%",
+    "isOverview": true,
+    "relatedChart": {
+      "scale": false
+    }
+  },
+  {
+    "category": "Economics",
     "title": "Unemployment Rate by Gender",
     "statsVars": [
       "UnemploymentRate_Person_Male",
       "UnemploymentRate_Person_Female"
     ],
+    "relatedChart": {
+      "scale": false
+    }
+  },
+  {
+    "category": "Economics",
+    "title": "Children in Employment by Gender",
+    "statsVars": ["WorldBank/SL_TLF_0714_FE_ZS", "WorldBank/SL_TLF_0714_MA_ZS"],
+    "unit": "%",
     "relatedChart": {
       "scale": false
     }
@@ -107,13 +126,104 @@
   },
   {
     "category": "Economics",
+    "title": "Government Expenditures on Education (% of Government Expenditure)",
+    "statsVars": ["WorldBank/SE_XPD_TOTL_GB_ZS"],
+    "unit": "%",
+    "isOverview": true,
+    "relatedChart": {
+      "scale": false
+    }
+  },
+  {
+    "category": "Economics",
+    "title": "Government Expenditures on Education (% of GDP)",
+    "isOverview": true,
+    "statsVars": ["WorldBank/SE_XPD_TOTL_GD_ZS"],
+    "unit": "%",
+    "relatedChart": {
+      "scale": false
+    }
+  },
+  {
+    "category": "Economics",
+    "title": "Government Expenditures on Military",
+    "statsVars": ["WorldBank/MS_MIL_XPND_CD"],
+    "unit": "$",
+    "isOverview": true,
+    "relatedChart": {
+      "scale": false
+    }
+  },
+  {
+    "category": "Economics",
+    "title": "Government Expenditures on Military (% of GDP)",
+    "statsVars": ["WorldBank/MS_MIL_XPND_GD_ZS"],
+    "unit": "%",
+    "isOverview": true,
+    "relatedChart": {
+      "scale": false
+    }
+  },
+  {
+    "category": "Economics",
+    "title": "Market Capitalization of Domestic Companies",
+    "statsVars": ["WorldBank/CM_MKT_LCAP_CD"],
+    "unit": "$",
+    "isOverview": true,
+    "relatedChart": {
+      "scale": false
+    }
+  },
+  {
+    "category": "Economics",
+    "title": "Market Capitalization of Domestic Companies (% of GDP)",
+    "statsVars": ["WorldBank/CM_MKT_LCAP_GD_ZS"],
+    "unit": "%",
+    "isOverview": true,
+    "relatedChart": {
+      "scale": false
+    }
+  },
+  {
+    "category": "Economics",
+    "title": "Inward Remittance",
+    "statsVars": ["WorldBank/BX_TRF_PWKR_CD_DT"],
+    "unit": "$",
+    "isOverview": true,
+    "relatedChart": {
+      "scale": false
+    }
+  },
+  {
+    "category": "Economics",
+    "title": "Inward Remittance (% of GDP)",
+    "statsVars": ["WorldBank/BX_TRF_PWKR_DT_GD_ZS"],
+    "unit": "%",
+    "isOverview": true,
+    "relatedChart": {
+      "scale": false
+    }
+  },
+  {
+    "category": "Economics",
+    "title": "Outward Remittance",
+    "statsVars": ["WorldBank/BM_TRF_PWKR_CD_DT"],
+    "unit": "$",
+    "isOverview": true,
+    "relatedChart": {
+      "scale": false
+    }
+  },
+  {
+    "category": "Economics",
     "title": "Median Individual Income",
     "statsVars": ["Median_Income_Person"],
     "unit": "$",
     "isOverview": true,
     "relatedChart": {
       "scale": false
-    }
+    },
+    "isChoropleth": true
   },
   {
     "category": "Economics",
@@ -143,7 +253,8 @@
     "unit": "$",
     "relatedChart": {
       "scale": false
-    }
+    },
+    "isChoropleth": true
   },
   {
     "category": "Economics",
@@ -191,7 +302,8 @@
       "denominator": "Count_Person",
       "unit": "%",
       "scaling": 100
-    }
+    },
+    "isChoropleth": true
   },
   {
     "category": "Health",
@@ -206,7 +318,8 @@
       "denominator": "Count_Person",
       "unit": "%",
       "scaling": 100
-    }
+    },
+    "isChoropleth": true
   },
   {
     "category": "Health",
@@ -225,6 +338,63 @@
       "denominator": "Count_Person",
       "unit": "%",
       "scaling": 100
+    }
+  },
+  {
+    "category": "Health",
+    "title": "Infant Mortality Rate",
+    "statsVars": ["WorldBank/SP_DYN_IMRT_IN"],
+    "unit": "%",
+    "isOverview": true,
+    "relatedChart": {
+      "scale": false
+    }
+  },
+  {
+    "category": "Health",
+    "title": "Infant Mortality Rate by Gender",
+    "statsVars": ["WorldBank/SP_DYN_IMRT_MA_IN", "WorldBank/SP_DYN_IMRT_FE_IN"],
+    "unit": "%",
+    "relatedChart": {
+      "scale": false
+    }
+  },
+  {
+    "category": "Health",
+    "title": "Wasting among Children under 5",
+    "statsVars": ["WorldBank/SH_STA_WAST_ZS"],
+    "unit": "%",
+    "isOverview": true,
+    "relatedChart": {
+      "scale": false
+    }
+  },
+  {
+    "category": "Health",
+    "title": "Wasting among Children under 5 by Gender",
+    "statsVars": ["WorldBank/SH_STA_WAST_MA_ZS", "WorldBank/SH_STA_WAST_FE_ZS"],
+    "unit": "%",
+    "relatedChart": {
+      "scale": false
+    }
+  },
+  {
+    "category": "Health",
+    "title": "Severe Wasting among Children under 5",
+    "statsVars": ["WorldBank/SH_SVR_WAST_ZS"],
+    "unit": "%",
+    "isOverview": true,
+    "relatedChart": {
+      "scale": false
+    }
+  },
+  {
+    "category": "Health",
+    "title": "Severe Wasting among Children under 5 by Gender",
+    "statsVars": ["WorldBank/SH_SVR_WAST_MA_ZS", "WorldBank/SH_SVR_WAST_FE_ZS"],
+    "unit": "%",
+    "relatedChart": {
+      "scale": false
     }
   },
   {
@@ -261,7 +431,7 @@
   },
   {
     "category": "Health",
-    "title": "Prescribed Drugs",
+    "title": "Prescribed Drugs (Quarterly)",
     "statsVars": [
       "RetailDrugDistribution_DrugDistribution_Oxycodone",
       "RetailDrugDistribution_DrugDistribution_Hydrocodone",
@@ -272,10 +442,20 @@
     "isOverview": true,
     "unit": "g",
     "relatedChart": {
-      "title": "Prescribed Drugs Per Capita",
+      "title": "Prescribed Drugs Per Capita (Quarterly)",
       "scale": true,
       "denominator": "Count_Person",
       "unit": "g"
+    }
+  },
+  {
+    "category": "Health",
+    "title": "Alcohol Consumption Per Capita (Annual)",
+    "statsVars": ["WorldBank/SH_ALC_PCAP_LI"],
+    "unit": "L",
+    "isOverview": true,
+    "relatedChart": {
+      "scale": false
     }
   },
   {
@@ -307,7 +487,6 @@
   },
   {
     "category": "Equity",
-
     "title": "Poverty Rate by Gender",
     "statsVars": [
       "Count_Person_Female_BelowPovertyLevelInThePast12Months",
@@ -325,7 +504,15 @@
   },
   {
     "category": "Equity",
-
+    "title": "Gini Index",
+    "statsVars": ["WorldBank/SI_POV_GINI"],
+    "isOverview": true,
+    "relatedChart": {
+      "scale": false
+    }
+  },
+  {
+    "category": "Equity",
     "title": "Median Household Income by Race",
     "statsVars": [
       "Median_Income_Household_HouseholderRaceAmericanIndianOrAlaskaNativeAlone",
@@ -666,7 +853,8 @@
     "isOverview": true,
     "relatedChart": {
       "scale": false
-    }
+    },
+    "isChoropleth": true
   },
   {
     "category": "Demographics",
@@ -683,6 +871,15 @@
     "statsVars": ["Count_Person_PerArea"],
     "nonDividable": true,
     "isOverview": true
+  },
+  {
+    "category": "Demographics",
+    "title": "Urban and Rural Population",
+    "statsVars": ["WorldBank/SP_URB_TOTL", "WorldBank/SP_RUR_TOTL"],
+    "isOverview": true,
+    "relatedChart": {
+      "scale": false
+    }
   },
   {
     "category": "Demographics",
@@ -758,11 +955,12 @@
     "isOverview": true,
     "relatedChart": {
       "scale": false
-    }
+    },
+    "isChoropleth": true
   },
   {
     "category": "Demographics",
-    "title": "Age",
+    "title": "Population by Age",
     "statsVars": [
       "Count_Person_Upto5Years",
       "Count_Person_5To17Years",
@@ -826,7 +1024,7 @@
   },
   {
     "category": "Environment",
-    "title": "Energy comsumption Per Capita",
+    "title": "Energy Consumption Per Capita",
     "statsVars": ["Amount_Consumption_Energy_PerCapita"],
     "isOverview": true,
     "relatedChart": {

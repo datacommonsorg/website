@@ -23,11 +23,18 @@ import {
   drawGroupBarChart,
 } from "../chart/draw";
 import { STATS_VAR_LABEL } from "../shared/stats_var_labels";
-import { chartTypeEnum, TrendData, SnapshotData } from "./types";
+import {
+  chartTypeEnum,
+  TrendData,
+  SnapshotData,
+  ChoroplethDataGroup,
+} from "./types";
 import { updatePageLayoutState } from "./place";
 import { ChartEmbed } from "./chart_embed";
+import { drawChoropleth } from "../chart/draw_choropleth";
 
 const CHART_HEIGHT = 194;
+const MIN_CHOROPLETH_DATAPOINTS = 9;
 
 interface ChartPropType {
   /**
@@ -71,6 +78,14 @@ interface ChartPropType {
    */
   scaling?: number;
   /**
+   * Geojson data for places one level down of current dcid.
+   */
+  geoJsonData?: unknown;
+  /**
+   * Values of statvar/denominator combinations for places one level down of current dcid
+   */
+  choroplethData?: ChoroplethDataGroup;
+  /**
    * All stats vars for this chart
    */
   statsVars: string[];
@@ -79,6 +94,7 @@ interface ChartPropType {
 interface ChartStateType {
   dataPoints?: DataPoint[];
   dataGroups?: DataGroup[];
+  choroplethDataGroup?: ChoroplethDataGroup;
   elemWidth: number;
   display: boolean;
   showModal: boolean;
@@ -114,12 +130,22 @@ class Chart extends React.Component<ChartPropType, ChartStateType> {
     const dateString = this.props.snapshot
       ? "(" + this.props.snapshot.date + ")"
       : "";
-    const sources = this.props.trend
-      ? this.props.trend.sources
-      : this.props.snapshot.sources;
-    const exploreUrl = this.props.trend
-      ? this.props.trend.exploreUrl
-      : this.props.snapshot.exploreUrl;
+    // TODO(chejennifer): get sources for choropleth charts
+    let sources = [];
+    if (this.props.chartType !== chartTypeEnum.CHOROPLETH) {
+      sources = this.props.trend
+        ? this.props.trend.sources
+        : this.props.snapshot.sources;
+    }
+    const exploreUrl = this.getExploreUrl();
+    if (
+      this.props.chartType === chartTypeEnum.CHOROPLETH &&
+      (!this.state.choroplethDataGroup ||
+        this.state.choroplethDataGroup.numDataPoints <
+          MIN_CHOROPLETH_DATAPOINTS)
+    ) {
+      return null;
+    }
     return (
       <div className="col">
         <div className="chart-container" ref={this.chartElement}>
@@ -277,6 +303,18 @@ class Chart extends React.Component<ChartPropType, ChartStateType> {
         this.state.dataGroups,
         this.props.unit
       );
+    } else if (
+      chartType === chartTypeEnum.CHOROPLETH &&
+      this.state.choroplethDataGroup
+    ) {
+      drawChoropleth(
+        this.props.id,
+        this.props.geoJsonData,
+        CHART_HEIGHT,
+        elem.offsetWidth,
+        this.props.choroplethData.data,
+        this.props.unit
+      );
     }
   }
 
@@ -368,8 +406,27 @@ class Chart extends React.Component<ChartPropType, ChartStateType> {
           dataGroups: dataGroups,
         });
         break;
+      case chartTypeEnum.CHOROPLETH:
+        if (this.props.choroplethData) {
+          this.setState({
+            choroplethDataGroup: this.props.choroplethData,
+          });
+        }
+        break;
       default:
         break;
+    }
+  }
+
+  private getExploreUrl(): string {
+    if (this.props.chartType === chartTypeEnum.CHOROPLETH) {
+      return this.props.choroplethData
+        ? this.props.choroplethData.exploreUrl
+        : "";
+    } else {
+      return this.props.trend
+        ? this.props.trend.exploreUrl
+        : this.props.snapshot.exploreUrl;
     }
   }
 }

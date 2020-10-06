@@ -275,17 +275,17 @@ class TestChoroplethDataHelpers(unittest.TestCase):
                 'category': ['Test', 'Test2'],
                 'title': 'Test2',
                 'statsVars': ['StatVar2'],
-                'hasChoropleth': False
+                'isChoropleth': False
             }, {
                 'category': ['Test', 'Test2'],
                 'title': 'Test2',
                 'statsVars': ['StatVar3'],
-                'hasChoropleth': True
+                'isChoropleth': True
             }, {
                 'category': ['Test', 'Test2'],
                 'title': 'Test2',
                 'statsVars': ['StatVar4'],
-                'hasChoropleth': True,
+                'isChoropleth': True,
                 'relatedChart': {
                     'scale': True,
                     'denominator': 'Test_Denominator'
@@ -295,12 +295,12 @@ class TestChoroplethDataHelpers(unittest.TestCase):
                 'title': 'Test2',
                 'statsVars': ['StatVar3'],
                 'denominator': ['StatVar10'],
-                'hasChoropleth': True
+                'isChoropleth': True
             }, {
                 'category': ['Test', 'Test2'],
                 'title': 'Test2',
                 'statsVars': ['StatVar4'],
-                'hasChoropleth': True,
+                'isChoropleth': True,
                 'relatedChart': {
                     'scale': True
                 }
@@ -368,18 +368,19 @@ class TestChoroplethDataHelpers(unittest.TestCase):
 
 class TestChoroplethData(unittest.TestCase):
 
+    @patch('routes.api.chart.landing_page_api.build_url')
     @patch('routes.api.chart.get_latest_common_date_for_sv')
     @patch('routes.api.chart.get_data_for_statvar')
     @patch('routes.api.chart.dc_service.get_stats_all')
     @patch('routes.api.chart.get_choropleth_places')
     @patch('routes.api.chart.get_choropleth_sv')
     def testRoute(self, mock_choropleth_sv, mock_choropleth_places,
-                  mock_all_stats, mock_sv_data, mock_sv_date):
+                  mock_all_stats, mock_sv_data, mock_sv_date, mock_explore_url):
         test_dcid = 'test_dcid'
         geo1 = 'dcid1'
         geo2 = 'dcid2'
         sv_set = {'StatVar1', 'StatVar2', 'StatVar3'}
-        sv_denom_mapping = {'StatVar1': {'', 'StatVar2'}, 'StatVar3': {''}}
+        sv_denom_mapping = {'StatVar1': {''}, 'StatVar3': {'StatVar2'}}
         geos = [geo1, geo2]
         mock_choropleth_sv.return_value = sv_set, sv_denom_mapping
         mock_choropleth_places.return_value = geos
@@ -400,12 +401,13 @@ class TestChoroplethData(unittest.TestCase):
 
         mock_all_stats.side_effect = all_stats_side_effect
 
-        sv1_date = 'date1'
-        sv2_date = 'date2'
-        sv1_val = 1
-        sv2_val = 2
-        sv1_data = {geo1: {sv1_date: sv1_val}, geo2: {sv1_date: sv1_val}}
-        sv2_data = {geo1: {sv2_date: sv2_val}, geo2: {sv2_date: sv2_val}}
+        sv_date1 = 'date1'
+        sv_date2 = 'date2'
+        sv_val1 = 1
+        sv_val2 = 2
+        sv1_data = {geo1: {sv_date1: sv_val1}, geo2: {sv_date1: sv_val1}}
+        sv2_data = {geo1: {sv_date2: sv_val2}, geo2: {sv_date2: sv_val2}}
+        sv3_data = {geo1: {sv_date1: sv_val1}, geo2: {sv_date1: sv_val1}}
 
         def sv_data_side_effect(*args):
             if args[1] == geos and args[2] == stats_all_return_value:
@@ -413,6 +415,8 @@ class TestChoroplethData(unittest.TestCase):
                     return sv1_data
                 elif args[0] == 'StatVar2':
                     return sv2_data
+                elif args[0] == 'StatVar3':
+                    return sv3_data
                 else:
                     return {}
             else:
@@ -422,13 +426,29 @@ class TestChoroplethData(unittest.TestCase):
 
         def sv_date_side_effect(*args):
             if args[0] == sv1_data:
-                return sv1_date
+                return sv_date1
             elif args[0] == sv2_data:
-                return sv2_date
+                return sv_date2
+            elif args[0] == sv3_data:
+                return sv_date1
             else:
                 return None
 
         mock_sv_date.side_effect = sv_date_side_effect
+
+        test_url = 'test/url/1'
+        test_url2 = 'test/url/2'
+
+        def build_url_side_effect(*args):
+            if args[0] == [test_dcid] and args[1] == ['StatVar1']:
+                return test_url
+            elif args[0] == [test_dcid] and args[1] == ['StatVar3'
+                                                       ] and args[2] == True:
+                return test_url2
+            else:
+                return None
+
+        mock_explore_url.side_effect = build_url_side_effect
 
         response = app.test_client().get('/api/chart/choroplethdata/' +
                                          test_dcid)
@@ -436,20 +456,22 @@ class TestChoroplethData(unittest.TestCase):
         response_data = json.loads(response.data)
         expected_data = {
             'StatVar1': {
-                'date': sv1_date,
+                'date': sv_date1,
                 'data': {
-                    geo1: sv1_val,
-                    geo2: sv1_val
+                    geo1: sv_val1,
+                    geo2: sv_val1
                 },
-                'numDataPoints': 2
+                'numDataPoints': 2,
+                'exploreUrl': test_url
             },
-            'StatVar1^StatVar2': {
-                'date': sv1_date,
+            'StatVar3': {
+                'date': sv_date1,
                 'data': {
-                    geo1: sv1_val / sv2_val,
-                    geo2: sv1_val / sv2_val
+                    geo1: sv_val1 / sv_val2,
+                    geo2: sv_val1 / sv_val2
                 },
-                'numDataPoints': 2
+                'numDataPoints': 2,
+                'exploreUrl': test_url2
             }
         }
         assert response_data == expected_data

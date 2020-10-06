@@ -16,7 +16,7 @@
 {% extends 'base.html' %}
 
 {% set main_id = 'datasets' %}
-{% set title = 'Datasets' %}
+{% set title = 'Data Sources' %}
 
 {% block head %}
 <link rel="stylesheet" href={{url_for('static', filename='css/static.min.css', t=config['GAE_VERSION'])}}>
@@ -24,11 +24,15 @@
 
 {% block content %}
 <div class="container">
-  <h1>Datasets in the Data Commons Graph</h1>
-  <p>
-    The base schema in the Data Commons Graph, including taxonomy, is derived from
-    <a href="https://schema.org/">schema.org</a>.
+  <h1>Data Sources</h1>
+<p>
+  Data in Data Commons comes from the following sources. Each source
+  often includes different surveys. Some sources/surveys include a
+  very large number of variables, some of which might not yet have
+  been imported into Data Commons. The sources
+  are listed alphabetically. 
   </p>
+  
   <!--  AHS, AES -->
   <ul class="nav nav-tabs" id="datasetsTabBar" role="tablist">
     <li class="nav-item">
@@ -43,373 +47,201 @@
       <a class="nav-link" id="bio-tab" data-toggle="tab" href="#bioDatasets" role="tab" aria-controls="bioDatasets"
         aria-selected="false">Biomedical Data</a>
     </li>
+        <li class="nav-item">
+      <a class="nav-link" id="covid-tab" data-toggle="tab" href="#covidDatasets" role="tab" aria-controls="covidDatasets"
+        aria-selected="false">Covid-19 Data</a>
+    </li>
+
   </ul>
   <div class="tab-content" id="datasetsTabBarContent">
     <div class="tab-pane fade show active" id="usDatasets" role="tabpanel" aria-labelledby="us-tab">
       <article id="federal-govt-data">
-        <h3><a href="https://www.bea.gov/data/gdp">Bureau of Economic Analysis (BEA) - GDP Datasets</a></h3>
-        <p> Gross domestic product (GDP) measures the overall level of economic activity in a country or region. The
-          BEA
-          publishes
-          GDP by industry data at the national, state, county, and metropolitan statistical area levels.
-        </p>
-        <p> Data Commons includes the following BEA GDP datasets:
-        </p>
-        <ul>
-          <li><a href="https://www.bea.gov/news/2018/prototype-gross-domestic-product-county-2012-2015">GDP by County
-              (Real GDP
-              and Real GDP Growth tables)</a></li>
-          <li><a href="https://www.bea.gov/news/2018/gross-domestic-product-metropolitan-area-2017">GDP by
-              Metropolitan
-              Area</a></li>
-          <li><a href="https://www.bea.gov/data/gdp/gdp-state">GDP By State and Industry</a></li>
-        </ul>
-        <p> Data made available under <a href="https://www.bea.gov/help/faq/147">the public domain</a>.
+        <h3><a href="https://www.bea.gov/">Bureau of Economic Analysis (BEA)</a></h3>
+<ul>
+      <li> <a href="https://www.bea.gov/data/gdp">Gross domestic product</a> for counties, metropolitan statistical
+  areas and states, broken down by industry.</li>
+  <li><a href="https://www.bea.gov/data/prices-inflation/regional-price-parities-state-and-metro-area">Regional price parity measures</a> for metropolital statistical areas, broken down by goods
+  and services.</li>
+  </ul>
+      </p>
+
+      <p> <a href="https://www.bea.gov/help/faq/147">Terms of use</a>.
         </p>
 
-        <h3><a href="https://apps.bea.gov/regional/downloadzip.cfm">Bureau of Economic Analysis (BEA) - Regional Price
-            Parities
-            by Metropolitan Statistical Areas</a></h3>
-        <p> Regional price parity (RPP) measures "geographic price level differences for one period in time within the
-          United
-          States". Data Commons includes the RPP indices for metropolitan statistical areas broken down by goods and
-          services
-          categories from BEA's "Regional Price Parities by MSA" dataset.
-        </p>
-        <p> Data made available under <a href="https://www.bea.gov/about/policies-and-information">BEA Terms of
+        <h3><a href="https://www.bls.gov/">Bureau of Labor Statistics (BLS) </a>
+  </h3>
+  <ul>
+        <li><a href="https://bls.gov/lau">Employment, unemployment, and
+        labor force</a> (LAU) data for Census regions and divisions, States,
+        counties, metropolitan areas, and many cities, by place of residence.</li>
+  
+         <li><a href="https://bls.gov/cpi">Consumer Price Index</a> broken
+	down by categories of consumers. </li>
+	
+	<li>The <a href="https://www.bls.gov/jlt/">Job Openings and Labor
+        Turnover</a> survey giving job postins, hires, and separations broken down by industry.</li>
+
+	<li>The <a href="https://bls.gov/cew">Quarterly and annual
+	employment and wage statistics</a> (QCEW) broken down by
+	industry and ownership.
+	</ul>
+	
+        <p> <a href="https://www.bls.gov/developers/termsOfService.htm">Terms of
             Service</a>.
         </p>
 
-        <h3><a href="https://www.bls.gov/cpi/data.htm">Bureau of Labor Statistics (BLS) Consumer Price Index (CPI)
-            Databases</a>
-        </h3>
-        <p> "The Consumer Price Index (CPI) is a measure of the average change over time in the prices paid by urban
-          consumers for
-          a market basket of consumer goods and services." It is often used as an indicator for inflation. Data
-          Commons
-          includes
-          seasonally unadjusted average CPI for All Urban Consumers (CPI-U), CPI for Urban Wage Earners and Clerical
-          Workers
-          (CPI-W), and Chained CPI for All Urban Consumers (C-CPI-U), provided by the BLS monthly since 1947.
-        </p>
-        <p> Data made available under <a href="https://www.bls.gov/developers/termsOfService.htm">BLS Terms of
-            Service</a>.
-        </p>
 
-        <h3><a href="https://www.bls.gov/jlt/">Bureau of Labor Statistics (BLS) - Job Openings and Labor Turnover
-            Survey</a>
-        </h3>
-        <p> The Job Openings and Labor Turnover Survey (JOLTS) program produces monthly data on job openings, hires,
-          and
-          separations starting December 2000. Data Commons includes both seasonally adjusted and unadjusted quarterly
-          numbers of
-          job postings, hires, and separations broken down by industry.
-        </p>
-        <p> Data made available under <a href="https://www.bls.gov/developers/termsOfService.htm">BLS Terms of
-            Service</a>.
-        </p>
+	<h3><a href="https://cdc.gov">Center for Disease Control and Prevention</a></h3>
 
-        <h3><a href="https://www.bls.gov/lau/">Bureau of Labor Statistics (BLS) - Monthly County-Level Employment and
-            Unemployment</a></h3>
-        <p> The BLS Local Area Unemployment Statistics (LAUS) program produces monthly and annual "employment,
-          unemployment,
-          and
-          labor force data for Census regions and divisions, States, counties, metropolitan areas, and many cities, by
-          place of
-          residence." Data Commons includes employment, unemployment, and labor force by state and county from the
-          "Labor
-          force
-          data by county, not seasonally adjusted" table.
-        </p>
-        <p> Data made available under <a href="https://www.bls.gov/developers/termsOfService.htm">BLS Terms of
-            Service</a>.
-        </p>
-
-        <h3><a href="https://www.bls.gov/cew/downloadable-data-files.htm">Bureau of Labor Statistics (BLS) - Quarterly
-            Census of
-            Employment and Wages (QCEW)</a></h3>
-        <p> From the BLS Quarterly Census of Employment and Wages (QCEW) program, Data Commons includes quarterly and
-          annual
-          employment and wage statistics broken down by industry and ownership (private, state government-owned, or
-          federal
-          government-owned) at the country, state, county, and metropolitan area level, from "QCEW NAICS-Based Data
-          Files".
-        </p>
-        <p> Data made available under <a href="https://www.bls.gov/developers/termsOfService.htm">BLS Terms of
-            Service</a>.
-        </p>
-
-        <h3><a
-            href="https://chronicdata.cdc.gov/500-Cities/500-Cities-Local-Data-for-Better-Health-2018-relea/6vp6-wxuq">Center
-            for Disease Control and Prevention (CDC) - 500 Cities: Local Data for Better Health</a></h3>
-        <p> The 500 Cities Project datasets contain model-based small area estimates for 27 measures of chronic
-          disease
-          related to
-          unhealthy behaviors (5), health outcomes (13), and use of preventive services (9) for the 500 largest cities
-          in
-          the US
-          and approximately 28,000 census tracts within these cities. Data Commons includes all estimates for the 500
-          cities.
-        </p>
-        <p> Data made available under <a href="https://www.cdc.gov/other/agencymaterials.html">CDC Data Terms of
-            Service</a>.
-        </p>
-
-        <h3><a href="https://wonder.cdc.gov/cmf-icd10.html">Center for Disease Control and Prevention (CDC) -
-            Compressed
-            Mortality</a></h3>
-        <p> Data Commons includes the CDC "Compressed Mortality, 1999-2016" dataset, which reports mortality counts
-          for
-          all
-          US
-          states and counties broken down by underlying cause of death, age, race, sex, and year.
-        </p>
-
-        <p>Data made available under <a href="https://wonder.cdc.gov/datause.html">CDC Wonder Data Terms of
-            Service</a>.
-        </p>
-
-        <h3><a
-            href="https://data.cdc.gov/Environmental-Health-Toxicology/Daily-County-Level-PM2-5-Concentrations-2001-2014/qjju-smys/data">Center
-            for Disease Control and Prevention (CDC) - Daily County-Level PM2.5 Concentrations</a></h3>
-        <p> Data Commons includes the CDC Daily County-Level PM2.5 Concentrations dataset, which "provides modeled
-          predictions of
-          particulate matter (PM2.5) levels from the <a
+	<ul>
+	<li> <a
+            href="https://chronicdata.cdc.gov/500-Cities/500-Cities-Local-Data-for-Better-Health-2018-relea/6vp6-wxuq">CDC
+	500 Cities: Local Data for Better Health</a>
+        The 500 Cities Project datasets contain model-based small area estimates for 27 measures of chronic
+          disease related to unhealthy behaviors (5), health outcomes (13), and use of preventive services (9) for the 500 largest cities
+          in the US. </li>
+	<li>           <a
+	href="https://wonder.cdc.gov/cmf-icd10.html">CDC Wonder </a>
+            Compressed            Mortality</a> mortality counts
+          for all US states and counties broken down by underlying
+	  cause of death, age, race, sex, and year. <a
+	href="https://wonder.cdc.gov/datause.html">CDC Wonder Data
+	Terms of Service</li>
+	  
+        <li><a
+	  href="https://data.cdc.gov/Environmental-Health-Toxicology/Daily-County-Level-PM2-5-Concentrations-2001-2014/qjju-smys/data">CDC - Daily County-Level PM2.5 Concentrations</a>modeled
+          predictions of particulate matter (PM2.5) levels from the <a
             href="https://www.epa.gov/air-research/downscaler-model-predicting-daily-air-pollution">EPA's Downscaler
-            Model</a>.
-          These data are used by the CDC's <a href="https://ephtracking.cdc.gov/">National Environmental Public Health
-            Tracking
-            Network</a> to generate air quality measures. Data are at the county levels for 2001-2014".
-        </p>
-        <p> Data made available under <a href="https://wonder.cdc.gov/datause.html">CDC Wonder Data Terms of
+	Model</a>.</li>
+	<li> <a href="https://gis.cdc.gov/grasp/diabetes/DiabetesAtlas.html">
+            CDC Diabetes Surveillance System</a>
+         Estimates of the number and percentage of US adults with diabetes.</li>
+
+</ul>
+
+        <p>  <a href="https://www.cdc.gov/other/agencymaterials.html">CDC Data Terms of
             Service</a>.
-        </p>
+</p>
 
-        <h3><a href="https://gis.cdc.gov/grasp/diabetes/DiabetesAtlas.html">Center for Disease Control and Prevention
-            (CDC) -
-            Diabetes Surveillance System</a></h3>
-        <p> The CDC Diabetes Surveillance System estimates the number and percentage of US adults who reported ever
-          being
-          told by
-          a health professional that they had diabetes using data collected by the CDC's Behavioral Risk Factor
-          Surveillance
-          System (BRFSS) at the country, state, and county levels. Data Commons contains the age-adjusted percentages
-          for
-          diabetes, obesity, and physical inactivity for total population and gender breakdown at the county level.
-        </p>
-        <p> Data made available under <a href="https://www.cdc.gov/other/agencymaterials.html">CDC Data Terms of
-            Service</a>.
-        </p>
 
-        <h3><a href="https://www.census.gov/data/developers/data-sets/acs-5year.html">Census Bureau - American
-            Community
-            Survey
-            (ACS) 5-year Estimates</a></h3>
-        <p> The American Community Survey (ACS) "covers a broad range of topics about social, economic, demographic,
-          and
-          housing
-          characteristics of the U.S. population." The ACS 5-year estimates are updated every year, based on the last
-          5
-          years of
-          collected data. Data Commons includes thousands of variables across the full range of ACS topics at the
-          country,
-          state, county, city, zip code tabulation area, school district, census tract levels, and more.
-        </p>
-        <p> Data Commons also computes gender income inequality from the ACS 5-year estimates of median income for
-          male
-          and
-          females 15 years or older. The computation divides the difference between male and female median income by
-          the
-          sum of
-          male and female median income.
-        </p>
-        <p> Data made available under <a href="https://www.census.gov/data/developers/about/terms-of-service.html">US
-            Census
-            Terms
-            of Service</a>.
-        </p>
 
-        <h3><a href="https://nces.ed.gov/programs/edge/Demographic/ACS">Census Bureau - American Community Survey
-            Education
-            Tabulation (ACS-ED)</a></h3>
-        <p> The National Center for Education Statistics collaborates with the US Census Bureau to create a variety of
-          custom
-          American Community Survey (ACS) data files that describe the condition of school-age children in the United
-          States at
-          the country, state, and school district level. ACS-ED is updated annually based on ACS five-year period
-          estimates.
-          Data Commons includes statistics on dozens of variables used in the ACS-ED District Demographic Dashboard.
-        </p>
-        <p> Data made available under the public domain.
-        </p>
+<h3><a href="https://census.gov">Census Bureau</a></h3>
+<ul>
+<li><a href="https://www.census.gov/programs-surveys/acs">American
+            Community            Survey  </a>
+        covers a broad range of topics about social, economic, demographic,  and
+          housing characteristics of the U.S. population. The ACS
+5-year (and 1-year) estimates are updated every year, based on the last
+          5 years (1 year) of collected data. Data Commons includes thousands of variables across the full range of ACS topics at the
+          country, state, county, city, zip code tabulation area,
+school district, census tract levels, and more. </li>
 
-        <h3><a href="https://www.census.gov/programs-surveys/geography/geographies/mapping-files.html">Census Bureau -
-            Cartographic Boundary Files</a></h3>
-        <p> Data Commons has KML files from <a
-            href="https://www.census.gov/geographies/mapping-files/time-series/geo/kml-cartographic-boundary-files.2018.html">2018
-            US Cartographic Boundaries</a> for the following place types:
-        </p>
-        <ul>
-          <li>Congressional Districts: 116th Congress</li>
-          <li>County</li>
-          <li>Place</li>
-          <li>State</li>
-          <li>Census Tracts</li>
-          <li>County Subdivisions</li>
-          <li>ZIP Code Tabulation Areas</li>
-          <li>School Districts - Elementary</li>
-          <li>School Districts - Secondary</li>
-          <li>School Districts - Unified</li>
-        </ul>
-        <p> Data made available under <a href="https://www.census.gov/data/developers/about/terms-of-service.html">US
-            Census
-            Terms
-            of Service</a>.
-        </p>
+        <li><a href="https://nces.ed.gov/programs/edge/Demographic/ACS">American Community Survey
+            Education Tabulation (ACS-ED)</a>
+         The National Center for Education Statistics collaborates with the US Census Bureau to create a variety of
+          custom data files that describe the condition of school-age children in the United
+          States at the country, state, and school district level. ACS-ED is updated annually based on ACS five-year period
+          estimates. </li>
 
-        <h3><a href="https://www.census.gov/programs-surveys/cbp/data/datasets.html">Census Bureau - County Business
-            Patterns</a></h3>
-        <p> County Business Patterns is an annual series that includes per-industry "number of establishments,
-          employment
-          during
-          the week of March 12, first quarter payroll, and annual payroll". Data Commons includes the number of
-          establishments,
-          employment during the week of March 12, and annual payroll from the 2011-2016 County Business Pattern
-          datasets
-          for US
-          counties, metropolitan statistical areas, and zip codes.
-        </p>
-        <p> Data made available under <a href="https://www.census.gov/data/developers/about/terms-of-service.html">US
-            Census
-            Terms
-            of Service</a>.
-        </p>
 
-        <h3><a href="https://www.census.gov/programs-surveys/economic-census/about.html">Census Bureau - Economic
+        <li><a href="https://www.census.gov/programs-surveys/geography/geographies/mapping-files.html">
+            Cartographic Boundary Files</a></li>
+        KML files counties, states, congressional districts, etc.</li>
+
+
+        <li><a href="https://www.census.gov/programs-surveys/cbp/data/datasets.html">County Business
+            Patterns</a></li>
+    Per-industry number of establishments, employment, payroll and
+            annual payrol, by county, metropolital statistical area
+            and zip code.
+
+        <li><a href="https://www.census.gov/programs-surveys/economic-census/about.html">Economic
             Census</a>
-        </h3>
-        <p> "Every five years, the US Census Bureau collects extensive statistics about businesses that are essential
-          to
-          understanding the American economy." Data Commons imports country, state, county, and city statistics on the
-          number of
-          businesses and amount of revenue, by business payroll status, industry, operation type, and tax status.
-        </p>
-        <p> Data made available under <a href="https://www.census.gov/data/developers/about/terms-of-service.html">US
-            Census
-            Terms
-            of Service</a>.
+          number of businesses and amount of revenue, by business payroll status, industry, operation type, and tax status.
         </p>
 
-        <h3><a href="https://www.census.gov/geographies/reference-files/time-series/geo/gazetteer-files.html">Census
+        <li><a href="https://www.census.gov/geographies/reference-files/time-series/geo/gazetteer-files.html">Census
             Bureau -
-            Gazetteer Files</a></h3>
-        <p> From the 2018 US Census Gazetteer, Data Commons has geographic information about:
-        </p>
-        <ul>
-          <li>Counties</li>
-          <li>County Subdivisions</li>
-          <li>116th Congressional Districts</li>
-          <li>Census Tracts (2018)</li>
-          <li>Core Based Statistical Areas</li>
-          <li>Places (City, Census Designated Place, Village, Town)</li>
-          <li>School Districts - Elementary</li>
-          <li>School Districts - Secondary</li>
-          <li>School Districts - Unified</li>
-          <li>ZIP Code Tabulation Areas</li>
-        </ul>
-        <p> Data made available under <a href="https://www.census.gov/data/developers/about/terms-of-service.html">US
-            Census
-            Terms
-            of Service</a>.
-        </p>
+            Gazetteer Files</a> basic geographic information about
+            counties, county subdivisions, congressional districts,
+            states, etc.
+        </li>
 
-        <h3><a href="https://www.census.gov/programs-surveys/popest/about.html">Census Bureau - Population Estimates
+        <li><a href="https://www.census.gov/programs-surveys/popest/about.html">Census Bureau - Population Estimates
             Program</a>
-        </h3>
-        <p> The Census Bureau's Population Estimates Program (PEP) produces yearly estimates of the population for the
+        
+         The Census Bureau's Population Estimates Program (PEP) produces yearly estimates of the population for the
           United
           States, its states, counties, cities, and towns, as well as for the Commonwealth of Puerto Rico and its
           municipios.
           Data Commons imports the total population estimate data for the US and its states, counties, and cities.
-        </p>
-        <p> Data made available under <a href="https://www.census.gov/data/developers/about/terms-of-service.html">US
-            Census
-            Terms
-            of Service</a>.
-        </p>
 
-        <h3><a href="https://www.census.gov/data/datasets/time-series/demo/sahie/estimates-acs.html">Census Bureau -
+	<li><a href="https://www.census.gov/data/datasets/time-series/demo/sahie/estimates-acs.html">Census Bureau -
             Small
             Area
-            Health Insurance Estimates (SAHIE)</a></h3>
-        <p> The Small Area Health Insurance Estimates program provides yearly estimates of health insurance coverage
+            Health Insurance Estimates (SAHIE)</a>
+        The Small Area Health Insurance Estimates program provides yearly estimates of health insurance coverage
           status
           for
-          all counties and states. Data Commons includes all estimates, available by age, race, sex, and income.
-        </p>
-        <p>Data made available under <a href="https://www.census.gov/data/developers/about/terms-of-service.html">US
-            Census Terms of Service</a>.
+          all counties and states. Data Commons includes all
+	estimates, available by age, race, sex, and income. <li>
+      </ul>
+
+              <p> <a href="https://www.census.gov/data/developers/about/terms-of-service.html">US
+            Census            Terms            of Service</a>.
         </p>
 
 
-        <h3><a href="https://collegescorecard.ed.gov/data/">College Scorecard - University Data</a></h3>
-        <p> The College Scorecard dataset includes data about all undergraduate degree-granting institutions of higher
-          education
-          and "supporting data on student completion, debt and repayment, earnings, and more". Data Commons includes
-          statistics
-          on student family income, in-state and out-of-state status, tuition, graduation rate, and acceptance rate
-          from
-          1996 to
-          2017.
-        </p>
-        <p> Data made available under <a href="https://www2.ed.gov/notices/copyright/index.html">US Department of
-            Education
-            Terms
-            of Service</a>.
+        <h3><a href="https://collegescorecard.ed.gov/">College
+      Scorecard </a></h3>
+      <ul>
+        <li> <a
+      href=""https://collegescorecard.ed.gov/data">University
+      Data</a>: Includes data about all undergraduate degree-granting institutions of higher
+      education </li>
+      </ul>
+        <p> <a href="https://www2.ed.gov/notices/copyright/index.html">
+            Terms of Service</a>.
         </p>
 
-        <h3><a href="https://oui.doleta.gov/unemploy/DataDownloads.asp">Department of Labor Weekly Claims and Extended
-            Benefits
-            Trigger Data</a></h3>
-        <p> The US Department of Labor reports weekly new and continuing unemployment insurance claims for US states.
-          The
-          data is
-          used in the Department of Labor's weekly News Release for unemployment insurance weekly claims.
-        </p>
-        <p> Data Commons imports this data, and aggregates the following for users:
-        </p>
+        <h3><a href="https://oui.doleta.gov/unemploy/DataDownloads.asp">Department of Labor</a></h3>
         <ul>
-          <li>State new claims into US new claims</li>
-          <li>State continuing claims into US continuing claims</li>
-          <li>New and continuing claim counts into total claims (both state and US levels)</li>
-        </ul>
-        <p> Data made available under the <a href="https://www.dol.gov/general/foia">public domain</a>.
+	  <li> <a href="https://oui.doleta.gov/unemploy/DataDownloads.asp">Weekly Claims and Extended
+            Benefits
+            Trigger Data</a> Weekly new and continuing unemployment
+	  insurance claims for US states.</li>
+	  </ul>
+
+	  <p> 
+	  <a
+        href="https://www.dol.gov/general/foia">Terms of Service</a>.
         </p>
 
-        <h3><a href="https://www.deadiversion.usdoj.gov/arcos/retail_drug_summary/">Drug Enforcement Agency - Retail
+	  <h3><a href="https://dea.gov">Drug Enforcement Agency</a></h3>
+	  <ul>
+        <li><a href="https://www.deadiversion.usdoj.gov/arcos/retail_drug_summary/">Retail
             Drug
-            Distributions by Drug at the County Level</a></h3>
-        <p> Automated Reports and Consolidated Ordering System (ARCOS) is a data collection system in which
+            Distributions by Drug at County level</a>: data from the Automated Reports and Consolidated Ordering System (ARCOS) is a data collection system in which
           manufacturers
           and
           distributors report their controlled substances transactions to the Drug Enforcement Administration (DEA).
-        </p>
-        <p> Data Commons includes quarterly retail drug distributions from ARCOS Report 1, provided annually from
+         Data Commons includes quarterly retail drug distributions from ARCOS Report 1, provided annually from
           2006-2017.
-          The
-          3-digit zip prefixes from the report were aggregated to the county level using <a
+          The   3-digit zip prefixes from the report were aggregated to the county level using <a
             href="https://www2.census.gov/geo/docs/maps-data/data/rel/zcta_county_rel_10.txt">2010 ZIP Code Tabulation
             Area
             (ZCTA) Relationship records</a> from the <a
             href="https://www.census.gov/programs-surveys/geography/guidance/geo-areas/zctas.html">US Census</a>.
+       Please see the <a href="https://datacommons.org/disclaimers">disclaimers</a> page about the scope of the
+	    data.
+	    </li>
+	    </ul>
+
+	    <p> <a href="https://www.justice.gov/legalpolicies">US Department of Justice Legal Policies and
+            Disclaimers Terms of Use</a>.
         </p>
-        <p>Please see the <a href="https://datacommons.org/disclaimers">disclaimers</a> page about the scope of the
-          data,
-          as
-          well as the <a href="https://www.justice.gov/legalpolicies">US Department of Justice Legal Policies and
-            Disclaimers
-            Terms of Use</a>.
-        </p>
+
+	    <!---
 
         <h3><a href="https://www.eia.gov/electricity/data/eia860/">Energy Information Administration (EIA) Form
             EIA-860
@@ -422,215 +254,152 @@
           capacity." Data Commons includes all reported generators and their properties from EIA-860_3_1.
         </p>
         <p> Data made available under the <a href="https://www.eia.gov/about/copyrights_reuse.php">public domain</a>.
-        </p>
+        </p> -->
 
-        <h3><a href="https://www.fbi.gov/services/cjis/ucr">Federal Bureau of Investigation Uniform Crime Reporting
+	  <h3><a href="https://fbi.gov">Federal Bureau of
+	  Investigation</a></h3>
+	    <ul>
+        <li><a href="https://www.fbi.gov/services/cjis/ucr">FBI Uniform Crime Reporting
             (UCR)
-            Program - Offenses Known to Law Enforcement, by State by City</a></h3>
-        <p> Table 8 provided by the UCR Program's <a href="https://ucr.fbi.gov/crime-in-the-u.s">Crime in the US</a>
-          report
-          "provides the volume of violent crime (murder and nonnegligent manslaughter, rape, robbery, and aggravated
-          assault)
-          and property crime (burglary, larceny-theft, and motor vehicle theft) as reported by city and town law
-          enforcement
-          agencies (listed alphabetically by state) that contributed data to the UCR Program." Data Commons includes
-          counts of
-          all crime types at the state and city level.
-        </p>
-        <p> Data made available under <a href="https://www.justice.gov/legalpolicies">US Department of Justice Legal
+            Program</a>: volume of violent crime by type as reported by city and town law          enforcement          agencies.
+	  </li>
+	</ul>
+	
+        <p>  <a href="https://www.justice.gov/legalpolicies">US Department of Justice Legal
             Policies and
             Disclaimers Terms of Use</a>.
         </p>
 
-        <h3><a href="https://www.fec.gov/data/browse-data/?tab=bulk-data">Federal Election Commission</a></h3>
-        <p> The FEC provides data from statements and reports filed with the FEC. Data Commons includes the following
-          three
-          datasets:
-        </p>
-        <ul>
-          <li><b>All Candidates</b>: "The all candidate summary file contains one record including summary financial
-            information
-            for all candidates
-            who
-            raised or spent money during the period no matter when they are up for election."</li>
-          <li><b>Candidate Master</b>: "The candidate master file contains one record for each candidate who has
-            either
-            registered with the Federal
-            Election
-            Commission or appeared on a ballot list prepared by a state elections office."</li>
-          <li><b>Candidate-Committee Linkages</b>: "This file contains one record for each candidate to committee
-            linkage."</li>
-        </ul>
-        <p> Data made available under <a href="https://www.fec.gov/updates/sale-or-use-contributor-information/">FEC
-            Terms
-            of
-            Use</a>.
+	  
+        <h3><a href="https://www.fec.gov/">Federal Election
+	  Commission</a></h3>
+	  <ul>
+	    <li><a
+	  href="https://www.fec.gov/data/browse-data/?tab=bulk-data">Candidates
+	  &amp; Committees</a>: data from statements and reports filed
+	    with the FEC. </li>
+	  </ul>
+	  
+
+        <p> <a href="https://www.fec.gov/updates/sale-or-use-contributor-information/">FEC
+            Terms of            Use</a>.
         </p>
 
-        <h3><a href="https://www.federalreserve.gov/releases/h15/default.htm">Federal Reserve Treasury Nominal and
-            Inflation-Indexed Constant Maturity Series</a></h3>
-        <p> The United States Federal Reserve publishes daily updated Treasury Nominal and Inflation-Indexed Constant
+        <h3><a href="https://www.federalreserve.gov">Federal
+	  Reserve</a></h3>
+	  <ul>
+	    <li><a href="https://www.federalreserve.gov/releases/h15/default.htm">Federal Reserve Treasury Nominal and
+            Inflation-Indexed Constant Maturity Series</a>: Treasury Nominal and Inflation-Indexed Constant
           Maturity
-          Series. Data Commons includes data for 1-Month, 3-Month, 6-Month, 1-Year, 2-Year, 3-Year, 5-Year, 7-Year,
+          Series. Data Commons includes all published statistics for 1-Month, 3-Month, 6-Month, 1-Year, 2-Year, 3-Year, 5-Year, 7-Year,
           10-Year,
-          20-Year, and 30-Year constant maturities. Data Commons includes all published statistics.
-        </p>
+	    20-Year, and 30-Year constant maturities.
+	    </li>
+	    </ul>
+        
         <p> The data is in the public domain.
         </p>
 
-        <h3><a href="https://nces.ed.gov/ccd/elsi/">National Center for Education Statistics (NCES) - Public School
-            and
-            School
-            District Data</a></h3>
-        <p> NCES exposes data from an annual survey called "The Common Core of Data" (CCD). CCD contains general
-          descriptive
-          information such as name, address, and phone number; select demographic characteristics about students and
-          staff; and
-          fiscal data such as revenues and current expenditures. Data Commons includes school and school district
-          level
-          data
-          about student populations by race, gender, lunch eligibility, and grade, as well as student-teacher ratio
-          and
-          teacher
-          count statistics.
-        </p>
-        <p> Data made available under <a
+	    <h3><a href="https://nces.ed.gov/">National Center for Education Statistics </a></h3>
+	    <ul>
+        <li><a href="https://nces.ed.gov/ccd/elsi/">Public School and
+	    School District Data</a>: general
+          descriptive information such as name, address, and phone number; select demographic characteristics about students and
+          staff; and fiscal data such as revenues and current expenditures. Data Commons includes school and school district
+          level  data about student populations by race, gender, lunch eligibility, and grade, as well as student-teacher ratio
+          and          teacher          count statistics.
+	      </li>
+	      </ul>
+        <p>  <a
             href="https://nces.ed.gov/surveys/international/ide/datausageagreement.aspx?link=true">NCES Data Usage
             Agreement</a>
           and <a href="https://www2.ed.gov/notices/copyright/index.html">US Department of Education Copyright Status
             Notice</a>.
-        </p>
+	      </p>
 
-        <h3><a href="https://www.ncdc.noaa.gov/stormevents/ftp.jsp">National Climatic Data Center Storm Events
-            Database</a></h3>
-        <p> The Storm Events Database contains records documenting the "occurrence of storms and other significant
+         	      
+       <h3> <a href="https://www.noaa.gov">National Oceanic and
+	      Atmospheric Administration</a> </h3>
+	      <ul>
+        <li><a href="https://www.ncdc.noaa.gov/stormevents/ftp.jsp">National Climatic Data Center Storm Events
+            Database</a> : occurrence of storms and other significant
           weather
           phenomena having sufficient intensity to cause loss of life, injuries, significant property damage, and/or
           disruption
           to commerce; rare, unusual, weather phenomena that generate media attention, such as snow flurries in South
           Florida or
           the San Diego coastal area; and other significant meteorological events, such as record maximum or minimum
-          temperatures or precipitation that occur in connection with another event."
-        </p>
-        <p> Data Commons includes data on all available types of storm events (e.g. Tornado, Hail) and storm episodes
-          from
-          the
-          Storm Events Database. Variables include location, start datetime, end datetime, wind speed, precipitation
-          type
-          and
-          amount, recorded description, affected places, number of direct and indirect injuries, number direct and
-          indirect
-          deaths, property damage cost, crop damage cost, and more.
-        </p>
-        <p> Data made available under <a href="https://www.weather.gov/disclaimer">National Weather Service Use of
-            NOAA/NWS
-            Data
-            and Products Terms of Service</a>.
+          temperatures or precipitation that occur in connection with
+		another event. </li>
+		</ul>
+        <p> <a href="https://www.weather.gov/disclaimer">National Weather Service Use of
+            NOAA/NWS Data            and Products Terms of Service</a>.
         </p>
 
-        <h3><a href="https://fam.nwcg.gov/fam-web/">National Interagency Fire Center Interagency Situation Report -
+       <h3><a href="https://www.nwcg.gov">National Wildfire
+		Coordinating Group</a></h3>
+		<ul>
+        <li><a href="https://fam.nwcg.gov/fam-web/">National Interagency Fire Center Interagency Situation Report -
             209
-            (SIT-209)</a></h3>
-        <p> The SIT-209 web application "is used to collect intelligence information related to the wildland fire
-          management
-          incidents and resources. SIT collects daily fire activity and initial/extended attack resource information
-          during the
-          active fire season for the local dispatch office. 209 is used to collect and store ICS-209 large Incident
-          Summary
-          information."
-        </p>
-        <p> Data Commons includes data on fires in the US reported via the SIT-209 application, starting from 1999.
-          Variables
-          include fire name, fire type, fire cause, location, discovery date, controlled date, affected area, and
-          estimated
-          costs.
-        </p>
-        <p>Data made available under <a href="https://www.fs.usda.gov/about-agency/disclaimers-important-notices">US
+            (SIT-209)</a> information related to the wildland fire
+		  management incidents and resources. </li>
+		  </ul>
+		  <p>
+		  <a href="https://www.fs.usda.gov/about-agency/disclaimers-important-notices">US
             Forest
             Service Terms of Service</a>.</p>
+		  
+        <h3><a href="https://www.usgs.gov">United States Geological
+		  Service</a></h3>
+		  <ul>
+        <li><a href="https://earthquake.usgs.gov/data/comcat/">USGS Advanced
+            National Seismic  System Comprehensive Earthquake Catalog (ComCat)</a>:
+        earthquake source parameters (e.g. hypocenters, magnitudes, phase picks and amplitudes)
+          and other   products (e.g. moment tensor solutions, macroseismic information, tectonic summaries, maps) produced by
+          contributing  seismic networks. Data Commons includes date, time, location, magnitudes, magnitude errors, depth, depth
+          error,          and          review status of earthquakes of magnitude 3 onwards starting from 1900.
+	    </li>
 
-        <h3><a href="https://earthquake.usgs.gov/data/comcat/">United States Geological Survey (USGS) Advanced
-            National
-            Seismic
-            System Comprehensive Earthquake Catalog (ComCat)</a></h3>
-        <p> ComCat "contains earthquake source parameters (e.g. hypocenters, magnitudes, phase picks and amplitudes)
-          and
-          other
-          products (e.g. moment tensor solutions, macroseismic information, tectonic summaries, maps) produced by
-          contributing
-          seismic networks." Data Commons includes date, time, location, magnitudes, magnitude errors, depth, depth
-          error,
-          and
-          review status of earthquakes of magnitude 3 onwards starting from 1900.
-        </p>
-        <p> Data made available under <a
-            href="https://www.usgs.gov/information-policies-and-instructions/copyrights-and-credits">USGS Copyrights
-            and
-            Credits
-            Terms of Service</a>.
-        </p>
-
-        <h3><a href="https://www.usgs.gov/core-science-systems/ngp/board-on-geographic-names/download-gnis-data">United
+        <li><a href="https://www.usgs.gov/core-science-systems/ngp/board-on-geographic-names/download-gnis-data">United
             States
-            Geological Survey (USGS) Geographic Names Information System (GNIS) - National Federal Codes</a></h3>
-        <p> The National Federal Codes dataset includes codes, names, coordinates, and more information for all "named
+            Geological Survey (USGS) Geographic Names Information System (GNIS) - National Federal Codes</a>
+         The National Federal Codes dataset includes codes, names, coordinates, and more information for all "named
           physical
           and cultural geographic features (except
-        </p>
-        <p> roads and highways) of the United States", maintained by <a
+        
+        roads and highways) of the United States", maintained by <a
             href="https://www.usgs.gov/core-science-systems/ngp/board-on-geographic-names">GNIS</a>. Data Commons uses
           this
           dataset to build containment relationships between places from the <a
             href="https://www.census.gov/geographies/reference-files/time-series/geo/gazetteer-files.html">US Census
-            Gazetteer</a> dataset.
-        </p>
-        <p> Data made available under <a
+	    Gazetteer</a> dataset.
+	    </li>
+	    </ul>
+        
+        <p> <a
             href="https://www.usgs.gov/information-policies-and-instructions/copyrights-and-credits">USGS Copyrights
-            and
-            Credits
-            Terms of Service</a>.
+            and Credits Terms of Service</a>.
         </p>
 
       </article> <!-- end of id="federal-govt-data" -->
       <article id="state-govt-data">
 
+	    <!--
         <h3><a href="https://www.mischooldata.org/Default3.aspx">Michigan Student Test of Educational Progress
-            (M-STEP)
-            Datasets</a></h3>
-        <p> The Michigan Student Test of Educational Progress, or M-STEP, is "a 21st Century computer-based
-          assessment
-          designed to
-          gauge how well students are mastering state standards". Data Commons includes the Mathematics and English
-          Language
-          Arts test counts and scores from the 2015 to 2019 "Assessment and Accountability: Grades 3-8 Assessments"
-          files.
+            (M-STEP) </a></h3>
+        <ul>
+	  <li> M-STEP, is a computer-based assessment
+	  designed to gauge how well
+	  students are mastering state standards. Data Commons includes the Mathematics and English
+          Language          Arts test counts and scores from the 2015
+            to 2019. </li>
+	  </ul>
+	  
+        <p> <a
+            href="https://www.michigan.gov/documents/cepi/CitingCEPIdata_489392_7.pdf">Terms
+            of use</a>.
         </p>
-        <p> Data is <a href="https://www.michigan.gov/documents/cepi/CitingCEPIdata_489392_7.pdf">publicly available
-            with
-            proper
-            citation</a>.
-        </p>
-
-        <h3><a href="https://covidtracking.com/data/download">The COVID Tracking Project US State and Total Data</a>
-        </h3>
-        <p> The COVID Tracking Project collects, cross-checks, and publishes COVID-19 testing and patient outcome
-          data
-          from
-          56 US
-          states and territories. Visit <a href="https://covidtracking.com/about-data">their website</a> for more
-          about
-          their
-          data. Data Commons includes the testing and patient status statistics from the US Data and State Data
-          files.
-        </p>
-        <p> Data made available under <a href="http://creativecommons.org/licenses/by-nc/4.0/">Creative Commons CC
-            BY-NC-4.0
-            license</a>.
-        </p>
-      </article> <!-- end of id="state-govt-data" -->
-
-      <article id="non-govt-data">
-
+	  -->
         <h3><a href="https://www.dartmouthatlas.org/">The Dartmouth Atlas of Health Care</a></h3>
         <p> The Dartmouth Atlas Project "uses Medicare and Medicaid data to provide information and analysis about
           national,
@@ -645,48 +414,7 @@
             Terms of Use</a>.
         </p>
 
-        <h3><a href="http://web.stanford.edu/group/deepsolar/home">DeepSolar</a></h3>
-        <p> DeepSolar "analyzes satellite imagery to identify the GPS locations and sizes of solar photovoltaic (PV)
-          panels
-          for
-          the contiguous U.S." Data Commons includes the count and total area of solar arrays at the state, county,
-          and
-          census
-          tract level.
-        </p>
-        <p> Data is publicly available by <a href="http://web.stanford.edu/group/deepsolar/home">The DeepSolar
-            Project</a>.
-        </p>
-
-        <h3>Google Health Reconciled COVID-19 Data</h3>
-        <p> Google Health reconciles COVID data from The COVID Tracking Project, Johns Hopkins University, California
-          Health
-          and
-          Human Services and makes the reconciled dataset publicly available for research and prediction use via Data
-          Commons.
-        </p>
-
-        <h3><a href="https://github.com/nytimes/covid-19-data/">The New York Times Coronavirus (Covid-19) Data in the
-            United
-            States</a></h3>
-        <p> The New York Times releases cumulative counts of coronavirus cases in the United States at the country,
-          state,
-          and
-          county level, over time. The New York Times compiles this time series data from state and local governments
-          and
-          health
-          departments in an attempt to provide a complete record of the ongoing outbreak. Data Commons imports this
-          data
-          and
-          computes incremental counts for users.
-        </p>
-        <p> Data made <a href="https://github.com/nytimes/covid-19-data/blob/master/LICENSE">available for
-            non-commercial
-            purposes
-            only with proper citation</a>.
-        </p>
-
-        <h3><a href="https://opportunityinsights.org/">Collaboration: Opportunity Insights - Outcomes and Neighborhood
+              <h3><a href="https://opportunityinsights.org/">Collaboration: Opportunity Insights - Outcomes and Neighborhood
             Datasets</a></h3>
         <p> Opportunity Insights provides datasets on "social mobility and a variety of other outcomes from life
           expectancy
@@ -711,19 +439,6 @@
             Data
             Usage</a>.
         </p>
-
-        <h3><a
-            href="https://energy.stanford.edu/research/seed-grants/western-interconnection-data-analytics-project-widap">Collaboration:
-            Western Interconnection Data Analytics (WIDAP) Project</a></h3>
-        <p> Data Commons includes power plants in the Western grid up until 2017, with each power plant's name,
-          latitude,
-          longitude, county, Office of the Regulatory Information System PLant code (ORISPL) code, and the names of
-          its
-          power
-          plant units. The data is made available on Data Commons through a collaboration with the WIDAP project.
-        </p>
-      </article> <!-- end of id="non-govt-data" -->
-    </div>
     <div class="tab-pane fade" id="intlDatasets" role="tabpanel" aria-labelledby="intl-tab">
       <h3><a href="https://ec.europa.eu/eurostat/data/database">Eurostat Database Regional Statistics by NUTS
           Classification</a></h3>
@@ -800,18 +515,7 @@
           1995 -
           today Copyright Notice.</a>
       </p>
-      <h3><a href="https://www.google.com/covid19/mobility/">Google Community Mobility Reports</a></h3>
-      <p> Google's COVID-19 Community Mobility Reports "chart movement trends over time by geography, across different
-        categories of places such as retail and recreation, groceries and pharmacies, parks, transit stations,
-        workplaces,
-        and
-        residential." Data Commons includes all statistics for countries, US states, and US counties.
-      </p>
-      <p> Data made publicly available under the standard <a href="https://policies.google.com/terms?hl=en">Google
-          Terms
-          of
-          Service</a>.
-      </p>
+
       <h3><a href="https://www.ncdc.noaa.gov/ibtracs/index.php?name=ib-v4-access">NOAA International Best Track
           Archive
           for
@@ -1279,7 +983,66 @@
         plants,
         fungi, and algae.
       </p>
-    </div>
+</div>
+</div>
+    <div class="tab-pane fade" id="covidDatasets" role="tabpanel"
+      aria-labelledby="covid-tab">
+              <h3><a href="https://covidtracking.com/">The COVID Tracking Project</a></h3>
+      <ul>
+	  
+        <li><a href="https://covidtracking.com/about-data">The
+        COVID Tracking Project US State & County Data</a>: The COVID Tracking Project collects, cross-checks, and publishes COVID-19 testing and patient outcome
+          data from 56 US
+          states and territories. 
+	</li>
+      </ul>
+      
+        <p> <a
+            href="http://creativecommons.org/licenses/by-nc/4.0/">Terms
+            of Use</a>
+        </p>
+      </article> <!-- end of id="state-govt-data" -->
+
+      <article id="non-govt-data">
+
+
+
+	<h3>Google Health Reconciled COVID-19 Data</h3>
+         <ul><li> Google Health reconciles COVID data from The COVID Tracking Project, Johns Hopkins University, California
+          Health
+          and
+          Human Services and makes the reconciled dataset publicly available for research and prediction use via Data
+	   Commons. </li>
+	   </ul>
+        </p>
+
+        <h3><a href="https://github.com/nytimes/covid-19-data/">The New York Times Coronavirus (Covid-19) Data in the
+            United States</a></h3>
+        <ul><li>The New York Times releases cumulative counts of coronavirus cases in the United States at the country,
+          state, and county level, over time. The New York Times compiles this time series data from state and local governments
+          and health departments in an attempt to provide a complete record of the ongoing outbreak. Data Commons imports this
+          data and computes incremental counts for users.
+        </li></ul>
+        <p> Data made <a href="https://github.com/nytimes/covid-19-data/blob/master/LICENSE">available for
+            non-commercial purposes only with proper citation</a>.
+        </p>
+
+	  <h3><a href="https://www.google.com/covid19/mobility/">Google Community Mobility Reports</a></h3>
+	  <ul>
+	    <li>Google's COVID-19 Community Mobility Reports "chart movement trends over time by geography, across different
+        categories of places such as retail and recreation, groceries and pharmacies, parks, transit stations,
+        workplaces,
+        and
+        residential." Data Commons includes all statistics for countries, US states, and US counties.
+	    </li>
+	    </ul>
+      <p> Data made publicly available under the standard <a href="https://policies.google.com/terms?hl=en">Google
+          Terms
+          of
+          Service</a>.
+      </p>
+
+</div>
   </div>
 </div>
 {% endblock %}

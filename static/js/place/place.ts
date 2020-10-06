@@ -22,6 +22,7 @@ import { ChildPlace } from "./child_places_menu";
 import { MainPane } from "./main";
 import { Menu } from "./topic_menu";
 import { ParentPlace } from "./parent_breadcrumbs";
+import { PlaceHighlight } from "./place_highlight";
 import { PageSubtitle } from "./page_subtitle";
 import { isPlaceInUsa } from "./util";
 
@@ -86,15 +87,61 @@ function adjustMenuPosition() {
   }
 }
 
+/**
+ * Get the geo json info for choropleth charts.
+ */
+async function getGeoJsonData(dcid: string, placeType: string) {
+  if (placeType == "Country" || placeType == "State") {
+    return axios.get("/api/chart/geojson/" + dcid).then((resp) => {
+      return resp.data;
+    });
+  } else {
+    return new Promise((resolve) => {
+      resolve({});
+    });
+  }
+}
+
+/**
+ * Get the stat var data for choropleth charts.
+ */
+async function getChoroplethData(dcid: string, placeType: string) {
+  if (placeType == "Country" || placeType == "State") {
+    return axios.get("/api/chart/choroplethdata/" + dcid).then((resp) => {
+      return resp.data;
+    });
+  } else {
+    return new Promise((resolve) => {
+      resolve({});
+    });
+  }
+}
+
+/**
+ * Get the landing page data
+ */
+async function getLandingPageData(dcid: string): Promise<PageData> {
+  return axios.get("/api/landingpage/data/" + dcid).then((resp) => {
+    return resp.data;
+  });
+}
+
 function renderPage(dcid: string) {
   const urlParams = new URLSearchParams(window.location.search);
   // Get topic and render menu.
   let topic = urlParams.get("topic") || "Overview";
   const placeName = document.getElementById("place-name").dataset.pn;
   const placeType = document.getElementById("place-type").dataset.pt;
+  const landingPagePromise = getLandingPageData(dcid);
+  const chartGeoJsonPromise = getGeoJsonData(dcid, placeType);
+  const choroplethDataPromise = getChoroplethData(dcid, placeType);
 
-  axios.get("/api/landingpage/data/" + dcid).then((resp) => {
-    const data: PageData = resp.data;
+  Promise.all([
+    landingPagePromise,
+    chartGeoJsonPromise,
+    choroplethDataPromise,
+  ]).then(([landingPageData, geoJsonData, choroplethData]) => {
+    const data: PageData = landingPageData;
     const isUsaPlace = isPlaceInUsa(dcid, data.parentPlaces);
     if (Object.keys(data.pageChart).length == 1) {
       topic = "Overview";
@@ -119,6 +166,13 @@ function renderPage(dcid: string) {
         document.getElementById("place-type")
       );
     }
+    ReactDOM.render(
+      React.createElement(PlaceHighlight, {
+        dcid,
+        highlight: data.highlight,
+      }),
+      document.getElementById("place-highlight")
+    );
 
     // Readjust sidebar based on parent places.
     updatePageLayoutState();
@@ -154,6 +208,8 @@ function renderPage(dcid: string) {
         pageChart: data.pageChart,
         placeName,
         placeType,
+        geoJsonData,
+        choroplethData,
       }),
       document.getElementById("main-pane")
     );

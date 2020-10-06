@@ -28,6 +28,7 @@ interface ChartRegionPropsType {
   removeStatsVar: (statsVar: string, nodePath?: string[]) => void;
   chartOptions: ChartOptions;
   setPC: (mprop: string, pc: boolean) => void;
+  initialPC: boolean;
   // mappings from StatVar DCIDs to all their possible per capita denominators
   denominators: { [key: string]: string[] };
 }
@@ -46,6 +47,12 @@ class ChartRegion extends Component<ChartRegionPropsType, unknown> {
       this.downloadLink.onclick = () => {
         saveToFile("export.csv", this.createDataCsv());
       };
+    }
+    if (this.props.initialPC) {
+      const groups = this.groupStatsVars(this.props.statsVars);
+      for (const groupId in groups) {
+        this.props.setPC(groupId, true);
+      }
     }
   }
 
