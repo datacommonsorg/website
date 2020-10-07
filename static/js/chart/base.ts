@@ -23,10 +23,13 @@ class DataPoint {
   label: string;
   // Optional DCID to add to a chart as a data atttribute
   dcid?: string;
-  constructor(label: string, value: number, dcid?: string) {
+  // Optional Label link to show on UI element
+  link?: string;
+  constructor(label: string, value: number, dcid?: string, link?: string) {
     this.value = value;
     this.label = label;
     this.dcid = dcid;
+    this.link = link;
   }
 }
 
@@ -36,7 +39,7 @@ class DataGroup {
   // For example, the label of a data point could be date string, while the
   // label of the DataGroup is a place name.
   label: string;
-  // Label link to show on UI element (optional)
+  // Optional label link to show on UI element
   link?: string;
   constructor(label: string, value: DataPoint[], link?: string) {
     this.value = value;

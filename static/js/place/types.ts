@@ -46,6 +46,7 @@ export interface SnapshotData {
 export interface ChartBlockData {
   title: string;
   statsVars: string[];
+  denominator?: string[];
   unit: string;
   trend: TrendData;
   parent: SnapshotData;
@@ -77,6 +78,7 @@ export interface PageData {
   allChildPlaces: {
     string: string[];
   };
+  childPlacesType: string;
   childPlaces: string[];
   parentPlaces: string[];
   similarPlaces: string[];
@@ -95,4 +97,5 @@ export interface ChoroplethDataGroup {
     [placeDcid: string]: number;
   };
   numDataPoints: number;
+  exploreUrl: string;
 }
