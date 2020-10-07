@@ -461,50 +461,6 @@
   },
   {
     "category": "Equity",
-
-    "title": "Poverty Rate by Race",
-    "statsVars": [
-      "Count_Person_BelowPovertyLevelInThePast12Months_AmericanIndianOrAlaskaNativeAlone",
-      "Count_Person_BelowPovertyLevelInThePast12Months_AsianAlone",
-      "Count_Person_BelowPovertyLevelInThePast12Months_BlackOrAfricanAmericanAlone",
-      "Count_Person_BelowPovertyLevelInThePast12Months_HispanicOrLatino",
-      "Count_Person_BelowPovertyLevelInThePast12Months_NativeHawaiianOrOtherPacificIslanderAlone",
-      "Count_Person_BelowPovertyLevelInThePast12Months_WhiteAlone"
-    ],
-    "denominator": [
-      "Count_Person_AmericanIndianOrAlaskaNativeAlone",
-      "Count_Person_AsianAlone",
-      "Count_Person_BlackOrAfricanAmericanAlone",
-      "Count_Person_HispanicOrLatino",
-      "Count_Person_NativeHawaiianOrOtherPacificIslanderAlone",
-      "Count_Person_WhiteAlone"
-    ],
-    "scaling": 100,
-    "unit": "%",
-    "isOverview": true,
-    "relatedChart": {
-      "scale": false
-    }
-  },
-  {
-    "category": "Equity",
-    "title": "Poverty Rate by Gender",
-    "statsVars": [
-      "Count_Person_Female_BelowPovertyLevelInThePast12Months",
-      "Count_Person_Male_BelowPovertyLevelInThePast12Months"
-    ],
-    "denominator": ["Count_Person_Female", "Count_Person_Male"],
-    "scaling": 100,
-    "unit": "%",
-    "isOverview": true,
-    "relatedChart": {
-      "scale": true,
-      "scaling": 100,
-      "unit": "%"
-    }
-  },
-  {
-    "category": "Equity",
     "title": "Gini Index",
     "statsVars": ["WorldBank/SI_POV_GINI"],
     "isOverview": true,
@@ -530,7 +486,6 @@
   },
   {
     "category": "Equity",
-
     "title": "Median Income by Gender",
     "statsVars": [
       "Median_Income_Person_15OrMoreYears_Female_WithIncome",
@@ -543,7 +498,6 @@
   },
   {
     "category": "Equity",
-
     "title": "Poverty Rate by Race",
     "statsVars": [
       "Count_Person_BelowPovertyLevelInThePast12Months_AmericanIndianOrAlaskaNativeAlone",
@@ -569,7 +523,6 @@
   },
   {
     "category": "Equity",
-
     "title": "Poverty Rate by Gender",
     "statsVars": [
       "Count_Person_Female_BelowPovertyLevelInThePast12Months",
@@ -584,35 +537,6 @@
   },
   {
     "category": "Equity",
-
-    "title": "Median Household Income by Race",
-    "statsVars": [
-      "Median_Income_Household_HouseholderRaceAmericanIndianOrAlaskaNativeAlone",
-      "Median_Income_Household_HouseholderRaceAsianAlone",
-      "Median_Income_Household_HouseholderRaceBlackOrAfricanAmericanAlone",
-      "Median_Income_Household_HouseholderRaceHispanicOrLatino",
-      "Median_Income_Household_HouseholderRaceNativeHawaiianOrOtherPacificIslanderAlone",
-      "Median_Income_Household_HouseholderRaceWhiteAlone"
-    ],
-    "relatedChart": {
-      "scale": false
-    }
-  },
-  {
-    "category": "Equity",
-
-    "title": "Median Income by Gender",
-    "statsVars": [
-      "Median_Income_Person_15OrMoreYears_Female_WithIncome",
-      "Median_Income_Person_15OrMoreYears_Male_WithIncome"
-    ],
-    "relatedChart": {
-      "scale": false
-    }
-  },
-  {
-    "category": "Equity",
-
     "title": "Unemployment Rate by Gender",
     "statsVars": [
       "UnemploymentRate_Person_Female",
@@ -625,7 +549,6 @@
   },
   {
     "category": "Equity",
-
     "title": "Percentage of People Without Health Insurance by Gender",
     "statsVars": [
       "Percent_Person_18To64Years_Female_NoHealthInsurance",
@@ -639,7 +562,6 @@
   },
   {
     "category": "Equity",
-
     "title": "Percentage of People Without Health Insurance by Race",
     "statsVars": [
       "Percent_Person_18To64Years_NoHealthInsurance_BlackOrAfricanAmericanAlone",
@@ -654,61 +576,6 @@
   },
   {
     "category": "Equity",
-
-    "title": "Rate of Associate Degree Attainment by Gender across Places",
-    "statsVars": [
-      "Count_Person_25To34Years_EducationalAttainmentAssociatesDegree_Female",
-      "Count_Person_25To34Years_EducationalAttainmentAssociatesDegree_Male"
-    ],
-    "denominator": [
-      "Count_Person_25To34Years_Female",
-      "Count_Person_25To34Years_Male"
-    ],
-    "scaling": 100,
-    "unit": "%",
-    "relatedChart": {
-      "scale": false
-    }
-  },
-  {
-    "category": "Equity",
-
-    "title": "Rate of Bachelor's Degree Attainment by Gender",
-    "statsVars": [
-      "Count_Person_25To34Years_EducationalAttainmentBachelorsDegree_Female",
-      "Count_Person_25To34Years_EducationalAttainmentBachelorsDegree_Male"
-    ],
-    "denominator": [
-      "Count_Person_25To34Years_Female",
-      "Count_Person_25To34Years_Male"
-    ],
-    "scaling": 100,
-    "unit": "%",
-    "relatedChart": {
-      "scale": false
-    }
-  },
-  {
-    "category": "Equity",
-
-    "title": "Rate of Graduate or Professional Degree Attainment by Gender",
-    "statsVars": [
-      "Count_Person_25To34Years_EducationalAttainmentGraduateOrProfessionalDegree_Female",
-      "Count_Person_25To34Years_EducationalAttainmentGraduateOrProfessionalDegree_Male"
-    ],
-    "denominator": [
-      "Count_Person_25To34Years_Female",
-      "Count_Person_25To34Years_Male"
-    ],
-    "scaling": 100,
-    "unit": "%",
-    "relatedChart": {
-      "scale": false
-    }
-  },
-  {
-    "category": "Equity",
-
     "title": "Rate of Associate Degree Attainment by Gender",
     "statsVars": [
       "Count_Person_25To34Years_EducationalAttainmentAssociatesDegree_Female",
@@ -726,7 +593,6 @@
   },
   {
     "category": "Equity",
-
     "title": "Rate of Bachelor's Degree Attainment by Gender",
     "statsVars": [
       "Count_Person_25To34Years_EducationalAttainmentBachelorsDegree_Female",
@@ -744,7 +610,6 @@
   },
   {
     "category": "Equity",
-
     "title": "Rate of Graduate or Professional Degree Attainment by Gender",
     "statsVars": [
       "Count_Person_25To34Years_EducationalAttainmentGraduateOrProfessionalDegree_Female",
