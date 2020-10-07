@@ -95,9 +95,10 @@ def get_denom(cc, related_chart=False):
     # For related chart, use the denominator that is specified in the
     # 'relatedChart' field if present.
     if related_chart and cc.get('relatedChart', {}).get('scale', False):
-        denom = cc.get['relatedChart'].get('denominator', 'Count_Person')
+        denom = cc['relatedChart'].get('denominator', 'Count_Person')
         for num in cc['statsVars']:
             result[num] = denom
+        return result
     return {}
 
 
@@ -176,7 +177,8 @@ def get_snapshot_across_places(cc, data, places):
 
     # TODO(shifucun/beets): add a unittest to ensure denominator is set
     # explicitly when scale==True
-    num_denom = get_denom(cc)
+    num_denom = get_denom(cc, related_chart=True)
+    logging.info(num_denom)
     sources = set()
     for place in places:
         if place not in data:
@@ -362,6 +364,7 @@ def data(dcid):
                         for place_data in chart[t].get('data', []):
                             sv_set.update(list(place_data['data'].keys()))
                     chart['statsVars'] = list(sv_set)
+                    chart['statsVars'].sort()
 
     # Remove empty category and topics
     for category in list(spec_and_stat.keys()):
