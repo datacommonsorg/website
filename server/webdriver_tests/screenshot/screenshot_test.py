@@ -22,6 +22,12 @@ SCREENSHOTS_FOLDER = 'test_screenshots/'
 # TODO: Can add more urls and tests if necessary.
 TEST_URLS = [
     {
+        'url': '/place',
+        'filename_suffix': 'place_landing.png',
+        'test_class': 'container',
+        'height': 1142
+    },
+    {
         'url': '/place?dcid=country/USA',
         'filename_suffix': 'place_usa.png',
         'test_class': 'chart-container',
