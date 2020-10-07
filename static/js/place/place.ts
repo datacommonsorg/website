@@ -25,10 +25,9 @@ import { ParentPlace } from "./parent_breadcrumbs";
 import { PlaceHighlight } from "./place_highlight";
 import { PageSubtitle } from "./page_subtitle";
 import { isPlaceInUsa } from "./util";
+import { initSearchAutocomplete } from "./search";
 
-import { PageData } from "./types";
-
-let ac: google.maps.places.Autocomplete;
+import { CachedChoroplethData, PageData } from "./types";
 
 let yScrollLimit = 0; // window scroll position to start fixing the sidebar
 let sidebarTopMax = 0; // Max top position for the sidebar, relative to #sidebar-outer.
@@ -36,10 +35,8 @@ const Y_SCROLL_WINDOW_BREAKPOINT = 992; // Only trigger fixed sidebar beyond thi
 const Y_SCROLL_MARGIN = 100; // Margin to apply to the fixed sidebar top.
 
 window.onload = () => {
-  const urlParams = new URLSearchParams(window.location.search);
-  const dcid = urlParams.get("dcid");
-  renderPage(dcid);
-  initAutocomplete();
+  renderPage();
+  initSearchAutocomplete();
   updatePageLayoutState();
   maybeToggleFixedSidebar();
   window.onresize = maybeToggleFixedSidebar;
@@ -62,7 +59,7 @@ function updatePageLayoutState(): void {
 /**
  *  Toggle fixed sidebar based on window width.
  */
-function maybeToggleFixedSidebar() {
+function maybeToggleFixedSidebar(): void {
   if (window.innerWidth < Y_SCROLL_WINDOW_BREAKPOINT) {
     document.removeEventListener("scroll", adjustMenuPosition);
     return;
@@ -73,7 +70,7 @@ function maybeToggleFixedSidebar() {
 /**
  * Update fixed sidebar based on the window scroll.
  */
-function adjustMenuPosition() {
+function adjustMenuPosition(): void {
   const topicsEl = document.getElementById("sidebar-region");
   if (window.scrollY > yScrollLimit) {
     const calcTop = window.scrollY - yScrollLimit - Y_SCROLL_MARGIN;
@@ -90,7 +87,10 @@ function adjustMenuPosition() {
 /**
  * Get the geo json info for choropleth charts.
  */
-async function getGeoJsonData(dcid: string, placeType: string) {
+async function getGeoJsonData(
+  dcid: string,
+  placeType: string
+): Promise<unknown> {
   if (placeType == "Country" || placeType == "State") {
     return axios.get("/api/chart/geojson/" + dcid).then((resp) => {
       return resp.data;
@@ -105,7 +105,10 @@ async function getGeoJsonData(dcid: string, placeType: string) {
 /**
  * Get the stat var data for choropleth charts.
  */
-async function getChoroplethData(dcid: string, placeType: string) {
+async function getChoroplethData(
+  dcid: string,
+  placeType: string
+): Promise<CachedChoroplethData> {
   if (placeType == "Country" || placeType == "State") {
     return axios.get("/api/chart/choroplethdata/" + dcid).then((resp) => {
       return resp.data;
@@ -126,10 +129,11 @@ async function getLandingPageData(dcid: string): Promise<PageData> {
   });
 }
 
-function renderPage(dcid: string) {
+function renderPage(): void {
   const urlParams = new URLSearchParams(window.location.search);
   // Get topic and render menu.
   let topic = urlParams.get("topic") || "Overview";
+  const dcid = document.getElementById("title").dataset.dcid;
   const placeName = document.getElementById("place-name").dataset.pn;
   const placeType = document.getElementById("place-type").dataset.pt;
   const landingPagePromise = getLandingPageData(dcid);
@@ -217,46 +221,6 @@ function renderPage(dcid: string) {
       document.getElementById("main-pane")
     );
   });
-}
-
-/**
- * Setup search input autocomplete
- */
-function initAutocomplete() {
-  // Create the autocomplete object, restricting the search predictions to
-  // geographical location types.
-  const options = {
-    types: ["(regions)"],
-    fields: ["place_id", "name", "types"],
-  };
-  const acElem = document.getElementById(
-    "place-autocomplete"
-  ) as HTMLInputElement;
-  ac = new google.maps.places.Autocomplete(acElem, options);
-  ac.addListener("place_changed", getPlaceAndRender);
-}
-
-/*
- * Get place from autocomplete object and update url
- */
-function getPlaceAndRender() {
-  // Get the place details from the autocomplete object.
-  const place = ac.getPlace();
-  axios
-    .get(`api/placeid2dcid/${place.place_id}`)
-    .then((resp) => {
-      const urlParams = new URLSearchParams(window.location.search);
-      urlParams.set("dcid", resp.data);
-      window.location.search = urlParams.toString();
-    })
-    .catch(() => {
-      alert("Sorry, but we don't have any data about " + place.name);
-      const acElem = document.getElementById(
-        "place-autocomplete"
-      ) as HTMLInputElement;
-      acElem.value = "";
-      acElem.setAttribute("placeholder", "Search for another place");
-    });
 }
 
 export { updatePageLayoutState };

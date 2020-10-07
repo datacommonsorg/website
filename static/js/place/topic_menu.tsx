@@ -34,7 +34,7 @@ class MenuCategory extends React.Component<MenuCategoryPropsType, unknown> {
     return (
       <li className="nav-item">
         <a
-          href={`/place?dcid=${dcid}&topic=${category}`}
+          href={`/place/${dcid}?topic=${category}`}
           className={`nav-link ${selectCategory === category ? "active" : ""}`}
         >
           {category}
@@ -51,7 +51,7 @@ class MenuCategory extends React.Component<MenuCategoryPropsType, unknown> {
               return (
                 <li className="nav-item" key={topic}>
                   <a
-                    href={`/place?dcid=${dcid}&topic=${category}#${topic}`}
+                    href={`/place/${dcid}?topic=${category}#${topic}`}
                     className="nav-link"
                   >
                     {topic}
@@ -81,7 +81,7 @@ class Menu extends React.Component<MenuPropsType, unknown> {
       <ul id="nav-topics" className="nav flex-column accordion">
         <li className="nav-item">
           <a
-            href={`/place?dcid=${dcid}`}
+            href={`/place/${dcid}`}
             className={`nav-link ${!topic ? "active" : ""}`}
           >
             Overview

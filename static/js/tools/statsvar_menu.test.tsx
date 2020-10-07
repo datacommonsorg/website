@@ -49,7 +49,7 @@ it("filtering the menu", () => {
   act(() => {
     render(
       <Menu
-        selectedNodes={{ Count_Person: [["0", "0"]] }}
+        selectedNodes={{ Count_Person: { paths: [["0", "0"]] } }}
         setStatsVarTitle={jest.fn()}
         addStatsVar={jest.fn()}
         removeStatsVar={jest.fn()}
@@ -64,7 +64,7 @@ it("filtering the menu", () => {
   act(() => {
     render(
       <Menu
-        selectedNodes={{ Count_Person: [["0", "0"]] }}
+        selectedNodes={{ Count_Person: { paths: [["0", "0"]] } }}
         setStatsVarTitle={jest.fn()}
         addStatsVar={jest.fn()}
         removeStatsVar={jest.fn()}
@@ -80,7 +80,7 @@ it("filtering the menu", () => {
   act(() => {
     render(
       <Menu
-        selectedNodes={{ Count_Person: [["0", "0"]] }}
+        selectedNodes={{ Count_Person: { paths: [["0", "0"]] } }}
         setStatsVarTitle={jest.fn()}
         addStatsVar={jest.fn()}
         removeStatsVar={jest.fn()}
@@ -98,7 +98,7 @@ it("filtering the menu", () => {
   act(() => {
     render(
       <Menu
-        selectedNodes={{ Count_Person: [["0", "0"]] }}
+        selectedNodes={{ Count_Person: { paths: [["0", "0"]] } }}
         setStatsVarTitle={setTitle}
         addStatsVar={jest.fn()}
         removeStatsVar={jest.fn()}
@@ -113,7 +113,7 @@ test("mount with one statsVar", () => {
   const setTitle = jest.fn();
   const wrapper = mount(
     <Menu
-      selectedNodes={{ Count_Person: [["0", "0"]] }}
+      selectedNodes={{ Count_Person: { paths: [["0", "0"]] } }}
       setStatsVarTitle={setTitle}
       addStatsVar={jest.fn()}
       removeStatsVar={jest.fn()}
@@ -141,9 +141,9 @@ test("mount with multiple statsVars", () => {
   const wrapper = mount(
     <Menu
       selectedNodes={{
-        Count_Person: [["0", "0"]],
-        Median_Age_Person: [["0", "2"]],
-        Count_Person_Upto5Years: [["0", "6", "0"]],
+        Count_Person: { paths: [["0", "0"]] },
+        Median_Age_Person: { paths: [["0", "2"]] },
+        Count_Person_Upto5Years: { paths: [["0", "6", "0"]] },
       }}
       setStatsVarTitle={setTitle}
       addStatsVar={jest.fn()}

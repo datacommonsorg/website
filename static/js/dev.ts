@@ -143,20 +143,6 @@ window.onload = () => {
   containerId = addChartContainer();
   drawGroupBarChart(containerId, width, height, dataGroups);
 
-  // Test narrow line chart
-  dataGroups = [
-    new DataGroup("label-1", [
-      new DataPoint("01-01-2011", 702134),
-      new DataPoint("01-02-2011", 1002342),
-      new DataPoint("01-03-2011", 3002342),
-      new DataPoint("01-04-2011", 9520234),
-      new DataPoint("01-05-2011", 3520234),
-      new DataPoint("01-06-2011", 7520234),
-    ]),
-  ];
-  containerId = addChartContainer();
-  drawLineChart(containerId, width, height, dataGroups);
-
   // Test y-axis with small values
   dataGroups = [
     new DataGroup("label-1", [
@@ -190,7 +176,7 @@ window.onload = () => {
   drawLineChart(containerId, width, height, dataGroups);
 
   // Test group line chart
-  width = 500;
+  width = 450;
   const years = [
     "2011",
     "2012",

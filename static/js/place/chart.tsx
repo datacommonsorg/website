@@ -141,17 +141,9 @@ class Chart extends React.Component<ChartPropType, ChartStateType> {
     if (!this.state.display) {
       return null;
     }
-    const dateString = this.props.snapshot
-      ? "(" + this.props.snapshot.date + ")"
-      : "";
-    // TODO(chejennifer): get sources for choropleth charts
-    let sources = [];
-    if (this.props.chartType !== chartTypeEnum.CHOROPLETH) {
-      sources = this.props.trend
-        ? this.props.trend.sources
-        : this.props.snapshot.sources;
-    }
+    const dateString = this.getDateString();
     const exploreUrl = this.getExploreUrl();
+    const sources = this.getSources();
     if (
       this.props.chartType === chartTypeEnum.CHOROPLETH &&
       (!this.state.choroplethDataGroup ||
@@ -419,7 +411,7 @@ class Chart extends React.Component<ChartPropType, ChartStateType> {
             new DataGroup(
               this.props.names[placeData.dcid],
               dataPoints,
-              `/place?dcid=${placeData.dcid}`
+              `/place/${placeData.dcid}`
             )
           );
         }
@@ -448,6 +440,26 @@ class Chart extends React.Component<ChartPropType, ChartStateType> {
       return this.props.trend
         ? this.props.trend.exploreUrl
         : this.props.snapshot.exploreUrl;
+    }
+  }
+
+  private getSources(): string[] {
+    if (this.props.chartType == chartTypeEnum.CHOROPLETH) {
+      return this.props.choroplethData ? this.props.choroplethData.sources : [];
+    } else {
+      return this.props.trend
+        ? this.props.trend.sources
+        : this.props.snapshot.sources;
+    }
+  }
+
+  private getDateString(): string {
+    if (this.props.chartType == chartTypeEnum.CHOROPLETH) {
+      return this.props.choroplethData
+        ? "(" + this.props.choroplethData.date + ")"
+        : "";
+    } else {
+      return this.props.snapshot ? "(" + this.props.snapshot.date + ")" : "";
     }
   }
 }

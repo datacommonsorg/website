@@ -159,6 +159,7 @@ def get_snapshot_across_places(cc, data, places):
             points[stat_var] = value
         if points:
             result['data'].append({'dcid': place, 'data': points})
+
     return result
 
 

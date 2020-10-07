@@ -78,7 +78,11 @@ const nodePathSep = ",";
 const statsVarSep = "__";
 
 interface StatsVarNode {
-  [key: string]: string[][]; // key: statsVar Id, value: array of nodePath
+  // key: statsVar Id
+  // value: object of two fields
+  // 1) "paths" is an array of nodePath
+  // 2) "denominators" is an array of possible per capita denominator DCIDs
+  [key: string]: { paths: string[][]; denominators?: string[] };
 }
 
 interface ChartOptions {
@@ -142,16 +146,27 @@ class TimelineParams {
   }
 
   // add one statsVar with Path, return true if this.statsVarNodes changed
-  public addStatsVar(statsVar: string, nodePath: string[]): boolean {
-    if (!(statsVar in this.statsVarNodes)) {
-      this.statsVarNodes[statsVar] = [nodePath];
+  public addStatsVar(
+    statsVar: string,
+    nodePath: string[],
+    denominators: string[]
+  ): boolean {
+    const node = this.statsVarNodes[statsVar];
+    if (!node) {
+      this.statsVarNodes[statsVar] = {
+        paths: [nodePath],
+        denominators: denominators,
+      };
       return true;
     } else if (
-      _.findIndex(this.statsVarNodes[statsVar], function (obj) {
+      _.findIndex(node.paths, function (obj) {
         return _.isEqual(obj, nodePath);
       }) === -1
     ) {
-      this.statsVarNodes[statsVar].push(nodePath);
+      node.paths.push(nodePath);
+      return true;
+    } else if (!_.isEqual(node.denominators, denominators)) {
+      node.denominators = denominators;
       return true;
     }
     return false;
@@ -167,12 +182,14 @@ class TimelineParams {
       }
       // if Path is provided, delete the statsVar with the same Path only
       else {
-        const idx = _.findIndex(this.statsVarNodes[statsVar], function (obj) {
+        const idx = _.findIndex(this.statsVarNodes[statsVar].paths, function (
+          obj
+        ) {
           return _.isEqual(obj, nodePath);
         });
         if (idx !== -1) {
-          this.statsVarNodes[statsVar].splice(idx, 1);
-          if (this.statsVarNodes[statsVar].length === 0) {
+          this.statsVarNodes[statsVar].paths.splice(idx, 1);
+          if (this.statsVarNodes[statsVar].paths.length === 0) {
             delete this.statsVarNodes[statsVar];
           }
           return true;
@@ -193,8 +210,14 @@ class TimelineParams {
   public setUrlStatsVars(): void {
     const statsVarArray = [];
     for (const statsVar in this.statsVarNodes) {
+      const node = this.statsVarNodes[statsVar];
       statsVarArray.push(
-        statsVar + nodePathSep + this.statsVarNodes[statsVar].join(nodePathSep)
+        statsVar +
+          nodePathSep +
+          node.paths.join(nodePathSep) +
+          (_.isEmpty(node.denominators)
+            ? ""
+            : nodePathSep + node.denominators.join(nodePathSep))
       );
     }
     this.urlParams.set("statsVar", statsVarArray.join(statsVarSep));
@@ -220,7 +243,7 @@ class TimelineParams {
   public getStatsVarPaths(): string[][] {
     const statsVarPaths = [];
     for (const statsVar in this.statsVarNodes) {
-      for (const nodePath of this.statsVarNodes[statsVar]) {
+      for (const nodePath of this.statsVarNodes[statsVar].paths) {
         statsVarPaths.push(nodePath);
       }
     }
@@ -247,19 +270,34 @@ class TimelineParams {
     if (statsVars) {
       for (const statsVarString of statsVars.split(statsVarSep)) {
         const statsVarInfo = statsVarString.split(nodePathSep);
+        const dcid = statsVarInfo[0];
         // if statsVar path is not included in url
         // load the path from pre-built map
         if (statsVarInfo.length === 1) {
-          if (statsVarInfo[0] in statsVarPathMap) {
+          if (dcid in statsVarPathMap) {
             this.addStatsVar(
-              statsVarInfo[0],
-              statsVarPathMap[statsVarInfo[0]].map((x: number) => x.toString())
+              dcid,
+              statsVarPathMap[dcid].map((x: number) => x.toString()),
+              // TODO: Consider adding denominators to the pre-built map
+              []
             );
           } else {
-            this.addStatsVar(statsVarInfo[0], []);
+            this.addStatsVar(dcid, [], []);
           }
         } else {
-          this.addStatsVar(statsVarInfo[0], statsVarInfo.splice(1));
+          // Node paths followed by denominators, e.g.,
+          // ["0", "0", "0", "Count_Person", "Count_Hosehold"]
+          const pathsAndDenominators = statsVarInfo.splice(1);
+          // Checks if a string starts with a digit
+          const startsWithDigit = (str: string): boolean =>
+            "0" <= str[0] && str[0] <= "9";
+          this.addStatsVar(
+            dcid,
+            // Node paths are digits, e.g., ["0", "0", "0"]
+            pathsAndDenominators.filter((str) => startsWithDigit(str)),
+            // StatVar DCIDs do not start with digits
+            pathsAndDenominators.filter((str) => !startsWithDigit(str))
+          );
         }
       }
     }
