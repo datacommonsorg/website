@@ -39,7 +39,7 @@ class TestPlaceExplorer(WebdriverBaseTest):
         req = urllib.request.Request(self.url_ + "/place.js")
         with urllib.request.urlopen(req) as response:
             self.assertEqual(response.getcode(), 200)
-        self.assertEqual("United States | Place Explorer | Data Commons",
+        self.assertEqual("United States - Place Explorer - Data Commons",
                          self.driver.title)
         title = self.driver.find_element_by_id("place-name")
         self.assertEqual("United States", title.text)
@@ -50,7 +50,7 @@ class TestPlaceExplorer(WebdriverBaseTest):
         """Test the place explorer page for MTV can be loaded successfullly."""
         self.driver.get(self.url_ + MTV_URL)
         time.sleep(5)
-        self.assertEqual("Mountain View | Place Explorer | Data Commons",
+        self.assertEqual("Mountain View - Place Explorer - Data Commons",
                          self.driver.title)
         title = self.driver.find_element_by_id("place-name")
         self.assertEqual("Mountain View", title.text)
@@ -71,7 +71,7 @@ class TestPlaceExplorer(WebdriverBaseTest):
         ca_result = search_results[0]
         ca_result.click()
         time.sleep(3)
-        self.assertEqual("California | Place Explorer | Data Commons",
+        self.assertEqual("California - Place Explorer - Data Commons",
                          self.driver.title)
 
     def test_demographics_link(self):
