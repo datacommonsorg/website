@@ -469,10 +469,16 @@ def choropleth_data(dcid):
             cc, processed_data, geos)
         data_values = cc_data.get('data', [])
         data_dict = dict()
+        scaling = cc.get('scaling', 1)
+        if 'relatedChart' in cc:
+            scaling = cc['relatedChart'].get('scaling', scaling)
         for value in data_values:
             if 'dcid' not in value or 'data' not in value:
                 continue
-            data_dict[value['dcid']] = value['data'].get(sv, None)
+            val = value['data'].get(sv, None)
+            if val:
+                val = val * scaling
+            data_dict[value['dcid']] = val
         is_scaled = (('relatedChart' in cc and
                       cc['relatedChart'].get('scale', False)) or
                      ('denominator' in cc))

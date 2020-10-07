@@ -124,9 +124,13 @@ const onMouseMove = (
 ) => (e) => {
   const geoProperties = e["properties"];
   const placeName = geoProperties.name;
-  const value = unit
-    ? dataValues[geoProperties.geoDcid] + unit
-    : dataValues[geoProperties.geoDcid];
+  let value = "Data Missing";
+  if (dataValues[geoProperties.geoDcid]) {
+    value = String(Math.round((dataValues[geoProperties.geoDcid] + Number.EPSILON) * 100) / 100);
+    if (unit) {
+      value = unit == "$" ? unit + value : value + unit;
+    }
+  } 
   const text = placeName + ": " + value;
   const leftOffset = 3;
   const topOffset = -3;

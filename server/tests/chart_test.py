@@ -395,6 +395,7 @@ class TestChoroplethData(unittest.TestCase):
         sv2_val1 = 3
         sv1_sources = ['source1']
         sv2_sources = ['source1', 'source2']
+        scalingVal = 100
         cc1 = {
             'category': ['Test', 'Test2'],
             'title': 'Test2',
@@ -408,7 +409,8 @@ class TestChoroplethData(unittest.TestCase):
             'isChoropleth': True,
             'relatedChart': {
                 'scale': True,
-                'denominator': sv3
+                'denominator': sv3,
+                'scaling': scalingVal
             }
         }
         sv_set = {sv1, sv2, sv3}
@@ -512,7 +514,7 @@ class TestChoroplethData(unittest.TestCase):
             sv2: {
                 'date': sv2_date,
                 'data': {
-                    geo1: sv2_val1
+                    geo1: sv2_val1 * scalingVal
                 },
                 'numDataPoints': 1,
                 'exploreUrl': test_url2,
