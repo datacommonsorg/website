@@ -254,12 +254,13 @@ class Page extends Component<Record<string, unknown>, PageStateType> {
                   chartOptions={this.state.chartOptions}
                   setPC={this.setChartPerCapita.bind(this)}
                   initialPC={this.params.allPerCapita}
-                  denominators={Object.entries(
-                      this.state.statsVarNodes
-                    ).reduce((denominators, [dcid, node]) => {
+                  denominators={Object.entries(this.state.statsVarNodes).reduce(
+                    (denominators, [dcid, node]) => {
                       denominators[dcid] = node.denominators;
                       return denominators;
-                    }, {})}
+                    },
+                    {}
+                  )}
                 ></ChartRegion>
               </div>
             )}
