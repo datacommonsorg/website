@@ -22,7 +22,7 @@ class TestRedirects(unittest.TestCase):
     def test_gni(self):
         response = app.test_client().get('/gni', follow_redirects=True)
         assert response.status_code == 200
-        assert b"Timelines Explorer | Data Commons" in response.data
+        assert b"Timelines Explorer - Data Commons" in response.data
 
     def test_scatter(self):
         response = app.test_client().get('/scatter', follow_redirects=True)

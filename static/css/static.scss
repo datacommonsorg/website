@@ -54,7 +54,7 @@ h2 {
   padding-top: 3rem;
   padding-bottom: 3rem;
   margin-top: 6rem;
-  margin-bottom: 5rem;
+  margin-bottom: -6rem;
 }
 
 #homepage section.container {
@@ -66,6 +66,7 @@ h2 {
   display: inline;
 }
 
+#homepage section p,
 #homepage section a {
   display: block;
   margin-bottom: .4rem;

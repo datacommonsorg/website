@@ -41,7 +41,7 @@ class TestCharts(WebdriverBaseTest):
         req = urllib.request.Request(self.url_ + "/timeline.js")
         with urllib.request.urlopen(req) as response:
             self.assertEqual(response.getcode(), 200)
-        self.assertEqual("Timelines Explorer | Data Commons", self.driver.title)
+        self.assertEqual("Timelines Explorer - Data Commons", self.driver.title)
 
     def test_charts_original(self):
         """Test the original timeline page. No charts in this page."""

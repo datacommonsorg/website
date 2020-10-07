@@ -115,7 +115,7 @@ class MainPane extends Component {
 
     // Update the displayed value in the stats var sidemenu.
     const statsVarNodes = {};
-    statsVarNodes[statVar] = [statVarLocation];
+    statsVarNodes[statVar] = { paths: [statVarLocation] };
     this.setState({ statsVarNodes });
   }
 

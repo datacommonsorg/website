@@ -22,13 +22,19 @@ SCREENSHOTS_FOLDER = 'test_screenshots/'
 # TODO: Can add more urls and tests if necessary.
 TEST_URLS = [
     {
-        'url': '/place?dcid=country/USA',
+        'url': '/place',
+        'filename_suffix': 'place_landing.png',
+        'test_class': 'container',
+        'height': 1142
+    },
+    {
+        'url': '/place/country/USA',
         'filename_suffix': 'place_usa.png',
         'test_class': 'chart-container',
         'height': 5500
     },
     {
-        'url': '/place?dcid=country/USA&topic=Demographics',
+        'url': '/place/country/USA?topic=Demographics',
         'filename_suffix': 'place_usa_demographics.png',
         'test_class': 'chart-container',
         'height': 4400
@@ -73,29 +79,29 @@ TEST_URLS = [
         'url': '/ranking/Median_Income_Person/County/country/USA',
         'filename_suffix': 'ranking_median_income_counties.png',
         'test_class': 'chart-container',
-        'height': 1000
+        'height': 1080
     },
     {
-        'url': '/ranking/Count_Person/Country',
+        'url': '/ranking/Count_Person/Country?bottom',
         'filename_suffix': 'ranking_population_countries.png',
         'test_class': 'chart-container',
-        'height': 1000
+        'height': 1080
     },
     {
         'url':
-            '/ranking/Count_CriminalActivities_CombinedCrime/City/geoId/06085?pc',
+            '/ranking/Count_Person_BelowPovertyLevelInThePast12Months_NativeHawaiianOrOtherPacificIslanderAlone/City/geoId/06085?h=geoId%2F0649670&pc=1&scaling=100&unit=%25',
         'filename_suffix':
-            'ranking_crime_per_capita.png',
+            'ranking_poverty.png',
         'test_class':
             'chart-container',
         'height':
-            1000
+            1080
     },
     {
         'url': '/dev',
         'filename_suffix': 'dev_charts.png',
         'test_class': 'chart',
-        'height': 5000
+        'height': 2300
     },
 ]
 
@@ -116,6 +122,6 @@ class TestScreenShot(WebdriverBaseTest):
                 test_info['test_class'])
             # Assert there are charts.
             self.assertGreater(len(charts), 0, test_info['url'])
-            self.driver.save_screenshot('{}{}_{}'.format(
+            self.driver.save_screenshot('{}{:02}_{}'.format(
                 SCREENSHOTS_FOLDER, index, test_info['filename_suffix']))
             index += 1

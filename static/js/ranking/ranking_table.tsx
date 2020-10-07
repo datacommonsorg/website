@@ -50,7 +50,7 @@ class RankingTable extends React.Component<RankingTablePropType> {
         <tr key={rankInfo.rank} data-dcid={rankInfo.placeDcid}>
           <td>{rankInfo.rank ? rankInfo.rank : 0}</td>
           <td>
-            <a href={`/place?dcid=${rankInfo.placeDcid}`}>
+            <a href={`/place/${rankInfo.placeDcid}`}>
               {rankInfo.placeName || rankInfo.placeDcid}
             </a>
           </td>

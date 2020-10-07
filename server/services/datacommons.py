@@ -37,7 +37,8 @@ else:
 API_ROOT = cfg.API_ROOT
 API_PROJECT = cfg.API_PROJECT
 
-if os.environ.get('FLASK_ENV') == 'test':
+if (os.environ.get('FLASK_ENV') == 'test' or
+        os.environ.get('FLASK_ENV') == 'webdriver'):
     DC_API_KEY = 'api-key'
 else:
     # Read the api key from Google Cloud Secret Manager
