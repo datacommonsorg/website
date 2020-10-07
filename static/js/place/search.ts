@@ -42,7 +42,7 @@ function getPlaceAndRender(): void {
   // Get the place details from the autocomplete object.
   const place = ac.getPlace();
   axios
-    .get(`api/placeid2dcid/${place.place_id}`)
+    .get(`/api/placeid2dcid/${place.place_id}`)
     .then((resp) => {
       const urlParams = new URLSearchParams(window.location.search);
       urlParams.set("dcid", resp.data);

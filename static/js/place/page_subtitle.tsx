@@ -41,7 +41,7 @@ class PageSubtitle extends React.Component<PageSubtitlePropsType, unknown> {
         <h2 className="col-12 pt-2">
           {category}
           <span className="more">
-            <a href={"/place?dcid=" + dcid}>Back to overview ›</a>
+            <a href={"/place/" + dcid}>Back to overview ›</a>
           </span>
         </h2>
       );
