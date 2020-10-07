@@ -36,7 +36,7 @@ const Y_SCROLL_MARGIN = 100; // Margin to apply to the fixed sidebar top.
 
 window.onload = () => {
   renderPage();
-  initAutocomplete();
+  initSearchAutocomplete();
   updatePageLayoutState();
   maybeToggleFixedSidebar();
   window.onresize = maybeToggleFixedSidebar;
