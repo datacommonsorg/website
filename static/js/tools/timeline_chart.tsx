@@ -101,7 +101,7 @@ class Chart extends Component<ChartPropsType, unknown> {
             }}
           ></button>
           <a href="/faq">
-            <span>&#42;</span>
+            <span>*</span>
           </a>
         </span>
         <div ref={this.svgContainer} className="chart-svg"></div>
