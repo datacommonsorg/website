@@ -102,8 +102,9 @@ class TestAggregate(unittest.TestCase):
                 "Count_Person_25To34Years",
                 "Count_Person_35To44Years",
                 "Count_Person_45To54Years",
-                "Count_Person_45To54Years",
-                "Count_Person_55To64Years",
+                "Count_Person_55To59Years",
+                "Count_Person_60To61Years",
+                "Count_Person_62To64Years",
                 "Count_Person_65To74Years",
             ]
         }
@@ -127,6 +128,10 @@ class TestAggregate(unittest.TestCase):
                 'Count_Person_25To34Years': ['Count_Person_25To34Years'],
                 'Count_Person_35To44Years': ['Count_Person_35To44Years'],
                 'Count_Person_45To54Years': ['Count_Person_45To54Years'],
+                'Count_Person_55To64Years': [
+                    'Count_Person_60To61Years', 'Count_Person_55To59Years',
+                    'Count_Person_62To64Years'
+                ],
                 'Count_Person_65To74Years': ['Count_Person_65To74Years']
             }
         }
@@ -134,7 +139,7 @@ class TestAggregate(unittest.TestCase):
 
     def test_eu_place_age(self):
         input = {
-            "country/USA": [
+            "country/FRA": [
                 "Count_Person_Upto4Years",
                 "Count_Person_5To9Years",
                 "Count_Person_10To14Years",
@@ -172,7 +177,7 @@ class TestAggregate(unittest.TestCase):
                 "Count_Person_55To64Years",
                 "Count_Person_65To74Years",
             ],
-            "geoId/12345": [
+            "country/ITA": [
                 "Count_Person_Upto4Years",
                 "Count_Person_5To9Years",
                 "Count_Person_10To14Years",
@@ -190,7 +195,7 @@ class TestAggregate(unittest.TestCase):
             ]
         }
         expected = {
-            'country/USA': {
+            'country/FRA': {
                 'Count_Person_Upto9Years': [
                     'Count_Person_5To9Years', 'Count_Person_Upto4Years'
                 ],
@@ -212,12 +217,12 @@ class TestAggregate(unittest.TestCase):
                 'Count_Person_60To69Years': [
                     'Count_Person_65To69Years', 'Count_Person_60To64Years'
                 ],
-                'Count_Person_70To79Years': [
-                    'Count_Person_75To79Years', 'Count_Person_70To74Years'
-                ],
-                'Count_Person_80OrMoreYears': ['Count_Person_80OrMoreYears']
+                'Count_Person_70OrMoreYears': [
+                    'Count_Person_75To79Years', 'Count_Person_70To74Years',
+                    'Count_Person_80OrMoreYears'
+                ]
             },
-            'geoId/12345': {
+            'country/ITA': {
                 'Count_Person_Upto9Years': [
                     'Count_Person_5To9Years', 'Count_Person_Upto4Years'
                 ],

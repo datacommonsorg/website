@@ -40,8 +40,7 @@ AGE_RANGE = {
         (40, 49): set([(40, 44), (45, 49)]),
         (50, 59): set([(50, 54), (55, 59)]),
         (60, 69): set([(60, 64), (65, 69)]),
-        (70, 79): set([(70, 74), (75, 79)]),
-        (80, math.inf): set([(80, math.inf)])
+        (70, math.inf): set([(70, 74), (75, 79), (80, math.inf)]),
     }
 }
 
@@ -110,7 +109,7 @@ def aggregate_age_stat_var(place_stat_vars):
             agg_score[method][place] = float(count) / float(total)
     # Pick the aggregation pattern with the highest total score product across
     # places. This rewards a method with more places bucket match and penalize
-    # method that misses places.
+    # method that misses place bucket.
     highest_score = 0
     used_method = None
     for method, place_scores in agg_score.items():
