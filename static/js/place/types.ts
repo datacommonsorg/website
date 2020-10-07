@@ -98,4 +98,5 @@ export interface ChoroplethDataGroup {
   };
   numDataPoints: number;
   exploreUrl: string;
+  sources: string[];
 }

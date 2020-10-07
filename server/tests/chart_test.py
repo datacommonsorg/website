@@ -265,124 +265,156 @@ class TestChoroplethPlaces(unittest.TestCase):
 class TestChoroplethDataHelpers(unittest.TestCase):
 
     def test_get_choropleth_sv(self):
-        with app.app_context():
-            app.config['CHART_CONFIG'] = [{
-                'category': ['Test', 'Test1'],
-                'title': 'Test1',
-                'statsVars': ['StatVar1'],
-                'isOverview': True,
-            }, {
-                'category': ['Test', 'Test2'],
-                'title': 'Test2',
-                'statsVars': ['StatVar2'],
-                'isChoropleth': False
-            }, {
-                'category': ['Test', 'Test2'],
-                'title': 'Test2',
-                'statsVars': ['StatVar3'],
-                'isChoropleth': True
-            }, {
-                'category': ['Test', 'Test2'],
-                'title': 'Test2',
-                'statsVars': ['StatVar4'],
-                'isChoropleth': True,
-                'relatedChart': {
-                    'scale': True,
-                    'denominator': 'Test_Denominator'
-                }
-            }, {
-                'category': ['Test', 'Test2'],
-                'title': 'Test2',
-                'statsVars': ['StatVar3'],
-                'denominator': ['StatVar10'],
-                'isChoropleth': True
-            }, {
-                'category': ['Test', 'Test2'],
-                'title': 'Test2',
-                'statsVars': ['StatVar4'],
-                'isChoropleth': True,
-                'relatedChart': {
-                    'scale': True
-                }
-            }]
-            expected_sv_set = {
-                'StatVar3', 'StatVar4', 'StatVar10', 'Count_Person',
-                'Test_Denominator'
+        cc1 = {
+            'category': ['Test', 'Test1'],
+            'title': 'Test1',
+            'statsVars': ['StatVar1'],
+            'isOverview': True,
+        }
+        cc2 = {
+            'category': ['Test', 'Test2'],
+            'title': 'Test2',
+            'statsVars': ['StatVar2'],
+            'isChoropleth': False
+        }
+        cc3 = {
+            'category': ['Test', 'Test2'],
+            'title': 'Test2',
+            'statsVars': ['StatVar3'],
+            'isChoropleth': True
+        }
+        cc4 = {
+            'category': ['Test', 'Test2'],
+            'title': 'Test2',
+            'statsVars': ['StatVar4'],
+            'isChoropleth': True,
+            'relatedChart': {
+                'scale': True,
+                'denominator': 'Test_Denominator'
             }
-            expected_sv_denom_mapping = {
-                'StatVar3': {'', 'StatVar10'},
-                'StatVar4': {'Test_Denominator', 'Count_Person'}
+        }
+        cc5 = {
+            'category': ['Test', 'Test2'],
+            'title': 'Test2',
+            'statsVars': ['StatVar5'],
+            'denominator': ['StatVar6'],
+            'isChoropleth': True
+        }
+        cc6 = {
+            'category': ['Test', 'Test2'],
+            'title': 'Test2',
+            'statsVars': ['StatVar7'],
+            'isChoropleth': True,
+            'relatedChart': {
+                'scale': True
             }
-            actual_sv_set, actual_sv_denom_mapping = chart_api.get_choropleth_sv(
-            )
-            assert expected_sv_set == actual_sv_set
-            assert expected_sv_denom_mapping == actual_sv_denom_mapping
-
-    def test_get_data_for_statvar(self):
-        test_stat_var = 'Test'
-        test_stat_var2 = 'Test2'
-        dcid1 = 'dcid1'
-        dcid2 = 'dcid2'
-        dcid3 = 'dcid3'
-        ss1 = {'date1': 1, 'date2': 2}
-        ss2 = {'date3': 1, 'date4': 2}
-        test_data = {
-            dcid1: {
-                'statVarData': {}
-            },
-            dcid2: {
-                'statVarData': {
-                    test_stat_var: {
-                        'sourceSeries': [{
-                            'val': ss1
-                        }, {
-                            'val': ss2
-                        }]
-                    }
-                }
-            },
-            dcid3: {
-                'statVarData': {
-                    test_stat_var: {
-                        'sourceSeries': [{
-                            'val': ss2
-                        }]
-                    },
-                    test_stat_var2: {
-                        'sourceSeries': [{
-                            'val': ss1
-                        }]
-                    }
-                }
+        }
+        cc7 = {
+            'category': ['Test', 'Test2'],
+            'title': 'Test2',
+            'statsVars': ['StatVar8'],
+            'isChoropleth': True,
+            'relatedChart': {
+                'scale': False
             }
         }
 
-        dcid2_data = dict(ss1)
-        dcid2_data.update(ss2)
-        expected = {dcid1: {}, dcid2: dcid2_data, dcid3: ss2}
-        actual = chart_api.get_data_for_statvar(test_stat_var,
-                                                [dcid1, dcid2, dcid3],
-                                                test_data)
-        assert actual == expected
+        with app.app_context():
+            app.config['CHART_CONFIG'] = [cc1, cc2, cc3, cc4, cc5, cc6, cc7]
+            expected_sv_set = {
+                'StatVar3', 'StatVar4', 'StatVar5', 'StatVar6', 'StatVar7',
+                'StatVar8', 'Count_Person', 'Test_Denominator'
+            }
+            expected_chart_configs = [cc3, cc4, cc5, cc6, cc7]
+            actual_sv_set, actual_chart_configs = chart_api.get_choropleth_sv()
+            assert expected_sv_set == actual_sv_set
+            assert expected_chart_configs == actual_chart_configs
+
+    def test_process_choropleth_data(self):
+        source_series_1_vals = {'2019': 1, '2018': 2, '2017': 3}
+        source_series_1_source = 'provDomain1'
+        source_series_1 = {
+            'val': source_series_1_vals,
+            'provenanceDomain': source_series_1_source
+        }
+        source_series_2_vals = {'2018': 1, '2013': 2}
+        source_series_2_source = 'provDomain2'
+        source_series_2 = {
+            'val': source_series_2_vals,
+            'provenanceDomain': source_series_2_source
+        }
+        test_data = {
+            'dcid1': {
+                'statVarData': {
+                    'SV1': {
+                        'sourceSeries': [source_series_1, source_series_2]
+                    },
+                    'SV2': {},
+                    'SV3': {
+                        'sourceSeries': [source_series_2]
+                    },
+                }
+            }
+        }
+        expected_result = {
+            'dcid1': {
+                'SV1': {
+                    'data': source_series_1_vals,
+                    'provenanceDomain': source_series_1_source
+                },
+                'SV3': {
+                    'data': source_series_2_vals,
+                    'provenanceDomain': source_series_2_source
+                }
+            }
+        }
+        actual_result = chart_api.process_choropleth_data(test_data)
 
 
 class TestChoroplethData(unittest.TestCase):
 
     @patch('routes.api.chart.landing_page_api.build_url')
-    @patch('routes.api.chart.get_latest_common_date_for_sv')
-    @patch('routes.api.chart.get_data_for_statvar')
+    @patch('routes.api.chart.landing_page_api.get_snapshot_across_places')
+    @patch('routes.api.chart.process_choropleth_data')
     @patch('routes.api.chart.dc_service.get_stats_all')
     @patch('routes.api.chart.get_choropleth_places')
     @patch('routes.api.chart.get_choropleth_sv')
     def testRoute(self, mock_choropleth_sv, mock_choropleth_places,
-                  mock_all_stats, mock_sv_data, mock_sv_date, mock_explore_url):
+                  mock_all_stats, mock_process_data, mock_snapshot_data,
+                  mock_explore_url):
         test_dcid = 'test_dcid'
         geo1 = 'dcid1'
         geo2 = 'dcid2'
-        sv_set = {'StatVar1', 'StatVar2', 'StatVar3'}
-        sv_denom_mapping = {'StatVar1': {''}, 'StatVar3': {'StatVar2'}}
+        sv1 = 'StatVar1'
+        sv2 = 'StatVar2'
+        sv3 = 'StatVar3'
+        sv1_date = 'date1'
+        sv2_date = 'date2'
+        sv1_val1 = 1
+        sv1_val2 = 2
+        sv2_val1 = 3
+        sv1_sources = ['source1']
+        sv2_sources = ['source1', 'source2']
+        cc1 = {
+            'category': ['Test', 'Test2'],
+            'title': 'Test2',
+            'statsVars': [sv1],
+            'isChoropleth': True
+        }
+        cc2 = {
+            'category': ['Test', 'Test2'],
+            'title': 'Test2',
+            'statsVars': [sv2],
+            'isChoropleth': True,
+            'relatedChart': {
+                'scale': True,
+                'denominator': sv3
+            }
+        }
+        sv_set = {sv1, sv2, sv3}
+        chart_configs = [cc1, cc2]
         geos = [geo1, geo2]
-        mock_choropleth_sv.return_value = sv_set, sv_denom_mapping
+        mock_choropleth_sv.return_value = sv_set, chart_configs
         mock_choropleth_places.return_value = geos
         stats_all_return_value = {
             geo1: {
@@ -401,48 +433,60 @@ class TestChoroplethData(unittest.TestCase):
 
         mock_all_stats.side_effect = all_stats_side_effect
 
-        sv_date1 = 'date1'
-        sv_date2 = 'date2'
-        sv_val1 = 1
-        sv_val2 = 2
-        sv1_data = {geo1: {sv_date1: sv_val1}, geo2: {sv_date1: sv_val1}}
-        sv2_data = {geo1: {sv_date2: sv_val2}, geo2: {sv_date2: sv_val2}}
-        sv3_data = {geo1: {sv_date1: sv_val1}, geo2: {sv_date1: sv_val1}}
-
-        def sv_data_side_effect(*args):
-            if args[1] == geos and args[2] == stats_all_return_value:
-                if args[0] == 'StatVar1':
-                    return sv1_data
-                elif args[0] == 'StatVar2':
-                    return sv2_data
-                elif args[0] == 'StatVar3':
-                    return sv3_data
-                else:
-                    return {}
+        def process_data_side_effect(*args):
+            if args[0] == stats_all_return_value:
+                return stats_all_return_value
             else:
                 return {}
 
-        mock_sv_data.side_effect = sv_data_side_effect
+        mock_process_data.side_effect = process_data_side_effect
 
-        def sv_date_side_effect(*args):
-            if args[0] == sv1_data:
-                return sv_date1
-            elif args[0] == sv2_data:
-                return sv_date2
-            elif args[0] == sv3_data:
-                return sv_date1
+        cc1_snapshot_data = {
+            'date': sv1_date,
+            'data': [{
+                'dcid': geo1,
+                'data': {
+                    sv1: sv1_val1
+                }
+            }, {
+                'dcid': geo2,
+                'data': {
+                    sv1: sv1_val2
+                }
+            }],
+            'sources': sv1_sources
+        }
+
+        cc2_snapshot_data = {
+            'date': sv2_date,
+            'data': [{
+                'dcid': geo1,
+                'data': {
+                    sv2: sv2_val1
+                }
+            }],
+            'sources': sv2_sources
+        }
+
+        def snapshot_data_side_effect(*args):
+            if args[0] == cc1 and args[1] == stats_all_return_value and args[
+                    2] == geos:
+                return cc1_snapshot_data
+            elif args[0] == cc2 and args[1] == stats_all_return_value and args[
+                    2] == geos:
+                return cc2_snapshot_data
             else:
                 return None
 
-        mock_sv_date.side_effect = sv_date_side_effect
+        mock_snapshot_data.side_effect = snapshot_data_side_effect
 
         test_url = 'test/url/1'
         test_url2 = 'test/url/2'
 
         def build_url_side_effect(*args):
-            if args[0] == [test_dcid] and args[1] == ['StatVar1']:
+            if args[0] == [test_dcid] and args[1] == [sv1]:
                 return test_url
-            elif args[0] == [test_dcid] and args[1] == ['StatVar3'
+            elif args[0] == [test_dcid] and args[1] == [sv2
                                                        ] and args[2] == True:
                 return test_url2
             else:
@@ -455,23 +499,24 @@ class TestChoroplethData(unittest.TestCase):
         assert response.status_code == 200
         response_data = json.loads(response.data)
         expected_data = {
-            'StatVar1': {
-                'date': sv_date1,
+            sv1: {
+                'date': sv1_date,
                 'data': {
-                    geo1: sv_val1,
-                    geo2: sv_val1
+                    geo1: sv1_val1,
+                    geo2: sv1_val2
                 },
                 'numDataPoints': 2,
-                'exploreUrl': test_url
+                'exploreUrl': test_url,
+                'sources': sv1_sources
             },
-            'StatVar3': {
-                'date': sv_date1,
+            sv2: {
+                'date': sv2_date,
                 'data': {
-                    geo1: sv_val1 / sv_val2,
-                    geo2: sv_val1 / sv_val2
+                    geo1: sv2_val1
                 },
-                'numDataPoints': 2,
-                'exploreUrl': test_url2
+                'numDataPoints': 1,
+                'exploreUrl': test_url2,
+                'sources': sv2_sources
             }
         }
         assert response_data == expected_data
