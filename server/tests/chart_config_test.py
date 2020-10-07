@@ -15,8 +15,6 @@
 import json
 import unittest
 
-import logging
-
 
 class TestChart(unittest.TestCase):
 
