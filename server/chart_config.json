@@ -4,7 +4,8 @@
     "title": "Unemployment Rate",
     "statsVars": ["UnemploymentRate_Person"],
     "unit": "%",
-    "isOverview": true
+    "isOverview": true,
+    "isChoropleth": true
   },
   {
     "category": "Economics",
