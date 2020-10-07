@@ -989,7 +989,6 @@
       "Count_Person_60To61Years",
       "Count_Person_62To64Years",
       "Count_Person_65To74Years",
-      "Count_Person_65OrMoreYears",
       "Count_Person_75OrMoreYears"
     ],
     "aggregate": true,

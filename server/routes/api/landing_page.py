@@ -84,9 +84,9 @@ def build_spec(chart_config):
 
 def get_denom(cc, related_chart=False):
     """Get the numerator and denominator map."""
-    result = {}
     # If chart requires denominator, use itfor both primary and related charts.
     if 'denominator' in cc:
+        result = {}
         if len(cc['denominator']) != len(cc['statsVars']):
             raise ValueError('Denominator number not matching: %s', cc)
         for num, denom in zip(cc['statsVars'], cc['denominator']):
@@ -95,11 +95,8 @@ def get_denom(cc, related_chart=False):
     # For related chart, use the denominator that is specified in the
     # 'relatedChart' field if present.
     if related_chart and cc.get('relatedChart', {}).get('scale', False):
-        denom = cc['relatedChart'].get('denominator', 'Count_Person')
-        for num in cc['statsVars']:
-            result[num] = denom
-        return result
-    return {}
+        return cc['relatedChart'].get('denominator', 'Count_Person')
+    return None
 
 
 def get_series(data, place, stat_vars):
@@ -135,19 +132,27 @@ def get_series(data, place, stat_vars):
     return agg_series, sources
 
 
-def get_stat_var_group(cc, data, place):
+def get_stat_var_group(cc, data, places):
     """Get the stat var grouping for aggregation."""
     if cc.get('aggregate', False):
         # For stat vars that need aggregation, use quantify range aggregation.
         # TODO(shifucun): support more quantify range besides "age"
-        stat_var_list = []
-        for sv in cc['statsVars']:
-            if data[place][sv]:
-                stat_var_list.append(sv)
-        if stat_var_list:
-            return lib_range.build_stat_var_range_group(stat_var_list, 'age')
-        return {}
-    return {sv: [sv] for sv in cc['statsVars']}
+        place_stat_vars = defaultdict(list)
+        for place in places:
+            if place not in data:
+                continue
+            for sv in cc['statsVars']:
+                if data[place][sv]:
+                    place_stat_vars[place].append(sv)
+        result = lib_range.aggregate_age_stat_var(place_stat_vars)
+        for place in places:
+            if place not in result:
+                result[place] = {}
+    else:
+        result = {}
+        for place in places:
+            result[place] = {sv: [sv] for sv in cc['statsVars']}
+    return result
 
 
 def get_snapshot_across_places(cc, data, places):
@@ -178,19 +183,22 @@ def get_snapshot_across_places(cc, data, places):
     # TODO(shifucun/beets): add a unittest to ensure denominator is set
     # explicitly when scale==True
     num_denom = get_denom(cc, related_chart=True)
-    logging.info(num_denom)
     sources = set()
+    place_stat_var_group = get_stat_var_group(cc, data, places)
     for place in places:
         if place not in data:
             continue
-        stat_var_group = get_stat_var_group(cc, data, place)
+        stat_var_group = place_stat_var_group[place]
         for num_sv, sv_list in stat_var_group.items():
             num_series, num_sources = get_series(data, place, sv_list)
             if not num_series:
                 continue
             sources.update(num_sources)
-            if num_sv in num_denom:
-                denom_sv = num_denom[num_sv]
+            if num_denom:
+                if isinstance(num_denom, dict):
+                    denom_sv = num_denom[num_sv]
+                else:
+                    denom_sv = num_denom
                 denom_series, denom_sources = get_series(
                     data, place, [denom_sv])
                 if not denom_series:
@@ -252,13 +260,17 @@ def get_trend(cc, data, place):
     result_series = {}
     sources = set()
     num_denom = get_denom(cc)
-    stat_var_group = get_stat_var_group(cc, data, place)
+    stat_var_group = get_stat_var_group(cc, data, [place])[place]
     for num_sv, sv_list in stat_var_group.items():
         num_series, num_sources = get_series(data, place, sv_list)
         if not num_series:
             continue
         sources.update(num_sources)
-        if num_sv in num_denom:
+        if num_denom:
+            if isinstance(num_denom, dict):
+                denom_sv = num_denom[num_sv]
+            else:
+                denom_sv = num_denom
             denom_sv = num_denom[num_sv]
             denom_series, denom_sources = get_series(data, place, [denom_sv])
             if not denom_series:
@@ -357,14 +369,13 @@ def data(dcid):
                                        raw_page_data.get(t + 'Places', []))
                 # Update stat vars for aggregated stats
                 if chart.get('aggregate', False):
-                    chart['statsVars'] = []
-                    sv_set = set()
-                    sv_set.update(list(chart['trend'].get('series', {}).keys()))
+                    chart['statsVars'] = list(chart['trend'].get('series',
+                                                                 {}).keys())
                     for t in chart_types:
                         for place_data in chart[t].get('data', []):
-                            sv_set.update(list(place_data['data'].keys()))
-                    chart['statsVars'] = list(sv_set)
-                    chart['statsVars'].sort()
+                            stat_vars = list(place_data['data'].keys())
+                            if len(stat_vars) > len(chart['statsVars']):
+                                chart['statsVars'] = stat_vars
 
     # Remove empty category and topics
     for category in list(spec_and_stat.keys()):
