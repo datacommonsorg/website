@@ -31,8 +31,6 @@ import services.datacommons as dc_service
 import routes.api.place as place_api
 import lib.range as lib_range
 
-import logging
-
 # Define blueprint
 bp = Blueprint("api.landing_page", __name__, url_prefix='/api/landingpage')
 

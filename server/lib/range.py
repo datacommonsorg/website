@@ -83,6 +83,7 @@ def to_stat_var(r, fmt):
 
 def aggregate_age_stat_var(place_stat_vars):
     """Build aggregated age stat vars.
+
     Args:
         place_stat_vars: A dict from place dcid to a list of age stat vars.
     Returns:
