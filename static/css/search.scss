@@ -28,8 +28,9 @@
   padding-left: 0;
 }
 
-#search table.gsc-search-box td.gsc-input {
+#search table .gsc-input {
   padding-right: 0;
+  height: 33px !important;
 }
 
 #search .gsc-search-button.gsc-search-button-v2 {

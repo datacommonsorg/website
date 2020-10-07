@@ -1,4 +1,3 @@
-import { PageHighlight } from "./../place/types";
 /**
  * Copyright 2020 Google LLC
  *

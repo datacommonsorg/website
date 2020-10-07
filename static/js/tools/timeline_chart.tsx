@@ -51,15 +51,16 @@ class StatsVarChip extends Component<StatsVarChipPropsType, unknown> {
 }
 
 interface ChartPropsType {
-  // An array of place dcids.
   groupId: string; // unique identifier of the chart
-  places: Record<string, string>;
+  places: Record<string, string>; // An array of place dcids.
   statsVars: { [key: string]: StatsVarInfo };
   perCapita: boolean;
   onDataUpdate: (groupId: string, data: StatsData) => void;
   statsVarTitle: Record<string, string>;
   removeStatsVar: (statsVar: string, nodePath?: string[]) => void;
   setPC: (groupId: string, pc: boolean) => void;
+  // mappings from StatVar DCIDs to their per capita denominators
+  denominators: { [key: string]: string };
 }
 
 class Chart extends Component<ChartPropsType, unknown> {
@@ -73,6 +74,7 @@ class Chart extends Component<ChartPropsType, unknown> {
     this.svgContainer = React.createRef();
     this.handleWindowResize = this.handleWindowResize.bind(this);
   }
+
   render(): JSX.Element {
     const statsVars = Object.keys(this.props.statsVars);
     // TODO(shifucun): investigate on stats var title, now this is updated
@@ -98,11 +100,14 @@ class Chart extends Component<ChartPropsType, unknown> {
               this.props.setPC(this.props.groupId, !this.props.perCapita);
             }}
           ></button>
+          <a href="/faq">
+            <span>*</span>
+          </a>
         </span>
         <div ref={this.svgContainer} className="chart-svg"></div>
         <div className="statsVarChipRegion">
           {statsVars.map(
-            function (statsVar) {
+            function (statsVar: string) {
               let color: string;
               const title = this.props.statsVarTitle[statsVar];
               if (statsVars.length > 1) {
@@ -147,12 +152,20 @@ class Chart extends Component<ChartPropsType, unknown> {
   }
 
   private loadDataAndDrawChart() {
+    const statVars = Object.keys(this.props.statsVars);
+    const hasAllDenominators = statVars.every(
+      (dcid) => dcid in this.props.denominators
+    );
     fetchStatsData(
       Object.keys(this.props.places),
       Object.keys(this.props.statsVars),
-      this.props.perCapita,
+      this.props.perCapita && !hasAllDenominators,
       1,
-      [],
+      this.props.perCapita && hasAllDenominators
+        ? Object.keys(this.props.statsVars).map(
+            (dcid) => this.props.denominators[dcid]
+          )
+        : [],
       {}
     ).then((statsData) => {
       this.statsData = statsData;
