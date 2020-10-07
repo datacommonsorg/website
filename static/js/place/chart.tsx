@@ -411,7 +411,7 @@ class Chart extends React.Component<ChartPropType, ChartStateType> {
             new DataGroup(
               this.props.names[placeData.dcid],
               dataPoints,
-              `/place?dcid=${placeData.dcid}`
+              `/place/${placeData.dcid}`
             )
           );
         }
