@@ -25,10 +25,9 @@ import { ParentPlace } from "./parent_breadcrumbs";
 import { PlaceHighlight } from "./place_highlight";
 import { PageSubtitle } from "./page_subtitle";
 import { isPlaceInUsa } from "./util";
+import { initSearchAutocomplete } from "./search";
 
 import { PageData } from "./types";
-
-let ac: google.maps.places.Autocomplete;
 
 let yScrollLimit = 0; // window scroll position to start fixing the sidebar
 let sidebarTopMax = 0; // Max top position for the sidebar, relative to #sidebar-outer.
@@ -39,7 +38,7 @@ window.onload = () => {
   const urlParams = new URLSearchParams(window.location.search);
   const dcid = urlParams.get("dcid");
   renderPage(dcid);
-  initAutocomplete();
+  initSearchAutocomplete();
   updatePageLayoutState();
   maybeToggleFixedSidebar();
   window.onresize = maybeToggleFixedSidebar;
@@ -217,46 +216,6 @@ function renderPage(dcid: string) {
       document.getElementById("main-pane")
     );
   });
-}
-
-/**
- * Setup search input autocomplete
- */
-function initAutocomplete() {
-  // Create the autocomplete object, restricting the search predictions to
-  // geographical location types.
-  const options = {
-    types: ["(regions)"],
-    fields: ["place_id", "name", "types"],
-  };
-  const acElem = document.getElementById(
-    "place-autocomplete"
-  ) as HTMLInputElement;
-  ac = new google.maps.places.Autocomplete(acElem, options);
-  ac.addListener("place_changed", getPlaceAndRender);
-}
-
-/*
- * Get place from autocomplete object and update url
- */
-function getPlaceAndRender() {
-  // Get the place details from the autocomplete object.
-  const place = ac.getPlace();
-  axios
-    .get(`api/placeid2dcid/${place.place_id}`)
-    .then((resp) => {
-      const urlParams = new URLSearchParams(window.location.search);
-      urlParams.set("dcid", resp.data);
-      window.location.search = urlParams.toString();
-    })
-    .catch(() => {
-      alert("Sorry, but we don't have any data about " + place.name);
-      const acElem = document.getElementById(
-        "place-autocomplete"
-      ) as HTMLInputElement;
-      acElem.value = "";
-      acElem.setAttribute("placeholder", "Search for another place");
-    });
 }
 
 export { updatePageLayoutState };

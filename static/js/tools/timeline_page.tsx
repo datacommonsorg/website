@@ -217,6 +217,8 @@ class Page extends Component<Record<string, unknown>, PageStateType> {
     } else {
       statsVarFilter = new TimelineStatsVarFilter(this.state.statsVarValid);
     }
+    const numPlaces = Object.keys(this.state.placeIdNames).length;
+    const numStatsVarInfo = Object.keys(this.state.statsVarInfo).length;
     return (
       <div>
         <div className="explore-menu-container" id="explore">
@@ -233,6 +235,7 @@ class Page extends Component<Record<string, unknown>, PageStateType> {
         </div>
         <div id="plot-container">
           <div className="container">
+            {numPlaces === 0 && <h1 className="mb-4">Timelines Explorer</h1>}
             <div id="search">
               <SearchBar
                 places={this.state.placeIdNames}
@@ -240,27 +243,27 @@ class Page extends Component<Record<string, unknown>, PageStateType> {
                 removePlace={this.removePlace.bind(this)}
               />
             </div>
-            {Object.keys(this.state.placeIdNames).length === 0 && <Info />}
-            {Object.keys(this.state.placeIdNames).length !== 0 &&
-              Object.keys(this.state.statsVarInfo).length !== 0 && (
-                <div id="chart-region">
-                  <ChartRegion
-                    places={this.state.placeIdNames}
-                    statsVars={this.state.statsVarInfo}
-                    statsVarTitle={this.state.statsVarTitle}
-                    removeStatsVar={this.removeStatsVar.bind(this)}
-                    chartOptions={this.state.chartOptions}
-                    setPC={this.setChartPerCapita.bind(this)}
-                    initialPC={this.params.allPerCapita}
-                    denominators={Object.entries(
-                      this.state.statsVarNodes
-                    ).reduce((denominators, [dcid, node]) => {
+            {numPlaces === 0 && <Info />}
+            {numPlaces !== 0 && numStatsVarInfo !== 0 && (
+              <div id="chart-region">
+                <ChartRegion
+                  places={this.state.placeIdNames}
+                  statsVars={this.state.statsVarInfo}
+                  statsVarTitle={this.state.statsVarTitle}
+                  removeStatsVar={this.removeStatsVar.bind(this)}
+                  chartOptions={this.state.chartOptions}
+                  setPC={this.setChartPerCapita.bind(this)}
+                  initialPC={this.params.allPerCapita}
+                  denominators={Object.entries(this.state.statsVarNodes).reduce(
+                    (denominators, [dcid, node]) => {
                       denominators[dcid] = node.denominators;
                       return denominators;
-                    }, {})}
-                  ></ChartRegion>
-                </div>
-              )}
+                    },
+                    {}
+                  )}
+                ></ChartRegion>
+              </div>
+            )}
           </div>
         </div>
       </div>
