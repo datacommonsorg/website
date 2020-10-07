@@ -281,15 +281,17 @@ class TimelineParams {
             this.addStatsVar(dcid, [], []);
           }
         } else {
+          // Node paths followed by denominators
           const pathsAndDenominators = statsVarInfo.splice(1);
+          // Checks if a string starts with a digit
+          const startsWithDigit = (str: string): boolean =>
+            "0" <= str[0] && str[0] <= "9";
           this.addStatsVar(
             dcid,
-            pathsAndDenominators.filter(
-              (elem) => "0" <= elem[0] && elem[0] <= "9"
-            ),
-            pathsAndDenominators.filter(
-              (elem) => "0" > elem[0] || elem[0] > "9"
-            )
+            // Node paths are digits, e.g., ["0", "0", "0"]
+            pathsAndDenominators.filter((str) => startsWithDigit(str)),
+            // StatVar DCIDs do not start with digits
+            pathsAndDenominators.filter((str) => !startsWithDigit(str))
           );
         }
       }
