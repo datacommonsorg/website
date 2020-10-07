@@ -281,7 +281,8 @@ class TimelineParams {
             this.addStatsVar(dcid, [], []);
           }
         } else {
-          // Node paths followed by denominators
+          // Node paths followed by denominators, e.g.,
+          // ["0", "0", "0", "Count_Person", "Count_Hosehold"]
           const pathsAndDenominators = statsVarInfo.splice(1);
           // Checks if a string starts with a digit
           const startsWithDigit = (str: string): boolean =>
