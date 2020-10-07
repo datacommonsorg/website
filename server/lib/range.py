@@ -84,6 +84,7 @@ def to_stat_var(r, fmt):
 
 def aggregate_age_stat_var(place_stat_vars):
     """Build aggregated age stat vars.
+
     Args:
         place_stat_vars: A dict from place dcid to a list of age stat vars.
     Returns:
@@ -107,7 +108,9 @@ def aggregate_age_stat_var(place_stat_vars):
                 if raw_ranges.issubset(range_set):
                     count += 1
             agg_score[method][place] = float(count) / float(total)
-    # Pick the aggregation pattern with the highest total score across places.
+    # Pick the aggregation pattern with the highest total score product across
+    # places. This rewards a method with more places bucket match and penalize
+    # method that misses places.
     highest_score = 0
     used_method = None
     for method, place_scores in agg_score.items():
