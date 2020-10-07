@@ -28,11 +28,13 @@ class TestPlace(unittest.TestCase):
 
         response = app.test_client().get('/place', follow_redirects=True)
         assert response.status_code == 200
-        assert b"<title>Mountain View" in response.data
+        assert b"<title>Place Explorer" in response.data
+        assert b"<p>The Place Explorer tool helps you" in response.data
 
         response = app.test_client().get('/place/', follow_redirects=True)
         assert response.status_code == 200
-        assert b"<title>Mountain View" in response.data
+        assert b"<title>Place Explorer" in response.data
+        assert b"<p>The Place Explorer tool helps you" in response.data
 
         mock_get_property_value.return_value = ['California']
         mock_get_place_type.return_value = 'State'

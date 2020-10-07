@@ -33,6 +33,7 @@ def place(place_dcid=None):
 
     if not place_dcid:
         return flask.render_template('place_landing.html')
+
     place_type = place_api.get_place_type(place_dcid)
     place_names = place_api.get_property_value(place_dcid, 'name')
     if place_names:
