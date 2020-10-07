@@ -18,53 +18,232 @@ import unittest
 import lib.range as lib_range
 
 
-class TestConcatAggregate(unittest.TestCase):
+class TestAggregate(unittest.TestCase):
 
     def test_us_age(self):
-        input = [(0, 4), (5, 9), (10, 14), (15, 19),
-                 (20, 24), (25, 29), (30, 34), (35, 39), (40, 44), (45, 49),
-                 (50, 54), (55, 59), (60, 64), (65, 69), (70, 74), (75, 79),
-                 (80, math.inf), (5, 17), (18, 24), (25, 34),
-                 (35, 44), (45, 54), (55, 59), (60, 61), (62, 64), (65, 74),
-                 (65, math.inf), (75, math.inf)]
-        expected = [[(0, 4), (5, 9)], [(10, 14), (15, 19)], [(20, 24),
-                                                             (25, 29)],
-                    [(30, 34), (35, 39)], [(40, 44), (45, 49)],
-                    [(50, 54), (55, 59)], [(60, 61), (62, 64), (65, 69)],
-                    [(70, 74), (75, 79)], [(80, math.inf)]]
-        assert lib_range.concat_aggregate_range(input) == expected
-
-    def test_milpitas_age(self):
-        input = [(5, 17), (18, 24), (25, 34), (35, 44), (45, 54), (55, 59),
-                 (60, 61), (62, 64), (65, 74), (75, math.inf)]
-        expected = [[(5, 17)], [(18, 24)], [(25, 34)], [(35, 44)], [(45, 54)],
-                    [(55, 59), (60, 61), (62, 64)], [(65, 74)],
-                    [(75, math.inf)]]
-        assert lib_range.concat_aggregate_range(input) == expected
-
-
-class TestBuildRangeGroup(unittest.TestCase):
-
-    def test_milpitas_age(self):
-        input = [
-            'Count_Person_5To17Years', 'Count_Person_18To24Years',
-            'Count_Person_25To34Years', 'Count_Person_35To44Years',
-            'Count_Person_45To54Years', 'Count_Person_55To59Years',
-            'Count_Person_60To61Years', 'Count_Person_62To64Years',
-            'Count_Person_65To74Years', 'Count_Person_60To64Years',
-            'Count_Person_75OrMoreYears'
-        ]
-        expected = {
-            'Count_Person_5To17Years': ['Count_Person_5To17Years'],
-            'Count_Person_18To24Years': ['Count_Person_18To24Years'],
-            'Count_Person_25To34Years': ['Count_Person_25To34Years'],
-            'Count_Person_35To44Years': ['Count_Person_35To44Years'],
-            'Count_Person_45To54Years': ['Count_Person_45To54Years'],
-            'Count_Person_55To64Years': [
-                'Count_Person_55To59Years', 'Count_Person_60To61Years',
-                'Count_Person_62To64Years'
-            ],
-            'Count_Person_65To74Years': ['Count_Person_65To74Years'],
-            'Count_Person_75OrMoreYears': ['Count_Person_75OrMoreYears']
+        input = {
+            "country/USA": [
+                "Count_Person_Upto4Years", "Count_Person_5To9Years",
+                "Count_Person_10To14Years", "Count_Person_15To19Years",
+                "Count_Person_20To24Years", "Count_Person_25To29Years",
+                "Count_Person_30To34Years", "Count_Person_35To39Years",
+                "Count_Person_40To44Years", "Count_Person_45To49Years",
+                "Count_Person_50To54Years", "Count_Person_55To59Years",
+                "Count_Person_60To64Years", "Count_Person_65To69Years",
+                "Count_Person_70To74Years", "Count_Person_75To79Years",
+                "Count_Person_80OrMoreYears", "Count_Person_5To17Years",
+                "Count_Person_18To24Years", "Count_Person_25To34Years",
+                "Count_Person_35To44Years", "Count_Person_45To54Years",
+                "Count_Person_55To59Years", "Count_Person_60To61Years",
+                "Count_Person_62To64Years", "Count_Person_65To74Years",
+                "Count_Person_65OrMoreYears", "Count_Person_75OrMoreYears"
+            ]
         }
-        assert lib_range.build_stat_var_range_group(input, 'age') == expected
+        expected = {
+            'country/USA': {
+                'Count_Person_5To17Years': ['Count_Person_5To17Years'],
+                'Count_Person_18To24Years': ['Count_Person_18To24Years'],
+                'Count_Person_25To34Years': ['Count_Person_25To34Years'],
+                'Count_Person_35To44Years': ['Count_Person_35To44Years'],
+                'Count_Person_45To54Years': ['Count_Person_45To54Years'],
+                'Count_Person_55To64Years': [
+                    'Count_Person_60To61Years', 'Count_Person_55To59Years',
+                    'Count_Person_62To64Years'
+                ],
+                'Count_Person_65To74Years': ['Count_Person_65To74Years'],
+                'Count_Person_75OrMoreYears': ['Count_Person_75OrMoreYears']
+            }
+        }
+        assert lib_range.aggregate_age_stat_var(input) == expected
+
+    def test_us_place_age(self):
+        input = {
+            "country/USA": [
+                "Count_Person_Upto4Years",
+                "Count_Person_5To9Years",
+                "Count_Person_10To14Years",
+                "Count_Person_15To19Years",
+                "Count_Person_20To24Years",
+                "Count_Person_25To29Years",
+                "Count_Person_30To34Years",
+                "Count_Person_35To39Years",
+                "Count_Person_40To44Years",
+                "Count_Person_45To49Years",
+                "Count_Person_50To54Years",
+                "Count_Person_55To59Years",
+                "Count_Person_60To64Years",
+                "Count_Person_65To69Years",
+                "Count_Person_70To74Years",
+                "Count_Person_75To79Years",
+                "Count_Person_80OrMoreYears",
+                "Count_Person_5To17Years",
+                "Count_Person_18To24Years",
+                "Count_Person_25To34Years",
+                "Count_Person_35To44Years",
+                "Count_Person_45To54Years",
+                "Count_Person_55To59Years",
+                "Count_Person_60To61Years",
+                "Count_Person_62To64Years",
+                "Count_Person_65To74Years",
+                "Count_Person_65OrMoreYears",
+                "Count_Person_75OrMoreYears",
+                "Count_Person_5To17Years",
+                "Count_Person_18To24Years",
+                "Count_Person_25To34Years",
+                "Count_Person_35To44Years",
+                "Count_Person_45To54Years",
+                "Count_Person_45To54Years",
+                "Count_Person_55To64Years",
+                "Count_Person_65To74Years",
+            ],
+            "geoId/12345": [
+                "Count_Person_5To17Years",
+                "Count_Person_18To24Years",
+                "Count_Person_25To34Years",
+                "Count_Person_35To44Years",
+                "Count_Person_45To54Years",
+                "Count_Person_55To59Years",
+                "Count_Person_60To61Years",
+                "Count_Person_62To64Years",
+                "Count_Person_65To74Years",
+            ]
+        }
+        expected = {
+            'country/USA': {
+                'Count_Person_5To17Years': ['Count_Person_5To17Years'],
+                'Count_Person_18To24Years': ['Count_Person_18To24Years'],
+                'Count_Person_25To34Years': ['Count_Person_25To34Years'],
+                'Count_Person_35To44Years': ['Count_Person_35To44Years'],
+                'Count_Person_45To54Years': ['Count_Person_45To54Years'],
+                'Count_Person_55To64Years': [
+                    'Count_Person_60To61Years', 'Count_Person_55To59Years',
+                    'Count_Person_62To64Years'
+                ],
+                'Count_Person_65To74Years': ['Count_Person_65To74Years'],
+                'Count_Person_75OrMoreYears': ['Count_Person_75OrMoreYears']
+            },
+            'geoId/12345': {
+                'Count_Person_5To17Years': ['Count_Person_5To17Years'],
+                'Count_Person_18To24Years': ['Count_Person_18To24Years'],
+                'Count_Person_25To34Years': ['Count_Person_25To34Years'],
+                'Count_Person_35To44Years': ['Count_Person_35To44Years'],
+                'Count_Person_45To54Years': ['Count_Person_45To54Years'],
+                'Count_Person_55To64Years': [
+                    'Count_Person_60To61Years', 'Count_Person_55To59Years',
+                    'Count_Person_62To64Years'
+                ],
+                'Count_Person_65To74Years': ['Count_Person_65To74Years']
+            }
+        }
+        assert lib_range.aggregate_age_stat_var(input) == expected
+
+    def test_eu_place_age(self):
+        input = {
+            "country/FRA": [
+                "Count_Person_Upto4Years",
+                "Count_Person_5To9Years",
+                "Count_Person_10To14Years",
+                "Count_Person_15To19Years",
+                "Count_Person_20To24Years",
+                "Count_Person_25To29Years",
+                "Count_Person_30To34Years",
+                "Count_Person_35To39Years",
+                "Count_Person_40To44Years",
+                "Count_Person_45To49Years",
+                "Count_Person_50To54Years",
+                "Count_Person_55To59Years",
+                "Count_Person_60To64Years",
+                "Count_Person_65To69Years",
+                "Count_Person_70To74Years",
+                "Count_Person_75To79Years",
+                "Count_Person_80OrMoreYears",
+                "Count_Person_5To17Years",
+                "Count_Person_18To24Years",
+                "Count_Person_25To34Years",
+                "Count_Person_35To44Years",
+                "Count_Person_45To54Years",
+                "Count_Person_55To59Years",
+                "Count_Person_60To61Years",
+                "Count_Person_62To64Years",
+                "Count_Person_65To74Years",
+                "Count_Person_65OrMoreYears",
+                "Count_Person_75OrMoreYears",
+                "Count_Person_5To17Years",
+                "Count_Person_18To24Years",
+                "Count_Person_25To34Years",
+                "Count_Person_35To44Years",
+                "Count_Person_45To54Years",
+                "Count_Person_45To54Years",
+                "Count_Person_55To64Years",
+                "Count_Person_65To74Years",
+            ],
+            "country/ITA": [
+                "Count_Person_Upto4Years",
+                "Count_Person_5To9Years",
+                "Count_Person_10To14Years",
+                "Count_Person_15To19Years",
+                "Count_Person_20To24Years",
+                "Count_Person_25To29Years",
+                "Count_Person_30To34Years",
+                "Count_Person_35To39Years",
+                "Count_Person_40To44Years",
+                "Count_Person_45To49Years",
+                "Count_Person_50To54Years",
+                "Count_Person_55To59Years",
+                "Count_Person_60To64Years",
+                "Count_Person_65To69Years",
+            ]
+        }
+        expected = {
+            'country/FRA': {
+                'Count_Person_Upto9Years': [
+                    'Count_Person_5To9Years', 'Count_Person_Upto4Years'
+                ],
+                'Count_Person_10To19Years': [
+                    'Count_Person_15To19Years', 'Count_Person_10To14Years'
+                ],
+                'Count_Person_20To29Years': [
+                    'Count_Person_25To29Years', 'Count_Person_20To24Years'
+                ],
+                'Count_Person_30To39Years': [
+                    'Count_Person_35To39Years', 'Count_Person_30To34Years'
+                ],
+                'Count_Person_40To49Years': [
+                    'Count_Person_45To49Years', 'Count_Person_40To44Years'
+                ],
+                'Count_Person_50To59Years': [
+                    'Count_Person_55To59Years', 'Count_Person_50To54Years'
+                ],
+                'Count_Person_60To69Years': [
+                    'Count_Person_65To69Years', 'Count_Person_60To64Years'
+                ],
+                'Count_Person_70OrMoreYears': [
+                    'Count_Person_75To79Years', 'Count_Person_70To74Years',
+                    'Count_Person_80OrMoreYears'
+                ]
+            },
+            'country/ITA': {
+                'Count_Person_Upto9Years': [
+                    'Count_Person_5To9Years', 'Count_Person_Upto4Years'
+                ],
+                'Count_Person_10To19Years': [
+                    'Count_Person_15To19Years', 'Count_Person_10To14Years'
+                ],
+                'Count_Person_20To29Years': [
+                    'Count_Person_25To29Years', 'Count_Person_20To24Years'
+                ],
+                'Count_Person_30To39Years': [
+                    'Count_Person_35To39Years', 'Count_Person_30To34Years'
+                ],
+                'Count_Person_40To49Years': [
+                    'Count_Person_45To49Years', 'Count_Person_40To44Years'
+                ],
+                'Count_Person_50To59Years': [
+                    'Count_Person_55To59Years', 'Count_Person_50To54Years'
+                ],
+                'Count_Person_60To69Years': [
+                    'Count_Person_65To69Years', 'Count_Person_60To64Years'
+                ]
+            }
+        }
+        assert lib_range.aggregate_age_stat_var(input) == expected
