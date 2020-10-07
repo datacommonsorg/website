@@ -73,7 +73,7 @@ def build_spec(chart_config):
             del config['isOverview']
         del config['category']
         if is_overview:
-            spec[OVERVIEW][category].append(config)
+            spec[OVERVIEW][category].append(copy.deepcopy(config))
         spec[category][config['title']].append(config)
         stat_vars.extend(config['statsVars'])
         stat_vars.extend(config.get('denominator', []))
