@@ -13,25 +13,65 @@
 # limitations under the License.
 
 from collections import defaultdict
+import functools
 import math
 import re
+from operator import mul
 
-NUM_RANGE = 9
+AGE_REGEX = re.compile("Count_Person_(.*)Years")
+AGE_FMT = "Count_Person_{}Years"
 
-STAT_VAR_RANGE = {
-    "age": (re.compile("Count_Person_(.*)Years"), "Count_Person_{}Years")
+AGE_RANGE = {
+    'census': {
+        (5, 17): set([(5, 17)]),
+        (18, 24): set([(18, 24)]),
+        (25, 34): set([(25, 34)]),
+        (35, 44): set([(35, 44)]),
+        (45, 54): set([(45, 54)]),
+        (55, 64): set([(55, 59), (60, 61), (62, 64)]),
+        (65, 74): set([(65, 74)]),
+        (75, math.inf): set([(75, math.inf)])
+    },
+    'oecd': {
+        (0, 9): set([(0, 4), (5, 9)]),
+        (10, 19): set([(10, 14), (15, 19)]),
+        (20, 29): set([(20, 24), (25, 29)]),
+        (30, 39): set([(30, 34), (35, 39)]),
+        (40, 49): set([(40, 44), (45, 49)]),
+        (50, 59): set([(50, 54), (55, 59)]),
+        (60, 69): set([(60, 64), (65, 69)]),
+        (70, 79): set([(70, 74), (75, 79)]),
+        (80, math.inf): set([(80, math.inf)])
+    }
 }
 
 
-def stat_var_to_range(stat_var, regex):
+def from_string(s):
+    """Function to get the low of the range."""
+    if len(s.split('To')) == 2:
+        low = int(s.split('To')[0])
+        high = int(s.split('To')[1])
+    elif s.startswith('Upto'):
+        low = 0
+        high = int(s.replace('Upto', ''))
+    elif s.endswith('OrMore'):
+        low = int(s.replace('OrMore', ''))
+        high = math.inf
+    else:
+        low = int(s)
+        high = low
+    return (low, high)
+
+
+def from_stat_var(stat_var, regex):
     """Convert a stat var to a range tuple with low and high value."""
     p = regex.search(stat_var)
     if p:
-        return string_to_range(p.group(1))
+        return from_string(p.group(1))
     raise ValueError("Invalid stat_var %s", stat_var)
 
 
-def range_to_stat_var(r, format_str):
+def to_stat_var(r, fmt):
     """Convert a range to stat var str."""
     if r[0] == 0:
         part = 'Upto' + str(r[1])
@@ -39,106 +79,48 @@ def range_to_stat_var(r, format_str):
         part = str(r[0]) + 'OrMore'
     else:
         part = '{}To{}'.format(r[0], r[1])
-    return format_str.format(part)
+    return fmt.format(part)
 
 
-def string_to_range(r):
-    """Function to get the low of the range."""
-    if len(r.split('To')) == 2:
-        low = int(r.split('To')[0])
-        high = int(r.split('To')[1])
-    elif r.startswith('Upto'):
-        low = 0
-        high = int(r.replace('Upto', ''))
-    elif r.endswith('OrMore'):
-        low = int(r.replace('OrMore', ''))
-        high = math.inf
-    else:
-        low = int(r)
-        high = low
-    return (low, high)
-
-
-def expand(range_lists, range_start_map):
-    result = []
-    complete = True
-    for l in range_lists:
-        last_item = l[-1]
-        next_start = last_item[-1] + 1
-        if next_start in range_start_map:
-            complete = False
-            for next_item in range_start_map[next_start]:
-                result.append(l + [next_item])
-        else:
-            result.append(l)
-    return result, complete
-
-
-def concat_aggregate_range(ranges):
-    """Return an ordered and aggregated range from the input.
-
+def aggregate_age_stat_var(place_stat_vars):
+    """Build aggregated age stat vars.
     Args:
-      ranges: a list of range in the form of a two value tuple, ex:
-        [(0, 5), (6, 10), (21, 40), (11, 20), (21, math.inf)]
+        place_stat_vars: A dict from place dcid to a list of age stat vars.
     Returns:
-      A list of list of range.
+        A dict of age stat var mapping from aggregated age stat var to the raw
+        age stat var.
     """
-    # Sort the range by start then by end.
-    ranges = set(ranges)
-    sorted_ranges = sorted(ranges, key=lambda x: (x[0], x[1]))
+    place_age_range = {}
+    for place, stat_vars in place_stat_vars.items():
+        place_age_range[place] = set(
+            [from_stat_var(sv, AGE_REGEX) for sv in stat_vars])
 
-    # Start value to range.
-    range_start_map = defaultdict(list)
-    for r in sorted_ranges:
-        range_start_map[r[0]].append(r)
-
-    # Find the connected ranges.
-    range_link = defaultdict(list)
-    for r in sorted_ranges:
-        if r[1] + 1 in range_start_map:
-            range_link[r].append(range_start_map[r[1] + 1])
-
-    # Build linked range groups.
-    range_lists = [[sorted_ranges[0]]]
-    while True:
-        range_lists, complete = expand(range_lists, range_start_map)
-        if complete:
-            break
-    range_lists.sort(key=lambda x: len(x))
-
-    # Pick the list with the most range.
-    select_list = range_lists[-1]
-
-    # Aggregate range if needed
-    span = select_list[-1][0] - select_list[0][0]
-    average_span = span / NUM_RANGE
-    result = [[select_list[0]]]
-    current_span = select_list[0][1] - select_list[0][0]
-    for item in select_list[1:]:
-        item_span = item[1] - item[0]
-        if (item_span < average_span and current_span < average_span and
-                current_span + item_span < 1.5 * average_span):
-            result[-1].append(item)
-            current_span += (item_span + 1)
-        else:
-            result.append([item])
-            current_span = item_span
-    return result
-
-
-def build_stat_var_range_group(stat_vars, range_type):
-    """Build a continous and better ranged quantity range stat var."""
-    regex, fmt = STAT_VAR_RANGE[range_type]
-    ranges = [stat_var_to_range(stat_var, regex) for stat_var in stat_vars]
-    range_groups = concat_aggregate_range(ranges)
-    result = {}
-    for group in range_groups:
-        if len(group) == 1:
-            sv = range_to_stat_var(group[0], fmt)
-            result[sv] = [sv]
-        else:
-            low = group[0][0]
-            high = group[-1][1]
-            key = range_to_stat_var((low, high), fmt)
-            result[key] = [range_to_stat_var(item, fmt) for item in group]
+    # For each aggregation pattern and place, obtain a score, which is the
+    # percentage of age bucket that the place has.
+    agg_score = {}
+    for method, bucket in AGE_RANGE.items():
+        agg_score[method] = {}
+        total = float(len(bucket))
+        for place, range_set in place_age_range.items():
+            count = 0
+            for agg_range, raw_ranges in bucket.items():
+                if raw_ranges.issubset(range_set):
+                    count += 1
+            agg_score[method][place] = float(count) / float(total)
+    # Pick the aggregation pattern with the highest total score across places.
+    highest_score = 0
+    used_method = None
+    for method, place_scores in agg_score.items():
+        score = functools.reduce(mul, list(place_scores.values()), 1)
+        if score > highest_score:
+            used_method = method
+            highest_score = score
+    # Get the stat var grouping for each place.
+    result = {place: {} for place in place_stat_vars}
+    for agg_range, raw_ranges in AGE_RANGE[used_method].items():
+        agg_stat_var = to_stat_var(agg_range, AGE_FMT)
+        raw_stat_vars = [to_stat_var(r, AGE_FMT) for r in raw_ranges]
+        for place, range_set in place_age_range.items():
+            if raw_ranges.issubset(range_set):
+                result[place][agg_stat_var] = raw_stat_vars
     return result
