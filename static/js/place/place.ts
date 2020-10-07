@@ -26,7 +26,7 @@ import { PlaceHighlight } from "./place_highlight";
 import { PageSubtitle } from "./page_subtitle";
 import { isPlaceInUsa } from "./util";
 
-import { PageData } from "./types";
+import { CachedChoroplethData, PageData } from "./types";
 
 let ac: google.maps.places.Autocomplete;
 
@@ -60,7 +60,7 @@ function updatePageLayoutState(): void {
 /**
  *  Toggle fixed sidebar based on window width.
  */
-function maybeToggleFixedSidebar() {
+function maybeToggleFixedSidebar(): void {
   if (window.innerWidth < Y_SCROLL_WINDOW_BREAKPOINT) {
     document.removeEventListener("scroll", adjustMenuPosition);
     return;
@@ -71,7 +71,7 @@ function maybeToggleFixedSidebar() {
 /**
  * Update fixed sidebar based on the window scroll.
  */
-function adjustMenuPosition() {
+function adjustMenuPosition(): void {
   const topicsEl = document.getElementById("sidebar-region");
   if (window.scrollY > yScrollLimit) {
     const calcTop = window.scrollY - yScrollLimit - Y_SCROLL_MARGIN;
@@ -88,7 +88,10 @@ function adjustMenuPosition() {
 /**
  * Get the geo json info for choropleth charts.
  */
-async function getGeoJsonData(dcid: string, placeType: string) {
+async function getGeoJsonData(
+  dcid: string,
+  placeType: string
+): Promise<unknown> {
   if (placeType == "Country" || placeType == "State") {
     return axios.get("/api/chart/geojson/" + dcid).then((resp) => {
       return resp.data;
@@ -103,7 +106,10 @@ async function getGeoJsonData(dcid: string, placeType: string) {
 /**
  * Get the stat var data for choropleth charts.
  */
-async function getChoroplethData(dcid: string, placeType: string) {
+async function getChoroplethData(
+  dcid: string,
+  placeType: string
+): Promise<CachedChoroplethData> {
   if (placeType == "Country" || placeType == "State") {
     return axios.get("/api/chart/choroplethdata/" + dcid).then((resp) => {
       return resp.data;
@@ -124,7 +130,7 @@ async function getLandingPageData(dcid: string): Promise<PageData> {
   });
 }
 
-function renderPage() {
+function renderPage(): void {
   const urlParams = new URLSearchParams(window.location.search);
   // Get topic and render menu.
   let topic = urlParams.get("topic") || "Overview";
@@ -221,7 +227,7 @@ function renderPage() {
 /**
  * Setup search input autocomplete
  */
-function initAutocomplete() {
+function initAutocomplete(): void {
   // Create the autocomplete object, restricting the search predictions to
   // geographical location types.
   const options = {
@@ -238,7 +244,7 @@ function initAutocomplete() {
 /*
  * Get place from autocomplete object and update url
  */
-function getPlaceAndRender() {
+function getPlaceAndRender(): void {
   // Get the place details from the autocomplete object.
   const place = ac.getPlace();
   axios
