@@ -274,6 +274,8 @@ const STATS_VAR_TITLES: { [key: string]: string } = {
   UnemploymentRate_Person_Female: "Unemployment Rate (Female)",
 
   // Inequality
+  Count_Person_BelowPovertyLevelInThePast12Months:
+    "Population Below Poverty Level in the Past 12 Months",
   Count_Person_BelowPovertyLevelInThePast12Months_AmericanIndianOrAlaskaNativeAlone:
     "Population Below Poverty Level in the Past 12 Months (American Indian or Alaska Native)",
   Count_Person_BelowPovertyLevelInThePast12Months_AsianAlone:

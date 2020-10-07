@@ -58,7 +58,8 @@ test("Single place and single stats var", () => {
       wrapper.update();
       expect(wrapper.find("#chart-region").getDOMNode().innerHTML).toEqual(
         `<div class="card"><span class="chartPerCapita">Per capita<button class="perCapitaCheckbox">` +
-          `</button></span><div class="chart-svg"></div><div class="statsVarChipRegion">` +
+          `</button><a href="/faq"><span>*</span></a></span>` +
+          `<div class="chart-svg"></div><div class="statsVarChipRegion">` +
           `<div class="pv-chip mdl-chip--deletable">` +
           `<span class="mdl-chip__text">Median age</span>` +
           `<button class="mdl-chip__action"><i class="material-icons">` +
@@ -154,8 +155,6 @@ test("statsVar not in PV-tree", () => {
     });
 });
 
-// TODO: Add test that loading from URL with these options works as expected
-// TODO: Add test that URL with &pc=1 set works as expected, and is cleared after the option is set.
 test("chart options", () => {
   // test if the chart options are correctly set
   Object.defineProperty(window, "location", {

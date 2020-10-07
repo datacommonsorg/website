@@ -16,8 +16,10 @@
 {%- extends 'base.html' -%}
 
 {% set main_id = 'dc-places' %}
-{% set title = place_name + ' ' + topic + ' | Place Explorer' %}
+{% set title = place_name + ' ' + topic + ' - Place Explorer' %}
 {% set subpage_title = 'Place Explorer' %}
+{% set subpage_url = url_for('place.place') %}
+{% set hide_search = True %}
 
 {% block head %}
 <link rel="stylesheet"

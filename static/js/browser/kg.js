@@ -647,7 +647,7 @@ function renderKGPage(
   document.getElementById("toogle-chart").checked = !showText;
 
   // Set name
-  document.title = `${name} - DataCommons Knowledge Graph`;
+  document.title = `${name} - Graph Browser - Data Commons`;
   let nameElem = document.getElementById("bg-node-name");
   nameElem.textContent = name;
 
