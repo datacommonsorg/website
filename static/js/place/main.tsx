@@ -89,11 +89,11 @@ class MainPane extends React.Component<MainPanePropType, unknown> {
           if (isOverview && Object.keys(this.props.pageChart).length > 1) {
             subtopicHeader = (
               <h3 id={topic}>
-                <a href={`/place?dcid=${this.props.dcid}&topic=${topic}`}>
+                <a href={`/place/${this.props.dcid}?topic=${topic}`}>
                   {topic}
                 </a>
                 <span className="more">
-                  <a href={`/place?dcid=${this.props.dcid}&topic=${topic}`}>
+                  <a href={`/place/${this.props.dcid}?topic=${topic}`}>
                     More charts ›
                   </a>
                 </span>

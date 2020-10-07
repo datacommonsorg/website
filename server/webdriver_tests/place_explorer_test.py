@@ -18,9 +18,9 @@ from webdriver_tests.base_test import WebdriverBaseTest
 from selenium.webdriver.support.ui import Select
 import time
 
-MTV_URL = '/place?dcid=geoId/0649670'
-USA_URL = '/place?dcid=country/USA'
-CA_URL = '/place?dcid=geoId/06'
+MTV_URL = '/place/geoId/0649670'
+USA_URL = '/place/country/USA'
+CA_URL = '/place/geoId/06'
 PLACE_SEARCH = 'California, USA'
 
 

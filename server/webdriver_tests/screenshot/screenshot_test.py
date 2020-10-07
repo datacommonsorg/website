@@ -28,13 +28,13 @@ TEST_URLS = [
         'height': 5500
     },
     {
-        'url': '/place?dcid=country/USA&topic=Demographics',
+        'url': '/place?dcid=country/USA?topic=Demographics',
         'filename_suffix': 'place_usa_demographics.png',
         'test_class': 'chart-container',
         'height': 4400
     },
     {
-        'url': '/place?dcid=country/USA&topic=Health',
+        'url': '/place?dcid=country/USA?topic=Health',
         'filename_suffix': 'place_usa_health.png',
         'test_class': 'chart-container',
         'height': 3300

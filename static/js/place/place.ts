@@ -36,9 +36,7 @@ const Y_SCROLL_WINDOW_BREAKPOINT = 992; // Only trigger fixed sidebar beyond thi
 const Y_SCROLL_MARGIN = 100; // Margin to apply to the fixed sidebar top.
 
 window.onload = () => {
-  const urlParams = new URLSearchParams(window.location.search);
-  const dcid = urlParams.get("dcid");
-  renderPage(dcid);
+  renderPage();
   initAutocomplete();
   updatePageLayoutState();
   maybeToggleFixedSidebar();
@@ -126,10 +124,11 @@ async function getLandingPageData(dcid: string): Promise<PageData> {
   });
 }
 
-function renderPage(dcid: string) {
+function renderPage() {
   const urlParams = new URLSearchParams(window.location.search);
   // Get topic and render menu.
   let topic = urlParams.get("topic") || "Overview";
+  const dcid = document.getElementById("title").dataset.dcid;
   const placeName = document.getElementById("place-name").dataset.pn;
   const placeType = document.getElementById("place-type").dataset.pt;
   const landingPagePromise = getLandingPageData(dcid);
@@ -243,11 +242,9 @@ function getPlaceAndRender() {
   // Get the place details from the autocomplete object.
   const place = ac.getPlace();
   axios
-    .get(`api/placeid2dcid/${place.place_id}`)
+    .get(`/api/placeid2dcid/${place.place_id}`)
     .then((resp) => {
-      const urlParams = new URLSearchParams(window.location.search);
-      urlParams.set("dcid", resp.data);
-      window.location.search = urlParams.toString();
+      window.location.href = `/place/${resp.data}`;
     })
     .catch(() => {
       alert("Sorry, but we don't have any data about " + place.name);
