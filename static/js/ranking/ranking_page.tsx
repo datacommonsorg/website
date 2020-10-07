@@ -140,7 +140,7 @@ class Page extends React.Component<RankingPagePropType, RankingPageStateType> {
           } of ${displayNameForPlaceType(
             this.props.placeType,
             true /* isPlural */
-          )} in ${this.props.placeName} | Place Rankings`;
+          )} in ${this.props.placeName} - Place Rankings`;
         }
         this.setState({
           data: respData,
