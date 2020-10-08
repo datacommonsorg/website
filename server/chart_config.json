@@ -9,13 +9,13 @@
   },
   {
     "category": "Economics",
-    "title": "State Unemployment Insurance Claim",
+    "title": "State Unemployment Insurance Claims",
     "statsVars": [
       "Count_UnemploymentInsuranceClaim_StateUnemploymentInsurance"
     ],
     "isOverview": true,
     "relatedChart": {
-      "title": "State Unemployment Insurance Claim Rate",
+      "title": "State Unemployment Insurance Claims Rate",
       "scale": true,
       "denominator": "Count_Person",
       "scaling": 100,
