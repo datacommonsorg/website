@@ -87,7 +87,6 @@
     "title": "Gross Domestic Product Growth Rate",
     "statsVars": ["GrowthRate_Amount_EconomicActivity_GrossDomesticProduction"],
     "unit": "%",
-    "isOverview": true,
     "relatedChart": {
       "scale": false
     }
@@ -130,7 +129,6 @@
     "title": "Government Expenditures on Education (% of Government Expenditure)",
     "statsVars": ["WorldBank/SE_XPD_TOTL_GB_ZS"],
     "unit": "%",
-    "isOverview": true,
     "relatedChart": {
       "scale": false
     }
@@ -138,7 +136,6 @@
   {
     "category": "Economics",
     "title": "Government Expenditures on Education (% of GDP)",
-    "isOverview": true,
     "statsVars": ["WorldBank/SE_XPD_TOTL_GD_ZS"],
     "unit": "%",
     "relatedChart": {
@@ -150,7 +147,6 @@
     "title": "Government Expenditures on Military",
     "statsVars": ["WorldBank/MS_MIL_XPND_CD"],
     "unit": "$",
-    "isOverview": true,
     "relatedChart": {
       "scale": false
     }
@@ -160,7 +156,6 @@
     "title": "Government Expenditures on Military (% of GDP)",
     "statsVars": ["WorldBank/MS_MIL_XPND_GD_ZS"],
     "unit": "%",
-    "isOverview": true,
     "relatedChart": {
       "scale": false
     }
@@ -180,7 +175,6 @@
     "title": "Market Capitalization of Domestic Companies (% of GDP)",
     "statsVars": ["WorldBank/CM_MKT_LCAP_GD_ZS"],
     "unit": "%",
-    "isOverview": true,
     "relatedChart": {
       "scale": false
     }
@@ -190,7 +184,6 @@
     "title": "Inward Remittance",
     "statsVars": ["WorldBank/BX_TRF_PWKR_CD_DT"],
     "unit": "$",
-    "isOverview": true,
     "relatedChart": {
       "scale": false
     }
@@ -200,7 +193,6 @@
     "title": "Inward Remittance (% of GDP)",
     "statsVars": ["WorldBank/BX_TRF_PWKR_DT_GD_ZS"],
     "unit": "%",
-    "isOverview": true,
     "relatedChart": {
       "scale": false
     }
@@ -210,7 +202,6 @@
     "title": "Outward Remittance",
     "statsVars": ["WorldBank/BM_TRF_PWKR_CD_DT"],
     "unit": "$",
-    "isOverview": true,
     "relatedChart": {
       "scale": false
     }
@@ -549,10 +540,11 @@
   },
   {
     "category": "Equity",
-    "title": "Percentage of People Without Health Insurance by Gender",
+    "title": "Percentage of People Without Health Insurance by Race",
     "statsVars": [
-      "Percent_Person_18To64Years_Female_NoHealthInsurance",
-      "Percent_Person_18To64Years_Male_NoHealthInsurance"
+      "Percent_Person_18To64Years_NoHealthInsurance_BlackOrAfricanAmericanAlone",
+      "Percent_Person_18To64Years_NoHealthInsurance_HispanicOrLatino",
+      "Percent_Person_18To64Years_NoHealthInsurance_WhiteAlone"
     ],
     "unit": "%",
     "isOverview": true,
@@ -562,11 +554,10 @@
   },
   {
     "category": "Equity",
-    "title": "Percentage of People Without Health Insurance by Race",
+    "title": "Percentage of People Without Health Insurance by Gender",
     "statsVars": [
-      "Percent_Person_18To64Years_NoHealthInsurance_BlackOrAfricanAmericanAlone",
-      "Percent_Person_18To64Years_NoHealthInsurance_HispanicOrLatino",
-      "Percent_Person_18To64Years_NoHealthInsurance_WhiteAlone"
+      "Percent_Person_18To64Years_Female_NoHealthInsurance",
+      "Percent_Person_18To64Years_Male_NoHealthInsurance"
     ],
     "unit": "%",
     "isOverview": true,
@@ -715,7 +706,9 @@
   {
     "category": "Demographics",
     "title": "Population",
-    "statsVars": ["Count_Person"],
+    "statsVars": [
+      "Count_Person"
+    ],
     "isOverview": true,
     "relatedChart": {
       "scale": false
@@ -741,88 +734,14 @@
   {
     "category": "Demographics",
     "title": "Urban and Rural Population",
-    "statsVars": ["WorldBank/SP_URB_TOTL", "WorldBank/SP_RUR_TOTL"],
-    "isOverview": true,
-    "relatedChart": {
-      "scale": false
-    }
-  },
-  {
-    "category": "Demographics",
-    "title": "Fertility Rate",
-    "statsVars": ["FertilityRate_Person_Female"],
-    "isOverview": true,
-    "relatedChart": {
-      "scale": false
-    }
-  },
-  {
-    "category": "Demographics",
-    "title": "Population by Gender",
-    "statsVars": ["Count_Person_Female", "Count_Person_Male"],
-    "relatedChart": {
-      "title": "Population by Gender Per Capita",
-      "scale": true,
-      "denominator": "Count_Person",
-      "scaling": 100,
-      "unit": "%"
-    }
-  },
-  {
-    "category": "Demographics",
-    "title": "Median Age by Gender",
-    "statsVars": ["Median_Age_Person_Female", "Median_Age_Person_Male"],
-    "relatedChart": {
-      "scale": false
-    }
-  },
-  {
-    "category": "Demographics",
-    "title": "Population by Race",
     "statsVars": [
-      "Count_Person_AmericanIndianOrAlaskaNativeAlone",
-      "Count_Person_AsianAlone",
-      "Count_Person_BlackOrAfricanAmericanAlone",
-      "Count_Person_HispanicOrLatino",
-      "Count_Person_NativeHawaiianAndOtherPacificIslanderAlone",
-      "Count_Person_SomeOtherRaceAlone",
-      "Count_Person_TwoOrMoreRaces",
-      "Count_Person_WhiteAlone"
+      "WorldBank/SP_URB_TOTL",
+      "WorldBank/SP_RUR_TOTL"
     ],
-    "relatedChart": {
-      "title": "Population by Race Per Capita",
-      "scale": true,
-      "denominator": "Count_Person",
-      "scaling": 100,
-      "unit": "%"
-    }
-  },
-  {
-    "category": "Demographics",
-    "title": "Median Age by Race",
-    "statsVars": [
-      "Median_Age_Person_AmericanIndianOrAlaskaNativeAlone",
-      "Median_Age_Person_AsianAlone",
-      "Median_Age_Person_BlackOrAfricanAmericanAlone",
-      "Median_Age_Person_HispanicOrLatino",
-      "Median_Age_Person_NativeHawaiianAndOtherPacificIslanderAlone",
-      "Median_Age_Person_SomeOtherRaceAlone",
-      "Median_Age_Person_TwoOrMoreRaces",
-      "Median_Age_Person_WhiteAlone"
-    ],
-    "relatedChart": {
-      "scale": false
-    }
-  },
-  {
-    "category": "Demographics",
-    "title": "Median Age",
-    "statsVars": ["Median_Age_Person"],
     "isOverview": true,
     "relatedChart": {
       "scale": false
-    },
-    "isChoropleth": true
+    }
   },
   {
     "category": "Demographics",
@@ -866,6 +785,82 @@
   },
   {
     "category": "Demographics",
+    "title": "Population by Gender",
+    "statsVars": [
+      "Count_Person_Female",
+      "Count_Person_Male"
+    ],
+    "relatedChart": {
+      "title": "Population by Gender Per Capita",
+      "scale": true,
+      "denominator": "Count_Person",
+      "scaling": 100,
+      "unit": "%"
+    }
+  },
+  {
+    "category": "Demographics",
+    "title": "Population by Race",
+    "statsVars": [
+      "Count_Person_AmericanIndianOrAlaskaNativeAlone",
+      "Count_Person_AsianAlone",
+      "Count_Person_BlackOrAfricanAmericanAlone",
+      "Count_Person_HispanicOrLatino",
+      "Count_Person_NativeHawaiianAndOtherPacificIslanderAlone",
+      "Count_Person_SomeOtherRaceAlone",
+      "Count_Person_TwoOrMoreRaces",
+      "Count_Person_WhiteAlone"
+    ],
+    "relatedChart": {
+      "title": "Population by Race Per Capita",
+      "scale": true,
+      "denominator": "Count_Person",
+      "scaling": 100,
+      "unit": "%"
+    }
+  },
+  {
+    "category": "Demographics",
+    "title": "Median Age",
+    "statsVars": [
+      "Median_Age_Person"
+    ],
+    "isOverview": true,
+    "relatedChart": {
+      "scale": false
+    },
+    "isChoropleth": true
+  },
+  {
+    "category": "Demographics",
+    "title": "Median Age by Gender",
+    "statsVars": [
+      "Median_Age_Person_Female",
+      "Median_Age_Person_Male"
+    ],
+    "relatedChart": {
+      "scale": false
+    }
+  },
+  {
+    "category": "Demographics",
+    "title": "Median Age by Race",
+    "statsVars": [
+      "Median_Age_Person_AmericanIndianOrAlaskaNativeAlone",
+      "Median_Age_Person_AsianAlone",
+      "Median_Age_Person_BlackOrAfricanAmericanAlone",
+      "Median_Age_Person_HispanicOrLatino",
+      "Median_Age_Person_NativeHawaiianAndOtherPacificIslanderAlone",
+      "Median_Age_Person_SomeOtherRaceAlone",
+      "Median_Age_Person_TwoOrMoreRaces",
+      "Median_Age_Person_WhiteAlone"
+    ],
+    "relatedChart": {
+      "scale": false
+    }
+  },
+  {
+    "category": "Demographics",
     "title": "Citizenship",
     "statsVars": [
       "Count_Person_USCitizenBornInTheUnitedStates",
@@ -899,6 +894,17 @@
       "denominator": "Count_Person",
       "scaling": 100,
       "unit": "%"
+    }
+  },
+  {
+    "category": "Demographics",
+    "title": "Fertility Rate",
+    "statsVars": [
+      "FertilityRate_Person_Female"
+    ],
+    "isOverview": true,
+    "relatedChart": {
+      "scale": false
     }
   },
   {
