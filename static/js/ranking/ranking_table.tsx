@@ -43,39 +43,40 @@ class RankingTable extends React.Component<RankingTablePropType> {
         return b.rank - a.rank;
       }
     });
-    if ((this.props.statVar.startsWith("Count_") && !this.props.isPerCapita) ||
-    this.props.statVar.startsWith("Median_Income")) {
+    if (
+      (this.props.statVar.startsWith("Count_") && !this.props.isPerCapita) ||
+      this.props.statVar.startsWith("Median_Income")
+    ) {
       this.numFractionDigits = 0;
     } else {
       this.numFractionDigits = 2;
     }
   }
 
-    private renderRankInfo(rankInfo: RankInfo, scaling: number): JSX.Element {
-      let value = rankInfo.value ? rankInfo.value : 0;
-      value = value * scaling;
-      return (
-        <tr key={rankInfo.rank} data-dcid={rankInfo.placeDcid}>
-          <td>{rankInfo.rank ? rankInfo.rank : 0}</td>
-          <td>
-            <a href={`/place/${rankInfo.placeDcid}`}>
-              {rankInfo.placeName || rankInfo.placeDcid}
-            </a>
-          </td>
-          <td className="text-center">
-            <span className="num-value">
-              {value.toLocaleString(undefined, {
-                maximumFractionDigits: this.numFractionDigits,
-                minimumFractionDigits: this.numFractionDigits,
-              })}
-            </span>
-          </td>
-        </tr>
-      );
-    }
+  private renderRankInfo(rankInfo: RankInfo, scaling: number): JSX.Element {
+    let value = rankInfo.value ? rankInfo.value : 0;
+    value = value * scaling;
+    return (
+      <tr key={rankInfo.rank} data-dcid={rankInfo.placeDcid}>
+        <td>{rankInfo.rank ? rankInfo.rank : 0}</td>
+        <td>
+          <a href={`/place/${rankInfo.placeDcid}`}>
+            {rankInfo.placeName || rankInfo.placeDcid}
+          </a>
+        </td>
+        <td className="text-center">
+          <span className="num-value">
+            {value.toLocaleString(undefined, {
+              maximumFractionDigits: this.numFractionDigits,
+              minimumFractionDigits: this.numFractionDigits,
+            })}
+          </span>
+        </td>
+      </tr>
+    );
+  }
 
   render(): JSX.Element {
-
     return (
       <table key={this.props.id} className="table mt-3">
         <thead>
