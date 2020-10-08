@@ -184,33 +184,31 @@ class ChartBlock extends React.Component<ChartBlockPropType, unknown> {
         }
       } else {
         // Topic page
-        if (this.props.dcid !== "country/USA") {
-          if (!_.isEmpty(this.props.data.nearby)) {
-            const id = randDomId();
-            chartElements.push(
-              <Chart
-                key={id}
-                id={id}
-                snapshot={this.props.data.nearby}
-                title={`${relatedChartTitle}: ${displayPlaceType} near ${this.props.placeName}`}
-                rankingTemplateUrl={`/ranking/_sv_/${this.props.placeType}/${this.props.parentPlaceDcid}${rankingArg}`}
-                {...sharedProps}
-              ></Chart>
-            );
-          }
-          if (!_.isEmpty(this.props.data.similar)) {
-            const id = randDomId();
-            chartElements.push(
-              <Chart
-                key={id}
-                id={id}
-                snapshot={this.props.data.similar}
-                title={`${relatedChartTitle}: other ${displayPlaceType}`}
-                rankingTemplateUrl={`/ranking/_sv_/${this.props.placeType}/country/USA${rankingArg}`}
-                {...sharedProps}
-              ></Chart>
-            );
-          }
+        if (!_.isEmpty(this.props.data.nearby)) {
+          const id = randDomId();
+          chartElements.push(
+            <Chart
+              key={id}
+              id={id}
+              snapshot={this.props.data.nearby}
+              title={`${relatedChartTitle}: ${displayPlaceType} near ${this.props.placeName}`}
+              rankingTemplateUrl={`/ranking/_sv_/${this.props.placeType}/${this.props.parentPlaceDcid}${rankingArg}`}
+              {...sharedProps}
+            ></Chart>
+          );
+        }
+        if (!_.isEmpty(this.props.data.similar)) {
+          const id = randDomId();
+          chartElements.push(
+            <Chart
+              key={id}
+              id={id}
+              snapshot={this.props.data.similar}
+              title={`${relatedChartTitle}: other ${displayPlaceType}`}
+              rankingTemplateUrl={`/ranking/_sv_/${this.props.placeType}/country/USA${rankingArg}`}
+              {...sharedProps}
+            ></Chart>
+          );
         }
         if (this.props.placeType !== "City") {
           // TODO(shifucun): Get the child place type in mixer.
