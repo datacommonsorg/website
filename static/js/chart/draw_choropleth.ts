@@ -135,7 +135,9 @@ const onMouseMove = (
     }
   }
   const text = placeName + ": " + value;
-  const tooltipHeight = document.getElementById(containerId).querySelector(`[id=${TOOLTIP_ID}]`).clientHeight;
+  const tooltipHeight = document
+    .getElementById(containerId)
+    .querySelector(`[id=${TOOLTIP_ID}]`).clientHeight;
   const leftOffset = 5;
   const topOffset = -tooltipHeight - 5;
   d3.select("#" + containerId + " #tooltip")
