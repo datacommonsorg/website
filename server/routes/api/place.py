@@ -492,7 +492,7 @@ def get_ranking_url(containing_dcid,
     return url
 
 
-#@cache.memoize(timeout=3600 * 24)  # Cache for one day.
+@cache.memoize(timeout=3600 * 24)  # Cache for one day.
 @bp.route('/ranking/<path:dcid>')
 def api_ranking(dcid):
     """
