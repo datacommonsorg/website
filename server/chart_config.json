@@ -9,15 +9,17 @@
   },
   {
     "category": "Economics",
-    "title": "State Unemployment Insurance",
+    "title": "State Unemployment Insurance Claims",
     "statsVars": [
       "Count_UnemploymentInsuranceClaim_StateUnemploymentInsurance"
     ],
     "isOverview": true,
     "relatedChart": {
-      "title": "State Unemployment Insurance Rate",
+      "title": "State Unemployment Insurance Claims Rate",
       "scale": true,
-      "denominator": "Count_Person"
+      "denominator": "Count_Person",
+      "scaling": 100,
+      "unit": "%"
     }
   },
   {
@@ -28,7 +30,9 @@
     "relatedChart": {
       "title": "Percentage of People Employed",
       "scale": true,
-      "denominator": "Count_Person"
+      "denominator": "Count_Person",
+      "scaling": 100,
+      "unit": "%"
     }
   },
   {
@@ -39,7 +43,9 @@
     "relatedChart": {
       "title": "Labor Force Participation Rate",
       "scale": true,
-      "denominator": "Count_Person"
+      "denominator": "Count_Person",
+      "scaling": 100,
+      "unit": "%"
     }
   },
   {
@@ -59,6 +65,7 @@
       "UnemploymentRate_Person_Male",
       "UnemploymentRate_Person_Female"
     ],
+    "unit": "%",
     "relatedChart": {
       "scale": false
     }
@@ -119,6 +126,7 @@
     "title": "Government Debt",
     "statsVars": ["Amount_Debt_Government"],
     "isOverview": true,
+    "unit": "$",
     "relatedChart": {
       "title": "Government Debt Per Capita",
       "scale": true,
@@ -283,7 +291,7 @@
   },
   {
     "category": "Health",
-    "title": "Life Expectancy",
+    "title": "Life Expectancy (Years)",
     "statsVars": ["LifeExpectancy_Person"],
     "isOverview": true,
     "relatedChart": {
@@ -479,6 +487,7 @@
       "Median_Income_Household_HouseholderRaceNativeHawaiianOrOtherPacificIslanderAlone",
       "Median_Income_Household_HouseholderRaceWhiteAlone"
     ],
+    "unit": "$",
     "isOverview": true,
     "relatedChart": {
       "scale": false
@@ -491,6 +500,7 @@
       "Median_Income_Person_15OrMoreYears_Female_WithIncome",
       "Median_Income_Person_15OrMoreYears_Male_WithIncome"
     ],
+    "unit": "$",
     "isOverview": true,
     "relatedChart": {
       "scale": false
@@ -542,6 +552,7 @@
       "UnemploymentRate_Person_Female",
       "UnemploymentRate_Person_Male"
     ],
+    "unit": "%",
     "isOverview": true,
     "relatedChart": {
       "scale": false
@@ -727,6 +738,7 @@
     "title": "Population Growth Rate",
     "statsVars": ["GrowthRate_Count_Person"],
     "isOverview": true,
+    "unit": "%",
     "relatedChart": {
       "scale": false
     }
@@ -752,6 +764,7 @@
     "title": "Fertility Rate",
     "statsVars": ["FertilityRate_Person_Female"],
     "isOverview": true,
+    "unit": "%",
     "relatedChart": {
       "scale": false
     }
@@ -894,7 +907,7 @@
     ],
     "isOverview": true,
     "relatedChart": {
-      "title": "Marital Status Per Capita",
+      "title": "Marital Status Rate",
       "scale": true,
       "denominator": "Count_Person",
       "scaling": 100,
