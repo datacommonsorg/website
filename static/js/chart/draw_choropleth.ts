@@ -138,8 +138,9 @@ const onMouseMove = (
   const tooltipHeight = document
     .getElementById(containerId)
     .querySelector(`[id=${TOOLTIP_ID}]`).clientHeight;
-  const leftOffset = 5;
-  const topOffset = -tooltipHeight - 5;
+  const offset = 5;
+  const leftOffset = offset;
+  const topOffset = -tooltipHeight - offset;
   d3.select("#" + containerId + " #tooltip")
     .text(text)
     .style("left", d3.event.offsetX + leftOffset + "px")
