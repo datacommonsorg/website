@@ -225,7 +225,6 @@ def get_snapshot_across_places(cc, data, places):
             points[stat_var] = value
         if points:
             result['data'].append({'dcid': place, 'data': points})
-
     return result
 
 
@@ -365,6 +364,16 @@ def data(dcid):
                 for t in chart_types:
                     chart[t] = get_bar(chart, all_stat, [dcid] +
                                        raw_page_data.get(t + 'Places', []))
+                    if t == 'similar' and 'data' in chart[t]:
+                        # If no data for current place, do not serve similar
+                        # place data.
+                        keep_chart = False
+                        for d in chart[t]['data']:
+                            if d['dcid'] == dcid:
+                                keep_chart = True
+                                break
+                        if not keep_chart:
+                            chart[t] = {}
                 # Update stat vars for aggregated stats
                 if chart.get('aggregate', False):
                     chart['statsVars'] = list(chart['trend'].get('series',
