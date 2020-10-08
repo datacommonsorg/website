@@ -119,10 +119,11 @@ def aggregate_age_stat_var(place_stat_vars):
             highest_score = score
     # Get the stat var grouping for each place.
     result = {place: {} for place in place_stat_vars}
-    for agg_range, raw_ranges in AGE_RANGE[used_method].items():
-        agg_stat_var = to_stat_var(agg_range, AGE_FMT)
-        raw_stat_vars = [to_stat_var(r, AGE_FMT) for r in raw_ranges]
-        for place, range_set in place_age_range.items():
-            if raw_ranges.issubset(range_set):
-                result[place][agg_stat_var] = raw_stat_vars
+    if used_method:
+        for agg_range, raw_ranges in AGE_RANGE[used_method].items():
+            agg_stat_var = to_stat_var(agg_range, AGE_FMT)
+            raw_stat_vars = [to_stat_var(r, AGE_FMT) for r in raw_ranges]
+            for place, range_set in place_age_range.items():
+                if raw_ranges.issubset(range_set):
+                    result[place][agg_stat_var] = raw_stat_vars
     return result
