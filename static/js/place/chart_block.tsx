@@ -103,8 +103,8 @@ class ChartBlock extends React.Component<ChartBlockPropType, unknown> {
       let scaling = this.props.data.scaling;
       const relatedChart = this.props.data.relatedChart;
       if (relatedChart && relatedChart.scale) {
-        unit = relatedChart.unit ? relatedChart.unit : "%";
-        scaling = relatedChart.scaling ? relatedChart.scaling : 100;
+        unit = relatedChart.unit;
+        scaling = relatedChart.scaling ? relatedChart.scaling : 1;
       }
       const chartType =
         this.props.data.statsVars.length == 1
