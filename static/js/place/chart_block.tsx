@@ -231,11 +231,19 @@ class ChartBlock extends React.Component<ChartBlockPropType, unknown> {
         if (this.props.placeType !== "State") {
           if (!_.isEmpty(this.props.data.parent)) {
             const id = randDomId();
+            const snapshotData = this.props.data.parent;
+            // Show two level of population for parent place charts.
+            if (
+              sharedProps.statsVars.length === 1 &&
+              sharedProps.statsVars[0] == "Count_Person"
+            ) {
+              snapshotData.data = snapshotData.data.slice(0, 2);
+            }
             chartElements.push(
               <Chart
                 key={id}
                 id={id}
-                snapshot={this.props.data.parent}
+                snapshot={snapshotData}
                 title={`${relatedChartTitle}: places that contain ${this.props.placeName}`}
                 rankingTemplateUrl={`/ranking/_sv_/${this.props.placeType}/country/USA${rankingArg}`}
                 {...sharedProps}
