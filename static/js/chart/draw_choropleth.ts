@@ -135,8 +135,9 @@ const onMouseMove = (
     }
   }
   const text = placeName + ": " + value;
-  const leftOffset = 3;
-  const topOffset = -3;
+  const tooltipHeight = document.getElementById(containerId).querySelector(`[id=${TOOLTIP_ID}]`).clientHeight;
+  const leftOffset = 5;
+  const topOffset = -tooltipHeight - 5;
   d3.select("#" + containerId + " #tooltip")
     .text(text)
     .style("left", d3.event.offsetX + leftOffset + "px")
@@ -169,6 +170,7 @@ function determineColorPalette(dataValues: {
 
 function addTooltip(containerId: string) {
   d3.select("#" + containerId)
+    .attr("style", "position: relative")
     .append("div")
     .attr("id", TOOLTIP_ID)
     .attr("style", "position: absolute; display: none; z-index: 10");
