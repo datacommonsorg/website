@@ -112,9 +112,11 @@ class Page extends React.Component<RankingPagePropType, RankingPageStateType> {
         <RankingTable
           ranking={ranking}
           id={"ranking-table"}
+          isPerCapita={this.props.isPerCapita}
           placeType={this.props.placeType}
-          sortAscending={!isBottom}
           scaling={this.props.scaling}
+          sortAscending={!isBottom}
+          statVar={this.props.statVar}
           unit={this.props.unit}
         />
       </div>
