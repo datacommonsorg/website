@@ -377,14 +377,12 @@ def api_mapinfo(dcid):
 @cache.memoize(timeout=3600 * 24)  # Cache for one day.
 def get_related_place(dcid,
                       stats_vars_string,
-                      same_place_type=None,
                       within_place=None,
                       is_per_capita=None):
     stats_vars = stats_vars_string.split('^')
 
     return dc.get_related_place(dcid,
                                 stats_vars,
-                                same_place_type=same_place_type,
                                 within_place=within_place,
                                 is_per_capita=is_per_capita)
 
@@ -439,10 +437,8 @@ def api_similar_places(stats_var, dcid):
     if parents and len(parents):
         if len(parents) >= 2:  # has [..., country, continent]
             parent_dcid = parents[-2]['dcid']
-    result = get_related_place(dcid,
-                               stats_var,
-                               within_place=parent_dcid,
-                               same_place_type=True).get(stats_var, {})
+    result = get_related_place(dcid, stats_var,
+                               within_place=parent_dcid).get(stats_var, {})
     return Response(json.dumps(result['relatedPlaces']),
                     200,
                     mimetype='application/json')
@@ -521,7 +517,6 @@ def api_ranking(dcid):
         stats_var_string = '^'.join(RANKING_STATS.keys())
         response = get_related_place(dcid,
                                      stats_var_string,
-                                     same_place_type=True,
                                      within_place=parent_dcid)
         for stats_var, data in response.items():
             result[RANKING_STATS[stats_var]].append({
@@ -534,7 +529,6 @@ def api_ranking(dcid):
             })
         response = get_related_place(dcid,
                                      '^'.join(crime_statsvar.keys()),
-                                     same_place_type=True,
                                      within_place=parent_dcid,
                                      is_per_capita=True)
         for stats_var, data in response.items():

@@ -322,15 +322,9 @@ def query(query_string):
     return res_json['header'], res_json.get('rows', [])
 
 
-def get_related_place(dcid,
-                      stats_vars,
-                      same_place_type=None,
-                      within_place=None,
-                      is_per_capita=None):
+def get_related_place(dcid, stats_vars, within_place=None, is_per_capita=None):
     url = API_ROOT + API_ENDPOINTS['get_related_places']
     req_json = {'dcid': dcid, 'stat_var_dcids': stats_vars}
-    if same_place_type:
-        req_json['same_place_type'] = same_place_type
     if within_place:
         req_json['within_place'] = within_place
     if is_per_capita:
