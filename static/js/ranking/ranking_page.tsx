@@ -70,53 +70,64 @@ class Page extends React.Component<RankingPagePropType, RankingPageStateType> {
   render(): JSX.Element {
     const statVar = this.props.statVar;
     const svData = this.state.data;
+    const svTitle =
+      statVar in STATS_VAR_TITLES ? STATS_VAR_TITLES[statVar] : statVar;
+    const perCapita = this.props.isPerCapita ? ", Per Capita" : "";
+
+    let ranking;
+    if (svData) {
+      ranking = svData.rankAll || svData.rankTop1000 || svData.rankBottom1000;
+    }
+
+    let mainBlock: JSX.Element;
     if (svData === undefined) {
-      return <div>Loading...</div>;
-    } else if (svData === null) {
-      return <div>There is no ranking data for {statVar}</div>;
-    }
-    let isBottom = false;
-    let ranking = svData.rankAll || svData.rankTop1000;
-    if (!ranking) {
-      ranking = svData.rankBottom1000;
-      isBottom = true;
-    }
-    if (!ranking.info) {
-      return <div>There is no ranking data for {statVar}</div>;
-    }
-    let subtitle = "";
-    if (this.props.isPerCapita) {
-      subtitle = ", Per Capita";
+      mainBlock = <div className="mt-4">Loading...</div>;
+    } else if (svData === null || (ranking && !ranking.info)) {
+      mainBlock = (
+        <div className="mt-4">
+          There is no ranking data for {svTitle}
+          {perCapita}
+        </div>
+      );
+    } else {
+      mainBlock = (
+        <>
+          <RankingHistogram
+            ranking={ranking}
+            id={"ranking-chart"}
+            scaling={this.props.scaling}
+            unit={this.props.unit}
+          />
+          <RankingTable
+            ranking={ranking}
+            id={"ranking-table"}
+            isPerCapita={this.props.isPerCapita}
+            placeType={this.props.placeType}
+            scaling={this.props.scaling}
+            sortAscending={!svData.rankBottom1000}
+            statVar={this.props.statVar}
+            unit={this.props.unit}
+          />
+        </>
+      );
     }
     return (
       <div key={statVar}>
         <div className="btn-group btn-group-sm float-right" role="group"></div>
-        <h1>Rankings of {STATS_VAR_TITLES[statVar]}</h1>
+        <h1>Rankings of {svTitle}</h1>
         <h3>
-          {svData.rankAll
-            ? "All"
-            : svData.rankTop1000
-            ? "Top " + RANK_SIZE
-            : "Bottom " + RANK_SIZE}{" "}
+          {ranking &&
+            (svData.rankAll
+              ? "All"
+              : svData.rankTop1000
+              ? "Top " + RANK_SIZE
+              : "Bottom " + RANK_SIZE)}{" "}
           {displayNameForPlaceType(this.props.placeType, true /* isPlural */)}{" "}
           in {this.props.placeName}
-          {subtitle}
-          {this.renderToggle()}
+          {perCapita}
+          {svData && this.renderToggle()}
         </h3>
-        <RankingHistogram
-          ranking={ranking}
-          id={"ranking-chart"}
-          scaling={this.props.scaling}
-          unit={this.props.unit}
-        />
-        <RankingTable
-          ranking={ranking}
-          id={"ranking-table"}
-          placeType={this.props.placeType}
-          sortAscending={!isBottom}
-          scaling={this.props.scaling}
-          unit={this.props.unit}
-        />
+        {mainBlock}
       </div>
     );
   }
