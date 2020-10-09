@@ -46,20 +46,19 @@ const STATS_VAR_TITLES: { [key: string]: string } = {
     "Gross National Income (Purchasing Power Parity) Per Capita",
   Amount_EconomicActivity_GrossNationalIncome_PurchasingPowerParity:
     "Gross National Income (Purchasing Power Parity)",
-  "WorldBank/SL_TLF_0714_ZS": "Children Ages 7-14 in Employment",
-  "WorldBank/SE_XPD_TOTL_GB_ZS":
+  WorldBank_SL_TLF_0714_ZS: "Children Ages 7-14 in Employment",
+  WorldBank_SE_XPD_TOTL_GB_ZS:
     "Government Expenditures on Education (% of Government Expenditures)",
-  "WorldBank/SE_XPD_TOTL_GD_ZS":
+  WorldBank_SE_XPD_TOTL_GD_ZS:
     "Government Expenditures on Education (% of GDP)",
-  "WorldBank/MS_MIL_XPND_CD": "Government Expenditures on Military",
-  "WorldBank/MS_MIL_XPND_GD_ZS":
-    "Government Expenditures on Military (% of GDP)",
-  "WorldBank/CM_MKT_LCAP_CD": "Market Capitalization of Domestic Companies",
-  "WorldBank/CM_MKT_LCAP_GD_ZS":
+  WorldBank_MS_MIL_XPND_CD: "Government Expenditures on Military",
+  WorldBank_MS_MIL_XPND_GD_ZS: "Government Expenditures on Military (% of GDP)",
+  WorldBank_CM_MKT_LCAP_CD: "Market Capitalization of Domestic Companies",
+  WorldBank_CM_MKT_LCAP_GD_ZS:
     "Market Capitalization of Domestic Companies (% of GDP)",
-  "WorldBank/BX_TRF_PWKR_CD_DT": "Inward Remittance",
-  "WorldBank/BX_TRF_PWKR_DT_GD_ZS": "Inward Remittance (% of GDP)",
-  "WorldBank/BM_TRF_PWKR_CD_DT": "Outward Remittance",
+  WorldBank_BX_TRF_PWKR_CD_DT: "Inward Remittance",
+  WorldBank_BX_TRF_PWKR_DT_GD_ZS: "Inward Remittance (% of GDP)",
+  WorldBank_BM_TRF_PWKR_CD_DT: "Outward Remittance",
 
   // Environment
   Amount_Consumption_Energy_PerCapita: "Energy Consumption Per Capita",
@@ -187,8 +186,8 @@ const STATS_VAR_TITLES: { [key: string]: string } = {
   Count_Person_Separated: "Population (Separated)",
 
   // living situation
-  "WorldBank/SP_URB_TOTL": "Population (Urban)",
-  "WorldBank/SP_RUR_TOTL": "Population (Rural)",
+  WorldBank_SP_URB_TOTL: "Population (Urban)",
+  WorldBank_SP_RUR_TOTL: "Population (Rural)",
 
   // education/poulation
   Count_Person_EducationalAttainmentNoSchoolingCompleted:
@@ -241,7 +240,7 @@ const STATS_VAR_TITLES: { [key: string]: string } = {
   Count_Person_USCitizenBornAbroadOfAmericanParents: "Population (Born Abroad)",
 
   // Mortality
-  "WorldBank/SP_DYN_IMRT_IN": "Infant Mortality Rate",
+  WorldBank_SP_DYN_IMRT_IN: "Infant Mortality Rate",
 
   // Mortality cause
   Count_Death_DiseasesOfTheCirculatorySystem:
@@ -263,8 +262,8 @@ const STATS_VAR_TITLES: { [key: string]: string } = {
     "Percentage of People with Mental Health Not Good",
   Percent_Person_WithPhysicalHealthNotGood:
     "Percentage of People with Physical Health Not Good",
-  "WorldBank/SH_STA_WAST_ZS": "Wasting among Children under 5",
-  "WorldBank/SH_SVR_WAST_ZS": "Severe Wasting among Children under 5",
+  WorldBank_SH_STA_WAST_ZS: "Wasting among Children under 5",
+  WorldBank_SH_SVR_WAST_ZS: "Severe Wasting among Children under 5",
 
   // Behaviors
   Percent_Person_SleepLessThan7Hours:
@@ -274,7 +273,7 @@ const STATS_VAR_TITLES: { [key: string]: string } = {
   Percent_Person_PhysicalInactivity:
     "Percentage of People with Physical Inactivity",
   Percent_Person_Smoking: "Percentage of People That Smoke",
-  "WorldBank/SH_ALC_PCAP_LI": "Alcohol Consumption Per Capita (Annual)",
+  WorldBank_SH_ALC_PCAP_LI: "Alcohol Consumption Per Capita (Annual)",
 
   // Drug Prescribed
   RetailDrugDistribution_DrugDistribution_Oxycodone:
@@ -369,19 +368,18 @@ const STATS_VAR_TITLES: { [key: string]: string } = {
   Count_Person_25To34Years_EducationalAttainmentGraduateOrProfessionalDegree_Male:
     "Count of Males with Graduate or Professional Degrees",
 
-  "WorldBank/SL_TLF_0714_FE_ZS": "Children in Employment (Female)",
-  "WorldBank/SL_TLF_0714_MA_ZS": "Children in Employment (Male)",
+  WorldBank_SL_TLF_0714_FE_ZS: "Children in Employment (Female)",
+  WorldBank_SL_TLF_0714_MA_ZS: "Children in Employment (Male)",
 
-  "WorldBank/SP_DYN_IMRT_FE_IN": "Infant Mortality Rate (Female)",
-  "WorldBank/SP_DYN_IMRT_MA_IN": "Infant Mortality Rate (Male)",
+  WorldBank_SP_DYN_IMRT_FE_IN: "Infant Mortality Rate (Female)",
+  WorldBank_SP_DYN_IMRT_MA_IN: "Infant Mortality Rate (Male)",
 
-  "WorldBank/SH_STA_WAST_FE_ZS": "Wasting among Children under 5 (Female)",
-  "WorldBank/SH_SVR_WAST_FE_ZS":
-    "Severe Wasting among Children under 5 (Female)",
-  "WorldBank/SH_STA_WAST_MA_ZS": "Wasting among Children under 5 (Male)",
-  "WorldBank/SH_SVR_WAST_MA_ZS": "Severe Wasting among Children under 5 (Male)",
+  WorldBank_SH_STA_WAST_FE_ZS: "Wasting among Children under 5 (Female)",
+  WorldBank_SH_SVR_WAST_FE_ZS: "Severe Wasting among Children under 5 (Female)",
+  WorldBank_SH_STA_WAST_MA_ZS: "Wasting among Children under 5 (Male)",
+  WorldBank_SH_SVR_WAST_MA_ZS: "Severe Wasting among Children under 5 (Male)",
 
-  "WorldBank/SI_POV_GINI": "Gini Index",
+  WorldBank_SI_POV_GINI: "Gini Index",
 
   // Housing
   Count_HousingUnit_HomeValueUpto49999USDollar: "Under $50K",

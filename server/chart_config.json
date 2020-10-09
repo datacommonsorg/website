@@ -51,7 +51,7 @@
   {
     "category": "Economics",
     "title": "Children in Employment",
-    "statsVars": ["WorldBank/SL_TLF_0714_ZS"],
+    "statsVars": ["WorldBank_SL_TLF_0714_ZS"],
     "unit": "%",
     "isOverview": true,
     "relatedChart": {
@@ -73,7 +73,7 @@
   {
     "category": "Economics",
     "title": "Children in Employment by Gender",
-    "statsVars": ["WorldBank/SL_TLF_0714_FE_ZS", "WorldBank/SL_TLF_0714_MA_ZS"],
+    "statsVars": ["WorldBank_SL_TLF_0714_FE_ZS", "WorldBank_SL_TLF_0714_MA_ZS"],
     "unit": "%",
     "relatedChart": {
       "scale": false
@@ -135,7 +135,7 @@
   {
     "category": "Economics",
     "title": "Government Expenditures on Education (% of Government Expenditure)",
-    "statsVars": ["WorldBank/SE_XPD_TOTL_GB_ZS"],
+    "statsVars": ["WorldBank_SE_XPD_TOTL_GB_ZS"],
     "unit": "%",
     "relatedChart": {
       "scale": false
@@ -144,7 +144,7 @@
   {
     "category": "Economics",
     "title": "Government Expenditures on Education (% of GDP)",
-    "statsVars": ["WorldBank/SE_XPD_TOTL_GD_ZS"],
+    "statsVars": ["WorldBank_SE_XPD_TOTL_GD_ZS"],
     "unit": "%",
     "relatedChart": {
       "scale": false
@@ -153,7 +153,7 @@
   {
     "category": "Economics",
     "title": "Government Expenditures on Military",
-    "statsVars": ["WorldBank/MS_MIL_XPND_CD"],
+    "statsVars": ["WorldBank_MS_MIL_XPND_CD"],
     "unit": "$",
     "relatedChart": {
       "scale": false
@@ -162,7 +162,7 @@
   {
     "category": "Economics",
     "title": "Government Expenditures on Military (% of GDP)",
-    "statsVars": ["WorldBank/MS_MIL_XPND_GD_ZS"],
+    "statsVars": ["WorldBank_MS_MIL_XPND_GD_ZS"],
     "unit": "%",
     "relatedChart": {
       "scale": false
@@ -171,7 +171,7 @@
   {
     "category": "Economics",
     "title": "Market Capitalization of Domestic Companies",
-    "statsVars": ["WorldBank/CM_MKT_LCAP_CD"],
+    "statsVars": ["WorldBank_CM_MKT_LCAP_CD"],
     "unit": "$",
     "isOverview": true,
     "relatedChart": {
@@ -181,7 +181,7 @@
   {
     "category": "Economics",
     "title": "Market Capitalization of Domestic Companies (% of GDP)",
-    "statsVars": ["WorldBank/CM_MKT_LCAP_GD_ZS"],
+    "statsVars": ["WorldBank_CM_MKT_LCAP_GD_ZS"],
     "unit": "%",
     "relatedChart": {
       "scale": false
@@ -190,7 +190,7 @@
   {
     "category": "Economics",
     "title": "Inward Remittance",
-    "statsVars": ["WorldBank/BX_TRF_PWKR_CD_DT"],
+    "statsVars": ["WorldBank_BX_TRF_PWKR_CD_DT"],
     "unit": "$",
     "relatedChart": {
       "scale": false
@@ -199,7 +199,7 @@
   {
     "category": "Economics",
     "title": "Inward Remittance (% of GDP)",
-    "statsVars": ["WorldBank/BX_TRF_PWKR_DT_GD_ZS"],
+    "statsVars": ["WorldBank_BX_TRF_PWKR_DT_GD_ZS"],
     "unit": "%",
     "relatedChart": {
       "scale": false
@@ -208,7 +208,7 @@
   {
     "category": "Economics",
     "title": "Outward Remittance",
-    "statsVars": ["WorldBank/BM_TRF_PWKR_CD_DT"],
+    "statsVars": ["WorldBank_BM_TRF_PWKR_CD_DT"],
     "unit": "$",
     "relatedChart": {
       "scale": false
@@ -343,7 +343,7 @@
   {
     "category": "Health",
     "title": "Infant Mortality Rate",
-    "statsVars": ["WorldBank/SP_DYN_IMRT_IN"],
+    "statsVars": ["WorldBank_SP_DYN_IMRT_IN"],
     "scaling": 0.1,
     "unit": "%",
     "isOverview": true,
@@ -354,7 +354,7 @@
   {
     "category": "Health",
     "title": "Infant Mortality Rate by Gender",
-    "statsVars": ["WorldBank/SP_DYN_IMRT_MA_IN", "WorldBank/SP_DYN_IMRT_FE_IN"],
+    "statsVars": ["WorldBank_SP_DYN_IMRT_MA_IN", "WorldBank_SP_DYN_IMRT_FE_IN"],
     "scaling": 0.1,
     "unit": "%",
     "relatedChart": {
@@ -364,7 +364,7 @@
   {
     "category": "Health",
     "title": "Wasting among Children under 5",
-    "statsVars": ["WorldBank/SH_STA_WAST_ZS"],
+    "statsVars": ["WorldBank_SH_STA_WAST_ZS"],
     "unit": "%",
     "isOverview": true,
     "relatedChart": {
@@ -374,7 +374,7 @@
   {
     "category": "Health",
     "title": "Wasting among Children under 5 by Gender",
-    "statsVars": ["WorldBank/SH_STA_WAST_MA_ZS", "WorldBank/SH_STA_WAST_FE_ZS"],
+    "statsVars": ["WorldBank_SH_STA_WAST_MA_ZS", "WorldBank_SH_STA_WAST_FE_ZS"],
     "unit": "%",
     "relatedChart": {
       "scale": false
@@ -383,7 +383,7 @@
   {
     "category": "Health",
     "title": "Severe Wasting among Children under 5",
-    "statsVars": ["WorldBank/SH_SVR_WAST_ZS"],
+    "statsVars": ["WorldBank_SH_SVR_WAST_ZS"],
     "unit": "%",
     "isOverview": true,
     "relatedChart": {
@@ -393,7 +393,7 @@
   {
     "category": "Health",
     "title": "Severe Wasting among Children under 5 by Gender",
-    "statsVars": ["WorldBank/SH_SVR_WAST_MA_ZS", "WorldBank/SH_SVR_WAST_FE_ZS"],
+    "statsVars": ["WorldBank_SH_SVR_WAST_MA_ZS", "WorldBank_SH_SVR_WAST_FE_ZS"],
     "unit": "%",
     "relatedChart": {
       "scale": false
@@ -453,7 +453,7 @@
   {
     "category": "Health",
     "title": "Alcohol Consumption Per Capita (Annual)",
-    "statsVars": ["WorldBank/SH_ALC_PCAP_LI"],
+    "statsVars": ["WorldBank_SH_ALC_PCAP_LI"],
     "unit": "L",
     "isOverview": true,
     "relatedChart": {
@@ -463,7 +463,7 @@
   {
     "category": "Equity",
     "title": "Gini Index",
-    "statsVars": ["WorldBank/SI_POV_GINI"],
+    "statsVars": ["WorldBank_SI_POV_GINI"],
     "isOverview": true,
     "relatedChart": {
       "scale": false
@@ -746,7 +746,7 @@
   {
     "category": "Demographics",
     "title": "Urban and Rural Population",
-    "statsVars": ["WorldBank/SP_URB_TOTL", "WorldBank/SP_RUR_TOTL"],
+    "statsVars": ["WorldBank_SP_URB_TOTL", "WorldBank_SP_RUR_TOTL"],
     "isOverview": true,
     "relatedChart": {
       "scale": false
