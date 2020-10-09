@@ -781,7 +781,7 @@
       "Count_Person_75OrMoreYears",
       "Count_Person_80OrMoreYears"
     ],
-    "aggregate": true,
+    "aggregate": "age",
     "relatedChart": {
       "title": "Population by Age Per Capita",
       "scale": true,
@@ -906,18 +906,18 @@
   },
   {
     "category": "Housing",
-    "title": "Housing Unit",
+    "title": "Housing Units",
     "statsVars": ["Count_HousingUnit"],
     "isOverview": true,
     "relatedChart": {
-      "title": "Housing Unit Per Capita",
+      "title": "Housing Units Per Capita",
       "scale": true,
       "denominator": "Count_Person"
     }
   },
   {
     "category": "Housing",
-    "title": "Housing Unit by Householder Race",
+    "title": "Housing Units by Householder Race",
     "statsVars": [
       "Count_HousingUnit_HouseholderRaceAmericanIndianOrAlaskaNativeAlone",
       "Count_HousingUnit_HouseholderRaceAsianAlone",
@@ -930,7 +930,47 @@
     ],
     "isOverview": true,
     "relatedChart": {
-      "title": "Housing Unit Percentage by Householder Race",
+      "title": "Housing Units Percentage by Householder Race",
+      "scale": true,
+      "denominator": "Count_HousingUnit",
+      "scaling": 100,
+      "unit": "%"
+    }
+  },
+  {
+    "category": "Housing",
+    "title": "Housing Units by Value",
+    "statsVars": [
+      "Count_HousingUnit_HomeValueUpto10000USDollar",
+      "Count_HousingUnit_HomeValue10000To14999USDollar",
+      "Count_HousingUnit_HomeValue15000To19999USDollar",
+      "Count_HousingUnit_HomeValue20000To24999USDollar",
+      "Count_HousingUnit_HomeValue25000To29999USDollar",
+      "Count_HousingUnit_HomeValue30000To34999USDollar",
+      "Count_HousingUnit_HomeValue35000To39999USDollar",
+      "Count_HousingUnit_HomeValue40000To49999USDollar",
+      "Count_HousingUnit_HomeValue50000To59999USDollar",
+      "Count_HousingUnit_HomeValue60000To69999USDollar",
+      "Count_HousingUnit_HomeValue70000To79999USDollar",
+      "Count_HousingUnit_HomeValue80000To89999USDollar",
+      "Count_HousingUnit_HomeValue90000To99999USDollar",
+      "Count_HousingUnit_HomeValue100000To124999USDollar",
+      "Count_HousingUnit_HomeValue125000To149999USDollar",
+      "Count_HousingUnit_HomeValue150000To174999USDollar",
+      "Count_HousingUnit_HomeValue175000To199999USDollar",
+      "Count_HousingUnit_HomeValue200000To249999USDollar",
+      "Count_HousingUnit_HomeValue250000To299999USDollar",
+      "Count_HousingUnit_HomeValue300000To399999USDollar",
+      "Count_HousingUnit_HomeValue400000To499999USDollar",
+      "Count_HousingUnit_HomeValue500000To749999USDollar",
+      "Count_HousingUnit_HomeValue750000To999999USDollar",
+      "Count_HousingUnit_HomeValue1000000To1499999USDollar",
+      "Count_HousingUnit_HomeValue1500000To1999999USDollar",
+      "Count_HousingUnit_HomeValue2000000OrMoreUSDollar"
+    ],
+    "aggregate": "homeValue",
+    "relatedChart": {
+      "title": "Percentage of Housing Units by Value",
       "scale": true,
       "denominator": "Count_HousingUnit",
       "scaling": 100,
