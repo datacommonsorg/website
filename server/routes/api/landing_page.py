@@ -345,14 +345,14 @@ def data(dcid):
         if place == 'country/USA':
             is_usa_place = True
             break
-
     # Populate the data for each chart
     all_stat = raw_page_data['data']
     for category in spec_and_stat:
-        if not is_usa_place:
-            chart_types = []
-        elif category == 'Overview':
-            chart_types = ['nearby', 'child']
+        if category == 'Overview':
+            if is_usa_place:
+                chart_types = ['nearby', 'child']
+            else:
+                chart_types = ['similar']
         else:
             chart_types = BAR_CHART_TYPES
         for topic in spec_and_stat[category]:
@@ -401,34 +401,33 @@ def data(dcid):
                 spec_and_stat[category][topic] = filtered_charts
         if not spec_and_stat[category]:
             del spec_and_stat[category]
-    # For non US places, only keep the "Overview" category if the number of
-    # total chart is less than certain threshold.
-    if not is_usa_place:
-        overview_set = set()
-        non_overview_set = set()
-        chart_count = 0
-        # Get the overview charts
-        for topic, charts in spec_and_stat['Overview'].items():
-            for chart in charts:
-                overview_set.add((topic, chart['title']))
+    # Only keep the "Overview" category if the number of total chart is less
+    # than certain threshold.
+    overview_set = set()
+    non_overview_set = set()
+    chart_count = 0
+    # Get the overview charts
+    for topic, charts in spec_and_stat['Overview'].items():
+        for chart in charts:
+            overview_set.add((topic, chart['title']))
+            chart_count += 1
+    # Get the non overview charts
+    for category, topic_data in spec_and_stat.items():
+        if category == 'Overview':
+            continue
+        for topic in topic_data:
+            if (category, topic) not in overview_set:
+                non_overview_set.add((category, topic))
                 chart_count += 1
-        # Get the non overview charts
-        for category, topic_data in spec_and_stat.items():
-            if category == 'Overview':
-                continue
-            for topic in topic_data:
-                if (category, topic) not in overview_set:
-                    non_overview_set.add((category, topic))
-                    chart_count += 1
-        # If the total number of chart is too small, then merge all charts to
-        # the overview category and remove other categories
-        if chart_count < MIN_CHART_TO_KEEP_TOPICS:
-            for category, topic in non_overview_set:
-                spec_and_stat['Overview'][category].extend(
-                    spec_and_stat[category][topic])
-            for category in list(spec_and_stat.keys()):
-                if category != 'Overview':
-                    del spec_and_stat[category]
+    # If the total number of chart is too small, then merge all charts to
+    # the overview category and remove other categories
+    if chart_count < MIN_CHART_TO_KEEP_TOPICS:
+        for category, topic in non_overview_set:
+            spec_and_stat['Overview'][category].extend(
+                spec_and_stat[category][topic])
+        for category in list(spec_and_stat.keys()):
+            if category != 'Overview':
+                del spec_and_stat[category]
 
     # Get display name for all places
     all_places = [dcid]
