@@ -331,7 +331,8 @@ class Chart extends React.Component<ChartPropType, ChartStateType> {
         CHART_HEIGHT,
         elem.offsetWidth,
         this.props.choroplethData.data,
-        this.props.unit
+        this.props.unit,
+        this.props.statsVars[0]
       );
     }
   }

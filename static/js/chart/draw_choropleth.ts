@@ -19,19 +19,9 @@
  */
 
 import * as d3 from "d3";
+import { ColorCommonInstance } from "d3";
+import { getColorFn } from "./base";
 
-const CHOROPLETH_MIN_DATAPOINTS = 9;
-const blues = [
-  "#f7fbff",
-  "#deebf7",
-  "#c6dbef",
-  "#9ecae1",
-  "#6baed6",
-  "#4292c6",
-  "#2171b5",
-  "#08519c",
-  "#08306b",
-];
 const MISSING_DATA_COLOR = "grey";
 const TOOLTIP_ID = "tooltip";
 
@@ -43,13 +33,16 @@ function drawChoropleth(
   dataValues: {
     [placeDcid: string]: number;
   },
-  unit: string
+  unit: string,
+  statVar: string
 ): void {
-  const colorVals = determineColorPalette(dataValues);
-  const colorScale = d3
+  const maxColor = d3.color(getColorFn([statVar])(statVar));
+  let colorScale = d3
     .scaleLinear()
-    .domain(colorVals)
-    .range((blues as unknown) as number[]);
+    .domain(d3.extent(Object.values(dataValues)))
+    .range((["#fff", maxColor, maxColor.darker(2)] as unknown) as number[])
+    .interpolate((((d3.interpolateHslLong as unknown))) as (a: unknown, b: unknown) => (t: number) => number
+    );
 
   // Add svg for the map to the div holding the chart.
   d3.select("#" + containerId)
@@ -93,6 +86,8 @@ function drawChoropleth(
     .attr("id", (_, index) => {
       return "geoPath" + index;
     })
+    .attr("stroke-width", "1px")
+    .attr("stroke", "#a0a0a0")
     .on("mouseover", onMouseOver(containerId))
     .on("mouseout", onMouseOut(containerId))
     .on("mousemove", onMouseMove(containerId, dataValues, unit));
@@ -103,17 +98,13 @@ function drawChoropleth(
 
 const onMouseOver = (containerId: string) => (_, index): void => {
   // show highlighted border
-  d3.select("#geoPath" + index)
-    .classed("border", false)
-    .classed("border-highlighted", true);
+  d3.select("#geoPath" + index).classed("border-highlighted", true);
   // show tooltip
   d3.select("#" + containerId + " #" + TOOLTIP_ID).style("display", "block");
 };
 
 const onMouseOut = (containerId: string) => (_, index): void => {
-  d3.select("#geoPath" + index)
-    .classed("border", true)
-    .classed("border-highlighted", false);
+  d3.select("#geoPath" + index).classed("border-highlighted", false);
   d3.select("#" + containerId + " #" + TOOLTIP_ID).style("display", "none");
 };
 
@@ -146,30 +137,6 @@ const onMouseMove = (
     .style("left", d3.event.offsetX + leftOffset + "px")
     .style("top", d3.event.offsetY + topOffset + "px");
 };
-
-//TODO(chejennifer): use viridis or another standard d3 scale
-function determineColorPalette(dataValues: {
-  [placeDcid: string]: number;
-}): number[] {
-  // Create a sorted list of values.
-  const values = [];
-  for (const key in dataValues) {
-    values.push(dataValues[key]);
-  }
-  values.sort((a, b) => a - b);
-  const len = values.length;
-
-  // Find CHOROPLETH_MIN_DATAPOINTS number of values with equal separation from one another.
-  const steps = CHOROPLETH_MIN_DATAPOINTS;
-  if (len >= steps) {
-    const start = 0;
-    return d3.range(start, steps).map((d) => {
-      return values[Math.floor(((len - 1) * d) / (steps - 1))];
-    });
-  } else {
-    return [0, 0, 0, 0, 0, 0, 0, 0, 0];
-  }
-}
 
 function addTooltip(containerId: string) {
   d3.select("#" + containerId)
@@ -272,4 +239,4 @@ const genScaleImg = (
   return canvas;
 };
 
-export { CHOROPLETH_MIN_DATAPOINTS, drawChoropleth };
+export { drawChoropleth };

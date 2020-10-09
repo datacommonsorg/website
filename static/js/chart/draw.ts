@@ -53,6 +53,9 @@ const TEXT_FONT_FAMILY = "Roboto";
 const AXIS_TEXT_FILL = "#2b2929";
 const AXIS_GRID_FILL = "#999";
 
+// Max Y value used for y domains for charts that have only 0 values.
+const MAX_Y_FOR_ZERO_CHARTS = 10;
+
 function appendLegendElem(
   elem: string,
   color: d3.ScaleOrdinal<string, string>,
@@ -582,10 +585,13 @@ function drawLineChart(
   dataGroups: DataGroup[],
   unit?: string
 ): boolean {
-  const maxV = Math.max(...dataGroups.map((dataGroup) => dataGroup.max()));
+  let maxV = Math.max(...dataGroups.map((dataGroup) => dataGroup.max()));
   let minV = Math.min(...dataGroups.map((dataGroup) => dataGroup.min()));
   if (minV > 0) {
     minV = 0;
+  }
+  if (maxV == 0) {
+    maxV = MAX_Y_FOR_ZERO_CHARTS;
   }
 
   const svg = d3
