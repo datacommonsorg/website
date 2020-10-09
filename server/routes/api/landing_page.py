@@ -132,9 +132,8 @@ def get_series(data, place, stat_vars):
 
 def get_stat_var_group(cc, data, places):
     """Get the stat var grouping for aggregation."""
-    if cc.get('aggregate', False):
-        # For stat vars that need aggregation, use quantify range aggregation.
-        # TODO(shifucun): support more quantify range besides "age"
+    if 'aggregate' in cc:
+        agg_type = lib_range.get_aggregate_config(cc['aggregate'])
         place_stat_vars = defaultdict(list)
         for place in places:
             if place not in data:
@@ -142,7 +141,7 @@ def get_stat_var_group(cc, data, places):
             for sv in cc['statsVars']:
                 if data[place][sv]:
                     place_stat_vars[place].append(sv)
-        result = lib_range.aggregate_age_stat_var(place_stat_vars)
+        result = lib_range.aggregate_stat_var(place_stat_vars, agg_type)
         for place in places:
             if place not in result:
                 result[place] = {}
@@ -225,7 +224,6 @@ def get_snapshot_across_places(cc, data, places):
             points[stat_var] = value
         if points:
             result['data'].append({'dcid': place, 'data': points})
-
     return result
 
 
@@ -365,8 +363,18 @@ def data(dcid):
                 for t in chart_types:
                     chart[t] = get_bar(chart, all_stat, [dcid] +
                                        raw_page_data.get(t + 'Places', []))
+                    if t == 'similar' and 'data' in chart[t]:
+                        # If no data for current place, do not serve similar
+                        # place data.
+                        keep_chart = False
+                        for d in chart[t]['data']:
+                            if d['dcid'] == dcid:
+                                keep_chart = True
+                                break
+                        if not keep_chart:
+                            chart[t] = {}
                 # Update stat vars for aggregated stats
-                if chart.get('aggregate', False):
+                if 'aggregate' in chart:
                     chart['statsVars'] = list(chart['trend'].get('series',
                                                                  {}).keys())
                     for t in chart_types:

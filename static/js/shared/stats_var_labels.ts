@@ -27,11 +27,12 @@ const STATS_VAR_LABEL: { [key: string]: string } = {
     "Unemployment Insurance Claim",
   Count_Person_Employed: "Employed People",
   Count_Person_InLaborForce: "People in Labor Force",
-  Count_Person: "Total",
+  Count_Person: "Total Population",
   Count_Person_PerArea: "Persons Per Area",
   LifeExpectancy_Person: "Life Expectancy",
   GrowthRate_Count_Person: "Population Growth Rate",
   FertilityRate_Person_Female: "Fertility Rate",
+  Count_HousingUnit: "Housing Unit",
 
   // Economics
   Amount_EconomicActivity_GrossDomesticProduction_Nominal: "GDP",
@@ -124,6 +125,19 @@ const STATS_VAR_LABEL: { [key: string]: string } = {
   Count_Person_SomeOtherRaceAlone: "Some Other Race",
   Count_Person_TwoOrMoreRaces: "Two or More Races",
   Count_Person_WhiteAlone: "White Alone",
+
+  Count_HousingUnit_HouseholderRaceAmericanIndianOrAlaskaNativeAlone:
+    "American Indian or Alaska Native",
+  Count_HousingUnit_HouseholderRaceAsianAlone: "Asian Alone",
+  Count_HousingUnit_HouseholderRaceBlackOrAfricanAmericanAlone:
+    "Black or African American",
+  Count_HousingUnit_HouseholderRaceHispanicOrLatino: "Hispanic or Latino",
+  Count_HousingUnit_HouseholderRaceNativeHawaiianAndOtherPacificIslanderAlone:
+    "Native Hawaiian and Pacific Islander",
+  Count_HousingUnit_HouseholderRaceSomeOtherRaceAlone: "Some Other Race",
+  Count_HousingUnit_HouseholderRaceTwoOrMoreRaces: "Two or More Races",
+  Count_HousingUnit_HouseholderRaceWhiteAlone: "White Alone",
+
   Median_Age_Person_AmericanIndianOrAlaskaNativeAlone:
     "American Indian or Alaska Native",
   Median_Age_Person_AsianAlone: "Asian Alone",
@@ -276,6 +290,17 @@ const STATS_VAR_LABEL: { [key: string]: string } = {
   "WorldBank/SH_SVR_WAST_MA_ZS": "Male",
 
   "WorldBank/SI_POV_GINI": "Gini Index",
+
+  // Housing
+  Count_HousingUnit_HomeValueUpto49999USDollar: "0 - $50K",
+  Count_HousingUnit_HomeValue50000To99999USDollar: "$50K - $100K",
+  Count_HousingUnit_HomeValue100000To199999USDollar: "$100K - $200K",
+  Count_HousingUnit_HomeValue200000To299999USDollar: "$200K - $300K",
+  Count_HousingUnit_HomeValue300000To499999USDollar: "$300K - $500K",
+  Count_HousingUnit_HomeValue500000To999999USDollar: "$500K - $1M",
+  Count_HousingUnit_HomeValue1000000To1499999USDollar: "$1M - $1.5M",
+  Count_HousingUnit_HomeValue1500000To1999999USDollar: "$1.5M - $2M",
+  Count_HousingUnit_HomeValue2000000OrMoreUSDollar: "$2M+",
 };
 
 export { STATS_VAR_LABEL };

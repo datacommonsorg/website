@@ -15,6 +15,8 @@
 import json
 import unittest
 
+import lib.range as lib_range
+
 
 class TestChart(unittest.TestCase):
 
@@ -33,3 +35,9 @@ class TestChart(unittest.TestCase):
             if 'relatedChart' in chart:
                 if chart['relatedChart'].get('scale', False):
                     assert 'denominator' in chart['relatedChart']
+
+    def test_aggregate_field(self):
+        for chart in self.charts:
+            if 'aggregate' in chart:
+                agg_conf = lib_range.get_aggregate_config(chart['aggregate'])
+                assert 'grouping' in agg_conf
