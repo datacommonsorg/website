@@ -32,6 +32,7 @@ const STATS_VAR_TITLES: { [key: string]: string } = {
   LifeExpectancy_Person: "Life Expectancy",
   GrowthRate_Count_Person: "Population Growth Rate",
   FertilityRate_Person_Female: "Fertility Rate",
+  Count_HousingUnit: "Housing Unit",
 
   // Economics
   Amount_EconomicActivity_GrossDomesticProduction_Nominal:
@@ -132,6 +133,21 @@ const STATS_VAR_TITLES: { [key: string]: string } = {
   Count_Person_SomeOtherRaceAlone: "Population (Some other race)",
   Count_Person_TwoOrMoreRaces: "Population (Two or More Races)",
   Count_Person_WhiteAlone: "Population (White Alone)",
+
+  Count_HousingUnit_HouseholderRaceAmericanIndianOrAlaskaNativeAlone:
+    "Population (American Indians or Alaska Native)",
+  Count_HousingUnit_HouseholderRaceAsianAlone: "Population (Asian Alone)",
+  Count_HousingUnit_HouseholderRaceBlackOrAfricanAmericanAlone:
+    "Population (Black or African American)",
+  Count_HousingUnit_HouseholderRaceHispanicOrLatino:
+    "Population (Hispanic or Latino)",
+  Count_HousingUnit_HouseholderRaceNativeHawaiianAndOtherPacificIslanderAlone:
+    "Population (Native Hawaiian and Pacific Islander)",
+  Count_HousingUnit_HouseholderRaceSomeOtherRaceAlone:
+    "Population (Some other race)",
+  Count_HousingUnit_HouseholderRaceTwoOrMoreRaces:
+    "Population (Two or More Races)",
+  Count_HousingUnit_HouseholderRaceWhiteAlone: "Population (White Alone)",
 
   Median_Age_Person_AmericanIndianOrAlaskaNativeAlone:
     "Median Age (American Indian or Alaska Native)",

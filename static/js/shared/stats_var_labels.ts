@@ -27,11 +27,12 @@ const STATS_VAR_LABEL: { [key: string]: string } = {
     "Unemployment Insurance Claim",
   Count_Person_Employed: "Employed People",
   Count_Person_InLaborForce: "People in Labor Force",
-  Count_Person: "Total",
+  Count_Person: "Total Population",
   Count_Person_PerArea: "Persons Per Area",
   LifeExpectancy_Person: "Life Expectancy",
   GrowthRate_Count_Person: "Population Growth Rate",
   FertilityRate_Person_Female: "Fertility Rate",
+  Count_HousingUnit: "Housing Unit",
 
   // Economics
   Amount_EconomicActivity_GrossDomesticProduction_Nominal: "GDP",
@@ -124,6 +125,19 @@ const STATS_VAR_LABEL: { [key: string]: string } = {
   Count_Person_SomeOtherRaceAlone: "Some Other Race",
   Count_Person_TwoOrMoreRaces: "Two or More Races",
   Count_Person_WhiteAlone: "White Alone",
+
+  Count_HousingUnit_HouseholderRaceAmericanIndianOrAlaskaNativeAlone:
+    "American Indian or Alaska Native",
+  Count_HousingUnit_HouseholderRaceAsianAlone: "Asian Alone",
+  Count_HousingUnit_HouseholderRaceBlackOrAfricanAmericanAlone:
+    "Black or African American",
+  Count_HousingUnit_HouseholderRaceHispanicOrLatino: "Hispanic or Latino",
+  Count_HousingUnit_HouseholderRaceNativeHawaiianAndOtherPacificIslanderAlone:
+    "Native Hawaiian and Pacific Islander",
+  Count_HousingUnit_HouseholderRaceSomeOtherRaceAlone: "Some Other Race",
+  Count_HousingUnit_HouseholderRaceTwoOrMoreRaces: "Two or More Races",
+  Count_HousingUnit_HouseholderRaceWhiteAlone: "White Alone",
+
   Median_Age_Person_AmericanIndianOrAlaskaNativeAlone:
     "American Indian or Alaska Native",
   Median_Age_Person_AsianAlone: "Asian Alone",
