@@ -133,14 +133,7 @@ def get_series(data, place, stat_vars):
 def get_stat_var_group(cc, data, places):
     """Get the stat var grouping for aggregation."""
     if 'aggregate' in cc:
-        agg_type = None
-        if cc['aggregate'] == 'Count_Person':
-            agg_type = lib_range.AGE
-        elif cc['aggregate'] == 'Count_HousingUnit':
-            agg_type = lib_range.HOUSING_VALUE
-        else:
-            return {}
-
+        agg_type = lib_range.get_aggregate_config(cc['aggregate'])
         place_stat_vars = defaultdict(list)
         for place in places:
             if place not in data:

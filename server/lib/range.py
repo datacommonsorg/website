@@ -45,7 +45,7 @@ AGE = {
     }
 }
 
-HOUSING_VALUE = {
+HOME_VALUE = {
     'regex': re.compile('Count_HousingUnit_HomeValue(.*)USDollar'),
     'fmt': 'Count_HousingUnit_HomeValue{}USDollar',
     'grouping': {
@@ -78,6 +78,15 @@ HOUSING_VALUE = {
         }
     }
 }
+
+
+def get_aggregate_config(prop):
+    # cc['aggregate'] field is the stat var property to aggregate.
+    if prop == 'age':
+        return AGE
+    elif prop == 'homeValue':
+        return HOME_VALUE
+    return {}
 
 
 def from_string(s):
