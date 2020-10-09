@@ -300,6 +300,9 @@ const STATS_VAR_LABEL: { [key: string]: string } = {
   Count_HousingUnit_HomeValue1000000To1499999USDollar: "$1M - $1.5M",
   Count_HousingUnit_HomeValue1500000To1999999USDollar: "$1.5M - $2M",
   Count_HousingUnit_HomeValue2000000OrMoreUSDollar: "$2M+",
+
+  Count_HousingUnit_OwnerOccupied: "Owner",
+  Count_HousingUnit_RenterOccupied: "Renter",
 };
 
 export { STATS_VAR_LABEL };

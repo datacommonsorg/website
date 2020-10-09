@@ -980,6 +980,21 @@
     }
   },
   {
+    "category": "Housing",
+    "title": "Housing Units by Rental Status",
+    "statsVars": [
+      "Count_HousingUnit_OwnerOccupied",
+      "Count_HousingUnit_RenterOccupied"
+    ],
+    "relatedChart": {
+      "title": "Percentage of Housing Units by Rental Status",
+      "scale": true,
+      "denominator": "Count_HousingUnit",
+      "scaling": 100,
+      "unit": "%"
+    }
+  },
+  {
     "category": "Environment",
     "title": "Energy Consumption Per Capita",
     "statsVars": ["Amount_Consumption_Energy_PerCapita"],
