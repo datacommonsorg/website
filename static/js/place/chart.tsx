@@ -148,7 +148,8 @@ class Chart extends React.Component<ChartPropType, ChartStateType> {
       this.props.chartType === chartTypeEnum.CHOROPLETH &&
       (!this.state.choroplethDataGroup ||
         this.state.choroplethDataGroup.numDataPoints <
-          MIN_CHOROPLETH_DATAPOINTS)
+          MIN_CHOROPLETH_DATAPOINTS ||
+        !this.props.geoJsonData)
     ) {
       return null;
     }

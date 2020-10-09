@@ -91,7 +91,7 @@ async function getGeoJsonData(
   dcid: string,
   placeType: string
 ): Promise<unknown> {
-  if (placeType == "Country" || placeType == "State") {
+  if (shouldMakeChoroplethCalls(dcid, placeType)) {
     return axios.get("/api/chart/geojson/" + dcid).then((resp) => {
       return resp.data;
     });
@@ -109,7 +109,7 @@ async function getChoroplethData(
   dcid: string,
   placeType: string
 ): Promise<CachedChoroplethData> {
-  if (placeType == "Country" || placeType == "State") {
+  if (shouldMakeChoroplethCalls(dcid, placeType)) {
     return axios.get("/api/chart/choroplethdata/" + dcid).then((resp) => {
       return resp.data;
     });
@@ -127,6 +127,12 @@ async function getLandingPageData(dcid: string): Promise<PageData> {
   return axios.get("/api/landingpage/data/" + dcid).then((resp) => {
     return resp.data;
   });
+}
+
+function shouldMakeChoroplethCalls(dcid: string, placeType: string): boolean {
+  const isInUSA: boolean =
+    dcid.startsWith("geoId") || dcid.startsWith("country/USA");
+  return isInUSA && (placeType == "Country" || placeType == "State");
 }
 
 function renderPage(): void {
