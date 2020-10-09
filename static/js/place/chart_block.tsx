@@ -139,46 +139,63 @@ class ChartBlock extends React.Component<ChartBlockPropType, unknown> {
     const rankingArg = `?${rankingParam.toString()}`;
 
     if (this.props.isOverview) {
-      // Show child place(state) chart for USA page, otherwise show nearby
-      // places.
-      const id = randDomId();
-      if (this.props.dcid === "country/USA") {
-        if (!_.isEmpty(this.props.data.child)) {
-          chartElements.push(
-            <Chart
-              key={id}
-              id={id}
-              snapshot={this.props.data.child}
-              title={`${relatedChartTitle}: States within ${this.props.placeName}`}
-              rankingTemplateUrl={`/ranking/_sv_/State/country/USA${rankingArg}`}
-              {...sharedProps}
-            ></Chart>
-          );
-        }
-      } else {
-        if (!_.isEmpty(this.props.data.nearby)) {
-          chartElements.push(
-            <Chart
-              key={id}
-              id={id}
-              snapshot={this.props.data.nearby}
-              title={`${relatedChartTitle}: ${displayPlaceType} near ${this.props.placeName}`}
-              rankingTemplateUrl={`/ranking/_sv_/${this.props.placeType}/${this.props.parentPlaceDcid}${rankingArg}`}
-              {...sharedProps}
-            ></Chart>
-          );
-        } else if (!_.isEmpty(this.props.data.child)) {
-          chartElements.push(
-            <Chart
-              key={id}
-              id={id}
-              snapshot={this.props.data.child}
-              title={`${relatedChartTitle}: Places within ${this.props.placeName}`}
-              rankingTemplateUrl={`/ranking/_sv_/${this.props.childPlaceType}/${this.props.dcid}${rankingArg}`}
-              {...sharedProps}
-            ></Chart>
-          );
-        }
+      // Show one related place for overview page, the preference is
+      // nearby -> child -> simialr -> parent
+      let gotChart = false;
+      if (!_.isEmpty(this.props.data.nearby)) {
+        const id = randDomId();
+        chartElements.push(
+          <Chart
+            key={id}
+            id={id}
+            snapshot={this.props.data.nearby}
+            title={`${relatedChartTitle}: ${displayPlaceType} near ${this.props.placeName}`}
+            rankingTemplateUrl={`/ranking/_sv_/${this.props.placeType}/${this.props.parentPlaceDcid}${rankingArg}`}
+            {...sharedProps}
+          ></Chart>
+        );
+        gotChart = true;
+      }
+      if (!gotChart && !_.isEmpty(this.props.data.child)) {
+        const id = randDomId();
+        chartElements.push(
+          <Chart
+            key={id}
+            id={id}
+            snapshot={this.props.data.child}
+            title={`${relatedChartTitle}: Places within ${this.props.placeName}`}
+            rankingTemplateUrl={`/ranking/_sv_/${this.props.childPlaceType}/${this.props.dcid}${rankingArg}`}
+            {...sharedProps}
+          ></Chart>
+        );
+        gotChart = true;
+      }
+      if (!gotChart && !_.isEmpty(this.props.data.similar)) {
+        const id = randDomId();
+        chartElements.push(
+          <Chart
+            key={id}
+            id={id}
+            snapshot={this.props.data.similar}
+            title={`${relatedChartTitle}: other ${displayPlaceType}`}
+            rankingTemplateUrl={`/ranking/_sv_/${this.props.placeType}/country/USA${rankingArg}`}
+            {...sharedProps}
+          ></Chart>
+        );
+        gotChart = true;
+      }
+      if (!gotChart && !_.isEmpty(this.props.data.parent)) {
+        const id = randDomId();
+        chartElements.push(
+          <Chart
+            key={id}
+            id={id}
+            snapshot={this.props.data.parent}
+            title={`${relatedChartTitle}: places that contain ${this.props.placeName}`}
+            rankingTemplateUrl={`/ranking/_sv_/${this.props.placeType}/country/USA${rankingArg}`}
+            {...sharedProps}
+          ></Chart>
+        );
       }
     } else {
       // Topic page

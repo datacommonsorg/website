@@ -59,7 +59,7 @@ class Ranking extends React.Component<RankingPropsType, RankingStateType> {
                   return (
                     <tr key={index}>
                       <th scope="row">{item}</th>
-                      {data[item].map((rankingInfo) => {
+                      {data[item].map((rankingInfo, index) => {
                         const top = rankingInfo.data.rankFromTop;
                         const bottom = rankingInfo.data.rankFromBottom;
                         let text = "";
@@ -67,7 +67,7 @@ class Ranking extends React.Component<RankingPropsType, RankingStateType> {
                           text = `${top} of ${top + bottom}`;
                         }
                         return (
-                          <td key={text}>
+                          <td key={text + index}>
                             <a href={rankingInfo.rankingUrl}>{text}</a>
                           </td>
                         );
