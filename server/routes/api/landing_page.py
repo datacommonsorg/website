@@ -348,7 +348,7 @@ def data(dcid):
     # Populate the data for each chart
     all_stat = raw_page_data['data']
     for category in spec_and_stat:
-        if category == 'Overview':
+        if category == OVERVIEW:
             if is_usa_place:
                 chart_types = ['nearby', 'child']
             else:
@@ -407,13 +407,13 @@ def data(dcid):
     non_overview_set = set()
     chart_count = 0
     # Get the overview charts
-    for topic, charts in spec_and_stat['Overview'].items():
+    for topic, charts in spec_and_stat[OVERVIEW].items():
         for chart in charts:
             overview_set.add((topic, chart['title']))
             chart_count += 1
     # Get the non overview charts
     for category, topic_data in spec_and_stat.items():
-        if category == 'Overview':
+        if category == OVERVIEW:
             continue
         for topic in topic_data:
             if (category, topic) not in overview_set:
@@ -423,10 +423,10 @@ def data(dcid):
     # the overview category and remove other categories
     if chart_count < MIN_CHART_TO_KEEP_TOPICS:
         for category, topic in non_overview_set:
-            spec_and_stat['Overview'][category].extend(
+            spec_and_stat[OVERVIEW][category].extend(
                 spec_and_stat[category][topic])
         for category in list(spec_and_stat.keys()):
-            if category != 'Overview':
+            if category != OVERVIEW:
                 del spec_and_stat[category]
 
     # Get display name for all places
