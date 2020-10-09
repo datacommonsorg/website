@@ -49,8 +49,7 @@ const STATS_VAR_LABEL: { [key: string]: string } = {
   WorldBank_SE_XPD_TOTL_GD_ZS:
     "Government Expenditures on Education (% of GDP)",
   WorldBank_MS_MIL_XPND_CD: "Government Expenditures on Military",
-  WorldBank_MS_MIL_XPND_GD_ZS:
-    "Government Expenditures on Military (% of GDP)",
+  WorldBank_MS_MIL_XPND_GD_ZS: "Government Expenditures on Military (% of GDP)",
   WorldBank_CM_MKT_LCAP_CD: "Market Capitalization of Domestic Companies",
   WorldBank_CM_MKT_LCAP_GD_ZS:
     "Market Capitalization of Domestic Companies (% of GDP)",
@@ -164,8 +163,8 @@ const STATS_VAR_LABEL: { [key: string]: string } = {
   Count_Person_Widowed: "Widowed",
   Count_Person_Separated: "Separated",
   // living situation
-  WorldBank_SP_URB_TOTL": "Urban Population",
-  WorldBank_SP_RUR_TOTL": "Rural Population",
+  WorldBank_SP_URB_TOTL: "Urban Population",
+  WorldBank_SP_RUR_TOTL: "Rural Population",
   // education/poulation
   Count_Person_EducationalAttainmentNoSchoolingCompleted: "No Schooling",
   Count_Person_EducationalAttainmentRegularHighSchoolDiploma: "High School",
@@ -197,7 +196,7 @@ const STATS_VAR_LABEL: { [key: string]: string } = {
   Count_Person_NotAUSCitizen: "Not a Citizen",
   Count_Person_USCitizenBornAbroadOfAmericanParents: "Born Abroad",
   // Mortality
-  WorldBank_SP_DYN_IMRT_IN": "Infant Mortality Rate",
+  WorldBank_SP_DYN_IMRT_IN: "Infant Mortality Rate",
   // Mortality cause
   Count_Death_DiseasesOfTheCirculatorySystem: "Circulatory System",
   Count_Death_Neoplasms: "Neoplasms",
@@ -210,15 +209,15 @@ const STATS_VAR_LABEL: { [key: string]: string } = {
   Percent_Person_WithArthritis: "Arthritis",
   Percent_Person_WithMentalHealthNotGood: "Mental Health Not Good",
   Percent_Person_WithPhysicalHealthNotGood: "Physical Health Not Good",
-  WorldBank_SH_STA_WAST_ZS": "Wasted Children under 5",
-  WorldBank_SH_SVR_WAST_ZS": "Severely Wasted Children under 5",
+  WorldBank_SH_STA_WAST_ZS: "Wasted Children under 5",
+  WorldBank_SH_SVR_WAST_ZS: "Severely Wasted Children under 5",
   // Behaviors
   Percent_Person_SleepLessThan7Hours: "Sleep Less Than 7 Hours",
   Percent_Person_Obesity: "Obesity",
   Percent_Person_BingeDrinking: "Binge Drinking",
   Percent_Person_PhysicalInactivity: "Physical Inactivity",
   Percent_Person_Smoking: "Smoking",
-  WorldBank_SH_ALC_PCAP_LI": "Pure Alcohol Consumption",
+  WorldBank_SH_ALC_PCAP_LI: "Pure Alcohol Consumption",
   // Drug Prescribed
   RetailDrugDistribution_DrugDistribution_Oxycodone: "Oxycodone",
   RetailDrugDistribution_DrugDistribution_Hydrocodone: "Hydrocodone",
@@ -278,18 +277,18 @@ const STATS_VAR_LABEL: { [key: string]: string } = {
   Count_Person_25To34Years_EducationalAttainmentGraduateOrProfessionalDegree_Male:
     "Male",
 
-  WorldBank_SL_TLF_0714_FE_ZS": "Female",
-  WorldBank_SL_TLF_0714_MA_ZS": "Male",
+  WorldBank_SL_TLF_0714_FE_ZS: "Female",
+  WorldBank_SL_TLF_0714_MA_ZS: "Male",
 
-  WorldBank_SP_DYN_IMRT_FE_IN": "Female",
-  WorldBank_SP_DYN_IMRT_MA_IN": "Male",
+  WorldBank_SP_DYN_IMRT_FE_IN: "Female",
+  WorldBank_SP_DYN_IMRT_MA_IN: "Male",
 
-  WorldBank_SH_STA_WAST_FE_ZS": "Female",
-  WorldBank_SH_SVR_WAST_FE_ZS": "Female",
-  WorldBank_SH_STA_WAST_MA_ZS": "Male",
-  WorldBank_SH_SVR_WAST_MA_ZS": "Male",
+  WorldBank_SH_STA_WAST_FE_ZS: "Female",
+  WorldBank_SH_SVR_WAST_FE_ZS: "Female",
+  WorldBank_SH_STA_WAST_MA_ZS: "Male",
+  WorldBank_SH_SVR_WAST_MA_ZS: "Male",
 
-  WorldBank_SI_POV_GINI": "Gini Index",
+  WorldBank_SI_POV_GINI: "Gini Index",
 
   // Housing
   Count_HousingUnit_HomeValueUpto49999USDollar: "0 - $50K",
