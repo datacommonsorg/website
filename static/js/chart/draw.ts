@@ -247,10 +247,9 @@ function addYAxis(
           }
           const dollar = unit === "$" ? "$" : "";
           const percent = unit === "%" ? "%" : "";
-          const permille = unit === "‰" ? "‰" : "";
           const grams = unit === "g" ? "g" : "";
           const liters = unit === "L" ? "L" : "";
-          return `${dollar}${tText}${percent}${permille}${grams}${liters}`;
+          return `${dollar}${tText}${percent}${grams}${liters}`;
         })
     )
     .call((g) => g.select(".domain").remove())

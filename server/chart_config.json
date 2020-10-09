@@ -344,7 +344,7 @@
     "category": "Health",
     "title": "Infant Mortality Rate",
     "statsVars": ["WorldBank/SP_DYN_IMRT_IN"],
-    "unit": "‰",
+    "scaling": 0.1,
     "isOverview": true,
     "relatedChart": {
       "scale": false
@@ -354,7 +354,7 @@
     "category": "Health",
     "title": "Infant Mortality Rate by Gender",
     "statsVars": ["WorldBank/SP_DYN_IMRT_MA_IN", "WorldBank/SP_DYN_IMRT_FE_IN"],
-    "unit": "‰",
+    "scaling": 0.1,
     "relatedChart": {
       "scale": false
     }
