@@ -172,15 +172,17 @@ class TestRoute(unittest.TestCase):
 
 class TestChoroplethPlaces(unittest.TestCase):
 
+    @patch('routes.api.chart.place_api.parent_places')
     @patch('routes.api.chart.dc_service.get_places_in')
     @patch('routes.api.chart.place_api.get_place_type')
     def test_get_choropleth_places_has_display_level(self, mock_place_type,
-                                                     mock_places_in):
+                                                     mock_places_in,
+                                                     mock_parents):
         dcid = "test_dcid1"
         expected = ["dcid1", "dcid2"]
 
         def get_places_in_(*args):
-            if args[1] == "AdministrativeArea1":
+            if args[0] == [dcid] and args[1] == "AdministrativeArea1":
                 return {dcid: expected}
             else:
                 return {dcid: []}
@@ -190,15 +192,16 @@ class TestChoroplethPlaces(unittest.TestCase):
         result = chart_api.get_choropleth_places(dcid)
         assert result == expected
 
+    @patch('routes.api.chart.place_api.parent_places')
     @patch('routes.api.chart.dc_service.get_places_in')
     @patch('routes.api.chart.place_api.get_place_type')
     def test_get_choropleth_places_equivalent_has_display_level(
-            self, mock_place_type, mock_places_in):
+            self, mock_place_type, mock_places_in, mock_parents):
         dcid = "test_dcid2"
         expected = ["dcid1", "dcid2"]
 
         def get_places_in_(*args):
-            if args[1] == "AdministrativeArea2":
+            if args[0] == [dcid] and args[1] == "AdministrativeArea2":
                 return {dcid: expected}
             else:
                 return {dcid: []}
@@ -208,24 +211,93 @@ class TestChoroplethPlaces(unittest.TestCase):
         result = chart_api.get_choropleth_places(dcid)
         assert result == expected
 
+    @patch('routes.api.chart.place_api.parent_places')
     @patch('routes.api.chart.dc_service.get_places_in')
     @patch('routes.api.chart.place_api.get_place_type')
     def test_get_choropleth_places_has_no_display_level(self, mock_place_type,
-                                                        mock_places_in):
+                                                        mock_places_in,
+                                                        mock_parents):
         dcid = "test_dcid3"
+        parent_dcid = "parent_dcid"
 
         def get_places_in_(*args):
-            if args[1] == "AdministrativeArea1":
+            if args[0] == [dcid] and args[1] == "AdministrativeArea1":
                 return {dcid: ["dcid1", "dcid2"]}
-            elif args[1] == "AdministrativeArea2":
+            elif args[0] == [dcid] and args[1] == "AdministrativeArea2":
+                return {dcid: ["dcid1", "dcid2"]}
+            elif args[0] == [parent_dcid] and args[1] == "AdministrativeArea1":
+                return {dcid: ["dcid1", "dcid2"]}
+            elif args[0] == [parent_dcid] and args[1] == "AdministrativeArea2":
                 return {dcid: ["dcid1", "dcid2"]}
             else:
                 return {dcid: []}
 
         mock_place_type.return_value = "County"
         mock_places_in.side_effect = get_places_in_
+        mock_parents.return_value = mock_parents.return_value = {
+            dcid: [{
+                'dcid': parent_dcid,
+                'types': ['Country']
+            }]
+        }
         result = chart_api.get_choropleth_places(dcid)
         assert result == []
+
+    @patch('routes.api.chart.place_api.parent_places')
+    @patch('routes.api.chart.dc_service.get_places_in')
+    @patch('routes.api.chart.place_api.get_place_type')
+    def test_get_choropleth_places_parent_places(self, mock_place_type,
+                                                 mock_places_in, mock_parents):
+        dcid = "test_dcid4"
+        parent_dcid = "parent_dcid"
+        expected = ["dcid1", "dcid2"]
+
+        def get_places_in_(*args):
+            if args[0] == [parent_dcid] and args[1] == "AdministrativeArea1":
+                return {parent_dcid: ["dcid1", "dcid3"]}
+            elif args[0] == [parent_dcid] and args[1] == "AdministrativeArea2":
+                return {parent_dcid: expected}
+            else:
+                return {dcid: []}
+
+        mock_place_type.return_value = "County"
+        mock_places_in.side_effect = get_places_in_
+        mock_parents.return_value = {
+            dcid: [{
+                'dcid': parent_dcid,
+                'types': ['AdministrativeArea1']
+            }]
+        }
+        result = chart_api.get_choropleth_places(dcid)
+        assert result == expected
+
+    @patch('routes.api.chart.place_api.parent_places')
+    @patch('routes.api.chart.dc_service.get_places_in')
+    @patch('routes.api.chart.place_api.get_place_type')
+    def test_get_choropleth_places_parent_has_equivalent(
+            self, mock_place_type, mock_places_in, mock_parents):
+        dcid = "test_dcid5"
+        parent_dcid = "parent_dcid"
+        expected = ["dcid1", "dcid2"]
+
+        def get_places_in_(*args):
+            if args[0] == [parent_dcid] and args[1] == "AdministrativeArea1":
+                return {parent_dcid: ["dcid1", "dcid3"]}
+            elif args[0] == [parent_dcid] and args[1] == "AdministrativeArea2":
+                return {parent_dcid: expected}
+            else:
+                return {dcid: []}
+
+        mock_place_type.return_value = "County"
+        mock_places_in.side_effect = get_places_in_
+        mock_parents.return_value = {
+            dcid: [{
+                'dcid': parent_dcid,
+                'types': ['State']
+            }]
+        }
+        result = chart_api.get_choropleth_places(dcid)
+        assert result == expected
 
     class TestGetGeoJson(unittest.TestCase):
 

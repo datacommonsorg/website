@@ -251,14 +251,18 @@ class ChartBlock extends React.Component<ChartBlockPropType, unknown> {
         }
         if (
           !!this.props.data.isChoropleth &&
-          (this.props.placeType === "Country" ||
-            this.props.placeType === "State")
+          !_.isEmpty(this.props.geoJsonData) &&
+          !_.isEmpty(this.props.choroplethData)
         ) {
           const id = randDomId();
           const sv = !_.isEmpty(this.props.data.statsVars)
             ? this.props.data.statsVars[0]
             : "";
           const svChoroplethData = this.props.choroplethData[sv];
+          const chartTitle =
+            this.props.placeType === "County"
+              ? `${relatedChartTitle}: ${displayPlaceType} near ${this.props.placeName}`
+              : `${relatedChartTitle}: places within ${this.props.placeName}`;
           if (!_.isEmpty(this.props.geoJsonData) && !!svChoroplethData) {
             chartElements.push(
               <Chart
@@ -267,7 +271,7 @@ class ChartBlock extends React.Component<ChartBlockPropType, unknown> {
                 dcid={this.props.dcid}
                 placeType={this.props.placeType}
                 chartType={chartTypeEnum.CHOROPLETH}
-                title={`${relatedChartTitle}: places within ${this.props.placeName}`}
+                title={chartTitle}
                 unit={unit}
                 names={this.props.names}
                 scaling={scaling}
