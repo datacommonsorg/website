@@ -301,6 +301,9 @@ const STATS_VAR_LABEL: { [key: string]: string } = {
   Count_HousingUnit_HomeValue1500000To1999999USDollar: "$1.5M - $2M",
   Count_HousingUnit_HomeValue2000000OrMoreUSDollar: "$2M+",
 
+  Count_HousingUnit_OwnerOccupied: "Owner",
+  Count_HousingUnit_RenterOccupied: "Renter",
+
   Count_HousingUnit_Before1939DateBuilt: "Before 1939",
   Count_HousingUnit_1940To1949DateBuilt: "1940 - 1949",
   Count_HousingUnit_1950To1959DateBuilt: "1950 - 1959",
