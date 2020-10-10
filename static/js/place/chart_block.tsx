@@ -96,192 +96,206 @@ class ChartBlock extends React.Component<ChartBlockPropType, unknown> {
       );
     }
 
-    // Only add comparison chart for US places.
-    if (this.props.isUsaPlace) {
-      // Prepare parameters for related charts.
-      let unit = this.props.data.unit;
-      let scaling = this.props.data.scaling;
-      const relatedChart = this.props.data.relatedChart;
-      if (relatedChart && relatedChart.scale) {
-        unit = relatedChart.unit;
-        scaling = relatedChart.scaling ? relatedChart.scaling : 1;
-      }
-      const chartType =
-        this.props.data.statsVars.length == 1
-          ? chartTypeEnum.STACK_BAR
-          : chartTypeEnum.GROUP_BAR;
-      const displayPlaceType = displayNameForPlaceType(
-        this.props.placeType,
-        true /* isPlural */
-      ).toLocaleLowerCase();
+    // Prepare parameters for related charts.
+    let unit = this.props.data.unit;
+    let scaling = this.props.data.scaling;
+    const relatedChart = this.props.data.relatedChart;
+    if (relatedChart && relatedChart.scale) {
+      unit = relatedChart.unit;
+      scaling = relatedChart.scaling ? relatedChart.scaling : 1;
+    }
+    const chartType =
+      this.props.data.statsVars.length == 1
+        ? chartTypeEnum.STACK_BAR
+        : chartTypeEnum.GROUP_BAR;
+    const displayPlaceType = displayNameForPlaceType(
+      this.props.placeType,
+      true /* isPlural */
+    ).toLocaleLowerCase();
 
-      const relatedChartTitle =
-        this.props.data.relatedChart && this.props.data.relatedChart.title
-          ? this.props.data.relatedChart.title
-          : this.props.data.title;
+    const relatedChartTitle =
+      this.props.data.relatedChart && this.props.data.relatedChart.title
+        ? this.props.data.relatedChart.title
+        : this.props.data.title;
 
-      const sharedProps = {
-        dcid: this.props.dcid,
-        placeType: this.props.placeType,
-        chartType: chartType,
-        unit: unit,
-        names: this.props.names,
-        scaling: scaling,
-        statsVars: this.props.data.statsVars,
-      };
-      const rankingParam = new URLSearchParams(`h=${this.props.dcid}`);
-      if (
-        this.props.data.denominator ||
-        (!!this.props.data.relatedChart && this.props.data.relatedChart.scale)
-      ) {
-        rankingParam.set("pc", "1");
-      }
-      scaling && rankingParam.set("scaling", String(scaling));
-      unit && rankingParam.set("unit", unit);
-      const rankingArg = `?${rankingParam.toString()}`;
+    const sharedProps = {
+      dcid: this.props.dcid,
+      placeType: this.props.placeType,
+      chartType: chartType,
+      unit: unit,
+      names: this.props.names,
+      scaling: scaling,
+      statsVars: this.props.data.statsVars,
+    };
+    const rankingParam = new URLSearchParams(`h=${this.props.dcid}`);
+    if (
+      this.props.data.denominator ||
+      (!!this.props.data.relatedChart && this.props.data.relatedChart.scale)
+    ) {
+      rankingParam.set("pc", "1");
+    }
+    scaling && rankingParam.set("scaling", String(scaling));
+    unit && rankingParam.set("unit", unit);
+    const rankingArg = `?${rankingParam.toString()}`;
 
-      if (this.props.isOverview) {
-        // Show child place(state) chart for USA page, otherwise show nearby
-        // places.
+    if (this.props.isOverview) {
+      // Show one related place for overview page, the preference is
+      // nearby -> child -> simialr -> parent
+      let gotChart = false;
+      if (!_.isEmpty(this.props.data.nearby)) {
         const id = randDomId();
-        if (this.props.dcid === "country/USA") {
-          if (!_.isEmpty(this.props.data.child)) {
-            chartElements.push(
-              <Chart
-                key={id}
-                id={id}
-                snapshot={this.props.data.child}
-                title={`${relatedChartTitle}: States within ${this.props.placeName}`}
-                rankingTemplateUrl={`/ranking/_sv_/State/country/USA${rankingArg}`}
-                {...sharedProps}
-              ></Chart>
-            );
-          }
-        } else {
-          if (!_.isEmpty(this.props.data.nearby)) {
-            chartElements.push(
-              <Chart
-                key={id}
-                id={id}
-                snapshot={this.props.data.nearby}
-                title={`${relatedChartTitle}: ${displayPlaceType} near ${this.props.placeName}`}
-                rankingTemplateUrl={`/ranking/_sv_/${this.props.placeType}/${this.props.parentPlaceDcid}${rankingArg}`}
-                {...sharedProps}
-              ></Chart>
-            );
-          } else if (!_.isEmpty(this.props.data.child)) {
-            chartElements.push(
-              <Chart
-                key={id}
-                id={id}
-                snapshot={this.props.data.child}
-                title={`${relatedChartTitle}: Places within ${this.props.placeName}`}
-                rankingTemplateUrl={`/ranking/_sv_/${this.props.childPlaceType}/${this.props.dcid}${rankingArg}`}
-                {...sharedProps}
-              ></Chart>
-            );
-          }
-        }
-      } else {
-        // Topic page
-        if (!_.isEmpty(this.props.data.nearby)) {
+        chartElements.push(
+          <Chart
+            key={id}
+            id={id}
+            snapshot={this.props.data.nearby}
+            title={`${relatedChartTitle}: ${displayPlaceType} near ${this.props.placeName}`}
+            rankingTemplateUrl={`/ranking/_sv_/${this.props.placeType}/${this.props.parentPlaceDcid}${rankingArg}`}
+            {...sharedProps}
+          ></Chart>
+        );
+        gotChart = true;
+      }
+      if (!gotChart && !_.isEmpty(this.props.data.child)) {
+        const id = randDomId();
+        chartElements.push(
+          <Chart
+            key={id}
+            id={id}
+            snapshot={this.props.data.child}
+            title={`${relatedChartTitle}: Places within ${this.props.placeName}`}
+            rankingTemplateUrl={`/ranking/_sv_/${this.props.childPlaceType}/${this.props.dcid}${rankingArg}`}
+            {...sharedProps}
+          ></Chart>
+        );
+        gotChart = true;
+      }
+      if (!gotChart && !_.isEmpty(this.props.data.similar)) {
+        const id = randDomId();
+        chartElements.push(
+          <Chart
+            key={id}
+            id={id}
+            snapshot={this.props.data.similar}
+            title={`${relatedChartTitle}: other ${displayPlaceType}`}
+            rankingTemplateUrl={`/ranking/_sv_/${this.props.placeType}/country/USA${rankingArg}`}
+            {...sharedProps}
+          ></Chart>
+        );
+        gotChart = true;
+      }
+      if (!gotChart && !_.isEmpty(this.props.data.parent)) {
+        const id = randDomId();
+        chartElements.push(
+          <Chart
+            key={id}
+            id={id}
+            snapshot={this.props.data.parent}
+            title={`${relatedChartTitle}: places that contain ${this.props.placeName}`}
+            rankingTemplateUrl={`/ranking/_sv_/${this.props.placeType}/country/USA${rankingArg}`}
+            {...sharedProps}
+          ></Chart>
+        );
+      }
+    } else {
+      // Topic page
+      if (!_.isEmpty(this.props.data.nearby)) {
+        const id = randDomId();
+        chartElements.push(
+          <Chart
+            key={id}
+            id={id}
+            snapshot={this.props.data.nearby}
+            title={`${relatedChartTitle}: ${displayPlaceType} near ${this.props.placeName}`}
+            rankingTemplateUrl={`/ranking/_sv_/${this.props.placeType}/${this.props.parentPlaceDcid}${rankingArg}`}
+            {...sharedProps}
+          ></Chart>
+        );
+      }
+      if (!_.isEmpty(this.props.data.similar)) {
+        const id = randDomId();
+        chartElements.push(
+          <Chart
+            key={id}
+            id={id}
+            snapshot={this.props.data.similar}
+            title={`${relatedChartTitle}: other ${displayPlaceType}`}
+            rankingTemplateUrl={`/ranking/_sv_/${this.props.placeType}/country/USA${rankingArg}`}
+            {...sharedProps}
+          ></Chart>
+        );
+      }
+      if (this.props.placeType !== "City") {
+        // TODO(shifucun): Get the child place type in mixer.
+        if (!_.isEmpty(this.props.data.child)) {
           const id = randDomId();
           chartElements.push(
             <Chart
               key={id}
               id={id}
-              snapshot={this.props.data.nearby}
-              title={`${relatedChartTitle}: ${displayPlaceType} near ${this.props.placeName}`}
-              rankingTemplateUrl={`/ranking/_sv_/${this.props.placeType}/${this.props.parentPlaceDcid}${rankingArg}`}
+              snapshot={this.props.data.child}
+              title={`${relatedChartTitle}: Places within ${this.props.placeName}`}
+              rankingTemplateUrl={`/ranking/_sv_/${this.props.childPlaceType}/${this.props.dcid}${rankingArg}`}
               {...sharedProps}
             ></Chart>
           );
         }
-        if (!_.isEmpty(this.props.data.similar)) {
+      }
+      if (this.props.placeType !== "State") {
+        if (!_.isEmpty(this.props.data.parent)) {
           const id = randDomId();
+          const snapshotData = this.props.data.parent;
+          // Show two level of population for parent place charts.
+          if (
+            sharedProps.statsVars.length === 1 &&
+            sharedProps.statsVars[0] == "Count_Person"
+          ) {
+            snapshotData.data = snapshotData.data.slice(0, 2);
+          }
           chartElements.push(
             <Chart
               key={id}
               id={id}
-              snapshot={this.props.data.similar}
-              title={`${relatedChartTitle}: other ${displayPlaceType}`}
+              snapshot={snapshotData}
+              title={`${relatedChartTitle}: places that contain ${this.props.placeName}`}
               rankingTemplateUrl={`/ranking/_sv_/${this.props.placeType}/country/USA${rankingArg}`}
               {...sharedProps}
             ></Chart>
           );
         }
-        if (this.props.placeType !== "City") {
-          // TODO(shifucun): Get the child place type in mixer.
-          if (!_.isEmpty(this.props.data.child)) {
-            const id = randDomId();
-            chartElements.push(
-              <Chart
-                key={id}
-                id={id}
-                snapshot={this.props.data.child}
-                title={`${relatedChartTitle}: Places within ${this.props.placeName}`}
-                rankingTemplateUrl={`/ranking/_sv_/${this.props.childPlaceType}/${this.props.dcid}${rankingArg}`}
-                {...sharedProps}
-              ></Chart>
-            );
-          }
-        }
-        if (this.props.placeType !== "State") {
-          if (!_.isEmpty(this.props.data.parent)) {
-            const id = randDomId();
-            const snapshotData = this.props.data.parent;
-            // Show two level of population for parent place charts.
-            if (
-              sharedProps.statsVars.length === 1 &&
-              sharedProps.statsVars[0] == "Count_Person"
-            ) {
-              snapshotData.data = snapshotData.data.slice(0, 2);
-            }
-            chartElements.push(
-              <Chart
-                key={id}
-                id={id}
-                snapshot={snapshotData}
-                title={`${relatedChartTitle}: places that contain ${this.props.placeName}`}
-                rankingTemplateUrl={`/ranking/_sv_/${this.props.placeType}/country/USA${rankingArg}`}
-                {...sharedProps}
-              ></Chart>
-            );
-          }
-        }
-        if (
-          !!this.props.data.isChoropleth &&
-          !_.isEmpty(this.props.geoJsonData) &&
-          !_.isEmpty(this.props.choroplethData)
-        ) {
-          const id = randDomId();
-          const sv = !_.isEmpty(this.props.data.statsVars)
-            ? this.props.data.statsVars[0]
-            : "";
-          const svChoroplethData = this.props.choroplethData[sv];
-          const chartTitle =
-            this.props.placeType === "County"
-              ? `${relatedChartTitle}: ${displayPlaceType} near ${this.props.placeName}`
-              : `${relatedChartTitle}: places within ${this.props.placeName}`;
-          if (!_.isEmpty(this.props.geoJsonData) && !!svChoroplethData) {
-            chartElements.push(
-              <Chart
-                key={id}
-                id={id}
-                dcid={this.props.dcid}
-                placeType={this.props.placeType}
-                chartType={chartTypeEnum.CHOROPLETH}
-                title={chartTitle}
-                unit={unit}
-                names={this.props.names}
-                scaling={scaling}
-                geoJsonData={this.props.geoJsonData}
-                choroplethData={svChoroplethData}
-                statsVars={this.props.data.statsVars}
-                rankingTemplateUrl={`/ranking/_sv_/${this.props.placeType}/${this.props.dcid}${rankingArg}`}
-              ></Chart>
-            );
-          }
+      }
+      if (
+        !!this.props.data.isChoropleth &&
+        !_.isEmpty(this.props.geoJsonData) &&
+        !_.isEmpty(this.props.choroplethData)
+      ) {
+        const id = randDomId();
+        const sv = !_.isEmpty(this.props.data.statsVars)
+          ? this.props.data.statsVars[0]
+          : "";
+        const svChoroplethData = this.props.choroplethData[sv];
+        const chartTitle =
+          this.props.placeType === "County"
+            ? `${relatedChartTitle}: ${displayPlaceType} near ${this.props.placeName}`
+            : `${relatedChartTitle}: places within ${this.props.placeName}`;
+        if (!!svChoroplethData) {
+          chartElements.push(
+            <Chart
+              key={id}
+              id={id}
+              dcid={this.props.dcid}
+              placeType={this.props.placeType}
+              chartType={chartTypeEnum.CHOROPLETH}
+              title={chartTitle}
+              unit={unit}
+              names={this.props.names}
+              scaling={scaling}
+              geoJsonData={this.props.geoJsonData}
+              choroplethData={svChoroplethData}
+              statsVars={this.props.data.statsVars}
+              rankingTemplateUrl={`/ranking/_sv_/${this.props.placeType}/${this.props.dcid}${rankingArg}`}
+            ></Chart>
+          );
         }
       }
     }
