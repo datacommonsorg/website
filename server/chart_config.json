@@ -941,7 +941,7 @@
   },
   {
     "category": "Housing",
-    "title": "Housing Units by Value",
+    "title": "Housing Units by Price",
     "statsVars": [
       "Count_HousingUnit_HomeValueUpto10000USDollar",
       "Count_HousingUnit_HomeValue10000To14999USDollar",
@@ -972,7 +972,7 @@
     ],
     "aggregate": "homeValue",
     "relatedChart": {
-      "title": "Percentage of Housing Units by Value",
+      "title": "Percentage of Housing Units by Price",
       "scale": true,
       "denominator": "Count_HousingUnit",
       "scaling": 100,
