@@ -46,6 +46,11 @@ CHOROPLETH_GEOJSON_PROPERTY_MAP = {
     "AdministrativeArea1": "geoJsonCoordinatesDP3",
     "AdministrativeArea2": "geoJsonCoordinatesDP2",
 }
+# GeoJSON property to use, keyed by display level.
+CHOROPLETH_GEOJSON_PROPERTY_MAP = {
+    "AdministrativeArea1": "geoJsonCoordinatesDP3",
+    "AdministrativeArea2": "geoJsonCoordinatesDP2",
+}
 
 
 @cache.memoize(timeout=3600 * 24)  # Cache for one day.
