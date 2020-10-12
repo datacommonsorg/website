@@ -298,7 +298,7 @@ const STATS_VAR_TITLES: { [key: string]: string } = {
     "Criminal Activity Count (Violent Crimes)",
   Count_CriminalActivities_PropertyCrime:
     "Criminal Activity Count (Property Crimes)",
-  Count_CriminalActivities_Arson: "Criminal Activity Count (Arson)",
+  Count_CriminalActivities_Arson: "Criminal Activity Count (Arson Crimes)",
 
   // Employment
   UnemploymentRate_Person_Male: "Unemployment Rate (Male)",

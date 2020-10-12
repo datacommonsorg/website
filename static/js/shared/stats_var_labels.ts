@@ -231,7 +231,7 @@ const STATS_VAR_LABEL: { [key: string]: string } = {
   Count_CriminalActivities_CombinedCrime: "Combined Crimes",
   Count_CriminalActivities_ViolentCrime: "Violent Crimes",
   Count_CriminalActivities_PropertyCrime: "Property Crimes",
-  Count_CriminalActivities_Arson: "Arson",
+  Count_CriminalActivities_Arson: "Arson Crimes",
   // Employment
   UnemploymentRate_Person_Male: "Male",
   UnemploymentRate_Person_Female: "Female",

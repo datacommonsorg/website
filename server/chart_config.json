@@ -670,7 +670,7 @@
   },
   {
     "category": "Crime",
-    "title": "Arson",
+    "title": "Arson Crime",
     "statsVars": ["Count_CriminalActivities_Arson"],
     "isOverview": true,
     "relatedChart": {
