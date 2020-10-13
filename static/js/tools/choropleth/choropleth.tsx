@@ -58,14 +58,6 @@ class ChoroplethMap extends Component<PropsType, StateType> {
   };
 
   /**
-   * Refreshes are currently never done through state updates.
-   * TODO(iancostello): Refactor this component to update via state.
-   */
-  public shouldComponentUpdate = (): boolean => {
-    return false;
-  };
-
-  /**
    * Loads and renders blank GeoJson map for current geoDcid.
    * After loading, values for a particular StatVar are pulled.
    */
@@ -209,8 +201,6 @@ class ChoroplethMap extends Component<PropsType, StateType> {
     this.setState(() => {
       return { popMap };
     });
-
-    this.forceUpdate();
 
     // Generate breadcrumbs.
     // TODO(fpernice-google): Derive the curGeo value from geoDcid instead
@@ -432,12 +422,6 @@ class ChoroplethMap extends Component<PropsType, StateType> {
 
       // TODO(edumorales): show the range of dates somewhere so that
       // the user knows what dates are being shown.
-
-      // TODO(edumorales): for some reason, the setState auto-render
-      // was disabled by previous developers.
-      // Figure out why, and re-enable setState() to automatically re-render.
-      // This is one of the main benefits of React.
-      this.forceUpdate();
     });
   };
 
