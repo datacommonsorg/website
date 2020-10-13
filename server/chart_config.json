@@ -51,7 +51,9 @@
   {
     "category": "Economics",
     "title": "Children in Employment",
-    "statsVars": ["WorldBank_SL_TLF_0714_ZS"],
+    "statsVars": [
+      "Count_Person_7To14Years_Employed_AsFractionOf_Count_Person_7To14Years"
+    ],
     "unit": "%",
     "isOverview": true,
     "relatedChart": {
@@ -73,7 +75,10 @@
   {
     "category": "Economics",
     "title": "Children in Employment by Gender",
-    "statsVars": ["WorldBank_SL_TLF_0714_FE_ZS", "WorldBank_SL_TLF_0714_MA_ZS"],
+    "statsVars": [
+      "Count_Person_7To14Years_Female_Employed_AsFractionOf_Count_Person_7To14Years_Female",
+      "Count_Person_7To14Years_Male_Employed_AsFractionOf_Count_Person_7To14Years_Male"
+    ],
     "unit": "%",
     "relatedChart": {
       "scale": false
@@ -135,7 +140,9 @@
   {
     "category": "Economics",
     "title": "Government Expenditures on Education (% of Government Expenditure)",
-    "statsVars": ["WorldBank_SE_XPD_TOTL_GB_ZS"],
+    "statsVars": [
+      "Amount_EconomicActivity_ExpenditureActivity_EducationExpenditure_Government_AsFractionOf_Amount_EconomicActivity_ExpenditureActivity_Government"
+    ],
     "unit": "%",
     "relatedChart": {
       "scale": false
@@ -144,7 +151,9 @@
   {
     "category": "Economics",
     "title": "Government Expenditures on Education (% of GDP)",
-    "statsVars": ["WorldBank_SE_XPD_TOTL_GD_ZS"],
+    "statsVars": [
+      "Amount_EconomicActivity_ExpenditureActivity_EducationExpenditure_Government_AsFractionOf_Amount_EconomicActivity_GrossDomesticProduction_Nominal"
+    ],
     "unit": "%",
     "relatedChart": {
       "scale": false
@@ -153,7 +162,9 @@
   {
     "category": "Economics",
     "title": "Government Expenditures on Military",
-    "statsVars": ["WorldBank_MS_MIL_XPND_CD"],
+    "statsVars": [
+      "Amount_EconomicActivity_ExpenditureActivity_MilitaryExpenditure_Government"
+    ],
     "unit": "$",
     "relatedChart": {
       "scale": false
@@ -162,7 +173,9 @@
   {
     "category": "Economics",
     "title": "Government Expenditures on Military (% of GDP)",
-    "statsVars": ["WorldBank_MS_MIL_XPND_GD_ZS"],
+    "statsVars": [
+      "Amount_EconomicActivity_ExpenditureActivity_MilitaryExpenditure_Government_AsFractionOf_Amount_EconomicActivity_GrossDomesticProduction_Nominal"
+    ],
     "unit": "%",
     "relatedChart": {
       "scale": false
@@ -171,7 +184,7 @@
   {
     "category": "Economics",
     "title": "Market Capitalization of Domestic Companies",
-    "statsVars": ["WorldBank_CM_MKT_LCAP_CD"],
+    "statsVars": ["Amount_Stock"],
     "unit": "$",
     "isOverview": true,
     "relatedChart": {
@@ -181,7 +194,9 @@
   {
     "category": "Economics",
     "title": "Market Capitalization of Domestic Companies (% of GDP)",
-    "statsVars": ["WorldBank_CM_MKT_LCAP_GD_ZS"],
+    "statsVars": [
+      "Amount_Stock_AsFractionOf_Amount_EconomicActivity_GrossDomesticProduction_Nominal"
+    ],
     "unit": "%",
     "relatedChart": {
       "scale": false
@@ -190,7 +205,7 @@
   {
     "category": "Economics",
     "title": "Inward Remittance",
-    "statsVars": ["WorldBank_BX_TRF_PWKR_CD_DT"],
+    "statsVars": ["Amount_Remittance_InwardRemittance"],
     "unit": "$",
     "relatedChart": {
       "scale": false
@@ -199,7 +214,9 @@
   {
     "category": "Economics",
     "title": "Inward Remittance (% of GDP)",
-    "statsVars": ["WorldBank_BX_TRF_PWKR_DT_GD_ZS"],
+    "statsVars": [
+      "Amount_Remittance_InwardRemittance_AsFractionOf_Amount_EconomicActivity_GrossDomesticProduction_Nominal"
+    ],
     "unit": "%",
     "relatedChart": {
       "scale": false
@@ -208,7 +225,7 @@
   {
     "category": "Economics",
     "title": "Outward Remittance",
-    "statsVars": ["WorldBank_BM_TRF_PWKR_CD_DT"],
+    "statsVars": ["Amount_Remittance_OutwardRemittance"],
     "unit": "$",
     "relatedChart": {
       "scale": false
@@ -343,7 +360,7 @@
   {
     "category": "Health",
     "title": "Infant Mortality Rate",
-    "statsVars": ["WorldBank_SP_DYN_IMRT_IN"],
+    "statsVars": ["Count_Death_0Years_AsFractionOf_Count_BirthEvent_LiveBirth"],
     "scaling": 0.1,
     "unit": "%",
     "isOverview": true,
@@ -354,7 +371,10 @@
   {
     "category": "Health",
     "title": "Infant Mortality Rate by Gender",
-    "statsVars": ["WorldBank_SP_DYN_IMRT_MA_IN", "WorldBank_SP_DYN_IMRT_FE_IN"],
+    "statsVars": [
+      "Count_Death_0Years_Male_AsFractionOf_Count_BirthEvent_LiveBirth_Male",
+      "Count_Death_0Years_Female_AsFractionOf_Count_BirthEvent_LiveBirth_Female"
+    ],
     "scaling": 0.1,
     "unit": "%",
     "relatedChart": {
@@ -364,7 +384,9 @@
   {
     "category": "Health",
     "title": "Wasting among Children under 5",
-    "statsVars": ["WorldBank_SH_STA_WAST_ZS"],
+    "statsVars": [
+      "Count_Person_Upto4Years_Wasting_AsFractionOf_Count_Person_Upto4Years"
+    ],
     "unit": "%",
     "isOverview": true,
     "relatedChart": {
@@ -374,7 +396,10 @@
   {
     "category": "Health",
     "title": "Wasting among Children under 5 by Gender",
-    "statsVars": ["WorldBank_SH_STA_WAST_MA_ZS", "WorldBank_SH_STA_WAST_FE_ZS"],
+    "statsVars": [
+      "Count_Person_Upto4Years_Male_Wasting_AsFractionOf_Count_Person_Upto4Years_Male",
+      "Count_Person_Upto4Years_Female_Wasting_AsFractionOf_Count_Person_Upto4Years_Female"
+    ],
     "unit": "%",
     "relatedChart": {
       "scale": false
@@ -383,7 +408,9 @@
   {
     "category": "Health",
     "title": "Severe Wasting among Children under 5",
-    "statsVars": ["WorldBank_SH_SVR_WAST_ZS"],
+    "statsVars": [
+      "Count_Person_Upto4Years_SevereWasting_AsFractionOf_Count_Person_Upto4Years"
+    ],
     "unit": "%",
     "isOverview": true,
     "relatedChart": {
@@ -393,7 +420,10 @@
   {
     "category": "Health",
     "title": "Severe Wasting among Children under 5 by Gender",
-    "statsVars": ["WorldBank_SH_SVR_WAST_MA_ZS", "WorldBank_SH_SVR_WAST_FE_ZS"],
+    "statsVars": [
+      "Count_Person_Upto4Years_Male_SevereWasting_AsFractionOf_Count_Person_Upto4Years_Male",
+      "Count_Person_Upto4Years_Female_SevereWasting_AsFractionOf_Count_Person_Upto4Years_Female"
+    ],
     "unit": "%",
     "relatedChart": {
       "scale": false
@@ -453,7 +483,9 @@
   {
     "category": "Health",
     "title": "Alcohol Consumption Per Capita (Annual)",
-    "statsVars": ["WorldBank_SH_ALC_PCAP_LI"],
+    "statsVars": [
+      "Amount_Consumption_Alcohol_15OrMoreYears_AsFractionOf_Count_Person_15OrMoreYears"
+    ],
     "unit": "L",
     "isOverview": true,
     "relatedChart": {
@@ -463,7 +495,7 @@
   {
     "category": "Equity",
     "title": "Gini Index",
-    "statsVars": ["WorldBank_SI_POV_GINI"],
+    "statsVars": ["GiniIndex_EcconomicActivity"],
     "isOverview": true,
     "relatedChart": {
       "scale": false
@@ -746,7 +778,7 @@
   {
     "category": "Demographics",
     "title": "Urban and Rural Population",
-    "statsVars": ["WorldBank_SP_URB_TOTL", "WorldBank_SP_RUR_TOTL"],
+    "statsVars": ["Count_Person_Urban", "Count_Person_Rural"],
     "isOverview": true,
     "relatedChart": {
       "scale": false
