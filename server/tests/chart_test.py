@@ -39,7 +39,7 @@ class TestChoroplethPlaces(unittest.TestCase):
         mock_place_type.return_value = "Country"
         mock_places_in.side_effect = get_places_in_
         result = chart_api.get_choropleth_places(dcid)
-        assert result == expected
+        assert result == (expected, "geoJsonCoordinatesDP3")
 
     @patch('routes.api.chart.dc_service.get_places_in')
     @patch('routes.api.chart.place_api.get_place_type')
@@ -57,7 +57,7 @@ class TestChoroplethPlaces(unittest.TestCase):
         mock_place_type.return_value = "AdministrativeArea1"
         mock_places_in.side_effect = get_places_in_
         result = chart_api.get_choropleth_places(dcid)
-        assert result == expected
+        assert result == (expected, "geoJsonCoordinatesDP2")
 
     @patch('routes.api.chart.dc_service.get_places_in')
     @patch('routes.api.chart.place_api.get_place_type')
@@ -93,7 +93,7 @@ class TestChoroplethPlaces(unittest.TestCase):
                              mock_geojson_values, mock_choropleth_helper):
             dcid1 = "dcid1"
             dcid2 = "dcid2"
-            mock_places.return_value = [dcid1, dcid2]
+            mock_places.return_value = [dcid1, dcid2], "geoJsonProp"
             mock_display_name.return_value = {dcid1: dcid1, dcid2: dcid2}
             mock_geojson_values.return_value = {
                 dcid1: json.dumps({
@@ -268,7 +268,7 @@ class TestChoroplethData(unittest.TestCase):
         chart_configs = [cc1, cc2]
         geos = [geo1, geo2]
         mock_choropleth_sv.return_value = sv_set, chart_configs
-        mock_choropleth_places.return_value = geos
+        mock_choropleth_places.return_value = geos, "geoJsonCoordinatesDP3"
         stats_all_return_value = {
             geo1: {
                 'statVarData': {}

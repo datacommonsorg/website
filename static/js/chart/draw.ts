@@ -23,6 +23,7 @@ import {
   Style,
   getColorFn,
   shouldFillInValues,
+  formatYAxisTicks,
 } from "./base";
 
 const NUM_X_TICKS = 5;
@@ -52,6 +53,9 @@ const XLINKNS = "http://www.w3.org/1999/xlink";
 const TEXT_FONT_FAMILY = "Roboto";
 const AXIS_TEXT_FILL = "#2b2929";
 const AXIS_GRID_FILL = "#999";
+
+// Max Y value used for y domains for charts that have only 0 values.
+const MAX_Y_FOR_ZERO_CHARTS = 10;
 
 function appendLegendElem(
   elem: string,
@@ -229,27 +233,7 @@ function addYAxis(
         .ticks(NUM_Y_TICKS)
         .tickSize(width - MARGIN.grid - MARGIN.right)
         .tickFormat((d) => {
-          const yticks = yScale.ticks();
-          const p = d3.precisionPrefix(
-            yticks[1] - yticks[0],
-            yticks[yticks.length - 1]
-          );
-          let tText = String(d);
-          // When the y value is less than one, use the original value.
-          // Otherwise 0.3 is formatted into 300m which is confusing to 300M.
-          if (d > 1 || d < -1) {
-            tText = d3
-              .formatPrefix(
-                `.${p}`,
-                yScale.domain()[1]
-              )(d)
-              .replace(/G/, "B");
-          }
-          const dollar = unit === "$" ? "$" : "";
-          const percent = unit === "%" ? "%" : "";
-          const grams = unit === "g" ? "g" : "";
-          const liters = unit === "L" ? "L" : "";
-          return `${dollar}${tText}${percent}${grams}${liters}`;
+          return formatYAxisTicks(d, yScale, unit);
         })
     )
     .call((g) => g.select(".domain").remove())
@@ -315,7 +299,6 @@ function drawHistogram(
   const y = d3
     .scaleLinear()
     .domain([0, d3.max(values)])
-    .nice()
     .rangeRound([height - bottomHeight, MARGIN.top]);
 
   const color = getColorFn(["A"])("A"); // we only need one color
@@ -582,10 +565,13 @@ function drawLineChart(
   dataGroups: DataGroup[],
   unit?: string
 ): boolean {
-  const maxV = Math.max(...dataGroups.map((dataGroup) => dataGroup.max()));
+  let maxV = Math.max(...dataGroups.map((dataGroup) => dataGroup.max()));
   let minV = Math.min(...dataGroups.map((dataGroup) => dataGroup.min()));
   if (minV > 0) {
     minV = 0;
+  }
+  if (maxV == 0) {
+    maxV = MAX_Y_FOR_ZERO_CHARTS;
   }
 
   const svg = d3

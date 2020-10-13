@@ -19,21 +19,22 @@
  */
 
 import * as d3 from "d3";
+import { STATS_VAR_LABEL } from "../shared/stats_var_labels";
+import { getColorFn, formatYAxisTicks } from "./base";
 
-const CHOROPLETH_MIN_DATAPOINTS = 9;
-const blues = [
-  "#f7fbff",
-  "#deebf7",
-  "#c6dbef",
-  "#9ecae1",
-  "#6baed6",
-  "#4292c6",
-  "#2171b5",
-  "#08519c",
-  "#08306b",
-];
-const MISSING_DATA_COLOR = "grey";
+const MISSING_DATA_COLOR = "#999";
 const TOOLTIP_ID = "tooltip";
+const MIN_COLOR = "#f0f0f0";
+const GEO_STROKE_COLOR = "#fff";
+const AXIS_TEXT_FILL = "#2b2929";
+const AXIS_GRID_FILL = "#999";
+const LEGEND_WIDTH = 50;
+const TICK_SIZE = 6;
+const LEGEND_MARGIN_TOP = 4;
+const LEGEND_MARGIN_BOTTOM = TICK_SIZE;
+const LEGEND_MARGIN_RIGHT = 5;
+const LEGEND_IMG_WIDTH = 10;
+const NUM_TICKS = 5;
 
 function drawChoropleth(
   containerId: string,
@@ -43,32 +44,39 @@ function drawChoropleth(
   dataValues: {
     [placeDcid: string]: number;
   },
-  unit: string
+  unit: string,
+  statVar: string
 ): void {
-  const colorVals = determineColorPalette(dataValues);
+  const label = STATS_VAR_LABEL[statVar];
+  const maxColor = d3.color(getColorFn([label])(label));
   const colorScale = d3
     .scaleLinear()
-    .domain(colorVals)
-    .range((blues as unknown) as number[]);
+    .domain(d3.extent(Object.values(dataValues)))
+    .nice()
+    .range(([MIN_COLOR, maxColor, maxColor.darker(2)] as unknown) as number[])
+    .interpolate(
+      (d3.interpolateHslLong as unknown) as (
+        a: unknown,
+        b: unknown
+      ) => (t: number) => number
+    );
 
   // Add svg for the map to the div holding the chart.
-  d3.select("#" + containerId)
+  const domContainerId = `#${containerId}`;
+  const svg = d3
+    .select(domContainerId)
     .append("svg")
     .attr("width", chartWidth)
-    .attr("height", chartHeight)
-    .append("g")
-    .attr("class", "map");
+    .attr("height", chartHeight);
+  const map = svg.append("g").attr("class", "map");
 
   // Combine path elements from D3 content.
-  const mapContent = d3
-    .select("#" + containerId + " g.map")
-    .selectAll("path")
-    .data(geoJson.features);
+  const mapContent = map.selectAll("path").data(geoJson.features);
 
   // Scale and center the map.
   const projection = d3
     .geoAlbersUsa()
-    .fitSize([chartWidth, chartHeight], geoJson);
+    .fitSize([chartWidth - LEGEND_WIDTH, chartHeight], geoJson);
   const geomap = d3.geoPath().projection(projection);
 
   // Build map objects.
@@ -76,9 +84,7 @@ function drawChoropleth(
     .enter()
     .append("path")
     .attr("d", geomap)
-    // Add CSS class to each path for border outlining.
     .attr("class", "border")
-    // fill with the colors that match each value.
     .attr("fill", (d: { properties: { geoDcid: string } }) => {
       if (
         d.properties.geoDcid in dataValues &&
@@ -93,32 +99,32 @@ function drawChoropleth(
     .attr("id", (_, index) => {
       return "geoPath" + index;
     })
-    .on("mouseover", onMouseOver(containerId))
-    .on("mouseout", onMouseOut(containerId))
-    .on("mousemove", onMouseMove(containerId, dataValues, unit));
+    .attr("stroke-width", "1px")
+    .attr("stroke", GEO_STROKE_COLOR)
+    .on("mouseover", onMouseOver(domContainerId))
+    .on("mouseout", onMouseOut(domContainerId))
+    .on("mousemove", onMouseMove(domContainerId, dataValues, unit));
 
-  generateLegend(containerId, colorScale, unit);
-  addTooltip(containerId);
+  generateLegend(svg, chartWidth, chartHeight, colorScale, unit);
+  addTooltip(domContainerId);
 }
 
-const onMouseOver = (containerId: string) => (_, index): void => {
+const onMouseOver = (domContainerId: string) => (_, index): void => {
+  const container = d3.select(domContainerId);
   // show highlighted border
-  d3.select("#geoPath" + index)
-    .classed("border", false)
-    .classed("border-highlighted", true);
+  container.select("#geoPath" + index).classed("border-highlighted", true);
   // show tooltip
-  d3.select("#" + containerId + " #" + TOOLTIP_ID).style("display", "block");
+  container.select(`#${TOOLTIP_ID}`).style("display", "block");
 };
 
-const onMouseOut = (containerId: string) => (_, index): void => {
-  d3.select("#geoPath" + index)
-    .classed("border", true)
-    .classed("border-highlighted", false);
-  d3.select("#" + containerId + " #" + TOOLTIP_ID).style("display", "none");
+const onMouseOut = (domContainerId: string) => (_, index): void => {
+  const container = d3.select(domContainerId);
+  container.select("#geoPath" + index).classed("border-highlighted", false);
+  container.select(`#${TOOLTIP_ID}`).style("display", "none");
 };
 
 const onMouseMove = (
-  containerId: string,
+  domContainerId: string,
   dataValues: { [placeDcid: string]: number },
   unit: string
 ) => (e) => {
@@ -134,45 +140,20 @@ const onMouseMove = (
       value = unit == "$" ? unit + value : value + unit;
     }
   }
+  const tooltipSelect = d3.select(domContainerId).select(`#${TOOLTIP_ID}`);
   const text = placeName + ": " + value;
-  const tooltipHeight = document
-    .getElementById(containerId)
-    .querySelector(`[id=${TOOLTIP_ID}]`).clientHeight;
+  const tooltipHeight = (tooltipSelect.node() as HTMLDivElement).clientHeight;
   const offset = 5;
   const leftOffset = offset;
   const topOffset = -tooltipHeight - offset;
-  d3.select("#" + containerId + " #tooltip")
+  tooltipSelect
     .text(text)
     .style("left", d3.event.offsetX + leftOffset + "px")
     .style("top", d3.event.offsetY + topOffset + "px");
 };
 
-//TODO(chejennifer): use viridis or another standard d3 scale
-function determineColorPalette(dataValues: {
-  [placeDcid: string]: number;
-}): number[] {
-  // Create a sorted list of values.
-  const values = [];
-  for (const key in dataValues) {
-    values.push(dataValues[key]);
-  }
-  values.sort((a, b) => a - b);
-  const len = values.length;
-
-  // Find CHOROPLETH_MIN_DATAPOINTS number of values with equal separation from one another.
-  const steps = CHOROPLETH_MIN_DATAPOINTS;
-  if (len >= steps) {
-    const start = 0;
-    return d3.range(start, steps).map((d) => {
-      return values[Math.floor(((len - 1) * d) / (steps - 1))];
-    });
-  } else {
-    return [0, 0, 0, 0, 0, 0, 0, 0, 0];
-  }
-}
-
-function addTooltip(containerId: string) {
-  d3.select("#" + containerId)
+function addTooltip(domContainerId: string) {
+  d3.select(domContainerId)
     .attr("style", "position: relative")
     .append("div")
     .attr("id", TOOLTIP_ID)
@@ -185,38 +166,27 @@ function addTooltip(containerId: string) {
  *        plotted.
  */
 function generateLegend(
-  id: string,
+  svg: d3.Selection<SVGElement, any, any, any>,
+  chartWidth: number,
+  chartHeight: number,
   color: d3.ScaleLinear<number, number>,
   unit: string
 ) {
-  // TODO(chejennifer): Make these values relative to container size
-  const width = 250;
-  const height = 50;
-  const tickSize = 6;
-  const title = unit ? "Scale (" + unit + ")" : "Scale";
-  const marginTop = 18;
-  const marginBottom = 16 + tickSize;
-  const marginSides = 15;
-  const textPadding = 6;
-  const numTicks = 5;
-
-  d3.select("#" + id)
-    .append("div")
-    .attr("class", "choropleth-legend")
-    .append("svg")
-    .attr("width", width)
-    .attr("height", height);
-
+  const height = chartHeight - LEGEND_MARGIN_TOP - LEGEND_MARGIN_BOTTOM;
   const n = Math.min(color.domain().length, color.range().length);
-  const svg = d3.select("#" + id + " .choropleth-legend svg");
 
-  svg
+  const legend = svg
+    .append("g")
+    .attr("class", "legend")
+    .attr("transform", `translate(${chartWidth - LEGEND_WIDTH}, 0)`);
+
+  legend
     .append("image")
     .attr("id", "legend-img")
-    .attr("x", marginSides)
-    .attr("y", marginTop)
-    .attr("width", width - 2 * marginSides)
-    .attr("height", height - marginTop - marginBottom)
+    .attr("x", 0)
+    .attr("y", LEGEND_MARGIN_TOP)
+    .attr("width", LEGEND_IMG_WIDTH)
+    .attr("height", height)
     .attr("preserveAspectRatio", "none")
     .attr(
       "xlink:href",
@@ -225,36 +195,33 @@ function generateLegend(
       ).toDataURL()
     );
 
-  const x = color
-    .copy()
-    .rangeRound(
-      d3.quantize(d3.interpolate(marginSides, width - marginSides), n)
-    );
+  const yScale = d3.scaleLinear().domain(color.domain()).range([0, height]);
 
-  const dom = color.domain();
-  const tickValues = d3.range(numTicks).map((i) => {
-    const index = Math.floor((i * (dom.length - 1)) / (numTicks - 1));
-    return dom[index];
-  });
-
-  svg
+  legend
     .append("g")
-    .attr("transform", `translate(0, ${height - marginBottom})`)
-    .call(d3.axisBottom(x).tickSize(tickSize).tickValues(tickValues))
-    .call((g) =>
-      g.selectAll(".tick line").attr("y1", marginTop + marginBottom - height)
+    .attr("transform", `translate(0, ${LEGEND_MARGIN_TOP})`)
+    .call(
+      d3
+        .axisRight(yScale)
+        .tickSize(TICK_SIZE)
+        .ticks(NUM_TICKS)
+        .tickFormat((d) => {
+          return formatYAxisTicks(d, yScale, unit);
+        })
     )
-    .call((g) => g.select(".domain").remove())
     .call((g) =>
       g
-        .append("text")
-        .attr("x", marginSides)
-        .attr("y", marginTop + marginBottom - height - textPadding)
-        .attr("fill", "currentColor")
-        .attr("text-anchor", "start")
-        .attr("font-weight", "bold")
-        .text(title)
-    );
+        .selectAll(".tick line")
+        .attr("x2", LEGEND_IMG_WIDTH + LEGEND_MARGIN_RIGHT)
+        .attr("fill", AXIS_TEXT_FILL)
+        .attr("stroke", AXIS_GRID_FILL)
+    )
+    .call((g) =>
+      g
+        .selectAll(".tick text")
+        .attr("transform", `translate(${LEGEND_IMG_WIDTH}, 0)`)
+    )
+    .call((g) => g.select(".domain").remove());
 }
 
 const genScaleImg = (
@@ -262,14 +229,14 @@ const genScaleImg = (
   n = 256
 ): HTMLCanvasElement => {
   const canvas = document.createElement("canvas");
-  canvas.width = n;
-  canvas.height = 1;
+  canvas.width = 1;
+  canvas.height = n;
   const context = canvas.getContext("2d");
   for (let i = 0; i < n; ++i) {
     context.fillStyle = (color(i / (n - 1)) as unknown) as string;
-    context.fillRect(i, 0, 1, 1);
+    context.fillRect(0, i, 1, 1);
   }
   return canvas;
 };
 
-export { CHOROPLETH_MIN_DATAPOINTS, drawChoropleth };
+export { drawChoropleth };
