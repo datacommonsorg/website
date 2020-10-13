@@ -360,8 +360,12 @@ def data(dcid):
                 # Trend data
                 chart['trend'] = get_trend(chart, all_stat, dcid)
                 if 'aggregate' in chart:
-                    chart['trend']['statsVars'] = list(chart['trend'].get(
+                    aggregated_stat_vars = list(chart['trend'].get(
                         'series', {}).keys())
+                    if aggregated_stat_vars:
+                        chart['trend']['statsVars'] = aggregated_stat_vars
+                    else:
+                        chart['trend'] = {}
                 # Bar data
                 for t in chart_types:
                     chart[t] = get_bar(chart, all_stat, [dcid] +
@@ -383,6 +387,8 @@ def data(dcid):
                             stat_vars = list(place_data['data'].keys())
                             if len(stat_vars) > len(chart[t]['statsVars']):
                                 chart[t]['statsVars'] = stat_vars
+                            elif len(stat_vars) == 0:
+                                chart[t] = {}
                 if 'aggregate' in chart:
                     chart['statsVars'] = []
 
