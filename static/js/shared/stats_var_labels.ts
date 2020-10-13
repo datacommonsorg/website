@@ -82,6 +82,8 @@ const STATS_VAR_LABEL: { [key: string]: string } = {
   Count_Person_10To14Years: "10-14",
   Count_Person_10To19Years: "10-19",
   Count_Person_15To19Years: "15-19",
+  Count_Person_15OrMoreYears: "15+",
+  Count_Person_16OrMoreYears: "16+",
   Count_Person_18To24Years: "18-24",
   Count_Person_20To24Years: "20-24",
   Count_Person_20To29Years: "20-29",

@@ -87,6 +87,8 @@ const STATS_VAR_TITLES: { [key: string]: string } = {
   Count_Person_10To14Years: "Population Ages 10-14",
   Count_Person_10To19Years: "Population Ages 10-19",
   Count_Person_15To19Years: "Population Ages 15-19",
+  Count_Person_15OrMoreYears: "Population Ages 15+",
+  Count_Person_16OrMoreYears: "Population Ages 16+",
   Count_Person_18To24Years: "Population Ages 18-24",
   Count_Person_20To24Years: "Population Ages 20-24",
   Count_Person_20To29Years: "Population Ages 20-29",
