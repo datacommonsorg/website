@@ -97,9 +97,11 @@ function wrap(
     const text = d3.select(this);
     const words = text
       .text()
-      .split(/(?<=[-\s])/)
+      .replace("-", "-#") // Handle e.g. "ABC-AB A" -> "ABC-", "AB" "A"
+      .split(/[ #]/)
       .filter((w) => w.trim() != "")
       .reverse();
+
     let line: string[] = [];
     let lineNumber = 0;
     const lineHeight = 1.1; // ems
