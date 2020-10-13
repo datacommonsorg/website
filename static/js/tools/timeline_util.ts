@@ -265,39 +265,39 @@ class TimelineParams {
       }
     }
 
+    // Checks if a string starts with a digit
+    const startsWithDigit = (str: string): boolean =>
+      "0" <= str[0] && str[0] <= "9";
+
     // set statsVars
     const statsVars = this.urlParams.get("statsVar");
     if (statsVars) {
       for (const statsVarString of statsVars.split(statsVarSep)) {
         const statsVarInfo = statsVarString.split(nodePathSep);
         const dcid = statsVarInfo[0];
+        // Node paths followed by denominators, e.g.,
+        // ["0", "0", "0", "Count_Person", "Count_Hosehold"]
+        const pathsAndDenominators = statsVarInfo.splice(1);
+        // Node paths are digits, e.g., ["0", "0", "0"]
+        const paths = pathsAndDenominators.filter((str) =>
+          startsWithDigit(str)
+        );
+        // StatVar DCIDs do not start with digits
+        const denoms = pathsAndDenominators.filter(
+          (str) => !startsWithDigit(str)
+        );
+
         // if statsVar path is not included in url
         // load the path from pre-built map
-        if (statsVarInfo.length === 1) {
-          if (dcid in statsVarPathMap) {
-            this.addStatsVar(
-              dcid,
-              statsVarPathMap[dcid].map((x: number) => x.toString()),
-              // TODO: Consider adding denominators to the pre-built map
-              []
-            );
-          } else {
-            this.addStatsVar(dcid, [], []);
-          }
-        } else {
-          // Node paths followed by denominators, e.g.,
-          // ["0", "0", "0", "Count_Person", "Count_Hosehold"]
-          const pathsAndDenominators = statsVarInfo.splice(1);
-          // Checks if a string starts with a digit
-          const startsWithDigit = (str: string): boolean =>
-            "0" <= str[0] && str[0] <= "9";
+        if (paths.length == 0 && dcid in statsVarPathMap) {
           this.addStatsVar(
             dcid,
-            // Node paths are digits, e.g., ["0", "0", "0"]
-            pathsAndDenominators.filter((str) => startsWithDigit(str)),
-            // StatVar DCIDs do not start with digits
-            pathsAndDenominators.filter((str) => !startsWithDigit(str))
+            statsVarPathMap[dcid].map((x: number) => x.toString()),
+            // TODO: Consider adding denominators to the pre-built map
+            denoms
           );
+        } else {
+          this.addStatsVar(dcid, paths, denoms);
         }
       }
     }
