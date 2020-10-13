@@ -49,12 +49,16 @@ function drawChoropleth(
 ): void {
   const label = STATS_VAR_LABEL[statVar];
   const maxColor = d3.color(getColorFn([label])(label));
-  let colorScale = d3
+  const colorScale = d3
     .scaleLinear()
     .domain(d3.extent(Object.values(dataValues)))
     .nice()
     .range(([MIN_COLOR, maxColor, maxColor.darker(2)] as unknown) as number[])
-    .interpolate((((d3.interpolateHslLong as unknown))) as (a: unknown, b: unknown) => (t: number) => number
+    .interpolate(
+      (d3.interpolateHslLong as unknown) as (
+        a: unknown,
+        b: unknown
+      ) => (t: number) => number
     );
 
   // Add svg for the map to the div holding the chart.
@@ -168,14 +172,13 @@ function generateLegend(
   color: d3.ScaleLinear<number, number>,
   unit: string
 ) {
-  const title = unit ? unit : "";
   const height = chartHeight - LEGEND_MARGIN_TOP - LEGEND_MARGIN_BOTTOM;
   const n = Math.min(color.domain().length, color.range().length);
 
   const legend = svg
     .append("g")
     .attr("class", "legend")
-        .attr("transform", `translate(${chartWidth - LEGEND_WIDTH}, 0)`);
+    .attr("transform", `translate(${chartWidth - LEGEND_WIDTH}, 0)`);
 
   legend
     .append("image")
@@ -192,26 +195,33 @@ function generateLegend(
       ).toDataURL()
     );
 
-  const yScale = d3.scaleLinear()
-    .domain(color.domain())
-    .range([0, height])
+  const yScale = d3.scaleLinear().domain(color.domain()).range([0, height]);
 
   legend
     .append("g")
     .attr("transform", `translate(0, ${LEGEND_MARGIN_TOP})`)
-    .call(d3.axisRight(yScale).tickSize(TICK_SIZE).ticks(NUM_TICKS)
+    .call(
+      d3
+        .axisRight(yScale)
+        .tickSize(TICK_SIZE)
+        .ticks(NUM_TICKS)
         .tickFormat((d) => {
           return formatYAxisTicks(d, yScale, unit);
-        }))
+        })
+    )
     .call((g) =>
-      g.selectAll(".tick line").attr("x2", LEGEND_IMG_WIDTH + LEGEND_MARGIN_RIGHT)
+      g
+        .selectAll(".tick line")
+        .attr("x2", LEGEND_IMG_WIDTH + LEGEND_MARGIN_RIGHT)
         .attr("fill", AXIS_TEXT_FILL)
         .attr("stroke", AXIS_GRID_FILL)
     )
     .call((g) =>
-      g.selectAll(".tick text").attr("transform", `translate(${LEGEND_IMG_WIDTH}, 0)`)
+      g
+        .selectAll(".tick text")
+        .attr("transform", `translate(${LEGEND_IMG_WIDTH}, 0)`)
     )
-    .call((g) => g.select(".domain").remove())
+    .call((g) => g.select(".domain").remove());
 }
 
 const genScaleImg = (
