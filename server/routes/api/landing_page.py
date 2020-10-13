@@ -359,6 +359,9 @@ def data(dcid):
             for chart in spec_and_stat[category][topic]:
                 # Trend data
                 chart['trend'] = get_trend(chart, all_stat, dcid)
+                if 'aggregate' in chart:
+                    chart['trend']['statsVars'] = list(chart['trend'].get(
+                        'series', {}).keys())
                 # Bar data
                 for t in chart_types:
                     chart[t] = get_bar(chart, all_stat, [dcid] +
@@ -373,15 +376,15 @@ def data(dcid):
                                 break
                         if not keep_chart:
                             chart[t] = {}
-                # Update stat vars for aggregated stats
-                if 'aggregate' in chart:
-                    chart['statsVars'] = list(chart['trend'].get('series',
-                                                                 {}).keys())
-                    for t in chart_types:
+                    # Update stat vars for aggregated stats
+                    if 'aggregate' in chart and chart[t]:
+                        chart[t]['statsVars'] = []
                         for place_data in chart[t].get('data', []):
                             stat_vars = list(place_data['data'].keys())
-                            if len(stat_vars) > len(chart['statsVars']):
-                                chart['statsVars'] = stat_vars
+                            if len(stat_vars) > len(chart[t]['statsVars']):
+                                chart[t]['statsVars'] = stat_vars
+                if 'aggregate' in chart:
+                    chart['statsVars'] = []
 
     # Remove empty category and topics
     for category in list(spec_and_stat.keys()):

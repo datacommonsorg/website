@@ -30,6 +30,7 @@ export interface TrendData {
   series: { string: Series };
   sources: string[];
   exploreUrl: string;
+  statsVars?: string[];
 }
 
 export interface SnapshotData {
@@ -41,6 +42,7 @@ export interface SnapshotData {
   }[];
   sources: string[];
   exploreUrl: string;
+  statsVars?: string[];
 }
 
 export interface ChartBlockData {
