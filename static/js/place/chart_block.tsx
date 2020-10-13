@@ -278,7 +278,7 @@ class ChartBlock extends React.Component<ChartBlockPropType, unknown> {
           this.props.placeType === "County"
             ? `${relatedChartTitle}: ${displayPlaceType} near ${this.props.placeName}`
             : `${relatedChartTitle}: places within ${this.props.placeName}`;
-        if (!!svChoroplethData) {
+        if (svChoroplethData) {
           chartElements.push(
             <Chart
               key={id}

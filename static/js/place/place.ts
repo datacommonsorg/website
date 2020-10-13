@@ -33,7 +33,7 @@ let yScrollLimit = 0; // window scroll position to start fixing the sidebar
 let sidebarTopMax = 0; // Max top position for the sidebar, relative to #sidebar-outer.
 const Y_SCROLL_WINDOW_BREAKPOINT = 992; // Only trigger fixed sidebar beyond this window width.
 const Y_SCROLL_MARGIN = 100; // Margin to apply to the fixed sidebar top.
-const placeTypesWithChoropleth = new Set(['Country', 'State', 'County']);
+const placeTypesWithChoropleth = new Set(["Country", "State", "County"]);
 
 window.onload = () => {
   renderPage();
