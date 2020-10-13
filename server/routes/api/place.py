@@ -50,12 +50,6 @@ EQUIVALENT_PLACE_TYPES = {
     "Village": "City",
 }
 
-CHILD_PLACE_LIMIT = 50
-SIMILAR_PLACE_LIMIT = 5
-
-# Minimal population count for a place to show up in nearby places list.
-MIN_POP = 5000
-
 # Contains statistical variable and the display name used for place rankings.
 RANKING_STATS = {
     'Count_Person': 'Largest Population',
@@ -66,8 +60,6 @@ RANKING_STATS = {
 
 STATE_EQUIVALENTS = {"State", "AdministrativeArea1"}
 US_ISO_CODE_PREFIX = 'US'
-CITY_COHORT = 'PlacePagesComparisonCityCohort'
-COUNTY_COHORT = 'PlacePagesComparisonCountyCohort'
 
 # Define blueprint
 bp = Blueprint("api.place", __name__, url_prefix='/api/place')
@@ -385,94 +377,6 @@ def get_related_place(dcid,
                                 stats_vars,
                                 within_place=within_place,
                                 is_per_capita=is_per_capita)
-
-
-@cache.memoize(timeout=3600 * 24)
-def get_place_cohort(cohort):
-    """Get all the place dcids for a cohort set."""
-    return dc.get_property_values([cohort], 'member')[cohort]
-
-
-@bp.route('/similar/<stats_var>/<path:dcid>')
-def api_similar_places(stats_var, dcid):
-    """
-    Get the similar places for a given place.
-
-    If the place is a USA city or county, the similar places are randomly
-    selected from curated cohort. Otherwise, the similar places are by stats
-    var within the same place.
-    """
-    # Seed with current day of the year
-    random.seed(dcid + str(time.localtime().tm_yday))
-    # Choose city from US city cohort.
-    match = re.match(r'geoId/\d{7}', dcid)
-    if match:
-        city_cohort = get_place_cohort(CITY_COHORT)
-        random.shuffle(city_cohort)
-        result = []
-        for city in city_cohort:
-            if city != dcid:
-                result.append(city)
-            if len(result) == SIMILAR_PLACE_LIMIT:
-                return Response(json.dumps(result),
-                                200,
-                                mimetype='application/json')
-
-    match = re.match(r'geoId/\d{5}', dcid)
-    if match:
-        county_cohort = get_place_cohort(COUNTY_COHORT)
-        random.shuffle(county_cohort)
-        result = []
-        for county in county_cohort:
-            if county != dcid:
-                result.append(county)
-            if len(result) == SIMILAR_PLACE_LIMIT:
-                return Response(json.dumps(result),
-                                200,
-                                mimetype='application/json')
-
-    parents = parent_places(dcid)[dcid]
-    # scope similar places to the same country if possible
-    parent_dcid = None
-    if parents and len(parents):
-        if len(parents) >= 2:  # has [..., country, continent]
-            parent_dcid = parents[-2]['dcid']
-    result = get_related_place(dcid, stats_var,
-                               within_place=parent_dcid).get(stats_var, {})
-    return Response(json.dumps(result['relatedPlaces']),
-                    200,
-                    mimetype='application/json')
-
-
-@cache.memoize(timeout=3600 * 24)  # Cache for one day.
-@bp.route('/nearby/<path:dcid>')
-def api_nearby_places(dcid):
-    """
-    Get the nearby places for a given place.
-    """
-    req_json = {'dcids': [dcid], 'property': 'nearbyPlaces', 'direction': 'out'}
-    url = dc.API_ROOT + dc.API_ENDPOINTS['get_property_values']
-    payload = dc.send_request(url, req_json=req_json)
-    prop_values = payload[dcid].get('out')
-    if not prop_values:
-        return json.dumps([])
-    places = []
-    for prop_value in prop_values:
-        places.append(prop_value['value'].split('@'))
-    places.sort(key=lambda x: x[1])
-    dcids = [place[0] for place in places]
-    pop = stats_api.get_stats_latest('^'.join(dcids), 'Count_Person')
-
-    filtered_dcids = []
-    # Filter out places that are smaller certain population.
-    for x, count in pop.items():
-        if count > MIN_POP:
-            filtered_dcids.append(x)
-    filtered_dcids.sort(key=lambda x: pop[x])
-    filtered_dcids.insert(0, dcid)
-    return Response(json.dumps(filtered_dcids),
-                    200,
-                    mimetype='application/json')
 
 
 def get_ranking_url(containing_dcid,
