@@ -18,31 +18,75 @@ import math
 import re
 from operator import mul
 
-AGE_REGEX = re.compile("Count_Person_(.*)Years")
-AGE_FMT = "Count_Person_{}Years"
-
-AGE_RANGE = {
-    'census': {
-        (5, 17): set([(5, 17)]),
-        (18, 24): set([(18, 24)]),
-        (25, 34): set([(25, 34)]),
-        (35, 44): set([(35, 44)]),
-        (45, 54): set([(45, 54)]),
-        (55, 64): set([(55, 59), (60, 61), (62, 64)]),
-        (65, 74): set([(65, 74)]),
-        (75, math.inf): set([(75, math.inf)])
-    },
-    'oecd': {
-        (0, 9): set([(0, 4), (5, 9)]),
-        (10, 19): set([(10, 14), (15, 19)]),
-        (20, 29): set([(20, 24), (25, 29)]),
-        (30, 39): set([(30, 34), (35, 39)]),
-        (40, 49): set([(40, 44), (45, 49)]),
-        (50, 59): set([(50, 54), (55, 59)]),
-        (60, 69): set([(60, 64), (65, 69)]),
-        (70, math.inf): set([(70, 74), (75, 79), (80, math.inf)]),
+AGE = {
+    'regex': re.compile('Count_Person_(.*)Years'),
+    'fmt': 'Count_Person_{}Years',
+    'grouping': {
+        'census': {
+            (5, 17): set([(5, 17)]),
+            (18, 24): set([(18, 24)]),
+            (25, 34): set([(25, 34)]),
+            (35, 44): set([(35, 44)]),
+            (45, 54): set([(45, 54)]),
+            (55, 64): set([(55, 59), (60, 61), (62, 64)]),
+            (65, 74): set([(65, 74)]),
+            (75, math.inf): set([(75, math.inf)])
+        },
+        'oecd': {
+            (0, 9): set([(0, 4), (5, 9)]),
+            (10, 19): set([(10, 14), (15, 19)]),
+            (20, 29): set([(20, 24), (25, 29)]),
+            (30, 39): set([(30, 34), (35, 39)]),
+            (40, 49): set([(40, 44), (45, 49)]),
+            (50, 59): set([(50, 54), (55, 59)]),
+            (60, 69): set([(60, 64), (65, 69)]),
+            (70, math.inf): set([(70, 74), (75, 79), (80, math.inf)]),
+        }
     }
 }
+
+HOME_VALUE = {
+    'regex': re.compile('Count_HousingUnit_HomeValue(.*)USDollar'),
+    'fmt': 'Count_HousingUnit_HomeValue{}USDollar',
+    'grouping': {
+        'census': {
+            (0, 49999):
+                set([(0, 10000), (10000, 14999), (15000, 19999), (20000, 24999),
+                     (25000, 29999), (30000, 34999), (35000, 39999),
+                     (40000, 49999)]),
+            (50000, 99999):
+                set([(50000, 59999), (60000, 69999), (70000, 79999),
+                     (80000, 89999), (90000, 99999)]),
+            (100000, 199999):
+                set([(100000, 124999), (125000, 149999), (150000, 174999),
+                     (175000, 199999)]),
+            (200000, 299999):
+                set([
+                    (200000, 249999),
+                    (250000, 299999),
+                ]),
+            (300000, 499999):
+                set([(300000, 399999), (400000, 499999)]),
+            (500000, 999999):
+                set([(500000, 749999), (750000, 999999)]),
+            (1000000, 1499999):
+                set([(1000000, 1499999)]),
+            (1500000, 1999999):
+                set([(1500000, 1999999)]),
+            (2000000, math.inf):
+                set([(2000000, math.inf)]),
+        }
+    }
+}
+
+
+def get_aggregate_config(prop):
+    # cc['aggregate'] field is the stat var property to aggregate.
+    if prop == 'age':
+        return AGE
+    elif prop == 'homeValue':
+        return HOME_VALUE
+    return {}
 
 
 def from_string(s):
@@ -81,27 +125,26 @@ def to_stat_var(r, fmt):
     return fmt.format(part)
 
 
-def aggregate_age_stat_var(place_stat_vars):
-    """Build aggregated age stat vars.
+def aggregate_stat_var(place_stat_vars, range_config):
+    """Build aggregated stat vars.
 
     Args:
-        place_stat_vars: A dict from place dcid to a list of age stat vars.
+        place_stat_vars: A dict from place dcid to a list of stat vars.
     Returns:
-        A dict of age stat var mapping from aggregated age stat var to the raw
-        age stat var.
+        A dict of stat var mapping from aggregated stat var to the raw stat var.
     """
-    place_age_range = {}
+    place_range = {}
     for place, stat_vars in place_stat_vars.items():
-        place_age_range[place] = set(
-            [from_stat_var(sv, AGE_REGEX) for sv in stat_vars])
+        place_range[place] = set(
+            [from_stat_var(sv, range_config['regex']) for sv in stat_vars])
 
     # For each aggregation pattern and place, obtain a score, which is the
-    # percentage of age bucket that the place has.
+    # percentage of bucket that the place has.
     agg_score = {}
-    for method, bucket in AGE_RANGE.items():
+    for method, bucket in range_config['grouping'].items():
         agg_score[method] = {}
         total = float(len(bucket))
-        for place, range_set in place_age_range.items():
+        for place, range_set in place_range.items():
             count = 0
             for agg_range, raw_ranges in bucket.items():
                 if raw_ranges.issubset(range_set):
@@ -119,10 +162,14 @@ def aggregate_age_stat_var(place_stat_vars):
             highest_score = score
     # Get the stat var grouping for each place.
     result = {place: {} for place in place_stat_vars}
-    for agg_range, raw_ranges in AGE_RANGE[used_method].items():
-        agg_stat_var = to_stat_var(agg_range, AGE_FMT)
-        raw_stat_vars = [to_stat_var(r, AGE_FMT) for r in raw_ranges]
-        for place, range_set in place_age_range.items():
-            if raw_ranges.issubset(range_set):
-                result[place][agg_stat_var] = raw_stat_vars
+    if used_method:
+        for agg_range, raw_ranges in range_config['grouping'][
+                used_method].items():
+            agg_stat_var = to_stat_var(agg_range, range_config['fmt'])
+            raw_stat_vars = [
+                to_stat_var(r, range_config['fmt']) for r in raw_ranges
+            ]
+            for place, range_set in place_range.items():
+                if raw_ranges.issubset(range_set):
+                    result[place][agg_stat_var] = raw_stat_vars
     return result

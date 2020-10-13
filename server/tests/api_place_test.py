@@ -61,51 +61,6 @@ class TestRoute(unittest.TestCase):
         else:
             return {req['dcids'][0]: {}}
 
-    @patch('routes.api.place.dc.get_property_values')
-    @patch('routes.api.place.fetch_data')
-    @patch('routes.api.place.stats_api.get_stats_wrapper')
-    def test_index(self, mock_get_stats, mock_fetch_data, mock_get_place_type):
-        mock_fetch_data.side_effect = self.side_effect
-
-        mock_get_stats.return_value = json.dumps({
-            'dcid1': {
-                'data': {
-                    '2018': 200
-                }
-            },
-            'dcid2': {
-                'data': {
-                    '2018': 300
-                }
-            },
-            'dcid3': {
-                'data': {
-                    '2018': 100
-                }
-            },
-            'dcid4': {
-                'data': {
-                    '2018': 500
-                }
-            },
-        })
-
-        mock_get_place_type.return_value = {'geoId/06': ['State']}
-
-        response = app.test_client().get('/api/place/child/geoId/06')
-        assert response.status_code == 200
-        assert json.loads(response.data) == {
-            'County': [{
-                'dcid': 'dcid2',
-                'name': 'name2',
-                'pop': 300
-            }, {
-                'dcid': 'dcid1',
-                'name': 'name1',
-                'pop': 200
-            }]
-        }
-
 
 class TestApiParentPlaces(unittest.TestCase):
 

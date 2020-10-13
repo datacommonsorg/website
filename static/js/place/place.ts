@@ -33,6 +33,7 @@ let yScrollLimit = 0; // window scroll position to start fixing the sidebar
 let sidebarTopMax = 0; // Max top position for the sidebar, relative to #sidebar-outer.
 const Y_SCROLL_WINDOW_BREAKPOINT = 992; // Only trigger fixed sidebar beyond this window width.
 const Y_SCROLL_MARGIN = 100; // Margin to apply to the fixed sidebar top.
+const placeTypesWithChoropleth = new Set(["Country", "State", "County"]);
 
 window.onload = () => {
   renderPage();
@@ -91,7 +92,7 @@ async function getGeoJsonData(
   dcid: string,
   placeType: string
 ): Promise<unknown> {
-  if (placeType == "Country" || placeType == "State") {
+  if (shouldMakeChoroplethCalls(dcid, placeType)) {
     return axios.get("/api/chart/geojson/" + dcid).then((resp) => {
       return resp.data;
     });
@@ -109,7 +110,7 @@ async function getChoroplethData(
   dcid: string,
   placeType: string
 ): Promise<CachedChoroplethData> {
-  if (placeType == "Country" || placeType == "State") {
+  if (shouldMakeChoroplethCalls(dcid, placeType)) {
     return axios.get("/api/chart/choroplethdata/" + dcid).then((resp) => {
       return resp.data;
     });
@@ -127,6 +128,12 @@ async function getLandingPageData(dcid: string): Promise<PageData> {
   return axios.get("/api/landingpage/data/" + dcid).then((resp) => {
     return resp.data;
   });
+}
+
+function shouldMakeChoroplethCalls(dcid: string, placeType: string): boolean {
+  const isInUSA: boolean =
+    dcid.startsWith("geoId") || dcid.startsWith("country/USA");
+  return isInUSA && placeTypesWithChoropleth.has(placeType);
 }
 
 function renderPage(): void {

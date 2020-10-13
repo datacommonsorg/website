@@ -54,7 +54,7 @@ class TestAggregate(unittest.TestCase):
                 'Count_Person_75OrMoreYears': ['Count_Person_75OrMoreYears']
             }
         }
-        assert lib_range.aggregate_age_stat_var(input) == expected
+        assert lib_range.aggregate_stat_var(input, lib_range.AGE) == expected
 
     def test_us_place_age(self):
         input = {
@@ -135,7 +135,7 @@ class TestAggregate(unittest.TestCase):
                 'Count_Person_65To74Years': ['Count_Person_65To74Years']
             }
         }
-        assert lib_range.aggregate_age_stat_var(input) == expected
+        assert lib_range.aggregate_stat_var(input, lib_range.AGE) == expected
 
     def test_eu_place_age(self):
         input = {
@@ -246,4 +246,4 @@ class TestAggregate(unittest.TestCase):
                 ]
             }
         }
-        assert lib_range.aggregate_age_stat_var(input) == expected
+        assert lib_range.aggregate_stat_var(input, lib_range.AGE) == expected
