@@ -41,6 +41,11 @@ CHOROPLETH_DISPLAY_LEVEL_MAP = {
     "AdministrativeArea1": "AdministrativeArea2",
     "AdministrativeArea2": "AdministrativeArea2"
 }
+# GeoJSON property to use, keyed by display level.
+CHOROPLETH_GEOJSON_PROPERTY_MAP = {
+    "AdministrativeArea1": "geoJsonCoordinatesDP3",
+    "AdministrativeArea2": "geoJsonCoordinatesDP2",
+}
 
 
 @cache.memoize(timeout=3600 * 24)  # Cache for one day.
@@ -51,9 +56,9 @@ def get_choropleth_places(geoDcid):
         geoDcid: dcid of the place of interest
 
     Returns:
-        list of dcids
+        (list of dcids, property to use for fetching geo json)
     """
-    result = []
+    place_list = []
     place_type = place_api.get_place_type(geoDcid)
     display_level = None
     if place_type in CHOROPLETH_DISPLAY_LEVEL_MAP:
@@ -63,7 +68,7 @@ def get_choropleth_places(geoDcid):
         place_type = EQUIVALENT_PLACE_TYPES[place_type]
         display_level = CHOROPLETH_DISPLAY_LEVEL_MAP[place_type]
     else:
-        return result
+        return place_list
 
     if place_type == display_level:
         parents_places = place_api.parent_places(geoDcid)
@@ -79,13 +84,17 @@ def get_choropleth_places(geoDcid):
                     parent_display_level = CHOROPLETH_DISPLAY_LEVEL_MAP.get(
                         EQUIVALENT_PLACE_TYPES.get(parent_place_type, ''))
                 if parent_display_level == display_level:
-                    return dc_service.get_places_in([parent_dcid],
-                                                    display_level).get(
-                                                        parent_dcid, [])
-        return result
+                    place_list = dc_service.get_places_in([parent_dcid],
+                                                          display_level).get(
+                                                              parent_dcid, [])
+                    geo_prop = CHOROPLETH_GEOJSON_PROPERTY_MAP[display_level]
+                    return place_list, geo_prop
+        return place_list
     else:
-        return dc_service.get_places_in([geoDcid],
-                                        display_level).get(geoDcid, [])
+        place_list = dc_service.get_places_in([geoDcid],
+                                              display_level).get(geoDcid, [])
+        geo_prop = CHOROPLETH_GEOJSON_PROPERTY_MAP[display_level]
+        return place_list, geo_prop
 
 
 @bp.route('/geojson/<path:dcid>')
@@ -94,13 +103,12 @@ def geojson(dcid):
     """
     Get geoJson data for a given place
     """
-    geos = get_choropleth_places(dcid)
+    geos, geojson_prop = get_choropleth_places(dcid)
     if not geos:
         return Response(json.dumps({}), 200, mimetype='application/json')
 
     names_by_geo = place_api.get_display_name('^'.join(geos))
-    geojson_by_geo = dc_service.get_property_values(geos,
-                                                    "geoJsonCoordinatesDP1")
+    geojson_by_geo = dc_service.get_property_values(geos, geojson_prop)
     features = []
     for geo_id, json_text in geojson_by_geo.items():
         if json_text and geo_id in names_by_geo:
@@ -205,7 +213,7 @@ def choropleth_data(dcid):
             value as object with date,dictionary of place: value, number of data points, exploreUrl, list of sources
     """
     all_stat_vars, choropleth_configs = get_choropleth_sv()
-    geos = get_choropleth_places(dcid)
+    geos, _ = get_choropleth_places(dcid)
     if not all_stat_vars or not geos:
         return Response(json.dumps({}), 200, mimetype='application/json')
     # Get data for all the stat vars for every place we will need and process the data

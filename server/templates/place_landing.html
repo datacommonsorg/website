@@ -91,7 +91,7 @@
 
   <h3>Rankings</h3>
   <ul>
-    <li><strong>Median Income in United States</strong>:
+    <li><strong>Median Income, United States</strong>:
       <a
         href="{{ ranking_url('Median_Income_Person', 'City', 'country/USA', unit='$') }}">by
         city</a>,
@@ -102,7 +102,7 @@
         href="{{ ranking_url('Median_Income_Person', 'State', 'country/USA', unit='$') }}">by
         state</a>
     </li>
-    <li><strong>Unemployment Rate in United States</strong>:
+    <li><strong>Unemployment Rate, United States</strong>:
       <a
         href="{{ ranking_url('UnemploymentRate_Person', 'City', 'country/USA', unit='%') }}">by
         city</a>,
@@ -113,23 +113,24 @@
         href="{{ ranking_url('UnemploymentRate_Person', 'State', 'country/USA', unit='%') }}">by
         state</a>
     </li>
-    <li><strong>Poverty in United States</strong>:
+    <li><strong>Life Expectancy</strong>:
       <a
-        href="{{ ranking_url('Count_Person_BelowPovertyLevelInThePast12Months', 'City', 'country/USA', pc='') }}">by
-        city</a>,
-      <a
-        href="{{ ranking_url('Count_Person_BelowPovertyLevelInThePast12Months', 'County', 'country/USA', pc='') }}">by
-        county</a>,
-      <a
-        href="{{ ranking_url('Count_Person_BelowPovertyLevelInThePast12Months', 'State', 'country/USA', pc='') }}">by
-        state</a>
+        href="{{ ranking_url('LifeExpectancy_Person', 'Country') }}">Worldwide</a>,
+      <a href="{{ ranking_url('LifeExpectancy_Person', 'State') }}">in United
+        States</a>
     </li>
-    <li><strong>COVID-19 Deaths</strong>:
+    <li><strong>Economic Indicators, Worldwide</strong>:
+      <a href="{{ ranking_url('GiniIndex_EconomicActivity', 'Country') }}">Gini
+        Index</a>,
       <a
-        href="{{ ranking_url('CumulativeCount_MedicalConditionIncident_COVID_19_PatientDeceased', 'Country') }}">worldwide</a>,
+        href="{{ ranking_url('Amount_EconomicActivity_GrossNationalIncome_PurchasingPowerParity_PerCapita', 'Country') }}">Gross
+        National Income</a>,
       <a
-        href="{{ ranking_url('CumulativeCount_MedicalConditionIncident_COVID_19_PatientDeceased', 'State', 'country/USA') }}">
-        United States</a>
+        href="{{ ranking_url('Amount_EconomicActivity_ExpenditureActivity_EducationExpenditure_Government_AsFractionOf_Amount_EconomicActivity_ExpenditureActivity_Government', 'Country') }}">Government
+        Expenditures on Education</a>,
+      <a
+        href="{{ ranking_url('Amount_EconomicActivity_ExpenditureActivity_MilitaryExpenditure_Government_AsFractionOf_Amount_EconomicActivity_GrossDomesticProduction_Nominal', 'Country') }}">Government
+        Expenditures on Military</a>
     </li>
   </ul>
 </div>
