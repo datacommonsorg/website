@@ -396,10 +396,10 @@ class TestChoroplethData(unittest.TestCase):
         def snapshot_data_side_effect(*args):
             if args[0] == cc1 and args[1] == stats_all_return_value and args[
                     2] == geos:
-                return cc1_snapshot_data
+                return cc1_snapshot_data, {'sv1': None}
             elif args[0] == cc2 and args[1] == stats_all_return_value and args[
                     2] == geos:
-                return cc2_snapshot_data
+                return cc2_snapshot_data, {'sv2': None}
             else:
                 return None
 
@@ -409,10 +409,11 @@ class TestChoroplethData(unittest.TestCase):
         test_url2 = 'test/url/2'
 
         def build_url_side_effect(*args):
-            if args[0] == [test_dcid] and args[1] == [sv1]:
+            if args[0] == [test_dcid] and args[1] == {'sv1': None}:
                 return test_url
-            elif args[0] == [test_dcid] and args[1] == [sv2
-                                                       ] and args[2] == True:
+            elif args[0] == [test_dcid] and args[1] == {
+                    'sv2': None
+            } and args[2] == True:
                 return test_url2
             else:
                 return None
