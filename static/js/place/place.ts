@@ -144,6 +144,8 @@ function renderPage(): void {
   const choroplethDataPromise = getChoroplethData(dcid, placeType);
 
   landingPagePromise.then((landingPageData) => {
+    const loadingElem = document.getElementById("page-loading");
+    loadingElem.style.display = "none";
     const data: PageData = landingPageData;
     const isUsaPlace = isPlaceInUsa(dcid, data.parentPlaces);
     if (Object.keys(data.pageChart).length == 1) {
