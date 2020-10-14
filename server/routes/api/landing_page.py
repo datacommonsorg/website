@@ -328,12 +328,12 @@ def scale_series(numerator, denominator):
 
     num_date_fmt = None
     denom_date_fmt = None
-    for date in denominator.keys():
-        denom_date_fmt = get_date_fmt(date)
-        if denom_date_fmt: break
-    for date in numerator.keys():
-        num_date_fmt = get_date_fmt(date)
-        if num_date_fmt: break
+    try:
+        denom_date_fmt = get_date_fmt(denominator.keys()[0])
+        num_date_fmt = get_date_fmt(numerator.keys()[0])
+    except (IndexError, ValueError):
+        # No keys or unable to format as date.
+        return {}
     if not denom_date_fmt or not num_date_fmt:
         return {}
 
