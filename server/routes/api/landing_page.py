@@ -314,6 +314,7 @@ def get_date_fmt(date):
             pass
     return None
 
+
 # TODO(shifucun): Add unittest.
 def scale_series(numerator, denominator):
     """Scale two time series.
@@ -335,7 +336,8 @@ def scale_series(numerator, denominator):
         return {}
 
     latest_denom_date = max(denominator.keys())
-    latest_denom_date_obj = datetime.datetime.strptime(latest_denom_date, denom_date_fmt)
+    latest_denom_date_obj = datetime.datetime.strptime(latest_denom_date,
+                                                       denom_date_fmt)
 
     for date, value in numerator.items():
         if date in denominator:
@@ -351,7 +353,8 @@ def scale_series(numerator, denominator):
         # Case 1: if denominator is stale...
         if latest_denom_date_obj < date_obj:
             # Use latest date if within reason.
-            if (date_obj - latest_denom_date_obj <= datetime.timedelta(days=365 * MAX_DENOMINATOR_BACK_YEAR)):
+            if (date_obj - latest_denom_date_obj <=
+                    datetime.timedelta(days=365 * MAX_DENOMINATOR_BACK_YEAR)):
                 data[date] = value / denominator[latest_denom_date]
             # No other dates will work. Go to next date regardless.
             continue
@@ -365,12 +368,13 @@ def scale_series(numerator, denominator):
                     break
         elif denom_date_fmt == '%Y-%m':
             for i in range(0, 12 * MAX_DENOMINATOR_BACK_YEAR + 1):
-              year_month = datetime.datetime(date_obj.year, date_obj.month, 1) - relativedelta(months=i)
-              year_month_str = datetime.datetime.strftime(year_month, '%Y-%m')
-              if year_month_str in denominator:
-                  if denominator[year_month_str] > 0:
-                      data[date] = value / denominator[year_month_str]
-                  break
+                year_month = datetime.datetime(date_obj.year, date_obj.month,
+                                               1) - relativedelta(months=i)
+                year_month_str = datetime.datetime.strftime(year_month, '%Y-%m')
+                if year_month_str in denominator:
+                    if denominator[year_month_str] > 0:
+                        data[date] = value / denominator[year_month_str]
+                    break
     return data
 
 
