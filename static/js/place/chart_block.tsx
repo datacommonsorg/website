@@ -274,23 +274,23 @@ class ChartBlock extends React.Component<ChartBlockPropType, unknown> {
           this.props.placeType === "County"
             ? `${relatedChartTitle}: ${displayPlaceType} near ${this.props.placeName}`
             : `${relatedChartTitle}: places within ${this.props.placeName}`;
-          chartElements.push(
-            <Chart
-              key={id}
-              id={id}
-              dcid={this.props.dcid}
-              placeType={this.props.placeType}
-              chartType={chartTypeEnum.CHOROPLETH}
-              title={chartTitle}
-              unit={unit}
-              names={this.props.names}
-              scaling={scaling}
-              geoJsonData={this.props.geoJsonData}
-              choroplethData={this.props.choroplethData}
-              statsVars={this.props.data.statsVars}
-              rankingTemplateUrl={`/ranking/_sv_/${this.props.placeType}/${this.props.dcid}${rankingArg}`}
-            ></Chart>
-          );
+        chartElements.push(
+          <Chart
+            key={id}
+            id={id}
+            dcid={this.props.dcid}
+            placeType={this.props.placeType}
+            chartType={chartTypeEnum.CHOROPLETH}
+            title={chartTitle}
+            unit={unit}
+            names={this.props.names}
+            scaling={scaling}
+            geoJsonData={this.props.geoJsonData}
+            choroplethData={this.props.choroplethData}
+            statsVars={this.props.data.statsVars}
+            rankingTemplateUrl={`/ranking/_sv_/${this.props.placeType}/${this.props.dcid}${rankingArg}`}
+          ></Chart>
+        );
       }
     }
     return <>{chartElements}</>;

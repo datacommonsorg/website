@@ -27,7 +27,8 @@ import {
   chartTypeEnum,
   TrendData,
   SnapshotData,
-  ChoroplethDataGroup, CachedChoroplethData
+  ChoroplethDataGroup,
+  CachedChoroplethData,
 } from "./types";
 import { updatePageLayoutState } from "./place";
 import { ChartEmbed } from "./chart_embed";
@@ -164,7 +165,7 @@ class Chart extends React.Component<ChartPropType, ChartStateType> {
     if (
       this.props.chartType === chartTypeEnum.CHOROPLETH &&
       (_.isEmpty(this.state.choroplethDataGroup) ||
-      _.isEmpty(this.state.geoJson) ||
+        _.isEmpty(this.state.geoJson) ||
         this.state.choroplethDataGroup.numDataPoints <
           MIN_CHOROPLETH_DATAPOINTS)
     ) {
@@ -440,15 +441,17 @@ class Chart extends React.Component<ChartPropType, ChartStateType> {
         break;
       case chartTypeEnum.CHOROPLETH:
         if (this.props.geoJsonData && this.props.choroplethData) {
-          Promise.all([this.props.geoJsonData, this.props.choroplethData]).then(([geoJsonData, choroplethData]) => {
-            const sv = !_.isEmpty(this.props.statsVars)
-            ? this.props.statsVars[0]
-            : "";
-            this.setState({
-              choroplethDataGroup: choroplethData[sv],
-              geoJson: geoJsonData
-            });
-          });
+          Promise.all([this.props.geoJsonData, this.props.choroplethData]).then(
+            ([geoJsonData, choroplethData]) => {
+              const sv = !_.isEmpty(this.props.statsVars)
+                ? this.props.statsVars[0]
+                : "";
+              this.setState({
+                choroplethDataGroup: choroplethData[sv],
+                geoJson: geoJsonData,
+              });
+            }
+          );
         }
         break;
       default:
@@ -470,7 +473,9 @@ class Chart extends React.Component<ChartPropType, ChartStateType> {
 
   private getSources(): string[] {
     if (this.props.chartType == chartTypeEnum.CHOROPLETH) {
-      return this.state.choroplethDataGroup ? this.state.choroplethDataGroup.sources : [];
+      return this.state.choroplethDataGroup
+        ? this.state.choroplethDataGroup.sources
+        : [];
     } else {
       return this.props.trend
         ? this.props.trend.sources
