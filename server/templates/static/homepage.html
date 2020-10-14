@@ -56,19 +56,13 @@
       <a class="main" href="{{ url_for('place.place') }}">Explore Places</a>:
       <ul>
         <li>
-          <a class="sub"
-            href="{{ url_for('place.place', dcid='geoId/0649670') }}">Mountain
-            View, CA</a>,
+          <a class="sub" href="{{ url_for('place.place', dcid='geoId/0649670') }}">Mountain View, CA</a>,
         </li>
         <li>
-          <a class="sub"
-            href="{{ url_for('place.place', dcid='geoId/3651000', topic='Health') }}">New
-            York City Health</a>,
+          <a class="sub" href="{{ url_for('place.place', dcid='geoId/3651000', topic='Health') }}">New York City Health</a>,
         </li>
         <li>
-          <a class="sub"
-            href="{{ url_for('place.place', dcid='geoId/1150000', topic='Demographics') }}">Washington,
-            DC Demographics</a>,
+          <a class="sub" href="{{ url_for('place.place', dcid='geoId/1150000', topic='Demographics') }}">Washington, DC Demographics</a>,
         </li>
         <li><a class="sub" href="{{ url_for('tools.timeline') }}">more ...</a>
         </li>
@@ -80,19 +74,13 @@
         Charts</a>:
       <ul>
         <li>
-          <a class="sub"
-            href="{{ url_for('tools.timeline') }}#&&place=geoId/0606000,geoId/2511000,geoId/2603000,geoId/1777005,geoId/1225175,geoId/4815976&ptpv=Person,age">US
-            University Towns by Income</a>,
+          <a class="sub" href="{{ url_for('tools.timeline') }}#&place=geoId/0606000,geoId/2511000,geoId/2603000,geoId/1777005,geoId/1225175,geoId/4815976&statsVar=Median_Age_Person">US University Towns by Income</a>,
         </li>
         <li>
-          <a class="sub"
-            href="{{ url_for('tools.timeline') }}#&&place=geoId/06085,geoId/06025&ptpv=__Person,income,age,Years15Onwards,incomeStatus,WithIncome&pc=0">Richest
-            vs. Poorest California Counties</a>,
+          <a class="sub" href="{{ url_for('tools.timeline') }}#&place=geoId/06085,geoId/06025&statsVar=Median_Income_Person">Richest vs. Poorest California Counties</a>,
         </li>
         <li>
-          <a class="sub"
-            href="{{ url_for('tools.timeline') }}#&&place=geoId/0655282,geoId/0620956&pc=1&ptpv=Person,income,age,Years15Onwards,incomeStatus,WithIncome__Person,count,employment,BLS_Employed">Employment
-            differences across neighboring cities</a>,
+          <a class="sub" href="{{ url_for('tools.timeline') }}#&place=geoId/0655282,geoId/0620956&statsVar=Count_Person_AsianAlone__Count_Person_BlackOrAfricanAmericanAlone__Count_Person_NativeHawaiianAndOtherPacificIslanderAlone__Count_Person_WhiteAlone">Employment differences across neighboring cities</a>,
         </li>
         <li><a class="sub" href="{{ url_for('tools.timeline') }}">more ...</a>
         </li>
@@ -100,26 +88,18 @@
     </li>
 
     <li>
-      <a class="main" href="{{ url_for('browser.kg_main') }}">Browse entities in
-        the Data
-        Commons Graph</a>:
+      <a class="main" href="{{ url_for('browser.kg_main') }}">Browse entities in the Data Commons Graph</a>:
       <ul>
         <li>
-          <a class="sub"
-            href="{{ url_for('browser.kg_entity', dcid='geoId/4805000') }}">Austin,
-            TX</a>,
+          <a class="sub" href="{{ url_for('browser.kg_entity', dcid='geoId/4805000') }}">Austin, TX</a>,
         </li>
         <li>
-          <a class="sub"
-            href="{{ url_for('browser.kg_entity', dcid='geoId/sch3620580') }}">New
-            York City Dept. of Education</a>,
+          <a class="sub" href="{{ url_for('browser.kg_entity', dcid='geoId/sch3620580') }}">New York City Dept. of Education</a>,
         </li>
         <li>
-          <a class="sub"
-            href="{{ url_for('browser.kg_entity', dcid='EncodeBiosampleType') }}">Encyclopedia
-            of DNA Elements Biosamples</a>,
+          <a class="sub" href="{{ url_for('browser.kg_entity', dcid='EncodeBiosampleType') }}">Encyclopedia of DNA Elements Biosamples</a>,
         </li>
-        <li><a class="sub" href="{{ url_for('tools.timeline') }}">more ...</a>
+        <li><a class="sub" href="{{ url_for('browser.kg_main') }}">more ...</a>
         </li>
       </ul>
     </li>
@@ -133,10 +113,8 @@
     build your own tools and more
   </p>
   <ul>
-    <li><a href="http://docs.datacommons.org/api/">See API
-        documentation.</a></li>
-    <li><a href="http://docs.datacommons.org/tutorials.html">See some
-        sample Python notebooks.</a></li>
+    <li><a href="http://docs.datacommons.org/api/">See API documentation.</a></li>
+    <li><a href="http://docs.datacommons.org/tutorials.html">See some sample Python notebooks.</a></li>
   </ul>
 </section>
 

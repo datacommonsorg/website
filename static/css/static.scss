@@ -92,12 +92,13 @@ h2 {
 
 #homepage section ul {
   padding-left: 0;
+  padding-right: .25em;
   list-style-type: none;
 }
 
 #homepage section ul ul {
   display: inline;
-  padding-left: .25em;
+  // padding-left: 0;
 }
 
 #homepage section .row {
