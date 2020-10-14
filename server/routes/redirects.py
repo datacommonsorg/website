@@ -35,12 +35,14 @@ def kg():
 
 @bp.route('/gni')
 def gni():
-    return redirect(url_for('tools.timeline'), code=302)
+    return redirect(url_for('tools.timeline', _external=True, _scheme="https"),
+                    code=302)
 
 
 @bp.route('/scatter')
 def scatter():
-    return redirect(url_for('tools.scatter'), code=302)
+    return redirect(url_for('tools.scatter', _external=True, _scheme="https"),
+                    code=302)
 
 
 @bp.route('/documentation')
