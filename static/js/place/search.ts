@@ -52,19 +52,22 @@ function placeChangedCallback(): void {
 }
 
 function queryAutocompleteService(place_name): void {
-  acs.getPlacePredictions({
+  acs.getPlacePredictions(
+    {
       input: place_name,
       types: ["(regions)"],
-  }, queryAutocompleteCallback(place_name));
+    },
+    queryAutocompleteCallback(place_name)
+  );
 }
 
-let queryAutocompleteCallback = (place_name) => (predictions, status) => {
+const queryAutocompleteCallback = (place_name) => (predictions, status) => {
   if (status === google.maps.places.PlacesServiceStatus.OK) {
     getPlaceAndRender(predictions[0].place_id, place_name);
   } else {
     placeNotFoundAlert(place_name);
   }
-}
+};
 
 // Get url for a given place_id if we have data for the place. Otherwise, alert that the place is not found.
 function getPlaceAndRender(place_id, place_name): void {
