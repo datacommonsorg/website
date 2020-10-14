@@ -50,7 +50,7 @@
   },
   {
     "category": "Economics",
-    "title": "Labor Force Participation Rate (ages 15-64)",
+    "title": "Labor Force Participation Rate",
     "statsVars": [
       "Count_Person_15To64Years_InLaborForce_AsFractionOf_Count_Person_15To64Years"
     ],
