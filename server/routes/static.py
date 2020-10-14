@@ -47,11 +47,6 @@ def datasets():
     return render_template('static/datasets.html')
 
 
-@bp.route('/getinvolved')
-def get_involved():
-    return render_template('static/get_involved.html')
-
-
 @bp.route('/feedback')
 def feedback():
     return render_template('static/feedback.html')

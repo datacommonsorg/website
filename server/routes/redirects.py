@@ -53,6 +53,11 @@ def colab():
     return redirect('https://docs.datacommons.org/tutorials.html', code=302)
 
 
+@bp.route('/getinvolved')
+def get_involved():
+    return redirect('https://docs.datacommons.org/contributing/', code=302)
+
+
 # This is used to handle explore more link from Google search. Do not remove.
 # arg params from search: mprop, dcid, popt
 @bp.route('/explore/place')
