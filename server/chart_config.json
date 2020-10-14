@@ -37,7 +37,7 @@
   },
   {
     "category": "Economics",
-    "title": "Labor Force Participation",
+    "title": "Labor Force",
     "statsVars": ["Count_Person_InLaborForce"],
     "relatedChart": {
       "title": "Labor Force Participation Rate",
