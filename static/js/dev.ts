@@ -26,6 +26,7 @@ import {
   drawGroupBarChart,
   drawLineChart,
   drawGroupLineChart,
+  drawHistogram,
 } from "./chart/draw";
 
 import { computePlotParams } from "./chart/base";
@@ -62,9 +63,9 @@ window.onload = () => {
 
   let dataGroups = [
     new DataGroup("San Jose", [
-      new DataPoint("2011", 21000),
+      new DataPoint("2011", -10000),
       new DataPoint("2012", null),
-      new DataPoint("2013", 23000),
+      new DataPoint("2013", -30000),
     ]),
     new DataGroup("Fremont", [
       new DataPoint("2011", null),
@@ -73,7 +74,7 @@ window.onload = () => {
     ]),
     new DataGroup("San Francisco", [
       new DataPoint("2011", null),
-      new DataPoint("2012", 25000),
+      new DataPoint("2012", -25000),
       new DataPoint("2013", 22000),
     ]),
     new DataGroup("Mountain View", [
@@ -191,7 +192,7 @@ window.onload = () => {
     Total: [
       2940667,
       1952164,
-      1959400,
+      -1959400,
       1967392,
       2978048,
       2989918,
@@ -204,7 +205,7 @@ window.onload = () => {
       1439862,
       1447235,
       1451913,
-      1456694,
+      -1456694,
       1461651,
       1468412,
     ],
@@ -212,7 +213,7 @@ window.onload = () => {
   const placeValue2 = {
     Total: [
       37638369,
-      37948800,
+      -37948800,
       38260787,
       38596972,
       38918045,
@@ -226,7 +227,7 @@ window.onload = () => {
       18726468,
       18911519,
       19087135,
-      19200970,
+      -19200970,
       19366579,
       19453769,
     ],
@@ -299,4 +300,13 @@ window.onload = () => {
       ["Total"]
     )
   );
+
+  dataPoints = [
+    new DataPoint("San Jose", 20.2),
+    new DataPoint("Santa Clara County", -22.4),
+    new DataPoint("California", 23),
+    new DataPoint("United States", 25.9),
+  ];
+  containerId = addChartContainer();
+  drawHistogram(containerId, width, height, dataPoints);
 };

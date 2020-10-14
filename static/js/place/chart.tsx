@@ -122,7 +122,7 @@ class Chart extends React.Component<ChartPropType, ChartStateType> {
     this.embedModalElement = React.createRef();
 
     this.state = {
-      display: this.props.chartType !== chartTypeEnum.CHOROPLETH,
+      display: true,
       elemWidth: 0,
       showModal: false,
     };
@@ -439,14 +439,17 @@ class Chart extends React.Component<ChartPropType, ChartStateType> {
                 : "";
               const svData = choroplethData[sv];
               if (
-                !_.isEmpty(svData) &&
-                !_.isEmpty(geoJsonData) &&
-                svData.numDataPoints >= MIN_CHOROPLETH_DATAPOINTS
+                _.isEmpty(svData) ||
+                _.isEmpty(geoJsonData) ||
+                svData.numDataPoints < MIN_CHOROPLETH_DATAPOINTS
               ) {
+                this.setState({
+                  display: false
+                })
+              } else {
                 this.setState({
                   choroplethDataGroup: svData,
                   geoJson: geoJsonData,
-                  display: true,
                 });
               }
             }

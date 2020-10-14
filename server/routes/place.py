@@ -14,10 +14,7 @@
 """Place Explorer related handlers."""
 
 import flask
-import services.datacommons as dc
 import routes.api.place as place_api
-
-from cache import cache
 
 bp = flask.Blueprint('place', __name__, url_prefix='/place')
 
