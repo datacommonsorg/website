@@ -51,13 +51,13 @@ interface ChartBlockPropType {
    */
   isUsaPlace: boolean;
   /**
-   * Geojson data for places one level down of current dcid.
+   * Promise for Geojson data for choropleth for current dcid.
    */
-  geoJsonData: unknown;
+  geoJsonData: Promise<unknown>;
   /**
-   * Values of statvar/denominator combinations for places one level down of current dcid
+   * Promise for Values of statvar/denominator combinations for choropleth for current dcid
    */
-  choroplethData: CachedChoroplethData;
+  choroplethData: Promise<CachedChoroplethData>;
   childPlaceType: string;
   parentPlaceDcid: string;
 }
@@ -265,20 +265,13 @@ class ChartBlock extends React.Component<ChartBlockPropType, unknown> {
         }
       }
       if (
-        !!this.props.data.isChoropleth &&
-        !_.isEmpty(this.props.geoJsonData) &&
-        !_.isEmpty(this.props.choroplethData)
+        !!this.props.data.isChoropleth
       ) {
         const id = randDomId();
-        const sv = !_.isEmpty(this.props.data.statsVars)
-          ? this.props.data.statsVars[0]
-          : "";
-        const svChoroplethData = this.props.choroplethData[sv];
         const chartTitle =
           this.props.placeType === "County"
             ? `${relatedChartTitle}: ${displayPlaceType} near ${this.props.placeName}`
             : `${relatedChartTitle}: places within ${this.props.placeName}`;
-        if (svChoroplethData) {
           chartElements.push(
             <Chart
               key={id}
@@ -291,12 +284,11 @@ class ChartBlock extends React.Component<ChartBlockPropType, unknown> {
               names={this.props.names}
               scaling={scaling}
               geoJsonData={this.props.geoJsonData}
-              choroplethData={svChoroplethData}
+              choroplethData={this.props.choroplethData}
               statsVars={this.props.data.statsVars}
               rankingTemplateUrl={`/ranking/_sv_/${this.props.placeType}/${this.props.dcid}${rankingArg}`}
             ></Chart>
           );
-        }
       }
     }
     return <>{chartElements}</>;

@@ -27,11 +27,12 @@ import {
   chartTypeEnum,
   TrendData,
   SnapshotData,
-  ChoroplethDataGroup,
+  ChoroplethDataGroup, CachedChoroplethData
 } from "./types";
 import { updatePageLayoutState } from "./place";
 import { ChartEmbed } from "./chart_embed";
 import { drawChoropleth } from "../chart/draw_choropleth";
+import _ from "lodash";
 
 const CHART_HEIGHT = 194;
 const MIN_CHOROPLETH_DATAPOINTS = 9;
@@ -78,13 +79,13 @@ interface ChartPropType {
    */
   scaling?: number;
   /**
-   * Geojson data for places one level down of current dcid.
+   * Promise for Geojson data for choropleth for current dcid.
    */
-  geoJsonData?: unknown;
+  geoJsonData?: Promise<unknown>;
   /**
-   * Values of statvar/denominator combinations for places one level down of current dcid
+   * Promise for Values of statvar/denominator combinations for choropleth for current dcid
    */
-  choroplethData?: ChoroplethDataGroup;
+  choroplethData?: Promise<CachedChoroplethData>;
   /**
    * All stats vars for this chart
    */
@@ -99,6 +100,7 @@ interface ChartStateType {
   dataPoints?: DataPoint[];
   dataGroups?: DataGroup[];
   choroplethDataGroup?: ChoroplethDataGroup;
+  geoJson?: unknown;
   elemWidth: number;
   display: boolean;
   showModal: boolean;
@@ -161,7 +163,8 @@ class Chart extends React.Component<ChartPropType, ChartStateType> {
     }
     if (
       this.props.chartType === chartTypeEnum.CHOROPLETH &&
-      (!this.state.choroplethDataGroup ||
+      (_.isEmpty(this.state.choroplethDataGroup) ||
+      _.isEmpty(this.state.geoJson) ||
         this.state.choroplethDataGroup.numDataPoints <
           MIN_CHOROPLETH_DATAPOINTS)
     ) {
@@ -330,10 +333,10 @@ class Chart extends React.Component<ChartPropType, ChartStateType> {
     ) {
       drawChoropleth(
         this.props.id,
-        this.props.geoJsonData,
+        this.state.geoJson,
         CHART_HEIGHT,
         elem.offsetWidth,
-        this.props.choroplethData.data,
+        this.state.choroplethDataGroup.data,
         this.props.unit,
         this.props.statsVars[0]
       );
@@ -436,9 +439,15 @@ class Chart extends React.Component<ChartPropType, ChartStateType> {
         });
         break;
       case chartTypeEnum.CHOROPLETH:
-        if (this.props.choroplethData) {
-          this.setState({
-            choroplethDataGroup: this.props.choroplethData,
+        if (this.props.geoJsonData && this.props.choroplethData) {
+          Promise.all([this.props.geoJsonData, this.props.choroplethData]).then(([geoJsonData, choroplethData]) => {
+            const sv = !_.isEmpty(this.props.statsVars)
+            ? this.props.statsVars[0]
+            : "";
+            this.setState({
+              choroplethDataGroup: choroplethData[sv],
+              geoJson: geoJsonData
+            });
           });
         }
         break;
@@ -449,8 +458,8 @@ class Chart extends React.Component<ChartPropType, ChartStateType> {
 
   private getExploreUrl(): string {
     if (this.props.chartType === chartTypeEnum.CHOROPLETH) {
-      return this.props.choroplethData
-        ? this.props.choroplethData.exploreUrl
+      return this.state.choroplethDataGroup
+        ? this.state.choroplethDataGroup.exploreUrl
         : "";
     } else {
       return this.props.trend
@@ -461,7 +470,7 @@ class Chart extends React.Component<ChartPropType, ChartStateType> {
 
   private getSources(): string[] {
     if (this.props.chartType == chartTypeEnum.CHOROPLETH) {
-      return this.props.choroplethData ? this.props.choroplethData.sources : [];
+      return this.state.choroplethDataGroup ? this.state.choroplethDataGroup.sources : [];
     } else {
       return this.props.trend
         ? this.props.trend.sources
@@ -471,8 +480,8 @@ class Chart extends React.Component<ChartPropType, ChartStateType> {
 
   private getDateString(): string {
     if (this.props.chartType == chartTypeEnum.CHOROPLETH) {
-      return this.props.choroplethData
-        ? "(" + this.props.choroplethData.date + ")"
+      return this.state.choroplethDataGroup
+        ? "(" + this.state.choroplethDataGroup.date + ")"
         : "";
     } else {
       return this.props.snapshot ? "(" + this.props.snapshot.date + ")" : "";

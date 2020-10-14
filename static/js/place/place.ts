@@ -147,11 +147,7 @@ function renderPage(): void {
   const chartGeoJsonPromise = getGeoJsonData(dcid, placeType);
   const choroplethDataPromise = getChoroplethData(dcid, placeType);
 
-  Promise.all([
-    landingPagePromise,
-    chartGeoJsonPromise,
-    choroplethDataPromise,
-  ]).then(([landingPageData, geoJsonData, choroplethData]) => {
+  landingPagePromise.then((landingPageData) => {
     const data: PageData = landingPageData;
     const isUsaPlace = isPlaceInUsa(dcid, data.parentPlaces);
     if (Object.keys(data.pageChart).length == 1) {
@@ -219,8 +215,8 @@ function renderPage(): void {
         pageChart: data.pageChart,
         placeName,
         placeType,
-        geoJsonData,
-        choroplethData,
+        geoJsonData: chartGeoJsonPromise,
+        choroplethData: choroplethDataPromise,
         childPlacesType: data.childPlacesType,
         parentPlaceDcid:
           data.parentPlaces.length > 0 ? data.parentPlaces[0] : null,
