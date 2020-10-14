@@ -22,6 +22,7 @@ MTV_URL = '/place/geoId/0649670'
 USA_URL = '/place/country/USA'
 CA_URL = '/place/geoId/06'
 PLACE_SEARCH = 'California, USA'
+SLEEP_SEC = 10
 
 
 # Class to test place explorer tool.
@@ -31,7 +32,7 @@ class TestPlaceExplorer(WebdriverBaseTest):
         """Test the place explorer page for USA can be loaded successfullly."""
         self.driver.get(self.url_ + USA_URL)
         # Wait for the XHR's to complete.
-        time.sleep(5)
+        time.sleep(SLEEP_SEC)
         req = urllib.request.Request(self.driver.current_url)
         with urllib.request.urlopen(req) as response:
             self.assertEqual(response.getcode(), 200)
@@ -49,7 +50,7 @@ class TestPlaceExplorer(WebdriverBaseTest):
     def test_page_serve_mtv(self):
         """Test the place explorer page for MTV can be loaded successfullly."""
         self.driver.get(self.url_ + MTV_URL)
-        time.sleep(5)
+        time.sleep(SLEEP_SEC)
         self.assertEqual("Mountain View - Place Explorer - Data Commons",
                          self.driver.title)
         title = self.driver.find_element_by_id("place-name")
@@ -79,10 +80,10 @@ class TestPlaceExplorer(WebdriverBaseTest):
         Test the demographics link can work correctly.
         """
         self.driver.get(self.url_ + CA_URL)
-        time.sleep(5)
+        time.sleep(SLEEP_SEC)
         demographics = self.driver.find_element_by_id("Demographics")
         demographics.find_element_by_tag_name('a').click()
-        time.sleep(5)
+        time.sleep(SLEEP_SEC)
         self.assertTrue("Demographics" in self.driver.current_url)
         subtopics = self.driver.find_elements_by_class_name("subtopic")
         age_topic = subtopics[3]
