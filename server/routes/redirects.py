@@ -30,7 +30,7 @@ def kg():
         url = url_for('browser.kg_entity', dcid=dcid)
     else:
         url = url_for('browser.kg_main')
-    return redirect(url, code=302)
+    return redirect('https://datacommons.org' + url, code=302)
 
 
 @bp.route('/gni')
@@ -54,7 +54,9 @@ def colab():
 
 
 # This is used to handle explore more link from Google search. Do not remove.
+# arg params from search: mprop, dcid, popt
 @bp.route('/explore/place')
 def explore():
-    return redirect(url_for('place.place', dcid=request.args.get('dcid')),
+    return redirect('https://datacommons.org' +
+                    url_for('place.place', dcid=request.args.get('dcid')),
                     code=302)
