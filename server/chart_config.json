@@ -1,14 +1,6 @@
 [
   {
     "category": "Economics",
-    "title": "Unemployment Rate",
-    "statsVars": ["UnemploymentRate_Person"],
-    "unit": "%",
-    "isOverview": true,
-    "isChoropleth": true
-  },
-  {
-    "category": "Economics",
     "title": "State Unemployment Insurance Claims",
     "statsVars": [
       "Count_UnemploymentInsuranceClaim_StateUnemploymentInsurance"
@@ -17,10 +9,18 @@
     "relatedChart": {
       "title": "State Unemployment Insurance Claims Rate",
       "scale": true,
-      "denominator": "Count_Person",
+      "denominator": "Count_Person_InLaborForce",
       "scaling": 100,
       "unit": "%"
     }
+  },
+  {
+    "category": "Economics",
+    "title": "Unemployment Rate",
+    "statsVars": ["UnemploymentRate_Person"],
+    "unit": "%",
+    "isOverview": true,
+    "isChoropleth": true
   },
   {
     "category": "Economics",
@@ -37,15 +37,27 @@
   },
   {
     "category": "Economics",
-    "title": "Labor Force Participation",
+    "title": "Labor Force",
     "statsVars": ["Count_Person_InLaborForce"],
-    "isOverview": true,
     "relatedChart": {
       "title": "Labor Force Participation Rate",
       "scale": true,
-      "denominator": "Count_Person",
+      "denominator": "Count_Person_16OrMoreYears",
       "scaling": 100,
       "unit": "%"
+    }
+  },
+  {
+    "category": "Economics",
+    "title": "Labor Force Participation Rate",
+    "statsVars": [
+      "Count_Person_15To64Years_InLaborForce_AsFractionOf_Count_Person_15To64Years"
+    ],
+    "isOverview": true,
+    "unit": "%",
+    "scaling": 100,
+    "relatedChart": {
+      "scale": false
     }
   },
   {
@@ -86,8 +98,10 @@
   },
   {
     "category": "Economics",
-    "title": "Gross Domestic Product",
-    "statsVars": ["Amount_EconomicActivity_GrossDomesticProduction_Nominal"],
+    "title": "Gross Domestic Product Per Capita",
+    "statsVars": [
+      "Amount_EconomicActivity_GrossDomesticProduction_Nominal_PerCapita"
+    ],
     "unit": "$",
     "isOverview": true,
     "relatedChart": {
@@ -258,7 +272,7 @@
     "relatedChart": {
       "title": "Percentage of Individuals by Income Brackets",
       "scale": true,
-      "denominator": "Count_Person",
+      "denominator": "Count_Person_15OrMoreYears",
       "unit": "%",
       "scaling": 100
     }
