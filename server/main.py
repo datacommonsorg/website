@@ -20,6 +20,7 @@ import json
 import logging
 
 import flask
+from flask import request
 
 import services.datacommons as dc
 from lib import translator
