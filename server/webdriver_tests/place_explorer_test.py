@@ -15,7 +15,6 @@
 import unittest
 import urllib
 from webdriver_tests.base_test import WebdriverBaseTest
-from selenium.webdriver.support.ui import Select
 import time
 
 MTV_URL = '/place/geoId/0649670'
@@ -31,7 +30,7 @@ class TestPlaceExplorer(WebdriverBaseTest):
         """Test the place explorer page for USA can be loaded successfullly."""
         self.driver.get(self.url_ + USA_URL)
         # Wait for the XHR's to complete.
-        time.sleep(5)
+        time.sleep(10)
         req = urllib.request.Request(self.driver.current_url)
         with urllib.request.urlopen(req) as response:
             self.assertEqual(response.getcode(), 200)
@@ -49,7 +48,7 @@ class TestPlaceExplorer(WebdriverBaseTest):
     def test_page_serve_mtv(self):
         """Test the place explorer page for MTV can be loaded successfullly."""
         self.driver.get(self.url_ + MTV_URL)
-        time.sleep(5)
+        time.sleep(10)
         self.assertEqual("Mountain View - Place Explorer - Data Commons",
                          self.driver.title)
         title = self.driver.find_element_by_id("place-name")
@@ -79,10 +78,10 @@ class TestPlaceExplorer(WebdriverBaseTest):
         Test the demographics link can work correctly.
         """
         self.driver.get(self.url_ + CA_URL)
-        time.sleep(5)
+        time.sleep(10)
         demographics = self.driver.find_element_by_id("Demographics")
         demographics.find_element_by_tag_name('a').click()
-        time.sleep(5)
+        time.sleep(10)
         self.assertTrue("Demographics" in self.driver.current_url)
         subtopics = self.driver.find_elements_by_class_name("subtopic")
         age_topic = subtopics[3]
