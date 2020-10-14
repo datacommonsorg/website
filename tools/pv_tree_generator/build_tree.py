@@ -164,7 +164,7 @@ def find_denominators(pop_obs: PopObsSpec, cpvs: Dict[str, str],
             key = (pop_obs.pop_type,) + obs_prop.key + subset
             matching_statvars += tuple(stats_vars_all.get(key, ()))
         for sv in matching_statvars:
-            if sv.dcid in stats_vars_to_exclude:
+            if sv.mprop != 'count' or sv.dcid in stats_vars_to_exclude:
                 continue
             sv_entries = set(sv.pv.items())
             if sv_entries == dpv_entries:
