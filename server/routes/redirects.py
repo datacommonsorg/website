@@ -30,29 +30,27 @@ def kg():
         url = url_for('browser.kg_entity', dcid=dcid)
     else:
         url = url_for('browser.kg_main')
-    return redirect(url, code=302, _scheme='https')
+    return redirect('https://datacommons.org' + url, code=302)
 
 
 @bp.route('/gni')
 def gni():
-    return redirect(url_for('tools.timeline'), code=302, _scheme='https')
+    return redirect(url_for('tools.timeline'), code=302)
 
 
 @bp.route('/scatter')
 def scatter():
-    return redirect(url_for('tools.scatter'), code=302, _scheme='https')
+    return redirect(url_for('tools.scatter'), code=302)
 
 
 @bp.route('/documentation')
 def documentation():
-    return redirect('https://docs.datacommons.org/', code=302, _scheme='https')
+    return redirect('https://docs.datacommons.org/', code=302)
 
 
 @bp.route('/colab')
 def colab():
-    return redirect('https://docs.datacommons.org/tutorials.html',
-                    code=302,
-                    _scheme='https')
+    return redirect('https://docs.datacommons.org/tutorials.html', code=302)
 
 
 # This is used to handle explore more link from Google search. Do not remove.
