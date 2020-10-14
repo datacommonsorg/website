@@ -162,7 +162,7 @@ const STATS_VAR_TITLES: { [key: string]: string } = {
   Median_Age_Person_BlackOrAfricanAmericanAlone:
     "Median Age (Black or African American)",
   Median_Age_Person_HispanicOrLatino: "Median Age (Hispanic or Latino)",
-  Median_Age_Person_NativeHawaiianAndOtherPacificIslanderAlone:
+  Median_Age_Person_NativeHawaiianOrOtherPacificIslanderAlone:
     "Median Age (Native Hawaiian and Pacific Islander)",
   Median_Age_Person_SomeOtherRaceAlone: "Median Age (Some other race)",
   Median_Age_Person_TwoOrMoreRaces: "Median Age (Two or More Races)",
