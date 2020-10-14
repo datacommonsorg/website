@@ -78,14 +78,13 @@ export GOOGLE_APPLICATION_CREDENTIALS=<JSON_CREDENTIAL_PATH>
 
 Before running client-side tests and packages, install [nodejs](https://nodejs.org/en/download/)
 
-
 #### Install web browser and webdriver
 
 Before running the tests, install the browser and webdriver. Here we recommend you use Google Chrome browser and ChromeDriver.
 
-* Chrome browser can be downloaded [here](https://www.google.com/chrome/).
+- Chrome browser can be downloaded [here](https://www.google.com/chrome/).
 
-* ChromeDriver can be downloaded [here](https://chromedriver.chromium.org/downloads/version-selection), or you can download it using package manager directly:
+- ChromeDriver can be downloaded [here](https://chromedriver.chromium.org/downloads/version-selection), or you can download it using package manager directly:
 
   ```bash
   npm install chromedriver
@@ -163,6 +162,15 @@ datacommonsorg-website
 This file is stored in GCS bucket: datcom-browser-prod.appspot.com (for prod) and
 datcom-browser-staging.appspot.com (for local and staging). To update this file,
 please contact Data Commons team.
+
+### Redis memcache
+
+Check Redis instance information.
+
+```bash
+gcloud config set core/project datcom-browser-staging(datcom-browser-prod)
+gcloud redis instances describe redis-instance --region=us-west2
+```
 
 ## License
 

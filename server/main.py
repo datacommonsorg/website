@@ -16,13 +16,10 @@
 This module contains the request handler codes and the main app.
 """
 
-import collections
 import json
 import logging
-import os
 
 import flask
-from flask import request, redirect, url_for
 
 import services.datacommons as dc
 from lib import translator
