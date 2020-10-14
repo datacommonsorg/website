@@ -305,78 +305,42 @@ def get_trend(cc, data, place):
     }
 
 
-def get_date_fmt(date):
+def get_year(date):
     for fmt in ('%Y', '%Y-%m', '%Y-%m-%d'):
         try:
-            datetime.datetime.strptime(date, fmt)
-            return fmt
+            return datetime.datetime.strptime(date, fmt).year
         except ValueError:
             pass
-    return None
+    raise ValueError('no valid date format found')
 
 
 # TODO(shifucun): Add unittest.
 def scale_series(numerator, denominator):
     """Scale two time series.
-
     The date of the two time series may not be exactly aligned. Here we use
     year alignment to match two date. If no denominator is found for a
-    numerator, then the data is removed. We allow the denominator to be
-    MAX_DENOMINATOR_BACK_YEAR stale.
+    numerator, then the data is removed.
     """
     data = {}
-
-    num_date_fmt = None
-    denom_date_fmt = None
-    try:
-        denom_date_fmt = get_date_fmt(denominator.keys()[0])
-        num_date_fmt = get_date_fmt(numerator.keys()[0])
-    except (IndexError, ValueError):
-        # No keys or unable to format as date.
-        return {}
-    if not denom_date_fmt or not num_date_fmt:
-        return {}
-
-    latest_denom_date = max(denominator.keys())
-    latest_denom_date_obj = datetime.datetime.strptime(latest_denom_date,
-                                                       denom_date_fmt)
-
     for date, value in numerator.items():
         if date in denominator:
             if denominator[date] > 0:
                 data[date] = value / denominator[date]
-                continue
-        # Try various fuzzy matchings
-        try:
-            date_obj = datetime.datetime.strptime(date, num_date_fmt)
-        except ValueError:
-            continue
-
-        # Case 1: if denominator is stale...
-        if latest_denom_date_obj < date_obj:
-            # Use latest date if within reason.
-            if (date_obj - latest_denom_date_obj <=
-                    datetime.timedelta(days=365 * MAX_DENOMINATOR_BACK_YEAR)):
-                data[date] = value / denominator[latest_denom_date]
-            # No other dates will work. Go to next date regardless.
-            continue
-
-        if denom_date_fmt == '%Y':
-            for i in range(0, MAX_DENOMINATOR_BACK_YEAR + 1):
-                year = str(date_obj.year - i)
-                if year in denominator:
-                    if denominator[year] > 0:
-                        data[date] = value / denominator[year]
-                    break
-        elif denom_date_fmt == '%Y-%m':
-            for i in range(0, 12 * MAX_DENOMINATOR_BACK_YEAR + 1):
-                year_month = datetime.datetime(date_obj.year, date_obj.month,
-                                               1) - relativedelta(months=i)
-                year_month_str = datetime.datetime.strftime(year_month, '%Y-%m')
-                if year_month_str in denominator:
-                    if denominator[year_month_str] > 0:
-                        data[date] = value / denominator[year_month_str]
-                    break
+            else:
+                data[date] = 0
+        else:
+            try:
+                numerator_year = get_year(date)
+                for i in range(0, MAX_DENOMINATOR_BACK_YEAR + 1):
+                    year = str(numerator_year - i)
+                    if year in denominator:
+                        if denominator[year] > 0:
+                            data[date] = value / denominator[year]
+                        else:
+                            data[date] = 0
+                        break
+            except ValueError:
+                return {}
     return data
 
 
