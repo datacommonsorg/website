@@ -330,8 +330,10 @@ def scale_series(numerator, denominator):
     denom_date_fmt = None
     for date in denominator.keys():
         denom_date_fmt = get_date_fmt(date)
+        if denom_date_fmt: break
     for date in numerator.keys():
         num_date_fmt = get_date_fmt(date)
+        if num_date_fmt: break
     if not denom_date_fmt or not num_date_fmt:
         return {}
 
