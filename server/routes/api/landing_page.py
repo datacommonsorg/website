@@ -21,9 +21,10 @@ import collections
 import copy
 import datetime
 import json
+import logging
 import urllib
 
-from flask import Blueprint, current_app, request, Response, url_for
+from flask import Blueprint, current_app, Response, url_for
 from collections import defaultdict
 
 from cache import cache
@@ -348,6 +349,8 @@ def data(dcid):
     """
     Get chart spec and stats data of the landing page for a given place.
     """
+    logging.info("Landing Page: cache miss for %s, fetch and process data ...",
+                 dcid)
     spec_and_stat, stat_vars = build_spec(current_app.config['CHART_CONFIG'])
     raw_page_data = get_landing_page_data(dcid, stat_vars)
 

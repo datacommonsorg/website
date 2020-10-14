@@ -59,35 +59,41 @@
 
   <h3>Places</h3>
   <ul>
-    <li><strong>Cities</strong>:
-          <a href="{{ place_url('geoId/4805000') }}">Austin, TX</a>, &nbsp;&nbsp;
-      <a href="{{ place_url('geoId/1714000') }}">Chicago, IL</a>, &nbsp;&nbsp;
-      <a href="{{ place_url('geoId/0667000') }}">San Francisco,
-  CA</a>, &nbsp;&nbsp;
-      <a href="{{ place_url('geoId/5363000') }}">Seattle, WA</a>
+    <li><strong>Cities, United States</strong>:
+          <a class="landing-link" href="{{ place_url('geoId/4805000') }}">Austin, TX</a>,
+      <a class="landing-link" href="{{ place_url('geoId/1714000') }}">Chicago, IL</a>,
+      <a class="landing-link" href="{{ place_url('geoId/0667000') }}">San Francisco,
+        CA</a>,
+      <a class="landing-link" href="{{ place_url('geoId/5363000') }}">Seattle, WA</a>
     </li>
-    <li><strong>Counties</strong>:
-      <a href="{{ place_url('geoId/17031') }}">Cook County, IL</a>, &nbsp;&nbsp;
-      <a href="{{ place_url('geoId/48201') }}">Harris County, TX</a>,
-    &nbsp;&nbsp;
-          <a href="{{ place_url('geoId/06059') }}">Orange County, CA</a>, &nbsp;&nbsp;
-      <a href="{{ place_url('geoId/06085') }}">Santa Clara County, CA</a>
+    <li><strong>Counties, United States</strong>:
+      <a class="landing-link" href="{{ place_url('geoId/17031') }}">Cook County,
+    IL</a>,
+          <a class="landing-link" href="{{ place_url('geoId/48201') }}">Harris County,
+        TX</a>,
+
+      <a class="landing-link" href="{{ place_url('geoId/06059') }}">Orange County,
+        CA</a>,
+      <a class="landing-link" href="{{ place_url('geoId/06085') }}">Santa Clara
+        County, CA</a>
     </li>
-    <li><strong>States</strong>:
-      <a href="{{ place_url('geoId/06') }}">California</a>, &nbsp;&nbsp;
-      <a href="{{ place_url('geoId/17') }}">Illinois</a>, &nbsp;&nbsp;
-      <a href="{{ place_url('geoId/21') }}">Kentucky</a>, &nbsp;&nbsp;
-      <a href="{{ place_url('geoId/36') }}">New York</a>, &nbsp;&nbsp;
-    <a href="{{ place_url('geoId/26') }}">Michigan</a>&nbsp;&nbsp;
-          <a href="{{ place_url('geoId/48') }}">Texas</a>, &nbsp;&nbsp;
+    <li><strong>States, United States</strong>:
+      <a class="landing-link" href="{{ place_url('geoId/06') }}">California</a>,
+      <a class="landing-link" href="{{ place_url('geoId/17') }}">Illinois</a>,
+      <a class="landing-link" href="{{ place_url('geoId/21') }}">Kentucky</a>,
+      <a class="landing-link" href="{{ place_url('geoId/26')
+    }}">Michigan</a>,
+          <a class="landing-link" href="{{ place_url('geoId/36') }}">New York</a>,
+          <a class="landing-link" href="{{ place_url('geoId/48') }}">Texas</a>
     </li>
     <li><strong>Countries</strong>:
-    <a href="{{ place_url('country/CAN') }}">Canada</a>,
-    <a href="{{ place_url('country/DEU') }}">Germany</a>
-      <a href="{{ place_url('country/IND') }}">India</a>,
-      <a href="{{ place_url('country/MYS') }}">Malaysia</a>,
-          <a href="{{ place_url('country/USA') }}">United
-        States</a>,
+      <a class="landing-link" href="{{ place_url('country/CAN')
+    }}">Canada</a>,
+          <a class="landing-link" href="{{ place_url('country/DEU') }}">Germany</a>,
+      <a class="landing-link" href="{{ place_url('country/IND') }}">India</a>,
+      <a class="landing-link" href="{{ place_url('country/MYS')
+    }}">Malaysia</a>,
+          <a class="landing-link" href="{{ place_url('country/USA') }}">United States</a>
 
     </li>
   </ul>
@@ -95,43 +101,45 @@
   <h3>Rankings</h3>
   <ul>
     <li><strong>Median Income, United States</strong>:
-      <a
+      <a class="landing-link"
         href="{{ ranking_url('Median_Income_Person', 'City', 'country/USA', unit='$') }}">by
         city</a>,
-      <a
+      <a class="landing-link"
         href="{{ ranking_url('Median_Income_Person', 'County', 'country/USA', unit='$') }}">by
         county</a>,
-      <a
+      <a class="landing-link"
         href="{{ ranking_url('Median_Income_Person', 'State', 'country/USA', unit='$') }}">by
         state</a>
     </li>
     <li><strong>Unemployment Rate, United States</strong>:
-      <a
+      <a class="landing-link"
         href="{{ ranking_url('UnemploymentRate_Person', 'City', 'country/USA', unit='%') }}">by
         city</a>,
-      <a
+      <a class="landing-link"
         href="{{ ranking_url('UnemploymentRate_Person', 'County', 'country/USA', unit='%') }}">by
         county</a>,
-      <a
+      <a class="landing-link"
         href="{{ ranking_url('UnemploymentRate_Person', 'State', 'country/USA', unit='%') }}">by
         state</a>
     </li>
     <li><strong>Life Expectancy</strong>:
-      <a
+      <a class="landing-link"
         href="{{ ranking_url('LifeExpectancy_Person', 'Country') }}">Worldwide</a>,
-      <a href="{{ ranking_url('LifeExpectancy_Person', 'State') }}">in United
+      <a class="landing-link"
+        href="{{ ranking_url('LifeExpectancy_Person', 'State') }}">in United
         States</a>
     </li>
     <li><strong>Economic Indicators, Worldwide</strong>:
-      <a href="{{ ranking_url('GiniIndex_EconomicActivity', 'Country') }}">Gini
+      <a class="landing-link"
+        href="{{ ranking_url('GiniIndex_EconomicActivity', 'Country') }}">Gini
         Index</a>,
-      <a
+      <a class="landing-link"
         href="{{ ranking_url('Amount_EconomicActivity_GrossNationalIncome_PurchasingPowerParity_PerCapita', 'Country') }}">Gross
         National Income</a>,
-      <a
+      <a class="landing-link"
         href="{{ ranking_url('Amount_EconomicActivity_ExpenditureActivity_EducationExpenditure_Government_AsFractionOf_Amount_EconomicActivity_ExpenditureActivity_Government', 'Country') }}">Government
         Expenditures on Education</a>,
-      <a
+      <a class="landing-link"
         href="{{ ranking_url('Amount_EconomicActivity_ExpenditureActivity_MilitaryExpenditure_Government_AsFractionOf_Amount_EconomicActivity_GrossDomesticProduction_Nominal', 'Country') }}">Government
         Expenditures on Military</a>
     </li>

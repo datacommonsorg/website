@@ -12,6 +12,17 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
+import os
+
 from flask_caching import Cache
 
-cache = Cache(config={'CACHE_TYPE': 'simple'})
+if os.environ.get('FLASK_ENV') == 'staging':
+    cache = Cache(
+        config={
+            'CACHE_TYPE': 'redis',
+            'CACHE_REDIS_HOST': '10.67.227.235',
+            'CACHE_REDIS_PORT': '6379',
+            'CACHE_REDIS_URL': 'redis://10.67.227.235:6379'
+        })
+else:
+    cache = Cache(config={'CACHE_TYPE': 'simple'})
