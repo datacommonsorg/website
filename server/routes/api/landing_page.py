@@ -293,14 +293,14 @@ def get_trend(cc, data, place):
     }
 
 
-def get_date_obj_and_fmt(date):
+def get_date_fmt(date):
     for fmt in ('%Y', '%Y-%m', '%Y-%m-%d'):
         try:
-            return (datetime.datetime.strptime(date, fmt), fmt)
+            datetime.datetime.strptime(date, fmt)
+            return fmt
         except ValueError:
             pass
-    raise ValueError('no valid date format found')
-
+    return None
 
 # TODO(shifucun): Add unittest.
 def scale_series(numerator, denominator):
@@ -312,23 +312,17 @@ def scale_series(numerator, denominator):
     MAX_DENOMINATOR_BACK_YEAR stale.
     """
     data = {}
+
+    num_date_fmt = None
     denom_date_fmt = None
     for date in denominator.keys():
-        if len(date) == 4:
-            denom_date_fmt = '%Y'
-            continue
-        elif len(date) == 7:
-            denom_date_fmt = '%Y-%m'
-            continue
-        elif len(date) == 10:
-            denom_date_fmt = '%Y-%m-%d'
-            continue
-    if not denom_date_fmt:
+        denom_date_fmt = get_date_fmt(date)
+    for date in numerator.keys():
+        num_date_fmt = get_date_fmt(date)
+    if not denom_date_fmt or not num_date_fmt:
         return {}
-    try:
-        latest_denom_date = max(denominator.keys())
-    except ValueError:
-        return {}
+
+    latest_denom_date = max(denominator.keys())
     latest_denom_date_obj = datetime.datetime.strptime(latest_denom_date, denom_date_fmt)
 
     for date, value in numerator.items():
@@ -338,10 +332,10 @@ def scale_series(numerator, denominator):
                 continue
         # Try various fuzzy matchings
         try:
-            date_obj, _ = get_date_obj_and_fmt(date)
+            date_obj = datetime.datetime.strptime(date, num_date_fmt)
         except ValueError:
             continue
-        
+
         # Case 1: if denominator is stale...
         if latest_denom_date_obj < date_obj:
             # Use latest date if within reason.
