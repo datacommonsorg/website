@@ -55,13 +55,13 @@
       <a class="main" href="{{ url_for('place.place') }}">Explore Places</a>:
       <ul>
         <li>
-          <a class="sub" href="{{ url_for('place.place', dcid='geoId/0649670') }}">Mountain View, CA</a>,
+          <a class="sub" href="{{ url_for('place.place', place_dcid='geoId/0649670') }}">Mountain View, CA</a>,
         </li>
         <li>
-          <a class="sub" href="{{ url_for('place.place', dcid='geoId/3651000', topic='Health') }}">New York City Health</a>,
+          <a class="sub" href="{{ url_for('place.place', place_dcid='g651000', topic='Health') }}">New York City Health</a>,
         </li>
         <li>
-          <a class="sub" href="{{ url_for('place.place', dcid='geoId/1150000', topic='Demographics') }}">Washington, DC Demographics</a>,
+          <a class="sub" href="{{ url_for('place.place', place_dcid='geoId/1150000', topic='Demographics') }}">Washington, DC Demographics</a>,
         </li>
         <li><a class="sub" href="{{ url_for('tools.timeline') }}">more ...</a>
         </li>
@@ -69,8 +69,7 @@
     </li>
 
     <li>
-      <a class="main" href="{{ url_for('tools.timeline') }}">Create Timeline
-        Charts</a>:
+      <a class="main" href="{{ url_for('tools.timeline') }}">Create Timeline Charts</a>:
       <ul>
         <li>
           <a class="sub" href="{{ url_for('tools.timeline') }}#&place=geoId/0606000,geoId/2511000,geoId/2603000,geoId/1777005,geoId/1225175,geoId/4815976&statsVar=Median_Age_Person">US University Towns by Income</a>,

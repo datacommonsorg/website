@@ -21,7 +21,7 @@
 {% set subpage_url = url_for('place.place') %}
 
 {% macro place_url(dcid='') -%}
-{{ url_for('place.place', dcid=dcid) }}
+{{ url_for('place.place', place_dcid=dcid) }}
 {%- endmacro %}
 
 {% macro ranking_url(sv='', type='', container='') -%}
