@@ -97,9 +97,7 @@ async function getGeoJsonData(
       return resp.data;
     });
   } else {
-    return new Promise((resolve) => {
-      resolve({});
-    });
+    return Promise.resolve({});
   }
 }
 
@@ -115,9 +113,7 @@ async function getChoroplethData(
       return resp.data;
     });
   } else {
-    return new Promise((resolve) => {
-      resolve({});
-    });
+    return Promise.resolve({});
   }
 }
 
