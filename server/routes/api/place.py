@@ -25,6 +25,8 @@ import services.datacommons as dc
 from services.datacommons import fetch_data
 import routes.api.stats as stats_api
 
+CHILD_PLACE_LIMIT = 50
+
 # Place types to keep for list of child places, keyed by parent place type.
 WANTED_PLACE_TYPES = {
     'Country': [
