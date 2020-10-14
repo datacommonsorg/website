@@ -15,7 +15,6 @@
 import unittest
 import urllib
 from webdriver_tests.base_test import WebdriverBaseTest
-from selenium.webdriver.support.ui import Select
 import time
 
 MTV_URL = '/place/geoId/0649670'

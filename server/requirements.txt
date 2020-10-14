@@ -14,3 +14,4 @@ gunicorn
 selenium
 flask_testing
 yapf
+redis==3.5.3
