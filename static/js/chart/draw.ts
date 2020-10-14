@@ -231,11 +231,15 @@ function updateXAxis(
   chartHeight: number,
   yScale: d3.AxisScale<any>
 ): void {
-  const xDomain = xAxis.select(".domain")
+  const xDomain = xAxis.select(".domain");
   const xDomainPath = xDomain.attr("d");
-  xDomain.attr("d", xDomainPath.replace(`M${MARGIN.left}`, "M5"))
-  .attr("stroke", AXIS_GRID_FILL)
-  .attr("transform", `translate(0, ${yScale(0) + xAxisHeight - chartHeight})`)
+  xDomain
+    .attr("d", xDomainPath.replace(`M${MARGIN.left}`, "M5"))
+    .attr("stroke", AXIS_GRID_FILL)
+    .attr(
+      "transform",
+      `translate(0, ${yScale(0) + xAxisHeight - chartHeight})`
+    );
 }
 
 function addYAxis(
@@ -546,7 +550,10 @@ function drawGroupBarChart(
 
   const bottomHeight = addXAxis(xAxis, chartHeight, x0, false, labelToLink);
 
-  const minV = Math.min(0, Math.min(...dataGroups.map((dataGroup) => dataGroup.min())));
+  const minV = Math.min(
+    0,
+    Math.min(...dataGroups.map((dataGroup) => dataGroup.min()))
+  );
   const maxV = Math.max(...dataGroups.map((dataGroup) => dataGroup.max()));
   const y = d3
     .scaleLinear()
