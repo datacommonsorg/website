@@ -84,12 +84,14 @@ def build_spec(chart_config):
         spec[category][config['title']].append(config)
         stat_vars.extend(config['statsVars'])
         stat_vars.extend(config.get('denominator', []))
+        if 'relatedChart' in config and 'denominator' in config['relatedChart']:
+            stat_vars.append(config['relatedChart']['denominator'])
     return spec, stat_vars
 
 
 def get_denom(cc, related_chart=False):
     """Get the numerator and denominator map."""
-    # If chart requires denominator, use itfor both primary and related charts.
+    # If chart requires denominator, use it for both primary and related charts.
     if 'denominator' in cc:
         result = {}
         if len(cc['denominator']) != len(cc['statsVars']):
@@ -315,7 +317,6 @@ def get_year(date):
 # TODO(shifucun): Add unittest.
 def scale_series(numerator, denominator):
     """Scale two time series.
-
     The date of the two time series may not be exactly aligned. Here we use
     year alignment to match two date. If no denominator is found for a
     numerator, then the data is removed.
