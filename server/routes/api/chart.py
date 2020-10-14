@@ -226,7 +226,7 @@ def choropleth_data(dcid):
     for cc in choropleth_configs:
         # we should only be making choropleths for configs with a single stat var
         sv = cc['statsVars'][0]
-        cc_data = landing_page_api.get_snapshot_across_places(
+        cc_data, statvar_denom = landing_page_api.get_snapshot_across_places(
             cc, processed_data, geos)
         data_values = cc_data.get('data', [])
         data_dict = dict()
@@ -243,7 +243,8 @@ def choropleth_data(dcid):
         is_scaled = (('relatedChart' in cc and
                       cc['relatedChart'].get('scale', False)) or
                      ('denominator' in cc))
-        exploreUrl = landing_page_api.build_url([dcid], [sv], is_scaled)
+        exploreUrl = landing_page_api.build_url([dcid], statvar_denom,
+                                                is_scaled)
         cc_result = {
             'date': cc_data.get('date', None),
             'data': data_dict,
