@@ -28,7 +28,7 @@ import {
 
 const NUM_X_TICKS = 5;
 const NUM_Y_TICKS = 5;
-const MARGIN = { top: 20, right: 10, bottom: 30, left: 35, yAxis: 3, grid: 5 };
+const MARGIN = { top: 20, right: 10, bottom: 30, left: 40, yAxis: 3, grid: 5 };
 const ROTATE_MARGIN_BOTTOM = 75; // margin bottom to use for histogram
 const LEGEND = {
   ratio: 0.2,
@@ -150,7 +150,7 @@ function wrap(
  * @return the height of the x-axis bounding-box.
  */
 function addXAxis(
-  svg: d3.Selection<SVGElement, any, any, any>,
+  axis: d3.Selection<SVGGElement, any, any, any>,
   chartHeight: number,
   xScale: d3.AxisScale<any>,
   shouldRotate?: boolean,
@@ -165,12 +165,9 @@ function addXAxis(
     }
   }
 
-  const axis = svg
-    .append("g")
-    .attr("class", "x axis")
+  axis
     .attr("transform", `translate(0, ${chartHeight - MARGIN.bottom})`)
     .call(d3Axis)
-    .call((g) => g.select(".domain").remove())
     .call((g) =>
       g
         .selectAll("line")
@@ -219,16 +216,39 @@ function addXAxis(
   return axisHeight;
 }
 
+/**
+ * Updates X-Axis after initial render (with wrapping) and Y-Axis scaling.
+ * Mostly updates the domain path to be set to y(0).
+ *
+ * @param g: d3-selection with an G element that contains the X-Axis
+ * @param xHeight: The height of the X-Axis
+ * @param chartHeight: The height of the SVG chart
+ * @param yScale: d3-scale for the Y-axis
+ */
+function updateXAxis(
+  xAxis: d3.Selection<SVGGElement, any, any, any>,
+  xAxisHeight: number,
+  chartHeight: number,
+  yScale: d3.AxisScale<any>
+): void {
+  const xDomain = xAxis.select(".domain");
+  const xDomainPath = xDomain.attr("d");
+  xDomain
+    .attr("d", xDomainPath.replace(`M${MARGIN.left}`, "M5"))
+    .attr("stroke", AXIS_GRID_FILL)
+    .attr(
+      "transform",
+      `translate(0, ${yScale(0) + xAxisHeight - chartHeight})`
+    );
+}
+
 function addYAxis(
-  svg: d3.Selection<SVGElement, any, any, any>,
+  g: d3.Selection<SVGGElement, any, any, any>,
   width: number,
   yScale: d3.ScaleLinear<any, any>,
   unit?: string
 ) {
-  svg
-    .append("g")
-    .attr("class", "y axis")
-    .attr("transform", `translate(${width - MARGIN.right}, 0)`)
+  g.attr("transform", `translate(${width - MARGIN.right}, 0)`)
     .call(
       d3
         .axisLeft(yScale)
@@ -247,7 +267,7 @@ function addYAxis(
     )
     .call((g) =>
       g
-        .selectAll(".tick:not(:first-of-type) line")
+        .selectAll(".tick line")
         .attr("class", "grid-line")
         .style("stroke-opacity", "0.5")
         .style("stroke-dasharray", "2, 2")
@@ -289,6 +309,10 @@ function drawHistogram(
     .attr("width", width)
     .attr("height", height);
 
+  const yAxis = svg.append("g").attr("class", "y axis");
+  const chart = svg.append("g").attr("class", "chart-area");
+  const xAxis = svg.append("g").attr("class", "x axis");
+
   const x = d3
     .scaleBand()
     .domain(textList)
@@ -296,26 +320,28 @@ function drawHistogram(
     .paddingInner(0.1)
     .paddingOuter(0.1);
 
-  const bottomHeight = addXAxis(svg, height, x, true);
+  const bottomHeight = addXAxis(xAxis, height, x, true);
 
+  const yExtent = d3.extent(values);
   const y = d3
     .scaleLinear()
-    .domain([0, d3.max(values)])
+    .domain([Math.min(0, yExtent[0]), yExtent[1]])
     .rangeRound([height - bottomHeight, MARGIN.top]);
 
   const color = getColorFn(["A"])("A"); // we only need one color
 
-  addYAxis(svg, width, y, unit);
+  addYAxis(yAxis, width, y, unit);
+  updateXAxis(xAxis, bottomHeight, height, y);
 
-  svg
+  chart
     .append("g")
     .selectAll("rect")
     .data(dataPoints)
     .join("rect")
     .attr("x", (d) => x(d.label))
-    .attr("y", (d) => y(d.value))
+    .attr("y", (d) => y(Math.max(0, d.value)))
     .attr("width", x.bandwidth())
-    .attr("height", (d) => y(0) - y(d.value))
+    .attr("height", (d) => Math.abs(y(0) - y(d.value)))
     .attr("fill", color);
 }
 
@@ -334,6 +360,8 @@ function drawSingleBarChart(
   dataPoints: DataPoint[],
   unit?: string
 ): void {
+  /*
+  TODO(beets): Fix me with negative value update, or delete me.
   const textList = dataPoints.map((dataPoint) => dataPoint.label);
   const values = dataPoints.map((dataPoint) => dataPoint.value);
   const color = getColorFn(textList);
@@ -375,6 +403,7 @@ function drawSingleBarChart(
     .attr("width", x.bandwidth())
     .attr("height", (d) => y(0) - y(d.value))
     .attr("fill", (d) => color(d.label));
+    */
 }
 
 /**
@@ -410,7 +439,7 @@ function drawStackBarChart(
     data.push(curr);
   }
 
-  const series = d3.stack().keys(keys)(data);
+  const series = d3.stack().keys(keys).offset(d3.stackOffsetDiverging)(data);
 
   const svg = d3
     .select("#" + id)
@@ -420,6 +449,10 @@ function drawStackBarChart(
     .attr("width", chartWidth)
     .attr("height", chartHeight);
 
+  const yAxis = svg.append("g").attr("class", "y axis");
+  const chart = svg.append("g").attr("class", "chart-area");
+  const xAxis = svg.append("g").attr("class", "x axis");
+
   const x = d3
     .scaleBand()
     .domain(dataGroups.map((dg) => dg.label))
@@ -427,20 +460,23 @@ function drawStackBarChart(
     .paddingInner(0.1)
     .paddingOuter(0.1);
 
-  const bottomHeight = addXAxis(svg, chartHeight, x, false, labelToLink);
+  const bottomHeight = addXAxis(xAxis, chartHeight, x, false, labelToLink);
 
   const y = d3
     .scaleLinear()
-    .domain([0, d3.max(series, (d) => d3.max(d, (d1) => d1[1]))])
+    .domain([
+      d3.min([0, d3.min(series, (d) => d3.min(d, (d1) => d1[0]))]),
+      d3.max(series, (d) => d3.max(d, (d1) => d1[1])),
+    ])
     .nice()
     .rangeRound([chartHeight - bottomHeight, MARGIN.top]);
 
-  addYAxis(svg, chartWidth, y, unit);
+  addYAxis(yAxis, chartWidth, y, unit);
+  updateXAxis(xAxis, bottomHeight, chartHeight, y);
 
   const color = getColorFn(keys);
 
-  svg
-    .append("g")
+  chart
     .selectAll("g")
     .data(series)
     .enter()
@@ -508,20 +544,29 @@ function drawGroupBarChart(
     .attr("width", chartWidth)
     .attr("height", chartHeight);
 
-  const bottomHeight = addXAxis(svg, chartHeight, x0, false, labelToLink);
+  const yAxis = svg.append("g").attr("class", "y axis");
+  const chart = svg.append("g").attr("class", "chart-area");
+  const xAxis = svg.append("g").attr("class", "x axis");
 
+  const bottomHeight = addXAxis(xAxis, chartHeight, x0, false, labelToLink);
+
+  const minV = Math.min(
+    0,
+    Math.min(...dataGroups.map((dataGroup) => dataGroup.min()))
+  );
   const maxV = Math.max(...dataGroups.map((dataGroup) => dataGroup.max()));
   const y = d3
     .scaleLinear()
-    .domain([0, maxV])
+    .domain([minV, maxV])
     .nice()
     .rangeRound([chartHeight - bottomHeight, MARGIN.top]);
 
-  addYAxis(svg, chartWidth, y, unit);
+  addYAxis(yAxis, chartWidth, y, unit);
+  updateXAxis(xAxis, bottomHeight, chartHeight, y);
 
   const colorFn = getColorFn(keys);
 
-  svg
+  chart
     .append("g")
     .selectAll("g")
     .data(dataGroups)
@@ -535,9 +580,10 @@ function drawGroupBarChart(
     .classed("g-bar", true)
     .attr("data-dcid", (d) => d.dcid)
     .attr("x", (d) => x1(d.key))
-    .attr("y", (d) => y(d.value))
+    .attr("y", (d) => y(Math.max(0, d.value)))
     .attr("width", x1.bandwidth())
-    .attr("height", (d) => y(0) - y(d.value))
+    .attr("height", (d) => Math.abs(y(0) - y(d.value)))
+    .attr("data-d", (d) => d.value)
     .attr("fill", (d) => colorFn(d.key));
 
   appendLegendElem(
@@ -584,6 +630,10 @@ function drawLineChart(
     .attr("width", width)
     .attr("height", height);
 
+  const yAxis = svg.append("g").attr("class", "y axis");
+  const xAxis = svg.append("g").attr("class", "x axis");
+  const chart = svg.append("g").attr("class", "chart-area");
+
   const xScale = d3
     .scaleTime()
     .domain(d3.extent(dataGroups[0].value, (d) => new Date(d.label).getTime()))
@@ -595,8 +645,9 @@ function drawLineChart(
     .range([height - MARGIN.bottom, MARGIN.top])
     .nice(NUM_Y_TICKS);
 
-  addXAxis(svg, height, xScale);
-  addYAxis(svg, width, yScale, unit);
+  const bottomHeight = addXAxis(xAxis, height, xScale);
+  addYAxis(yAxis, width, yScale, unit);
+  updateXAxis(xAxis, bottomHeight, height, yScale);
 
   const legendText = dataGroups.map((dataGroup) =>
     dataGroup.label ? dataGroup.label : "A"
@@ -621,7 +672,7 @@ function drawLineChart(
     if (hasGap) {
       // Draw a second line behind the main line with a different styling to
       // fill in gaps.
-      svg
+      chart
         .append("path")
         .datum(dataset.filter(line.defined())) // Only plot points that are defined
         .attr("class", "line fill")
@@ -633,7 +684,7 @@ function drawLineChart(
         .style("stroke-dasharray", 2);
     }
 
-    svg
+    chart
       .append("path")
       .datum(dataset)
       .attr("class", "line")
@@ -644,7 +695,7 @@ function drawLineChart(
       .style("stroke", colorFn(dataGroup.label));
 
     if (shouldAddDots) {
-      svg
+      chart
         .append("g")
         .selectAll(".dot")
         .data(dataset)
@@ -658,8 +709,6 @@ function drawLineChart(
         .style("stroke", "#fff");
     }
   }
-
-  // appendLegendElem(id, colorFn, legendText);
 
   appendLegendElem(
     id,
@@ -763,6 +812,10 @@ function drawGroupLineChart(
     .attr("width", width)
     .attr("height", height + SOURCE.height);
 
+  const yAxis = svg.append("g").attr("class", "y axis");
+  const xAxis = svg.append("g").attr("class", "x axis");
+  const chart = svg.append("g").attr("class", "chart-area");
+
   const xScale = d3
     .scaleTime()
     .domain(d3.extent(dataGroups[0].value, (d) => new Date(d.label).getTime()))
@@ -774,8 +827,9 @@ function drawGroupLineChart(
     .range([height - MARGIN.bottom, MARGIN.top + YLABEL.height])
     .nice(NUM_Y_TICKS);
 
-  addXAxis(svg, height, xScale);
-  addYAxis(svg, width - legendWidth, yScale, unit);
+  const bottomHeight = addXAxis(xAxis, height, xScale);
+  addYAxis(yAxis, width - legendWidth, yScale, unit);
+  updateXAxis(xAxis, bottomHeight, height, yScale);
 
   // add ylabel
   svg
@@ -801,7 +855,7 @@ function drawGroupLineChart(
         .y((d) => yScale(d[1]));
       const lineStyle =
         plotParams.lines[place + statsVarsTitle[dataGroup.label]];
-      svg
+      chart
         .append("path")
         .datum(dataset)
         .attr("class", "line")
