@@ -24,7 +24,6 @@ import json
 import logging
 import urllib
 
-from dateutil.relativedelta import relativedelta
 from flask import Blueprint, current_app, Response, url_for
 from collections import defaultdict
 
