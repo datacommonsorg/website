@@ -98,8 +98,10 @@
   },
   {
     "category": "Economics",
-    "title": "Gross Domestic Product",
-    "statsVars": ["Amount_EconomicActivity_GrossDomesticProduction_Nominal"],
+    "title": "Gross Domestic Product Per Capita",
+    "statsVars": [
+      "Amount_EconomicActivity_GrossDomesticProduction_Nominal_PerCapita"
+    ],
     "unit": "$",
     "isOverview": true,
     "relatedChart": {
