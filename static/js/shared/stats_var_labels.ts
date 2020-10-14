@@ -150,7 +150,7 @@ const STATS_VAR_LABEL: { [key: string]: string } = {
   Median_Age_Person_AsianAlone: "Asian Alone",
   Median_Age_Person_BlackOrAfricanAmericanAlone: "Black or African American",
   Median_Age_Person_HispanicOrLatino: "Hispanic or Latino",
-  Median_Age_Person_NativeHawaiianAndOtherPacificIslanderAlone:
+  Median_Age_Person_NativeHawaiianOrOtherPacificIslanderAlone:
     "Native Hawaiian and Pacific Islander",
   Median_Age_Person_SomeOtherRaceAlone: "Some Other Race",
   Median_Age_Person_TwoOrMoreRaces: "Two or More Races",
