@@ -19,7 +19,8 @@
 {% set title = 'Home' %}
 
 {% block head %}
-  <link rel="stylesheet" href={{url_for('static', filename='css/static.min.css', t=config['GAE_VERSION'])}} >
+<link rel="stylesheet"
+  href={{url_for('static', filename='css/static.min.css', t=config['GAE_VERSION'])}}>
 {% endblock %}
 
 {% block content %}
@@ -50,49 +51,92 @@
     particular entities are aggregated from different sources for a unified
     view.
   </p>
-  <a href="{{ url_for('place.place') }}">Explore Places</a>:
-        <a href="{{ url_for('place.place', dcid='geoId/0649670') }}">Mountain View, CA</a>
-        <a href="{{ url_for('place.place', dcid='geoId/3651000', topic='Health') }}">New York City Health</a>
-        <a href="{{ url_for('place.place', dcid='geoId/1150000', topic='Demographics') }}">Washington, DC Demographics</a>
+  <ul>
+    <li>
+      <a class="main" href="{{ url_for('place.place') }}">Explore Places</a>:
+      <ul>
+        <li>
+          <a class="sub" href="{{ url_for('place.place', dcid='geoId/0649670') }}">Mountain View, CA</a>,
+        </li>
+        <li>
+          <a class="sub" href="{{ url_for('place.place', dcid='geoId/3651000', topic='Health') }}">New York City Health</a>,
+        </li>
+        <li>
+          <a class="sub" href="{{ url_for('place.place', dcid='geoId/1150000', topic='Demographics') }}">Washington, DC Demographics</a>,
+        </li>
+        <li><a class="sub" href="{{ url_for('tools.timeline') }}">more ...</a>
+        </li>
+      </ul>
+    </li>
 
-  <a href="{{ url_for('tools.timeline') }}">Create Timeline
-    Charts</a>:         <a href="{{ url_for('tools.timeline') }}#&&place=geoId/0606000,geoId/2511000,geoId/2603000,geoId/1777005,geoId/1225175,geoId/4815976&ptpv=Person,age">US University Towns by Income</a>
-        <a href="{{ url_for('tools.timeline') }}#&&place=geoId/06085,geoId/06025&ptpv=__Person,income,age,Years15Onwards,incomeStatus,WithIncome&pc=0">Richest vs. Poorest California Counties</a>
-        <a href="{{ url_for('tools.timeline') }}#&&place=geoId/0655282,geoId/0620956&pc=1&ptpv=Person,income,age,Years15Onwards,incomeStatus,WithIncome__Person,count,employment,BLS_Employed">Employment differences across neighboring cities</a>
+    <li>
+      <a class="main" href="{{ url_for('tools.timeline') }}">Create Timeline
+        Charts</a>:
+      <ul>
+        <li>
+          <a class="sub" href="{{ url_for('tools.timeline') }}#&place=geoId/0606000,geoId/2511000,geoId/2603000,geoId/1777005,geoId/1225175,geoId/4815976&statsVar=Median_Age_Person">US University Towns by Income</a>,
+        </li>
+        <li>
+          <a class="sub" href="{{ url_for('tools.timeline') }}#&place=geoId/06085,geoId/06025&statsVar=Median_Income_Person">Richest vs. Poorest California Counties</a>,
+        </li>
+        <li>
+          <a class="sub" href="{{ url_for('tools.timeline') }}#&place=geoId/0655282,geoId/0620956&statsVar=Count_Person_AsianAlone__Count_Person_BlackOrAfricanAmericanAlone__Count_Person_NativeHawaiianAndOtherPacificIslanderAlone__Count_Person_WhiteAlone">Employment differences across neighboring cities</a>,
+        </li>
+        <li><a class="sub" href="{{ url_for('tools.timeline') }}">more ...</a>
+        </li>
+      </ul>
+    </li>
 
-    <a href="{{ url_for('browser.kg_main') }}">Browse entities in the
-  Data Commons Graph:</a>
-        <a href="{{ url_for('browser.kg_entity', dcid='geoId/4805000')
-  }}">Austin, Tx</a>
-        <a href="{{ url_for('browser.kg_entity',
-  dcid='geoId/sch3620580') }}">New York City Dept. of Education</a>
-        <a href="{{ url_for('browser.kg_entity', dcid='EncodeBiosampleType') }}">Encyclopedia of DNA Elements Biosamples</a>
-      </div>
-  
+    <li>
+      <a class="main" href="{{ url_for('browser.kg_main') }}">Browse entities in the Data Commons Graph</a>:
+      <ul>
+        <li>
+          <a class="sub" href="{{ url_for('browser.kg_entity', dcid='geoId/4805000') }}">Austin, TX</a>,
+        </li>
+        <li>
+          <a class="sub" href="{{ url_for('browser.kg_entity', dcid='geoId/sch3620580') }}">New York City Dept. of Education</a>,
+        </li>
+        <li>
+          <a class="sub" href="{{ url_for('browser.kg_entity', dcid='EncodeBiosampleType') }}">Encyclopedia of DNA Elements Biosamples</a>,
+        </li>
+        <li><a class="sub" href="{{ url_for('browser.kg_main') }}">more ...</a>
+        </li>
+      </ul>
+    </li>
+  </ul>
 </section>
 
 <section class="container">
   <h2>Build your own</h2>
   <p>
     Use the Python and REST API's to do your own custom analysis,
-  build your own tools and more
+    build your own tools and more
   </p>
-  <a href="http://docs.datacommons.org/api/">See API documentation.</a>
-  <a href="http://docs.datacommons.org/tutorials.html">See some sample Python notebooks.</a>
+  <ul>
+    <li><a href="http://docs.datacommons.org/api/">See API documentation.</a></li>
+    <li><a href="http://docs.datacommons.org/tutorials.html">See some sample Python notebooks.</a></li>
+  </ul>
 </section>
 
 <section class="container">
   <h2>Open</h2>
-  <p>Open Data, 
-  <a href="http://github.com/datacommonsorg">Open sourced</a>, built using <a
-      href="http://schema.org">Schema.org</a>.
-  <a href="https://docs.datacommons.org/contribute">Join the effort</a>
-  </p>
+  <ul>
+    <li>Open Data</li>
+    <li>
+      <a href="http://github.com/datacommonsorg">Open sourced</a>, built using
+      <a href="http://schema.org">Schema.org</a>.
+    </li>
+    <li>
+      <a class="main" href="https://docs.datacommons.org/contributing">Join the
+        effort</a>
+    </li>
+  </ul>
 </section>
 
 <section class="container">
   <h2>Including data from</h3>
-  <img class="d-block img-fluid mx-auto" src="{{ url_for('static', filename='images/homepage_datasets.png') }}" />
+    <img class="d-block img-fluid mx-auto"
+      src="{{ url_for('static', filename='images/homepage_datasets.png') }}" />
 </section>
 
 {% endblock %}
