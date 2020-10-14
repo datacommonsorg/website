@@ -150,7 +150,7 @@ function wrap(
  * @return the height of the x-axis bounding-box.
  */
 function addXAxis(
-  svg: d3.Selection<SVGElement, any, any, any>,
+  axis: d3.Selection<SVGGElement, any, any, any>,
   chartHeight: number,
   xScale: d3.AxisScale<any>,
   shouldRotate?: boolean,
@@ -165,18 +165,16 @@ function addXAxis(
     }
   }
 
-  const axis = svg
-    .append("g")
-    .attr("class", "x axis")
-    .attr("transform", `translate(0, ${chartHeight - MARGIN.bottom})`)
-    .call(d3Axis)
-    .call((g) => g.select(".domain").remove())
-    .call((g) =>
-      g
-        .selectAll("line")
-        .attr("stroke", AXIS_GRID_FILL)
-        .attr("stroke-width", "0.5")
-    );
+  axis
+      .attr("transform", `translate(0, ${chartHeight - MARGIN.bottom})`)
+      .call(d3Axis)
+      .call((g) => g.select(".domain").remove())
+      .call((g) =>
+        g
+          .selectAll("line")
+          .attr("stroke", AXIS_GRID_FILL)
+          .attr("stroke-width", "0.5")
+      );
 
   if (labelToLink) {
     axis
@@ -420,6 +418,10 @@ function drawStackBarChart(
     .attr("width", chartWidth)
     .attr("height", chartHeight);
 
+  const yAxis = svg.append("g").attr("class", "y axis");
+  const chart = svg.append("g").attr("class", "chart");
+  const xAxis = svg.append("g").attr("class", "x axis");
+
   const x = d3
     .scaleBand()
     .domain(dataGroups.map((dg) => dg.label))
@@ -427,7 +429,7 @@ function drawStackBarChart(
     .paddingInner(0.1)
     .paddingOuter(0.1);
 
-  const bottomHeight = addXAxis(svg, chartHeight, x, false, labelToLink);
+  const bottomHeight = addXAxis(xAxis, chartHeight, x, false, labelToLink);
 
   const y = d3
     .scaleLinear()
@@ -439,8 +441,7 @@ function drawStackBarChart(
 
   const color = getColorFn(keys);
 
-  svg
-    .append("g")
+  chart
     .selectAll("g")
     .data(series)
     .enter()
