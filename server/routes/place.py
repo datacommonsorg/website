@@ -25,7 +25,11 @@ def place(place_dcid=None):
     dcid = flask.request.args.get('dcid', None)
     topic = flask.request.args.get('topic', None)
     if dcid:
-        url = flask.url_for('place.place', place_dcid=dcid, topic=topic)
+        url = flask.url_for('place.place',
+                            place_dcid=dcid,
+                            topic=topic,
+                            _external=True,
+                            _scheme="https")
         return flask.redirect(url)
 
     if not place_dcid:
