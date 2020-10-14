@@ -14,6 +14,7 @@ class Config:
 
 
 class ProductionConfig(Config):
+    PROJECT = 'datcom-browser-prod'
     API_PROJECT = 'datcom-mixer'
     API_ROOT = 'https://api.datacommons.org'
     GCS_BUCKET = 'datcom-browser-prod.appspot.com'
@@ -21,6 +22,7 @@ class ProductionConfig(Config):
 
 
 class DevelopmentConfig(Config):
+    PROJECT = 'datcom-browser-staging'
     API_PROJECT = 'datcom-mixer-staging'
     API_ROOT = 'https://datacommons.endpoints.datcom-mixer-staging.cloud.goog'
     GCS_BUCKET = 'datcom-browser-staging.appspot.com'
