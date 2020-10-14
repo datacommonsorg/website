@@ -52,9 +52,15 @@ def get_landing_page_data(dcid, stat_vars):
     return response
 
 
-def build_url(dcids, stats_vars, is_scaled=False):
-    anchor = '&place={}&statsVar={}'.format(','.join(dcids),
-                                            '__'.join(stats_vars))
+def build_url(dcids, statvar_to_denom, is_scaled=False):
+    anchor = '&place=' + ','.join(dcids)
+    parts = []
+    for statvar, denom in statvar_to_denom.items():
+        part = statvar
+        if denom:
+            part += ',' + denom
+        parts.append(part)
+    anchor += ('&statsVar=' + '__'.join(parts))
     if is_scaled:
         anchor = anchor + '&pc=1'
     return urllib.parse.unquote(url_for('tools.timeline', _anchor=anchor))
@@ -162,7 +168,7 @@ def get_snapshot_across_places(cc, data, places):
     most <place, stat_var> entries.
     """
     if not places:
-        return {}
+        return {}, {}
 
     # date_to_data is a dictionary from date to place and a tuple of
     # (stat_var, value) pair.
@@ -185,6 +191,7 @@ def get_snapshot_across_places(cc, data, places):
     num_denom = get_denom(cc, related_chart=True)
     sources = set()
     place_stat_var_group = get_stat_var_group(cc, data, places)
+    statvar_to_denom = {}
     for place in places:
         if place not in data:
             continue
@@ -199,6 +206,7 @@ def get_snapshot_across_places(cc, data, places):
                     denom_sv = num_denom[num_sv]
                 else:
                     denom_sv = num_denom
+                statvar_to_denom[num_sv] = denom_sv
                 denom_series, denom_sources = get_series(
                     data, place, [denom_sv])
                 if not denom_series:
@@ -207,13 +215,14 @@ def get_snapshot_across_places(cc, data, places):
                 result_series = scale_series(num_series, denom_series)
             else:
                 result_series = num_series
+                statvar_to_denom[num_sv] = None
             # Turn the value to be keyed by date.
             for date, value in result_series.items():
                 date_to_data[date][place].append((num_sv, value))
     # Pick a date that has the most series across places.
     dates = sorted(date_to_data.keys(), reverse=True)
     if not dates:
-        return {}
+        return {}, {}
     count = 0
     chosen_date = None
     for date in dates:
@@ -227,7 +236,7 @@ def get_snapshot_across_places(cc, data, places):
             points[stat_var] = value
         if points:
             result['data'].append({'dcid': place, 'data': points})
-    return result
+    return result, statvar_to_denom
 
 
 # TODO(shifucun): Add unittest for these helper functions
@@ -237,7 +246,7 @@ def get_bar(cc, data, places):
     This will scale the value if required and pick the latest date that has the
     most <place, stat_var> entries.
     """
-    result = get_snapshot_across_places(cc, data, places)
+    result, statvar_denom = get_snapshot_across_places(cc, data, places)
     if not result:
         return {}
     # Should have data other than the primary place. Return empty struct to
@@ -247,7 +256,7 @@ def get_bar(cc, data, places):
     is_scaled = (('relatedChart' in cc and
                   cc['relatedChart'].get('scale', False)) or
                  ('denominator' in cc))
-    result['exploreUrl'] = build_url(places, cc['statsVars'], is_scaled)
+    result['exploreUrl'] = build_url(places, statvar_denom, is_scaled)
     return result
 
 
@@ -260,6 +269,7 @@ def get_trend(cc, data, place):
     sources = set()
     num_denom = get_denom(cc)
     stat_var_group = get_stat_var_group(cc, data, [place])[place]
+    statvar_denom = {}
     for num_sv, sv_list in stat_var_group.items():
         num_series, num_sources = get_series(data, place, sv_list)
         if not num_series:
@@ -271,6 +281,7 @@ def get_trend(cc, data, place):
             else:
                 denom_sv = num_denom
             denom_sv = num_denom[num_sv]
+            statvar_denom[num_sv] = denom_sv
             denom_series, denom_sources = get_series(data, place, [denom_sv])
             if not denom_series:
                 continue
@@ -278,6 +289,7 @@ def get_trend(cc, data, place):
             result_series[num_sv] = scale_series(num_series, denom_series)
         else:
             result_series[num_sv] = num_series
+            statvar_denom[num_sv] = None
     # filter out time series with single data point.
     for sv in list(result_series.keys()):
         if len(result_series[sv]) <= 1:
@@ -289,7 +301,7 @@ def get_trend(cc, data, place):
     return {
         'series': result_series,
         'sources': list(sources),
-        'exploreUrl': build_url([place], cc['statsVars'], is_scaled)
+        'exploreUrl': build_url([place], statvar_denom, is_scaled)
     }
 
 
@@ -392,8 +404,12 @@ def data(dcid):
                 # Trend data
                 chart['trend'] = get_trend(chart, all_stat, dcid)
                 if 'aggregate' in chart:
-                    chart['trend']['statsVars'] = list(chart['trend'].get(
+                    aggregated_stat_vars = list(chart['trend'].get(
                         'series', {}).keys())
+                    if aggregated_stat_vars:
+                        chart['trend']['statsVars'] = aggregated_stat_vars
+                    else:
+                        chart['trend'] = {}
                 # Bar data
                 for t in chart_types:
                     chart[t] = get_bar(chart, all_stat, [dcid] +
@@ -415,6 +431,8 @@ def data(dcid):
                             stat_vars = list(place_data['data'].keys())
                             if len(stat_vars) > len(chart[t]['statsVars']):
                                 chart[t]['statsVars'] = stat_vars
+                            elif len(stat_vars) == 0:
+                                chart[t] = {}
                 if 'aggregate' in chart:
                     chart['statsVars'] = []
 
@@ -471,11 +489,9 @@ def data(dcid):
     names = place_api.get_display_name('^'.join(sorted(all_places)))
 
     # Pick data to highlight - only population for now
-    highlight = {
-        'Population':
-            get_snapshot_across_places({'statsVars': ['Count_Person']},
-                                       all_stat, [dcid])
-    }
+    population, statvar_denom = get_snapshot_across_places(
+        {'statsVars': ['Count_Person']}, all_stat, [dcid])
+    highlight = {'Population': population}
 
     response = {
         'pageChart': spec_and_stat,

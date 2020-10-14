@@ -23,15 +23,17 @@ import routes.api.chart as chart_api
 
 class TestChoroplethPlaces(unittest.TestCase):
 
+    @patch('routes.api.chart.place_api.parent_places')
     @patch('routes.api.chart.dc_service.get_places_in')
     @patch('routes.api.chart.place_api.get_place_type')
     def test_get_choropleth_places_has_display_level(self, mock_place_type,
-                                                     mock_places_in):
+                                                     mock_places_in,
+                                                     mock_parents):
         dcid = "test_dcid1"
         expected = ["dcid1", "dcid2"]
 
         def get_places_in_(*args):
-            if args[1] == "AdministrativeArea1":
+            if args[0] == [dcid] and args[1] == "AdministrativeArea1":
                 return {dcid: expected}
             else:
                 return {dcid: []}
@@ -39,17 +41,18 @@ class TestChoroplethPlaces(unittest.TestCase):
         mock_place_type.return_value = "Country"
         mock_places_in.side_effect = get_places_in_
         result = chart_api.get_choropleth_places(dcid)
-        assert result == expected
+        assert result == (expected, "geoJsonCoordinatesDP3")
 
+    @patch('routes.api.chart.place_api.parent_places')
     @patch('routes.api.chart.dc_service.get_places_in')
     @patch('routes.api.chart.place_api.get_place_type')
     def test_get_choropleth_places_equivalent_has_display_level(
-            self, mock_place_type, mock_places_in):
+            self, mock_place_type, mock_places_in, mock_parents):
         dcid = "test_dcid2"
         expected = ["dcid1", "dcid2"]
 
         def get_places_in_(*args):
-            if args[1] == "AdministrativeArea2":
+            if args[0] == [dcid] and args[1] == "AdministrativeArea2":
                 return {dcid: expected}
             else:
                 return {dcid: []}
@@ -57,26 +60,95 @@ class TestChoroplethPlaces(unittest.TestCase):
         mock_place_type.return_value = "AdministrativeArea1"
         mock_places_in.side_effect = get_places_in_
         result = chart_api.get_choropleth_places(dcid)
-        assert result == expected
+        assert result == (expected, "geoJsonCoordinatesDP2")
 
+    @patch('routes.api.chart.place_api.parent_places')
     @patch('routes.api.chart.dc_service.get_places_in')
     @patch('routes.api.chart.place_api.get_place_type')
     def test_get_choropleth_places_has_no_display_level(self, mock_place_type,
-                                                        mock_places_in):
+                                                        mock_places_in,
+                                                        mock_parents):
         dcid = "test_dcid3"
+        parent_dcid = "parent_dcid"
 
         def get_places_in_(*args):
-            if args[1] == "AdministrativeArea1":
+            if args[0] == [dcid] and args[1] == "AdministrativeArea1":
                 return {dcid: ["dcid1", "dcid2"]}
-            elif args[1] == "AdministrativeArea2":
+            elif args[0] == [dcid] and args[1] == "AdministrativeArea2":
+                return {dcid: ["dcid1", "dcid2"]}
+            elif args[0] == [parent_dcid] and args[1] == "AdministrativeArea1":
+                return {dcid: ["dcid1", "dcid2"]}
+            elif args[0] == [parent_dcid] and args[1] == "AdministrativeArea2":
                 return {dcid: ["dcid1", "dcid2"]}
             else:
                 return {dcid: []}
 
         mock_place_type.return_value = "County"
         mock_places_in.side_effect = get_places_in_
+        mock_parents.return_value = mock_parents.return_value = {
+            dcid: [{
+                'dcid': parent_dcid,
+                'types': ['Country']
+            }]
+        }
         result = chart_api.get_choropleth_places(dcid)
         assert result == []
+
+    @patch('routes.api.chart.place_api.parent_places')
+    @patch('routes.api.chart.dc_service.get_places_in')
+    @patch('routes.api.chart.place_api.get_place_type')
+    def test_get_choropleth_places_parent_places(self, mock_place_type,
+                                                 mock_places_in, mock_parents):
+        dcid = "test_dcid4"
+        parent_dcid = "parent_dcid"
+        expected = ["dcid1", "dcid2"]
+
+        def get_places_in_(*args):
+            if args[0] == [parent_dcid] and args[1] == "AdministrativeArea1":
+                return {parent_dcid: ["dcid1", "dcid3"]}
+            elif args[0] == [parent_dcid] and args[1] == "AdministrativeArea2":
+                return {parent_dcid: expected}
+            else:
+                return {dcid: []}
+
+        mock_place_type.return_value = "County"
+        mock_places_in.side_effect = get_places_in_
+        mock_parents.return_value = {
+            dcid: [{
+                'dcid': parent_dcid,
+                'types': ['AdministrativeArea1']
+            }]
+        }
+        result = chart_api.get_choropleth_places(dcid)
+        assert result == (expected, "geoJsonCoordinatesDP2")
+
+    @patch('routes.api.chart.place_api.parent_places')
+    @patch('routes.api.chart.dc_service.get_places_in')
+    @patch('routes.api.chart.place_api.get_place_type')
+    def test_get_choropleth_places_parent_has_equivalent(
+            self, mock_place_type, mock_places_in, mock_parents):
+        dcid = "test_dcid5"
+        parent_dcid = "parent_dcid"
+        expected = ["dcid1", "dcid2"]
+
+        def get_places_in_(*args):
+            if args[0] == [parent_dcid] and args[1] == "AdministrativeArea1":
+                return {parent_dcid: ["dcid1", "dcid3"]}
+            elif args[0] == [parent_dcid] and args[1] == "AdministrativeArea2":
+                return {parent_dcid: expected}
+            else:
+                return {dcid: []}
+
+        mock_place_type.return_value = "County"
+        mock_places_in.side_effect = get_places_in_
+        mock_parents.return_value = {
+            dcid: [{
+                'dcid': parent_dcid,
+                'types': ['State']
+            }]
+        }
+        result = chart_api.get_choropleth_places(dcid)
+        assert result == (expected, "geoJsonCoordinatesDP2")
 
     class TestGetGeoJson(unittest.TestCase):
 
@@ -93,7 +165,7 @@ class TestChoroplethPlaces(unittest.TestCase):
                              mock_geojson_values, mock_choropleth_helper):
             dcid1 = "dcid1"
             dcid2 = "dcid2"
-            mock_places.return_value = [dcid1, dcid2]
+            mock_places.return_value = [dcid1, dcid2], "geoJsonProp"
             mock_display_name.return_value = {dcid1: dcid1, dcid2: dcid2}
             mock_geojson_values.return_value = {
                 dcid1: json.dumps({
@@ -268,7 +340,7 @@ class TestChoroplethData(unittest.TestCase):
         chart_configs = [cc1, cc2]
         geos = [geo1, geo2]
         mock_choropleth_sv.return_value = sv_set, chart_configs
-        mock_choropleth_places.return_value = geos
+        mock_choropleth_places.return_value = geos, "geoJsonCoordinatesDP3"
         stats_all_return_value = {
             geo1: {
                 'statVarData': {}
@@ -324,10 +396,10 @@ class TestChoroplethData(unittest.TestCase):
         def snapshot_data_side_effect(*args):
             if args[0] == cc1 and args[1] == stats_all_return_value and args[
                     2] == geos:
-                return cc1_snapshot_data
+                return cc1_snapshot_data, {'sv1': None}
             elif args[0] == cc2 and args[1] == stats_all_return_value and args[
                     2] == geos:
-                return cc2_snapshot_data
+                return cc2_snapshot_data, {'sv2': None}
             else:
                 return None
 
@@ -337,10 +409,11 @@ class TestChoroplethData(unittest.TestCase):
         test_url2 = 'test/url/2'
 
         def build_url_side_effect(*args):
-            if args[0] == [test_dcid] and args[1] == [sv1]:
+            if args[0] == [test_dcid] and args[1] == {'sv1': None}:
                 return test_url
-            elif args[0] == [test_dcid] and args[1] == [sv2
-                                                       ] and args[2] == True:
+            elif args[0] == [test_dcid] and args[1] == {
+                    'sv2': None
+            } and args[2] == True:
                 return test_url2
             else:
                 return None

@@ -13,15 +13,9 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
- 
- .border {
-  stroke: #A0A0A0;
-  stroke-width: 0.5px;
-}
 
 .border-highlighted {
-  stroke: black;
-  stroke-width: 1px;
+  fill: rgba(0, 0, 0, .5) !important;
 }
 
 #tooltip {

@@ -155,12 +155,15 @@ class Chart extends React.Component<ChartPropType, ChartStateType> {
     const dateString = this.getDateString();
     const exploreUrl = this.getExploreUrl();
     const sources = this.getSources();
+    if (!sources) {
+      console.log(`Skipping ${this.props.title} - missing sources`);
+      return null;
+    }
     if (
       this.props.chartType === chartTypeEnum.CHOROPLETH &&
       (!this.state.choroplethDataGroup ||
         this.state.choroplethDataGroup.numDataPoints <
-          MIN_CHOROPLETH_DATAPOINTS ||
-        !this.props.geoJsonData)
+          MIN_CHOROPLETH_DATAPOINTS)
     ) {
       return null;
     }
@@ -331,7 +334,8 @@ class Chart extends React.Component<ChartPropType, ChartStateType> {
         CHART_HEIGHT,
         elem.offsetWidth,
         this.props.choroplethData.data,
-        this.props.unit
+        this.props.unit,
+        this.props.statsVars[0]
       );
     }
   }
