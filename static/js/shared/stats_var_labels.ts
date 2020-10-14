@@ -27,11 +27,12 @@ const STATS_VAR_LABEL: { [key: string]: string } = {
     "Unemployment Insurance Claim",
   Count_Person_Employed: "Employed People",
   Count_Person_InLaborForce: "People in Labor Force",
-  Count_Person: "Total",
+  Count_Person: "Total Population",
   Count_Person_PerArea: "Persons Per Area",
   LifeExpectancy_Person: "Life Expectancy",
   GrowthRate_Count_Person: "Population Growth Rate",
   FertilityRate_Person_Female: "Fertility Rate",
+  Count_HousingUnit: "Housing Unit",
 
   // Economics
   Amount_EconomicActivity_GrossDomesticProduction_Nominal: "GDP",
@@ -42,20 +43,23 @@ const STATS_VAR_LABEL: { [key: string]: string } = {
   Amount_EconomicActivity_GrossNationalIncome_PurchasingPowerParity_PerCapita:
     "GNI PPP Per Capita",
   Amount_EconomicActivity_GrossNationalIncome_PurchasingPowerParity: "GNI PPP",
-  "WorldBank/SL_TLF_0714_ZS": "Children in Employment",
-  "WorldBank/SE_XPD_TOTL_GB_ZS":
+  Count_Person_7To14Years_Employed_AsFractionOf_Count_Person_7To14Years:
+    "Children in Employment",
+  Amount_EconomicActivity_ExpenditureActivity_EducationExpenditure_Government_AsFractionOf_Amount_EconomicActivity_ExpenditureActivity_Government:
     "Government Expenditures on Education (% of Government Expenditures)",
-  "WorldBank/SE_XPD_TOTL_GD_ZS":
+  Amount_EconomicActivity_ExpenditureActivity_EducationExpenditure_Government_AsFractionOf_Amount_EconomicActivity_GrossDomesticProduction_Nominal:
     "Government Expenditures on Education (% of GDP)",
-  "WorldBank/MS_MIL_XPND_CD": "Government Expenditures on Military",
-  "WorldBank/MS_MIL_XPND_GD_ZS":
+  Amount_EconomicActivity_ExpenditureActivity_MilitaryExpenditure_Government:
+    "Government Expenditures on Military",
+  Amount_EconomicActivity_ExpenditureActivity_MilitaryExpenditure_Government_AsFractionOf_Amount_EconomicActivity_GrossDomesticProduction_Nominal:
     "Government Expenditures on Military (% of GDP)",
-  "WorldBank/CM_MKT_LCAP_CD": "Market Capitalization of Domestic Companies",
-  "WorldBank/CM_MKT_LCAP_GD_ZS":
+  Amount_Stock: "Market Capitalization of Domestic Companies",
+  Amount_Stock_AsFractionOf_Amount_EconomicActivity_GrossDomesticProduction_Nominal:
     "Market Capitalization of Domestic Companies (% of GDP)",
-  "WorldBank/BX_TRF_PWKR_CD_DT": "Inward Remittance",
-  "WorldBank/BX_TRF_PWKR_DT_GD_ZS": "Inward Remittance (% of GDP)",
-  "WorldBank/BM_TRF_PWKR_CD_DT": "Outward Remittance",
+  Amount_Remittance_InwardRemittance: "Inward Remittance",
+  Amount_Remittance_InwardRemittance_AsFractionOf_Amount_EconomicActivity_GrossDomesticProduction_Nominal:
+    "Inward Remittance (% of GDP)",
+  Amount_Remittance_OutwardRemittance: "Outward Remittance",
 
   // Environment
   Amount_Consumption_Energy_PerCapita: "Energy Consumption",
@@ -71,27 +75,43 @@ const STATS_VAR_LABEL: { [key: string]: string } = {
   Count_DroughtEvent: "Drought",
 
   // age
-  Count_Person_Upto5Years: "0-5",
+  Count_Person_Upto4Years: "0-4",
+  Count_Person_Upto9Years: "0-9",
+  Count_Person_5To9Years: "5-9",
   Count_Person_5To17Years: "5-17",
+  Count_Person_10To14Years: "10-14",
+  Count_Person_10To19Years: "10-19",
   Count_Person_15To19Years: "15-19",
+  Count_Person_18To24Years: "18-24",
   Count_Person_20To24Years: "20-24",
+  Count_Person_20To29Years: "20-29",
   Count_Person_25To29Years: "25-29",
   Count_Person_25To34Years: "25-34",
   Count_Person_30To34Years: "30-34",
+  Count_Person_30To39Years: "30-39",
   Count_Person_35To39Years: "35-39",
   Count_Person_35To44Years: "35-44",
   Count_Person_40To44Years: "40-44",
+  Count_Person_40To49Years: "40-49",
   Count_Person_45To49Years: "45-49",
   Count_Person_45To54Years: "45-54",
   Count_Person_50To54Years: "50-54",
+  Count_Person_50To59Years: "50-59",
   Count_Person_55To59Years: "55-59",
+  Count_Person_55To64Years: "55-64",
+  Count_Person_60To61Years: "60-61",
   Count_Person_60To64Years: "60-64",
+  Count_Person_60To69Years: "60-69",
+  Count_Person_62To64Years: "62-64",
   Count_Person_65To69Years: "65-69",
-  Count_Person_65OrMoreYears: "65+",
+  Count_Person_65To74Years: "65-74",
   Count_Person_70To74Years: "70-74",
+  Count_Person_70To79Years: "70-79",
+  Count_Person_70OrMoreYears: "70+",
   Count_Person_75To79Years: "75-79",
+  Count_Person_75OrMoreYears: "75+",
   Count_Person_80To84Years: "80-84",
-  Count_Person_85To89Years: "85-89",
+  Count_Person_80OrMoreYears: "80+",
   // gender
   Count_Person_Male: "Male",
   Count_Person_Female: "Female",
@@ -108,6 +128,19 @@ const STATS_VAR_LABEL: { [key: string]: string } = {
   Count_Person_SomeOtherRaceAlone: "Some Other Race",
   Count_Person_TwoOrMoreRaces: "Two or More Races",
   Count_Person_WhiteAlone: "White Alone",
+
+  Count_HousingUnit_HouseholderRaceAmericanIndianOrAlaskaNativeAlone:
+    "American Indian or Alaska Native",
+  Count_HousingUnit_HouseholderRaceAsianAlone: "Asian Alone",
+  Count_HousingUnit_HouseholderRaceBlackOrAfricanAmericanAlone:
+    "Black or African American",
+  Count_HousingUnit_HouseholderRaceHispanicOrLatino: "Hispanic or Latino",
+  Count_HousingUnit_HouseholderRaceNativeHawaiianAndOtherPacificIslanderAlone:
+    "Native Hawaiian and Pacific Islander",
+  Count_HousingUnit_HouseholderRaceSomeOtherRaceAlone: "Some Other Race",
+  Count_HousingUnit_HouseholderRaceTwoOrMoreRaces: "Two or More Races",
+  Count_HousingUnit_HouseholderRaceWhiteAlone: "White Alone",
+
   Median_Age_Person_AmericanIndianOrAlaskaNativeAlone:
     "American Indian or Alaska Native",
   Median_Age_Person_AsianAlone: "Asian Alone",
@@ -134,8 +167,8 @@ const STATS_VAR_LABEL: { [key: string]: string } = {
   Count_Person_Widowed: "Widowed",
   Count_Person_Separated: "Separated",
   // living situation
-  "WorldBank/SP_URB_TOTL": "Urban Population",
-  "WorldBank/SP_RUR_TOTL": "Rural Population",
+  Count_Person_Urban: "Urban Population",
+  Count_Person_Rural: "Rural Population",
   // education/poulation
   Count_Person_EducationalAttainmentNoSchoolingCompleted: "No Schooling",
   Count_Person_EducationalAttainmentRegularHighSchoolDiploma: "High School",
@@ -167,7 +200,8 @@ const STATS_VAR_LABEL: { [key: string]: string } = {
   Count_Person_NotAUSCitizen: "Not a Citizen",
   Count_Person_USCitizenBornAbroadOfAmericanParents: "Born Abroad",
   // Mortality
-  "WorldBank/SP_DYN_IMRT_IN": "Infant Mortality Rate",
+  Count_Death_0Years_AsFractionOf_Count_BirthEvent_LiveBirth:
+    "Infant Mortality Rate",
   // Mortality cause
   Count_Death_DiseasesOfTheCirculatorySystem: "Circulatory System",
   Count_Death_Neoplasms: "Neoplasms",
@@ -180,15 +214,18 @@ const STATS_VAR_LABEL: { [key: string]: string } = {
   Percent_Person_WithArthritis: "Arthritis",
   Percent_Person_WithMentalHealthNotGood: "Mental Health Not Good",
   Percent_Person_WithPhysicalHealthNotGood: "Physical Health Not Good",
-  "WorldBank/SH_STA_WAST_ZS": "Wasted Children under 5",
-  "WorldBank/SH_SVR_WAST_ZS": "Severely Wasted Children under 5",
+  Count_Person_Upto4Years_Wasting_AsFractionOf_Count_Person_Upto4Years:
+    "Wasted Children under 5",
+  Count_Person_Upto4Years_SevereWasting_AsFractionOf_Count_Person_Upto4Years:
+    "Severely Wasted Children under 5",
   // Behaviors
   Percent_Person_SleepLessThan7Hours: "Sleep Less Than 7 Hours",
   Percent_Person_Obesity: "Obesity",
   Percent_Person_BingeDrinking: "Binge Drinking",
   Percent_Person_PhysicalInactivity: "Physical Inactivity",
   Percent_Person_Smoking: "Smoking",
-  "WorldBank/SH_ALC_PCAP_LI": "Pure Alcohol Consumption",
+  Amount_Consumption_Alcohol_15OrMoreYears_AsFractionOf_Count_Person_15OrMoreYears:
+    "Pure Alcohol Consumption",
   // Drug Prescribed
   RetailDrugDistribution_DrugDistribution_Oxycodone: "Oxycodone",
   RetailDrugDistribution_DrugDistribution_Hydrocodone: "Hydrocodone",
@@ -248,18 +285,49 @@ const STATS_VAR_LABEL: { [key: string]: string } = {
   Count_Person_25To34Years_EducationalAttainmentGraduateOrProfessionalDegree_Male:
     "Male",
 
-  "WorldBank/SL_TLF_0714_FE_ZS": "Female",
-  "WorldBank/SL_TLF_0714_MA_ZS": "Male",
+  Count_Person_7To14Years_Female_Employed_AsFractionOf_Count_Person_7To14Years_Female:
+    "Female",
+  Count_Person_7To14Years_Male_Employed_AsFractionOf_Count_Person_7To14Years_Male:
+    "Male",
 
-  "WorldBank/SP_DYN_IMRT_FE_IN": "Female",
-  "WorldBank/SP_DYN_IMRT_MA_IN": "Male",
+  Count_Death_0Years_Female_AsFractionOf_Count_BirthEvent_LiveBirth_Female:
+    "Female",
+  Count_Death_0Years_Male_AsFractionOf_Count_BirthEvent_LiveBirth_Male: "Male",
 
-  "WorldBank/SH_STA_WAST_FE_ZS": "Female",
-  "WorldBank/SH_SVR_WAST_FE_ZS": "Female",
-  "WorldBank/SH_STA_WAST_MA_ZS": "Male",
-  "WorldBank/SH_SVR_WAST_MA_ZS": "Male",
+  Count_Person_Upto4Years_Female_Wasting_AsFractionOf_Count_Person_Upto4Years_Female:
+    "Female",
+  Count_Person_Upto4Years_Female_SevereWasting_AsFractionOf_Count_Person_Upto4Years_Female:
+    "Female",
+  Count_Person_Upto4Years_Male_Wasting_AsFractionOf_Count_Person_Upto4Years_Male:
+    "Male",
+  Count_Person_Upto4Years_Male_SevereWasting_AsFractionOf_Count_Person_Upto4Years_Male:
+    "Male",
 
-  "WorldBank/SI_POV_GINI": "Gini Index",
+  GiniIndex_EcconomicActivity: "Gini Index",
+
+  // Housing
+  Count_HousingUnit_HomeValueUpto49999USDollar: "0 - $50K",
+  Count_HousingUnit_HomeValue50000To99999USDollar: "$50K - $100K",
+  Count_HousingUnit_HomeValue100000To199999USDollar: "$100K - $200K",
+  Count_HousingUnit_HomeValue200000To299999USDollar: "$200K - $300K",
+  Count_HousingUnit_HomeValue300000To499999USDollar: "$300K - $500K",
+  Count_HousingUnit_HomeValue500000To999999USDollar: "$500K - $1M",
+  Count_HousingUnit_HomeValue1000000To1499999USDollar: "$1M - $1.5M",
+  Count_HousingUnit_HomeValue1500000To1999999USDollar: "$1.5M - $2M",
+  Count_HousingUnit_HomeValue2000000OrMoreUSDollar: "$2M+",
+
+  Count_HousingUnit_OwnerOccupied: "Owner",
+  Count_HousingUnit_RenterOccupied: "Renter",
+
+  Count_HousingUnit_Before1939DateBuilt: "Before 1939",
+  Count_HousingUnit_1940To1949DateBuilt: "1940 - 1949",
+  Count_HousingUnit_1950To1959DateBuilt: "1950 - 1959",
+  Count_HousingUnit_1960To1969DateBuilt: "1960 - 1969",
+  Count_HousingUnit_1970To1979DateBuilt: "1970 - 1979",
+  Count_HousingUnit_1980To1989DateBuilt: "1980 - 1989",
+  Count_HousingUnit_1990To1999DateBuilt: "1990 - 1999",
+  Count_HousingUnit_2000To2009DateBuilt: "2000 - 2009",
+  Count_HousingUnit_2010OrLaterDateBuilt: "After 2010",
 };
 
 export { STATS_VAR_LABEL };

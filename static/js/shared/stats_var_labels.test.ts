@@ -19,8 +19,10 @@ import chartConfig from "../../../server/chart_config.json";
 
 test("stats var label", () => {
   for (const chart of chartConfig) {
-    for (const statsVar of chart.statsVars) {
-      expect(STATS_VAR_LABEL[statsVar]).toBeTruthy();
+    if (!("aggregate" in chart)) {
+      for (const statsVar of chart.statsVars) {
+        expect(STATS_VAR_LABEL[statsVar]).toBeTruthy();
+      }
     }
   }
 });

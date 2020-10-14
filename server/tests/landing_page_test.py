@@ -16,6 +16,8 @@ import unittest
 import json
 import routes.api.landing_page as landing_page
 
+# TODO(shifucun): add test for api endpoint.
+
 
 class TestBuildSpec(unittest.TestCase):
     chart_config = [{

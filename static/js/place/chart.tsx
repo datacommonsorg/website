@@ -109,7 +109,8 @@ class Chart extends React.Component<ChartPropType, ChartStateType> {
   svgContainerElement: React.RefObject<HTMLDivElement>;
   embedModalElement: React.RefObject<ChartEmbed>;
   dcid: string;
-  rankingUrlByStatVar: { [statVar: string]: string };
+  rankingUrlByStatVar: { [key: string]: string };
+  statsVars: string[];
 
   constructor(props: ChartPropType) {
     super(props);
@@ -127,11 +128,21 @@ class Chart extends React.Component<ChartPropType, ChartStateType> {
     this._handleWindowResize = this._handleWindowResize.bind(this);
     this._handleEmbed = this._handleEmbed.bind(this);
 
+    // For aggregated stats vars, the per chart stats vars are availabe in
+    // chart level not chart block level.
+    if (this.props.statsVars.length > 0) {
+      this.statsVars = this.props.statsVars;
+    } else if (this.props.trend) {
+      this.statsVars = this.props.trend.statsVars;
+    } else if (this.props.snapshot) {
+      this.statsVars = this.props.snapshot.statsVars;
+    } else {
+      this.statsVars = [];
+    }
     this.rankingUrlByStatVar = {};
-    for (const statVar of this.props.statsVars) {
+    for (const statVar of this.statsVars) {
       this.rankingUrlByStatVar[statVar] = this.props.rankingTemplateUrl.replace(
         "_sv_",
-
         statVar
       );
     }
@@ -144,6 +155,10 @@ class Chart extends React.Component<ChartPropType, ChartStateType> {
     const dateString = this.getDateString();
     const exploreUrl = this.getExploreUrl();
     const sources = this.getSources();
+    if (!sources) {
+      console.log(`Skipping ${this.props.title} - missing sources`);
+      return null;
+    }
     if (
       this.props.chartType === chartTypeEnum.CHOROPLETH &&
       (!this.state.choroplethDataGroup ||
@@ -319,7 +334,8 @@ class Chart extends React.Component<ChartPropType, ChartStateType> {
         CHART_HEIGHT,
         elem.offsetWidth,
         this.props.choroplethData.data,
-        this.props.unit
+        this.props.unit,
+        this.props.statsVars[0]
       );
     }
   }
@@ -398,7 +414,7 @@ class Chart extends React.Component<ChartPropType, ChartStateType> {
       case chartTypeEnum.STACK_BAR:
         for (const placeData of this.props.snapshot.data) {
           const dataPoints: DataPoint[] = [];
-          for (const statVar of this.props.statsVars) {
+          for (const statVar of this.statsVars) {
             const val = placeData.data[statVar];
             dataPoints.push({
               label: STATS_VAR_LABEL[statVar],
