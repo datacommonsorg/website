@@ -265,7 +265,9 @@ class ChartBlock extends React.Component<ChartBlockPropType, unknown> {
         }
       }
       if (
-        !!this.props.data.isChoropleth
+        !!this.props.data.isChoropleth &&
+        // d3 can't draw choropleth for Puerto Rico (geoId/72)
+        this.props.dcid !== "geoId/72"
       ) {
         const id = randDomId();
         const chartTitle =

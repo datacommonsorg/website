@@ -61,7 +61,7 @@ class Info extends Component {
             </a>
           </li>
           <li>
-            <b>Close by very different</b>
+            <b>Close by but very different</b>
             <br />
             <span>
               Berkeley &amp; Piedmont:
