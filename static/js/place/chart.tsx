@@ -444,8 +444,8 @@ class Chart extends React.Component<ChartPropType, ChartStateType> {
                 svData.numDataPoints < MIN_CHOROPLETH_DATAPOINTS
               ) {
                 this.setState({
-                  display: false
-                })
+                  display: false,
+                });
               } else {
                 this.setState({
                   choroplethDataGroup: svData,
