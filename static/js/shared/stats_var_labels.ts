@@ -61,7 +61,7 @@ const STATS_VAR_LABEL: { [key: string]: string } = {
     "Inward Remittance (% of GDP)",
   Amount_Remittance_OutwardRemittance: "Outward Remittance",
   Count_Person_15To64Years_InLaborForce_AsFractionOf_Count_Person_15To64Years:
-    "Percent of People in Labor Force (ages 15-64)",
+    "People in Labor Force",
 
   // Environment
   Amount_Consumption_Energy_PerCapita: "Energy Consumption",
