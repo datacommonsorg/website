@@ -1,6 +1,21 @@
 [
   {
     "category": "Economics",
+    "title": "State Unemployment Insurance Claims",
+    "statsVars": [
+      "Count_UnemploymentInsuranceClaim_StateUnemploymentInsurance"
+    ],
+    "isOverview": true,
+    "relatedChart": {
+      "title": "State Unemployment Insurance Claims Rate",
+      "scale": true,
+      "denominator": "Count_Person_InLaborForce",
+      "scaling": 100,
+      "unit": "%"
+    }
+  },
+  {
+    "category": "Economics",
     "title": "Unemployment Rate",
     "statsVars": ["UnemploymentRate_Person"],
     "unit": "%",
@@ -9,28 +24,13 @@
   },
   {
     "category": "Economics",
-    "title": "State Unemployment Insurance Claims",
-    "statsVars": [
-      "Count_UnemploymentInsuranceClaim_StateUnemploymentInsurance"
-    ],
-    "isOverview": true,
-    "relatedChart": {
-      "title": "Percentage of Labor Force Claiming State Unemployment Insurance",
-      "scale": true,
-      "denominator": "Count_Person_InLaborForce",
-      "scaling": 100,
-      "unit": "%"
-    }
-  },
-  {
-    "category": "Economics",
     "title": "Number of People Employed",
     "statsVars": ["Count_Person_Employed"],
     "isOverview": true,
     "relatedChart": {
-      "title": "Employment Rate",
+      "title": "Percentage of People Employed",
       "scale": true,
-      "denominator": "Count_Person_InLaborForce",
+      "denominator": "Count_Person",
       "scaling": 100,
       "unit": "%"
     }
@@ -39,7 +39,6 @@
     "category": "Economics",
     "title": "Labor Force Participation",
     "statsVars": ["Count_Person_InLaborForce"],
-    "isOverview": true,
     "relatedChart": {
       "title": "Labor Force Participation Rate",
       "scale": true,
@@ -625,7 +624,7 @@
   },
   {
     "category": "Equity",
-    "title": "Rate of Associate Degree Attainment by Gender (ages 25-34)",
+    "title": "Rate of Associate Degree Attainment by Gender",
     "statsVars": [
       "Count_Person_25To34Years_EducationalAttainmentAssociatesDegree_Female",
       "Count_Person_25To34Years_EducationalAttainmentAssociatesDegree_Male"
@@ -642,7 +641,7 @@
   },
   {
     "category": "Equity",
-    "title": "Rate of Bachelor's Degree Attainment by Gender (ages 25-34)",
+    "title": "Rate of Bachelor's Degree Attainment by Gender",
     "statsVars": [
       "Count_Person_25To34Years_EducationalAttainmentBachelorsDegree_Female",
       "Count_Person_25To34Years_EducationalAttainmentBachelorsDegree_Male"
@@ -659,7 +658,7 @@
   },
   {
     "category": "Equity",
-    "title": "Rate of Graduate or Professional Degree Attainment by Gender (ages 25-34)",
+    "title": "Rate of Graduate or Professional Degree Attainment by Gender",
     "statsVars": [
       "Count_Person_25To34Years_EducationalAttainmentGraduateOrProfessionalDegree_Female",
       "Count_Person_25To34Years_EducationalAttainmentGraduateOrProfessionalDegree_Male"
