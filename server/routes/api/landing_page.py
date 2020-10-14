@@ -23,6 +23,7 @@ import datetime
 import json
 import urllib
 
+from dateutil.relativedelta import relativedelta
 from flask import Blueprint, current_app, request, Response, url_for
 from collections import defaultdict
 
@@ -77,12 +78,14 @@ def build_spec(chart_config):
         spec[category][config['title']].append(config)
         stat_vars.extend(config['statsVars'])
         stat_vars.extend(config.get('denominator', []))
+        if 'relatedChart' in config and 'denominator' in config['relatedChart']:
+            stat_vars.append(config['relatedChart']['denominator'])
     return spec, stat_vars
 
 
 def get_denom(cc, related_chart=False):
     """Get the numerator and denominator map."""
-    # If chart requires denominator, use itfor both primary and related charts.
+    # If chart requires denominator, use it for both primary and related charts.
     if 'denominator' in cc:
         result = {}
         if len(cc['denominator']) != len(cc['statsVars']):
@@ -290,10 +293,10 @@ def get_trend(cc, data, place):
     }
 
 
-def get_year(date):
+def get_date_obj_and_fmt(date):
     for fmt in ('%Y', '%Y-%m', '%Y-%m-%d'):
         try:
-            return datetime.datetime.strptime(date, fmt).year
+            return (datetime.datetime.strptime(date, fmt), fmt)
         except ValueError:
             pass
     raise ValueError('no valid date format found')
@@ -305,28 +308,63 @@ def scale_series(numerator, denominator):
 
     The date of the two time series may not be exactly aligned. Here we use
     year alignment to match two date. If no denominator is found for a
-    numerator, then the data is removed.
+    numerator, then the data is removed. We allow the denominator to be
+    MAX_DENOMINATOR_BACK_YEAR stale.
     """
     data = {}
+    denom_date_fmt = None
+    for date in denominator.keys():
+        if len(date) == 4:
+            denom_date_fmt = '%Y'
+            continue
+        elif len(date) == 7:
+            denom_date_fmt = '%Y-%m'
+            continue
+        elif len(date) == 10:
+            denom_date_fmt = '%Y-%m-%d'
+            continue
+    if not denom_date_fmt:
+        return {}
+    try:
+        latest_denom_date = max(denominator.keys())
+    except ValueError:
+        return {}
+    latest_denom_date_obj = datetime.datetime.strptime(latest_denom_date, denom_date_fmt)
+
     for date, value in numerator.items():
         if date in denominator:
             if denominator[date] > 0:
                 data[date] = value / denominator[date]
-            else:
-                data[date] = 0
-        else:
-            try:
-                numerator_year = get_year(date)
-                for i in range(0, MAX_DENOMINATOR_BACK_YEAR + 1):
-                    year = str(numerator_year - i)
-                    if year in denominator:
-                        if denominator[year] > 0:
-                            data[date] = value / denominator[year]
-                        else:
-                            data[date] = 0
-                        break
-            except ValueError:
-                return {}
+                continue
+        # Try various fuzzy matchings
+        try:
+            date_obj, _ = get_date_obj_and_fmt(date)
+        except ValueError:
+            continue
+        
+        # Case 1: if denominator is stale...
+        if latest_denom_date_obj < date_obj:
+            # Use latest date if within reason.
+            if (date_obj - latest_denom_date_obj <= datetime.timedelta(days=365 * MAX_DENOMINATOR_BACK_YEAR)):
+                data[date] = value / denominator[latest_denom_date]
+            # No other dates will work. Go to next date regardless.
+            continue
+
+        if denom_date_fmt == '%Y':
+            for i in range(0, MAX_DENOMINATOR_BACK_YEAR + 1):
+                year = str(date_obj.year - i)
+                if year in denominator:
+                    if denominator[year] > 0:
+                        data[date] = value / denominator[year]
+                    break
+        elif denom_date_fmt == '%Y-%m':
+            for i in range(0, 12 * MAX_DENOMINATOR_BACK_YEAR + 1):
+              year_month = datetime.datetime(date_obj.year, date_obj.month, 1) - relativedelta(months=i)
+              year_month_str = datetime.datetime.strftime(year_month, '%Y-%m')
+              if year_month_str in denominator:
+                  if denominator[year_month_str] > 0:
+                      data[date] = value / denominator[year_month_str]
+                  break
     return data
 
 
