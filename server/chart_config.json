@@ -56,6 +56,7 @@
     ],
     "isOverview": true,
     "unit": "%",
+    "scaling": 100,
     "relatedChart": {
       "scale": false
     }
