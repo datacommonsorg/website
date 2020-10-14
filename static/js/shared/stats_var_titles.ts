@@ -63,6 +63,8 @@ const STATS_VAR_TITLES: { [key: string]: string } = {
   Amount_Remittance_InwardRemittance_AsFractionOf_Amount_EconomicActivity_GrossDomesticProduction_Nominal:
     "Inward Remittance (% of GDP)",
   Amount_Remittance_OutwardRemittance: "Outward Remittance",
+  Count_Person_15To64Years_InLaborForce_AsFractionOf_Count_Person_15To64Years:
+    "Percent of People in Labor Force (ages 15-64)",
 
   // Environment
   Amount_Consumption_Energy_PerCapita: "Energy Consumption Per Capita",
@@ -87,6 +89,8 @@ const STATS_VAR_TITLES: { [key: string]: string } = {
   Count_Person_10To14Years: "Population Ages 10-14",
   Count_Person_10To19Years: "Population Ages 10-19",
   Count_Person_15To19Years: "Population Ages 15-19",
+  Count_Person_15OrMoreYears: "Population Ages 15+",
+  Count_Person_16OrMoreYears: "Population Ages 16+",
   Count_Person_18To24Years: "Population Ages 18-24",
   Count_Person_20To24Years: "Population Ages 20-24",
   Count_Person_20To29Years: "Population Ages 20-29",
@@ -158,7 +162,7 @@ const STATS_VAR_TITLES: { [key: string]: string } = {
   Median_Age_Person_BlackOrAfricanAmericanAlone:
     "Median Age (Black or African American)",
   Median_Age_Person_HispanicOrLatino: "Median Age (Hispanic or Latino)",
-  Median_Age_Person_NativeHawaiianAndOtherPacificIslanderAlone:
+  Median_Age_Person_NativeHawaiianOrOtherPacificIslanderAlone:
     "Median Age (Native Hawaiian and Pacific Islander)",
   Median_Age_Person_SomeOtherRaceAlone: "Median Age (Some other race)",
   Median_Age_Person_TwoOrMoreRaces: "Median Age (Two or More Races)",

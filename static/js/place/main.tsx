@@ -49,14 +49,14 @@ interface MainPanePropType {
    */
   names: { [key: string]: string };
   /**
-   * Geojson data for places one level down of current dcid.
+   * Promise for Geojson data for choropleth for current dcid.
    * TODO(chejennifer): replace unknown type with type for geojson
    */
-  geoJsonData: unknown;
+  geoJsonData: Promise<unknown>;
   /**
-   * Values of statvar/denominator combinations for places one level down of current dcid
+   * Promise for Values of statvar/denominator combinations for choropleth for current dcid
    */
-  choroplethData: CachedChoroplethData;
+  choroplethData: Promise<CachedChoroplethData>;
   /**
    * Place type for the list of child places used for contained charts
    */

@@ -21,9 +21,10 @@ import collections
 import copy
 import datetime
 import json
+import logging
 import urllib
 
-from flask import Blueprint, current_app, request, Response, url_for
+from flask import Blueprint, current_app, Response, url_for
 from collections import defaultdict
 
 from cache import cache
@@ -83,12 +84,14 @@ def build_spec(chart_config):
         spec[category][config['title']].append(config)
         stat_vars.extend(config['statsVars'])
         stat_vars.extend(config.get('denominator', []))
+        if 'relatedChart' in config and 'denominator' in config['relatedChart']:
+            stat_vars.append(config['relatedChart']['denominator'])
     return spec, stat_vars
 
 
 def get_denom(cc, related_chart=False):
     """Get the numerator and denominator map."""
-    # If chart requires denominator, use itfor both primary and related charts.
+    # If chart requires denominator, use it for both primary and related charts.
     if 'denominator' in cc:
         result = {}
         if len(cc['denominator']) != len(cc['statsVars']):
@@ -314,7 +317,6 @@ def get_year(date):
 # TODO(shifucun): Add unittest.
 def scale_series(numerator, denominator):
     """Scale two time series.
-
     The date of the two time series may not be exactly aligned. Here we use
     year alignment to match two date. If no denominator is found for a
     numerator, then the data is removed.
@@ -348,6 +350,8 @@ def data(dcid):
     """
     Get chart spec and stats data of the landing page for a given place.
     """
+    logging.info("Landing Page: cache miss for %s, fetch and process data ...",
+                 dcid)
     spec_and_stat, stat_vars = build_spec(current_app.config['CHART_CONFIG'])
     raw_page_data = get_landing_page_data(dcid, stat_vars)
 

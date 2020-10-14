@@ -16,13 +16,11 @@
 This module contains the request handler codes and the main app.
 """
 
-import collections
 import json
 import logging
-import os
 
 import flask
-from flask import request, redirect, url_for
+from flask import request
 
 import services.datacommons as dc
 from lib import translator
@@ -52,7 +50,7 @@ def api_placeid2dcid(placeid):
     if placeid in app.config['PLACEID2DCID']:
         return app.config['PLACEID2DCID'][placeid]
     else:
-        flask.abort('dcid not found for %s' % placeid, 404)
+        flask.abort(404, 'dcid not found for %s' % placeid)
 
 
 @app.route('/translator')
@@ -108,9 +106,9 @@ def get_weather():
     dcid = request.args.get('dcid')
     prop = request.args.get('prop')
     if not dcid:
-        flask.abort('Missing url parameter "dcid"', 400)
+        flask.abort(400, 'Missing url parameter "dcid"')
     if not prop:
-        flask.abort('Missing url parameter "prop"', 400)
+        flask.abort(400, 'Missing url parameter "prop"')
 
     query_string = ('SELECT ?date ?mean ?unit '
                     'WHERE {{'
