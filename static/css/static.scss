@@ -66,10 +66,38 @@ h2 {
   display: inline;
 }
 
-#homepage section p,
-#homepage section a {
+#homepage section p {
+// #homepage section a {
   display: block;
   margin-bottom: .4rem;
+}
+
+#homepage section a.main {
+  font-weight: bold;
+  margin-top: .5em;
+}
+
+#homepage section a.sub {
+  font-weight: 300;
+}
+
+#homepage section ul li ul li {
+  display: inline-block;
+  margin-right: .25em;
+}
+
+#homepage section ul li {
+  margin-bottom: .25em;
+}
+
+#homepage section ul {
+  padding-left: 0;
+  list-style-type: none;
+}
+
+#homepage section ul ul {
+  display: inline;
+  padding-left: .25em;
 }
 
 #homepage section .row {
