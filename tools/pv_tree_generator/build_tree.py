@@ -131,7 +131,8 @@ def find_denominators(pop_obs: PopObsSpec, cpvs: Dict[str, str],
     a StatVar.
 
     The dpvs of "pop_obs" and "cpvs" are combined to form the final pv mapping.
-    A denominator is included if its pvs are a subset of the final pv mapping.
+    A denominator is included if its mprop is one of 'count', 'cumulativeCount',
+    and 'incrementalCount' and its pvs are a subset of the final pv mapping.
     E.g., if dpvs is {'age': '15YearsOnwards'} and cpvs is {'gender': 'female'},
     the denominators are 'Count_Person_15OrMoreYears', 'Count_Person',
     'Count_Person_Female', and 'Count_Person_Female_15OrMoreYears' returned in
@@ -164,7 +165,8 @@ def find_denominators(pop_obs: PopObsSpec, cpvs: Dict[str, str],
             key = (pop_obs.pop_type,) + obs_prop.key + subset
             matching_statvars += tuple(stats_vars_all.get(key, ()))
         for sv in matching_statvars:
-            if sv.mprop != 'count' or sv.dcid in stats_vars_to_exclude:
+            if (sv.mprop not in ('count', 'cumulativeCount', 'incrementalCount')
+                    or sv.dcid in stats_vars_to_exclude):
                 continue
             sv_entries = set(sv.pv.items())
             if sv_entries == dpv_entries:
