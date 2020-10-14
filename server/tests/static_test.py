@@ -45,6 +45,11 @@ class TestStaticPages(unittest.TestCase):
         assert response.status_code == 200
         assert b"Datasets" in response.data
 
+    def test_feedback(self):
+        response = app.test_client().get('/feedback')
+        assert response.status_code == 200
+        assert b"We would love to get your feedback!" in response.data
+
     @patch('routes.static.list_blobs')
     def test_special_announcement(self, mock_list_blobs):
         mock_list_blobs.side_effect = (lambda bucket, max_blobs: [])

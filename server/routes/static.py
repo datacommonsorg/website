@@ -52,6 +52,11 @@ def get_involved():
     return render_template('static/get_involved.html')
 
 
+@bp.route('/feedback')
+def feedback():
+    return render_template('static/feedback.html')
+
+
 @bp.route('/special_announcement')
 def special_announcement():
     recent_blobs = list_blobs(_SA_FEED_BUCKET, _MAX_BLOBS)
