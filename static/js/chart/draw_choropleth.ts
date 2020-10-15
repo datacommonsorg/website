@@ -46,7 +46,8 @@ function drawChoropleth(
     [placeDcid: string]: number;
   },
   unit: string,
-  statVar: string
+  statVar: string,
+  urlSuffix: string
 ): void {
   const label = STATS_VAR_LABEL[statVar];
   const maxColor = d3.color(getColorFn([label])(label));
@@ -105,7 +106,7 @@ function drawChoropleth(
     .on("mouseover", onMouseOver(domContainerId))
     .on("mouseout", onMouseOut(domContainerId))
     .on("mousemove", onMouseMove(domContainerId, dataValues, unit))
-    .on("click", onMapClick(domContainerId));
+    .on("click", onMapClick(domContainerId, urlSuffix));
 
   generateLegend(svg, chartWidth, chartHeight, colorScale, unit);
   addTooltip(domContainerId);
@@ -152,11 +153,14 @@ const onMouseMove = (
     .style("top", d3.event.offsetY + topOffset + "px");
 };
 
-const onMapClick = (domContainerId: string) => (
+const onMapClick = (domContainerId: string, urlSuffix: string) => (
   geo: { properties: { geoDcid: string } },
   index
 ) => {
-  window.open(REDIRECT_BASE_URL + geo.properties.geoDcid, "_blank");
+  window.open(
+    `${REDIRECT_BASE_URL}${geo.properties.geoDcid}${urlSuffix}`,
+    "_blank"
+  );
   mouseOutAction(domContainerId, index);
 };
 

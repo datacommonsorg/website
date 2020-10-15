@@ -66,6 +66,10 @@ interface ChartBlockPropType {
    * DCIDs of parent places
    */
   parentPlaces: string[];
+  /**
+   * The topic of the page the chart block is in
+   */
+  topic: string;
 }
 
 class ChartBlock extends React.Component<ChartBlockPropType, unknown> {
@@ -112,6 +116,7 @@ class ChartBlock extends React.Component<ChartBlockPropType, unknown> {
           rankingTemplateUrl={`/ranking/_sv_/${this.props.placeType}/${
             this.parentPlaceDcid
           }?${rankingParam.toString()}`}
+          topic={this.props.topic}
         ></Chart>
       );
     }
@@ -146,6 +151,7 @@ class ChartBlock extends React.Component<ChartBlockPropType, unknown> {
       names: this.props.names,
       scaling: scaling,
       statsVars: this.props.data.statsVars,
+      topic: this.props.topic,
     };
     const rankingParam = new URLSearchParams(`h=${this.props.dcid}`);
     if (
@@ -310,6 +316,7 @@ class ChartBlock extends React.Component<ChartBlockPropType, unknown> {
             choroplethData={this.props.choroplethData}
             statsVars={this.props.data.statsVars}
             rankingTemplateUrl={`/ranking/_sv_/${this.props.placeType}/${this.props.dcid}${rankingArg}`}
+            topic={this.props.topic}
           ></Chart>
         );
       }
