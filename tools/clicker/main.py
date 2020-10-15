@@ -16,6 +16,7 @@ import logging
 import os
 import time
 import urllib.request
+from multiprocessing import Pool
 
 logging.getLogger().setLevel(logging.INFO)
 
@@ -29,16 +30,23 @@ FILES = [
 ]
 
 
+def req_url(url):
+    logging.info(url)
+    try:
+        urllib.request.urlopen(url)
+    except:
+        logging.error("Error for %s", url)
+
+
 def click_file(file_name):
     logging.info(file_name)
+    pool = Pool(5)
     with open(file_name, 'r') as f:
-        count = 0
-        for url in f.readlines():
-            urllib.request.urlopen(url)
-            count += 1
-            if count % 10 == 0:
-                time.sleep(1)
-                logging.info(count)
+        urls = [
+            url.replace('place', 'api/landingpage/data').strip()
+            for url in f.readlines()
+        ]
+        pool.map(req_url, urls)
 
 
 def main():

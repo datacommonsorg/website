@@ -2,6 +2,7 @@ Sitemap: https://datacommons.org/sitemap/CongressionalDistrict.0.txt
 Sitemap: https://datacommons.org/sitemap/City.1.txt
 Sitemap: https://datacommons.org/sitemap/County.0.txt
 Sitemap: https://datacommons.org/sitemap/City.0.txt
+Sitemap: https://datacommons.org/sitemap/City.2.txt
 Sitemap: https://datacommons.org/sitemap/CensusCoreBasedStatisticalArea.0.txt
 Sitemap: https://datacommons.org/sitemap/StateComponent.0.txt
 Sitemap: https://datacommons.org/sitemap/Continent.0.txt
