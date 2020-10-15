@@ -75,9 +75,7 @@ function getPlaceAndRender(place_id, place_name): void {
   axios
     .get(`/api/placeid2dcid/${place_id}`)
     .then((resp) => {
-      const urlParams = new URLSearchParams(window.location.search);
-      urlParams.set("dcid", resp.data);
-      window.location.search = urlParams.toString();
+      window.location.href = `/place/${resp.data}`;
     })
     .catch(() => {
       placeNotFoundAlert(place_name);

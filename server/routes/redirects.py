@@ -35,12 +35,14 @@ def kg():
 
 @bp.route('/gni')
 def gni():
-    return redirect(url_for('tools.timeline'), code=302)
+    return redirect(url_for('tools.timeline', _external=True, _scheme="https"),
+                    code=302)
 
 
 @bp.route('/scatter')
 def scatter():
-    return redirect(url_for('tools.scatter'), code=302)
+    return redirect(url_for('tools.scatter', _external=True, _scheme="https"),
+                    code=302)
 
 
 @bp.route('/documentation')
@@ -58,5 +60,5 @@ def colab():
 @bp.route('/explore/place')
 def explore():
     return redirect('https://datacommons.org' +
-                    url_for('place.place', dcid=request.args.get('dcid')),
+                    url_for('place.place', place_dcid=request.args.get('dcid')),
                     code=302)
