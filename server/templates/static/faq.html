@@ -19,7 +19,8 @@
 {% set title = 'Frequently Asked Questions' %}
 
 {% block head %}
-  <link rel="stylesheet" href={{url_for('static', filename='css/static.min.css', t=config['GAE_VERSION'])}} >
+<link rel="stylesheet"
+  href={{url_for('static', filename='css/static.min.css', t=config['GAE_VERSION'])}}>
 {% endblock %}
 
 {% block content %}
@@ -27,20 +28,27 @@
   <h1>Frequently Asked Questions </h1>
 
   <p>
-  <b>Q: What is Data Commons?</b><br>
-  Please see <a href="/about">About Data Commons</a>.
-    </p>
+    <b>Q: What is Data Commons?</b><br>
+    Please see <a href="/about">About Data Commons</a>.
+  </p>
 
   <p>
-    <b>Q: What is the difference between Data Commons and public dataset projects like Dataverse,
-      Kaggle datasets, Google Big Query Public Datasets, Dataset search etc.?</b><br>
+    <b>Q: What is the difference between Data Commons and public dataset
+      projects like Dataverse,
+      Kaggle datasets, Google Big Query Public Datasets, Dataset search
+      etc.?</b><br>
     These collections of datasets provide a great service by aggregating topical
     open data sets. However though the data is open, using it to answer specific
-    questions often involves tedious 'foraging' --- finding the data, cleaning the
-    data, reconciling different formats and schemas, figuring out how to merge data
-    about the same entity from different sources, etc. This error prone and tedious
-    process is repeated, once (or more) by each organization. This is a problem in
-    almost every area of study involving data, from the social sciences and physical
+    questions often involves tedious 'foraging' --- finding the data, cleaning
+    the
+    data, reconciling different formats and schemas, figuring out how to merge
+    data
+    about the same entity from different sources, etc. This error prone and
+    tedious
+    process is repeated, once (or more) by each organization. This is a problem
+    in
+    almost every area of study involving data, from the social sciences and
+    physical
     sciences to public policy.
   </p>
   <p>
@@ -49,104 +57,139 @@
     on a large scale and providing cloud accessible APIs to the cleaned,
     normalized
     and joined data. While there are millions of datasets and it will be a while
-    before Data Commons includes a substantial fraction of them, in every domain,
-    some collections of data get used more frequently than others. We have started
-    with a core set of these in the hope that useful applications can be built on
+    before Data Commons includes a substantial fraction of them, in every
+    domain,
+    some collections of data get used more frequently than others. We have
+    started
+    with a core set of these in the hope that useful applications can be built
+    on
     top of them.
   </p>
 
   <p>
-  <b>Q: What is the difference between Data Commons and
-  Wikidata?</b><br>
-  The focus in Data Commons is on aggregating external, already available data (with an emphasis on statistical data) from government agencies and other authoritative sources, as opposed to creating a corpus of structured data from scratch.
+    <b>Q: What is the difference between Data Commons and
+      Wikidata?</b><br>
+    The focus in Data Commons is on aggregating external, already available data
+    (with an emphasis on statistical data) from government agencies and other
+    authoritative sources, as opposed to creating a corpus of structured data
+    from scratch.
   </p>
 
   <p>
     <b>Q: What is the relation between DataCommons.org and Schema.org?</b><br>
     DataCommons.org builds upon on the vocabularies defined by Schema.org,
-    with additional terms defined to cover concepts (e.g. "citizenship") that are important to the
+    with additional terms defined to cover concepts (e.g. "citizenship") that
+    are important to the
     data in Data Commons but which have not been a priority
-    for Schema.org-based Web markup. The Data Commons schemas constitute an "external extension" to
+    for Schema.org-based Web markup. The Data Commons schemas constitute an
+    "external extension" to
     Schema.org, similar to that provided by GS1.
-    Some schemas could migrate into Schema.org if the community find value in them.
+    Some schemas could migrate into Schema.org if the community find value in
+    them.
   </p>
 
   <p>
-    <b>Q: What are the kinds of entities you are resolving now? Which ones are you not
+    <b>Q: What are the kinds of entities you are resolving now? Which ones are
+      you not
       resolving?</b><br>
-    At this time we are resolving entities as it relates to a geographical location or a place.
-    For example "population", "weather", and "crime statistics" in a particular "city".
-    We will continue to expand the set of entities that will be resolved like organizations, people,
+    At this time we are resolving entities as it relates to a geographical
+    location or a place.
+    For example "population", "weather", and "crime statistics" in a particular
+    "city".
+    We will continue to expand the set of entities that will be resolved like
+    organizations, people,
     events, products, etc.
     The long term goal is to be able to resolve any arbitrary entity using <a
       href="https://arxiv.org/pdf/1511.06341.pdf">Reference by Description.</a>
   </p>
   <p>
     <b>Q: What are the usage rights of the data in Data Commons?</b><br>
-    Data Commons knowledge graph, and the compilation of the datasets is licensed under <a
-      href="https://creativecommons.org/licenses/by/4.0/">CC BY</a>.
+    Data Commons knowledge graph, and the compilation of the datasets is
+    licensed under <a href="https://creativecommons.org/licenses/by/4.0/">CC
+      BY</a>.
     The Data Commons REST API and the R, Python Libraries are released under <a
       href="https://www.apache.org/licenses/LICENSE-2.0">Apache License 2.0</a>.
-    The data included in Data Commons Graph come from different sources. The source of the
+    The data included in Data Commons Graph come from different sources. The
+    source of the
     data (provenance) is provided for all the data.
-    Provenance includes the URL of the source of the data. While effort is made to obtain data from
-    sources which offer unrestricted usage of underlying data, terms of use of this data may be
-    subject to different licenses and terms of use as specified in the URL of the provenance.
+    Provenance includes the URL of the source of the data. While effort is made
+    to obtain data from
+    sources which offer unrestricted usage of underlying data, terms of use of
+    this data may be
+    subject to different licenses and terms of use as specified in the URL of
+    the provenance.
   </p>
 
   <p>
     <b>Q: How can we access data in Data Commons?</b><br>
     The data in knowledge graph can be accessed through the <a
-      href="{{ url_for('browser.kg_main') }}">Data Commons Graph Browser </a> and API's for <a
-      href="https://docs.datacommons.org/api/python">Python</a>, <a
-      href="https://docs.datacommons.org/api/r">R</a>, <a
+      href="{{ url_for('browser.kg_main') }}">Data Commons Graph Browser </a>
+    and API's for <a href="https://docs.datacommons.org/api/python">Python</a>,
+    <a href="https://docs.datacommons.org/api/r">R</a>, <a
       href="https://docs.datacommons.org/api/rest">REST</a> and <a
       href="https://docs.datacommons.org/api/sheets">Google Sheets</a>.
   </p>
 
   <p>
     <b>Q: How can we add our own data to knowledge graph?</b><br>
-    Data Commons is intended to be a community project and seeks your involvement.
-    To know more about publishing data that can be included into Data Commons, check out <a
-      href="https://docs.datacommons.org/contributing/">Contributing</a> page. You can also contact <a href="mailto:support@datacommons.org">support@datacommons.org </a>
-    if you have an interesting dataset that you think should be included in Data Commons and would
+    Data Commons is intended to be a community project and seeks your
+    involvement.
+    To know more about publishing data that can be included into Data Commons,
+    check out <a
+      href="https://docs.datacommons.org/contributing/">Contributing</a> page.
+    You can also contact <a
+      href="mailto:support@datacommons.org">support@datacommons.org </a>
+    if you have an interesting dataset that you think should be included in Data
+    Commons and would
     like to help.
-    In the future we plan to allow users to ingest data into the Data Commons Graph using
-    an upload tool. We will update the community when this functionality is released.
+    In the future we plan to allow users to ingest data into the Data Commons
+    Graph using
+    an upload tool. We will update the community when this functionality is
+    released.
   </p>
 
   <p>
     <b>Q: How long will you store the data for?</b><br>
-    Data Commons is not an archival service. We collect the data, build the knowledge graph and
+    Data Commons is not an archival service. We collect the data, build the
+    knowledge graph and
     provide access to the Graph.
-    As with any website, long term storage and safekeeping of the data is the responsibility of the
+    As with any website, long term storage and safekeeping of the data is the
+    responsibility of the
     primary publisher.
   </p>
 
   <p>
     <b>Q: Where can I download all the data?</b><br>
-    Given the size and evolving nature of the Data Commons Graph, we prefer you access
+    Given the size and evolving nature of the Data Commons Graph, we prefer you
+    access
     it via the APIs.
-    If your project needs local access to a large fraction of the Data Commons Graph, please contact <a
+    If your project needs local access to a large fraction of the Data Commons
+    Graph, please contact <a
       href="mailto:support@DataCommons.org">support@datacommons.org </a>.
   </p>
 
   <p>
     <b>Q: How much does this service cost to use?</b><br>
-    The public data in the Data Commons Graph is hosted on Google Cloud platform by
-    Data Commons and is made available for users. There is no cost for data itself, when it is
+    The public data in the Data Commons Graph is hosted on Google Cloud platform
+    by
+    Data Commons and is made available for users. There is no cost for data
+    itself, when it is
     publicly available for free.
-    The usage limits for the service beyond free tier quota will be in line with pricing of <a
-      href="https://cloud.google.com/bigquery/public-data">Big Query Public dataset
-    program</a>.
-    In the future when more data is added to the knowledge graph by users - just like the Web, we
-    expect some data to be free, some data to be private, and some data may have an associated cost
+    The usage limits for the service beyond free tier quota will be in line with
+    pricing of <a href="https://cloud.google.com/bigquery/public-data">Big Query
+      Public dataset
+      program</a>.
+    In the future when more data is added to the knowledge graph by users - just
+    like the Web, we
+    expect some data to be free, some data to be private, and some data may have
+    an associated cost
     to access.
   </p>
 
   <p>
     <b>Q: What are the SLAs / Performance levels we can expect?</b><br>
-    The service is provided on an as-is basis with no SLA or commitments on availability or
+    The service is provided on an as-is basis with no SLA or commitments on
+    availability or
     uptime.
   </p>
 
@@ -154,11 +197,13 @@
     <b>Q: How do we know if the data is accurate?</b><br>
     Data Commons provides an access mechanism to data and makes no
     commitment on the accuracy of the data.
-    Answers to queries will include the provenance (source of the data). Choice of which data to
+    Answers to queries will include the provenance (source of the data). Choice
+    of which data to
     use, based on source, is in developer's control. There may be
     errors in cleaning, etc. of the data. If you find something you
-    think is in error, we would love to <a href=feedback>hear</feedback> from you.
-      </p>
+    think is in error, we would love to <a href=feedback>hear</feedback> from
+      you.
+  </p>
 
   <p>
     <a name="perCapita">
@@ -180,10 +225,13 @@
     which the measurement was done.
   </p>
 
+
+
   <p>
     <b>Q: I have a question / feedback. Whom do I contact?</b><br>
-    You can post your question on the <a href="https://github.com/datacommonsorg/docsite/issues">
-    GitHub forum</a> or contact <a
+    You can post your question on the <a
+      href="https://github.com/datacommonsorg/docsite/issues">
+      GitHub forum</a> or contact <a
       href="mailto:support@DataCommons.org">support@datacommons.org</a>.
   </p>
 </div>

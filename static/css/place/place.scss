@@ -317,6 +317,12 @@ $chart-border: 0.5px solid #dee2e6;
   margin-bottom: 15px;
 }
 
+.modal-dialog {
+  @include media-breakpoint-down(md) {
+    max-width: calc(100% - 30px);
+  }
+}
+
 .modal .modal-chart-container {
   display: flex;
   justify-content: center;
