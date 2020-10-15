@@ -17,6 +17,7 @@
 import React from "react";
 import ReactDOM from "react-dom";
 import axios from "axios";
+import _ from "lodash";
 
 import { ChildPlace } from "./child_places_menu";
 import { MainPane } from "./main";
@@ -143,84 +144,95 @@ function renderPage(): void {
   const chartGeoJsonPromise = getGeoJsonData(dcid, placeType);
   const choroplethDataPromise = getChoroplethData(dcid, placeType);
 
-  landingPagePromise.then((landingPageData) => {
-    const loadingElem = document.getElementById("page-loading");
-    loadingElem.style.display = "none";
-    const data: PageData = landingPageData;
-    const isUsaPlace = isPlaceInUsa(dcid, data.parentPlaces);
-    if (Object.keys(data.pageChart).length == 1) {
-      topic = "Overview";
-    }
-    ReactDOM.render(
-      React.createElement(Menu, {
-        pageChart: data.pageChart,
-        dcid,
-        topic,
-      }),
-      document.getElementById("topics")
-    );
-
-    // Earth has no parent places.
-    if (data.parentPlaces.length > 0) {
+  landingPagePromise
+    .then((landingPageData) => {
+      const loadingElem = document.getElementById("page-loading");
+      if (_.isEmpty(landingPageData)) {
+        loadingElem.innerText =
+          "Sorry, we don't have any charts to show for this place";
+        return;
+      }
+      loadingElem.style.display = "none";
+      const data: PageData = landingPageData;
+      const isUsaPlace = isPlaceInUsa(dcid, data.parentPlaces);
+      if (Object.keys(data.pageChart).length == 1) {
+        topic = "Overview";
+      }
       ReactDOM.render(
-        React.createElement(ParentPlace, {
-          names: data.names,
-          parentPlaces: data.parentPlaces,
-          placeType,
+        React.createElement(Menu, {
+          pageChart: data.pageChart,
+          dcid,
+          topic,
         }),
-        document.getElementById("place-type")
+        document.getElementById("topics")
       );
-    }
-    ReactDOM.render(
-      React.createElement(PlaceHighlight, {
-        dcid,
-        highlight: data.highlight,
-      }),
-      document.getElementById("place-highlight")
-    );
 
-    // Readjust sidebar based on parent places.
-    updatePageLayoutState();
-
-    // Display child places alphabetically
-    for (const placeType in data.allChildPlaces) {
-      data.allChildPlaces[placeType].sort((a, b) =>
-        a.name < b.name ? -1 : a.name > b.name ? 1 : 0
+      // Earth has no parent places.
+      if (data.parentPlaces.length > 0) {
+        ReactDOM.render(
+          React.createElement(ParentPlace, {
+            names: data.names,
+            parentPlaces: data.parentPlaces,
+            placeType,
+          }),
+          document.getElementById("place-type")
+        );
+      }
+      ReactDOM.render(
+        React.createElement(PlaceHighlight, {
+          dcid,
+          highlight: data.highlight,
+        }),
+        document.getElementById("place-highlight")
       );
-    }
-    ReactDOM.render(
-      React.createElement(ChildPlace, {
-        childPlaces: data.allChildPlaces,
-        placeName,
-      }),
-      document.getElementById("child-place")
-    );
 
-    ReactDOM.render(
-      React.createElement(PageSubtitle, {
-        category: topic,
-        dcid,
-      }),
-      document.getElementById("subtitle")
-    );
+      // Readjust sidebar based on parent places.
+      updatePageLayoutState();
 
-    ReactDOM.render(
-      React.createElement(MainPane, {
-        category: topic,
-        dcid,
-        isUsaPlace,
-        names: data.names,
-        pageChart: data.pageChart,
-        placeName,
-        placeType,
-        geoJsonData: chartGeoJsonPromise,
-        choroplethData: choroplethDataPromise,
-        childPlacesType: data.childPlacesType,
-        parentPlaces: data.parentPlaces,
-      }),
-      document.getElementById("main-pane")
-    );
-  });
+      // Display child places alphabetically
+      for (const placeType in data.allChildPlaces) {
+        data.allChildPlaces[placeType].sort((a, b) =>
+          a.name < b.name ? -1 : a.name > b.name ? 1 : 0
+        );
+      }
+      ReactDOM.render(
+        React.createElement(ChildPlace, {
+          childPlaces: data.allChildPlaces,
+          placeName,
+        }),
+        document.getElementById("child-place")
+      );
+
+      ReactDOM.render(
+        React.createElement(PageSubtitle, {
+          category: topic,
+          dcid,
+        }),
+        document.getElementById("subtitle")
+      );
+
+      ReactDOM.render(
+        React.createElement(MainPane, {
+          category: topic,
+          dcid,
+          isUsaPlace,
+          names: data.names,
+          pageChart: data.pageChart,
+          placeName,
+          placeType,
+          geoJsonData: chartGeoJsonPromise,
+          choroplethData: choroplethDataPromise,
+          childPlacesType: data.childPlacesType,
+          parentPlaces: data.parentPlaces,
+        }),
+        document.getElementById("main-pane")
+      );
+    })
+    .catch(() => {
+      const loadingElem = document.getElementById("page-loading");
+      loadingElem.innerText =
+        "Sorry, there was an error loading charts for this place.";
+    });
 }
 
 export { updatePageLayoutState };

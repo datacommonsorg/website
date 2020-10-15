@@ -43,9 +43,12 @@ class RankingTable extends React.Component<RankingTablePropType> {
         return b.rank - a.rank;
       }
     });
+    const statVar = this.props.statVar;
     if (
-      (this.props.statVar.startsWith("Count_") && !this.props.isPerCapita) ||
-      this.props.statVar.startsWith("Median_Income")
+      (statVar.startsWith("Count_") &&
+        !statVar.includes("FractionOf") &&
+        !this.props.isPerCapita) ||
+      statVar.startsWith("Median_Income")
     ) {
       this.numFractionDigits = 0;
     } else {

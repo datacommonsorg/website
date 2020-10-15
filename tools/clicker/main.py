@@ -24,7 +24,9 @@ SITEMAP_PATH = '../../static/sitemap/'
 # Only add state componenet for now. Will decide the place types to run
 # after launch.
 
-FILES = ['StateComponent.0.txt']
+FILES = [
+    'Country0.txt', 'State.0.txt', 'County.0.txt', 'City.0.txt', 'City.1.txt'
+]
 
 
 def click_file(file_name):

@@ -93,7 +93,8 @@ class ChartBlock extends React.Component<ChartBlockPropType, unknown> {
       const id = randDomId();
       const rankingParam = new URLSearchParams(`h=${this.props.dcid}`);
       this.props.data.denominator && rankingParam.set("pc", "1");
-      this.props.data.scaling && rankingParam.set("scaling", "100");
+      this.props.data.scaling &&
+        rankingParam.set("scaling", String(this.props.data.scaling));
       this.props.data.unit && rankingParam.set("unit", this.props.data.unit);
       chartElements.push(
         <Chart
