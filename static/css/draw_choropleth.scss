@@ -14,8 +14,9 @@
  * limitations under the License.
  */
 
-.border-highlighted {
+.region-highlighted {
   fill: rgba(0, 0, 0, .5) !important;
+  cursor: pointer;
 }
 
 #tooltip {

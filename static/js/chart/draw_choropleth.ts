@@ -35,6 +35,7 @@ const LEGEND_MARGIN_BOTTOM = TICK_SIZE;
 const LEGEND_MARGIN_RIGHT = 5;
 const LEGEND_IMG_WIDTH = 10;
 const NUM_TICKS = 5;
+const REDIRECT_BASE_URL = `/place/`;
 
 function drawChoropleth(
   containerId: string,
@@ -103,7 +104,8 @@ function drawChoropleth(
     .attr("stroke", GEO_STROKE_COLOR)
     .on("mouseover", onMouseOver(domContainerId))
     .on("mouseout", onMouseOut(domContainerId))
-    .on("mousemove", onMouseMove(domContainerId, dataValues, unit));
+    .on("mousemove", onMouseMove(domContainerId, dataValues, unit))
+    .on("click", onMapClick(domContainerId));
 
   generateLegend(svg, chartWidth, chartHeight, colorScale, unit);
   addTooltip(domContainerId);
@@ -111,16 +113,14 @@ function drawChoropleth(
 
 const onMouseOver = (domContainerId: string) => (_, index): void => {
   const container = d3.select(domContainerId);
-  // show highlighted border
-  container.select("#geoPath" + index).classed("border-highlighted", true);
+  // show highlighted border and show cursor as a pointer
+  container.select("#geoPath" + index).classed("region-highlighted", true);
   // show tooltip
   container.select(`#${TOOLTIP_ID}`).style("display", "block");
 };
 
 const onMouseOut = (domContainerId: string) => (_, index): void => {
-  const container = d3.select(domContainerId);
-  container.select("#geoPath" + index).classed("border-highlighted", false);
-  container.select(`#${TOOLTIP_ID}`).style("display", "none");
+  mouseOutAction(domContainerId, index);
 };
 
 const onMouseMove = (
@@ -151,6 +151,20 @@ const onMouseMove = (
     .style("left", d3.event.offsetX + leftOffset + "px")
     .style("top", d3.event.offsetY + topOffset + "px");
 };
+
+const onMapClick = (domContainerId: string) => (
+  geo: { properties: { geoDcid: string } },
+  index
+) => {
+  window.open(REDIRECT_BASE_URL + geo.properties.geoDcid, "_blank");
+  mouseOutAction(domContainerId, index);
+};
+
+function mouseOutAction(domContainerId: string, index: number) {
+  const container = d3.select(domContainerId);
+  container.select("#geoPath" + index).classed("region-highlighted", false);
+  container.select(`#${TOOLTIP_ID}`).style("display", "none");
+}
 
 function addTooltip(domContainerId: string) {
   d3.select(domContainerId)
