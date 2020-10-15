@@ -180,9 +180,15 @@ class Chart extends React.Component<ChartPropType, ChartStateType> {
               {sources.map((source, index) => {
                 // TDOO(shifucun): Use provenance name and url from cache data
                 // https://github.com/datacommonsorg/website/issues/429
+                let sourceUrl = source;
+                if (source === "worldbank.org") {
+                  sourceUrl = "www.worldbank.org";
+                } else if (source === "europa.eu") {
+                  sourceUrl = "ec.europa.eu/eurostat";
+                }
                 return (
                   <span key={source}>
-                    <a href={"https://" + source}>{source}</a>
+                    <a href={"https://" + sourceUrl}>{source}</a>
                     {index < sources.length - 1 ? ", " : ""}
                   </span>
                 );
@@ -202,6 +208,9 @@ class Chart extends React.Component<ChartPropType, ChartStateType> {
             </div>
           </footer>
         </div>
+        <a className="feedback" href="/feedback">
+          Feedback
+        </a>
         <ChartEmbed ref={this.embedModalElement} />
       </div>
     );
@@ -250,6 +259,16 @@ class Chart extends React.Component<ChartPropType, ChartStateType> {
       console.log("Implement CSV function for data points");
       return;
     }
+    if (this.state.choroplethDataGroup && this.state.geoJson) {
+      const data = this.state.choroplethDataGroup;
+      const geo = this.state.geoJson;
+      const rows: string[] = ["place,data"];
+      for (const g of geo["features"]) {
+        const v = g.id in data.data ? data.data[g.id] : "N/A";
+        rows.push(`${g.properties.name},${v}`);
+      }
+      return rows.join("\n");
+    }
     return dataGroupsToCsv(this.state.dataGroups);
   }
 
@@ -273,8 +292,8 @@ class Chart extends React.Component<ChartPropType, ChartStateType> {
       this.svgContainerElement.current.offsetWidth,
       CHART_HEIGHT,
       this.props.title,
-      this.props.snapshot ? this.props.snapshot.date : "",
-      this.props.snapshot ? this.props.snapshot.sources : []
+      this.getDateString(),
+      this.getSources()
     );
   }
 

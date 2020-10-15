@@ -146,6 +146,7 @@ $chart-border: 0.5px solid #dee2e6;
 
 .subtopic .row .col {
   padding: 0.5rem;
+  margin-bottom: calc(.7rem + 10px); // height of feedback link + padding
 }
 
 .btn-dc {
@@ -207,6 +208,7 @@ $chart-border: 0.5px solid #dee2e6;
   border-color: var(--dc-gray-lite);
 }
 
+.feedback,
 .factoid footer,
 .chart-container footer {
   font-size: 0.7rem;
@@ -300,6 +302,12 @@ $chart-border: 0.5px solid #dee2e6;
   margin-left: .5rem;
 }
 
+.explore-more {
+  @include media-breakpoint-down(sm) {
+    display: none;
+  }
+}
+
 .source {
   font-size: 0.5rem;
   color: var(--dc-gray);
@@ -313,6 +321,12 @@ $chart-border: 0.5px solid #dee2e6;
 
 .chart-block {
   margin-bottom: 15px;
+}
+
+.modal-dialog {
+  @include media-breakpoint-down(md) {
+    max-width: calc(100% - 30px);
+  }
 }
 
 .modal .modal-chart-container {
@@ -350,4 +364,11 @@ $chart-border: 0.5px solid #dee2e6;
 
 .landing-link {
   margin-left: .25em;
+}
+
+.feedback {
+  color: #70757a !important;
+  font-style: italic;
+  float: right;
+  text-decoration: none !important;
 }

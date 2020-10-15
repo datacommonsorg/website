@@ -45,8 +45,7 @@ class MenuCategory extends React.Component<MenuCategoryPropsType, unknown> {
         </a>
         <ul
           className={
-            "nav flex-column ml-3 " +
-            (category !== selectCategory ? "collapse" : "")
+            "nav flex-column " + (category !== selectCategory ? "collapse" : "")
           }
           data-parent="#nav-topics"
         >

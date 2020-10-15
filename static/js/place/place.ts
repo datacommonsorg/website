@@ -144,6 +144,8 @@ function renderPage(): void {
   const choroplethDataPromise = getChoroplethData(dcid, placeType);
 
   landingPagePromise.then((landingPageData) => {
+    const loadingElem = document.getElementById("page-loading");
+    loadingElem.style.display = "none";
     const data: PageData = landingPageData;
     const isUsaPlace = isPlaceInUsa(dcid, data.parentPlaces);
     if (Object.keys(data.pageChart).length == 1) {
@@ -214,8 +216,7 @@ function renderPage(): void {
         geoJsonData: chartGeoJsonPromise,
         choroplethData: choroplethDataPromise,
         childPlacesType: data.childPlacesType,
-        parentPlaceDcid:
-          data.parentPlaces.length > 0 ? data.parentPlaces[0] : null,
+        parentPlaces: data.parentPlaces,
       }),
       document.getElementById("main-pane")
     );
