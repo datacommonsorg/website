@@ -62,9 +62,9 @@ interface MainPanePropType {
    */
   childPlacesType: string;
   /**
-   * DCID of the immediate parent place
+   * DCIDs of parent places
    */
-  parentPlaceDcid: string;
+  parentPlaces: string[];
 }
 
 class MainPane extends React.Component<MainPanePropType, unknown> {
@@ -118,7 +118,7 @@ class MainPane extends React.Component<MainPanePropType, unknown> {
                       geoJsonData={this.props.geoJsonData}
                       choroplethData={this.props.choroplethData}
                       childPlaceType={this.props.childPlacesType}
-                      parentPlaceDcid={this.props.parentPlaceDcid}
+                      parentPlaces={this.props.parentPlaces}
                     />
                   );
                 })}
