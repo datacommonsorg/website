@@ -216,8 +216,7 @@ function renderPage(): void {
         geoJsonData: chartGeoJsonPromise,
         choroplethData: choroplethDataPromise,
         childPlacesType: data.childPlacesType,
-        parentPlaceDcid:
-          data.parentPlaces.length > 0 ? data.parentPlaces[0] : null,
+        parentPlaces: data.parentPlaces,
       }),
       document.getElementById("main-pane")
     );
