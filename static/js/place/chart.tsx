@@ -180,7 +180,7 @@ class Chart extends React.Component<ChartPropType, ChartStateType> {
               {sources.map((source, index) => {
                 // TDOO(shifucun): Use provenance name and url from cache data
                 // https://github.com/datacommonsorg/website/issues/429
-                var source_url = source;
+                let source_url = source;
                 if (source == "worldbank.org") {
                   source_url = "www.worldbank.org";
                 } else if (source == "europa.eu") {
