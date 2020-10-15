@@ -140,7 +140,7 @@ class ChartBlock extends React.Component<ChartBlockPropType, unknown> {
 
     if (this.props.isOverview) {
       // Show one related place for overview page, the preference is
-      // nearby -> child -> simialr -> parent
+      // nearby -> child -> similar -> parent
       let gotChart = false;
       if (!_.isEmpty(this.props.data.nearby)) {
         const id = randDomId();
@@ -163,7 +163,7 @@ class ChartBlock extends React.Component<ChartBlockPropType, unknown> {
             key={id}
             id={id}
             snapshot={this.props.data.child}
-            title={`${relatedChartTitle}: Places within ${this.props.placeName}`}
+            title={`${relatedChartTitle}: places within ${this.props.placeName}`}
             rankingTemplateUrl={`/ranking/_sv_/${this.props.childPlaceType}/${this.props.dcid}${rankingArg}`}
             {...sharedProps}
           ></Chart>
@@ -234,7 +234,7 @@ class ChartBlock extends React.Component<ChartBlockPropType, unknown> {
               key={id}
               id={id}
               snapshot={this.props.data.child}
-              title={`${relatedChartTitle}: Places within ${this.props.placeName}`}
+              title={`${relatedChartTitle}: places within ${this.props.placeName}`}
               rankingTemplateUrl={`/ranking/_sv_/${this.props.childPlaceType}/${this.props.dcid}${rankingArg}`}
               {...sharedProps}
             ></Chart>
