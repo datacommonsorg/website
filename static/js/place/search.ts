@@ -44,6 +44,7 @@ function initSearchAutocomplete(): void {
 function placeChangedCallback(): void {
   // Get the place details from the autocomplete object.
   const place = ac.getPlace();
+  // place won't have place_id information if no autocomplete object has been selected (ie. user did not select any of the autocomplete suggestions)
   if (!place.place_id) {
     queryAutocompleteService(place.name);
   } else {
