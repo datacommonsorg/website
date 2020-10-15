@@ -302,6 +302,12 @@ $chart-border: 0.5px solid #dee2e6;
   margin-left: .5rem;
 }
 
+.explore-more {
+  @include media-breakpoint-down(sm) {
+    display: none;
+  }
+}
+
 .source {
   font-size: 0.5rem;
   color: var(--dc-gray);
