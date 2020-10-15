@@ -103,7 +103,7 @@ class MainPane extends React.Component<MainPanePropType, unknown> {
           return (
             <section className="subtopic col-12" key={topic}>
               {subtopicHeader}
-              <div className="row row-cols-md-2 row-cols-1">
+              <div className="row row-cols-xl-3 row-cols-md-2 row-cols-1">
                 {topicData[topic].map((data: ChartBlockData) => {
                   return (
                     <ChartBlock

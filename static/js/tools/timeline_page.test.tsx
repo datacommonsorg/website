@@ -58,7 +58,7 @@ test("Single place and single stats var", () => {
       wrapper.update();
       expect(wrapper.find("#chart-region").getDOMNode().innerHTML).toEqual(
         `<div class="card"><span class="chartPerCapita">Per capita<button class="perCapitaCheckbox">` +
-          `</button><a href="/faq"><span>*</span></a></span>` +
+          `</button><a href="/faq#perCapita"><span> *</span></a></span>` +
           `<div class="chart-svg"></div><div class="statsVarChipRegion">` +
           `<div class="pv-chip mdl-chip--deletable">` +
           `<span class="mdl-chip__text">Median age</span>` +

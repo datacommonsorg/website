@@ -99,7 +99,6 @@
     The data in knowledge graph can be accessed through the <a
       href="{{ url_for('browser.kg_main') }}">Data Commons Graph Browser </a> and API's for <a
       href="https://docs.datacommons.org/api/python">Python</a>, <a
-      href="https://docs.datacommons.org/api/r">R</a>, <a
       href="https://docs.datacommons.org/api/rest">REST</a> and <a
       href="https://docs.datacommons.org/api/sheets">Google Sheets</a>.
   </p>
@@ -113,6 +112,20 @@
     like to help.
     In the future we plan to allow users to ingest data into the Data Commons Graph using
     an upload tool. We will update the community when this functionality is released.
+  </p>
+
+  <p>
+    <a name="perCapita">
+      <b>Q: What does <em>per capita</em> mean in the Time Series tool?</b>
+    </a>
+    <br>
+    Different variables are measured over different populations. For example,
+    the number of people with gender equal male (in a given place) is
+    measured over the population of all people. On the other hand, the number
+    of people whose educational attainment is High School is measured over
+    the set of people whose age is 25 years or higher. Depending on the
+    variable, the per capita calculations are done over the population over
+    which the measurement was done.
   </p>
 
   <p>
@@ -145,39 +158,26 @@
   </p>
 
   <p>
-    <b>Q: What are the SLAs / Performance levels we can expect?</b><br>
-    The service is provided on an as-is basis with no SLA or commitments on availability or
-    uptime.
-  </p>
-
-  <p>
     <b>Q: How do we know if the data is accurate?</b><br>
     Data Commons provides an access mechanism to data and makes no
     commitment on the accuracy of the data.
     Answers to queries will include the provenance (source of the data). Choice of which data to
     use, based on source, is in developer's control. There may be
     errors in cleaning, etc. of the data. If you find something you
-    think is in error, we would love to <a href=feedback>hear</feedback> from you.
-      </p>
+    think is in error, we would love to <a href=feedback>hear</a> from you.
+  </p>
 
   <p>
-    <a name="perCapita">
-      <b>Q: How often is the data refreshed?</b>
-    </a>
-    <br>
+    <b>Q: How often is the data refreshed?</b><br>
     Different data sources refresh at different frequencies. We try to keep the
     data updated as the sources publish new versions of their data.
   </p>
 
   <p>
-    <b>Q: What does <em>per capita</em> mean in the Time Series tool?</b><br>
-    Different variables are measured over different populations. For example,
-    the number of people with gender equal male (in a given place) is
-    measured over the population of all people. On the other hand, the number
-    of people whose educational attainment is High School is measured over
-    the set of people whose age is 25 years or higher. Depending on the
-    variable, the per capita calculations are done over the population over
-    which the measurement was done.
+    <b>Q: What are the SLAs / Performance levels we can expect?</b><br>
+    The service is provided on an as-is basis with no SLA or commitments on
+    availability or
+    uptime.
   </p>
 
   <p>

@@ -21,7 +21,7 @@ MTV_URL = '/place/geoId/0649670'
 USA_URL = '/place/country/USA'
 CA_URL = '/place/geoId/06'
 PLACE_SEARCH = 'California, USA'
-SLEEP_SEC = 10
+SLEEP_SEC = 15
 
 
 # Class to test place explorer tool.
