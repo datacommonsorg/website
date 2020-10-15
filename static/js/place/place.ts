@@ -17,6 +17,7 @@
 import React from "react";
 import ReactDOM from "react-dom";
 import axios from "axios";
+import _ from "lodash";
 
 import { ChildPlace } from "./child_places_menu";
 import { MainPane } from "./main";
@@ -145,6 +146,11 @@ function renderPage(): void {
 
   landingPagePromise.then((landingPageData) => {
     const loadingElem = document.getElementById("page-loading");
+    if (_.isEmpty(landingPageData)) {
+      loadingElem.innerText =
+        "Sorry, we don't have any charts to show for this place";
+      return;
+    }
     loadingElem.style.display = "none";
     const data: PageData = landingPageData;
     const isUsaPlace = isPlaceInUsa(dcid, data.parentPlaces);
@@ -220,6 +226,9 @@ function renderPage(): void {
       }),
       document.getElementById("main-pane")
     );
+  }).catch(() => {
+    const loadingElem = document.getElementById("page-loading");
+    loadingElem.innerText = "Sorry, there was an error loading charts for this place.";
   });
 }
 

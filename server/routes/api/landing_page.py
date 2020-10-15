@@ -355,6 +355,10 @@ def data(dcid):
     spec_and_stat, stat_vars = build_spec(current_app.config['CHART_CONFIG'])
     raw_page_data = get_landing_page_data(dcid, stat_vars)
 
+    if not 'data' in raw_page_data:
+        logging.info("Landing Page: No data for %s", dcid)
+        return Response(json.dumps({}), 200, mimetype='application/json')
+
     # Only US places have comparison charts.
     is_usa_place = False
     for place in [dcid] + raw_page_data.get('parentPlaces', []):
