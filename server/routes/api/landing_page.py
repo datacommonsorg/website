@@ -359,6 +359,13 @@ def data(dcid):
         logging.info("Landing Page: No data for %s", dcid)
         return Response(json.dumps({}), 200, mimetype='application/json')
 
+    # Filter out Metropolitan France parent place.
+    parent_places = [
+        el for el in raw_page_data.get('parentPlaces', [])
+        if el != 'country/FXX'
+    ]
+    raw_page_data['parentPlaces'] = parent_places
+
     # Only US places have comparison charts.
     is_usa_place = False
     for place in [dcid] + raw_page_data.get('parentPlaces', []):
