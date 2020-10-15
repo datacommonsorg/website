@@ -44,9 +44,7 @@ function getPlaceAndRender(): void {
   axios
     .get(`/api/placeid2dcid/${place.place_id}`)
     .then((resp) => {
-      const urlParams = new URLSearchParams(window.location.search);
-      urlParams.set("dcid", resp.data);
-      window.location.search = urlParams.toString();
+      window.location.href = `/place/${resp.data}`;
     })
     .catch(() => {
       alert("Sorry, but we don't have any data about " + place.name);
