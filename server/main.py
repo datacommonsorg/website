@@ -38,6 +38,15 @@ GCS_BUCKET = app.config['GCS_BUCKET']
 _MAX_SEARCH_RESULTS = 1000
 
 
+@app.before_request
+def before_request():
+    scheme = request.headers.get('X-Forwarded-Proto')
+    if scheme and scheme == 'http' and request.url.startswith('http://'):
+        url = request.url.replace('http://', 'https://', 1)
+        code = 301
+        return flask.redirect(url, code=code)
+
+
 @cache.cached(timeout=3600 * 24)
 @app.route('/api/placeid2dcid/<path:placeid>')
 def api_placeid2dcid(placeid):
