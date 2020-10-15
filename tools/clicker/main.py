@@ -42,7 +42,10 @@ def click_file(file_name):
     logging.info(file_name)
     pool = Pool(5)
     with open(file_name, 'r') as f:
-        urls = [url.replace('place', 'api/landingpage/data').strip() for url in f.readlines()]
+        urls = [
+            url.replace('place', 'api/landingpage/data').strip()
+            for url in f.readlines()
+        ]
         pool.map(req_url, urls)
 
 
