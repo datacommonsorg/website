@@ -25,7 +25,7 @@ SITEMAP_PATH = '../../static/sitemap/'
 # after launch.
 
 FILES = [
-    'Country0.txt', 'State.0.txt', 'County.0.txt', 'City.0.txt', 'City.1.txt'
+    'Country.0.txt', 'State.0.txt', 'County.0.txt', 'City.0.txt', 'City.1.txt'
 ]
 
 
