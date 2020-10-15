@@ -259,6 +259,16 @@ class Chart extends React.Component<ChartPropType, ChartStateType> {
       console.log("Implement CSV function for data points");
       return;
     }
+    if (this.state.choroplethDataGroup && this.state.geoJson) {
+      const data = this.state.choroplethDataGroup;
+      const geo = this.state.geoJson;
+      const rows: string[] = ["place,data"];
+      for (const g of geo["features"]) {
+        const v = g.id in data.data ? data.data[g.id] : "N/A";
+        rows.push(`${g.properties.name},${v}`);
+      }
+      return rows.join("\n");
+    }
     return dataGroupsToCsv(this.state.dataGroups);
   }
 
@@ -282,8 +292,8 @@ class Chart extends React.Component<ChartPropType, ChartStateType> {
       this.svgContainerElement.current.offsetWidth,
       CHART_HEIGHT,
       this.props.title,
-      this.props.snapshot ? this.props.snapshot.date : "",
-      this.props.snapshot ? this.props.snapshot.sources : []
+      this.getDateString(),
+      this.getSources()
     );
   }
 
