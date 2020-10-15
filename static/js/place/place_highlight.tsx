@@ -16,6 +16,7 @@
 
 import React from "react";
 import { PageHighlight } from "./types";
+import _ from "lodash";
 
 interface PlaceHighlightPropsType {
   dcid: string;
@@ -33,7 +34,13 @@ class PlaceHighlight extends React.Component<PlaceHighlightPropsType, unknown> {
   render(): JSX.Element {
     const facts = Object.keys(this.props.highlight).map((factTitle: string) => {
       const factSnapshot = this.props.highlight[factTitle];
+      if (_.isEmpty(factSnapshot.data)) {
+        return null;
+      }
       const factData = factSnapshot.data[0].data;
+      if (_.isEmpty(factData)) {
+        return null;
+      }
       const factStatVar = Object.keys(factData)[0];
       const factValue = factData[factStatVar];
       return (
