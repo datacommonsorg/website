@@ -30,11 +30,15 @@ class MenuCategory extends React.Component<MenuCategoryPropsType, unknown> {
     const selectCategory = this.props.selectCategory;
     const category = this.props.category;
     const topics = this.props.topics;
+    const hrefString =
+      category === "Overview"
+        ? `/place/${dcid}`
+        : `/place/${dcid}?topic=${category}`;
 
     return (
       <li className="nav-item">
         <a
-          href={`/place/${dcid}?topic=${category}`}
+          href={hrefString}
           className={`nav-link ${selectCategory === category ? "active" : ""}`}
         >
           {category}
@@ -50,10 +54,7 @@ class MenuCategory extends React.Component<MenuCategoryPropsType, unknown> {
             {topics.map((topic: string) => {
               return (
                 <li className="nav-item" key={topic}>
-                  <a
-                    href={`/place/${dcid}?topic=${category}#${topic}`}
-                    className="nav-link"
-                  >
+                  <a href={`${hrefString}#${topic}`} className="nav-link">
                     {topic}
                   </a>
                 </li>
@@ -77,19 +78,22 @@ class Menu extends React.Component<MenuPropsType, unknown> {
     const dcid = this.props.dcid;
     const topic = this.props.topic;
     const categories = Object.keys(this.props.pageChart);
+    const showOverviewSubmenu = categories.length === 1;
     return (
       <ul id="nav-topics" className="nav flex-column accordion">
-        <li className="nav-item">
-          <a
-            href={`/place/${dcid}`}
-            className={`nav-link ${!topic ? "active" : ""}`}
-          >
-            Overview
-          </a>
-        </li>
+        {showOverviewSubmenu ? null : (
+          <li className="nav-item">
+            <a
+              href={`/place/${dcid}`}
+              className={`nav-link ${!topic ? "active" : ""}`}
+            >
+              Overview
+            </a>
+          </li>
+        )}
         {categories.map((category: string) => {
           const topics = Object.keys(this.props.pageChart[category]);
-          if (category !== "Overview") {
+          if (showOverviewSubmenu || category !== "Overview") {
             return (
               <MenuCategory
                 key={category}
