@@ -100,7 +100,7 @@ class ChartEmbed extends React.Component<unknown, ChartEmbedStateType> {
       chartWidth: chartWidth,
       chartHeight: chartHeight,
       chartTitle: chartTitle,
-      chartDate: chartDate ? "(" + chartDate + ")" : "",
+      chartDate: chartDate,
       sources: sources,
     });
   }
@@ -161,7 +161,7 @@ class ChartEmbed extends React.Component<unknown, ChartEmbedStateType> {
       .style("fill", "#3b3b3b")
       .style("font-family", "sans-serif")
       .style("font-size", ".7rem")
-      .text(`Data from ${this.state.sources.join(",")} via Data Commons`);
+      .text(`Data from ${this.state.sources.join(", ")} via Data Commons`);
 
     const svgXml = svg.node().outerHTML;
     container.innerHTML = "";
