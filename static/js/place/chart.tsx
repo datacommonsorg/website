@@ -208,6 +208,9 @@ class Chart extends React.Component<ChartPropType, ChartStateType> {
             </div>
           </footer>
         </div>
+        <a className="feedback" href="/feedback">
+          Feedback
+        </a>
         <ChartEmbed ref={this.embedModalElement} />
       </div>
     );
