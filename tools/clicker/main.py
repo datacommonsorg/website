@@ -16,6 +16,7 @@ import logging
 import os
 import time
 import urllib.request
+from multiprocessing import Pool
 
 logging.getLogger().setLevel(logging.INFO)
 
@@ -24,19 +25,28 @@ SITEMAP_PATH = '../../static/sitemap/'
 # Only add state componenet for now. Will decide the place types to run
 # after launch.
 
-FILES = ['StateComponent.0.txt']
+FILES = [
+    'Country.0.txt', 'State.0.txt', 'County.0.txt', 'City.0.txt', 'City.1.txt'
+]
+
+
+def req_url(url):
+    logging.info(url)
+    try:
+        urllib.request.urlopen(url)
+    except:
+        logging.error("Error for %s", url)
 
 
 def click_file(file_name):
     logging.info(file_name)
+    pool = Pool(5)
     with open(file_name, 'r') as f:
-        count = 0
-        for url in f.readlines():
-            urllib.request.urlopen(url)
-            count += 1
-            if count % 10 == 0:
-                time.sleep(1)
-                logging.info(count)
+        urls = [
+            url.replace('place', 'api/landingpage/data').strip()
+            for url in f.readlines()
+        ]
+        pool.map(req_url, urls)
 
 
 def main():

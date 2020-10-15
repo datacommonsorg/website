@@ -36,7 +36,6 @@ h2 {
 #homepage-top {
   margin: -3rem auto 3rem;
   padding-top: 5rem;
-  padding-bottom: 5rem;
 }
 
 #homepage-top .lead-col {
@@ -50,15 +49,23 @@ h2 {
   justify-content: center;
 }
 
-#homepage-bottom {
+#homepage-callout {
   padding-top: 3rem;
   padding-bottom: 3rem;
   margin-top: 6rem;
-  margin-bottom: -6rem;
+  margin-bottom: 6rem;
 }
 
-#homepage section.container {
+#homepage .container {
   margin-bottom: 5rem;
+}
+
+#homepage .container.bg-callout {
+  padding: 1rem;
+}
+
+#homepage dl {
+  margin-bottom: 0;
 }
 
 #homepage section dd a,
