@@ -42,6 +42,7 @@ def screenshot(folder):
     return flask.render_template('dev/screenshot.html', images=images)
 
 
+# TODO(shifucun): Add Flask API Authentication with Firebase
 @bp.route('/clearcache')
 def clearcache():
     return flask.render_template('dev/clearcache.html')
