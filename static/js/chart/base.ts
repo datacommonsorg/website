@@ -271,9 +271,12 @@ function formatYAxisTicks(
   }
   const dollar = unit === "$" ? "$" : "";
   const percent = unit === "%" ? "%" : "";
+  const tons = unit === "t" ? "t" : "";
   const grams = unit === "g" ? "g" : "";
+  const kg = unit === "kg" ? "kg" : "";
+  const kWh = unit === "kWh" ? "kWh" : "";
   const liters = unit === "L" ? "L" : "";
-  return `${dollar}${tText}${percent}${grams}${liters}`;
+  return `${dollar}${tText}${percent}${tons}${grams}${kg}${kWh}${liters}`;
 }
 
 interface Range {
