@@ -50,7 +50,7 @@ def clearcache():
 @bp.route('/clearcache/action', methods=['POST'])
 def clearcacheaction():
     user_input = request.form.get('secret')
-    if os.environ.get('FLASK_ENV') == 'development':
+    if os.environ.get('FLASK_ENV') == 'staging':
         cfg = import_string('configmodule.DevelopmentConfig')()
     elif os.environ.get('FLASK_ENV') == 'production':
         cfg = import_string('configmodule.ProductionConfig')()
