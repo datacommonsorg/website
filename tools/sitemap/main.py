@@ -46,7 +46,7 @@ PLACES = [
     'Continent',
 ]
 
-SITE_PREFIX = 'https://datacommons.org/place?dcid='
+SITE_PREFIX = 'https://datacommons.org/place/'
 SAVE_PATH = '../../static/sitemap/'
 
 # each file can contain up to 50,000 lines
