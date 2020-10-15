@@ -1,29 +1,6 @@
 [
   {
     "category": "Economics",
-    "title": "State Unemployment Insurance Claims",
-    "statsVars": [
-      "Count_UnemploymentInsuranceClaim_StateUnemploymentInsurance"
-    ],
-    "isOverview": true,
-    "relatedChart": {
-      "title": "State Unemployment Insurance Claims Rate",
-      "scale": true,
-      "denominator": "Count_Person_InLaborForce",
-      "scaling": 100,
-      "unit": "%"
-    }
-  },
-  {
-    "category": "Economics",
-    "title": "Unemployment Rate",
-    "statsVars": ["UnemploymentRate_Person"],
-    "unit": "%",
-    "isOverview": true,
-    "isChoropleth": true
-  },
-  {
-    "category": "Economics",
     "title": "Number of People Employed",
     "statsVars": ["Count_Person_Employed"],
     "isOverview": true,
@@ -62,6 +39,31 @@
   },
   {
     "category": "Economics",
+    "title": "Unemployment Rate",
+    "statsVars": [
+      "UnemploymentRate_Person"
+    ],
+    "unit": "%",
+    "isOverview": true,
+    "isChoropleth": true
+  },
+  {
+    "category": "Economics",
+    "title": "State Unemployment Insurance Claims",
+    "statsVars": [
+      "Count_UnemploymentInsuranceClaim_StateUnemploymentInsurance"
+    ],
+    "isOverview": true,
+    "relatedChart": {
+      "title": "State Unemployment Insurance Claims Rate",
+      "scale": true,
+      "denominator": "Count_Person_InLaborForce",
+      "scaling": 100,
+      "unit": "%"
+    }
+  },
+  {
+    "category": "Economics",
     "title": "Children in Employment",
     "statsVars": [
       "Count_Person_7To14Years_Employed_AsFractionOf_Count_Person_7To14Years"
@@ -74,10 +76,10 @@
   },
   {
     "category": "Economics",
-    "title": "Unemployment Rate by Gender",
+    "title": "Children in Employment by Gender",
     "statsVars": [
-      "UnemploymentRate_Person_Male",
-      "UnemploymentRate_Person_Female"
+      "Count_Person_7To14Years_Female_Employed_AsFractionOf_Count_Person_7To14Years_Female",
+      "Count_Person_7To14Years_Male_Employed_AsFractionOf_Count_Person_7To14Years_Male"
     ],
     "unit": "%",
     "relatedChart": {
@@ -86,10 +88,10 @@
   },
   {
     "category": "Economics",
-    "title": "Children in Employment by Gender",
+    "title": "Unemployment Rate by Gender",
     "statsVars": [
-      "Count_Person_7To14Years_Female_Employed_AsFractionOf_Count_Person_7To14Years_Female",
-      "Count_Person_7To14Years_Male_Employed_AsFractionOf_Count_Person_7To14Years_Male"
+      "UnemploymentRate_Person_Male",
+      "UnemploymentRate_Person_Female"
     ],
     "unit": "%",
     "relatedChart": {
