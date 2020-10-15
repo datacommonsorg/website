@@ -42,6 +42,7 @@ def screenshot(folder):
     return flask.render_template('dev/screenshot.html', images=images)
 
 
+# TODO(shifucun): Add Flask API Authentication with Firebase
 @bp.route('/clearcache')
 def clearcache():
     return flask.render_template('dev/clearcache.html')
@@ -50,7 +51,7 @@ def clearcache():
 @bp.route('/clearcache/action', methods=['POST'])
 def clearcacheaction():
     user_input = request.form.get('secret')
-    if os.environ.get('FLASK_ENV') == 'development':
+    if os.environ.get('FLASK_ENV') == 'staging':
         cfg = import_string('configmodule.DevelopmentConfig')()
     elif os.environ.get('FLASK_ENV') == 'production':
         cfg = import_string('configmodule.ProductionConfig')()
