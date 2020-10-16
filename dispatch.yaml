@@ -13,10 +13,10 @@
 # limitations under the License.
 
 dispatch:
-  # Send all mobile traffic to the mobile frontend.
+  # Send all traffic to the Flask server.
   - url: "*/"
     service: default
 
-  # Send all work to the one static backend.
+  # Send specific service to go server.
   - url: "*/go/"
     service: go
