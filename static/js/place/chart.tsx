@@ -95,6 +95,10 @@ interface ChartPropType {
    * Template to create links to place rankings (replace _sv_ with a StatVar)
    */
   rankingTemplateUrl: string;
+  /**
+   * The topic of the page the chart is in
+   */
+  topic: string;
 }
 
 interface ChartStateType {
@@ -342,6 +346,8 @@ class Chart extends React.Component<ChartPropType, ChartStateType> {
       chartType === chartTypeEnum.CHOROPLETH &&
       this.state.choroplethDataGroup
     ) {
+      const urlSuffix =
+        this.props.topic === "Overview" ? "" : "?topic=" + this.props.topic;
       drawChoropleth(
         this.props.id,
         this.state.geoJson,
@@ -349,7 +355,8 @@ class Chart extends React.Component<ChartPropType, ChartStateType> {
         elem.offsetWidth,
         this.state.choroplethDataGroup.data,
         this.props.unit,
-        this.props.statsVars[0]
+        this.props.statsVars[0],
+        urlSuffix
       );
     }
   }
@@ -379,6 +386,8 @@ class Chart extends React.Component<ChartPropType, ChartStateType> {
     const dataPoints: DataPoint[] = [];
     const allDates = new Set<string>();
     const scaling = this.props.scaling ? this.props.scaling : 1;
+    const linkSuffix =
+      this.props.topic === "Overview" ? "" : "?topic=" + this.props.topic;
     switch (this.props.chartType) {
       case chartTypeEnum.LINE:
         for (const statVar in this.props.trend.series) {
@@ -441,7 +450,7 @@ class Chart extends React.Component<ChartPropType, ChartStateType> {
             new DataGroup(
               this.props.names[placeData.dcid],
               dataPoints,
-              `/place/${placeData.dcid}`
+              `/place/${placeData.dcid}${linkSuffix}`
             )
           );
         }

@@ -213,7 +213,7 @@ function renderPage(): void {
 
       ReactDOM.render(
         React.createElement(MainPane, {
-          category: topic,
+          topic,
           dcid,
           isUsaPlace,
           names: data.names,
