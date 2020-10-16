@@ -29,6 +29,7 @@ import {
   SnapshotData,
   ChoroplethDataGroup,
   CachedChoroplethData,
+  GeoJsonData,
 } from "./types";
 import { updatePageLayoutState } from "./place";
 import { ChartEmbed } from "./chart_embed";
@@ -82,7 +83,7 @@ interface ChartPropType {
   /**
    * Promise for Geojson data for choropleth for current dcid.
    */
-  geoJsonData?: Promise<unknown>;
+  geoJsonData?: Promise<GeoJsonData>;
   /**
    * Promise for Values of statvar/denominator combinations for choropleth for current dcid
    */
@@ -105,7 +106,7 @@ interface ChartStateType {
   dataPoints?: DataPoint[];
   dataGroups?: DataGroup[];
   choroplethDataGroup?: ChoroplethDataGroup;
-  geoJson?: unknown;
+  geoJson?: GeoJsonData;
   elemWidth: number;
   display: boolean;
   showModal: boolean;

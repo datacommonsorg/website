@@ -102,3 +102,25 @@ export interface ChoroplethDataGroup {
   exploreUrl: string;
   sources: string[];
 }
+
+export interface GeoJsonData {
+  type: string;
+  features: GeoJsonFeature[];
+  properties: {
+    current_geo: string;
+  };
+}
+
+export interface GeoJsonFeature {
+  type: string;
+  geometry: {
+    type: string;
+    coordinates: number[][][][];
+  };
+  id: string;
+  properties: {
+    name: string;
+    hasSublevel: boolean;
+    geoDcid: string;
+  };
+}
