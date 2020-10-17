@@ -114,8 +114,9 @@ export interface GeoJsonData {
 export interface GeoJsonFeature {
   type: string;
   geometry: {
+    // Geojson features will always be MultiPolygons
     type: string;
-    coordinates: number[][][][];
+    coordinates: Polygon[];
   };
   id: string;
   properties: {
@@ -124,3 +125,5 @@ export interface GeoJsonFeature {
     geoDcid: string;
   };
 }
+
+type Polygon = number[][][];
