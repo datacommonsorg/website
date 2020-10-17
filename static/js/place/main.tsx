@@ -16,7 +16,12 @@
 import React from "react";
 import { ChartBlock } from "./chart_block";
 import { Overview } from "./overview";
-import { PageChart, ChartBlockData, CachedChoroplethData } from "./types";
+import {
+  PageChart,
+  ChartBlockData,
+  CachedChoroplethData,
+  GeoJsonData,
+} from "./types";
 
 interface MainPanePropType {
   /**
@@ -50,9 +55,8 @@ interface MainPanePropType {
   names: { [key: string]: string };
   /**
    * Promise for Geojson data for choropleth for current dcid.
-   * TODO(chejennifer): replace unknown type with type for geojson
    */
-  geoJsonData: Promise<unknown>;
+  geoJsonData: Promise<GeoJsonData>;
   /**
    * Promise for Values of statvar/denominator combinations for choropleth for current dcid
    */

@@ -15,7 +15,12 @@
  */
 
 import React from "react";
-import { chartTypeEnum, ChartBlockData, CachedChoroplethData } from "./types";
+import {
+  chartTypeEnum,
+  ChartBlockData,
+  CachedChoroplethData,
+  GeoJsonData,
+} from "./types";
 import { randDomId } from "../shared/util";
 import { Chart } from "./chart";
 import { displayNameForPlaceType } from "./util";
@@ -53,7 +58,7 @@ interface ChartBlockPropType {
   /**
    * Promise for Geojson data for choropleth for current dcid.
    */
-  geoJsonData: Promise<unknown>;
+  geoJsonData: Promise<GeoJsonData>;
   /**
    * Promise for Values of statvar/denominator combinations for choropleth for current dcid
    */
