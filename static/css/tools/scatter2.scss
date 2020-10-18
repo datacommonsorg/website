@@ -18,4 +18,10 @@
 @import "statvar_menu";
 @import "../draw";
 
+#main-pane #plot-container {
+  direction: initial;
+  padding: 2rem;
+  overflow-y: scroll;
+}
+
 // TODO(intrepiditee)

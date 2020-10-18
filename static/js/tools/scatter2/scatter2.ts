@@ -16,11 +16,11 @@
 
 import React from "react";
 import ReactDOM from "react-dom";
-import { ScatterPage } from "./scatter2_page";
+import { App } from "./scatter2_app";
 
 window.onload = () => {
   ReactDOM.render(
-    React.createElement(ScatterPage),
+    React.createElement(App),
     document.getElementById("main-pane")
   );
 };
