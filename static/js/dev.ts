@@ -26,6 +26,7 @@ import {
   drawGroupBarChart,
   drawLineChart,
   drawGroupLineChart,
+  drawHistogram,
 } from "./chart/draw";
 
 import { computePlotParams } from "./chart/base";
@@ -62,9 +63,9 @@ window.onload = () => {
 
   let dataGroups = [
     new DataGroup("San Jose", [
-      new DataPoint("2011", 21000),
+      new DataPoint("2011", -10000),
       new DataPoint("2012", null),
-      new DataPoint("2013", 23000),
+      new DataPoint("2013", -30000),
     ]),
     new DataGroup("Fremont", [
       new DataPoint("2011", null),
@@ -72,24 +73,24 @@ window.onload = () => {
       new DataPoint("2013", 24000),
     ]),
     new DataGroup("San Francisco", [
-      new DataPoint("2011", 21000),
-      new DataPoint("2012", 25000),
+      new DataPoint("2011", null),
+      new DataPoint("2012", -25000),
       new DataPoint("2013", 22000),
     ]),
     new DataGroup("Mountain View", [
-      new DataPoint("2011", 1000),
+      new DataPoint("2011", null),
       new DataPoint("2012", 5000),
       new DataPoint("2013", 2000),
     ]),
-    new DataGroup("VeryLongCityName", [
+    new DataGroup("Very-Long-City-Name", [
       new DataPoint("2011", 1000),
       new DataPoint("2012", 5000),
-      new DataPoint("2013", 2000),
+      new DataPoint("2013", null),
     ]),
     new DataGroup("Multi several very long city name long", [
       new DataPoint("2011", 1000),
       new DataPoint("2012", 5000),
-      new DataPoint("2013", 2000),
+      new DataPoint("2013", null),
     ]),
   ];
 
@@ -143,20 +144,6 @@ window.onload = () => {
   containerId = addChartContainer();
   drawGroupBarChart(containerId, width, height, dataGroups);
 
-  // Test narrow line chart
-  dataGroups = [
-    new DataGroup("label-1", [
-      new DataPoint("01-01-2011", 702134),
-      new DataPoint("01-02-2011", 1002342),
-      new DataPoint("01-03-2011", 3002342),
-      new DataPoint("01-04-2011", 9520234),
-      new DataPoint("01-05-2011", 3520234),
-      new DataPoint("01-06-2011", 7520234),
-    ]),
-  ];
-  containerId = addChartContainer();
-  drawLineChart(containerId, width, height, dataGroups);
-
   // Test y-axis with small values
   dataGroups = [
     new DataGroup("label-1", [
@@ -190,7 +177,7 @@ window.onload = () => {
   drawLineChart(containerId, width, height, dataGroups);
 
   // Test group line chart
-  width = 500;
+  width = 450;
   const years = [
     "2011",
     "2012",
@@ -205,7 +192,7 @@ window.onload = () => {
     Total: [
       2940667,
       1952164,
-      1959400,
+      -1959400,
       1967392,
       2978048,
       2989918,
@@ -218,7 +205,7 @@ window.onload = () => {
       1439862,
       1447235,
       1451913,
-      1456694,
+      -1456694,
       1461651,
       1468412,
     ],
@@ -226,7 +213,7 @@ window.onload = () => {
   const placeValue2 = {
     Total: [
       37638369,
-      37948800,
+      -37948800,
       38260787,
       38596972,
       38918045,
@@ -240,7 +227,7 @@ window.onload = () => {
       18726468,
       18911519,
       19087135,
-      19200970,
+      -19200970,
       19366579,
       19453769,
     ],
@@ -313,4 +300,13 @@ window.onload = () => {
       ["Total"]
     )
   );
+
+  dataPoints = [
+    new DataPoint("San Jose", 20.2),
+    new DataPoint("Santa Clara County", -22.4),
+    new DataPoint("California", 23),
+    new DataPoint("United States", 25.9),
+  ];
+  containerId = addChartContainer();
+  drawHistogram(containerId, width, height, dataPoints);
 };

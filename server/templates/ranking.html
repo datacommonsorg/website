@@ -15,11 +15,16 @@
 #}
 {%- extends 'base.html' -%}
 
-{% set title = place_name + ' | Place Rankings' %}
+{% set title = place_name + ' - Place Rankings' %}
 {% set subpage_title = 'Place Rankings' %}
 
 {% block head %}
 <link rel="stylesheet" href={{url_for('static', filename='css/ranking.min.css', t=config['GAE_VERSION'])}}>
+<style>
+  tr[data-dcid="{{ request.args.get('h') }}"] {
+    background: #fffdd0;
+  }
+</style>
 {% endblock %}
 
 {% block content %}

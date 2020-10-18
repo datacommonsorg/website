@@ -15,13 +15,13 @@
 import unittest
 import urllib
 from webdriver_tests.base_test import WebdriverBaseTest
-from selenium.webdriver.support.ui import Select
 import time
 
-MTV_URL = '/place?dcid=geoId/0649670'
-USA_URL = '/place?dcid=country/USA'
-CA_URL = '/place?dcid=geoId/06'
+MTV_URL = '/place/geoId/0649670'
+USA_URL = '/place/country/USA'
+CA_URL = '/place/geoId/06'
 PLACE_SEARCH = 'California, USA'
+SLEEP_SEC = 15
 
 
 # Class to test place explorer tool.
@@ -31,7 +31,7 @@ class TestPlaceExplorer(WebdriverBaseTest):
         """Test the place explorer page for USA can be loaded successfullly."""
         self.driver.get(self.url_ + USA_URL)
         # Wait for the XHR's to complete.
-        time.sleep(5)
+        time.sleep(SLEEP_SEC)
         req = urllib.request.Request(self.driver.current_url)
         with urllib.request.urlopen(req) as response:
             self.assertEqual(response.getcode(), 200)
@@ -39,7 +39,7 @@ class TestPlaceExplorer(WebdriverBaseTest):
         req = urllib.request.Request(self.url_ + "/place.js")
         with urllib.request.urlopen(req) as response:
             self.assertEqual(response.getcode(), 200)
-        self.assertEqual("United States | Place Explorer | Data Commons",
+        self.assertEqual("United States - Place Explorer - Data Commons",
                          self.driver.title)
         title = self.driver.find_element_by_id("place-name")
         self.assertEqual("United States", title.text)
@@ -49,14 +49,14 @@ class TestPlaceExplorer(WebdriverBaseTest):
     def test_page_serve_mtv(self):
         """Test the place explorer page for MTV can be loaded successfullly."""
         self.driver.get(self.url_ + MTV_URL)
-        time.sleep(5)
-        self.assertEqual("Mountain View | Place Explorer | Data Commons",
+        time.sleep(SLEEP_SEC)
+        self.assertEqual("Mountain View - Place Explorer - Data Commons",
                          self.driver.title)
         title = self.driver.find_element_by_id("place-name")
         self.assertEqual("Mountain View", title.text)
         subtitle = self.driver.find_element_by_id("place-type")
         self.assertEqual(
-            "A City in Santa Clara County, California, United States, North America",
+            "A City in Santa Clara County, California, United States of America, North America",
             subtitle.text)
 
     def test_place_search(self):
@@ -71,7 +71,7 @@ class TestPlaceExplorer(WebdriverBaseTest):
         ca_result = search_results[0]
         ca_result.click()
         time.sleep(3)
-        self.assertEqual("California | Place Explorer | Data Commons",
+        self.assertEqual("California - Place Explorer - Data Commons",
                          self.driver.title)
 
     def test_demographics_link(self):
@@ -79,10 +79,10 @@ class TestPlaceExplorer(WebdriverBaseTest):
         Test the demographics link can work correctly.
         """
         self.driver.get(self.url_ + CA_URL)
-        time.sleep(5)
+        time.sleep(SLEEP_SEC)
         demographics = self.driver.find_element_by_id("Demographics")
         demographics.find_element_by_tag_name('a').click()
-        time.sleep(5)
+        time.sleep(SLEEP_SEC)
         self.assertTrue("Demographics" in self.driver.current_url)
         subtopics = self.driver.find_elements_by_class_name("subtopic")
         age_topic = subtopics[3]
@@ -91,8 +91,27 @@ class TestPlaceExplorer(WebdriverBaseTest):
         chart_title = age_across_places_chart.find_element_by_tag_name(
             "h4").text
         self.assertEqual(
-            "Population by Gender for states near California(2018)",
-            chart_title)
+            "Population by Gender Per Capita: states near California(2018)",
+            chart_title, chart_title)
+
+    # TODO(beets): Re-enable this test when feasible (without sacrificing
+    #              potential ssl downgrade)
+    # def test_demographics_redirect_link(self):
+    #     """
+    #     Test a place page with demographics after a redirect.
+    #     """
+    #     self.driver.get(self.url_ + '/place?dcid=geoId/06&topic=Demographics')
+    #     time.sleep(10)
+    #     self.assertTrue("Demographics" in self.driver.current_url)
+    #     subtopics = self.driver.find_elements_by_class_name("subtopic")
+    #     age_topic = subtopics[3]
+    #     age_charts = age_topic.find_elements_by_class_name("col")
+    #     age_across_places_chart = age_charts[1]
+    #     chart_title = age_across_places_chart.find_element_by_tag_name(
+    #         "h4").text
+    #     self.assertEqual(
+    #         "Population by Gender Per Capita: states near California(2018)",
+    #         chart_title, chart_title)
 
 
 if __name__ == '__main__':

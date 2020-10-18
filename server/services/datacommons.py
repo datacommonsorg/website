@@ -37,7 +37,8 @@ else:
 API_ROOT = cfg.API_ROOT
 API_PROJECT = cfg.API_PROJECT
 
-if os.environ.get('FLASK_ENV') == 'test':
+if (os.environ.get('FLASK_ENV') == 'test' or
+        os.environ.get('FLASK_ENV') == 'webdriver'):
     DC_API_KEY = 'api-key'
 else:
     # Read the api key from Google Cloud Secret Manager
@@ -64,6 +65,7 @@ API_ENDPOINTS = {
     'get_place_ranking': '/node/ranking-locations',
     'get_chart_data': '/node/chart-data',
     'get_stats': '/bulk/stats',
+    'get_stats_all': '/stat/all',
     # TODO(shifucun): switch back to /node/related-places after data switch.
     'get_related_places': '/node/related-locations',
     'get_interesting_places': '/node/interesting-place-aspects',
@@ -96,6 +98,15 @@ def get_stats(place_dcids, stats_var):
         'stats_var': stats_var,
     }
     return send_request(url, req_json=req_json)
+
+
+def get_stats_all(place_dcids, stat_vars):
+    url = API_ROOT + API_ENDPOINTS['get_stats_all']
+    req_json = {
+        'places': place_dcids,
+        'stat_vars': stat_vars,
+    }
+    return send_request(url, req_json=req_json, has_payload=False)
 
 
 def get_chart_data(keys):
@@ -311,15 +322,9 @@ def query(query_string):
     return res_json['header'], res_json.get('rows', [])
 
 
-def get_related_place(dcid,
-                      stats_vars,
-                      same_place_type=None,
-                      within_place=None,
-                      is_per_capita=None):
+def get_related_place(dcid, stats_vars, within_place=None, is_per_capita=None):
     url = API_ROOT + API_ENDPOINTS['get_related_places']
     req_json = {'dcid': dcid, 'stat_var_dcids': stats_vars}
-    if same_place_type:
-        req_json['same_place_type'] = same_place_type
     if within_place:
         req_json['within_place'] = within_place
     if is_per_capita:

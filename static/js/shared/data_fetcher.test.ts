@@ -130,11 +130,11 @@ test("fetch stats data", () => {
 
     expect(data.getPlaceGroupWithStatsVar()).toEqual([
       new DataGroup("Arkansas", [
-        { label: "Total", value: 22000 },
+        { label: "Total Population", value: 22000 },
         { label: "Male", value: 13000 },
       ]),
       new DataGroup("California", [
-        { label: "Total", value: 32000 },
+        { label: "Total Population", value: 32000 },
         { label: "Male", value: 16000 },
       ]),
     ]);
@@ -152,17 +152,17 @@ test("fetch stats data", () => {
 
     expect(data.getTimeGroupWithStatsVar("geoId/06")).toEqual([
       new DataGroup("2011", [
-        { label: "Total", value: 31000 },
+        { label: "Total Population", value: 31000 },
         { label: "Male", value: 15000 },
       ]),
       new DataGroup("2012", [
-        { label: "Total", value: 32000 },
+        { label: "Total Population", value: 32000 },
         { label: "Male", value: 16000 },
       ]),
     ]);
 
     expect(data.getStatsPoint("geoId/06")).toEqual([
-      { label: "Total", value: 32000 },
+      { label: "Total Population", value: 32000 },
       { label: "Male", value: 16000 },
     ]);
   });
@@ -234,8 +234,12 @@ test("fetch stats data with state code", () => {
       });
 
       expect(data.getPlaceGroupWithStatsVar()).toEqual([
-        new DataGroup("Arkansas", [{ label: "Total", value: 22000 }]),
-        new DataGroup("Santa Clara, CA", [{ label: "Total", value: 32000 }]),
+        new DataGroup("Arkansas", [
+          { label: "Total Population", value: 22000 },
+        ]),
+        new DataGroup("Santa Clara, CA", [
+          { label: "Total Population", value: 32000 },
+        ]),
       ]);
     }
   );
@@ -289,8 +293,12 @@ test("fetch stats data where latest date with data for all stat vars is not the 
       });
 
       expect(data.getPlaceGroupWithStatsVar()).toEqual([
-        new DataGroup("Arkansas", [{ label: "Total", value: 21000 }]),
-        new DataGroup("California", [{ label: "Total", value: 31000 }]),
+        new DataGroup("Arkansas", [
+          { label: "Total Population", value: 21000 },
+        ]),
+        new DataGroup("California", [
+          { label: "Total Population", value: 31000 },
+        ]),
       ]);
 
       expect(data.getStatsVarGroupWithTime("geoId/06")).toEqual([
@@ -302,13 +310,15 @@ test("fetch stats data where latest date with data for all stat vars is not the 
       ]);
 
       expect(data.getTimeGroupWithStatsVar("geoId/06")).toEqual([
-        new DataGroup("2011", [{ label: "Total", value: 31000 }]),
-        new DataGroup("2012", [{ label: "Total", value: undefined }]),
-        new DataGroup("2013", [{ label: "Total", value: 32000 }]),
+        new DataGroup("2011", [{ label: "Total Population", value: 31000 }]),
+        new DataGroup("2012", [
+          { label: "Total Population", value: undefined },
+        ]),
+        new DataGroup("2013", [{ label: "Total Population", value: 32000 }]),
       ]);
 
       expect(data.getStatsPoint("geoId/06")).toEqual([
-        { label: "Total", value: 31000 },
+        { label: "Total Population", value: 31000 },
       ]);
     }
   );
@@ -362,7 +372,9 @@ test("fetch stats data where there is no date with data for all stat vars", () =
       });
 
       expect(data.getPlaceGroupWithStatsVar()).toEqual([
-        new DataGroup("Arkansas", [{ label: "Total", value: 22000 }]),
+        new DataGroup("Arkansas", [
+          { label: "Total Population", value: 22000 },
+        ]),
       ]);
 
       expect(data.getStatsVarGroupWithTime("geoId/06")).toEqual([
@@ -375,14 +387,18 @@ test("fetch stats data where there is no date with data for all stat vars", () =
       ]);
 
       expect(data.getTimeGroupWithStatsVar("geoId/06")).toEqual([
-        new DataGroup("2010", [{ label: "Total", value: undefined }]),
-        new DataGroup("2011", [{ label: "Total", value: 31000 }]),
-        new DataGroup("2012", [{ label: "Total", value: 32000 }]),
-        new DataGroup("2013", [{ label: "Total", value: undefined }]),
+        new DataGroup("2010", [
+          { label: "Total Population", value: undefined },
+        ]),
+        new DataGroup("2011", [{ label: "Total Population", value: 31000 }]),
+        new DataGroup("2012", [{ label: "Total Population", value: 32000 }]),
+        new DataGroup("2013", [
+          { label: "Total Population", value: undefined },
+        ]),
       ]);
 
       expect(data.getStatsPoint("geoId/06")).toEqual([
-        { label: "Total", value: 0 },
+        { label: "Total Population", value: 0 },
       ]);
     }
   );

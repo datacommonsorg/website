@@ -14,29 +14,35 @@
 """Place Explorer related handlers."""
 
 import flask
-import services.datacommons as dc
 import routes.api.place as place_api
-
-from cache import cache
 
 bp = flask.Blueprint('place', __name__, url_prefix='/place')
 
 
 @bp.route('', strict_slashes=False)
-def place():
-    place_dcid = flask.request.args.get('dcid')
+@bp.route('/<path:place_dcid>', strict_slashes=False)
+def place(place_dcid=None):
+    dcid = flask.request.args.get('dcid', None)
+    topic = flask.request.args.get('topic', None)
+    if dcid:
+        url = flask.url_for('place.place',
+                            place_dcid=dcid,
+                            topic=topic,
+                            _external=True,
+                            _scheme="https")
+        return flask.redirect(url)
+
     if not place_dcid:
-        return flask.redirect(flask.url_for('place.place',
-                                            dcid='geoId/0649670'))
+        return flask.render_template('place_landing.html')
+
     place_type = place_api.get_place_type(place_dcid)
     place_names = place_api.get_property_value(place_dcid, 'name')
     if place_names:
         place_name = place_names[0]
     else:
         place_name = place_dcid
-    topic = flask.request.args.get('topic', '')
     return flask.render_template('place.html',
                                  place_type=place_type,
                                  place_name=place_name,
                                  place_dcid=place_dcid,
-                                 topic=topic)
+                                 topic=topic if topic else '')

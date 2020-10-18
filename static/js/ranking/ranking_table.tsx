@@ -22,10 +22,15 @@ interface RankingTablePropType {
   id: string;
   placeType: string;
   sortAscending: boolean;
+  scaling: number;
+  unit: string;
+  isPerCapita: boolean;
+  statVar: string;
 }
 
 class RankingTable extends React.Component<RankingTablePropType> {
   info: RankInfo[];
+  numFractionDigits: number;
 
   constructor(props: RankingTablePropType) {
     super(props);
@@ -38,25 +43,43 @@ class RankingTable extends React.Component<RankingTablePropType> {
         return b.rank - a.rank;
       }
     });
+    const statVar = this.props.statVar;
+    if (
+      (statVar.startsWith("Count_") &&
+        !statVar.includes("FractionOf") &&
+        !this.props.isPerCapita) ||
+      statVar.startsWith("Median_Income")
+    ) {
+      this.numFractionDigits = 0;
+    } else {
+      this.numFractionDigits = 2;
+    }
+  }
+
+  private renderRankInfo(rankInfo: RankInfo, scaling: number): JSX.Element {
+    let value = rankInfo.value ? rankInfo.value : 0;
+    value = value * scaling;
+    return (
+      <tr key={rankInfo.rank} data-dcid={rankInfo.placeDcid}>
+        <td>{rankInfo.rank ? rankInfo.rank : 0}</td>
+        <td>
+          <a href={`/place/${rankInfo.placeDcid}`}>
+            {rankInfo.placeName || rankInfo.placeDcid}
+          </a>
+        </td>
+        <td className="text-center">
+          <span className="num-value">
+            {value.toLocaleString(undefined, {
+              maximumFractionDigits: this.numFractionDigits,
+              minimumFractionDigits: this.numFractionDigits,
+            })}
+          </span>
+        </td>
+      </tr>
+    );
   }
 
   render(): JSX.Element {
-    function renderRankInfo(rankInfo) {
-      return (
-        <tr key={rankInfo.rank}>
-          <td>{rankInfo.rank ? rankInfo.rank : 0}</td>
-          <td>
-            <a href={`/place?dcid=${rankInfo.placeDcid}`}>
-              {rankInfo.placeName || rankInfo.placeDcid}
-            </a>
-          </td>
-          <td className="text-right">
-            {rankInfo.value ? rankInfo.value.toLocaleString() : "0"}
-          </td>
-        </tr>
-      );
-    }
-
     return (
       <table key={this.props.id} className="table mt-3">
         <thead>
@@ -64,14 +87,14 @@ class RankingTable extends React.Component<RankingTablePropType> {
             <th scope="col">Rank</th>
             <th scope="col">{this.props.placeType}</th>
             <th scope="col" className="text-center">
-              Value
+              {this.props.unit ? this.props.unit : "Value"}
             </th>
           </tr>
         </thead>
         <tbody>
           {this.info &&
             this.info.map((rankInfo) => {
-              return renderRankInfo(rankInfo);
+              return this.renderRankInfo(rankInfo, this.props.scaling);
             })}
         </tbody>
       </table>

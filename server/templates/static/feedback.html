@@ -1,0 +1,79 @@
+{#
+ Copyright 2020 Google LLC
+
+ Licensed under the Apache License, Version 2.0 (the "License");
+ you may not use this file except in compliance with the License.
+ You may obtain a copy of the License at
+
+      http://www.apache.org/licenses/LICENSE-2.0
+
+ Unless required by applicable law or agreed to in writing, software
+ distributed under the License is distributed on an "AS IS" BASIS,
+ WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ See the License for the specific language governing permissions and
+ limitations under the License.
+#}
+{% extends 'base.html' %}
+
+{% set main_id = 'feedback' %}
+{% set title = 'Feedback' %}
+
+{% block head %}
+<link rel="stylesheet"
+  href={{url_for('static', filename='css/static.min.css', t=config['GAE_VERSION'])}}>
+{% endblock %}
+
+{% block content %}
+<div class="container">
+  <h1>We would love to get your feedback!</h1>
+
+  <section>
+    <h2>Data Issues</h2>
+    <p>If you noticed some error in the data or something that looked odd,
+    you can
+      <ul>
+        <li>Send us an email to <em class="email">support at datacommons dot org</em>,
+          or
+        </li>
+        <li>File an <a
+          href="https://github.com/datacommonsorg/data/issues">issue</a> on
+          Github.
+        </li>
+      </ul>
+    </p>
+    <p>
+      Please make sure you include enough details, including a url or screenshot of
+      the issue.
+    </p>
+    </section>
+
+  <section>
+    <h2>Contributing Data</h2>
+    <p>
+      We are actively looking to partner with Government organizations,
+      Universities and NGOs to add authoritative data. If you are
+      interested, please email us at <em class="email">collaborations at datacommons
+        dot org</em>
+    </p>
+    </section>
+
+  <section>
+    <h2>Other Participation</h2>
+    <p>
+      Data Commons has benefited greatly from our collaborations with
+      different government organizations and academic institutions and are
+      looking to expand the set of collaborative projects. In particular,
+      we are looking for partners for creating new tools, building curriculum
+      using Data Commons, for improving documentation and more. Click
+      <a href="https://docs.datacommons.org/contributing/">here for more details</a>.
+    </p>
+  </section>
+  <section>
+    <h2>See also</h2>
+    <ul>
+      <li><a href="{{ url_for('static.datasets') }}">Data Sources</a>
+      <li><a href="{{ url_for('static.disclaimers') }}">Disclaimers</a>
+      <li><a href="{{ url_for('static.faq') }}">Frequently Asked Questions</a>
+    </ul>
+  </section>
+  {% endblock %}

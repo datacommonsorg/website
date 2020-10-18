@@ -12,7 +12,8 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-from typing import Dict, List, Tuple
+from itertools import chain, combinations
+from typing import Dict, List, Iterator
 from util import PopObsSpec, StatsVar, read_pop_obs_spec, read_stat_var
 import collections
 import text_format
@@ -40,7 +41,7 @@ def get_root_children(pop_obs_spec_all, stats_vars_all) -> List['ValueNode']:
                 leafs.append(
                     ValueLeaf(get_root_leaf_name(pos, matching_statsVar),
                               [sv.dcid for sv in matching_statsVar], True, pos,
-                              []))
+                              [], stats_vars_all))
         # property specs that is children of the value node for building
         # the next level of the tree
         props = []
@@ -73,7 +74,7 @@ class ValueLeaf:
     """
 
     def __init__(self, name: str, dcids: List[str], addLevel: bool,
-                 pos: PopObsSpec, leafs: 'ValueLeaf'):
+                 pos: PopObsSpec, leafs: 'ValueLeaf', stats_vars_all):
         # when there's both super enum and multiple obs_props,
         # the Value leaf has its child leafs
         self.name = name
@@ -81,8 +82,10 @@ class ValueLeaf:
         self.addLevel = addLevel
         self.pop_type = pos.pop_type
         self.leafs = leafs
+        self.pos = pos
+        self.stats_vars_all = stats_vars_all
 
-    def json_blob(self):
+    def json_blob(self, cpvs: Dict[str, str]):
         result = {
             'populationType': self.pop_type,
             'sv': self.dcids,
@@ -91,11 +94,11 @@ class ValueLeaf:
             'e': self.name,
             'c': 1,
             'cd': [],
-            'sv_set': set(self.dcids)
+            'sv_set': set(self.dcids),
         }
         for node in self.leafs:
             if node.addLevel:
-                result['cd'].append(node.json_blob())
+                result['cd'].append(node.json_blob(cpvs))
             else:
                 # add the statsVar dcids to the value ndoe
                 result['sv'].extend(node.dcids)
@@ -104,7 +107,76 @@ class ValueLeaf:
             result['t'] = 'p'
         if result['cd']:
             result['cd'] = text_format.filter_and_sort(self.name, result['cd'])
+        if result['t'] == 'v':
+            result['d'] = find_denominators(self.pos, cpvs, self.stats_vars_all,
+                                            result['sv'])
+
         return result
+
+
+def powerset(iterable: List) -> Iterator:
+    """Returns all subsets of a set.
+
+    powerset([1,2,3]) --> () (1,) (2,) (3,) (1,2) (1,3) (2,3) (1,2,3)
+    https://docs.python.org/3/library/itertools.html#itertools-recipes
+    """
+    s = list(iterable)
+    return chain.from_iterable(combinations(s, r) for r in range(len(s) + 1))
+
+
+def find_denominators(pop_obs: PopObsSpec, cpvs: Dict[str, str],
+                      stats_vars_all: Dict[str, List[StatsVar]],
+                      stats_vars_to_exclude: List[str]) -> List[str]:
+    """Finds possible StatVars that can be used as per capita denominators for
+    a StatVar.
+
+    The dpvs of "pop_obs" and "cpvs" are combined to form the final pv mapping.
+    A denominator is included if its mprop is one of 'count', 'cumulativeCount',
+    and 'incrementalCount' and its pvs are a subset of the final pv mapping.
+    E.g., if dpvs is {'age': '15YearsOnwards'} and cpvs is {'gender': 'female'},
+    the denominators are 'Count_Person_15OrMoreYears', 'Count_Person',
+    'Count_Person_Female', and 'Count_Person_Female_15OrMoreYears' returned in
+    that order.
+
+    Args:
+        pop_obs: Population measured by the StatVar.
+        cpvs: Constraint property-value pairs from the root to the
+            node with "pop_obs".
+        stats_vars_all: Mapping from keys to candidate StatVars.
+        stats_vars_to_exclude: StatVars to exclude from the answer.
+    
+    Returns:
+        The denominators in a specific order: the denominator that match all the
+        dpvs, the denominator without any dpv, and the denominators with a mix
+        of dpvs and cpvs.
+    """
+    denominator_all_dpvs = []
+    denominator_without_dpv = []
+    denominators_mix = set()
+    pvs_merged = {**pop_obs.dpv, **cpvs}
+    dpv_entries = set(pop_obs.dpv.items())
+    merged_entries = set(pvs_merged.items())
+    pv_key_subsets = list(
+        tuple(sorted(subset)) for subset in powerset(pvs_merged.keys()))
+    for obs_prop in pop_obs.obs_props:
+        # This key should capture denominators with out PVs
+        matching_statvars = tuple()
+        for subset in pv_key_subsets:
+            key = (pop_obs.pop_type,) + obs_prop.key + subset
+            matching_statvars += tuple(stats_vars_all.get(key, ()))
+        for sv in matching_statvars:
+            if (sv.mprop not in ('count', 'cumulativeCount', 'incrementalCount')
+                    or sv.dcid in stats_vars_to_exclude):
+                continue
+            sv_entries = set(sv.pv.items())
+            if sv_entries == dpv_entries:
+                denominator_all_dpvs = [sv.dcid]
+            elif not sv_entries:
+                denominator_without_dpv = [sv.dcid]
+            elif sv_entries < merged_entries:
+                denominators_mix.add(sv.dcid)
+    return (denominator_all_dpvs + denominator_without_dpv +
+            sorted(denominators_mix))
 
 
 class PropertyNode:
@@ -147,7 +219,7 @@ class PropertyNode:
                             ValueLeaf(self.pos.obs_props[idx].name, [sv.dcid],
                                       (addLevel and
                                        not self.pos.obs_props[idx].same_level),
-                                      self.pos, []))
+                                      self.pos, [], self.stats_vars_all))
                     else:  # create new level for super enum
                         if (addLevel and
                                 not self.pos.obs_props[idx].same_level):
@@ -162,24 +234,26 @@ class PropertyNode:
                                     # if the super enum exists
                                     se_leaf.leafs.append(
                                         ValueLeaf(self.pos.obs_props[idx].name,
-                                                  [sv.dcid], True, self.pos,
-                                                  []))
+                                                  [sv.dcid], True, self.pos, [],
+                                                  self.stats_vars_all))
                                     sv_added = True
                             if not sv_added:
                                 # if the super enum does not exist
                                 # create the super enum leaf and its child
                                 se_leaf = ValueLeaf(sv.pv[self.prop], [], True,
-                                                    self.pos, [])
+                                                    self.pos, [],
+                                                    self.stats_vars_all)
                                 se_leaf.leafs.append(
                                     ValueLeaf(self.pos.obs_props[idx].name,
-                                              [sv.dcid], True, self.pos, []))
+                                              [sv.dcid], True, self.pos, [],
+                                              self.stats_vars_all))
                                 matching_stats_vars[sv.se[self.prop]].append(
                                     se_leaf)
                         else:
                             # there's no additional level under super enum
                             matching_stats_vars[sv.se[self.prop]].append(
                                 ValueLeaf(sv.pv[self.prop], [sv.dcid], True,
-                                          self.pos, []))
+                                          self.pos, [], self.stats_vars_all))
 
         # create a list of value Nodes
         value_nodes = []
@@ -257,7 +331,7 @@ class ValueNode:
                              self.stats_vars_all))
         return propertyNodes
 
-    def json_blob(self):
+    def json_blob(self, cpvs: Dict[str, str]):
         """ Generate the json blob of a value node, including the node itself
             and its leaf children. """
         if self.leafs:
@@ -278,7 +352,7 @@ class ValueNode:
         }
         for node in self.leafs:
             if node.addLevel:
-                result['cd'].append(node.json_blob())
+                result['cd'].append(node.json_blob(cpvs))
             else:
                 # add the statsVar dcids to the value ndoe
                 result['sv'].extend(node.dcids)
@@ -287,6 +361,12 @@ class ValueNode:
             result['t'] = 'p'
         if result['cd']:
             result['cd'] = text_format.filter_and_sort(self.value, result['cd'])
+        if result['t'] == 'v':
+            result['d'] = []
+            if self.parent:
+                result['d'] = find_denominators(self.parent.pos, cpvs,
+                                                self.stats_vars_all,
+                                                result['sv'])
         return result
 
 
@@ -298,7 +378,7 @@ def build_tree(max_level):
     vertical_nodes = get_root_children(pop_obs_spec, stats_vars)
     vertical_nodes.sort(key=lambda node: VERTICALS.index(node.value))
     for vertical in vertical_nodes:
-        current_blob = vertical.json_blob()
+        current_blob = vertical.json_blob({})
         # build the vertical nodes blobs
         data[vertical.value] = current_blob
         # get the property nodes of each vertical
@@ -317,20 +397,24 @@ def build_tree(max_level):
     return data, stats_var_path
 
 
-def build_tree_recursive(node: PropertyNode, max_level):
+def build_tree_recursive(node: PropertyNode,
+                         max_level,
+                         cpvs: Dict[str, str] = {}):
     """ Build a property node and its children recusively
         until the maximum level."""
     result = node.json_blob()  # build the property node blobs
     value_nodes = node.children()  # get the child value nodes
     for value in value_nodes:
         # build the child value node blobs
-        value_blob = value.json_blob()
+        value_blob = value.json_blob(cpvs)
         result['cd'].append(value_blob)
         prop_children = value.children()
+        cpvs_new = dict(cpvs)
+        cpvs_new[node.prop] = value.value
         if node.level < max_level:
             for prop in prop_children:
                 # build the next level
-                prop_blob = build_tree_recursive(prop, max_level)
+                prop_blob = build_tree_recursive(prop, max_level, cpvs_new)
                 if (prop_blob['cd']):
                     value_blob['cd'].append(prop_blob)
     result['cd'] = text_format.filter_and_sort(node.prop, result['cd'])

@@ -16,7 +16,8 @@
 
 import React, { Component } from "react";
 import { StatsData } from "../shared/data_fetcher";
-import { StatsVarInfo, saveToFile, ChartOptions } from "./timeline_util";
+import { StatsVarInfo, ChartOptions } from "./timeline_util";
+import { saveToFile } from "../shared/util";
 import { Chart } from "./timeline_chart";
 
 interface ChartRegionPropsType {
@@ -27,6 +28,9 @@ interface ChartRegionPropsType {
   removeStatsVar: (statsVar: string, nodePath?: string[]) => void;
   chartOptions: ChartOptions;
   setPC: (mprop: string, pc: boolean) => void;
+  initialPC: boolean;
+  // mappings from StatVar DCIDs to all their possible per capita denominators
+  denominators: { [key: string]: string[] };
 }
 
 class ChartRegion extends Component<ChartRegionPropsType, unknown> {
@@ -44,6 +48,12 @@ class ChartRegion extends Component<ChartRegionPropsType, unknown> {
         saveToFile("export.csv", this.createDataCsv());
       };
     }
+    if (this.props.initialPC) {
+      const groups = this.groupStatsVars(this.props.statsVars);
+      for (const groupId in groups) {
+        this.props.setPC(groupId, true);
+      }
+    }
   }
 
   render(): JSX.Element {
@@ -60,9 +70,14 @@ class ChartRegion extends Component<ChartRegionPropsType, unknown> {
           const statsVarDcids = groups[groupId];
           const statsVars = {};
           const statsVarTitle = {};
+          const denominators = {};
           for (const id of statsVarDcids) {
             statsVars[id] = this.props.statsVars[id];
             statsVarTitle[id] = this.props.statsVarTitle[id];
+            if (id in this.props.denominators) {
+              denominators[id] =
+                this.props.denominators[id][0] || "Count_Person";
+            }
           }
           return (
             <Chart
@@ -79,6 +94,7 @@ class ChartRegion extends Component<ChartRegionPropsType, unknown> {
               statsVarTitle={statsVarTitle}
               removeStatsVar={this.props.removeStatsVar}
               setPC={this.props.setPC}
+              denominators={denominators}
             ></Chart>
           );
         }, this)}
@@ -103,7 +119,9 @@ class ChartRegion extends Component<ChartRegionPropsType, unknown> {
    *
    * @param statsVars All the input stats vars.
    */
-  private groupStatsVars(statsVars: { [key: string]: StatsVarInfo }) {
+  private groupStatsVars(statsVars: {
+    [key: string]: StatsVarInfo;
+  }): { [key: string]: string[] } {
     const groups = {};
     for (const statsVarId in statsVars) {
       const mprop = statsVars[statsVarId].mprop;

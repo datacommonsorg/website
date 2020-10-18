@@ -17,21 +17,28 @@
 import React from "react";
 import ReactDOM from "react-dom";
 import axios from "axios";
+import _ from "lodash";
 
-import { ChildPlace, MainPane, Menu, ParentPlace } from "./place_template";
+import { ChildPlace } from "./child_places_menu";
+import { MainPane } from "./main";
+import { Menu } from "./topic_menu";
+import { ParentPlace } from "./parent_breadcrumbs";
+import { PlaceHighlight } from "./place_highlight";
+import { PageSubtitle } from "./page_subtitle";
+import { isPlaceInUsa } from "./util";
+import { initSearchAutocomplete } from "./search";
 
-let ac: google.maps.places.Autocomplete;
+import { CachedChoroplethData, GeoJsonData, PageData } from "./types";
 
 let yScrollLimit = 0; // window scroll position to start fixing the sidebar
 let sidebarTopMax = 0; // Max top position for the sidebar, relative to #sidebar-outer.
 const Y_SCROLL_WINDOW_BREAKPOINT = 992; // Only trigger fixed sidebar beyond this window width.
 const Y_SCROLL_MARGIN = 100; // Margin to apply to the fixed sidebar top.
+const placeTypesWithChoropleth = new Set(["Country", "State", "County"]);
 
 window.onload = () => {
-  const urlParams = new URLSearchParams(window.location.search);
-  const dcid = urlParams.get("dcid");
-  renderPage(dcid);
-  initAutocomplete();
+  renderPage();
+  initSearchAutocomplete();
   updatePageLayoutState();
   maybeToggleFixedSidebar();
   window.onresize = maybeToggleFixedSidebar;
@@ -54,7 +61,7 @@ function updatePageLayoutState(): void {
 /**
  *  Toggle fixed sidebar based on window width.
  */
-function maybeToggleFixedSidebar() {
+function maybeToggleFixedSidebar(): void {
   if (window.innerWidth < Y_SCROLL_WINDOW_BREAKPOINT) {
     document.removeEventListener("scroll", adjustMenuPosition);
     return;
@@ -65,7 +72,7 @@ function maybeToggleFixedSidebar() {
 /**
  * Update fixed sidebar based on the window scroll.
  */
-function adjustMenuPosition() {
+function adjustMenuPosition(): void {
   const topicsEl = document.getElementById("sidebar-region");
   if (window.scrollY > yScrollLimit) {
     const calcTop = window.scrollY - yScrollLimit - Y_SCROLL_MARGIN;
@@ -80,187 +87,151 @@ function adjustMenuPosition() {
 }
 
 /**
- * Get child places with filtering.
- *
- * @param {string} dcid
+ * Get the geo json info for choropleth charts.
  */
-function getChildPlaces(dcid) {
-  return axios.get(`/api/place/child/${dcid}`).then((resp) => {
+async function getGeoJsonData(
+  dcid: string,
+  placeType: string
+): Promise<GeoJsonData> {
+  if (shouldMakeChoroplethCalls(dcid, placeType)) {
+    return axios.get("/api/chart/geojson/" + dcid).then((resp) => {
+      return resp.data;
+    });
+  } else {
+    return Promise.resolve(null);
+  }
+}
+
+/**
+ * Get the stat var data for choropleth charts.
+ */
+async function getChoroplethData(
+  dcid: string,
+  placeType: string
+): Promise<CachedChoroplethData> {
+  if (shouldMakeChoroplethCalls(dcid, placeType)) {
+    return axios.get("/api/chart/choroplethdata/" + dcid).then((resp) => {
+      return resp.data;
+    });
+  } else {
+    return Promise.resolve({});
+  }
+}
+
+/**
+ * Get the landing page data
+ */
+async function getLandingPageData(dcid: string): Promise<PageData> {
+  return axios.get("/api/landingpage/data/" + dcid).then((resp) => {
     return resp.data;
   });
 }
 
-/**
- * Get similar places, now using total population as the metric.
- *
- * @param dcid The place dcid
- */
-function getSimilarPlaces(dcid: string) {
-  return axios.get(`/api/place/similar/Count_Person/${dcid}`).then((resp) => {
-    const places = resp.data;
-    const result = [dcid];
-    if (places.relatedPlaces) {
-      result.push(...places.relatedPlaces.slice(0, 4));
-    }
-    return result;
-  });
+function shouldMakeChoroplethCalls(dcid: string, placeType: string): boolean {
+  const isInUSA: boolean =
+    dcid.startsWith("geoId") || dcid.startsWith("country/USA");
+  return isInUSA && placeTypesWithChoropleth.has(placeType);
 }
 
-/**
- * Get parent places.
- *
- * @param dcid The place dcid.
- */
-function getParentPlaces(dcid: string) {
-  return axios.get(`/api/place/parent/${dcid}`).then((resp) => {
-    return resp.data;
-  });
-}
-
-/**
- * Get nearby places.
- *
- * @param dcid The place dcid.
- */
-function getNearbyPlaces(dcid: string) {
-  return axios.get(`/api/place/nearby/${dcid}`).then((resp) => {
-    return resp.data;
-  });
-}
-
-/**
- * Get the chart configuration.
- */
-function getChartConfigData(dcid: string) {
-  return axios.get("/api/chart/data/" + dcid).then((resp) => {
-    return resp.data;
-  });
-}
-
-function renderPage(dcid: string) {
+function renderPage(): void {
   const urlParams = new URLSearchParams(window.location.search);
   // Get topic and render menu.
-  const topic = urlParams.get("topic");
+  let topic = urlParams.get("topic") || "Overview";
+  const dcid = document.getElementById("title").dataset.dcid;
   const placeName = document.getElementById("place-name").dataset.pn;
   const placeType = document.getElementById("place-type").dataset.pt;
+  const landingPagePromise = getLandingPageData(dcid);
+  const chartGeoJsonPromise = getGeoJsonData(dcid, placeType);
+  const choroplethDataPromise = getChoroplethData(dcid, placeType);
 
-  // Get parent, child and similiar places and render main pane.
-  const parentPlacesPromise = getParentPlaces(dcid);
-  const childPlacesPromise = getChildPlaces(dcid);
-  const similarPlacesPromise = getSimilarPlaces(dcid);
-  const nearbyPlacesPromise = getNearbyPlaces(dcid);
-  const chartConfigDataPromise = getChartConfigData(dcid);
-
-  chartConfigDataPromise.then((chartConfigData) => {
-    ReactDOM.render(
-      React.createElement(Menu, {
-        dcid,
-        topic,
-        chartConfig: chartConfigData.config,
-      }),
-      document.getElementById("topics")
-    );
-  });
-
-  parentPlacesPromise.then((parentPlaces) => {
-    ReactDOM.render(
-      React.createElement(ParentPlace, { parentPlaces, placeType }),
-      document.getElementById("place-type")
-    );
-    // Readjust sidebar based on parent places.
-    updatePageLayoutState();
-  });
-
-  childPlacesPromise.then((childPlaces) => {
-    // Display child places alphabetically
-    for (const placeType in childPlaces) {
-      childPlaces[placeType].sort((a, b) =>
-        a.name < b.name ? -1 : a.name > b.name ? 1 : 0
-      );
-    }
-
-    ReactDOM.render(
-      React.createElement(ChildPlace, { childPlaces, placeName }),
-      document.getElementById("child-place")
-    );
-  });
-
-  Promise.all([
-    chartConfigDataPromise,
-    parentPlacesPromise,
-    childPlacesPromise,
-    similarPlacesPromise,
-    nearbyPlacesPromise,
-  ]).then(
-    ([
-      chartConfigData,
-      parentPlaces,
-      childPlaces,
-      similarPlaces,
-      nearbyPlaces,
-    ]) => {
-      const parentPlacesWithData = [];
-      for (const place of parentPlaces) {
-        if (place["types"][0] !== "Continent") {
-          parentPlacesWithData.push(place);
-        }
+  landingPagePromise
+    .then((landingPageData) => {
+      const loadingElem = document.getElementById("page-loading");
+      if (_.isEmpty(landingPageData)) {
+        loadingElem.innerText =
+          "Sorry, we don't have any charts to show for this place";
+        return;
+      }
+      loadingElem.style.display = "none";
+      const data: PageData = landingPageData;
+      const isUsaPlace = isPlaceInUsa(dcid, data.parentPlaces);
+      if (Object.keys(data.pageChart).length == 1) {
+        topic = "Overview";
       }
       ReactDOM.render(
-        React.createElement(MainPane, {
+        React.createElement(Menu, {
+          pageChart: data.pageChart,
           dcid,
+          topic,
+        }),
+        document.getElementById("topics")
+      );
+
+      // Earth has no parent places.
+      if (data.parentPlaces.length > 0) {
+        ReactDOM.render(
+          React.createElement(ParentPlace, {
+            names: data.names,
+            parentPlaces: data.parentPlaces,
+            placeType,
+          }),
+          document.getElementById("place-type")
+        );
+      }
+      ReactDOM.render(
+        React.createElement(PlaceHighlight, {
+          dcid,
+          highlight: data.highlight,
+        }),
+        document.getElementById("place-highlight")
+      );
+
+      // Readjust sidebar based on parent places.
+      updatePageLayoutState();
+
+      // Display child places alphabetically
+      for (const placeType in data.allChildPlaces) {
+        data.allChildPlaces[placeType].sort((a, b) =>
+          a.name < b.name ? -1 : a.name > b.name ? 1 : 0
+        );
+      }
+      ReactDOM.render(
+        React.createElement(ChildPlace, {
+          childPlaces: data.allChildPlaces,
+          placeName,
+        }),
+        document.getElementById("child-place")
+      );
+
+      ReactDOM.render(
+        React.createElement(PageSubtitle, {
+          category: topic,
+          dcid,
+        }),
+        document.getElementById("subtitle")
+      );
+
+      ReactDOM.render(
+        React.createElement(MainPane, {
+          topic,
+          dcid,
+          isUsaPlace,
+          names: data.names,
+          pageChart: data.pageChart,
           placeName,
           placeType,
-          topic,
-          parentPlaces: parentPlacesWithData,
-          childPlaces,
-          similarPlaces,
-          nearbyPlaces,
-          chartConfig: chartConfigData.config,
-          chartData: chartConfigData.data,
+          geoJsonData: chartGeoJsonPromise,
+          choroplethData: choroplethDataPromise,
+          childPlacesType: data.childPlacesType,
+          parentPlaces: data.parentPlaces,
         }),
         document.getElementById("main-pane")
       );
-    }
-  );
-}
-
-/**
- * Setup search input autocomplete
- */
-function initAutocomplete() {
-  // Create the autocomplete object, restricting the search predictions to
-  // geographical location types.
-  const options = {
-    types: ["(regions)"],
-    fields: ["place_id", "name", "types"],
-  };
-  const acElem = document.getElementById(
-    "place-autocomplete"
-  ) as HTMLInputElement;
-  ac = new google.maps.places.Autocomplete(acElem, options);
-  ac.addListener("place_changed", getPlaceAndRender);
-}
-
-/*
- * Get place from autocomplete object and update url
- */
-function getPlaceAndRender() {
-  // Get the place details from the autocomplete object.
-  const place = ac.getPlace();
-  axios
-    .get(`api/placeid2dcid/${place.place_id}`)
-    .then((resp) => {
-      const urlParams = new URLSearchParams(window.location.search);
-      urlParams.set("dcid", resp.data);
-      window.location.search = urlParams.toString();
     })
     .catch(() => {
-      alert("Sorry, but we don't have any data about " + place.name);
-      const acElem = document.getElementById(
-        "place-autocomplete"
-      ) as HTMLInputElement;
-      acElem.value = "";
-      acElem.setAttribute("placeholder", "Search for another place");
+      const loadingElem = document.getElementById("page-loading");
+      loadingElem.innerText =
+        "Sorry, there was an error loading charts for this place.";
     });
 }
 

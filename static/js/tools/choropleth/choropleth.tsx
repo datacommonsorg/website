@@ -17,7 +17,6 @@
 /**
  * Creates and manages choropleth rendering.
  */
-
 import React, { Component } from "react";
 import axios from "axios";
 import * as d3 from "d3";
@@ -25,20 +24,22 @@ import ReactDOM from "react-dom";
 
 type PropsType = unknown;
 
-// TODO(eduardo): get rid of "any" type.
+// TODO(eduardo): get rid of "unknown" type.
 type StateType = {
   geoJson: unknown;
-  mapContent: unknown;
   values: { [geoId: string]: number };
   data: { [geoId: string]: { [date: string]: number } };
+  date: string;
+  mapContent: unknown;
   pc: boolean;
   popMap: { [geoId: string]: number };
 };
 
 class ChoroplethMap extends Component<PropsType, StateType> {
   public state = {
-    data: {},
     geoJson: [] as any,
+    data: {},
+    date: "latest",
     mapContent: {} as any,
     pc: false,
     popMap: {},
@@ -57,18 +58,10 @@ class ChoroplethMap extends Component<PropsType, StateType> {
   };
 
   /**
-   * Refreshes are currently never done through state updates.
-   * TODO(iancostello): Refactor this component to update via state.
-   */
-  public shouldComponentUpdate = (): boolean => {
-    return false;
-  };
-
-  /**
    * Loads and renders blank GeoJson map for current geoDcid.
    * After loading, values for a particular StatVar are pulled.
    */
-  public loadGeoJson = (): void => {
+  private loadGeoJson = (): void => {
     let geoUrl = "/api/choropleth/geo";
     geoUrl += buildChoroplethParams(["pc", "geoDcid", "level", "mdom"]);
     let valueUrl = "/api/choropleth/values";
@@ -80,18 +73,23 @@ class ChoroplethMap extends Component<PropsType, StateType> {
 
     Promise.all([geoPromise, valuePromise]).then(
       (values) => {
+        // Coordinates for the map.
         const geoJson = values[0].data[0];
-        const geoIdToValues = values[1].data[0];
+        // All the timeseries data for all places.
+        const data = values[1].data[0];
+        // The latest value for all places.
+        const geoIdToValues = this.filterByDate(data, "latest");
 
         this.setState({
           geoJson: geoJson,
           values: geoIdToValues,
+          data: data,
         });
 
         //TODO(iancostello): Investigate if this can be moved to
         //shouldComponentUpdate.
-        this.renderGeoMap();
-        this.updateGeoValues();
+        this.drawBlankGeoMap();
+        this.addColorToGeoMap();
       },
       () => {
         document.getElementById("heading").innerHTML = "";
@@ -106,19 +104,26 @@ class ChoroplethMap extends Component<PropsType, StateType> {
   /**
    * Loads values for the current geoDcid and updates map.
    */
-  public loadValues = (): void => {
+  private loadValues = (): void => {
     let baseUrl = "/api/choropleth/values";
     baseUrl += buildChoroplethParams(["geoDcid", "level", "statVar"]);
 
     axios.get(baseUrl).then(
       (resp) => {
-        const geoIdToValues = resp.data[0];
+        // Because this is the first time loading the page,
+        // filter the value by "latest" date.
+        const data = resp.data[0];
+        const geoIdToValues = this.filterByDate(data, "latest");
 
+        // values contains only the data for the date being observed.
+        // data contains the raw data.
+        // In case the user wants to switch date xor data.
         this.setState({
           values: geoIdToValues,
+          data: data,
         });
 
-        this.updateGeoValues();
+        this.addColorToGeoMap();
       },
       () => {
         document.getElementById("heading").innerHTML = "";
@@ -130,18 +135,33 @@ class ChoroplethMap extends Component<PropsType, StateType> {
   };
 
   /**
+   * Gets the latest date in a list of ISO 8601 dates.
+   * @param dates: a list of dates in ISO 8601 format.
+   * Example: "2020-01-02".
+   */
+  private getLatestDate = (dates: string[]): string => {
+    if (!dates.length) {
+      return "";
+    }
+
+    return dates.reduce((a, b) => {
+      return new Date(a) >= new Date(b) ? a : b;
+    });
+  };
+
+  /**
    * Set per capita on the state.
    */
   public setPerCapita = (pc: boolean): void => {
     // Wait for state to update before redrawing.
-    this.setState({ pc }, this.updateGeoValues);
+    this.setState({ pc }, this.addColorToGeoMap);
   };
 
   /**
    * Handles rendering the basic blank geoJson map.
    * Requires state geojson to be set with valid geoJson mapping object.
    */
-  public renderGeoMap = (): void => {
+  private drawBlankGeoMap = (): void => {
     // Combine path elements from D3 content.
     const geojson = this.state["geoJson"];
     const mapContent = d3
@@ -182,8 +202,6 @@ class ChoroplethMap extends Component<PropsType, StateType> {
       return { popMap };
     });
 
-    this.forceUpdate();
-
     // Generate breadcrumbs.
     // TODO(fpernice-google): Derive the curGeo value from geoDcid instead
     // of embedding in url.
@@ -192,9 +210,9 @@ class ChoroplethMap extends Component<PropsType, StateType> {
 
   /**
    * Updates geoJson map with current values loaded in state.
-   * Requires geoJson map to be rendered and state values to be set.
+   * Requires blank geoJson map to be rendered and state values to be set.
    */
-  public updateGeoValues = (): void => {
+  private addColorToGeoMap = (): void => {
     const geoIdToValue = this.state["values"];
     const isPerCapita = this.state["pc"];
     const geoIdToPopulation = this.state["popMap"];
@@ -272,7 +290,7 @@ class ChoroplethMap extends Component<PropsType, StateType> {
    * @param color  d3.scaleLinear object that encodes the desired color gradient.
    * @param n Number of color tones to transition between.
    */
-  public genScaleImg = (
+  private genScaleImg = (
     color: d3.ScaleLinear<number, number>,
     n = 256
   ): HTMLCanvasElement => {
@@ -292,7 +310,7 @@ class ChoroplethMap extends Component<PropsType, StateType> {
    * @param color The d3 linearScale that encodes the color gradient to be
    *        plotted.
    */
-  public generateLegend = (color: d3.ScaleLinear<number, number>): void => {
+  private generateLegend = (color: d3.ScaleLinear<number, number>): void => {
     const width = 300;
     const height = 60;
     const tickSize = 6;
@@ -361,6 +379,81 @@ class ChoroplethMap extends Component<PropsType, StateType> {
           .attr("font-weight", "bold")
           .text(title)
       );
+
+    // Get the list of dates and create a dropdown so the user can select.
+    const allDates: Set<string> = new Set();
+    Object.entries(this.state.data)?.forEach(([, dateToValue]) => {
+      const dates = Object.keys(dateToValue);
+      dates.forEach((date) => {
+        allDates.add(date);
+      });
+    });
+
+    // Place the date dropdown on the screen.
+    ReactDOM.render(
+      <DatePicker
+        dates={Array.from(allDates)}
+        selectedDate={this.state.date}
+        onSelectedDateChanged={this.onSelectedDateChanged}
+      />,
+      document.getElementById("date")
+    );
+  };
+
+  /**
+   * Changes the date and updates the values on the state.
+   * This causes a re-render that makes the map be updated
+   * to reflect the new data.
+   * @param event: an 'onChange' event.
+   */
+  private onSelectedDateChanged = (event: {
+    target: { value: string };
+  }): void => {
+    // Get the newly selected date as a string.
+    const newDate: string = event.target.value;
+    const data = this.state["data"];
+    // Re-update this.values to only include data for that given date.
+    const geoIdToValue = this.filterByDate(data, newDate);
+    // Store the new date and the new values.
+    this.setState({ date: newDate, values: geoIdToValue }, () => {
+      // Re-render component and map.
+      this.drawBlankGeoMap();
+      this.addColorToGeoMap();
+
+      // TODO(edumorales): show the range of dates somewhere so that
+      // the user knows what dates are being shown.
+    });
+  };
+
+  /**
+   *
+   * @param values: the data in the form of geoId->date->value.
+   * @param date: a date in ISO 8601 format string.
+   * Example: "2020-01-02".
+   */
+  private filterByDate = (
+    values: { [geoId: string]: { [date: string]: number } },
+    date: string
+  ): { [geoId: string]: number } => {
+    const geoIdToValue = {};
+    let realISOdate = date;
+
+    Object.entries(values).forEach(([geoId, dateToValue]) => {
+      // If the user wants to filter by "latest",
+      // figure out what the latest date is.
+      if (date === "latest") {
+        const dates = Object.keys(dateToValue);
+        realISOdate = this.getLatestDate(dates);
+      }
+
+      // Store the value for that date.
+      const value = dateToValue?.[realISOdate];
+      if (value) {
+        geoIdToValue[geoId] = value;
+      }
+    });
+
+    return geoIdToValue;
   };
 
   /**
@@ -383,7 +476,7 @@ class ChoroplethMap extends Component<PropsType, StateType> {
    * Capture hover event on geo and displays relevant information.
    * @param {json} geo is the geoJson content for the hovered geo.
    */
-  public handleMapHover = (
+  private handleMapHover = (
     geo: {
       ref: string;
       properties: {
@@ -424,7 +517,7 @@ class ChoroplethMap extends Component<PropsType, StateType> {
   /**
    * Clears output after leaving a geo.
    */
-  mouseLeave = (_geo: { ref: string }, index: number): void => {
+  private mouseLeave = (_geo: { ref: string }, index: number): void => {
     // Remove hover text.
     document.getElementById("hover-text-display").innerHTML = "";
 
@@ -437,7 +530,7 @@ class ChoroplethMap extends Component<PropsType, StateType> {
    * user into that geo in the choropleth tool.
    * @param {json} geo is the geoJson content for the clicked geo.
    */
-  handleMapClick = (geo: {
+  private handleMapClick = (geo: {
     properties: { geoDcid: string; hasSublevel: boolean };
   }): void => {
     if (geo.properties.hasSublevel) {
@@ -542,7 +635,7 @@ const generateBreadCrumbs = (curGeo: string): void => {
       })
       .filter((obj) => obj); // Ommit any null components.
 
-    // Add breadcrumbs + currentgeoId
+    // Add breadcrumbs + current geoId
     // Example: "USA" > "FL" > "Miami-Dade"
     // Where Miami-Dade is the current id
     ReactDOM.render(
@@ -618,6 +711,44 @@ const formatGeoValue = (geoValue: number | string, isPerCapita: boolean) => {
       return geoValue.toLocaleString() + " per capita";
     }
   }
+};
+
+type DatePickerPropsType = {
+  dates: string[];
+  selectedDate: string;
+  onSelectedDateChanged: (event: { target: { value: string } }) => void;
+};
+
+/**
+ * Select or Dropdown component with the available dates as options.
+ */
+const DatePicker = (props: DatePickerPropsType): JSX.Element => {
+  // Sort the dates in descending order.
+  const sortedDates = props.dates.sort().reverse();
+
+  // Create the option components.
+  const dateComponents = sortedDates.map((date) => {
+    return (
+      <option key={date} value={date}>
+        {date}
+      </option>
+    );
+  });
+
+  // Return the select component.
+  return (
+    <select
+      onChange={props.onSelectedDateChanged}
+      defaultValue={props.selectedDate}
+    >
+      {[
+        <option key={"latest"} value={"latest"}>
+          Latest Date
+        </option>,
+        ...dateComponents,
+      ]}
+    </select>
+  );
 };
 
 export { ChoroplethMap };

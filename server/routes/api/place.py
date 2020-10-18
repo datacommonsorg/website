@@ -14,13 +14,18 @@
 
 import collections
 import json
-import services.datacommons as dc
+import random
+import re
+import time
 
 from flask import Blueprint, jsonify, request, Response, url_for
 
 from cache import cache
+import services.datacommons as dc
 from services.datacommons import fetch_data
 import routes.api.stats as stats_api
+
+CHILD_PLACE_LIMIT = 50
 
 # Place types to keep for list of child places, keyed by parent place type.
 WANTED_PLACE_TYPES = {
@@ -46,11 +51,6 @@ EQUIVALENT_PLACE_TYPES = {
     "Borough": "City",
     "Village": "City",
 }
-
-CHILD_PLACE_LIMIT = 50
-
-# Minimal population count for a place to show up in nearby places list.
-MIN_POP = 5000
 
 # Contains statistical variable and the display name used for place rankings.
 RANKING_STATS = {
@@ -248,11 +248,11 @@ def parent_places(dcids):
     # "California" but not "United States":
     # https://datacommons.org/browser/geoId/0649670
     # Here calling get_parent_place twice to get to the top parents.
-    result = {}
-
-    parents1 = get_parent_place(dcids)
     if not dcids:
-        return result
+        return {}
+
+    result = {}
+    parents1 = get_parent_place(dcids)
     dcids = dcids.split('^')
     dcid_parents1_mapping = {}
     for dcid in dcids:
@@ -260,6 +260,8 @@ def parent_places(dcids):
         result[dcid] = first_parents
         if first_parents:
             dcid_parents1_mapping[dcid] = first_parents[-1]['dcid']
+    if not dcid_parents1_mapping:
+        return result
 
     parents2 = get_parent_place('^'.join(dcid_parents1_mapping.values()))
     dcid_parents2_mapping = {}
@@ -268,12 +270,13 @@ def parent_places(dcids):
         result[dcid].extend(second_parents)
         if second_parents:
             dcid_parents2_mapping[dcid] = second_parents[-1]['dcid']
+    if not dcid_parents2_mapping:
+        return result
 
     parents3 = get_parent_place('^'.join(dcid_parents2_mapping.values()))
     for dcid in dcid_parents2_mapping.keys():
         result[dcid].extend(parents3[dcid_parents2_mapping[dcid]])
         result[dcid] = [x for x in result[dcid] if x['dcid'] != 'Earth']
-
     return result
 
 
@@ -368,74 +371,30 @@ def api_mapinfo(dcid):
 @cache.memoize(timeout=3600 * 24)  # Cache for one day.
 def get_related_place(dcid,
                       stats_vars_string,
-                      same_place_type=None,
                       within_place=None,
                       is_per_capita=None):
     stats_vars = stats_vars_string.split('^')
 
     return dc.get_related_place(dcid,
                                 stats_vars,
-                                same_place_type=same_place_type,
                                 within_place=within_place,
                                 is_per_capita=is_per_capita)
 
 
-@cache.memoize(timeout=3600 * 24)  # Cache for one day.
-@bp.route('/similar/<stats_var>/<path:dcid>')
-def api_similar_places(stats_var, dcid):
-    """
-    Get the similar places for a given place by stats var within the same place.
-    """
-    parents = parent_places(dcid)[dcid]
-    # scope similar places to the same country if possible
-    parent_dcid = None
-    if parents and len(parents):
-        if len(parents) >= 2:  # has [..., country, continent]
-            parent_dcid = parents[-2]['dcid']
-    result = dc.get_related_place(dcid, [stats_var],
-                                  within_place=parent_dcid,
-                                  same_place_type=True).get(stats_var, {})
-    return Response(json.dumps(result), 200, mimetype='application/json')
-
-
-@cache.memoize(timeout=3600 * 24)  # Cache for one day.
-@bp.route('/nearby/<path:dcid>')
-def api_nearby_places(dcid):
-    """
-    Get the nearby places for a given place.
-    """
-    req_json = {'dcids': [dcid], 'property': 'nearbyPlaces', 'direction': 'out'}
-    url = dc.API_ROOT + dc.API_ENDPOINTS['get_property_values']
-    payload = dc.send_request(url, req_json=req_json)
-    prop_values = payload[dcid].get('out')
-    if not prop_values:
-        return json.dumps([])
-    places = []
-    for prop_value in prop_values:
-        places.append(prop_value['value'].split('@'))
-    places.sort(key=lambda x: x[1])
-    dcids = [place[0] for place in places]
-    pop = stats_api.get_stats_latest('^'.join(dcids), 'Count_Person')
-
-    filtered_dcids = []
-    # Filter out places that are smaller certain population.
-    for x, count in pop.items():
-        if count > MIN_POP:
-            filtered_dcids.append(x)
-    filtered_dcids.sort(key=lambda x: pop[x])
-    filtered_dcids.insert(0, dcid)
-    return Response(json.dumps(filtered_dcids),
-                    200,
-                    mimetype='application/json')
-
-
-def get_ranking_url(containing_dcid, place_type, stat_var, is_per_capita=False):
-    url = url_for('ranking.ranking',
-                  stat_var=stat_var,
-                  place_type=place_type,
-                  place_dcid=containing_dcid)
+def get_ranking_url(containing_dcid,
+                    place_type,
+                    stat_var,
+                    highlight_dcid,
+                    is_per_capita=False):
+    url = url_for(
+        'ranking.ranking',
+        stat_var=stat_var,
+        place_type=place_type,
+        place_dcid=containing_dcid,
+        h=highlight_dcid,
+    )
     if is_per_capita:
-        url = url + "?pc"
+        url = url + "&pc"
     return url
 
 
@@ -471,7 +430,6 @@ def api_ranking(dcid):
         stats_var_string = '^'.join(RANKING_STATS.keys())
         response = get_related_place(dcid,
                                      stats_var_string,
-                                     same_place_type=True,
                                      within_place=parent_dcid)
         for stats_var, data in response.items():
             result[RANKING_STATS[stats_var]].append({
@@ -480,11 +438,11 @@ def api_ranking(dcid):
                 'data':
                     data,
                 'rankingUrl':
-                    get_ranking_url(parent_dcid, current_place_type, stats_var)
+                    get_ranking_url(parent_dcid, current_place_type, stats_var,
+                                    dcid)
             })
         response = get_related_place(dcid,
                                      '^'.join(crime_statsvar.keys()),
-                                     same_place_type=True,
                                      within_place=parent_dcid,
                                      is_per_capita=True)
         for stats_var, data in response.items():
@@ -497,6 +455,7 @@ def api_ranking(dcid):
                     get_ranking_url(parent_dcid,
                                     current_place_type,
                                     stats_var,
+                                    dcid,
                                     is_per_capita=True)
             })
 
@@ -540,7 +499,7 @@ def get_state_code(dcids):
 
 @cache.memoize(timeout=3600 * 24)  # Cache for one day.
 def get_display_name(dcids):
-    """ Get display names for a list of places. Display name is place name with state code 
+    """ Get display names for a list of places. Display name is place name with state code
     if it has a parent place that is a state.
 
     Args:

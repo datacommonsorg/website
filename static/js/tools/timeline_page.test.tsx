@@ -58,7 +58,8 @@ test("Single place and single stats var", () => {
       wrapper.update();
       expect(wrapper.find("#chart-region").getDOMNode().innerHTML).toEqual(
         `<div class="card"><span class="chartPerCapita">Per capita<button class="perCapitaCheckbox">` +
-          `</button></span><div class="chart-svg"></div><div class="statsVarChipRegion">` +
+          `</button><a href="/faq#perCapita"><span> *</span></a></span>` +
+          `<div class="chart-svg"></div><div class="statsVarChipRegion">` +
           `<div class="pv-chip mdl-chip--deletable">` +
           `<span class="mdl-chip__text">Median age</span>` +
           `<button class="mdl-chip__action"><i class="material-icons">` +
@@ -189,7 +190,7 @@ test("chart options", () => {
         .then(() => {
           wrapper.update();
           expect(window.location.hash).toBe(
-            "place=geoId%2F05&statsVar=Median_Age_Person&chart=%257B%2522age%2522%253A%257B%2522pc%2522%253Atrue%257D%257D"
+            "place=geoId%2F05&statsVar=Median_Age_Person&chart=%7B%22age%22%3A%7B%22pc%22%3Atrue%7D%7D"
           );
           expect(
             pretty(wrapper.find("#chart-region").getDOMNode().innerHTML)
@@ -199,7 +200,7 @@ test("chart options", () => {
           wrapper.find("#drill .checkbox.checked").simulate("click");
           expect(wrapper.find("#chart-region").length).toBe(0); // chart deleted
           expect(window.location.hash).toBe(
-            "place=geoId%2F05&statsVar=&chart=%257B%2522age%2522%253A%257B%2522pc%2522%253Afalse%257D%257D"
+            "place=geoId%2F05&statsVar=&chart=%7B%22age%22%3A%7B%22pc%22%3Afalse%7D%7D"
           );
 
           // TODO: look into the mock functions
@@ -211,7 +212,7 @@ test("chart options", () => {
             "/api/stats/stats-var-property?dcid=Median_Age_Person"
           );
           expect(window.location.hash).toBe(
-            "place=geoId%2F05&statsVar=Median_Age_Person%2C0%2C2&chart=%257B%2522age%2522%253A%257B%2522pc%2522%253Afalse%257D%257D"
+            "place=geoId%2F05&statsVar=Median_Age_Person%2C0%2C2&chart=%7B%22age%22%3A%7B%22pc%22%3Afalse%7D%7D"
           );
 
           Promise.resolve(wrapper)

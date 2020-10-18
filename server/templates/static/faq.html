@@ -27,26 +27,38 @@
   <h1>Frequently Asked Questions </h1>
 
   <p>
-    <b>Q: What is Data Commons?</b><br>
-    Data Commons is a project started at Google, and is intended to be a community effort.
-    Data Commons is a collaborative initiative with a mission to maintain and provide access to
-    useful structured data on the Internet in an easy to use manner. Our goal is to create a
-    knowledge graph that contains a significant fraction of the world's structured data.
-    The Data Commons graph will be open, like the web, where anyone should be able to build
-    applications on top of this graph and anyone should be able to add to it.
-  </p>
+  <b>Q: What is Data Commons?</b><br>
+  Please see <a href="/about">About Data Commons</a>.
+    </p>
 
   <p>
     <b>Q: What is the difference between Data Commons and public dataset projects like Dataverse,
-      Kaggle datasets, Google Big Query Public Datasets, etc.?</b><br>
-    Data Commons provides Data-as-a-Service directly rather than "downloadable datasets" in public
-    dataset projects like Kaggle or Google Big Query Public Datasets.
-    The underlying data indeed comes from different datasets and sources, but entities in different
-    datasets are resolved such that
-    users can directly query for the data, without specifying the source. In other words, users of
-    Data Commons do not need to search and find datasets,
-    or reconcile structure / schema across different datasets, or create common identifiers before
-    joining across various sources of data.
+      Kaggle datasets, Google Big Query Public Datasets, Dataset search etc.?</b><br>
+    These collections of datasets provide a great service by aggregating topical
+    open data sets. However though the data is open, using it to answer specific
+    questions often involves tedious 'foraging' --- finding the data, cleaning the
+    data, reconciling different formats and schemas, figuring out how to merge data
+    about the same entity from different sources, etc. This error prone and tedious
+    process is repeated, once (or more) by each organization. This is a problem in
+    almost every area of study involving data, from the social sciences and physical
+    sciences to public policy.
+  </p>
+  <p>
+    Data Commons is an attempt to ameliorate some of this tedium by doing this
+    once,
+    on a large scale and providing cloud accessible APIs to the cleaned,
+    normalized
+    and joined data. While there are millions of datasets and it will be a while
+    before Data Commons includes a substantial fraction of them, in every domain,
+    some collections of data get used more frequently than others. We have started
+    with a core set of these in the hope that useful applications can be built on
+    top of them.
+  </p>
+
+  <p>
+  <b>Q: What is the difference between Data Commons and
+  Wikidata?</b><br>
+  The focus in Data Commons is on aggregating external, already available data (with an emphasis on statistical data) from government agencies and other authoritative sources, as opposed to creating a corpus of structured data from scratch.
   </p>
 
   <p>
@@ -87,7 +99,6 @@
     The data in knowledge graph can be accessed through the <a
       href="{{ url_for('browser.kg_main') }}">Data Commons Graph Browser </a> and API's for <a
       href="https://docs.datacommons.org/api/python">Python</a>, <a
-      href="https://docs.datacommons.org/api/r">R</a>, <a
       href="https://docs.datacommons.org/api/rest">REST</a> and <a
       href="https://docs.datacommons.org/api/sheets">Google Sheets</a>.
   </p>
@@ -96,12 +107,25 @@
     <b>Q: How can we add our own data to knowledge graph?</b><br>
     Data Commons is intended to be a community project and seeks your involvement.
     To know more about publishing data that can be included into Data Commons, check out <a
-      href="{{ url_for('static.get_involved') }}"> Get
-    Involved</a> page. You can also contact <a href="mailto:support@datacommons.org">support@datacommons.org </a>
+      href="https://docs.datacommons.org/contributing/">Contributing</a> page. You can also contact <a href="mailto:support@datacommons.org">support@datacommons.org </a>
     if you have an interesting dataset that you think should be included in Data Commons and would
     like to help.
     In the future we plan to allow users to ingest data into the Data Commons Graph using
     an upload tool. We will update the community when this functionality is released.
+  </p>
+
+  <p>
+    <a name="perCapita">
+      <b>Q: What does <em>per capita</em> mean in the Time Series tool?</b>
+    </a>
+    <br>
+    Different variables are measured over different populations. For example,
+    the number of people with gender equal male (in a given place) is
+    measured over the population of all people. On the other hand, the number
+    of people whose educational attainment is High School is measured over
+    the set of people whose age is 25 years or higher. Depending on the
+    variable, the per capita calculations are done over the population over
+    which the measurement was done.
   </p>
 
   <p>
@@ -134,23 +158,26 @@
   </p>
 
   <p>
-    <b>Q: What are the SLAs / Performance levels we can expect?</b><br>
-    The service is provided on an as-is basis with no SLA or commitments on availability or
-    uptime.
-  </p>
-
-  <p>
     <b>Q: How do we know if the data is accurate?</b><br>
-    Data Commons provides an access mechanism to data and makes no commitment on accuracy data.
+    Data Commons provides an access mechanism to data and makes no
+    commitment on the accuracy of the data.
     Answers to queries will include the provenance (source of the data). Choice of which data to
-    use, based on source, is in developer's control.
+    use, based on source, is in developer's control. There may be
+    errors in cleaning, etc. of the data. If you find something you
+    think is in error, we would love to <a href=feedback>hear</a> from you.
   </p>
 
   <p>
     <b>Q: How often is the data refreshed?</b><br>
-    We intend to refresh the dataset to reflect the evolving nature of underlying data and as
-    more data sources are included.
-    However, we don't have a set schedule for periodic update of data.
+    Different data sources refresh at different frequencies. We try to keep the
+    data updated as the sources publish new versions of their data.
+  </p>
+
+  <p>
+    <b>Q: What are the SLAs / Performance levels we can expect?</b><br>
+    The service is provided on an as-is basis with no SLA or commitments on
+    availability or
+    uptime.
   </p>
 
   <p>

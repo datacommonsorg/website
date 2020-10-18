@@ -28,10 +28,11 @@ const STATS_VAR_TITLES: { [key: string]: string } = {
   Count_Person_Employed: "Count of Employed People",
   Count_Person_InLaborForce: "Count of People in Labor Force",
   Count_Person: "Population",
-  Count_Person_PerArea: "Person per Area",
+  Count_Person_PerArea: "Person Per Area",
   LifeExpectancy_Person: "Life Expectancy",
   GrowthRate_Count_Person: "Population Growth Rate",
   FertilityRate_Person_Female: "Fertility Rate",
+  Count_HousingUnit: "Housing Unit",
 
   // Economics
   Amount_EconomicActivity_GrossDomesticProduction_Nominal:
@@ -45,9 +46,28 @@ const STATS_VAR_TITLES: { [key: string]: string } = {
     "Gross National Income (Purchasing Power Parity) Per Capita",
   Amount_EconomicActivity_GrossNationalIncome_PurchasingPowerParity:
     "Gross National Income (Purchasing Power Parity)",
+  Count_Person_7To14Years_Employed_AsFractionOf_Count_Person_7To14Years:
+    "Children Ages 7-14 in Employment",
+  Amount_EconomicActivity_ExpenditureActivity_EducationExpenditure_Government_AsFractionOf_Amount_EconomicActivity_ExpenditureActivity_Government:
+    "Government Expenditures on Education (% of Government Expenditures)",
+  Amount_EconomicActivity_ExpenditureActivity_EducationExpenditure_Government_AsFractionOf_Amount_EconomicActivity_GrossDomesticProduction_Nominal:
+    "Government Expenditures on Education (% of GDP)",
+  Amount_EconomicActivity_ExpenditureActivity_MilitaryExpenditure_Government:
+    "Government Expenditures on Military",
+  Amount_EconomicActivity_ExpenditureActivity_MilitaryExpenditure_Government_AsFractionOf_Amount_EconomicActivity_GrossDomesticProduction_Nominal:
+    "Government Expenditures on Military (% of GDP)",
+  Amount_Stock: "Market Capitalization of Domestic Companies",
+  Amount_Stock_AsFractionOf_Amount_EconomicActivity_GrossDomesticProduction_Nominal:
+    "Market Capitalization of Domestic Companies (% of GDP)",
+  Amount_Remittance_InwardRemittance: "Inward Remittance",
+  Amount_Remittance_InwardRemittance_AsFractionOf_Amount_EconomicActivity_GrossDomesticProduction_Nominal:
+    "Inward Remittance (% of GDP)",
+  Amount_Remittance_OutwardRemittance: "Outward Remittance",
+  Count_Person_15To64Years_InLaborForce_AsFractionOf_Count_Person_15To64Years:
+    "Percent of People in Labor Force (ages 15-64)",
 
   // Environment
-  Amount_Consumption_Energy_PerCapita: "Energy comsumption Per Capita",
+  Amount_Consumption_Energy_PerCapita: "Energy Consumption Per Capita",
   Amount_Emissions_CarbonDioxide_PerCapita:
     "Carbon Dioxide Emissions Per Capita",
   Amount_Consumption_Electricity_PerCapita:
@@ -62,27 +82,45 @@ const STATS_VAR_TITLES: { [key: string]: string } = {
   Count_DroughtEvent: "Drought Events",
 
   // age
-  Count_Person_Upto5Years: "Population Ages 0-5",
+  Count_Person_Upto4Years: "Population Ages 0-4",
+  Count_Person_Upto9Years: "Population Ages 0-9",
+  Count_Person_5To9Years: "Population Ages 5-9",
   Count_Person_5To17Years: "Population Ages 5-17",
+  Count_Person_10To14Years: "Population Ages 10-14",
+  Count_Person_10To19Years: "Population Ages 10-19",
   Count_Person_15To19Years: "Population Ages 15-19",
+  Count_Person_15OrMoreYears: "Population Ages 15+",
+  Count_Person_16OrMoreYears: "Population Ages 16+",
+  Count_Person_18To24Years: "Population Ages 18-24",
   Count_Person_20To24Years: "Population Ages 20-24",
+  Count_Person_20To29Years: "Population Ages 20-29",
   Count_Person_25To29Years: "Population Ages 25-29",
   Count_Person_25To34Years: "Population Ages 25-34",
   Count_Person_30To34Years: "Population Ages 30-34",
+  Count_Person_30To39Years: "Population Ages 30-39",
   Count_Person_35To39Years: "Population Ages 35-39",
   Count_Person_35To44Years: "Population Ages 35-44",
   Count_Person_40To44Years: "Population Ages 40-44",
+  Count_Person_40To49Years: "Population Ages 40-49",
   Count_Person_45To49Years: "Population Ages 45-49",
   Count_Person_45To54Years: "Population Ages 45-54",
   Count_Person_50To54Years: "Population Ages 50-54",
+  Count_Person_50To59Years: "Population Ages 50-59",
   Count_Person_55To59Years: "Population Ages 55-59",
+  Count_Person_55To64Years: "Population Ages 55-64",
+  Count_Person_60To61Years: "Population Ages 60-61",
   Count_Person_60To64Years: "Population Ages 60-64",
+  Count_Person_60To69Years: "Population Ages 60-69",
+  Count_Person_62To64Years: "Population Ages 62-64",
   Count_Person_65To69Years: "Population Ages 65-69",
-  Count_Person_65OrMoreYears: "Population Ages 65+",
+  Count_Person_65To74Years: "Population Ages 65-74",
   Count_Person_70To74Years: "Population Ages 70-74",
+  Count_Person_70To79Years: "Population Ages 70-79",
+  Count_Person_70OrMoreYears: "Population Ages 70+",
   Count_Person_75To79Years: "Population Ages 75-79",
+  Count_Person_75OrMoreYears: "Population Ages 75+",
   Count_Person_80To84Years: "Population Ages 80-84",
-  Count_Person_85To89Years: "Population Ages 85-89",
+  Count_Person_80OrMoreYears: "Population Ages 80+",
 
   // gender
   Count_Person_Male: "Population (Male)",
@@ -100,8 +138,23 @@ const STATS_VAR_TITLES: { [key: string]: string } = {
   Count_Person_NativeHawaiianAndOtherPacificIslanderAlone:
     "Population (Native Hawaiian and Pacific Islander)",
   Count_Person_SomeOtherRaceAlone: "Population (Some other race)",
-  Count_Person_TwoOrMoreRaces: "Population (Two or more races)",
+  Count_Person_TwoOrMoreRaces: "Population (Two or More Races)",
   Count_Person_WhiteAlone: "Population (White Alone)",
+
+  Count_HousingUnit_HouseholderRaceAmericanIndianOrAlaskaNativeAlone:
+    "Population (American Indians or Alaska Native)",
+  Count_HousingUnit_HouseholderRaceAsianAlone: "Population (Asian Alone)",
+  Count_HousingUnit_HouseholderRaceBlackOrAfricanAmericanAlone:
+    "Population (Black or African American)",
+  Count_HousingUnit_HouseholderRaceHispanicOrLatino:
+    "Population (Hispanic or Latino)",
+  Count_HousingUnit_HouseholderRaceNativeHawaiianAndOtherPacificIslanderAlone:
+    "Population (Native Hawaiian and Pacific Islander)",
+  Count_HousingUnit_HouseholderRaceSomeOtherRaceAlone:
+    "Population (Some other race)",
+  Count_HousingUnit_HouseholderRaceTwoOrMoreRaces:
+    "Population (Two or More Races)",
+  Count_HousingUnit_HouseholderRaceWhiteAlone: "Population (White Alone)",
 
   Median_Age_Person_AmericanIndianOrAlaskaNativeAlone:
     "Median Age (American Indian or Alaska Native)",
@@ -109,10 +162,10 @@ const STATS_VAR_TITLES: { [key: string]: string } = {
   Median_Age_Person_BlackOrAfricanAmericanAlone:
     "Median Age (Black or African American)",
   Median_Age_Person_HispanicOrLatino: "Median Age (Hispanic or Latino)",
-  Median_Age_Person_NativeHawaiianAndOtherPacificIslanderAlone:
+  Median_Age_Person_NativeHawaiianOrOtherPacificIslanderAlone:
     "Median Age (Native Hawaiian and Pacific Islander)",
   Median_Age_Person_SomeOtherRaceAlone: "Median Age (Some other race)",
-  Median_Age_Person_TwoOrMoreRaces: "Median Age (Two or more races)",
+  Median_Age_Person_TwoOrMoreRaces: "Median Age (Two or More Races)",
   Median_Age_Person_WhiteAlone: "Median Age (White Alone)",
 
   // income
@@ -139,6 +192,10 @@ const STATS_VAR_TITLES: { [key: string]: string } = {
   Count_Person_NeverMarried: "Population (Never Married)",
   Count_Person_Widowed: "Population (Widowed)",
   Count_Person_Separated: "Population (Separated)",
+
+  // living situation
+  Count_Person_Urban: "Population (Urban)",
+  Count_Person_Rural: "Population (Rural)",
 
   // education/poulation
   Count_Person_EducationalAttainmentNoSchoolingCompleted:
@@ -190,6 +247,10 @@ const STATS_VAR_TITLES: { [key: string]: string } = {
   Count_Person_NotAUSCitizen: "Population (Not a Citizen)",
   Count_Person_USCitizenBornAbroadOfAmericanParents: "Population (Born Abroad)",
 
+  // Mortality
+  Count_Death_0Years_AsFractionOf_Count_BirthEvent_LiveBirth:
+    "Infant Mortality Rate",
+
   // Mortality cause
   Count_Death_DiseasesOfTheCirculatorySystem:
     "Deaths Caused By Diseases of the Circulatory System",
@@ -198,7 +259,7 @@ const STATS_VAR_TITLES: { [key: string]: string } = {
     "Deaths Caused By Diseases of the Respiratory System",
   Count_Death_ExternalCauses: "Deaths Caused By External Causes",
   Count_Death_DiseasesOfTheNervousSystem:
-    "Deaths Caused By Diseases of the jNervous System",
+    "Deaths Caused By Diseases of the Nervous System",
 
   // Outcomes
   Percent_Person_WithHighCholesterol:
@@ -210,15 +271,21 @@ const STATS_VAR_TITLES: { [key: string]: string } = {
     "Percentage of People with Mental Health Not Good",
   Percent_Person_WithPhysicalHealthNotGood:
     "Percentage of People with Physical Health Not Good",
+  Count_Person_Upto4Years_Wasting_AsFractionOf_Count_Person_Upto4Years:
+    "Wasting among Children under 5",
+  Count_Person_Upto4Years_SevereWasting_AsFractionOf_Count_Person_Upto4Years:
+    "Severe Wasting among Children under 5",
 
   // Behaviors
   Percent_Person_SleepLessThan7Hours:
     "Percentage of People Who Sleep Less Than 7 Hours",
   Percent_Person_Obesity: "Percentage of People with Obesity",
-  Percent_Person_BingeDrinking: "Percentage of People with Binge Drinking",
+  Percent_Person_BingeDrinking: "Percentage of People That Binge Drink",
   Percent_Person_PhysicalInactivity:
     "Percentage of People with Physical Inactivity",
-  Percent_Person_Smoking: "Percentage of People who Smoking",
+  Percent_Person_Smoking: "Percentage of People That Smoke",
+  Amount_Consumption_Alcohol_15OrMoreYears_AsFractionOf_Count_Person_15OrMoreYears:
+    "Alcohol Consumption Per Capita (Annual)",
 
   // Drug Prescribed
   RetailDrugDistribution_DrugDistribution_Oxycodone:
@@ -250,6 +317,8 @@ const STATS_VAR_TITLES: { [key: string]: string } = {
   UnemploymentRate_Person_Female: "Unemployment Rate (Female)",
 
   // Inequality
+  Count_Person_BelowPovertyLevelInThePast12Months:
+    "Population Below Poverty Level in the Past 12 Months",
   Count_Person_BelowPovertyLevelInThePast12Months_AmericanIndianOrAlaskaNativeAlone:
     "Population Below Poverty Level in the Past 12 Months (American Indian or Alaska Native)",
   Count_Person_BelowPovertyLevelInThePast12Months_AsianAlone:
@@ -310,6 +379,51 @@ const STATS_VAR_TITLES: { [key: string]: string } = {
     "Count of Females with Graduate or Professional Degrees",
   Count_Person_25To34Years_EducationalAttainmentGraduateOrProfessionalDegree_Male:
     "Count of Males with Graduate or Professional Degrees",
+
+  Count_Person_7To14Years_Female_Employed_AsFractionOf_Count_Person_7To14Years_Female:
+    "Children in Employment (Female)",
+  Count_Person_7To14Years_Male_Employed_AsFractionOf_Count_Person_7To14Years_Male:
+    "Children in Employment (Male)",
+
+  Count_Death_0Years_Female_AsFractionOf_Count_BirthEvent_LiveBirth_Female:
+    "Infant Mortality Rate (Female)",
+  Count_Death_0Years_Male_AsFractionOf_Count_BirthEvent_LiveBirth_Male:
+    "Infant Mortality Rate (Male)",
+
+  Count_Person_Upto4Years_Female_Wasting_AsFractionOf_Count_Person_Upto4Years_Female:
+    "Wasting among Children under 5 (Female)",
+  Count_Person_Upto4Years_Female_SevereWasting_AsFractionOf_Count_Person_Upto4Years_Female:
+    "Severe Wasting among Children under 5 (Female)",
+  Count_Person_Upto4Years_Male_Wasting_AsFractionOf_Count_Person_Upto4Years_Male:
+    "Wasting among Children under 5 (Male)",
+  Count_Person_Upto4Years_Male_SevereWasting_AsFractionOf_Count_Person_Upto4Years_Male:
+    "Severe Wasting among Children under 5 (Male)",
+
+  GiniIndex_EcconomicActivity: "Gini Index",
+
+  // Housing
+  Count_HousingUnit_HomeValueUpto49999USDollar: "Under $50K",
+  Count_HousingUnit_HomeValue50000To99999USDollar: "$50K - $100K",
+  Count_HousingUnit_HomeValue100000To199999USDollar: "$100K - $200K",
+  Count_HousingUnit_HomeValue200000To299999USDollar: "$200K - $300K",
+  Count_HousingUnit_HomeValue300000To499999USDollar: "$300K - $500K",
+  Count_HousingUnit_HomeValue500000To999999USDollar: "$500K - $1M",
+  Count_HousingUnit_HomeValue1000000To1499999USDollar: "$1M - $1.5M",
+  Count_HousingUnit_HomeValue1500000To1999999USDollar: "$1.5M - $2M",
+  Count_HousingUnit_HomeValue2000000OrMoreUSDollar: "Over $2M",
+
+  Count_HousingUnit_OwnerOccupied: "Owner",
+  Count_HousingUnit_RenterOccupied: "Renter",
+
+  Count_HousingUnit_Before1939DateBuilt: "Before 1939",
+  Count_HousingUnit_1940To1949DateBuilt: "1940 - 1949",
+  Count_HousingUnit_1950To1959DateBuilt: "1950 - 1959",
+  Count_HousingUnit_1960To1969DateBuilt: "1960 - 1969",
+  Count_HousingUnit_1970To1979DateBuilt: "1970 - 1979",
+  Count_HousingUnit_1980To1989DateBuilt: "1980 - 1989",
+  Count_HousingUnit_1990To1999DateBuilt: "1990 - 1999",
+  Count_HousingUnit_2000To2009DateBuilt: "2000 - 2009",
+  Count_HousingUnit_2010OrLaterDateBuilt: "After 2010",
 };
 
 export { STATS_VAR_TITLES };

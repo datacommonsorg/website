@@ -21,9 +21,15 @@ const DEFAULT_COLOR = "#000";
 class DataPoint {
   value: number;
   label: string;
-  constructor(label: string, value: number) {
+  // Optional DCID to add to a chart as a data atttribute
+  dcid?: string;
+  // Optional Label link to show on UI element
+  link?: string;
+  constructor(label: string, value: number, dcid?: string, link?: string) {
     this.value = value;
     this.label = label;
+    this.dcid = dcid;
+    this.link = link;
   }
 }
 
@@ -33,7 +39,7 @@ class DataGroup {
   // For example, the label of a data point could be date string, while the
   // label of the DataGroup is a place name.
   label: string;
-  // Label link to show on UI element (optional)
+  // Optional label link to show on UI element
   link?: string;
   constructor(label: string, value: DataPoint[], link?: string) {
     this.value = value;
@@ -185,6 +191,91 @@ function shouldFillInValues(series: number[][]): boolean {
   return false;
 }
 
+// TODO(beets): Create DataPoints class and add this to that class.
+/**
+ * Returns the value associated with the given label in dataPoints, or null.
+ */
+function findDataPointOrNull(
+  dataPoints: DataPoint[],
+  label: string
+): number | null {
+  for (const dp of dataPoints) {
+    if (dp.label == label) {
+      return dp.value;
+    }
+  }
+  return null;
+}
+
+// TODO(beets): Also add a dataPointsToCsv function.
+// TODO(beets): Create DataGroups class and add this to that class.
+/**
+ * Returns dataGroups as a CSV.
+ */
+function dataGroupsToCsv(dataGroups: DataGroup[]): string {
+  if (!dataGroups || dataGroups.length == 0) {
+    return "";
+  }
+  // Get all the dates
+  let allLabels = new Set<string>();
+  for (const dg of dataGroups) {
+    const dates = dg.value.map((dp) => dp.label);
+    allLabels = new Set([...Array.from(allLabels), ...dates]);
+  }
+  // Create the the header row.
+  const header = ["label"];
+  for (const dg of dataGroups) {
+    header.push(`"${dg.label}"`);
+  }
+
+  // Iterate each year, group, place, stats var to populate data
+  const rows: string[][] = [];
+  for (const label of Array.from(allLabels)) {
+    const row: string[] = [label];
+    for (const dg of dataGroups) {
+      const v = findDataPointOrNull(dg.value, label);
+      if (v) {
+        row.push(String(v));
+      } else {
+        row.push("");
+      }
+    }
+    rows.push(row);
+  }
+  const headerRow = header.join(",") + "\n";
+  let result = headerRow;
+  for (const row of rows) {
+    result += row.join(",") + "\n";
+  }
+  return result;
+}
+
+/**
+ * Applies formatting to y-axis ticks, based on a scale and optional unit.
+ */
+function formatYAxisTicks(
+  d: number | { valueOf(): number },
+  yScale: d3.ScaleLinear<any, any>,
+  unit?: string
+): string {
+  const yticks = yScale.ticks();
+  const p = d3.precisionPrefix(
+    yticks[1] - yticks[0],
+    yticks[yticks.length - 1]
+  );
+  let tText = String(d);
+  // When the y value is less than one, use the original value.
+  // Otherwise 0.3 is formatted into 300m which is confusing to 300M.
+  if (d > 1 || d < -1) {
+    tText = d3.formatPrefix(`.${p}`, yScale.domain()[1])(d).replace(/G/, "B");
+  }
+  const dollar = unit === "$" ? "$" : "";
+  const percent = unit === "%" ? "%" : "";
+  const grams = unit === "g" ? "g" : "";
+  const liters = unit === "L" ? "L" : "";
+  return `${dollar}${tText}${percent}${grams}${liters}`;
+}
+
 interface Range {
   // min value of the range.
   minV: number;
@@ -199,6 +290,8 @@ export {
   PlotParams,
   Style,
   computePlotParams,
+  dataGroupsToCsv,
+  formatYAxisTicks,
   getColorFn,
   getDashes,
   shouldFillInValues,

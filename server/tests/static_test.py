@@ -23,7 +23,7 @@ class TestStaticPages(unittest.TestCase):
     def test_homepage(self):
         response = app.test_client().get('/')
         assert response.status_code == 200
-        assert b"Linking the world's public datasets" in response.data
+        assert b"Data Commons is an open knowledge repository" in response.data
 
     def test_about(self):
         response = app.test_client().get('/about')
@@ -44,6 +44,11 @@ class TestStaticPages(unittest.TestCase):
         response = app.test_client().get('/datasets')
         assert response.status_code == 200
         assert b"Datasets" in response.data
+
+    def test_feedback(self):
+        response = app.test_client().get('/feedback')
+        assert response.status_code == 200
+        assert b"We would love to get your feedback!" in response.data
 
     @patch('routes.static.list_blobs')
     def test_special_announcement(self, mock_list_blobs):
