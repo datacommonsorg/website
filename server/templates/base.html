@@ -30,17 +30,18 @@
 <!DOCTYPE html>
 
 <html lang="en">
+
 <head>
   <title>{{ title }} - Data Commons</title>
-  <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+  <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
   <link rel="icon" href="/favicon.ico" type="image/x-icon">
-  <link
-    href="https://fonts.googleapis.com/css2?family=Public+Sans:wght@300;600&family=Roboto&display=swap"
+  <link href="https://fonts.googleapis.com/css2?family=Public+Sans:wght@300;600&family=Roboto&display=swap"
     rel="stylesheet">
   {% block head %}
   {% endblock %}
 </head>
+
 <body>
   <div id="main">
     <header id="main-header">
@@ -51,8 +52,8 @@
             {% if subpage_title %}
             <span>
               {% if subpage_url %}<a href="{{ subpage_url }}">{% endif %}
-              {{ subpage_title }}
-              {% if subpage_url %}</a>{% endif %}
+                {{ subpage_title }}
+                {% if subpage_url %}</a>{% endif %}
             </span>
             {% endif %}
             </a>
@@ -63,7 +64,8 @@
           <div class="collapse navbar-collapse justify-content-md-end" id="dc-main-nav">
             <ul class="navbar-nav float-md-right">
               <li class="nav-item dropdown">
-                <a class="nav-link dropdown-toggle" href="#" id="nav-explore-dropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                <a class="nav-link dropdown-toggle" href="#" id="nav-explore-dropdown" role="button"
+                  data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                   Explore
                 </a>
                 <div class="dropdown-menu" aria-labelledby="nav-explore-dropdown">
@@ -74,19 +76,20 @@
                 </div>
               </li>
               <li class="nav-item dropdown">
-                <a class="nav-link dropdown-toggle" href="#" id="nav-doc-dropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                <a class="nav-link dropdown-toggle" href="#" id="nav-doc-dropdown" role="button" data-toggle="dropdown"
+                  aria-haspopup="true" aria-expanded="false">
                   Documentation
                 </a>
                 <div class="dropdown-menu" aria-labelledby="nav-doc-dropdown">
                   <a class="dropdown-item" href="http://docs.datacommons.org">Documentation</a>
                   <a class="dropdown-item" href="http://docs.datacommons.org/api">API's</a>
                   <a class="dropdown-item" href="http://docs.datacommons.org/tutorials.html">Tutorials</a>
-                  <a class="dropdown-item"
-                    href="https://docs.datacommons.org/contributing/">Contribute</a>
+                  <a class="dropdown-item" href="https://docs.datacommons.org/contributing/">Contribute</a>
                 </div>
               </li>
               <li class="nav-item dropdown">
-                <a class="nav-link dropdown-toggle" href="#" id="nav-about-dropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                <a class="nav-link dropdown-toggle" href="#" id="nav-about-dropdown" role="button"
+                  data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                   About
                 </a>
                 <div class="dropdown-menu" aria-labelledby="nav-about-dropdown">
@@ -115,29 +118,29 @@
     <footer id="main-footer">
       <div class="container">
         {% if not is_hide_full_footer %}
-          <div class="row">
-            <section class="col-12 col-sm-6 col-md-4">
-              <h6>Explore</h6>
-              <a href="{{ url_for('place.place') }}">Place Explorer</a>
-              <a href="{{ url_for('browser.kg_main') }}">Graph Explorer</a>
-              <a href="{{ url_for('tools.timeline') }}">Timelines Explorer</a>
-            </section>
-            <section class="col-12 col-sm-6 col-md-4">
-              <h6>Documentation</h6>
-              <a href="http://docs.datacommons.org">Documentation</a>
-              <a href="http://docs.datacommons.org/api">API's</a>
-              <a href="http://docs.datacommons.org/tutorials.html">Tutorials</a>
-              <a href="https://docs.datacommons.org/contributing/">Contribute</a>
-            </section>
-            <section class="col-12 col-sm-6 col-md-4">
-              <h6>Data Commons</h6>
-              <a href="{{ url_for('static.about') }}">About Data Commons</a>
-              <a href="{{ url_for('static.datasets') }}">Data Sources</a>
-              <a href="{{ url_for('static.faq') }}">Frequently Asked Questions</a>
-              <a href="{{ url_for('static.feedback') }}">Feedback</a>
-              <a href="http://github.com/datacommonsorg">Github Repository</a>
-            </section>
-          </div>
+        <div class="row">
+          <section class="col-12 col-sm-6 col-md-4">
+            <h6>Explore</h6>
+            <a href="{{ url_for('place.place') }}">Place Explorer</a>
+            <a href="{{ url_for('browser.kg_main') }}">Graph Explorer</a>
+            <a href="{{ url_for('tools.timeline') }}">Timelines Explorer</a>
+          </section>
+          <section class="col-12 col-sm-6 col-md-4">
+            <h6>Documentation</h6>
+            <a href="http://docs.datacommons.org">Documentation</a>
+            <a href="http://docs.datacommons.org/api">API's</a>
+            <a href="http://docs.datacommons.org/tutorials.html">Tutorials</a>
+            <a href="https://docs.datacommons.org/contributing/">Contribute</a>
+          </section>
+          <section class="col-12 col-sm-6 col-md-4">
+            <h6>Data Commons</h6>
+            <a href="{{ url_for('static.about') }}">About Data Commons</a>
+            <a href="{{ url_for('static.datasets') }}">Data Sources</a>
+            <a href="{{ url_for('static.faq') }}">Frequently Asked Questions</a>
+            <a href="{{ url_for('static.feedback') }}">Feedback</a>
+            <a href="http://github.com/datacommonsorg">Github Repository</a>
+          </section>
+        </div>
         {% endif %}
         <div class="row">
           <div id="sub-footer" class="col-12">
@@ -155,7 +158,9 @@
   </div>
   {# Compile this down (or manually implement). Used only for nav bar so far #}
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
-  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"
+    integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl"
+    crossorigin="anonymous"></script>
   {%- if not hide_search -%}
   <script async src="https://cse.google.com/cse.js?cx=010079880385165835740%3Aosnv3q-sw08"></script>
   {%- endif -%}
@@ -163,7 +168,7 @@
   {%- if GA_ACCOUNT -%}
   <script>
     window.dataLayer = window.dataLayer || [];
-    function gtag(){dataLayer.push(arguments);}
+    function gtag() { dataLayer.push(arguments); }
     gtag('js', new Date());
     gtag('config', '{{ GA_ACCOUNT }}');
   </script>
@@ -171,4 +176,5 @@
   {% block footer %}
   {% endblock %}
 </body>
+
 </html>

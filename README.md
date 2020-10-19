@@ -133,7 +133,21 @@ This will watch static files change and re-build on code edit.
 Start the flask webserver locally at localhost:8080
 
 ```bash
-./run_server.sh
+./run_flask.sh
+```
+
+#### Start the Go Server
+
+Install "Air" for Go server auto reload
+
+```bash
+go get -u github.com/cosmtrek/air
+```
+
+Start the Go webserver locally at localhost:7070
+
+```bash
+air
 ```
 
 #### Start the server using Docker

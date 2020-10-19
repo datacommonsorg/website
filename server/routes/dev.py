@@ -27,13 +27,6 @@ SCREENSHOT_BUCKET = 'datcom-browser-screenshot'
 bp = Blueprint("dev", __name__, url_prefix='/dev')
 
 
-@bp.route('/')
-def dev():
-    if os.environ.get('FLASK_ENV') == 'production':
-        flask.abort(404)
-    return flask.render_template('dev/dev.html')
-
-
 @bp.route('/screenshot/<path:folder>')
 def screenshot(folder):
     if os.environ.get('FLASK_ENV') == 'production':
