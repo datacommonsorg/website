@@ -15,25 +15,53 @@
 package main
 
 import (
-	"fmt"
 	"log"
 	"net/http"
 	"os"
+
+	"github.com/gin-contrib/multitemplate"
+	"github.com/gin-gonic/gin"
 )
 
-func main() {
-	http.HandleFunc("/go/", handle)
-	port := os.Getenv("PORT")
-	if port == "" {
-		port = "8080"
-	}
-	log.Printf("Listening on port %s", port)
-	if err := http.ListenAndServe(":"+port, nil); err != nil {
-		log.Fatal(err)
-	}
+type templateArgs struct {
+	MainID           string
+	Title            string
+	SubPageTitle     string
+	GA               string
+	IsHideFullFooter bool
+	HideSearch       bool
 }
 
-func handle(w http.ResponseWriter, r *http.Request) {
-	log.Println(r.URL.Path)
-	fmt.Fprint(w, "Hello Data Commons!")
+func main() {
+	port := os.Getenv("PORT")
+	if port == "" {
+		port = ":8080"
+	}
+	log.Printf("Listening on port %s", port)
+
+	r := gin.Default()
+
+	r.Static("/static", "./dist")
+
+	// Load template HTML files.
+	r.LoadHTMLGlob("template/*/*")
+
+	tmpl := multitemplate.New()
+	tmpl.AddFromFiles("dev", "template/base.html", "template/dev/dev.html")
+	r.HTMLRender = tmpl
+
+	r.GET("/go/dev", func(ctx *gin.Context) {
+		//render with master
+		ctx.HTML(http.StatusOK, "dev", gin.H{
+			"data": templateArgs{
+				MainID:           "dev",
+				Title:            "Dev page",
+				SubPageTitle:     "sub page title",
+				IsHideFullFooter: false,
+				HideSearch:       false,
+			},
+		})
+	})
+
+	r.Run(port)
 }

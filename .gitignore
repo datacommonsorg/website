@@ -15,3 +15,7 @@ dist/
 
 # Mac
 .DS_Store
+
+tmp/
+
+.air.toml
