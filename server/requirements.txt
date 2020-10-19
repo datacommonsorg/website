@@ -1,17 +1,2 @@
-Flask==1.1.2
-Flask-Caching
-attrs==19.3.0
-google-cloud-profiler
-google-cloud-storage
-google-cloud-secret-manager==1.0.0
-jinja2
-parameterized
-pytest
-requests
-six
-wheel
-gunicorn
-selenium
-flask_testing
-yapf
-redis==3.5.3
+-r requirements-core.txt
+-r requirements-gcp.txt

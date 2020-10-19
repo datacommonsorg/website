@@ -6,7 +6,6 @@ steps:
     args:
       - -c
       - |
-        apt-get install -y build-essential
         ./run_test.sh -p
 
   - id: package_js
@@ -33,5 +32,5 @@ steps:
     entrypoint: /bin/sh
     args:
       - -c
-      - "cd tools/pv_tree_generator && pip install -r requirements.txt && python -m pytest"
+      - "cd tools/pv_tree_generator && pip install -r requirements-core.txt && python -m pytest"
 # TODO: Add Python linter and any other useful code health tools.
