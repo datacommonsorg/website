@@ -42,11 +42,10 @@ _MAX_SEARCH_RESULTS = 1000
 # collects and uploads profiles. Best done as early as possible.
 try:
     # service and service_version can be automatically inferred when
-    # running on App Engine. project_id must be set if not running
-    # on GCP.
+    # running on App Engine.
     googlecloudprofiler.start(verbose=3)
 except (ValueError, NotImplementedError) as exc:
-    print(exc)  # Handle errors here
+    logging.error(exc)
 
 
 @app.before_request
