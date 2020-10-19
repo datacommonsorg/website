@@ -15,7 +15,6 @@
 import json
 import logging
 import os
-import googlecloudprofiler
 
 from flask import Flask
 from google.cloud import storage
@@ -26,6 +25,7 @@ def create_app():
     app = Flask(__name__, static_folder="dist", static_url_path="")
 
     if os.environ.get('FLASK_ENV') in ['production', 'staging']:
+        import googlecloudprofiler
         # Profiler initialization. It starts a daemon thread which continuously
         # collects and uploads profiles. Best done as early as possible.
         try:
