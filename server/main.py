@@ -21,7 +21,6 @@ import logging
 
 import flask
 from flask import request
-import googlecloudprofiler
 
 import services.datacommons as dc
 from lib import translator
@@ -37,15 +36,6 @@ app.jinja_env.globals['GA_ACCOUNT'] = app.config['GA_ACCOUNT']
 
 GCS_BUCKET = app.config['GCS_BUCKET']
 _MAX_SEARCH_RESULTS = 1000
-
-# Profiler initialization. It starts a daemon thread which continuously
-# collects and uploads profiles. Best done as early as possible.
-try:
-    # service and service_version can be automatically inferred when
-    # running on App Engine.
-    googlecloudprofiler.start(verbose=3)
-except (ValueError, NotImplementedError) as exc:
-    logging.error(exc)
 
 
 @app.before_request

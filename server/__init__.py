@@ -13,7 +13,9 @@
 # limitations under the License.
 
 import json
+import logging
 import os
+import googlecloudprofiler
 
 from flask import Flask
 from google.cloud import storage
@@ -22,6 +24,16 @@ from werkzeug.utils import import_string
 
 def create_app():
     app = Flask(__name__, static_folder="dist", static_url_path="")
+
+    if os.environ.get('FLASK_ENV') in ['production', 'staging']:
+        # Profiler initialization. It starts a daemon thread which continuously
+        # collects and uploads profiles. Best done as early as possible.
+        try:
+            # service and service_version can be automatically inferred when
+            # running on App Engine.
+            googlecloudprofiler.start(verbose=3)
+        except (ValueError, NotImplementedError) as exc:
+            logging.error(exc)
 
     # Setup flask config
     if os.environ.get('FLASK_ENV') == 'test':
