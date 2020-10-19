@@ -5,7 +5,9 @@ steps:
     entrypoint: /bin/sh
     args:
       - -c
-      - ./run_test.sh -p
+      - |
+        apt-get install -y build-essential
+        ./run_test.sh -p
 
   - id: package_js
     name: "node"
