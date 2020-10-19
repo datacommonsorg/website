@@ -15,43 +15,50 @@
  */
 
 import React, { createContext, useState } from "react";
+import { Container, Row } from "reactstrap";
 import { StatsVarNode } from "../timeline_util";
 import { StatVarChooser } from "./scatter2_statvar";
 import { Options } from "./scatter2_options";
-interface ScatterData {
-  [key: string]: number; // Keyed by DCID
-}
+import { ScatterChart } from "./scatter2_chart";
 
 type Setter<T> = React.Dispatch<React.SetStateAction<T>>;
 
+interface Place {
+  name: string;
+  dcid: string;
+}
+
+interface Axis {
+  // StatVar to plot for this axis
+  statVar: StatsVarNode;
+  // Data points
+  data: Array<number>;
+  // Whether to plot on log scale
+  log: boolean;
+}
+
+interface ScatterPlace {
+  // Place that encloses the child places to plot
+  enclosingPlace: Place;
+  // Type of places to plot
+  enclosedPlaceType: string;
+  // Places to plot
+  enclosedPlaces: Array<string>;
+  // Country of the places to plot
+  country: string;
+}
+
 // Global app state
 interface ScatterContextType {
-  // Whether to show StatVar menu for X axis
-  // pickStatVarX: { value: boolean; set: Setter<boolean> };
-  // Whether to show StatVar menu for Y axis
-  // pickStatVarY: { value: boolean; set: Setter<boolean> };
-  // StatVar for X axis
-  statVarX: { value: StatsVarNode; set: Setter<StatsVarNode> };
-  // StatVar for Y axis
-  statVarY: { value: StatsVarNode; set: Setter<StatsVarNode> };
-  // Data for X axis
-  dataX: { value: ScatterData; set: Setter<ScatterData> };
-  // Data for Y axis
-  dataY: { value: ScatterData; set: Setter<ScatterData> };
-  // Whether to plot X axis in log scale
-  logX: { value: boolean; set: Setter<boolean> };
-  // Whether to plot Y axis in log scale
-  logY: { value: boolean; set: Setter<boolean> };
+  // X axis
+  x: { value: Axis; set: Setter<Axis> };
+  // Y axis
+  y: { value: Axis; set: Setter<Axis> };
   // Whether to plot per capita values
   perCapita: { value: boolean; set: Setter<boolean> };
   // Whether to fit a regression curve
   regress: { value: boolean; set: Setter<boolean> };
-  // Place that encloses the child places to plot
-  enclosingPlace: { value: string; set: Setter<string> };
-  // Type of places to plot
-  enclosedPlaceType: { value: string; set: Setter<string> };
-  // Country of the places to plot
-  country: { value: string; set: Setter<string> };
+  place: { value: ScatterPlace; set: Setter<ScatterPlace> };
 }
 
 const ScatterContext = createContext({} as ScatterContextType);
@@ -59,37 +66,43 @@ const ScatterContext = createContext({} as ScatterContextType);
 function App(): JSX.Element {
   // const [pickStatVarX, setPickStatVarX] = useState(false);
   // const [pickStatVarY, setPickStatVarY] = useState(false);
-  const [statVarX, setStatVarX] = useState({} as StatsVarNode);
-  const [statVarY, setStatVarY] = useState({} as StatsVarNode);
-  const [dataX, setDataX] = useState({} as ScatterData);
-  const [dataY, setDataY] = useState({} as ScatterData);
-  const [logX, setLogX] = useState(false);
-  const [logY, setLogY] = useState(false);
+  const [x, setX] = useState({
+    statVar: {},
+    data: {},
+    log: false,
+  } as Axis);
+  const [y, setY] = useState({
+    statVar: {},
+    data: {},
+    log: false,
+  } as Axis);
   const [perCapita, setPerCapita] = useState(false);
   const [regress, setRegress] = useState(false);
-  const [enclosingPlace, setEnclosingPlace] = useState("");
-  const [enclosedPlaceType, setEnclosedPlaceType] = useState("");
-  const [country, setCountry] = useState("");
+  const [place, setPlace] = useState({
+    enclosingPlace: {},
+    enclosedPlaceType: "",
+    enclosedPlaces: [],
+    country: "",
+  } as ScatterPlace);
   const store = {
-    // pickStatVarX: { value: pickStatVarX, set: setPickStatVarX },
-    // pickStatVarY: { value: pickStatVarY, set: setPickStatVarY },
-    statVarX: { value: statVarX, set: setStatVarX },
-    statVarY: { value: statVarY, set: setStatVarY },
-    dataX: { value: dataX, set: setDataX },
-    dataY: { value: dataY, set: setDataY },
-    logX: { value: logX, set: setLogX },
-    logY: { value: logY, set: setLogY },
+    x: { value: x, set: setX },
+    y: { value: y, set: setY },
     perCapita: { value: perCapita, set: setPerCapita },
     regress: { value: regress, set: setRegress },
-    enclosingPlace: { value: enclosingPlace, set: setEnclosingPlace },
-    enclosedPlaceType: { value: enclosedPlaceType, set: setEnclosedPlaceType },
-    country: { value: country, set: setCountry },
+    place: { value: place, set: setPlace },
   };
   return (
     <ScatterContext.Provider value={store}>
       <StatVarChooser />
       <div id="plot-container">
-        <Options />
+        <Container>
+          <Row>
+            <Options />
+          </Row>
+          <Row>
+            <ScatterChart />
+          </Row>
+        </Container>
       </div>
     </ScatterContext.Provider>
   );

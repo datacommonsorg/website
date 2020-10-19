@@ -15,12 +15,43 @@
  */
 
 import axios from "axios";
+import _ from "lodash";
 import { getApiRoot, getApiKey } from "../../shared/util";
 
 interface ApiPlaceInfo {
   name: string;
   dcid: string;
   pop: number;
+}
+
+interface ApiPlace {
+  place: string;
+}
+
+async function getPlacesIn(dcid: string, type: string): Promise<Array<string>> {
+  const resp = await axios.get(
+    `${getApiRoot()}/node/places-in?dcids=${dcid}&placeType=${type}`
+  );
+  const places: Array<ApiPlace> = JSON.parse(resp.data.payload);
+  return places.map((place) => place.place);
+}
+
+async function getPopulations(
+  places: Array<string>,
+  denominator?: string
+): Promise<Record<string, number>> {
+  const promises = places.map((dcid) =>
+    axios.get(
+      `${getApiRoot()}/stat/value?place=${dcid}&stat_var=${
+        denominator ? "Count_Person" : denominator
+      }`
+    )
+  );
+  return Promise.all(promises).then((resps) => {
+    const dcidToPopulation = {};
+    resps.forEach((resp, i) => (dcidToPopulation[places[i]] = resp.data));
+    return dcidToPopulation;
+  });
 }
 
 async function getChildPlaces(
@@ -34,11 +65,17 @@ async function getTimeSeriesLatestPoint(
   place: string,
   statVar: string
 ): Promise<number> {
-  console.log(`getTimeSeriesLatestPoint ${place} ${statVar}`);
   const resp = await axios.get(
     `${getApiRoot()}/stat/value?place=${place}&stat_var=${statVar}&key=${getApiKey()}`
   );
+  // TODO: Error handling
   return resp.data.value;
 }
 
-export { getChildPlaces, ApiPlaceInfo, getTimeSeriesLatestPoint };
+export {
+  getPlacesIn,
+  getPopulations,
+  getChildPlaces,
+  ApiPlaceInfo,
+  getTimeSeriesLatestPoint,
+};

@@ -14,29 +14,16 @@
  * limitations under the License.
  */
 
-import React, { Component } from "react";
+import React, { Component, useContext, useEffect } from "react";
+import _ from "lodash";
 import * as d3 from "d3";
+import { ScatterContext } from "./scatter2_app";
+import { getPopulations, getTimeSeriesLatestPoint } from "./scatter2_util";
 
-interface ScatterChartPropType {
-  data: number[][];
-}
+function ScatterChart(): JSX.Element {
+  const context = useContext(ScatterContext);
 
-// interface ScatterChartStateType {
-//   statVarX: string;
-//   statVarY: string;
-//   places: string[];
-// }
-
-class ScatterChart extends Component<ScatterChartPropType, unknown> {
-  render(): JSX.Element {
-    return <div id="chart-svg"></div>;
-  }
-
-  componentDidMount() {
-    this.plot();
-  }
-
-  plot(): void {
+  function plot(): void {
     console.log("Plotting");
     const margin = {
       top: 20,
@@ -47,41 +34,34 @@ class ScatterChart extends Component<ScatterChartPropType, unknown> {
     const width = 700 - margin.left - margin.right;
     const height = 500 - margin.top - margin.bottom;
 
-    const x = d3.scaleTime().range([0, width]);
-    const y = d3.scaleLinear().range([height, 0]);
-    // Scale the range of the data
-    x.domain(
-      d3.extent(this.props.data, function (d) {
-        return d[0];
-      })
-    );
-    y.domain([
-      0,
-      d3.max(this.props.data, function (d) {
-        return d[1];
-      }),
-    ]);
-
-    const valueline = d3
-      .line()
-      .x(function (d) {
-        return x(d[0]);
-      })
-      .y(function (d) {
-        return y(d[1]);
-      });
-
+    d3.select("#scatterplot").remove();
     const svg = d3
       .select("#chart-svg")
       .append("svg")
+      .attr("id", "scatterplot")
       .attr("width", width + margin.left + margin.right)
       .attr("height", height + margin.top + margin.bottom)
       .append("g")
       .attr("transform", "translate(" + margin.left + "," + margin.top + ")");
 
+    const x = d3
+      .scaleLinear()
+      .domain(d3.extent(context.x.value.data, (val) => val))
+      .range([0, width]);
+    svg
+      .append("g")
+      .attr("transform", "translate(0," + height + ")")
+      .call(d3.axisBottom(x));
+
+    const y = d3
+      .scaleLinear()
+      .domain(d3.extent(context.y.value.data, (val) => val))
+      .range([height, 0]);
+    svg.append("g").call(d3.axisLeft(y));
+
     const path = svg
       .selectAll("dot")
-      .data(this.props.data)
+      .data(_.zip(context.x.value.data, context.y.value.data))
       .enter()
       .append("circle")
       .attr("r", 5)
@@ -94,17 +74,42 @@ class ScatterChart extends Component<ScatterChartPropType, unknown> {
       .attr("stroke", "#32CD32")
       .attr("stroke-width", 1.5)
       .attr("fill", "#FFFFFF");
-
-    svg
-      .append("g")
-      .attr("transform", "translate(0," + height + ")")
-      .call(d3.axisBottom(x));
-    svg.append("g").call(
-      d3.axisLeft(y).tickFormat(function (d) {
-        return "$" + d3.format(".2f")(d);
-      })
-    );
   }
+
+  useEffect(() => {
+    const x = context.x;
+    const y = context.y;
+    const place = context.place;
+    const placeSelected =
+      place.value.country &&
+      place.value.enclosedPlaceType &&
+      place.value.enclosingPlace.dcid &&
+      !_.isEmpty(place.value.enclosedPlaces);
+    console.log(123);
+    if (!placeSelected) {
+      return;
+    }
+    console.log(x.value.statVar);
+    if (!_.isEmpty(x.value.statVar) && _.isEmpty(x.value.data)) {
+      Promise.all(
+        place.value.enclosedPlaces.map((dcid) =>
+          getTimeSeriesLatestPoint(dcid, _.findKey(x.value.statVar))
+        )
+      ).then((values) => context.x.set({ ...context.x.value, data: values }));
+    }
+    if (!_.isEmpty(y.value.statVar) && _.isEmpty(y.value.data)) {
+      Promise.all(
+        place.value.enclosedPlaces.map((dcid) =>
+          getTimeSeriesLatestPoint(dcid, _.findKey(y.value.statVar))
+        )
+      ).then((values) => context.y.set({ ...context.y.value, data: values }));
+    }
+    if (!_.isEmpty(x.value.data) && !_.isEmpty(y.value.data)) {
+      plot();
+    }
+  }, [context]);
+
+  return <div id="chart-svg"></div>;
 }
 
 export { ScatterChart };

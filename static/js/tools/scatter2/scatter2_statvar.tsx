@@ -22,7 +22,7 @@ import { ScatterContext } from "./scatter2_app";
 
 function StatVarChooser(): JSX.Element {
   const context = useContext(ScatterContext);
-  const selected = { ...context.statVarX.value, ...context.statVarY.value };
+  const selected = { ...context.x.value.statVar, ...context.y.value.statVar };
 
   function addStatVar(
     statVar: string,
@@ -32,20 +32,20 @@ function StatVarChooser(): JSX.Element {
     const node = {
       [statVar]: { paths: [nodePath], denominators: denominators },
     };
-    if (_.isEmpty(context.statVarX.value)) {
-      context.statVarX.set(node);
-    } else if (_.isEmpty(context.statVarY.value)) {
-      context.statVarY.set(node);
+    if (_.isEmpty(context.x.value.statVar)) {
+      context.x.set({ ...context.x.value, statVar: node });
+    } else if (_.isEmpty(context.y.value.statVar)) {
+      context.y.set({ ...context.y.value, statVar: node });
     } else {
       // TODO: Pop up.
     }
   }
 
   function removeStatVar(statVar: string) {
-    if (_.keys(context.statVarX.value)[0] === statVar) {
-      context.statVarX.set({});
-    } else if (_.keys(context.statVarY.value)[0] === statVar) {
-      context.statVarY.set({});
+    if (_.keys(context.x.value.statVar)[0] === statVar) {
+      context.x.set({ ...context.x.value, statVar: {}, data: [] });
+    } else if (_.keys(context.y.value.statVar)[0] === statVar) {
+      context.y.set({ ...context.y.value, statVar: {}, data: [] });
     } else {
       // TODO: Error.
     }
@@ -61,7 +61,7 @@ function StatVarChooser(): JSX.Element {
           statsVarFilter={new NoopStatsVarFilter()}
           setStatsVarTitle={(input) => {
             console.log("setStatsVarTitle");
-            console.log(input.toString());
+            console.log(input);
           }}
           addStatsVar={addStatVar}
           removeStatsVar={removeStatVar}
