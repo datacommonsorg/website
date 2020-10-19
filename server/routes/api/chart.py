@@ -88,12 +88,16 @@ def get_choropleth_places(geoDcid):
                                                           display_level).get(
                                                               parent_dcid, [])
                     geo_prop = CHOROPLETH_GEOJSON_PROPERTY_MAP[display_level]
+                    if parent_dcid == 'geoId/72':
+                        geo_prop = 'geoJsonCoordinatesDP1'
                     return place_list, geo_prop
         return place_list
     else:
         place_list = dc_service.get_places_in([geoDcid],
                                               display_level).get(geoDcid, [])
         geo_prop = CHOROPLETH_GEOJSON_PROPERTY_MAP[display_level]
+        if geoDcid == 'geoId/72':
+            geo_prop = 'geoJsonCoordinatesDP1'
         return place_list, geo_prop
 
 

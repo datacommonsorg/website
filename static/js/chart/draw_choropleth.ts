@@ -19,6 +19,7 @@
  */
 
 import * as d3 from "d3";
+import * as geo from "geo-albers-usa-territories";
 import { STATS_VAR_LABEL } from "../shared/stats_var_labels";
 import { getColorFn, formatYAxisTicks } from "./base";
 
@@ -36,6 +37,28 @@ const LEGEND_MARGIN_RIGHT = 5;
 const LEGEND_IMG_WIDTH = 10;
 const NUM_TICKS = 5;
 const REDIRECT_BASE_URL = `/place/`;
+
+/**
+ * From https://bl.ocks.org/HarryStevens/0e440b73fbd88df7c6538417481c9065
+ * scales and translates the projection to allow resizing of the choropleth map
+ */
+function fitSize(
+  width: number,
+  height: number,
+  object: any,
+  projection: any,
+  path: d3.GeoPath<any, d3.GeoPermissibleObjects>
+): void {
+  projection.scale(1).translate([0, 0]);
+  const b = path.bounds(object);
+  const s =
+    1 / Math.max((b[1][0] - b[0][0]) / width, (b[1][1] - b[0][1]) / height);
+  const t = [
+    (width - s * (b[1][0] + b[0][0])) / 2,
+    (height - s * (b[1][1] + b[0][1])) / 2,
+  ];
+  projection.scale(s).translate(t);
+}
 
 function drawChoropleth(
   containerId: string,
@@ -75,11 +98,11 @@ function drawChoropleth(
   // Combine path elements from D3 content.
   const mapContent = map.selectAll("path").data(geoJson.features);
 
-  // Scale and center the map.
-  const projection = d3
-    .geoAlbersUsa()
-    .fitSize([chartWidth - LEGEND_WIDTH, chartHeight], geoJson);
+  const projection = geo.geoAlbersUsaTerritories();
   const geomap = d3.geoPath().projection(projection);
+
+  // Scale and center the map
+  fitSize(chartWidth - LEGEND_WIDTH, chartHeight, geoJson, projection, geomap);
 
   // Build map objects.
   mapContent
