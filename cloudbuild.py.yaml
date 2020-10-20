@@ -5,7 +5,8 @@ steps:
     entrypoint: /bin/sh
     args:
       - -c
-      - ./run_test.sh -p
+      - |
+        ./run_test.sh -p
 
   - id: package_js
     name: "node"
