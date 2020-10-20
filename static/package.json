@@ -57,7 +57,8 @@
     "typescript": "^3.9.7",
     "webpack": "^4.44.1",
     "webpack-cli": "^3.3.12",
-    "webpack-fix-style-only-entries": "^0.5.1"
+    "webpack-fix-style-only-entries": "^0.5.1",
+    "geo-albers-usa-territories": "0.1.0"
   },
   "dependencies": {
     "@babel/polyfill": "^7.11.5",
