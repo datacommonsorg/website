@@ -20,6 +20,7 @@
 
 import * as d3 from "d3";
 import * as geo from "geo-albers-usa-territories";
+import { GeoJsonData, GeoJsonFeature } from "../place/types";
 import { STATS_VAR_LABEL } from "../shared/stats_var_labels";
 import { getColorFn, formatYAxisTicks } from "./base";
 
@@ -45,24 +46,22 @@ const REDIRECT_BASE_URL = `/place/`;
 function fitSize(
   width: number,
   height: number,
-  object: any,
-  projection: any,
+  object: GeoJsonData,
+  projection: d3.GeoProjection,
   path: d3.GeoPath<any, d3.GeoPermissibleObjects>
 ): void {
   projection.scale(1).translate([0, 0]);
   const b = path.bounds(object);
   const s =
     1 / Math.max((b[1][0] - b[0][0]) / width, (b[1][1] - b[0][1]) / height);
-  const t = [
-    (width - s * (b[1][0] + b[0][0])) / 2,
-    (height - s * (b[1][1] + b[0][1])) / 2,
-  ];
-  projection.scale(s).translate(t);
+  const translateX = (width - s * (b[1][0] + b[0][0])) / 2;
+  const translateY = (height - s * (b[1][1] + b[0][1])) / 2;
+  projection.scale(s).translate([translateX, translateY]);
 }
 
 function drawChoropleth(
   containerId: string,
-  geoJson: any,
+  geoJson: GeoJsonData,
   chartHeight: number,
   chartWidth: number,
   dataValues: {
@@ -110,7 +109,7 @@ function drawChoropleth(
     .append("path")
     .attr("d", geomap)
     .attr("class", "border")
-    .attr("fill", (d: { properties: { geoDcid: string } }) => {
+    .attr("fill", (d: GeoJsonFeature) => {
       if (
         d.properties.geoDcid in dataValues &&
         dataValues[d.properties.geoDcid]
@@ -177,7 +176,7 @@ const onMouseMove = (
 };
 
 const onMapClick = (domContainerId: string, urlSuffix: string) => (
-  geo: { properties: { geoDcid: string } },
+  geo: GeoJsonFeature,
   index
 ) => {
   window.open(
