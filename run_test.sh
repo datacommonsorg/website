@@ -63,11 +63,13 @@ function run_npm_build {
 
 # Run test and check lint for Python code.
 function run_py_test {
+  set -x
   python3 -m venv .env
   source .env/bin/activate
   cd server
+  pip install --upgrade pip
   export FLASK_ENV=test
-  pip3 install -r requirements-core.txt -q
+  pip install -r requirements.txt
   python3 -m pytest tests/**.py
   cd ..
   echo -e "#### Checking Python style"
@@ -89,7 +91,7 @@ function run_webdriver_test {
   fi
   export FLASK_ENV=webdriver
   export GOOGLE_CLOUD_PROJECT=datcom-browser-staging
-  pip3 install -r requirements-core.txt -q
+  pip3 install -r requirements.txt -q
   python3 -m pytest webdriver_tests/*.py
   cd ..
 }
@@ -105,7 +107,7 @@ function run_screenshot_test {
   fi
   export FLASK_ENV=webdriver
   export GOOGLE_CLOUD_PROJECT=datcom-browser-staging
-  pip3 install -r requirements-core.txt -q
+  pip3 install -r requirements.txt -q
   if [  -d test_screenshots  ]
   then
     echo "Delete the test_screenshots folder"

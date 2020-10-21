@@ -20,6 +20,6 @@ source .env/bin/activate
 export GOOGLE_CLOUD_PROJECT=datcom-browser-staging
 export FLASK_ENV=development
 cd server
-pip3 install -r requirements-core.txt
+pip3 install -r requirements.txt
 python3 main.py
 cd ..
