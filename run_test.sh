@@ -63,7 +63,6 @@ function run_npm_build {
 
 # Run test and check lint for Python code.
 function run_py_test {
-  set -x
   python3 -m venv .env
   source .env/bin/activate
   cd server

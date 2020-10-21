@@ -1,14 +1,12 @@
 # Run Python tests, lint, etc.
 steps:
   - id: flask_test
-    name: python:3.7-alpine
+    name: python:3.7
     entrypoint: /bin/sh
     args:
       - -c
       - |
-        apk add --update build-base
-        apk add --update libffi-dev
-        sh ./run_test.sh -p
+        ./run_test.sh -p
 
   - id: package_js
     name: "node"
@@ -26,7 +24,7 @@ steps:
     args:
       - -c
       - |
-        sh ./run_test.sh -w
+        ./run_test.sh -w
 
   - id: pv_tree_generator
     name: python:3.7-slim
