@@ -19,7 +19,6 @@ steps:
     args:
       - -c
       - |
-        set -x
         ./run_test.sh -lbc
 
   - id: flask_test
@@ -28,7 +27,6 @@ steps:
     args:
       - -c
       - |
-        set -x
         ./run_test.sh -p
 
   - id: deploy
@@ -38,6 +36,7 @@ steps:
       - -c
       - |
         set -x
+        set -e
 
         # Set project
         gcloud config set project datcom-browser-staging
@@ -50,7 +49,8 @@ steps:
 
         # Deploy flask app service
         gcloud config set app/cloud_build_timeout 1200
-        gcloud app deploy server/app_staging.yaml -q --version=$SHORT_SHA
+        cd server
+        gcloud app deploy app_staging.yaml -q --version=$SHORT_SHA
 
         # Keep at most 5 recent versions
         if [[ "$(gcloud app versions list | wc -l)" -gt 6 ]]; then
@@ -66,6 +66,8 @@ steps:
       - -c
       - |
         set -x
+        set -e
+
         gcloud source repos clone deployment --project=datcom-ci
         cd deployment
         # Configure Git to create commits with Cloud Build's service account

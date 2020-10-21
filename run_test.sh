@@ -15,6 +15,7 @@
 # limitations under the License.
 
 set -e
+set -x
 
 # Run test for client side code.
 function run_npm_test {

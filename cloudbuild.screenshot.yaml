@@ -20,7 +20,6 @@ steps:
     args:
       - -c
       - |
-        set -x
         # ./run_test.sh -b can run npm run-script build command which can build all the js files.
         # These js files generated will be necessery for the flask_webdriver_test task.
         ./run_test.sh -b
@@ -40,6 +39,8 @@ steps:
     args:
       - -c
       - |
+        set -x
+        set -e
         gsutil cp server/test_screenshots/*.png gs://datcom-browser-screenshot/$SHORT_SHA/
         rm -rf server/test_screenshots
   # # Fetch author email from git commit history
