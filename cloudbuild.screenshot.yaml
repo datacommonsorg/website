@@ -31,8 +31,9 @@ steps:
     args:
       - -c
       - |
-        apk add --update build-base
-        apk add --update libffi-dev
+        apt-get update -y
+        apt-get install build-essential
+        apt-get install libffi-dev
         ./run_test.sh -s
 
   # Copy over the screenshots to gcs
