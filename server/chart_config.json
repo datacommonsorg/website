@@ -1062,6 +1062,7 @@
     "category": "Environment",
     "title": "Energy use (kg of oil equivalent per capita)",
     "statsVars": ["Amount_Consumption_Energy_PerCapita"],
+    "unit": "kg",
     "isOverview": true,
     "relatedChart": {
       "scale": false
@@ -1079,8 +1080,9 @@
   },
   {
     "category": "Environment",
-    "title": "Electricity consumption per capita (kWh)",
+    "title": "Electricity consumption per capita",
     "statsVars": ["Amount_Consumption_Electricity_PerCapita"],
+    "unit": "kWh",
     "nonDividable": true,
     "relatedChart": {
       "scale": false
