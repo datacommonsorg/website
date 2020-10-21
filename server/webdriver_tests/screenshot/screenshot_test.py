@@ -91,7 +91,7 @@ TEST_URLS = [
     },
     {
         'url':
-            '/ranking/Count_Person_BelowPovertyLevelInThePast12Months_NativeHawaiianOrOtherPacificIslanderAlone/City/geoId/06085?h=geoId%2F0649670&pc=1&scaling=100&unit=%25',
+            '/ranking/Count_Person_BelowPovertyLevelInThePast12Months_AsianAlone/City/geoId/06085?h=geoId%2F0649670&pc=1&scaling=100&unit=%25',
         'filename_suffix':
             'ranking_poverty.png',
         'test_class':
