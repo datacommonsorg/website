@@ -31,7 +31,7 @@ steps:
     args:
       - -c
       - |
-        ./run_test.sh -s
+        sh ./run_test.sh -s
 
   # Copy over the screenshots to gcs
   - name: gcr.io/cloud-builders/gsutil

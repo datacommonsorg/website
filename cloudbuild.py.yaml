@@ -26,7 +26,7 @@ steps:
     args:
       - -c
       - |
-        ./run_test.sh -w
+        sh ./run_test.sh -w
 
   - id: pv_tree_generator
     name: python:3.7-slim
