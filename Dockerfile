@@ -12,7 +12,7 @@ RUN npm run-script build
 FROM python:3.7-slim
 COPY server /website/server
 WORKDIR /website/server
-RUN pip install -r requirements.txt
+RUN pip install -r requirements-core.txt
 ENV FLASK_ENV="test"
 RUN python -m pytest
 

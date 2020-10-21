@@ -15,7 +15,12 @@
  */
 
 import React from "react";
-import { chartTypeEnum, ChartBlockData, CachedChoroplethData } from "./types";
+import {
+  chartTypeEnum,
+  ChartBlockData,
+  CachedChoroplethData,
+  GeoJsonData,
+} from "./types";
 import { randDomId } from "../shared/util";
 import { Chart } from "./chart";
 import { displayNameForPlaceType } from "./util";
@@ -53,7 +58,7 @@ interface ChartBlockPropType {
   /**
    * Promise for Geojson data for choropleth for current dcid.
    */
-  geoJsonData: Promise<unknown>;
+  geoJsonData: Promise<GeoJsonData>;
   /**
    * Promise for Values of statvar/denominator combinations for choropleth for current dcid
    */
@@ -66,6 +71,10 @@ interface ChartBlockPropType {
    * DCIDs of parent places
    */
   parentPlaces: string[];
+  /**
+   * The topic of the page the chart block is in
+   */
+  topic: string;
 }
 
 class ChartBlock extends React.Component<ChartBlockPropType, unknown> {
@@ -112,6 +121,7 @@ class ChartBlock extends React.Component<ChartBlockPropType, unknown> {
           rankingTemplateUrl={`/ranking/_sv_/${this.props.placeType}/${
             this.parentPlaceDcid
           }?${rankingParam.toString()}`}
+          topic={this.props.topic}
         ></Chart>
       );
     }
@@ -141,11 +151,15 @@ class ChartBlock extends React.Component<ChartBlockPropType, unknown> {
     const sharedProps = {
       dcid: this.props.dcid,
       placeType: this.props.placeType,
-      chartType: chartType,
       unit: unit,
       names: this.props.names,
       scaling: scaling,
       statsVars: this.props.data.statsVars,
+      topic: this.props.topic,
+    };
+    const barChartSharedProps = {
+      chartType: chartType,
+      ...sharedProps,
     };
     const rankingParam = new URLSearchParams(`h=${this.props.dcid}`);
     if (
@@ -157,12 +171,38 @@ class ChartBlock extends React.Component<ChartBlockPropType, unknown> {
     scaling && rankingParam.set("scaling", String(scaling));
     unit && rankingParam.set("unit", unit);
     const rankingArg = `?${rankingParam.toString()}`;
+    const choroplethTitle =
+      this.props.placeType === "County"
+        ? `${relatedChartTitle}: ${displayPlaceType} near ${this.props.placeName}`
+        : `${relatedChartTitle}: places within ${this.props.placeName}`;
 
     if (this.props.isOverview) {
       // Show one related place for overview page, the preference is
-      // nearby -> child -> similar -> parent
+      // choropleth -> nearby -> child -> similar -> parent
       let gotChart = false;
-      if (!_.isEmpty(this.props.data.nearby)) {
+      if (
+        !!this.props.data.isChoropleth &&
+        this.props.isUsaPlace &&
+        (this.props.placeType === "Country" ||
+          this.props.placeType === "State" ||
+          this.props.placeType === "County")
+      ) {
+        const id = randDomId();
+        chartElements.push(
+          <Chart
+            key={id}
+            id={id}
+            chartType={chartTypeEnum.CHOROPLETH}
+            title={choroplethTitle}
+            geoJsonData={this.props.geoJsonData}
+            choroplethData={this.props.choroplethData}
+            rankingTemplateUrl={`/ranking/_sv_/${this.props.placeType}/${this.props.dcid}${rankingArg}`}
+            {...sharedProps}
+          ></Chart>
+        );
+        gotChart = true;
+      }
+      if (!gotChart && !_.isEmpty(this.props.data.nearby)) {
         const id = randDomId();
         chartElements.push(
           <Chart
@@ -171,7 +211,7 @@ class ChartBlock extends React.Component<ChartBlockPropType, unknown> {
             snapshot={this.props.data.nearby}
             title={`${relatedChartTitle}: ${displayPlaceType} near ${this.props.placeName}`}
             rankingTemplateUrl={`/ranking/_sv_/${this.props.placeType}/${this.parentPlaceDcid}${rankingArg}`}
-            {...sharedProps}
+            {...barChartSharedProps}
           ></Chart>
         );
         gotChart = true;
@@ -185,7 +225,7 @@ class ChartBlock extends React.Component<ChartBlockPropType, unknown> {
             snapshot={this.props.data.child}
             title={`${relatedChartTitle}: places within ${this.props.placeName}`}
             rankingTemplateUrl={`/ranking/_sv_/${this.props.childPlaceType}/${this.props.dcid}${rankingArg}`}
-            {...sharedProps}
+            {...barChartSharedProps}
           ></Chart>
         );
         gotChart = true;
@@ -199,7 +239,7 @@ class ChartBlock extends React.Component<ChartBlockPropType, unknown> {
             snapshot={this.props.data.similar}
             title={`${relatedChartTitle}: other ${displayPlaceType}`}
             rankingTemplateUrl={`/ranking/_sv_/${this.props.placeType}/${this.parentCountry}${rankingArg}`}
-            {...sharedProps}
+            {...barChartSharedProps}
           ></Chart>
         );
         gotChart = true;
@@ -213,7 +253,7 @@ class ChartBlock extends React.Component<ChartBlockPropType, unknown> {
             snapshot={this.props.data.parent}
             title={`${relatedChartTitle}: places that contain ${this.props.placeName}`}
             rankingTemplateUrl={`/ranking/_sv_/${this.props.placeType}/${this.parentCountry}${rankingArg}`}
-            {...sharedProps}
+            {...barChartSharedProps}
           ></Chart>
         );
       }
@@ -228,7 +268,7 @@ class ChartBlock extends React.Component<ChartBlockPropType, unknown> {
             snapshot={this.props.data.nearby}
             title={`${relatedChartTitle}: ${displayPlaceType} near ${this.props.placeName}`}
             rankingTemplateUrl={`/ranking/_sv_/${this.props.placeType}/${this.parentPlaceDcid}${rankingArg}`}
-            {...sharedProps}
+            {...barChartSharedProps}
           ></Chart>
         );
       }
@@ -241,7 +281,7 @@ class ChartBlock extends React.Component<ChartBlockPropType, unknown> {
             snapshot={this.props.data.similar}
             title={`${relatedChartTitle}: other ${displayPlaceType}`}
             rankingTemplateUrl={`/ranking/_sv_/${this.props.placeType}/${this.parentCountry}${rankingArg}`}
-            {...sharedProps}
+            {...barChartSharedProps}
           ></Chart>
         );
       }
@@ -256,7 +296,7 @@ class ChartBlock extends React.Component<ChartBlockPropType, unknown> {
               snapshot={this.props.data.child}
               title={`${relatedChartTitle}: places within ${this.props.placeName}`}
               rankingTemplateUrl={`/ranking/_sv_/${this.props.childPlaceType}/${this.props.dcid}${rankingArg}`}
-              {...sharedProps}
+              {...barChartSharedProps}
             ></Chart>
           );
         }
@@ -279,37 +319,23 @@ class ChartBlock extends React.Component<ChartBlockPropType, unknown> {
               snapshot={snapshotData}
               title={`${relatedChartTitle}: places that contain ${this.props.placeName}`}
               rankingTemplateUrl={`/ranking/_sv_/${this.props.placeType}/${this.parentCountry}${rankingArg}`}
-              {...sharedProps}
+              {...barChartSharedProps}
             ></Chart>
           );
         }
       }
-      if (
-        !!this.props.data.isChoropleth &&
-        this.props.isUsaPlace &&
-        // d3 can't draw choropleth for Puerto Rico (geoId/72)
-        this.props.dcid !== "geoId/72"
-      ) {
+      if (!!this.props.data.isChoropleth && this.props.isUsaPlace) {
         const id = randDomId();
-        const chartTitle =
-          this.props.placeType === "County"
-            ? `${relatedChartTitle}: ${displayPlaceType} near ${this.props.placeName}`
-            : `${relatedChartTitle}: places within ${this.props.placeName}`;
         chartElements.push(
           <Chart
             key={id}
             id={id}
-            dcid={this.props.dcid}
-            placeType={this.props.placeType}
             chartType={chartTypeEnum.CHOROPLETH}
-            title={chartTitle}
-            unit={unit}
-            names={this.props.names}
-            scaling={scaling}
+            title={choroplethTitle}
             geoJsonData={this.props.geoJsonData}
             choroplethData={this.props.choroplethData}
-            statsVars={this.props.data.statsVars}
             rankingTemplateUrl={`/ranking/_sv_/${this.props.placeType}/${this.props.dcid}${rankingArg}`}
+            {...sharedProps}
           ></Chart>
         );
       }

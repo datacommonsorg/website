@@ -19,6 +19,8 @@
  */
 
 import * as d3 from "d3";
+import * as geo from "geo-albers-usa-territories";
+import { GeoJsonData, GeoJsonFeature } from "../place/types";
 import { STATS_VAR_LABEL } from "../shared/stats_var_labels";
 import { getColorFn, formatYAxisTicks } from "./base";
 
@@ -37,16 +39,37 @@ const LEGEND_IMG_WIDTH = 10;
 const NUM_TICKS = 5;
 const REDIRECT_BASE_URL = `/place/`;
 
+/**
+ * From https://bl.ocks.org/HarryStevens/0e440b73fbd88df7c6538417481c9065
+ * scales and translates the projection to allow resizing of the choropleth map
+ */
+function fitSize(
+  width: number,
+  height: number,
+  object: GeoJsonData,
+  projection: d3.GeoProjection,
+  path: d3.GeoPath<any, d3.GeoPermissibleObjects>
+): void {
+  projection.scale(1).translate([0, 0]);
+  const b = path.bounds(object);
+  const s =
+    1 / Math.max((b[1][0] - b[0][0]) / width, (b[1][1] - b[0][1]) / height);
+  const translateX = (width - s * (b[1][0] + b[0][0])) / 2;
+  const translateY = (height - s * (b[1][1] + b[0][1])) / 2;
+  projection.scale(s).translate([translateX, translateY]);
+}
+
 function drawChoropleth(
   containerId: string,
-  geoJson: any,
+  geoJson: GeoJsonData,
   chartHeight: number,
   chartWidth: number,
   dataValues: {
     [placeDcid: string]: number;
   },
   unit: string,
-  statVar: string
+  statVar: string,
+  urlSuffix: string
 ): void {
   const label = STATS_VAR_LABEL[statVar];
   const maxColor = d3.color(getColorFn([label])(label));
@@ -74,11 +97,11 @@ function drawChoropleth(
   // Combine path elements from D3 content.
   const mapContent = map.selectAll("path").data(geoJson.features);
 
-  // Scale and center the map.
-  const projection = d3
-    .geoAlbersUsa()
-    .fitSize([chartWidth - LEGEND_WIDTH, chartHeight], geoJson);
+  const projection = geo.geoAlbersUsaTerritories();
   const geomap = d3.geoPath().projection(projection);
+
+  // Scale and center the map
+  fitSize(chartWidth - LEGEND_WIDTH, chartHeight, geoJson, projection, geomap);
 
   // Build map objects.
   mapContent
@@ -86,7 +109,7 @@ function drawChoropleth(
     .append("path")
     .attr("d", geomap)
     .attr("class", "border")
-    .attr("fill", (d: { properties: { geoDcid: string } }) => {
+    .attr("fill", (d: GeoJsonFeature) => {
       if (
         d.properties.geoDcid in dataValues &&
         dataValues[d.properties.geoDcid]
@@ -105,7 +128,7 @@ function drawChoropleth(
     .on("mouseover", onMouseOver(domContainerId))
     .on("mouseout", onMouseOut(domContainerId))
     .on("mousemove", onMouseMove(domContainerId, dataValues, unit))
-    .on("click", onMapClick(domContainerId));
+    .on("click", onMapClick(domContainerId, urlSuffix));
 
   generateLegend(svg, chartWidth, chartHeight, colorScale, unit);
   addTooltip(domContainerId);
@@ -152,11 +175,14 @@ const onMouseMove = (
     .style("top", d3.event.offsetY + topOffset + "px");
 };
 
-const onMapClick = (domContainerId: string) => (
-  geo: { properties: { geoDcid: string } },
+const onMapClick = (domContainerId: string, urlSuffix: string) => (
+  geo: GeoJsonFeature,
   index
 ) => {
-  window.open(REDIRECT_BASE_URL + geo.properties.geoDcid, "_blank");
+  window.open(
+    `${REDIRECT_BASE_URL}${geo.properties.geoDcid}${urlSuffix}`,
+    "_blank"
+  );
   mouseOutAction(domContainerId, index);
 };
 
