@@ -41,7 +41,7 @@ steps:
         gcloud config set project datcom-browser-staging
 
         # Deploy dispatch.yaml
-        gclodu app deploy dispatch.yaml
+        gcloud app deploy dispatch.yaml
 
         # Deploy the go service
         gcloud app deploy go/go.yaml
