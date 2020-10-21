@@ -34,4 +34,3 @@ steps:
       - set -x
       - set -e
       - "cd tools/pv_tree_generator && pip install -r requirements.txt && python -m pytest"
-# TODO: Add Python linter and any other useful code health tools.
