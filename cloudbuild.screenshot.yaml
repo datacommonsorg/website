@@ -72,3 +72,5 @@ steps:
   #         --email=$(cat /workspace/email.txt) \
   #         --short_sha=$SHORT_SHA \
   #         --pull_request=$_PR_NUMBER
+
+timeout: 3600s
