@@ -14,7 +14,6 @@ steps:
     args:
       - -c
       - |
-        set -x
         # ./run_test.sh -b can run npm run-script build command which can build all the js files.
         # These js files generated will be necessery for the flask_webdriver_test task.
         ./run_test.sh -b
@@ -32,5 +31,5 @@ steps:
     entrypoint: /bin/sh
     args:
       - -c
+      - set -x
       - "cd tools/pv_tree_generator && pip install -r requirements.txt && python -m pytest"
-# TODO: Add Python linter and any other useful code health tools.
