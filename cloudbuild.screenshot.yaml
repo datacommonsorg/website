@@ -40,7 +40,6 @@ steps:
       - -c
       - |
         set -x
-        set -e
         gsutil cp server/test_screenshots/*.png gs://datcom-browser-screenshot/$SHORT_SHA/
         rm -rf server/test_screenshots
   # # Fetch author email from git commit history

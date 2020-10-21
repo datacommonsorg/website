@@ -32,5 +32,4 @@ steps:
     args:
       - -c
       - set -x
-      - set -e
       - "cd tools/pv_tree_generator && pip install -r requirements.txt && python -m pytest"

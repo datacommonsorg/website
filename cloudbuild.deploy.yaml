@@ -36,7 +36,6 @@ steps:
       - -c
       - |
         set -x
-        set -e
 
         # Set project
         gcloud config set project datcom-browser-staging
@@ -66,7 +65,6 @@ steps:
       - -c
       - |
         set -x
-        set -e
 
         gcloud source repos clone deployment --project=datcom-ci
         cd deployment
