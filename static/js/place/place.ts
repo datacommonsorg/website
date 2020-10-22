@@ -87,8 +87,8 @@ function adjustMenuPosition(): void {
     }
     topicsEl.classList.add("fixed");
     if (topicsEl.style.top != "0") {
-        topicsEl.style.top = "0";
-        topicsEl.scrollTop = 0;
+      topicsEl.style.top = "0";
+      topicsEl.scrollTop = 0;
     }
   } else {
     topicsEl.classList.remove("fixed");
