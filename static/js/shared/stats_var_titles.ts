@@ -399,7 +399,7 @@ const STATS_VAR_TITLES: { [key: string]: string } = {
   Count_Person_Upto4Years_Male_SevereWasting_AsFractionOf_Count_Person_Upto4Years_Male:
     "Severe Wasting among Children under 5 (Male)",
 
-  GiniIndex_EcconomicActivity: "Gini Index",
+  GiniIndex_EconomicActivity: "Gini Index",
 
   // Housing
   Count_HousingUnit_HomeValueUpto49999USDollar: "Under $50K",
