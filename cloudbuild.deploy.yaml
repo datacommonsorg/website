@@ -52,10 +52,16 @@ steps:
         gcloud app deploy app_staging.yaml -q --version=$SHORT_SHA
 
         # Keep at most 5 recent versions
-        if [[ "$(gcloud app versions list | wc -l)" -gt 6 ]]; then
-          echo "Remove the oldest version..."
+        if [[ "$(gcloud app versions list -s default | wc -l)" -gt 6 ]]; then
+          echo "Remove the oldest default service ..."
           gcloud app versions delete -q \
-          `gcloud app versions list --sort-by=~LAST_DEPLOYED | sed 's/  */:/g' | cut -f 2 -d : | tail -1 | tr "\n" " "`
+          `gcloud app versions list -s default --sort-by=~LAST_DEPLOYED | sed 's/  */:/g' | cut -f 2 -d : | tail -1 | tr "\n" " "`
+        fi
+
+        if [[ "$(gcloud app versions list -s go | wc -l)" -gt 6 ]]; then
+          echo "Remove the oldest go service..."
+          gcloud app versions delete -q \
+          `gcloud app versions list -s go --sort-by=~LAST_DEPLOYED | sed 's/  */:/g' | cut -f 2 -d : | tail -1 | tr "\n" " "`
         fi
 
   - id: update version
