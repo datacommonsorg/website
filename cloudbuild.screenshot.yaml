@@ -26,7 +26,7 @@ steps:
 
   # Run screenshot tests
   - id: flask_webdriver_test
-    name: gcr.io/datcom-ci/webdriver-chrome
+    name: gcr.io/datcom-ci/webdriver-chrome:2020-10-21
     entrypoint: /bin/sh
     args:
       - -c
@@ -66,9 +66,11 @@ steps:
   #     - -c
   #     - |
   #       cd build-notifier
-  #       pip3 install -r requirements-core.txt -q
+  #       pip3 install -r requirements.txt -q
   #       echo "Receiver email: $(cat /workspace/email.txt)"
   #       python3 send_email.py \
   #         --email=$(cat /workspace/email.txt) \
   #         --short_sha=$SHORT_SHA \
   #         --pull_request=$_PR_NUMBER
+
+timeout: 3600s

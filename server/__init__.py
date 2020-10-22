@@ -20,9 +20,30 @@ from flask import Flask
 from google.cloud import storage
 from werkzeug.utils import import_string
 
+from opencensus.ext.flask.flask_middleware import FlaskMiddleware
+from opencensus.ext.stackdriver.trace_exporter import StackdriverExporter
+from opencensus.trace.propagation import google_cloud_format
+from opencensus.trace.samplers import AlwaysOnSampler
+from opencensus.ext.stackdriver import trace_exporter as stackdriver_exporter
+import opencensus.trace.tracer
+
+propagator = google_cloud_format.GoogleCloudFormatPropagator()
+
+
+def createMiddleWare(app, exporter):
+    # Configure a flask middleware that listens for each request and applies
+    # automatic tracing. This needs to be set up before the application starts.
+    middleware = FlaskMiddleware(app,
+                                 exporter=exporter,
+                                 propagator=propagator,
+                                 sampler=AlwaysOnSampler())
+    return middleware
+
 
 def create_app():
     app = Flask(__name__, static_folder="dist", static_url_path="")
+
+    createMiddleWare(app, StackdriverExporter())
 
     if os.environ.get('FLASK_ENV') in ['production', 'staging']:
         import googlecloudprofiler

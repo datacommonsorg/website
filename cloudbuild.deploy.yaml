@@ -22,7 +22,7 @@ steps:
         ./run_test.sh -lbc
 
   - id: flask_test
-    name: python:3.7-slim
+    name: python:3.7
     entrypoint: /bin/sh
     args:
       - -c
