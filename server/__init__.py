@@ -31,8 +31,8 @@ propagator = google_cloud_format.GoogleCloudFormatPropagator()
 
 
 def createMiddleWare(app, exporter):
-    # Configure a flask middleware that listens for each request and applies automatic tracing.
-    # This needs to be set up before the application starts.
+    # Configure a flask middleware that listens for each request and applies
+    # automatic tracing. This needs to be set up before the application starts.
     middleware = FlaskMiddleware(app,
                                  exporter=exporter,
                                  propagator=propagator,
