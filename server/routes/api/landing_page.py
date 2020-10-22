@@ -307,7 +307,7 @@ def get_trend(cc, data, place):
 
 def get_year(date):
     try:
-        return date.split('-')[0]
+        return int(date.split('-')[0])
     except IndexError:
         raise ValueError('no valid date format found %s', date)
 
