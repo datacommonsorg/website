@@ -12,7 +12,6 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-from collections import defaultdict
 import functools
 import math
 import re
@@ -171,5 +170,5 @@ def aggregate_stat_var(place_stat_vars, range_config):
             ]
             for place, range_set in place_range.items():
                 if raw_ranges.issubset(range_set):
-                    result[place][agg_stat_var] = raw_stat_vars
+                    result[place][agg_stat_var] = sorted(raw_stat_vars)
     return result
