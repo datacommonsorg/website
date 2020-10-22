@@ -66,9 +66,8 @@ function run_py_test {
   python3 -m venv .env
   source .env/bin/activate
   cd server
-  pip install --upgrade pip
   export FLASK_ENV=test
-  pip install -r requirements.txt
+  pip3 install -r requirements.txt
   python3 -m pytest tests/**.py
   cd ..
   echo -e "#### Checking Python style"
