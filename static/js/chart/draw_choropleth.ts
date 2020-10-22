@@ -28,6 +28,9 @@ const MISSING_DATA_COLOR = "#999";
 const TOOLTIP_ID = "tooltip";
 const MIN_COLOR = "#f0f0f0";
 const GEO_STROKE_COLOR = "#fff";
+const HIGHLIGHTED_STROKE_COLOR = "#202020";
+const STROKE_WIDTH = "1px";
+const HIGHLIGHTED_STROKE_WIDTH = "1.25px";
 const AXIS_TEXT_FILL = "#2b2929";
 const AXIS_GRID_FILL = "#999";
 const LEGEND_WIDTH = 50;
@@ -38,6 +41,7 @@ const LEGEND_MARGIN_RIGHT = 5;
 const LEGEND_IMG_WIDTH = 10;
 const NUM_TICKS = 5;
 const REDIRECT_BASE_URL = `/place/`;
+const HIGHLIGHTED_CLASS_NAME = "highlighted";
 
 /**
  * From https://bl.ocks.org/HarryStevens/0e440b73fbd88df7c6538417481c9065
@@ -108,7 +112,12 @@ function drawChoropleth(
     .enter()
     .append("path")
     .attr("d", geomap)
-    .attr("class", "border")
+    .attr("class", (geo: GeoJsonFeature) => {
+      // highlight the place of the current page
+      if (geo.properties.geoDcid === geoJson.properties.current_geo) {
+        return HIGHLIGHTED_CLASS_NAME;
+      }
+    })
     .attr("fill", (d: GeoJsonFeature) => {
       if (
         d.properties.geoDcid in dataValues &&
@@ -123,13 +132,19 @@ function drawChoropleth(
     .attr("id", (_, index) => {
       return "geoPath" + index;
     })
-    .attr("stroke-width", "1px")
+    .attr("stroke-width", STROKE_WIDTH)
     .attr("stroke", GEO_STROKE_COLOR)
     .on("mouseover", onMouseOver(domContainerId))
     .on("mouseout", onMouseOut(domContainerId))
     .on("mousemove", onMouseMove(domContainerId, dataValues, unit))
     .on("click", onMapClick(domContainerId, urlSuffix));
 
+  // style highlighted region and bring to the front
+  d3.select(domContainerId)
+    .select("." + HIGHLIGHTED_CLASS_NAME)
+    .raise()
+    .attr("stroke-width", HIGHLIGHTED_STROKE_WIDTH)
+    .attr("stroke", HIGHLIGHTED_STROKE_COLOR);
   generateLegend(svg, chartWidth, chartHeight, colorScale, unit);
   addTooltip(domContainerId);
 }
