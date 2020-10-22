@@ -33,7 +33,7 @@ steps:
         ./run_test.sh -b
 
   - id: flask_webdriver_test
-    name: gcr.io/datcom-ci/webdriver-chrome
+    name: gcr.io/datcom-ci/webdriver-chrome:2020-10-21
     entrypoint: /bin/sh
     args:
       - -c
