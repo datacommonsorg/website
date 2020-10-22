@@ -508,8 +508,8 @@
   },
   {
     "category": "Equity",
-    "title": "Gini index",
-    "statsVars": ["GiniIndex_EcconomicActivity"],
+    "title": "Gini Index",
+    "statsVars": ["GiniIndex_EconomicActivity"],
     "isOverview": true,
     "relatedChart": {
       "scale": false

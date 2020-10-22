@@ -307,7 +307,7 @@ const STATS_VAR_LABEL: { [key: string]: string } = {
   Count_Person_Upto4Years_Male_SevereWasting_AsFractionOf_Count_Person_Upto4Years_Male:
     "Male",
 
-  GiniIndex_EcconomicActivity: "Gini Index",
+  GiniIndex_EconomicActivity: "Gini Index",
 
   // Housing
   Count_HousingUnit_HomeValueUpto49999USDollar: "0 - $50K",
