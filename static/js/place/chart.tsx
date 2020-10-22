@@ -49,10 +49,6 @@ interface ChartPropType {
    */
   id: string;
   /**
-   * The place type.
-   */
-  placeType: string;
-  /**
    * The chart title
    */
   title: string;
