@@ -16,7 +16,12 @@
 import React from "react";
 import { ChartBlock } from "./chart_block";
 import { Overview } from "./overview";
-import { PageChart, ChartBlockData, CachedChoroplethData } from "./types";
+import {
+  PageChart,
+  ChartBlockData,
+  CachedChoroplethData,
+  GeoJsonData,
+} from "./types";
 
 interface MainPanePropType {
   /**
@@ -32,9 +37,9 @@ interface MainPanePropType {
    */
   placeType: string;
   /**
-   * The category of the current page.
+   * The topic of the current page.
    */
-  category: string;
+  topic: string;
   /**
    * The config and stat data.
    */
@@ -50,9 +55,8 @@ interface MainPanePropType {
   names: { [key: string]: string };
   /**
    * Promise for Geojson data for choropleth for current dcid.
-   * TODO(chejennifer): replace unknown type with type for geojson
    */
-  geoJsonData: Promise<unknown>;
+  geoJsonData: Promise<GeoJsonData>;
   /**
    * Promise for Values of statvar/denominator combinations for choropleth for current dcid
    */
@@ -73,9 +77,9 @@ class MainPane extends React.Component<MainPanePropType, unknown> {
   }
 
   render(): JSX.Element {
-    const topicData = this.props.pageChart[this.props.category];
-    const category = this.props.category;
-    const isOverview = category === "Overview";
+    const topicData = this.props.pageChart[this.props.topic];
+    const currentPageTopic = this.props.topic;
+    const isOverview = currentPageTopic === "Overview";
     return (
       <>
         {this.props.isUsaPlace &&
@@ -119,6 +123,7 @@ class MainPane extends React.Component<MainPanePropType, unknown> {
                       choroplethData={this.props.choroplethData}
                       childPlaceType={this.props.childPlacesType}
                       parentPlaces={this.props.parentPlaces}
+                      topic={currentPageTopic}
                     />
                   );
                 })}

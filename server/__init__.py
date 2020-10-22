@@ -13,15 +13,47 @@
 # limitations under the License.
 
 import json
+import logging
 import os
 
 from flask import Flask
 from google.cloud import storage
 from werkzeug.utils import import_string
 
+from opencensus.ext.flask.flask_middleware import FlaskMiddleware
+from opencensus.ext.stackdriver.trace_exporter import StackdriverExporter
+from opencensus.trace.propagation import google_cloud_format
+from opencensus.trace.samplers import AlwaysOnSampler
+from opencensus.ext.stackdriver import trace_exporter as stackdriver_exporter
+import opencensus.trace.tracer
+
+propagator = google_cloud_format.GoogleCloudFormatPropagator()
+
+
+def createMiddleWare(app, exporter):
+    # Configure a flask middleware that listens for each request and applies
+    # automatic tracing. This needs to be set up before the application starts.
+    middleware = FlaskMiddleware(app,
+                                 exporter=exporter,
+                                 propagator=propagator,
+                                 sampler=AlwaysOnSampler())
+    return middleware
+
 
 def create_app():
     app = Flask(__name__, static_folder="dist", static_url_path="")
+
+    if os.environ.get('FLASK_ENV') in ['production', 'staging']:
+        createMiddleWare(app, StackdriverExporter())
+        import googlecloudprofiler
+        # Profiler initialization. It starts a daemon thread which continuously
+        # collects and uploads profiles. Best done as early as possible.
+        try:
+            # service and service_version can be automatically inferred when
+            # running on App Engine.
+            googlecloudprofiler.start(verbose=3)
+        except (ValueError, NotImplementedError) as exc:
+            logging.error(exc)
 
     # Setup flask config
     if os.environ.get('FLASK_ENV') == 'test':

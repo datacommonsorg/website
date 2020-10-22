@@ -1,11 +1,26 @@
+# Copyright 2020 Google LLC
+#
+# Licensed under the Apache License, Version 2.0 (the "License");
+# you may not use this file except in compliance with the License.
+# You may obtain a copy of the License at
+#
+#     https://www.apache.org/licenses/LICENSE-2.0
+#
+# Unless required by applicable law or agreed to in writing, software
+# distributed under the License is distributed on an "AS IS" BASIS,
+# WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+# See the License for the specific language governing permissions and
+# limitations under the License.
+
 # Run Python tests, lint, etc.
 steps:
   - id: flask_test
-    name: python:3.7-slim
+    name: python:3.7
     entrypoint: /bin/sh
     args:
       - -c
-      - ./run_test.sh -p
+      - |
+        ./run_test.sh -p
 
   - id: package_js
     name: "node"
@@ -13,13 +28,12 @@ steps:
     args:
       - -c
       - |
-        set -x
         # ./run_test.sh -b can run npm run-script build command which can build all the js files.
         # These js files generated will be necessery for the flask_webdriver_test task.
         ./run_test.sh -b
 
   - id: flask_webdriver_test
-    name: gcr.io/datcom-ci/webdriver-chrome
+    name: gcr.io/datcom-ci/webdriver-chrome:2020-10-21
     entrypoint: /bin/sh
     args:
       - -c
@@ -31,5 +45,5 @@ steps:
     entrypoint: /bin/sh
     args:
       - -c
+      - set -e
       - "cd tools/pv_tree_generator && pip install -r requirements.txt && python -m pytest"
-# TODO: Add Python linter and any other useful code health tools.

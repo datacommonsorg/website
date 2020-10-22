@@ -25,14 +25,14 @@ const STATS_VAR_TITLES: { [key: string]: string } = {
   UnemploymentRate_Person: "Unemployment Rate",
   Count_UnemploymentInsuranceClaim_StateUnemploymentInsurance:
     "State Unemployment Insurance Claims",
-  Count_Person_Employed: "Count of Employed People",
-  Count_Person_InLaborForce: "Count of People in Labor Force",
+  Count_Person_Employed: "Number of Employed People",
+  Count_Person_InLaborForce: "Labor Force",
   Count_Person: "Population",
-  Count_Person_PerArea: "Person Per Area",
+  Count_Person_PerArea: "Population Density",
   LifeExpectancy_Person: "Life Expectancy",
   GrowthRate_Count_Person: "Population Growth Rate",
   FertilityRate_Person_Female: "Fertility Rate",
-  Count_HousingUnit: "Housing Unit",
+  Count_HousingUnit: "Number of Housing Units",
 
   // Economics
   Amount_EconomicActivity_GrossDomesticProduction_Nominal:
@@ -399,7 +399,7 @@ const STATS_VAR_TITLES: { [key: string]: string } = {
   Count_Person_Upto4Years_Male_SevereWasting_AsFractionOf_Count_Person_Upto4Years_Male:
     "Severe Wasting among Children under 5 (Male)",
 
-  GiniIndex_EcconomicActivity: "Gini Index",
+  GiniIndex_EconomicActivity: "Gini Index",
 
   // Housing
   Count_HousingUnit_HomeValueUpto49999USDollar: "Under $50K",

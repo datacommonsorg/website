@@ -28,7 +28,7 @@ import { PageSubtitle } from "./page_subtitle";
 import { isPlaceInUsa } from "./util";
 import { initSearchAutocomplete } from "./search";
 
-import { CachedChoroplethData, PageData } from "./types";
+import { CachedChoroplethData, GeoJsonData, PageData } from "./types";
 
 let yScrollLimit = 0; // window scroll position to start fixing the sidebar
 let sidebarTopMax = 0; // Max top position for the sidebar, relative to #sidebar-outer.
@@ -92,13 +92,13 @@ function adjustMenuPosition(): void {
 async function getGeoJsonData(
   dcid: string,
   placeType: string
-): Promise<unknown> {
+): Promise<GeoJsonData> {
   if (shouldMakeChoroplethCalls(dcid, placeType)) {
     return axios.get("/api/chart/geojson/" + dcid).then((resp) => {
       return resp.data;
     });
   } else {
-    return Promise.resolve({});
+    return Promise.resolve(null);
   }
 }
 
@@ -149,7 +149,7 @@ function renderPage(): void {
       const loadingElem = document.getElementById("page-loading");
       if (_.isEmpty(landingPageData)) {
         loadingElem.innerText =
-          "Sorry, we don't have any charts to show for this place";
+          "Sorry, we don't have any charts to show for this place.";
         return;
       }
       loadingElem.style.display = "none";
@@ -213,7 +213,7 @@ function renderPage(): void {
 
       ReactDOM.render(
         React.createElement(MainPane, {
-          category: topic,
+          topic,
           dcid,
           isUsaPlace,
           names: data.names,

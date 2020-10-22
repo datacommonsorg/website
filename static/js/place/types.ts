@@ -102,3 +102,22 @@ export interface ChoroplethDataGroup {
   exploreUrl: string;
   sources: string[];
 }
+
+export interface GeoJsonFeatureProperties {
+  name: string;
+  hasSublevel: boolean;
+  geoDcid: string;
+}
+
+export type GeoJsonFeature = GeoJSON.Feature<
+  GeoJSON.MultiPolygon,
+  GeoJsonFeatureProperties
+>;
+
+export interface GeoJsonData extends GeoJSON.FeatureCollection {
+  type: "FeatureCollection";
+  features: Array<GeoJsonFeature>;
+  properties: {
+    current_geo: string;
+  };
+}

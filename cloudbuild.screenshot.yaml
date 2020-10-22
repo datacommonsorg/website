@@ -20,14 +20,13 @@ steps:
     args:
       - -c
       - |
-        set -x
         # ./run_test.sh -b can run npm run-script build command which can build all the js files.
         # These js files generated will be necessery for the flask_webdriver_test task.
         ./run_test.sh -b
 
   # Run screenshot tests
   - id: flask_webdriver_test
-    name: gcr.io/datcom-ci/webdriver-chrome
+    name: gcr.io/datcom-ci/webdriver-chrome:2020-10-21
     entrypoint: /bin/sh
     args:
       - -c
@@ -40,9 +39,9 @@ steps:
     args:
       - -c
       - |
+        set -e
         gsutil cp server/test_screenshots/*.png gs://datcom-browser-screenshot/$SHORT_SHA/
         rm -rf server/test_screenshots
-
   # # Fetch author email from git commit history
   # - id: fetch author email
   #   name: "gcr.io/cloud-builders/git"
@@ -59,7 +58,6 @@ steps:
   #         echo $(cut -d' ' -f2 <<<`git show $SHORT_SHA | head -2 | tail -1`) > /workspace/commit.txt
   #       fi
   #       echo `git show $(cat /workspace/commit.txt) | head -n 2 | tail -n 1 | cut -d "<" -f2 | cut -d ">" -f1` > /workspace/email.txt
-
   # # Send notify email
   # - id: send notify email
   #   name: python:3.7-slim
@@ -74,3 +72,5 @@ steps:
   #         --email=$(cat /workspace/email.txt) \
   #         --short_sha=$SHORT_SHA \
   #         --pull_request=$_PR_NUMBER
+
+timeout: 3600s

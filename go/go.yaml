@@ -12,10 +12,14 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-steps:
-  - id: "client-test"
-    name: "node"
-    entrypoint: /bin/sh
-    args:
-      - -c
-      - ./run_test.sh -lbc
+runtime: go114
+# env: flex
+
+service: go
+
+manual_scaling:
+  instances: 2
+resources:
+  cpu: 1
+  memory_gb: 1
+  disk_size_gb: 10

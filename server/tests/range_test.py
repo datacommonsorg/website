@@ -12,7 +12,6 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-import math
 import unittest
 
 import lib.range as lib_range
@@ -47,7 +46,7 @@ class TestAggregate(unittest.TestCase):
                 'Count_Person_35To44Years': ['Count_Person_35To44Years'],
                 'Count_Person_45To54Years': ['Count_Person_45To54Years'],
                 'Count_Person_55To64Years': [
-                    'Count_Person_60To61Years', 'Count_Person_55To59Years',
+                    'Count_Person_55To59Years', 'Count_Person_60To61Years',
                     'Count_Person_62To64Years'
                 ],
                 'Count_Person_65To74Years': ['Count_Person_65To74Years'],
@@ -116,7 +115,7 @@ class TestAggregate(unittest.TestCase):
                 'Count_Person_35To44Years': ['Count_Person_35To44Years'],
                 'Count_Person_45To54Years': ['Count_Person_45To54Years'],
                 'Count_Person_55To64Years': [
-                    'Count_Person_60To61Years', 'Count_Person_55To59Years',
+                    'Count_Person_55To59Years', 'Count_Person_60To61Years',
                     'Count_Person_62To64Years'
                 ],
                 'Count_Person_65To74Years': ['Count_Person_65To74Years'],
@@ -129,7 +128,7 @@ class TestAggregate(unittest.TestCase):
                 'Count_Person_35To44Years': ['Count_Person_35To44Years'],
                 'Count_Person_45To54Years': ['Count_Person_45To54Years'],
                 'Count_Person_55To64Years': [
-                    'Count_Person_60To61Years', 'Count_Person_55To59Years',
+                    'Count_Person_55To59Years', 'Count_Person_60To61Years',
                     'Count_Person_62To64Years'
                 ],
                 'Count_Person_65To74Years': ['Count_Person_65To74Years']
@@ -197,28 +196,34 @@ class TestAggregate(unittest.TestCase):
         expected = {
             'country/FRA': {
                 'Count_Person_Upto9Years': [
-                    'Count_Person_5To9Years', 'Count_Person_Upto4Years'
+                    'Count_Person_5To9Years',
+                    'Count_Person_Upto4Years',
                 ],
                 'Count_Person_10To19Years': [
-                    'Count_Person_15To19Years', 'Count_Person_10To14Years'
+                    'Count_Person_10To14Years',
+                    'Count_Person_15To19Years',
                 ],
                 'Count_Person_20To29Years': [
-                    'Count_Person_25To29Years', 'Count_Person_20To24Years'
+                    'Count_Person_20To24Years',
+                    'Count_Person_25To29Years',
                 ],
                 'Count_Person_30To39Years': [
-                    'Count_Person_35To39Years', 'Count_Person_30To34Years'
+                    'Count_Person_30To34Years',
+                    'Count_Person_35To39Years',
                 ],
                 'Count_Person_40To49Years': [
-                    'Count_Person_45To49Years', 'Count_Person_40To44Years'
+                    'Count_Person_40To44Years', 'Count_Person_45To49Years'
                 ],
                 'Count_Person_50To59Years': [
-                    'Count_Person_55To59Years', 'Count_Person_50To54Years'
+                    'Count_Person_50To54Years',
+                    'Count_Person_55To59Years',
                 ],
                 'Count_Person_60To69Years': [
-                    'Count_Person_65To69Years', 'Count_Person_60To64Years'
+                    'Count_Person_60To64Years',
+                    'Count_Person_65To69Years',
                 ],
                 'Count_Person_70OrMoreYears': [
-                    'Count_Person_75To79Years', 'Count_Person_70To74Years',
+                    'Count_Person_70To74Years', 'Count_Person_75To79Years',
                     'Count_Person_80OrMoreYears'
                 ]
             },
@@ -227,22 +232,22 @@ class TestAggregate(unittest.TestCase):
                     'Count_Person_5To9Years', 'Count_Person_Upto4Years'
                 ],
                 'Count_Person_10To19Years': [
-                    'Count_Person_15To19Years', 'Count_Person_10To14Years'
+                    'Count_Person_10To14Years', 'Count_Person_15To19Years'
                 ],
                 'Count_Person_20To29Years': [
-                    'Count_Person_25To29Years', 'Count_Person_20To24Years'
+                    'Count_Person_20To24Years', 'Count_Person_25To29Years'
                 ],
                 'Count_Person_30To39Years': [
-                    'Count_Person_35To39Years', 'Count_Person_30To34Years'
+                    'Count_Person_30To34Years', 'Count_Person_35To39Years'
                 ],
                 'Count_Person_40To49Years': [
-                    'Count_Person_45To49Years', 'Count_Person_40To44Years'
+                    'Count_Person_40To44Years', 'Count_Person_45To49Years'
                 ],
                 'Count_Person_50To59Years': [
-                    'Count_Person_55To59Years', 'Count_Person_50To54Years'
+                    'Count_Person_50To54Years', 'Count_Person_55To59Years'
                 ],
                 'Count_Person_60To69Years': [
-                    'Count_Person_65To69Years', 'Count_Person_60To64Years'
+                    'Count_Person_60To64Years', 'Count_Person_65To69Years'
                 ]
             }
         }
