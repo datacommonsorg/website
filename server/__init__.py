@@ -43,9 +43,8 @@ def createMiddleWare(app, exporter):
 def create_app():
     app = Flask(__name__, static_folder="dist", static_url_path="")
 
-    createMiddleWare(app, StackdriverExporter())
-
     if os.environ.get('FLASK_ENV') in ['production', 'staging']:
+        createMiddleWare(app, StackdriverExporter())
         import googlecloudprofiler
         # Profiler initialization. It starts a daemon thread which continuously
         # collects and uploads profiles. Best done as early as possible.

@@ -159,7 +159,7 @@ function renderPage(): void {
       const loadingElem = document.getElementById("page-loading");
       if (_.isEmpty(landingPageData)) {
         loadingElem.innerText =
-          "Sorry, we don't have any charts to show for this place";
+          "Sorry, we don't have any charts to show for this place.";
         return;
       }
       loadingElem.style.display = "none";

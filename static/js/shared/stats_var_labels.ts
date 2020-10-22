@@ -28,11 +28,11 @@ const STATS_VAR_LABEL: { [key: string]: string } = {
   Count_Person_Employed: "Employed People",
   Count_Person_InLaborForce: "People in Labor Force",
   Count_Person: "Total Population",
-  Count_Person_PerArea: "Persons Per Area",
+  Count_Person_PerArea: "Population Density",
   LifeExpectancy_Person: "Life Expectancy",
   GrowthRate_Count_Person: "Population Growth Rate",
   FertilityRate_Person_Female: "Fertility Rate",
-  Count_HousingUnit: "Housing Unit",
+  Count_HousingUnit: "Housing Units",
 
   // Economics
   Amount_EconomicActivity_GrossDomesticProduction_Nominal: "GDP",
@@ -307,7 +307,7 @@ const STATS_VAR_LABEL: { [key: string]: string } = {
   Count_Person_Upto4Years_Male_SevereWasting_AsFractionOf_Count_Person_Upto4Years_Male:
     "Male",
 
-  GiniIndex_EcconomicActivity: "Gini Index",
+  GiniIndex_EconomicActivity: "Gini Index",
 
   // Housing
   Count_HousingUnit_HomeValueUpto49999USDollar: "0 - $50K",
