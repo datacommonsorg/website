@@ -64,9 +64,13 @@ function updatePageLayoutState(): void {
 function maybeToggleFixedSidebar(): void {
   if (window.innerWidth < Y_SCROLL_WINDOW_BREAKPOINT) {
     document.removeEventListener("scroll", adjustMenuPosition);
+    document.getElementById("sidebar-region").classList.remove("fixed");
     return;
   }
   document.addEventListener("scroll", adjustMenuPosition);
+  document.getElementById("sidebar-region").style.width =
+    document.getElementById("sidebar-top-spacer").offsetWidth + "px";
+  adjustMenuPosition();
 }
 
 /**
@@ -78,10 +82,16 @@ function adjustMenuPosition(): void {
     const calcTop = window.scrollY - yScrollLimit - Y_SCROLL_MARGIN;
     if (calcTop > sidebarTopMax) {
       topicsEl.style.top = sidebarTopMax + "px";
+      topicsEl.classList.remove("fixed");
       return;
     }
-    topicsEl.style.top = calcTop + "px";
+    topicsEl.classList.add("fixed");
+    if (topicsEl.style.top != "0") {
+      topicsEl.style.top = "0";
+      topicsEl.scrollTop = 0;
+    }
   } else {
+    topicsEl.classList.remove("fixed");
     topicsEl.style.top = "0";
   }
 }
