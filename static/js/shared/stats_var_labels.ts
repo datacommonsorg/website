@@ -127,8 +127,8 @@ const STATS_VAR_LABEL: { [key: string]: string } = {
   Count_Person_AsianAlone: "Asian Alone",
   Count_Person_BlackOrAfricanAmericanAlone: "Black or African American",
   Count_Person_HispanicOrLatino: "Hispanic or Latino",
-  Count_Person_NativeHawaiianAndOtherPacificIslanderAlone:
-    "Native Hawaiian and Pacific Islander",
+  Count_Person_NativeHawaiianOrOtherPacificIslanderAlone:
+    "Native Hawaiian or Pacific Islander",
   Count_Person_SomeOtherRaceAlone: "Some Other Race",
   Count_Person_TwoOrMoreRaces: "Two or More Races",
   Count_Person_WhiteAlone: "White Alone",
@@ -139,8 +139,8 @@ const STATS_VAR_LABEL: { [key: string]: string } = {
   Count_HousingUnit_HouseholderRaceBlackOrAfricanAmericanAlone:
     "Black or African American",
   Count_HousingUnit_HouseholderRaceHispanicOrLatino: "Hispanic or Latino",
-  Count_HousingUnit_HouseholderRaceNativeHawaiianAndOtherPacificIslanderAlone:
-    "Native Hawaiian and Pacific Islander",
+  Count_HousingUnit_HouseholderRaceNativeHawaiianOrOtherPacificIslanderAlone:
+    "Native Hawaiian or Pacific Islander",
   Count_HousingUnit_HouseholderRaceSomeOtherRaceAlone: "Some Other Race",
   Count_HousingUnit_HouseholderRaceTwoOrMoreRaces: "Two or More Races",
   Count_HousingUnit_HouseholderRaceWhiteAlone: "White Alone",
@@ -151,7 +151,7 @@ const STATS_VAR_LABEL: { [key: string]: string } = {
   Median_Age_Person_BlackOrAfricanAmericanAlone: "Black or African American",
   Median_Age_Person_HispanicOrLatino: "Hispanic or Latino",
   Median_Age_Person_NativeHawaiianOrOtherPacificIslanderAlone:
-    "Native Hawaiian and Pacific Islander",
+    "Native Hawaiian or Pacific Islander",
   Median_Age_Person_SomeOtherRaceAlone: "Some Other Race",
   Median_Age_Person_TwoOrMoreRaces: "Two or More Races",
   Median_Age_Person_WhiteAlone: "White Alone",
@@ -256,7 +256,7 @@ const STATS_VAR_LABEL: { [key: string]: string } = {
   Count_Person_BelowPovertyLevelInThePast12Months_HispanicOrLatino:
     "Hispanic or Latino",
   Count_Person_BelowPovertyLevelInThePast12Months_NativeHawaiianOrOtherPacificIslanderAlone:
-    "Native Hawaiian or Other Paciific Islander",
+    "Native Hawaiian or Pacific Islander",
   Count_Person_BelowPovertyLevelInThePast12Months_WhiteAlone: "White",
   Median_Income_Person_15OrMoreYears_Male_WithIncome: "Male",
   Median_Income_Person_15OrMoreYears_Female_WithIncome: "Female",
@@ -269,7 +269,7 @@ const STATS_VAR_LABEL: { [key: string]: string } = {
     "Black or African American",
   Median_Income_Household_HouseholderRaceHispanicOrLatino: "Hispanic or Latino",
   Median_Income_Household_HouseholderRaceNativeHawaiianOrOtherPacificIslanderAlone:
-    "Native Hawaiian or Other Pacific Islander",
+    "Native Hawaiian or Pacific Islander",
   Median_Income_Household_HouseholderRaceWhiteAlone: "White",
   Percent_Person_18To64Years_Female_NoHealthInsurance: "Female",
   Percent_Person_18To64Years_Male_NoHealthInsurance: "Male",

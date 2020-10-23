@@ -4,7 +4,7 @@
   "l": "Demographics",
   "t": "p",
   "e": "Demographics",
-  "c": 1792,
+  "c": 1968,
   "cd": [
    {
     "sv": [
@@ -69,7 +69,7 @@
    {
     "l": "Age",
     "t": "p",
-    "c": 432
+    "c": 462
    },
    {
     "l": "Citizenship",
@@ -79,7 +79,7 @@
    {
     "l": "Gender",
     "t": "p",
-    "c": 1344
+    "c": 1490
    },
    {
     "l": "Income",
@@ -89,12 +89,12 @@
    {
     "l": "Marital Status",
     "t": "p",
-    "c": 73
+    "c": 79
    },
    {
     "l": "Nativity",
     "t": "p",
-    "c": 114
+    "c": 124
    },
    {
     "l": "Place Of Birth",
@@ -104,12 +104,12 @@
    {
     "l": "Poverty Status",
     "t": "p",
-    "c": 272
+    "c": 306
    },
    {
     "l": "Race",
     "t": "p",
-    "c": 1241
+    "c": 1417
    },
    {
     "l": "Veteran Status",
@@ -147,7 +147,7 @@
   "l": "Education",
   "t": "p",
   "e": "Education",
-  "c": 215,
+  "c": 233,
   "cd": [
    {
     "l": "Educational Attainment",
@@ -162,12 +162,12 @@
    {
     "l": "School Enrollment",
     "t": "p",
-    "c": 22
+    "c": 24
    },
    {
     "l": "Detailed Level Of School",
     "t": "p",
-    "c": 128
+    "c": 144
    }
   ]
  },

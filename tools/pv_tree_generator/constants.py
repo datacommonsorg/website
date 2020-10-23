@@ -137,7 +137,7 @@ IDC10_AGES = set([
 RACES = set([
     'American Indian And Alaska Native Alone', 'Asian Alone',
     'Black Or African American Alone',
-    'Native Hawaiian And Other Pacific Islander Alone', 'Some Other Race Alone',
+    'Native Hawaiian Or Other Pacific Islander Alone', 'Some Other Race Alone',
     'Two Or More Races', 'White Alone', 'White Alone Not Hispanic Or Latino',
     'Hispanic Or Latino', 'Asian Or Pacific Islander', 'White',
     'Black Or African American', 'American Indian And Alaska Native Alone'
