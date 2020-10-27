@@ -95,14 +95,16 @@ If using Linux system, you can run the following commands to download Chrome bro
 ```bash
 wget https://dl.google.com/linux/direct/google-chrome-stable_current_amd64.deb
 sudo dpkg -i google-chrome-stable_current_amd64.deb; sudo apt-get -fy install
-wget https://chromedriver.storage.googleapis.com/84.0.4147.30/chromedriver_linux64.zip
+LATESTCHROMEDRIVERVERSION=$(curl https://chromedriver.storage.googleapis.com/LATEST_RELEASE)
+wget https://chromedriver.storage.googleapis.com/${LATESTCHROMEDRIVERVERSION}/chromedriver_linux64.zip
+unset LATESTCHROMEDRIVERVERSION
 unzip chromedriver_linux64.zip
 sudo mv chromedriver /usr/bin/chromedriver
 sudo chown root:root /usr/bin/chromedriver
 sudo chmod +x /usr/bin/chromedriver
 ```
 
-Note: You can change `84.0.4147.30`(version number) to the lastet version [here](https://chromedriver.storage.googleapis.com/LATEST_RELEASE).
+Note: You can change view the lastet ChromeDriver version version [here](https://chromedriver.storage.googleapis.com/LATEST_RELEASE).
 
 #### Run all tests
 
