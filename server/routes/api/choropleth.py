@@ -22,7 +22,12 @@ import routes.api.place as place
 LEVEL_MAP = {
     "Country": "AdministrativeArea1",
     "AdministrativeArea1": "AdministrativeArea2",
-    "AdministrativeArea2": "City"
+}
+
+# GeoJSON property to use, keyed by display level.
+GEOJSON_PROPERTY_MAP = {
+    "AdministrativeArea1": "geoJsonCoordinatesDP3",
+    "AdministrativeArea2": "geoJsonCoordinatesDP1",
 }
 
 # All choropleth endpoints are defined with the choropleth/ prefix.
@@ -121,6 +126,7 @@ def choropleth_geo():
         return flask.jsonify({"error": "Must provide a 'geoDcid' field!"}, 400)
     display_level = get_sublevel(requested_geoDcid,
                                  flask.request.args.get("level"))
+    geo_json_prop = GEOJSON_PROPERTY_MAP.get(display_level, None)
     if not display_level:
         return flask.jsonify(
             {
@@ -129,7 +135,13 @@ def choropleth_geo():
                     +
                     f"{requested_geoDcid}. Please provide a 'level' field manually."
             }, 400)
-
+    if not geo_json_prop:
+        return flask.jsonify(
+            {
+                "error":
+                    f"Geojson data is not available for the geographic subdivision"
+                    + f"level needed for {requested_geoDcid}."
+            }, 400)
     # Get optional fields.
     measurement_denominator = flask.request.args.get("mdom",
                                                      default="Count_Person")
@@ -144,7 +156,7 @@ def choropleth_geo():
     names_by_geo = dc.get_property_values(
         geos_contained_in_place + [requested_geoDcid], "name")
     geojson_by_geo = dc.get_property_values(geos_contained_in_place,
-                                            "geoJsonCoordinates")
+                                            geo_json_prop)
 
     # Download population data if per capita.
     # TODO(iancostello): Determine how to handle populations
@@ -217,7 +229,7 @@ def get_sublevel(requested_geoDcid, display_level):
     Args:
         requested_geoDcid: The parent geo DCID to find children.
         display_level: Display level provided or None. Valid display_levels
-            are [AdministrativeLevel1, AdministrativeLevel2, City]
+            are [AdministrativeLevel1, AdministrativeLevel2]
     Returns:
        Directly returns display_level argument if it is not none.
         Otherwise the next sublevel below the parent is returned.
