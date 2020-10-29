@@ -21,7 +21,7 @@ import {
   ChartBlockData,
   CachedChoroplethData,
   GeoJsonData,
-} from "./types";
+} from "../chart/types";
 
 interface MainPanePropType {
   /**
