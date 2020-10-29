@@ -26,6 +26,60 @@ import {
   formatYAxisTicks,
 } from "./base";
 
+import i18next from "i18next";
+import Backend from "i18next-http-backend";
+import Cache from "i18next-localstorage-cache";
+import postProcessor from "i18next-sprintf-postprocessor";
+import LanguageDetector from "i18next-browser-languagedetector";
+
+i18next
+  .use(Backend)
+  .use(Cache)
+  .use(LanguageDetector)
+  .use(postProcessor)
+  .init(
+    {
+      lng: "en",
+      resources: {
+        en: {
+          translation: {
+            "San Jose": "San Jose",
+            Fremont: "Fremont",
+            "San Francisco": "San Francisco",
+            "Mountain View": "Vista desde la Montaña",
+            "Very-Long-City-Name": "Nombre-Ciudad-Muy-Largo",
+            "Multi several very long city name long":
+              "Varios nombres de ciudades muy largos largos",
+            "very very very long place name": "nombre de lugar muy muy largo",
+            "such a long name that it needs to span 4 lines":
+              "un nombre tan largo que necesita abarcar 4 líneas",
+            "Santa Clara County": "Condado de Santa Clara",
+            Nevada: "Nevada",
+            California: "California",
+            "United States": "Estados Unidos",
+            January: "Enero",
+            February: "Febrero",
+            March: "Marzo",
+            April: "Abril",
+            May: "Mayo",
+            June: "Junio",
+            July: "Julio",
+            August: "Agosto",
+            September: "Septiembre",
+            October: "Octubre",
+            November: "Noviembre",
+            December: "Diciembre",
+            Total: "Total",
+            Male: "Masculino",
+            "label-1": "etiqueta-1",
+            "label-2": "etiqueta-2",
+          },
+        },
+      },
+    },
+    function (err, t) {}
+  );
+
 const NUM_X_TICKS = 5;
 const NUM_Y_TICKS = 5;
 const MARGIN = { top: 20, right: 10, bottom: 30, left: 40, yAxis: 3, grid: 5 };
@@ -57,6 +111,15 @@ const AXIS_GRID_FILL = "#999";
 // Max Y value used for y domains for charts that have only 0 values.
 const MAX_Y_FOR_ZERO_CHARTS = 10;
 
+function translate(text: string): string {
+  if (i18next.t(text)) {
+    text = i18next.t(text);
+  }
+  return text;
+}
+function translate_key(key: { label: string; link?: string }) {
+  key.label = translate(key.label);
+}
 function appendLegendElem(
   elem: string,
   color: d3.ScaleOrdinal<string, string>,
@@ -65,6 +128,7 @@ function appendLegendElem(
     link?: string;
   }[]
 ): void {
+  keys.forEach(translate_key);
   d3.select("#" + elem)
     .append("div")
     .attr("class", "legend")
@@ -95,8 +159,7 @@ function wrap(
 ) {
   texts.each(function () {
     const text = d3.select(this);
-    const words = text
-      .text()
+    const words = translate(text.text())
       .replace("-", "-#") // Handle e.g. "ABC-AB A" -> "ABC-", "AB" "A"
       .split(/[ #]/)
       .filter((w) => w.trim() != "")
@@ -298,7 +361,7 @@ function drawHistogram(
   dataPoints: DataPoint[],
   unit?: string
 ): void {
-  const textList = dataPoints.map((dataPoint) => dataPoint.label);
+  const textList = dataPoints.map((dataPoint) => translate(dataPoint.label));
   const values = dataPoints.map((dataPoint) => dataPoint.value);
 
   const svg = d3
@@ -839,7 +902,7 @@ function drawGroupLineChart(
     .attr("transform", `translate(${MARGIN.grid}, ${YLABEL.topMargin})`)
     .style("font-size", "12px")
     .style("text-rendering", "optimizedLegibility")
-    .text(ylabel);
+    .text(translate(ylabel));
 
   for (const place in dataGroupsDict) {
     dataGroups = dataGroupsDict[place];
@@ -880,7 +943,7 @@ function drawGroupLineChart(
       .style("font-size", "12px")
       .style("text-anchor", "start")
       .style("text-rendering", "optimizedLegibility")
-      .text(sourceText);
+      .text(translate(sourceText));
   }
 
   const legend = svg
@@ -932,7 +995,7 @@ function buildInChartLegend(
       .attr("transform", `translate(${dashWidth}, 0)`)
       .attr("y", "0.3em")
       .attr("dy", "0")
-      .text(label)
+      .text(translate(label))
       .style("text-rendering", "optimizedLegibility")
       .style("fill", `${legendStyle.color}`)
       .call(wrap, legendTextdWidth);
