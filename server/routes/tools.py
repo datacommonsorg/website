@@ -15,12 +15,15 @@
 import flask
 import os
 
+from flask import current_app
+
 bp = flask.Blueprint("tools", __name__, url_prefix='/tools')
 
 
 @bp.route('/timeline')
 def timeline():
-    return flask.render_template('tools/timeline.html')
+    return flask.render_template(
+        'tools/timeline.html', maps_api_key=current_app.config['MAPS_API_KEY'])
 
 
 @bp.route('/scatter')
@@ -41,4 +44,5 @@ def scatter2():
     # TODO(intrepiditee): Permit production use after development finishes.
     if os.environ.get('FLASK_ENV') == 'production':
         flask.abort(404)
-    return flask.render_template('tools/scatter2.html')
+    return flask.render_template(
+        'tools/scatter2.html', maps_api_key=current_app.config['MAPS_API_KEY'])
