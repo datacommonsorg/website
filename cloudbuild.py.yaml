@@ -17,6 +17,7 @@ steps:
   - id: flask_test
     name: python:3.7
     entrypoint: /bin/sh
+    waitFor: ['-']
     args:
       - -c
       - |
@@ -25,6 +26,7 @@ steps:
   - id: package_js
     name: "node"
     entrypoint: /bin/bash
+    waitFor: ['-']
     args:
       - -c
       - |
@@ -35,6 +37,8 @@ steps:
   - id: flask_webdriver_test
     name: gcr.io/datcom-ci/webdriver-chrome:2020-10-21
     entrypoint: /bin/sh
+    waitFor:
+      - package_js
     args:
       - -c
       - |
@@ -43,6 +47,7 @@ steps:
   - id: pv_tree_generator
     name: python:3.7-slim
     entrypoint: /bin/sh
+    waitFor: ['-']
     args:
       - -c
       - set -e
