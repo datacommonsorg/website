@@ -77,7 +77,7 @@ interface ChartBlockPropType {
   topic: string;
 }
 
-class ChartBlock extends React.Component<ChartBlockPropType, unknown> {
+class ChartBlock extends React.Component<ChartBlockPropType> {
   parentPlaceDcid: string;
   parentCountry: string;
   displayPlaceName: string;

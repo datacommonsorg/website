@@ -23,7 +23,7 @@ interface ParentPlacePropsType {
   names: { string: string };
 }
 
-class ParentPlace extends React.Component<ParentPlacePropsType, unknown> {
+class ParentPlace extends React.Component<ParentPlacePropsType> {
   constructor(props: ParentPlacePropsType) {
     super(props);
   }

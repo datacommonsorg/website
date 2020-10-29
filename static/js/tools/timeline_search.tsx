@@ -52,7 +52,7 @@ interface SearchBarPropType {
   removePlace: (place: string) => void;
 }
 
-class SearchBar extends Component<SearchBarPropType, unknown> {
+class SearchBar extends Component<SearchBarPropType> {
   inputElem: React.RefObject<HTMLInputElement>;
   ac: google.maps.places.Autocomplete;
 

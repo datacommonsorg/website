@@ -71,7 +71,7 @@ interface MainPanePropType {
   parentPlaces: string[];
 }
 
-class MainPane extends React.Component<MainPanePropType, unknown> {
+class MainPane extends React.Component<MainPanePropType> {
   constructor(props: MainPanePropType) {
     super(props);
   }
