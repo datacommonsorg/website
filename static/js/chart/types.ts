@@ -20,6 +20,8 @@ export const chartTypeEnum = {
   STACK_BAR: "STACK_BAR",
   GROUP_BAR: "GROUP_BAR",
   CHOROPLETH: "CHOROPLETH",
+  GROUP_LINE: "GROUP_LINE",
+  HISTOGRAM: "HISTOGRAM",
 };
 
 export interface Series {

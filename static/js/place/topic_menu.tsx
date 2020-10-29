@@ -15,7 +15,7 @@
  */
 
 import React from "react";
-import { PageChart } from "./types";
+import { PageChart } from "../chart/types";
 
 interface MenuCategoryPropsType {
   dcid: string;
