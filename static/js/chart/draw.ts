@@ -39,9 +39,9 @@ i18next
   .use(postProcessor)
   .init(
     {
-      lng: "en",
+      lng: "es",
       resources: {
-        en: {
+        es: {
           translation: {
             "San Jose": "San Jose",
             Fremont: "Fremont",
