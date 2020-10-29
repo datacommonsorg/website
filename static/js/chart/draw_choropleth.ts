@@ -20,7 +20,7 @@
 
 import * as d3 from "d3";
 import * as geo from "geo-albers-usa-territories";
-import { GeoJsonData, GeoJsonFeature } from "../place/types";
+import { GeoJsonData, GeoJsonFeature } from "./types";
 import { STATS_VAR_LABEL } from "../shared/stats_var_labels";
 import { getColorFn, formatYAxisTicks } from "./base";
 
