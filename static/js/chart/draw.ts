@@ -59,7 +59,7 @@ const AXIS_GRID_FILL = "#999";
 // Max Y value used for y domains for charts that have only 0 values.
 const MAX_Y_FOR_ZERO_CHARTS = 10;
 
-function translate(text: string): string {
+function translated(text: string): string {
   if (!text) {
     console.log("No text");
   } else if (i18n.t(text)) {
@@ -86,7 +86,7 @@ function appendLegendElem(
     .join("div")
     .attr("style", (d) => `background: ${color(d.label)}`)
     .append("a")
-    .text((d) => translate(d.label))
+    .text((d) => translated(d.label))
     .attr("href", (d) => d.link || null);
 }
 
@@ -108,7 +108,7 @@ function wrap(
 ) {
   texts.each(function () {
     const text = d3.select(this);
-    const words = translate(text.text())
+    const words = translated(text.text())
       .replace("-", "-#") // Handle e.g. "ABC-AB A" -> "ABC-", "AB" "A"
       .split(/[ #]/)
       .filter((w) => w.trim() != "")
@@ -310,7 +310,7 @@ function drawHistogram(
   dataPoints: DataPoint[],
   unit?: string
 ): void {
-  const textList = dataPoints.map((dataPoint) => translate(dataPoint.label));
+  const textList = dataPoints.map((dataPoint) => translated(dataPoint.label));
   const values = dataPoints.map((dataPoint) => dataPoint.value);
 
   const svg = d3
@@ -851,7 +851,7 @@ function drawGroupLineChart(
     .attr("transform", `translate(${MARGIN.grid}, ${YLABEL.topMargin})`)
     .style("font-size", "12px")
     .style("text-rendering", "optimizedLegibility")
-    .text(translate(ylabel));
+    .text(translated(ylabel));
 
   for (const place in dataGroupsDict) {
     dataGroups = dataGroupsDict[place];
@@ -892,7 +892,7 @@ function drawGroupLineChart(
       .style("font-size", "12px")
       .style("text-anchor", "start")
       .style("text-rendering", "optimizedLegibility")
-      .text(translate(sourceText));
+      .text(translated(sourceText));
   }
 
   const legend = svg
@@ -944,7 +944,7 @@ function buildInChartLegend(
       .attr("transform", `translate(${dashWidth}, 0)`)
       .attr("y", "0.3em")
       .attr("dy", "0")
-      .text(translate(label))
+      .text(translated(label))
       .style("text-rendering", "optimizedLegibility")
       .style("fill", `${legendStyle.color}`)
       .call(wrap, legendTextdWidth);
