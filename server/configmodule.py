@@ -8,6 +8,7 @@ import datetime
 class Config:
     TEST = False
     WEBDRIVER = False
+    DEVELOPMENT = False
     CACHE_TYPE = 'simple'  # Flask-Caching related configs
     GAE_VERSION = (os.environ.get('GAE_VERSION') or
                    datetime.datetime.today().strftime("%m-%d-%H-%M"))
