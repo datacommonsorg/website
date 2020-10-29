@@ -18,17 +18,14 @@ The client side will request chart configuration including chart type,
 statistical variables, etc. from endpoints in this module.
 """
 
-import copy
 import json
-import urllib
 import services.datacommons as dc_service
 import routes.api.place as place_api
-import os
 import routes.api.choropleth as choropleth_api
 import routes.api.landing_page as landing_page_api
 
 from cache import cache
-from flask import Blueprint, current_app, Response, url_for, jsonify
+from flask import Blueprint, current_app, Response
 from routes.api.place import EQUIVALENT_PLACE_TYPES
 # Define blueprint
 bp = Blueprint("api_chart", __name__, url_prefix='/api/chart')

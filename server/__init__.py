@@ -20,12 +20,11 @@ from flask import Flask
 from google.cloud import storage
 from werkzeug.utils import import_string
 
+from google.cloud import secretmanager
 from opencensus.ext.flask.flask_middleware import FlaskMiddleware
 from opencensus.ext.stackdriver.trace_exporter import StackdriverExporter
 from opencensus.trace.propagation import google_cloud_format
 from opencensus.trace.samplers import AlwaysOnSampler
-from opencensus.ext.stackdriver import trace_exporter as stackdriver_exporter
-import opencensus.trace.tracer
 
 propagator = google_cloud_format.GoogleCloudFormatPropagator()
 
@@ -62,8 +61,13 @@ def create_app():
         cfg = import_string('configmodule.ProductionConfig')()
     elif os.environ.get('FLASK_ENV') == 'webdriver':
         cfg = import_string('configmodule.WebdriverConfig')()
-    else:
+    elif os.environ.get('FLASK_ENV') == 'staging':
+        cfg = import_string('configmodule.StagingConfig')()
+    elif os.environ.get('FLASK_ENV') == 'development':
         cfg = import_string('configmodule.DevelopmentConfig')()
+    else:
+        raise ValueError("No valid FLASK_ENV is specified: %s",
+                         os.environ.get('FLASK_ENV'))
     app.config.from_object(cfg)
 
     # Init extentions
@@ -95,6 +99,16 @@ def create_app():
     with open('chart_config.json') as f:
         chart_config = json.load(f)
     app.config['CHART_CONFIG'] = chart_config
+
+    if cfg.WEBDRIVER or cfg.DEVELOPMENT:
+        secret_client = secretmanager.SecretManagerServiceClient()
+        secret_name = secret_client.secret_version_path(cfg.PROJECT,
+                                                        'maps-api-key', '1')
+        secret_response = secret_client.access_secret_version(secret_name)
+        app.config['MAPS_API_KEY'] = secret_response.payload.data.decode(
+            'UTF-8')
+    else:
+        app.config['MAPS_API_KEY'] = "AIzaSyCi3WDvStkhQOBQRnV_4Fcuar7ZRteHgvU"
 
     if cfg.TEST or cfg.WEBDRIVER:
         app.config['PLACEID2DCID'] = {

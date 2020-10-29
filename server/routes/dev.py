@@ -52,7 +52,7 @@ def clearcache():
 def clearcacheaction():
     user_input = request.form.get('secret')
     if os.environ.get('FLASK_ENV') == 'staging':
-        cfg = import_string('configmodule.DevelopmentConfig')()
+        cfg = import_string('configmodule.StagingConfig')()
     elif os.environ.get('FLASK_ENV') == 'production':
         cfg = import_string('configmodule.ProductionConfig')()
     else:

@@ -19,7 +19,6 @@ in chart.py and place.py
 
 import collections
 import copy
-import datetime
 import json
 import logging
 import urllib
