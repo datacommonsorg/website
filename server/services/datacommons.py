@@ -56,6 +56,7 @@ DC_API_KEY = 'api-key'
 # REST API endpoint paths
 API_ENDPOINTS = {
     'query': '/query',
+    'translate': '/translate',
     'search': '/search',
     'get_property_labels': '/node/property-labels',
     'get_property_values': '/node/property-values',
@@ -92,6 +93,12 @@ def search(query_text, max_results):
             'Printing response\n{}'.format(response.status_code,
                                            response.reason))
     return response.json()
+
+
+def translate(sparql, mapping):
+    url = API_ROOT + API_ENDPOINTS['translate']
+    req_json = {'schema_mapping': mapping, 'sparql': sparql}
+    return send_request(url, req_json=req_json, has_payload=False)
 
 
 def get_stats(place_dcids, stats_var):
