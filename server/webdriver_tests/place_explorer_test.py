@@ -66,7 +66,7 @@ class TestPlaceExplorer(WebdriverBaseTest):
         self.driver.implicitly_wait(10)
         search_box = self.driver.find_element_by_class_name("pac-target-input")
         search_box.send_keys(PLACE_SEARCH)
-        self.driver.implicitly_wait(20)
+        self.driver.implicitly_wait(10)
         search_results = self.driver.find_elements_by_class_name("pac-item")
         ca_result = search_results[0]
         ca_result.click()

@@ -100,13 +100,13 @@ class TestCharts(WebdriverBaseTest):
         search_box_input = search_box.find_element_by_id("ac")
         # Add California
         search_box_input.send_keys(PLACE_SEARCH_CA)
-        time.sleep(3)
+        time.sleep(2)
         search_results = self.driver.find_elements_by_class_name("pac-item")
         ca_result = search_results[0]
         ca_result.click()
         # Add USA
         search_box_input.send_keys(PLACE_SEARCH_USA)
-        time.sleep(3)
+        time.sleep(2)
         search_results = self.driver.find_elements_by_class_name("pac-item")
         ca_result = search_results[0]
         ca_result.click()
