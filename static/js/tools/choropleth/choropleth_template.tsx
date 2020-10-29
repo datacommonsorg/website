@@ -158,9 +158,6 @@ class MainPane extends Component {
             <div id="heading">Loading...</div>
             <div id="error"></div>
             <div>
-              <div className="column" id="hover-text-display"></div>
-            </div>
-            <div>
               <ChoroplethMap
                 ref={this.state && this.state["choroplethMap"]}
               ></ChoroplethMap>

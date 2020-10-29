@@ -27,15 +27,6 @@
   stroke-width: 0.5px;
 }
 
-.border-highlighted {
-  stroke: black;
-  stroke-width: 1px;
-}
-
-.clickable {
-  cursor: pointer;
-}
-
 #explore {
   float: left;
   width: 25%;
@@ -91,4 +82,21 @@
 button {
   border-radius: 50%;
   overflow: hidden;
+}
+
+.highlighted {
+  fill: rgba(0, 0, 0, .5) !important;
+}
+
+.clickable {
+  cursor: pointer;
+}
+
+#tooltip {
+  background-color: #fff;
+  color: #3b3b3b;;
+  font-size: 0.8rem;
+  border-radius: 3px;
+  border: 0.5px solid #dee2e6;
+  padding: 0.3rem;
 }

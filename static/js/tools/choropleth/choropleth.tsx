@@ -21,12 +21,16 @@ import React, { Component } from "react";
 import axios from "axios";
 import * as d3 from "d3";
 import ReactDOM from "react-dom";
+import { GeoJsonData, GeoJsonFeature } from "../../chart/types";
 
+const TOOLTIP_ID = "tooltip";
+const STROKE_WIDTH = "1px";
+const STROKE_COLOR = "#fff";
 type PropsType = unknown;
 
 // TODO(eduardo): get rid of "unknown" type.
 type StateType = {
-  geoJson: unknown;
+  geoJson: GeoJsonData;
   values: { [geoId: string]: number };
   data: { [geoId: string]: { [date: string]: number } };
   date: string;
@@ -36,24 +40,24 @@ type StateType = {
 };
 
 class ChoroplethMap extends Component<PropsType, StateType> {
-  public state = {
-    geoJson: [] as any,
-    data: {},
-    date: "latest",
-    mapContent: {} as any,
-    pc: false,
-    popMap: {},
-    values: {},
-  };
-
-  public componentDidMount = (): void => {
+  constructor(props: PropsType) {
+    super(props);
     const urlParams = new URLSearchParams(window.location.search);
     const isPerCapita =
       urlParams.has("pc") &&
       ["t", "true", "1"].includes(urlParams.get("pc").toLowerCase());
-    this.setState({
+    this.state   = {
+      geoJson: [] as any,
+      data: {},
+      date: "latest",
+      mapContent: {} as any,
       pc: isPerCapita,
-    });
+      popMap: {},
+      values: {},
+    }
+  }
+
+  public componentDidMount = (): void => {
     this.loadGeoJson();
   };
 
@@ -181,13 +185,15 @@ class ChoroplethMap extends Component<PropsType, StateType> {
       .enter()
       .append("path")
       .attr("d", geomap)
-      // Add CSS class to each path for border outlining.
-      .attr("class", "border")
+      .attr("stroke-width", STROKE_WIDTH)
+      .attr("stroke", STROKE_COLOR)
       .attr("fill", "gray")
       // Add various event handlers.
       .on("mouseover", this.handleMapHover)
+      .on("mousemove", this.handleMouseMove)
       .on("mouseleave", this.mouseLeave)
       .on("click", this.handleMapClick);
+      
 
     this.setState({ mapContent });
 
@@ -206,6 +212,7 @@ class ChoroplethMap extends Component<PropsType, StateType> {
     // TODO(fpernice-google): Derive the curGeo value from geoDcid instead
     // of embedding in url.
     generateBreadCrumbs(this.state["geoJson"]["properties"]["current_geo"]);
+    addTooltip();
   };
 
   /**
@@ -247,13 +254,13 @@ class ChoroplethMap extends Component<PropsType, StateType> {
       .selectAll("path")
       .data(geojson.features)
       .attr("id", (_, index) => {
-        return "geoPath/" + index;
+        return "geoPath" + index;
       });
 
     // Create new infill.
     mapContent.attr(
       "fill",
-      (d: { properties: { geoDcid: string; pop: number } }) => {
+      (d: GeoJsonFeature) => {
         if (d.properties.geoDcid in geoIdToValue) {
           const value = geoIdToValue[d.properties.geoDcid];
           if (isPerCapita) {
@@ -472,23 +479,24 @@ class ChoroplethMap extends Component<PropsType, StateType> {
     this.loadValues();
   };
 
+  private handleMapHover = (geo: GeoJsonFeature, index: number): void => {
+    // Highlight selected subgeos and change pointer if they are clickable.
+    d3.select("#svg-container")
+      .select("#geoPath" + index)
+      .classed("highlighted", true)
+      .classed("clickable", geo.properties.hasSublevel)
+    // show tooltip
+    d3.select("#svg-container").select(`#${TOOLTIP_ID}`).style("display", "block");
+  }
+
   /**
    * Capture hover event on geo and displays relevant information.
    * @param {json} geo is the geoJson content for the hovered geo.
    */
-  private handleMapHover = (
-    geo: {
-      ref: string;
-      properties: {
-        name: string;
-        geoDcid: string;
-        pop: number;
-        hasSublevel: boolean;
-      };
-    },
+  private handleMouseMove = (
+    geo: GeoJsonFeature,
     index: number
   ): void => {
-    // Display statistical variable information on hover.
     const name = geo.properties.name;
     const geoDcid = geo.properties.geoDcid;
     const values = this.state["values"];
@@ -502,37 +510,37 @@ class ChoroplethMap extends Component<PropsType, StateType> {
         }
       }
     }
-
-    document.getElementById("hover-text-display").innerHTML =
-      name + " - " + formatGeoValue(geoValue, this.state["pc"]);
-
-    // Highlight selected subgeos and change pointer if they are clickable.
-    let objClass = "border-highlighted";
-    if (geo.properties.hasSublevel) {
-      objClass += " clickable";
-    }
-    document.getElementById("geoPath/" + index).setAttribute("class", objClass);
+    const tooltipSelect = d3.select("#svg-container").select(`#${TOOLTIP_ID}`);
+    const text = name + ": " + formatGeoValue(geoValue, this.state["pc"]);
+    const tooltipHeight = (tooltipSelect.node() as HTMLDivElement).clientHeight;
+    const offset = 5;
+    const leftOffset = offset;
+    const topOffset = -tooltipHeight - offset;
+    tooltipSelect
+      .text(text)
+      .style("left", d3.event.offsetX + leftOffset + "px")
+      .style("top", d3.event.offsetY + topOffset + "px");
   };
 
   /**
    * Clears output after leaving a geo.
    */
-  private mouseLeave = (_geo: { ref: string }, index: number): void => {
-    // Remove hover text.
-    document.getElementById("hover-text-display").innerHTML = "";
-
-    // Remove geo display effect.
-    document.getElementById("geoPath/" + index).setAttribute("class", "border");
+  private mouseLeave = (_geo: GeoJsonFeature, index: number): void => {
+    this.mouseOutAction(index);
   };
+
+  private mouseOutAction = (index: number) => {
+    const container = d3.select("#svg-container");
+    container.select("#geoPath" + index).classed("highlighted", false).classed("clickable", false);
+    container.select(`#${TOOLTIP_ID}`).style("display", "none");
+  }
 
   /**
    * Capture click event on geo and zooms
    * user into that geo in the choropleth tool.
    * @param {json} geo is the geoJson content for the clicked geo.
    */
-  private handleMapClick = (geo: {
-    properties: { geoDcid: string; hasSublevel: boolean };
-  }): void => {
+  private handleMapClick = (geo: GeoJsonFeature, index: number): void => {
     if (geo.properties.hasSublevel) {
       redirectToGeo(
         geo.properties.geoDcid,
@@ -541,6 +549,7 @@ class ChoroplethMap extends Component<PropsType, StateType> {
     } else {
       alert("This geo has no further sublevels!");
     }
+    this.mouseOutAction(index);
   };
 
   public render = (): JSX.Element => {
@@ -549,7 +558,7 @@ class ChoroplethMap extends Component<PropsType, StateType> {
     const h = window.innerHeight;
 
     return (
-      <>
+      <div id="svg-container">
         <svg
           id="map_container"
           width={`${(w * 2) / 3}px`}
@@ -557,7 +566,7 @@ class ChoroplethMap extends Component<PropsType, StateType> {
         >
           <g className="map" />
         </svg>
-      </>
+      </div>
     );
   };
 }
@@ -644,6 +653,14 @@ const generateBreadCrumbs = (curGeo: string): void => {
     );
   }
 };
+
+function addTooltip() {
+  d3.select("#svg-container")
+    .attr("style", "position: relative")
+    .append("div")
+    .attr("id", TOOLTIP_ID)
+    .attr("style", "position: absolute; display: none; z-index: 10");
+}
 
 /**
  * Returns domain of color palette as len 9 numerical array for plotting.
