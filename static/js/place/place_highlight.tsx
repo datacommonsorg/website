@@ -15,7 +15,7 @@
  */
 
 import React from "react";
-import { PageHighlight } from "./types";
+import { PageHighlight } from "../chart/types";
 import _ from "lodash";
 
 interface PlaceHighlightPropsType {

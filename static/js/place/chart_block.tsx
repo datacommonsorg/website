@@ -20,7 +20,7 @@ import {
   ChartBlockData,
   CachedChoroplethData,
   GeoJsonData,
-} from "./types";
+} from "../chart/types";
 import { randDomId } from "../shared/util";
 import { Chart } from "./chart";
 import { displayNameForPlaceType } from "./util";
