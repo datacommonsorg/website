@@ -155,6 +155,12 @@ def mcf_playground():
     return flask.render_template('mcf_playground.html')
 
 
+@app.route('/locales/<path:filepath>')
+def locales(filepath):
+    logging.info(filepath)
+    return flask.send_file('../locales/' + filepath)
+
+
 if __name__ == '__main__':
     # This is used when running locally only. When deploying to Google App
     # Engine, a webserver process such as Gunicorn will serve the app. This
