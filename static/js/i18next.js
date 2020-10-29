@@ -8,7 +8,7 @@ i18n
   .use(LanguageDetector)
   .use(postProcessor)
   .init({
-    defaultNS: "en-US",
+    fallbackLng: "en-US",
     preload: ["en-US", "es"],
     supportedLngs: ["en-US", "es"],
     ns: ["dev_page"],

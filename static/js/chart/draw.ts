@@ -59,17 +59,12 @@ const AXIS_GRID_FILL = "#999";
 // Max Y value used for y domains for charts that have only 0 values.
 const MAX_Y_FOR_ZERO_CHARTS = 10;
 
+// Lightweight wrapper function since the arrow function in appendLegendElem
+// complains about mapping the keys elements to i18n.t().
 function translated(text: string): string {
-  if (!text) {
-    console.log("No text");
-  } else if (i18n.t(text)) {
-    text = i18n.t(text);
-  } else {
-    console.log("Failed to translate.");
-    console.log(text);
-  }
-  return text;
+  return i18n.t(text);
 }
+
 function appendLegendElem(
   elem: string,
   color: d3.ScaleOrdinal<string, string>,
