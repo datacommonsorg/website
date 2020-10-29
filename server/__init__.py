@@ -66,7 +66,7 @@ def create_app():
     elif os.environ.get('FLASK_ENV') == 'development':
         cfg = import_string('configmodule.DevelopmentConfig')()
     else:
-        raise ValueError("No valid FLASK_ENV is specified: %s",
+        raise ValueError("No valid FLASK_ENV is specified: %s" %
                          os.environ.get('FLASK_ENV'))
     app.config.from_object(cfg)
 
