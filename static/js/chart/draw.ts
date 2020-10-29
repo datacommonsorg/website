@@ -26,59 +26,7 @@ import {
   formatYAxisTicks,
 } from "./base";
 
-import i18next from "i18next";
-import Backend from "i18next-http-backend";
-import Cache from "i18next-localstorage-cache";
-import postProcessor from "i18next-sprintf-postprocessor";
-import LanguageDetector from "i18next-browser-languagedetector";
-
-i18next
-  .use(Backend)
-  .use(Cache)
-  .use(LanguageDetector)
-  .use(postProcessor)
-  .init(
-    {
-      lng: "es",
-      resources: {
-        es: {
-          translation: {
-            "San Jose": "San Jose",
-            Fremont: "Fremont",
-            "San Francisco": "San Francisco",
-            "Mountain View": "Vista desde la Montaña",
-            "Very-Long-City-Name": "Nombre-Ciudad-Muy-Largo",
-            "Multi several very long city name long":
-              "Varios nombres de ciudades muy largos largos",
-            "very very very long place name": "nombre de lugar muy muy largo",
-            "such a long name that it needs to span 4 lines":
-              "un nombre tan largo que necesita abarcar 4 líneas",
-            "Santa Clara County": "Condado de Santa Clara",
-            Nevada: "Nevada",
-            California: "California",
-            "United States": "Estados Unidos",
-            January: "Enero",
-            February: "Febrero",
-            March: "Marzo",
-            April: "Abril",
-            May: "Mayo",
-            June: "Junio",
-            July: "Julio",
-            August: "Agosto",
-            September: "Septiembre",
-            October: "Octubre",
-            November: "Noviembre",
-            December: "Diciembre",
-            Total: "Total",
-            Male: "Masculino",
-            "label-1": "etiqueta-1",
-            "label-2": "etiqueta-2",
-          },
-        },
-      },
-    },
-    function (err, t) {}
-  );
+import i18n from "../i18next";
 
 const NUM_X_TICKS = 5;
 const NUM_Y_TICKS = 5;
@@ -112,13 +60,15 @@ const AXIS_GRID_FILL = "#999";
 const MAX_Y_FOR_ZERO_CHARTS = 10;
 
 function translate(text: string): string {
-  if (i18next.t(text)) {
-    text = i18next.t(text);
+  if (!text) {
+    console.log("No text");
+  } else if (i18n.t(text)) {
+    text = i18n.t(text);
+  } else {
+    console.log("Failed to translate.");
+    console.log(text);
   }
   return text;
-}
-function translate_key(key: { label: string; link?: string }) {
-  key.label = translate(key.label);
 }
 function appendLegendElem(
   elem: string,
@@ -128,7 +78,6 @@ function appendLegendElem(
     link?: string;
   }[]
 ): void {
-  keys.forEach(translate_key);
   d3.select("#" + elem)
     .append("div")
     .attr("class", "legend")
@@ -137,7 +86,7 @@ function appendLegendElem(
     .join("div")
     .attr("style", (d) => `background: ${color(d.label)}`)
     .append("a")
-    .text((d) => d.label)
+    .text((d) => translate(d.label))
     .attr("href", (d) => d.link || null);
 }
 
