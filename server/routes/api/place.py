@@ -18,7 +18,7 @@ import random
 import re
 import time
 
-from flask import Blueprint, jsonify, request, Response, url_for
+from flask import Blueprint, request, Response, url_for
 
 from cache import cache
 import services.datacommons as dc

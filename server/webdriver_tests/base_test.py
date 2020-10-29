@@ -20,6 +20,11 @@ from main import app
 # Base test class to setup the server.
 class WebdriverBaseTest(LiveServerTestCase):
 
+    @classmethod
+    def setUpClass(cls):
+        cls.port = 12345
+        super(WebdriverBaseTest, cls).setUpClass()
+
     def create_app(self):
         return app
 
