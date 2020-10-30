@@ -16,6 +16,7 @@
 This module contains the request handler codes and the main app.
 """
 
+import os
 import json
 import logging
 
@@ -157,7 +158,8 @@ def mcf_playground():
 
 @app.route('/locales/<path:filepath>')
 def locales(filepath):
-    logging.info(filepath)
+    if os.environ.get('FLASK_ENV') == 'production':
+        return ''
     return flask.send_file('../locales/' + filepath)
 
 
