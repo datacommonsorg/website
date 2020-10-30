@@ -26,6 +26,7 @@ import { GeoJsonData, GeoJsonFeature } from "../../chart/types";
 const TOOLTIP_ID = "tooltip";
 const STROKE_WIDTH = "1px";
 const STROKE_COLOR = "#fff";
+const LEGEND_HEIGHT = 60;
 type PropsType = unknown;
 
 // TODO(eduardo): get rid of "unknown" type.
@@ -168,18 +169,26 @@ class ChoroplethMap extends Component<PropsType, StateType> {
   private drawBlankGeoMap = (): void => {
     // Combine path elements from D3 content.
     const geojson = this.state["geoJson"];
-    const mapContent = d3
-      .select("#main-pane g.map")
-      .selectAll("path")
-      .data(geojson.features);
+    const container = document.getElementById("main-content");
+    const heading = document.getElementById("heading");
+    const padding = 7;
+    const width = container.offsetWidth - padding * 2;
+    const height = container.offsetHeight - heading.clientHeight - LEGEND_HEIGHT - padding * 2;
+    const svg  = d3.select("#svg-container")
+    .attr("padding", `${padding}px`)
+    .append("svg")
+    .attr("id", "map-container")
+    .attr("viewBox", `0, 0, ${width}, ${height}`)
+    .attr("preserveAspectRatio", "xMinYMin meet")
+
+    const map = svg.append("g").attr("class", "map");
+    const mapContent = map.selectAll("path").data(geojson.features);
 
     // Scale and center the map.
-    const svgContainer = document.getElementById("map_container");
     const projection = d3
       .geoAlbersUsa()
-      .fitSize([svgContainer.clientWidth, svgContainer.clientHeight], geojson);
+      .fitSize([width, height], geojson);
     const geomap = d3.geoPath().projection(projection);
-
     // Build map objects.
     mapContent
       .enter()
@@ -319,7 +328,6 @@ class ChoroplethMap extends Component<PropsType, StateType> {
    */
   private generateLegend = (color: d3.ScaleLinear<number, number>): void => {
     const width = 300;
-    const height = 60;
     const tickSize = 6;
     const title = "Color Scale";
     const marginTop = 18;
@@ -337,7 +345,7 @@ class ChoroplethMap extends Component<PropsType, StateType> {
       .select("#legend")
       .append("svg")
       .attr("width", width)
-      .attr("height", height);
+      .attr("height", LEGEND_HEIGHT);
 
     const n = Math.min(color.domain().length, color.range().length);
 
@@ -347,7 +355,7 @@ class ChoroplethMap extends Component<PropsType, StateType> {
       .attr("x", marginSides)
       .attr("y", marginTop)
       .attr("width", width - 2 * marginSides)
-      .attr("height", height - marginTop - marginBottom)
+      .attr("height", LEGEND_HEIGHT - marginTop - marginBottom)
       .attr("preserveAspectRatio", "none")
       .attr(
         "xlink:href",
@@ -370,17 +378,17 @@ class ChoroplethMap extends Component<PropsType, StateType> {
 
     svg
       .append("g")
-      .attr("transform", `translate(0, ${height - marginBottom})`)
+      .attr("transform", `translate(0, ${LEGEND_HEIGHT - marginBottom})`)
       .call(d3.axisBottom(x).tickSize(tickSize).tickValues(tickValues))
       .call((g) =>
-        g.selectAll(".tick line").attr("y1", marginTop + marginBottom - height)
+        g.selectAll(".tick line").attr("y1", marginTop + marginBottom - LEGEND_HEIGHT)
       )
       .call((g) => g.select(".domain").remove())
       .call((g) =>
         g
           .append("text")
           .attr("x", marginSides)
-          .attr("y", marginTop + marginBottom - height - textPadding)
+          .attr("y", marginTop + marginBottom - LEGEND_HEIGHT - textPadding)
           .attr("fill", "currentColor")
           .attr("text-anchor", "start")
           .attr("font-weight", "bold")
@@ -513,7 +521,7 @@ class ChoroplethMap extends Component<PropsType, StateType> {
     const tooltipSelect = d3.select("#svg-container").select(`#${TOOLTIP_ID}`);
     const text = name + ": " + formatGeoValue(geoValue, this.state["pc"]);
     const tooltipHeight = (tooltipSelect.node() as HTMLDivElement).clientHeight;
-    const offset = 5;
+    const offset = 10;
     const leftOffset = offset;
     const topOffset = -tooltipHeight - offset;
     tooltipSelect
@@ -553,20 +561,9 @@ class ChoroplethMap extends Component<PropsType, StateType> {
   };
 
   public render = (): JSX.Element => {
-    // TODO(fpernice-google): Handle window resize event to update map size.
-    const w = window.innerWidth;
-    const h = window.innerHeight;
 
     return (
-      <div id="svg-container">
-        <svg
-          id="map_container"
-          width={`${(w * 2) / 3}px`}
-          height={`${(h * 2) / 3.5}px`}
-        >
-          <g className="map" />
-        </svg>
-      </div>
+      <div id="svg-container"></div>
     );
   };
 }

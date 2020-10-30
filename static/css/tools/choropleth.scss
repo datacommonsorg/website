@@ -18,10 +18,6 @@
 @import '../tools/statvar_menu';
 @import '../draw';
 
-#map_container {
-  margin-left: 5%;
-}
-
 .border {
   stroke: gray;
   stroke-width: 0.5px;
@@ -54,6 +50,7 @@
 #main-content {
   float: right;
   width: 75%;
+  height: 100%;
 }
 
 #breadcrumbs {
@@ -62,16 +59,10 @@
   width: 100%;
 }
 
-#hover-text-display {
-  float: right;
-  min-width: 150px;
-  width: 40%;
-  height: 0;
-}
-
 #heading {
   font-size: 32px;
   text-align: center;
+  padding-bottom: 15px;
 }
 
 #error {
@@ -99,4 +90,19 @@ button {
   border-radius: 3px;
   border: 0.5px solid #dee2e6;
   padding: 0.3rem;
+}
+
+.choropleth-tool-container {
+  height: 100%;
+  overflow-y: auto;
+}
+
+#choropleth-body {
+  min-width: 650px;
+}
+
+#choropleth-footer {
+  width: 100%;
+  display: flex;
+  justify-content: center;
 }
