@@ -24,7 +24,7 @@ interface MapPropType {
   dcid: string;
 }
 
-class Map extends React.Component<MapPropType, unknown> {
+class Map extends React.Component<MapPropType> {
   div: React.RefObject<HTMLDivElement>;
 
   constructor(props: MapPropType) {
