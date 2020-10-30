@@ -14,6 +14,7 @@
 """Place Explorer related handlers."""
 
 import flask
+from flask import current_app
 import routes.api.place as place_api
 
 bp = flask.Blueprint('place', __name__, url_prefix='/place')
@@ -33,7 +34,9 @@ def place(place_dcid=None):
         return flask.redirect(url)
 
     if not place_dcid:
-        return flask.render_template('place_landing.html')
+        return flask.render_template(
+            'place_landing.html',
+            maps_api_key=current_app.config['MAPS_API_KEY'])
 
     place_type = place_api.get_place_type(place_dcid)
     place_names = place_api.get_property_value(place_dcid, 'name')
@@ -41,8 +44,10 @@ def place(place_dcid=None):
         place_name = place_names[0]
     else:
         place_name = place_dcid
-    return flask.render_template('place.html',
-                                 place_type=place_type,
-                                 place_name=place_name,
-                                 place_dcid=place_dcid,
-                                 topic=topic if topic else '')
+    return flask.render_template(
+        'place.html',
+        place_type=place_type,
+        place_name=place_name,
+        place_dcid=place_dcid,
+        topic=topic if topic else '',
+        maps_api_key=current_app.config['MAPS_API_KEY'])
