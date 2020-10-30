@@ -1,0 +1,7 @@
+{
+  "foo_key": "foo_val",
+  "i18next": "returns the query string if not found in the translation json.",
+  "Since current queries are english": "no need to flush this out.",
+  "We will switch to using ": "localization_input_id as query keys instead.",
+  "label-2": "label-2"
+}
