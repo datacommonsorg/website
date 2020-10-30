@@ -43,8 +43,10 @@ type StateType = {
 };
 
 class ChoroplethMap extends Component<PropsType, StateType> {
+  svgContainerElement: React.RefObject<HTMLDivElement>;
   constructor(props: PropsType) {
     super(props);
+    this.svgContainerElement = React.createRef();
     const urlParams = new URLSearchParams(window.location.search);
     const isPerCapita =
       urlParams.has("pc") &&
@@ -58,10 +60,21 @@ class ChoroplethMap extends Component<PropsType, StateType> {
       popMap: {},
       values: {},
     };
+    this._handleWindowResize = this._handleWindowResize.bind(this);
+  }
+
+  public componentWillUnmount(): void {
+    window.removeEventListener("resize", this._handleWindowResize);
   }
 
   public componentDidMount = (): void => {
+    window.addEventListener("resize", this._handleWindowResize);
     this.loadGeoJson();
+  };
+
+  private _handleWindowResize = (): void => {
+    this.drawBlankGeoMap();
+    this.addColorToGeoMap();
   };
 
   /**
@@ -171,7 +184,7 @@ class ChoroplethMap extends Component<PropsType, StateType> {
   private drawBlankGeoMap = (): void => {
     // Combine path elements from D3 content.
     const geojson = this.state["geoJson"];
-    const container = document.getElementById("main-content");
+    const container = document.getElementById("choropleth-body");
     const heading = document.getElementById("heading");
     const padding = 7;
     const width = container.offsetWidth - padding * 2;
@@ -180,13 +193,16 @@ class ChoroplethMap extends Component<PropsType, StateType> {
       heading.clientHeight -
       LEGEND_HEIGHT -
       padding * 2;
+    if (!d3.select("#map-container").empty()) {
+      d3.select("#map-container").remove();
+    }
     const svg = d3
       .select("#svg-container")
       .attr("padding", `${padding}px`)
       .append("svg")
       .attr("id", "map-container")
-      .attr("viewBox", `0, 0, ${width}, ${height}`)
-      .attr("preserveAspectRatio", "xMinYMin meet");
+      .attr("width", width)
+      .attr("height", height);
     const map = svg.append("g").attr("class", "map");
     const mapContent = map.selectAll("path").data(geojson.features);
 
@@ -564,7 +580,7 @@ class ChoroplethMap extends Component<PropsType, StateType> {
   };
 
   public render = (): JSX.Element => {
-    return <div id="svg-container"></div>;
+    return <div id="svg-container" ref={this.svgContainerElement}></div>;
   };
 }
 
@@ -656,7 +672,7 @@ function addTooltip() {
     .attr("style", "position: relative")
     .append("div")
     .attr("id", TOOLTIP_ID)
-    .attr("style", "position: absolute; display: none; z-index: 10");
+    .attr("style", "position: absolute; display: none; z-index: 1");
 }
 
 /**

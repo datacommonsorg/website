@@ -58,6 +58,7 @@
   float: left;
   height: 30px;
   width: 100%;
+  padding: 0.5rem;
 }
 
 #heading {
@@ -86,7 +87,7 @@ button {
 
 #tooltip {
   background-color: #fff;
-  color: #3b3b3b;;
+  color: #3b3b3b;
   font-size: 0.8rem;
   border-radius: 3px;
   border: 0.5px solid #dee2e6;
@@ -99,7 +100,9 @@ button {
 }
 
 #choropleth-body {
-  min-width: 650px;
+  min-width: 500px;
+  min-height: 450px;
+  height: 100%;
 }
 
 #choropleth-footer {
