@@ -180,7 +180,6 @@ class ChoroplethMap extends Component<PropsType, StateType> {
     .attr("id", "map-container")
     .attr("viewBox", `0, 0, ${width}, ${height}`)
     .attr("preserveAspectRatio", "xMinYMin meet")
-
     const map = svg.append("g").attr("class", "map");
     const mapContent = map.selectAll("path").data(geojson.features);
 
@@ -235,7 +234,7 @@ class ChoroplethMap extends Component<PropsType, StateType> {
 
     // Build chart display options.
     const blues = [
-      "#f7fbff",
+      "#eef5fb",
       "#deebf7",
       "#c6dbef",
       "#9ecae1",
@@ -329,7 +328,7 @@ class ChoroplethMap extends Component<PropsType, StateType> {
   private generateLegend = (color: d3.ScaleLinear<number, number>): void => {
     const width = 300;
     const tickSize = 6;
-    const title = "Color Scale";
+    const title ="Scale";
     const marginTop = 18;
     const marginBottom = 16 + tickSize;
     const marginSides = 15;
@@ -432,7 +431,6 @@ class ChoroplethMap extends Component<PropsType, StateType> {
     // Store the new date and the new values.
     this.setState({ date: newDate, values: geoIdToValue }, () => {
       // Re-render component and map.
-      this.drawBlankGeoMap();
       this.addColorToGeoMap();
 
       // TODO(edumorales): show the range of dates somewhere so that
