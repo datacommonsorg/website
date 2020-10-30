@@ -22,11 +22,13 @@ import axios from "axios";
 import * as d3 from "d3";
 import ReactDOM from "react-dom";
 import { GeoJsonData, GeoJsonFeature } from "../../chart/types";
+import _ from "lodash";
 
 const TOOLTIP_ID = "tooltip";
 const STROKE_WIDTH = "1px";
 const STROKE_COLOR = "#fff";
 const LEGEND_HEIGHT = 60;
+const LATEST_DATE = "latest";
 type PropsType = unknown;
 
 // TODO(eduardo): get rid of "unknown" type.
@@ -47,15 +49,15 @@ class ChoroplethMap extends Component<PropsType, StateType> {
     const isPerCapita =
       urlParams.has("pc") &&
       ["t", "true", "1"].includes(urlParams.get("pc").toLowerCase());
-    this.state   = {
+    this.state = {
       geoJson: [] as any,
       data: {},
-      date: "latest",
+      date: LATEST_DATE,
       mapContent: {} as any,
       pc: isPerCapita,
       popMap: {},
       values: {},
-    }
+    };
   }
 
   public componentDidMount = (): void => {
@@ -83,7 +85,7 @@ class ChoroplethMap extends Component<PropsType, StateType> {
         // All the timeseries data for all places.
         const data = values[1].data[0];
         // The latest value for all places.
-        const geoIdToValues = this.filterByDate(data, "latest");
+        const geoIdToValues = this.filterByDate(data, LATEST_DATE);
 
         this.setState({
           geoJson: geoJson,
@@ -118,7 +120,7 @@ class ChoroplethMap extends Component<PropsType, StateType> {
         // Because this is the first time loading the page,
         // filter the value by "latest" date.
         const data = resp.data[0];
-        const geoIdToValues = this.filterByDate(data, "latest");
+        const geoIdToValues = this.filterByDate(data, LATEST_DATE);
 
         // values contains only the data for the date being observed.
         // data contains the raw data.
@@ -173,20 +175,23 @@ class ChoroplethMap extends Component<PropsType, StateType> {
     const heading = document.getElementById("heading");
     const padding = 7;
     const width = container.offsetWidth - padding * 2;
-    const height = container.offsetHeight - heading.clientHeight - LEGEND_HEIGHT - padding * 2;
-    const svg  = d3.select("#svg-container")
-    .attr("padding", `${padding}px`)
-    .append("svg")
-    .attr("id", "map-container")
-    .attr("viewBox", `0, 0, ${width}, ${height}`)
-    .attr("preserveAspectRatio", "xMinYMin meet")
+    const height =
+      container.offsetHeight -
+      heading.clientHeight -
+      LEGEND_HEIGHT -
+      padding * 2;
+    const svg = d3
+      .select("#svg-container")
+      .attr("padding", `${padding}px`)
+      .append("svg")
+      .attr("id", "map-container")
+      .attr("viewBox", `0, 0, ${width}, ${height}`)
+      .attr("preserveAspectRatio", "xMinYMin meet");
     const map = svg.append("g").attr("class", "map");
     const mapContent = map.selectAll("path").data(geojson.features);
 
     // Scale and center the map.
-    const projection = d3
-      .geoAlbersUsa()
-      .fitSize([width, height], geojson);
+    const projection = d3.geoAlbersUsa().fitSize([width, height], geojson);
     const geomap = d3.geoPath().projection(projection);
     // Build map objects.
     mapContent
@@ -201,7 +206,6 @@ class ChoroplethMap extends Component<PropsType, StateType> {
       .on("mousemove", this.handleMouseMove)
       .on("mouseleave", this.mouseLeave)
       .on("click", this.handleMapClick);
-      
 
     this.setState({ mapContent });
 
@@ -266,23 +270,20 @@ class ChoroplethMap extends Component<PropsType, StateType> {
       });
 
     // Create new infill.
-    mapContent.attr(
-      "fill",
-      (d: GeoJsonFeature) => {
-        if (d.properties.geoDcid in geoIdToValue) {
-          const value = geoIdToValue[d.properties.geoDcid];
-          if (isPerCapita) {
-            if (Object.prototype.hasOwnProperty.call(d.properties, "pop")) {
-              return colorScale(value / d.properties.pop);
-            }
-            return "gray";
+    mapContent.attr("fill", (d: GeoJsonFeature) => {
+      if (d.properties.geoDcid in geoIdToValue) {
+        const value = geoIdToValue[d.properties.geoDcid];
+        if (isPerCapita) {
+          if (Object.prototype.hasOwnProperty.call(d.properties, "pop")) {
+            return colorScale(value / d.properties.pop);
           }
-          return colorScale(value);
-        } else {
           return "gray";
         }
+        return colorScale(value);
+      } else {
+        return "gray";
       }
-    );
+    });
 
     // Update title.
     // TODO(iancostello): Use react component instead of innerHTML throughout.
@@ -328,7 +329,7 @@ class ChoroplethMap extends Component<PropsType, StateType> {
   private generateLegend = (color: d3.ScaleLinear<number, number>): void => {
     const width = 300;
     const tickSize = 6;
-    const title ="Scale";
+    const title = "Scale";
     const marginTop = 18;
     const marginBottom = 16 + tickSize;
     const marginSides = 15;
@@ -380,7 +381,9 @@ class ChoroplethMap extends Component<PropsType, StateType> {
       .attr("transform", `translate(0, ${LEGEND_HEIGHT - marginBottom})`)
       .call(d3.axisBottom(x).tickSize(tickSize).tickValues(tickValues))
       .call((g) =>
-        g.selectAll(".tick line").attr("y1", marginTop + marginBottom - LEGEND_HEIGHT)
+        g
+          .selectAll(".tick line")
+          .attr("y1", marginTop + marginBottom - LEGEND_HEIGHT)
       )
       .call((g) => g.select(".domain").remove())
       .call((g) =>
@@ -454,7 +457,7 @@ class ChoroplethMap extends Component<PropsType, StateType> {
     Object.entries(values).forEach(([geoId, dateToValue]) => {
       // If the user wants to filter by "latest",
       // figure out what the latest date is.
-      if (date === "latest") {
+      if (date === LATEST_DATE) {
         const dates = Object.keys(dateToValue);
         realISOdate = this.getLatestDate(dates);
       }
@@ -490,19 +493,18 @@ class ChoroplethMap extends Component<PropsType, StateType> {
     d3.select("#svg-container")
       .select("#geoPath" + index)
       .classed("highlighted", true)
-      .classed("clickable", geo.properties.hasSublevel)
+      .classed("clickable", geo.properties.hasSublevel);
     // show tooltip
-    d3.select("#svg-container").select(`#${TOOLTIP_ID}`).style("display", "block");
-  }
+    d3.select("#svg-container")
+      .select(`#${TOOLTIP_ID}`)
+      .style("display", "block");
+  };
 
   /**
    * Capture hover event on geo and displays relevant information.
    * @param {json} geo is the geoJson content for the hovered geo.
    */
-  private handleMouseMove = (
-    geo: GeoJsonFeature,
-    index: number
-  ): void => {
+  private handleMouseMove = (geo: GeoJsonFeature): void => {
     const name = geo.properties.name;
     const geoDcid = geo.properties.geoDcid;
     const values = this.state["values"];
@@ -537,9 +539,12 @@ class ChoroplethMap extends Component<PropsType, StateType> {
 
   private mouseOutAction = (index: number) => {
     const container = d3.select("#svg-container");
-    container.select("#geoPath" + index).classed("highlighted", false).classed("clickable", false);
+    container
+      .select("#geoPath" + index)
+      .classed("highlighted", false)
+      .classed("clickable", false);
     container.select(`#${TOOLTIP_ID}`).style("display", "none");
-  }
+  };
 
   /**
    * Capture click event on geo and zooms
@@ -559,10 +564,7 @@ class ChoroplethMap extends Component<PropsType, StateType> {
   };
 
   public render = (): JSX.Element => {
-
-    return (
-      <div id="svg-container"></div>
-    );
+    return <div id="svg-container"></div>;
   };
 }
 
@@ -737,6 +739,11 @@ type DatePickerPropsType = {
 const DatePicker = (props: DatePickerPropsType): JSX.Element => {
   // Sort the dates in descending order.
   const sortedDates = props.dates.sort().reverse();
+  if (_.isEmpty(sortedDates)) {
+    return null;
+  }
+  const selectedDate =
+    props.selectedDate === LATEST_DATE ? sortedDates[0] : props.selectedDate;
 
   // Create the option components.
   const dateComponents = sortedDates.map((date) => {
@@ -749,16 +756,8 @@ const DatePicker = (props: DatePickerPropsType): JSX.Element => {
 
   // Return the select component.
   return (
-    <select
-      onChange={props.onSelectedDateChanged}
-      defaultValue={props.selectedDate}
-    >
-      {[
-        <option key={"latest"} value={"latest"}>
-          Latest Date
-        </option>,
-        ...dateComponents,
-      ]}
+    <select onChange={props.onSelectedDateChanged} defaultValue={selectedDate}>
+      {dateComponents}
     </select>
   );
 };
