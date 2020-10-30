@@ -26,7 +26,7 @@ interface PlaceHighlightPropsType {
 /**
  * Adds highlighted facts about a place under the subtitle of the page.
  */
-class PlaceHighlight extends React.Component<PlaceHighlightPropsType, unknown> {
+class PlaceHighlight extends React.Component<PlaceHighlightPropsType> {
   constructor(props: PlaceHighlightPropsType) {
     super(props);
   }

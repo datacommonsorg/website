@@ -25,7 +25,7 @@ interface OverviewPropType {
   dcid: string;
 }
 
-class Overview extends React.Component<OverviewPropType, unknown> {
+class Overview extends React.Component<OverviewPropType> {
   render(): JSX.Element {
     return (
       <section className="factoid col-12">
