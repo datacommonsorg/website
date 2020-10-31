@@ -31,6 +31,8 @@ elif os.environ.get('FLASK_ENV') == 'webdriver':
     cfg = import_string('configmodule.WebdriverConfig')()
 elif os.environ.get('FLASK_ENV') == 'production':
     cfg = import_string('configmodule.ProductionConfig')()
+elif os.environ.get('FLASK_ENV') == 'staging':
+    cfg = import_string('configmodule.StagingConfig')()
 else:
     cfg = import_string('configmodule.DevelopmentConfig')()
 

@@ -18,17 +18,14 @@ The client side will request chart configuration including chart type,
 statistical variables, etc. from endpoints in this module.
 """
 
-import copy
 import json
-import urllib
 import services.datacommons as dc_service
 import routes.api.place as place_api
-import os
 import routes.api.choropleth as choropleth_api
 import routes.api.landing_page as landing_page_api
 
 from cache import cache
-from flask import Blueprint, current_app, Response, url_for, jsonify
+from flask import Blueprint, current_app, Response
 from routes.api.place import EQUIVALENT_PLACE_TYPES
 # Define blueprint
 bp = Blueprint("api_chart", __name__, url_prefix='/api/chart')
@@ -88,12 +85,18 @@ def get_choropleth_places(geoDcid):
                                                           display_level).get(
                                                               parent_dcid, [])
                     geo_prop = CHOROPLETH_GEOJSON_PROPERTY_MAP[display_level]
+                    # Puerto Rico (geoId/72) requires higher resolution geoJson
+                    if parent_dcid == 'geoId/72':
+                        geo_prop = 'geoJsonCoordinatesDP1'
                     return place_list, geo_prop
         return place_list
     else:
         place_list = dc_service.get_places_in([geoDcid],
                                               display_level).get(geoDcid, [])
         geo_prop = CHOROPLETH_GEOJSON_PROPERTY_MAP[display_level]
+        # Puerto Rico (geoId/72) requires higher resolution geoJson
+        if geoDcid == 'geoId/72':
+            geo_prop = 'geoJsonCoordinatesDP1'
         return place_list, geo_prop
 
 

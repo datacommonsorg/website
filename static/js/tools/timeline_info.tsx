@@ -97,7 +97,7 @@ class Info extends Component {
               Palo Alto &amp; East Palo Alto:
               <a
                 href={
-                  "#&&place=geoId/0655282,geoId/0620956&statsVar=Count_Person_AsianAlone__Count_Person_BlackOrAfricanAmericanAlone__Count_Person_NativeHawaiianAndOtherPacificIslanderAlone__Count_Person_WhiteAlone"
+                  "#&&place=geoId/0655282,geoId/0620956&statsVar=Count_Person_AsianAlone__Count_Person_BlackOrAfricanAmericanAlone__Count_Person_NativeHawaiianOrOtherPacificIslanderAlone__Count_Person_WhiteAlone"
                 }
               >
                 {" "}

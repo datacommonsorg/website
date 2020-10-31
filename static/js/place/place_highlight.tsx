@@ -15,7 +15,7 @@
  */
 
 import React from "react";
-import { PageHighlight } from "./types";
+import { PageHighlight } from "../chart/types";
 import _ from "lodash";
 
 interface PlaceHighlightPropsType {
@@ -26,7 +26,7 @@ interface PlaceHighlightPropsType {
 /**
  * Adds highlighted facts about a place under the subtitle of the page.
  */
-class PlaceHighlight extends React.Component<PlaceHighlightPropsType, unknown> {
+class PlaceHighlight extends React.Component<PlaceHighlightPropsType> {
   constructor(props: PlaceHighlightPropsType) {
     super(props);
   }

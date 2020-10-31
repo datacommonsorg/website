@@ -16,6 +16,7 @@
 This module contains the request handler codes and the main app.
 """
 
+import os
 import json
 import logging
 
@@ -153,6 +154,13 @@ def get_weather():
 @app.route('/mcf_playground')
 def mcf_playground():
     return flask.render_template('mcf_playground.html')
+
+
+@app.route('/locales/<path:filepath>')
+def locales(filepath):
+    if os.environ.get('FLASK_ENV') == 'production':
+        return ''
+    return flask.send_file('./locales/' + filepath)
 
 
 if __name__ == '__main__':

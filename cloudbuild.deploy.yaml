@@ -19,16 +19,14 @@ steps:
     args:
       - -c
       - |
-        set -x
         ./run_test.sh -lbc
 
   - id: flask_test
-    name: python:3.7-slim
+    name: python:3.7
     entrypoint: /bin/sh
     args:
       - -c
       - |
-        set -x
         ./run_test.sh -p
 
   - id: deploy
@@ -37,26 +35,33 @@ steps:
     args:
       - -c
       - |
-        set -x
+        set -e
 
         # Set project
         gcloud config set project datcom-browser-staging
 
         # Deploy dispatch.yaml
-        gclodu app deploy dispatch.yaml
+        gcloud app deploy dispatch.yaml
 
         # Deploy the go service
         gcloud app deploy go/go.yaml
 
         # Deploy flask app service
         gcloud config set app/cloud_build_timeout 1200
-        gcloud app deploy server/app_staging.yaml -q --version=$SHORT_SHA
+        cd server
+        gcloud app deploy app_staging.yaml -q --version=$SHORT_SHA
 
         # Keep at most 5 recent versions
-        if [[ "$(gcloud app versions list | wc -l)" -gt 6 ]]; then
-          echo "Remove the oldest version..."
+        if [[ "$(gcloud app versions list -s default | wc -l)" -gt 6 ]]; then
+          echo "Remove the oldest default service ..."
           gcloud app versions delete -q \
-          `gcloud app versions list --sort-by=~LAST_DEPLOYED | sed 's/  */:/g' | cut -f 2 -d : | tail -1 | tr "\n" " "`
+          `gcloud app versions list -s default --sort-by=~LAST_DEPLOYED | sed 's/  */:/g' | cut -f 2 -d : | tail -1 | tr "\n" " "`
+        fi
+
+        if [[ "$(gcloud app versions list -s go | wc -l)" -gt 6 ]]; then
+          echo "Remove the oldest go service..."
+          gcloud app versions delete -q \
+          `gcloud app versions list -s go --sort-by=~LAST_DEPLOYED | sed 's/  */:/g' | cut -f 2 -d : | tail -1 | tr "\n" " "`
         fi
 
   - id: update version
@@ -65,7 +70,8 @@ steps:
     args:
       - -c
       - |
-        set -x
+        set -e
+
         gcloud source repos clone deployment --project=datcom-ci
         cd deployment
         # Configure Git to create commits with Cloud Build's service account

@@ -28,7 +28,7 @@ import { PageSubtitle } from "./page_subtitle";
 import { isPlaceInUsa } from "./util";
 import { initSearchAutocomplete } from "./search";
 
-import { CachedChoroplethData, GeoJsonData, PageData } from "./types";
+import { CachedChoroplethData, GeoJsonData, PageData } from "../chart/types";
 
 let yScrollLimit = 0; // window scroll position to start fixing the sidebar
 let sidebarTopMax = 0; // Max top position for the sidebar, relative to #sidebar-outer.
@@ -64,9 +64,13 @@ function updatePageLayoutState(): void {
 function maybeToggleFixedSidebar(): void {
   if (window.innerWidth < Y_SCROLL_WINDOW_BREAKPOINT) {
     document.removeEventListener("scroll", adjustMenuPosition);
+    document.getElementById("sidebar-region").classList.remove("fixed");
     return;
   }
   document.addEventListener("scroll", adjustMenuPosition);
+  document.getElementById("sidebar-region").style.width =
+    document.getElementById("sidebar-top-spacer").offsetWidth + "px";
+  adjustMenuPosition();
 }
 
 /**
@@ -78,10 +82,16 @@ function adjustMenuPosition(): void {
     const calcTop = window.scrollY - yScrollLimit - Y_SCROLL_MARGIN;
     if (calcTop > sidebarTopMax) {
       topicsEl.style.top = sidebarTopMax + "px";
+      topicsEl.classList.remove("fixed");
       return;
     }
-    topicsEl.style.top = calcTop + "px";
+    topicsEl.classList.add("fixed");
+    if (topicsEl.style.top != "0") {
+      topicsEl.style.top = "0";
+      topicsEl.scrollTop = 0;
+    }
   } else {
+    topicsEl.classList.remove("fixed");
     topicsEl.style.top = "0";
   }
 }
@@ -149,7 +159,7 @@ function renderPage(): void {
       const loadingElem = document.getElementById("page-loading");
       if (_.isEmpty(landingPageData)) {
         loadingElem.innerText =
-          "Sorry, we don't have any charts to show for this place";
+          "Sorry, we don't have any charts to show for this place.";
         return;
       }
       loadingElem.style.display = "none";

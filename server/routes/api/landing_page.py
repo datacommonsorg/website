@@ -19,7 +19,6 @@ in chart.py and place.py
 
 import collections
 import copy
-import datetime
 import json
 import logging
 import urllib
@@ -306,12 +305,10 @@ def get_trend(cc, data, place):
 
 
 def get_year(date):
-    for fmt in ('%Y', '%Y-%m', '%Y-%m-%d'):
-        try:
-            return datetime.datetime.strptime(date, fmt).year
-        except ValueError:
-            pass
-    raise ValueError('no valid date format found')
+    try:
+        return int(date.split('-')[0])
+    except IndexError:
+        raise ValueError('no valid date format found %s', date)
 
 
 # TODO(shifucun): Add unittest.

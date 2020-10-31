@@ -22,7 +22,7 @@ interface ChildPlacePropType {
   placeName: string;
 }
 
-class ChildPlace extends React.Component<ChildPlacePropType, unknown> {
+class ChildPlace extends React.Component<ChildPlacePropType> {
   render(): JSX.Element {
     if (Object.keys(this.props.childPlaces).length === 0) {
       return <React.Fragment></React.Fragment>;

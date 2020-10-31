@@ -21,7 +21,7 @@ import {
   ChartBlockData,
   CachedChoroplethData,
   GeoJsonData,
-} from "./types";
+} from "../chart/types";
 
 interface MainPanePropType {
   /**
@@ -71,7 +71,7 @@ interface MainPanePropType {
   parentPlaces: string[];
 }
 
-class MainPane extends React.Component<MainPanePropType, unknown> {
+class MainPane extends React.Component<MainPanePropType> {
   constructor(props: MainPanePropType) {
     super(props);
   }

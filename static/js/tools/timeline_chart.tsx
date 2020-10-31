@@ -29,7 +29,7 @@ interface StatsVarChipPropsType {
   removeStatsVar: (statsVar: string, nodePath?: string[]) => void;
 }
 
-class StatsVarChip extends Component<StatsVarChipPropsType, unknown> {
+class StatsVarChip extends Component<StatsVarChipPropsType> {
   render() {
     return (
       <div
@@ -63,7 +63,7 @@ interface ChartPropsType {
   denominators: { [key: string]: string };
 }
 
-class Chart extends Component<ChartPropsType, unknown> {
+class Chart extends Component<ChartPropsType> {
   data: StatsData;
   svgContainer: React.RefObject<HTMLDivElement>;
   plotParams: PlotParams;

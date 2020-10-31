@@ -81,7 +81,8 @@ $chart-border: 0.5px solid #dee2e6;
 
 #topics .nav-item .nav-item a {
   font-weight: 300;
-  padding: 0.25rem 0;
+  padding: 0.25rem 0 .25rem .5rem;
+  font-size: .8rem;
 }
 
 #topics a.active {
@@ -146,7 +147,6 @@ $chart-border: 0.5px solid #dee2e6;
 
 .subtopic .row .col {
   padding: 0.5rem;
-  margin-bottom: calc(.7rem + 10px); // height of feedback link + padding
 }
 
 .btn-dc {
@@ -252,6 +252,13 @@ $chart-border: 0.5px solid #dee2e6;
 #sidebar-region {
   padding-top: 15px;
   position: relative;
+}
+
+#sidebar-region.fixed {
+  position: fixed;
+  height: 100vh;
+  overflow-y: scroll;
+  top: 0;
 }
 
 #child-place-title {

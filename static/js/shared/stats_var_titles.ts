@@ -25,14 +25,14 @@ const STATS_VAR_TITLES: { [key: string]: string } = {
   UnemploymentRate_Person: "Unemployment Rate",
   Count_UnemploymentInsuranceClaim_StateUnemploymentInsurance:
     "State Unemployment Insurance Claims",
-  Count_Person_Employed: "Count of Employed People",
-  Count_Person_InLaborForce: "Count of People in Labor Force",
+  Count_Person_Employed: "Number of Employed People",
+  Count_Person_InLaborForce: "Labor Force",
   Count_Person: "Population",
-  Count_Person_PerArea: "Person Per Area",
+  Count_Person_PerArea: "Population Density",
   LifeExpectancy_Person: "Life Expectancy",
   GrowthRate_Count_Person: "Population Growth Rate",
   FertilityRate_Person_Female: "Fertility Rate",
-  Count_HousingUnit: "Housing Unit",
+  Count_HousingUnit: "Number of Housing Units",
 
   // Economics
   Amount_EconomicActivity_GrossDomesticProduction_Nominal:
@@ -135,9 +135,9 @@ const STATS_VAR_TITLES: { [key: string]: string } = {
   Count_Person_BlackOrAfricanAmericanAlone:
     "Population (Black or African American)",
   Count_Person_HispanicOrLatino: "Population (Hispanic or Latino)",
-  Count_Person_NativeHawaiianAndOtherPacificIslanderAlone:
-    "Population (Native Hawaiian and Pacific Islander)",
-  Count_Person_SomeOtherRaceAlone: "Population (Some other race)",
+  Count_Person_NativeHawaiianOrOtherPacificIslanderAlone:
+    "Population (Native Hawaiian or Pacific Islander)",
+  Count_Person_SomeOtherRaceAlone: "Population (Some Other Race)",
   Count_Person_TwoOrMoreRaces: "Population (Two or More Races)",
   Count_Person_WhiteAlone: "Population (White Alone)",
 
@@ -148,10 +148,10 @@ const STATS_VAR_TITLES: { [key: string]: string } = {
     "Population (Black or African American)",
   Count_HousingUnit_HouseholderRaceHispanicOrLatino:
     "Population (Hispanic or Latino)",
-  Count_HousingUnit_HouseholderRaceNativeHawaiianAndOtherPacificIslanderAlone:
-    "Population (Native Hawaiian and Pacific Islander)",
+  Count_HousingUnit_HouseholderRaceNativeHawaiianOrOtherPacificIslanderAlone:
+    "Population (Native Hawaiian or Pacific Islander)",
   Count_HousingUnit_HouseholderRaceSomeOtherRaceAlone:
-    "Population (Some other race)",
+    "Population (Some Other Race)",
   Count_HousingUnit_HouseholderRaceTwoOrMoreRaces:
     "Population (Two or More Races)",
   Count_HousingUnit_HouseholderRaceWhiteAlone: "Population (White Alone)",
@@ -163,8 +163,8 @@ const STATS_VAR_TITLES: { [key: string]: string } = {
     "Median Age (Black or African American)",
   Median_Age_Person_HispanicOrLatino: "Median Age (Hispanic or Latino)",
   Median_Age_Person_NativeHawaiianOrOtherPacificIslanderAlone:
-    "Median Age (Native Hawaiian and Pacific Islander)",
-  Median_Age_Person_SomeOtherRaceAlone: "Median Age (Some other race)",
+    "Median Age (Native Hawaiian or Pacific Islander)",
+  Median_Age_Person_SomeOtherRaceAlone: "Median Age (Some Other Race)",
   Median_Age_Person_TwoOrMoreRaces: "Median Age (Two or More Races)",
   Median_Age_Person_WhiteAlone: "Median Age (White Alone)",
 
@@ -187,7 +187,7 @@ const STATS_VAR_TITLES: { [key: string]: string } = {
     "People with Individual Income (Over $75K)",
 
   // marital status
-  Count_Person_MarriedAndNotSeparated: "Population (Married And Not Separated)",
+  Count_Person_MarriedAndNotSeparated: "Population (Married and Not Separated)",
   Count_Person_Divorced: "Population (Divorced)",
   Count_Person_NeverMarried: "Population (Never Married)",
   Count_Person_Widowed: "Population (Widowed)",
@@ -202,8 +202,8 @@ const STATS_VAR_TITLES: { [key: string]: string } = {
     "Population (No Schooling)",
   Count_Person_EducationalAttainmentRegularHighSchoolDiploma:
     "Population (High School)",
-  Count_Person_EducationalAttainmentBachelorsDegree: "Population (Bachelors)",
-  Count_Person_EducationalAttainmentMastersDegree: "Population (Masters)",
+  Count_Person_EducationalAttainmentBachelorsDegree: "Population (Bachelor's)",
+  Count_Person_EducationalAttainmentMastersDegree: "Population (Master's)",
   Count_Person_EducationalAttainmentDoctorateDegree: "Population (Doctorate)",
 
   // household/income
@@ -253,13 +253,13 @@ const STATS_VAR_TITLES: { [key: string]: string } = {
 
   // Mortality cause
   Count_Death_DiseasesOfTheCirculatorySystem:
-    "Deaths Caused By Diseases of the Circulatory System",
-  Count_Death_Neoplasms: "Deaths Caused By Neoplasms",
+    "Deaths Caused by Diseases of the Circulatory System",
+  Count_Death_Neoplasms: "Deaths Caused by Neoplasms",
   Count_Death_DiseasesOfTheRespiratorySystem:
-    "Deaths Caused By Diseases of the Respiratory System",
-  Count_Death_ExternalCauses: "Deaths Caused By External Causes",
+    "Deaths Caused by Diseases of the Respiratory System",
+  Count_Death_ExternalCauses: "Deaths Caused by External Causes",
   Count_Death_DiseasesOfTheNervousSystem:
-    "Deaths Caused By Diseases of the Nervous System",
+    "Deaths Caused by Diseases of the Nervous System",
 
   // Outcomes
   Percent_Person_WithHighCholesterol:
@@ -351,7 +351,7 @@ const STATS_VAR_TITLES: { [key: string]: string } = {
   Median_Income_Household_HouseholderRaceHispanicOrLatino:
     "Median Individual Income (Hispanic or Latino)",
   Median_Income_Household_HouseholderRaceNativeHawaiianOrOtherPacificIslanderAlone:
-    "Median Individual Income (Native Hawaiian or Other Pacific Islander)",
+    "Median Individual Income (Native Hawaiian or Pacific Islander)",
   Median_Income_Household_HouseholderRaceWhiteAlone:
     "Median Individual Income (White)",
 
@@ -399,7 +399,7 @@ const STATS_VAR_TITLES: { [key: string]: string } = {
   Count_Person_Upto4Years_Male_SevereWasting_AsFractionOf_Count_Person_Upto4Years_Male:
     "Severe Wasting among Children under 5 (Male)",
 
-  GiniIndex_EcconomicActivity: "Gini Index",
+  GiniIndex_EconomicActivity: "Gini Index",
 
   // Housing
   Count_HousingUnit_HomeValueUpto49999USDollar: "Under $50K",

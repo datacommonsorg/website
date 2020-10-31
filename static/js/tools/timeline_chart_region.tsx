@@ -33,7 +33,7 @@ interface ChartRegionPropsType {
   denominators: { [key: string]: string[] };
 }
 
-class ChartRegion extends Component<ChartRegionPropsType, unknown> {
+class ChartRegion extends Component<ChartRegionPropsType> {
   downloadLink: HTMLAnchorElement;
   allStatsData: { [key: string]: StatsData };
 

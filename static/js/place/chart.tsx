@@ -30,7 +30,7 @@ import {
   ChoroplethDataGroup,
   CachedChoroplethData,
   GeoJsonData,
-} from "./types";
+} from "../chart/types";
 import { updatePageLayoutState } from "./place";
 import { ChartEmbed } from "./chart_embed";
 import { drawChoropleth } from "../chart/draw_choropleth";
@@ -48,10 +48,6 @@ interface ChartPropType {
    * The svg dom element id.
    */
   id: string;
-  /**
-   * The place type.
-   */
-  placeType: string;
   /**
    * The chart title
    */

@@ -19,6 +19,8 @@
  */
 
 import * as d3 from "d3";
+import * as geo from "geo-albers-usa-territories";
+import { GeoJsonData, GeoJsonFeature } from "./types";
 import { STATS_VAR_LABEL } from "../shared/stats_var_labels";
 import { getColorFn, formatYAxisTicks } from "./base";
 
@@ -26,6 +28,9 @@ const MISSING_DATA_COLOR = "#999";
 const TOOLTIP_ID = "tooltip";
 const MIN_COLOR = "#f0f0f0";
 const GEO_STROKE_COLOR = "#fff";
+const HIGHLIGHTED_STROKE_COLOR = "#202020";
+const STROKE_WIDTH = "1px";
+const HIGHLIGHTED_STROKE_WIDTH = "1.25px";
 const AXIS_TEXT_FILL = "#2b2929";
 const AXIS_GRID_FILL = "#999";
 const LEGEND_WIDTH = 50;
@@ -36,10 +41,31 @@ const LEGEND_MARGIN_RIGHT = 5;
 const LEGEND_IMG_WIDTH = 10;
 const NUM_TICKS = 5;
 const REDIRECT_BASE_URL = `/place/`;
+const HIGHLIGHTED_CLASS_NAME = "highlighted";
+
+/**
+ * From https://bl.ocks.org/HarryStevens/0e440b73fbd88df7c6538417481c9065
+ * scales and translates the projection to allow resizing of the choropleth map
+ */
+function fitSize(
+  width: number,
+  height: number,
+  object: GeoJsonData,
+  projection: d3.GeoProjection,
+  path: d3.GeoPath<any, d3.GeoPermissibleObjects>
+): void {
+  projection.scale(1).translate([0, 0]);
+  const b = path.bounds(object);
+  const s =
+    1 / Math.max((b[1][0] - b[0][0]) / width, (b[1][1] - b[0][1]) / height);
+  const translateX = (width - s * (b[1][0] + b[0][0])) / 2;
+  const translateY = (height - s * (b[1][1] + b[0][1])) / 2;
+  projection.scale(s).translate([translateX, translateY]);
+}
 
 function drawChoropleth(
   containerId: string,
-  geoJson: any,
+  geoJson: GeoJsonData,
   chartHeight: number,
   chartWidth: number,
   dataValues: {
@@ -75,19 +101,24 @@ function drawChoropleth(
   // Combine path elements from D3 content.
   const mapContent = map.selectAll("path").data(geoJson.features);
 
-  // Scale and center the map.
-  const projection = d3
-    .geoAlbersUsa()
-    .fitSize([chartWidth - LEGEND_WIDTH, chartHeight], geoJson);
+  const projection = geo.geoAlbersUsaTerritories();
   const geomap = d3.geoPath().projection(projection);
+
+  // Scale and center the map
+  fitSize(chartWidth - LEGEND_WIDTH, chartHeight, geoJson, projection, geomap);
 
   // Build map objects.
   mapContent
     .enter()
     .append("path")
     .attr("d", geomap)
-    .attr("class", "border")
-    .attr("fill", (d: { properties: { geoDcid: string } }) => {
+    .attr("class", (geo: GeoJsonFeature) => {
+      // highlight the place of the current page
+      if (geo.properties.geoDcid === geoJson.properties.current_geo) {
+        return HIGHLIGHTED_CLASS_NAME;
+      }
+    })
+    .attr("fill", (d: GeoJsonFeature) => {
       if (
         d.properties.geoDcid in dataValues &&
         dataValues[d.properties.geoDcid]
@@ -101,13 +132,19 @@ function drawChoropleth(
     .attr("id", (_, index) => {
       return "geoPath" + index;
     })
-    .attr("stroke-width", "1px")
+    .attr("stroke-width", STROKE_WIDTH)
     .attr("stroke", GEO_STROKE_COLOR)
     .on("mouseover", onMouseOver(domContainerId))
     .on("mouseout", onMouseOut(domContainerId))
     .on("mousemove", onMouseMove(domContainerId, dataValues, unit))
     .on("click", onMapClick(domContainerId, urlSuffix));
 
+  // style highlighted region and bring to the front
+  d3.select(domContainerId)
+    .select("." + HIGHLIGHTED_CLASS_NAME)
+    .raise()
+    .attr("stroke-width", HIGHLIGHTED_STROKE_WIDTH)
+    .attr("stroke", HIGHLIGHTED_STROKE_COLOR);
   generateLegend(svg, chartWidth, chartHeight, colorScale, unit);
   addTooltip(domContainerId);
 }
@@ -154,7 +191,7 @@ const onMouseMove = (
 };
 
 const onMapClick = (domContainerId: string, urlSuffix: string) => (
-  geo: { properties: { geoDcid: string } },
+  geo: GeoJsonFeature,
   index
 ) => {
   window.open(
