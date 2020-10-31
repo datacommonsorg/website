@@ -54,9 +54,15 @@ function run_lint_fix {
 }
 
 # Build client side code
-function run_npm_build {
+function run_npm_build () {
   cd static
-  npm install
+  if [[ $1 == true ]]
+  then
+    echo -e "#### Only installing production dependencies"
+    npm install --only=prod
+  else
+    npm install
+  fi
   npm run-script build
   cd ..
 }
@@ -129,6 +135,7 @@ function help {
   echo "Usage: $0 -pwblcsaf"
   echo "-p       Run server python tests"
   echo "-w       Run webdriver tests"
+  echo "-o       Build for production (ignores dev dependencies)"
   echo "-b       Run client install and build"
   echo "-l       Run client lint test"
   echo "-c       Run client tests"
@@ -139,7 +146,7 @@ function help {
   exit 1
 }
 
-while getopts pwblcsaf OPTION; do
+while getopts pwoblcsaf OPTION; do
   case $OPTION in
     p)
         echo -e "### Running server tests"
@@ -149,9 +156,13 @@ while getopts pwblcsaf OPTION; do
         echo -e "### Running webdriver tests"
         run_webdriver_test
         ;;
+    o)
+        echo -e "### Production flag enabled"
+        PROD=true
+        ;;
     b)
         echo -e "### Build client-side packages"
-        run_npm_build
+        run_npm_build $PROD
         ;;
     l)
         echo -e "### Running lint"
@@ -178,6 +189,7 @@ while getopts pwblcsaf OPTION; do
     esac
 done
 
-if [ $OPTIND -eq 1 ]; then
-  help
+if [ $OPTIND -eq 1 ]
+then
+  run_all_tests
 fi
