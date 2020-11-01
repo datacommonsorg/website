@@ -142,7 +142,6 @@ function help {
   echo "-s       Run screenshot tests"
   echo "-a       Run all tests"
   echo "-f       Fix lint"
-  echo "No args  Run all tests"
   exit 1
 }
 
@@ -191,5 +190,5 @@ done
 
 if [ $OPTIND -eq 1 ]
 then
-  run_all_tests
+  help
 fi
