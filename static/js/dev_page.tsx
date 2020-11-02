@@ -30,7 +30,6 @@ import {
   drawGroupBarChart,
   drawGroupLineChart,
 } from "./chart/draw";
-import _ from "lodash";
 import { randDomId } from "./shared/util";
 
 interface DevChartPropType {

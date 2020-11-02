@@ -19,7 +19,7 @@ steps:
     args:
       - -c
       - |
-        ./run_test.sh -olbc
+        ./run_test.sh -lbc
 
   - id: flask_test
     name: python:3.7
