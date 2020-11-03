@@ -18,9 +18,9 @@
 @import '../tools/statvar_menu';
 @import '../draw';
 
-.border {
-  stroke: gray;
-  stroke-width: 0.5px;
+.choropleth-region {
+  stroke: #fff;
+  stroke-width: 1px;
 }
 
 #explore {

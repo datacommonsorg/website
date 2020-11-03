@@ -25,10 +25,9 @@ import { GeoJsonData, GeoJsonFeature } from "../../chart/types";
 import _ from "lodash";
 
 const TOOLTIP_ID = "tooltip";
-const STROKE_WIDTH = "1px";
-const STROKE_COLOR = "#fff";
 const LEGEND_HEIGHT = 60;
 const LATEST_DATE = "latest";
+const MAP_PADDING = 7;
 type PropsType = unknown;
 
 // TODO(eduardo): get rid of "unknown" type.
@@ -52,7 +51,7 @@ class ChoroplethMap extends Component<PropsType, StateType> {
       urlParams.has("pc") &&
       ["t", "true", "1"].includes(urlParams.get("pc").toLowerCase());
     this.state = {
-      geoJson: [] as any,
+      geoJson: null,
       data: {},
       date: LATEST_DATE,
       mapContent: {} as any,
@@ -183,22 +182,21 @@ class ChoroplethMap extends Component<PropsType, StateType> {
    */
   private drawBlankGeoMap = (): void => {
     // Combine path elements from D3 content.
-    const geojson = this.state["geoJson"];
+    const geojson = this.state.geoJson;
     const container = document.getElementById("choropleth-body");
     const heading = document.getElementById("heading");
-    const padding = 7;
-    const width = container.offsetWidth - padding * 2;
+    const width = container.offsetWidth - MAP_PADDING * 2;
     const height =
       container.offsetHeight -
       heading.clientHeight -
       LEGEND_HEIGHT -
-      padding * 2;
+      MAP_PADDING * 2;
     if (!d3.select("#map-container").empty()) {
       d3.select("#map-container").remove();
     }
     const svg = d3
       .select("#svg-container")
-      .attr("padding", `${padding}px`)
+      .attr("padding", `${MAP_PADDING}px`)
       .append("svg")
       .attr("id", "map-container")
       .attr("width", width)
@@ -214,8 +212,7 @@ class ChoroplethMap extends Component<PropsType, StateType> {
       .enter()
       .append("path")
       .attr("d", geomap)
-      .attr("stroke-width", STROKE_WIDTH)
-      .attr("stroke", STROKE_COLOR)
+      .attr("class", "choropleth-region")
       .attr("fill", "gray")
       // Add various event handlers.
       .on("mouseover", this.handleMapHover)
@@ -239,7 +236,7 @@ class ChoroplethMap extends Component<PropsType, StateType> {
     // Generate breadcrumbs.
     // TODO(fpernice-google): Derive the curGeo value from geoDcid instead
     // of embedding in url.
-    generateBreadCrumbs(this.state["geoJson"]["properties"]["current_geo"]);
+    generateBreadCrumbs(this.state.geoJson.properties.current_geo);
     addTooltip();
   };
 
