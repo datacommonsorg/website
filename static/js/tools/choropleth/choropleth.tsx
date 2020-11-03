@@ -21,12 +21,18 @@ import React, { Component } from "react";
 import axios from "axios";
 import * as d3 from "d3";
 import ReactDOM from "react-dom";
+import { GeoJsonData, GeoJsonFeature } from "../../chart/types";
+import _ from "lodash";
 
+const TOOLTIP_ID = "tooltip";
+const LEGEND_HEIGHT = 60;
+const LATEST_DATE = "latest";
+const MAP_PADDING = 7;
 type PropsType = unknown;
 
 // TODO(eduardo): get rid of "unknown" type.
 type StateType = {
-  geoJson: unknown;
+  geoJson: GeoJsonData;
   values: { [geoId: string]: number };
   data: { [geoId: string]: { [date: string]: number } };
   date: string;
@@ -36,25 +42,38 @@ type StateType = {
 };
 
 class ChoroplethMap extends Component<PropsType, StateType> {
-  public state = {
-    geoJson: [] as any,
-    data: {},
-    date: "latest",
-    mapContent: {} as any,
-    pc: false,
-    popMap: {},
-    values: {},
-  };
-
-  public componentDidMount = (): void => {
+  svgContainerElement: React.RefObject<HTMLDivElement>;
+  constructor(props: PropsType) {
+    super(props);
+    this.svgContainerElement = React.createRef();
     const urlParams = new URLSearchParams(window.location.search);
     const isPerCapita =
       urlParams.has("pc") &&
       ["t", "true", "1"].includes(urlParams.get("pc").toLowerCase());
-    this.setState({
+    this.state = {
+      geoJson: null,
+      data: {},
+      date: LATEST_DATE,
+      mapContent: {} as any,
       pc: isPerCapita,
-    });
+      popMap: {},
+      values: {},
+    };
+    this._handleWindowResize = this._handleWindowResize.bind(this);
+  }
+
+  public componentWillUnmount(): void {
+    window.removeEventListener("resize", this._handleWindowResize);
+  }
+
+  public componentDidMount = (): void => {
+    window.addEventListener("resize", this._handleWindowResize);
     this.loadGeoJson();
+  };
+
+  private _handleWindowResize = (): void => {
+    this.drawBlankGeoMap();
+    this.addColorToGeoMap();
   };
 
   /**
@@ -78,7 +97,7 @@ class ChoroplethMap extends Component<PropsType, StateType> {
         // All the timeseries data for all places.
         const data = values[1].data[0];
         // The latest value for all places.
-        const geoIdToValues = this.filterByDate(data, "latest");
+        const geoIdToValues = this.filterByDate(data, LATEST_DATE);
 
         this.setState({
           geoJson: geoJson,
@@ -113,7 +132,7 @@ class ChoroplethMap extends Component<PropsType, StateType> {
         // Because this is the first time loading the page,
         // filter the value by "latest" date.
         const data = resp.data[0];
-        const geoIdToValues = this.filterByDate(data, "latest");
+        const geoIdToValues = this.filterByDate(data, LATEST_DATE);
 
         // values contains only the data for the date being observed.
         // data contains the raw data.
@@ -163,29 +182,41 @@ class ChoroplethMap extends Component<PropsType, StateType> {
    */
   private drawBlankGeoMap = (): void => {
     // Combine path elements from D3 content.
-    const geojson = this.state["geoJson"];
-    const mapContent = d3
-      .select("#main-pane g.map")
-      .selectAll("path")
-      .data(geojson.features);
+    const geojson = this.state.geoJson;
+    const container = document.getElementById("choropleth-body");
+    const heading = document.getElementById("heading");
+    const width = container.offsetWidth - MAP_PADDING * 2;
+    const height =
+      container.offsetHeight -
+      heading.clientHeight -
+      LEGEND_HEIGHT -
+      MAP_PADDING * 2;
+    if (!d3.select("#map-container").empty()) {
+      d3.select("#map-container").remove();
+    }
+    const svg = d3
+      .select("#svg-container")
+      .attr("padding", `${MAP_PADDING}px`)
+      .append("svg")
+      .attr("id", "map-container")
+      .attr("width", width)
+      .attr("height", height);
+    const map = svg.append("g").attr("class", "map");
+    const mapContent = map.selectAll("path").data(geojson.features);
 
     // Scale and center the map.
-    const svgContainer = document.getElementById("map_container");
-    const projection = d3
-      .geoAlbersUsa()
-      .fitSize([svgContainer.clientWidth, svgContainer.clientHeight], geojson);
+    const projection = d3.geoAlbersUsa().fitSize([width, height], geojson);
     const geomap = d3.geoPath().projection(projection);
-
     // Build map objects.
     mapContent
       .enter()
       .append("path")
       .attr("d", geomap)
-      // Add CSS class to each path for border outlining.
-      .attr("class", "border")
+      .attr("class", "choropleth-region")
       .attr("fill", "gray")
       // Add various event handlers.
       .on("mouseover", this.handleMapHover)
+      .on("mousemove", this.handleMouseMove)
       .on("mouseleave", this.mouseLeave)
       .on("click", this.handleMapClick);
 
@@ -205,7 +236,8 @@ class ChoroplethMap extends Component<PropsType, StateType> {
     // Generate breadcrumbs.
     // TODO(fpernice-google): Derive the curGeo value from geoDcid instead
     // of embedding in url.
-    generateBreadCrumbs(this.state["geoJson"]["properties"]["current_geo"]);
+    generateBreadCrumbs(this.state.geoJson.properties.current_geo);
+    addTooltip();
   };
 
   /**
@@ -219,7 +251,7 @@ class ChoroplethMap extends Component<PropsType, StateType> {
 
     // Build chart display options.
     const blues = [
-      "#f7fbff",
+      "#eef5fb",
       "#deebf7",
       "#c6dbef",
       "#9ecae1",
@@ -247,27 +279,24 @@ class ChoroplethMap extends Component<PropsType, StateType> {
       .selectAll("path")
       .data(geojson.features)
       .attr("id", (_, index) => {
-        return "geoPath/" + index;
+        return "geoPath" + index;
       });
 
     // Create new infill.
-    mapContent.attr(
-      "fill",
-      (d: { properties: { geoDcid: string; pop: number } }) => {
-        if (d.properties.geoDcid in geoIdToValue) {
-          const value = geoIdToValue[d.properties.geoDcid];
-          if (isPerCapita) {
-            if (Object.prototype.hasOwnProperty.call(d.properties, "pop")) {
-              return colorScale(value / d.properties.pop);
-            }
-            return "gray";
+    mapContent.attr("fill", (d: GeoJsonFeature) => {
+      if (d.properties.geoDcid in geoIdToValue) {
+        const value = geoIdToValue[d.properties.geoDcid];
+        if (isPerCapita) {
+          if (Object.prototype.hasOwnProperty.call(d.properties, "pop")) {
+            return colorScale(value / d.properties.pop);
           }
-          return colorScale(value);
-        } else {
           return "gray";
         }
+        return colorScale(value);
+      } else {
+        return "gray";
       }
-    );
+    });
 
     // Update title.
     // TODO(iancostello): Use react component instead of innerHTML throughout.
@@ -312,9 +341,8 @@ class ChoroplethMap extends Component<PropsType, StateType> {
    */
   private generateLegend = (color: d3.ScaleLinear<number, number>): void => {
     const width = 300;
-    const height = 60;
     const tickSize = 6;
-    const title = "Color Scale";
+    const title = "Scale";
     const marginTop = 18;
     const marginBottom = 16 + tickSize;
     const marginSides = 15;
@@ -330,7 +358,7 @@ class ChoroplethMap extends Component<PropsType, StateType> {
       .select("#legend")
       .append("svg")
       .attr("width", width)
-      .attr("height", height);
+      .attr("height", LEGEND_HEIGHT);
 
     const n = Math.min(color.domain().length, color.range().length);
 
@@ -340,7 +368,7 @@ class ChoroplethMap extends Component<PropsType, StateType> {
       .attr("x", marginSides)
       .attr("y", marginTop)
       .attr("width", width - 2 * marginSides)
-      .attr("height", height - marginTop - marginBottom)
+      .attr("height", LEGEND_HEIGHT - marginTop - marginBottom)
       .attr("preserveAspectRatio", "none")
       .attr(
         "xlink:href",
@@ -363,17 +391,19 @@ class ChoroplethMap extends Component<PropsType, StateType> {
 
     svg
       .append("g")
-      .attr("transform", `translate(0, ${height - marginBottom})`)
+      .attr("transform", `translate(0, ${LEGEND_HEIGHT - marginBottom})`)
       .call(d3.axisBottom(x).tickSize(tickSize).tickValues(tickValues))
       .call((g) =>
-        g.selectAll(".tick line").attr("y1", marginTop + marginBottom - height)
+        g
+          .selectAll(".tick line")
+          .attr("y1", marginTop + marginBottom - LEGEND_HEIGHT)
       )
       .call((g) => g.select(".domain").remove())
       .call((g) =>
         g
           .append("text")
           .attr("x", marginSides)
-          .attr("y", marginTop + marginBottom - height - textPadding)
+          .attr("y", marginTop + marginBottom - LEGEND_HEIGHT - textPadding)
           .attr("fill", "currentColor")
           .attr("text-anchor", "start")
           .attr("font-weight", "bold")
@@ -417,7 +447,6 @@ class ChoroplethMap extends Component<PropsType, StateType> {
     // Store the new date and the new values.
     this.setState({ date: newDate, values: geoIdToValue }, () => {
       // Re-render component and map.
-      this.drawBlankGeoMap();
       this.addColorToGeoMap();
 
       // TODO(edumorales): show the range of dates somewhere so that
@@ -441,7 +470,7 @@ class ChoroplethMap extends Component<PropsType, StateType> {
     Object.entries(values).forEach(([geoId, dateToValue]) => {
       // If the user wants to filter by "latest",
       // figure out what the latest date is.
-      if (date === "latest") {
+      if (date === LATEST_DATE) {
         const dates = Object.keys(dateToValue);
         realISOdate = this.getLatestDate(dates);
       }
@@ -472,23 +501,23 @@ class ChoroplethMap extends Component<PropsType, StateType> {
     this.loadValues();
   };
 
+  private handleMapHover = (geo: GeoJsonFeature, index: number): void => {
+    // Highlight selected subgeos and change pointer if they are clickable.
+    d3.select("#svg-container")
+      .select("#geoPath" + index)
+      .classed("highlighted", true)
+      .classed("clickable", geo.properties.hasSublevel);
+    // show tooltip
+    d3.select("#svg-container")
+      .select(`#${TOOLTIP_ID}`)
+      .style("display", "block");
+  };
+
   /**
    * Capture hover event on geo and displays relevant information.
    * @param {json} geo is the geoJson content for the hovered geo.
    */
-  private handleMapHover = (
-    geo: {
-      ref: string;
-      properties: {
-        name: string;
-        geoDcid: string;
-        pop: number;
-        hasSublevel: boolean;
-      };
-    },
-    index: number
-  ): void => {
-    // Display statistical variable information on hover.
+  private handleMouseMove = (geo: GeoJsonFeature): void => {
     const name = geo.properties.name;
     const geoDcid = geo.properties.geoDcid;
     const values = this.state["values"];
@@ -502,27 +531,32 @@ class ChoroplethMap extends Component<PropsType, StateType> {
         }
       }
     }
-
-    document.getElementById("hover-text-display").innerHTML =
-      name + " - " + formatGeoValue(geoValue, this.state["pc"]);
-
-    // Highlight selected subgeos and change pointer if they are clickable.
-    let objClass = "border-highlighted";
-    if (geo.properties.hasSublevel) {
-      objClass += " clickable";
-    }
-    document.getElementById("geoPath/" + index).setAttribute("class", objClass);
+    const tooltipSelect = d3.select("#svg-container").select(`#${TOOLTIP_ID}`);
+    const text = name + ": " + formatGeoValue(geoValue, this.state["pc"]);
+    const tooltipHeight = (tooltipSelect.node() as HTMLDivElement).clientHeight;
+    const offset = 10;
+    const leftOffset = offset;
+    const topOffset = -tooltipHeight - offset;
+    tooltipSelect
+      .text(text)
+      .style("left", d3.event.offsetX + leftOffset + "px")
+      .style("top", d3.event.offsetY + topOffset + "px");
   };
 
   /**
    * Clears output after leaving a geo.
    */
-  private mouseLeave = (_geo: { ref: string }, index: number): void => {
-    // Remove hover text.
-    document.getElementById("hover-text-display").innerHTML = "";
+  private mouseLeave = (_geo: GeoJsonFeature, index: number): void => {
+    this.mouseOutAction(index);
+  };
 
-    // Remove geo display effect.
-    document.getElementById("geoPath/" + index).setAttribute("class", "border");
+  private mouseOutAction = (index: number) => {
+    const container = d3.select("#svg-container");
+    container
+      .select("#geoPath" + index)
+      .classed("highlighted", false)
+      .classed("clickable", false);
+    container.select(`#${TOOLTIP_ID}`).style("display", "none");
   };
 
   /**
@@ -530,9 +564,7 @@ class ChoroplethMap extends Component<PropsType, StateType> {
    * user into that geo in the choropleth tool.
    * @param {json} geo is the geoJson content for the clicked geo.
    */
-  private handleMapClick = (geo: {
-    properties: { geoDcid: string; hasSublevel: boolean };
-  }): void => {
+  private handleMapClick = (geo: GeoJsonFeature, index: number): void => {
     if (geo.properties.hasSublevel) {
       redirectToGeo(
         geo.properties.geoDcid,
@@ -541,24 +573,11 @@ class ChoroplethMap extends Component<PropsType, StateType> {
     } else {
       alert("This geo has no further sublevels!");
     }
+    this.mouseOutAction(index);
   };
 
   public render = (): JSX.Element => {
-    // TODO(fpernice-google): Handle window resize event to update map size.
-    const w = window.innerWidth;
-    const h = window.innerHeight;
-
-    return (
-      <>
-        <svg
-          id="map_container"
-          width={`${(w * 2) / 3}px`}
-          height={`${(h * 2) / 3.5}px`}
-        >
-          <g className="map" />
-        </svg>
-      </>
-    );
+    return <div id="svg-container" ref={this.svgContainerElement}></div>;
   };
 }
 
@@ -645,6 +664,14 @@ const generateBreadCrumbs = (curGeo: string): void => {
   }
 };
 
+function addTooltip() {
+  d3.select("#svg-container")
+    .attr("style", "position: relative")
+    .append("div")
+    .attr("id", TOOLTIP_ID)
+    .attr("style", "position: absolute; display: none; z-index: 1");
+}
+
 /**
  * Returns domain of color palette as len 9 numerical array for plotting.
  * @param dict of values mapping geoDcid to number returned by /values endpoint.
@@ -725,6 +752,11 @@ type DatePickerPropsType = {
 const DatePicker = (props: DatePickerPropsType): JSX.Element => {
   // Sort the dates in descending order.
   const sortedDates = props.dates.sort().reverse();
+  if (_.isEmpty(sortedDates)) {
+    return null;
+  }
+  const selectedDate =
+    props.selectedDate === LATEST_DATE ? sortedDates[0] : props.selectedDate;
 
   // Create the option components.
   const dateComponents = sortedDates.map((date) => {
@@ -737,16 +769,8 @@ const DatePicker = (props: DatePickerPropsType): JSX.Element => {
 
   // Return the select component.
   return (
-    <select
-      onChange={props.onSelectedDateChanged}
-      defaultValue={props.selectedDate}
-    >
-      {[
-        <option key={"latest"} value={"latest"}>
-          Latest Date
-        </option>,
-        ...dateComponents,
-      ]}
+    <select onChange={props.onSelectedDateChanged} defaultValue={selectedDate}>
+      {dateComponents}
     </select>
   );
 };

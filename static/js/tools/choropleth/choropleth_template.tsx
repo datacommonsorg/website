@@ -128,7 +128,7 @@ class MainPane extends Component {
 
   render(): JSX.Element {
     return (
-      <div>
+      <div className="choropleth-tool-container">
         <div className="explore-menu-container" id="explore">
           <div id="drill-scroll-container">
             <div className="title">Select variables:</div>
@@ -153,23 +153,22 @@ class MainPane extends Component {
           </div>
         </div>
         <div id="main-content">
-          <>
+          <div id="choropleth-body">
             <div className="column" id="breadcrumbs"></div>
             <div id="heading">Loading...</div>
             <div id="error"></div>
-            <div>
-              <div className="column" id="hover-text-display"></div>
-            </div>
             <div>
               <ChoroplethMap
                 ref={this.state && this.state["choroplethMap"]}
               ></ChoroplethMap>
             </div>
-            <div id="legend-container">
-              <div id="date"></div>
-              <div id="legend"></div>
+            <div id="choropleth-footer">
+              <div id="legend-container">
+                <div id="date"></div>
+                <div id="legend"></div>
+              </div>
             </div>
-          </>
+          </div>
         </div>
       </div>
     );
