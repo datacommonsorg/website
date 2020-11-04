@@ -63,7 +63,9 @@ func main() {
 	tmpl.AddFromFiles("dev", "template/base.html", "template/dev/dev.html")
 	r.HTMLRender = tmpl
 
-	r.GET("/dev", func(ctx *gin.Context) {
+	// TODO(shifucun): still keep the /dev page until the webdriver tests are
+	// setup for the Go service.
+	r.GET("/go/dev", func(ctx *gin.Context) {
 		if os.Getenv("FLASK_ENV") == "production" {
 			ctx.JSON(404, gin.H{"message": "Page not found"})
 		} else {
