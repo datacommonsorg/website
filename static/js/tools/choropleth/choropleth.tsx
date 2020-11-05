@@ -35,12 +35,14 @@ const LEGEND_MARGIN_TOP = 18;
 const LEGEND_MARGIN_BOTTOM = 16 + TICK_SIZE;
 const LEGEND_MARGIN_SIDES = 25;
 const LEGEND_TEXT_PADDING = 6;
+// TODO: Bring in logic from timelines tool for stat var title
 const NAME_REPLACEMENT_DICT = {
   "Count Person": "Population",
   "Count Worker": "Workers in",
   "Count Household": "Households with",
-  "Person": "",
+  Person: "",
 };
+const BREADCRUMB_NAME_SEPARATOR = "~";
 
 type PropsType = unknown;
 
@@ -615,12 +617,14 @@ class ChoroplethMap extends Component<PropsType, StateType> {
    *                 is country/USA.
    */
   private redirectToGeo = (geoDcid: string, curGeo: string): void => {
-    const url = new URL(window.location.href);
-    const currGeoId = url.searchParams.get("geoDcid");
-    let baseUrl = "/tools/choropleth";
-    baseUrl += buildChoroplethParams(["statVar", "pc", "mdom"]);
-    baseUrl += "&geoDcid=" + geoDcid;
-    baseUrl += "&bc=";
+    const currGeoId = new URLSearchParams(window.location.search).get(
+      "geoDcid"
+    );
+    let baseUrl = `/tools/choropleth${buildChoroplethParams([
+      "statVar",
+      "pc",
+      "mdom",
+    ])}&&geoDcid=${geoDcid}&bc=`;
 
     const idxOfCurr = this.state.breadCrumbs.findIndex(
       (crumb) => crumb.geoId === geoDcid
@@ -636,7 +640,10 @@ class ChoroplethMap extends Component<PropsType, StateType> {
     });
     for (let i = 0; i < breadCrumbsList.length; i++) {
       baseUrl += i === 0 ? "" : ";";
-      baseUrl += breadCrumbsList[i].geoId + "~" + breadCrumbsList[i].geoName;
+      baseUrl +=
+        breadCrumbsList[i].geoId +
+        BREADCRUMB_NAME_SEPARATOR +
+        breadCrumbsList[i].geoName;
     }
     history.pushState({}, null, baseUrl);
     this.loadGeoJson();
@@ -646,6 +653,7 @@ class ChoroplethMap extends Component<PropsType, StateType> {
    * Generates the breadcrumbs text from browser url.
    * @param {string} curGeo human-readable current geo to display
    * at end of list of hierarchy of locations.
+   * TODO: create separate breadcrumbs component and use that instead
    */
   private generateBreadCrumbs = (curGeo: string): void => {
     const url = new URL(window.location.href);
@@ -655,7 +663,7 @@ class ChoroplethMap extends Component<PropsType, StateType> {
       const crumbs = breadcrumbs.split(";");
       crumbs.forEach((crumb) => {
         // The geoDcid reference and human-readable curGeo are separated by a '~'.
-        const [levelRef, humanName] = crumb.split("~");
+        const [levelRef, humanName] = crumb.split(BREADCRUMB_NAME_SEPARATOR);
         if (levelRef) {
           breadcrumbsDisplay.push(
             <span
