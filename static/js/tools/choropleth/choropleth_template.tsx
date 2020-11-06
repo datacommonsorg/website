@@ -167,15 +167,20 @@ class MainPane extends Component {
             <div className="column" id="breadcrumbs"></div>
             <div id="heading">Loading...</div>
             <div id="error"></div>
-            <div>
-              <ChoroplethMap
-                ref={this.state && this.state["choroplethMap"]}
-              ></ChoroplethMap>
-            </div>
-            <div id="choropleth-footer">
-              <div id="legend-container">
-                <div id="date"></div>
-                <div id="legend"></div>
+            <div id="choropleth-section">
+              <div>
+                <ChoroplethMap
+                  ref={this.state && this.state["choroplethMap"]}
+                ></ChoroplethMap>
+              </div>
+              <div id="choropleth-footer">
+                <div id="legend-container">
+                  <div id="date"></div>
+                  <div id="legend"></div>
+                </div>
+              </div>
+              <div id="loading-overlay">
+                <div id="loading-text">Loading...</div>
               </div>
             </div>
           </div>
