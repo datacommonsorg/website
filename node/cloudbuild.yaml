@@ -12,19 +12,18 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-# Version can be found at: https://chromedriver.storage.googleapis.com/LATEST_RELEASE
 substitutions:
     _VERS: "2020-11-05"
 
-  steps:
-    - name: "gcr.io/cloud-builders/docker"
-      args:
-        - build
-        - "--build-arg=VERS=${_VERS}"
-        - --tag=gcr.io/datcom-ci/node-package:${_VERS}
-        - --tag=gcr.io/datcom-ci/node-package:latest
-        - "."
+steps:
+  - name: "gcr.io/cloud-builders/docker"
+    args:
+      - build
+      - "--build-arg=VERS=${_VERS}"
+      - --tag=gcr.io/datcom-ci/node:${_VERS}
+      - --tag=gcr.io/datcom-ci/node:latest
+      - "."
 
-  images:
-    - "gcr.io/datcom-ci/node-package:${_VERS}"
-    - "gcr.io/datcom-ci/node-package:latest"
+images:
+  - "gcr.io/datcom-ci/node:${_VERS}"
+  - "gcr.io/datcom-ci/node:latest"

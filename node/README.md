@@ -1,20 +1,19 @@
-# node-package Docker Image
+# Node Docker Image
 
 ## Description
 
-node-package is a Docker image based on node:12 that comes with a pre-installed node_modules.zip based on the Data Commons dc/website/package.json.
+node is a Docker image based on node:12-slim that comes with a pre-installed node_modules.zip based on the Data Commons [package.json](https://github.com/datacommonsorg/website/blob/master/static/package.json)
 
 ## node_modules.zip is pre-installed
 
 Installing node dependencies from scratch is very slow.
-To improve the overall speed of running `npm install`, the node-package image comes bundled with an existing `node_modules.zip`.
+To improve the overall speed of running `npm install`, the node image comes bundled with an existing `node_modules.zip`.
 
 You can unzip this file and install the delta file updates rather than
 installing the entire node_modules from scratch.
 
 `npm install` is smart enough to know which files to install.
 Simply run `npm install`with your newer `package.json`
-
 
 ## How to build the Docker image
 

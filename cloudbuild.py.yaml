@@ -24,25 +24,23 @@ steps:
         ./run_test.sh -p
 
   - id: package_js
-    name: gcr.io/datcom-ci/node-package:2020-10-05
+    name: gcr.io/datcom-ci/node:2020-11-05
     entrypoint: /bin/bash
     waitFor: ['-']
     args:
       - -c
       - |
-        # The node-package docker image comes with a pre-installed
-        # node_modules.zip for speed improvements.
-        # This step is simply done for speed,
-        # downloading the delta files is faster.
-        # than downloading the entire dependencies.
+        # The node docker image comes with a pre-installed node_modules.zip for speed improvements.
+        # Unzip the file onto the static folder and update the node_module packages instead of downloading from scratch.
+        # This step is simply done for speed, downloading the delta files is faster than downloading the entire dependencies.
         rm -rf static/node_modules
         unzip /resources/node_modules.zip -d static/
 
         # ./run_test.sh -b will build client packages.
         # -o enables the production flag. Will only
         # download production dependencies.
-        # These js files generated will be necessery
-        # for the flask_webdriver_test task.
+
+        # These js files generated will be necessery for the flask_webdriver_test task.
         ./run_test.sh -ob
 
   - id: flask_webdriver_test
