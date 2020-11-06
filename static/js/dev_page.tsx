@@ -30,7 +30,6 @@ import {
   drawGroupBarChart,
   drawGroupLineChart,
 } from "./chart/draw";
-import _ from "lodash";
 import { randDomId } from "./shared/util";
 
 interface DevChartPropType {
@@ -46,7 +45,7 @@ interface DevChartPropType {
   plotParams?: PlotParams;
 }
 
-class DevChart extends React.Component<DevChartPropType, unknown> {
+class DevChart extends React.Component<DevChartPropType> {
   svgContainerElement: React.RefObject<HTMLDivElement>;
 
   constructor(props: DevChartPropType) {

@@ -15,7 +15,10 @@
 import unittest
 import urllib
 from webdriver_tests.base_test import WebdriverBaseTest
-import time
+from selenium.webdriver.support.ui import WebDriverWait
+from selenium.webdriver.common.by import By
+from selenium.common.exceptions import TimeoutException
+from selenium.webdriver.support import expected_conditions as EC
 
 TIMELINE_URL = '/tools/timeline'
 URL_HASH_1 = '#&statsVar=Median_Age_Person,0,2__Median_Income_Person,0,3__Count_Person_Upto5Years,'\
@@ -24,6 +27,7 @@ GEO_URL_1 = '#&place=geoId/06'
 STATVAR_URL_1 = '#&statsVar=Count_Person'
 PLACE_SEARCH_CA = 'California, USA'
 PLACE_SEARCH_USA = 'USA'
+SLEEP_SEC = 15
 
 
 # Class to test timeline tool.
@@ -31,23 +35,35 @@ class TestCharts(WebdriverBaseTest):
 
     def test_server_and_page(self):
         """Test the server can run successfully."""
+        TITLE_TEXT = "Timelines Explorer - Data Commons"
+
+        # Load Timeline Tool page.
         self.driver.get(self.url_ + TIMELINE_URL)
-        # Using implicit wait here to wait for loading page.
-        self.driver.implicitly_wait(5)
+
+        # Assert 200 HTTP code: successful page load.
         req = urllib.request.Request(self.driver.current_url)
         with urllib.request.urlopen(req) as response:
             self.assertEqual(response.getcode(), 200)
-        # Assert the js files are generated successfully.
+
+        # Assert 200 HTTP code: successful JS generation.
         req = urllib.request.Request(self.url_ + "/timeline.js")
         with urllib.request.urlopen(req) as response:
             self.assertEqual(response.getcode(), 200)
-        self.assertEqual("Timelines Explorer - Data Commons", self.driver.title)
+
+        # Assert page title is correct.
+        WebDriverWait(self.driver,
+                      SLEEP_SEC).until(EC.title_contains(TITLE_TEXT))
+        self.assertEqual(TITLE_TEXT, self.driver.title)
 
     def test_charts_original(self):
         """Test the original timeline page. No charts in this page."""
+        # Load Timeline Tool page.
         self.driver.get(self.url_ + TIMELINE_URL)
-        self.driver.implicitly_wait(5)
+
+        # Find the group of charts.
         charts = self.driver.find_elements_by_class_name("card")
+
+        # Assert no card is present since no search has been performed.
         self.assertEqual(len(charts), 0)
 
     def test_charts_from_url_directly_and_uncheck_statvar(self):
@@ -55,74 +71,137 @@ class TestCharts(WebdriverBaseTest):
         Given the url directly, test the menu and charts are shown correctly.
         Then unclick one statvar, test the corresponding change.
         """
+        # Load Timeline Tool page with Statistical Variables.
         self.driver.get(self.url_ + TIMELINE_URL + URL_HASH_1)
-        self.driver.implicitly_wait(5)
+
+        # Wait until the group of charts has loaded.
+        element_present = EC.presence_of_element_located(
+            (By.CLASS_NAME, 'card'))
+        WebDriverWait(self.driver, SLEEP_SEC).until(element_present)
+
+        # Store a list of all the charts.
         charts = self.driver.find_elements_by_class_name("card")
+
         # Assert there are three charts.
         self.assertEqual(len(charts), 3)
 
         # Uncheck median age statvar, and the number of charts will become two.
-        median_age = self.driver.find_element_by_id("Median age")
-        median_age_checkbox = median_age.find_element_by_class_name("checked")
+        median_age_checkbox = self.driver.find_element_by_xpath(
+            '//*[@id="Median age"]/span/button')
         median_age_checkbox.click()
-        self.driver.implicitly_wait(2)
+
+        # Re-store a list of all the charts.
         charts = self.driver.find_elements_by_class_name("card")
+
         # Assert there are two charts.
         self.assertEqual(len(charts), 2)
 
     def test_check_statvar_and_uncheck(self):
         """Test check and uncheck one statvar."""
+        # Load Timeline Tool page for California.
         self.driver.get(self.url_ + TIMELINE_URL + GEO_URL_1)
-        self.driver.implicitly_wait(3)
+
+        # Store a list of all the charts.
+        # There is no chart available, so no need to wait for it.
+        # Simply make sure there are none.
         charts = self.driver.find_elements_by_class_name("card")
+
         # Assert there is no chart.
         self.assertEqual(len(charts), 0)
 
         # Explore the menu and check the population box.
-        elem = self.driver.find_element_by_id("Demographics")
-        caret = elem.find_element_by_class_name("right-caret")
+        caret = self.driver.find_element_by_xpath(
+            '//*[@id="Demographics"]/span/a/img')
         caret.click()
-        self.driver.implicitly_wait(2)
-        population = elem.find_element_by_id("Population")
-        population_checkbox = population.find_element_by_class_name("checkbox")
+
+        # Wait until population checkbox is present and click on it.
+        element_present = EC.presence_of_element_located(
+            (By.XPATH, '//*[@id="Population"]/span/button'))
+        WebDriverWait(self.driver, SLEEP_SEC).until(element_present)
+        population_checkbox = self.driver.find_element_by_xpath(
+            '//*[@id="Population"]/span/button')
         population_checkbox.click()
-        self.driver.implicitly_wait(5)
+
+        # Wait until there is one card present.
+        element_present = EC.presence_of_element_located(
+            (By.CSS_SELECTOR, '.card'))
+        WebDriverWait(self.driver, SLEEP_SEC).until(element_present)
+
+        # Re-store a list of all the charts.
         charts = self.driver.find_elements_by_class_name("card")
+
         # Assert there is one chart.
         self.assertEqual(len(charts), 1)
 
     def test_place_search_box_and_remove_place(self):
         """Test the timeline tool place search can work correctly."""
-        # Add place into place search box.
+        # Load Timeline Tool page with Statistical Variables.
         self.driver.get(self.url_ + TIMELINE_URL + STATVAR_URL_1)
-        time.sleep(3)
-        search_box = self.driver.find_element_by_id("search")
-        search_box_input = search_box.find_element_by_id("ac")
-        # Add California
+
+        # Wait until search box is present.
+        element_present = EC.presence_of_element_located((By.ID, 'ac'))
+        WebDriverWait(self.driver, SLEEP_SEC).until(element_present)
+        search_box_input = self.driver.find_element_by_id('ac')
+
+        # Type California into the search box.
         search_box_input.send_keys(PLACE_SEARCH_CA)
-        time.sleep(2)
-        search_results = self.driver.find_elements_by_class_name("pac-item")
-        ca_result = search_results[0]
-        ca_result.click()
-        # Add USA
+
+        # Wait until there is at least one result in autocomplete results.
+        element_present = EC.presence_of_element_located(
+            (By.CLASS_NAME, 'pac-item'))
+        WebDriverWait(self.driver, SLEEP_SEC).until(element_present)
+
+        # Click on the first result.
+        first_result = self.driver.find_element_by_css_selector(
+            ".pac-item:nth-child(1)")
+        first_result.click()
+
+        # Type USA into the search box.
         search_box_input.send_keys(PLACE_SEARCH_USA)
-        time.sleep(2)
-        search_results = self.driver.find_elements_by_class_name("pac-item")
-        ca_result = search_results[0]
-        ca_result.click()
-        time.sleep(3)
+
+        # Wait until there is at least one result in autocomplete results.
+        element_present = EC.presence_of_element_located(
+            (By.CLASS_NAME, 'pac-item'))
+        WebDriverWait(self.driver, SLEEP_SEC).until(element_present)
+
+        # Click on the first result.
+        first_result = self.driver.find_element_by_css_selector(
+            ".pac-item:nth-child(1)")
+        first_result.click()
+
+        # Wait until the second line element within the card is present.
+        element_present = EC.presence_of_element_located(
+            (By.CSS_SELECTOR, '.line:nth-child(2)'))
+        WebDriverWait(self.driver, SLEEP_SEC).until(element_present)
+
+        # Store a list of all the charts and lines.
         charts = self.driver.find_elements_by_class_name("card")
         lines = charts[0].find_elements_by_class_name("line")
+
+        # Assert number of charts and lines is correct.
         self.assertEqual(len(charts), 1)
         self.assertEqual(len(lines), 2)
 
-        # Remove California from place search box.
-        delete_button = search_box.find_element_by_class_name(
-            "mdl-chip__action")
+        # Wait until the delete button is present.
+        element_present = EC.presence_of_element_located(
+            (By.XPATH, '//*[@id="place-list"]/span/button'))
+        WebDriverWait(self.driver, SLEEP_SEC).until(element_present)
+
+        # Click on the delete button and remove California.
+        delete_button = self.driver.find_element_by_xpath(
+            '//*[@id="place-list"]/span/button')
         delete_button.click()
-        time.sleep(3)
+
+        # Wait until the second line element within the card disappears.
+        element_present = EC.invisibility_of_element_located(
+            (By.CSS_SELECTOR, '.line:nth-child(2)'))
+        WebDriverWait(self.driver, SLEEP_SEC).until(element_present)
+
+        # Store a list of all the charts and lines.
         charts = self.driver.find_elements_by_class_name("card")
         lines = charts[0].find_elements_by_class_name("line")
+
+        # Assert number of charts and lines is correct.
         self.assertEqual(len(charts), 1)
         self.assertEqual(len(lines), 1)
 

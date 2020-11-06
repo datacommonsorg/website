@@ -24,7 +24,7 @@ interface MenuCategoryPropsType {
   topics: string[];
 }
 
-class MenuCategory extends React.Component<MenuCategoryPropsType, unknown> {
+class MenuCategory extends React.Component<MenuCategoryPropsType> {
   render(): JSX.Element {
     const dcid = this.props.dcid;
     const selectCategory = this.props.selectCategory;
@@ -72,7 +72,7 @@ interface MenuPropsType {
   pageChart: PageChart;
 }
 
-class Menu extends React.Component<MenuPropsType, unknown> {
+class Menu extends React.Component<MenuPropsType> {
   render(): JSX.Element {
     const dcid = this.props.dcid;
     const topic = this.props.topic;

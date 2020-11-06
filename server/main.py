@@ -160,7 +160,7 @@ def mcf_playground():
 def locales(filepath):
     if os.environ.get('FLASK_ENV') == 'production':
         return ''
-    return flask.send_file('../locales/' + filepath)
+    return flask.send_file('./locales/' + filepath)
 
 
 if __name__ == '__main__':
