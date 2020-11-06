@@ -91,7 +91,7 @@ class ChoroplethMap extends Component<PropsType, StateType> {
 
   public componentDidMount = (): void => {
     window.addEventListener("resize", this._handleWindowResize);
-    this.loadGeoJson();
+    this.loadGeoJson("");
   };
 
   private _handleWindowResize = (): void => {
@@ -103,16 +103,20 @@ class ChoroplethMap extends Component<PropsType, StateType> {
    * Loads and renders blank GeoJson map for current geoDcid.
    * After loading, values for a particular StatVar are pulled.
    */
-  private loadGeoJson = (): void => {
+  private loadGeoJson = (geoName: string): void => {
     let geoUrl = "/api/choropleth/geo";
     geoUrl += buildChoroplethParams(["pc", "geoDcid", "level", "mdom"]);
     let valueUrl = "/api/choropleth/values";
     valueUrl += buildChoroplethParams(["geoDcid", "statVar", "level"]);
+    if (geoName) {
+      const searchParams = new URLSearchParams(window.location.search);
+      updateTitle(searchParams.get("statVar"), geoName, this.state.pc);
+      showLoading();
+    }
 
     // Create request and generate map.
     const geoPromise = axios.get(geoUrl);
     const valuePromise = axios.get(valueUrl);
-
     Promise.all([geoPromise, valuePromise]).then(
       (values) => {
         // Coordinates for the map.
@@ -132,6 +136,7 @@ class ChoroplethMap extends Component<PropsType, StateType> {
         //shouldComponentUpdate.
         this.drawBlankGeoMap();
         this.addColorToGeoMap();
+        removeLoading();
       },
       () => {
         document.getElementById("heading").innerHTML = "";
@@ -139,6 +144,7 @@ class ChoroplethMap extends Component<PropsType, StateType> {
           "API Request Failed! " +
           "Please consider starting at the base menu again." +
           '<a href="/tools/choropleth"> Access here.</a>';
+        removeLoading();
       }
     );
   };
@@ -149,6 +155,13 @@ class ChoroplethMap extends Component<PropsType, StateType> {
   private loadValues = (): void => {
     let baseUrl = "/api/choropleth/values";
     baseUrl += buildChoroplethParams(["geoDcid", "level", "statVar"]);
+    const searchParams = new URLSearchParams(window.location.search);
+    updateTitle(
+      searchParams.get("statVar"),
+      this.state.geoJson.properties.current_geo,
+      this.state.pc
+    );
+    showLoading();
 
     axios.get(baseUrl).then(
       (resp) => {
@@ -166,12 +179,14 @@ class ChoroplethMap extends Component<PropsType, StateType> {
         });
 
         this.addColorToGeoMap();
+        removeLoading();
       },
       () => {
         document.getElementById("heading").innerHTML = "";
         document.getElementById("error").innerHTML =
           "API request failed for your" +
           "statistical variable choice! Please select a new variable.";
+        removeLoading();
       }
     );
   };
@@ -256,10 +271,6 @@ class ChoroplethMap extends Component<PropsType, StateType> {
       return { popMap };
     });
 
-    // Generate breadcrumbs.
-    // TODO(fpernice-google): Derive the curGeo value from geoDcid instead
-    // of embedding in url.
-    this.generateBreadCrumbs(this.state.geoJson.properties.current_geo);
     addTooltip();
   };
 
@@ -327,11 +338,7 @@ class ChoroplethMap extends Component<PropsType, StateType> {
     const currentGeo = this.state["geoJson"]["properties"]["current_geo"];
     const currentStatVar = url.searchParams.get("statVar");
     if (currentStatVar) {
-      document.getElementById("heading").innerHTML = formatTitle(
-        currentStatVar,
-        currentGeo,
-        this.state.pc
-      );
+      updateTitle(currentStatVar, currentGeo, this.state.pc);
     } else {
       document.getElementById("heading").innerHTML = currentGeo;
       document.getElementById("hover-text-display").innerHTML =
@@ -630,9 +637,15 @@ class ChoroplethMap extends Component<PropsType, StateType> {
       (crumb) => crumb.geoId === geoDcid
     );
     let breadCrumbsList = this.state.breadCrumbs;
+    let nextGeoName = "";
     if (idxOfCurr == -1) {
       breadCrumbsList.push({ geoId: currGeoId, geoName: curGeo });
+      const nextGeoFeature = this.state.geoJson.features.find(
+        (feature) => feature.properties.geoDcid === geoDcid
+      );
+      nextGeoName = nextGeoFeature ? nextGeoFeature.properties.name : "";
     } else {
+      nextGeoName = breadCrumbsList[idxOfCurr].geoName;
       breadCrumbsList = breadCrumbsList.slice(0, idxOfCurr);
     }
     this.setState({
@@ -646,7 +659,11 @@ class ChoroplethMap extends Component<PropsType, StateType> {
         breadCrumbsList[i].geoName;
     }
     history.pushState({}, null, baseUrl);
-    this.loadGeoJson();
+    // Generate breadcrumbs.
+    // TODO(fpernice-google): Derive the curGeo value from geoDcid instead
+    // of embedding in url.
+    this.generateBreadCrumbs(nextGeoName);
+    this.loadGeoJson(nextGeoName);
   };
 
   /**
@@ -714,6 +731,13 @@ function addTooltip() {
     .attr("style", "position: absolute; display: none; z-index: 1");
 }
 
+function showLoading() {
+  d3.select("#loading-overlay").attr("style", "display: flex");
+}
+
+function removeLoading() {
+  d3.select("#loading-overlay").attr("style", "display: none");
+}
 /**
  * Returns domain of color palette as len 9 numerical array for plotting.
  * @param dict of values mapping geoDcid to number returned by /values endpoint.
@@ -793,6 +817,18 @@ const formatTitle = (
     statVarName = statVarName.replace(key, NAME_REPLACEMENT_DICT[key]);
   }
   return statVarName + " in " + geoName;
+};
+
+const updateTitle = (
+  statVar: string,
+  geoName: string,
+  isPerCapita: boolean
+): void => {
+  document.getElementById("heading").innerHTML = formatTitle(
+    statVar,
+    geoName,
+    isPerCapita
+  );
 };
 
 type DatePickerPropsType = {
