@@ -624,7 +624,7 @@ class ChoroplethMap extends Component<PropsType, StateType> {
       "statVar",
       "pc",
       "mdom",
-    ])}&&geoDcid=${geoDcid}&bc=`;
+    ])}&geoDcid=${geoDcid}&bc=`;
 
     const idxOfCurr = this.state.breadCrumbs.findIndex(
       (crumb) => crumb.geoId === geoDcid
