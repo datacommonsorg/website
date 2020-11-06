@@ -47,6 +47,18 @@
   },
   {
     "category": "Economics",
+    "title": "Poverty rate",
+    "statsVars": ["Count_Person_BelowPovertyLevelInThePast12Months"],
+    "denominator": ["Count_Person"],
+    "scaling": 100,
+    "unit": "%",
+    "isOverview": true,
+    "relatedChart": {
+      "scale": false
+    }
+  },
+  {
+    "category": "Economics",
     "title": "State unemployment insurance claims",
     "statsVars": [
       "Count_UnemploymentInsuranceClaim_StateUnemploymentInsurance"
