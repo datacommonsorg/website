@@ -110,3 +110,28 @@ button {
   display: flex;
   justify-content: center;
 }
+
+.clickable-link {
+  color: #600;
+  cursor: pointer;
+}
+
+#choropleth-section {
+  position: relative;
+}
+
+#loading-overlay {
+  position: absolute;
+  z-index: 10;
+  display: none;
+  height: 100%;
+  width: 100%;
+  top: 0;
+  justify-content: center;
+  align-items: center;
+  background-color: rgba(255, 255, 255, 0.75);
+}
+
+#loading-text {
+  font-size: 1.4rem;
+}

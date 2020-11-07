@@ -20,6 +20,9 @@ import { Menu } from "../statsvar_menu";
 import { ChoroplethMap } from "./choropleth";
 import { NoopStatsVarFilter, TimelineStatsVarFilter } from "../commons";
 import axios from "axios";
+import statsVarPathMap from "../../../data/statsvar_path.json";
+
+const DEFAULT_STAT_VAR = "Count_Person_Employed";
 
 /**
  * Generates choropleth map from API on pageload.
@@ -38,9 +41,14 @@ class MainPane extends Component {
 
     // Redirect to basic url if none provided.
     const urlParams = new URLSearchParams(window.location.search);
+    const statVarDcid = urlParams.has("statVar")
+      ? urlParams.get("statVar")
+      : DEFAULT_STAT_VAR;
+    const statVarNodePath = statsVarPathMap[statVarDcid].map((x: number) =>
+      x.toString()
+    );
     if (window.location.search === "") {
-      window.location.search =
-        "statVar=Count_Person_Employed&pc=t&geoDcid=country/USA";
+      window.location.search = `statVar=${statVarDcid}&pc=t&geoDcid=country/USA`;
     } else if (!urlParams.has("geoDcid")) {
       urlParams.set("geoDcid", "country/USA");
       window.location.search = urlParams.toString();
@@ -70,6 +78,8 @@ class MainPane extends Component {
         }
       });
 
+    const statsVarNodes = {};
+    statsVarNodes[statVarDcid] = { paths: [statVarNodePath] };
     // Initialize state.
     this.state = {
       // References used for both choropleth and stats var sidemenu objects.
@@ -79,7 +89,7 @@ class MainPane extends Component {
       // Default to no filtering in stats var sidemenu until API call returns.
       statsVarFilter: new NoopStatsVarFilter(),
       // Tracks the currently selected node in sidemenu.
-      statsVarNodes: {},
+      statsVarNodes: statsVarNodes,
     };
   }
 
@@ -157,15 +167,20 @@ class MainPane extends Component {
             <div className="column" id="breadcrumbs"></div>
             <div id="heading">Loading...</div>
             <div id="error"></div>
-            <div>
-              <ChoroplethMap
-                ref={this.state && this.state["choroplethMap"]}
-              ></ChoroplethMap>
-            </div>
-            <div id="choropleth-footer">
-              <div id="legend-container">
-                <div id="date"></div>
-                <div id="legend"></div>
+            <div id="choropleth-section">
+              <div>
+                <ChoroplethMap
+                  ref={this.state && this.state["choroplethMap"]}
+                ></ChoroplethMap>
+              </div>
+              <div id="choropleth-footer">
+                <div id="legend-container">
+                  <div id="date"></div>
+                  <div id="legend"></div>
+                </div>
+              </div>
+              <div id="loading-overlay">
+                <div id="loading-text">Loading...</div>
               </div>
             </div>
           </div>
