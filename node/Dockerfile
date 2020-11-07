@@ -17,9 +17,9 @@ FROM node:12-slim
 # GCB should read files from /resources.
 WORKDIR /resources
 
-# Install the zip app.
+# Install curl.
 RUN apt-get -y update
-RUN apt-get -y install zip curl
+RUN apt-get -y install curl
 
 # Download the latest package.json and package-lock.jsonfrom dc/website:master.
 # package.json and package-lock.json are up-to-date as of the date the image is built.
@@ -30,9 +30,5 @@ RUN curl -O https://raw.githubusercontent.com/datacommonsorg/website/master/stat
 # Install only the prodution dependencies using package.json.
 RUN npm install
 
-# Zip node_modules/ for to generate a smaller Docker image.
-RUN zip -r node_modules.zip node_modules
-
-# Only keep node_modules.zip inside.
-# Remove everything else.
-RUN rm -rf node_modules package.json package-lock.json
+# Remove anything other than node_modules.
+RUN rm -rf package.json package-lock.json

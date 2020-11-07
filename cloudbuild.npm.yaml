@@ -14,7 +14,7 @@
 
 steps:
   - id: "client-test"
-    name: "node"
+    name: gcr.io/datcom-ci/node
     entrypoint: /bin/sh
     args:
       - -c
