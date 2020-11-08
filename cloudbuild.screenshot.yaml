@@ -15,7 +15,7 @@
 steps:
   # Build the static files
   - id: package_js
-    name: "node"
+    name: gcr.io/datcom-ci/node
     entrypoint: /bin/bash
     args:
       - -c

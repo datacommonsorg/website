@@ -12,10 +12,18 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
+substitutions:
+    _VERS: "2020-11-05"
+
 steps:
-  - id: "client-test"
-    name: gcr.io/datcom-ci/node
-    entrypoint: /bin/sh
+  - name: "gcr.io/cloud-builders/docker"
     args:
-      - -c
-      - ./run_test.sh -lbc
+      - build
+      - "--build-arg=VERS=${_VERS}"
+      - --tag=gcr.io/datcom-ci/node:${_VERS}
+      - --tag=gcr.io/datcom-ci/node:latest
+      - "."
+
+images:
+  - "gcr.io/datcom-ci/node:${_VERS}"
+  - "gcr.io/datcom-ci/node:latest"

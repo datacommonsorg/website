@@ -18,27 +18,15 @@
 @import '../tools/statvar_menu';
 @import '../draw';
 
-#map_container {
-  margin-left: 5%;
-}
-
-.border {
-  stroke: gray;
-  stroke-width: 0.5px;
-}
-
-.border-highlighted {
-  stroke: black;
+.choropleth-region {
+  stroke: #fff;
   stroke-width: 1px;
-}
-
-.clickable {
-  cursor: pointer;
 }
 
 #explore {
   float: left;
   width: 25%;
+  z-index: 5;
 }
 
 #legend-container {
@@ -63,24 +51,20 @@
 #main-content {
   float: right;
   width: 75%;
+  height: 100%;
 }
 
 #breadcrumbs {
   float: left;
   height: 30px;
   width: 100%;
-}
-
-#hover-text-display {
-  float: right;
-  min-width: 150px;
-  width: 40%;
-  height: 0;
+  padding: 0.5rem;
 }
 
 #heading {
-  font-size: 32px;
+  font-size: 28.8px;
   text-align: center;
+  padding-bottom: 15px;
 }
 
 #error {
@@ -91,4 +75,63 @@
 button {
   border-radius: 50%;
   overflow: hidden;
+}
+
+.highlighted {
+  fill: rgba(0, 0, 0, .5) !important;
+}
+
+.clickable {
+  cursor: pointer;
+}
+
+#tooltip {
+  background-color: #fff;
+  color: #3b3b3b;
+  font-size: 0.8rem;
+  border-radius: 3px;
+  border: 0.5px solid #dee2e6;
+  padding: 0.3rem;
+}
+
+.choropleth-tool-container {
+  height: 100%;
+  overflow-y: auto;
+}
+
+#choropleth-body {
+  min-width: 500px;
+  min-height: 450px;
+  height: 100%;
+}
+
+#choropleth-footer {
+  width: 100%;
+  display: flex;
+  justify-content: center;
+}
+
+.clickable-link {
+  color: #600;
+  cursor: pointer;
+}
+
+#choropleth-section {
+  position: relative;
+}
+
+#loading-overlay {
+  position: absolute;
+  z-index: 10;
+  display: none;
+  height: 100%;
+  width: 100%;
+  top: 0;
+  justify-content: center;
+  align-items: center;
+  background-color: rgba(255, 255, 255, 0.75);
+}
+
+#loading-text {
+  font-size: 1.4rem;
 }

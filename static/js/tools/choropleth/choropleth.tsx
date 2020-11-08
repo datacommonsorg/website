@@ -21,56 +21,102 @@ import React, { Component } from "react";
 import axios from "axios";
 import * as d3 from "d3";
 import ReactDOM from "react-dom";
+import { GeoJsonData, GeoJsonFeature } from "../../chart/types";
+import _ from "lodash";
+
+const TOOLTIP_ID = "tooltip";
+const LEGEND_HEIGHT = 60;
+const LATEST_DATE = "latest";
+const MAP_PADDING = 7;
+const LEGEND_WIDTH = 300;
+const TICK_SIZE = 6;
+const NUM_TICKS = 5;
+const LEGEND_MARGIN_TOP = 18;
+const LEGEND_MARGIN_BOTTOM = 16 + TICK_SIZE;
+const LEGEND_MARGIN_SIDES = 25;
+const LEGEND_TEXT_PADDING = 6;
+// TODO: Bring in logic from timelines tool for stat var title
+const NAME_REPLACEMENT_DICT = {
+  "Count Person": "Population",
+  "Count Worker": "Workers in",
+  "Count Household": "Households with",
+  Person: "",
+};
+const BREADCRUMB_NAME_SEPARATOR = "~";
 
 type PropsType = unknown;
 
+type BreadCrumbType = {
+  geoId: string;
+  geoName: string;
+};
+
 // TODO(eduardo): get rid of "unknown" type.
 type StateType = {
-  geoJson: unknown;
+  geoJson: GeoJsonData;
   values: { [geoId: string]: number };
   data: { [geoId: string]: { [date: string]: number } };
   date: string;
   mapContent: unknown;
   pc: boolean;
   popMap: { [geoId: string]: number };
+  breadCrumbs: BreadCrumbType[];
 };
 
 class ChoroplethMap extends Component<PropsType, StateType> {
-  public state = {
-    geoJson: [] as any,
-    data: {},
-    date: "latest",
-    mapContent: {} as any,
-    pc: false,
-    popMap: {},
-    values: {},
-  };
-
-  public componentDidMount = (): void => {
+  svgContainerElement: React.RefObject<HTMLDivElement>;
+  constructor(props: PropsType) {
+    super(props);
+    this.svgContainerElement = React.createRef();
     const urlParams = new URLSearchParams(window.location.search);
     const isPerCapita =
       urlParams.has("pc") &&
       ["t", "true", "1"].includes(urlParams.get("pc").toLowerCase());
-    this.setState({
+    this.state = {
+      geoJson: null,
+      data: {},
+      date: LATEST_DATE,
+      mapContent: {} as any,
       pc: isPerCapita,
-    });
-    this.loadGeoJson();
+      popMap: {},
+      values: {},
+      breadCrumbs: [],
+    };
+    this._handleWindowResize = this._handleWindowResize.bind(this);
+  }
+
+  public componentWillUnmount(): void {
+    window.removeEventListener("resize", this._handleWindowResize);
+  }
+
+  public componentDidMount = (): void => {
+    window.addEventListener("resize", this._handleWindowResize);
+    this.loadGeoJson("");
+  };
+
+  private _handleWindowResize = (): void => {
+    this.drawBlankGeoMap();
+    this.addColorToGeoMap();
   };
 
   /**
    * Loads and renders blank GeoJson map for current geoDcid.
    * After loading, values for a particular StatVar are pulled.
    */
-  private loadGeoJson = (): void => {
+  private loadGeoJson = (geoName: string): void => {
     let geoUrl = "/api/choropleth/geo";
     geoUrl += buildChoroplethParams(["pc", "geoDcid", "level", "mdom"]);
     let valueUrl = "/api/choropleth/values";
     valueUrl += buildChoroplethParams(["geoDcid", "statVar", "level"]);
+    if (geoName) {
+      const searchParams = new URLSearchParams(window.location.search);
+      updateTitle(searchParams.get("statVar"), geoName, this.state.pc);
+      showLoading();
+    }
 
     // Create request and generate map.
     const geoPromise = axios.get(geoUrl);
     const valuePromise = axios.get(valueUrl);
-
     Promise.all([geoPromise, valuePromise]).then(
       (values) => {
         // Coordinates for the map.
@@ -78,7 +124,7 @@ class ChoroplethMap extends Component<PropsType, StateType> {
         // All the timeseries data for all places.
         const data = values[1].data[0];
         // The latest value for all places.
-        const geoIdToValues = this.filterByDate(data, "latest");
+        const geoIdToValues = this.filterByDate(data, LATEST_DATE);
 
         this.setState({
           geoJson: geoJson,
@@ -90,6 +136,7 @@ class ChoroplethMap extends Component<PropsType, StateType> {
         //shouldComponentUpdate.
         this.drawBlankGeoMap();
         this.addColorToGeoMap();
+        removeLoading();
       },
       () => {
         document.getElementById("heading").innerHTML = "";
@@ -97,6 +144,7 @@ class ChoroplethMap extends Component<PropsType, StateType> {
           "API Request Failed! " +
           "Please consider starting at the base menu again." +
           '<a href="/tools/choropleth"> Access here.</a>';
+        removeLoading();
       }
     );
   };
@@ -107,13 +155,20 @@ class ChoroplethMap extends Component<PropsType, StateType> {
   private loadValues = (): void => {
     let baseUrl = "/api/choropleth/values";
     baseUrl += buildChoroplethParams(["geoDcid", "level", "statVar"]);
+    const searchParams = new URLSearchParams(window.location.search);
+    updateTitle(
+      searchParams.get("statVar"),
+      this.state.geoJson.properties.current_geo,
+      this.state.pc
+    );
+    showLoading();
 
     axios.get(baseUrl).then(
       (resp) => {
         // Because this is the first time loading the page,
         // filter the value by "latest" date.
         const data = resp.data[0];
-        const geoIdToValues = this.filterByDate(data, "latest");
+        const geoIdToValues = this.filterByDate(data, LATEST_DATE);
 
         // values contains only the data for the date being observed.
         // data contains the raw data.
@@ -124,12 +179,14 @@ class ChoroplethMap extends Component<PropsType, StateType> {
         });
 
         this.addColorToGeoMap();
+        removeLoading();
       },
       () => {
         document.getElementById("heading").innerHTML = "";
         document.getElementById("error").innerHTML =
           "API request failed for your" +
           "statistical variable choice! Please select a new variable.";
+        removeLoading();
       }
     );
   };
@@ -163,29 +220,41 @@ class ChoroplethMap extends Component<PropsType, StateType> {
    */
   private drawBlankGeoMap = (): void => {
     // Combine path elements from D3 content.
-    const geojson = this.state["geoJson"];
-    const mapContent = d3
-      .select("#main-pane g.map")
-      .selectAll("path")
-      .data(geojson.features);
+    const geojson = this.state.geoJson;
+    const container = document.getElementById("choropleth-body");
+    const heading = document.getElementById("heading");
+    const width = container.offsetWidth - MAP_PADDING * 2;
+    const height =
+      container.offsetHeight -
+      heading.clientHeight -
+      LEGEND_HEIGHT -
+      MAP_PADDING * 2;
+    if (!d3.select("#map-container").empty()) {
+      d3.select("#map-container").remove();
+    }
+    const svg = d3
+      .select("#svg-container")
+      .attr("padding", `${MAP_PADDING}px`)
+      .append("svg")
+      .attr("id", "map-container")
+      .attr("width", width)
+      .attr("height", height);
+    const map = svg.append("g").attr("class", "map");
+    const mapContent = map.selectAll("path").data(geojson.features);
 
     // Scale and center the map.
-    const svgContainer = document.getElementById("map_container");
-    const projection = d3
-      .geoAlbersUsa()
-      .fitSize([svgContainer.clientWidth, svgContainer.clientHeight], geojson);
+    const projection = d3.geoAlbersUsa().fitSize([width, height], geojson);
     const geomap = d3.geoPath().projection(projection);
-
     // Build map objects.
     mapContent
       .enter()
       .append("path")
       .attr("d", geomap)
-      // Add CSS class to each path for border outlining.
-      .attr("class", "border")
+      .attr("class", "choropleth-region")
       .attr("fill", "gray")
       // Add various event handlers.
       .on("mouseover", this.handleMapHover)
+      .on("mousemove", this.handleMouseMove)
       .on("mouseleave", this.mouseLeave)
       .on("click", this.handleMapClick);
 
@@ -202,10 +271,7 @@ class ChoroplethMap extends Component<PropsType, StateType> {
       return { popMap };
     });
 
-    // Generate breadcrumbs.
-    // TODO(fpernice-google): Derive the curGeo value from geoDcid instead
-    // of embedding in url.
-    generateBreadCrumbs(this.state["geoJson"]["properties"]["current_geo"]);
+    addTooltip();
   };
 
   /**
@@ -219,7 +285,7 @@ class ChoroplethMap extends Component<PropsType, StateType> {
 
     // Build chart display options.
     const blues = [
-      "#f7fbff",
+      "#eef5fb",
       "#deebf7",
       "#c6dbef",
       "#9ecae1",
@@ -247,27 +313,24 @@ class ChoroplethMap extends Component<PropsType, StateType> {
       .selectAll("path")
       .data(geojson.features)
       .attr("id", (_, index) => {
-        return "geoPath/" + index;
+        return "geoPath" + index;
       });
 
     // Create new infill.
-    mapContent.attr(
-      "fill",
-      (d: { properties: { geoDcid: string; pop: number } }) => {
-        if (d.properties.geoDcid in geoIdToValue) {
-          const value = geoIdToValue[d.properties.geoDcid];
-          if (isPerCapita) {
-            if (Object.prototype.hasOwnProperty.call(d.properties, "pop")) {
-              return colorScale(value / d.properties.pop);
-            }
-            return "gray";
+    mapContent.attr("fill", (d: GeoJsonFeature) => {
+      if (d.properties.geoDcid in geoIdToValue) {
+        const value = geoIdToValue[d.properties.geoDcid];
+        if (isPerCapita) {
+          if (Object.prototype.hasOwnProperty.call(d.properties, "pop")) {
+            return colorScale(value / d.properties.pop);
           }
-          return colorScale(value);
-        } else {
           return "gray";
         }
+        return colorScale(value);
+      } else {
+        return "gray";
       }
-    );
+    });
 
     // Update title.
     // TODO(iancostello): Use react component instead of innerHTML throughout.
@@ -275,8 +338,7 @@ class ChoroplethMap extends Component<PropsType, StateType> {
     const currentGeo = this.state["geoJson"]["properties"]["current_geo"];
     const currentStatVar = url.searchParams.get("statVar");
     if (currentStatVar) {
-      document.getElementById("heading").innerHTML =
-        currentStatVar + " in " + currentGeo;
+      updateTitle(currentStatVar, currentGeo, this.state.pc);
     } else {
       document.getElementById("heading").innerHTML = currentGeo;
       document.getElementById("hover-text-display").innerHTML =
@@ -311,15 +373,7 @@ class ChoroplethMap extends Component<PropsType, StateType> {
    *        plotted.
    */
   private generateLegend = (color: d3.ScaleLinear<number, number>): void => {
-    const width = 300;
-    const height = 60;
-    const tickSize = 6;
-    const title = "Color Scale";
-    const marginTop = 18;
-    const marginBottom = 16 + tickSize;
-    const marginSides = 15;
-    const textPadding = 6;
-    const numTicks = 5;
+    const title = "Scale";
 
     // Remove previous legend if it exists and create new one.
     if (!d3.select("#legend").empty()) {
@@ -329,18 +383,18 @@ class ChoroplethMap extends Component<PropsType, StateType> {
     const svg = d3
       .select("#legend")
       .append("svg")
-      .attr("width", width)
-      .attr("height", height);
+      .attr("width", LEGEND_WIDTH)
+      .attr("height", LEGEND_HEIGHT);
 
     const n = Math.min(color.domain().length, color.range().length);
 
     svg
       .append("image")
       .attr("id", "legend-img")
-      .attr("x", marginSides)
-      .attr("y", marginTop)
-      .attr("width", width - 2 * marginSides)
-      .attr("height", height - marginTop - marginBottom)
+      .attr("x", LEGEND_MARGIN_SIDES)
+      .attr("y", LEGEND_MARGIN_TOP)
+      .attr("width", LEGEND_WIDTH - 2 * LEGEND_MARGIN_SIDES)
+      .attr("height", LEGEND_HEIGHT - LEGEND_MARGIN_TOP - LEGEND_MARGIN_BOTTOM)
       .attr("preserveAspectRatio", "none")
       .attr(
         "xlink:href",
@@ -352,28 +406,45 @@ class ChoroplethMap extends Component<PropsType, StateType> {
     const x = color
       .copy()
       .rangeRound(
-        d3.quantize(d3.interpolate(marginSides, width - marginSides), n)
+        d3.quantize(
+          d3.interpolate(
+            LEGEND_MARGIN_SIDES,
+            LEGEND_WIDTH - LEGEND_MARGIN_SIDES
+          ),
+          n
+        )
       );
 
     const dom = color.domain();
-    const tickValues = d3.range(numTicks).map((i) => {
-      const index = Math.floor((i * (dom.length - 1)) / (numTicks - 1));
+    const tickValues = d3.range(NUM_TICKS).map((i) => {
+      const index = Math.floor((i * (dom.length - 1)) / (NUM_TICKS - 1));
       return dom[index];
     });
 
     svg
       .append("g")
-      .attr("transform", `translate(0, ${height - marginBottom})`)
-      .call(d3.axisBottom(x).tickSize(tickSize).tickValues(tickValues))
+      .attr(
+        "transform",
+        `translate(0, ${LEGEND_HEIGHT - LEGEND_MARGIN_BOTTOM})`
+      )
+      .call(d3.axisBottom(x).tickSize(TICK_SIZE).tickValues(tickValues))
       .call((g) =>
-        g.selectAll(".tick line").attr("y1", marginTop + marginBottom - height)
+        g
+          .selectAll(".tick line")
+          .attr("y1", LEGEND_MARGIN_TOP + LEGEND_MARGIN_BOTTOM - LEGEND_HEIGHT)
       )
       .call((g) => g.select(".domain").remove())
       .call((g) =>
         g
           .append("text")
-          .attr("x", marginSides)
-          .attr("y", marginTop + marginBottom - height - textPadding)
+          .attr("x", LEGEND_MARGIN_SIDES)
+          .attr(
+            "y",
+            LEGEND_MARGIN_TOP +
+              LEGEND_MARGIN_BOTTOM -
+              LEGEND_HEIGHT -
+              LEGEND_TEXT_PADDING
+          )
           .attr("fill", "currentColor")
           .attr("text-anchor", "start")
           .attr("font-weight", "bold")
@@ -417,7 +488,6 @@ class ChoroplethMap extends Component<PropsType, StateType> {
     // Store the new date and the new values.
     this.setState({ date: newDate, values: geoIdToValue }, () => {
       // Re-render component and map.
-      this.drawBlankGeoMap();
       this.addColorToGeoMap();
 
       // TODO(edumorales): show the range of dates somewhere so that
@@ -441,7 +511,7 @@ class ChoroplethMap extends Component<PropsType, StateType> {
     Object.entries(values).forEach(([geoId, dateToValue]) => {
       // If the user wants to filter by "latest",
       // figure out what the latest date is.
-      if (date === "latest") {
+      if (date === LATEST_DATE) {
         const dates = Object.keys(dateToValue);
         realISOdate = this.getLatestDate(dates);
       }
@@ -472,23 +542,23 @@ class ChoroplethMap extends Component<PropsType, StateType> {
     this.loadValues();
   };
 
+  private handleMapHover = (geo: GeoJsonFeature, index: number): void => {
+    // Highlight selected subgeos and change pointer if they are clickable.
+    d3.select("#svg-container")
+      .select("#geoPath" + index)
+      .classed("highlighted", true)
+      .classed("clickable", geo.properties.hasSublevel);
+    // show tooltip
+    d3.select("#svg-container")
+      .select(`#${TOOLTIP_ID}`)
+      .style("display", "block");
+  };
+
   /**
    * Capture hover event on geo and displays relevant information.
    * @param {json} geo is the geoJson content for the hovered geo.
    */
-  private handleMapHover = (
-    geo: {
-      ref: string;
-      properties: {
-        name: string;
-        geoDcid: string;
-        pop: number;
-        hasSublevel: boolean;
-      };
-    },
-    index: number
-  ): void => {
-    // Display statistical variable information on hover.
+  private handleMouseMove = (geo: GeoJsonFeature): void => {
     const name = geo.properties.name;
     const geoDcid = geo.properties.geoDcid;
     const values = this.state["values"];
@@ -502,27 +572,32 @@ class ChoroplethMap extends Component<PropsType, StateType> {
         }
       }
     }
-
-    document.getElementById("hover-text-display").innerHTML =
-      name + " - " + formatGeoValue(geoValue, this.state["pc"]);
-
-    // Highlight selected subgeos and change pointer if they are clickable.
-    let objClass = "border-highlighted";
-    if (geo.properties.hasSublevel) {
-      objClass += " clickable";
-    }
-    document.getElementById("geoPath/" + index).setAttribute("class", objClass);
+    const tooltipSelect = d3.select("#svg-container").select(`#${TOOLTIP_ID}`);
+    const text = name + ": " + formatGeoValue(geoValue, this.state["pc"]);
+    const tooltipHeight = (tooltipSelect.node() as HTMLDivElement).clientHeight;
+    const offset = 10;
+    const leftOffset = offset;
+    const topOffset = -tooltipHeight - offset;
+    tooltipSelect
+      .text(text)
+      .style("left", d3.event.offsetX + leftOffset + "px")
+      .style("top", d3.event.offsetY + topOffset + "px");
   };
 
   /**
    * Clears output after leaving a geo.
    */
-  private mouseLeave = (_geo: { ref: string }, index: number): void => {
-    // Remove hover text.
-    document.getElementById("hover-text-display").innerHTML = "";
+  private mouseLeave = (_geo: GeoJsonFeature, index: number): void => {
+    this.mouseOutAction(index);
+  };
 
-    // Remove geo display effect.
-    document.getElementById("geoPath/" + index).setAttribute("class", "border");
+  private mouseOutAction = (index: number) => {
+    const container = d3.select("#svg-container");
+    container
+      .select("#geoPath" + index)
+      .classed("highlighted", false)
+      .classed("clickable", false);
+    container.select(`#${TOOLTIP_ID}`).style("display", "none");
   };
 
   /**
@@ -530,35 +605,104 @@ class ChoroplethMap extends Component<PropsType, StateType> {
    * user into that geo in the choropleth tool.
    * @param {json} geo is the geoJson content for the clicked geo.
    */
-  private handleMapClick = (geo: {
-    properties: { geoDcid: string; hasSublevel: boolean };
-  }): void => {
+  private handleMapClick = (geo: GeoJsonFeature, index: number): void => {
     if (geo.properties.hasSublevel) {
-      redirectToGeo(
+      this.redirectToGeo(
         geo.properties.geoDcid,
         this.state["geoJson"]["properties"]["current_geo"]
       );
     } else {
       alert("This geo has no further sublevels!");
     }
+    this.mouseOutAction(index);
+  };
+
+  /**
+   * Redirects the webclient to a particular geo. Handles breadcrumbs in redirect.
+   * @param {string} geoDcid to redirect to.
+   * @param {string} curGeo human-readable current geo, e.g. United States when geoDcid
+   *                 is country/USA.
+   */
+  private redirectToGeo = (geoDcid: string, curGeo: string): void => {
+    const currGeoId = new URLSearchParams(window.location.search).get(
+      "geoDcid"
+    );
+    let baseUrl = `/tools/choropleth${buildChoroplethParams([
+      "statVar",
+      "pc",
+      "mdom",
+    ])}&geoDcid=${geoDcid}&bc=`;
+
+    const idxOfCurr = this.state.breadCrumbs.findIndex(
+      (crumb) => crumb.geoId === geoDcid
+    );
+    let breadCrumbsList = this.state.breadCrumbs;
+    let nextGeoName = "";
+    if (idxOfCurr == -1) {
+      breadCrumbsList.push({ geoId: currGeoId, geoName: curGeo });
+      const nextGeoFeature = this.state.geoJson.features.find(
+        (feature) => feature.properties.geoDcid === geoDcid
+      );
+      nextGeoName = nextGeoFeature ? nextGeoFeature.properties.name : "";
+    } else {
+      nextGeoName = breadCrumbsList[idxOfCurr].geoName;
+      breadCrumbsList = breadCrumbsList.slice(0, idxOfCurr);
+    }
+    this.setState({
+      breadCrumbs: breadCrumbsList,
+    });
+    for (let i = 0; i < breadCrumbsList.length; i++) {
+      baseUrl += i === 0 ? "" : ";";
+      baseUrl +=
+        breadCrumbsList[i].geoId +
+        BREADCRUMB_NAME_SEPARATOR +
+        breadCrumbsList[i].geoName;
+    }
+    history.pushState({}, null, baseUrl);
+    // Generate breadcrumbs.
+    // TODO(fpernice-google): Derive the curGeo value from geoDcid instead
+    // of embedding in url.
+    this.generateBreadCrumbs(nextGeoName);
+    this.loadGeoJson(nextGeoName);
+  };
+
+  /**
+   * Generates the breadcrumbs text from browser url.
+   * @param {string} curGeo human-readable current geo to display
+   * at end of list of hierarchy of locations.
+   * TODO: create separate breadcrumbs component and use that instead
+   */
+  private generateBreadCrumbs = (curGeo: string): void => {
+    const url = new URL(window.location.href);
+    const breadcrumbs = url.searchParams.get("bc");
+    const breadcrumbsDisplay = [];
+    if (breadcrumbs) {
+      const crumbs = breadcrumbs.split(";");
+      crumbs.forEach((crumb) => {
+        // The geoDcid reference and human-readable curGeo are separated by a '~'.
+        const [levelRef, humanName] = crumb.split(BREADCRUMB_NAME_SEPARATOR);
+        if (levelRef) {
+          breadcrumbsDisplay.push(
+            <span
+              key={levelRef}
+              className="clickable-link"
+              onClick={() => this.redirectToGeo(levelRef, curGeo)}
+            >
+              {humanName + " > "}
+            </span>
+          );
+        }
+      });
+      breadcrumbsDisplay.push(<span key={curGeo}>{curGeo}</span>);
+    }
+    // Add breadcrumbs + current geoId
+    // Example: "USA" > "FL" > "Miami-Dade"
+    // Where Miami-Dade is the current id
+    ReactDOM.render(breadcrumbsDisplay, document.getElementById("breadcrumbs"));
   };
 
   public render = (): JSX.Element => {
-    // TODO(fpernice-google): Handle window resize event to update map size.
-    const w = window.innerWidth;
-    const h = window.innerHeight;
-
-    return (
-      <>
-        <svg
-          id="map_container"
-          width={`${(w * 2) / 3}px`}
-          height={`${(h * 2) / 3.5}px`}
-        >
-          <g className="map" />
-        </svg>
-      </>
-    );
+    return <div id="svg-container" ref={this.svgContainerElement}></div>;
   };
 }
 
@@ -579,72 +723,21 @@ const buildChoroplethParams = (fieldsToInclude: string[]): string => {
   return params;
 };
 
-/**
- * Redirects the webclient to a particular geo. Handles breadcrumbs in redirect.
- * @param {string} geoDcid to redirect to.
- * @param {string} human-readable current geo, e.g. United States when geoDcid
- *                 is country/USA.
- */
-const redirectToGeo = (geoDcid: string, curGeo: string): void => {
-  const url = new URL(window.location.href);
+function addTooltip() {
+  d3.select("#svg-container")
+    .attr("style", "position: relative")
+    .append("div")
+    .attr("id", TOOLTIP_ID)
+    .attr("style", "position: absolute; display: none; z-index: 1");
+}
 
-  let baseUrl = "/tools/choropleth";
-  baseUrl += buildChoroplethParams(["statVar", "pc", "mdom"]);
-  baseUrl += "&geoDcid=" + geoDcid;
-  baseUrl += "&bc=";
+function showLoading() {
+  d3.select("#loading-overlay").attr("style", "display: flex");
+}
 
-  // Add or create breadcrumbs field.
-  const breadcrumbs = url.searchParams.get("bc");
-  if (breadcrumbs != null && breadcrumbs !== "") {
-    baseUrl += breadcrumbs + ";";
-  }
-  // Adds zoomed-in geoDcid and human-readable curGeo.
-  baseUrl += url.searchParams.get("geoDcid") + "~" + curGeo;
-  window.location.href = baseUrl;
-};
-
-/**
- * Generates the breadcrumbs text from browser url.
- * @param {string} human-readable current geo to display
- * at end of list of hierarchy of locations.
- */
-const generateBreadCrumbs = (curGeo: string): void => {
-  const url = new URL(window.location.href);
-
-  const breadcrumbs = url.searchParams.get("bc");
-
-  if (breadcrumbs) {
-    const crumbs = breadcrumbs.split(";");
-
-    // Build url for each reference in the breadcrumbs.
-    let baseUrl = "/tools/choropleth";
-    baseUrl += buildChoroplethParams(["statVar", "pc", "mdom"]);
-    baseUrl += "&geoDcid=";
-
-    let breadcrumbsUpto = "";
-
-    const breadcrumbsDisplay = crumbs
-      .map((crumb) => {
-        // The geoDcid reference and human-readable curGeo are separated by a '~'.
-        const [levelRef, humanName] = crumb.split("~");
-        const currUrl = baseUrl + levelRef + "&bc=" + breadcrumbsUpto;
-        breadcrumbsUpto += crumb + ";";
-        if (levelRef) {
-          return <a href={currUrl}>{humanName + " > "}</a>;
-        }
-      })
-      .filter((obj) => obj); // Ommit any null components.
-
-    // Add breadcrumbs + current geoId
-    // Example: "USA" > "FL" > "Miami-Dade"
-    // Where Miami-Dade is the current id
-    ReactDOM.render(
-      [breadcrumbsDisplay, curGeo],
-      document.getElementById("breadcrumbs")
-    );
-  }
-};
-
+function removeLoading() {
+  d3.select("#loading-overlay").attr("style", "display: none");
+}
 /**
  * Returns domain of color palette as len 9 numerical array for plotting.
  * @param dict of values mapping geoDcid to number returned by /values endpoint.
@@ -713,6 +806,31 @@ const formatGeoValue = (geoValue: number | string, isPerCapita: boolean) => {
   }
 };
 
+const formatTitle = (
+  statVar: string,
+  geoName: string,
+  isPerCapita: boolean
+): string => {
+  const pieces = statVar.split("_");
+  let statVarName = pieces.join(" ");
+  for (const key in NAME_REPLACEMENT_DICT) {
+    statVarName = statVarName.replace(key, NAME_REPLACEMENT_DICT[key]);
+  }
+  return statVarName + " in " + geoName;
+};
+
+const updateTitle = (
+  statVar: string,
+  geoName: string,
+  isPerCapita: boolean
+): void => {
+  document.getElementById("heading").innerHTML = formatTitle(
+    statVar,
+    geoName,
+    isPerCapita
+  );
+};
+
 type DatePickerPropsType = {
   dates: string[];
   selectedDate: string;
@@ -725,6 +843,11 @@ type DatePickerPropsType = {
 const DatePicker = (props: DatePickerPropsType): JSX.Element => {
   // Sort the dates in descending order.
   const sortedDates = props.dates.sort().reverse();
+  if (_.isEmpty(sortedDates)) {
+    return null;
+  }
+  const selectedDate =
+    props.selectedDate === LATEST_DATE ? sortedDates[0] : props.selectedDate;
 
   // Create the option components.
   const dateComponents = sortedDates.map((date) => {
@@ -737,16 +860,8 @@ const DatePicker = (props: DatePickerPropsType): JSX.Element => {
 
   // Return the select component.
   return (
-    <select
-      onChange={props.onSelectedDateChanged}
-      defaultValue={props.selectedDate}
-    >
-      {[
-        <option key={"latest"} value={"latest"}>
-          Latest Date
-        </option>,
-        ...dateComponents,
-      ]}
+    <select onChange={props.onSelectedDateChanged} defaultValue={selectedDate}>
+      {dateComponents}
     </select>
   );
 };
