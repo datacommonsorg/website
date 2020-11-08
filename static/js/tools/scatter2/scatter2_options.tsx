@@ -1,18 +1,161 @@
-import React, { useContext, useEffect, useState } from "react";
+import React, { useContext, useEffect } from "react";
 import _ from "lodash";
+import { FormGroup, Label, Input, Card, Button } from "reactstrap";
 import { ScatterContext } from "./scatter2_app";
-import places from "../../../data/placeObject.json";
+import { SearchBar } from "../timeline_search";
+import { getPlaceNames } from "../timeline_util";
 import { getPlacesIn } from "./scatter2_util";
 
-function Options(): JSX.Element {
-  const context = useContext(ScatterContext);
-  // E.g., "Twin Falls County geoId/16083"
-  const [enclosingPlaces, setEnclosingPlaces] = useState(
-    {} as { [key: string]: string }
-  );
+import { Container, Row, Col } from "reactstrap";
 
-  function checkPerCapita(event: React.ChangeEvent<HTMLInputElement>) {
-    context.perCapita.set(event.target.checked);
+function PlaceOptions(): JSX.Element {
+  const context = useContext(ScatterContext);
+
+  function selectEnclosedPlaceType(
+    event: React.ChangeEvent<HTMLSelectElement>
+  ) {
+    context.place.set({
+      ...context.place.value,
+      enclosedPlaceType: event.target.selectedOptions[0].value,
+      enclosedPlaces: [],
+    });
+    context.x.set({
+      ...context.x.value,
+      data: [],
+      populations: [],
+    });
+    context.y.set({
+      ...context.y.value,
+      data: [],
+      populations: [],
+    });
+  }
+
+  async function selectEnclosingPlace(dcid: string) {
+    const dcidToName = await getPlaceNames([dcid]);
+    context.place.set({
+      ...context.place.value,
+      enclosedPlaces: [],
+      enclosingPlace: { dcid: dcid, name: dcidToName[dcid] },
+    });
+    context.x.set({
+      ...context.x.value,
+      data: [],
+      populations: [],
+    });
+    context.y.set({
+      ...context.y.value,
+      data: [],
+      populations: [],
+    });
+  }
+
+  function unselectEnclosingPlace() {
+    context.place.set({
+      ...context.place.value,
+      enclosedPlaces: [],
+      enclosingPlace: { dcid: "", name: "" },
+    });
+  }
+
+  const enclosedTypes = [
+    "CensusCoreBasedStatisticalArea",
+    "CensusCountyDivision",
+    "CensusTract",
+    "City",
+    "CongressionalDistrict",
+    "County",
+    "HighSchoolDistrict",
+    "SchoolDistrict",
+    "State",
+    "StateComponent",
+  ];
+
+  useEffect(() => {
+    const shouldGetPlaces =
+      context.place.value.enclosedPlaceType &&
+      context.place.value.enclosingPlace.dcid &&
+      _.isEmpty(context.place.value.enclosedPlaces);
+    if (!shouldGetPlaces) {
+      return;
+    }
+    getPlacesIn(
+      context.place.value.enclosingPlace.dcid,
+      context.place.value.enclosedPlaceType
+    ).then((dcids) => {
+      if (!_.isEmpty(dcids)) {
+        getPlaceNames(dcids).then((dcidToName) => {
+          context.place.set({
+            ...context.place.value,
+            enclosedPlaces: dcids.map((dcid) => ({
+              name: dcidToName[dcid],
+              dcid: dcid,
+            })),
+          });
+        });
+      } else {
+        // TODO: Show error.
+        alert(
+          `Sorry, ${context.place.value.enclosingPlace.name} does not contain places of type ${context.place.value.enclosedPlaceType}`
+        );
+      }
+    });
+  }, [context.place.value]);
+
+  return (
+    <Card>
+      <Container>
+        <Row>
+          <Col xs="auto">Plot places of type</Col>
+          <Col>
+            <select
+              className="custom-select"
+              value={context.place.value.enclosedPlaceType}
+              onChange={selectEnclosedPlaceType}
+            >
+              <option value="">Select a place type</option>
+              {enclosedTypes.map((type) => (
+                <option value={type} key={type}>
+                  {type}
+                </option>
+              ))}
+            </select>
+          </Col>
+        </Row>
+        <Row>
+          <Col xs="auto">in</Col>
+          <Col>
+            <div id="search">
+              <SearchBar
+                places={
+                  context.place.value.enclosingPlace.dcid
+                    ? {
+                        [context.place.value.enclosingPlace.dcid]:
+                          context.place.value.enclosingPlace.name,
+                      }
+                    : {}
+                }
+                addPlace={selectEnclosingPlace}
+                removePlace={unselectEnclosingPlace}
+                numPlacesLimit={1}
+              />
+            </div>
+          </Col>
+        </Row>
+      </Container>
+    </Card>
+  );
+}
+
+function PlotOptions(): JSX.Element {
+  const context = useContext(ScatterContext);
+
+  function checkPerCapitaX(event: React.ChangeEvent<HTMLInputElement>) {
+    context.x.set({ ...context.x.value, perCapita: event.target.checked });
+  }
+
+  function checkPerCapitaY(event: React.ChangeEvent<HTMLInputElement>) {
+    context.y.set({ ...context.y.value, perCapita: event.target.checked });
   }
 
   function checkSwap() {
@@ -29,237 +172,104 @@ function Options(): JSX.Element {
     context.y.set({ ...context.y.value, log: event.target.checked });
   }
 
-  function selectCountry(event: React.ChangeEvent<HTMLSelectElement>) {
+  function setLowerBound(event: React.ChangeEvent<HTMLInputElement>) {
     context.place.set({
       ...context.place.value,
-      country: event.target.selectedOptions[0].value,
+      lowerBound: parseInt(event.target.value) || 0,
     });
   }
 
-  // TODO: Also clear x and y.
-
-  function selectEnclosedPlaceType(
-    event: React.ChangeEvent<HTMLSelectElement>
-  ) {
-    const type = event.target.selectedOptions[0].value;
+  function setUpperBound(event: React.ChangeEvent<HTMLInputElement>) {
     context.place.set({
       ...context.place.value,
-      enclosedPlaceType: type,
-      enclosedPlaces: [],
-      enclosingPlace: { dcid: "", name: "" },
+      upperBound: parseInt(event.target.value) || 1e10,
     });
   }
-
-  function selectEnclosingPlace(event: React.ChangeEvent<HTMLSelectElement>) {
-    const place = event.target.selectedOptions[0].value;
-    context.place.set({
-      ...context.place.value,
-      enclosedPlaces: [],
-      enclosingPlace: place
-        ? { dcid: place, name: enclosingPlaces[place] }
-        : { dcid: "", name: "" },
-    });
-  }
-
-  function splitPlace(place: string) {
-    const lastSpace = place.lastIndexOf(" ");
-    return {
-      name: place.substring(0, lastSpace),
-      dcid: place.substring(lastSpace + 1),
-    };
-  }
-
-  const enclosedTypeToEnclosingType = {
-    CensusCoreBasedStatisticalArea: ["Country"],
-    CensusCountyDivision: ["County", "State"],
-    CensusTract: ["County", "State"],
-    City: ["County", "State"],
-    CongressionalDistrict: ["State"],
-    County: ["State"],
-    HighSchoolDistrict: ["State"],
-    SchoolDistrict: ["County", "State"],
-    State: ["Country"],
-    StateComponent: ["State"],
-  };
-
-  useEffect(() => {
-    const place = context.place;
-    if (!place.value.country) {
-      return;
-    }
-    if (!place.value.enclosedPlaceType) {
-      setEnclosingPlaces({});
-      place.set({ ...place.value, enclosedPlaces: [] });
-      return;
-    }
-
-    if (
-      _.indexOf(
-        enclosedTypeToEnclosingType[place.value.enclosedPlaceType],
-        "State"
-      ) !== -1
-    ) {
-      setEnclosingPlaces(
-        _.keys(places[place.value.country])
-          .map((state) => {
-            const place = splitPlace(state);
-            return [place.dcid, place.name];
-          })
-          .reduce((places, dcidAndName) => {
-            places[dcidAndName[0]] = dcidAndName[1];
-            return places;
-          }, {})
-      );
-    }
-
-    // TODO: County.
-  }, [context.place.value.enclosedPlaceType]);
-
-  useEffect(() => {
-    const place = context.place;
-    if (place.value.country) {
-      return;
-    }
-    place.set({
-      enclosingPlace: { name: "", dcid: "" },
-      enclosedPlaceType: "",
-      enclosedPlaces: [],
-      country: "",
-    });
-  }, [context.place.value.country]);
-
-  useEffect(() => {
-    const shouldGetPlaces =
-      context.place.value.country &&
-      context.place.value.enclosedPlaceType &&
-      context.place.value.enclosingPlace.dcid &&
-      _.isEmpty(context.place.value.enclosedPlaces);
-    if (!shouldGetPlaces) {
-      return;
-    }
-    getPlacesIn(
-      context.place.value.enclosingPlace.dcid,
-      context.place.value.enclosedPlaceType
-    ).then((places) => {
-      if (_.isEmpty(context.place.value.enclosedPlaces)) {
-        context.place.set({ ...context.place.value, enclosedPlaces: places });
-      }
-    });
-  }, [
-    context.place.value.country,
-    context.place.value.enclosedPlaceType,
-    context.place.value.enclosingPlace,
-  ]);
 
   return (
-    <div className="container">
-      <div className="row">
-        <div className="col">Country</div>
-        <div className="col">
-          <select className="custom-select" onChange={selectCountry}>
-            <option value="">Select a country</option>
-            {_.keys(places).map((country) => (
-              <option value={country} key={country}>
-                {country}
-              </option>
-            ))}
-          </select>
-        </div>
-      </div>
-      <div className="row">
-        <div className="col">Plot places of type</div>
-        <div className="col">
-          <select
-            className="custom-select"
-            value={context.place.value.enclosedPlaceType}
-            onChange={selectEnclosedPlaceType}
-          >
-            <option value="">Select a place type</option>
-            {_.keys(enclosedTypeToEnclosingType).map((type) => (
-              <option value={type} key={type}>
-                {type}
-              </option>
-            ))}
-          </select>
-        </div>
-        {context.place.value.enclosedPlaceType &&
-          _.indexOf(
-            enclosedTypeToEnclosingType[context.place.value.enclosedPlaceType],
-            "State"
-          ) !== -1 && (
-            <div className="col">
-              in
-              <select
-                className="custom-select"
-                value={context.place.value.enclosingPlace.dcid}
-                onChange={selectEnclosingPlace}
-              >
-                <option value="">Select a state</option>
-                {_.keys(enclosingPlaces).map((dcid) => (
-                  <option value={dcid} key={dcid}>
-                    {enclosingPlaces[dcid]}
-                  </option>
-                ))}
-              </select>
-            </div>
-          )}
-        {/* TODO: County. */}
-      </div>
-      <div className="row">
-        <div className="col">Only add places of this size</div>
-        <div className="col"></div>
-      </div>
-      <div className="row">
-        <div className="col">Plot Options</div>
-        <div className="col">
-          <div className="form-check">
-            <input
-              type="checkbox"
-              id="per-capita"
-              className="form-check-input"
-              onChange={checkPerCapita}
-            />
-            <label htmlFor="per-capita" className="form-check-label">
-              Per capita
-            </label>
-          </div>
-          <div className="form-check">
-            <input
-              type="checkbox"
-              id="swap"
-              className="form-check-input"
-              onChange={checkSwap}
-            />
-            <label htmlFor="swap" className="form-check-label">
+    <Card>
+      <Container>
+        <Row>
+          <Col>Only plot places of this size</Col>
+          <Col>
+            <FormGroup check>
+              <Input
+                type="number"
+                onChange={setLowerBound}
+                value={context.place.value.lowerBound}
+              />
+            </FormGroup>
+          </Col>
+          <Col xs="auto">to</Col>
+          <Col>
+            <FormGroup check>
+              <Input
+                type="number"
+                onChange={setUpperBound}
+                value={
+                  context.place.value.upperBound === Number.POSITIVE_INFINITY
+                    ? 1e10
+                    : context.place.value.upperBound
+                }
+              />
+            </FormGroup>
+          </Col>
+        </Row>
+        <Row>
+          <Col xs="auto">Plot Options</Col>
+          <Col>
+            <Button size="sm" color="light" onClick={checkSwap}>
               Swap X and Y axes
-            </label>
-          </div>
-          <div className="form-check">
-            <input
-              type="checkbox"
-              id="log-x"
-              className="form-check-input"
-              onChange={checkLogX}
-            />
-            <label htmlFor="log-x" className="form-check-label">
-              Plot X-axis on log scale
-            </label>
-          </div>
-          <div className="form-check">
-            <input
-              type="checkbox"
-              id="log-y"
-              className="form-check-input"
-              onChange={checkLogY}
-            />
-            <label htmlFor="log-y" className="form-check-label">
-              Plot Y-axis on log scale
-            </label>
-          </div>
-        </div>
-      </div>
-    </div>
+            </Button>
+          </Col>
+          <Col>
+            <FormGroup check>
+              <Label check>
+                <Input
+                  type="checkbox"
+                  checked={context.x.value.perCapita}
+                  onChange={checkPerCapitaX}
+                />
+                Plot X-axis per capita
+              </Label>
+            </FormGroup>
+            <FormGroup check>
+              <Label check>
+                <Input
+                  type="checkbox"
+                  checked={context.y.value.perCapita}
+                  onChange={checkPerCapitaY}
+                />
+                Plot Y-axis per capita
+              </Label>
+            </FormGroup>
+          </Col>
+          <Col>
+            <FormGroup check>
+              <Label check>
+                <Input
+                  type="checkbox"
+                  checked={context.x.value.log}
+                  onChange={checkLogX}
+                />
+                Plot X-axis on log scale
+              </Label>
+            </FormGroup>
+            <FormGroup check>
+              <Label check>
+                <Input
+                  type="checkbox"
+                  checked={context.y.value.log}
+                  onChange={checkLogY}
+                />
+                Plot Y-axis on log scale
+              </Label>
+            </FormGroup>
+          </Col>
+        </Row>
+      </Container>
+    </Card>
   );
 }
 
-export { Options };
+export { PlaceOptions, PlotOptions };

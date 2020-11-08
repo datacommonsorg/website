@@ -13,13 +13,13 @@
   See the License for the specific language governing permissions and
   limitations under the License.
  #}
+{% extends 'base.html' %}
 
 {% set is_hide_full_footer = true %}
 {% set subpage_title = "Scatter2" %}
 {% set subpage_url = url_for('tools.scatter2') %}
 {% set title = "Scatterplot Tool 2" %}
-
-{% extends 'base.html' %}
+{% set hide_search = True %}
 
 {% block head %}
 <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">

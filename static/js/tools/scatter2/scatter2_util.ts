@@ -15,7 +15,6 @@
  */
 
 import axios from "axios";
-import _ from "lodash";
 import { getApiRoot, getApiKey } from "../../shared/util";
 
 interface ApiPlaceInfo {
@@ -65,11 +64,14 @@ async function getTimeSeriesLatestPoint(
   place: string,
   statVar: string
 ): Promise<number> {
-  const resp = await axios.get(
-    `${getApiRoot()}/stat/value?place=${place}&stat_var=${statVar}&key=${getApiKey()}`
-  );
-  // TODO: Error handling
-  return resp.data.value;
+  try {
+    const resp = await axios.get(
+      `${getApiRoot()}/stat/value?place=${place}&stat_var=${statVar}&key=${getApiKey()}`
+    );
+    return resp.data.value;
+  } catch (err) {
+    return Promise.reject(err);
+  }
 }
 
 export {

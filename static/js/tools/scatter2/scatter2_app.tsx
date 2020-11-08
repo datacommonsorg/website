@@ -14,12 +14,13 @@
  * limitations under the License.
  */
 
-import React, { createContext, useState } from "react";
+import React, { createContext, useState, useEffect } from "react";
 import { Container, Row } from "reactstrap";
 import { StatsVarNode } from "../timeline_util";
 import { StatVarChooser } from "./scatter2_statvar";
-import { Options } from "./scatter2_options";
-import { ScatterChart } from "./scatter2_chart";
+import { PlaceOptions, PlotOptions } from "./scatter2_options";
+import { Chart } from "./scatter2_chart";
+import { Info } from "./scatter2_info";
 
 type Setter<T> = React.Dispatch<React.SetStateAction<T>>;
 
@@ -31,11 +32,25 @@ interface Place {
 interface Axis {
   // StatVar to plot for this axis
   statVar: StatsVarNode;
+  // Human readable name of the StatVar
+  name: string;
   // Data points
   data: Array<number>;
+  // Populations for per capita
+  populations: Array<number>;
   // Whether to plot on log scale
   log: boolean;
+  // Whether to plot per capita values
+  perCapita: boolean;
 }
+const EmptyAxis: Axis = Object.freeze({
+  statVar: {},
+  name: "",
+  data: [],
+  populations: [],
+  log: false,
+  perCapita: false,
+});
 
 interface ScatterPlace {
   // Place that encloses the child places to plot
@@ -43,9 +58,10 @@ interface ScatterPlace {
   // Type of places to plot
   enclosedPlaceType: string;
   // Places to plot
-  enclosedPlaces: Array<string>;
-  // Country of the places to plot
-  country: string;
+  enclosedPlaces: Array<Place>;
+  // Only plot places with populations between these
+  lowerBound: number;
+  upperBound: number;
 }
 
 // Global app state
@@ -54,8 +70,6 @@ interface ScatterContextType {
   x: { value: Axis; set: Setter<Axis> };
   // Y axis
   y: { value: Axis; set: Setter<Axis> };
-  // Whether to plot per capita values
-  perCapita: { value: boolean; set: Setter<boolean> };
   // Whether to fit a regression curve
   regress: { value: boolean; set: Setter<boolean> };
   place: { value: ScatterPlace; set: Setter<ScatterPlace> };
@@ -64,48 +78,86 @@ interface ScatterContextType {
 const ScatterContext = createContext({} as ScatterContextType);
 
 function App(): JSX.Element {
-  // const [pickStatVarX, setPickStatVarX] = useState(false);
-  // const [pickStatVarY, setPickStatVarY] = useState(false);
-  const [x, setX] = useState({
-    statVar: {},
-    data: {},
-    log: false,
-  } as Axis);
-  const [y, setY] = useState({
-    statVar: {},
-    data: {},
-    log: false,
-  } as Axis);
+  const [x, setX] = useState(EmptyAxis);
+  const [y, setY] = useState(EmptyAxis);
   const [perCapita, setPerCapita] = useState(false);
   const [regress, setRegress] = useState(false);
   const [place, setPlace] = useState({
     enclosingPlace: {},
     enclosedPlaceType: "",
     enclosedPlaces: [],
-    country: "",
+    lowerBound: 0,
+    upperBound: 1e10,
   } as ScatterPlace);
   const store = {
     x: { value: x, set: setX },
     y: { value: y, set: setY },
-    perCapita: { value: perCapita, set: setPerCapita },
     regress: { value: regress, set: setRegress },
     place: { value: place, set: setPlace },
   };
+
+  useEffect(() => {
+    const params = new URLSearchParams(
+      decodeURIComponent(location.hash).replace("#", "?")
+    );
+    const xString = params.get("x");
+    if (xString) {
+      setX(JSON.parse(xString));
+    }
+    const yString = params.get("y");
+    if (yString) {
+      setY(JSON.parse(yString));
+    }
+    setPerCapita(params.get("pc") === "1");
+    setRegress(params.get("regress") === "1");
+    const placeString = params.get("place");
+    if (placeString) {
+      setPlace(JSON.parse(placeString));
+    }
+  }, []);
+
+  useEffect(() => {
+    let hash = "";
+    hash += `x=${JSON.stringify({ ...x, data: [], populations: [] })}`;
+    hash += `&y=${JSON.stringify({ ...y, data: [], populations: [] })}`;
+    hash += perCapita ? "&pc=1" : "&pc=0";
+    hash += regress ? "&regress=1" : "&regress=0";
+    hash += `&place=${JSON.stringify({ ...place, enclosedPlaces: [] })}`;
+    history.pushState({}, "", `/tools/scatter2#${encodeURIComponent(hash)}`);
+  }, [store]);
+
   return (
     <ScatterContext.Provider value={store}>
       <StatVarChooser />
+
       <div id="plot-container">
         <Container>
-          <Row>
-            <Options />
-          </Row>
-          <Row>
-            <ScatterChart />
-          </Row>
+          {place.enclosedPlaceType && place.enclosingPlace.dcid ? (
+            <React.Fragment>
+              <Row>
+                <PlaceOptions />
+              </Row>
+              <Row>
+                <PlotOptions />
+              </Row>
+              <Row id="chart-row">
+                <Chart />
+              </Row>
+            </React.Fragment>
+          ) : (
+            <React.Fragment>
+              <Row>
+                <PlaceOptions />
+              </Row>
+              <Row>
+                <Info />
+              </Row>
+            </React.Fragment>
+          )}
         </Container>
       </div>
     </ScatterContext.Provider>
   );
 }
 
-export { App, ScatterContext };
+export { App, ScatterContext, EmptyAxis, Axis, Place };

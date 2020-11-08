@@ -14,66 +14,170 @@
  * limitations under the License.
  */
 
-import React, { Component, useContext, useEffect } from "react";
+import React, { useContext, useEffect } from "react";
 import _ from "lodash";
+import { Container, Row, Card, Badge } from "reactstrap";
 import * as d3 from "d3";
-import { ScatterContext } from "./scatter2_app";
-import { getPopulations, getTimeSeriesLatestPoint } from "./scatter2_util";
+import { saveToFile } from "../../shared/util";
+import { Axis, Place, ScatterContext } from "./scatter2_app";
+import { getTimeSeriesLatestPoint } from "./scatter2_util";
 
-function ScatterChart(): JSX.Element {
+interface Point {
+  xVal: number;
+  yVal: number;
+  xPop: number;
+  yPop: number;
+  place: Place;
+}
+
+function Chart(): JSX.Element {
   const context = useContext(ScatterContext);
 
-  function plot(): void {
-    console.log("Plotting");
-    const margin = {
-      top: 20,
-      right: 20,
-      bottom: 30,
-      left: 40,
-    };
-    const width = 700 - margin.left - margin.right;
-    const height = 500 - margin.top - margin.bottom;
+  function updateStats(points: Array<Point>): void {
+    d3.select("#x-mean").html(getXMean(points));
+    d3.select("#y-mean").html(getYMean(points));
+    d3.select("#x-std").html(getXStd(points));
+    d3.select("#y-std").html(getYStd(points));
+  }
 
+  function plot(points: Array<Point>): void {
     d3.select("#scatterplot").remove();
+    d3.select("#tooltip").remove();
+
+    // TODO: Handle log domain 0.
+    const xMinMax = d3.extent(points, (point) => point.xVal);
+    const yMinMax = d3.extent(points, (point) => point.yVal);
+
+    const xLabel =
+      context.x.value.name + (context.x.value.perCapita ? " Per Capita" : "");
+    const yLabel =
+      context.y.value.name + (context.y.value.perCapita ? " Per Capita" : "");
+
+    const margin = {
+      top: 50,
+      right: 10,
+      bottom: 60,
+      left: 50,
+    };
+    const svgWidth = 1200;
+    const svgHeight = 450;
+    const width = svgWidth - margin.left - margin.right;
+    const height = svgHeight - margin.top - margin.bottom;
+
     const svg = d3
       .select("#chart-svg")
       .append("svg")
       .attr("id", "scatterplot")
-      .attr("width", width + margin.left + margin.right)
-      .attr("height", height + margin.top + margin.bottom)
+      .attr("width", "100%")
+      .attr("height", svgHeight)
+      .attr("viewBox", `0 0 ${svgWidth} ${svgHeight}`)
+      .attr("preserveAspectRatio", "xMidYMid meet")
       .append("g")
-      .attr("transform", "translate(" + margin.left + "," + margin.top + ")");
+      .attr("transform", `translate(${margin.left},${margin.top})`);
 
-    const x = d3
-      .scaleLinear()
-      .domain(d3.extent(context.x.value.data, (val) => val))
-      .range([0, width]);
+    const x = (context.x.value.log ? d3.scaleLog() : d3.scaleLinear())
+      .domain(xMinMax)
+      .range([0, width])
+      .nice();
     svg
       .append("g")
-      .attr("transform", "translate(0," + height + ")")
-      .call(d3.axisBottom(x));
+      .attr("transform", `translate(0,${height})`)
+      .call(
+        d3
+          .axisBottom(x)
+          .tickFormat(d3.format(context.x.value.perCapita ? ".2f" : "d"))
+      );
+    svg
+      .append("text")
+      .attr("text-anchor", "middle")
+      .attr(
+        "transform",
+        `translate(${width / 2},${height + margin.bottom / 2 + 10})`
+      )
+      .text(xLabel);
 
-    const y = d3
-      .scaleLinear()
-      .domain(d3.extent(context.y.value.data, (val) => val))
-      .range([height, 0]);
-    svg.append("g").call(d3.axisLeft(y));
+    const y = (context.y.value.log ? d3.scaleLog() : d3.scaleLinear())
+      .domain(yMinMax)
+      .range([height, 0])
+      .nice();
+    svg
+      .append("g")
+      .call(
+        d3
+          .axisLeft(y)
+          .tickFormat(d3.format(context.y.value.perCapita ? ".2f" : "d"))
+      );
+    svg
+      .append("text")
+      .attr("text-anchor", "middle")
+      .attr(
+        "transform",
+        `rotate(-90) translate(${-height / 2},${-(margin.left + 5)})`
+      )
+      .text(yLabel);
 
-    const path = svg
+    svg
+      .append("text")
+      .attr("transform", `translate(${width / 2},${-margin.top / 2})`)
+      .attr("text-anchor", "middle")
+      .style("font-size", "1.2em")
+      .text(`${yLabel} vs ${xLabel}`);
+
+    const tooltip = d3
+      .select("#chart-svg")
+      .append("div")
+      .attr("id", "tooltip")
+      .style("visibility", "hidden")
+      .style("position", "fixed");
+
+    const onTooltipMouseover = (point: Point) => {
+      const html =
+        `${point.place.name || point.place.dcid}<br/>` +
+        `${xLabel}: ${point.xVal}<br/>` +
+        `${yLabel}: ${point.yVal}`;
+      tooltip
+        .html(html)
+        .style("left", d3.event.pageX + 15 + "px")
+        .style("top", d3.event.pageY - 28 + "px")
+        .style("visibility", "visible");
+    };
+    const onTooltipMouseout = () => {
+      tooltip.style("visibility", "hidden");
+    };
+
+    svg
       .selectAll("dot")
-      .data(_.zip(context.x.value.data, context.y.value.data))
+      .data(points)
       .enter()
       .append("circle")
       .attr("r", 5)
-      .attr("cx", function (d) {
-        return x(d[0]);
-      })
-      .attr("cy", function (d) {
-        return y(d[1]);
-      })
+      .attr("cx", (point) => x(point.xVal))
+      .attr("cy", (point) => y(point.yVal))
       .attr("stroke", "#32CD32")
       .attr("stroke-width", 1.5)
-      .attr("fill", "#FFFFFF");
+      .attr("fill", "#FFFFFF")
+      .on("mouseover", onTooltipMouseover)
+      .on("mouseout", onTooltipMouseout);
+  }
+
+  function areDataComplete(x: Axis, y: Axis): boolean {
+    return (
+      !_.isEmpty(x.data) &&
+      !_.isEmpty(y.data) &&
+      !_.isEmpty(x.populations) &&
+      !_.isEmpty(y.populations)
+    );
+  }
+
+  function isPopulationBetween(
+    population: number,
+    lower: number,
+    upper: number
+  ): boolean {
+    if (_.isNil(lower) || _.isNil(upper)) {
+      return true;
+    }
+    return lower <= population && population <= upper;
   }
 
   useEffect(() => {
@@ -81,35 +185,184 @@ function ScatterChart(): JSX.Element {
     const y = context.y;
     const place = context.place;
     const placeSelected =
-      place.value.country &&
       place.value.enclosedPlaceType &&
       place.value.enclosingPlace.dcid &&
       !_.isEmpty(place.value.enclosedPlaces);
-    console.log(123);
     if (!placeSelected) {
       return;
     }
-    console.log(x.value.statVar);
-    if (!_.isEmpty(x.value.statVar) && _.isEmpty(x.value.data)) {
-      Promise.all(
-        place.value.enclosedPlaces.map((dcid) =>
-          getTimeSeriesLatestPoint(dcid, _.findKey(x.value.statVar))
-        )
-      ).then((values) => context.x.set({ ...context.x.value, data: values }));
+    if (!context.x.value.name || !context.y.value.name) {
+      return;
     }
-    if (!_.isEmpty(y.value.statVar) && _.isEmpty(y.value.data)) {
-      Promise.all(
-        place.value.enclosedPlaces.map((dcid) =>
-          getTimeSeriesLatestPoint(dcid, _.findKey(y.value.statVar))
-        )
-      ).then((values) => context.y.set({ ...context.y.value, data: values }));
+    if (!_.isEmpty(x.value.statVar)) {
+      if (_.isEmpty(x.value.populations)) {
+        Promise.all(
+          place.value.enclosedPlaces.map((place) =>
+            getTimeSeriesLatestPoint(
+              place.dcid,
+              Object.values(x.value.statVar)[0].denominators[0] ||
+                "Count_Person"
+            ).catch(() => undefined)
+          )
+        ).then((values) => x.set({ ...x.value, populations: values }));
+      }
+      if (_.isEmpty(x.value.data)) {
+        Promise.all(
+          place.value.enclosedPlaces.map((place) =>
+            getTimeSeriesLatestPoint(
+              place.dcid,
+              _.findKey(x.value.statVar)
+            ).catch(() => undefined)
+          )
+        ).then((values) => x.set({ ...x.value, data: values }));
+      }
     }
-    if (!_.isEmpty(x.value.data) && !_.isEmpty(y.value.data)) {
-      plot();
+    if (!_.isEmpty(y.value.statVar)) {
+      if (_.isEmpty(y.value.populations)) {
+        Promise.all(
+          place.value.enclosedPlaces.map((place) =>
+            getTimeSeriesLatestPoint(
+              place.dcid,
+              Object.values(y.value.statVar)[0].denominators[0] ||
+                "Count_Person"
+            ).catch(() => undefined)
+          )
+        ).then((values) => y.set({ ...y.value, populations: values }));
+      }
+      if (_.isEmpty(y.value.data)) {
+        Promise.all(
+          place.value.enclosedPlaces.map((place) =>
+            getTimeSeriesLatestPoint(
+              place.dcid,
+              _.findKey(y.value.statVar)
+            ).catch(() => undefined)
+          )
+        ).then((values) => y.set({ ...y.value, data: values }));
+      }
+    }
+    if (areDataComplete(x.value, y.value)) {
+      const lower = context.place.value.lowerBound;
+      const upper = context.place.value.upperBound;
+      const points: Array<Point> = _.zip(
+        x.value.data,
+        y.value.data,
+        x.value.populations,
+        y.value.populations,
+        context.place.value.enclosedPlaces
+      )
+        .filter(
+          ([xVal, yVal, xPop, yPop]) =>
+            xVal !== undefined &&
+            yVal !== undefined &&
+            xPop !== undefined &&
+            yPop !== undefined &&
+            isPopulationBetween(xPop, lower, upper) &&
+            isPopulationBetween(yPop, lower, upper)
+        )
+        .map(([xVal, yVal, xPop, yPop, place]) => ({
+          xVal: context.x.value.perCapita ? xVal / xPop : xVal,
+          yVal: context.y.value.perCapita ? yVal / yPop : yVal,
+          xPop: xPop,
+          yPop: yPop,
+          place: place,
+        }));
+      plot(points);
+      updateStats(points);
+
+      const downloadButton = document.getElementById("download-link");
+      if (downloadButton) {
+        downloadButton.style.visibility = "visible";
+        downloadButton.onclick = downloadData;
+      }
     }
   }, [context]);
 
-  return <div id="chart-svg"></div>;
+  function downloadData() {
+    const xAxis = context.x.value;
+    const yAxis = context.y.value;
+    if (!areDataComplete(xAxis, yAxis)) {
+      alert("Sorry, still retrieving data. Please try again later.");
+      return;
+    }
+
+    const xStatVar = _.findKey(xAxis.statVar);
+    const yStatVar = _.findKey(yAxis.statVar);
+    // Headers
+    let csv =
+      `xValue-${xStatVar},` +
+      `yValue-${yStatVar},` +
+      `${
+        xAxis.statVar[xStatVar].denominators[0] || "xPopulation-Count_Person"
+      },` +
+      `${
+        yAxis.statVar[yStatVar].denominators[0] || "yPopulation-Count_Person"
+      }\n`;
+    // Data
+    for (const [xVal, yVal, xPop, yPop] of _.zip(
+      xAxis.data,
+      yAxis.data,
+      xAxis.populations,
+      yAxis.populations
+    )) {
+      csv +=
+        `${xVal === undefined ? "" : xVal},` +
+        `${yVal === undefined ? "" : yVal},` +
+        `${xPop === undefined ? "" : xPop},` +
+        `${yPop === undefined ? "" : yPop}\n`;
+    }
+
+    saveToFile(
+      `${context.x.value.name}-` +
+        `${context.y.value.name}-` +
+        `${context.place.value.enclosingPlace.name}-` +
+        `${context.place.value.enclosedPlaceType}.csv`,
+      csv
+    );
+  }
+
+  function getStringOrNA(num: number): string {
+    return _.isNil(num) ? "N/A" : num.toFixed(3);
+  }
+
+  function getXMean(points: Array<Point>): string {
+    return getStringOrNA(d3.mean(points.map((point) => point.xVal)));
+  }
+
+  function getYMean(points: Array<Point>): string {
+    return getStringOrNA(d3.mean(points.map((point) => point.yVal)));
+  }
+
+  function getXStd(points: Array<Point>): string {
+    return getStringOrNA(d3.deviation(points.map((point) => point.xVal)));
+  }
+
+  function getYStd(points: Array<Point>): string {
+    return getStringOrNA(d3.deviation(points.map((point) => point.yVal)));
+  }
+
+  return (
+    <Container id="chart">
+      <Row>
+        <Card id="stats">
+          <Badge color="light">
+            X Mean: <span id="x-mean">N/A</span>
+          </Badge>
+          <Badge color="light">
+            Y Mean: <span id="y-mean">N/A</span>
+          </Badge>
+          <Badge color="light">
+            X Standard Deviation: <span id="x-std">N/A</span>
+          </Badge>
+          <Badge color="light">
+            Y Standard Deviation: <span id="y-std">N/A</span>
+          </Badge>
+        </Card>
+      </Row>
+      <Row>
+        <Card id="chart-svg" className="chart-svg" />
+      </Row>
+    </Container>
+  );
 }
 
-export { ScatterChart };
+export { Chart };
