@@ -16,13 +16,13 @@ import os
 
 from flask_caching import Cache
 
-if os.environ.get('FLASK_ENV') == 'production':
-    cache = Cache(
-        config={
-            'CACHE_TYPE': 'redis',
-            'CACHE_REDIS_HOST': '10.68.41.20',
-            'CACHE_REDIS_PORT': '6379',
-            'CACHE_REDIS_URL': 'redis://10.68.41.20:6379'
-        })
-else:
-    cache = Cache(config={'CACHE_TYPE': 'simple'})
+# if os.environ.get('FLASK_ENV') == 'production':
+#     cache = Cache(
+#         config={
+#             'CACHE_TYPE': 'redis',
+#             'CACHE_REDIS_HOST': '10.68.41.20',
+#             'CACHE_REDIS_PORT': '6379',
+#             'CACHE_REDIS_URL': 'redis://10.68.41.20:6379'
+#         })
+# else:
+cache = Cache(config={'CACHE_TYPE': 'simple'})
