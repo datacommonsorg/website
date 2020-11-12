@@ -18,6 +18,7 @@ import React from "react";
 import ReactDOM from "react-dom";
 import axios from "axios";
 import _ from "lodash";
+import "../i18next";
 
 import { ChildPlace } from "./child_places_menu";
 import { MainPane } from "./main";
@@ -29,6 +30,7 @@ import { isPlaceInUsa } from "./util";
 import { initSearchAutocomplete } from "./search";
 
 import { CachedChoroplethData, GeoJsonData, PageData } from "../chart/types";
+
 
 let yScrollLimit = 0; // window scroll position to start fixing the sidebar
 let sidebarTopMax = 0; // Max top position for the sidebar, relative to #sidebar-outer.
