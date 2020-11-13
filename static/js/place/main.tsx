@@ -87,7 +87,7 @@ class MainPane extends React.Component<MainPanePropType> {
     const currentPageTopic = this.props.topic;
     const isOverview = currentPageTopic === "Overview";
     return (
-      <>
+      <RawIntlProvider value={this.props.intl}>
         {this.props.isUsaPlace &&
           this.props.placeType != "Country" &&
           isOverview && (
@@ -100,23 +100,19 @@ class MainPane extends React.Component<MainPanePropType> {
             subtopicHeader = (
               <h3 id={topic}>
                 <a href={`/place/${this.props.dcid}?topic=${topic}`}>
-                  <RawIntlProvider value={this.props.intl}>
-                    <FormattedMessage
-                      id={topic}
-                      defaultMessage={topic}
-                      description="A header for a section of the Overview charts page that breaks the page down into Education, Health, and other domains."
-                    />
-                  </RawIntlProvider>
+                  <FormattedMessage
+                    id={topic}
+                    defaultMessage={topic}
+                    description="A header for a section of the Overview charts page that breaks the page down into Education, Health, and other domains."
+                  />
                 </a>
                 <span className="more">
                   <a href={`/place/${this.props.dcid}?topic=${topic}`}>
-                    <RawIntlProvider value={this.props.intl}>
-                      <FormattedMessage
-                        id="more_charts"
-                        defaultMessage="More charts ›"
-                        description="Link to explore more charts about a particular domain, such as Education or Health."
-                      />
-                    </RawIntlProvider>
+                    <FormattedMessage
+                      id="more_charts"
+                      defaultMessage="More charts ›"
+                      description="Link to explore more charts about a particular domain, such as Education or Health."
+                    />
                   </a>
                 </span>
               </h3>
@@ -124,13 +120,11 @@ class MainPane extends React.Component<MainPanePropType> {
           } else {
             subtopicHeader = (
               <h3 id={topic}>
-                <RawIntlProvider value={this.props.intl}>
-                  <FormattedMessage
-                    id={topic}
-                    defaultMessage={topic}
-                    description="A section of our charts page that describes a subtopic such as Unemployment within a domain, such as Economics."
-                  />
-                </RawIntlProvider>
+                <FormattedMessage
+                  id={topic}
+                  defaultMessage={topic}
+                  description="A section of our charts page that describes a subtopic such as Unemployment within a domain, such as Economics."
+                />
               </h3>
             );
           }
@@ -161,7 +155,7 @@ class MainPane extends React.Component<MainPanePropType> {
             </section>
           );
         })}
-      </>
+      </RawIntlProvider>
     );
   }
 }

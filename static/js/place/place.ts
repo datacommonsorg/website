@@ -16,7 +16,7 @@
 
 import React from "react";
 import ReactDOM from "react-dom";
-import { locale, intl } from "../l10n/i18n";
+import { intl } from "../l10n/i18n";
 import axios from "axios";
 import _ from "lodash";
 
