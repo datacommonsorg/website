@@ -34,7 +34,7 @@ const locale = determineLocale();
 
 function determineLocale() {
   const urlParams = new URLSearchParams(window.location.search);
-  return urlParams.get("lng") || "en";
+  return urlParams.get("hl") || "en";
 }
 
 // TODO(tjann): see if there's abetter Record type
