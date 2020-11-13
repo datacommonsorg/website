@@ -14,6 +14,8 @@
  * limitations under the License.
  */
 import React from "react";
+import { IntlProvider, FormattedMessage, FormattedNumber } from "react-intl";
+
 import { ChartBlock } from "./chart_block";
 import { Overview } from "./overview";
 import {
@@ -24,6 +26,14 @@ import {
 } from "../chart/types";
 
 interface MainPanePropType {
+  /**
+   * The locale.
+   */
+  locale: string;
+  /**
+   * The translation messages.
+   */
+  translations: any;
   /**
    * The place dcid.
    */
@@ -93,16 +103,52 @@ class MainPane extends React.Component<MainPanePropType> {
           if (isOverview && Object.keys(this.props.pageChart).length > 1) {
             subtopicHeader = (
               <h3 id={topic}>
-                <a href={`/place/${this.props.dcid}?topic=${topic}`}>{topic}</a>
+                <a href={`/place/${this.props.dcid}?topic=${topic}`}>
+                  <IntlProvider
+                    messages={this.props.translations}
+                    locale={this.props.locale}
+                    defaultLocale="en"
+                  >
+                    <FormattedMessage
+                      id={topic}
+                      defaultMessage={topic}
+                      description="A header for a section of the Overview charts page that breaks the page down into Education, Health, and other domains."
+                    />
+                  </IntlProvider>
+                </a>
                 <span className="more">
                   <a href={`/place/${this.props.dcid}?topic=${topic}`}>
-                    More charts ›
+                    <IntlProvider
+                      messages={this.props.translations}
+                      locale={this.props.locale}
+                      defaultLocale="en"
+                    >
+                      <FormattedMessage
+                        id="more_charts"
+                        defaultMessage="More charts ›"
+                        description="Link to explore more charts about a particular domain, such as Education or Health."
+                      />
+                    </IntlProvider>
                   </a>
                 </span>
               </h3>
             );
           } else {
-            subtopicHeader = <h3 id={topic}>{topic}</h3>;
+            subtopicHeader = (
+              <h3 id={topic}>
+                <IntlProvider
+                  messages={this.props.translations}
+                  locale={this.props.locale}
+                  defaultLocale="en"
+                >
+                  <FormattedMessage
+                    id={topic}
+                    defaultMessage={topic}
+                    description="A section of our charts page that describes a subtopic such as Unemployment within a domain, such as Economics."
+                  />
+                </IntlProvider>
+              </h3>
+            );
           }
           return (
             <section className="subtopic col-12" key={topic}>

@@ -1,0 +1,176 @@
+{
+  "more_charts": [
+    {
+      "type": 0,
+      "value": "Mas graficos ›"
+    }
+  ],
+  "label-1": [
+    {
+      "type": 0,
+      "value": "etiqueta-1"
+    }
+  ],
+  "label-2": [
+    {
+      "type": 0,
+      "value": "etiqueta-2"
+    }
+  ],
+  "January": [
+    {
+      "type": 0,
+      "value": "Enero"
+    }
+  ],
+  "February": [
+    {
+      "type": 0,
+      "value": "Febrero"
+    }
+  ],
+  "March": [
+    {
+      "type": 0,
+      "value": "Marzo"
+    }
+  ],
+  "April": [
+    {
+      "type": 0,
+      "value": "Abril"
+    }
+  ],
+  "May": [
+    {
+      "type": 0,
+      "value": "Mayo"
+    }
+  ],
+  "June": [
+    {
+      "type": 0,
+      "value": "Junio"
+    }
+  ],
+  "July": [
+    {
+      "type": 0,
+      "value": "Julio"
+    }
+  ],
+  "August": [
+    {
+      "type": 0,
+      "value": "Agosto"
+    }
+  ],
+  "September": [
+    {
+      "type": 0,
+      "value": "Septiembre"
+    }
+  ],
+  "October": [
+    {
+      "type": 0,
+      "value": "Octubre"
+    }
+  ],
+  "November": [
+    {
+      "type": 0,
+      "value": "Noviembre"
+    }
+  ],
+  "December": [
+    {
+      "type": 0,
+      "value": "Diciembre"
+    }
+  ],
+  "Total": [
+    {
+      "type": 0,
+      "value": "Total"
+    }
+  ],
+  "Male": [
+    {
+      "type": 0,
+      "value": "Masculino"
+    }
+  ],
+  "San Jose": [
+    {
+      "type": 0,
+      "value": "San Jose"
+    }
+  ],
+  "Fremont": [
+    {
+      "type": 0,
+      "value": "Fremont"
+    }
+  ],
+  "San Francisco": [
+    {
+      "type": 0,
+      "value": "San Francisco"
+    }
+  ],
+  "Mountain View": [
+    {
+      "type": 0,
+      "value": "Vista desde la Montaña"
+    }
+  ],
+  "Very-Long-City-Name": [
+    {
+      "type": 0,
+      "value": "Nombre-Ciudad-Muy-Largo"
+    }
+  ],
+  "Multi several very long city name long": [
+    {
+      "type": 0,
+      "value": "Varios nombres de ciudades muy largos largos"
+    }
+  ],
+  "very very very long place name": [
+    {
+      "type": 0,
+      "value": "nombre de lugar muy muy largo"
+    }
+  ],
+  "such a long name that it needs to span 4 lines": [
+    {
+      "type": 0,
+      "value": "un nombre tan largo que necesita abarcar 4 líneas"
+    }
+  ],
+  "Santa Clara County": [
+    {
+      "type": 0,
+      "value": "Condado de Santa Clara"
+    }
+  ],
+  "Nevada": [
+    {
+      "type": 0,
+      "value": "Nevada"
+    }
+  ],
+  "California": [
+    {
+      "type": 0,
+      "value": "California"
+    }
+  ],
+  "United States": [
+    {
+      "type": 0,
+      "value": "Estados Unidos"
+    }
+  ]
+}

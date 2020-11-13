@@ -26,7 +26,38 @@ import {
   formatYAxisTicks,
 } from "./base";
 
-import i18n from "../i18next";
+import { createIntl, createIntlCache } from "react-intl";
+
+// A single cache instance can be shared for all locales
+const intlCache = createIntlCache();
+const locale = determineLocale();
+
+function determineLocale() {
+  const urlParams = new URLSearchParams(window.location.search);
+  return urlParams.get("lng") || "en";
+}
+
+// TODO(tjann): see if there's abetter Record type
+function loadLocaleData(locale: string): Promise<Record<any, any>> {
+  switch (locale) {
+    case "es":
+      return import("../compiled-lang/es.json");
+    default:
+      return import("../compiled-lang/en.json");
+  }
+}
+
+// TODO(tjann): Figure out how to properly code this in JS
+// The docs had an async that doesn't work here/ doesn't fit:
+// https://formatjs.io/docs/getting-started/message-distribution/
+// I'm 99% sure the locale setting and intl obj should not be in this file...
+var intl;
+async function initIntl() {
+  const messages = await loadLocaleData(locale);
+  intl = createIntl({ locale, messages }, intlCache);
+  // Now the intl object is localized and ready to use
+}
+initIntl();
 
 const NUM_X_TICKS = 5;
 const NUM_Y_TICKS = 5;
@@ -59,10 +90,20 @@ const AXIS_GRID_FILL = "#999";
 // Max Y value used for y domains for charts that have only 0 values.
 const MAX_Y_FOR_ZERO_CHARTS = 10;
 
-// Lightweight wrapper function since the arrow function in appendLegendElem
-// complains about mapping the keys elements to i18n.t().
+// Lightweight wrapper function to catch empty str.
 function translated(text: string): string {
-  return i18n.t(text);
+  if (!text) {
+    return "";
+  }
+  return intl.formatMessage({
+    // Matching ID as above
+    id: text,
+    // Default Message in English. Note that this will still log error.
+    // TODO(tjann): See if we can surpress error logs.
+    defaultMessage: text,
+    description:
+      "This text is from the chart config and can appear as titles, labels, axes, etc. for a chart.",
+  });
 }
 
 function appendLegendElem(

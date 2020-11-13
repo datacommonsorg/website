@@ -16,6 +16,7 @@
 
 import React from "react";
 import ReactDOM from "react-dom";
+import { IntlProvider } from "react-intl";
 import axios from "axios";
 import _ from "lodash";
 
@@ -30,13 +31,23 @@ import { initSearchAutocomplete } from "./search";
 
 import { CachedChoroplethData, GeoJsonData, PageData } from "../chart/types";
 
-let yScrollLimit = 0; // window scroll position to start fixing the sidebar
-let sidebarTopMax = 0; // Max top position for the sidebar, relative to #sidebar-outer.
-const Y_SCROLL_WINDOW_BREAKPOINT = 992; // Only trigger fixed sidebar beyond this window width.
-const Y_SCROLL_MARGIN = 100; // Margin to apply to the fixed sidebar top.
+// Window scroll position to start fixing the sidebar.
+let yScrollLimit = 0;
+// Max top position for the sidebar, relative to #sidebar-outer.
+let sidebarTopMax = 0;
+// Only trigger fixed sidebar beyond this window width.
+const Y_SCROLL_WINDOW_BREAKPOINT = 992;
+// Margin to apply to the fixed sidebar top.
+const Y_SCROLL_MARGIN = 100;
 const placeTypesWithChoropleth = new Set(["Country", "State", "County"]);
 
+var locale = "en";
+var translations = null;
+
 window.onload = () => {
+  const urlParams = new URLSearchParams(window.location.search);
+  locale = urlParams.get("lng") || "en";
+  getTranslations();
   renderPage();
   initSearchAutocomplete();
   updatePageLayoutState();
@@ -44,6 +55,18 @@ window.onload = () => {
   window.onresize = maybeToggleFixedSidebar;
 };
 
+async function loadLocaleData(): Promise<Record<any, any>> {
+  // Get topic and render menu.
+  switch (locale) {
+    case "es":
+      return import("../compiled-lang/es.json");
+    default:
+      return import("../compiled-lang/en.json");
+  }
+}
+async function getTranslations() {
+  translations = await loadLocaleData();
+}
 /**
  *  Make adjustments to sidebar scroll state based on the content.
  */
@@ -220,9 +243,10 @@ function renderPage(): void {
         }),
         document.getElementById("subtitle")
       );
-
       ReactDOM.render(
         React.createElement(MainPane, {
+          locale,
+          translations,
           topic,
           dcid,
           isUsaPlace,
