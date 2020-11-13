@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 import React from "react";
-import { IntlProvider, FormattedMessage, FormattedNumber } from "react-intl";
+import { RawIntlProvider, FormattedMessage, IntlShape } from "react-intl";
 
 import { ChartBlock } from "./chart_block";
 import { Overview } from "./overview";
@@ -27,13 +27,9 @@ import {
 
 interface MainPanePropType {
   /**
-   * The locale.
+   * The intl object https://formatjs.io/docs/react-intl/api/#the-intl-object.
    */
-  locale: string;
-  /**
-   * The translation messages.
-   */
-  translations: any;
+  intl: IntlShape;
   /**
    * The place dcid.
    */
@@ -104,31 +100,23 @@ class MainPane extends React.Component<MainPanePropType> {
             subtopicHeader = (
               <h3 id={topic}>
                 <a href={`/place/${this.props.dcid}?topic=${topic}`}>
-                  <IntlProvider
-                    messages={this.props.translations}
-                    locale={this.props.locale}
-                    defaultLocale="en"
-                  >
+                  <RawIntlProvider value={this.props.intl}>
                     <FormattedMessage
                       id={topic}
                       defaultMessage={topic}
                       description="A header for a section of the Overview charts page that breaks the page down into Education, Health, and other domains."
                     />
-                  </IntlProvider>
+                  </RawIntlProvider>
                 </a>
                 <span className="more">
                   <a href={`/place/${this.props.dcid}?topic=${topic}`}>
-                    <IntlProvider
-                      messages={this.props.translations}
-                      locale={this.props.locale}
-                      defaultLocale="en"
-                    >
+                    <RawIntlProvider value={this.props.intl}>
                       <FormattedMessage
                         id="more_charts"
                         defaultMessage="More charts ›"
                         description="Link to explore more charts about a particular domain, such as Education or Health."
                       />
-                    </IntlProvider>
+                    </RawIntlProvider>
                   </a>
                 </span>
               </h3>
@@ -136,17 +124,13 @@ class MainPane extends React.Component<MainPanePropType> {
           } else {
             subtopicHeader = (
               <h3 id={topic}>
-                <IntlProvider
-                  messages={this.props.translations}
-                  locale={this.props.locale}
-                  defaultLocale="en"
-                >
+                <RawIntlProvider value={this.props.intl}>
                   <FormattedMessage
                     id={topic}
                     defaultMessage={topic}
                     description="A section of our charts page that describes a subtopic such as Unemployment within a domain, such as Economics."
                   />
-                </IntlProvider>
+                </RawIntlProvider>
               </h3>
             );
           }

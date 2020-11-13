@@ -16,7 +16,7 @@
 
 import React from "react";
 import ReactDOM from "react-dom";
-import { IntlProvider } from "react-intl";
+import { locale, intl } from "../l10n/i18n";
 import axios from "axios";
 import _ from "lodash";
 
@@ -41,32 +41,13 @@ const Y_SCROLL_WINDOW_BREAKPOINT = 992;
 const Y_SCROLL_MARGIN = 100;
 const placeTypesWithChoropleth = new Set(["Country", "State", "County"]);
 
-var locale = "en";
-var translations = null;
-
 window.onload = () => {
-  const urlParams = new URLSearchParams(window.location.search);
-  locale = urlParams.get("lng") || "en";
-  getTranslations();
   renderPage();
   initSearchAutocomplete();
   updatePageLayoutState();
   maybeToggleFixedSidebar();
   window.onresize = maybeToggleFixedSidebar;
 };
-
-async function loadLocaleData(): Promise<Record<any, any>> {
-  // Get topic and render menu.
-  switch (locale) {
-    case "es":
-      return import("../compiled-lang/es.json");
-    default:
-      return import("../compiled-lang/en.json");
-  }
-}
-async function getTranslations() {
-  translations = await loadLocaleData();
-}
 /**
  *  Make adjustments to sidebar scroll state based on the content.
  */
@@ -245,8 +226,7 @@ function renderPage(): void {
       );
       ReactDOM.render(
         React.createElement(MainPane, {
-          locale,
-          translations,
+          intl,
           topic,
           dcid,
           isUsaPlace,

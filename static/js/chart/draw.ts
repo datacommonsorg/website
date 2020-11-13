@@ -26,38 +26,7 @@ import {
   formatYAxisTicks,
 } from "./base";
 
-import { createIntl, createIntlCache } from "react-intl";
-
-// A single cache instance can be shared for all locales
-const intlCache = createIntlCache();
-const locale = determineLocale();
-
-function determineLocale() {
-  const urlParams = new URLSearchParams(window.location.search);
-  return urlParams.get("hl") || "en";
-}
-
-// TODO(tjann): see if there's abetter Record type
-function loadLocaleData(locale: string): Promise<Record<any, any>> {
-  switch (locale) {
-    case "es":
-      return import("../compiled-lang/es.json");
-    default:
-      return import("../compiled-lang/en.json");
-  }
-}
-
-// TODO(tjann): Figure out how to properly code this in JS
-// The docs had an async that doesn't work here/ doesn't fit:
-// https://formatjs.io/docs/getting-started/message-distribution/
-// I'm 99% sure the locale setting and intl obj should not be in this file...
-var intl;
-async function initIntl() {
-  const messages = await loadLocaleData(locale);
-  intl = createIntl({ locale, messages }, intlCache);
-  // Now the intl object is localized and ready to use
-}
-initIntl();
+import { intl } from "../l10n/i18n";
 
 const NUM_X_TICKS = 5;
 const NUM_Y_TICKS = 5;
