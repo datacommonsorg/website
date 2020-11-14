@@ -1,6 +1,6 @@
-import React, { useContext, useEffect } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import _ from "lodash";
-import { FormGroup, Label, Input, Card, Button } from "reactstrap";
+import { FormGroup, Label, Input, Card, Button, Collapse } from "reactstrap";
 import { ScatterContext } from "./scatter2_app";
 import { SearchBar } from "../timeline_search";
 import { getPlaceNames } from "../timeline_util";
@@ -186,86 +186,110 @@ function PlotOptions(): JSX.Element {
     });
   }
 
+  const [open, setOpen] = useState(false);
+
   return (
     <Card>
       <Container>
         <Row>
-          <Col>Only plot places of this size</Col>
-          <Col>
-            <FormGroup check>
-              <Input
-                type="number"
-                onChange={setLowerBound}
-                value={context.place.value.lowerBound}
-              />
-            </FormGroup>
-          </Col>
-          <Col xs="auto">to</Col>
-          <Col>
-            <FormGroup check>
-              <Input
-                type="number"
-                onChange={setUpperBound}
-                value={
-                  context.place.value.upperBound === Number.POSITIVE_INFINITY
-                    ? 1e10
-                    : context.place.value.upperBound
-                }
-              />
-            </FormGroup>
+          <Col xs="auto">
+            <Button
+              id="options-btn"
+              color="light"
+              size="sm"
+              onClick={() => setOpen(!open)}
+            >
+              <i className="material-icons">
+                {open ? "expand_less" : "expand_more"}
+              </i>
+              Options
+            </Button>
           </Col>
         </Row>
         <Row>
-          <Col xs="auto">Plot Options</Col>
-          <Col>
-            <Button size="sm" color="light" onClick={checkSwap}>
-              Swap X and Y axes
-            </Button>
-          </Col>
-          <Col>
-            <FormGroup check>
-              <Label check>
-                <Input
-                  type="checkbox"
-                  checked={context.x.value.perCapita}
-                  onChange={checkPerCapitaX}
-                />
-                Plot X-axis per capita
-              </Label>
-            </FormGroup>
-            <FormGroup check>
-              <Label check>
-                <Input
-                  type="checkbox"
-                  checked={context.y.value.perCapita}
-                  onChange={checkPerCapitaY}
-                />
-                Plot Y-axis per capita
-              </Label>
-            </FormGroup>
-          </Col>
-          <Col>
-            <FormGroup check>
-              <Label check>
-                <Input
-                  type="checkbox"
-                  checked={context.x.value.log}
-                  onChange={checkLogX}
-                />
-                Plot X-axis on log scale
-              </Label>
-            </FormGroup>
-            <FormGroup check>
-              <Label check>
-                <Input
-                  type="checkbox"
-                  checked={context.y.value.log}
-                  onChange={checkLogY}
-                />
-                Plot Y-axis on log scale
-              </Label>
-            </FormGroup>
-          </Col>
+          <Collapse isOpen={open}>
+            <Container>
+              <Row>
+                <Col>Only plot places of this size</Col>
+                <Col>
+                  <FormGroup check>
+                    <Input
+                      type="number"
+                      onChange={setLowerBound}
+                      value={context.place.value.lowerBound}
+                    />
+                  </FormGroup>
+                </Col>
+                <Col xs="auto">to</Col>
+                <Col>
+                  <FormGroup check>
+                    <Input
+                      type="number"
+                      onChange={setUpperBound}
+                      value={
+                        context.place.value.upperBound ===
+                        Number.POSITIVE_INFINITY
+                          ? 1e10
+                          : context.place.value.upperBound
+                      }
+                    />
+                  </FormGroup>
+                </Col>
+              </Row>
+              <Row>
+                <Col xs="auto">Plot Options</Col>
+                <Col>
+                  <Button size="sm" color="light" onClick={checkSwap}>
+                    Swap X and Y axes
+                  </Button>
+                </Col>
+                <Col>
+                  <FormGroup check>
+                    <Label check>
+                      <Input
+                        type="checkbox"
+                        checked={context.x.value.perCapita}
+                        onChange={checkPerCapitaX}
+                      />
+                      Plot X-axis per capita
+                    </Label>
+                  </FormGroup>
+                  <FormGroup check>
+                    <Label check>
+                      <Input
+                        type="checkbox"
+                        checked={context.y.value.perCapita}
+                        onChange={checkPerCapitaY}
+                      />
+                      Plot Y-axis per capita
+                    </Label>
+                  </FormGroup>
+                </Col>
+                <Col>
+                  <FormGroup check>
+                    <Label check>
+                      <Input
+                        type="checkbox"
+                        checked={context.x.value.log}
+                        onChange={checkLogX}
+                      />
+                      Plot X-axis on log scale
+                    </Label>
+                  </FormGroup>
+                  <FormGroup check>
+                    <Label check>
+                      <Input
+                        type="checkbox"
+                        checked={context.y.value.log}
+                        onChange={checkLogY}
+                      />
+                      Plot Y-axis on log scale
+                    </Label>
+                  </FormGroup>
+                </Col>
+              </Row>
+            </Container>
+          </Collapse>
         </Row>
       </Container>
     </Card>
