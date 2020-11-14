@@ -85,7 +85,10 @@ function Chart(): JSX.Element {
       .call(
         d3
           .axisBottom(x)
-          .tickFormat(d3.format(context.x.value.perCapita ? ".2f" : "d"))
+          .ticks(
+            context.x.value.log ? 5 : 10,
+            d3.format(context.x.value.perCapita ? ".3f" : "d")
+          )
       );
     svg
       .append("text")
@@ -105,7 +108,10 @@ function Chart(): JSX.Element {
       .call(
         d3
           .axisLeft(y)
-          .tickFormat(d3.format(context.y.value.perCapita ? ".2f" : "d"))
+          .ticks(
+            context.y.value.log ? 5 : 10,
+            d3.format(context.y.value.perCapita ? ".3f" : "d")
+          )
       );
     svg
       .append("text")
