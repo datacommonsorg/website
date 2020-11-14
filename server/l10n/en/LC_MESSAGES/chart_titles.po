@@ -1,0 +1,453 @@
+# English translations for PROJECT.
+# Copyright (C) 2020 ORGANIZATION
+# This file is distributed under the same license as the PROJECT project.
+# FIRST AUTHOR <EMAIL@ADDRESS>, 2020.
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: PROJECT VERSION\n"
+"Report-Msgid-Bugs-To: EMAIL@ADDRESS\n"
+"POT-Creation-Date: 2020-11-13 14:42-0800\n"
+"PO-Revision-Date: 2020-11-13 14:42-0800\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"Language: en\n"
+"Language-Team: en <LL@li.org>\n"
+"Plural-Forms: nplurals=2; plural=(n != 1)\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=utf-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Generated-By: Babel 2.7.0\n"
+
+#. Title of a chart:  (see screenshot for an example)
+msgid "CHART_TITLE-Alcohol_consumption_per_capita"
+msgstr "Alcohol consumption per capita (annual)"
+
+#. Title of a chart:  (see screenshot for an example)
+msgid "CHART_TITLE-Arson"
+msgstr "Arson"
+
+#. Title of a chart:  (see screenshot for an example)
+msgid "CHART_TITLE-Arson_rate"
+msgstr "Arsons per 100,000 people"
+
+#. Title of a chart:  (see screenshot for an example)
+msgid "CHART_TITLE-Associate_degree_rate_gender"
+msgstr "Rate of associate degree attainment by gender"
+
+#. Title of a chart:  (see screenshot for an example)
+msgid "CHART_TITLE-Bachelors_degree_rate_gender"
+msgstr "Rate of bachelor's degree attainment by gender"
+
+#. Title of a chart: Number of children who are employed (see screenshot for an
+#. example)
+msgid "CHART_TITLE-Children_employed"
+msgstr "Children in employment"
+
+#. Title of a chart: Number of children who are employed, broken down by gender
+#. (see screenshot for an example)
+msgid "CHART_TITLE-Children_employed_gender"
+msgstr "Children in employment by gender"
+
+#. Title of a chart:  (see screenshot for an example)
+msgid "CHART_TITLE-Children_severe_wasting"
+msgstr "Severe wasting among children under 5"
+
+#. Title of a chart:  (see screenshot for an example)
+msgid "CHART_TITLE-Children_severe_wasting_by_gender"
+msgstr "Severe wasting among children under 5 by gender"
+
+#. Title of a chart:  (see screenshot for an example)
+msgid "CHART_TITLE-Children_wasting"
+msgstr "Wasting among children under 5"
+
+#. Title of a chart:  (see screenshot for an example)
+msgid "CHART_TITLE-Children_wasting_by_gender"
+msgstr "Wasting among children under 5 by gender"
+
+#. Title of a chart:  (see screenshot for an example)
+msgid "CHART_TITLE-Citizenship"
+msgstr "Citizenship status"
+
+#. Title of a chart:  (see screenshot for an example)
+msgid "CHART_TITLE-Citizenship_distribution"
+msgstr "Distribution of population by citizenship status"
+
+#. Title of a chart:  (see screenshot for an example)
+msgid "CHART_TITLE-Co2_emissions_per_capita"
+msgstr "CO2 emissions per capita"
+
+#. Title of a chart:  (see screenshot for an example)
+msgid "CHART_TITLE-Covid_cases"
+msgstr "COVID-19 cumulative cases"
+
+#. Title of a chart:  (see screenshot for an example)
+msgid "CHART_TITLE-Covid_cases_per_capita"
+msgstr "COVID-19 cumulative cases per capita"
+
+#. Title of a chart:  (see screenshot for an example)
+msgid "CHART_TITLE-Covid_deaths"
+msgstr "COVID-19 cumulative deaths"
+
+#. Title of a chart:  (see screenshot for an example)
+msgid "CHART_TITLE-Covid_deaths_per_capita"
+msgstr "COVID-19 cumulative deaths per capita"
+
+#. Title of a chart:  (see screenshot for an example)
+msgid "CHART_TITLE-Crime_rate"
+msgstr "Crimes per 100,000 people"
+
+#. Title of a chart:  (see screenshot for an example)
+msgid "CHART_TITLE-Cyclones"
+msgstr "Cyclones"
+
+#. Title of a chart:  (see screenshot for an example)
+msgid "CHART_TITLE-Disasters"
+msgstr "Disasters"
+
+#. Title of a chart:  (see screenshot for an example)
+msgid "CHART_TITLE-Earthquakes"
+msgstr "Earthquakes"
+
+#. Title of a chart:  (see screenshot for an example)
+msgid "CHART_TITLE-Educational_attainment"
+msgstr "Education attainment"
+
+#. Title of a chart:  (see screenshot for an example)
+msgid "CHART_TITLE-Educational_attainment_rate"
+msgstr "Education attainment rate"
+
+#. Title of a chart:  (see screenshot for an example)
+msgid "CHART_TITLE-Electricity_consumption_per_capita"
+msgstr "Electricity consumption per capita"
+
+#. Title of a chart:  (see screenshot for an example)
+msgid "CHART_TITLE-Energy_use"
+msgstr "Energy use (kg of oil equivalent per capita)"
+
+#. Title of a chart:  (see screenshot for an example)
+msgid "CHART_TITLE-Fertility_rate"
+msgstr "Fertility rate"
+
+#. Title of a chart: Annual percentage growth rate of GDP at market prices
+#. based on constant local currency (see screenshot for an example)
+msgid "CHART_TITLE-Gdp_growth_rate"
+msgstr "Gross domestic product growth rate"
+
+#. Title of a chart: Gross domestic product (nominal) per capita, see
+#. https://en.wikipedia.org/wiki/Gross_domestic_product (see screenshot for an
+#. example)
+msgid "CHART_TITLE-Gdp_per_capita"
+msgstr "Gross domestic product per capita"
+
+#. Title of a chart:  (see screenshot for an example)
+msgid "CHART_TITLE-Gini_index"
+msgstr "Gini index"
+
+#. Title of a chart:  (see screenshot for an example)
+msgid "CHART_TITLE-Gni"
+msgstr "Gross national income (purchasing power parity)"
+
+#. Title of a chart: Gross national income, divided by population, converted
+#. using purchasing power parity rates (see screenshot for an example)
+msgid "CHART_TITLE-Gni_per_capita"
+msgstr "Gross national income per capita (purchasing power parity)"
+
+#. Title of a chart:  (see screenshot for an example)
+msgid "CHART_TITLE-Government_debt"
+msgstr "Government debt"
+
+#. Title of a chart:  (see screenshot for an example)
+msgid "CHART_TITLE-Government_debt_per_capita"
+msgstr "Government expenditures on education (% of government expenditure)"
+
+#. Title of a chart:  (see screenshot for an example)
+msgid "CHART_TITLE-Government_expenditures"
+msgstr "Government expenditures on education (% of GDP)"
+
+#. Title of a chart:  (see screenshot for an example)
+msgid "CHART_TITLE-Government_expenditures_military"
+msgstr "Government expenditures on military"
+
+#. Title of a chart:  (see screenshot for an example)
+msgid "CHART_TITLE-Government_expenditures_military_per_gdp"
+msgstr "Government expenditures on military (% of GDP)"
+
+#. Title of a chart:  (see screenshot for an example)
+msgid "CHART_TITLE-Graduate_or_professional_degree_rate_gender"
+msgstr "Rate of graduate or professional degree attainment by gender"
+
+#. Title of a chart:  (see screenshot for an example)
+msgid "CHART_TITLE-Health_behaviors"
+msgstr "Health behaviors"
+
+#. Title of a chart:  (see screenshot for an example)
+msgid "CHART_TITLE-Health_outcomes"
+msgstr "Health outcomes"
+
+#. Title of a chart:  (see screenshot for an example)
+msgid "CHART_TITLE-Household_income"
+msgstr "Household income"
+
+#. Title of a chart:  (see screenshot for an example)
+msgid "CHART_TITLE-Household_income_by_bracket"
+msgstr "Percentage of households by income brackets"
+
+#. Title of a chart:  (see screenshot for an example)
+msgid "CHART_TITLE-Housing_units"
+msgstr "Housing units"
+
+#. Title of a chart:  (see screenshot for an example)
+msgid "CHART_TITLE-Housing_units_date_built"
+msgstr "Housing units by date built"
+
+#. Title of a chart:  (see screenshot for an example)
+msgid "CHART_TITLE-Housing_units_date_built_distrubtion"
+msgstr "Distribution of housing units by date built"
+
+#. Title of a chart:  (see screenshot for an example)
+msgid "CHART_TITLE-Housing_units_per_capita"
+msgstr "Housing units per capita"
+
+#. Title of a chart:  (see screenshot for an example)
+msgid "CHART_TITLE-Housing_units_price"
+msgstr "Housing units by price"
+
+#. Title of a chart:  (see screenshot for an example)
+msgid "CHART_TITLE-Housing_units_price_distribution"
+msgstr "Distribution of housing units by price"
+
+#. Title of a chart:  (see screenshot for an example)
+msgid "CHART_TITLE-Housing_units_race"
+msgstr "Housing units by householder race"
+
+#. Title of a chart:  (see screenshot for an example)
+msgid "CHART_TITLE-Housing_units_race_distribution"
+msgstr "Distribution of housing units by householder race"
+
+#. Title of a chart:  (see screenshot for an example)
+msgid "CHART_TITLE-Housing_units_rental_status"
+msgstr "Housing units by rental status"
+
+#. Title of a chart:  (see screenshot for an example)
+msgid "CHART_TITLE-Housing_units_rental_status_distribution"
+msgstr "Distribution of housing units by rental status"
+
+#. Title of a chart:  (see screenshot for an example)
+msgid "CHART_TITLE-Individual_income"
+msgstr "Individual income"
+
+#. Title of a chart:  (see screenshot for an example)
+msgid "CHART_TITLE-Individual_income_by_bracket"
+msgstr "Percentage of individuals by income brackets"
+
+#. Title of a chart:  (see screenshot for an example)
+msgid "CHART_TITLE-Infant_mortality_rate"
+msgstr "Infant mortality rate"
+
+#. Title of a chart:  (see screenshot for an example)
+msgid "CHART_TITLE-Infant_mortality_rate_gender"
+msgstr "Infant mortality rate by gender"
+
+#. Title of a chart:  (see screenshot for an example)
+msgid "CHART_TITLE-Inward_remittance"
+msgstr "Inward remittance"
+
+#. Title of a chart:  (see screenshot for an example)
+msgid "CHART_TITLE-Inward_remittance_per_gdp"
+msgstr "Inward remittance (% of GDP)"
+
+#. Title of a chart: Count of people in the labor force, see
+#. https://data.oecd.org/emp/labour-force.htm (see screenshot for an example)
+msgid "CHART_TITLE-Labor_force"
+msgstr "Labor force"
+
+#. Title of a chart: Percentage of the population, of working age, in the labor
+#. force, see https://data.oecd.org/emp/labour-force.htm (see screenshot for an
+#. example)
+msgid "CHART_TITLE-Labor_force_rate"
+msgstr "Labor force participation rate"
+
+#. Title of a chart:  (see screenshot for an example)
+msgid "CHART_TITLE-Life_expectancy"
+msgstr "Life expectancy (years)"
+
+#. Title of a chart:  (see screenshot for an example)
+msgid "CHART_TITLE-Marital_status"
+msgstr "Marital status"
+
+#. Title of a chart:  (see screenshot for an example)
+msgid "CHART_TITLE-Marital_status_distribution"
+msgstr "Marital status distribution"
+
+#. Title of a chart:  (see screenshot for an example)
+msgid "CHART_TITLE-Market_capitalization"
+msgstr "Market capitalization of domestic companies"
+
+#. Title of a chart:  (see screenshot for an example)
+msgid "CHART_TITLE-Market_capitalization_per_gdp"
+msgstr "Market capitalization of domestic companies (% of GDP)"
+
+#. Title of a chart:  (see screenshot for an example)
+msgid "CHART_TITLE-Median_age"
+msgstr "Median Age"
+
+#. Title of a chart:  (see screenshot for an example)
+msgid "CHART_TITLE-Median_age_gender"
+msgstr "Median age by gender"
+
+#. Title of a chart:  (see screenshot for an example)
+msgid "CHART_TITLE-Median_age_race"
+msgstr "Median age by race"
+
+#. Title of a chart:  (see screenshot for an example)
+msgid "CHART_TITLE-Median_household_income"
+msgstr "Median household income"
+
+#. Title of a chart:  (see screenshot for an example)
+msgid "CHART_TITLE-Median_household_income_race"
+msgstr "Median household income by race"
+
+#. Title of a chart:  (see screenshot for an example)
+msgid "CHART_TITLE-Median_income_gender"
+msgstr "Median income by gender"
+
+#. Title of a chart:  (see screenshot for an example)
+msgid "CHART_TITLE-Median_individual_income"
+msgstr "Median individual income"
+
+#. Title of a chart:  (see screenshot for an example)
+msgid "CHART_TITLE-Mortality_events"
+msgstr "Mortality events"
+
+#. Title of a chart:  (see screenshot for an example)
+msgid "CHART_TITLE-Mortality_events_per_capita"
+msgstr "Mortality events per capita"
+
+#. Title of a chart:  (see screenshot for an example)
+msgid "CHART_TITLE-Outward_remittance_per_gdp"
+msgstr "Outward remittance"
+
+#. Title of a chart:  (see screenshot for an example)
+msgid "CHART_TITLE-Percent_without_health_insurance_gender"
+msgstr "Percentage of people without health insurance by gender"
+
+#. Title of a chart:  (see screenshot for an example)
+msgid "CHART_TITLE-Percent_without_health_insurance_race"
+msgstr "Percentage of people without health insurance by race"
+
+#. Title of a chart:  (see screenshot for an example)
+msgid "CHART_TITLE-Percentage_employed"
+msgstr "Percentage of people employed"
+
+#. Title of a chart:  (see screenshot for an example)
+msgid "CHART_TITLE-Population"
+msgstr "Population"
+
+#. Title of a chart:  (see screenshot for an example)
+msgid "CHART_TITLE-Population_age"
+msgstr "Population by age"
+
+#. Title of a chart:  (see screenshot for an example)
+msgid "CHART_TITLE-Population_age_distribution"
+msgstr "Age distribution"
+
+#. Title of a chart:  (see screenshot for an example)
+msgid "CHART_TITLE-Population_density"
+msgstr "Population density (people per km²)"
+
+#. Title of a chart:  (see screenshot for an example)
+msgid "CHART_TITLE-Population_gender"
+msgstr "Population by gender"
+
+#. Title of a chart:  (see screenshot for an example)
+msgid "CHART_TITLE-Population_gender_distribution"
+msgstr "Gender distribution"
+
+#. Title of a chart:  (see screenshot for an example)
+msgid "CHART_TITLE-Population_growth_rate"
+msgstr "Population growth rate"
+
+#. Title of a chart:  (see screenshot for an example)
+msgid "CHART_TITLE-Population_race"
+msgstr "Population by race"
+
+#. Title of a chart:  (see screenshot for an example)
+msgid "CHART_TITLE-Population_race_distribution"
+msgstr "Racial distribution"
+
+#. Title of a chart: Percentage of the population below poverty (see screenshot
+#. for an example)
+msgid "CHART_TITLE-Poverty_rate"
+msgstr "Poverty rate"
+
+#. Title of a chart:  (see screenshot for an example)
+msgid "CHART_TITLE-Poverty_rate_gender"
+msgstr "Poverty rate by gender"
+
+#. Title of a chart:  (see screenshot for an example)
+msgid "CHART_TITLE-Poverty_rate_race"
+msgstr "Poverty rate by race"
+
+#. Title of a chart:  (see screenshot for an example)
+msgid "CHART_TITLE-Prescribed_drugs"
+msgstr "Prescribed drugs (quarterly)"
+
+#. Title of a chart:  (see screenshot for an example)
+msgid "CHART_TITLE-Prescribed_drugs_per_capita"
+msgstr "Prescribed drugs per capita (quarterly)"
+
+#. Title of a chart:  (see screenshot for an example)
+msgid "CHART_TITLE-Property_crime"
+msgstr "Property crime"
+
+#. Title of a chart:  (see screenshot for an example)
+msgid "CHART_TITLE-Property_crime_rate"
+msgstr "Property crimes per 100,000 people"
+
+#. Title of a chart:  (see screenshot for an example)
+msgid "CHART_TITLE-School_enrollment"
+msgstr "School enrollment"
+
+#. Title of a chart:  (see screenshot for an example)
+msgid "CHART_TITLE-School_enrollment_rate"
+msgstr "School enrollment rate"
+
+#. Title of a chart: Number of unemployment insurance claims filed with a US
+#. state (see screenshot for an example)
+msgid "CHART_TITLE-State_unemployment_claims"
+msgstr "State unemployment insurance claims"
+
+#. Title of a chart: Percentage of the labor force who filed unemployment
+#. insurance claims with a US state (see screenshot for an example)
+msgid "CHART_TITLE-State_unemployment_claims_rate"
+msgstr "State unemployment insurance claims rate"
+
+#. Title of a chart:  (see screenshot for an example)
+msgid "CHART_TITLE-Total_crime"
+msgstr "Total crime"
+
+#. Title of a chart:  (see screenshot for an example)
+msgid "CHART_TITLE-Total_employed"
+msgstr "Number of people employed"
+
+#. Title of a chart: Percentage of the population, of working age, who are
+#. unemployed. (see screenshot for an example)
+msgid "CHART_TITLE-Unemployment_rate"
+msgstr "Unemployment rate"
+
+#. Title of a chart:  (see screenshot for an example)
+msgid "CHART_TITLE-Unemployment_rate_gender"
+msgstr "Unemployment rate by gender"
+
+#. Title of a chart:  (see screenshot for an example)
+msgid "CHART_TITLE-Urban_v_rural_population"
+msgstr "Urban and rural population"
+
+#. Title of a chart:  (see screenshot for an example)
+msgid "CHART_TITLE-Violent_crime"
+msgstr "Violent crime"
+
+#. Title of a chart:  (see screenshot for an example)
+msgid "CHART_TITLE-Violent_crime_rate"
+msgstr "Violent crimes per 100,000 people"
+

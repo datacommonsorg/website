@@ -18,3 +18,4 @@ redis==3.5.3
 opencensus
 opencensus-ext-stackdriver
 opencensus-ext-flask
+Babel
