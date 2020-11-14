@@ -349,6 +349,9 @@ function Chart(): JSX.Element {
   return (
     <Container id="chart">
       <Row>
+        <Card id="chart-svg" className="chart-svg" />
+      </Row>
+      <Row>
         <Card id="stats">
           <Badge color="light">
             X Mean: <span id="x-mean">N/A</span>
@@ -363,9 +366,6 @@ function Chart(): JSX.Element {
             Y Standard Deviation: <span id="y-std">N/A</span>
           </Badge>
         </Card>
-      </Row>
-      <Row>
-        <Card id="chart-svg" className="chart-svg" />
       </Row>
     </Container>
   );
