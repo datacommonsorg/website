@@ -15,6 +15,7 @@
  */
 
 import pluralize from "pluralize";
+import { intl } from "../l10n/i18n";
 
 /**
  * Given a list of parent places, return true if the place is in USA.
@@ -33,6 +34,7 @@ export function isPlaceInUsa(dcid: string, parentPlaces: string[]): boolean {
 
 /**
  * Returns place type, possibly pluralized if requested.
+ * TODO(datcom): i18n pluralization cases
  *
  * @param {string} placeType PlaceType, as taken from the Data Commons Graph (in CamelCase).
  * @param {boolean} isPlural True if the result should be pluralized.
@@ -47,10 +49,45 @@ export function displayNameForPlaceType(
     placeType.startsWith("AdministrativeArea") ||
     placeType.startsWith("Eurostat")
   ) {
-    return isPlural ? "Places" : "Place";
+    return isPlural
+      ? intl.formatMessage({
+          // Matching ID as above
+          id: "plural_places",
+          // Default Message in English. Note that this will still log error.
+          // TODO(tjann): See if we can surpress error logs.
+          defaultMessage: "Places",
+          description:
+            "General collection of places. Used for comparison charts of Places in California.",
+        })
+      : intl.formatMessage({
+          // Matching ID as above
+          id: "singular_place",
+          // Default Message in English. Note that this will still log error.
+          // TODO(tjann): See if we can surpress error logs.
+          defaultMessage: "Place",
+          description:
+            "A general type of place. E.g. Lincoln Center is a Place in NYC.",
+        });
   }
   if (placeType === "CensusZipCodeTabulationArea") {
-    return isPlural ? "Zip Codes" : "Zip Code";
+    return isPlural
+      ? intl.formatMessage({
+          // Matching ID as above
+          id: "plural_zip_codes",
+          // Default Message in English. Note that this will still log error.
+          // TODO(tjann): See if we can surpress error logs.
+          defaultMessage: "Zip Codes",
+          description:
+            "A collection of Zip Codes. Used in ranking pages, etc. E.g. Rankings of Number of Employed People for Zip Codes in USA.",
+        })
+      : intl.formatMessage({
+          // Matching ID as above
+          id: "singular_place",
+          // Default Message in English. Note that this will still log error.
+          // TODO(tjann): See if we can surpress error logs.
+          defaultMessage: "Zip Code",
+          description: "A Zip Code. E.g. 94539 is a Zip Code in CA.",
+        });
   }
   return isPlural ? pluralize(placeType) : placeType;
 }

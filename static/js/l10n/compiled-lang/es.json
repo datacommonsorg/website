@@ -1,4 +1,112 @@
 {
+  "the_world": [
+    {
+      "type": 0,
+      "value": "el Mundo"
+    }
+  ],
+  "Number of people employed": [
+    {
+      "type": 0,
+      "value": "Número de personas empleadas"
+    }
+  ],
+  "chart_clause:in": [
+    {
+      "type": 0,
+      "value": "en"
+    }
+  ],
+  "chart_clause:near": [
+    {
+      "type": 0,
+      "value": "cerca"
+    }
+  ],
+  "chart_clause:places_within": [
+    {
+      "type": 0,
+      "value": "lugares dentro"
+    }
+  ],
+  "chart_clause:places_that_contain": [
+    {
+      "type": 0,
+      "value": "lugares que contienen"
+    }
+  ],
+  "chart_clause:other": [
+    {
+      "type": 0,
+      "value": "otra"
+    }
+  ],
+  "State unemployment insurance claims rate": [
+    {
+      "type": 0,
+      "value": "Tasa de reclamaciones del seguro de desempleo estatal"
+    }
+  ],
+  "Employed People": [
+    {
+      "type": 0,
+      "value": "Personas Empleadas"
+    }
+  ],
+  "chart_metadata:data_from": [
+    {
+      "type": 0,
+      "value": "Datos de"
+    }
+  ],
+  "chart_metadata:export": [
+    {
+      "type": 0,
+      "value": "Exportar"
+    }
+  ],
+  "chart_metadata:explore_more": [
+    {
+      "type": 0,
+      "value": "Explora más ›"
+    }
+  ],
+  "chart_metadata:feedback": [
+    {
+      "type": 0,
+      "value": "Retroalimentación"
+    }
+  ],
+  "chart_metadata:dotted_line_explanation": [
+    {
+      "type": 0,
+      "value": "(la línea de puntos indica datos faltantes)"
+    }
+  ],
+  "via_datacommons": [
+    {
+      "type": 0,
+      "value": "vía Data Commons"
+    }
+  ],
+  "export_chart_link": [
+    {
+      "type": 0,
+      "value": "Exportar este gráfico"
+    }
+  ],
+  "download_chart_link": [
+    {
+      "type": 0,
+      "value": "Descargar imagen de gráfico"
+    }
+  ],
+  "download_csv_link": [
+    {
+      "type": 0,
+      "value": "Descargar datos como CSV"
+    }
+  ],
   "more_charts": [
     {
       "type": 0,

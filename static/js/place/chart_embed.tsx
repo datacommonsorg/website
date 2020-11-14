@@ -18,7 +18,8 @@ import React from "react";
 import { Button, Modal, ModalHeader, ModalBody, ModalFooter } from "reactstrap";
 import { randDomId, saveToFile } from "../shared/util";
 import * as d3 from "d3";
-
+import { intl, translateVariableString } from "../l10n/i18n";
+import { chartMetadataDataFrom } from "./chart";
 // SVG adjustment related constants
 const TITLE_HEIGHT = 20;
 const TITLE_MARGIN = 10;
@@ -128,7 +129,7 @@ class ChartEmbed extends React.Component<unknown, ChartEmbedStateType> {
           SOURCES_HEIGHT +
           SOURCES_MARGIN
       );
-
+    // TODO(tjann): i18n the date
     svg
       .append("g")
       .attr(
@@ -141,7 +142,11 @@ class ChartEmbed extends React.Component<unknown, ChartEmbedStateType> {
       .style("font-size", ".85rem")
       .style("font-weight", "bold")
       .style("text-anchor", "middle")
-      .text(`${this.state.chartTitle} ${this.state.chartDate}`);
+      .text(
+        `${translateVariableString(this.state.chartTitle)} ${
+          this.state.chartDate
+        }`
+      );
 
     svg
       .append("g")
@@ -161,7 +166,16 @@ class ChartEmbed extends React.Component<unknown, ChartEmbedStateType> {
       .style("fill", "#3b3b3b")
       .style("font-family", "sans-serif")
       .style("font-size", ".7rem")
-      .text(`Data from ${this.state.sources.join(", ")} via Data Commons`);
+      .text(
+        `${chartMetadataDataFrom} ${this.state.sources.join(
+          ", "
+        )} ${intl.formatMessage({
+          id: "via_datacommons",
+          defaultMessage: "via Data Commons",
+          description:
+            "For the export data and export chart widget, we want to say the data is from some source, but it is retrieved via Data Commons.",
+        })}`
+      );
 
     const svgXml = svg.node().outerHTML;
     container.innerHTML = "";
@@ -223,7 +237,14 @@ class ChartEmbed extends React.Component<unknown, ChartEmbedStateType> {
         onOpened={this.onOpened}
         id={this.modalId}
       >
-        <ModalHeader toggle={this.toggle}>Export this chart</ModalHeader>
+        <ModalHeader toggle={this.toggle}>
+          {intl.formatMessage({
+            id: "export_chart_link",
+            defaultMessage: "Export this chart",
+            description:
+              "Text for the hyperlink text that will let users export data and export charts.",
+          })}
+        </ModalHeader>
         <ModalBody>
           <div
             ref={this.svgContainerElement}
@@ -239,10 +260,20 @@ class ChartEmbed extends React.Component<unknown, ChartEmbedStateType> {
         </ModalBody>
         <ModalFooter>
           <Button color="primary" onClick={this.onDownloadSvg}>
-            Download Chart Image
+            {intl.formatMessage({
+              id: "download_chart_link",
+              defaultMessage: "Download Chart Image",
+              description:
+                "Text for the hyperlink text that will download the chart image.",
+            })}
           </Button>{" "}
           <Button color="primary" onClick={this.onDownloadData}>
-            Download Data as CSV
+            {intl.formatMessage({
+              id: "download_csv_link",
+              defaultMessage: "Download Data as CSV",
+              description:
+                "Text for the hyperlink text that will download the data as a CSV.",
+            })}
           </Button>
         </ModalFooter>
       </Modal>

@@ -26,7 +26,7 @@ import {
   formatYAxisTicks,
 } from "./base";
 
-import { intl } from "../l10n/i18n";
+import { translateVariableString } from "../l10n/i18n";
 
 const NUM_X_TICKS = 5;
 const NUM_Y_TICKS = 5;
@@ -59,22 +59,6 @@ const AXIS_GRID_FILL = "#999";
 // Max Y value used for y domains for charts that have only 0 values.
 const MAX_Y_FOR_ZERO_CHARTS = 10;
 
-// Lightweight wrapper function to catch empty str.
-function translated(text: string): string {
-  if (!text) {
-    return "";
-  }
-  return intl.formatMessage({
-    // Matching ID as above
-    id: text,
-    // Default Message in English. Note that this will still log error.
-    // TODO(tjann): See if we can surpress error logs.
-    defaultMessage: text,
-    description:
-      "This text is from the chart config and can appear as titles, labels, axes, etc. for a chart.",
-  });
-}
-
 function appendLegendElem(
   elem: string,
   color: d3.ScaleOrdinal<string, string>,
@@ -91,7 +75,7 @@ function appendLegendElem(
     .join("div")
     .attr("style", (d) => `background: ${color(d.label)}`)
     .append("a")
-    .text((d) => translated(d.label))
+    .text((d) => translateVariableString(d.label))
     .attr("href", (d) => d.link || null);
 }
 
@@ -113,7 +97,7 @@ function wrap(
 ) {
   texts.each(function () {
     const text = d3.select(this);
-    const words = translated(text.text())
+    const words = translateVariableString(text.text())
       .replace("-", "-#") // Handle e.g. "ABC-AB A" -> "ABC-", "AB" "A"
       .split(/[ #]/)
       .filter((w) => w.trim() != "")
@@ -315,7 +299,9 @@ function drawHistogram(
   dataPoints: DataPoint[],
   unit?: string
 ): void {
-  const textList = dataPoints.map((dataPoint) => translated(dataPoint.label));
+  const textList = dataPoints.map((dataPoint) =>
+    translateVariableString(dataPoint.label)
+  );
   const values = dataPoints.map((dataPoint) => dataPoint.value);
 
   const svg = d3
@@ -856,7 +842,7 @@ function drawGroupLineChart(
     .attr("transform", `translate(${MARGIN.grid}, ${YLABEL.topMargin})`)
     .style("font-size", "12px")
     .style("text-rendering", "optimizedLegibility")
-    .text(translated(ylabel));
+    .text(translateVariableString(ylabel));
 
   for (const place in dataGroupsDict) {
     dataGroups = dataGroupsDict[place];
@@ -897,7 +883,7 @@ function drawGroupLineChart(
       .style("font-size", "12px")
       .style("text-anchor", "start")
       .style("text-rendering", "optimizedLegibility")
-      .text(translated(sourceText));
+      .text(translateVariableString(sourceText));
   }
 
   const legend = svg
@@ -949,7 +935,7 @@ function buildInChartLegend(
       .attr("transform", `translate(${dashWidth}, 0)`)
       .attr("y", "0.3em")
       .attr("dy", "0")
-      .text(translated(label))
+      .text(translateVariableString(label))
       .style("text-rendering", "optimizedLegibility")
       .style("fill", `${legendStyle.color}`)
       .call(wrap, legendTextdWidth);

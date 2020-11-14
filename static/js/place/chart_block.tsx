@@ -25,6 +25,7 @@ import { randDomId } from "../shared/util";
 import { Chart } from "./chart";
 import { displayNameForPlaceType } from "./util";
 import _ from "lodash";
+import { intl, translateVariableString } from "../l10n/i18n";
 
 interface ChartBlockPropType {
   /**
@@ -82,6 +83,7 @@ class ChartBlock extends React.Component<ChartBlockPropType> {
   parentCountry: string;
   displayPlaceName: string;
   rankingPlaceType: string;
+  displayDataTitle: string;
   constructor(props: ChartBlockPropType) {
     super(props);
 
@@ -96,13 +98,66 @@ class ChartBlock extends React.Component<ChartBlockPropType> {
       }
     }
     const isEarth = this.props.dcid == "Earth";
-    this.displayPlaceName = isEarth ? "the World" : this.props.placeName;
+    // We will localize Earth to a translation of "the World".
+    // However, we will not localize other Place names, as we will later
+    // pull the localized names from the KG.
+    this.displayPlaceName = isEarth
+      ? intl.formatMessage({
+          // Matching ID as above
+          id: "the_world",
+          // Default Message in English. Note that this will still log error.
+          // TODO(tjann): See if we can surpress error logs.
+          defaultMessage: "the World",
+          description:
+            "Change appearances of the name Earth to the World. E.g. this is the Labor force participation rate in the World, rather than this is the Labor force participation rate in Earth.",
+        })
+      : this.props.placeName;
     this.rankingPlaceType = isEarth ? "Country" : this.props.placeType;
+    // TODO(tjann): Localize unit after we have a high level approach
+    // TODO(datcom): Localize place names via KG.
   }
 
   render(): JSX.Element {
     const chartElements: JSX.Element[] = [];
     // Plot trend data in overview and topic page.
+    // Do not directly localize param. Localize when used as display string.
+
+    // Declare const of reused strings here.
+    // TODO(tjann): handle non-literal translations.
+    // Here, we take <chart title> <preposition/clause> <place>
+    // in English, and just do a translation of the 3 separately.
+    // We will need to do a wholistic translation since the order may flip.
+    const chartClauseIn = intl.formatMessage({
+      id: "chart_clause:in",
+      defaultMessage: "in",
+      description:
+        "Used for chart titles like Unemployment rate in Texas or Poverty rate in California.",
+    });
+    const chartClauseNear = intl.formatMessage({
+      id: "chart_clause:near",
+      defaultMessage: "near",
+      description:
+        "Preposition for somewhere closeby. Used for choropleth map chart titles like Unemployment rate: counties near Travis County.",
+    });
+    const chartClausePlacesWithin = intl.formatMessage({
+      id: "chart_clause:places_within",
+      defaultMessage: "places within",
+      description:
+        "Clause for places within some other place. Used for choropleth map chart titles like Unemployment rate: places within California.",
+    });
+    const chartClausePlacesOther = intl.formatMessage({
+      id: "chart_clause:other",
+      defaultMessage: "other",
+      description:
+        "Used to describe other places. Like Educational Attainment in other countries.",
+    });
+    const chartClausePlacesThatContain = intl.formatMessage({
+      id: "chart_clause:places_that_contain",
+      defaultMessage: "places that contain",
+      description:
+        "Clause for places that contain some place. E.g. for Educational Attainment for places that contain Fremont (Alameda County, California, USA all contain Fremont).",
+    });
+
     if (!_.isEmpty(this.props.data.trend)) {
       const id = randDomId();
       const rankingParam = new URLSearchParams(`h=${this.props.dcid}`);
@@ -110,6 +165,8 @@ class ChartBlock extends React.Component<ChartBlockPropType> {
       this.props.data.scaling &&
         rankingParam.set("scaling", String(this.props.data.scaling));
       this.props.data.unit && rankingParam.set("unit", this.props.data.unit);
+
+      this.displayDataTitle = translateVariableString(this.props.data.title);
       chartElements.push(
         <Chart
           key={id}
@@ -117,7 +174,7 @@ class ChartBlock extends React.Component<ChartBlockPropType> {
           dcid={this.props.dcid}
           chartType={chartTypeEnum.LINE}
           trend={this.props.data.trend}
-          title={`${this.props.data.title} in ${this.displayPlaceName}`}
+          title={`${this.displayDataTitle} ${chartClauseIn} ${this.displayPlaceName}`}
           unit={this.props.data.unit}
           names={this.props.names}
           scaling={this.props.data.scaling}
@@ -149,8 +206,8 @@ class ChartBlock extends React.Component<ChartBlockPropType> {
 
     const relatedChartTitle =
       this.props.data.relatedChart && this.props.data.relatedChart.title
-        ? this.props.data.relatedChart.title
-        : this.props.data.title;
+        ? translateVariableString(this.props.data.relatedChart.title)
+        : this.displayDataTitle;
 
     const sharedProps = {
       dcid: this.props.dcid,
@@ -176,8 +233,8 @@ class ChartBlock extends React.Component<ChartBlockPropType> {
     const rankingArg = `?${rankingParam.toString()}`;
     const choroplethTitle =
       this.props.placeType === "County"
-        ? `${relatedChartTitle}: ${displayPlaceType} near ${this.displayPlaceName}`
-        : `${relatedChartTitle}: places within ${this.displayPlaceName}`;
+        ? `${relatedChartTitle}: ${displayPlaceType} ${chartClauseNear} ${this.displayPlaceName}`
+        : `${relatedChartTitle}: ${chartClausePlacesWithin} ${this.displayPlaceName}`;
 
     if (this.props.isOverview) {
       // Show one related place for overview page, the preference is
@@ -212,7 +269,7 @@ class ChartBlock extends React.Component<ChartBlockPropType> {
             key={id}
             id={id}
             snapshot={this.props.data.nearby}
-            title={`${relatedChartTitle}: ${displayPlaceType} near ${this.displayPlaceName}`}
+            title={`${relatedChartTitle}: ${displayPlaceType} ${chartClauseNear} ${this.displayPlaceName}`}
             rankingTemplateUrl={`/ranking/_sv_/${this.rankingPlaceType}/${this.parentPlaceDcid}${rankingArg}`}
             {...barChartSharedProps}
           ></Chart>
@@ -226,7 +283,7 @@ class ChartBlock extends React.Component<ChartBlockPropType> {
             key={id}
             id={id}
             snapshot={this.props.data.child}
-            title={`${relatedChartTitle}: places within ${this.displayPlaceName}`}
+            title={`${relatedChartTitle}: ${chartClausePlacesWithin} ${this.displayPlaceName}`}
             rankingTemplateUrl={`/ranking/_sv_/${this.props.childPlaceType}/${this.props.dcid}${rankingArg}`}
             {...barChartSharedProps}
           ></Chart>
@@ -240,7 +297,7 @@ class ChartBlock extends React.Component<ChartBlockPropType> {
             key={id}
             id={id}
             snapshot={this.props.data.similar}
-            title={`${relatedChartTitle}: other ${displayPlaceType}`}
+            title={`${relatedChartTitle}: ${chartClausePlacesOther} ${displayPlaceType}`}
             rankingTemplateUrl={`/ranking/_sv_/${this.rankingPlaceType}/${this.parentCountry}${rankingArg}`}
             {...barChartSharedProps}
           ></Chart>
@@ -254,7 +311,7 @@ class ChartBlock extends React.Component<ChartBlockPropType> {
             key={id}
             id={id}
             snapshot={this.props.data.parent}
-            title={`${relatedChartTitle}: places that contain ${this.displayPlaceName}`}
+            title={`${relatedChartTitle}: ${chartClausePlacesThatContain} ${this.displayPlaceName}`}
             rankingTemplateUrl={`/ranking/_sv_/${this.rankingPlaceType}/${this.parentCountry}${rankingArg}`}
             {...barChartSharedProps}
           ></Chart>
@@ -269,7 +326,7 @@ class ChartBlock extends React.Component<ChartBlockPropType> {
             key={id}
             id={id}
             snapshot={this.props.data.nearby}
-            title={`${relatedChartTitle}: ${displayPlaceType} near ${this.displayPlaceName}`}
+            title={`${relatedChartTitle}: ${displayPlaceType} ${chartClauseNear} ${this.displayPlaceName}`}
             rankingTemplateUrl={`/ranking/_sv_/${this.rankingPlaceType}/${this.parentPlaceDcid}${rankingArg}`}
             {...barChartSharedProps}
           ></Chart>
@@ -282,7 +339,7 @@ class ChartBlock extends React.Component<ChartBlockPropType> {
             key={id}
             id={id}
             snapshot={this.props.data.similar}
-            title={`${relatedChartTitle}: other ${displayPlaceType}`}
+            title={`${relatedChartTitle}: ${chartClausePlacesOther} ${displayPlaceType}`}
             rankingTemplateUrl={`/ranking/_sv_/${this.rankingPlaceType}/${this.parentCountry}${rankingArg}`}
             {...barChartSharedProps}
           ></Chart>
@@ -297,7 +354,7 @@ class ChartBlock extends React.Component<ChartBlockPropType> {
               key={id}
               id={id}
               snapshot={this.props.data.child}
-              title={`${relatedChartTitle}: places within ${this.displayPlaceName}`}
+              title={`${relatedChartTitle}: ${chartClausePlacesWithin} ${this.displayPlaceName}`}
               rankingTemplateUrl={`/ranking/_sv_/${this.props.childPlaceType}/${this.props.dcid}${rankingArg}`}
               {...barChartSharedProps}
             ></Chart>
@@ -320,7 +377,7 @@ class ChartBlock extends React.Component<ChartBlockPropType> {
               key={id}
               id={id}
               snapshot={snapshotData}
-              title={`${relatedChartTitle}: places that contain ${this.displayPlaceName}`}
+              title={`${relatedChartTitle}: ${chartClausePlacesThatContain} ${this.displayPlaceName}`}
               rankingTemplateUrl={`/ranking/_sv_/${this.rankingPlaceType}/${this.parentCountry}${rankingArg}`}
               {...barChartSharedProps}
             ></Chart>

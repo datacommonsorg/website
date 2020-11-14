@@ -15,6 +15,7 @@ const locale = determineLocale();
 const intlCache = createIntlCache();
 
 // TODO(tjann): see if there's abetter Record type.
+// TODO(tjann): see if we can ship locale specific js bundles.
 function loadLocaleData(locale: string): Promise<Record<any, any>> {
   switch (locale) {
     case "es":
@@ -32,4 +33,24 @@ async function initIntl() {
 }
 initIntl();
 
-export { locale, intl };
+// Only use this for variables. Raw strings in JS should call
+// intl.formatMessage directly in order for the extractor to work.
+function translateVariableString(
+  id: string,
+  defaultText: string = id,
+  translatorHint: string = id
+): string {
+  if (!id) {
+    return "";
+  }
+  return intl.formatMessage({
+    // Matching ID as above
+    id: id,
+    // Default Message in English. Note that this will still log error.
+    // TODO(tjann): See if we can surpress error logs.
+    defaultMessage: defaultText,
+    description: translatorHint,
+  });
+}
+
+export { locale, intl, translateVariableString };

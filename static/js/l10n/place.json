@@ -1,0 +1,18 @@
+{
+  "more_charts": {
+    "defaultMessage": "More charts ›",
+    "description": "Link to explore more charts about a particular domain, such as Education or Health."
+  },
+  "plural_places": {
+    "defaultMessage": "Places",
+    "description": "General collection of places."
+  },
+  "singular_place": {
+    "defaultMessage": "Place",
+    "description": "A general type of place."
+  },
+  "the_world": {
+    "defaultMessage": "the World",
+    "description": "Change appearances of the name Earth to the World. E.g. this is the Labor force participation rate in the World, rather than this is the Labor force participation rate in Earth."
+  }
+}
