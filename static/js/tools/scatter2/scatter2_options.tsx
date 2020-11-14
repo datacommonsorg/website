@@ -107,7 +107,7 @@ function PlaceOptions(): JSX.Element {
       <Container>
         <Row>
           <Col xs="auto">Plot places of type</Col>
-          <Col>
+          <Col xs="3">
             <select
               className="custom-select"
               value={context.place.value.enclosedPlaceType}
@@ -121,8 +121,6 @@ function PlaceOptions(): JSX.Element {
               ))}
             </select>
           </Col>
-        </Row>
-        <Row>
           <Col xs="auto">in</Col>
           <Col>
             <div id="search">
