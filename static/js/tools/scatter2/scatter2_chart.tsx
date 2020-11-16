@@ -52,9 +52,11 @@ function Chart(): JSX.Element {
     const yMinMax = d3.extent(points, (point) => point.yVal);
 
     const xLabel =
-      context.x.value.name + (context.x.value.perCapita ? " Per Capita" : "");
+      _.startCase(context.x.value.name) +
+      (context.x.value.perCapita ? " Per Capita" : "");
     const yLabel =
-      context.y.value.name + (context.y.value.perCapita ? " Per Capita" : "");
+      _.startCase(context.y.value.name) +
+      (context.y.value.perCapita ? " Per Capita" : "");
 
     const margin = {
       top: 50,
