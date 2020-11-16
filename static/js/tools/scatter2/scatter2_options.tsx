@@ -1,15 +1,28 @@
 import React, { useContext, useEffect, useState } from "react";
 import _ from "lodash";
 import { FormGroup, Label, Input, Card, Button, Collapse } from "reactstrap";
-import { ScatterContext } from "./scatter2_app";
+import { Context } from "./scatter2_context";
 import { SearchBar } from "../timeline_search";
 import { getPlaceNames } from "../timeline_util";
 import { getPlacesIn } from "./scatter2_util";
 
 import { Container, Row, Col } from "reactstrap";
 
+const enclosedTypes = [
+  "CensusCoreBasedStatisticalArea",
+  "CensusCountyDivision",
+  "CensusTract",
+  "City",
+  "CongressionalDistrict",
+  "County",
+  "HighSchoolDistrict",
+  "SchoolDistrict",
+  "State",
+  "StateComponent",
+];
+
 function PlaceOptions(): JSX.Element {
-  const context = useContext(ScatterContext);
+  const context = useContext(Context);
 
   function selectEnclosedPlaceType(
     event: React.ChangeEvent<HTMLSelectElement>
@@ -57,19 +70,6 @@ function PlaceOptions(): JSX.Element {
       enclosingPlace: { dcid: "", name: "" },
     });
   }
-
-  const enclosedTypes = [
-    "CensusCoreBasedStatisticalArea",
-    "CensusCountyDivision",
-    "CensusTract",
-    "City",
-    "CongressionalDistrict",
-    "County",
-    "HighSchoolDistrict",
-    "SchoolDistrict",
-    "State",
-    "StateComponent",
-  ];
 
   useEffect(() => {
     const shouldGetPlaces =
@@ -126,6 +126,7 @@ function PlaceOptions(): JSX.Element {
             <div id="search">
               <SearchBar
                 places={
+                  context.place.value.enclosingPlace &&
                   context.place.value.enclosingPlace.dcid
                     ? {
                         [context.place.value.enclosingPlace.dcid]:
@@ -146,7 +147,7 @@ function PlaceOptions(): JSX.Element {
 }
 
 function PlotOptions(): JSX.Element {
-  const context = useContext(ScatterContext);
+  const context = useContext(Context);
 
   function checkPerCapitaX(event: React.ChangeEvent<HTMLInputElement>) {
     context.x.set({ ...context.x.value, perCapita: event.target.checked });

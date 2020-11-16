@@ -29,9 +29,15 @@ import {
 } from "reactstrap";
 import { Menu } from "../statsvar_menu";
 import { NoopStatsVarFilter, TimelineStatsVarFilter } from "../commons";
-import { ScatterContext, EmptyAxis } from "./scatter2_app";
 import { StatsVarNode, getStatsVar } from "../timeline_util";
-import { Axis } from "./scatter2_app";
+import {
+  Context,
+  EmptyAxis,
+  Axis,
+  setStatVar,
+  setStatVarName,
+  unsetStatVar,
+} from "./scatter2_context";
 import { Spinner } from "./scatter2_spinner";
 
 interface NamedStatVar {
@@ -40,17 +46,19 @@ interface NamedStatVar {
 }
 
 function StatVarChooser(): JSX.Element {
-  const context = useContext(ScatterContext);
+  const context = useContext(Context);
 
-  const [thirdStatVar, setThirdStatVar] = useState({
+  const emptyStatVar: NamedStatVar = Object.freeze({
     statVar: {},
     name: "",
-  } as NamedStatVar);
-  const [modalSelected, setModalSelected] = useState({
+  });
+  const defaultModalSelected = Object.freeze({
     x: true,
     y: true,
     third: false,
   });
+  const [thirdStatVar, setThirdStatVar] = useState(emptyStatVar);
+  const [modalSelected, setModalSelected] = useState(defaultModalSelected);
   const menuSelected = {
     ...context.x.value.statVar,
     ...context.y.value.statVar,
@@ -64,9 +72,26 @@ function StatVarChooser(): JSX.Element {
     if (_.isEmpty(places)) {
       return;
     }
-    getStatsVar(places.map((place) => place.dcid)).then((statVars) =>
-      setValidStatVars(statVars)
-    );
+    getStatsVar(places.map((place) => place.dcid)).then((statVars) => {
+      setValidStatVars(statVars);
+
+      let message = "";
+      const statVarX = _.findKey(context.x.value.statVar);
+      const statVarY = _.findKey(context.y.value.statVar);
+      if (statVarX && !statVars.has(statVarX)) {
+        unsetStatVar(context.x);
+        message += `Sorry, no data available for ${statVarX}`;
+      }
+      if (statVarY && !statVars.has(statVarY)) {
+        unsetStatVar(context.y);
+        message += message.length
+          ? ` or ${statVarY}`
+          : `Sorry, no data available for ${statVarY}`;
+      }
+      if (message.length) {
+        alert(message);
+      }
+    });
     setLoading(true);
   }, [context.place.value.enclosedPlaces]);
 
@@ -85,9 +110,9 @@ function StatVarChooser(): JSX.Element {
       [statVar]: { paths: [nodePath], denominators: denominators },
     };
     if (_.isEmpty(context.x.value.statVar)) {
-      context.x.set({ ...context.x.value, statVar: node });
+      setStatVar(context.x, node);
     } else if (_.isEmpty(context.y.value.statVar)) {
-      context.y.set({ ...context.y.value, statVar: node });
+      setStatVar(context.y, node);
     } else {
       setThirdStatVar({ statVar: node, name: "" });
     }
@@ -95,9 +120,9 @@ function StatVarChooser(): JSX.Element {
 
   function removeStatVar(statVar: string) {
     if (_.keys(context.x.value.statVar)[0] === statVar) {
-      context.x.set({ ...context.x.value, statVar: {}, data: [], name: "" });
+      unsetStatVar(context.x);
     } else if (_.keys(context.y.value.statVar)[0] === statVar) {
-      context.y.set({ ...context.y.value, statVar: {}, data: [], name: "" });
+      unsetStatVar(context.y);
     } else {
       // TODO: Error.
     }
@@ -106,11 +131,11 @@ function StatVarChooser(): JSX.Element {
   function setStatsVarTitle(statsVarId2Title: Record<string, string>): void {
     const x = _.findKey(context.x.value.statVar);
     if (x && x in statsVarId2Title) {
-      context.x.set({ ...context.x.value, name: statsVarId2Title[x] });
+      setStatVarName(context.x, statsVarId2Title[x]);
     }
     const y = _.findKey(context.y.value.statVar);
     if (y && y in statsVarId2Title) {
-      context.y.set({ ...context.y.value, name: statsVarId2Title[y] });
+      setStatVarName(context.y, statsVarId2Title[y]);
     }
     const third = _.findKey(thirdStatVar.statVar);
     if (third && third in statsVarId2Title) {
@@ -147,7 +172,6 @@ function StatVarChooser(): JSX.Element {
       values.push(context.y.value);
     }
     context.y.set(EmptyAxis);
-    context.y.set(EmptyAxis);
     values.push({
       ...EmptyAxis,
       statVar: thirdStatVar.statVar,
@@ -164,12 +188,8 @@ function StatVarChooser(): JSX.Element {
       axes.shift().set(values.shift());
     }
 
-    setThirdStatVar({} as NamedStatVar);
-    setModalSelected({
-      x: true,
-      y: true,
-      third: false,
-    });
+    setThirdStatVar(emptyStatVar);
+    setModalSelected(defaultModalSelected);
   }
 
   return (
