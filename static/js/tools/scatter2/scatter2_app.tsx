@@ -97,7 +97,17 @@ function App(): JSX.Element {
     place: { value: place, set: setPlace },
   };
 
-  useEffect(() => {
+  function updateHash() {
+    let hash = "";
+    hash += `x=${JSON.stringify({ ...x, data: [], populations: [] })}`;
+    hash += `&y=${JSON.stringify({ ...y, data: [], populations: [] })}`;
+    hash += perCapita ? "&pc=1" : "&pc=0";
+    hash += regress ? "&regress=1" : "&regress=0";
+    hash += `&place=${JSON.stringify({ ...place, enclosedPlaces: [] })}`;
+    history.pushState({}, "", `/tools/scatter2#${encodeURIComponent(hash)}`);
+  }
+
+  function applyHash() {
     const params = new URLSearchParams(
       decodeURIComponent(location.hash).replace("#", "?")
     );
@@ -115,17 +125,11 @@ function App(): JSX.Element {
     if (placeString) {
       setPlace(JSON.parse(placeString));
     }
-  }, []);
+  }
 
-  useEffect(() => {
-    let hash = "";
-    hash += `x=${JSON.stringify({ ...x, data: [], populations: [] })}`;
-    hash += `&y=${JSON.stringify({ ...y, data: [], populations: [] })}`;
-    hash += perCapita ? "&pc=1" : "&pc=0";
-    hash += regress ? "&regress=1" : "&regress=0";
-    hash += `&place=${JSON.stringify({ ...place, enclosedPlaces: [] })}`;
-    history.pushState({}, "", `/tools/scatter2#${encodeURIComponent(hash)}`);
-  }, [store]);
+  useEffect(applyHash, []);
+  useEffect(updateHash, [store]);
+  window.onhashchange = applyHash;
 
   function shouldHideInfo(): boolean {
     return (
