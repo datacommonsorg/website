@@ -14,9 +14,17 @@
  * limitations under the License.
  */
 
-import React, { useContext, useEffect } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import _ from "lodash";
-import { Container, Row, Card, Badge } from "reactstrap";
+import {
+  Container,
+  Row,
+  Card,
+  Badge,
+  Modal,
+  ModalBody,
+  Spinner,
+} from "reactstrap";
 import * as d3 from "d3";
 import { saveToFile } from "../../shared/util";
 import { Axis, Place, ScatterContext } from "./scatter2_app";
@@ -30,8 +38,10 @@ interface Point {
   place: Place;
 }
 
+// TODO: Show provenance.
 function Chart(): JSX.Element {
   const context = useContext(ScatterContext);
+  const [loading, setLoading] = useState(false);
 
   function updateStats(points: Array<Point>): void {
     d3.select("#x-mean").html(getXMean(points));
@@ -60,7 +70,7 @@ function Chart(): JSX.Element {
       left: 50,
     };
     const svgWidth = 1200;
-    const svgHeight = 450;
+    const svgHeight = 550;
     const width = svgWidth - margin.left - margin.right;
     const height = svgHeight - margin.top - margin.bottom;
 
@@ -139,8 +149,8 @@ function Chart(): JSX.Element {
     const onTooltipMouseover = (point: Point) => {
       const html =
         `${point.place.name || point.place.dcid}<br/>` +
-        `${xLabel}: ${point.xVal}<br/>` +
-        `${yLabel}: ${point.yVal}`;
+        `${xLabel}: ${getStringOrNA(point.xVal)}<br/>` +
+        `${yLabel}: ${getStringOrNA(point.yVal)}`;
       tooltip
         .html(html)
         .style("left", d3.event.pageX + 15 + "px")
@@ -159,9 +169,10 @@ function Chart(): JSX.Element {
       .attr("r", 5)
       .attr("cx", (point) => x(point.xVal))
       .attr("cy", (point) => y(point.yVal))
-      .attr("stroke", "#32CD32")
+      .attr("stroke", "rgb(147, 0, 0)")
       .attr("stroke-width", 1.5)
       .attr("fill", "#FFFFFF")
+      .style("opacity", "0.7")
       .on("mouseover", onTooltipMouseover)
       .on("mouseout", onTooltipMouseout);
   }
@@ -202,6 +213,7 @@ function Chart(): JSX.Element {
     }
     if (!_.isEmpty(x.value.statVar)) {
       if (_.isEmpty(x.value.populations)) {
+        setLoading(true);
         Promise.all(
           place.value.enclosedPlaces.map((place) =>
             getTimeSeriesLatestPoint(
@@ -213,6 +225,7 @@ function Chart(): JSX.Element {
         ).then((values) => x.set({ ...x.value, populations: values }));
       }
       if (_.isEmpty(x.value.data)) {
+        setLoading(true);
         Promise.all(
           place.value.enclosedPlaces.map((place) =>
             getTimeSeriesLatestPoint(
@@ -225,6 +238,7 @@ function Chart(): JSX.Element {
     }
     if (!_.isEmpty(y.value.statVar)) {
       if (_.isEmpty(y.value.populations)) {
+        setLoading(true);
         Promise.all(
           place.value.enclosedPlaces.map((place) =>
             getTimeSeriesLatestPoint(
@@ -236,6 +250,7 @@ function Chart(): JSX.Element {
         ).then((values) => y.set({ ...y.value, populations: values }));
       }
       if (_.isEmpty(y.value.data)) {
+        setLoading(true);
         Promise.all(
           place.value.enclosedPlaces.map((place) =>
             getTimeSeriesLatestPoint(
@@ -272,6 +287,7 @@ function Chart(): JSX.Element {
           yPop: yPop,
           place: place,
         }));
+      setLoading(false);
       plot(points);
       updateStats(points);
 
@@ -327,7 +343,11 @@ function Chart(): JSX.Element {
   }
 
   function getStringOrNA(num: number): string {
-    return _.isNil(num) ? "N/A" : num.toFixed(3);
+    return _.isNil(num)
+      ? "N/A"
+      : Number.isInteger(num)
+      ? num.toString()
+      : num.toFixed(3);
   }
 
   function getXMean(points: Array<Point>): string {
@@ -348,6 +368,11 @@ function Chart(): JSX.Element {
 
   return (
     <Container id="chart">
+      <Modal isOpen={loading}>
+        <ModalBody id="chart-modal-body">
+          <Spinner animation="border" id="chart-spinner" />
+        </ModalBody>
+      </Modal>
       <Row>
         <Card id="chart-svg" className="chart-svg" />
       </Row>

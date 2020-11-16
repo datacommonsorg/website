@@ -56,6 +56,10 @@
   white-space: pre;
 }
 
+.form-check {
+  padding-left: 0;
+}
+
 .card {
   flex-grow: 1;
   flex-shrink: 1;
@@ -66,6 +70,31 @@
   padding: 15px;
 }
 
-#options-btn {
+.flex-container {
   display: flex;
+  flex-grow: 1;
+  flex-shrink: 1;
+}
+
+#tooltip {
+  background-color: #f8f9fa;
+  font-size: 10pt;
+  padding: 10px;
+  border-radius: 8px;
+  opacity: 0.9;
+}
+
+#statvar-modal .row {
+  margin-left: 0;
+}
+
+#chart-modal-body {
+  display: flex;
+  justify-content: center;
+}
+
+#chart-spinner {
+  width: 8rem;
+  height: 8rem;
+  align-self: center;
 }

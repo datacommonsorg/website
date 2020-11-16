@@ -180,7 +180,7 @@ function StatVarChooser(): JSX.Element {
         ></Menu>
       </div>
       {!_.isEmpty(thirdStatVar.statVar) && (
-        <Modal isOpen={true} backdrop="static">
+        <Modal isOpen={true} backdrop="static" id="statvar-modal">
           <ModalHeader close={null}>
             Select two of the three statistical variables
           </ModalHeader>

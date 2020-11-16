@@ -129,30 +129,32 @@ function App(): JSX.Element {
   return (
     <ScatterContext.Provider value={store}>
       <StatVarChooser />
-      <Container id="plot-container">
-        {place.enclosedPlaceType && place.enclosingPlace.dcid ? (
-          <React.Fragment>
-            <Row>
-              <PlaceOptions />
-            </Row>
-            <Row>
-              <PlotOptions />
-            </Row>
-            <Row id="chart-row">
-              <Chart />
-            </Row>
-          </React.Fragment>
-        ) : (
-          <React.Fragment>
-            <Row>
-              <PlaceOptions />
-            </Row>
-            <Row>
-              <Info />
-            </Row>
-          </React.Fragment>
-        )}
-      </Container>
+      <div id="plot-container">
+        <Container>
+          {place.enclosedPlaceType && place.enclosingPlace.dcid ? (
+            <React.Fragment>
+              <Row>
+                <PlaceOptions />
+              </Row>
+              <Row>
+                <PlotOptions />
+              </Row>
+              <Row id="chart-row">
+                <Chart />
+              </Row>
+            </React.Fragment>
+          ) : (
+            <React.Fragment>
+              <Row>
+                <PlaceOptions />
+              </Row>
+              <Row>
+                <Info />
+              </Row>
+            </React.Fragment>
+          )}
+        </Container>
+      </div>
     </ScatterContext.Provider>
   );
 }

@@ -192,7 +192,7 @@ function PlotOptions(): JSX.Element {
         <Row>
           <Col xs="auto">
             <Button
-              id="options-btn"
+              className="flex-container"
               color="light"
               size="sm"
               onClick={() => setOpen(!open)}
@@ -205,10 +205,10 @@ function PlotOptions(): JSX.Element {
           </Col>
         </Row>
         <Row>
-          <Collapse isOpen={open}>
+          <Collapse isOpen={open} className="flex-container">
             <Container>
               <Row>
-                <Col>Only plot places of this size</Col>
+                <Col xs="3">Only plot places of this size</Col>
                 <Col>
                   <FormGroup check>
                     <Input
@@ -235,7 +235,7 @@ function PlotOptions(): JSX.Element {
                 </Col>
               </Row>
               <Row>
-                <Col xs="auto">Plot Options</Col>
+                <Col xs="3">Plot Options</Col>
                 <Col>
                   <Button size="sm" color="light" onClick={checkSwap}>
                     Swap X and Y axes
