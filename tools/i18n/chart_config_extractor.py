@@ -17,7 +17,7 @@ To run: python3 tools/i18n/chart_config_extractor.py
 
 This will produce /server/l10n/chart_titles.pot
 Then, run pybabel init -l $LOCALE -i server/l10n/chart_titles.pot -d server/l10n -D chart_titles
-which will initialize a chart_titles.po file for the locale.
+which will initialize a chart_titles.po file for the locale (long term, this will be extracted from translations).
 
 Prior to server startup, run pybabel compile -D chart_titles -l $LOCALE -d
 server/l10n to generate the chart_titles.mo file for the locale. .mo is a

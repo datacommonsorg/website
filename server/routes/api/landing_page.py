@@ -40,6 +40,7 @@ MAX_DENOMINATOR_BACK_YEAR = 3
 MIN_CHART_TO_KEEP_TOPICS = 30
 OVERVIEW = 'Overview'
 
+# TODO(beets): Replace this with the extracted locale
 l10n = gettext.translation('chart_titles', localedir='l10n', languages=['es'])
 l10n.install()
 _ = l10n.gettext
@@ -79,6 +80,7 @@ def build_spec(chart_config):
     for conf in chart_config:
         config = copy.deepcopy(conf)
         config['title'] = _(config['titleId'])
+        del config['titleId']
         is_overview = ('isOverview' in config and config['isOverview'])
         category = config['category']
         if 'isOverview' in config:

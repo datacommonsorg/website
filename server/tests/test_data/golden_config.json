@@ -2,21 +2,21 @@
   "Overview": {
     "Economics": [
       {
-        "title": "Unemployment Rate",
+        "title": "Unemployment rate",
         "statsVars": ["UnemploymentRate_Person"]
       }
     ]
   },
   "Economics": {
-    "Unemployment Rate": [
+    "Unemployment rate": [
       {
-        "title": "Unemployment Rate",
+        "title": "Unemployment rate",
         "statsVars": ["UnemploymentRate_Person"]
       }
     ],
-    "Labor Force Participation": [
+    "Labor force": [
       {
-        "title": "Labor Force Participation",
+        "title": "Labor force",
         "statsVars": ["Count_Person_InLaborForce"],
         "scaling": 100,
         "unit": "%"

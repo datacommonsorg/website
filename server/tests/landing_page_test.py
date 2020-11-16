@@ -22,11 +22,13 @@ import routes.api.landing_page as landing_page
 class TestBuildSpec(unittest.TestCase):
     chart_config = [{
         'category': 'Economics',
+        'titleId': 'CHART_TITLE-Unemployment_rate',
         'title': 'Unemployment Rate',
         'statsVars': ['UnemploymentRate_Person'],
         'isOverview': True
     }, {
         'category': 'Economics',
+        'titleId': 'CHART_TITLE-Labor_force',
         'title': 'Labor Force Participation',
         'statsVars': ['Count_Person_InLaborForce'],
         'scaling': 100,
