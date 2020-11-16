@@ -1,7 +1,7 @@
 import React, { useContext, useEffect, useState } from "react";
 import _ from "lodash";
 import { FormGroup, Label, Input, Card, Button, Collapse } from "reactstrap";
-import { Context } from "./scatter2_context";
+import { Context, ContextType } from "./scatter2_context";
 import { SearchBar } from "../timeline_search";
 import { getPlaceNames } from "../timeline_util";
 import { getPlacesIn } from "./scatter2_util";
@@ -149,43 +149,43 @@ function PlaceOptions(): JSX.Element {
 function PlotOptions(): JSX.Element {
   const context = useContext(Context);
 
-  function checkPerCapitaX(event: React.ChangeEvent<HTMLInputElement>) {
+  function checkPerCapitaX(event: React.ChangeEvent<HTMLInputElement>): void {
     context.x.set({ ...context.x.value, perCapita: event.target.checked });
   }
 
-  function checkPerCapitaY(event: React.ChangeEvent<HTMLInputElement>) {
+  function checkPerCapitaY(event: React.ChangeEvent<HTMLInputElement>): void {
     context.y.set({ ...context.y.value, perCapita: event.target.checked });
   }
 
-  function checkSwap() {
+  function checkSwap(): void {
     const [x, y] = [context.x.value, context.y.value];
     context.x.set(y);
     context.y.set(x);
   }
 
-  function checkLogX(event: React.ChangeEvent<HTMLInputElement>) {
+  function checkLogX(event: React.ChangeEvent<HTMLInputElement>): void {
     context.x.set({ ...context.x.value, log: event.target.checked });
   }
 
-  function checkLogY(event: React.ChangeEvent<HTMLInputElement>) {
+  function checkLogY(event: React.ChangeEvent<HTMLInputElement>): void {
     context.y.set({ ...context.y.value, log: event.target.checked });
   }
 
-  function setLowerBound(event: React.ChangeEvent<HTMLInputElement>) {
+  function setLowerBound(event: React.ChangeEvent<HTMLInputElement>): void {
     context.place.set({
       ...context.place.value,
       lowerBound: parseInt(event.target.value) || 0,
     });
   }
 
-  function setUpperBound(event: React.ChangeEvent<HTMLInputElement>) {
+  function setUpperBound(event: React.ChangeEvent<HTMLInputElement>): void {
     context.place.set({
       ...context.place.value,
       upperBound: parseInt(event.target.value) || 1e10,
     });
   }
 
-  const [open, setOpen] = useState(false);
+  const [open, setOpen] = useState(shouldExpandOptions(context));
 
   return (
     <Card>
@@ -292,6 +292,17 @@ function PlotOptions(): JSX.Element {
         </Row>
       </Container>
     </Card>
+  );
+}
+
+function shouldExpandOptions(context: ContextType): boolean {
+  return (
+    context.x.value.log ||
+    context.y.value.log ||
+    context.x.value.perCapita ||
+    context.y.value.perCapita ||
+    context.place.value.lowerBound != 0 ||
+    context.place.value.upperBound != 1e10
   );
 }
 
