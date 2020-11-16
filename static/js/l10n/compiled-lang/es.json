@@ -8,7 +8,7 @@
   "Number of people employed": [
     {
       "type": 0,
-      "value": "Número de personas empleadas"
+      "value": "Numero de personas empleadas"
     }
   ],
   "chart_clause:in": [
@@ -86,7 +86,7 @@
   "via_datacommons": [
     {
       "type": 0,
-      "value": "vía Data Commons"
+      "value": "via Data Commons"
     }
   ],
   "export_chart_link": [
