@@ -15,7 +15,7 @@
  */
 
 import pluralize from "pluralize";
-import { intl } from "../l10n/i18n";
+import { intl, translateVariableString } from "../l10n/i18n";
 
 /**
  * Given a list of parent places, return true if the place is in USA.
@@ -82,12 +82,16 @@ export function displayNameForPlaceType(
         })
       : intl.formatMessage({
           // Matching ID as above
-          id: "singular_place",
+          id: "singular_zip_code",
           // Default Message in English. Note that this will still log error.
           // TODO(tjann): See if we can surpress error logs.
           defaultMessage: "Zip Code",
           description: "A Zip Code. E.g. 94539 is a Zip Code in CA.",
         });
   }
-  return isPlural ? pluralize(placeType) : placeType;
+  // TODO(datcom): translate before or after pluralize?
+  // pluralize seems to work with Spanish, but there's little documentation.
+  return isPlural
+    ? pluralize(translateVariableString(placeType))
+    : translateVariableString(placeType);
 }

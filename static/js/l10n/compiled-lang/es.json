@@ -5,6 +5,54 @@
       "value": "el Mundo"
     }
   ],
+  "plural_places": [
+    {
+      "type": 0,
+      "value": "Lugares"
+    }
+  ],
+  "singular_place": [
+    {
+      "type": 0,
+      "value": "Sitio"
+    }
+  ],
+  "plural_zip_codes": [
+    {
+      "type": 0,
+      "value": "Códigos ZIP"
+    }
+  ],
+  "singular_zip_code": [
+    {
+      "type": 0,
+      "value": "Código postal"
+    }
+  ],
+  "City": [
+    {
+      "type": 0,
+      "value": "Ciudad"
+    }
+  ],
+  "Cities": [
+    {
+      "type": 0,
+      "value": "Ciudades"
+    }
+  ],
+  "County": [
+    {
+      "type": 0,
+      "value": "Condado"
+    }
+  ],
+  "Counties": [
+    {
+      "type": 0,
+      "value": "Condados"
+    }
+  ],
   "Number of people employed": [
     {
       "type": 0,
@@ -39,6 +87,12 @@
     {
       "type": 0,
       "value": "otra"
+    }
+  ],
+  "child_places_menu:places_in": [
+    {
+      "type": 0,
+      "value": "Lugares en"
     }
   ],
   "State unemployment insurance claims rate": [
@@ -279,6 +333,60 @@
     {
       "type": 0,
       "value": "Estados Unidos"
+    }
+  ],
+  "header:overview": [
+    {
+      "type": 0,
+      "value": "Visión general"
+    }
+  ],
+  "link:return_to_overview": [
+    {
+      "type": 0,
+      "value": "De regreso a la visión general ›"
+    }
+  ],
+  "Economics": [
+    {
+      "type": 0,
+      "value": "Ciencias económicas"
+    }
+  ],
+  "Labor force": [
+    {
+      "type": 0,
+      "value": "Mano de obra"
+    }
+  ],
+  "place_breadcrumb": [
+    {
+      "type": 0,
+      "value": "Un "
+    },
+    {
+      "type": 1,
+      "value": "placeType"
+    },
+    {
+      "type": 0,
+      "value": " en "
+    }
+  ],
+  "alert:no_data_for_place": [
+    {
+      "type": 0,
+      "value": "Lo sentimos, pero no tenemos datos sobre "
+    },
+    {
+      "type": 1,
+      "value": "placeName"
+    }
+  ],
+  "search_placeholder:search_again": [
+    {
+      "type": 0,
+      "value": "Busca otro lugar"
     }
   ]
 }

@@ -16,8 +16,11 @@
 
 import React from "react";
 import { displayNameForPlaceType } from "./util";
+import { intl, translateVariableString } from "../l10n/i18n";
+import { RawIntlProvider, FormattedMessage, IntlShape } from "react-intl";
 
 interface ParentPlacePropsType {
+  intl: IntlShape;
   parentPlaces: string[];
   placeType: string;
   names: { string: string };
@@ -31,8 +34,18 @@ class ParentPlace extends React.Component<ParentPlacePropsType> {
   render(): JSX.Element {
     const num = this.props.parentPlaces.length;
     return (
-      <React.Fragment>
-        <span>A {displayNameForPlaceType(this.props.placeType)} in </span>
+      // TODO(datcom): Please see the extracted output and required compiled input for place_breadcrumb.
+      // We may need to do still fancier things to have the parentPlace(s) be included. That would mean
+      // creating a more complex FormattedMessage type to account for the variable hrefs.
+      <RawIntlProvider value={this.props.intl}>
+        <FormattedMessage
+          id="place_breadcrumb"
+          description="Gives context for where this place is located. E.g. Tokyo is a city in Japan, Asia."
+          defaultMessage="A {placeType} in "
+          values={{
+            placeType: displayNameForPlaceType(this.props.placeType),
+          }}
+        />
         {this.props.parentPlaces.map((dcid, index) => {
           const name = this.props.names[dcid].split(",")[0];
           if (index === num - 1) {
@@ -51,7 +64,7 @@ class ParentPlace extends React.Component<ParentPlacePropsType> {
             </React.Fragment>
           );
         })}
-      </React.Fragment>
+      </RawIntlProvider>
     );
   }
 

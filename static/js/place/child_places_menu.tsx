@@ -16,6 +16,7 @@
 
 import React from "react";
 import { displayNameForPlaceType } from "./util";
+import { intl } from "../l10n/i18n";
 
 interface ChildPlacePropType {
   childPlaces: { string: string[] };
@@ -27,9 +28,16 @@ class ChildPlace extends React.Component<ChildPlacePropType> {
     if (Object.keys(this.props.childPlaces).length === 0) {
       return <React.Fragment></React.Fragment>;
     }
+    const childPlacesMenuPlacesIn = intl.formatMessage({
+      id: "child_places_menu:places_in",
+      defaultMessage: "Places in",
+      description: "Used for the child places navigation sidebar.",
+    });
     return (
       <React.Fragment>
-        <span id="child-place-head">Places in {this.props.placeName}</span>
+        <span id="child-place-head">
+          {childPlacesMenuPlacesIn} {this.props.placeName}
+        </span>
         {Object.keys(this.props.childPlaces).map((placeType) => (
           <div key={placeType} className="child-place-group">
             <div className="child-place-type">

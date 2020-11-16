@@ -35,7 +35,7 @@ import { updatePageLayoutState } from "./place";
 import { ChartEmbed } from "./chart_embed";
 import { drawChoropleth } from "../chart/draw_choropleth";
 import _, { fromPairs } from "lodash";
-import { intl, translateVariableString } from "../l10n/i18n";
+import { intl } from "../l10n/i18n";
 
 const CHART_HEIGHT = 194;
 const MIN_CHOROPLETH_DATAPOINTS = 9;

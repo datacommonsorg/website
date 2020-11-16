@@ -185,6 +185,7 @@ function renderPage(): void {
       if (data.parentPlaces.length > 0) {
         ReactDOM.render(
           React.createElement(ParentPlace, {
+            intl: intl,
             names: data.names,
             parentPlaces: data.parentPlaces,
             placeType,

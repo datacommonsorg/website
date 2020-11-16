@@ -25,6 +25,10 @@ function loadLocaleData(locale: string): Promise<Record<any, any>> {
   }
 }
 
+// This IntlShape object will be used for both React Intl's
+// React Component API (arg for RawIntlProvider) and
+// Imperative API (format<X> method).
+// TODO(datcom): see if we want to prefer the Component API as much as possible.
 var intl;
 async function initIntl() {
   const messages = await loadLocaleData(locale);
@@ -35,6 +39,7 @@ initIntl();
 
 // Only use this for variables. Raw strings in JS should call
 // intl.formatMessage directly in order for the extractor to work.
+// Note that for variables, we must use React Intl's imperative API.
 function translateVariableString(
   id: string,
   defaultText: string = id,

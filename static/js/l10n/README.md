@@ -19,3 +19,8 @@ one more step of compiling the JSON into a format usable by FormatJS.
 ```
 npm run compile -- js/l10n/lang/en.json --ast --out-file js/l10n/compiled-lang/en.json
 ```
+
+## TODO
+
+1. Make sure our English place types make it into the input translation files. I have a variable translation in the code but no way of extracting it, and it probably won't be covered by the chart configs.
+1. Make sure we have translations for place names.
