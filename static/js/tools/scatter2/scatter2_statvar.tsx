@@ -32,6 +32,7 @@ import { NoopStatsVarFilter, TimelineStatsVarFilter } from "../commons";
 import { ScatterContext, EmptyAxis } from "./scatter2_app";
 import { StatsVarNode, getStatsVar } from "../timeline_util";
 import { Axis } from "./scatter2_app";
+import { Spinner } from "./scatter2_spinner";
 
 interface NamedStatVar {
   statVar: StatsVarNode;
@@ -57,6 +58,7 @@ function StatVarChooser(): JSX.Element {
   };
 
   const [validStatVars, setValidStatVars] = useState(new Set<string>());
+  const [loading, setLoading] = useState(false);
   useEffect(() => {
     const places = context.place.value.enclosedPlaces;
     if (_.isEmpty(places)) {
@@ -65,7 +67,14 @@ function StatVarChooser(): JSX.Element {
     getStatsVar(places.map((place) => place.dcid)).then((statVars) =>
       setValidStatVars(statVars)
     );
+    setLoading(true);
   }, [context.place.value.enclosedPlaces]);
+
+  useEffect(() => {
+    if (!_.isEmpty(validStatVars)) {
+      setLoading(false);
+    }
+  }, [validStatVars]);
 
   function addStatVar(
     statVar: string,
@@ -179,55 +188,58 @@ function StatVarChooser(): JSX.Element {
           removeStatsVar={removeStatVar}
         ></Menu>
       </div>
-      {!_.isEmpty(thirdStatVar.statVar) && (
-        <Modal isOpen={true} backdrop="static" id="statvar-modal">
-          <ModalHeader close={null}>
-            Select two of the three statistical variables
-          </ModalHeader>
-          <ModalBody>
-            <Container>
-              <FormGroup check row>
-                <Label check>
-                  <Input
-                    type="checkbox"
-                    checked={modalSelected.x}
-                    onChange={selectStatVar}
-                    name="x"
-                  />
-                  {context.x.value.name}
-                </Label>
-              </FormGroup>
-              <FormGroup check row>
-                <Label check>
-                  <Input
-                    type="checkbox"
-                    checked={modalSelected.y}
-                    onChange={selectStatVar}
-                    name="y"
-                  />
-                  {context.y.value.name}
-                </Label>
-              </FormGroup>
-              <FormGroup check row>
-                <Label check>
-                  <Input
-                    type="checkbox"
-                    checked={modalSelected.third}
-                    onChange={selectStatVar}
-                    name="third"
-                  />
-                  {thirdStatVar.name}
-                </Label>
-              </FormGroup>
-            </Container>
-          </ModalBody>
-          <ModalFooter>
-            <Button color="primary" onClick={confirmStatVars}>
-              Confirm
-            </Button>
-          </ModalFooter>
-        </Modal>
-      )}
+      <Spinner isOpen={loading} />
+      <Modal
+        isOpen={!_.isEmpty(thirdStatVar.statVar)}
+        backdrop="static"
+        id="statvar-modal"
+      >
+        <ModalHeader close={null}>
+          Select two of the three statistical variables
+        </ModalHeader>
+        <ModalBody>
+          <Container>
+            <FormGroup check row>
+              <Label check>
+                <Input
+                  type="checkbox"
+                  checked={modalSelected.x}
+                  onChange={selectStatVar}
+                  name="x"
+                />
+                {context.x.value.name}
+              </Label>
+            </FormGroup>
+            <FormGroup check row>
+              <Label check>
+                <Input
+                  type="checkbox"
+                  checked={modalSelected.y}
+                  onChange={selectStatVar}
+                  name="y"
+                />
+                {context.y.value.name}
+              </Label>
+            </FormGroup>
+            <FormGroup check row>
+              <Label check>
+                <Input
+                  type="checkbox"
+                  checked={modalSelected.third}
+                  onChange={selectStatVar}
+                  name="third"
+                />
+                {thirdStatVar.name}
+              </Label>
+            </FormGroup>
+          </Container>
+        </ModalBody>
+        <ModalFooter>
+          <Button color="primary" onClick={confirmStatVars}>
+            Confirm
+          </Button>
+        </ModalFooter>
+      </Modal>
     </div>
   );
 }

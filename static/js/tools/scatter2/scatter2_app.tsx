@@ -15,6 +15,7 @@
  */
 
 import React, { createContext, useState, useEffect } from "react";
+import _ from "lodash";
 import { Container, Row } from "reactstrap";
 import { StatsVarNode } from "../timeline_util";
 import { StatVarChooser } from "./scatter2_statvar";
@@ -126,12 +127,21 @@ function App(): JSX.Element {
     history.pushState({}, "", `/tools/scatter2#${encodeURIComponent(hash)}`);
   }, [store]);
 
+  function shouldHideInfo(): boolean {
+    return (
+      !_.isEmpty(place.enclosedPlaceType) &&
+      !_.isEmpty(place.enclosingPlace.dcid) &&
+      !_.isEmpty(x.statVar) &&
+      !_.isEmpty(y.statVar)
+    );
+  }
+
   return (
     <ScatterContext.Provider value={store}>
       <StatVarChooser />
       <div id="plot-container">
         <Container>
-          {place.enclosedPlaceType && place.enclosingPlace.dcid ? (
+          {shouldHideInfo() ? (
             <React.Fragment>
               <Row>
                 <PlaceOptions />

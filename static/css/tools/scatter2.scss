@@ -88,13 +88,18 @@
   margin-left: 0;
 }
 
-#chart-modal-body {
+#spinner-modal-body {
   display: flex;
   justify-content: center;
 }
 
-#chart-spinner {
+#spinner {
+  position: relative !important;
   width: 8rem;
   height: 8rem;
   align-self: center;
+}
+
+#spinner::after {
+  content: unset;
 }

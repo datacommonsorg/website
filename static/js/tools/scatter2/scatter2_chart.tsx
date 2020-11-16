@@ -16,19 +16,12 @@
 
 import React, { useContext, useEffect, useState } from "react";
 import _ from "lodash";
-import {
-  Container,
-  Row,
-  Card,
-  Badge,
-  Modal,
-  ModalBody,
-  Spinner,
-} from "reactstrap";
+import { Container, Row, Card, Badge } from "reactstrap";
 import * as d3 from "d3";
 import { saveToFile } from "../../shared/util";
 import { Axis, Place, ScatterContext } from "./scatter2_app";
 import { getTimeSeriesLatestPoint } from "./scatter2_util";
+import { Spinner } from "./scatter2_spinner";
 
 interface Point {
   xVal: number;
@@ -368,11 +361,6 @@ function Chart(): JSX.Element {
 
   return (
     <Container id="chart">
-      <Modal isOpen={loading}>
-        <ModalBody id="chart-modal-body">
-          <Spinner animation="border" id="chart-spinner" />
-        </ModalBody>
-      </Modal>
       <Row>
         <Card id="chart-svg" className="chart-svg" />
       </Row>
@@ -392,6 +380,7 @@ function Chart(): JSX.Element {
           </Badge>
         </Card>
       </Row>
+      <Spinner isOpen={loading} />
     </Container>
   );
 }
