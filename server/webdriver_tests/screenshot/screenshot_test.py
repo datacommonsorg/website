@@ -14,6 +14,10 @@
 
 import time
 from webdriver_tests.base_test import WebdriverBaseTest
+from selenium.webdriver.support.ui import WebDriverWait
+from selenium.webdriver.common.by import By
+from selenium.common.exceptions import TimeoutException
+from selenium.webdriver.support import expected_conditions as EC
 
 # TODO(shifucun): add test for narrow width for mobile testing
 WIDTH = 1280
@@ -107,23 +111,34 @@ TEST_URLS = [
     },
 ]
 
+SLEEP_SEC = 20
+
 
 # Class to test timeline tool.
 class TestScreenShot(WebdriverBaseTest):
 
     def test_pages_and_sreenshot(self):
         """Test these page can show correctly and do screenshot."""
-        index = 1
-        for test_info in TEST_URLS:
+        for index, test_info in enumerate(TEST_URLS):
+            test_class_name = test_info['test_class']
             self.driver.get(self.url_ + test_info['url'])
-            time.sleep(10)
+
+            # Wait until the test_class_name has loaded.
+            element_present = EC.presence_of_element_located(
+                (By.CLASS_NAME, test_class_name))
+            WebDriverWait(self.driver, SLEEP_SEC).until(element_present)
+
+            # Set the window size. Testing different sizes.
             self.driver.set_window_size(width=WIDTH,
                                         height=test_info['height'],
                                         windowHandle='current')
-            charts = self.driver.find_elements_by_class_name(
-                test_info['test_class'])
-            # Assert there are charts.
+
+            # Get the element to test.
+            charts = self.driver.find_elements_by_class_name(test_class_name)
+
+            # Assert there is at least one chart.
             self.assertGreater(len(charts), 0, test_info['url'])
+
+            # Take a screenshot of the page and save it.
             self.driver.save_screenshot('{}{:02}_{}'.format(
                 SCREENSHOTS_FOLDER, index, test_info['filename_suffix']))
-            index += 1
