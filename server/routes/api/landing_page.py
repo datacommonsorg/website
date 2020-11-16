@@ -19,6 +19,7 @@ in chart.py and place.py
 
 import collections
 import copy
+import gettext
 import json
 import logging
 import urllib
@@ -38,6 +39,11 @@ BAR_CHART_TYPES = ['parent', 'similar', 'nearby', 'child']
 MAX_DENOMINATOR_BACK_YEAR = 3
 MIN_CHART_TO_KEEP_TOPICS = 30
 OVERVIEW = 'Overview'
+
+# TODO(beets): Replace this with the extracted locale
+l10n = gettext.translation('chart_titles', localedir='l10n', languages=['es'])
+l10n.install()
+_ = l10n.gettext
 
 
 def get_landing_page_data(dcid, stat_vars):
@@ -73,6 +79,8 @@ def build_spec(chart_config):
     # Map: category -> topic -> [config]
     for conf in chart_config:
         config = copy.deepcopy(conf)
+        config['title'] = _(config['titleId'])
+        del config['titleId']
         is_overview = ('isOverview' in config and config['isOverview'])
         category = config['category']
         if 'isOverview' in config:
