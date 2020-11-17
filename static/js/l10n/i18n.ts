@@ -14,7 +14,6 @@ const locale = determineLocale();
 // A single cache instance can be shared for all locales.
 const intlCache = createIntlCache();
 
-// TODO(tjann): see if there's abetter Record type.
 // TODO(tjann): see if we can ship locale specific js bundles.
 function loadLocaleData(locale: string): Promise<Record<any, any>> {
   switch (locale) {
@@ -28,7 +27,6 @@ function loadLocaleData(locale: string): Promise<Record<any, any>> {
 // This IntlShape object will be used for both React Intl's
 // React Component API (arg for RawIntlProvider) and
 // Imperative API (format<X> method).
-// TODO(datcom): see if we want to prefer the Component API as much as possible.
 var intl;
 async function initIntl() {
   const messages = await loadLocaleData(locale);
@@ -47,8 +45,8 @@ function translateVariableString(id: string): string {
   return intl.formatMessage({
     // Matching ID as above
     id: id,
-    // Default Message in English. Note that this will still log error.
-    // TODO(tjann): See if we can surpress error logs.
+    // Default Message in English.
+    // Can consider suppressing log error when translation not found.
     defaultMessage: id,
     description: id,
   });

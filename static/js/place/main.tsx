@@ -76,7 +76,6 @@ class MainPane extends React.Component<MainPanePropType> {
   constructor(props: MainPanePropType) {
     super(props);
   }
-  // TODO(tjann): maybe convert variables to Imperative API calls using translateVariableString
   render(): JSX.Element {
     const topicData = this.props.pageChart[this.props.topic];
     const currentPageTopic = this.props.topic;
