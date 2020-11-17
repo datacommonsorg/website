@@ -29,8 +29,9 @@ const _ = require("lodash");
 const axios = require("axios");
 const Cookie = require("js-cookie");
 const util = require("../shared/util.js");
-const view = require("./view.js");
 const observationchart = require("./observation_chart.js");
+
+import { isTextView, setupViewToggle } from "./view";
 
 const NO_POP_TYPES = [
   "Observation",
@@ -173,7 +174,7 @@ function getObsName(obs) {
       } else {
         name_parts.push(
           `, ${obs["measuredProperty"]}:${stats.replace("Value", "")}=${
-          obs[stats]
+            obs[stats]
           }`
         );
       }
@@ -705,8 +706,8 @@ function renderKGPage(
   }
 
   // Set up view toggle based on cookie.
-  view.setupViewToggle();
-  const /** boolean */ textView = view.isTextView();
+  setupViewToggle();
+  const /** boolean */ textView = isTextView();
 
   // Add "More" to existing cards.
   util.appendMoreToAll();
@@ -854,8 +855,8 @@ function renderKGPage(
                 textView,
                 pvs,
                 prop.split(",")[0] +
-                " " +
-                util.getStatsString(currData[0], richTitle)
+                  " " +
+                  util.getStatsString(currData[0], richTitle)
               );
               oneCard.render();
               populationElem.appendChild(cardElem);
@@ -1015,11 +1016,14 @@ window.onload = () => {
   // Remove predicate that should not be displayed.
   outArcs = outArcs.filter(
     (p) =>
-      !["provenance", "kmlCoordinates", "geoJsonCoordinates",
-        "geoJsonCoordinatesDP1", "geoJsonCoordinatesDP2", "geoJsonCoordinatesDP3"
-      ].includes(
-        p["predicate"]
-      )
+      ![
+        "provenance",
+        "kmlCoordinates",
+        "geoJsonCoordinates",
+        "geoJsonCoordinatesDP1",
+        "geoJsonCoordinatesDP2",
+        "geoJsonCoordinatesDP3",
+      ].includes(p["predicate"])
   );
 
   // Get provenance name and object name

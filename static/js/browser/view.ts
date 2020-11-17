@@ -14,22 +14,22 @@
  * limitations under the License.
  */
 
-const _ = require("lodash");
-const Cookies = require("js-cookie");
-const util = require("../shared/util.js");
+import _ from "lodash";
+import { setElementShown, appendMoreToAll } from "../shared/util";
+import Cookies from "js-cookie";
 
 const TEXT = "text";
 
 /**
  * Get the current view state.
  *
- * @return {boolean} Whether the page is text-view mode.
+ * @return Whether the page is text-view mode.
  */
-function isTextView() {
+function isTextView(): boolean {
   const radioButtons = document.getElementsByClassName("toggle-view");
-  for (const radioButton of Array.from(radioButtons)) {
-    if (radioButton.value == TEXT) {
-      return radioButton.checked;
+  for (let i = 0; i < radioButtons.length; i++) {
+    if ((<HTMLInputElement>radioButtons[i]).value == TEXT) {
+      return (<HTMLInputElement>radioButtons[i]).checked;
     }
   }
   return false;
@@ -38,30 +38,30 @@ function isTextView() {
 /**
  * Setup listener of view toggle radio buttons.
  */
-function setupViewToggle() {
+function setupViewToggle(): void {
   const radioButtons = document.getElementsByClassName("toggle-view");
   _.forEach(radioButtons, (radioButton) => {
     radioButton.addEventListener("click", (e) => {
-      Cookies.set("datcomDisplayMode", e.target.value);
-      const showText = e.target.value == TEXT;
+      Cookies.set("datcomDisplayMode", (<HTMLTextAreaElement>e.target).value);
+      const showText = (<HTMLTextAreaElement>e.target).value == TEXT;
 
       const textViewElems = document.getElementsByClassName("text-view");
       const chartViewElems = document.getElementsByClassName("chart-view");
       _.forEach(chartViewElems, (elem) => {
-        util.setElementShown(elem, !showText);
+        setElementShown(elem, !showText);
       });
       _.forEach(textViewElems, (elem) => {
-        util.setElementShown(elem, showText);
+        setElementShown(elem, showText);
       });
       const moreEls = document.getElementsByClassName("more");
-      for (let moreEl of moreEls) {
-        moreEl.parentNode.removeChild(moreEl);
+      for (let i = 0; i < moreEls.length; i++) {
+        moreEls[i].parentNode.removeChild(moreEls[i]);
       }
       const cardEls = document.getElementsByClassName("cards");
       _.forEach(cardEls, (cardEl) => {
-        cardEl.style.height = "auto";
+        (<HTMLElement>cardEl).style.height = "auto";
       });
-      util.appendMoreToAll();
+      appendMoreToAll();
     });
   });
 }
