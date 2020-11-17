@@ -2,7 +2,7 @@ import { createIntl, createIntlCache } from "react-intl";
 
 // Get locale from query params. If none, use navigator language.
 function determineLocale() {
-  let urlParams = new URLSearchParams(window.location.search);
+  const urlParams = new URLSearchParams(window.location.search);
   let locale = urlParams.get("hl");
   if (!locale) {
     locale = navigator.language;
@@ -27,7 +27,7 @@ function loadLocaleData(locale: string): Promise<Record<any, any>> {
 // This IntlShape object will be used for both React Intl's
 // React Component API (arg for RawIntlProvider) and
 // Imperative API (format<X> method).
-var intl;
+let intl;
 async function initIntl() {
   const messages = await loadLocaleData(locale);
   intl = createIntl({ locale, messages }, intlCache);
