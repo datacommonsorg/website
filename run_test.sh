@@ -28,7 +28,7 @@ function run_npm_lint_test {
   cd static
   npm list eslint || npm install eslint
   if ! npm run test-lint; then
-    echo "\nFix lint errors by running ./run_test.sh -f"
+    echo "Fix lint errors by running ./run_test.sh -f"
     exit 1
   fi
   cd ..
@@ -78,7 +78,7 @@ function run_py_test {
   cd ..
   echo -e "#### Checking Python style"
   if ! yapf --recursive --diff --style=google -p server/ tools/; then
-    echo "\nFix lint errors by running ./run_test.sh -f"
+    echo "Fix lint errors by running ./run_test.sh -f"
     exit 1
   fi
 }

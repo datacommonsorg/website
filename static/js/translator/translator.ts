@@ -19,7 +19,7 @@
  */
 
 import React from "react";
-const ReactDOM = require("react-dom");
+import ReactDOM from "react-dom";
 
 import { Page } from "./page";
 import { SCHEMA_MAPPING, SAMPLE_QUERY } from "./constant";
