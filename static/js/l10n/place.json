@@ -3,25 +3,21 @@
     "defaultMessage": "Sorry, but we don't have any data about {placeName}",
     "description": "Text for an alert that we show when user tries to navigate to a place with no data."
   },
-  "chart_clause:in": {
-    "defaultMessage": "in",
-    "description": "Used for chart titles like Unemployment rate in Texas or Poverty rate in California."
-  },
-  "chart_clause:near": {
-    "defaultMessage": "near",
-    "description": "Preposition for somewhere closeby. Used for choropleth map chart titles like Unemployment rate: counties near Travis County."
-  },
-  "chart_clause:other": {
-    "defaultMessage": "other",
+  "chart_clause:other_placeType": {
+    "defaultMessage": "other {placeType}",
     "description": "Used to describe other places. Like Educational Attainment in other countries."
   },
-  "chart_clause:places_that_contain": {
-    "defaultMessage": "places that contain",
+  "chart_clause:places_that_contain_place": {
+    "defaultMessage": "places that contain {place}",
     "description": "Clause for places that contain some place. E.g. for Educational Attainment for places that contain Fremont (Alameda County, California, USA all contain Fremont)."
   },
-  "chart_clause:places_within": {
-    "defaultMessage": "places within",
+  "chart_clause:places_within_place": {
+    "defaultMessage": "places within {place}",
     "description": "Clause for places within some other place. Used for choropleth map chart titles like Unemployment rate: places within California."
+  },
+  "chart_clause:placetype_near_place": {
+    "defaultMessage": "{placeType} near {place}",
+    "description": "Preposition for somewhere closeby. Used for choropleth map chart titles like Unemployment rate: counties near Travis County."
   },
   "chart_clause:variable_in_place": {
     "defaultMessage": "{variable} in {place}",
@@ -47,9 +43,9 @@
     "defaultMessage": "Feedback",
     "description": "Text label for hyperlink to give Data Commons feedback on something on our website."
   },
-  "child_places_menu:places_in": {
-    "defaultMessage": "Places in",
-    "description": "Used for the child places navigation sidebar."
+  "child_places_menu:places_in_place": {
+    "defaultMessage": "Places in {place}",
+    "description": "Used for the child places navigation sidebar. Shows a list of place contained in the current place."
   },
   "download_chart_link": {
     "defaultMessage": "Download Chart Image",
@@ -111,12 +107,12 @@
     "defaultMessage": "Zip Code",
     "description": "A Zip Code. E.g. 94539 is a Zip Code in CA."
   },
+  "sources_via_datacommons": {
+    "defaultMessage": "Data from {sources} via Data Commons",
+    "description": "For the export data and export chart widget, we want to say the data is from some source, but it is retrieved via Data Commons."
+  },
   "the_world": {
     "defaultMessage": "the World",
     "description": "Change appearances of the name Earth to the World. E.g. this is the Labor force participation rate in the World, rather than this is the Labor force participation rate in Earth."
-  },
-  "via_datacommons": {
-    "defaultMessage": "Data from {sources} via Data Commons",
-    "description": "For the export data and export chart widget, we want to say the data is from some source, but it is retrieved via Data Commons."
   }
 }
