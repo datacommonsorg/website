@@ -442,7 +442,7 @@
     "category": "Health",
     "titleId": "CHART_TITLE-Mortality_events",
     "title": "Mortality events",
-    "description": "Count of deaths caused by various diseases",
+    "description": "Count of deaths caused by various diseases or external circumstances",
     "statsVars": [
       "Count_Death_DiseasesOfTheCirculatorySystem",
       "Count_Death_Neoplasms",
@@ -454,7 +454,7 @@
     "relatedChart": {
       "titleId": "CHART_TITLE-Mortality_events_per_capita",
       "title": "Mortality events per capita",
-      "description": "Count of deaths caused by various diseases, divided by the population count",
+      "description": "Count of deaths caused by various diseases or external circumstances, divided by the population count",
       "scale": true,
       "denominator": "Count_Person",
       "unit": "%",

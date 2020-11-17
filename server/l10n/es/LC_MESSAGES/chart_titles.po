@@ -7,8 +7,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PROJECT VERSION\n"
 "Report-Msgid-Bugs-To: EMAIL@ADDRESS\n"
-"POT-Creation-Date: 2020-11-16 17:28-0800\n"
-"PO-Revision-Date: 2020-11-16 17:28-0800\n"
+"POT-Creation-Date: 2020-11-17 13:23-0800\n"
+"PO-Revision-Date: 2020-11-17 13:23-0800\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language: es\n"
 "Language-Team: es <LL@li.org>\n"
@@ -353,12 +353,13 @@ msgstr "Median income by gender"
 msgid "CHART_TITLE-Median_individual_income"
 msgstr "Median individual income"
 
-#. Title of a place chart: Count of deaths caused by various diseases
+#. Title of a place chart: Count of deaths caused by various diseases or
+#. external circumstances
 msgid "CHART_TITLE-Mortality_events"
 msgstr "Mortality events"
 
-#. Title of a place chart: Count of deaths caused by various diseases, divided
-#. by the population count
+#. Title of a place chart: Count of deaths caused by various diseases or
+#. external circumstances, divided by the population count
 msgid "CHART_TITLE-Mortality_events_per_capita"
 msgstr "Mortality events per capita"
 

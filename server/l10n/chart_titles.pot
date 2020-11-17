@@ -287,11 +287,11 @@ msgstr "Median income by gender"
 msgid "CHART_TITLE-Median_individual_income"
 msgstr "Median individual income"
 
-#. Title of a place chart: Count of deaths caused by various diseases
+#. Title of a place chart: Count of deaths caused by various diseases or external circumstances
 msgid "CHART_TITLE-Mortality_events"
 msgstr "Mortality events"
 
-#. Title of a place chart: Count of deaths caused by various diseases, divided by the population count
+#. Title of a place chart: Count of deaths caused by various diseases or external circumstances, divided by the population count
 msgid "CHART_TITLE-Mortality_events_per_capita"
 msgstr "Mortality events per capita"
 
