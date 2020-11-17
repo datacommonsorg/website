@@ -70,7 +70,7 @@ def main():
             msg = messages[id]
             f.write(
               f"\n" \
-              f"#. Title of a chart: {msg['description']} (see screenshot for an example)\n" \
+              f"#. Title of a place chart: {msg['description']}\n" \
               f"msgid \"{id}\"\n" \
               f"msgstr \"{msg['message']}\"\n"
             )

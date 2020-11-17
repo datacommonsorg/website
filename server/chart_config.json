@@ -3,11 +3,13 @@
     "category": "Economics",
     "titleId": "CHART_TITLE-Total_employed",
     "title": "Number of people employed",
+    "description": "Number of people employed",
     "statsVars": ["Count_Person_Employed"],
     "isOverview": true,
     "relatedChart": {
       "titleId": "CHART_TITLE-Percentage_employed",
       "title": "Percentage of people employed",
+      "description": "Percentage of people employed",
       "scale": true,
       "denominator": "Count_Person",
       "scaling": 100,
@@ -172,6 +174,7 @@
     "category": "Economics",
     "titleId": "CHART_TITLE-Gni",
     "title": "Gross national income (purchasing power parity)",
+    "description": "Gross national income, converted using purchasing power parity rates",
     "statsVars": [
       "Amount_EconomicActivity_GrossNationalIncome_PurchasingPowerParity"
     ],
@@ -226,6 +229,7 @@
     "category": "Economics",
     "titleId": "CHART_TITLE-Government_expenditures_military",
     "title": "Government expenditures on military",
+    "description": "Amount spent by a government on the military",
     "statsVars": [
       "Amount_EconomicActivity_ExpenditureActivity_MilitaryExpenditure_Government"
     ],
@@ -238,6 +242,7 @@
     "category": "Economics",
     "titleId": "CHART_TITLE-Government_expenditures_military_per_gdp",
     "title": "Government expenditures on military as a percentage of GDP",
+    "description": "Amount spent by a government on the military as a percentage of GDP",
     "statsVars": [
       "Amount_EconomicActivity_ExpenditureActivity_MilitaryExpenditure_Government_AsFractionOf_Amount_EconomicActivity_GrossDomesticProduction_Nominal"
     ],
@@ -358,7 +363,7 @@
     "category": "Economics",
     "titleId": "CHART_TITLE-Household_income",
     "title": "Household income",
-    "description": "Count of households whose combined incomes are in certain buckets",
+    "description": "Count of households whose combined incomes fall in certain buckets",
     "statsVars": [
       "Count_Household_IncomeOfUpto10000USDollar",
       "Count_Household_IncomeOf10000To14999USDollar",
@@ -375,6 +380,7 @@
     "relatedChart": {
       "titleId": "CHART_TITLE-Household_income_by_bracket",
       "title": "Percentage of households by income brackets",
+      "description": "Percentage of households whose combined incomes fall in certain buckets",
       "scale": true,
       "denominator": "Count_Household",
       "unit": "%",
@@ -404,6 +410,7 @@
     "relatedChart": {
       "titleId": "CHART_TITLE-Covid_cases_per_capita",
       "title": "COVID-19 cumulative cases per capita",
+      "description": "Cumulative count of COVID-19 cases as a percentage of the population",
       "scale": true,
       "denominator": "Count_Person",
       "unit": "%",
@@ -415,7 +422,7 @@
     "category": "Health",
     "titleId": "CHART_TITLE-Covid_deaths",
     "title": "COVID-19 cumulative deaths",
-    "description": "Cumulative count of COVID-19 deaths",
+    "description": "Cumulative count of deaths caused by COVID-19",
     "statsVars": [
       "CumulativeCount_MedicalConditionIncident_COVID_19_PatientDeceased"
     ],
@@ -423,6 +430,7 @@
     "relatedChart": {
       "titleId": "CHART_TITLE-Covid_deaths_per_capita",
       "title": "COVID-19 cumulative deaths per capita",
+      "description": "Cumulative count of deaths caused by COVID-19 as a percentage of the population",
       "scale": true,
       "denominator": "Count_Person",
       "unit": "%",
@@ -811,6 +819,7 @@
     "relatedChart": {
       "titleId": "CHART_TITLE-Crime_rate",
       "title": "Crimes per 100,000 people",
+      "description": "Total number of criminal incidents per 100,000 people",
       "scale": true,
       "denominator": "Count_Person",
       "scaling": 100000
@@ -826,6 +835,7 @@
     "relatedChart": {
       "titleId": "CHART_TITLE-Violent_crime_rate",
       "title": "Violent crimes per 100,000 people",
+      "description": "Total number of violent crime incidents per 100,000 people",
       "scale": true,
       "denominator": "Count_Person",
       "scaling": 100000
@@ -841,6 +851,7 @@
     "relatedChart": {
       "titleId": "CHART_TITLE-Property_crime_rate",
       "title": "Property crimes per 100,000 people",
+      "description": "Total number of property crime incidents per 100,000 people",
       "scale": true,
       "denominator": "Count_Person",
       "scaling": 100000
@@ -856,6 +867,7 @@
     "relatedChart": {
       "titleId": "CHART_TITLE-Arson_rate",
       "title": "Arsons per 100,000 people",
+      "description": "Total number of arson incidents per 100,000 people",
       "scale": true,
       "denominator": "Count_Person",
       "scaling": 100000
@@ -865,7 +877,7 @@
     "category": "Education",
     "titleId": "CHART_TITLE-Educational_attainment",
     "title": "Education attainment",
-    "description": "Percentage of people who have attained various educational milestones, e.g. completed high school or have a bachelor's degree",
+    "description": "Number of people who have attained various educational milestones, e.g. completed high school or have a bachelor's degree",
     "statsVars": [
       "Count_Person_EducationalAttainmentNoSchoolingCompleted",
       "Count_Person_EducationalAttainmentRegularHighSchoolDiploma",
@@ -877,6 +889,7 @@
     "relatedChart": {
       "titleId": "CHART_TITLE-Educational_attainment_rate",
       "title": "Education attainment rate",
+      "description": "Percentage of the adult population who have attained various educational milestones, e.g. completed high school or have a bachelor's degree",
       "scale": true,
       "denominator": "Count_Person_25OrMoreYears",
       "scaling": 100,
