@@ -159,7 +159,6 @@ class ChartBlock extends React.Component<ChartBlockPropType> {
       this.props.data.scaling &&
         rankingParam.set("scaling", String(this.props.data.scaling));
       this.props.data.unit && rankingParam.set("unit", this.props.data.unit);
-
       chartElements.push(
         <Chart
           key={id}
@@ -322,7 +321,6 @@ class ChartBlock extends React.Component<ChartBlockPropType> {
       }
       if (!gotChart && !_.isEmpty(this.props.data.parent)) {
         const id = randDomId();
-        console.log(relatedChartTitle);
         chartElements.push(
           <Chart
             key={id}

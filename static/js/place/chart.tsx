@@ -165,7 +165,6 @@ class Chart extends React.Component<ChartPropType, ChartStateType> {
       console.log(`Skipping ${this.props.title} - missing sources`);
       return null;
     }
-
     return (
       <RawIntlProvider value={intl}>
         <div className="col">
