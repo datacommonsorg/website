@@ -23,6 +23,10 @@
     "defaultMessage": "places within",
     "description": "Clause for places within some other place. Used for choropleth map chart titles like Unemployment rate: places within California."
   },
+  "chart_clause:variable_in_place": {
+    "defaultMessage": "{variable} in {place}",
+    "description": "Used for chart titles like Unemployment rate in Texas or Poverty rate in California."
+  },
   "chart_metadata:data_from": {
     "defaultMessage": "Data from",
     "description": "Used to cite where our data is from, for charts and statistics."
@@ -112,7 +116,7 @@
     "description": "Change appearances of the name Earth to the World. E.g. this is the Labor force participation rate in the World, rather than this is the Labor force participation rate in Earth."
   },
   "via_datacommons": {
-    "defaultMessage": "via Data Commons",
+    "defaultMessage": "Data from {sources} via Data Commons",
     "description": "For the export data and export chart widget, we want to say the data is from some source, but it is retrieved via Data Commons."
   }
 }

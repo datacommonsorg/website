@@ -17,7 +17,7 @@
 import React from "react";
 import { PageHighlight } from "../chart/types";
 import _ from "lodash";
-import { intl, translateVariableString } from "../l10n/i18n";
+import { translateVariableString } from "../l10n/i18n";
 
 interface PlaceHighlightPropsType {
   dcid: string;

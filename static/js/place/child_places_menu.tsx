@@ -28,15 +28,18 @@ class ChildPlace extends React.Component<ChildPlacePropType> {
     if (Object.keys(this.props.childPlaces).length === 0) {
       return <React.Fragment></React.Fragment>;
     }
-    const childPlacesMenuPlacesIn = intl.formatMessage({
-      id: "child_places_menu:places_in",
-      defaultMessage: "Places in",
-      description: "Used for the child places navigation sidebar.",
-    });
     return (
       <React.Fragment>
         <span id="child-place-head">
-          {childPlacesMenuPlacesIn} {this.props.placeName}
+          {intl.formatMessage(
+            {
+              id: "child_places_menu:places_in_place",
+              defaultMessage: "Places in {place}",
+              description:
+                "Used for the child places navigation sidebar. Shows a list of place contained in the current place.",
+            },
+            { place: this.props.placeName }
+          )}
         </span>
         {Object.keys(this.props.childPlaces).map((placeType) => (
           <div key={placeType} className="child-place-group">

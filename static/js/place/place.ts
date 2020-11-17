@@ -16,7 +16,6 @@
 
 import React from "react";
 import ReactDOM from "react-dom";
-import { intl } from "../l10n/i18n";
 import axios from "axios";
 import _ from "lodash";
 
@@ -185,7 +184,6 @@ function renderPage(): void {
       if (data.parentPlaces.length > 0) {
         ReactDOM.render(
           React.createElement(ParentPlace, {
-            intl: intl,
             names: data.names,
             parentPlaces: data.parentPlaces,
             placeType,
@@ -227,7 +225,6 @@ function renderPage(): void {
       );
       ReactDOM.render(
         React.createElement(MainPane, {
-          intl,
           topic,
           dcid,
           isUsaPlace,

@@ -15,7 +15,6 @@
  */
 
 import axios from "axios";
-import { values } from "../../webpack.config";
 import { intl } from "../l10n/i18n";
 let ac: google.maps.places.Autocomplete;
 let acs: google.maps.places.AutocompleteService;

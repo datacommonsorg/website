@@ -59,40 +59,72 @@
       "value": "Numero de personas empleadas"
     }
   ],
-  "chart_clause:in": [
+  "chart_clause:variable_in_place": [
+    {
+      "type": 1,
+      "value": "variable"
+    },
     {
       "type": 0,
-      "value": "en"
+      "value": " en "
+    },
+    {
+      "type": 1,
+      "value": "place"
     }
   ],
-  "chart_clause:near": [
+  "chart_clause:placetype_near_place": [
+    {
+      "type": 1,
+      "value": "placeType"
+    },
     {
       "type": 0,
-      "value": "cerca"
+      "value": " cerca "
+    },
+    {
+      "type": 1,
+      "value": "place"
     }
   ],
-  "chart_clause:places_within": [
+  "chart_clause:places_within_place": [
     {
       "type": 0,
-      "value": "lugares dentro"
+      "value": "lugares dentro "
+    },
+    {
+      "type": 1,
+      "value": "place"
     }
   ],
-  "chart_clause:places_that_contain": [
+  "chart_clause:places_that_contain_place": [
     {
       "type": 0,
-      "value": "lugares que contienen"
+      "value": "lugares que contienen "
+    },
+    {
+      "type": 1,
+      "value": "place"
     }
   ],
-  "chart_clause:other": [
+  "chart_clause:other_placeType": [
     {
       "type": 0,
-      "value": "otra"
+      "value": "otra "
+    },
+    {
+      "type": 1,
+      "value": "placeType"
     }
   ],
-  "child_places_menu:places_in": [
+  "child_places_menu:places_in_place": [
     {
       "type": 0,
-      "value": "Lugares en"
+      "value": "Lugares en "
+    },
+    {
+      "type": 1,
+      "value": "place"
     }
   ],
   "State unemployment insurance claims rate": [
@@ -137,10 +169,18 @@
       "value": "(la línea de puntos indica datos faltantes)"
     }
   ],
-  "via_datacommons": [
+  "sources_via_datacommons": [
     {
       "type": 0,
-      "value": "via Data Commons"
+      "value": "Datos de "
+    },
+    {
+      "type": 1,
+      "value": "sources"
+    },
+    {
+      "type": 0,
+      "value": " via Data Commons"
     }
   ],
   "export_chart_link": [
@@ -353,6 +393,48 @@
       "value": "Ciencias económicas"
     }
   ],
+  "Health": [
+    {
+      "type": 0,
+      "value": "Salud"
+    }
+  ],
+  "Equity": [
+    {
+      "type": 0,
+      "value": "Capital"
+    }
+  ],
+  "Crime": [
+    {
+      "type": 0,
+      "value": "Crimen"
+    }
+  ],
+  "Education": [
+    {
+      "type": 0,
+      "value": "Educación"
+    }
+  ],
+  "Demographics": [
+    {
+      "type": 0,
+      "value": "Demografía"
+    }
+  ],
+  "Housing": [
+    {
+      "type": 0,
+      "value": "Alojamiento"
+    }
+  ],
+  "Environment": [
+    {
+      "type": 0,
+      "value": "Ambiente"
+    }
+  ],
   "Labor force": [
     {
       "type": 0,
@@ -457,6 +539,12 @@
     {
       "type": 0,
       "value": "Población más grande"
+    }
+  ],
+  "Population": [
+    {
+      "type": 0,
+      "value": "Población"
     }
   ]
 }

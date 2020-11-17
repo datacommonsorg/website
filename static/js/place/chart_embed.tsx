@@ -19,7 +19,6 @@ import { Button, Modal, ModalHeader, ModalBody, ModalFooter } from "reactstrap";
 import { randDomId, saveToFile } from "../shared/util";
 import * as d3 from "d3";
 import { intl, translateVariableString } from "../l10n/i18n";
-import { chartMetadataDataFrom } from "./chart";
 // SVG adjustment related constants
 const TITLE_HEIGHT = 20;
 const TITLE_MARGIN = 10;
@@ -167,14 +166,15 @@ class ChartEmbed extends React.Component<unknown, ChartEmbedStateType> {
       .style("font-family", "sans-serif")
       .style("font-size", ".7rem")
       .text(
-        `${chartMetadataDataFrom} ${this.state.sources.join(
-          ", "
-        )} ${intl.formatMessage({
-          id: "via_datacommons",
-          defaultMessage: "via Data Commons",
-          description:
-            "For the export data and export chart widget, we want to say the data is from some source, but it is retrieved via Data Commons.",
-        })}`
+        intl.formatMessage(
+          {
+            id: "sources_via_datacommons",
+            defaultMessage: "Data from {sources} via Data Commons",
+            description:
+              "For the export data and export chart widget, we want to say the data is from some source, but it is retrieved via Data Commons.",
+          },
+          { sources: this.state.sources.join(", ") }
+        )
       );
 
     const svgXml = svg.node().outerHTML;

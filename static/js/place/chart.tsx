@@ -35,6 +35,7 @@ import { updatePageLayoutState } from "./place";
 import { ChartEmbed } from "./chart_embed";
 import { drawChoropleth } from "../chart/draw_choropleth";
 import _, { fromPairs } from "lodash";
+import { RawIntlProvider, FormattedMessage } from "react-intl";
 import { intl } from "../l10n/i18n";
 
 const CHART_HEIGHT = 194;
@@ -109,8 +110,6 @@ interface ChartStateType {
   showModal: boolean;
 }
 
-var chartMetadataDataFrom;
-
 class Chart extends React.Component<ChartPropType, ChartStateType> {
   chartElement: React.RefObject<HTMLDivElement>;
   svgContainerElement: React.RefObject<HTMLDivElement>;
@@ -167,86 +166,79 @@ class Chart extends React.Component<ChartPropType, ChartStateType> {
       return null;
     }
 
-    chartMetadataDataFrom = intl.formatMessage({
-      id: "chart_metadata:data_from",
-      defaultMessage: "Data from",
-      description:
-        "Used to cite where our data is from, for charts and statistics.",
-    });
-    const chartMetadataExport = intl.formatMessage({
-      id: "chart_metadata:export",
-      defaultMessage: "Export",
-      description: "Hyperlink text to export the data shown in charts.",
-    });
-    const chartMetadataExploreMore = intl.formatMessage({
-      id: "chart_metadata:explore_more",
-      defaultMessage: "Explore More ›",
-      description: "Hyperlink text to explore the data in a different page.",
-    });
-    const chartMetadataFeedback = intl.formatMessage({
-      id: "chart_metadata:feedback",
-      defaultMessage: "Feedback",
-      description:
-        "Text label for hyperlink to give Data Commons feedback on something on our website.",
-    });
-    const chartMetadataDottedLineDenotesMissing = intl.formatMessage({
-      id: "chart_metadata:dotted_line_explanation",
-      defaultMessage: "(dotted line denotes missing data)",
-      description:
-        "Text to explain that dotted lines mean there are missing data.",
-    });
-
     return (
-      <div className="col">
-        <div className="chart-container" ref={this.chartElement}>
-          <h4>
-            {this.props.title}
-            <span className="sub-title">{dateString}</span>
-          </h4>
-          <div
-            id={this.props.id}
-            ref={this.svgContainerElement}
-            className="svg-container"
-          ></div>
-          <footer className="row explore-more-container">
-            <div>
-              <span>{chartMetadataDataFrom} </span>
-              {sources.map((source, index) => {
-                // TDOO(shifucun): Use provenance name and url from cache data
-                // https://github.com/datacommonsorg/website/issues/429
-                let sourceUrl = source;
-                if (source === "worldbank.org") {
-                  sourceUrl = "www.worldbank.org";
-                } else if (source === "europa.eu") {
-                  sourceUrl = "ec.europa.eu/eurostat";
-                }
-                return (
-                  <span key={source}>
-                    <a href={"https://" + sourceUrl}>{source}</a>
-                    {index < sources.length - 1 ? ", " : ""}
-                  </span>
-                );
-              })}
-              <span className="dotted-warning d-none">
-                {" "}
-                {chartMetadataDottedLineDenotesMissing}
-              </span>
-            </div>
-            <div className="outlinks">
-              <a href="#" onClick={this._handleEmbed}>
-                {chartMetadataExport}
-              </a>
-              <a className="explore-more" href={exploreUrl}>
-                {chartMetadataExploreMore}
-              </a>
-            </div>
-          </footer>
+      <RawIntlProvider value={intl}>
+        <div className="col">
+          <div className="chart-container" ref={this.chartElement}>
+            <h4>
+              {this.props.title}
+              <span className="sub-title">{dateString}</span>
+            </h4>
+            <div
+              id={this.props.id}
+              ref={this.svgContainerElement}
+              className="svg-container"
+            ></div>
+            <footer className="row explore-more-container">
+              <div>
+                <FormattedMessage
+                  id="chart_metadata:data_from"
+                  defaultMessage="Data from"
+                  description="Used to cite where our data is from, for charts and statistics."
+                />{" "}
+                {sources.map((source, index) => {
+                  // TDOO(shifucun): Use provenance name and url from cache data
+                  // https://github.com/datacommonsorg/website/issues/429
+                  let sourceUrl = source;
+                  if (source === "worldbank.org") {
+                    sourceUrl = "www.worldbank.org";
+                  } else if (source === "europa.eu") {
+                    sourceUrl = "ec.europa.eu/eurostat";
+                  }
+                  return (
+                    <span key={source}>
+                      <a href={"https://" + sourceUrl}>{source}</a>
+                      {index < sources.length - 1 ? ", " : ""}
+                    </span>
+                  );
+                })}
+                <span className="dotted-warning d-none">
+                  {" "}
+                  <FormattedMessage
+                    id="chart_metadata:dotted_line_explanation"
+                    defaultMessage="(dotted line denotes missing data)"
+                    description="Text to explain that dotted lines mean there are missing data."
+                  />
+                </span>
+              </div>
+              <div className="outlinks">
+                <a href="#" onClick={this._handleEmbed}>
+                  <FormattedMessage
+                    id="chart_metadata:export"
+                    defaultMessage="Export"
+                    description="Hyperlink text to export the data shown in charts."
+                  />
+                </a>
+                <a className="explore-more" href={exploreUrl}>
+                  <FormattedMessage
+                    id="chart_metadata:explore_more"
+                    defaultMessage="Explore More ›"
+                    description="Hyperlink text to explore the data in a different page."
+                  />
+                </a>
+              </div>
+            </footer>
+          </div>
+          <a className="feedback" href="/feedback">
+            <FormattedMessage
+              id="chart_metadata:feedback"
+              defaultMessage="Feedback"
+              description="Text label for hyperlink to give Data Commons feedback on something on our website."
+            />
+          </a>
+          <ChartEmbed ref={this.embedModalElement} />
         </div>
-        <a className="feedback" href="/feedback">
-          {chartMetadataFeedback}
-        </a>
-        <ChartEmbed ref={this.embedModalElement} />
-      </div>
+      </RawIntlProvider>
     );
   }
 
@@ -555,4 +547,4 @@ class Chart extends React.Component<ChartPropType, ChartStateType> {
   }
 }
 
-export { Chart, chartMetadataDataFrom };
+export { Chart };

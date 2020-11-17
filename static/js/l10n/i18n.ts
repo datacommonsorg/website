@@ -38,13 +38,9 @@ async function initIntl() {
 initIntl();
 
 // Only use this for variables. Raw strings in JS should call
-// intl.formatMessage directly in order for the extractor to work.
-// Note that for variables, we must use React Intl's imperative API.
-function translateVariableString(
-  id: string,
-  defaultText: string = id,
-  translatorHint: string = id
-): string {
+// intl.formatMessage or <FormattedMessage> directly
+// in order for the extractor to pick up the id.
+function translateVariableString(id: string): string {
   if (!id) {
     return "";
   }
@@ -53,8 +49,8 @@ function translateVariableString(
     id: id,
     // Default Message in English. Note that this will still log error.
     // TODO(tjann): See if we can surpress error logs.
-    defaultMessage: defaultText,
-    description: translatorHint,
+    defaultMessage: id,
+    description: id,
   });
 }
 

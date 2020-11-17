@@ -16,11 +16,10 @@
 
 import React from "react";
 import { displayNameForPlaceType } from "./util";
-import { intl, translateVariableString } from "../l10n/i18n";
-import { RawIntlProvider, FormattedMessage, IntlShape } from "react-intl";
+import { intl } from "../l10n/i18n";
+import { RawIntlProvider, FormattedMessage } from "react-intl";
 
 interface ParentPlacePropsType {
-  intl: IntlShape;
   parentPlaces: string[];
   placeType: string;
   names: { string: string };
@@ -37,7 +36,7 @@ class ParentPlace extends React.Component<ParentPlacePropsType> {
       // TODO(datcom): Please see the extracted output and required compiled input for place_breadcrumb.
       // We may need to do still fancier things to have the parentPlace(s) be included. That would mean
       // creating a more complex FormattedMessage type to account for the variable hrefs.
-      <RawIntlProvider value={this.props.intl}>
+      <RawIntlProvider value={intl}>
         <FormattedMessage
           id="place_breadcrumb"
           description="Gives context for where this place is located. E.g. Tokyo is a city in Japan, Asia."

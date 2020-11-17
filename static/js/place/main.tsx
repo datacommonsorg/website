@@ -14,8 +14,8 @@
  * limitations under the License.
  */
 import React from "react";
-import { RawIntlProvider, FormattedMessage, IntlShape } from "react-intl";
-
+import { RawIntlProvider, FormattedMessage } from "react-intl";
+import { intl } from "../l10n/i18n";
 import { ChartBlock } from "./chart_block";
 import { Overview } from "./overview";
 import {
@@ -26,10 +26,6 @@ import {
 } from "../chart/types";
 
 interface MainPanePropType {
-  /**
-   * The intl object https://formatjs.io/docs/react-intl/api/#the-intl-object.
-   */
-  intl: IntlShape;
   /**
    * The place dcid.
    */
@@ -87,12 +83,12 @@ class MainPane extends React.Component<MainPanePropType> {
     const currentPageTopic = this.props.topic;
     const isOverview = currentPageTopic === "Overview";
     return (
-      <RawIntlProvider value={this.props.intl}>
+      <RawIntlProvider value={intl}>
         {this.props.isUsaPlace &&
           this.props.placeType != "Country" &&
           isOverview && (
             // Only Show map and ranking for US places.
-            <Overview intl={this.props.intl} dcid={this.props.dcid} />
+            <Overview dcid={this.props.dcid} />
           )}
         {Object.keys(topicData).map((topic: string) => {
           let subtopicHeader: JSX.Element;
