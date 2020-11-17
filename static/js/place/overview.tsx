@@ -15,10 +15,15 @@
  */
 
 import React from "react";
+import { IntlShape } from "react-intl";
 import { Map } from "./map";
 import { Ranking } from "./ranking";
 
 interface OverviewPropType {
+  /**
+   * The intl object https://formatjs.io/docs/react-intl/api/#the-intl-object.
+   */
+  intl: IntlShape;
   /**
    * The place dcid.
    */
@@ -34,7 +39,7 @@ class Overview extends React.Component<OverviewPropType> {
             <Map dcid={this.props.dcid}></Map>
           </div>
           <div className="col-12 col-md-8">
-            <Ranking dcid={this.props.dcid}></Ranking>
+            <Ranking intl={this.props.intl} dcid={this.props.dcid}></Ranking>
           </div>
         </div>
       </section>

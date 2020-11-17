@@ -383,10 +383,80 @@
       "value": "placeName"
     }
   ],
+  "place_page_table:ranking_value": [
+    {
+      "type": 1,
+      "value": "rank"
+    },
+    {
+      "type": 0,
+      "value": " de "
+    },
+    {
+      "type": 1,
+      "value": "total"
+    }
+  ],
+  "place_page_table:data_from": [
+    {
+      "type": 0,
+      "value": "Datos de "
+    },
+    {
+      "type": 8,
+      "value": "a1",
+      "children": [
+        {
+          "type": 0,
+          "value": "census.gov"
+        }
+      ]
+    },
+    {
+      "type": 0,
+      "value": ", "
+    },
+    {
+      "type": 8,
+      "value": "a2",
+      "children": [
+        {
+          "type": 0,
+          "value": "fbi.gov"
+        }
+      ]
+    },
+    {
+      "type": 0,
+      "value": " y "
+    },
+    {
+      "type": 8,
+      "value": "a3",
+      "children": [
+        {
+          "type": 0,
+          "value": "bls.gov"
+        }
+      ]
+    }
+  ],
   "search_placeholder:search_again": [
     {
       "type": 0,
       "value": "Busca otro lugar"
+    }
+  ],
+  "place_page_table:ranking_in": [
+    {
+      "type": 0,
+      "value": "Clasificaciones (en)"
+    }
+  ],
+  "Largest Population": [
+    {
+      "type": 0,
+      "value": "Población más grande"
     }
   ]
 }

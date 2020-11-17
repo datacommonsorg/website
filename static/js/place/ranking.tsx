@@ -16,8 +16,11 @@
 
 import React from "react";
 import axios from "axios";
+import { IntlShape, RawIntlProvider, FormattedMessage } from "react-intl";
+import { intl, translateVariableString } from "../l10n/i18n";
 
 interface RankingPropsType {
+  intl: IntlShape;
   dcid: string;
 }
 
@@ -38,14 +41,21 @@ class Ranking extends React.Component<RankingPropsType, RankingStateType> {
   render(): JSX.Element {
     const data = this.state.data;
     return (
-      <React.Fragment>
+      <RawIntlProvider value={this.props.intl}>
         {data.label.length > 0 && (
           <React.Fragment>
             <table id="ranking-table" className="table">
               <thead>
                 <tr>
-                  <th scope="col">Rankings (in) </th>
+                  <th scope="col">
+                    <FormattedMessage
+                      id="place_page_table:ranking_in"
+                      defaultMessage="Rankings (in) "
+                      description="The name of the rankings column of the ranking table in the Place Page."
+                    />
+                  </th>
                   {data[data.label[0]].map((item, index: number) => {
+                    // TODO(datcom): make sure the place names get localized here (item.name below)
                     return (
                       <th scope="col" key={index}>
                         {item.name}
@@ -58,13 +68,25 @@ class Ranking extends React.Component<RankingPropsType, RankingStateType> {
                 {data.label.map((item, index) => {
                   return (
                     <tr key={index}>
-                      <th scope="row">{item}</th>
+                      <th scope="row">{translateVariableString(item)}</th>
                       {data[item].map((rankingInfo, index: number) => {
                         const top = rankingInfo.data.rankFromTop;
                         const bottom = rankingInfo.data.rankFromBottom;
                         let text = "";
                         if (!isNaN(top) && !isNaN(bottom)) {
-                          text = `${top} of ${top + bottom}`;
+                          // TODO
+                          text = intl.formatMessage(
+                            {
+                              id: "place_page_table:ranking_value",
+                              defaultMessage: "{rank} of {total}",
+                              description:
+                                "The main content of the ranking table, telling users that the current place's rank among other places of the same type in the same parent place. E.g. USA is 1 of 195 for country GDP.",
+                            },
+                            {
+                              rank: top,
+                              total: top + bottom,
+                            }
+                          );
                         }
                         return (
                           <td key={text + index}>
@@ -78,13 +100,22 @@ class Ranking extends React.Component<RankingPropsType, RankingStateType> {
               </tbody>
             </table>
             <div className="source">
-              Data from <a href="https://www.census.gov/">census.gov</a>,{" "}
-              <a href="https://www.fbi.gov/">fbi.gov</a> and{" "}
-              <a href="https://www.bls.gov/">bls.gov</a>
+              <FormattedMessage
+                id="place_page_table:data_from"
+                defaultMessage="Data from <a1>census.gov</a1>, <a2>fbi.gov</a2> and <a3>bls.gov</a3>"
+                description="The source citation for the ranking table in the Place Page."
+                values={{
+                  a1: (chunks) => (
+                    <a href="https://www.census.gov/">{chunks}</a>
+                  ),
+                  a2: (chunks) => <a href="https://www.fbi.gov/">{chunks}</a>,
+                  a3: (chunks) => <a href="https://www.bls.gov/">{chunks}</a>,
+                }}
+              />
             </div>
           </React.Fragment>
         )}
-      </React.Fragment>
+      </RawIntlProvider>
     );
   }
 
