@@ -1,4 +1,4 @@
-{#-
+{#
  Copyright 2020 Google LLC
 
  Licensed under the Apache License, Version 2.0 (the "License");
@@ -12,34 +12,38 @@
  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
  See the License for the specific language governing permissions and
  limitations under the License.
--#}
-{#-
+ #}
+
+
+{#
   Required variables:
-  title: page title
-  main_id: DOM Element ID for the main content block
+  Title: page title
+  MainID: DOM Element ID for the main content block
 
   Optional variables:
-  is_hide_full_footer: boolean, if true, hides the full expanded footer. Default false
-  subpage_title: string, if specified, will be displayed in the header next to Data Commons
-  hide_search: boolean, if true, will remove the nav header search box
+  IsHideFullFooter: boolean, if true, hides the full expanded footer. Default false
+  SubPageTitle: string, if specified, will be displayed in the header next to Data Commons
+  HideSearch: boolean, if true, will remove the nav header search box
 
   Blocks to override:
   head - additional head elements
+  footer - foolter elements
+  subfooter_extra - extra element for subfooter
   content - main page content
--#}
+#}
+
 <!DOCTYPE html>
 
 <html lang="en">
 
 <head>
-  <title>{{ title }} - Data Commons</title>
+  <title>{{.data.Title}} - Data Commons</title>
   <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
   <link rel="icon" href="/favicon.ico" type="image/x-icon">
   <link href="https://fonts.googleapis.com/css2?family=Public+Sans:wght@300;600&family=Roboto&display=swap"
     rel="stylesheet">
-  {% block head %}
-  {% endblock %}
+  {{block "head" .}}{{end}}
 </head>
 
 <body>
@@ -48,14 +52,7 @@
       <nav class="navbar navbar-dark navbar-expand-lg col" id="main-nav">
         <div class="container-fluid">
           <div class="navbar-brand">
-            <a href="{{ url_for('static.homepage') }}">Data Commons</a>
-            {% if subpage_title %}
-            <span>
-              {% if subpage_url %}<a href="{{ subpage_url }}">{% endif %}
-                {{ subpage_title }}
-                {% if subpage_url %}</a>{% endif %}
-            </span>
-            {% endif %}
+            <a href={{.urlMap.Home}}>Data Commons</a>
             </a>
           </div>
           <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#dc-main-nav">
@@ -69,10 +66,10 @@
                   Explore
                 </a>
                 <div class="dropdown-menu" aria-labelledby="nav-explore-dropdown">
-                  <a class="dropdown-item" href="{{ url_for('place.place') }}">Place Explorer</a>
-                  <a class="dropdown-item" href="{{ url_for('browser.kg_main') }}">Graph
+                  <a class="dropdown-item" href={{.urlMap.Place}}>Place Explorer</a>
+                  <a class="dropdown-item" href={{.urlMap.Browser}}>Graph
                     Browser</a>
-                  <a class="dropdown-item" href="{{ url_for('tools.timeline') }}">Timelines Explorer</a>
+                  <a class="dropdown-item" href={{.urlMap.Timeline}}>Timelines Explorer</a>
                 </div>
               </li>
               <li class="nav-item dropdown">
@@ -93,37 +90,36 @@
                   About
                 </a>
                 <div class="dropdown-menu" aria-labelledby="nav-about-dropdown">
-                  <a class="dropdown-item" href="{{ url_for('static.about') }}">About Data Commons</a>
-                  <a class="dropdown-item" href="{{ url_for('static.datasets') }}">Data
+                  <a class="dropdown-item" href={{.urlMap.About}}>About Data Commons</a>
+                  <a class="dropdown-item" href={{.urlMap.Dataset}}>Data
                     Sources</a>
-                  <a class="dropdown-item" href="{{ url_for('static.faq') }}">FAQ</a>
-                  <a class="dropdown-item" href="{{ url_for('static.feedback') }}">Feedback</a>
+                  <a class="dropdown-item" href={{.urlMap.Faq}}>FAQ</a>
+                  <a class="dropdown-item" href={{.urlMap.Feedback}}>Feedback</a>
                   <a class="dropdown-item" href="https://docs.datacommons.org/blog.html">Blog</a>
                 </div>
               </li>
             </ul>
-            {%- if not hide_search -%}
-            <div class="gcse-searchbox-only" data-resultsUrl="/search"></div>
-            {%- endif -%}
+            {{if not .data.HideSearch}}
+            <div class="gcse-searchbox-only" data-resultsUrl={{.urlMap.Search}}></div>
+            {{end}}
           </div>
         </div>
       </nav>
     </header>
 
-    <main id="{{ main_id }}" class="main-content">
-      {% block content %}
-      {% endblock %}
+    <main id="{{.data.MainID}}" class="main-content">
+      {{block "content" .}}{{end}}
     </main>
 
     <footer id="main-footer">
       <div class="container">
-        {% if not is_hide_full_footer %}
+        {{if not .data.IsHideFullFooter}}
         <div class="row">
           <section class="col-12 col-sm-6 col-md-4">
             <h6>Explore</h6>
-            <a href="{{ url_for('place.place') }}">Place Explorer</a>
-            <a href="{{ url_for('browser.kg_main') }}">Graph Explorer</a>
-            <a href="{{ url_for('tools.timeline') }}">Timelines Explorer</a>
+            <a href={{.urlMap.Place}}>Place Explorer</a>
+            <a href={{.urlMap.Browser}}>Graph Explorer</a>
+            <a href={{.urlMap.Timeline}}>Timelines Explorer</a>
           </section>
           <section class="col-12 col-sm-6 col-md-4">
             <h6>Documentation</h6>
@@ -134,47 +130,48 @@
           </section>
           <section class="col-12 col-sm-6 col-md-4">
             <h6>Data Commons</h6>
-            <a href="{{ url_for('static.about') }}">About Data Commons</a>
-            <a href="{{ url_for('static.datasets') }}">Data Sources</a>
-            <a href="{{ url_for('static.faq') }}">Frequently Asked Questions</a>
-            <a href="{{ url_for('static.feedback') }}">Feedback</a>
+            <a href={{.urlMap.About}}>About Data Commons</a>
+            <a href={{.urlMap.Dataset}}>Data Sources</a>
+            <a href={{.urlMap.Faq}}>Frequently Asked Questions</a>
+            <a href={{.urlMap.Feedback}}>Feedback</a>
             <a href="http://github.com/datacommonsorg">Github Repository</a>
           </section>
         </div>
-        {% endif %}
+        {{end}}
         <div class="row">
           <div id="sub-footer" class="col-12">
-            <span><a href="{{ url_for('static.homepage') }}">Data Commons</a> is a Google supported project</span>
+            <span><a href={{.urlMap.Home}}>Data Commons</a> is a Google supported project</span>
             <div class="float-md-right mt-2 mt-md-0">
-              {% block subfooter_extra %}{% endblock %}
+              {{block "subfooter_extra" .}}{{end}}
               <a href="https://policies.google.com/terms">Terms and Conditions</a> ·
               <a href="https://policies.google.com/privacy?hl=en-US">Privacy Policy</a> ·
-              <a href="{{ url_for('static.disclaimers') }}">Disclaimers</a>
+              <a href={{.urlMap.Disclaimer}}>Disclaimers</a>
             </div>
           </div>
         </div>
       </div>
     </footer>
   </div>
-  {# Compile this down (or manually implement). Used only for nav bar so far #}
+  <!-- Compile this down (or manually implement). Used only for nav bar so far -->
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
   <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"
     integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl"
     crossorigin="anonymous"></script>
-  {%- if not hide_search -%}
+  {{if not .data.HideSearch}}
   <script async src="https://cse.google.com/cse.js?cx=010079880385165835740%3Aosnv3q-sw08"></script>
-  {%- endif -%}
+  {{end}}
   <script async src="https://www.googletagmanager.com/gtag/js?id=UA-117119267-1"></script>
-  {%- if GA_ACCOUNT -%}
+
+  {{if .data.GA}}
   <script>
     window.dataLayer = window.dataLayer || [];
     function gtag() { dataLayer.push(arguments); }
     gtag('js', new Date());
-    gtag('config', '{{ GA_ACCOUNT }}');
+    gtag('config', '{{.data.GA}}');
   </script>
-  {%- endif -%}
-  {% block footer %}
-  {% endblock %}
+  {{end}}
+
+  {{block "footer" .}}{{end}}
 </body>
 
 </html>
