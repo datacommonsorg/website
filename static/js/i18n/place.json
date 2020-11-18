@@ -13,15 +13,15 @@
   },
   "chart_clause:places_within_place": {
     "defaultMessage": "places within {place}",
-    "description": "Clause for places within some other place. Used for choropleth map chart titles like Unemployment rate: places within California."
+    "description": "Clause for places within some other place. Used for choropleth map chart titles like Unemployment rate: places within Tamil Nadu."
   },
   "chart_clause:placetype_near_place": {
     "defaultMessage": "{placeType} near {place}",
-    "description": "Preposition for somewhere closeby. Used for choropleth map chart titles like Unemployment rate: counties near Travis County."
+    "description": "Preposition for somewhere closeby. Used for choropleth map chart titles like Unemployment rate: counties near Travis County or Annual rainfall: towns near Taos."
   },
   "chart_clause:variable_in_place": {
     "defaultMessage": "{variable} in {place}",
-    "description": "Used for chart titles like Unemployment rate in Texas or Poverty rate in California."
+    "description": "Used for chart titles like Unemployment rate (variable) in USA (place) or Poverty rate (variable) in California (place)."
   },
   "chart_metadata:data_from": {
     "defaultMessage": "Data from",
@@ -89,11 +89,11 @@
   },
   "plural_places": {
     "defaultMessage": "Places",
-    "description": "General collection of places. Used for comparison charts of Places in California."
+    "description": "General collection of places. It is used in several places when we don't have a specific place type. First use case example: for Russia, we simply have a heading Places in Russia on the sidebar with links to many places contained in Russia. Second use case example: for comparison charts, such as Median Age: Places near Sai Kung. Or Median Age: Other Places. Third use case example: for the ranking pages, we may say that the page ranks the life expectancy for All Places in Russia."
   },
   "plural_zip_codes": {
     "defaultMessage": "Zip Codes",
-    "description": "A collection of Zip Codes. Used in ranking pages, etc. E.g. Rankings of Number of Employed People for Zip Codes in USA."
+    "description": "A collection of Zip Codes. It is used in several places when we don't have a specific place type. First use case example: for Russia, we simply have a heading Zip Codes in Fremont on the sidebar with links to many zip code areas contained in Fremont. Second use case example: for comparison charts, such as Median Age: Zip Codes near 94539. Or Median Age: Other Zip Codes. Third use case example: for the ranking pages, we may say Rankings of Number of Employed People for Zip Codes in Santa Clara County."
   },
   "search_placeholder:search_again": {
     "defaultMessage": "Search for another place",
@@ -101,15 +101,15 @@
   },
   "singular_place": {
     "defaultMessage": "Place",
-    "description": "A general type of place. E.g. Lincoln Center is a Place in NYC."
+    "description": "A general type of place. It is used in plaec pages as a top-level description of places with uncommon place types such as Eurostat NUTS or AdministrativeArea 1-5. For example, we may say Moscow Oblast is A Place in Russia, Asia. Or, Lincoln Center is a Place in New York City."
   },
   "singular_zip_code": {
     "defaultMessage": "Zip Code",
-    "description": "A Zip Code. E.g. 94539 is a Zip Code in CA."
+    "description": "A Zip Code. Used in place pages as a top-level description of zip codes. For example, we say that 94539 is A Zip Code in Alameda County, California, United States of America, North America."
   },
   "sources_via_datacommons": {
-    "defaultMessage": "Data from {sources} via Data Commons",
-    "description": "For the export data and export chart widget, we want to say the data is from some source, but it is retrieved via Data Commons."
+    "defaultMessage": "Data from {one_or_more_comma_separated_sources} via Data Commons",
+    "description": "For the export data and export chart widget, we want to say the data is from some source(s), but it is retrieved via Data Commons. For example, Data from nytimes.com via Data Commons or Data from census.gov, nytimes.com via Data Commons."
   },
   "the_world": {
     "defaultMessage": "the World",

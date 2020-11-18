@@ -130,13 +130,13 @@ class ChartBlock extends React.Component<ChartBlockPropType> {
         id: "chart_clause:placetype_near_place",
         defaultMessage: "{placeType} near {place}",
         description:
-          "Preposition for somewhere closeby. Used for choropleth map chart titles like Unemployment rate: counties near Travis County.",
+          "Preposition for somewhere closeby. Used for choropleth map chart titles like Unemployment rate: counties near Travis County or Annual rainfall: towns near Taos.",
       },
       placesWithinPlace: {
         id: "chart_clause:places_within_place",
         defaultMessage: "places within {place}",
         description:
-          "Clause for places within some other place. Used for choropleth map chart titles like Unemployment rate: places within California.",
+          "Clause for places within some other place. Used for choropleth map chart titles like Unemployment rate: places within Tamil Nadu.",
       },
       otherPlaceTypes: {
         id: "chart_clause:other_placeType",
@@ -171,7 +171,7 @@ class ChartBlock extends React.Component<ChartBlockPropType> {
               id: "chart_clause:variable_in_place",
               defaultMessage: "{variable} in {place}",
               description:
-                "Used for chart titles like Unemployment rate in Texas or Poverty rate in California.",
+                "Used for chart titles like Unemployment rate (variable) in USA (place) or Poverty rate (variable) in California (place).",
             },
             { variable: this.displayDataTitle, place: this.displayPlaceName }
           )}

@@ -51,42 +51,31 @@ export function displayNameForPlaceType(
   ) {
     return isPlural
       ? intl.formatMessage({
-          // Matching ID as above
           id: "plural_places",
-          // Default Message in English. Note that this will still log error.
-          // TODO(tjann): See if we can surpress error logs.
           defaultMessage: "Places",
           description:
-            "General collection of places. Used for comparison charts of Places in California.",
+            "General collection of places. It is used in several places when we don't have a specific place type. First use case example: for Russia, we simply have a heading Places in Russia on the sidebar with links to many places contained in Russia. Second use case example: for comparison charts, such as Median Age: Places near Sai Kung. Or Median Age: Other Places. Third use case example: for the ranking pages, we may say that the page ranks the life expectancy for All Places in Russia.",
         })
       : intl.formatMessage({
-          // Matching ID as above
           id: "singular_place",
-          // Default Message in English. Note that this will still log error.
-          // TODO(tjann): See if we can surpress error logs.
           defaultMessage: "Place",
           description:
-            "A general type of place. E.g. Lincoln Center is a Place in NYC.",
+            "A general type of place. It is used in plaec pages as a top-level description of places with uncommon place types such as Eurostat NUTS or AdministrativeArea 1-5. For example, we may say Moscow Oblast is A Place in Russia, Asia. Or, Lincoln Center is a Place in New York City.",
         });
   }
   if (placeType === "CensusZipCodeTabulationArea") {
     return isPlural
       ? intl.formatMessage({
-          // Matching ID as above
           id: "plural_zip_codes",
-          // Default Message in English. Note that this will still log error.
-          // TODO(tjann): See if we can surpress error logs.
           defaultMessage: "Zip Codes",
           description:
-            "A collection of Zip Codes. Used in ranking pages, etc. E.g. Rankings of Number of Employed People for Zip Codes in USA.",
+            "A collection of Zip Codes. It is used in several places when we don't have a specific place type. First use case example: for Russia, we simply have a heading Zip Codes in Fremont on the sidebar with links to many zip code areas contained in Fremont. Second use case example: for comparison charts, such as Median Age: Zip Codes near 94539. Or Median Age: Other Zip Codes. Third use case example: for the ranking pages, we may say Rankings of Number of Employed People for Zip Codes in Santa Clara County.",
         })
       : intl.formatMessage({
-          // Matching ID as above
           id: "singular_zip_code",
-          // Default Message in English. Note that this will still log error.
-          // TODO(tjann): See if we can surpress error logs.
           defaultMessage: "Zip Code",
-          description: "A Zip Code. E.g. 94539 is a Zip Code in CA.",
+          description:
+            "A Zip Code. Used in place pages as a top-level description of zip codes. For example, we say that 94539 is A Zip Code in Alameda County, California, United States of America, North America.",
         });
   }
   // TODO(datcom): translate before or after pluralize?

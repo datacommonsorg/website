@@ -3,6 +3,9 @@ import Backend from "i18next-http-backend";
 import postProcessor from "i18next-sprintf-postprocessor";
 import LanguageDetector from "i18next-browser-languagedetector";
 
+ 
+// Default Message in English. Note that this will still log error.
+// TODO(tjann): See if we can surpress error logs.
 i18n
   .use(Backend)
   .use(LanguageDetector)
