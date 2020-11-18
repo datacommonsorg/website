@@ -75,18 +75,17 @@ def create_app():
     cache.init_app(app)
 
     # apply the blueprints to the app
-    from routes import (browser, dev, factcheck, misc, place, placelist,
-                        ranking, redirects, static, tools)
+    from routes import (browser, dev, factcheck, place, placelist, ranking,
+                        redirects, static, tools)
     app.register_blueprint(browser.bp)
     app.register_blueprint(dev.bp)
-    app.register_blueprint(misc.bp)
     app.register_blueprint(place.bp)
     app.register_blueprint(placelist.bp)
     app.register_blueprint(ranking.bp)
     app.register_blueprint(redirects.bp)
     app.register_blueprint(tools.bp)
     from routes.api import (chart, choropleth, place as place_api, landing_page,
-                            ranking as ranking_api, stats)
+                            ranking as ranking_api, stats, translator)
     app.register_blueprint(chart.bp)
     app.register_blueprint(choropleth.bp)
     app.register_blueprint(factcheck.bp)
@@ -95,6 +94,7 @@ def create_app():
     app.register_blueprint(ranking_api.bp)
     app.register_blueprint(static.bp)
     app.register_blueprint(stats.bp)
+    app.register_blueprint(translator.bp)
 
     # Load chart config
     with open('chart_config.json') as f:

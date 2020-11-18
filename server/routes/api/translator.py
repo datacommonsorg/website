@@ -16,8 +16,6 @@ from flask import Blueprint, request
 
 from services import datacommons as dc
 
-import logging
-
 # Define blueprint
 bp = Blueprint("misc", __name__)
 
