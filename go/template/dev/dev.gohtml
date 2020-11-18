@@ -1,4 +1,4 @@
-{#
+<!--
  Copyright 2020 Google LLC
 
  Licensed under the Apache License, Version 2.0 (the "License");
@@ -12,10 +12,10 @@
  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
  See the License for the specific language governing permissions and
  limitations under the License.
-#}
+-->
 
-{{define  "head" }}
-<link rel="stylesheet" href="/static/css/dev.min.css">
+{{define "head" }}
+<link rel="stylesheet" href="/static/css/dev.min.css" />
 <style>
   .chart {
     margin: 20px;
@@ -33,7 +33,7 @@
 {{ define "content" }}
 <div class="container-fluid">
   <div id="charts-container"></div>
-  <div style="clear:both;"></div>
+  <div style="clear: both"></div>
 </div>
 <script src="/static/dev.js"></script>
 {{end}}
