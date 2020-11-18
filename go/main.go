@@ -62,7 +62,7 @@ func main() {
 	r.LoadHTMLGlob("template/*/*")
 
 	tmpl := multitemplate.New()
-	tmpl.AddFromFiles("dev", "template/base.html", "template/dev/dev.html")
+	tmpl.AddFromFiles("dev", "template/base.gohtml", "template/dev/dev.gohtml")
 	r.HTMLRender = tmpl
 
 	// TODO(shifucun): still keep the /dev page until the webdriver tests are
