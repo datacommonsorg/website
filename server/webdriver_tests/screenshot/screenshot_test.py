@@ -111,7 +111,7 @@ TEST_URLS = [
     },
 ]
 
-SLEEP_SEC = 20
+SLEEP_SEC = 25
 
 
 # Class to test timeline tool.

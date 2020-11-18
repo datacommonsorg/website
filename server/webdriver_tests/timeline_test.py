@@ -27,7 +27,7 @@ GEO_URL_1 = '#&place=geoId/06'
 STATVAR_URL_1 = '#&statsVar=Count_Person'
 PLACE_SEARCH_CA = 'California, USA'
 PLACE_SEARCH_USA = 'USA'
-SLEEP_SEC = 15
+SLEEP_SEC = 25
 
 
 # Class to test timeline tool.
