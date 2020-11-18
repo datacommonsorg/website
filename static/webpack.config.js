@@ -53,7 +53,7 @@ const config = {
     search: __dirname + "/css/search.scss",
     static: __dirname + "/css/static.scss",
     translator: [
-      __dirname + "/js/translator.js",
+      __dirname + "/js/translator/translator.ts",
       __dirname + "/css/translator.scss",
     ],
   },

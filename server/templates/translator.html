@@ -23,22 +23,6 @@
 {% endblock %}
 
 {% block content %}
-  <div class="container">
-    <h1>Schema Translator</h1>
-    <h5>Enter Schema Mapping and Graph Query</h5>
-    <div id="input-box" class="row mt-5">
-      <div class="input-box-content col-6">
-        <h6>Schema Mapping</h6>
-        <textarea id="mapping">{{schema_mapping}}</textarea>
-      </div>
-      <div class="input-box-content col-6">
-        <h6>Graph Query</h6>
-        <textarea id="query">{{sample_query}}</textarea>
-      </div>
-    </div>
-    <div id="result"></div>
-    <a href="https://console.cloud.google.com/bigquery?sq=443333369001:c5d2972c96704d65a3091ee15d6f0c87" target="_blank"> BigQuery Link</a>
-  </div>
-
+  <div id="translator"></div>
   <script src={{url_for('static', filename='translator.js', t=config['GAE_VERSION'])}}></script>
 {% endblock %}

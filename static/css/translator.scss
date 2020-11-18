@@ -13,7 +13,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-@import 'base';
+@import "base";
 
 h3 {
   color: #444;
@@ -96,7 +96,8 @@ table.translation-info-table .sql-result {
   color: #4285f4;
 }
 
-.summary-title {
+.summary-title,
+.title {
   font-size: 25px;
   margin: 20px 10px;
 }
