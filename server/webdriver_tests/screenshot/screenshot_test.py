@@ -111,8 +111,6 @@ TEST_URLS = [
     },
 ]
 
-SLEEP_SEC = 20
-
 
 # Class to test timeline tool.
 class TestScreenShot(WebdriverBaseTest):
@@ -126,7 +124,7 @@ class TestScreenShot(WebdriverBaseTest):
             # Wait until the test_class_name has loaded.
             element_present = EC.presence_of_element_located(
                 (By.CLASS_NAME, test_class_name))
-            WebDriverWait(self.driver, SLEEP_SEC).until(element_present)
+            WebDriverWait(self.driver, self.TIMEOUT_SEC).until(element_present)
 
             # Set the window size. Testing different sizes.
             self.driver.set_window_size(width=WIDTH,
