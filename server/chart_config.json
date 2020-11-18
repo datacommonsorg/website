@@ -3,11 +3,13 @@
     "category": "Economics",
     "titleId": "CHART_TITLE-Total_employed",
     "title": "Number of people employed",
+    "description": "Number of people employed",
     "statsVars": ["Count_Person_Employed"],
     "isOverview": true,
     "relatedChart": {
       "titleId": "CHART_TITLE-Percentage_employed",
       "title": "Percentage of people employed",
+      "description": "Percentage of people employed",
       "scale": true,
       "denominator": "Count_Person",
       "scaling": 100,
@@ -172,6 +174,7 @@
     "category": "Economics",
     "titleId": "CHART_TITLE-Gni",
     "title": "Gross national income (purchasing power parity)",
+    "description": "Gross national income, converted using purchasing power parity rates",
     "statsVars": [
       "Amount_EconomicActivity_GrossNationalIncome_PurchasingPowerParity"
     ],
@@ -184,12 +187,14 @@
     "category": "Economics",
     "titleId": "CHART_TITLE-Government_debt",
     "title": "Government debt",
+    "description": "Amount of government debt",
     "statsVars": ["Amount_Debt_Government"],
     "isOverview": true,
     "unit": "$",
     "relatedChart": {
     "titleId": "CHART_TITLE-Government_debt_per_capita",
       "title": "Government debt per capita",
+      "description": "Government debt divided by the population",
       "scale": true,
       "denominator": "Count_Person"
     }
@@ -198,6 +203,7 @@
     "category": "Economics",
     "titleId": "CHART_TITLE-Government_debt_per_capita",
     "title": "Government expenditures on education (% of government expenditure)",
+    "description": "Government expenditures on education as a percentage of government expenditure",
     "statsVars": [
       "Amount_EconomicActivity_ExpenditureActivity_EducationExpenditure_Government_AsFractionOf_Amount_EconomicActivity_ExpenditureActivity_Government"
     ],
@@ -210,6 +216,7 @@
     "category": "Economics",
     "titleId": "CHART_TITLE-Government_expenditures",
     "title": "Government expenditures on education (% of GDP)",
+    "description": "Government expenditures on education as a percentage of GDP",
     "statsVars": [
       "Amount_EconomicActivity_ExpenditureActivity_EducationExpenditure_Government_AsFractionOf_Amount_EconomicActivity_GrossDomesticProduction_Nominal"
     ],
@@ -222,6 +229,7 @@
     "category": "Economics",
     "titleId": "CHART_TITLE-Government_expenditures_military",
     "title": "Government expenditures on military",
+    "description": "Amount spent by a government on the military",
     "statsVars": [
       "Amount_EconomicActivity_ExpenditureActivity_MilitaryExpenditure_Government"
     ],
@@ -233,7 +241,8 @@
   {
     "category": "Economics",
     "titleId": "CHART_TITLE-Government_expenditures_military_per_gdp",
-    "title": "Government expenditures on military (% of GDP)",
+    "title": "Government expenditures on military as a percentage of GDP",
+    "description": "Amount spent by a government on the military as a percentage of GDP",
     "statsVars": [
       "Amount_EconomicActivity_ExpenditureActivity_MilitaryExpenditure_Government_AsFractionOf_Amount_EconomicActivity_GrossDomesticProduction_Nominal"
     ],
@@ -257,6 +266,7 @@
     "category": "Economics",
     "titleId": "CHART_TITLE-Market_capitalization_per_gdp",
     "title": "Market capitalization of domestic companies (% of GDP)",
+    "description": "Market capitalization of domestic companies (as a percentage of GDP)",
     "statsVars": [
       "Amount_Stock_AsFractionOf_Amount_EconomicActivity_GrossDomesticProduction_Nominal"
     ],
@@ -269,6 +279,7 @@
     "category": "Economics",
     "titleId": "CHART_TITLE-Inward_remittance",
     "title": "Inward remittance",
+    "description": "Total amount of inward remittance into a place",
     "statsVars": ["Amount_Remittance_InwardRemittance"],
     "unit": "$",
     "relatedChart": {
@@ -279,6 +290,7 @@
     "category": "Economics",
     "titleId": "CHART_TITLE-Inward_remittance_per_gdp",
     "title": "Inward remittance (% of GDP)",
+    "description": "Total amount of inward remittance into a place (as a percentage of GDP)",
     "statsVars": [
       "Amount_Remittance_InwardRemittance_AsFractionOf_Amount_EconomicActivity_GrossDomesticProduction_Nominal"
     ],
@@ -291,6 +303,7 @@
     "category": "Economics",
     "titleId": "CHART_TITLE-Outward_remittance_per_gdp",
     "title": "Outward remittance",
+    "description": "Total amount of outward remittance from a place",
     "statsVars": ["Amount_Remittance_OutwardRemittance"],
     "unit": "$",
     "relatedChart": {
@@ -313,6 +326,7 @@
     "category": "Economics",
     "titleId": "CHART_TITLE-Individual_income",
     "title": "Individual income",
+    "description": "Count of people whose individual incomes are in certain buckets",
     "statsVars": [
       "Count_Person_IncomeOfUpto9999USDollar",
       "Count_Person_IncomeOf10000To14999USDollar",
@@ -326,6 +340,7 @@
     "relatedChart": {
       "titleId": "CHART_TITLE-Individual_income_by_bracket",
       "title": "Percentage of individuals by income brackets",
+      "description": "Percentage of the population whose individual incomes are in certain buckets",
       "scale": true,
       "denominator": "Count_Person_15OrMoreYears",
       "unit": "%",
@@ -336,6 +351,7 @@
     "category": "Economics",
     "titleId": "CHART_TITLE-Median_household_income",
     "title": "Median household income",
+    "description": "Median incomes of households",
     "statsVars": ["Median_Income_Household"],
     "unit": "$",
     "relatedChart": {
@@ -347,6 +363,7 @@
     "category": "Economics",
     "titleId": "CHART_TITLE-Household_income",
     "title": "Household income",
+    "description": "Count of households whose combined incomes fall in certain buckets",
     "statsVars": [
       "Count_Household_IncomeOfUpto10000USDollar",
       "Count_Household_IncomeOf10000To14999USDollar",
@@ -363,6 +380,7 @@
     "relatedChart": {
       "titleId": "CHART_TITLE-Household_income_by_bracket",
       "title": "Percentage of households by income brackets",
+      "description": "Percentage of households whose combined incomes fall in certain buckets",
       "scale": true,
       "denominator": "Count_Household",
       "unit": "%",
@@ -373,6 +391,7 @@
     "category": "Health",
     "titleId": "CHART_TITLE-Life_expectancy",
     "title": "Life expectancy (years)",
+    "description": "Life expectancy of an individual, measured in years",
     "statsVars": ["LifeExpectancy_Person"],
     "isOverview": true,
     "relatedChart": {
@@ -383,6 +402,7 @@
     "category": "Health",
     "titleId": "CHART_TITLE-Covid_cases",
     "title": "COVID-19 cumulative cases",
+    "description": "Cumulative count of COVID-19 cases",
     "statsVars": [
       "CumulativeCount_MedicalConditionIncident_COVID_19_ConfirmedOrProbableCase"
     ],
@@ -390,6 +410,7 @@
     "relatedChart": {
       "titleId": "CHART_TITLE-Covid_cases_per_capita",
       "title": "COVID-19 cumulative cases per capita",
+      "description": "Cumulative count of COVID-19 cases as a percentage of the population",
       "scale": true,
       "denominator": "Count_Person",
       "unit": "%",
@@ -401,6 +422,7 @@
     "category": "Health",
     "titleId": "CHART_TITLE-Covid_deaths",
     "title": "COVID-19 cumulative deaths",
+    "description": "Cumulative count of deaths caused by COVID-19",
     "statsVars": [
       "CumulativeCount_MedicalConditionIncident_COVID_19_PatientDeceased"
     ],
@@ -408,6 +430,7 @@
     "relatedChart": {
       "titleId": "CHART_TITLE-Covid_deaths_per_capita",
       "title": "COVID-19 cumulative deaths per capita",
+      "description": "Cumulative count of deaths caused by COVID-19 as a percentage of the population",
       "scale": true,
       "denominator": "Count_Person",
       "unit": "%",
@@ -419,6 +442,7 @@
     "category": "Health",
     "titleId": "CHART_TITLE-Mortality_events",
     "title": "Mortality events",
+    "description": "Count of deaths caused by various diseases or external circumstances",
     "statsVars": [
       "Count_Death_DiseasesOfTheCirculatorySystem",
       "Count_Death_Neoplasms",
@@ -430,6 +454,7 @@
     "relatedChart": {
       "titleId": "CHART_TITLE-Mortality_events_per_capita",
       "title": "Mortality events per capita",
+      "description": "Count of deaths caused by various diseases or external circumstances, divided by the population count",
       "scale": true,
       "denominator": "Count_Person",
       "unit": "%",
@@ -440,6 +465,7 @@
     "category": "Health",
     "titleId": "CHART_TITLE-Infant_mortality_rate",
     "title": "Infant mortality rate",
+    "description": "Count of deaths in infants caused by various diseases",
     "statsVars": ["Count_Death_0Years_AsFractionOf_Count_BirthEvent_LiveBirth"],
     "scaling": 0.1,
     "unit": "%",
@@ -452,6 +478,7 @@
     "category": "Health",
     "titleId": "CHART_TITLE-Infant_mortality_rate_gender",
     "title": "Infant mortality rate by gender",
+    "description": "Count of deaths in infants caused by various diseases, broken down by gender",
     "statsVars": [
       "Count_Death_0Years_Male_AsFractionOf_Count_BirthEvent_LiveBirth_Male",
       "Count_Death_0Years_Female_AsFractionOf_Count_BirthEvent_LiveBirth_Female"
@@ -466,6 +493,7 @@
     "category": "Health",
     "titleId": "CHART_TITLE-Children_wasting",
     "title": "Wasting among children under 5",
+    "description": "Prevalence of wasting (or low weight for height) among children under 5",
     "statsVars": [
       "Count_Person_Upto4Years_Wasting_AsFractionOf_Count_Person_Upto4Years"
     ],
@@ -479,6 +507,7 @@
     "category": "Health",
     "titleId": "CHART_TITLE-Children_wasting_by_gender",
     "title": "Wasting among children under 5 by gender",
+    "description": "Prevalence of wasting (or low weight for height) among children under 5, broken down by gender",
     "statsVars": [
       "Count_Person_Upto4Years_Male_Wasting_AsFractionOf_Count_Person_Upto4Years_Male",
       "Count_Person_Upto4Years_Female_Wasting_AsFractionOf_Count_Person_Upto4Years_Female"
@@ -492,6 +521,7 @@
     "category": "Health",
     "titleId": "CHART_TITLE-Children_severe_wasting",
     "title": "Severe wasting among children under 5",
+    "description": "Prevalence of severe wasting (or severely low weight for height) among children under 5",
     "statsVars": [
       "Count_Person_Upto4Years_SevereWasting_AsFractionOf_Count_Person_Upto4Years"
     ],
@@ -505,6 +535,7 @@
     "category": "Health",
     "titleId": "CHART_TITLE-Children_severe_wasting_by_gender",
     "title": "Severe wasting among children under 5 by gender",
+    "description": "Prevalence of severe wasting (or severely low weight for height) among children under 5, broken down by gender",
     "statsVars": [
       "Count_Person_Upto4Years_Male_SevereWasting_AsFractionOf_Count_Person_Upto4Years_Male",
       "Count_Person_Upto4Years_Female_SevereWasting_AsFractionOf_Count_Person_Upto4Years_Female"
@@ -518,6 +549,7 @@
     "category": "Health",
     "titleId": "CHART_TITLE-Health_outcomes",
     "title": "Health outcomes",
+    "description": "Percentage of people who are aflicted by certain negative health outcomes, e.g. high cholesterol or arthritis",
     "statsVars": [
       "Percent_Person_WithHighCholesterol",
       "Percent_Person_WithHighBloodPressure",
@@ -535,6 +567,7 @@
     "category": "Health",
     "titleId": "CHART_TITLE-Health_behaviors",
     "title": "Health behaviors",
+    "description": "Percentage of people who report certain negative health behaviors, e.g. obesity, smoking or binge drinking",
     "statsVars": [
       "Percent_Person_SleepLessThan7Hours",
       "Percent_Person_Obesity",
@@ -552,6 +585,7 @@
     "category": "Health",
     "titleId": "CHART_TITLE-Prescribed_drugs",
     "title": "Prescribed drugs (quarterly)",
+    "description": "Total amount of prescribed retail drugs distributed in a quarter of a year",
     "statsVars": [
       "RetailDrugDistribution_DrugDistribution_Oxycodone",
       "RetailDrugDistribution_DrugDistribution_Hydrocodone",
@@ -564,6 +598,7 @@
     "relatedChart": {
       "titleId": "CHART_TITLE-Prescribed_drugs_per_capita",
       "title": "Prescribed drugs per capita (quarterly)",
+      "description": "Total amount of prescribed retail drugs distributed in a quarter of a year (divided by the population)",
       "scale": true,
       "denominator": "Count_Person",
       "unit": "g"
@@ -573,6 +608,7 @@
     "category": "Health",
     "titleId": "CHART_TITLE-Alcohol_consumption_per_capita",
     "title": "Alcohol consumption per capita (annual)",
+    "description": "Total amount of alcohol consumed per person anually",
     "statsVars": [
       "Amount_Consumption_Alcohol_15OrMoreYears_AsFractionOf_Count_Person_15OrMoreYears"
     ],
@@ -586,6 +622,7 @@
     "category": "Equity",
     "titleId": "CHART_TITLE-Gini_index",
     "title": "Gini index",
+    "description": "The Gini index is a measure of inequality, see https://stats.oecd.org/glossary/detail.asp?ID=4842",
     "statsVars": ["GiniIndex_EconomicActivity"],
     "isOverview": true,
     "relatedChart": {
@@ -596,6 +633,7 @@
     "category": "Equity",
     "titleId": "CHART_TITLE-Median_household_income_race",
     "title": "Median household income by race",
+    "description": "Median incomes of households, broken down by race",
     "statsVars": [
       "Median_Income_Household_HouseholderRaceAmericanIndianOrAlaskaNativeAlone",
       "Median_Income_Household_HouseholderRaceAsianAlone",
@@ -614,6 +652,7 @@
     "category": "Equity",
     "titleId": "CHART_TITLE-Median_income_gender",
     "title": "Median income by gender",
+    "description": "Median incomes of individuals, broken down by gender",
     "statsVars": [
       "Median_Income_Person_15OrMoreYears_Female_WithIncome",
       "Median_Income_Person_15OrMoreYears_Male_WithIncome"
@@ -628,6 +667,7 @@
     "category": "Equity",
     "titleId": "CHART_TITLE-Poverty_rate_race",
     "title": "Poverty rate by race",
+    "description": "Percentage of the population below the poverty level, broken down by race",
     "statsVars": [
       "Count_Person_BelowPovertyLevelInThePast12Months_AmericanIndianOrAlaskaNativeAlone",
       "Count_Person_BelowPovertyLevelInThePast12Months_AsianAlone",
@@ -654,6 +694,7 @@
     "category": "Equity",
     "titleId": "CHART_TITLE-Poverty_rate_gender",
     "title": "Poverty rate by gender",
+    "description": "Percentage of the population below the poverty level, broken down by gender",
     "statsVars": [
       "Count_Person_Female_BelowPovertyLevelInThePast12Months",
       "Count_Person_Male_BelowPovertyLevelInThePast12Months"
@@ -669,6 +710,7 @@
     "category": "Equity",
     "titleId": "CHART_TITLE-Unemployment_rate_gender",
     "title": "Unemployment rate by gender",
+    "description": "Percentage of the population, of working age, who are unemployed, broken down by gender",
     "statsVars": [
       "UnemploymentRate_Person_Female",
       "UnemploymentRate_Person_Male"
@@ -683,6 +725,7 @@
     "category": "Equity",
     "titleId": "CHART_TITLE-Percent_without_health_insurance_race",
     "title": "Percentage of people without health insurance by race",
+    "description": "Percentage of the population, of working age, who have no health insurance, broken down by race",
     "statsVars": [
       "Percent_Person_18To64Years_NoHealthInsurance_BlackOrAfricanAmericanAlone",
       "Percent_Person_18To64Years_NoHealthInsurance_HispanicOrLatino",
@@ -698,6 +741,7 @@
     "category": "Equity",
     "titleId": "CHART_TITLE-Percent_without_health_insurance_gender",
     "title": "Percentage of people without health insurance by gender",
+    "description": "Percentage of the population, of working age, who have no health insurance, broken down by gender",
     "statsVars": [
       "Percent_Person_18To64Years_Female_NoHealthInsurance",
       "Percent_Person_18To64Years_Male_NoHealthInsurance"
@@ -712,6 +756,7 @@
     "category": "Equity",
     "titleId": "CHART_TITLE-Associate_degree_rate_gender",
     "title": "Rate of associate degree attainment by gender",
+    "description": "Percentage of young adults who have an associate degree, broken down by gender",
     "statsVars": [
       "Count_Person_25To34Years_EducationalAttainmentAssociatesDegree_Female",
       "Count_Person_25To34Years_EducationalAttainmentAssociatesDegree_Male"
@@ -730,6 +775,7 @@
     "category": "Equity",
     "titleId": "CHART_TITLE-Bachelors_degree_rate_gender",
     "title": "Rate of bachelor's degree attainment by gender",
+    "description": "Percentage of young adults who have an bachelor's degree, broken down by gender",
     "statsVars": [
       "Count_Person_25To34Years_EducationalAttainmentBachelorsDegree_Female",
       "Count_Person_25To34Years_EducationalAttainmentBachelorsDegree_Male"
@@ -748,6 +794,7 @@
     "category": "Equity",
     "titleId": "CHART_TITLE-Graduate_or_professional_degree_rate_gender",
     "title": "Rate of graduate or professional degree attainment by gender",
+    "description": "Percentage of young adults who have a graduate or professional degree, broken down by gender",
     "statsVars": [
       "Count_Person_25To34Years_EducationalAttainmentGraduateOrProfessionalDegree_Female",
       "Count_Person_25To34Years_EducationalAttainmentGraduateOrProfessionalDegree_Male"
@@ -766,11 +813,13 @@
     "category": "Crime",
     "titleId": "CHART_TITLE-Total_crime",
     "title": "Total crime",
+    "description": "Total number of criminal incidents",
     "statsVars": ["Count_CriminalActivities_CombinedCrime"],
     "isOverview": true,
     "relatedChart": {
       "titleId": "CHART_TITLE-Crime_rate",
       "title": "Crimes per 100,000 people",
+      "description": "Total number of criminal incidents per 100,000 people",
       "scale": true,
       "denominator": "Count_Person",
       "scaling": 100000
@@ -780,11 +829,13 @@
     "category": "Crime",
     "titleId": "CHART_TITLE-Violent_crime",
     "title": "Violent crime",
+    "description": "Total number of violent crime incidents",
     "statsVars": ["Count_CriminalActivities_ViolentCrime"],
     "isOverview": true,
     "relatedChart": {
       "titleId": "CHART_TITLE-Violent_crime_rate",
       "title": "Violent crimes per 100,000 people",
+      "description": "Total number of violent crime incidents per 100,000 people",
       "scale": true,
       "denominator": "Count_Person",
       "scaling": 100000
@@ -794,11 +845,13 @@
     "category": "Crime",
     "titleId": "CHART_TITLE-Property_crime",
     "title": "Property crime",
+    "description": "Total number of property crime incidents",
     "statsVars": ["Count_CriminalActivities_PropertyCrime"],
     "isOverview": true,
     "relatedChart": {
       "titleId": "CHART_TITLE-Property_crime_rate",
       "title": "Property crimes per 100,000 people",
+      "description": "Total number of property crime incidents per 100,000 people",
       "scale": true,
       "denominator": "Count_Person",
       "scaling": 100000
@@ -808,11 +861,13 @@
     "category": "Crime",
     "titleId": "CHART_TITLE-Arson",
     "title": "Arson",
+    "description": "Total number of arson incidents",
     "statsVars": ["Count_CriminalActivities_Arson"],
     "isOverview": true,
     "relatedChart": {
       "titleId": "CHART_TITLE-Arson_rate",
       "title": "Arsons per 100,000 people",
+      "description": "Total number of arson incidents per 100,000 people",
       "scale": true,
       "denominator": "Count_Person",
       "scaling": 100000
@@ -822,6 +877,7 @@
     "category": "Education",
     "titleId": "CHART_TITLE-Educational_attainment",
     "title": "Education attainment",
+    "description": "Number of people who have attained various educational milestones, e.g. completed high school or have a bachelor's degree",
     "statsVars": [
       "Count_Person_EducationalAttainmentNoSchoolingCompleted",
       "Count_Person_EducationalAttainmentRegularHighSchoolDiploma",
@@ -833,6 +889,7 @@
     "relatedChart": {
       "titleId": "CHART_TITLE-Educational_attainment_rate",
       "title": "Education attainment rate",
+      "description": "Percentage of the adult population who have attained various educational milestones, e.g. completed high school or have a bachelor's degree",
       "scale": true,
       "denominator": "Count_Person_25OrMoreYears",
       "scaling": 100,
@@ -843,6 +900,7 @@
     "category": "Education",
     "titleId": "CHART_TITLE-School_enrollment",
     "title": "School enrollment",
+    "description": "Number of people who are enrolled in school, vs not enrolled in school",
     "statsVars": [
       "Count_Person_EnrolledInSchool",
       "Count_Person_NotEnrolledInSchool"
@@ -851,6 +909,7 @@
     "relatedChart": {
       "titleId": "CHART_TITLE-School_enrollment_rate",
       "title": "School enrollment rate",
+      "description": "Percentage of people who are enrolled in school, vs not enrolled in school",
       "scale": true,
       "denominator": "Count_Person_3OrMoreYears",
       "scaling": 100,
@@ -861,6 +920,7 @@
     "category": "Demographics",
     "titleId": "CHART_TITLE-Population",
     "title": "Population",
+    "description": "Total number of individuals",
     "statsVars": ["Count_Person"],
     "isOverview": true,
     "relatedChart": {
@@ -872,6 +932,7 @@
     "category": "Demographics",
     "titleId": "CHART_TITLE-Population_growth_rate",
     "title": "Population growth rate",
+    "description": "Increase in the number of individuals",
     "statsVars": ["GrowthRate_Count_Person"],
     "isOverview": true,
     "unit": "%",
@@ -883,6 +944,7 @@
     "category": "Demographics",
     "titleId": "CHART_TITLE-Population_density",
     "title": "Population density (people per km²)",
+    "description": "Measurement of people per km²",
     "statsVars": ["Count_Person_PerArea"],
     "nonDividable": true,
     "isOverview": true
@@ -891,6 +953,7 @@
     "category": "Demographics",
     "titleId": "CHART_TITLE-Urban_v_rural_population",
     "title": "Urban and rural population",
+    "description": "Total number of individuals in rural vs urban parts of a place",
     "statsVars": ["Count_Person_Urban", "Count_Person_Rural"],
     "isOverview": true,
     "relatedChart": {
@@ -901,6 +964,7 @@
     "category": "Demographics",
     "titleId": "CHART_TITLE-Population_age",
     "title": "Population by age",
+    "description": "Number of individuals who fall within various age buckets",
     "statsVars": [
       "Count_Person_Upto4Years",
       "Count_Person_5To9Years",
@@ -933,6 +997,7 @@
     "relatedChart": {
       "titleId": "CHART_TITLE-Population_age_distribution",
       "title": "Age distribution",
+      "description": "Percentage of the population who fall within various age buckets",
       "scale": true,
       "denominator": "Count_Person",
       "scaling": 100,
@@ -943,10 +1008,12 @@
     "category": "Demographics",
     "titleId": "CHART_TITLE-Population_gender",
     "title": "Population by gender",
+    "description": "Total number of individuals, broken down by gender",
     "statsVars": ["Count_Person_Female", "Count_Person_Male"],
     "relatedChart": {
       "titleId": "CHART_TITLE-Population_gender_distribution",
       "title": "Gender distribution",
+      "description": "Percentage of the population by gender",
       "scale": true,
       "denominator": "Count_Person",
       "scaling": 100,
@@ -957,6 +1024,7 @@
     "category": "Demographics",
     "titleId": "CHART_TITLE-Population_race",
     "title": "Population by race",
+    "description": "Total number of individuals, broken down by race",
     "statsVars": [
       "Count_Person_AmericanIndianOrAlaskaNativeAlone",
       "Count_Person_AsianAlone",
@@ -970,6 +1038,7 @@
     "relatedChart": {
       "titleId": "CHART_TITLE-Population_race_distribution",
       "title": "Racial distribution",
+      "description": "Percentage of the population by race",
       "scale": true,
       "denominator": "Count_Person",
       "scaling": 100,
@@ -980,6 +1049,7 @@
     "category": "Demographics",
     "titleId": "CHART_TITLE-Median_age",
     "title": "Median Age",
+    "description": "The median age of the population",
     "statsVars": ["Median_Age_Person"],
     "isOverview": true,
     "relatedChart": {
@@ -991,6 +1061,7 @@
     "category": "Demographics",
     "titleId": "CHART_TITLE-Median_age_gender",
     "title": "Median age by gender",
+    "description": "The median age of the population, broken down by gender",
     "statsVars": ["Median_Age_Person_Female", "Median_Age_Person_Male"],
     "relatedChart": {
       "scale": false
@@ -1000,6 +1071,7 @@
     "category": "Demographics",
     "titleId": "CHART_TITLE-Median_age_race",
     "title": "Median age by race",
+    "description": "The median age of the population, broken down by race",
     "statsVars": [
       "Median_Age_Person_AmericanIndianOrAlaskaNativeAlone",
       "Median_Age_Person_AsianAlone",
@@ -1018,6 +1090,7 @@
     "category": "Demographics",
     "titleId": "CHART_TITLE-Citizenship",
     "title": "Citizenship status",
+    "description": "Total number of individuals, broken down by citizenship status",
     "statsVars": [
       "Count_Person_USCitizenBornInTheUnitedStates",
       "Count_Person_USCitizenByNaturalization",
@@ -1028,6 +1101,7 @@
     "relatedChart": {
       "titleId": "CHART_TITLE-Citizenship_distribution",
       "title": "Distribution of population by citizenship status",
+      "description": "Percentage of population, broken down by citizenship status",
       "scale": true,
       "denominator": "Count_Person",
       "scaling": 100,
@@ -1038,6 +1112,7 @@
     "category": "Demographics",
     "titleId": "CHART_TITLE-Marital_status",
     "title": "Marital status",
+    "description": "Total number of individuals, broken down by marital status",
     "statsVars": [
       "Count_Person_MarriedAndNotSeparated",
       "Count_Person_Divorced",
@@ -1049,6 +1124,7 @@
     "relatedChart": {
       "titleId": "CHART_TITLE-Marital_status_distribution",
       "title": "Marital status distribution",
+      "description": "Percentage of population, broken down by marital status",
       "scale": true,
       "denominator": "Count_Person_15OrMoreYears",
       "scaling": 100,
@@ -1059,6 +1135,7 @@
     "category": "Demographics",
     "titleId": "CHART_TITLE-Fertility_rate",
     "title": "Fertility rate",
+    "description": "Average number of children that would be born to a woman over her lifetime",
     "statsVars": ["FertilityRate_Person_Female"],
     "isOverview": true,
     "relatedChart": {
@@ -1069,11 +1146,13 @@
     "category": "Housing",
     "titleId": "CHART_TITLE-Housing_units",
     "title": "Housing units",
+    "description": "Total number of housing units available",
     "statsVars": ["Count_HousingUnit"],
     "isOverview": true,
     "relatedChart": {
       "titleId": "CHART_TITLE-Housing_units_per_capita",
       "title": "Housing units per capita",
+      "description": "Total number of housing units available per person",
       "scale": true,
       "denominator": "Count_Person"
     }
@@ -1082,6 +1161,7 @@
     "category": "Housing",
     "titleId": "CHART_TITLE-Housing_units_race",
     "title": "Housing units by householder race",
+    "description": "Total number of housing units occupied by members of various races",
     "statsVars": [
       "Count_HousingUnit_HouseholderRaceAmericanIndianOrAlaskaNativeAlone",
       "Count_HousingUnit_HouseholderRaceAsianAlone",
@@ -1096,6 +1176,7 @@
     "relatedChart": {
     "titleId": "CHART_TITLE-Housing_units_race_distribution",
       "title": "Distribution of housing units by householder race",
+      "description": "Percentage of housing units occupied by members of various races",
       "scale": true,
       "denominator": "Count_HousingUnit",
       "scaling": 100,
@@ -1106,6 +1187,7 @@
     "category": "Housing",
     "titleId": "CHART_TITLE-Housing_units_price",
     "title": "Housing units by price",
+    "description": "Number of occupied housing units by price",
     "statsVars": [
       "Count_HousingUnit_HomeValueUpto10000USDollar",
       "Count_HousingUnit_HomeValue10000To14999USDollar",
@@ -1137,7 +1219,8 @@
     "aggregate": "homeValue",
     "relatedChart": {
       "titleId": "CHART_TITLE-Housing_units_price_distribution",
-      "title": "Distribution of housing units by price",
+      "title": "Distribution of occupied housing units by price",
+      "description": "Percentage of housing units by price",
       "scale": true,
       "denominator": "Count_HousingUnit",
       "scaling": 100,
@@ -1148,6 +1231,7 @@
     "category": "Housing",
     "titleId": "CHART_TITLE-Housing_units_date_built",
     "title": "Housing units by date built",
+    "description": "Number of available housing units by date built",
     "statsVars": [
       "Count_HousingUnit_Before1939DateBuilt",
       "Count_HousingUnit_1940To1949DateBuilt",
@@ -1162,6 +1246,7 @@
     "relatedChart": {
       "titleId": "CHART_TITLE-Housing_units_date_built_distrubtion",
       "title": "Distribution of housing units by date built",
+      "description": "Percentage of available housing units by date built",
       "scale": true,
       "denominator": "Count_HousingUnit",
       "scaling": 100,
@@ -1172,6 +1257,7 @@
     "category": "Housing",
     "titleId": "CHART_TITLE-Housing_units_rental_status",
     "title": "Housing units by rental status",
+    "description": "Number of housing units occupied by owner vs renter",
     "statsVars": [
       "Count_HousingUnit_OwnerOccupied",
       "Count_HousingUnit_RenterOccupied"
@@ -1179,6 +1265,7 @@
     "relatedChart": {
       "titleId": "CHART_TITLE-Housing_units_rental_status_distribution",
       "title": "Distribution of housing units by rental status",
+      "description": "Percentage of housing units occupied by owner vs renter",
       "scale": true,
       "denominator": "Count_HousingUnit",
       "scaling": 100,
@@ -1189,6 +1276,7 @@
     "category": "Environment",
     "titleId": "CHART_TITLE-Energy_use",
     "title": "Energy use (kg of oil equivalent per capita)",
+    "description": "Total amount of energy consumed per person, measured by kilogram of oil equivalent",
     "statsVars": ["Amount_Consumption_Energy_PerCapita"],
     "unit": "kg",
     "isOverview": true,
@@ -1200,6 +1288,7 @@
     "category": "Environment",
     "titleId": "CHART_TITLE-Co2_emissions_per_capita",
     "title": "CO2 emissions per capita",
+    "description": "Total amount of carbon dioxied emissions per person",
     "statsVars": ["Amount_Emissions_CarbonDioxide_PerCapita"],
     "unit": "t",
     "isOverview": true,
@@ -1211,6 +1300,7 @@
     "category": "Environment",
     "titleId": "CHART_TITLE-Electricity_consumption_per_capita",
     "title": "Electricity consumption per capita",
+    "description": "Total amount of electricity consumed per person",
     "statsVars": ["Amount_Consumption_Electricity_PerCapita"],
     "unit": "kWh",
     "nonDividable": true,
@@ -1222,6 +1312,7 @@
     "category": "Environment",
     "titleId": "CHART_TITLE-Disasters",
     "title": "Disasters",
+    "description": "Total number of disasters that occured, broken down by disaster type",
     "statsVars": [
       "Count_CycloneEvent",
       "Count_DroughtEvent",
@@ -1241,6 +1332,7 @@
     "category": "Environment",
     "titleId": "CHART_TITLE-Earthquakes",
     "title": "Earthquakes",
+    "description": "Total number of earthquakes that occured",
     "statsVars": ["Count_EarthquakeEvent"],
     "relatedChart": {
       "scale": false
@@ -1250,6 +1342,7 @@
     "category": "Environment",
     "titleId": "CHART_TITLE-Cyclones",
     "title": "Cyclones",
+    "description": "Total number of cyclones that occured",
     "statsVars": ["Count_CycloneEvent"],
     "relatedChart": {
       "scale": false
