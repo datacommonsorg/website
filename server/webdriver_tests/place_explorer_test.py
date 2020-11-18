@@ -25,6 +25,7 @@ USA_URL = '/place/country/USA'
 CA_URL = '/place/geoId/06'
 PLACE_SEARCH = 'California, USA'
 
+
 # Class to test place explorer tool.
 class TestPlaceExplorer(WebdriverBaseTest):
 
@@ -123,8 +124,8 @@ class TestPlaceExplorer(WebdriverBaseTest):
         first_result.click()
 
         # Wait until the page loads and the title is correct.
-        WebDriverWait(self.driver,
-                      self.TIMEOUT_SEC).until(EC.title_contains(CALIFORNIA_TITLE))
+        WebDriverWait(self.driver, self.TIMEOUT_SEC).until(
+            EC.title_contains(CALIFORNIA_TITLE))
 
         # Assert page title is correct.
         self.assertEqual(CALIFORNIA_TITLE, self.driver.title)
