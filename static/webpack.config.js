@@ -17,6 +17,7 @@
 const path = require("path");
 const CopyPlugin = require("copy-webpack-plugin");
 const FixStyleOnlyEntriesPlugin = require("webpack-fix-style-only-entries");
+const WebpackShellPlugin = require("webpack-shell-plugin");
 
 const config = {
   entry: {
@@ -110,6 +111,9 @@ const config = {
     ]),
     new FixStyleOnlyEntriesPlugin({
       silent: true,
+    }),
+    new WebpackShellPlugin({
+      onBuildEnd: ["cp -r ../server/dist ../go/dist"],
     }),
   ],
 };

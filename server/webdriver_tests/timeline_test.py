@@ -27,7 +27,6 @@ GEO_URL_1 = '#&place=geoId/06'
 STATVAR_URL_1 = '#&statsVar=Count_Person'
 PLACE_SEARCH_CA = 'California, USA'
 PLACE_SEARCH_USA = 'USA'
-SLEEP_SEC = 15
 
 
 # Class to test timeline tool.
@@ -52,7 +51,7 @@ class TestCharts(WebdriverBaseTest):
 
         # Assert page title is correct.
         WebDriverWait(self.driver,
-                      SLEEP_SEC).until(EC.title_contains(TITLE_TEXT))
+                      self.TIMEOUT_SEC).until(EC.title_contains(TITLE_TEXT))
         self.assertEqual(TITLE_TEXT, self.driver.title)
 
     def test_charts_original(self):
@@ -77,7 +76,7 @@ class TestCharts(WebdriverBaseTest):
         # Wait until the group of charts has loaded.
         element_present = EC.presence_of_element_located(
             (By.CLASS_NAME, 'card'))
-        WebDriverWait(self.driver, SLEEP_SEC).until(element_present)
+        WebDriverWait(self.driver, self.TIMEOUT_SEC).until(element_present)
 
         # Store a list of all the charts.
         charts = self.driver.find_elements_by_class_name("card")
@@ -117,7 +116,7 @@ class TestCharts(WebdriverBaseTest):
         # Wait until population checkbox is present and click on it.
         element_present = EC.presence_of_element_located(
             (By.XPATH, '//*[@id="Population"]/span/button'))
-        WebDriverWait(self.driver, SLEEP_SEC).until(element_present)
+        WebDriverWait(self.driver, self.TIMEOUT_SEC).until(element_present)
         population_checkbox = self.driver.find_element_by_xpath(
             '//*[@id="Population"]/span/button')
         population_checkbox.click()
@@ -125,7 +124,7 @@ class TestCharts(WebdriverBaseTest):
         # Wait until there is one card present.
         element_present = EC.presence_of_element_located(
             (By.CSS_SELECTOR, '.card'))
-        WebDriverWait(self.driver, SLEEP_SEC).until(element_present)
+        WebDriverWait(self.driver, self.TIMEOUT_SEC).until(element_present)
 
         # Re-store a list of all the charts.
         charts = self.driver.find_elements_by_class_name("card")
@@ -140,7 +139,7 @@ class TestCharts(WebdriverBaseTest):
 
         # Wait until search box is present.
         element_present = EC.presence_of_element_located((By.ID, 'ac'))
-        WebDriverWait(self.driver, SLEEP_SEC).until(element_present)
+        WebDriverWait(self.driver, self.TIMEOUT_SEC).until(element_present)
         search_box_input = self.driver.find_element_by_id('ac')
 
         # Type California into the search box.
@@ -149,7 +148,7 @@ class TestCharts(WebdriverBaseTest):
         # Wait until there is at least one result in autocomplete results.
         element_present = EC.presence_of_element_located(
             (By.CLASS_NAME, 'pac-item'))
-        WebDriverWait(self.driver, SLEEP_SEC).until(element_present)
+        WebDriverWait(self.driver, self.TIMEOUT_SEC).until(element_present)
 
         # Click on the first result.
         first_result = self.driver.find_element_by_css_selector(
@@ -162,7 +161,7 @@ class TestCharts(WebdriverBaseTest):
         # Wait until there is at least one result in autocomplete results.
         element_present = EC.presence_of_element_located(
             (By.CLASS_NAME, 'pac-item'))
-        WebDriverWait(self.driver, SLEEP_SEC).until(element_present)
+        WebDriverWait(self.driver, self.TIMEOUT_SEC).until(element_present)
 
         # Click on the first result.
         first_result = self.driver.find_element_by_css_selector(
@@ -172,7 +171,7 @@ class TestCharts(WebdriverBaseTest):
         # Wait until the second line element within the card is present.
         element_present = EC.presence_of_element_located(
             (By.CSS_SELECTOR, '.line:nth-child(2)'))
-        WebDriverWait(self.driver, SLEEP_SEC).until(element_present)
+        WebDriverWait(self.driver, self.TIMEOUT_SEC).until(element_present)
 
         # Store a list of all the charts and lines.
         charts = self.driver.find_elements_by_class_name("card")
@@ -185,7 +184,7 @@ class TestCharts(WebdriverBaseTest):
         # Wait until the delete button is present.
         element_present = EC.presence_of_element_located(
             (By.XPATH, '//*[@id="place-list"]/span/button'))
-        WebDriverWait(self.driver, SLEEP_SEC).until(element_present)
+        WebDriverWait(self.driver, self.TIMEOUT_SEC).until(element_present)
 
         # Click on the delete button and remove California.
         delete_button = self.driver.find_element_by_xpath(
@@ -195,7 +194,7 @@ class TestCharts(WebdriverBaseTest):
         # Wait until the second line element within the card disappears.
         element_present = EC.invisibility_of_element_located(
             (By.CSS_SELECTOR, '.line:nth-child(2)'))
-        WebDriverWait(self.driver, SLEEP_SEC).until(element_present)
+        WebDriverWait(self.driver, self.TIMEOUT_SEC).until(element_present)
 
         # Store a list of all the charts and lines.
         charts = self.driver.find_elements_by_class_name("card")

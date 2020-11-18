@@ -34,6 +34,10 @@ class WebdriverBaseTest(LiveServerTestCase):
         chrome_options.add_argument('--headless')
         chrome_options.add_argument('--no-sandbox')
         chrome_options.add_argument('--disable-dev-shm-usage')
+
+        # Maximum time, in seconds, before throwing a TimeoutException.
+        self.TIMEOUT_SEC = 25
+
         self.driver = webdriver.Chrome(options=chrome_options)
         self.url_ = self.get_server_url()
 
