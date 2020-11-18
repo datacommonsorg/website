@@ -18,7 +18,7 @@ import React from "react";
 import { Button, Modal, ModalHeader, ModalBody, ModalFooter } from "reactstrap";
 import { randDomId, saveToFile } from "../shared/util";
 import * as d3 from "d3";
-import { intl, translateVariableString } from "../l10n/i18n";
+import { intl, translateVariableString } from "../i18n/i18n";
 // SVG adjustment related constants
 const TITLE_HEIGHT = 20;
 const TITLE_MARGIN = 10;

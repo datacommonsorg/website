@@ -27,6 +27,7 @@ function loadLocaleData(locale: string): Promise<Record<any, any>> {
 // This IntlShape object will be used for both React Intl's
 // React Component API (arg for RawIntlProvider) and
 // Imperative API (format<X> method).
+// TODO(datcom): Make this a promise.
 let intl;
 async function initIntl() {
   const messages = await loadLocaleData(locale);

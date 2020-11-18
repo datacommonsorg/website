@@ -14,7 +14,8 @@
  * limitations under the License.
  */
 import React from "react";
-import { intl, translateVariableString } from "../l10n/i18n";
+import { RawIntlProvider } from "react-intl";
+import { intl, translateVariableString } from "../i18n/i18n";
 import { ChartBlock } from "./chart_block";
 import { Overview } from "./overview";
 import {
@@ -81,7 +82,7 @@ class MainPane extends React.Component<MainPanePropType> {
     const currentPageTopic = this.props.topic;
     const isOverview = currentPageTopic === "Overview";
     return (
-      <>
+      <RawIntlProvider value={intl}>
         {this.props.isUsaPlace &&
           this.props.placeType != "Country" &&
           isOverview && (
@@ -140,7 +141,7 @@ class MainPane extends React.Component<MainPanePropType> {
             </section>
           );
         })}
-      </>
+      </RawIntlProvider>
     );
   }
 }

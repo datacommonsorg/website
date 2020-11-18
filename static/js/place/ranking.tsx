@@ -16,8 +16,8 @@
 
 import React from "react";
 import axios from "axios";
-import { RawIntlProvider, FormattedMessage } from "react-intl";
-import { intl, translateVariableString } from "../l10n/i18n";
+import { FormattedMessage } from "react-intl";
+import { intl, translateVariableString } from "../i18n/i18n";
 
 interface RankingPropsType {
   dcid: string;
@@ -40,7 +40,7 @@ class Ranking extends React.Component<RankingPropsType, RankingStateType> {
   render(): JSX.Element {
     const data = this.state.data;
     return (
-      <RawIntlProvider value={intl}>
+      <React.Fragment>
         {data.label.length > 0 && (
           <React.Fragment>
             <table id="ranking-table" className="table">
@@ -113,7 +113,7 @@ class Ranking extends React.Component<RankingPropsType, RankingStateType> {
             </div>
           </React.Fragment>
         )}
-      </RawIntlProvider>
+      </React.Fragment>
     );
   }
 

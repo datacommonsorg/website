@@ -16,7 +16,7 @@
 
 import React from "react";
 import { PageChart } from "../chart/types";
-import { intl, translateVariableString } from "../l10n/i18n";
+import { intl, translateVariableString } from "../i18n/i18n";
 
 interface MenuCategoryPropsType {
   dcid: string;

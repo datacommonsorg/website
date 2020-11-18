@@ -15,7 +15,7 @@
  */
 
 import React from "react";
-import { intl, translateVariableString } from "../l10n/i18n";
+import { intl, translateVariableString } from "../i18n/i18n";
 
 interface PageSubtitlePropsType {
   category: string;

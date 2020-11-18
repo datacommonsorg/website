@@ -26,7 +26,7 @@ import {
   formatYAxisTicks,
 } from "./base";
 
-import { translateVariableString } from "../l10n/i18n";
+import { translateVariableString } from "../i18n/i18n";
 
 const NUM_X_TICKS = 5;
 const NUM_Y_TICKS = 5;

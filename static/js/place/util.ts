@@ -15,7 +15,7 @@
  */
 
 import pluralize from "pluralize";
-import { intl, translateVariableString } from "../l10n/i18n";
+import { intl, translateVariableString } from "../i18n/i18n";
 
 /**
  * Given a list of parent places, return true if the place is in USA.

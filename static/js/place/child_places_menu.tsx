@@ -16,7 +16,7 @@
 
 import React from "react";
 import { displayNameForPlaceType } from "./util";
-import { intl } from "../l10n/i18n";
+import { intl } from "../i18n/i18n";
 
 interface ChildPlacePropType {
   childPlaces: { string: string[] };

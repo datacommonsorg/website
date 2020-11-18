@@ -1,23 +1,27 @@
-# FormatJS i18n instructions
+# Data Commons Website Localization
+
+## FormatJS/react-intl instructions
 
 These commands should be run in the /static subdirectory.
 
-## Extract strings from .ts and .tsx files with default formatter
+### Extract strings from .ts and .tsx files with default formatter
 
 This will pull strings out into a JSON format that we can then
 transform into a textproto accepted by TC.
 
 ```
-npm run extract -- 'js/**/*.ts*' --out-file js/l10n/<app>.json --id-interpolation-pattern '[sha512:contenthash:base64:6]'
+npm run extract -- 'js/**/*.ts*' --out-file js/i18n/<app>.json --id-interpolation-pattern '[sha512:contenthash:base64:6]'
 ```
 
-## Compile translation files for use
+### Compile translation files for use
 
 After transforming the translated textproto files from TC into json,
-one more step of compiling the JSON into a format usable by FormatJS.
+one more step to compile the JSON into a format usable by FormatJS.
+
+Example for `en`:
 
 ```
-npm run compile -- js/l10n/lang/en.json --ast --out-file js/l10n/compiled-lang/en.json
+npm run compile -- js/l10n/lang/en.json --ast --out-file js/i18n/compiled-lang/en.json
 ```
 
 ## TODO

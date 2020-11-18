@@ -15,7 +15,7 @@
  */
 
 import axios from "axios";
-import { intl } from "../l10n/i18n";
+import { intl } from "../i18n/i18n";
 let ac: google.maps.places.Autocomplete;
 let acs: google.maps.places.AutocompleteService;
 
