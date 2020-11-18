@@ -49,6 +49,8 @@ func main() {
 	port := os.Getenv("PORT")
 	if port == "" {
 		port = ":7070"
+	} else {
+		port = ":" + port
 	}
 	log.Printf("Listening on port %s", port)
 
