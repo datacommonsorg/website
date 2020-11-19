@@ -39,6 +39,13 @@ class Ranking extends React.Component<RankingPropsType, RankingStateType> {
   }
   render(): JSX.Element {
     const data = this.state.data;
+    const provenanceLinks = (
+      <>
+        <a href="https://www.census.gov/">census.gov</a>,{" "}
+        <a href="https://www.fbi.gov/">fbi.gov</a>,{" "}
+        <a href="https://www.bls.gov/">bls.gov</a>
+      </>
+    );
     return (
       <React.Fragment>
         {data.label.length > 0 && (
@@ -99,16 +106,10 @@ class Ranking extends React.Component<RankingPropsType, RankingStateType> {
             </table>
             <div className="source">
               <FormattedMessage
-                id="place_page_ranking_table-data_from"
-                defaultMessage="Data from <a1>census.gov</a1>, <a2>fbi.gov</a2> and <a3>bls.gov</a3>"
-                description="The source citation for the ranking table in the Place Page."
-                values={{
-                  a1: (chunks) => (
-                    <a href="https://www.census.gov/">{chunks}</a>
-                  ),
-                  a2: (chunks) => <a href="https://www.fbi.gov/">{chunks}</a>,
-                  a3: (chunks) => <a href="https://www.bls.gov/">{chunks}</a>,
-                }}
+                id="chart_metadata-provenance"
+                defaultMessage="Data from {sources}"
+                description="Used to cite where our data is from, but that it was provided through Data Commons. e.g., 'Data from {nytimes.com} via Data Commons' or 'Data from {census.gov, nytimes.com}'"
+                values={{ sources: provenanceLinks }}
               />
             </div>
           </React.Fragment>

@@ -168,13 +168,13 @@ class ChartEmbed extends React.Component<unknown, ChartEmbedStateType> {
       .text(
         intl.formatMessage(
           {
-            id: "sources_via_datacommons",
+            id: "embed_citation",
             defaultMessage:
-              "Data from {oneOrMoreCommaSeparatedSources} via Data Commons",
+              "Data from {sources} via Data Commons",
             description:
-              'For the export data and export chart widget, we want to say the data is from some source(s), but it is retrieved via Data Commons. For example, "Data from {nytimes.com} via Data Commons" or "Data from {census.gov, nytimes.com} via Data Commons".',
+              'Used to cite where the data is from, but that it was provided through Data Commons. For example, "Data from {nytimes.com} via Data Commons" or "Data from {census.gov, nytimes.com} via Data Commons". Please keep the name "Data Commons".',
           },
-          { oneOrMoreCommaSeparatedSources: this.state.sources.join(", ") }
+          { sources: this.state.sources.join(", ") }
         )
       );
 
@@ -240,7 +240,7 @@ class ChartEmbed extends React.Component<unknown, ChartEmbedStateType> {
       >
         <ModalHeader toggle={this.toggle}>
           {intl.formatMessage({
-            id: "export_chart_link",
+            id: "embed_export_chart_link",
             defaultMessage: "Export this chart",
             description:
               "Text for the hyperlink text that will let users export data and export charts.",
@@ -262,7 +262,7 @@ class ChartEmbed extends React.Component<unknown, ChartEmbedStateType> {
         <ModalFooter>
           <Button color="primary" onClick={this.onDownloadSvg}>
             {intl.formatMessage({
-              id: "download_chart_link",
+              id: "embed_download_chart_link",
               defaultMessage: "Download Chart Image",
               description:
                 "Text for the hyperlink text that will download the chart image.",
@@ -270,7 +270,7 @@ class ChartEmbed extends React.Component<unknown, ChartEmbedStateType> {
           </Button>{" "}
           <Button color="primary" onClick={this.onDownloadData}>
             {intl.formatMessage({
-              id: "download_csv_link",
+              id: "embed_download_csv_link",
               defaultMessage: "Download Data as CSV",
               description:
                 "Text for the hyperlink text that will download the data as a CSV.",

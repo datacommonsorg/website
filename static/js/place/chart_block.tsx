@@ -125,28 +125,28 @@ class ChartBlock extends React.Component<ChartBlockPropType> {
     // Do not directly localize param. Localize when used as display string.
 
     // Declare const of reused messages here.
-    const chartClauseMsgs = defineMessages({
+    const chartTitleMsgs = defineMessages({
       placeTypeNearPlace: {
         id: "chart_clause-placetype_near_place",
-        defaultMessage: "{placeType} near {placeName}",
+        defaultMessage: "{chartTitle}: {placeType} near {placeName}",
         description:
           'Preposition for somewhere close by. Used for choropleth map chart titles like "Unemployment rate: {counties} near {Travis County}" or "Annual rainfall: {towns} near {Taos}"',
       },
       placesWithinPlace: {
         id: "chart_clause-places_within_place",
-        defaultMessage: "places within {placeName}",
+        defaultMessage: "{chartTitle}: places within {placeName}",
         description:
           'Clause for places within some other place. Used for choropleth map chart titles like "Unemployment rate: places within {Tamil Nadu}."',
       },
       otherPlaceTypes: {
         id: "chart_clause-other_placeType",
-        defaultMessage: "other {placeType}",
+        defaultMessage: "{chartTitle}: other {placeType}",
         description:
           'Used to describe other places. Like "Educational Attainment in other {countries}".',
       },
       placesThatContainPlace: {
         id: "chart_clause-places_that_contain_place",
-        defaultMessage: "places that contain {placeName}",
+        defaultMessage: "{chartTitle}: places that contain {placeName}",
         description:
           'Clause for places that contain some place. E.g. for "Educational Attainment for places that contain {Fremont}" (which would be Alameda County, California, USA, North America).',
       },
@@ -236,14 +236,15 @@ class ChartBlock extends React.Component<ChartBlockPropType> {
     const rankingArg = `?${rankingParam.toString()}`;
     const choroplethTitle =
       this.props.placeType === "County"
-        ? `${relatedChartTitle}: ${intl.formatMessage(
-            chartClauseMsgs.placeTypeNearPlace,
-            { placeType: displayPlaceType, placeName: this.displayPlaceName }
-          )}`
-        : `${relatedChartTitle}: ${intl.formatMessage(
-            chartClauseMsgs.placesWithinPlace,
-            { placeName: this.displayDataTitle }
-          )}`;
+        ? intl.formatMessage(chartTitleMsgs.placeTypeNearPlace, {
+            chartTitle: relatedChartTitle,
+            placeType: displayPlaceType,
+            placeName: this.displayPlaceName,
+          })
+        : intl.formatMessage(chartTitleMsgs.placesWithinPlace, {
+            chartTitle: relatedChartTitle,
+            placeName: this.displayDataTitle,
+          });
 
     if (this.props.isOverview) {
       // Show one related place for overview page, the preference is
@@ -278,10 +279,11 @@ class ChartBlock extends React.Component<ChartBlockPropType> {
             key={id}
             id={id}
             snapshot={this.props.data.nearby}
-            title={`${relatedChartTitle}: ${intl.formatMessage(
-              chartClauseMsgs.placeTypeNearPlace,
-              { placeType: displayPlaceType, placeName: this.displayPlaceName }
-            )}`}
+            title={intl.formatMessage(chartTitleMsgs.placeTypeNearPlace, {
+              chartTitle: relatedChartTitle,
+              placeType: displayPlaceType,
+              placeName: this.displayPlaceName,
+            })}
             rankingTemplateUrl={`/ranking/_sv_/${this.rankingPlaceType}/${this.parentPlaceDcid}${rankingArg}`}
             {...barChartSharedProps}
           ></Chart>
@@ -295,10 +297,10 @@ class ChartBlock extends React.Component<ChartBlockPropType> {
             key={id}
             id={id}
             snapshot={this.props.data.child}
-            title={`${relatedChartTitle}: ${intl.formatMessage(
-              chartClauseMsgs.placesWithinPlace,
-              { placeName: this.displayDataTitle }
-            )}`}
+            title={intl.formatMessage(chartTitleMsgs.placesWithinPlace, {
+              chartTitle: relatedChartTitle,
+              placeName: this.displayDataTitle,
+            })}
             rankingTemplateUrl={`/ranking/_sv_/${this.props.childPlaceType}/${this.props.dcid}${rankingArg}`}
             {...barChartSharedProps}
           ></Chart>
@@ -312,10 +314,10 @@ class ChartBlock extends React.Component<ChartBlockPropType> {
             key={id}
             id={id}
             snapshot={this.props.data.similar}
-            title={`${relatedChartTitle}: ${intl.formatMessage(
-              chartClauseMsgs.otherPlaceTypes,
-              { placeType: displayPlaceType }
-            )}`}
+            title={intl.formatMessage(chartTitleMsgs.otherPlaceTypes, {
+              chartTitle: relatedChartTitle,
+              placeType: displayPlaceType,
+            })}
             rankingTemplateUrl={`/ranking/_sv_/${this.rankingPlaceType}/${this.parentCountry}${rankingArg}`}
             {...barChartSharedProps}
           ></Chart>
@@ -329,10 +331,10 @@ class ChartBlock extends React.Component<ChartBlockPropType> {
             key={id}
             id={id}
             snapshot={this.props.data.parent}
-            title={`${relatedChartTitle}: ${intl.formatMessage(
-              chartClauseMsgs.placesThatContainPlace,
-              { placeName: this.displayPlaceName }
-            )}`}
+            title={intl.formatMessage(chartTitleMsgs.placesThatContainPlace, {
+              chartTitle: relatedChartTitle,
+              placeName: this.displayPlaceName,
+            })}
             rankingTemplateUrl={`/ranking/_sv_/${this.rankingPlaceType}/${this.parentCountry}${rankingArg}`}
             {...barChartSharedProps}
           ></Chart>
@@ -347,10 +349,11 @@ class ChartBlock extends React.Component<ChartBlockPropType> {
             key={id}
             id={id}
             snapshot={this.props.data.nearby}
-            title={`${relatedChartTitle}: ${intl.formatMessage(
-              chartClauseMsgs.placeTypeNearPlace,
-              { placeType: displayPlaceType, placeName: this.displayPlaceName }
-            )}`}
+            title={intl.formatMessage(chartTitleMsgs.placeTypeNearPlace, {
+              chartTitle: relatedChartTitle,
+              placeType: displayPlaceType,
+              placeName: this.displayPlaceName,
+            })}
             rankingTemplateUrl={`/ranking/_sv_/${this.rankingPlaceType}/${this.parentPlaceDcid}${rankingArg}`}
             {...barChartSharedProps}
           ></Chart>
@@ -363,10 +366,10 @@ class ChartBlock extends React.Component<ChartBlockPropType> {
             key={id}
             id={id}
             snapshot={this.props.data.similar}
-            title={`${relatedChartTitle}: ${intl.formatMessage(
-              chartClauseMsgs.otherPlaceTypes,
-              { placeType: displayPlaceType }
-            )}`}
+            title={intl.formatMessage(chartTitleMsgs.otherPlaceTypes, {
+              chartTitle: relatedChartTitle,
+              placeType: displayPlaceType,
+            })}
             rankingTemplateUrl={`/ranking/_sv_/${this.rankingPlaceType}/${this.parentCountry}${rankingArg}`}
             {...barChartSharedProps}
           ></Chart>
@@ -381,10 +384,10 @@ class ChartBlock extends React.Component<ChartBlockPropType> {
               key={id}
               id={id}
               snapshot={this.props.data.child}
-              title={`${relatedChartTitle}: ${intl.formatMessage(
-                chartClauseMsgs.placesWithinPlace,
-                { placeName: this.displayDataTitle }
-              )}`}
+              title={intl.formatMessage(chartTitleMsgs.placesWithinPlace, {
+                chartTitle: relatedChartTitle,
+                placeName: this.displayDataTitle,
+              })}
               rankingTemplateUrl={`/ranking/_sv_/${this.props.childPlaceType}/${this.props.dcid}${rankingArg}`}
               {...barChartSharedProps}
             ></Chart>
@@ -407,10 +410,10 @@ class ChartBlock extends React.Component<ChartBlockPropType> {
               key={id}
               id={id}
               snapshot={snapshotData}
-              title={`${relatedChartTitle}: ${intl.formatMessage(
-                chartClauseMsgs.placesThatContainPlace,
-                { placeName: this.displayPlaceName }
-              )}`}
+              title={intl.formatMessage(chartTitleMsgs.placesThatContainPlace, {
+                chartTitle: relatedChartTitle,
+                placeName: this.displayPlaceName,
+              })}
               rankingTemplateUrl={`/ranking/_sv_/${this.rankingPlaceType}/${this.parentCountry}${rankingArg}`}
               {...barChartSharedProps}
             ></Chart>
