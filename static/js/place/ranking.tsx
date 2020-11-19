@@ -48,7 +48,7 @@ class Ranking extends React.Component<RankingPropsType, RankingStateType> {
                 <tr>
                   <th scope="col">
                     <FormattedMessage
-                      id="place_page_table:ranking_in"
+                      id="place_page_ranking_table-ranking_in"
                       defaultMessage="Rankings (in) "
                       description="The name of the rankings column of the ranking table in the Place Page."
                     />
@@ -75,10 +75,10 @@ class Ranking extends React.Component<RankingPropsType, RankingStateType> {
                         if (!isNaN(top) && !isNaN(bottom)) {
                           text = intl.formatMessage(
                             {
-                              id: "place_page_table:ranking_value",
+                              id: "place_page_ranking_table-ranking_value",
                               defaultMessage: "{rank} of {total}",
                               description:
-                                "The main content of the ranking table, telling users that the current place's rank among other places of the same type in the same parent place. E.g. USA is 1 of 195 for country GDP.",
+                                'The main content of the ranking table, telling users how the current place ranks among other places of the same type in the same parent place. For ZIP Code 94539, we see that for Largest Population, it is "{8} of {41}" among ZIP Codes in Alameda County.',
                             },
                             {
                               rank: top,
@@ -99,7 +99,7 @@ class Ranking extends React.Component<RankingPropsType, RankingStateType> {
             </table>
             <div className="source">
               <FormattedMessage
-                id="place_page_table:data_from"
+                id="place_page_ranking_table-data_from"
                 defaultMessage="Data from <a1>census.gov</a1>, <a2>fbi.gov</a2> and <a3>bls.gov</a3>"
                 description="The source citation for the ranking table in the Place Page."
                 values={{

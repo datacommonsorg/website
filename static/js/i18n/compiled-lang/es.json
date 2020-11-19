@@ -59,7 +59,7 @@
       "value": "Numero de personas empleadas"
     }
   ],
-  "chart_clause:variable_in_place": [
+  "chart_clause-variable_in_place": [
     {
       "type": 1,
       "value": "variable"
@@ -70,10 +70,10 @@
     },
     {
       "type": 1,
-      "value": "place"
+      "value": "placeName"
     }
   ],
-  "chart_clause:placetype_near_place": [
+  "chart_clause-placetype_near_place": [
     {
       "type": 1,
       "value": "placeType"
@@ -84,30 +84,30 @@
     },
     {
       "type": 1,
-      "value": "place"
+      "value": "placeName"
     }
   ],
-  "chart_clause:places_within_place": [
+  "chart_clause-places_within_place": [
     {
       "type": 0,
       "value": "lugares dentro "
     },
     {
       "type": 1,
-      "value": "place"
+      "value": "placeName"
     }
   ],
-  "chart_clause:places_that_contain_place": [
+  "chart_clause-places_that_contain_place": [
     {
       "type": 0,
       "value": "lugares que contienen "
     },
     {
       "type": 1,
-      "value": "place"
+      "value": "placeName"
     }
   ],
-  "chart_clause:other_placeType": [
+  "chart_clause-other_placeType": [
     {
       "type": 0,
       "value": "otra "
@@ -117,14 +117,14 @@
       "value": "placeType"
     }
   ],
-  "child_places_menu:places_in_place": [
+  "child_places_menu-places_in_place": [
     {
       "type": 0,
       "value": "Lugares en "
     },
     {
       "type": 1,
-      "value": "place"
+      "value": "placeName"
     }
   ],
   "State unemployment insurance claims rate": [
@@ -139,31 +139,31 @@
       "value": "Personas Empleadas"
     }
   ],
-  "chart_metadata:data_from": [
+  "chart_metadata-data_from": [
     {
       "type": 0,
       "value": "Datos de"
     }
   ],
-  "chart_metadata:export": [
+  "chart_metadata-export": [
     {
       "type": 0,
       "value": "Exportar"
     }
   ],
-  "chart_metadata:explore_more": [
+  "chart_metadata-explore_more": [
     {
       "type": 0,
       "value": "Explora más ›"
     }
   ],
-  "chart_metadata:feedback": [
+  "chart_metadata-feedback": [
     {
       "type": 0,
       "value": "Retroalimentación"
     }
   ],
-  "chart_metadata:dotted_line_explanation": [
+  "chart_metadata-dotted_line_explanation": [
     {
       "type": 0,
       "value": "(la línea de puntos indica datos faltantes)"
@@ -176,7 +176,7 @@
     },
     {
       "type": 1,
-      "value": "one_or_more_comma_separated_sources"
+      "value": "oneOrMoreCommaSeparatedSources"
     },
     {
       "type": 0,
@@ -375,13 +375,13 @@
       "value": "Estados Unidos"
     }
   ],
-  "header:overview": [
+  "header-overview": [
     {
       "type": 0,
       "value": "Visión general"
     }
   ],
-  "link:return_to_overview": [
+  "link-return_to_overview": [
     {
       "type": 0,
       "value": "De regreso a la visión general ›"
@@ -455,7 +455,7 @@
       "value": " en "
     }
   ],
-  "alert:no_data_for_place": [
+  "alert-no_data_for_place": [
     {
       "type": 0,
       "value": "Lo sentimos, pero no tenemos datos sobre "
@@ -465,7 +465,7 @@
       "value": "placeName"
     }
   ],
-  "place_page_table:ranking_value": [
+  "place_page_ranking_table-ranking_value": [
     {
       "type": 1,
       "value": "rank"
@@ -479,7 +479,7 @@
       "value": "total"
     }
   ],
-  "place_page_table:data_from": [
+  "place_page_ranking_table-data_from": [
     {
       "type": 0,
       "value": "Datos de "
@@ -523,13 +523,13 @@
       ]
     }
   ],
-  "search_placeholder:search_again": [
+  "search_bar_placeholder-search_again": [
     {
       "type": 0,
       "value": "Busca otro lugar"
     }
   ],
-  "place_page_table:ranking_in": [
+  "place_page_ranking_table-ranking_in": [
     {
       "type": 0,
       "value": "Clasificaciones (en)"

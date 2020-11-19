@@ -88,7 +88,7 @@ class Menu extends React.Component<MenuPropsType> {
               className={`nav-link ${!topic ? "active" : ""}`}
             >
               {intl.formatMessage({
-                id: "header:overview",
+                id: "header-overview",
                 defaultMessage: "Overview",
                 description:
                   "Text for header or subheader of Overview charts on place pages.",

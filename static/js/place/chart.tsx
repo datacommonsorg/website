@@ -179,7 +179,7 @@ class Chart extends React.Component<ChartPropType, ChartStateType> {
           <footer className="row explore-more-container">
             <div>
               <FormattedMessage
-                id="chart_metadata:data_from"
+                id="chart_metadata-data_from"
                 defaultMessage="Data from"
                 description="Used to cite where our data is from, for charts and statistics."
               />{" "}
@@ -202,7 +202,7 @@ class Chart extends React.Component<ChartPropType, ChartStateType> {
               <span className="dotted-warning d-none">
                 {" "}
                 <FormattedMessage
-                  id="chart_metadata:dotted_line_explanation"
+                  id="chart_metadata-dotted_line_explanation"
                   defaultMessage="(dotted line denotes missing data)"
                   description="Text to explain that dotted lines mean there are missing data."
                 />
@@ -211,14 +211,14 @@ class Chart extends React.Component<ChartPropType, ChartStateType> {
             <div className="outlinks">
               <a href="#" onClick={this._handleEmbed}>
                 <FormattedMessage
-                  id="chart_metadata:export"
+                  id="chart_metadata-export"
                   defaultMessage="Export"
                   description="Hyperlink text to export the data shown in charts."
                 />
               </a>
               <a className="explore-more" href={exploreUrl}>
                 <FormattedMessage
-                  id="chart_metadata:explore_more"
+                  id="chart_metadata-explore_more"
                   defaultMessage="Explore More ›"
                   description="Hyperlink text to explore the data in a different page."
                 />
@@ -228,7 +228,7 @@ class Chart extends React.Component<ChartPropType, ChartStateType> {
         </div>
         <a className="feedback" href="/feedback">
           <FormattedMessage
-            id="chart_metadata:feedback"
+            id="chart_metadata-feedback"
             defaultMessage="Feedback"
             description="Text label for hyperlink to give Data Commons feedback on something on our website."
           />

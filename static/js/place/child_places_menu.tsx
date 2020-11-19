@@ -33,12 +33,12 @@ class ChildPlace extends React.Component<ChildPlacePropType> {
         <span id="child-place-head">
           {intl.formatMessage(
             {
-              id: "child_places_menu:places_in_place",
-              defaultMessage: "Places in {place}",
+              id: "child_places_menu-places_in_place",
+              defaultMessage: "Places in {placeName}",
               description:
-                "Used for the child places navigation sidebar. Shows a list of place contained in the current place.",
+                'Used for the child places navigation sidebar. Shows a list of place contained in the current place. For example, the sidebar for the Austria place page shows links to child places under the header "Places in {Austria}".',
             },
-            { place: this.props.placeName }
+            { placeName: this.props.placeName }
           )}
         </span>
         {Object.keys(this.props.childPlaces).map((placeType) => (

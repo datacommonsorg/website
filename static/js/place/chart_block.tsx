@@ -127,28 +127,28 @@ class ChartBlock extends React.Component<ChartBlockPropType> {
     // Declare const of reused messages here.
     const chartClauseMsgs = defineMessages({
       placeTypeNearPlace: {
-        id: "chart_clause:placetype_near_place",
-        defaultMessage: "{placeType} near {place}",
+        id: "chart_clause-placetype_near_place",
+        defaultMessage: "{placeType} near {placeName}",
         description:
-          "Preposition for somewhere closeby. Used for choropleth map chart titles like Unemployment rate: counties near Travis County or Annual rainfall: towns near Taos.",
+          'Preposition for somewhere close by. Used for choropleth map chart titles like "Unemployment rate: {counties} near {Travis County}" or "Annual rainfall: {towns} near {Taos}"',
       },
       placesWithinPlace: {
-        id: "chart_clause:places_within_place",
-        defaultMessage: "places within {place}",
+        id: "chart_clause-places_within_place",
+        defaultMessage: "places within {placeName}",
         description:
-          "Clause for places within some other place. Used for choropleth map chart titles like Unemployment rate: places within Tamil Nadu.",
+          'Clause for places within some other place. Used for choropleth map chart titles like "Unemployment rate: places within {Tamil Nadu}."',
       },
       otherPlaceTypes: {
-        id: "chart_clause:other_placeType",
+        id: "chart_clause-other_placeType",
         defaultMessage: "other {placeType}",
         description:
-          "Used to describe other places. Like Educational Attainment in other countries.",
+          'Used to describe other places. Like "Educational Attainment in other {countries}".',
       },
       placesThatContainPlace: {
-        id: "chart_clause:places_that_contain_place",
-        defaultMessage: "places that contain {place}",
+        id: "chart_clause-places_that_contain_place",
+        defaultMessage: "places that contain {placeName}",
         description:
-          "Clause for places that contain some place. E.g. for Educational Attainment for places that contain Fremont (Alameda County, California, USA all contain Fremont).",
+          'Clause for places that contain some place. E.g. for "Educational Attainment for places that contain {Fremont}" (which would be Alameda County, California, USA, North America).',
       },
     });
 
@@ -168,12 +168,15 @@ class ChartBlock extends React.Component<ChartBlockPropType> {
           trend={this.props.data.trend}
           title={intl.formatMessage(
             {
-              id: "chart_clause:variable_in_place",
-              defaultMessage: "{variable} in {place}",
+              id: "chart_clause-variable_in_place",
+              defaultMessage: "{variable} in {placeName}",
               description:
-                "Used for chart titles like Unemployment rate (variable) in USA (place) or Poverty rate (variable) in California (place).",
+                'Used for chart titles like "{Unemployment rate} in {USA}" or "{Poverty rate} in {California}".',
             },
-            { variable: this.displayDataTitle, place: this.displayPlaceName }
+            {
+              variable: this.displayDataTitle,
+              placeName: this.displayPlaceName,
+            }
           )}
           unit={this.props.data.unit}
           names={this.props.names}
@@ -235,11 +238,11 @@ class ChartBlock extends React.Component<ChartBlockPropType> {
       this.props.placeType === "County"
         ? `${relatedChartTitle}: ${intl.formatMessage(
             chartClauseMsgs.placeTypeNearPlace,
-            { placeType: displayPlaceType, place: this.displayPlaceName }
+            { placeType: displayPlaceType, placeName: this.displayPlaceName }
           )}`
         : `${relatedChartTitle}: ${intl.formatMessage(
             chartClauseMsgs.placesWithinPlace,
-            { place: this.displayDataTitle }
+            { placeName: this.displayDataTitle }
           )}`;
 
     if (this.props.isOverview) {
@@ -277,7 +280,7 @@ class ChartBlock extends React.Component<ChartBlockPropType> {
             snapshot={this.props.data.nearby}
             title={`${relatedChartTitle}: ${intl.formatMessage(
               chartClauseMsgs.placeTypeNearPlace,
-              { placeType: displayPlaceType, place: this.displayPlaceName }
+              { placeType: displayPlaceType, placeName: this.displayPlaceName }
             )}`}
             rankingTemplateUrl={`/ranking/_sv_/${this.rankingPlaceType}/${this.parentPlaceDcid}${rankingArg}`}
             {...barChartSharedProps}
@@ -294,7 +297,7 @@ class ChartBlock extends React.Component<ChartBlockPropType> {
             snapshot={this.props.data.child}
             title={`${relatedChartTitle}: ${intl.formatMessage(
               chartClauseMsgs.placesWithinPlace,
-              { place: this.displayDataTitle }
+              { placeName: this.displayDataTitle }
             )}`}
             rankingTemplateUrl={`/ranking/_sv_/${this.props.childPlaceType}/${this.props.dcid}${rankingArg}`}
             {...barChartSharedProps}
@@ -328,7 +331,7 @@ class ChartBlock extends React.Component<ChartBlockPropType> {
             snapshot={this.props.data.parent}
             title={`${relatedChartTitle}: ${intl.formatMessage(
               chartClauseMsgs.placesThatContainPlace,
-              { place: this.displayPlaceName }
+              { placeName: this.displayPlaceName }
             )}`}
             rankingTemplateUrl={`/ranking/_sv_/${this.rankingPlaceType}/${this.parentCountry}${rankingArg}`}
             {...barChartSharedProps}
@@ -346,7 +349,7 @@ class ChartBlock extends React.Component<ChartBlockPropType> {
             snapshot={this.props.data.nearby}
             title={`${relatedChartTitle}: ${intl.formatMessage(
               chartClauseMsgs.placeTypeNearPlace,
-              { placeType: displayPlaceType, place: this.displayPlaceName }
+              { placeType: displayPlaceType, placeName: this.displayPlaceName }
             )}`}
             rankingTemplateUrl={`/ranking/_sv_/${this.rankingPlaceType}/${this.parentPlaceDcid}${rankingArg}`}
             {...barChartSharedProps}
@@ -380,7 +383,7 @@ class ChartBlock extends React.Component<ChartBlockPropType> {
               snapshot={this.props.data.child}
               title={`${relatedChartTitle}: ${intl.formatMessage(
                 chartClauseMsgs.placesWithinPlace,
-                { place: this.displayDataTitle }
+                { placeName: this.displayDataTitle }
               )}`}
               rankingTemplateUrl={`/ranking/_sv_/${this.props.childPlaceType}/${this.props.dcid}${rankingArg}`}
               {...barChartSharedProps}
@@ -406,7 +409,7 @@ class ChartBlock extends React.Component<ChartBlockPropType> {
               snapshot={snapshotData}
               title={`${relatedChartTitle}: ${intl.formatMessage(
                 chartClauseMsgs.placesThatContainPlace,
-                { place: this.displayPlaceName }
+                { placeName: this.displayPlaceName }
               )}`}
               rankingTemplateUrl={`/ranking/_sv_/${this.rankingPlaceType}/${this.parentCountry}${rankingArg}`}
               {...barChartSharedProps}

@@ -170,11 +170,11 @@ class ChartEmbed extends React.Component<unknown, ChartEmbedStateType> {
           {
             id: "sources_via_datacommons",
             defaultMessage:
-              "Data from {one_or_more_comma_separated_sources} via Data Commons",
+              "Data from {oneOrMoreCommaSeparatedSources} via Data Commons",
             description:
-              "For the export data and export chart widget, we want to say the data is from some source(s), but it is retrieved via Data Commons. For example, Data from nytimes.com via Data Commons or Data from census.gov, nytimes.com via Data Commons.",
+              'For the export data and export chart widget, we want to say the data is from some source(s), but it is retrieved via Data Commons. For example, "Data from {nytimes.com} via Data Commons" or "Data from {census.gov, nytimes.com} via Data Commons".',
           },
-          { one_or_more_comma_separated_sources: this.state.sources.join(", ") }
+          { oneOrMoreCommaSeparatedSources: this.state.sources.join(", ") }
         )
       );
 

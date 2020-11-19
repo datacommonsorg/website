@@ -34,7 +34,7 @@ export function isPlaceInUsa(dcid: string, parentPlaces: string[]): boolean {
 
 /**
  * Returns place type, possibly pluralized if requested.
- * TODO(datcom): i18n pluralization cases
+ * TODO(datcom): i18n pluralization cases--maybe possible to reduce this code.
  *
  * @param {string} placeType PlaceType, as taken from the Data Commons Graph (in CamelCase).
  * @param {boolean} isPlural True if the result should be pluralized.
@@ -60,22 +60,22 @@ export function displayNameForPlaceType(
           id: "singular_place",
           defaultMessage: "Place",
           description:
-            "A general type of place. It is used in plaec pages as a top-level description of places with uncommon place types such as Eurostat NUTS or AdministrativeArea 1-5. For example, we may say Moscow Oblast is A Place in Russia, Asia. Or, Lincoln Center is a Place in New York City.",
+            "A general type of place. It is used in place pages as a top-level description of places with uncommon place types such as Eurostat NUTS or AdministrativeArea 1-5. For example, we may say Moscow Oblast is A Place in Russia, Asia. Or, Lincoln Center is a Place in New York City.",
         });
   }
   if (placeType === "CensusZipCodeTabulationArea") {
     return isPlural
       ? intl.formatMessage({
           id: "plural_zip_codes",
-          defaultMessage: "Zip Codes",
+          defaultMessage: "ZIP Codes",
           description:
-            "A collection of Zip Codes. It is used in several places when we don't have a specific place type. First use case example: for Russia, we simply have a heading Zip Codes in Fremont on the sidebar with links to many zip code areas contained in Fremont. Second use case example: for comparison charts, such as Median Age: Zip Codes near 94539. Or Median Age: Other Zip Codes. Third use case example: for the ranking pages, we may say Rankings of Number of Employed People for Zip Codes in Santa Clara County.",
+            'A collection of ZIP Codes. It is used in several parts of our website to display "ZIP Codes" instead of "Census Zip Code Tabulation Area", which is the actual text stored in the Data Commons graph. First use case example: for Fremont, we simply have a heading "ZIP Codes in Fremont" on the sidebar with links to many zip code areas contained in Fremont. Second use case example: for comparison charts, such as "Median Age: ZIP Codes near 94539". Or "Median Age: Other ZIP Codes". Third use case example: for the ranking pages, we may say "Rankings of Number of Employed People for ZIP Codes in Santa Clara County".',
         })
       : intl.formatMessage({
           id: "singular_zip_code",
-          defaultMessage: "Zip Code",
+          defaultMessage: "ZIP Code",
           description:
-            "A Zip Code. Used in place pages as a top-level description of zip codes. For example, we say that 94539 is A Zip Code in Alameda County, California, United States of America, North America.",
+            'A ZIP Code area. Used in place pages as a top-level description of a ZIP Code. For example, we say that 94539 is "A ZIP Code in Alameda County, California, United States of America, North America".',
         });
   }
   // TODO(datcom): translate before or after pluralize?

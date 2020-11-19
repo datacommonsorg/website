@@ -35,7 +35,7 @@ class PageSubtitle extends React.Component<PageSubtitlePropsType> {
       elem = (
         <h2 className="col-12 pt-2" id="overview">
           {intl.formatMessage({
-            id: "header:overview",
+            id: "header-overview",
             defaultMessage: "Overview",
             description:
               "Text for header or subheader of Overview charts on place pages.",
@@ -50,7 +50,7 @@ class PageSubtitle extends React.Component<PageSubtitlePropsType> {
           <span className="more">
             <a href={"/place/" + dcid}>
               {intl.formatMessage({
-                id: "link:return_to_overview",
+                id: "link-return_to_overview",
                 defaultMessage: "Back to overview ›",
                 description:
                   "Text for the link present in subtopic place pages directing the user back to the Overview page.",
