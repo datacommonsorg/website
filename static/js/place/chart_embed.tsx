@@ -169,8 +169,7 @@ class ChartEmbed extends React.Component<unknown, ChartEmbedStateType> {
         intl.formatMessage(
           {
             id: "embed_citation",
-            defaultMessage:
-              "Data from {sources} via Data Commons",
+            defaultMessage: "Data from {sources} via Data Commons",
             description:
               'Used to cite where the data is from, but that it was provided through Data Commons. For example, "Data from {nytimes.com} via Data Commons" or "Data from {census.gov, nytimes.com} via Data Commons". Please keep the name "Data Commons".',
           },
