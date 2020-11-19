@@ -17,6 +17,7 @@
 import React from "react";
 import { PageHighlight } from "../chart/types";
 import _ from "lodash";
+import { translateVariableString } from "../i18n/i18n";
 
 interface PlaceHighlightPropsType {
   dcid: string;
@@ -31,6 +32,9 @@ class PlaceHighlight extends React.Component<PlaceHighlightPropsType> {
     super(props);
   }
 
+  // TODO(datcom): make sure toLocaleString and toLocaleDate are enough for the
+  // numeric value and date.
+  // TODO(datcom): make sure we provide TC with the highlight keys (e.g. "Population")
   render(): JSX.Element {
     const facts = Object.keys(this.props.highlight).map((factTitle: string) => {
       const factSnapshot = this.props.highlight[factTitle];
@@ -45,7 +49,7 @@ class PlaceHighlight extends React.Component<PlaceHighlightPropsType> {
       const factValue = factData[factStatVar];
       return (
         <h4 key={factStatVar}>
-          {factTitle}: {factValue.toLocaleString()} (
+          {translateVariableString(factTitle)}: {factValue.toLocaleString()} (
           {factSnapshot.date.toLocaleString()}){" "}
           <span>{factSnapshot.sources.join(", ")}</span>
         </h4>

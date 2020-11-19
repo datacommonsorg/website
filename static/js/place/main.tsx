@@ -14,6 +14,8 @@
  * limitations under the License.
  */
 import React from "react";
+import { RawIntlProvider } from "react-intl";
+import { intl, translateVariableString } from "../i18n/i18n";
 import { ChartBlock } from "./chart_block";
 import { Overview } from "./overview";
 import {
@@ -75,13 +77,12 @@ class MainPane extends React.Component<MainPanePropType> {
   constructor(props: MainPanePropType) {
     super(props);
   }
-
   render(): JSX.Element {
     const topicData = this.props.pageChart[this.props.topic];
     const currentPageTopic = this.props.topic;
     const isOverview = currentPageTopic === "Overview";
     return (
-      <>
+      <RawIntlProvider value={intl}>
         {this.props.isUsaPlace &&
           this.props.placeType != "Country" &&
           isOverview && (
@@ -93,16 +94,25 @@ class MainPane extends React.Component<MainPanePropType> {
           if (isOverview && Object.keys(this.props.pageChart).length > 1) {
             subtopicHeader = (
               <h3 id={topic}>
-                <a href={`/place/${this.props.dcid}?topic=${topic}`}>{topic}</a>
+                <a href={`/place/${this.props.dcid}?topic=${topic}`}>
+                  {translateVariableString(topic)}
+                </a>
                 <span className="more">
                   <a href={`/place/${this.props.dcid}?topic=${topic}`}>
-                    More charts ›
+                    {intl.formatMessage({
+                      id: "more_charts",
+                      defaultMessage: "More charts ›",
+                      description:
+                        "Link to explore more charts about a particular domain, such as Education or Health.",
+                    })}
                   </a>
                 </span>
               </h3>
             );
           } else {
-            subtopicHeader = <h3 id={topic}>{topic}</h3>;
+            subtopicHeader = (
+              <h3 id={topic}>{translateVariableString(topic)}</h3>
+            );
           }
           return (
             <section className="subtopic col-12" key={topic}>
@@ -131,7 +141,7 @@ class MainPane extends React.Component<MainPanePropType> {
             </section>
           );
         })}
-      </>
+      </RawIntlProvider>
     );
   }
 }

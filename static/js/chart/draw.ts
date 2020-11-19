@@ -26,7 +26,7 @@ import {
   formatYAxisTicks,
 } from "./base";
 
-import i18n from "../i18next";
+import { translateVariableString } from "../i18n/i18n";
 
 const NUM_X_TICKS = 5;
 const NUM_Y_TICKS = 5;
@@ -59,12 +59,6 @@ const AXIS_GRID_FILL = "#999";
 // Max Y value used for y domains for charts that have only 0 values.
 const MAX_Y_FOR_ZERO_CHARTS = 10;
 
-// Lightweight wrapper function since the arrow function in appendLegendElem
-// complains about mapping the keys elements to i18n.t().
-function translated(text: string): string {
-  return i18n.t(text);
-}
-
 function appendLegendElem(
   elem: string,
   color: d3.ScaleOrdinal<string, string>,
@@ -81,7 +75,7 @@ function appendLegendElem(
     .join("div")
     .attr("style", (d) => `background: ${color(d.label)}`)
     .append("a")
-    .text((d) => translated(d.label))
+    .text((d) => translateVariableString(d.label))
     .attr("href", (d) => d.link || null);
 }
 
@@ -103,7 +97,7 @@ function wrap(
 ) {
   texts.each(function () {
     const text = d3.select(this);
-    const words = translated(text.text())
+    const words = translateVariableString(text.text())
       .replace("-", "-#") // Handle e.g. "ABC-AB A" -> "ABC-", "AB" "A"
       .split(/[ #]/)
       .filter((w) => w.trim() != "")
@@ -305,7 +299,9 @@ function drawHistogram(
   dataPoints: DataPoint[],
   unit?: string
 ): void {
-  const textList = dataPoints.map((dataPoint) => translated(dataPoint.label));
+  const textList = dataPoints.map((dataPoint) =>
+    translateVariableString(dataPoint.label)
+  );
   const values = dataPoints.map((dataPoint) => dataPoint.value);
 
   const svg = d3
@@ -846,7 +842,7 @@ function drawGroupLineChart(
     .attr("transform", `translate(${MARGIN.grid}, ${YLABEL.topMargin})`)
     .style("font-size", "12px")
     .style("text-rendering", "optimizedLegibility")
-    .text(translated(ylabel));
+    .text(translateVariableString(ylabel));
 
   for (const place in dataGroupsDict) {
     dataGroups = dataGroupsDict[place];
@@ -887,7 +883,7 @@ function drawGroupLineChart(
       .style("font-size", "12px")
       .style("text-anchor", "start")
       .style("text-rendering", "optimizedLegibility")
-      .text(translated(sourceText));
+      .text(translateVariableString(sourceText));
   }
 
   const legend = svg
@@ -939,7 +935,7 @@ function buildInChartLegend(
       .attr("transform", `translate(${dashWidth}, 0)`)
       .attr("y", "0.3em")
       .attr("dy", "0")
-      .text(translated(label))
+      .text(translateVariableString(label))
       .style("text-rendering", "optimizedLegibility")
       .style("fill", `${legendStyle.color}`)
       .call(wrap, legendTextdWidth);

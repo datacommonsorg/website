@@ -16,6 +16,7 @@
 
 import React from "react";
 import { PageChart } from "../chart/types";
+import { intl, translateVariableString } from "../i18n/i18n";
 
 interface MenuCategoryPropsType {
   dcid: string;
@@ -41,7 +42,7 @@ class MenuCategory extends React.Component<MenuCategoryPropsType> {
           href={hrefString}
           className={`nav-link ${selectCategory === category ? "active" : ""}`}
         >
-          {category}
+          {translateVariableString(category)}
         </a>
         <ul
           className={
@@ -54,7 +55,7 @@ class MenuCategory extends React.Component<MenuCategoryPropsType> {
               return (
                 <li className="nav-item" key={topic}>
                   <a href={`${hrefString}#${topic}`} className="nav-link">
-                    {topic}
+                    {translateVariableString(topic)}
                   </a>
                 </li>
               );
@@ -86,7 +87,12 @@ class Menu extends React.Component<MenuPropsType> {
               href={`/place/${dcid}`}
               className={`nav-link ${!topic ? "active" : ""}`}
             >
-              Overview
+              {intl.formatMessage({
+                id: "header-overview",
+                defaultMessage: "Overview",
+                description:
+                  "Text for header or subheader of Overview charts on place pages.",
+              })}
             </a>
           </li>
         )}

@@ -15,6 +15,7 @@
  */
 
 import React from "react";
+import { intl, translateVariableString } from "../i18n/i18n";
 
 interface PageSubtitlePropsType {
   category: string;
@@ -33,15 +34,28 @@ class PageSubtitle extends React.Component<PageSubtitlePropsType> {
     if (category == "Overview") {
       elem = (
         <h2 className="col-12 pt-2" id="overview">
-          Overview
+          {intl.formatMessage({
+            id: "header-overview",
+            defaultMessage: "Overview",
+            description:
+              "Text for header or subheader of Overview charts on place pages.",
+          })}
         </h2>
       );
     } else {
+      // TODO(datcom): confirm that we scrape the categories from chart config for translation.
       elem = (
         <h2 className="col-12 pt-2">
-          {category}
+          {translateVariableString(category)}
           <span className="more">
-            <a href={"/place/" + dcid}>Back to overview ›</a>
+            <a href={"/place/" + dcid}>
+              {intl.formatMessage({
+                id: "link-return_to_overview",
+                defaultMessage: "Back to overview ›",
+                description:
+                  "Text for the link present in subtopic place pages directing the user back to the Overview page.",
+              })}
+            </a>
           </span>
         </h2>
       );
