@@ -259,7 +259,7 @@ $chart-border: 0.5px solid #dee2e6;
 #sidebar-region.fixed {
   position: fixed;
   height: 100vh;
-  overflow-y: scroll;
+  overflow-y: auto;
   top: 0;
 }
 
