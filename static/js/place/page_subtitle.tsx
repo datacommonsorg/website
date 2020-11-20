@@ -53,7 +53,7 @@ class PageSubtitle extends React.Component<PageSubtitlePropsType> {
                 id: "link-return_to_overview",
                 defaultMessage: "Back to overview ›",
                 description:
-                  "Text for the link present in subtopic place pages directing the user back to the Overview page.",
+                  "Text for the link present in subtopic place pages directing the user back to the Overview page. Please keep the '›' symbol.",
               })}
             </a>
           </span>

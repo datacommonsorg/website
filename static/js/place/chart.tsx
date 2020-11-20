@@ -164,6 +164,22 @@ class Chart extends React.Component<ChartPropType, ChartStateType> {
       console.log(`Skipping ${this.props.title} - missing sources`);
       return null;
     }
+    const sourcesJsx = sources.map((source, index) => {
+      // TDOO(shifucun): Use provenance name and url from cache data
+      // https://github.com/datacommonsorg/website/issues/429
+      let sourceUrl = source;
+      if (source === "worldbank.org") {
+        sourceUrl = "www.worldbank.org";
+      } else if (source === "europa.eu") {
+        sourceUrl = "ec.europa.eu/eurostat";
+      }
+      return (
+        <span key={source}>
+          <a href={"https://" + sourceUrl}>{source}</a>
+          {index < sources.length - 1 ? ", " : ""}
+        </span>
+      );
+    });
     return (
       <div className="col">
         <div className="chart-container" ref={this.chartElement}>
@@ -179,32 +195,17 @@ class Chart extends React.Component<ChartPropType, ChartStateType> {
           <footer className="row explore-more-container">
             <div>
               <FormattedMessage
-                id="chart_metadata-data_from"
-                defaultMessage="Data from"
-                description="Used to cite where our data is from, for charts and statistics."
-              />{" "}
-              {sources.map((source, index) => {
-                // TDOO(shifucun): Use provenance name and url from cache data
-                // https://github.com/datacommonsorg/website/issues/429
-                let sourceUrl = source;
-                if (source === "worldbank.org") {
-                  sourceUrl = "www.worldbank.org";
-                } else if (source === "europa.eu") {
-                  sourceUrl = "ec.europa.eu/eurostat";
-                }
-                return (
-                  <span key={source}>
-                    <a href={"https://" + sourceUrl}>{source}</a>
-                    {index < sources.length - 1 ? ", " : ""}
-                  </span>
-                );
-              })}
+                id="chart_metadata-provenance"
+                defaultMessage="Data from {sources}"
+                description="Used to cite where our data is from, but that it was provided through Data Commons. e.g., 'Data from {nytimes.com} via Data Commons' or 'Data from {census.gov, nytimes.com}'"
+                values={{ sources: sourcesJsx }}
+              />
               <span className="dotted-warning d-none">
                 {" "}
                 <FormattedMessage
                   id="chart_metadata-dotted_line_explanation"
                   defaultMessage="(dotted line denotes missing data)"
-                  description="Text to explain that dotted lines mean there are missing data."
+                  description="Text to explain that dotted lines mean there are missing data. Please keep the parenthesis."
                 />
               </span>
             </div>
@@ -220,7 +221,7 @@ class Chart extends React.Component<ChartPropType, ChartStateType> {
                 <FormattedMessage
                   id="chart_metadata-explore_more"
                   defaultMessage="Explore More ›"
-                  description="Hyperlink text to explore the data in a different page."
+                  description="Hyperlink text to explore the data in a different page. Please keep the '›' symbol."
                 />
               </a>
             </div>

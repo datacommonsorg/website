@@ -4,36 +4,32 @@
     "description": "Text for an alert that we show when user tries to navigate to a place with no data. For example, \"Sorry, but we don't have any data about {Hong Kong Island, Hong Kong}\"."
   },
   "chart_clause-other_placeType": {
-    "defaultMessage": "other {placeType}",
+    "defaultMessage": "{chartTitle}: other {placeType}",
     "description": "Used to describe other places. Like \"Educational Attainment in other {countries}\"."
   },
   "chart_clause-places_that_contain_place": {
-    "defaultMessage": "places that contain {placeName}",
+    "defaultMessage": "{chartTitle}: places that contain {placeName}",
     "description": "Clause for places that contain some place. E.g. for \"Educational Attainment for places that contain {Fremont}\" (which would be Alameda County, California, USA, North America)."
   },
   "chart_clause-places_within_place": {
-    "defaultMessage": "places within {placeName}",
+    "defaultMessage": "{chartTitle}: places within {placeName}",
     "description": "Clause for places within some other place. Used for choropleth map chart titles like \"Unemployment rate: places within {Tamil Nadu}.\""
   },
   "chart_clause-placetype_near_place": {
-    "defaultMessage": "{placeType} near {placeName}",
+    "defaultMessage": "{chartTitle}: {placeType} near {placeName}",
     "description": "Preposition for somewhere close by. Used for choropleth map chart titles like \"Unemployment rate: {counties} near {Travis County}\" or \"Annual rainfall: {towns} near {Taos}\""
   },
   "chart_clause-variable_in_place": {
     "defaultMessage": "{variable} in {placeName}",
     "description": "Used for chart titles like \"{Unemployment rate} in {USA}\" or \"{Poverty rate} in {California}\"."
   },
-  "chart_metadata-data_from": {
-    "defaultMessage": "Data from",
-    "description": "Used to cite where our data is from, for charts and statistics."
-  },
   "chart_metadata-dotted_line_explanation": {
     "defaultMessage": "(dotted line denotes missing data)",
-    "description": "Text to explain that dotted lines mean there are missing data."
+    "description": "Text to explain that dotted lines mean there are missing data. Please keep the parenthesis."
   },
   "chart_metadata-explore_more": {
     "defaultMessage": "Explore More ›",
-    "description": "Hyperlink text to explore the data in a different page."
+    "description": "Hyperlink text to explore the data in a different page. Please keep the '›' symbol."
   },
   "chart_metadata-export": {
     "defaultMessage": "Export",
@@ -43,19 +39,27 @@
     "defaultMessage": "Feedback",
     "description": "Text label for hyperlink to give Data Commons feedback on something on our website."
   },
+  "chart_metadata-provenance": {
+    "defaultMessage": "Data from {sources}",
+    "description": "Used to cite where our data is from, but that it was provided through Data Commons. e.g., 'Data from {nytimes.com} via Data Commons' or 'Data from {census.gov, nytimes.com}'"
+  },
   "child_places_menu-places_in_place": {
     "defaultMessage": "Places in {placeName}",
     "description": "Used for the child places navigation sidebar. Shows a list of place contained in the current place. For example, the sidebar for the Austria place page shows links to child places under the header \"Places in {Austria}\"."
   },
-  "download_chart_link": {
+  "embed_citation": {
+    "defaultMessage": "Data from {sources} via Data Commons",
+    "description": "Used to cite where the data is from, but that it was provided through Data Commons. For example, \"Data from {nytimes.com} via Data Commons\" or \"Data from {census.gov, nytimes.com} via Data Commons\". Please keep the name \"Data Commons\"."
+  },
+  "embed_download_chart_link": {
     "defaultMessage": "Download Chart Image",
     "description": "Text for the hyperlink text that will download the chart image."
   },
-  "download_csv_link": {
+  "embed_download_csv_link": {
     "defaultMessage": "Download Data as CSV",
     "description": "Text for the hyperlink text that will download the data as a CSV."
   },
-  "export_chart_link": {
+  "embed_export_chart_link": {
     "defaultMessage": "Export this chart",
     "description": "Text for the hyperlink text that will let users export data and export charts."
   },
@@ -65,19 +69,15 @@
   },
   "link-return_to_overview": {
     "defaultMessage": "Back to overview ›",
-    "description": "Text for the link present in subtopic place pages directing the user back to the Overview page."
+    "description": "Text for the link present in subtopic place pages directing the user back to the Overview page. Please keep the '›' symbol."
   },
   "more_charts": {
     "defaultMessage": "More charts ›",
     "description": "Link to explore more charts about a particular domain, such as Education or Health."
   },
   "place_breadcrumb": {
-    "defaultMessage": "A {placeType} in",
-    "description": "Gives context for where this place is located. E.g. on the Tokyo place page, we say \"A {city} in Japan, Asia\"."
-  },
-  "place_page_ranking_table-data_from": {
-    "defaultMessage": "Data from <a1>census.gov</a1>, <a2>fbi.gov</a2> and <a3>bls.gov</a3>",
-    "description": "The source citation for the ranking table in the Place Page."
+    "defaultMessage": "A {placeType} in {placeName}",
+    "description": "Gives context for where this place is located. E.g. on the Tokyo place page, we say \"A {city} in {Japan, Asia}\"."
   },
   "place_page_ranking_table-ranking_in": {
     "defaultMessage": "Rankings (in)",
@@ -89,11 +89,11 @@
   },
   "plural_places": {
     "defaultMessage": "Places",
-    "description": "General collection of places. It is used in several places when we don't have a specific place type. First use case example: for Russia, we simply have a heading Places in Russia on the sidebar with links to many places contained in Russia. Second use case example: for comparison charts, such as Median Age: Places near Sai Kung. Or Median Age: Other Places. Third use case example: for the ranking pages, we may say that the page ranks the life expectancy for All Places in Russia."
+    "description": "General collection of places. It is used when we don\"t have a specific place type. Some examples: \"_Places_ in Russia\" as a header for a section with links to many places contained in Russia, as chart titles, such as \"Median Age: _Places_ near Paris\" or \"Median Age: Other _Places_\", or \"Ranking for All _Places_ in Russia\"."
   },
   "plural_zip_codes": {
-    "defaultMessage": "ZIP Codes",
-    "description": "A collection of ZIP Codes. It is used in several parts of our website to display \"ZIP Codes\" instead of \"Census Zip Code Tabulation Area\", which is the actual text stored in the Data Commons graph. First use case example: for Fremont, we simply have a heading \"ZIP Codes in Fremont\" on the sidebar with links to many zip code areas contained in Fremont. Second use case example: for comparison charts, such as \"Median Age: ZIP Codes near 94539\". Or \"Median Age: Other ZIP Codes\". Third use case example: for the ranking pages, we may say \"Rankings of Number of Employed People for ZIP Codes in Santa Clara County\"."
+    "defaultMessage": "Zip Codes",
+    "description": "A collection of ZIP Codes. Some examples: \"_ZIP Codes_ in Fremont\" or \"Median Age: _ZIP Codes_ near 94539\", \"Median Age: Other _ZIP Codes_\" or \"Rankings of Number of Employed People for _ZIP Codes_ in Santa Clara County\"."
   },
   "search_bar_placeholder-search_again": {
     "defaultMessage": "Search for another place",
@@ -101,15 +101,11 @@
   },
   "singular_place": {
     "defaultMessage": "Place",
-    "description": "A general type of place. It is used in place pages as a top-level description of places with uncommon place types such as Eurostat NUTS or AdministrativeArea 1-5. For example, we may say Moscow Oblast is A Place in Russia, Asia. Or, Lincoln Center is a Place in New York City."
+    "description": "A general type of place. It is used as a top-level description of places with uncommon place types such as Eurostat NUTS or AdministrativeArea 1-5. For example, we may say \"Moscow Oblast is A _Place_ in Russia\" or \"Lincoln Center is a _Place_ in New York City\"."
   },
   "singular_zip_code": {
     "defaultMessage": "ZIP Code",
-    "description": "A ZIP Code area. Used in place pages as a top-level description of a ZIP Code. For example, we say that 94539 is \"A ZIP Code in Alameda County, California, United States of America, North America\"."
-  },
-  "sources_via_datacommons": {
-    "defaultMessage": "Data from {oneOrMoreCommaSeparatedSources} via Data Commons",
-    "description": "For the export data and export chart widget, we want to say the data is from some source(s), but it is retrieved via Data Commons. For example, \"Data from {nytimes.com} via Data Commons\" or \"Data from {census.gov, nytimes.com} via Data Commons\"."
+    "description": "A ZIP Code area. Some examples, we say that 94539 is \"A _ZIP Code_ in Alameda County, California, United States of America, North America\"."
   },
   "the_world": {
     "defaultMessage": "the World",
