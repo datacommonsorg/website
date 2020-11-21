@@ -254,6 +254,7 @@ $chart-border: 0.5px solid #dee2e6;
 #sidebar-region {
   padding-top: 15px;
   position: relative;
+  transition: transform 300ms linear;
 }
 
 #sidebar-region.fixed {
