@@ -232,9 +232,9 @@ function plot(points: Array<Point>, x: Axis, y: Axis): void {
 
   const margin = {
     top: 50,
-    right: 10,
+    right: 30,
     bottom: 60,
-    left: 50,
+    left: 90,
   };
   const svgWidth = 1200;
   const svgHeight = 550;
@@ -246,7 +246,7 @@ function plot(points: Array<Point>, x: Axis, y: Axis): void {
     .append("svg")
     .attr("id", "scatterplot")
     .attr("width", "100%")
-    .attr("height", svgHeight)
+    .attr("height", "100%")
     .attr("viewBox", `0 0 ${svgWidth} ${svgHeight}`)
     .attr("preserveAspectRatio", "xMidYMid meet")
     .append("g")
@@ -289,7 +289,7 @@ function plot(points: Array<Point>, x: Axis, y: Axis): void {
     .attr("text-anchor", "middle")
     .attr(
       "transform",
-      `rotate(-90) translate(${-height / 2},${-(margin.left + 5)})`
+      `rotate(-90) translate(${-height / 2},${-(margin.left / 2 + 5)})`
     )
     .text(yLabel);
 
