@@ -315,7 +315,7 @@ function plot(
     left: 90,
   };
   const svgWidth = 1200;
-  const svgHeight = 550;
+  const svgHeight = 430;
   const width = svgWidth - margin.left - margin.right;
   const height = svgHeight - margin.top - margin.bottom;
 
@@ -355,7 +355,7 @@ function plot(
   g.append("text")
     .attr("transform", `translate(${width / 2},${-margin.top / 2})`)
     .attr("text-anchor", "middle")
-    .style("font-size", "1.2em")
+    .style("font-size", "1.1em")
     .text(`${yLabel} vs ${xLabel}`);
 
   const dots = g
