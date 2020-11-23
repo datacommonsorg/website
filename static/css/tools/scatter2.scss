@@ -87,19 +87,3 @@
 #statvar-modal .row {
   margin-left: 0;
 }
-
-#spinner-modal-body {
-  display: flex;
-  justify-content: center;
-}
-
-#spinner {
-  position: relative !important;
-  width: 8rem;
-  height: 8rem;
-  align-self: center;
-}
-
-#spinner::after {
-  content: unset;
-}
