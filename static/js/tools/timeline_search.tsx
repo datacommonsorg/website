@@ -119,7 +119,7 @@ class SearchBar extends Component<SearchBarPropType> {
         this.props.addPlace(resp.data);
       })
       .catch(() => {
-        alert("Sorry, but we don't have any data about " + name);
+        alert("Sorry, but we don't have any data about " + place.name);
       });
   }
 
