@@ -15,7 +15,7 @@ class Config:
 
 
 class ProductionConfig(Config):
-    PROJECT = 'datcom-browser-prod'
+    PROJECT = 'factcheck-sandbox'
     API_PROJECT = 'datcom-mixer'
     API_ROOT = 'https://api.datacommons.org'
     GCS_BUCKET = 'datcom-browser-prod.appspot.com'

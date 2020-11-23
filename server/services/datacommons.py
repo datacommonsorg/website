@@ -39,22 +39,24 @@ else:
 API_ROOT = cfg.API_ROOT
 API_PROJECT = cfg.API_PROJECT
 
-if (os.environ.get('FLASK_ENV') == 'test' or
-        os.environ.get('FLASK_ENV') == 'webdriver'):
-    DC_API_KEY = 'api-key'
-else:
-    # Read the api key from Google Cloud Secret Manager
-    secret_client = secretmanager.SecretManagerServiceClient()
-    secret_name = secret_client.secret_version_path(API_PROJECT,
-                                                    'mixer-api-key', '1')
-    secret_response = secret_client.access_secret_version(secret_name)
-    DC_API_KEY = secret_response.payload.data.decode('UTF-8')
+DC_API_KEY = 'api-key'
+# if (os.environ.get('FLASK_ENV') == 'test' or
+#         os.environ.get('FLASK_ENV') == 'webdriver'):
+#     DC_API_KEY = 'api-key'
+# else:
+#     # Read the api key from Google Cloud Secret Manager
+#     secret_client = secretmanager.SecretManagerServiceClient()
+#     secret_name = secret_client.secret_version_path(API_PROJECT,
+#                                                     'mixer-api-key', '1')
+#     secret_response = secret_client.access_secret_version(secret_name)
+#     DC_API_KEY = secret_response.payload.data.decode('UTF-8')
 
 # --------------------------------- CONSTANTS ---------------------------------
 
 # REST API endpoint paths
 API_ENDPOINTS = {
     'query': '/query',
+    'translate': '/translate',
     'search': '/search',
     'get_property_labels': '/node/property-labels',
     'get_property_values': '/node/property-values',
@@ -91,6 +93,12 @@ def search(query_text, max_results):
             'Printing response\n{}'.format(response.status_code,
                                            response.reason))
     return response.json()
+
+
+def translate(sparql, mapping):
+    url = API_ROOT + API_ENDPOINTS['translate']
+    req_json = {'schema_mapping': mapping, 'sparql': sparql}
+    return send_request(url, req_json=req_json, has_payload=False)
 
 
 def get_stats(place_dcids, stats_var):

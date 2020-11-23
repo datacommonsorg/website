@@ -15,25 +15,74 @@
 package main
 
 import (
-	"fmt"
 	"log"
 	"net/http"
 	"os"
+
+	"github.com/gin-contrib/multitemplate"
+	"github.com/gin-gonic/gin"
 )
 
-func main() {
-	http.HandleFunc("/go/", handle)
-	port := os.Getenv("PORT")
-	if port == "" {
-		port = "8080"
-	}
-	log.Printf("Listening on port %s", port)
-	if err := http.ListenAndServe(":"+port, nil); err != nil {
-		log.Fatal(err)
-	}
+type templateArgs struct {
+	MainID           string
+	Title            string
+	SubPageTitle     string
+	GA               string
+	IsHideFullFooter bool
+	HideSearch       bool
 }
 
-func handle(w http.ResponseWriter, r *http.Request) {
-	log.Println(r.URL.Path)
-	fmt.Fprint(w, "Hello Data Commons!")
+var urlMap = URLMap{
+	Home:       "/",
+	Place:      "/place",
+	Browser:    "/browser",
+	Timeline:   "/tools/timeline",
+	About:      "/about",
+	Dataset:    "/dataset",
+	Faq:        "/faq",
+	Feedback:   "/feedback",
+	Search:     "/search",
+	Disclaimer: "/disclaimer",
+}
+
+func main() {
+	port := os.Getenv("PORT")
+	if port == "" {
+		port = ":7070"
+	} else {
+		port = ":" + port
+	}
+	log.Printf("Listening on port %s", port)
+
+	r := gin.Default()
+
+	r.Static("/static", "./dist")
+
+	// Load template HTML files.
+	r.LoadHTMLGlob("template/*/*")
+
+	tmpl := multitemplate.New()
+	tmpl.AddFromFiles("dev", "template/base.gohtml", "template/dev/dev.gohtml")
+	r.HTMLRender = tmpl
+
+	// TODO(shifucun): still keep the /dev page until the webdriver tests are
+	// setup for the Go service.
+	r.GET("/go/dev", func(ctx *gin.Context) {
+		if os.Getenv("FLASK_ENV") == "production" {
+			ctx.JSON(404, gin.H{"message": "Page not found"})
+		} else {
+			ctx.HTML(http.StatusOK, "dev", gin.H{
+				"data": templateArgs{
+					MainID:           "dev",
+					Title:            "Dev page",
+					SubPageTitle:     "sub page title",
+					IsHideFullFooter: false,
+					HideSearch:       false,
+				},
+				"urlMap": urlMap,
+			})
+		}
+	})
+
+	r.Run(port)
 }
