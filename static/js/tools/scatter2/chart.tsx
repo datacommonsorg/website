@@ -96,7 +96,7 @@ function Chart(): JSX.Element {
   return (
     <Container id="chart">
       <Row>
-        <Card id="chart-svg" className="chart-svg">
+        <Card id="chart-svg">
           <svg ref={svg} />
           <div id="tooltip" ref={tooltip} />
         </Card>
@@ -353,6 +353,7 @@ function plot(
   );
 
   g.append("text")
+    .attr("class", "plot-title")
     .attr("transform", `translate(${width / 2},${-margin.top / 2})`)
     .attr("text-anchor", "middle")
     .style("font-size", "1.1em")
