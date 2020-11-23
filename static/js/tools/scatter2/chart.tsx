@@ -18,7 +18,7 @@
  * Chart component for retrieving, transforming, and plotting data.
  */
 
-import React, { useContext, useEffect, useState } from "react";
+import React, { useContext, useEffect, useRef, useState } from "react";
 import _ from "lodash";
 import { Container, Row, Card, Badge } from "reactstrap";
 import * as d3 from "d3";
@@ -49,11 +49,14 @@ interface Point {
 // TODO: Show provenance.
 function Chart(): JSX.Element {
   const context = useContext(Context);
+  const [points, setPoints] = useState([] as Array<Point>);
   const [loading, setLoading] = useState(false);
+  const svg = useRef<SVGSVGElement>();
+  const tooltip = useRef<HTMLDivElement>();
 
   /**
    * When statvars, enclosing place, child place type, or any plot options change,
-   * re-retreive data and replot if necessary.
+   * re-retreive data.
    */
   useEffect(() => {
     const place = context.place.value;
@@ -73,9 +76,9 @@ function Chart(): JSX.Element {
     }
 
     const points = getPoints(x.value, y.value, place);
+    setPoints(points);
     setLoading(false);
-    plot(points, x.value, y.value);
-    updateStats(points);
+    console.error(points);
 
     const downloadButton = document.getElementById("download-link");
     if (downloadButton) {
@@ -84,25 +87,25 @@ function Chart(): JSX.Element {
     }
   }, [context]);
 
+  // Replot when data changes.
+  useEffect(() => {
+    plot(svg, tooltip, points, context.x.value, context.y.value);
+  }, [points]);
+
   return (
     <Container id="chart">
       <Row>
-        <Card id="chart-svg" className="chart-svg" />
+        <Card id="chart-svg" className="chart-svg">
+          <svg ref={svg} />
+          <div id="tooltip" ref={tooltip} />
+        </Card>
       </Row>
       <Row>
         <Card id="stats">
-          <Badge color="light">
-            X Mean: <span id="x-mean">N/A</span>
-          </Badge>
-          <Badge color="light">
-            Y Mean: <span id="y-mean">N/A</span>
-          </Badge>
-          <Badge color="light">
-            X Standard Deviation: <span id="x-std">N/A</span>
-          </Badge>
-          <Badge color="light">
-            Y Standard Deviation: <span id="y-std">N/A</span>
-          </Badge>
+          <Badge color="light">X Mean: {getXMean(points)}</Badge>
+          <Badge color="light">Y Mean: {getYMean(points)}</Badge>
+          <Badge color="light">X Standard Deviation: {getXStd(points)}</Badge>
+          <Badge color="light">Y Standard Deviation: {getYStd(points)}</Badge>
         </Card>
       </Row>
       <Spinner isOpen={loading} />
@@ -223,17 +226,6 @@ function downloadData(x: Axis, y: Axis, place: Place): void {
 }
 
 /**
- * Updates mean and stdev for both axes.
- * @param points
- */
-function updateStats(points: Array<Point>): void {
-  d3.select("#x-mean").html(getXMean(points));
-  d3.select("#y-mean").html(getYMean(points));
-  d3.select("#x-std").html(getXStd(points));
-  d3.select("#y-std").html(getYStd(points));
-}
-
-/**
  * Checks if a number is in an inclusive range.
  * @param num
  * @param lower
@@ -293,13 +285,20 @@ function getYStd(points: Array<Point>): string {
 
 /**
  * Plots a scatter plot.
+ * @param svg
+ * @param tooltip
  * @param points
  * @param x
  * @param y
  */
-function plot(points: Array<Point>, x: Axis, y: Axis): void {
-  d3.select("#scatterplot").remove();
-  d3.select("#tooltip").remove();
+function plot(
+  svg: React.MutableRefObject<SVGElement>,
+  tooltip: React.MutableRefObject<HTMLDivElement>,
+  points: Array<Point>,
+  x: Axis,
+  y: Axis
+): void {
+  d3.select(svg.current).selectAll("*").remove();
 
   // TODO: Handle log domain 0.
   const xMinMax = d3.extent(points, (point) => point.xVal);
@@ -319,9 +318,8 @@ function plot(points: Array<Point>, x: Axis, y: Axis): void {
   const width = svgWidth - margin.left - margin.right;
   const height = svgHeight - margin.top - margin.bottom;
 
-  const svg = d3
-    .select("#chart-svg")
-    .append("svg")
+  const g = d3
+    .select(svg.current)
     .attr("id", "scatterplot")
     .attr("width", "100%")
     .attr("height", "100%")
@@ -332,7 +330,7 @@ function plot(points: Array<Point>, x: Axis, y: Axis): void {
     .attr("transform", `translate(${margin.left},${margin.top})`);
 
   const xScale = addXAxis(
-    svg,
+    g,
     x.log,
     x.perCapita,
     xLabel,
@@ -343,7 +341,7 @@ function plot(points: Array<Point>, x: Axis, y: Axis): void {
     xMinMax[1]
   );
   const yScale = addYAxis(
-    svg,
+    g,
     y.log,
     y.perCapita,
     yLabel,
@@ -353,14 +351,13 @@ function plot(points: Array<Point>, x: Axis, y: Axis): void {
     yMinMax[1]
   );
 
-  svg
-    .append("text")
+  g.append("text")
     .attr("transform", `translate(${width / 2},${-margin.top / 2})`)
     .attr("text-anchor", "middle")
     .style("font-size", "1.2em")
     .text(`${yLabel} vs ${xLabel}`);
 
-  const dots = svg
+  const dots = g
     .selectAll("dot")
     .data(points)
     .enter()
@@ -373,12 +370,14 @@ function plot(points: Array<Point>, x: Axis, y: Axis): void {
     .attr("fill", "#FFFFFF")
     .style("opacity", "0.7");
 
-  addTooltip(dots, xLabel, yLabel);
+  addTooltip(tooltip, dots, xLabel, yLabel);
+
+  console.error("finished");
 }
 
 /**
  * Adds the x axis to the plot.
- * @param svg plot svg
+ * @param g plot container
  * @param log
  * @param perCapita
  * @param xLabel
@@ -389,7 +388,7 @@ function plot(points: Array<Point>, x: Axis, y: Axis): void {
  * @param max domain max
  */
 function addXAxis(
-  svg: d3.Selection<SVGGElement, unknown, HTMLElement, any>,
+  g: d3.Selection<SVGGElement, unknown, HTMLElement, any>,
   log: boolean,
   perCapita: boolean,
   xLabel: string,
@@ -403,16 +402,14 @@ function addXAxis(
     .domain([min, max])
     .range([0, width])
     .nice();
-  svg
-    .append("g")
+  g.append("g")
     .attr("transform", `translate(0,${height})`)
     .call(
       d3
         .axisBottom(xScale)
         .ticks(log ? 5 : 10, d3.format(perCapita ? ".3f" : "d"))
     );
-  svg
-    .append("text")
+  g.append("text")
     .attr("text-anchor", "middle")
     .attr(
       "transform",
@@ -424,7 +421,7 @@ function addXAxis(
 
 /**
  * Adds the y axis to the plot.
- * @param svg plot svg
+ * @param g plot container
  * @param log
  * @param perCapita
  * @param yLabel
@@ -434,7 +431,7 @@ function addXAxis(
  * @param max domain max
  */
 function addYAxis(
-  svg: d3.Selection<SVGGElement, unknown, HTMLElement, any>,
+  g: d3.Selection<SVGGElement, unknown, HTMLElement, any>,
   log: boolean,
   perCapita: boolean,
   yLabel: string,
@@ -447,15 +444,10 @@ function addYAxis(
     .domain([min, max])
     .range([height, 0])
     .nice();
-  svg
-    .append("g")
-    .call(
-      d3
-        .axisLeft(yScale)
-        .ticks(log ? 5 : 10, d3.format(perCapita ? ".3f" : "d"))
-    );
-  svg
-    .append("text")
+  g.append("g").call(
+    d3.axisLeft(yScale).ticks(log ? 5 : 10, d3.format(perCapita ? ".3f" : "d"))
+  );
+  g.append("text")
     .attr("text-anchor", "middle")
     .attr(
       "transform",
@@ -468,19 +460,19 @@ function addYAxis(
 /**
  * Adds a hidden tooltip that becomse visible when hovering over a point
  * describing the point.
+ * @param tooltip
  * @param dots
  * @param xLabel
  * @param yLabel
  */
 function addTooltip(
+  tooltip: React.MutableRefObject<HTMLDivElement>,
   dots: d3.Selection<SVGCircleElement, Point, SVGGElement, unknown>,
   xLabel: string,
   yLabel: string
 ): void {
-  const tooltip = d3
-    .select("#chart-svg")
-    .append("div")
-    .attr("id", "tooltip")
+  const div = d3
+    .select(tooltip.current)
     .style("visibility", "hidden")
     .style("position", "fixed");
 
@@ -489,14 +481,14 @@ function addTooltip(
       `${point.place.name || point.place.dcid}<br/>` +
       `${xLabel}: ${getStringOrNA(point.xVal)}<br/>` +
       `${yLabel}: ${getStringOrNA(point.yVal)}`;
-    tooltip
+    div
       .html(html)
       .style("left", d3.event.pageX + 15 + "px")
       .style("top", d3.event.pageY - 28 + "px")
       .style("visibility", "visible");
   };
   const onTooltipMouseout = () => {
-    tooltip.style("visibility", "hidden");
+    div.style("visibility", "hidden");
   };
   dots.on("mouseover", onTooltipMouseover).on("mouseout", onTooltipMouseout);
 }
