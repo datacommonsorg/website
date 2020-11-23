@@ -88,9 +88,13 @@ function Chart(): JSX.Element {
 
   // Replot when data changes.
   useEffect(() => {
-    if (!_.isEmpty(points)) {
-      plot(svg, tooltip, points, context.x.value, context.y.value);
+    if (
+      !isStatVarNameLoaded(context.x.value) ||
+      !isStatVarNameLoaded(context.y.value)
+    ) {
+      return;
     }
+    plot(svg, tooltip, points, context.x.value, context.y.value);
   }, [points]);
 
   return (
