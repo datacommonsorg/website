@@ -14,12 +14,7 @@
  * limitations under the License.
  */
 
-/**
- * Reactstrap Spinner component in a Modal component.
- */
-
 import React from "react";
-import { Modal, ModalBody, Spinner as StrapSpinner } from "reactstrap";
 
 interface SpinnerProps {
   isOpen: boolean;
@@ -27,12 +22,8 @@ interface SpinnerProps {
 
 function Spinner(props: SpinnerProps): JSX.Element {
   return (
-    <div>
-      <Modal isOpen={props.isOpen} backdrop="static">
-        <ModalBody id="spinner-modal-body">
-          <StrapSpinner animation="border" id="spinner" />
-        </ModalBody>
-      </Modal>
+    <div id="screen" style={{ display: props.isOpen ? "block" : "none" }}>
+      <div id="spinner" />
     </div>
   );
 }
