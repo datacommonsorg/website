@@ -453,6 +453,10 @@ function groupObs(obsArray) {
   return result;
 }
 
+function getTriples(dcid) {
+  return axios.get(`/api/browser/triples/${dcid}`).then((resp) => resp.data);
+}
+
 /**
  * Render KG page.
  *
@@ -464,7 +468,7 @@ function groupObs(obsArray) {
  * @param {!Iterable} outArcs The out arc triples.
  * @param {!Object} provDomain Provenance domain.
  */
-function renderKGPage(
+async function renderKGPage(
   dcid,
   type,
   name,
@@ -495,9 +499,7 @@ function renderKGPage(
     popId = dcid;
   }
   if (popId) {
-    let popTriples = util.sendRequest(`/node/triples?dcids=${popId}`, false)[
-      popId
-    ];
+    let popTriples = await getTriples(popId);
     let ts = popTriples.filter((t) =>
       ["location", "childhoodLocation"].includes(t["predicate"])
     );
@@ -513,7 +515,9 @@ function renderKGPage(
   }
 
   // Get popobs
-  const popobs = util.sendRequest(`/bulk/pop-obs?dcid=${locId}`, true);
+  const popobs = await axios
+    .get(`/api/browser/popobs/${locId}`)
+    .then((resp) => resp.data);
 
   // Get out arcs of population from popobs information.
   if (util.isPopulation(type)) {
@@ -609,7 +613,7 @@ function renderKGPage(
     util.setElementShown(elem, true);
   });
 
-  let inArcs = triples[dcid].filter(
+  let inArcs = triples.filter(
     (t) => t["objectId"] == dcid && t["subjectId"] != dcid
   );
   inArcs = inArcs.map((t) => {
@@ -873,16 +877,16 @@ function renderKGPage(
     // Display the observations with type "ComparativeObservation".
     if (compObsData.length > 0) {
       let oids = compObsData.map((o) => o["dcid"]);
-      let obsTriples = util.sendRequest(`/node/triples`, false, false, {
-        dcids: oids,
-      });
-      for (let o of compObsData) {
-        let oid = o["dcid"];
-        for (let t of obsTriples[oid]) {
-          if (t["predicate"] == "comparedNode") {
-            o["comparedNode"] = t["objectId"];
-          } else if (t["predicate"] == "observedNode") {
-            o["observedNode"] = t["objectId"];
+      for (const oid of oids) {
+        let obsTriples = await getTriples(oid);
+        for (let o of compObsData) {
+          let oid = o["dcid"];
+          for (let t of obsTriples[oid]) {
+            if (t["predicate"] == "comparedNode") {
+              o["comparedNode"] = t["objectId"];
+            } else if (t["predicate"] == "observedNode") {
+              o["observedNode"] = t["objectId"];
+            }
           }
         }
       }
@@ -906,11 +910,7 @@ function renderKGPage(
         } else {
           otherPopId = obsSample["observedNode"];
         }
-        let popInfo = util.sendRequest(
-          `/node/triples?dcids=${otherPopId}`,
-          false,
-          true
-        )[otherPopId];
+        let popInfo = await getTriples(otherPopId);
         let otherParentPvs = {};
         for (let t of popInfo) {
           if (["location", "numConstraints"].includes(t["predicate"])) {
@@ -938,63 +938,60 @@ function renderKGPage(
 
 /** Page setup after initial loading */
 window.onload = () => {
-  // Render a set of data
-  const provs = util.sendRequest(`/node/triples?dcids=Provenance`, false)[
-    "Provenance"
-  ];
-  let provDomain = {};
-  for (let prov of provs) {
-    if (prov["predicate"] == "typeOf" && !!prov["subjectName"]) {
-      provDomain[prov["subjectId"]] = new URL(prov["subjectName"]).host;
-    }
-  }
-
   const dcid = document.getElementById("bg-dcid").textContent;
+  const provPromise = getTriples("Provenance");
+  const triplesPromise = getTriples(dcid);
 
-  // Get Triples
-  const triples = util.sendRequest(`/node/triples?dcids=${dcid}`, false);
-
-  // Get outArcs
-  let outArcs = triples[dcid].filter((t) => t["subjectId"] == dcid);
-
-  // Remove predicate that should not be displayed.
-  outArcs = outArcs.filter(
-    (p) =>
-      ![
-        "provenance",
-        "kmlCoordinates",
-        "geoJsonCoordinates",
-        "geoJsonCoordinatesDP1",
-        "geoJsonCoordinatesDP2",
-        "geoJsonCoordinatesDP3",
-      ].includes(p["predicate"])
-  );
-
-  // Get provenance name and object name
-  outArcs = outArcs.map((p) => {
-    if ("objectId" in p && !("objectName" in p)) {
-      p["objectName"] = p["objectId"];
+  Promise.all([provPromise, triplesPromise]).then(([provs, triples]) => {
+    let provDomain = {};
+    for (let prov of provs) {
+      if (prov["predicate"] == "typeOf" && !!prov["subjectName"]) {
+        provDomain[prov["subjectId"]] = new URL(prov["subjectName"]).host;
+      }
     }
-    p["src"] = provDomain[p["provenanceId"]];
-    return p;
+
+    // Get outArcs
+    let outArcs = triples.filter((t) => t["subjectId"] == dcid);
+
+    // Remove predicate that should not be displayed.
+    outArcs = outArcs.filter(
+      (p) =>
+        ![
+          "provenance",
+          "kmlCoordinates",
+          "geoJsonCoordinates",
+          "geoJsonCoordinatesDP1",
+          "geoJsonCoordinatesDP2",
+          "geoJsonCoordinatesDP3",
+        ].includes(p["predicate"])
+    );
+
+    // Get provenance name and object name
+    outArcs = outArcs.map((p) => {
+      if ("objectId" in p && !("objectName" in p)) {
+        p["objectName"] = p["objectId"];
+      }
+      p["src"] = provDomain[p["provenanceId"]];
+      return p;
+    });
+
+    const outArcsMap = util.getOutArcsMap(triples, dcid);
+    const type = util.getType(triples, dcid);
+
+    // Get name
+    let name = dcid;
+    if ("name" in outArcsMap) {
+      name = outArcsMap["name"][0][0];
+    }
+
+    // Get description for the meta-header
+    // TODO: compile a suitable description if undefined in the graph
+    let description;
+    if ("description" in outArcsMap) {
+      description = outArcsMap["description"][0][0];
+    }
+
+    ReactDOM.render(<GeneralNode />, document.getElementById("node"));
+    renderKGPage(dcid, type, name, description, triples, outArcs, provDomain);
   });
-
-  const outArcsMap = util.getOutArcsMap(triples, dcid);
-  const type = util.getType(triples, dcid);
-
-  // Get name
-  let name = dcid;
-  if ("name" in outArcsMap) {
-    name = outArcsMap["name"][0][0];
-  }
-
-  // Get description for the meta-header
-  // TODO: compile a suitable description if undefined in the graph
-  let description;
-  if ("description" in outArcsMap) {
-    description = outArcsMap["description"][0][0];
-  }
-
-  ReactDOM.render(<GeneralNode />, document.getElementById("node"));
-  renderKGPage(dcid, type, name, description, triples, outArcs, provDomain);
 };

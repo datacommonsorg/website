@@ -27,6 +27,7 @@
     "@types/reactstrap": "^8.5.1",
     "axios": "^0.19.2",
     "babel-loader": "^8.1.0",
+    "babel-polyfill": "^6.26.0",
     "bootstrap": "^4.5.2",
     "copy-webpack-plugin": "^5.1.2",
     "css-loader": "^3.6.0",

@@ -23,7 +23,6 @@ import urllib
 
 import requests
 from werkzeug.utils import import_string
-from google.cloud import secretmanager
 
 if os.environ.get('FLASK_ENV') == 'test':
     cfg = import_string('configmodule.TestConfig')()
@@ -193,26 +192,10 @@ def get_property_values(dcids,
     return results
 
 
-def get_triples(dcids, limit=_MAX_LIMIT):
+def get_triples(dcids, limit=0):
     # Generate the GetTriple query and send the request.
     url = API_ROOT + API_ENDPOINTS['get_triples']
-    payload = send_request(url, req_json={'dcids': dcids, 'limit': limit})
-
-    # Create a map from dcid to list of triples.
-    results = collections.defaultdict(list)
-    for dcid in dcids:
-        # Make sure each dcid is mapped to an empty list.
-        results[dcid]
-
-        # Add triples as appropriate
-        for t in payload[dcid]:
-            if 'objectId' in t:
-                results[dcid].append(
-                    (t['subjectId'], t['predicate'], t['objectId']))
-            elif 'objectValue' in t:
-                results[dcid].append(
-                    (t['subjectId'], t['predicate'], t['objectValue']))
-    return dict(results)
+    return send_request(url, req_json={'dcids': dcids, 'limit': limit})
 
 
 def get_places_in(dcids, place_type):

@@ -84,8 +84,10 @@ def create_app():
     app.register_blueprint(ranking.bp)
     app.register_blueprint(redirects.bp)
     app.register_blueprint(tools.bp)
-    from routes.api import (chart, choropleth, place as place_api, landing_page,
-                            ranking as ranking_api, stats, translator)
+    from routes.api import (browser, chart, choropleth, place as place_api,
+                            landing_page, ranking as ranking_api, stats,
+                            translator)
+    app.register_blueprint(browser.bp)
     app.register_blueprint(chart.bp)
     app.register_blueprint(choropleth.bp)
     app.register_blueprint(factcheck.bp)
