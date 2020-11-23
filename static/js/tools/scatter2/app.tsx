@@ -14,13 +14,18 @@
  * limitations under the License.
  */
 
+/**
+ * Main app component for scatter2.
+ */
+
 import React, { useEffect } from "react";
 import _ from "lodash";
 import { Container, Row } from "reactstrap";
-import { StatVarChooser } from "./scatter2_statvar";
-import { PlaceOptions, PlotOptions } from "./scatter2_options";
-import { Chart } from "./scatter2_chart";
-import { Info } from "./scatter2_info";
+import { StatVarChooser } from "./statvar";
+import { PlaceOptions } from "./place_options";
+import { PlotOptions } from "./plot_options";
+import { Chart } from "./chart";
+import { Info } from "./info";
 import {
   Context,
   ContextType,
@@ -29,7 +34,7 @@ import {
   setPlace,
   Axis,
   Place,
-} from "./scatter2_context";
+} from "./context";
 
 function App(): JSX.Element {
   const store = useStore();
@@ -66,6 +71,10 @@ function App(): JSX.Element {
   );
 }
 
+/**
+ * Parses the current hash and updates the context accordingly.
+ * @param context
+ */
 function applyHash(context: ContextType) {
   const params = new URLSearchParams(
     decodeURIComponent(location.hash).replace("#", "?")
@@ -84,6 +93,10 @@ function applyHash(context: ContextType) {
   }
 }
 
+/**
+ * Updates the hash based on the context.
+ * @param context
+ */
 function updateHash(context: ContextType) {
   let hash = "";
   hash += `x=${JSON.stringify({
@@ -103,6 +116,14 @@ function updateHash(context: ContextType) {
   history.pushState({}, "", `/tools/scatter2#${encodeURIComponent(hash)}`);
 }
 
+/**
+ * Checks if the info page should be hidden to display the chart.
+ * Returns true if the enclosing place, child place type, and
+ * statvars for the x and y axes are selected.
+ * @param x
+ * @param y
+ * @param place
+ */
 function shouldHideInfo(x: Axis, y: Axis, place: Place): boolean {
   return (
     !_.isEmpty(place.enclosedPlaceType) &&

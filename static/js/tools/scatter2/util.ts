@@ -17,16 +17,15 @@
 import axios from "axios";
 import { getApiRoot, getApiKey } from "../../shared/util";
 
-interface ApiPlaceInfo {
-  name: string;
-  dcid: string;
-  pop: number;
-}
-
 interface ApiPlace {
   place: string;
 }
 
+/**
+ * Retrieves the DCIDs of child places of a certain type contained in a parent place.
+ * @param dcid
+ * @param type
+ */
 async function getPlacesIn(dcid: string, type: string): Promise<Array<string>> {
   const resp = await axios.get(
     `${getApiRoot()}/node/places-in?dcids=${dcid}&placeType=${type}`
@@ -35,31 +34,11 @@ async function getPlacesIn(dcid: string, type: string): Promise<Array<string>> {
   return places.map((place) => place.place);
 }
 
-async function getPopulations(
-  places: Array<string>,
-  denominator?: string
-): Promise<Record<string, number>> {
-  const promises = places.map((dcid) =>
-    axios.get(
-      `${getApiRoot()}/stat/value?place=${dcid}&stat_var=${
-        denominator ? "Count_Person" : denominator
-      }`
-    )
-  );
-  return Promise.all(promises).then((resps) => {
-    const dcidToPopulation = {};
-    resps.forEach((resp, i) => (dcidToPopulation[places[i]] = resp.data));
-    return dcidToPopulation;
-  });
-}
-
-async function getChildPlaces(
-  dcid: string
-): Promise<Record<string, ApiPlaceInfo[]>> {
-  const resp = await axios.get(`/api/place/child/${dcid}`);
-  return resp.data;
-}
-
+/**
+ * Gets the latest value for a place of a timeseries.
+ * @param place
+ * @param statVar
+ */
 async function getTimeSeriesLatestPoint(
   place: string,
   statVar: string
@@ -74,10 +53,4 @@ async function getTimeSeriesLatestPoint(
   }
 }
 
-export {
-  getPlacesIn,
-  getPopulations,
-  getChildPlaces,
-  ApiPlaceInfo,
-  getTimeSeriesLatestPoint,
-};
+export { getPlacesIn, getTimeSeriesLatestPoint };

@@ -14,21 +14,27 @@
  * limitations under the License.
  */
 
+/**
+ * Reactstrap Spinner component in a Modal component.
+ */
+
 import React from "react";
+import { Modal, ModalBody, Spinner as StrapSpinner } from "reactstrap";
 
-function Info(): JSX.Element {
+interface SpinnerProps {
+  isOpen: boolean;
+}
+
+function Spinner(props: SpinnerProps): JSX.Element {
   return (
-    <div id="placeholder-container">
-      {/* TODO(intrepiditee): Add descriptions, tutorials, and examples */}
-      <p>Welcome to Data Commons. This tool ...</p>
-
-      <p>Take the data and use it on your site!</p>
-      <p>
-        <a href="mailto:collaborations@datacommons.org">Send</a> us your
-        discoveries!
-      </p>
+    <div>
+      <Modal isOpen={props.isOpen} backdrop="static">
+        <ModalBody id="spinner-modal-body">
+          <StrapSpinner animation="border" id="spinner" />
+        </ModalBody>
+      </Modal>
     </div>
   );
 }
 
-export { Info };
+export { Spinner };

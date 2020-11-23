@@ -14,6 +14,10 @@
  * limitations under the License.
  */
 
+/**
+ * Global app context.
+ */
+
 import { createContext, useState } from "react";
 import { StatsVarNode } from "../timeline_util";
 
@@ -77,11 +81,17 @@ interface ContextType {
 
 const Context = createContext({} as ContextType);
 
+/**
+ * Constructs an initial context.
+ */
 function useStore(): ContextType {
   const [x, setX] = useState(EmptyAxis);
   const [y, setY] = useState(EmptyAxis);
   const [place, setPlace] = useState({
-    enclosingPlace: {},
+    enclosingPlace: {
+      name: "",
+      dcid: "",
+    },
     enclosedPlaceType: "",
     enclosedPlaces: [],
     lowerBound: 0,
@@ -102,6 +112,54 @@ function setPlace(field: ContextFieldType<Place>, place: Place): void {
   field.set(place);
 }
 
+/**
+ * Sets the enclosing place and clears the child places.
+ * @param field
+ * @param place
+ */
+function setEnclosingPlace(
+  field: ContextFieldType<Place>,
+  place: NamedPlace
+): void {
+  field.set({
+    ...field.value,
+    enclosedPlaces: [],
+    enclosingPlace: place,
+  });
+}
+
+/**
+ * Sets the child place type and clears the child places.
+ * @param field
+ * @param enclosedPlaceType
+ */
+function setEnclosedPlaceType(
+  field: ContextFieldType<Place>,
+  enclosedPlaceType: string
+): void {
+  field.set({
+    ...field.value,
+    enclosedPlaceType: enclosedPlaceType,
+    enclosedPlaces: [],
+  });
+}
+
+function setEnclosedPlaces(
+  field: ContextFieldType<Place>,
+  enclosedPlaces: Array<NamedPlace>
+): void {
+  field.set({
+    ...field.value,
+    enclosedPlaces: enclosedPlaces,
+  });
+}
+
+/**
+ * Sets the statvar for an axis and clears its name and data and
+ * the population data for that axis.
+ * @param axis
+ * @param statVar
+ */
 function setStatVar(axis: ContextFieldType<Axis>, statVar: StatsVarNode): void {
   axis.set({
     ...axis.value,
@@ -112,6 +170,10 @@ function setStatVar(axis: ContextFieldType<Axis>, statVar: StatsVarNode): void {
   });
 }
 
+function unsetStatVar(axis: ContextFieldType<Axis>): void {
+  setStatVar(axis, {});
+}
+
 function setStatVarName(axis: ContextFieldType<Axis>, name: string): void {
   axis.set({
     ...axis.value,
@@ -119,13 +181,11 @@ function setStatVarName(axis: ContextFieldType<Axis>, name: string): void {
   });
 }
 
-function unsetStatVar(axis: ContextFieldType<Axis>): void {
+function unsetPopulationsAndData(axis: ContextFieldType<Axis>): void {
   axis.set({
     ...axis.value,
-    statVar: {},
-    name: "",
-    populations: [],
     data: [],
+    populations: [],
   });
 }
 
@@ -140,6 +200,22 @@ function setPopulations(
   axis.set({ ...axis.value, populations: populations });
 }
 
+function setLog(axis: ContextFieldType<Axis>, log: boolean): void {
+  axis.set({ ...axis.value, log: log });
+}
+
+function setPerCapita(axis: ContextFieldType<Axis>, perCapita: boolean): void {
+  axis.set({ ...axis.value, perCapita: perCapita });
+}
+
+function setLowerBound(place: ContextFieldType<Place>, bound: number): void {
+  place.set({ ...place.value, lowerBound: bound });
+}
+
+function setUpperBound(place: ContextFieldType<Place>, bound: number): void {
+  place.set({ ...place.value, upperBound: bound });
+}
+
 export {
   Context,
   useStore,
@@ -150,10 +226,18 @@ export {
   Place,
   setAxis,
   setPlace,
+  setEnclosingPlace,
+  setEnclosedPlaceType,
+  setEnclosedPlaces,
   setStatVar,
   setStatVarName,
   unsetStatVar,
+  unsetPopulationsAndData,
   setData,
   setPopulations,
+  setLog,
+  setPerCapita,
+  setLowerBound,
+  setUpperBound,
   EmptyAxis,
 };

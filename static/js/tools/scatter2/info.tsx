@@ -14,13 +14,25 @@
  * limitations under the License.
  */
 
-import React from "react";
-import ReactDOM from "react-dom";
-import { App } from "./app";
+/**
+ * Info page before a chart is shown.
+ */
 
-window.onload = () => {
-  ReactDOM.render(
-    React.createElement(App),
-    document.getElementById("main-pane")
+import React from "react";
+
+function Info(): JSX.Element {
+  return (
+    <div id="placeholder-container">
+      {/* TODO(intrepiditee): Add descriptions, tutorials, and examples */}
+      <p>Welcome to Data Commons. This tool ...</p>
+
+      <p>Take the data and use it on your site!</p>
+      <p>
+        <a href="mailto:collaborations@datacommons.org">Send</a> us your
+        discoveries!
+      </p>
+    </div>
   );
-};
+}
+
+export { Info };
