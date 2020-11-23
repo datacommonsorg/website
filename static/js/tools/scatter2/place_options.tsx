@@ -35,12 +35,12 @@ import { SearchBar } from "../timeline_search";
 import { getPlaceNames } from "../timeline_util";
 import { getPlacesIn } from "./util";
 
-import { Container, Row, Col } from "reactstrap";
+import { Container, Row, Col, CustomInput } from "reactstrap";
 
 /**
  * Possible child place types.
  */
-const enclosedTypes = [
+const EnclosedTypes = [
   "CensusCoreBasedStatisticalArea",
   "CensusCountyDivision",
   "CensusTract",
@@ -73,27 +73,27 @@ function PlaceOptions(): JSX.Element {
         <Row>
           <Col xs="auto">Plot places of type</Col>
           <Col xs="3">
-            <select
-              className="custom-select"
+            <CustomInput
+              id="enclosed-place-type"
+              type="select"
               value={context.place.value.enclosedPlaceType}
               onChange={(e) =>
                 selectEnclosedPlaceType(context.x, context.y, context.place, e)
               }
             >
               <option value="">Select a place type</option>
-              {enclosedTypes.map((type) => (
+              {EnclosedTypes.map((type) => (
                 <option value={type} key={type}>
                   {type}
                 </option>
               ))}
-            </select>
+            </CustomInput>
           </Col>
           <Col xs="auto">in</Col>
           <Col>
             <div id="search">
               <SearchBar
                 places={
-                  context.place.value.enclosingPlace &&
                   context.place.value.enclosingPlace.dcid
                     ? {
                         [context.place.value.enclosingPlace.dcid]:
@@ -168,9 +168,9 @@ function selectEnclosedPlaceType(
   x: ContextFieldType<Axis>,
   y: ContextFieldType<Axis>,
   place: ContextFieldType<Place>,
-  event: React.ChangeEvent<HTMLSelectElement>
+  event: React.ChangeEvent<HTMLInputElement>
 ) {
-  setEnclosedPlaceType(place, event.target.selectedOptions[0].value);
+  setEnclosedPlaceType(place, event.target.value);
   unsetPopulationsAndData(x);
   unsetPopulationsAndData(y);
 }

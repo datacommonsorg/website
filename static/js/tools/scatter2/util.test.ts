@@ -14,13 +14,13 @@
  * limitations under the License.
  */
 
-import React from "react";
-import ReactDOM from "react-dom";
-import { AppWithContext } from "./app";
+import { getPlacesIn } from "./util";
 
-window.onload = () => {
-  ReactDOM.render(
-    React.createElement(AppWithContext),
-    document.getElementById("main-pane")
-  );
-};
+test("getPlacesIn", async (done) => {
+  expect(await getPlacesIn("geoId/10", "County")).toStrictEqual([
+    "geoId/10001",
+    "geoId/10003",
+    "geoId/10005",
+  ]);
+  done();
+});

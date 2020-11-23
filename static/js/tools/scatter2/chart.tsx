@@ -78,7 +78,6 @@ function Chart(): JSX.Element {
     const points = getPoints(x.value, y.value, place);
     setPoints(points);
     setLoading(false);
-    console.error(points);
 
     const downloadButton = document.getElementById("download-link");
     if (downloadButton) {
@@ -89,7 +88,9 @@ function Chart(): JSX.Element {
 
   // Replot when data changes.
   useEffect(() => {
-    plot(svg, tooltip, points, context.x.value, context.y.value);
+    if (!_.isEmpty(points)) {
+      plot(svg, tooltip, points, context.x.value, context.y.value);
+    }
   }, [points]);
 
   return (
@@ -304,8 +305,8 @@ function plot(
   const xMinMax = d3.extent(points, (point) => point.xVal);
   const yMinMax = d3.extent(points, (point) => point.yVal);
 
-  const xLabel = _.startCase(x.name) + (x.perCapita ? " Per Capita" : "");
-  const yLabel = _.startCase(y.name) + (y.perCapita ? " Per Capita" : "");
+  const xLabel = getLabel(x.name, x.perCapita);
+  const yLabel = getLabel(y.name, y.perCapita);
 
   const margin = {
     top: 50,
@@ -371,8 +372,6 @@ function plot(
     .style("opacity", "0.7");
 
   addTooltip(tooltip, dots, xLabel, yLabel);
-
-  console.error("finished");
 }
 
 /**
@@ -543,6 +542,18 @@ function loadData(axis: ContextFieldType<Axis>, place: Place): void {
       ).catch(() => undefined)
     )
   ).then((data) => setData(axis, data));
+}
+
+/**
+ * Formats a statvar name passed by the statvar menu to be an axis label.
+ * @param name
+ * @param perCapita
+ */
+function getLabel(name: string, perCapita: boolean): string {
+  if (!name.endsWith("$")) {
+    name = _.startCase(name);
+  }
+  return `${name}${perCapita ? " Per Capita" : ""}`;
 }
 
 export { Chart };

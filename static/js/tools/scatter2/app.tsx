@@ -18,7 +18,7 @@
  * Main app component for scatter2.
  */
 
-import React, { useEffect } from "react";
+import React, { useContext, useEffect } from "react";
 import _ from "lodash";
 import { Container, Row } from "reactstrap";
 import { StatVarChooser } from "./statvar";
@@ -37,21 +37,20 @@ import {
 } from "./context";
 
 function App(): JSX.Element {
-  const store = useStore();
-
-  useEffect(() => applyHash(store), []);
-  useEffect(() => updateHash(store), [store]);
-  window.onhashchange = () => applyHash(store);
-
+  const context = useContext(Context);
   return (
-    <Context.Provider value={store}>
+    <div>
       <StatVarChooser />
       <div id="plot-container">
         <Container>
           <Row>
             <PlaceOptions />
           </Row>
-          {shouldHideInfo(store.x.value, store.y.value, store.place.value) ? (
+          {shouldHideInfo(
+            context.x.value,
+            context.y.value,
+            context.place.value
+          ) ? (
             <React.Fragment>
               <Row>
                 <PlotOptions />
@@ -67,6 +66,20 @@ function App(): JSX.Element {
           )}
         </Container>
       </div>
+    </div>
+  );
+}
+
+function AppWithContext(): JSX.Element {
+  const store = useStore();
+
+  useEffect(() => applyHash(store), []);
+  useEffect(() => updateHash(store), [store]);
+  window.onhashchange = () => applyHash(store);
+
+  return (
+    <Context.Provider value={store}>
+      <App />
     </Context.Provider>
   );
 }
@@ -133,4 +146,4 @@ function shouldHideInfo(x: Axis, y: Axis, place: Place): boolean {
   );
 }
 
-export { App };
+export { App, AppWithContext };

@@ -64,6 +64,17 @@ interface Place {
   upperBound: number;
 }
 
+const EmptyPlace: Place = Object.freeze({
+  enclosingPlace: {
+    name: "",
+    dcid: "",
+  },
+  enclosedPlaceType: "",
+  enclosedPlaces: [],
+  lowerBound: 0,
+  upperBound: 1e10,
+});
+
 interface ContextFieldType<V> {
   value: V;
   set: Setter<V>;
@@ -240,4 +251,5 @@ export {
   setLowerBound,
   setUpperBound,
   EmptyAxis,
+  EmptyPlace,
 };

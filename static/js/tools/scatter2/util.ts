@@ -28,10 +28,10 @@ interface ApiPlace {
  */
 async function getPlacesIn(dcid: string, type: string): Promise<Array<string>> {
   const resp = await axios.get(
-    `${getApiRoot()}/node/places-in?dcids=${dcid}&placeType=${type}`
+    `${getApiRoot()}/node/places-in?dcids=${dcid}&placeType=${type}&key=${getApiKey()}`
   );
   const places: Array<ApiPlace> = JSON.parse(resp.data.payload);
-  return places.map((place) => place.place);
+  return places.map((place) => place.place).sort();
 }
 
 /**

@@ -93,6 +93,7 @@ function PlotOptions(): JSX.Element {
                 <Col xs="3">Plot Options</Col>
                 <Col>
                   <Button
+                    id="swap-axes"
                     size="sm"
                     color="light"
                     onClick={() => swapAxes(context.x, context.y)}
@@ -104,6 +105,7 @@ function PlotOptions(): JSX.Element {
                   <FormGroup check>
                     <Label check>
                       <Input
+                        id="per-capita-x"
                         type="checkbox"
                         checked={context.x.value.perCapita}
                         onChange={(e) => checkPerCapita(context.x, e)}
@@ -114,6 +116,7 @@ function PlotOptions(): JSX.Element {
                   <FormGroup check>
                     <Label check>
                       <Input
+                        id="per-capita-y"
                         type="checkbox"
                         checked={context.y.value.perCapita}
                         onChange={(e) => checkPerCapita(context.y, e)}
@@ -126,6 +129,7 @@ function PlotOptions(): JSX.Element {
                   <FormGroup check>
                     <Label check>
                       <Input
+                        id="log-x"
                         type="checkbox"
                         checked={context.x.value.log}
                         onChange={(e) => checkLog(context.x, e)}
@@ -136,6 +140,7 @@ function PlotOptions(): JSX.Element {
                   <FormGroup check>
                     <Label check>
                       <Input
+                        id="log-y"
                         type="checkbox"
                         checked={context.y.value.log}
                         onChange={(e) => checkLog(context.y, e)}
