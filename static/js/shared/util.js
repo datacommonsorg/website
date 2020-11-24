@@ -259,7 +259,7 @@ function unzip(s) {
  * @return {!Object} Out arcs map.
  */
 function getOutArcsMap(triples, dcid) {
-  let outArcs = triples[dcid].filter((t) => t["subjectId"] == dcid);
+  let outArcs = triples.filter((t) => t["subjectId"] == dcid);
 
   let outArcsMap = {};
   for (let t of outArcs) {
@@ -320,7 +320,7 @@ function getType(triples, dcid) {
   } else if (dcid.startsWith("dc/o/")) {
     type = OBSERVATION;
   } else {
-    let ts = triples[dcid].filter(
+    let ts = triples.filter(
       (t) => t["subjectId"] == dcid && t["predicate"] == "typeOf"
     );
     if (ts.length > 0) {
