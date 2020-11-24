@@ -53,9 +53,9 @@ Wait for approval of the Pull Request and merge the change.
 
 ### Update Mixer Submodule
 
-This repo contains DataCommons [mixer repo](https://github.com/datacommonsorg/mixer) is a submodule.
+This repo contains DataCommons [mixer repo](https://github.com/datacommonsorg/mixer) as a submodule.
 
-When mixer upstream is updated and you now want to update:
+When mixer upstream is updated, and you want to track the change:
 
 ```bash
 git submodule foreach git pull origin master
