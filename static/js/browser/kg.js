@@ -454,62 +454,6 @@ function groupObs(obsArray) {
 }
 
 /**
- * Render place map.
- *
- * @param {string} dcid The DCID of the place.
- * @param {?Array<string>} containedInPlaces Place ancestors.
- */
-function renderPlaceMap(dcid, containedInPlaces) {
-  const mapInfo = util.getMapInfo(dcid);
-  let mapOptions = {
-    mapTypeControl: false,
-    draggable: true,
-    scaleControl: true,
-    scrollwheel: true,
-    navigationControl: true,
-    streetViewControl: false,
-    mapTypeId: google.maps.MapTypeId.ROADMAP,
-  };
-  let map = new google.maps.Map(document.getElementById("map"), mapOptions);
-
-  // Map bounds.
-  let sw = new google.maps.LatLng(mapInfo["down"], mapInfo["left"]);
-  let ne = new google.maps.LatLng(mapInfo["up"], mapInfo["right"]);
-  let bounds = new google.maps.LatLngBounds();
-  bounds.extend(sw);
-  bounds.extend(ne);
-  map.fitBounds(bounds);
-
-  // Polygons of the place.
-  for (let coordinateSequence of mapInfo["coordinateSequenceSet"]) {
-    let polygon = new google.maps.Polygon({
-      path: coordinateSequence,
-      strokeColor: "#FF0000",
-      strokeOpacity: 0.6,
-      strokeWeight: 1,
-      fillColor: "#FF0000",
-      fillOpacity: 0.35,
-    });
-    polygon.setMap(map);
-  }
-
-  // Polygons of ancestors (if any).
-  for (let idx = 0; idx < containedInPlaces.length; idx++) {
-    const ancestorMapInfo = util.getMapInfo(containedInPlaces[idx][0]);
-    for (let coordinateSequence of ancestorMapInfo["coordinateSequenceSet"]) {
-      let polygon = new google.maps.Polygon({
-        path: coordinateSequence,
-        strokeColor: "#FF0000",
-        strokeOpacity: 0.6,
-        strokeWeight: 1,
-        fillOpacity: 0.0,
-      });
-      polygon.setMap(map);
-    }
-  }
-}
-
-/**
  * Render KG page.
  *
  * @param {string} dcid The DCID of the node.
@@ -1051,73 +995,6 @@ window.onload = () => {
     description = outArcsMap["description"][0][0];
   }
 
-  const current_page_uri = new URL(window.location.href);
-  let newPlacePage =
-    current_page_uri.searchParams.get("v2") == undefined ? false : true;
-  newPlacePage =
-    newPlacePage && (type == "City" || type == "County" || type == "State");
-
-  if (newPlacePage) {
-    let url = "/related-chart?rt=" + type + "&rid=" + dcid;
-    axios.get(url).then((resp) => {
-      let data = resp.data;
-      let chartCategories = util.formatChartCategories(res["chartCategories"]);
-      let elem = document.createElement("div");
-      ReactDOM.render(
-        <placeNode
-          name={name}
-          type={type}
-          containedInPlace={util.getContainedInPlace(outArcsMap)}
-          outArcsMap={outArcsMap}
-          chartCategories={chartCategories}
-          relatedPlaces={data["relatedPlaces"]}
-        />,
-        elem
-      );
-      document.getElementById("node").appendChild(elem);
-
-      renderPlaceMap(
-        dcid,
-        type == "State" ? [] : outArcsMap["containedInPlace"]
-      );
-
-      let moreIndices = {};
-      for (let idx = 0; idx < chartCategories.length; idx++) {
-        const category = chartCategories[idx]["category"];
-        moreIndices[category] = util.NUMBER_OF_CHARTS_PER_ROW;
-
-        const categoryMoreElement = document.getElementById(
-          "place-chart-category-more-" + category
-        );
-        util.setElementShown(
-          categoryMoreElement,
-          chartCategories[idx]["urls"].length > moreIndices[category]
-        );
-
-        const elm = document.getElementById(
-          "place-chart-category-more-" + category
-        );
-        elm.addEventListener("click", function (e) {
-          let elem = document.createElement("div");
-          ReactDOM.render(
-            <chartGroup
-              charts={chartCategories[idx]["urls"].slice(moreIndices[category])}
-            />,
-            elem
-          );
-          document
-            .getElementById("place-chart-category-content-" + category)
-            .appendChild(elem);
-          moreIndices[category] += util.NUMBER_OF_CHARTS_PER_ROW;
-          util.setElementShown(
-            categoryMoreElement,
-            chartCategories[idx]["urls"].length > moreIndices[category]
-          );
-        });
-      }
-    });
-  } else {
-    ReactDOM.render(<GeneralNode />, document.getElementById("node"));
-    renderKGPage(dcid, type, name, description, triples, outArcs, provDomain);
-  }
+  ReactDOM.render(<GeneralNode />, document.getElementById("node"));
+  renderKGPage(dcid, type, name, description, triples, outArcs, provDomain);
 };
