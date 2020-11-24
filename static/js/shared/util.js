@@ -47,18 +47,49 @@ const /** !Array<string> */ OBS_KEYS = [
 
 const NUMBER_OF_CHARTS_PER_ROW = 3;
 
+const /** !Array<string> */ PROD_HOST = [
+    "datacommons.org",
+    "browser.datacommons.org",
+    "datcom-browser-prod.appspot.com",
+  ];
+
+const /** !Array<string> */ STAGING_HOST = [
+    "localhost:8080",
+    "staging.datacommons.org",
+    "datcom-browser-staging.appspot.com",
+  ];
+
 const API_DATA = {
   prod: {
     root: "https://api.datacommons.org",
+    key: "AIzaSyCJXDc2HxXL3u76PqQfYXuT1oGB-f4uC1I",
+  },
+  staging: {
+    root: "https://datacommons.endpoints.datcom-mixer-staging.cloud.goog",
+    key: "AIzaSyDffCx9SDfXDJ-lZdsCsYO4296UOH25oz8",
   },
 };
+
+/**
+ * Return true is browser environment is production.
+ * @return {boolean} Whether browser is in prod environment.
+ */
+function isBrowserInProdEnv() {
+  let host = window.location.host;
+  if (PROD_HOST.includes(host)) return true;
+  if (STAGING_HOST.includes(host)) return false;
+
+  // TODO: Default to prod for now, until we use async XHR
+  console.log('Unknown host: "' + host + '", treat as prod.');
+  return true;
+}
 
 /**
  * Return API root based on whether browser in prod environment.
  * @return {string} API root.
  */
 function getApiRoot() {
-  return API_DATA.prod.root;
+  return isBrowserInProdEnv() ? API_DATA.prod.root : API_DATA.staging.root;
 }
 
 /**
@@ -66,7 +97,7 @@ function getApiRoot() {
  * @return {string} API key.
  */
 function getApiKey() {
-  return API_DATA.prod.key;
+  return isBrowserInProdEnv() ? API_DATA.prod.key : API_DATA.staging.key;
 }
 
 /**
@@ -161,6 +192,42 @@ function appendMoreToAll() {
   for (let i = 0; i < cardEls.length; i++) {
     appendMoreIfNecessary(cardEls[i], MAX_CARD_HEIGHT);
   }
+}
+
+/**
+ * Send request to DataCommons REST api endpoint and get result payload.
+ *
+ * @param {string} reqUrl The request url with parameters.
+ * @param {boolean} isZip Whether to unzip the payload.
+ * @param {boolean=} isGet If it is a 'GET' request.
+ * @param {!Object=} data Request data.
+ *
+ * @return {*}
+ */
+function sendRequest(reqUrl, isZip, isGet = true, data = {}) {
+  const request = new XMLHttpRequest();
+  let jsonString = null;
+  let api_key = getApiKey();
+  if (isGet) {
+    request.open("GET", getApiRoot() + reqUrl + `&key=${api_key}`, false);
+  } else {
+    request.open("POST", getApiRoot() + reqUrl + `?key=${api_key}`, false);
+  }
+  request.send(JSON.stringify(data));
+  if (request.status === 200) {
+    if (isZip) {
+      let s = JSON.parse(request.responseText)["payload"];
+      if (s) {
+        jsonString = unzip(s);
+      } else {
+        return null;
+      }
+    } else {
+      jsonString = JSON.parse(request.responseText)["payload"];
+    }
+    return JSON.parse(jsonString);
+  }
+  return null;
 }
 
 /**
@@ -361,6 +428,7 @@ export {
   isComparativeObservation,
   appendMoreIfNecessary,
   appendMoreToAll,
+  sendRequest,
   getStatsString,
   getOutArcsMap,
   getContainedInPlace,
