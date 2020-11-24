@@ -51,13 +51,12 @@ def clearcache():
 @bp.route('/clearcache/action', methods=['POST'])
 def clearcacheaction():
     user_input = request.form.get('secret')
-    if os.environ.get('FLASK_ENV') == 'staging':
-        cfg = import_string('configmodule.StagingConfig')()
-    elif os.environ.get('FLASK_ENV') == 'production':
+    env = os.environ.get('FLASK_ENV')
+    if env == 'production':
         cfg = import_string('configmodule.ProductionConfig')()
     else:
         cfg = None
-        flask.abort(500)
+        flask.abort(500, 'clear cache not working for env %s' % env)
     secret_client = secretmanager.SecretManagerServiceClient()
     secret_name = secret_client.secret_version_path(cfg.PROJECT, 'clearcache',
                                                     '1')
