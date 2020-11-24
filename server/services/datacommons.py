@@ -193,7 +193,8 @@ def get_property_values(dcids,
 
 
 def get_triples_processed(dcids, limit=_MAX_LIMIT):
-    """Generate the GetTriple query and send the request.
+    """
+    Generate the GetTriple query and send the request.
 
     The response is processed into as triples strings. This API is used by the
     pv tree tool.
@@ -219,10 +220,10 @@ def get_triples_processed(dcids, limit=_MAX_LIMIT):
 
 
 def get_triples(dcids, limit=0):
-    """Get the triples in the raw format as the REST response.
+    """
+    Get the triples in the raw format as the REST response.
 
     This is used by the flask server to retrieve node triples.
-
     Limit of 0 does not apply a limit and use all available triples from cache.
     """
     url = API_ROOT + API_ENDPOINTS['get_triples']
