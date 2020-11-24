@@ -220,7 +220,11 @@ def get_triples(dcids, limit=0):
 
 
 def get_triples_raw(dcids, limit=0):
-    """Get the triples in the raw format as the REST response."""
+    """Get the triples in the raw format as the REST response.
+
+        Limit of 0 does not apply a limit and use all available triples from
+        cache.
+    """
     url = API_ROOT + API_ENDPOINTS['get_triples']
     return send_request(url, req_json={'dcids': dcids, 'limit': limit})
 
