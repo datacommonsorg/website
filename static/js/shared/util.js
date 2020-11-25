@@ -399,20 +399,22 @@ function randDomId() {
  * @return void
  */
 function saveToFile(filename, contents) {
+  let mimeType = "text/plan";
   if (filename.match(/\.csv$/i)) {
-    if (!contents.match(/^data:text\/csv/i)) {
-      contents = "data:text/csv;charset=utf-8," + contents;
-    }
+    mimeType = "text/csv;chartset=utf-8";
   } else if (filename.match(/\.svg$/i)) {
-    if (!contents.match(/^data:image\/svg/i)) {
-      contents = "data:image/svg+xml;charset=utf-8," + contents;
-    }
+    mimeType = "image/svg+xml;chartset=utf-8";
   }
-  const data = encodeURI(contents);
+  const blob = new Blob([contents], { type: mimeType });
   const link = document.createElement("a");
-  link.setAttribute("href", data);
+  const url = window.URL.createObjectURL(blob);
+  link.setAttribute("href", url);
   link.setAttribute("download", filename);
+  link.onclick = () => {
+    setTimeout(() => window.URL.revokeObjectURL(url));
+  };
   link.click();
+  link.remove();
 }
 
 export {
