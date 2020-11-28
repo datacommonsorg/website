@@ -297,9 +297,6 @@ function removeStatVar(
   const statVarX = _.keys(x.value.statVar)[0];
   const statVarY = _.keys(y.value.statVar)[0];
   const path = [nodePath];
-  console.log(statVarX);
-  console.log(x.value.statVar[statVarX]);
-  console.log(path);
   if (
     statVarX === statVar &&
     (!nodePath || _.isEqual(x.value.statVar[statVarX].paths, path))

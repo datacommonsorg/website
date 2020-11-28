@@ -29,94 +29,6 @@ import { getApiKey, getApiRoot } from "../../shared/util";
 
 Enzyme.configure({ adapter: new Adapter() });
 
-test("Delaware Number Of Establishments vs employed", async (done) => {
-  const unmock = mockAxios();
-  const app = mount(<TestApp />);
-
-  // Expand these verticals
-  app.find("#Demographics a").simulate("click");
-  app.find("#Employment a").simulate("click");
-  app.find("#Economics a").simulate("click");
-  await waitFor(() => expect(app.text()).toContain("Population Density"));
-
-  // Select county as child place type
-  app
-    .find("#enclosed-place-type")
-    .at(0)
-    .simulate("change", { target: { value: "County" } });
-
-  // Population density should be filtered out
-  await waitFor(() => expect(app.text()).not.toContain("Population Density"));
-
-  // Choose employed for x and establishments for y
-  app.find(`[id="Employed"] button`).simulate("click");
-  app.find(`[id="Number of Establishments"] button`).simulate("click");
-
-  await waitFor(() => {
-    const text = app.text();
-    // Title
-    expect(text).toContain("Number Of Establishments vs Employed");
-    // Stats
-    expect(text).toContain("X Mean: 152696");
-    expect(text).toContain("Y Mean: 8359.667");
-    expect(text).toContain("X Standard Deviation: 108149.894");
-    expect(text).toContain("Y Standard Deviation: 6753.678");
-  });
-
-  // Points
-  const expectThreeCircles = () => {
-    const $ = Cheerio.load(app.html());
-    expect($("circle").length).toEqual(3);
-  };
-  expectThreeCircles();
-
-  // Swap axes
-  app.find("#swap-axes").at(0).simulate("click");
-  const expectTitle = (title: string) => expect(app.text()).toContain(title);
-  const expectStat = (
-    xMean: number,
-    yMean: number,
-    xStd: number,
-    yStd: number
-  ) => {
-    const text = app.text();
-    expect(text).toContain(`X Mean: ${xMean}`);
-    expect(text).toContain(`Y Mean: ${yMean}`);
-    expect(text).toContain(`X Standard Deviation: ${xStd}`);
-    expect(text).toContain(`Y Standard Deviation: ${yStd}`);
-  };
-  expectTitle("Employed vs Number Of Establishments");
-  expectStat(8359.667, 152696, 6753.678, 108149.894);
-  expectThreeCircles();
-
-  // Per capita
-  app
-    .find("#per-capita-x")
-    .at(0)
-    .simulate("change", { target: { checked: true } });
-  app
-    .find("#per-capita-y")
-    .at(0)
-    .simulate("change", { target: { checked: true } });
-  expectTitle("Employed Per Capita vs Number Of Establishments Per Capita");
-  expectStat(0.024, 0.456, 0.005, 0.036);
-  expectThreeCircles();
-
-  // Log
-  app
-    .find("#log-x")
-    .at(0)
-    .simulate("change", { target: { checked: true } });
-  app
-    .find("#log-y")
-    .at(0)
-    .simulate("change", { target: { checked: true } });
-  expectThreeCircles();
-
-  unmock();
-  done();
-});
-
 function TestApp(): JSX.Element {
   const context = useStore();
   useEffect(() => {
@@ -202,3 +114,95 @@ function mockAxios(): () => void {
 
   return () => (axios.get = get);
 }
+
+function expectCircles(n: number, app: Enzyme.ReactWrapper): void {
+  const $ = Cheerio.load(app.html());
+  expect($("circle").length).toEqual(n);
+}
+
+function expectStat(
+  xMean: number,
+  yMean: number,
+  xStd: number,
+  yStd: number,
+  app: Enzyme.ReactWrapper
+): void {
+  const text = app.text();
+  expect(text).toContain(`X Mean: ${xMean}`);
+  expect(text).toContain(`Y Mean: ${yMean}`);
+  expect(text).toContain(`X Standard Deviation: ${xStd}`);
+  expect(text).toContain(`Y Standard Deviation: ${yStd}`);
+}
+
+test("all functionalities", async (done) => {
+  const unmock = mockAxios();
+  const app = mount(<TestApp />);
+
+  // Expand these verticals
+  app.find("#Demographics a").simulate("click");
+  app.find("#Employment a").simulate("click");
+  app.find("#Economics a").simulate("click");
+  await waitFor(() => expect(app.text()).toContain("Population Density"));
+
+  // Select county as child place type
+  app
+    .find("#enclosed-place-type")
+    .at(0)
+    .simulate("change", { target: { value: "County" } });
+
+  // Population density should be filtered out
+  await waitFor(() => expect(app.text()).not.toContain("Population Density"));
+
+  // Choose employed for x and establishments for y
+  app.find(`[id="Employed"] button`).simulate("click");
+  app.find(`[id="Number of Establishments"] button`).simulate("click");
+
+  await waitFor(() => {
+    const text = app.text();
+    // Title
+    expect(text).toContain("Number Of Establishments vs Employed");
+    // Stats
+    expect(text).toContain("X Mean: 152696");
+    expect(text).toContain("Y Mean: 8359.667");
+    expect(text).toContain("X Standard Deviation: 108149.894");
+    expect(text).toContain("Y Standard Deviation: 6753.678");
+  });
+
+  // Points
+  expectCircles(3, app);
+
+  // Swap axes
+  app.find("#swap-axes").at(0).simulate("click");
+  const expectTitle = (title: string) => expect(app.text()).toContain(title);
+
+  expectTitle("Employed vs Number Of Establishments");
+  expectStat(8359.667, 152696, 6753.678, 108149.894, app);
+  expectCircles(3, app);
+
+  // Per capita
+  app
+    .find("#per-capita-x")
+    .at(0)
+    .simulate("change", { target: { checked: true } });
+  app
+    .find("#per-capita-y")
+    .at(0)
+    .simulate("change", { target: { checked: true } });
+  expectTitle("Employed Per Capita vs Number Of Establishments Per Capita");
+  expectStat(0.024, 0.456, 0.005, 0.036, app);
+  expectCircles(3, app);
+
+  // Log
+  app
+    .find("#log-x")
+    .at(0)
+    .simulate("change", { target: { checked: true } });
+  app
+    .find("#log-y")
+    .at(0)
+    .simulate("change", { target: { checked: true } });
+  expectCircles(3, app);
+
+  unmock();
+  done();
+});

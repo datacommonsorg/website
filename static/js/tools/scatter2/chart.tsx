@@ -18,84 +18,31 @@
  * Chart component for retrieving, transforming, and plotting data.
  */
 
-import React, { useContext, useEffect, useRef, useState } from "react";
+import React, { useEffect, useRef } from "react";
 import _ from "lodash";
 import { Container, Row, Card, Badge } from "reactstrap";
 import * as d3 from "d3";
-import { saveToFile } from "../../shared/util";
-import { getTimeSeriesLatestPoint } from "./util";
-import { Spinner } from "./spinner";
-import {
-  Context,
-  NamedPlace,
-  setData,
-  setPopulations,
-  ContextFieldType,
-  Axis,
-  Place,
-} from "./context";
+import { Point } from "./chart_loader";
 
-/**
- * Represents a point in the scatter plot.
- */
-interface Point {
-  xVal: number;
-  yVal: number;
-  xPop: number;
-  yPop: number;
-  place: NamedPlace;
+interface ChartPropsType {
+  points: Array<Point>;
+  xLabel: string;
+  yLabel: string;
+  xLog: boolean;
+  yLog: boolean;
+  xPerCapita: boolean;
+  yPerCapita: boolean;
 }
 
 // TODO: Show provenance.
-function Chart(): JSX.Element {
-  const context = useContext(Context);
-  const [points, setPoints] = useState([] as Array<Point>);
-  const [loading, setLoading] = useState(false);
+function Chart(props: ChartPropsType): JSX.Element {
   const svg = useRef<SVGSVGElement>();
   const tooltip = useRef<HTMLDivElement>();
 
-  /**
-   * When statvars, enclosing place, child place type, or any plot options change,
-   * re-retreive data.
-   */
-  useEffect(() => {
-    const place = context.place.value;
-    if (!arePlacesLoaded(place)) {
-      return;
-    }
-    const x = context.x;
-    const y = context.y;
-    if (!isStatVarNameLoaded(x.value) || !isStatVarNameLoaded(y.value)) {
-      return;
-    }
-    setLoading(true);
-    loadPopulationsAndDataIfNeeded(x, place);
-    loadPopulationsAndDataIfNeeded(y, place);
-    if (!arePopulationsAndDataLoaded(x.value, y.value)) {
-      return;
-    }
-
-    const points = getPoints(x.value, y.value, place);
-    setPoints(points);
-    setLoading(false);
-
-    const downloadButton = document.getElementById("download-link");
-    if (downloadButton) {
-      downloadButton.style.visibility = "visible";
-      downloadButton.onclick = () => downloadData(x.value, y.value, place);
-    }
-  }, [context]);
-
   // Replot when data changes.
   useEffect(() => {
-    if (
-      !isStatVarNameLoaded(context.x.value) ||
-      !isStatVarNameLoaded(context.y.value)
-    ) {
-      return;
-    }
-    plot(svg, tooltip, points, context.x.value, context.y.value);
-  }, [points]);
+    plot(svg, tooltip, props);
+  }, [props]);
 
   return (
     <Container id="chart">
@@ -107,140 +54,18 @@ function Chart(): JSX.Element {
       </Row>
       <Row>
         <Card id="stats">
-          <Badge color="light">X Mean: {getXMean(points)}</Badge>
-          <Badge color="light">Y Mean: {getYMean(points)}</Badge>
-          <Badge color="light">X Standard Deviation: {getXStd(points)}</Badge>
-          <Badge color="light">Y Standard Deviation: {getYStd(points)}</Badge>
+          <Badge color="light">X Mean: {getXMean(props.points)}</Badge>
+          <Badge color="light">Y Mean: {getYMean(props.points)}</Badge>
+          <Badge color="light">
+            X Standard Deviation: {getXStd(props.points)}
+          </Badge>
+          <Badge color="light">
+            Y Standard Deviation: {getYStd(props.points)}
+          </Badge>
         </Card>
       </Row>
-      <Spinner isOpen={loading} />
     </Container>
   );
-}
-
-/**
- * Constructs an array of points for plotting.
- * @param x
- * @param y
- * @param place
- */
-function getPoints(x: Axis, y: Axis, place: Place): Array<Point> {
-  const lower = place.lowerBound;
-  const upper = place.upperBound;
-  return _.zip(
-    x.data,
-    y.data,
-    x.populations,
-    y.populations,
-    place.enclosedPlaces
-  )
-    .filter(
-      ([xVal, yVal, xPop, yPop]) =>
-        xVal !== undefined &&
-        yVal !== undefined &&
-        xPop !== undefined &&
-        yPop !== undefined &&
-        isBetween(xPop, lower, upper) &&
-        isBetween(yPop, lower, upper)
-    )
-    .map(([xVal, yVal, xPop, yPop, placeName]) => ({
-      xVal: x.perCapita ? xVal / xPop : xVal,
-      yVal: y.perCapita ? yVal / yPop : yVal,
-      xPop: xPop,
-      yPop: yPop,
-      place: placeName,
-    }));
-}
-
-/**
- * Checks if the child places have been loaded.
- * @param place
- */
-function arePlacesLoaded(place: Place): boolean {
-  return (
-    place.enclosedPlaceType &&
-    place.enclosingPlace.dcid &&
-    !_.isEmpty(place.enclosedPlaces)
-  );
-}
-
-/**
- * Checks if the name of a statvar for an axis has been loaded from the statvar menu.
- * @param axis
- */
-function isStatVarNameLoaded(axis: Axis): boolean {
-  return !_.isEmpty(axis.name);
-}
-
-/**
- * Checks if the population data (for per capita) and statvar data have been loaded
- * for both axes.
- * @param x
- * @param y
- */
-function arePopulationsAndDataLoaded(x: Axis, y: Axis): boolean {
-  return (
-    !_.isEmpty(x.data) &&
-    !_.isEmpty(y.data) &&
-    !_.isEmpty(x.populations) &&
-    !_.isEmpty(y.populations)
-  );
-}
-
-/**
- * Saves data to a CSV file.
- * @param x
- * @param y
- * @param place
- */
-function downloadData(x: Axis, y: Axis, place: Place): void {
-  if (!arePopulationsAndDataLoaded(x, y)) {
-    alert("Sorry, still retrieving data. Please try again later.");
-    return;
-  }
-
-  const xStatVar = _.findKey(x.statVar);
-  const yStatVar = _.findKey(y.statVar);
-  // Headers
-  let csv =
-    `xValue-${xStatVar},` +
-    `yValue-${yStatVar},` +
-    `${x.statVar[xStatVar].denominators[0] || "xPopulation-Count_Person"},` +
-    `${y.statVar[yStatVar].denominators[0] || "yPopulation-Count_Person"}\n`;
-  // Data
-  for (const [xVal, yVal, xPop, yPop] of _.zip(
-    x.data,
-    y.data,
-    x.populations,
-    y.populations
-  )) {
-    csv +=
-      `${xVal === undefined ? "" : xVal},` +
-      `${yVal === undefined ? "" : yVal},` +
-      `${xPop === undefined ? "" : xPop},` +
-      `${yPop === undefined ? "" : yPop}\n`;
-  }
-
-  saveToFile(
-    `${x.name}-` +
-      `${y.name}-` +
-      `${place.enclosingPlace.name}-` +
-      `${place.enclosedPlaceType}.csv`,
-    csv
-  );
-}
-
-/**
- * Checks if a number is in an inclusive range.
- * @param num
- * @param lower
- * @param upper
- */
-function isBetween(num: number, lower: number, upper: number): boolean {
-  if (_.isNil(lower) || _.isNil(upper)) {
-    return true;
-  }
-  return lower <= num && num <= upper;
 }
 
 /**
@@ -253,7 +78,7 @@ function getStringOrNA(num: number): string {
     ? "N/A"
     : Number.isInteger(num)
     ? num.toString()
-    : num.toFixed(3);
+    : num.toFixed(3); // TODO: Three decimal places may not be enough. Need a utility to do this.
 }
 
 /**
@@ -292,25 +117,18 @@ function getYStd(points: Array<Point>): string {
  * Plots a scatter plot.
  * @param svg
  * @param tooltip
- * @param points
- * @param x
- * @param y
+ * @param props
  */
 function plot(
   svg: React.MutableRefObject<SVGElement>,
   tooltip: React.MutableRefObject<HTMLDivElement>,
-  points: Array<Point>,
-  x: Axis,
-  y: Axis
+  props: ChartPropsType
 ): void {
   d3.select(svg.current).selectAll("*").remove();
 
   // TODO: Handle log domain 0.
-  const xMinMax = d3.extent(points, (point) => point.xVal);
-  const yMinMax = d3.extent(points, (point) => point.yVal);
-
-  const xLabel = getLabel(x.name, x.perCapita);
-  const yLabel = getLabel(y.name, y.perCapita);
+  const xMinMax = d3.extent(props.points, (point) => point.xVal);
+  const yMinMax = d3.extent(props.points, (point) => point.yVal);
 
   const margin = {
     top: 50,
@@ -336,9 +154,9 @@ function plot(
 
   const xScale = addXAxis(
     g,
-    x.log,
-    x.perCapita,
-    xLabel,
+    props.xLog,
+    props.xPerCapita,
+    props.xLabel,
     height,
     width,
     margin.bottom,
@@ -347,9 +165,9 @@ function plot(
   );
   const yScale = addYAxis(
     g,
-    y.log,
-    y.perCapita,
-    yLabel,
+    props.yLog,
+    props.yPerCapita,
+    props.yLabel,
     height,
     margin.left,
     yMinMax[0],
@@ -361,11 +179,11 @@ function plot(
     .attr("transform", `translate(${width / 2},${-margin.top / 2})`)
     .attr("text-anchor", "middle")
     .style("font-size", "1.1em")
-    .text(`${yLabel} vs ${xLabel}`);
+    .text(`${props.yLabel} vs ${props.xLabel}`);
 
   const dots = g
     .selectAll("dot")
-    .data(points)
+    .data(props.points)
     .enter()
     .append("circle")
     .attr("r", 5)
@@ -376,7 +194,7 @@ function plot(
     .attr("fill", "#FFFFFF")
     .style("opacity", "0.7");
 
-  addTooltip(tooltip, dots, xLabel, yLabel);
+  addTooltip(tooltip, dots, props.xLabel, props.yLabel);
 }
 
 /**
@@ -495,70 +313,6 @@ function addTooltip(
     div.style("visibility", "hidden");
   };
   dots.on("mouseover", onTooltipMouseover).on("mouseout", onTooltipMouseout);
-}
-
-/**
- * Loads population data (for per capita) and statvar
- * data if they have been selected but not yet loaded.
- * @param axis
- * @param place
- */
-function loadPopulationsAndDataIfNeeded(
-  axis: ContextFieldType<Axis>,
-  place: Place
-): void {
-  if (!_.isEmpty(axis.value.statVar)) {
-    if (_.isEmpty(axis.value.populations)) {
-      loadPopulations(axis, place);
-    }
-    if (_.isEmpty(axis.value.data)) {
-      loadData(axis, place);
-    }
-  }
-}
-
-/**
- * Loads population data (for per capita) for an axis.
- * @param axis
- * @param place
- */
-function loadPopulations(axis: ContextFieldType<Axis>, place: Place): void {
-  Promise.all(
-    place.enclosedPlaces.map((namedPlace) =>
-      getTimeSeriesLatestPoint(
-        namedPlace.dcid,
-        Object.values(axis.value.statVar)[0].denominators[0] || "Count_Person"
-      ).catch(() => undefined)
-    )
-  ).then((populations) => setPopulations(axis, populations));
-}
-
-/**
- * Loads statvar data for an axis.
- * @param axis
- * @param place
- */
-function loadData(axis: ContextFieldType<Axis>, place: Place): void {
-  Promise.all(
-    place.enclosedPlaces.map((namedPlace) =>
-      getTimeSeriesLatestPoint(
-        namedPlace.dcid,
-        _.findKey(axis.value.statVar)
-      ).catch(() => undefined)
-    )
-  ).then((data) => setData(axis, data));
-}
-
-/**
- * Formats a statvar name passed by the statvar menu to be an axis label.
- * @param name
- * @param perCapita
- */
-function getLabel(name: string, perCapita: boolean): string {
-  if (!name.endsWith("$")) {
-    name = _.startCase(name);
-  }
-  return `${name}${perCapita ? " Per Capita" : ""}`;
 }
 
 export { Chart };

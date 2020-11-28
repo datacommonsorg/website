@@ -24,7 +24,7 @@ import { Container, Row } from "reactstrap";
 import { StatVarChooser } from "./statvar";
 import { PlaceOptions } from "./place_options";
 import { PlotOptions } from "./plot_options";
-import { Chart } from "./chart";
+import { ChartLoader } from "./chart_loader";
 import { Info } from "./info";
 import {
   Context,
@@ -56,7 +56,7 @@ function App(): JSX.Element {
                 <PlotOptions />
               </Row>
               <Row id="chart-row">
-                <Chart />
+                <ChartLoader />
               </Row>
             </React.Fragment>
           ) : (
@@ -139,10 +139,7 @@ function updateHash(context: ContextType) {
  */
 function shouldHideInfo(x: Axis, y: Axis, place: Place): boolean {
   return (
-    !_.isEmpty(place.enclosedPlaceType) &&
-    !_.isEmpty(place.enclosingPlace.dcid) &&
-    !_.isEmpty(x.statVar) &&
-    !_.isEmpty(y.statVar)
+    !_.isEmpty(place.enclosedPlaceType) && !_.isEmpty(place.enclosingPlace.dcid)
   );
 }
 
