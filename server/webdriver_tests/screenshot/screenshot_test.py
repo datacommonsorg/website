@@ -111,7 +111,7 @@ TEST_URLS = [
     },
     {
         'url':
-            '/tools/scatter2#x%3D%7B%22statVar%22%3A%7B%22Count_Person_Employed%22%3A%7B%22paths%22%3A%5B%5B%223%22%2C%220%22%5D%5D%2C%22denominators%22%3A%5B%22Count_Person%22%5D%7D%7D%2C%22name%22%3A%22Employed%22%2C%22data%22%3A%5B%5D%2C%22populations%22%3A%5B%5D%2C%22log%22%3Afalse%2C%22perCapita%22%3Afalse%7D%26y%3D%7B%22statVar%22%3A%7B%22Count_Establishment%22%3A%7B%22paths%22%3A%5B%5B%229%22%2C%222%22%5D%5D%2C%22denominators%22%3A%5B%5D%7D%7D%2C%22name%22%3A%22Number%20of%20Establishments%22%2C%22data%22%3A%5B%5D%2C%22populations%22%3A%5B%5D%2C%22log%22%3Afalse%2C%22perCapita%22%3Afalse%7D%26place%3D%7B%22enclosingPlace%22%3A%7B%22dcid%22%3A%22geoId%2F10%22%2C%22name%22%3A%22Delaware%22%7D%2C%22enclosedPlaceType%22%3A%22County%22%2C%22enclosedPlaces%22%3A%5B%5D%2C%22lowerBound%22%3A0%2C%22upperBound%22%3A10000000000%7D',
+            '/tools/scatter2#x={"statVar":{"Count_Person_Employed":{"paths":[["3","0"]],"denominators":["Count_Person"]}},"name":"Employed","data":[],"populations":[],"log":false,"perCapita":false}&y={"statVar":{"Count_Establishment":{"paths":[["9","2"]],"denominators":[]}},"name":"Number of Establishments","data":[],"populations":[],"log":false,"perCapita":false}&place={"enclosingPlace":{"dcid":"geoId/10","name":"Delaware"},"enclosedPlaceType":"County","enclosedPlaces":[],"lowerBound":0,"upperBound":10000000000}',
         'filename_suffix':
             'scatter2_delaware_establishments_vs_employed.png',
         'test_class':

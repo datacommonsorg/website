@@ -21,7 +21,7 @@ import Cheerio from "cheerio";
 import { when } from "jest-when";
 import axios from "axios";
 import { App } from "./app";
-import { Context, setEnclosingPlace, useStore } from "./context";
+import { Context, setEnclosingPlace, useContextStore } from "./context";
 
 import hierarchy from "../../../data/hierarchy_top.json";
 import { waitFor } from "@testing-library/react";
@@ -30,7 +30,7 @@ import { getApiKey, getApiRoot } from "../../shared/util";
 Enzyme.configure({ adapter: new Adapter() });
 
 function TestApp(): JSX.Element {
-  const context = useStore();
+  const context = useContextStore();
   useEffect(() => {
     setEnclosingPlace(context.place, { name: "Delaware", dcid: "geoId/10" });
   }, []);

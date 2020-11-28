@@ -24,9 +24,9 @@ import { FormGroup, Label, Input, Card, Button, Collapse } from "reactstrap";
 import {
   Axis,
   Context,
-  ContextFieldType,
+  StateType,
   ContextType,
-  Place,
+  PlaceInfo,
   setAxis,
   setLog,
   setLowerBound,
@@ -163,7 +163,7 @@ function PlotOptions(): JSX.Element {
  * @param x
  * @param y
  */
-function swapAxes(x: ContextFieldType<Axis>, y: ContextFieldType<Axis>): void {
+function swapAxes(x: StateType<Axis>, y: StateType<Axis>): void {
   const [xValue, yValue] = [x.value, y.value];
   setAxis(x, yValue);
   setAxis(y, xValue);
@@ -175,7 +175,7 @@ function swapAxes(x: ContextFieldType<Axis>, y: ContextFieldType<Axis>): void {
  * @param event
  */
 function checkPerCapita(
-  axis: ContextFieldType<Axis>,
+  axis: StateType<Axis>,
   event: React.ChangeEvent<HTMLInputElement>
 ): void {
   setPerCapita(axis, event.target.checked);
@@ -187,7 +187,7 @@ function checkPerCapita(
  * @param event
  */
 function checkLog(
-  axis: ContextFieldType<Axis>,
+  axis: StateType<Axis>,
   event: React.ChangeEvent<HTMLInputElement>
 ): void {
   setLog(axis, event.target.checked);
@@ -199,7 +199,7 @@ function checkLog(
  * @param event
  */
 function selectLowerBound(
-  place: ContextFieldType<Place>,
+  place: StateType<PlaceInfo>,
   event: React.ChangeEvent<HTMLInputElement>
 ): void {
   setLowerBound(place, parseInt(event.target.value) || 0);
@@ -211,7 +211,7 @@ function selectLowerBound(
  * @param event
  */
 function selectUpperBound(
-  place: ContextFieldType<Place>,
+  place: StateType<PlaceInfo>,
   event: React.ChangeEvent<HTMLInputElement>
 ): void {
   setUpperBound(place, parseInt(event.target.value) || 1e10);

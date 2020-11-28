@@ -52,7 +52,7 @@ interface NamedPlace {
   dcid: string;
 }
 
-interface Place {
+interface PlaceInfo {
   // Place that encloses the child places to plot
   enclosingPlace: NamedPlace;
   // Type of places to plot
@@ -64,7 +64,7 @@ interface Place {
   upperBound: number;
 }
 
-const EmptyPlace: Place = Object.freeze({
+const EmptyPlace: PlaceInfo = Object.freeze({
   enclosingPlace: {
     name: "",
     dcid: "",
@@ -75,7 +75,7 @@ const EmptyPlace: Place = Object.freeze({
   upperBound: 1e10,
 });
 
-interface ContextFieldType<V> {
+interface StateType<V> {
   value: V;
   set: Setter<V>;
 }
@@ -83,11 +83,11 @@ interface ContextFieldType<V> {
 // Global app state
 interface ContextType {
   // X axis
-  x: ContextFieldType<Axis>;
+  x: StateType<Axis>;
   // Y axis
-  y: ContextFieldType<Axis>;
+  y: StateType<Axis>;
   // Places to plot
-  place: ContextFieldType<Place>;
+  place: StateType<PlaceInfo>;
 }
 
 const Context = createContext({} as ContextType);
@@ -95,19 +95,10 @@ const Context = createContext({} as ContextType);
 /**
  * Constructs an initial context.
  */
-function useStore(): ContextType {
+function useContextStore(): ContextType {
   const [x, setX] = useState(EmptyAxis);
   const [y, setY] = useState(EmptyAxis);
-  const [place, setPlace] = useState({
-    enclosingPlace: {
-      name: "",
-      dcid: "",
-    },
-    enclosedPlaceType: "",
-    enclosedPlaces: [],
-    lowerBound: 0,
-    upperBound: 1e10,
-  } as Place);
+  const [place, setPlace] = useState(EmptyPlace);
   return {
     x: { value: x, set: setX },
     y: { value: y, set: setY },
@@ -115,11 +106,11 @@ function useStore(): ContextType {
   };
 }
 
-function setAxis(field: ContextFieldType<Axis>, axis: Axis): void {
+function setAxis(field: StateType<Axis>, axis: Axis): void {
   field.set(axis);
 }
 
-function setPlace(field: ContextFieldType<Place>, place: Place): void {
+function setPlace(field: StateType<PlaceInfo>, place: PlaceInfo): void {
   field.set(place);
 }
 
@@ -129,7 +120,7 @@ function setPlace(field: ContextFieldType<Place>, place: Place): void {
  * @param place
  */
 function setEnclosingPlace(
-  field: ContextFieldType<Place>,
+  field: StateType<PlaceInfo>,
   place: NamedPlace
 ): void {
   field.set({
@@ -145,7 +136,7 @@ function setEnclosingPlace(
  * @param enclosedPlaceType
  */
 function setEnclosedPlaceType(
-  field: ContextFieldType<Place>,
+  field: StateType<PlaceInfo>,
   enclosedPlaceType: string
 ): void {
   field.set({
@@ -156,7 +147,7 @@ function setEnclosedPlaceType(
 }
 
 function setEnclosedPlaces(
-  field: ContextFieldType<Place>,
+  field: StateType<PlaceInfo>,
   enclosedPlaces: Array<NamedPlace>
 ): void {
   field.set({
@@ -171,7 +162,7 @@ function setEnclosedPlaces(
  * @param axis
  * @param statVar
  */
-function setStatVar(axis: ContextFieldType<Axis>, statVar: StatsVarNode): void {
+function setStatVar(axis: StateType<Axis>, statVar: StatsVarNode): void {
   axis.set({
     ...axis.value,
     statVar: statVar,
@@ -181,18 +172,18 @@ function setStatVar(axis: ContextFieldType<Axis>, statVar: StatsVarNode): void {
   });
 }
 
-function unsetStatVar(axis: ContextFieldType<Axis>): void {
+function unsetStatVar(axis: StateType<Axis>): void {
   setStatVar(axis, {});
 }
 
-function setStatVarName(axis: ContextFieldType<Axis>, name: string): void {
+function setStatVarName(axis: StateType<Axis>, name: string): void {
   axis.set({
     ...axis.value,
     name: name,
   });
 }
 
-function unsetPopulationsAndData(axis: ContextFieldType<Axis>): void {
+function unsetPopulationsAndData(axis: StateType<Axis>): void {
   axis.set({
     ...axis.value,
     data: [],
@@ -200,41 +191,41 @@ function unsetPopulationsAndData(axis: ContextFieldType<Axis>): void {
   });
 }
 
-function setData(axis: ContextFieldType<Axis>, data: Array<number>): void {
+function setData(axis: StateType<Axis>, data: Array<number>): void {
   axis.set({ ...axis.value, data: data });
 }
 
 function setPopulations(
-  axis: ContextFieldType<Axis>,
+  axis: StateType<Axis>,
   populations: Array<number>
 ): void {
   axis.set({ ...axis.value, populations: populations });
 }
 
-function setLog(axis: ContextFieldType<Axis>, log: boolean): void {
+function setLog(axis: StateType<Axis>, log: boolean): void {
   axis.set({ ...axis.value, log: log });
 }
 
-function setPerCapita(axis: ContextFieldType<Axis>, perCapita: boolean): void {
+function setPerCapita(axis: StateType<Axis>, perCapita: boolean): void {
   axis.set({ ...axis.value, perCapita: perCapita });
 }
 
-function setLowerBound(place: ContextFieldType<Place>, bound: number): void {
+function setLowerBound(place: StateType<PlaceInfo>, bound: number): void {
   place.set({ ...place.value, lowerBound: bound });
 }
 
-function setUpperBound(place: ContextFieldType<Place>, bound: number): void {
+function setUpperBound(place: StateType<PlaceInfo>, bound: number): void {
   place.set({ ...place.value, upperBound: bound });
 }
 
 export {
   Context,
-  useStore,
+  useContextStore,
   ContextType,
-  ContextFieldType,
+  StateType,
   Axis,
   NamedPlace,
-  Place,
+  PlaceInfo,
   setAxis,
   setPlace,
   setEnclosingPlace,

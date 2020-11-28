@@ -24,8 +24,8 @@ import { Card } from "reactstrap";
 import {
   Axis,
   Context,
-  ContextFieldType,
-  Place,
+  StateType,
+  PlaceInfo,
   setEnclosedPlaces,
   setEnclosedPlaceType,
   setEnclosingPlace,
@@ -122,7 +122,7 @@ function PlaceOptions(): JSX.Element {
  * the child places are not.
  * @param place
  */
-function shouldLoadPlaces(place: Place): boolean {
+function shouldLoadPlaces(place: PlaceInfo): boolean {
   return (
     place.enclosedPlaceType &&
     place.enclosingPlace.dcid &&
@@ -134,27 +134,26 @@ function shouldLoadPlaces(place: Place): boolean {
  * Loads child places.
  * @param place
  */
-function loadPlaces(place: ContextFieldType<Place>): void {
-  getPlacesIn(
+async function loadPlaces(place: StateType<PlaceInfo>): Promise<void> {
+  const dcids = await getPlacesIn(
     place.value.enclosingPlace.dcid,
     place.value.enclosedPlaceType
-  ).then((dcids) => {
-    if (!_.isEmpty(dcids)) {
-      getPlaceNames(dcids).then((dcidToName) => {
-        setEnclosedPlaces(
-          place,
-          dcids.map((dcid) => ({
-            name: dcidToName[dcid],
-            dcid: dcid,
-          }))
-        );
-      });
-    } else {
-      alert(
-        `Sorry, ${place.value.enclosingPlace.name} does not contain places of type ${place.value.enclosedPlaceType}`
-      );
-    }
-  });
+  );
+
+  if (!_.isEmpty(dcids)) {
+    const dcidToName = await getPlaceNames(dcids);
+    setEnclosedPlaces(
+      place,
+      dcids.map((dcid) => ({
+        name: dcidToName[dcid],
+        dcid: dcid,
+      }))
+    );
+  } else {
+    alert(
+      `Sorry, ${place.value.enclosingPlace.name} does not contain places of type ${place.value.enclosedPlaceType}`
+    );
+  }
 }
 
 /**
@@ -165,9 +164,9 @@ function loadPlaces(place: ContextFieldType<Place>): void {
  * @param event
  */
 function selectEnclosedPlaceType(
-  x: ContextFieldType<Axis>,
-  y: ContextFieldType<Axis>,
-  place: ContextFieldType<Place>,
+  x: StateType<Axis>,
+  y: StateType<Axis>,
+  place: StateType<PlaceInfo>,
   event: React.ChangeEvent<HTMLInputElement>
 ) {
   setEnclosedPlaceType(place, event.target.value);
@@ -183,9 +182,9 @@ function selectEnclosedPlaceType(
  * @param dcid
  */
 async function selectEnclosingPlace(
-  x: ContextFieldType<Axis>,
-  y: ContextFieldType<Axis>,
-  place: ContextFieldType<Place>,
+  x: StateType<Axis>,
+  y: StateType<Axis>,
+  place: StateType<PlaceInfo>,
   dcid: string
 ) {
   const dcidToName = await getPlaceNames([dcid]);
@@ -200,9 +199,9 @@ async function selectEnclosingPlace(
  * @param place
  */
 function unselectEnclosingPlace(
-  x: ContextFieldType<Axis>,
-  y: ContextFieldType<Axis>,
-  place: ContextFieldType<Place>
+  x: StateType<Axis>,
+  y: StateType<Axis>,
+  place: StateType<PlaceInfo>
 ) {
   setEnclosingPlace(place, { dcid: "", name: "" });
   unsetPopulationsAndData(x);

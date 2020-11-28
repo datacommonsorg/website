@@ -29,9 +29,9 @@ import {
   NamedPlace,
   setData,
   setPopulations,
-  ContextFieldType,
+  StateType,
   Axis,
-  Place,
+  PlaceInfo,
 } from "./context";
 
 /**
@@ -46,6 +46,35 @@ interface Point {
 }
 
 function ChartLoader(): JSX.Element {
+  const context = useContext(Context);
+  const [points, isLoading] = usePoints();
+
+  const x = context.x.value;
+  const y = context.y.value;
+
+  return (
+    <div>
+      {areStatVarNamesLoaded(x, y) && (
+        <Chart
+          points={points}
+          xLabel={getLabel(x.name, x.perCapita)}
+          yLabel={getLabel(y.name, y.perCapita)}
+          xLog={x.log}
+          yLog={y.log}
+          xPerCapita={x.perCapita}
+          yPerCapita={y.perCapita}
+        />
+      )}
+      <Spinner isOpen={isLoading} />
+    </div>
+  );
+}
+
+/**
+ * Returns an array of points for plotting and a boolean
+ * indicating if data are being loaded.
+ */
+function usePoints(): [Array<Point>, boolean] {
   const context = useContext(Context);
   const [points, setPoints] = useState([] as Array<Point>);
   const [isLoading, setIsLoading] = useState(false);
@@ -87,25 +116,7 @@ function ChartLoader(): JSX.Element {
     }
   }, [context]);
 
-  const x = context.x.value;
-  const y = context.y.value;
-
-  return (
-    <div>
-      {areStatVarNamesLoaded(x, y) && (
-        <Chart
-          points={points}
-          xLabel={getLabel(x.name, x.perCapita)}
-          yLabel={getLabel(y.name, y.perCapita)}
-          xLog={x.log}
-          yLog={y.log}
-          xPerCapita={x.perCapita}
-          yPerCapita={y.perCapita}
-        />
-      )}
-      <Spinner isOpen={isLoading} />
-    </div>
-  );
+  return [points, isLoading];
 }
 
 /**
@@ -114,7 +125,7 @@ function ChartLoader(): JSX.Element {
  * @param y
  * @param place
  */
-function getPoints(x: Axis, y: Axis, place: Place): Array<Point> {
+function getPoints(x: Axis, y: Axis, place: PlaceInfo): Array<Point> {
   const lower = place.lowerBound;
   const upper = place.upperBound;
   return _.zip(
@@ -146,7 +157,7 @@ function getPoints(x: Axis, y: Axis, place: Place): Array<Point> {
  * Checks if the child places have been loaded.
  * @param place
  */
-function arePlacesLoaded(place: Place): boolean {
+function arePlacesLoaded(place: PlaceInfo): boolean {
   return (
     place.enclosedPlaceType &&
     place.enclosingPlace.dcid &&
@@ -187,7 +198,7 @@ function arePopulationsAndDataLoaded(x: Axis, y: Axis): boolean {
  * @param y
  * @param place
  */
-function downloadData(x: Axis, y: Axis, place: Place): void {
+function downloadData(x: Axis, y: Axis, place: PlaceInfo): void {
   if (!arePopulationsAndDataLoaded(x, y)) {
     alert("Sorry, still retrieving data. Please try again later.");
     return;
@@ -244,8 +255,8 @@ function isBetween(num: number, lower: number, upper: number): boolean {
  * @param place
  */
 async function loadPopulationsAndDataIfNeeded(
-  axis: ContextFieldType<Axis>,
-  place: Place
+  axis: StateType<Axis>,
+  place: PlaceInfo
 ): Promise<void> {
   if (!_.isEmpty(axis.value.statVar)) {
     if (_.isEmpty(axis.value.populations)) {
@@ -263,8 +274,8 @@ async function loadPopulationsAndDataIfNeeded(
  * @param place
  */
 async function loadPopulations(
-  axis: ContextFieldType<Axis>,
-  place: Place
+  axis: StateType<Axis>,
+  place: PlaceInfo
 ): Promise<void> {
   Promise.all(
     place.enclosedPlaces.map((namedPlace) =>
@@ -282,8 +293,8 @@ async function loadPopulations(
  * @param place
  */
 async function loadData(
-  axis: ContextFieldType<Axis>,
-  place: Place
+  axis: StateType<Axis>,
+  place: PlaceInfo
 ): Promise<void> {
   Promise.all(
     place.enclosedPlaces.map((namedPlace) =>

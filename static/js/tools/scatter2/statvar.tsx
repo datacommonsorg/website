@@ -43,7 +43,7 @@ import {
   setStatVar,
   setStatVarName,
   unsetStatVar,
-  ContextFieldType,
+  StateType,
   NamedPlace,
 } from "./context";
 import { Spinner } from "./spinner";
@@ -86,7 +86,7 @@ function StatVarChooser(): JSX.Element {
   };
   // Stores filtered statvar DCIDs.
   const [validStatVars, setValidStatVars] = useState(new Set<string>());
-  const [loading, setLoading] = useState(false);
+  const [isLoading, setIsLoading] = useState(false);
 
   // When child places change, refilter the statvars.
   useEffect(() => {
@@ -95,12 +95,13 @@ function StatVarChooser(): JSX.Element {
       return;
     }
     filterStatVars(context.x, context.y, places, setValidStatVars);
-    setLoading(true);
+    setIsLoading(true);
   }, [context.place.value.enclosedPlaces]);
 
+  // After filtered statvar DCIDs have been loaded, remove the spinner.
   useEffect(() => {
     if (!_.isEmpty(validStatVars)) {
-      setLoading(false);
+      setIsLoading(false);
     }
   }, [validStatVars]);
 
@@ -139,7 +140,7 @@ function StatVarChooser(): JSX.Element {
           }
         ></Menu>
       </div>
-      <Spinner isOpen={loading} />
+      <Spinner isOpen={isLoading} />
       <Modal
         isOpen={!_.isEmpty(thirdStatVar.statVar)}
         backdrop="static"
@@ -223,8 +224,8 @@ function StatVarChooser(): JSX.Element {
  * @param setValidStatVars
  */
 function filterStatVars(
-  x: ContextFieldType<Axis>,
-  y: ContextFieldType<Axis>,
+  x: StateType<Axis>,
+  y: StateType<Axis>,
   places: Array<NamedPlace>,
   setValidStatVars: (statVars: Set<string>) => void
 ): void {
@@ -262,8 +263,8 @@ function filterStatVars(
  * @param setThirdStatVar
  */
 function addStatVar(
-  x: ContextFieldType<Axis>,
-  y: ContextFieldType<Axis>,
+  x: StateType<Axis>,
+  y: StateType<Axis>,
   statVar: string,
   nodePath: string[],
   denominators: string[],
@@ -289,8 +290,8 @@ function addStatVar(
  * @param nodePath
  */
 function removeStatVar(
-  x: ContextFieldType<Axis>,
-  y: ContextFieldType<Axis>,
+  x: StateType<Axis>,
+  y: StateType<Axis>,
   statVar: string,
   nodePath?: string[]
 ) {
@@ -321,8 +322,8 @@ function removeStatVar(
  * @param setThirdStatVar
  */
 function setStatsVarTitle(
-  x: ContextFieldType<Axis>,
-  y: ContextFieldType<Axis>,
+  x: StateType<Axis>,
+  y: StateType<Axis>,
   statsVarId2Title: Record<string, string>,
   thirdStatVar: NamedStatVar,
   setThirdStatVar: (statVar: NamedStatVar) => void
@@ -377,8 +378,8 @@ function selectStatVar(
  * @param setModalSelected
  */
 function confirmStatVars(
-  x: ContextFieldType<Axis>,
-  y: ContextFieldType<Axis>,
+  x: StateType<Axis>,
+  y: StateType<Axis>,
   thirdStatVar: NamedStatVar,
   setThirdStatVar: (statVar: NamedStatVar) => void,
   modalSelected: ModalSelected,

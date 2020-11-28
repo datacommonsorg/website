@@ -29,11 +29,11 @@ import { Info } from "./info";
 import {
   Context,
   ContextType,
-  useStore,
+  useContextStore,
   setAxis,
   setPlace,
   Axis,
-  Place,
+  PlaceInfo,
 } from "./context";
 
 function App(): JSX.Element {
@@ -71,7 +71,7 @@ function App(): JSX.Element {
 }
 
 function AppWithContext(): JSX.Element {
-  const store = useStore();
+  const store = useContextStore();
 
   useEffect(() => applyHash(store), []);
   useEffect(() => updateHash(store), [store]);
@@ -137,7 +137,7 @@ function updateHash(context: ContextType) {
  * @param y
  * @param place
  */
-function shouldHideInfo(x: Axis, y: Axis, place: Place): boolean {
+function shouldHideInfo(x: Axis, y: Axis, place: PlaceInfo): boolean {
   return (
     !_.isEmpty(place.enclosedPlaceType) && !_.isEmpty(place.enclosingPlace.dcid)
   );
