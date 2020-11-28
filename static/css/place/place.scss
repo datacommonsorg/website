@@ -146,6 +146,8 @@ $chart-border: 0.5px solid #dee2e6;
 }
 
 .subtopic .row .col {
+  display: flex;
+  flex-direction: column;
   padding: 0.5rem;
 }
 
@@ -176,9 +178,9 @@ $chart-border: 0.5px solid #dee2e6;
 .chart-container {
   border: $chart-border;
   border-radius: 3px;
-  height: 100%;
   padding: 10px;
   display: flex;
+  flex-grow: 1;
   flex-direction: column;
   position: relative;
 }
@@ -252,12 +254,13 @@ $chart-border: 0.5px solid #dee2e6;
 #sidebar-region {
   padding-top: 15px;
   position: relative;
+  transition: transform 300ms linear;
 }
 
 #sidebar-region.fixed {
   position: fixed;
   height: 100vh;
-  overflow-y: scroll;
+  overflow-y: auto;
   top: 0;
 }
 
@@ -376,6 +379,6 @@ $chart-border: 0.5px solid #dee2e6;
 .feedback {
   color: #70757a !important;
   font-style: italic;
-  float: right;
+  text-align: right;
   text-decoration: none !important;
 }

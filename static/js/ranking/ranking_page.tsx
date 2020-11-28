@@ -56,7 +56,7 @@ class Page extends React.Component<RankingPagePropType, RankingPageStateType> {
       params.delete(GET_BOTTOM_PARAM);
       const search = params.toString();
       const href = window.location.pathname + (search ? "?" + search : "");
-      return <a href={href}>Show Top {RANK_SIZE}</a>;
+      return <a href={href}>Show Highest {RANK_SIZE}</a>;
     }
     // show link to bottom 100
     const search = window.location.search;
@@ -64,7 +64,7 @@ class Page extends React.Component<RankingPagePropType, RankingPageStateType> {
       window.location.pathname +
       (search == "" ? "?" : search + "&") +
       GET_BOTTOM_PARAM;
-    return <a href={href}>Show Bottom {RANK_SIZE}</a>;
+    return <a href={href}>Show Lowest {RANK_SIZE}</a>;
   }
 
   render(): JSX.Element {

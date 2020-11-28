@@ -251,112 +251,6 @@ function unzip(s) {
 }
 
 /**
- * Get map bounds (left, right, up, down) and coordinate sequence set of KML
- * coordinates of a place.
- *
- * @param {string} dcid Place DCID.
- *
- * @return {!Object} Map bounds and coordinate sequence set.
- */
-function getMapInfo(dcid) {
-  // TODO(wsws/boxu): This function only works for the US, which doesn't have
-  // the issue of crossing +-180 longitude and +-90 latitude. If using this
-  // function for places with those complicated situations, need to adjust this
-  // function accordingly.
-  let left = 180;
-  let right = -180;
-  let up = -90;
-  let down = 90;
-  let coordinateSequenceSet = [];
-
-  const kmlCoordinatesRes = sendRequest(
-    `/node/property-values?dcids=${dcid}&property=kmlCoordinates`,
-    false
-  );
-  const kmlCoordinates = kmlCoordinatesRes[dcid]["out"][0]["value"];
-
-  const coordinateGroups = kmlCoordinates.split("</coordinates><coordinates>");
-  for (let coordinateGroup of coordinateGroups) {
-    const coordinates = coordinateGroup
-      .replace("<coordinates>", "")
-      .replace("</coordinates>", "")
-      .split(" ");
-    let coordinateSequence = [];
-    for (let coordinate of coordinates) {
-      const v = coordinate.split(",");
-      const x = parseFloat(v[0]);
-      const y = parseFloat(v[1]);
-
-      left = Math.min(left, x);
-      right = Math.max(right, x);
-      down = Math.min(down, y);
-      up = Math.max(up, y);
-
-      coordinateSequence.push({ lat: y, lng: x });
-    }
-    coordinateSequenceSet.push(coordinateSequence);
-  }
-
-  const x_spread = right - left;
-  const y_spread = up - down;
-  const margin = 0.02;
-
-  return {
-    left: left - margin * x_spread,
-    right: right + margin * x_spread,
-    up: up + margin * y_spread,
-    down: down - margin * y_spread,
-    coordinateSequenceSet: coordinateSequenceSet,
-  };
-}
-
-/**
- * Format and expand chart group to include escaped URLs. If the length of the
- * input array is not a multiple of 3, append empty strings to make it a
- * multiple of 3.
- *
- * @param {?Array} chartGroup A list of chart URLs.
- *
- * @return {!Object} A list of original and escaped chart URLs.
- */
-function formatChartGroup(chartGroup) {
-  let res = [];
-  for (let idx = 0; idx < chartGroup.length; idx++) {
-    const url = getLineChartUrl(chartGroup[idx]);
-    res.push([url, url.split("&").join("%26")]);
-  }
-  if (chartGroup.length % NUMBER_OF_CHARTS_PER_ROW) {
-    for (
-      let idx = 0;
-      idx <
-      NUMBER_OF_CHARTS_PER_ROW - (chartGroup.length % NUMBER_OF_CHARTS_PER_ROW);
-      idx++
-    ) {
-      res.push(["", ""]);
-    }
-  }
-  return res;
-}
-
-/**
- * Format and expand charts by category to include escaped URLs.
- *
- * @param {?Array} chartCategories A list of categories of chart URLs.
- *
- * @return {!Object} A list of categories of original and escaped chart URLs.
- */
-function formatChartCategories(chartCategories) {
-  let res = [];
-  for (let idx = 0; idx < chartCategories.length; idx++) {
-    res.push({
-      category: chartCategories[idx]["category"],
-      urls: formatChartGroup(chartCategories[idx]["groups"]),
-    });
-  }
-  return res;
-}
-
-/**
  * Get out arcs map from triples.
  *
  * @param {*} triples Input triples.
@@ -365,7 +259,7 @@ function formatChartCategories(chartCategories) {
  * @return {!Object} Out arcs map.
  */
 function getOutArcsMap(triples, dcid) {
-  let outArcs = triples[dcid].filter((t) => t["subjectId"] == dcid);
+  let outArcs = triples.filter((t) => t["subjectId"] == dcid);
 
   let outArcsMap = {};
   for (let t of outArcs) {
@@ -426,7 +320,7 @@ function getType(triples, dcid) {
   } else if (dcid.startsWith("dc/o/")) {
     type = OBSERVATION;
   } else {
-    let ts = triples[dcid].filter(
+    let ts = triples.filter(
       (t) => t["subjectId"] == dcid && t["predicate"] == "typeOf"
     );
     if (ts.length > 0) {
@@ -505,22 +399,23 @@ function randDomId() {
  * @return void
  */
 function saveToFile(filename, contents) {
+  let mimeType = "text/plan";
   if (filename.match(/\.csv$/i)) {
-    if (!contents.match(/^data:text\/csv/i)) {
-      contents = "data:text/csv;charset=utf-8," + contents;
-    }
+    mimeType = "text/csv;chartset=utf-8";
   } else if (filename.match(/\.svg$/i)) {
-    if (!contents.match(/^data:image\/svg/i)) {
-      contents = "data:image/svg+xml;charset=utf-8," + contents;
-    }
+    mimeType = "image/svg+xml;chartset=utf-8";
   }
-  const data = encodeURI(contents);
+  const blob = new Blob([contents], { type: mimeType });
   const link = document.createElement("a");
-  link.setAttribute("href", data);
+  const url = window.URL.createObjectURL(blob);
+  link.setAttribute("href", url);
   link.setAttribute("download", filename);
+  link.onclick = () => {
+    setTimeout(() => window.URL.revokeObjectURL(url));
+  };
   link.click();
+  link.remove();
 }
-
 
 export {
   STATS,
@@ -536,10 +431,7 @@ export {
   appendMoreIfNecessary,
   appendMoreToAll,
   sendRequest,
-  getMapInfo,
   getStatsString,
-  formatChartGroup,
-  formatChartCategories,
   getOutArcsMap,
   getContainedInPlace,
   getType,

@@ -453,60 +453,8 @@ function groupObs(obsArray) {
   return result;
 }
 
-/**
- * Render place map.
- *
- * @param {string} dcid The DCID of the place.
- * @param {?Array<string>} containedInPlaces Place ancestors.
- */
-function renderPlaceMap(dcid, containedInPlaces) {
-  const mapInfo = util.getMapInfo(dcid);
-  let mapOptions = {
-    mapTypeControl: false,
-    draggable: true,
-    scaleControl: true,
-    scrollwheel: true,
-    navigationControl: true,
-    streetViewControl: false,
-    mapTypeId: google.maps.MapTypeId.ROADMAP,
-  };
-  let map = new google.maps.Map(document.getElementById("map"), mapOptions);
-
-  // Map bounds.
-  let sw = new google.maps.LatLng(mapInfo["down"], mapInfo["left"]);
-  let ne = new google.maps.LatLng(mapInfo["up"], mapInfo["right"]);
-  let bounds = new google.maps.LatLngBounds();
-  bounds.extend(sw);
-  bounds.extend(ne);
-  map.fitBounds(bounds);
-
-  // Polygons of the place.
-  for (let coordinateSequence of mapInfo["coordinateSequenceSet"]) {
-    let polygon = new google.maps.Polygon({
-      path: coordinateSequence,
-      strokeColor: "#FF0000",
-      strokeOpacity: 0.6,
-      strokeWeight: 1,
-      fillColor: "#FF0000",
-      fillOpacity: 0.35,
-    });
-    polygon.setMap(map);
-  }
-
-  // Polygons of ancestors (if any).
-  for (let idx = 0; idx < containedInPlaces.length; idx++) {
-    const ancestorMapInfo = util.getMapInfo(containedInPlaces[idx][0]);
-    for (let coordinateSequence of ancestorMapInfo["coordinateSequenceSet"]) {
-      let polygon = new google.maps.Polygon({
-        path: coordinateSequence,
-        strokeColor: "#FF0000",
-        strokeOpacity: 0.6,
-        strokeWeight: 1,
-        fillOpacity: 0.0,
-      });
-      polygon.setMap(map);
-    }
-  }
+function getTriples(dcid) {
+  return axios.get(`/api/browser/triples/${dcid}`).then((resp) => resp.data);
 }
 
 /**
@@ -520,7 +468,7 @@ function renderPlaceMap(dcid, containedInPlaces) {
  * @param {!Iterable} outArcs The out arc triples.
  * @param {!Object} provDomain Provenance domain.
  */
-function renderKGPage(
+async function renderKGPage(
   dcid,
   type,
   name,
@@ -551,9 +499,7 @@ function renderKGPage(
     popId = dcid;
   }
   if (popId) {
-    let popTriples = util.sendRequest(`/node/triples?dcids=${popId}`, false)[
-      popId
-    ];
+    let popTriples = await getTriples(popId);
     let ts = popTriples.filter((t) =>
       ["location", "childhoodLocation"].includes(t["predicate"])
     );
@@ -569,7 +515,9 @@ function renderKGPage(
   }
 
   // Get popobs
-  const popobs = util.sendRequest(`/bulk/pop-obs?dcid=${locId}`, true);
+  const popobs = await axios
+    .get(`/api/browser/popobs/${locId}`)
+    .then((resp) => resp.data);
 
   // Get out arcs of population from popobs information.
   if (util.isPopulation(type)) {
@@ -665,7 +613,7 @@ function renderKGPage(
     util.setElementShown(elem, true);
   });
 
-  let inArcs = triples[dcid].filter(
+  let inArcs = triples.filter(
     (t) => t["objectId"] == dcid && t["subjectId"] != dcid
   );
   inArcs = inArcs.map((t) => {
@@ -929,16 +877,16 @@ function renderKGPage(
     // Display the observations with type "ComparativeObservation".
     if (compObsData.length > 0) {
       let oids = compObsData.map((o) => o["dcid"]);
-      let obsTriples = util.sendRequest(`/node/triples`, false, false, {
-        dcids: oids,
-      });
-      for (let o of compObsData) {
-        let oid = o["dcid"];
-        for (let t of obsTriples[oid]) {
-          if (t["predicate"] == "comparedNode") {
-            o["comparedNode"] = t["objectId"];
-          } else if (t["predicate"] == "observedNode") {
-            o["observedNode"] = t["objectId"];
+      for (const oid of oids) {
+        let obsTriples = await getTriples(oid);
+        for (let o of compObsData) {
+          let oid = o["dcid"];
+          for (let t of obsTriples[oid]) {
+            if (t["predicate"] == "comparedNode") {
+              o["comparedNode"] = t["objectId"];
+            } else if (t["predicate"] == "observedNode") {
+              o["observedNode"] = t["objectId"];
+            }
           }
         }
       }
@@ -962,11 +910,7 @@ function renderKGPage(
         } else {
           otherPopId = obsSample["observedNode"];
         }
-        let popInfo = util.sendRequest(
-          `/node/triples?dcids=${otherPopId}`,
-          false,
-          true
-        )[otherPopId];
+        let popInfo = await getTriples(otherPopId);
         let otherParentPvs = {};
         for (let t of popInfo) {
           if (["location", "numConstraints"].includes(t["predicate"])) {
@@ -994,130 +938,60 @@ function renderKGPage(
 
 /** Page setup after initial loading */
 window.onload = () => {
-  // Render a set of data
-  const provs = util.sendRequest(`/node/triples?dcids=Provenance`, false)[
-    "Provenance"
-  ];
-  let provDomain = {};
-  for (let prov of provs) {
-    if (prov["predicate"] == "typeOf" && !!prov["subjectName"]) {
-      provDomain[prov["subjectId"]] = new URL(prov["subjectName"]).host;
-    }
-  }
-
   const dcid = document.getElementById("bg-dcid").textContent;
+  const provPromise = getTriples("Provenance");
+  const triplesPromise = getTriples(dcid);
 
-  // Get Triples
-  const triples = util.sendRequest(`/node/triples?dcids=${dcid}`, false);
-
-  // Get outArcs
-  let outArcs = triples[dcid].filter((t) => t["subjectId"] == dcid);
-
-  // Remove predicate that should not be displayed.
-  outArcs = outArcs.filter(
-    (p) =>
-      ![
-        "provenance",
-        "kmlCoordinates",
-        "geoJsonCoordinates",
-        "geoJsonCoordinatesDP1",
-        "geoJsonCoordinatesDP2",
-        "geoJsonCoordinatesDP3",
-      ].includes(p["predicate"])
-  );
-
-  // Get provenance name and object name
-  outArcs = outArcs.map((p) => {
-    if ("objectId" in p && !("objectName" in p)) {
-      p["objectName"] = p["objectId"];
-    }
-    p["src"] = provDomain[p["provenanceId"]];
-    return p;
-  });
-
-  const outArcsMap = util.getOutArcsMap(triples, dcid);
-  const type = util.getType(triples, dcid);
-
-  // Get name
-  let name = dcid;
-  if ("name" in outArcsMap) {
-    name = outArcsMap["name"][0][0];
-  }
-
-  // Get description for the meta-header
-  // TODO: compile a suitable description if undefined in the graph
-  let description;
-  if ("description" in outArcsMap) {
-    description = outArcsMap["description"][0][0];
-  }
-
-  const current_page_uri = new URL(window.location.href);
-  let newPlacePage =
-    current_page_uri.searchParams.get("v2") == undefined ? false : true;
-  newPlacePage =
-    newPlacePage && (type == "City" || type == "County" || type == "State");
-
-  if (newPlacePage) {
-    let url = "/related-chart?rt=" + type + "&rid=" + dcid;
-    axios.get(url).then((resp) => {
-      let data = resp.data;
-      let chartCategories = util.formatChartCategories(res["chartCategories"]);
-      let elem = document.createElement("div");
-      ReactDOM.render(
-        <placeNode
-          name={name}
-          type={type}
-          containedInPlace={util.getContainedInPlace(outArcsMap)}
-          outArcsMap={outArcsMap}
-          chartCategories={chartCategories}
-          relatedPlaces={data["relatedPlaces"]}
-        />,
-        elem
-      );
-      document.getElementById("node").appendChild(elem);
-
-      renderPlaceMap(
-        dcid,
-        type == "State" ? [] : outArcsMap["containedInPlace"]
-      );
-
-      let moreIndices = {};
-      for (let idx = 0; idx < chartCategories.length; idx++) {
-        const category = chartCategories[idx]["category"];
-        moreIndices[category] = util.NUMBER_OF_CHARTS_PER_ROW;
-
-        const categoryMoreElement = document.getElementById(
-          "place-chart-category-more-" + category
-        );
-        util.setElementShown(
-          categoryMoreElement,
-          chartCategories[idx]["urls"].length > moreIndices[category]
-        );
-
-        const elm = document.getElementById(
-          "place-chart-category-more-" + category
-        );
-        elm.addEventListener("click", function (e) {
-          let elem = document.createElement("div");
-          ReactDOM.render(
-            <chartGroup
-              charts={chartCategories[idx]["urls"].slice(moreIndices[category])}
-            />,
-            elem
-          );
-          document
-            .getElementById("place-chart-category-content-" + category)
-            .appendChild(elem);
-          moreIndices[category] += util.NUMBER_OF_CHARTS_PER_ROW;
-          util.setElementShown(
-            categoryMoreElement,
-            chartCategories[idx]["urls"].length > moreIndices[category]
-          );
-        });
+  Promise.all([provPromise, triplesPromise]).then(([provs, triples]) => {
+    let provDomain = {};
+    for (let prov of provs) {
+      if (prov["predicate"] == "typeOf" && !!prov["subjectName"]) {
+        provDomain[prov["subjectId"]] = new URL(prov["subjectName"]).host;
       }
+    }
+
+    // Get outArcs
+    let outArcs = triples.filter((t) => t["subjectId"] == dcid);
+
+    // Remove predicate that should not be displayed.
+    outArcs = outArcs.filter(
+      (p) =>
+        ![
+          "provenance",
+          "kmlCoordinates",
+          "geoJsonCoordinates",
+          "geoJsonCoordinatesDP1",
+          "geoJsonCoordinatesDP2",
+          "geoJsonCoordinatesDP3",
+        ].includes(p["predicate"])
+    );
+
+    // Get provenance name and object name
+    outArcs = outArcs.map((p) => {
+      if ("objectId" in p && !("objectName" in p)) {
+        p["objectName"] = p["objectId"];
+      }
+      p["src"] = provDomain[p["provenanceId"]];
+      return p;
     });
-  } else {
+
+    const outArcsMap = util.getOutArcsMap(triples, dcid);
+    const type = util.getType(triples, dcid);
+
+    // Get name
+    let name = dcid;
+    if ("name" in outArcsMap) {
+      name = outArcsMap["name"][0][0];
+    }
+
+    // Get description for the meta-header
+    // TODO: compile a suitable description if undefined in the graph
+    let description;
+    if ("description" in outArcsMap) {
+      description = outArcsMap["description"][0][0];
+    }
+
     ReactDOM.render(<GeneralNode />, document.getElementById("node"));
     renderKGPage(dcid, type, name, description, triples, outArcs, provDomain);
-  }
+  });
 };
