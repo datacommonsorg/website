@@ -24,15 +24,7 @@ import { saveToFile } from "../../shared/util";
 import { getTimeSeriesLatestPoint } from "./util";
 import { Spinner } from "./spinner";
 import { Chart } from "./chart";
-import {
-  Context,
-  NamedPlace,
-  setData,
-  setPopulations,
-  StateType,
-  Axis,
-  PlaceInfo,
-} from "./context";
+import { Context, NamedPlace, Axis, AxisWrapper, PlaceInfo } from "./context";
 
 /**
  * Represents a point in the scatter plot.
@@ -255,7 +247,7 @@ function isBetween(num: number, lower: number, upper: number): boolean {
  * @param place
  */
 async function loadPopulationsAndDataIfNeeded(
-  axis: StateType<Axis>,
+  axis: AxisWrapper,
   place: PlaceInfo
 ): Promise<void> {
   if (!_.isEmpty(axis.value.statVar)) {
@@ -274,7 +266,7 @@ async function loadPopulationsAndDataIfNeeded(
  * @param place
  */
 async function loadPopulations(
-  axis: StateType<Axis>,
+  axis: AxisWrapper,
   place: PlaceInfo
 ): Promise<void> {
   Promise.all(
@@ -284,7 +276,7 @@ async function loadPopulations(
         Object.values(axis.value.statVar)[0].denominators[0] || "Count_Person"
       ).catch(() => undefined)
     )
-  ).then((populations) => setPopulations(axis, populations));
+  ).then((populations) => axis.setPopulations(populations));
 }
 
 /**
@@ -292,18 +284,16 @@ async function loadPopulations(
  * @param axis
  * @param place
  */
-async function loadData(
-  axis: StateType<Axis>,
-  place: PlaceInfo
-): Promise<void> {
-  Promise.all(
+async function loadData(axis: AxisWrapper, place: PlaceInfo): Promise<void> {
+  const data = await Promise.all(
     place.enclosedPlaces.map((namedPlace) =>
       getTimeSeriesLatestPoint(
         namedPlace.dcid,
         _.findKey(axis.value.statVar)
       ).catch(() => undefined)
     )
-  ).then((data) => setData(axis, data));
+  );
+  axis.setData(data);
 }
 
 /**

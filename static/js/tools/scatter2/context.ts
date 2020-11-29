@@ -47,6 +47,21 @@ const EmptyAxis: Axis = Object.freeze({
   perCapita: false,
 });
 
+interface AxisWrapper {
+  value: Axis;
+
+  // Setters
+  set(axis: Axis): void;
+  setStatVar(statVar: StatsVarNode): void;
+  unsetStatVar(): void;
+  setStatVarName(name: string): void;
+  unsetPopulationsAndData(): void;
+  setData(data: Array<number>): void;
+  setPopulations(populations: Array<number>): void;
+  setLog(log: boolean): void;
+  setPerCapita(perCapita: boolean): void;
+}
+
 interface NamedPlace {
   name: string;
   dcid: string;
@@ -64,6 +79,18 @@ interface PlaceInfo {
   upperBound: number;
 }
 
+interface PlaceInfoWrapper {
+  value: PlaceInfo;
+
+  // Setters
+  set(place: PlaceInfo): void;
+  setEnclosingPlace(place: NamedPlace): void;
+  setEnclosedPlaceType(enclosedPlaceType: string): void;
+  setEnclosedPlaces(enclosedPlaces: Array<NamedPlace>): void;
+  setLowerBound(lowerBound: number): void;
+  setUpperBound(upperBound: number): void;
+}
+
 const EmptyPlace: PlaceInfo = Object.freeze({
   enclosingPlace: {
     name: "",
@@ -75,19 +102,14 @@ const EmptyPlace: PlaceInfo = Object.freeze({
   upperBound: 1e10,
 });
 
-interface StateType<V> {
-  value: V;
-  set: Setter<V>;
-}
-
 // Global app state
 interface ContextType {
   // X axis
-  x: StateType<Axis>;
+  x: AxisWrapper;
   // Y axis
-  y: StateType<Axis>;
+  y: AxisWrapper;
   // Places to plot
-  place: StateType<PlaceInfo>;
+  place: PlaceInfoWrapper;
 }
 
 const Context = createContext({} as ContextType);
@@ -100,34 +122,52 @@ function useContextStore(): ContextType {
   const [y, setY] = useState(EmptyAxis);
   const [place, setPlace] = useState(EmptyPlace);
   return {
-    x: { value: x, set: setX },
-    y: { value: y, set: setY },
-    place: { value: place, set: setPlace },
+    x: {
+      value: x,
+      set: (axis) => setX(axis),
+      setStatVar: getSetStatVar(x, setX),
+      unsetStatVar: getUnsetStatVar(x, setX),
+      setStatVarName: getSetStatVarName(x, setX),
+      unsetPopulationsAndData: getUnsetPopulationsAndData(x, setX),
+      setData: getSetData(x, setX),
+      setPopulations: getSetPopulations(x, setX),
+      setLog: getSetLog(x, setX),
+      setPerCapita: getSetPerCapita(x, setX),
+    },
+    y: {
+      value: y,
+      set: (axis) => setY(axis),
+      setStatVar: getSetStatVar(y, setY),
+      unsetStatVar: getUnsetStatVar(y, setY),
+      setStatVarName: getSetStatVarName(y, setY),
+      unsetPopulationsAndData: getUnsetPopulationsAndData(y, setY),
+      setData: getSetData(y, setY),
+      setPopulations: getSetPopulations(y, setY),
+      setLog: getSetLog(y, setY),
+      setPerCapita: getSetPerCapita(y, setY),
+    },
+    place: {
+      value: place,
+      set: (place) => setPlace(place),
+      setEnclosingPlace: getSetEnclosingPlace(place, setPlace),
+      setEnclosedPlaceType: getSetEnclosedPlaceType(place, setPlace),
+      setEnclosedPlaces: getSetEnclosedPlaces(place, setPlace),
+      setLowerBound: getSetLowerBound(place, setPlace),
+      setUpperBound: getSetUpperBound(place, setPlace),
+    },
   };
 }
 
-function setAxis(field: StateType<Axis>, axis: Axis): void {
-  field.set(axis);
-}
-
-function setPlace(field: StateType<PlaceInfo>, place: PlaceInfo): void {
-  field.set(place);
-}
-
-/**
- * Sets the enclosing place and clears the child places.
- * @param field
- * @param place
- */
-function setEnclosingPlace(
-  field: StateType<PlaceInfo>,
-  place: NamedPlace
-): void {
-  field.set({
-    ...field.value,
-    enclosedPlaces: [],
-    enclosingPlace: place,
-  });
+function getSetEnclosingPlace(
+  place: PlaceInfo,
+  setPlace: React.Dispatch<React.SetStateAction<PlaceInfo>>
+): (enclosingPlace: NamedPlace) => void {
+  return (enclosingPlace) =>
+    setPlace({
+      ...place,
+      enclosedPlaces: [],
+      enclosingPlace: enclosingPlace,
+    });
 }
 
 /**
@@ -135,25 +175,27 @@ function setEnclosingPlace(
  * @param field
  * @param enclosedPlaceType
  */
-function setEnclosedPlaceType(
-  field: StateType<PlaceInfo>,
-  enclosedPlaceType: string
-): void {
-  field.set({
-    ...field.value,
-    enclosedPlaceType: enclosedPlaceType,
-    enclosedPlaces: [],
-  });
+function getSetEnclosedPlaceType(
+  place: PlaceInfo,
+  setPlace: React.Dispatch<React.SetStateAction<PlaceInfo>>
+): (enclosedPlaceType: string) => void {
+  return (enclosedPlaceType) =>
+    setPlace({
+      ...place,
+      enclosedPlaceType: enclosedPlaceType,
+      enclosedPlaces: [],
+    });
 }
 
-function setEnclosedPlaces(
-  field: StateType<PlaceInfo>,
-  enclosedPlaces: Array<NamedPlace>
-): void {
-  field.set({
-    ...field.value,
-    enclosedPlaces: enclosedPlaces,
-  });
+function getSetEnclosedPlaces(
+  place: PlaceInfo,
+  setPlace: React.Dispatch<React.SetStateAction<PlaceInfo>>
+): (enclosedPlaces: Array<NamedPlace>) => void {
+  return (enclosedPlaces) =>
+    setPlace({
+      ...place,
+      enclosedPlaces: enclosedPlaces,
+    });
 }
 
 /**
@@ -162,85 +204,137 @@ function setEnclosedPlaces(
  * @param axis
  * @param statVar
  */
-function setStatVar(axis: StateType<Axis>, statVar: StatsVarNode): void {
-  axis.set({
-    ...axis.value,
-    statVar: statVar,
-    name: "",
-    populations: [],
-    data: [],
-  });
+function getSetStatVar(
+  axis: Axis,
+  setAxis: React.Dispatch<React.SetStateAction<Axis>>
+): (statVar: StatsVarNode) => void {
+  return (statVar) => {
+    setAxis({
+      ...axis,
+      statVar: statVar,
+      name: "",
+      populations: [],
+      data: [],
+    });
+  };
 }
 
-function unsetStatVar(axis: StateType<Axis>): void {
-  setStatVar(axis, {});
+function getUnsetStatVar(
+  axis: Axis,
+  setAxis: React.Dispatch<React.SetStateAction<Axis>>
+): () => void {
+  return () => {
+    setAxis({
+      ...axis,
+      statVar: {},
+      name: "",
+      populations: [],
+      data: [],
+    });
+  };
 }
 
-function setStatVarName(axis: StateType<Axis>, name: string): void {
-  axis.set({
-    ...axis.value,
-    name: name,
-  });
+function getSetStatVarName(
+  axis: Axis,
+  setAxis: React.Dispatch<React.SetStateAction<Axis>>
+): (name: string) => void {
+  return (name) => {
+    setAxis({
+      ...axis,
+      name: name,
+    });
+  };
 }
 
-function unsetPopulationsAndData(axis: StateType<Axis>): void {
-  axis.set({
-    ...axis.value,
-    data: [],
-    populations: [],
-  });
+function getUnsetPopulationsAndData(
+  axis: Axis,
+  setAxis: React.Dispatch<React.SetStateAction<Axis>>
+): () => void {
+  return () => {
+    setAxis({
+      ...axis,
+      data: [],
+      populations: [],
+    });
+  };
 }
 
-function setData(axis: StateType<Axis>, data: Array<number>): void {
-  axis.set({ ...axis.value, data: data });
+function getSetData(
+  axis: Axis,
+  setAxis: React.Dispatch<React.SetStateAction<Axis>>
+): (data: Array<number>) => void {
+  return (data) => {
+    setAxis({ ...axis, data: data });
+  };
 }
 
-function setPopulations(
-  axis: StateType<Axis>,
-  populations: Array<number>
-): void {
-  axis.set({ ...axis.value, populations: populations });
+function getSetPopulations(
+  axis: Axis,
+  setAxis: React.Dispatch<React.SetStateAction<Axis>>
+): (populations: Array<number>) => void {
+  return (populations) => {
+    setAxis({
+      ...axis,
+      populations: populations,
+    });
+  };
 }
 
-function setLog(axis: StateType<Axis>, log: boolean): void {
-  axis.set({ ...axis.value, log: log });
+function getSetLog(
+  axis: Axis,
+  setAxis: React.Dispatch<React.SetStateAction<Axis>>
+): (log: boolean) => void {
+  return (log) => {
+    setAxis({
+      ...axis,
+      log: log,
+    });
+  };
 }
 
-function setPerCapita(axis: StateType<Axis>, perCapita: boolean): void {
-  axis.set({ ...axis.value, perCapita: perCapita });
+function getSetPerCapita(
+  axis: Axis,
+  setAxis: React.Dispatch<React.SetStateAction<Axis>>
+): (perCapita: boolean) => void {
+  return (perCapita) => {
+    setAxis({
+      ...axis,
+      perCapita: perCapita,
+    });
+  };
 }
 
-function setLowerBound(place: StateType<PlaceInfo>, bound: number): void {
-  place.set({ ...place.value, lowerBound: bound });
+function getSetLowerBound(
+  place: PlaceInfo,
+  setPlace: React.Dispatch<React.SetStateAction<PlaceInfo>>
+): (lowerBound: number) => void {
+  return (lowerBound) =>
+    setPlace({
+      ...place,
+      lowerBound: lowerBound,
+    });
 }
 
-function setUpperBound(place: StateType<PlaceInfo>, bound: number): void {
-  place.set({ ...place.value, upperBound: bound });
+function getSetUpperBound(
+  place: PlaceInfo,
+  setPlace: React.Dispatch<React.SetStateAction<PlaceInfo>>
+): (upperBound: number) => void {
+  return (upperBound) =>
+    setPlace({
+      ...place,
+      upperBound: upperBound,
+    });
 }
 
 export {
   Context,
   useContextStore,
   ContextType,
-  StateType,
   Axis,
+  AxisWrapper,
   NamedPlace,
   PlaceInfo,
-  setAxis,
-  setPlace,
-  setEnclosingPlace,
-  setEnclosedPlaceType,
-  setEnclosedPlaces,
-  setStatVar,
-  setStatVarName,
-  unsetStatVar,
-  unsetPopulationsAndData,
-  setData,
-  setPopulations,
-  setLog,
-  setPerCapita,
-  setLowerBound,
-  setUpperBound,
+  PlaceInfoWrapper,
   EmptyAxis,
   EmptyPlace,
 };

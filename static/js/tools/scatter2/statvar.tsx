@@ -36,16 +36,7 @@ import {
 import { Menu } from "../statsvar_menu";
 import { NoopStatsVarFilter, TimelineStatsVarFilter } from "../commons";
 import { StatsVarNode, getStatsVar } from "../timeline_util";
-import {
-  Context,
-  EmptyAxis,
-  Axis,
-  setStatVar,
-  setStatVarName,
-  unsetStatVar,
-  StateType,
-  NamedPlace,
-} from "./context";
+import { Context, EmptyAxis, Axis, NamedPlace, AxisWrapper } from "./context";
 import { Spinner } from "./spinner";
 
 interface NamedStatVar {
@@ -72,7 +63,7 @@ const defaultModalSelected: ModalSelected = Object.freeze({
 });
 
 function StatVarChooser(): JSX.Element {
-  const context = useContext(Context);
+  const { place, x, y } = useContext(Context);
 
   // Temporary variable for storing an extra statvar.
   const [thirdStatVar, setThirdStatVar] = useState(emptyStatVar);
@@ -80,8 +71,8 @@ function StatVarChooser(): JSX.Element {
   const [modalSelected, setModalSelected] = useState(defaultModalSelected);
   // Passed to the statvar menu.
   const menuSelected = {
-    ...context.x.value.statVar,
-    ...context.y.value.statVar,
+    ...x.value.statVar,
+    ...y.value.statVar,
     ...thirdStatVar.statVar,
   };
   // Stores filtered statvar DCIDs.
@@ -90,13 +81,13 @@ function StatVarChooser(): JSX.Element {
 
   // When child places change, refilter the statvars.
   useEffect(() => {
-    const places = context.place.value.enclosedPlaces;
+    const places = place.value.enclosedPlaces;
     if (_.isEmpty(places)) {
       return;
     }
-    filterStatVars(context.x, context.y, places, setValidStatVars);
+    filterStatVars(x, y, places, setValidStatVars);
     setIsLoading(true);
-  }, [context.place.value.enclosedPlaces]);
+  }, [place.value.enclosedPlaces]);
 
   // After filtered statvar DCIDs have been loaded, remove the spinner.
   useEffect(() => {
@@ -118,25 +109,18 @@ function StatVarChooser(): JSX.Element {
           }
           setStatsVarTitle={(statsVarId2Title) =>
             setStatsVarTitle(
-              context.x,
-              context.y,
+              x,
+              y,
               statsVarId2Title,
               thirdStatVar,
               setThirdStatVar
             )
           }
           addStatsVar={(statsVar, nodePath, denominators) =>
-            addStatVar(
-              context.x,
-              context.y,
-              statsVar,
-              nodePath,
-              denominators,
-              setThirdStatVar
-            )
+            addStatVar(x, y, statsVar, nodePath, denominators, setThirdStatVar)
           }
           removeStatsVar={(statsVar, nodePath) =>
-            removeStatVar(context.x, context.y, statsVar, nodePath)
+            removeStatVar(x, y, statsVar, nodePath)
           }
         ></Menu>
       </div>
@@ -161,7 +145,7 @@ function StatVarChooser(): JSX.Element {
                   }
                   name="x"
                 />
-                {context.x.value.name}
+                {x.value.name}
               </Label>
             </FormGroup>
             <FormGroup check row>
@@ -174,7 +158,7 @@ function StatVarChooser(): JSX.Element {
                   }
                   name="y"
                 />
-                {context.y.value.name}
+                {y.value.name}
               </Label>
             </FormGroup>
             <FormGroup check row>
@@ -197,8 +181,8 @@ function StatVarChooser(): JSX.Element {
             color="primary"
             onClick={() =>
               confirmStatVars(
-                context.x,
-                context.y,
+                x,
+                y,
                 thirdStatVar,
                 setThirdStatVar,
                 modalSelected,
@@ -224,8 +208,8 @@ function StatVarChooser(): JSX.Element {
  * @param setValidStatVars
  */
 function filterStatVars(
-  x: StateType<Axis>,
-  y: StateType<Axis>,
+  x: AxisWrapper,
+  y: AxisWrapper,
   places: Array<NamedPlace>,
   setValidStatVars: (statVars: Set<string>) => void
 ): void {
@@ -236,11 +220,11 @@ function filterStatVars(
     const statVarX = _.findKey(x.value.statVar);
     const statVarY = _.findKey(y.value.statVar);
     if (statVarX && !statVars.has(statVarX)) {
-      unsetStatVar(x);
+      x.unsetStatVar();
       message += `Sorry, no data available for ${statVarX}`;
     }
     if (statVarY && !statVars.has(statVarY)) {
-      unsetStatVar(y);
+      y.unsetStatVar();
       message += message.length
         ? ` or ${statVarY}`
         : `Sorry, no data available for ${statVarY}`;
@@ -263,8 +247,8 @@ function filterStatVars(
  * @param setThirdStatVar
  */
 function addStatVar(
-  x: StateType<Axis>,
-  y: StateType<Axis>,
+  x: AxisWrapper,
+  y: AxisWrapper,
   statVar: string,
   nodePath: string[],
   denominators: string[],
@@ -274,9 +258,9 @@ function addStatVar(
     [statVar]: { paths: [nodePath], denominators: denominators },
   };
   if (_.isEmpty(x.value.statVar)) {
-    setStatVar(x, node);
+    x.setStatVar(node);
   } else if (_.isEmpty(y.value.statVar)) {
-    setStatVar(y, node);
+    y.setStatVar(node);
   } else {
     setThirdStatVar({ statVar: node, name: "" });
   }
@@ -290,8 +274,8 @@ function addStatVar(
  * @param nodePath
  */
 function removeStatVar(
-  x: StateType<Axis>,
-  y: StateType<Axis>,
+  x: AxisWrapper,
+  y: AxisWrapper,
   statVar: string,
   nodePath?: string[]
 ) {
@@ -302,12 +286,12 @@ function removeStatVar(
     statVarX === statVar &&
     (!nodePath || _.isEqual(x.value.statVar[statVarX].paths, path))
   ) {
-    unsetStatVar(x);
+    x.unsetStatVar();
   } else if (
     statVarY === statVar &&
     (!nodePath || _.isEqual(y.value.statVar[statVarY].paths, path))
   ) {
-    unsetStatVar(y);
+    y.unsetStatVar();
   }
 }
 
@@ -322,19 +306,19 @@ function removeStatVar(
  * @param setThirdStatVar
  */
 function setStatsVarTitle(
-  x: StateType<Axis>,
-  y: StateType<Axis>,
+  x: AxisWrapper,
+  y: AxisWrapper,
   statsVarId2Title: Record<string, string>,
   thirdStatVar: NamedStatVar,
   setThirdStatVar: (statVar: NamedStatVar) => void
 ): void {
   const statVarX = _.findKey(x.value.statVar);
   if (statVarX && statVarX in statsVarId2Title) {
-    setStatVarName(x, statsVarId2Title[statVarX]);
+    x.setStatVarName(statsVarId2Title[statVarX]);
   }
   const statVarY = _.findKey(y.value.statVar);
   if (statVarY && statVarY in statsVarId2Title) {
-    setStatVarName(y, statsVarId2Title[statVarY]);
+    y.setStatVarName(statsVarId2Title[statVarY]);
   }
   const statVarThird = _.findKey(thirdStatVar.statVar);
   if (statVarThird && statVarThird in statsVarId2Title) {
@@ -378,8 +362,8 @@ function selectStatVar(
  * @param setModalSelected
  */
 function confirmStatVars(
-  x: StateType<Axis>,
-  y: StateType<Axis>,
+  x: AxisWrapper,
+  y: AxisWrapper,
   thirdStatVar: NamedStatVar,
   setThirdStatVar: (statVar: NamedStatVar) => void,
   modalSelected: ModalSelected,

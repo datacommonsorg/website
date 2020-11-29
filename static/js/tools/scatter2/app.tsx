@@ -30,8 +30,6 @@ import {
   Context,
   ContextType,
   useContextStore,
-  setAxis,
-  setPlace,
   Axis,
   PlaceInfo,
 } from "./context";
@@ -94,15 +92,15 @@ function applyHash(context: ContextType) {
   );
   const xString = params.get("x");
   if (xString) {
-    setAxis(context.x, JSON.parse(xString));
+    context.x.set(JSON.parse(xString));
   }
   const yString = params.get("y");
   if (yString) {
-    setAxis(context.y, JSON.parse(yString));
+    context.y.set(JSON.parse(yString));
   }
   const placeString = params.get("place");
   if (placeString) {
-    setPlace(context.place, JSON.parse(placeString));
+    context.place.set(JSON.parse(placeString));
   }
 }
 

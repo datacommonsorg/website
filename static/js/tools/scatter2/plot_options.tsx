@@ -23,23 +23,20 @@ import React, { useContext, useState } from "react";
 import { FormGroup, Label, Input, Card, Button, Collapse } from "reactstrap";
 import {
   Axis,
+  AxisWrapper,
   Context,
-  StateType,
-  ContextType,
   PlaceInfo,
-  setAxis,
-  setLog,
-  setLowerBound,
-  setPerCapita,
-  setUpperBound,
+  PlaceInfoWrapper,
 } from "./context";
 
 import { Container, Row, Col } from "reactstrap";
 
 function PlotOptions(): JSX.Element {
-  const context = useContext(Context);
+  const { place, x, y } = useContext(Context);
 
-  const [open, setOpen] = useState(shouldExpandOptions(context));
+  const [open, setOpen] = useState(
+    shouldExpandOptions(place.value, x.value, y.value)
+  );
 
   return (
     <Card>
@@ -68,8 +65,8 @@ function PlotOptions(): JSX.Element {
                   <FormGroup check>
                     <Input
                       type="number"
-                      onChange={(e) => selectLowerBound(context.place, e)}
-                      value={context.place.value.lowerBound}
+                      onChange={(e) => selectLowerBound(place, e)}
+                      value={place.value.lowerBound}
                     />
                   </FormGroup>
                 </Col>
@@ -78,12 +75,11 @@ function PlotOptions(): JSX.Element {
                   <FormGroup check>
                     <Input
                       type="number"
-                      onChange={(e) => selectUpperBound(context.place, e)}
+                      onChange={(e) => selectUpperBound(place, e)}
                       value={
-                        context.place.value.upperBound ===
-                        Number.POSITIVE_INFINITY
+                        place.value.upperBound === Number.POSITIVE_INFINITY
                           ? 1e10
-                          : context.place.value.upperBound
+                          : place.value.upperBound
                       }
                     />
                   </FormGroup>
@@ -96,7 +92,7 @@ function PlotOptions(): JSX.Element {
                     id="swap-axes"
                     size="sm"
                     color="light"
-                    onClick={() => swapAxes(context.x, context.y)}
+                    onClick={() => swapAxes(x, y)}
                   >
                     Swap X and Y axes
                   </Button>
@@ -107,8 +103,8 @@ function PlotOptions(): JSX.Element {
                       <Input
                         id="per-capita-x"
                         type="checkbox"
-                        checked={context.x.value.perCapita}
-                        onChange={(e) => checkPerCapita(context.x, e)}
+                        checked={x.value.perCapita}
+                        onChange={(e) => checkPerCapita(x, e)}
                       />
                       Plot X-axis per capita
                     </Label>
@@ -118,8 +114,8 @@ function PlotOptions(): JSX.Element {
                       <Input
                         id="per-capita-y"
                         type="checkbox"
-                        checked={context.y.value.perCapita}
-                        onChange={(e) => checkPerCapita(context.y, e)}
+                        checked={y.value.perCapita}
+                        onChange={(e) => checkPerCapita(y, e)}
                       />
                       Plot Y-axis per capita
                     </Label>
@@ -131,8 +127,8 @@ function PlotOptions(): JSX.Element {
                       <Input
                         id="log-x"
                         type="checkbox"
-                        checked={context.x.value.log}
-                        onChange={(e) => checkLog(context.x, e)}
+                        checked={x.value.log}
+                        onChange={(e) => checkLog(x, e)}
                       />
                       Plot X-axis on log scale
                     </Label>
@@ -142,8 +138,8 @@ function PlotOptions(): JSX.Element {
                       <Input
                         id="log-y"
                         type="checkbox"
-                        checked={context.y.value.log}
-                        onChange={(e) => checkLog(context.y, e)}
+                        checked={y.value.log}
+                        onChange={(e) => checkLog(y, e)}
                       />
                       Plot Y-axis on log scale
                     </Label>
@@ -163,10 +159,10 @@ function PlotOptions(): JSX.Element {
  * @param x
  * @param y
  */
-function swapAxes(x: StateType<Axis>, y: StateType<Axis>): void {
+function swapAxes(x: AxisWrapper, y: AxisWrapper): void {
   const [xValue, yValue] = [x.value, y.value];
-  setAxis(x, yValue);
-  setAxis(y, xValue);
+  x.set(yValue);
+  y.set(xValue);
 }
 
 /**
@@ -175,10 +171,10 @@ function swapAxes(x: StateType<Axis>, y: StateType<Axis>): void {
  * @param event
  */
 function checkPerCapita(
-  axis: StateType<Axis>,
+  axis: AxisWrapper,
   event: React.ChangeEvent<HTMLInputElement>
 ): void {
-  setPerCapita(axis, event.target.checked);
+  axis.setPerCapita(event.target.checked);
 }
 
 /**
@@ -187,10 +183,10 @@ function checkPerCapita(
  * @param event
  */
 function checkLog(
-  axis: StateType<Axis>,
+  axis: AxisWrapper,
   event: React.ChangeEvent<HTMLInputElement>
 ): void {
-  setLog(axis, event.target.checked);
+  axis.setLog(event.target.checked);
 }
 
 /**
@@ -199,10 +195,10 @@ function checkLog(
  * @param event
  */
 function selectLowerBound(
-  place: StateType<PlaceInfo>,
+  place: PlaceInfoWrapper,
   event: React.ChangeEvent<HTMLInputElement>
 ): void {
-  setLowerBound(place, parseInt(event.target.value) || 0);
+  place.setLowerBound(parseInt(event.target.value) || 0);
 }
 
 /**
@@ -211,24 +207,24 @@ function selectLowerBound(
  * @param event
  */
 function selectUpperBound(
-  place: StateType<PlaceInfo>,
+  place: PlaceInfoWrapper,
   event: React.ChangeEvent<HTMLInputElement>
 ): void {
-  setUpperBound(place, parseInt(event.target.value) || 1e10);
+  place.setUpperBound(parseInt(event.target.value) || 1e10);
 }
 
 /**
  * Checks if any of the plot options is selected.
  * @param context
  */
-function shouldExpandOptions(context: ContextType): boolean {
+function shouldExpandOptions(place: PlaceInfo, x: Axis, y: Axis): boolean {
   return (
-    context.x.value.log ||
-    context.y.value.log ||
-    context.x.value.perCapita ||
-    context.y.value.perCapita ||
-    context.place.value.lowerBound != 0 ||
-    context.place.value.upperBound != 1e10
+    x.log ||
+    y.log ||
+    x.perCapita ||
+    y.perCapita ||
+    place.lowerBound != 0 ||
+    place.upperBound != 1e10
   );
 }
 
