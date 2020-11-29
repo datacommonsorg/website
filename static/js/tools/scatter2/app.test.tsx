@@ -25,7 +25,6 @@ import { Context, setEnclosingPlace, useContextStore } from "./context";
 
 import hierarchy from "../../../data/hierarchy_top.json";
 import { waitFor } from "@testing-library/react";
-import { getApiKey, getApiRoot } from "../../shared/util";
 
 Enzyme.configure({ adapter: new Adapter() });
 
@@ -47,14 +46,9 @@ function mockAxios(): () => void {
 
   // Counties in Delaware
   when(axios.get)
-    .calledWith(
-      `${getApiRoot()}/node/places-in?dcids=geoId/10&placeType=County&key=${getApiKey()}`
-    )
+    .calledWith(`/api/place/places-in?dcids=geoId/10&placeType=County`)
     .mockResolvedValue({
-      data: {
-        payload:
-          '[{"dcid":"geoId/10","place":"geoId/10001"},{"dcid":"geoId/10","place":"geoId/10003"},{"dcid":"geoId/10","place":"geoId/10005"}]',
-      },
+      data: { "geoId/10": ["geoId/10001", "geoId/10003", "geoId/10005"] },
     });
 
   // Names of the counties
@@ -98,9 +92,7 @@ function mockAxios(): () => void {
 
     for (const statVar in data) {
       when(axios.get)
-        .calledWith(
-          `${getApiRoot()}/stat/value?place=${dcid}&stat_var=${statVar}&key=${getApiKey()}`
-        )
+        .calledWith(`/api/stats/value?place=${dcid}&stat_var=${statVar}`)
         .mockResolvedValue({
           data: { value: data[statVar][dcid] },
         });

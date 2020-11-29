@@ -132,3 +132,24 @@ def stats_var_property_wrapper(dcids):
             'pvs': pvs,
         }
     return result
+
+
+@bp.route('/api/stats/value')
+@cache.cached(timeout=3600 * 24, query_string=True)  # Cache for one day.
+def get_stats_value():
+    """Gets DCIDs of places of a certain type contained in some places.
+
+    Sends the request to the Data Commons "/stat/value" API.
+    """
+    place = request.args.get("place")
+    stat_var = request.args.get("stat_var")
+    date = request.args.get("date")
+    measurement_method = request.args.get("measurement_method")
+    observation_period = request.args.get("observation_period")
+    unit = request.args.get("unit")
+    scaling_factor = request.args.get("scaling_factor")
+    return Response(json.dumps(
+        dc.get_stats_value(place, stat_var, date, measurement_method,
+                           observation_period, unit, scaling_factor)),
+                    200,
+                    mimetype='application/json')

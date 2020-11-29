@@ -69,6 +69,7 @@ API_ENDPOINTS = {
     'get_chart_data': '/node/chart-data',
     'get_stats': '/bulk/stats',
     'get_stats_all': '/stat/all',
+    'get_stats_value': '/stat/value',
     # TODO(shifucun): switch back to /node/related-places after data switch.
     'get_related_places': '/node/related-locations',
     'get_interesting_places': '/node/interesting-place-aspects',
@@ -116,6 +117,22 @@ def get_stats_all(place_dcids, stat_vars):
         'stat_vars': stat_vars,
     }
     return send_request(url, req_json=req_json, has_payload=False)
+
+
+def get_stats_value(place, stat_var, date, measurement_method,
+                    observation_period, unit, scaling_factor):
+    """See https://docs.datacommons.org/api/rest/stat_value.html."""
+    url = API_ROOT + API_ENDPOINTS['get_stats_value']
+    req_json = {
+        'place': place,
+        'stat_var': stat_var,
+        'date': date,
+        'measurement_method': measurement_method,
+        'observation_period': observation_period,
+        'unit': unit,
+        'scaling_factor': scaling_factor
+    }
+    return send_request(url, req_json=req_json, post=False, has_payload=False)
 
 
 def get_chart_data(keys):

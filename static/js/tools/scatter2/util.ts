@@ -15,11 +15,6 @@
  */
 
 import axios from "axios";
-import { getApiRoot, getApiKey } from "../../shared/util";
-
-interface ApiPlace {
-  place: string;
-}
 
 /**
  * Retrieves the DCIDs of child places of a certain type contained in a parent place.
@@ -28,10 +23,9 @@ interface ApiPlace {
  */
 async function getPlacesIn(dcid: string, type: string): Promise<Array<string>> {
   const resp = await axios.get(
-    `${getApiRoot()}/node/places-in?dcids=${dcid}&placeType=${type}&key=${getApiKey()}`
+    `/api/place/places-in?dcids=${dcid}&placeType=${type}`
   );
-  const places: Array<ApiPlace> = JSON.parse(resp.data.payload);
-  return places.map((place) => place.place).sort();
+  return resp.data[dcid];
 }
 
 /**
@@ -43,14 +37,10 @@ async function getTimeSeriesLatestPoint(
   place: string,
   statVar: string
 ): Promise<number> {
-  try {
-    const resp = await axios.get(
-      `${getApiRoot()}/stat/value?place=${place}&stat_var=${statVar}&key=${getApiKey()}`
-    );
-    return resp.data.value;
-  } catch (err) {
-    return Promise.reject(err);
-  }
+  const resp = await axios.get(
+    `/api/stats/value?place=${place}&stat_var=${statVar}`
+  );
+  return resp.data.value;
 }
 
 export { getPlacesIn, getTimeSeriesLatestPoint };
