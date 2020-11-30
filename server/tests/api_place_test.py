@@ -17,6 +17,7 @@ import unittest
 from unittest.mock import patch
 
 from main import app
+from services import datacommons as dc
 
 
 class TestRoute(unittest.TestCase):
@@ -244,4 +245,116 @@ class TestApiDisplayName(unittest.TestCase):
             dcid1: dcid1 + ', CA',
             dcid2: dcid2,
             dcid3: dcid3
+        }
+
+
+class TestApiGetPlacesIn(unittest.TestCase):
+
+    @patch('services.datacommons.send_request')
+    def test_api_get_places_in(self, send_request):
+
+        def side_effect(req_url,
+                        req_json={},
+                        compress=False,
+                        post=True,
+                        has_payload=True):
+            if req_url == dc.API_ROOT + "/node/places-in" and req_json == {
+                    'dcids': ['geoId/10', 'geoId/56'],
+                    'place_type': 'County'
+            } and not post:
+                return [{
+                    "dcid": "geoId/10",
+                    "place": "geoId/10001"
+                }, {
+                    "dcid": "geoId/10",
+                    "place": "geoId/10003"
+                }, {
+                    "dcid": "geoId/10",
+                    "place": "geoId/10005"
+                }, {
+                    "dcid": "geoId/56",
+                    "place": "geoId/56001"
+                }, {
+                    "dcid": "geoId/56",
+                    "place": "geoId/56003"
+                }, {
+                    "dcid": "geoId/56",
+                    "place": "geoId/56005"
+                }, {
+                    "dcid": "geoId/56",
+                    "place": "geoId/56007"
+                }, {
+                    "dcid": "geoId/56",
+                    "place": "geoId/56009"
+                }, {
+                    "dcid": "geoId/56",
+                    "place": "geoId/56011"
+                }, {
+                    "dcid": "geoId/56",
+                    "place": "geoId/56013"
+                }, {
+                    "dcid": "geoId/56",
+                    "place": "geoId/56015"
+                }, {
+                    "dcid": "geoId/56",
+                    "place": "geoId/56017"
+                }, {
+                    "dcid": "geoId/56",
+                    "place": "geoId/56019"
+                }, {
+                    "dcid": "geoId/56",
+                    "place": "geoId/56021"
+                }, {
+                    "dcid": "geoId/56",
+                    "place": "geoId/56023"
+                }, {
+                    "dcid": "geoId/56",
+                    "place": "geoId/56025"
+                }, {
+                    "dcid": "geoId/56",
+                    "place": "geoId/56027"
+                }, {
+                    "dcid": "geoId/56",
+                    "place": "geoId/56029"
+                }, {
+                    "dcid": "geoId/56",
+                    "place": "geoId/56031"
+                }, {
+                    "dcid": "geoId/56",
+                    "place": "geoId/56033"
+                }, {
+                    "dcid": "geoId/56",
+                    "place": "geoId/56035"
+                }, {
+                    "dcid": "geoId/56",
+                    "place": "geoId/56037"
+                }, {
+                    "dcid": "geoId/56",
+                    "place": "geoId/56039"
+                }, {
+                    "dcid": "geoId/56",
+                    "place": "geoId/56041"
+                }, {
+                    "dcid": "geoId/56",
+                    "place": "geoId/56043"
+                }, {
+                    "dcid": "geoId/56",
+                    "place": "geoId/56045"
+                }]
+
+        send_request.side_effect = side_effect
+        response = app.test_client().get(
+            '/api/place/places-in?dcids=geoId/10&dcids=geoId/56&placeType=County'
+        )
+        assert response.status_code == 200
+        assert json.loads(response.data) == {
+            "geoId/10": ["geoId/10001", "geoId/10003", "geoId/10005"],
+            "geoId/56": [
+                "geoId/56001", "geoId/56003", "geoId/56005", "geoId/56007",
+                "geoId/56009", "geoId/56011", "geoId/56013", "geoId/56015",
+                "geoId/56017", "geoId/56019", "geoId/56021", "geoId/56023",
+                "geoId/56025", "geoId/56027", "geoId/56029", "geoId/56031",
+                "geoId/56033", "geoId/56035", "geoId/56037", "geoId/56039",
+                "geoId/56041", "geoId/56043", "geoId/56045"
+            ]
         }
