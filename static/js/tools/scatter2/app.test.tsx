@@ -216,8 +216,6 @@ test("all functionalities", async (done) => {
     .find(`input[name="third"]`)
     .simulate("change", { target: { name: "third", checked: true } });
   app.find(".modal-footer button").simulate("click");
-  app.update();
-  console.log(app.debug());
   await waitFor(() => {
     expect(app.text()).toContain(
       "Housing Units Per Capita vs Employed Per Capita"
