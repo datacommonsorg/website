@@ -36,7 +36,7 @@ import {
 import { Menu } from "../statsvar_menu";
 import { NoopStatsVarFilter, TimelineStatsVarFilter } from "../commons";
 import { StatsVarNode, getStatsVar } from "../timeline_util";
-import { Context, EmptyAxis, Axis, NamedPlace, AxisWrapper } from "./context";
+import { Context, emptyAxis, Axis, NamedPlace, AxisWrapper } from "./context";
 import { Spinner } from "./spinner";
 
 interface NamedStatVar {
@@ -382,9 +382,9 @@ function confirmStatVars(
   if (modalSelected.y) {
     values.push(y.value);
   }
-  y.set(EmptyAxis);
+  y.set(emptyAxis);
   values.push({
-    ...EmptyAxis,
+    ...emptyAxis,
     statVar: thirdStatVar.statVar,
     name: thirdStatVar.name,
   });

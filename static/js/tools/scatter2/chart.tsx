@@ -15,7 +15,7 @@
  */
 
 /**
- * Chart component for retrieving, transforming, and plotting data.
+ * Chart component for plotting a scatter plot.
  */
 
 import React, { useEffect, useRef } from "react";
@@ -71,6 +71,7 @@ function Chart(props: ChartPropsType): JSX.Element {
 /**
  * Formats a number, or returns "N/A" if not an number.
  * If the number is a float, keeps three decimal places.
+ * TODO: Three decimal places may not be enough. Need a utility to do this.
  * @param num
  */
 function getStringOrNA(num: number): string {
@@ -78,7 +79,7 @@ function getStringOrNA(num: number): string {
     ? "N/A"
     : Number.isInteger(num)
     ? num.toString()
-    : num.toFixed(3); // TODO: Three decimal places may not be enough. Need a utility to do this.
+    : num.toFixed(3);
 }
 
 /**

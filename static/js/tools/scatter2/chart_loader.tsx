@@ -15,7 +15,8 @@
  */
 
 /**
- * Chart component for retrieving, transforming, and plotting data.
+ * Component for retrieving and transforming data into a form ready for plotting
+ * and passing the data to a `Chart` component that plots the scatter plot.
  */
 
 import React, { useContext, useEffect, useState } from "react";
@@ -39,7 +40,7 @@ interface Point {
 
 function ChartLoader(): JSX.Element {
   const context = useContext(Context);
-  const [points, isLoading] = usePoints();
+  const [points, isLoading] = useLoadPoints();
 
   const x = context.x.value;
   const y = context.y.value;
@@ -63,10 +64,10 @@ function ChartLoader(): JSX.Element {
 }
 
 /**
- * Returns an array of points for plotting and a boolean
+ * Hook that returns an array of points for plotting and a boolean
  * indicating if data are being loaded.
  */
-function usePoints(): [Array<Point>, boolean] {
+function useLoadPoints(): [Array<Point>, boolean] {
   const context = useContext(Context);
   const [points, setPoints] = useState([] as Array<Point>);
   const [isLoading, setIsLoading] = useState(false);
@@ -251,12 +252,14 @@ async function loadPopulationsAndDataIfNeeded(
   place: PlaceInfo
 ): Promise<void> {
   if (!_.isEmpty(axis.value.statVar)) {
+    const promises = [];
     if (_.isEmpty(axis.value.populations)) {
-      loadPopulations(axis, place);
+      promises.push(loadPopulations(axis, place));
     }
     if (_.isEmpty(axis.value.data)) {
-      loadData(axis, place);
+      promises.push(loadData(axis, place));
     }
+    await Promise.all(promises);
   }
 }
 
@@ -269,14 +272,15 @@ async function loadPopulations(
   axis: AxisWrapper,
   place: PlaceInfo
 ): Promise<void> {
-  Promise.all(
+  const populations = await Promise.all(
     place.enclosedPlaces.map((namedPlace) =>
       getTimeSeriesLatestPoint(
         namedPlace.dcid,
         Object.values(axis.value.statVar)[0].denominators[0] || "Count_Person"
       ).catch(() => undefined)
     )
-  ).then((populations) => axis.setPopulations(populations));
+  );
+  axis.setPopulations(populations);
 }
 
 /**

@@ -21,8 +21,6 @@
 import { createContext, useState } from "react";
 import { StatsVarNode } from "../timeline_util";
 
-type Setter<T> = React.Dispatch<React.SetStateAction<T>>;
-
 interface Axis {
   // StatVar to plot for this axis
   statVar: StatsVarNode;
@@ -38,7 +36,7 @@ interface Axis {
   perCapita: boolean;
 }
 
-const EmptyAxis: Axis = Object.freeze({
+const emptyAxis: Axis = Object.freeze({
   statVar: {},
   name: "",
   data: [],
@@ -47,19 +45,23 @@ const EmptyAxis: Axis = Object.freeze({
   perCapita: false,
 });
 
+interface Setter<T> {
+  (value: T): void;
+}
+
 interface AxisWrapper {
   value: Axis;
 
   // Setters
-  set(axis: Axis): void;
-  setStatVar(statVar: StatsVarNode): void;
-  unsetStatVar(): void;
-  setStatVarName(name: string): void;
-  unsetPopulationsAndData(): void;
-  setData(data: Array<number>): void;
-  setPopulations(populations: Array<number>): void;
-  setLog(log: boolean): void;
-  setPerCapita(perCapita: boolean): void;
+  set: Setter<Axis>;
+  setStatVar: Setter<StatsVarNode>;
+  unsetStatVar: Setter<void>;
+  setStatVarName: Setter<string>;
+  unsetPopulationsAndData: Setter<void>;
+  setData: Setter<Array<number>>;
+  setPopulations: Setter<Array<number>>;
+  setLog: Setter<boolean>;
+  setPerCapita: Setter<boolean>;
 }
 
 interface NamedPlace {
@@ -83,15 +85,15 @@ interface PlaceInfoWrapper {
   value: PlaceInfo;
 
   // Setters
-  set(place: PlaceInfo): void;
-  setEnclosingPlace(place: NamedPlace): void;
-  setEnclosedPlaceType(enclosedPlaceType: string): void;
-  setEnclosedPlaces(enclosedPlaces: Array<NamedPlace>): void;
-  setLowerBound(lowerBound: number): void;
-  setUpperBound(upperBound: number): void;
+  set: Setter<PlaceInfo>;
+  setEnclosingPlace: Setter<NamedPlace>;
+  setEnclosedPlaceType: Setter<string>;
+  setEnclosedPlaces: Setter<Array<NamedPlace>>;
+  setLowerBound: Setter<number>;
+  setUpperBound: Setter<number>;
 }
 
-const EmptyPlace: PlaceInfo = Object.freeze({
+const emptyPlace: PlaceInfo = Object.freeze({
   enclosingPlace: {
     name: "",
     dcid: "",
@@ -115,12 +117,12 @@ interface ContextType {
 const Context = createContext({} as ContextType);
 
 /**
- * Constructs an initial context.
+ * Hook that constructs an initial context.
  */
 function useContextStore(): ContextType {
-  const [x, setX] = useState(EmptyAxis);
-  const [y, setY] = useState(EmptyAxis);
-  const [place, setPlace] = useState(EmptyPlace);
+  const [x, setX] = useState(emptyAxis);
+  const [y, setY] = useState(emptyAxis);
+  const [place, setPlace] = useState(emptyPlace);
   return {
     x: {
       value: x,
@@ -158,10 +160,16 @@ function useContextStore(): ContextType {
   };
 }
 
+/**
+ * Returns a setter for the parent place and additionally
+ * clearing the child places.
+ * @param place
+ * @param setPlace
+ */
 function getSetEnclosingPlace(
   place: PlaceInfo,
   setPlace: React.Dispatch<React.SetStateAction<PlaceInfo>>
-): (enclosingPlace: NamedPlace) => void {
+): Setter<NamedPlace> {
   return (enclosingPlace) =>
     setPlace({
       ...place,
@@ -171,14 +179,15 @@ function getSetEnclosingPlace(
 }
 
 /**
- * Sets the child place type and clears the child places.
- * @param field
- * @param enclosedPlaceType
+ * Returns a setter for child place type and additionally
+ * clearing the child places.
+ * @param place
+ * @param setPlace
  */
 function getSetEnclosedPlaceType(
   place: PlaceInfo,
   setPlace: React.Dispatch<React.SetStateAction<PlaceInfo>>
-): (enclosedPlaceType: string) => void {
+): Setter<string> {
   return (enclosedPlaceType) =>
     setPlace({
       ...place,
@@ -190,7 +199,7 @@ function getSetEnclosedPlaceType(
 function getSetEnclosedPlaces(
   place: PlaceInfo,
   setPlace: React.Dispatch<React.SetStateAction<PlaceInfo>>
-): (enclosedPlaces: Array<NamedPlace>) => void {
+): Setter<Array<NamedPlace>> {
   return (enclosedPlaces) =>
     setPlace({
       ...place,
@@ -199,15 +208,15 @@ function getSetEnclosedPlaces(
 }
 
 /**
- * Sets the statvar for an axis and clears its name and data and
- * the population data for that axis.
+ * Returns a setter for the statvar for an axis and additionally
+ * clearing its name and data and the population data for that axis.
  * @param axis
- * @param statVar
+ * @param setAxis
  */
 function getSetStatVar(
   axis: Axis,
   setAxis: React.Dispatch<React.SetStateAction<Axis>>
-): (statVar: StatsVarNode) => void {
+): Setter<StatsVarNode> {
   return (statVar) => {
     setAxis({
       ...axis,
@@ -219,10 +228,17 @@ function getSetStatVar(
   };
 }
 
+/**
+ * Returns a setter for an axis that clears the statvar, the name
+ * of the statvar, the data for the statvar, and the population
+ * data for the statvar.
+ * @param axis
+ * @param setAxis
+ */
 function getUnsetStatVar(
   axis: Axis,
   setAxis: React.Dispatch<React.SetStateAction<Axis>>
-): () => void {
+): Setter<void> {
   return () => {
     setAxis({
       ...axis,
@@ -237,7 +253,7 @@ function getUnsetStatVar(
 function getSetStatVarName(
   axis: Axis,
   setAxis: React.Dispatch<React.SetStateAction<Axis>>
-): (name: string) => void {
+): Setter<string> {
   return (name) => {
     setAxis({
       ...axis,
@@ -249,7 +265,7 @@ function getSetStatVarName(
 function getUnsetPopulationsAndData(
   axis: Axis,
   setAxis: React.Dispatch<React.SetStateAction<Axis>>
-): () => void {
+): Setter<void> {
   return () => {
     setAxis({
       ...axis,
@@ -262,7 +278,7 @@ function getUnsetPopulationsAndData(
 function getSetData(
   axis: Axis,
   setAxis: React.Dispatch<React.SetStateAction<Axis>>
-): (data: Array<number>) => void {
+): Setter<Array<number>> {
   return (data) => {
     setAxis({ ...axis, data: data });
   };
@@ -271,7 +287,7 @@ function getSetData(
 function getSetPopulations(
   axis: Axis,
   setAxis: React.Dispatch<React.SetStateAction<Axis>>
-): (populations: Array<number>) => void {
+): Setter<Array<number>> {
   return (populations) => {
     setAxis({
       ...axis,
@@ -283,7 +299,7 @@ function getSetPopulations(
 function getSetLog(
   axis: Axis,
   setAxis: React.Dispatch<React.SetStateAction<Axis>>
-): (log: boolean) => void {
+): Setter<boolean> {
   return (log) => {
     setAxis({
       ...axis,
@@ -295,7 +311,7 @@ function getSetLog(
 function getSetPerCapita(
   axis: Axis,
   setAxis: React.Dispatch<React.SetStateAction<Axis>>
-): (perCapita: boolean) => void {
+): Setter<boolean> {
   return (perCapita) => {
     setAxis({
       ...axis,
@@ -307,7 +323,7 @@ function getSetPerCapita(
 function getSetLowerBound(
   place: PlaceInfo,
   setPlace: React.Dispatch<React.SetStateAction<PlaceInfo>>
-): (lowerBound: number) => void {
+): Setter<number> {
   return (lowerBound) =>
     setPlace({
       ...place,
@@ -318,7 +334,7 @@ function getSetLowerBound(
 function getSetUpperBound(
   place: PlaceInfo,
   setPlace: React.Dispatch<React.SetStateAction<PlaceInfo>>
-): (upperBound: number) => void {
+): Setter<number> {
   return (upperBound) =>
     setPlace({
       ...place,
@@ -335,6 +351,6 @@ export {
   NamedPlace,
   PlaceInfo,
   PlaceInfoWrapper,
-  EmptyAxis,
-  EmptyPlace,
+  emptyAxis,
+  emptyPlace,
 };
