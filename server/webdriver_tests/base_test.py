@@ -24,19 +24,22 @@ PYTEST_PARALLEL = environ.get("PYTEST_PARALLEL")
 
 
 # Base test class to setup the server.
+# Please refer to README.md to see the order of method execution during test.
 class WebdriverBaseTest(LiveServerTestCase):
 
     def create_app(self):
-        """Returns the Flask Server running Data Commons"""
+        """Returns the Flask Server running Data Commons."""
         app_instance = app
-        # Specify port 0, each test will start its own Flask Server.
+        # Each test will start its own Flask Server.
         # Port 0 is used to let Flask pick any available port.
+        # If no port is specified, port 5000 will be used for all tests which
+        # may cause some racing issue when running tests.
         app_instance.config['LIVESERVER_PORT'] = 0
         return app_instance
 
     def setUp(self):
-        """Runs at the beginning of every individual test"""
-        # These parameters are needed to run ChromeDriver inside a Docker without a UI.
+        """Runs at the beginning of every individual test."""
+        # These options are needed to run ChromeDriver inside a Docker without a UI.
         chrome_options = Options()
         chrome_options.add_argument('--headless')
         chrome_options.add_argument('--no-sandbox')
@@ -62,7 +65,7 @@ class WebdriverBaseTest(LiveServerTestCase):
         self.url_ = self.get_server_url()
 
     def tearDown(self):
-        """Runs at the end of every individual test"""
+        """Runs at the end of every individual test."""
         # Quit the ChromeDriver instance.
         # NOTE: Every individual test starts a new ChromeDriver instance.
         self.driver.quit()

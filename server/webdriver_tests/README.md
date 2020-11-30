@@ -7,11 +7,11 @@ Run the following command from the parent directory:
     ./run_tests.sh -w
 
 To run the tests in parallel, add the -t (threading) flag:
-NOTE: This requires that Selenium Server/Grid downloaded and SELENIUM_SERVER points to the JAR file.
+NOTE: -t flag requires that Selenium Server/Grid is downloaded and the environment variable SELENIUM_SERVER points to the JAR file.
 Download Selenium Server/Grid JAR file from https://www.selenium.dev/downloads/
-Verified to be working on v3.141.59.
+Verified to be working on selenium-server-standalone-3.141.59.jar
 
-    export SELENIUM_SERVER=/path/to/selenium-server-standalone.jar
+    export SELENIUM_SERVER=/path/to/selenium-server-standalone*.jar
     ./run_tests.sh -tw
 
 ## Things To Note

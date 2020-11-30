@@ -2,7 +2,7 @@
 
 ## Description
 
-This is a Docker image based on python:3.7-slim, but comes with some other tools:
+This is a Docker image based on python:3.7, but comes with some other tools:
     1. Google Chrome: the browser which is used to run the tests.
     2. ChromeDriver: used to send commands to Google Chrome.
     3. Java JDK: used to run the Selenium Server, which comes as a JAR file.
