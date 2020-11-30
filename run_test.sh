@@ -90,7 +90,7 @@ function run_py_test {
   cd server
   export FLASK_ENV=test
   pip3 install -r requirements.txt
-  python3 -m pytest --tests-per-worker auto tests/**.py
+  python3 -m pytest tests/**.py
   cd ..
   echo -e "#### Checking Python style"
   if ! yapf --recursive --diff --style=google -p server/ tools/; then

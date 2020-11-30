@@ -22,6 +22,7 @@ from os import environ
 # TODO(edumorales): Figure out a way to pass down an argument using Pytest.
 PYTEST_PARALLEL = environ.get("PYTEST_PARALLEL")
 
+
 # Base test class to setup the server.
 class WebdriverBaseTest(LiveServerTestCase):
 
@@ -59,7 +60,6 @@ class WebdriverBaseTest(LiveServerTestCase):
 
         # The URL of the Data Commons server.
         self.url_ = self.get_server_url()
-
 
     def tearDown(self):
         """Runs at the end of every individual test"""
