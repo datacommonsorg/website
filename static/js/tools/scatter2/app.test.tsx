@@ -80,6 +80,11 @@ function mockAxios(): () => void {
       "geoId/10003": 16056,
       "geoId/10005": 5601,
     },
+    Count_HousingUnit: {
+      "geoId/10001": 70576,
+      "geoId/10003": 222146,
+      "geoId/10005": 135529,
+    },
   };
 
   for (const dcid of ["geoId/10001", "geoId/10003", "geoId/10005"]) {
@@ -87,7 +92,11 @@ function mockAxios(): () => void {
     when(axios.get)
       .calledWith(`/api/place/statsvars/${dcid}`)
       .mockResolvedValue({
-        data: ["Count_Person_Employed", "Count_Establishment"],
+        data: [
+          "Count_Person_Employed",
+          "Count_Establishment",
+          "Count_HousingUnit",
+        ],
       });
 
     for (const statVar in data) {
@@ -150,18 +159,13 @@ test("all functionalities", async (done) => {
   app.find(`[id="Number of Establishments"] button`).simulate("click");
 
   await waitFor(() => {
-    const text = app.text();
     // Title
-    expect(text).toContain("Number Of Establishments vs Employed");
+    expect(app.text()).toContain("Number Of Establishments vs Employed");
     // Stats
-    expect(text).toContain("X Mean: 152696");
-    expect(text).toContain("Y Mean: 8359.667");
-    expect(text).toContain("X Standard Deviation: 108149.894");
-    expect(text).toContain("Y Standard Deviation: 6753.678");
+    expectStat(152696, 8359.667, 108149.894, 6753.678, app);
+    // Points
+    expectCircles(3, app);
   });
-
-  // Points
-  expectCircles(3, app);
 
   // Swap axes
   app.find("#swap-axes").at(0).simulate("click");
@@ -194,6 +198,33 @@ test("all functionalities", async (done) => {
     .at(0)
     .simulate("change", { target: { checked: true } });
   expectCircles(3, app);
+
+  // Choose a third statvar
+  app.find("#Housing a").simulate("click");
+  app.find(`[id="Housing Units"] button`).simulate("click");
+  await waitFor(() =>
+    expect(app.find(".modal-title").text()).toContain(
+      "Select two of the three statistical variables"
+    )
+  );
+
+  // Uncheck establishments and check housing
+  app
+    .find(`input[name="x"]`)
+    .simulate("change", { target: { name: "x", checked: false } });
+  app
+    .find(`input[name="third"]`)
+    .simulate("change", { target: { name: "third", checked: true } });
+  app.find(".modal-footer button").simulate("click");
+  app.update();
+  console.log(app.debug());
+  await waitFor(() => {
+    expect(app.text()).toContain(
+      "Housing Units Per Capita vs Employed Per Capita"
+    );
+    expectStat(0.456, 0.456, 0.036, 0.107, app);
+    expectCircles(3, app);
+  });
 
   unmock();
   done();
