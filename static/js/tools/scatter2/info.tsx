@@ -23,8 +23,16 @@ import React from "react";
 function Info(): JSX.Element {
   return (
     <div id="placeholder-container">
-      {/* TODO(intrepiditee): Add descriptions, tutorials, and examples */}
-      <p>Welcome to Data Commons. This tool ...</p>
+      <p>
+        The scatter plot tool helps you visualize the correlation between two
+        variables that appear in the pane to the left. Select the type of places
+        you want to plot in the dropdown menu and enter the containing place in
+        the search box above. Then, pick two variables in the left pane. There
+        are thousands of variables to choose from, arranged in a topical
+        hierarchy.
+      </p>
+
+      {/* TODO(intrepiditee): Add descriptions examples */}
 
       <p>Take the data and use it on your site!</p>
       <p>

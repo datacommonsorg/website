@@ -36,19 +36,25 @@ import {
 
 function App(): JSX.Element {
   const context = useContext(Context);
+  const hideInfo = shouldHideInfo(
+    context.x.value,
+    context.y.value,
+    context.place.value
+  );
   return (
     <div>
       <StatVarChooser />
       <div id="plot-container">
         <Container>
+          {!hideInfo && (
+            <Row>
+              <h1 className="mb-4">Scatter Plot Tool</h1>
+            </Row>
+          )}
           <Row>
             <PlaceOptions />
           </Row>
-          {shouldHideInfo(
-            context.x.value,
-            context.y.value,
-            context.place.value
-          ) ? (
+          {hideInfo ? (
             <React.Fragment>
               <Row>
                 <PlotOptions />
@@ -58,9 +64,11 @@ function App(): JSX.Element {
               </Row>
             </React.Fragment>
           ) : (
-            <Row>
-              <Info />
-            </Row>
+            <React.Fragment>
+              <Row>
+                <Info />
+              </Row>
+            </React.Fragment>
           )}
         </Container>
       </div>
