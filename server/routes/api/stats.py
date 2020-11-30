@@ -137,9 +137,13 @@ def stats_var_property_wrapper(dcids):
 @bp.route('/api/stats/value')
 @cache.cached(timeout=3600 * 24, query_string=True)  # Cache for one day.
 def get_stats_value():
-    """Gets DCIDs of places of a certain type contained in some places.
+    """Returns a value for a place based on a statistical variable.
 
     Sends the request to the Data Commons "/stat/value" API.
+    See https://docs.datacommons.org/api/rest/stat_value.html.
+
+    Returns:
+        Singleton dict with key "value".
     """
     place = request.args.get("place")
     stat_var = request.args.get("stat_var")

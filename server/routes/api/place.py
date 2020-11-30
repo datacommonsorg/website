@@ -549,6 +549,9 @@ def get_places_in():
     
     Sends the request to the Data Commons "/node/places-in" API.
     See https://docs.datacommons.org/api/rest/place_in.html.
+
+    Returns:
+        Dict keyed by parent DCIDs with lists of child place DCIDs as values.
     """
     dcids = request.args.getlist("dcids")
     place_type = request.args.get("placeType")
