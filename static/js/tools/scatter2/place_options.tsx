@@ -32,16 +32,22 @@ import { Container, Row, Col, CustomInput } from "reactstrap";
  * Possible child place types.
  */
 const EnclosedTypes = [
-  "CensusCoreBasedStatisticalArea",
-  "CensusCountyDivision",
-  "CensusTract",
-  "City",
-  "CongressionalDistrict",
-  "County",
-  "HighSchoolDistrict",
-  "SchoolDistrict",
+  "Country",
   "State",
-  "StateComponent",
+  "County",
+  "City",
+  "Town",
+  "Village",
+  "Borough",
+  "CensusZipCodeTabulationArea",
+  "EurostatNUTS1",
+  "EurostatNUTS2",
+  "EurostatNUTS3",
+  "AdministrativeArea1",
+  "AdministrativeArea2",
+  "AdministrativeArea3",
+  "AdministrativeArea4",
+  "AdministrativeArea5",
 ];
 
 function PlaceOptions(): JSX.Element {
