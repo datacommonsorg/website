@@ -14,20 +14,25 @@
 
 FROM python:3.7
 
-# install google chrome
+WORKDIR /resources
+
+
+# Install Google Chrome.
 RUN wget -q -O - https://dl-ssl.google.com/linux/linux_signing_key.pub | apt-key add -
 RUN sh -c 'echo "deb [arch=amd64] http://dl.google.com/linux/chrome/deb/ stable main" >> /etc/apt/sources.list.d/google-chrome.list'
-RUN apt-get -y update
-RUN apt-get install -y google-chrome-stable
+RUN apt -y update
+RUN apt install -y google-chrome-stable
 
-# install chromedriver
-RUN apt-get install -yqq unzip
+# Install ChromeDriver.
 RUN wget -O /tmp/chromedriver.zip http://chromedriver.storage.googleapis.com/`curl -sS chromedriver.storage.googleapis.com/LATEST_RELEASE`/chromedriver_linux64.zip
 RUN unzip /tmp/chromedriver.zip chromedriver -d /usr/bin/
 RUN chown root:root /usr/bin/chromedriver
 RUN chmod +x /usr/bin/chromedriver
 
-# set display port to avoid crash
-ENV DISPLAY=:99
+# Download Selenium Server JAR, handles multiple instances of ChromeDriver in parallel.
+RUN wget https://selenium-release.storage.googleapis.com/3.141/selenium-server-standalone-3.141.59.jar
 
-CMD ["--help"]
+# Install Java, needed to run Selenium Server JAR.
+RUN apt install -yqq software-properties-common
+RUN apt -y update
+RUN apt install -y default-jre
