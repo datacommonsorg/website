@@ -17,31 +17,62 @@ steps:
   - id: package_js
     name: gcr.io/datcom-ci/node
     entrypoint: /bin/bash
+    waitFor: ['-']
     args:
       - -c
       - |
-        # ./run_test.sh -b can run npm run-script build command which can build all the js files.
+        # The node docker image comes with a pre-installed node_modules directory.
+        # Copy node_modules onto the static folder and update the node_module packages instead of downloading from scratch.
+        # This step is done for speed, downloading the delta files is faster than downloading the entire dependencies.
+        rm -rf static/node_modules
+        cp -r /resources/node_modules -d static/
+
+        # ./run_test.sh -b will build client packages.
         # These js files generated will be necessery for the flask_webdriver_test task.
         ./run_test.sh -b
 
-  # Run screenshot tests
+  # Run the webdriver tests
   - id: flask_webdriver_test
-    name: gcr.io/datcom-ci/webdriver-chrome:2020-10-21
+    name: gcr.io/datcom-ci/webdriver-chrome:2020-11-25
     entrypoint: /bin/sh
+    waitFor:
+      - package_js
     args:
       - -c
       - |
-        ./run_test.sh -s
+        # Point SELENIUM_SERVER to the JAR file, needed to start Selenium Server/Grid.
+        export SELENIUM_SERVER=/resources/selenium-server-standalone-3.141.59.jar
+
+        # -t enables parallel testing flag.
+        ./run_test.sh -tw
+
+  # Run screenshot test and save the images
+  - id: screenshot_test
+    name: gcr.io/datcom-ci/webdriver-chrome:2020-11-25
+    entrypoint: /bin/sh
+    waitFor:
+      - flask_webdriver_test
+    args:
+      - -c
+      - |
+        # Point SELENIUM_SERVER to the JAR file, needed to start Selenium Server/Grid.
+        export SELENIUM_SERVER=/resources/selenium-server-standalone-3.141.59.jar
+
+        # -t enables parallel testing flag.
+        ./run_test.sh -ts
 
   # Copy over the screenshots to gcs
   - name: gcr.io/cloud-builders/gsutil
     entrypoint: /bin/sh
+    waitFor:
+      - screenshot_test
     args:
       - -c
       - |
         set -e
         gsutil cp server/test_screenshots/*.png gs://datcom-browser-screenshot/$SHORT_SHA/
         rm -rf server/test_screenshots
+
   # # Fetch author email from git commit history
   # - id: fetch author email
   #   name: "gcr.io/cloud-builders/git"

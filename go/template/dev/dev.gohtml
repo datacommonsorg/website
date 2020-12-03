@@ -1,4 +1,4 @@
-{#
+<!--
  Copyright 2020 Google LLC
 
  Licensed under the Apache License, Version 2.0 (the "License");
@@ -12,17 +12,28 @@
  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
  See the License for the specific language governing permissions and
  limitations under the License.
-#}
-{% extends 'base.html' %}
+-->
 
-{% set main_id = 'translator' %}
-{% set title = 'Schema Translator' %}
+{{define "head" }}
+<link rel="stylesheet" href="/static/css/dev.min.css" />
+<style>
+  .chart {
+    margin: 20px;
+    float: left;
+    position: relative;
+    outline: 1px solid blue;
+  }
 
-{% block head %}
-  <link rel="stylesheet" href={{url_for('static', filename='css/translator.min.css', t=config['GAE_VERSION'])}} >
-{% endblock %}
+  svg {
+    outline: 1px solid red;
+  }
+</style>
+{{end}}
 
-{% block content %}
-  <div id="translator"></div>
-  <script src={{url_for('static', filename='translator.js', t=config['GAE_VERSION'])}}></script>
-{% endblock %}
+{{ define "content" }}
+<div class="container-fluid">
+  <div id="charts-container"></div>
+  <div style="clear: both"></div>
+</div>
+<script src="/static/dev.js"></script>
+{{end}}

@@ -24,7 +24,6 @@ MTV_URL = '/place/geoId/0649670'
 USA_URL = '/place/country/USA'
 CA_URL = '/place/geoId/06'
 PLACE_SEARCH = 'California, USA'
-SLEEP_SEC = 15
 
 
 # Class to test place explorer tool.
@@ -41,7 +40,7 @@ class TestPlaceExplorer(WebdriverBaseTest):
         # Wait until the place-type is correct.
         element_present = EC.text_to_be_present_in_element(
             (By.ID, 'place-type'), PLACE_TYPE_TEXT)
-        WebDriverWait(self.driver, SLEEP_SEC).until(element_present)
+        WebDriverWait(self.driver, self.TIMEOUT_SEC).until(element_present)
 
         # Assert 200 HTTP code: successful page load.
         req = urllib.request.Request(self.driver.current_url)
@@ -55,7 +54,7 @@ class TestPlaceExplorer(WebdriverBaseTest):
 
         # Wait until the page loads and the title is correct.
         WebDriverWait(self.driver,
-                      SLEEP_SEC).until(EC.title_contains(TITLE_TEXT))
+                      self.TIMEOUT_SEC).until(EC.title_contains(TITLE_TEXT))
         self.assertEqual(TITLE_TEXT, self.driver.title)
 
         # Assert place title is correct.
@@ -76,7 +75,7 @@ class TestPlaceExplorer(WebdriverBaseTest):
 
         # Wait until the page loads and the title is correct.
         WebDriverWait(self.driver,
-                      SLEEP_SEC).until(EC.title_contains(TITLE_TEXT))
+                      self.TIMEOUT_SEC).until(EC.title_contains(TITLE_TEXT))
 
         # Assert title is correct.
         self.assertEqual(TITLE_TEXT, self.driver.title)
@@ -84,7 +83,7 @@ class TestPlaceExplorer(WebdriverBaseTest):
         # Wait until the place name has loaded.
         element_present = EC.text_to_be_present_in_element(
             (By.ID, 'place-name'), "Mountain View")
-        WebDriverWait(self.driver, SLEEP_SEC).until(element_present)
+        WebDriverWait(self.driver, self.TIMEOUT_SEC).until(element_present)
         place_name = self.driver.find_element_by_id("place-name").text
 
         # Assert place name is correct.
@@ -93,7 +92,7 @@ class TestPlaceExplorer(WebdriverBaseTest):
         # Wait until the place type has loaded.
         element_present = EC.text_to_be_present_in_element(
             (By.ID, 'place-type'), PLACE_TYPE_TITLE)
-        WebDriverWait(self.driver, SLEEP_SEC).until(element_present)
+        WebDriverWait(self.driver, self.TIMEOUT_SEC).until(element_present)
 
         # Assert place type is correct.
         place_type = self.driver.find_element_by_id("place-type").text
@@ -108,7 +107,7 @@ class TestPlaceExplorer(WebdriverBaseTest):
         # Wait until the place name has loaded.
         element_present = EC.presence_of_element_located(
             (By.CLASS_NAME, 'pac-target-input'))
-        WebDriverWait(self.driver, SLEEP_SEC).until(element_present)
+        WebDriverWait(self.driver, self.TIMEOUT_SEC).until(element_present)
 
         search_box = self.driver.find_element_by_class_name("pac-target-input")
 
@@ -117,7 +116,7 @@ class TestPlaceExplorer(WebdriverBaseTest):
         # Wait until the place name has loaded.
         element_present = EC.presence_of_element_located(
             (By.CSS_SELECTOR, '.pac-item:nth-child(1)'))
-        WebDriverWait(self.driver, SLEEP_SEC).until(element_present)
+        WebDriverWait(self.driver, self.TIMEOUT_SEC).until(element_present)
 
         # Select the first result from the list and click on it.
         first_result = self.driver.find_element_by_css_selector(
@@ -125,8 +124,8 @@ class TestPlaceExplorer(WebdriverBaseTest):
         first_result.click()
 
         # Wait until the page loads and the title is correct.
-        WebDriverWait(self.driver,
-                      SLEEP_SEC).until(EC.title_contains(CALIFORNIA_TITLE))
+        WebDriverWait(self.driver, self.TIMEOUT_SEC).until(
+            EC.title_contains(CALIFORNIA_TITLE))
 
         # Assert page title is correct.
         self.assertEqual(CALIFORNIA_TITLE, self.driver.title)
@@ -142,7 +141,7 @@ class TestPlaceExplorer(WebdriverBaseTest):
         # Wait until the Demographics link is present.
         element_present = EC.presence_of_element_located(
             (By.XPATH, '//*[@id="Demographics"]/a'))
-        WebDriverWait(self.driver, SLEEP_SEC).until(element_present)
+        WebDriverWait(self.driver, self.TIMEOUT_SEC).until(element_present)
 
         # Find and click on the Demographics URL.
         demographics = self.driver.find_element_by_xpath(
@@ -152,7 +151,7 @@ class TestPlaceExplorer(WebdriverBaseTest):
         # Wait until the new page has loaded.
         element_present = EC.presence_of_element_located(
             (By.XPATH, '//*[@id="main-pane"]/section[4]/div/div[2]/div/h4'))
-        WebDriverWait(self.driver, SLEEP_SEC).until(element_present)
+        WebDriverWait(self.driver, self.TIMEOUT_SEC).until(element_present)
 
         # Assert that Demographics is part of the new url.
         self.assertTrue("Demographics" in self.driver.current_url)
@@ -176,7 +175,7 @@ class TestPlaceExplorer(WebdriverBaseTest):
     #     # Wait until the page has loaded.
     #     element_present = EC.presence_of_element_located(
     #         (By.CSS_SELECTOR, '.subtopic:nth-node(4)'))
-    #     WebDriverWait(self.driver, SLEEP_SEC).until(element_present)
+    #     WebDriverWait(self.driver, self.TIMEOUT_SEC).until(element_present)
 
     #     # Assert "Demographics" is part of the URL.
     #     self.assertTrue("Demographics" in self.driver.current_url)

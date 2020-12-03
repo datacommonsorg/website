@@ -4,7 +4,7 @@
 # you may not use this file except in compliance with the License.
 # You may obtain a copy of the License at
 #
-#     https://www.apache.org/licenses/LICENSE-2.0
+#      http://www.apache.org/licenses/LICENSE-2.0
 #
 # Unless required by applicable law or agreed to in writing, software
 # distributed under the License is distributed on an "AS IS" BASIS,
@@ -12,22 +12,16 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-# Run Python tests, lint, etc.
-steps:
-  - id: flask_test
-    name: python:3.7
-    entrypoint: /bin/sh
-    waitFor: ['-']
-    args:
-      - -c
-      - |
-        ./run_test.sh -p
+from flask import Blueprint, request
 
-  - id: pv_tree_generator
-    name: python:3.7-slim
-    entrypoint: /bin/sh
-    waitFor: ['-']
-    args:
-      - -c
-      - set -e
-      - "cd tools/pv_tree_generator && pip install -r requirements.txt && python -m pytest"
+from services import datacommons as dc
+
+# Define blueprint
+bp = Blueprint("misc", __name__)
+
+
+@bp.route('/api/translate', methods=['POST'])
+def translate():
+    sparql = request.json['sparql']
+    mapping = request.json['mapping']
+    return dc.translate(sparql, mapping)

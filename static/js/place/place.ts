@@ -58,7 +58,9 @@ function updatePageLayoutState(): void {
     .offsetHeight;
   const sidebarRegionHeight = document.getElementById("sidebar-region")
     .offsetHeight;
-  sidebarTopMax = sidebarOuterHeight - sidebarRegionHeight - Y_SCROLL_MARGIN;
+  const footerHeight = document.getElementById("main-footer").offsetHeight;
+  sidebarTopMax =
+    sidebarOuterHeight - sidebarRegionHeight - Y_SCROLL_MARGIN - footerHeight;
 }
 
 /**

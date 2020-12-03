@@ -23,7 +23,6 @@ import urllib
 
 import requests
 from werkzeug.utils import import_string
-from google.cloud import secretmanager
 
 if os.environ.get('FLASK_ENV') == 'test':
     cfg = import_string('configmodule.TestConfig')()
@@ -56,6 +55,7 @@ DC_API_KEY = 'api-key'
 # REST API endpoint paths
 API_ENDPOINTS = {
     'query': '/query',
+    'translate': '/translate',
     'search': '/search',
     'get_property_labels': '/node/property-labels',
     'get_property_values': '/node/property-values',
@@ -92,6 +92,12 @@ def search(query_text, max_results):
             'Printing response\n{}'.format(response.status_code,
                                            response.reason))
     return response.json()
+
+
+def translate(sparql, mapping):
+    url = API_ROOT + API_ENDPOINTS['translate']
+    req_json = {'schema_mapping': mapping, 'sparql': sparql}
+    return send_request(url, req_json=req_json, has_payload=False)
 
 
 def get_stats(place_dcids, stats_var):
@@ -186,8 +192,13 @@ def get_property_values(dcids,
     return results
 
 
-def get_triples(dcids, limit=_MAX_LIMIT):
-    # Generate the GetTriple query and send the request.
+def get_triples_processed(dcids, limit=_MAX_LIMIT):
+    """
+    Generate the GetTriple query and send the request.
+
+    The response is processed into as triples strings. This API is used by the
+    pv tree tool.
+    """
     url = API_ROOT + API_ENDPOINTS['get_triples']
     payload = send_request(url, req_json={'dcids': dcids, 'limit': limit})
 
@@ -206,6 +217,17 @@ def get_triples(dcids, limit=_MAX_LIMIT):
                 results[dcid].append(
                     (t['subjectId'], t['predicate'], t['objectValue']))
     return dict(results)
+
+
+def get_triples(dcids, limit=0):
+    """
+    Get the triples in the raw format as the REST response.
+
+    This is used by the flask server to retrieve node triples.
+    Limit of 0 does not apply a limit and use all available triples from cache.
+    """
+    url = API_ROOT + API_ENDPOINTS['get_triples']
+    return send_request(url, req_json={'dcids': dcids, 'limit': limit})
 
 
 def get_places_in(dcids, place_type):
