@@ -201,7 +201,7 @@ function StatVarChooser(): JSX.Element {
 /**
  * Filters statvars shown in the statvar menu.
  * A statvar is kept if it is available for at least one of the child places.
- * Throws an alert if a currently selected statvar is fitlered out.
+ * Throws an alert if a currently selected statvar is filtered out.
  * @param x
  * @param y
  * @param places

@@ -71,7 +71,7 @@ function Chart(props: ChartPropsType): JSX.Element {
 /**
  * Formats a number, or returns "N/A" if not an number.
  * If the number is a float, keeps three decimal places.
- * TODO: Three decimal places may not be enough. Need a utility to do this.
+ * TODO: Need a utility determine decimals places based on value.
  * @param num
  */
 function getStringOrNA(num: number): string {
