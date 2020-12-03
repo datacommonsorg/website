@@ -16,6 +16,22 @@
 
 set -e
 
+# Starts Selenium Server/Grid.
+function start_selenium_server {
+
+if [[ ! $SELENIUM_SERVER ]]
+  then
+  echo -e "no SELENIUM_SERVER environment variable found"
+  echo -e "please point SELENIUM_SERVER to JAR file"
+  echo -e "download Selenium Server/Grid JAR file from https://www.selenium.dev/downloads/"
+  exit 1
+  fi
+
+  # Start the Selenium Server in the background.
+  # nohup and & (ampersand) is used for silent startup.
+  nohup java -Dwebdriver.chrome.whitelistedIps= -jar $SELENIUM_SERVER -port 4444&
+}
+
 # Run test for client side code.
 function run_npm_test {
   cd static
@@ -28,7 +44,7 @@ function run_npm_lint_test {
   cd static
   npm list eslint || npm install eslint
   if ! npm run test-lint; then
-    echo "\nFix lint errors by running ./run_test.sh -f"
+    echo "Fix lint errors by running ./run_test.sh -f"
     exit 1
   fi
   cd ..
@@ -78,7 +94,7 @@ function run_py_test {
   cd ..
   echo -e "#### Checking Python style"
   if ! yapf --recursive --diff --style=google -p server/ tools/; then
-    echo "\nFix lint errors by running ./run_test.sh -f"
+    echo "Fix lint errors by running ./run_test.sh -f"
     exit 1
   fi
 }
@@ -96,7 +112,14 @@ function run_webdriver_test {
   export FLASK_ENV=webdriver
   export GOOGLE_CLOUD_PROJECT=datcom-browser-staging
   pip3 install -r requirements.txt
-  python3 -m pytest webdriver_tests/*.py
+
+  if [ $PYTEST_PARALLEL ]
+  then
+    echo -e "#### Running webdriver tests in parallel"
+    python3 -m pytest --tests-per-worker auto webdriver_tests/*.py
+  else
+    python3 -m pytest webdriver_tests/*.py
+  fi
   cd ..
 }
 
@@ -109,16 +132,24 @@ function run_screenshot_test {
     echo "no dist folder, please run ./run_test.sh -b to build js first."
     exit 1
   fi
+
   export FLASK_ENV=webdriver
   export GOOGLE_CLOUD_PROJECT=datcom-browser-staging
   pip3 install -r requirements.txt
   if [  -d test_screenshots  ]
   then
-    echo "Delete the test_screenshots folder"
+    echo "delete the test_screenshots folder"
     rm -rf test_screenshots
   fi
   mkdir test_screenshots
-  python3 -m pytest webdriver_tests/screenshot/screenshot_test.py
+
+  if [ $PYTEST_PARALLEL ]
+  then
+    echo -e "#### Running screenshot tests in parallel"
+    python3 -m pytest --tests-per-worker auto webdriver_tests/screenshot/screenshot_test.py
+  else
+    python3 -m pytest webdriver_tests/screenshot/screenshot_test.py
+  fi
   cd ..
 }
 
@@ -132,7 +163,8 @@ function run_all_tests {
 }
 
 function help {
-  echo "Usage: $0 -pwblcsaf"
+  echo "Usage: $0 -tpwblcsaf"
+  echo "-t       Run tests in parallel"
   echo "-p       Run server python tests"
   echo "-w       Run webdriver tests"
   echo "-o       Build for production (ignores dev dependencies)"
@@ -145,8 +177,16 @@ function help {
   exit 1
 }
 
-while getopts pwoblcsaf OPTION; do
+# Always reset the variable null.
+unset PYTEST_PARALLEL
+while getopts tpwotblcsaf OPTION; do
   case $OPTION in
+    t)
+        echo -e "### Parallel flag enabled"
+        export PYTEST_PARALLEL=true
+        # Start Selenium Server/Grid on port 4444.
+        start_selenium_server
+        ;;
     p)
         echo -e "### Running server tests"
         run_py_test

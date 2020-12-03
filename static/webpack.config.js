@@ -17,6 +17,7 @@
 const path = require("path");
 const CopyPlugin = require("copy-webpack-plugin");
 const FixStyleOnlyEntriesPlugin = require("webpack-fix-style-only-entries");
+const WebpackShellPlugin = require("webpack-shell-plugin");
 
 const config = {
   entry: {
@@ -34,7 +35,11 @@ const config = {
       __dirname + "/js/tools/timeline.ts",
       __dirname + "/css/timeline.scss",
     ],
-    kg: [__dirname + "/js/browser/kg.js", __dirname + "/css/kg.scss"],
+    kg: [
+      "babel-polyfill",
+      __dirname + "/js/browser/kg.js",
+      __dirname + "/css/kg.scss",
+    ],
     mcf_playground: __dirname + "/js/mcf_playground.js",
     place: [
       __dirname + "/js/place/place.ts",
@@ -52,7 +57,7 @@ const config = {
     search: __dirname + "/css/search.scss",
     static: __dirname + "/css/static.scss",
     translator: [
-      __dirname + "/js/translator.js",
+      __dirname + "/js/translator/translator.ts",
       __dirname + "/css/translator.scss",
     ],
   },
@@ -110,6 +115,9 @@ const config = {
     ]),
     new FixStyleOnlyEntriesPlugin({
       silent: true,
+    }),
+    new WebpackShellPlugin({
+      onBuildEnd: ["cp -r ../server/dist ../go/dist"],
     }),
   ],
 };
