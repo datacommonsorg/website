@@ -32,7 +32,7 @@ import { Container, Row, Col, CustomInput } from "reactstrap";
  * Possible child place types.
  */
 const EnclosedTypes = [
-  "Country",
+  // "Country", // TODO: Search bar should be able to search for "Earth".
   "State",
   "County",
   "City",
