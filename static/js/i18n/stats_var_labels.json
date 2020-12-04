@@ -1,0 +1,938 @@
+{
+  "Amount_Consumption_Alcohol_15OrMoreYears_AsFractionOf_Count_Person_15OrMoreYears": {
+    "defaultMessage": "Pure Alcohol Consumption",
+    "description": "Label used to describe statistical variables in chart legends, string should be short. Describes amount of pure alcohol consumed as a fraction of people of age."
+  },
+  "Amount_Consumption_Electricity_PerCapita": {
+    "defaultMessage": "Electricity Consumption",
+    "description": "Label used to describe statistical variables in chart legends, string should be short. Describes amount of electricity consumed per capita."
+  },
+  "Amount_Consumption_Energy_PerCapita": {
+    "defaultMessage": "Energy Consumption",
+    "description": "Label used to describe statistical variables in chart legends, string should be short. Describes amount of energy consumed per capita."
+  },
+  "Amount_Debt_Government": {
+    "defaultMessage": "Government Debt",
+    "description": "Label used to describe statistical variables in chart legends, string should be short. Describes total amount of government debt."
+  },
+  "Amount_EconomicActivity_ExpenditureActivity_EducationExpenditure_Government_AsFractionOf_Amount_EconomicActivity_ExpenditureActivity_Government": {
+    "defaultMessage": "Government Expenditures on Education (% of Government Expenditures)",
+    "description": "Label used to describe statistical variables in chart legends, string should be short. Describes amount spent by a government on education as a percentage of total expenditure."
+  },
+  "Amount_EconomicActivity_ExpenditureActivity_EducationExpenditure_Government_AsFractionOf_Amount_EconomicActivity_GrossDomesticProduction_Nominal": {
+    "defaultMessage": "Government Expenditures on Education (% of GDP)",
+    "description": "Label used to describe statistical variables in chart legends, string should be short. Describes amount spent by a government on education as a percentage of GDP."
+  },
+  "Amount_EconomicActivity_ExpenditureActivity_MilitaryExpenditure_Government": {
+    "defaultMessage": "Government Expenditures on Military",
+    "description": "Label used to describe statistical variables in chart legends, string should be short. Describes amount spent by a government on the military."
+  },
+  "Amount_EconomicActivity_ExpenditureActivity_MilitaryExpenditure_Government_AsFractionOf_Amount_EconomicActivity_GrossDomesticProduction_Nominal": {
+    "defaultMessage": "Government Expenditures on Military (% of GDP)",
+    "description": "Label used to describe statistical variables in chart legends, string should be short. Describes amount spent by a govnerment on the military as a percentage of GDP."
+  },
+  "Amount_EconomicActivity_GrossDomesticProduction_Nominal": {
+    "defaultMessage": "GDP",
+    "description": "Label used to describe statistical variables in chart legends, string should be short. Describes nominal gross domestic production."
+  },
+  "Amount_EconomicActivity_GrossDomesticProduction_Nominal_PerCapita": {
+    "defaultMessage": "GDP Per Capita",
+    "description": "Label used to describe statistical variables in chart legends, string should be short. Describes nominal gross domestic production, per capita."
+  },
+  "Amount_EconomicActivity_GrossNationalIncome_PurchasingPowerParity": {
+    "defaultMessage": "GNI PPP",
+    "description": "Label used to describe statistical variables in chart legends, string should be short. Describes gross national income, using purchasing power parity."
+  },
+  "Amount_EconomicActivity_GrossNationalIncome_PurchasingPowerParity_PerCapita": {
+    "defaultMessage": "GNI PPP Per Capita",
+    "description": "Label used to describe statistical variables in chart legends, string should be short. Describes gross national income, using purchasing power parity on a per capita basis."
+  },
+  "Amount_Emissions_CarbonDioxide_PerCapita": {
+    "defaultMessage": "CO2 Emissions",
+    "description": "Label used to describe statistical variables in chart legends, string should be short. Describes amount of Carbon Dioxide emissions, per capita."
+  },
+  "Amount_Remittance_InwardRemittance": {
+    "defaultMessage": "Inward Remittance",
+    "description": "Label used to describe statistical variables in chart legends, string should be short. Describes the total amount of inward remittance into a place."
+  },
+  "Amount_Remittance_InwardRemittance_AsFractionOf_Amount_EconomicActivity_GrossDomesticProduction_Nominal": {
+    "defaultMessage": "Inward Remittance (% of GDP)",
+    "description": "Label used to describe statistical variables in chart legends, string should be short. Describes the total amount of inward remittance into a place (as a percentage of GDP)."
+  },
+  "Amount_Remittance_OutwardRemittance": {
+    "defaultMessage": "Outward Remittance",
+    "description": "Label used to describe statistical variables in chart legends, string should be short. Describes the total amount of outward remittance from a place."
+  },
+  "Amount_Stock": {
+    "defaultMessage": "Market Capitalization of Domestic Companies",
+    "description": "Label used to describe statistical variables in chart legends, string should be short."
+  },
+  "Amount_Stock_AsFractionOf_Amount_EconomicActivity_GrossDomesticProduction_Nominal": {
+    "defaultMessage": "Market Capitalization of Domestic Companies (% of GDP)",
+    "description": "Label used to describe statistical variables in chart legends, string should be short. Describes the market capitalization of domestic companies, as a fraction of GDP."
+  },
+  "Count_CriminalActivities_Arson": {
+    "defaultMessage": "Arson",
+    "description": "Label used to describe statistical variables in chart legends, string should be short. Describes the total number of arson incidents."
+  },
+  "Count_CriminalActivities_CombinedCrime": {
+    "defaultMessage": "Combined Crimes",
+    "description": "Label used to describe statistical variables in chart legends, string should be short. Describes the total number of crimes (of all types)."
+  },
+  "Count_CriminalActivities_PropertyCrime": {
+    "defaultMessage": "Property Crimes",
+    "description": "Label used to describe statistical variables in chart legends, string should be short. Describes the total number of property crimes."
+  },
+  "Count_CriminalActivities_ViolentCrime": {
+    "defaultMessage": "Violent Crimes",
+    "description": "Label used to describe statistical variables in chart legends, string should be short. Describes the total number of violent crimes."
+  },
+  "Count_CycloneEvent": {
+    "defaultMessage": "Cyclone",
+    "description": "Label used to describe statistical variables in chart legends, string should be short. Describes the number of cyclone events."
+  },
+  "Count_Death_0Years_AsFractionOf_Count_BirthEvent_LiveBirth": {
+    "defaultMessage": "Infant Mortality Rate",
+    "description": "Label used to describe statistical variables in chart legends, string should be short. Describes the number of infant deaths as a percentage of all births."
+  },
+  "Count_Death_0Years_Female_AsFractionOf_Count_BirthEvent_LiveBirth_Female": {
+    "defaultMessage": "Female",
+    "description": "Label used to describe statistical variables in chart legends, string should be short. Describes the infant mortality rate for females."
+  },
+  "Count_Death_0Years_Male_AsFractionOf_Count_BirthEvent_LiveBirth_Male": {
+    "defaultMessage": "Male",
+    "description": "Label used to describe statistical variables in chart legends, string should be short. Describes the infant mortality rate for males."
+  },
+  "Count_Death_DiseasesOfTheCirculatorySystem": {
+    "defaultMessage": "Circulatory System",
+    "description": "Label used to describe statistical variables in chart legends, string should be short. Describes diseases of the circulatory system in a chart about mortality events."
+  },
+  "Count_Death_DiseasesOfTheNervousSystem": {
+    "defaultMessage": "Nervous System",
+    "description": "Label used to describe statistical variables in chart legends, string should be short. Describes diseases of the nervous system in a chart about mortality events."
+  },
+  "Count_Death_DiseasesOfTheRespiratorySystem": {
+    "defaultMessage": "Respiratory System",
+    "description": "Label used to describe statistical variables in chart legends, string should be short. Describes diseases of the respiratory system in a chart about mortality events."
+  },
+  "Count_Death_ExternalCauses": {
+    "defaultMessage": "External Causes",
+    "description": "Label used to describe statistical variables in chart legends, string should be short. Describes deaths caused by external causes in a chart about mortality events."
+  },
+  "Count_Death_Neoplasms": {
+    "defaultMessage": "Neoplasms",
+    "description": "Label used to describe statistical variables in chart legends, string should be short. Describes deaths caused by neoplasms in a chart about mortality events."
+  },
+  "Count_DroughtEvent": {
+    "defaultMessage": "Drought",
+    "description": "Label used to describe statistical variables in chart legends, string should be short. Describes the number of drought events."
+  },
+  "Count_EarthquakeEvent": {
+    "defaultMessage": "Earthquake",
+    "description": "Label used to describe statistical variables in chart legends, string should be short. Describes the number of earthquake events."
+  },
+  "Count_FloodEvent": {
+    "defaultMessage": "Flood",
+    "description": "Label used to describe statistical variables in chart legends, string should be short. Describes the number of flood events."
+  },
+  "Count_Household_IncomeOf100000To124999USDollar": {
+    "defaultMessage": "$100K to $125K",
+    "description": "Label used to describe statistical variables in chart legends, string should be short. Used to describe a range of household income in US Dollars."
+  },
+  "Count_Household_IncomeOf10000To14999USDollar": {
+    "defaultMessage": "$10K to $15K",
+    "description": "Label used to describe statistical variables in chart legends, string should be short. Used to describe a range of household income in US Dollars."
+  },
+  "Count_Household_IncomeOf125000To149999USDollar": {
+    "defaultMessage": "$125K to $150K",
+    "description": "Label used to describe statistical variables in chart legends, string should be short. Used to describe a range of household income in US Dollars."
+  },
+  "Count_Household_IncomeOf150000To199999USDollar": {
+    "defaultMessage": "$150K to $200K",
+    "description": "Label used to describe statistical variables in chart legends, string should be short. Used to describe a range of household income in US Dollars."
+  },
+  "Count_Household_IncomeOf200000OrMoreUSDollar": {
+    "defaultMessage": "Over $200K",
+    "description": "Label used to describe statistical variables in chart legends, string should be short. Used to describe a range of household income in US Dollars."
+  },
+  "Count_Household_IncomeOf20000To24999USDollar": {
+    "defaultMessage": "$20K to $25K",
+    "description": "Label used to describe statistical variables in chart legends, string should be short. Used to describe a range of household income in US Dollars."
+  },
+  "Count_Household_IncomeOf30000To34999USDollar": {
+    "defaultMessage": "$30K to $35K",
+    "description": "Label used to describe statistical variables in chart legends, string should be short. Used to describe a range of household income in US Dollars."
+  },
+  "Count_Household_IncomeOf40000To44999USDollar": {
+    "defaultMessage": "$40K to $45K",
+    "description": "Label used to describe statistical variables in chart legends, string should be short. Used to describe a range of household income in US Dollars."
+  },
+  "Count_Household_IncomeOf50000To59999USDollar": {
+    "defaultMessage": "$50K to $60K",
+    "description": "Label used to describe statistical variables in chart legends, string should be short. Used to describe a range of household income in US Dollars."
+  },
+  "Count_Household_IncomeOf60000To74999USDollar": {
+    "defaultMessage": "$60K to $75K",
+    "description": "Label used to describe statistical variables in chart legends, string should be short. Used to describe a range of household income in US Dollars."
+  },
+  "Count_Household_IncomeOf75000To99999USDollar": {
+    "defaultMessage": "$75K to $100K",
+    "description": "Label used to describe statistical variables in chart legends, string should be short. Used to describe a range of household income in US Dollars."
+  },
+  "Count_Household_IncomeOfUpto10000USDollar": {
+    "defaultMessage": "Under $10K",
+    "description": "Label used to describe statistical variables in chart legends, string should be short. Used to describe a range of household income in US Dollars."
+  },
+  "Count_HousingUnit": {
+    "defaultMessage": "Housing Units",
+    "description": "Label used to describe statistical variables in chart legends, string should be short. Used to describe the number of housing units available."
+  },
+  "Count_HousingUnit_1940To1949DateBuilt": {
+    "defaultMessage": "1940 - 1949",
+    "description": "Label used to describe statistical variables in chart legends, string should be short. Used to describe a range of dates in which homes were built."
+  },
+  "Count_HousingUnit_1950To1959DateBuilt": {
+    "defaultMessage": "1950 - 1959",
+    "description": "Label used to describe statistical variables in chart legends, string should be short. Used to describe a range of dates in which homes were built."
+  },
+  "Count_HousingUnit_1960To1969DateBuilt": {
+    "defaultMessage": "1960 - 1969",
+    "description": "Label used to describe statistical variables in chart legends, string should be short. Used to describe a range of dates in which homes were built."
+  },
+  "Count_HousingUnit_1970To1979DateBuilt": {
+    "defaultMessage": "1970 - 1979",
+    "description": "Label used to describe statistical variables in chart legends, string should be short. Used to describe a range of dates in which homes were built."
+  },
+  "Count_HousingUnit_1980To1989DateBuilt": {
+    "defaultMessage": "1980 - 1989",
+    "description": "Label used to describe statistical variables in chart legends, string should be short. Used to describe a range of dates in which homes were built."
+  },
+  "Count_HousingUnit_1990To1999DateBuilt": {
+    "defaultMessage": "1990 - 1999",
+    "description": "Label used to describe statistical variables in chart legends, string should be short. Used to describe a range of dates in which homes were built."
+  },
+  "Count_HousingUnit_2000To2009DateBuilt": {
+    "defaultMessage": "2000 - 2009",
+    "description": "Label used to describe statistical variables in chart legends, string should be short. Used to describe a range of dates in which homes were built."
+  },
+  "Count_HousingUnit_2010OrLaterDateBuilt": {
+    "defaultMessage": "After 2010",
+    "description": "Label used to describe statistical variables in chart legends, string should be short. Used to describe a range of dates in which homes were built."
+  },
+  "Count_HousingUnit_Before1939DateBuilt": {
+    "defaultMessage": "Before 1939",
+    "description": "Label used to describe statistical variables in chart legends, string should be short. Used to describe a range of dates in which homes were built."
+  },
+  "Count_HousingUnit_HomeValue1000000To1499999USDollar": {
+    "defaultMessage": "$1M - $1.5M",
+    "description": "Label used to describe statistical variables in chart legends, string should be short. Used to describe a range of home values, in US Dollars."
+  },
+  "Count_HousingUnit_HomeValue100000To199999USDollar": {
+    "defaultMessage": "$100K - $200K",
+    "description": "Label used to describe statistical variables in chart legends, string should be short. Used to describe a range of home values, in US Dollars."
+  },
+  "Count_HousingUnit_HomeValue1500000To1999999USDollar": {
+    "defaultMessage": "$1.5M - $2M",
+    "description": "Label used to describe statistical variables in chart legends, string should be short. Used to describe a range of home values, in US Dollars."
+  },
+  "Count_HousingUnit_HomeValue2000000OrMoreUSDollar": {
+    "defaultMessage": "$2M+",
+    "description": "Label used to describe statistical variables in chart legends, string should be short. Used to describe a range of home values, in US Dollars."
+  },
+  "Count_HousingUnit_HomeValue200000To299999USDollar": {
+    "defaultMessage": "$200K - $300K",
+    "description": "Label used to describe statistical variables in chart legends, string should be short. Used to describe a range of home values, in US Dollars."
+  },
+  "Count_HousingUnit_HomeValue300000To499999USDollar": {
+    "defaultMessage": "$300K - $500K",
+    "description": "Label used to describe statistical variables in chart legends, string should be short. Used to describe a range of home values, in US Dollars."
+  },
+  "Count_HousingUnit_HomeValue500000To999999USDollar": {
+    "defaultMessage": "$500K - $1M",
+    "description": "Label used to describe statistical variables in chart legends, string should be short. Used to describe a range of home values, in US Dollars."
+  },
+  "Count_HousingUnit_HomeValue50000To99999USDollar": {
+    "defaultMessage": "$50K - $100K",
+    "description": "Label used to describe statistical variables in chart legends, string should be short. Used to describe a range of home values, in US Dollars."
+  },
+  "Count_HousingUnit_HomeValueUpto49999USDollar": {
+    "defaultMessage": "0 - $50K",
+    "description": "Label used to describe statistical variables in chart legends, string should be short. Used to describe a range of home values, in US Dollars."
+  },
+  "Count_HousingUnit_HouseholderRaceAmericanIndianOrAlaskaNativeAlone": {
+    "defaultMessage": "American Indian or Alaska Native",
+    "description": "Label used to describe statistical variables in chart legends, string should be short. Used to describe the race of a household."
+  },
+  "Count_HousingUnit_HouseholderRaceAsianAlone": {
+    "defaultMessage": "Asian Alone",
+    "description": "Label used to describe statistical variables in chart legends, string should be short. Used to describe the race of a household."
+  },
+  "Count_HousingUnit_HouseholderRaceBlackOrAfricanAmericanAlone": {
+    "defaultMessage": "Black or African American",
+    "description": "Label used to describe statistical variables in chart legends, string should be short. Used to describe the race of a household."
+  },
+  "Count_HousingUnit_HouseholderRaceHispanicOrLatino": {
+    "defaultMessage": "Hispanic or Latino",
+    "description": "Label used to describe statistical variables in chart legends, string should be short. Used to describe the race of a household."
+  },
+  "Count_HousingUnit_HouseholderRaceNativeHawaiianOrOtherPacificIslanderAlone": {
+    "defaultMessage": "Native Hawaiian or Pacific Islander",
+    "description": "Label used to describe statistical variables in chart legends, string should be short. Used to describe the race of a household."
+  },
+  "Count_HousingUnit_HouseholderRaceSomeOtherRaceAlone": {
+    "defaultMessage": "Some Other Race",
+    "description": "Label used to describe statistical variables in chart legends, string should be short. Used to describe the race of a household."
+  },
+  "Count_HousingUnit_HouseholderRaceTwoOrMoreRaces": {
+    "defaultMessage": "Two or More Races",
+    "description": "Label used to describe statistical variables in chart legends, string should be short. Used to describe the race of a household."
+  },
+  "Count_HousingUnit_HouseholderRaceWhiteAlone": {
+    "defaultMessage": "White Alone",
+    "description": "Label used to describe statistical variables in chart legends, string should be short. Used to describe the race of a household."
+  },
+  "Count_HousingUnit_OwnerOccupied": {
+    "defaultMessage": "Owner",
+    "description": "Label used to describe statistical variables in chart legends, string should be short. Used to describe owner occupied homes."
+  },
+  "Count_HousingUnit_RenterOccupied": {
+    "defaultMessage": "Renter",
+    "description": "Label used to describe statistical variables in chart legends, string should be short. Used to describe renter occupied homes."
+  },
+  "Count_Person": {
+    "defaultMessage": "Total Population",
+    "description": "Label used to describe statistical variables in chart legends, string should be short. Used to describe the total population of a place."
+  },
+  "Count_Person_10To14Years": {
+    "defaultMessage": "10-14",
+    "description": "Label used to describe statistical variables in chart legends, string should be short. Used to describe a range of ages in a population."
+  },
+  "Count_Person_10To19Years": {
+    "defaultMessage": "10-19",
+    "description": "Label used to describe statistical variables in chart legends, string should be short. Used to describe a range of ages in a population."
+  },
+  "Count_Person_15OrMoreYears": {
+    "defaultMessage": "15+",
+    "description": "Label used to describe statistical variables in chart legends, string should be short. Used to describe a range of ages in a population."
+  },
+  "Count_Person_15To19Years": {
+    "defaultMessage": "15-19",
+    "description": "Label used to describe statistical variables in chart legends, string should be short. Used to describe a range of ages in a population."
+  },
+  "Count_Person_15To64Years_InLaborForce_AsFractionOf_Count_Person_15To64Years": {
+    "defaultMessage": "People in Labor Force",
+    "description": "Label used to describe statistical variables in chart legends, string should be short. Used to describe people in the labor force as a fraction of people of age to work."
+  },
+  "Count_Person_16OrMoreYears": {
+    "defaultMessage": "16+",
+    "description": "Label used to describe statistical variables in chart legends, string should be short. Used to describe a range of ages in a population."
+  },
+  "Count_Person_18To24Years": {
+    "defaultMessage": "18-24",
+    "description": "Label used to describe statistical variables in chart legends, string should be short. Used to describe a range of ages in a population."
+  },
+  "Count_Person_20To24Years": {
+    "defaultMessage": "20-24",
+    "description": "Label used to describe statistical variables in chart legends, string should be short. Used to describe a range of ages in a population."
+  },
+  "Count_Person_20To29Years": {
+    "defaultMessage": "20-29",
+    "description": "Label used to describe statistical variables in chart legends, string should be short. Used to describe a range of ages in a population."
+  },
+  "Count_Person_25To29Years": {
+    "defaultMessage": "25-29",
+    "description": "Label used to describe statistical variables in chart legends, string should be short. Used to describe a range of ages in a population."
+  },
+  "Count_Person_25To34Years": {
+    "defaultMessage": "25-34",
+    "description": "Label used to describe statistical variables in chart legends, string should be short. Used to describe a range of ages in a population."
+  },
+  "Count_Person_25To34Years_EducationalAttainmentAssociatesDegree_Female": {
+    "defaultMessage": "Female",
+    "description": "Label used to describe statistical variables in chart legends, string should be short. Used to distinguish between genders of associates degree holders."
+  },
+  "Count_Person_25To34Years_EducationalAttainmentAssociatesDegree_Male": {
+    "defaultMessage": "Male",
+    "description": "Label used to describe statistical variables in chart legends, string should be short. Used to distinguish between genders of associates degree holders."
+  },
+  "Count_Person_25To34Years_EducationalAttainmentBachelorsDegree_Female": {
+    "defaultMessage": "Female",
+    "description": "Label used to describe statistical variables in chart legends, string should be short. Used to distinguish between genders of bachelors degree holders."
+  },
+  "Count_Person_25To34Years_EducationalAttainmentBachelorsDegree_Male": {
+    "defaultMessage": "Male",
+    "description": "Label used to describe statistical variables in chart legends, string should be short. Used to distinguish between genders of bachelors degree holders."
+  },
+  "Count_Person_25To34Years_EducationalAttainmentGraduateOrProfessionalDegree_Female": {
+    "defaultMessage": "Female",
+    "description": "Label used to describe statistical variables in chart legends, string should be short. Used to distinguish between genders of graduate or professional degree holders."
+  },
+  "Count_Person_25To34Years_EducationalAttainmentGraduateOrProfessionalDegree_Male": {
+    "defaultMessage": "Male",
+    "description": "Label used to describe statistical variables in chart legends, string should be short. Used to distinguish between genders of graduate or professional degree holders."
+  },
+  "Count_Person_30To34Years": {
+    "defaultMessage": "30-34",
+    "description": "Label used to describe statistical variables in chart legends, string should be short. Used to describe a range of ages in a population."
+  },
+  "Count_Person_30To39Years": {
+    "defaultMessage": "30-39",
+    "description": "Label used to describe statistical variables in chart legends, string should be short. Used to describe a range of ages in a population."
+  },
+  "Count_Person_35To39Years": {
+    "defaultMessage": "35-39",
+    "description": "Label used to describe statistical variables in chart legends, string should be short. Used to describe a range of ages in a population."
+  },
+  "Count_Person_35To44Years": {
+    "defaultMessage": "35-44",
+    "description": "Label used to describe statistical variables in chart legends, string should be short. Used to describe a range of ages in a population."
+  },
+  "Count_Person_40To44Years": {
+    "defaultMessage": "40-44",
+    "description": "Label used to describe statistical variables in chart legends, string should be short. Used to describe a range of ages in a population."
+  },
+  "Count_Person_40To49Years": {
+    "defaultMessage": "40-49",
+    "description": "Label used to describe statistical variables in chart legends, string should be short. Used to describe a range of ages in a population."
+  },
+  "Count_Person_45To49Years": {
+    "defaultMessage": "45-49",
+    "description": "Label used to describe statistical variables in chart legends, string should be short. Used to describe a range of ages in a population."
+  },
+  "Count_Person_45To54Years": {
+    "defaultMessage": "45-54",
+    "description": "Label used to describe statistical variables in chart legends, string should be short. Used to describe a range of ages in a population."
+  },
+  "Count_Person_50To54Years": {
+    "defaultMessage": "50-54",
+    "description": "Label used to describe statistical variables in chart legends, string should be short. Used to describe a range of ages in a population."
+  },
+  "Count_Person_50To59Years": {
+    "defaultMessage": "50-59",
+    "description": "Label used to describe statistical variables in chart legends, string should be short. Used to describe a range of ages in a population."
+  },
+  "Count_Person_55To59Years": {
+    "defaultMessage": "55-59",
+    "description": "Label used to describe statistical variables in chart legends, string should be short. Used to describe a range of ages in a population."
+  },
+  "Count_Person_55To64Years": {
+    "defaultMessage": "55-64",
+    "description": "Label used to describe statistical variables in chart legends, string should be short. Used to describe a range of ages in a population."
+  },
+  "Count_Person_5To17Years": {
+    "defaultMessage": "5-17",
+    "description": "Label used to describe statistical variables in chart legends, string should be short. Used to describe a range of ages in a population."
+  },
+  "Count_Person_5To9Years": {
+    "defaultMessage": "5-9",
+    "description": "Label used to describe statistical variables in chart legends, string should be short. Used to describe a range of ages in a population."
+  },
+  "Count_Person_60To61Years": {
+    "defaultMessage": "60-61",
+    "description": "Label used to describe statistical variables in chart legends, string should be short. Used to describe a range of ages in a population."
+  },
+  "Count_Person_60To64Years": {
+    "defaultMessage": "60-64",
+    "description": "Label used to describe statistical variables in chart legends, string should be short. Used to describe a range of ages in a population."
+  },
+  "Count_Person_60To69Years": {
+    "defaultMessage": "60-69",
+    "description": "Label used to describe statistical variables in chart legends, string should be short. Used to describe a range of ages in a population."
+  },
+  "Count_Person_62To64Years": {
+    "defaultMessage": "62-64",
+    "description": "Label used to describe statistical variables in chart legends, string should be short. Used to describe a range of ages in a population."
+  },
+  "Count_Person_65To69Years": {
+    "defaultMessage": "65-69",
+    "description": "Label used to describe statistical variables in chart legends, string should be short. Used to describe a range of ages in a population."
+  },
+  "Count_Person_65To74Years": {
+    "defaultMessage": "65-74",
+    "description": "Label used to describe statistical variables in chart legends, string should be short. Used to describe a range of ages in a population."
+  },
+  "Count_Person_70OrMoreYears": {
+    "defaultMessage": "70+",
+    "description": "Label used to describe statistical variables in chart legends, string should be short. Used to describe a range of ages in a population."
+  },
+  "Count_Person_70To74Years": {
+    "defaultMessage": "70-74",
+    "description": "Label used to describe statistical variables in chart legends, string should be short. Used to describe a range of ages in a population."
+  },
+  "Count_Person_70To79Years": {
+    "defaultMessage": "70-79",
+    "description": "Label used to describe statistical variables in chart legends, string should be short. Used to describe a range of ages in a population."
+  },
+  "Count_Person_75OrMoreYears": {
+    "defaultMessage": "75+",
+    "description": "Label used to describe statistical variables in chart legends, string should be short. Used to describe a range of ages in a population."
+  },
+  "Count_Person_75To79Years": {
+    "defaultMessage": "75-79",
+    "description": "Label used to describe statistical variables in chart legends, string should be short. Used to describe a range of ages in a population."
+  },
+  "Count_Person_7To14Years_Employed_AsFractionOf_Count_Person_7To14Years": {
+    "defaultMessage": "Children in Employment",
+    "description": "Label used to describe statistical variables in chart legends, string should be short. Used to describe the percentage of children who are employed."
+  },
+  "Count_Person_7To14Years_Female_Employed_AsFractionOf_Count_Person_7To14Years_Female": {
+    "defaultMessage": "Female",
+    "description": "Label used to describe statistical variables in chart legends, string should be short. Used to describe the percentage of female children who are employed."
+  },
+  "Count_Person_7To14Years_Male_Employed_AsFractionOf_Count_Person_7To14Years_Male": {
+    "defaultMessage": "Male",
+    "description": "Label used to describe statistical variables in chart legends, string should be short. Used to describe the percentage of male children who are employed."
+  },
+  "Count_Person_80OrMoreYears": {
+    "defaultMessage": "80+",
+    "description": "Label used to describe statistical variables in chart legends, string should be short. Used to describe a range of ages in a population."
+  },
+  "Count_Person_80To84Years": {
+    "defaultMessage": "80-84",
+    "description": "Label used to describe statistical variables in chart legends, string should be short. Used to describe a range of ages in a population."
+  },
+  "Count_Person_AmericanIndianOrAlaskaNativeAlone": {
+    "defaultMessage": "American Indian or Alaska Native",
+    "description": "Label used to describe statistical variables in chart legends, string should be short. Used to describe the race of a population."
+  },
+  "Count_Person_AsianAlone": {
+    "defaultMessage": "Asian Alone",
+    "description": "Label used to describe statistical variables in chart legends, string should be short. Used to describe the race of a population."
+  },
+  "Count_Person_BelowPovertyLevelInThePast12Months": {
+    "defaultMessage": "Poverty",
+    "description": "Label used to describe statistical variables in chart legends, string should be short. Used to describe the number of poeple living below the poverty level."
+  },
+  "Count_Person_BelowPovertyLevelInThePast12Months_AmericanIndianOrAlaskaNativeAlone": {
+    "defaultMessage": "American Indian or Alaska Native",
+    "description": "Label used to describe statistical variables in chart legends, string should be short. Used to describe the race of a population living below the poverty level."
+  },
+  "Count_Person_BelowPovertyLevelInThePast12Months_AsianAlone": {
+    "defaultMessage": "Asian",
+    "description": "Label used to describe statistical variables in chart legends, string should be short. Used to describe the race of a population living below the poverty level."
+  },
+  "Count_Person_BelowPovertyLevelInThePast12Months_BlackOrAfricanAmericanAlone": {
+    "defaultMessage": "Black or African American",
+    "description": "Label used to describe statistical variables in chart legends, string should be short. Used to describe the race of a population living below the poverty level."
+  },
+  "Count_Person_BelowPovertyLevelInThePast12Months_HispanicOrLatino": {
+    "defaultMessage": "Hispanic or Latino",
+    "description": "Label used to describe statistical variables in chart legends, string should be short. Used to describe the race of a population living below the poverty level."
+  },
+  "Count_Person_BelowPovertyLevelInThePast12Months_NativeHawaiianOrOtherPacificIslanderAlone": {
+    "defaultMessage": "Native Hawaiian or Pacific Islander",
+    "description": "Label used to describe statistical variables in chart legends, string should be short. Used to describe the race of a population living below the poverty level."
+  },
+  "Count_Person_BelowPovertyLevelInThePast12Months_WhiteAlone": {
+    "defaultMessage": "White",
+    "description": "Label used to describe statistical variables in chart legends, string should be short. Used to describe the race of a population living below the poverty level."
+  },
+  "Count_Person_BlackOrAfricanAmericanAlone": {
+    "defaultMessage": "Black or African American",
+    "description": "Label used to describe statistical variables in chart legends, string should be short. Used to describe the race of a population."
+  },
+  "Count_Person_Divorced": {
+    "defaultMessage": "Divorced",
+    "description": "Label used to describe statistical variables in chart legends, string should be short. Used to describe the marital status of a population."
+  },
+  "Count_Person_EducationalAttainmentBachelorsDegree": {
+    "defaultMessage": "Bachelors",
+    "description": "Label used to describe statistical variables in chart legends, string should be short. Used to describe the educational attainment of a population."
+  },
+  "Count_Person_EducationalAttainmentDoctorateDegree": {
+    "defaultMessage": "Doctorate",
+    "description": "Label used to describe statistical variables in chart legends, string should be short Used to describe the educational attainment of a population.."
+  },
+  "Count_Person_EducationalAttainmentMastersDegree": {
+    "defaultMessage": "Masters",
+    "description": "Label used to describe statistical variables in chart legends, string should be short Used to describe the educational attainment of a population.."
+  },
+  "Count_Person_EducationalAttainmentNoSchoolingCompleted": {
+    "defaultMessage": "No Schooling",
+    "description": "Label used to describe statistical variables in chart legends, string should be short Used to describe the educational attainment of a population.."
+  },
+  "Count_Person_EducationalAttainmentRegularHighSchoolDiploma": {
+    "defaultMessage": "High School",
+    "description": "Label used to describe statistical variables in chart legends, string should be short Used to describe the educational attainment of a population.."
+  },
+  "Count_Person_Employed": {
+    "defaultMessage": "Employed People",
+    "description": "Label used to describe statistical variables in chart legends, string should be short. Used to describe the employment status of a population."
+  },
+  "Count_Person_EnrolledInSchool": {
+    "defaultMessage": "Enrolled in School",
+    "description": "Label used to describe statistical variables in chart legends, string should be short. Used to describe school enrollment of a population."
+  },
+  "Count_Person_Female": {
+    "defaultMessage": "Female",
+    "description": "Label used to describe statistical variables in chart legends, string should be short. Used to describe a gender of the population."
+  },
+  "Count_Person_Female_BelowPovertyLevelInThePast12Months": {
+    "defaultMessage": "Female",
+    "description": "Label used to describe statistical variables in chart legends, string should be short. Used to describe the gender of a population below the poverty level."
+  },
+  "Count_Person_HispanicOrLatino": {
+    "defaultMessage": "Hispanic or Latino",
+    "description": "Label used to describe statistical variables in chart legends, string should be short. Used to describe the race of a population."
+  },
+  "Count_Person_InLaborForce": {
+    "defaultMessage": "People in Labor Force",
+    "description": "Label used to describe statistical variables in chart legends, string should be short. Used to describe the number of people in the labor force."
+  },
+  "Count_Person_IncomeOf10000To14999USDollar": {
+    "defaultMessage": "$10K to $15K",
+    "description": "Label used to describe statistical variables in chart legends, string should be short. Used to describe a range of indvidiual income, in US Dollars."
+  },
+  "Count_Person_IncomeOf15000To24999USDollar": {
+    "defaultMessage": "$15K to $25K",
+    "description": "Label used to describe statistical variables in chart legends, string should be short. Used to describe a range of indvidiual income, in US Dollars."
+  },
+  "Count_Person_IncomeOf25000To34999USDollar": {
+    "defaultMessage": "$25K to $35K",
+    "description": "Label used to describe statistical variables in chart legends, string should be short. Used to describe a range of indvidiual income, in US Dollars."
+  },
+  "Count_Person_IncomeOf35000To49999USDollar": {
+    "defaultMessage": "$35K to $50K",
+    "description": "Label used to describe statistical variables in chart legends, string should be short. Used to describe a range of indvidiual income, in US Dollars."
+  },
+  "Count_Person_IncomeOf50000To64999USDollar": {
+    "defaultMessage": "$50K to $65K",
+    "description": "Label used to describe statistical variables in chart legends, string should be short. Used to describe a range of indvidiual income, in US Dollars."
+  },
+  "Count_Person_IncomeOf65000To74999USDollar": {
+    "defaultMessage": "$65K to $75K",
+    "description": "Label used to describe statistical variables in chart legends, string should be short. Used to describe a range of indvidiual income, in US Dollars."
+  },
+  "Count_Person_IncomeOf75000OrMoreUSDollar": {
+    "defaultMessage": "Over $75K",
+    "description": "Label used to describe statistical variables in chart legends, string should be short. Used to describe a range of indvidiual income, in US Dollars."
+  },
+  "Count_Person_IncomeOfUpto9999USDollar": {
+    "defaultMessage": "Under $10K",
+    "description": "Label used to describe statistical variables in chart legends, string should be short. Used to describe a range of indvidiual income, in US Dollars."
+  },
+  "Count_Person_Male": {
+    "defaultMessage": "Male",
+    "description": "Label used to describe statistical variables in chart legends, string should be short. Used to describe a gender of the population."
+  },
+  "Count_Person_Male_BelowPovertyLevelInThePast12Months": {
+    "defaultMessage": "Male",
+    "description": "Label used to describe statistical variables in chart legends, string should be short. Used to describe the gender of a population below the poverty level."
+  },
+  "Count_Person_MarriedAndNotSeparated": {
+    "defaultMessage": "Married",
+    "description": "Label used to describe statistical variables in chart legends, string should be short. Used to describe the marital status of a population."
+  },
+  "Count_Person_NativeHawaiianOrOtherPacificIslanderAlone": {
+    "defaultMessage": "Native Hawaiian or Pacific Islander",
+    "description": "Label used to describe statistical variables in chart legends, string should be short. Used to describe the race of a population."
+  },
+  "Count_Person_NeverMarried": {
+    "defaultMessage": "Never Married",
+    "description": "Label used to describe statistical variables in chart legends, string should be short. Used to describe the marital status of a population."
+  },
+  "Count_Person_NotAUSCitizen": {
+    "defaultMessage": "Not a Citizen",
+    "description": "Label used to describe statistical variables in chart legends, string should be short. Used to describe the citizenship of a population."
+  },
+  "Count_Person_NotEnrolledInSchool": {
+    "defaultMessage": "Not Enrolled in School",
+    "description": "Label used to describe statistical variables in chart legends, string should be short. Used to describe the school enrollment status of a population."
+  },
+  "Count_Person_PerArea": {
+    "defaultMessage": "Population Density",
+    "description": "Label used to describe statistical variables in chart legends, string should be short. Used to describe the population size per area."
+  },
+  "Count_Person_Rural": {
+    "defaultMessage": "Rural Population",
+    "description": "Label used to describe statistical variables in chart legends, string should be short. Used to describe the size of the population living in urban areas."
+  },
+  "Count_Person_Separated": {
+    "defaultMessage": "Separated",
+    "description": "Label used to describe statistical variables in chart legends, string should be short. Used to describe the marital status of a population."
+  },
+  "Count_Person_SomeOtherRaceAlone": {
+    "defaultMessage": "Some Other Race",
+    "description": "Label used to describe statistical variables in chart legends, string should be short. Used to describe the race of a population."
+  },
+  "Count_Person_TwoOrMoreRaces": {
+    "defaultMessage": "Two or More Races",
+    "description": "Label used to describe statistical variables in chart legends, string should be short. Used to describe the race of a population."
+  },
+  "Count_Person_USCitizenBornAbroadOfAmericanParents": {
+    "defaultMessage": "Born Abroad",
+    "description": "Label used to describe statistical variables in chart legends, string should be short. Used to describe the citizenship status of a population."
+  },
+  "Count_Person_USCitizenBornInTheUnitedStates": {
+    "defaultMessage": "Born in USA",
+    "description": "Label used to describe statistical variables in chart legends, string should be short. Used to describe the citizenship status of a population."
+  },
+  "Count_Person_USCitizenByNaturalization": {
+    "defaultMessage": "Citizen by Naturalization",
+    "description": "Label used to describe statistical variables in chart legends, string should be short. Used to describe the citizenship status of a population."
+  },
+  "Count_Person_Upto4Years": {
+    "defaultMessage": "0-4",
+    "description": "Label used to describe statistical variables in chart legends, string should be short. Used to describe a range of ages of a population."
+  },
+  "Count_Person_Upto4Years_Female_SevereWasting_AsFractionOf_Count_Person_Upto4Years_Female": {
+    "defaultMessage": "Female",
+    "description": "Label used to describe statistical variables in chart legends, string should be short. Used to describe the gender of children affected by severe wasting."
+  },
+  "Count_Person_Upto4Years_Female_Wasting_AsFractionOf_Count_Person_Upto4Years_Female": {
+    "defaultMessage": "Female",
+    "description": "Label used to describe statistical variables in chart legends, string should be short. Used to describe the gender of children affected by wasting."
+  },
+  "Count_Person_Upto4Years_Male_SevereWasting_AsFractionOf_Count_Person_Upto4Years_Male": {
+    "defaultMessage": "Male",
+    "description": "Label used to describe statistical variables in chart legends, string should be short. Used to describe the gender of children affected by severe wasting."
+  },
+  "Count_Person_Upto4Years_Male_Wasting_AsFractionOf_Count_Person_Upto4Years_Male": {
+    "defaultMessage": "Male",
+    "description": "Label used to describe statistical variables in chart legends, string should be short. Used to describe the gender of children affected by wasting."
+  },
+  "Count_Person_Upto4Years_SevereWasting_AsFractionOf_Count_Person_Upto4Years": {
+    "defaultMessage": "Severely Wasted Children under 5",
+    "description": "Label used to describe statistical variables in chart legends, string should be short. Used to describe the gender of children affected by severe wasting."
+  },
+  "Count_Person_Upto4Years_Wasting_AsFractionOf_Count_Person_Upto4Years": {
+    "defaultMessage": "Wasted Children under 5",
+    "description": "Label used to describe statistical variables in chart legends, string should be short. Used to describe the gender of children affected by wasting."
+  },
+  "Count_Person_Upto9Years": {
+    "defaultMessage": "0-9",
+    "description": "Label used to describe statistical variables in chart legends, string should be short. Used to describe a range of ages of a population."
+  },
+  "Count_Person_Urban": {
+    "defaultMessage": "Urban Population",
+    "description": "Label used to describe statistical variables in chart legends, string should be short. Used to describe the size of the population living in urban areas."
+  },
+  "Count_Person_WhiteAlone": {
+    "defaultMessage": "White Alone",
+    "description": "Label used to describe statistical variables in chart legends, string should be short. Used to describe the race of a population."
+  },
+  "Count_Person_Widowed": {
+    "defaultMessage": "Widowed",
+    "description": "Label used to describe statistical variables in chart legends, string should be short. Used to describe the marital status of a population."
+  },
+  "Count_StormSurgeTideEvent": {
+    "defaultMessage": "Storm Surge Tide",
+    "description": "Label used to describe statistical variables in chart legends, string should be short. Used to describe a type of natural disaster."
+  },
+  "Count_ThunderstormWindEvent": {
+    "defaultMessage": "Thunderstorm",
+    "description": "Label used to describe statistical variables in chart legends, string should be short. Used to describe a type of natural disaster."
+  },
+  "Count_TornadoEvent": {
+    "defaultMessage": "Tornado",
+    "description": "Label used to describe statistical variables in chart legends, string should be short. Used to describe a type of natural disaster."
+  },
+  "Count_UnemploymentInsuranceClaim_StateUnemploymentInsurance": {
+    "defaultMessage": "Unemployment Insurance Claims",
+    "description": "Label used to describe statistical variables in chart legends, string should be short. Used to describe the number of unemployement insurance claims."
+  },
+  "Count_WildlandFireEvent": {
+    "defaultMessage": "Wildland Fire",
+    "description": "Label used to describe statistical variables in chart legends, string should be short. Used to describe a type of natural disaster."
+  },
+  "CumulativeCount_MedicalConditionIncident_COVID_19_ConfirmedOrProbableCase": {
+    "defaultMessage": "COVID-19 Cumulative Cases",
+    "description": "Label used to describe statistical variables in chart legends, string should be short. Used to describe the cumulative number of COVID-19 cases."
+  },
+  "CumulativeCount_MedicalConditionIncident_COVID_19_PatientDeceased": {
+    "defaultMessage": "COVID-19 Cumulative Deaths",
+    "description": "Label used to describe statistical variables in chart legends, string should be short. Used to describe the cumulative number of COVID-19 deaths."
+  },
+  "FertilityRate_Person_Female": {
+    "defaultMessage": "Fertility Rate",
+    "description": "Label used to describe statistical variables in chart legends, string should be short."
+  },
+  "GiniIndex_EconomicActivity": {
+    "defaultMessage": "Gini Index",
+    "description": "Label used to describe statistical variables in chart legends, string should be short. Used to describe a measure of inequality, see https://stats.oecd.org/glossary/detail.asp?ID=4842"
+  },
+  "GrowthRate_Amount_EconomicActivity_GrossDomesticProduction": {
+    "defaultMessage": "GDP Growth Rate",
+    "description": "Label used to describe statistical variables in chart legends, string should be short. Describes annual percentage growth rate of GDP at market prices based on constant local currency."
+  },
+  "GrowthRate_Count_Person": {
+    "defaultMessage": "Population Growth Rate",
+    "description": "Label used to describe statistical variables in chart legends, string should be short. Describes increase in the number of individuals in a population."
+  },
+  "LifeExpectancy_Person": {
+    "defaultMessage": "Life Expectancy",
+    "description": "Label used to describe statistical variables in chart legends, string should be short."
+  },
+  "Median_Age_Person_AmericanIndianOrAlaskaNativeAlone": {
+    "defaultMessage": "American Indian or Alaska Native",
+    "description": "Label used to describe statistical variables in chart legends, string should be short. Describes the race of a group, in a chart describing the median age across races."
+  },
+  "Median_Age_Person_AsianAlone": {
+    "defaultMessage": "Asian Alone",
+    "description": "Label used to describe statistical variables in chart legends, string should be short. Describes the race of a group, in a chart describing the median age across races."
+  },
+  "Median_Age_Person_BlackOrAfricanAmericanAlone": {
+    "defaultMessage": "Black or African American",
+    "description": "Label used to describe statistical variables in chart legends, string should be short. Describes the race of a group, in a chart describing the median age across races."
+  },
+  "Median_Age_Person_Female": {
+    "defaultMessage": "Female",
+    "description": "Label used to describe statistical variables in chart legends, string should be short. Describes the gender of a group, in a chart describing the median age across genders."
+  },
+  "Median_Age_Person_HispanicOrLatino": {
+    "defaultMessage": "Hispanic or Latino",
+    "description": "Label used to describe statistical variables in chart legends, string should be short. Describes the race of a group, in a chart describing the median age across races."
+  },
+  "Median_Age_Person_Male": {
+    "defaultMessage": "Male",
+    "description": "Label used to describe statistical variables in chart legends, string should be short. Describes the gender of a group, in a chart describing the median age across genders."
+  },
+  "Median_Age_Person_NativeHawaiianOrOtherPacificIslanderAlone": {
+    "defaultMessage": "Native Hawaiian or Pacific Islander",
+    "description": "Label used to describe statistical variables in chart legends, string should be short. Describes the race of a group, in a chart describing the median age across races."
+  },
+  "Median_Age_Person_SomeOtherRaceAlone": {
+    "defaultMessage": "Some Other Race",
+    "description": "Label used to describe statistical variables in chart legends, string should be short. Describes the race of a group, in a chart describing the median age across races."
+  },
+  "Median_Age_Person_TwoOrMoreRaces": {
+    "defaultMessage": "Two or More Races",
+    "description": "Label used to describe statistical variables in chart legends, string should be short. Describes the race of a group, in a chart describing the median age across races."
+  },
+  "Median_Age_Person_WhiteAlone": {
+    "defaultMessage": "White Alone",
+    "description": "Label used to describe statistical variables in chart legends, string should be short. Describes the race of a group, in a chart describing the median age across races."
+  },
+  "Median_Income_Household": {
+    "defaultMessage": "Median Household Income",
+    "description": "Label used to describe statistical variables in chart legends, string should be short."
+  },
+  "Median_Income_Household_HouseholderRaceAmericanIndianOrAlaskaNativeAlone": {
+    "defaultMessage": "American Indian or Alaska Native",
+    "description": "Label used to describe statistical variables in chart legends, string should be short. Describes the race of a group, in a chart describing the median age across races."
+  },
+  "Median_Income_Household_HouseholderRaceAsianAlone": {
+    "defaultMessage": "Asian",
+    "description": "Label used to describe statistical variables in chart legends, string should be short. Describes the race of a group, in a chart describing the median household income across races."
+  },
+  "Median_Income_Household_HouseholderRaceBlackOrAfricanAmericanAlone": {
+    "defaultMessage": "Black or African American",
+    "description": "Label used to describe statistical variables in chart legends, string should be short. Describes the race of a group, in a chart describing the median household income across races."
+  },
+  "Median_Income_Household_HouseholderRaceHispanicOrLatino": {
+    "defaultMessage": "Hispanic or Latino",
+    "description": "Label used to describe statistical variables in chart legends, string should be short. Describes the race of a group, in a chart describing the median household income across races."
+  },
+  "Median_Income_Household_HouseholderRaceNativeHawaiianOrOtherPacificIslanderAlone": {
+    "defaultMessage": "Native Hawaiian or Pacific Islander",
+    "description": "Label used to describe statistical variables in chart legends, string should be short. Describes the race of a group, in a chart describing the median household income across races."
+  },
+  "Median_Income_Household_HouseholderRaceWhiteAlone": {
+    "defaultMessage": "White",
+    "description": "Label used to describe statistical variables in chart legends, string should be short. Describes the race of a group, in a chart describing the median household income across races."
+  },
+  "Median_Income_Person": {
+    "defaultMessage": "Median Income",
+    "description": "Label used to describe statistical variables in chart legends, string should be short. Describes median individual income."
+  },
+  "Median_Income_Person_15OrMoreYears_Female_WithIncome": {
+    "defaultMessage": "Female",
+    "description": "Label used to describe statistical variables in chart legends, string should be short. Describes gender, in a chart describing median incomes across genders."
+  },
+  "Median_Income_Person_15OrMoreYears_Male_WithIncome": {
+    "defaultMessage": "Male",
+    "description": "Label used to describe statistical variables in chart legends, string should be short. Describes gender, in a chart describing median incomes across genders."
+  },
+  "Percent_Person_18To64Years_Female_NoHealthInsurance": {
+    "defaultMessage": "Female",
+    "description": "Label used to describe statistical variables in chart legends, string should be short. Describes gender, in a chart describing portions of the population without health insurance."
+  },
+  "Percent_Person_18To64Years_Male_NoHealthInsurance": {
+    "defaultMessage": "Male",
+    "description": "Label used to describe statistical variables in chart legends, string should be short. Describes gender, in a chart describing portions of the population without health insurance."
+  },
+  "Percent_Person_18To64Years_NoHealthInsurance_BlackOrAfricanAmericanAlone": {
+    "defaultMessage": "Black Or African American",
+    "description": "Label used to describe statistical variables in chart legends, string should be short. Describes the race of a population without health insurance."
+  },
+  "Percent_Person_18To64Years_NoHealthInsurance_HispanicOrLatino": {
+    "defaultMessage": "Hispanic or Latino",
+    "description": "Label used to describe statistical variables in chart legends, string should be short. Describes the race of a population without health insurance."
+  },
+  "Percent_Person_18To64Years_NoHealthInsurance_WhiteAlone": {
+    "defaultMessage": "White",
+    "description": "Label used to describe statistical variables in chart legends, string should be short. Describes the race of a population without health insurance."
+  },
+  "Percent_Person_BingeDrinking": {
+    "defaultMessage": "Binge Drinking",
+    "description": "Label used to describe statistical variables in chart legends, string should be short. Describes the percentage of people who have a negative health behavior."
+  },
+  "Percent_Person_Obesity": {
+    "defaultMessage": "Obesity",
+    "description": "Label used to describe statistical variables in chart legends, string should be short. Describes the percentage of people who have a negative health behavior."
+  },
+  "Percent_Person_PhysicalInactivity": {
+    "defaultMessage": "Physical Inactivity",
+    "description": "Label used to describe statistical variables in chart legends, string should be short. Describes the percentage of people who have a negative health behavior."
+  },
+  "Percent_Person_SleepLessThan7Hours": {
+    "defaultMessage": "Sleep Less Than 7 Hours",
+    "description": "Label used to describe statistical variables in chart legends, string should be short. Describes the percentage of people who have a negative health behavior."
+  },
+  "Percent_Person_Smoking": {
+    "defaultMessage": "Smoking",
+    "description": "Label used to describe statistical variables in chart legends, string should be short. Describes the percentage of people who have a negative health behavior."
+  },
+  "Percent_Person_WithArthritis": {
+    "defaultMessage": "Arthritis",
+    "description": "Label used to describe statistical variables in chart legends, string should be short. Describes the percentage of people who have a negative health behavior."
+  },
+  "Percent_Person_WithHighBloodPressure": {
+    "defaultMessage": "High Blood Pressure",
+    "description": "Label used to describe statistical variables in chart legends, string should be short. Describes the percentage of people who have a negative health behavior."
+  },
+  "Percent_Person_WithHighCholesterol": {
+    "defaultMessage": "High Cholesterol",
+    "description": "Label used to describe statistical variables in chart legends, string should be short. Describes the percentage of people who have a negative health behavior."
+  },
+  "Percent_Person_WithMentalHealthNotGood": {
+    "defaultMessage": "Mental Health Not Good",
+    "description": "Label used to describe statistical variables in chart legends, string should be short. Describes the percentage of people who have a negative health behavior."
+  },
+  "Percent_Person_WithPhysicalHealthNotGood": {
+    "defaultMessage": "Physical Health Not Good",
+    "description": "Label used to describe statistical variables in chart legends, string should be short. Describes the percentage of people who have a negative health behavior."
+  },
+  "RetailDrugDistribution_DrugDistribution_Amphetamine": {
+    "defaultMessage": "Amphetamine",
+    "description": "Label used to describe statistical variables in chart legends, string should be short. Describes a retail prescription drug."
+  },
+  "RetailDrugDistribution_DrugDistribution_Codeine": {
+    "defaultMessage": "Codeine",
+    "description": "Label used to describe statistical variables in chart legends, string should be short. Describes a retail prescription drug."
+  },
+  "RetailDrugDistribution_DrugDistribution_Hydrocodone": {
+    "defaultMessage": "Hydrocodone",
+    "description": "Label used to describe statistical variables in chart legends, string should be short. Describes a retail prescription drug."
+  },
+  "RetailDrugDistribution_DrugDistribution_Morphine": {
+    "defaultMessage": "Morphine",
+    "description": "Label used to describe statistical variables in chart legends, string should be short. Describes a retail prescription drug."
+  },
+  "RetailDrugDistribution_DrugDistribution_Oxycodone": {
+    "defaultMessage": "Oxycodone",
+    "description": "Label used to describe statistical variables in chart legends, string should be short. Describes a retail prescription drug."
+  },
+  "UnemploymentRate_Person": {
+    "defaultMessage": "Unemployment Rate",
+    "description": "Label used to describe statistical variables in chart legends, string should be short."
+  },
+  "UnemploymentRate_Person_Female": {
+    "defaultMessage": "Female",
+    "description": "Label used to describe statistical variables in chart legends, string should be short. Describes the gender of a population who are unemployed."
+  },
+  "UnemploymentRate_Person_Male": {
+    "defaultMessage": "Male",
+    "description": "Label used to describe statistical variables in chart legends, string should be short. Describes the gender of a population who are unemployed."
+  }
+}
