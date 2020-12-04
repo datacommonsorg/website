@@ -763,6 +763,10 @@
     "defaultMessage": "Life Expectancy",
     "description": "Label used to describe statistical variables in chart legends, string should be short."
   },
+  "Median_Age_Person": {
+    "defaultMessage": "Median Age",
+    "description": "Label used to describe statistical variables in chart legends, string should be short. Describes the median age of a population."
+  },
   "Median_Age_Person_AmericanIndianOrAlaskaNativeAlone": {
     "defaultMessage": "American Indian or Alaska Native",
     "description": "Label used to describe statistical variables in chart legends, string should be short. Describes the race of a group, in a chart describing the median age across races."
