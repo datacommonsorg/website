@@ -109,6 +109,16 @@ TEST_URLS = [
         'test_class': 'chart',
         'height': 2300
     },
+    {
+        'url':
+            '/tools/scatter2#x={"statVar":{"Count_Person_Employed":{"paths":[["3","0"]],"denominators":["Count_Person"]}},"name":"Employed","data":[],"populations":[],"log":false,"perCapita":false}&y={"statVar":{"Count_Establishment":{"paths":[["9","2"]],"denominators":[]}},"name":"Number of Establishments","data":[],"populations":[],"log":false,"perCapita":false}&place={"enclosingPlace":{"dcid":"geoId/10","name":"Delaware"},"enclosedPlaceType":"County","enclosedPlaces":[],"lowerBound":0,"upperBound":10000000000}',
+        'filename_suffix':
+            'scatter2_delaware_establishments_vs_employed.png',
+        'test_class':
+            'plot-title',
+        'height':
+            1000
+    }
 ]
 
 

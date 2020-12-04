@@ -540,3 +540,21 @@ def api_display_name():
     dcids = request.args.getlist('dcid')
     result = get_display_name('^'.join((sorted(dcids))))
     return Response(json.dumps(result), 200, mimetype='application/json')
+
+
+@bp.route('/places-in')
+@cache.cached(timeout=3600 * 24, query_string=True)  # Cache for one day.
+def get_places_in():
+    """Gets DCIDs of places of a certain type contained in some places.
+    
+    Sends the request to the Data Commons "/node/places-in" API.
+    See https://docs.datacommons.org/api/rest/place_in.html.
+
+    Returns:
+        Dict keyed by parent DCIDs with lists of child place DCIDs as values.
+    """
+    dcids = request.args.getlist("dcids")
+    place_type = request.args.get("placeType")
+    return Response(json.dumps(dc.get_places_in(dcids, place_type)),
+                    200,
+                    mimetype='application/json')
