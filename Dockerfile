@@ -1,21 +1,24 @@
-FROM node:12-slim
+# Build client side code
+FROM node:15-slim AS node
+WORKDIR /website
+COPY go/ /website/go/
+COPY static/package.json /website/static/package.json
+COPY static/package-lock.json /website/static/package-lock.json
 
-# Test, build client side code
-COPY static /website/static
 WORKDIR /website/static
 RUN npm install
-RUN npm run lint
-RUN npm run-script test
+COPY static/ /website/static/
 RUN npm run-script build
 
-# Test and build server side code
-FROM python:3.7-slim
-COPY server /website/server
-WORKDIR /website/server
-RUN pip install -r requirements.txt
-ENV FLASK_ENV="test"
-RUN python -m pytest
+
+# Build server side code
+FROM python:3.7
+WORKDIR /website
+COPY --from=node /website/ /website/
+COPY server/requirements.txt /website/server/requirements.txt
+RUN pip3 install -r /website/server/requirements.txt
+COPY server/ /website/server/
 
 # Run the web service on container startup.
-ENV FLASK_ENV="production"
+WORKDIR /website/server
 CMD exec gunicorn --bind :8080 --workers 1 --threads 8 --timeout 0 main:app

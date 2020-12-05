@@ -12,6 +12,7 @@ class Config:
     CACHE_TYPE = 'simple'  # Flask-Caching related configs
     GAE_VERSION = (os.environ.get('GAE_VERSION') or
                    datetime.datetime.today().strftime("%m-%d-%H-%M"))
+    GA_ACCOUNT = ''
 
 
 class ProductionConfig(Config):
@@ -36,7 +37,14 @@ class DevelopmentConfig(Config):
     API_PROJECT = 'datcom-mixer-staging'
     API_ROOT = 'https://datacommons.endpoints.datcom-mixer-staging.cloud.goog'
     GCS_BUCKET = 'datcom-browser-staging.appspot.com'
-    GA_ACCOUNT = 'UA-117119267-2'
+
+
+class MinikubeConfig(Config):
+    DEVELOPMENT = True
+    PROJECT = 'datcom-browser-staging'
+    API_PROJECT = 'datcom-mixer-staging'
+    API_ROOT = 'http://127.0.0.1:8081'  # Port for Kubernetes ESP.
+    GCS_BUCKET = 'datcom-mixer-staging-resources'
 
 
 class WebdriverConfig(Config):
@@ -45,7 +53,6 @@ class WebdriverConfig(Config):
     API_PROJECT = 'datcom-mixer-staging'
     API_ROOT = 'https://datacommons.endpoints.datcom-mixer-staging.cloud.goog'
     GCS_BUCKET = ''
-    GA_ACCOUNT = ''
 
 
 class TestConfig(Config):
@@ -53,4 +60,3 @@ class TestConfig(Config):
     API_PROJECT = 'api-project'
     API_ROOT = 'api-root'
     GCS_BUCKET = 'gcs-bucket'
-    GA_ACCOUNT = ''

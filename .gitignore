@@ -19,3 +19,12 @@ dist/
 tmp/
 
 .air.toml
+
+website-robot-key.json
+mixer-robot-key.json
+
+# Kubenetes
+**/minikube/deployment.yaml
+**/minikube/endpoints.yaml
+
+mixer-grpc.latest.pb

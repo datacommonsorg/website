@@ -65,6 +65,8 @@ def create_app():
         cfg = import_string('configmodule.StagingConfig')()
     elif os.environ.get('FLASK_ENV') == 'development':
         cfg = import_string('configmodule.DevelopmentConfig')()
+    elif os.environ.get('FLASK_ENV') == 'minikube':
+        cfg = import_string('configmodule.MinikubeConfig')()
     else:
         raise ValueError("No valid FLASK_ENV is specified: %s" %
                          os.environ.get('FLASK_ENV'))
