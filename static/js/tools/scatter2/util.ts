@@ -23,7 +23,17 @@ import axios from "axios";
  */
 async function getPlacesIn(dcid: string, type: string): Promise<Array<string>> {
   const resp = await axios.get(
-    `/api/place/places-in?dcids=${dcid}&placeType=${type}`
+    `/api/place/places-in?dcid=${dcid}&placeType=${type}`
+  );
+  return resp.data[dcid];
+}
+
+async function getPlacesInNames(
+  dcid: string,
+  type: string
+): Promise<Record<string, string>> {
+  const resp = await axios.get(
+    `/api/place/places-in-names?dcid=${dcid}&placeType=${type}`
   );
   return resp.data[dcid];
 }
@@ -43,4 +53,4 @@ async function getTimeSeriesLatestPoint(
   return resp.data.value;
 }
 
-export { getPlacesIn, getTimeSeriesLatestPoint };
+export { getPlacesIn, getPlacesInNames, getTimeSeriesLatestPoint };

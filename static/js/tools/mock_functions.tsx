@@ -62,9 +62,11 @@ export function axios_mock(): void {
 
   // get place stats vars, geoId/05
   when(axios.get)
-    .calledWith("/api/place/statsvars/geoId/05")
+    .calledWith("/api/place/statsvars?dcid=geoId/05")
     .mockResolvedValue({
-      data: ["Count_Person", "Median_Age_Person", "NotInTheTree"],
+      data: {
+        "geoId/05": ["Count_Person", "Median_Age_Person", "NotInTheTree"],
+      },
     });
 
   // get place names, geoId/05

@@ -105,6 +105,8 @@ def cached_name(dcids):
                           post=True)
     result = {}
     for dcid in dcids:
+        if not dcid:
+            continue
         values = response[dcid].get('out')
         result[dcid] = values[0]['value'] if values else ''
     return result
@@ -130,34 +132,76 @@ def api_name():
     return Response(json.dumps(result), 200, mimetype='application/json')
 
 
-@bp.route('/statsvars/<path:dcid>')
-@cache.memoize(timeout=3600 * 24)  # Cache for one day.
-def statsvars_route(dcid):
-    """Get all the statistical variables that exist for a give place.
-
-    Args:
-      dcid: Place dcid.
+@bp.route('/places-in-names')
+@cache.cached(timeout=3600 * 24, query_string=True)  # Cache for one day.
+def get_places_in_names():
+    """Gets names of places of a certain type contained in some places.
 
     Returns:
-      A list of statistical variable dcids.
+        Dict keyed by parent DCIDs. The values are inner dicts keyed by
+        child place DCIDs with their names as values.
     """
-    return Response(json.dumps(statsvars(dcid)),
+    dcids = request.args.getlist("dcid")
+    place_type = request.args.get("placeType")
+    places_in_result = dc.get_places_in(dcids, place_type)
+    result = {}
+    for parent, child_places in places_in_result.items():
+        result[parent] = get_name(child_places)
+    return Response(json.dumps(result), 200, mimetype='application/json')
+
+
+@bp.route('/places-in-statvars')
+@cache.cached(timeout=3600 * 24, query_string=True)  # Cache for one day.
+def get_places_in_statvars():
+    """Gets names of places of a certain type contained in some places.
+
+    Returns:
+        Dict keyed by parent DCIDs. The values are inner dicts keyed by
+        child place DCIDs with lists of available statvars as values.
+    """
+    dcids = request.args.getlist("dcid")
+    place_type = request.args.get("placeType")
+    places_in_result = dc.get_places_in(dcids, place_type)
+    result = {}
+    for parent, child_places in places_in_result.items():
+        result[parent] = statsvars(child_places)
+    return Response(json.dumps(result), 200, mimetype='application/json')
+
+
+@bp.route('/statsvars')
+@cache.memoize(timeout=3600 * 24)  # Cache for one day.
+def statsvars_route():
+    """Get all the statistical variables that exist for some places.
+
+    Args:
+        dcids: List of place dcids.
+
+    Returns:
+        Dict keyed by place DCIDs with lists of
+        statistical variable dcids as values.
+    """
+    dcids = request.args.getlist('dcid')
+    return Response(json.dumps(statsvars(dcids)),
                     200,
                     mimetype='application/json')
 
 
 @cache.memoize(timeout=3600 * 24)  # Cache for one day.
-def statsvars(dcid):
+def statsvars(dcids):
     """
-    Get all the statistical variable dcids for a place.
+    Get all the statistical variable dcids for some places.
     """
     response = fetch_data('/place/stats-var', {
-        'dcids': [dcid],
+        'dcids': dcids,
     },
                           compress=False,
                           post=False,
                           has_payload=False)
-    return response['places'][dcid].get('statsVars', [])
+    dcid_to_statvars = response['places']
+    result = {}
+    for dcid in dcids:
+        result[dcid] = dcid_to_statvars[dcid].get('statsVars', [])
+    return result
 
 
 @bp.route('/child/<path:dcid>')
@@ -553,7 +597,7 @@ def get_places_in():
     Returns:
         Dict keyed by parent DCIDs with lists of child place DCIDs as values.
     """
-    dcids = request.args.getlist("dcids")
+    dcids = request.args.getlist("dcid")
     place_type = request.args.get("placeType")
     return Response(json.dumps(dc.get_places_in(dcids, place_type)),
                     200,

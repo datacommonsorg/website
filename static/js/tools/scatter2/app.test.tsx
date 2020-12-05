@@ -46,9 +46,15 @@ function mockAxios(): () => void {
 
   // Counties in Delaware
   when(axios.get)
-    .calledWith(`/api/place/places-in?dcids=geoId/10&placeType=County`)
+    .calledWith(`/api/place/places-in-names?dcid=geoId/10&placeType=County`)
     .mockResolvedValue({
-      data: { "geoId/10": ["geoId/10001", "geoId/10003", "geoId/10005"] },
+      data: {
+        "geoId/10": {
+          "geoId/10001": "Kent County",
+          "geoId/10003": "New Castle County",
+          "geoId/10005": "New Castle County",
+        },
+      },
     });
 
   // Names of the counties
@@ -87,18 +93,25 @@ function mockAxios(): () => void {
     },
   };
 
-  for (const dcid of ["geoId/10001", "geoId/10003", "geoId/10005"]) {
-    // Available statvars
-    when(axios.get)
-      .calledWith(`/api/place/statsvars/${dcid}`)
-      .mockResolvedValue({
-        data: [
-          "Count_Person_Employed",
-          "Count_Establishment",
-          "Count_HousingUnit",
-        ],
-      });
+  // Available statvars
+  const statvars = [
+    "Count_Person_Employed",
+    "Count_Establishment",
+    "Count_HousingUnit",
+  ];
+  when(axios.get)
+    .calledWith(
+      "/api/place/statsvars?dcid=geoId/10001&dcid=geoId/10003&dcid=geoId/10005"
+    )
+    .mockResolvedValue({
+      data: {
+        "geoId/10001": statvars,
+        "geoId/10003": statvars,
+        "geoId/10005": statvars,
+      },
+    });
 
+  for (const dcid of ["geoId/10001", "geoId/10003", "geoId/10005"]) {
     for (const statVar in data) {
       when(axios.get)
         .calledWith(`/api/stats/value?place=${dcid}&stat_var=${statVar}`)

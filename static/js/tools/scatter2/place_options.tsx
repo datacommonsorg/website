@@ -24,7 +24,7 @@ import { Card } from "reactstrap";
 import { Context, AxisWrapper, PlaceInfo, PlaceInfoWrapper } from "./context";
 import { SearchBar } from "../timeline_search";
 import { getPlaceNames } from "../timeline_util";
-import { getPlacesIn } from "./util";
+import { getPlacesInNames } from "./util";
 
 import { Container, Row, Col, CustomInput } from "reactstrap";
 
@@ -125,17 +125,21 @@ function shouldLoadPlaces(place: PlaceInfo): boolean {
  * @param place
  */
 async function loadPlaces(place: PlaceInfoWrapper): Promise<void> {
-  const dcids = await getPlacesIn(
-    place.value.enclosingPlace.dcid,
-    place.value.enclosedPlaceType
-  );
+  let dcidToName: Record<string, string>;
+  try {
+    dcidToName = await getPlacesInNames(
+      place.value.enclosingPlace.dcid,
+      place.value.enclosedPlaceType
+    );
+  } catch (err) {
+    dcidToName = {};
+  }
 
-  if (!_.isEmpty(dcids)) {
-    const dcidToName = await getPlaceNames(dcids);
+  if (!_.isEmpty(dcidToName)) {
     place.setEnclosedPlaces(
-      dcids.map((dcid) => ({
-        name: dcidToName[dcid],
+      _.keys(dcidToName).map((dcid) => ({
         dcid: dcid,
+        name: dcidToName[dcid] || dcid,
       }))
     );
   } else {

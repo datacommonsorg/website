@@ -344,7 +344,7 @@ class TestApiGetPlacesIn(unittest.TestCase):
 
         send_request.side_effect = side_effect
         response = app.test_client().get(
-            '/api/place/places-in?dcids=geoId/10&dcids=geoId/56&placeType=County'
+            '/api/place/places-in?dcid=geoId/10&dcid=geoId/56&placeType=County'
         )
         assert response.status_code == 200
         assert json.loads(response.data) == {
