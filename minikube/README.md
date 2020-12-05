@@ -39,6 +39,16 @@ gcloud iam service-accounts keys create website-robot-key.json \
 cp website-robot-key.json mixer-robot-key.json
 ```
 
+## Update Mixer Submodule
+
+This repo contains DataCommons [mixer repo](https://github.com/datacommonsorg/mixer) as a submodule.
+
+Need to track the upstream change:
+
+```bash
+git submodule foreach git pull origin master
+```
+
 ## Run Minikube cluster
 
 From a terminal, start a cluster:

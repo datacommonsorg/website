@@ -26,4 +26,4 @@ spec:
       targetPort: 8080
       protocol: TCP
   selector:
-    app: website
+    app: website-app
