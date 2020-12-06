@@ -30,8 +30,7 @@ MIXER_CPU_REQ="500m"
 MIXER_MEM_LIMIT="2G"
 MIXER_CPU_LIMIT="1000m"
 # Mixer container
-# TODO(shifucun): fix the bug on updating latest tag
-MIXER_IMAGE="gcr.io/datcom-ci/datacommons-mixer:f87a794"
+MIXER_IMAGE="gcr.io/datcom-ci/datacommons-mixer:latest"
 MIXER_PULL_POLICY="Always"
 # Mixer arguments
 BQ_DATASET="$(head -1 ../mixer/deployment/bigquery.txt)"

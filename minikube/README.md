@@ -105,7 +105,7 @@ The build would take a few mintues the first time. Subsquent build should only t
 
 ```bash
 cd ../
-docker build --tag website:local .
+DOCKER_BUILDKIT=1 docker build --tag website:local .
 cd minikube
 ```
 
