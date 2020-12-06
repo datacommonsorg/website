@@ -16,18 +16,6 @@
 
 import axios from "axios";
 
-/**
- * Retrieves the DCIDs of child places of a certain type contained in a parent place.
- * @param dcid
- * @param type
- */
-async function getPlacesIn(dcid: string, type: string): Promise<Array<string>> {
-  const resp = await axios.get(
-    `/api/place/places-in?dcid=${dcid}&placeType=${type}`
-  );
-  return resp.data[dcid];
-}
-
 async function getPlacesInNames(
   dcid: string,
   type: string
@@ -35,7 +23,7 @@ async function getPlacesInNames(
   const resp = await axios.get(
     `/api/place/places-in-names?dcid=${dcid}&placeType=${type}`
   );
-  return resp.data[dcid];
+  return resp.data;
 }
 
 /**
@@ -53,4 +41,4 @@ async function getTimeSeriesLatestPoint(
   return resp.data.value;
 }
 
-export { getPlacesIn, getPlacesInNames, getTimeSeriesLatestPoint };
+export { getPlacesInNames, getTimeSeriesLatestPoint };

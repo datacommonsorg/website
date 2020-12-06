@@ -36,7 +36,7 @@ import {
 import { Menu } from "../statsvar_menu";
 import { NoopStatsVarFilter, TimelineStatsVarFilter } from "../commons";
 import { StatsVarNode, getStatsVar } from "../timeline_util";
-import { Context, emptyAxis, Axis, NamedPlace, AxisWrapper } from "./context";
+import { Context, emptyAxis, Axis, AxisWrapper, NamedPlace } from "./context";
 import { Spinner } from "./spinner";
 
 interface NamedStatVar {
@@ -63,7 +63,7 @@ const defaultModalSelected: ModalSelected = Object.freeze({
 });
 
 function StatVarChooser(): JSX.Element {
-  const { place, x, y } = useContext(Context);
+  const { x, y } = useContext(Context);
 
   // Temporary variable for storing an extra statvar.
   const [thirdStatVar, setThirdStatVar] = useState(emptyStatVar);
@@ -75,26 +75,8 @@ function StatVarChooser(): JSX.Element {
     ...y.value.statVar,
     ...thirdStatVar.statVar,
   };
-  // Stores filtered statvar DCIDs.
-  const [validStatVars, setValidStatVars] = useState(new Set<string>());
-  const [isLoading, setIsLoading] = useState(false);
-
-  // When child places change, refilter the statvars.
-  useEffect(() => {
-    const places = place.value.enclosedPlaces;
-    if (_.isEmpty(places)) {
-      return;
-    }
-    filterStatVars(x, y, places, setValidStatVars);
-    setIsLoading(true);
-  }, [place.value.enclosedPlaces]);
-
-  // After filtered statvar DCIDs have been loaded, remove the spinner.
-  useEffect(() => {
-    if (!_.isEmpty(validStatVars)) {
-      setIsLoading(false);
-    }
-  }, [validStatVars]);
+  // Filtered statvar DCIDs.
+  const [validStatVars, isLoading] = useValidStatVars();
 
   return (
     <div className="explore-menu-container" id="explore">
@@ -199,40 +181,89 @@ function StatVarChooser(): JSX.Element {
 }
 
 /**
- * Filters statvars shown in the statvar menu.
+ * Hook that returns a set of statvars available for the child places
+ * and a boolean indicating if the statvars are currently being loaded.
+ */
+function useValidStatVars(): [Set<string>, boolean] {
+  const { place, x, y } = useContext(Context);
+
+  // Stores filtered statvar DCIDs.
+  const [validStatVars, setValidStatVars] = useState(new Set<string>());
+  const [isLoading, setIsLoading] = useState(false);
+
+  // When child places change, refilter the statvars.
+  useEffect(() => {
+    if (_.isEmpty(place.value.enclosedPlaces)) {
+      setValidStatVars(new Set<string>());
+      return;
+    }
+    filterStatVars(
+      x,
+      y,
+      place.value.enclosedPlaces,
+      setValidStatVars,
+      setIsLoading
+    );
+  }, [place.value.enclosedPlaces]);
+
+  return [validStatVars, isLoading];
+}
+
+/**
+ * Retrieves and sets statvars shown in the statvar menu.
  * A statvar is kept if it is available for at least one of the child places.
  * Throws an alert if a currently selected statvar is filtered out.
  * @param x
  * @param y
- * @param places
+ * @param enclosingPlace
+ * @param enclosedPlaceType
  * @param setValidStatVars
+ * @param setIsLoadingFalse Callback for setting isLoading to false
  */
 function filterStatVars(
   x: AxisWrapper,
   y: AxisWrapper,
-  places: Array<NamedPlace>,
-  setValidStatVars: (statVars: Set<string>) => void
+  enclosedPlaces: Array<NamedPlace>,
+  setValidStatVars: (statVars: Set<string>) => void,
+  setIsLoading: (isLoading: boolean) => void
 ): void {
-  getStatsVar(places.map((place) => place.dcid)).then((statVars) => {
-    setValidStatVars(statVars);
+  setIsLoading(true);
+  getStatsVar(enclosedPlaces.map((namedPlace) => namedPlace.dcid)).then(
+    (statVars) => {
+      setValidStatVars(statVars);
+      setIsLoading(false);
+      alertIfStatVarsUnavailable(x, y, statVars);
+    }
+  );
+}
 
-    let message = "";
-    const statVarX = _.findKey(x.value.statVar);
-    const statVarY = _.findKey(y.value.statVar);
-    if (statVarX && !statVars.has(statVarX)) {
-      x.unsetStatVar();
-      message += `Sorry, no data available for ${statVarX}`;
-    }
-    if (statVarY && !statVars.has(statVarY)) {
-      y.unsetStatVar();
-      message += message.length
-        ? ` or ${statVarY}`
-        : `Sorry, no data available for ${statVarY}`;
-    }
-    if (message.length) {
-      alert(message);
-    }
-  });
+/**
+ * Throws an alert if a currently selected statvar is not available.
+ * @param x
+ * @param y
+ * @param statVars Set of available statvars
+ */
+function alertIfStatVarsUnavailable(
+  x: AxisWrapper,
+  y: AxisWrapper,
+  statVars: Set<string>
+) {
+  let message = "";
+  const statVarX = _.findKey(x.value.statVar);
+  const statVarY = _.findKey(y.value.statVar);
+  if (statVarX && !statVars.has(statVarX)) {
+    x.unsetStatVar();
+    message += `Sorry, no data available for ${statVarX}`;
+  }
+  if (statVarY && !statVars.has(statVarY)) {
+    y.unsetStatVar();
+    message += message.length
+      ? ` or ${statVarY}`
+      : `Sorry, no data available for ${statVarY}`;
+  }
+  if (message) {
+    alert(message);
+  }
 }
 
 /**

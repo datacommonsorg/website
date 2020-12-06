@@ -316,5 +316,5 @@ def child_statvars():
     stat_vars_for_subgeo = set()
     for geoId in geos_contained_in_place[:10]:
         stat_vars_for_subgeo = stat_vars_for_subgeo.union(
-            place.statsvars([geoId])[geoId])
+            place.statsvars(geoId))
     return json.dumps(list(stat_vars_for_subgeo))

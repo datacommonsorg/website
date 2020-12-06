@@ -51,19 +51,26 @@ function getStatsVarInfo(
   });
 }
 
-async function getStatsVar(dcids: string[]): Promise<Set<string>> {
+function getStatsVar(dcids: string[]): Promise<Set<string>> {
   if (dcids.length === 0) {
     return Promise.resolve(new Set<string>());
   }
-  let url = "/api/place/statsvars";
-  for (const dcid of dcids.sort()) {
-    url += `${dcid === dcids[0] ? "?" : "&"}dcid=${dcid}`;
+  const promises = [];
+  // ToDo: read the set of statsVars available for multiple dcids from server side
+  for (const dcid of dcids) {
+    promises.push(
+      axios.get("/api/place/statsvars/" + dcid).then((resp) => {
+        return resp.data;
+      })
+    );
   }
-  const resp = await axios.get(url);
-  const data: Record<string, Array<string>> = resp.data;
-  return Object.values(data).reduce((prevSet, statvars) => {
-    return new Set([...Array.from(prevSet), ...statvars]);
-  }, new Set<string>());
+  return Promise.all(promises).then((values) => {
+    let statsVars = new Set();
+    for (const value of values) {
+      statsVars = new Set([...Array.from(statsVars), ...value]);
+    }
+    return statsVars;
+  }) as Promise<Set<string>>;
 }
 
 const placeSep = ",";

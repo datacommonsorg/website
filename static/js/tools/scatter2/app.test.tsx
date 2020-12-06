@@ -57,19 +57,6 @@ function mockAxios(): () => void {
       },
     });
 
-  // Names of the counties
-  when(axios.get)
-    .calledWith(
-      "/api/place/name?dcid=geoId/10001&dcid=geoId/10003&dcid=geoId/10005"
-    )
-    .mockResolvedValue({
-      data: {
-        "geoId/10001": "Kent County",
-        "geoId/10003": "New Castle County",
-        "geoId/10005": "Sussex County",
-      },
-    });
-
   const data = {
     Count_Person: {
       "geoId/10001": 180786,
@@ -93,25 +80,18 @@ function mockAxios(): () => void {
     },
   };
 
-  // Available statvars
-  const statvars = [
-    "Count_Person_Employed",
-    "Count_Establishment",
-    "Count_HousingUnit",
-  ];
-  when(axios.get)
-    .calledWith(
-      "/api/place/statsvars?dcid=geoId/10001&dcid=geoId/10003&dcid=geoId/10005"
-    )
-    .mockResolvedValue({
-      data: {
-        "geoId/10001": statvars,
-        "geoId/10003": statvars,
-        "geoId/10005": statvars,
-      },
-    });
-
   for (const dcid of ["geoId/10001", "geoId/10003", "geoId/10005"]) {
+    // Available statvars
+    when(axios.get)
+      .calledWith(`/api/place/statsvars?dcid=${dcid}`)
+      .mockResolvedValue({
+        data: [
+          "Count_Person_Employed",
+          "Count_Establishment",
+          "Count_HousingUnit",
+        ],
+      });
+
     for (const statVar in data) {
       when(axios.get)
         .calledWith(`/api/stats/value?place=${dcid}&stat_var=${statVar}`)
