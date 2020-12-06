@@ -49,11 +49,9 @@ function mockAxios(): () => void {
     .calledWith(`/api/place/places-in-names?dcid=geoId/10&placeType=County`)
     .mockResolvedValue({
       data: {
-        "geoId/10": {
-          "geoId/10001": "Kent County",
-          "geoId/10003": "New Castle County",
-          "geoId/10005": "New Castle County",
-        },
+        "geoId/10001": "Kent County",
+        "geoId/10003": "New Castle County",
+        "geoId/10005": "New Castle County",
       },
     });
 
@@ -83,7 +81,7 @@ function mockAxios(): () => void {
   for (const dcid of ["geoId/10001", "geoId/10003", "geoId/10005"]) {
     // Available statvars
     when(axios.get)
-      .calledWith(`/api/place/statsvars?dcid=${dcid}`)
+      .calledWith(`/api/place/statsvars/${dcid}`)
       .mockResolvedValue({
         data: [
           "Count_Person_Employed",

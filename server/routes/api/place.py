@@ -17,7 +17,6 @@ import json
 import random
 import re
 import time
-import concurrent
 
 from flask import Blueprint, request, Response, url_for
 
@@ -137,10 +136,12 @@ def api_name():
 @cache.memoize(timeout=3600 * 24)  # Cache for one day.
 def statsvars_route(dcid):
     """Get all the statistical variables that exist for a give place.
+
     Args:
-      dcid: Place dcid.
+        dcid: Place dcid.
+
     Returns:
-      A list of statistical variable dcids.
+        A list of statistical variable dcids.
     """
     return Response(json.dumps(statsvars(dcid)),
                     200,
@@ -572,4 +573,6 @@ def get_places_in_names():
     dcid = request.args.get("dcid")
     place_type = request.args.get("placeType")
     child_places = dc.get_places_in([dcid], place_type)[dcid]
-    return Response(json.dumps(get_name(child_places)), 200, mimetype='application/json')
+    return Response(json.dumps(get_name(child_places)),
+                    200,
+                    mimetype='application/json')

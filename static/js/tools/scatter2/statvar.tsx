@@ -215,10 +215,9 @@ function useValidStatVars(): [Set<string>, boolean] {
  * Throws an alert if a currently selected statvar is filtered out.
  * @param x
  * @param y
- * @param enclosingPlace
- * @param enclosedPlaceType
+ * @param enclosedPlaces
  * @param setValidStatVars
- * @param setIsLoadingFalse Callback for setting isLoading to false
+ * @param setIsLoading
  */
 function filterStatVars(
   x: AxisWrapper,

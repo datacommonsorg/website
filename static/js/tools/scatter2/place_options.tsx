@@ -132,7 +132,6 @@ async function loadPlaces(place: PlaceInfoWrapper): Promise<void> {
       place.value.enclosedPlaceType
     );
   } catch (err) {
-    console.log(err);
     dcidToName = {};
   }
 
