@@ -51,7 +51,7 @@ function mockAxios(): () => void {
       data: {
         "geoId/10001": "Kent County",
         "geoId/10003": "New Castle County",
-        "geoId/10005": "New Castle County",
+        "geoId/10005": "Sussex County",
       },
     });
 

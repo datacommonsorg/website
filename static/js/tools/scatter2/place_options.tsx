@@ -150,16 +150,6 @@ async function loadPlaces(place: PlaceInfoWrapper): Promise<void> {
 }
 
 /**
- * Clears population and statvar data for both axes.
- * @param x
- * @param y
- */
-function unsetPopulationsAndData(x: AxisWrapper, y: AxisWrapper) {
-  x.unsetPopulationsAndData();
-  y.unsetPopulationsAndData();
-}
-
-/**
  * Selects child place type and clears population and statvar data.
  * @param x
  * @param y
@@ -173,7 +163,6 @@ function selectEnclosedPlaceType(
   event: React.ChangeEvent<HTMLInputElement>
 ) {
   place.setEnclosedPlaceType(event.target.value);
-  unsetPopulationsAndData(x, y);
 }
 
 /**
@@ -191,7 +180,6 @@ async function selectEnclosingPlace(
 ) {
   const dcidToName = await getPlaceNames([dcid]);
   place.setEnclosingPlace({ dcid: dcid, name: dcidToName[dcid] });
-  unsetPopulationsAndData(x, y);
 }
 
 /**
@@ -205,7 +193,6 @@ function unselectEnclosingPlace(
   place: PlaceInfoWrapper
 ) {
   place.setEnclosingPlace({ dcid: "", name: "" });
-  unsetPopulationsAndData(x, y);
 }
 
 export { PlaceOptions };

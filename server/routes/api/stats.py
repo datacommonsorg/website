@@ -157,3 +157,25 @@ def get_stats_value():
                            observation_period, unit, scaling_factor)),
                     200,
                     mimetype='application/json')
+
+
+@bp.route('/api/stats/collection')
+@cache.cached(timeout=3600 * 24, query_string=True)  # Cache for one day.
+def get_stats_collection():
+    """Gets the statistical variable values for child places of a certain place
+    type contained in a parent place at a given date.
+    
+    Returns:
+        Dict keyed by statvar DCIDs. The values are dicts keyed by "val",
+        "measurementMethod", "importName", "provenanceDomain", and "provenanceUrl".
+        THe values for "val" are dicts keyed by child place DCIDs with the statvar
+        values as values. The values for the rest are strings.
+    """
+    parent_place = request.args.get("parent_place")
+    child_type = request.args.get("child_type")
+    date = request.args.get("date")
+    stat_vars = request.args.getlist("stat_vars")
+    return Response(json.dumps(
+        dc.get_stats_collection(parent_place, child_type, date, stat_vars)['data']),
+                    200,
+                    mimetype='application/json')

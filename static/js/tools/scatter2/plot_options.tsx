@@ -25,6 +25,7 @@ import {
   Axis,
   AxisWrapper,
   Context,
+  DateInfoWrapper,
   PlaceInfo,
   PlaceInfoWrapper,
 } from "./context";
@@ -32,7 +33,7 @@ import {
 import { Container, Row, Col } from "reactstrap";
 
 function PlotOptions(): JSX.Element {
-  const { place, x, y } = useContext(Context);
+  const { place, date, x, y } = useContext(Context);
 
   const [open, setOpen] = useState(
     shouldExpandOptions(place.value, x.value, y.value)
@@ -42,6 +43,41 @@ function PlotOptions(): JSX.Element {
     <Card>
       <Container>
         <Row>
+          <Col xs="4">
+            <FormGroup>
+              <Label>Date</Label>
+              <Input
+                type="select"
+                onChange={(event) => selectYear(date, event)}
+              >
+                <option value="0">Year</option>
+                {getYears().map((year) => (
+                  <option value={year} key={year}>
+                    {year}
+                  </option>
+                ))}
+              </Input>
+              <Input
+                type="select"
+                onChange={(event) => selectMonth(date, event)}
+              >
+                <option value="0">Month</option>
+                {getMonths().map((month) => (
+                  <option value={month} key={month}>
+                    {month}
+                  </option>
+                ))}
+              </Input>
+              <Input type="select" onChange={(event) => selectDay(date, event)}>
+                <option value="0">Day</option>
+                {getDays().map((day) => (
+                  <option value={day} key={day}>
+                    {day}
+                  </option>
+                ))}
+              </Input>
+            </FormGroup>
+          </Col>
           <Col xs="auto">
             <Button
               className="flex-container"
@@ -52,7 +88,7 @@ function PlotOptions(): JSX.Element {
               <i className="material-icons">
                 {open ? "expand_less" : "expand_more"}
               </i>
-              Options
+              More Options
             </Button>
           </Col>
         </Row>
@@ -152,6 +188,51 @@ function PlotOptions(): JSX.Element {
       </Container>
     </Card>
   );
+}
+
+function getCurrentYear(): number {
+  return new Date().getFullYear();
+}
+
+function getNToM(n: number, m: number, descending = false): Array<number> {
+  const nums = [];
+  for (let i = n; i <= m; i++) {
+    nums.push(i);
+  }
+  return descending ? nums.sort((a, b) => b - a) : nums;
+}
+
+function getYears(): Array<number> {
+  return getNToM(1900, getCurrentYear(), true);
+}
+
+function getMonths(): Array<number> {
+  return getNToM(1, 12, true);
+}
+
+function getDays(): Array<number> {
+  return getNToM(1, 31, true);
+}
+
+function selectYear(
+  date: DateInfoWrapper,
+  event: React.ChangeEvent<HTMLInputElement>
+) {
+  date.setYear(Number.parseInt(event.target.value));
+}
+
+function selectMonth(
+  date: DateInfoWrapper,
+  event: React.ChangeEvent<HTMLInputElement>
+) {
+  date.setMonth(Number.parseInt(event.target.value));
+}
+
+function selectDay(
+  date: DateInfoWrapper,
+  event: React.ChangeEvent<HTMLInputElement>
+) {
+  date.setDay(Number.parseInt(event.target.value));
 }
 
 /**

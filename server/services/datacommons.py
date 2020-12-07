@@ -70,6 +70,7 @@ API_ENDPOINTS = {
     'get_stats': '/bulk/stats',
     'get_stats_all': '/stat/all',
     'get_stats_value': '/stat/value',
+    'get_stats_collection': '/stat/collection',
     # TODO(shifucun): switch back to /node/related-places after data switch.
     'get_related_places': '/node/related-locations',
     'get_interesting_places': '/node/interesting-place-aspects',
@@ -131,6 +132,17 @@ def get_stats_value(place, stat_var, date, measurement_method,
         'observation_period': observation_period,
         'unit': unit,
         'scaling_factor': scaling_factor
+    }
+    return send_request(url, req_json=req_json, post=False, has_payload=False)
+
+
+def get_stats_collection(parent_place, child_type, date, stat_vars):
+    url = API_ROOT + API_ENDPOINTS['get_stats_collection']
+    req_json = {
+        'parent_place': parent_place,
+        'child_type': child_type,
+        'date': date,
+        'stat_vars': stat_vars
     }
     return send_request(url, req_json=req_json, post=False, has_payload=False)
 
@@ -388,7 +400,8 @@ def send_request(req_url,
                  req_json={},
                  compress=False,
                  post=True,
-                 has_payload=True):
+                 has_payload=True,
+                 has_data=False):
     """ Sends a POST/GET request to req_url with req_json, default to POST.
     Returns:
       The payload returned by sending the POST/GET request formatted as a dict.
@@ -418,6 +431,7 @@ def send_request(req_url,
             res_json = zlib.decompress(base64.b64decode(res_json),
                                        zlib.MAX_WBITS | 32)
         res_json = json.loads(res_json)
+
     return res_json
 
 

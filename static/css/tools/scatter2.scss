@@ -58,6 +58,11 @@
   padding-left: 0;
 }
 
+.form-group {
+  display: flex;
+  flex-wrap: wrap;
+}
+
 .card {
   flex-grow: 1;
   flex-shrink: 1;

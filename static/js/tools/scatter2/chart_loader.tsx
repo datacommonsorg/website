@@ -22,10 +22,18 @@
 import React, { useContext, useEffect, useState } from "react";
 import _ from "lodash";
 import { saveToFile } from "../../shared/util";
-import { getTimeSeriesLatestPoint } from "./util";
+import { getStatsCollection, SourceSeries } from "./util";
 import { Spinner } from "./spinner";
 import { Chart } from "./chart";
-import { Context, NamedPlace, Axis, AxisWrapper, PlaceInfo } from "./context";
+import {
+  Context,
+  NamedPlace,
+  Axis,
+  AxisWrapper,
+  PlaceInfo,
+  DateInfo,
+} from "./context";
+import { StatsVarNode } from "../timeline_util";
 
 /**
  * Represents a point in the scatter plot.
@@ -38,24 +46,29 @@ interface Point {
   place: NamedPlace;
 }
 
-function ChartLoader(): JSX.Element {
-  const context = useContext(Context);
-  const [points, isLoading] = useLoadPoints();
+type Cache = Record<string, SourceSeries>;
 
-  const x = context.x.value;
-  const y = context.y.value;
+function ChartLoader(): JSX.Element {
+  const { x, y } = useContext(Context);
+  const [cache, isLoading] = useCache();
+  const points = usePoints(cache);
+
+  const xVal = x.value;
+  const yVal = y.value;
 
   return (
     <div>
-      {areStatVarNamesLoaded(x, y) && (
+      {areStatVarNamesLoaded(xVal, yVal) && (
         <Chart
           points={points}
-          xLabel={getLabel(x.name, x.perCapita)}
-          yLabel={getLabel(y.name, y.perCapita)}
-          xLog={x.log}
-          yLog={y.log}
-          xPerCapita={x.perCapita}
-          yPerCapita={y.perCapita}
+          xLabel={getLabel(xVal.name, xVal.perCapita)}
+          yLabel={getLabel(yVal.name, yVal.perCapita)}
+          xLog={xVal.log}
+          yLog={yVal.log}
+          xPerCapita={xVal.perCapita}
+          yPerCapita={yVal.perCapita}
+          xProvenance={getProvenance(cache, _.findKey(xVal.statVar))}
+          yProvenance={getProvenance(cache, _.findKey(yVal.statVar))}
         />
       )}
       <Spinner isOpen={isLoading} />
@@ -63,53 +76,149 @@ function ChartLoader(): JSX.Element {
   );
 }
 
-/**
- * Hook that returns an array of points for plotting and a boolean
- * indicating if data are being loaded.
- */
-function useLoadPoints(): [Array<Point>, boolean] {
+function useCache(): [Cache, boolean] {
   const context = useContext(Context);
-  const [points, setPoints] = useState([] as Array<Point>);
+  const { x, y, place, date } = context;
+
+  // From statvar DCIDs to `SourceSeries` data
+  const [cache, setCache] = useState({} as Cache);
+  // Whether data are being retrieved
   const [isLoading, setIsLoading] = useState(false);
+
+  const xVal = x.value;
+  const yVal = y.value;
+  const placeVal = place.value;
+  const dateVal = date.value;
 
   /**
    * When statvars, enclosing place, child place type, or any plot options change,
    * re-retreive data.
    */
   useEffect(() => {
-    const place = context.place.value;
-    if (!arePlacesLoaded(place)) {
+    if (
+      !arePlacesLoaded(placeVal) ||
+      !areStatVarNamesLoaded(xVal, yVal) ||
+      !isDateChosen(date.value)
+    ) {
+      setCache({});
       return;
     }
-    const x = context.x;
-    const y = context.y;
-    if (!areStatVarNamesLoaded(x.value, y.value)) {
+    if (!arePopulationsAndDataLoaded(cache, xVal, yVal, dateVal)) {
+      loadPopulationsAndData(x, y, placeVal, dateVal, setCache, setIsLoading);
+    }
+  }, [context]);
+  return [cache, isLoading];
+}
+
+function isDateChosen(date: DateInfo): boolean {
+  return (
+    date.year > 0 ||
+    (date.year > 0 && date.month > 0) ||
+    (date.year > 0 && date.month > 0 && date.day > 0)
+  );
+}
+
+function formatDate(date: DateInfo) {
+  let str = date.year.toString();
+  if (date.month) {
+    str += `-${date.month}`;
+    if (date.day) {
+      str += `-${date.day}`;
+    }
+  }
+  return str;
+}
+
+async function loadPopulationsAndData(
+  x: AxisWrapper,
+  y: AxisWrapper,
+  place: PlaceInfo,
+  date: DateInfo,
+  setCache: (cache: Cache) => void,
+  setIsLoading: (isLoading: boolean) => void
+) {
+  const dateStr = formatDate(date);
+  setIsLoading(true);
+  const [populations, data] = await Promise.all([
+    // Populations
+    getStatsCollection(
+      place.enclosingPlace.dcid,
+      place.enclosedPlaceType,
+      dateStr,
+      [
+        getPopulationStatVar(x.value.statVar),
+        getPopulationStatVar(y.value.statVar),
+      ]
+    ),
+    // Statvar data
+    getStatsCollection(
+      place.enclosingPlace.dcid,
+      place.enclosedPlaceType,
+      dateStr,
+      [_.findKey(x.value.statVar), _.findKey(y.value.statVar)]
+    ),
+  ]);
+  // TODO: handle error.
+  setCache({ ...populations, ...data });
+  setIsLoading(false);
+}
+
+function getProvenance(cache: Cache, statVar: string) {
+  if (statVar in cache) {
+    return cache[statVar].provenanceDomain;
+  }
+  return "";
+}
+
+/**
+ * Hook that returns an array of points for plotting.
+ */
+function usePoints(cache: Cache): Array<Point> {
+  const { x, y, place, date } = useContext(Context);
+  const [points, setPoints] = useState([] as Array<Point>);
+
+  const xVal = x.value;
+  const yVal = y.value;
+  const placeVal = place.value;
+  const dateVal = date.value;
+
+  useEffect(() => {
+    if (_.isEmpty(cache)) {
+      return;
+    }
+    if (!arePopulationsAndDataLoaded(cache, xVal, yVal, dateVal)) {
+      alert(`Sorry, no data available for ${formatDate(date.value)}`);
       return;
     }
 
-    loadPopulationsAndDataIfNeeded(x, place);
-    loadPopulationsAndDataIfNeeded(y, place);
-    if (!arePopulationsAndDataLoaded(x.value, y.value)) {
-      // The two `loadPopulationsAndDataIfNeeded` calls above are async.
-      // If we get into this block, then it must be the case that
-      // the population data and statvar data have not been loaded
-      // for at least one of the axes.
-      setIsLoading(true);
-      return;
-    }
-
-    const points = getPoints(x.value, y.value, place);
-    setPoints(points);
-    setIsLoading(false);
+    const points = getPoints(xVal, yVal, placeVal, cache);
+    setPoints(computeCapita(points, xVal.perCapita, yVal.perCapita));
 
     const downloadButton = document.getElementById("download-link");
     if (downloadButton) {
       downloadButton.style.visibility = "visible";
-      downloadButton.onclick = () => downloadData(x.value, y.value, place);
+      downloadButton.onclick = () =>
+        downloadData(xVal, yVal, placeVal, dateVal, points);
     }
-  }, [context]);
+  }, [cache]);
 
-  return [points, isLoading];
+  return points;
+}
+
+function getPopulationStatVar(node: StatsVarNode): string {
+  return Object.values(node)[0].denominators[0] || "Count_Person";
+}
+
+function computeCapita(
+  points: Array<Point>,
+  xPerCapita: boolean,
+  yPerCapita: boolean
+) {
+  return points.map((point) => ({
+    ...point,
+    xVal: xPerCapita ? point.xVal / point.xPop : point.xVal,
+    yVal: yPerCapita ? point.yVal / point.yPop : point.yVal,
+  }));
 }
 
 /**
@@ -117,33 +226,42 @@ function useLoadPoints(): [Array<Point>, boolean] {
  * @param x
  * @param y
  * @param place
+ * @param cache
  */
-function getPoints(x: Axis, y: Axis, place: PlaceInfo): Array<Point> {
+function getPoints(
+  x: Axis,
+  y: Axis,
+  place: PlaceInfo,
+  cache: Cache
+): Array<Point> {
+  const xData = cache[_.findKey(x.statVar)];
+  const yData = cache[_.findKey(y.statVar)];
+  const xPops = cache[getPopulationStatVar(x.statVar)];
+  const yPops = cache[getPopulationStatVar(y.statVar)];
   const lower = place.lowerBound;
   const upper = place.upperBound;
-  return _.zip(
-    x.data,
-    y.data,
-    x.populations,
-    y.populations,
+  return (
     place.enclosedPlaces
-  )
-    .filter(
-      ([xVal, yVal, xPop, yPop]) =>
-        xVal !== undefined &&
-        yVal !== undefined &&
-        xPop !== undefined &&
-        yPop !== undefined &&
-        isBetween(xPop, lower, upper) &&
-        isBetween(yPop, lower, upper)
-    )
-    .map(([xVal, yVal, xPop, yPop, placeName]) => ({
-      xVal: x.perCapita ? xVal / xPop : xVal,
-      yVal: y.perCapita ? yVal / yPop : yVal,
-      xPop: xPop,
-      yPop: yPop,
-      place: placeName,
-    }));
+      // Map to `Point`s
+      .map((namedPlace) => ({
+        xVal: xData.val[namedPlace.dcid],
+        yVal: yData.val[namedPlace.dcid],
+        xPop: xPops.val[namedPlace.dcid],
+        yPop: yPops.val[namedPlace.dcid],
+        place: namedPlace,
+      }))
+      // Filter out unavailable data
+      .filter(
+        ({ xVal, yVal, xPop, yPop }) =>
+          !_.isNil(xVal) &&
+          !_.isNil(yVal) &&
+          // If not per capita, allow populations to be not available
+          (!_.isNil(xPop) || !x.perCapita) &&
+          (!_.isNil(yPop) || !y.perCapita) &&
+          isBetween(xPop, lower, upper) &&
+          isBetween(yPop, lower, upper)
+      )
+  );
 }
 
 /**
@@ -176,54 +294,66 @@ function areStatVarNamesLoaded(x: Axis, y: Axis): boolean {
  * @param x
  * @param y
  */
-function arePopulationsAndDataLoaded(x: Axis, y: Axis): boolean {
+function arePopulationsAndDataLoaded(
+  cache: Cache,
+  x: Axis,
+  y: Axis,
+  date: DateInfo
+): boolean {
+  const xStatVar = _.findKey(x.statVar);
+  const yStatVar = _.findKey(y.statVar);
+  const xPopStatVar = getPopulationStatVar(x.statVar);
+  const yPopStatVar = getPopulationStatVar(y.statVar);
   return (
-    !_.isEmpty(x.data) &&
-    !_.isEmpty(y.data) &&
-    !_.isEmpty(x.populations) &&
-    !_.isEmpty(y.populations)
+    xStatVar in cache &&
+    !_.isEmpty(cache[xStatVar]) &&
+    yStatVar in cache &&
+    !_.isEmpty(cache[yStatVar]) &&
+    xPopStatVar in cache &&
+    !_.isEmpty(cache[xPopStatVar]) &&
+    yPopStatVar in cache &&
+    !_.isEmpty(cache[yPopStatVar]) &&
+    // Checking the date of one axis is enough because all
+    // statvars share the same date
+    formatDate(date) === cache[xStatVar].date
   );
 }
 
 /**
  * Saves data to a CSV file.
- * @param x
- * @param y
- * @param place
+ * @param points
  */
-function downloadData(x: Axis, y: Axis, place: PlaceInfo): void {
-  if (!arePopulationsAndDataLoaded(x, y)) {
-    alert("Sorry, still retrieving data. Please try again later.");
-    return;
-  }
-
+function downloadData(
+  x: Axis,
+  y: Axis,
+  place: PlaceInfo,
+  date: DateInfo,
+  points: Array<Point>
+): void {
   const xStatVar = _.findKey(x.statVar);
   const yStatVar = _.findKey(y.statVar);
+  const xPopStatVar = getPopulationStatVar(x.statVar);
+  const yPopStatVar = getPopulationStatVar(y.statVar);
+
   // Headers
   let csv =
+    "placeName," +
+    "placeDCID," +
     `xValue-${xStatVar},` +
     `yValue-${yStatVar},` +
-    `${x.statVar[xStatVar].denominators[0] || "xPopulation-Count_Person"},` +
-    `${y.statVar[yStatVar].denominators[0] || "yPopulation-Count_Person"}\n`;
+    `xPopulation-${xPopStatVar},` +
+    `yPopulation-${yPopStatVar}\n`;
   // Data
-  for (const [xVal, yVal, xPop, yPop] of _.zip(
-    x.data,
-    y.data,
-    x.populations,
-    y.populations
-  )) {
-    csv +=
-      `${xVal === undefined ? "" : xVal},` +
-      `${yVal === undefined ? "" : yVal},` +
-      `${xPop === undefined ? "" : xPop},` +
-      `${yPop === undefined ? "" : yPop}\n`;
+  for (const { xVal, yVal, xPop, yPop, place } of points) {
+    csv += `${place.name},${place.dcid},${xVal},${yVal},${xPop},${yPop}\n`;
   }
 
   saveToFile(
-    `${x.name}-` +
-      `${y.name}-` +
-      `${place.enclosingPlace.name}-` +
-      `${place.enclosedPlaceType}.csv`,
+    `${xStatVar}+` +
+      `${yStatVar}+` +
+      `${place.enclosingPlace.name}+` +
+      `${place.enclosedPlaceType}+` +
+      `${formatDate(date)}.csv`,
     csv
   );
 }
@@ -239,65 +369,6 @@ function isBetween(num: number, lower: number, upper: number): boolean {
     return true;
   }
   return lower <= num && num <= upper;
-}
-
-/**
- * Loads population data (for per capita) and statvar
- * data if they have been selected but not yet loaded.
- * @param axis
- * @param place
- */
-async function loadPopulationsAndDataIfNeeded(
-  axis: AxisWrapper,
-  place: PlaceInfo
-): Promise<void> {
-  if (!_.isEmpty(axis.value.statVar)) {
-    const promises = [];
-    if (_.isEmpty(axis.value.populations)) {
-      promises.push(loadPopulations(axis, place));
-    }
-    if (_.isEmpty(axis.value.data)) {
-      promises.push(loadData(axis, place));
-    }
-    await Promise.all(promises);
-  }
-}
-
-/**
- * Loads population data (for per capita) for an axis.
- * @param axis
- * @param place
- */
-async function loadPopulations(
-  axis: AxisWrapper,
-  place: PlaceInfo
-): Promise<void> {
-  const populations = await Promise.all(
-    place.enclosedPlaces.map((namedPlace) =>
-      getTimeSeriesLatestPoint(
-        namedPlace.dcid,
-        Object.values(axis.value.statVar)[0].denominators[0] || "Count_Person"
-      ).catch(() => undefined)
-    )
-  );
-  axis.setPopulations(populations);
-}
-
-/**
- * Loads statvar data for an axis.
- * @param axis
- * @param place
- */
-async function loadData(axis: AxisWrapper, place: PlaceInfo): Promise<void> {
-  const data = await Promise.all(
-    place.enclosedPlaces.map((namedPlace) =>
-      getTimeSeriesLatestPoint(
-        namedPlace.dcid,
-        _.findKey(axis.value.statVar)
-      ).catch(() => undefined)
-    )
-  );
-  axis.setData(data);
 }
 
 /**

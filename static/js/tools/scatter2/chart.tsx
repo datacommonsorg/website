@@ -32,6 +32,8 @@ interface ChartPropsType {
   yLog: boolean;
   xPerCapita: boolean;
   yPerCapita: boolean;
+  xProvenance: string;
+  yProvenance: string;
 }
 
 // TODO: Show provenance.
@@ -316,4 +318,4 @@ function addTooltip(
   dots.on("mouseover", onTooltipMouseover).on("mouseout", onTooltipMouseout);
 }
 
-export { Chart };
+export { Chart, ChartPropsType };

@@ -15,6 +15,16 @@
  */
 
 import axios from "axios";
+import _ from "lodash";
+
+interface SourceSeries {
+  val: Record<string, number>;
+  measurementMethod: string;
+  importName: string;
+  provenanceDomain: string;
+  provenanceUrl: string;
+  date: string;
+}
 
 async function getPlacesInNames(
   dcid: string,
@@ -26,19 +36,29 @@ async function getPlacesInNames(
   return resp.data;
 }
 
-/**
- * Gets the latest value for a place of a timeseries.
- * @param place
- * @param statVar
- */
-async function getTimeSeriesLatestPoint(
-  place: string,
-  statVar: string
-): Promise<number> {
+async function getStatsCollection(
+  parent_place: string,
+  child_type: string,
+  date: string,
+  statVars: Array<string>
+): Promise<Record<string, SourceSeries>> {
+  let statVarParams = "";
+  for (const statVar of statVars) {
+    statVarParams += `&stat_vars=${statVar}`;
+  }
   const resp = await axios.get(
-    `/api/stats/value?place=${place}&stat_var=${statVar}`
+    `/api/stats/collection?parent_place=${parent_place}&child_type=${child_type}&date=${date}${statVarParams}`
   );
-  return resp.data.value;
+  // Tag `SourceSeries`'s with the requested date
+  const data = resp.data;
+  for (const dcid in data) {
+    const sourceSeries = data[dcid];
+    if (_.isEmpty(sourceSeries)) {
+      continue;
+    }
+    sourceSeries["date"] = date;
+  }
+  return data;
 }
 
-export { getPlacesInNames, getTimeSeriesLatestPoint };
+export { getPlacesInNames, getStatsCollection, SourceSeries };
