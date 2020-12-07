@@ -147,11 +147,11 @@ def get_stats_collection(parent_place, child_type, date, stat_vars):
         stat_vars: List of statistical variable DCIDs each as a string.
     
     Returns:
-        Dict with a single key "data". The value is a dict keyed by statvar DCIDs.
-        The values for the DCIDs are dicts keyed by "val", "measurementMethod",
-        "importName", "provenanceDomain", and "provenanceUrl". The values for "val"
+        Dict with a single key "data". The value is a dict keyed by statvar DCIDs,
+        with dicts as values. See `SourceSeries` in
+        https://github.com/datacommonsorg/mixer/blob/master/proto/mixer.proto
+        for the definition of the inner dicts. In particular, the values for "val"
         are dicts keyed by child place DCIDs with the statvar values as values.
-        The values for the rest are strings.
     """
     url = API_ROOT + API_ENDPOINTS['get_stats_collection']
     req_json = {

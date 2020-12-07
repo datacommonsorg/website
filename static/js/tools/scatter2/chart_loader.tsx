@@ -77,8 +77,7 @@ function ChartLoader(): JSX.Element {
 }
 
 function useCache(): [Cache, boolean] {
-  const context = useContext(Context);
-  const { x, y, place, date } = context;
+  const { x, y, place, date } = useContext(Context);
 
   // From statvar DCIDs to `SourceSeries` data
   const [cache, setCache] = useState({} as Cache);
@@ -106,7 +105,8 @@ function useCache(): [Cache, boolean] {
     if (!arePopulationsAndDataLoaded(cache, xVal, yVal, dateVal)) {
       loadPopulationsAndData(x, y, placeVal, dateVal, setCache, setIsLoading);
     }
-  }, [context]);
+  }, [xVal, yVal, placeVal, dateVal]);
+
   return [cache, isLoading];
 }
 
@@ -176,6 +176,10 @@ function usePoints(cache: Cache): Array<Point> {
   const placeVal = place.value;
   const dateVal = date.value;
 
+  /**
+   * Regenerates points after populations and statvar data are retrieved
+   * and after plot options change.
+   */
   useEffect(() => {
     if (_.isEmpty(cache)) {
       return;
@@ -194,7 +198,7 @@ function usePoints(cache: Cache): Array<Point> {
       downloadButton.onclick = () =>
         downloadData(xVal, yVal, placeVal, dateVal, points);
     }
-  }, [cache]);
+  }, [cache, xVal, yVal, placeVal]);
 
   return points;
 }

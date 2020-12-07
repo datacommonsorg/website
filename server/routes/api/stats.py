@@ -166,10 +166,10 @@ def get_stats_collection():
     type contained in a parent place at a given date.
     
     Returns:
-        Dict keyed by statvar DCIDs. The values are dicts keyed by "val",
-        "measurementMethod", "importName", "provenanceDomain", and "provenanceUrl".
-        THe values for "val" are dicts keyed by child place DCIDs with the statvar
-        values as values. The values for the rest are strings.
+        Dict keyed by statvar DCIDs with dicts as values. See `SourceSeries` in
+        https://github.com/datacommonsorg/mixer/blob/master/proto/mixer.proto
+        for the definition of the inner dicts. In particular, the values for "val"
+        are dicts keyed by child place DCIDs with the statvar values as values.
     """
     parent_place = request.args.get("parent_place")
     child_type = request.args.get("child_type")

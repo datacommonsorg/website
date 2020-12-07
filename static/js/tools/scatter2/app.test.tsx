@@ -59,9 +59,9 @@ function mockAxios(): () => void {
   const data = {
     Count_Person: {
       val: {
-        "geoId/10005": 219321,
-        "geoId/10001": 174542,
-        "geoId/10003": 555058,
+        "geoId/10001": 180786,
+        "geoId/10003": 558753,
+        "geoId/10005": 234225,
       },
       measurementMethod: "CensusPEPSurvey",
       importName: "CensusPEP",
@@ -70,9 +70,9 @@ function mockAxios(): () => void {
     },
     Count_Person_Employed: {
       val: {
-        "geoId/10001": 73404,
-        "geoId/10003": 280645,
-        "geoId/10005": 96477,
+        "geoId/10001": 76726,
+        "geoId/10003": 276517,
+        "geoId/10005": 104845,
       },
       measurementMethod: "BLSSeasonallyUnadjusted",
       observationPeriod: "P1Y",
@@ -89,9 +89,9 @@ function mockAxios(): () => void {
     },
     Count_HousingUnit: {
       val: {
-        "geoId/10001": 68106,
-        "geoId/10003": 220459,
-        "geoId/10005": 129362,
+        "geoId/10001": 70576,
+        "geoId/10003": 222146,
+        "geoId/10005": 135529,
       },
       measurementMethod: "CensusACS5yrSurvey",
       importName: "CensusACS5YearSurvey",
@@ -180,6 +180,12 @@ test("all functionalities", async (done) => {
 
   // Population density should be filtered out
   await waitFor(() => expect(app.text()).not.toContain("Population Density"));
+
+  // Choose 2016 for date
+  app
+    .find(`.datepicker`)
+    .at(0)
+    .simulate("change", { target: { value: 2016 } });
 
   // Choose employed for x and establishments for y
   app.find(`[id="Employed"] button`).simulate("click");
