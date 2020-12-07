@@ -23,6 +23,10 @@ interface SourceSeries {
   importName: string;
   provenanceDomain: string;
   provenanceUrl: string;
+  observationPeriod: string;
+  unit: string;
+  scalingFactor: string;
+  isDcAggregate: boolean;
   date: string;
 }
 

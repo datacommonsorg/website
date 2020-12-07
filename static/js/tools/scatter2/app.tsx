@@ -54,21 +54,17 @@ function App(): JSX.Element {
           <Row>
             <PlaceOptions />
           </Row>
+          <Row>
+            <PlotOptions />
+          </Row>
           {hideInfo ? (
-            <React.Fragment>
-              <Row>
-                <PlotOptions />
-              </Row>
-              <Row id="chart-row">
-                <ChartLoader />
-              </Row>
-            </React.Fragment>
+            <Row id="chart-row">
+              <ChartLoader />
+            </Row>
           ) : (
-            <React.Fragment>
-              <Row>
-                <Info />
-              </Row>
-            </React.Fragment>
+            <Row>
+              <Info />
+            </Row>
           )}
         </Container>
       </div>
@@ -110,6 +106,10 @@ function applyHash(context: ContextType) {
   if (placeString) {
     context.place.set(JSON.parse(placeString));
   }
+  const dateString = params.get("date");
+  if (dateString) {
+    context.date.set(JSON.parse(dateString));
+  }
 }
 
 /**
@@ -132,6 +132,7 @@ function updateHash(context: ContextType) {
     ...context.place.value,
     enclosedPlaces: [],
   })}`;
+  hash += `&date=${JSON.stringify(context.date.value)}`;
   history.pushState({}, "", `/tools/scatter2#${encodeURIComponent(hash)}`);
 }
 

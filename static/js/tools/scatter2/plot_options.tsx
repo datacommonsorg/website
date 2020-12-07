@@ -39,18 +39,22 @@ function PlotOptions(): JSX.Element {
     shouldExpandOptions(place.value, x.value, y.value)
   );
 
+  const { year, month, day } = date.value;
+
   return (
     <Card>
       <Container>
         <Row>
-          <Col xs="4">
+          <Col xs="auto">Date</Col>
+          <Col xs="auto">
             <FormGroup>
-              <Label>Date</Label>
               <Input
                 type="select"
                 onChange={(event) => selectYear(date, event)}
+                className="datepicker"
+                value={year}
               >
-                <option value="0">Year</option>
+                <option value={0}>Year</option>
                 {getYears().map((year) => (
                   <option value={year} key={year}>
                     {year}
@@ -60,16 +64,23 @@ function PlotOptions(): JSX.Element {
               <Input
                 type="select"
                 onChange={(event) => selectMonth(date, event)}
+                className="datepicker"
+                value={month}
               >
-                <option value="0">Month</option>
+                <option value={0}>Month</option>
                 {getMonths().map((month) => (
                   <option value={month} key={month}>
                     {month}
                   </option>
                 ))}
               </Input>
-              <Input type="select" onChange={(event) => selectDay(date, event)}>
-                <option value="0">Day</option>
+              <Input
+                type="select"
+                onChange={(event) => selectDay(date, event)}
+                className="datepicker"
+                value={day}
+              >
+                <option value={0}>Day</option>
                 {getDays().map((day) => (
                   <option value={day} key={day}>
                     {day}

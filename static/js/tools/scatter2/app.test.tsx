@@ -55,28 +55,72 @@ function mockAxios(): () => void {
       },
     });
 
+  // Population and statvar data
   const data = {
     Count_Person: {
-      "geoId/10001": 180786,
-      "geoId/10003": 558753,
-      "geoId/10005": 234225,
+      val: {
+        "geoId/10005": 219321,
+        "geoId/10001": 174542,
+        "geoId/10003": 555058,
+      },
+      measurementMethod: "CensusPEPSurvey",
+      importName: "CensusPEP",
+      provenanceDomain: "census.gov",
+      provenanceUrl: "https://www.census.gov/programs-surveys/popest.html",
     },
     Count_Person_Employed: {
-      "geoId/10001": 76726,
-      "geoId/10003": 276517,
-      "geoId/10005": 104845,
+      val: {
+        "geoId/10001": 73404,
+        "geoId/10003": 280645,
+        "geoId/10005": 96477,
+      },
+      measurementMethod: "BLSSeasonallyUnadjusted",
+      observationPeriod: "P1Y",
+      importName: "BLS_LAUS",
+      provenanceDomain: "bls.gov",
+      provenanceUrl: "https://www.bls.gov/lau/",
     },
     Count_Establishment: {
-      "geoId/10001": 3422,
-      "geoId/10003": 16056,
-      "geoId/10005": 5601,
+      val: { "geoId/10001": 3422, "geoId/10003": 16056, "geoId/10005": 5601 },
+      measurementMethod: "CensusCBPSurvey",
+      importName: "CensusCountyBusinessPatterns",
+      provenanceDomain: "census.gov",
+      provenanceUrl: "https://www.census.gov/",
     },
     Count_HousingUnit: {
-      "geoId/10001": 70576,
-      "geoId/10003": 222146,
-      "geoId/10005": 135529,
+      val: {
+        "geoId/10001": 68106,
+        "geoId/10003": 220459,
+        "geoId/10005": 129362,
+      },
+      measurementMethod: "CensusACS5yrSurvey",
+      importName: "CensusACS5YearSurvey",
+      provenanceDomain: "census.gov",
+      provenanceUrl: "https://www.census.gov/",
     },
   };
+  when(axios.get)
+    .calledWith(
+      `/api/stats/collection?parent_place=geoId/10&child_type=County&date=2016&stat_vars=Count_Person&stat_vars=Count_Person&stat_vars=Count_Person_Employed&stat_vars=Count_Establishment`
+    )
+    .mockResolvedValue({
+      data: {
+        Count_Person: data.Count_Person,
+        Count_Person_Employed: data.Count_Person_Employed,
+        Count_Establishment: data.Count_Establishment,
+      },
+    });
+  when(axios.get)
+    .calledWith(
+      `/api/stats/collection?parent_place=geoId/10&child_type=County&date=2016&stat_vars=Count_Person&stat_vars=Count_Person&stat_vars=Count_Person_Employed&stat_vars=Count_HousingUnit`
+    )
+    .mockResolvedValue({
+      data: {
+        Count_Person: data.Count_Person,
+        Count_Person_Employed: data.Count_Person_Employed,
+        Count_HousingUnit: data.Count_HousingUnit,
+      },
+    });
 
   for (const dcid of ["geoId/10001", "geoId/10003", "geoId/10005"]) {
     // Available statvars
@@ -89,14 +133,6 @@ function mockAxios(): () => void {
           "Count_HousingUnit",
         ],
       });
-
-    for (const statVar in data) {
-      when(axios.get)
-        .calledWith(`/api/stats/value?place=${dcid}&stat_var=${statVar}`)
-        .mockResolvedValue({
-          data: { value: data[statVar][dcid] },
-        });
-    }
   }
 
   // Statvar menu

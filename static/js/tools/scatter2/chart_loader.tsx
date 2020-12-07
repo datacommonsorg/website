@@ -139,27 +139,21 @@ async function loadPopulationsAndData(
 ) {
   const dateStr = formatDate(date);
   setIsLoading(true);
-  const [populations, data] = await Promise.all([
-    // Populations
-    getStatsCollection(
-      place.enclosingPlace.dcid,
-      place.enclosedPlaceType,
-      dateStr,
-      [
-        getPopulationStatVar(x.value.statVar),
-        getPopulationStatVar(y.value.statVar),
-      ]
-    ),
-    // Statvar data
-    getStatsCollection(
-      place.enclosingPlace.dcid,
-      place.enclosedPlaceType,
-      dateStr,
-      [_.findKey(x.value.statVar), _.findKey(y.value.statVar)]
-    ),
-  ]);
+  const populationAndData = await getStatsCollection(
+    place.enclosingPlace.dcid,
+    place.enclosedPlaceType,
+    dateStr,
+    [
+      // Populations
+      getPopulationStatVar(x.value.statVar),
+      getPopulationStatVar(y.value.statVar),
+      // Statvar data
+      _.findKey(x.value.statVar),
+      _.findKey(y.value.statVar),
+    ]
+  );
   // TODO: handle error.
-  setCache({ ...populations, ...data });
+  setCache(populationAndData);
   setIsLoading(false);
 }
 

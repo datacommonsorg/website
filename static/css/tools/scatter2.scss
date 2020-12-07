@@ -60,7 +60,10 @@
 
 .form-group {
   display: flex;
-  flex-wrap: wrap;
+}
+
+.datepicker {
+  margin-right: 10px;
 }
 
 .card {
