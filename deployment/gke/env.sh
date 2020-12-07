@@ -2,7 +2,7 @@
 set -a
 
 # Pod replica
-REPLICAS="1"
+REPLICAS="18"
 
 # Website resource
 WEBSITE_MEM_REQ="1G"
@@ -10,8 +10,8 @@ WEBSITE_CPU_REQ="500m"
 WEBSITE_MEM_LIMIT="1G"
 WEBSITE_CPU_LIMIT="500m"
 # Website container
-WEBSITE_IMAGE="website:local"
-WEBSITE_PULL_POLICY="Never"
+WEBSITE_IMAGE="gcr.io/datcom-ci/website:$(git rev-parse --short HEAD)"
+WEBSITE_PULL_POLICY="Always"
 
 
 # Cloud Endpoints service name
@@ -25,16 +25,16 @@ ESP_CPU_LIMIT="1000m"
 
 
 # Mixer resources
-MIXER_MEM_REQ="2G"
+MIXER_MEM_REQ="6G"
 MIXER_CPU_REQ="500m"
-MIXER_MEM_LIMIT="2G"
+MIXER_MEM_LIMIT="6G"
 MIXER_CPU_LIMIT="1000m"
 # Mixer container
 MIXER_IMAGE="gcr.io/datcom-ci/datacommons-mixer:latest"
 MIXER_PULL_POLICY="Always"
 # Mixer arguments
-BQ_DATASET="$(head -1 ../mixer/deployment/bigquery.txt)"
-BT_TABLE="$(head -1 ../mixer/deployment/bigtable.txt)"
+BQ_DATASET="$(head -1 ../../mixer/deployment/bigquery.txt)"
+BT_TABLE="$(head -1 ../../mixer/deployment/bigtable.txt)"
 BT_PROJECT="google.com:datcom-store-dev"
 BT_INSTANCE="prophet-cache"
 PROJECT_ID="datcom-mixer-staging"

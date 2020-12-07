@@ -39,7 +39,7 @@ class DevelopmentConfig(Config):
     GCS_BUCKET = 'datcom-browser-staging.appspot.com'
 
 
-class MinikubeConfig(Config):
+class KubernetesConfig(Config):
     DEVELOPMENT = True
     PROJECT = 'datcom-browser-staging'
     API_PROJECT = 'datcom-mixer-staging'

@@ -1,9 +1,11 @@
 #!/bin/bash
 
+# TODO(shifucun): merge this with ../minikube/generate_yaml.sh
+
 . env.sh
 
-yq merge -a=append website.yaml.tmpl ../mixer/deployment/template/esp.yaml.tmpl > deployment.yaml
-yq merge -i -a=append deployment.yaml ../mixer/deployment/template/mixer.yaml.tmpl
+yq merge -a=append ../website.yaml.tmpl ../../mixer/deployment/template/esp.yaml.tmpl > deployment.yaml
+yq merge -i -a=append deployment.yaml ../../mixer/deployment/template/mixer.yaml.tmpl
 
 # Pod replicas
 yq w -i deployment.yaml spec.replicas $REPLICAS
@@ -17,7 +19,7 @@ yq w -i --style=double deployment.yaml spec.template.spec.containers[0].resource
 # Website container
 yq w -i deployment.yaml spec.template.spec.containers[0].image $WEBSITE_IMAGE
 yq w -i deployment.yaml spec.template.spec.containers[0].imagePullPolicy $WEBSITE_PULL_POLICY
-yq w -i deployment.yaml spec.template.spec.containers[0].env[1].value "minikube"
+yq w -i deployment.yaml spec.template.spec.containers[0].env[1].value "kubernetes"
 
 
 # Mixer resource
@@ -47,9 +49,5 @@ yq w -i --style=double deployment.yaml spec.template.spec.containers[1].resource
 yq w -i --style=double deployment.yaml spec.template.spec.containers[1].resources.limits.memory $ESP_MEM_LIMIT
 yq w -i --style=double deployment.yaml spec.template.spec.containers[1].resources.limits.cpu $ESP_CPU_LIMIT
 
-# ESP arguments
-# Need to set "non_gcp" flag to make ESP working on Minikube
-yq w -i --style=double --inplace -- deployment.yaml spec.template.spec.containers[1].args[+] '--non_gcp'
-
 # ESP service configuration
-yq w --style=double ../mixer/deployment/template/endpoints.yaml.tmpl name $SERVICE_NAME > endpoints.yaml
+yq w --style=double ../../mixer/deployment/template/endpoints.yaml.tmpl name $SERVICE_NAME > endpoints.yaml

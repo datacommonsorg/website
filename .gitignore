@@ -24,7 +24,8 @@ website-robot-key.json
 mixer-robot-key.json
 
 # Kubenetes
-**/minikube/deployment.yaml
-**/minikube/endpoints.yaml
+**/deployment.yaml
+**/endpoints.yaml
 
 mixer-grpc.latest.pb
+
