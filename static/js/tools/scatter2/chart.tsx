@@ -56,7 +56,10 @@ function Chart(props: ChartPropsType): JSX.Element {
       </Row>
       <Row>
         <Card id="stats">
+          <Badge color="light">X Data Source: {props.xProvenance}</Badge>
+          <Badge color="light">Y Data Source: {props.yProvenance}</Badge>
           <Badge color="light">X Mean: {getXMean(props.points)}</Badge>
+          <Badge color="light">Y Mean: {getYMean(props.points)}</Badge>
           <Badge color="light">Y Mean: {getYMean(props.points)}</Badge>
           <Badge color="light">
             X Standard Deviation: {getXStd(props.points)}

@@ -26,6 +26,7 @@ import { PlaceOptions } from "./place_options";
 import { PlotOptions } from "./plot_options";
 import { ChartLoader } from "./chart_loader";
 import { Info } from "./info";
+import { Spinner } from "./spinner";
 import {
   Context,
   ContextType,
@@ -68,6 +69,7 @@ function App(): JSX.Element {
           )}
         </Container>
       </div>
+      <Spinner isOpen={context.isLoading.value > 0} />
     </div>
   );
 }

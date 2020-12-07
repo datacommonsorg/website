@@ -23,7 +23,6 @@ import React, { useContext, useEffect, useState } from "react";
 import _ from "lodash";
 import { saveToFile } from "../../shared/util";
 import { getStatsCollection, SourceSeries } from "./util";
-import { Spinner } from "./spinner";
 import { Chart } from "./chart";
 import {
   Context,
@@ -32,6 +31,7 @@ import {
   AxisWrapper,
   PlaceInfo,
   DateInfo,
+  IsLoadingWrapper,
 } from "./context";
 import { StatsVarNode } from "../timeline_util";
 
@@ -50,7 +50,7 @@ type Cache = Record<string, SourceSeries>;
 
 function ChartLoader(): JSX.Element {
   const { x, y } = useContext(Context);
-  const [cache, isLoading] = useCache();
+  const cache = useCache();
   const points = usePoints(cache);
 
   const xVal = x.value;
@@ -71,18 +71,18 @@ function ChartLoader(): JSX.Element {
           yProvenance={getProvenance(cache, _.findKey(yVal.statVar))}
         />
       )}
-      <Spinner isOpen={isLoading} />
     </div>
   );
 }
 
-function useCache(): [Cache, boolean] {
-  const { x, y, place, date } = useContext(Context);
+/**
+ * Hook that returns a cache containing population and statvar data.
+ */
+function useCache(): Cache {
+  const { x, y, place, date, isLoading } = useContext(Context);
 
   // From statvar DCIDs to `SourceSeries` data
   const [cache, setCache] = useState({} as Cache);
-  // Whether data are being retrieved
-  const [isLoading, setIsLoading] = useState(false);
 
   const xVal = x.value;
   const yVal = y.value;
@@ -103,13 +103,19 @@ function useCache(): [Cache, boolean] {
       return;
     }
     if (!arePopulationsAndDataLoaded(cache, xVal, yVal, dateVal)) {
-      loadPopulationsAndData(x, y, placeVal, dateVal, setCache, setIsLoading);
+      loadPopulationsAndData(x, y, placeVal, dateVal, isLoading, setCache);
     }
   }, [xVal, yVal, placeVal, dateVal]);
 
-  return [cache, isLoading];
+  return cache;
 }
 
+/**
+ * Checks if the date of data to retrieve is chosen.
+ * Returns true if year is chosen, or year and month are chosen,
+ * or year, month, and day are chosen.
+ * @param date
+ */
 function isDateChosen(date: DateInfo): boolean {
   return (
     date.year > 0 ||
@@ -118,6 +124,11 @@ function isDateChosen(date: DateInfo): boolean {
   );
 }
 
+/**
+ * Converts `DateInfo` to a string of the form YYYY-MM-DD,
+ * YYYY-MM, or YYYY, depending if month and day are chosen.
+ * @param date
+ */
 function formatDate(date: DateInfo) {
   let str = date.year.toString();
   if (date.month) {
@@ -129,20 +140,29 @@ function formatDate(date: DateInfo) {
   return str;
 }
 
+/**
+ * Fills cache with population and statvar data.
+ * @param x
+ * @param y
+ * @param place
+ * @param date
+ * @param isLoading
+ * @param setCache
+ */
 async function loadPopulationsAndData(
   x: AxisWrapper,
   y: AxisWrapper,
   place: PlaceInfo,
   date: DateInfo,
-  setCache: (cache: Cache) => void,
-  setIsLoading: (isLoading: boolean) => void
+  isLoading: IsLoadingWrapper,
+  setCache: (cache: Cache) => void
 ) {
-  const dateStr = formatDate(date);
-  setIsLoading(true);
+  const dateString = formatDate(date);
+  isLoading.increment();
   const populationAndData = await getStatsCollection(
     place.enclosingPlace.dcid,
     place.enclosedPlaceType,
-    dateStr,
+    dateString,
     [
       // Populations
       getPopulationStatVar(x.value.statVar),
@@ -152,11 +172,21 @@ async function loadPopulationsAndData(
       _.findKey(y.value.statVar),
     ]
   );
-  // TODO: handle error.
-  setCache(populationAndData);
-  setIsLoading(false);
+  isLoading.decrement();
+  if (!arePopulationsAndDataLoaded(populationAndData, x.value, y.value, date)) {
+    alert(`Sorry, no data available for ${dateString}`);
+  } else {
+    setCache(populationAndData);
+  }
 }
 
+/**
+ * Gets the provenance for a statvar from the cache.
+ * Returns an empty string if the statvar is not in the
+ * cache.
+ * @param cache
+ * @param statVar
+ */
 function getProvenance(cache: Cache, statVar: string) {
   if (statVar in cache) {
     return cache[statVar].provenanceDomain;
@@ -166,6 +196,7 @@ function getProvenance(cache: Cache, statVar: string) {
 
 /**
  * Hook that returns an array of points for plotting.
+ * @param cache
  */
 function usePoints(cache: Cache): Array<Point> {
   const { x, y, place, date } = useContext(Context);
@@ -181,14 +212,12 @@ function usePoints(cache: Cache): Array<Point> {
    * and after plot options change.
    */
   useEffect(() => {
-    if (_.isEmpty(cache)) {
+    if (
+      _.isEmpty(cache) ||
+      !arePopulationsAndDataLoaded(cache, xVal, yVal, dateVal)
+    ) {
       return;
     }
-    if (!arePopulationsAndDataLoaded(cache, xVal, yVal, dateVal)) {
-      alert(`Sorry, no data available for ${formatDate(date.value)}`);
-      return;
-    }
-
     const points = getPoints(xVal, yVal, placeVal, cache);
     setPoints(computeCapita(points, xVal.perCapita, yVal.perCapita));
 
@@ -198,15 +227,26 @@ function usePoints(cache: Cache): Array<Point> {
       downloadButton.onclick = () =>
         downloadData(xVal, yVal, placeVal, dateVal, points);
     }
-  }, [cache, xVal, yVal, placeVal]);
+  }, [cache, xVal, yVal]);
 
   return points;
 }
 
+/**
+ * Gets the DCID of the per capita denominator.
+ * @param node
+ */
 function getPopulationStatVar(node: StatsVarNode): string {
   return Object.values(node)[0].denominators[0] || "Count_Person";
 }
 
+/**
+ * Divides `xVal` and `yVal` by `xPop` and `yPop` if per capita is
+ * selected for that axis.
+ * @param points
+ * @param xPerCapita
+ * @param yPerCapita
+ */
 function computeCapita(
   points: Array<Point>,
   xPerCapita: boolean,
@@ -275,20 +315,25 @@ function arePlacesLoaded(place: PlaceInfo): boolean {
 }
 
 /**
- * Checks if the name of a statvar for an axis has been loaded from the statvar menu.
+ * Checks if the name of a statvar for an axis has been
+ * loaded from the statvar menu.
  * @param axis
  */
 function isStatVarNameLoaded(axis: Axis): boolean {
   return !_.isEmpty(axis.name);
 }
 
+/**
+ * Checks if the names of the two statvars for both axes
+ * has been loaded from the statvar menu.
+ */
 function areStatVarNamesLoaded(x: Axis, y: Axis): boolean {
   return isStatVarNameLoaded(x) && isStatVarNameLoaded(y);
 }
 
 /**
- * Checks if the population data (for per capita) and statvar data have been loaded
- * for both axes.
+ * Checks if the population data (for per capita) and statvar data
+ * have been loaded for both axes.
  * @param x
  * @param y
  */

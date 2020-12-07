@@ -36,8 +36,14 @@ import {
 import { Menu } from "../statsvar_menu";
 import { NoopStatsVarFilter, TimelineStatsVarFilter } from "../commons";
 import { StatsVarNode, getStatsVar } from "../timeline_util";
-import { Context, emptyAxis, Axis, AxisWrapper, NamedPlace } from "./context";
-import { Spinner } from "./spinner";
+import {
+  Context,
+  emptyAxis,
+  Axis,
+  AxisWrapper,
+  NamedPlace,
+  IsLoadingWrapper,
+} from "./context";
 
 interface NamedStatVar {
   // Always contains a single statvar.
@@ -76,7 +82,7 @@ function StatVarChooser(): JSX.Element {
     ...thirdStatVar.statVar,
   };
   // Filtered statvar DCIDs.
-  const [validStatVars, isLoading] = useValidStatVars();
+  const validStatVars = useValidStatVars();
 
   return (
     <div className="explore-menu-container" id="explore">
@@ -106,7 +112,6 @@ function StatVarChooser(): JSX.Element {
           }
         ></Menu>
       </div>
-      <Spinner isOpen={isLoading} />
       <Modal
         isOpen={!_.isEmpty(thirdStatVar.statVar)}
         backdrop="static"
@@ -181,15 +186,13 @@ function StatVarChooser(): JSX.Element {
 }
 
 /**
- * Hook that returns a set of statvars available for the child places
- * and a boolean indicating if the statvars are currently being loaded.
+ * Hook that returns a set of statvars available for the child places.
  */
-function useValidStatVars(): [Set<string>, boolean] {
-  const { place, x, y } = useContext(Context);
+function useValidStatVars(): Set<string> {
+  const { place, x, y, isLoading } = useContext(Context);
 
   // Stores filtered statvar DCIDs.
   const [validStatVars, setValidStatVars] = useState(new Set<string>());
-  const [isLoading, setIsLoading] = useState(false);
 
   // When child places change, refilter the statvars.
   useEffect(() => {
@@ -201,12 +204,12 @@ function useValidStatVars(): [Set<string>, boolean] {
       x,
       y,
       place.value.enclosedPlaces,
-      setValidStatVars,
-      setIsLoading
+      isLoading,
+      setValidStatVars
     );
   }, [place.value.enclosedPlaces]);
 
-  return [validStatVars, isLoading];
+  return validStatVars;
 }
 
 /**
@@ -216,24 +219,23 @@ function useValidStatVars(): [Set<string>, boolean] {
  * @param x
  * @param y
  * @param enclosedPlaces
+ * @param isLoading
  * @param setValidStatVars
- * @param setIsLoading
  */
-function filterStatVars(
+async function filterStatVars(
   x: AxisWrapper,
   y: AxisWrapper,
   enclosedPlaces: Array<NamedPlace>,
-  setValidStatVars: (statVars: Set<string>) => void,
-  setIsLoading: (isLoading: boolean) => void
-): void {
-  setIsLoading(true);
-  getStatsVar(enclosedPlaces.map((namedPlace) => namedPlace.dcid)).then(
-    (statVars) => {
-      setValidStatVars(statVars);
-      setIsLoading(false);
-      alertIfStatVarsUnavailable(x, y, statVars);
-    }
+  isLoading: IsLoadingWrapper,
+  setValidStatVars: (statVars: Set<string>) => void
+): Promise<void> {
+  isLoading.increment();
+  const statVars = await getStatsVar(
+    enclosedPlaces.map((namedPlace) => namedPlace.dcid)
   );
+  isLoading.decrement();
+  setValidStatVars(statVars);
+  alertIfStatVarsUnavailable(x, y, statVars);
 }
 
 /**

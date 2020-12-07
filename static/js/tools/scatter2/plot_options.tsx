@@ -19,14 +19,12 @@
  * lower and upper bounds for populations.
  */
 
-import React, { useContext, useEffect, useState } from "react";
+import React, { useContext, useState } from "react";
 import { FormGroup, Label, Input, Card, Button, Collapse } from "reactstrap";
 import {
-  Axis,
   AxisWrapper,
   Context,
   DateInfoWrapper,
-  PlaceInfo,
   PlaceInfoWrapper,
 } from "./context";
 
@@ -36,20 +34,16 @@ function PlotOptions(): JSX.Element {
   const { place, date, x, y } = useContext(Context);
 
   const [open, setOpen] = useState(false);
-  // Expand plot options if any option is selected
-  useEffect(() => {
-    setOpen(shouldExpandOptions(place.value, x.value, y.value));
-  }, [place, x, y]);
 
   const { year, month, day } = date.value;
 
   return (
     <Card>
-      <Container>
+      <Container id="plot-options">
         <Row>
           <Col xs="auto">Date</Col>
           <Col xs="auto">
-            <FormGroup>
+            <FormGroup className="flex-container">
               <Input
                 type="select"
                 onChange={(event) => selectYear(date, event)}
@@ -203,10 +197,19 @@ function PlotOptions(): JSX.Element {
   );
 }
 
+/**
+ * Returns current year using local date.
+ */
 function getCurrentYear(): number {
   return new Date().getFullYear();
 }
 
+/**
+ * Returns a sorted array of numbers from `n` to `m`.
+ * @param n
+ * @param m
+ * @param descending
+ */
 function getNToM(n: number, m: number, descending = false): Array<number> {
   const nums = [];
   for (let i = n; i <= m; i++) {
@@ -215,18 +218,32 @@ function getNToM(n: number, m: number, descending = false): Array<number> {
   return descending ? nums.sort((a, b) => b - a) : nums;
 }
 
+/**
+ * Returns possible years for the datepicker.
+ */
 function getYears(): Array<number> {
   return getNToM(1900, getCurrentYear(), true);
 }
 
+/**
+ * Returns possible months for the datepicker.
+ */
 function getMonths(): Array<number> {
   return getNToM(1, 12, true);
 }
 
+/**
+ * Returns possible days for the datepicker.
+ */
 function getDays(): Array<number> {
   return getNToM(1, 31, true);
 }
 
+/**
+ * Selects a year for the datepicker.
+ * @param date
+ * @param event
+ */
 function selectYear(
   date: DateInfoWrapper,
   event: React.ChangeEvent<HTMLInputElement>
@@ -234,6 +251,11 @@ function selectYear(
   date.setYear(Number.parseInt(event.target.value));
 }
 
+/**
+ * Selects a month for the datepicker.
+ * @param date
+ * @param event
+ */
 function selectMonth(
   date: DateInfoWrapper,
   event: React.ChangeEvent<HTMLInputElement>
@@ -241,6 +263,9 @@ function selectMonth(
   date.setMonth(Number.parseInt(event.target.value));
 }
 
+/**
+ * Selects a day for the datepicker.
+ */
 function selectDay(
   date: DateInfoWrapper,
   event: React.ChangeEvent<HTMLInputElement>
@@ -305,21 +330,6 @@ function selectUpperBound(
   event: React.ChangeEvent<HTMLInputElement>
 ): void {
   place.setUpperBound(parseInt(event.target.value) || 1e10);
-}
-
-/**
- * Checks if any of the plot options is selected.
- * @param context
- */
-function shouldExpandOptions(place: PlaceInfo, x: Axis, y: Axis): boolean {
-  return (
-    x.log ||
-    y.log ||
-    x.perCapita ||
-    y.perCapita ||
-    place.lowerBound != 0 ||
-    place.upperBound != 1e10
-  );
 }
 
 export { PlotOptions };

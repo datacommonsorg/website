@@ -117,6 +117,15 @@ const emptyDate: DateInfo = Object.freeze({
   day: 0,
 });
 
+interface IsLoadingWrapper {
+  value: number;
+
+  // Setters
+  set: Setter<number>;
+  increment: Setter<void>;
+  decrement: Setter<void>;
+}
+
 // Global app state
 interface ContextType {
   // X axis
@@ -127,6 +136,8 @@ interface ContextType {
   place: PlaceInfoWrapper;
   // Date of data to retrieve
   date: DateInfoWrapper;
+  // Whether there are currently active network tasks
+  isLoading: IsLoadingWrapper;
 }
 
 const Context = createContext({} as ContextType);
@@ -139,6 +150,7 @@ function useContextStore(): ContextType {
   const [y, setY] = useState(emptyAxis);
   const [place, setPlace] = useState(emptyPlace);
   const [date, setDate] = useState(emptyDate);
+  const [isLoading, setIsLoading] = useState(0);
   return {
     x: {
       value: x,
@@ -173,6 +185,12 @@ function useContextStore(): ContextType {
       setYear: getSetYear(date, setDate),
       setMonth: getSetMonth(date, setDate),
       setDay: getSetDay(date, setDate),
+    },
+    isLoading: {
+      value: isLoading,
+      set: (isLoading) => setIsLoading(isLoading),
+      increment: () => setIsLoading(isLoading + 1),
+      decrement: () => setIsLoading(isLoading - 1),
     },
   };
 }
@@ -367,6 +385,7 @@ export {
   PlaceInfoWrapper,
   DateInfo,
   DateInfoWrapper,
+  IsLoadingWrapper,
   emptyAxis,
   emptyPlace,
 };

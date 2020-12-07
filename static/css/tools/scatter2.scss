@@ -59,7 +59,12 @@
 }
 
 .form-group {
-  display: flex;
+  margin-bottom: 0;
+}
+
+#plot-options .collapse .row,
+#plot-options .collapsing .row {
+  margin-top: 10px;
 }
 
 .datepicker {

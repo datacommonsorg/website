@@ -148,11 +148,13 @@ function expectCircles(n: number, app: Enzyme.ReactWrapper): void {
   expect($("circle").length).toEqual(n);
 }
 
-function expectStat(
+function expectInfo(
   xMean: number,
   yMean: number,
   xStd: number,
   yStd: number,
+  xProvenance: string,
+  yProvenance: string,
   app: Enzyme.ReactWrapper
 ): void {
   const text = app.text();
@@ -160,6 +162,8 @@ function expectStat(
   expect(text).toContain(`Y Mean: ${yMean}`);
   expect(text).toContain(`X Standard Deviation: ${xStd}`);
   expect(text).toContain(`Y Standard Deviation: ${yStd}`);
+  expect(text).toContain(`X Data Source: ${xProvenance}`);
+  expect(text).toContain(`Y Data Source: ${yProvenance}`);
 }
 
 test("all functionalities", async (done) => {
@@ -195,7 +199,15 @@ test("all functionalities", async (done) => {
     // Title
     expect(app.text()).toContain("Number Of Establishments vs Employed");
     // Stats
-    expectStat(152696, 8359.667, 108149.894, 6753.678, app);
+    expectInfo(
+      152696,
+      8359.667,
+      108149.894,
+      6753.678,
+      "bls.gov",
+      "census.gov",
+      app
+    );
     // Points
     expectCircles(3, app);
   });
@@ -205,7 +217,15 @@ test("all functionalities", async (done) => {
   const expectTitle = (title: string) => expect(app.text()).toContain(title);
 
   expectTitle("Employed vs Number Of Establishments");
-  expectStat(8359.667, 152696, 6753.678, 108149.894, app);
+  expectInfo(
+    8359.667,
+    152696,
+    6753.678,
+    108149.894,
+    "census.gov",
+    "bls.gov",
+    app
+  );
   expectCircles(3, app);
 
   // Per capita
@@ -218,7 +238,7 @@ test("all functionalities", async (done) => {
     .at(0)
     .simulate("change", { target: { checked: true } });
   expectTitle("Employed Per Capita vs Number Of Establishments Per Capita");
-  expectStat(0.024, 0.456, 0.005, 0.036, app);
+  expectInfo(0.024, 0.456, 0.005, 0.036, "census.gov", "bls.gov", app);
   expectCircles(3, app);
 
   // Log
@@ -253,7 +273,7 @@ test("all functionalities", async (done) => {
     expect(app.text()).toContain(
       "Housing Units Per Capita vs Employed Per Capita"
     );
-    expectStat(0.456, 0.456, 0.036, 0.107, app);
+    expectInfo(0.456, 0.456, 0.036, 0.107, "bls.gov", "census.gov", app);
     expectCircles(3, app);
   });
 
