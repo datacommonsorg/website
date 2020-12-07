@@ -357,3 +357,61 @@ class TestApiGetPlacesIn(unittest.TestCase):
                 "geoId/56041", "geoId/56043", "geoId/56045"
             ]
         }
+
+
+class TestApiGetPlacesInNames(unittest.TestCase):
+
+    @patch('services.datacommons.send_request')
+    def test_api_get_places_in_names(self, send_request):
+
+        def side_effect(req_url,
+                        req_json={},
+                        compress=False,
+                        post=True,
+                        has_payload=True):
+            if req_url == dc.API_ROOT + "/node/places-in" and req_json == {
+                    'dcids': ['geoId/10'],
+                    'place_type': 'County'
+            } and not post:
+                return [{
+                    "dcid": "geoId/10",
+                    "place": "geoId/10001"
+                }, {
+                    "dcid": "geoId/10",
+                    "place": "geoId/10003"
+                }, {
+                    "dcid": "geoId/10",
+                    "place": "geoId/10005"
+                }]
+            elif req_url == dc.API_ROOT + "/node/property-values" and req_json == {
+                    'dcids': ["geoId/10001", "geoId/10003", "geoId/10005"],
+                    'property': 'name',
+                    'direction': 'out'
+            } and post:
+                return {
+                    "geoId/10001": {
+                        'out': [{
+                            'value': "Kent County"
+                        }]
+                    },
+                    "geoId/10003": {
+                        'out': [{
+                            'value': "New Castle County"
+                        }]
+                    },
+                    "geoId/10005": {
+                        'out': [{
+                            'value': "Sussex County"
+                        }]
+                    },
+                }
+
+        send_request.side_effect = side_effect
+        response = app.test_client().get(
+            '/api/place/places-in-names?dcid=geoId/10&placeType=County')
+        assert response.status_code == 200
+        assert json.loads(response.data) == {
+            "geoId/10001": "Kent County",
+            "geoId/10003": "New Castle County",
+            "geoId/10005": "Sussex County",
+        }

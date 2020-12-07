@@ -176,6 +176,7 @@ def get_stats_collection():
     date = request.args.get("date")
     stat_vars = request.args.getlist("stat_vars")
     return Response(json.dumps(
-        dc.get_stats_collection(parent_place, child_type, date, stat_vars)['data']),
+        dc.get_stats_collection(parent_place, child_type, date,
+                                stat_vars)['data']),
                     200,
                     mimetype='application/json')

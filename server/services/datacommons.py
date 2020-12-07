@@ -137,6 +137,22 @@ def get_stats_value(place, stat_var, date, measurement_method,
 
 
 def get_stats_collection(parent_place, child_type, date, stat_vars):
+    """Gets the statistical variable values for child places of a certain place
+    type contained in a parent place at a given date.
+
+    Args:
+        parent_place: Parent place DCID as a string.
+        child_type: Type of child places as a string.
+        date: Date as a string of the form YYYY-MM-DD (month and day are optional).
+        stat_vars: List of statistical variable DCIDs each as a string.
+    
+    Returns:
+        Dict with a single key "data". The value is a dict keyed by statvar DCIDs.
+        The values for the DCIDs are dicts keyed by "val", "measurementMethod",
+        "importName", "provenanceDomain", and "provenanceUrl". The values for "val"
+        are dicts keyed by child place DCIDs with the statvar values as values.
+        The values for the rest are strings.
+    """
     url = API_ROOT + API_ENDPOINTS['get_stats_collection']
     req_json = {
         'parent_place': parent_place,
