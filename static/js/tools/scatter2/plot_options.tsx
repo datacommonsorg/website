@@ -19,7 +19,7 @@
  * lower and upper bounds for populations.
  */
 
-import React, { useContext, useState } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import { FormGroup, Label, Input, Card, Button, Collapse } from "reactstrap";
 import {
   Axis,
@@ -35,9 +35,11 @@ import { Container, Row, Col } from "reactstrap";
 function PlotOptions(): JSX.Element {
   const { place, date, x, y } = useContext(Context);
 
-  const [open, setOpen] = useState(
-    shouldExpandOptions(place.value, x.value, y.value)
-  );
+  const [open, setOpen] = useState(false);
+  // Expand plot options if any option is selected
+  useEffect(() => {
+    setOpen(shouldExpandOptions(place.value, x.value, y.value));
+  }, [place, x, y]);
 
   const { year, month, day } = date.value;
 
