@@ -34,6 +34,9 @@ import {
   Axis,
   PlaceInfo,
   IsLoadingWrapper,
+  EmptyAxis,
+  EmptyPlace,
+  EmptyDate,
 } from "./context";
 
 function App(): JSX.Element {
@@ -125,14 +128,24 @@ function applyHash(context: ContextType) {
  */
 function updateHash(context: ContextType) {
   let hash = "";
-  hash += `x=${JSON.stringify(context.x.value)}`;
-  hash += `&y=${JSON.stringify(context.y.value)}`;
-  hash += `&place=${JSON.stringify({
-    ...context.place.value,
-    enclosedPlaces: [],
-  })}`;
-  hash += `&date=${JSON.stringify(context.date.value)}`;
-  history.pushState({}, "", `/tools/scatter2#${encodeURIComponent(hash)}`);
+  if (!_.isEqual(context.x.value, EmptyAxis)) {
+    hash += `x=${JSON.stringify(context.x.value)}`;
+  }
+  if (!_.isEqual(context.y.value, EmptyAxis)) {
+    hash += `&y=${JSON.stringify(context.y.value)}`;
+  }
+  if (!_.isEqual(context.place.value, EmptyPlace)) {
+    hash += `&place=${JSON.stringify({
+      ...context.place.value,
+      enclosedPlaces: [],
+    })}`;
+  }
+  if (!_.isEqual(context.date.value, EmptyDate)) {
+    hash += `&date=${JSON.stringify(context.date.value)}`;
+  }
+  if (hash) {
+    history.pushState({}, "", `/tools/scatter2#${encodeURIComponent(hash)}`);
+  }
 }
 
 /**

@@ -38,7 +38,7 @@ import { NoopStatsVarFilter, TimelineStatsVarFilter } from "../commons";
 import { StatsVarNode, getStatsVar } from "../timeline_util";
 import {
   Context,
-  emptyAxis,
+  EmptyAxis,
   Axis,
   AxisWrapper,
   NamedPlace,
@@ -412,15 +412,15 @@ function confirmStatVars(
   if (modalSelected.x) {
     values.push(x.value);
   } else {
-    assignAxes([x], [emptyAxis]);
+    assignAxes([x], [EmptyAxis]);
   }
   if (modalSelected.y) {
     values.push(y.value);
   } else {
-    assignAxes([y], [emptyAxis]);
+    assignAxes([y], [EmptyAxis]);
   }
   values.push({
-    ...emptyAxis,
+    ...EmptyAxis,
     statVar: thirdStatVar.statVar,
     name: thirdStatVar.name,
   });

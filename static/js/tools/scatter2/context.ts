@@ -32,7 +32,7 @@ interface Axis {
   perCapita: boolean;
 }
 
-const emptyAxis: Axis = Object.freeze({
+const EmptyAxis: Axis = Object.freeze({
   statVar: {},
   name: "",
   log: false,
@@ -84,7 +84,7 @@ interface PlaceInfoWrapper {
   setUpperBound: Setter<number>;
 }
 
-const emptyPlace: PlaceInfo = Object.freeze({
+const EmptyPlace: PlaceInfo = Object.freeze({
   enclosingPlace: {
     name: "",
     dcid: "",
@@ -111,7 +111,7 @@ interface DateInfoWrapper {
   setDay: Setter<number>;
 }
 
-const emptyDate: DateInfo = Object.freeze({
+const EmptyDate: DateInfo = Object.freeze({
   year: 0,
   month: 0,
   day: 0,
@@ -151,10 +151,10 @@ const Context = createContext({} as ContextType);
  * Hook that constructs an initial context.
  */
 function useContextStore(): ContextType {
-  const [x, setX] = useState(emptyAxis);
-  const [y, setY] = useState(emptyAxis);
-  const [place, setPlace] = useState(emptyPlace);
-  const [date, setDate] = useState(emptyDate);
+  const [x, setX] = useState(EmptyAxis);
+  const [y, setY] = useState(EmptyAxis);
+  const [place, setPlace] = useState(EmptyPlace);
+  const [date, setDate] = useState(EmptyDate);
   const [arePlacesLoading, setArePlacesLoading] = useState(false);
   const [areStatVarsLoading, setAreStatVarsLoading] = useState(false);
   const [areDataLoading, setAreDataLoading] = useState(false);
@@ -395,6 +395,7 @@ export {
   DateInfo,
   DateInfoWrapper,
   IsLoadingWrapper,
-  emptyAxis,
-  emptyPlace,
+  EmptyAxis,
+  EmptyPlace,
+  EmptyDate,
 };
