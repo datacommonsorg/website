@@ -33,15 +33,12 @@ import {
   useContextStore,
   Axis,
   PlaceInfo,
+  IsLoadingWrapper,
 } from "./context";
 
 function App(): JSX.Element {
-  const context = useContext(Context);
-  const hideInfo = shouldHideInfo(
-    context.x.value,
-    context.y.value,
-    context.place.value
-  );
+  const { x, y, place, isLoading } = useContext(Context);
+  const hideInfo = shouldHideInfo(x.value, y.value, place.value);
   return (
     <div>
       <StatVarChooser />
@@ -69,7 +66,7 @@ function App(): JSX.Element {
           )}
         </Container>
       </div>
-      <Spinner isOpen={context.isLoading.value > 0} />
+      <Spinner isOpen={shouldDisplaySpinner(isLoading)} />
     </div>
   );
 }
@@ -85,6 +82,14 @@ function AppWithContext(): JSX.Element {
     <Context.Provider value={store}>
       <App />
     </Context.Provider>
+  );
+}
+
+function shouldDisplaySpinner(isLoading: IsLoadingWrapper): boolean {
+  return (
+    isLoading.arePlacesLoading ||
+    isLoading.areStatVarsLoading ||
+    isLoading.areDataLoading
   );
 }
 
@@ -120,16 +125,8 @@ function applyHash(context: ContextType) {
  */
 function updateHash(context: ContextType) {
   let hash = "";
-  hash += `x=${JSON.stringify({
-    ...context.x.value,
-    data: [],
-    populations: [],
-  })}`;
-  hash += `&y=${JSON.stringify({
-    ...context.y.value,
-    data: [],
-    populations: [],
-  })}`;
+  hash += `x=${JSON.stringify(context.x.value)}`;
+  hash += `&y=${JSON.stringify(context.y.value)}`;
   hash += `&place=${JSON.stringify({
     ...context.place.value,
     enclosedPlaces: [],

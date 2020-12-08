@@ -102,8 +102,8 @@ function useCache(): Cache {
       setCache({});
       return;
     }
-    if (!arePopulationsAndDataLoaded(cache, xVal, yVal, dateVal)) {
-      loadPopulationsAndData(x, y, placeVal, dateVal, isLoading, setCache);
+    if (!areDataLoaded(cache, xVal, yVal, dateVal)) {
+      loadData(x, y, placeVal, dateVal, isLoading, setCache);
     }
   }, [xVal, yVal, placeVal, dateVal]);
 
@@ -149,7 +149,7 @@ function formatDate(date: DateInfo) {
  * @param isLoading
  * @param setCache
  */
-async function loadPopulationsAndData(
+async function loadData(
   x: AxisWrapper,
   y: AxisWrapper,
   place: PlaceInfo,
@@ -158,8 +158,8 @@ async function loadPopulationsAndData(
   setCache: (cache: Cache) => void
 ) {
   const dateString = formatDate(date);
-  isLoading.increment();
-  const populationAndData = await getStatsCollection(
+  isLoading.setAreDataLoading(true);
+  const data = await getStatsCollection(
     place.enclosingPlace.dcid,
     place.enclosedPlaceType,
     dateString,
@@ -167,17 +167,17 @@ async function loadPopulationsAndData(
       // Populations
       getPopulationStatVar(x.value.statVar),
       getPopulationStatVar(y.value.statVar),
-      // Statvar data
+      // Statvars
       _.findKey(x.value.statVar),
       _.findKey(y.value.statVar),
     ]
   );
-  isLoading.decrement();
-  if (!arePopulationsAndDataLoaded(populationAndData, x.value, y.value, date)) {
+  if (!areDataLoaded(data, x.value, y.value, date)) {
     alert(`Sorry, no data available for ${dateString}`);
   } else {
-    setCache(populationAndData);
+    setCache(data);
   }
+  isLoading.setAreDataLoading(false);
 }
 
 /**
@@ -208,14 +208,11 @@ function usePoints(cache: Cache): Array<Point> {
   const dateVal = date.value;
 
   /**
-   * Regenerates points after populations and statvar data are retrieved
+   * Regenerates points after population and statvar data are retrieved
    * and after plot options change.
    */
   useEffect(() => {
-    if (
-      _.isEmpty(cache) ||
-      !arePopulationsAndDataLoaded(cache, xVal, yVal, dateVal)
-    ) {
+    if (_.isEmpty(cache) || !areDataLoaded(cache, xVal, yVal, dateVal)) {
       return;
     }
     const points = getPoints(xVal, yVal, placeVal, cache);
@@ -332,12 +329,12 @@ function areStatVarNamesLoaded(x: Axis, y: Axis): boolean {
 }
 
 /**
- * Checks if the population data (for per capita) and statvar data
+ * Checks if the population (for per capita) and statvar data
  * have been loaded for both axes.
  * @param x
  * @param y
  */
-function arePopulationsAndDataLoaded(
+function areDataLoaded(
   cache: Cache,
   x: Axis,
   y: Axis,

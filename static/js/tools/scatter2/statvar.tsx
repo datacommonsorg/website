@@ -229,16 +229,14 @@ async function filterStatVars(
   isLoading: IsLoadingWrapper,
   setValidStatVars: (statVars: Set<string>) => void
 ): Promise<void> {
-  isLoading.increment();
-  console.log("sent!");
-  getStatsVar(enclosedPlaces.map((namedPlace) => namedPlace.dcid)).then(
-    (statVars) => {
-      console.log("received!");
-      isLoading.decrement();
-      setValidStatVars(statVars);
-      alertIfStatVarsUnavailable(x, y, statVars);
-    }
+  isLoading.setAreStatVarsLoading(true);
+  const statVars = await getStatsVar(
+    enclosedPlaces.map((namedPlace) => namedPlace.dcid),
+    true
   );
+  setValidStatVars(statVars);
+  isLoading.setAreStatVarsLoading(false);
+  alertIfStatVarsUnavailable(x, y, statVars);
 }
 
 /**

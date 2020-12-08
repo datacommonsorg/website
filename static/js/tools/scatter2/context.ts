@@ -118,12 +118,17 @@ const emptyDate: DateInfo = Object.freeze({
 });
 
 interface IsLoadingWrapper {
-  value: number;
+  // Whether child places and their names are being retrieved
+  arePlacesLoading: boolean;
+  // Whether valid statvars are being retrieved for filtering the statvar menu
+  areStatVarsLoading: boolean;
+  // Whether population and statvar data are being retrieved for plotting
+  areDataLoading: boolean;
 
   // Setters
-  set: Setter<number>;
-  increment: Setter<void>;
-  decrement: Setter<void>;
+  setArePlacesLoading: Setter<boolean>;
+  setAreStatVarsLoading: Setter<boolean>;
+  setAreDataLoading: Setter<boolean>;
 }
 
 // Global app state
@@ -150,7 +155,9 @@ function useContextStore(): ContextType {
   const [y, setY] = useState(emptyAxis);
   const [place, setPlace] = useState(emptyPlace);
   const [date, setDate] = useState(emptyDate);
-  const [isLoading, setIsLoading] = useState(0);
+  const [arePlacesLoading, setArePlacesLoading] = useState(false);
+  const [areStatVarsLoading, setAreStatVarsLoading] = useState(false);
+  const [areDataLoading, setAreDataLoading] = useState(false);
   return {
     x: {
       value: x,
@@ -187,10 +194,12 @@ function useContextStore(): ContextType {
       setDay: getSetDay(date, setDate),
     },
     isLoading: {
-      value: isLoading,
-      set: (isLoading) => setIsLoading(isLoading),
-      increment: () => setIsLoading(isLoading + 1),
-      decrement: () => setIsLoading(isLoading - 1),
+      arePlacesLoading: arePlacesLoading,
+      areStatVarsLoading: areStatVarsLoading,
+      areDataLoading: areDataLoading,
+      setArePlacesLoading: setArePlacesLoading,
+      setAreStatVarsLoading: setAreStatVarsLoading,
+      setAreDataLoading: setAreDataLoading,
     },
   };
 }

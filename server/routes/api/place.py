@@ -161,41 +161,33 @@ def statsvars(dcid):
 
 
 @cache.memoize(timeout=3600 * 24)  # Cache for one day.
-def get_statvars(dcids):
+def get_stat_vars_union(dcids):
     """Get all the statistical variable dcids for some places.
 
     Args:
         dcids: Place DCIDs separated by "^" as a single string.
 
     Returns:
-        Dict keyed by place DCIDs with lists of statistical variable dcids
-        as values.
+        List of unique statistical variable dcids each as a string.
     """
     dcids = dcids.split("^")
-    response = fetch_data('/place/stat-vars', {
+    return fetch_data('/place/stat-vars/union', {
         'dcids': dcids,
     },
                           compress=False,
                           post=True,
                           has_payload=False)
-    dcid_to_statvars = response['places']
-    result = {}	
-    for dcid in dcids:
-        statvars = dcid_to_statvars.get(dcid, {})
-        result[dcid] = statvars.get('statVars', [])	
-    return result
 
 
-@bp.route('/stat-vars', methods=['POST'])
-def get_statvars_route():
+@bp.route('/stat-vars/union', methods=['POST'])
+def get_stat_vars_union_route():
     """Get all the statistical variables that exist for some places.
 
     Returns:
-        Dict keyed by place DCIDs with lists of statistical variable
-        dcids as values.
+        List of unique statistical variable dcids each as a string.
     """
     dcids = sorted(request.json.get('dcids', []))
-    return Response(json.dumps(get_statvars("^".join(dcids))),
+    return Response(json.dumps(get_stat_vars_union("^".join(dcids))),
                     200,
                     mimetype='application/json')
 

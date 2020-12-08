@@ -51,15 +51,18 @@ function getStatsVarInfo(
   });
 }
 
-async function getStatsVar(dcids: string[]): Promise<Set<string>> {
+async function getStatsVar(
+  dcids: string[],
+  sample = false
+): Promise<Set<string>> {
   if (dcids.length === 0) {
     return Promise.resolve(new Set<string>());
   }
-  const resp = await axios.post("/api/place/stat-vars", { dcids: dcids });
-  const data: Record<string, Array<string>> = resp.data;
-  return Object.values(data).reduce((prevSet, statvars) => {
-    return new Set([...Array.from(prevSet), ...statvars]);
-  }, new Set<string>());
+  const sampleSize = 50;
+  const resp = await axios.post("/api/place/stat-vars/union", {
+    dcids: sample ? _.sampleSize(dcids, sampleSize) : dcids,
+  });
+  return new Set<string>(resp.data.statVars.statVars);
 }
 
 const placeSep = ",";
