@@ -42,7 +42,7 @@ function PlotOptions(): JSX.Element {
       <Container id="plot-options">
         <Row>
           <Col xs="auto">Date</Col>
-          <Col xs="auto">
+          <Col xs="5">
             <FormGroup className="flex-container">
               <Input
                 type="select"

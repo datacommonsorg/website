@@ -230,12 +230,15 @@ async function filterStatVars(
   setValidStatVars: (statVars: Set<string>) => void
 ): Promise<void> {
   isLoading.increment();
-  const statVars = await getStatsVar(
-    enclosedPlaces.map((namedPlace) => namedPlace.dcid)
+  console.log("sent!");
+  getStatsVar(enclosedPlaces.map((namedPlace) => namedPlace.dcid)).then(
+    (statVars) => {
+      console.log("received!");
+      isLoading.decrement();
+      setValidStatVars(statVars);
+      alertIfStatVarsUnavailable(x, y, statVars);
+    }
   );
-  isLoading.decrement();
-  setValidStatVars(statVars);
-  alertIfStatVarsUnavailable(x, y, statVars);
 }
 
 /**

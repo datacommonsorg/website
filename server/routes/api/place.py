@@ -136,12 +136,10 @@ def api_name():
 @cache.memoize(timeout=3600 * 24)  # Cache for one day.
 def statsvars_route(dcid):
     """Get all the statistical variables that exist for a give place.
-
     Args:
-        dcid: Place dcid.
-
+      dcid: Place dcid.
     Returns:
-        A list of statistical variable dcids.
+      A list of statistical variable dcids.
     """
     return Response(json.dumps(statsvars(dcid)),
                     200,
@@ -160,6 +158,46 @@ def statsvars(dcid):
                           post=False,
                           has_payload=False)
     return response['places'][dcid].get('statsVars', [])
+
+
+@cache.memoize(timeout=3600 * 24)  # Cache for one day.
+def get_statvars(dcids):
+    """Get all the statistical variable dcids for some places.
+
+    Args:
+        dcids: Place DCIDs separated by "^" as a single string.
+
+    Returns:
+        Dict keyed by place DCIDs with lists of statistical variable dcids
+        as values.
+    """
+    dcids = dcids.split("^")
+    response = fetch_data('/place/stat-vars', {
+        'dcids': dcids,
+    },
+                          compress=False,
+                          post=True,
+                          has_payload=False)
+    dcid_to_statvars = response['places']
+    result = {}	
+    for dcid in dcids:
+        statvars = dcid_to_statvars.get(dcid, {})
+        result[dcid] = statvars.get('statVars', [])	
+    return result
+
+
+@bp.route('/stat-vars', methods=['POST'])
+def get_statvars_route():
+    """Get all the statistical variables that exist for some places.
+
+    Returns:
+        Dict keyed by place DCIDs with lists of statistical variable
+        dcids as values.
+    """
+    dcids = sorted(request.json.get('dcids', []))
+    return Response(json.dumps(get_statvars("^".join(dcids))),
+                    200,
+                    mimetype='application/json')
 
 
 @bp.route('/child/<path:dcid>')
