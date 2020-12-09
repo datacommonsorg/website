@@ -130,6 +130,67 @@ def api_name():
     return Response(json.dumps(result), 200, mimetype='application/json')
 
 
+@cache.memoize(timeout=3600 * 24)  # Cache for one day.
+def cached_i18n_name(dcids, locale):
+    """Returns localination names for set of dcids.
+
+    Args:
+        dcids: ^ separated string of dcids. It must be a single string for the cache.
+        locale: the desired localization language code.
+
+    Returns:
+        A dictionary of place international names, keyed by dcid.
+    """
+    dcids = dcids.split('^')
+    response = fetch_data('/node/property-values', {
+        'dcids': dcids,
+        'property': 'nameWithLanguage',
+        'direction': 'out'
+    },
+                          compress=False,
+                          post=True)
+    result = {}
+    for dcid in dcids:
+        values = response[dcid].get('out')
+        name_in_en = ''
+        result[dcid] = ''
+        for entry in values:
+            if entry['value'].endswith(locale):
+                i18nname_end_index = len(entry['value']) - len(locale) - 1
+                result[dcid] = entry['value'][:i18nname_end_index]
+            else:
+                if entry['value'].endswith('en'):
+                    name_in_en = entry['value'][:(len(entry['value']) -
+                                                  len('en') - 1)]
+        # With there isn't a name in required language code, falls back to 
+        # English name if exists.
+        if not result[dcid]:
+            result[dcid] = name_in_en
+    return result
+
+
+def get_i18n_name(dcids, locale):
+    """"Returns localization names for set of dcids.
+
+    Args:
+        dcids: A list of place dcids.
+        locale: the desired localization language code.
+
+    Returns:
+        A dictionary of  place names, keyed by dcid.
+    """
+    return cached_i18n_name('^'.join((sorted(dcids))), locale)
+
+
+@bp.route('/i18nname')
+def api_i18n_name():
+    """Get place i18n names."""
+    dcids = request.args.getlist('dcid')
+    locale = request.args.get('hl', default="en")
+    result = get_i18n_name(dcids, locale)
+    return Response(json.dumps(result), 200, mimetype='application/json')
+
+
 @bp.route('/statsvars/<path:dcid>')
 @cache.memoize(timeout=3600 * 24)  # Cache for one day.
 def statsvars_route(dcid):
