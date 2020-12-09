@@ -1,0 +1,127 @@
+# Copyright 2020 Google LLC
+#
+# Licensed under the Apache License, Version 2.0 (the "License");
+# you may not use this file except in compliance with the License.
+# You may obtain a copy of the License at
+#
+#      http://www.apache.org/licenses/LICENSE-2.0
+#
+# Unless required by applicable law or agreed to in writing, software
+# distributed under the License is distributed on an "AS IS" BASIS,
+# WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+# See the License for the specific language governing permissions and
+# limitations under the License.
+
+#. The label for a collection of exploration tools.
+#: server/templates/base.html:69 server/templates/base.html:120
+msgid "Explore"
+msgstr "FOOBAR"
+
+#. The name of a tool to browse statistics about a place.
+#: server/templates/base.html:72 server/templates/base.html:122
+msgid "Place Explorer"
+msgstr "BARBAR"
+
+#: server/templates/base.html:73
+msgid "Graph Browser"
+msgstr ""
+
+#. The name of a tool to explore timeline charts of statistical variables for
+#. places.
+#: server/templates/base.html:74 server/templates/base.html:126
+msgid "Timelines Explorer"
+msgstr ""
+
+#. The label for a list of documentation links.
+#. The label for a link to our documentation site.
+#: server/templates/base.html:79 server/templates/base.html:81
+#: server/templates/base.html:130 server/templates/base.html:132
+msgid "Documentation"
+msgstr ""
+
+#. The label for a link to our API documentation.
+#: server/templates/base.html:82 server/templates/base.html:134
+msgid "API's"
+msgstr ""
+
+#. The label for a link to our API tutorials.
+#: server/templates/base.html:83 server/templates/base.html:136
+msgid "Tutorials"
+msgstr ""
+
+#. The label for a link to instructions about contributing to the project.
+#: server/templates/base.html:84 server/templates/base.html:138
+msgid "Contribute"
+msgstr ""
+
+#: server/templates/base.html:90
+msgid "About"
+msgstr ""
+
+#. The label for a link to the project's about page.
+#: server/templates/base.html:93 server/templates/base.html:146
+msgid "About Data Commons"
+msgstr ""
+
+#. The label for a link to the project's blog.
+#: server/templates/base.html:94 server/templates/base.html:148
+msgid "Blog"
+msgstr ""
+
+#. The label for a link to data sources included in the Data Commons knowledge
+#. graph.
+#: server/templates/base.html:95 server/templates/base.html:150
+msgid "Data Sources"
+msgstr ""
+
+#: server/templates/base.html:96
+msgid "FAQ"
+msgstr ""
+
+#. The label for a link to instructions about sending feedback.
+#: server/templates/base.html:97 server/templates/base.html:152
+msgid "Feedback"
+msgstr ""
+
+#. The name of a tool to browse the Data Commons knowledge graph.
+#: server/templates/base.html:124
+msgid "Graph Explorer"
+msgstr "BARBER"
+
+#. The label for a link to the project's github repository (for open sourced
+#. code).
+#: server/templates/base.html:140
+msgid "Github Repository"
+msgstr ""
+
+#. The label for a link to informational pages about the Data Commons project.
+#: server/templates/base.html:144
+msgid "Data Commons"
+msgstr ""
+
+#. The label for a link to project FAQ page.
+#: server/templates/base.html:154
+msgid "Frequently Asked Questions"
+msgstr ""
+
+#. The label for a link to project homepage.
+#: server/templates/base.html:162
+#, python-format
+msgid "%(project)s is a Google supported project"
+msgstr ""
+
+#. The label for a link to site terms and conditions.
+#: server/templates/base.html:167
+msgid "Terms and Conditions"
+msgstr ""
+
+#. The label for a link to site privacy policy.
+#: server/templates/base.html:169
+msgid "Privacy Policy"
+msgstr ""
+
+#. The label for a link to site disclaimers.
+#: server/templates/base.html:171
+msgid "Disclaimers"
+msgstr ""
+

@@ -16,7 +16,8 @@ import json
 import logging
 import os
 
-from flask import Flask
+from flask import Flask, request
+from flask_babel import Babel
 from google.cloud import storage
 from werkzeug.utils import import_string
 
@@ -124,5 +125,15 @@ def create_app():
         bucket = storage_client.get_bucket(app.config['GCS_BUCKET'])
         blob = bucket.get_blob('placeid2dcid.json')
         app.config['PLACEID2DCID'] = json.loads(blob.download_as_string())
+
+    # Initialize translations
+    babel = Babel(app)
+    app.config['BABEL_DEFAULT_LOCALE'] = 'en'
+    app.config['BABEL_TRANSLATION_DIRECTORIES'] = 'l10n'
+
+    @babel.localeselector
+    def get_locale():
+        # TODO(beets): Also use request.accept_languages.best_match()
+        return request.args.get('hl', 'en')
 
     return app
