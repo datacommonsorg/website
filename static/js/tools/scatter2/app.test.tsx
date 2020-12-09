@@ -129,15 +129,11 @@ function mockAxios(): () => void {
       dcids: ["geoId/10001", "geoId/10003", "geoId/10005"],
     })
     .mockResolvedValue({
-      data: {
-        statVars: {
-          statVars: [
-            "Count_Person_Employed",
-            "Count_Establishment",
-            "Count_HousingUnit",
-          ],
-        },
-      },
+      data: [
+        "Count_Person_Employed",
+        "Count_Establishment",
+        "Count_HousingUnit",
+      ],
     });
 
   // Statvar menu

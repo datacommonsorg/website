@@ -318,4 +318,3 @@ def child_statvars():
         stat_vars_for_subgeo = stat_vars_for_subgeo.union(
             place.statsvars(geoId))
     return json.dumps(list(stat_vars_for_subgeo))
-    

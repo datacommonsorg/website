@@ -110,7 +110,8 @@ TEST_URLS = [
         'height': 2300
     },
     {
-        'url': '/tools/scatter2#&svx=Count_Person_Employed&svpx=3-0&svdx=Count_Person&svnx=Employed&svy=Count_Establishment&svpy=9-2&svny=Number of Establishments&epd=geoId/10&epn=Delaware&ept=County&y=2016',
+        'url':
+            '/tools/scatter2#&svx=Count_Person_Employed&svpx=3-0&svdx=Count_Person&svnx=Employed&svy=Count_Establishment&svpy=9-2&svny=Number of Establishments&epd=geoId/10&epn=Delaware&ept=County&y=2016',
         'filename_suffix':
             'scatter2_delaware_establishments_vs_employed.png',
         'test_class':

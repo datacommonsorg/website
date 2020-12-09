@@ -415,3 +415,26 @@ class TestApiGetPlacesInNames(unittest.TestCase):
             "geoId/10003": "New Castle County",
             "geoId/10005": "Sussex County",
         }
+
+
+class TestApiGetStatVarsUnion(unittest.TestCase):
+
+    @patch('services.datacommons.send_request')
+    def test_api_get_stat_vars_union(self, send_request):
+        req = {'dcids': ['geoId/10001', 'geoId/10003', 'geoId/10005']}
+        result = ["sv1", "sv2", "sv3"]
+
+        def side_effect(req_url,
+                        req_json={},
+                        compress=False,
+                        post=True,
+                        has_payload=True):
+            if (req_url == dc.API_ROOT + "/place/stat-vars/union" and
+                    req_json == req and post and not has_payload):
+                return {'statVars': {'statVars': result}}
+
+        send_request.side_effect = side_effect
+        response = app.test_client().post('/api/place/stat-vars/union',
+                                          json=req)
+        assert response.status_code == 200
+        assert json.loads(response.data) == result

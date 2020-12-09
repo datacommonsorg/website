@@ -171,12 +171,13 @@ def get_stat_vars_union(dcids):
         List of unique statistical variable dcids each as a string.
     """
     dcids = dcids.split("^")
+    # The two indexings are due to how protobuf fields are converted to json
     return fetch_data('/place/stat-vars/union', {
         'dcids': dcids,
     },
-                          compress=False,
-                          post=True,
-                          has_payload=False)
+                      compress=False,
+                      post=True,
+                      has_payload=False)['statVars']['statVars']
 
 
 @bp.route('/stat-vars/union', methods=['POST'])
@@ -187,6 +188,7 @@ def get_stat_vars_union_route():
         List of unique statistical variable dcids each as a string.
     """
     dcids = sorted(request.json.get('dcids', []))
+
     return Response(json.dumps(get_stat_vars_union("^".join(dcids))),
                     200,
                     mimetype='application/json')
