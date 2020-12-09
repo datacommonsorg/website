@@ -26,21 +26,20 @@ import { PlaceOptions } from "./place_options";
 import { PlotOptions } from "./plot_options";
 import { ChartLoader } from "./chart_loader";
 import { Info } from "./info";
+import { Spinner } from "./spinner";
 import {
   Context,
-  ContextType,
   useContextStore,
   Axis,
   PlaceInfo,
+  IsLoadingWrapper,
+  DateInfo,
 } from "./context";
+import { isDateChosen, updateHash, applyHash } from "./util";
 
 function App(): JSX.Element {
-  const context = useContext(Context);
-  const hideInfo = shouldHideInfo(
-    context.x.value,
-    context.y.value,
-    context.place.value
-  );
+  const { x, y, place, date, isLoading } = useContext(Context);
+  const hideInfo = shouldHideInfo(x.value, y.value, place.value, date.value);
   return (
     <div>
       <StatVarChooser />
@@ -54,24 +53,21 @@ function App(): JSX.Element {
           <Row>
             <PlaceOptions />
           </Row>
+          <Row>
+            <PlotOptions />
+          </Row>
           {hideInfo ? (
-            <React.Fragment>
-              <Row>
-                <PlotOptions />
-              </Row>
-              <Row id="chart-row">
-                <ChartLoader />
-              </Row>
-            </React.Fragment>
+            <Row id="chart-row">
+              <ChartLoader />
+            </Row>
           ) : (
-            <React.Fragment>
-              <Row>
-                <Info />
-              </Row>
-            </React.Fragment>
+            <Row>
+              <Info />
+            </Row>
           )}
         </Container>
       </div>
+      <Spinner isOpen={shouldDisplaySpinner(isLoading)} />
     </div>
   );
 }
@@ -91,64 +87,38 @@ function AppWithContext(): JSX.Element {
 }
 
 /**
- * Parses the current hash and updates the context accordingly.
- * @param context
+ * Returns whether the spinner should be shown.
+ * @param isLoading
  */
-function applyHash(context: ContextType) {
-  const params = new URLSearchParams(
-    decodeURIComponent(location.hash).replace("#", "?")
+function shouldDisplaySpinner(isLoading: IsLoadingWrapper): boolean {
+  return (
+    isLoading.arePlacesLoading ||
+    isLoading.areStatVarsLoading ||
+    isLoading.areDataLoading
   );
-  const xString = params.get("x");
-  if (xString) {
-    context.x.set(JSON.parse(xString));
-  }
-  const yString = params.get("y");
-  if (yString) {
-    context.y.set(JSON.parse(yString));
-  }
-  const placeString = params.get("place");
-  if (placeString) {
-    context.place.set(JSON.parse(placeString));
-  }
-}
-
-/**
- * Updates the hash based on the context.
- * @param context
- */
-function updateHash(context: ContextType) {
-  let hash = "";
-  hash += `x=${JSON.stringify({
-    ...context.x.value,
-    data: [],
-    populations: [],
-  })}`;
-  hash += `&y=${JSON.stringify({
-    ...context.y.value,
-    data: [],
-    populations: [],
-  })}`;
-  hash += `&place=${JSON.stringify({
-    ...context.place.value,
-    enclosedPlaces: [],
-  })}`;
-  history.pushState({}, "", `/tools/scatter2#${encodeURIComponent(hash)}`);
 }
 
 /**
  * Checks if the info page should be hidden to display the chart.
- * Returns true if the enclosing place, child place type, and
- * statvars for the x and y axes are selected.
+ * Returns true if the enclosing place, child place type,
+ * statvars for the x and y axes are selected, and the date
+ * is chosen.
  * @param x
  * @param y
  * @param place
  */
-function shouldHideInfo(x: Axis, y: Axis, place: PlaceInfo): boolean {
+function shouldHideInfo(
+  x: Axis,
+  y: Axis,
+  place: PlaceInfo,
+  date: DateInfo
+): boolean {
   return (
     !_.isEmpty(place.enclosedPlaceType) &&
     !_.isEmpty(place.enclosingPlace.dcid) &&
     !_.isEmpty(x.statVar) &&
-    !_.isEmpty(y.statVar)
+    !_.isEmpty(y.statVar) &&
+    isDateChosen(date)
   );
 }
 

@@ -26,21 +26,15 @@ interface Axis {
   statVar: StatsVarNode;
   // Human readable name of the StatVar
   name: string;
-  // Data points
-  data: Array<number>;
-  // Populations for per capita
-  populations: Array<number>;
   // Whether to plot on log scale
   log: boolean;
   // Whether to plot per capita values
   perCapita: boolean;
 }
 
-const emptyAxis: Axis = Object.freeze({
+const EmptyAxis: Axis = Object.freeze({
   statVar: {},
   name: "",
-  data: [],
-  populations: [],
   log: false,
   perCapita: false,
 });
@@ -57,9 +51,6 @@ interface AxisWrapper {
   setStatVar: Setter<StatsVarNode>;
   unsetStatVar: Setter<void>;
   setStatVarName: Setter<string>;
-  unsetPopulationsAndData: Setter<void>;
-  setData: Setter<Array<number>>;
-  setPopulations: Setter<Array<number>>;
   setLog: Setter<boolean>;
   setPerCapita: Setter<boolean>;
 }
@@ -93,7 +84,7 @@ interface PlaceInfoWrapper {
   setUpperBound: Setter<number>;
 }
 
-const emptyPlace: PlaceInfo = Object.freeze({
+const EmptyPlace: PlaceInfo = Object.freeze({
   enclosingPlace: {
     name: "",
     dcid: "",
@@ -104,6 +95,42 @@ const emptyPlace: PlaceInfo = Object.freeze({
   upperBound: 1e10,
 });
 
+interface DateInfo {
+  year: number;
+  month: number;
+  day: number;
+}
+
+interface DateInfoWrapper {
+  value: DateInfo;
+
+  // Setters
+  set: Setter<DateInfo>;
+  setYear: Setter<number>;
+  setMonth: Setter<number>;
+  setDay: Setter<number>;
+}
+
+const EmptyDate: DateInfo = Object.freeze({
+  year: 0,
+  month: 0,
+  day: 0,
+});
+
+interface IsLoadingWrapper {
+  // Whether child places and their names are being retrieved
+  arePlacesLoading: boolean;
+  // Whether valid statvars are being retrieved for filtering the statvar menu
+  areStatVarsLoading: boolean;
+  // Whether population and statvar data are being retrieved for plotting
+  areDataLoading: boolean;
+
+  // Setters
+  setArePlacesLoading: Setter<boolean>;
+  setAreStatVarsLoading: Setter<boolean>;
+  setAreDataLoading: Setter<boolean>;
+}
+
 // Global app state
 interface ContextType {
   // X axis
@@ -112,17 +139,48 @@ interface ContextType {
   y: AxisWrapper;
   // Places to plot
   place: PlaceInfoWrapper;
+  // Date of data to retrieve
+  date: DateInfoWrapper;
+  // Whether there are currently active network tasks
+  isLoading: IsLoadingWrapper;
 }
 
 const Context = createContext({} as ContextType);
+
+// For values are used as keys in URL hash
+const FieldToAbbreviation = {
+  // Axis fields
+  statVarDcid: "sv",
+  statVarPath: "svp",
+  statVarDenominator: "svd",
+  name: "svn",
+  log: "l",
+  perCapita: "pc",
+
+  // PlaceInfo fields
+  enclosingPlaceName: "epn",
+  enclosingPlaceDcid: "epd",
+  enclosedPlaceType: "ept",
+  lowerBound: "lb",
+  upperBound: "ub",
+
+  // DateInfo fields
+  year: "y",
+  month: "m",
+  day: "d",
+};
 
 /**
  * Hook that constructs an initial context.
  */
 function useContextStore(): ContextType {
-  const [x, setX] = useState(emptyAxis);
-  const [y, setY] = useState(emptyAxis);
-  const [place, setPlace] = useState(emptyPlace);
+  const [x, setX] = useState(EmptyAxis);
+  const [y, setY] = useState(EmptyAxis);
+  const [place, setPlace] = useState(EmptyPlace);
+  const [date, setDate] = useState(EmptyDate);
+  const [arePlacesLoading, setArePlacesLoading] = useState(false);
+  const [areStatVarsLoading, setAreStatVarsLoading] = useState(false);
+  const [areDataLoading, setAreDataLoading] = useState(false);
   return {
     x: {
       value: x,
@@ -130,9 +188,6 @@ function useContextStore(): ContextType {
       setStatVar: getSetStatVar(x, setX),
       unsetStatVar: getUnsetStatVar(x, setX),
       setStatVarName: getSetStatVarName(x, setX),
-      unsetPopulationsAndData: getUnsetPopulationsAndData(x, setX),
-      setData: getSetData(x, setX),
-      setPopulations: getSetPopulations(x, setX),
       setLog: getSetLog(x, setX),
       setPerCapita: getSetPerCapita(x, setX),
     },
@@ -142,9 +197,6 @@ function useContextStore(): ContextType {
       setStatVar: getSetStatVar(y, setY),
       unsetStatVar: getUnsetStatVar(y, setY),
       setStatVarName: getSetStatVarName(y, setY),
-      unsetPopulationsAndData: getUnsetPopulationsAndData(y, setY),
-      setData: getSetData(y, setY),
-      setPopulations: getSetPopulations(y, setY),
       setLog: getSetLog(y, setY),
       setPerCapita: getSetPerCapita(y, setY),
     },
@@ -156,6 +208,21 @@ function useContextStore(): ContextType {
       setEnclosedPlaces: getSetEnclosedPlaces(place, setPlace),
       setLowerBound: getSetLowerBound(place, setPlace),
       setUpperBound: getSetUpperBound(place, setPlace),
+    },
+    date: {
+      value: date,
+      set: (date) => setDate(date),
+      setYear: getSetYear(date, setDate),
+      setMonth: getSetMonth(date, setDate),
+      setDay: getSetDay(date, setDate),
+    },
+    isLoading: {
+      arePlacesLoading: arePlacesLoading,
+      areStatVarsLoading: areStatVarsLoading,
+      areDataLoading: areDataLoading,
+      setArePlacesLoading: setArePlacesLoading,
+      setAreStatVarsLoading: setAreStatVarsLoading,
+      setAreDataLoading: setAreDataLoading,
     },
   };
 }
@@ -209,7 +276,7 @@ function getSetEnclosedPlaces(
 
 /**
  * Returns a setter for the statvar for an axis and additionally
- * clearing its name and data and the population data for that axis.
+ * clearing the name of the statvar.
  * @param axis
  * @param setAxis
  */
@@ -222,16 +289,13 @@ function getSetStatVar(
       ...axis,
       statVar: statVar,
       name: "",
-      populations: [],
-      data: [],
     });
   };
 }
 
 /**
- * Returns a setter for an axis that clears the statvar, the name
- * of the statvar, the data for the statvar, and the population
- * data for the statvar.
+ * Returns a setter for an axis that clears the statvar and the name
+ * of the statvar.
  * @param axis
  * @param setAxis
  */
@@ -244,8 +308,6 @@ function getUnsetStatVar(
       ...axis,
       statVar: {},
       name: "",
-      populations: [],
-      data: [],
     });
   };
 }
@@ -258,40 +320,6 @@ function getSetStatVarName(
     setAxis({
       ...axis,
       name: name,
-    });
-  };
-}
-
-function getUnsetPopulationsAndData(
-  axis: Axis,
-  setAxis: React.Dispatch<React.SetStateAction<Axis>>
-): Setter<void> {
-  return () => {
-    setAxis({
-      ...axis,
-      data: [],
-      populations: [],
-    });
-  };
-}
-
-function getSetData(
-  axis: Axis,
-  setAxis: React.Dispatch<React.SetStateAction<Axis>>
-): Setter<Array<number>> {
-  return (data) => {
-    setAxis({ ...axis, data: data });
-  };
-}
-
-function getSetPopulations(
-  axis: Axis,
-  setAxis: React.Dispatch<React.SetStateAction<Axis>>
-): Setter<Array<number>> {
-  return (populations) => {
-    setAxis({
-      ...axis,
-      populations: populations,
     });
   };
 }
@@ -342,6 +370,42 @@ function getSetUpperBound(
     });
 }
 
+function getSetYear(
+  date: DateInfo,
+  setDate: React.Dispatch<React.SetStateAction<DateInfo>>
+): Setter<number> {
+  return (year) => {
+    setDate({
+      ...date,
+      year: year,
+    });
+  };
+}
+
+function getSetMonth(
+  date: DateInfo,
+  setDate: React.Dispatch<React.SetStateAction<DateInfo>>
+): Setter<number> {
+  return (month) => {
+    setDate({
+      ...date,
+      month: month,
+    });
+  };
+}
+
+function getSetDay(
+  date: DateInfo,
+  setDate: React.Dispatch<React.SetStateAction<DateInfo>>
+): Setter<number> {
+  return (day) => {
+    setDate({
+      ...date,
+      day: day,
+    });
+  };
+}
+
 export {
   Context,
   useContextStore,
@@ -351,6 +415,11 @@ export {
   NamedPlace,
   PlaceInfo,
   PlaceInfoWrapper,
-  emptyAxis,
-  emptyPlace,
+  DateInfo,
+  DateInfoWrapper,
+  IsLoadingWrapper,
+  EmptyAxis,
+  EmptyPlace,
+  EmptyDate,
+  FieldToAbbreviation,
 };

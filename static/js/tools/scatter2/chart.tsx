@@ -32,9 +32,10 @@ interface ChartPropsType {
   yLog: boolean;
   xPerCapita: boolean;
   yPerCapita: boolean;
+  xProvenance: string;
+  yProvenance: string;
 }
 
-// TODO: Show provenance.
 function Chart(props: ChartPropsType): JSX.Element {
   const svg = useRef<SVGSVGElement>();
   const tooltip = useRef<HTMLDivElement>();
@@ -47,13 +48,15 @@ function Chart(props: ChartPropsType): JSX.Element {
   return (
     <Container id="chart">
       <Row>
-        <Card id="chart-svg">
+        <Card id="no-padding">
           <svg ref={svg} />
           <div id="tooltip" ref={tooltip} />
         </Card>
       </Row>
       <Row>
         <Card id="stats">
+          <Badge color="light">X Data Source: {props.xProvenance}</Badge>
+          <Badge color="light">Y Data Source: {props.yProvenance}</Badge>
           <Badge color="light">X Mean: {getXMean(props.points)}</Badge>
           <Badge color="light">Y Mean: {getYMean(props.points)}</Badge>
           <Badge color="light">
@@ -316,4 +319,4 @@ function addTooltip(
   dots.on("mouseover", onTooltipMouseover).on("mouseout", onTooltipMouseout);
 }
 
-export { Chart };
+export { Chart, ChartPropsType };

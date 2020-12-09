@@ -22,26 +22,72 @@
 import React, { useContext, useState } from "react";
 import { FormGroup, Label, Input, Card, Button, Collapse } from "reactstrap";
 import {
-  Axis,
   AxisWrapper,
   Context,
-  PlaceInfo,
+  DateInfoWrapper,
   PlaceInfoWrapper,
 } from "./context";
 
 import { Container, Row, Col } from "reactstrap";
 
+// TODO: Add a new API that given a statvar, a parent place, and a child type,
+// returns the available dates for the statvar. Then, fill the datapicker with
+// the dates.
 function PlotOptions(): JSX.Element {
-  const { place, x, y } = useContext(Context);
+  const { place, date, x, y } = useContext(Context);
 
-  const [open, setOpen] = useState(
-    shouldExpandOptions(place.value, x.value, y.value)
-  );
+  const [open, setOpen] = useState(false);
+
+  const { year, month, day } = date.value;
 
   return (
     <Card>
-      <Container>
+      <Container id="plot-options">
         <Row>
+          <Col xs="auto">Date</Col>
+          <Col xs="5">
+            <FormGroup className="flex-container">
+              <Input
+                type="select"
+                onChange={(event) => selectYear(date, event)}
+                className="datepicker"
+                value={year}
+              >
+                <option value={0}>Year</option>
+                {getYears().map((year) => (
+                  <option value={year} key={year}>
+                    {year}
+                  </option>
+                ))}
+              </Input>
+              <Input
+                type="select"
+                onChange={(event) => selectMonth(date, event)}
+                className="datepicker"
+                value={month}
+              >
+                <option value={0}>Month</option>
+                {getMonths().map((month) => (
+                  <option value={month} key={month}>
+                    {month}
+                  </option>
+                ))}
+              </Input>
+              <Input
+                type="select"
+                onChange={(event) => selectDay(date, event)}
+                className="datepicker"
+                value={day}
+              >
+                <option value={0}>Day</option>
+                {getDays().map((day) => (
+                  <option value={day} key={day}>
+                    {day}
+                  </option>
+                ))}
+              </Input>
+            </FormGroup>
+          </Col>
           <Col xs="auto">
             <Button
               className="flex-container"
@@ -52,7 +98,7 @@ function PlotOptions(): JSX.Element {
               <i className="material-icons">
                 {open ? "expand_less" : "expand_more"}
               </i>
-              Options
+              More Options
             </Button>
           </Col>
         </Row>
@@ -155,6 +201,82 @@ function PlotOptions(): JSX.Element {
 }
 
 /**
+ * Returns current year using local date.
+ */
+function getCurrentYear(): number {
+  return new Date().getFullYear();
+}
+
+/**
+ * Returns a sorted array of numbers from `n` to `m`.
+ * @param n
+ * @param m
+ * @param descending
+ */
+function getNToM(n: number, m: number, descending = false): Array<number> {
+  const nums = [];
+  for (let i = n; i <= m; i++) {
+    nums.push(i);
+  }
+  return descending ? nums.sort((a, b) => b - a) : nums;
+}
+
+/**
+ * Returns possible years for the datepicker.
+ */
+function getYears(): Array<number> {
+  return getNToM(1900, getCurrentYear(), true);
+}
+
+/**
+ * Returns possible months for the datepicker.
+ */
+function getMonths(): Array<number> {
+  return getNToM(1, 12, true);
+}
+
+/**
+ * Returns possible days for the datepicker.
+ */
+function getDays(): Array<number> {
+  return getNToM(1, 31, true);
+}
+
+/**
+ * Selects a year for the datepicker.
+ * @param date
+ * @param event
+ */
+function selectYear(
+  date: DateInfoWrapper,
+  event: React.ChangeEvent<HTMLInputElement>
+) {
+  date.setYear(Number.parseInt(event.target.value));
+}
+
+/**
+ * Selects a month for the datepicker.
+ * @param date
+ * @param event
+ */
+function selectMonth(
+  date: DateInfoWrapper,
+  event: React.ChangeEvent<HTMLInputElement>
+) {
+  date.setMonth(Number.parseInt(event.target.value));
+}
+
+/**
+ * Selects a day for the datepicker.
+ */
+function selectDay(
+  date: DateInfoWrapper,
+  event: React.ChangeEvent<HTMLInputElement>
+) {
+  date.setDay(Number.parseInt(event.target.value));
+}
+
+/**
  * Swaps the axes.
  * @param x
  * @param y
@@ -211,21 +333,6 @@ function selectUpperBound(
   event: React.ChangeEvent<HTMLInputElement>
 ): void {
   place.setUpperBound(parseInt(event.target.value) || 1e10);
-}
-
-/**
- * Checks if any of the plot options is selected.
- * @param context
- */
-function shouldExpandOptions(place: PlaceInfo, x: Axis, y: Axis): boolean {
-  return (
-    x.log ||
-    y.log ||
-    x.perCapita ||
-    y.perCapita ||
-    place.lowerBound != 0 ||
-    place.upperBound != 1e10
-  );
 }
 
 export { PlotOptions };

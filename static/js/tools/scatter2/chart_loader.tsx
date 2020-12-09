@@ -22,10 +22,23 @@
 import React, { useContext, useEffect, useState } from "react";
 import _ from "lodash";
 import { saveToFile } from "../../shared/util";
-import { getTimeSeriesLatestPoint } from "./util";
-import { Spinner } from "./spinner";
+import {
+  getStatsCollection,
+  nodeGetStatVar,
+  isDateChosen,
+  SourceSeries,
+} from "./util";
 import { Chart } from "./chart";
-import { Context, NamedPlace, Axis, AxisWrapper, PlaceInfo } from "./context";
+import {
+  Context,
+  NamedPlace,
+  Axis,
+  AxisWrapper,
+  PlaceInfo,
+  DateInfo,
+  IsLoadingWrapper,
+} from "./context";
+import { StatsVarNode } from "../timeline_util";
 
 /**
  * Represents a point in the scatter plot.
@@ -38,78 +51,202 @@ interface Point {
   place: NamedPlace;
 }
 
-function ChartLoader(): JSX.Element {
-  const context = useContext(Context);
-  const [points, isLoading] = useLoadPoints();
+type Cache = Record<string, SourceSeries>;
 
-  const x = context.x.value;
-  const y = context.y.value;
+function ChartLoader(): JSX.Element {
+  const { x, y } = useContext(Context);
+  const cache = useCache();
+  const points = usePoints(cache);
+
+  const xVal = x.value;
+  const yVal = y.value;
 
   return (
     <div>
-      {areStatVarNamesLoaded(x, y) && (
+      {areStatVarNamesLoaded(xVal, yVal) && (
         <Chart
           points={points}
-          xLabel={getLabel(x.name, x.perCapita)}
-          yLabel={getLabel(y.name, y.perCapita)}
-          xLog={x.log}
-          yLog={y.log}
-          xPerCapita={x.perCapita}
-          yPerCapita={y.perCapita}
+          xLabel={getLabel(xVal.name, xVal.perCapita)}
+          yLabel={getLabel(yVal.name, yVal.perCapita)}
+          xLog={xVal.log}
+          yLog={yVal.log}
+          xPerCapita={xVal.perCapita}
+          yPerCapita={yVal.perCapita}
+          xProvenance={getProvenance(cache, nodeGetStatVar(xVal.statVar))}
+          yProvenance={getProvenance(cache, nodeGetStatVar(yVal.statVar))}
         />
       )}
-      <Spinner isOpen={isLoading} />
     </div>
   );
 }
 
 /**
- * Hook that returns an array of points for plotting and a boolean
- * indicating if data are being loaded.
+ * Hook that returns a cache containing population and statvar data.
  */
-function useLoadPoints(): [Array<Point>, boolean] {
-  const context = useContext(Context);
-  const [points, setPoints] = useState([] as Array<Point>);
-  const [isLoading, setIsLoading] = useState(false);
+function useCache(): Cache {
+  const { x, y, place, date, isLoading } = useContext(Context);
+
+  // From statvar DCIDs to `SourceSeries` data
+  const [cache, setCache] = useState({} as Cache);
+
+  const xVal = x.value;
+  const yVal = y.value;
+  const placeVal = place.value;
+  const dateVal = date.value;
 
   /**
    * When statvars, enclosing place, child place type, or any plot options change,
    * re-retreive data.
    */
   useEffect(() => {
-    const place = context.place.value;
-    if (!arePlacesLoaded(place)) {
+    if (
+      !arePlacesLoaded(placeVal) ||
+      !areStatVarNamesLoaded(xVal, yVal) ||
+      !isDateChosen(date.value)
+    ) {
+      setCache({});
       return;
     }
-    const x = context.x;
-    const y = context.y;
-    if (!areStatVarNamesLoaded(x.value, y.value)) {
-      return;
+    if (!areDataLoaded(cache, xVal, yVal, dateVal)) {
+      loadData(x, y, placeVal, dateVal, isLoading, setCache);
     }
+  }, [xVal, yVal, placeVal, dateVal]);
 
-    loadPopulationsAndDataIfNeeded(x, place);
-    loadPopulationsAndDataIfNeeded(y, place);
-    if (!arePopulationsAndDataLoaded(x.value, y.value)) {
-      // The two `loadPopulationsAndDataIfNeeded` calls above are async.
-      // If we get into this block, then it must be the case that
-      // the population data and statvar data have not been loaded
-      // for at least one of the axes.
-      setIsLoading(true);
+  return cache;
+}
+
+/**
+ * Converts `DateInfo` to a string of the form YYYY-MM-DD,
+ * YYYY-MM, or YYYY, depending if month and day are chosen.
+ * @param date
+ */
+function formatDate(date: DateInfo) {
+  let str = date.year.toString();
+  if (date.month) {
+    str += `-${date.month}`;
+    if (date.day) {
+      str += `-${date.day}`;
+    }
+  }
+  return str;
+}
+
+/**
+ * Fills cache with population and statvar data.
+ * @param x
+ * @param y
+ * @param place
+ * @param date
+ * @param isLoading
+ * @param setCache
+ */
+async function loadData(
+  x: AxisWrapper,
+  y: AxisWrapper,
+  place: PlaceInfo,
+  date: DateInfo,
+  isLoading: IsLoadingWrapper,
+  setCache: (cache: Cache) => void
+) {
+  const dateString = formatDate(date);
+  isLoading.setAreDataLoading(true);
+  const data = await getStatsCollection(
+    place.enclosingPlace.dcid,
+    place.enclosedPlaceType,
+    dateString,
+    [
+      // Populations
+      getPopulationStatVar(x.value.statVar),
+      getPopulationStatVar(y.value.statVar),
+      // Statvars
+      nodeGetStatVar(x.value.statVar),
+      nodeGetStatVar(y.value.statVar),
+    ]
+  );
+  if (!areDataLoaded(data, x.value, y.value, date)) {
+    alert(
+      `Sorry, no data available for ${dateString}. Try picking another date.`
+    );
+  } else {
+    setCache(data);
+  }
+  isLoading.setAreDataLoading(false);
+}
+
+/**
+ * Gets the provenance for a statvar from the cache.
+ * Returns an empty string if the statvar is not in the
+ * cache.
+ * @param cache
+ * @param statVar
+ */
+function getProvenance(cache: Cache, statVar: string) {
+  if (statVar in cache) {
+    return cache[statVar].provenanceDomain;
+  }
+  return "";
+}
+
+/**
+ * Hook that returns an array of points for plotting.
+ * @param cache
+ */
+function usePoints(cache: Cache): Array<Point> {
+  const { x, y, place, date } = useContext(Context);
+  const [points, setPoints] = useState([] as Array<Point>);
+
+  const xVal = x.value;
+  const yVal = y.value;
+  const placeVal = place.value;
+  const dateVal = date.value;
+
+  /**
+   * Regenerates points after population and statvar data are retrieved
+   * and after plot options change.
+   */
+  useEffect(() => {
+    if (_.isEmpty(cache) || !areDataLoaded(cache, xVal, yVal, dateVal)) {
       return;
     }
-
-    const points = getPoints(x.value, y.value, place);
-    setPoints(points);
-    setIsLoading(false);
+    const points = getPoints(xVal, yVal, placeVal, cache);
+    setPoints(computeCapita(points, xVal.perCapita, yVal.perCapita));
 
     const downloadButton = document.getElementById("download-link");
     if (downloadButton) {
       downloadButton.style.visibility = "visible";
-      downloadButton.onclick = () => downloadData(x.value, y.value, place);
+      downloadButton.onclick = () =>
+        downloadData(xVal, yVal, placeVal, dateVal, points);
     }
-  }, [context]);
+  }, [cache, xVal, yVal, placeVal]);
 
-  return [points, isLoading];
+  return points;
+}
+
+/**
+ * Gets the DCID of the per capita denominator.
+ * @param node
+ */
+function getPopulationStatVar(node: StatsVarNode): string {
+  return Object.values(node)[0].denominators[0] || "Count_Person";
+}
+
+/**
+ * Divides `xVal` and `yVal` by `xPop` and `yPop` if per capita is
+ * selected for that axis.
+ * @param points
+ * @param xPerCapita
+ * @param yPerCapita
+ */
+function computeCapita(
+  points: Array<Point>,
+  xPerCapita: boolean,
+  yPerCapita: boolean
+) {
+  return points.map((point) => ({
+    ...point,
+    xVal: xPerCapita ? point.xVal / point.xPop : point.xVal,
+    yVal: yPerCapita ? point.yVal / point.yPop : point.yVal,
+  }));
 }
 
 /**
@@ -117,33 +254,42 @@ function useLoadPoints(): [Array<Point>, boolean] {
  * @param x
  * @param y
  * @param place
+ * @param cache
  */
-function getPoints(x: Axis, y: Axis, place: PlaceInfo): Array<Point> {
+function getPoints(
+  x: Axis,
+  y: Axis,
+  place: PlaceInfo,
+  cache: Cache
+): Array<Point> {
+  const xData = cache[nodeGetStatVar(x.statVar)];
+  const yData = cache[nodeGetStatVar(y.statVar)];
+  const xPops = cache[getPopulationStatVar(x.statVar)];
+  const yPops = cache[getPopulationStatVar(y.statVar)];
   const lower = place.lowerBound;
   const upper = place.upperBound;
-  return _.zip(
-    x.data,
-    y.data,
-    x.populations,
-    y.populations,
+  return (
     place.enclosedPlaces
-  )
-    .filter(
-      ([xVal, yVal, xPop, yPop]) =>
-        xVal !== undefined &&
-        yVal !== undefined &&
-        xPop !== undefined &&
-        yPop !== undefined &&
-        isBetween(xPop, lower, upper) &&
-        isBetween(yPop, lower, upper)
-    )
-    .map(([xVal, yVal, xPop, yPop, placeName]) => ({
-      xVal: x.perCapita ? xVal / xPop : xVal,
-      yVal: y.perCapita ? yVal / yPop : yVal,
-      xPop: xPop,
-      yPop: yPop,
-      place: placeName,
-    }));
+      // Map to `Point`s
+      .map((namedPlace) => ({
+        xVal: xData.val[namedPlace.dcid],
+        yVal: yData.val[namedPlace.dcid],
+        xPop: xPops.val[namedPlace.dcid],
+        yPop: yPops.val[namedPlace.dcid],
+        place: namedPlace,
+      }))
+      // Filter out unavailable data
+      .filter(
+        ({ xVal, yVal, xPop, yPop }) =>
+          !_.isNil(xVal) &&
+          !_.isNil(yVal) &&
+          // If not per capita, allow populations to be not available
+          (!_.isNil(xPop) || !x.perCapita) &&
+          (!_.isNil(yPop) || !y.perCapita) &&
+          isBetween(xPop, lower, upper) &&
+          isBetween(yPop, lower, upper)
+      )
+  );
 }
 
 /**
@@ -159,71 +305,88 @@ function arePlacesLoaded(place: PlaceInfo): boolean {
 }
 
 /**
- * Checks if the name of a statvar for an axis has been loaded from the statvar menu.
+ * Checks if the name of a statvar for an axis has been
+ * loaded from the statvar menu.
  * @param axis
  */
 function isStatVarNameLoaded(axis: Axis): boolean {
   return !_.isEmpty(axis.name);
 }
 
+/**
+ * Checks if the names of the two statvars for both axes
+ * has been loaded from the statvar menu.
+ */
 function areStatVarNamesLoaded(x: Axis, y: Axis): boolean {
   return isStatVarNameLoaded(x) && isStatVarNameLoaded(y);
 }
 
 /**
- * Checks if the population data (for per capita) and statvar data have been loaded
- * for both axes.
+ * Checks if the population (for per capita) and statvar data
+ * have been loaded for both axes.
  * @param x
  * @param y
  */
-function arePopulationsAndDataLoaded(x: Axis, y: Axis): boolean {
+function areDataLoaded(
+  cache: Cache,
+  x: Axis,
+  y: Axis,
+  date: DateInfo
+): boolean {
+  const xStatVar = nodeGetStatVar(x.statVar);
+  const yStatVar = nodeGetStatVar(y.statVar);
+  const xPopStatVar = getPopulationStatVar(x.statVar);
+  const yPopStatVar = getPopulationStatVar(y.statVar);
   return (
-    !_.isEmpty(x.data) &&
-    !_.isEmpty(y.data) &&
-    !_.isEmpty(x.populations) &&
-    !_.isEmpty(y.populations)
+    xStatVar in cache &&
+    !_.isEmpty(cache[xStatVar]) &&
+    yStatVar in cache &&
+    !_.isEmpty(cache[yStatVar]) &&
+    xPopStatVar in cache &&
+    !_.isEmpty(cache[xPopStatVar]) &&
+    yPopStatVar in cache &&
+    !_.isEmpty(cache[yPopStatVar]) &&
+    // Checking the date of one axis is enough because all
+    // statvars share the same date
+    formatDate(date) === cache[xStatVar].date
   );
 }
 
 /**
  * Saves data to a CSV file.
- * @param x
- * @param y
- * @param place
+ * @param points
  */
-function downloadData(x: Axis, y: Axis, place: PlaceInfo): void {
-  if (!arePopulationsAndDataLoaded(x, y)) {
-    alert("Sorry, still retrieving data. Please try again later.");
-    return;
-  }
+function downloadData(
+  x: Axis,
+  y: Axis,
+  place: PlaceInfo,
+  date: DateInfo,
+  points: Array<Point>
+): void {
+  const xStatVar = nodeGetStatVar(x.statVar);
+  const yStatVar = nodeGetStatVar(y.statVar);
+  const xPopStatVar = getPopulationStatVar(x.statVar);
+  const yPopStatVar = getPopulationStatVar(y.statVar);
 
-  const xStatVar = _.findKey(x.statVar);
-  const yStatVar = _.findKey(y.statVar);
   // Headers
   let csv =
+    "placeName," +
+    "placeDCID," +
     `xValue-${xStatVar},` +
     `yValue-${yStatVar},` +
-    `${x.statVar[xStatVar].denominators[0] || "xPopulation-Count_Person"},` +
-    `${y.statVar[yStatVar].denominators[0] || "yPopulation-Count_Person"}\n`;
+    `xPopulation-${xPopStatVar},` +
+    `yPopulation-${yPopStatVar}\n`;
   // Data
-  for (const [xVal, yVal, xPop, yPop] of _.zip(
-    x.data,
-    y.data,
-    x.populations,
-    y.populations
-  )) {
-    csv +=
-      `${xVal === undefined ? "" : xVal},` +
-      `${yVal === undefined ? "" : yVal},` +
-      `${xPop === undefined ? "" : xPop},` +
-      `${yPop === undefined ? "" : yPop}\n`;
+  for (const { xVal, yVal, xPop, yPop, place } of points) {
+    csv += `${place.name},${place.dcid},${xVal},${yVal},${xPop},${yPop}\n`;
   }
 
   saveToFile(
-    `${x.name}-` +
-      `${y.name}-` +
-      `${place.enclosingPlace.name}-` +
-      `${place.enclosedPlaceType}.csv`,
+    `${xStatVar}+` +
+      `${yStatVar}+` +
+      `${place.enclosingPlace.name}+` +
+      `${place.enclosedPlaceType}+` +
+      `${formatDate(date)}.csv`,
     csv
   );
 }
@@ -239,65 +402,6 @@ function isBetween(num: number, lower: number, upper: number): boolean {
     return true;
   }
   return lower <= num && num <= upper;
-}
-
-/**
- * Loads population data (for per capita) and statvar
- * data if they have been selected but not yet loaded.
- * @param axis
- * @param place
- */
-async function loadPopulationsAndDataIfNeeded(
-  axis: AxisWrapper,
-  place: PlaceInfo
-): Promise<void> {
-  if (!_.isEmpty(axis.value.statVar)) {
-    const promises = [];
-    if (_.isEmpty(axis.value.populations)) {
-      promises.push(loadPopulations(axis, place));
-    }
-    if (_.isEmpty(axis.value.data)) {
-      promises.push(loadData(axis, place));
-    }
-    await Promise.all(promises);
-  }
-}
-
-/**
- * Loads population data (for per capita) for an axis.
- * @param axis
- * @param place
- */
-async function loadPopulations(
-  axis: AxisWrapper,
-  place: PlaceInfo
-): Promise<void> {
-  const populations = await Promise.all(
-    place.enclosedPlaces.map((namedPlace) =>
-      getTimeSeriesLatestPoint(
-        namedPlace.dcid,
-        Object.values(axis.value.statVar)[0].denominators[0] || "Count_Person"
-      ).catch(() => undefined)
-    )
-  );
-  axis.setPopulations(populations);
-}
-
-/**
- * Loads statvar data for an axis.
- * @param axis
- * @param place
- */
-async function loadData(axis: AxisWrapper, place: PlaceInfo): Promise<void> {
-  const data = await Promise.all(
-    place.enclosedPlaces.map((namedPlace) =>
-      getTimeSeriesLatestPoint(
-        namedPlace.dcid,
-        _.findKey(axis.value.statVar)
-      ).catch(() => undefined)
-    )
-  );
-  axis.setData(data);
 }
 
 /**

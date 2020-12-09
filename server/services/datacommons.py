@@ -70,6 +70,7 @@ API_ENDPOINTS = {
     'get_stats': '/bulk/stats',
     'get_stats_all': '/stat/all',
     'get_stats_value': '/stat/value',
+    'get_stats_collection': '/stat/collection',
     # TODO(shifucun): switch back to /node/related-places after data switch.
     'get_related_places': '/node/related-locations',
     'get_interesting_places': '/node/interesting-place-aspects',
@@ -131,6 +132,33 @@ def get_stats_value(place, stat_var, date, measurement_method,
         'observation_period': observation_period,
         'unit': unit,
         'scaling_factor': scaling_factor
+    }
+    return send_request(url, req_json=req_json, post=False, has_payload=False)
+
+
+def get_stats_collection(parent_place, child_type, date, stat_vars):
+    """Gets the statistical variable values for child places of a certain place
+    type contained in a parent place at a given date.
+
+    Args:
+        parent_place: Parent place DCID as a string.
+        child_type: Type of child places as a string.
+        date: Date as a string of the form YYYY-MM-DD (month and day are optional).
+        stat_vars: List of statistical variable DCIDs each as a string.
+    
+    Returns:
+        Dict with a single key "data". The value is a dict keyed by statvar DCIDs,
+        with dicts as values. See `SourceSeries` in
+        https://github.com/datacommonsorg/mixer/blob/master/proto/mixer.proto
+        for the definition of the inner dicts. In particular, the values for "val"
+        are dicts keyed by child place DCIDs with the statvar values as values.
+    """
+    url = API_ROOT + API_ENDPOINTS['get_stats_collection']
+    req_json = {
+        'parent_place': parent_place,
+        'child_type': child_type,
+        'date': date,
+        'stat_vars': stat_vars
     }
     return send_request(url, req_json=req_json, post=False, has_payload=False)
 

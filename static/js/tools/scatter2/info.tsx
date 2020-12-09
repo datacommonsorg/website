@@ -25,12 +25,23 @@ function Info(): JSX.Element {
     <div id="placeholder-container">
       <p>
         The scatter plot tool helps you visualize the correlation between two
-        variables that appear in the pane to the left. Select the type of places
-        you want to plot in the dropdown menu and enter the containing place in
-        the search box above. Then, pick two variables in the left pane. There
-        are thousands of variables to choose from, arranged in a topical
-        hierarchy.
+        variables that appear in the pane to the left.
       </p>
+      <ol>
+        <li>
+          Select the type of places you want to plot in the dropdown menu and
+          enter the containing place in the search box above.
+        </li>
+        <li>
+          Select the date of data to retrieve below the place options. For
+          monthly data, leave day empty. For quaterly data, select the start
+          month of the quarter.
+        </li>
+        <li>
+          Pick two variables in the left pane. There are thousands of variables
+          to choose from, arranged in a topical hierarchy.
+        </li>
+      </ol>
 
       {/* TODO(intrepiditee): Add descriptions examples */}
 

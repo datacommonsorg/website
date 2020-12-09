@@ -21,10 +21,15 @@
 import React, { useContext, useEffect } from "react";
 import _ from "lodash";
 import { Card } from "reactstrap";
-import { Context, AxisWrapper, PlaceInfo, PlaceInfoWrapper } from "./context";
+import {
+  Context,
+  IsLoadingWrapper,
+  PlaceInfo,
+  PlaceInfoWrapper,
+} from "./context";
 import { SearchBar } from "../timeline_search";
 import { getPlaceNames } from "../timeline_util";
-import { getPlacesIn } from "./util";
+import { getPlacesInNames } from "./util";
 
 import { Container, Row, Col, CustomInput } from "reactstrap";
 
@@ -51,7 +56,7 @@ const EnclosedTypes = [
 ];
 
 function PlaceOptions(): JSX.Element {
-  const { place, x, y } = useContext(Context);
+  const { place, isLoading } = useContext(Context);
 
   /**
    * Reloads child places if the enclosing place or child place type changes.
@@ -60,7 +65,7 @@ function PlaceOptions(): JSX.Element {
     if (!shouldLoadPlaces(place.value)) {
       return;
     }
-    loadPlaces(place);
+    loadPlaces(place, isLoading);
   }, [place.value]);
 
   return (
@@ -73,7 +78,7 @@ function PlaceOptions(): JSX.Element {
               id="enclosed-place-type"
               type="select"
               value={place.value.enclosedPlaceType}
-              onChange={(e) => selectEnclosedPlaceType(x, y, place, e)}
+              onChange={(e) => selectEnclosedPlaceType(place, e)}
             >
               <option value="">Select a place type</option>
               {EnclosedTypes.map((type) => (
@@ -95,8 +100,8 @@ function PlaceOptions(): JSX.Element {
                       }
                     : {}
                 }
-                addPlace={(e) => selectEnclosingPlace(x, y, place, e)}
-                removePlace={() => unselectEnclosingPlace(x, y, place)}
+                addPlace={(e) => selectEnclosingPlace(place, e)}
+                removePlace={() => unselectEnclosingPlace(place)}
                 numPlacesLimit={1}
               />
             </div>
@@ -123,85 +128,66 @@ function shouldLoadPlaces(place: PlaceInfo): boolean {
 /**
  * Loads child places.
  * @param place
+ * @param isLoading
  */
-async function loadPlaces(place: PlaceInfoWrapper): Promise<void> {
-  const dcids = await getPlacesIn(
-    place.value.enclosingPlace.dcid,
-    place.value.enclosedPlaceType
-  );
-
-  if (!_.isEmpty(dcids)) {
-    const dcidToName = await getPlaceNames(dcids);
+async function loadPlaces(
+  place: PlaceInfoWrapper,
+  isLoading: IsLoadingWrapper
+): Promise<void> {
+  let dcidToName: Record<string, string>;
+  isLoading.setArePlacesLoading(true);
+  try {
+    dcidToName = await getPlacesInNames(
+      place.value.enclosingPlace.dcid,
+      place.value.enclosedPlaceType
+    );
+  } catch (err) {
+    dcidToName = {};
+  }
+  if (!_.isEmpty(dcidToName)) {
     place.setEnclosedPlaces(
-      dcids.map((dcid) => ({
-        name: dcidToName[dcid],
+      _.keys(dcidToName).map((dcid) => ({
         dcid: dcid,
+        name: dcidToName[dcid] || dcid,
       }))
     );
   } else {
     alert(
-      `Sorry, ${place.value.enclosingPlace.name} does not contain places of type ${place.value.enclosedPlaceType}`
+      `Sorry, ${place.value.enclosingPlace.name} does not contain places of type ` +
+        `${place.value.enclosedPlaceType}. Try picking another type or place.`
     );
   }
+  isLoading.setArePlacesLoading(false);
 }
 
 /**
- * Clears population and statvar data for both axes.
- * @param x
- * @param y
- */
-function unsetPopulationsAndData(x: AxisWrapper, y: AxisWrapper) {
-  x.unsetPopulationsAndData();
-  y.unsetPopulationsAndData();
-}
-
-/**
- * Selects child place type and clears population and statvar data.
- * @param x
- * @param y
+ * Selects child place type.
  * @param place
  * @param event
  */
 function selectEnclosedPlaceType(
-  x: AxisWrapper,
-  y: AxisWrapper,
   place: PlaceInfoWrapper,
   event: React.ChangeEvent<HTMLInputElement>
 ) {
   place.setEnclosedPlaceType(event.target.value);
-  unsetPopulationsAndData(x, y);
 }
 
 /**
- * Selects the enclosing place and clears population and statvar data.
- * @param x
- * @param y
+ * Selects the enclosing place.
  * @param place
  * @param dcid
  */
-async function selectEnclosingPlace(
-  x: AxisWrapper,
-  y: AxisWrapper,
-  place: PlaceInfoWrapper,
-  dcid: string
-) {
+async function selectEnclosingPlace(place: PlaceInfoWrapper, dcid: string) {
   const dcidToName = await getPlaceNames([dcid]);
   place.setEnclosingPlace({ dcid: dcid, name: dcidToName[dcid] });
-  unsetPopulationsAndData(x, y);
 }
 
 /**
- * Removes the enclosing place and clears the child places and
- * population and statvar data.
+ * Removes the enclosing place
  * @param place
  */
-function unselectEnclosingPlace(
-  x: AxisWrapper,
-  y: AxisWrapper,
-  place: PlaceInfoWrapper
-) {
+function unselectEnclosingPlace(place: PlaceInfoWrapper) {
   place.setEnclosingPlace({ dcid: "", name: "" });
-  unsetPopulationsAndData(x, y);
 }
 
 export { PlaceOptions };

@@ -36,8 +36,15 @@ import {
 import { Menu } from "../statsvar_menu";
 import { NoopStatsVarFilter, TimelineStatsVarFilter } from "../commons";
 import { StatsVarNode, getStatsVar } from "../timeline_util";
-import { Context, emptyAxis, Axis, NamedPlace, AxisWrapper } from "./context";
-import { Spinner } from "./spinner";
+import {
+  Context,
+  EmptyAxis,
+  Axis,
+  AxisWrapper,
+  NamedPlace,
+  IsLoadingWrapper,
+} from "./context";
+import { nodeGetStatVar } from "./util";
 
 interface NamedStatVar {
   // Always contains a single statvar.
@@ -63,7 +70,7 @@ const defaultModalSelected: ModalSelected = Object.freeze({
 });
 
 function StatVarChooser(): JSX.Element {
-  const { place, x, y } = useContext(Context);
+  const { x, y } = useContext(Context);
 
   // Temporary variable for storing an extra statvar.
   const [thirdStatVar, setThirdStatVar] = useState(emptyStatVar);
@@ -75,26 +82,8 @@ function StatVarChooser(): JSX.Element {
     ...y.value.statVar,
     ...thirdStatVar.statVar,
   };
-  // Stores filtered statvar DCIDs.
-  const [validStatVars, setValidStatVars] = useState(new Set<string>());
-  const [isLoading, setIsLoading] = useState(false);
-
-  // When child places change, refilter the statvars.
-  useEffect(() => {
-    const places = place.value.enclosedPlaces;
-    if (_.isEmpty(places)) {
-      return;
-    }
-    filterStatVars(x, y, places, setValidStatVars);
-    setIsLoading(true);
-  }, [place.value.enclosedPlaces]);
-
-  // After filtered statvar DCIDs have been loaded, remove the spinner.
-  useEffect(() => {
-    if (!_.isEmpty(validStatVars)) {
-      setIsLoading(false);
-    }
-  }, [validStatVars]);
+  // Filtered statvar DCIDs.
+  const validStatVars = useValidStatVars();
 
   return (
     <div className="explore-menu-container" id="explore">
@@ -124,7 +113,6 @@ function StatVarChooser(): JSX.Element {
           }
         ></Menu>
       </div>
-      <Spinner isOpen={isLoading} />
       <Modal
         isOpen={!_.isEmpty(thirdStatVar.statVar)}
         backdrop="static"
@@ -199,40 +187,86 @@ function StatVarChooser(): JSX.Element {
 }
 
 /**
- * Filters statvars shown in the statvar menu.
+ * Hook that returns a set of statvars available for the child places.
+ */
+function useValidStatVars(): Set<string> {
+  const { place, x, y, isLoading } = useContext(Context);
+
+  // Stores filtered statvar DCIDs.
+  const [validStatVars, setValidStatVars] = useState(new Set<string>());
+
+  // When child places change, refilter the statvars.
+  useEffect(() => {
+    if (_.isEmpty(place.value.enclosedPlaces)) {
+      setValidStatVars(new Set<string>());
+      return;
+    }
+    filterStatVars(
+      x,
+      y,
+      place.value.enclosedPlaces,
+      isLoading,
+      setValidStatVars
+    );
+  }, [place.value.enclosedPlaces]);
+
+  return validStatVars;
+}
+
+/**
+ * Retrieves and sets statvars shown in the statvar menu.
  * A statvar is kept if it is available for at least one of the child places.
  * Throws an alert if a currently selected statvar is filtered out.
  * @param x
  * @param y
- * @param places
+ * @param enclosedPlaces
+ * @param isLoading
  * @param setValidStatVars
  */
-function filterStatVars(
+async function filterStatVars(
   x: AxisWrapper,
   y: AxisWrapper,
-  places: Array<NamedPlace>,
+  enclosedPlaces: Array<NamedPlace>,
+  isLoading: IsLoadingWrapper,
   setValidStatVars: (statVars: Set<string>) => void
-): void {
-  getStatsVar(places.map((place) => place.dcid)).then((statVars) => {
-    setValidStatVars(statVars);
+): Promise<void> {
+  isLoading.setAreStatVarsLoading(true);
+  const statVars = await getStatsVar(
+    enclosedPlaces.map((namedPlace) => namedPlace.dcid),
+    true
+  );
+  setValidStatVars(statVars);
+  isLoading.setAreStatVarsLoading(false);
+  alertIfStatVarsUnavailable(x, y, statVars);
+}
 
-    let message = "";
-    const statVarX = _.findKey(x.value.statVar);
-    const statVarY = _.findKey(y.value.statVar);
-    if (statVarX && !statVars.has(statVarX)) {
-      x.unsetStatVar();
-      message += `Sorry, no data available for ${statVarX}`;
-    }
-    if (statVarY && !statVars.has(statVarY)) {
-      y.unsetStatVar();
-      message += message.length
-        ? ` or ${statVarY}`
-        : `Sorry, no data available for ${statVarY}`;
-    }
-    if (message.length) {
-      alert(message);
-    }
-  });
+/**
+ * Throws an alert if a currently selected statvar is not available.
+ * @param x
+ * @param y
+ * @param statVars Set of available statvars
+ */
+function alertIfStatVarsUnavailable(
+  x: AxisWrapper,
+  y: AxisWrapper,
+  statVars: Set<string>
+) {
+  let message = "";
+  const statVarX = nodeGetStatVar(x.value.statVar);
+  const statVarY = nodeGetStatVar(y.value.statVar);
+  if (statVarX && !statVars.has(statVarX)) {
+    x.unsetStatVar();
+    message += `Sorry, no data available for ${statVarX}`;
+  }
+  if (statVarY && !statVars.has(statVarY)) {
+    y.unsetStatVar();
+    message += message.length
+      ? ` or ${statVarY}`
+      : `Sorry, no data available for ${statVarY}`;
+  }
+  if (message) {
+    alert(`${message}. Try picking other variables.`);
+  }
 }
 
 /**
@@ -312,15 +346,15 @@ function setStatsVarTitle(
   thirdStatVar: NamedStatVar,
   setThirdStatVar: (statVar: NamedStatVar) => void
 ): void {
-  const statVarX = _.findKey(x.value.statVar);
+  const statVarX = nodeGetStatVar(x.value.statVar);
   if (statVarX && statVarX in statsVarId2Title) {
     x.setStatVarName(statsVarId2Title[statVarX]);
   }
-  const statVarY = _.findKey(y.value.statVar);
+  const statVarY = nodeGetStatVar(y.value.statVar);
   if (statVarY && statVarY in statsVarId2Title) {
     y.setStatVarName(statsVarId2Title[statVarY]);
   }
-  const statVarThird = _.findKey(thirdStatVar.statVar);
+  const statVarThird = nodeGetStatVar(thirdStatVar.statVar);
   if (statVarThird && statVarThird in statsVarId2Title) {
     setThirdStatVar({ ...thirdStatVar, name: statsVarId2Title[statVarThird] });
   }
@@ -379,15 +413,15 @@ function confirmStatVars(
   if (modalSelected.x) {
     values.push(x.value);
   } else {
-    assignAxes([x], [emptyAxis]);
+    assignAxes([x], [EmptyAxis]);
   }
   if (modalSelected.y) {
     values.push(y.value);
   } else {
-    assignAxes([y], [emptyAxis]);
+    assignAxes([y], [EmptyAxis]);
   }
   values.push({
-    ...emptyAxis,
+    ...EmptyAxis,
     statVar: thirdStatVar.statVar,
     name: thirdStatVar.name,
   });

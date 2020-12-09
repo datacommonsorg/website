@@ -43,7 +43,7 @@
   display: block;
 }
 
-#chart-svg {
+.no-padding {
   padding: 0;
 }
 
@@ -56,6 +56,19 @@
 
 .form-check {
   padding-left: 0;
+}
+
+.form-group {
+  margin-bottom: 0;
+}
+
+#plot-options .collapse .row,
+#plot-options .collapsing .row {
+  margin-top: 10px;
+}
+
+.datepicker {
+  margin-right: 10px;
 }
 
 .card {
