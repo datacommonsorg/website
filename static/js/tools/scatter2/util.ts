@@ -81,6 +81,29 @@ async function getStatsCollection(
 }
 
 /**
+ * Given a `StatsVarNode` that only has one key,
+ * return the key.
+ * @param node
+ */
+function nodeGetStatVar(node: StatsVarNode): string {
+  return _.findKey(node);
+}
+
+/**
+ * Checks if the date of data to retrieve is chosen.
+ * Returns true if year is chosen, or year and month are chosen,
+ * or year, month, and day are chosen.
+ * @param date
+ */
+function isDateChosen(date: DateInfo): boolean {
+  return (
+    date.year > 0 ||
+    (date.year > 0 && date.month > 0) ||
+    (date.year > 0 && date.month > 0 && date.day > 0)
+  );
+}
+
+/**
  * Parses the hash and updates the context accordingly.
  * @param context
  */
@@ -224,7 +247,7 @@ function updateHashAxis(hash: string, axis: Axis, isX: boolean): string {
   if (_.isEqual(axis, EmptyAxis)) {
     return hash;
   }
-  const statVarDcid = _.findKey(axis.statVar);
+  const statVarDcid = nodeGetStatVar(axis.statVar);
   if (statVarDcid) {
     hash = appendEntry(
       hash,
@@ -308,6 +331,8 @@ function updateHashDate(hash: string, date: DateInfo) {
 export {
   getPlacesInNames,
   getStatsCollection,
+  nodeGetStatVar,
+  isDateChosen,
   updateHash,
   applyHash,
   SourceSeries,

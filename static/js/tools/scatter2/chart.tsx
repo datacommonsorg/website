@@ -48,7 +48,7 @@ function Chart(props: ChartPropsType): JSX.Element {
   return (
     <Container id="chart">
       <Row>
-        <Card id="chart-svg">
+        <Card id="no-padding">
           <svg ref={svg} />
           <div id="tooltip" ref={tooltip} />
         </Card>

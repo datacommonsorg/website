@@ -153,7 +153,8 @@ async function loadPlaces(
     );
   } else {
     alert(
-      `Sorry, ${place.value.enclosingPlace.name} does not contain places of type ${place.value.enclosedPlaceType}`
+      `Sorry, ${place.value.enclosingPlace.name} does not contain places of type ` +
+        `${place.value.enclosedPlaceType}. Try picking another type or place.`
     );
   }
   isLoading.setArePlacesLoading(false);

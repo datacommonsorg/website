@@ -33,12 +33,13 @@ import {
   Axis,
   PlaceInfo,
   IsLoadingWrapper,
+  DateInfo,
 } from "./context";
-import { updateHash, applyHash } from "./util";
+import { isDateChosen, updateHash, applyHash } from "./util";
 
 function App(): JSX.Element {
-  const { x, y, place, isLoading } = useContext(Context);
-  const hideInfo = shouldHideInfo(x.value, y.value, place.value);
+  const { x, y, place, date, isLoading } = useContext(Context);
+  const hideInfo = shouldHideInfo(x.value, y.value, place.value, date.value);
   return (
     <div>
       <StatVarChooser />
@@ -99,18 +100,25 @@ function shouldDisplaySpinner(isLoading: IsLoadingWrapper): boolean {
 
 /**
  * Checks if the info page should be hidden to display the chart.
- * Returns true if the enclosing place, child place type, and
- * statvars for the x and y axes are selected.
+ * Returns true if the enclosing place, child place type,
+ * statvars for the x and y axes are selected, and the date
+ * is chosen.
  * @param x
  * @param y
  * @param place
  */
-function shouldHideInfo(x: Axis, y: Axis, place: PlaceInfo): boolean {
+function shouldHideInfo(
+  x: Axis,
+  y: Axis,
+  place: PlaceInfo,
+  date: DateInfo
+): boolean {
   return (
     !_.isEmpty(place.enclosedPlaceType) &&
     !_.isEmpty(place.enclosingPlace.dcid) &&
     !_.isEmpty(x.statVar) &&
-    !_.isEmpty(y.statVar)
+    !_.isEmpty(y.statVar) &&
+    isDateChosen(date)
   );
 }
 

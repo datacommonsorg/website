@@ -30,6 +30,9 @@ import {
 
 import { Container, Row, Col } from "reactstrap";
 
+// TODO: Add a new API that given a statvar, a parent place, and a child type,
+// returns the available dates for the statvar. Then, fill the datapicker with
+// the dates.
 function PlotOptions(): JSX.Element {
   const { place, date, x, y } = useContext(Context);
 

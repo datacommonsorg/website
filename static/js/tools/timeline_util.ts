@@ -55,7 +55,7 @@ function getStatsVarInfo(
  * Returns the union of all statvars available for the given places.
  * @param dcids
  * @param sample Whether to sample `sampleSize` places from the given places, and only
- *               get the statvars for them.
+ * get the statvars for them.
  * @param sampleSize
  */
 async function getStatsVar(

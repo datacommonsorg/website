@@ -44,6 +44,7 @@ import {
   NamedPlace,
   IsLoadingWrapper,
 } from "./context";
+import { nodeGetStatVar } from "./util";
 
 interface NamedStatVar {
   // Always contains a single statvar.
@@ -251,8 +252,8 @@ function alertIfStatVarsUnavailable(
   statVars: Set<string>
 ) {
   let message = "";
-  const statVarX = _.findKey(x.value.statVar);
-  const statVarY = _.findKey(y.value.statVar);
+  const statVarX = nodeGetStatVar(x.value.statVar);
+  const statVarY = nodeGetStatVar(y.value.statVar);
   if (statVarX && !statVars.has(statVarX)) {
     x.unsetStatVar();
     message += `Sorry, no data available for ${statVarX}`;
@@ -264,7 +265,7 @@ function alertIfStatVarsUnavailable(
       : `Sorry, no data available for ${statVarY}`;
   }
   if (message) {
-    alert(message);
+    alert(`${message}. Try picking other variables.`);
   }
 }
 
@@ -345,15 +346,15 @@ function setStatsVarTitle(
   thirdStatVar: NamedStatVar,
   setThirdStatVar: (statVar: NamedStatVar) => void
 ): void {
-  const statVarX = _.findKey(x.value.statVar);
+  const statVarX = nodeGetStatVar(x.value.statVar);
   if (statVarX && statVarX in statsVarId2Title) {
     x.setStatVarName(statsVarId2Title[statVarX]);
   }
-  const statVarY = _.findKey(y.value.statVar);
+  const statVarY = nodeGetStatVar(y.value.statVar);
   if (statVarY && statVarY in statsVarId2Title) {
     y.setStatVarName(statsVarId2Title[statVarY]);
   }
-  const statVarThird = _.findKey(thirdStatVar.statVar);
+  const statVarThird = nodeGetStatVar(thirdStatVar.statVar);
   if (statVarThird && statVarThird in statsVarId2Title) {
     setThirdStatVar({ ...thirdStatVar, name: statsVarId2Title[statVarThird] });
   }

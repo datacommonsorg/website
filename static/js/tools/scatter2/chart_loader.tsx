@@ -22,7 +22,12 @@
 import React, { useContext, useEffect, useState } from "react";
 import _ from "lodash";
 import { saveToFile } from "../../shared/util";
-import { getStatsCollection, SourceSeries } from "./util";
+import {
+  getStatsCollection,
+  nodeGetStatVar,
+  isDateChosen,
+  SourceSeries,
+} from "./util";
 import { Chart } from "./chart";
 import {
   Context,
@@ -67,8 +72,8 @@ function ChartLoader(): JSX.Element {
           yLog={yVal.log}
           xPerCapita={xVal.perCapita}
           yPerCapita={yVal.perCapita}
-          xProvenance={getProvenance(cache, _.findKey(xVal.statVar))}
-          yProvenance={getProvenance(cache, _.findKey(yVal.statVar))}
+          xProvenance={getProvenance(cache, nodeGetStatVar(xVal.statVar))}
+          yProvenance={getProvenance(cache, nodeGetStatVar(yVal.statVar))}
         />
       )}
     </div>
@@ -108,20 +113,6 @@ function useCache(): Cache {
   }, [xVal, yVal, placeVal, dateVal]);
 
   return cache;
-}
-
-/**
- * Checks if the date of data to retrieve is chosen.
- * Returns true if year is chosen, or year and month are chosen,
- * or year, month, and day are chosen.
- * @param date
- */
-function isDateChosen(date: DateInfo): boolean {
-  return (
-    date.year > 0 ||
-    (date.year > 0 && date.month > 0) ||
-    (date.year > 0 && date.month > 0 && date.day > 0)
-  );
 }
 
 /**
@@ -168,12 +159,14 @@ async function loadData(
       getPopulationStatVar(x.value.statVar),
       getPopulationStatVar(y.value.statVar),
       // Statvars
-      _.findKey(x.value.statVar),
-      _.findKey(y.value.statVar),
+      nodeGetStatVar(x.value.statVar),
+      nodeGetStatVar(y.value.statVar),
     ]
   );
   if (!areDataLoaded(data, x.value, y.value, date)) {
-    alert(`Sorry, no data available for ${dateString}`);
+    alert(
+      `Sorry, no data available for ${dateString}. Try picking another date.`
+    );
   } else {
     setCache(data);
   }
@@ -269,8 +262,8 @@ function getPoints(
   place: PlaceInfo,
   cache: Cache
 ): Array<Point> {
-  const xData = cache[_.findKey(x.statVar)];
-  const yData = cache[_.findKey(y.statVar)];
+  const xData = cache[nodeGetStatVar(x.statVar)];
+  const yData = cache[nodeGetStatVar(y.statVar)];
   const xPops = cache[getPopulationStatVar(x.statVar)];
   const yPops = cache[getPopulationStatVar(y.statVar)];
   const lower = place.lowerBound;
@@ -340,8 +333,8 @@ function areDataLoaded(
   y: Axis,
   date: DateInfo
 ): boolean {
-  const xStatVar = _.findKey(x.statVar);
-  const yStatVar = _.findKey(y.statVar);
+  const xStatVar = nodeGetStatVar(x.statVar);
+  const yStatVar = nodeGetStatVar(y.statVar);
   const xPopStatVar = getPopulationStatVar(x.statVar);
   const yPopStatVar = getPopulationStatVar(y.statVar);
   return (
@@ -370,8 +363,8 @@ function downloadData(
   date: DateInfo,
   points: Array<Point>
 ): void {
-  const xStatVar = _.findKey(x.statVar);
-  const yStatVar = _.findKey(y.statVar);
+  const xStatVar = nodeGetStatVar(x.statVar);
+  const yStatVar = nodeGetStatVar(y.statVar);
   const xPopStatVar = getPopulationStatVar(x.statVar);
   const yPopStatVar = getPopulationStatVar(y.statVar);
 

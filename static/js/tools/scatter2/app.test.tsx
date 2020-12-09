@@ -101,7 +101,9 @@ function mockAxios(): () => void {
   };
   when(axios.get)
     .calledWith(
-      `/api/stats/collection?parent_place=geoId/10&child_type=County&date=2016&stat_vars=Count_Person&stat_vars=Count_Person&stat_vars=Count_Person_Employed&stat_vars=Count_Establishment`
+      "/api/stats/collection?parent_place=geoId/10&child_type=County&date=2016" +
+        "&stat_vars=Count_Person&stat_vars=Count_Person&stat_vars=Count_Person_Employed&" +
+        "stat_vars=Count_Establishment"
     )
     .mockResolvedValue({
       data: {
@@ -112,7 +114,9 @@ function mockAxios(): () => void {
     });
   when(axios.get)
     .calledWith(
-      `/api/stats/collection?parent_place=geoId/10&child_type=County&date=2016&stat_vars=Count_Person&stat_vars=Count_Person&stat_vars=Count_Person_Employed&stat_vars=Count_HousingUnit`
+      "/api/stats/collection?parent_place=geoId/10&child_type=County&date=2016" +
+        "&stat_vars=Count_Person&stat_vars=Count_Person&stat_vars=Count_Person_Employed&" +
+        "stat_vars=Count_HousingUnit"
     )
     .mockResolvedValue({
       data: {
