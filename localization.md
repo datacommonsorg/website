@@ -31,3 +31,23 @@ For now, `es` is copied and hand-updated from compiled-lang/en.json (which was g
 1. Make sure our English place types make it into the input translation files. I have a variable translation in the code but no way of extracting it, and it probably won't be covered by the chart configs.
 1. Make sure we have translations for place names.
 1. Adapt steps above to pull in actual translations.
+
+# For Jinja / Python translations
+
+See these pages for info about:
+
+- [Babel](https://readthedocs.org/projects/python-babel/downloads/pdf/stable/)
+- [Flask-Babel](https://flask-user.readthedocs.io/en/v0.6/internationalization.html)
+- [Marking up strings for extraction](https://docs.ckan.org/en/2.9/contributing/string-i18n.html)
+
+Use "TRANSLATORS:" to leave descriptive comments to help translators understand the context and deliver good translations.
+
+To extract strings to the template file:
+.env/bin/pybabel extract -F babel-mapping.ini -o server/l10n/messages.pot --omit-header -c "TRANSLATORS:" --no-wrap server/
+
+Then update the messages.po file per locale:
+.env/bin/pybabel update -l $LOCALE -i server/l10n/messages.pot -d server/l10n
+
+And after adding translations to each .po file, compile to .mo files for serving:
+TODO(beets): Do this on server start
+.env/bin/pybabel compile -d server/l10n
