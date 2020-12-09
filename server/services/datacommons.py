@@ -416,8 +416,7 @@ def send_request(req_url,
                  req_json={},
                  compress=False,
                  post=True,
-                 has_payload=True,
-                 has_data=False):
+                 has_payload=True):
     """ Sends a POST/GET request to req_url with req_json, default to POST.
     Returns:
       The payload returned by sending the POST/GET request formatted as a dict.
@@ -447,7 +446,6 @@ def send_request(req_url,
             res_json = zlib.decompress(base64.b64decode(res_json),
                                        zlib.MAX_WBITS | 32)
         res_json = json.loads(res_json)
-
     return res_json
 
 
