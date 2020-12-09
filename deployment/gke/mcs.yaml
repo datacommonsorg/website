@@ -12,14 +12,18 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-apiVersion: extensions/v1beta1
-kind: Ingress
+apiVersion: networking.gke.io/v1
+kind: MultiClusterService
 metadata:
-  name: website-ingress
+  name: website-mcs
   namespace: website
-  annotations:
-    networking.gke.io/managed-certificates: website-certificate
 spec:
-  backend:
-    serviceName: website-service
-    servicePort: 8080
+  template:
+    spec:
+      selector:
+        app: website-app
+      ports:
+        - name: web
+          protocol: TCP
+          port: 8080
+          targetPort: 8080

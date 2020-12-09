@@ -18,8 +18,17 @@ kind: Deployment
 metadata:
   name: website-app
   namespace: website
+  labels:
+    app: website-app
 spec:
   replicas: <REPLICAS>
+  strategy:
+      type: RollingUpdate
+      rollingUpdate:
+        # maximum number of Pods that can be created over the desired number of Pods
+        maxSurge: 1
+        # maximum number of Pods that can be unavailable during the update process
+        maxUnavailable: 25%
   selector:
     matchLabels:
       app: website-app
@@ -46,6 +55,10 @@ spec:
           args: []
           ports:
             - containerPort: 8080
+          readinessProbe:
+            httpGet:
+              path: /about
+              port: 8080
           volumeMounts:
             - name: website-robot-key
               mountPath: /var/secrets/google

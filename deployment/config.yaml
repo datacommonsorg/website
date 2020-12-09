@@ -1,0 +1,89 @@
+project:
+  dev: datcom-mixer-staging
+  staging: datcom-mixer-staging
+  prod: datacommons-mixer-prod
+
+image:
+  mixer: gcr.io/datcom-ci/datacommons-mixer:latest
+  website: gcr.io/datcom-ci/datacommons-werbsite:latest
+
+args:
+  mixer:
+    bt_project: google.com:datcom-store-dev
+    bt_instance: prophet-cache
+    branch_folder:
+      dev: "dummy" # Emtpy branch cache folder for fast loading
+      staging:
+      prod:
+  esp:
+    non_gcp:
+      dev: "--non_gcp"
+      staging:
+      prod:
+
+replicas:
+  dev: 1
+  staging: 3
+  prod: 18
+
+# Memory Request and Limit
+# https://kubernetes.io/docs/concepts/configuration/manage-resources-containers/#requests-and-limits
+mem:
+  website:
+    req:
+      dev: 1G
+      staging: 2G
+      prod: 2G
+    limit:
+      dev: 1G
+      staging: 2G
+      prod: 2G
+  mixer:
+    req:
+      dev: 2G
+      staging: 6G
+      prod: 6G
+    limit:
+      dev: 2G
+      staging: 6G
+      prod: 6G
+  esp:
+    req:
+      dev: 0.5G
+      staging: 1G
+      prod: 1G
+    limit:
+      dev: 0.5G
+      staging: 1G
+      prod: 1G
+
+# CPU Request and Limit
+# https://kubernetes.io/docs/concepts/configuration/manage-resources-containers/#requests-and-limits
+cpu:
+  website:
+    req:
+      dev: 500m
+      staging: 1000m
+      prod: 1000m
+    limit:
+      dev: 500m
+      staging: 1000m
+      prod: 1000m
+  mixer:
+    req:
+      dev: 500m
+      staging: 500m
+      prod: 1000m
+    limit:
+      dev: 500m
+      staging: 500m
+      prod: 1000m
+  esp:
+    req:
+      dev: 100m
+      staging: 500m
+      prod: 500m
+    limit:
+      dev: 100m
+      staging: 500m
+      prod: 500m
