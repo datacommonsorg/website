@@ -122,25 +122,33 @@ function mockAxios(): () => void {
       },
     });
 
-  for (const dcid of ["geoId/10001", "geoId/10003", "geoId/10005"]) {
-    // Available statvars
-    when(axios.get)
-      .calledWith(`/api/place/statsvars/${dcid}`)
-      .mockResolvedValue({
-        data: [
-          "Count_Person_Employed",
-          "Count_Establishment",
-          "Count_HousingUnit",
-        ],
-      });
-  }
+  const post = axios.post;
+  axios.post = jest.fn();
+  when(axios.post)
+    .calledWith("/api/place/stat-vars/union", {
+      dcids: ["geoId/10001", "geoId/10003", "geoId/10005"],
+    })
+    .mockResolvedValue({
+      data: {
+        statVars: {
+          statVars: [
+            "Count_Person_Employed",
+            "Count_Establishment",
+            "Count_HousingUnit",
+          ],
+        },
+      },
+    });
 
   // Statvar menu
   when(axios.get)
     .calledWith("../../data/hierarchy_statsvar.json")
     .mockResolvedValue({ data: hierarchy });
 
-  return () => (axios.get = get);
+  return () => {
+    axios.get = get;
+    axios.post = post;
+  };
 }
 
 function expectCircles(n: number, app: Enzyme.ReactWrapper): void {
