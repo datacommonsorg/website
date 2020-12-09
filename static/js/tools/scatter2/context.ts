@@ -147,6 +147,29 @@ interface ContextType {
 
 const Context = createContext({} as ContextType);
 
+// For values are used as keys in URL hash
+const FieldToAbbreviation = {
+  // Axis fields
+  statVarDcid: "sv",
+  statVarPath: "svp",
+  statVarDenominator: "svd",
+  name: "svn",
+  log: "l",
+  perCapita: "pc",
+
+  // PlaceInfo fields
+  enclosingPlaceName: "epn",
+  enclosingPlaceDcid: "epd",
+  enclosedPlaceType: "ept",
+  lowerBound: "lb",
+  upperBound: "ub",
+
+  // DateInfo fields
+  year: "y",
+  month: "m",
+  day: "d",
+};
+
 /**
  * Hook that constructs an initial context.
  */
@@ -398,4 +421,5 @@ export {
   EmptyAxis,
   EmptyPlace,
   EmptyDate,
+  FieldToAbbreviation,
 };

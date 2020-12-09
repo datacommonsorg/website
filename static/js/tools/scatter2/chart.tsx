@@ -36,7 +36,6 @@ interface ChartPropsType {
   yProvenance: string;
 }
 
-// TODO: Show provenance.
 function Chart(props: ChartPropsType): JSX.Element {
   const svg = useRef<SVGSVGElement>();
   const tooltip = useRef<HTMLDivElement>();
@@ -59,7 +58,6 @@ function Chart(props: ChartPropsType): JSX.Element {
           <Badge color="light">X Data Source: {props.xProvenance}</Badge>
           <Badge color="light">Y Data Source: {props.yProvenance}</Badge>
           <Badge color="light">X Mean: {getXMean(props.points)}</Badge>
-          <Badge color="light">Y Mean: {getYMean(props.points)}</Badge>
           <Badge color="light">Y Mean: {getYMean(props.points)}</Badge>
           <Badge color="light">
             X Standard Deviation: {getXStd(props.points)}

@@ -224,7 +224,7 @@ function usePoints(cache: Cache): Array<Point> {
       downloadButton.onclick = () =>
         downloadData(xVal, yVal, placeVal, dateVal, points);
     }
-  }, [cache, xVal, yVal]);
+  }, [cache, xVal, yVal, placeVal]);
 
   return points;
 }

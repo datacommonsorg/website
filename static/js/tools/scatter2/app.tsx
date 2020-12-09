@@ -37,7 +37,10 @@ import {
   EmptyAxis,
   EmptyPlace,
   EmptyDate,
+  FieldToAbbreviation,
+  DateInfo,
 } from "./context";
+import { StatsVarNode } from "../timeline_util";
 
 function App(): JSX.Element {
   const { x, y, place, isLoading } = useContext(Context);
@@ -88,6 +91,10 @@ function AppWithContext(): JSX.Element {
   );
 }
 
+/**
+ * Returns whether the spinner should be shown.
+ * @param isLoading
+ */
 function shouldDisplaySpinner(isLoading: IsLoadingWrapper): boolean {
   return (
     isLoading.arePlacesLoading ||
@@ -97,55 +104,226 @@ function shouldDisplaySpinner(isLoading: IsLoadingWrapper): boolean {
 }
 
 /**
- * Parses the current hash and updates the context accordingly.
+ * Parses the hash and updates the context accordingly.
  * @param context
  */
 function applyHash(context: ContextType) {
   const params = new URLSearchParams(
     decodeURIComponent(location.hash).replace("#", "?")
   );
-  const xString = params.get("x");
-  if (xString) {
-    context.x.set(JSON.parse(xString));
+  context.x.set(applyHashAxis(params, true));
+  context.y.set(applyHashAxis(params, false));
+  context.place.set(applyHashPlace(params));
+  context.date.set(applyHashDate(params));
+}
+
+/**
+ * Appends "x" or "y" to the key based on `isX`.
+ * @param key
+ * @param isX
+ */
+function addSuffix(key: string, isX: boolean) {
+  return `${key}${isX ? "x" : "y"}`;
+}
+
+/**
+ * Uses the parsed hash to produce an `Axis`.
+ * @param params
+ * @param isX
+ */
+function applyHashAxis(params: URLSearchParams, isX: boolean): Axis {
+  const dcid = params.get(addSuffix(FieldToAbbreviation.statVarDcid, isX));
+  if (!dcid) {
+    return EmptyAxis;
   }
-  const yString = params.get("y");
-  if (yString) {
-    context.y.set(JSON.parse(yString));
+  const axis = _.cloneDeep(EmptyAxis);
+
+  const node: StatsVarNode = {
+    [dcid]: {
+      paths: [],
+      denominators: [],
+    },
+  };
+  const path = params.get(addSuffix(FieldToAbbreviation.statVarPath, isX));
+  if (path) {
+    node[dcid].paths = [path.split("-")];
   }
-  const placeString = params.get("place");
-  if (placeString) {
-    context.place.set(JSON.parse(placeString));
+  const denominator = params.get(
+    addSuffix(FieldToAbbreviation.statVarDenominator, isX)
+  );
+  if (denominator) {
+    node[dcid].denominators = [denominator];
   }
-  const dateString = params.get("date");
-  if (dateString) {
-    context.date.set(JSON.parse(dateString));
+  axis.statVar = node;
+
+  for (const key of ["name", "log", "perCapita"]) {
+    const value = params.get(addSuffix(FieldToAbbreviation[key], isX));
+    if (value) {
+      axis[key] = value === "1" ? true : value;
+    }
+  }
+
+  return axis;
+}
+
+/**
+ * Uses the parsed hash to produce a `PlaceInfo`.
+ * @param params
+ */
+function applyHashPlace(params: URLSearchParams): PlaceInfo {
+  const place = _.cloneDeep(EmptyPlace);
+  const dcid = params.get(FieldToAbbreviation.enclosingPlaceDcid);
+  if (dcid) {
+    place.enclosingPlace = {
+      dcid: dcid,
+      name: params.get(FieldToAbbreviation.enclosingPlaceName),
+    };
+  }
+  const type = params.get(FieldToAbbreviation.enclosedPlaceType);
+  if (type) {
+    place.enclosedPlaceType = type;
+  }
+  for (const key of ["lowerBound", "upperBound"]) {
+    const value = params.get(FieldToAbbreviation[key]);
+    if (value) {
+      place[key] = Number.parseInt(value);
+    }
+  }
+  return place;
+}
+
+/**
+ * Uses the parsed hash to produce a `DateInfo`.
+ * @param params
+ */
+function applyHashDate(params: URLSearchParams): DateInfo {
+  const date = _.cloneDeep(EmptyDate);
+  for (const key of ["year", "month", "day"]) {
+    const value = params.get(FieldToAbbreviation[key]);
+    if (value) {
+      date[key] = Number.parseInt(value);
+    }
+  }
+  return date;
+}
+
+/**
+ * Updates the hash based on the context and returns the new hash.
+ * @param context
+ */
+function updateHash(context: ContextType) {
+  const x = context.x.value;
+  const y = context.y.value;
+  const place = context.place.value;
+  const date = context.date.value;
+  let hash = updateHashAxis("", x, true);
+  hash = updateHashAxis(hash, y, false);
+  hash = updateHashPlace(hash, place);
+  hash = updateHashDate(hash, date);
+  if (hash) {
+    history.pushState({}, "", `/tools/scatter2#${encodeURIComponent(hash)}`);
   }
 }
 
 /**
- * Updates the hash based on the context.
- * @param context
+ * Appends a key-value mapping to the hash.
+ * @param hash
+ * @param key
+ * @param value
  */
-function updateHash(context: ContextType) {
-  let hash = "";
-  if (!_.isEqual(context.x.value, EmptyAxis)) {
-    hash += `x=${JSON.stringify(context.x.value)}`;
+function appendEntry(hash: string, key: string, value: string): string {
+  return `${hash}&${key}=${value}`;
+}
+
+/**
+ * Updates the hash based on the axis and returns the new hash.
+ * @param hash
+ * @param axis
+ * @param isX
+ */
+function updateHashAxis(hash: string, axis: Axis, isX: boolean): string {
+  if (_.isEqual(axis, EmptyAxis)) {
+    return hash;
   }
-  if (!_.isEqual(context.y.value, EmptyAxis)) {
-    hash += `&y=${JSON.stringify(context.y.value)}`;
+  const statVarDcid = _.findKey(axis.statVar);
+  if (statVarDcid) {
+    hash = appendEntry(
+      hash,
+      addSuffix(FieldToAbbreviation.statVarDcid, isX),
+      statVarDcid
+    );
+    const node = axis.statVar[statVarDcid];
+    if (!_.isEmpty(node.paths)) {
+      hash = appendEntry(
+        hash,
+        addSuffix(FieldToAbbreviation.statVarPath, isX),
+        node.paths[0].join("-")
+      );
+    }
+    if (!_.isEmpty(node.denominators)) {
+      hash = appendEntry(
+        hash,
+        addSuffix(FieldToAbbreviation.statVarDenominator, isX),
+        node.denominators[0]
+      );
+    }
+    for (const key of ["name", "log", "perCapita"]) {
+      if (axis[key]) {
+        hash = appendEntry(
+          hash,
+          addSuffix(FieldToAbbreviation[key], isX),
+          axis[key] === true ? "1" : axis[key]
+        );
+      }
+    }
   }
-  if (!_.isEqual(context.place.value, EmptyPlace)) {
-    hash += `&place=${JSON.stringify({
-      ...context.place.value,
-      enclosedPlaces: [],
-    })}`;
+  return hash;
+}
+
+/**
+ * Updates the hash based on the `PlaceInfo` and returns the new hash.
+ * @param hash
+ * @param place
+ */
+function updateHashPlace(hash: string, place: PlaceInfo): string {
+  if (_.isEqual(place, EmptyPlace)) {
+    return hash;
   }
-  if (!_.isEqual(context.date.value, EmptyDate)) {
-    hash += `&date=${JSON.stringify(context.date.value)}`;
+  if (place.enclosingPlace.dcid) {
+    hash = appendEntry(
+      hash,
+      FieldToAbbreviation.enclosingPlaceDcid,
+      place.enclosingPlace.dcid
+    );
+    hash = appendEntry(
+      hash,
+      FieldToAbbreviation.enclosingPlaceName,
+      place.enclosingPlace.name
+    );
   }
-  if (hash) {
-    history.pushState({}, "", `/tools/scatter2#${encodeURIComponent(hash)}`);
+  for (const key of ["enclosedPlaceType", "lowerBound", "upperBound"]) {
+    if (place[key] !== EmptyPlace[key]) {
+      hash = appendEntry(hash, FieldToAbbreviation[key], place[key].toString());
+    }
   }
+  return hash;
+}
+
+/**
+ * Updates the hash based on the `DateInfo` and returns the new hash.
+ * @param hash
+ * @param date
+ */
+function updateHashDate(hash: string, date: DateInfo) {
+  if (_.isEqual(date, EmptyDate)) {
+    return hash;
+  }
+  for (const key of ["year", "month", "day"]) {
+    if (date[key]) {
+      hash = appendEntry(hash, FieldToAbbreviation[key], date[key].toString());
+    }
+  }
+  return hash;
 }
 
 /**
