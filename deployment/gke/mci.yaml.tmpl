@@ -1,4 +1,4 @@
-# Copyright 2019 Google LLC
+# Copyright 2020 Google LLC
 #
 # Licensed under the Apache License, Version 2.0 (the "License");
 # you may not use this file except in compliance with the License.
@@ -18,7 +18,8 @@ metadata:
   name: website-mci
   namespace: website
   annotations:
-    networking.gke.io/pre-shared-certs: mcrt-1d72f43d-d226-445f-ac7b-72a858001678
+    networking.gke.io/pre-shared-certs: website-certificate
+    networking.gke.io/static-ip: <IP>
 spec:
   template:
     spec:

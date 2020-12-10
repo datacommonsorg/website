@@ -15,19 +15,13 @@
 
 set -e
 
-# Dev project
-PROJECT_ID=$(yq r ../config.yaml project.dev)
+# Build Docker image and push to Cloud Container Registry
 
-# Update gcloud
-gcloud components update
-
-# Auth
+cd ../
 gcloud auth login
-gcloud config set project $PROJECT_ID
-
-# Get the service account key
-# TODO(shifucun): update "mixer-robot" to "website-robot"
-gcloud iam service-accounts keys create website-robot-key.json \
-      --iam-account mixer-robot@$GCP_PROJECT.iam.gserviceaccount.com
-# Use the same robot account for website and mixer
-cp website-robot-key.json mixer-robot-key.json
+export TAG="$(git rev-parse --short HEAD)"
+DOCKER_BUILDKIT=1 docker build --tag gcr.io/datcom-ci/website:$TAG .
+DOCKER_BUILDKIT=1 docker build --tag gcr.io/datcom-ci/website:latest .
+docker push gcr.io/datcom-ci/website:$TAG
+docker push gcr.io/datcom-ci/website:latest
+cd deployment
