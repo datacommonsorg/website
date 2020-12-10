@@ -1,4 +1,36 @@
 
+#. The category for a group of statistical charts.
+msgid "CHART_CATEGORY-Crime"
+msgstr "Crime"
+
+#. The category for a group of statistical charts.
+msgid "CHART_CATEGORY-Demographics"
+msgstr "Demographics"
+
+#. The category for a group of statistical charts.
+msgid "CHART_CATEGORY-Economics"
+msgstr "Economics"
+
+#. The category for a group of statistical charts.
+msgid "CHART_CATEGORY-Education"
+msgstr "Education"
+
+#. The category for a group of statistical charts.
+msgid "CHART_CATEGORY-Environment"
+msgstr "Environment"
+
+#. The category for a group of statistical charts.
+msgid "CHART_CATEGORY-Equity"
+msgstr "Equity"
+
+#. The category for a group of statistical charts.
+msgid "CHART_CATEGORY-Health"
+msgstr "Health"
+
+#. The category for a group of statistical charts.
+msgid "CHART_CATEGORY-Housing"
+msgstr "Housing"
+
 #. Title of a place chart: Total amount of alcohol consumed per person anually
 msgid "CHART_TITLE-Alcohol_consumption_per_capita"
 msgstr "Alcohol consumption per capita (annual)"
@@ -131,12 +163,16 @@ msgstr "Gross national income per capita (purchasing power parity)"
 msgid "CHART_TITLE-Government_debt"
 msgstr "Government debt"
 
-#. Title of a place chart: Government expenditures on education as a percentage of government expenditure
+#. Title of a place chart: Government debt divided by the population
 msgid "CHART_TITLE-Government_debt_per_capita"
+msgstr "Government debt per capita"
+
+#. Title of a place chart: Government expenditures on education as a percentage of government expenditure
+msgid "CHART_TITLE-Government_expenditures_education"
 msgstr "Government expenditures on education (% of government expenditure)"
 
 #. Title of a place chart: Government expenditures on education as a percentage of GDP
-msgid "CHART_TITLE-Government_expenditures"
+msgid "CHART_TITLE-Government_expenditures_education_gdp"
 msgstr "Government expenditures on education (% of GDP)"
 
 #. Title of a place chart: Amount spent by a government on the military

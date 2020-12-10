@@ -1,13 +1,20 @@
-# English translations for PROJECT.
-# Copyright (C) 2020 ORGANIZATION
-# This file is distributed under the same license as the PROJECT project.
-# FIRST AUTHOR <EMAIL@ADDRESS>, 2020.
+# Copyright 2020 Google LLC
+# Licensed under the Apache License, Version 2.0 (the "License");
+# you may not use this file except in compliance with the License.
+# You may obtain a copy of the License at
+# http://www.apache.org/licenses/LICENSE-2.0
+# Unless required by applicable law or agreed to in writing, software
+# distributed under the License is distributed on an "AS IS" BASIS,
+# WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+# See the License for the specific language governing permissions and
+# limitations under the License.
 #
+# English translations for chart_config.json.
 msgid ""
 msgstr ""
 "Project-Id-Version: PROJECT VERSION\n"
 "Report-Msgid-Bugs-To: EMAIL@ADDRESS\n"
-"POT-Creation-Date: 2020-11-17 13:23-0800\n"
+"POT-Creation-Date: 2020-12-10 14:21-0800\n"
 "PO-Revision-Date: 2020-11-17 13:23-0800\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language: en\n"
@@ -17,6 +24,38 @@ msgstr ""
 "Content-Type: text/plain; charset=utf-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Generated-By: Babel 2.9.0\n"
+
+#. The category for a group of statistical charts.
+msgid "CHART_CATEGORY-Crime"
+msgstr "Crime"
+
+#. The category for a group of statistical charts.
+msgid "CHART_CATEGORY-Demographics"
+msgstr "Demographics"
+
+#. The category for a group of statistical charts.
+msgid "CHART_CATEGORY-Economics"
+msgstr "Economics"
+
+#. The category for a group of statistical charts.
+msgid "CHART_CATEGORY-Education"
+msgstr "Education"
+
+#. The category for a group of statistical charts.
+msgid "CHART_CATEGORY-Environment"
+msgstr "Environment"
+
+#. The category for a group of statistical charts.
+msgid "CHART_CATEGORY-Equity"
+msgstr "Equity"
+
+#. The category for a group of statistical charts.
+msgid "CHART_CATEGORY-Health"
+msgstr "Health"
+
+#. The category for a group of statistical charts.
+msgid "CHART_CATEGORY-Housing"
+msgstr "Housing"
 
 #. Title of a place chart: Total amount of alcohol consumed per person anually
 msgid "CHART_TITLE-Alcohol_consumption_per_capita"
@@ -30,13 +69,11 @@ msgstr "Arson"
 msgid "CHART_TITLE-Arson_rate"
 msgstr "Arsons per 100,000 people"
 
-#. Title of a place chart: Percentage of young adults who have an associate
-#. degree, broken down by gender
+#. Title of a place chart: Percentage of young adults who have an associate degree, broken down by gender
 msgid "CHART_TITLE-Associate_degree_rate_gender"
 msgstr "Rate of associate degree attainment by gender"
 
-#. Title of a place chart: Percentage of young adults who have an bachelor's
-#. degree, broken down by gender
+#. Title of a place chart: Percentage of young adults who have an bachelor's degree, broken down by gender
 msgid "CHART_TITLE-Bachelors_degree_rate_gender"
 msgstr "Rate of bachelor's degree attainment by gender"
 
@@ -44,38 +81,31 @@ msgstr "Rate of bachelor's degree attainment by gender"
 msgid "CHART_TITLE-Children_employed"
 msgstr "Children in employment"
 
-#. Title of a place chart: Number of children who are employed, broken down by
-#. gender
+#. Title of a place chart: Number of children who are employed, broken down by gender
 msgid "CHART_TITLE-Children_employed_gender"
 msgstr "Children in employment by gender"
 
-#. Title of a place chart: Prevalence of severe wasting (or severely low weight
-#. for height) among children under 5
+#. Title of a place chart: Prevalence of severe wasting (or severely low weight for height) among children under 5
 msgid "CHART_TITLE-Children_severe_wasting"
 msgstr "Severe wasting among children under 5"
 
-#. Title of a place chart: Prevalence of severe wasting (or severely low weight
-#. for height) among children under 5, broken down by gender
+#. Title of a place chart: Prevalence of severe wasting (or severely low weight for height) among children under 5, broken down by gender
 msgid "CHART_TITLE-Children_severe_wasting_by_gender"
 msgstr "Severe wasting among children under 5 by gender"
 
-#. Title of a place chart: Prevalence of wasting (or low weight for height)
-#. among children under 5
+#. Title of a place chart: Prevalence of wasting (or low weight for height) among children under 5
 msgid "CHART_TITLE-Children_wasting"
 msgstr "Wasting among children under 5"
 
-#. Title of a place chart: Prevalence of wasting (or low weight for height)
-#. among children under 5, broken down by gender
+#. Title of a place chart: Prevalence of wasting (or low weight for height) among children under 5, broken down by gender
 msgid "CHART_TITLE-Children_wasting_by_gender"
 msgstr "Wasting among children under 5 by gender"
 
-#. Title of a place chart: Total number of individuals, broken down by
-#. citizenship status
+#. Title of a place chart: Total number of individuals, broken down by citizenship status
 msgid "CHART_TITLE-Citizenship"
 msgstr "Citizenship status"
 
-#. Title of a place chart: Percentage of population, broken down by citizenship
-#. status
+#. Title of a place chart: Percentage of population, broken down by citizenship status
 msgid "CHART_TITLE-Citizenship_distribution"
 msgstr "Distribution of population by citizenship status"
 
@@ -87,8 +117,7 @@ msgstr "CO2 emissions per capita"
 msgid "CHART_TITLE-Covid_cases"
 msgstr "COVID-19 cumulative cases"
 
-#. Title of a place chart: Cumulative count of COVID-19 cases as a percentage
-#. of the population
+#. Title of a place chart: Cumulative count of COVID-19 cases as a percentage of the population
 msgid "CHART_TITLE-Covid_cases_per_capita"
 msgstr "COVID-19 cumulative cases per capita"
 
@@ -96,13 +125,11 @@ msgstr "COVID-19 cumulative cases per capita"
 msgid "CHART_TITLE-Covid_deaths"
 msgstr "COVID-19 cumulative deaths"
 
-#. Title of a place chart: Cumulative count of deaths caused by COVID-19 as a
-#. percentage of the population
+#. Title of a place chart: Cumulative count of deaths caused by COVID-19 as a percentage of the population
 msgid "CHART_TITLE-Covid_deaths_per_capita"
 msgstr "COVID-19 cumulative deaths per capita"
 
-#. Title of a place chart: Total number of criminal incidents per 100,000
-#. people
+#. Title of a place chart: Total number of criminal incidents per 100,000 people
 msgid "CHART_TITLE-Crime_rate"
 msgstr "Crimes per 100,000 people"
 
@@ -110,8 +137,7 @@ msgstr "Crimes per 100,000 people"
 msgid "CHART_TITLE-Cyclones"
 msgstr "Cyclones"
 
-#. Title of a place chart: Total number of disasters that occured, broken down
-#. by disaster type
+#. Title of a place chart: Total number of disasters that occured, broken down by disaster type
 msgid "CHART_TITLE-Disasters"
 msgstr "Disasters"
 
@@ -119,15 +145,11 @@ msgstr "Disasters"
 msgid "CHART_TITLE-Earthquakes"
 msgstr "Earthquakes"
 
-#. Title of a place chart: Number of people who have attained various
-#. educational milestones, e.g. completed high school or have a bachelor's
-#. degree
+#. Title of a place chart: Number of people who have attained various educational milestones, e.g. completed high school or have a bachelor's degree
 msgid "CHART_TITLE-Educational_attainment"
 msgstr "Education attainment"
 
-#. Title of a place chart: Percentage of the adult population who have attained
-#. various educational milestones, e.g. completed high school or have a
-#. bachelor's degree
+#. Title of a place chart: Percentage of the adult population who have attained various educational milestones, e.g. completed high school or have a bachelor's degree
 msgid "CHART_TITLE-Educational_attainment_rate"
 msgstr "Education attainment rate"
 
@@ -135,38 +157,31 @@ msgstr "Education attainment rate"
 msgid "CHART_TITLE-Electricity_consumption_per_capita"
 msgstr "Electricity consumption per capita"
 
-#. Title of a place chart: Total amount of energy consumed per person, measured
-#. by kilogram of oil equivalent
+#. Title of a place chart: Total amount of energy consumed per person, measured by kilogram of oil equivalent
 msgid "CHART_TITLE-Energy_use"
 msgstr "Energy use (kg of oil equivalent per capita)"
 
-#. Title of a place chart: Average number of children that would be born to a
-#. woman over her lifetime
+#. Title of a place chart: Average number of children that would be born to a woman over her lifetime
 msgid "CHART_TITLE-Fertility_rate"
 msgstr "Fertility rate"
 
-#. Title of a place chart: Annual percentage growth rate of GDP at market
-#. prices based on constant local currency
+#. Title of a place chart: Annual percentage growth rate of GDP at market prices based on constant local currency
 msgid "CHART_TITLE-Gdp_growth_rate"
 msgstr "Gross domestic product growth rate"
 
-#. Title of a place chart: Gross domestic product (nominal) per capita, see
-#. https://en.wikipedia.org/wiki/Gross_domestic_product
+#. Title of a place chart: Gross domestic product (nominal) per capita, see https://en.wikipedia.org/wiki/Gross_domestic_product
 msgid "CHART_TITLE-Gdp_per_capita"
 msgstr "Gross domestic product per capita"
 
-#. Title of a place chart: The Gini index is a measure of inequality, see
-#. https://stats.oecd.org/glossary/detail.asp?ID=4842
+#. Title of a place chart: The Gini index is a measure of inequality, see https://stats.oecd.org/glossary/detail.asp?ID=4842
 msgid "CHART_TITLE-Gini_index"
 msgstr "Gini index"
 
-#. Title of a place chart: Gross national income, converted using purchasing
-#. power parity rates
+#. Title of a place chart: Gross national income, converted using purchasing power parity rates
 msgid "CHART_TITLE-Gni"
 msgstr "Gross national income (purchasing power parity)"
 
-#. Title of a place chart: Gross national income, divided by population,
-#. converted using purchasing power parity rates
+#. Title of a place chart: Gross national income, divided by population, converted using purchasing power parity rates
 msgid "CHART_TITLE-Gni_per_capita"
 msgstr "Gross national income per capita (purchasing power parity)"
 
@@ -174,47 +189,44 @@ msgstr "Gross national income per capita (purchasing power parity)"
 msgid "CHART_TITLE-Government_debt"
 msgstr "Government debt"
 
-#. Title of a place chart: Government expenditures on education as a percentage
-#. of government expenditure
+#. Title of a place chart: Government debt divided by the population
 msgid "CHART_TITLE-Government_debt_per_capita"
 msgstr "Government expenditures on education (% of government expenditure)"
 
-#. Title of a place chart: Government expenditures on education as a percentage
-#. of GDP
-msgid "CHART_TITLE-Government_expenditures"
+#. Title of a place chart: Government expenditures on education as a percentage of government expenditure
+#, fuzzy
+msgid "CHART_TITLE-Government_expenditures_education"
+msgstr "Government expenditures on education (% of GDP)"
+
+#. Title of a place chart: Government expenditures on education as a percentage of GDP
+msgid "CHART_TITLE-Government_expenditures_education_gdp"
 msgstr "Government expenditures on education (% of GDP)"
 
 #. Title of a place chart: Amount spent by a government on the military
 msgid "CHART_TITLE-Government_expenditures_military"
 msgstr "Government expenditures on military"
 
-#. Title of a place chart: Amount spent by a government on the military as a
-#. percentage of GDP
+#. Title of a place chart: Amount spent by a government on the military as a percentage of GDP
 msgid "CHART_TITLE-Government_expenditures_military_per_gdp"
 msgstr "Government expenditures on military as a percentage of GDP"
 
-#. Title of a place chart: Percentage of young adults who have a graduate or
-#. professional degree, broken down by gender
+#. Title of a place chart: Percentage of young adults who have a graduate or professional degree, broken down by gender
 msgid "CHART_TITLE-Graduate_or_professional_degree_rate_gender"
 msgstr "Rate of graduate or professional degree attainment by gender"
 
-#. Title of a place chart: Percentage of people who report certain negative
-#. health behaviors, e.g. obesity, smoking or binge drinking
+#. Title of a place chart: Percentage of people who report certain negative health behaviors, e.g. obesity, smoking or binge drinking
 msgid "CHART_TITLE-Health_behaviors"
 msgstr "Health behaviors"
 
-#. Title of a place chart: Percentage of people who are aflicted by certain
-#. negative health outcomes, e.g. high cholesterol or arthritis
+#. Title of a place chart: Percentage of people who are aflicted by certain negative health outcomes, e.g. high cholesterol or arthritis
 msgid "CHART_TITLE-Health_outcomes"
 msgstr "Health outcomes"
 
-#. Title of a place chart: Count of households whose combined incomes fall in
-#. certain buckets
+#. Title of a place chart: Count of households whose combined incomes fall in certain buckets
 msgid "CHART_TITLE-Household_income"
 msgstr "Household income"
 
-#. Title of a place chart: Percentage of households whose combined incomes fall
-#. in certain buckets
+#. Title of a place chart: Percentage of households whose combined incomes fall in certain buckets
 msgid "CHART_TITLE-Household_income_by_bracket"
 msgstr "Percentage of households by income brackets"
 
@@ -242,13 +254,11 @@ msgstr "Housing units by price"
 msgid "CHART_TITLE-Housing_units_price_distribution"
 msgstr "Distribution of occupied housing units by price"
 
-#. Title of a place chart: Total number of housing units occupied by members of
-#. various races
+#. Title of a place chart: Total number of housing units occupied by members of various races
 msgid "CHART_TITLE-Housing_units_race"
 msgstr "Housing units by householder race"
 
-#. Title of a place chart: Percentage of housing units occupied by members of
-#. various races
+#. Title of a place chart: Percentage of housing units occupied by members of various races
 msgid "CHART_TITLE-Housing_units_race_distribution"
 msgstr "Distribution of housing units by householder race"
 
@@ -256,28 +266,23 @@ msgstr "Distribution of housing units by householder race"
 msgid "CHART_TITLE-Housing_units_rental_status"
 msgstr "Housing units by rental status"
 
-#. Title of a place chart: Percentage of housing units occupied by owner vs
-#. renter
+#. Title of a place chart: Percentage of housing units occupied by owner vs renter
 msgid "CHART_TITLE-Housing_units_rental_status_distribution"
 msgstr "Distribution of housing units by rental status"
 
-#. Title of a place chart: Count of people whose individual incomes are in
-#. certain buckets
+#. Title of a place chart: Count of people whose individual incomes are in certain buckets
 msgid "CHART_TITLE-Individual_income"
 msgstr "Individual income"
 
-#. Title of a place chart: Percentage of the population whose individual
-#. incomes are in certain buckets
+#. Title of a place chart: Percentage of the population whose individual incomes are in certain buckets
 msgid "CHART_TITLE-Individual_income_by_bracket"
 msgstr "Percentage of individuals by income brackets"
 
-#. Title of a place chart: Count of deaths in infants caused by various
-#. diseases
+#. Title of a place chart: Count of deaths in infants caused by various diseases
 msgid "CHART_TITLE-Infant_mortality_rate"
 msgstr "Infant mortality rate"
 
-#. Title of a place chart: Count of deaths in infants caused by various
-#. diseases, broken down by gender
+#. Title of a place chart: Count of deaths in infants caused by various diseases, broken down by gender
 msgid "CHART_TITLE-Infant_mortality_rate_gender"
 msgstr "Infant mortality rate by gender"
 
@@ -285,18 +290,15 @@ msgstr "Infant mortality rate by gender"
 msgid "CHART_TITLE-Inward_remittance"
 msgstr "Inward remittance"
 
-#. Title of a place chart: Total amount of inward remittance into a place (as a
-#. percentage of GDP)
+#. Title of a place chart: Total amount of inward remittance into a place (as a percentage of GDP)
 msgid "CHART_TITLE-Inward_remittance_per_gdp"
 msgstr "Inward remittance (% of GDP)"
 
-#. Title of a place chart: Count of people in the labor force, see
-#. https://data.oecd.org/emp/labour-force.htm
+#. Title of a place chart: Count of people in the labor force, see https://data.oecd.org/emp/labour-force.htm
 msgid "CHART_TITLE-Labor_force"
 msgstr "Labor force"
 
-#. Title of a place chart: Percentage of the population, of working age, in the
-#. labor force, see https://data.oecd.org/emp/labour-force.htm
+#. Title of a place chart: Percentage of the population, of working age, in the labor force, see https://data.oecd.org/emp/labour-force.htm
 msgid "CHART_TITLE-Labor_force_rate"
 msgstr "Labor force participation rate"
 
@@ -304,13 +306,11 @@ msgstr "Labor force participation rate"
 msgid "CHART_TITLE-Life_expectancy"
 msgstr "Life expectancy (years)"
 
-#. Title of a place chart: Total number of individuals, broken down by marital
-#. status
+#. Title of a place chart: Total number of individuals, broken down by marital status
 msgid "CHART_TITLE-Marital_status"
 msgstr "Marital status"
 
-#. Title of a place chart: Percentage of population, broken down by marital
-#. status
+#. Title of a place chart: Percentage of population, broken down by marital status
 msgid "CHART_TITLE-Marital_status_distribution"
 msgstr "Marital status distribution"
 
@@ -318,8 +318,7 @@ msgstr "Marital status distribution"
 msgid "CHART_TITLE-Market_capitalization"
 msgstr "Market capitalization of domestic companies"
 
-#. Title of a place chart: Market capitalization of domestic companies (as a
-#. percentage of GDP)
+#. Title of a place chart: Market capitalization of domestic companies (as a percentage of GDP)
 msgid "CHART_TITLE-Market_capitalization_per_gdp"
 msgstr "Market capitalization of domestic companies (% of GDP)"
 
@@ -327,13 +326,11 @@ msgstr "Market capitalization of domestic companies (% of GDP)"
 msgid "CHART_TITLE-Median_age"
 msgstr "Median Age"
 
-#. Title of a place chart: The median age of the population, broken down by
-#. gender
+#. Title of a place chart: The median age of the population, broken down by gender
 msgid "CHART_TITLE-Median_age_gender"
 msgstr "Median age by gender"
 
-#. Title of a place chart: The median age of the population, broken down by
-#. race
+#. Title of a place chart: The median age of the population, broken down by race
 msgid "CHART_TITLE-Median_age_race"
 msgstr "Median age by race"
 
@@ -353,13 +350,11 @@ msgstr "Median income by gender"
 msgid "CHART_TITLE-Median_individual_income"
 msgstr "Median individual income"
 
-#. Title of a place chart: Count of deaths caused by various diseases or
-#. external circumstances
+#. Title of a place chart: Count of deaths caused by various diseases or external circumstances
 msgid "CHART_TITLE-Mortality_events"
 msgstr "Mortality events"
 
-#. Title of a place chart: Count of deaths caused by various diseases or
-#. external circumstances, divided by the population count
+#. Title of a place chart: Count of deaths caused by various diseases or external circumstances, divided by the population count
 msgid "CHART_TITLE-Mortality_events_per_capita"
 msgstr "Mortality events per capita"
 
@@ -367,13 +362,11 @@ msgstr "Mortality events per capita"
 msgid "CHART_TITLE-Outward_remittance_per_gdp"
 msgstr "Outward remittance"
 
-#. Title of a place chart: Percentage of the population, of working age, who
-#. have no health insurance, broken down by gender
+#. Title of a place chart: Percentage of the population, of working age, who have no health insurance, broken down by gender
 msgid "CHART_TITLE-Percent_without_health_insurance_gender"
 msgstr "Percentage of people without health insurance by gender"
 
-#. Title of a place chart: Percentage of the population, of working age, who
-#. have no health insurance, broken down by race
+#. Title of a place chart: Percentage of the population, of working age, who have no health insurance, broken down by race
 msgid "CHART_TITLE-Percent_without_health_insurance_race"
 msgstr "Percentage of people without health insurance by race"
 
@@ -385,13 +378,11 @@ msgstr "Percentage of people employed"
 msgid "CHART_TITLE-Population"
 msgstr "Population"
 
-#. Title of a place chart: Number of individuals who fall within various age
-#. buckets
+#. Title of a place chart: Number of individuals who fall within various age buckets
 msgid "CHART_TITLE-Population_age"
 msgstr "Population by age"
 
-#. Title of a place chart: Percentage of the population who fall within various
-#. age buckets
+#. Title of a place chart: Percentage of the population who fall within various age buckets
 msgid "CHART_TITLE-Population_age_distribution"
 msgstr "Age distribution"
 
@@ -423,23 +414,19 @@ msgstr "Racial distribution"
 msgid "CHART_TITLE-Poverty_rate"
 msgstr "Poverty rate"
 
-#. Title of a place chart: Percentage of the population below the poverty
-#. level, broken down by gender
+#. Title of a place chart: Percentage of the population below the poverty level, broken down by gender
 msgid "CHART_TITLE-Poverty_rate_gender"
 msgstr "Poverty rate by gender"
 
-#. Title of a place chart: Percentage of the population below the poverty
-#. level, broken down by race
+#. Title of a place chart: Percentage of the population below the poverty level, broken down by race
 msgid "CHART_TITLE-Poverty_rate_race"
 msgstr "Poverty rate by race"
 
-#. Title of a place chart: Total amount of prescribed retail drugs distributed
-#. in a quarter of a year
+#. Title of a place chart: Total amount of prescribed retail drugs distributed in a quarter of a year
 msgid "CHART_TITLE-Prescribed_drugs"
 msgstr "Prescribed drugs (quarterly)"
 
-#. Title of a place chart: Total amount of prescribed retail drugs distributed
-#. in a quarter of a year (divided by the population)
+#. Title of a place chart: Total amount of prescribed retail drugs distributed in a quarter of a year (divided by the population)
 msgid "CHART_TITLE-Prescribed_drugs_per_capita"
 msgstr "Prescribed drugs per capita (quarterly)"
 
@@ -447,28 +434,23 @@ msgstr "Prescribed drugs per capita (quarterly)"
 msgid "CHART_TITLE-Property_crime"
 msgstr "Property crime"
 
-#. Title of a place chart: Total number of property crime incidents per 100,000
-#. people
+#. Title of a place chart: Total number of property crime incidents per 100,000 people
 msgid "CHART_TITLE-Property_crime_rate"
 msgstr "Property crimes per 100,000 people"
 
-#. Title of a place chart: Number of people who are enrolled in school, vs not
-#. enrolled in school
+#. Title of a place chart: Number of people who are enrolled in school, vs not enrolled in school
 msgid "CHART_TITLE-School_enrollment"
 msgstr "School enrollment"
 
-#. Title of a place chart: Percentage of people who are enrolled in school, vs
-#. not enrolled in school
+#. Title of a place chart: Percentage of people who are enrolled in school, vs not enrolled in school
 msgid "CHART_TITLE-School_enrollment_rate"
 msgstr "School enrollment rate"
 
-#. Title of a place chart: Number of unemployment insurance claims filed with a
-#. US state
+#. Title of a place chart: Number of unemployment insurance claims filed with a US state
 msgid "CHART_TITLE-State_unemployment_claims"
 msgstr "State unemployment insurance claims"
 
-#. Title of a place chart: Percentage of the labor force who filed unemployment
-#. insurance claims with a US state
+#. Title of a place chart: Percentage of the labor force who filed unemployment insurance claims with a US state
 msgid "CHART_TITLE-State_unemployment_claims_rate"
 msgstr "State unemployment insurance claims rate"
 
@@ -480,18 +462,15 @@ msgstr "Total crime"
 msgid "CHART_TITLE-Total_employed"
 msgstr "Number of people employed"
 
-#. Title of a place chart: Percentage of the population, of working age, who
-#. are unemployed.
+#. Title of a place chart: Percentage of the population, of working age, who are unemployed.
 msgid "CHART_TITLE-Unemployment_rate"
 msgstr "Unemployment rate"
 
-#. Title of a place chart: Percentage of the population, of working age, who
-#. are unemployed, broken down by gender
+#. Title of a place chart: Percentage of the population, of working age, who are unemployed, broken down by gender
 msgid "CHART_TITLE-Unemployment_rate_gender"
 msgstr "Unemployment rate by gender"
 
-#. Title of a place chart: Total number of individuals in rural vs urban parts
-#. of a place
+#. Title of a place chart: Total number of individuals in rural vs urban parts of a place
 msgid "CHART_TITLE-Urban_v_rural_population"
 msgstr "Urban and rural population"
 
@@ -499,8 +478,7 @@ msgstr "Urban and rural population"
 msgid "CHART_TITLE-Violent_crime"
 msgstr "Violent crime"
 
-#. Title of a place chart: Total number of violent crime incidents per 100,000
-#. people
+#. Title of a place chart: Total number of violent crime incidents per 100,000 people
 msgid "CHART_TITLE-Violent_crime_rate"
 msgstr "Violent crimes per 100,000 people"
 
