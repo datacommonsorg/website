@@ -150,23 +150,55 @@ def cached_i18n_name(dcids, locale):
                           compress=False,
                           post=True)
     result = {}
+    if not locale:
+        locale = 'en'
+    fallback_locale = locale.split('-')[0] if locale.find('-') != -1 else ''
+    english_local = 'en'
+    second_choice = ''
+    last_choice = ''
     for dcid in dcids:
         values = response[dcid].get('out')
         name_in_en = ''
         result[dcid] = ''
+        print('locale = ' + locale)
         for entry in values:
-            if entry['value'].endswith(locale.lower()):
-                i18nname_end_index = len(entry['value']) - len(locale) - 1
-                result[dcid] = entry['value'][:i18nname_end_index]
+            print(entry)
+            if (has_locale_name(entry, locale)):
+                result[dcid] = extract_locale_name(entry, locale)
+                break
+            # if entry['value'].endswith('@' + locale.lower()):
+            #     i18nname_end_index = len(entry['value']) - len(locale) - 1
+            #     result[dcid] = entry['value'][:i18nname_end_index]
+            # if result[dcid]:
+            # Already found best match, break out of the loop
+            # break
             else:
-                if entry['value'].endswith('en'):
-                    name_in_en = entry['value'][:(len(entry['value']) -
-                                                  len('en') - 1)]
+                if (has_locale_name(entry, fallback_locale)):
+                    second_choice = extract_locale_name(entry, fallback_locale)
+                if (has_locale_name(entry, english_local)):
+                    last_choice = extract_locale_name(entry, english_local)
+                # if entry['value'].endswith('@' + fallbacl_locale):
+                # if entry['value'].endswith('@en'):
+                #     name_in_en = entry['value'][:(len(entry['value']) -
+                #                                   len('en') - 1)]
         # When there isn't a name in required language code, falls back to
         # English name if exists.
         if not result[dcid]:
-            result[dcid] = name_in_en
+            print('if not result[dcid]:')
+            result[dcid] = second_choice if second_choice else last_choice
     return result
+
+
+def has_locale_name(entry, locale):
+    return entry['value'].endswith('@' + locale.lower())
+
+
+def extract_locale_name(entry, locale):
+    if entry['value'].endswith('@' + locale.lower()):
+        locale_index = len(entry['value']) - len(locale) - 1
+        return entry['value'][:locale_index]
+    else:
+        return ''
 
 
 def get_i18n_name(dcids, locale):

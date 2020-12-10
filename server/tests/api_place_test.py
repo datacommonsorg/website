@@ -170,6 +170,9 @@ class TestApiPlaceI18nName(unittest.TestCase):
                 }, {
                     'value': 'ArkansasIO@io',
                     'provenance': 'prov1'
+                }, {
+                    'value': 'ArkansasLA-RU@la-ru',
+                    'provenance': 'prov1'
                 }]
             },
             'geoId/06': {
@@ -212,6 +215,21 @@ class TestApiPlaceI18nName(unittest.TestCase):
         assert response.status_code == 200
         assert json.loads(response.data) == {
             'geoId/05': 'ArkansasEn',
+            'geoId/06': 'CaliforniaLA'
+        }
+
+        # Verify language code parsing correct, not using la-ru.
+        response = app.test_client().get(
+            '/api/place/name/i18n?dcid=geoId/05&hl=ru')
+        assert response.status_code == 200
+        assert json.loads(response.data) == {'geoId/05': 'ArkansasEn'}
+
+        # Verify fall back to the first part of locale, la-ru to la.
+        response = app.test_client().get(
+            '/api/place/name/i18n?dcid=geoId/05&dcid=geoId/06&hl=la-ru')
+        assert response.status_code == 200
+        assert json.loads(response.data) == {
+            'geoId/05': 'ArkansasLA-RU',
             'geoId/06': 'CaliforniaLA'
         }
 
