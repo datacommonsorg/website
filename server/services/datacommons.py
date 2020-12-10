@@ -32,6 +32,8 @@ elif os.environ.get('FLASK_ENV') == 'production':
     cfg = import_string('configmodule.ProductionConfig')()
 elif os.environ.get('FLASK_ENV') == 'staging':
     cfg = import_string('configmodule.StagingConfig')()
+elif os.environ.get('FLASK_ENV') == 'kubernetes':
+    cfg = import_string('configmodule.KubernetesConfig')()
 else:
     cfg = import_string('configmodule.DevelopmentConfig')()
 
