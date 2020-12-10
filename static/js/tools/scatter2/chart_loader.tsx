@@ -123,9 +123,9 @@ function useCache(): Cache {
 function formatDate(date: DateInfo) {
   let str = date.year.toString();
   if (date.month) {
-    str += `-${date.month}`;
+    str += `-${date.month < 10 ? "0" : ""}${date.month}`;
     if (date.day) {
-      str += `-${date.day}`;
+      str += `-${date.day < 10 ? "0" : ""}${date.day}`;
     }
   }
   return str;
