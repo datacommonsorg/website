@@ -1,6 +1,6 @@
 # Deployt website to multi GKE cluster
 
-## Prerequisit
+## Prerequisites
 
 - Create global static IP in GCP.
 - Configure the DNS in the domain registra.

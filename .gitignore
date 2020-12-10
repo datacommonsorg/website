@@ -23,7 +23,7 @@ tmp/
 website-robot-key.json
 mixer-robot-key.json
 
-# Kubenetes
+# Kubernetes
 **/deployment.yaml
 **/endpoints.yaml
 

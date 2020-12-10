@@ -1,11 +1,11 @@
 # Bring up the Website App locally in Minikube
 
-Website can be deployed in Kubenetes cluster on [GKE](https://cloud.google.com/kubernetes-engine) or
+Website can be deployed in Kubernetes cluster on [GKE](https://cloud.google.com/kubernetes-engine) or
 [MiniKube](https://minikube.sigs.k8s.io/docs/).
 
 This folder contains the config and script for local development with Minikube.
 
-## Prerequisit
+## Prerequisites
 
 - Install `Docker`, following [Docker Desktop](https://www.docker.com/products/docker-desktop) install guide.
 
