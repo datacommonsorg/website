@@ -97,8 +97,8 @@ function nodeGetStatVar(node: StatsVarNode): string {
  */
 function isDateChosen(date: DateInfo): boolean {
   return (
-    date.year > 0 ||
-    (date.year > 0 && date.month > 0) ||
+    (date.year > 0 && !date.month && !date.day) ||
+    (date.year > 0 && date.month > 0 && !date.day) ||
     (date.year > 0 && date.month > 0 && date.day > 0)
   );
 }
