@@ -49,7 +49,7 @@ To extract strings to the template file:
 
 Then update the messages.po file per locale:
 ```
-.env/bin/pybabel update -l $LOCALE -i server/l10n/messages.pot -d server/l10n
+.env/bin/pybabel update -l $LOCALE -i server/l10n/messages.pot -w 1000 -d server/l10n
 ```
 
 And after adding translations to each .po file, compile to .mo files for serving:
