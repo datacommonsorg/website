@@ -201,7 +201,7 @@
   },
   {
     "category": "Economics",
-    "titleId": "CHART_TITLE-Government_debt_per_capita",
+    "titleId": "CHART_TITLE-Government_expenditures_education",
     "title": "Government expenditures on education (% of government expenditure)",
     "description": "Government expenditures on education as a percentage of government expenditure",
     "statsVars": [
@@ -214,7 +214,7 @@
   },
   {
     "category": "Economics",
-    "titleId": "CHART_TITLE-Government_expenditures",
+    "titleId": "CHART_TITLE-Government_expenditures_education_gdp",
     "title": "Government expenditures on education (% of GDP)",
     "description": "Government expenditures on education as a percentage of GDP",
     "statsVars": [

@@ -43,11 +43,27 @@ See these pages for info about:
 Use "TRANSLATORS:" to leave descriptive comments to help translators understand the context and deliver good translations.
 
 To extract strings to the template file:
+```
 .env/bin/pybabel extract -F babel-mapping.ini -o server/l10n/messages.pot --omit-header -c "TRANSLATORS:" --no-wrap server/
+```
 
 Then update the messages.po file per locale:
+```
 .env/bin/pybabel update -l $LOCALE -i server/l10n/messages.pot -d server/l10n
+```
 
 And after adding translations to each .po file, compile to .mo files for serving:
 TODO(beets): Do this on server start
-.env/bin/pybabel compile -d server/l10n
+```
+.env/bin/pybabel compile -d server/l10n -D messages
+```
+
+# For chart_config.json translations
+
+See tools/chart_config_extractor.py:
+
+```
+python3 tools/i18n/chart_config_extractor.py
+.env/bin/pybabel update -l $LOCALE -i server/l10n/chart_titles.pot -d server/l10n -w 1000
+.env/bin/pybabel compile -d server/l10n -D chart_titles
+```

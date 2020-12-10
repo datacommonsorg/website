@@ -13,14 +13,15 @@
 # limitations under the License.
 """Script to generate a .pot file from the chart config, used for translations.
 
-To run: python3 tools/i18n/chart_config_extractor.py
+To run: `python3 tools/i18n/chart_config_extractor.py`
 
 This will produce /server/l10n/chart_titles.pot
-Then, run pybabel init -l $LOCALE -i server/l10n/chart_titles.pot -d server/l10n -D chart_titles
-which will initialize a chart_titles.po file for the locale (long term, this will be extracted from translations).
+Then, run `pybabel update -l $LOCALE -i server/l10n/chart_titles.pot -d server/l10n -D chart_titles`
+which will update a chart_titles.po file for the locale (long term, this will be extracted from translations).
 
-Prior to server startup, run pybabel compile -D chart_titles -l $LOCALE -d
-server/l10n to generate the chart_titles.mo file for the locale. .mo is a
+Prior to server startup, run
+`pybabel compile -D chart_titles -l $LOCALE -d server/l10n -D chart_titles`
+to generate the chart_titles.mo file for the locale. .mo is a
 binary file used by the gettext module.
 
 TODO: delete the .mo files from the repo and build those files prior to server start.
@@ -41,7 +42,19 @@ def extract_message_from_chart(config):
     except:
         print(f"Misconfigured chart: {config}")
         return (None, None)
-    return (id, {'message': message, 'description': description})
+    return (id, {
+        'message': message,
+        'description': f'Title of a place chart: {description}'
+    })
+
+
+def maybe_add_message(messages, id, message):
+    if not id is None and not message is None:
+        if id in messages and \
+            messages[id]['message'] != message['message']:
+            raise ValueError(
+                f'Adding duplicate id with different message: {id}')
+        messages[id] = message
 
 
 def main():
@@ -52,15 +65,25 @@ def main():
         chart_config = json.load(f)
 
     messages = {}
+    categories = set()
 
+    # Extract strings from each chart
     for conf in chart_config:
+        categories.add(conf['category'])
         (id, message) = extract_message_from_chart(conf)
-        if not id is None and not message is None:
-            messages[id] = message
+        maybe_add_message(messages, id, message)
         if conf.get('relatedChart', {}).get('scale', False):
             (id, message) = extract_message_from_chart(conf['relatedChart'])
-            if not id is None and not message is None:
-                messages[id] = message
+            maybe_add_message(messages, id, message)
+
+    # Add chart categories to the message catalog
+    for category in categories:
+        id = f'CHART_CATEGORY-{category}'
+        message = {
+            'message': category,
+            'description': 'The category for a group of statistical charts.',
+        }
+        maybe_add_message(messages, id, message)
 
     chart_pot_path = os.path.abspath(
         os.path.join(basepath, CHART_TITLES_POT_RELATIVE_PATH))
@@ -70,7 +93,7 @@ def main():
             msg = messages[id]
             f.write(
               f"\n" \
-              f"#. Title of a place chart: {msg['description']}\n" \
+              f"#. {msg['description']}\n" \
               f"msgid \"{id}\"\n" \
               f"msgstr \"{msg['message']}\"\n"
             )
