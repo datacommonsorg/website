@@ -187,7 +187,7 @@ class TestApiPlaceI18nName(unittest.TestCase):
 
         # There is no hl parameter, use default en.
         response = app.test_client().get(
-            '/api/place/i18nname?dcid=geoId/05&dcid=geoId/06')
+            '/api/place/name/i18n?dcid=geoId/05&dcid=geoId/06')
         assert response.status_code == 200
         assert json.loads(response.data) == {
             'geoId/05': 'ArkansasEn',
@@ -199,11 +199,20 @@ class TestApiPlaceI18nName(unittest.TestCase):
 
         # Arkansas doesn't have name in @it, fall back to @en instead.
         response = app.test_client().get(
-            '/api/place/i18nname?dcid=geoId/05&dcid=geoId/06&hl=it')
+            '/api/place/name/i18n?dcid=geoId/05&dcid=geoId/06&hl=it')
         assert response.status_code == 200
         assert json.loads(response.data) == {
             'geoId/05': 'ArkansasEn',
             'geoId/06': 'CaliforniaIT'
+        }
+
+        # Lower case language code.
+        response = app.test_client().get(
+            '/api/place/name/i18n?dcid=geoId/05&dcid=geoId/06&hl=LA')
+        assert response.status_code == 200
+        assert json.loads(response.data) == {
+            'geoId/05': 'ArkansasEn',
+            'geoId/06': 'CaliforniaLA'
         }
 
 

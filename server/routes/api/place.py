@@ -132,7 +132,7 @@ def api_name():
 
 @cache.memoize(timeout=3600 * 24)  # Cache for one day.
 def cached_i18n_name(dcids, locale):
-    """Returns localination names for set of dcids.
+    """Returns localization names for set of dcids.
 
     Args:
         dcids: ^ separated string of dcids. It must be a single string for the cache.
@@ -155,14 +155,14 @@ def cached_i18n_name(dcids, locale):
         name_in_en = ''
         result[dcid] = ''
         for entry in values:
-            if entry['value'].endswith(locale):
+            if entry['value'].endswith(locale.lower()):
                 i18nname_end_index = len(entry['value']) - len(locale) - 1
                 result[dcid] = entry['value'][:i18nname_end_index]
             else:
                 if entry['value'].endswith('en'):
                     name_in_en = entry['value'][:(len(entry['value']) -
                                                   len('en') - 1)]
-        # With there isn't a name in required language code, falls back to 
+        # When there isn't a name in required language code, falls back to
         # English name if exists.
         if not result[dcid]:
             result[dcid] = name_in_en
@@ -182,7 +182,7 @@ def get_i18n_name(dcids, locale):
     return cached_i18n_name('^'.join((sorted(dcids))), locale)
 
 
-@bp.route('/i18nname')
+@bp.route('/name/i18n')
 def api_i18n_name():
     """Get place i18n names."""
     dcids = request.args.getlist('dcid')
