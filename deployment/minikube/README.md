@@ -15,109 +15,44 @@ This folder contains the config and script for local development with Minikube.
 
 - Install [`yq`](https://mikefarah.gitbook.io/yq/).
 
-Set GCP roject
+## One time setup
 
 ```bash
-export GCP_PROJECT="<YOUR_PROJECT>"
+./onetime_setup.sh
 ```
 
-GCP setup
+## Deploy endpoints configuration
+
+**Note** Need to run this regularly to keep track of the mixer service update.
+Ideally, mixer-grpc.pb could be generated locally with protoc, or check the mixer.pto change and only deploy esp service when there is proto change.
 
 ```bash
-gcloud config set project $GCP_PROJECT
-gcloud components update
-gcloud auth login
-```
-
-- If not done yet, run gcloud application credential and copy the auth key:
-
-```bash
-gcloud auth application-default login
-gcloud iam service-accounts keys create website-robot-key.json \
-      --iam-account mixer-robot@$GCP_PROJECT.iam.gserviceaccount.com
-# Use the same robot account for website and mixer
-cp website-robot-key.json mixer-robot-key.json
-```
-
-## Update Mixer Submodule
-
-This repo contains DataCommons [mixer repo](https://github.com/datacommonsorg/mixer) as a submodule.
-
-Need to track the upstream change:
-
-```bash
-git submodule foreach git pull origin master
+./run_endponit_service.sh
 ```
 
 ## Run Minikube cluster
 
-From a terminal, start a cluster:
+This will bring up the minikube cluster and let it running.
+You can let it running in the background or stop it after development to save 4G of memory on you computer.
+
+After seeing the dashboard, type and pick the "website" namespace.
 
 ```bash
-minikube start --memory=4g
-```
-
-Use local docker image with Minikube.
-
-> **NOTE** Need to run "docker build" after this command to make them usable in deployment.yaml
-
-```bash
-eval $(minikube docker-env)
-```
-
-Start Minikube dashboard
-
-```bash
-minikube dashboard
-```
-
-Create a new namespace "website"
-
-```bash
-kubectl create namespace website
-```
-
-Mount the GCP credential
-
-```bash
-kubectl create secret generic website-robot-key --from-file=website-robot-key.json --namespace=website
-kubectl create secret generic mixer-robot-key --from-file=mixer-robot-key.json --namespace=website
-```
-
-## Generate YAML files
-
-```bash
-./generate_yaml.sh
-```
-
-## Deploy ESP configuration [One time]
-
-```bash
-gsutil cp gs://artifacts.datcom-ci.appspot.com/mixer-grpc/mixer-grpc.latest.pb .
-gcloud endpoints services deploy mixer-grpc.latest.pb endpoints.yaml
-. env.sh
-gcloud services enable $SERVICE_NAME
-```
-
-## Build Docker Image [Run after code change]
-
-The build would take a few mintues the first time. Subsquent build should only take a few seconds with docker caching.
-
-```bash
-cd ../
-DOCKER_BUILDKIT=1 docker build --tag website:local .
-cd minikube
+./run_cluster.sh
 ```
 
 ## Deployment to Minikube
 
+After code change, run the following command to deploy it locally.
+TODO(shifucun): Use [Scaffold](https://skaffold.dev/) to manage deployment.
+
 ```bash
-kubectl apply -f deployment.yaml -f service.yaml
+./deploy_website.sh
 ```
 
 ## Access the service
 
-Use kubectl to forward the port:
+After successful deployment, use kubectl to forward the port:
 
 ```bash
 kubectl port-forward service/website-service 8080:8080 -n website

@@ -1,11 +1,19 @@
 project:
-  dev: datcom-mixer-staging
-  staging: datcom-mixer-staging
-  prod: datacommons-mixer-prod
+  dev: datcom-mixer-staging # datacommons-website-dev
+  staging: datacommons-website-staging
+  prod: datacommons-website-prod
 
 image:
   mixer: gcr.io/datcom-ci/datacommons-mixer:latest
-  website: gcr.io/datcom-ci/datacommons-werbsite:latest
+  website:
+    dev: website:local
+    staging: gcr.io/datcom-ci/datacommons-website:latest
+    prod: gcr.io/datcom-ci/datacommons-website:latest
+
+pull_policy:
+  dev: Never
+  staging: Always
+  prod: Always
 
 args:
   mixer:
