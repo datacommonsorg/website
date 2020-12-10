@@ -159,7 +159,6 @@ def cached_i18n_name(dcids, locale):
     fallback_locale = locale.split('-')[0] if locale.find('-') != -1 else ''
     for dcid in dcids:
         values = response[dcid].get('out')
-        name_in_en = ''
         result[dcid] = ''
         fallback_choice = ''
         english_choice = ''
