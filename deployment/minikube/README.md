@@ -7,9 +7,9 @@ This folder contains the config and script for local development with Minikube.
 
 ## Prerequisites
 
-- Install `Docker`, following [Docker Desktop](https://www.docker.com/products/docker-desktop) install guide.
+- Install [`Docker`](https://www.docker.com/products/docker-desktop).
 
-- Install `Minikube`, following the [Installation](https://minikube.sigs.k8s.io/docs/start/) guide.
+- Install [`Minikube`](https://minikube.sigs.k8s.io/docs/start/).
 
 - Install [`kubectl`](https://kubernetes.io/docs/tasks/tools/install-kubectl/).
 

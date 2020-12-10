@@ -69,14 +69,14 @@ function setup_ssl() {
 
 
 # Valid argument would be: "staging", "prod"
-env=$1
-if [[ $env != "staging" ]] && [[ $env != "prod" ]]; then
-    echo "Invalid environment: $env"
+ENV=$1
+if [[ $ENV != "staging" ]] && [[ $ENV != "prod" ]]; then
+    echo "Invalid environment: $ENV"
     exit
 fi
 
 # Dev project
-PROJECT_ID=$(yq r ../config.yaml project.dev)
+PROJECT_ID=$(yq r ../config.yaml project.$ENV)
 
 # Update gcloud
 gcloud components update
@@ -93,25 +93,28 @@ gcloud services enable \
   gkehub.googleapis.com \
   cloudresourcemanager.googleapis.com
 
+# Create service account
+gcloud iam service-accounts create website-robot
+
 # Get the robot account key
 gcloud iam service-accounts keys create website-robot-key.json \
-      --iam-account mixer-robot@$GCP_PROJECT.iam.gserviceaccount.com
+      --iam-account website-robot@$GCP_PROJECT.iam.gserviceaccount.com
 # Use the same robot account for website and mixer
 cp website-robot-key.json mixer-robot-key.json
 
 # Create certificate
-setup_ssl $env
+setup_ssl $ENV
 
 # Setup cluster in primary region
-PRIMARY_REGION=($(yq r cluster.yaml region.$env.primary))
+PRIMARY_REGION=($(yq r cluster.yaml region.$ENV.primary))
 create_cluster $PROJECT_ID $PRIMARY_REGION
 
 # Setup cluster in other regions
-len=$(yq r cluster.yaml --length region.$env.others)
+len=$(yq r cluster.yaml --length region.$ENV.others)
 for index in {0..(($len-1))};
 do
-  REGION=$(yq r cluster.yaml region.$env.others[$index])
+  REGION=$(yq r cluster.yaml region.$ENV.others[$index])
   create_cluster $PROJECT_ID $REGION
 done
 
-setup_config_cluster $PROJECT_ID $PRIMARY_REGION $env
+setup_config_cluster $PROJECT_ID $PRIMARY_REGION $ENV
