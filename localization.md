@@ -44,7 +44,7 @@ Use "TRANSLATORS:" to leave descriptive comments to help translators understand 
 
 To extract strings to the template file:
 ```
-.env/bin/pybabel extract -F babel-mapping.ini -o server/l10n/messages.pot --omit-header -c "TRANSLATORS:" --no-wrap server/
+.env/bin/pybabel extract -F babel-mapping.ini -o server/l10n/messages.pot -c "TRANSLATORS:" --sort-output -w 1000 --omit-header server/
 ```
 
 Then update the messages.po file per locale:
