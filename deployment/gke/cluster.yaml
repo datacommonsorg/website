@@ -14,20 +14,21 @@
 
 region:
   staging:
-    primary: us-west1
+    primary: us-central1
     others:
       - asia-east1
       - europe-west1
   prod:
-    primary: us-west1
+    primary: us-central1
     others:
       - asia-east1
       - europe-west1
 
 ip:
-  staging: 34.102.204.218
+  staging: 35.186.207.254
   prod:
 
 domain:
-  staging: staging.datacommons.org
+  # TODO(shifucun): for testing purpose, should change to "staging.datacomons.org" when ready.
+  staging: datacommons.boxu.me
   prod: datacommons.org
