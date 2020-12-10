@@ -23,8 +23,8 @@ This folder contains the config and script for local development with Minikube.
 
 ## Deploy endpoints configuration
 
-**Note** Need to run this regularly to keep track of the mixer service update.
-Ideally, mixer-grpc.pb could be generated locally with protoc, or check the mixer.pto change and only deploy esp service when there is proto change.
+**Note** Need to run this regularly to keep track of the mixer service updates.
+Ideally, mixer-grpc.pb could be generated locally with protoc, or check the mixer.proto change and only deploy esp service when there is proto change.
 
 ```bash
 ./run_endponit_service.sh
@@ -32,8 +32,8 @@ Ideally, mixer-grpc.pb could be generated locally with protoc, or check the mixe
 
 ## Run Minikube cluster
 
-This will bring up the minikube cluster and let it running.
-You can let it running in the background or stop it after development to save 4G of memory on you computer.
+This will bring up the minikube cluster and keep it running.
+You can keep it running in the background or stop it after development to save 4G of memory on you computer.
 
 After seeing the dashboard, type and pick the "website" namespace.
 

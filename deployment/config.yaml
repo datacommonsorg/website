@@ -34,7 +34,7 @@ args:
     bt_project: google.com:datcom-store-dev
     bt_instance: prophet-cache
     branch_folder:
-      dev: "dummy" # Emtpy branch cache folder for fast loading
+      dev: "dummy" # Emtpy branch cache folder for faster loading
       staging:
       prod:
   esp:

@@ -61,7 +61,7 @@ function setup_config_cluster() {
   kubectl apply -f mcs.yaml
 }
 
-# This is crucial to make the ingress external IP working.
+# This is crucial to get the ingress external IP working.
 function setup_ssl() {
   gcloud compute ssl-certificates create website-certificate \
     --domains=$(yq r cluster.yaml domain.$1) --global
@@ -82,39 +82,41 @@ PROJECT_ID=$(yq r ../config.yaml project.$ENV)
 gcloud components update
 
 # Auth
-gcloud auth login
+# gcloud auth login
+
+# Set project
 gcloud config set project $PROJECT_ID
 
-gcloud services enable \
-  anthos.googleapis.com \
-  multiclusteringress.googleapis.com \
-  container.googleapis.com \
-  gkeconnect.googleapis.com \
-  gkehub.googleapis.com \
-  cloudresourcemanager.googleapis.com
+# gcloud services enable \
+#   anthos.googleapis.com \
+#   multiclusteringress.googleapis.com \
+#   container.googleapis.com \
+#   gkeconnect.googleapis.com \
+#   gkehub.googleapis.com \
+#   cloudresourcemanager.googleapis.com
 
-# Create service account
-gcloud iam service-accounts create website-robot
+# # Create service account
+# gcloud iam service-accounts create website-robot
 
-# Get the robot account key
-gcloud iam service-accounts keys create website-robot-key.json \
-      --iam-account website-robot@$GCP_PROJECT.iam.gserviceaccount.com
-# Use the same robot account for website and mixer
-cp website-robot-key.json mixer-robot-key.json
+# # Get the robot account key
+# gcloud iam service-accounts keys create website-robot-key.json \
+#       --iam-account website-robot@$GCP_PROJECT.iam.gserviceaccount.com
+# # Use the same robot account for website and mixer
+# cp website-robot-key.json mixer-robot-key.json
 
 # Create certificate
 setup_ssl $ENV
 
-# Setup cluster in primary region
-PRIMARY_REGION=($(yq r cluster.yaml region.$ENV.primary))
-create_cluster $PROJECT_ID $PRIMARY_REGION
+# # Setup cluster in primary region
+# PRIMARY_REGION=($(yq r cluster.yaml region.$ENV.primary))
+# create_cluster $PROJECT_ID $PRIMARY_REGION
 
-# Setup cluster in other regions
-len=$(yq r cluster.yaml --length region.$ENV.others)
-for index in {0..(($len-1))};
-do
-  REGION=$(yq r cluster.yaml region.$ENV.others[$index])
-  create_cluster $PROJECT_ID $REGION
-done
+# # Setup cluster in other regions
+# len=$(yq r cluster.yaml --length region.$ENV.others)
+# for index in {0..(($len-1))};
+# do
+#   REGION=$(yq r cluster.yaml region.$ENV.others[$index])
+#   create_cluster $PROJECT_ID $REGION
+# done
 
-setup_config_cluster $PROJECT_ID $PRIMARY_REGION $ENV
+# setup_config_cluster $PROJECT_ID $PRIMARY_REGION $ENV

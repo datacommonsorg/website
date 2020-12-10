@@ -13,7 +13,7 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-# Script to generate deployment yaml files for each
+# Script to generate deployment yaml files
 
 set -e
 
