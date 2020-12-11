@@ -57,7 +57,7 @@ spec:
             - containerPort: 8080
           readinessProbe:
             httpGet:
-              path: /about
+              path: /healthz
               port: 8080
           volumeMounts:
             - name: website-robot-key
