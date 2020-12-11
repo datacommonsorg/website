@@ -13,16 +13,7 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-set -e
+DOMAIN=$1
 
-# Build Docker image and push to Cloud Container Registry
-
-cd ../
-gcloud auth login
-gcloud config set project datcom-ci
-export TAG="$(git rev-parse --short HEAD)"
-DOCKER_BUILDKIT=1 docker build --tag gcr.io/datcom-ci/website:$TAG .
-DOCKER_BUILDKIT=1 docker build --tag gcr.io/datcom-ci/website:latest .
-docker push gcr.io/datcom-ci/website:$TAG
-docker push gcr.io/datcom-ci/website:latest
-cd deployment
+gcloud compute ssl-certificates create website-certificate \
+    --domains=$DOMAIN --global

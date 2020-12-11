@@ -15,14 +15,13 @@
 
 set -e
 
-# Build Docker image and push to Cloud Container Registry
+PROJECT_ID=$1
 
-cd ../
-gcloud auth login
-gcloud config set project datcom-ci
-export TAG="$(git rev-parse --short HEAD)"
-DOCKER_BUILDKIT=1 docker build --tag gcr.io/datcom-ci/website:$TAG .
-DOCKER_BUILDKIT=1 docker build --tag gcr.io/datcom-ci/website:latest .
-docker push gcr.io/datcom-ci/website:$TAG
-docker push gcr.io/datcom-ci/website:latest
-cd deployment
+gcloud services enable \
+  anthos.googleapis.com \
+  multiclusteringress.googleapis.com \
+  container.googleapis.com \
+  gkeconnect.googleapis.com \
+  gkehub.googleapis.com \
+  cloudresourcemanager.googleapis.com \
+  servicecontrol.googleapis.com
