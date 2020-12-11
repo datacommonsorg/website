@@ -32,8 +32,10 @@ elif os.environ.get('FLASK_ENV') == 'production':
     cfg = import_string('configmodule.ProductionConfig')()
 elif os.environ.get('FLASK_ENV') == 'staging':
     cfg = import_string('configmodule.StagingConfig')()
-elif os.environ.get('FLASK_ENV') == 'kubernetes':
-    cfg = import_string('configmodule.KubernetesConfig')()
+elif os.environ.get('FLASK_ENV') == 'minikube':
+    cfg = import_string('configmodule.MinikubeConfig')()
+elif os.environ.get('FLASK_ENV') == 'gke':
+    cfg = import_string('configmodule.GKEConfig')()
 else:
     cfg = import_string('configmodule.DevelopmentConfig')()
 
@@ -147,7 +149,7 @@ def get_stats_collection(parent_place, child_type, date, stat_vars):
         child_type: Type of child places as a string.
         date: Date as a string of the form YYYY-MM-DD (month and day are optional).
         stat_vars: List of statistical variable DCIDs each as a string.
-    
+
     Returns:
         Dict with a single key "data". The value is a dict keyed by statvar DCIDs,
         with dicts as values. See `SourceSeries` in

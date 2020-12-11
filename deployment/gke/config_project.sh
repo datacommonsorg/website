@@ -1,10 +1,11 @@
+#!/bin/bash
 # Copyright 2020 Google LLC
 #
 # Licensed under the Apache License, Version 2.0 (the "License");
 # you may not use this file except in compliance with the License.
 # You may obtain a copy of the License at
 #
-#     https://www.apache.org/licenses/LICENSE-2.0
+#      http://www.apache.org/licenses/LICENSE-2.0
 #
 # Unless required by applicable law or agreed to in writing, software
 # distributed under the License is distributed on an "AS IS" BASIS,
@@ -12,23 +13,15 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-region:
-  staging:
-    primary: us-central1
-    others:
-      - asia-east1
-      - europe-west1
-  prod:
-    primary: us-central1
-    others:
-      - asia-east1
-      - europe-west1
+set -e
 
-ip:
-  staging: 34.98.105.203
-  prod:
+PROJECT_ID=$1
 
-domain:
-  # TODO(shifucun): for testing purpose, should change to "staging.datacomons.org" when ready.
-  staging: dcdctest.com
-  prod: datacommons.org
+gcloud services enable \
+  anthos.googleapis.com \
+  multiclusteringress.googleapis.com \
+  container.googleapis.com \
+  gkeconnect.googleapis.com \
+  gkehub.googleapis.com \
+  cloudresourcemanager.googleapis.com \
+  servicecontrol.googleapis.com

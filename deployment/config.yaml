@@ -14,15 +14,15 @@
 
 project:
   dev: datcom-mixer-staging # datacommons-website-dev
-  staging: datacommons-website-staging
+  staging: dc-test-1-298300
   prod: datacommons-website-prod
 
 image:
   mixer: gcr.io/datcom-ci/datacommons-mixer:latest
   website:
     dev: website:local
-    staging: gcr.io/datcom-ci/datacommons-website:latest
-    prod: gcr.io/datcom-ci/datacommons-website:latest
+    staging: gcr.io/datcom-ci/website:latest
+    prod: gcr.io/datcom-ci/website:latest
 
 pull_policy:
   dev: Never
@@ -42,6 +42,11 @@ args:
       dev: "--non_gcp"
       staging:
       prod:
+
+nodes:
+  dev: 1
+  staging: 1
+  prod: 3
 
 replicas:
   dev: 1
@@ -109,3 +114,12 @@ cpu:
       dev: 100m
       staging: 500m
       prod: 500m
+
+bind_project:
+  bigquery: google.com:datcom-store-dev
+  bigtable: google.com:datcom-store-dev
+  branch_cache: google.com:datcom-store-dev
+  website_gcs: datcom-browser-staging # TODO(shifucun): use `gsutil acl ...`
+
+gcs_bucket:
+  website: datcom-browser-staging.appspot.com

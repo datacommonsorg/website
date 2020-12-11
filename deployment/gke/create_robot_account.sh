@@ -15,14 +15,19 @@
 
 set -e
 
-# Build Docker image and push to Cloud Container Registry
+PROJECT_ID=$1
+NAME="website-robot"
+SERVICE_ACCOUNT="$NAME@$PROJECT_ID.iam.gserviceaccount.com"
 
-cd ../
-gcloud auth login
-gcloud config set project datcom-ci
-export TAG="$(git rev-parse --short HEAD)"
-DOCKER_BUILDKIT=1 docker build --tag gcr.io/datcom-ci/website:$TAG .
-DOCKER_BUILDKIT=1 docker build --tag gcr.io/datcom-ci/website:latest .
-docker push gcr.io/datcom-ci/website:$TAG
-docker push gcr.io/datcom-ci/website:latest
-cd deployment
+# Create service account
+gcloud iam service-accounts create $NAME
+
+# Enable service account
+gcloud alpha iam service-accounts enable $SERVICE_ACCOUNT
+
+# Get the robot account key
+gcloud iam service-accounts keys create website-robot-key.json \
+    --iam-account website-robot@$PROJECT_ID.iam.gserviceaccount.com
+
+# Use the same robot account for website and mixer
+cp website-robot-key.json mixer-robot-key.json

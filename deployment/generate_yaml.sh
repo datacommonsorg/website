@@ -65,7 +65,7 @@ function set_website {
     spec.template.spec.containers[0].imagePullPolicy $(yq r $DIR/config.yaml pull_policy.$env)
   # Set FLASK_ENV
   yq w -i deployment.yaml \
-    spec.template.spec.containers[0].env[1].value "kubernetes"
+    spec.template.spec.containers[0].env[1].value "gke"
 }
 
 function set_esp {

@@ -15,14 +15,24 @@
 
 set -e
 
-# Build Docker image and push to Cloud Container Registry
+# https://cloud.google.com/kubernetes-engine/docs/how-to/ingress-for-anthos-setup
 
-cd ../
-gcloud auth login
-gcloud config set project datcom-ci
-export TAG="$(git rev-parse --short HEAD)"
-DOCKER_BUILDKIT=1 docker build --tag gcr.io/datcom-ci/website:$TAG .
-DOCKER_BUILDKIT=1 docker build --tag gcr.io/datcom-ci/website:latest .
-docker push gcr.io/datcom-ci/website:$TAG
-docker push gcr.io/datcom-ci/website:latest
-cd deployment
+PROJECT_ID=$1
+REGION=$2
+ENV=$3
+
+CLUSTER_NAME="website-$REGION"
+
+gcloud container clusters get-credentials $CLUSTER_NAME --region $REGION
+gcloud alpha container hub ingress enable \
+  --config-membership=projects/$PROJECT_ID/locations/global/memberships/$CLUSTER_NAME
+
+yq w mci.yaml.tmpl \
+  metadata.annotations.[networking.gke.io/static-ip] \
+  $(yq r cluster.yaml ip.$ENV) \
+  > mci.yaml
+
+kubectl apply -f mci.yaml
+kubectl apply -f mcs.yaml
+
+# Check the status: `kubectl describe mci website -n website`
