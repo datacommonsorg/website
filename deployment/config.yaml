@@ -49,7 +49,7 @@ args:
 # So here we are looking at 1:12 ratio from "node" to "pod".
 # Use 1 : 10 ratio to give some buffer.
 #
-# Dev (Minikue) will always have 1 node and 1 pod.
+# Dev (Minikube) will always have 1 node and 1 pod.
 scaling:
   nodes:
     dev: 1
