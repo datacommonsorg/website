@@ -35,7 +35,7 @@ function create_deployment {
 function set_replicas {
   yq w -i deployment.yaml \
     spec.replicas \
-    $(yq r $DIR/config.yaml replicas.$env)
+    $(yq r $DIR/config.yaml scaling.replicas.$env)
 }
 
 function set_website {

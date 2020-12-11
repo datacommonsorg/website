@@ -44,18 +44,30 @@ args:
       staging:
       prod:
 
-nodes:
-  dev: 1
-  staging: 1
-  prod: 3
-
-replicas:
-  dev: 1
-  staging: 3
-  prod: 18
+# Node of "1" (regional) corresponding to 3 physical nodes (zonal).
+# Each physical node of "4 vCPU and 32G memory" machine can allocate about 4 pods (0.85 vCPU and 8G memory, see below).
+# So here we are looking at 1:12 ratio from "node" to "pod".
+# Use 1 : 10 ratio to give some buffer.
+#
+# Dev (Minikue) will always have 1 node and 1 pod.
+scaling:
+  nodes:
+    dev: 1
+    staging: 1
+    prod: 5
+  replicas:
+    dev: 1
+    staging: 10
+    prod: 50
 
 # Memory Request and Limit
 # https://kubernetes.io/docs/concepts/configuration/manage-resources-containers/#requests-and-limits
+
+# Actual usage can be checked from GCP console: https://pantheon.corp.google.com/monitoring/dashboards/resourceList/kubernetes?project=datcom-mixer&pageState=(%22interval%22:(%22d%22:%22P7D%22),%22gkeTableState%22:(%22t%22:%22CONTAINER%22,%22vA%22:true),%22filter%22:(%22naF%22:(%22n%22:%22mixer%22,%22cF%22:(%22pN%22:%22projects%2Fdatcom-mixer%22,%22l%22:%22us-west2-c%22,%22n%22:%22mixer%22))))
+# In prod/staging env, total memory is 2 + 6 + 0.5 = 8.5G
+#
+# Note the majority of mixer usage is branch cache, which can be cut by a lot after moving it out of memory.
+# TODO(shifucun): understand website memory and cpu usage pattern and adjust accordingly.
 mem:
   website:
     req:
@@ -68,53 +80,57 @@ mem:
       prod: 2G
   mixer:
     req:
-      dev: 2G
+      dev: 1G
       staging: 6G
       prod: 6G
     limit:
-      dev: 2G
+      dev: 1G
       staging: 6G
       prod: 6G
   esp:
     req:
-      dev: 0.5G
-      staging: 1G
-      prod: 1G
+      dev: 0.1G
+      staging: 0.5G
+      prod: 0.5G
     limit:
-      dev: 0.5G
-      staging: 1G
-      prod: 1G
+      dev: 0.1G
+      staging: 0.5G
+      prod: 0.5G
 
 # CPU Request and Limit
 # https://kubernetes.io/docs/concepts/configuration/manage-resources-containers/#requests-and-limits
+
+# Actual usage can be checked from GCP console: https://pantheon.corp.google.com/monitoring/dashboards/resourceList/kubernetes?project=datcom-mixer&pageState=(%22interval%22:(%22d%22:%22P7D%22),%22gkeTableState%22:(%22t%22:%22CONTAINER%22,%22vA%22:true),%22filter%22:(%22naF%22:(%22n%22:%22mixer%22,%22cF%22:(%22pN%22:%22projects%2Fdatcom-mixer%22,%22l%22:%22us-west2-c%22,%22n%22:%22mixer%22))))
+# In prod/staging env, total memory is 0.5 + 0.3 + 0.05 = 0.85
 cpu:
   website:
     req:
-      dev: 500m
-      staging: 1000m
-      prod: 1000m
+      dev: 100m
+      staging: 500m
+      prod: 500m
     limit:
-      dev: 500m
-      staging: 1000m
-      prod: 1000m
+      dev: 100m
+      staging: 500m
+      prod: 500m
   mixer:
     req:
-      dev: 500m
-      staging: 500m
-      prod: 1000m
+      dev: 100m
+      staging: 300m
+      prod: 300m
     limit:
-      dev: 500m
-      staging: 500m
-      prod: 1000m
+      dev: 100m
+      staging: 300m
+      prod: 300m
+  # From GCP dashboard, esp does not use that much of memory.
   esp:
     req:
-      dev: 100m
-      staging: 500m
-      prod: 500m
+      dev: 10m
+      staging: 50m
+      prod: 50m
     limit:
-      dev: 100m
-      staging: 500m
-      prod: 500m
+      dev: 10m
+      staging: 50m
+      prod: 50m
 
 bind_project:
   bigquery: google.com:datcom-store-dev
