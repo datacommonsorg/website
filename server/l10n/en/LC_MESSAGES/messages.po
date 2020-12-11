@@ -14,46 +14,16 @@
 msgid ""
 msgstr ""
 
-#. The label for a collection of exploration tools.
-#: server/templates/base.html:69 server/templates/base.html:120
-msgid "Explore"
-msgstr ""
 
-#. The name of a tool to browse statistics about a place.
-#: server/templates/base.html:72 server/templates/base.html:122
-msgid "Place Explorer"
-msgstr ""
-
-#: server/templates/base.html:73
-msgid "Graph Browser"
-msgstr ""
-
-#. The name of a tool to explore timeline charts of statistical variables for
-#. places.
-#: server/templates/base.html:74 server/templates/base.html:126
-msgid "Timelines Explorer"
-msgstr ""
-
-#. The label for a list of documentation links.
-#. The label for a link to our documentation site.
-#: server/templates/base.html:79 server/templates/base.html:81
-#: server/templates/base.html:130 server/templates/base.html:132
-msgid "Documentation"
+#. The label for a link to project homepage.
+#: server/templates/base.html:162
+#, python-format
+msgid "%(project)s is a Google supported project"
 msgstr ""
 
 #. The label for a link to our API documentation.
 #: server/templates/base.html:82 server/templates/base.html:134
 msgid "API's"
-msgstr ""
-
-#. The label for a link to our API tutorials.
-#: server/templates/base.html:83 server/templates/base.html:136
-msgid "Tutorials"
-msgstr ""
-
-#. The label for a link to instructions about contributing to the project.
-#: server/templates/base.html:84 server/templates/base.html:138
-msgid "Contribute"
 msgstr ""
 
 #: server/templates/base.html:90
@@ -70,10 +40,60 @@ msgstr ""
 msgid "Blog"
 msgstr ""
 
-#. The label for a link to data sources included in the Data Commons knowledge
-#. graph.
+#. Heading for a list of cities in the US. See this message on https://datacommons.org/place
+#: server/templates/place_landing.html:55
+msgid "Cities, United States"
+msgstr ""
+
+#. The label for a link to instructions about contributing to the project.
+#: server/templates/base.html:84 server/templates/base.html:138
+msgid "Contribute"
+msgstr ""
+
+#. Heading for a list of counties in the US. See this message on https://datacommons.org/place
+#: server/templates/place_landing.html:70
+msgid "Counties, United States"
+msgstr ""
+
+#. Heading for a list of countries.
+#: server/templates/place_landing.html:94
+msgid "Countries"
+msgstr ""
+
+#. The label for a link to informational pages about the Data Commons project.
+#: server/templates/base.html:144
+msgid "Data Commons"
+msgstr ""
+
+#. The label for a link to data sources included in the Data Commons knowledge graph.
 #: server/templates/base.html:95 server/templates/base.html:150
 msgid "Data Sources"
+msgstr ""
+
+#. The label for a link to site disclaimers.
+#: server/templates/base.html:171
+msgid "Disclaimers"
+msgstr ""
+
+#. The label for a list of documentation links.
+#. The label for a link to our documentation site.
+#: server/templates/base.html:79 server/templates/base.html:81 server/templates/base.html:130 server/templates/base.html:132
+msgid "Documentation"
+msgstr ""
+
+#. Heading for a list of links to rankings of places worldwide, by their economic indicators.
+#: server/templates/place_landing.html:145
+msgid "Economic Indicators, Worldwide"
+msgstr ""
+
+#. A hint shown in the search box, asking users to search for places.
+#: server/templates/place.html:50 server/templates/place_landing.html:44
+msgid "Enter a country, state, county or city"
+msgstr ""
+
+#. The label for a collection of exploration tools.
+#: server/templates/base.html:69 server/templates/base.html:120
+msgid "Explore"
 msgstr ""
 
 #: server/templates/base.html:96
@@ -85,36 +105,69 @@ msgstr ""
 msgid "Feedback"
 msgstr ""
 
-#. The name of a tool to browse the Data Commons knowledge graph.
-#: server/templates/base.html:124
-msgid "Graph Explorer"
-msgstr ""
-
-#. The label for a link to the project's github repository (for open sourced
-#. code).
-#: server/templates/base.html:140
-msgid "Github Repository"
-msgstr ""
-
-#. The label for a link to informational pages about the Data Commons project.
-#: server/templates/base.html:144
-msgid "Data Commons"
-msgstr ""
-
 #. The label for a link to project FAQ page.
 #: server/templates/base.html:154
 msgid "Frequently Asked Questions"
 msgstr ""
 
-#. The label for a link to project homepage.
-#: server/templates/base.html:162
-#, python-format
-msgid "%(project)s is a Google supported project"
+#. Link to worldwide rankings for Gini Index, by country.
+#: server/templates/place_landing.html:148
+msgid "Gini Index"
 msgstr ""
 
-#. The label for a link to site terms and conditions.
-#: server/templates/base.html:167
-msgid "Terms and Conditions"
+#. The label for a link to the project's github repository (for open sourced code).
+#: server/templates/base.html:140
+msgid "Github Repository"
+msgstr ""
+
+#. Link to worldwide rankings for Government Expenditures on Education, by country.
+#: server/templates/place_landing.html:156
+msgid "Government Expenditures on Education"
+msgstr ""
+
+#. Link to worldwide rankings for Government Expenditures on Military, by country.
+#: server/templates/place_landing.html:160
+msgid "Government Expenditures on Military"
+msgstr ""
+
+#. The name of a tool to browse the Data Commons knowledge graph.
+#: server/templates/base.html:73 server/templates/base.html:124
+msgid "Graph Browser"
+msgstr ""
+
+#. Link to worldwide rankings for Gross National Income, by country.
+#: server/templates/place_landing.html:152
+msgid "Gross National Income"
+msgstr ""
+
+#. Heading for a list of links to rankings of places in the US, by their life expectancy.
+#: server/templates/place_landing.html:134
+msgid "Life Expectancy"
+msgstr ""
+
+#. A message shown on the page while the content is loading.
+#: server/templates/place.html:58
+msgid "Loading..."
+msgstr ""
+
+#. Heading for a list of links to rankings of places in the US, by their median income. See this message on https://datacommons.org/place
+#: server/templates/place_landing.html:107
+msgid "Median Income, United States"
+msgstr ""
+
+#. Introduction to the Place Explorer tool. Please wrap each paragraph with <p> and </p> tags. See this message on https://datacommons.org/place
+#: server/templates/place_landing.html:49
+msgid "PLACE_EXPLORER_INTRO"
+msgstr "<p>The Place Explorer tool helps you understand the core data underlying a place. It pulls together a set of charts on the demographics, education, economics, etc., of the place, placing them in context with comparisons to other places. You can also see how different places rank along different metrics line unemployment, crime and income.</p><p>You can dive into the charts for your favorite city, zipcode, county, state or country using the search box above.</p><p>Or, start exploring some well known places ...</p>"
+
+#. The name of a tool to browse statistics about a place.
+#: server/templates/base.html:72 server/templates/base.html:122 server/templates/place.html:19 server/templates/place.html:20 server/templates/place_landing.html:19 server/templates/place_landing.html:20 server/templates/place_landing.html:38
+msgid "Place Explorer"
+msgstr ""
+
+#. Heading for a list of places
+#: server/templates/place_landing.html:52
+msgid "Places"
 msgstr ""
 
 #. The label for a link to site privacy policy.
@@ -122,8 +175,58 @@ msgstr ""
 msgid "Privacy Policy"
 msgstr ""
 
-#. The label for a link to site disclaimers.
-#: server/templates/base.html:171
-msgid "Disclaimers"
+#. Heading for a list of place rankings.
+#: server/templates/place_landing.html:104
+msgid "Rankings"
+msgstr ""
+
+#. Heading for a list of states in the US. See this message on https://datacommons.org/place
+#: server/templates/place_landing.html:85
+msgid "States, United States"
+msgstr ""
+
+#. The label for a link to site terms and conditions.
+#: server/templates/base.html:167
+msgid "Terms and Conditions"
+msgstr ""
+
+#. The name of a tool to explore timeline charts of statistical variables for places.
+#: server/templates/base.html:74 server/templates/base.html:126
+msgid "Timelines Explorer"
+msgstr ""
+
+#. The label for a link to our API tutorials.
+#: server/templates/base.html:83 server/templates/base.html:136
+msgid "Tutorials"
+msgstr ""
+
+#. Heading for a list of links to rankings of places in the US, by their unemployment rate. See this message on https://datacommons.org/place
+#: server/templates/place_landing.html:122
+msgid "Unemployment Rate, United States"
+msgstr ""
+
+#. Link to worldwide rankings for life expectancy by country. See this message on https://datacommons.org/place
+#: server/templates/place_landing.html:137
+msgid "Worldwide"
+msgstr ""
+
+#. Heading for a list of rankings, pivoted by city. See this message on https://datacommons.org/place
+#: server/templates/place_landing.html:110 server/templates/place_landing.html:124
+msgid "by city"
+msgstr ""
+
+#. Heading for a list of rankings, pivoted by county. See this message on https://datacommons.org/place
+#: server/templates/place_landing.html:114 server/templates/place_landing.html:127
+msgid "by county"
+msgstr ""
+
+#. Heading for a list of rankings, pivoted by state. See this message on https://datacommons.org/place
+#: server/templates/place_landing.html:118 server/templates/place_landing.html:130
+msgid "by state"
+msgstr ""
+
+#. Link to US rankings for life expectancy by state. See this message on https://datacommons.org/place
+#: server/templates/place_landing.html:141
+msgid "in United States"
 msgstr ""
 

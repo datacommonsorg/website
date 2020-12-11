@@ -16,8 +16,8 @@
 {%- extends 'base.html' -%}
 
 {% set main_id = 'dc-places-landing' %}
-{% set title = 'Place Explorer' %}
-{% set subpage_title = 'Place Explorer' %}
+{% set title = _('Place Explorer') %}
+{% set subpage_title = _('Place Explorer') %}
 {% set subpage_url = url_for('place.place') %}
 
 {% macro place_url(dcid='') -%}
@@ -35,48 +35,54 @@
 
 {% block content %}
 <div id="body" class="container">
-  <h1 class="mb-4">Place Explorer</h1>
+  <h1 class="mb-4">{% trans %}Place Explorer{% endtrans %}</h1>
 
   <div class="search border mb-4">
     <div id="location-field">
       <div id="search-icon"></div>
       <input id="place-autocomplete"
-        placeholder="Enter a country, state, county or city" type="text" />
+        placeholder="{% trans %}Enter a country, state, county or city{% endtrans %}" type="text" />
     </div>
   </div>
 
-  <p>The Place Explorer tool helps you understand the core data
-    underlying a place. It pulls together a set of charts
-    on the demographics, education, economics, etc., of the place,
-    placing them in context with comparisons to other places.
-    You can also see how different places rank along different
-    metrics line unemployment, crime and income.</p>
+  {# TRANSLATORS: Introduction to the Place Explorer tool. Please wrap each paragraph with <p> and </p> tags. See this message on https://datacommons.org/place #}
+  {% trans %}PLACE_EXPLORER_INTRO{% endtrans %}
 
-  <p>You can dive into the charts for your favorite city, zipcode, county,
-    state or country using the search box above.</p>
-
-  <p>Or, start exploring some well known places ...</p>
-
-  <h3>Places</h3>
+  {# TRANSLATORS: Heading for a list of places #}
+  <h3>{% trans %}Places{% endtrans %}</h3>
   <ul>
-    <li><strong>Cities, United States</strong>:
-      <a class="landing-link" href="{{ place_url('geoId/1714000') }}">Chicago, IL</a>,
-      <a class="landing-link" href="{{ place_url('geoId/4805000') }}">Austin, TX</a>,
-      <a class="landing-link" href="{{ place_url('geoId/0667000') }}">San Francisco,
-        CA</a>,
-      <a class="landing-link" href="{{ place_url('geoId/5363000') }}">Seattle, WA</a>
+    {# TRANSLATORS: Heading for a list of cities in the US. See this message on https://datacommons.org/place #}
+    <li><strong>{% trans %}Cities, United States{% endtrans %}</strong>
+      <a class="landing-link" href="{{ place_url('geoId/1714000') }}">
+        Chicago, IL
+      </a>,
+      <a class="landing-link" href="{{ place_url('geoId/4805000') }}">
+        Austin, TX
+      </a>,
+      <a class="landing-link" href="{{ place_url('geoId/0667000') }}">
+        San Francisco, CA
+      </a>,
+      <a class="landing-link" href="{{ place_url('geoId/5363000') }}">
+        Seattle, WA
+      </a>
     </li>
-    <li><strong>Counties, United States</strong>:
-      <a class="landing-link" href="{{ place_url('geoId/17031') }}">Cook County,
-        IL</a>,
-      <a class="landing-link" href="{{ place_url('geoId/06059') }}">Orange County,
-        CA</a>,
-      <a class="landing-link" href="{{ place_url('geoId/48201') }}">Harris County,
-        TX</a>,
-      <a class="landing-link" href="{{ place_url('geoId/06085') }}">Santa Clara
-        County, CA</a>
+    {# TRANSLATORS: Heading for a list of counties in the US. See this message on https://datacommons.org/place #}
+    <li><strong>{% trans %}Counties, United States{% endtrans %}</strong>
+      <a class="landing-link" href="{{ place_url('geoId/17031') }}">
+        Cook County, IL
+      </a>,
+      <a class="landing-link" href="{{ place_url('geoId/06059') }}">
+        Orange County, CA
+      </a>,
+      <a class="landing-link" href="{{ place_url('geoId/48201') }}">
+        Harris County, TX
+      </a>,
+      <a class="landing-link" href="{{ place_url('geoId/06085') }}">
+        Santa Clara County, CA
+      </a>
     </li>
-    <li><strong>States, United States</strong>:
+    {# TRANSLATORS: Heading for a list of states in the US. See this message on https://datacommons.org/place #}
+    <li><strong>{% trans %}States, United States{% endtrans %}</strong>
       <a class="landing-link" href="{{ place_url('geoId/06') }}">California</a>,
       <a class="landing-link" href="{{ place_url('geoId/48') }}">Texas</a>,
       <a class="landing-link" href="{{ place_url('geoId/17') }}">Illinois</a>,
@@ -84,7 +90,8 @@
       <a class="landing-link" href="{{ place_url('geoId/36') }}">New York</a>,
       <a class="landing-link" href="{{ place_url('geoId/26') }}">Michigan</a>
     </li>
-    <li><strong>Countries</strong>:
+    {# TRANSLATORS: Heading for a list of countries. #}
+    <li><strong>{% trans %}Countries{% endtrans %}</strong>
       <a class="landing-link" href="{{ place_url('country/CAN') }}">Canada</a>,
       <a class="landing-link" href="{{ place_url('country/USA') }}">United States</a>,
       <a class="landing-link" href="{{ place_url('country/IND') }}">India</a>,
@@ -93,50 +100,65 @@
     </li>
   </ul>
 
-  <h3>Rankings</h3>
+  {# TRANSLATORS: Heading for a list of place rankings. #}
+  <h3>{% trans %}Rankings{% endtrans %}</h3>
   <ul>
-    <li><strong>Median Income, United States</strong>:
-      <a class="landing-link"
-        href="{{ ranking_url('Median_Income_Person', 'City', 'country/USA', unit='$') }}">by
-        city</a>,
-      <a class="landing-link"
-        href="{{ ranking_url('Median_Income_Person', 'County', 'country/USA', unit='$') }}">by
-        county</a>,
-      <a class="landing-link"
-        href="{{ ranking_url('Median_Income_Person', 'State', 'country/USA', unit='$') }}">by
-        state</a>
+    {# TRANSLATORS: Heading for a list of links to rankings of places in the US, by their median income. See this message on https://datacommons.org/place #}
+    <li><strong>{% trans %}Median Income, United States{% endtrans %}</strong>
+      <a class="landing-link" href="{{ ranking_url('Median_Income_Person', 'City', 'country/USA', unit='$') }}">
+        {# TRANSLATORS: Heading for a list of rankings, pivoted by city. See this message on https://datacommons.org/place #}
+        {% trans %}by city{% endtrans %}
+      </a>
+      <a class="landing-link" href="{{ ranking_url('Median_Income_Person', 'County', 'country/USA', unit='$') }}">
+        {# TRANSLATORS: Heading for a list of rankings, pivoted by county. See this message on https://datacommons.org/place #}
+        {% trans %}by county{% endtrans %}
+      </a>
+      <a class="landing-link" href="{{ ranking_url('Median_Income_Person', 'State', 'country/USA', unit='$') }}">
+        {# TRANSLATORS: Heading for a list of rankings, pivoted by state. See this message on https://datacommons.org/place #}
+        {% trans %}by state{% endtrans %}
+      </a>
     </li>
-    <li><strong>Unemployment Rate, United States</strong>:
-      <a class="landing-link"
-        href="{{ ranking_url('UnemploymentRate_Person', 'City', 'country/USA', unit='%') }}">by
-        city</a>,
-      <a class="landing-link"
-        href="{{ ranking_url('UnemploymentRate_Person', 'County', 'country/USA', unit='%') }}">by
-        county</a>,
-      <a class="landing-link"
-        href="{{ ranking_url('UnemploymentRate_Person', 'State', 'country/USA', unit='%') }}">by
-        state</a>
+    {# TRANSLATORS: Heading for a list of links to rankings of places in the US, by their unemployment rate. See this message on https://datacommons.org/place #}
+    <li><strong>{% trans %}Unemployment Rate, United States{% endtrans %}</strong>
+      <a class="landing-link" href="{{ ranking_url('UnemploymentRate_Person', 'City', 'country/USA', unit='%') }}">
+        {% trans %}by city{% endtrans %}
+      </a>
+      <a class="landing-link" href="{{ ranking_url('UnemploymentRate_Person', 'County', 'country/USA', unit='%') }}">
+        {% trans %}by county{% endtrans %}
+      </a>
+      <a class="landing-link" href="{{ ranking_url('UnemploymentRate_Person', 'State', 'country/USA', unit='%') }}">
+        {% trans %}by state{% endtrans %}
+      </a>
     </li>
-    <li><strong>Life Expectancy</strong>:
-      <a class="landing-link"
-        href="{{ ranking_url('LifeExpectancy_Person', 'Country') }}">Worldwide</a>,
-      <a class="landing-link"
-        href="{{ ranking_url('LifeExpectancy_Person', 'State') }}">in United
-        States</a>
+    {# TRANSLATORS: Heading for a list of links to rankings of places in the US, by their life expectancy. #}
+    <li><strong>{% trans %}Life Expectancy{% endtrans %}</strong>
+      <a class="landing-link" href="{{ ranking_url('LifeExpectancy_Person', 'Country') }}">
+        {# TRANSLATORS: Link to worldwide rankings for life expectancy by country. See this message on https://datacommons.org/place #}
+        {% trans %}Worldwide{% endtrans %}
+      </a>
+      <a class="landing-link" href="{{ ranking_url('LifeExpectancy_Person', 'State') }}">
+        {# TRANSLATORS: Link to US rankings for life expectancy by state. See this message on https://datacommons.org/place #}
+        {% trans %}in United States{% endtrans %}
+      </a>
     </li>
-    <li><strong>Economic Indicators, Worldwide</strong>:
-      <a class="landing-link"
-        href="{{ ranking_url('GiniIndex_EconomicActivity', 'Country') }}">Gini
-        Index</a>,
-      <a class="landing-link"
-        href="{{ ranking_url('Amount_EconomicActivity_GrossNationalIncome_PurchasingPowerParity_PerCapita', 'Country') }}">Gross
-        National Income</a>,
-      <a class="landing-link"
-        href="{{ ranking_url('Amount_EconomicActivity_ExpenditureActivity_EducationExpenditure_Government_AsFractionOf_Amount_EconomicActivity_ExpenditureActivity_Government', 'Country') }}">Government
-        Expenditures on Education</a>,
-      <a class="landing-link"
-        href="{{ ranking_url('Amount_EconomicActivity_ExpenditureActivity_MilitaryExpenditure_Government_AsFractionOf_Amount_EconomicActivity_GrossDomesticProduction_Nominal', 'Country') }}">Government
-        Expenditures on Military</a>
+    {# TRANSLATORS: Heading for a list of links to rankings of places worldwide, by their economic indicators. #}
+    <li><strong>{% trans %}Economic Indicators, Worldwide{% endtrans %}</strong>
+      <a class="landing-link" href="{{ ranking_url('GiniIndex_EconomicActivity', 'Country') }}">
+        {# TRANSLATORS: Link to worldwide rankings for Gini Index, by country. #}
+        {% trans %}Gini Index{% endtrans %}
+      </a>
+      <a class="landing-link" href="{{ ranking_url('Amount_EconomicActivity_GrossNationalIncome_PurchasingPowerParity_PerCapita', 'Country') }}">
+        {# TRANSLATORS: Link to worldwide rankings for Gross National Income, by country. #}
+        {% trans %}Gross National Income{% endtrans %}
+      </a>
+      <a class="landing-link" href="{{ ranking_url('Amount_EconomicActivity_ExpenditureActivity_EducationExpenditure_Government_AsFractionOf_Amount_EconomicActivity_ExpenditureActivity_Government', 'Country') }}">
+        {# TRANSLATORS: Link to worldwide rankings for Government Expenditures on Education, by country. #}
+        {% trans %}Government Expenditures on Education{% endtrans %}
+      </a>
+      <a class="landing-link" href="{{ ranking_url('Amount_EconomicActivity_ExpenditureActivity_MilitaryExpenditure_Government_AsFractionOf_Amount_EconomicActivity_GrossDomesticProduction_Nominal', 'Country') }}">
+        {# TRANSLATORS: Link to worldwide rankings for Government Expenditures on Military, by country. #}
+        {% trans %}Government Expenditures on Military{% endtrans %}
+      </a>
     </li>
   </ul>
 </div>

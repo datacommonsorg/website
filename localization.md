@@ -44,12 +44,12 @@ Use "TRANSLATORS:" to leave descriptive comments to help translators understand 
 
 To extract strings to the template file:
 ```
-.env/bin/pybabel extract -F babel-mapping.ini -o server/l10n/messages.pot --omit-header -c "TRANSLATORS:" --no-wrap server/
+.env/bin/pybabel extract -F babel-mapping.ini -o server/l10n/messages.pot -c "TRANSLATORS:" --sort-output -w 1000 --omit-header server/
 ```
 
 Then update the messages.po file per locale:
 ```
-.env/bin/pybabel update -l $LOCALE -i server/l10n/messages.pot -d server/l10n
+.env/bin/pybabel update -l $LOCALE -i server/l10n/messages.pot -w 1000 -d server/l10n
 ```
 
 And after adding translations to each .po file, compile to .mo files for serving:

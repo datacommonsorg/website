@@ -14,116 +14,219 @@
 msgid ""
 msgstr ""
 
-#. The label for a collection of exploration tools.
-#: server/templates/base.html:69 server/templates/base.html:120
-msgid "Explore"
-msgstr "FOOBAR"
-
-#. The name of a tool to browse statistics about a place.
-#: server/templates/base.html:72 server/templates/base.html:122
-msgid "Place Explorer"
-msgstr "BARBAR"
-
-#: server/templates/base.html:73
-msgid "Graph Browser"
-msgstr ""
-
-#. The name of a tool to explore timeline charts of statistical variables for
-#. places.
-#: server/templates/base.html:74 server/templates/base.html:126
-msgid "Timelines Explorer"
-msgstr ""
-
-#. The label for a list of documentation links.
-#. The label for a link to our documentation site.
-#: server/templates/base.html:79 server/templates/base.html:81
-#: server/templates/base.html:130 server/templates/base.html:132
-msgid "Documentation"
-msgstr ""
-
-#. The label for a link to our API documentation.
-#: server/templates/base.html:82 server/templates/base.html:134
-msgid "API's"
-msgstr ""
-
-#. The label for a link to our API tutorials.
-#: server/templates/base.html:83 server/templates/base.html:136
-msgid "Tutorials"
-msgstr ""
-
-#. The label for a link to instructions about contributing to the project.
-#: server/templates/base.html:84 server/templates/base.html:138
-msgid "Contribute"
-msgstr ""
-
-#: server/templates/base.html:90
-msgid "About"
-msgstr ""
-
-#. The label for a link to the project's about page.
-#: server/templates/base.html:93 server/templates/base.html:146
-msgid "About Data Commons"
-msgstr ""
-
-#. The label for a link to the project's blog.
-#: server/templates/base.html:94 server/templates/base.html:148
-msgid "Blog"
-msgstr ""
-
-#. The label for a link to data sources included in the Data Commons knowledge
-#. graph.
-#: server/templates/base.html:95 server/templates/base.html:150
-msgid "Data Sources"
-msgstr ""
-
-#: server/templates/base.html:96
-msgid "FAQ"
-msgstr ""
-
-#. The label for a link to instructions about sending feedback.
-#: server/templates/base.html:97 server/templates/base.html:152
-msgid "Feedback"
-msgstr ""
-
-#. The name of a tool to browse the Data Commons knowledge graph.
-#: server/templates/base.html:124
-msgid "Graph Explorer"
-msgstr "BARBER"
-
-#. The label for a link to the project's github repository (for open sourced
-#. code).
-#: server/templates/base.html:140
-msgid "Github Repository"
-msgstr ""
-
-#. The label for a link to informational pages about the Data Commons project.
-#: server/templates/base.html:144
-msgid "Data Commons"
-msgstr ""
-
-#. The label for a link to project FAQ page.
-#: server/templates/base.html:154
-msgid "Frequently Asked Questions"
-msgstr ""
 
 #. The label for a link to project homepage.
 #: server/templates/base.html:162
 #, python-format
 msgid "%(project)s is a Google supported project"
-msgstr ""
+msgstr "HCAsdujPZW"
 
-#. The label for a link to site terms and conditions.
-#: server/templates/base.html:167
-msgid "Terms and Conditions"
-msgstr ""
+#. The label for a link to our API documentation.
+#: server/templates/base.html:82 server/templates/base.html:134
+msgid "API's"
+msgstr "NgRftprCsC"
 
-#. The label for a link to site privacy policy.
-#: server/templates/base.html:169
-msgid "Privacy Policy"
-msgstr ""
+#: server/templates/base.html:90
+msgid "About"
+msgstr "ZbZRYxbbIe"
+
+#. The label for a link to the project's about page.
+#: server/templates/base.html:93 server/templates/base.html:146
+msgid "About Data Commons"
+msgstr "ItUGrdAiKm"
+
+#. The label for a link to the project's blog.
+#: server/templates/base.html:94 server/templates/base.html:148
+msgid "Blog"
+msgstr "LxJCeSCDhQ"
+
+#. Heading for a list of cities in the US. See this message on https://datacommons.org/place
+#: server/templates/place_landing.html:55
+msgid "Cities, United States"
+msgstr "FOOBAR"
+
+#. The label for a link to instructions about contributing to the project.
+#: server/templates/base.html:84 server/templates/base.html:138
+msgid "Contribute"
+msgstr "FOOBAR"
+
+#. Heading for a list of counties in the US. See this message on https://datacommons.org/place
+#: server/templates/place_landing.html:70
+msgid "Counties, United States"
+msgstr "FOOBAR"
+
+#. Heading for a list of countries.
+#: server/templates/place_landing.html:94
+msgid "Countries"
+msgstr "FOOBAR"
+
+#. The label for a link to informational pages about the Data Commons project.
+#: server/templates/base.html:144
+msgid "Data Commons"
+msgstr "FOOBAR"
+
+#. The label for a link to data sources included in the Data Commons knowledge graph.
+#: server/templates/base.html:95 server/templates/base.html:150
+msgid "Data Sources"
+msgstr "FOOBAR"
 
 #. The label for a link to site disclaimers.
 #: server/templates/base.html:171
 msgid "Disclaimers"
-msgstr ""
+msgstr "FOOBAR"
+
+#. The label for a list of documentation links.
+#. The label for a link to our documentation site.
+#: server/templates/base.html:79 server/templates/base.html:81 server/templates/base.html:130 server/templates/base.html:132
+msgid "Documentation"
+msgstr "FOOBAR"
+
+#. Heading for a list of links to rankings of places worldwide, by their economic indicators.
+#: server/templates/place_landing.html:145
+msgid "Economic Indicators, Worldwide"
+msgstr "FOOBAR"
+
+#. A hint shown in the search box, asking users to search for places.
+#: server/templates/place.html:50 server/templates/place_landing.html:44
+msgid "Enter a country, state, county or city"
+msgstr "FOOBAR"
+
+#. The label for a collection of exploration tools.
+#: server/templates/base.html:69 server/templates/base.html:120
+msgid "Explore"
+msgstr "FOOBAR"
+
+#: server/templates/base.html:96
+msgid "FAQ"
+msgstr "FOOBAR"
+
+#. The label for a link to instructions about sending feedback.
+#: server/templates/base.html:97 server/templates/base.html:152
+msgid "Feedback"
+msgstr "FOOBAR"
+
+#. The label for a link to project FAQ page.
+#: server/templates/base.html:154
+msgid "Frequently Asked Questions"
+msgstr "FOOBAR"
+
+#. Link to worldwide rankings for Gini Index, by country.
+#: server/templates/place_landing.html:148
+msgid "Gini Index"
+msgstr "FOOBAR"
+
+#. The label for a link to the project's github repository (for open sourced code).
+#: server/templates/base.html:140
+msgid "Github Repository"
+msgstr "FOOBAR"
+
+#. Link to worldwide rankings for Government Expenditures on Education, by country.
+#: server/templates/place_landing.html:156
+msgid "Government Expenditures on Education"
+msgstr "FOOBAR"
+
+#. Link to worldwide rankings for Government Expenditures on Military, by country.
+#: server/templates/place_landing.html:160
+msgid "Government Expenditures on Military"
+msgstr "FOOBAR"
+
+#. The name of a tool to browse the Data Commons knowledge graph.
+#: server/templates/base.html:73 server/templates/base.html:124
+msgid "Graph Browser"
+msgstr "FOOBAR"
+
+#. Link to worldwide rankings for Gross National Income, by country.
+#: server/templates/place_landing.html:152
+msgid "Gross National Income"
+msgstr "FOOBAR"
+
+#. Heading for a list of links to rankings of places in the US, by their life expectancy.
+#: server/templates/place_landing.html:134
+msgid "Life Expectancy"
+msgstr "FOOBAR"
+
+#. A message shown on the page while the content is loading.
+#: server/templates/place.html:58
+msgid "Loading..."
+msgstr "FOOBAR"
+
+#. Heading for a list of links to rankings of places in the US, by their median income. See this message on https://datacommons.org/place
+#: server/templates/place_landing.html:107
+msgid "Median Income, United States"
+msgstr "FOOBAR"
+
+#. Introduction to the Place Explorer tool. Please wrap each paragraph with <p> and </p> tags.
+#: server/templates/place_landing.html:49
+msgid "PLACE_EXPLORER_INTRO"
+msgstr "BARBAR"
+
+#. The name of a tool to browse statistics about a place.
+#: server/templates/base.html:72 server/templates/base.html:122 server/templates/place.html:19 server/templates/place.html:20 server/templates/place_landing.html:19 server/templates/place_landing.html:20 server/templates/place_landing.html:38
+msgid "Place Explorer"
+msgstr "BARBAR"
+
+#. Heading for a list of places
+#: server/templates/place_landing.html:52
+msgid "Places"
+msgstr "FOOBAR"
+
+#. The label for a link to site privacy policy.
+#: server/templates/base.html:169
+msgid "Privacy Policy"
+msgstr "FOOBAR"
+
+#. Heading for a list of place rankings.
+#: server/templates/place_landing.html:104
+msgid "Rankings"
+msgstr "FOOBAR"
+
+#. Heading for a list of states in the US. See this message on https://datacommons.org/place
+#: server/templates/place_landing.html:85
+msgid "States, United States"
+msgstr "FOOBAR"
+
+#. The label for a link to site terms and conditions.
+#: server/templates/base.html:167
+msgid "Terms and Conditions"
+msgstr "FOOBAR"
+
+#. The name of a tool to explore timeline charts of statistical variables for places.
+#: server/templates/base.html:74 server/templates/base.html:126
+msgid "Timelines Explorer"
+msgstr "FOOBAR"
+
+#. The label for a link to our API tutorials.
+#: server/templates/base.html:83 server/templates/base.html:136
+msgid "Tutorials"
+msgstr "FOOBAR"
+
+#. Heading for a list of links to rankings of places in the US, by their unemployment rate. See this message on https://datacommons.org/place
+#: server/templates/place_landing.html:122
+msgid "Unemployment Rate, United States"
+msgstr "FOOBAR"
+
+#. Link to worldwide rankings for life expectancy by country. See this message on https://datacommons.org/place
+#: server/templates/place_landing.html:137
+msgid "Worldwide"
+msgstr "FOOBAR"
+
+#. Heading for a list of rankings, pivoted by city. See this message on https://datacommons.org/place
+#: server/templates/place_landing.html:110 server/templates/place_landing.html:124
+msgid "by city"
+msgstr "FOOBAR"
+
+#. Heading for a list of rankings, pivoted by county. See this message on https://datacommons.org/place
+#: server/templates/place_landing.html:114 server/templates/place_landing.html:127
+msgid "by county"
+msgstr "FOOBAR"
+
+#. Heading for a list of rankings, pivoted by state. See this message on https://datacommons.org/place
+#: server/templates/place_landing.html:118 server/templates/place_landing.html:130
+msgid "by state"
+msgstr "FOOBAR"
+
+#. Link to US rankings for life expectancy by state. See this message on https://datacommons.org/place
+#: server/templates/place_landing.html:141
+msgid "in United States"
+msgstr "FOOBAR"
 
