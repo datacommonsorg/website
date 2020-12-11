@@ -31,5 +31,4 @@ DOCKER_BUILDKIT=1 docker build --tag website:local .
 cd deployment/minikube
 
 # Apply deployment and service
-kubectl delete deployment website-app -n website
 kubectl apply -f deployment.yaml -f service.yaml
