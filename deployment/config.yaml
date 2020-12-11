@@ -13,6 +13,7 @@
 # limitations under the License.
 
 project:
+  # TODO(shifucun): update dev and staging project when after we create them.
   dev: datcom-mixer-staging # datacommons-website-dev
   staging: dc-test-1-298300
   prod: datacommons-website-prod
@@ -119,7 +120,9 @@ bind_project:
   bigquery: google.com:datcom-store-dev
   bigtable: google.com:datcom-store-dev
   branch_cache: google.com:datcom-store-dev
-  website_gcs: datcom-browser-staging # TODO(shifucun): use `gsutil acl ...`
+  # TODO(shifucun): use `gsutil acl ...` to give robot account permission.
+  # TODO(shifucun): migrate the gcs content to the new project.
+  website_gcs: datcom-browser-staging
 
 gcs_bucket:
   website: datcom-browser-staging.appspot.com
