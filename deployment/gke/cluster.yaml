@@ -16,13 +16,11 @@ region:
   staging:
     primary: us-central1
     others:
-      - asia-east1
-      - europe-west1
+      - europe-west2
   prod:
     primary: us-central1
     others:
-      - asia-east1
-      - europe-west1
+      - europe-west2
 
 ip:
   staging: 34.98.105.203
