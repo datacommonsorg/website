@@ -62,6 +62,7 @@ RANKING_STATS = {
 
 STATE_EQUIVALENTS = {"State", "AdministrativeArea1"}
 US_ISO_CODE_PREFIX = 'US'
+ENGLISH_LANG = 'en'
 
 # Define blueprint
 bp = Blueprint("api.place", __name__, url_prefix='/api/place')
@@ -150,13 +151,12 @@ def cached_i18n_name(dcids, locale):
                           compress=False,
                           post=True)
     result = {}
-    # When there is no locale, fall back to default en. 
-    # When there is no exact match of locale, and locale can be broken into parts: language - region, fall back to use language par. 
-    # If there still isn't a match, fall back to use en. 
-    english_local = 'en'
+    # When there is no locale, fall back to default en.
+    # When there is no exact match of locale, and locale can be broken into parts: language - region, fall back to use language part.
+    # If there still isn't a match, fall back to use en.
     if not locale:
-        locale = english_local
-    fallback_locale = locale.split('-')[0] if locale.find('-') != -1 else ''
+        locale = ENGLISH_LANG
+    fallback_lang = locale.split('-')[0] if locale.find('-') != -1 else ''
     for dcid in dcids:
         values = response[dcid].get('out')
         result[dcid] = ''
@@ -165,15 +165,16 @@ def cached_i18n_name(dcids, locale):
         for entry in values:
             if (has_locale_name(entry, locale)):
                 result[dcid] = extract_locale_name(entry, locale)
-                # Find the exact matches, no need to fall back.
+                # Found the exact match, no need to fall back.
                 break
             else:
-                if (has_locale_name(entry, fallback_locale)):
-                    fallback_choice = extract_locale_name(entry, fallback_locale)
-                if (has_locale_name(entry, english_local)):
-                    english_choice = extract_locale_name(entry, english_local)
+                if (has_locale_name(entry, fallback_lang)):
+                    fallback_choice = extract_locale_name(entry, fallback_lang)
+                if (has_locale_name(entry, ENGLISH_LANG)):
+                    english_choice = extract_locale_name(entry, ENGLISH_LANG)
         if not result[dcid]:
-            result[dcid] = fallback_choice if fallback_choice else english_choice
+            result[
+                dcid] = fallback_choice if fallback_choice else english_choice
     return result
 
 
@@ -185,8 +186,9 @@ def extract_locale_name(entry, locale):
     if entry['value'].endswith('@' + locale.lower()):
         locale_index = len(entry['value']) - len(locale) - 1
         return entry['value'][:locale_index]
-    else :
+    else:
         return ''
+
 
 def get_i18n_name(dcids, locale):
     """"Returns localization names for set of dcids.
