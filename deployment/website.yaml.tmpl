@@ -55,10 +55,23 @@ spec:
           args: []
           ports:
             - containerPort: 8080
+          startupProbe:
+            httpGet:
+              path: /healthz
+              port: 8080
+            failureThreshold: 30
+            periodSeconds: 5
+          livenessProbe:
+            httpGet:
+              path: /healthz
+              port: 8000
+            failureThreshold: 1
+            periodSeconds: 10
           readinessProbe:
             httpGet:
               path: /healthz
               port: 8080
+            periodSeconds: 10
           volumeMounts:
             - name: website-robot-key
               mountPath: /var/secrets/google
