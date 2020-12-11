@@ -46,7 +46,7 @@ gcloud config set project $PROJECT_ID
 
 # Create certificate
 # !! This is crucial to get the ingress external IP working.
-./setup_ssl.sh $(yq r cluster.yaml domain.$1)
+./setup_ssl.sh $(yq r cluster.yaml domain.$ENV)
 
 # Deploy esp service
 ./setup_esp.sh $ENV

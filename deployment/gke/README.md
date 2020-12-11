@@ -12,7 +12,7 @@
 first_time_setup.sh < staging | prod>
 ```
 
-**NOTE** In GCP console, grant the obot account "GCE Storage Lister" role for the website resource bucket.
+**NOTE** In GCP console, grant the robot account "GCE Storage Lister" role for the website resource bucket.
 TODO(shifucun): Figure out the way to do this in command line.
 
 This step creates clusters and runs all the one time tasks, including:
