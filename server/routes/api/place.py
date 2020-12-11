@@ -151,7 +151,7 @@ def cached_i18n_name(dcids, locale):
                           post=True)
     result = {}
     # When there is no locale, fall back to default en. 
-    # When there is no exact match of locale, and locale can be broken into parts: language - region, fall back to use language par. 
+    # When there is no exact match of locale, and locale can be broken into parts: language - region, fall back to use language part. 
     # If there still isn't a match, fall back to use en. 
     english_local = 'en'
     if not locale:
@@ -165,7 +165,7 @@ def cached_i18n_name(dcids, locale):
         for entry in values:
             if (has_locale_name(entry, locale)):
                 result[dcid] = extract_locale_name(entry, locale)
-                # Find the exact matches, no need to fall back.
+                # Found the exact match, no need to fall back.
                 break
             else:
                 if (has_locale_name(entry, fallback_locale)):
