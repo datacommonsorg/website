@@ -26,41 +26,41 @@ fi
 
 PROJECT_ID=$(yq r ../config.yaml project.$ENV)
 
-# Update gcloud
-gcloud components update
+# # Update gcloud
+# gcloud components update
 
-# Auth
-gcloud auth login
+# # Auth
+# gcloud auth login
 
 # Set project
 gcloud config set project $PROJECT_ID
 
-# Project level setup
-./config_project.sh $PROJECT_ID
+# # Project level setup
+# ./config_project.sh $PROJECT_ID
 
-# Create robot account and download robot account key
-./create_robot_account.sh $PROJECT_ID
+# # Create robot account and download robot account key
+# ./create_robot_account.sh $PROJECT_ID
 
-# Config robot account IAM
-./config_robot_account.sh $PROJECT_ID
+# # Config robot account IAM
+# ./config_robot_account.sh $PROJECT_ID
 
-# Create certificate
-# !! This is crucial to get the ingress external IP working.
-./setup_ssl.sh $(yq r cluster.yaml domain.$ENV)
+# # Create certificate
+# # !! This is crucial to get the ingress external IP working.
+# ./setup_ssl.sh $(yq r cluster.yaml domain.$ENV)
 
-# Deploy esp service
-./setup_esp.sh $ENV
+# # Deploy esp service
+# ./setup_esp.sh $ENV
 
 # Setup cluster in primary region
 PRIMARY_REGION=$(yq r cluster.yaml region.$ENV.primary)
-./create_cluster.sh $PROJECT_ID $PRIMARY_REGION $(yq r config.yaml scaling.nodes.$ENV)
+# ./create_cluster.sh $PROJECT_ID $PRIMARY_REGION $(yq r ../config.yaml scaling.nodes.$ENV)
 
 # Setup cluster in other regions
 len=$(yq r cluster.yaml --length region.$ENV.others)
-for index in {0..(($len-1))};
+for index in $(seq 0 $(($len-1)));
 do
   REGION=$(yq r cluster.yaml region.$ENV.others[$index])
-  ./create_cluster.sh $PROJECT_ID $REGION $(yq r config.yaml nodes.$ENV)
+  ./create_cluster.sh $PROJECT_ID $REGION $(yq r ../config.yaml scaling.nodes.$ENV)
 done
 
 ./setup_config_cluster.sh $PROJECT_ID $PRIMARY_REGION $ENV

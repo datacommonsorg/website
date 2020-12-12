@@ -55,10 +55,10 @@ spec:
           args: []
           ports:
             - containerPort: 8080
-          livenessProbe:
+          readinessProbe:
             httpGet:
               path: /healthz
-              port: 8000
+              port: 8080
             failureThreshold: 1
             periodSeconds: 10
           volumeMounts:
@@ -69,3 +69,5 @@ spec:
               value: /var/secrets/google/website-robot-key.json
             - name: FLASK_ENV
               value: <FLASK_ENV>
+            - name: GCS_BUCKET
+              value: <GCS_BUCKET>

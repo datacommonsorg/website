@@ -66,6 +66,9 @@ function set_website {
   # Set FLASK_ENV
   yq w -i deployment.yaml \
     spec.template.spec.containers[0].env[1].value "gke"
+  # Set FLASK_ENV
+  yq w -i deployment.yaml \
+    spec.template.spec.containers[0].env[2].value $(yq r $DIR/config.yaml gcs_bucket.$env)
 }
 
 function set_esp {

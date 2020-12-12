@@ -23,10 +23,10 @@ region:
       - europe-west2
 
 ip:
-  staging: 34.98.105.203
+  staging: 35.186.255.58
   prod:
 
 domain:
   # TODO(shifucun): for testing purpose, should change to "staging.datacomons.org" when ready.
-  staging: dcdctest.com
-  prod: datacommons.org
+  staging: staging.dcdctest.com
+  prod: prod.dcdctest.com
