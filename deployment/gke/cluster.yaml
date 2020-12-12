@@ -24,7 +24,7 @@ region:
 
 ip:
   staging: 35.186.255.58
-  prod:
+  prod: 34.120.161.85
 
 domain:
   # TODO(shifucun): for testing purpose, should change to "staging.datacomons.org" when ready.

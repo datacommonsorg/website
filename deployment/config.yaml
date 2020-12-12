@@ -57,7 +57,7 @@ scaling:
   replicas:
     dev: 1
     staging: 7
-    prod: 60
+    prod: 70
 
 # Memory Request and Limit
 # https://kubernetes.io/docs/concepts/configuration/manage-resources-containers/#requests-and-limits
@@ -139,4 +139,4 @@ bind_project:
 gcs_bucket:
   dev: datcom-website-staging-resources
   staging: datcom-website-staging-resources
-  prod:
+  prod: datcom-website-prod-resources
