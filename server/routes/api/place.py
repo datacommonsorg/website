@@ -151,9 +151,9 @@ def cached_i18n_name(dcids, locale):
                           compress=False,
                           post=True)
     result = {}
-    # When there is no locale, fall back to default en. 
-    # When there is no exact match of locale, and locale can be broken into parts: language - region, fall back to use language part. 
-    # If there still isn't a match, fall back to use en. 
+    # When there is no locale, fall back to default en.
+    # When there is no exact match of locale, and locale can be broken into parts: language - region, fall back to use language part.
+    # If there still isn't a match, fall back to use en.
     if not locale:
         locale = ENGLISH_LANG
     fallback_lang = locale.split('-')[0] if locale.find('-') != -1 else ''
