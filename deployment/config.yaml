@@ -121,7 +121,7 @@ cpu:
       dev: 100m
       staging: 300m
       prod: 300m
-  # From GCP dashboard, esp does not use that much of memory.
+  # From GCP dashboard, esp does not use that much of cpu.
   esp:
     req:
       dev: 10m
