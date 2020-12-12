@@ -158,6 +158,82 @@ class TestApiPlaceName(unittest.TestCase):
         }
 
 
+class TestApiPlaceI18nName(unittest.TestCase):
+
+    @patch('routes.api.place.fetch_data')
+    def test_parent_places(self, mock_fetch_data):
+        mock_response = {
+            'geoId/05': {
+                'out': [{
+                    'value': 'ArkansasEn@en',
+                    'provenance': 'prov1'
+                }, {
+                    'value': 'ArkansasIO@io',
+                    'provenance': 'prov1'
+                }, {
+                    'value': 'ArkansasLA-RU@la-ru',
+                    'provenance': 'prov1'
+                }]
+            },
+            'geoId/06': {
+                'out': [{
+                    'value': 'CaliforniaIT@it',
+                    'provenance': 'prov2'
+                }, {
+                    'value': 'CaliforniaLA@la',
+                    'provenance': 'prov2'
+                }]
+            }
+        }
+        mock_fetch_data.side_effect = (
+            lambda url, req, compress, post: mock_response)
+
+        # There is no hl parameter, use default en.
+        response = app.test_client().get(
+            '/api/place/name/i18n?dcid=geoId/05&dcid=geoId/06')
+        assert response.status_code == 200
+        assert json.loads(response.data) == {
+            'geoId/05': 'ArkansasEn',
+            'geoId/06': ''
+        }
+
+        mock_fetch_data.side_effect = (
+            lambda url, req, compress, post: mock_response)
+
+        # Arkansas doesn't have name in @it, fall back to @en instead.
+        response = app.test_client().get(
+            '/api/place/name/i18n?dcid=geoId/05&dcid=geoId/06&hl=it')
+        assert response.status_code == 200
+        assert json.loads(response.data) == {
+            'geoId/05': 'ArkansasEn',
+            'geoId/06': 'CaliforniaIT'
+        }
+
+        # Lower case language code.
+        response = app.test_client().get(
+            '/api/place/name/i18n?dcid=geoId/05&dcid=geoId/06&hl=LA')
+        assert response.status_code == 200
+        assert json.loads(response.data) == {
+            'geoId/05': 'ArkansasEn',
+            'geoId/06': 'CaliforniaLA'
+        }
+
+        # Verify language code parsing correct, not using la-ru.
+        response = app.test_client().get(
+            '/api/place/name/i18n?dcid=geoId/05&hl=ru')
+        assert response.status_code == 200
+        assert json.loads(response.data) == {'geoId/05': 'ArkansasEn'}
+
+        # Verify fall back to the first part of locale, la-ru to la.
+        response = app.test_client().get(
+            '/api/place/name/i18n?dcid=geoId/05&dcid=geoId/06&hl=la-ru')
+        assert response.status_code == 200
+        assert json.loads(response.data) == {
+            'geoId/05': 'ArkansasLA-RU',
+            'geoId/06': 'CaliforniaLA'
+        }
+
+
 class TestApiDisplayName(unittest.TestCase):
 
     @patch('routes.api.place.dc.get_property_values')

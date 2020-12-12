@@ -143,7 +143,7 @@ This will watch static files change and re-build on code edit.
 Start the flask webserver locally at localhost:8080
 
 ```bash
-./run_flask.sh
+./run_server.sh
 ```
 
 #### Start the Go Server
