@@ -56,8 +56,8 @@ scaling:
     prod: 10
   replicas:
     dev: 1
-    staging: 7
-    prod: 70
+    staging: 6
+    prod: 60
 
 # Memory Request and Limit
 # https://kubernetes.io/docs/concepts/configuration/manage-resources-containers/#requests-and-limits
@@ -80,12 +80,12 @@ mem:
   mixer:
     req:
       dev: 1G
-      staging: 6G
-      prod: 6G
+      staging: 8G
+      prod: 8G
     limit:
       dev: 1G
-      staging: 6G
-      prod: 6G
+      staging: 8G
+      prod: 8G
   esp:
     req:
       dev: 0.1G

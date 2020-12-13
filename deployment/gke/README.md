@@ -16,7 +16,7 @@ You should have owner/editor role to perform the following tasks.
 ```
 
 **NOTE** In IAM, Give the robot account `website-robot@PROJECT_ID.iam.gserviceaccount.com` "GCE Storage Lister" role.
-TODO(shifucun): figure out how to do this with gcloud, without giving "objectAdmin" role.
+TODO(shifucun): Figure out how to do this with gcloud, without giving "objectAdmin" role.
 
 This step creates clusters and runs all the one time tasks, including:
 

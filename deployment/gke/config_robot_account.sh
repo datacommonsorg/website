@@ -41,8 +41,14 @@ gcloud projects add-iam-policy-binding $(yq r ../config.yaml bind_project.branch
 
 # Self project roles
 declare -a roles=(
-    "roles/endpoints.serviceAgent" # service control report for endpoints.
-    "roles/storage.objectViewer" # Website resource: placeid2dcid.json, etc...
+   # service control report for endpoints.
+    "roles/endpoints.serviceAgent"
+    # Website resource: placeid2dcid.json, etc...
+    "roles/storage.objectViewer"
+    # Logging and monitoring
+    "roles/logging.logWriter"
+    "roles/monitoring.metricWriter"
+    "roles/stackdriver.resourceMetadata.writer"
 )
 for role in "${roles[@]}"
 do
