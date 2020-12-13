@@ -44,8 +44,8 @@ args:
       prod:
 
 # Node of "1" (regional) corresponding to 3 physical nodes (zonal).
-# Each physical node of "4 vCPU and 32G memory" machine can allocate about 4 pods (0.85 vCPU and 8.5G memory, see below).
-# So here we are looking at 1 : 11 ratio from "node" to "pod".
+# Each physical node of "4 vCPU and 32G memory" machine can allocate about 4 pods (0.85 vCPU and 10.5G memory, see below).
+# So here we are looking at 1 : 9 ratio from "node" to "pod".
 # To allow other resources and rollout buffer, use 1 : 6 ratio to give some buffer.
 #
 # Dev (Minikube) will always have 1 node and 1 pod.
@@ -63,7 +63,7 @@ scaling:
 # https://kubernetes.io/docs/concepts/configuration/manage-resources-containers/#requests-and-limits
 
 # Actual usage can be checked from GCP console: https://pantheon.corp.google.com/monitoring/dashboards/resourceList/kubernetes?project=datcom-mixer&pageState=(%22interval%22:(%22d%22:%22P7D%22),%22gkeTableState%22:(%22t%22:%22CONTAINER%22,%22vA%22:true),%22filter%22:(%22naF%22:(%22n%22:%22mixer%22,%22cF%22:(%22pN%22:%22projects%2Fdatcom-mixer%22,%22l%22:%22us-west2-c%22,%22n%22:%22mixer%22))))
-# In prod/staging env, total memory is 2 + 6 + 0.5 = 8.5G
+# In prod/staging env, total memory is 2 + 8 + 0.5 = 10.5G
 #
 # Note the majority of mixer usage is branch cache, which can be cut by a lot after moving it out of memory.
 # TODO(shifucun): understand website memory and cpu usage pattern and adjust accordingly.
