@@ -457,6 +457,27 @@ function getTriples(dcid) {
   return axios.get(`/api/browser/triples/${dcid}`).then((resp) => resp.data);
 }
 
+function trimNameWithLanguage(dcid, outArcs) {
+  const maxNameWithLangArcs = 10;
+  const nNameWithLangArcs = outArcs.reduce((n, p) => {
+    if (p["predicate"] == "nameWithLanguage") {
+      n++;
+    }
+  }, 0);
+  let seen = 0;
+  outArcs = outArcs.filter((p) => {
+    return p["predicate"] == "nameWithLanguage" && ++seen > maxNameWithLangArcs;
+  });
+  if (nNameWithLangArcs > maxNameWithLangArcs) {
+    const etc = "[" + (nNameWithLangArcs - maxNameWithLangArcs).toString() + " more...]";
+    outArgs.push({
+      "subjectId": dcid,
+      "predicate": "nameWithLanguage",
+      "objectValue": etc,
+    });
+  }
+}
+
 /**
  * Render KG page.
  *
@@ -974,6 +995,8 @@ window.onload = () => {
       p["src"] = provDomain[p["provenanceId"]];
       return p;
     });
+
+    outArcs = trimNameWithLanguage(dcid, outArgs);
 
     const outArcsMap = util.getOutArcsMap(triples, dcid);
     const type = util.getType(triples, dcid);
