@@ -470,12 +470,13 @@ function trimNameWithLanguage(dcid, outArcs) {
   });
   if (nNameWithLangArcs > maxNameWithLangArcs) {
     const etc = "[" + (nNameWithLangArcs - maxNameWithLangArcs).toString() + " more...]";
-    outArgs.push({
+    outArcs.push({
       "subjectId": dcid,
       "predicate": "nameWithLanguage",
       "objectValue": etc,
     });
   }
+  return outArcs;
 }
 
 /**
