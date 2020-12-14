@@ -39,17 +39,16 @@ gcloud projects add-iam-policy-binding $(yq r ../config.yaml bind_project.branch
   --member serviceAccount:$SERVICE_ACCOUNT \
   --role roles/pubsub.editor
 
-# Website resource: placeid2dcid.json, etc...
-gcloud projects add-iam-policy-binding $(yq r ../config.yaml bind_project.website_gcs) \
-  --member serviceAccount:$SERVICE_ACCOUNT \
-  --role roles/storage.objectViewer
-
-# This does not work yet and needs to be performed on cloud console to give "GCE Storage Lister"
-# gsutil acl ch -u $SERVICE_ACCOUNT:R gs://$(yq r ../config.yaml gcs_bucket.website)
-
 # Self project roles
 declare -a roles=(
-    "roles/endpoints.serviceAgent" # service control report for endpoints.
+   # service control report for endpoints.
+    "roles/endpoints.serviceAgent"
+    # Website resource: placeid2dcid.json, etc...
+    "roles/storage.objectViewer"
+    # Logging and monitoring
+    "roles/logging.logWriter"
+    "roles/monitoring.metricWriter"
+    "roles/stackdriver.resourceMetadata.writer"
 )
 for role in "${roles[@]}"
 do

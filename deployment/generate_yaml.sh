@@ -66,6 +66,9 @@ function set_website {
   # Set FLASK_ENV
   yq w -i deployment.yaml \
     spec.template.spec.containers[0].env[1].value "gke"
+  # Set GCS_BUCKET
+  yq w -i deployment.yaml \
+    spec.template.spec.containers[0].env[2].value $(yq r $DIR/config.yaml gcs_bucket.$env)
 }
 
 function set_esp {
@@ -106,6 +109,7 @@ function set_esp {
   # ESP service configuration
   yq w --style=double $ROOT/mixer/deployment/template/endpoints.yaml.tmpl \
     name $service_name > endpoints.yaml
+  yq w -i endpoints.yaml title $service_name
 }
 
 function set_mixer {

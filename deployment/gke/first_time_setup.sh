@@ -53,14 +53,14 @@ gcloud config set project $PROJECT_ID
 
 # Setup cluster in primary region
 PRIMARY_REGION=$(yq r cluster.yaml region.$ENV.primary)
-./create_cluster.sh $PROJECT_ID $PRIMARY_REGION $(yq r config.yaml scaling.nodes.$ENV)
+./create_cluster.sh $PROJECT_ID $PRIMARY_REGION $(yq r ../config.yaml scaling.nodes.$ENV)
 
 # Setup cluster in other regions
 len=$(yq r cluster.yaml --length region.$ENV.others)
-for index in {0..(($len-1))};
+for index in $(seq 0 $(($len-1)));
 do
   REGION=$(yq r cluster.yaml region.$ENV.others[$index])
-  ./create_cluster.sh $PROJECT_ID $REGION $(yq r config.yaml nodes.$ENV)
+  ./create_cluster.sh $PROJECT_ID $REGION $(yq r ../config.yaml scaling.nodes.$ENV)
 done
 
 ./setup_config_cluster.sh $PROJECT_ID $PRIMARY_REGION $ENV

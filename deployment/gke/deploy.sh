@@ -15,10 +15,27 @@
 
 set -e
 
-## Update endpoints.yaml
-../generate_yaml.sh $1
+PROJECT_ID=$1
+ENV=$2
+REGION=$3
 
-## Deploy ESP configuration
-gsutil cp gs://artifacts.datcom-ci.appspot.com/mixer-grpc/mixer-grpc.latest.pb .
-gcloud endpoints services deploy mixer-grpc.latest.pb endpoints.yaml
-gcloud services enable $(yq r endpoints.yaml name)
+gcloud config set project $PROJECT_ID
+
+# Valid argument would be: "staging", "prod"
+if [[ $ENV != "staging" ]] && [[ $ENV != "prod" ]]; then
+    echo "Invalid environment: $ENV"
+    exit
+fi
+
+if [[ $REGION == "" ]]; then
+  echo "Second argument (region) is empty"
+  exit
+fi
+
+CLUSTER_NAME="website-$REGION"
+
+gcloud container clusters get-credentials $CLUSTER_NAME --region=$REGION
+
+../generate_yaml.sh $ENV
+
+kubectl apply -f deployment.yaml

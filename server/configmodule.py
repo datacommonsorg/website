@@ -44,15 +44,12 @@ class MinikubeConfig(Config):
     PROJECT = 'datcom-browser-staging'
     API_PROJECT = 'datcom-mixer-staging'
     API_ROOT = 'http://127.0.0.1:8081'  # Port for Kubernetes ESP.
-    GCS_BUCKET = 'datcom-mixer-staging-resources'
 
 
 class GKEConfig(Config):
     PROJECT = 'datcom-browser-staging'
     API_PROJECT = 'datcom-mixer-staging'
     API_ROOT = 'http://127.0.0.1:8081'  # Port for Kubernetes ESP.
-    # TODO(shifucun): [gke migration] Move this to new project folder.
-    GCS_BUCKET = 'datcom-browser-staging.appspot.com'
 
 
 class WebdriverConfig(Config):
