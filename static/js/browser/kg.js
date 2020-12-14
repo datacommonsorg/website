@@ -997,7 +997,7 @@ window.onload = () => {
       return p;
     });
 
-    outArcs = trimNameWithLanguage(dcid, outArgs);
+    outArcs = trimNameWithLanguage(dcid, outArcs);
 
     const outArcsMap = util.getOutArcsMap(triples, dcid);
     const type = util.getType(triples, dcid);
