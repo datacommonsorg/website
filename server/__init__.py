@@ -67,8 +67,10 @@ def create_app():
         cfg = import_string('configmodule.DevelopmentConfig')()
     elif os.environ.get('FLASK_ENV') == 'minikube':
         cfg = import_string('configmodule.MinikubeConfig')()
+        cfg.GCS_BUCKET = os.environ.get('GCS_BUCKET')
     elif os.environ.get('FLASK_ENV') == 'gke':
         cfg = import_string('configmodule.GKEConfig')()
+        cfg.GCS_BUCKET = os.environ.get('GCS_BUCKET')
     else:
         raise ValueError("No valid FLASK_ENV is specified: %s" %
                          os.environ.get('FLASK_ENV'))

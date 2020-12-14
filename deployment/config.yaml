@@ -13,10 +13,9 @@
 # limitations under the License.
 
 project:
-  # TODO(shifucun): update dev and staging project when after we create them.
-  dev: datcom-mixer-staging # datacommons-website-dev
-  staging: dc-test-1-298300
-  prod: datacommons-website-prod
+  dev: datcom-website-dev
+  staging: datcom-website-staging
+  prod: datcom-website-prod
 
 image:
   mixer: gcr.io/datcom-ci/datacommons-mixer:latest
@@ -45,26 +44,26 @@ args:
       prod:
 
 # Node of "1" (regional) corresponding to 3 physical nodes (zonal).
-# Each physical node of "4 vCPU and 32G memory" machine can allocate about 4 pods (0.85 vCPU and 8G memory, see below).
-# So here we are looking at 1:12 ratio from "node" to "pod".
-# Use 1 : 10 ratio to give some buffer.
+# Each physical node of "4 vCPU and 32G memory" machine can allocate about 4 pods (0.85 vCPU and 10.5G memory, see below).
+# So here we are looking at 1 : 9 ratio from "node" to "pod".
+# To allow other resources and rollout buffer, use 1 : 6 ratio to give some buffer.
 #
 # Dev (Minikube) will always have 1 node and 1 pod.
 scaling:
   nodes:
     dev: 1
     staging: 1
-    prod: 5
+    prod: 10
   replicas:
     dev: 1
-    staging: 10
-    prod: 50
+    staging: 6
+    prod: 60
 
 # Memory Request and Limit
 # https://kubernetes.io/docs/concepts/configuration/manage-resources-containers/#requests-and-limits
 
 # Actual usage can be checked from GCP console: https://pantheon.corp.google.com/monitoring/dashboards/resourceList/kubernetes?project=datcom-mixer&pageState=(%22interval%22:(%22d%22:%22P7D%22),%22gkeTableState%22:(%22t%22:%22CONTAINER%22,%22vA%22:true),%22filter%22:(%22naF%22:(%22n%22:%22mixer%22,%22cF%22:(%22pN%22:%22projects%2Fdatcom-mixer%22,%22l%22:%22us-west2-c%22,%22n%22:%22mixer%22))))
-# In prod/staging env, total memory is 2 + 6 + 0.5 = 8.5G
+# In prod/staging env, total memory is 2 + 8 + 0.5 = 10.5G
 #
 # Note the majority of mixer usage is branch cache, which can be cut by a lot after moving it out of memory.
 # TODO(shifucun): understand website memory and cpu usage pattern and adjust accordingly.
@@ -81,12 +80,12 @@ mem:
   mixer:
     req:
       dev: 1G
-      staging: 6G
-      prod: 6G
+      staging: 8G
+      prod: 8G
     limit:
       dev: 1G
-      staging: 6G
-      prod: 6G
+      staging: 8G
+      prod: 8G
   esp:
     req:
       dev: 0.1G
@@ -136,9 +135,8 @@ bind_project:
   bigquery: google.com:datcom-store-dev
   bigtable: google.com:datcom-store-dev
   branch_cache: google.com:datcom-store-dev
-  # TODO(shifucun): use `gsutil acl ...` to give robot account permission.
-  # TODO(shifucun): migrate the gcs content to the new project.
-  website_gcs: datcom-browser-staging
 
 gcs_bucket:
-  website: datcom-browser-staging.appspot.com
+  dev: datcom-website-staging-resources
+  staging: datcom-website-staging-resources
+  prod: datcom-website-prod-resources
