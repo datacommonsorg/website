@@ -464,7 +464,7 @@ function getTriples(dcid) {
  * @param {string} predicate The predicate whose values are to be trimmed.
  * @param {!Iterable} outArcs The out arc triples.
  *
- * @return {!Iterable}
+ * @return {!Iterable} Trimmed out arc triples.
  */
 function trimArcsForPredicate(dcid, predicate, maxValues, outArcs) {
   const nArcs = outArcs.reduce((n, p) => {
