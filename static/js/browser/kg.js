@@ -1010,6 +1010,7 @@ window.onload = () => {
     });
 
     // Trim "nameWithLanguage" arcs.
+    // TODO: Add an option to expand and see the trimmed values.
     outArcs = trimArcsForPredicate(dcid, "nameWithLanguage", 10, outArcs);
 
     const outArcsMap = util.getOutArcsMap(triples, dcid);
