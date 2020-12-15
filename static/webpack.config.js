@@ -17,7 +17,7 @@
 const path = require("path");
 const CopyPlugin = require("copy-webpack-plugin");
 const FixStyleOnlyEntriesPlugin = require("webpack-fix-style-only-entries");
-const WebpackShellPlugin = require("webpack-shell-plugin");
+const WebpackShellPlugin = require("webpack-shell-plugin-next");
 
 const config = {
   entry: {
@@ -104,15 +104,17 @@ const config = {
     ],
   },
   plugins: [
-    new CopyPlugin([
-      { from: "css/**/*.css" },
-      { from: "images/*" },
-      { from: "fonts/*" },
-      { from: "data/**/*" },
-      { from: "sitemap/*.txt" },
-      { from: "favicon.ico" },
-      { from: "robots.txt" },
-    ]),
+    new CopyPlugin(
+      {
+        "patterns": [
+            { from: "css/**/*.css" },
+            { from: "images/*" },
+            { from: "fonts/*" },
+            { from: "data/**/*" },
+            { from: "sitemap/*.txt" },
+            { from: "favicon.ico" },
+            { from: "robots.txt" },
+          ]}),
     new FixStyleOnlyEntriesPlugin({
       silent: true,
     }),
