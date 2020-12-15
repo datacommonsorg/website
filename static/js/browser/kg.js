@@ -457,32 +457,35 @@ function getTriples(dcid) {
   return axios.get(`/api/browser/triples/${dcid}`).then((resp) => resp.data);
 }
 
-function trimNameWithLanguage(dcid, outArcs) {
-  const nameWithLanguage = "nameWithLanguage";
-  const maxNameWithLangArcs = 10;  // Trim values past this limit.
-
-  // Count values.
-  const nNameWithLangArcs = outArcs.reduce((n, p) => {
-    if (p["predicate"] == nameWithLanguage) {
+/*
+ * Trims arcs for a given predicate past the given limit.
+ *
+ * @param {string} dcid The DCID of the node.
+ * @param {string} predicate The predicate whose values are to be trimmed.
+ * @param {!Iterable} outArcs The out arc triples.
+ *
+ * @return {!Iterable}
+ */
+function trimArcsForPredicate(dcid, predicate, maxValues, outArcs) {
+  const nArcs = outArcs.reduce((n, p) => {
+    if (p["predicate"] == predicate) {
       n++;
     }
     return n;
   }, 0);
 
   // Trim values past count.
-  let numSeen = 0;
-  outArcs = outArcs.filter((p) => {
-    return !(p["predicate"] == nameWithLanguage &&
-             ++numSeen > maxNameWithLangArcs);
-  });
+  var numSeen = 0;
+  outArcs = outArcs.filter(
+      (p) => !(p["predicate"] == predicate && ++numSeen > maxValues));
 
   // If trimmed, add an indicator.
-  if (nNameWithLangArcs > maxNameWithLangArcs) {
-    const extra = (nNameWithLangArcs - maxNameWithLangArcs).toString();
+  if (nArcs > maxValues) {
+    const extra = (nArcs - maxValues).toString();
     outArcs.push({
       "subjectId": dcid,
-      "predicate": nameWithLanguage,
-      "objectValue": "(... " + extra + " more)",
+      "predicate": predicate,
+      "objectValue": "(... " + extra + " more ...)",
     });
   }
   return outArcs;
@@ -1006,7 +1009,8 @@ window.onload = () => {
       return p;
     });
 
-    outArcs = trimNameWithLanguage(dcid, outArcs);
+    // Trim "nameWithLanguage" arcs.
+    outArcs = trimArcsForPredicate(dcid, "nameWithLanguage", 10, outArcs);
 
     const outArcsMap = util.getOutArcsMap(triples, dcid);
     const type = util.getType(triples, dcid);
