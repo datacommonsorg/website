@@ -458,22 +458,31 @@ function getTriples(dcid) {
 }
 
 function trimNameWithLanguage(dcid, outArcs) {
-  const maxNameWithLangArcs = 10;
+  const nameWithLanguage = "nameWithLanguage";
+  const maxNameWithLangArcs = 10;  // Trim values past this limit.
+
+  // Count values.
   const nNameWithLangArcs = outArcs.reduce((n, p) => {
-    if (p["predicate"] == "nameWithLanguage") {
+    if (p["predicate"] == nameWithLanguage) {
       n++;
     }
+    return n;
   }, 0);
-  let seen = 0;
+
+  // Trim values past count.
+  let numSeen = 0;
   outArcs = outArcs.filter((p) => {
-    return p["predicate"] == "nameWithLanguage" && ++seen > maxNameWithLangArcs;
+    return !(p["predicate"] == nameWithLanguage &&
+             ++numSeen > maxNameWithLangArcs);
   });
+
+  // If trimmed, add an indicator.
   if (nNameWithLangArcs > maxNameWithLangArcs) {
-    const etc = "[" + (nNameWithLangArcs - maxNameWithLangArcs).toString() + " more...]";
+    const extra = (nNameWithLangArcs - maxNameWithLangArcs).toString();
     outArcs.push({
       "subjectId": dcid,
-      "predicate": "nameWithLanguage",
-      "objectValue": etc,
+      "predicate": nameWithLanguage,
+      "objectValue": "(... " + extra + " more)",
     });
   }
   return outArcs;
