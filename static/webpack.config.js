@@ -80,12 +80,15 @@ const config = {
         test: /\.(js|jsx|ts|tsx)$/,
         exclude: /node_modules/,
         use: {
-          loader: "babel-loader",
+          loader: "babel-loader?cacheDirectory=true",
         },
       },
       {
         test: /\.(ts|tsx)$/,
-        use: "ts-loader",
+        loader: "ts-loader",
+        options: {
+          transpileOnly: true
+        },
         exclude: /node_modules/,
       },
       {
