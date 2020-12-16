@@ -16,6 +16,8 @@
 import flask
 import routes.api.place as place_api
 
+from flask import request
+
 bp = flask.Blueprint('ranking', __name__, url_prefix='/ranking')
 
 
@@ -24,7 +26,7 @@ bp = flask.Blueprint('ranking', __name__, url_prefix='/ranking')
 def ranking(stat_var, place_type, place_dcid=''):
     place_name = ''
     if place_dcid:
-        place_names = place_api.get_name([place_dcid])
+        place_names = place_api.get_i18n_name([place_dcid])
         place_name = place_names[place_dcid]
         if place_name == '':
             place_name = place_dcid

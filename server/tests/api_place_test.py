@@ -233,6 +233,29 @@ class TestApiPlaceI18nName(unittest.TestCase):
             'geoId/06': 'CaliforniaLA'
         }
 
+        # Verify when there is no nameWithLanguage, fall back to name
+        def side_effect(url, req, compress, post):
+            if 'name' == req['property']:
+                return {
+                    'geoId/08': {
+                        'out': [{
+                            'value': 'Colorado',
+                            'provenance': 'prov2'
+                        }]
+                    }
+                }
+            elif 'nameWithLanguage' == req['property']:
+                return {"geoId/08": {}}
+            else:
+                return {req['dcids'][0]: {}}
+
+        mock_fetch_data.side_effect = side_effect
+        response = app.test_client().get('/api/place/name/i18n?dcid=geoId/08')
+        assert response.status_code == 200
+        assert json.loads(response.data) == {
+            'geoId/08': 'Colorado',
+        }
+
 
 class TestApiDisplayName(unittest.TestCase):
 
@@ -245,6 +268,9 @@ class TestApiDisplayName(unittest.TestCase):
         us_state_parent = 'parent1'
         us_country_parent = 'parent2'
         cad_state_parent = 'parent3'
+        dcid1_en = 'dcid1@en'
+        dcid2_en = 'dcid2@en'
+        dcid3_en = 'dcid3@en'
 
         def side_effect(url, req, compress, post):
             if 'containedInPlace' == req['property']:
@@ -287,21 +313,21 @@ class TestApiDisplayName(unittest.TestCase):
                         'out': []
                     }
                 }
-            elif 'name' == req['property']:
+            elif 'nameWithLanguage' == req['property']:
                 return {
                     dcid1: {
                         'out': [{
-                            'value': dcid1
+                            'value': dcid1_en
                         }]
                     },
                     dcid2: {
                         'out': [{
-                            'value': dcid2
+                            'value': dcid2_en
                         }]
                     },
                     dcid3: {
                         'out': [{
-                            'value': dcid3
+                            'value': dcid3_en
                         }]
                     },
                 }

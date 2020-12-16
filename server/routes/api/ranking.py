@@ -40,6 +40,7 @@ def ranking_api(stat_var, place_type, place=None):
         pc (per capita - the presence of the key enables it)
         bottom (show bottom ranking instead - the presence of the key enables it)
     """
+    locale = flask.request.args.get('hl', default="en")
     is_per_capita = flask.request.args.get('pc', False) != False
     is_show_bottom = flask.request.args.get('bottom', False) != False
     rank_keys = BOTTOM_KEYS_KEEP if is_show_bottom else TOP_KEYS_KEEP
@@ -82,7 +83,8 @@ def ranking_api(stat_var, place_type, place=None):
                 dcids.add(r['placeDcid'])
             payload[stat_var][k]['info'] = info
             # payload[stat_var][k]['count'] = count
-    place_names = place_api.get_display_name('^'.join(sorted(list(dcids))))
+    place_names = place_api.get_display_name('^'.join(sorted(list(dcids))),
+                                             locale)
     for k in rank_keys:
         if k in payload[stat_var] and 'info' in payload[stat_var][k]:
             for r in payload[stat_var][k]['info']:
