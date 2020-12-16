@@ -69,6 +69,9 @@ function set_website {
   # Set GCS_BUCKET
   yq w -i deployment.yaml \
     spec.template.spec.containers[0].env[2].value $(yq r $DIR/config.yaml gcs_bucket.$env)
+  # Set MAP_API_KEY
+  yq w -i deployment.yaml \
+    spec.template.spec.containers[0].env[3].value $(yq r $DIR/config.yaml maps_api_key.$env)
 }
 
 function set_esp {

@@ -74,6 +74,7 @@ def create_app():
     else:
         raise ValueError("No valid FLASK_ENV is specified: %s" %
                          os.environ.get('FLASK_ENV'))
+    cfg.MAPS_API_KEY = os.environ.get('MAPS_API_KEY')
     app.config.from_object(cfg)
 
     # Init extentions
@@ -116,8 +117,6 @@ def create_app():
         secret_response = secret_client.access_secret_version(secret_name)
         app.config['MAPS_API_KEY'] = secret_response.payload.data.decode(
             'UTF-8')
-    else:
-        app.config['MAPS_API_KEY'] = "AIzaSyCi3WDvStkhQOBQRnV_4Fcuar7ZRteHgvU"
 
     if cfg.TEST or cfg.WEBDRIVER:
         app.config['PLACEID2DCID'] = {

@@ -40,3 +40,4 @@ handlers:
 
 env_variables:
   FLASK_ENV: staging
+  MAPS_API_KEY: AIzaSyCi3WDvStkhQOBQRnV_4Fcuar7ZRteHgvU

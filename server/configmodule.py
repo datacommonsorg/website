@@ -13,6 +13,7 @@ class Config:
     GAE_VERSION = (os.environ.get('GAE_VERSION') or
                    datetime.datetime.today().strftime("%m-%d-%H-%M"))
     GA_ACCOUNT = ''
+    MAPS_API_KEY = ''
 
 
 class ProductionConfig(Config):

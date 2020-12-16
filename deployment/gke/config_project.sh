@@ -17,11 +17,13 @@ set -e
 
 PROJECT_ID=$1
 
-gcloud services enable \
+gcloud services enable --project=$PROJECT_ID \
   anthos.googleapis.com \
   multiclusteringress.googleapis.com \
   container.googleapis.com \
   gkeconnect.googleapis.com \
   gkehub.googleapis.com \
   cloudresourcemanager.googleapis.com \
-  servicecontrol.googleapis.com
+  servicecontrol.googleapis.com \
+  maps-backend.googleapis.com \
+  places-backend.googleapis.com
