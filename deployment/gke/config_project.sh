@@ -26,4 +26,5 @@ gcloud services enable --project=$PROJECT_ID \
   cloudresourcemanager.googleapis.com \
   servicecontrol.googleapis.com \
   maps-backend.googleapis.com \
-  places-backend.googleapis.com
+  places-backend.googleapis.com \
+  secretmanager.googleapis.com

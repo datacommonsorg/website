@@ -45,6 +45,8 @@ declare -a roles=(
     "roles/endpoints.serviceAgent"
     # Website resource: placeid2dcid.json, etc...
     "roles/storage.objectViewer"
+    # Secret manager accessor
+    "roles/secretmanager.secretAccessor"
     # Logging and monitoring
     "roles/logging.logWriter"
     "roles/monitoring.metricWriter"

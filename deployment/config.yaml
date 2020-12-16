@@ -140,10 +140,3 @@ gcs_bucket:
   dev: datcom-website-staging-resources
   staging: datcom-website-staging-resources
   prod: datcom-website-prod-resources
-
-# Maps API key is created in the corresponding (prod, staging, dev) GCP projects.
-maps_api_key:
-  # TODO(shifucun): create the key in "datcom-website-dev"
-  dev: # Stored in secret manager in project "datcom-browser-staging".
-  staging: AIzaSyBO5PIxqllUIP5Ta1xDMVPNzwaFk-Du2so
-  prod: AIzaSyBcw5jpXiBSytNm8-iHSzgn6syAD7fd4hw

@@ -42,4 +42,3 @@ handlers:
 
 env_variables:
   FLASK_ENV: production
-  MAPS_API_KEY: AIzaSyCi3WDvStkhQOBQRnV_4Fcuar7ZRteHgvU
