@@ -16,7 +16,7 @@
 
 const path = require("path");
 const CopyPlugin = require("copy-webpack-plugin");
-const FixStyleOnlyEntriesPlugin = require("webpack-fix-style-only-entries");
+const FixStyleOnlyEntriesPlugin = require("webpack-remove-empty-scripts");
 const WebpackShellPlugin = require("webpack-shell-plugin-next");
 
 const config = {
@@ -67,6 +67,12 @@ const config = {
   },
   resolve: {
     extensions: [".js", ".ts", ".tsx"],
+  },
+  optimization: {
+    minimize: true,
+    splitChunks: {
+      chunks: 'all',
+    }
   },
   module: {
     rules: [
