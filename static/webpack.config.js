@@ -23,52 +23,58 @@ const config = {
   entry: {
     // TODO(intrepiditee): Rename to scatter when ready.
     scatter2: [
-      __dirname + "/js/tools/scatter2/scatter2.ts",
-      __dirname + "/css/tools/scatter2.scss",
+      path.resolve(__dirname, "/js/tools/scatter2/scatter2.ts"),
+      path.resolve(__dirname, "/css/tools/scatter2.scss")
     ],
     choropleth: [
-      __dirname + "/js/tools/choropleth/choropleth_template.tsx",
-      __dirname + "/css/tools/choropleth.scss",
+      path.resolve(__dirname, "/js/tools/choropleth/choropleth_template.tsx"),
+      path.resolve(__dirname, "/css/tools/choropleth.scss")
     ],
-    dev: [__dirname + "/js/dev.ts", __dirname + "/css/dev.scss"],
+    dev: [
+      path.resolve(__dirname, "/js/dev.ts"),
+      path.resolve(__dirname, "/css/dev.scss")
+    ],
     timeline: [
-      __dirname + "/js/tools/timeline.ts",
-      __dirname + "/css/timeline.scss",
+      path.resolve(__dirname, "/js/tools/timeline.ts"),
+      path.resolve(__dirname, "/css/timeline.scss")
     ],
     kg: [
       "babel-polyfill",
-      __dirname + "/js/browser/kg.js",
-      __dirname + "/css/kg.scss",
+      path.resolve(__dirname,  "/js/browser/kg.js"),
+      path.resolve(__dirname, "/css/kg.scss")
     ],
-    mcf_playground: __dirname + "/js/mcf_playground.js",
+    mcf_playground: path.resolve(__dirname, "/js/mcf_playground.js"),
     place: [
-      __dirname + "/js/place/place.ts",
-      __dirname + "/css/place/place.scss",
+      path.resolve(__dirname, "/js/place/place.ts"),
+      path.resolve(__dirname, "/css/place/place.scss"),
     ],
-    place_landing: [__dirname + "/js/place/place_landing.ts"],
+    place_landing: [path.resolve(__dirname, "/js/place/place_landing.ts")],
     ranking: [
-      __dirname + "/js/ranking/ranking.ts",
-      __dirname + "/css/ranking.scss",
+      path.resolve(__dirname, "/js/ranking/ranking.ts"),
+      path.resolve(__dirname, "/css/ranking.scss"),
     ],
     scatter: [
-      __dirname + "/js/tools/scatter.js",
-      __dirname + "/css/scatter.scss",
+      path.resolve(__dirname, "/js/tools/scatter.js"),
+      path.resolve(__dirname, "/css/scatter.scss"),
     ],
-    search: __dirname + "/css/search.scss",
-    static: __dirname + "/css/static.scss",
+    search: path.resolve(__dirname, "/css/search.scss"),
+    static: path.resolve(__dirname, "/css/static.scss"),
     translator: [
-      __dirname + "/js/translator/translator.ts",
-      __dirname + "/css/translator.scss",
+      path.resolve(__dirname, "/js/translator/translator.ts"),
+      path.resolve(__dirname, "/css/translator.scss"),
     ],
   },
   output: {
-    path: path.resolve(__dirname, "../") + "/server/dist",
+    path: path.resolve(__dirname, "../server/dist"),
     filename: "[name].js",
   },
   resolve: {
     extensions: [".js", ".ts", ".tsx"],
   },
   optimization: {
+    splitChunks: {
+      chunks: 'all'
+    },
     minimize: true
   },
   module: {
@@ -132,8 +138,9 @@ const config = {
 
 module.exports = (env, argv) => {
 
-  // If in development
-  if (argv.mode === 'development' && config.optimization.minimize) {
+  // If in development, disable optimization.minimize.
+  // development and production are set as env variable.
+  if (argv.mode === 'development' && config.optimization?.minimize) {
     config.optimization.minimize = false;
   }
 
