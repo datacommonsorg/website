@@ -806,11 +806,7 @@ const formatGeoValue = (geoValue: number | string, isPerCapita: boolean) => {
   }
 };
 
-const formatTitle = (
-  statVar: string,
-  geoName: string,
-  isPerCapita: boolean
-): string => {
+const formatTitle = (statVar: string, geoName: string): string => {
   const pieces = statVar.split("_");
   let statVarName = pieces.join(" ");
   for (const key in NAME_REPLACEMENT_DICT) {
@@ -819,16 +815,8 @@ const formatTitle = (
   return statVarName + " in " + geoName;
 };
 
-const updateTitle = (
-  statVar: string,
-  geoName: string,
-  isPerCapita: boolean
-): void => {
-  document.getElementById("heading").innerHTML = formatTitle(
-    statVar,
-    geoName,
-    isPerCapita
-  );
+const updateTitle = (statVar: string, geoName: string): void => {
+  document.getElementById("heading").innerHTML = formatTitle(statVar, geoName);
 };
 
 type DatePickerPropsType = {
