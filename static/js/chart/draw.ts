@@ -26,6 +26,11 @@ import {
   formatYAxisTicks,
 } from "./base";
 
+<<<<<<< HEAD
+=======
+import { translateVariableString } from "../i18n/i18n";
+
+>>>>>>> 02876ad1c69582207bbed0a7a3e78f3246717b3f
 const NUM_X_TICKS = 5;
 const NUM_Y_TICKS = 5;
 const MARGIN = { top: 20, right: 10, bottom: 30, left: 40, yAxis: 3, grid: 5 };
@@ -73,7 +78,11 @@ function appendLegendElem(
     .join("div")
     .attr("style", (d) => `background: ${color(d.label)}`)
     .append("a")
+<<<<<<< HEAD
     .text((d) => d.label)
+=======
+    .text((d) => translateVariableString(d.label))
+>>>>>>> 02876ad1c69582207bbed0a7a3e78f3246717b3f
     .attr("href", (d) => d.link || null);
 }
 
@@ -95,8 +104,12 @@ function wrap(
 ) {
   texts.each(function () {
     const text = d3.select(this);
+<<<<<<< HEAD
     const words = text
       .text()
+=======
+    const words = translateVariableString(text.text())
+>>>>>>> 02876ad1c69582207bbed0a7a3e78f3246717b3f
       .replace("-", "-#") // Handle e.g. "ABC-AB A" -> "ABC-", "AB" "A"
       .split(/[ #]/)
       .filter((w) => w.trim() != "")
@@ -298,7 +311,13 @@ function drawHistogram(
   dataPoints: DataPoint[],
   unit?: string
 ): void {
+<<<<<<< HEAD
   const textList = dataPoints.map((dataPoint) => dataPoint.label);
+=======
+  const textList = dataPoints.map((dataPoint) =>
+    translateVariableString(dataPoint.label)
+  );
+>>>>>>> 02876ad1c69582207bbed0a7a3e78f3246717b3f
   const values = dataPoints.map((dataPoint) => dataPoint.value);
 
   const svg = d3
@@ -839,7 +858,11 @@ function drawGroupLineChart(
     .attr("transform", `translate(${MARGIN.grid}, ${YLABEL.topMargin})`)
     .style("font-size", "12px")
     .style("text-rendering", "optimizedLegibility")
+<<<<<<< HEAD
     .text(ylabel);
+=======
+    .text(translateVariableString(ylabel));
+>>>>>>> 02876ad1c69582207bbed0a7a3e78f3246717b3f
 
   for (const place in dataGroupsDict) {
     dataGroups = dataGroupsDict[place];
@@ -880,7 +903,11 @@ function drawGroupLineChart(
       .style("font-size", "12px")
       .style("text-anchor", "start")
       .style("text-rendering", "optimizedLegibility")
+<<<<<<< HEAD
       .text(sourceText);
+=======
+      .text(translateVariableString(sourceText));
+>>>>>>> 02876ad1c69582207bbed0a7a3e78f3246717b3f
   }
 
   const legend = svg
@@ -932,7 +959,11 @@ function buildInChartLegend(
       .attr("transform", `translate(${dashWidth}, 0)`)
       .attr("y", "0.3em")
       .attr("dy", "0")
+<<<<<<< HEAD
       .text(label)
+=======
+      .text(translateVariableString(label))
+>>>>>>> 02876ad1c69582207bbed0a7a3e78f3246717b3f
       .style("text-rendering", "optimizedLegibility")
       .style("fill", `${legendStyle.color}`)
       .call(wrap, legendTextdWidth);

@@ -62,6 +62,7 @@ RANKING_STATS = {
 
 STATE_EQUIVALENTS = {"State", "AdministrativeArea1"}
 US_ISO_CODE_PREFIX = 'US'
+ENGLISH_LANG = 'en'
 
 # Define blueprint
 bp = Blueprint("api.place", __name__, url_prefix='/api/place')
@@ -127,6 +128,91 @@ def api_name():
     """Get place names."""
     dcids = request.args.getlist('dcid')
     result = get_name(dcids)
+    return Response(json.dumps(result), 200, mimetype='application/json')
+
+
+@cache.memoize(timeout=3600 * 24)  # Cache for one day.
+def cached_i18n_name(dcids, locale="en"):
+    """Returns localization names for set of dcids.
+
+    Args:
+        dcids: ^ separated string of dcids. It must be a single string for the cache.
+        locale: the desired localization language code.
+
+    Returns:
+        A dictionary of place international names, keyed by dcid.
+    """
+    dcids = dcids.split('^')
+    response = fetch_data('/node/property-values', {
+        'dcids': dcids,
+        'property': 'nameWithLanguage',
+        'direction': 'out'
+    },
+                          compress=False,
+                          post=True)
+    result = {}
+    # When there is no locale, fall back to default en.
+    # When there is no exact match of locale, and locale can be broken into parts: language - region, fall back to use language part.
+    # If there still isn't a match, fall back to use en.
+    if not locale:
+        locale = ENGLISH_LANG
+    fallback_lang = locale.split('-')[0] if locale.find('-') != -1 else ''
+    for dcid in dcids:
+        values = response[dcid].get('out')
+        # If there is no nameWithLanguage for this dcid, fall back to name.
+        if not values:
+            result[dcid] = cached_name(dcid)[dcid]
+            continue
+        result[dcid] = ''
+        fallback_choice = ''
+        english_choice = ''
+        for entry in values:
+            if (has_locale_name(entry, locale)):
+                result[dcid] = extract_locale_name(entry, locale)
+                # Found the exact match, no need to fall back.
+                break
+            else:
+                if (has_locale_name(entry, fallback_lang)):
+                    fallback_choice = extract_locale_name(entry, fallback_lang)
+                if (has_locale_name(entry, ENGLISH_LANG)):
+                    english_choice = extract_locale_name(entry, ENGLISH_LANG)
+        if not result[dcid]:
+            result[
+                dcid] = fallback_choice if fallback_choice else english_choice
+    return result
+
+
+def has_locale_name(entry, locale):
+    return entry['value'].endswith('@' + locale.lower())
+
+
+def extract_locale_name(entry, locale):
+    if entry['value'].endswith('@' + locale.lower()):
+        locale_index = len(entry['value']) - len(locale) - 1
+        return entry['value'][:locale_index]
+    else:
+        return ''
+
+
+def get_i18n_name(dcids, locale="en"):
+    """"Returns localization names for set of dcids.
+
+    Args:
+        dcids: A list of place dcids.
+        locale: the desired localization language code.
+
+    Returns:
+        A dictionary of  place names, keyed by dcid.
+    """
+    return cached_i18n_name('^'.join((sorted(dcids))), locale)
+
+
+@bp.route('/name/i18n')
+def api_i18n_name():
+    """Get place i18n names."""
+    dcids = request.args.getlist('dcid')
+    locale = request.args.get('hl', default="en")
+    result = get_i18n_name(dcids, locale)
     return Response(json.dumps(result), 200, mimetype='application/json')
 
 
@@ -498,17 +584,18 @@ def get_state_code(dcids):
 
 
 @cache.memoize(timeout=3600 * 24)  # Cache for one day.
-def get_display_name(dcids):
+def get_display_name(dcids, locale="en"):
     """ Get display names for a list of places. Display name is place name with state code
     if it has a parent place that is a state.
 
     Args:
         dcids: ^ separated string of dcids. It must be a single string for the cache.
+        locale: the desired localization language code.
 
     Returns:
         A dictionary of display names, keyed by dcid.
     """
-    place_names = cached_name(dcids)
+    place_names = cached_i18n_name(dcids, locale)
     parents = parent_places(dcids)
     dcids = dcids.split('^')
     result = {}
@@ -538,7 +625,8 @@ def api_display_name():
     Get display names for a list of places.
     """
     dcids = request.args.getlist('dcid')
-    result = get_display_name('^'.join((sorted(dcids))))
+    locale = request.args.get('hl', default="en")
+    result = get_display_name('^'.join((sorted(dcids))), locale)
     return Response(json.dumps(result), 200, mimetype='application/json')
 
 

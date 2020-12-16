@@ -1,0 +1,550 @@
+{
+  "the_world": [
+    {
+      "type": 0,
+      "value": "el Mundo"
+    }
+  ],
+  "plural_places": [
+    {
+      "type": 0,
+      "value": "Lugares"
+    }
+  ],
+  "singular_place": [
+    {
+      "type": 0,
+      "value": "Sitio"
+    }
+  ],
+  "plural_zip_codes": [
+    {
+      "type": 0,
+      "value": "Códigos ZIP"
+    }
+  ],
+  "singular_zip_code": [
+    {
+      "type": 0,
+      "value": "Código postal"
+    }
+  ],
+  "City": [
+    {
+      "type": 0,
+      "value": "Ciudad"
+    }
+  ],
+  "Cities": [
+    {
+      "type": 0,
+      "value": "Ciudades"
+    }
+  ],
+  "County": [
+    {
+      "type": 0,
+      "value": "Condado"
+    }
+  ],
+  "Counties": [
+    {
+      "type": 0,
+      "value": "Condados"
+    }
+  ],
+  "Number of people employed": [
+    {
+      "type": 0,
+      "value": "Numero de personas empleadas"
+    }
+  ],
+  "chart_clause-variable_in_place": [
+    {
+      "type": 1,
+      "value": "variable"
+    },
+    {
+      "type": 0,
+      "value": " en "
+    },
+    {
+      "type": 1,
+      "value": "placeName"
+    }
+  ],
+  "chart_clause-placetype_near_place": [
+    {
+      "type": 1,
+      "value": "placeType"
+    },
+    {
+      "type": 0,
+      "value": " cerca "
+    },
+    {
+      "type": 1,
+      "value": "placeName"
+    }
+  ],
+  "chart_clause-places_within_place": [
+    {
+      "type": 0,
+      "value": "lugares dentro "
+    },
+    {
+      "type": 1,
+      "value": "placeName"
+    }
+  ],
+  "chart_clause-places_that_contain_place": [
+    {
+      "type": 0,
+      "value": "lugares que contienen "
+    },
+    {
+      "type": 1,
+      "value": "placeName"
+    }
+  ],
+  "chart_clause-other_placeType": [
+    {
+      "type": 0,
+      "value": "otra "
+    },
+    {
+      "type": 1,
+      "value": "placeType"
+    }
+  ],
+  "child_places_menu-places_in_place": [
+    {
+      "type": 0,
+      "value": "Lugares en "
+    },
+    {
+      "type": 1,
+      "value": "placeName"
+    }
+  ],
+  "State unemployment insurance claims rate": [
+    {
+      "type": 0,
+      "value": "Tasa de reclamaciones del seguro de desempleo estatal"
+    }
+  ],
+  "Employed People": [
+    {
+      "type": 0,
+      "value": "Personas Empleadas"
+    }
+  ],
+  "chart_metadata-data_from": [
+    {
+      "type": 0,
+      "value": "Datos de"
+    }
+  ],
+  "chart_metadata-export": [
+    {
+      "type": 0,
+      "value": "Exportar"
+    }
+  ],
+  "chart_metadata-explore_more": [
+    {
+      "type": 0,
+      "value": "Explora más ›"
+    }
+  ],
+  "chart_metadata-feedback": [
+    {
+      "type": 0,
+      "value": "Retroalimentación"
+    }
+  ],
+  "chart_metadata-dotted_line_explanation": [
+    {
+      "type": 0,
+      "value": "(la línea de puntos indica datos faltantes)"
+    }
+  ],
+  "sources_via_datacommons": [
+    {
+      "type": 0,
+      "value": "Datos de "
+    },
+    {
+      "type": 1,
+      "value": "oneOrMoreCommaSeparatedSources"
+    },
+    {
+      "type": 0,
+      "value": " via Data Commons"
+    }
+  ],
+  "export_chart_link": [
+    {
+      "type": 0,
+      "value": "Exportar este gráfico"
+    }
+  ],
+  "download_chart_link": [
+    {
+      "type": 0,
+      "value": "Descargar imagen de gráfico"
+    }
+  ],
+  "download_csv_link": [
+    {
+      "type": 0,
+      "value": "Descargar datos como CSV"
+    }
+  ],
+  "more_charts": [
+    {
+      "type": 0,
+      "value": "Mas graficos ›"
+    }
+  ],
+  "label-1": [
+    {
+      "type": 0,
+      "value": "etiqueta-1"
+    }
+  ],
+  "label-2": [
+    {
+      "type": 0,
+      "value": "etiqueta-2"
+    }
+  ],
+  "January": [
+    {
+      "type": 0,
+      "value": "Enero"
+    }
+  ],
+  "February": [
+    {
+      "type": 0,
+      "value": "Febrero"
+    }
+  ],
+  "March": [
+    {
+      "type": 0,
+      "value": "Marzo"
+    }
+  ],
+  "April": [
+    {
+      "type": 0,
+      "value": "Abril"
+    }
+  ],
+  "May": [
+    {
+      "type": 0,
+      "value": "Mayo"
+    }
+  ],
+  "June": [
+    {
+      "type": 0,
+      "value": "Junio"
+    }
+  ],
+  "July": [
+    {
+      "type": 0,
+      "value": "Julio"
+    }
+  ],
+  "August": [
+    {
+      "type": 0,
+      "value": "Agosto"
+    }
+  ],
+  "September": [
+    {
+      "type": 0,
+      "value": "Septiembre"
+    }
+  ],
+  "October": [
+    {
+      "type": 0,
+      "value": "Octubre"
+    }
+  ],
+  "November": [
+    {
+      "type": 0,
+      "value": "Noviembre"
+    }
+  ],
+  "December": [
+    {
+      "type": 0,
+      "value": "Diciembre"
+    }
+  ],
+  "Total": [
+    {
+      "type": 0,
+      "value": "Total"
+    }
+  ],
+  "Male": [
+    {
+      "type": 0,
+      "value": "Masculino"
+    }
+  ],
+  "San Jose": [
+    {
+      "type": 0,
+      "value": "San Jose"
+    }
+  ],
+  "Fremont": [
+    {
+      "type": 0,
+      "value": "Fremont"
+    }
+  ],
+  "San Francisco": [
+    {
+      "type": 0,
+      "value": "San Francisco"
+    }
+  ],
+  "Mountain View": [
+    {
+      "type": 0,
+      "value": "Vista desde la Montaña"
+    }
+  ],
+  "Very-Long-City-Name": [
+    {
+      "type": 0,
+      "value": "Nombre-Ciudad-Muy-Largo"
+    }
+  ],
+  "Multi several very long city name long": [
+    {
+      "type": 0,
+      "value": "Varios nombres de ciudades muy largos largos"
+    }
+  ],
+  "very very very long place name": [
+    {
+      "type": 0,
+      "value": "nombre de lugar muy muy largo"
+    }
+  ],
+  "such a long name that it needs to span 4 lines": [
+    {
+      "type": 0,
+      "value": "un nombre tan largo que necesita abarcar 4 líneas"
+    }
+  ],
+  "Santa Clara County": [
+    {
+      "type": 0,
+      "value": "Condado de Santa Clara"
+    }
+  ],
+  "Nevada": [
+    {
+      "type": 0,
+      "value": "Nevada"
+    }
+  ],
+  "California": [
+    {
+      "type": 0,
+      "value": "California"
+    }
+  ],
+  "United States": [
+    {
+      "type": 0,
+      "value": "Estados Unidos"
+    }
+  ],
+  "header-overview": [
+    {
+      "type": 0,
+      "value": "Visión general"
+    }
+  ],
+  "link-return_to_overview": [
+    {
+      "type": 0,
+      "value": "De regreso a la visión general ›"
+    }
+  ],
+  "Economics": [
+    {
+      "type": 0,
+      "value": "Ciencias económicas"
+    }
+  ],
+  "Health": [
+    {
+      "type": 0,
+      "value": "Salud"
+    }
+  ],
+  "Equity": [
+    {
+      "type": 0,
+      "value": "Capital"
+    }
+  ],
+  "Crime": [
+    {
+      "type": 0,
+      "value": "Crimen"
+    }
+  ],
+  "Education": [
+    {
+      "type": 0,
+      "value": "Educación"
+    }
+  ],
+  "Demographics": [
+    {
+      "type": 0,
+      "value": "Demografía"
+    }
+  ],
+  "Housing": [
+    {
+      "type": 0,
+      "value": "Alojamiento"
+    }
+  ],
+  "Environment": [
+    {
+      "type": 0,
+      "value": "Ambiente"
+    }
+  ],
+  "Labor force": [
+    {
+      "type": 0,
+      "value": "Mano de obra"
+    }
+  ],
+  "place_breadcrumb": [
+    {
+      "type": 0,
+      "value": "Un "
+    },
+    {
+      "type": 1,
+      "value": "placeType"
+    },
+    {
+      "type": 0,
+      "value": " en "
+    }
+  ],
+  "alert-no_data_for_place": [
+    {
+      "type": 0,
+      "value": "Lo sentimos, pero no tenemos datos sobre "
+    },
+    {
+      "type": 1,
+      "value": "placeName"
+    }
+  ],
+  "place_page_ranking_table-ranking_value": [
+    {
+      "type": 1,
+      "value": "rank"
+    },
+    {
+      "type": 0,
+      "value": " de "
+    },
+    {
+      "type": 1,
+      "value": "total"
+    }
+  ],
+  "place_page_ranking_table-data_from": [
+    {
+      "type": 0,
+      "value": "Datos de "
+    },
+    {
+      "type": 8,
+      "value": "a1",
+      "children": [
+        {
+          "type": 0,
+          "value": "census.gov"
+        }
+      ]
+    },
+    {
+      "type": 0,
+      "value": ", "
+    },
+    {
+      "type": 8,
+      "value": "a2",
+      "children": [
+        {
+          "type": 0,
+          "value": "fbi.gov"
+        }
+      ]
+    },
+    {
+      "type": 0,
+      "value": " y "
+    },
+    {
+      "type": 8,
+      "value": "a3",
+      "children": [
+        {
+          "type": 0,
+          "value": "bls.gov"
+        }
+      ]
+    }
+  ],
+  "search_bar_placeholder-search_again": [
+    {
+      "type": 0,
+      "value": "Busca otro lugar"
+    }
+  ],
+  "place_page_ranking_table-ranking_in": [
+    {
+      "type": 0,
+      "value": "Clasificaciones (en)"
+    }
+  ],
+  "Largest Population": [
+    {
+      "type": 0,
+      "value": "Población más grande"
+    }
+  ],
+  "Population": [
+    {
+      "type": 0,
+      "value": "Población"
+    }
+  ]
+}

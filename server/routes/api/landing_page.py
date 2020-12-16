@@ -19,11 +19,12 @@ in chart.py and place.py
 
 import collections
 import copy
+import gettext
 import json
 import logging
 import urllib
 
-from flask import Blueprint, current_app, Response, url_for
+from flask import Blueprint, current_app, request, Response, url_for
 from collections import defaultdict
 
 from cache import cache
@@ -38,6 +39,11 @@ BAR_CHART_TYPES = ['parent', 'similar', 'nearby', 'child']
 MAX_DENOMINATOR_BACK_YEAR = 3
 MIN_CHART_TO_KEEP_TOPICS = 30
 OVERVIEW = 'Overview'
+
+# TODO(beets): Replace this with the extracted locale
+l10n = gettext.translation('chart_titles', localedir='l10n', languages=['es'])
+l10n.install()
+_ = l10n.gettext
 
 
 def get_landing_page_data(dcid, stat_vars):
@@ -73,6 +79,8 @@ def build_spec(chart_config):
     # Map: category -> topic -> [config]
     for conf in chart_config:
         config = copy.deepcopy(conf)
+        config['title'] = _(config['titleId'])
+        del config['titleId']
         is_overview = ('isOverview' in config and config['isOverview'])
         category = config['category']
         if 'isOverview' in config:
@@ -349,6 +357,7 @@ def data(dcid):
     """
     logging.info("Landing Page: cache miss for %s, fetch and process data ...",
                  dcid)
+    locale = request.args.get('hl', default="en")
     spec_and_stat, stat_vars = build_spec(current_app.config['CHART_CONFIG'])
     raw_page_data = get_landing_page_data(dcid, stat_vars)
 
@@ -466,7 +475,7 @@ def data(dcid):
     all_places = [dcid]
     for t in BAR_CHART_TYPES:
         all_places.extend(raw_page_data.get(t + 'Places', []))
-    names = place_api.get_display_name('^'.join(sorted(all_places)))
+    names = place_api.get_display_name('^'.join(sorted(all_places)), locale)
 
     # Pick data to highlight - only population for now
     population, statvar_denom = get_snapshot_across_places(

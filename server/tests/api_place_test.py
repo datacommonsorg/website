@@ -159,6 +159,105 @@ class TestApiPlaceName(unittest.TestCase):
         }
 
 
+class TestApiPlaceI18nName(unittest.TestCase):
+
+    @patch('routes.api.place.fetch_data')
+    def test_parent_places(self, mock_fetch_data):
+        mock_response = {
+            'geoId/05': {
+                'out': [{
+                    'value': 'ArkansasEn@en',
+                    'provenance': 'prov1'
+                }, {
+                    'value': 'ArkansasIO@io',
+                    'provenance': 'prov1'
+                }, {
+                    'value': 'ArkansasLA-RU@la-ru',
+                    'provenance': 'prov1'
+                }]
+            },
+            'geoId/06': {
+                'out': [{
+                    'value': 'CaliforniaIT@it',
+                    'provenance': 'prov2'
+                }, {
+                    'value': 'CaliforniaLA@la',
+                    'provenance': 'prov2'
+                }]
+            }
+        }
+        mock_fetch_data.side_effect = (
+            lambda url, req, compress, post: mock_response)
+
+        # There is no hl parameter, use default en.
+        response = app.test_client().get(
+            '/api/place/name/i18n?dcid=geoId/05&dcid=geoId/06')
+        assert response.status_code == 200
+        assert json.loads(response.data) == {
+            'geoId/05': 'ArkansasEn',
+            'geoId/06': ''
+        }
+
+        mock_fetch_data.side_effect = (
+            lambda url, req, compress, post: mock_response)
+
+        # Arkansas doesn't have name in @it, fall back to @en instead.
+        response = app.test_client().get(
+            '/api/place/name/i18n?dcid=geoId/05&dcid=geoId/06&hl=it')
+        assert response.status_code == 200
+        assert json.loads(response.data) == {
+            'geoId/05': 'ArkansasEn',
+            'geoId/06': 'CaliforniaIT'
+        }
+
+        # Lower case language code.
+        response = app.test_client().get(
+            '/api/place/name/i18n?dcid=geoId/05&dcid=geoId/06&hl=LA')
+        assert response.status_code == 200
+        assert json.loads(response.data) == {
+            'geoId/05': 'ArkansasEn',
+            'geoId/06': 'CaliforniaLA'
+        }
+
+        # Verify language code parsing correct, not using la-ru.
+        response = app.test_client().get(
+            '/api/place/name/i18n?dcid=geoId/05&hl=ru')
+        assert response.status_code == 200
+        assert json.loads(response.data) == {'geoId/05': 'ArkansasEn'}
+
+        # Verify fall back to the first part of locale, la-ru to la.
+        response = app.test_client().get(
+            '/api/place/name/i18n?dcid=geoId/05&dcid=geoId/06&hl=la-ru')
+        assert response.status_code == 200
+        assert json.loads(response.data) == {
+            'geoId/05': 'ArkansasLA-RU',
+            'geoId/06': 'CaliforniaLA'
+        }
+
+        # Verify when there is no nameWithLanguage, fall back to name
+        def side_effect(url, req, compress, post):
+            if 'name' == req['property']:
+                return {
+                    'geoId/08': {
+                        'out': [{
+                            'value': 'Colorado',
+                            'provenance': 'prov2'
+                        }]
+                    }
+                }
+            elif 'nameWithLanguage' == req['property']:
+                return {"geoId/08": {}}
+            else:
+                return {req['dcids'][0]: {}}
+
+        mock_fetch_data.side_effect = side_effect
+        response = app.test_client().get('/api/place/name/i18n?dcid=geoId/08')
+        assert response.status_code == 200
+        assert json.loads(response.data) == {
+            'geoId/08': 'Colorado',
+        }
+
+
 class TestApiDisplayName(unittest.TestCase):
 
     @patch('routes.api.place.dc.get_property_values')
@@ -170,6 +269,9 @@ class TestApiDisplayName(unittest.TestCase):
         us_state_parent = 'parent1'
         us_country_parent = 'parent2'
         cad_state_parent = 'parent3'
+        dcid1_en = 'dcid1@en'
+        dcid2_en = 'dcid2@en'
+        dcid3_en = 'dcid3@en'
 
         def side_effect(url, req, compress, post):
             if 'containedInPlace' == req['property']:
@@ -212,21 +314,21 @@ class TestApiDisplayName(unittest.TestCase):
                         'out': []
                     }
                 }
-            elif 'name' == req['property']:
+            elif 'nameWithLanguage' == req['property']:
                 return {
                     dcid1: {
                         'out': [{
-                            'value': dcid1
+                            'value': dcid1_en
                         }]
                     },
                     dcid2: {
                         'out': [{
-                            'value': dcid2
+                            'value': dcid2_en
                         }]
                     },
                     dcid3: {
                         'out': [{
-                            'value': dcid3
+                            'value': dcid3_en
                         }]
                     },
                 }

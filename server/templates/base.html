@@ -66,17 +66,21 @@
               <li class="nav-item dropdown">
                 <a class="nav-link dropdown-toggle" href="#" id="nav-explore-dropdown" role="button"
                   data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+<<<<<<< HEAD
                   Explore
+=======
+                  {% trans %}Explore{% endtrans %}
+>>>>>>> 02876ad1c69582207bbed0a7a3e78f3246717b3f
                 </a>
                 <div class="dropdown-menu" aria-labelledby="nav-explore-dropdown">
-                  <a class="dropdown-item" href="{{ url_for('place.place') }}">Place Explorer</a>
-                  <a class="dropdown-item" href="{{ url_for('browser.kg_main') }}">Graph
-                    Browser</a>
-                  <a class="dropdown-item" href="{{ url_for('tools.timeline') }}">Timelines Explorer</a>
+                  <a class="dropdown-item" href="{{ url_for('place.place') }}">{% trans %}Place Explorer{% endtrans %}</a>
+                  <a class="dropdown-item" href="{{ url_for('browser.kg_main') }}">{% trans %}Graph Browser{% endtrans %}</a>
+                  <a class="dropdown-item" href="{{ url_for('tools.timeline') }}">{% trans %}Timelines Explorer{% endtrans %}</a>
                 </div>
               </li>
               <li class="nav-item dropdown">
                 <a class="nav-link dropdown-toggle" href="#" id="nav-doc-dropdown" role="button" data-toggle="dropdown"
+<<<<<<< HEAD
                   aria-haspopup="true" aria-expanded="false">
                   Documentation
                 </a>
@@ -85,20 +89,31 @@
                   <a class="dropdown-item" href="http://docs.datacommons.org/api">API's</a>
                   <a class="dropdown-item" href="http://docs.datacommons.org/tutorials.html">Tutorials</a>
                   <a class="dropdown-item" href="https://docs.datacommons.org/contributing/">Contribute</a>
+=======
+                  aria-haspopup="true" aria-expanded="false">{% trans %}Documentation{% endtrans %}</a>
+                <div class="dropdown-menu" aria-labelledby="nav-doc-dropdown">
+                  <a class="dropdown-item" href="http://docs.datacommons.org">{% trans %}Documentation{% endtrans %}</a>
+                  <a class="dropdown-item" href="http://docs.datacommons.org/api">{% trans %}API's{% endtrans %}</a>
+                  <a class="dropdown-item" href="http://docs.datacommons.org/tutorials.html">{% trans %}Tutorials{% endtrans %}</a>
+                  <a class="dropdown-item" href="https://docs.datacommons.org/contributing/">{% trans %}Contribute{% endtrans %}</a>
+>>>>>>> 02876ad1c69582207bbed0a7a3e78f3246717b3f
                 </div>
               </li>
               <li class="nav-item dropdown">
                 <a class="nav-link dropdown-toggle" href="#" id="nav-about-dropdown" role="button"
                   data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+<<<<<<< HEAD
                   About
+=======
+                  {% trans %}About{% endtrans %}
+>>>>>>> 02876ad1c69582207bbed0a7a3e78f3246717b3f
                 </a>
                 <div class="dropdown-menu" aria-labelledby="nav-about-dropdown">
-                  <a class="dropdown-item" href="{{ url_for('static.about') }}">About Data Commons</a>
-                  <a class="dropdown-item" href="{{ url_for('static.datasets') }}">Data
-                    Sources</a>
-                  <a class="dropdown-item" href="{{ url_for('static.faq') }}">FAQ</a>
-                  <a class="dropdown-item" href="{{ url_for('static.feedback') }}">Feedback</a>
-                  <a class="dropdown-item" href="https://docs.datacommons.org/blog.html">Blog</a>
+                  <a class="dropdown-item" href="{{ url_for('static.about') }}">{% trans %}About Data Commons{% endtrans %}</a>
+                  <a class="dropdown-item" href="https://docs.datacommons.org/blog.html">{% trans %}Blog{% endtrans %}</a>
+                  <a class="dropdown-item" href="{{ url_for('static.datasets') }}">{% trans %}Data Sources{% endtrans %}</a>
+                  <a class="dropdown-item" href="{{ url_for('static.faq') }}">{% trans %}FAQ{% endtrans %}</a>
+                  <a class="dropdown-item" href="{{ url_for('static.feedback') }}">{% trans %}Feedback{% endtrans %}</a>
                 </div>
               </li>
             </ul>
@@ -120,6 +135,7 @@
         {% if not is_hide_full_footer %}
         <div class="row">
           <section class="col-12 col-sm-6 col-md-4">
+<<<<<<< HEAD
             <h6>Explore</h6>
             <a href="{{ url_for('place.place') }}">Place Explorer</a>
             <a href="{{ url_for('browser.kg_main') }}">Graph Explorer</a>
@@ -139,17 +155,61 @@
             <a href="{{ url_for('static.faq') }}">Frequently Asked Questions</a>
             <a href="{{ url_for('static.feedback') }}">Feedback</a>
             <a href="http://github.com/datacommonsorg">Github Repository</a>
+=======
+            {# TRANSLATORS: The label for a collection of exploration tools. #}
+            <h6>{% trans %}Explore{% endtrans %}</h6>
+            {# TRANSLATORS: The name of a tool to browse statistics about a place. #}
+            <a href="{{ url_for('place.place') }}">{% trans %}Place Explorer{% endtrans %}</a>
+            {# TRANSLATORS: The name of a tool to browse the Data Commons knowledge graph. #}
+            <a href="{{ url_for('browser.kg_main') }}">{% trans %}Graph Browser{% endtrans %}</a>
+            {# TRANSLATORS: The name of a tool to explore timeline charts of statistical variables for places. #}
+            <a href="{{ url_for('tools.timeline') }}">{% trans %}Timelines Explorer{% endtrans %}</a>
+          </section>
+          <section class="col-12 col-sm-6 col-md-4">
+            {# TRANSLATORS: The label for a list of documentation links. #}
+            <h6>{% trans %}Documentation{% endtrans %}</h6>
+            {# TRANSLATORS: The label for a link to our documentation site. #}
+            <a href="http://docs.datacommons.org">{% trans %}Documentation{% endtrans %}</a>
+            {# TRANSLATORS: The label for a link to our API documentation. #}
+            <a href="http://docs.datacommons.org/api">{% trans %}API's{% endtrans %}</a>
+            {# TRANSLATORS: The label for a link to our API tutorials. #}
+            <a href="http://docs.datacommons.org/tutorials.html">{% trans %}Tutorials{% endtrans %}</a>
+            {# TRANSLATORS: The label for a link to instructions about contributing to the project. #}
+            <a href="https://docs.datacommons.org/contributing/">{% trans %}Contribute{% endtrans %}</a>
+            {# TRANSLATORS: The label for a link to the project's github repository (for open sourced code). #}
+            <a href="http://github.com/datacommonsorg">{% trans %}Github Repository{% endtrans %}</a>
+          </section>
+          <section class="col-12 col-sm-6 col-md-4">
+            {# TRANSLATORS: The label for a link to informational pages about the Data Commons project. #}
+            <h6>{% trans %}Data Commons{% endtrans %}</h6>
+            {# TRANSLATORS: The label for a link to the project's about page. #}
+            <a href="{{ url_for('static.about') }}">{% trans %}About Data Commons{% endtrans %}</a>
+            {# TRANSLATORS: The label for a link to the project's blog. #}
+            <a href="https://docs.datacommons.org/blog.html">{% trans %}Blog{% endtrans %}</a>
+            {# TRANSLATORS: The label for a link to data sources included in the Data Commons knowledge graph. #}
+            <a href="{{ url_for('static.datasets') }}">{% trans %}Data Sources{% endtrans %}</a>
+            {# TRANSLATORS: The label for a link to instructions about sending feedback. #}
+            <a href="{{ url_for('static.feedback') }}">{% trans %}Feedback{% endtrans %}</a>
+            {# TRANSLATORS: The label for a link to project FAQ page. #}
+            <a href="{{ url_for('static.faq') }}">{% trans %}Frequently Asked Questions{% endtrans %}</a>
+>>>>>>> 02876ad1c69582207bbed0a7a3e78f3246717b3f
           </section>
         </div>
         {% endif %}
         <div class="row">
           <div id="sub-footer" class="col-12">
-            <span><a href="{{ url_for('static.homepage') }}">Data Commons</a> is a Google supported project</span>
+            <!-- {% set homepage_url = "<a href={href}>Data Commons</a>".format(href=url_for('static.homepage'))  %} -->
+            {# TRANSLATORS: The label for a link to project homepage. #}
+            <span>{% trans project="Data Commons" %}{{ project }} is a Google supported project{% endtrans %}</span>
+
             <div class="float-md-right mt-2 mt-md-0">
               {% block subfooter_extra %}{% endblock %}
-              <a href="https://policies.google.com/terms">Terms and Conditions</a> ·
-              <a href="https://policies.google.com/privacy?hl=en-US">Privacy Policy</a> ·
-              <a href="{{ url_for('static.disclaimers') }}">Disclaimers</a>
+              {# TRANSLATORS: The label for a link to site terms and conditions. #}
+              <a href="https://policies.google.com/terms">{% trans %}Terms and Conditions{% endtrans %}</a>
+              {# TRANSLATORS: The label for a link to site privacy policy. #}
+              <a href="https://policies.google.com/privacy?hl=en-US">{% trans %}Privacy Policy{% endtrans %}</a>
+              {# TRANSLATORS: The label for a link to site disclaimers. #}
+              <a href="{{ url_for('static.disclaimers') }}">{% trans %}Disclaimers{% endtrans %}</a>
             </div>
           </div>
         </div>

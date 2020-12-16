@@ -30,10 +30,14 @@ import { initSearchAutocomplete } from "./search";
 
 import { CachedChoroplethData, GeoJsonData, PageData } from "../chart/types";
 
-let yScrollLimit = 0; // window scroll position to start fixing the sidebar
-let sidebarTopMax = 0; // Max top position for the sidebar, relative to #sidebar-outer.
-const Y_SCROLL_WINDOW_BREAKPOINT = 992; // Only trigger fixed sidebar beyond this window width.
-const Y_SCROLL_MARGIN = 100; // Margin to apply to the fixed sidebar top.
+// Window scroll position to start fixing the sidebar.
+let yScrollLimit = 0;
+// Max top position for the sidebar, relative to #sidebar-outer.
+let sidebarTopMax = 0;
+// Only trigger fixed sidebar beyond this window width.
+const Y_SCROLL_WINDOW_BREAKPOINT = 992;
+// Margin to apply to the fixed sidebar top.
+const Y_SCROLL_MARGIN = 100;
 const placeTypesWithChoropleth = new Set(["Country", "State", "County"]);
 
 window.onload = () => {
@@ -43,7 +47,6 @@ window.onload = () => {
   maybeToggleFixedSidebar();
   window.onresize = maybeToggleFixedSidebar;
 };
-
 /**
  *  Make adjustments to sidebar scroll state based on the content.
  */
@@ -222,7 +225,6 @@ function renderPage(): void {
         }),
         document.getElementById("subtitle")
       );
-
       ReactDOM.render(
         React.createElement(MainPane, {
           topic,

@@ -10,7 +10,9 @@
   "main": "index.js",
   "scripts": {
     "build": "webpack -p --progress --config webpack.config.js",
+    "compile": "formatjs compile",
     "dev-build": "webpack --progress -d --config webpack.config.js",
+    "extract": "formatjs extract",
     "lint": "eslint --fix .",
     "test": "jest --unhandled-rejections=strict",
     "test-lint": "eslint .",
@@ -44,6 +46,10 @@
     "prop-types": "^15.7.2",
     "react": "^16.13.1",
     "react-dom": "^16.13.1",
+<<<<<<< HEAD
+=======
+    "react-intl": "^5.10.1",
+>>>>>>> 02876ad1c69582207bbed0a7a3e78f3246717b3f
     "reactstrap": "^8.6.0",
     "sass": "^1.3.0",
     "sass-loader": "^8.0.2",
@@ -56,6 +62,7 @@
   "devDependencies": {
     "@babel/polyfill": "^7.11.5",
     "@babel/preset-typescript": "^7.10.4",
+    "@formatjs/cli": "^2.13.12",
     "@testing-library/jest-dom": "^5.11.4",
     "@testing-library/react": "^10.4.9",
     "@types/jest": "^25.2.3",
