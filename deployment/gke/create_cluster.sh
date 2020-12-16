@@ -18,14 +18,13 @@ REGION=$2
 NODES=$3
 
 PROJECT_ID=$(yq r ../config.yaml project.$ENV)
-
-../generate_yaml.sh $ENV
-
-./download_robot_key.sh $PROJECT_ID
+CLUSTER_NAME="website-$REGION"
 
 gcloud config set project $PROJECT_ID
 
-CLUSTER_NAME="website-$REGION"
+../generate_yaml.sh $ENV
+./download_robot_key.sh $PROJECT_ID
+
 gcloud container clusters create $CLUSTER_NAME \
   --num-nodes=$NODES \
   --region=$REGION \
