@@ -9,12 +9,12 @@
   "license": "Apache-2.0",
   "main": "index.js",
   "scripts": {
-    "build": "webpack --env NODE_ENV=production --progress --config webpack.config.js",
-    "dev-build": "webpack --progress --env NODE_ENV=development --config webpack.config.js",
+    "build": "webpack --mode=production --progress --config webpack.config.js",
+    "dev-build": "webpack --progress --mode=development --config webpack.config.js",
     "lint": "eslint --fix .",
     "test": "jest --unhandled-rejections=strict",
     "test-lint": "eslint .",
-    "watch": "webpack --progress --env NODE_ENV=development --config webpack.config.js --watch"
+    "watch": "webpack --progress --mode=development --config webpack.config.js --watch"
   },
   "dependencies": {
     "@babel/core": "^7.12.10",
@@ -80,7 +80,7 @@
     "prettier": "^2.2.1",
     "pretty": "^2.0.0",
     "react-test-renderer": "^16.14.0",
-    "style-loader": "^2.0.0",
+    "style-loader": "^1.3.0",
     "ts-jest": "^25.5.1"
   }
 }
