@@ -13,9 +13,17 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-PROJECT_ID=$1
+ENV=$1
 REGION=$2
 NODES=$3
+
+PROJECT_ID=$(yq r ../config.yaml project.$ENV)
+
+../generate_yaml.sh $ENV
+
+./download_robot_key.sh $PROJECT_ID
+
+gcloud config set project $PROJECT_ID
 
 CLUSTER_NAME="website-$REGION"
 gcloud container clusters create $CLUSTER_NAME \
@@ -34,6 +42,8 @@ gcloud projects add-iam-policy-binding \
   $PROJECT_ID \
   --member "serviceAccount:$PROJECT_ID.hub.id.goog[gke-connect/connect-agent-sa]" \
   --role "roles/gkehub.connect"
+
+gcloud container clusters get-credentials $CLUSTER_NAME --region=$REGION
 
 # Create namespace
 kubectl create namespace website
