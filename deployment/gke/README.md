@@ -8,6 +8,7 @@ You should have owner/editor role to perform the following tasks.
 - Update the IP address in cluster.yaml, `ip` field.
 - Update the domain in cluster.yaml `domain` field.
 - Create a GCS bucket, copy resource files (placeid2dcid.json, etc) to it and update config.yaml `gcs_bucket` field.
+- Create api key for "Maps API" and "Place API" and put them in GCP "Secret Manager" with name `maps-api-key`.
 
 ## One Time Setup
 
@@ -39,4 +40,11 @@ Each node is a configured to e2-highmem-4 machine type that has 4 vCPU and 32G m
 
 ```bash
 ./deploy.sh <staging | prod> region
+```
+
+## Add a new cluster
+
+```bash
+./create_cluster.sh <staging | prod> <region> <num_nodes>
+./setup_config_cluster.sh <staging | prod>
 ```

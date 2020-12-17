@@ -68,12 +68,15 @@ def create_app():
     elif os.environ.get('FLASK_ENV') == 'minikube':
         cfg = import_string('configmodule.MinikubeConfig')()
         cfg.GCS_BUCKET = os.environ.get('GCS_BUCKET')
+        cfg.SECRET_PROJECT = os.environ.get('SECRET_PROJECT')
     elif os.environ.get('FLASK_ENV') == 'gke':
         cfg = import_string('configmodule.GKEConfig')()
         cfg.GCS_BUCKET = os.environ.get('GCS_BUCKET')
+        cfg.SECRET_PROJECT = os.environ.get('SECRET_PROJECT')
     else:
         raise ValueError("No valid FLASK_ENV is specified: %s" %
                          os.environ.get('FLASK_ENV'))
+    cfg.MAPS_API_KEY = os.environ.get('MAPS_API_KEY')
     app.config.from_object(cfg)
 
     # Init extentions
@@ -109,15 +112,13 @@ def create_app():
         chart_config = json.load(f)
     app.config['CHART_CONFIG'] = chart_config
 
-    if cfg.WEBDRIVER or cfg.DEVELOPMENT:
+    if not cfg.TEST:
         secret_client = secretmanager.SecretManagerServiceClient()
-        secret_name = secret_client.secret_version_path(cfg.PROJECT,
+        secret_name = secret_client.secret_version_path(cfg.SECRET_PROJECT,
                                                         'maps-api-key', '1')
         secret_response = secret_client.access_secret_version(secret_name)
         app.config['MAPS_API_KEY'] = secret_response.payload.data.decode(
             'UTF-8')
-    else:
-        app.config['MAPS_API_KEY'] = "AIzaSyCi3WDvStkhQOBQRnV_4Fcuar7ZRteHgvU"
 
     if cfg.TEST or cfg.WEBDRIVER:
         app.config['PLACEID2DCID'] = {
