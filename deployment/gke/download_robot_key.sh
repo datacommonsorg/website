@@ -13,29 +13,12 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-set -e
 
-ENV=$1
-REGION=$2
+PROJECT_ID=$1
 
-PROJECT_ID=$(yq r ../config.yaml project.$ENV)
-../generate_yaml.sh $ENV
+# Get the robot account key
+gcloud iam service-accounts keys create website-robot-key.json \
+    --iam-account website-robot@$PROJECT_ID.iam.gserviceaccount.com
 
-gcloud config set project $PROJECT_ID
-
-# Valid argument would be: "staging", "prod"
-if [[ $ENV != "staging" ]] && [[ $ENV != "prod" ]]; then
-    echo "Invalid environment: $ENV"
-    exit
-fi
-
-if [[ $REGION == "" ]]; then
-  echo "Second argument (region) is empty"
-  exit
-fi
-
-CLUSTER_NAME="website-$REGION"
-
-gcloud container clusters get-credentials $CLUSTER_NAME --region=$REGION
-
-kubectl apply -f deployment.yaml
+# Use the same robot account for website and mixer
+cp website-robot-key.json mixer-robot-key.json

@@ -17,10 +17,10 @@ set -e
 
 # https://cloud.google.com/kubernetes-engine/docs/how-to/ingress-for-anthos-setup
 
-PROJECT_ID=$1
-REGION=$2
-ENV=$3
+ENV=$1
 
+PROJECT_ID=$(yq r ../config.yaml project.$ENV)
+REGION=$(yq r cluster.yaml region.$ENV.primary)
 CLUSTER_NAME="website-$REGION"
 
 gcloud container clusters get-credentials $CLUSTER_NAME --region $REGION
