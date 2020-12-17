@@ -140,7 +140,7 @@ module.exports = (env, argv) => {
 
   // If in development, disable optimization.minimize.
   // development and production are set as env variable.
-  if (argv.mode === 'development' && config.optimization?.minimize) {
+  if (argv.mode === 'development' && config.optimization.minimize) {
     config.optimization.minimize = false;
   }
 
