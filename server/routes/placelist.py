@@ -59,7 +59,9 @@ def node(dcid):
                 if not place_type.startswith('AdministrativeArea'):
                     place_by_type[place_type].append({
                         'dcid': child['dcid'],
-                        'name': child['name']
+                        'name': child['name'],
+                        # Switch to nameWithLanguage when placelist.html wants i18n name.
+                        'nameWithLanguage': child['nameWithLanguage']
                     })
                     break
     for place_type in place_by_type:

@@ -17,6 +17,7 @@ import json
 import random
 import re
 import time
+import logging
 
 from flask import Blueprint, request, Response, url_for
 
@@ -159,6 +160,10 @@ def cached_i18n_name(dcids, locale):
     fallback_lang = locale.split('-')[0] if locale.find('-') != -1 else ''
     for dcid in dcids:
         values = response[dcid].get('out')
+        # If there is no nameWithLanguage for this dcid, fall back to name.
+        if not values:
+            result[dcid] = cached_name(dcid)[dcid]
+            continue
         result[dcid] = ''
         fallback_choice = ''
         english_choice = ''
@@ -248,7 +253,8 @@ def child(dcid):
     """
     Get top child places for a place.
     """
-    child_places = child_fetch(dcid)
+    locale = request.args.get('hl', default="en")
+    child_places = child_fetch(dcid, locale)
     for place_type in child_places:
         child_places[place_type].sort(key=lambda x: x['pop'], reverse=True)
         child_places[place_type] = child_places[place_type][:CHILD_PLACE_LIMIT]
@@ -256,7 +262,7 @@ def child(dcid):
 
 
 @cache.memoize(timeout=3600 * 24)  # Cache for one day.
-def child_fetch(dcid):
+def child_fetch(dcid, locale):
     contained_response = fetch_data('/node/property-values', {
         'dcids': [dcid],
         'property': 'containedInPlace',
@@ -276,6 +282,7 @@ def child_fetch(dcid):
     places = places + overlaps_response[dcid].get('in', [])
 
     dcid_str = '^'.join(sorted(map(lambda x: x['dcid'], places)))
+    places_i18_names = cached_i18n_name(dcid_str, locale)
     pop = stats_api.get_stats_latest(dcid_str, 'Count_Person')
 
     place_type = get_place_type(dcid)
@@ -289,9 +296,14 @@ def child_fetch(dcid):
                 continue
             if place_type in wanted_types and place_pop > 0:
                 result[place_type].append({
-                    'name': place.get('name', place['dcid']),
-                    'dcid': place['dcid'],
-                    'pop': place_pop,
+                    'name':
+                        place.get('name', place['dcid']),
+                    'nameWithLanguage':
+                        places_i18_names.get('name', place['dcid']),
+                    'dcid':
+                        place['dcid'],
+                    'pop':
+                        place_pop,
                 })
 
     # Filter equivalent place types - if a child place occurs in multiple groups, keep it in the preferred group type.
@@ -486,8 +498,12 @@ def api_ranking(dcid):
     """
     Get the ranking information for a given place.
     """
+    locale = request.args.get('hl', default="en")
     current_place_type = get_place_type(dcid)
     parents = parent_places(dcid)[dcid]
+    parents_str = '^'.join(sorted(map(lambda x: x['dcid'], parents)))
+    parent_i18_names = cached_i18n_name(parents_str, locale)
+
     selected_parents = []
     parent_names = {}
     for parent in parents:
@@ -517,6 +533,8 @@ def api_ranking(dcid):
             result[RANKING_STATS[stats_var]].append({
                 'name':
                     parent_names[parent_dcid],
+                'nameWithLanguage':
+                    parent_i18_names[parent_dcid],
                 'data':
                     data,
                 'rankingUrl':
@@ -531,6 +549,8 @@ def api_ranking(dcid):
             result[crime_statsvar[stats_var]].append({
                 'name':
                     parent_names[parent_dcid],
+                'nameWithLanguage':
+                    parent_i18_names[parent_dcid],
                 'data':
                     data,
                 'rankingUrl':
