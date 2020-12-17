@@ -42,18 +42,6 @@ else:
 API_ROOT = cfg.API_ROOT
 API_PROJECT = cfg.API_PROJECT
 
-DC_API_KEY = 'api-key'
-# if (os.environ.get('FLASK_ENV') == 'test' or
-#         os.environ.get('FLASK_ENV') == 'webdriver'):
-#     DC_API_KEY = 'api-key'
-# else:
-#     # Read the api key from Google Cloud Secret Manager
-#     secret_client = secretmanager.SecretManagerServiceClient()
-#     secret_name = secret_client.secret_version_path(API_PROJECT,
-#                                                     'mixer-api-key', '1')
-#     secret_response = secret_client.access_secret_version(secret_name)
-#     DC_API_KEY = secret_response.payload.data.decode('UTF-8')
-
 # --------------------------------- CONSTANTS ---------------------------------
 
 # REST API endpoint paths
@@ -88,9 +76,8 @@ _MAX_LIMIT = 100
 
 def search(query_text, max_results):
     req_url = API_ROOT + API_ENDPOINTS['search']
-    req_url += '?key={}&query={}&max_results={}'.format(
-        DC_API_KEY, urllib.parse.quote(query_text.replace(',', ' ')),
-        max_results)
+    req_url += '?query={}&max_results={}'.format(
+        urllib.parse.quote(query_text.replace(',', ' ')), max_results)
     response = requests.get(req_url)
     if response.status_code != 200:
         raise ValueError(
@@ -381,7 +368,7 @@ def get_place_obs(place_type,
 def query(query_string):
     # Get the API Key and perform the POST request.
     logging.info("[ Mixer Request ]: query")
-    headers = {'x-api-key': DC_API_KEY, 'Content-Type': 'application/json'}
+    headers = {'Content-Type': 'application/json'}
     req_url = API_ROOT + API_ENDPOINTS['query']
     response = requests.post(req_url,
                              json={'sparql': query_string},
@@ -425,7 +412,7 @@ def send_request(req_url,
     Returns:
       The payload returned by sending the POST/GET request formatted as a dict.
     """
-    headers = {'x-api-key': DC_API_KEY, 'Content-Type': 'application/json'}
+    headers = {'Content-Type': 'application/json'}
     logging.info("Send request to %s", req_url)
 
     # Send the request and verify the request succeeded
