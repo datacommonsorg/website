@@ -17,7 +17,6 @@ import json
 import random
 import re
 import time
-import logging
 
 from flask import Blueprint, request, Response, url_for
 
