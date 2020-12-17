@@ -41,3 +41,10 @@ Each node is a configured to e2-highmem-4 machine type that has 4 vCPU and 32G m
 ```bash
 ./deploy.sh <staging | prod> region
 ```
+
+## Add a new cluster
+
+```bash
+./create_cluster.sh <staging | prod> <region> <num_nodes>
+./setup_config_cluster.sh <staging | prod>
+```

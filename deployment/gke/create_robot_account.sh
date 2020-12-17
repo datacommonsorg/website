@@ -25,9 +25,4 @@ gcloud iam service-accounts create $NAME
 # Enable service account
 gcloud alpha iam service-accounts enable $SERVICE_ACCOUNT
 
-# Get the robot account key
-gcloud iam service-accounts keys create website-robot-key.json \
-    --iam-account website-robot@$PROJECT_ID.iam.gserviceaccount.com
-
-# Use the same robot account for website and mixer
-cp website-robot-key.json mixer-robot-key.json
+./download_robot_key.sh $PROJECT_ID
