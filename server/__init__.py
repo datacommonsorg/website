@@ -112,11 +112,13 @@ def create_app():
         chart_config = json.load(f)
     app.config['CHART_CONFIG'] = chart_config
 
-    secret_client = secretmanager.SecretManagerServiceClient()
-    secret_name = secret_client.secret_version_path(cfg.PROJECT, 'maps-api-key',
-                                                    '1')
-    secret_response = secret_client.access_secret_version(secret_name)
-    app.config['MAPS_API_KEY'] = secret_response.payload.data.decode('UTF-8')
+    if not cfg.TEST:
+        secret_client = secretmanager.SecretManagerServiceClient()
+        secret_name = secret_client.secret_version_path(cfg.PROJECT,
+                                                        'maps-api-key', '1')
+        secret_response = secret_client.access_secret_version(secret_name)
+        app.config['MAPS_API_KEY'] = secret_response.payload.data.decode(
+            'UTF-8')
 
     if cfg.TEST or cfg.WEBDRIVER:
         app.config['PLACEID2DCID'] = {

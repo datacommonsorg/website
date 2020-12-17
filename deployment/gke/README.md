@@ -8,7 +8,7 @@ You should have owner/editor role to perform the following tasks.
 - Update the IP address in cluster.yaml, `ip` field.
 - Update the domain in cluster.yaml `domain` field.
 - Create a GCS bucket, copy resource files (placeid2dcid.json, etc) to it and update config.yaml `gcs_bucket` field.
-- Create api key for "Maps API" and "Place API" and update config.yaml `maps_api_key` field.
+- Create api key for "Maps API" and "Place API" and put them in GCP "Secret Manager" with name `maps-api-key`.
 
 ## One Time Setup
 
