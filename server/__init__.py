@@ -68,11 +68,11 @@ def create_app():
     elif os.environ.get('FLASK_ENV') == 'minikube':
         cfg = import_string('configmodule.MinikubeConfig')()
         cfg.GCS_BUCKET = os.environ.get('GCS_BUCKET')
-        cfg.PROJECT = os.environ.get('PROJECT')
+        cfg.SECRET_PROJECT = os.environ.get('SECRET_PROJECT')
     elif os.environ.get('FLASK_ENV') == 'gke':
         cfg = import_string('configmodule.GKEConfig')()
         cfg.GCS_BUCKET = os.environ.get('GCS_BUCKET')
-        cfg.PROJECT = os.environ.get('PROJECT')
+        cfg.SECRET_PROJECT = os.environ.get('SECRET_PROJECT')
     else:
         raise ValueError("No valid FLASK_ENV is specified: %s" %
                          os.environ.get('FLASK_ENV'))
@@ -114,7 +114,7 @@ def create_app():
 
     if not cfg.TEST:
         secret_client = secretmanager.SecretManagerServiceClient()
-        secret_name = secret_client.secret_version_path(cfg.PROJECT,
+        secret_name = secret_client.secret_version_path(cfg.SECRET_PROJECT,
                                                         'maps-api-key', '1')
         secret_response = secret_client.access_secret_version(secret_name)
         app.config['MAPS_API_KEY'] = secret_response.payload.data.decode(

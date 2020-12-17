@@ -18,7 +18,7 @@ class Config:
 
 
 class ProductionConfig(Config):
-    PROJECT = 'factcheck-sandbox'
+    SECRET_PROJECT = 'factcheck-sandbox'
     API_PROJECT = 'datcom-mixer'
     API_ROOT = 'https://api.datacommons.org'
     GCS_BUCKET = 'datcom-browser-prod.appspot.com'
@@ -26,7 +26,7 @@ class ProductionConfig(Config):
 
 
 class StagingConfig(Config):
-    PROJECT = 'datcom-browser-staging'
+    SECRET_PROJECT = 'datcom-browser-staging'
     API_PROJECT = 'datcom-mixer-staging'
     API_ROOT = 'https://datacommons.endpoints.datcom-mixer-staging.cloud.goog'
     GCS_BUCKET = 'datcom-browser-staging.appspot.com'
@@ -35,7 +35,7 @@ class StagingConfig(Config):
 
 class DevelopmentConfig(Config):
     DEVELOPMENT = True
-    PROJECT = 'datcom-website-dev'
+    SECRET_PROJECT = 'datcom-website-dev'
     API_PROJECT = 'datcom-mixer-staging'
     API_ROOT = 'https://datacommons.endpoints.datcom-mixer-staging.cloud.goog'
     GCS_BUCKET = 'datcom-browser-staging.appspot.com'
@@ -52,7 +52,7 @@ class GKEConfig(Config):
 
 class WebdriverConfig(Config):
     WEBDRIVER = True
-    PROJECT = 'datcom-website-dev'
+    SECRET_PROJECT = 'datcom-website-dev'
     API_PROJECT = 'datcom-mixer-staging'
     API_ROOT = 'https://datacommons.endpoints.datcom-mixer-staging.cloud.goog'
     GCS_BUCKET = ''
