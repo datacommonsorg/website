@@ -72,7 +72,10 @@ const config = {
     extensions: [".js", ".ts", ".tsx"],
   },
   optimization: {
-    minimize: true
+    minimize: true,
+    splitChunks: {
+      chunks: 'all'
+    }
   },
   module: {
     rules: [
@@ -134,8 +137,9 @@ module.exports = (env, argv) => {
 
   // If in development, disable optimization.minimize.
   // development and production are arguments.
-  if (argv.mode === 'development' && config.optimization.minimize) {
+  if (argv.mode === 'development') {
     config.optimization.minimize = false;
+    config.optimization.splitChunks = false;
   }
 
   return config;
