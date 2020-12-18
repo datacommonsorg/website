@@ -181,11 +181,12 @@ class TimelineParams {
       }
       // if Path is provided, delete the statsVar with the same Path only
       else {
-        const idx = _.findIndex(this.statsVarNodes[statsVar].paths, function (
-          obj
-        ) {
-          return _.isEqual(obj, nodePath);
-        });
+        const idx = _.findIndex(
+          this.statsVarNodes[statsVar].paths,
+          function (obj) {
+            return _.isEqual(obj, nodePath);
+          }
+        );
         if (idx !== -1) {
           this.statsVarNodes[statsVar].paths.splice(idx, 1);
           if (this.statsVarNodes[statsVar].paths.length === 0) {

@@ -440,9 +440,9 @@ function fetchStatsData(
       apiDataPromises.push(axios.get(`/api/stats/${denom}${dcidParams}`));
     }
   }
-  const displayNamesPromise: Promise<AxiosResponse<
-    DisplayNameApiResponse
-  >> = axios.get(`/api/place/displayname${dcidParams}`);
+  const displayNamesPromise: Promise<
+    AxiosResponse<DisplayNameApiResponse>
+  > = axios.get(`/api/place/displayname${dcidParams}`);
 
   // create list of promises containing apiDataPromises followed by displayNamesPromise
   const apiPromises: Promise<AxiosResponse<any>>[] = [];

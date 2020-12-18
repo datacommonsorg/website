@@ -110,7 +110,7 @@ class ChoroplethMap extends Component<PropsType, StateType> {
     valueUrl += buildChoroplethParams(["geoDcid", "statVar", "level"]);
     if (geoName) {
       const searchParams = new URLSearchParams(window.location.search);
-      updateTitle(searchParams.get("statVar"), geoName, this.state.pc);
+      updateTitle(searchParams.get("statVar"), geoName);
       showLoading();
     }
 
@@ -158,8 +158,7 @@ class ChoroplethMap extends Component<PropsType, StateType> {
     const searchParams = new URLSearchParams(window.location.search);
     updateTitle(
       searchParams.get("statVar"),
-      this.state.geoJson.properties.current_geo,
-      this.state.pc
+      this.state.geoJson.properties.current_geo
     );
     showLoading();
 
@@ -338,7 +337,7 @@ class ChoroplethMap extends Component<PropsType, StateType> {
     const currentGeo = this.state["geoJson"]["properties"]["current_geo"];
     const currentStatVar = url.searchParams.get("statVar");
     if (currentStatVar) {
-      updateTitle(currentStatVar, currentGeo, this.state.pc);
+      updateTitle(currentStatVar, currentGeo);
     } else {
       document.getElementById("heading").innerHTML = currentGeo;
       document.getElementById("hover-text-display").innerHTML =
@@ -806,11 +805,7 @@ const formatGeoValue = (geoValue: number | string, isPerCapita: boolean) => {
   }
 };
 
-const formatTitle = (
-  statVar: string,
-  geoName: string,
-  isPerCapita: boolean
-): string => {
+const formatTitle = (statVar: string, geoName: string): string => {
   const pieces = statVar.split("_");
   let statVarName = pieces.join(" ");
   for (const key in NAME_REPLACEMENT_DICT) {
@@ -819,16 +814,8 @@ const formatTitle = (
   return statVarName + " in " + geoName;
 };
 
-const updateTitle = (
-  statVar: string,
-  geoName: string,
-  isPerCapita: boolean
-): void => {
-  document.getElementById("heading").innerHTML = formatTitle(
-    statVar,
-    geoName,
-    isPerCapita
-  );
+const updateTitle = (statVar: string, geoName: string): void => {
+  document.getElementById("heading").innerHTML = formatTitle(statVar, geoName);
 };
 
 type DatePickerPropsType = {
