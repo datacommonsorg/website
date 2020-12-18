@@ -17,7 +17,7 @@
 jest.mock("axios");
 jest.mock("../chart/draw");
 import Enzyme, { mount } from "enzyme";
-import Adapter from "enzyme-adapter-react-16";
+import Adapter from "@wojtekmaj/enzyme-adapter-react-17";
 import React from "react";
 import axios from "axios";
 import pretty from "pretty";
