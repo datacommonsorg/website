@@ -72,9 +72,6 @@ const config = {
     extensions: [".js", ".ts", ".tsx"],
   },
   optimization: {
-    splitChunks: {
-      chunks: 'all'
-    },
     minimize: true
   },
   module: {
@@ -84,14 +81,11 @@ const config = {
         exclude: /node_modules/,
         use: {
           loader: "babel-loader?cacheDirectory=true",
-        },
+        }
       },
       {
         test: /\.(ts|tsx)$/,
         loader: "ts-loader",
-        options: {
-          transpileOnly: true
-        },
         exclude: /node_modules/,
       },
       {
@@ -139,7 +133,7 @@ const config = {
 module.exports = (env, argv) => {
 
   // If in development, disable optimization.minimize.
-  // development and production are set as env variable.
+  // development and production are arguments.
   if (argv.mode === 'development' && config.optimization.minimize) {
     config.optimization.minimize = false;
   }
