@@ -45,16 +45,13 @@ class TestRoute(unittest.TestCase):
             'County': [{
                 'dcid': 'geoId/12345',
                 'name': 'county 1',
-                'nameWithLanguage': 'county 1 en',
             }, {
                 'dcid': 'geoId/12222',
                 'name': 'county 2',
-                'nameWithLanguage': 'county 2 en',
             }],
             'City': [{
                 'dcid': 'geoId/6666666',
                 'name': 'city 1',
-                'nameWithLanguage': 'city 1 en',
             }]
         }
         mock_child_fetch.return_value = mock_response

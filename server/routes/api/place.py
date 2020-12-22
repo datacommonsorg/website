@@ -252,8 +252,7 @@ def child(dcid):
     """
     Get top child places for a place.
     """
-    locale = request.args.get('hl', default="en")
-    child_places = child_fetch(dcid, locale)
+    child_places = child_fetch(dcid)
     for place_type in child_places:
         child_places[place_type].sort(key=lambda x: x['pop'], reverse=True)
         child_places[place_type] = child_places[place_type][:CHILD_PLACE_LIMIT]
@@ -261,7 +260,7 @@ def child(dcid):
 
 
 @cache.memoize(timeout=3600 * 24)  # Cache for one day.
-def child_fetch(dcid, locale):
+def child_fetch(dcid):
     contained_response = fetch_data('/node/property-values', {
         'dcids': [dcid],
         'property': 'containedInPlace',
@@ -281,7 +280,6 @@ def child_fetch(dcid, locale):
     places = places + overlaps_response[dcid].get('in', [])
 
     dcid_str = '^'.join(sorted(map(lambda x: x['dcid'], places)))
-    places_i18_names = cached_i18n_name(dcid_str, locale)
     pop = stats_api.get_stats_latest(dcid_str, 'Count_Person')
 
     place_type = get_place_type(dcid)
@@ -295,14 +293,9 @@ def child_fetch(dcid, locale):
                 continue
             if place_type in wanted_types and place_pop > 0:
                 result[place_type].append({
-                    'name':
-                        place.get('name', place['dcid']),
-                    'nameWithLanguage':
-                        places_i18_names.get('name', place['dcid']),
-                    'dcid':
-                        place['dcid'],
-                    'pop':
-                        place_pop,
+                    'name': place.get('name', place['dcid']),
+                    'dcid': place['dcid'],
+                    'pop': place_pop,
                 })
 
     # Filter equivalent place types - if a child place occurs in multiple groups, keep it in the preferred group type.
@@ -491,7 +484,7 @@ def get_ranking_url(containing_dcid,
     return url
 
 
-@cache.memoize(timeout=3600 * 24)  # Cache for one day.
+@cache.cached(timeout=3600 * 24, query_string=True)  # Cache for one day.
 @bp.route('/ranking/<path:dcid>')
 def api_ranking(dcid):
     """
