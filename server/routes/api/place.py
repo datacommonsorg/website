@@ -159,6 +159,10 @@ def cached_i18n_name(dcids, locale):
     fallback_lang = locale.split('-')[0] if locale.find('-') != -1 else ''
     for dcid in dcids:
         values = response[dcid].get('out')
+        # If there is no nameWithLanguage for this dcid, fall back to name.
+        if not values:
+            result[dcid] = cached_name(dcid)[dcid]
+            continue
         result[dcid] = ''
         fallback_choice = ''
         english_choice = ''
@@ -480,14 +484,18 @@ def get_ranking_url(containing_dcid,
     return url
 
 
-@cache.memoize(timeout=3600 * 24)  # Cache for one day.
+@cache.cached(timeout=3600 * 24, query_string=True)  # Cache for one day.
 @bp.route('/ranking/<path:dcid>')
 def api_ranking(dcid):
     """
     Get the ranking information for a given place.
     """
+    locale = request.args.get('hl', default="en")
     current_place_type = get_place_type(dcid)
     parents = parent_places(dcid)[dcid]
+    parents_str = '^'.join(sorted(map(lambda x: x['dcid'], parents)))
+    parent_i18_names = cached_i18n_name(parents_str, locale)
+
     selected_parents = []
     parent_names = {}
     for parent in parents:
@@ -517,6 +525,8 @@ def api_ranking(dcid):
             result[RANKING_STATS[stats_var]].append({
                 'name':
                     parent_names[parent_dcid],
+                'nameWithLanguage':
+                    parent_i18_names[parent_dcid],
                 'data':
                     data,
                 'rankingUrl':
@@ -531,6 +541,8 @@ def api_ranking(dcid):
             result[crime_statsvar[stats_var]].append({
                 'name':
                     parent_names[parent_dcid],
+                'nameWithLanguage':
+                    parent_i18_names[parent_dcid],
                 'data':
                     data,
                 'rankingUrl':

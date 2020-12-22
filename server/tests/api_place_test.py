@@ -233,6 +233,29 @@ class TestApiPlaceI18nName(unittest.TestCase):
             'geoId/06': 'CaliforniaLA'
         }
 
+        # Verify when there is no nameWithLanguage, fall back to name
+        def side_effect(url, req, compress, post):
+            if 'name' == req['property']:
+                return {
+                    'geoId/08': {
+                        'out': [{
+                            'value': 'Colorado',
+                            'provenance': 'prov2'
+                        }]
+                    }
+                }
+            elif 'nameWithLanguage' == req['property']:
+                return {"geoId/08": {}}
+            else:
+                return {req['dcids'][0]: {}}
+
+        mock_fetch_data.side_effect = side_effect
+        response = app.test_client().get('/api/place/name/i18n?dcid=geoId/08')
+        assert response.status_code == 200
+        assert json.loads(response.data) == {
+            'geoId/08': 'Colorado',
+        }
+
 
 class TestApiDisplayName(unittest.TestCase):
 
