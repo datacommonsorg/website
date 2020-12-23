@@ -350,7 +350,7 @@ def scale_series(numerator, denominator):
 
 
 @bp.route('/data/<path:dcid>')
-@cache.memoize(timeout=3600 * 24)  # Cache for one day.
+@cache.cached(timeout=3600 * 24, query_string=True)  # Cache for one day.
 def data(dcid):
     """
     Get chart spec and stats data of the landing page for a given place.
