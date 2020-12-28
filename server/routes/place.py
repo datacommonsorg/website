@@ -16,7 +16,6 @@
 import flask
 from flask import current_app
 import routes.api.place as place_api
-import logging
 
 bp = flask.Blueprint('place', __name__, url_prefix='/place')
 
@@ -43,11 +42,6 @@ def place(place_dcid=None):
 
     place_type = place_api.get_place_type(place_dcid)
     place_names = place_api.get_i18n_name([place_dcid], locale)
-    logging.info("+++++++++++++++++++++++++++++++++++++++++++")
-    logging.info(place_type)
-    logging.info(place_dcid)
-    logging.info(dcid)
-    logging.info(place_names)
     if place_names:
         place_name = place_names[place_dcid]
     else:
