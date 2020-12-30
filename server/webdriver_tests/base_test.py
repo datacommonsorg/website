@@ -46,7 +46,7 @@ class WebdriverBaseTest(LiveServerTestCase):
         chrome_options.add_argument('--disable-dev-shm-usage')
 
         # Maximum time, in seconds, before throwing a TimeoutException.
-        self.TIMEOUT_SEC = 15
+        self.TIMEOUT_SEC = 60
 
         # If flag is enabled, connect to Selenium Grid.
         if PYTEST_PARALLEL:
