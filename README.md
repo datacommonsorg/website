@@ -116,6 +116,7 @@ sudo chmod +x /usr/bin/chromedriver
 
 Note: Make sure that your ChromeDriver version is compatible with your local Google Chrome version.
 You can change view the lastet ChromeDriver version [here](https://chromedriver.storage.googleapis.com/LATEST_RELEASE).
+Also make sure PATH is updated with ChromeDriver location.
 
 #### Run all tests
 
