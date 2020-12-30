@@ -31,7 +31,7 @@ class TestPlaceExplorer(WebdriverBaseTest):
 
     def test_page_serve_usa(self):
         """Test the place explorer page for USA can be loaded successfullly."""
-        TITLE_TEXT = "United States - Place Explorer - Data Commons"
+        TITLE_TEXT = "United States of America - Place Explorer - Data Commons"
         PLACE_TYPE_TEXT = "A Country in North America"
 
         # Load USA page.
