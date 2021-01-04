@@ -18,7 +18,7 @@ import json
 import collections
 from google.cloud import secretmanager
 
-API_ROOT = 'https://datacommons.endpoints.datcom-mixer-staging.cloud.goog'
+API_ROOT = 'https://mixer.endpoints.datcom-mixer-staging.cloud.goog'
 
 
 def get_sv_dcids():

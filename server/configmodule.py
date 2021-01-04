@@ -28,7 +28,7 @@ class ProductionConfig(Config):
 class StagingConfig(Config):
     SECRET_PROJECT = 'datcom-browser-staging'
     API_PROJECT = 'datcom-mixer-staging'
-    API_ROOT = 'https://datacommons.endpoints.datcom-mixer-staging.cloud.goog'
+    API_ROOT = 'https://mixer.endpoints.datcom-mixer-staging.cloud.goog'
     GCS_BUCKET = 'datcom-browser-staging.appspot.com'
     GA_ACCOUNT = 'UA-117119267-2'
 
@@ -37,7 +37,7 @@ class DevelopmentConfig(Config):
     DEVELOPMENT = True
     SECRET_PROJECT = 'datcom-website-dev'
     API_PROJECT = 'datcom-mixer-staging'
-    API_ROOT = 'https://datacommons.endpoints.datcom-mixer-staging.cloud.goog'
+    API_ROOT = 'https://mixer.endpoints.datcom-mixer-staging.cloud.goog'
     GCS_BUCKET = 'datcom-browser-staging.appspot.com'
 
 
@@ -54,7 +54,7 @@ class WebdriverConfig(Config):
     WEBDRIVER = True
     SECRET_PROJECT = 'datcom-website-dev'
     API_PROJECT = 'datcom-mixer-staging'
-    API_ROOT = 'https://datacommons.endpoints.datcom-mixer-staging.cloud.goog'
+    API_ROOT = 'https://mixer.endpoints.datcom-mixer-staging.cloud.goog'
     GCS_BUCKET = ''
 
 
