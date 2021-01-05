@@ -25,8 +25,6 @@ bp = flask.Blueprint('place', __name__, url_prefix='/place')
 def place(place_dcid=None):
     dcid = flask.request.args.get('dcid', None)
     topic = flask.request.args.get('topic', None)
-    # TODO(hanluc): Also use request.accept_languages.best_match()
-    locale = flask.request.args.get('hl', 'en')
     if dcid:
         url = flask.url_for('place.place',
                             place_dcid=dcid,
@@ -41,7 +39,7 @@ def place(place_dcid=None):
             maps_api_key=current_app.config['MAPS_API_KEY'])
 
     place_type = place_api.get_place_type(place_dcid)
-    place_names = place_api.get_i18n_name([place_dcid], locale)
+    place_names = place_api.get_i18n_name([place_dcid])
     if place_names:
         place_name = place_names[place_dcid]
     else:
