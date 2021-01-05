@@ -22,7 +22,7 @@ import React from "react";
 import ReactDOM from "react-dom";
 
 import { Page } from "./page";
-import { SCHEMA_MAPPING, SAMPLE_QUERY } from "./constants";
+import { input } from "./constants";
 
 /**
  * Update translation results when schema mapping or query changes.
@@ -30,8 +30,8 @@ import { SCHEMA_MAPPING, SAMPLE_QUERY } from "./constants";
 window.onload = function () {
   ReactDOM.render(
     React.createElement(Page, {
-      sparql: SAMPLE_QUERY,
-      mapping: SCHEMA_MAPPING,
+      mapping: input.place.mapping,
+      sparql: input.place.sparql,
     }),
     document.getElementById("translator")
   );

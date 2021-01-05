@@ -1,4 +1,9 @@
-node_modules
-__pycache__
+**/node_modules
+
+**/dist
+**/__pycache__
+**/.pytest_cache
 .pytest_cache
-dist
+
+.git
+.env

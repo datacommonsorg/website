@@ -18,22 +18,13 @@ import json
 import collections
 from google.cloud import secretmanager
 
-API_ROOT = 'https://datacommons.endpoints.datcom-mixer-staging.cloud.goog'
-
-
-def get_api_key():
-    secret_client = secretmanager.SecretManagerServiceClient()
-    secret_name = secret_client.secret_version_path('datcom-mixer-staging',
-                                                    'mixer-api-key', '1')
-    secret_response = secret_client.access_secret_version(secret_name)
-    DC_API_KEY = secret_response.payload.data.decode('UTF-8')
-    return DC_API_KEY
+API_ROOT = 'https://mixer.endpoints.datcom-mixer-staging.cloud.goog'
 
 
 def get_sv_dcids():
     req_url = API_ROOT + "/query"
     query_str = "SELECT ?a WHERE {?a typeOf StatisticalVariable}"
-    headers = {'x-api-key': get_api_key(), 'Content-Type': 'application/json'}
+    headers = {'Content-Type': 'application/json'}
     response = requests.post(req_url,
                              json={'sparql': query_str},
                              headers=headers,
@@ -68,7 +59,7 @@ def send_request(req_url, req_json={}, compress=False, post=True):
     Returns:
       The payload returned by sending the POST/GET request formatted as a dict.
     """
-    headers = {'x-api-key': get_api_key(), 'Content-Type': 'application/json'}
+    headers = {'Content-Type': 'application/json'}
 
     # Send the request and verify the request succeeded
     if post:
