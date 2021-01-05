@@ -25,6 +25,8 @@ bp = flask.Blueprint('place', __name__, url_prefix='/place')
 def place(place_dcid=None):
     dcid = flask.request.args.get('dcid', None)
     topic = flask.request.args.get('topic', None)
+    # TODO(hanluc): Also use request.accept_languages.best_match()
+    locale = flask.request.args.get('hl', 'en')
     if dcid:
         url = flask.url_for('place.place',
                             place_dcid=dcid,

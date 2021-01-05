@@ -131,8 +131,8 @@ def api_name():
     return Response(json.dumps(result), 200, mimetype='application/json')
 
 
-@cache.memoize(timeout=3600 * 24)  # Cache for one day.
-def cached_i18n_name(dcids, locale):
+@cache.cached(timeout=3600 * 24, query_string=True)  # Cache for one day.
+def cached_i18n_name(dcids, locale="en"):
     """Returns localization names for set of dcids.
 
     Args:
@@ -257,6 +257,7 @@ def child(dcid):
     return Response(json.dumps(child_places), 200, mimetype='application/json')
 
 
+# TODO(hanlu): get nameWithLanguage instead of using name.
 @cache.memoize(timeout=3600 * 24)  # Cache for one day.
 def child_fetch(dcid):
     contained_response = fetch_data('/node/property-values', {
@@ -590,17 +591,18 @@ def get_state_code(dcids):
 
 
 @cache.memoize(timeout=3600 * 24)  # Cache for one day.
-def get_display_name(dcids):
+def get_display_name(dcids, locale="en"):
     """ Get display names for a list of places. Display name is place name with state code
     if it has a parent place that is a state.
 
     Args:
         dcids: ^ separated string of dcids. It must be a single string for the cache.
+        locale: the desired localization language code.
 
     Returns:
         A dictionary of display names, keyed by dcid.
     """
-    place_names = cached_name(dcids)
+    place_names = cached_i18n_name(dcids, locale)
     parents = parent_places(dcids)
     dcids = dcids.split('^')
     result = {}
@@ -630,5 +632,6 @@ def api_display_name():
     Get display names for a list of places.
     """
     dcids = request.args.getlist('dcid')
-    result = get_display_name('^'.join((sorted(dcids))))
+    locale = request.args.get('hl', default="en")
+    result = get_display_name('^'.join((sorted(dcids))), locale)
     return Response(json.dumps(result), 200, mimetype='application/json')
