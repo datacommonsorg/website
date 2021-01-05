@@ -51,26 +51,25 @@ function getStatsVarInfo(
   });
 }
 
-function getStatsVar(dcids: string[]): Promise<Set<string>> {
+/**
+ * Returns the union of all statvars available for the given places.
+ * @param dcids
+ * @param sample Whether to sample `sampleSize` places from the given places, and only
+ * get the statvars for them.
+ * @param sampleSize
+ */
+async function getStatsVar(
+  dcids: string[],
+  sample = false,
+  sampleSize = 50
+): Promise<Set<string>> {
   if (dcids.length === 0) {
     return Promise.resolve(new Set<string>());
   }
-  const promises = [];
-  // ToDo: read the set of statsVars available for multiple dcids from server side
-  for (const dcid of dcids) {
-    promises.push(
-      axios.get("/api/place/statsvars/" + dcid).then((resp) => {
-        return resp.data;
-      })
-    );
-  }
-  return Promise.all(promises).then((values) => {
-    let statsVars = new Set();
-    for (const value of values) {
-      statsVars = new Set([...Array.from(statsVars), ...value]);
-    }
-    return statsVars;
-  }) as Promise<Set<string>>;
+  const resp = await axios.post("/api/place/stat-vars/union", {
+    dcids: sample ? _.sampleSize(dcids, sampleSize).sort() : dcids,
+  });
+  return new Set<string>(resp.data);
 }
 
 const placeSep = ",";

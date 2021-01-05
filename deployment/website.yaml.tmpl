@@ -1,0 +1,76 @@
+# Copyright 2020 Google LLC
+#
+# Licensed under the Apache License, Version 2.0 (the "License");
+# you may not use this file except in compliance with the License.
+# You may obtain a copy of the License at
+#
+#     https://www.apache.org/licenses/LICENSE-2.0
+#
+# Unless required by applicable law or agreed to in writing, software
+# distributed under the License is distributed on an "AS IS" BASIS,
+# WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+# See the License for the specific language governing permissions and
+# limitations under the License.
+
+# Mixer service backend
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: website-app
+  namespace: website
+  labels:
+    app: website-app
+spec:
+  replicas: <REPLICAS>
+  strategy:
+      type: RollingUpdate
+      rollingUpdate:
+        # maximum number of Pods that can be created over the desired number of Pods
+        maxSurge: 1
+        # maximum number of Pods that can be unavailable during the update process
+        maxUnavailable: 25%
+  selector:
+    matchLabels:
+      app: website-app
+  template:
+    metadata:
+      labels:
+        app: website-app
+    spec:
+      volumes:
+        - name: website-robot-key
+          secret:
+            secretName: website-robot-key
+      containers:
+        - name: website
+          image: <WEBSITE_IMAGE>
+          imagePullPolicy: <WEBSITE_PULL_POLICY>
+          resources:
+            requests:
+              memory: <WEBSITE_MEM_REQ>
+              cpu: <WEBSITE_CPU_REQ>
+            limits:
+              memory: <WEBSITE_MEM_LIMIT>
+              cpu: <WEBSITE_CPU_LIMIT>
+          args: []
+          ports:
+            - containerPort: 8080
+          readinessProbe:
+            httpGet:
+              path: /healthz
+              port: 8080
+            failureThreshold: 1
+            periodSeconds: 10
+          volumeMounts:
+            - name: website-robot-key
+              mountPath: /var/secrets/google
+          env:
+            - name: GOOGLE_APPLICATION_CREDENTIALS
+              value: /var/secrets/google/website-robot-key.json
+            - name: FLASK_ENV
+              value: <FLASK_ENV>
+            - name: GCS_BUCKET
+              value: <GCS_BUCKET>
+            # This is the GCP project that holds the secrets: api key, etc...
+            - name: SECRET_PROJECT
+              value: <SECRET_PROJECT>
