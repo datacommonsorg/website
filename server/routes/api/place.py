@@ -194,11 +194,7 @@ def extract_locale_name(entry, locale):
         return ''
 
 
-<<<<<<< HEAD
 def get_i18n_name(dcids):
-=======
-def get_i18n_name(dcids, locale="en"):
->>>>>>> 80ed172ebca99b08e4f941741563f86c83c8d2fc
     """"Returns localization names for set of dcids.
 
     Args:
