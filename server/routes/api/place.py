@@ -18,7 +18,7 @@ import random
 import re
 import time
 
-from flask import Blueprint, request, Response, url_for
+from flask import Blueprint, request, Response, url_for, g
 
 from cache import cache
 import services.datacommons as dc
@@ -194,25 +194,23 @@ def extract_locale_name(entry, locale):
         return ''
 
 
-def get_i18n_name(dcids, locale):
+def get_i18n_name(dcids):
     """"Returns localization names for set of dcids.
 
     Args:
         dcids: A list of place dcids.
-        locale: the desired localization language code.
 
     Returns:
         A dictionary of  place names, keyed by dcid.
     """
-    return cached_i18n_name('^'.join((sorted(dcids))), locale)
+    return cached_i18n_name('^'.join((sorted(dcids))), g.locale)
 
 
 @bp.route('/name/i18n')
 def api_i18n_name():
     """Get place i18n names."""
     dcids = request.args.getlist('dcid')
-    locale = request.args.get('hl', default="en")
-    result = get_i18n_name(dcids, locale)
+    result = get_i18n_name(dcids)
     return Response(json.dumps(result), 200, mimetype='application/json')
 
 
