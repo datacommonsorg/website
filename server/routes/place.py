@@ -41,11 +41,7 @@ def place(place_dcid=None):
             maps_api_key=current_app.config['MAPS_API_KEY'])
 
     place_type = place_api.get_place_type(place_dcid)
-<<<<<<< HEAD
     place_names = place_api.get_i18n_name([place_dcid])
-=======
-    place_names = place_api.get_i18n_name([place_dcid], locale)
->>>>>>> 80ed172ebca99b08e4f941741563f86c83c8d2fc
     if place_names:
         place_name = place_names[place_dcid]
     else:
