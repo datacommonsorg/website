@@ -268,6 +268,9 @@ class TestApiDisplayName(unittest.TestCase):
         us_state_parent = 'parent1'
         us_country_parent = 'parent2'
         cad_state_parent = 'parent3'
+        dcid1_en = 'dcid1@en'
+        dcid2_en = 'dcid2@en'
+        dcid3_en = 'dcid3@en'
 
         def side_effect(url, req, compress, post):
             if 'containedInPlace' == req['property']:
@@ -310,21 +313,21 @@ class TestApiDisplayName(unittest.TestCase):
                         'out': []
                     }
                 }
-            elif 'name' == req['property']:
+            elif 'nameWithLanguage' == req['property']:
                 return {
                     dcid1: {
                         'out': [{
-                            'value': dcid1
+                            'value': dcid1_en
                         }]
                     },
                     dcid2: {
                         'out': [{
-                            'value': dcid2
+                            'value': dcid2_en
                         }]
                     },
                     dcid3: {
                         'out': [{
-                            'value': dcid3
+                            'value': dcid3_en
                         }]
                     },
                 }
