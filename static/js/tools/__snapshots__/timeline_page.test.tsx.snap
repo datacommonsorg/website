@@ -2,7 +2,7 @@
 
 exports[`Single place and single stats var 1`] = `
 "<div class=\\"card\\"><span class=\\"chartPerCapita\\">Per capita<button class=\\"perCapitaCheckbox\\"></button><a href=\\"/faq#perCapita\\"><span> *</span></a></span>
-  <div class=\\"chart-svg\\"></div>
+  <div class=\\"chart-svg\\"><svg width=\\"500\\" height=\\"500\\"><text>svg text</text></svg></div>
   <div class=\\"statsVarChipRegion\\">
     <div class=\\"pv-chip mdl-chip--deletable\\"><span class=\\"mdl-chip__text\\">Median age</span><button class=\\"mdl-chip__action\\"><i class=\\"material-icons\\">cancel</i></button></div>
   </div>
@@ -41,7 +41,7 @@ exports[`Single place and single stats var 3`] = `
 
 exports[`chart options 1`] = `
 "<div class=\\"card\\"><span class=\\"chartPerCapita\\">Per capita<button class=\\"perCapitaCheckbox checked\\"></button><a href=\\"/faq#perCapita\\"><span> *</span></a></span>
-  <div class=\\"chart-svg\\"></div>
+  <div class=\\"chart-svg\\"><svg width=\\"500\\" height=\\"500\\"><text>svg text</text></svg></div>
   <div class=\\"statsVarChipRegion\\">
     <div class=\\"pv-chip mdl-chip--deletable\\"><span class=\\"mdl-chip__text\\">Median age</span><button class=\\"mdl-chip__action\\"><i class=\\"material-icons\\">cancel</i></button></div>
   </div>

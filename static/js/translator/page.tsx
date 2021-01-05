@@ -19,6 +19,7 @@ import React from "react";
 import axios from "axios";
 
 import { Binding, Constraint, Translation } from "./translation";
+import { input } from "./constants";
 
 interface PagePropType {
   mapping: string;
@@ -32,15 +33,24 @@ interface PageStateType {
 }
 
 export class Page extends React.Component<PagePropType, PageStateType> {
-  sparql: string;
-  mapping: string;
-  delayTimer: NodeJS.Timeout;
+  private sparql: string;
+  private mapping: string;
+  private delayTimer: NodeJS.Timeout;
+  private mappingInputElem: React.RefObject<HTMLTextAreaElement>;
+  private sparqlInputElem: React.RefObject<HTMLTextAreaElement>;
+  private defaultRadioElem: React.RefObject<HTMLInputElement>;
+
   constructor(props: PagePropType) {
     super(props);
     this.handleSparqlChange = this.handleSparqlChange.bind(this);
     this.handleMappingChange = this.handleMappingChange.bind(this);
+    this.onModeChange = this.onModeChange.bind(this);
     this.sparql = this.props.sparql;
     this.mapping = this.props.mapping;
+    this.mappingInputElem = React.createRef();
+    this.sparqlInputElem = React.createRef();
+    this.defaultRadioElem = React.createRef();
+
     this.state = {
       sql: "",
       bindings: [],
@@ -60,8 +70,17 @@ export class Page extends React.Component<PagePropType, PageStateType> {
     this.delayTimer = setTimeout(this.updateTranslation.bind(this), 1000);
   }
 
+  onModeChange(event: React.ChangeEvent<HTMLInputElement>): void {
+    this.mappingInputElem.current.value = input[event.target.value].mapping;
+    this.sparqlInputElem.current.value = input[event.target.value].sparql;
+    this.mapping = input[event.target.value].mapping;
+    this.sparql = input[event.target.value].sparql;
+    this.updateTranslation();
+  }
+
   componentDidMount(): void {
     this.updateTranslation();
+    this.defaultRadioElem.current.checked = true;
   }
 
   render(): JSX.Element {
@@ -69,10 +88,39 @@ export class Page extends React.Component<PagePropType, PageStateType> {
       <div className="container">
         <h1>Schema Translator</h1>
         <h5>Enter Schema Mapping and Graph Query</h5>
-        <div id="input-box" className="row mt-5">
+        <form>
+          <label id="select-input">
+            <input
+              type="radio"
+              value="place"
+              name="mode"
+              onChange={this.onModeChange}
+              ref={this.defaultRadioElem}
+            />
+            Place Observation
+            <br />
+            <input
+              type="radio"
+              value="sv"
+              name="mode"
+              onChange={this.onModeChange}
+            />
+            Statistical Variable
+            <br />
+            <input
+              type="radio"
+              value="all"
+              name="mode"
+              onChange={this.onModeChange}
+            />{" "}
+            All
+          </label>
+        </form>
+        <div id="input-box" className="row">
           <div className="input-box-content col-6">
             <h6>Schema Mapping</h6>
             <textarea
+              ref={this.mappingInputElem}
               id="mapping"
               onChange={this.handleMappingChange}
               defaultValue={this.props.mapping}
@@ -81,6 +129,7 @@ export class Page extends React.Component<PagePropType, PageStateType> {
           <div className="input-box-content col-6">
             <h6>Graph Query</h6>
             <textarea
+              ref={this.sparqlInputElem}
               id="query"
               onChange={this.handleSparqlChange}
               defaultValue={this.props.sparql}
