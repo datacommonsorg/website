@@ -457,6 +457,40 @@ function getTriples(dcid) {
   return axios.get(`/api/browser/triples/${dcid}`).then((resp) => resp.data);
 }
 
+/*
+ * Trims arcs for a given predicate past the given limit.
+ *
+ * @param {string} dcid The DCID of the node.
+ * @param {string} predicate The predicate whose values are to be trimmed.
+ * @param {!Iterable} outArcs The out arc triples.
+ *
+ * @return {!Iterable} Trimmed out arc triples.
+ */
+function trimArcsForPredicate(dcid, predicate, maxValues, outArcs) {
+  const nArcs = outArcs.reduce((n, p) => {
+    if (p["predicate"] == predicate) {
+      n++;
+    }
+    return n;
+  }, 0);
+
+  // Trim values past count.
+  var numSeen = 0;
+  outArcs = outArcs.filter(
+      (p) => !(p["predicate"] == predicate && ++numSeen > maxValues));
+
+  // If trimmed, add an indicator.
+  if (nArcs > maxValues) {
+    const extra = (nArcs - maxValues).toString();
+    outArcs.push({
+      "subjectId": dcid,
+      "predicate": predicate,
+      "objectValue": "(... " + extra + " more ...)",
+    });
+  }
+  return outArcs;
+}
+
 /**
  * Render KG page.
  *
@@ -974,6 +1008,10 @@ window.onload = () => {
       p["src"] = provDomain[p["provenanceId"]];
       return p;
     });
+
+    // Trim "nameWithLanguage" arcs.
+    // TODO: Add an option to expand and see the trimmed values.
+    outArcs = trimArcsForPredicate(dcid, "nameWithLanguage", 10, outArcs);
 
     const outArcsMap = util.getOutArcsMap(triples, dcid);
     const type = util.getType(triples, dcid);
