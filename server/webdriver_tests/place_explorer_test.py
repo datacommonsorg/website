@@ -59,7 +59,7 @@ class TestPlaceExplorer(WebdriverBaseTest):
 
         # Assert place title is correct.
         title = self.driver.find_element_by_id("place-name")
-        self.assertEqual("United States", title.text)
+        self.assertEqual("United States of America", title.text)
 
         # Assert place type is correct.
         subtitle = self.driver.find_element_by_id("place-type")

@@ -16,15 +16,18 @@
 import flask
 import routes.api.place as place_api
 
+from flask import request
+
 bp = flask.Blueprint('ranking', __name__, url_prefix='/ranking')
 
 
 @bp.route('/<stat_var>/<place_type>', strict_slashes=False)
 @bp.route('/<stat_var>/<place_type>/<path:place_dcid>')
 def ranking(stat_var, place_type, place_dcid=''):
+    locale = request.args.get('hl', default="en")
     place_name = ''
     if place_dcid:
-        place_names = place_api.get_name([place_dcid])
+        place_names = place_api.get_i18n_name([place_dcid], locale)
         place_name = place_names[place_dcid]
         if place_name == '':
             place_name = place_dcid
