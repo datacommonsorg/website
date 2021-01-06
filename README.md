@@ -146,20 +146,6 @@ Start the flask webserver locally at localhost:8080
 ./run_server.sh
 ```
 
-#### Start the Go Server
-
-Install "Air" for Go server auto reload
-
-```bash
-go get -u github.com/cosmtrek/air
-```
-
-Start the Go webserver locally at localhost:7070
-
-```bash
-air
-```
-
 #### Start the server using Docker
 
 Another way to start the server locally is to use Docker.
