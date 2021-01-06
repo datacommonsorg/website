@@ -2,16 +2,20 @@ import argparse
 import smtplib
 from google.cloud import secretmanager
 
-
 arg_parser = argparse.ArgumentParser()
-arg_parser.add_argument(
-  '--email', help='Receiver email', type=str, required=True)
-arg_parser.add_argument(
-  '--short_sha', help='Commit short sha', type=str, required=True)
-arg_parser.add_argument(
-  '--pull_request', help='Id of pull request', type=str, required=True)
+arg_parser.add_argument('--email',
+                        help='Receiver email',
+                        type=str,
+                        required=True)
+arg_parser.add_argument('--short_sha',
+                        help='Commit short sha',
+                        type=str,
+                        required=True)
+arg_parser.add_argument('--pull_request',
+                        help='Id of pull request',
+                        type=str,
+                        required=True)
 args = vars(arg_parser.parse_args())
-
 
 port = 587  # For SSL
 sender_email = 'datacommonsorg@gmail.com'
@@ -23,13 +27,8 @@ message = """\
 Subject: Screenshots from {}/{}/commits/{}
 
 The screenshots can be found in this url: {}/{}
-""".format(
-  repo_prefix,
-  args['pull_request'],
-  args['short_sha'],
-  website_prefix,
-  args['short_sha']
-)
+""".format(repo_prefix, args['pull_request'], args['short_sha'], website_prefix,
+           args['short_sha'])
 
 secret_client = secretmanager.SecretManagerServiceClient()
 secret_name = secret_client.secret_version_path('datcom-ci', 'gmailpw', '3')
