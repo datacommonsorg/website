@@ -156,7 +156,6 @@ class TestCharts(WebdriverBaseTest):
         first_result.click()
 
         # Type USA into the search box.
-        search_box_input.clear()
         search_box_input.send_keys(PLACE_SEARCH_USA)
 
         # Wait until there is at least one result in autocomplete results.

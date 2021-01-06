@@ -106,8 +106,6 @@ def cached_name(dcids):
                           post=True)
     result = {}
     for dcid in dcids:
-        if not dcid:
-            continue
         values = response[dcid].get('out')
         result[dcid] = values[0]['value'] if values else ''
     return result
@@ -222,8 +220,10 @@ def api_i18n_name():
 @cache.memoize(timeout=3600 * 24)  # Cache for one day.
 def statsvars_route(dcid):
     """Get all the statistical variables that exist for a give place.
+
     Args:
       dcid: Place dcid.
+
     Returns:
       A list of statistical variable dcids.
     """
@@ -244,40 +244,6 @@ def statsvars(dcid):
                           post=False,
                           has_payload=False)
     return response['places'][dcid].get('statsVars', [])
-
-
-@cache.memoize(timeout=3600 * 24)  # Cache for one day.
-def get_stat_vars_union(dcids):
-    """Get all the statistical variable dcids for some places.
-
-    Args:
-        dcids: Place DCIDs separated by "^" as a single string.
-
-    Returns:
-        List of unique statistical variable dcids each as a string.
-    """
-    dcids = dcids.split("^")
-    # The two indexings are due to how protobuf fields are converted to json
-    return fetch_data('/place/stat-vars/union', {
-        'dcids': dcids,
-    },
-                      compress=False,
-                      post=True,
-                      has_payload=False)['statVars']['statVars']
-
-
-@bp.route('/stat-vars/union', methods=['POST'])
-def get_stat_vars_union_route():
-    """Get all the statistical variables that exist for some places.
-
-    Returns:
-        List of unique statistical variable dcids each as a string.
-    """
-    dcids = sorted(request.json.get('dcids', []))
-
-    return Response(json.dumps(get_stat_vars_union("^".join(dcids))),
-                    200,
-                    mimetype='application/json')
 
 
 @bp.route('/child/<path:dcid>')
@@ -671,37 +637,3 @@ def api_display_name():
     locale = request.args.get('hl', default="en")
     result = get_display_name('^'.join((sorted(dcids))), locale)
     return Response(json.dumps(result), 200, mimetype='application/json')
-
-
-@bp.route('/places-in')
-@cache.cached(timeout=3600 * 24, query_string=True)  # Cache for one day.
-def get_places_in():
-    """Gets DCIDs of places of a certain type contained in some places.
-    
-    Sends the request to the Data Commons "/node/places-in" API.
-    See https://docs.datacommons.org/api/rest/place_in.html.
-
-    Returns:
-        Dict keyed by parent DCIDs with lists of child place DCIDs as values.
-    """
-    dcids = request.args.getlist("dcid")
-    place_type = request.args.get("placeType")
-    return Response(json.dumps(dc.get_places_in(dcids, place_type)),
-                    200,
-                    mimetype='application/json')
-
-
-@bp.route('/places-in-names')
-@cache.cached(timeout=3600 * 24, query_string=True)  # Cache for one day.
-def get_places_in_names():
-    """Gets names of places of a certain type contained in a place.
-
-    Returns:
-        Dicts keyed by child place DCIDs with their names as values.
-    """
-    dcid = request.args.get("dcid")
-    place_type = request.args.get("placeType")
-    child_places = dc.get_places_in([dcid], place_type)[dcid]
-    return Response(json.dumps(get_name(child_places)),
-                    200,
-                    mimetype='application/json')

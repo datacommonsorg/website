@@ -58,8 +58,8 @@ def clearcacheaction():
         cfg = None
         flask.abort(500, 'clear cache not working for env %s' % env)
     secret_client = secretmanager.SecretManagerServiceClient()
-    secret_name = secret_client.secret_version_path(cfg.SECRET_PROJECT,
-                                                    'clearcache', '1')
+    secret_name = secret_client.secret_version_path(cfg.PROJECT, 'clearcache',
+                                                    '1')
     secret_response = secret_client.access_secret_version(secret_name)
     token = secret_response.payload.data.decode('UTF-8')
     if user_input == token:
