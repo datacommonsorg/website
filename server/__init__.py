@@ -16,7 +16,7 @@ import json
 import logging
 import os
 
-from flask import Flask, request
+from flask import Flask, request, g
 from flask_babel import Babel
 from google.cloud import storage
 from werkzeug.utils import import_string
@@ -131,9 +131,14 @@ def create_app():
     app.config['BABEL_DEFAULT_LOCALE'] = 'en'
     app.config['BABEL_TRANSLATION_DIRECTORIES'] = 'l10n'
 
+    @app.before_request
+    def before_request():
+        # TODO(beets): Also use request.accept_languages.best_match()
+        g.locale = request.args.get('hl', 'en')
+
     @babel.localeselector
     def get_locale():
         # TODO(beets): Also use request.accept_languages.best_match()
-        return request.args.get('hl', 'en')
+        return g.locale
 
     return app
