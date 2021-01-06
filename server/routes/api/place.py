@@ -593,7 +593,7 @@ def get_state_code(dcids):
 
 
 @cache.memoize(timeout=3600 * 24)  # Cache for one day.
-def get_display_name(dcids, locale="en"):
+def get_display_name(dcids, locale="jp"):
     """ Get display names for a list of places. Display name is place name with state code
     if it has a parent place that is a state.
 
