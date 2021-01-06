@@ -25,7 +25,6 @@ import * as d3 from "d3";
 export function axios_mock(): void {
   // Mock all the async axios call.
   axios.get = jest.fn();
-  axios.post = jest.fn();
 
   // get hierachy.json
   when(axios.get)
@@ -62,8 +61,8 @@ export function axios_mock(): void {
     });
 
   // get place stats vars, geoId/05
-  when(axios.post)
-    .calledWith("/api/place/stat-vars/union", { dcids: ["geoId/05"] })
+  when(axios.get)
+    .calledWith("/api/place/statsvars/geoId/05")
     .mockResolvedValue({
       data: ["Count_Person", "Median_Age_Person", "NotInTheTree"],
     });

@@ -19,14 +19,3 @@ dist/
 tmp/
 
 .air.toml
-
-website-robot-key.json
-mixer-robot-key.json
-
-# Kubernetes
-**/deployment.yaml
-**/endpoints.yaml
-mci.yaml
-
-mixer-grpc.latest.pb
-

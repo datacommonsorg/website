@@ -74,11 +74,6 @@ def search():
     return flask.render_template('search.html')
 
 
-@app.route('/healthz')
-def healthz():
-    return "very healthy"
-
-
 @app.route('/search_dc')
 def search_dc():
     """Add DC API powered search for non-place searches temporarily"""

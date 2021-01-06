@@ -54,8 +54,7 @@
     "typescript": "^3.9.7",
     "webpack": "^4.44.1",
     "webpack-cli": "^3.3.12",
-    "webpack-fix-style-only-entries": "^0.5.1",
-    "webpack-shell-plugin": "^0.5.0"
+    "webpack-fix-style-only-entries": "^0.5.1"
   },
   "devDependencies": {
     "@babel/polyfill": "^7.11.5",

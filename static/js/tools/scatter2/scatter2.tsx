@@ -14,13 +14,5 @@
  * limitations under the License.
  */
 
-import React from "react";
-import ReactDOM from "react-dom";
-import { AppWithContext } from "./app";
-
-window.onload = () => {
-  ReactDOM.render(
-    React.createElement(AppWithContext),
-    document.getElementById("main-pane")
-  );
-};
+// TODO(intrepiditee)
+alert("Not implemented!");
