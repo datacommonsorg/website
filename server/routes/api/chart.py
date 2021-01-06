@@ -25,7 +25,7 @@ import routes.api.choropleth as choropleth_api
 import routes.api.landing_page as landing_page_api
 
 from cache import cache
-from flask import Blueprint, current_app, request, Response
+from flask import Blueprint, current_app, request, Response, g
 from routes.api.place import EQUIVALENT_PLACE_TYPES
 # Define blueprint
 bp = Blueprint("api_chart", __name__, url_prefix='/api/chart')
@@ -111,8 +111,7 @@ def geojson(dcid):
     if not geos:
         return Response(json.dumps({}), 200, mimetype='application/json')
 
-    locale = request.args.get('hl', default="en")
-    names_by_geo = place_api.get_display_name('^'.join(geos), locale)
+    names_by_geo = place_api.get_display_name('^'.join(geos), g.locale)
     geojson_by_geo = dc_service.get_property_values(geos, geojson_prop)
     features = []
     for geo_id, json_text in geojson_by_geo.items():
