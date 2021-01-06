@@ -13,16 +13,11 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-set -e
+PROJECT_ID=$(yq r config.yaml project)
+DOMAIN=$(yq r config.yaml domain)
 
-PROJECT_ID=$1
-NAME="website-robot"
-SERVICE_ACCOUNT="$NAME@$PROJECT_ID.iam.gserviceaccount.com"
+echo $PROJECT_ID
+gcloud config set project $PROJECT_ID
 
-# Create service account
-gcloud iam service-accounts create $NAME
-
-# Enable service account
-gcloud alpha iam service-accounts enable $SERVICE_ACCOUNT
-
-./download_robot_key.sh $PROJECT_ID
+gcloud compute ssl-certificates create website-certificate \
+    --domains=$DOMAIN --global

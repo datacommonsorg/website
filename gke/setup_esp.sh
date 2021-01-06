@@ -15,27 +15,16 @@
 
 set -e
 
-ENV=$1
-REGION=$2
+PROJECT_ID=$(yq r config.yaml project)
 
-PROJECT_ID=$(yq r ../config.yaml project.$ENV)
-../generate_yaml.sh $ENV
+SERVICE_NAME="website-esp.endpoints.$PROJECT_ID.cloud.goog"
+API_TITLE=$SERVICE_NAME
 
-gcloud config set project $PROJECT_ID
+# ESP service configuration
+yq w --style=double endpoints.yaml.tpl name $SERVICE_NAME > endpoints.yaml
+yq w -i endpoints.yaml title "$API_TITLE"
 
-# Valid argument would be: "staging", "prod"
-if [[ $ENV != "staging" ]] && [[ $ENV != "prod" ]]; then
-    echo "Invalid environment: $ENV"
-    exit
-fi
-
-if [[ $REGION == "" ]]; then
-  echo "Second argument (region) is empty"
-  exit
-fi
-
-CLUSTER_NAME="website-$REGION"
-
-gcloud container clusters get-credentials $CLUSTER_NAME --region=$REGION
-
-kubectl apply -f deployment.yaml
+## Deploy ESP configuration
+gsutil cp gs://artifacts.datcom-ci.appspot.com/mixer-grpc/mixer-grpc.latest.pb .
+gcloud endpoints services deploy mixer-grpc.latest.pb endpoints.yaml --project $PROJECT_ID
+gcloud services enable $SERVICE_NAME

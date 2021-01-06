@@ -1,10 +1,11 @@
+#!/bin/bash
 # Copyright 2020 Google LLC
 #
 # Licensed under the Apache License, Version 2.0 (the "License");
 # you may not use this file except in compliance with the License.
 # You may obtain a copy of the License at
 #
-#     https://www.apache.org/licenses/LICENSE-2.0
+#      http://www.apache.org/licenses/LICENSE-2.0
 #
 # Unless required by applicable law or agreed to in writing, software
 # distributed under the License is distributed on an "AS IS" BASIS,
@@ -12,21 +13,16 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-region:
-  staging:
-    primary: us-central1
-    others:
-      - europe-west2
-  prod:
-    primary: us-central1
-    others:
-      - europe-west2
+set -e
 
-ip:
-  staging: 35.186.255.58
-  prod: 34.120.161.85
+PROJECT_ID=$(yq r config.yaml project)
+NAME="website-robot"
+SERVICE_ACCOUNT="$NAME@$PROJECT_ID.iam.gserviceaccount.com"
 
-domain:
-  # TODO(shifucun): for testing purpose, should change to "staging.datacomons.org" when ready.
-  staging: staging.dcdctest.com
-  prod: prod.dcdctest.com
+gcloud config set project $PROJECT_ID
+
+# Create service account
+gcloud iam service-accounts create $NAME
+
+# Enable service account
+gcloud alpha iam service-accounts enable $SERVICE_ACCOUNT

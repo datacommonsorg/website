@@ -15,29 +15,25 @@
 
 set -e
 
-PROJECT_ID=$1
+PROJECT_ID=$(yq r config.yaml project)
+STORE_PROJECT_ID=$(yq r config.yaml storage_project)
+
 NAME="website-robot"
 SERVICE_ACCOUNT="$NAME@$PROJECT_ID.iam.gserviceaccount.com"
 
-# Query BigQuery
-gcloud projects add-iam-policy-binding $(yq r ../config.yaml bind_project.bigquery) \
-  --member serviceAccount:$SERVICE_ACCOUNT \
-  --role roles/bigquery.user
-
-# Query Bigtable
-gcloud projects add-iam-policy-binding $(yq r ../config.yaml bind_project.bigtable) \
-  --member serviceAccount:$SERVICE_ACCOUNT \
-  --role roles/bigtable.reader
-
-# Branch Cache Read
-gcloud projects add-iam-policy-binding $(yq r ../config.yaml bind_project.branch_cache) \
-  --member serviceAccount:$SERVICE_ACCOUNT \
-  --role roles/storage.objectViewer
-
-# Branch Cache subscription
-gcloud projects add-iam-policy-binding $(yq r ../config.yaml bind_project.branch_cache) \
-  --member serviceAccount:$SERVICE_ACCOUNT \
-  --role roles/pubsub.editor
+# Data store project roles
+declare -a roles=(
+    "roles/bigquery.user"   # Query BigQuery
+    "roles/bigtable.reader" # Query Bigtable
+    "roles/storage.objectViewer" # Branch Cache Read
+    "roles/pubsub.editor" # Branch Cache subscription
+)
+for role in "${roles[@]}"
+do
+  gcloud projects add-iam-policy-binding $STORE_PROJECT_ID \
+    --member serviceAccount:$SERVICE_ACCOUNT \
+    --role $role
+done
 
 # Self project roles
 declare -a roles=(

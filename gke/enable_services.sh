@@ -13,12 +13,18 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
+set -e
 
-PROJECT_ID=$1
+PROJECT_ID=$(yq r config.yaml project)
 
-# Get the robot account key
-gcloud iam service-accounts keys create website-robot-key.json \
-    --iam-account website-robot@$PROJECT_ID.iam.gserviceaccount.com
-
-# Use the same robot account for website and mixer
-cp website-robot-key.json mixer-robot-key.json
+gcloud services enable --project=$PROJECT_ID \
+  anthos.googleapis.com \
+  multiclusteringress.googleapis.com \
+  container.googleapis.com \
+  gkeconnect.googleapis.com \
+  gkehub.googleapis.com \
+  cloudresourcemanager.googleapis.com \
+  servicecontrol.googleapis.com \
+  maps-backend.googleapis.com \
+  places-backend.googleapis.com \
+  secretmanager.googleapis.com
