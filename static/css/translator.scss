@@ -19,10 +19,6 @@ h3 {
   color: #444;
 }
 
-#select-input {
-  margin: 20px 0;
-}
-
 #input-box {
   display: flex;
 }
@@ -31,7 +27,7 @@ h3 {
 #query {
   font-size: 15px;
   width: 100%;
-  height: 500px;
+  height: 400px;
   overflow: scroll;
   color: #444;
 }
@@ -97,8 +93,7 @@ table.translation-info-table td {
 }
 
 table.translation-info-table .sql-result {
-  color: #333;
-  font-size: 16px;
+  color: #4285f4;
 }
 
 .summary-title,

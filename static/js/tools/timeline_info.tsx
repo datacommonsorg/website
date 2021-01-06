@@ -21,7 +21,7 @@ class Info extends Component {
     return (
       <div id="placeholder-container">
         <p>
-          The timelines tool helps you explore trends for the variables that
+          The timelines tool help you explore trends for the variables that
           appear in the pane to the left. Enter a place --- city, state, zip,
           county, country --- in the search box above and then pick one or more
           variables in the pane. There are thousands of variables to choose

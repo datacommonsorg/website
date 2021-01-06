@@ -41,13 +41,6 @@ interface TranslationPropType {
 }
 
 export class Translation extends React.Component<TranslationPropType> {
-  formatSql(sql: string): string {
-    return sql
-      .replace(/ FROM/g, "\n    FROM")
-      .replace(/ JOIN/g, "\nJOIN")
-      .replace(/ AND/g, "\n    AND")
-      .replace(/ WHERE/g, "\nWHERE");
-  }
   render(): JSX.Element {
     return (
       <>
@@ -75,9 +68,11 @@ export class Translation extends React.Component<TranslationPropType> {
           <table className="translation-info-table">
             <tbody>
               <tr className="header">
+                <td className="sql">SQL</td>
                 <td className="constraints">Constraints</td>
               </tr>
               <tr>
+                <td className="sql-result">{this.props.sql}</td>
                 <td>
                   <ul>
                     {this.props.constraints.map((c, index) => {
@@ -89,16 +84,6 @@ export class Translation extends React.Component<TranslationPropType> {
                     })}
                   </ul>
                 </td>
-              </tr>
-            </tbody>
-          </table>
-          <table className="translation-info-table">
-            <tbody>
-              <tr className="header">
-                <td className="sql">SQL</td>
-              </tr>
-              <tr>
-                <td className="sql-result">{this.formatSql(this.props.sql)}</td>
               </tr>
             </tbody>
           </table>

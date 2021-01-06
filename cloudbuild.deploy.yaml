@@ -72,8 +72,8 @@ steps:
       - |
         set -e
 
-        gcloud source repos clone deployment /deployment --project=datcom-ci
-        cd /deployment
+        gcloud source repos clone deployment --project=datcom-ci
+        cd deployment
         # Configure Git to create commits with Cloud Build's service account
         git config user.email $(gcloud auth list --filter=status:ACTIVE --format='value(account)')
         git checkout master

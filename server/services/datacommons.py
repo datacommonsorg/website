@@ -32,15 +32,23 @@ elif os.environ.get('FLASK_ENV') == 'production':
     cfg = import_string('configmodule.ProductionConfig')()
 elif os.environ.get('FLASK_ENV') == 'staging':
     cfg = import_string('configmodule.StagingConfig')()
-elif os.environ.get('FLASK_ENV') == 'minikube':
-    cfg = import_string('configmodule.MinikubeConfig')()
-elif os.environ.get('FLASK_ENV') == 'gke':
-    cfg = import_string('configmodule.GKEConfig')()
 else:
     cfg = import_string('configmodule.DevelopmentConfig')()
 
 API_ROOT = cfg.API_ROOT
 API_PROJECT = cfg.API_PROJECT
+
+DC_API_KEY = 'api-key'
+# if (os.environ.get('FLASK_ENV') == 'test' or
+#         os.environ.get('FLASK_ENV') == 'webdriver'):
+#     DC_API_KEY = 'api-key'
+# else:
+#     # Read the api key from Google Cloud Secret Manager
+#     secret_client = secretmanager.SecretManagerServiceClient()
+#     secret_name = secret_client.secret_version_path(API_PROJECT,
+#                                                     'mixer-api-key', '1')
+#     secret_response = secret_client.access_secret_version(secret_name)
+#     DC_API_KEY = secret_response.payload.data.decode('UTF-8')
 
 # --------------------------------- CONSTANTS ---------------------------------
 
@@ -61,8 +69,6 @@ API_ENDPOINTS = {
     'get_chart_data': '/node/chart-data',
     'get_stats': '/bulk/stats',
     'get_stats_all': '/stat/all',
-    'get_stats_value': '/stat/value',
-    'get_stats_collection': '/stat/collection',
     # TODO(shifucun): switch back to /node/related-places after data switch.
     'get_related_places': '/node/related-locations',
     'get_interesting_places': '/node/interesting-place-aspects',
@@ -76,8 +82,9 @@ _MAX_LIMIT = 100
 
 def search(query_text, max_results):
     req_url = API_ROOT + API_ENDPOINTS['search']
-    req_url += '?query={}&max_results={}'.format(
-        urllib.parse.quote(query_text.replace(',', ' ')), max_results)
+    req_url += '?key={}&query={}&max_results={}'.format(
+        DC_API_KEY, urllib.parse.quote(query_text.replace(',', ' ')),
+        max_results)
     response = requests.get(req_url)
     if response.status_code != 200:
         raise ValueError(
@@ -109,49 +116,6 @@ def get_stats_all(place_dcids, stat_vars):
         'stat_vars': stat_vars,
     }
     return send_request(url, req_json=req_json, has_payload=False)
-
-
-def get_stats_value(place, stat_var, date, measurement_method,
-                    observation_period, unit, scaling_factor):
-    """See https://docs.datacommons.org/api/rest/stat_value.html."""
-    url = API_ROOT + API_ENDPOINTS['get_stats_value']
-    req_json = {
-        'place': place,
-        'stat_var': stat_var,
-        'date': date,
-        'measurement_method': measurement_method,
-        'observation_period': observation_period,
-        'unit': unit,
-        'scaling_factor': scaling_factor
-    }
-    return send_request(url, req_json=req_json, post=False, has_payload=False)
-
-
-def get_stats_collection(parent_place, child_type, date, stat_vars):
-    """Gets the statistical variable values for child places of a certain place
-    type contained in a parent place at a given date.
-
-    Args:
-        parent_place: Parent place DCID as a string.
-        child_type: Type of child places as a string.
-        date: Date as a string of the form YYYY-MM-DD (month and day are optional).
-        stat_vars: List of statistical variable DCIDs each as a string.
-
-    Returns:
-        Dict with a single key "data". The value is a dict keyed by statvar DCIDs,
-        with dicts as values. See `SourceSeries` in
-        https://github.com/datacommonsorg/mixer/blob/master/proto/mixer.proto
-        for the definition of the inner dicts. In particular, the values for "val"
-        are dicts keyed by child place DCIDs with the statvar values as values.
-    """
-    url = API_ROOT + API_ENDPOINTS['get_stats_collection']
-    req_json = {
-        'parent_place': parent_place,
-        'child_type': child_type,
-        'date': date,
-        'stat_vars': stat_vars
-    }
-    return send_request(url, req_json=req_json, post=False, has_payload=False)
 
 
 def get_chart_data(keys):
@@ -368,7 +332,7 @@ def get_place_obs(place_type,
 def query(query_string):
     # Get the API Key and perform the POST request.
     logging.info("[ Mixer Request ]: query")
-    headers = {'Content-Type': 'application/json'}
+    headers = {'x-api-key': DC_API_KEY, 'Content-Type': 'application/json'}
     req_url = API_ROOT + API_ENDPOINTS['query']
     response = requests.post(req_url,
                              json={'sparql': query_string},
@@ -412,7 +376,7 @@ def send_request(req_url,
     Returns:
       The payload returned by sending the POST/GET request formatted as a dict.
     """
-    headers = {'Content-Type': 'application/json'}
+    headers = {'x-api-key': DC_API_KEY, 'Content-Type': 'application/json'}
     logging.info("Send request to %s", req_url)
 
     # Send the request and verify the request succeeded

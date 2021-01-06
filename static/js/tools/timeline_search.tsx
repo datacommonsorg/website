@@ -50,7 +50,6 @@ interface SearchBarPropType {
   places: Record<string, string>;
   addPlace: (place: string) => void;
   removePlace: (place: string) => void;
-  numPlacesLimit?: number; // Maximum number of places allowed
 }
 
 class SearchBar extends Component<SearchBarPropType> {
@@ -103,11 +102,6 @@ class SearchBar extends Component<SearchBarPropType> {
       );
       this.ac.addListener("place_changed", this.getPlaceAndRender);
     }
-    this.setPlaceholder();
-  }
-
-  componentDidUpdate(): void {
-    this.setPlaceholder();
   }
 
   private getPlaceAndRender() {
@@ -119,27 +113,18 @@ class SearchBar extends Component<SearchBarPropType> {
         this.props.addPlace(resp.data);
       })
       .catch(() => {
-        alert("Sorry, but we don't have any data about " + place.name);
+        alert("Sorry, but we don't have any data about " + name);
       });
+    this.setPlaceholder();
   }
 
   private setPlaceholder() {
     this.inputElem.current.value = "";
-    const numPlaces = Object.keys(this.props.places).length;
-    this.inputElem.current.disabled = false;
-    if (numPlaces > 0) {
-      if (
-        this.props.numPlacesLimit !== undefined &&
-        numPlaces >= this.props.numPlacesLimit
-      ) {
-        this.inputElem.current.placeholder = "";
-        this.inputElem.current.disabled = true;
-      } else {
-        this.inputElem.current.placeholder = "Add another place";
-      }
+    if (Object.keys(this.props.places).length > 0) {
+      this.inputElem.current.placeholder = "Add another place";
     } else {
       this.inputElem.current.placeholder =
-        "Enter a country, state, county, or city to get started";
+        "Enter a country, state, county or city to get started";
     }
   }
 }

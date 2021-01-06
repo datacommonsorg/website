@@ -116,7 +116,6 @@ sudo chmod +x /usr/bin/chromedriver
 
 Note: Make sure that your ChromeDriver version is compatible with your local Google Chrome version.
 You can change view the lastet ChromeDriver version [here](https://chromedriver.storage.googleapis.com/LATEST_RELEASE).
-Also make sure PATH is updated with ChromeDriver location.
 
 #### Run all tests
 
@@ -144,21 +143,7 @@ This will watch static files change and re-build on code edit.
 Start the flask webserver locally at localhost:8080
 
 ```bash
-./run_flask.sh
-```
-
-#### Start the Go Server
-
-Install "Air" for Go server auto reload
-
-```bash
-go get -u github.com/cosmtrek/air
-```
-
-Start the Go webserver locally at localhost:7070
-
-```bash
-air
+./run_server.sh
 ```
 
 #### Start the Go Server
