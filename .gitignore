@@ -24,3 +24,5 @@ tmp/
 gke/config.yaml
 gke/endpoints.yaml
 gke/mci.yaml
+
+mixer-grpc.latest.pb
