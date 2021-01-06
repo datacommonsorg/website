@@ -633,6 +633,5 @@ def api_display_name():
     Get display names for a list of places.
     """
     dcids = request.args.getlist('dcid')
-    locale = request.args.get('hl', default="en")
-    result = get_display_name('^'.join((sorted(dcids))), locale)
+    result = get_display_name('^'.join((sorted(dcids))), g.locale)
     return Response(json.dumps(result), 200, mimetype='application/json')
