@@ -15,10 +15,14 @@
 
 set -e
 
-## Update endpoints.yaml
-../generate_yaml.sh $1
+PROJECT_ID=$(yq r config.yaml project)
+NAME="website-robot"
+SERVICE_ACCOUNT="$NAME@$PROJECT_ID.iam.gserviceaccount.com"
 
-## Deploy ESP configuration
-gsutil cp gs://artifacts.datcom-ci.appspot.com/mixer-grpc/mixer-grpc.latest.pb .
-gcloud endpoints services deploy mixer-grpc.latest.pb endpoints.yaml
-gcloud services enable $(yq r endpoints.yaml name)
+gcloud config set project $PROJECT_ID
+
+# Create service account
+gcloud iam service-accounts create $NAME
+
+# Enable service account
+gcloud alpha iam service-accounts enable $SERVICE_ACCOUNT

@@ -13,12 +13,11 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
+PROJECT_ID=$(yq r config.yaml project)
+DOMAIN=$(yq r config.yaml domain)
 
-PROJECT_ID=$1
+echo $PROJECT_ID
+gcloud config set project $PROJECT_ID
 
-# Get the robot account key
-gcloud iam service-accounts keys create website-robot-key.json \
-    --iam-account website-robot@$PROJECT_ID.iam.gserviceaccount.com
-
-# Use the same robot account for website and mixer
-cp website-robot-key.json mixer-robot-key.json
+gcloud compute ssl-certificates create website-certificate \
+    --domains=$DOMAIN --global

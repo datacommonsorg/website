@@ -15,14 +15,16 @@
 
 set -e
 
-PROJECT_ID=$1
-NAME="website-robot"
-SERVICE_ACCOUNT="$NAME@$PROJECT_ID.iam.gserviceaccount.com"
+PROJECT_ID=$(yq r config.yaml project)
 
-# Create service account
-gcloud iam service-accounts create $NAME
+SERVICE_NAME="website-esp.endpoints.$PROJECT_ID.cloud.goog"
+API_TITLE=$SERVICE_NAME
 
-# Enable service account
-gcloud alpha iam service-accounts enable $SERVICE_ACCOUNT
+# ESP service configuration
+yq w --style=double endpoints.yaml.tpl name $SERVICE_NAME > endpoints.yaml
+yq w -i endpoints.yaml title "$API_TITLE"
 
-./download_robot_key.sh $PROJECT_ID
+## Deploy ESP configuration
+gsutil cp gs://artifacts.datcom-ci.appspot.com/mixer-grpc/mixer-grpc.latest.pb .
+gcloud endpoints services deploy mixer-grpc.latest.pb endpoints.yaml --project $PROJECT_ID
+gcloud services enable $SERVICE_NAME

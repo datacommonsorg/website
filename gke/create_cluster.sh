@@ -13,23 +13,24 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-ENV=$1
-REGION=$2
-NODES=$3
+set -e
 
-PROJECT_ID=$(yq r ../config.yaml project.$ENV)
+REGION=$1
+
+PROJECT_ID=$(yq r config.yaml project)
+NODES=$(yq r config.yaml nodes)
+
 CLUSTER_NAME="website-$REGION"
 
 gcloud config set project $PROJECT_ID
 
-../generate_yaml.sh $ENV
-./download_robot_key.sh $PROJECT_ID
-
+# VPC native-cluster to enable Ingress for Anthos
 gcloud container clusters create $CLUSTER_NAME \
   --num-nodes=$NODES \
   --region=$REGION \
   --machine-type=e2-highmem-4 \
-  --enable-ip-alias # VPC native-cluster to enable Ingress for Anthos
+  --enable-ip-alias \
+  --workload-pool=$PROJECT_ID.svc.id.goog
 
 # Register cluster using Workload Identity ([Documentation](https://cloud.google.com/anthos/multicluster-management/connect/registering-a-cluster#register_cluster))
 gcloud beta container hub memberships register $CLUSTER_NAME \
@@ -46,9 +47,18 @@ gcloud container clusters get-credentials $CLUSTER_NAME --region=$REGION
 
 # Create namespace
 kubectl create namespace website
-# Website robot account
-kubectl create secret generic website-robot-key --from-file=website-robot-key.json --namespace=website
-# Mixer robot account
-kubectl create secret generic mixer-robot-key --from-file=mixer-robot-key.json --namespace=website
-# Mixer deployment
-kubectl apply -f deployment.yaml
+
+# Create service account which is mapped to the GCP service account for Workload Identity.
+kubectl create serviceaccount --namespace website website-ksa
+
+# Allow the Kubernetes service account to impersonate the Google service account
+gcloud iam service-accounts add-iam-policy-binding \
+  --role roles/iam.workloadIdentityUser \
+  --member "serviceAccount:$PROJECT_ID.svc.id.goog[website/website-ksa]" \
+  website-robot@$PROJECT_ID.iam.gserviceaccount.com
+
+# Annotate service account
+kubectl annotate serviceaccount \
+  --namespace website \
+  website-ksa \
+  iam.gke.io/gcp-service-account=website-robot@$PROJECT_ID.iam.gserviceaccount.com
