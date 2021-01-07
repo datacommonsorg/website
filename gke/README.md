@@ -50,7 +50,10 @@ Each node is a configured to e2-highmem-4 machine type that has 4 vCPU and 32G m
 
 ## DNS setup
 
-- Make sure the managed SSL certificate is "ACTIVE" by checking ["Load balancing" in GCP](https://pantheon.corp.google.com/net-services/loadbalancing/advanced/sslCertificates/list?project=PROJECT_ID&sslCertificateTablesize=50). This can take minutes up to hours. Note the SSL need to be used in an Ingress to be "ACTIVE".
+- Make sure the managed SSL certificate is "ACTIVE" by checking
+  ["Load balancing" in GCP](https://pantheon.corp.google.com/net-services/loadbalancing/advanced/sslCertificates/list?project=PROJECT_ID&sslCertificateTablesize=50). This can take minutes up to hours.
+
+  **NOTE** Make sure the certificate is [associated with a target proxy](https://cloud.google.com/load-balancing/docs/ssl-certificates/troubleshooting#certificate-managed-status). For mixer, the certificate is linked the target proxy through the [GKE Ingress](mci.yaml.tpl). If they are not linked, then need to manually add the certificate to the load balancing ([example setup in GCP](ssl.png)).
 
 - [Configure the DNS in the domain registrar](https://cloud.google.com/load-balancing/docs/ssl-certificates/google-managed-certs#update-dns)).
 
