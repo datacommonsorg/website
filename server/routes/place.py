@@ -14,7 +14,7 @@
 """Place Explorer related handlers."""
 
 import flask
-from flask import current_app
+from flask import current_app, g
 import routes.api.place as place_api
 
 bp = flask.Blueprint('place', __name__, url_prefix='/place')
@@ -49,5 +49,6 @@ def place(place_dcid=None):
         place_type=place_type,
         place_name=place_name,
         place_dcid=place_dcid,
+        locale=g.locale,
         topic=topic if topic else '',
         maps_api_key=current_app.config['MAPS_API_KEY'])
