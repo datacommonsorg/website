@@ -16,12 +16,14 @@ const intlCache = createIntlCache();
 
 // TODO(tjann): see if we can ship locale specific js bundles.
 function loadLocaleData(locale: string): Promise<Record<any, any>> {
-  switch (locale) {
-    case "es":
-      return import("./compiled-lang/es.json");
-    default:
-      return import("./compiled-lang/en.json");
+  if (
+    ["de", "es", "fr", "hi", "it", "ja", "ko", "pt-BR", "ru", "zh-CN"].includes(
+      locale
+    )
+  ) {
+    return import(`./compiled-lang/${locale}/place.json`);
   }
+  return import("./compiled-lang/en/place.json");
 }
 
 // This IntlShape object will be used for both React Intl's

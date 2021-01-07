@@ -1,0 +1,86 @@
+{
+  "alert-no_data_for_place": {
+    "defaultMessage": "죄송하지만 {placeName}에 관한 정보가 없습니다"
+  },
+  "chart_clause-other_placeType": {
+    "defaultMessage": "{chartTitle}: 기타 {placeType}"
+  },
+  "chart_clause-places_that_contain_place": {
+    "defaultMessage": "{chartTitle}: {placeName} 포함 장소"
+  },
+  "chart_clause-places_within_place": {
+    "defaultMessage": "{chartTitle}: {placeName} 내 장소"
+  },
+  "chart_clause-placetype_near_place": {
+    "defaultMessage": "{chartTitle}: {placeName} 근처의 {placeType}"
+  },
+  "chart_clause-variable_in_place": {
+    "defaultMessage": "{placeName} {variable}"
+  },
+  "chart_metadata-dotted_line_explanation": {
+    "defaultMessage": "(점선은 데이터 누락을 나타냄)"
+  },
+  "chart_metadata-explore_more": {
+    "defaultMessage": "더보기 ›"
+  },
+  "chart_metadata-export": {
+    "defaultMessage": "내보내기"
+  },
+  "chart_metadata-feedback": {
+    "defaultMessage": "의견"
+  },
+  "chart_metadata-provenance": {
+    "defaultMessage": "데이터 출처: {sources}"
+  },
+  "child_places_menu-places_in_place": {
+    "defaultMessage": "{placeName}의 장소"
+  },
+  "embed_citation": {
+    "defaultMessage": "데이터 출처: {sources}(Data Commons를 통해 확보)"
+  },
+  "embed_download_chart_link": {
+    "defaultMessage": "차트 이미지 다운로드"
+  },
+  "embed_download_csv_link": {
+    "defaultMessage": "데이터를 CSV 파일로 다운로드"
+  },
+  "embed_export_chart_link": {
+    "defaultMessage": "차트 내보내기"
+  },
+  "header-overview": {
+    "defaultMessage": "개요"
+  },
+  "link-return_to_overview": {
+    "defaultMessage": "개요로 돌아가기 ›"
+  },
+  "more_charts": {
+    "defaultMessage": "차트 더보기 ›"
+  },
+  "place_breadcrumb": {
+    "defaultMessage": "{placeName} {placeType}"
+  },
+  "place_page_ranking_table-ranking_in": {
+    "defaultMessage": "순위(내)"
+  },
+  "place_page_ranking_table-ranking_value": {
+    "defaultMessage": "{total} 중 {rank}위"
+  },
+  "plural_places": {
+    "defaultMessage": "장소"
+  },
+  "plural_zip_codes": {
+    "defaultMessage": "우편번호"
+  },
+  "search_bar_placeholder-search_again": {
+    "defaultMessage": "다른 장소 검색"
+  },
+  "singular_place": {
+    "defaultMessage": "장소"
+  },
+  "singular_zip_code": {
+    "defaultMessage": "우편번호"
+  },
+  "the_world": {
+    "defaultMessage": "세계"
+  }
+}

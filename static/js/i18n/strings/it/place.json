@@ -1,0 +1,86 @@
+{
+  "alert-no_data_for_place": {
+    "defaultMessage": "Spiacenti, nessun dato disponibile in merito a: {placeName}"
+  },
+  "chart_clause-other_placeType": {
+    "defaultMessage": "{chartTitle}: {placeType} differenti"
+  },
+  "chart_clause-places_that_contain_place": {
+    "defaultMessage": "{chartTitle}: luoghi con {placeName}"
+  },
+  "chart_clause-places_within_place": {
+    "defaultMessage": "{chartTitle}: luoghi in {placeName}"
+  },
+  "chart_clause-placetype_near_place": {
+    "defaultMessage": "{chartTitle}: {placeType} nei pressi di {placeName}"
+  },
+  "chart_clause-variable_in_place": {
+    "defaultMessage": "{variable} in: {placeName}"
+  },
+  "chart_metadata-dotted_line_explanation": {
+    "defaultMessage": "(la linea tratteggiata indica dati mancanti)"
+  },
+  "chart_metadata-explore_more": {
+    "defaultMessage": "Scopri di più ›"
+  },
+  "chart_metadata-export": {
+    "defaultMessage": "Esporta"
+  },
+  "chart_metadata-feedback": {
+    "defaultMessage": "Feedback"
+  },
+  "chart_metadata-provenance": {
+    "defaultMessage": "Dati di {sources}"
+  },
+  "child_places_menu-places_in_place": {
+    "defaultMessage": "Luoghi in: {placeName}"
+  },
+  "embed_citation": {
+    "defaultMessage": "Dati di {sources} tramite Data Commons"
+  },
+  "embed_download_chart_link": {
+    "defaultMessage": "Scarica l'immagine del grafico"
+  },
+  "embed_download_csv_link": {
+    "defaultMessage": "Scarica i dati in formato CSV"
+  },
+  "embed_export_chart_link": {
+    "defaultMessage": "Esporta questo grafico"
+  },
+  "header-overview": {
+    "defaultMessage": "Panoramica"
+  },
+  "link-return_to_overview": {
+    "defaultMessage": "Torna alla panoramica ›"
+  },
+  "more_charts": {
+    "defaultMessage": "Altri grafici ›"
+  },
+  "place_breadcrumb": {
+    "defaultMessage": "{placeType} di: {placeName}"
+  },
+  "place_page_ranking_table-ranking_in": {
+    "defaultMessage": "Posizioni (in)"
+  },
+  "place_page_ranking_table-ranking_value": {
+    "defaultMessage": "{rank} di {total}"
+  },
+  "plural_places": {
+    "defaultMessage": "Luoghi"
+  },
+  "plural_zip_codes": {
+    "defaultMessage": "Codici postali"
+  },
+  "search_bar_placeholder-search_again": {
+    "defaultMessage": "Cerca un altro luogo"
+  },
+  "singular_place": {
+    "defaultMessage": "Luogo"
+  },
+  "singular_zip_code": {
+    "defaultMessage": "Codice postale"
+  },
+  "the_world": {
+    "defaultMessage": "nel mondo"
+  }
+}

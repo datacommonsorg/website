@@ -1,0 +1,254 @@
+{
+  "alert-no_data_for_place": [
+    {
+      "type": 0,
+      "value": "Désolé, aucune donnée n'est disponible pour "
+    },
+    {
+      "type": 1,
+      "value": "placeName"
+    }
+  ],
+  "chart_clause-other_placeType": [
+    {
+      "type": 1,
+      "value": "chartTitle"
+    },
+    {
+      "type": 0,
+      "value": " : autres "
+    },
+    {
+      "type": 1,
+      "value": "placeType"
+    }
+  ],
+  "chart_clause-places_that_contain_place": [
+    {
+      "type": 1,
+      "value": "chartTitle"
+    },
+    {
+      "type": 0,
+      "value": " : lieux qui contiennent "
+    },
+    {
+      "type": 1,
+      "value": "placeName"
+    }
+  ],
+  "chart_clause-places_within_place": [
+    {
+      "type": 1,
+      "value": "chartTitle"
+    },
+    {
+      "type": 0,
+      "value": " : lieux de la région suivante : "
+    },
+    {
+      "type": 1,
+      "value": "placeName"
+    }
+  ],
+  "chart_clause-placetype_near_place": [
+    {
+      "type": 1,
+      "value": "chartTitle"
+    },
+    {
+      "type": 0,
+      "value": " : "
+    },
+    {
+      "type": 1,
+      "value": "placeType"
+    },
+    {
+      "type": 0,
+      "value": " à proximité de "
+    },
+    {
+      "type": 1,
+      "value": "placeName"
+    }
+  ],
+  "chart_clause-variable_in_place": [
+    {
+      "type": 1,
+      "value": "variable"
+    },
+    {
+      "type": 0,
+      "value": " - "
+    },
+    {
+      "type": 1,
+      "value": "placeName"
+    }
+  ],
+  "chart_metadata-dotted_line_explanation": [
+    {
+      "type": 0,
+      "value": "(les lignes pointillées signalent des données manquantes)"
+    }
+  ],
+  "chart_metadata-explore_more": [
+    {
+      "type": 0,
+      "value": "En savoir plus ›"
+    }
+  ],
+  "chart_metadata-export": [
+    {
+      "type": 0,
+      "value": "Exporter"
+    }
+  ],
+  "chart_metadata-feedback": [
+    {
+      "type": 0,
+      "value": "Commentaires"
+    }
+  ],
+  "chart_metadata-provenance": [
+    {
+      "type": 0,
+      "value": "Source des données : "
+    },
+    {
+      "type": 1,
+      "value": "sources"
+    }
+  ],
+  "child_places_menu-places_in_place": [
+    {
+      "type": 0,
+      "value": "Lieux en "
+    },
+    {
+      "type": 1,
+      "value": "placeName"
+    }
+  ],
+  "embed_citation": [
+    {
+      "type": 0,
+      "value": "Sources des données : "
+    },
+    {
+      "type": 1,
+      "value": "sources"
+    },
+    {
+      "type": 0,
+      "value": " par Data Commons"
+    }
+  ],
+  "embed_download_chart_link": [
+    {
+      "type": 0,
+      "value": "Télécharger l'image du graphique"
+    }
+  ],
+  "embed_download_csv_link": [
+    {
+      "type": 0,
+      "value": "Télécharger les données au format CSV"
+    }
+  ],
+  "embed_export_chart_link": [
+    {
+      "type": 0,
+      "value": "Exporter ce graphique"
+    }
+  ],
+  "header-overview": [
+    {
+      "type": 0,
+      "value": "Aperçu"
+    }
+  ],
+  "link-return_to_overview": [
+    {
+      "type": 0,
+      "value": "Retour à la vue d'ensemble ›"
+    }
+  ],
+  "more_charts": [
+    {
+      "type": 0,
+      "value": "Autres graphiques ›"
+    }
+  ],
+  "place_breadcrumb": [
+    {
+      "type": 1,
+      "value": "placeType"
+    },
+    {
+      "type": 0,
+      "value": " - "
+    },
+    {
+      "type": 1,
+      "value": "placeName"
+    }
+  ],
+  "place_page_ranking_table-ranking_in": [
+    {
+      "type": 0,
+      "value": "Classements"
+    }
+  ],
+  "place_page_ranking_table-ranking_value": [
+    {
+      "type": 1,
+      "value": "rank"
+    },
+    {
+      "type": 0,
+      "value": " sur "
+    },
+    {
+      "type": 1,
+      "value": "total"
+    }
+  ],
+  "plural_places": [
+    {
+      "type": 0,
+      "value": "Lieux"
+    }
+  ],
+  "plural_zip_codes": [
+    {
+      "type": 0,
+      "value": "Code postal"
+    }
+  ],
+  "search_bar_placeholder-search_again": [
+    {
+      "type": 0,
+      "value": "Recherchez un autre lieu"
+    }
+  ],
+  "singular_place": [
+    {
+      "type": 0,
+      "value": "Lieu"
+    }
+  ],
+  "singular_zip_code": [
+    {
+      "type": 0,
+      "value": "Code postal"
+    }
+  ],
+  "the_world": [
+    {
+      "type": 0,
+      "value": "le monde"
+    }
+  ]
+}
