@@ -19,7 +19,9 @@ source .env/bin/activate
 
 export GOOGLE_CLOUD_PROJECT=datcom-browser-staging
 export FLASK_ENV=development
+.env/bin/pybabel compile -d server/l10n -f -D messages
+.env/bin/pybabel compile -d server/l10n -f -D chart_titles
 cd server
-pip3 install -r requirements.txt
+pip3 install -r requirements.txt -q
 python3 main.py
 cd ..

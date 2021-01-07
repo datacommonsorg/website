@@ -1,0 +1,342 @@
+msgid "CHART_CATEGORY-Crime"
+msgstr "Criminalità"
+
+msgid "CHART_CATEGORY-Demographics"
+msgstr "Dati demografici"
+
+msgid "CHART_CATEGORY-Economics"
+msgstr "Aspetti economici"
+
+msgid "CHART_CATEGORY-Education"
+msgstr "Istruzione"
+
+msgid "CHART_CATEGORY-Environment"
+msgstr "Ambiente"
+
+msgid "CHART_CATEGORY-Equity"
+msgstr "Patrimonio netto"
+
+msgid "CHART_CATEGORY-Health"
+msgstr "Salute"
+
+msgid "CHART_CATEGORY-Housing"
+msgstr "Abitazioni"
+
+msgid "Alcohol_consumption_per_capita"
+msgstr "Consumo di alcol pro capite (annuale)"
+
+msgid "Arson"
+msgstr "Incendio doloso"
+
+msgid "Arson_rate"
+msgstr "Incendi dolosi per 100.000 persone"
+
+msgid "Associate_degree_rate_gender"
+msgstr "Tasso di conseguimento di diplomi universitari per sesso"
+
+msgid "Bachelors_degree_rate_gender"
+msgstr "Tasso di conseguimento della laurea per sesso"
+
+msgid "Children_employed"
+msgstr "Bambini che lavorano"
+
+msgid "Children_employed_gender"
+msgstr "Bambini che lavorano per sesso"
+
+msgid "Children_severe_wasting"
+msgstr "Grave deperimento tra bambini sotto i 5 anni"
+
+msgid "Children_severe_wasting_by_gender"
+msgstr "Grave deperimento tra bambini sotto i 5 anni per sesso"
+
+msgid "Children_wasting"
+msgstr "Deperimento tra bambini sotto i 5 anni"
+
+msgid "Children_wasting_by_gender"
+msgstr "Deperimento tra bambini sotto i 5 anni per sesso"
+
+msgid "Citizenship"
+msgstr "Cittadinanza"
+
+msgid "Citizenship_distribution"
+msgstr "Distribuzione della popolazione per cittadinanza"
+
+msgid "Co2_emissions_per_capita"
+msgstr "Emissioni di CO2 pro capite"
+
+msgid "Covid_cases"
+msgstr "Casi cumulativi di COVID-19"
+
+msgid "Covid_cases_per_capita"
+msgstr "Casi cumulativi di COVID-19 pro capite"
+
+msgid "Covid_deaths"
+msgstr "Decessi cumulativi per COVID-19"
+
+msgid "Covid_deaths_per_capita"
+msgstr "Decessi cumulativi per COVID-19 pro capite"
+
+msgid "Crime_rate"
+msgstr "Reati per 100.000 persone"
+
+msgid "Cyclones"
+msgstr "Cicloni"
+
+msgid "Disasters"
+msgstr "Catastrofi"
+
+msgid "Earthquakes"
+msgstr "Terremoti"
+
+msgid "Educational_attainment"
+msgstr "Completamento dell'istruzione"
+
+msgid "Educational_attainment_rate"
+msgstr "Tasso di completamento dell'istruzione"
+
+msgid "Electricity_consumption_per_capita"
+msgstr "Consumo di elettricità pro capite"
+
+msgid "Energy_use"
+msgstr "Consumo energetico (kg di petrolio equivalente pro capite)"
+
+msgid "Fertility_rate"
+msgstr "Tasso di fertilità"
+
+msgid "Gdp_growth_rate"
+msgstr "Tasso di crescita del prodotto interno lordo"
+
+msgid "Gdp_per_capita"
+msgstr "Prodotto interno lordo pro capite"
+
+msgid "Gini_index"
+msgstr "Indice di Gini"
+
+msgid "Gni"
+msgstr "Reddito nazionale lordo (Parità dei poteri di acquisto)"
+
+msgid "Gni_per_capita"
+msgstr "Reddito nazionale lordo pro capite (Parità dei poteri di acquisto)"
+
+msgid "Government_debt"
+msgstr "Debito pubblico"
+
+msgid "Government_debt_per_capita"
+msgstr "Spesa pubblica per l'istruzione (% della spesa pubblica)"
+
+msgid "Government_expenditures_education"
+msgstr "Spesa pubblica per l'istruzione (% del PIL)"
+
+msgid "Government_expenditures_education_gdp"
+msgstr "Spesa pubblica per l'istruzione (% del PIL)"
+
+msgid "Government_expenditures_military"
+msgstr "Spesa pubblica per le forze armate"
+
+msgid "Government_expenditures_military_per_gdp"
+msgstr "Spesa pubblica per le forze armate (percentuale del PIL)"
+
+msgid "Graduate_or_professional_degree_rate_gender"
+msgstr "Tasso di conseguimento della laurea o di un diploma professionale per sesso"
+
+msgid "Health_behaviors"
+msgstr "Comportamenti legati alla salute"
+
+msgid "Health_outcomes"
+msgstr "Problemi di salute"
+
+msgid "Household_income"
+msgstr "Reddito familiare"
+
+msgid "Household_income_by_bracket"
+msgstr "Percentuale di nuclei familiari per fasce di reddito"
+
+msgid "Housing_units"
+msgstr "Unità abitative"
+
+msgid "Housing_units_date_built"
+msgstr "Unità abitative per data di costruzione"
+
+msgid "Housing_units_date_built_distrubtion"
+msgstr "Distribuzione di unità abitative occupate per data di costruzione"
+
+msgid "Housing_units_per_capita"
+msgstr "Unità abitative pro capite"
+
+msgid "Housing_units_price"
+msgstr "Unità abitative per prezzo"
+
+msgid "Housing_units_price_distribution"
+msgstr "Distribuzione di unità abitative occupate per prezzo"
+
+msgid "Housing_units_race"
+msgstr "Unità abitative per gruppo etnico del nucleo familiare"
+
+msgid "Housing_units_race_distribution"
+msgstr "Distribuzione di unità abitative per gruppo etnico del nucleo familiare"
+
+msgid "Housing_units_rental_status"
+msgstr "Unità abitative per stato di affitto"
+
+msgid "Housing_units_rental_status_distribution"
+msgstr "Distribuzione di unità abitative per stato di affitto"
+
+msgid "Individual_income"
+msgstr "Reddito personale"
+
+msgid "Individual_income_by_bracket"
+msgstr "Percentuale di persone per fasce di reddito"
+
+msgid "Infant_mortality_rate"
+msgstr "Tasso di mortalità infantile"
+
+msgid "Infant_mortality_rate_gender"
+msgstr "Tasso di mortalità infantile per sesso"
+
+msgid "Inward_remittance"
+msgstr "Rimessa interna"
+
+msgid "Inward_remittance_per_gdp"
+msgstr "Rimessa interna (% del PIL)"
+
+msgid "Labor_force"
+msgstr "Forza lavoro"
+
+msgid "Labor_force_rate"
+msgstr "Tasso di partecipazione alla forza lavoro"
+
+msgid "Life_expectancy"
+msgstr "Speranza di vita (anni)"
+
+msgid "Marital_status"
+msgstr "Stato civile"
+
+msgid "Marital_status_distribution"
+msgstr "Distribuzione per stato civile"
+
+msgid "Market_capitalization"
+msgstr "Capitalizzazione di mercato delle società nazionali"
+
+msgid "Market_capitalization_per_gdp"
+msgstr "Capitalizzazione di mercato delle società nazionali (% del PIL)"
+
+msgid "Median_age"
+msgstr "Età media"
+
+msgid "Median_age_gender"
+msgstr "Età media per sesso"
+
+msgid "Median_age_race"
+msgstr "Età media per gruppo etnico"
+
+msgid "Median_household_income"
+msgstr "Reddito familiare medio"
+
+msgid "Median_household_income_race"
+msgstr "Reddito familiare medio per gruppo etnico"
+
+msgid "Median_income_gender"
+msgstr "Reddito medio per sesso"
+
+msgid "Median_individual_income"
+msgstr "Reddito personale medio"
+
+msgid "Mortality_events"
+msgstr "Eventi di mortalità"
+
+msgid "Mortality_events_per_capita"
+msgstr "Eventi di mortalità pro capite"
+
+msgid "Outward_remittance_per_gdp"
+msgstr "Rimessa esterna"
+
+msgid "Percent_without_health_insurance_gender"
+msgstr "Percentuale di persone senza assicurazione sanitaria per sesso"
+
+msgid "Percent_without_health_insurance_race"
+msgstr "Percentuale di persone senza assicurazione sanitaria per gruppo etnico"
+
+msgid "Percentage_employed"
+msgstr "Percentuale di persone che lavorano"
+
+msgid "Population"
+msgstr "Popolazione"
+
+msgid "Population_age"
+msgstr "Popolazione per età"
+
+msgid "Population_age_distribution"
+msgstr "Distribuzione per fasce d'età"
+
+msgid "Population_density"
+msgstr "Densità di popolazione (persone per kmÂ²)"
+
+msgid "Population_gender"
+msgstr "Popolazione per sesso"
+
+msgid "Population_gender_distribution"
+msgstr "Distribuzione in base al sesso"
+
+msgid "Population_growth_rate"
+msgstr "Tasso di crescita della popolazione"
+
+msgid "Population_race"
+msgstr "Popolazione per gruppo etnico"
+
+msgid "Population_race_distribution"
+msgstr "Distribuzione razziale"
+
+msgid "Poverty_rate"
+msgstr "Tasso di povertà"
+
+msgid "Poverty_rate_gender"
+msgstr "Tasso di povertà per sesso"
+
+msgid "Poverty_rate_race"
+msgstr "Tasso di povertà per gruppo etnico"
+
+msgid "Prescribed_drugs"
+msgstr "Farmaci prescritti (per trimestre)"
+
+msgid "Prescribed_drugs_per_capita"
+msgstr "Farmaci prescritti pro capite (per trimestre)"
+
+msgid "Property_crime"
+msgstr "Reati contro la proprietà"
+
+msgid "Property_crime_rate"
+msgstr "Reati contro la proprietà per 100.000 persone"
+
+msgid "School_enrollment"
+msgstr "Iscrizione scolastica"
+
+msgid "School_enrollment_rate"
+msgstr "Tasso di iscrizione scolastica"
+
+msgid "State_unemployment_claims"
+msgstr "Richieste di indennizzo per assicurazioni contro la disoccupazione statale"
+
+msgid "State_unemployment_claims_rate"
+msgstr "Percentuale di richieste di indennizzo per assicurazioni contro la disoccupazione statale"
+
+msgid "Total_crime"
+msgstr "Numero totale di reati"
+
+msgid "Total_employed"
+msgstr "Numero di persone che lavorano"
+
+msgid "Unemployment_rate"
+msgstr "Tasso di disoccupazione"
+
+msgid "Unemployment_rate_gender"
+msgstr "Tasso di disoccupazione per sesso"
+
+msgid "Urban_v_rural_population"
+msgstr "Popolazione urbana e rurale"
+
+msgid "Violent_crime"
+msgstr "Crimini violenti"
+
+msgid "Violent_crime_rate"
+msgstr "Crimini violenti per 100.000 persone"
+

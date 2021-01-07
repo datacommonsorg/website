@@ -1,0 +1,342 @@
+msgid "CHART_CATEGORY-Crime"
+msgstr "अपराध"
+
+msgid "CHART_CATEGORY-Demographics"
+msgstr "लोगों की जानकारी, जैसे कि उम्र, लिंग, आय, शिक्षा वगैरह"
+
+msgid "CHART_CATEGORY-Economics"
+msgstr "अर्थशास्त्र"
+
+msgid "CHART_CATEGORY-Education"
+msgstr "शिक्षा"
+
+msgid "CHART_CATEGORY-Environment"
+msgstr "एनवायरमेंट"
+
+msgid "CHART_CATEGORY-Equity"
+msgstr "इक्विटी"
+
+msgid "CHART_CATEGORY-Health"
+msgstr "स्वास्थ्य"
+
+msgid "CHART_CATEGORY-Housing"
+msgstr "घर"
+
+msgid "Alcohol_consumption_per_capita"
+msgstr "अल्कोहल की प्रति व्यक्ति खपत (सालाना)"
+
+msgid "Arson"
+msgstr "आगज़नी"
+
+msgid "Arson_rate"
+msgstr "प्रति एक लाख लोगों के अनुपात में आगज़नी की घटनाएं"
+
+msgid "Associate_degree_rate_gender"
+msgstr "लिंग के हिसाब से असोसिएट डिग्री पाने वालों की दर"
+
+msgid "Bachelors_degree_rate_gender"
+msgstr "लिंग के हिसाब से ऐसे लोगों की दर जो स्नातक हैं"
+
+msgid "Children_employed"
+msgstr "नौकरी करने वाले बच्चों की संख्या"
+
+msgid "Children_employed_gender"
+msgstr "नौकरी करने वाले बच्चों की संख्या, लिंग के हिसाब से"
+
+msgid "Children_severe_wasting"
+msgstr "पांच साल से छोटे बच्चों में गंभीर कुपोषण"
+
+msgid "Children_severe_wasting_by_gender"
+msgstr "पांच साल से छोटे बच्चों में गंभीर कुपोषण (लंबाई के मुताबिक कम वज़न), लिंग के हिसाब से"
+
+msgid "Children_wasting"
+msgstr "पांच साल से छोटे बच्चों में कुपोषण"
+
+msgid "Children_wasting_by_gender"
+msgstr "पांच साल से छोटे बच्चों में कुपोषण"
+
+msgid "Citizenship"
+msgstr "नागरिकता का दर्जा"
+
+msgid "Citizenship_distribution"
+msgstr "नागरिकता के दर्जे के हिसाब से जनसंख्या का वितरण"
+
+msgid "Co2_emissions_per_capita"
+msgstr "प्रति व्यक्ति CO2 उत्सर्जन"
+
+msgid "Covid_cases"
+msgstr "COVID-19 के बढ़ते मामले"
+
+msgid "Covid_cases_per_capita"
+msgstr "COVID-19 के प्रति व्यक्ति बढ़ते मामले"
+
+msgid "Covid_deaths"
+msgstr "COVID-19 की वजह से हुई मौतें"
+
+msgid "Covid_deaths_per_capita"
+msgstr "प्रति व्यक्ति COVID-19 से होने वाली मौतें"
+
+msgid "Crime_rate"
+msgstr "हर एक लाख लोगों में होने वाले अपराधों की संख्या"
+
+msgid "Cyclones"
+msgstr "चक्रवात"
+
+msgid "Disasters"
+msgstr "आपदाएं"
+
+msgid "Earthquakes"
+msgstr "भूकंपों की संख्या"
+
+msgid "Educational_attainment"
+msgstr "शिक्षा पाने वाले लोगों की संख्या"
+
+msgid "Educational_attainment_rate"
+msgstr "शिक्षा पाने वाले लोग"
+
+msgid "Electricity_consumption_per_capita"
+msgstr "प्रति व्यक्ति बिजली की खपत"
+
+msgid "Energy_use"
+msgstr "ऊर्जा की खपत (प्रति व्यक्ति किलोग्राम तेल)"
+
+msgid "Fertility_rate"
+msgstr "प्रजनन दर"
+
+msgid "Gdp_growth_rate"
+msgstr "सकल घरेलू उत्पाद (GDP) वृद्धि दर"
+
+msgid "Gdp_per_capita"
+msgstr "प्रति व्यक्ति सकल घरेलू उत्पाद"
+
+msgid "Gini_index"
+msgstr "Gini इंडेक्स"
+
+msgid "Gni"
+msgstr "सकल राष्ट्रीय आय (क्रय क्षमता की समानता)"
+
+msgid "Gni_per_capita"
+msgstr "प्रति व्यक्ति सकल राष्ट्रीय आय (क्रय क्षमता की समानता)"
+
+msgid "Government_debt"
+msgstr "सरकारी क़र्ज़"
+
+msgid "Government_debt_per_capita"
+msgstr "शिक्षा पर सरकारी खर्च (कुल सरकारी खर्च का %)"
+
+msgid "Government_expenditures_education"
+msgstr "शिक्षा पर सरकारी खर्च (GDP का %)"
+
+msgid "Government_expenditures_education_gdp"
+msgstr "शिक्षा पर सरकारी खर्च (GDP का %)"
+
+msgid "Government_expenditures_military"
+msgstr "सेना पर होने वाला सरकारी खर्च"
+
+msgid "Government_expenditures_military_per_gdp"
+msgstr "सेना पर होने वाला सरकारी खर्च, GDP के प्रतिशत के तौर पर"
+
+msgid "Graduate_or_professional_degree_rate_gender"
+msgstr "लिंग के हिसाब से ऐसे लोगों की संख्या जिनके पास प्रोफ़ेशनल डिग्री है"
+
+msgid "Health_behaviors"
+msgstr "स्वास्थ्य से जुड़ी बुरी आदतें"
+
+msgid "Health_outcomes"
+msgstr "स्वास्थ्य पर असर"
+
+msgid "Household_income"
+msgstr "पारिवारिक आय"
+
+msgid "Household_income_by_bracket"
+msgstr "आय वर्ग के हिसाब से परिवारों का प्रतिशत"
+
+msgid "Housing_units"
+msgstr "घरों की संख्या"
+
+msgid "Housing_units_date_built"
+msgstr "बनने की तारीख के हिसाब से घरों की संख्या"
+
+msgid "Housing_units_date_built_distrubtion"
+msgstr "बनने की तारीख के हिसाब से ऐसे घरों का प्रतिशत जिनमें लोग नहीं रहते हैं"
+
+msgid "Housing_units_per_capita"
+msgstr "प्रति व्यक्ति घरों की संख्या"
+
+msgid "Housing_units_price"
+msgstr "कीमत के हिसाब से घरों की संख्या"
+
+msgid "Housing_units_price_distribution"
+msgstr "कीमत के हिसाब से ऐसे घरों की संख्या जिनमें लोग रहते हैं"
+
+msgid "Housing_units_race"
+msgstr "परिवार के सदस्य की नस्ल के हिसाब से घरों की कुल संख्या"
+
+msgid "Housing_units_race_distribution"
+msgstr "परिवार के सदस्य की नस्ल के हिसाब से घरों का प्रतिशत"
+
+msgid "Housing_units_rental_status"
+msgstr "किराये के हिसाब से घरों की संख्या"
+
+msgid "Housing_units_rental_status_distribution"
+msgstr "किराये के हिसाब से ऐसे घरों का प्रतिशत जिनमें लोग रहते हैं"
+
+msgid "Individual_income"
+msgstr "व्यक्तिगत आय"
+
+msgid "Individual_income_by_bracket"
+msgstr "आय वर्ग के हिसाब से लोगों का प्रतिशत"
+
+msgid "Infant_mortality_rate"
+msgstr "नवजातों के मरने की दर"
+
+msgid "Infant_mortality_rate_gender"
+msgstr "शिशुओं के मरने की दर, लिंग के हिसाब से"
+
+msgid "Inward_remittance"
+msgstr "लोगों के बैंक खातों में जमा कुल रकम"
+
+msgid "Inward_remittance_per_gdp"
+msgstr "लोगों के बैंक खातों में जमा कुल रकम (GDP का %)"
+
+msgid "Labor_force"
+msgstr "मज़दूरों की संख्या"
+
+msgid "Labor_force_rate"
+msgstr "मज़दूरी करने वालों की दर"
+
+msgid "Life_expectancy"
+msgstr "औसत उम्र (साल)"
+
+msgid "Marital_status"
+msgstr "वैवाहिक स्थिति"
+
+msgid "Marital_status_distribution"
+msgstr "वैवाहिक स्थिति के हिसाब से"
+
+msgid "Market_capitalization"
+msgstr "घरेलू कंपनियों का बाज़ार पूंजीकरण"
+
+msgid "Market_capitalization_per_gdp"
+msgstr "घरेलू कंपनियों का बाज़ार पूंजीकरण (GDP का प्रतिशत)"
+
+msgid "Median_age"
+msgstr "औसत उम्र"
+
+msgid "Median_age_gender"
+msgstr "लिंग के हिसाब से औसत उम्र"
+
+msgid "Median_age_race"
+msgstr "नस्ल के हिसाब से औसत उम्र"
+
+msgid "Median_household_income"
+msgstr "औसत पारिवारिक आय"
+
+msgid "Median_household_income_race"
+msgstr "नस्ल के हिसाब से औसत पारिवारिक आय"
+
+msgid "Median_income_gender"
+msgstr "लिंग के हिसाब से औसत आय"
+
+msgid "Median_individual_income"
+msgstr "औसत व्यक्तिगत आय"
+
+msgid "Mortality_events"
+msgstr "मौत की घटनाएं"
+
+msgid "Mortality_events_per_capita"
+msgstr "प्रति व्यक्ति मरने वालों की संख्या"
+
+msgid "Outward_remittance_per_gdp"
+msgstr "लोगों के बैंक खातों से निकाली गई कुल रकम"
+
+msgid "Percent_without_health_insurance_gender"
+msgstr "नस्ल के हिसाब से ऐसे लोगों का प्रतिशत जिनके पास स्वास्थ्य बीमा नहीं है"
+
+msgid "Percent_without_health_insurance_race"
+msgstr "नस्ल के हिसाब से ऐसे लोगों का प्रतिशत जिनके पास स्वास्थ्य बीमा नहीं है"
+
+msgid "Percentage_employed"
+msgstr "नौकरी करने वाले लोगों का प्रतिशत"
+
+msgid "Population"
+msgstr "जनसंख्या"
+
+msgid "Population_age"
+msgstr "उम्र के हिसाब से जनसंख्या"
+
+msgid "Population_age_distribution"
+msgstr "उम्र वर्ग में आने वाले लोगों का प्रतिशत"
+
+msgid "Population_density"
+msgstr "जनसंख्या घनत्व (प्रति वर्ग किमी में रहने वाले लोग)"
+
+msgid "Population_gender"
+msgstr "लिंग के हिसाब से जनसंख्या"
+
+msgid "Population_gender_distribution"
+msgstr "लिंग के हिसाब से"
+
+msgid "Population_growth_rate"
+msgstr "जनसंख्या में बढ़ोतरी की दर"
+
+msgid "Population_race"
+msgstr "नस्ल के हिसाब से जनसंख्या"
+
+msgid "Population_race_distribution"
+msgstr "नस्ल के हिसाब से जनसंख्या"
+
+msgid "Poverty_rate"
+msgstr "गरीबी दर"
+
+msgid "Poverty_rate_gender"
+msgstr "लिंग के हिसाब से गरीबी दर"
+
+msgid "Poverty_rate_race"
+msgstr "नस्ल के हिसाब से गरीबी दर"
+
+msgid "Prescribed_drugs"
+msgstr "बताई गई दवाइयां (हर तिमाही में)"
+
+msgid "Prescribed_drugs_per_capita"
+msgstr "बताई गई दवाई प्रति व्यक्ति (हर तिमाही में)"
+
+msgid "Property_crime"
+msgstr "प्रॉपर्टी से जुड़े अपराधों की कुल संख्या"
+
+msgid "Property_crime_rate"
+msgstr "प्रॉपर्टी से जुड़े अपराधों की कुल संख्या, 1 लाख लोगों में"
+
+msgid "School_enrollment"
+msgstr "स्कूल में नाम दर्ज कराने वालों की संख्या"
+
+msgid "School_enrollment_rate"
+msgstr "स्कूल में नाम दर्ज कराने वालों की दर"
+
+msgid "State_unemployment_claims"
+msgstr "राज्य में बेरोज़गारी भत्तों के दावे"
+
+msgid "State_unemployment_claims_rate"
+msgstr "राज्य में बेरोज़गारी भत्तों के लिए दावा करने वालों की दर"
+
+msgid "Total_crime"
+msgstr "अपराधों की कुल संख्या"
+
+msgid "Total_employed"
+msgstr "रोज़गार पाने वालों की संख्या"
+
+msgid "Unemployment_rate"
+msgstr "बेरोज़गारी दर"
+
+msgid "Unemployment_rate_gender"
+msgstr "बेरोज़गारी दर, लिंग के हिसाब से"
+
+msgid "Urban_v_rural_population"
+msgstr "शहरी और ग्रामीण जनसंख्या"
+
+msgid "Violent_crime"
+msgstr "हिंसक अपराधों की कुल संख्या"
+
+msgid "Violent_crime_rate"
+msgstr "हर एक लाख लोगों के अनुपात में हिंसक अपराधों की संख्या"
+

@@ -1,0 +1,129 @@
+msgid "%(project)s is a Google supported project"
+msgstr "%(project)s एक ऐसा प्रोजेक्ट है जिसे Google से सहायता मिलती है"
+
+msgid "API's"
+msgstr "API's"
+
+msgid "About"
+msgstr "इसके बारे में जानकारी"
+
+msgid "About Data Commons"
+msgstr "Data Commons के बारे में जानकारी"
+
+msgid "Blog"
+msgstr "ब्लॉग"
+
+msgid "Cities, United States"
+msgstr "संयुक्त राज्य अमेरिका के शहर"
+
+msgid "Contribute"
+msgstr "योगदान"
+
+msgid "Counties, United States"
+msgstr "संयुक्त राज्य अमेरिका की काउंटी"
+
+msgid "Countries"
+msgstr "देश"
+
+msgid "Data Commons"
+msgstr "Data Commons"
+
+msgid "Data Sources"
+msgstr "डेटा स्रोत"
+
+msgid "Disclaimers"
+msgstr "खंंडन"
+
+msgid "Documentation"
+msgstr "दस्तावेज़"
+
+msgid "Economic Indicators, Worldwide"
+msgstr "दुनिया भर में इकॉनमिक इंडिकेटर"
+
+msgid "Enter a country, state, county or city"
+msgstr "देश, राज्य, काउंटी या शहर का नाम डालें"
+
+msgid "Explore"
+msgstr "एक्सप्लोर करें"
+
+msgid "FAQ"
+msgstr "अक्सर पूछे जाने वाले सवाल"
+
+msgid "Feedback"
+msgstr "सुझाव, शिकायत या राय"
+
+msgid "Frequently Asked Questions"
+msgstr "अक्सर पूछे जाने वाले सवाल"
+
+msgid "Gini Index"
+msgstr "Gini इंडेक्स"
+
+msgid "Github Repository"
+msgstr "GitHub डेटा स्टोर करने की जगह"
+
+msgid "Government Expenditures on Education"
+msgstr "शिक्षा पर सरकारी खर्च"
+
+msgid "Government Expenditures on Military"
+msgstr "सेना पर सरकारी खर्च"
+
+msgid "Graph Browser"
+msgstr "ग्राफ़ ब्राउज़र"
+
+msgid "Gross National Income"
+msgstr "सकल राष्ट्रीय आय"
+
+msgid "Life Expectancy"
+msgstr "औसत उम्र"
+
+msgid "Loading..."
+msgstr "लोड हो रहा है..."
+
+msgid "Median Income, United States"
+msgstr "संयुक्त राज्य अमेरिका में औसत आय"
+
+msgid "PLACE_EXPLORER_INTRO"
+msgstr "<p>जगह एक्सप्लोर करने वाले टूल से आपको किसी जगह का सबसे ज़रूरी डेटा समझने में मदद मिलती है. यह टूल किसी जगह के बारे में शिक्षा और अर्थशास्त्र से जुड़ा डेटा, चार्ट में दिखाता है. इस डेटा में लोगों की जानकारी (जैसे, उम्र, लिंग, आय, शिक्षा वगैरह) भी शामिल होती है. साथ ही, अन्य जगहों का डेटा भी दिखाया जाता है, ताकि तुलना की जा सके. आप मेट्रिक के हिसाब से अलग-अलग जगहों की रैंक भी देख सकते हैं. इन मेट्रिक में बेरोज़गारी, अपराध, और आय शामिल हैं.</p><p>आप ऊपर दिए गए खोज बॉक्स का इस्तेमाल करके, अपने पसंदीदा शहर, पिन कोड, देश, राज्य या देश के हिसाब से डेटा के चार्ट देख सकते हैं.</p><p>इसके अलावा, आप सबसे मशहूर कुछ जगहों को एक्सप्लोर कर सकते हैं ...</p>"
+
+msgid "Place Explorer"
+msgstr "जगह एक्सप्लोर करने वाला टूल"
+
+msgid "Places"
+msgstr "जगहें"
+
+msgid "Privacy Policy"
+msgstr "निजता नीति"
+
+msgid "Rankings"
+msgstr "रैंकिंग"
+
+msgid "States, United States"
+msgstr "संयुक्त राज्य अमेरिका के राज्य"
+
+msgid "Terms and Conditions"
+msgstr "नियम और शर्तें"
+
+msgid "Timelines Explorer"
+msgstr "टाइमलाइन एक्सप्लोर करने वाला टूल"
+
+msgid "Tutorials"
+msgstr "ट्यूटोरियल"
+
+msgid "Unemployment Rate, United States"
+msgstr "संयुक्त राज्य अमेरिका में बेरोज़गारी की दर"
+
+msgid "Worldwide"
+msgstr "दुनिया भर में"
+
+msgid "by city"
+msgstr "शहर के हिसाब से"
+
+msgid "by county"
+msgstr "काउंटी के हिसाब से"
+
+msgid "by state"
+msgstr "राज्य के हिसाब से"
+
+msgid "in United States"
+msgstr "संयुक्त राज्य अमेरिका में"
+

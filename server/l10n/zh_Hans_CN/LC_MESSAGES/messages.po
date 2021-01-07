@@ -1,0 +1,129 @@
+msgid "%(project)s is a Google supported project"
+msgstr "%(project)s 是由 Google 支持的项目"
+
+msgid "API's"
+msgstr "API"
+
+msgid "About"
+msgstr "简介"
+
+msgid "About Data Commons"
+msgstr "Data Commons 简介"
+
+msgid "Blog"
+msgstr "博客"
+
+msgid "Cities, United States"
+msgstr "城市，美国"
+
+msgid "Contribute"
+msgstr "参与"
+
+msgid "Counties, United States"
+msgstr "县，美国"
+
+msgid "Countries"
+msgstr "国家或地区"
+
+msgid "Data Commons"
+msgstr "Data Commons"
+
+msgid "Data Sources"
+msgstr "数据来源："
+
+msgid "Disclaimers"
+msgstr "免责声明"
+
+msgid "Documentation"
+msgstr "文档"
+
+msgid "Economic Indicators, Worldwide"
+msgstr "经济指标，全球"
+
+msgid "Enter a country, state, county or city"
+msgstr "输入国家或地区、州或省、县或城市"
+
+msgid "Explore"
+msgstr "探索"
+
+msgid "FAQ"
+msgstr "常见问题解答"
+
+msgid "Feedback"
+msgstr "反馈"
+
+msgid "Frequently Asked Questions"
+msgstr "常见问题解答"
+
+msgid "Gini Index"
+msgstr "基尼系数"
+
+msgid "Github Repository"
+msgstr "Github 代码库"
+
+msgid "Government Expenditures on Education"
+msgstr "政府教育支出"
+
+msgid "Government Expenditures on Military"
+msgstr "政府军事支出"
+
+msgid "Graph Browser"
+msgstr "图表浏览器"
+
+msgid "Gross National Income"
+msgstr "国民总收入"
+
+msgid "Life Expectancy"
+msgstr "预期寿命"
+
+msgid "Loading..."
+msgstr "正在加载…"
+
+msgid "Median Income, United States"
+msgstr "中位数收入，美国"
+
+msgid "PLACE_EXPLORER_INTRO"
+msgstr "<p>地点探索工具有助于您了解一个地点的底层核心数据。它围绕某个地点的人口、教育、经济等状况，汇总了一系列图表，并将该地的状况与其他地点比较。您还可以了解不同的地点在失业率、犯罪率和收入水平等不同指标上的排名状况。</p><p>借助上面的搜索框，您可以搜索您喜欢的城市、邮政编码区域、县、州或省、国家或地区，深入探索这些地点的图表。</p><p>您也可以从探索一些著名地点开始...</p>"
+
+msgid "Place Explorer"
+msgstr "地点探索工具"
+
+msgid "Places"
+msgstr "地点"
+
+msgid "Privacy Policy"
+msgstr "隐私权政策"
+
+msgid "Rankings"
+msgstr "排名"
+
+msgid "States, United States"
+msgstr "州，美国"
+
+msgid "Terms and Conditions"
+msgstr "条款及条件"
+
+msgid "Timelines Explorer"
+msgstr "时间轴探索工具"
+
+msgid "Tutorials"
+msgstr "教程"
+
+msgid "Unemployment Rate, United States"
+msgstr "失业率，美国"
+
+msgid "Worldwide"
+msgstr "全球"
+
+msgid "by city"
+msgstr "按城市"
+
+msgid "by county"
+msgstr "按国家或地区"
+
+msgid "by state"
+msgstr "按州或省"
+
+msgid "in United States"
+msgstr "在美国"
+

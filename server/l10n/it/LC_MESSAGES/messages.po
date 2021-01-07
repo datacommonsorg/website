@@ -1,0 +1,129 @@
+msgid "%(project)s is a Google supported project"
+msgstr "%(project)s è un progetto supportato da Google"
+
+msgid "API's"
+msgstr "API"
+
+msgid "About"
+msgstr "Informazioni"
+
+msgid "About Data Commons"
+msgstr "Informazioni su Data Commons"
+
+msgid "Blog"
+msgstr "Blog"
+
+msgid "Cities, United States"
+msgstr "Città, Stati Uniti"
+
+msgid "Contribute"
+msgstr "Contribuisci"
+
+msgid "Counties, United States"
+msgstr "Contee, Stati Uniti"
+
+msgid "Countries"
+msgstr "Paesi"
+
+msgid "Data Commons"
+msgstr "Data Commons"
+
+msgid "Data Sources"
+msgstr "Fonti dei dati"
+
+msgid "Disclaimers"
+msgstr "Limitazioni di responsabilità"
+
+msgid "Documentation"
+msgstr "Documentazione"
+
+msgid "Economic Indicators, Worldwide"
+msgstr "Indicatori economici, Tutto il mondo"
+
+msgid "Enter a country, state, county or city"
+msgstr "Inserisci un paese, uno stato, una contea o una città"
+
+msgid "Explore"
+msgstr "Esplora"
+
+msgid "FAQ"
+msgstr "Domande frequenti"
+
+msgid "Feedback"
+msgstr "Feedback"
+
+msgid "Frequently Asked Questions"
+msgstr "Domande frequenti"
+
+msgid "Gini Index"
+msgstr "Indice di Gini"
+
+msgid "Github Repository"
+msgstr "Repository GitHub"
+
+msgid "Government Expenditures on Education"
+msgstr "Spesa pubblica per l'istruzione"
+
+msgid "Government Expenditures on Military"
+msgstr "Spesa pubblica per le forze armate"
+
+msgid "Graph Browser"
+msgstr "Graph Browser"
+
+msgid "Gross National Income"
+msgstr "Reddito nazionale lordo"
+
+msgid "Life Expectancy"
+msgstr "Speranza di vita"
+
+msgid "Loading..."
+msgstr "Caricamento in corso…"
+
+msgid "Median Income, United States"
+msgstr "Reddito medio, Stati Uniti"
+
+msgid "PLACE_EXPLORER_INTRO"
+msgstr "<p>Lo strumento Place Explorer ti consente di conoscere i dati fondamentali relativi a un luogo. Raccoglie una serie di grafici relativi a dati demografici, istruzione, aspetti economici e altri dati del luogo, collocandoli nel contesto con confronti con altri luoghi. Puoi anche conoscere la posizione di luoghi differenti in merito a diverse metriche quali disoccupazione, criminalità e reddito.</p><p>Puoi analizzare in dettaglio i grafici relativi alla città, al codice postale, alla contea, allo stato o al paese che preferisci usando la casella di ricerca in alto.</p><p>In alternativa puoi iniziare a esplorare alcuni luoghi molto noti…</p>"
+
+msgid "Place Explorer"
+msgstr "Place Explorer"
+
+msgid "Places"
+msgstr "Luoghi"
+
+msgid "Privacy Policy"
+msgstr "Norme sulla privacy"
+
+msgid "Rankings"
+msgstr "Posizioni"
+
+msgid "States, United States"
+msgstr "Stati, Stati Uniti"
+
+msgid "Terms and Conditions"
+msgstr "Termini e condizioni"
+
+msgid "Timelines Explorer"
+msgstr "Timelines Explorer"
+
+msgid "Tutorials"
+msgstr "Tutorial"
+
+msgid "Unemployment Rate, United States"
+msgstr "Tasso di disoccupazione, Stati Uniti"
+
+msgid "Worldwide"
+msgstr "Tutto il mondo"
+
+msgid "by city"
+msgstr "per città"
+
+msgid "by county"
+msgstr "per contea"
+
+msgid "by state"
+msgstr "per stato"
+
+msgid "in United States"
+msgstr "negli Stati Uniti"
+

@@ -1,0 +1,129 @@
+msgid "%(project)s is a Google supported project"
+msgstr "%(project)s est un projet développé par Google"
+
+msgid "API's"
+msgstr "API"
+
+msgid "About"
+msgstr "À propos"
+
+msgid "About Data Commons"
+msgstr "À propos de Data Commons"
+
+msgid "Blog"
+msgstr "Blog"
+
+msgid "Cities, United States"
+msgstr "Villes des États-Unis"
+
+msgid "Contribute"
+msgstr "Contribuer"
+
+msgid "Counties, United States"
+msgstr "Comtés des États-Unis"
+
+msgid "Countries"
+msgstr "Pays"
+
+msgid "Data Commons"
+msgstr "Data Commons"
+
+msgid "Data Sources"
+msgstr "Sources des données"
+
+msgid "Disclaimers"
+msgstr "Clauses de non-responsabilité"
+
+msgid "Documentation"
+msgstr "Documentation"
+
+msgid "Economic Indicators, Worldwide"
+msgstr "Indicateurs économiques dans le monde entier"
+
+msgid "Enter a country, state, county or city"
+msgstr "Saisissez un pays, un État, un comté ou une ville"
+
+msgid "Explore"
+msgstr "Outils d'exploration"
+
+msgid "FAQ"
+msgstr "Questions fréquentes"
+
+msgid "Feedback"
+msgstr "Commentaires"
+
+msgid "Frequently Asked Questions"
+msgstr "Questions fréquentes"
+
+msgid "Gini Index"
+msgstr "Indice de GINI"
+
+msgid "Github Repository"
+msgstr "Dépôt GitHub"
+
+msgid "Government Expenditures on Education"
+msgstr "Dépenses publiques en éducation"
+
+msgid "Government Expenditures on Military"
+msgstr "Dépenses publiques militaires"
+
+msgid "Graph Browser"
+msgstr "Exploration des données"
+
+msgid "Gross National Income"
+msgstr "Revenu National Brut"
+
+msgid "Life Expectancy"
+msgstr "Espérance de vie"
+
+msgid "Loading..."
+msgstr "Chargement…"
+
+msgid "Median Income, United States"
+msgstr "Revenu moyen aux États-Unis"
+
+msgid "PLACE_EXPLORER_INTRO"
+msgstr "<p>L'outil d'exploration par lieu vous aide à mieux comprendre les principales données concernant un lieu spécifique. Il regroupe des graphiques sur des sujets variés tels que la démographie, l'éducation ou l'économie du lieu en question et compare ces données à celles d'autres lieux. Découvrez le classement des différents lieux en fonction de critères tels que le taux de chômage et de criminalité ou le niveau de revenus.</p><p>Utilisez le champ de recherche ci-dessus pour consulter les graphiques de la ville, du code postal, du comté, de l'État ou du pays qui vous intéresse.</p><p>Vous pouvez également commencer votre exploration par des lieux bien connus.</p>"
+
+msgid "Place Explorer"
+msgstr "Exploration par lieu"
+
+msgid "Places"
+msgstr "Lieux"
+
+msgid "Privacy Policy"
+msgstr "Règles de confidentialité"
+
+msgid "Rankings"
+msgstr "Classements"
+
+msgid "States, United States"
+msgstr "États des États-Unis"
+
+msgid "Terms and Conditions"
+msgstr "Conditions d'utilisation"
+
+msgid "Timelines Explorer"
+msgstr "Exploration chronologique"
+
+msgid "Tutorials"
+msgstr "Tutoriels"
+
+msgid "Unemployment Rate, United States"
+msgstr "Taux de chômage aux États-Unis"
+
+msgid "Worldwide"
+msgstr "Monde entier"
+
+msgid "by city"
+msgstr "par ville"
+
+msgid "by county"
+msgstr "par comté"
+
+msgid "by state"
+msgstr "par État"
+
+msgid "in United States"
+msgstr "aux États-Unis"
+

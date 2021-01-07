@@ -1,0 +1,129 @@
+msgid "%(project)s is a Google supported project"
+msgstr "Проект %(project) поддерживается Google"
+
+msgid "API's"
+msgstr "API"
+
+msgid "About"
+msgstr "Информация"
+
+msgid "About Data Commons"
+msgstr "О Data Commons"
+
+msgid "Blog"
+msgstr "Блог"
+
+msgid "Cities, United States"
+msgstr "Города в США"
+
+msgid "Contribute"
+msgstr "Помочь проекту"
+
+msgid "Counties, United States"
+msgstr "Округа в США"
+
+msgid "Countries"
+msgstr "Страны"
+
+msgid "Data Commons"
+msgstr "Data Commons"
+
+msgid "Data Sources"
+msgstr "Источники данных"
+
+msgid "Disclaimers"
+msgstr "Отказ от обязательств"
+
+msgid "Documentation"
+msgstr "Документация"
+
+msgid "Economic Indicators, Worldwide"
+msgstr "Экономические показатели в мире"
+
+msgid "Enter a country, state, county or city"
+msgstr "Укажите страну, штат, округ или город"
+
+msgid "Explore"
+msgstr "Обзор"
+
+msgid "FAQ"
+msgstr "Часто задаваемые вопросы"
+
+msgid "Feedback"
+msgstr "Отправить отзыв"
+
+msgid "Frequently Asked Questions"
+msgstr "Часто задаваемые вопросы"
+
+msgid "Gini Index"
+msgstr "Коэффициент Джини"
+
+msgid "Github Repository"
+msgstr "Хранилище GitHub"
+
+msgid "Government Expenditures on Education"
+msgstr "Расходы правительства на образование"
+
+msgid "Government Expenditures on Military"
+msgstr "Военные расходы правительства"
+
+msgid "Graph Browser"
+msgstr "Graph Browser"
+
+msgid "Gross National Income"
+msgstr "Валовой национальный доход"
+
+msgid "Life Expectancy"
+msgstr "Средняя продолжительность жизни"
+
+msgid "Loading..."
+msgstr "Загрузка…"
+
+msgid "Median Income, United States"
+msgstr "Медианный доход в США"
+
+msgid "PLACE_EXPLORER_INTRO"
+msgstr "<p>Place Explorer – это инструмент, который помогает получить основные данные о выбранном месте. Информация выводится в виде диаграмм данных по демографии, образованию, экономике и т. д. в сравнении с другими местами. Вы также можете посмотреть рейтинг разных мест по определенным показателям, таким как безработица, преступность и доход.</p><p>Вы можете искать данные по городу, почтовому индексу, округу, штату или стране с помощью окна поиска выше.</p><p>Кроме того, можно начать с просмотра данных об известных местах.</p>"
+
+msgid "Place Explorer"
+msgstr "Place Explorer"
+
+msgid "Places"
+msgstr "Места"
+
+msgid "Privacy Policy"
+msgstr "Политика конфиденциальности"
+
+msgid "Rankings"
+msgstr "Рейтинги"
+
+msgid "States, United States"
+msgstr "Штаты в США"
+
+msgid "Terms and Conditions"
+msgstr "Условия использования"
+
+msgid "Timelines Explorer"
+msgstr "Timelines Explorer"
+
+msgid "Tutorials"
+msgstr "Руководства"
+
+msgid "Unemployment Rate, United States"
+msgstr "Уровень безработицы в США"
+
+msgid "Worldwide"
+msgstr "в мире"
+
+msgid "by city"
+msgstr "по городу"
+
+msgid "by county"
+msgstr "по стране"
+
+msgid "by state"
+msgstr "по штату"
+
+msgid "in United States"
+msgstr "в США"
+

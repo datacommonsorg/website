@@ -1,0 +1,342 @@
+msgid "CHART_CATEGORY-Crime"
+msgstr "Crimes"
+
+msgid "CHART_CATEGORY-Demographics"
+msgstr "Dados demográficos"
+
+msgid "CHART_CATEGORY-Economics"
+msgstr "Economias"
+
+msgid "CHART_CATEGORY-Education"
+msgstr "Educação"
+
+msgid "CHART_CATEGORY-Environment"
+msgstr "Meio ambiente"
+
+msgid "CHART_CATEGORY-Equity"
+msgstr "Igualdade"
+
+msgid "CHART_CATEGORY-Health"
+msgstr "Saúde"
+
+msgid "CHART_CATEGORY-Housing"
+msgstr "Habitação"
+
+msgid "Alcohol_consumption_per_capita"
+msgstr "Consumo de álcool per capita (anual)"
+
+msgid "Arson"
+msgstr "Incêndios criminosos"
+
+msgid "Arson_rate"
+msgstr "Incêndios criminosos por 100.000 pessoas"
+
+msgid "Associate_degree_rate_gender"
+msgstr "Taxa de formação em curso superior de tecnologia por gênero"
+
+msgid "Bachelors_degree_rate_gender"
+msgstr "Taxa de formação em nível de bacharel por gênero"
+
+msgid "Children_employed"
+msgstr "Crianças empregadas"
+
+msgid "Children_employed_gender"
+msgstr "Crianças empregadas por gênero"
+
+msgid "Children_severe_wasting"
+msgstr "Síndrome consumptiva grave em crianças com menos de cinco anos"
+
+msgid "Children_severe_wasting_by_gender"
+msgstr "Síndrome consumptiva grave entre crianças menores de cinco anos por gênero"
+
+msgid "Children_wasting"
+msgstr "Síndrome consumptiva entre crianças menores de cinco anos"
+
+msgid "Children_wasting_by_gender"
+msgstr "Síndrome consumptiva entre crianças menores de cinco anos por gênero"
+
+msgid "Citizenship"
+msgstr "Status de cidadania"
+
+msgid "Citizenship_distribution"
+msgstr "Distribuição da população por status de cidadania"
+
+msgid "Co2_emissions_per_capita"
+msgstr "Emissões de CO2 per capita"
+
+msgid "Covid_cases"
+msgstr "Casos cumulativos da COVID-19"
+
+msgid "Covid_cases_per_capita"
+msgstr "Casos cumulativos de COVID-19 per capita"
+
+msgid "Covid_deaths"
+msgstr "Mortes cumulativas por COVID-19"
+
+msgid "Covid_deaths_per_capita"
+msgstr "Mortes cumulativas por COVID-19 per capita"
+
+msgid "Crime_rate"
+msgstr "Crimes por 100,000 pessoas"
+
+msgid "Cyclones"
+msgstr "Ciclones"
+
+msgid "Disasters"
+msgstr "Desastres"
+
+msgid "Earthquakes"
+msgstr "Terremotos"
+
+msgid "Educational_attainment"
+msgstr "Nível educacional"
+
+msgid "Educational_attainment_rate"
+msgstr "Taxa de nível educacional"
+
+msgid "Electricity_consumption_per_capita"
+msgstr "Consumo de eletricidade per capita"
+
+msgid "Energy_use"
+msgstr "Uso de energia (quilogramas de equivalente de petróleo per capita)"
+
+msgid "Fertility_rate"
+msgstr "Taxa de fertilidade"
+
+msgid "Gdp_growth_rate"
+msgstr "Taxa de crescimento do produto interno bruto"
+
+msgid "Gdp_per_capita"
+msgstr "Produto Interno Bruto per capita"
+
+msgid "Gini_index"
+msgstr "Índice de Gini"
+
+msgid "Gni"
+msgstr "Renda Nacional Bruta (paridade do poder de compra)"
+
+msgid "Gni_per_capita"
+msgstr "Renda Nacional Bruta per capita (paridade do poder de compra)"
+
+msgid "Government_debt"
+msgstr "Dívida pública"
+
+msgid "Government_debt_per_capita"
+msgstr "Gastos do governo em educação (% dos gastos do governo)"
+
+msgid "Government_expenditures_education"
+msgstr "Gastos do governo em educação (% do PIB)"
+
+msgid "Government_expenditures_education_gdp"
+msgstr "Gastos do governo em educação (% do PIB)"
+
+msgid "Government_expenditures_military"
+msgstr "Gastos do governo em forças armadas"
+
+msgid "Government_expenditures_military_per_gdp"
+msgstr "Gastos do governo em forças armadas, como uma porcentagem do PIB"
+
+msgid "Graduate_or_professional_degree_rate_gender"
+msgstr "Taxa de formação em nível de graduação ou diploma profissional por gênero"
+
+msgid "Health_behaviors"
+msgstr "Comportamentos de saúde"
+
+msgid "Health_outcomes"
+msgstr "Problemas de saúde"
+
+msgid "Household_income"
+msgstr "Renda familiar"
+
+msgid "Household_income_by_bracket"
+msgstr "Porcentagem de famílias por níveis de renda"
+
+msgid "Housing_units"
+msgstr "Unidades habitacionais"
+
+msgid "Housing_units_date_built"
+msgstr "Unidades habitacionais por data de construção"
+
+msgid "Housing_units_date_built_distrubtion"
+msgstr "Distribuição das unidades habitacionais por data de construção"
+
+msgid "Housing_units_per_capita"
+msgstr "Unidades habitacionais per capita"
+
+msgid "Housing_units_price"
+msgstr "Unidades habitacionais por preço"
+
+msgid "Housing_units_price_distribution"
+msgstr "Distribuição de unidades habitacionais ocupadas por preço"
+
+msgid "Housing_units_race"
+msgstr "Unidades habitacionais por raça da família"
+
+msgid "Housing_units_race_distribution"
+msgstr "Distribuição de unidades habitacionais por raça da família"
+
+msgid "Housing_units_rental_status"
+msgstr "Unidades habitacionais por status de locação"
+
+msgid "Housing_units_rental_status_distribution"
+msgstr "Distribuição de unidades habitacionais por status de locação"
+
+msgid "Individual_income"
+msgstr "Renda individual"
+
+msgid "Individual_income_by_bracket"
+msgstr "Porcentagem de indivíduos por faixas de renda"
+
+msgid "Infant_mortality_rate"
+msgstr "Taxa de mortalidade infantil"
+
+msgid "Infant_mortality_rate_gender"
+msgstr "Taxa de mortalidade infantil por gênero"
+
+msgid "Inward_remittance"
+msgstr "Entrada de remessa"
+
+msgid "Inward_remittance_per_gdp"
+msgstr "Recebimento de remessa (% do PIB)"
+
+msgid "Labor_force"
+msgstr "Força de trabalho"
+
+msgid "Labor_force_rate"
+msgstr "Taxa de participação na força de trabalho"
+
+msgid "Life_expectancy"
+msgstr "Expectativa de vida (anos)"
+
+msgid "Marital_status"
+msgstr "estado civil"
+
+msgid "Marital_status_distribution"
+msgstr "Distribuição por estado civil"
+
+msgid "Market_capitalization"
+msgstr "Capitalização de mercado de empresas nacionais"
+
+msgid "Market_capitalization_per_gdp"
+msgstr "Capitalização de mercado de empresas nacionais (% do PIB)"
+
+msgid "Median_age"
+msgstr "Idade mediana"
+
+msgid "Median_age_gender"
+msgstr "Idade mediana por gênero"
+
+msgid "Median_age_race"
+msgstr "Média de idade por raça"
+
+msgid "Median_household_income"
+msgstr "Renda familiar mediana"
+
+msgid "Median_household_income_race"
+msgstr "Renda familiar mediana por raça"
+
+msgid "Median_income_gender"
+msgstr "Renda mediana por gênero"
+
+msgid "Median_individual_income"
+msgstr "Renda individual mediana"
+
+msgid "Mortality_events"
+msgstr "Eventos de mortalidade"
+
+msgid "Mortality_events_per_capita"
+msgstr "Eventos de mortalidade per capita"
+
+msgid "Outward_remittance_per_gdp"
+msgstr "Saída de remessa"
+
+msgid "Percent_without_health_insurance_gender"
+msgstr "Porcentagem de pessoas sem seguro saúde por gênero"
+
+msgid "Percent_without_health_insurance_race"
+msgstr "Porcentagem de pessoas sem seguro saúde por raça"
+
+msgid "Percentage_employed"
+msgstr "Porcentagem de pessoas empregadas"
+
+msgid "Population"
+msgstr "População"
+
+msgid "Population_age"
+msgstr "População por idade"
+
+msgid "Population_age_distribution"
+msgstr "Distribuição por idade"
+
+msgid "Population_density"
+msgstr "Densidade populacional (pessoas por km²)"
+
+msgid "Population_gender"
+msgstr "População por gênero"
+
+msgid "Population_gender_distribution"
+msgstr "Distribuição por gênero"
+
+msgid "Population_growth_rate"
+msgstr "Taxa de crescimento da população"
+
+msgid "Population_race"
+msgstr "População por raça"
+
+msgid "Population_race_distribution"
+msgstr "Distribuição racial"
+
+msgid "Poverty_rate"
+msgstr "Taxa de pobreza"
+
+msgid "Poverty_rate_gender"
+msgstr "Taxa de pobreza por gênero"
+
+msgid "Poverty_rate_race"
+msgstr "Taxa de pobreza por raça"
+
+msgid "Prescribed_drugs"
+msgstr "Medicamentos prescritos (trimestral)"
+
+msgid "Prescribed_drugs_per_capita"
+msgstr "Medicamentos prescritos per capita (trimestral)"
+
+msgid "Property_crime"
+msgstr "Crimes contra a propriedade"
+
+msgid "Property_crime_rate"
+msgstr "Crimes contra a propriedade por 100 mil pessoas"
+
+msgid "School_enrollment"
+msgstr "Matrícula escolar"
+
+msgid "School_enrollment_rate"
+msgstr "Taxa de matrícula escolar"
+
+msgid "State_unemployment_claims"
+msgstr "Reivindicações de seguro-desemprego estadual"
+
+msgid "State_unemployment_claims_rate"
+msgstr "Taxa de reivindicações de seguro-desemprego estadual"
+
+msgid "Total_crime"
+msgstr "Total de crimes"
+
+msgid "Total_employed"
+msgstr "Número de pessoas empregadas"
+
+msgid "Unemployment_rate"
+msgstr "Taxa de desemprego"
+
+msgid "Unemployment_rate_gender"
+msgstr "Taxa de desemprego por gênero"
+
+msgid "Urban_v_rural_population"
+msgstr "População rural e urbana"
+
+msgid "Violent_crime"
+msgstr "Crimes violentos"
+
+msgid "Violent_crime_rate"
+msgstr "Crimes violentos por 100 mil pessoas"
+
