@@ -18,13 +18,12 @@ npm run extract -- 'js/**/*.ts*' --out-file js/i18n/<app>.json --id-interpolatio
 After transforming the translated textproto files from TC into json,
 one more step to compile the JSON into a format usable by FormatJS.
 
-Example for `en`:
-
 ```
-npm run compile -- js/i18n/lang/en.json --ast --out-file js/i18n/compiled-lang/en.json
+for LANG in de en es fr hi it ja ko pt-BR ru zh-CN;
+do
+npm run compile -- strings/$LANG/place.json --ast --out-file compiled-lang/$LANG/place.json &&
+npm run compile -- strings/$LANG/stats_var_labels.json --ast --out-file compiled-lang/$LANG/stats_var_labels.json; done
 ```
-
-For now, `es` is copied and hand-updated from compiled-lang/en.json (which was generated directly from place.json).
 
 ## TODO
 
@@ -52,8 +51,7 @@ Then update the messages.po file per locale:
 .env/bin/pybabel update -l $LOCALE -i server/l10n/messages.pot -w 1000 -d server/l10n
 ```
 
-And after adding translations to each .po file, compile to .mo files for serving:
-TODO(beets): Do this on server start
+On server start, the messages are compiled, e.g.
 ```
 .env/bin/pybabel compile -d server/l10n -D messages
 ```
