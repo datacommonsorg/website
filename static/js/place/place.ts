@@ -136,10 +136,15 @@ async function getChoroplethData(
 /**
  * Get the landing page data
  */
-async function getLandingPageData(dcid: string, locale: string): Promise<PageData> {
-  return axios.get(`/api/landingpage/data/${dcid}?hl=${locale}`).then((resp) => {
-    return resp.data;
-  });
+async function getLandingPageData(
+  dcid: string,
+  locale: string
+): Promise<PageData> {
+  return axios
+    .get(`/api/landingpage/data/${dcid}?hl=${locale}`)
+    .then((resp) => {
+      return resp.data;
+    });
 }
 
 function shouldMakeChoroplethCalls(dcid: string, placeType: string): boolean {
