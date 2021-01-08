@@ -48,7 +48,7 @@ class MinikubeConfig(Config):
 
 
 class GKEConfig(Config):
-    SECRET_PROJECT = 'datcom-website-dev'
+    SECRET_PROJECT = 'datcom-website-staging'
     API_ROOT = 'http://127.0.0.1:8081'  # Port for Kubernetes ESP.
 
 
