@@ -13,6 +13,12 @@
 # limitations under the License.
 
 # Update ESP container startup options to work locally without talking to GCP.
+# The dev ESP args are quite different comparing with GCP args as it does not
+# talk to GCP at all. This
+# 1. remove "--service"
+# 2. change "--rollout_strategy" to be fixed
+# 3. add "--service_json_path" to use json service config
+# 4. add a bunch of other dev only args
 
 - op: remove
   path: /spec/template/spec/containers/2/args/0

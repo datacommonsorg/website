@@ -12,7 +12,7 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-# Kustomization for staging website runnign on GCP `datcom-website-staging` project.
+# Kustomization for staging website running on GCP `datcom-website-staging` project.
 # - Adds "staging" suffix to all the resources.
 # - Set environmnet variables.
 # - Update replicas.
