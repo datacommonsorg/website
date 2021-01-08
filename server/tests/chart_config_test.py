@@ -21,7 +21,7 @@ import lib.range as lib_range
 class TestChart(unittest.TestCase):
 
     def setUp(self):
-        with open('chart_config.json') as f:
+        with open('chart_config.json', encoding='utf-8') as f:
             self.charts = json.load(f)
 
     def test_unique_chart(self):

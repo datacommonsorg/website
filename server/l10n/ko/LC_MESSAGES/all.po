@@ -269,7 +269,7 @@ msgid "CHART_TITLE-Population_age_distribution"
 msgstr "연령 분포"
 
 msgid "CHART_TITLE-Population_density"
-msgstr "인구 밀도(kmÂ²당 인구)"
+msgstr "인구 밀도(km²당 인구)"
 
 msgid "CHART_TITLE-Population_gender"
 msgstr "성별에 따른 인구"

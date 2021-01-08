@@ -269,7 +269,7 @@ msgid "CHART_TITLE-Population_age_distribution"
 msgstr "年齢分布"
 
 msgid "CHART_TITLE-Population_density"
-msgstr "人口密度（kmÂ² あたりの人口）"
+msgstr "人口密度（km² あたりの人口）"
 
 msgid "CHART_TITLE-Population_gender"
 msgstr "人口（性別ごと）"

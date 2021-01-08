@@ -269,7 +269,7 @@ msgid "CHART_TITLE-Population_age_distribution"
 msgstr "Age distribution"
 
 msgid "CHART_TITLE-Population_density"
-msgstr "Population density (people per kmÂ²)"
+msgstr "Population density (people per km²)"
 
 msgid "CHART_TITLE-Population_gender"
 msgstr "Population by gender"

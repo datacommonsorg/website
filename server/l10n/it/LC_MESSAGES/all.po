@@ -269,7 +269,7 @@ msgid "CHART_TITLE-Population_age_distribution"
 msgstr "Distribuzione per fasce d'età"
 
 msgid "CHART_TITLE-Population_density"
-msgstr "Densità di popolazione (persone per kmÂ²)"
+msgstr "Densità di popolazione (persone per km²)"
 
 msgid "CHART_TITLE-Population_gender"
 msgstr "Popolazione per sesso"
