@@ -34,8 +34,7 @@ class DevelopmentConfig(Config):
     DEVELOPMENT = True
     PROJECT = 'datcom-browser-staging'
     API_PROJECT = 'datcom-mixer-staging'
-    #API_ROOT = 'https://mixer.endpoints.datcom-mixer-staging.cloud.goog'
-    API_ROOT = 'https://api.datacommons.org'
+    API_ROOT = 'https://mixer.endpoints.datcom-mixer-staging.cloud.goog'
     GCS_BUCKET = 'datcom-browser-staging.appspot.com'
     GA_ACCOUNT = 'UA-117119267-2'
 
