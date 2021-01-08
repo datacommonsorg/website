@@ -465,6 +465,11 @@ def data(dcid):
             if category != OVERVIEW:
                 del spec_and_stat[category]
 
+    # Get chart category name translations
+    categories = {}
+    for category in list(spec_and_stat.keys()):
+        categories[category] = gettext(f'CHART_TITLE-CHART_CATEGORY-{category}')
+
     # Get display name for all places
     all_places = [dcid]
     for t in BAR_CHART_TYPES:
@@ -484,6 +489,7 @@ def data(dcid):
         'parentPlaces': raw_page_data.get('parentPlaces', []),
         'similarPlaces': raw_page_data.get('similarPlaces', []),
         'nearbyPlaces': raw_page_data.get('nearbyPlaces', []),
+        'categories': categories,
         'names': names,
         'highlight': highlight,
     }
