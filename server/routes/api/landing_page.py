@@ -19,7 +19,6 @@ in chart.py and place.py
 
 import collections
 import copy
-# import gettext
 import json
 import logging
 import urllib
@@ -40,21 +39,6 @@ BAR_CHART_TYPES = ['parent', 'similar', 'nearby', 'child']
 MAX_DENOMINATOR_BACK_YEAR = 3
 MIN_CHART_TO_KEEP_TOPICS = 30
 OVERVIEW = 'Overview'
-
-# TODO(beets): Replace this with the extracted locale
-# use gettext.find
-# l10n = gettext.translation('chart_titles',
-#                            localedir='l10n',
-#                            languages=[
-#                                'de', 'en', 'es', 'fr', 'hi', 'it', 'ja', 'ko',
-#                                'pt_BR', 'ru', 'zh_Hans_CN'
-#                            ])
-# l10n.install()
-# _ = l10n.gettext
-# gettext.bindtextdomain('chart_titles', 'l10n')
-# gettext.textdomain('chart_titles')
-# _ = gettext.gettext
-# gettext.install('chart_titles', 'l10n')
 
 
 def get_landing_page_data(dcid, stat_vars):
