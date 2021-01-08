@@ -66,6 +66,14 @@ def build_url(dcids, statvar_to_denom, is_scaled=False):
     return urllib.parse.unquote(url_for('tools.timeline', _anchor=anchor))
 
 
+def fill_translation(chart):
+    chart['title'] = gettext(chart['titleId'])
+    del chart['titleId']
+    if 'description' in chart:
+        del chart['description']
+    return chart
+
+
 # TODO: add test for chart_config for assumption that each combination of stat vars will only have one config in chart_config.
 def build_spec(chart_config):
     """Builds hierachical spec based on chart config."""
@@ -74,8 +82,9 @@ def build_spec(chart_config):
     # Map: category -> topic -> [config]
     for conf in chart_config:
         config = copy.deepcopy(conf)
-        config['title'] = gettext(config['titleId'])
-        del config['titleId']
+        config = fill_translation(config)
+        if 'relatedChart' in config and config['relatedChart']['scale']:
+            config['relatedChart'] = fill_translation(config['relatedChart'])
         is_overview = ('isOverview' in config and config['isOverview'])
         category = config['category']
         if 'isOverview' in config:
@@ -479,7 +488,7 @@ def data(dcid):
     # Pick data to highlight - only population for now
     population, statvar_denom = get_snapshot_across_places(
         {'statsVars': ['Count_Person']}, all_stat, [dcid])
-    highlight = {'Population': population}
+    highlight = {gettext('CHART_TITLE-Population'): population}
 
     response = {
         'pageChart': spec_and_stat,
