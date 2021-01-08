@@ -87,6 +87,7 @@ function run_npm_build () {
 function run_py_test {
   python3 -m venv .env
   source .env/bin/activate
+  .env/bin/pybabel compile -d server/l10n -f -D all
   cd server
   export FLASK_ENV=test
   pip3 install -r requirements.txt -q
