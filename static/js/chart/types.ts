@@ -87,6 +87,7 @@ export interface PageData {
   parentPlaces: string[];
   similarPlaces: string[];
   nearbyPlaces: string[];
+  categories: { string: string };
   names: { string: string };
   highlight: PageHighlight;
 }
