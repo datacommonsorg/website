@@ -1,0 +1,707 @@
+{
+  "Amount_Consumption_Alcohol_15OrMoreYears_AsFractionOf_Count_Person_15OrMoreYears": {
+    "defaultMessage": "Consumo di alcol puro"
+  },
+  "Amount_Consumption_Electricity_PerCapita": {
+    "defaultMessage": "Consumo di elettricità"
+  },
+  "Amount_Consumption_Energy_PerCapita": {
+    "defaultMessage": "Consumo energetico"
+  },
+  "Amount_Debt_Government": {
+    "defaultMessage": "Debito pubblico"
+  },
+  "Amount_EconomicActivity_ExpenditureActivity_EducationExpenditure_Government_AsFractionOf_Amount_EconomicActivity_ExpenditureActivity_Government": {
+    "defaultMessage": "Spesa pubblica per l'istruzione (% della spesa pubblica)"
+  },
+  "Amount_EconomicActivity_ExpenditureActivity_EducationExpenditure_Government_AsFractionOf_Amount_EconomicActivity_GrossDomesticProduction_Nominal": {
+    "defaultMessage": "Spesa pubblica per l'istruzione (% del PIL)"
+  },
+  "Amount_EconomicActivity_ExpenditureActivity_MilitaryExpenditure_Government": {
+    "defaultMessage": "Spesa pubblica per le forze armate"
+  },
+  "Amount_EconomicActivity_ExpenditureActivity_MilitaryExpenditure_Government_AsFractionOf_Amount_EconomicActivity_GrossDomesticProduction_Nominal": {
+    "defaultMessage": "Spesa pubblica per le forze armate (% del PIL)"
+  },
+  "Amount_EconomicActivity_GrossDomesticProduction_Nominal": {
+    "defaultMessage": "PIL"
+  },
+  "Amount_EconomicActivity_GrossDomesticProduction_Nominal_PerCapita": {
+    "defaultMessage": "PIL pro capite"
+  },
+  "Amount_EconomicActivity_GrossNationalIncome_PurchasingPowerParity": {
+    "defaultMessage": "RNL in PPA"
+  },
+  "Amount_EconomicActivity_GrossNationalIncome_PurchasingPowerParity_PerCapita": {
+    "defaultMessage": "RNL in PPA pro capite"
+  },
+  "Amount_Emissions_CarbonDioxide_PerCapita": {
+    "defaultMessage": "Emissioni di CO2"
+  },
+  "Amount_Remittance_InwardRemittance": {
+    "defaultMessage": "Rimessa interna"
+  },
+  "Amount_Remittance_InwardRemittance_AsFractionOf_Amount_EconomicActivity_GrossDomesticProduction_Nominal": {
+    "defaultMessage": "Rimessa interna (% del PIL)"
+  },
+  "Amount_Remittance_OutwardRemittance": {
+    "defaultMessage": "Rimessa esterna"
+  },
+  "Amount_Stock": {
+    "defaultMessage": "Capitalizzazione di mercato delle società nazionali"
+  },
+  "Amount_Stock_AsFractionOf_Amount_EconomicActivity_GrossDomesticProduction_Nominal": {
+    "defaultMessage": "Capitalizzazione di mercato delle società nazionali (% del PIL)"
+  },
+  "Count_CriminalActivities_Arson": {
+    "defaultMessage": "Incendio doloso"
+  },
+  "Count_CriminalActivities_CombinedCrime": {
+    "defaultMessage": "Reati combinati"
+  },
+  "Count_CriminalActivities_PropertyCrime": {
+    "defaultMessage": "Reati contro la proprietà"
+  },
+  "Count_CriminalActivities_ViolentCrime": {
+    "defaultMessage": "Crimini violenti"
+  },
+  "Count_CycloneEvent": {
+    "defaultMessage": "Ciclone"
+  },
+  "Count_Death_0Years_AsFractionOf_Count_BirthEvent_LiveBirth": {
+    "defaultMessage": "Tasso di mortalità infantile"
+  },
+  "Count_Death_0Years_Female_AsFractionOf_Count_BirthEvent_LiveBirth_Female": {
+    "defaultMessage": "Femmine"
+  },
+  "Count_Death_0Years_Male_AsFractionOf_Count_BirthEvent_LiveBirth_Male": {
+    "defaultMessage": "Maschi"
+  },
+  "Count_Death_DiseasesOfTheCirculatorySystem": {
+    "defaultMessage": "Apparato circolatorio"
+  },
+  "Count_Death_DiseasesOfTheNervousSystem": {
+    "defaultMessage": "Sistema nervoso"
+  },
+  "Count_Death_DiseasesOfTheRespiratorySystem": {
+    "defaultMessage": "Apparato respiratorio"
+  },
+  "Count_Death_ExternalCauses": {
+    "defaultMessage": "Cause esterne"
+  },
+  "Count_Death_Neoplasms": {
+    "defaultMessage": "Neoplasie"
+  },
+  "Count_DroughtEvent": {
+    "defaultMessage": "Siccità"
+  },
+  "Count_EarthquakeEvent": {
+    "defaultMessage": "Terremoto"
+  },
+  "Count_FloodEvent": {
+    "defaultMessage": "Inondazione"
+  },
+  "Count_Household_IncomeOf100000To124999USDollar": {
+    "defaultMessage": "Da 100 K $ a 125 K $"
+  },
+  "Count_Household_IncomeOf10000To14999USDollar": {
+    "defaultMessage": "Da 10 K $ a 15 K $"
+  },
+  "Count_Household_IncomeOf125000To149999USDollar": {
+    "defaultMessage": "Da 125 K $ a 150 K $"
+  },
+  "Count_Household_IncomeOf150000To199999USDollar": {
+    "defaultMessage": "Da 150 K $ a 200 K $"
+  },
+  "Count_Household_IncomeOf200000OrMoreUSDollar": {
+    "defaultMessage": "Oltre 200 K $"
+  },
+  "Count_Household_IncomeOf20000To24999USDollar": {
+    "defaultMessage": "Da 20 K $ a 25 K $"
+  },
+  "Count_Household_IncomeOf30000To34999USDollar": {
+    "defaultMessage": "Da 30 K $ a 35 K $"
+  },
+  "Count_Household_IncomeOf40000To44999USDollar": {
+    "defaultMessage": "Da 40 K $ a 45 K $"
+  },
+  "Count_Household_IncomeOf50000To59999USDollar": {
+    "defaultMessage": "Da 50 K $ a 60 K $"
+  },
+  "Count_Household_IncomeOf60000To74999USDollar": {
+    "defaultMessage": "Da 60 K $ a 75 K $"
+  },
+  "Count_Household_IncomeOf75000To99999USDollar": {
+    "defaultMessage": "Da 75 K $ a 100 K $"
+  },
+  "Count_Household_IncomeOfUpto10000USDollar": {
+    "defaultMessage": "Meno di 10 K $"
+  },
+  "Count_HousingUnit": {
+    "defaultMessage": "Unità abitative"
+  },
+  "Count_HousingUnit_1940To1949DateBuilt": {
+    "defaultMessage": "1940 - 1949"
+  },
+  "Count_HousingUnit_1950To1959DateBuilt": {
+    "defaultMessage": "1950 - 1959"
+  },
+  "Count_HousingUnit_1960To1969DateBuilt": {
+    "defaultMessage": "1960 - 1969"
+  },
+  "Count_HousingUnit_1970To1979DateBuilt": {
+    "defaultMessage": "1970 - 1979"
+  },
+  "Count_HousingUnit_1980To1989DateBuilt": {
+    "defaultMessage": "1980 - 1989"
+  },
+  "Count_HousingUnit_1990To1999DateBuilt": {
+    "defaultMessage": "1990 - 1999"
+  },
+  "Count_HousingUnit_2000To2009DateBuilt": {
+    "defaultMessage": "2000 - 2009"
+  },
+  "Count_HousingUnit_2010OrLaterDateBuilt": {
+    "defaultMessage": "Dopo il 2010"
+  },
+  "Count_HousingUnit_Before1939DateBuilt": {
+    "defaultMessage": "Prima del 1939"
+  },
+  "Count_HousingUnit_HomeValue1000000To1499999USDollar": {
+    "defaultMessage": "1 M $ - 1,5 M $"
+  },
+  "Count_HousingUnit_HomeValue100000To199999USDollar": {
+    "defaultMessage": "100 K $ - 200 K $"
+  },
+  "Count_HousingUnit_HomeValue1500000To1999999USDollar": {
+    "defaultMessage": "1,5 M $ - 2 M $"
+  },
+  "Count_HousingUnit_HomeValue2000000OrMoreUSDollar": {
+    "defaultMessage": "Oltre 2 M $"
+  },
+  "Count_HousingUnit_HomeValue200000To299999USDollar": {
+    "defaultMessage": "200 K $ - 300 K $"
+  },
+  "Count_HousingUnit_HomeValue300000To499999USDollar": {
+    "defaultMessage": "300 K $ - 500 K $"
+  },
+  "Count_HousingUnit_HomeValue500000To999999USDollar": {
+    "defaultMessage": "500 K $ - 1 M $"
+  },
+  "Count_HousingUnit_HomeValue50000To99999USDollar": {
+    "defaultMessage": "50 K $ - 100 K $"
+  },
+  "Count_HousingUnit_HomeValueUpto49999USDollar": {
+    "defaultMessage": "0 - 50 K $"
+  },
+  "Count_HousingUnit_HouseholderRaceAmericanIndianOrAlaskaNativeAlone": {
+    "defaultMessage": "Indiani d'America o nativi dell'Alaska"
+  },
+  "Count_HousingUnit_HouseholderRaceAsianAlone": {
+    "defaultMessage": "Soltanto asiatici"
+  },
+  "Count_HousingUnit_HouseholderRaceBlackOrAfricanAmericanAlone": {
+    "defaultMessage": "Neri o afroamericani"
+  },
+  "Count_HousingUnit_HouseholderRaceHispanicOrLatino": {
+    "defaultMessage": "Ispanici o latini"
+  },
+  "Count_HousingUnit_HouseholderRaceNativeHawaiianOrOtherPacificIslanderAlone": {
+    "defaultMessage": "Nativi hawaiani o abitanti di isole del Pacifico"
+  },
+  "Count_HousingUnit_HouseholderRaceSomeOtherRaceAlone": {
+    "defaultMessage": "Altro gruppo etnico"
+  },
+  "Count_HousingUnit_HouseholderRaceTwoOrMoreRaces": {
+    "defaultMessage": "Due o più gruppi etnici"
+  },
+  "Count_HousingUnit_HouseholderRaceWhiteAlone": {
+    "defaultMessage": "Soltanto bianchi"
+  },
+  "Count_HousingUnit_OwnerOccupied": {
+    "defaultMessage": "Proprietario"
+  },
+  "Count_HousingUnit_RenterOccupied": {
+    "defaultMessage": "Affittuario"
+  },
+  "Count_Person": {
+    "defaultMessage": "Popolazione totale"
+  },
+  "Count_Person_10To14Years": {
+    "defaultMessage": "10-14"
+  },
+  "Count_Person_10To19Years": {
+    "defaultMessage": "10-19"
+  },
+  "Count_Person_15OrMoreYears": {
+    "defaultMessage": "15+"
+  },
+  "Count_Person_15To19Years": {
+    "defaultMessage": "15-19"
+  },
+  "Count_Person_15To64Years_InLaborForce_AsFractionOf_Count_Person_15To64Years": {
+    "defaultMessage": "Persone in forza lavoro"
+  },
+  "Count_Person_16OrMoreYears": {
+    "defaultMessage": "16+"
+  },
+  "Count_Person_18To24Years": {
+    "defaultMessage": "18-24"
+  },
+  "Count_Person_20To24Years": {
+    "defaultMessage": "20-24"
+  },
+  "Count_Person_20To29Years": {
+    "defaultMessage": "20-29"
+  },
+  "Count_Person_25To29Years": {
+    "defaultMessage": "25-29"
+  },
+  "Count_Person_25To34Years": {
+    "defaultMessage": "25-34"
+  },
+  "Count_Person_25To34Years_EducationalAttainmentAssociatesDegree_Female": {
+    "defaultMessage": "Donne"
+  },
+  "Count_Person_25To34Years_EducationalAttainmentAssociatesDegree_Male": {
+    "defaultMessage": "Uomini"
+  },
+  "Count_Person_25To34Years_EducationalAttainmentBachelorsDegree_Female": {
+    "defaultMessage": "Donne"
+  },
+  "Count_Person_25To34Years_EducationalAttainmentBachelorsDegree_Male": {
+    "defaultMessage": "Uomini"
+  },
+  "Count_Person_25To34Years_EducationalAttainmentGraduateOrProfessionalDegree_Female": {
+    "defaultMessage": "Donne"
+  },
+  "Count_Person_25To34Years_EducationalAttainmentGraduateOrProfessionalDegree_Male": {
+    "defaultMessage": "Uomini"
+  },
+  "Count_Person_30To34Years": {
+    "defaultMessage": "30-34"
+  },
+  "Count_Person_30To39Years": {
+    "defaultMessage": "30-39"
+  },
+  "Count_Person_35To39Years": {
+    "defaultMessage": "35-39"
+  },
+  "Count_Person_35To44Years": {
+    "defaultMessage": "35-44"
+  },
+  "Count_Person_40To44Years": {
+    "defaultMessage": "40-44"
+  },
+  "Count_Person_40To49Years": {
+    "defaultMessage": "40-49"
+  },
+  "Count_Person_45To49Years": {
+    "defaultMessage": "45-49"
+  },
+  "Count_Person_45To54Years": {
+    "defaultMessage": "45-54"
+  },
+  "Count_Person_50To54Years": {
+    "defaultMessage": "50-54"
+  },
+  "Count_Person_50To59Years": {
+    "defaultMessage": "50-59"
+  },
+  "Count_Person_55To59Years": {
+    "defaultMessage": "55-59"
+  },
+  "Count_Person_55To64Years": {
+    "defaultMessage": "55-64"
+  },
+  "Count_Person_5To17Years": {
+    "defaultMessage": "5-17"
+  },
+  "Count_Person_5To9Years": {
+    "defaultMessage": "5-9"
+  },
+  "Count_Person_60To61Years": {
+    "defaultMessage": "60-61"
+  },
+  "Count_Person_60To64Years": {
+    "defaultMessage": "60-64"
+  },
+  "Count_Person_60To69Years": {
+    "defaultMessage": "60-69"
+  },
+  "Count_Person_62To64Years": {
+    "defaultMessage": "62-64"
+  },
+  "Count_Person_65To69Years": {
+    "defaultMessage": "65-69"
+  },
+  "Count_Person_65To74Years": {
+    "defaultMessage": "65-74"
+  },
+  "Count_Person_70OrMoreYears": {
+    "defaultMessage": "70+"
+  },
+  "Count_Person_70To74Years": {
+    "defaultMessage": "70-74"
+  },
+  "Count_Person_70To79Years": {
+    "defaultMessage": "70-79"
+  },
+  "Count_Person_75OrMoreYears": {
+    "defaultMessage": "75+"
+  },
+  "Count_Person_75To79Years": {
+    "defaultMessage": "75-79"
+  },
+  "Count_Person_7To14Years_Employed_AsFractionOf_Count_Person_7To14Years": {
+    "defaultMessage": "Bambini che lavorano"
+  },
+  "Count_Person_7To14Years_Female_Employed_AsFractionOf_Count_Person_7To14Years_Female": {
+    "defaultMessage": "Femmine"
+  },
+  "Count_Person_7To14Years_Male_Employed_AsFractionOf_Count_Person_7To14Years_Male": {
+    "defaultMessage": "Maschi"
+  },
+  "Count_Person_80OrMoreYears": {
+    "defaultMessage": "80+"
+  },
+  "Count_Person_80To84Years": {
+    "defaultMessage": "80-84"
+  },
+  "Count_Person_AmericanIndianOrAlaskaNativeAlone": {
+    "defaultMessage": "Indiani d'America o nativi dell'Alaska"
+  },
+  "Count_Person_AsianAlone": {
+    "defaultMessage": "Soltanto asiatici"
+  },
+  "Count_Person_BelowPovertyLevelInThePast12Months": {
+    "defaultMessage": "Povertà"
+  },
+  "Count_Person_BelowPovertyLevelInThePast12Months_AmericanIndianOrAlaskaNativeAlone": {
+    "defaultMessage": "Indiani d'America o nativi dell'Alaska"
+  },
+  "Count_Person_BelowPovertyLevelInThePast12Months_AsianAlone": {
+    "defaultMessage": "Asiatici"
+  },
+  "Count_Person_BelowPovertyLevelInThePast12Months_BlackOrAfricanAmericanAlone": {
+    "defaultMessage": "Neri o afroamericani"
+  },
+  "Count_Person_BelowPovertyLevelInThePast12Months_HispanicOrLatino": {
+    "defaultMessage": "Ispanici o latini"
+  },
+  "Count_Person_BelowPovertyLevelInThePast12Months_NativeHawaiianOrOtherPacificIslanderAlone": {
+    "defaultMessage": "Nativi hawaiani o abitanti di isole del Pacifico"
+  },
+  "Count_Person_BelowPovertyLevelInThePast12Months_WhiteAlone": {
+    "defaultMessage": "Bianchi"
+  },
+  "Count_Person_BlackOrAfricanAmericanAlone": {
+    "defaultMessage": "Neri o afroamericani"
+  },
+  "Count_Person_Divorced": {
+    "defaultMessage": "Divorziati"
+  },
+  "Count_Person_EducationalAttainmentBachelorsDegree": {
+    "defaultMessage": "Lauree"
+  },
+  "Count_Person_EducationalAttainmentDoctorateDegree": {
+    "defaultMessage": "Dottorato"
+  },
+  "Count_Person_EducationalAttainmentMastersDegree": {
+    "defaultMessage": "Master"
+  },
+  "Count_Person_EducationalAttainmentNoSchoolingCompleted": {
+    "defaultMessage": "Nessuna istruzione scolastica"
+  },
+  "Count_Person_EducationalAttainmentRegularHighSchoolDiploma": {
+    "defaultMessage": "Scuola superiore"
+  },
+  "Count_Person_Employed": {
+    "defaultMessage": "Persone che lavorano"
+  },
+  "Count_Person_EnrolledInSchool": {
+    "defaultMessage": "Iscritti a scuola"
+  },
+  "Count_Person_Female": {
+    "defaultMessage": "Donne"
+  },
+  "Count_Person_Female_BelowPovertyLevelInThePast12Months": {
+    "defaultMessage": "Donne"
+  },
+  "Count_Person_HispanicOrLatino": {
+    "defaultMessage": "Ispanici o latini"
+  },
+  "Count_Person_InLaborForce": {
+    "defaultMessage": "Persone in forza lavoro"
+  },
+  "Count_Person_IncomeOf10000To14999USDollar": {
+    "defaultMessage": "Da 10 K $ a 15 K $"
+  },
+  "Count_Person_IncomeOf15000To24999USDollar": {
+    "defaultMessage": "Da 15 K $ a 25 K $"
+  },
+  "Count_Person_IncomeOf25000To34999USDollar": {
+    "defaultMessage": "Da 25 K $ a 35 K $"
+  },
+  "Count_Person_IncomeOf35000To49999USDollar": {
+    "defaultMessage": "Da 35 K $ a 50 K $"
+  },
+  "Count_Person_IncomeOf50000To64999USDollar": {
+    "defaultMessage": "Da 50 K $ a 65 K $"
+  },
+  "Count_Person_IncomeOf65000To74999USDollar": {
+    "defaultMessage": "Da 65 K $ a 75 K $"
+  },
+  "Count_Person_IncomeOf75000OrMoreUSDollar": {
+    "defaultMessage": "Oltre 75 K $"
+  },
+  "Count_Person_IncomeOfUpto9999USDollar": {
+    "defaultMessage": "Meno di 10 K $"
+  },
+  "Count_Person_Male": {
+    "defaultMessage": "Uomini"
+  },
+  "Count_Person_Male_BelowPovertyLevelInThePast12Months": {
+    "defaultMessage": "Uomini"
+  },
+  "Count_Person_MarriedAndNotSeparated": {
+    "defaultMessage": "Sposati"
+  },
+  "Count_Person_NativeHawaiianOrOtherPacificIslanderAlone": {
+    "defaultMessage": "Nativi hawaiani o abitanti di isole del Pacifico"
+  },
+  "Count_Person_NeverMarried": {
+    "defaultMessage": "Mai sposati"
+  },
+  "Count_Person_NotAUSCitizen": {
+    "defaultMessage": "Non cittadini"
+  },
+  "Count_Person_NotEnrolledInSchool": {
+    "defaultMessage": "Nessuna iscrizione scolastica"
+  },
+  "Count_Person_PerArea": {
+    "defaultMessage": "Densità di popolazione"
+  },
+  "Count_Person_Rural": {
+    "defaultMessage": "Popolazione rurale"
+  },
+  "Count_Person_Separated": {
+    "defaultMessage": "Separati"
+  },
+  "Count_Person_SomeOtherRaceAlone": {
+    "defaultMessage": "Altro gruppo etnico"
+  },
+  "Count_Person_TwoOrMoreRaces": {
+    "defaultMessage": "Due o più gruppi etnici"
+  },
+  "Count_Person_USCitizenBornAbroadOfAmericanParents": {
+    "defaultMessage": "Nati all'estero"
+  },
+  "Count_Person_USCitizenBornInTheUnitedStates": {
+    "defaultMessage": "Nati negli Stati Uniti"
+  },
+  "Count_Person_USCitizenByNaturalization": {
+    "defaultMessage": "Cittadini per naturalizzazione"
+  },
+  "Count_Person_Upto4Years": {
+    "defaultMessage": "0-4"
+  },
+  "Count_Person_Upto4Years_Female_SevereWasting_AsFractionOf_Count_Person_Upto4Years_Female": {
+    "defaultMessage": "Femmine"
+  },
+  "Count_Person_Upto4Years_Female_Wasting_AsFractionOf_Count_Person_Upto4Years_Female": {
+    "defaultMessage": "Femmine"
+  },
+  "Count_Person_Upto4Years_Male_SevereWasting_AsFractionOf_Count_Person_Upto4Years_Male": {
+    "defaultMessage": "Maschi"
+  },
+  "Count_Person_Upto4Years_Male_Wasting_AsFractionOf_Count_Person_Upto4Years_Male": {
+    "defaultMessage": "Maschi"
+  },
+  "Count_Person_Upto4Years_SevereWasting_AsFractionOf_Count_Person_Upto4Years": {
+    "defaultMessage": "Bambini sotto i 5 anni con grave deperimento"
+  },
+  "Count_Person_Upto4Years_Wasting_AsFractionOf_Count_Person_Upto4Years": {
+    "defaultMessage": "Bambini deperiti sotto i 5 anni"
+  },
+  "Count_Person_Upto9Years": {
+    "defaultMessage": "0-9"
+  },
+  "Count_Person_Urban": {
+    "defaultMessage": "Popolazione urbana"
+  },
+  "Count_Person_WhiteAlone": {
+    "defaultMessage": "Soltanto bianchi"
+  },
+  "Count_Person_Widowed": {
+    "defaultMessage": "Vedovi/e"
+  },
+  "Count_StormSurgeTideEvent": {
+    "defaultMessage": "Onda anomala"
+  },
+  "Count_ThunderstormWindEvent": {
+    "defaultMessage": "Temporale"
+  },
+  "Count_TornadoEvent": {
+    "defaultMessage": "Tornado"
+  },
+  "Count_UnemploymentInsuranceClaim_StateUnemploymentInsurance": {
+    "defaultMessage": "Richieste di indennizzo per assicurazioni contro la disoccupazione"
+  },
+  "Count_WildlandFireEvent": {
+    "defaultMessage": "Incendio"
+  },
+  "CumulativeCount_MedicalConditionIncident_COVID_19_ConfirmedOrProbableCase": {
+    "defaultMessage": "Casi cumulativi di COVID-19"
+  },
+  "CumulativeCount_MedicalConditionIncident_COVID_19_PatientDeceased": {
+    "defaultMessage": "Decessi cumulativi per COVID-19"
+  },
+  "FertilityRate_Person_Female": {
+    "defaultMessage": "Tasso di fertilità"
+  },
+  "GiniIndex_EconomicActivity": {
+    "defaultMessage": "Indice di Gini"
+  },
+  "GrowthRate_Amount_EconomicActivity_GrossDomesticProduction": {
+    "defaultMessage": "Tasso di crescita del PIL"
+  },
+  "GrowthRate_Count_Person": {
+    "defaultMessage": "Tasso di crescita della popolazione"
+  },
+  "LifeExpectancy_Person": {
+    "defaultMessage": "Speranza di vita"
+  },
+  "Median_Age_Person": {
+    "defaultMessage": "Età media"
+  },
+  "Median_Age_Person_AmericanIndianOrAlaskaNativeAlone": {
+    "defaultMessage": "Indiani d'America o nativi dell'Alaska"
+  },
+  "Median_Age_Person_AsianAlone": {
+    "defaultMessage": "Soltanto asiatici"
+  },
+  "Median_Age_Person_BlackOrAfricanAmericanAlone": {
+    "defaultMessage": "Neri o afroamericani"
+  },
+  "Median_Age_Person_Female": {
+    "defaultMessage": "Donne"
+  },
+  "Median_Age_Person_HispanicOrLatino": {
+    "defaultMessage": "Ispanici o latini"
+  },
+  "Median_Age_Person_Male": {
+    "defaultMessage": "Uomini"
+  },
+  "Median_Age_Person_NativeHawaiianOrOtherPacificIslanderAlone": {
+    "defaultMessage": "Nativi hawaiani o abitanti di isole del Pacifico"
+  },
+  "Median_Age_Person_SomeOtherRaceAlone": {
+    "defaultMessage": "Altro gruppo etnico"
+  },
+  "Median_Age_Person_TwoOrMoreRaces": {
+    "defaultMessage": "Due o più gruppi etnici"
+  },
+  "Median_Age_Person_WhiteAlone": {
+    "defaultMessage": "Soltanto bianchi"
+  },
+  "Median_Income_Household": {
+    "defaultMessage": "Reddito familiare medio"
+  },
+  "Median_Income_Household_HouseholderRaceAmericanIndianOrAlaskaNativeAlone": {
+    "defaultMessage": "Indiani d'America o nativi dell'Alaska"
+  },
+  "Median_Income_Household_HouseholderRaceAsianAlone": {
+    "defaultMessage": "Asiatici"
+  },
+  "Median_Income_Household_HouseholderRaceBlackOrAfricanAmericanAlone": {
+    "defaultMessage": "Neri o afroamericani"
+  },
+  "Median_Income_Household_HouseholderRaceHispanicOrLatino": {
+    "defaultMessage": "Ispanici o latini"
+  },
+  "Median_Income_Household_HouseholderRaceNativeHawaiianOrOtherPacificIslanderAlone": {
+    "defaultMessage": "Nativi hawaiani o abitanti di isole del Pacifico"
+  },
+  "Median_Income_Household_HouseholderRaceWhiteAlone": {
+    "defaultMessage": "Bianchi"
+  },
+  "Median_Income_Person": {
+    "defaultMessage": "Reddito medio"
+  },
+  "Median_Income_Person_15OrMoreYears_Female_WithIncome": {
+    "defaultMessage": "Donne"
+  },
+  "Median_Income_Person_15OrMoreYears_Male_WithIncome": {
+    "defaultMessage": "Uomini"
+  },
+  "Percent_Person_18To64Years_Female_NoHealthInsurance": {
+    "defaultMessage": "Donne"
+  },
+  "Percent_Person_18To64Years_Male_NoHealthInsurance": {
+    "defaultMessage": "Uomini"
+  },
+  "Percent_Person_18To64Years_NoHealthInsurance_BlackOrAfricanAmericanAlone": {
+    "defaultMessage": "Neri o afroamericani"
+  },
+  "Percent_Person_18To64Years_NoHealthInsurance_HispanicOrLatino": {
+    "defaultMessage": "Ispanici o latini"
+  },
+  "Percent_Person_18To64Years_NoHealthInsurance_WhiteAlone": {
+    "defaultMessage": "Bianchi"
+  },
+  "Percent_Person_BingeDrinking": {
+    "defaultMessage": "Abuso di alcol"
+  },
+  "Percent_Person_Obesity": {
+    "defaultMessage": "Obesità"
+  },
+  "Percent_Person_PhysicalInactivity": {
+    "defaultMessage": "Inattività fisica"
+  },
+  "Percent_Person_SleepLessThan7Hours": {
+    "defaultMessage": "Meno di sette ore di sonno"
+  },
+  "Percent_Person_Smoking": {
+    "defaultMessage": "Fumo"
+  },
+  "Percent_Person_WithArthritis": {
+    "defaultMessage": "Artrite"
+  },
+  "Percent_Person_WithHighBloodPressure": {
+    "defaultMessage": "Ipertensione"
+  },
+  "Percent_Person_WithHighCholesterol": {
+    "defaultMessage": "Ipercolesterolemia"
+  },
+  "Percent_Person_WithMentalHealthNotGood": {
+    "defaultMessage": "Problemi di salute mentale"
+  },
+  "Percent_Person_WithPhysicalHealthNotGood": {
+    "defaultMessage": "Problemi di salute fisica"
+  },
+  "RetailDrugDistribution_DrugDistribution_Amphetamine": {
+    "defaultMessage": "Anfetamina"
+  },
+  "RetailDrugDistribution_DrugDistribution_Codeine": {
+    "defaultMessage": "Codeina"
+  },
+  "RetailDrugDistribution_DrugDistribution_Hydrocodone": {
+    "defaultMessage": "Idrocodone"
+  },
+  "RetailDrugDistribution_DrugDistribution_Morphine": {
+    "defaultMessage": "Morfina"
+  },
+  "RetailDrugDistribution_DrugDistribution_Oxycodone": {
+    "defaultMessage": "Ossicodone"
+  },
+  "UnemploymentRate_Person": {
+    "defaultMessage": "Tasso di disoccupazione"
+  },
+  "UnemploymentRate_Person_Female": {
+    "defaultMessage": "Donne"
+  },
+  "UnemploymentRate_Person_Male": {
+    "defaultMessage": "Uomini"
+  }
+}

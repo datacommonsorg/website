@@ -1,0 +1,471 @@
+msgid "CHART_TITLE-CHART_CATEGORY-Crime"
+msgstr "犯罪"
+
+msgid "CHART_TITLE-CHART_CATEGORY-Demographics"
+msgstr "人口統計"
+
+msgid "CHART_TITLE-CHART_CATEGORY-Economics"
+msgstr "経済"
+
+msgid "CHART_TITLE-CHART_CATEGORY-Education"
+msgstr "学歴"
+
+msgid "CHART_TITLE-CHART_CATEGORY-Environment"
+msgstr "環境"
+
+msgid "CHART_TITLE-CHART_CATEGORY-Equity"
+msgstr "資産"
+
+msgid "CHART_TITLE-CHART_CATEGORY-Health"
+msgstr "健康"
+
+msgid "CHART_TITLE-CHART_CATEGORY-Housing"
+msgstr "住宅"
+
+msgid "CHART_TITLE-Alcohol_consumption_per_capita"
+msgstr "1 人あたりのアルコール消費量（年間）"
+
+msgid "CHART_TITLE-Arson"
+msgstr "放火"
+
+msgid "CHART_TITLE-Arson_rate"
+msgstr "放火件数（人口 100,000 人あたり）"
+
+msgid "CHART_TITLE-Associate_degree_rate_gender"
+msgstr "準学士号の取得率（性別ごと）"
+
+msgid "CHART_TITLE-Bachelors_degree_rate_gender"
+msgstr "学士号の取得率（性別ごと）"
+
+msgid "CHART_TITLE-Children_employed"
+msgstr "就労している児童"
+
+msgid "CHART_TITLE-Children_employed_gender"
+msgstr "就労している児童（性別ごと）"
+
+msgid "CHART_TITLE-Children_severe_wasting"
+msgstr "5 歳未満の児童の深刻な栄養不良"
+
+msgid "CHART_TITLE-Children_severe_wasting_by_gender"
+msgstr "5 歳未満の児童の深刻な消耗症（性別ごと）"
+
+msgid "CHART_TITLE-Children_wasting"
+msgstr "5 歳未満の児童の消耗症"
+
+msgid "CHART_TITLE-Children_wasting_by_gender"
+msgstr "5 歳未満の児童の消耗症（性別ごと）"
+
+msgid "CHART_TITLE-Citizenship"
+msgstr "市民権ステータス"
+
+msgid "CHART_TITLE-Citizenship_distribution"
+msgstr "市民権ステータス別の人口分布"
+
+msgid "CHART_TITLE-Co2_emissions_per_capita"
+msgstr "1 人あたりの CO2 排出量"
+
+msgid "CHART_TITLE-Covid_cases"
+msgstr "COVID-19（新型コロナウイルス感染症）の累積感染者数"
+
+msgid "CHART_TITLE-Covid_cases_per_capita"
+msgstr "人口あたりの COVID-19（新型コロナウイルス感染症）の累計感染者数"
+
+msgid "CHART_TITLE-Covid_deaths"
+msgstr "COVID-19（新型コロナウイルス感染症）の累積死亡者数"
+
+msgid "CHART_TITLE-Covid_deaths_per_capita"
+msgstr "人口あたり COVID-19（新型コロナウイルス感染症）の累計死亡者数"
+
+msgid "CHART_TITLE-Crime_rate"
+msgstr "犯罪件数（人口 100,000 人あたり）"
+
+msgid "CHART_TITLE-Cyclones"
+msgstr "サイクロン"
+
+msgid "CHART_TITLE-Disasters"
+msgstr "災害"
+
+msgid "CHART_TITLE-Earthquakes"
+msgstr "地震"
+
+msgid "CHART_TITLE-Educational_attainment"
+msgstr "学歴"
+
+msgid "CHART_TITLE-Educational_attainment_rate"
+msgstr "学歴取得率"
+
+msgid "CHART_TITLE-Electricity_consumption_per_capita"
+msgstr "1 人あたりの電力消費量"
+
+msgid "CHART_TITLE-Energy_use"
+msgstr "エネルギー使用量（1 人あたりの石油換算 kg）"
+
+msgid "CHART_TITLE-Fertility_rate"
+msgstr "出生率"
+
+msgid "CHART_TITLE-Gdp_growth_rate"
+msgstr "国内総生産の成長率"
+
+msgid "CHART_TITLE-Gdp_per_capita"
+msgstr "1 人あたりの国内総生産"
+
+msgid "CHART_TITLE-Gini_index"
+msgstr "ジニ係数"
+
+msgid "CHART_TITLE-Gni"
+msgstr "国民総所得（購買力平価）"
+
+msgid "CHART_TITLE-Gni_per_capita"
+msgstr "1 人あたりの国民総所得（購買力平価）"
+
+msgid "CHART_TITLE-Government_debt"
+msgstr "国債"
+
+msgid "CHART_TITLE-Government_debt_per_capita"
+msgstr "政府の教育支出（政府支出比）"
+
+msgid "CHART_TITLE-Government_expenditures_education"
+msgstr "政府の教育支出（GDP 比）"
+
+msgid "CHART_TITLE-Government_expenditures_education_gdp"
+msgstr "政府の教育支出（GDP 比）"
+
+msgid "CHART_TITLE-Government_expenditures_military"
+msgstr "政府の軍事支出"
+
+msgid "CHART_TITLE-Government_expenditures_military_per_gdp"
+msgstr "政府の軍事支出（GDP 比）"
+
+msgid "CHART_TITLE-Graduate_or_professional_degree_rate_gender"
+msgstr "学位または専門職学位の取得率（性別ごと）"
+
+msgid "CHART_TITLE-Health_behaviors"
+msgstr "健康習慣"
+
+msgid "CHART_TITLE-Health_outcomes"
+msgstr "健康アウトカム"
+
+msgid "CHART_TITLE-Household_income"
+msgstr "世帯収入"
+
+msgid "CHART_TITLE-Household_income_by_bracket"
+msgstr "所得階層別の世帯の割合"
+
+msgid "CHART_TITLE-Housing_units"
+msgstr "住宅戸数"
+
+msgid "CHART_TITLE-Housing_units_date_built"
+msgstr "住宅戸数（築年数別）"
+
+msgid "CHART_TITLE-Housing_units_date_built_distrubtion"
+msgstr "住宅戸数分布（築年数別）"
+
+msgid "CHART_TITLE-Housing_units_per_capita"
+msgstr "人口あたりの住宅戸数"
+
+msgid "CHART_TITLE-Housing_units_price"
+msgstr "住宅戸数（価格別）"
+
+msgid "CHART_TITLE-Housing_units_price_distribution"
+msgstr "持ち家住宅の分布（価格別）"
+
+msgid "CHART_TITLE-Housing_units_race"
+msgstr "世帯主の人種別の住宅戸数"
+
+msgid "CHART_TITLE-Housing_units_race_distribution"
+msgstr "世帯主の人種別の住宅戸数分布"
+
+msgid "CHART_TITLE-Housing_units_rental_status"
+msgstr "住宅戸数（賃貸ステータス別）"
+
+msgid "CHART_TITLE-Housing_units_rental_status_distribution"
+msgstr "賃貸ステータス別の住宅戸数分布"
+
+msgid "CHART_TITLE-Individual_income"
+msgstr "個人所得"
+
+msgid "CHART_TITLE-Individual_income_by_bracket"
+msgstr "所得階層別の割合"
+
+msgid "CHART_TITLE-Infant_mortality_rate"
+msgstr "乳児の死亡率"
+
+msgid "CHART_TITLE-Infant_mortality_rate_gender"
+msgstr "乳児死亡率（性別ごと）"
+
+msgid "CHART_TITLE-Inward_remittance"
+msgstr "被仕向送金"
+
+msgid "CHART_TITLE-Inward_remittance_per_gdp"
+msgstr "被仕向送金（GDP 比）"
+
+msgid "CHART_TITLE-Labor_force"
+msgstr "労働力人口"
+
+msgid "CHART_TITLE-Labor_force_rate"
+msgstr "労働力率"
+
+msgid "CHART_TITLE-Life_expectancy"
+msgstr "平均寿命（年）"
+
+msgid "CHART_TITLE-Marital_status"
+msgstr "配偶者の有無"
+
+msgid "CHART_TITLE-Marital_status_distribution"
+msgstr "配偶者の有無の分布"
+
+msgid "CHART_TITLE-Market_capitalization"
+msgstr "国内企業の時価総額"
+
+msgid "CHART_TITLE-Market_capitalization_per_gdp"
+msgstr "国内企業の時価総額（GDP 比）"
+
+msgid "CHART_TITLE-Median_age"
+msgstr "年齢の中央値"
+
+msgid "CHART_TITLE-Median_age_gender"
+msgstr "年齢の中央値（性別ごと）"
+
+msgid "CHART_TITLE-Median_age_race"
+msgstr "年齢の中央値（人種別）"
+
+msgid "CHART_TITLE-Median_household_income"
+msgstr "世帯収入の中央値"
+
+msgid "CHART_TITLE-Median_household_income_race"
+msgstr "世帯収入の中央値（人種別）"
+
+msgid "CHART_TITLE-Median_income_gender"
+msgstr "所得の中央値（性別ごと）"
+
+msgid "CHART_TITLE-Median_individual_income"
+msgstr "個人所得の中央値"
+
+msgid "CHART_TITLE-Mortality_events"
+msgstr "死亡者数"
+
+msgid "CHART_TITLE-Mortality_events_per_capita"
+msgstr "人口あたりの死亡者数"
+
+msgid "CHART_TITLE-Outward_remittance_per_gdp"
+msgstr "仕向送金"
+
+msgid "CHART_TITLE-Percent_without_health_insurance_gender"
+msgstr "健康保険加入者の割合（性別ごと）"
+
+msgid "CHART_TITLE-Percent_without_health_insurance_race"
+msgstr "健康保険未加入者の割合（性別ごと）"
+
+msgid "CHART_TITLE-Percentage_employed"
+msgstr "就業者の割合"
+
+msgid "CHART_TITLE-Population"
+msgstr "人口"
+
+msgid "CHART_TITLE-Population_age"
+msgstr "人口（年齢別）"
+
+msgid "CHART_TITLE-Population_age_distribution"
+msgstr "年齢分布"
+
+msgid "CHART_TITLE-Population_density"
+msgstr "人口密度（km² あたりの人口）"
+
+msgid "CHART_TITLE-Population_gender"
+msgstr "人口（性別ごと）"
+
+msgid "CHART_TITLE-Population_gender_distribution"
+msgstr "性別の分布"
+
+msgid "CHART_TITLE-Population_growth_rate"
+msgstr "人口増加率"
+
+msgid "CHART_TITLE-Population_race"
+msgstr "人口（人種別）"
+
+msgid "CHART_TITLE-Population_race_distribution"
+msgstr "人種の分布"
+
+msgid "CHART_TITLE-Poverty_rate"
+msgstr "貧困率"
+
+msgid "CHART_TITLE-Poverty_rate_gender"
+msgstr "貧困率（性別ごと）"
+
+msgid "CHART_TITLE-Poverty_rate_race"
+msgstr "貧困率（人種別）"
+
+msgid "CHART_TITLE-Prescribed_drugs"
+msgstr "処方薬（四半期単位）"
+
+msgid "CHART_TITLE-Prescribed_drugs_per_capita"
+msgstr "1 人あたりの処方薬の量（四半期別）"
+
+msgid "CHART_TITLE-Property_crime"
+msgstr "窃盗"
+
+msgid "CHART_TITLE-Property_crime_rate"
+msgstr "10 万人あたりの窃盗件数"
+
+msgid "CHART_TITLE-School_enrollment"
+msgstr "就学"
+
+msgid "CHART_TITLE-School_enrollment_rate"
+msgstr "就学率"
+
+msgid "CHART_TITLE-State_unemployment_claims"
+msgstr "州の失業保険請求件数"
+
+msgid "CHART_TITLE-State_unemployment_claims_rate"
+msgstr "州の失業保険請求率"
+
+msgid "CHART_TITLE-Total_crime"
+msgstr "総犯罪件数"
+
+msgid "CHART_TITLE-Total_employed"
+msgstr "就業者の数"
+
+msgid "CHART_TITLE-Unemployment_rate"
+msgstr "失業率"
+
+msgid "CHART_TITLE-Unemployment_rate_gender"
+msgstr "失業率（性別ごと）"
+
+msgid "CHART_TITLE-Urban_v_rural_population"
+msgstr "都市部と農村部の人口"
+
+msgid "CHART_TITLE-Violent_crime"
+msgstr "暴力犯罪"
+
+msgid "CHART_TITLE-Violent_crime_rate"
+msgstr "暴力犯罪件数（人口 100,000 人あたり）"
+
+msgid "%(project)s is a Google supported project"
+msgstr "%(project) は Google がサポートするプロジェクトです"
+
+msgid "API's"
+msgstr "API"
+
+msgid "About"
+msgstr "基本情報"
+
+msgid "About Data Commons"
+msgstr "データコモンズについて"
+
+msgid "Blog"
+msgstr "ブログ"
+
+msgid "Cities, United States"
+msgstr "米国の都市"
+
+msgid "Contribute"
+msgstr "協力する"
+
+msgid "Counties, United States"
+msgstr "米国の郡"
+
+msgid "Countries"
+msgstr "国"
+
+msgid "Data Commons"
+msgstr "データコモンズ"
+
+msgid "Data Sources"
+msgstr "データソース"
+
+msgid "Disclaimers"
+msgstr "免責事項"
+
+msgid "Documentation"
+msgstr "ドキュメント"
+
+msgid "Economic Indicators, Worldwide"
+msgstr "全世界の経済指標"
+
+msgid "Enter a country, state, county or city"
+msgstr "国、州、郡、都市のいずれかを入力してください"
+
+msgid "Explore"
+msgstr "探索"
+
+msgid "FAQ"
+msgstr "よくある質問"
+
+msgid "Feedback"
+msgstr "フィードバック"
+
+msgid "Frequently Asked Questions"
+msgstr "よくある質問"
+
+msgid "Gini Index"
+msgstr "ジニ係数"
+
+msgid "Github Repository"
+msgstr "GitHub リポジトリ"
+
+msgid "Government Expenditures on Education"
+msgstr "政府の教育支出"
+
+msgid "Government Expenditures on Military"
+msgstr "政府の軍事支出"
+
+msgid "Graph Browser"
+msgstr "グラフブラウザ"
+
+msgid "Gross National Income"
+msgstr "国民総所得"
+
+msgid "Life Expectancy"
+msgstr "平均寿命"
+
+msgid "Loading..."
+msgstr "読み込んでいます…"
+
+msgid "Median Income, United States"
+msgstr "米国の所得の中央値"
+
+msgid "PLACE_EXPLORER_INTRO"
+msgstr "<p>プレイス エクスプローラは、場所の基礎的なコアデータを把握するのに役立つツールです。このツールは、特定の場所の人口統計、教育、経済などに関する一連のグラフを収集し、他の場所と比較できるように配置します。また、失業、犯罪、所得などのさまざまな指標で、個々の場所がどのようにランク付けされるかを確認できます。</p><p>上の検索ボックスで都市、郵便番号、郡、州、国を指定して、該当するグラフを表示できます。</p><p>また、よく知られている場所を探索することもできます。</p>"
+
+msgid "Place Explorer"
+msgstr "プレイス エクスプローラ"
+
+msgid "Places"
+msgstr "場所"
+
+msgid "Privacy Policy"
+msgstr "プライバシー ポリシー"
+
+msgid "Rankings"
+msgstr "ランキング"
+
+msgid "States, United States"
+msgstr "米国の州"
+
+msgid "Terms and Conditions"
+msgstr "利用規約"
+
+msgid "Timelines Explorer"
+msgstr "タイムライン エクスプローラ"
+
+msgid "Tutorials"
+msgstr "チュートリアル"
+
+msgid "Unemployment Rate, United States"
+msgstr "米国の失業率"
+
+msgid "Worldwide"
+msgstr "全世界"
+
+msgid "by city"
+msgstr "都市別"
+
+msgid "by county"
+msgstr "国別"
+
+msgid "by state"
+msgstr "州別"
+
+msgid "in United States"
+msgstr "米国内"
+
