@@ -12,15 +12,15 @@
 # WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 # See the License for the specific language governing permissions and
 # limitations under the License.
-
+set -e
 
 python3 -m venv .env
 source .env/bin/activate
 
 export GOOGLE_CLOUD_PROJECT=datcom-browser-staging
 export FLASK_ENV=development
-.env/bin/pybabel compile -d server/l10n -f -D messages
-.env/bin/pybabel compile -d server/l10n -f -D chart_titles
+
+.env/bin/pybabel compile -d server/l10n -f -D all
 cd server
 pip3 install -r requirements.txt -q
 python3 main.py

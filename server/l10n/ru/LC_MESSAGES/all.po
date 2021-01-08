@@ -1,0 +1,471 @@
+msgid "CHART_TITLE-CHART_CATEGORY-Crime"
+msgstr "Преступления"
+
+msgid "CHART_TITLE-CHART_CATEGORY-Demographics"
+msgstr "Демография"
+
+msgid "CHART_TITLE-CHART_CATEGORY-Economics"
+msgstr "Экономика"
+
+msgid "CHART_TITLE-CHART_CATEGORY-Education"
+msgstr "Образование"
+
+msgid "CHART_TITLE-CHART_CATEGORY-Environment"
+msgstr "Окружающая среда"
+
+msgid "CHART_TITLE-CHART_CATEGORY-Equity"
+msgstr "Собственный капитал"
+
+msgid "CHART_TITLE-CHART_CATEGORY-Health"
+msgstr "Здоровье"
+
+msgid "CHART_TITLE-CHART_CATEGORY-Housing"
+msgstr "Жилье"
+
+msgid "CHART_TITLE-Alcohol_consumption_per_capita"
+msgstr "Потребление алкоголя на душу населения (в год)"
+
+msgid "CHART_TITLE-Arson"
+msgstr "Поджог"
+
+msgid "CHART_TITLE-Arson_rate"
+msgstr "Количество поджогов на 100 000 человек"
+
+msgid "CHART_TITLE-Associate_degree_rate_gender"
+msgstr "Процент людей с неоконченным высшим образованием по полу"
+
+msgid "CHART_TITLE-Bachelors_degree_rate_gender"
+msgstr "Процент имеющих степень бакалавра людей по полу"
+
+msgid "CHART_TITLE-Children_employed"
+msgstr "Количество работающих детей"
+
+msgid "CHART_TITLE-Children_employed_gender"
+msgstr "Количество работающих детей по полу"
+
+msgid "CHART_TITLE-Children_severe_wasting"
+msgstr "Тяжелая форма истощения среди детей в возрасте до 5 лет"
+
+msgid "CHART_TITLE-Children_severe_wasting_by_gender"
+msgstr "Тяжелая форма истощения среди детей в возрасте до 5 лет по полу"
+
+msgid "CHART_TITLE-Children_wasting"
+msgstr "Истощение среди детей до 5 лет"
+
+msgid "CHART_TITLE-Children_wasting_by_gender"
+msgstr "Истощение среди детей в возрасте до 5 лет по полу"
+
+msgid "CHART_TITLE-Citizenship"
+msgstr "Статус гражданства"
+
+msgid "CHART_TITLE-Citizenship_distribution"
+msgstr "Распределение населения по статусу гражданства"
+
+msgid "CHART_TITLE-Co2_emissions_per_capita"
+msgstr "Выбросы углекислого газа на душу населения"
+
+msgid "CHART_TITLE-Covid_cases"
+msgstr "Общее количество случаев заболевания COVID-19"
+
+msgid "CHART_TITLE-Covid_cases_per_capita"
+msgstr "Общее количество случаев заболевания COVID-19 на душу населения"
+
+msgid "CHART_TITLE-Covid_deaths"
+msgstr "Общее количество летальных исходов от COVID-19"
+
+msgid "CHART_TITLE-Covid_deaths_per_capita"
+msgstr "Общее количество летальных исходов от COVID-19 на душу населения"
+
+msgid "CHART_TITLE-Crime_rate"
+msgstr "Количество преступлений на 100 000 человек"
+
+msgid "CHART_TITLE-Cyclones"
+msgstr "Циклоны"
+
+msgid "CHART_TITLE-Disasters"
+msgstr "Стихийные бедствия"
+
+msgid "CHART_TITLE-Earthquakes"
+msgstr "Землетрясения"
+
+msgid "CHART_TITLE-Educational_attainment"
+msgstr "Получившие образование"
+
+msgid "CHART_TITLE-Educational_attainment_rate"
+msgstr "Процент получивших образование людей"
+
+msgid "CHART_TITLE-Electricity_consumption_per_capita"
+msgstr "Электропотребление на душу населения"
+
+msgid "CHART_TITLE-Energy_use"
+msgstr "Энергопотребление (кг нефтяного эквивалента на душу населения)"
+
+msgid "CHART_TITLE-Fertility_rate"
+msgstr "Коэффициент суммарной рождаемости"
+
+msgid "CHART_TITLE-Gdp_growth_rate"
+msgstr "Темпы роста ВВП"
+
+msgid "CHART_TITLE-Gdp_per_capita"
+msgstr "Валовой внутренний продукт на душу населения"
+
+msgid "CHART_TITLE-Gini_index"
+msgstr "Коэффициент Джини"
+
+msgid "CHART_TITLE-Gni"
+msgstr "Валовой национальный доход (по паритету покупательной способности)"
+
+msgid "CHART_TITLE-Gni_per_capita"
+msgstr "Валовой национальный доход на душу населения (по паритету покупательной способности)"
+
+msgid "CHART_TITLE-Government_debt"
+msgstr "Государственный долг"
+
+msgid "CHART_TITLE-Government_debt_per_capita"
+msgstr "Расходы правительства на образование (в % от общих расходов)"
+
+msgid "CHART_TITLE-Government_expenditures_education"
+msgstr "Расходы правительства на образование (в % от ВВП)"
+
+msgid "CHART_TITLE-Government_expenditures_education_gdp"
+msgstr "Расходы правительства на образование (в % от ВВП)"
+
+msgid "CHART_TITLE-Government_expenditures_military"
+msgstr "Военные расходы правительства"
+
+msgid "CHART_TITLE-Government_expenditures_military_per_gdp"
+msgstr "Военные расходы правительства в процентах от ВВП"
+
+msgid "CHART_TITLE-Graduate_or_professional_degree_rate_gender"
+msgstr "Процент людей, имеющих степень магистра или высшее профессиональное образование, по полу"
+
+msgid "CHART_TITLE-Health_behaviors"
+msgstr "Вредные привычки"
+
+msgid "CHART_TITLE-Health_outcomes"
+msgstr "Последствия для здоровья"
+
+msgid "CHART_TITLE-Household_income"
+msgstr "Семейный доход"
+
+msgid "CHART_TITLE-Household_income_by_bracket"
+msgstr "Процент семей по уровню дохода"
+
+msgid "CHART_TITLE-Housing_units"
+msgstr "Жилищные единицы"
+
+msgid "CHART_TITLE-Housing_units_date_built"
+msgstr "Распределение жилищных единиц по дате постройки"
+
+msgid "CHART_TITLE-Housing_units_date_built_distrubtion"
+msgstr "Распределение жилищных единиц по дате постройки"
+
+msgid "CHART_TITLE-Housing_units_per_capita"
+msgstr "Жилищные единицы на душу населения"
+
+msgid "CHART_TITLE-Housing_units_price"
+msgstr "Жилищные единицы по цене"
+
+msgid "CHART_TITLE-Housing_units_price_distribution"
+msgstr "Распределение занятых жилищных единиц по цене"
+
+msgid "CHART_TITLE-Housing_units_race"
+msgstr "Распределение жилищных единиц по расам"
+
+msgid "CHART_TITLE-Housing_units_race_distribution"
+msgstr "Распределение жилищных единиц по расе арендатора"
+
+msgid "CHART_TITLE-Housing_units_rental_status"
+msgstr "Распределение жилищных единиц по статусу аренды"
+
+msgid "CHART_TITLE-Housing_units_rental_status_distribution"
+msgstr "Распределение жилищных единиц по статусу аренды"
+
+msgid "CHART_TITLE-Individual_income"
+msgstr "Личный доход"
+
+msgid "CHART_TITLE-Individual_income_by_bracket"
+msgstr "Процент населения по уровню дохода"
+
+msgid "CHART_TITLE-Infant_mortality_rate"
+msgstr "Уровень детской смертности"
+
+msgid "CHART_TITLE-Infant_mortality_rate_gender"
+msgstr "Уровень детской смертности по полу"
+
+msgid "CHART_TITLE-Inward_remittance"
+msgstr "Внутренние переводы"
+
+msgid "CHART_TITLE-Inward_remittance_per_gdp"
+msgstr "Внутренние переводы (в % от ВВП)"
+
+msgid "CHART_TITLE-Labor_force"
+msgstr "Рабочая сила"
+
+msgid "CHART_TITLE-Labor_force_rate"
+msgstr "Процент задействованной рабочей силы"
+
+msgid "CHART_TITLE-Life_expectancy"
+msgstr "Средняя продолжительность жизни (годы)"
+
+msgid "CHART_TITLE-Marital_status"
+msgstr "Семейное положение"
+
+msgid "CHART_TITLE-Marital_status_distribution"
+msgstr "Распределение семейного положения"
+
+msgid "CHART_TITLE-Market_capitalization"
+msgstr "Рыночная капитализация отечественных компаний"
+
+msgid "CHART_TITLE-Market_capitalization_per_gdp"
+msgstr "Рыночная капитализация отечественных компаний (в % от ВВП)"
+
+msgid "CHART_TITLE-Median_age"
+msgstr "Медианный возраст"
+
+msgid "CHART_TITLE-Median_age_gender"
+msgstr "Медианный возраст по полу"
+
+msgid "CHART_TITLE-Median_age_race"
+msgstr "Медианный возраст по расам"
+
+msgid "CHART_TITLE-Median_household_income"
+msgstr "Медианный семейный доход"
+
+msgid "CHART_TITLE-Median_household_income_race"
+msgstr "Медианный семейный доход по расам"
+
+msgid "CHART_TITLE-Median_income_gender"
+msgstr "Медианный доход по полу"
+
+msgid "CHART_TITLE-Median_individual_income"
+msgstr "Медианный личный доход"
+
+msgid "CHART_TITLE-Mortality_events"
+msgstr "Смертельные случаи"
+
+msgid "CHART_TITLE-Mortality_events_per_capita"
+msgstr "Смертельные случаи на душу населения"
+
+msgid "CHART_TITLE-Outward_remittance_per_gdp"
+msgstr "Переводы за рубеж"
+
+msgid "CHART_TITLE-Percent_without_health_insurance_gender"
+msgstr "Процент людей без медицинской страховки по полу"
+
+msgid "CHART_TITLE-Percent_without_health_insurance_race"
+msgstr "Процент людей без медицинской страховки по расам"
+
+msgid "CHART_TITLE-Percentage_employed"
+msgstr "Процент безработных"
+
+msgid "CHART_TITLE-Population"
+msgstr "Население"
+
+msgid "CHART_TITLE-Population_age"
+msgstr "Распределение населения по возрасту"
+
+msgid "CHART_TITLE-Population_age_distribution"
+msgstr "Распределение по возрасту"
+
+msgid "CHART_TITLE-Population_density"
+msgstr "Плотность населения (людей на км²)"
+
+msgid "CHART_TITLE-Population_gender"
+msgstr "Распределение населения по полу"
+
+msgid "CHART_TITLE-Population_gender_distribution"
+msgstr "Распределение по полу"
+
+msgid "CHART_TITLE-Population_growth_rate"
+msgstr "Темп роста населения"
+
+msgid "CHART_TITLE-Population_race"
+msgstr "Распределение населения по расам"
+
+msgid "CHART_TITLE-Population_race_distribution"
+msgstr "Распределение по расам"
+
+msgid "CHART_TITLE-Poverty_rate"
+msgstr "Уровень бедности"
+
+msgid "CHART_TITLE-Poverty_rate_gender"
+msgstr "Уровень бедности по полу"
+
+msgid "CHART_TITLE-Poverty_rate_race"
+msgstr "Уровень бедности по расе"
+
+msgid "CHART_TITLE-Prescribed_drugs"
+msgstr "Количество прописанных лекарств (за квартал)"
+
+msgid "CHART_TITLE-Prescribed_drugs_per_capita"
+msgstr "Количество прописанных лекарств на душу населения (за квартал)"
+
+msgid "CHART_TITLE-Property_crime"
+msgstr "Имущественные преступления"
+
+msgid "CHART_TITLE-Property_crime_rate"
+msgstr "Имущественные преступления на 100 000 человек"
+
+msgid "CHART_TITLE-School_enrollment"
+msgstr "Зачисление в школу"
+
+msgid "CHART_TITLE-School_enrollment_rate"
+msgstr "Процент зачисленных в школу"
+
+msgid "CHART_TITLE-State_unemployment_claims"
+msgstr "Количество заявлений на получение страховки по безработице в штате"
+
+msgid "CHART_TITLE-State_unemployment_claims_rate"
+msgstr "Процент заявлений на получение страховки по безработице в штате"
+
+msgid "CHART_TITLE-Total_crime"
+msgstr "Общее количество преступлений"
+
+msgid "CHART_TITLE-Total_employed"
+msgstr "Количество работающих людей"
+
+msgid "CHART_TITLE-Unemployment_rate"
+msgstr "Уровень безработицы"
+
+msgid "CHART_TITLE-Unemployment_rate_gender"
+msgstr "Уровень безработицы по полу"
+
+msgid "CHART_TITLE-Urban_v_rural_population"
+msgstr "Городское и сельское население"
+
+msgid "CHART_TITLE-Violent_crime"
+msgstr "Насильственные преступления"
+
+msgid "CHART_TITLE-Violent_crime_rate"
+msgstr "Количество насильственных преступлений на 100 000 человек"
+
+msgid "%(project)s is a Google supported project"
+msgstr "Проект %(project) поддерживается Google"
+
+msgid "API's"
+msgstr "API"
+
+msgid "About"
+msgstr "Информация"
+
+msgid "About Data Commons"
+msgstr "О Data Commons"
+
+msgid "Blog"
+msgstr "Блог"
+
+msgid "Cities, United States"
+msgstr "Города в США"
+
+msgid "Contribute"
+msgstr "Помочь проекту"
+
+msgid "Counties, United States"
+msgstr "Округа в США"
+
+msgid "Countries"
+msgstr "Страны"
+
+msgid "Data Commons"
+msgstr "Data Commons"
+
+msgid "Data Sources"
+msgstr "Источники данных"
+
+msgid "Disclaimers"
+msgstr "Отказ от обязательств"
+
+msgid "Documentation"
+msgstr "Документация"
+
+msgid "Economic Indicators, Worldwide"
+msgstr "Экономические показатели в мире"
+
+msgid "Enter a country, state, county or city"
+msgstr "Укажите страну, штат, округ или город"
+
+msgid "Explore"
+msgstr "Обзор"
+
+msgid "FAQ"
+msgstr "Часто задаваемые вопросы"
+
+msgid "Feedback"
+msgstr "Отправить отзыв"
+
+msgid "Frequently Asked Questions"
+msgstr "Часто задаваемые вопросы"
+
+msgid "Gini Index"
+msgstr "Коэффициент Джини"
+
+msgid "Github Repository"
+msgstr "Хранилище GitHub"
+
+msgid "Government Expenditures on Education"
+msgstr "Расходы правительства на образование"
+
+msgid "Government Expenditures on Military"
+msgstr "Военные расходы правительства"
+
+msgid "Graph Browser"
+msgstr "Graph Browser"
+
+msgid "Gross National Income"
+msgstr "Валовой национальный доход"
+
+msgid "Life Expectancy"
+msgstr "Средняя продолжительность жизни"
+
+msgid "Loading..."
+msgstr "Загрузка…"
+
+msgid "Median Income, United States"
+msgstr "Медианный доход в США"
+
+msgid "PLACE_EXPLORER_INTRO"
+msgstr "<p>Place Explorer – это инструмент, который помогает получить основные данные о выбранном месте. Информация выводится в виде диаграмм данных по демографии, образованию, экономике и т. д. в сравнении с другими местами. Вы также можете посмотреть рейтинг разных мест по определенным показателям, таким как безработица, преступность и доход.</p><p>Вы можете искать данные по городу, почтовому индексу, округу, штату или стране с помощью окна поиска выше.</p><p>Кроме того, можно начать с просмотра данных об известных местах.</p>"
+
+msgid "Place Explorer"
+msgstr "Place Explorer"
+
+msgid "Places"
+msgstr "Места"
+
+msgid "Privacy Policy"
+msgstr "Политика конфиденциальности"
+
+msgid "Rankings"
+msgstr "Рейтинги"
+
+msgid "States, United States"
+msgstr "Штаты в США"
+
+msgid "Terms and Conditions"
+msgstr "Условия использования"
+
+msgid "Timelines Explorer"
+msgstr "Timelines Explorer"
+
+msgid "Tutorials"
+msgstr "Руководства"
+
+msgid "Unemployment Rate, United States"
+msgstr "Уровень безработицы в США"
+
+msgid "Worldwide"
+msgstr "в мире"
+
+msgid "by city"
+msgstr "по городу"
+
+msgid "by county"
+msgstr "по стране"
+
+msgid "by state"
+msgstr "по штату"
+
+msgid "in United States"
+msgstr "в США"
+

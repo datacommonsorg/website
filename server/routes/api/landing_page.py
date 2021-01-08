@@ -19,12 +19,13 @@ in chart.py and place.py
 
 import collections
 import copy
-import gettext
+# import gettext
 import json
 import logging
 import urllib
 
 from flask import Blueprint, current_app, request, Response, url_for, g
+from flask_babel import gettext
 from collections import defaultdict
 
 from cache import cache
@@ -41,9 +42,19 @@ MIN_CHART_TO_KEEP_TOPICS = 30
 OVERVIEW = 'Overview'
 
 # TODO(beets): Replace this with the extracted locale
-l10n = gettext.translation('chart_titles', localedir='l10n', languages=['es'])
-l10n.install()
-_ = l10n.gettext
+# use gettext.find
+# l10n = gettext.translation('chart_titles',
+#                            localedir='l10n',
+#                            languages=[
+#                                'de', 'en', 'es', 'fr', 'hi', 'it', 'ja', 'ko',
+#                                'pt_BR', 'ru', 'zh_Hans_CN'
+#                            ])
+# l10n.install()
+# _ = l10n.gettext
+# gettext.bindtextdomain('chart_titles', 'l10n')
+# gettext.textdomain('chart_titles')
+# _ = gettext.gettext
+# gettext.install('chart_titles', 'l10n')
 
 
 def get_landing_page_data(dcid, stat_vars):
@@ -79,7 +90,7 @@ def build_spec(chart_config):
     # Map: category -> topic -> [config]
     for conf in chart_config:
         config = copy.deepcopy(conf)
-        config['title'] = _(config['titleId'])
+        config['title'] = gettext(config['titleId'])
         del config['titleId']
         is_overview = ('isOverview' in config and config['isOverview'])
         category = config['category']
