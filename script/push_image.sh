@@ -13,16 +13,18 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-set -e
-
 # Build Docker image and push to Cloud Container Registry
 
-cd ../
-gcloud auth login
+set -e
+
+DIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )" >/dev/null 2>&1 && pwd )"
+ROOT="$(dirname "$DIR")"
+
+IMAGE=gcr.io/datcom-ci/datacommons-website
+
 gcloud config set project datcom-ci
 export TAG="$(git rev-parse --short HEAD)"
-DOCKER_BUILDKIT=1 docker build --tag gcr.io/datcom-ci/website:$TAG .
-DOCKER_BUILDKIT=1 docker build --tag gcr.io/datcom-ci/website:latest .
-docker push gcr.io/datcom-ci/website:$TAG
-docker push gcr.io/datcom-ci/website:latest
-cd deployment
+DOCKER_BUILDKIT=1 docker build -f build/Dockerfile --tag $IMAGE:$TAG $ROOT
+DOCKER_BUILDKIT=1 docker build -f build/Dockerfile --tag $IMAGE:latest $ROOT
+docker push $IMAGE:$TAG
+docker push $IMAGE:latest
