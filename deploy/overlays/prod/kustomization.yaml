@@ -12,7 +12,7 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-# Kustomization for prod website runnign on GCP `datcom-website-prod` project.
+# Kustomization for prod website running on GCP `datcom-website-prod` project.
 # - Adds "prod" suffix to all the resources.
 # - Set environmnet variables.
 # - Update replicas.
