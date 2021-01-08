@@ -12,9 +12,9 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-# Mixer Kubernetes Deployment config. (https://kubernetes.io/docs/concepts/workloads/controllers/deployment/)
+# Website App Kubernetes Deployment config. (https://kubernetes.io/docs/concepts/workloads/controllers/deployment/)
 # This is to be extended by the dev/staging/prod overlay.
-# The deployment contains grpc mixer container and esp container that transcodes grpc to JSON.
+# The deployment contains Flask web server container , gRPC mixer container and ESP container that transcodes grpc to JSON.
 
 apiVersion: apps/v1
 kind: Deployment

@@ -12,7 +12,7 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-# Kustomization for dev mixer in local Minikube environment.
+# Kustomization for dev website in local Minikube environment.
 # - Adds "dev" suffix to all the resources
 # - Use "serviceaccount.yaml" to create service account explicitly.
 #   Note the GKE cluster service account is created once at cluster creation time.

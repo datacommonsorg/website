@@ -12,6 +12,11 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
+# Deployment patches that
+# - Use local container image
+# - Use api-compiler to create service config
+# - Make shared volume for api-compiler and ESP container
+
 apiVersion: apps/v1
 kind: Deployment
 metadata:

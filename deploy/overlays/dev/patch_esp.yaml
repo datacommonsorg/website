@@ -12,6 +12,8 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
+# Update ESP container startup options to work locally without talking to GCP.
+
 - op: remove
   path: /spec/template/spec/containers/2/args/0
 - op: remove
