@@ -43,10 +43,10 @@ cd $ROOT/mixer
 MIXER_TAG=$(git rev-parse --short HEAD)
 cd $DIR
 
-PROJECT_ID=$(yq read deploy/gke/$ENV.yaml project)
+PROJECT_ID=$(yq read $ROOT/deploy/gke/$ENV.yaml project)
 # Only deploy to the primary region for now.
 # Once Bigtable replication is done, deploy for all regions
-REGION=$(yq read deploy/gke/$ENV.yaml region.primary)
+REGION=$(yq read $ROOT/deploy/gke/$ENV.yaml region.primary)
 CLUSTER_NAME=website-$REGION
 
 cd $ROOT/deploy/overlays/$ENV
