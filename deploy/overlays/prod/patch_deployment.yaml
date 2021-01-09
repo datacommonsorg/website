@@ -13,9 +13,8 @@
 # limitations under the License.
 
 # Deployment patches that
-# - Use local container image
-# - Use api-compiler to create service config
-# - Make shared volume for api-compiler and ESP container
+# - Set replica
+# - Mount redis config as volume
 
 apiVersion: apps/v1
 kind: Deployment
