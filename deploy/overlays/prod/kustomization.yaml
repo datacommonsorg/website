@@ -38,12 +38,9 @@ configMapGenerator:
     literals:
       - projectId=datcom-website-prod
       - serviceName=website-esp.endpoints.datcom-website-prod.cloud.goog
+  - name: redis-config
+    files:
+      - redis.json
 
 patchesStrategicMerge:
-  - |-
-    apiVersion: apps/v1
-    kind: Deployment
-    metadata:
-      name: website-app
-    spec:
-      replicas: 60
+  - patch_deployment.yaml
