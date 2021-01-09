@@ -41,16 +41,32 @@ class TestBuildSpec(unittest.TestCase):
         }, {
             'category': 'Economics',
             'titleId': 'CHART_TITLE-Labor_force',
-            'title': 'Labor Force Participation',
+            'title': 'Labor Force',
             'statsVars': ['Count_Person_InLaborForce'],
             'scaling': 100,
             'unit': '%',
+        }, {
+            'category': 'Economics',
+            'titleId': 'CHART_TITLE-Total_employed',
+            'title': 'Number of people employed',
+            'description': 'Number of people employed',
+            'statsVars': ['Count_Person_Employed'],
+            'relatedChart': {
+                'titleId': 'CHART_TITLE-Percentage_employed',
+                'title': 'Percentage of people employed',
+                'description': 'Percentage of people employed',
+                'scale': True,
+                'denominator': 'Count_Person',
+                'scaling': 100,
+                'unit': '%'
+            }
         }]
         with self.context:
             result, stat_vars = landing_page.build_spec(chart_config)
-            print(result)
             with open('tests/test_data/golden_config.json') as f:
                 expected = json.load(f)
                 assert expected == result
-                assert ['UnemploymentRate_Person',
-                        'Count_Person_InLaborForce'] == stat_vars
+                assert [
+                    'UnemploymentRate_Person', 'Count_Person_InLaborForce',
+                    'Count_Person_Employed', 'Count_Person'
+                ] == stat_vars
