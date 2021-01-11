@@ -3,7 +3,7 @@
 Website is deployed in Kubernetes cluster. A deployment contains the following
 containers:
 
-- website: A Flask app with static files complied with Webpack.
+- website: A Flask app with static files complied by Webpack.
 - mixer: The Data Commons API server.
 - esp: Google Extensive Service Proxy used for gRPC to Json transcoding.
 
@@ -35,7 +35,7 @@ git submodule foreach git pull origin master
   - [`Skaffold`](https://skaffold.dev/docs/install/)
   - [`gcloud`](https://cloud.google.com/sdk/docs/install)
   - [`kubectl`](https://kubernetes.io/docs/tasks/tools/install-kubectl/)
-  - [nodejs](https://nodejs.org/en/download/)
+  - [`nodejs`](https://nodejs.org/en/download/)
 
 ## Run Tests
 
@@ -84,8 +84,8 @@ npm test testfilename -- -u
 
 ## Develop with local Kubernets (Recommended)
 
-Developing the website with local Kubernetes cluster makes the local app same to
-production deployment.
+Local Kubernetes cluster has the exact same settings and configurations as the
+production deployment. This is recommended way for development.
 
 ### Start website in Minikube
 
@@ -131,7 +131,7 @@ Start the flask webserver locally at localhost:8080
 ./run_server.sh
 ```
 
-## Other Develop Tips
+## Other Developing Tips
 
 ### GKE config
 
