@@ -110,6 +110,9 @@ spec:
               command: ["/bin/grpc_health_probe", "-addr=:12345"]
             periodSeconds: 5
             failureThreshold: 60
+          # TODO(shifucun): comment out liveness check as branch cache read
+          # at server start-up takes minutes and will cause infinite restart.
+          # Add the livenessProbe back when branch cache is read from BT.
           # livenessProbe:
           #   exec:
           #     command: ["/bin/grpc_health_probe", "-addr=:12345"]

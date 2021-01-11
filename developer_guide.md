@@ -16,7 +16,7 @@ track the mixer change for a new deployment:
 git submodule foreach git pull origin master
 ```
 
-## Prerequisit
+## Prerequisites
 
 - Contact Data Commons team to get dev maps api key.
 
@@ -82,7 +82,7 @@ cd static
 npm test testfilename -- -u
 ```
 
-## Develop with local Kubernets (Recommended)
+## Develop with local Kubernetes (Recommended)
 
 Local Kubernetes cluster has the exact same settings and configurations as the
 production deployment. This is recommended way for development.
