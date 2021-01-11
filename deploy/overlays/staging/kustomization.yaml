@@ -24,33 +24,26 @@ nameSuffix: -staging
 namespace: website
 
 resources:
-- ../../base
+  - ../../base
 
 configMapGenerator:
-- behavior: create
-  literals:
-  - flaskEnv=staging
-  - gcsBucket=datcom-website-staging-resources
-  - secretProject=datcom-website-staging
-  name: website-configmap
-- behavior: create
-  literals:
-  - projectId=datcom-website-staging
-  - serviceName=website-esp.endpoints.datcom-website-staging.cloud.goog
-  name: mixer-configmap
+  - name: website-configmap
+    behavior: create
+    literals:
+      - flaskEnv=gke
+      - gcsBucket=datcom-website-staging-resources
+      - secretProject=datcom-website-staging
+  - name: mixer-configmap
+    behavior: create
+    literals:
+      - projectId=datcom-website-staging
+      - serviceName=website-esp.endpoints.datcom-website-staging.cloud.goog
 
 patchesStrategicMerge:
-- |-
-  apiVersion: apps/v1
-  kind: Deployment
-  metadata:
-    name: website-app
-  spec:
-    replicas: 12
-images:
-- name: gcr.io/datcom-ci/datacommons-mixer
-  newName: gcr.io/datcom-ci/datacommons-mixer
-  newTag: 15bc988
-- name: gcr.io/datcom-ci/datacommons-website
-  newName: gcr.io/datcom-ci/datacommons-website
-  newTag: 43eb73b
+  - |-
+    apiVersion: apps/v1
+    kind: Deployment
+    metadata:
+      name: website-app
+    spec:
+      replicas: 12
