@@ -24,13 +24,19 @@ kind: Config
 metadata:
   name: website
 build:
-  local:
-    push: false
   artifacts:
     - image: datacommons/website
       context: .
       docker:
         dockerfile: build/Dockerfile
+        buildArgs:
+          ENV: local
+      sync:
+        infer:
+          - "**/*.py"
+          - "**/*.html"
+          - "server/dist/**/*"
+          - "static/**/*"
     - image: datacommons/mixer
       context: mixer
       docker:

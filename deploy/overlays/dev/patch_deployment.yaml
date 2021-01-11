@@ -25,6 +25,9 @@ spec:
   selector:
     matchLabels:
       app: website-app
+  strategy:
+    rollingUpdate:
+      maxUnavailable: 100%
   template:
     spec:
       volumes:
@@ -37,6 +40,9 @@ spec:
         - name: mixer
           image: datacommons/mixer
           imagePullPolicy: Never
+          resources:
+            limits:
+              memory: "1G"
         - name: esp
           volumeMounts:
             - mountPath: /esp
@@ -51,7 +57,7 @@ spec:
               cp /output/mixer-grpc.json /esp/ &&
               while true; do
                 echo "api-compiler running"
-                sleep 10;
+                sleep 3600;
               done
           volumeMounts:
             - name: mixer-grpc-json
