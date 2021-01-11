@@ -49,7 +49,7 @@ def create_app():
         # collects and uploads profiles. Best done as early as possible.
         try:
             # service and service_version can be automatically inferred when
-            # running on App Engine.
+            # running on GCP.
             googlecloudprofiler.start(verbose=3)
         except (ValueError, NotImplementedError) as exc:
             logging.error(exc)
