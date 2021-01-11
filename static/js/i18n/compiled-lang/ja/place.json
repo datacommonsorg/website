@@ -1,0 +1,262 @@
+{
+  "alert-no_data_for_place": [
+    {
+      "type": 1,
+      "value": "placeName"
+    },
+    {
+      "type": 0,
+      "value": " に関するデータはありません"
+    }
+  ],
+  "chart_clause-other_placeType": [
+    {
+      "type": 1,
+      "value": "chartTitle"
+    },
+    {
+      "type": 0,
+      "value": ": その他の "
+    },
+    {
+      "type": 1,
+      "value": "placeType"
+    }
+  ],
+  "chart_clause-places_that_contain_place": [
+    {
+      "type": 1,
+      "value": "chartTitle"
+    },
+    {
+      "type": 0,
+      "value": ": "
+    },
+    {
+      "type": 1,
+      "value": "placeName"
+    },
+    {
+      "type": 0,
+      "value": " を含む地域"
+    }
+  ],
+  "chart_clause-places_within_place": [
+    {
+      "type": 1,
+      "value": "chartTitle"
+    },
+    {
+      "type": 0,
+      "value": ": "
+    },
+    {
+      "type": 1,
+      "value": "placeName"
+    },
+    {
+      "type": 0,
+      "value": " 内の地域"
+    }
+  ],
+  "chart_clause-placetype_near_place": [
+    {
+      "type": 1,
+      "value": "chartTitle"
+    },
+    {
+      "type": 0,
+      "value": ": "
+    },
+    {
+      "type": 1,
+      "value": "placeName"
+    },
+    {
+      "type": 0,
+      "value": " 付近の "
+    },
+    {
+      "type": 1,
+      "value": "placeType"
+    }
+  ],
+  "chart_clause-variable_in_place": [
+    {
+      "type": 1,
+      "value": "placeName"
+    },
+    {
+      "type": 0,
+      "value": " の "
+    },
+    {
+      "type": 1,
+      "value": "variable"
+    }
+  ],
+  "chart_metadata-dotted_line_explanation": [
+    {
+      "type": 0,
+      "value": "（点線はデータの不足を示しています）"
+    }
+  ],
+  "chart_metadata-explore_more": [
+    {
+      "type": 0,
+      "value": "をもっと見る ›"
+    }
+  ],
+  "chart_metadata-export": [
+    {
+      "type": 0,
+      "value": "エクスポート"
+    }
+  ],
+  "chart_metadata-feedback": [
+    {
+      "type": 0,
+      "value": "フィードバック"
+    }
+  ],
+  "chart_metadata-provenance": [
+    {
+      "type": 0,
+      "value": "情報提供元: "
+    },
+    {
+      "type": 1,
+      "value": "sources"
+    }
+  ],
+  "child_places_menu-places_in_place": [
+    {
+      "type": 1,
+      "value": "placeName"
+    },
+    {
+      "type": 0,
+      "value": " の地域"
+    }
+  ],
+  "embed_citation": [
+    {
+      "type": 0,
+      "value": "情報提供元: "
+    },
+    {
+      "type": 1,
+      "value": "sources"
+    },
+    {
+      "type": 0,
+      "value": "（Data Commons 経由）"
+    }
+  ],
+  "embed_download_chart_link": [
+    {
+      "type": 0,
+      "value": "グラフ画像をダウンロード"
+    }
+  ],
+  "embed_download_csv_link": [
+    {
+      "type": 0,
+      "value": "CSV 形式でダウンロード"
+    }
+  ],
+  "embed_export_chart_link": [
+    {
+      "type": 0,
+      "value": "このグラフをエクスポート"
+    }
+  ],
+  "header-overview": [
+    {
+      "type": 0,
+      "value": "概要"
+    }
+  ],
+  "link-return_to_overview": [
+    {
+      "type": 0,
+      "value": "概要に戻る ›"
+    }
+  ],
+  "more_charts": [
+    {
+      "type": 0,
+      "value": "その他のグラフ ›"
+    }
+  ],
+  "place_breadcrumb": [
+    {
+      "type": 1,
+      "value": "placeName"
+    },
+    {
+      "type": 0,
+      "value": " の "
+    },
+    {
+      "type": 1,
+      "value": "placeType"
+    }
+  ],
+  "place_page_ranking_table-ranking_in": [
+    {
+      "type": 0,
+      "value": "ランキング"
+    }
+  ],
+  "place_page_ranking_table-ranking_value": [
+    {
+      "type": 1,
+      "value": "rank"
+    },
+    {
+      "type": 0,
+      "value": "/"
+    },
+    {
+      "type": 1,
+      "value": "total"
+    }
+  ],
+  "plural_places": [
+    {
+      "type": 0,
+      "value": "地域"
+    }
+  ],
+  "plural_zip_codes": [
+    {
+      "type": 0,
+      "value": "郵便番号"
+    }
+  ],
+  "search_bar_placeholder-search_again": [
+    {
+      "type": 0,
+      "value": "別の場所を検索する"
+    }
+  ],
+  "singular_place": [
+    {
+      "type": 0,
+      "value": "場所"
+    }
+  ],
+  "singular_zip_code": [
+    {
+      "type": 0,
+      "value": "郵便番号"
+    }
+  ],
+  "the_world": [
+    {
+      "type": 0,
+      "value": "世界"
+    }
+  ]
+}

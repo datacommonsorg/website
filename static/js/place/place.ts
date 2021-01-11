@@ -27,6 +27,7 @@ import { PlaceHighlight } from "./place_highlight";
 import { PageSubtitle } from "./page_subtitle";
 import { isPlaceInUsa } from "./util";
 import { initSearchAutocomplete } from "./search";
+import { translateVariableString } from "../i18n/i18n";
 
 import { CachedChoroplethData, GeoJsonData, PageData } from "../chart/types";
 
@@ -136,10 +137,15 @@ async function getChoroplethData(
 /**
  * Get the landing page data
  */
-async function getLandingPageData(dcid: string): Promise<PageData> {
-  return axios.get("/api/landingpage/data/" + dcid).then((resp) => {
-    return resp.data;
-  });
+async function getLandingPageData(
+  dcid: string,
+  locale: string
+): Promise<PageData> {
+  return axios
+    .get(`/api/landingpage/data/${dcid}?hl=${locale}`)
+    .then((resp) => {
+      return resp.data;
+    });
 }
 
 function shouldMakeChoroplethCalls(dcid: string, placeType: string): boolean {
@@ -155,7 +161,8 @@ function renderPage(): void {
   const dcid = document.getElementById("title").dataset.dcid;
   const placeName = document.getElementById("place-name").dataset.pn;
   const placeType = document.getElementById("place-type").dataset.pt;
-  const landingPagePromise = getLandingPageData(dcid);
+  const locale = document.getElementById("locale").dataset.lc;
+  const landingPagePromise = getLandingPageData(dcid, locale);
   const chartGeoJsonPromise = getGeoJsonData(dcid, placeType);
   const choroplethDataPromise = getChoroplethData(dcid, placeType);
 
@@ -170,12 +177,14 @@ function renderPage(): void {
       loadingElem.style.display = "none";
       const data: PageData = landingPageData;
       const isUsaPlace = isPlaceInUsa(dcid, data.parentPlaces);
+      data.categories["Overview"] = translateVariableString("Overview");
       if (Object.keys(data.pageChart).length == 1) {
         topic = "Overview";
       }
       ReactDOM.render(
         React.createElement(Menu, {
           pageChart: data.pageChart,
+          categories: data.categories,
           dcid,
           topic,
         }),
@@ -221,6 +230,7 @@ function renderPage(): void {
       ReactDOM.render(
         React.createElement(PageSubtitle, {
           category: topic,
+          categoryDisplayStr: data.categories[topic],
           dcid,
         }),
         document.getElementById("subtitle")
@@ -238,6 +248,7 @@ function renderPage(): void {
           choroplethData: choroplethDataPromise,
           childPlacesType: data.childPlacesType,
           parentPlaces: data.parentPlaces,
+          categoryStrings: data.categories,
         }),
         document.getElementById("main-pane")
       );

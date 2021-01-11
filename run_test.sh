@@ -32,6 +32,13 @@ if [[ ! $SELENIUM_SERVER ]]
   nohup java -Dwebdriver.chrome.whitelistedIps= -jar $SELENIUM_SERVER -port 4444&
 }
 
+function setup_python {
+  python3 -m venv .env
+  source .env/bin/activate
+  pip3 install -r server/requirements.txt -q
+  .env/bin/pybabel compile -d server/l10n -f -D all
+}
+
 # Run test for client side code.
 function run_npm_test {
   cd static
@@ -85,11 +92,9 @@ function run_npm_build () {
 
 # Run test and check lint for Python code.
 function run_py_test {
-  python3 -m venv .env
-  source .env/bin/activate
-  cd server
+  setup_python
   export FLASK_ENV=test
-  pip3 install -r requirements.txt
+  cd server
   python3 -m pytest tests/**.py
   cd ..
   echo -e "#### Checking Python style"
@@ -101,8 +106,7 @@ function run_py_test {
 
 # Run test for webdriver automation test codes.
 function run_webdriver_test {
-  python3 -m venv .env
-  source .env/bin/activate
+  setup_python
   cd server
   if [ ! -d dist  ]
   then
@@ -111,7 +115,6 @@ function run_webdriver_test {
   fi
   export FLASK_ENV=webdriver
   export GOOGLE_CLOUD_PROJECT=datcom-browser-staging
-  pip3 install -r requirements.txt
 
   if [ $PYTEST_PARALLEL ]
   then
@@ -124,8 +127,7 @@ function run_webdriver_test {
 }
 
 function run_screenshot_test {
-  python3 -m venv .env
-  source .env/bin/activate
+  setup_python
   cd server
   if [ ! -d dist  ]
   then
@@ -135,7 +137,6 @@ function run_screenshot_test {
 
   export FLASK_ENV=webdriver
   export GOOGLE_CLOUD_PROJECT=datcom-browser-staging
-  pip3 install -r requirements.txt
   if [  -d test_screenshots  ]
   then
     echo "delete the test_screenshots folder"

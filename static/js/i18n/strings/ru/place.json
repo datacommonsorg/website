@@ -1,0 +1,86 @@
+{
+  "alert-no_data_for_place": {
+    "defaultMessage": "К сожалению, у нас нет данных о локации {placeName}"
+  },
+  "chart_clause-other_placeType": {
+    "defaultMessage": "{chartTitle}: другие {placeType}"
+  },
+  "chart_clause-places_that_contain_place": {
+    "defaultMessage": "{chartTitle}: места с локацией {placeName}"
+  },
+  "chart_clause-places_within_place": {
+    "defaultMessage": "{chartTitle}: {placeName}"
+  },
+  "chart_clause-placetype_near_place": {
+    "defaultMessage": "{chartTitle}: {placeType} около локации {placeName}"
+  },
+  "chart_clause-variable_in_place": {
+    "defaultMessage": "{variable} в локации {placeName}"
+  },
+  "chart_metadata-dotted_line_explanation": {
+    "defaultMessage": "(прерывистая линия обозначает недостающие данные)"
+  },
+  "chart_metadata-explore_more": {
+    "defaultMessage": "Подробнее… ›"
+  },
+  "chart_metadata-export": {
+    "defaultMessage": "Экспорт"
+  },
+  "chart_metadata-feedback": {
+    "defaultMessage": "Отправить отзыв"
+  },
+  "chart_metadata-provenance": {
+    "defaultMessage": "Данные от {sources}"
+  },
+  "child_places_menu-places_in_place": {
+    "defaultMessage": "Места в локации {placeName}"
+  },
+  "embed_citation": {
+    "defaultMessage": "Данные от {sources} через Data Commons"
+  },
+  "embed_download_chart_link": {
+    "defaultMessage": "Скачать изображение диаграммы"
+  },
+  "embed_download_csv_link": {
+    "defaultMessage": "Скачать данные в формате CSV"
+  },
+  "embed_export_chart_link": {
+    "defaultMessage": "Экспортировать диаграмму"
+  },
+  "header-overview": {
+    "defaultMessage": "Обзор"
+  },
+  "link-return_to_overview": {
+    "defaultMessage": "Вернуться к обзору ›"
+  },
+  "more_charts": {
+    "defaultMessage": "Другие диаграммы ›"
+  },
+  "place_breadcrumb": {
+    "defaultMessage": "{placeType} в локации {placeName}"
+  },
+  "place_page_ranking_table-ranking_in": {
+    "defaultMessage": "Рейтинги"
+  },
+  "place_page_ranking_table-ranking_value": {
+    "defaultMessage": "{rank} из {total}"
+  },
+  "plural_places": {
+    "defaultMessage": "Места"
+  },
+  "plural_zip_codes": {
+    "defaultMessage": "Почтовые индексы"
+  },
+  "search_bar_placeholder-search_again": {
+    "defaultMessage": "Поиск другого места"
+  },
+  "singular_place": {
+    "defaultMessage": "Место"
+  },
+  "singular_zip_code": {
+    "defaultMessage": "Почтовый индекс"
+  },
+  "the_world": {
+    "defaultMessage": "в мире"
+  }
+}

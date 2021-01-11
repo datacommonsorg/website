@@ -1,0 +1,86 @@
+{
+  "alert-no_data_for_place": {
+    "defaultMessage": "{placeName} に関するデータはありません"
+  },
+  "chart_clause-other_placeType": {
+    "defaultMessage": "{chartTitle}: その他の {placeType}"
+  },
+  "chart_clause-places_that_contain_place": {
+    "defaultMessage": "{chartTitle}: {placeName} を含む地域"
+  },
+  "chart_clause-places_within_place": {
+    "defaultMessage": "{chartTitle}: {placeName} 内の地域"
+  },
+  "chart_clause-placetype_near_place": {
+    "defaultMessage": "{chartTitle}: {placeName} 付近の {placeType}"
+  },
+  "chart_clause-variable_in_place": {
+    "defaultMessage": "{placeName} の {variable}"
+  },
+  "chart_metadata-dotted_line_explanation": {
+    "defaultMessage": "（点線はデータの不足を示しています）"
+  },
+  "chart_metadata-explore_more": {
+    "defaultMessage": "をもっと見る ›"
+  },
+  "chart_metadata-export": {
+    "defaultMessage": "エクスポート"
+  },
+  "chart_metadata-feedback": {
+    "defaultMessage": "フィードバック"
+  },
+  "chart_metadata-provenance": {
+    "defaultMessage": "情報提供元: {sources}"
+  },
+  "child_places_menu-places_in_place": {
+    "defaultMessage": "{placeName} の地域"
+  },
+  "embed_citation": {
+    "defaultMessage": "情報提供元: {sources}（Data Commons 経由）"
+  },
+  "embed_download_chart_link": {
+    "defaultMessage": "グラフ画像をダウンロード"
+  },
+  "embed_download_csv_link": {
+    "defaultMessage": "CSV 形式でダウンロード"
+  },
+  "embed_export_chart_link": {
+    "defaultMessage": "このグラフをエクスポート"
+  },
+  "header-overview": {
+    "defaultMessage": "概要"
+  },
+  "link-return_to_overview": {
+    "defaultMessage": "概要に戻る ›"
+  },
+  "more_charts": {
+    "defaultMessage": "その他のグラフ ›"
+  },
+  "place_breadcrumb": {
+    "defaultMessage": "{placeName} の {placeType}"
+  },
+  "place_page_ranking_table-ranking_in": {
+    "defaultMessage": "ランキング"
+  },
+  "place_page_ranking_table-ranking_value": {
+    "defaultMessage": "{rank}/{total}"
+  },
+  "plural_places": {
+    "defaultMessage": "地域"
+  },
+  "plural_zip_codes": {
+    "defaultMessage": "郵便番号"
+  },
+  "search_bar_placeholder-search_again": {
+    "defaultMessage": "別の場所を検索する"
+  },
+  "singular_place": {
+    "defaultMessage": "場所"
+  },
+  "singular_zip_code": {
+    "defaultMessage": "郵便番号"
+  },
+  "the_world": {
+    "defaultMessage": "世界"
+  }
+}

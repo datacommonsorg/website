@@ -100,7 +100,7 @@ def create_app():
     app.register_blueprint(translator.bp)
 
     # Load chart config
-    with open('chart_config.json') as f:
+    with open('chart_config.json', encoding='utf-8') as f:
         chart_config = json.load(f)
     app.config['CHART_CONFIG'] = chart_config
 
@@ -127,13 +127,15 @@ def create_app():
         app.config['PLACEID2DCID'] = json.loads(blob.download_as_string())
 
     # Initialize translations
-    babel = Babel(app)
+    babel = Babel(app, default_domain='all')
     app.config['BABEL_DEFAULT_LOCALE'] = 'en'
     app.config['BABEL_TRANSLATION_DIRECTORIES'] = 'l10n'
 
     @app.before_request
     def before_request():
         # TODO(beets): Also use request.accept_languages.best_match()
+        # - Use Locale.negotiate, and use - instead of _ separators
+        # - Also use babel.core.parse_locale
         g.locale = request.args.get('hl', 'en')
 
     @babel.localeselector

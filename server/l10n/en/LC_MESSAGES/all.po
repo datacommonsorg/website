@@ -1,0 +1,471 @@
+msgid "CHART_TITLE-CHART_CATEGORY-Crime"
+msgstr "Crime"
+
+msgid "CHART_TITLE-CHART_CATEGORY-Demographics"
+msgstr "Demographics"
+
+msgid "CHART_TITLE-CHART_CATEGORY-Economics"
+msgstr "Economics"
+
+msgid "CHART_TITLE-CHART_CATEGORY-Education"
+msgstr "Education"
+
+msgid "CHART_TITLE-CHART_CATEGORY-Environment"
+msgstr "Environment"
+
+msgid "CHART_TITLE-CHART_CATEGORY-Equity"
+msgstr "Equity"
+
+msgid "CHART_TITLE-CHART_CATEGORY-Health"
+msgstr "Health"
+
+msgid "CHART_TITLE-CHART_CATEGORY-Housing"
+msgstr "Housing"
+
+msgid "CHART_TITLE-Alcohol_consumption_per_capita"
+msgstr "Alcohol consumption per capita (annual)"
+
+msgid "CHART_TITLE-Arson"
+msgstr "Arson"
+
+msgid "CHART_TITLE-Arson_rate"
+msgstr "Arsons per 100,000 people"
+
+msgid "CHART_TITLE-Associate_degree_rate_gender"
+msgstr "Rate of associate degree attainment by gender"
+
+msgid "CHART_TITLE-Bachelors_degree_rate_gender"
+msgstr "Rate of bachelor's degree attainment by gender"
+
+msgid "CHART_TITLE-Children_employed"
+msgstr "Children in employment"
+
+msgid "CHART_TITLE-Children_employed_gender"
+msgstr "Children in employment by gender"
+
+msgid "CHART_TITLE-Children_severe_wasting"
+msgstr "Severe wasting among children under 5"
+
+msgid "CHART_TITLE-Children_severe_wasting_by_gender"
+msgstr "Severe wasting among children under 5 by gender"
+
+msgid "CHART_TITLE-Children_wasting"
+msgstr "Wasting among children under 5"
+
+msgid "CHART_TITLE-Children_wasting_by_gender"
+msgstr "Wasting among children under 5 by gender"
+
+msgid "CHART_TITLE-Citizenship"
+msgstr "Citizenship status"
+
+msgid "CHART_TITLE-Citizenship_distribution"
+msgstr "Distribution of population by citizenship status"
+
+msgid "CHART_TITLE-Co2_emissions_per_capita"
+msgstr "CO2 emissions per capita"
+
+msgid "CHART_TITLE-Covid_cases"
+msgstr "COVID-19 cumulative cases"
+
+msgid "CHART_TITLE-Covid_cases_per_capita"
+msgstr "COVID-19 cumulative cases per capita"
+
+msgid "CHART_TITLE-Covid_deaths"
+msgstr "COVID-19 cumulative deaths"
+
+msgid "CHART_TITLE-Covid_deaths_per_capita"
+msgstr "COVID-19 cumulative deaths per capita"
+
+msgid "CHART_TITLE-Crime_rate"
+msgstr "Crimes per 100,000 people"
+
+msgid "CHART_TITLE-Cyclones"
+msgstr "Cyclones"
+
+msgid "CHART_TITLE-Disasters"
+msgstr "Disasters"
+
+msgid "CHART_TITLE-Earthquakes"
+msgstr "Earthquakes"
+
+msgid "CHART_TITLE-Educational_attainment"
+msgstr "Education attainment"
+
+msgid "CHART_TITLE-Educational_attainment_rate"
+msgstr "Education attainment rate"
+
+msgid "CHART_TITLE-Electricity_consumption_per_capita"
+msgstr "Electricity consumption per capita"
+
+msgid "CHART_TITLE-Energy_use"
+msgstr "Energy use (kg of oil equivalent per capita)"
+
+msgid "CHART_TITLE-Fertility_rate"
+msgstr "Fertility rate"
+
+msgid "CHART_TITLE-Gdp_growth_rate"
+msgstr "Gross domestic product growth rate"
+
+msgid "CHART_TITLE-Gdp_per_capita"
+msgstr "Gross domestic product per capita"
+
+msgid "CHART_TITLE-Gini_index"
+msgstr "Gini index"
+
+msgid "CHART_TITLE-Gni"
+msgstr "Gross national income (purchasing power parity)"
+
+msgid "CHART_TITLE-Gni_per_capita"
+msgstr "Gross national income per capita (purchasing power parity)"
+
+msgid "CHART_TITLE-Government_debt"
+msgstr "Government debt"
+
+msgid "CHART_TITLE-Government_debt_per_capita"
+msgstr "Government expenditures on education (% of government expenditure)"
+
+msgid "CHART_TITLE-Government_expenditures_education"
+msgstr "Government expenditures on education (% of GDP)"
+
+msgid "CHART_TITLE-Government_expenditures_education_gdp"
+msgstr "Government expenditures on education (% of GDP)"
+
+msgid "CHART_TITLE-Government_expenditures_military"
+msgstr "Government expenditures on military"
+
+msgid "CHART_TITLE-Government_expenditures_military_per_gdp"
+msgstr "Government expenditures on military as a percentage of GDP"
+
+msgid "CHART_TITLE-Graduate_or_professional_degree_rate_gender"
+msgstr "Rate of graduate or professional degree attainment by gender"
+
+msgid "CHART_TITLE-Health_behaviors"
+msgstr "Health behaviors"
+
+msgid "CHART_TITLE-Health_outcomes"
+msgstr "Health outcomes"
+
+msgid "CHART_TITLE-Household_income"
+msgstr "Household income"
+
+msgid "CHART_TITLE-Household_income_by_bracket"
+msgstr "Percentage of households by income brackets"
+
+msgid "CHART_TITLE-Housing_units"
+msgstr "Housing units"
+
+msgid "CHART_TITLE-Housing_units_date_built"
+msgstr "Housing units by date built"
+
+msgid "CHART_TITLE-Housing_units_date_built_distrubtion"
+msgstr "Distribution of housing units by date built"
+
+msgid "CHART_TITLE-Housing_units_per_capita"
+msgstr "Housing units per capita"
+
+msgid "CHART_TITLE-Housing_units_price"
+msgstr "Housing units by price"
+
+msgid "CHART_TITLE-Housing_units_price_distribution"
+msgstr "Distribution of occupied housing units by price"
+
+msgid "CHART_TITLE-Housing_units_race"
+msgstr "Housing units by householder race"
+
+msgid "CHART_TITLE-Housing_units_race_distribution"
+msgstr "Distribution of housing units by householder race"
+
+msgid "CHART_TITLE-Housing_units_rental_status"
+msgstr "Housing units by rental status"
+
+msgid "CHART_TITLE-Housing_units_rental_status_distribution"
+msgstr "Distribution of housing units by rental status"
+
+msgid "CHART_TITLE-Individual_income"
+msgstr "Individual income"
+
+msgid "CHART_TITLE-Individual_income_by_bracket"
+msgstr "Percentage of individuals by income brackets"
+
+msgid "CHART_TITLE-Infant_mortality_rate"
+msgstr "Infant mortality rate"
+
+msgid "CHART_TITLE-Infant_mortality_rate_gender"
+msgstr "Infant mortality rate by gender"
+
+msgid "CHART_TITLE-Inward_remittance"
+msgstr "Inward remittance"
+
+msgid "CHART_TITLE-Inward_remittance_per_gdp"
+msgstr "Inward remittance (% of GDP)"
+
+msgid "CHART_TITLE-Labor_force"
+msgstr "Labor force"
+
+msgid "CHART_TITLE-Labor_force_rate"
+msgstr "Labor force participation rate"
+
+msgid "CHART_TITLE-Life_expectancy"
+msgstr "Life expectancy (years)"
+
+msgid "CHART_TITLE-Marital_status"
+msgstr "Marital status"
+
+msgid "CHART_TITLE-Marital_status_distribution"
+msgstr "Marital status distribution"
+
+msgid "CHART_TITLE-Market_capitalization"
+msgstr "Market capitalization of domestic companies"
+
+msgid "CHART_TITLE-Market_capitalization_per_gdp"
+msgstr "Market capitalization of domestic companies (% of GDP)"
+
+msgid "CHART_TITLE-Median_age"
+msgstr "Median Age"
+
+msgid "CHART_TITLE-Median_age_gender"
+msgstr "Median age by gender"
+
+msgid "CHART_TITLE-Median_age_race"
+msgstr "Median age by race"
+
+msgid "CHART_TITLE-Median_household_income"
+msgstr "Median household income"
+
+msgid "CHART_TITLE-Median_household_income_race"
+msgstr "Median household income by race"
+
+msgid "CHART_TITLE-Median_income_gender"
+msgstr "Median income by gender"
+
+msgid "CHART_TITLE-Median_individual_income"
+msgstr "Median individual income"
+
+msgid "CHART_TITLE-Mortality_events"
+msgstr "Mortality events"
+
+msgid "CHART_TITLE-Mortality_events_per_capita"
+msgstr "Mortality events per capita"
+
+msgid "CHART_TITLE-Outward_remittance_per_gdp"
+msgstr "Outward remittance"
+
+msgid "CHART_TITLE-Percent_without_health_insurance_gender"
+msgstr "Percentage of people without health insurance by gender"
+
+msgid "CHART_TITLE-Percent_without_health_insurance_race"
+msgstr "Percentage of people without health insurance by race"
+
+msgid "CHART_TITLE-Percentage_employed"
+msgstr "Percentage of people employed"
+
+msgid "CHART_TITLE-Population"
+msgstr "Population"
+
+msgid "CHART_TITLE-Population_age"
+msgstr "Population by age"
+
+msgid "CHART_TITLE-Population_age_distribution"
+msgstr "Age distribution"
+
+msgid "CHART_TITLE-Population_density"
+msgstr "Population density (people per km²)"
+
+msgid "CHART_TITLE-Population_gender"
+msgstr "Population by gender"
+
+msgid "CHART_TITLE-Population_gender_distribution"
+msgstr "Gender distribution"
+
+msgid "CHART_TITLE-Population_growth_rate"
+msgstr "Population growth rate"
+
+msgid "CHART_TITLE-Population_race"
+msgstr "Population by race"
+
+msgid "CHART_TITLE-Population_race_distribution"
+msgstr "Racial distribution"
+
+msgid "CHART_TITLE-Poverty_rate"
+msgstr "Poverty rate"
+
+msgid "CHART_TITLE-Poverty_rate_gender"
+msgstr "Poverty rate by gender"
+
+msgid "CHART_TITLE-Poverty_rate_race"
+msgstr "Poverty rate by race"
+
+msgid "CHART_TITLE-Prescribed_drugs"
+msgstr "Prescribed drugs (quarterly)"
+
+msgid "CHART_TITLE-Prescribed_drugs_per_capita"
+msgstr "Prescribed drugs per capita (quarterly)"
+
+msgid "CHART_TITLE-Property_crime"
+msgstr "Property crime"
+
+msgid "CHART_TITLE-Property_crime_rate"
+msgstr "Property crimes per 100,000 people"
+
+msgid "CHART_TITLE-School_enrollment"
+msgstr "School enrollment"
+
+msgid "CHART_TITLE-School_enrollment_rate"
+msgstr "School enrollment rate"
+
+msgid "CHART_TITLE-State_unemployment_claims"
+msgstr "State unemployment insurance claims"
+
+msgid "CHART_TITLE-State_unemployment_claims_rate"
+msgstr "State unemployment insurance claims rate"
+
+msgid "CHART_TITLE-Total_crime"
+msgstr "Total crime"
+
+msgid "CHART_TITLE-Total_employed"
+msgstr "Number of people employed"
+
+msgid "CHART_TITLE-Unemployment_rate"
+msgstr "Unemployment rate"
+
+msgid "CHART_TITLE-Unemployment_rate_gender"
+msgstr "Unemployment rate by gender"
+
+msgid "CHART_TITLE-Urban_v_rural_population"
+msgstr "Urban and rural population"
+
+msgid "CHART_TITLE-Violent_crime"
+msgstr "Violent crime"
+
+msgid "CHART_TITLE-Violent_crime_rate"
+msgstr "Violent crimes per 100,000 people"
+
+msgid "%(project)s is a Google supported project"
+msgstr "%(project)s is a Google supported project"
+
+msgid "API's"
+msgstr "API's"
+
+msgid "About"
+msgstr "About"
+
+msgid "About Data Commons"
+msgstr "About Data Commons"
+
+msgid "Blog"
+msgstr "Blog"
+
+msgid "Cities, United States"
+msgstr "Cities, United States"
+
+msgid "Contribute"
+msgstr "Contribute"
+
+msgid "Counties, United States"
+msgstr "Counties, United States"
+
+msgid "Countries"
+msgstr "Countries"
+
+msgid "Data Commons"
+msgstr "Data Commons"
+
+msgid "Data Sources"
+msgstr "Data Sources"
+
+msgid "Disclaimers"
+msgstr "Disclaimers"
+
+msgid "Documentation"
+msgstr "Documentation"
+
+msgid "Economic Indicators, Worldwide"
+msgstr "Economic Indicators, Worldwide"
+
+msgid "Enter a country, state, county or city"
+msgstr "Enter a country, state, county or city"
+
+msgid "Explore"
+msgstr "Explore"
+
+msgid "FAQ"
+msgstr "FAQ"
+
+msgid "Feedback"
+msgstr "Feedback"
+
+msgid "Frequently Asked Questions"
+msgstr "Frequently Asked Questions"
+
+msgid "Gini Index"
+msgstr "Gini Index"
+
+msgid "Github Repository"
+msgstr "Github Repository"
+
+msgid "Government Expenditures on Education"
+msgstr "Government Expenditures on Education"
+
+msgid "Government Expenditures on Military"
+msgstr "Government Expenditures on Military"
+
+msgid "Graph Browser"
+msgstr "Graph Browser"
+
+msgid "Gross National Income"
+msgstr "Gross National Income"
+
+msgid "Life Expectancy"
+msgstr "Life Expectancy"
+
+msgid "Loading..."
+msgstr "Loading..."
+
+msgid "Median Income, United States"
+msgstr "Median Income, United States"
+
+msgid "PLACE_EXPLORER_INTRO"
+msgstr "<p>The Place Explorer tool helps you understand the core data underlying a place. It pulls together a set of charts on the demographics, education, economics, etc., of the place, placing them in context with comparisons to other places. You can also see how different places rank along different metrics line unemployment, crime and income.</p><p>You can dive into the charts for your favorite city, zipcode, county, state or country using the search box above.</p><p>Or, start exploring some well known places ...</p>"
+
+msgid "Place Explorer"
+msgstr "Place Explorer"
+
+msgid "Places"
+msgstr "Places"
+
+msgid "Privacy Policy"
+msgstr "Privacy Policy"
+
+msgid "Rankings"
+msgstr "Rankings"
+
+msgid "States, United States"
+msgstr "States, United States"
+
+msgid "Terms and Conditions"
+msgstr "Terms and Conditions"
+
+msgid "Timelines Explorer"
+msgstr "Timelines Explorer"
+
+msgid "Tutorials"
+msgstr "Tutorials"
+
+msgid "Unemployment Rate, United States"
+msgstr "Unemployment Rate, United States"
+
+msgid "Worldwide"
+msgstr "Worldwide"
+
+msgid "by city"
+msgstr "by city"
+
+msgid "by county"
+msgstr "by county"
+
+msgid "by state"
+msgstr "by state"
+
+msgid "in United States"
+msgstr "in United States"
+

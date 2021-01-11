@@ -19,6 +19,7 @@ import { intl, translateVariableString } from "../i18n/i18n";
 
 interface PageSubtitlePropsType {
   category: string;
+  categoryDisplayStr: string;
   dcid: string;
 }
 
@@ -46,7 +47,7 @@ class PageSubtitle extends React.Component<PageSubtitlePropsType> {
       // TODO(datcom): confirm that we scrape the categories from chart config for translation.
       elem = (
         <h2 className="col-12 pt-2">
-          {translateVariableString(category)}
+          {this.props.categoryDisplayStr}
           <span className="more">
             <a href={"/place/" + dcid}>
               {intl.formatMessage({

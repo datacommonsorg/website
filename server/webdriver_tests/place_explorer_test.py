@@ -134,7 +134,7 @@ class TestPlaceExplorer(WebdriverBaseTest):
         """
         Test the demographics link can work correctly.
         """
-        CHART_TITLE = "Gender distribution: states near California(2018)"
+        CHART_TITLE = "Gender distribution: states near California(2019)"
         # Load California page.
         self.driver.get(self.url_ + CA_URL)
 

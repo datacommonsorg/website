@@ -19,12 +19,12 @@ in chart.py and place.py
 
 import collections
 import copy
-import gettext
 import json
 import logging
 import urllib
 
 from flask import Blueprint, current_app, request, Response, url_for, g
+from flask_babel import gettext
 from collections import defaultdict
 
 from cache import cache
@@ -39,11 +39,6 @@ BAR_CHART_TYPES = ['parent', 'similar', 'nearby', 'child']
 MAX_DENOMINATOR_BACK_YEAR = 3
 MIN_CHART_TO_KEEP_TOPICS = 30
 OVERVIEW = 'Overview'
-
-# TODO(beets): Replace this with the extracted locale
-l10n = gettext.translation('chart_titles', localedir='l10n', languages=['es'])
-l10n.install()
-_ = l10n.gettext
 
 
 def get_landing_page_data(dcid, stat_vars):
@@ -71,6 +66,14 @@ def build_url(dcids, statvar_to_denom, is_scaled=False):
     return urllib.parse.unquote(url_for('tools.timeline', _anchor=anchor))
 
 
+def fill_translation(chart):
+    chart['title'] = gettext(chart['titleId'])
+    del chart['titleId']
+    if 'description' in chart:
+        del chart['description']
+    return chart
+
+
 # TODO: add test for chart_config for assumption that each combination of stat vars will only have one config in chart_config.
 def build_spec(chart_config):
     """Builds hierachical spec based on chart config."""
@@ -79,8 +82,9 @@ def build_spec(chart_config):
     # Map: category -> topic -> [config]
     for conf in chart_config:
         config = copy.deepcopy(conf)
-        config['title'] = _(config['titleId'])
-        del config['titleId']
+        config = fill_translation(config)
+        if 'relatedChart' in config and config['relatedChart']['scale']:
+            config['relatedChart'] = fill_translation(config['relatedChart'])
         is_overview = ('isOverview' in config and config['isOverview'])
         category = config['category']
         if 'isOverview' in config:
@@ -470,6 +474,11 @@ def data(dcid):
             if category != OVERVIEW:
                 del spec_and_stat[category]
 
+    # Get chart category name translations
+    categories = {}
+    for category in list(spec_and_stat.keys()):
+        categories[category] = gettext(f'CHART_TITLE-CHART_CATEGORY-{category}')
+
     # Get display name for all places
     all_places = [dcid]
     for t in BAR_CHART_TYPES:
@@ -479,7 +488,7 @@ def data(dcid):
     # Pick data to highlight - only population for now
     population, statvar_denom = get_snapshot_across_places(
         {'statsVars': ['Count_Person']}, all_stat, [dcid])
-    highlight = {'Population': population}
+    highlight = {gettext('CHART_TITLE-Population'): population}
 
     response = {
         'pageChart': spec_and_stat,
@@ -489,6 +498,7 @@ def data(dcid):
         'parentPlaces': raw_page_data.get('parentPlaces', []),
         'similarPlaces': raw_page_data.get('similarPlaces', []),
         'nearbyPlaces': raw_page_data.get('nearbyPlaces', []),
+        'categories': categories,
         'names': names,
         'highlight': highlight,
     }
