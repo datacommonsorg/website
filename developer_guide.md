@@ -3,16 +3,14 @@
 Website is deployed in Kubernetes cluster. A deployment contains the following
 containers:
 
-- Website: A Flask app with static files complied with Webpack.
-- Mixer: The Data Commons API server.
-- ESP: Google Extensive Service Proxy used for gRPC to Json transcoding.
+- website: A Flask app with static files complied with Webpack.
+- mixer: The Data Commons API server.
+- esp: Google Extensive Service Proxy used for gRPC to Json transcoding.
 
 [Mixer](https://github.com/datacommonsorg/mixer) is a submodule of this Git repo.
-
-The exact commit of the sub-module is deployed together with the website so it may
-not be the same API version as `api.datacommons.org`.
-
-Make sure to update track the mixer change for a new deployment:
+The exact commit of the submodule is deployed together with the website so it may
+not be the same API version as `api.datacommons.org`. Make sure to update and
+track the mixer change for a new deployment:
 
 ```bash
 git submodule foreach git pull origin master
@@ -86,10 +84,10 @@ npm test testfilename -- -u
 
 ## Develop with local Kubernets (Recommended)
 
-Developing the website with local Kubernetes cluster makes the local app close to
+Developing the website with local Kubernetes cluster makes the local app same to
 production deployment.
 
-### Start mixer in Minikube
+### Start website in Minikube
 
 ```bash
 minikube start --memory=6G
@@ -102,7 +100,7 @@ This exposes the local website at `localhost:8080`.
 
 ### Hot reload
 
-Run the following command to get the javascript code recompiled when changed
+Run the following command to get the javascript code recompiled when changed:
 
 ```bash
 ./run_npm.sh
@@ -110,8 +108,7 @@ Run the following command to get the javascript code recompiled when changed
 
 Python code change will trigger a restart of the Flask server automatically.
 
-All the code change is synced to the container files through "File Sync" function
-of Skaffold.
+All the code change is synced to the containers through "File Sync" of Skaffold.
 
 ## Develop with Flask (Not Recommended)
 
@@ -147,5 +144,6 @@ This file is stored in GCS bucket. The bucket is set in the config files
 
 ### Redis memcache
 
-[Redis memcache](https://pantheon.corp.google.com/memorystore/redis/instances?project=datcom-website-prod) is used for production deployment. Each cluster has
-a Redis instance located in the same region.
+[Redis memcache](https://pantheon.corp.google.com/memorystore/redis/instances?project=datcom-website-prod)
+is used for production deployment. Each cluster has a Redis instance located in
+the same region.
