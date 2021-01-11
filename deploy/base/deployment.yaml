@@ -114,11 +114,11 @@ spec:
             exec:
               command: ["/bin/grpc_health_probe", "-addr=:12345"]
             periodSeconds: 5
-          livenessProbe:
-            exec:
-              command: ["/bin/grpc_health_probe", "-addr=:12345"]
-            periodSeconds: 5
-            initialDelaySeconds: 10
+          # livenessProbe:
+          #   exec:
+          #     command: ["/bin/grpc_health_probe", "-addr=:12345"]
+          #   periodSeconds: 5
+          #   initialDelaySeconds: 10
         - name: esp
           image: gcr.io/endpoints-release/endpoints-runtime:1
           args:
@@ -142,7 +142,7 @@ spec:
                   key: serviceName
           resources:
             limits:
-              memory: "0.3G"
+              memory: "0.5G"
               cpu: "100m"
           readinessProbe:
             httpGet:

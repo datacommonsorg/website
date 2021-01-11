@@ -42,3 +42,6 @@
 - op: add
   path: /spec/template/spec/containers/2/args/2
   value: --enable_debug
+# TODO(shifucun): Figure out why readiness probe fails when running "python main.py"
+- op: remove
+  path: /spec/template/spec/containers/0/readinessProbe

@@ -17,4 +17,4 @@
 apiVersion: v1
 kind: Namespace
 metadata:
-  name: website-namespace
+  name: website
