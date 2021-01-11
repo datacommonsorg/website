@@ -191,6 +191,11 @@ msgstr ""
 msgid "Place Explorer"
 msgstr ""
 
+#. The name of a tool to view rankings of places by a specified dimension.
+#: server/templates/ranking.html:19 server/templates/ranking.html:20
+msgid "Place Rankings"
+msgstr ""
+
 #. Heading for a list of places
 #: server/templates/place_landing.html:52
 msgid "Places"
