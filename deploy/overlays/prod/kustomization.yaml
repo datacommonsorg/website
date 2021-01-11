@@ -30,7 +30,7 @@ configMapGenerator:
   - name: website-configmap
     behavior: create
     literals:
-      - flaskEnv=gke
+      - flaskEnv=prod
       - gcsBucket=datcom-website-prod-resources
       - secretProject=datcom-website-prod
   - name: mixer-configmap

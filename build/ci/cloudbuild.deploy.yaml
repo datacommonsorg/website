@@ -13,56 +13,20 @@
 # limitations under the License.
 
 steps:
-  - id: package_js
-    name: "node"
-    entrypoint: /bin/bash
-    args:
-      - -c
-      - |
-        ./run_test.sh -lbc
-
-  - id: flask_test
-    name: python:3.7
-    entrypoint: /bin/sh
-    args:
-      - -c
-      - |
-        ./run_test.sh -p
-
-  - id: deploy
-    name: "gcr.io/cloud-builders/gcloud"
-    entrypoint: /bin/bash
+  # Push website image to container registry
+  - id: push-image
+    name: gcr.io/cloud-builders/docker
+    entrypoint: "bash"
     args:
       - -c
       - |
         set -e
-
-        # Set project
-        gcloud config set project datcom-browser-staging
-
-        # Deploy dispatch.yaml
-        gcloud app deploy dispatch.yaml
-
-        # Deploy the go service
-        gcloud app deploy go/go.yaml
-
-        # Deploy flask app service
-        gcloud config set app/cloud_build_timeout 1200
-        cd server
-        gcloud app deploy app_staging.yaml -q --version=$SHORT_SHA
-
-        # Keep at most 5 recent versions
-        if [[ "$(gcloud app versions list -s default | wc -l)" -gt 6 ]]; then
-          echo "Remove the oldest default service ..."
-          gcloud app versions delete -q \
-          `gcloud app versions list -s default --sort-by=~LAST_DEPLOYED | sed 's/  */:/g' | cut -f 2 -d : | tail -1 | tr "\n" " "`
-        fi
-
-        if [[ "$(gcloud app versions list -s go | wc -l)" -gt 6 ]]; then
-          echo "Remove the oldest go service..."
-          gcloud app versions delete -q \
-          `gcloud app versions list -s go --sort-by=~LAST_DEPLOYED | sed 's/  */:/g' | cut -f 2 -d : | tail -1 | tr "\n" " "`
-        fi
+        docker build -f build/Dockerfile \
+          -t gcr.io/datcom-ci/datacommons-website:$SHORT_SHA \
+          -t gcr.io/datcom-ci/datacommons-website:latest \
+          .
+        docker push gcr.io/datcom-ci/datacommons-website:$SHORT_SHA
+        docker push gcr.io/datcom-ci/datacommons-website:latest
 
   - id: update version
     name: "gcr.io/cloud-builders/git"
@@ -81,20 +45,5 @@ steps:
         git add website/staging/commit_hash.txt
         git commit -m "Deployed website to staging at commit https://github.com/datacommonsorg/website/commit/$SHORT_SHA"
         git push origin master
-
-  # Push website image to container registry
-  - id: push-image
-    name: gcr.io/cloud-builders/docker
-    entrypoint: "bash"
-    args:
-      - -c
-      - |
-        set -e
-        docker build -f build/Dockerfile \
-          -t gcr.io/datcom-ci/datacommons-website:$SHORT_SHA \
-          -t gcr.io/datcom-ci/datacommons-website:latest \
-          .
-        docker push gcr.io/datcom-ci/datacommons-website:$SHORT_SHA
-        docker push gcr.io/datcom-ci/datacommons-website:latest
 
 timeout: 3600s
