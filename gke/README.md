@@ -48,6 +48,17 @@ Each cluster is a regional cluster with 3 zones.
 
 Each node is a configured to e2-highmem-4 machine type that has 4 vCPU and 32G memory.
 
+If you would like to use [Cloud Memorystore](https://cloud.google.com/memorystore/docs/redis/quickstart-gcloud), run
+
+```bash
+./create_redis.sh <REGION>
+```
+
+Need to run this for all the regions that the app is hosted. The regions can be found in config.yaml.
+
+Record the **host** and **port** as deployment config file ([example](../deploy/overlays/prod/redis.json))
+and make a patch to the deployment ([example](../deploy/overlays/patch_deployment.yaml)).
+
 ## DNS setup
 
 - Make sure the managed SSL certificate is "ACTIVE" by checking

@@ -47,6 +47,7 @@ declare -a roles=(
     "roles/logging.logWriter"
     "roles/monitoring.metricWriter"
     "roles/stackdriver.resourceMetadata.writer"
+    "roles/compute.networkViewer"
 )
 for role in "${roles[@]}"
 do

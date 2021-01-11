@@ -15,23 +15,16 @@
 
 set -e
 
-# https://cloud.google.com/kubernetes-engine/docs/how-to/ingress-for-anthos-setup
+REGION=$1
 
 PROJECT_ID=$(yq r config.yaml project)
-REGION=$(yq r config.yaml region.primary)
-CLUSTER_NAME="website-$REGION"
 
 gcloud config set project $PROJECT_ID
-gcloud container clusters get-credentials $CLUSTER_NAME --region $REGION
-gcloud alpha container hub ingress enable \
-  --config-membership=projects/$PROJECT_ID/locations/global/memberships/$CLUSTER_NAME
 
-yq w mci.yaml.tpl \
-  metadata.annotations.[networking.gke.io/static-ip] \
-  $(yq r config.yaml ip) \
-  > mci.yaml
+gcloud services enable redis.googleapis.com
 
-kubectl apply -f mci.yaml
-kubectl apply -f mcs.yaml
+# Create 5G redis cache
+gcloud redis instances create webserver-cache --size=5 --region=$REGION \
+    --redis-version=redis_5_0
 
-# Check the status: `kubectl describe mci website -n website`
+gcloud redis instances describe webserver-cache --region=$REGION
