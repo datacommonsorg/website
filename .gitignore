@@ -6,7 +6,9 @@ __pycache__/
 test_screenshots/
 
 # Production static files
-dist/
+server/dist/**
+!server/dist/.empty
+
 **/node_modules/**
 
 # Local env.

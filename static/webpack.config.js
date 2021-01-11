@@ -116,9 +116,10 @@ const config = {
     new FixStyleOnlyEntriesPlugin({
       silent: true,
     }),
-    new WebpackShellPlugin({
-      onBuildEnd: ["cp -r ../server/dist ../go/dist"],
-    }),
+    // TODO(boxu): Add this back when re-use the Go Server
+    // new WebpackShellPlugin({
+    //   onBuildEnd: ["cp -r ../server/dist ../go/dist"],
+    // }),
   ],
 };
 module.exports = [config];

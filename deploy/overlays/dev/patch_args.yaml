@@ -16,29 +16,23 @@
 # The dev ESP args are quite different comparing with GCP args as it does not
 # talk to GCP at all. This
 # 1. remove "--service"
-# 2. change "--rollout_strategy" to be fixed
 # 3. add "--service_json_path" to use json service config
 # 4. add a bunch of other dev only args
 
+- op: add
+  path: /spec/template/spec/containers/1/args/0
+  value: --enable_branch_cache=false
 - op: remove
   path: /spec/template/spec/containers/2/args/0
-- op: remove
-  path: /spec/template/spec/containers/2/args/0
-- op: replace
-  path: /spec/template/spec/containers/2/args/1
-  value: fixed
 - op: add
   path: /spec/template/spec/containers/2/args/0
-  value: --service_json_path
+  value: --service_json_path=/esp/mixer-grpc.json
 - op: add
-  path: /spec/template/spec/containers/2/args/1
-  value: /esp/mixer-grpc.json
-- op: add
-  path: /spec/template/spec/containers/2/args/2
+  path: /spec/template/spec/containers/2/args/0
   value: --non_gcp
 - op: add
-  path: /spec/template/spec/containers/2/args/2
+  path: /spec/template/spec/containers/2/args/0
   value: --disable_cloud_trace_auto_sampling
-- op: add
-  path: /spec/template/spec/containers/2/args/2
-  value: --enable_debug
+# TODO(shifucun): Figure out why readiness probe fails when running "python main.py"
+- op: remove
+  path: /spec/template/spec/containers/0/readinessProbe
