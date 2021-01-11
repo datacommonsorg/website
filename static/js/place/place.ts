@@ -27,6 +27,7 @@ import { PlaceHighlight } from "./place_highlight";
 import { PageSubtitle } from "./page_subtitle";
 import { isPlaceInUsa } from "./util";
 import { initSearchAutocomplete } from "./search";
+import { translateVariableString } from "../i18n/i18n";
 
 import { CachedChoroplethData, GeoJsonData, PageData } from "../chart/types";
 
@@ -176,12 +177,14 @@ function renderPage(): void {
       loadingElem.style.display = "none";
       const data: PageData = landingPageData;
       const isUsaPlace = isPlaceInUsa(dcid, data.parentPlaces);
+      data.categories["Overview"] = translateVariableString("Overview");
       if (Object.keys(data.pageChart).length == 1) {
         topic = "Overview";
       }
       ReactDOM.render(
         React.createElement(Menu, {
           pageChart: data.pageChart,
+          categories: data.categories,
           dcid,
           topic,
         }),
@@ -227,6 +230,7 @@ function renderPage(): void {
       ReactDOM.render(
         React.createElement(PageSubtitle, {
           category: topic,
+          categoryDisplayStr: data.categories[topic],
           dcid,
         }),
         document.getElementById("subtitle")
@@ -244,6 +248,7 @@ function renderPage(): void {
           choroplethData: choroplethDataPromise,
           childPlacesType: data.childPlacesType,
           parentPlaces: data.parentPlaces,
+          categoryStrings: data.categories,
         }),
         document.getElementById("main-pane")
       );

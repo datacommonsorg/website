@@ -23,6 +23,7 @@ interface MenuCategoryPropsType {
   selectCategory: string;
   category: string;
   topics: string[];
+  categoryDisplayStr: string;
 }
 
 class MenuCategory extends React.Component<MenuCategoryPropsType> {
@@ -42,7 +43,7 @@ class MenuCategory extends React.Component<MenuCategoryPropsType> {
           href={hrefString}
           className={`nav-link ${selectCategory === category ? "active" : ""}`}
         >
-          {translateVariableString(category)}
+          {this.props.categoryDisplayStr}
         </a>
         <ul
           className={
@@ -68,6 +69,7 @@ class MenuCategory extends React.Component<MenuCategoryPropsType> {
 }
 
 interface MenuPropsType {
+  categories: { string: string };
   dcid: string;
   topic: string;
   pageChart: PageChart;
@@ -98,6 +100,7 @@ class Menu extends React.Component<MenuPropsType> {
         )}
         {categories.map((category: string) => {
           const topics = Object.keys(this.props.pageChart[category]);
+          const categoryDisplayStr = this.props.categories[category];
           if (showOverviewSubmenu || category !== "Overview") {
             return (
               <MenuCategory
@@ -106,6 +109,7 @@ class Menu extends React.Component<MenuPropsType> {
                 selectCategory={topic}
                 category={category}
                 topics={topics}
+                categoryDisplayStr={categoryDisplayStr}
               />
             );
           }

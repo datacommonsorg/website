@@ -21,6 +21,21 @@
         "scaling": 100,
         "unit": "%"
       }
+    ],
+    "Number of people employed": [
+      {
+        "title": "Number of people employed",
+        "statsVars": [
+          "Count_Person_Employed"
+        ],
+        "relatedChart": {
+          "title": "Percentage of people employed",
+          "scale": true,
+          "denominator": "Count_Person",
+          "scaling": 100,
+          "unit": "%"
+        }
+      }
     ]
   }
 }

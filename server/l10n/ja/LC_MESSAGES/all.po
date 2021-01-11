@@ -341,7 +341,7 @@ msgid "CHART_TITLE-Violent_crime_rate"
 msgstr "暴力犯罪件数（人口 100,000 人あたり）"
 
 msgid "%(project)s is a Google supported project"
-msgstr "%(project) は Google がサポートするプロジェクトです"
+msgstr "%(project)s は Google がサポートするプロジェクトです"
 
 msgid "API's"
 msgstr "API"

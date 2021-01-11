@@ -71,6 +71,10 @@ interface MainPanePropType {
    * DCIDs of parent places
    */
   parentPlaces: string[];
+  /**
+   * Translated strings for categories.
+   */
+  categoryStrings: { string: string };
 }
 
 class MainPane extends React.Component<MainPanePropType> {
@@ -95,7 +99,7 @@ class MainPane extends React.Component<MainPanePropType> {
             subtopicHeader = (
               <h3 id={topic}>
                 <a href={`/place/${this.props.dcid}?topic=${topic}`}>
-                  {translateVariableString(topic)}
+                  {this.props.categoryStrings[topic]}
                 </a>
                 <span className="more">
                   <a href={`/place/${this.props.dcid}?topic=${topic}`}>
