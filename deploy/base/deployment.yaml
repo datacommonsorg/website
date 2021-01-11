@@ -79,7 +79,7 @@ spec:
           imagePullPolicy: Always
           resources:
             limits:
-              memory: "1G"
+              memory: "4G"
               cpu: "500m"
           args:
             - --bq_dataset
@@ -114,6 +114,7 @@ spec:
             exec:
               command: ["/bin/grpc_health_probe", "-addr=:12345"]
             periodSeconds: 5
+            failureThreshold: 60
           # livenessProbe:
           #   exec:
           #     command: ["/bin/grpc_health_probe", "-addr=:12345"]

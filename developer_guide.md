@@ -100,6 +100,8 @@ This exposes the local website at `localhost:8080`.
 
 ### Hot reload
 
+All the code change is synced to the containers through "File Sync" of Skaffold.
+
 Run the following command to get the javascript code recompiled when changed:
 
 ```bash
@@ -108,7 +110,10 @@ Run the following command to get the javascript code recompiled when changed:
 
 Python code change will trigger a restart of the Flask server automatically.
 
-All the code change is synced to the containers through "File Sync" of Skaffold.
+### Disable Mixer branch cache
+
+Loading mixer branch cache can take several minutes and causes readiness probe to fail
+on Minikube, hance disabled.
 
 ## Develop with Flask (Not Recommended)
 
