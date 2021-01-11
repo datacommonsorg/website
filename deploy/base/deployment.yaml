@@ -79,19 +79,14 @@ spec:
           imagePullPolicy: Always
           resources:
             limits:
-              memory: "4G"
+              memory: "6G"
               cpu: "500m"
           args:
-            - --bq_dataset
-            - "$(BIG_QUERY)"
-            - --bt_table
-            - "$(BIG_TABLE)"
-            - --bt_project
-            - "google.com:datcom-store-dev"
-            - --bt_instance
-            - "prophet-cache"
-            - --project_id
-            - $(PROJECT_ID)
+            - --bq_dataset=$(BIG_QUERY)
+            - --bt_table=$(BIG_TABLE)
+            - --bt_project=google.com:datcom-store-dev
+            - --bt_instance=prophet-cache
+            - --project_id=$(PROJECT_ID)
           env:
             - name: PROJECT_ID
               valueFrom:
@@ -123,18 +118,12 @@ spec:
         - name: esp
           image: gcr.io/endpoints-release/endpoints-runtime:1
           args:
-            - --service
-            - $(SERVICE_NAME)
-            - --rollout_strategy
-            - "managed"
-            - --http_port
-            - "8081"
-            - --backend
-            - "grpc://127.0.0.1:12345"
-            - --cors_preset
-            - "basic"
-            - --healthz
-            - "healthz"
+            - --service=$(SERVICE_NAME)
+            - --rollout_strategy=managed
+            - --http_port=8081
+            - --backend=grpc://127.0.0.1:12345
+            - --cors_preset=basic
+            - --healthz=healthz
           env:
             - name: SERVICE_NAME
               valueFrom:

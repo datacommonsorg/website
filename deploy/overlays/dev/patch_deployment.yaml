@@ -40,6 +40,9 @@ spec:
         - name: mixer
           image: datacommons/mixer
           imagePullPolicy: Never
+          resources:
+            limits:
+              memory: "1G"
         - name: esp
           volumeMounts:
             - mountPath: /esp

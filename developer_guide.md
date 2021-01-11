@@ -93,6 +93,7 @@ production deployment. This is recommended way for development.
 minikube start --memory=6G
 minikube addons enable gcp-auth
 eval $(minikube docker-env)
+kubectl config use-context minikube # This is important
 skaffold dev --port-forward -n website
 ```
 
