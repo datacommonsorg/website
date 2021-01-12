@@ -22,15 +22,7 @@ from flask_caching import Cache
 REDIS_CONFIG = '/datacommons/redis/redis.json'
 
 # TODO(boxu): delete this after migrating to gke
-if os.environ.get('FLASK_ENV') == 'production':
-    cache = Cache(
-        config={
-            'CACHE_TYPE': 'redis',
-            'CACHE_REDIS_HOST': '10.58.224.3',
-            'CACHE_REDIS_PORT': '6379',
-            'CACHE_REDIS_URL': 'redis://10.58.224.3:6379'
-        })
-elif os.path.isfile(REDIS_CONFIG):
+if os.path.isfile(REDIS_CONFIG):
     with open(REDIS_CONFIG) as f:
         redis = json.load(f)
         metadata_url = "http://metadata.google.internal/computeMetadata/v1/instance/zone"
@@ -50,6 +42,5 @@ elif os.path.isfile(REDIS_CONFIG):
                 })
         else:
             cache = Cache(config={'CACHE_TYPE': 'simple'})
-
 else:
     cache = Cache(config={'CACHE_TYPE': 'simple'})
