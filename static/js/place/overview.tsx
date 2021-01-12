@@ -23,6 +23,7 @@ interface OverviewPropType {
    * The place dcid.
    */
   dcid: string;
+  locale: string;
 }
 
 class Overview extends React.Component<OverviewPropType> {
