@@ -75,6 +75,10 @@ interface MainPanePropType {
    * Translated strings for categories.
    */
   categoryStrings: { string: string };
+  /**
+   * The locale of the page.
+   */
+  locale: string;
 }
 
 class MainPane extends React.Component<MainPanePropType> {
@@ -91,7 +95,7 @@ class MainPane extends React.Component<MainPanePropType> {
           this.props.placeType != "Country" &&
           isOverview && (
             // Only Show map and ranking for US places.
-            <Overview dcid={this.props.dcid} />
+            <Overview dcid={this.props.dcid} locale={this.props.locale} />
           )}
         {Object.keys(topicData).map((topic: string) => {
           let subtopicHeader: JSX.Element;
@@ -133,6 +137,7 @@ class MainPane extends React.Component<MainPanePropType> {
                       isUsaPlace={this.props.isUsaPlace}
                       names={this.props.names}
                       data={data}
+                      locale={this.props.locale}
                       geoJsonData={this.props.geoJsonData}
                       choroplethData={this.props.choroplethData}
                       childPlaceType={this.props.childPlacesType}

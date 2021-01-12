@@ -524,8 +524,6 @@ def api_ranking(dcid):
         for stats_var, data in response.items():
             result[RANKING_STATS[stats_var]].append({
                 'name':
-                    parent_names[parent_dcid],
-                'nameWithLanguage':
                     parent_i18_names[parent_dcid],
                 'data':
                     data,
@@ -540,8 +538,6 @@ def api_ranking(dcid):
         for stats_var, data in response.items():
             result[crime_statsvar[stats_var]].append({
                 'name':
-                    parent_names[parent_dcid],
-                'nameWithLanguage':
                     parent_i18_names[parent_dcid],
                 'data':
                     data,
