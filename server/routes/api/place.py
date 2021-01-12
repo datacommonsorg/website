@@ -490,10 +490,11 @@ def api_ranking(dcid):
     """
     Get the ranking information for a given place.
     """
+    locale = request.args.get('hl', default="en")
     current_place_type = get_place_type(dcid)
     parents = parent_places(dcid)[dcid]
     parents_str = '^'.join(sorted(map(lambda x: x['dcid'], parents)))
-    parent_i18_names = cached_i18n_name(parents_str, g.locale)
+    parent_i18_names = cached_i18n_name(parents_str, locale)
 
     selected_parents = []
     parent_names = {}
@@ -524,8 +525,6 @@ def api_ranking(dcid):
             result[RANKING_STATS[stats_var]].append({
                 'name':
                     parent_i18_names[parent_dcid],
-                'nameWithLanguage':
-                    parent_i18_names[parent_dcid],
                 'data':
                     data,
                 'rankingUrl':
@@ -539,8 +538,6 @@ def api_ranking(dcid):
         for stats_var, data in response.items():
             result[crime_statsvar[stats_var]].append({
                 'name':
-                    parent_i18_names[parent_dcid],
-                'nameWithLanguage':
                     parent_i18_names[parent_dcid],
                 'data':
                     data,

@@ -30,7 +30,6 @@ interface MainPanePropType {
    * The place dcid.
    */
   dcid: string;
-  locale: string;
   /**
    * The place name.
    */
@@ -76,6 +75,10 @@ interface MainPanePropType {
    * Translated strings for categories.
    */
   categoryStrings: { string: string };
+  /**
+   * The locale of the page.
+   */
+  locale: string;
 }
 
 class MainPane extends React.Component<MainPanePropType> {

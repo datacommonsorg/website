@@ -23,6 +23,9 @@ interface OverviewPropType {
    * The place dcid.
    */
   dcid: string;
+  /**
+   * The locale of the page.
+   */
   locale: string;
 }
 

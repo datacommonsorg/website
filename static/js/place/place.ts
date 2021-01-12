@@ -240,7 +240,6 @@ function renderPage(): void {
           topic,
           dcid,
           isUsaPlace,
-          locale,
           names: data.names,
           pageChart: data.pageChart,
           placeName,
@@ -250,6 +249,7 @@ function renderPage(): void {
           childPlacesType: data.childPlacesType,
           parentPlaces: data.parentPlaces,
           categoryStrings: data.categories,
+          locale,
         }),
         document.getElementById("main-pane")
       );
