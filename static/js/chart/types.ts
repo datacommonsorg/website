@@ -89,7 +89,6 @@ export interface PageData {
   nearbyPlaces: string[];
   categories: { string: string };
   names: { string: string };
-  locale: string[];
   highlight: PageHighlight;
 }
 
