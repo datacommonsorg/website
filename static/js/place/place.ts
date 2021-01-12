@@ -249,6 +249,7 @@ function renderPage(): void {
           childPlacesType: data.childPlacesType,
           parentPlaces: data.parentPlaces,
           categoryStrings: data.categories,
+          locale,
         }),
         document.getElementById("main-pane")
       );

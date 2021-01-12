@@ -21,6 +21,7 @@ import { intl, translateVariableString } from "../i18n/i18n";
 
 interface RankingPropsType {
   dcid: string;
+  locale: string;
 }
 
 interface RankingStateType {
@@ -119,9 +120,11 @@ class Ranking extends React.Component<RankingPropsType, RankingStateType> {
   }
 
   componentDidMount(): void {
-    axios.get(`/api/place/ranking/${this.props.dcid}`).then((resp) => {
-      this.setState({ data: resp.data });
-    });
+    axios
+      .get(`/api/place/ranking/${this.props.dcid}?hl=${this.props.locale}`)
+      .then((resp) => {
+        this.setState({ data: resp.data });
+      });
   }
 }
 
