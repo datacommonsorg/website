@@ -95,7 +95,7 @@ class MainPane extends React.Component<MainPanePropType> {
           this.props.placeType != "Country" &&
           isOverview && (
             // Only Show map and ranking for US places.
-            <Overview dcid={this.props.dcid} locale={this.props.locale}/>
+            <Overview dcid={this.props.dcid} locale={this.props.locale} />
           )}
         {Object.keys(topicData).map((topic: string) => {
           let subtopicHeader: JSX.Element;

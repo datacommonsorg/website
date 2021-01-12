@@ -38,7 +38,10 @@ class Overview extends React.Component<OverviewPropType> {
             <Map dcid={this.props.dcid}></Map>
           </div>
           <div className="col-12 col-md-8">
-            <Ranking dcid={this.props.dcid} locale={this.props.locale}></Ranking>
+            <Ranking
+              dcid={this.props.dcid}
+              locale={this.props.locale}
+            ></Ranking>
           </div>
         </div>
       </section>
