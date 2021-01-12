@@ -30,7 +30,8 @@ gcloud container clusters create $CLUSTER_NAME \
   --region=$REGION \
   --machine-type=e2-highmem-4 \
   --enable-ip-alias \
-  --workload-pool=$PROJECT_ID.svc.id.goog
+  --workload-pool=$PROJECT_ID.svc.id.goog \
+  --scopes=https://www.googleapis.com/auth/trace.append
 
 # Register cluster using Workload Identity ([Documentation](https://cloud.google.com/anthos/multicluster-management/connect/registering-a-cluster#register_cluster))
 gcloud beta container hub memberships register $CLUSTER_NAME \
