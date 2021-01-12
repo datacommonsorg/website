@@ -34,4 +34,4 @@ RUN npm run-script build
 
 # Run server
 WORKDIR /workspace/server
-CMD if [ "$ENV" = "local" ] ; then python3.7 main.py ; else exec gunicorn --bind :8080 --workers 1 --threads 8 --timeout 0 main:app ; fi
+CMD if [ "$ENV" = "local" ] ; then python3.7 main.py ; else exec gunicorn --bind :8080 main:app ; fi
