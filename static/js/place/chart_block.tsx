@@ -77,6 +77,7 @@ interface ChartBlockPropType {
    * The topic of the page the chart block is in
    */
   topic: string;
+  locale: string;
 }
 
 class ChartBlock extends React.Component<ChartBlockPropType> {

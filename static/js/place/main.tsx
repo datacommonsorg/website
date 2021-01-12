@@ -30,6 +30,7 @@ interface MainPanePropType {
    * The place dcid.
    */
   dcid: string;
+  locale: string;
   /**
    * The place name.
    */
@@ -91,7 +92,7 @@ class MainPane extends React.Component<MainPanePropType> {
           this.props.placeType != "Country" &&
           isOverview && (
             // Only Show map and ranking for US places.
-            <Overview dcid={this.props.dcid} />
+            <Overview dcid={this.props.dcid} locale={this.props.locale}/>
           )}
         {Object.keys(topicData).map((topic: string) => {
           let subtopicHeader: JSX.Element;
@@ -133,6 +134,7 @@ class MainPane extends React.Component<MainPanePropType> {
                       isUsaPlace={this.props.isUsaPlace}
                       names={this.props.names}
                       data={data}
+                      locale={this.props.locale}
                       geoJsonData={this.props.geoJsonData}
                       choroplethData={this.props.choroplethData}
                       childPlaceType={this.props.childPlacesType}

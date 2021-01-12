@@ -84,6 +84,7 @@ export interface PageData {
   };
   childPlacesType: string;
   childPlaces: string[];
+  locale: string[];
   parentPlaces: string[];
   similarPlaces: string[];
   nearbyPlaces: string[];

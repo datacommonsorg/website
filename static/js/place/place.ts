@@ -240,6 +240,7 @@ function renderPage(): void {
           topic,
           dcid,
           isUsaPlace,
+          locale,
           names: data.names,
           pageChart: data.pageChart,
           placeName,
