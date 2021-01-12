@@ -27,4 +27,7 @@ gke/config.yaml
 gke/endpoints.yaml
 gke/mci.yaml
 
-mixer-grpc.latest.pb
+mixer-grpc.*.pb
+deploy/overlays/**/endpoints.yaml
+deploy/overlays/prod/prod.yaml
+deploy/overlays/staging/staging.yaml
