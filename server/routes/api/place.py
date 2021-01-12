@@ -131,7 +131,7 @@ def api_name():
     return Response(json.dumps(result), 200, mimetype='application/json')
 
 
-@cache.cached(timeout=3600 * 24, query_string=True)  # Cache for one day.
+@cache.memoize(timeout=3600 * 24)  # Cache for one day.
 def cached_i18n_name(dcids, locale="en"):
     """Returns localization names for set of dcids.
 
