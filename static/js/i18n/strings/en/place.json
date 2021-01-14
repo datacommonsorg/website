@@ -95,6 +95,70 @@
     "defaultMessage": "Zip Codes",
     "description": "A collection of ZIP Codes. Some examples: \"_ZIP Codes_ in Fremont\" or \"Median Age: _ZIP Codes_ near 94539\", \"Median Age: Other _ZIP Codes_\" or \"Rankings of Number of Employed People for _ZIP Codes_ in Santa Clara County\"."
   },
+  "ranking-document_title": {
+    "defaultMessage": "{statVar} for {pluralPlaceType} in {placeName}",
+    "description": "HTML document title for a page with rankings of places measured by a statistical variable, where {statVar} will be replaced with the statistical variable, {pluralPlaceType} with the pluralized type for the places in the ranking, e.g. Cities or States, and {placeName} is the containing place for the places in the ranking. Please keep the variables with curly brackets as is in the final translation."
+  },
+  "ranking-loading": {
+    "defaultMessage": "Loading...",
+    "description": "Message shown while ranking data is still loading."
+  },
+  "ranking-no_data": {
+    "defaultMessage": "There is no ranking data available.",
+    "description": "Message to notify users that there is no ranking information available to show."
+  },
+  "ranking-page_title": {
+    "defaultMessage": "Rankings of {statVar}",
+    "description": "Main title on a page showing the ranking of places measured by a statistical variable. The statistical variable is translated separately, and will be replaced in {statVar} -- please leave the '{statVar}' as is in the resulting translation."
+  },
+  "ranking-sort_bottom": {
+    "defaultMessage": "Show Lowest {rankSize}",
+    "description": "Link used to show the lowest {rankSize} items in the sorted ranking table, where {rankSize} is a number, e.g. 100. Please keep {rankSize} as is in the final translation."
+  },
+  "ranking-sort_top": {
+    "defaultMessage": "Show Highest {rankSize}",
+    "description": "Link used to show the highest {rankSize} items in the sorted ranking table, where {rankSize} is a number, e.g. 100. Please keep {rankSize} as is in the final translation."
+  },
+  "ranking-subtitle_all": {
+    "defaultMessage": "All {pluralPlaceType} in {placeName}",
+    "description": "Subtitle of the page, which shows ranking of all contained places of a type within a place, where {pluralPlaceType} will be replaced by the place type of the contained places, and {placeName} is the containing place. Please maintain the {placeName} and {pluralPlaceType} as is in the final translation."
+  },
+  "ranking-subtitle_all_percapita": {
+    "defaultMessage": "All {pluralPlaceType} in {placeName}, per capita",
+    "description": "Subtitle of the page, which shows ranking of all contained places of a type within a place, computed on a per capita basis, where {pluralPlaceType} will be replaced by the place type of the contained places, and {placeName} is the containing place. Please maintain the {placeName} and {pluralPlaceType} as is in the final translation."
+  },
+  "ranking-subtitle_bottom": {
+    "defaultMessage": "Bottom {rankSize} {pluralPlaceType} in {placeName}",
+    "description": "Subtitle of the page, which shows ranking of the bottom {rankSize} contained places of a type within a place, where {rankSize} will be replaced by a number, {pluralPlaceType} will be replaced by the place type of the contained places, and {placeName} is the containing place. Please maintain the {rankSize}, {placeName} and {pluralPlaceType} as is in the final translation."
+  },
+  "ranking-subtitle_bottom_percapita": {
+    "defaultMessage": "Bottom {rankSize} {pluralPlaceType} in {placeName}, per capita",
+    "description": "Subtitle of the page, which shows ranking of the bottom {rankSize} contained places of a type within a place, computed on a per capita basis, where {rankSize} will be replaced by a number, {pluralPlaceType} will be replaced by the place type of the contained places, and {placeName} is the containing place. Please maintain the {rankSize}, {placeName} and {pluralPlaceType} as is in the final translation."
+  },
+  "ranking-subtitle_none": {
+    "defaultMessage": "{pluralPlaceType} in {placeName}",
+    "description": "Subtitle of the page, which shows ranking of contained places of a type within a place, where {pluralPlaceType} will be replaced by the place type of the contained places, and {placeName} is the containing place. Please maintain the {placeName} and {pluralPlaceType} as is in the final translation."
+  },
+  "ranking-subtitle_none_percapita": {
+    "defaultMessage": "{pluralPlaceType} in {placeName}, per capita",
+    "description": "Subtitle of the page, which shows ranking of contained places of a type within a place, computed on a per capita basis, where {pluralPlaceType} will be replaced by the place type of the contained places, and {placeName} is the containing place. Please maintain the {placeName} and {pluralPlaceType} as is in the final translation."
+  },
+  "ranking-subtitle_top": {
+    "defaultMessage": "Top {rankSize} {pluralPlaceType} in {placeName}",
+    "description": "Subtitle of the page, which shows ranking of the top {rankSize} contained places of a type within a place, where {rankSize} will be replaced by a number, {pluralPlaceType} will be replaced by the place type of the contained places, and {placeName} is the containing place. Please maintain the {rankSize}, {placeName} and {pluralPlaceType} as is in the final translation."
+  },
+  "ranking-subtitle_top_percapita": {
+    "defaultMessage": "Top {rankSize} {pluralPlaceType} in {placeName}, per capita",
+    "description": "Subtitle of the page, which shows ranking of the top {rankSize} contained places of a type within a place, computed on a per capita basis, where {rankSize} will be replaced by a number, {pluralPlaceType} will be replaced by the place type of the contained places, and {placeName} is the containing place. Please maintain the {rankSize}, {placeName} and {pluralPlaceType} as is in the final translation."
+  },
+  "ranking_table-header_rank": {
+    "defaultMessage": "Rank",
+    "description": "Column header for a ranking table. Column includes values associated with the numerical rank of a place."
+  },
+  "ranking_table-header_value": {
+    "defaultMessage": "Value",
+    "description": "Column header for a ranking table. Column includes values associated with a statistical variable for a place."
+  },
   "search_bar_placeholder-search_again": {
     "defaultMessage": "Search for another place",
     "description": "Text for the Search Box after we alerted the user that data isn't available for the place they just tried."
