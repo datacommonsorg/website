@@ -214,8 +214,8 @@ class Page extends React.Component<RankingPagePropType, RankingPageStateType> {
             id: "ranking-no_data",
             defaultMessage: "There is no ranking data available.",
             description:
-        "Message to notify users that there is no ranking information available to show.",
-              })}
+              "Message to notify users that there is no ranking information available to show.",
+          })}
         </div>
       );
     } else {

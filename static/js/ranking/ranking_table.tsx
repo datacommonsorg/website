@@ -87,29 +87,23 @@ class RankingTable extends React.Component<RankingTablePropType> {
         <thead>
           <tr>
             <th scope="col">
-              
               {intl.formatMessage({
-                  id: "ranking_table-header_rank",
-                  defaultMessage: "Rank",
-                  description:
-             
-                      "Column header for a ranking table. Column includes values associated with the numerical rank of a place."
-                })}
-            
+                id: "ranking_table-header_rank",
+                defaultMessage: "Rank",
+                description:
+                  "Column header for a ranking table. Column includes values associated with the numerical rank of a place.",
+              })}
             </th>
             <th scope="col">{displayNameForPlaceType(this.props.placeType)}</th>
             <th scope="col" className="text-center">
               {this.props.unit
-             
-                  ? this.props.unit
-               
+                ? this.props.unit
                 : intl.formatMessage({
-                        id: "ranking_table-header_value",
-                        defaultMessage: "Value",
-                        description:
-    
-                                       "Column header for a ranking table. Column includes values associated with a statistical variable for a place."
-                                  })}
+                    id: "ranking_table-header_value",
+                    defaultMessage: "Value",
+                    description:
+                      "Column header for a ranking table. Column includes values associated with a statistical variable for a place.",
+                  })}
             </th>
           </tr>
         </thead>
