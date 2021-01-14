@@ -19,6 +19,7 @@ import re
 import time
 
 from flask import Blueprint, request, Response, url_for, g
+from flask_babel import gettext
 
 from cache import cache
 import services.datacommons as dc
@@ -54,10 +55,14 @@ EQUIVALENT_PLACE_TYPES = {
 
 # Contains statistical variable and the display name used for place rankings.
 RANKING_STATS = {
-    'Count_Person': 'Largest Population',
-    'Median_Income_Person': 'Highest Median Income',
-    'Median_Age_Person': 'Highest Median Age',
-    'UnemploymentRate_Person': 'Highest Unemployment Rate',
+    # TRANSLATORS: Label for rankings of places by size of population (sorted from highest to lowest).
+    'Count_Person': gettext('Largest Population'),
+    # TRANSLATORS: Label for rankings of median individual income (sorted from highest to lowest).
+    'Median_Income_Person': gettext('Highest Median Income'),
+    # TRANSLATORS: Label for rankings of places by the median age of it's population (sorted from highest to lowest).
+    'Median_Age_Person': gettext('Highest Median Age'),
+    # TRANSLATORS: Label for rankings of places by the unemployment rate of it's population (sorted from highest to lowest).
+    'UnemploymentRate_Person': gettext('Highest Unemployment Rate'),
 }
 
 STATE_EQUIVALENTS = {"State", "AdministrativeArea1"}
@@ -514,7 +519,8 @@ def api_ranking(dcid):
     # option.
     # TOOD(shifucun): merge this once https://github.com/datacommonsorg/mixer/issues/262 is fixed.
     crime_statsvar = {
-        'Count_CriminalActivities_CombinedCrime': 'Highest Crime Per Capita'
+        'Count_CriminalActivities_CombinedCrime':  # TRANSLATORS: Label for rankings of places by the number of combined criminal activities, per capita (sorted from highest to lowest).
+            gettext('Highest Crime Per Capita')
     }
     for parent_dcid in selected_parents:
         stats_var_string = '^'.join(RANKING_STATS.keys())

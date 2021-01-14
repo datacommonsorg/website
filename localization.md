@@ -10,7 +10,7 @@ This will pull strings out into a JSON format that we can then
 transform into a textproto accepted by TC.
 
 ```
-npm run extract -- 'js/**/*.ts*' --out-file js/i18n/<app>.json --id-interpolation-pattern '[sha512:contenthash:base64:6]'
+npm run extract -- 'js/**/*.ts*' --out-file js/i18n/place.json --id-interpolation-pattern '[sha512:contenthash:base64:6]'
 ```
 
 ### Compile translation files for use
@@ -21,8 +21,8 @@ one more step to compile the JSON into a format usable by FormatJS.
 ```
 for LANG in de en es fr hi it ja ko pt-BR ru zh-CN;
 do
-npm run compile -- strings/$LANG/place.json --ast --out-file compiled-lang/$LANG/place.json &&
-npm run compile -- strings/$LANG/stats_var_labels.json --ast --out-file compiled-lang/$LANG/stats_var_labels.json; done
+npm run compile -- js/i18n/strings/$LANG/place.json --ast --out-file js/i18n/compiled-lang/$LANG/place.json &&
+npm run compile -- js/i18n/strings/$LANG/stats_var_labels.json --ast --out-file js/i18n/compiled-lang/$LANG/stats_var_labels.json; done
 ```
 
 ## TODO

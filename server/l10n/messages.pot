@@ -88,7 +88,7 @@ msgid "Economic Indicators, Worldwide"
 msgstr ""
 
 #. A hint shown in the search box, asking users to search for places.
-#: server/templates/place.html:50 server/templates/place_landing.html:44
+#: server/templates/place.html:51 server/templates/place_landing.html:44
 msgid "Enter a country, state, county or city"
 msgstr ""
 
@@ -141,13 +141,38 @@ msgstr ""
 msgid "Gross National Income"
 msgstr ""
 
+#. TRANSLATORS: Label for rankings of places by the number of combined criminal activities, per capita (sorted from highest to lowest).
+#: server/routes/api/place.py:523
+msgid "Highest Crime Per Capita"
+msgstr ""
+
+#. TRANSLATORS: Label for rankings of places by the median age of it's population (sorted from highest to lowest).
+#: server/routes/api/place.py:63
+msgid "Highest Median Age"
+msgstr ""
+
+#. TRANSLATORS: Label for rankings of median individual income (sorted from highest to lowest).
+#: server/routes/api/place.py:61
+msgid "Highest Median Income"
+msgstr ""
+
+#. TRANSLATORS: Label for rankings of places by the unemployment rate of it's population (sorted from highest to lowest).
+#: server/routes/api/place.py:65
+msgid "Highest Unemployment Rate"
+msgstr ""
+
+#. TRANSLATORS: Label for rankings of places by size of population (sorted from highest to lowest).
+#: server/routes/api/place.py:59
+msgid "Largest Population"
+msgstr ""
+
 #. Heading for a list of links to rankings of places in the US, by their life expectancy.
 #: server/templates/place_landing.html:134
 msgid "Life Expectancy"
 msgstr ""
 
 #. A message shown on the page while the content is loading.
-#: server/templates/place.html:58
+#: server/templates/place.html:59
 msgid "Loading..."
 msgstr ""
 
@@ -164,6 +189,11 @@ msgstr ""
 #. The name of a tool to browse statistics about a place.
 #: server/templates/base.html:72 server/templates/base.html:122 server/templates/place.html:19 server/templates/place.html:20 server/templates/place_landing.html:19 server/templates/place_landing.html:20 server/templates/place_landing.html:38
 msgid "Place Explorer"
+msgstr ""
+
+#. The name of a tool to view rankings of places by a specified dimension.
+#: server/templates/ranking.html:19 server/templates/ranking.html:20
+msgid "Place Rankings"
 msgstr ""
 
 #. Heading for a list of places

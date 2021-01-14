@@ -285,7 +285,7 @@ function addYAxis(
 }
 
 /**
- * Draw histogram. Used for ranking pages.
+ * Draw histogram. Used for ranking pages. Labels will not be translated - expects translated place names as labels.
  * @param id
  * @param width
  * @param height
@@ -299,9 +299,7 @@ function drawHistogram(
   dataPoints: DataPoint[],
   unit?: string
 ): void {
-  const textList = dataPoints.map((dataPoint) =>
-    translateVariableString(dataPoint.label)
-  );
+  const textList = dataPoints.map((dataPoint) => dataPoint.label);
   const values = dataPoints.map((dataPoint) => dataPoint.value);
 
   const svg = d3
