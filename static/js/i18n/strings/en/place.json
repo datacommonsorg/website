@@ -76,8 +76,8 @@
     "description": "Link to explore more charts about a particular domain, such as Education or Health."
   },
   "place_breadcrumb": {
-    "defaultMessage": "A {placeType} in {placeName}",
-    "description": "Gives context for where this place is located. E.g. on the Tokyo place page, we say \"A {city} in {Japan, Asia}\"."
+    "defaultMessage": "{placeType} in {placeName}",
+    "description": "Gives context for where this place is located. E.g. on the Tokyo place page, we say \"{City} in {Japan, Asia}\"."
   },
   "place_page_ranking_table-ranking_in": {
     "defaultMessage": "Rankings (in)",
@@ -87,9 +87,53 @@
     "defaultMessage": "{rank} of {total}",
     "description": "The main content of the ranking table, telling users how the current place ranks among other places of the same type in the same parent place. For ZIP Code 94539, we see that for Largest Population, it is \"{8} of {41}\" among ZIP Codes in Alameda County."
   },
+  "plural_administrative_area": {
+    "defaultMessage": "Administrative Areas",
+    "description": ""
+  },
+  "plural_administrative_area_index": {
+    "defaultMessage": "Administrative Area {index} Places",
+    "description": ""
+  },
+  "plural_borough": {
+    "defaultMessage": "Boroughs",
+    "description": "A label or header for a collection of places of type Borough (generally places similar to a town or city, see https://en.wikipedia.org/wiki/Borough). Some examples: 'Boroughs in California', 'Median Age: Other Boroughs', or 'Rankings of Population for Boroughs in New York'. Please maintain capitalization."
+  },
+  "plural_city": {
+    "defaultMessage": "Cities",
+    "description": "A label or header for a collection of places of type City (generally places with more people than a town, borough or village, see https://en.wikipedia.org/wiki/City). Some examples: 'Cities in California', 'Median Age: Other Cities', or 'Rankings of Population for Cities in California'. Please maintain capitalization."
+  },
+  "plural_country": {
+    "defaultMessage": "Countries",
+    "description": "A label or header for a collection of places of type Country (see https://en.wikipedia.org/wiki/Country). Some examples: 'Countries in Europe', 'Median Age: Other Countries', or 'Rankings of Population for Countries in Europe'. Please maintain capitalization."
+  },
+  "plural_county": {
+    "defaultMessage": "Counties",
+    "description": "A label or header for a collection of places of type County (generally subdivisions of a State, see https://en.wikipedia.org/wiki/County). Some examples: 'Counties in California', 'Median Age: Other Counties', or 'Rankings of Population for Counties in California'. Please maintain capitalization."
+  },
+  "plural_eurostat_nuts": {
+    "defaultMessage": "Eurostat NUTS {index} Places",
+    "description": ""
+  },
+  "plural_neighborhood": {
+    "defaultMessage": "Neighborhoods",
+    "description": "A label or header for a collection of places of type Neighborhood (generally places within a town or city, see https://en.wikipedia.org/wiki/Neighborhood). Some examples: 'Neighborhoods in California', 'Median Age: Other Neighborhoods', or 'Rankings of Population for Neighborhoods in Paris'. Please maintain capitalization."
+  },
   "plural_places": {
     "defaultMessage": "Places",
     "description": "General collection of places. It is used when we don\"t have a specific place type. Some examples: \"_Places_ in Russia\" as a header for a section with links to many places contained in Russia, as chart titles, such as \"Median Age: _Places_ near Paris\" or \"Median Age: Other _Places_\", or \"Ranking for All _Places_ in Russia\"."
+  },
+  "plural_state": {
+    "defaultMessage": "States",
+    "description": "A label or header for a collection of places of type State (generally a subdivision of a Country, see https://en.wikipedia.org/wiki/Constituent_state). Some examples: 'Countries in Europe', 'Median Age: Other Countries', or 'Rankings of Population for Countries in Europe'. Please maintain capitalization."
+  },
+  "plural_town": {
+    "defaultMessage": "Towns",
+    "description": "A label or header for a collection of places of type Town (generally places with fewer people than a city, but more than a village, see https://en.wikipedia.org/wiki/Town). Some examples: 'Towns in California', 'Median Age: Other Towns', or 'Rankings of Population for Towns in California'. Please maintain capitalization."
+  },
+  "plural_village": {
+    "defaultMessage": "Villages",
+    "description": "A label or header for a collection of places of type Village (generally places smaller than a town, see https://en.wikipedia.org/wiki/Village). Some examples: 'Villages in California', 'Median Age: Other Villages', or 'Rankings of Population for Villages in California'. Please maintain capitalization."
   },
   "plural_zip_codes": {
     "defaultMessage": "Zip Codes",
@@ -163,9 +207,53 @@
     "defaultMessage": "Search for another place",
     "description": "Text for the Search Box after we alerted the user that data isn't available for the place they just tried."
   },
+  "singular_administrative_area": {
+    "defaultMessage": "Administrative Area",
+    "description": ""
+  },
+  "singular_administrative_area_index": {
+    "defaultMessage": "Administrative Area {index} Place",
+    "description": ""
+  },
+  "singular_borough": {
+    "defaultMessage": "Borough",
+    "description": "Label used for an administrative division, akin to definition here https://en.wikipedia.org/wiki/Borough, similar to a town or city. An example use is 'A Borough in New York' to describe 'Queens'. Please maintain capitalization."
+  },
+  "singular_city": {
+    "defaultMessage": "City",
+    "description": "Label used for an administrative division, akin to definition here https://en.wikipedia.org/wiki/City, generally a place with more people than a town, borough or village. An example use is 'A City in France' to describe 'Paris'. Please maintain capitalization."
+  },
+  "singular_country": {
+    "defaultMessage": "Country",
+    "description": "Label used for an administrative division, akin to definition here https://en.wikipedia.org/wiki/Country. An example use is 'A Country in Europe' to describe 'France'. Please maintain capitalization."
+  },
+  "singular_county": {
+    "defaultMessage": "County",
+    "description": "Label used for an administrative division, akin to definition here https://en.wikipedia.org/wiki/County, generally a subdivision of a State. An example use is 'A County in California' to describe 'San Mateo County'. Please maintain capitalization."
+  },
+  "singular_eurostat_nuts": {
+    "defaultMessage": "Eurostat NUTS {index} Place",
+    "description": ""
+  },
+  "singular_neighborhood": {
+    "defaultMessage": "Neighborhood",
+    "description": "Label used for an administrative division, akin to definition here https://en.wikipedia.org/wiki/Neighborhood, generally a place within a town or city. An example use is 'A Neighborhood in Paris' to describe '8th arrondissement'. Please maintain capitalization."
+  },
   "singular_place": {
     "defaultMessage": "Place",
     "description": "A general type of place. It is used as a top-level description of places with uncommon place types such as Eurostat NUTS or AdministrativeArea 1-5. For example, we may say \"Moscow Oblast is A _Place_ in Russia\" or \"Lincoln Center is a _Place_ in New York City\"."
+  },
+  "singular_state": {
+    "defaultMessage": "State",
+    "description": "Label used for an administrative division, akin to definition here https://en.wikipedia.org/wiki/Constituent_state, generally a subdivision of a country. An example use is 'A State in United States' to describe 'California'. Please maintain capitalization."
+  },
+  "singular_town": {
+    "defaultMessage": "Town",
+    "description": "Label used for an administrative division, akin to definition here https://en.wikipedia.org/wiki/Town, generally a place with fewer people than a city, but more than a village. An example use is 'A Town in France' to describe 'Paris'. Please maintain capitalization."
+  },
+  "singular_village": {
+    "defaultMessage": "Village",
+    "description": "Label used for an administrative division, akin to definition here https://en.wikipedia.org/wiki/Village, generally a place smaller than a town. An example use is 'A Village in Harris County' to describe 'Hilshire Village'. Please maintain capitalization."
   },
   "singular_zip_code": {
     "defaultMessage": "ZIP Code",
