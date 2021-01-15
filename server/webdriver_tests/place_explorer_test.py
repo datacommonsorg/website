@@ -32,7 +32,7 @@ class TestPlaceExplorer(WebdriverBaseTest):
     def test_page_serve_usa(self):
         """Test the place explorer page for USA can be loaded successfullly."""
         TITLE_TEXT = "United States of America - Place Explorer - Data Commons"
-        PLACE_TYPE_TEXT = "A Country in North America"
+        PLACE_TYPE_TEXT = "Country in North America"
 
         # Load USA page.
         self.driver.get(self.url_ + USA_URL)
@@ -63,11 +63,11 @@ class TestPlaceExplorer(WebdriverBaseTest):
 
         # Assert place type is correct.
         subtitle = self.driver.find_element_by_id("place-type")
-        self.assertEqual("A Country in North America", subtitle.text)
+        self.assertEqual("Country in North America", subtitle.text)
 
     def test_page_serve_mtv(self):
         """Test the place explorer page for MTV can be loaded successfullly."""
-        PLACE_TYPE_TITLE = "A City in Santa Clara County, California, United States of America, North America"
+        PLACE_TYPE_TITLE = "City in Santa Clara County, California, United States of America, North America"
         TITLE_TEXT = "Mountain View - Place Explorer - Data Commons"
 
         # Load Mountain View Page.

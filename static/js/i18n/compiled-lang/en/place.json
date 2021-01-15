@@ -183,10 +183,6 @@
   ],
   "place_breadcrumb": [
     {
-      "type": 0,
-      "value": "A "
-    },
-    {
       "type": 1,
       "value": "placeType"
     },
@@ -219,10 +215,92 @@
       "value": "total"
     }
   ],
+  "plural_administrative_area": [
+    {
+      "type": 0,
+      "value": "Administrative Areas"
+    }
+  ],
+  "plural_administrative_area_index": [
+    {
+      "type": 0,
+      "value": "Administrative Area "
+    },
+    {
+      "type": 1,
+      "value": "index"
+    },
+    {
+      "type": 0,
+      "value": " Places"
+    }
+  ],
+  "plural_borough": [
+    {
+      "type": 0,
+      "value": "Boroughs"
+    }
+  ],
+  "plural_city": [
+    {
+      "type": 0,
+      "value": "Cities"
+    }
+  ],
+  "plural_country": [
+    {
+      "type": 0,
+      "value": "Countries"
+    }
+  ],
+  "plural_county": [
+    {
+      "type": 0,
+      "value": "Counties"
+    }
+  ],
+  "plural_eurostat_nuts": [
+    {
+      "type": 0,
+      "value": "Eurostat NUTS "
+    },
+    {
+      "type": 1,
+      "value": "index"
+    },
+    {
+      "type": 0,
+      "value": " Places"
+    }
+  ],
+  "plural_neighborhood": [
+    {
+      "type": 0,
+      "value": "Neighborhoods"
+    }
+  ],
   "plural_places": [
     {
       "type": 0,
       "value": "Places"
+    }
+  ],
+  "plural_state": [
+    {
+      "type": 0,
+      "value": "States"
+    }
+  ],
+  "plural_town": [
+    {
+      "type": 0,
+      "value": "Towns"
+    }
+  ],
+  "plural_village": [
+    {
+      "type": 0,
+      "value": "Villages"
     }
   ],
   "plural_zip_codes": [
@@ -497,10 +575,92 @@
       "value": "Search for another place"
     }
   ],
+  "singular_administrative_area": [
+    {
+      "type": 0,
+      "value": "Administrative Area"
+    }
+  ],
+  "singular_administrative_area_index": [
+    {
+      "type": 0,
+      "value": "Administrative Area "
+    },
+    {
+      "type": 1,
+      "value": "index"
+    },
+    {
+      "type": 0,
+      "value": " Place"
+    }
+  ],
+  "singular_borough": [
+    {
+      "type": 0,
+      "value": "Borough"
+    }
+  ],
+  "singular_city": [
+    {
+      "type": 0,
+      "value": "City"
+    }
+  ],
+  "singular_country": [
+    {
+      "type": 0,
+      "value": "Country"
+    }
+  ],
+  "singular_county": [
+    {
+      "type": 0,
+      "value": "County"
+    }
+  ],
+  "singular_eurostat_nuts": [
+    {
+      "type": 0,
+      "value": "Eurostat NUTS "
+    },
+    {
+      "type": 1,
+      "value": "index"
+    },
+    {
+      "type": 0,
+      "value": " Place"
+    }
+  ],
+  "singular_neighborhood": [
+    {
+      "type": 0,
+      "value": "Neighborhood"
+    }
+  ],
   "singular_place": [
     {
       "type": 0,
       "value": "Place"
+    }
+  ],
+  "singular_state": [
+    {
+      "type": 0,
+      "value": "State"
+    }
+  ],
+  "singular_town": [
+    {
+      "type": 0,
+      "value": "Town"
+    }
+  ],
+  "singular_village": [
+    {
+      "type": 0,
+      "value": "Village"
     }
   ],
   "singular_zip_code": [

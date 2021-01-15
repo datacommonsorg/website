@@ -58,6 +58,7 @@ class Page extends React.Component<RankingPagePropType, RankingPageStateType> {
       displayNameForPlaceType(this.props.placeType, true /* isPlural */)
     );
   }
+
   subtitleMessages = defineMessages({
     all: {
       id: "ranking-subtitle_all",
@@ -189,10 +190,7 @@ class Page extends React.Component<RankingPagePropType, RankingPageStateType> {
 
     const subtitleArgs = {
       rankSize: RANK_SIZE,
-      pluralPlaceType: displayNameForPlaceType(
-        this.props.placeType,
-        true /* isPlural */
-      ),
+      pluralPlaceType: this.pluralPlaceType,
       placeName: this.props.placeName,
     };
 
@@ -288,10 +286,7 @@ class Page extends React.Component<RankingPagePropType, RankingPageStateType> {
             },
             {
               statVar: this.svTitle,
-              pluralPlaceType: displayNameForPlaceType(
-                this.props.placeType,
-                true /* isPlural */
-              ),
+              pluralPlaceType: this.pluralPlaceType,
               placeName: this.props.placeName,
             }
           );

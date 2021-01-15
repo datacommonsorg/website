@@ -57,8 +57,8 @@ class ParentPlace extends React.Component<ParentPlacePropsType> {
       <RawIntlProvider value={intl}>
         <FormattedMessage
           id="place_breadcrumb"
-          description='Gives context for where this place is located. E.g. on the Tokyo place page, we say "A {city} in {Japan, Asia}".'
-          defaultMessage="A {placeType} in {placeName}"
+          description='Gives context for where this place is located. E.g. on the Tokyo place page, we say "{City} in {Japan, Asia}".'
+          defaultMessage="{placeType} in {placeName}"
           values={{
             placeType: displayNameForPlaceType(this.props.placeType),
             placeName: breadcrumbs,
