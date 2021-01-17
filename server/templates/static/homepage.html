@@ -86,7 +86,7 @@
           {# TRANSLATORS: Link to a Place page showing data related to Demographics for a place { cityName }. Please keep the string `%(cityName)s` as is in the final translation. Please see this string in action at https://datacommons.org #}
           <a class="sub" href="{{ url_for('place.place', place_dcid='geoId/1150000', topic='Demographics') }}">{% trans cityName="Washington, DC" %}{{ cityName }} Demographics{% endtrans %}</a>,
         </li>
-        {# TRANSLATORS: String showing that there are many more links available. Please see this string in action at https://datacommons.org #}
+        {# TRANSLATORS: String showing that there are many more links available. Feel free to replace ellipsis with other language appropriate equivalents. Please see this string in action at https://datacommons.org #}
         <li><a class="sub" href="{{ url_for('place.place') }}">{% trans %}MORE{% endtrans %}</a>
         </li>
       </ul>
