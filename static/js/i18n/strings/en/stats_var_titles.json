@@ -853,7 +853,7 @@
   },
   "GiniIndex_EconomicActivity": {
     "defaultMessage": "Gini Index",
-    "description": "Title for a page about a statistical variable. Variable is the Gini index, which is a measure of inequality, see https://stats.oecd.org/glossary/detail.asp?ID=4842",
+    "description": "Title for a page about a statistical variable. Variable is the Gini index, which is a measure of inequality, see https://stats.oecd.org/glossary/detail.asp?ID=4842"
   },
   "Count_HousingUnit": {
     "defaultMessage": "Number of Housing Units",
