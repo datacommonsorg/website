@@ -245,7 +245,7 @@ class Page extends React.Component<RankingPagePropType, RankingPageStateType> {
           {intl.formatMessage(
             {
               id: "ranking-page_title",
-              defaultMessage: "Rankings of {statVar}",
+              defaultMessage: "Ranking by {statVar}",
               description:
                 "Main title on a page showing the ranking of places measured by a statistical variable. The statistical variable is translated separately, and will be replaced in {statVar} -- please leave the '{statVar}' as is in the resulting translation.",
             },
@@ -280,7 +280,8 @@ class Page extends React.Component<RankingPagePropType, RankingPageStateType> {
           const title = intl.formatMessage(
             {
               id: "ranking-document_title",
-              defaultMessage: "{statVar} for {pluralPlaceType} in {placeName}",
+              defaultMessage:
+                "Ranking by {statVar} - {pluralPlaceType} in {placeName}",
               description:
                 "HTML document title for a page with rankings of places measured by a statistical variable, where {statVar} will be replaced with the statistical variable, {pluralPlaceType} with the pluralized type for the places in the ranking, e.g. Cities or States, and {placeName} is the containing place for the places in the ranking. Please keep the variables with curly brackets as is in the final translation.",
             },
