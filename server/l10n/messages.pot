@@ -38,13 +38,13 @@ msgstr ""
 #. Blog post entry. Please take care to maintain valid <a> tags in translation. See this string in action at https://datacommons.org
 #: server/templates/static/homepage.html:56
 #, python-format
-msgid "BLOG_POST_1"
+msgid "HOME-BLOG_POST_1"
 msgstr "%(project)s is now accessible on Google Search! <a href=%(blog_url)s>Read more here</a>"
 
 #. Describes that the project is open sourced, and what it is built on top of (it extends a schema defined by schema.org). Please take care to maintain valid <a> tags in translation. See this string in action at https://datacommons.org
 #: server/templates/static/homepage.html:163
 #, python-format
-msgid "OPEN_SOURCED"
+msgid "HOME-OPEN_SOURCED"
 msgstr "<a href=%(github_url)s>Open sourced</a>, built using <a href=%(schemaorg_url)s>%(tool)s</a>."
 
 #. The label for a link to our API documentation.
@@ -109,7 +109,7 @@ msgstr ""
 
 #. Description of the Data Commons project. Please see this string in action at https://datacommons.org
 #: server/templates/static/homepage.html:35
-msgid "DATA_COMMONS_HERO_MESSAGE"
+msgid "HOME-HERO_MESSAGE"
 msgstr "Data Commons is an open knowledge repository that combines data from public datasets using mapped common entities. It includes tools to easily explore and analyze data across different datasets without data cleaning or joining."
 
 #. The label for a link to data sources included in the Data Commons knowledge graph.
@@ -228,12 +228,12 @@ msgid "Highest Unemployment Rate"
 msgstr ""
 
 #: server/templates/static/homepage.html:175
-msgid "Including data from"
-msgstr ""
+msgid "HOME-DATA_SOURCES"
+msgstr "Including data from"
 
 #. A link soliciting contributions to the project from the community.
 #: server/templates/static/homepage.html:169
-msgid "JOIN_EFFORT"
+msgid "HOME-JOIN_EFFORT"
 msgstr "Join the effort."
 
 #. TRANSLATORS: Label for rankings of places by size of population (sorted from highest to lowest).
@@ -348,12 +348,12 @@ msgstr ""
 
 #. Describes building your own tools and analysis using our API (here Python refers to the programming language - see python.org, and REST is an acronym for REST is an acronym for REpresentational State Transfer). Please see this string in action at https://datacommons.org
 #: server/templates/static/homepage.html:143
-msgid "BUILD_CALLOUT"
+msgid "HOME-BUILD_CALLOUT"
 msgstr "Use the Python and REST API's to do your own custom analysis, build your own tools and more."
 
 #. Describes how we clean and process data for import once, usually a painful part of data analysis. Data is imported into a unified graph (e.g. data about California from many sources are all added to the same node in our graph. Please see this string in action at https://datacommons.org
 #: server/templates/static/homepage.html:69
-msgid "EXPLORE_CALLOUT"
+msgid "HOME-EXPLORE_CALLOUT"
 msgstr "We cleaned and processed the data so you don't have to. Data about particular entities are aggregated from different sources for a unified view."
 
 #. Header for list of blog posts and project updates. Please see this string in action at https://datacommons.org
