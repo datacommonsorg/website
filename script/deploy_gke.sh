@@ -28,6 +28,7 @@
 set -e
 
 ENV=$1
+REGION=$2
 
 if [[ $ENV != "staging" && $ENV != "prod" ]]; then
   echo "First argument should be 'staging' or 'prod' "
@@ -44,9 +45,6 @@ MIXER_TAG=$(git rev-parse --short HEAD)
 cd $ROOT
 
 PROJECT_ID=$(yq read $ROOT/deploy/gke/$ENV.yaml project)
-# Only deploy to the primary region for now.
-# Once Bigtable replication is done, deploy for all regions
-REGION=$(yq read $ROOT/deploy/gke/$ENV.yaml region.primary)
 CLUSTER_NAME=website-$REGION
 
 cd $ROOT/deploy/overlays/$ENV
@@ -66,5 +64,5 @@ yq w --style=double $ROOT/gke/endpoints.yaml.tpl name $SERVICE_NAME > endpoints.
 yq w -i endpoints.yaml title "$API_TITLE"
 
 # Deploy ESP configuration
-gsutil cp gs://artifacts.datcom-ci.appspot.com/mixer-grpc/mixer-grpc.$MIXER_TAG.pb .
+gsutil cp gs://datcom-mixer-grpc/mixer-grpc/mixer-grpc.$MIXER_TAG.pb .
 gcloud endpoints services deploy mixer-grpc.$MIXER_TAG.pb endpoints.yaml --project $PROJECT_ID
