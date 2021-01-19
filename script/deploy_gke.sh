@@ -66,5 +66,5 @@ yq w --style=double $ROOT/gke/endpoints.yaml.tpl name $SERVICE_NAME > endpoints.
 yq w -i endpoints.yaml title "$API_TITLE"
 
 # Deploy ESP configuration
-gsutil cp gs://artifacts.datcom-ci.appspot.com/mixer-grpc/mixer-grpc.$MIXER_TAG.pb .
+gsutil cp gs://datcom-mixer-grpc/mixer-grpc/mixer-grpc.$MIXER_TAG.pb .
 gcloud endpoints services deploy mixer-grpc.$MIXER_TAG.pb endpoints.yaml --project $PROJECT_ID
