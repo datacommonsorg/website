@@ -33,7 +33,7 @@
         <p class="lead mr-lg-3">
           {# TRANSLATORS: Description of the Data Commons project. Please see this string in action at https://datacommons.org #}
           {% trans -%}
-          Data Commons is an open knowledge repository that combines data from public datasets using mapped common entities. It includes tools to easily explore and analyze data across different datasets without data cleaning or joining.
+          HOME-HERO_MESSAGE
           {%- endtrans %}
         </p>
       </div>
@@ -54,7 +54,7 @@
       <dd>
         {# TRANSLATORS: Blog post entry. Please take care to maintain valid <a> tags in translation. See this string in action at https://datacommons.org #}
           {% trans blog_url="https://docs.datacommons.org/2020/10/15/search_launch.html" -%}
-          {{ project }} is now accessible on Google Search! <a href={{ blog_url }}>Read more here</a>
+          HOME-BLOG_POST_1
           {%- endtrans %}
       </dd>
     </dl>
@@ -67,7 +67,7 @@
   <p>
     {# TRANSLATORS: Describes how we clean and process data for import once, usually a painful part of data analysis. Data is imported into a unified graph (e.g. data about California from many sources are all added to the same node in our graph. Please see this string in action at https://datacommons.org #}
     {% trans -%}
-    We cleaned and processed the data so you don't have to. Data about particular entities are aggregated from different sources for a unified view.
+    HOME-EXPLORE_CALLOUT
     {%- endtrans %}
   </p>
   <ul>
@@ -79,15 +79,15 @@
           <a class="sub" href="{{ url_for('place.place', place_dcid='geoId/0649670') }}">Mountain View, CA</a>,
         </li>
         <li>
-          {# TRANSLATORS: Link to a Place page showing data related to Health for a place { cityName }. Please keep the string `%(cityName)s` as is in the final translation. Please see this string in action at https://datacommons.org #}
+          {# TRANSLATORS: Link to a Place page showing data related to Health for a place { cityName }. Please keep the string `%(cityName)s` as is in the final translation. Please see this string in action as "New York City Health" at https://datacommons.org #}
           <a class="sub" href="{{ url_for('place.place', place_dcid='geoId/3651000', topic='Health') }}">{% trans cityName="New York City" %}{{ cityName }} Health{% endtrans %}</a>,
         </li>
         <li>
-          {# TRANSLATORS: Link to a Place page showing data related to Demographics for a place { cityName }. Please keep the string `%(cityName)s` as is in the final translation. Please see this string in action at https://datacommons.org #}
+          {# TRANSLATORS: Link to a Place page showing data related to Demographics for a place { cityName }. Please keep the string `%(cityName)s` as is in the final translation. Please see this string in action as "Washington, DC Demographics" at https://datacommons.org #}
           <a class="sub" href="{{ url_for('place.place', place_dcid='geoId/1150000', topic='Demographics') }}">{% trans cityName="Washington, DC" %}{{ cityName }} Demographics{% endtrans %}</a>,
         </li>
-        {# TRANSLATORS: String showing that there are many more links available. Please see this string in action at https://datacommons.org #}
-        <li><a class="sub" href="{{ url_for('place.place') }}">{% trans %}more ...{% endtrans %}</a>
+        {# TRANSLATORS: String showing that there are many more links available. Feel free to replace ellipsis with other language appropriate equivalents. Please see this string in action at https://datacommons.org #}
+        <li><a class="sub" href="{{ url_for('place.place') }}">{% trans %}MORE{% endtrans %}</a>
         </li>
       </ul>
     </li>
@@ -108,7 +108,7 @@
           {# TRANSLATORS: Link to a chart comparing the differences in employment rate across the neighboring California cities (one city is much richer than the other). Please see this string in action at https://datacommons.org #}
           <a class="sub" href='{{ url_for("tools.timeline") }}#place=geoId%2F0655282%2CgeoId%2F0620956&statsVar=Count_Person_Employed&chart={"count":{"pc":true}}'>{% trans %}Employment Differences Across Neighboring Cities{% endtrans %}</a>,
         </li>
-        <li><a class="sub" href="{{ url_for('tools.timeline') }}">{% trans %}more ...{% endtrans %}</a>
+        <li><a class="sub" href="{{ url_for('tools.timeline') }}">{% trans %}MORE{% endtrans %}</a>
         </li>
       </ul>
     </li>
@@ -128,7 +128,7 @@
           {# TRANSLATORS: Link to a node for the entity (describing the ENCODE project, https://www.encodeproject.org/) in the Data Commons Graph. Please see this string in action at https://datacommons.org #}
           <a class="sub" href="{{ url_for('browser.kg_entity', dcid='EncodeBiosampleType') }}">{% trans %}Encyclopedia of DNA Elements Biosamples{% endtrans %}</a>,
         </li>
-        <li><a class="sub" href="{{ url_for('browser.kg_main') }}">{% trans %}more ...{% endtrans %}</a>
+        <li><a class="sub" href="{{ url_for('browser.kg_main') }}">{% trans %}MORE{% endtrans %}</a>
         </li>
       </ul>
     </li>
@@ -139,13 +139,13 @@
   {# TRANSLATORS: Header for a section on building your own tools and analysis using our API. Please see this string in action at https://datacommons.org #}
   <h2>{% trans %}Build your own{% endtrans %}</h2>
   <p>
-    {# TRANSLATORS: Describes building your own tools and analysis using our API (here Python refers to the programming language - see python.org, and REST is an acronym for REST is an acronym for REpresentational State Transfer). Please see this string in action at https://datacommons.org #}
+    {# TRANSLATORS: Describes building your own tools and analysis using our API (here Python refers to the programming language - see python.org, and REST is an acronym for REpresentational State Transfer). Please see this string in action at https://datacommons.org #}
     {% trans -%}
-    Use the Python and REST API's to do your own custom analysis, build your own tools and more.
+    HOME-BUILD_CALLOUT
     {%- endtrans %}
   </p>
   <ul>
-    {# TRANSLATORS: The label for a link to our API documentation. #}
+    {# TRANSLATORS: The label for a link to our API documentation. See this string at https://datacommons.org #}
     <li><a href="http://docs.datacommons.org/api/">{% trans %}See API documentation.{% endtrans %}</a></li>
     {# TRANSLATORS: Blog post entry. Please take care to maintain valid <a> tags in translation. See this string in action at https://datacommons.org #}
       <li><a href="http://docs.datacommons.org/tutorials.html">{% trans %}See some sample Python notebooks.{% endtrans %}</a></li>
@@ -153,26 +153,27 @@
 </section>
 
 <section class="container">
-  {# TRANSLATORS: The header for a section on how Data Commons is an open, community effort. #}
+  {# TRANSLATORS: The header for a section on how Data Commons is an open, community effort. See this string at https://datacommons.org #}
   <h2>{% trans %}Open{% endtrans %}</h2>
   <ul>
-    {# TRANSLATORS: Describes that the data in the graph is open (the code importing the data into the graph is open sourced). #}
+    {# TRANSLATORS: Describes that the data in the graph is open (the code importing the data into the graph is open sourced). See this string at https://datacommons.org #}
     <li>{% trans %}Open Data.{% endtrans %}</li>
     <li>
       {# TRANSLATORS: Describes that the project is open sourced, and what it is built on top of (it extends a schema defined by schema.org). Please take care to maintain valid <a> tags in translation. See this string in action at https://datacommons.org #}
         {% trans github_url='http://github.com/datacommonsorg',schemaorg_url="https://schema.org",tool='Schema.org' -%}
-        <a href={{ github_url }}>Open sourced</a>, built using <a href={{ schemaorg_url }}>{{ tool }}</a>.
+        HOME-OPEN_SOURCED
         {%- endtrans %}
     </li>
     <li>
-      {# TRANSLATORS: A link soliciting contributions to the project from the community. #}
-      <a class="main" href="https://docs.datacommons.org/contributing">{% trans %}Join the effort.{% endtrans %}</a>
+      {# TRANSLATORS: A link soliciting contributions to the project from the community. See this string at https://datacommons.org #}
+      <a class="main" href="https://docs.datacommons.org/contributing">{% trans %}HOME-JOIN_EFFORT{% endtrans %}</a>
     </li>
   </ul>
 </section>
 
 <section class="container">
-  <h2>{% trans %}Including data from{% endtrans %}</h3>
+  {# TRANSLATORS: A header of a section showing the many data sources included in the Data Commons Graph. See this string at https://datacommons.org #}
+  <h2>{% trans %}HOME-DATA_SOURCES{% endtrans %}</h3>
   <img class="d-block img-fluid mx-auto" src="{{ url_for('static', filename='images/homepage_datasets.png') }}" />
 </section>
 

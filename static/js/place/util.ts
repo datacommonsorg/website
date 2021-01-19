@@ -49,43 +49,43 @@ const singularPlaceTypeMessages = defineMessages({
     id: "singular_county",
     defaultMessage: "County",
     description:
-      "Label used for an administrative division, akin to definition here https://en.wikipedia.org/wiki/County, generally a subdivision of a State. An example use is 'A County in California' to describe 'San Mateo County'. Please maintain capitalization.",
+      "Label used for an administrative division, akin to definition here https://en.wikipedia.org/wiki/County, generally a subdivision of a State. An example use is 'County in California' to describe 'San Mateo County'. Please maintain capitalization.",
   },
   City: {
     id: "singular_city",
     defaultMessage: "City",
     description:
-      "Label used for an administrative division, akin to definition here https://en.wikipedia.org/wiki/City, generally a place with more people than a town, borough or village. An example use is 'A City in France' to describe 'Paris'. Please maintain capitalization.",
+      "Label used for an administrative division, akin to definition here https://en.wikipedia.org/wiki/City, generally a place with more people than a town, borough or village. An example use is 'City in France' to describe 'Paris'. Please maintain capitalization.",
   },
   Town: {
     id: "singular_town",
     defaultMessage: "Town",
     description:
-      "Label used for an administrative division, akin to definition here https://en.wikipedia.org/wiki/Town, generally a place with fewer people than a city, but more than a village. An example use is 'A Town in France' to describe 'Paris'. Please maintain capitalization.",
+      "Label used for an administrative division, akin to definition here https://en.wikipedia.org/wiki/Town, generally a place with fewer people than a city, but more than a village. An example use is 'Town in France' to describe 'Paris'. Please maintain capitalization.",
   },
   Village: {
     id: "singular_village",
     defaultMessage: "Village",
     description:
-      "Label used for an administrative division, akin to definition here https://en.wikipedia.org/wiki/Village, generally a place smaller than a town. An example use is 'A Village in Harris County' to describe 'Hilshire Village'. Please maintain capitalization.",
+      "Label used for an administrative division, akin to definition here https://en.wikipedia.org/wiki/Village, generally a place smaller than a town. An example use is 'Village in Harris County' to describe 'Hilshire Village'. Please maintain capitalization.",
   },
   Borough: {
     id: "singular_borough",
     defaultMessage: "Borough",
     description:
-      "Label used for an administrative division, akin to definition here https://en.wikipedia.org/wiki/Borough, similar to a town or city. An example use is 'A Borough in New York' to describe 'Queens'. Please maintain capitalization.",
+      "Label used for an administrative division, akin to definition here https://en.wikipedia.org/wiki/Borough, similar to a town or city. An example use is 'Borough in New York' to describe 'Queens'. Please maintain capitalization.",
   },
   Neighborhood: {
     id: "singular_neighborhood",
     defaultMessage: "Neighborhood",
     description:
-      "Label used for an administrative division, akin to definition here https://en.wikipedia.org/wiki/Neighborhood, generally a place within a town or city. An example use is 'A Neighborhood in Paris' to describe '8th arrondissement'. Please maintain capitalization.",
+      "Label used for an administrative division, akin to definition here https://en.wikipedia.org/wiki/Neighborhood, generally a place within a town or city. An example use is 'Neighborhood in Paris' to describe '8th arrondissement'. Please maintain capitalization.",
   },
   CensusZipCodeTabulationArea: {
     id: "singular_zip_code",
     defaultMessage: "ZIP Code",
     description:
-      'A ZIP Code area. Some examples, we say that 94539 is "A _ZIP Code_ in Alameda County, California, United States of America, North America".',
+      'A ZIP Code area. Some examples, we say that 94539 is "_ZIP Code_ in Alameda County, California, United States of America, North America".',
   },
   Place: {
     id: "singular_place",
@@ -100,13 +100,13 @@ const pluralPlaceTypeMessages = defineMessages({
     id: "plural_country",
     defaultMessage: "Countries",
     description:
-      "A label or header for a collection of places of type Country (see https://en.wikipedia.org/wiki/Country). Some examples: 'Countries in Europe', 'Median Age: Other Countries', or 'Rankings of Population for Countries in Europe'. Please maintain capitalization.",
+      "A label or header for a collection of places of type Country (see https://en.wikipedia.org/wiki/Country). Some examples: 'Countries in Europe', 'Median Age: Other Countries', or 'Ranking by Population for Countries in Europe'. Please maintain capitalization.",
   },
   State: {
     id: "plural_state",
     defaultMessage: "States",
     description:
-      "A label or header for a collection of places of type State (generally a subdivision of a Country, see https://en.wikipedia.org/wiki/Constituent_state). Some examples: 'Countries in Europe', 'Median Age: Other Countries', or 'Rankings of Population for Countries in Europe'. Please maintain capitalization.",
+      "A label or header for a collection of places of type State (generally a subdivision of a Country, see https://en.wikipedia.org/wiki/Constituent_state). Some examples: 'Countries in Europe', 'Median Age: Other Countries', or 'Ranking by Population for Countries in Europe'. Please maintain capitalization.",
   },
   County: {
     id: "plural_county",
@@ -130,25 +130,25 @@ const pluralPlaceTypeMessages = defineMessages({
     id: "plural_village",
     defaultMessage: "Villages",
     description:
-      "A label or header for a collection of places of type Village (generally places smaller than a town, see https://en.wikipedia.org/wiki/Village). Some examples: 'Villages in California', 'Median Age: Other Villages', or 'Rankings of Population for Villages in California'. Please maintain capitalization.",
+      "A label or header for a collection of places of type Village (generally places smaller than a town, see https://en.wikipedia.org/wiki/Village). Some examples: 'Villages in California', 'Median Age: Other Villages', or 'Ranking by Population for Villages in California'. Please maintain capitalization.",
   },
   Borough: {
     id: "plural_borough",
     defaultMessage: "Boroughs",
     description:
-      "A label or header for a collection of places of type Borough (generally places similar to a town or city, see https://en.wikipedia.org/wiki/Borough). Some examples: 'Boroughs in California', 'Median Age: Other Boroughs', or 'Rankings of Population for Boroughs in New York'. Please maintain capitalization.",
+      "A label or header for a collection of places of type Borough (generally places similar to a town or city, see https://en.wikipedia.org/wiki/Borough). Some examples: 'Boroughs in California', 'Median Age: Other Boroughs', or 'Ranking by Population for Boroughs in New York'. Please maintain capitalization.",
   },
   Neighborhood: {
     id: "plural_neighborhood",
     defaultMessage: "Neighborhoods",
     description:
-      "A label or header for a collection of places of type Neighborhood (generally places within a town or city, see https://en.wikipedia.org/wiki/Neighborhood). Some examples: 'Neighborhoods in California', 'Median Age: Other Neighborhoods', or 'Rankings of Population for Neighborhoods in Paris'. Please maintain capitalization.",
+      "A label or header for a collection of places of type Neighborhood (generally places within a town or city, see https://en.wikipedia.org/wiki/Neighborhood). Some examples: 'Neighborhoods in California', 'Median Age: Other Neighborhoods', or 'Ranking by Population for Neighborhoods in Paris'. Please maintain capitalization.",
   },
   CensusZipCodeTabulationArea: {
     id: "plural_zip_codes",
     defaultMessage: "Zip Codes",
     description:
-      'A collection of ZIP Codes. Some examples: "_ZIP Codes_ in Fremont" or "Median Age: _ZIP Codes_ near 94539", "Median Age: Other _ZIP Codes_" or "Rankings of Number of Employed People for _ZIP Codes_ in Santa Clara County".',
+      'A collection of ZIP Codes. Some examples: "_ZIP Codes_ in Fremont" or "Median Age: _ZIP Codes_ near 94539", "Median Age: Other _ZIP Codes_" or "Ranking by Number of Employed People for _ZIP Codes_ in Santa Clara County".',
   },
   Place: {
     id: "plural_places",
@@ -173,66 +173,66 @@ export function displayNameForPlaceType(
 ): string {
   console.log(placeType);
   if (placeType.startsWith("AdministrativeArea")) {
-    const index = placeType.slice(-1);
-    if (!Number.isInteger(index)) {
+    const level = placeType.slice(-1);
+    if (!Number.isInteger(level)) {
       if (isPlural) {
-        return intl.formatMessage(
-          {
-            id: "plural_administrative_area",
-            defaultMessage: "Administrative Areas",
-            description: "",
-          },
-          { index: index }
-        );
+        return intl.formatMessage({
+          id: "plural_administrative_area",
+          defaultMessage: "Administrative Areas",
+          description:
+            "Label used for a collection of places, of type Administrative Area (an administrative division of generic type, akin to definition here https://en.wikipedia.org/wiki/Administrative_division). An example use is 'Administrative Areas in Europe'. Please maintain capitalization.",
+        });
       }
-      return intl.formatMessage(
-        {
-          id: "singular_administrative_area",
-          defaultMessage: "Administrative Area ",
-          description: "",
-        },
-        { index: index }
-      );
+      return intl.formatMessage({
+        id: "singular_administrative_area",
+        defaultMessage: "Administrative Area",
+        description:
+          "Label used for a single place, of type Administrative Area (an administrative division of generic type, akin to definition here https://en.wikipedia.org/wiki/Administrative_division). An example use is 'Administrative Area in Europe' to describe 'France'. Please maintain capitalization.",
+      });
     }
     if (isPlural) {
       return intl.formatMessage(
         {
-          id: "plural_administrative_area_index",
-          defaultMessage: "Administrative Area {index} Places",
-          description: "",
+          id: "plural_administrative_area_level",
+          defaultMessage: "Administrative Area {level} Places",
+          description:
+            "Label used for a collection of places, of type Administrative Area {level} (an administrative division of certain level, akin to definition here https://en.wikipedia.org/wiki/Administrative_division). {level} are numbers from 1-5. An example use is 'Administrative Area 1 Places in Europe'. Please maintain capitalization.",
         },
-        { index: index }
+        { level: level }
       );
     }
     return intl.formatMessage(
       {
-        id: "singular_administrative_area_index",
-        defaultMessage: "Administrative Area {index} Place",
-        description: "",
+        id: "singular_administrative_area_level",
+        defaultMessage: "Administrative Area {level} Place",
+        description:
+          "Label used for a single place, of type Administrative Area {level} (an administrative division of a certain level, akin to definition here https://en.wikipedia.org/wiki/Administrative_division). {level} are numbers from 1-5. An example use is 'Administrative Area in Europe' to describe 'France'. Please maintain capitalization.",
       },
-      { index: index }
+      { level: level }
     );
   }
 
   if (placeType.startsWith("Eurostat")) {
-    const index = placeType.slice(-1);
+    const level = placeType.slice(-1);
     if (isPlural) {
       return intl.formatMessage(
         {
           id: "plural_eurostat_nuts",
-          defaultMessage: "Eurostat NUTS {index} Places",
-          description: "",
+          defaultMessage: "Eurostat NUTS {level} Places",
+          description:
+            "Label used for a collection of places, of type Eurostat NUTS {level} (an administrative division using the Eurostat nomenclature of a certain level, akin to definition here https://ec.europa.eu/eurostat/web/nuts/background). {level} are numbers from 1-3. An example use is 'Eurostat NUTS 1 Places in Europe' to describe 'France'. Please maintain capitalization.",
         },
-        { index: index }
+        { level: level }
       );
     }
     return intl.formatMessage(
       {
         id: "singular_eurostat_nuts",
-        defaultMessage: "Eurostat NUTS {index} Place",
-        description: "",
+        defaultMessage: "Eurostat NUTS {level} Place",
+        description:
+          "Label used for a single place, of type Eurostat NUTS {level} (an administrative division using the Eurostat nomenclature of a certain level, akin to definition here https://ec.europa.eu/eurostat/web/nuts/background). {level} are numbers from 1-3. An example use is 'Eurostat NUTS 1 Place in Europe' to describe 'France'. Please maintain capitalization.",
       },
-      { index: index }
+      { level: level }
     );
   }
 

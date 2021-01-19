@@ -1,0 +1,942 @@
+{
+  "Median_Income_Person": {
+    "defaultMessage": "Median Individual Income",
+    "description": "Title for a page about a statistical variable. Variable describes the median individual income of a population. Median income is the amount which divides the income distribution into two equal groups, half having incomes above the median, half having incomes below the median."
+  },
+  "Median_Income_Person_15OrMoreYears_Male_WithIncome": {
+    "defaultMessage": "Median Individual Income (Male)",
+    "description": "Title for a page about a statistical variable. Variable describes the median individual income for males earners of a population. Median income is the amount which divides the income distribution into two equal groups, half having incomes above the median, half having incomes below the median."
+  },
+  "Median_Income_Person_15OrMoreYears_Female_WithIncome": {
+    "defaultMessage": "Median Individual Income (Female)",
+    "description": "Title for a page about a statistical variable. Variable describes the median individual income for female earners of a population. Median income is the amount which divides the income distribution into two equal groups, half having incomes above the median, half having incomes below the median."
+  },
+  "UnemploymentRate_Person": {
+    "defaultMessage": "Unemployment Rate",
+    "description": "Title for a page about a statistical variable. Variable describes the percentage of unemployed workers in the total labor force (which includes all people able to work)."
+  },
+  "UnemploymentRate_Person_Male": {
+    "defaultMessage": "Unemployment Rate (Male)",
+    "description": "Title for a page about a statistical variable. Variable describes the percentage of unemployed male workers in the total labor force (which includes all people able to work)."
+  },
+  "UnemploymentRate_Person_Female": {
+    "defaultMessage": "Unemployment Rate (Female)",
+    "description": "Title for a page about a statistical variable. Variable describes the percentage of unemployed female workers in the total labor force (which includes all people able to work)."
+  },
+  "Count_UnemploymentInsuranceClaim_StateUnemploymentInsurance": {
+    "defaultMessage": "Number of State Unemployment Insurance Claims",
+    "description": "Title for a page about a statistical variable. Variable describes the number of unemployement insurance claims, which is a request for cash benefits after getting laid off from a job, filed at the US State level."
+  },
+  "Count_Person_Employed": {
+    "defaultMessage": "Number of Employed People",
+    "description": "Title for a page about a statistical variable. Variable describes the total number of employed workers in a population."
+  },
+  "Count_Person_InLaborForce": {
+    "defaultMessage": "Number of People in the Labor Force",
+    "description": "Title for a page about a statistical variable. Variable describes the total number of people who are able to work (includes both employed and unemployed people)."
+  },
+  "Count_Person": {
+    "defaultMessage": "Population",
+    "description": "Title for a page about a statistical variable. Variable describes the total population of a place."
+  },
+  "Count_Person_PerArea": {
+    "defaultMessage": "Population Density",
+    "description": "Title for a page about a statistical variable. Variable describes the population size per area of a place."
+  },
+  "LifeExpectancy_Person": {
+    "defaultMessage": "Life Expectancy",
+    "description": "Title for a page about a statistical variable. Variable describes an estimate of the average age that members of a particular population will be when they die."
+  },
+  "GrowthRate_Count_Person": {
+    "defaultMessage": "Population Growth Rate",
+    "description": "Title for a page about a statistical variable. Variable describes the change in population over a unit time period, often expressed as a fraction of the initial population."
+  },
+  "FertilityRate_Person_Female": {
+    "defaultMessage": "Fertility Rate",
+    "description": "Title for a page about a statistical variable. Variable describes the fertility rate, which is the number of live children born to women over a period of time. See https://datacommons.org/browser/fertilityRate for full definition."
+  },
+  "Amount_EconomicActivity_GrossDomesticProduction_Nominal": {
+    "defaultMessage": "Gross Domestic Product (Nominal)",
+    "description": "Title for a page about a statistical variable. Variable describes the nominal gross domestic production (see https://www.investopedia.com/terms/n/nominalgdp.asp for a definition)"
+  },
+  "GrowthRate_Amount_EconomicActivity_GrossDomesticProduction": {
+    "defaultMessage": "Gross Domestic Product Growth Rate",
+    "description": "Title for a page about a statistical variable. Variable describes growth in GDP, see https://databank.worldbank.org/metadataglossary/jobs/series/NY.GDP.MKTP.KD.ZG for a definition)"
+  },
+  "Amount_Debt_Government": {
+    "defaultMessage": "Government Debt",
+    "description": "Title for a page about a statistical variable. Variable describes the total amount owed by a government."
+  },
+  "Amount_EconomicActivity_GrossDomesticProduction_Nominal_PerCapita": {
+    "defaultMessage": "Gross Domestic Product (Nominal) Per Capita",
+    "description": "Title for a page about a statistical variable. Variable describes nominal GDP for a place, computed on a per capita basis. See https://www.investopedia.com/terms/n/nominalgdp.asp for a definition of nominal GDP"
+  },
+  "Amount_EconomicActivity_GrossNationalIncome_PurchasingPowerParity_PerCapita": {
+    "defaultMessage": "Gross National Income (Purchasing Power Parity) Per Capita",
+    "description": "Title for a page about a statistical variable. This indicator provides per capita values for gross national income expressed in current international dollars converted by purchasing power parity (PPP) conversion factor. GNI is the sum of value added by all resident producers plus any product taxes (less subsidies) not included in the valuation of output plus net receipts of primary income (compensation of employees and property income) from abroad. PPP conversion factor is a spatial price deflator and currency converter that eliminates the effects of the differences in price levels between countries."
+  },
+  "Amount_EconomicActivity_GrossNationalIncome_PurchasingPowerParity": {
+    "defaultMessage": "Gross National Income (Purchasing Power Parity)",
+    "description": "Title for a page about a statistical variable. This indicator provides values for gross national income expressed in current international dollars converted by purchasing power parity (PPP) conversion factor. Gross national income is the sum of value added by all resident producers plus any product taxes (less subsidies) not included in the valuation of output plus net receipts of primary income (compensation of employees and property income) from abroad. PPP conversion factor is a spatial price deflator and currency converter that eliminates the effects of the differences in price levels between countries."
+  },
+  "Count_Person_7To14Years_Employed_AsFractionOf_Count_Person_7To14Years": {
+    "defaultMessage": "Number of Children Ages 7-14 in Employment",
+    "description": "Title for a page about a statistical variable. Variable describes the number of children in that age bracket who are employed."
+  },
+  "Amount_EconomicActivity_ExpenditureActivity_EducationExpenditure_Government_AsFractionOf_Amount_EconomicActivity_ExpenditureActivity_Government": {
+    "defaultMessage": "Government Expenditures on Education (as a percentage of Government Expenditures)",
+    "description": "Title for a page about a statistical variable. Variable describes amount spent by a government on education as a percentage of total expenditure."
+  },
+  "Amount_EconomicActivity_ExpenditureActivity_EducationExpenditure_Government_AsFractionOf_Amount_EconomicActivity_GrossDomesticProduction_Nominal": {
+    "defaultMessage": "Government Expenditures on Education (as a percentage of GDP)",
+    "description": "Title for a page about a statistical variable. Variable describes amount spent by a government on education as a percentage of Gross Domestic Production (see https://www.investopedia.com/terms/n/nominalgdp.asp for a definition of GDP). "
+  },
+  "Amount_EconomicActivity_ExpenditureActivity_MilitaryExpenditure_Government": {
+    "defaultMessage": "Government Expenditures on Military",
+    "description": "Title for a page about a statistical variable. Variable describes the total amount spend by a government on the military."
+  },
+  "Amount_EconomicActivity_ExpenditureActivity_MilitaryExpenditure_Government_AsFractionOf_Amount_EconomicActivity_GrossDomesticProduction_Nominal": {
+    "defaultMessage": "Government Expenditures on Military (as a percentage of GDP)",
+    "description": "Title for a page about a statistical variable. Variable describes amount spent by a government on military as a percentage of Gross Domestic Production (see https://www.investopedia.com/terms/n/nominalgdp.asp for a definition of GDP). "
+  },
+  "Amount_Stock": {
+    "defaultMessage": "Market Capitalization of Domestic Companies",
+    "description": "Title for a page about a statistical variable. Market capitalization refers to the total dollar market value of a company's outstanding shares of stock (see https://www.investopedia.com/terms/m/marketcapitalization.asp)"
+  },
+  "Amount_Stock_AsFractionOf_Amount_EconomicActivity_GrossDomesticProduction_Nominal": {
+    "defaultMessage": "Market Capitalization of Domestic Companies (as a percentage of GDP)",
+    "description": "Title for a page about a statistical variable. Market capitalization refers to the total dollar market value of a company's outstanding shares of stock (see https://www.investopedia.com/terms/m/marketcapitalization.asp). This is calculated as a percentage of nominal gdp (see https://www.investopedia.com/terms/n/nominalgdp.asp for a definition of GDP)"
+  },
+  "Amount_Remittance_InwardRemittance": {
+    "defaultMessage": "Inward Remittance",
+    "description": "Title for a page about a statistical variable. Variable describes personal remittances, received. Personal remittances comprise personal transfers and compensation of employees. Personal transfers consist of all current transfers in cash or in kind made or received by resident households to or from nonresident households. Personal transfers thus include all current transfers between resident and nonresident individuals. Compensation of employees refers to the income of border, seasonal, and other short-term workers who are employed in an economy where they are not resident and of residents employed by nonresident entities. See https://data.worldbank.org/indicator/BX.TRF.PWKR.CD.DT for more information."
+  },
+  "Amount_Remittance_InwardRemittance_AsFractionOf_Amount_EconomicActivity_GrossDomesticProduction_Nominal": {
+    "defaultMessage": "Inward Remittance (as a percentage of GDP)",
+    "description": "Title for a page about a statistical variable. Variable describes personal remittances, received. Personal remittances comprise personal transfers and compensation of employees. Personal transfers consist of all current transfers in cash or in kind made or received by resident households to or from nonresident households. Personal transfers thus include all current transfers between resident and nonresident individuals. Compensation of employees refers to the income of border, seasonal, and other short-term workers who are employed in an economy where they are not resident and of residents employed by nonresident entities. This is calculated as a percentage of GDP. See https://data.worldbank.org/indicator/BX.TRF.PWKR.DT.GD.ZS for more info."
+  },
+  "Amount_Remittance_OutwardRemittance": {
+    "defaultMessage": "Outward Remittance",
+    "description": "Title for a page about a statistical variable. Variable describes personal remittances, sent. Personal remittances comprise personal transfers and compensation of employees. Personal transfers consist of all current transfers in cash or in kind made or received by resident households to or from nonresident households. Personal transfers thus include all current transfers between resident and nonresident individuals. Compensation of employees refers to the income of border, seasonal, and other short-term workers who are employed in an economy where they are not resident and of residents employed by nonresident entities. See https://data.worldbank.org/indicator/BM.TRF.PWKR.CD.DT for more info."
+  },
+  "Count_Person_15To64Years_InLaborForce_AsFractionOf_Count_Person_15To64Years": {
+    "defaultMessage": "Percent of People in Labor Force (ages 15-64)",
+    "description": "Title for a page about a statistical variable. Variable describes the percentage of people ages 15-64 who are in the labor force, i.e. able to work."
+  },
+  "Amount_Consumption_Energy_PerCapita": {
+    "defaultMessage": "Energy Consumption Per Capita",
+    "description": "Title for a page about a statistical variable. Total energy used per person in a place. Energy use refers to use of primary energy before transformation to other end-use fuels, which is equal to indigenous production plus imports and stock changes, minus exports and fuels supplied to ships and aircraft engaged in international transport. See https://data.worldbank.org/indicator/EG.USE.PCAP.KG.OE for more info."
+  },
+  "Amount_Emissions_CarbonDioxide_PerCapita": {
+    "defaultMessage": "Carbon Dioxide Emissions Per Capita",
+    "description": "Title for a page about a statistical variable. Carbon dioxide emissions are those stemming from the burning of fossil fuels and the manufacture of cement. They include carbon dioxide produced during consumption of solid, liquid, and gas fuels and gas flaring. Computed on a per capita basis. See https://databank.worldbank.org/metadataglossary/millennium-development-goals/series/EN.ATM.CO2E.PC for more info."
+  },
+  "Amount_Consumption_Electricity_PerCapita": {
+    "defaultMessage": "Electricity Consumption Per Capita",
+    "description": "Title for a page about a statistical variable. Electric power consumption measures the production of power plants and combined heat and power plants less transmission, distribution, and transformation losses and own use by heat and power plants. Computed on a per capita basis. See https://datacatalog.worldbank.org/electric-power-consumption-kwh-capita-2 for more info."
+  },
+  "Count_EarthquakeEvent": {
+    "defaultMessage": "Number of Earthquake Events",
+    "description": "Title for a page about a statistical variable. The number of earthquake events that happened in a place."
+  },
+  "Count_CycloneEvent": {
+    "defaultMessage": "Number of Cyclone Events",
+    "description": "Title for a page about a statistical variable. The number of earthquake events that happened in a place."
+  },
+  "Count_StormSurgeTideEvent": {
+    "defaultMessage": "Number of Storm Surge Tide Events",
+    "description": "Title for a page about a statistical variable. The number of earthquake events that happened in a place."
+  },
+  "Count_WildlandFireEvent": {
+    "defaultMessage": "Number of Wildland Fire Events",
+    "description": "Title for a page about a statistical variable. The number of earthquake events that happened in a place."
+  },
+  "Count_TornadoEvent": {
+    "defaultMessage": "Number of Tornado Events",
+    "description": "Title for a page about a statistical variable. The number of earthquake events that happened in a place."
+  },
+  "Count_ThunderstormWindEvent": {
+    "defaultMessage": "Number of Thunderstorm Events",
+    "description": "Title for a page about a statistical variable. The number of earthquake events that happened in a place."
+  },
+  "Count_FloodEvent": {
+    "defaultMessage": "Number of Flood Events",
+    "description": "Title for a page about a statistical variable. The number of earthquake events that happened in a place."
+  },
+  "Count_DroughtEvent": {
+    "defaultMessage": "Number of Drought Events",
+    "description": "Title for a page about a statistical variable. The number of earthquake events that happened in a place."
+  },
+  "Count_Person_Upto4Years": {
+    "defaultMessage": "Population (Ages 0-4)",
+    "description": "Title for a page about a statistical variable. The number of people in a place within the age range."
+  },
+  "Count_Person_Upto9Years": {
+    "defaultMessage": "Population (Ages 0-9)",
+    "description": "Title for a page about a statistical variable. The number of people in a place within the age range."
+  },
+  "Count_Person_5To9Years": {
+    "defaultMessage": "Population (Ages 5-9)",
+    "description": "Title for a page about a statistical variable. The number of people in a place within the age range."
+  },
+  "Count_Person_5To17Years": {
+    "defaultMessage": "Population (Ages 5-17)",
+    "description": "Title for a page about a statistical variable. The number of people in a place within the age range."
+  },
+  "Count_Person_10To14Years": {
+    "defaultMessage": "Population (Ages 10-14)",
+    "description": "Title for a page about a statistical variable. The number of people in a place within the age range."
+  },
+  "Count_Person_10To19Years": {
+    "defaultMessage": "Population (Ages 10-19)",
+    "description": "Title for a page about a statistical variable. The number of people in a place within the age range."
+  },
+  "Count_Person_15To19Years": {
+    "defaultMessage": "Population (Ages 15-19)",
+    "description": "Title for a page about a statistical variable. The number of people in a place within the age range."
+  },
+  "Count_Person_15OrMoreYears": {
+    "defaultMessage": "Population (Ages 15+)",
+    "description": "Title for a page about a statistical variable. The number of people in a place within the age range. (15 and older)"
+  },
+  "Count_Person_16OrMoreYears": {
+    "defaultMessage": "Population (Ages 16+)",
+    "description": "Title for a page about a statistical variable. The number of people in a place within the age range. (16 and older)"
+  },
+  "Count_Person_18To24Years": {
+    "defaultMessage": "Population (Ages 18-24)",
+    "description": "Title for a page about a statistical variable. The number of people in a place within the age range."
+  },
+  "Count_Person_20To24Years": {
+    "defaultMessage": "Population (Ages 20-24)",
+    "description": "Title for a page about a statistical variable. The number of people in a place within the age range."
+  },
+  "Count_Person_20To29Years": {
+    "defaultMessage": "Population (Ages 20-29)",
+    "description": "Title for a page about a statistical variable. The number of people in a place within the age range."
+  },
+  "Count_Person_25To29Years": {
+    "defaultMessage": "Population (Ages 25-29)",
+    "description": "Title for a page about a statistical variable. The number of people in a place within the age range."
+  },
+  "Count_Person_25To34Years": {
+    "defaultMessage": "Population (Ages 25-34)",
+    "description": "Title for a page about a statistical variable. The number of people in a place within the age range."
+  },
+  "Count_Person_30To34Years": {
+    "defaultMessage": "Population (Ages 30-34)",
+    "description": "Title for a page about a statistical variable. The number of people in a place within the age range."
+  },
+  "Count_Person_30To39Years": {
+    "defaultMessage": "Population (Ages 30-39)",
+    "description": "Title for a page about a statistical variable. The number of people in a place within the age range."
+  },
+  "Count_Person_35To39Years": {
+    "defaultMessage": "Population (Ages 35-39)",
+    "description": "Title for a page about a statistical variable. The number of people in a place within the age range."
+  },
+  "Count_Person_35To44Years": {
+    "defaultMessage": "Population (Ages 35-44)",
+    "description": "Title for a page about a statistical variable. The number of people in a place within the age range."
+  },
+  "Count_Person_40To44Years": {
+    "defaultMessage": "Population (Ages 40-44)",
+    "description": "Title for a page about a statistical variable. The number of people in a place within the age range."
+  },
+  "Count_Person_40To49Years": {
+    "defaultMessage": "Population (Ages 40-49)",
+    "description": "Title for a page about a statistical variable. The number of people in a place within the age range."
+  },
+  "Count_Person_45To49Years": {
+    "defaultMessage": "Population (Ages 45-49)",
+    "description": "Title for a page about a statistical variable. The number of people in a place within the age range."
+  },
+  "Count_Person_45To54Years": {
+    "defaultMessage": "Population (Ages 45-54)",
+    "description": "Title for a page about a statistical variable. The number of people in a place within the age range."
+  },
+  "Count_Person_50To54Years": {
+    "defaultMessage": "Population (Ages 50-54)",
+    "description": "Title for a page about a statistical variable. The number of people in a place within the age range."
+  },
+  "Count_Person_50To59Years": {
+    "defaultMessage": "Population (Ages 50-59)",
+    "description": "Title for a page about a statistical variable. The number of people in a place within the age range."
+  },
+  "Count_Person_55To59Years": {
+    "defaultMessage": "Population (Ages 55-59)",
+    "description": "Title for a page about a statistical variable. The number of people in a place within the age range."
+  },
+  "Count_Person_55To64Years": {
+    "defaultMessage": "Population (Ages 55-64)",
+    "description": "Title for a page about a statistical variable. The number of people in a place within the age range."
+  },
+  "Count_Person_60To61Years": {
+    "defaultMessage": "Population (Ages 60-61)",
+    "description": "Title for a page about a statistical variable. The number of people in a place within the age range."
+  },
+  "Count_Person_60To64Years": {
+    "defaultMessage": "Population (Ages 60-64)",
+    "description": "Title for a page about a statistical variable. The number of people in a place within the age range."
+  },
+  "Count_Person_60To69Years": {
+    "defaultMessage": "Population (Ages 60-69)",
+    "description": "Title for a page about a statistical variable. The number of people in a place within the age range."
+  },
+  "Count_Person_62To64Years": {
+    "defaultMessage": "Population (Ages 62-64)",
+    "description": "Title for a page about a statistical variable. The number of people in a place within the age range."
+  },
+  "Count_Person_65To69Years": {
+    "defaultMessage": "Population (Ages 65-69)",
+    "description": "Title for a page about a statistical variable. The number of people in a place within the age range."
+  },
+  "Count_Person_65To74Years": {
+    "defaultMessage": "Population (Ages 65-74)",
+    "description": "Title for a page about a statistical variable. The number of people in a place within the age range."
+  },
+  "Count_Person_70To74Years": {
+    "defaultMessage": "Population (Ages 70-74)",
+    "description": "Title for a page about a statistical variable. The number of people in a place within the age range."
+  },
+  "Count_Person_70To79Years": {
+    "defaultMessage": "Population (Ages 70-79)",
+    "description": "Title for a page about a statistical variable. The number of people in a place within the age range."
+  },
+  "Count_Person_70OrMoreYears": {
+    "defaultMessage": "Population (Ages 70+)",
+    "description": "Title for a page about a statistical variable. The number of people in a place within the age range. (70 and older)"
+  },
+  "Count_Person_75To79Years": {
+    "defaultMessage": "Population (Ages 75-79)",
+    "description": "Title for a page about a statistical variable. The number of people in a place within the age range."
+  },
+  "Count_Person_75OrMoreYears": {
+    "defaultMessage": "Population (Ages 75+)",
+    "description": "Title for a page about a statistical variable. The number of people in a place within the age range. (75 and older)"
+  },
+  "Count_Person_80To84Years": {
+    "defaultMessage": "Population (Ages 80-84)",
+    "description": "Title for a page about a statistical variable. The number of people in a place within the age range."
+  },
+  "Count_Person_80OrMoreYears": {
+    "defaultMessage": "Population (Ages 80+)",
+    "description": "Title for a page about a statistical variable. The number of people in a place within the age range (80 and older)."
+  },
+  "Count_Person_Male": {
+    "defaultMessage": "Population (Male)",
+    "description": "Title for a page about a statistical variable. Male population is based on the de facto definition of population, which counts all male residents regardless of legal status or citizenship. We only have data for both sexes (male or female)"
+  },
+  "Count_Person_Female": {
+    "defaultMessage": "Population (Female)",
+    "description": "Title for a page about a statistical variable. Female population is based on the de facto definition of population, which counts all female residents regardless of legal status or citizenship. We only have data for both sexes (male or female)"
+  },
+  "Count_Person_AmericanIndianOrAlaskaNativeAlone": {
+    "defaultMessage": "Number of People (American Indian or Alaska Native)",
+    "description": "Title for a page about a statistical variable. Variable describes the total population of a place, for people of a certain race. See this page for more info about races: https://www.census.gov/topics/population/race/about.html"
+  },
+  "Count_Person_AsianAlone": {
+    "defaultMessage": "Number of People (Asian Alone)",
+    "description": "Title for a page about a statistical variable. Variable describes the total population of a place, for people of a certain race. See this page for more info about races: https://www.census.gov/topics/population/race/about.html"
+  },
+  "Count_Person_BlackOrAfricanAmericanAlone": {
+    "defaultMessage": "Number of People (Black or African American)",
+    "description": "Title for a page about a statistical variable. Variable describes the total population of a place, for people of a certain race. See this page for more info about races: https://www.census.gov/topics/population/race/about.html"
+  },
+  "Count_Person_HispanicOrLatino": {
+    "defaultMessage": "Number of People (Hispanic or Latino)",
+    "description": "Title for a page about a statistical variable. Variable describes the total population of a place, for people of a certain race. See this page for more info about races: https://www.census.gov/topics/population/race/about.html"
+  },
+  "Count_Person_NativeHawaiianOrOtherPacificIslanderAlone": {
+    "defaultMessage": "Number of People (Native Hawaiian or Pacific Islander)",
+    "description": "Title for a page about a statistical variable. Variable describes the total population of a place, for people of a certain race. See this page for more info about races: https://www.census.gov/topics/population/race/about.html"
+  },
+  "Count_Person_SomeOtherRaceAlone": {
+    "defaultMessage": "Number of People (Some Other Race)",
+    "description": "Title for a page about a statistical variable. Variable describes the total population of a place, for people of a certain race. See this page for more info about races: https://www.census.gov/topics/population/race/about.html"
+  },
+  "Count_Person_TwoOrMoreRaces": {
+    "defaultMessage": "Number of People (Two or More Races)",
+    "description": "Title for a page about a statistical variable. Variable describes the total population of a place, for people of a certain race. See this page for more info about races: https://www.census.gov/topics/population/race/about.html"
+  },
+  "Count_Person_WhiteAlone": {
+    "defaultMessage": "Number of People (White Alone)",
+    "description": "Title for a page about a statistical variable. Variable describes the total population of a place, for people of a certain race. See this page for more info about races: https://www.census.gov/topics/population/race/about.html"
+  },
+  "Count_HousingUnit_HouseholderRaceAmericanIndianOrAlaskaNativeAlone": {
+    "defaultMessage": "Number of Households (American Indian or Alaska Native)",
+    "description": "Title for a page about a statistical variable. Variable describes the number of housing units occupied by people of a certain race. See this page for more info about races: https://www.census.gov/topics/population/race/about.html"
+  },
+  "Count_HousingUnit_HouseholderRaceAsianAlone": {
+    "defaultMessage": "Number of Households (Asian Alone)",
+    "description": "Title for a page about a statistical variable. Variable describes the number of housing units occupied by people of a certain race. See this page for more info about races: https://www.census.gov/topics/population/race/about.html"
+  },
+  "Count_HousingUnit_HouseholderRaceBlackOrAfricanAmericanAlone": {
+    "defaultMessage": "Number of Households (Black or African American)",
+    "description": "Title for a page about a statistical variable. Variable describes the number of housing units occupied by people of a certain race. See this page for more info about races: https://www.census.gov/topics/population/race/about.html"
+  },
+  "Count_HousingUnit_HouseholderRaceHispanicOrLatino": {
+    "defaultMessage": "Number of Households (Hispanic or Latino)",
+    "description": "Title for a page about a statistical variable. Variable describes the number of housing units occupied by people of a certain race. See this page for more info about races: https://www.census.gov/topics/population/race/about.html"
+  },
+  "Count_HousingUnit_HouseholderRaceNativeHawaiianOrOtherPacificIslanderAlone": {
+    "defaultMessage": "Number of Households (Native Hawaiian or Pacific Islander)",
+    "description": "Title for a page about a statistical variable. Variable describes the number of housing units occupied by people of a certain race. See this page for more info about races: https://www.census.gov/topics/population/race/about.html"
+  },
+  "Count_HousingUnit_HouseholderRaceSomeOtherRaceAlone": {
+    "defaultMessage": "Number of Households (Some Other Race)",
+    "description": "Title for a page about a statistical variable. Variable describes the number of housing units occupied by people of a certain race. See this page for more info about races: https://www.census.gov/topics/population/race/about.html"
+  },
+  "Count_HousingUnit_HouseholderRaceTwoOrMoreRaces": {
+    "defaultMessage": "Number of Households (Two or More Races)",
+    "description": "Title for a page about a statistical variable. Variable describes the number of housing units occupied by people of a certain race. See this page for more info about races: https://www.census.gov/topics/population/race/about.html"
+  },
+  "Count_HousingUnit_HouseholderRaceWhiteAlone": {
+    "defaultMessage": "Number of Households (White Alone)",
+    "description": "Title for a page about a statistical variable. Variable describes the number of housing units occupied by people of a certain race. See this page for more info about races: https://www.census.gov/topics/population/race/about.html"
+  },
+  "Median_Age_Person": {
+    "defaultMessage": "Median Age",
+    "description": "Title for a page about a statistical variable. Median age is the age that divides a population into two numerically equally sized groups, summarizes the age distribution of all people in a place."
+  },
+  "Median_Age_Person_Male": {
+    "defaultMessage": "Median Age (Male)",
+    "description": "Title for a page about a statistical variable. Median age is the age that divides a population into two numerically equally sized groups, summarizes the age distribution of all male people in a place. We only have data for both sexes (male or female)."
+  },
+  "Median_Age_Person_Female": {
+    "defaultMessage": "Median Age (Female)",
+    "description": "Title for a page about a statistical variable. Median age is the age that divides a population into two numerically equally sized groups, summarizes the age distribution of all female people in a place. We only have data for both sexes (male or female)."
+  },
+  "Median_Age_Person_AmericanIndianOrAlaskaNativeAlone": {
+    "defaultMessage": "Median Age (American Indian or Alaska Native)",
+    "description": "Title for a page about a statistical variable. Variable describes the median age of people of a certain race. Median age is the age that divides a population into two numerically equally sized groups, summarizes the age distribution of people in a place. See this page for more info about races: https://www.census.gov/topics/population/race/about.html"
+  },
+  "Median_Age_Person_AsianAlone": {
+    "defaultMessage": "Median Age (Asian Alone)",
+    "description": "Title for a page about a statistical variable. Variable describes the median age of people of a certain race. Median age is the age that divides a population into two numerically equally sized groups, summarizes the age distribution of people in a place. See this page for more info about races: https://www.census.gov/topics/population/race/about.html"
+  },
+  "Median_Age_Person_BlackOrAfricanAmericanAlone": {
+    "defaultMessage": "Median Age (Black or African American)",
+    "description": "Title for a page about a statistical variable. Variable describes the median age of people of a certain race. Median age is the age that divides a population into two numerically equally sized groups, summarizes the age distribution of people in a place. See this page for more info about races: https://www.census.gov/topics/population/race/about.html"
+  },
+  "Median_Age_Person_HispanicOrLatino": {
+    "defaultMessage": "Median Age (Hispanic or Latino)",
+    "description": "Title for a page about a statistical variable. Variable describes the median age of people of a certain race. Median age is the age that divides a population into two numerically equally sized groups, summarizes the age distribution of people in a place. See this page for more info about races: https://www.census.gov/topics/population/race/about.html"
+  },
+  "Median_Age_Person_NativeHawaiianOrOtherPacificIslanderAlone": {
+    "defaultMessage": "Median Age (Native Hawaiian or Pacific Islander)",
+    "description": "Title for a page about a statistical variable. Variable describes the median age of people of a certain race. Median age is the age that divides a population into two numerically equally sized groups, summarizes the age distribution of people in a place. See this page for more info about races: https://www.census.gov/topics/population/race/about.html"
+  },
+  "Median_Age_Person_SomeOtherRaceAlone": {
+    "defaultMessage": "Median Age (Some Other Race)",
+    "description": "Title for a page about a statistical variable. Variable describes the median age of people of a certain race. Median age is the age that divides a population into two numerically equally sized groups, summarizes the age distribution of people in a place. See this page for more info about races: https://www.census.gov/topics/population/race/about.html"
+  },
+  "Median_Age_Person_TwoOrMoreRaces": {
+    "defaultMessage": "Median Age (Two or More Races)",
+    "description": "Title for a page about a statistical variable. Variable describes the median age of people of a certain race. Median age is the age that divides a population into two numerically equally sized groups, summarizes the age distribution of people in a place. See this page for more info about races: https://www.census.gov/topics/population/race/about.html"
+  },
+  "Median_Age_Person_WhiteAlone": {
+    "defaultMessage": "Median Age (White Alone)",
+    "description": "Title for a page about a statistical variable. Variable describes the median age of people of a certain race. Median age is the age that divides a population into two numerically equally sized groups, summarizes the age distribution of people in a place. See this page for more info about races: https://www.census.gov/topics/population/race/about.html"
+  },
+  "Count_Person_IncomeOfUpto9999USDollar": {
+    "defaultMessage": "Population (Individual Income Under $10K",
+    "description": "Title for a page about a statistical variable. Variable describes the number of people, within a population, whose individual income is in that range (specified in US Dollars)."
+  },
+  "Count_Person_IncomeOf10000To14999USDollar": {
+    "defaultMessage": "Population (Individual Income Between $10K to $15K)",
+    "description": "Title for a page about a statistical variable. Variable describes the number of people, within a population, whose individual income is in that range (specified in US Dollars)."
+  },
+  "Count_Person_IncomeOf15000To24999USDollar": {
+    "defaultMessage": "Population (Individual Income Between $15K to $25K)",
+    "description": "Title for a page about a statistical variable. Variable describes the number of people, within a population, whose individual income is in that range (specified in US Dollars)."
+  },
+  "Count_Person_IncomeOf25000To34999USDollar": {
+    "defaultMessage": "Population (Individual Income Between $25K to $35K)",
+    "description": "Title for a page about a statistical variable. Variable describes the number of people, within a population, whose individual income is in that range (specified in US Dollars)."
+  },
+  "Count_Person_IncomeOf35000To49999USDollar": {
+    "defaultMessage": "Population (Individual Income Between $35K to $50K)",
+    "description": "Title for a page about a statistical variable. Variable describes the number of people, within a population, whose individual income is in that range (specified in US Dollars)."
+  },
+  "Count_Person_IncomeOf50000To64999USDollar": {
+    "defaultMessage": "Population (Individual Income Between $50K to $65K)",
+    "description": "Title for a page about a statistical variable. Variable describes the number of people, within a population, whose individual income is in that range (specified in US Dollars)."
+  },
+  "Count_Person_IncomeOf65000To74999USDollar": {
+    "defaultMessage": "Population (Individual Income Between $65K to $75K)",
+    "description": "Title for a page about a statistical variable. Variable describes the number of people, within a population, whose individual income is in that range (specified in US Dollars)."
+  },
+  "Count_Person_IncomeOf75000OrMoreUSDollar": {
+    "defaultMessage": "Population (Individual Income Over $75K)",
+    "description": "Title for a page about a statistical variable. Variable describes the number of people, within a population, whose individual income is in that range (specified in US Dollars)."
+  },
+  "Count_Person_MarriedAndNotSeparated": {
+    "defaultMessage": "Population (Married and Not Separated)",
+    "description": "Title for a page about a statistical variable. Variable describes the number of people, within a population, with a certain marriage status. See here for detailed description of status: https://www.census.gov/programs-surveys/cps/technical-documentation/subject-definitions.html#maritalstatus"
+  },
+  "Count_Person_Divorced": {
+    "defaultMessage": "Population (Divorced)",
+    "description": "Title for a page about a statistical variable. Variable describes the number of people, within a population, with a certain marriage status. See here for detailed description of status: https://www.census.gov/programs-surveys/cps/technical-documentation/subject-definitions.html#maritalstatus"
+  },
+  "Count_Person_NeverMarried": {
+    "defaultMessage": "Population (Never Married)",
+    "description": "Title for a page about a statistical variable. Variable describes the number of people, within a population, with a certain marriage status. See here for detailed description of status: https://www.census.gov/programs-surveys/cps/technical-documentation/subject-definitions.html#maritalstatus"
+  },
+  "Count_Person_Widowed": {
+    "defaultMessage": "Population (Widowed)",
+    "description": "Title for a page about a statistical variable. Variable describes the number of people, within a population, with a certain marriage status. See here for detailed description of status: https://www.census.gov/programs-surveys/cps/technical-documentation/subject-definitions.html#maritalstatus"
+  },
+  "Count_Person_Separated": {
+    "defaultMessage": "Population (Separated)",
+    "description": "Title for a page about a statistical variable. Variable describes the number of people, within a population, with a certain marriage status. See here for detailed description of status: https://www.census.gov/programs-surveys/cps/technical-documentation/subject-definitions.html#maritalstatus"
+  },
+  "Count_Person_Urban": {
+    "defaultMessage": "Population (Urban)",
+    "description": "Title for a page about a statistical variable. Variable describes the number of people, within a population, who live in an urban area (n urban area, or built-up area, is a human settlement with a high population density and infrastructure of built environment)."
+  },
+  "Count_Person_Rural": {
+    "defaultMessage": "Population (Rural)",
+    "description": "Title for a page about a statistical variable. Variable describes the number of people, within a population, who live in a rural area (a geographic area that is located outside towns and cities, typically with low population density and small settlements)."
+  },
+  "Count_Person_EducationalAttainmentNoSchoolingCompleted": {
+    "defaultMessage": "Population (No Schooling)",
+    "description": "Title for a page about a statistical variable. Variable describes the number of people, within a population, who should have completed school, who have had no schooling completed."
+  },
+  "Count_Person_EducationalAttainmentRegularHighSchoolDiploma": {
+    "defaultMessage": "Population (Completed High School)",
+    "description": "Title for a page about a statistical variable. Variable describes the number of people, within a population, who have completed high school."
+  },
+  "Count_Person_EducationalAttainmentBachelorsDegree": {
+    "defaultMessage": "Population (Attained Bachelor's Degree)",
+    "description": "Title for a page about a statistical variable. Variable describes the number of people, within a population, who have graduated with a Bachelor's Degree (see https://en.wikipedia.org/wiki/Bachelor%27s_degree)"
+  },
+  "Count_Person_EducationalAttainmentMastersDegree": {
+    "defaultMessage": "Population (Attained Master's Degree)",
+    "description": "Title for a page about a statistical variable. Variable describes the number of people, within a population, who have graduated with a Master's Degree (see https://en.wikipedia.org/wiki/Master%27s_degree)"
+  },
+  "Count_Person_EducationalAttainmentDoctorateDegree": {
+    "defaultMessage": "Population (Attained Doctorate Degree)",
+    "description": "Title for a page about a statistical variable. Variable describes the number of people, within a population, who have graduated with a Doctorage (see https://en.wikipedia.org/wiki/Doctorate)"
+  },
+  "Count_Person_25To34Years_EducationalAttainmentAssociatesDegree_Female": {
+    "defaultMessage": "Population (Attained Associate Degree)",
+    "description": "Title for a page about a statistical variable. Variable describes the number of females, within a population, who have graduated with an Associate Degree (see https://en.wikipedia.org/wiki/Associate_degree)"
+  },
+  "Count_Person_25To34Years_EducationalAttainmentAssociatesDegree_Male": {
+    "defaultMessage": "Population (Attained Associate Degree)",
+    "description": "Title for a page about a statistical variable. Variable describes the number of males, within a population, who have graduated with an Associate Degree (see https://en.wikipedia.org/wiki/Associate_degree)"
+  },
+  "Count_Person_25To34Years_EducationalAttainmentBachelorsDegree_Female": {
+    "defaultMessage": "Population (Attained Bachelor's Degree)",
+    "description": "Title for a page about a statistical variable. Variable describes the number of females, within a population, who have graduated with a Bachelor's Degree (see https://en.wikipedia.org/wiki/Bachelor%27s_degree)"
+  },
+  "Count_Person_25To34Years_EducationalAttainmentBachelorsDegree_Male": {
+    "defaultMessage": "Population (Attained Bachelor's Degree)",
+    "description": "Title for a page about a statistical variable. Variable describes the number of males, within a population, who have graduated with a Bachelor's Degree (see https://en.wikipedia.org/wiki/Bachelor%27s_degree)"
+  },
+  "Count_Person_25To34Years_EducationalAttainmentGraduateOrProfessionalDegree_Female": {
+    "defaultMessage": "Population (Attained Graduate or Professional Degree)",
+    "description": "Title for a page about a statistical variable. Variable describes the number of females, within a population, who have graduated with a graduate or professional degree (i.e. any degree beyond a Bachelor's, see https://en.wikipedia.org/wiki/Bachelor%27s_degree)"
+  },
+  "Count_Person_25To34Years_EducationalAttainmentGraduateOrProfessionalDegree_Male": {
+    "defaultMessage": "Population (Attained Graduate or Professional Degree)",
+    "description": "Title for a page about a statistical variable. Variable describes the number of males, within a population, who have graduated with a graduate or professional degree (i.e. any degree beyond a Bachelor's, see https://en.wikipedia.org/wiki/Bachelor%27s_degree)"
+  },
+  "Count_Household_IncomeOfUpto10000USDollar": {
+    "defaultMessage": "Number of Households (Income Under $10K)",
+    "description": "Title for a page about a statistical variable. Variable describes the number of households whose combined income is within that range, specified in US Dollars."
+  },
+  "Count_Household_IncomeOf10000To14999USDollar": {
+    "defaultMessage": "Number of Households (Income $10K to $15K)",
+    "description": "Title for a page about a statistical variable. Variable describes the number of households whose combined income is within that range, specified in US Dollars."
+  },
+  "Count_Household_IncomeOf20000To24999USDollar": {
+    "defaultMessage": "Number of Households (Income $20K to $25K)",
+    "description": "Title for a page about a statistical variable. Variable describes the number of households whose combined income is within that range, specified in US Dollars."
+  },
+  "Count_Household_IncomeOf30000To34999USDollar": {
+    "defaultMessage": "Number of Households (Income $30K to $35K)",
+    "description": "Title for a page about a statistical variable. Variable describes the number of households whose combined income is within that range, specified in US Dollars."
+  },
+  "Count_Household_IncomeOf40000To44999USDollar": {
+    "defaultMessage": "Number of Households (Income $40K to $45K)",
+    "description": "Title for a page about a statistical variable. Variable describes the number of households whose combined income is within that range, specified in US Dollars."
+  },
+  "Count_Household_IncomeOf50000To59999USDollar": {
+    "defaultMessage": "Number of Households (Income $50K to $60K)",
+    "description": "Title for a page about a statistical variable. Variable describes the number of households whose combined income is within that range, specified in US Dollars."
+  },
+  "Count_Household_IncomeOf60000To74999USDollar": {
+    "defaultMessage": "Number of Households (Income $60K to $75K)",
+    "description": "Title for a page about a statistical variable. Variable describes the number of households whose combined income is within that range, specified in US Dollars."
+  },
+  "Count_Household_IncomeOf75000To99999USDollar": {
+    "defaultMessage": "Number of Households (Income $75K to $100K)",
+    "description": "Title for a page about a statistical variable. Variable describes the number of households whose combined income is within that range, specified in US Dollars."
+  },
+  "Count_Household_IncomeOf100000To124999USDollar": {
+    "defaultMessage": "Number of Households (Income $100K to $125K)",
+    "description": "Title for a page about a statistical variable. Variable describes the number of households whose combined income is within that range, specified in US Dollars."
+  },
+  "Count_Household_IncomeOf125000To149999USDollar": {
+    "defaultMessage": "Number of Households (Income $125K to $150K)",
+    "description": "Title for a page about a statistical variable. Variable describes the number of households whose combined income is within that range, specified in US Dollars."
+  },
+  "Count_Household_IncomeOf150000To199999USDollar": {
+    "defaultMessage": "Number of Households (Income $150K to $200K)",
+    "description": "Title for a page about a statistical variable. Variable describes the number of households whose combined income is within that range, specified in US Dollars."
+  },
+  "Count_Household_IncomeOf200000OrMoreUSDollar": {
+    "defaultMessage": "Number of Households (Income Over $200K)",
+    "description": "Title for a page about a statistical variable. Variable describes the number of households whose combined income is within that range, specified in US Dollars."
+  },
+  "Median_Income_Household": {
+    "defaultMessage": "Median Household Income",
+    "description": "Title for a page about a statistical variable. Variable describes the median income, computed among households. See https://www.census.gov/quickfacts/fact/note/US/INC110219"
+  },
+  "Median_Income_Household_HouseholderRaceAmericanIndianOrAlaskaNativeAlone": {
+    "defaultMessage": "Median Household Income (American Indian or Alaska Native)",
+    "description": "Title for a page about a statistical variable. Variable describes the median income, computed among households of a certain race. See https://www.census.gov/quickfacts/fact/note/US/INC110219 and https://www.census.gov/topics/population/race/about.html"
+  },
+  "Median_Income_Household_HouseholderRaceAsianAlone": {
+    "defaultMessage": "Median Household Income (Asian)",
+    "description": "Title for a page about a statistical variable. Variable describes the median income, computed among households of a certain race. See https://www.census.gov/quickfacts/fact/note/US/INC110219 and https://www.census.gov/topics/population/race/about.html"
+  },
+  "Median_Income_Household_HouseholderRaceBlackOrAfricanAmericanAlone": {
+    "defaultMessage": "Median Household Income (Black or African American)",
+    "description": "Title for a page about a statistical variable. Variable describes the median income, computed among households of a certain race. See https://www.census.gov/quickfacts/fact/note/US/INC110219 and https://www.census.gov/topics/population/race/about.html"
+  },
+  "Median_Income_Household_HouseholderRaceHispanicOrLatino": {
+    "defaultMessage": "Median Household Income (Hispanic or Latino)",
+    "description": "Title for a page about a statistical variable. Variable describes the median income, computed among households of a certain race. See https://www.census.gov/quickfacts/fact/note/US/INC110219 and https://www.census.gov/topics/population/race/about.html"
+  },
+  "Median_Income_Household_HouseholderRaceNativeHawaiianOrOtherPacificIslanderAlone": {
+    "defaultMessage": "Median Household Income (Native Hawaiian or Pacific Islander)",
+    "description": "Title for a page about a statistical variable. Variable describes the median income, computed among households of a certain race. See https://www.census.gov/quickfacts/fact/note/US/INC110219 and https://www.census.gov/topics/population/race/about.html"
+  },
+  "Median_Income_Household_HouseholderRaceWhiteAlone": {
+    "defaultMessage": "Median Household Income (White)",
+    "description": "Title for a page about a statistical variable. Variable describes the median income, computed among households of a certain race. See https://www.census.gov/quickfacts/fact/note/US/INC110219 and https://www.census.gov/topics/population/race/about.html"
+  },
+  "CumulativeCount_MedicalConditionIncident_COVID_19_ConfirmedOrProbableCase": {
+    "defaultMessage": "COVID-19 Cumulative Cases (Confirmed or Probable)",
+    "description": "Title for a page about a statistical variable. Variable describes the cumulative number of confirmed or probable COVID-19 casees (cumulative means total number of cases seen so far since the start of the pandemic)."
+  },
+  "CumulativeCount_MedicalConditionIncident_COVID_19_PatientDeceased": {
+    "defaultMessage": "COVID-19 Cumulative Deaths",
+    "description": "Title for a page about a statistical variable. Variable describes the cumulative number of deaths due to COVID-19 (cumulative means total number of cases seen so far since the start of the pandemic)."
+  },
+  "Count_Person_USCitizenBornInTheUnitedStates": {
+    "defaultMessage": "Population (Born in USA)",
+    "description": "Title for a page about a statistical variable. Variable describes the number of people, within a population, who were born in the United States."
+  },
+  "Count_Person_USCitizenByNaturalization": {
+    "defaultMessage": "Population (US Citizen by Naturalization)",
+    "description": "Title for a page about a statistical variable. Variable describes the number of people, within a population, who became US Citizens through naturalization (i.e. they were not born in the US and successfully applied to become a citizen)."
+  },
+  "Count_Person_NotAUSCitizen": {
+    "defaultMessage": "Population (Not a US Citizen)",
+    "description": "Title for a page about a statistical variable. Variable describes the number of people, within a population, who are not citizens of the United States (only computed for US places)."
+  },
+  "Count_Person_USCitizenBornAbroadOfAmericanParents": {
+    "defaultMessage": "Population (Citizen Born Abroad of American Parents)",
+    "description": "Title for a page about a statistical variable. Variable describes the number of people, within a population, who are citizens of the United States, but were born outside the United States to a US Citizen parent."
+  },
+  "Count_Death_0Years_AsFractionOf_Count_BirthEvent_LiveBirth": {
+    "defaultMessage": "Infant Mortality Rate",
+    "description": "Title for a page about a statistical variable. Infant mortality is the death of an infant before his or her first birthday, and this calculates the number of infants mortality events as a fraction of live birth events within a time period."
+  },
+  "Count_Death_0Years_Female_AsFractionOf_Count_BirthEvent_LiveBirth_Female": {
+    "defaultMessage": "Infant Mortality Rate (Female)",
+    "description": "Title for a page about a statistical variable. Infant mortality is the death of an infant before his or her first birthday, and this calculates the number of male infant mortality events as a fraction of live birth events within a time period."
+  },
+  "Count_Death_0Years_Male_AsFractionOf_Count_BirthEvent_LiveBirth_Male": {
+    "defaultMessage": "Infant Mortality Rate (Male)",
+    "description": "Title for a page about a statistical variable. Infant mortality is the death of an infant before his or her first birthday, and this calculates the number of female infant mortality events as a fraction of live birth events within a time period."
+  },
+  "Count_Death_DiseasesOfTheCirculatorySystem": {
+    "defaultMessage": "Number of Deaths Caused by Diseases of the Circulatory System",
+    "description": "Title for a page about a statistical variable. Variable describes the number of deaths classified by ICD-10-CM code range 100-199 from 2019 (see https://icd.who.int/browse10/2019/en#/IX for list) "
+  },
+  "Count_Death_Neoplasms": {
+    "defaultMessage": "Number of Deaths Caused by Neoplasms",
+    "description": "Title for a page about a statistical variable. Variable describes the number of deaths classified by ICD-10-CM code range C00-D48 from 2019 (see https://icd.who.int/browse10/2019/en#!C00-C97 for list) "
+  },
+  "Count_Death_DiseasesOfTheRespiratorySystem": {
+    "defaultMessage": "Number of Deaths Caused by Diseases of the Respiratory System",
+    "description": "Title for a page about a statistical variable. Variable describes the number of deaths classified by ICD-10-CM code range J00-J98 from 2019 (see https://icd.who.int/browse10/2019/en#/X for list)"
+  },
+  "Count_Death_ExternalCauses": {
+    "defaultMessage": "Number of Deaths Caused by External Causes",
+    "description": "Title for a page about a statistical variable. Variable describes the number of deaths classified by ICD-10-CM code range V01-Y89 from 2019 (see https://icd.who.int/browse10/2019/en#/XX for list)"
+  },
+  "Count_Death_DiseasesOfTheNervousSystem": {
+    "defaultMessage": "Number of Deaths Caused by Diseases of the Nervous System",
+    "description": "Title for a page about a statistical variable. Variable describes the number of deaths classified by ICD-10-CM code range G00-G98 from 2019 (see https://icd.who.int/browse10/2019/en#/VI for list)"
+  },
+  "Percent_Person_WithHighCholesterol": {
+    "defaultMessage": "Percentage of Adults with High Cholesterol",
+    "description": "Title for a page about a statistical variable. See https://www.cdc.gov/places/measure-definitions/health-outcomes/index.html#high-cholesterol for definition of the statistical variable"
+  },
+  "Percent_Person_WithHighBloodPressure": {
+    "defaultMessage": "Percentage of Adults with High Blood Pressure",
+    "description": "Title for a page about a statistical variable. See https://www.cdc.gov/places/measure-definitions/health-outcomes/index.html#high-blood-pressure for definition of the statistical variable"
+  },
+  "Percent_Person_WithArthritis": {
+    "defaultMessage": "Percentage of Adults with Arthritis",
+    "description": "Title for a page about a statistical variable. See https://www.cdc.gov/places/measure-definitions/health-outcomes/index.html#arthritis for definition of the statistical variable"
+  },
+  "Percent_Person_WithMentalHealthNotGood": {
+    "defaultMessage": "Percentage of Adults with Mental Health Not Good",
+    "description": "Title for a page about a statistical variable. See https://www.cdc.gov/places/measure-definitions/health-outcomes/index.html#mental-health for definition of the statistical variable"
+  },
+  "Percent_Person_WithPhysicalHealthNotGood": {
+    "defaultMessage": "Percentage of Adults with Physical Health Not Good",
+    "description": "Title for a page about a statistical variable. See https://www.cdc.gov/places/measure-definitions/health-outcomes/index.html#physical-health for definition of the statistical variable"
+  },
+  "Percent_Person_SleepLessThan7Hours": {
+    "defaultMessage": "Percentage of Adults Who Sleep Less Than 7 Hours",
+    "description": "Title for a page about a statistical variable. See https://www.cdc.gov/places/measure-definitions/unhealthy-behaviors/index.html#sleep for definition of the statistical variable"
+  },
+  "Percent_Person_Obesity": {
+    "defaultMessage": "Percentage of Adults with Obesity",
+    "description": "Title for a page about a statistical variable. See https://www.cdc.gov/places/measure-definitions/unhealthy-behaviors/index.html#obesity for definition of the statistical variable"
+  },
+  "Percent_Person_BingeDrinking": {
+    "defaultMessage": "Percentage of Adults That Binge Drink",
+    "description": "Title for a page about a statistical variable. See https://www.cdc.gov/places/measure-definitions/unhealthy-behaviors/index.html#binge-drinking for definition of the statistical variable"
+  },
+  "Percent_Person_PhysicalInactivity": {
+    "defaultMessage": "Percentage of Adults with Physical Inactivity",
+    "description": "Title for a page about a statistical variable. See https://www.cdc.gov/places/measure-definitions/unhealthy-behaviors/index.html#no-leisure-time-physical-activity for definition of the statistical variable"
+  },
+  "Percent_Person_Smoking": {
+    "defaultMessage": "Percentage of Adults That Smoke",
+    "description": "Title for a page about a statistical variable. See https://www.cdc.gov/places/measure-definitions/unhealthy-behaviors/index.html#smoking for definition of the statistical variable"
+  },
+  "Count_Person_Upto4Years_Wasting_AsFractionOf_Count_Person_Upto4Years": {
+    "defaultMessage": "Prevalence of Wasting among Children under 5",
+    "description": "Title for a page about a statistical variable. Prevalence of wasting is the proportion of children under age 5 whose weight for height is more than two standard deviations below the median for the international reference population ages 0-59. See https://databank.worldbank.org/reports.aspx?source=2&type=metadata&series=SH.STA.WAST.ZS"
+  },
+  "Count_Person_Upto4Years_Female_Wasting_AsFractionOf_Count_Person_Upto4Years_Female": {
+    "defaultMessage": "Prevalence of Wasting among Children under 5 (Female)",
+    "description": "Title for a page about a statistical variable. Prevalence of wasting is the proportion of female children under age 5 whose weight for height is more than two standard deviations below the median for the international reference population ages 0-59. See https://databank.worldbank.org/reports.aspx?source=2&type=metadata&series=SH.STA.WAST.FE.ZS"
+  },
+  "Count_Person_Upto4Years_Male_Wasting_AsFractionOf_Count_Person_Upto4Years_Male": {
+    "defaultMessage": "Prevalence of Wasting among Children under 5 (Male)",
+    "description": "Title for a page about a statistical variable. Prevalence of wasting is the proportion of male children under age 5 whose weight for height is more than two standard deviations below the median for the international reference population ages 0-59. See https://databank.worldbank.org/reports.aspx?source=2&type=metadata&series=SH.STA.WAST.MA.ZS"
+  },
+  "Count_Person_Upto4Years_SevereWasting_AsFractionOf_Count_Person_Upto4Years": {
+    "defaultMessage": "Prevalence of Severe Wasting among Children under 5",
+    "description": "Title for a page about a statistical variable. Prevalence of wasting is the proportion of children under age 5 whose weight for height is more than three standard deviations below the median for the international reference population ages 0-59. See https://databank.worldbank.org/reports.aspx?source=2&type=metadata&series=SH.SVR.WAST.ZS"
+  },
+  "Count_Person_Upto4Years_Female_SevereWasting_AsFractionOf_Count_Person_Upto4Years_Female": {
+    "defaultMessage": "Prevalence of Severe Wasting among Children under 5 (Female)",
+    "description": "Title for a page about a statistical variable. Prevalence of wasting is the proportion of female children under age 5 whose weight for height is more than three standard deviations below the median for the international reference population ages 0-59. See https://databank.worldbank.org/reports.aspx?source=2&type=metadata&series=SH.SVR.WAST.FE.ZS"
+  },
+  "Count_Person_Upto4Years_Male_SevereWasting_AsFractionOf_Count_Person_Upto4Years_Male": {
+    "defaultMessage": "Prevalence of Severe Wasting among Children under 5 (Male)",
+    "description": "Title for a page about a statistical variable. Prevalence of wasting is the proportion of male children under age 5 whose weight for height is more than three standard deviations below the median for the international reference population ages 0-59. See https://databank.worldbank.org/reports.aspx?source=2&type=metadata&series=SH.SVR.WAST.MA.ZS"
+  },
+  "Amount_Consumption_Alcohol_15OrMoreYears_AsFractionOf_Count_Person_15OrMoreYears": {
+    "defaultMessage": "Pure Alcohol Consumption Per Capita (Annual)",
+    "description": "Title for a page about a statistical variable. Variable describes total amount of alcohol consumed per person over a calendar year, in liters of pure alcohol (https://databank.worldbank.org/reports.aspx?source=2&type=metadata&series=SH.ALC.PCAP.LI)."
+  },
+  "RetailDrugDistribution_DrugDistribution_Oxycodone": {
+    "defaultMessage": "Total Retail Drug Distribution of Oxycodone",
+    "description": "Title for a page about a statistical variable. Variable describes total amount of a prescribed retail drug (Oxycodone), by mass, distributed in a location over a period of time."
+  },
+  "RetailDrugDistribution_DrugDistribution_Hydrocodone": {
+    "defaultMessage": "Total Retail Drug Distribution of Hydrocodone",
+    "description": "Title for a page about a statistical variable. Variable describes total amount of a prescribed retail drug (Oxycodone), by mass, distributed in a location over a period of time."
+  },
+  "RetailDrugDistribution_DrugDistribution_Codeine": {
+    "defaultMessage": "Total Retail Drug Distribution of Codeine",
+    "description": "Title for a page about a statistical variable. Variable describes total amount of a prescribed retail drug (Codeine), by mass, distributed in a location over a period of time."
+  },
+  "RetailDrugDistribution_DrugDistribution_Amphetamine": {
+    "defaultMessage": "Total Retail Drug Distribution of Amphetamine",
+    "description": "Title for a page about a statistical variable. Variable describes total amount of a prescribed retail drug (Amphetamine), by mass, distributed in a location over a period of time."
+  },
+  "RetailDrugDistribution_DrugDistribution_Morphine": {
+    "defaultMessage": "Total Retail Drug Distribution of Morphine",
+    "description": "Title for a page about a statistical variable. Variable describes total amount of a prescribed retail drug (Morphine), by mass, distributed in a location over a period of time."
+  },
+  "Count_Person_EnrolledInSchool": {
+    "defaultMessage": "Population (Enrolled in School)",
+    "description": "Title for a page about a statistical variable. Variable describes the number of people, in a population, who are currently enrolled in school."
+  },
+  "Count_Person_NotEnrolledInSchool": {
+    "defaultMessage": "Population (Not Enrolled in School)",
+    "description": "Title for a page about a statistical variable. Variable describes the number of people, in a population, who are currently not enrolled in school (but who are of school-going age)."
+  },
+  "Count_CriminalActivities_CombinedCrime": {
+    "defaultMessage": "Number of Criminal Activities (Combined Crimes)",
+    "description": "Title for a page about a statistical variable. Variable describes total number of criminal activites in a place (of all types)."
+  },
+  "Count_CriminalActivities_ViolentCrime": {
+    "defaultMessage": "Number of Criminal Activities (Violent Crimes)",
+    "description": "Title for a page about a statistical variable. Variable describes total number of violent criminal activites in a place."
+  },
+  "Count_CriminalActivities_PropertyCrime": {
+    "defaultMessage": "Number of Criminal Activities (Property Crimes)",
+    "description": "Title for a page about a statistical variable. Variable describes total number of property crimes in a place"
+  },
+  "Count_CriminalActivities_Arson": {
+    "defaultMessage": "Number of Criminal Activities (Arson)",
+    "description": "Title for a page about a statistical variable. Variable describes total number of arson crimes in a place."
+  },
+  "Count_Person_BelowPovertyLevelInThePast12Months": {
+    "defaultMessage": "Population (Below Poverty Level)",
+    "description": "Title for a page about a statistical variable. Variable describes the number of people, in a population, who are living below the poverty level. See https://www.census.gov/topics/income-poverty/poverty/guidance/poverty-measures.html."
+  },
+  "Count_Person_BelowPovertyLevelInThePast12Months_AmericanIndianOrAlaskaNativeAlone": {
+    "defaultMessage": "Population (Below Poverty Level, American Indian or Alaska Native)",
+    "description": "Title for a page about a statistical variable. Variable describes the number of people, in a population, who are living below the poverty level and are of a certain race. See https://www.census.gov/topics/income-poverty/poverty/guidance/poverty-measures.html and https://www.census.gov/topics/population/race/about.html"
+  },
+  "Count_Person_BelowPovertyLevel, ThePast12Months_AsianAlone": {
+    "defaultMessage": "Population (Below Poverty Level, Asian)",
+    "description": "Title for a page about a statistical variable. Variable describes the number of people, in a population, who are living below the poverty level and are of a certain race. See https://www.census.gov/topics/income-poverty/poverty/guidance/poverty-measures.html and https://www.census.gov/topics/population/race/about.html"
+  },
+  "Count_Person_BelowPovertyLevel, ThePast12Months_BlackOrAfricanAmericanAlone": {
+    "defaultMessage": "Population (Below Poverty Level, Black or African American)",
+    "description": "Title for a page about a statistical variable. Variable describes the number of people, in a population, who are living below the poverty level and are of a certain race. See https://www.census.gov/topics/income-poverty/poverty/guidance/poverty-measures.html and https://www.census.gov/topics/population/race/about.html"
+  },
+  "Count_Person_BelowPovertyLevel, ThePast12Months_HispanicOrLatino": {
+    "defaultMessage": "Population (Below Poverty Level, Hispanic or Latino)",
+    "description": "Title for a page about a statistical variable. Variable describes the number of people, in a population, who are living below the poverty level and are of a certain race. See https://www.census.gov/topics/income-poverty/poverty/guidance/poverty-measures.html and https://www.census.gov/topics/population/race/about.html"
+  },
+  "Count_Person_BelowPovertyLevelInThePast12Months_NativeHawaiianOrOtherPacificIslanderAlone": {
+    "defaultMessage": "Population (Below Poverty Level, Native Hawaiian or Other Paciific Islander)",
+    "description": "Title for a page about a statistical variable. Variable describes the number of people, in a population, who are living below the poverty level and are of a certain race. See https://www.census.gov/topics/income-poverty/poverty/guidance/poverty-measures.html and https://www.census.gov/topics/population/race/about.html"
+  },
+  "Count_Person_BelowPovertyLevelInThePast12Months_WhiteAlone": {
+    "defaultMessage": "Population (Below Poverty Level, White)",
+    "description": "Title for a page about a statistical variable. Variable describes the number of people, in a population, who are living below the poverty level and are of a certain race. See https://www.census.gov/topics/income-poverty/poverty/guidance/poverty-measures.html and https://www.census.gov/topics/population/race/about.html"
+  },
+  "Count_Person_Female_BelowPovertyLevelInThePast12Months": {
+    "defaultMessage": "Population (Below Poverty Level, Female)",
+    "description": "Title for a page about a statistical variable. Variable describes the number of females, in a population, who are living below the poverty level. See https://www.census.gov/topics/income-poverty/poverty/guidance/poverty-measures.html."
+  },
+  "Count_Person_Male_BelowPovertyLevelInThePast12Months": {
+    "defaultMessage": "Population (Below Poverty Level, Male)",
+    "description": "Title for a page about a statistical variable. Variable describes the number of males, in a population, who are living below the poverty level. See https://www.census.gov/topics/income-poverty/poverty/guidance/poverty-measures.html."
+  },
+  "Percent_Person_18To64Years_Female_NoHealthInsurance": {
+    "defaultMessage": "Percentage of Population Without Health Insurance (Females)",
+    "description": "Title for a page about a statistical variable. Variable describes the percentage of female adults in a population who do not have health insurance."
+  },
+  "Percent_Person_18To64Years_Male_NoHealthInsurance": {
+    "defaultMessage": "Percentage of Population Without Health Insurance (Males)",
+    "description": "Title for a page about a statistical variable. Variable describes the percentage of male adults in a population who do not have health insurance."
+  },
+  "Percent_Person_18To64Years_NoHealthInsurance_BlackOrAfricanAmericanAlone": {
+    "defaultMessage": "Percentage of Population Without Health Insurance (Blacks Or African Americans)",
+    "description": "Title for a page about a statistical variable. Variable describes the percentage of people of a certain race in a population who do not have health insurance. See https://www.census.gov/topics/income-poverty/poverty/guidance/poverty-measures.html and https://www.census.gov/topics/population/race/about.html"
+  },
+  "Percent_Person_18To64Years_NoHealthInsurance_HispanicOrLatino": {
+    "defaultMessage": "Percentage of Population Without Health Insurance (Hispanics or Latinos)",
+    "description": "Title for a page about a statistical variable. Variable describes the percentage of people of a certain race in a population who do not have health insurance. See https://www.census.gov/topics/income-poverty/poverty/guidance/poverty-measures.html and https://www.census.gov/topics/population/race/about.html"
+  },
+  "Percent_Person_18To64Years_NoHealthInsurance_WhiteAlone": {
+    "defaultMessage": "Percentage of Population Without Health Insurance (White)",
+    "description": "Title for a page about a statistical variable. Variable describes the percentage of people of a certain race in a population who do not have health insurance. See https://www.census.gov/topics/income-poverty/poverty/guidance/poverty-measures.html and https://www.census.gov/topics/population/race/about.html"
+  },
+  "Count_Person_7To14Years_Female_Employed_AsFractionOf_Count_Person_7To14Years_Female": {
+    "defaultMessage": "Percentage of Children in Employment (Female)",
+    "description": "Title for a page about a statistical variable. Variable describes female children involved in economic activity for at least one hour in a reference week (see https://databank.worldbank.org/reports.aspx?source=2&type=metadata&series=SL.TLF.0714.FE.ZS)."
+  },
+  "Count_Person_7To14Years_Male_Employed_AsFractionOf_Count_Person_7To14Years_Male": {
+    "defaultMessage": "Percentage of Children in Employment (Male)",
+    "description": "Title for a page about a statistical variable. Variable describes male children involved in economic activity for at least one hour in a reference week (see https://databank.worldbank.org/reports.aspx?source=2&type=metadata&series=SL.TLF.0714.MA.ZS)."
+  },
+  "GiniIndex_EconomicActivity": {
+    "defaultMessage": "Gini Index",
+    "description": "Title for a page about a statistical variable. Variable is the Gini index, which is a measure of inequality, see https://stats.oecd.org/glossary/detail.asp?ID=4842"
+  },
+  "Count_HousingUnit": {
+    "defaultMessage": "Number of Housing Units",
+    "description": "Title for a page about a statistical variable. Variable describes the total number of housing units available for a place."
+  },
+  "Count_HousingUnit_HomeValueUpto49999USDollar": {
+    "defaultMessage": "Number of Housing Units (Home Value Under $50K)",
+    "description": "Title for a page about a statistical variable. Variable describes the total number of housing units available for a place with a home value in that range, in US Dollars."
+  },
+  "Count_HousingUnit_HomeValue50000To99999USDollar": {
+    "defaultMessage": "Number of Housing Units (Home Value of $50K - $100K)",
+    "description": "Title for a page about a statistical variable. Variable describes the total number of housing units available for a place with a home value in that range, in US Dollars."
+  },
+  "Count_HousingUnit_HomeValue100000To199999USDollar": {
+    "defaultMessage": "Number of Housing Units (Home Value of $100K - $200K)",
+    "description": "Title for a page about a statistical variable. Variable describes the total number of housing units available for a place with a home value in that range, in US Dollars."
+  },
+  "Count_HousingUnit_HomeValue200000To299999USDollar": {
+    "defaultMessage": "Number of Housing Units (Home Value of $200K - $300K)",
+    "description": "Title for a page about a statistical variable. Variable describes the total number of housing units available for a place with a home value in that range, in US Dollars."
+  },
+  "Count_HousingUnit_HomeValue300000To499999USDollar": {
+    "defaultMessage": "Number of Housing Units (Home Value of $300K - $500K)",
+    "description": "Title for a page about a statistical variable. Variable describes the total number of housing units available for a place with a home value in that range, in US Dollars."
+  },
+  "Count_HousingUnit_HomeValue500000To999999USDollar": {
+    "defaultMessage": "Number of Housing Units (Home Value of $500K - $1M)",
+    "description": "Title for a page about a statistical variable. Variable describes the total number of housing units available for a place with a home value in that range, in US Dollars."
+  },
+  "Count_HousingUnit_HomeValue1000000To1499999USDollar": {
+    "defaultMessage": "Number of Housing Units (Home Value of $1M - $1.5M)",
+    "description": "Title for a page about a statistical variable. Variable describes the total number of housing units available for a place with a home value in that range, in US Dollars."
+  },
+  "Count_HousingUnit_HomeValue1500000To1999999USDollar": {
+    "defaultMessage": "Number of Housing Units (Home Value of $1.5M - $2M)",
+    "description": "Title for a page about a statistical variable. Variable describes the total number of housing units available for a place with a home value in that range, in US Dollars."
+  },
+  "Count_HousingUnit_HomeValue2000000OrMoreUSDollar": {
+    "defaultMessage": "Number of Housing Units (Home Value Over $2M)",
+    "description": "Title for a page about a statistical variable. Variable describes the total number of housing units available for a place with a home value in that range, in US Dollars."
+  },
+  "Count_HousingUnit_OwnerOccupied": {
+    "defaultMessage": "Number of Housing Units (Owner Occupied)",
+    "description": "Title for a page about a statistical variable. Variable describes the total number of housing units which are owner occupied (as opposed to renter occupied."
+  },
+  "Count_HousingUnit_RenterOccupied": {
+    "defaultMessage": "Number of Housing Units (Renter Occupied)",
+    "description": "Title for a page about a statistical variable. Variable describes the total number of housing units which are renter occupied (as opposed to owner occupied."
+  },
+  "Count_HousingUnit_Before1939DateBuilt": {
+    "defaultMessage": "Number of Housing Units (Before 1939)",
+    "description": "Title for a page about a statistical variable. Variable describes the total number of housing units which was built in that time period."
+  },
+  "Count_HousingUnit_1940To1949DateBuilt": {
+    "defaultMessage": "Number of Housing Units (1940 - 1949)",
+    "description": "Title for a page about a statistical variable. Variable describes the total number of housing units which was built in that time period."
+  },
+  "Count_HousingUnit_1950To1959DateBuilt": {
+    "defaultMessage": "Number of Housing Units (1950 - 1959)",
+    "description": "Title for a page about a statistical variable. Variable describes the total number of housing units which was built in that time period."
+  },
+  "Count_HousingUnit_1960To1969DateBuilt": {
+    "defaultMessage": "Number of Housing Units (1960 - 1969)",
+    "description": "Title for a page about a statistical variable. Variable describes the total number of housing units which was built in that time period."
+  },
+  "Count_HousingUnit_1970To1979DateBuilt": {
+    "defaultMessage": "Number of Housing Units (1970 - 1979)",
+    "description": "Title for a page about a statistical variable. Variable describes the total number of housing units which was built in that time period."
+  },
+  "Count_HousingUnit_1980To1989DateBuilt": {
+    "defaultMessage": "Number of Housing Units (1980 - 1989)",
+    "description": "Title for a page about a statistical variable. Variable describes the total number of housing units which was built in that time period."
+  },
+  "Count_HousingUnit_1990To1999DateBuilt": {
+    "defaultMessage": "Number of Housing Units (1990 - 1999)",
+    "description": "Title for a page about a statistical variable. Variable describes the total number of housing units which was built in that time period."
+  },
+  "Count_HousingUnit_2000To2009DateBuilt": {
+    "defaultMessage": "Number of Housing Units (2000 - 2009)",
+    "description": "Title for a page about a statistical variable. Variable describes the total number of housing units which was built in that time period."
+  },
+  "Count_HousingUnit_2010OrLaterDateBuilt": {
+    "defaultMessage": "Number of Housing Units (After 2010)",
+    "description": "Title for a page about a statistical variable. Variable describes the total number of housing units which was built in that time period."
+  }
+}

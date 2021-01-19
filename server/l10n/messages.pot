@@ -17,13 +17,13 @@
 msgid ""
 msgstr ""
 
-#. Link to a Place page showing data related to Demographics for a place { cityName }. Please keep the string `%(cityName)s` as is in the final translation. Please see this string in action at https://datacommons.org
+#. Link to a Place page showing data related to Demographics for a place { cityName }. Please keep the string `%(cityName)s` as is in the final translation. Please see this string in action as "New York City Health" at https://datacommons.org
 #: server/templates/static/homepage.html:87
 #, python-format
 msgid "%(cityName)s Demographics"
 msgstr ""
 
-#. Link to a Place page showing data related to Health for a place { cityName }. Please keep the string `%(cityName)s` as is in the final translation. Please see this string in action at https://datacommons.org
+#. Link to a Place page showing data related to Health for a place { cityName }. Please keep the string `%(cityName)s` as is in the final translation. Please see this string in action as "Washington, DC Demographics" at https://datacommons.org
 #: server/templates/static/homepage.html:83
 #, python-format
 msgid "%(cityName)s Health"
@@ -33,18 +33,6 @@ msgstr ""
 #: server/templates/base.html:162
 #, python-format
 msgid "%(project)s is a Google supported project"
-msgstr ""
-
-#. Blog post entry. Please take care to maintain valid <a> tags in translation. See this string in action at https://datacommons.org
-#: server/templates/static/homepage.html:56
-#, python-format
-msgid "%(project)s is now accessible on Google Search! <a href=%(blog_url)s>Read more here</a>"
-msgstr ""
-
-#. Describes that the project is open sourced, and what it is built on top of (it extends a schema defined by schema.org). Please take care to maintain valid <a> tags in translation. See this string in action at https://datacommons.org
-#: server/templates/static/homepage.html:163
-#, python-format
-msgid "<a href=%(github_url)s>Open sourced</a>, built using <a href=%(schemaorg_url)s>%(tool)s</a>."
 msgstr ""
 
 #. The label for a link to our API documentation.
@@ -105,11 +93,6 @@ msgstr ""
 #. The label for a link to informational pages about the Data Commons project.
 #: server/templates/base.html:144
 msgid "Data Commons"
-msgstr ""
-
-#. Description of the Data Commons project. Please see this string in action at https://datacommons.org
-#: server/templates/static/homepage.html:35
-msgid "Data Commons is an open knowledge repository that combines data from public datasets using mapped common entities. It includes tools to easily explore and analyze data across different datasets without data cleaning or joining."
 msgstr ""
 
 #. The label for a link to data sources included in the Data Commons knowledge graph.
@@ -207,6 +190,41 @@ msgstr ""
 msgid "Gross National Income"
 msgstr ""
 
+#. Blog post entry. Please take care to maintain valid <a> tags in translation. See this string in action at https://datacommons.org
+#: server/templates/static/homepage.html:56
+msgid "HOME-BLOG_POST_1"
+msgstr "%(project)s is now accessible on Google Search! <a href=%(blog_url)s>Read more here</a>"
+
+#. Describes building your own tools and analysis using our API (here Python refers to the programming language - see python.org, and REST is an acronym for REST is an acronym for REpresentational State Transfer). Please see this string in action at https://datacommons.org
+#: server/templates/static/homepage.html:143
+msgid "HOME-BUILD_CALLOUT"
+msgstr "Use the Python and REST API's to do your own custom analysis, build your own tools and more."
+
+#. A header of a section showing the many data sources included in the Data Commons Graph. See this string at https://datacommons.org
+#: server/templates/static/homepage.html:176
+msgid "HOME-DATA_SOURCES"
+msgstr "Including data from"
+
+#. Describes how we clean and process data for import once, usually a painful part of data analysis. Data is imported into a unified graph (e.g. data about California from many sources are all added to the same node in our graph. Please see this string in action at https://datacommons.org
+#: server/templates/static/homepage.html:69
+msgid "HOME-EXPLORE_CALLOUT"
+msgstr "We cleaned and processed the data so you don't have to. Data about particular entities are aggregated from different sources for a unified view."
+
+#. Description of the Data Commons project. Please see this string in action at https://datacommons.org
+#: server/templates/static/homepage.html:35
+msgid "HOME-HERO_MESSAGE"
+msgstr "Data Commons is an open knowledge repository that combines data from public datasets using mapped common entities. It includes tools to easily explore and analyze data across different datasets without data cleaning or joining."
+
+#. A link soliciting contributions to the project from the community. See this string at https://datacommons.org
+#: server/templates/static/homepage.html:169
+msgid "HOME-JOIN_EFFORT"
+msgstr "Join the effort."
+
+#. Describes that the project is open sourced, and what it is built on top of (it extends a schema defined by schema.org). Please take care to maintain valid <a> tags in translation. See this string in action at https://datacommons.org
+#: server/templates/static/homepage.html:163
+msgid "HOME-OPEN_SOURCED"
+msgstr "<a href=%(github_url)s>Open sourced</a>, built using <a href=%(schemaorg_url)s>%(tool)s</a>."
+
 #. TRANSLATORS: Label for rankings of places by the number of combined criminal activities, per capita (sorted from highest to lowest).
 #: server/routes/api/place.py:523
 msgid "Highest Crime Per Capita"
@@ -227,15 +245,6 @@ msgstr ""
 msgid "Highest Unemployment Rate"
 msgstr ""
 
-#: server/templates/static/homepage.html:175
-msgid "Including data from"
-msgstr ""
-
-#. A link soliciting contributions to the project from the community.
-#: server/templates/static/homepage.html:169
-msgid "Join the effort."
-msgstr ""
-
 #. TRANSLATORS: Label for rankings of places by size of population (sorted from highest to lowest).
 #: server/routes/api/place.py:59
 msgid "Largest Population"
@@ -251,6 +260,11 @@ msgstr ""
 msgid "Loading..."
 msgstr ""
 
+#. String showing that there are many more links available. Feel free to replace ellipsis with other language appropriate equivalents. Please see this string in action at https://datacommons.org
+#: server/templates/static/homepage.html:90 server/templates/static/homepage.html:111 server/templates/static/homepage.html:131
+msgid "MORE"
+msgstr "more ..."
+
 #. Heading for a list of links to rankings of places in the US, by their median income. See this message on https://datacommons.org/place
 #: server/templates/place_landing.html:107
 msgid "Median Income, United States"
@@ -261,12 +275,12 @@ msgstr ""
 msgid "New York City Department of Education"
 msgstr ""
 
-#. The header for a section on how Data Commons is an open, community effort.
+#. The header for a section on how Data Commons is an open, community effort. See this string at https://datacommons.org
 #: server/templates/static/homepage.html:157
 msgid "Open"
 msgstr ""
 
-#. Describes that the data in the graph is open (the code importing the data into the graph is open sourced).
+#. Describes that the data in the graph is open (the code importing the data into the graph is open sourced). See this string at https://datacommons.org
 #: server/templates/static/homepage.html:160
 msgid "Open Data."
 msgstr ""
@@ -274,12 +288,12 @@ msgstr ""
 #. Introduction to the Place Explorer tool. Please wrap each paragraph with <p> and </p> tags. See this message on https://datacommons.org/place
 #: server/templates/place_landing.html:49
 msgid "PLACE_EXPLORER_INTRO"
-msgstr "<p>The Place Explorer tool helps you understand the core data underlying a place. It pulls together a set of charts on the demographics, education, economics, etc., of the place, placing them in context with comparisons to other places. You can also see how different places rank along different metrics line unemployment, crime and income.</p><p>You can dive into the charts for your favorite city, zipcode, county, state or country using the search box above.</p><p>Or, start exploring some well known places ...</p>"
+msgstr ""
 
 #. The name of a tool to browse statistics about a place.
 #: server/templates/base.html:72 server/templates/base.html:122 server/templates/place.html:19 server/templates/place.html:20 server/templates/place_landing.html:19 server/templates/place_landing.html:20 server/templates/place_landing.html:38
 msgid "Place Explorer"
-msgstr ""
+msgstr "<p>The Place Explorer tool helps you understand the core data underlying a place. It pulls together a set of charts on the demographics, education, economics, etc., of the place, placing them in context with comparisons to other places. You can also see how different places rank along different metrics like unemployment, crime and income.</p><p>You can dive into the charts for your favorite city, zipcode, county, state or country using the search box above.</p><p>Or, start exploring some well known places ...</p>"
 
 #. The name of a tool to view rankings of places by a specified dimension.
 #: server/templates/ranking.html:19 server/templates/ranking.html:20
@@ -306,7 +320,7 @@ msgstr ""
 msgid "Richest vs. Poorest California Counties"
 msgstr ""
 
-#. The label for a link to our API documentation.
+#. The label for a link to our API documentation. See this string at https://datacommons.org
 #: server/templates/static/homepage.html:149
 msgid "See API documentation."
 msgstr ""
@@ -346,16 +360,6 @@ msgstr ""
 msgid "Unemployment Rate, United States"
 msgstr ""
 
-#. Describes building your own tools and analysis using our API (here Python refers to the programming language - see python.org, and REST is an acronym for REST is an acronym for REpresentational State Transfer). Please see this string in action at https://datacommons.org
-#: server/templates/static/homepage.html:143
-msgid "Use the Python and REST API's to do your own custom analysis, build your own tools and more."
-msgstr ""
-
-#. Describes how we clean and process data for import once, usually a painful part of data analysis. Data is imported into a unified graph (e.g. data about California from many sources are all added to the same node in our graph. Please see this string in action at https://datacommons.org
-#: server/templates/static/homepage.html:69
-msgid "We cleaned and processed the data so you don't have to. Data about particular entities are aggregated from different sources for a unified view."
-msgstr ""
-
 #. Header for list of blog posts and project updates. Please see this string in action at https://datacommons.org
 #: server/templates/static/homepage.html:51
 msgid "What's new"
@@ -384,10 +388,5 @@ msgstr ""
 #. Link to US rankings for life expectancy by state. See this message on https://datacommons.org/place
 #: server/templates/place_landing.html:141
 msgid "in United States"
-msgstr ""
-
-#. String showing that there are many more links available. Please see this string in action at https://datacommons.org
-#: server/templates/static/homepage.html:90 server/templates/static/homepage.html:111 server/templates/static/homepage.html:131
-msgid "more ..."
 msgstr ""
 
