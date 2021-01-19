@@ -28,6 +28,7 @@
 set -e
 
 ENV=$1
+REGION=$2
 
 if [[ $ENV != "staging" && $ENV != "prod" && $ENV != "autopush" ]]; then
   echo "First argument should be 'staging' or 'prod' "
@@ -44,9 +45,6 @@ MIXER_TAG=$(git rev-parse --short HEAD)
 cd $ROOT
 
 PROJECT_ID=$(yq read $ROOT/deploy/gke/$ENV.yaml project)
-# Only deploy to the primary region for now.
-# Once Bigtable replication is done, deploy for all regions
-REGION=$(yq read $ROOT/deploy/gke/$ENV.yaml region.primary)
 CLUSTER_NAME=website-$REGION
 
 cd $ROOT/deploy/overlays/$ENV

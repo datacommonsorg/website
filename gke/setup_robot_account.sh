@@ -23,7 +23,7 @@ SERVICE_ACCOUNT="$NAME@$PROJECT_ID.iam.gserviceaccount.com"
 
 # Data store project roles
 declare -a roles=(
-    "roles/bigquery.user"   # Query BigQuery
+    "roles/bigquery.admin"   # Query BigQuery
     "roles/bigtable.reader" # Query Bigtable
     "roles/storage.objectViewer" # Branch Cache Read
     "roles/pubsub.editor" # Branch Cache subscription
@@ -49,6 +49,7 @@ declare -a roles=(
     "roles/stackdriver.resourceMetadata.writer"
     "roles/compute.networkViewer"
     "roles/cloudtrace.agent"
+    "roles/bigquery.jobUser"   # Query BigQuery
 )
 for role in "${roles[@]}"
 do
