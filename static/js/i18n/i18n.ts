@@ -33,7 +33,10 @@ let intl: IntlShape;
  * Load compiled messages into the global intl object.
  *
  * @param locale: Locale determined server-side for consistency.
- * @param modules: An array of Promises from calling import on the compiled message module for the current locale. Note that this needs to be done from the app so that we won't have to bundle all compiled messages across apps. See https://webpack.js.org/api/module-methods/#dynamic-expressions-in-import
+ * @param modules: An array of Promises from calling import on the compiled
+ *   message module for the current locale. Note that this needs to be done from
+ *   the app so that we won't have to bundle all compiled messages across apps.
+ *   See https://webpack.js.org/api/module-methods/#dynamic-expressions-in-import
  */
 async function loadLocaleData(
   locale: string,
@@ -48,9 +51,17 @@ async function loadLocaleData(
   });
 }
 
-// Only use this for variables. Raw strings in JS should call
-// intl.formatMessage or <FormattedMessage> directly
-// in order for the extractor to pick up the id.
+/**
+ * Returns translation for message with :id. If unavailable, :id is returned as
+ * the translation.
+ *
+ * Note: Only use this for variables. Raw strings in JS should call
+ * intl.formatMessage or <FormattedMessage> directly in order for the extractor
+ * to pick up the id.
+ *
+ * @param id: message bundle id
+ * @return translation for :id, or :id if translation is unavailable.
+ */
 function translateVariableString(id: string): string {
   if (!id) {
     return "";
