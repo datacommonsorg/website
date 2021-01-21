@@ -21,8 +21,8 @@
 import * as d3 from "d3";
 import * as geo from "geo-albers-usa-territories";
 import { GeoJsonData, GeoJsonFeature } from "./types";
-import { STATS_VAR_LABEL } from "../shared/stats_var_labels";
 import { getColorFn, formatYAxisTicks } from "./base";
+import { translateVariableString } from "../i18n/i18n";
 
 const MISSING_DATA_COLOR = "#999";
 const TOOLTIP_ID = "tooltip";
@@ -75,7 +75,7 @@ function drawChoropleth(
   statVar: string,
   urlSuffix: string
 ): void {
-  const label = STATS_VAR_LABEL[statVar];
+  const label = translateVariableString(statVar);
   const maxColor = d3.color(getColorFn([label])(label));
   const colorScale = d3
     .scaleLinear()

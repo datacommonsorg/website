@@ -171,7 +171,6 @@ export function displayNameForPlaceType(
   placeType: string,
   isPlural = false
 ): string {
-  console.log(placeType);
   if (placeType.startsWith("AdministrativeArea")) {
     const level = placeType.slice(-1);
     if (!Number.isInteger(level)) {

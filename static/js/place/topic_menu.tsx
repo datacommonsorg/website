@@ -16,7 +16,7 @@
 
 import React from "react";
 import { PageChart } from "../chart/types";
-import { intl, translateVariableString } from "../i18n/i18n";
+import { intl } from "../i18n/i18n";
 
 interface MenuCategoryPropsType {
   dcid: string;
@@ -56,7 +56,7 @@ class MenuCategory extends React.Component<MenuCategoryPropsType> {
               return (
                 <li className="nav-item" key={topic}>
                   <a href={`${hrefString}#${topic}`} className="nav-link">
-                    {translateVariableString(topic)}
+                    {topic}
                   </a>
                 </li>
               );

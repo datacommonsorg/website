@@ -16,7 +16,6 @@
 
 import React from "react";
 import axios from "axios";
-import { STATS_VAR_TITLES } from "../shared/stats_var_titles";
 import { LocationRankData } from "./ranking_types";
 import { RankingHistogram } from "./ranking_histogram";
 import { RankingTable } from "./ranking_table";
@@ -50,10 +49,7 @@ class Page extends React.Component<RankingPagePropType, RankingPageStateType> {
     this.state = {
       data: undefined,
     };
-    this.svTitle =
-      props.statVar in STATS_VAR_TITLES
-        ? translateVariableString(STATS_VAR_TITLES[props.statVar])
-        : props.statVar;
+    this.svTitle = translateVariableString(props.statVar);
     this.pluralPlaceType = translateVariableString(
       displayNameForPlaceType(this.props.placeType, true /* isPlural */)
     );
