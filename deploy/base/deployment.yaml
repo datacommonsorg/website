@@ -87,9 +87,10 @@ spec:
               cpu: "500m"
           args:
             - --bq_dataset=$(BIG_QUERY)
-            - --bt_table=$(BIG_TABLE)
+            - --base_bt_instance=prophet-cache
+            - --base_table=$(BIG_TABLE)
+            - --branch_bt_instance=prophet-branch-cache
             - --bt_project=google.com:datcom-store-dev
-            - --bt_instance=prophet-cache
             - --project_id=$(PROJECT_ID)
             - --schema_path=/datacommons/mapping
           volumeMounts:
@@ -117,7 +118,6 @@ spec:
             exec:
               command: ["/bin/grpc_health_probe", "-addr=:12345"]
             periodSeconds: 5
-            failureThreshold: 60
           livenessProbe:
             exec:
               command: ["/bin/grpc_health_probe", "-addr=:12345"]
