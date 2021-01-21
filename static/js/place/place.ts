@@ -175,7 +175,7 @@ function renderPage(): void {
       import(`../i18n/compiled-lang/${locale}/stats_var_labels.json`),
     ]),
   ])
-    .then(([landingPageData, ld]) => {
+    .then(([landingPageData]) => {
       const loadingElem = document.getElementById("page-loading");
       if (_.isEmpty(landingPageData)) {
         loadingElem.innerText =
