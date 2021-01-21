@@ -1,42 +1,57 @@
-import { createIntl, createIntlCache } from "react-intl";
+import { createIntl, createIntlCache, IntlShape } from "react-intl";
 
 // Get locale from query params. If none, use navigator language.
-function determineLocale() {
-  const urlParams = new URLSearchParams(window.location.search);
-  let locale = urlParams.get("hl");
-  if (!locale) {
-    locale = navigator.language;
-  }
-  return locale;
-}
-const locale = determineLocale();
+// function determineLocale() {
+//   const urlParams = new URLSearchParams(window.location.search);
+//   const locale = urlParams.get("hl");
+//   if (
+//     [
+//       "de",
+//       "en",
+//       "es",
+//       "fr",
+//       "hi",
+//       "it",
+//       "ja",
+//       "ko",
+//       "pt-BR",
+//       "ru",
+//       "zh-CN",
+//     ].includes(locale)
+//   ) {
+//     return locale;
+//   }
+//   return "en";
+// }
+// const locale = determineLocale();
 
 // A single cache instance can be shared for all locales.
+// TODO(beets): might not be necessary since we create one intl object.
 const intlCache = createIntlCache();
-
-// TODO(tjann): see if we can ship locale specific js bundles.
-function loadLocaleData(locale: string): Promise<Record<any, any>> {
-  if (
-    ["de", "es", "fr", "hi", "it", "ja", "ko", "pt-BR", "ru", "zh-CN"].includes(
-      locale
-    )
-  ) {
-    return import(`./compiled-lang/${locale}/place.json`);
-  }
-  return import("./compiled-lang/en/place.json");
-}
 
 // This IntlShape object will be used for both React Intl's
 // React Component API (arg for RawIntlProvider) and
 // Imperative API (format<X> method).
-// TODO(datcom): Make this a promise.
-let intl;
-async function initIntl() {
-  const messages = await loadLocaleData(locale);
-  intl = createIntl({ locale, messages }, intlCache);
-  // Now the intl object is localized and ready to use.
+let intl: IntlShape;
+
+/**
+ * Load compiled messages into the global intl object.
+ *
+ * @param locale: Locale determined server-side for consistency.
+ * @param modules: An array of Promises from calling import on the compiled message module for the current locale. Note that this needs to be done from the app so that we won't have to bundle all compiled messages across apps. See https://webpack.js.org/api/module-methods/#dynamic-expressions-in-import
+ */
+async function loadLocaleData(
+  locale: string,
+  modules: Promise<Record<any, any>>[]
+): Promise<void> {
+  const allMessages = {};
+  Promise.all(modules).then((messages) => {
+    for (const msg of messages) {
+      Object.assign(allMessages, msg.default);
+    }
+    intl = createIntl({ locale, messages: allMessages }, intlCache);
+  });
 }
-initIntl();
 
 // Only use this for variables. Raw strings in JS should call
 // intl.formatMessage or <FormattedMessage> directly
@@ -55,4 +70,4 @@ function translateVariableString(id: string): string {
   });
 }
 
-export { locale, intl, translateVariableString };
+export { loadLocaleData, intl, translateVariableString };
