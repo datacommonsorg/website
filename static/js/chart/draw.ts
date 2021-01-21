@@ -95,7 +95,7 @@ function wrap(
 ) {
   texts.each(function () {
     const text = d3.select(this);
-    const words = text //translateVariableString(text.text())
+    const words = text
       .text()
       .replace("-", "-#") // Handle e.g. "ABC-AB A" -> "ABC-", "AB" "A"
       .split(/[ #]/)
@@ -839,7 +839,6 @@ function drawGroupLineChart(
     .attr("transform", `translate(${MARGIN.grid}, ${YLABEL.topMargin})`)
     .style("font-size", "12px")
     .style("text-rendering", "optimizedLegibility")
-    //.text(translateVariableString(ylabel));
     .text(ylabel);
 
   for (const place in dataGroupsDict) {
@@ -881,7 +880,6 @@ function drawGroupLineChart(
       .style("font-size", "12px")
       .style("text-anchor", "start")
       .style("text-rendering", "optimizedLegibility")
-      //.text(translateVariableString(sourceText));
       .text(sourceText);
   }
 
@@ -934,7 +932,6 @@ function buildInChartLegend(
       .attr("transform", `translate(${dashWidth}, 0)`)
       .attr("y", "0.3em")
       .attr("dy", "0")
-      //.text(translateVariableString(label))
       .text(label)
       .style("text-rendering", "optimizedLegibility")
       .style("fill", `${legendStyle.color}`)
