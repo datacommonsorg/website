@@ -36,7 +36,6 @@ function setup_python {
   python3 -m venv .env
   source .env/bin/activate
   pip3 install -r server/requirements.txt -q
-  .env/bin/pybabel compile -d server/l10n -f -D all
 }
 
 # Run test for client side code.

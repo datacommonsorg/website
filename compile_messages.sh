@@ -12,15 +12,22 @@
 # WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 # See the License for the specific language governing permissions and
 # limitations under the License.
+
 set -e
+
+cd static
+npm install --update
+#for MODULE in stats_var_titles stats_var_labels place;
+for MODULE in stats_var_labels place;
+do
+  for LANG in de en es fr hi it ja ko pt-BR ru zh-CN;
+  do
+    npm run compile -- js/i18n/strings/$LANG/$MODULE.json --ast --out-file js/i18n/compiled-lang/$LANG/$MODULE.json
+  done
+done
+cd ..
 
 python3 -m venv .env
 source .env/bin/activate
-
-export GOOGLE_CLOUD_PROJECT=datcom-browser-staging
-export FLASK_ENV=development
-
 pip3 install -r server/requirements.txt -q
-cd server
-python3 main.py
-cd ..
+.env/bin/pybabel compile -d server/l10n -f -D all

@@ -1,0 +1,1412 @@
+{
+  "Amount_Consumption_Alcohol_15OrMoreYears_AsFractionOf_Count_Person_15OrMoreYears": [
+    {
+      "type": 0,
+      "value": "अल्कोहल की खपत"
+    }
+  ],
+  "Amount_Consumption_Electricity_PerCapita": [
+    {
+      "type": 0,
+      "value": "बिजली की खपत"
+    }
+  ],
+  "Amount_Consumption_Energy_PerCapita": [
+    {
+      "type": 0,
+      "value": "ऊर्जा की खपत"
+    }
+  ],
+  "Amount_Debt_Government": [
+    {
+      "type": 0,
+      "value": "सरकारी क़र्ज़"
+    }
+  ],
+  "Amount_EconomicActivity_ExpenditureActivity_EducationExpenditure_Government_AsFractionOf_Amount_EconomicActivity_ExpenditureActivity_Government": [
+    {
+      "type": 0,
+      "value": "शिक्षा पर सरकारी खर्च (कुल सरकारी खर्च का %)"
+    }
+  ],
+  "Amount_EconomicActivity_ExpenditureActivity_EducationExpenditure_Government_AsFractionOf_Amount_EconomicActivity_GrossDomesticProduction_Nominal": [
+    {
+      "type": 0,
+      "value": "शिक्षा पर सरकारी खर्च (GDP का %)"
+    }
+  ],
+  "Amount_EconomicActivity_ExpenditureActivity_MilitaryExpenditure_Government": [
+    {
+      "type": 0,
+      "value": "सेना पर होने वाला सरकारी खर्च"
+    }
+  ],
+  "Amount_EconomicActivity_ExpenditureActivity_MilitaryExpenditure_Government_AsFractionOf_Amount_EconomicActivity_GrossDomesticProduction_Nominal": [
+    {
+      "type": 0,
+      "value": "सेना पर होने वाला सरकारी खर्च (GDP का प्रतिशत)"
+    }
+  ],
+  "Amount_EconomicActivity_GrossDomesticProduction_Nominal": [
+    {
+      "type": 0,
+      "value": "GDP"
+    }
+  ],
+  "Amount_EconomicActivity_GrossDomesticProduction_Nominal_PerCapita": [
+    {
+      "type": 0,
+      "value": "प्रति व्यक्ति GDP"
+    }
+  ],
+  "Amount_EconomicActivity_GrossNationalIncome_PurchasingPowerParity": [
+    {
+      "type": 0,
+      "value": "GNI PPP"
+    }
+  ],
+  "Amount_EconomicActivity_GrossNationalIncome_PurchasingPowerParity_PerCapita": [
+    {
+      "type": 0,
+      "value": "प्रति व्यक्ति GNI PPP"
+    }
+  ],
+  "Amount_Emissions_CarbonDioxide_PerCapita": [
+    {
+      "type": 0,
+      "value": "CO2 उत्सर्जन"
+    }
+  ],
+  "Amount_Remittance_InwardRemittance": [
+    {
+      "type": 0,
+      "value": "लोगों के बैंक खातों में जमा कुल रकम"
+    }
+  ],
+  "Amount_Remittance_InwardRemittance_AsFractionOf_Amount_EconomicActivity_GrossDomesticProduction_Nominal": [
+    {
+      "type": 0,
+      "value": "लोगों के बैंक खातों में जमा कुल रकम (GDP का %)"
+    }
+  ],
+  "Amount_Remittance_OutwardRemittance": [
+    {
+      "type": 0,
+      "value": "किसी जगह से गया हुआ पैसा"
+    }
+  ],
+  "Amount_Stock": [
+    {
+      "type": 0,
+      "value": "घरेलू कंपनियों का बाज़ार पूंजीकरण"
+    }
+  ],
+  "Amount_Stock_AsFractionOf_Amount_EconomicActivity_GrossDomesticProduction_Nominal": [
+    {
+      "type": 0,
+      "value": "घरेलू कंपनियों का बाज़ार पूंजीकरण (GDP का %)"
+    }
+  ],
+  "Count_CriminalActivities_Arson": [
+    {
+      "type": 0,
+      "value": "आगज़नी"
+    }
+  ],
+  "Count_CriminalActivities_CombinedCrime": [
+    {
+      "type": 0,
+      "value": "हर तरह के अपराधों की संख्या"
+    }
+  ],
+  "Count_CriminalActivities_PropertyCrime": [
+    {
+      "type": 0,
+      "value": "प्रॉपर्टी से जुड़े अपराधों की कुल संख्या"
+    }
+  ],
+  "Count_CriminalActivities_ViolentCrime": [
+    {
+      "type": 0,
+      "value": "हिंसक अपराधों की संख्या"
+    }
+  ],
+  "Count_CycloneEvent": [
+    {
+      "type": 0,
+      "value": "चक्रवात"
+    }
+  ],
+  "Count_Death_0Years_AsFractionOf_Count_BirthEvent_LiveBirth": [
+    {
+      "type": 0,
+      "value": "नवजातों के मरने की दर"
+    }
+  ],
+  "Count_Death_0Years_Female_AsFractionOf_Count_BirthEvent_LiveBirth_Female": [
+    {
+      "type": 0,
+      "value": "महिला"
+    }
+  ],
+  "Count_Death_0Years_Male_AsFractionOf_Count_BirthEvent_LiveBirth_Male": [
+    {
+      "type": 0,
+      "value": "पुरुष"
+    }
+  ],
+  "Count_Death_DiseasesOfTheCirculatorySystem": [
+    {
+      "type": 0,
+      "value": "परिसंचरण तंत्र"
+    }
+  ],
+  "Count_Death_DiseasesOfTheNervousSystem": [
+    {
+      "type": 0,
+      "value": "तंत्रिका तंत्र"
+    }
+  ],
+  "Count_Death_DiseasesOfTheRespiratorySystem": [
+    {
+      "type": 0,
+      "value": "श्वसन तंत्र"
+    }
+  ],
+  "Count_Death_ExternalCauses": [
+    {
+      "type": 0,
+      "value": "दूसरे कारण"
+    }
+  ],
+  "Count_Death_Neoplasms": [
+    {
+      "type": 0,
+      "value": "नियोप्लाज़्म (ट्यूमर) से होने वाली मौतें"
+    }
+  ],
+  "Count_DroughtEvent": [
+    {
+      "type": 0,
+      "value": "सूखा"
+    }
+  ],
+  "Count_EarthquakeEvent": [
+    {
+      "type": 0,
+      "value": "भूकंप"
+    }
+  ],
+  "Count_FloodEvent": [
+    {
+      "type": 0,
+      "value": "बाढ़"
+    }
+  ],
+  "Count_Household_IncomeOf100000To124999USDollar": [
+    {
+      "type": 0,
+      "value": "1 लाख डॉलर - 1.25 लाख डॉलर"
+    }
+  ],
+  "Count_Household_IncomeOf10000To14999USDollar": [
+    {
+      "type": 0,
+      "value": "10 हज़ार डॉलर - 15 हज़ार डॉलर"
+    }
+  ],
+  "Count_Household_IncomeOf125000To149999USDollar": [
+    {
+      "type": 0,
+      "value": "1.25 लाख डॉलर - 1.5 लाख डॉलर"
+    }
+  ],
+  "Count_Household_IncomeOf150000To199999USDollar": [
+    {
+      "type": 0,
+      "value": "1.5 लाख डॉलर - 2 लाख डॉलर"
+    }
+  ],
+  "Count_Household_IncomeOf200000OrMoreUSDollar": [
+    {
+      "type": 0,
+      "value": "2 लाख डॉलर से ज़्यादा"
+    }
+  ],
+  "Count_Household_IncomeOf20000To24999USDollar": [
+    {
+      "type": 0,
+      "value": "20 हज़ार डॉलर - 25 हज़ार डॉलर"
+    }
+  ],
+  "Count_Household_IncomeOf30000To34999USDollar": [
+    {
+      "type": 0,
+      "value": "30 हज़ार डॉलर - 35 हज़ार डॉलर"
+    }
+  ],
+  "Count_Household_IncomeOf40000To44999USDollar": [
+    {
+      "type": 0,
+      "value": "40 हज़ार डॉलर - 45 हज़ार डॉलर"
+    }
+  ],
+  "Count_Household_IncomeOf50000To59999USDollar": [
+    {
+      "type": 0,
+      "value": "50 हज़ार डॉलर - 60 हज़ार डॉलर"
+    }
+  ],
+  "Count_Household_IncomeOf60000To74999USDollar": [
+    {
+      "type": 0,
+      "value": "60 हज़ार डॉलर - 75 हज़ार डॉलर"
+    }
+  ],
+  "Count_Household_IncomeOf75000To99999USDollar": [
+    {
+      "type": 0,
+      "value": "75 हज़ार डॉलर - 1 लाख डॉलर"
+    }
+  ],
+  "Count_Household_IncomeOfUpto10000USDollar": [
+    {
+      "type": 0,
+      "value": "10 हज़ार डॉलर से कम"
+    }
+  ],
+  "Count_HousingUnit": [
+    {
+      "type": 0,
+      "value": "घरों की संख्या"
+    }
+  ],
+  "Count_HousingUnit_1940To1949DateBuilt": [
+    {
+      "type": 0,
+      "value": "1940 - 1949"
+    }
+  ],
+  "Count_HousingUnit_1950To1959DateBuilt": [
+    {
+      "type": 0,
+      "value": "1950 - 1959"
+    }
+  ],
+  "Count_HousingUnit_1960To1969DateBuilt": [
+    {
+      "type": 0,
+      "value": "1960 - 1969"
+    }
+  ],
+  "Count_HousingUnit_1970To1979DateBuilt": [
+    {
+      "type": 0,
+      "value": "1970 - 1979"
+    }
+  ],
+  "Count_HousingUnit_1980To1989DateBuilt": [
+    {
+      "type": 0,
+      "value": "1980 - 1989"
+    }
+  ],
+  "Count_HousingUnit_1990To1999DateBuilt": [
+    {
+      "type": 0,
+      "value": "1990 - 1999"
+    }
+  ],
+  "Count_HousingUnit_2000To2009DateBuilt": [
+    {
+      "type": 0,
+      "value": "2000 - 2009"
+    }
+  ],
+  "Count_HousingUnit_2010OrLaterDateBuilt": [
+    {
+      "type": 0,
+      "value": "2010 के बाद"
+    }
+  ],
+  "Count_HousingUnit_Before1939DateBuilt": [
+    {
+      "type": 0,
+      "value": "1939 से पहले"
+    }
+  ],
+  "Count_HousingUnit_HomeValue1000000To1499999USDollar": [
+    {
+      "type": 0,
+      "value": "10 लाख डॉलर - 15 लाख डॉलर"
+    }
+  ],
+  "Count_HousingUnit_HomeValue100000To199999USDollar": [
+    {
+      "type": 0,
+      "value": "1 लाख डॉलर - 2 लाख डॉलर"
+    }
+  ],
+  "Count_HousingUnit_HomeValue1500000To1999999USDollar": [
+    {
+      "type": 0,
+      "value": "15 लाख डॉलर - 20 लाख डॉलर"
+    }
+  ],
+  "Count_HousingUnit_HomeValue2000000OrMoreUSDollar": [
+    {
+      "type": 0,
+      "value": "20 लाख डॉलर से ज़्यादा"
+    }
+  ],
+  "Count_HousingUnit_HomeValue200000To299999USDollar": [
+    {
+      "type": 0,
+      "value": "2 लाख डॉलर - 3 लाख डॉलर"
+    }
+  ],
+  "Count_HousingUnit_HomeValue300000To499999USDollar": [
+    {
+      "type": 0,
+      "value": "3 लाख डॉलर - 5 लाख डॉलर"
+    }
+  ],
+  "Count_HousingUnit_HomeValue500000To999999USDollar": [
+    {
+      "type": 0,
+      "value": "5 लाख डॉलर - 10 लाख डॉलर"
+    }
+  ],
+  "Count_HousingUnit_HomeValue50000To99999USDollar": [
+    {
+      "type": 0,
+      "value": "50 हज़ार डॉलर - 1 लाख डॉलर"
+    }
+  ],
+  "Count_HousingUnit_HomeValueUpto49999USDollar": [
+    {
+      "type": 0,
+      "value": "0 - 50 हज़ार डॉलर"
+    }
+  ],
+  "Count_HousingUnit_HouseholderRaceAmericanIndianOrAlaskaNativeAlone": [
+    {
+      "type": 0,
+      "value": "अमेरिकी भारतीय या अलास्का का मूल निवासी"
+    }
+  ],
+  "Count_HousingUnit_HouseholderRaceAsianAlone": [
+    {
+      "type": 0,
+      "value": "सिर्फ़ एशियन"
+    }
+  ],
+  "Count_HousingUnit_HouseholderRaceBlackOrAfricanAmericanAlone": [
+    {
+      "type": 0,
+      "value": "अश्वेत या अफ़्रीकी-अमेरिकी"
+    }
+  ],
+  "Count_HousingUnit_HouseholderRaceHispanicOrLatino": [
+    {
+      "type": 0,
+      "value": "हिस्पैनिक या लैटिनो"
+    }
+  ],
+  "Count_HousingUnit_HouseholderRaceNativeHawaiianOrOtherPacificIslanderAlone": [
+    {
+      "type": 0,
+      "value": "हवाई का मूल निवासी या पैसिफ़िक आइलैंडर"
+    }
+  ],
+  "Count_HousingUnit_HouseholderRaceSomeOtherRaceAlone": [
+    {
+      "type": 0,
+      "value": "कोई अन्य नस्ल"
+    }
+  ],
+  "Count_HousingUnit_HouseholderRaceTwoOrMoreRaces": [
+    {
+      "type": 0,
+      "value": "दाे या इससे ज़्यादा नस्ल वाले"
+    }
+  ],
+  "Count_HousingUnit_HouseholderRaceWhiteAlone": [
+    {
+      "type": 0,
+      "value": "सिर्फ़ श्वेत"
+    }
+  ],
+  "Count_HousingUnit_OwnerOccupied": [
+    {
+      "type": 0,
+      "value": "मालिक"
+    }
+  ],
+  "Count_HousingUnit_RenterOccupied": [
+    {
+      "type": 0,
+      "value": "किरायेदार"
+    }
+  ],
+  "Count_Person": [
+    {
+      "type": 0,
+      "value": "कुल जनसंख्या"
+    }
+  ],
+  "Count_Person_10To14Years": [
+    {
+      "type": 0,
+      "value": "10-14"
+    }
+  ],
+  "Count_Person_10To19Years": [
+    {
+      "type": 0,
+      "value": "10-19"
+    }
+  ],
+  "Count_Person_15OrMoreYears": [
+    {
+      "type": 0,
+      "value": "15 से ज़्यादा"
+    }
+  ],
+  "Count_Person_15To19Years": [
+    {
+      "type": 0,
+      "value": "15-19"
+    }
+  ],
+  "Count_Person_15To64Years_InLaborForce_AsFractionOf_Count_Person_15To64Years": [
+    {
+      "type": 0,
+      "value": "मज़दूरों की संख्या"
+    }
+  ],
+  "Count_Person_16OrMoreYears": [
+    {
+      "type": 0,
+      "value": "16 से ज़्यादा"
+    }
+  ],
+  "Count_Person_18To24Years": [
+    {
+      "type": 0,
+      "value": "18-24"
+    }
+  ],
+  "Count_Person_20To24Years": [
+    {
+      "type": 0,
+      "value": "20-24"
+    }
+  ],
+  "Count_Person_20To29Years": [
+    {
+      "type": 0,
+      "value": "20-29"
+    }
+  ],
+  "Count_Person_25To29Years": [
+    {
+      "type": 0,
+      "value": "25-29"
+    }
+  ],
+  "Count_Person_25To34Years": [
+    {
+      "type": 0,
+      "value": "25-34"
+    }
+  ],
+  "Count_Person_25To34Years_EducationalAttainmentAssociatesDegree_Female": [
+    {
+      "type": 0,
+      "value": "महिला"
+    }
+  ],
+  "Count_Person_25To34Years_EducationalAttainmentAssociatesDegree_Male": [
+    {
+      "type": 0,
+      "value": "पुरुष"
+    }
+  ],
+  "Count_Person_25To34Years_EducationalAttainmentBachelorsDegree_Female": [
+    {
+      "type": 0,
+      "value": "महिला"
+    }
+  ],
+  "Count_Person_25To34Years_EducationalAttainmentBachelorsDegree_Male": [
+    {
+      "type": 0,
+      "value": "पुरुष"
+    }
+  ],
+  "Count_Person_25To34Years_EducationalAttainmentGraduateOrProfessionalDegree_Female": [
+    {
+      "type": 0,
+      "value": "महिला"
+    }
+  ],
+  "Count_Person_25To34Years_EducationalAttainmentGraduateOrProfessionalDegree_Male": [
+    {
+      "type": 0,
+      "value": "पुरुष"
+    }
+  ],
+  "Count_Person_30To34Years": [
+    {
+      "type": 0,
+      "value": "30-34"
+    }
+  ],
+  "Count_Person_30To39Years": [
+    {
+      "type": 0,
+      "value": "30-39"
+    }
+  ],
+  "Count_Person_35To39Years": [
+    {
+      "type": 0,
+      "value": "35-39"
+    }
+  ],
+  "Count_Person_35To44Years": [
+    {
+      "type": 0,
+      "value": "35-44"
+    }
+  ],
+  "Count_Person_40To44Years": [
+    {
+      "type": 0,
+      "value": "40-44"
+    }
+  ],
+  "Count_Person_40To49Years": [
+    {
+      "type": 0,
+      "value": "40-49"
+    }
+  ],
+  "Count_Person_45To49Years": [
+    {
+      "type": 0,
+      "value": "45-49"
+    }
+  ],
+  "Count_Person_45To54Years": [
+    {
+      "type": 0,
+      "value": "45-54"
+    }
+  ],
+  "Count_Person_50To54Years": [
+    {
+      "type": 0,
+      "value": "50-54"
+    }
+  ],
+  "Count_Person_50To59Years": [
+    {
+      "type": 0,
+      "value": "50-59"
+    }
+  ],
+  "Count_Person_55To59Years": [
+    {
+      "type": 0,
+      "value": "55-59"
+    }
+  ],
+  "Count_Person_55To64Years": [
+    {
+      "type": 0,
+      "value": "55-64"
+    }
+  ],
+  "Count_Person_5To17Years": [
+    {
+      "type": 0,
+      "value": "5-17"
+    }
+  ],
+  "Count_Person_5To9Years": [
+    {
+      "type": 0,
+      "value": "5-9"
+    }
+  ],
+  "Count_Person_60To61Years": [
+    {
+      "type": 0,
+      "value": "60-61"
+    }
+  ],
+  "Count_Person_60To64Years": [
+    {
+      "type": 0,
+      "value": "60-64"
+    }
+  ],
+  "Count_Person_60To69Years": [
+    {
+      "type": 0,
+      "value": "60-69"
+    }
+  ],
+  "Count_Person_62To64Years": [
+    {
+      "type": 0,
+      "value": "62-64"
+    }
+  ],
+  "Count_Person_65To69Years": [
+    {
+      "type": 0,
+      "value": "65-69"
+    }
+  ],
+  "Count_Person_65To74Years": [
+    {
+      "type": 0,
+      "value": "65-74"
+    }
+  ],
+  "Count_Person_70OrMoreYears": [
+    {
+      "type": 0,
+      "value": "70 से ज़्यादा"
+    }
+  ],
+  "Count_Person_70To74Years": [
+    {
+      "type": 0,
+      "value": "70-74"
+    }
+  ],
+  "Count_Person_70To79Years": [
+    {
+      "type": 0,
+      "value": "70-79"
+    }
+  ],
+  "Count_Person_75OrMoreYears": [
+    {
+      "type": 0,
+      "value": "75 से ज़्यादा"
+    }
+  ],
+  "Count_Person_75To79Years": [
+    {
+      "type": 0,
+      "value": "75-79"
+    }
+  ],
+  "Count_Person_7To14Years_Employed_AsFractionOf_Count_Person_7To14Years": [
+    {
+      "type": 0,
+      "value": "नौकरी करने वाले बच्चों का प्रतिशत"
+    }
+  ],
+  "Count_Person_7To14Years_Female_Employed_AsFractionOf_Count_Person_7To14Years_Female": [
+    {
+      "type": 0,
+      "value": "महिला"
+    }
+  ],
+  "Count_Person_7To14Years_Male_Employed_AsFractionOf_Count_Person_7To14Years_Male": [
+    {
+      "type": 0,
+      "value": "पुरुष"
+    }
+  ],
+  "Count_Person_80OrMoreYears": [
+    {
+      "type": 0,
+      "value": "80 से ज़्यादा"
+    }
+  ],
+  "Count_Person_80To84Years": [
+    {
+      "type": 0,
+      "value": "80-84"
+    }
+  ],
+  "Count_Person_AmericanIndianOrAlaskaNativeAlone": [
+    {
+      "type": 0,
+      "value": "अमेरिकी भारतीय या अलास्का का मूल निवासी"
+    }
+  ],
+  "Count_Person_AsianAlone": [
+    {
+      "type": 0,
+      "value": "सिर्फ़ एशियन"
+    }
+  ],
+  "Count_Person_BelowPovertyLevelInThePast12Months": [
+    {
+      "type": 0,
+      "value": "गरीबी"
+    }
+  ],
+  "Count_Person_BelowPovertyLevelInThePast12Months_AmericanIndianOrAlaskaNativeAlone": [
+    {
+      "type": 0,
+      "value": "अमेरिकी भारतीय या अलास्का का मूल निवासी"
+    }
+  ],
+  "Count_Person_BelowPovertyLevelInThePast12Months_AsianAlone": [
+    {
+      "type": 0,
+      "value": "एशियन"
+    }
+  ],
+  "Count_Person_BelowPovertyLevelInThePast12Months_BlackOrAfricanAmericanAlone": [
+    {
+      "type": 0,
+      "value": "अश्वेत या अफ़्रीकी-अमेरिकी"
+    }
+  ],
+  "Count_Person_BelowPovertyLevelInThePast12Months_HispanicOrLatino": [
+    {
+      "type": 0,
+      "value": "हिस्पैनिक या लैटिनो"
+    }
+  ],
+  "Count_Person_BelowPovertyLevelInThePast12Months_NativeHawaiianOrOtherPacificIslanderAlone": [
+    {
+      "type": 0,
+      "value": "हवाई का मूल निवासी या पैसिफ़िक आइलैंडर"
+    }
+  ],
+  "Count_Person_BelowPovertyLevelInThePast12Months_WhiteAlone": [
+    {
+      "type": 0,
+      "value": "श्वेत"
+    }
+  ],
+  "Count_Person_BlackOrAfricanAmericanAlone": [
+    {
+      "type": 0,
+      "value": "अश्वेत या अफ़्रीकी-अमेरिकी"
+    }
+  ],
+  "Count_Person_Divorced": [
+    {
+      "type": 0,
+      "value": "तलाकशुदा"
+    }
+  ],
+  "Count_Person_EducationalAttainmentBachelorsDegree": [
+    {
+      "type": 0,
+      "value": "स्नातक"
+    }
+  ],
+  "Count_Person_EducationalAttainmentDoctorateDegree": [
+    {
+      "type": 0,
+      "value": "डॉक्टरेट"
+    }
+  ],
+  "Count_Person_EducationalAttainmentMastersDegree": [
+    {
+      "type": 0,
+      "value": "मास्टर डिग्री"
+    }
+  ],
+  "Count_Person_EducationalAttainmentNoSchoolingCompleted": [
+    {
+      "type": 0,
+      "value": "स्कूली शिक्षा न लेने वालों की संख्या"
+    }
+  ],
+  "Count_Person_EducationalAttainmentRegularHighSchoolDiploma": [
+    {
+      "type": 0,
+      "value": "हाई स्कूल"
+    }
+  ],
+  "Count_Person_Employed": [
+    {
+      "type": 0,
+      "value": "नौकरी करने वाले लोग"
+    }
+  ],
+  "Count_Person_EnrolledInSchool": [
+    {
+      "type": 0,
+      "value": "स्कूल में नाम दर्ज कराने वालों की संख्या"
+    }
+  ],
+  "Count_Person_Female": [
+    {
+      "type": 0,
+      "value": "महिला"
+    }
+  ],
+  "Count_Person_Female_BelowPovertyLevelInThePast12Months": [
+    {
+      "type": 0,
+      "value": "महिला"
+    }
+  ],
+  "Count_Person_HispanicOrLatino": [
+    {
+      "type": 0,
+      "value": "हिस्पैनिक या लैटिनो"
+    }
+  ],
+  "Count_Person_InLaborForce": [
+    {
+      "type": 0,
+      "value": "मज़दूरों की संख्या"
+    }
+  ],
+  "Count_Person_IncomeOf10000To14999USDollar": [
+    {
+      "type": 0,
+      "value": "10 हज़ार डॉलर - 15 हज़ार डॉलर"
+    }
+  ],
+  "Count_Person_IncomeOf15000To24999USDollar": [
+    {
+      "type": 0,
+      "value": "15 हज़ार डॉलर - 25 हज़ार डॉलर"
+    }
+  ],
+  "Count_Person_IncomeOf25000To34999USDollar": [
+    {
+      "type": 0,
+      "value": "25 हज़ार डॉलर - 35 हज़ार डॉलर"
+    }
+  ],
+  "Count_Person_IncomeOf35000To49999USDollar": [
+    {
+      "type": 0,
+      "value": "35 हज़ार डॉलर - 50 हज़ार डॉलर"
+    }
+  ],
+  "Count_Person_IncomeOf50000To64999USDollar": [
+    {
+      "type": 0,
+      "value": "50 हज़ार डॉलर - 65 हज़ार डॉलर"
+    }
+  ],
+  "Count_Person_IncomeOf65000To74999USDollar": [
+    {
+      "type": 0,
+      "value": "65 हज़ार डॉलर - 75 हज़ार डॉलर"
+    }
+  ],
+  "Count_Person_IncomeOf75000OrMoreUSDollar": [
+    {
+      "type": 0,
+      "value": "75 हज़ार डॉलर से ज़्यादा"
+    }
+  ],
+  "Count_Person_IncomeOfUpto9999USDollar": [
+    {
+      "type": 0,
+      "value": "10 हज़ार डॉलर से कम"
+    }
+  ],
+  "Count_Person_Male": [
+    {
+      "type": 0,
+      "value": "पुरुष"
+    }
+  ],
+  "Count_Person_Male_BelowPovertyLevelInThePast12Months": [
+    {
+      "type": 0,
+      "value": "पुरुष"
+    }
+  ],
+  "Count_Person_MarriedAndNotSeparated": [
+    {
+      "type": 0,
+      "value": "विवाहित"
+    }
+  ],
+  "Count_Person_NativeHawaiianOrOtherPacificIslanderAlone": [
+    {
+      "type": 0,
+      "value": "हवाई का मूल निवासी या पैसिफ़िक आइलैंडर"
+    }
+  ],
+  "Count_Person_NeverMarried": [
+    {
+      "type": 0,
+      "value": "अविवाहित"
+    }
+  ],
+  "Count_Person_NotAUSCitizen": [
+    {
+      "type": 0,
+      "value": "नागरिक नहीं है"
+    }
+  ],
+  "Count_Person_NotEnrolledInSchool": [
+    {
+      "type": 0,
+      "value": "स्कूल में नाम न दर्ज कराने वालों की संख्या"
+    }
+  ],
+  "Count_Person_PerArea": [
+    {
+      "type": 0,
+      "value": "जनसंख्या घनत्व"
+    }
+  ],
+  "Count_Person_Rural": [
+    {
+      "type": 0,
+      "value": "ग्रामीण जनसंख्या"
+    }
+  ],
+  "Count_Person_Separated": [
+    {
+      "type": 0,
+      "value": "अलग किया गया"
+    }
+  ],
+  "Count_Person_SomeOtherRaceAlone": [
+    {
+      "type": 0,
+      "value": "कोई अन्य नस्ल"
+    }
+  ],
+  "Count_Person_TwoOrMoreRaces": [
+    {
+      "type": 0,
+      "value": "दाे या इससे ज़्यादा नस्ल वाले"
+    }
+  ],
+  "Count_Person_USCitizenBornAbroadOfAmericanParents": [
+    {
+      "type": 0,
+      "value": "विदेश में जन्मे"
+    }
+  ],
+  "Count_Person_USCitizenBornInTheUnitedStates": [
+    {
+      "type": 0,
+      "value": "अमेरिकी मूल के"
+    }
+  ],
+  "Count_Person_USCitizenByNaturalization": [
+    {
+      "type": 0,
+      "value": "कुदरती तौर पर वहां के नागरिक"
+    }
+  ],
+  "Count_Person_Upto4Years": [
+    {
+      "type": 0,
+      "value": "0-4"
+    }
+  ],
+  "Count_Person_Upto4Years_Female_SevereWasting_AsFractionOf_Count_Person_Upto4Years_Female": [
+    {
+      "type": 0,
+      "value": "महिला"
+    }
+  ],
+  "Count_Person_Upto4Years_Female_Wasting_AsFractionOf_Count_Person_Upto4Years_Female": [
+    {
+      "type": 0,
+      "value": "महिला"
+    }
+  ],
+  "Count_Person_Upto4Years_Male_SevereWasting_AsFractionOf_Count_Person_Upto4Years_Male": [
+    {
+      "type": 0,
+      "value": "पुरुष"
+    }
+  ],
+  "Count_Person_Upto4Years_Male_Wasting_AsFractionOf_Count_Person_Upto4Years_Male": [
+    {
+      "type": 0,
+      "value": "पुरुष"
+    }
+  ],
+  "Count_Person_Upto4Years_SevereWasting_AsFractionOf_Count_Person_Upto4Years": [
+    {
+      "type": 0,
+      "value": "पांच साल से छोटे बच्चों में गंभीर कुपोषण"
+    }
+  ],
+  "Count_Person_Upto4Years_Wasting_AsFractionOf_Count_Person_Upto4Years": [
+    {
+      "type": 0,
+      "value": "पांच साल से छोटे बच्चों में कुपोषण"
+    }
+  ],
+  "Count_Person_Upto9Years": [
+    {
+      "type": 0,
+      "value": "0-9"
+    }
+  ],
+  "Count_Person_Urban": [
+    {
+      "type": 0,
+      "value": "शहरी जनसंख्या"
+    }
+  ],
+  "Count_Person_WhiteAlone": [
+    {
+      "type": 0,
+      "value": "सिर्फ़ श्वेत"
+    }
+  ],
+  "Count_Person_Widowed": [
+    {
+      "type": 0,
+      "value": "विधवा"
+    }
+  ],
+  "Count_StormSurgeTideEvent": [
+    {
+      "type": 0,
+      "value": "तूफ़ानी ज्वार बढ़ना"
+    }
+  ],
+  "Count_ThunderstormWindEvent": [
+    {
+      "type": 0,
+      "value": "आंधी-तूफ़ान"
+    }
+  ],
+  "Count_TornadoEvent": [
+    {
+      "type": 0,
+      "value": "बवंडर"
+    }
+  ],
+  "Count_UnemploymentInsuranceClaim_StateUnemploymentInsurance": [
+    {
+      "type": 0,
+      "value": "बेरोज़गारी भत्तों पर दावे"
+    }
+  ],
+  "Count_WildlandFireEvent": [
+    {
+      "type": 0,
+      "value": "जंगल में लगने वाली आग"
+    }
+  ],
+  "CumulativeCount_MedicalConditionIncident_COVID_19_ConfirmedOrProbableCase": [
+    {
+      "type": 0,
+      "value": "COVID-19 के बढ़ते मामले"
+    }
+  ],
+  "CumulativeCount_MedicalConditionIncident_COVID_19_PatientDeceased": [
+    {
+      "type": 0,
+      "value": "COVID-19 की वजह से हुई मौतें"
+    }
+  ],
+  "FertilityRate_Person_Female": [
+    {
+      "type": 0,
+      "value": "प्रजनन दर"
+    }
+  ],
+  "GiniIndex_EconomicActivity": [
+    {
+      "type": 0,
+      "value": "Gini इंडेक्स"
+    }
+  ],
+  "GrowthRate_Amount_EconomicActivity_GrossDomesticProduction": [
+    {
+      "type": 0,
+      "value": "GDP वृद्धि दर"
+    }
+  ],
+  "GrowthRate_Count_Person": [
+    {
+      "type": 0,
+      "value": "जनसंख्या में बढ़ोतरी की दर"
+    }
+  ],
+  "LifeExpectancy_Person": [
+    {
+      "type": 0,
+      "value": "औसत उम्र"
+    }
+  ],
+  "Median_Age_Person": [
+    {
+      "type": 0,
+      "value": "औसत उम्र"
+    }
+  ],
+  "Median_Age_Person_AmericanIndianOrAlaskaNativeAlone": [
+    {
+      "type": 0,
+      "value": "अमेरिकी भारतीय या अलास्का का मूल निवासी"
+    }
+  ],
+  "Median_Age_Person_AsianAlone": [
+    {
+      "type": 0,
+      "value": "सिर्फ़ एशियन"
+    }
+  ],
+  "Median_Age_Person_BlackOrAfricanAmericanAlone": [
+    {
+      "type": 0,
+      "value": "अश्वेत या अफ़्रीकी-अमेरिकी"
+    }
+  ],
+  "Median_Age_Person_Female": [
+    {
+      "type": 0,
+      "value": "महिला"
+    }
+  ],
+  "Median_Age_Person_HispanicOrLatino": [
+    {
+      "type": 0,
+      "value": "हिस्पैनिक या लैटिनो"
+    }
+  ],
+  "Median_Age_Person_Male": [
+    {
+      "type": 0,
+      "value": "पुरुष"
+    }
+  ],
+  "Median_Age_Person_NativeHawaiianOrOtherPacificIslanderAlone": [
+    {
+      "type": 0,
+      "value": "हवाई का मूल निवासी या पैसिफ़िक आइलैंडर"
+    }
+  ],
+  "Median_Age_Person_SomeOtherRaceAlone": [
+    {
+      "type": 0,
+      "value": "कोई अन्य नस्ल"
+    }
+  ],
+  "Median_Age_Person_TwoOrMoreRaces": [
+    {
+      "type": 0,
+      "value": "दाे या इससे ज़्यादा नस्ल वाले"
+    }
+  ],
+  "Median_Age_Person_WhiteAlone": [
+    {
+      "type": 0,
+      "value": "सिर्फ़ श्वेत"
+    }
+  ],
+  "Median_Income_Household": [
+    {
+      "type": 0,
+      "value": "औसत पारिवारिक आय"
+    }
+  ],
+  "Median_Income_Household_HouseholderRaceAmericanIndianOrAlaskaNativeAlone": [
+    {
+      "type": 0,
+      "value": "अमेरिकी भारतीय या अलास्का का मूल निवासी"
+    }
+  ],
+  "Median_Income_Household_HouseholderRaceAsianAlone": [
+    {
+      "type": 0,
+      "value": "एशियन"
+    }
+  ],
+  "Median_Income_Household_HouseholderRaceBlackOrAfricanAmericanAlone": [
+    {
+      "type": 0,
+      "value": "अश्वेत या अफ़्रीकी-अमेरिकी"
+    }
+  ],
+  "Median_Income_Household_HouseholderRaceHispanicOrLatino": [
+    {
+      "type": 0,
+      "value": "हिस्पैनिक या लैटिनो"
+    }
+  ],
+  "Median_Income_Household_HouseholderRaceNativeHawaiianOrOtherPacificIslanderAlone": [
+    {
+      "type": 0,
+      "value": "हवाई का मूल निवासी या पैसिफ़िक आइलैंडर"
+    }
+  ],
+  "Median_Income_Household_HouseholderRaceWhiteAlone": [
+    {
+      "type": 0,
+      "value": "श्वेत"
+    }
+  ],
+  "Median_Income_Person": [
+    {
+      "type": 0,
+      "value": "औसत आय"
+    }
+  ],
+  "Median_Income_Person_15OrMoreYears_Female_WithIncome": [
+    {
+      "type": 0,
+      "value": "महिला"
+    }
+  ],
+  "Median_Income_Person_15OrMoreYears_Male_WithIncome": [
+    {
+      "type": 0,
+      "value": "पुरुष"
+    }
+  ],
+  "Percent_Person_18To64Years_Female_NoHealthInsurance": [
+    {
+      "type": 0,
+      "value": "महिला"
+    }
+  ],
+  "Percent_Person_18To64Years_Male_NoHealthInsurance": [
+    {
+      "type": 0,
+      "value": "पुरुष"
+    }
+  ],
+  "Percent_Person_18To64Years_NoHealthInsurance_BlackOrAfricanAmericanAlone": [
+    {
+      "type": 0,
+      "value": "अश्वेत या अफ़्रीकी-अमेरिकी"
+    }
+  ],
+  "Percent_Person_18To64Years_NoHealthInsurance_HispanicOrLatino": [
+    {
+      "type": 0,
+      "value": "हिस्पैनिक या लैटिनो"
+    }
+  ],
+  "Percent_Person_18To64Years_NoHealthInsurance_WhiteAlone": [
+    {
+      "type": 0,
+      "value": "श्वेत"
+    }
+  ],
+  "Percent_Person_BingeDrinking": [
+    {
+      "type": 0,
+      "value": "नशीले पदार्थ लगातार पीने वाले लोगों का प्रतिशत"
+    }
+  ],
+  "Percent_Person_Obesity": [
+    {
+      "type": 0,
+      "value": "मोटापा"
+    }
+  ],
+  "Percent_Person_PhysicalInactivity": [
+    {
+      "type": 0,
+      "value": "शारीरिक गतिविधि न करने वाले लोग"
+    }
+  ],
+  "Percent_Person_SleepLessThan7Hours": [
+    {
+      "type": 0,
+      "value": "सात घंटे से कम सोने वाले लोगों का प्रतिशत"
+    }
+  ],
+  "Percent_Person_Smoking": [
+    {
+      "type": 0,
+      "value": "धूम्रपान"
+    }
+  ],
+  "Percent_Person_WithArthritis": [
+    {
+      "type": 0,
+      "value": "गठिया"
+    }
+  ],
+  "Percent_Person_WithHighBloodPressure": [
+    {
+      "type": 0,
+      "value": "उच्च रक्तचाप"
+    }
+  ],
+  "Percent_Person_WithHighCholesterol": [
+    {
+      "type": 0,
+      "value": "हाई कोलेस्ट्रॉल वाले लोगों का प्रतिशत"
+    }
+  ],
+  "Percent_Person_WithMentalHealthNotGood": [
+    {
+      "type": 0,
+      "value": "ऐसे लोगों का प्रतिशत जिनका मानसिक स्वास्थ्य सही नहीं है"
+    }
+  ],
+  "Percent_Person_WithPhysicalHealthNotGood": [
+    {
+      "type": 0,
+      "value": "ऐसे लोगों का प्रतिशत जिनका शारीरिक स्वास्थ्य सही नहीं है"
+    }
+  ],
+  "RetailDrugDistribution_DrugDistribution_Amphetamine": [
+    {
+      "type": 0,
+      "value": "एंफ़िटामाइन (Amphetamine)"
+    }
+  ],
+  "RetailDrugDistribution_DrugDistribution_Codeine": [
+    {
+      "type": 0,
+      "value": "कोडीन (Codeine)"
+    }
+  ],
+  "RetailDrugDistribution_DrugDistribution_Hydrocodone": [
+    {
+      "type": 0,
+      "value": "हाइड्रॉकोडोन"
+    }
+  ],
+  "RetailDrugDistribution_DrugDistribution_Morphine": [
+    {
+      "type": 0,
+      "value": "मोर्फ़ीन (Morphine)"
+    }
+  ],
+  "RetailDrugDistribution_DrugDistribution_Oxycodone": [
+    {
+      "type": 0,
+      "value": "ऑक्सीकोडोन"
+    }
+  ],
+  "UnemploymentRate_Person": [
+    {
+      "type": 0,
+      "value": "बेरोज़गारी दर"
+    }
+  ],
+  "UnemploymentRate_Person_Female": [
+    {
+      "type": 0,
+      "value": "महिला"
+    }
+  ],
+  "UnemploymentRate_Person_Male": [
+    {
+      "type": 0,
+      "value": "पुरुष"
+    }
+  ]
+}

@@ -19,6 +19,3 @@ dist/
 tmp/
 
 .air.toml
-
-# compiled translations
-*.mo

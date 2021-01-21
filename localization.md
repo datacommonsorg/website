@@ -19,11 +19,10 @@ After transforming the translated textproto files from TC into json,
 one more step to compile the JSON into a format usable by FormatJS.
 
 ```
-for LANG in de en es fr hi it ja ko pt-BR ru zh-CN;
-do
-npm run compile -- js/i18n/strings/$LANG/place.json --ast --out-file js/i18n/compiled-lang/$LANG/place.json &&
-npm run compile -- js/i18n/strings/$LANG/stats_var_labels.json --ast --out-file js/i18n/compiled-lang/$LANG/stats_var_labels.json; done
+./compile_messages.sh
 ```
+
+NOTE: Don't forget to update the list of languages in that file if a new language is added.
 
 ## TODO
 
@@ -51,9 +50,13 @@ Then update the messages.po file per locale:
 .env/bin/pybabel update -l $LOCALE -i server/l10n/messages.pot -w 1000 -d server/l10n
 ```
 
-On server start, the messages are compiled, e.g.
+Then compile the messages for the server to use:
 ```
 .env/bin/pybabel compile -d server/l10n -D messages
+```
+or
+```
+./compile_messages.sh
 ```
 
 # For chart_config.json translations
