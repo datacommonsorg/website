@@ -78,6 +78,37 @@ function translateVariableString(id: string): string {
 }
 
 /**
+ * Adds / updates the hl parameter for the searchParams to maintain the current
+ * page's locale.
+ * TODO(beets): Add tests for this function.
+ *
+ * @param searchParams: to update
+ * @return potentially updated searchParams
+ */
+function localizeSearchParams(searchParams: URLSearchParams): URLSearchParams {
+  if (intl.locale == "en") {
+    return searchParams;
+  }
+  searchParams.set("hl", intl.locale);
+  return searchParams;
+}
+
+/**
+ * Adds / updates the hl parameter for the link to maintain the current page's locale.
+ * TODO(beets): Add tests for this function.
+ *
+ * @param href: to update
+ * @return potentially updated href
+ */
+function localizeLink(href: string): string {
+  const url = new URL(href, document.location.origin);
+  url.search = localizeSearchParams(
+    new URLSearchParams(url.searchParams)
+  ).toString();
+  return url.toString();
+}
+
+/**
  * Properties for LocalizedLink. Property names are analogous to those for <a> tags.
  */
 interface LocalizedLinkProps {
@@ -94,16 +125,7 @@ interface LocalizedLinkProps {
  * @return An <a> tag JSX element.
  */
 function LocalizedLink(props: LocalizedLinkProps): JSX.Element {
-  let href;
-  if (intl.locale == "en") {
-    href = props.href;
-  } else {
-    const url = new URL(props.href, document.location.origin);
-    const urlParams = new URLSearchParams(url.searchParams);
-    urlParams.set("hl", intl.locale);
-    url.search = urlParams.toString();
-    href = url.toString();
-  }
+  const href = localizeLink(props.href);
   return (
     <a href={href} className={props.className ? props.className : null}>
       {props.text}
@@ -111,4 +133,10 @@ function LocalizedLink(props: LocalizedLinkProps): JSX.Element {
   );
 }
 
-export { LocalizedLink, loadLocaleData, intl, translateVariableString };
+export {
+  LocalizedLink,
+  localizeSearchParams,
+  loadLocaleData,
+  intl,
+  translateVariableString,
+};

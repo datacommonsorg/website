@@ -941,7 +941,6 @@ function buildInChartLegend(
 }
 
 export {
-  appendLegendElem,
   drawGroupBarChart,
   drawGroupLineChart,
   drawHistogram,
