@@ -17,7 +17,7 @@
 python3 -m venv .env
 source .env/bin/activate
 
-export GOOGLE_CLOUD_PROJECT=datcom-browser-staging
+export GOOGLE_CLOUD_PROJECT=datcom-website-staging
 export FLASK_ENV=development
 cd server
 pip3 install -r requirements.txt

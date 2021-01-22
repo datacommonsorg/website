@@ -110,7 +110,7 @@ function run_webdriver_test {
     exit 1
   fi
   export FLASK_ENV=webdriver
-  export GOOGLE_CLOUD_PROJECT=datcom-browser-staging
+  export GOOGLE_CLOUD_PROJECT=datcom-website-staging
   pip3 install -r requirements.txt
 
   if [ $PYTEST_PARALLEL ]
@@ -134,7 +134,7 @@ function run_screenshot_test {
   fi
 
   export FLASK_ENV=webdriver
-  export GOOGLE_CLOUD_PROJECT=datcom-browser-staging
+  export GOOGLE_CLOUD_PROJECT=datcom-website-staging
   pip3 install -r requirements.txt
   if [  -d test_screenshots  ]
   then

@@ -50,13 +50,11 @@ const NUMBER_OF_CHARTS_PER_ROW = 3;
 const /** !Array<string> */ PROD_HOST = [
     "datacommons.org",
     "browser.datacommons.org",
-    "datcom-browser-prod.appspot.com",
   ];
 
 const /** !Array<string> */ STAGING_HOST = [
     "localhost:8080",
     "staging.datacommons.org",
-    "datcom-browser-staging.appspot.com",
   ];
 
 const API_DATA = {
