@@ -16,7 +16,7 @@
 
 import React from "react";
 import { displayNameForPlaceType } from "./util";
-import { intl } from "../i18n/i18n";
+import { intl, LocalizedLink } from "../i18n/i18n";
 import { RawIntlProvider, FormattedMessage } from "react-intl";
 
 interface ParentPlacePropsType {
@@ -39,13 +39,11 @@ class ParentPlace extends React.Component<ParentPlacePropsType> {
       }
       return (
         <React.Fragment key={dcid}>
-          <a
+          <LocalizedLink
             className="place-links"
-            href="#"
-            onClick={this._handleClick.bind(this, dcid)}
-          >
-            {name}
-          </a>
+            href={`/place/${dcid}`}
+            text={name}
+          />
           {index < num - 1 && <span>, </span>}
         </React.Fragment>
       );
@@ -66,14 +64,6 @@ class ParentPlace extends React.Component<ParentPlacePropsType> {
         />
       </RawIntlProvider>
     );
-  }
-
-  _handleClick(dcid: string, e: Event): void {
-    e.preventDefault();
-    const queryString = window.location.search;
-    const urlParams = new URLSearchParams(queryString);
-    urlParams.set("dcid", dcid);
-    window.location.search = urlParams.toString();
   }
 }
 
