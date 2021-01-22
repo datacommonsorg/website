@@ -12,6 +12,12 @@ You should have owner/editor role to perform the following tasks.
 
 - Add the GCP project id in `config.yaml`, **project** field.
 
+- Enable GCP services.
+
+  ```bash
+  ./enable_services.sh
+  ```
+
 - Create a global static IP in GCP.
 
   - Run:

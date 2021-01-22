@@ -18,9 +18,9 @@
 #
 # Usage:
 #
-# ./deploy_key.sh <"prod"|"staging">
+# ./deploy_key.sh <"autopush"|"staging"|"prod">
 #
-# First argument is either "prod" or "staging".
+# First argument is either "autopush", "staging" or "prod".
 #
 # !!! WARNING: Run this script in a clean Git checkout at the desired commit.
 #
@@ -29,7 +29,7 @@ set -e
 
 ENV=$1
 
-if [[ $ENV != "staging" && $ENV != "prod" ]]; then
+if [[ $ENV != "staging" && $ENV != "prod" && $ENV != "autopush" ]]; then
   echo "First argument should be 'staging' or 'prod' "
   exit
 fi

@@ -46,4 +46,24 @@ steps:
         git commit -m "Deployed website to staging at commit https://github.com/datacommonsorg/website/commit/$SHORT_SHA"
         git push origin master
 
+  # Deploy website with the latest mixer and base cache
+  - id: autopush
+    name: "gcr.io/cloud-builders/git"
+    entrypoint: /bin/bash
+    args:
+      - -c
+      - |
+        set -e
+
+        # Update mixer
+        cd mixer
+        git pull origin master
+
+        # Update bigtable and bigquery version
+        # TODO(shifucun): read latest version from GCS and update deploy/storage/**
+
+        ## Deploy autopush instance
+        cd ../
+        ./script/deploy_gke.sh autopush
+
 timeout: 3600s
