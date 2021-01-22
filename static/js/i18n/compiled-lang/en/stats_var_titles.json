@@ -749,24 +749,6 @@
       "value": "Number of People (Asian Alone)"
     }
   ],
-  "Count_Person_BelowPovertyLevel, ThePast12Months_AsianAlone": [
-    {
-      "type": 0,
-      "value": "Population (Below Poverty Level, Asian)"
-    }
-  ],
-  "Count_Person_BelowPovertyLevel, ThePast12Months_BlackOrAfricanAmericanAlone": [
-    {
-      "type": 0,
-      "value": "Population (Below Poverty Level, Black or African American)"
-    }
-  ],
-  "Count_Person_BelowPovertyLevel, ThePast12Months_HispanicOrLatino": [
-    {
-      "type": 0,
-      "value": "Population (Below Poverty Level, Hispanic or Latino)"
-    }
-  ],
   "Count_Person_BelowPovertyLevelInThePast12Months": [
     {
       "type": 0,
@@ -777,6 +759,24 @@
     {
       "type": 0,
       "value": "Population (Below Poverty Level, American Indian or Alaska Native)"
+    }
+  ],
+  "Count_Person_BelowPovertyLevelInThePast12Months_AsianAlone": [
+    {
+      "type": 0,
+      "value": "Population (Below Poverty Level, Asian)"
+    }
+  ],
+  "Count_Person_BelowPovertyLevelInThePast12Months_BlackOrAfricanAmericanAlone": [
+    {
+      "type": 0,
+      "value": "Population (Below Poverty Level, Black or African American)"
+    }
+  ],
+  "Count_Person_BelowPovertyLevelInThePast12Months_HispanicOrLatino": [
+    {
+      "type": 0,
+      "value": "Population (Below Poverty Level, Hispanic or Latino)"
     }
   ],
   "Count_Person_BelowPovertyLevelInThePast12Months_NativeHawaiianOrOtherPacificIslanderAlone": [

@@ -14,8 +14,9 @@
  * limitations under the License.
  */
 
+import { getStatsVarLabel } from "./stats_var_labels";
 import chartConfig from "../../../server/chart_config.json";
-import { loadLocaleData, translateVariableString } from "../i18n/i18n";
+import { loadLocaleData } from "../i18n/i18n";
 
 test("stats var label", () => {
   loadLocaleData("en", [
@@ -24,10 +25,13 @@ test("stats var label", () => {
     for (const chart of chartConfig) {
       if (!("aggregate" in chart)) {
         for (const statsVar of chart.statsVars) {
-          const label = translateVariableString(statsVar);
+          const label = getStatsVarLabel(statsVar);
           expect(label).not.toEqual(statsVar);
         }
       }
     }
+    expect(
+      getStatsVarLabel("Count_HousingUnit_HouseholderRaceWhiteAlone")
+    ).toEqual("White Alone");
   });
 });

@@ -22,6 +22,7 @@ import { RankingTable } from "./ranking_table";
 import { displayNameForPlaceType } from "../place/util";
 import { intl, translateVariableString } from "../i18n/i18n";
 import { defineMessages } from "react-intl";
+import { getStatsVarTitle } from "../shared/stats_var_titles";
 
 const GET_BOTTOM_PARAM = "bottom";
 const RANK_SIZE = 100;
@@ -49,7 +50,7 @@ class Page extends React.Component<RankingPagePropType, RankingPageStateType> {
     this.state = {
       data: undefined,
     };
-    this.svTitle = translateVariableString(props.statVar);
+    this.svTitle = getStatsVarTitle(props.statVar);
     this.pluralPlaceType = translateVariableString(
       displayNameForPlaceType(this.props.placeType, true /* isPlural */)
     );

@@ -795,15 +795,15 @@
     "defaultMessage": "Population (Below Poverty Level, American Indian or Alaska Native)",
     "description": "Title for a page about a statistical variable. Variable describes the number of people, in a population, who are living below the poverty level and are of a certain race. See https://www.census.gov/topics/income-poverty/poverty/guidance/poverty-measures.html and https://www.census.gov/topics/population/race/about.html"
   },
-  "Count_Person_BelowPovertyLevel, ThePast12Months_AsianAlone": {
+  "Count_Person_BelowPovertyLevelInThePast12Months_AsianAlone": {
     "defaultMessage": "Population (Below Poverty Level, Asian)",
     "description": "Title for a page about a statistical variable. Variable describes the number of people, in a population, who are living below the poverty level and are of a certain race. See https://www.census.gov/topics/income-poverty/poverty/guidance/poverty-measures.html and https://www.census.gov/topics/population/race/about.html"
   },
-  "Count_Person_BelowPovertyLevel, ThePast12Months_BlackOrAfricanAmericanAlone": {
+  "Count_Person_BelowPovertyLevelInThePast12Months_BlackOrAfricanAmericanAlone": {
     "defaultMessage": "Population (Below Poverty Level, Black or African American)",
     "description": "Title for a page about a statistical variable. Variable describes the number of people, in a population, who are living below the poverty level and are of a certain race. See https://www.census.gov/topics/income-poverty/poverty/guidance/poverty-measures.html and https://www.census.gov/topics/population/race/about.html"
   },
-  "Count_Person_BelowPovertyLevel, ThePast12Months_HispanicOrLatino": {
+  "Count_Person_BelowPovertyLevelInThePast12Months_HispanicOrLatino": {
     "defaultMessage": "Population (Below Poverty Level, Hispanic or Latino)",
     "description": "Title for a page about a statistical variable. Variable describes the number of people, in a population, who are living below the poverty level and are of a certain race. See https://www.census.gov/topics/income-poverty/poverty/guidance/poverty-measures.html and https://www.census.gov/topics/population/race/about.html"
   },

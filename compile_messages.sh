@@ -17,7 +17,8 @@ set -e
 
 cd static
 npm install --update
-#for MODULE in stats_var_titles stats_var_labels place;
+
+# TODO(beets): Add stats_var_titles when that bundle is ready
 for MODULE in stats_var_labels place;
 do
   for LANG in de en es fr hi it ja ko pt-BR ru zh-CN;
