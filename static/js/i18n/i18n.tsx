@@ -77,12 +77,22 @@ function translateVariableString(id: string): string {
   });
 }
 
+/**
+ * Properties for LocalizedLink. Property names are analogous to those for <a> tags.
+ */
 interface LocalizedLinkProps {
   className?: string;
   href: string;
   text: string;
 }
 
+/**
+ * Adds / updates the hl parameter for the link to maintain the current page's locale.
+ * TODO(beets): Add tests for this component.
+ *
+ * @param props: <a> tag properties to include
+ * @return An <a> tag JSX element.
+ */
 function LocalizedLink(props: LocalizedLinkProps): JSX.Element {
   let href;
   if (intl.locale == "en") {
