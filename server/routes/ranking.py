@@ -34,7 +34,7 @@ def ranking(stat_var, place_type, place_dcid=''):
         place_name = 'the World'
     per_capita = flask.request.args.get('pc', False) != False
     return flask.render_template('ranking.html',
-                                 locale=g.locale,
+                                 locale=flask.g.locale,
                                  place_name=place_name,
                                  place_dcid=place_dcid,
                                  place_type=place_type,
