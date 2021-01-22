@@ -26,6 +26,7 @@ from opencensus.ext.flask.flask_middleware import FlaskMiddleware
 from opencensus.ext.stackdriver.trace_exporter import StackdriverExporter
 from opencensus.trace.propagation import google_cloud_format
 from opencensus.trace.samplers import AlwaysOnSampler
+from functools import wraps
 
 propagator = google_cloud_format.GoogleCloudFormatPropagator()
 
@@ -142,5 +143,12 @@ def create_app():
     def get_locale():
         # TODO(beets): Also use request.accept_languages.best_match()
         return g.locale
+
+    # Propagate hl parameter to all links (if not 'en')
+    @app.url_defaults
+    def add_language_code(endpoint, values):
+        if 'hl' in values or g.locale == 'en':
+            return
+        values['hl'] = g.locale
 
     return app
