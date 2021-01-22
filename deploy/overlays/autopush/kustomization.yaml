@@ -24,33 +24,26 @@ nameSuffix: -autopush
 namespace: website
 
 resources:
-- ../../base
+  - ../../base
 
 configMapGenerator:
-- behavior: create
-  literals:
-  - flaskEnv=staging
-  - gcsBucket=datcom-website-autopush-resources
-  - secretProject=datcom-website-autopush
-  name: website-configmap
-- behavior: create
-  literals:
-  - projectId=datcom-website-autopush
-  - serviceName=website-esp.endpoints.datcom-website-autopush.cloud.goog
-  name: mixer-configmap
+  - name: website-configmap
+    behavior: create
+    literals:
+      - flaskEnv=staging
+      - gcsBucket=datcom-website-autopush-resources
+      - secretProject=datcom-website-autopush
+  - name: mixer-configmap
+    behavior: create
+    literals:
+      - projectId=datcom-website-autopush
+      - serviceName=website-esp.endpoints.datcom-website-autopush.cloud.goog
 
 patchesStrategicMerge:
-- |-
-  apiVersion: apps/v1
-  kind: Deployment
-  metadata:
-    name: website-app
-  spec:
-    replicas: 6
-images:
-- name: gcr.io/datcom-ci/datacommons-mixer
-  newName: gcr.io/datcom-ci/datacommons-mixer
-  newTag: b42a6cc
-- name: gcr.io/datcom-ci/datacommons-website
-  newName: gcr.io/datcom-ci/datacommons-website
-  newTag: 73d43e4
+  - |-
+    apiVersion: apps/v1
+    kind: Deployment
+    metadata:
+      name: website-app
+    spec:
+      replicas: 6
