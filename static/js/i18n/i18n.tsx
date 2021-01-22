@@ -88,12 +88,10 @@ function LocalizedLink(props: LocalizedLinkProps): JSX.Element {
   if (intl.locale == "en") {
     href = props.href;
   } else {
-    let url = new URL(props.href, document.location.origin);
-    let urlParams = new URLSearchParams(url.searchParams);
+    const url = new URL(props.href, document.location.origin);
+    const urlParams = new URLSearchParams(url.searchParams);
     urlParams.set("hl", intl.locale);
     url.search = urlParams.toString();
-    console.log(urlParams.toString());
-    console.log(url.toString());
     href = url.toString();
   }
   return (

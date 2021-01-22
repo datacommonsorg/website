@@ -103,15 +103,11 @@ class MainPane extends React.Component<MainPanePropType> {
             subtopicHeader = (
               <h3 id={topic}>
                 <LocalizedLink
-
-
-                                                    href={`/place/${this.props.dcid}?topic=${topic}`}
+                  href={`/place/${this.props.dcid}?topic=${topic}`}
                   text={this.props.categoryStrings[topic]}
                 />
                 <span className="more">
                   <LocalizedLink
-                   
-                   
                     href={`/place/${this.props.dcid}?topic=${topic}`}
                     text={intl.formatMessage({
                       id: "more_charts",

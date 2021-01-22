@@ -218,15 +218,15 @@ class Chart extends React.Component<ChartPropType, ChartStateType> {
                   description="Hyperlink text to export the data shown in charts."
                 />
               </a>
-              {intl.locale != 'en' ? null :
-                            <a className="explore-more" href={exploreUrl}>
-                            <FormattedMessage
-                              id="chart_metadata-explore_more"
-                              defaultMessage="Explore More ›"
-                              description="Hyperlink text to explore the data in a different page. Please keep the '›' symbol."
-                            />
-                          </a>
-  }
+              {intl.locale != "en" ? null : (
+                <a className="explore-more" href={exploreUrl}>
+                  <FormattedMessage
+                    id="chart_metadata-explore_more"
+                    defaultMessage="Explore More ›"
+                    description="Hyperlink text to explore the data in a different page. Please keep the '›' symbol."
+                  />
+                </a>
+              )}
             </div>
           </footer>
         </div>
