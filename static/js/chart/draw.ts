@@ -26,8 +26,6 @@ import {
   formatYAxisTicks,
 } from "./base";
 
-import { translateVariableString } from "../i18n/i18n";
-
 const NUM_X_TICKS = 5;
 const NUM_Y_TICKS = 5;
 const MARGIN = { top: 20, right: 10, bottom: 30, left: 40, yAxis: 3, grid: 5 };
@@ -75,7 +73,7 @@ function appendLegendElem(
     .join("div")
     .attr("style", (d) => `background: ${color(d.label)}`)
     .append("a")
-    .text((d) => translateVariableString(d.label))
+    .text((d) => d.label)
     .attr("href", (d) => d.link || null);
 }
 
@@ -97,7 +95,8 @@ function wrap(
 ) {
   texts.each(function () {
     const text = d3.select(this);
-    const words = translateVariableString(text.text())
+    const words = text
+      .text()
       .replace("-", "-#") // Handle e.g. "ABC-AB A" -> "ABC-", "AB" "A"
       .split(/[ #]/)
       .filter((w) => w.trim() != "")
@@ -840,7 +839,7 @@ function drawGroupLineChart(
     .attr("transform", `translate(${MARGIN.grid}, ${YLABEL.topMargin})`)
     .style("font-size", "12px")
     .style("text-rendering", "optimizedLegibility")
-    .text(translateVariableString(ylabel));
+    .text(ylabel);
 
   for (const place in dataGroupsDict) {
     dataGroups = dataGroupsDict[place];
@@ -881,7 +880,7 @@ function drawGroupLineChart(
       .style("font-size", "12px")
       .style("text-anchor", "start")
       .style("text-rendering", "optimizedLegibility")
-      .text(translateVariableString(sourceText));
+      .text(sourceText);
   }
 
   const legend = svg
@@ -933,7 +932,7 @@ function buildInChartLegend(
       .attr("transform", `translate(${dashWidth}, 0)`)
       .attr("y", "0.3em")
       .attr("dy", "0")
-      .text(translateVariableString(label))
+      .text(label)
       .style("text-rendering", "optimizedLegibility")
       .style("fill", `${legendStyle.color}`)
       .call(wrap, legendTextdWidth);

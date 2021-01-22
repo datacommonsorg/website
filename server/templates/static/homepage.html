@@ -23,8 +23,6 @@
   href={{url_for('static', filename='css/static.min.css', t=config['GAE_VERSION'])}}>
 {% endblock %}
 
-{% set project="Data Commons" %}
-
 {% block content %}
 <section id="homepage-top">
   <div class="container">
@@ -53,7 +51,7 @@
       <dt>October 15, 2020</dt>
       <dd>
         {# TRANSLATORS: Blog post entry. Please take care to maintain valid <a> tags in translation. See this string in action at https://datacommons.org #}
-          {% trans blog_url="https://docs.datacommons.org/2020/10/15/search_launch.html" -%}
+          {% trans blog_url="https://docs.datacommons.org/2020/10/15/search_launch.html",project="Data Commons" -%}
           HOME-BLOG_POST_1
           {%- endtrans %}
       </dd>
@@ -115,7 +113,7 @@
 
     <li>
       {# TRANSLATORS: Header for a set of links to the Data Commons Graph Browser product. Each page in the graph describes an entity (or node). Please see this string in action at https://datacommons.org #}
-      <a class="main" href="{{ url_for('browser.kg_main') }}">{% trans %}Browse entities in the {{ project }} Graph{% endtrans %}</a>:
+      <a class="main" href="{{ url_for('browser.kg_main') }}">{% trans project="Data Commons" %}Browse entities in the {{ project }} Graph{% endtrans %}</a>:
       <ul>
         <li>
           <a class="sub" href="{{ url_for('browser.kg_entity', dcid='geoId/4805000') }}">Austin, TX</a>,

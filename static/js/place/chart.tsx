@@ -22,7 +22,6 @@ import {
   drawStackBarChart,
   drawGroupBarChart,
 } from "../chart/draw";
-import { STATS_VAR_LABEL } from "../shared/stats_var_labels";
 import {
   chartTypeEnum,
   TrendData,
@@ -34,8 +33,9 @@ import {
 import { updatePageLayoutState } from "./place";
 import { ChartEmbed } from "./chart_embed";
 import { drawChoropleth } from "../chart/draw_choropleth";
-import _, { fromPairs } from "lodash";
+import _ from "lodash";
 import { FormattedMessage } from "react-intl";
+import { getStatsVarLabel } from "../shared/stats_var_labels";
 
 const CHART_HEIGHT = 194;
 const MIN_CHOROPLETH_DATAPOINTS = 9;
@@ -421,7 +421,7 @@ class Chart extends React.Component<ChartPropType, ChartStateType> {
           }
           dataGroups.push(
             new DataGroup(
-              STATS_VAR_LABEL[statVar],
+              getStatsVarLabel(statVar),
               dataPoints,
               this.rankingUrlByStatVar[statVar]
             )
@@ -442,7 +442,7 @@ class Chart extends React.Component<ChartPropType, ChartStateType> {
           const snapshotData = this.props.snapshot.data[0];
           for (const statVar in snapshotData.data) {
             dataPoints.push({
-              label: STATS_VAR_LABEL[statVar],
+              label: getStatsVarLabel(statVar),
               value: snapshotData.data[statVar] * scaling,
               dcid: snapshotData.dcid,
             });
@@ -460,7 +460,7 @@ class Chart extends React.Component<ChartPropType, ChartStateType> {
           for (const statVar of this.statsVars) {
             const val = placeData.data[statVar];
             dataPoints.push({
-              label: STATS_VAR_LABEL[statVar],
+              label: getStatsVarLabel(statVar),
               value: val ? val * scaling : null,
               dcid: placeData.dcid,
               link: this.rankingUrlByStatVar[statVar],

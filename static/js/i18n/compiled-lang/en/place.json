@@ -221,14 +221,14 @@
       "value": "Administrative Areas"
     }
   ],
-  "plural_administrative_area_index": [
+  "plural_administrative_area_level": [
     {
       "type": 0,
       "value": "Administrative Area "
     },
     {
       "type": 1,
-      "value": "index"
+      "value": "level"
     },
     {
       "type": 0,
@@ -266,7 +266,7 @@
     },
     {
       "type": 1,
-      "value": "index"
+      "value": "level"
     },
     {
       "type": 0,
@@ -311,12 +311,16 @@
   ],
   "ranking-document_title": [
     {
+      "type": 0,
+      "value": "Ranking by "
+    },
+    {
       "type": 1,
       "value": "statVar"
     },
     {
       "type": 0,
-      "value": " for "
+      "value": " - "
     },
     {
       "type": 1,
@@ -346,7 +350,7 @@
   "ranking-page_title": [
     {
       "type": 0,
-      "value": "Rankings of "
+      "value": "Ranking by "
     },
     {
       "type": 1,
@@ -581,14 +585,14 @@
       "value": "Administrative Area"
     }
   ],
-  "singular_administrative_area_index": [
+  "singular_administrative_area_level": [
     {
       "type": 0,
       "value": "Administrative Area "
     },
     {
       "type": 1,
-      "value": "index"
+      "value": "level"
     },
     {
       "type": 0,
@@ -626,7 +630,7 @@
     },
     {
       "type": 1,
-      "value": "index"
+      "value": "level"
     },
     {
       "type": 0,

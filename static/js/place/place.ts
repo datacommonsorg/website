@@ -27,7 +27,7 @@ import { PlaceHighlight } from "./place_highlight";
 import { PageSubtitle } from "./page_subtitle";
 import { isPlaceInUsa } from "./util";
 import { initSearchAutocomplete } from "./search";
-import { translateVariableString } from "../i18n/i18n";
+import { loadLocaleData, translateVariableString } from "../i18n/i18n";
 
 import { CachedChoroplethData, GeoJsonData, PageData } from "../chart/types";
 
@@ -48,6 +48,7 @@ window.onload = () => {
   maybeToggleFixedSidebar();
   window.onresize = maybeToggleFixedSidebar;
 };
+
 /**
  *  Make adjustments to sidebar scroll state based on the content.
  */
@@ -166,8 +167,15 @@ function renderPage(): void {
   const chartGeoJsonPromise = getGeoJsonData(dcid, placeType);
   const choroplethDataPromise = getChoroplethData(dcid, placeType);
 
-  landingPagePromise
-    .then((landingPageData) => {
+  Promise.all([
+    landingPagePromise,
+    loadLocaleData(locale, [
+      import(`../i18n/compiled-lang/${locale}/place.json`),
+      // TODO(beets): Figure out how to place this where it's used so dependencies can be automatically resolved.
+      import(`../i18n/compiled-lang/${locale}/stats_var_labels.json`),
+    ]),
+  ])
+    .then(([landingPageData]) => {
       const loadingElem = document.getElementById("page-loading");
       if (_.isEmpty(landingPageData)) {
         loadingElem.innerText =

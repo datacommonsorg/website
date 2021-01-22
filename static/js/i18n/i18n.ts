@@ -1,46 +1,67 @@
-import { createIntl, createIntlCache } from "react-intl";
+/**
+ * Copyright 2020 Google LLC
+ *
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ *      http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ */
 
-// Get locale from query params. If none, use navigator language.
-function determineLocale() {
-  const urlParams = new URLSearchParams(window.location.search);
-  let locale = urlParams.get("hl");
-  if (!locale) {
-    locale = navigator.language;
-  }
-  return locale;
-}
-const locale = determineLocale();
+/**
+ * Helpers for formatJS i18n library. More info at formatjs.io
+ */
+
+import { createIntl, createIntlCache, IntlCache, IntlShape } from "react-intl";
 
 // A single cache instance can be shared for all locales.
-const intlCache = createIntlCache();
-
-// TODO(tjann): see if we can ship locale specific js bundles.
-function loadLocaleData(locale: string): Promise<Record<any, any>> {
-  if (
-    ["de", "es", "fr", "hi", "it", "ja", "ko", "pt-BR", "ru", "zh-CN"].includes(
-      locale
-    )
-  ) {
-    return import(`./compiled-lang/${locale}/place.json`);
-  }
-  return import("./compiled-lang/en/place.json");
-}
+// TODO(beets): might not be necessary since we create one intl object.
+const intlCache: IntlCache = createIntlCache();
 
 // This IntlShape object will be used for both React Intl's
 // React Component API (arg for RawIntlProvider) and
 // Imperative API (format<X> method).
-// TODO(datcom): Make this a promise.
-let intl;
-async function initIntl() {
-  const messages = await loadLocaleData(locale);
-  intl = createIntl({ locale, messages }, intlCache);
-  // Now the intl object is localized and ready to use.
-}
-initIntl();
+let intl: IntlShape;
 
-// Only use this for variables. Raw strings in JS should call
-// intl.formatMessage or <FormattedMessage> directly
-// in order for the extractor to pick up the id.
+/**
+ * Load compiled messages into the global intl object.
+ *
+ * @param locale: Locale determined server-side for consistency.
+ * @param modules: An array of Promises from calling import on the compiled
+ *   message module for the current locale. Note that this needs to be done from
+ *   the app so that we won't have to bundle all compiled messages across apps.
+ *   See https://webpack.js.org/api/module-methods/#dynamic-expressions-in-import
+ */
+async function loadLocaleData(
+  locale: string,
+  modules: Promise<Record<any, any>>[]
+): Promise<void> {
+  const allMessages = {};
+  return Promise.all(modules).then((messages) => {
+    for (const msg of messages) {
+      Object.assign(allMessages, msg.default);
+    }
+    intl = createIntl({ locale, messages: allMessages }, intlCache);
+  });
+}
+
+/**
+ * Returns translation for message with :id. If unavailable, :id is returned as
+ * the translation.
+ *
+ * Note: Only use this for variables. Raw strings in JS should call
+ * intl.formatMessage or <FormattedMessage> directly in order for the extractor
+ * to pick up the id.
+ *
+ * @param id: message bundle id
+ * @return translation for :id, or :id if translation is unavailable.
+ */
 function translateVariableString(id: string): string {
   if (!id) {
     return "";
@@ -55,4 +76,4 @@ function translateVariableString(id: string): string {
   });
 }
 
-export { locale, intl, translateVariableString };
+export { loadLocaleData, intl, translateVariableString };

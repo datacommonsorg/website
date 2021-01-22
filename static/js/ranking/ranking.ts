@@ -21,12 +21,14 @@
 import React from "react";
 import ReactDOM from "react-dom";
 import { Page } from "./ranking_page";
+import { loadLocaleData } from "../i18n/i18n";
 
 window.onload = () => {
   const withinPlace = document.getElementById("within-place-dcid").dataset.pwp;
   const placeType = document.getElementById("place-type").dataset.pt;
   const placeName = document.getElementById("place-name").dataset.pn;
   const statVar = document.getElementById("stat-var").dataset.sv;
+  const locale = document.getElementById("locale").dataset.lc;
   const isPerCapita = JSON.parse(
     document.getElementById("per-capita").dataset.pc.toLowerCase()
   );
@@ -34,16 +36,22 @@ window.onload = () => {
   const unit = urlParams.get("unit");
   let scaling = Number(urlParams.get("scaling"));
   scaling = isNaN(scaling) || scaling == 0 ? 1 : scaling;
-  ReactDOM.render(
-    React.createElement(Page, {
-      placeName,
-      placeType,
-      withinPlace,
-      statVar,
-      isPerCapita,
-      unit,
-      scaling,
-    }),
-    document.getElementById("main-pane")
-  );
+
+  loadLocaleData(locale, [
+    import(`../i18n/compiled-lang/${locale}/place.json`),
+    import(`../i18n/compiled-lang/${locale}/stats_var_titles.json`),
+  ]).then(() => {
+    ReactDOM.render(
+      React.createElement(Page, {
+        placeName,
+        placeType,
+        withinPlace,
+        statVar,
+        isPerCapita,
+        unit,
+        scaling,
+      }),
+      document.getElementById("main-pane")
+    );
+  });
 };

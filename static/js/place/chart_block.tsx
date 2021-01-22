@@ -25,7 +25,7 @@ import { randDomId } from "../shared/util";
 import { Chart } from "./chart";
 import { displayNameForPlaceType } from "./util";
 import _ from "lodash";
-import { intl, translateVariableString } from "../i18n/i18n";
+import { intl } from "../i18n/i18n";
 import { defineMessages } from "react-intl";
 
 interface ChartBlockPropType {
@@ -118,7 +118,7 @@ class ChartBlock extends React.Component<ChartBlockPropType> {
         })
       : this.props.placeName;
     this.rankingPlaceType = isEarth ? "Country" : this.props.placeType;
-    this.displayDataTitle = translateVariableString(this.props.data.title);
+    this.displayDataTitle = this.props.data.title;
     // TODO(tjann): Localize unit after we have a high level approach
     // TODO(datcom): Localize place names via KG.
   }
@@ -213,7 +213,7 @@ class ChartBlock extends React.Component<ChartBlockPropType> {
 
     const relatedChartTitle =
       relatedChart && relatedChart.title
-        ? translateVariableString(relatedChart.title)
+        ? relatedChart.title
         : this.displayDataTitle;
 
     const sharedProps = {
