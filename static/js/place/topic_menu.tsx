@@ -16,7 +16,7 @@
 
 import React from "react";
 import { PageChart } from "../chart/types";
-import { intl } from "../i18n/i18n";
+import { intl, LocalizedLink } from "../i18n/i18n";
 
 interface MenuCategoryPropsType {
   dcid: string;
@@ -39,12 +39,11 @@ class MenuCategory extends React.Component<MenuCategoryPropsType> {
 
     return (
       <li className="nav-item">
-        <a
+        <LocalizedLink
           href={hrefString}
           className={`nav-link ${selectCategory === category ? "active" : ""}`}
-        >
-          {this.props.categoryDisplayStr}
-        </a>
+          text={this.props.categoryDisplayStr}
+        />
         <ul
           className={
             "nav flex-column " + (category !== selectCategory ? "collapse" : "")
@@ -55,9 +54,11 @@ class MenuCategory extends React.Component<MenuCategoryPropsType> {
             {topics.map((topic: string) => {
               return (
                 <li className="nav-item" key={topic}>
-                  <a href={`${hrefString}#${topic}`} className="nav-link">
-                    {topic}
-                  </a>
+                  <LocalizedLink
+                    href={`${hrefString}#${topic}`}
+                    className="nav-link"
+                    text={topic}
+                  />
                 </li>
               );
             })}

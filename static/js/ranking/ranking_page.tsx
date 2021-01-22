@@ -20,7 +20,7 @@ import { LocationRankData } from "./ranking_types";
 import { RankingHistogram } from "./ranking_histogram";
 import { RankingTable } from "./ranking_table";
 import { displayNameForPlaceType } from "../place/util";
-import { intl, translateVariableString } from "../i18n/i18n";
+import { intl, LocalizedLink, translateVariableString } from "../i18n/i18n";
 import { defineMessages } from "react-intl";
 import { getStatsVarTitle } from "../shared/stats_var_titles";
 
@@ -119,8 +119,9 @@ class Page extends React.Component<RankingPagePropType, RankingPageStateType> {
       const search = params.toString();
       const href = window.location.pathname + (search ? "?" + search : "");
       return (
-        <a href={href}>
-          {intl.formatMessage(
+        <LocalizedLink
+          href={href}
+          text={intl.formatMessage(
             {
               id: "ranking-sort_top",
               defaultMessage: "Show Highest {rankSize}",
@@ -131,7 +132,7 @@ class Page extends React.Component<RankingPagePropType, RankingPageStateType> {
               rankSize: RANK_SIZE,
             }
           )}
-        </a>
+        />
       );
     }
     // show link to bottom 100
@@ -141,8 +142,9 @@ class Page extends React.Component<RankingPagePropType, RankingPageStateType> {
       (search == "" ? "?" : search + "&") +
       GET_BOTTOM_PARAM;
     return (
-      <a href={href}>
-        {intl.formatMessage(
+      <LocalizedLink
+        href={href}
+        text={intl.formatMessage(
           {
             id: "ranking-sort_bottom",
             defaultMessage: "Show Lowest {rankSize}",
@@ -151,7 +153,7 @@ class Page extends React.Component<RankingPagePropType, RankingPageStateType> {
           },
           { rankSize: RANK_SIZE }
         )}
-      </a>
+      />
     );
   }
 

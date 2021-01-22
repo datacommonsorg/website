@@ -36,6 +36,7 @@ import { drawChoropleth } from "../chart/draw_choropleth";
 import _ from "lodash";
 import { FormattedMessage } from "react-intl";
 import { getStatsVarLabel } from "../shared/stats_var_labels";
+import { LocalizedLink, intl } from "../i18n/i18n";
 
 const CHART_HEIGHT = 194;
 const MIN_CHOROPLETH_DATAPOINTS = 9;
@@ -217,23 +218,29 @@ class Chart extends React.Component<ChartPropType, ChartStateType> {
                   description="Hyperlink text to export the data shown in charts."
                 />
               </a>
-              <a className="explore-more" href={exploreUrl}>
-                <FormattedMessage
-                  id="chart_metadata-explore_more"
-                  defaultMessage="Explore More ›"
-                  description="Hyperlink text to explore the data in a different page. Please keep the '›' symbol."
-                />
-              </a>
+              <LocalizedLink
+                className="explore-more"
+                href={exploreUrl}
+                text={intl.formatMessage({
+                  id: "chart_metadata-explore_more",
+                  defaultMessage: "Explore More ›",
+                  description:
+                    "Hyperlink text to explore the data in a different page. Please keep the '›' symbol.",
+                })}
+              />
             </div>
           </footer>
         </div>
-        <a className="feedback" href="/feedback">
-          <FormattedMessage
-            id="chart_metadata-feedback"
-            defaultMessage="Feedback"
-            description="Text label for hyperlink to give Data Commons feedback on something on our website."
-          />
-        </a>
+        <LocalizedLink
+          className="feedback"
+          href="/feedback"
+          text={intl.formatMessage({
+            id: "chart_metadata-feedback",
+            defaultMessage: "Feedback",
+            description:
+              "Text label for hyperlink to give Data Commons feedback on something on our website.",
+          })}
+        />
         <ChartEmbed ref={this.embedModalElement} />
       </div>
     );

@@ -18,6 +18,7 @@
  * Helpers for formatJS i18n library. More info at formatjs.io
  */
 
+import React from "react";
 import { createIntl, createIntlCache, IntlCache, IntlShape } from "react-intl";
 
 // A single cache instance can be shared for all locales.
@@ -76,4 +77,30 @@ function translateVariableString(id: string): string {
   });
 }
 
-export { loadLocaleData, intl, translateVariableString };
+interface LocalizedLinkProps {
+  className?: string;
+  href: string;
+  text: string;
+}
+
+function LocalizedLink(props: LocalizedLinkProps): JSX.Element {
+  let href;
+  if (intl.locale == "en") {
+    href = props.href;
+  } else {
+    let url = new URL(props.href, document.location.origin);
+    let urlParams = new URLSearchParams(url.searchParams);
+    urlParams.set("hl", intl.locale);
+    url.search = urlParams.toString();
+    console.log(urlParams.toString());
+    console.log(url.toString());
+    href = url.toString();
+  }
+  return (
+    <a href={href} className={props.className ? props.className : null}>
+      {props.text}
+    </a>
+  );
+}
+
+export { LocalizedLink, loadLocaleData, intl, translateVariableString };

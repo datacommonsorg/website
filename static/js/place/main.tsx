@@ -15,7 +15,7 @@
  */
 import React from "react";
 import { RawIntlProvider } from "react-intl";
-import { intl, translateVariableString } from "../i18n/i18n";
+import { intl, LocalizedLink, translateVariableString } from "../i18n/i18n";
 import { ChartBlock } from "./chart_block";
 import { Overview } from "./overview";
 import {
@@ -102,18 +102,24 @@ class MainPane extends React.Component<MainPanePropType> {
           if (isOverview && Object.keys(this.props.pageChart).length > 1) {
             subtopicHeader = (
               <h3 id={topic}>
-                <a href={`/place/${this.props.dcid}?topic=${topic}`}>
-                  {this.props.categoryStrings[topic]}
-                </a>
+                <LocalizedLink
+
+
+                                                    href={`/place/${this.props.dcid}?topic=${topic}`}
+                  text={this.props.categoryStrings[topic]}
+                />
                 <span className="more">
-                  <a href={`/place/${this.props.dcid}?topic=${topic}`}>
-                    {intl.formatMessage({
+                  <LocalizedLink
+                   
+                   
+                    href={`/place/${this.props.dcid}?topic=${topic}`}
+                    text={intl.formatMessage({
                       id: "more_charts",
                       defaultMessage: "More charts ›",
                       description:
                         "Link to explore more charts about a particular domain, such as Education or Health.",
                     })}
-                  </a>
+                  />
                 </span>
               </h3>
             );
