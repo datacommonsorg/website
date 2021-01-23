@@ -66,6 +66,7 @@ steps:
 
         ## Deploy autopush instance
         cd ../
-        ./script/deploy_gke.sh autopush
+        ./script/deploy_gke.sh autopush us-central1
+        ./script/deploy_gke.sh autopush europe-west2
 
 timeout: 3600s
