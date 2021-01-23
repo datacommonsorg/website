@@ -25,7 +25,7 @@ import { randDomId } from "../shared/util";
 import { Chart } from "./chart";
 import { displayNameForPlaceType } from "./util";
 import _ from "lodash";
-import { intl } from "../i18n/i18n";
+import { intl, localizeSearchParams } from "../i18n/i18n";
 import { defineMessages } from "react-intl";
 
 interface ChartBlockPropType {
@@ -158,11 +158,12 @@ class ChartBlock extends React.Component<ChartBlockPropType> {
 
     if (!_.isEmpty(this.props.data.trend)) {
       const id = randDomId();
-      const rankingParam = new URLSearchParams(`h=${this.props.dcid}`);
+      let rankingParam = new URLSearchParams(`h=${this.props.dcid}`);
       this.props.data.denominator && rankingParam.set("pc", "1");
       this.props.data.scaling &&
         rankingParam.set("scaling", String(this.props.data.scaling));
       this.props.data.unit && rankingParam.set("unit", this.props.data.unit);
+      rankingParam = localizeSearchParams(rankingParam);
       chartElements.push(
         <Chart
           key={id}

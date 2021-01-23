@@ -15,7 +15,7 @@
  */
 
 import React from "react";
-import { intl } from "../i18n/i18n";
+import { intl, LocalizedLink } from "../i18n/i18n";
 
 interface PageSubtitlePropsType {
   category: string;
@@ -49,14 +49,15 @@ class PageSubtitle extends React.Component<PageSubtitlePropsType> {
         <h2 className="col-12 pt-2">
           {this.props.categoryDisplayStr}
           <span className="more">
-            <a href={"/place/" + dcid}>
-              {intl.formatMessage({
+            <LocalizedLink
+              href={"/place/" + dcid}
+              text={intl.formatMessage({
                 id: "link-return_to_overview",
                 defaultMessage: "Back to overview ›",
                 description:
                   "Text for the link present in subtopic place pages directing the user back to the Overview page. Please keep the '›' symbol.",
               })}
-            </a>
+            />
           </span>
         </h2>
       );

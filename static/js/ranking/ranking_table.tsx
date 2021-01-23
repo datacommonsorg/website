@@ -16,7 +16,7 @@
 
 import React from "react";
 import { Ranking, RankInfo } from "./ranking_types";
-import { intl } from "../i18n/i18n";
+import { intl, LocalizedLink } from "../i18n/i18n";
 import { displayNameForPlaceType } from "../place/util";
 
 interface RankingTablePropType {
@@ -65,9 +65,10 @@ class RankingTable extends React.Component<RankingTablePropType> {
       <tr key={rankInfo.rank} data-dcid={rankInfo.placeDcid}>
         <td>{rankInfo.rank ? rankInfo.rank : 0}</td>
         <td>
-          <a href={`/place/${rankInfo.placeDcid}`}>
-            {rankInfo.placeName || rankInfo.placeDcid}
-          </a>
+          <LocalizedLink
+            href={`/place/${rankInfo.placeDcid}`}
+            text={rankInfo.placeName || rankInfo.placeDcid}
+          />
         </td>
         <td className="text-center">
           <span className="num-value">

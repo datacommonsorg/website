@@ -18,6 +18,7 @@
  * Helpers for formatJS i18n library. More info at formatjs.io
  */
 
+import React from "react";
 import { createIntl, createIntlCache, IntlCache, IntlShape } from "react-intl";
 
 // A single cache instance can be shared for all locales.
@@ -76,4 +77,66 @@ function translateVariableString(id: string): string {
   });
 }
 
-export { loadLocaleData, intl, translateVariableString };
+/**
+ * Adds / updates the hl parameter for the searchParams to maintain the current
+ * page's locale.
+ * TODO(beets): Add tests for this function.
+ *
+ * @param searchParams: to update
+ * @return potentially updated searchParams
+ */
+function localizeSearchParams(searchParams: URLSearchParams): URLSearchParams {
+  if (intl.locale == "en") {
+    return searchParams;
+  }
+  searchParams.set("hl", intl.locale);
+  return searchParams;
+}
+
+/**
+ * Adds / updates the hl parameter for the link to maintain the current page's locale.
+ * TODO(beets): Add tests for this function.
+ *
+ * @param href: to update
+ * @return potentially updated href
+ */
+function localizeLink(href: string): string {
+  const url = new URL(href, document.location.origin);
+  url.search = localizeSearchParams(
+    new URLSearchParams(url.searchParams)
+  ).toString();
+  return url.toString();
+}
+
+/**
+ * Properties for LocalizedLink. Property names are analogous to those for <a> tags.
+ */
+interface LocalizedLinkProps {
+  className?: string;
+  href: string;
+  text: string;
+}
+
+/**
+ * Adds / updates the hl parameter for the link to maintain the current page's locale.
+ * TODO(beets): Add tests for this component.
+ *
+ * @param props: <a> tag properties to include
+ * @return An <a> tag JSX element.
+ */
+function LocalizedLink(props: LocalizedLinkProps): JSX.Element {
+  const href = localizeLink(props.href);
+  return (
+    <a href={href} className={props.className ? props.className : null}>
+      {props.text}
+    </a>
+  );
+}
+
+export {
+  LocalizedLink,
+  localizeSearchParams,
+  loadLocaleData,
+  intl,
+  translateVariableString,
+};
