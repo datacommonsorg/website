@@ -57,7 +57,6 @@ steps:
         # Update mixer
         git submodule update --init --recursive
         cd mixer
-        git remote set-url origin https://github.com/datacommonsorg/mixer.git
         git pull origin master
         git checkout master
 
