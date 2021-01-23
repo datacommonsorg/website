@@ -48,7 +48,7 @@ steps:
 
   # Deploy website with the latest mixer and base cache
   - id: autopush
-    name: "gcr.io/cloud-builders/git"
+    name: "gcr.io/datcom-ci/deploy-tool"
     entrypoint: /bin/bash
     args:
       - -c
