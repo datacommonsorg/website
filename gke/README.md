@@ -77,6 +77,6 @@ and make a patch to the deployment ([example](../deploy/overlays/patch_deploymen
 ## Add a new cluster
 
 ```bash
-./create_cluster.sh <region>
-./setup_config_cluster.sh
+./create_cluster.sh <REGION>
+../script/deploy_gke.sh <"staging"|"prod"> <REGION>
 ```

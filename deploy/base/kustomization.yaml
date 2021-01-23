@@ -21,5 +21,6 @@ namespace: website
 
 resources:
   - ../../mixer/deploy/storage
+  - ../../mixer/deploy/mapping
   - deployment.yaml
   - namespace.yaml

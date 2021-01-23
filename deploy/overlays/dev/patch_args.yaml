@@ -19,9 +19,6 @@
 # 3. add "--service_json_path" to use json service config
 # 4. add a bunch of other dev only args
 
-- op: add
-  path: /spec/template/spec/containers/1/args/0
-  value: --enable_branch_cache=false
 - op: remove
   path: /spec/template/spec/containers/2/args/0
 - op: add

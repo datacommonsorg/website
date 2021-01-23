@@ -40,14 +40,18 @@ spec:
       # This k8s service account binds to the GCP service account, and used
       # for GKE Workload Identity: https://cloud.google.com/kubernetes-engine/docs/how-to/workload-identity
       serviceAccountName: website-ksa
+      volumes:
+        - name: schema-mapping
+          configMap:
+            name: schema-mapping
       containers:
         - name: website
           image: gcr.io/datcom-ci/datacommons-website:latest
           imagePullPolicy: Always
           resources:
             limits:
-              memory: "4.5G"
-              cpu: "1000m"
+              memory: "2G"
+              cpu: "500m"
           args: []
           ports:
             - containerPort: 8080
@@ -79,14 +83,19 @@ spec:
           imagePullPolicy: Always
           resources:
             limits:
-              memory: "6G"
-              cpu: "400m"
+              memory: "2G"
+              cpu: "500m"
           args:
             - --bq_dataset=$(BIG_QUERY)
-            - --bt_table=$(BIG_TABLE)
+            - --base_bt_instance=prophet-cache
+            - --base_table=$(BIG_TABLE)
+            - --branch_bt_instance=prophet-branch-cache
             - --bt_project=google.com:datcom-store-dev
-            - --bt_instance=prophet-cache
             - --project_id=$(PROJECT_ID)
+            - --schema_path=/datacommons/mapping
+          volumeMounts:
+            - name: schema-mapping
+              mountPath: /datacommons/mapping
           env:
             - name: PROJECT_ID
               valueFrom:
@@ -109,15 +118,11 @@ spec:
             exec:
               command: ["/bin/grpc_health_probe", "-addr=:12345"]
             periodSeconds: 5
-            failureThreshold: 60
-          # TODO(shifucun): comment out liveness check as branch cache read
-          # at server start-up takes minutes and will cause infinite restart.
-          # Add the livenessProbe back when branch cache is read from BT.
-          # livenessProbe:
-          #   exec:
-          #     command: ["/bin/grpc_health_probe", "-addr=:12345"]
-          #   periodSeconds: 5
-          #   initialDelaySeconds: 10
+          livenessProbe:
+            exec:
+              command: ["/bin/grpc_health_probe", "-addr=:12345"]
+            periodSeconds: 5
+            initialDelaySeconds: 5
         - name: esp
           image: gcr.io/endpoints-release/endpoints-runtime:1
           args:
