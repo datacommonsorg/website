@@ -34,5 +34,5 @@ git checkout master
 gsutil cp gs://automation_control/latest_base_cache_version.txt deploy/storage/bigtable.version
 
 ## Deploy autopush instance
-$ROOT/script/deploy_gke.sh autopush us-central1
-$ROOT/script/deploy_gke.sh autopush europe-west2
+$ROOT/scripts/deploy_gke.sh autopush us-central1
+$ROOT/scripts/deploy_gke.sh autopush europe-west2

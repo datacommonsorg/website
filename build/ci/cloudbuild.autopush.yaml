@@ -21,6 +21,6 @@ steps:
       - -c
       - |
         set -e
-        ./script/autopush.sh
+        ./scripts/autopush.sh
 
 timeout: 3600s
