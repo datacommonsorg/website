@@ -16,7 +16,7 @@ import json
 import logging
 import os
 
-from flask import Flask, request, g
+from flask import Flask, redirect, request, g
 from flask_babel import Babel
 from google.cloud import storage
 from werkzeug.utils import import_string
@@ -27,6 +27,7 @@ from opencensus.ext.stackdriver.trace_exporter import StackdriverExporter
 from opencensus.trace.propagation import google_cloud_format
 from opencensus.trace.samplers import AlwaysOnSampler
 from functools import wraps
+import lib.i18n as i18n
 
 propagator = google_cloud_format.GoogleCloudFormatPropagator()
 
@@ -129,25 +130,23 @@ def create_app():
 
     # Initialize translations
     babel = Babel(app, default_domain='all')
-    app.config['BABEL_DEFAULT_LOCALE'] = 'en'
+    app.config['BABEL_DEFAULT_LOCALE'] = i18n.DEFAULT_LOCALE
     app.config['BABEL_TRANSLATION_DIRECTORIES'] = 'l10n'
 
     @app.before_request
     def before_request():
-        # TODO(beets): Also use request.accept_languages.best_match()
-        # - Use Locale.negotiate, and use - instead of _ separators
-        # - Also use babel.core.parse_locale
-        g.locale = request.args.get('hl', 'en')
+        requested_locale = request.args.get('hl', i18n.DEFAULT_LOCALE)
+        g.locale_choices = i18n.locale_choices(requested_locale)
+        g.locale = g.locale_choices[0]
 
     @babel.localeselector
     def get_locale():
-        # TODO(beets): Also use request.accept_languages.best_match()
         return g.locale
 
     # Propagate hl parameter to all links (if not 'en')
     @app.url_defaults
     def add_language_code(endpoint, values):
-        if 'hl' in values or g.locale == 'en':
+        if 'hl' in values or g.locale == i18n.DEFAULT_LOCALE:
             return
         values['hl'] = g.locale
 

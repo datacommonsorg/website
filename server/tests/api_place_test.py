@@ -160,6 +160,8 @@ class TestApiPlaceName(unittest.TestCase):
 
 class TestApiPlaceI18nName(unittest.TestCase):
 
+    @patch('lib.i18n.AVAILABLE_LANGUAGES',
+           ['en', 'io', 'la', 'la-ru', 'it', 'ru'])
     @patch('routes.api.place.fetch_data')
     def test_parent_places(self, mock_fetch_data):
         mock_response = {
@@ -182,6 +184,9 @@ class TestApiPlaceI18nName(unittest.TestCase):
                 }, {
                     'value': 'CaliforniaLA@la',
                     'provenance': 'prov2'
+                }, {
+                    'value': 'CaliforniaEN@en',
+                    'provenance': 'prov2'
                 }]
             }
         }
@@ -194,7 +199,7 @@ class TestApiPlaceI18nName(unittest.TestCase):
         assert response.status_code == 200
         assert json.loads(response.data) == {
             'geoId/05': 'ArkansasEn',
-            'geoId/06': ''
+            'geoId/06': 'CaliforniaEN'
         }
 
         mock_fetch_data.side_effect = (

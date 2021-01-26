@@ -24,12 +24,6 @@ one more step to compile the JSON into a format usable by FormatJS.
 
 NOTE: Don't forget to update the list of languages in that file if a new language is added.
 
-## TODO
-
-1. Make sure our English place types make it into the input translation files. I have a variable translation in the code but no way of extracting it, and it probably won't be covered by the chart configs.
-1. Make sure we have translations for place names.
-1. Adapt steps above to pull in actual translations.
-
 # For Jinja / Python translations
 
 See these pages for info about:
@@ -68,3 +62,10 @@ python3 tools/i18n/chart_config_extractor.py
 .env/bin/pybabel update -l $LOCALE -i server/l10n/chart_titles.pot -d server/l10n -w 1000
 .env/bin/pybabel compile -d server/l10n -D chart_titles
 ```
+
+# Adding languages
+
+- Reach out to beets for help getting the strings marked for translation into the new language.
+- Once translations are ready:
+  - Pull in the strings to both server/l10n and static/js/i18n, compile both using steps above.
+  - Add the language to the list in server/lib/i18n.py.

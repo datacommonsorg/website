@@ -25,6 +25,7 @@ from cache import cache
 import services.datacommons as dc
 from services.datacommons import fetch_data
 import routes.api.stats as stats_api
+import lib.i18n as i18n
 
 CHILD_PLACE_LIMIT = 50
 
@@ -137,15 +138,17 @@ def api_name():
 
 
 @cache.memoize(timeout=3600 * 24)  # Cache for one day.
-def cached_i18n_name(dcids, locale="en"):
+def cached_i18n_name(dcids, locale, should_resolve_all):
     """Returns localization names for set of dcids.
 
     Args:
         dcids: ^ separated string of dcids. It must be a single string for the cache.
         locale: the desired localization language code.
+        should_resolve_all: True if every dcid should be returned with a
+                            name, False if only i18n names should be filled
 
     Returns:
-        A dictionary of place international names, keyed by dcid.
+        A dictionary of place names, keyed by dcid (potentially sparse if should_resolve_all=False)
     """
     dcids = dcids.split('^')
     response = fetch_data('/node/property-values', {
@@ -156,34 +159,29 @@ def cached_i18n_name(dcids, locale="en"):
                           compress=False,
                           post=True)
     result = {}
-    # When there is no locale, fall back to default en.
-    # When there is no exact match of locale, and locale can be broken into parts: language - region, fall back to use language part.
-    # If there still isn't a match, fall back to use en.
-    if not locale:
-        locale = ENGLISH_LANG
-    fallback_lang = locale.split('-')[0] if locale.find('-') != -1 else ''
+    dcids_default_name = []
+    locales = i18n.locale_choices(locale)
     for dcid in dcids:
         values = response[dcid].get('out')
         # If there is no nameWithLanguage for this dcid, fall back to name.
         if not values:
-            result[dcid] = cached_name(dcid)[dcid]
+            dcids_default_name.append(dcid)
             continue
         result[dcid] = ''
-        fallback_choice = ''
-        english_choice = ''
-        for entry in values:
-            if (has_locale_name(entry, locale)):
-                result[dcid] = extract_locale_name(entry, locale)
-                # Found the exact match, no need to fall back.
+        for locale in locales:
+            for entry in values:
+                if has_locale_name(entry, locale):
+                    result[dcid] = extract_locale_name(entry, locale)
+                    break
+            if result[dcid]:
                 break
-            else:
-                if (has_locale_name(entry, fallback_lang)):
-                    fallback_choice = extract_locale_name(entry, fallback_lang)
-                if (has_locale_name(entry, ENGLISH_LANG)):
-                    english_choice = extract_locale_name(entry, ENGLISH_LANG)
-        if not result[dcid]:
-            result[
-                dcid] = fallback_choice if fallback_choice else english_choice
+    if dcids_default_name:
+        if should_resolve_all:
+            default_names = cached_name('^'.join(sorted(dcids_default_name)))
+        else:
+            default_names = {}
+        for dcid in dcids_default_name:
+            result[dcid] = default_names.get(dcid, '')
     return result
 
 
@@ -199,17 +197,19 @@ def extract_locale_name(entry, locale):
         return ''
 
 
-def get_i18n_name(dcids):
+def get_i18n_name(dcids, should_resolve_all=True):
     """"Returns localization names for set of dcids.
 
     Args:
         dcids: A list of place dcids.
-        locale: the desired localization language code.
+        should_resolve_all: True if every dcid should be returned with a
+                            name, False if only i18n names should be filled
 
     Returns:
-        A dictionary of  place names, keyed by dcid.
+        A dictionary of place names, keyed by dcid (potentially sparse if should_resolve_all=False)
     """
-    return cached_i18n_name('^'.join((sorted(dcids))), g.locale)
+    return cached_i18n_name('^'.join((sorted(dcids))), g.locale,
+                            should_resolve_all)
 
 
 @bp.route('/name/i18n')
@@ -499,7 +499,7 @@ def api_ranking(dcid):
     current_place_type = get_place_type(dcid)
     parents = parent_places(dcid)[dcid]
     parents_str = '^'.join(sorted(map(lambda x: x['dcid'], parents)))
-    parent_i18_names = cached_i18n_name(parents_str, locale)
+    parent_i18n_names = cached_i18n_name(parents_str, locale, False)
 
     selected_parents = []
     parent_names = {}
@@ -511,7 +511,8 @@ def api_ranking(dcid):
         if parent_dcid.startswith('zip'):
             continue
         selected_parents.append(parent_dcid)
-        parent_names[parent_dcid] = parent['name']
+        i18n_name = parent_i18n_names[parent_dcid]
+        parent_names[parent_dcid] = i18n_name if i18n_name else parent['name']
         if len(selected_parents) == 3:
             break
     result = collections.defaultdict(list)
@@ -530,7 +531,7 @@ def api_ranking(dcid):
         for stats_var, data in response.items():
             result[RANKING_STATS[stats_var]].append({
                 'name':
-                    parent_i18_names[parent_dcid],
+                    parent_names[parent_dcid],
                 'data':
                     data,
                 'rankingUrl':
@@ -544,7 +545,7 @@ def api_ranking(dcid):
         for stats_var, data in response.items():
             result[crime_statsvar[stats_var]].append({
                 'name':
-                    parent_i18_names[parent_dcid],
+                    parent_names[parent_dcid],
                 'data':
                     data,
                 'rankingUrl':
@@ -605,7 +606,7 @@ def get_display_name(dcids, locale="en"):
     Returns:
         A dictionary of display names, keyed by dcid.
     """
-    place_names = cached_i18n_name(dcids, locale)
+    place_names = cached_i18n_name(dcids, locale, True)
     parents = parent_places(dcids)
     dcids = dcids.split('^')
     result = {}
