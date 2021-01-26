@@ -22,7 +22,6 @@ import {
   drawStackBarChart,
   drawGroupBarChart,
 } from "../chart/draw";
-import { STATS_VAR_LABEL } from "../shared/stats_var_labels";
 import {
   chartTypeEnum,
   TrendData,
@@ -35,6 +34,9 @@ import { updatePageLayoutState } from "./place";
 import { ChartEmbed } from "./chart_embed";
 import { drawChoropleth } from "../chart/draw_choropleth";
 import _ from "lodash";
+import { FormattedMessage } from "react-intl";
+import { getStatsVarLabel } from "../shared/stats_var_labels";
+import { LocalizedLink, intl } from "../i18n/i18n";
 
 const CHART_HEIGHT = 194;
 const MIN_CHOROPLETH_DATAPOINTS = 9;
@@ -163,6 +165,22 @@ class Chart extends React.Component<ChartPropType, ChartStateType> {
       console.log(`Skipping ${this.props.title} - missing sources`);
       return null;
     }
+    const sourcesJsx = sources.map((source, index) => {
+      // TDOO(shifucun): Use provenance name and url from cache data
+      // https://github.com/datacommonsorg/website/issues/429
+      let sourceUrl = source;
+      if (source === "worldbank.org") {
+        sourceUrl = "www.worldbank.org";
+      } else if (source === "europa.eu") {
+        sourceUrl = "ec.europa.eu/eurostat";
+      }
+      return (
+        <span key={source}>
+          <a href={"https://" + sourceUrl}>{source}</a>
+          {index < sources.length - 1 ? ", " : ""}
+        </span>
+      );
+    });
     return (
       <div className="col">
         <div className="chart-container" ref={this.chartElement}>
@@ -177,41 +195,51 @@ class Chart extends React.Component<ChartPropType, ChartStateType> {
           ></div>
           <footer className="row explore-more-container">
             <div>
-              <span>Data from </span>
-              {sources.map((source, index) => {
-                // TDOO(shifucun): Use provenance name and url from cache data
-                // https://github.com/datacommonsorg/website/issues/429
-                let sourceUrl = source;
-                if (source === "worldbank.org") {
-                  sourceUrl = "www.worldbank.org";
-                } else if (source === "europa.eu") {
-                  sourceUrl = "ec.europa.eu/eurostat";
-                }
-                return (
-                  <span key={source}>
-                    <a href={"https://" + sourceUrl}>{source}</a>
-                    {index < sources.length - 1 ? ", " : ""}
-                  </span>
-                );
-              })}
+              <FormattedMessage
+                id="chart_metadata-provenance"
+                defaultMessage="Data from {sources}"
+                description="Used to cite where our data is from, but that it was provided through Data Commons. e.g., 'Data from {nytimes.com} via Data Commons' or 'Data from {census.gov, nytimes.com}'"
+                values={{ sources: sourcesJsx }}
+              />
               <span className="dotted-warning d-none">
                 {" "}
-                (dotted line denotes missing data)
+                <FormattedMessage
+                  id="chart_metadata-dotted_line_explanation"
+                  defaultMessage="(dotted line denotes missing data)"
+                  description="Text to explain that dotted lines mean there are missing data. Please keep the parenthesis."
+                />
               </span>
             </div>
             <div className="outlinks">
               <a href="#" onClick={this._handleEmbed}>
-                Export
+                <FormattedMessage
+                  id="chart_metadata-export"
+                  defaultMessage="Export"
+                  description="Hyperlink text to export the data shown in charts."
+                />
               </a>
-              <a className="explore-more" href={exploreUrl}>
-                Explore More ›
-              </a>
+              {intl.locale != "en" ? null : (
+                <a className="explore-more" href={exploreUrl}>
+                  <FormattedMessage
+                    id="chart_metadata-explore_more"
+                    defaultMessage="Explore More ›"
+                    description="Hyperlink text to explore the data in a different page. Please keep the '›' symbol."
+                  />
+                </a>
+              )}
             </div>
           </footer>
         </div>
-        <a className="feedback" href="/feedback">
-          Feedback
-        </a>
+        <LocalizedLink
+          className="feedback"
+          href="/feedback"
+          text={intl.formatMessage({
+            id: "chart_metadata-feedback",
+            defaultMessage: "Feedback",
+            description:
+              "Text label for hyperlink to give Data Commons feedback on something on our website.",
+          })}
+        />
         <ChartEmbed ref={this.embedModalElement} />
       </div>
     );
@@ -382,6 +410,7 @@ class Chart extends React.Component<ChartPropType, ChartStateType> {
     const dataGroups: DataGroup[] = [];
     const dataPoints: DataPoint[] = [];
     const allDates = new Set<string>();
+    // TODO(datcom): handle i18n for scaled numbers
     const scaling = this.props.scaling ? this.props.scaling : 1;
     const linkSuffix =
       this.props.topic === "Overview" ? "" : "?topic=" + this.props.topic;
@@ -398,7 +427,7 @@ class Chart extends React.Component<ChartPropType, ChartStateType> {
           }
           dataGroups.push(
             new DataGroup(
-              STATS_VAR_LABEL[statVar],
+              getStatsVarLabel(statVar),
               dataPoints,
               this.rankingUrlByStatVar[statVar]
             )
@@ -419,7 +448,7 @@ class Chart extends React.Component<ChartPropType, ChartStateType> {
           const snapshotData = this.props.snapshot.data[0];
           for (const statVar in snapshotData.data) {
             dataPoints.push({
-              label: STATS_VAR_LABEL[statVar],
+              label: getStatsVarLabel(statVar),
               value: snapshotData.data[statVar] * scaling,
               dcid: snapshotData.dcid,
             });
@@ -437,7 +466,7 @@ class Chart extends React.Component<ChartPropType, ChartStateType> {
           for (const statVar of this.statsVars) {
             const val = placeData.data[statVar];
             dataPoints.push({
-              label: STATS_VAR_LABEL[statVar],
+              label: getStatsVarLabel(statVar),
               value: val ? val * scaling : null,
               dcid: placeData.dcid,
               link: this.rankingUrlByStatVar[statVar],

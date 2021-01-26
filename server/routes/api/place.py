@@ -18,12 +18,14 @@ import random
 import re
 import time
 
-from flask import Blueprint, request, Response, url_for
+from flask import Blueprint, request, Response, url_for, g
+from flask_babel import gettext
 
 from cache import cache
 import services.datacommons as dc
 from services.datacommons import fetch_data
 import routes.api.stats as stats_api
+import lib.i18n as i18n
 
 CHILD_PLACE_LIMIT = 50
 
@@ -54,14 +56,19 @@ EQUIVALENT_PLACE_TYPES = {
 
 # Contains statistical variable and the display name used for place rankings.
 RANKING_STATS = {
-    'Count_Person': 'Largest Population',
-    'Median_Income_Person': 'Highest Median Income',
-    'Median_Age_Person': 'Highest Median Age',
-    'UnemploymentRate_Person': 'Highest Unemployment Rate',
+    # TRANSLATORS: Label for rankings of places by size of population (sorted from highest to lowest).
+    'Count_Person': gettext('Largest Population'),
+    # TRANSLATORS: Label for rankings of median individual income (sorted from highest to lowest).
+    'Median_Income_Person': gettext('Highest Median Income'),
+    # TRANSLATORS: Label for rankings of places by the median age of it's population (sorted from highest to lowest).
+    'Median_Age_Person': gettext('Highest Median Age'),
+    # TRANSLATORS: Label for rankings of places by the unemployment rate of it's population (sorted from highest to lowest).
+    'UnemploymentRate_Person': gettext('Highest Unemployment Rate'),
 }
 
 STATE_EQUIVALENTS = {"State", "AdministrativeArea1"}
 US_ISO_CODE_PREFIX = 'US'
+ENGLISH_LANG = 'en'
 
 # Define blueprint
 bp = Blueprint("api.place", __name__, url_prefix='/api/place')
@@ -129,6 +136,89 @@ def api_name():
     """Get place names."""
     dcids = request.args.getlist('dcid')
     result = get_name(dcids)
+    return Response(json.dumps(result), 200, mimetype='application/json')
+
+
+@cache.memoize(timeout=3600 * 24)  # Cache for one day.
+def cached_i18n_name(dcids, locale, should_resolve_all):
+    """Returns localization names for set of dcids.
+
+    Args:
+        dcids: ^ separated string of dcids. It must be a single string for the cache.
+        locale: the desired localization language code.
+        should_resolve_all: True if every dcid should be returned with a
+                            name, False if only i18n names should be filled
+
+    Returns:
+        A dictionary of place names, keyed by dcid (potentially sparse if should_resolve_all=False)
+    """
+    dcids = dcids.split('^')
+    response = fetch_data('/node/property-values', {
+        'dcids': dcids,
+        'property': 'nameWithLanguage',
+        'direction': 'out'
+    },
+                          compress=False,
+                          post=True)
+    result = {}
+    dcids_default_name = []
+    locales = i18n.locale_choices(locale)
+    for dcid in dcids:
+        values = response[dcid].get('out')
+        # If there is no nameWithLanguage for this dcid, fall back to name.
+        if not values:
+            dcids_default_name.append(dcid)
+            continue
+        result[dcid] = ''
+        for locale in locales:
+            for entry in values:
+                if has_locale_name(entry, locale):
+                    result[dcid] = extract_locale_name(entry, locale)
+                    break
+            if result[dcid]:
+                break
+    if dcids_default_name:
+        if should_resolve_all:
+            default_names = cached_name('^'.join(sorted(dcids_default_name)))
+        else:
+            default_names = {}
+        for dcid in dcids_default_name:
+            result[dcid] = default_names.get(dcid, '')
+    return result
+
+
+def has_locale_name(entry, locale):
+    return entry['value'].endswith('@' + locale.lower())
+
+
+def extract_locale_name(entry, locale):
+    if entry['value'].endswith('@' + locale.lower()):
+        locale_index = len(entry['value']) - len(locale) - 1
+        return entry['value'][:locale_index]
+    else:
+        return ''
+
+
+def get_i18n_name(dcids, should_resolve_all=True):
+    """"Returns localization names for set of dcids.
+
+    Args:
+        dcids: A list of place dcids.
+        should_resolve_all: True if every dcid should be returned with a
+                            name, False if only i18n names should be filled
+
+    Returns:
+        A dictionary of place names, keyed by dcid (potentially sparse if should_resolve_all=False)
+    """
+    return cached_i18n_name('^'.join((sorted(dcids))), g.locale,
+                            should_resolve_all)
+
+
+@bp.route('/name/i18n')
+def api_i18n_name():
+    """Get place i18n names."""
+    dcids = request.args.getlist('dcid')
+    result = get_i18n_name(dcids)
     return Response(json.dumps(result), 200, mimetype='application/json')
 
 
@@ -207,6 +297,7 @@ def child(dcid):
     return Response(json.dumps(child_places), 200, mimetype='application/json')
 
 
+# TODO(hanlu): get nameWithLanguage instead of using name.
 @cache.memoize(timeout=3600 * 24)  # Cache for one day.
 def child_fetch(dcid):
     contained_response = fetch_data('/node/property-values', {
@@ -432,14 +523,18 @@ def get_ranking_url(containing_dcid,
     return url
 
 
-@cache.memoize(timeout=3600 * 24)  # Cache for one day.
+@cache.cached(timeout=3600 * 24, query_string=True)  # Cache for one day.
 @bp.route('/ranking/<path:dcid>')
 def api_ranking(dcid):
     """
     Get the ranking information for a given place.
     """
+    locale = request.args.get('hl', default="en")
     current_place_type = get_place_type(dcid)
     parents = parent_places(dcid)[dcid]
+    parents_str = '^'.join(sorted(map(lambda x: x['dcid'], parents)))
+    parent_i18n_names = cached_i18n_name(parents_str, locale, False)
+
     selected_parents = []
     parent_names = {}
     for parent in parents:
@@ -450,7 +545,8 @@ def api_ranking(dcid):
         if parent_dcid.startswith('zip'):
             continue
         selected_parents.append(parent_dcid)
-        parent_names[parent_dcid] = parent['name']
+        i18n_name = parent_i18n_names[parent_dcid]
+        parent_names[parent_dcid] = i18n_name if i18n_name else parent['name']
         if len(selected_parents) == 3:
             break
     result = collections.defaultdict(list)
@@ -458,7 +554,8 @@ def api_ranking(dcid):
     # option.
     # TOOD(shifucun): merge this once https://github.com/datacommonsorg/mixer/issues/262 is fixed.
     crime_statsvar = {
-        'Count_CriminalActivities_CombinedCrime': 'Highest Crime Per Capita'
+        'Count_CriminalActivities_CombinedCrime':  # TRANSLATORS: Label for rankings of places by the number of combined criminal activities, per capita (sorted from highest to lowest).
+            gettext('Highest Crime Per Capita')
     }
     for parent_dcid in selected_parents:
         stats_var_string = '^'.join(RANKING_STATS.keys())
@@ -532,17 +629,18 @@ def get_state_code(dcids):
 
 
 @cache.memoize(timeout=3600 * 24)  # Cache for one day.
-def get_display_name(dcids):
+def get_display_name(dcids, locale="en"):
     """ Get display names for a list of places. Display name is place name with state code
     if it has a parent place that is a state.
 
     Args:
         dcids: ^ separated string of dcids. It must be a single string for the cache.
+        locale: the desired localization language code.
 
     Returns:
         A dictionary of display names, keyed by dcid.
     """
-    place_names = cached_name(dcids)
+    place_names = cached_i18n_name(dcids, locale, True)
     parents = parent_places(dcids)
     dcids = dcids.split('^')
     result = {}
@@ -572,7 +670,7 @@ def api_display_name():
     Get display names for a list of places.
     """
     dcids = request.args.getlist('dcid')
-    result = get_display_name('^'.join((sorted(dcids))))
+    result = get_display_name('^'.join((sorted(dcids))), g.locale)
     return Response(json.dumps(result), 200, mimetype='application/json')
 
 

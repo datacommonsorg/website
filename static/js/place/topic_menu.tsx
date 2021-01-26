@@ -16,12 +16,14 @@
 
 import React from "react";
 import { PageChart } from "../chart/types";
+import { intl, LocalizedLink } from "../i18n/i18n";
 
 interface MenuCategoryPropsType {
   dcid: string;
   selectCategory: string;
   category: string;
   topics: string[];
+  categoryDisplayStr: string;
 }
 
 class MenuCategory extends React.Component<MenuCategoryPropsType> {
@@ -37,12 +39,11 @@ class MenuCategory extends React.Component<MenuCategoryPropsType> {
 
     return (
       <li className="nav-item">
-        <a
+        <LocalizedLink
           href={hrefString}
           className={`nav-link ${selectCategory === category ? "active" : ""}`}
-        >
-          {category}
-        </a>
+          text={this.props.categoryDisplayStr}
+        />
         <ul
           className={
             "nav flex-column " + (category !== selectCategory ? "collapse" : "")
@@ -53,9 +54,11 @@ class MenuCategory extends React.Component<MenuCategoryPropsType> {
             {topics.map((topic: string) => {
               return (
                 <li className="nav-item" key={topic}>
-                  <a href={`${hrefString}#${topic}`} className="nav-link">
-                    {topic}
-                  </a>
+                  <LocalizedLink
+                    href={`${hrefString}#${topic}`}
+                    className="nav-link"
+                    text={topic}
+                  />
                 </li>
               );
             })}
@@ -67,6 +70,7 @@ class MenuCategory extends React.Component<MenuCategoryPropsType> {
 }
 
 interface MenuPropsType {
+  categories: { string: string };
   dcid: string;
   topic: string;
   pageChart: PageChart;
@@ -86,12 +90,18 @@ class Menu extends React.Component<MenuPropsType> {
               href={`/place/${dcid}`}
               className={`nav-link ${!topic ? "active" : ""}`}
             >
-              Overview
+              {intl.formatMessage({
+                id: "header-overview",
+                defaultMessage: "Overview",
+                description:
+                  "Text for header or subheader of Overview charts on place pages.",
+              })}
             </a>
           </li>
         )}
         {categories.map((category: string) => {
           const topics = Object.keys(this.props.pageChart[category]);
+          const categoryDisplayStr = this.props.categories[category];
           if (showOverviewSubmenu || category !== "Overview") {
             return (
               <MenuCategory
@@ -100,6 +110,7 @@ class Menu extends React.Component<MenuPropsType> {
                 selectCategory={topic}
                 category={category}
                 topics={topics}
+                categoryDisplayStr={categoryDisplayStr}
               />
             );
           }

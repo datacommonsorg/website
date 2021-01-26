@@ -18,9 +18,17 @@ import axios from "axios";
 
 import { fetchStatsData, StatsData } from "./data_fetcher";
 import { DataGroup } from "../chart/base";
+import { loadLocaleData } from "../i18n/i18n";
 
 jest.mock("axios");
 const mockedAxios = axios as jest.Mocked<typeof axios>;
+
+beforeAll(() => {
+  const locale = "en";
+  loadLocaleData(locale, [
+    import(`../i18n/compiled-lang/${locale}/stats_var_labels.json`),
+  ]);
+});
 
 test("fetch stats data", () => {
   mockedAxios.get.mockImplementation((url: string) => {

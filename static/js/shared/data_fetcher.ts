@@ -17,7 +17,7 @@
 import axios, { AxiosResponse } from "axios";
 
 import { DataPoint, DataGroup } from "../chart/base";
-import { STATS_VAR_LABEL } from "./stats_var_labels";
+import { getStatsVarLabel } from "./stats_var_labels";
 
 const TOTAL_POPULATION_SV = "Count_Person";
 const ZERO_POPULATION = 0;
@@ -99,7 +99,7 @@ class StatsData {
           if (timeSeries.data && timeSeries.data[date]) {
             placeName = timeSeries.placeName;
             dataPoints.push({
-              label: STATS_VAR_LABEL[statsVar],
+              label: getStatsVarLabel(statsVar),
               value: timeSeries.data[date],
             });
           }
@@ -163,7 +163,7 @@ class StatsData {
           value = timeSeries.data[date];
         }
         dataPoints.push({
-          label: STATS_VAR_LABEL[statsVar],
+          label: getStatsVarLabel(statsVar),
           value: value,
         });
       }
@@ -196,7 +196,7 @@ class StatsData {
       if (!this.data[statsVar][place]) continue;
       const timeSeries = this.data[statsVar][place];
       result.push({
-        label: STATS_VAR_LABEL[statsVar],
+        label: getStatsVarLabel(statsVar),
         value: timeSeries.data[date] || 0,
       });
     }

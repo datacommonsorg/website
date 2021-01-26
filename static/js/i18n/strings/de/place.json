@@ -1,0 +1,86 @@
+{
+  "alert-no_data_for_place": {
+    "defaultMessage": "Wir haben leider keine Daten zu {placeName}"
+  },
+  "chart_clause-other_placeType": {
+    "defaultMessage": "{chartTitle}: andere {placeType}"
+  },
+  "chart_clause-places_that_contain_place": {
+    "defaultMessage": "{chartTitle}: Orte, die {placeName} enthalten"
+  },
+  "chart_clause-places_within_place": {
+    "defaultMessage": "{chartTitle}: Orte in {placeName}"
+  },
+  "chart_clause-placetype_near_place": {
+    "defaultMessage": "{chartTitle}: {placeType} in der Nähe von {placeName}"
+  },
+  "chart_clause-variable_in_place": {
+    "defaultMessage": "{variable} in {placeName}"
+  },
+  "chart_metadata-dotted_line_explanation": {
+    "defaultMessage": "(gestrichelte Linie zeigt fehlende Daten an)"
+  },
+  "chart_metadata-explore_more": {
+    "defaultMessage": "Weitere entdecken ›"
+  },
+  "chart_metadata-export": {
+    "defaultMessage": "Exportieren"
+  },
+  "chart_metadata-feedback": {
+    "defaultMessage": "Feedback"
+  },
+  "chart_metadata-provenance": {
+    "defaultMessage": "Daten von {sources}"
+  },
+  "child_places_menu-places_in_place": {
+    "defaultMessage": "Orte in {placeName}"
+  },
+  "embed_citation": {
+    "defaultMessage": "Daten von {sources} über Data Commons"
+  },
+  "embed_download_chart_link": {
+    "defaultMessage": "Bild des Diagramms herunterladen"
+  },
+  "embed_download_csv_link": {
+    "defaultMessage": "Daten als CSV-Datei herunterladen"
+  },
+  "embed_export_chart_link": {
+    "defaultMessage": "Dieses Diagramm exportieren"
+  },
+  "header-overview": {
+    "defaultMessage": "Übersicht"
+  },
+  "link-return_to_overview": {
+    "defaultMessage": "Zurück zur Übersicht ›"
+  },
+  "more_charts": {
+    "defaultMessage": "Weitere Diagramme ›"
+  },
+  "place_breadcrumb": {
+    "defaultMessage": "{placeType} in {placeName}"
+  },
+  "place_page_ranking_table-ranking_in": {
+    "defaultMessage": "Ranking (in)"
+  },
+  "place_page_ranking_table-ranking_value": {
+    "defaultMessage": "{rank} von {total}"
+  },
+  "plural_places": {
+    "defaultMessage": "Orte"
+  },
+  "plural_zip_codes": {
+    "defaultMessage": "Postleitzahlen"
+  },
+  "search_bar_placeholder-search_again": {
+    "defaultMessage": "Nach einem anderen Ort suchen"
+  },
+  "singular_place": {
+    "defaultMessage": "Ort"
+  },
+  "singular_zip_code": {
+    "defaultMessage": "Postleitzahl"
+  },
+  "the_world": {
+    "defaultMessage": "weltweit"
+  }
+}

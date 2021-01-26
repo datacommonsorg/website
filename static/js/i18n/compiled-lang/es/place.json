@@ -1,0 +1,254 @@
+{
+  "alert-no_data_for_place": [
+    {
+      "type": 0,
+      "value": "No tenemos datos sobre "
+    },
+    {
+      "type": 1,
+      "value": "placeName"
+    }
+  ],
+  "chart_clause-other_placeType": [
+    {
+      "type": 1,
+      "value": "chartTitle"
+    },
+    {
+      "type": 0,
+      "value": ": otros "
+    },
+    {
+      "type": 1,
+      "value": "placeType"
+    }
+  ],
+  "chart_clause-places_that_contain_place": [
+    {
+      "type": 1,
+      "value": "chartTitle"
+    },
+    {
+      "type": 0,
+      "value": ": sitios que contienen "
+    },
+    {
+      "type": 1,
+      "value": "placeName"
+    }
+  ],
+  "chart_clause-places_within_place": [
+    {
+      "type": 1,
+      "value": "chartTitle"
+    },
+    {
+      "type": 0,
+      "value": ": lugares en "
+    },
+    {
+      "type": 1,
+      "value": "placeName"
+    }
+  ],
+  "chart_clause-placetype_near_place": [
+    {
+      "type": 1,
+      "value": "chartTitle"
+    },
+    {
+      "type": 0,
+      "value": ": "
+    },
+    {
+      "type": 1,
+      "value": "placeType"
+    },
+    {
+      "type": 0,
+      "value": " cerca de "
+    },
+    {
+      "type": 1,
+      "value": "placeName"
+    }
+  ],
+  "chart_clause-variable_in_place": [
+    {
+      "type": 1,
+      "value": "variable"
+    },
+    {
+      "type": 0,
+      "value": " en "
+    },
+    {
+      "type": 1,
+      "value": "placeName"
+    }
+  ],
+  "chart_metadata-dotted_line_explanation": [
+    {
+      "type": 0,
+      "value": "(la línea de puntos indica que faltan datos)"
+    }
+  ],
+  "chart_metadata-explore_more": [
+    {
+      "type": 0,
+      "value": "Ver más ›"
+    }
+  ],
+  "chart_metadata-export": [
+    {
+      "type": 0,
+      "value": "Exportar"
+    }
+  ],
+  "chart_metadata-feedback": [
+    {
+      "type": 0,
+      "value": "Comentarios"
+    }
+  ],
+  "chart_metadata-provenance": [
+    {
+      "type": 0,
+      "value": "Datos de "
+    },
+    {
+      "type": 1,
+      "value": "sources"
+    }
+  ],
+  "child_places_menu-places_in_place": [
+    {
+      "type": 0,
+      "value": "Sitios de "
+    },
+    {
+      "type": 1,
+      "value": "placeName"
+    }
+  ],
+  "embed_citation": [
+    {
+      "type": 0,
+      "value": "Datos de "
+    },
+    {
+      "type": 1,
+      "value": "sources"
+    },
+    {
+      "type": 0,
+      "value": " obtenidos a través de Data Commons"
+    }
+  ],
+  "embed_download_chart_link": [
+    {
+      "type": 0,
+      "value": "Descargar imagen del gráfico"
+    }
+  ],
+  "embed_download_csv_link": [
+    {
+      "type": 0,
+      "value": "Descargar datos como CSV"
+    }
+  ],
+  "embed_export_chart_link": [
+    {
+      "type": 0,
+      "value": "Exportar este gráfico"
+    }
+  ],
+  "header-overview": [
+    {
+      "type": 0,
+      "value": "Vista general"
+    }
+  ],
+  "link-return_to_overview": [
+    {
+      "type": 0,
+      "value": "Volver a la vista general ›"
+    }
+  ],
+  "more_charts": [
+    {
+      "type": 0,
+      "value": "Más gráficos ›"
+    }
+  ],
+  "place_breadcrumb": [
+    {
+      "type": 1,
+      "value": "placeType"
+    },
+    {
+      "type": 0,
+      "value": " en "
+    },
+    {
+      "type": 1,
+      "value": "placeName"
+    }
+  ],
+  "place_page_ranking_table-ranking_in": [
+    {
+      "type": 0,
+      "value": "Clasificaciones (en)"
+    }
+  ],
+  "place_page_ranking_table-ranking_value": [
+    {
+      "type": 1,
+      "value": "rank"
+    },
+    {
+      "type": 0,
+      "value": " de "
+    },
+    {
+      "type": 1,
+      "value": "total"
+    }
+  ],
+  "plural_places": [
+    {
+      "type": 0,
+      "value": "Sitios"
+    }
+  ],
+  "plural_zip_codes": [
+    {
+      "type": 0,
+      "value": "Códigos postales"
+    }
+  ],
+  "search_bar_placeholder-search_again": [
+    {
+      "type": 0,
+      "value": "Busca otro sitio"
+    }
+  ],
+  "singular_place": [
+    {
+      "type": 0,
+      "value": "Sitio"
+    }
+  ],
+  "singular_zip_code": [
+    {
+      "type": 0,
+      "value": "Código postal"
+    }
+  ],
+  "the_world": [
+    {
+      "type": 0,
+      "value": "el mundo"
+    }
+  ]
+}

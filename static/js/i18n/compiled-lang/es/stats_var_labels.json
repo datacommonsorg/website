@@ -1,0 +1,1412 @@
+{
+  "Amount_Consumption_Alcohol_15OrMoreYears_AsFractionOf_Count_Person_15OrMoreYears": [
+    {
+      "type": 0,
+      "value": "Consumo de alcohol puro"
+    }
+  ],
+  "Amount_Consumption_Electricity_PerCapita": [
+    {
+      "type": 0,
+      "value": "Consumo eléctrico"
+    }
+  ],
+  "Amount_Consumption_Energy_PerCapita": [
+    {
+      "type": 0,
+      "value": "Consumo de energía"
+    }
+  ],
+  "Amount_Debt_Government": [
+    {
+      "type": 0,
+      "value": "Deuda gubernamental"
+    }
+  ],
+  "Amount_EconomicActivity_ExpenditureActivity_EducationExpenditure_Government_AsFractionOf_Amount_EconomicActivity_ExpenditureActivity_Government": [
+    {
+      "type": 0,
+      "value": "Gasto público en educación (% del gasto público)"
+    }
+  ],
+  "Amount_EconomicActivity_ExpenditureActivity_EducationExpenditure_Government_AsFractionOf_Amount_EconomicActivity_GrossDomesticProduction_Nominal": [
+    {
+      "type": 0,
+      "value": "Gasto público en educación (% del PIB)"
+    }
+  ],
+  "Amount_EconomicActivity_ExpenditureActivity_MilitaryExpenditure_Government": [
+    {
+      "type": 0,
+      "value": "Gasto público militar"
+    }
+  ],
+  "Amount_EconomicActivity_ExpenditureActivity_MilitaryExpenditure_Government_AsFractionOf_Amount_EconomicActivity_GrossDomesticProduction_Nominal": [
+    {
+      "type": 0,
+      "value": "Gasto público militar (% del PIB)"
+    }
+  ],
+  "Amount_EconomicActivity_GrossDomesticProduction_Nominal": [
+    {
+      "type": 0,
+      "value": "PIB"
+    }
+  ],
+  "Amount_EconomicActivity_GrossDomesticProduction_Nominal_PerCapita": [
+    {
+      "type": 0,
+      "value": "PIB per cápita"
+    }
+  ],
+  "Amount_EconomicActivity_GrossNationalIncome_PurchasingPowerParity": [
+    {
+      "type": 0,
+      "value": "RNB PPP"
+    }
+  ],
+  "Amount_EconomicActivity_GrossNationalIncome_PurchasingPowerParity_PerCapita": [
+    {
+      "type": 0,
+      "value": "RNB per cápita (PPA)"
+    }
+  ],
+  "Amount_Emissions_CarbonDioxide_PerCapita": [
+    {
+      "type": 0,
+      "value": "Emisiones de CO2"
+    }
+  ],
+  "Amount_Remittance_InwardRemittance": [
+    {
+      "type": 0,
+      "value": "Remesas recibidas"
+    }
+  ],
+  "Amount_Remittance_InwardRemittance_AsFractionOf_Amount_EconomicActivity_GrossDomesticProduction_Nominal": [
+    {
+      "type": 0,
+      "value": "Remesas recibidas (% del PIB)"
+    }
+  ],
+  "Amount_Remittance_OutwardRemittance": [
+    {
+      "type": 0,
+      "value": "Remesas pagadas"
+    }
+  ],
+  "Amount_Stock": [
+    {
+      "type": 0,
+      "value": "Capitalización en el mercado de las empresas nacionales"
+    }
+  ],
+  "Amount_Stock_AsFractionOf_Amount_EconomicActivity_GrossDomesticProduction_Nominal": [
+    {
+      "type": 0,
+      "value": "Capitalización en el mercado de las empresas nacionales (% del PIB)"
+    }
+  ],
+  "Count_CriminalActivities_Arson": [
+    {
+      "type": 0,
+      "value": "Incendios provocados"
+    }
+  ],
+  "Count_CriminalActivities_CombinedCrime": [
+    {
+      "type": 0,
+      "value": "Delitos de todo tipo"
+    }
+  ],
+  "Count_CriminalActivities_PropertyCrime": [
+    {
+      "type": 0,
+      "value": "Delitos contra la propiedad"
+    }
+  ],
+  "Count_CriminalActivities_ViolentCrime": [
+    {
+      "type": 0,
+      "value": "Crímenes violentos"
+    }
+  ],
+  "Count_CycloneEvent": [
+    {
+      "type": 0,
+      "value": "Ciclones"
+    }
+  ],
+  "Count_Death_0Years_AsFractionOf_Count_BirthEvent_LiveBirth": [
+    {
+      "type": 0,
+      "value": "Tasa de mortalidad infantil"
+    }
+  ],
+  "Count_Death_0Years_Female_AsFractionOf_Count_BirthEvent_LiveBirth_Female": [
+    {
+      "type": 0,
+      "value": "Mujeres"
+    }
+  ],
+  "Count_Death_0Years_Male_AsFractionOf_Count_BirthEvent_LiveBirth_Male": [
+    {
+      "type": 0,
+      "value": "Sexo masculino"
+    }
+  ],
+  "Count_Death_DiseasesOfTheCirculatorySystem": [
+    {
+      "type": 0,
+      "value": "Sistema circulatorio"
+    }
+  ],
+  "Count_Death_DiseasesOfTheNervousSystem": [
+    {
+      "type": 0,
+      "value": "Sistema nervioso"
+    }
+  ],
+  "Count_Death_DiseasesOfTheRespiratorySystem": [
+    {
+      "type": 0,
+      "value": "Sistema respiratorio"
+    }
+  ],
+  "Count_Death_ExternalCauses": [
+    {
+      "type": 0,
+      "value": "Causas externas"
+    }
+  ],
+  "Count_Death_Neoplasms": [
+    {
+      "type": 0,
+      "value": "Neoplasias"
+    }
+  ],
+  "Count_DroughtEvent": [
+    {
+      "type": 0,
+      "value": "Sequía"
+    }
+  ],
+  "Count_EarthquakeEvent": [
+    {
+      "type": 0,
+      "value": "Terremotos"
+    }
+  ],
+  "Count_FloodEvent": [
+    {
+      "type": 0,
+      "value": "Inundaciones"
+    }
+  ],
+  "Count_Household_IncomeOf100000To124999USDollar": [
+    {
+      "type": 0,
+      "value": "100-125 k $"
+    }
+  ],
+  "Count_Household_IncomeOf10000To14999USDollar": [
+    {
+      "type": 0,
+      "value": "10-15 k $"
+    }
+  ],
+  "Count_Household_IncomeOf125000To149999USDollar": [
+    {
+      "type": 0,
+      "value": "125-150 k $"
+    }
+  ],
+  "Count_Household_IncomeOf150000To199999USDollar": [
+    {
+      "type": 0,
+      "value": "150-200.000 $"
+    }
+  ],
+  "Count_Household_IncomeOf200000OrMoreUSDollar": [
+    {
+      "type": 0,
+      "value": "Más de 200 k $"
+    }
+  ],
+  "Count_Household_IncomeOf20000To24999USDollar": [
+    {
+      "type": 0,
+      "value": "20-25 k $"
+    }
+  ],
+  "Count_Household_IncomeOf30000To34999USDollar": [
+    {
+      "type": 0,
+      "value": "30-35.000 $"
+    }
+  ],
+  "Count_Household_IncomeOf40000To44999USDollar": [
+    {
+      "type": 0,
+      "value": "40-45 k $"
+    }
+  ],
+  "Count_Household_IncomeOf50000To59999USDollar": [
+    {
+      "type": 0,
+      "value": "50-60 k $"
+    }
+  ],
+  "Count_Household_IncomeOf60000To74999USDollar": [
+    {
+      "type": 0,
+      "value": "60-75.000 $"
+    }
+  ],
+  "Count_Household_IncomeOf75000To99999USDollar": [
+    {
+      "type": 0,
+      "value": "75-100 k $"
+    }
+  ],
+  "Count_Household_IncomeOfUpto10000USDollar": [
+    {
+      "type": 0,
+      "value": "Menos de 10 k $"
+    }
+  ],
+  "Count_HousingUnit": [
+    {
+      "type": 0,
+      "value": "Viviendas"
+    }
+  ],
+  "Count_HousingUnit_1940To1949DateBuilt": [
+    {
+      "type": 0,
+      "value": "1940-1949"
+    }
+  ],
+  "Count_HousingUnit_1950To1959DateBuilt": [
+    {
+      "type": 0,
+      "value": "1950-1959"
+    }
+  ],
+  "Count_HousingUnit_1960To1969DateBuilt": [
+    {
+      "type": 0,
+      "value": "1960-1969"
+    }
+  ],
+  "Count_HousingUnit_1970To1979DateBuilt": [
+    {
+      "type": 0,
+      "value": "1970-1979"
+    }
+  ],
+  "Count_HousingUnit_1980To1989DateBuilt": [
+    {
+      "type": 0,
+      "value": "1980-1989"
+    }
+  ],
+  "Count_HousingUnit_1990To1999DateBuilt": [
+    {
+      "type": 0,
+      "value": "1990-1999"
+    }
+  ],
+  "Count_HousingUnit_2000To2009DateBuilt": [
+    {
+      "type": 0,
+      "value": "2000-2009"
+    }
+  ],
+  "Count_HousingUnit_2010OrLaterDateBuilt": [
+    {
+      "type": 0,
+      "value": "Después del 2010"
+    }
+  ],
+  "Count_HousingUnit_Before1939DateBuilt": [
+    {
+      "type": 0,
+      "value": "Antes de 1939"
+    }
+  ],
+  "Count_HousingUnit_HomeValue1000000To1499999USDollar": [
+    {
+      "type": 0,
+      "value": "1-1,5 M $"
+    }
+  ],
+  "Count_HousingUnit_HomeValue100000To199999USDollar": [
+    {
+      "type": 0,
+      "value": "100-200 k $"
+    }
+  ],
+  "Count_HousingUnit_HomeValue1500000To1999999USDollar": [
+    {
+      "type": 0,
+      "value": "1,5-2 M $"
+    }
+  ],
+  "Count_HousingUnit_HomeValue2000000OrMoreUSDollar": [
+    {
+      "type": 0,
+      "value": "+2 M $"
+    }
+  ],
+  "Count_HousingUnit_HomeValue200000To299999USDollar": [
+    {
+      "type": 0,
+      "value": "200-300.000 $"
+    }
+  ],
+  "Count_HousingUnit_HomeValue300000To499999USDollar": [
+    {
+      "type": 0,
+      "value": "300-500 k $"
+    }
+  ],
+  "Count_HousingUnit_HomeValue500000To999999USDollar": [
+    {
+      "type": 0,
+      "value": "500 k-1 M $"
+    }
+  ],
+  "Count_HousingUnit_HomeValue50000To99999USDollar": [
+    {
+      "type": 0,
+      "value": "50-100 k $"
+    }
+  ],
+  "Count_HousingUnit_HomeValueUpto49999USDollar": [
+    {
+      "type": 0,
+      "value": "0-50 k $"
+    }
+  ],
+  "Count_HousingUnit_HouseholderRaceAmericanIndianOrAlaskaNativeAlone": [
+    {
+      "type": 0,
+      "value": "Indígena americana o nativa de Alaska"
+    }
+  ],
+  "Count_HousingUnit_HouseholderRaceAsianAlone": [
+    {
+      "type": 0,
+      "value": "Solo asiática"
+    }
+  ],
+  "Count_HousingUnit_HouseholderRaceBlackOrAfricanAmericanAlone": [
+    {
+      "type": 0,
+      "value": "Negra o afroamericana"
+    }
+  ],
+  "Count_HousingUnit_HouseholderRaceHispanicOrLatino": [
+    {
+      "type": 0,
+      "value": "Hispana o latina"
+    }
+  ],
+  "Count_HousingUnit_HouseholderRaceNativeHawaiianOrOtherPacificIslanderAlone": [
+    {
+      "type": 0,
+      "value": "Hawaiana nativa u otra raza isleña del Pacífico"
+    }
+  ],
+  "Count_HousingUnit_HouseholderRaceSomeOtherRaceAlone": [
+    {
+      "type": 0,
+      "value": "Otra raza"
+    }
+  ],
+  "Count_HousingUnit_HouseholderRaceTwoOrMoreRaces": [
+    {
+      "type": 0,
+      "value": "Dos o más razas"
+    }
+  ],
+  "Count_HousingUnit_HouseholderRaceWhiteAlone": [
+    {
+      "type": 0,
+      "value": "Solo blanca"
+    }
+  ],
+  "Count_HousingUnit_OwnerOccupied": [
+    {
+      "type": 0,
+      "value": "Propietarios"
+    }
+  ],
+  "Count_HousingUnit_RenterOccupied": [
+    {
+      "type": 0,
+      "value": "Arrendatario"
+    }
+  ],
+  "Count_Person": [
+    {
+      "type": 0,
+      "value": "Total de población"
+    }
+  ],
+  "Count_Person_10To14Years": [
+    {
+      "type": 0,
+      "value": "10-14"
+    }
+  ],
+  "Count_Person_10To19Years": [
+    {
+      "type": 0,
+      "value": "10-19"
+    }
+  ],
+  "Count_Person_15OrMoreYears": [
+    {
+      "type": 0,
+      "value": "15+"
+    }
+  ],
+  "Count_Person_15To19Years": [
+    {
+      "type": 0,
+      "value": "15-19"
+    }
+  ],
+  "Count_Person_15To64Years_InLaborForce_AsFractionOf_Count_Person_15To64Years": [
+    {
+      "type": 0,
+      "value": "Fuerza laboral"
+    }
+  ],
+  "Count_Person_16OrMoreYears": [
+    {
+      "type": 0,
+      "value": "16+"
+    }
+  ],
+  "Count_Person_18To24Years": [
+    {
+      "type": 0,
+      "value": "18-24"
+    }
+  ],
+  "Count_Person_20To24Years": [
+    {
+      "type": 0,
+      "value": "20-24"
+    }
+  ],
+  "Count_Person_20To29Years": [
+    {
+      "type": 0,
+      "value": "20-29"
+    }
+  ],
+  "Count_Person_25To29Years": [
+    {
+      "type": 0,
+      "value": "25-29"
+    }
+  ],
+  "Count_Person_25To34Years": [
+    {
+      "type": 0,
+      "value": "25-34"
+    }
+  ],
+  "Count_Person_25To34Years_EducationalAttainmentAssociatesDegree_Female": [
+    {
+      "type": 0,
+      "value": "Mujeres"
+    }
+  ],
+  "Count_Person_25To34Years_EducationalAttainmentAssociatesDegree_Male": [
+    {
+      "type": 0,
+      "value": "Hombres"
+    }
+  ],
+  "Count_Person_25To34Years_EducationalAttainmentBachelorsDegree_Female": [
+    {
+      "type": 0,
+      "value": "Mujeres"
+    }
+  ],
+  "Count_Person_25To34Years_EducationalAttainmentBachelorsDegree_Male": [
+    {
+      "type": 0,
+      "value": "Hombres"
+    }
+  ],
+  "Count_Person_25To34Years_EducationalAttainmentGraduateOrProfessionalDegree_Female": [
+    {
+      "type": 0,
+      "value": "Mujeres"
+    }
+  ],
+  "Count_Person_25To34Years_EducationalAttainmentGraduateOrProfessionalDegree_Male": [
+    {
+      "type": 0,
+      "value": "Hombres"
+    }
+  ],
+  "Count_Person_30To34Years": [
+    {
+      "type": 0,
+      "value": "30-34"
+    }
+  ],
+  "Count_Person_30To39Years": [
+    {
+      "type": 0,
+      "value": "30-39"
+    }
+  ],
+  "Count_Person_35To39Years": [
+    {
+      "type": 0,
+      "value": "35-39"
+    }
+  ],
+  "Count_Person_35To44Years": [
+    {
+      "type": 0,
+      "value": "35-44"
+    }
+  ],
+  "Count_Person_40To44Years": [
+    {
+      "type": 0,
+      "value": "40-44"
+    }
+  ],
+  "Count_Person_40To49Years": [
+    {
+      "type": 0,
+      "value": "40-49"
+    }
+  ],
+  "Count_Person_45To49Years": [
+    {
+      "type": 0,
+      "value": "45-49"
+    }
+  ],
+  "Count_Person_45To54Years": [
+    {
+      "type": 0,
+      "value": "45-54"
+    }
+  ],
+  "Count_Person_50To54Years": [
+    {
+      "type": 0,
+      "value": "50-54"
+    }
+  ],
+  "Count_Person_50To59Years": [
+    {
+      "type": 0,
+      "value": "50-59"
+    }
+  ],
+  "Count_Person_55To59Years": [
+    {
+      "type": 0,
+      "value": "55-59"
+    }
+  ],
+  "Count_Person_55To64Years": [
+    {
+      "type": 0,
+      "value": "55-64"
+    }
+  ],
+  "Count_Person_5To17Years": [
+    {
+      "type": 0,
+      "value": "5-17"
+    }
+  ],
+  "Count_Person_5To9Years": [
+    {
+      "type": 0,
+      "value": "5-9"
+    }
+  ],
+  "Count_Person_60To61Years": [
+    {
+      "type": 0,
+      "value": "60-61"
+    }
+  ],
+  "Count_Person_60To64Years": [
+    {
+      "type": 0,
+      "value": "60-64"
+    }
+  ],
+  "Count_Person_60To69Years": [
+    {
+      "type": 0,
+      "value": "60-69"
+    }
+  ],
+  "Count_Person_62To64Years": [
+    {
+      "type": 0,
+      "value": "62-64"
+    }
+  ],
+  "Count_Person_65To69Years": [
+    {
+      "type": 0,
+      "value": "65-69"
+    }
+  ],
+  "Count_Person_65To74Years": [
+    {
+      "type": 0,
+      "value": "65-74"
+    }
+  ],
+  "Count_Person_70OrMoreYears": [
+    {
+      "type": 0,
+      "value": "70+"
+    }
+  ],
+  "Count_Person_70To74Years": [
+    {
+      "type": 0,
+      "value": "70-74"
+    }
+  ],
+  "Count_Person_70To79Years": [
+    {
+      "type": 0,
+      "value": "70-79"
+    }
+  ],
+  "Count_Person_75OrMoreYears": [
+    {
+      "type": 0,
+      "value": "75+"
+    }
+  ],
+  "Count_Person_75To79Years": [
+    {
+      "type": 0,
+      "value": "75-79"
+    }
+  ],
+  "Count_Person_7To14Years_Employed_AsFractionOf_Count_Person_7To14Years": [
+    {
+      "type": 0,
+      "value": "Niños trabajadores"
+    }
+  ],
+  "Count_Person_7To14Years_Female_Employed_AsFractionOf_Count_Person_7To14Years_Female": [
+    {
+      "type": 0,
+      "value": "Mujeres"
+    }
+  ],
+  "Count_Person_7To14Years_Male_Employed_AsFractionOf_Count_Person_7To14Years_Male": [
+    {
+      "type": 0,
+      "value": "Sexo masculino"
+    }
+  ],
+  "Count_Person_80OrMoreYears": [
+    {
+      "type": 0,
+      "value": "80+"
+    }
+  ],
+  "Count_Person_80To84Years": [
+    {
+      "type": 0,
+      "value": "80-84"
+    }
+  ],
+  "Count_Person_AmericanIndianOrAlaskaNativeAlone": [
+    {
+      "type": 0,
+      "value": "Indígena americana o nativa de Alaska"
+    }
+  ],
+  "Count_Person_AsianAlone": [
+    {
+      "type": 0,
+      "value": "Solo asiática"
+    }
+  ],
+  "Count_Person_BelowPovertyLevelInThePast12Months": [
+    {
+      "type": 0,
+      "value": "Pobreza"
+    }
+  ],
+  "Count_Person_BelowPovertyLevelInThePast12Months_AmericanIndianOrAlaskaNativeAlone": [
+    {
+      "type": 0,
+      "value": "Indígena americana o nativa de Alaska"
+    }
+  ],
+  "Count_Person_BelowPovertyLevelInThePast12Months_AsianAlone": [
+    {
+      "type": 0,
+      "value": "Asiática"
+    }
+  ],
+  "Count_Person_BelowPovertyLevelInThePast12Months_BlackOrAfricanAmericanAlone": [
+    {
+      "type": 0,
+      "value": "Negra o afroamericana"
+    }
+  ],
+  "Count_Person_BelowPovertyLevelInThePast12Months_HispanicOrLatino": [
+    {
+      "type": 0,
+      "value": "Hispana o latina"
+    }
+  ],
+  "Count_Person_BelowPovertyLevelInThePast12Months_NativeHawaiianOrOtherPacificIslanderAlone": [
+    {
+      "type": 0,
+      "value": "Hawaiana nativa u otra raza isleña del Pacífico"
+    }
+  ],
+  "Count_Person_BelowPovertyLevelInThePast12Months_WhiteAlone": [
+    {
+      "type": 0,
+      "value": "Blanca"
+    }
+  ],
+  "Count_Person_BlackOrAfricanAmericanAlone": [
+    {
+      "type": 0,
+      "value": "Negra o afroamericana"
+    }
+  ],
+  "Count_Person_Divorced": [
+    {
+      "type": 0,
+      "value": "Divorciados"
+    }
+  ],
+  "Count_Person_EducationalAttainmentBachelorsDegree": [
+    {
+      "type": 0,
+      "value": "Grados"
+    }
+  ],
+  "Count_Person_EducationalAttainmentDoctorateDegree": [
+    {
+      "type": 0,
+      "value": "Doctorado"
+    }
+  ],
+  "Count_Person_EducationalAttainmentMastersDegree": [
+    {
+      "type": 0,
+      "value": "Másters"
+    }
+  ],
+  "Count_Person_EducationalAttainmentNoSchoolingCompleted": [
+    {
+      "type": 0,
+      "value": "Sin educación"
+    }
+  ],
+  "Count_Person_EducationalAttainmentRegularHighSchoolDiploma": [
+    {
+      "type": 0,
+      "value": "Educación secundaria"
+    }
+  ],
+  "Count_Person_Employed": [
+    {
+      "type": 0,
+      "value": "Personas ocupadas"
+    }
+  ],
+  "Count_Person_EnrolledInSchool": [
+    {
+      "type": 0,
+      "value": "Escolarizados"
+    }
+  ],
+  "Count_Person_Female": [
+    {
+      "type": 0,
+      "value": "Mujeres"
+    }
+  ],
+  "Count_Person_Female_BelowPovertyLevelInThePast12Months": [
+    {
+      "type": 0,
+      "value": "Mujeres"
+    }
+  ],
+  "Count_Person_HispanicOrLatino": [
+    {
+      "type": 0,
+      "value": "Hispana o latina"
+    }
+  ],
+  "Count_Person_InLaborForce": [
+    {
+      "type": 0,
+      "value": "Personas en la fuerza laboral"
+    }
+  ],
+  "Count_Person_IncomeOf10000To14999USDollar": [
+    {
+      "type": 0,
+      "value": "10-15 k $"
+    }
+  ],
+  "Count_Person_IncomeOf15000To24999USDollar": [
+    {
+      "type": 0,
+      "value": "15-25.000 $"
+    }
+  ],
+  "Count_Person_IncomeOf25000To34999USDollar": [
+    {
+      "type": 0,
+      "value": "25-35.000 $"
+    }
+  ],
+  "Count_Person_IncomeOf35000To49999USDollar": [
+    {
+      "type": 0,
+      "value": "35-50 k $"
+    }
+  ],
+  "Count_Person_IncomeOf50000To64999USDollar": [
+    {
+      "type": 0,
+      "value": "50-65 k $"
+    }
+  ],
+  "Count_Person_IncomeOf65000To74999USDollar": [
+    {
+      "type": 0,
+      "value": "65-75.000 $"
+    }
+  ],
+  "Count_Person_IncomeOf75000OrMoreUSDollar": [
+    {
+      "type": 0,
+      "value": "Más de 75 k $"
+    }
+  ],
+  "Count_Person_IncomeOfUpto9999USDollar": [
+    {
+      "type": 0,
+      "value": "Menos de 10 k $"
+    }
+  ],
+  "Count_Person_Male": [
+    {
+      "type": 0,
+      "value": "Hombres"
+    }
+  ],
+  "Count_Person_Male_BelowPovertyLevelInThePast12Months": [
+    {
+      "type": 0,
+      "value": "Hombres"
+    }
+  ],
+  "Count_Person_MarriedAndNotSeparated": [
+    {
+      "type": 0,
+      "value": "Casados"
+    }
+  ],
+  "Count_Person_NativeHawaiianOrOtherPacificIslanderAlone": [
+    {
+      "type": 0,
+      "value": "Hawaiana nativa u otra raza isleña del Pacífico"
+    }
+  ],
+  "Count_Person_NeverMarried": [
+    {
+      "type": 0,
+      "value": "No casados nunca"
+    }
+  ],
+  "Count_Person_NotAUSCitizen": [
+    {
+      "type": 0,
+      "value": "No tienen la ciudadanía"
+    }
+  ],
+  "Count_Person_NotEnrolledInSchool": [
+    {
+      "type": 0,
+      "value": "No escolarizados"
+    }
+  ],
+  "Count_Person_PerArea": [
+    {
+      "type": 0,
+      "value": "Densidad de población"
+    }
+  ],
+  "Count_Person_Rural": [
+    {
+      "type": 0,
+      "value": "Población rural"
+    }
+  ],
+  "Count_Person_Separated": [
+    {
+      "type": 0,
+      "value": "Separados"
+    }
+  ],
+  "Count_Person_SomeOtherRaceAlone": [
+    {
+      "type": 0,
+      "value": "Otra raza"
+    }
+  ],
+  "Count_Person_TwoOrMoreRaces": [
+    {
+      "type": 0,
+      "value": "Dos o más razas"
+    }
+  ],
+  "Count_Person_USCitizenBornAbroadOfAmericanParents": [
+    {
+      "type": 0,
+      "value": "Nacidos en el extranjero"
+    }
+  ],
+  "Count_Person_USCitizenBornInTheUnitedStates": [
+    {
+      "type": 0,
+      "value": "Nacidos en EE. UU."
+    }
+  ],
+  "Count_Person_USCitizenByNaturalization": [
+    {
+      "type": 0,
+      "value": "Ciudadanía por naturalización"
+    }
+  ],
+  "Count_Person_Upto4Years": [
+    {
+      "type": 0,
+      "value": "0-4"
+    }
+  ],
+  "Count_Person_Upto4Years_Female_SevereWasting_AsFractionOf_Count_Person_Upto4Years_Female": [
+    {
+      "type": 0,
+      "value": "Mujeres"
+    }
+  ],
+  "Count_Person_Upto4Years_Female_Wasting_AsFractionOf_Count_Person_Upto4Years_Female": [
+    {
+      "type": 0,
+      "value": "Mujeres"
+    }
+  ],
+  "Count_Person_Upto4Years_Male_SevereWasting_AsFractionOf_Count_Person_Upto4Years_Male": [
+    {
+      "type": 0,
+      "value": "Sexo masculino"
+    }
+  ],
+  "Count_Person_Upto4Years_Male_Wasting_AsFractionOf_Count_Person_Upto4Years_Male": [
+    {
+      "type": 0,
+      "value": "Sexo masculino"
+    }
+  ],
+  "Count_Person_Upto4Years_SevereWasting_AsFractionOf_Count_Person_Upto4Years": [
+    {
+      "type": 0,
+      "value": "Niños menores de 5 años con emaciación severa"
+    }
+  ],
+  "Count_Person_Upto4Years_Wasting_AsFractionOf_Count_Person_Upto4Years": [
+    {
+      "type": 0,
+      "value": "Niños menores de 5 años con emaciación"
+    }
+  ],
+  "Count_Person_Upto9Years": [
+    {
+      "type": 0,
+      "value": "0-9"
+    }
+  ],
+  "Count_Person_Urban": [
+    {
+      "type": 0,
+      "value": "Población urbana"
+    }
+  ],
+  "Count_Person_WhiteAlone": [
+    {
+      "type": 0,
+      "value": "Solo blanca"
+    }
+  ],
+  "Count_Person_Widowed": [
+    {
+      "type": 0,
+      "value": "Viudos"
+    }
+  ],
+  "Count_StormSurgeTideEvent": [
+    {
+      "type": 0,
+      "value": "Marejadas ciclónicas"
+    }
+  ],
+  "Count_ThunderstormWindEvent": [
+    {
+      "type": 0,
+      "value": "Tormenta eléctrica"
+    }
+  ],
+  "Count_TornadoEvent": [
+    {
+      "type": 0,
+      "value": "Tornado"
+    }
+  ],
+  "Count_UnemploymentInsuranceClaim_StateUnemploymentInsurance": [
+    {
+      "type": 0,
+      "value": "Solicitudes de seguro de desempleo"
+    }
+  ],
+  "Count_WildlandFireEvent": [
+    {
+      "type": 0,
+      "value": "Incendios forestales"
+    }
+  ],
+  "CumulativeCount_MedicalConditionIncident_COVID_19_ConfirmedOrProbableCase": [
+    {
+      "type": 0,
+      "value": "Casos acumulados de COVID-19"
+    }
+  ],
+  "CumulativeCount_MedicalConditionIncident_COVID_19_PatientDeceased": [
+    {
+      "type": 0,
+      "value": "Muertes acumuladas por COVID-19"
+    }
+  ],
+  "FertilityRate_Person_Female": [
+    {
+      "type": 0,
+      "value": "Tasa de fertilidad"
+    }
+  ],
+  "GiniIndex_EconomicActivity": [
+    {
+      "type": 0,
+      "value": "Coeficiente de GINI"
+    }
+  ],
+  "GrowthRate_Amount_EconomicActivity_GrossDomesticProduction": [
+    {
+      "type": 0,
+      "value": "Índice de crecimiento del PIB"
+    }
+  ],
+  "GrowthRate_Count_Person": [
+    {
+      "type": 0,
+      "value": "Índice de crecimiento demográfico"
+    }
+  ],
+  "LifeExpectancy_Person": [
+    {
+      "type": 0,
+      "value": "Esperanza de vida"
+    }
+  ],
+  "Median_Age_Person": [
+    {
+      "type": 0,
+      "value": "Edad media"
+    }
+  ],
+  "Median_Age_Person_AmericanIndianOrAlaskaNativeAlone": [
+    {
+      "type": 0,
+      "value": "Indígena americana o nativa de Alaska"
+    }
+  ],
+  "Median_Age_Person_AsianAlone": [
+    {
+      "type": 0,
+      "value": "Solo asiática"
+    }
+  ],
+  "Median_Age_Person_BlackOrAfricanAmericanAlone": [
+    {
+      "type": 0,
+      "value": "Negra o afroamericana"
+    }
+  ],
+  "Median_Age_Person_Female": [
+    {
+      "type": 0,
+      "value": "Mujeres"
+    }
+  ],
+  "Median_Age_Person_HispanicOrLatino": [
+    {
+      "type": 0,
+      "value": "Hispana o latina"
+    }
+  ],
+  "Median_Age_Person_Male": [
+    {
+      "type": 0,
+      "value": "Hombres"
+    }
+  ],
+  "Median_Age_Person_NativeHawaiianOrOtherPacificIslanderAlone": [
+    {
+      "type": 0,
+      "value": "Hawaiana nativa u otra raza isleña del Pacífico"
+    }
+  ],
+  "Median_Age_Person_SomeOtherRaceAlone": [
+    {
+      "type": 0,
+      "value": "Otra raza"
+    }
+  ],
+  "Median_Age_Person_TwoOrMoreRaces": [
+    {
+      "type": 0,
+      "value": "Dos o más razas"
+    }
+  ],
+  "Median_Age_Person_WhiteAlone": [
+    {
+      "type": 0,
+      "value": "Solo blanca"
+    }
+  ],
+  "Median_Income_Household": [
+    {
+      "type": 0,
+      "value": "Ingresos familiares medios"
+    }
+  ],
+  "Median_Income_Household_HouseholderRaceAmericanIndianOrAlaskaNativeAlone": [
+    {
+      "type": 0,
+      "value": "Indígena americana o nativa de Alaska"
+    }
+  ],
+  "Median_Income_Household_HouseholderRaceAsianAlone": [
+    {
+      "type": 0,
+      "value": "Asiática"
+    }
+  ],
+  "Median_Income_Household_HouseholderRaceBlackOrAfricanAmericanAlone": [
+    {
+      "type": 0,
+      "value": "Negra o afroamericana"
+    }
+  ],
+  "Median_Income_Household_HouseholderRaceHispanicOrLatino": [
+    {
+      "type": 0,
+      "value": "Hispana o latina"
+    }
+  ],
+  "Median_Income_Household_HouseholderRaceNativeHawaiianOrOtherPacificIslanderAlone": [
+    {
+      "type": 0,
+      "value": "Hawaiana nativa u otra raza isleña del Pacífico"
+    }
+  ],
+  "Median_Income_Household_HouseholderRaceWhiteAlone": [
+    {
+      "type": 0,
+      "value": "Blanca"
+    }
+  ],
+  "Median_Income_Person": [
+    {
+      "type": 0,
+      "value": "Ingresos medios"
+    }
+  ],
+  "Median_Income_Person_15OrMoreYears_Female_WithIncome": [
+    {
+      "type": 0,
+      "value": "Mujeres"
+    }
+  ],
+  "Median_Income_Person_15OrMoreYears_Male_WithIncome": [
+    {
+      "type": 0,
+      "value": "Hombres"
+    }
+  ],
+  "Percent_Person_18To64Years_Female_NoHealthInsurance": [
+    {
+      "type": 0,
+      "value": "Mujeres"
+    }
+  ],
+  "Percent_Person_18To64Years_Male_NoHealthInsurance": [
+    {
+      "type": 0,
+      "value": "Hombres"
+    }
+  ],
+  "Percent_Person_18To64Years_NoHealthInsurance_BlackOrAfricanAmericanAlone": [
+    {
+      "type": 0,
+      "value": "Negra o afroamericana"
+    }
+  ],
+  "Percent_Person_18To64Years_NoHealthInsurance_HispanicOrLatino": [
+    {
+      "type": 0,
+      "value": "Hispana o latina"
+    }
+  ],
+  "Percent_Person_18To64Years_NoHealthInsurance_WhiteAlone": [
+    {
+      "type": 0,
+      "value": "Blanca"
+    }
+  ],
+  "Percent_Person_BingeDrinking": [
+    {
+      "type": 0,
+      "value": "Consumo excesivo de alcohol"
+    }
+  ],
+  "Percent_Person_Obesity": [
+    {
+      "type": 0,
+      "value": "Obesidad"
+    }
+  ],
+  "Percent_Person_PhysicalInactivity": [
+    {
+      "type": 0,
+      "value": "Inactividad física"
+    }
+  ],
+  "Percent_Person_SleepLessThan7Hours": [
+    {
+      "type": 0,
+      "value": "Menos de 7 horas de sueño"
+    }
+  ],
+  "Percent_Person_Smoking": [
+    {
+      "type": 0,
+      "value": "Tabaco"
+    }
+  ],
+  "Percent_Person_WithArthritis": [
+    {
+      "type": 0,
+      "value": "Artritis"
+    }
+  ],
+  "Percent_Person_WithHighBloodPressure": [
+    {
+      "type": 0,
+      "value": "Hipertensión"
+    }
+  ],
+  "Percent_Person_WithHighCholesterol": [
+    {
+      "type": 0,
+      "value": "Colesterol alto"
+    }
+  ],
+  "Percent_Person_WithMentalHealthNotGood": [
+    {
+      "type": 0,
+      "value": "Salud mental deficiente"
+    }
+  ],
+  "Percent_Person_WithPhysicalHealthNotGood": [
+    {
+      "type": 0,
+      "value": "Salud física deficiente"
+    }
+  ],
+  "RetailDrugDistribution_DrugDistribution_Amphetamine": [
+    {
+      "type": 0,
+      "value": "Anfetamina"
+    }
+  ],
+  "RetailDrugDistribution_DrugDistribution_Codeine": [
+    {
+      "type": 0,
+      "value": "Codeína"
+    }
+  ],
+  "RetailDrugDistribution_DrugDistribution_Hydrocodone": [
+    {
+      "type": 0,
+      "value": "Hidrocodona"
+    }
+  ],
+  "RetailDrugDistribution_DrugDistribution_Morphine": [
+    {
+      "type": 0,
+      "value": "Morfina"
+    }
+  ],
+  "RetailDrugDistribution_DrugDistribution_Oxycodone": [
+    {
+      "type": 0,
+      "value": "Oxicodona"
+    }
+  ],
+  "UnemploymentRate_Person": [
+    {
+      "type": 0,
+      "value": "Tasa de desempleo"
+    }
+  ],
+  "UnemploymentRate_Person_Female": [
+    {
+      "type": 0,
+      "value": "Mujeres"
+    }
+  ],
+  "UnemploymentRate_Person_Male": [
+    {
+      "type": 0,
+      "value": "Hombres"
+    }
+  ]
+}

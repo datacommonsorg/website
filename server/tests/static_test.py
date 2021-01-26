@@ -23,7 +23,9 @@ class TestStaticPages(unittest.TestCase):
     def test_homepage(self):
         response = app.test_client().get('/')
         assert response.status_code == 200
-        assert b"Data Commons is an open knowledge repository" in response.data
+        # TODO(beets): Switch back test string after combining server side translation bundles.
+        # assert b"Data Commons is an open knowledge repository" in response.data
+        assert b"Explore the data" in response.data
 
     def test_about(self):
         response = app.test_client().get('/about')

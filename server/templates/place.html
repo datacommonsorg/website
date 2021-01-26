@@ -16,8 +16,8 @@
 {%- extends 'base.html' -%}
 
 {% set main_id = 'dc-places' %}
-{% set title = place_name + ' ' + topic + ' - Place Explorer' %}
-{% set subpage_title = 'Place Explorer' %}
+{% set title = place_name + ' ' + topic + ' - ' + _('Place Explorer') %}
+{% set subpage_title = _('Place Explorer') %}
 {% set subpage_url = url_for('place.place') %}
 {% set hide_search = True %}
 
@@ -40,20 +40,23 @@
         <div class="col-12 col-md-6 order-last order-md-2">
           <h1 id="place-name" data-pn="{{ place_name }}">{{ place_name }}</h1>
           <h3 id="place-type" data-pt="{{ place_type }}"></h3>
+          <h3 id="locale" data-lc="{{ locale }}"></h3>
           <div id="place-highlight"></div>
         </div>
         <div class="col-12 col-md-6 order-first order-md-last pb-3">
           <div class="search border">
             <div id="location-field">
               <div id="search-icon"></div>
-              <input id="place-autocomplete" placeholder="Enter a country, state, county or city" type="text" />
+              {# TRANSLATORS: A hint shown in the search box, asking users to search for places. #}
+              <input id="place-autocomplete" placeholder="{% trans %}Enter a country, state, county or city{% endtrans %}" type="text" />
             </div>
           </div>
         </div>
       </div>
       <div id="subtitle" class="row"></div>
       <div id="main-pane" class="row"></div>
-      <div id="page-loading" className="mt-4">Loading...</div>
+      {# TRANSLATORS: A message shown on the page while the content is loading. #}
+      <div id="page-loading" className="mt-4">{% trans %}Loading...{% endtrans %}</div>
     </div>
   </div>
 </div>

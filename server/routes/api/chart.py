@@ -25,7 +25,7 @@ import routes.api.choropleth as choropleth_api
 import routes.api.landing_page as landing_page_api
 
 from cache import cache
-from flask import Blueprint, current_app, Response
+from flask import Blueprint, current_app, request, Response, g
 from routes.api.place import EQUIVALENT_PLACE_TYPES
 # Define blueprint
 bp = Blueprint("api_chart", __name__, url_prefix='/api/chart')
@@ -101,7 +101,8 @@ def get_choropleth_places(geoDcid):
 
 
 @bp.route('/geojson/<path:dcid>')
-@cache.memoize(timeout=3600 * 24)  # Cache for one day.
+@cache.cached(timeout=3600 * 24, query_string=True)  # Cache for one day.
+# TODO(hanlu): pasrse locale once from global context instead.
 def geojson(dcid):
     """
     Get geoJson data for a given place
@@ -110,7 +111,7 @@ def geojson(dcid):
     if not geos:
         return Response(json.dumps({}), 200, mimetype='application/json')
 
-    names_by_geo = place_api.get_display_name('^'.join(geos))
+    names_by_geo = place_api.get_display_name('^'.join(geos), g.locale)
     geojson_by_geo = dc_service.get_property_values(geos, geojson_prop)
     features = []
     for geo_id, json_text in geojson_by_geo.items():

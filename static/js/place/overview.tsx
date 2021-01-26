@@ -23,6 +23,10 @@ interface OverviewPropType {
    * The place dcid.
    */
   dcid: string;
+  /**
+   * The locale of the page.
+   */
+  locale: string;
 }
 
 class Overview extends React.Component<OverviewPropType> {
@@ -34,7 +38,10 @@ class Overview extends React.Component<OverviewPropType> {
             <Map dcid={this.props.dcid}></Map>
           </div>
           <div className="col-12 col-md-8">
-            <Ranking dcid={this.props.dcid}></Ranking>
+            <Ranking
+              dcid={this.props.dcid}
+              locale={this.props.locale}
+            ></Ranking>
           </div>
         </div>
       </section>

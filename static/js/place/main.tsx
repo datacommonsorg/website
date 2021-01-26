@@ -14,6 +14,8 @@
  * limitations under the License.
  */
 import React from "react";
+import { RawIntlProvider } from "react-intl";
+import { intl, LocalizedLink, translateVariableString } from "../i18n/i18n";
 import { ChartBlock } from "./chart_block";
 import { Overview } from "./overview";
 import {
@@ -69,40 +71,58 @@ interface MainPanePropType {
    * DCIDs of parent places
    */
   parentPlaces: string[];
+  /**
+   * Translated strings for categories.
+   */
+  categoryStrings: { string: string };
+  /**
+   * The locale of the page.
+   */
+  locale: string;
 }
 
 class MainPane extends React.Component<MainPanePropType> {
   constructor(props: MainPanePropType) {
     super(props);
   }
-
   render(): JSX.Element {
     const topicData = this.props.pageChart[this.props.topic];
     const currentPageTopic = this.props.topic;
     const isOverview = currentPageTopic === "Overview";
     return (
-      <>
+      <RawIntlProvider value={intl}>
         {this.props.isUsaPlace &&
           this.props.placeType != "Country" &&
           isOverview && (
             // Only Show map and ranking for US places.
-            <Overview dcid={this.props.dcid} />
+            <Overview dcid={this.props.dcid} locale={this.props.locale} />
           )}
         {Object.keys(topicData).map((topic: string) => {
           let subtopicHeader: JSX.Element;
           if (isOverview && Object.keys(this.props.pageChart).length > 1) {
             subtopicHeader = (
               <h3 id={topic}>
-                <a href={`/place/${this.props.dcid}?topic=${topic}`}>{topic}</a>
+                <LocalizedLink
+                  href={`/place/${this.props.dcid}?topic=${topic}`}
+                  text={this.props.categoryStrings[topic]}
+                />
                 <span className="more">
-                  <a href={`/place/${this.props.dcid}?topic=${topic}`}>
-                    More charts ›
-                  </a>
+                  <LocalizedLink
+                    href={`/place/${this.props.dcid}?topic=${topic}`}
+                    text={intl.formatMessage({
+                      id: "more_charts",
+                      defaultMessage: "More charts ›",
+                      description:
+                        "Link to explore more charts about a particular domain, such as Education or Health.",
+                    })}
+                  />
                 </span>
               </h3>
             );
           } else {
-            subtopicHeader = <h3 id={topic}>{topic}</h3>;
+            subtopicHeader = (
+              <h3 id={topic}>{translateVariableString(topic)}</h3>
+            );
           }
           return (
             <section className="subtopic col-12" key={topic}>
@@ -119,6 +139,7 @@ class MainPane extends React.Component<MainPanePropType> {
                       isUsaPlace={this.props.isUsaPlace}
                       names={this.props.names}
                       data={data}
+                      locale={this.props.locale}
                       geoJsonData={this.props.geoJsonData}
                       choroplethData={this.props.choroplethData}
                       childPlaceType={this.props.childPlacesType}
@@ -131,7 +152,7 @@ class MainPane extends React.Component<MainPanePropType> {
             </section>
           );
         })}
-      </>
+      </RawIntlProvider>
     );
   }
 }
