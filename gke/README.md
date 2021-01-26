@@ -78,5 +78,5 @@ and make a patch to the deployment ([example](../deploy/overlays/patch_deploymen
 
 ```bash
 ./create_cluster.sh <REGION>
-../script/deploy_gke.sh <"staging"|"prod"> <REGION>
+../scripts/deploy_gke.sh <"staging"|"prod"> <REGION>
 ```

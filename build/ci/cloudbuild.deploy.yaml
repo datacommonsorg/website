@@ -54,19 +54,6 @@ steps:
       - -c
       - |
         set -e
-        # Update mixer
-        git submodule update --init --recursive
-        cd mixer
-        git remote set-url origin https://github.com/datacommonsorg/mixer.git
-        git pull origin master
-        git checkout master
-
-        # Update bigtable and bigquery version
-        gsutil cp gs://automation_control/latest_base_cache_version.txt deploy/storage/bigtable.version
-
-        ## Deploy autopush instance
-        cd ../
-        ./script/deploy_gke.sh autopush us-central1
-        ./script/deploy_gke.sh autopush europe-west2
+        ./scripts/autopush.sh
 
 timeout: 3600s
