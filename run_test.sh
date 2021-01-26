@@ -113,7 +113,7 @@ function run_webdriver_test {
     exit 1
   fi
   export FLASK_ENV=webdriver
-  export GOOGLE_CLOUD_PROJECT=datcom-browser-staging
+  export GOOGLE_CLOUD_PROJECT=datcom-website-staging
 
   if [ $PYTEST_PARALLEL ]
   then
@@ -135,7 +135,7 @@ function run_screenshot_test {
   fi
 
   export FLASK_ENV=webdriver
-  export GOOGLE_CLOUD_PROJECT=datcom-browser-staging
+  export GOOGLE_CLOUD_PROJECT=datcom-website-staging
   if [  -d test_screenshots  ]
   then
     echo "delete the test_screenshots folder"
