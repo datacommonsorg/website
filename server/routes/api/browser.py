@@ -33,4 +33,4 @@ def triple_api(dcid):
 @bp.route('/popobs/<path:dcid>')
 def popobs_api(dcid):
     """Returns all the triples given a node dcid."""
-    return json.dumps(dc.get_pop_obs(dcid))
+    return dc.get_pop_obs(dcid)

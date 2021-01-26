@@ -340,8 +340,9 @@ def get_observations(dcids,
 
 def get_pop_obs(dcid):
     url = API_ROOT + API_ENDPOINTS['get_pop_obs'] + '?dcid={}'.format(dcid)
-    params = {'dcid': dcid}
-    return send_request(url, req_json=params, compress=True, post=False)
+    return requests.get(url, headers={
+        'Content-Type': 'application/json'
+    }).json()['payload']
 
 
 def get_place_obs(place_type,

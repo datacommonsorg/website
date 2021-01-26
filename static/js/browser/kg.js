@@ -477,15 +477,16 @@ function trimArcsForPredicate(dcid, predicate, maxValues, outArcs) {
   // Trim values past count.
   var numSeen = 0;
   outArcs = outArcs.filter(
-      (p) => !(p["predicate"] == predicate && ++numSeen > maxValues));
+    (p) => !(p["predicate"] == predicate && ++numSeen > maxValues)
+  );
 
   // If trimmed, add an indicator.
   if (nArcs > maxValues) {
     const extra = (nArcs - maxValues).toString();
     outArcs.push({
-      "subjectId": dcid,
-      "predicate": predicate,
-      "objectValue": "(... " + extra + " more ...)",
+      subjectId: dcid,
+      predicate: predicate,
+      objectValue: "(... " + extra + " more ...)",
     });
   }
   return outArcs;
@@ -551,7 +552,9 @@ async function renderKGPage(
   // Get popobs
   const popobs = await axios
     .get(`/api/browser/popobs/${locId}`)
-    .then((resp) => resp.data);
+    .then((resp) => {
+      return JSON.parse(util.unzip(resp.data));
+    });
 
   // Get out arcs of population from popobs information.
   if (util.isPopulation(type)) {
