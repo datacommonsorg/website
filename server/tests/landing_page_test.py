@@ -18,6 +18,8 @@ import routes.api.landing_page as landing_page
 
 from flask import Flask, request, g
 from flask_babel import Babel
+from main import app
+from unittest.mock import patch
 
 # TODO(shifucun): add test for api endpoint.
 
@@ -70,3 +72,79 @@ class TestBuildSpec(unittest.TestCase):
                     'UnemploymentRate_Person', 'Count_Person_InLaborForce',
                     'Count_Person_Employed', 'Count_Person'
                 ] == stat_vars
+
+
+class TestI18n(unittest.TestCase):
+
+    def setUp(self):
+        app = Flask(__name__)
+        Babel(app, default_domain='all')
+        app.config['BABEL_DEFAULT_LOCALE'] = 'en'
+        app.config['BABEL_TRANSLATION_DIRECTORIES'] = '../l10n'
+        self.context = app.test_request_context(
+            '/api/landingpage/data/geoId/06?hl=zh')
+
+    @staticmethod
+    def side_effect(url, req, compress, post):
+        return {
+            "geoId/0646870": {
+                "out": [{
+                    "value": "门洛帕克@zh",
+                    "provenance": "prov1"
+                }]
+            },
+            "geoId/0651840": {
+                "out": [{
+                    "value": "北費爾奧克斯 (加利福尼亞州)@zh",
+                    "provenance": "prov1"
+                }, {
+                    "value": "North Fair Oaks@en",
+                    "provenance": "prov1"
+                }]
+            },
+            "geoId/0684536": {}
+        }
+
+    @patch('routes.api.place.fetch_data')
+    def test_child_places_i18n(self, mock_fetch_data):
+        mock_fetch_data.side_effect = self.side_effect
+
+        raw_page_data = {
+            "allChildPlaces": {
+                "City": [{
+                    "dcid": "geoId/0646870",
+                    "name": "Menlo Park",
+                    "pop": 34549
+                }, {
+                    "dcid": "geoId/0651840",
+                    "name": "North Fair Oaks",
+                    "pop": 14372
+                }, {
+                    "dcid": "geoId/0684536",
+                    "name": "West Menlo Park",
+                    "pop": 4160
+                }]
+            },
+        }
+
+        expected = {
+            "City": [{
+                "dcid": "geoId/0646870",
+                "name": "门洛帕克",
+                "pop": 34549
+            }, {
+                "dcid": "geoId/0651840",
+                "name": "北費爾奧克斯 (加利福尼亞州)",
+                "pop": 14372
+            }, {
+                "dcid": "geoId/0684536",
+                "name": "West Menlo Park",
+                "pop": 4160
+            }]
+        }
+
+        with self.context:
+            app.preprocess_request()
+            all_child_places = landing_page.get_i18n_all_child_places(
+                raw_page_data)
+            assert expected == all_child_places
