@@ -16,9 +16,12 @@
 
 import React from "react";
 import axios from "axios";
+import { FormattedMessage } from "react-intl";
+import { intl, LocalizedLink, translateVariableString } from "../i18n/i18n";
 
 interface RankingPropsType {
   dcid: string;
+  locale: string;
 }
 
 interface RankingStateType {
@@ -37,6 +40,13 @@ class Ranking extends React.Component<RankingPropsType, RankingStateType> {
   }
   render(): JSX.Element {
     const data = this.state.data;
+    const provenanceLinks = (
+      <>
+        <a href="https://www.census.gov/">census.gov</a>,{" "}
+        <a href="https://www.fbi.gov/">fbi.gov</a>,{" "}
+        <a href="https://www.bls.gov/">bls.gov</a>
+      </>
+    );
     return (
       <React.Fragment>
         {data.label.length > 0 && (
@@ -44,8 +54,15 @@ class Ranking extends React.Component<RankingPropsType, RankingStateType> {
             <table id="ranking-table" className="table">
               <thead>
                 <tr>
-                  <th scope="col">Rankings (in) </th>
+                  <th scope="col">
+                    <FormattedMessage
+                      id="place_page_ranking_table-ranking_in"
+                      defaultMessage="Rankings (in) "
+                      description="The name of the rankings column of the ranking table in the Place Page."
+                    />
+                  </th>
                   {data[data.label[0]].map((item, index: number) => {
+                    // TODO(datcom): make sure the place names get localized here (item.name below)
                     return (
                       <th scope="col" key={index}>
                         {item.name}
@@ -58,17 +75,31 @@ class Ranking extends React.Component<RankingPropsType, RankingStateType> {
                 {data.label.map((item, index) => {
                   return (
                     <tr key={index}>
-                      <th scope="row">{item}</th>
+                      <th scope="row">{translateVariableString(item)}</th>
                       {data[item].map((rankingInfo, index: number) => {
                         const top = rankingInfo.data.rankFromTop;
                         const bottom = rankingInfo.data.rankFromBottom;
                         let text = "";
                         if (!isNaN(top) && !isNaN(bottom)) {
-                          text = `${top} of ${top + bottom}`;
+                          text = intl.formatMessage(
+                            {
+                              id: "place_page_ranking_table-ranking_value",
+                              defaultMessage: "{rank} of {total}",
+                              description:
+                                'The main content of the ranking table, telling users how the current place ranks among other places of the same type in the same parent place. For ZIP Code 94539, we see that for Largest Population, it is "{8} of {41}" among ZIP Codes in Alameda County.',
+                            },
+                            {
+                              rank: top,
+                              total: top + bottom,
+                            }
+                          );
                         }
                         return (
                           <td key={text + index}>
-                            <a href={rankingInfo.rankingUrl}>{text}</a>
+                            <LocalizedLink
+                              href={rankingInfo.rankingUrl}
+                              text={text}
+                            />
                           </td>
                         );
                       })}
@@ -78,9 +109,12 @@ class Ranking extends React.Component<RankingPropsType, RankingStateType> {
               </tbody>
             </table>
             <div className="source">
-              Data from <a href="https://www.census.gov/">census.gov</a>,{" "}
-              <a href="https://www.fbi.gov/">fbi.gov</a> and{" "}
-              <a href="https://www.bls.gov/">bls.gov</a>
+              <FormattedMessage
+                id="chart_metadata-provenance"
+                defaultMessage="Data from {sources}"
+                description="Used to cite where our data is from, but that it was provided through Data Commons. e.g., 'Data from {nytimes.com} via Data Commons' or 'Data from {census.gov, nytimes.com}'"
+                values={{ sources: provenanceLinks }}
+              />
             </div>
           </React.Fragment>
         )}
@@ -89,9 +123,11 @@ class Ranking extends React.Component<RankingPropsType, RankingStateType> {
   }
 
   componentDidMount(): void {
-    axios.get(`/api/place/ranking/${this.props.dcid}`).then((resp) => {
-      this.setState({ data: resp.data });
-    });
+    axios
+      .get(`/api/place/ranking/${this.props.dcid}?hl=${this.props.locale}`)
+      .then((resp) => {
+        this.setState({ data: resp.data });
+      });
   }
 }
 

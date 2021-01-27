@@ -1,0 +1,471 @@
+msgid "CHART_TITLE-CHART_CATEGORY-Crime"
+msgstr "Criminalidad"
+
+msgid "CHART_TITLE-CHART_CATEGORY-Demographics"
+msgstr "Demografía"
+
+msgid "CHART_TITLE-CHART_CATEGORY-Economics"
+msgstr "Economía"
+
+msgid "CHART_TITLE-CHART_CATEGORY-Education"
+msgstr "Educación"
+
+msgid "CHART_TITLE-CHART_CATEGORY-Environment"
+msgstr "Medio ambiente"
+
+msgid "CHART_TITLE-CHART_CATEGORY-Equity"
+msgstr "Patrimonio"
+
+msgid "CHART_TITLE-CHART_CATEGORY-Health"
+msgstr "Salud"
+
+msgid "CHART_TITLE-CHART_CATEGORY-Housing"
+msgstr "Vivienda"
+
+msgid "CHART_TITLE-Alcohol_consumption_per_capita"
+msgstr "Consumo de alcohol per cápita (anual)"
+
+msgid "CHART_TITLE-Arson"
+msgstr "Incendios provocados"
+
+msgid "CHART_TITLE-Arson_rate"
+msgstr "Incendios provocados por cada 100.000 habitantes"
+
+msgid "CHART_TITLE-Associate_degree_rate_gender"
+msgstr "Tasa de diplomados por sexo"
+
+msgid "CHART_TITLE-Bachelors_degree_rate_gender"
+msgstr "Tasa de personas con grados por sexo"
+
+msgid "CHART_TITLE-Children_employed"
+msgstr "Niños trabajadores"
+
+msgid "CHART_TITLE-Children_employed_gender"
+msgstr "Niños trabajadores por sexo"
+
+msgid "CHART_TITLE-Children_severe_wasting"
+msgstr "Emaciación severa en niños menores de 5 años"
+
+msgid "CHART_TITLE-Children_severe_wasting_by_gender"
+msgstr "Emaciación severa en niños menores de 5 años por sexo"
+
+msgid "CHART_TITLE-Children_wasting"
+msgstr "Emaciación en niños menores de 5 años"
+
+msgid "CHART_TITLE-Children_wasting_by_gender"
+msgstr "Emaciación en niños menores de 5 años por sexo"
+
+msgid "CHART_TITLE-Citizenship"
+msgstr "Estado de ciudadanía"
+
+msgid "CHART_TITLE-Citizenship_distribution"
+msgstr "Distribución de la población por estado de ciudadanía"
+
+msgid "CHART_TITLE-Co2_emissions_per_capita"
+msgstr "Emisiones de CO2 per cápita"
+
+msgid "CHART_TITLE-Covid_cases"
+msgstr "Casos acumulados de COVID-19"
+
+msgid "CHART_TITLE-Covid_cases_per_capita"
+msgstr "Casos acumulados de COVID-19 per cápita"
+
+msgid "CHART_TITLE-Covid_deaths"
+msgstr "Muertes acumuladas por COVID-19"
+
+msgid "CHART_TITLE-Covid_deaths_per_capita"
+msgstr "Muertes acumuladas por COVID-19 per cápita"
+
+msgid "CHART_TITLE-Crime_rate"
+msgstr "Delitos por 100.000 habitantes"
+
+msgid "CHART_TITLE-Cyclones"
+msgstr "Ciclones"
+
+msgid "CHART_TITLE-Disasters"
+msgstr "Desastres"
+
+msgid "CHART_TITLE-Earthquakes"
+msgstr "Terremotos"
+
+msgid "CHART_TITLE-Educational_attainment"
+msgstr "Nivel de estudios"
+
+msgid "CHART_TITLE-Educational_attainment_rate"
+msgstr "Tasa de población con estudios"
+
+msgid "CHART_TITLE-Electricity_consumption_per_capita"
+msgstr "Consumo de electricidad per cápita"
+
+msgid "CHART_TITLE-Energy_use"
+msgstr "Consumo energético (kg de equivalente de petróleo per cápita)"
+
+msgid "CHART_TITLE-Fertility_rate"
+msgstr "Tasa de fertilidad"
+
+msgid "CHART_TITLE-Gdp_growth_rate"
+msgstr "Tasa de crecimiento del Producto Interior Bruto"
+
+msgid "CHART_TITLE-Gdp_per_capita"
+msgstr "Producto Interior Bruto per cápita"
+
+msgid "CHART_TITLE-Gini_index"
+msgstr "Coeficiente de Gini"
+
+msgid "CHART_TITLE-Gni"
+msgstr "Renta Nacional Bruta (paridad del poder adquisitivo)"
+
+msgid "CHART_TITLE-Gni_per_capita"
+msgstr "Renta Nacional Bruta per cápita (paridad del poder adquisitivo)"
+
+msgid "CHART_TITLE-Government_debt"
+msgstr "Deuda gubernamental"
+
+msgid "CHART_TITLE-Government_debt_per_capita"
+msgstr "Gasto público en educación (% del gasto público)"
+
+msgid "CHART_TITLE-Government_expenditures_education"
+msgstr "Gasto público en educación (% del PIB)"
+
+msgid "CHART_TITLE-Government_expenditures_education_gdp"
+msgstr "Gasto público en educación (% del PIB)"
+
+msgid "CHART_TITLE-Government_expenditures_military"
+msgstr "Gasto público militar"
+
+msgid "CHART_TITLE-Government_expenditures_military_per_gdp"
+msgstr "Gasto público militar como porcentaje del PIB"
+
+msgid "CHART_TITLE-Graduate_or_professional_degree_rate_gender"
+msgstr "Tasa de personas con diplomas o grados profesionales por sexo"
+
+msgid "CHART_TITLE-Health_behaviors"
+msgstr "Hábitos que afectan a la salud"
+
+msgid "CHART_TITLE-Health_outcomes"
+msgstr "Problemas de salud"
+
+msgid "CHART_TITLE-Household_income"
+msgstr "Ingresos familiares"
+
+msgid "CHART_TITLE-Household_income_by_bracket"
+msgstr "Porcentaje de unidades familiares por niveles de ingresos"
+
+msgid "CHART_TITLE-Housing_units"
+msgstr "Viviendas"
+
+msgid "CHART_TITLE-Housing_units_date_built"
+msgstr "Viviendas por fecha de construcción"
+
+msgid "CHART_TITLE-Housing_units_date_built_distrubtion"
+msgstr "Distribución de viviendas por fecha de construcción"
+
+msgid "CHART_TITLE-Housing_units_per_capita"
+msgstr "Viviendas per cápita"
+
+msgid "CHART_TITLE-Housing_units_price"
+msgstr "Viviendas por precio"
+
+msgid "CHART_TITLE-Housing_units_price_distribution"
+msgstr "Distribución de viviendas ocupadas por precio"
+
+msgid "CHART_TITLE-Housing_units_race"
+msgstr "Viviendas por raza del ocupante"
+
+msgid "CHART_TITLE-Housing_units_race_distribution"
+msgstr "Distribución de viviendas por raza del ocupante"
+
+msgid "CHART_TITLE-Housing_units_rental_status"
+msgstr "Viviendas por estado de alquiler"
+
+msgid "CHART_TITLE-Housing_units_rental_status_distribution"
+msgstr "Distribución de viviendas por modalidad de ocupación"
+
+msgid "CHART_TITLE-Individual_income"
+msgstr "Ingresos individuales"
+
+msgid "CHART_TITLE-Individual_income_by_bracket"
+msgstr "Porcentaje de individuos por niveles de ingresos"
+
+msgid "CHART_TITLE-Infant_mortality_rate"
+msgstr "Tasa de mortalidad infantil"
+
+msgid "CHART_TITLE-Infant_mortality_rate_gender"
+msgstr "Tasa de mortalidad infantil por sexo"
+
+msgid "CHART_TITLE-Inward_remittance"
+msgstr "Remesas recibidas"
+
+msgid "CHART_TITLE-Inward_remittance_per_gdp"
+msgstr "Remesas recibidas (% del PIB)"
+
+msgid "CHART_TITLE-Labor_force"
+msgstr "Fuerza laboral"
+
+msgid "CHART_TITLE-Labor_force_rate"
+msgstr "Tasa de participación en la fuerza laboral"
+
+msgid "CHART_TITLE-Life_expectancy"
+msgstr "Esperanza de vida (años)"
+
+msgid "CHART_TITLE-Marital_status"
+msgstr "Estado civil"
+
+msgid "CHART_TITLE-Marital_status_distribution"
+msgstr "Distribución por estado civil"
+
+msgid "CHART_TITLE-Market_capitalization"
+msgstr "Capitalización en el mercado de las empresas nacionales"
+
+msgid "CHART_TITLE-Market_capitalization_per_gdp"
+msgstr "Capitalización en el mercado de las empresas nacionales (% del PIB)"
+
+msgid "CHART_TITLE-Median_age"
+msgstr "Edad media"
+
+msgid "CHART_TITLE-Median_age_gender"
+msgstr "Edad media por sexo"
+
+msgid "CHART_TITLE-Median_age_race"
+msgstr "Edad media por raza"
+
+msgid "CHART_TITLE-Median_household_income"
+msgstr "Ingresos familiares medios"
+
+msgid "CHART_TITLE-Median_household_income_race"
+msgstr "Ingresos familiares medios por raza"
+
+msgid "CHART_TITLE-Median_income_gender"
+msgstr "Ingresos medios por sexo"
+
+msgid "CHART_TITLE-Median_individual_income"
+msgstr "Ingresos medios por individuo"
+
+msgid "CHART_TITLE-Mortality_events"
+msgstr "Mortalidad"
+
+msgid "CHART_TITLE-Mortality_events_per_capita"
+msgstr "Mortalidad per cápita"
+
+msgid "CHART_TITLE-Outward_remittance_per_gdp"
+msgstr "Remesas pagadas"
+
+msgid "CHART_TITLE-Percent_without_health_insurance_gender"
+msgstr "Porcentaje de personas sin seguro médico por sexo"
+
+msgid "CHART_TITLE-Percent_without_health_insurance_race"
+msgstr "Porcentaje de personas sin seguro médico por raza"
+
+msgid "CHART_TITLE-Percentage_employed"
+msgstr "Porcentaje de personas ocupadas"
+
+msgid "CHART_TITLE-Population"
+msgstr "Población"
+
+msgid "CHART_TITLE-Population_age"
+msgstr "Población por edad"
+
+msgid "CHART_TITLE-Population_age_distribution"
+msgstr "Distribución por edad"
+
+msgid "CHART_TITLE-Population_density"
+msgstr "Densidad de población (personas por km²)"
+
+msgid "CHART_TITLE-Population_gender"
+msgstr "Población por sexo"
+
+msgid "CHART_TITLE-Population_gender_distribution"
+msgstr "Distribución por sexo"
+
+msgid "CHART_TITLE-Population_growth_rate"
+msgstr "Índice de crecimiento demográfico"
+
+msgid "CHART_TITLE-Population_race"
+msgstr "Población por raza"
+
+msgid "CHART_TITLE-Population_race_distribution"
+msgstr "Distribución por raza"
+
+msgid "CHART_TITLE-Poverty_rate"
+msgstr "Tasa de pobreza"
+
+msgid "CHART_TITLE-Poverty_rate_gender"
+msgstr "Tasa de pobreza por sexo"
+
+msgid "CHART_TITLE-Poverty_rate_race"
+msgstr "Tasa de pobreza por raza"
+
+msgid "CHART_TITLE-Prescribed_drugs"
+msgstr "Medicamentos recetados (por trimestre)"
+
+msgid "CHART_TITLE-Prescribed_drugs_per_capita"
+msgstr "Medicamentos recetados per cápita (por trimestre)"
+
+msgid "CHART_TITLE-Property_crime"
+msgstr "Delitos contra la propiedad"
+
+msgid "CHART_TITLE-Property_crime_rate"
+msgstr "Delitos contra la propiedad por 100.000 habitantes"
+
+msgid "CHART_TITLE-School_enrollment"
+msgstr "Escolarización"
+
+msgid "CHART_TITLE-School_enrollment_rate"
+msgstr "Tasa de escolarización"
+
+msgid "CHART_TITLE-State_unemployment_claims"
+msgstr "Solicitudes de seguro estatal de desempleo"
+
+msgid "CHART_TITLE-State_unemployment_claims_rate"
+msgstr "Tasa de solicitudes de seguro estatal de desempleo"
+
+msgid "CHART_TITLE-Total_crime"
+msgstr "Criminalidad total"
+
+msgid "CHART_TITLE-Total_employed"
+msgstr "Número de personas ocupadas"
+
+msgid "CHART_TITLE-Unemployment_rate"
+msgstr "Tasa de desempleo"
+
+msgid "CHART_TITLE-Unemployment_rate_gender"
+msgstr "Tasa de desempleo por sexo"
+
+msgid "CHART_TITLE-Urban_v_rural_population"
+msgstr "Población urbana y rural"
+
+msgid "CHART_TITLE-Violent_crime"
+msgstr "Crímenes violentos"
+
+msgid "CHART_TITLE-Violent_crime_rate"
+msgstr "Crímenes violentos por 100.000 habitantes"
+
+msgid "%(project)s is a Google supported project"
+msgstr "%(project)s es un proyecto respaldado por Google"
+
+msgid "API's"
+msgstr "APIs"
+
+msgid "About"
+msgstr "Información"
+
+msgid "About Data Commons"
+msgstr "Acerca de Data Commons"
+
+msgid "Blog"
+msgstr "Blog"
+
+msgid "Cities, United States"
+msgstr "Ciudades (Estados Unidos)"
+
+msgid "Contribute"
+msgstr "Colaborar"
+
+msgid "Counties, United States"
+msgstr "Condados (Estados Unidos)"
+
+msgid "Countries"
+msgstr "Países"
+
+msgid "Data Commons"
+msgstr "Data Commons"
+
+msgid "Data Sources"
+msgstr "Fuentes de datos"
+
+msgid "Disclaimers"
+msgstr "Renuncias de responsabilidad"
+
+msgid "Documentation"
+msgstr "Documentación"
+
+msgid "Economic Indicators, Worldwide"
+msgstr "Indicadores económicos (Todo el mundo)"
+
+msgid "Enter a country, state, county or city"
+msgstr "Introduce un país, un estado, un condado o una ciudad"
+
+msgid "Explore"
+msgstr "Ver"
+
+msgid "FAQ"
+msgstr "Preguntas frecuentes"
+
+msgid "Feedback"
+msgstr "Comentarios"
+
+msgid "Frequently Asked Questions"
+msgstr "Preguntas frecuentes"
+
+msgid "Gini Index"
+msgstr "Coeficiente de GINI"
+
+msgid "Github Repository"
+msgstr "Repositorio de GitHub"
+
+msgid "Government Expenditures on Education"
+msgstr "Gasto público en educación"
+
+msgid "Government Expenditures on Military"
+msgstr "Gasto público militar"
+
+msgid "Graph Browser"
+msgstr "Graph Browser"
+
+msgid "Gross National Income"
+msgstr "Renta Nacional Bruta"
+
+msgid "Life Expectancy"
+msgstr "Esperanza de vida"
+
+msgid "Loading..."
+msgstr "Cargando..."
+
+msgid "Median Income, United States"
+msgstr "Ingresos medios (Estados Unidos)"
+
+msgid "PLACE_EXPLORER_INTRO"
+msgstr "<p>La herramienta Place Explorer permite conocer los datos principales de un sitio. Reúne un conjunto de gráficos sobre demografía, educación, economía y otros aspectos del sitio y los compara con los de otros sitios. También permite ver las clasificaciones de los distintos sitios en relación con diferentes métricas, como el desempleo, la criminalidad o los ingresos.</p><p>Puedes acceder a los gráficos de la ciudad, el código postal, el condado, el estado o el país que quieras a través del cuadro de búsqueda que aparece arriba.</p><p>Si quieres, también puedes consultar los datos de sitios conocidos:</p>"
+
+msgid "Place Explorer"
+msgstr "Place Explorer"
+
+msgid "Places"
+msgstr "Sitios"
+
+msgid "Privacy Policy"
+msgstr "Política de Privacidad"
+
+msgid "Rankings"
+msgstr "Clasificación"
+
+msgid "States, United States"
+msgstr "Estados (Estados Unidos)"
+
+msgid "Terms and Conditions"
+msgstr "Términos y Condiciones"
+
+msgid "Timelines Explorer"
+msgstr "Timelines Explorer"
+
+msgid "Tutorials"
+msgstr "Tutoriales"
+
+msgid "Unemployment Rate, United States"
+msgstr "Tasa de desempleo (Estados Unidos)"
+
+msgid "Worldwide"
+msgstr "Todo el mundo"
+
+msgid "by city"
+msgstr "por ciudad"
+
+msgid "by county"
+msgstr "por condado"
+
+msgid "by state"
+msgstr "por estado"
+
+msgid "in United States"
+msgstr "en Estados Unidos"
+

@@ -23,6 +23,7 @@ import * as d3 from "d3";
 import ReactDOM from "react-dom";
 import { GeoJsonData, GeoJsonFeature } from "../../chart/types";
 import _ from "lodash";
+import { loadLocaleData } from "../../i18n/i18n";
 
 const TOOLTIP_ID = "tooltip";
 const LEGEND_HEIGHT = 60;
@@ -67,6 +68,10 @@ class ChoroplethMap extends Component<PropsType, StateType> {
   svgContainerElement: React.RefObject<HTMLDivElement>;
   constructor(props: PropsType) {
     super(props);
+    const locale = "en";
+    loadLocaleData(locale, [
+      import(`../../i18n/compiled-lang/${locale}/stats_var_labels.json`),
+    ]);
     this.svgContainerElement = React.createRef();
     const urlParams = new URLSearchParams(window.location.search);
     const isPerCapita =

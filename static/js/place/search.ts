@@ -15,7 +15,7 @@
  */
 
 import axios from "axios";
-
+import { intl } from "../i18n/i18n";
 let ac: google.maps.places.Autocomplete;
 let acs: google.maps.places.AutocompleteService;
 
@@ -83,12 +83,31 @@ function getPlaceAndRender(place_id, place_name): void {
 }
 
 function placeNotFoundAlert(place_name): void {
-  alert("Sorry, but we don't have any data about " + place_name);
+  // TODO(datcom): change defaultMessage to take the localized place name, from KG, not i18n.
+  alert(
+    intl.formatMessage(
+      {
+        id: "alert-no_data_for_place",
+        defaultMessage: "Sorry, but we don't have any data about {placeName}",
+        description:
+          'Text for an alert that we show when user tries to navigate to a place with no data. For example, "Sorry, but we don\'t have any data about {Hong Kong Island, Hong Kong}".',
+      },
+      { placeName: place_name }
+    )
+  );
   const acElem = document.getElementById(
     "place-autocomplete"
   ) as HTMLInputElement;
   acElem.value = "";
-  acElem.setAttribute("placeholder", "Search for another place");
+  acElem.setAttribute(
+    "placeholder",
+    intl.formatMessage({
+      id: "search_bar_placeholder-search_again",
+      defaultMessage: "Search for another place",
+      description:
+        "Text for the Search Box after we alerted the user that data isn't available for the place they just tried.",
+    })
+  );
 }
 
 export { initSearchAutocomplete };

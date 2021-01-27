@@ -2,24 +2,39 @@
   "Overview": {
     "Economics": [
       {
-        "title": "Unemployment Rate",
+        "title": "Unemployment rate",
         "statsVars": ["UnemploymentRate_Person"]
       }
     ]
   },
   "Economics": {
-    "Unemployment Rate": [
+    "Unemployment rate": [
       {
-        "title": "Unemployment Rate",
+        "title": "Unemployment rate",
         "statsVars": ["UnemploymentRate_Person"]
       }
     ],
-    "Labor Force Participation": [
+    "Labor force": [
       {
-        "title": "Labor Force Participation",
+        "title": "Labor force",
         "statsVars": ["Count_Person_InLaborForce"],
         "scaling": 100,
         "unit": "%"
+      }
+    ],
+    "Number of people employed": [
+      {
+        "title": "Number of people employed",
+        "statsVars": [
+          "Count_Person_Employed"
+        ],
+        "relatedChart": {
+          "title": "Percentage of people employed",
+          "scale": true,
+          "denominator": "Count_Person",
+          "scaling": 100,
+          "unit": "%"
+        }
       }
     ]
   }

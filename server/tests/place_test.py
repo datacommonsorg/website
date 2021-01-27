@@ -20,10 +20,9 @@ from main import app
 
 class TestPlace(unittest.TestCase):
 
-    @patch('routes.api.place.get_property_value')
+    @patch('routes.api.place.get_i18n_name')
     @patch('routes.api.place.get_place_type')
-    def test_place(self, mock_get_place_type, mock_get_property_value):
-        mock_get_property_value.return_value = ['Mountain View']
+    def test_place(self, mock_get_place_type, mock_get_i18n_name):
         mock_get_place_type.return_value = 'City'
 
         response = app.test_client().get('/place', follow_redirects=True)
@@ -36,7 +35,7 @@ class TestPlace(unittest.TestCase):
         assert b"<title>Place Explorer" in response.data
         assert b"<p>The Place Explorer tool helps you" in response.data
 
-        mock_get_property_value.return_value = ['California']
+        mock_get_i18n_name.return_value = {'geoId/06': 'California'}
         mock_get_place_type.return_value = 'State'
 
         response = app.test_client().get('/place?dcid=geoId/06',

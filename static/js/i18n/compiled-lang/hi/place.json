@@ -1,0 +1,266 @@
+{
+  "alert-no_data_for_place": [
+    {
+      "type": 0,
+      "value": "माफ़ करें, हमारे पास "
+    },
+    {
+      "type": 1,
+      "value": "placeName"
+    },
+    {
+      "type": 0,
+      "value": " के बारे में कोई डेटा नहीं है"
+    }
+  ],
+  "chart_clause-other_placeType": [
+    {
+      "type": 1,
+      "value": "chartTitle"
+    },
+    {
+      "type": 0,
+      "value": ": अन्य "
+    },
+    {
+      "type": 1,
+      "value": "placeType"
+    }
+  ],
+  "chart_clause-places_that_contain_place": [
+    {
+      "type": 1,
+      "value": "chartTitle"
+    },
+    {
+      "type": 0,
+      "value": ": "
+    },
+    {
+      "type": 1,
+      "value": "placeName"
+    },
+    {
+      "type": 0,
+      "value": " वाली जगहें"
+    }
+  ],
+  "chart_clause-places_within_place": [
+    {
+      "type": 1,
+      "value": "chartTitle"
+    },
+    {
+      "type": 0,
+      "value": ": "
+    },
+    {
+      "type": 1,
+      "value": "placeName"
+    },
+    {
+      "type": 0,
+      "value": " में जगहें"
+    }
+  ],
+  "chart_clause-placetype_near_place": [
+    {
+      "type": 1,
+      "value": "chartTitle"
+    },
+    {
+      "type": 0,
+      "value": ": "
+    },
+    {
+      "type": 1,
+      "value": "placeName"
+    },
+    {
+      "type": 0,
+      "value": " के आस-पास की "
+    },
+    {
+      "type": 1,
+      "value": "placeType"
+    }
+  ],
+  "chart_clause-variable_in_place": [
+    {
+      "type": 1,
+      "value": "placeName"
+    },
+    {
+      "type": 0,
+      "value": " में "
+    },
+    {
+      "type": 1,
+      "value": "variable"
+    }
+  ],
+  "chart_metadata-dotted_line_explanation": [
+    {
+      "type": 0,
+      "value": "(बिंदुओं वाली लाइन वह डेटा बताती है जो मौजूद नहीं है)"
+    }
+  ],
+  "chart_metadata-explore_more": [
+    {
+      "type": 0,
+      "value": "ज़्यादा एक्सप्लोर करें ›"
+    }
+  ],
+  "chart_metadata-export": [
+    {
+      "type": 0,
+      "value": "एक्सपोर्ट करें"
+    }
+  ],
+  "chart_metadata-feedback": [
+    {
+      "type": 0,
+      "value": "सुझाव, शिकायत या राय"
+    }
+  ],
+  "chart_metadata-provenance": [
+    {
+      "type": 1,
+      "value": "sources"
+    },
+    {
+      "type": 0,
+      "value": " से लिया गया डेटा"
+    }
+  ],
+  "child_places_menu-places_in_place": [
+    {
+      "type": 1,
+      "value": "placeName"
+    },
+    {
+      "type": 0,
+      "value": " में जगहें"
+    }
+  ],
+  "embed_citation": [
+    {
+      "type": 0,
+      "value": "Data Commons के ज़रिए "
+    },
+    {
+      "type": 1,
+      "value": "sources"
+    },
+    {
+      "type": 0,
+      "value": " से मिला डेटा"
+    }
+  ],
+  "embed_download_chart_link": [
+    {
+      "type": 0,
+      "value": "चार्ट की इमेज डाउनलोड करें"
+    }
+  ],
+  "embed_download_csv_link": [
+    {
+      "type": 0,
+      "value": "डेटा को CSV के तौर पर डाउनलोड करें"
+    }
+  ],
+  "embed_export_chart_link": [
+    {
+      "type": 0,
+      "value": "यह चार्ट भेजें"
+    }
+  ],
+  "header-overview": [
+    {
+      "type": 0,
+      "value": "खास जानकारी"
+    }
+  ],
+  "link-return_to_overview": [
+    {
+      "type": 0,
+      "value": "खास जानकारी वाले पेज पर वापस जाएं ›"
+    }
+  ],
+  "more_charts": [
+    {
+      "type": 0,
+      "value": "और चार्ट ›"
+    }
+  ],
+  "place_breadcrumb": [
+    {
+      "type": 1,
+      "value": "placeName"
+    },
+    {
+      "type": 0,
+      "value": " में एक "
+    },
+    {
+      "type": 1,
+      "value": "placeType"
+    }
+  ],
+  "place_page_ranking_table-ranking_in": [
+    {
+      "type": 0,
+      "value": "रैंकिंग (में)"
+    }
+  ],
+  "place_page_ranking_table-ranking_value": [
+    {
+      "type": 1,
+      "value": "total"
+    },
+    {
+      "type": 0,
+      "value": " में से "
+    },
+    {
+      "type": 1,
+      "value": "rank"
+    }
+  ],
+  "plural_places": [
+    {
+      "type": 0,
+      "value": "जगहें"
+    }
+  ],
+  "plural_zip_codes": [
+    {
+      "type": 0,
+      "value": "पिन कोड"
+    }
+  ],
+  "search_bar_placeholder-search_again": [
+    {
+      "type": 0,
+      "value": "कोई दूसरी जगह खोजें"
+    }
+  ],
+  "singular_place": [
+    {
+      "type": 0,
+      "value": "जगह"
+    }
+  ],
+  "singular_zip_code": [
+    {
+      "type": 0,
+      "value": "पिन कोड"
+    }
+  ],
+  "the_world": [
+    {
+      "type": 0,
+      "value": "दुनिया में"
+    }
+  ]
+}

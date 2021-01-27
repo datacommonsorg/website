@@ -23,7 +23,8 @@ import json
 import logging
 import urllib
 
-from flask import Blueprint, current_app, Response, url_for
+from flask import Blueprint, current_app, request, Response, url_for, g
+from flask_babel import gettext
 from collections import defaultdict
 
 from cache import cache
@@ -65,6 +66,14 @@ def build_url(dcids, statvar_to_denom, is_scaled=False):
     return urllib.parse.unquote(url_for('tools.timeline', _anchor=anchor))
 
 
+def fill_translation(chart):
+    chart['title'] = gettext(chart['titleId'])
+    del chart['titleId']
+    if 'description' in chart:
+        del chart['description']
+    return chart
+
+
 # TODO: add test for chart_config for assumption that each combination of stat vars will only have one config in chart_config.
 def build_spec(chart_config):
     """Builds hierachical spec based on chart config."""
@@ -73,6 +82,9 @@ def build_spec(chart_config):
     # Map: category -> topic -> [config]
     for conf in chart_config:
         config = copy.deepcopy(conf)
+        config = fill_translation(config)
+        if 'relatedChart' in config and config['relatedChart']['scale']:
+            config['relatedChart'] = fill_translation(config['relatedChart'])
         is_overview = ('isOverview' in config and config['isOverview'])
         category = config['category']
         if 'isOverview' in config:
@@ -341,8 +353,25 @@ def scale_series(numerator, denominator):
     return data
 
 
+def get_i18n_all_child_places(raw_page_data):
+    all_child_places = raw_page_data.get('allChildPlaces', {})
+    all_dcids = []
+    for place_type in list(all_child_places.keys()):
+        for place in all_child_places[place_type]:
+            all_dcids.append(place.get('dcid', ""))
+    i18n_names = place_api.get_i18n_name(all_dcids,
+                                         False)  # Don't resolve en-only names
+    for place_type in list(all_child_places.keys()):
+        for place in all_child_places[place_type]:
+            dcid = place.get('dcid')
+            i18n_name = i18n_names.get(dcid, '')
+            if i18n_name:
+                place['name'] = i18n_name
+    return all_child_places
+
+
 @bp.route('/data/<path:dcid>')
-@cache.memoize(timeout=3600 * 24)  # Cache for one day.
+@cache.cached(timeout=3600 * 24, query_string=True)  # Cache for one day.
 def data(dcid):
     """
     Get chart spec and stats data of the landing page for a given place.
@@ -462,25 +491,31 @@ def data(dcid):
             if category != OVERVIEW:
                 del spec_and_stat[category]
 
+    # Get chart category name translations
+    categories = {}
+    for category in list(spec_and_stat.keys()):
+        categories[category] = gettext(f'CHART_TITLE-CHART_CATEGORY-{category}')
+
     # Get display name for all places
     all_places = [dcid]
     for t in BAR_CHART_TYPES:
         all_places.extend(raw_page_data.get(t + 'Places', []))
-    names = place_api.get_display_name('^'.join(sorted(all_places)))
+    names = place_api.get_display_name('^'.join(sorted(all_places)), g.locale)
 
     # Pick data to highlight - only population for now
     population, statvar_denom = get_snapshot_across_places(
         {'statsVars': ['Count_Person']}, all_stat, [dcid])
-    highlight = {'Population': population}
+    highlight = {gettext('CHART_TITLE-Population'): population}
 
     response = {
         'pageChart': spec_and_stat,
-        'allChildPlaces': raw_page_data.get('allChildPlaces', {}),
+        'allChildPlaces': get_i18n_all_child_places(raw_page_data),
         'childPlacesType': raw_page_data.get('childPlacesType', ""),
         'childPlaces': raw_page_data.get('childPlaces', []),
         'parentPlaces': raw_page_data.get('parentPlaces', []),
         'similarPlaces': raw_page_data.get('similarPlaces', []),
         'nearbyPlaces': raw_page_data.get('nearbyPlaces', []),
+        'categories': categories,
         'names': names,
         'highlight': highlight,
     }
