@@ -248,7 +248,7 @@ class ChartBlock extends React.Component<ChartBlockPropType> {
           })
         : intl.formatMessage(chartTitleMsgs.placesWithinPlace, {
             chartTitle: relatedChartTitle,
-            placeName: this.displayDataTitle,
+            placeName: this.displayPlaceName,
           });
 
     if (this.props.isOverview) {
@@ -304,7 +304,7 @@ class ChartBlock extends React.Component<ChartBlockPropType> {
             snapshot={this.props.data.child}
             title={intl.formatMessage(chartTitleMsgs.placesWithinPlace, {
               chartTitle: relatedChartTitle,
-              placeName: this.displayDataTitle,
+              placeName: this.displayPlaceName,
             })}
             rankingTemplateUrl={`/ranking/_sv_/${this.props.childPlaceType}/${this.props.dcid}${rankingArg}`}
             {...barChartSharedProps}
@@ -391,7 +391,7 @@ class ChartBlock extends React.Component<ChartBlockPropType> {
               snapshot={this.props.data.child}
               title={intl.formatMessage(chartTitleMsgs.placesWithinPlace, {
                 chartTitle: relatedChartTitle,
-                placeName: this.displayDataTitle,
+                placeName: this.displayPlaceName,
               })}
               rankingTemplateUrl={`/ranking/_sv_/${this.props.childPlaceType}/${this.props.dcid}${rankingArg}`}
               {...barChartSharedProps}
