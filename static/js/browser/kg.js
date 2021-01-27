@@ -555,6 +555,7 @@ async function renderKGPage(
   const popobs = await axios
     .get(`/api/browser/popobs/${locId}`)
     .then((resp) => {
+      hasPopObsError = false;
       return JSON.parse(util.unzip(resp.data));
     })
     .catch(() => {
