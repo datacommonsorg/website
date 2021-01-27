@@ -108,10 +108,11 @@ function adjustMenuPosition(): void {
  */
 async function getGeoJsonData(
   dcid: string,
-  placeType: string
+  placeType: string,
+  locale: string
 ): Promise<GeoJsonData> {
   if (shouldMakeChoroplethCalls(dcid, placeType)) {
-    return axios.get("/api/chart/geojson/" + dcid).then((resp) => {
+    return axios.get(`/api/chart/geojson/${dcid}?hl=${locale}`).then((resp) => {
       return resp.data;
     });
   } else {
@@ -127,7 +128,7 @@ async function getChoroplethData(
   placeType: string
 ): Promise<CachedChoroplethData> {
   if (shouldMakeChoroplethCalls(dcid, placeType)) {
-    return axios.get("/api/chart/choroplethdata/" + dcid).then((resp) => {
+    return axios.get(`/api/chart/choroplethdata/${dcid}`).then((resp) => {
       return resp.data;
     });
   } else {
@@ -164,7 +165,7 @@ function renderPage(): void {
   const placeType = document.getElementById("place-type").dataset.pt;
   const locale = document.getElementById("locale").dataset.lc;
   const landingPagePromise = getLandingPageData(dcid, locale);
-  const chartGeoJsonPromise = getGeoJsonData(dcid, placeType);
+  const chartGeoJsonPromise = getGeoJsonData(dcid, placeType, locale);
   const choroplethDataPromise = getChoroplethData(dcid, placeType);
 
   Promise.all([
