@@ -36,7 +36,7 @@ import { drawChoropleth } from "../chart/draw_choropleth";
 import _ from "lodash";
 import { FormattedMessage } from "react-intl";
 import { getStatsVarLabel } from "../shared/stats_var_labels";
-import { LocalizedLink, intl } from "../i18n/i18n";
+import { LocalizedLink, intl, localizeSearchParams } from "../i18n/i18n";
 
 const CHART_HEIGHT = 194;
 const MIN_CHOROPLETH_DATAPOINTS = 9;
@@ -412,8 +412,12 @@ class Chart extends React.Component<ChartPropType, ChartStateType> {
     const allDates = new Set<string>();
     // TODO(datcom): handle i18n for scaled numbers
     const scaling = this.props.scaling ? this.props.scaling : 1;
-    const linkSuffix =
-      this.props.topic === "Overview" ? "" : "?topic=" + this.props.topic;
+    let linkSuffix = localizeSearchParams(
+      new URLSearchParams(
+        this.props.topic === "Overview" ? "" : "topic=" + this.props.topic
+      )
+    ).toString();
+    linkSuffix = linkSuffix ? `?${linkSuffix}` : "";
     switch (this.props.chartType) {
       case chartTypeEnum.LINE:
         for (const statVar in this.props.trend.series) {
