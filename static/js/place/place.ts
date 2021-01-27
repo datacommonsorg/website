@@ -27,13 +27,18 @@ import { PlaceHighlight } from "./place_highlight";
 import { PageSubtitle } from "./page_subtitle";
 import { isPlaceInUsa } from "./util";
 import { initSearchAutocomplete } from "./search";
+import { loadLocaleData, translateVariableString } from "../i18n/i18n";
 
 import { CachedChoroplethData, GeoJsonData, PageData } from "../chart/types";
 
-let yScrollLimit = 0; // window scroll position to start fixing the sidebar
-let sidebarTopMax = 0; // Max top position for the sidebar, relative to #sidebar-outer.
-const Y_SCROLL_WINDOW_BREAKPOINT = 992; // Only trigger fixed sidebar beyond this window width.
-const Y_SCROLL_MARGIN = 100; // Margin to apply to the fixed sidebar top.
+// Window scroll position to start fixing the sidebar.
+let yScrollLimit = 0;
+// Max top position for the sidebar, relative to #sidebar-outer.
+let sidebarTopMax = 0;
+// Only trigger fixed sidebar beyond this window width.
+const Y_SCROLL_WINDOW_BREAKPOINT = 992;
+// Margin to apply to the fixed sidebar top.
+const Y_SCROLL_MARGIN = 100;
 const placeTypesWithChoropleth = new Set(["Country", "State", "County"]);
 
 window.onload = () => {
@@ -133,10 +138,15 @@ async function getChoroplethData(
 /**
  * Get the landing page data
  */
-async function getLandingPageData(dcid: string): Promise<PageData> {
-  return axios.get("/api/landingpage/data/" + dcid).then((resp) => {
-    return resp.data;
-  });
+async function getLandingPageData(
+  dcid: string,
+  locale: string
+): Promise<PageData> {
+  return axios
+    .get(`/api/landingpage/data/${dcid}?hl=${locale}`)
+    .then((resp) => {
+      return resp.data;
+    });
 }
 
 function shouldMakeChoroplethCalls(dcid: string, placeType: string): boolean {
@@ -152,12 +162,20 @@ function renderPage(): void {
   const dcid = document.getElementById("title").dataset.dcid;
   const placeName = document.getElementById("place-name").dataset.pn;
   const placeType = document.getElementById("place-type").dataset.pt;
-  const landingPagePromise = getLandingPageData(dcid);
+  const locale = document.getElementById("locale").dataset.lc;
+  const landingPagePromise = getLandingPageData(dcid, locale);
   const chartGeoJsonPromise = getGeoJsonData(dcid, placeType);
   const choroplethDataPromise = getChoroplethData(dcid, placeType);
 
-  landingPagePromise
-    .then((landingPageData) => {
+  Promise.all([
+    landingPagePromise,
+    loadLocaleData(locale, [
+      import(`../i18n/compiled-lang/${locale}/place.json`),
+      // TODO(beets): Figure out how to place this where it's used so dependencies can be automatically resolved.
+      import(`../i18n/compiled-lang/${locale}/stats_var_labels.json`),
+    ]),
+  ])
+    .then(([landingPageData]) => {
       const loadingElem = document.getElementById("page-loading");
       if (_.isEmpty(landingPageData)) {
         loadingElem.innerText =
@@ -167,12 +185,14 @@ function renderPage(): void {
       loadingElem.style.display = "none";
       const data: PageData = landingPageData;
       const isUsaPlace = isPlaceInUsa(dcid, data.parentPlaces);
+      data.categories["Overview"] = translateVariableString("Overview");
       if (Object.keys(data.pageChart).length == 1) {
         topic = "Overview";
       }
       ReactDOM.render(
         React.createElement(Menu, {
           pageChart: data.pageChart,
+          categories: data.categories,
           dcid,
           topic,
         }),
@@ -218,11 +238,11 @@ function renderPage(): void {
       ReactDOM.render(
         React.createElement(PageSubtitle, {
           category: topic,
+          categoryDisplayStr: data.categories[topic],
           dcid,
         }),
         document.getElementById("subtitle")
       );
-
       ReactDOM.render(
         React.createElement(MainPane, {
           topic,
@@ -236,6 +256,8 @@ function renderPage(): void {
           choroplethData: choroplethDataPromise,
           childPlacesType: data.childPlacesType,
           parentPlaces: data.parentPlaces,
+          categoryStrings: data.categories,
+          locale,
         }),
         document.getElementById("main-pane")
       );

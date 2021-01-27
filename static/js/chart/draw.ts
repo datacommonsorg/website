@@ -284,7 +284,7 @@ function addYAxis(
 }
 
 /**
- * Draw histogram. Used for ranking pages.
+ * Draw histogram. Used for ranking pages. Labels will not be translated - expects translated place names as labels.
  * @param id
  * @param width
  * @param height

@@ -1,0 +1,471 @@
+msgid "CHART_TITLE-CHART_CATEGORY-Crime"
+msgstr "범죄"
+
+msgid "CHART_TITLE-CHART_CATEGORY-Demographics"
+msgstr "인구통계"
+
+msgid "CHART_TITLE-CHART_CATEGORY-Economics"
+msgstr "경제학"
+
+msgid "CHART_TITLE-CHART_CATEGORY-Education"
+msgstr "교육"
+
+msgid "CHART_TITLE-CHART_CATEGORY-Environment"
+msgstr "환경"
+
+msgid "CHART_TITLE-CHART_CATEGORY-Equity"
+msgstr "지분"
+
+msgid "CHART_TITLE-CHART_CATEGORY-Health"
+msgstr "건강"
+
+msgid "CHART_TITLE-CHART_CATEGORY-Housing"
+msgstr "주택"
+
+msgid "CHART_TITLE-Alcohol_consumption_per_capita"
+msgstr "1인당 알코올 소비량(연간)"
+
+msgid "CHART_TITLE-Arson"
+msgstr "방화"
+
+msgid "CHART_TITLE-Arson_rate"
+msgstr "10만 명당 방화 건수"
+
+msgid "CHART_TITLE-Associate_degree_rate_gender"
+msgstr "성별에 따른 2년제 학위 취득률"
+
+msgid "CHART_TITLE-Bachelors_degree_rate_gender"
+msgstr "성별에 따른 학사 학위 취득률"
+
+msgid "CHART_TITLE-Children_employed"
+msgstr "고용 아동 수"
+
+msgid "CHART_TITLE-Children_employed_gender"
+msgstr "성별에 따른 고용 아동 수"
+
+msgid "CHART_TITLE-Children_severe_wasting"
+msgstr "5세 미만 아동에서의 중증 급성영양장애 유병률"
+
+msgid "CHART_TITLE-Children_severe_wasting_by_gender"
+msgstr "성별에 따른 5세 미만 아동에서의 중증급성영양장애 유병률"
+
+msgid "CHART_TITLE-Children_wasting"
+msgstr "5세 미만 급성영양장애 아동"
+
+msgid "CHART_TITLE-Children_wasting_by_gender"
+msgstr "성별에 따른 5세 미만 아동에서의 급성영양장애 유병률"
+
+msgid "CHART_TITLE-Citizenship"
+msgstr "시민권 상태"
+
+msgid "CHART_TITLE-Citizenship_distribution"
+msgstr "시민권 취득 기준 인구 분포"
+
+msgid "CHART_TITLE-Co2_emissions_per_capita"
+msgstr "1인당 이산화탄소 배출량"
+
+msgid "CHART_TITLE-Covid_cases"
+msgstr "코로나19 누적 사례 수"
+
+msgid "CHART_TITLE-Covid_cases_per_capita"
+msgstr "1인당 코로나19 누적 사례"
+
+msgid "CHART_TITLE-Covid_deaths"
+msgstr "코로나19 누적 사망자 수"
+
+msgid "CHART_TITLE-Covid_deaths_per_capita"
+msgstr "1인당 코로나19 누적 사망자"
+
+msgid "CHART_TITLE-Crime_rate"
+msgstr "10만 명당 범죄 수"
+
+msgid "CHART_TITLE-Cyclones"
+msgstr "사이클론"
+
+msgid "CHART_TITLE-Disasters"
+msgstr "재해"
+
+msgid "CHART_TITLE-Earthquakes"
+msgstr "지진"
+
+msgid "CHART_TITLE-Educational_attainment"
+msgstr "교육 수료"
+
+msgid "CHART_TITLE-Educational_attainment_rate"
+msgstr "교육 수료율"
+
+msgid "CHART_TITLE-Electricity_consumption_per_capita"
+msgstr "1인당 전기 소비량"
+
+msgid "CHART_TITLE-Energy_use"
+msgstr "에너지 사용(1인당 석유 환산량 kg당)"
+
+msgid "CHART_TITLE-Fertility_rate"
+msgstr "출산율"
+
+msgid "CHART_TITLE-Gdp_growth_rate"
+msgstr "GDP 성장률"
+
+msgid "CHART_TITLE-Gdp_per_capita"
+msgstr "1인당 국내총생산"
+
+msgid "CHART_TITLE-Gini_index"
+msgstr "지니 계수"
+
+msgid "CHART_TITLE-Gni"
+msgstr "국민총소득(구매력평가지수)"
+
+msgid "CHART_TITLE-Gni_per_capita"
+msgstr "1인당 국민총소득(구매력평가지수)"
+
+msgid "CHART_TITLE-Government_debt"
+msgstr "정부 부채"
+
+msgid "CHART_TITLE-Government_debt_per_capita"
+msgstr "정부 교육비 지출(정부 지출 비율)"
+
+msgid "CHART_TITLE-Government_expenditures_education"
+msgstr "정부의 교육비 지출(GDP 대비 %)"
+
+msgid "CHART_TITLE-Government_expenditures_education_gdp"
+msgstr "정부의 교육비 지출(GDP 대비 %)"
+
+msgid "CHART_TITLE-Government_expenditures_military"
+msgstr "정부 군사비 지출"
+
+msgid "CHART_TITLE-Government_expenditures_military_per_gdp"
+msgstr "GDP 중 정부의 군사비 지출 비중"
+
+msgid "CHART_TITLE-Graduate_or_professional_degree_rate_gender"
+msgstr "성별에 따른 대학 졸업 또는 전문 학위 취득률"
+
+msgid "CHART_TITLE-Health_behaviors"
+msgstr "보건행동"
+
+msgid "CHART_TITLE-Health_outcomes"
+msgstr "건강 상태"
+
+msgid "CHART_TITLE-Household_income"
+msgstr "가계 소득"
+
+msgid "CHART_TITLE-Household_income_by_bracket"
+msgstr "소득 계층별 가구 비율"
+
+msgid "CHART_TITLE-Housing_units"
+msgstr "주택 수"
+
+msgid "CHART_TITLE-Housing_units_date_built"
+msgstr "완공일별 주택 수"
+
+msgid "CHART_TITLE-Housing_units_date_built_distrubtion"
+msgstr "완공일별 주택 수 분포"
+
+msgid "CHART_TITLE-Housing_units_per_capita"
+msgstr "1인당 주택 수"
+
+msgid "CHART_TITLE-Housing_units_price"
+msgstr "가격대별 주택 수"
+
+msgid "CHART_TITLE-Housing_units_price_distribution"
+msgstr "가격대별 소유 주택 수 분포"
+
+msgid "CHART_TITLE-Housing_units_race"
+msgstr "세대주 인종별 주택 수"
+
+msgid "CHART_TITLE-Housing_units_race_distribution"
+msgstr "세대주 인종별 주택 수 분포"
+
+msgid "CHART_TITLE-Housing_units_rental_status"
+msgstr "임대 상태별 주택 수"
+
+msgid "CHART_TITLE-Housing_units_rental_status_distribution"
+msgstr "임대 상태별 주택 수 분포"
+
+msgid "CHART_TITLE-Individual_income"
+msgstr "개인 소득"
+
+msgid "CHART_TITLE-Individual_income_by_bracket"
+msgstr "소득 계층별 개인 비율"
+
+msgid "CHART_TITLE-Infant_mortality_rate"
+msgstr "영아 사망률"
+
+msgid "CHART_TITLE-Infant_mortality_rate_gender"
+msgstr "성별에 따른 영아 사망률"
+
+msgid "CHART_TITLE-Inward_remittance"
+msgstr "타발송금"
+
+msgid "CHART_TITLE-Inward_remittance_per_gdp"
+msgstr "타발송금(GDP 대비 %)"
+
+msgid "CHART_TITLE-Labor_force"
+msgstr "노동력"
+
+msgid "CHART_TITLE-Labor_force_rate"
+msgstr "노동 인구 참여율"
+
+msgid "CHART_TITLE-Life_expectancy"
+msgstr "기대수명(년)"
+
+msgid "CHART_TITLE-Marital_status"
+msgstr "결혼 여부"
+
+msgid "CHART_TITLE-Marital_status_distribution"
+msgstr "결혼 상태 분포"
+
+msgid "CHART_TITLE-Market_capitalization"
+msgstr "국내 기업 시가총액"
+
+msgid "CHART_TITLE-Market_capitalization_per_gdp"
+msgstr "국내 기업 시가총액(GDP 대비 %)"
+
+msgid "CHART_TITLE-Median_age"
+msgstr "중위 연령"
+
+msgid "CHART_TITLE-Median_age_gender"
+msgstr "성별별 중위 연령"
+
+msgid "CHART_TITLE-Median_age_race"
+msgstr "인종별 연령 중앙값"
+
+msgid "CHART_TITLE-Median_household_income"
+msgstr "중위 가계 소득"
+
+msgid "CHART_TITLE-Median_household_income_race"
+msgstr "인종별 중위 가계 소득"
+
+msgid "CHART_TITLE-Median_income_gender"
+msgstr "성별에 따른 중위 소득"
+
+msgid "CHART_TITLE-Median_individual_income"
+msgstr "중위 개인 소득"
+
+msgid "CHART_TITLE-Mortality_events"
+msgstr "사망률"
+
+msgid "CHART_TITLE-Mortality_events_per_capita"
+msgstr "1인당 사망률"
+
+msgid "CHART_TITLE-Outward_remittance_per_gdp"
+msgstr "당발송금"
+
+msgid "CHART_TITLE-Percent_without_health_insurance_gender"
+msgstr "성별에 따른 보험 비보유자 비율"
+
+msgid "CHART_TITLE-Percent_without_health_insurance_race"
+msgstr "인종별 보험 보유자 비율"
+
+msgid "CHART_TITLE-Percentage_employed"
+msgstr "고용 인구 비율"
+
+msgid "CHART_TITLE-Population"
+msgstr "인구"
+
+msgid "CHART_TITLE-Population_age"
+msgstr "연령별 인구"
+
+msgid "CHART_TITLE-Population_age_distribution"
+msgstr "연령 분포"
+
+msgid "CHART_TITLE-Population_density"
+msgstr "인구 밀도(km²당 인구)"
+
+msgid "CHART_TITLE-Population_gender"
+msgstr "성별에 따른 인구"
+
+msgid "CHART_TITLE-Population_gender_distribution"
+msgstr "성별 분포"
+
+msgid "CHART_TITLE-Population_growth_rate"
+msgstr "인구 증가율"
+
+msgid "CHART_TITLE-Population_race"
+msgstr "인종별 인구"
+
+msgid "CHART_TITLE-Population_race_distribution"
+msgstr "인종 분포"
+
+msgid "CHART_TITLE-Poverty_rate"
+msgstr "빈곤율"
+
+msgid "CHART_TITLE-Poverty_rate_gender"
+msgstr "성별에 따른 빈곤율"
+
+msgid "CHART_TITLE-Poverty_rate_race"
+msgstr "인종별 빈곤율"
+
+msgid "CHART_TITLE-Prescribed_drugs"
+msgstr "처방 의약품(분기별)"
+
+msgid "CHART_TITLE-Prescribed_drugs_per_capita"
+msgstr "1인당 처방약(분기별)"
+
+msgid "CHART_TITLE-Property_crime"
+msgstr "재산범죄"
+
+msgid "CHART_TITLE-Property_crime_rate"
+msgstr "인구 10만 명당 재산범죄"
+
+msgid "CHART_TITLE-School_enrollment"
+msgstr "취학률"
+
+msgid "CHART_TITLE-School_enrollment_rate"
+msgstr "학교 입학률"
+
+msgid "CHART_TITLE-State_unemployment_claims"
+msgstr "주별 실업 보험 청구 건수"
+
+msgid "CHART_TITLE-State_unemployment_claims_rate"
+msgstr "주별 실업 보험 청구율"
+
+msgid "CHART_TITLE-Total_crime"
+msgstr "총 범죄 수"
+
+msgid "CHART_TITLE-Total_employed"
+msgstr "고용 인구"
+
+msgid "CHART_TITLE-Unemployment_rate"
+msgstr "실업률"
+
+msgid "CHART_TITLE-Unemployment_rate_gender"
+msgstr "성별에 따른 실업률"
+
+msgid "CHART_TITLE-Urban_v_rural_population"
+msgstr "도시 인구와 교외 인구"
+
+msgid "CHART_TITLE-Violent_crime"
+msgstr "폭력 범죄"
+
+msgid "CHART_TITLE-Violent_crime_rate"
+msgstr "10만 명당 폭력 범죄 수"
+
+msgid "%(project)s is a Google supported project"
+msgstr "%(project)s은(는) Google에서 지원하는 프로젝트입니다"
+
+msgid "API's"
+msgstr "API"
+
+msgid "About"
+msgstr "정보"
+
+msgid "About Data Commons"
+msgstr "Data Commons 정보"
+
+msgid "Blog"
+msgstr "블로그"
+
+msgid "Cities, United States"
+msgstr "도시, 미국"
+
+msgid "Contribute"
+msgstr "참여"
+
+msgid "Counties, United States"
+msgstr "국가, 미국"
+
+msgid "Countries"
+msgstr "국가"
+
+msgid "Data Commons"
+msgstr "Data Commons"
+
+msgid "Data Sources"
+msgstr "데이터 소스"
+
+msgid "Disclaimers"
+msgstr "면책조항"
+
+msgid "Documentation"
+msgstr "문서"
+
+msgid "Economic Indicators, Worldwide"
+msgstr "경제지표, 전 세계"
+
+msgid "Enter a country, state, county or city"
+msgstr "국가나 시/도/구를 입력하세요"
+
+msgid "Explore"
+msgstr "탐색"
+
+msgid "FAQ"
+msgstr "FAQ"
+
+msgid "Feedback"
+msgstr "의견"
+
+msgid "Frequently Asked Questions"
+msgstr "자주 묻는 질문(FAQ)"
+
+msgid "Gini Index"
+msgstr "지니 계수"
+
+msgid "Github Repository"
+msgstr "GitHub 저장소"
+
+msgid "Government Expenditures on Education"
+msgstr "정부의 교육비 지출"
+
+msgid "Government Expenditures on Military"
+msgstr "정부 군사비 지출"
+
+msgid "Graph Browser"
+msgstr "그래프 브라우저"
+
+msgid "Gross National Income"
+msgstr "총국민소득"
+
+msgid "Life Expectancy"
+msgstr "기대수명"
+
+msgid "Loading..."
+msgstr "로드 중..."
+
+msgid "Median Income, United States"
+msgstr "중위 소득, 미국"
+
+msgid "PLACE_EXPLORER_INTRO"
+msgstr "<p>장소 탐색기 도구를 사용하면 장소에 관한 핵심 데이터를 파악할 수 있습니다 인구, 교육, 경제 등에 대한 차트 세트를 가져와서 다른 장소와 비교하여 보여줍니다 실업률, 범죄율, 소득과 같은 다양한 지표에 따라 여러 장소의 순위를 확인할 수도 있습니다</p><p>위 검색 상자에 도시, 우편번호, 국가, 주 등을 입력하여 차트를 볼 수 있습니다</p><p>또는 유명한 장소에 관한 데이터를 먼저 살펴보세요 ...</p>"
+
+msgid "Place Explorer"
+msgstr "장소 탐색기"
+
+msgid "Places"
+msgstr "장소"
+
+msgid "Privacy Policy"
+msgstr "개인정보처리방침"
+
+msgid "Rankings"
+msgstr "순위"
+
+msgid "States, United States"
+msgstr "주, 미국"
+
+msgid "Terms and Conditions"
+msgstr "이용약관"
+
+msgid "Timelines Explorer"
+msgstr "타임라인 탐색기"
+
+msgid "Tutorials"
+msgstr "튜토리얼"
+
+msgid "Unemployment Rate, United States"
+msgstr "실업률, 미국"
+
+msgid "Worldwide"
+msgstr "전 세계"
+
+msgid "by city"
+msgstr "도시별"
+
+msgid "by county"
+msgstr "국가별"
+
+msgid "by state"
+msgstr "주별"
+
+msgid "in United States"
+msgstr "미국"
+

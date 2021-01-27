@@ -16,7 +16,8 @@ import json
 import logging
 import os
 
-from flask import Flask
+from flask import Flask, redirect, request, g
+from flask_babel import Babel
 from google.cloud import storage
 from werkzeug.utils import import_string
 
@@ -25,6 +26,8 @@ from opencensus.ext.flask.flask_middleware import FlaskMiddleware
 from opencensus.ext.stackdriver.trace_exporter import StackdriverExporter
 from opencensus.trace.propagation import google_cloud_format
 from opencensus.trace.samplers import AlwaysOnSampler
+from functools import wraps
+import lib.i18n as i18n
 
 propagator = google_cloud_format.GoogleCloudFormatPropagator()
 
@@ -102,7 +105,7 @@ def create_app():
     app.register_blueprint(translator.bp)
 
     # Load chart config
-    with open('chart_config.json') as f:
+    with open('chart_config.json', encoding='utf-8') as f:
         chart_config = json.load(f)
     app.config['CHART_CONFIG'] = chart_config
 
@@ -125,5 +128,27 @@ def create_app():
         bucket = storage_client.get_bucket(app.config['GCS_BUCKET'])
         blob = bucket.get_blob('placeid2dcid.json')
         app.config['PLACEID2DCID'] = json.loads(blob.download_as_string())
+
+    # Initialize translations
+    babel = Babel(app, default_domain='all')
+    app.config['BABEL_DEFAULT_LOCALE'] = i18n.DEFAULT_LOCALE
+    app.config['BABEL_TRANSLATION_DIRECTORIES'] = 'l10n'
+
+    @app.before_request
+    def before_request():
+        requested_locale = request.args.get('hl', i18n.DEFAULT_LOCALE)
+        g.locale_choices = i18n.locale_choices(requested_locale)
+        g.locale = g.locale_choices[0]
+
+    @babel.localeselector
+    def get_locale():
+        return g.locale
+
+    # Propagate hl parameter to all links (if not 'en')
+    @app.url_defaults
+    def add_language_code(endpoint, values):
+        if 'hl' in values or g.locale == i18n.DEFAULT_LOCALE:
+            return
+        values['hl'] = g.locale
 
     return app

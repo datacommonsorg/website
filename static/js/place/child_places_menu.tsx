@@ -16,6 +16,7 @@
 
 import React from "react";
 import { displayNameForPlaceType } from "./util";
+import { intl } from "../i18n/i18n";
 
 interface ChildPlacePropType {
   childPlaces: { string: string[] };
@@ -29,7 +30,17 @@ class ChildPlace extends React.Component<ChildPlacePropType> {
     }
     return (
       <React.Fragment>
-        <span id="child-place-head">Places in {this.props.placeName}</span>
+        <span id="child-place-head">
+          {intl.formatMessage(
+            {
+              id: "child_places_menu-places_in_place",
+              defaultMessage: "Places in {placeName}",
+              description:
+                'Used for the child places navigation sidebar. Shows a list of place contained in the current place. For example, the sidebar for the Austria place page shows links to child places under the header "Places in {Austria}".',
+            },
+            { placeName: this.props.placeName }
+          )}
+        </span>
         {Object.keys(this.props.childPlaces).map((placeType) => (
           <div key={placeType} className="child-place-group">
             <div className="child-place-type">
