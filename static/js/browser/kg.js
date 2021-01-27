@@ -554,6 +554,10 @@ async function renderKGPage(
     .get(`/api/browser/popobs/${locId}`)
     .then((resp) => {
       return JSON.parse(util.unzip(resp.data));
+    })
+    .catch(() => {
+      const loadingElem = document.getElementById("page-loading");
+      loadingElem.innerText = "Error Fetch PopObs data";
     });
 
   // Get out arcs of population from popobs information.
@@ -729,6 +733,11 @@ async function renderKGPage(
         }
       });
     }
+  }
+
+  const loadingElem = document.getElementById("page-loading");
+  if (!loadingElem.innerText.startsWith("Error")) {
+    loadingElem.style.display = "none";
   }
 
   if (popobs) {
