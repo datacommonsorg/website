@@ -61,51 +61,51 @@ class Page extends React.Component<RankingPagePropType, RankingPageStateType> {
       id: "ranking-subtitle_all",
       defaultMessage: "All {pluralPlaceType} in {placeName}",
       description:
-        "Subtitle of the page, which shows ranking of all contained places of a type within a place, where {pluralPlaceType} will be replaced by the place type of the contained places, and {placeName} is the containing place. Please maintain the {placeName} and {pluralPlaceType} as is in the final translation.",
+        "Subtitle of the page, which shows ranking of all contained places of a type within a place, where {pluralPlaceType} will be replaced by the place type of the contained places (could be cities, countries, counties), and {placeName} is the containing place. Please maintain the {placeName} and {pluralPlaceType} as is in the final translation, and use a gender neutral structure that conveys the same meaning (e.g. dashes to separate).",
     },
     allPerCapita: {
       id: "ranking-subtitle_all_percapita",
       defaultMessage: "All {pluralPlaceType} in {placeName}, per capita",
       description:
-        "Subtitle of the page, which shows ranking of all contained places of a type within a place, computed on a per capita basis, where {pluralPlaceType} will be replaced by the place type of the contained places, and {placeName} is the containing place. Please maintain the {placeName} and {pluralPlaceType} as is in the final translation.",
+        "Subtitle of the page, which shows ranking of all contained places of a type within a place, computed on a per capita basis, where {pluralPlaceType} will be replaced by the place type of the contained places (could be cities, countries, counties), and {placeName} is the containing place. Please maintain the {placeName} and {pluralPlaceType} as is in the final translation, and use a gender neutral structure that conveys the same meaning (e.g. dashes to separate).",
     },
     top: {
       id: "ranking-subtitle_top",
       defaultMessage: "Top {rankSize} {pluralPlaceType} in {placeName}",
       description:
-        "Subtitle of the page, which shows ranking of the top {rankSize} contained places of a type within a place, where {rankSize} will be replaced by a number, {pluralPlaceType} will be replaced by the place type of the contained places, and {placeName} is the containing place. Please maintain the {rankSize}, {placeName} and {pluralPlaceType} as is in the final translation.",
+        "Subtitle of the page, which shows ranking of the top / highest {rankSize} contained places of a type within a place, where {rankSize} will be replaced by a number, {pluralPlaceType} will be replaced by the place type of the contained places (could be cities, countries, counties), and {placeName} is the containing place. Please maintain the {rankSize}, {placeName} and {pluralPlaceType} as is in the final translation, and use a gender neutral structure that conveys the same meaning (e.g. dashes to separate).",
     },
     topPerCapita: {
       id: "ranking-subtitle_top_percapita",
       defaultMessage:
         "Top {rankSize} {pluralPlaceType} in {placeName}, per capita",
       description:
-        "Subtitle of the page, which shows ranking of the top {rankSize} contained places of a type within a place, computed on a per capita basis, where {rankSize} will be replaced by a number, {pluralPlaceType} will be replaced by the place type of the contained places, and {placeName} is the containing place. Please maintain the {rankSize}, {placeName} and {pluralPlaceType} as is in the final translation.",
+        "Subtitle of the page, which shows ranking of the top / highest {rankSize} contained places of a type within a place, computed on a per capita basis, where {rankSize} will be replaced by a number, {pluralPlaceType} will be replaced by the place type of the contained places (could be cities, countries, counties), and {placeName} is the containing place. Please maintain the {rankSize}, {placeName} and {pluralPlaceType} as is in the final translation, and use a gender neutral structure that conveys the same meaning (e.g. dashes to separate).",
     },
     bottom: {
       id: "ranking-subtitle_bottom",
       defaultMessage: "Bottom {rankSize} {pluralPlaceType} in {placeName}",
       description:
-        "Subtitle of the page, which shows ranking of the bottom {rankSize} contained places of a type within a place, where {rankSize} will be replaced by a number, {pluralPlaceType} will be replaced by the place type of the contained places, and {placeName} is the containing place. Please maintain the {rankSize}, {placeName} and {pluralPlaceType} as is in the final translation.",
+        "Subtitle of the page, which shows ranking of the bottom {rankSize} contained places of a type within a place, where {rankSize} will be replaced by a number, {pluralPlaceType} will be replaced by the place type of the contained places (could be cities, countries, counties), and {placeName} is the containing place. Please maintain the {rankSize}, {placeName} and {pluralPlaceType} as is in the final translation, and use a gender neutral structure that conveys the same meaning (e.g. dashes to separate).",
     },
     bottomPerCapita: {
       id: "ranking-subtitle_bottom_percapita",
       defaultMessage:
         "Bottom {rankSize} {pluralPlaceType} in {placeName}, per capita",
       description:
-        "Subtitle of the page, which shows ranking of the bottom {rankSize} contained places of a type within a place, computed on a per capita basis, where {rankSize} will be replaced by a number, {pluralPlaceType} will be replaced by the place type of the contained places, and {placeName} is the containing place. Please maintain the {rankSize}, {placeName} and {pluralPlaceType} as is in the final translation.",
+        "Subtitle of the page, which shows ranking of the bottom {rankSize} contained places of a type within a place, computed on a per capita basis, where {rankSize} will be replaced by a number, {pluralPlaceType} will be replaced by the place type of the contained places (could be cities, countries, counties), and {placeName} is the containing place. Please maintain the {rankSize}, {placeName} and {pluralPlaceType} as is in the final translation, and use a gender neutral structure that conveys the same meaning (e.g. dashes to separate).",
     },
     none: {
       id: "ranking-subtitle_none",
       defaultMessage: "{pluralPlaceType} in {placeName}",
       description:
-        "Subtitle of the page, which shows ranking of contained places of a type within a place, where {pluralPlaceType} will be replaced by the place type of the contained places, and {placeName} is the containing place. Please maintain the {placeName} and {pluralPlaceType} as is in the final translation.",
+        "Subtitle of the page, which shows ranking of contained places of a type within a place, where {pluralPlaceType} will be replaced by the place type of the contained places (could be cities, countries, counties), and {placeName} is the containing place. Please maintain the {placeName} and {pluralPlaceType} as is in the final translation, and use a gender neutral structure that conveys the same meaning (e.g. dashes to separate).",
     },
     nonePerCapita: {
       id: "ranking-subtitle_none_percapita",
       defaultMessage: "{pluralPlaceType} in {placeName}, per capita",
       description:
-        "Subtitle of the page, which shows ranking of contained places of a type within a place, computed on a per capita basis, where {pluralPlaceType} will be replaced by the place type of the contained places, and {placeName} is the containing place. Please maintain the {placeName} and {pluralPlaceType} as is in the final translation.",
+        "Subtitle of the page, which shows ranking of contained places of a type within a place, computed on a per capita basis, where {pluralPlaceType} will be replaced by the place type of the contained places (could be cities, countries, counties), and {placeName} is the containing place. Please maintain the {placeName} and {pluralPlaceType} as is in the final translation, and use a gender neutral structure that conveys the same meaning (e.g. dashes to separate).",
     },
   });
 
@@ -246,7 +246,7 @@ class Page extends React.Component<RankingPagePropType, RankingPageStateType> {
               id: "ranking-page_title",
               defaultMessage: "Ranking by {statVar}",
               description:
-                "Main title on a page showing the ranking of places measured by a statistical variable. The statistical variable is translated separately, and will be replaced in {statVar} -- please leave the '{statVar}' as is in the resulting translation.",
+                "Main title on a page showing the ranking of places measured by a statistical variable. The statistical variable is translated separately, and will be replaced in {statVar}.  Please leave the '{statVar}' as is in the resulting translation.",
             },
             {
               statVar: this.svTitle,
