@@ -72,6 +72,8 @@ const LOC_FIELD = {
 // TOOD(shifucun): Add additional whitelisted NAICS that exist in cache.
 const TOP_NAICS_REGEX = /(NAICS\/10\d*|NAICS\/\d\d|NAICS\/\d\d-\d\d)/g;
 
+let hasPopObsError = false;
+
 /**
  * Orders population group keys.
  *
@@ -553,7 +555,13 @@ async function renderKGPage(
   const popobs = await axios
     .get(`/api/browser/popobs/${locId}`)
     .then((resp) => {
+      hasPopObsError = false;
       return JSON.parse(util.unzip(resp.data));
+    })
+    .catch(() => {
+      const loadingElem = document.getElementById("page-loading");
+      loadingElem.innerText = "Error fetching observations about this node";
+      hasPopObsError = true;
     });
 
   // Get out arcs of population from popobs information.
@@ -729,6 +737,11 @@ async function renderKGPage(
         }
       });
     }
+  }
+
+  const loadingElem = document.getElementById("page-loading");
+  if (!hasPopObsError) {
+    loadingElem.style.display = "none";
   }
 
   if (popobs) {
