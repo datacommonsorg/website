@@ -37,7 +37,7 @@ configMapGenerator:
     behavior: create
     literals:
       - flaskEnv=minikube
-      - gcsBucket=datcom-website-staging-resources
+      - gcsBucket=datcom-website-autopush-resources
       - secretProject=datcom-website-dev
   - name: mixer-configmap
     behavior: create

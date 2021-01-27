@@ -118,8 +118,8 @@ on Minikube, hance disabled.
 
 ## Develop with Flask (Not Recommended)
 
-This way the website talks to the staging Mixer which might not be the same version
-as the submodule and may have API compatibility issue.
+This way the website talks to the [autopush Mixer](autopush.api.datacommons.org)
+which might not be the same version as the submodule and may have API compatibility issue.
 
 ### Package javascript and static assets
 
@@ -146,7 +146,8 @@ The GKE configuration is stored [here](deploy/gke/prod.yaml).
 ### placeid2dcid.json
 
 This file is stored in GCS bucket. The bucket is set in the config files
-[staging](deploy/gke/staging.yaml) and [prod](deploy/gke/prod.yaml).
+[autopush](deploy/gke/autopush.yaml), [staging](deploy/gke/staging.yaml) and
+[prod](deploy/gke/prod.yaml).
 
 ### Redis memcache
 
