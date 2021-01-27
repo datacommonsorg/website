@@ -117,6 +117,7 @@ class Chart extends React.Component<ChartPropType, ChartStateType> {
   dcid: string;
   rankingUrlByStatVar: { [key: string]: string };
   statsVars: string[];
+  placeLinkSearch: string; // Search parameter string including '?'
 
   constructor(props: ChartPropType) {
     super(props);
@@ -152,6 +153,13 @@ class Chart extends React.Component<ChartPropType, ChartStateType> {
         statVar
       );
     }
+
+    let linkSuffix = localizeSearchParams(
+      new URLSearchParams(
+        this.props.topic === "Overview" ? "" : "topic=" + this.props.topic
+      )
+    ).toString();
+    this.placeLinkSearch = linkSuffix ? `?${linkSuffix}` : "";
   }
 
   render(): JSX.Element {
@@ -371,8 +379,6 @@ class Chart extends React.Component<ChartPropType, ChartStateType> {
       chartType === chartTypeEnum.CHOROPLETH &&
       this.state.choroplethDataGroup
     ) {
-      const urlSuffix =
-        this.props.topic === "Overview" ? "" : "?topic=" + this.props.topic;
       drawChoropleth(
         this.props.id,
         this.state.geoJson,
@@ -381,7 +387,7 @@ class Chart extends React.Component<ChartPropType, ChartStateType> {
         this.state.choroplethDataGroup.data,
         this.props.unit,
         this.props.statsVars[0],
-        urlSuffix
+        this.placeLinkSearch
       );
     }
   }
@@ -412,12 +418,6 @@ class Chart extends React.Component<ChartPropType, ChartStateType> {
     const allDates = new Set<string>();
     // TODO(datcom): handle i18n for scaled numbers
     const scaling = this.props.scaling ? this.props.scaling : 1;
-    let linkSuffix = localizeSearchParams(
-      new URLSearchParams(
-        this.props.topic === "Overview" ? "" : "topic=" + this.props.topic
-      )
-    ).toString();
-    linkSuffix = linkSuffix ? `?${linkSuffix}` : "";
     switch (this.props.chartType) {
       case chartTypeEnum.LINE:
         for (const statVar in this.props.trend.series) {
@@ -480,7 +480,7 @@ class Chart extends React.Component<ChartPropType, ChartStateType> {
             new DataGroup(
               this.props.names[placeData.dcid],
               dataPoints,
-              `/place/${placeData.dcid}${linkSuffix}`
+              `/place/${placeData.dcid}${this.placeLinkSearch}`
             )
           );
         }
