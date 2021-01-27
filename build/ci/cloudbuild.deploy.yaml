@@ -46,14 +46,4 @@ steps:
         git commit -m "Deployed website to autopush at commit https://github.com/datacommonsorg/website/commit/$SHORT_SHA"
         git push origin master
 
-  # Deploy website with the latest mixer and base cache
-  - id: autopush
-    name: "gcr.io/datcom-ci/deploy-tool"
-    entrypoint: /bin/bash
-    args:
-      - -c
-      - |
-        set -e
-        ./scripts/autopush.sh
-
 timeout: 3600s
