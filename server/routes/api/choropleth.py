@@ -36,7 +36,7 @@ bp = flask.Blueprint("choropleth", __name__, url_prefix='/api/choropleth')
 
 def get_data(payload_for_geo):
     """ Returns the full timeseries data as from a DataCommons API payload.
-    
+
     Args:
         payload_for_geo -> The payload from a get_stats call for a
             particular dcid.
@@ -81,7 +81,7 @@ def choropleth_values():
         return flask.jsonify(
             {
                 "error":
-                    f"Failed to automatically resolve geographic subdivision level for"
+                    "Failed to automatically resolve geographic subdivision level for"
                     +
                     f"{requested_geoDcid}. Please provide a 'level' field manually."
             }, 400)

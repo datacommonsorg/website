@@ -12,9 +12,8 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-import json
 import unittest
-from flask import Flask, g
+from flask import g
 from unittest.mock import patch
 
 from main import app
