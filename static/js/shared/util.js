@@ -63,7 +63,7 @@ const API_DATA = {
     key: "AIzaSyCJXDc2HxXL3u76PqQfYXuT1oGB-f4uC1I",
   },
   staging: {
-    root: "https://mixer.endpoints.datcom-mixer-staging.cloud.goog",
+    root: "https://staging.api.datacommons.org",
     key: "AIzaSyDffCx9SDfXDJ-lZdsCsYO4296UOH25oz8",
   },
 };

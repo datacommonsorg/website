@@ -17,7 +17,7 @@ set -e
 python3 -m venv .env
 source .env/bin/activate
 
-export GOOGLE_CLOUD_PROJECT=datcom-website-staging
+export GOOGLE_CLOUD_PROJECT=datcom-website-autopush
 export FLASK_ENV=development
 
 pip3 install -r server/requirements.txt -q
