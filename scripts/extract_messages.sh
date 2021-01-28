@@ -37,7 +37,8 @@ pip3 install -r server/requirements.txt -q
 
 python3 tools/i18n/chart_config_extractor.py
 
-for LOCALE in de en es fr hi it ja ko ru; #pt-BR zh-CN;
+# for LOCALE in de en es fr hi it ja ko ru pt-BR zh-CN;
+for LOCALE in de en es fr hi it ja ko ru;
 do
   .env/bin/pybabel update \
     -i server/i18n/all.pot \
@@ -47,5 +48,5 @@ do
     -w 1000 \
     --previous \
     --no-fuzzy-matching \
-    --omit-header \
+    --omit-header
 done
