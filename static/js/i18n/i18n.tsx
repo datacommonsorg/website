@@ -44,15 +44,17 @@ async function loadLocaleData(
   modules: Promise<Record<any, any>>[]
 ): Promise<void> {
   const allMessages = {};
-  return Promise.all(modules).then((messages) => {
-    for (const msg of messages) {
-      Object.assign(allMessages, msg.default);
-    }
-    intl = createIntl({ locale, messages: allMessages }, intlCache);
-  }).catch((err) => {
-    console.log(err);
-    intl = createIntl({ locale, messages: {} }, intlCache);
-  });
+  return Promise.all(modules)
+    .then((messages) => {
+      for (const msg of messages) {
+        Object.assign(allMessages, msg.default);
+      }
+      intl = createIntl({ locale, messages: allMessages }, intlCache);
+    })
+    .catch((err) => {
+      console.log(err);
+      intl = createIntl({ locale, messages: {} }, intlCache);
+    });
 }
 
 /**
