@@ -18,6 +18,7 @@ This module contains the request handler codes and the main app.
 
 import json
 import logging
+import os
 
 import flask
 from flask import request
@@ -158,6 +159,16 @@ def get_weather():
 @app.route('/mcf_playground')
 def mcf_playground():
     return flask.render_template('mcf_playground.html')
+
+
+# TODO(shifucun): get branch cache version from mixer
+@app.route('/version')
+def version():
+    return flask.render_template('version.html',
+                                 website_hash=os.environ.get("WEBSITE_HASH"),
+                                 mixer_hash=os.environ.get("MIXER_HASH"),
+                                 bigtable=os.environ.get("BIG_TABLE"),
+                                 bigquery=os.environ.get("BIG_QUERY"))
 
 
 if __name__ == '__main__':
