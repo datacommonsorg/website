@@ -154,7 +154,7 @@ class Chart extends React.Component<ChartPropType, ChartStateType> {
       );
     }
 
-    let linkSuffix = localizeSearchParams(
+    const linkSuffix = localizeSearchParams(
       new URLSearchParams(
         this.props.topic === "Overview" ? "" : "topic=" + this.props.topic
       )
