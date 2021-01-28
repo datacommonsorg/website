@@ -1,4 +1,4 @@
-# Copyright 2019 Google LLC
+# Copyright 2020 Google LLC
 #
 # Licensed under the Apache License, Version 2.0 (the "License");
 # you may not use this file except in compliance with the License.
@@ -12,16 +12,14 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-# Kustomization configuration for base yaml files.
+# Reads in git versions for the deployed code.
 
 apiVersion: kustomize.config.k8s.io/v1beta1
 kind: Kustomization
 
-namespace: website
-
-resources:
-  - ../../mixer/deploy/storage
-  - ../../mixer/deploy/mapping
-  - ../git
-  - deployment.yaml
-  - namespace.yaml
+configMapGenerator:
+  - name: githash-configmap
+    behavior: create
+    files:
+      - mixer_hash.txt
+      - website_hash.txt

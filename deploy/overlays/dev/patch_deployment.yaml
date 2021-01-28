@@ -37,6 +37,9 @@ spec:
         - name: website
           image: datacommons/website
           imagePullPolicy: Never
+          resources:
+            limits:
+              memory: "1G"
         - name: mixer
           image: datacommons/mixer
           imagePullPolicy: Never

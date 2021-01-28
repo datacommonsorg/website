@@ -39,20 +39,25 @@ DIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )" >/dev/null 2>&1 && pwd )"
 ROOT="$(dirname "$DIR")"
 
 cd $ROOT
-WEBSITE_TAG=$(git rev-parse --short HEAD)
+WEBSITE_HASH=$(git rev-parse --short HEAD)
 
 cd $ROOT/mixer
-MIXER_TAG=$(git rev-parse --short HEAD)
-cd $ROOT
+MIXER_HASH=$(git rev-parse --short HEAD)
 
+cd $ROOT/deploy/git
+
+echo $WEBSITE_HASH >> website_hash.txt
+echo $MIXER_HASH >> website_hash.txt
+
+cd $ROOT
 PROJECT_ID=$(yq read $ROOT/deploy/gke/$ENV.yaml project)
 CLUSTER_NAME=website-$REGION
 
 cd $ROOT/deploy/overlays/$ENV
 
 # Deploy to GKE
-kustomize edit set image gcr.io/datcom-ci/datacommons-website=gcr.io/datcom-ci/datacommons-website:$WEBSITE_TAG
-kustomize edit set image gcr.io/datcom-ci/datacommons-mixer=gcr.io/datcom-ci/datacommons-mixer:$MIXER_TAG
+kustomize edit set image gcr.io/datcom-ci/datacommons-website=gcr.io/datcom-ci/datacommons-website:$WEBSITE_HASH
+kustomize edit set image gcr.io/datcom-ci/datacommons-mixer=gcr.io/datcom-ci/datacommons-mixer:$MIXER_HASH
 kustomize build > $ENV.yaml
 gcloud config set project $PROJECT_ID
 gcloud container clusters get-credentials $CLUSTER_NAME --region $REGION
@@ -65,5 +70,5 @@ yq w --style=double $ROOT/gke/endpoints.yaml.tpl name $SERVICE_NAME > endpoints.
 yq w -i endpoints.yaml title "$API_TITLE"
 
 # Deploy ESP configuration
-gsutil cp gs://datcom-mixer-grpc/mixer-grpc/mixer-grpc.$MIXER_TAG.pb .
-gcloud endpoints services deploy mixer-grpc.$MIXER_TAG.pb endpoints.yaml --project $PROJECT_ID
+gsutil cp gs://datcom-mixer-grpc/mixer-grpc/mixer-grpc.$MIXER_HASH.pb .
+gcloud endpoints services deploy mixer-grpc.$MIXER_HASH.pb endpoints.yaml --project $PROJECT_ID

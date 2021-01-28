@@ -19,18 +19,20 @@ ENV ENV=${ENV}
 
 WORKDIR /workspace
 
-# Flask
 COPY server/requirements.txt /workspace/server/requirements.txt
 RUN pip3 install -r /workspace/server/requirements.txt
-COPY server/ server/
 
-# NPM
 COPY static/package.json /workspace/static/package.json
 COPY static/package-lock.json /workspace/static/package-lock.json
 WORKDIR /workspace/static
 RUN npm install
-COPY static/ /workspace/static/
+
+# NPM
+COPY static/. /workspace/static/
 RUN npm run-script build
+
+# Flask
+COPY server/. /workspace/server/
 
 # Run server
 WORKDIR /workspace/server
