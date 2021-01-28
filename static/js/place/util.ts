@@ -160,7 +160,6 @@ const pluralPlaceTypeMessages = defineMessages({
 
 /**
  * Returns place type, possibly pluralized if requested.
- * TODO(datcom): i18n pluralization cases--maybe possible to reduce this code.
  *
  * @param {string} placeType PlaceType, as taken from the Data Commons Graph (in CamelCase).
  * @param {boolean} isPlural True if the result should be pluralized.
