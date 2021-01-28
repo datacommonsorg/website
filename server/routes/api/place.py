@@ -14,9 +14,7 @@
 
 import collections
 import json
-import random
 import re
-import time
 
 from flask import Blueprint, request, Response, url_for, g
 from flask_babel import gettext
@@ -438,11 +436,6 @@ def get_parent_place(dcids):
                 ]
         result[dcid] = parents
     return result
-
-
-@cache.memoize(timeout=3600 * 24)  # Cache for one day.
-def get_property_value(dcid, prop, out=True):
-    return dc.get_property_values([dcid], prop, out)[dcid]
 
 
 @cache.memoize(timeout=3600 * 24)  # Cache for one day.

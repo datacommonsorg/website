@@ -292,6 +292,7 @@ class TestChoroplethDataHelpers(unittest.TestCase):
             }
         }
         actual_result = chart_api.process_choropleth_data(test_data)
+        assert expected_result == actual_result
 
 
 class TestChoroplethData(unittest.TestCase):

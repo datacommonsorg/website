@@ -14,9 +14,7 @@
 
 import pytest
 import unittest
-import logging
 import json
-from unittest.mock import patch
 
 from main import app
 

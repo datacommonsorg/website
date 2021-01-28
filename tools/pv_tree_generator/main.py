@@ -14,11 +14,8 @@
 """main function for building the PV-tree and generate the json file"""
 
 import json
-import logging
-import util
-import constants
 from build_tree import build_tree, get_top_level
-import copy
+
 MAX_LEVEL = 6
 
 

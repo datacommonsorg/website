@@ -16,8 +16,6 @@
 import flask
 import routes.api.place as place_api
 
-from flask import request
-
 bp = flask.Blueprint('ranking', __name__, url_prefix='/ranking')
 
 

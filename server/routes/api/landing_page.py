@@ -23,7 +23,7 @@ import json
 import logging
 import urllib
 
-from flask import Blueprint, current_app, request, Response, url_for, g
+from flask import Blueprint, current_app, Response, url_for, g
 from flask_babel import gettext
 from collections import defaultdict
 
