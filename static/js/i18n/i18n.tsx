@@ -49,6 +49,9 @@ async function loadLocaleData(
       Object.assign(allMessages, msg.default);
     }
     intl = createIntl({ locale, messages: allMessages }, intlCache);
+  }).catch((err) => {
+    console.log(err);
+    intl = createIntl({ locale, messages: {} }, intlCache);
   });
 }
 

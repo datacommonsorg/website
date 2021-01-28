@@ -31,7 +31,7 @@ import json
 import os
 
 CHART_CONFIG_RELATIVE_PATH = '../../server/chart_config.json'
-CHART_TITLES_POT_RELATIVE_PATH = '../../server/l10n/chart_titles.pot'
+MESSAGES_POT_RELATIVE_PATH = '../../server/l10n/all.pot'
 
 
 def extract_message_from_chart(config):
@@ -78,7 +78,7 @@ def main():
 
     # Add chart categories to the message catalog
     for category in categories:
-        id = f'CHART_CATEGORY-{category}'
+        id = f'CHART_TITLE-CHART_CATEGORY-{category}'
         message = {
             'message': category,
             'description': 'The category for a group of statistical charts.',
@@ -86,8 +86,8 @@ def main():
         maybe_add_message(messages, id, message)
 
     chart_pot_path = os.path.abspath(
-        os.path.join(basepath, CHART_TITLES_POT_RELATIVE_PATH))
-    with open(chart_pot_path, 'w') as f:
+        os.path.join(basepath, MESSAGES_POT_RELATIVE_PATH))
+    with open(chart_pot_path, 'a+') as f:
         cnt = 0
         for id in sorted(messages.keys()):
             msg = messages[id]

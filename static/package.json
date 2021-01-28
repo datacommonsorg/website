@@ -10,7 +10,7 @@
   "main": "index.js",
   "scripts": {
     "build": "webpack -p --progress --config webpack.config.js",
-    "compile": "formatjs compile",
+    "compile": "formatjs compile-folder",
     "dev-build": "webpack --progress -d --config webpack.config.js",
     "extract": "formatjs extract",
     "lint": "eslint --fix .",

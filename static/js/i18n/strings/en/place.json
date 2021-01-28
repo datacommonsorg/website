@@ -93,7 +93,7 @@
   },
   "plural_administrative_area_level": {
     "defaultMessage": "Administrative Area {level} Places",
-    "description": "Label used for a collection of places, of type Administrative Area {level} (an administrative division of certain level, akin to definition here https://en.wikipedia.org/wiki/Administrative_division). {level} are numbers from 1-5. An example use is 'Administrative Area 1 Places in Europe'. Please maintain capitalization."
+    "description": "Label used for a collection of places, of type Administrative Area {level} (an administrative division of certain level, akin to definition here https://en.wikipedia.org/wiki/Administrative_division). {level} are numbers from 1-5. Synonyms for 'places' include locations / towns / cities. An example use is 'Administrative Area 1 Places in Europe'. An equivalent is Administrative Areas of Level 1 in Europe. Please maintain capitalization."
   },
   "plural_borough": {
     "defaultMessage": "Boroughs",
@@ -153,7 +153,7 @@
   },
   "ranking-page_title": {
     "defaultMessage": "Ranking by {statVar}",
-    "description": "Main title on a page showing the ranking of places measured by a statistical variable. The statistical variable is translated separately, and will be replaced in {statVar} -- please leave the '{statVar}' as is in the resulting translation."
+    "description": "Main title on a page showing the ranking of places measured by a statistical variable. The statistical variable is translated separately, and will be replaced in {statVar}.  Please leave the '{statVar}' as is in the resulting translation."
   },
   "ranking-sort_bottom": {
     "defaultMessage": "Show Lowest {rankSize}",
@@ -165,35 +165,35 @@
   },
   "ranking-subtitle_all": {
     "defaultMessage": "All {pluralPlaceType} in {placeName}",
-    "description": "Subtitle of the page, which shows ranking of all contained places of a type within a place, where {pluralPlaceType} will be replaced by the place type of the contained places, and {placeName} is the containing place. Please maintain the {placeName} and {pluralPlaceType} as is in the final translation."
+    "description": "Subtitle of the page, which shows ranking of all contained places of a type within a place, where {pluralPlaceType} will be replaced by the place type of the contained places (could be cities, countries, counties), and {placeName} is the containing place. Please maintain the {placeName} and {pluralPlaceType} as is in the final translation, and use a gender neutral structure that conveys the same meaning (e.g. dashes to separate)."
   },
   "ranking-subtitle_all_percapita": {
     "defaultMessage": "All {pluralPlaceType} in {placeName}, per capita",
-    "description": "Subtitle of the page, which shows ranking of all contained places of a type within a place, computed on a per capita basis, where {pluralPlaceType} will be replaced by the place type of the contained places, and {placeName} is the containing place. Please maintain the {placeName} and {pluralPlaceType} as is in the final translation."
+    "description": "Subtitle of the page, which shows ranking of all contained places of a type within a place, computed on a per capita basis, where {pluralPlaceType} will be replaced by the place type of the contained places (could be cities, countries, counties), and {placeName} is the containing place. Please maintain the {placeName} and {pluralPlaceType} as is in the final translation, and use a gender neutral structure that conveys the same meaning (e.g. dashes to separate)."
   },
   "ranking-subtitle_bottom": {
     "defaultMessage": "Bottom {rankSize} {pluralPlaceType} in {placeName}",
-    "description": "Subtitle of the page, which shows ranking of the bottom {rankSize} contained places of a type within a place, where {rankSize} will be replaced by a number, {pluralPlaceType} will be replaced by the place type of the contained places, and {placeName} is the containing place. Please maintain the {rankSize}, {placeName} and {pluralPlaceType} as is in the final translation."
+    "description": "Subtitle of the page, which shows ranking of the bottom {rankSize} contained places of a type within a place, where {rankSize} will be replaced by a number, {pluralPlaceType} will be replaced by the place type of the contained places (could be cities, countries, counties), and {placeName} is the containing place. Please maintain the {rankSize}, {placeName} and {pluralPlaceType} as is in the final translation, and use a gender neutral structure that conveys the same meaning (e.g. dashes to separate)."
   },
   "ranking-subtitle_bottom_percapita": {
     "defaultMessage": "Bottom {rankSize} {pluralPlaceType} in {placeName}, per capita",
-    "description": "Subtitle of the page, which shows ranking of the bottom {rankSize} contained places of a type within a place, computed on a per capita basis, where {rankSize} will be replaced by a number, {pluralPlaceType} will be replaced by the place type of the contained places, and {placeName} is the containing place. Please maintain the {rankSize}, {placeName} and {pluralPlaceType} as is in the final translation."
+    "description": "Subtitle of the page, which shows ranking of the bottom {rankSize} contained places of a type within a place, computed on a per capita basis, where {rankSize} will be replaced by a number, {pluralPlaceType} will be replaced by the place type of the contained places (could be cities, countries, counties), and {placeName} is the containing place. Please maintain the {rankSize}, {placeName} and {pluralPlaceType} as is in the final translation, and use a gender neutral structure that conveys the same meaning (e.g. dashes to separate)."
   },
   "ranking-subtitle_none": {
     "defaultMessage": "{pluralPlaceType} in {placeName}",
-    "description": "Subtitle of the page, which shows ranking of contained places of a type within a place, where {pluralPlaceType} will be replaced by the place type of the contained places, and {placeName} is the containing place. Please maintain the {placeName} and {pluralPlaceType} as is in the final translation."
+    "description": "Subtitle of the page, which shows ranking of contained places of a type within a place, where {pluralPlaceType} will be replaced by the place type of the contained places (could be cities, countries, counties), and {placeName} is the containing place. Please maintain the {placeName} and {pluralPlaceType} as is in the final translation, and use a gender neutral structure that conveys the same meaning (e.g. dashes to separate)."
   },
   "ranking-subtitle_none_percapita": {
     "defaultMessage": "{pluralPlaceType} in {placeName}, per capita",
-    "description": "Subtitle of the page, which shows ranking of contained places of a type within a place, computed on a per capita basis, where {pluralPlaceType} will be replaced by the place type of the contained places, and {placeName} is the containing place. Please maintain the {placeName} and {pluralPlaceType} as is in the final translation."
+    "description": "Subtitle of the page, which shows ranking of contained places of a type within a place, computed on a per capita basis, where {pluralPlaceType} will be replaced by the place type of the contained places (could be cities, countries, counties), and {placeName} is the containing place. Please maintain the {placeName} and {pluralPlaceType} as is in the final translation, and use a gender neutral structure that conveys the same meaning (e.g. dashes to separate)."
   },
   "ranking-subtitle_top": {
     "defaultMessage": "Top {rankSize} {pluralPlaceType} in {placeName}",
-    "description": "Subtitle of the page, which shows ranking of the top {rankSize} contained places of a type within a place, where {rankSize} will be replaced by a number, {pluralPlaceType} will be replaced by the place type of the contained places, and {placeName} is the containing place. Please maintain the {rankSize}, {placeName} and {pluralPlaceType} as is in the final translation."
+    "description": "Subtitle of the page, which shows ranking of the top / highest {rankSize} contained places of a type within a place, where {rankSize} will be replaced by a number, {pluralPlaceType} will be replaced by the place type of the contained places (could be cities, countries, counties), and {placeName} is the containing place. Please maintain the {rankSize}, {placeName} and {pluralPlaceType} as is in the final translation, and use a gender neutral structure that conveys the same meaning (e.g. dashes to separate)."
   },
   "ranking-subtitle_top_percapita": {
     "defaultMessage": "Top {rankSize} {pluralPlaceType} in {placeName}, per capita",
-    "description": "Subtitle of the page, which shows ranking of the top {rankSize} contained places of a type within a place, computed on a per capita basis, where {rankSize} will be replaced by a number, {pluralPlaceType} will be replaced by the place type of the contained places, and {placeName} is the containing place. Please maintain the {rankSize}, {placeName} and {pluralPlaceType} as is in the final translation."
+    "description": "Subtitle of the page, which shows ranking of the top / highest {rankSize} contained places of a type within a place, computed on a per capita basis, where {rankSize} will be replaced by a number, {pluralPlaceType} will be replaced by the place type of the contained places (could be cities, countries, counties), and {placeName} is the containing place. Please maintain the {rankSize}, {placeName} and {pluralPlaceType} as is in the final translation, and use a gender neutral structure that conveys the same meaning (e.g. dashes to separate)."
   },
   "ranking_table-header_rank": {
     "defaultMessage": "Rank",

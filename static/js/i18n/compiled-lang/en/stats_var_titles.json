@@ -914,7 +914,7 @@
   "Count_Person_IncomeOfUpto9999USDollar": [
     {
       "type": 0,
-      "value": "Population (Individual Income Under $10K"
+      "value": "Population (Individual Income Under $10K)"
     }
   ],
   "Count_Person_Male": [
@@ -1364,31 +1364,31 @@
   "RetailDrugDistribution_DrugDistribution_Amphetamine": [
     {
       "type": 0,
-      "value": "Total Retail Drug Distribution of Amphetamine"
+      "value": "Total Retail Drug Distribution (Amphetamine)"
     }
   ],
   "RetailDrugDistribution_DrugDistribution_Codeine": [
     {
       "type": 0,
-      "value": "Total Retail Drug Distribution of Codeine"
+      "value": "Total Retail Drug Distribution (Codeine)"
     }
   ],
   "RetailDrugDistribution_DrugDistribution_Hydrocodone": [
     {
       "type": 0,
-      "value": "Total Retail Drug Distribution of Hydrocodone"
+      "value": "Total Retail Drug Distribution (Hydrocodone)"
     }
   ],
   "RetailDrugDistribution_DrugDistribution_Morphine": [
     {
       "type": 0,
-      "value": "Total Retail Drug Distribution of Morphine"
+      "value": "Total Retail Drug Distribution (Morphine)"
     }
   ],
   "RetailDrugDistribution_DrugDistribution_Oxycodone": [
     {
       "type": 0,
-      "value": "Total Retail Drug Distribution of Oxycodone"
+      "value": "Total Retail Drug Distribution (Oxycodone)"
     }
   ],
   "UnemploymentRate_Person": [
