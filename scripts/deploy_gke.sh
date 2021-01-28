@@ -47,7 +47,7 @@ MIXER_HASH=$(git rev-parse --short HEAD)
 cd $ROOT/deploy/git
 
 echo $WEBSITE_HASH >> website_hash.txt
-echo $MIXER_HASH >> website_hash.txt
+echo $MIXER_HASH >> mixer_hash.txt
 
 cd $ROOT
 PROJECT_ID=$(yq read $ROOT/deploy/gke/$ENV.yaml project)
