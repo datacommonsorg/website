@@ -28,6 +28,11 @@ git submodule foreach git pull origin master
   gcloud auth application-default login
   ```
 
+- Initialize the mixer submodule
+  ```bash
+  git submodule update --init --recursive
+  ```
+
 - Install the following tools:
 
   - [`Docker`](https://www.docker.com/products/docker-desktop)
@@ -36,6 +41,7 @@ git submodule foreach git pull origin master
   - [`gcloud`](https://cloud.google.com/sdk/docs/install)
   - [`kubectl`](https://kubernetes.io/docs/tasks/tools/install-kubectl/)
   - [`nodejs`](https://nodejs.org/en/download/)
+  - [`kustomize`](https://kustomize.io/)
 
 ## Run Tests
 
@@ -111,10 +117,15 @@ Run the following command to get the javascript code recompiled when changed:
 
 Python code change will trigger a restart of the Flask server automatically.
 
-### Disable Mixer branch cache
+### Disabled Mixer branch cache
 
 Loading mixer branch cache can take several minutes and causes readiness probe to fail
-on Minikube, hance disabled.
+on Minikube, hance it is disabled.
+
+### Monitoring the containers
+
+Run `minikube dashboard` in a separate terminal to start the dashboard, which
+is useful for monitoring and controlling the containers.
 
 ## Develop with Flask (Not Recommended)
 
