@@ -172,7 +172,7 @@ export function displayNameForPlaceType(
 ): string {
   if (placeType.startsWith("AdministrativeArea")) {
     const level = placeType.slice(-1);
-    if (!Number.isInteger(level)) {
+    if (!Number.parseInt(level)) {
       if (isPlural) {
         return intl.formatMessage({
           id: "plural_administrative_area",

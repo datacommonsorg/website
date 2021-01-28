@@ -102,7 +102,6 @@ def get_choropleth_places(geoDcid):
 
 @bp.route('/geojson/<path:dcid>')
 @cache.cached(timeout=3600 * 24, query_string=True)  # Cache for one day.
-# TODO(hanlu): pasrse locale once from global context instead.
 def geojson(dcid):
     """
     Get geoJson data for a given place
