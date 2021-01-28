@@ -30,7 +30,7 @@ class TestBuildSpec(unittest.TestCase):
         app = Flask(__name__)
         Babel(app, default_domain='all')
         app.config['BABEL_DEFAULT_LOCALE'] = 'en'
-        app.config['BABEL_TRANSLATION_DIRECTORIES'] = '../l10n'
+        app.config['BABEL_TRANSLATION_DIRECTORIES'] = '../i18n'
         self.context = app.test_request_context('/')
 
     def test_chart_config_transform(self):
@@ -80,7 +80,7 @@ class TestI18n(unittest.TestCase):
         app = Flask(__name__)
         Babel(app, default_domain='all')
         app.config['BABEL_DEFAULT_LOCALE'] = 'en'
-        app.config['BABEL_TRANSLATION_DIRECTORIES'] = '../l10n'
+        app.config['BABEL_TRANSLATION_DIRECTORIES'] = '../i18n'
         self.context = app.test_request_context(
             '/api/landingpage/data/geoId/06?hl=zh')
 

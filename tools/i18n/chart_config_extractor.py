@@ -15,23 +15,15 @@
 
 To run: `python3 tools/i18n/chart_config_extractor.py`
 
-This will produce /server/l10n/chart_titles.pot
-Then, run `pybabel update -l $LOCALE -i server/l10n/chart_titles.pot -d server/l10n -D chart_titles`
-which will update a chart_titles.po file for the locale (long term, this will be extracted from translations).
-
-Prior to server startup, run
-`pybabel compile -D chart_titles -l $LOCALE -d server/l10n -D chart_titles`
-to generate the chart_titles.mo file for the locale. .mo is a
-binary file used by the gettext module.
-
-TODO: delete the .mo files from the repo and build those files prior to server start.
+Though this should be run with the overall extract script:
+./scripts/extract_messages.sh
 """
 
 import json
 import os
 
 CHART_CONFIG_RELATIVE_PATH = '../../server/chart_config.json'
-CHART_TITLES_POT_RELATIVE_PATH = '../../server/l10n/chart_titles.pot'
+MESSAGES_POT_RELATIVE_PATH = '../../server/i18n/all.pot'
 
 
 def extract_message_from_chart(config):
@@ -78,7 +70,7 @@ def main():
 
     # Add chart categories to the message catalog
     for category in categories:
-        id = f'CHART_CATEGORY-{category}'
+        id = f'CHART_TITLE-CHART_CATEGORY-{category}'
         message = {
             'message': category,
             'description': 'The category for a group of statistical charts.',
@@ -86,8 +78,8 @@ def main():
         maybe_add_message(messages, id, message)
 
     chart_pot_path = os.path.abspath(
-        os.path.join(basepath, CHART_TITLES_POT_RELATIVE_PATH))
-    with open(chart_pot_path, 'w') as f:
+        os.path.join(basepath, MESSAGES_POT_RELATIVE_PATH))
+    with open(chart_pot_path, 'a+') as f:
         cnt = 0
         for id in sorted(messages.keys()):
             msg = messages[id]

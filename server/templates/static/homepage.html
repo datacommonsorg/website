@@ -29,7 +29,7 @@
     <div class="row">
       <div class="lead-col col-12 col-lg-6">
         <p class="lead mr-lg-3">
-          {# TRANSLATORS: Description of the Data Commons project. Please see this string in action at https://datacommons.org #}
+          {# TRANSLATORS: Description of the Data Commons project. "open knowledge repository": It's a knowledge repository, or knowledge graph (https://en.wikipedia.org/wiki/Knowledge_graph). It's also open: free to use, community maintained and open sourced. "combines data": Multiple datasets are combined into a single knowledge graph "mapped common entities": Data about the same entity across datasets are mapped to a single common entity. E.g. Data about "California" across the US Census and World Bank are combined under the same "California" entity (or node). Data joining (or merging), is the work that is required to analyze data across multiple datasets (e.g. https://www.displayr.com/what-is-data-merging/). In summary, Data Commons is an open sourced, community project that includes data from across many data sets into a single knowledge graph, where data about the same entity is already combined for easy exploration and analysis. Please see this string in action at https://datacommons.org #}
           {% trans -%}
           HOME-HERO_MESSAGE
           {%- endtrans %}
@@ -63,7 +63,7 @@
   {# TRANSLATORS: Header for a list of links to Data Commons data displays. Please see this string in action at https://datacommons.org #}
   <h2>{% trans %}Explore the data{% endtrans %}</h2>
   <p>
-    {# TRANSLATORS: Describes how we clean and process data for import once, usually a painful part of data analysis. Data is imported into a unified graph (e.g. data about California from many sources are all added to the same node in our graph. Please see this string in action at https://datacommons.org #}
+    {# TRANSLATORS: Describes how we clean and process data for import once, usually a painful part of data analysis. Data cleaning here refers to a common step in data science analysis (e.g. https://elitedatascience.com/data-cleaning), and process refers to the transformation required to analyze a data set. Data is imported into a unified graph (e.g. data about California from many sources are all added to the same node in our graph. Please see this string in action at https://datacommons.org #}
     {% trans -%}
     HOME-EXPLORE_CALLOUT
     {%- endtrans %}
@@ -84,7 +84,7 @@
           {# TRANSLATORS: Link to a Place page showing data related to Demographics for a place { cityName }. Please keep the string `%(cityName)s` as is in the final translation. Please see this string in action as "Washington, DC Demographics" at https://datacommons.org #}
           <a class="sub" href="{{ url_for('place.place', place_dcid='geoId/1150000', topic='Demographics') }}">{% trans cityName="Washington, DC" %}{{ cityName }} Demographics{% endtrans %}</a>,
         </li>
-        {# TRANSLATORS: String showing that there are many more links available. Feel free to replace ellipsis with other language appropriate equivalents. Please see this string in action at https://datacommons.org #}
+        {# TRANSLATORS: String showing that there are many more links available. Feel free to replace ellipsis with other language appropriate equivalents. Will always be preceded by a comma. Please see this string in action at https://datacommons.org #}
         <li><a class="sub" href="{{ url_for('place.place') }}">{% trans %}MORE{% endtrans %}</a>
         </li>
       </ul>
@@ -124,7 +124,7 @@
         </li>
         <li>
           {# TRANSLATORS: Link to a node for the entity (describing the ENCODE project, https://www.encodeproject.org/) in the Data Commons Graph. Please see this string in action at https://datacommons.org #}
-          <a class="sub" href="{{ url_for('browser.kg_entity', dcid='EncodeBiosampleType') }}">{% trans %}Encyclopedia of DNA Elements Biosamples{% endtrans %}</a>,
+          <a class="sub" href="{{ url_for('browser.kg_entity', dcid='EncodeBiosampleType') }}">{% trans %}Encyclopedia of DNA Elements (Biosamples){% endtrans %}</a>,
         </li>
         <li><a class="sub" href="{{ url_for('browser.kg_main') }}">{% trans %}MORE{% endtrans %}</a>
         </li>
@@ -137,7 +137,7 @@
   {# TRANSLATORS: Header for a section on building your own tools and analysis using our API. Please see this string in action at https://datacommons.org #}
   <h2>{% trans %}Build your own{% endtrans %}</h2>
   <p>
-    {# TRANSLATORS: Describes building your own tools and analysis using our API (here Python refers to the programming language - see python.org, and REST is an acronym for REpresentational State Transfer). Please see this string in action at https://datacommons.org #}
+    {# TRANSLATORS: Describes building your own tools and analysis using our API (here Python refers to the programming language - see python.org, and REST is an acronym for REpresentational State Transfer). Python API and REST API are both names of the respective API's. Please see this string in action at https://datacommons.org #}
     {% trans -%}
     HOME-BUILD_CALLOUT
     {%- endtrans %}

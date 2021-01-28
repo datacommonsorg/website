@@ -160,7 +160,6 @@ const pluralPlaceTypeMessages = defineMessages({
 
 /**
  * Returns place type, possibly pluralized if requested.
- * TODO(datcom): i18n pluralization cases--maybe possible to reduce this code.
  *
  * @param {string} placeType PlaceType, as taken from the Data Commons Graph (in CamelCase).
  * @param {boolean} isPlural True if the result should be pluralized.
@@ -195,7 +194,7 @@ export function displayNameForPlaceType(
           id: "plural_administrative_area_level",
           defaultMessage: "Administrative Area {level} Places",
           description:
-            "Label used for a collection of places, of type Administrative Area {level} (an administrative division of certain level, akin to definition here https://en.wikipedia.org/wiki/Administrative_division). {level} are numbers from 1-5. An example use is 'Administrative Area 1 Places in Europe'. Please maintain capitalization.",
+            "Label used for a collection of places, of type Administrative Area {level} (an administrative division of certain level, akin to definition here https://en.wikipedia.org/wiki/Administrative_division). {level} are numbers from 1-5. Synonyms for 'places' include locations / towns / cities. An example use is 'Administrative Area 1 Places in Europe'. An equivalent is Administrative Areas of Level 1 in Europe. Please maintain capitalization.",
         },
         { level: level }
       );
