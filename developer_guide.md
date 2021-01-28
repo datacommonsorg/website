@@ -117,11 +117,6 @@ Run the following command to get the javascript code recompiled when changed:
 
 Python code change will trigger a restart of the Flask server automatically.
 
-### Disabled Mixer branch cache
-
-Loading mixer branch cache can take several minutes and causes readiness probe to fail
-on Minikube, hance it is disabled.
-
 ### Monitoring the containers
 
 Run `minikube dashboard` in a separate terminal to start the dashboard, which
