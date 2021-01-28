@@ -45,7 +45,7 @@ def createMiddleWare(app, exporter):
 def create_app():
     app = Flask(__name__, static_folder="dist", static_url_path="")
 
-    if os.environ.get('FLASK_ENV') in ['production', 'staging']:
+    if os.environ.get('FLASK_ENV') in ['production', 'staging', 'autopush']:
         createMiddleWare(app, StackdriverExporter())
         import googlecloudprofiler
         # Profiler initialization. It starts a daemon thread which continuously
@@ -66,6 +66,8 @@ def create_app():
         cfg = import_string('configmodule.WebdriverConfig')()
     elif os.environ.get('FLASK_ENV') == 'staging':
         cfg = import_string('configmodule.StagingConfig')()
+    elif os.environ.get('FLASK_ENV') == 'autopush':
+        cfg = import_string('configmodule.AutopushConfig')()
     elif os.environ.get('FLASK_ENV') == 'development':
         cfg = import_string('configmodule.DevelopmentConfig')()
     elif os.environ.get('FLASK_ENV') == 'minikube':

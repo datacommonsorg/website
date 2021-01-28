@@ -12,8 +12,8 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-# Kustomization for staging website running on GCP `datcom-website-staging` project.
-# - Adds "staging" suffix to all the resources.
+# Kustomization for autopush website running on GCP `datcom-website-autopush` project.
+# - Adds "autopush" suffix to all the resources.
 # - Set environmnet variables.
 # - Update replicas.
 
@@ -30,7 +30,7 @@ configMapGenerator:
   - name: website-configmap
     behavior: create
     literals:
-      - flaskEnv=staging
+      - flaskEnv=autopush
       - gcsBucket=datcom-website-autopush-resources
       - secretProject=datcom-website-autopush
   - name: mixer-configmap

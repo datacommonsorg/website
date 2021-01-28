@@ -31,7 +31,7 @@ ENV=$1
 REGION=$2
 
 if [[ $ENV != "staging" && $ENV != "prod" && $ENV != "autopush" ]]; then
-  echo "First argument should be 'staging' or 'prod' "
+  echo "First argument should be 'staging' or 'prod' or 'autopush'"
   exit
 fi
 

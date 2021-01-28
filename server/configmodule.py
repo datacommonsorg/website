@@ -25,7 +25,11 @@ class ProductionConfig(Config):
 
 
 class StagingConfig(Config):
-    GA_ACCOUNT = 'UA-117119267-2'
+    pass
+
+
+class AutopushConfig(Config):
+    pass
 
 
 class MinikubeConfig(Config):
@@ -35,16 +39,16 @@ class MinikubeConfig(Config):
 class DevelopmentConfig(Config):
     DEVELOPMENT = True
     SECRET_PROJECT = 'datcom-website-dev'
-    API_PROJECT = 'datcom-mixer-staging'
-    API_ROOT = 'https://mixer.endpoints.datcom-mixer-staging.cloud.goog'
-    GCS_BUCKET = 'datcom-website-staging-resources'
+    API_PROJECT = 'datcom-mixer-autopush'
+    API_ROOT = 'https://autopush.api.datacommons.org'
+    GCS_BUCKET = 'datcom-website-autopush-resources'
 
 
 class WebdriverConfig(Config):
     WEBDRIVER = True
     SECRET_PROJECT = 'datcom-website-dev'
     API_PROJECT = 'datcom-mixer-staging'
-    API_ROOT = 'https://mixer.endpoints.datcom-mixer-staging.cloud.goog'
+    API_ROOT = 'https://staging.api.datacommons.org'
     GCS_BUCKET = ''
 
 
