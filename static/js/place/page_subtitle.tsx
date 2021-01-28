@@ -44,7 +44,6 @@ class PageSubtitle extends React.Component<PageSubtitlePropsType> {
         </h2>
       );
     } else {
-      // TODO(datcom): confirm that we scrape the categories from chart config for translation.
       elem = (
         <h2 className="col-12 pt-2">
           {this.props.categoryDisplayStr}

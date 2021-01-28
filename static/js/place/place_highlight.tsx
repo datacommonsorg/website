@@ -33,7 +33,6 @@ class PlaceHighlight extends React.Component<PlaceHighlightPropsType> {
 
   // TODO(datcom): make sure toLocaleString and toLocaleDate are enough for the
   // numeric value and date.
-  // TODO(datcom): make sure we provide TC with the highlight keys (e.g. "Population")
   render(): JSX.Element {
     const facts = Object.keys(this.props.highlight).map((factTitle: string) => {
       const factSnapshot = this.props.highlight[factTitle];

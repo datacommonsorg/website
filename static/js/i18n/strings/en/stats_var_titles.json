@@ -141,31 +141,31 @@
   },
   "Count_CycloneEvent": {
     "defaultMessage": "Number of Cyclone Events",
-    "description": "Title for a page about a statistical variable. The number of earthquake events that happened in a place."
+    "description": "Title for a page about a statistical variable. The number of cyclone events that happened in a place."
   },
   "Count_StormSurgeTideEvent": {
     "defaultMessage": "Number of Storm Surge Tide Events",
-    "description": "Title for a page about a statistical variable. The number of earthquake events that happened in a place."
+    "description": "Title for a page about a statistical variable. The number of storm surge tide events that happened in a place."
   },
   "Count_WildlandFireEvent": {
     "defaultMessage": "Number of Wildland Fire Events",
-    "description": "Title for a page about a statistical variable. The number of earthquake events that happened in a place."
+    "description": "Title for a page about a statistical variable. The number of wildfires in wildland events that happened in a place."
   },
   "Count_TornadoEvent": {
     "defaultMessage": "Number of Tornado Events",
-    "description": "Title for a page about a statistical variable. The number of earthquake events that happened in a place."
+    "description": "Title for a page about a statistical variable. The number of tornado events that happened in a place."
   },
   "Count_ThunderstormWindEvent": {
     "defaultMessage": "Number of Thunderstorm Events",
-    "description": "Title for a page about a statistical variable. The number of earthquake events that happened in a place."
+    "description": "Title for a page about a statistical variable. The number of thunderstorm events that happened in a place."
   },
   "Count_FloodEvent": {
     "defaultMessage": "Number of Flood Events",
-    "description": "Title for a page about a statistical variable. The number of earthquake events that happened in a place."
+    "description": "Title for a page about a statistical variable. The number of flood events that happened in a place."
   },
   "Count_DroughtEvent": {
     "defaultMessage": "Number of Drought Events",
-    "description": "Title for a page about a statistical variable. The number of earthquake events that happened in a place."
+    "description": "Title for a page about a statistical variable. The number of drought events that happened in a place."
   },
   "Count_Person_Upto4Years": {
     "defaultMessage": "Population (Ages 0-4)",
@@ -440,7 +440,7 @@
     "description": "Title for a page about a statistical variable. Variable describes the median age of people of a certain race. Median age is the age that divides a population into two numerically equally sized groups, summarizes the age distribution of people in a place. See this page for more info about races: https://www.census.gov/topics/population/race/about.html"
   },
   "Count_Person_IncomeOfUpto9999USDollar": {
-    "defaultMessage": "Population (Individual Income Under $10K",
+    "defaultMessage": "Population (Individual Income Under $10K)",
     "description": "Title for a page about a statistical variable. Variable describes the number of people, within a population, whose individual income is in that range (specified in US Dollars)."
   },
   "Count_Person_IncomeOf10000To14999USDollar": {
@@ -505,7 +505,7 @@
   },
   "Count_Person_EducationalAttainmentRegularHighSchoolDiploma": {
     "defaultMessage": "Population (Completed High School)",
-    "description": "Title for a page about a statistical variable. Variable describes the number of people, within a population, who have completed high school."
+    "description": "Title for a page about a statistical variable. Variable describes the number of people, within a population, who have graduated with a high school diploma, or general diploma set by the state's department of education."
   },
   "Count_Person_EducationalAttainmentBachelorsDegree": {
     "defaultMessage": "Population (Attained Bachelor's Degree)",
@@ -545,51 +545,51 @@
   },
   "Count_Household_IncomeOfUpto10000USDollar": {
     "defaultMessage": "Number of Households (Income Under $10K)",
-    "description": "Title for a page about a statistical variable. Variable describes the number of households whose combined income is within that range, specified in US Dollars."
+    "description": "Title for a page about a statistical variable. Variable describes the number of households whose combined income is within that range, specified in US Dollars. Please use appropriate currency to denote US Dollars."
   },
   "Count_Household_IncomeOf10000To14999USDollar": {
     "defaultMessage": "Number of Households (Income $10K to $15K)",
-    "description": "Title for a page about a statistical variable. Variable describes the number of households whose combined income is within that range, specified in US Dollars."
+    "description": "Title for a page about a statistical variable. Variable describes the number of households whose combined income is within that range, specified in US Dollars. Please use appropriate currency to denote US Dollars."
   },
   "Count_Household_IncomeOf20000To24999USDollar": {
     "defaultMessage": "Number of Households (Income $20K to $25K)",
-    "description": "Title for a page about a statistical variable. Variable describes the number of households whose combined income is within that range, specified in US Dollars."
+    "description": "Title for a page about a statistical variable. Variable describes the number of households whose combined income is within that range, specified in US Dollars. Please use appropriate currency to denote US Dollars."
   },
   "Count_Household_IncomeOf30000To34999USDollar": {
     "defaultMessage": "Number of Households (Income $30K to $35K)",
-    "description": "Title for a page about a statistical variable. Variable describes the number of households whose combined income is within that range, specified in US Dollars."
+    "description": "Title for a page about a statistical variable. Variable describes the number of households whose combined income is within that range, specified in US Dollars. Please use appropriate currency to denote US Dollars."
   },
   "Count_Household_IncomeOf40000To44999USDollar": {
     "defaultMessage": "Number of Households (Income $40K to $45K)",
-    "description": "Title for a page about a statistical variable. Variable describes the number of households whose combined income is within that range, specified in US Dollars."
+    "description": "Title for a page about a statistical variable. Variable describes the number of households whose combined income is within that range, specified in US Dollars. Please use appropriate currency to denote US Dollars."
   },
   "Count_Household_IncomeOf50000To59999USDollar": {
     "defaultMessage": "Number of Households (Income $50K to $60K)",
-    "description": "Title for a page about a statistical variable. Variable describes the number of households whose combined income is within that range, specified in US Dollars."
+    "description": "Title for a page about a statistical variable. Variable describes the number of households whose combined income is within that range, specified in US Dollars. Please use appropriate currency to denote US Dollars."
   },
   "Count_Household_IncomeOf60000To74999USDollar": {
     "defaultMessage": "Number of Households (Income $60K to $75K)",
-    "description": "Title for a page about a statistical variable. Variable describes the number of households whose combined income is within that range, specified in US Dollars."
+    "description": "Title for a page about a statistical variable. Variable describes the number of households whose combined income is within that range, specified in US Dollars. Please use appropriate currency to denote US Dollars."
   },
   "Count_Household_IncomeOf75000To99999USDollar": {
     "defaultMessage": "Number of Households (Income $75K to $100K)",
-    "description": "Title for a page about a statistical variable. Variable describes the number of households whose combined income is within that range, specified in US Dollars."
+    "description": "Title for a page about a statistical variable. Variable describes the number of households whose combined income is within that range, specified in US Dollars. Please use appropriate currency to denote US Dollars."
   },
   "Count_Household_IncomeOf100000To124999USDollar": {
     "defaultMessage": "Number of Households (Income $100K to $125K)",
-    "description": "Title for a page about a statistical variable. Variable describes the number of households whose combined income is within that range, specified in US Dollars."
+    "description": "Title for a page about a statistical variable. Variable describes the number of households whose combined income is within that range, specified in US Dollars. Please use appropriate currency to denote US Dollars."
   },
   "Count_Household_IncomeOf125000To149999USDollar": {
     "defaultMessage": "Number of Households (Income $125K to $150K)",
-    "description": "Title for a page about a statistical variable. Variable describes the number of households whose combined income is within that range, specified in US Dollars."
+    "description": "Title for a page about a statistical variable. Variable describes the number of households whose combined income is within that range, specified in US Dollars. Please use appropriate currency to denote US Dollars."
   },
   "Count_Household_IncomeOf150000To199999USDollar": {
     "defaultMessage": "Number of Households (Income $150K to $200K)",
-    "description": "Title for a page about a statistical variable. Variable describes the number of households whose combined income is within that range, specified in US Dollars."
+    "description": "Title for a page about a statistical variable. Variable describes the number of households whose combined income is within that range, specified in US Dollars. Please use appropriate currency to denote US Dollars."
   },
   "Count_Household_IncomeOf200000OrMoreUSDollar": {
     "defaultMessage": "Number of Households (Income Over $200K)",
-    "description": "Title for a page about a statistical variable. Variable describes the number of households whose combined income is within that range, specified in US Dollars."
+    "description": "Title for a page about a statistical variable. Variable describes the number of households whose combined income is within that range, specified in US Dollars. Please use appropriate currency to denote US Dollars."
   },
   "Median_Income_Household": {
     "defaultMessage": "Median Household Income",
@@ -744,23 +744,23 @@
     "description": "Title for a page about a statistical variable. Variable describes total amount of alcohol consumed per person over a calendar year, in liters of pure alcohol (https://databank.worldbank.org/reports.aspx?source=2&type=metadata&series=SH.ALC.PCAP.LI)."
   },
   "RetailDrugDistribution_DrugDistribution_Oxycodone": {
-    "defaultMessage": "Total Retail Drug Distribution of Oxycodone",
+    "defaultMessage": "Total Retail Drug Distribution (Oxycodone)",
     "description": "Title for a page about a statistical variable. Variable describes total amount of a prescribed retail drug (Oxycodone), by mass, distributed in a location over a period of time."
   },
   "RetailDrugDistribution_DrugDistribution_Hydrocodone": {
-    "defaultMessage": "Total Retail Drug Distribution of Hydrocodone",
+    "defaultMessage": "Total Retail Drug Distribution (Hydrocodone)",
     "description": "Title for a page about a statistical variable. Variable describes total amount of a prescribed retail drug (Oxycodone), by mass, distributed in a location over a period of time."
   },
   "RetailDrugDistribution_DrugDistribution_Codeine": {
-    "defaultMessage": "Total Retail Drug Distribution of Codeine",
+    "defaultMessage": "Total Retail Drug Distribution (Codeine)",
     "description": "Title for a page about a statistical variable. Variable describes total amount of a prescribed retail drug (Codeine), by mass, distributed in a location over a period of time."
   },
   "RetailDrugDistribution_DrugDistribution_Amphetamine": {
-    "defaultMessage": "Total Retail Drug Distribution of Amphetamine",
+    "defaultMessage": "Total Retail Drug Distribution (Amphetamine)",
     "description": "Title for a page about a statistical variable. Variable describes total amount of a prescribed retail drug (Amphetamine), by mass, distributed in a location over a period of time."
   },
   "RetailDrugDistribution_DrugDistribution_Morphine": {
-    "defaultMessage": "Total Retail Drug Distribution of Morphine",
+    "defaultMessage": "Total Retail Drug Distribution (Morphine)",
     "description": "Title for a page about a statistical variable. Variable describes total amount of a prescribed retail drug (Morphine), by mass, distributed in a location over a period of time."
   },
   "Count_Person_EnrolledInSchool": {
@@ -773,15 +773,15 @@
   },
   "Count_CriminalActivities_CombinedCrime": {
     "defaultMessage": "Number of Criminal Activities (Combined Crimes)",
-    "description": "Title for a page about a statistical variable. Variable describes total number of criminal activites in a place (of all types)."
+    "description": "Title for a page about a statistical variable. Variable describes total number of crimes in a place (of all crime types)."
   },
   "Count_CriminalActivities_ViolentCrime": {
     "defaultMessage": "Number of Criminal Activities (Violent Crimes)",
-    "description": "Title for a page about a statistical variable. Variable describes total number of violent criminal activites in a place."
+    "description": "Title for a page about a statistical variable. Variable describes total number of violent crimes in a place."
   },
   "Count_CriminalActivities_PropertyCrime": {
     "defaultMessage": "Number of Criminal Activities (Property Crimes)",
-    "description": "Title for a page about a statistical variable. Variable describes total number of property crimes in a place"
+    "description": "Title for a page about a statistical variable. Variable describes total number of property crimes in a place."
   },
   "Count_CriminalActivities_Arson": {
     "defaultMessage": "Number of Criminal Activities (Arson)",

@@ -134,7 +134,7 @@ def create_app():
     # Initialize translations
     babel = Babel(app, default_domain='all')
     app.config['BABEL_DEFAULT_LOCALE'] = i18n.DEFAULT_LOCALE
-    app.config['BABEL_TRANSLATION_DIRECTORIES'] = 'l10n'
+    app.config['BABEL_TRANSLATION_DIRECTORIES'] = 'i18n'
 
     @app.before_request
     def before_request():

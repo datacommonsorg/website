@@ -62,7 +62,6 @@ class Ranking extends React.Component<RankingPropsType, RankingStateType> {
                     />
                   </th>
                   {data[data.label[0]].map((item, index: number) => {
-                    // TODO(datcom): make sure the place names get localized here (item.name below)
                     return (
                       <th scope="col" key={index}>
                         {item.name}

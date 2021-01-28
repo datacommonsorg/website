@@ -108,10 +108,7 @@ class ChartBlock extends React.Component<ChartBlockPropType> {
     // pull the localized names from the KG.
     this.displayPlaceName = isEarth
       ? intl.formatMessage({
-          // Matching ID as above
           id: "the_world",
-          // Default Message in English. Note that this will still log error.
-          // TODO(tjann): See if we can surpress error logs.
           defaultMessage: "the World",
           description:
             "Change appearances of the name Earth to the World. E.g. this is the Labor force participation rate in the World, rather than this is the Labor force participation rate in Earth.",
@@ -120,7 +117,6 @@ class ChartBlock extends React.Component<ChartBlockPropType> {
     this.rankingPlaceType = isEarth ? "Country" : this.props.placeType;
     this.displayDataTitle = this.props.data.title;
     // TODO(tjann): Localize unit after we have a high level approach
-    // TODO(datcom): Localize place names via KG.
   }
 
   render(): JSX.Element {

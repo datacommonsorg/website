@@ -49,9 +49,6 @@ class ParentPlace extends React.Component<ParentPlacePropsType> {
       );
     });
     return (
-      // TODO(datcom): Please see the extracted output and required compiled input for place_breadcrumb.
-      // We may need to do still fancier things to have the parentPlace(s) be included. That would mean
-      // creating a more complex FormattedMessage type to account for the variable hrefs.
       <RawIntlProvider value={intl}>
         <FormattedMessage
           id="place_breadcrumb"
