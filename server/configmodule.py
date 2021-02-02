@@ -48,8 +48,8 @@ class DevelopmentConfig(Config):
 class DevelopmentLiteConfig(Config):
     DEVELOPMENT = True
     LITE = True
-    API_PROJECT = 'datcom-mixer-staging'
-    API_ROOT = 'https://mixer.endpoints.datcom-mixer-staging.cloud.goog'
+    API_PROJECT = 'datcom-mixer-autopush'
+    API_ROOT = 'https://autopush.api.datacommons.org'
 
 
 class WebdriverConfig(Config):
