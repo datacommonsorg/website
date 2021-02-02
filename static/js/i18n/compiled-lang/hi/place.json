@@ -184,13 +184,13 @@
   "link-return_to_overview": [
     {
       "type": 0,
-      "value": "खास जानकारी वाले पेज पर वापस जाएं ›"
+      "value": "खास जानकारी  वाले पेज पर वापस जाएं"
     }
   ],
   "more_charts": [
     {
       "type": 0,
-      "value": "और चार्ट ›"
+      "value": "और चार्ट "
     }
   ],
   "place_breadcrumb": [
@@ -200,7 +200,7 @@
     },
     {
       "type": 0,
-      "value": " में एक "
+      "value": " में "
     },
     {
       "type": 1,
@@ -227,10 +227,92 @@
       "value": "rank"
     }
   ],
+  "plural_administrative_area": [
+    {
+      "type": 0,
+      "value": "प्रशासकीय क्षेत्र"
+    }
+  ],
+  "plural_administrative_area_level": [
+    {
+      "type": 0,
+      "value": "प्रशासकीय क्षेत्र "
+    },
+    {
+      "type": 1,
+      "value": "level"
+    },
+    {
+      "type": 0,
+      "value": " वाले इलाके"
+    }
+  ],
+  "plural_borough": [
+    {
+      "type": 0,
+      "value": "नगर"
+    }
+  ],
+  "plural_city": [
+    {
+      "type": 0,
+      "value": "शहर"
+    }
+  ],
+  "plural_country": [
+    {
+      "type": 0,
+      "value": "देश"
+    }
+  ],
+  "plural_county": [
+    {
+      "type": 0,
+      "value": "काउंटी"
+    }
+  ],
+  "plural_eurostat_nuts": [
+    {
+      "type": 0,
+      "value": "यूरोस्टेट एनयूटीएस "
+    },
+    {
+      "type": 1,
+      "value": "level"
+    },
+    {
+      "type": 0,
+      "value": " वाले इलाके"
+    }
+  ],
+  "plural_neighborhood": [
+    {
+      "type": 0,
+      "value": "आस-पड़ोस"
+    }
+  ],
   "plural_places": [
     {
       "type": 0,
       "value": "जगहें"
+    }
+  ],
+  "plural_state": [
+    {
+      "type": 0,
+      "value": "राज्य"
+    }
+  ],
+  "plural_town": [
+    {
+      "type": 0,
+      "value": "कस्बा"
+    }
+  ],
+  "plural_village": [
+    {
+      "type": 0,
+      "value": "गांव"
     }
   ],
   "plural_zip_codes": [
@@ -239,16 +321,342 @@
       "value": "पिन कोड"
     }
   ],
+  "ranking-document_title": [
+    {
+      "type": 1,
+      "value": "statVar"
+    },
+    {
+      "type": 0,
+      "value": " के हिसाब से रैंकिंग - "
+    },
+    {
+      "type": 1,
+      "value": "placeName"
+    },
+    {
+      "type": 0,
+      "value": " में "
+    },
+    {
+      "type": 1,
+      "value": "pluralPlaceType"
+    }
+  ],
+  "ranking-loading": [
+    {
+      "type": 0,
+      "value": "लोड हो रहा है..."
+    }
+  ],
+  "ranking-no_data": [
+    {
+      "type": 0,
+      "value": "रैंकिंग से जुड़ी कोई जानकारी नहीं है"
+    }
+  ],
+  "ranking-page_title": [
+    {
+      "type": 1,
+      "value": "statVar"
+    },
+    {
+      "type": 0,
+      "value": " के हिसाब से रैंकिंग"
+    }
+  ],
+  "ranking-sort_bottom": [
+    {
+      "type": 0,
+      "value": "सबसे कम "
+    },
+    {
+      "type": 1,
+      "value": "rankSize"
+    },
+    {
+      "type": 0,
+      "value": " आइटम दिखाएं"
+    }
+  ],
+  "ranking-sort_top": [
+    {
+      "type": 0,
+      "value": "सबसे ज़्यादा "
+    },
+    {
+      "type": 1,
+      "value": "rankSize"
+    },
+    {
+      "type": 0,
+      "value": " आइटम दिखाएं"
+    }
+  ],
+  "ranking-subtitle_all": [
+    {
+      "type": 1,
+      "value": "placeName"
+    },
+    {
+      "type": 0,
+      "value": " में सभी "
+    },
+    {
+      "type": 1,
+      "value": "pluralPlaceType"
+    }
+  ],
+  "ranking-subtitle_all_percapita": [
+    {
+      "type": 0,
+      "value": "प्रति व्यक्ति के हिसाब से "
+    },
+    {
+      "type": 1,
+      "value": "placeName"
+    },
+    {
+      "type": 0,
+      "value": " में सभी "
+    },
+    {
+      "type": 1,
+      "value": "pluralPlaceType"
+    }
+  ],
+  "ranking-subtitle_bottom": [
+    {
+      "type": 1,
+      "value": "placeName"
+    },
+    {
+      "type": 0,
+      "value": " से नीचे से "
+    },
+    {
+      "type": 1,
+      "value": "rankSize"
+    },
+    {
+      "type": 0,
+      "value": " "
+    },
+    {
+      "type": 1,
+      "value": "pluralPlaceType"
+    }
+  ],
+  "ranking-subtitle_bottom_percapita": [
+    {
+      "type": 0,
+      "value": "प्रति व्यक्ति के हिसाब से "
+    },
+    {
+      "type": 1,
+      "value": "placeName"
+    },
+    {
+      "type": 0,
+      "value": " में नीचे से "
+    },
+    {
+      "type": 1,
+      "value": "rankSize"
+    },
+    {
+      "type": 0,
+      "value": " "
+    },
+    {
+      "type": 1,
+      "value": "pluralPlaceType"
+    }
+  ],
+  "ranking-subtitle_none": [
+    {
+      "type": 1,
+      "value": "placeName"
+    },
+    {
+      "type": 0,
+      "value": " में "
+    },
+    {
+      "type": 1,
+      "value": "pluralPlaceType"
+    }
+  ],
+  "ranking-subtitle_none_percapita": [
+    {
+      "type": 0,
+      "value": "प्रति व्यक्ति के हिसाब से "
+    },
+    {
+      "type": 1,
+      "value": "placeName"
+    },
+    {
+      "type": 0,
+      "value": " में "
+    },
+    {
+      "type": 1,
+      "value": "pluralPlaceType"
+    }
+  ],
+  "ranking-subtitle_top": [
+    {
+      "type": 1,
+      "value": "placeName"
+    },
+    {
+      "type": 0,
+      "value": " में टॉप "
+    },
+    {
+      "type": 1,
+      "value": "rankSize"
+    },
+    {
+      "type": 0,
+      "value": " "
+    },
+    {
+      "type": 1,
+      "value": "pluralPlaceType"
+    }
+  ],
+  "ranking-subtitle_top_percapita": [
+    {
+      "type": 0,
+      "value": "प्रति व्यक्ति के हिसाब से "
+    },
+    {
+      "type": 1,
+      "value": "placeName"
+    },
+    {
+      "type": 0,
+      "value": " में टॉप "
+    },
+    {
+      "type": 1,
+      "value": "rankSize"
+    },
+    {
+      "type": 0,
+      "value": " "
+    },
+    {
+      "type": 1,
+      "value": "pluralPlaceType"
+    }
+  ],
+  "ranking_table-header_rank": [
+    {
+      "type": 0,
+      "value": "रैंक"
+    }
+  ],
+  "ranking_table-header_value": [
+    {
+      "type": 0,
+      "value": "मान"
+    }
+  ],
   "search_bar_placeholder-search_again": [
     {
       "type": 0,
       "value": "कोई दूसरी जगह खोजें"
     }
   ],
+  "singular_administrative_area": [
+    {
+      "type": 0,
+      "value": "प्रशासकीय क्षेत्र"
+    }
+  ],
+  "singular_administrative_area_level": [
+    {
+      "type": 0,
+      "value": "प्रशासकीय क्षेत्र "
+    },
+    {
+      "type": 1,
+      "value": "level"
+    },
+    {
+      "type": 0,
+      "value": " वाले इलाके"
+    }
+  ],
+  "singular_borough": [
+    {
+      "type": 0,
+      "value": "नगर"
+    }
+  ],
+  "singular_city": [
+    {
+      "type": 0,
+      "value": "शहर"
+    }
+  ],
+  "singular_country": [
+    {
+      "type": 0,
+      "value": "देश"
+    }
+  ],
+  "singular_county": [
+    {
+      "type": 0,
+      "value": "काउंटी"
+    }
+  ],
+  "singular_eurostat_nuts": [
+    {
+      "type": 0,
+      "value": "यूरोस्टेट एनयूटीएस "
+    },
+    {
+      "type": 1,
+      "value": "level"
+    },
+    {
+      "type": 0,
+      "value": " वाले इलाके"
+    }
+  ],
+  "singular_neighborhood": [
+    {
+      "type": 0,
+      "value": "आस-पड़ोस"
+    }
+  ],
   "singular_place": [
     {
       "type": 0,
       "value": "जगह"
+    }
+  ],
+  "singular_state": [
+    {
+      "type": 0,
+      "value": "राज्य"
+    }
+  ],
+  "singular_town": [
+    {
+      "type": 0,
+      "value": "कस्बा"
+    }
+  ],
+  "singular_village": [
+    {
+      "type": 0,
+      "value": "गांव"
     }
   ],
   "singular_zip_code": [

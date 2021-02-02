@@ -180,13 +180,13 @@
   "link-return_to_overview": [
     {
       "type": 0,
-      "value": "概要に戻る ›"
+      "value": "概要に戻る"
     }
   ],
   "more_charts": [
     {
       "type": 0,
-      "value": "その他のグラフ ›"
+      "value": "その他のグラフ"
     }
   ],
   "place_breadcrumb": [
@@ -196,7 +196,7 @@
     },
     {
       "type": 0,
-      "value": " の "
+      "value": " 内の "
     },
     {
       "type": 1,
@@ -223,10 +223,92 @@
       "value": "total"
     }
   ],
+  "plural_administrative_area": [
+    {
+      "type": 0,
+      "value": "行政区域"
+    }
+  ],
+  "plural_administrative_area_level": [
+    {
+      "type": 0,
+      "value": "行政区域 "
+    },
+    {
+      "type": 1,
+      "value": "level"
+    },
+    {
+      "type": 0,
+      "value": " の地域"
+    }
+  ],
+  "plural_borough": [
+    {
+      "type": 0,
+      "value": "特別区"
+    }
+  ],
+  "plural_city": [
+    {
+      "type": 0,
+      "value": "都市"
+    }
+  ],
+  "plural_country": [
+    {
+      "type": 0,
+      "value": "国"
+    }
+  ],
+  "plural_county": [
+    {
+      "type": 0,
+      "value": "郡"
+    }
+  ],
+  "plural_eurostat_nuts": [
+    {
+      "type": 0,
+      "value": "Eurostat NUTS "
+    },
+    {
+      "type": 1,
+      "value": "level"
+    },
+    {
+      "type": 0,
+      "value": " の地域"
+    }
+  ],
+  "plural_neighborhood": [
+    {
+      "type": 0,
+      "value": "近隣地区"
+    }
+  ],
   "plural_places": [
     {
       "type": 0,
       "value": "地域"
+    }
+  ],
+  "plural_state": [
+    {
+      "type": 0,
+      "value": "州"
+    }
+  ],
+  "plural_town": [
+    {
+      "type": 0,
+      "value": "町"
+    }
+  ],
+  "plural_village": [
+    {
+      "type": 0,
+      "value": "村"
     }
   ],
   "plural_zip_codes": [
@@ -235,16 +317,342 @@
       "value": "郵便番号"
     }
   ],
+  "ranking-document_title": [
+    {
+      "type": 1,
+      "value": "statVar"
+    },
+    {
+      "type": 0,
+      "value": " 別のランキング - "
+    },
+    {
+      "type": 1,
+      "value": "placeName"
+    },
+    {
+      "type": 0,
+      "value": " 内の "
+    },
+    {
+      "type": 1,
+      "value": "pluralPlaceType"
+    }
+  ],
+  "ranking-loading": [
+    {
+      "type": 0,
+      "value": "読み込んでいます…"
+    }
+  ],
+  "ranking-no_data": [
+    {
+      "type": 0,
+      "value": "利用可能なランキング データがありません。"
+    }
+  ],
+  "ranking-page_title": [
+    {
+      "type": 1,
+      "value": "statVar"
+    },
+    {
+      "type": 0,
+      "value": " 別のランキング"
+    }
+  ],
+  "ranking-sort_bottom": [
+    {
+      "type": 0,
+      "value": "下位 "
+    },
+    {
+      "type": 1,
+      "value": "rankSize"
+    },
+    {
+      "type": 0,
+      "value": " 件を表示"
+    }
+  ],
+  "ranking-sort_top": [
+    {
+      "type": 0,
+      "value": "上位 "
+    },
+    {
+      "type": 1,
+      "value": "rankSize"
+    },
+    {
+      "type": 0,
+      "value": " 件を表示"
+    }
+  ],
+  "ranking-subtitle_all": [
+    {
+      "type": 1,
+      "value": "placeName"
+    },
+    {
+      "type": 0,
+      "value": " 内のすべての "
+    },
+    {
+      "type": 1,
+      "value": "pluralPlaceType"
+    }
+  ],
+  "ranking-subtitle_all_percapita": [
+    {
+      "type": 1,
+      "value": "placeName"
+    },
+    {
+      "type": 0,
+      "value": " 内のすべての "
+    },
+    {
+      "type": 1,
+      "value": "pluralPlaceType"
+    },
+    {
+      "type": 0,
+      "value": "（1 人あたり）"
+    }
+  ],
+  "ranking-subtitle_bottom": [
+    {
+      "type": 1,
+      "value": "placeName"
+    },
+    {
+      "type": 0,
+      "value": " 内の下位 "
+    },
+    {
+      "type": 1,
+      "value": "rankSize"
+    },
+    {
+      "type": 0,
+      "value": " 件の "
+    },
+    {
+      "type": 1,
+      "value": "pluralPlaceType"
+    }
+  ],
+  "ranking-subtitle_bottom_percapita": [
+    {
+      "type": 1,
+      "value": "placeName"
+    },
+    {
+      "type": 0,
+      "value": " 内の下位 "
+    },
+    {
+      "type": 1,
+      "value": "rankSize"
+    },
+    {
+      "type": 0,
+      "value": " 件の "
+    },
+    {
+      "type": 1,
+      "value": "pluralPlaceType"
+    },
+    {
+      "type": 0,
+      "value": "（1 人あたり）"
+    }
+  ],
+  "ranking-subtitle_none": [
+    {
+      "type": 1,
+      "value": "placeName"
+    },
+    {
+      "type": 0,
+      "value": " 内の "
+    },
+    {
+      "type": 1,
+      "value": "pluralPlaceType"
+    }
+  ],
+  "ranking-subtitle_none_percapita": [
+    {
+      "type": 1,
+      "value": "placeName"
+    },
+    {
+      "type": 0,
+      "value": " 内の "
+    },
+    {
+      "type": 1,
+      "value": "pluralPlaceType"
+    },
+    {
+      "type": 0,
+      "value": "（1 人あたり）"
+    }
+  ],
+  "ranking-subtitle_top": [
+    {
+      "type": 1,
+      "value": "placeName"
+    },
+    {
+      "type": 0,
+      "value": " 内の上位 "
+    },
+    {
+      "type": 1,
+      "value": "rankSize"
+    },
+    {
+      "type": 0,
+      "value": " 件の "
+    },
+    {
+      "type": 1,
+      "value": "pluralPlaceType"
+    }
+  ],
+  "ranking-subtitle_top_percapita": [
+    {
+      "type": 1,
+      "value": "placeName"
+    },
+    {
+      "type": 0,
+      "value": " 内の上位 "
+    },
+    {
+      "type": 1,
+      "value": "rankSize"
+    },
+    {
+      "type": 0,
+      "value": " 件の "
+    },
+    {
+      "type": 1,
+      "value": "pluralPlaceType"
+    },
+    {
+      "type": 0,
+      "value": "（1 人あたり）"
+    }
+  ],
+  "ranking_table-header_rank": [
+    {
+      "type": 0,
+      "value": "ランク"
+    }
+  ],
+  "ranking_table-header_value": [
+    {
+      "type": 0,
+      "value": "値"
+    }
+  ],
   "search_bar_placeholder-search_again": [
     {
       "type": 0,
       "value": "別の場所を検索する"
     }
   ],
+  "singular_administrative_area": [
+    {
+      "type": 0,
+      "value": "行政区域"
+    }
+  ],
+  "singular_administrative_area_level": [
+    {
+      "type": 0,
+      "value": "行政区域 "
+    },
+    {
+      "type": 1,
+      "value": "level"
+    },
+    {
+      "type": 0,
+      "value": " の地域"
+    }
+  ],
+  "singular_borough": [
+    {
+      "type": 0,
+      "value": "特別区"
+    }
+  ],
+  "singular_city": [
+    {
+      "type": 0,
+      "value": "都市"
+    }
+  ],
+  "singular_country": [
+    {
+      "type": 0,
+      "value": "国"
+    }
+  ],
+  "singular_county": [
+    {
+      "type": 0,
+      "value": "郡"
+    }
+  ],
+  "singular_eurostat_nuts": [
+    {
+      "type": 0,
+      "value": "Eurostat NUTS "
+    },
+    {
+      "type": 1,
+      "value": "level"
+    },
+    {
+      "type": 0,
+      "value": " の地域"
+    }
+  ],
+  "singular_neighborhood": [
+    {
+      "type": 0,
+      "value": "近隣地区"
+    }
+  ],
   "singular_place": [
     {
       "type": 0,
       "value": "場所"
+    }
+  ],
+  "singular_state": [
+    {
+      "type": 0,
+      "value": "州"
+    }
+  ],
+  "singular_town": [
+    {
+      "type": 0,
+      "value": "町"
+    }
+  ],
+  "singular_village": [
+    {
+      "type": 0,
+      "value": "村"
     }
   ],
   "singular_zip_code": [

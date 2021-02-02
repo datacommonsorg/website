@@ -86,21 +86,23 @@ class Menu extends React.Component<MenuPropsType> {
       <ul id="nav-topics" className="nav flex-column accordion">
         {showOverviewSubmenu ? null : (
           <li className="nav-item">
-            <a
+            <LocalizedLink
               href={`/place/${dcid}`}
               className={`nav-link ${!topic ? "active" : ""}`}
-            >
-              {intl.formatMessage({
+              text={intl.formatMessage({
                 id: "header-overview",
                 defaultMessage: "Overview",
                 description:
                   "Text for header or subheader of Overview charts on place pages.",
               })}
-            </a>
+            />
           </li>
         )}
         {categories.map((category: string) => {
-          const topics = Object.keys(this.props.pageChart[category]);
+          let topics = Object.keys(this.props.pageChart[category]);
+          if (category === "Overview") {
+            topics = topics.map((t) => this.props.categories[t]);
+          }
           const categoryDisplayStr = this.props.categories[category];
           if (showOverviewSubmenu || category !== "Overview") {
             return (

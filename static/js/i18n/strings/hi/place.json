@@ -51,13 +51,13 @@
     "defaultMessage": "खास जानकारी"
   },
   "link-return_to_overview": {
-    "defaultMessage": "खास जानकारी वाले पेज पर वापस जाएं ›"
+    "defaultMessage": "खास जानकारी  वाले पेज पर वापस जाएं"
   },
   "more_charts": {
-    "defaultMessage": "और चार्ट ›"
+    "defaultMessage": "और चार्ट "
   },
   "place_breadcrumb": {
-    "defaultMessage": "{placeName} में एक {placeType}"
+    "defaultMessage": "{placeName} में {placeType}"
   },
   "place_page_ranking_table-ranking_in": {
     "defaultMessage": "रैंकिंग (में)"
@@ -65,17 +65,131 @@
   "place_page_ranking_table-ranking_value": {
     "defaultMessage": "{total} में से {rank}"
   },
+  "plural_administrative_area": {
+    "defaultMessage": "प्रशासकीय क्षेत्र"
+  },
+  "plural_administrative_area_level": {
+    "defaultMessage": "प्रशासकीय क्षेत्र {level} वाले इलाके"
+  },
+  "plural_borough": {
+    "defaultMessage": "नगर"
+  },
+  "plural_city": {
+    "defaultMessage": "शहर"
+  },
+  "plural_country": {
+    "defaultMessage": "देश"
+  },
+  "plural_county": {
+    "defaultMessage": "काउंटी"
+  },
+  "plural_eurostat_nuts": {
+    "defaultMessage": "यूरोस्टेट एनयूटीएस {level} वाले इलाके"
+  },
+  "plural_neighborhood": {
+    "defaultMessage": "आस-पड़ोस"
+  },
   "plural_places": {
     "defaultMessage": "जगहें"
+  },
+  "plural_state": {
+    "defaultMessage": "राज्य"
+  },
+  "plural_town": {
+    "defaultMessage": "कस्बा"
+  },
+  "plural_village": {
+    "defaultMessage": "गांव"
   },
   "plural_zip_codes": {
     "defaultMessage": "पिन कोड"
   },
+  "ranking-document_title": {
+    "defaultMessage": "{statVar} के हिसाब से रैंकिंग - {placeName} में {pluralPlaceType}"
+  },
+  "ranking-loading": {
+    "defaultMessage": "लोड हो रहा है..."
+  },
+  "ranking-no_data": {
+    "defaultMessage": "रैंकिंग से जुड़ी कोई जानकारी नहीं है"
+  },
+  "ranking-page_title": {
+    "defaultMessage": "{statVar} के हिसाब से रैंकिंग"
+  },
+  "ranking-sort_bottom": {
+    "defaultMessage": "सबसे कम {rankSize} आइटम दिखाएं"
+  },
+  "ranking-sort_top": {
+    "defaultMessage": "सबसे ज़्यादा {rankSize} आइटम दिखाएं"
+  },
+  "ranking-subtitle_all": {
+    "defaultMessage": "{placeName} में सभी {pluralPlaceType}"
+  },
+  "ranking-subtitle_all_percapita": {
+    "defaultMessage": "प्रति व्यक्ति के हिसाब से {placeName} में सभी {pluralPlaceType}"
+  },
+  "ranking-subtitle_bottom": {
+    "defaultMessage": "{placeName} से नीचे से {rankSize} {pluralPlaceType}"
+  },
+  "ranking-subtitle_bottom_percapita": {
+    "defaultMessage": "प्रति व्यक्ति के हिसाब से {placeName} में नीचे से {rankSize} {pluralPlaceType}"
+  },
+  "ranking-subtitle_none": {
+    "defaultMessage": "{placeName} में {pluralPlaceType}"
+  },
+  "ranking-subtitle_none_percapita": {
+    "defaultMessage": "प्रति व्यक्ति के हिसाब से {placeName} में {pluralPlaceType}"
+  },
+  "ranking-subtitle_top": {
+    "defaultMessage": "{placeName} में टॉप {rankSize} {pluralPlaceType}"
+  },
+  "ranking-subtitle_top_percapita": {
+    "defaultMessage": "प्रति व्यक्ति के हिसाब से {placeName} में टॉप {rankSize} {pluralPlaceType}"
+  },
+  "ranking_table-header_rank": {
+    "defaultMessage": "रैंक"
+  },
+  "ranking_table-header_value": {
+    "defaultMessage": "मान"
+  },
   "search_bar_placeholder-search_again": {
     "defaultMessage": "कोई दूसरी जगह खोजें"
   },
+  "singular_administrative_area": {
+    "defaultMessage": "प्रशासकीय क्षेत्र"
+  },
+  "singular_administrative_area_level": {
+    "defaultMessage": "प्रशासकीय क्षेत्र {level} वाले इलाके"
+  },
+  "singular_borough": {
+    "defaultMessage": "नगर"
+  },
+  "singular_city": {
+    "defaultMessage": "शहर"
+  },
+  "singular_country": {
+    "defaultMessage": "देश"
+  },
+  "singular_county": {
+    "defaultMessage": "काउंटी"
+  },
+  "singular_eurostat_nuts": {
+    "defaultMessage": "यूरोस्टेट एनयूटीएस {level} वाले इलाके"
+  },
+  "singular_neighborhood": {
+    "defaultMessage": "आस-पड़ोस"
+  },
   "singular_place": {
     "defaultMessage": "जगह"
+  },
+  "singular_state": {
+    "defaultMessage": "राज्य"
+  },
+  "singular_town": {
+    "defaultMessage": "कस्बा"
+  },
+  "singular_village": {
+    "defaultMessage": "गांव"
   },
   "singular_zip_code": {
     "defaultMessage": "पिन कोड"

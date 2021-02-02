@@ -71,10 +71,10 @@ msgid "CHART_TITLE-Covid_cases_per_capita"
 msgstr "Nombre cumulé de cas de COVID-19 par habitant"
 
 msgid "CHART_TITLE-Covid_deaths"
-msgstr "Nombre cumulé de décès du COVID-19"
+msgstr "Nombre cumulé de décès de la COVID-19"
 
 msgid "CHART_TITLE-Covid_deaths_per_capita"
-msgstr "Nombre cumulé de décès du COVID-19 par habitant"
+msgstr "Nombre cumulé de décès de la COVID-19 par habitant"
 
 msgid "CHART_TITLE-Crime_rate"
 msgstr "Crimes par 100 000 habitants"
@@ -122,10 +122,10 @@ msgid "CHART_TITLE-Government_debt"
 msgstr "Dette publique en pourcentage du PIB"
 
 msgid "CHART_TITLE-Government_debt_per_capita"
-msgstr "Dépenses publiques en éducation (% des dépenses publiques)"
+msgstr "Dette publique par habitant"
 
 msgid "CHART_TITLE-Government_expenditures_education"
-msgstr "Dépenses publiques en éducation (% du PIB)"
+msgstr "Dépenses publiques en éducation (% des dépenses publiques)"
 
 msgid "CHART_TITLE-Government_expenditures_education_gdp"
 msgstr "Dépenses publiques en éducation (% du PIB)"
@@ -340,6 +340,12 @@ msgstr "Crimes avec violence"
 msgid "CHART_TITLE-Violent_crime_rate"
 msgstr "Crimes violents par 100 000 habitants"
 
+msgid "%(cityName)s Demographics"
+msgstr "Données démographiques pour %(cityName)s"
+
+msgid "%(cityName)s Health"
+msgstr "Données de santé pour %(cityName)s"
+
 msgid "%(project)s is a Google supported project"
 msgstr "%(project)s est un projet développé par Google"
 
@@ -355,6 +361,12 @@ msgstr "À propos de Data Commons"
 msgid "Blog"
 msgstr "Blog"
 
+msgid "Browse entities in the %(project)s Graph"
+msgstr "Parcourez les entités dans le graphique %(project)s"
+
+msgid "Build your own"
+msgstr "Personnalisez votre expérience"
+
 msgid "Cities, United States"
 msgstr "Villes des États-Unis"
 
@@ -366,6 +378,9 @@ msgstr "Comtés des États-Unis"
 
 msgid "Countries"
 msgstr "Pays"
+
+msgid "Create Timeline Charts"
+msgstr "Créez des graphiques chronologiques"
 
 msgid "Data Commons"
 msgstr "Data Commons"
@@ -382,11 +397,23 @@ msgstr "Documentation"
 msgid "Economic Indicators, Worldwide"
 msgstr "Indicateurs économiques dans le monde entier"
 
+msgid "Employment Differences Across Neighboring Cities"
+msgstr "Comparaison du taux d'emploi dans les villes voisines"
+
+msgid "Encyclopedia of DNA Elements Biosamples"
+msgstr "Encyclopédie d'échantillons biologiques d'éléments d'ADN"
+
 msgid "Enter a country, state, county or city"
 msgstr "Saisissez un pays, un État, un comté ou une ville"
 
 msgid "Explore"
 msgstr "Outils d'exploration"
+
+msgid "Explore Places"
+msgstr "Explorez les lieux"
+
+msgid "Explore the data"
+msgstr "Explorez les données"
 
 msgid "FAQ"
 msgstr "Questions fréquentes"
@@ -415,20 +442,68 @@ msgstr "Exploration des données"
 msgid "Gross National Income"
 msgstr "Revenu National Brut"
 
+msgid "HOME-BLOG_POST_1"
+msgstr "%(project)s est désormais accessible dans la recherche Google. <a href=%(blog_url)s>En savoir plus</a>"
+
+msgid "HOME-BUILD_CALLOUT"
+msgstr "Réalisez vos analyses personnalisées, créez vos propres outils et plus encore, avec les API Python et REST."
+
+msgid "HOME-DATA_SOURCES"
+msgstr "Sources de données"
+
+msgid "HOME-EXPLORE_CALLOUT"
+msgstr "Nous nettoyons et traitons les données à votre place. Les informations sur des entités spécifiques sont issues de différentes sources et rassemblées dans une vue unifiée."
+
+msgid "HOME-HERO_MESSAGE"
+msgstr "Data Commons est un dépôt de connaissances ouvert qui combine des données issues d'ensembles de données publics à l'aide d'entités communes mappées. Ce dépôt est doté d'outils permettant de facilement explorer et analyser des données de différents ensembles sans nettoyer ni fusionner les données."
+
+msgid "HOME-JOIN_EFFORT"
+msgstr "Apportez votre contribution."
+
+msgid "HOME-OPEN_SOURCED"
+msgstr "<a href=%(github_url)s>Et le dépôt en Open Source</a> est basé sur <a href=%(schemaorg_url)s>%(tool)s</a>."
+
+msgid "Highest Crime Per Capita"
+msgstr "Criminalité la plus élevée par habitant"
+
+msgid "Highest Median Age"
+msgstr "Âge médian le plus élevé"
+
+msgid "Highest Median Income"
+msgstr "Revenus médians les plus élevés"
+
+msgid "Highest Unemployment Rate"
+msgstr "Taux de chômage le plus élevé"
+
+msgid "Largest Population"
+msgstr "La plus forte population"
+
 msgid "Life Expectancy"
 msgstr "Espérance de vie"
 
 msgid "Loading..."
 msgstr "Chargement…"
 
+msgid "MORE"
+msgstr "etc."
+
 msgid "Median Income, United States"
 msgstr "Revenu moyen aux États-Unis"
 
-msgid "PLACE_EXPLORER_INTRO"
-msgstr "<p>L'outil d'exploration par lieu vous aide à mieux comprendre les principales données concernant un lieu spécifique. Il regroupe des graphiques sur des sujets variés tels que la démographie, l'éducation ou l'économie du lieu en question et compare ces données à celles d'autres lieux. Découvrez le classement des différents lieux en fonction de critères tels que le taux de chômage et de criminalité ou le niveau de revenus.</p><p>Utilisez le champ de recherche ci-dessus pour consulter les graphiques de la ville, du code postal, du comté, de l'État ou du pays qui vous intéresse.</p><p>Vous pouvez également commencer votre exploration par des lieux bien connus.</p>"
+msgid "New York City Department of Education"
+msgstr "Département de l'éducation de la ville de New York"
 
-msgid "Place Explorer"
-msgstr "Exploration par lieu"
+msgid "Open"
+msgstr "Dépôt ouvert"
+
+msgid "Open Data."
+msgstr "Les données sont ouvertes."
+
+msgid "PLACE_EXPLORER_INTRO"
+msgstr "<p>L'outil d'exploration par lieu vous aide à mieux comprendre les principales données concernant un lieu spécifique. Il regroupe des graphiques sur des sujets variés, tels que la démographie, l'éducation ou l'économie du lieu en question, et compare ces données à celles d'autres lieux. Découvrez le classement des différents lieux en fonction de critères tels que le taux de chômage et de criminalité ou le niveau de revenus.</p><p>Utilisez le champ de recherche ci-dessus pour consulter les graphiques de la ville, du code postal, du comté, de l'État ou du pays qui vous intéresse.</p><p>Vous pouvez également commencer votre exploration par des lieux bien connus.</p>"
+
+msgid "Place Rankings"
+msgstr "Classements de lieux"
 
 msgid "Places"
 msgstr "Lieux"
@@ -438,6 +513,15 @@ msgstr "Règles de confidentialité"
 
 msgid "Rankings"
 msgstr "Classements"
+
+msgid "Richest vs. Poorest California Counties"
+msgstr "Comparaison entre les comtés de Californie les plus riches et les plus pauvres"
+
+msgid "See API documentation."
+msgstr "Consultez la documentation de l'API."
+
+msgid "See some sample Python notebooks."
+msgstr "Consultez des exemples de notebooks Python."
 
 msgid "States, United States"
 msgstr "États des États-Unis"
@@ -451,8 +535,14 @@ msgstr "Exploration chronologique"
 msgid "Tutorials"
 msgstr "Tutoriels"
 
+msgid "US University Towns by Income"
+msgstr "Villes universitaires aux États-Unis par revenus"
+
 msgid "Unemployment Rate, United States"
 msgstr "Taux de chômage aux États-Unis"
+
+msgid "What's new"
+msgstr "Nouveautés"
 
 msgid "Worldwide"
 msgstr "Monde entier"
@@ -468,4 +558,7 @@ msgstr "par État"
 
 msgid "in United States"
 msgstr "aux États-Unis"
+
+msgid "CHART_TITLE-CHART_CATEGORY-Overview"
+msgstr "Aperçu"
 

@@ -52,18 +52,6 @@ EQUIVALENT_PLACE_TYPES = {
     "Village": "City",
 }
 
-# Contains statistical variable and the display name used for place rankings.
-RANKING_STATS = {
-    # TRANSLATORS: Label for rankings of places by size of population (sorted from highest to lowest).
-    'Count_Person': gettext('Largest Population'),
-    # TRANSLATORS: Label for rankings of median individual income (sorted from highest to lowest).
-    'Median_Income_Person': gettext('Highest Median Income'),
-    # TRANSLATORS: Label for rankings of places by the median age of it's population (sorted from highest to lowest).
-    'Median_Age_Person': gettext('Highest Median Age'),
-    # TRANSLATORS: Label for rankings of places by the unemployment rate of it's population (sorted from highest to lowest).
-    'UnemploymentRate_Person': gettext('Highest Unemployment Rate'),
-}
-
 STATE_EQUIVALENTS = {"State", "AdministrativeArea1"}
 US_ISO_CODE_PREFIX = 'US'
 ENGLISH_LANG = 'en'
@@ -542,6 +530,18 @@ def api_ranking(dcid):
         if len(selected_parents) == 3:
             break
     result = collections.defaultdict(list)
+
+    # Contains statistical variable and the display name used for place rankings.
+    ranking_stats = {
+        # TRANSLATORS: Label for rankings of places by size of population (sorted from highest to lowest).
+        'Count_Person': gettext('Largest Population'),
+        # TRANSLATORS: Label for rankings of median individual income (sorted from highest to lowest).
+        'Median_Income_Person': gettext('Highest Median Income'),
+        # TRANSLATORS: Label for rankings of places by the median age of it's population (sorted from highest to lowest).
+        'Median_Age_Person': gettext('Highest Median Age'),
+        # TRANSLATORS: Label for rankings of places by the unemployment rate of it's population (sorted from highest to lowest).
+        'UnemploymentRate_Person': gettext('Highest Unemployment Rate'),
+    }
     # Crime stats var is separted from RANKING_STATS as it uses perCapita
     # option.
     # TOOD(shifucun): merge this once https://github.com/datacommonsorg/mixer/issues/262 is fixed.
@@ -550,12 +550,12 @@ def api_ranking(dcid):
             gettext('Highest Crime Per Capita')
     }
     for parent_dcid in selected_parents:
-        stats_var_string = '^'.join(RANKING_STATS.keys())
+        stats_var_string = '^'.join(ranking_stats.keys())
         response = get_related_place(dcid,
                                      stats_var_string,
                                      within_place=parent_dcid)
         for stats_var, data in response.items():
-            result[RANKING_STATS[stats_var]].append({
+            result[ranking_stats[stats_var]].append({
                 'name':
                     parent_names[parent_dcid],
                 'data':
@@ -582,7 +582,7 @@ def api_ranking(dcid):
                                     is_per_capita=True)
             })
 
-    all_labels = list(RANKING_STATS.values()) + \
+    all_labels = list(ranking_stats.values()) + \
         list(crime_statsvar.values())
     for label in all_labels:
         if label in result:

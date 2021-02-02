@@ -51,13 +51,13 @@
     "defaultMessage": "Обзор"
   },
   "link-return_to_overview": {
-    "defaultMessage": "Вернуться к обзору ›"
+    "defaultMessage": "Вернуться к обзору "
   },
   "more_charts": {
-    "defaultMessage": "Другие диаграммы ›"
+    "defaultMessage": "Другие диаграммы "
   },
   "place_breadcrumb": {
-    "defaultMessage": "{placeType} в локации {placeName}"
+    "defaultMessage": "{placeName}: {placeType}"
   },
   "place_page_ranking_table-ranking_in": {
     "defaultMessage": "Рейтинги"
@@ -65,17 +65,131 @@
   "place_page_ranking_table-ranking_value": {
     "defaultMessage": "{rank} из {total}"
   },
+  "plural_administrative_area": {
+    "defaultMessage": "Административные районы"
+  },
+  "plural_administrative_area_level": {
+    "defaultMessage": "Места по типу административного района уровня {level}"
+  },
+  "plural_borough": {
+    "defaultMessage": "Районы"
+  },
+  "plural_city": {
+    "defaultMessage": "Города"
+  },
+  "plural_country": {
+    "defaultMessage": "Страны"
+  },
+  "plural_county": {
+    "defaultMessage": "Округа"
+  },
+  "plural_eurostat_nuts": {
+    "defaultMessage": "Места по типу Евростат NUTS уровня {level}"
+  },
+  "plural_neighborhood": {
+    "defaultMessage": "Микрорайоны"
+  },
   "plural_places": {
     "defaultMessage": "Места"
+  },
+  "plural_state": {
+    "defaultMessage": "Штаты"
+  },
+  "plural_town": {
+    "defaultMessage": "Города"
+  },
+  "plural_village": {
+    "defaultMessage": "Поселки"
   },
   "plural_zip_codes": {
     "defaultMessage": "Почтовые индексы"
   },
+  "ranking-document_title": {
+    "defaultMessage": "{placeName}: {pluralPlaceType} – Рейтинг по переменной {statVar}"
+  },
+  "ranking-loading": {
+    "defaultMessage": "Загрузка…"
+  },
+  "ranking-no_data": {
+    "defaultMessage": "Нет данных."
+  },
+  "ranking-page_title": {
+    "defaultMessage": "Рейтинг по параметру {statVar}"
+  },
+  "ranking-sort_bottom": {
+    "defaultMessage": "Последние позиции в рейтинге ({rankSize})"
+  },
+  "ranking-sort_top": {
+    "defaultMessage": "Первые позиции в рейтинге ({rankSize})"
+  },
+  "ranking-subtitle_all": {
+    "defaultMessage": "{placeName}: все {pluralPlaceType}"
+  },
+  "ranking-subtitle_all_percapita": {
+    "defaultMessage": "{placeName}: все {pluralPlaceType}, на душу населения"
+  },
+  "ranking-subtitle_bottom": {
+    "defaultMessage": "{placeName}: {pluralPlaceType} – топ-{rankSize} с конца рейтинга"
+  },
+  "ranking-subtitle_bottom_percapita": {
+    "defaultMessage": "{placeName}: {pluralPlaceType}, топ-{rankSize} с конца рейтинга, на душу населения"
+  },
+  "ranking-subtitle_none": {
+    "defaultMessage": "{placeName}: {pluralPlaceType}"
+  },
+  "ranking-subtitle_none_percapita": {
+    "defaultMessage": "{placeName}: {pluralPlaceType}, на душу населения"
+  },
+  "ranking-subtitle_top": {
+    "defaultMessage": "{placeName}: {pluralPlaceType} – топ-{rankSize}"
+  },
+  "ranking-subtitle_top_percapita": {
+    "defaultMessage": "{placeName}: {pluralPlaceType}, топ-{rankSize}, на душу населения"
+  },
+  "ranking_table-header_rank": {
+    "defaultMessage": "Место"
+  },
+  "ranking_table-header_value": {
+    "defaultMessage": "Значение"
+  },
   "search_bar_placeholder-search_again": {
     "defaultMessage": "Поиск другого места"
   },
+  "singular_administrative_area": {
+    "defaultMessage": "Административный район"
+  },
+  "singular_administrative_area_level": {
+    "defaultMessage": "Место по типу административного района уровня {level}"
+  },
+  "singular_borough": {
+    "defaultMessage": "Район"
+  },
+  "singular_city": {
+    "defaultMessage": "Город"
+  },
+  "singular_country": {
+    "defaultMessage": "Страна"
+  },
+  "singular_county": {
+    "defaultMessage": "Округ"
+  },
+  "singular_eurostat_nuts": {
+    "defaultMessage": "Место по типу Евростат NUTS уровня {level}"
+  },
+  "singular_neighborhood": {
+    "defaultMessage": "Микрорайон"
+  },
   "singular_place": {
     "defaultMessage": "Место"
+  },
+  "singular_state": {
+    "defaultMessage": "Штат"
+  },
+  "singular_town": {
+    "defaultMessage": "Город"
+  },
+  "singular_village": {
+    "defaultMessage": "Поселок"
   },
   "singular_zip_code": {
     "defaultMessage": "Почтовый индекс"

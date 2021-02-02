@@ -15,7 +15,7 @@
  */
 import React from "react";
 import { RawIntlProvider } from "react-intl";
-import { intl, LocalizedLink, translateVariableString } from "../i18n/i18n";
+import { intl, LocalizedLink } from "../i18n/i18n";
 import { ChartBlock } from "./chart_block";
 import { Overview } from "./overview";
 import {
@@ -99,30 +99,32 @@ class MainPane extends React.Component<MainPanePropType> {
           )}
         {Object.keys(topicData).map((topic: string) => {
           let subtopicHeader: JSX.Element;
-          if (isOverview && Object.keys(this.props.pageChart).length > 1) {
+          if (isOverview) {
             subtopicHeader = (
               <h3 id={topic}>
                 <LocalizedLink
                   href={`/place/${this.props.dcid}?topic=${topic}`}
                   text={this.props.categoryStrings[topic]}
                 />
-                <span className="more">
-                  <LocalizedLink
-                    href={`/place/${this.props.dcid}?topic=${topic}`}
-                    text={intl.formatMessage({
-                      id: "more_charts",
-                      defaultMessage: "More charts ›",
-                      description:
-                        "Link to explore more charts about a particular domain, such as Education or Health.",
-                    })}
-                  />
-                </span>
+                {Object.keys(this.props.pageChart).length === 1 ? null : (
+                  <span className="more">
+                    <LocalizedLink
+                      href={`/place/${this.props.dcid}?topic=${topic}`}
+                      text={
+                        intl.formatMessage({
+                          id: "more_charts",
+                          defaultMessage: "More charts",
+                          description:
+                            "Link to explore more charts about a particular domain, such as Education or Health.",
+                        }) + " ›"
+                      }
+                    />
+                  </span>
+                )}
               </h3>
             );
           } else {
-            subtopicHeader = (
-              <h3 id={topic}>{translateVariableString(topic)}</h3>
-            );
+            subtopicHeader = <h3 id={topic}>{topic}</h3>;
           }
           return (
             <section className="subtopic col-12" key={topic}>

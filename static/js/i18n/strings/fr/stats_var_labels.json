@@ -555,7 +555,7 @@
     "defaultMessage": "Nombre cumulé de cas de COVID-19"
   },
   "CumulativeCount_MedicalConditionIncident_COVID_19_PatientDeceased": {
-    "defaultMessage": "Nombre cumulé de décès du COVID-19"
+    "defaultMessage": "Nombre cumulé de décès de la COVID-19"
   },
   "FertilityRate_Person_Female": {
     "defaultMessage": "Taux de fécondité"

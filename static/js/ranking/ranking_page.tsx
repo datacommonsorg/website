@@ -51,8 +51,9 @@ class Page extends React.Component<RankingPagePropType, RankingPageStateType> {
       data: undefined,
     };
     this.svTitle = getStatsVarTitle(props.statVar);
-    this.pluralPlaceType = translateVariableString(
-      displayNameForPlaceType(this.props.placeType, true /* isPlural */)
+    this.pluralPlaceType = displayNameForPlaceType(
+      this.props.placeType,
+      true /* isPlural */
     );
   }
 

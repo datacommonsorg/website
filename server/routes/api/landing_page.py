@@ -493,7 +493,7 @@ def data(dcid):
 
     # Get chart category name translations
     categories = {}
-    for category in list(spec_and_stat.keys()):
+    for category in list(spec_and_stat.keys()) + list(spec_and_stat[OVERVIEW]):
         categories[category] = gettext(f'CHART_TITLE-CHART_CATEGORY-{category}')
 
     # Get display name for all places

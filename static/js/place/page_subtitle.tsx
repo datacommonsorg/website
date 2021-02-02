@@ -35,12 +35,7 @@ class PageSubtitle extends React.Component<PageSubtitlePropsType> {
     if (category == "Overview") {
       elem = (
         <h2 className="col-12 pt-2" id="overview">
-          {intl.formatMessage({
-            id: "header-overview",
-            defaultMessage: "Overview",
-            description:
-              "Text for header or subheader of Overview charts on place pages.",
-          })}
+          {this.props.categoryDisplayStr}
         </h2>
       );
     } else {
@@ -50,12 +45,14 @@ class PageSubtitle extends React.Component<PageSubtitlePropsType> {
           <span className="more">
             <LocalizedLink
               href={"/place/" + dcid}
-              text={intl.formatMessage({
-                id: "link-return_to_overview",
-                defaultMessage: "Back to overview ›",
-                description:
-                  "Text for the link present in subtopic place pages directing the user back to the Overview page. Please keep the '›' symbol.",
-              })}
+              text={
+                intl.formatMessage({
+                  id: "link-return_to_overview",
+                  defaultMessage: "Back to overview",
+                  description:
+                    "Text for the link present in subtopic place pages directing the user back to the Overview page. Please keep the '›' symbol.",
+                }) + " ›"
+              }
             />
           </span>
         </h2>

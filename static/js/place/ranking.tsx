@@ -17,7 +17,7 @@
 import React from "react";
 import axios from "axios";
 import { FormattedMessage } from "react-intl";
-import { intl, LocalizedLink, translateVariableString } from "../i18n/i18n";
+import { intl, LocalizedLink } from "../i18n/i18n";
 
 interface RankingPropsType {
   dcid: string;
@@ -74,7 +74,7 @@ class Ranking extends React.Component<RankingPropsType, RankingStateType> {
                 {data.label.map((item, index) => {
                   return (
                     <tr key={index}>
-                      <th scope="row">{translateVariableString(item)}</th>
+                      <th scope="row">{item}</th>
                       {data[item].map((rankingInfo, index: number) => {
                         const top = rankingInfo.data.rankFromTop;
                         const bottom = rankingInfo.data.rankFromBottom;

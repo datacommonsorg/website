@@ -1,0 +1,707 @@
+{
+  "Median_Income_Person": {
+    "defaultMessage": "중위 개인 소득"
+  },
+  "Median_Income_Person_15OrMoreYears_Male_WithIncome": {
+    "defaultMessage": "중위 개인 소득(남성)"
+  },
+  "Median_Income_Person_15OrMoreYears_Female_WithIncome": {
+    "defaultMessage": "중위 개인 소득(여성)"
+  },
+  "UnemploymentRate_Person": {
+    "defaultMessage": "실업률"
+  },
+  "UnemploymentRate_Person_Male": {
+    "defaultMessage": "실업률(남성)"
+  },
+  "UnemploymentRate_Person_Female": {
+    "defaultMessage": "실업률(여성)"
+  },
+  "Count_UnemploymentInsuranceClaim_StateUnemploymentInsurance": {
+    "defaultMessage": "주 실업 보험 청구 건수"
+  },
+  "Count_Person_Employed": {
+    "defaultMessage": "고용 인구 수"
+  },
+  "Count_Person_InLaborForce": {
+    "defaultMessage": "노동 인구 수"
+  },
+  "Count_Person": {
+    "defaultMessage": "인구"
+  },
+  "Count_Person_PerArea": {
+    "defaultMessage": "인구 밀도"
+  },
+  "LifeExpectancy_Person": {
+    "defaultMessage": "기대수명"
+  },
+  "GrowthRate_Count_Person": {
+    "defaultMessage": "인구 증가율"
+  },
+  "FertilityRate_Person_Female": {
+    "defaultMessage": "출산율"
+  },
+  "Amount_EconomicActivity_GrossDomesticProduction_Nominal": {
+    "defaultMessage": "국내총생산(명목)"
+  },
+  "GrowthRate_Amount_EconomicActivity_GrossDomesticProduction": {
+    "defaultMessage": "국내총생산 성장률"
+  },
+  "Amount_Debt_Government": {
+    "defaultMessage": "정부 부채"
+  },
+  "Amount_EconomicActivity_GrossDomesticProduction_Nominal_PerCapita": {
+    "defaultMessage": "1인당 국내총생산(명목)"
+  },
+  "Amount_EconomicActivity_GrossNationalIncome_PurchasingPowerParity_PerCapita": {
+    "defaultMessage": "1인당 국민총소득(구매력평가지수)"
+  },
+  "Amount_EconomicActivity_GrossNationalIncome_PurchasingPowerParity": {
+    "defaultMessage": "국민총소득(구매력평가지수)"
+  },
+  "Count_Person_7To14Years_Employed_AsFractionOf_Count_Person_7To14Years": {
+    "defaultMessage": "경제 활동 아동 수(연령: 만 7~14세)"
+  },
+  "Amount_EconomicActivity_ExpenditureActivity_EducationExpenditure_Government_AsFractionOf_Amount_EconomicActivity_ExpenditureActivity_Government": {
+    "defaultMessage": "정부의 교육비 지출(정부 지출 대비 백분율)"
+  },
+  "Amount_EconomicActivity_ExpenditureActivity_EducationExpenditure_Government_AsFractionOf_Amount_EconomicActivity_GrossDomesticProduction_Nominal": {
+    "defaultMessage": "정부의 교육비 지출(GDP 대비 백분율)"
+  },
+  "Amount_EconomicActivity_ExpenditureActivity_MilitaryExpenditure_Government": {
+    "defaultMessage": "정부 군사비 지출"
+  },
+  "Amount_EconomicActivity_ExpenditureActivity_MilitaryExpenditure_Government_AsFractionOf_Amount_EconomicActivity_GrossDomesticProduction_Nominal": {
+    "defaultMessage": "정부의 군사비 지출(GDP 대비 백분율)"
+  },
+  "Amount_Stock": {
+    "defaultMessage": "국내 기업 시가총액"
+  },
+  "Amount_Stock_AsFractionOf_Amount_EconomicActivity_GrossDomesticProduction_Nominal": {
+    "defaultMessage": "국내 기업 시가총액(GDP 대비 백분율)"
+  },
+  "Amount_Remittance_InwardRemittance": {
+    "defaultMessage": "타발송금"
+  },
+  "Amount_Remittance_InwardRemittance_AsFractionOf_Amount_EconomicActivity_GrossDomesticProduction_Nominal": {
+    "defaultMessage": "타발송금(GDP 대비 백분율)"
+  },
+  "Amount_Remittance_OutwardRemittance": {
+    "defaultMessage": "당발송금"
+  },
+  "Count_Person_15To64Years_InLaborForce_AsFractionOf_Count_Person_15To64Years": {
+    "defaultMessage": "노동 인구 비율(연령: 만 15~64세)"
+  },
+  "Amount_Consumption_Energy_PerCapita": {
+    "defaultMessage": "1인당 에너지 소비량"
+  },
+  "Amount_Emissions_CarbonDioxide_PerCapita": {
+    "defaultMessage": "1인당 이산화탄소 배출량"
+  },
+  "Amount_Consumption_Electricity_PerCapita": {
+    "defaultMessage": "전기 소비량(1인당)"
+  },
+  "Count_EarthquakeEvent": {
+    "defaultMessage": "지진 발생 횟수"
+  },
+  "Count_CycloneEvent": {
+    "defaultMessage": "사이클론 발생 횟수"
+  },
+  "Count_StormSurgeTideEvent": {
+    "defaultMessage": "폭풍해일 발생 횟수"
+  },
+  "Count_WildlandFireEvent": {
+    "defaultMessage": "산불 발생 횟수"
+  },
+  "Count_TornadoEvent": {
+    "defaultMessage": "토네이도 발생 횟수"
+  },
+  "Count_ThunderstormWindEvent": {
+    "defaultMessage": "뇌우 발생 횟수"
+  },
+  "Count_FloodEvent": {
+    "defaultMessage": "홍수 발생 횟수"
+  },
+  "Count_DroughtEvent": {
+    "defaultMessage": "가뭄 발생 횟수"
+  },
+  "Count_Person_Upto4Years": {
+    "defaultMessage": "인구(연령: 만 0~4세)"
+  },
+  "Count_Person_Upto9Years": {
+    "defaultMessage": "인구(연령: 만 0~9세)"
+  },
+  "Count_Person_5To9Years": {
+    "defaultMessage": "인구(연령: 만 5~9세)"
+  },
+  "Count_Person_5To17Years": {
+    "defaultMessage": "인구(연령: 만 5~17세)"
+  },
+  "Count_Person_10To14Years": {
+    "defaultMessage": "인구(연령: 만 10~14세)"
+  },
+  "Count_Person_10To19Years": {
+    "defaultMessage": "인구(연령: 만 10~19세)"
+  },
+  "Count_Person_15To19Years": {
+    "defaultMessage": "인구(연령: 만 15~19세)"
+  },
+  "Count_Person_15OrMoreYears": {
+    "defaultMessage": "인구(연령: 만 15세 이상)"
+  },
+  "Count_Person_16OrMoreYears": {
+    "defaultMessage": "인구(연령: 만 16세 이상)"
+  },
+  "Count_Person_18To24Years": {
+    "defaultMessage": "인구(연령: 만 18~24세)"
+  },
+  "Count_Person_20To24Years": {
+    "defaultMessage": "인구(연령: 만 20~24세)"
+  },
+  "Count_Person_20To29Years": {
+    "defaultMessage": "인구(연령: 만 20~29세)"
+  },
+  "Count_Person_25To29Years": {
+    "defaultMessage": "인구(연령: 만 25~29세)"
+  },
+  "Count_Person_25To34Years": {
+    "defaultMessage": "인구(연령: 만 25~34세)"
+  },
+  "Count_Person_30To34Years": {
+    "defaultMessage": "인구(연령: 만 30~34세)"
+  },
+  "Count_Person_30To39Years": {
+    "defaultMessage": "인구(연령: 만 30~39세)"
+  },
+  "Count_Person_35To39Years": {
+    "defaultMessage": "인구(연령: 만 35~39세)"
+  },
+  "Count_Person_35To44Years": {
+    "defaultMessage": "인구(연령: 만 35~44세)"
+  },
+  "Count_Person_40To44Years": {
+    "defaultMessage": "인구(연령: 만 40~44세)"
+  },
+  "Count_Person_40To49Years": {
+    "defaultMessage": "인구(연령: 만 40~49세)"
+  },
+  "Count_Person_45To49Years": {
+    "defaultMessage": "인구(연령: 만 45~49세)"
+  },
+  "Count_Person_45To54Years": {
+    "defaultMessage": "인구(연령: 만 45~54세)"
+  },
+  "Count_Person_50To54Years": {
+    "defaultMessage": "인구(연령: 만 50~54세)"
+  },
+  "Count_Person_50To59Years": {
+    "defaultMessage": "인구(연령: 만 50~59세)"
+  },
+  "Count_Person_55To59Years": {
+    "defaultMessage": "인구(연령: 만 55~59세)"
+  },
+  "Count_Person_55To64Years": {
+    "defaultMessage": "인구(연령: 만 55~64세)"
+  },
+  "Count_Person_60To61Years": {
+    "defaultMessage": "인구(연령: 만 60~61세)"
+  },
+  "Count_Person_60To64Years": {
+    "defaultMessage": "인구(연령: 만 60~64세)"
+  },
+  "Count_Person_60To69Years": {
+    "defaultMessage": "인구(연령: 만 60~69세)"
+  },
+  "Count_Person_62To64Years": {
+    "defaultMessage": "인구(연령: 만 62~64세)"
+  },
+  "Count_Person_65To69Years": {
+    "defaultMessage": "인구(연령: 만 65~69세)"
+  },
+  "Count_Person_65To74Years": {
+    "defaultMessage": "인구(연령: 만 65~74세)"
+  },
+  "Count_Person_70To74Years": {
+    "defaultMessage": "인구(연령: 만 70~74세)"
+  },
+  "Count_Person_70To79Years": {
+    "defaultMessage": "인구(연령: 만 70~79세)"
+  },
+  "Count_Person_70OrMoreYears": {
+    "defaultMessage": "인구(연령: 만 70세 이상)"
+  },
+  "Count_Person_75To79Years": {
+    "defaultMessage": "인구(연령: 만 75~79세)"
+  },
+  "Count_Person_75OrMoreYears": {
+    "defaultMessage": "인구(연령: 만 75세 이상)"
+  },
+  "Count_Person_80To84Years": {
+    "defaultMessage": "인구(연령: 만 80~84세)"
+  },
+  "Count_Person_80OrMoreYears": {
+    "defaultMessage": "인구(연령: 만 80세 이상)"
+  },
+  "Count_Person_Male": {
+    "defaultMessage": "인구(남성)"
+  },
+  "Count_Person_Female": {
+    "defaultMessage": "인구(여성)"
+  },
+  "Count_Person_AmericanIndianOrAlaskaNativeAlone": {
+    "defaultMessage": "인구 수(아메리카 원주민 또는 알래스카 원주민)"
+  },
+  "Count_Person_AsianAlone": {
+    "defaultMessage": "인구 수(아시아인만)"
+  },
+  "Count_Person_BlackOrAfricanAmericanAlone": {
+    "defaultMessage": "인구 수(흑인 또는 아프리카계 미국인)"
+  },
+  "Count_Person_HispanicOrLatino": {
+    "defaultMessage": "인구 수(히스패닉 또는 라티노)"
+  },
+  "Count_Person_NativeHawaiianOrOtherPacificIslanderAlone": {
+    "defaultMessage": "인구 수(하와이 원주민 또는 태평양 섬 주민)"
+  },
+  "Count_Person_SomeOtherRaceAlone": {
+    "defaultMessage": "인구 수(기타 인종)"
+  },
+  "Count_Person_TwoOrMoreRaces": {
+    "defaultMessage": "인구 수(둘 이상의 인종으로 구성)"
+  },
+  "Count_Person_WhiteAlone": {
+    "defaultMessage": "인구 수(백인만)"
+  },
+  "Count_HousingUnit_HouseholderRaceAmericanIndianOrAlaskaNativeAlone": {
+    "defaultMessage": "가구 수(아메리카 원주민 또는 알래스카 원주민)"
+  },
+  "Count_HousingUnit_HouseholderRaceAsianAlone": {
+    "defaultMessage": "가구 수(아시아인만)"
+  },
+  "Count_HousingUnit_HouseholderRaceBlackOrAfricanAmericanAlone": {
+    "defaultMessage": "가구 수(흑인 또는 아프리카계 미국인)"
+  },
+  "Count_HousingUnit_HouseholderRaceHispanicOrLatino": {
+    "defaultMessage": "가구 수(히스패닉 또는 라티노)"
+  },
+  "Count_HousingUnit_HouseholderRaceNativeHawaiianOrOtherPacificIslanderAlone": {
+    "defaultMessage": "가구 수(하와이 원주민 또는 태평양 섬 주민)"
+  },
+  "Count_HousingUnit_HouseholderRaceSomeOtherRaceAlone": {
+    "defaultMessage": "가구 수(다른 인종)"
+  },
+  "Count_HousingUnit_HouseholderRaceTwoOrMoreRaces": {
+    "defaultMessage": "가구 수(둘 이상의 인종으로 구성)"
+  },
+  "Count_HousingUnit_HouseholderRaceWhiteAlone": {
+    "defaultMessage": "가구 수(백인만)"
+  },
+  "Median_Age_Person": {
+    "defaultMessage": "중위 연령"
+  },
+  "Median_Age_Person_Male": {
+    "defaultMessage": "중위 연령(남성)"
+  },
+  "Median_Age_Person_Female": {
+    "defaultMessage": "중위 연령(여성)"
+  },
+  "Median_Age_Person_AmericanIndianOrAlaskaNativeAlone": {
+    "defaultMessage": "중위 연령(아메리카 원주민 또는 알래스카 원주민)"
+  },
+  "Median_Age_Person_AsianAlone": {
+    "defaultMessage": "중위 연령(아시아인만)"
+  },
+  "Median_Age_Person_BlackOrAfricanAmericanAlone": {
+    "defaultMessage": "중위 연령(흑인 또는 아프리카계 미국인)"
+  },
+  "Median_Age_Person_HispanicOrLatino": {
+    "defaultMessage": "중위 연령(히스패닉 또는 라티노)"
+  },
+  "Median_Age_Person_NativeHawaiianOrOtherPacificIslanderAlone": {
+    "defaultMessage": "중위 연령(하와이 원주민 또는 태평양 섬 주민)"
+  },
+  "Median_Age_Person_SomeOtherRaceAlone": {
+    "defaultMessage": "중위 연령(기타 인종)"
+  },
+  "Median_Age_Person_TwoOrMoreRaces": {
+    "defaultMessage": "중위 연령(둘 이상의 인종으로 구성)"
+  },
+  "Median_Age_Person_WhiteAlone": {
+    "defaultMessage": "중위 연령(백인만)"
+  },
+  "Count_Person_IncomeOfUpto9999USDollar": {
+    "defaultMessage": "인구(개인 소득: 1만 달러 미만)"
+  },
+  "Count_Person_IncomeOf10000To14999USDollar": {
+    "defaultMessage": "인구(개인 소득: 1만~1만 5천 달러)"
+  },
+  "Count_Person_IncomeOf15000To24999USDollar": {
+    "defaultMessage": "인구(개인 소득: 1만 5천~2만 5천 달러)"
+  },
+  "Count_Person_IncomeOf25000To34999USDollar": {
+    "defaultMessage": "인구(개인 소득: 2만 5천~3만 5천 달러)"
+  },
+  "Count_Person_IncomeOf35000To49999USDollar": {
+    "defaultMessage": "인구(개인 소득: 3만 5천~5만 달러)"
+  },
+  "Count_Person_IncomeOf50000To64999USDollar": {
+    "defaultMessage": "인구(개인 소득: 5만~6만 5천 달러)"
+  },
+  "Count_Person_IncomeOf65000To74999USDollar": {
+    "defaultMessage": "인구(개인 소득: 6만 5천~7만 5천 달러)"
+  },
+  "Count_Person_IncomeOf75000OrMoreUSDollar": {
+    "defaultMessage": "인구(개인 소득: 7만 5천 달러 이상)"
+  },
+  "Count_Person_MarriedAndNotSeparated": {
+    "defaultMessage": "인구(결혼, 별거 중 아님)"
+  },
+  "Count_Person_Divorced": {
+    "defaultMessage": "인구(이혼)"
+  },
+  "Count_Person_NeverMarried": {
+    "defaultMessage": "인구(비혼)"
+  },
+  "Count_Person_Widowed": {
+    "defaultMessage": "인구(사별)"
+  },
+  "Count_Person_Separated": {
+    "defaultMessage": "인구(별거)"
+  },
+  "Count_Person_Urban": {
+    "defaultMessage": "인구(도시)"
+  },
+  "Count_Person_Rural": {
+    "defaultMessage": "인구(농촌)"
+  },
+  "Count_Person_EducationalAttainmentNoSchoolingCompleted": {
+    "defaultMessage": "인구(무학)"
+  },
+  "Count_Person_EducationalAttainmentRegularHighSchoolDiploma": {
+    "defaultMessage": "인구(고등학교 졸업)"
+  },
+  "Count_Person_EducationalAttainmentBachelorsDegree": {
+    "defaultMessage": "인구(학사 학위 취득)"
+  },
+  "Count_Person_EducationalAttainmentMastersDegree": {
+    "defaultMessage": "인구(석사 학위 취득)"
+  },
+  "Count_Person_EducationalAttainmentDoctorateDegree": {
+    "defaultMessage": "인구(박사 학위 취득)"
+  },
+  "Count_Person_25To34Years_EducationalAttainmentAssociatesDegree_Female": {
+    "defaultMessage": "인구(전문 학사 학위 취득)"
+  },
+  "Count_Person_25To34Years_EducationalAttainmentAssociatesDegree_Male": {
+    "defaultMessage": "인구(전문 학사 학위 취득)"
+  },
+  "Count_Person_25To34Years_EducationalAttainmentBachelorsDegree_Female": {
+    "defaultMessage": "인구(학사 학위 취득)"
+  },
+  "Count_Person_25To34Years_EducationalAttainmentBachelorsDegree_Male": {
+    "defaultMessage": "인구(학사 학위 취득)"
+  },
+  "Count_Person_25To34Years_EducationalAttainmentGraduateOrProfessionalDegree_Female": {
+    "defaultMessage": "인구(석사 또는 전문학위 취득)"
+  },
+  "Count_Person_25To34Years_EducationalAttainmentGraduateOrProfessionalDegree_Male": {
+    "defaultMessage": "인구(석사 또는 전문학위 취득)"
+  },
+  "Count_Household_IncomeOfUpto10000USDollar": {
+    "defaultMessage": "가구 수(소득: 1만 달러 미만)"
+  },
+  "Count_Household_IncomeOf10000To14999USDollar": {
+    "defaultMessage": "가구 수(소득: 1만~1만 5천 달러)"
+  },
+  "Count_Household_IncomeOf20000To24999USDollar": {
+    "defaultMessage": "가구 수(소득: 2만~2만 5천 달러)"
+  },
+  "Count_Household_IncomeOf30000To34999USDollar": {
+    "defaultMessage": "가구 수(소득: 3만~3만 5천 달러)"
+  },
+  "Count_Household_IncomeOf40000To44999USDollar": {
+    "defaultMessage": "가구 수(소득: 4만~4만 5천 달러)"
+  },
+  "Count_Household_IncomeOf50000To59999USDollar": {
+    "defaultMessage": "가구 수(소득: 5만~6만 달러)"
+  },
+  "Count_Household_IncomeOf60000To74999USDollar": {
+    "defaultMessage": "가구 수(소득: 6만~7만 5천 달러)"
+  },
+  "Count_Household_IncomeOf75000To99999USDollar": {
+    "defaultMessage": "가구 수(소득: 7만 5천~10만 달러)"
+  },
+  "Count_Household_IncomeOf100000To124999USDollar": {
+    "defaultMessage": "가구 수(소득: 10만~12만 5천 달러)"
+  },
+  "Count_Household_IncomeOf125000To149999USDollar": {
+    "defaultMessage": "가구 수(소득: 12만 5천~15만 달러)"
+  },
+  "Count_Household_IncomeOf150000To199999USDollar": {
+    "defaultMessage": "가구 수(소득: 15만~20만 달러)"
+  },
+  "Count_Household_IncomeOf200000OrMoreUSDollar": {
+    "defaultMessage": "가구 수(소득: 20만 달러 이상)"
+  },
+  "Median_Income_Household": {
+    "defaultMessage": "중위 가계 소득"
+  },
+  "Median_Income_Household_HouseholderRaceAmericanIndianOrAlaskaNativeAlone": {
+    "defaultMessage": "중위 가계 소득(아메리카 원주민 또는 알래스카 원주민)"
+  },
+  "Median_Income_Household_HouseholderRaceAsianAlone": {
+    "defaultMessage": "중위 가계 소득(아시아인)"
+  },
+  "Median_Income_Household_HouseholderRaceBlackOrAfricanAmericanAlone": {
+    "defaultMessage": "중위 가계 소득(흑인 또는 아프리카계 미국인)"
+  },
+  "Median_Income_Household_HouseholderRaceHispanicOrLatino": {
+    "defaultMessage": "중위 가계 소득(히스패닉 또는 라티노)"
+  },
+  "Median_Income_Household_HouseholderRaceNativeHawaiianOrOtherPacificIslanderAlone": {
+    "defaultMessage": "중위 가계 소득(하와이 원주민 또는 태평양 섬 주민)"
+  },
+  "Median_Income_Household_HouseholderRaceWhiteAlone": {
+    "defaultMessage": "중위 가계 소득(백인)"
+  },
+  "CumulativeCount_MedicalConditionIncident_COVID_19_ConfirmedOrProbableCase": {
+    "defaultMessage": "코로나19 누적 사례(확진자 또는 확진 의심자)"
+  },
+  "CumulativeCount_MedicalConditionIncident_COVID_19_PatientDeceased": {
+    "defaultMessage": "코로나19 누적 사망자 수"
+  },
+  "Count_Person_USCitizenBornInTheUnitedStates": {
+    "defaultMessage": "인구(미국 출생)"
+  },
+  "Count_Person_USCitizenByNaturalization": {
+    "defaultMessage": "인구(귀화를 통한 미국 시민권 취득)"
+  },
+  "Count_Person_NotAUSCitizen": {
+    "defaultMessage": "인구(비 미국 시민권자)"
+  },
+  "Count_Person_USCitizenBornAbroadOfAmericanParents": {
+    "defaultMessage": "인구(해외 출생, 미국인 부모)"
+  },
+  "Count_Death_0Years_AsFractionOf_Count_BirthEvent_LiveBirth": {
+    "defaultMessage": "영아 사망률"
+  },
+  "Count_Death_0Years_Female_AsFractionOf_Count_BirthEvent_LiveBirth_Female": {
+    "defaultMessage": "영아 사망률(여아)"
+  },
+  "Count_Death_0Years_Male_AsFractionOf_Count_BirthEvent_LiveBirth_Male": {
+    "defaultMessage": "영아 사망률(남아)"
+  },
+  "Count_Death_DiseasesOfTheCirculatorySystem": {
+    "defaultMessage": "순환계 질병으로 인한 사망자 수"
+  },
+  "Count_Death_Neoplasms": {
+    "defaultMessage": "종양으로 인한 사망자 수"
+  },
+  "Count_Death_DiseasesOfTheRespiratorySystem": {
+    "defaultMessage": "호흡기 질병으로 인한 사망자 수"
+  },
+  "Count_Death_ExternalCauses": {
+    "defaultMessage": "외부 요인으로 인한 사망자 수"
+  },
+  "Count_Death_DiseasesOfTheNervousSystem": {
+    "defaultMessage": "신경계 질병으로 인한 사망자 수"
+  },
+  "Percent_Person_WithHighCholesterol": {
+    "defaultMessage": "콜레스테롤 수치 높은 성인 비율"
+  },
+  "Percent_Person_WithHighBloodPressure": {
+    "defaultMessage": "성인 고혈압 비율"
+  },
+  "Percent_Person_WithArthritis": {
+    "defaultMessage": "성인 관절염 비율"
+  },
+  "Percent_Person_WithMentalHealthNotGood": {
+    "defaultMessage": "정신 건강 상태가 좋지 않은 성인 비율"
+  },
+  "Percent_Person_WithPhysicalHealthNotGood": {
+    "defaultMessage": "신체 건강 상태가 좋지 않은 성인 비율"
+  },
+  "Percent_Person_SleepLessThan7Hours": {
+    "defaultMessage": "수면 시간이 7시간 미만인 성인 비율"
+  },
+  "Percent_Person_Obesity": {
+    "defaultMessage": "성인 비만 비율"
+  },
+  "Percent_Person_BingeDrinking": {
+    "defaultMessage": "과도한 음주를 하는 성인 비율"
+  },
+  "Percent_Person_PhysicalInactivity": {
+    "defaultMessage": "신체 활동이 저조한 성인 비율"
+  },
+  "Percent_Person_Smoking": {
+    "defaultMessage": "성인 흡연율"
+  },
+  "Count_Person_Upto4Years_Wasting_AsFractionOf_Count_Person_Upto4Years": {
+    "defaultMessage": "만 5세 미만 아동의 급성영양장애 유병률"
+  },
+  "Count_Person_Upto4Years_Female_Wasting_AsFractionOf_Count_Person_Upto4Years_Female": {
+    "defaultMessage": "만 5세 미만 아동의 급성영양장애 유병률(여아)"
+  },
+  "Count_Person_Upto4Years_Male_Wasting_AsFractionOf_Count_Person_Upto4Years_Male": {
+    "defaultMessage": "만 5세 미만 아동의 급성영양장애 유병률(남아)"
+  },
+  "Count_Person_Upto4Years_SevereWasting_AsFractionOf_Count_Person_Upto4Years": {
+    "defaultMessage": "만 5세 미만 아동의 중증 급성영양장애 유병률"
+  },
+  "Count_Person_Upto4Years_Female_SevereWasting_AsFractionOf_Count_Person_Upto4Years_Female": {
+    "defaultMessage": "만 5세 미만 아동의 중증 급성영양장애 유병률(여아)"
+  },
+  "Count_Person_Upto4Years_Male_SevereWasting_AsFractionOf_Count_Person_Upto4Years_Male": {
+    "defaultMessage": "만 5세 미만 아동의 중증 급성영양장애 유병률(남아)"
+  },
+  "Amount_Consumption_Alcohol_15OrMoreYears_AsFractionOf_Count_Person_15OrMoreYears": {
+    "defaultMessage": "1인당 순수알코올 소비량(연간)"
+  },
+  "RetailDrugDistribution_DrugDistribution_Oxycodone": {
+    "defaultMessage": "옥시코돈의 총 소매 유통량"
+  },
+  "RetailDrugDistribution_DrugDistribution_Hydrocodone": {
+    "defaultMessage": "하이드로콘의 총 소매 유통량"
+  },
+  "RetailDrugDistribution_DrugDistribution_Codeine": {
+    "defaultMessage": "코데인의 총 소매 유통량"
+  },
+  "RetailDrugDistribution_DrugDistribution_Amphetamine": {
+    "defaultMessage": "암페타민의 총 소매 유통량"
+  },
+  "RetailDrugDistribution_DrugDistribution_Morphine": {
+    "defaultMessage": "모르핀의 총 소매 유통량"
+  },
+  "Count_Person_EnrolledInSchool": {
+    "defaultMessage": "인구(학교에 등록됨)"
+  },
+  "Count_Person_NotEnrolledInSchool": {
+    "defaultMessage": "인구(학교에 등록하지 않음)"
+  },
+  "Count_CriminalActivities_CombinedCrime": {
+    "defaultMessage": "범죄 행위 수(모든 범죄)"
+  },
+  "Count_CriminalActivities_ViolentCrime": {
+    "defaultMessage": "범죄 행위 수(폭력 범죄)"
+  },
+  "Count_CriminalActivities_PropertyCrime": {
+    "defaultMessage": "범죄 행위 수(재산 범죄)"
+  },
+  "Count_CriminalActivities_Arson": {
+    "defaultMessage": "범죄 행위 수(방화)"
+  },
+  "Count_Person_BelowPovertyLevelInThePast12Months": {
+    "defaultMessage": "인구(빈곤선 이하)"
+  },
+  "Count_Person_BelowPovertyLevelInThePast12Months_AmericanIndianOrAlaskaNativeAlone": {
+    "defaultMessage": "인구(빈곤선 이하, 아메리카 원주민 또는 알래스카 원주민)"
+  },
+  "Count_Person_BelowPovertyLevelInThePast12Months_AsianAlone": {
+    "defaultMessage": ""
+  },
+  "Count_Person_BelowPovertyLevelInThePast12Months_BlackOrAfricanAmericanAlone": {
+    "defaultMessage": ""
+  },
+  "Count_Person_BelowPovertyLevelInThePast12Months_HispanicOrLatino": {
+    "defaultMessage": ""
+  },
+  "Count_Person_BelowPovertyLevelInThePast12Months_NativeHawaiianOrOtherPacificIslanderAlone": {
+    "defaultMessage": "인구(빈곤선 이하, 하와이 원주민 또는 기타 태평양 섬 주민)"
+  },
+  "Count_Person_BelowPovertyLevelInThePast12Months_WhiteAlone": {
+    "defaultMessage": "인구(빈곤선 이하, 백인)"
+  },
+  "Count_Person_Female_BelowPovertyLevelInThePast12Months": {
+    "defaultMessage": "인구(빈곤선 이하, 여성)"
+  },
+  "Count_Person_Male_BelowPovertyLevelInThePast12Months": {
+    "defaultMessage": "인구(빈곤선 이하, 남성)"
+  },
+  "Percent_Person_18To64Years_Female_NoHealthInsurance": {
+    "defaultMessage": "건강 보험이 없는 인구 비율(여성)"
+  },
+  "Percent_Person_18To64Years_Male_NoHealthInsurance": {
+    "defaultMessage": "건강 보험이 없는 인구 비율(남성)"
+  },
+  "Percent_Person_18To64Years_NoHealthInsurance_BlackOrAfricanAmericanAlone": {
+    "defaultMessage": "건강 보험이 없는 인구 비율(흑인 또는 아프리카계 미국인)"
+  },
+  "Percent_Person_18To64Years_NoHealthInsurance_HispanicOrLatino": {
+    "defaultMessage": "건강 보험이 없는 인구 비율(히스패닉 또는 라티노)"
+  },
+  "Percent_Person_18To64Years_NoHealthInsurance_WhiteAlone": {
+    "defaultMessage": "건강 보험이 없는 인구 비율(백인)"
+  },
+  "Count_Person_7To14Years_Female_Employed_AsFractionOf_Count_Person_7To14Years_Female": {
+    "defaultMessage": "아동의 경제 활동 비율(여아)"
+  },
+  "Count_Person_7To14Years_Male_Employed_AsFractionOf_Count_Person_7To14Years_Male": {
+    "defaultMessage": "아동의 경제 활동 비율(남아)"
+  },
+  "GiniIndex_EconomicActivity": {
+    "defaultMessage": "지니 계수"
+  },
+  "Count_HousingUnit": {
+    "defaultMessage": "주택 수"
+  },
+  "Count_HousingUnit_HomeValueUpto49999USDollar": {
+    "defaultMessage": "주택 수(주택 가치: 5만 달러 미만)"
+  },
+  "Count_HousingUnit_HomeValue50000To99999USDollar": {
+    "defaultMessage": "주택 수(주택 가치: 5만~10만 달러)"
+  },
+  "Count_HousingUnit_HomeValue100000To199999USDollar": {
+    "defaultMessage": "주택 수(주택 가치: 10만~20만 달러)"
+  },
+  "Count_HousingUnit_HomeValue200000To299999USDollar": {
+    "defaultMessage": "주택 수(주택 가치: 20만~30만 달러)"
+  },
+  "Count_HousingUnit_HomeValue300000To499999USDollar": {
+    "defaultMessage": "주택 수(주택 가치: 30만~50만 달러)"
+  },
+  "Count_HousingUnit_HomeValue500000To999999USDollar": {
+    "defaultMessage": "주택 수(주택 가치: 50만~1백만 달러)"
+  },
+  "Count_HousingUnit_HomeValue1000000To1499999USDollar": {
+    "defaultMessage": "주택 수(주택 가치: 1백만~150만 달러)"
+  },
+  "Count_HousingUnit_HomeValue1500000To1999999USDollar": {
+    "defaultMessage": "주택 수(주택 가치: 150만~2백만 달러)"
+  },
+  "Count_HousingUnit_HomeValue2000000OrMoreUSDollar": {
+    "defaultMessage": "주택 수(주택 가치: 2백만 달러 이상)"
+  },
+  "Count_HousingUnit_OwnerOccupied": {
+    "defaultMessage": "주택 수(소유자 거주)"
+  },
+  "Count_HousingUnit_RenterOccupied": {
+    "defaultMessage": "주택 수(임차인 거주)"
+  },
+  "Count_HousingUnit_Before1939DateBuilt": {
+    "defaultMessage": "주택 수(1939년 이전)"
+  },
+  "Count_HousingUnit_1940To1949DateBuilt": {
+    "defaultMessage": "주택 수(1940년~1949년)"
+  },
+  "Count_HousingUnit_1950To1959DateBuilt": {
+    "defaultMessage": "주택 수(1950년~1959년)"
+  },
+  "Count_HousingUnit_1960To1969DateBuilt": {
+    "defaultMessage": "주택 수(1960년~1969년)"
+  },
+  "Count_HousingUnit_1970To1979DateBuilt": {
+    "defaultMessage": "주택 수(1970년~1979년)"
+  },
+  "Count_HousingUnit_1980To1989DateBuilt": {
+    "defaultMessage": "주택 수(1980년~1989년)"
+  },
+  "Count_HousingUnit_1990To1999DateBuilt": {
+    "defaultMessage": "주택 수(1990년~1999년)"
+  },
+  "Count_HousingUnit_2000To2009DateBuilt": {
+    "defaultMessage": "주택 수(2000년~2009년)"
+  },
+  "Count_HousingUnit_2010OrLaterDateBuilt": {
+    "defaultMessage": "주택 수(2010년 이후)"
+  }
+}

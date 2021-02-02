@@ -122,10 +122,10 @@ msgid "CHART_TITLE-Government_debt"
 msgstr "国債"
 
 msgid "CHART_TITLE-Government_debt_per_capita"
-msgstr "政府の教育支出（政府支出比）"
+msgstr "1 人あたりの国債"
 
 msgid "CHART_TITLE-Government_expenditures_education"
-msgstr "政府の教育支出（GDP 比）"
+msgstr "政府の教育支出（政府支出比）"
 
 msgid "CHART_TITLE-Government_expenditures_education_gdp"
 msgstr "政府の教育支出（GDP 比）"
@@ -340,6 +340,12 @@ msgstr "暴力犯罪"
 msgid "CHART_TITLE-Violent_crime_rate"
 msgstr "暴力犯罪件数（人口 100,000 人あたり）"
 
+msgid "%(cityName)s Demographics"
+msgstr "%(cityName)s の人口統計"
+
+msgid "%(cityName)s Health"
+msgstr "%(cityName)s の健康状態"
+
 msgid "%(project)s is a Google supported project"
 msgstr "%(project)s は Google がサポートするプロジェクトです"
 
@@ -355,6 +361,12 @@ msgstr "データコモンズについて"
 msgid "Blog"
 msgstr "ブログ"
 
+msgid "Browse entities in the %(project)s Graph"
+msgstr "%(project)s のグラフでエンティティをブラウジング"
+
+msgid "Build your own"
+msgstr "自分で作成"
+
 msgid "Cities, United States"
 msgstr "米国の都市"
 
@@ -366,6 +378,9 @@ msgstr "米国の郡"
 
 msgid "Countries"
 msgstr "国"
+
+msgid "Create Timeline Charts"
+msgstr "タイムライン グラフを作成"
 
 msgid "Data Commons"
 msgstr "データコモンズ"
@@ -382,11 +397,23 @@ msgstr "ドキュメント"
 msgid "Economic Indicators, Worldwide"
 msgstr "全世界の経済指標"
 
+msgid "Employment Differences Across Neighboring Cities"
+msgstr "近隣都市間の雇用率の差"
+
+msgid "Encyclopedia of DNA Elements Biosamples"
+msgstr "DNA 要素エンサイクロペディア生体サンプル"
+
 msgid "Enter a country, state, county or city"
 msgstr "国、州、郡、都市のいずれかを入力してください"
 
 msgid "Explore"
 msgstr "探索"
+
+msgid "Explore Places"
+msgstr "地域を検索"
+
+msgid "Explore the data"
+msgstr "データを検索"
 
 msgid "FAQ"
 msgstr "よくある質問"
@@ -415,20 +442,68 @@ msgstr "グラフブラウザ"
 msgid "Gross National Income"
 msgstr "国民総所得"
 
+msgid "HOME-BLOG_POST_1"
+msgstr "%(project)s が Google 検索でアクセス可能になりました。<a href=%(blog_url)s>詳しくはこちら</a>"
+
+msgid "HOME-BUILD_CALLOUT"
+msgstr "Python API と REST API を使用して、独自のカスタム分析を実行したり、独自のツールを構築したりできます。"
+
+msgid "HOME-DATA_SOURCES"
+msgstr "データのソース"
+
+msgid "HOME-EXPLORE_CALLOUT"
+msgstr "データのクリーンアップと処理は Google によって行われるので、ご自身で行う必要はありません。特定のエンティティに関するデータは、さまざまなソースから集約されて一元的なビューに表示されます。"
+
+msgid "HOME-HERO_MESSAGE"
+msgstr "データコモンズは、マッピングされた共通エンティティを使用して公開データセットからのデータを結合するオープン ナレッジ リポジトリです。データのクリーニングや結合を行わなくても、さまざまなデータセットのデータを簡単に検索して分析できるツールが含まれています。"
+
+msgid "HOME-JOIN_EFFORT"
+msgstr "取り組みに参加しましょう。"
+
+msgid "HOME-OPEN_SOURCED"
+msgstr "<a href=%(github_url)s>オープンソース</a>、<a href=%(schemaorg_url)s>%(tool)s</a>で作成。"
+
+msgid "Highest Crime Per Capita"
+msgstr "1 人あたりの犯罪件数上位"
+
+msgid "Highest Median Age"
+msgstr "年齢の中央値上位"
+
+msgid "Highest Median Income"
+msgstr "所得の中央値上位"
+
+msgid "Highest Unemployment Rate"
+msgstr "失業率上位"
+
+msgid "Largest Population"
+msgstr "人口上位"
+
 msgid "Life Expectancy"
 msgstr "平均寿命"
 
 msgid "Loading..."
 msgstr "読み込んでいます…"
 
+msgid "MORE"
+msgstr "その他"
+
 msgid "Median Income, United States"
 msgstr "米国の所得の中央値"
 
-msgid "PLACE_EXPLORER_INTRO"
-msgstr "<p>プレイス エクスプローラは、場所の基礎的なコアデータを把握するのに役立つツールです。このツールは、特定の場所の人口統計、教育、経済などに関する一連のグラフを収集し、他の場所と比較できるように配置します。また、失業、犯罪、所得などのさまざまな指標で、個々の場所がどのようにランク付けされるかを確認できます。</p><p>上の検索ボックスで都市、郵便番号、郡、州、国を指定して、該当するグラフを表示できます。</p><p>また、よく知られている場所を探索することもできます。</p>"
+msgid "New York City Department of Education"
+msgstr "ニューヨーク市教育局"
 
-msgid "Place Explorer"
-msgstr "プレイス エクスプローラ"
+msgid "Open"
+msgstr "オープン"
+
+msgid "Open Data."
+msgstr "データはオープンソースです。"
+
+msgid "PLACE_EXPLORER_INTRO"
+msgstr "<p>プレイス エクスプローラは、地域の基礎的なコアデータを把握するために役立つツールです。特定の地域の人口統計、教育、経済などに関する一連のグラフをまとめて、他の地域と比較できるように配置します。また、失業、犯罪、所得などのさまざまな指標で、個々の地域がどのようにランク付けされるかを確認できます。</p><p>上の検索ボックスで都市、郵便番号、郡、州、国を指定して、該当するグラフを表示できます。</p><p>また、よく知られている地域を探索することもできます。</p>"
+
+msgid "Place Rankings"
+msgstr "地域ランキング"
 
 msgid "Places"
 msgstr "場所"
@@ -438,6 +513,15 @@ msgstr "プライバシー ポリシー"
 
 msgid "Rankings"
 msgstr "ランキング"
+
+msgid "Richest vs. Poorest California Counties"
+msgstr "カリフォルニア州の最も富裕な郡と最も貧しい郡"
+
+msgid "See API documentation."
+msgstr "API ドキュメントをご覧ください。"
+
+msgid "See some sample Python notebooks."
+msgstr "サンプル Python ノートブックをご覧ください。"
 
 msgid "States, United States"
 msgstr "米国の州"
@@ -451,8 +535,14 @@ msgstr "タイムライン エクスプローラ"
 msgid "Tutorials"
 msgstr "チュートリアル"
 
+msgid "US University Towns by Income"
+msgstr "所得別の米国の大学都市"
+
 msgid "Unemployment Rate, United States"
 msgstr "米国の失業率"
+
+msgid "What's new"
+msgstr "最新情報"
 
 msgid "Worldwide"
 msgstr "全世界"
@@ -468,4 +558,7 @@ msgstr "州別"
 
 msgid "in United States"
 msgstr "米国内"
+
+msgid "CHART_TITLE-CHART_CATEGORY-Overview"
+msgstr "概要"
 

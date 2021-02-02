@@ -172,13 +172,13 @@
   "link-return_to_overview": [
     {
       "type": 0,
-      "value": "Volver a la vista general ›"
+      "value": "Volver a la vista general "
     }
   ],
   "more_charts": [
     {
       "type": 0,
-      "value": "Más gráficos ›"
+      "value": "Más gráficos "
     }
   ],
   "place_breadcrumb": [
@@ -188,7 +188,7 @@
     },
     {
       "type": 0,
-      "value": " en "
+      "value": " de "
     },
     {
       "type": 1,
@@ -198,7 +198,7 @@
   "place_page_ranking_table-ranking_in": [
     {
       "type": 0,
-      "value": "Clasificaciones (en)"
+      "value": "Clasificaciones"
     }
   ],
   "place_page_ranking_table-ranking_value": [
@@ -215,10 +215,88 @@
       "value": "total"
     }
   ],
+  "plural_administrative_area": [
+    {
+      "type": 0,
+      "value": "Áreas administrativas"
+    }
+  ],
+  "plural_administrative_area_level": [
+    {
+      "type": 0,
+      "value": "Lugares de un área administrativa de nivel "
+    },
+    {
+      "type": 1,
+      "value": "level"
+    }
+  ],
+  "plural_borough": [
+    {
+      "type": 0,
+      "value": "Municipios"
+    }
+  ],
+  "plural_city": [
+    {
+      "type": 0,
+      "value": "Ciudades"
+    }
+  ],
+  "plural_country": [
+    {
+      "type": 0,
+      "value": "Países"
+    }
+  ],
+  "plural_county": [
+    {
+      "type": 0,
+      "value": "Condados"
+    }
+  ],
+  "plural_eurostat_nuts": [
+    {
+      "type": 0,
+      "value": "Lugares de nivel "
+    },
+    {
+      "type": 1,
+      "value": "level"
+    },
+    {
+      "type": 0,
+      "value": " en la clasificación NUTS de Eurostat"
+    }
+  ],
+  "plural_neighborhood": [
+    {
+      "type": 0,
+      "value": "Barrios"
+    }
+  ],
   "plural_places": [
     {
       "type": 0,
       "value": "Sitios"
+    }
+  ],
+  "plural_state": [
+    {
+      "type": 0,
+      "value": "Estados"
+    }
+  ],
+  "plural_town": [
+    {
+      "type": 0,
+      "value": "Localidades"
+    }
+  ],
+  "plural_village": [
+    {
+      "type": 0,
+      "value": "Pueblos"
     }
   ],
   "plural_zip_codes": [
@@ -227,16 +305,358 @@
       "value": "Códigos postales"
     }
   ],
+  "ranking-document_title": [
+    {
+      "type": 0,
+      "value": "Clasificación por "
+    },
+    {
+      "type": 1,
+      "value": "statVar"
+    },
+    {
+      "type": 0,
+      "value": " - "
+    },
+    {
+      "type": 1,
+      "value": "pluralPlaceType"
+    },
+    {
+      "type": 0,
+      "value": " de "
+    },
+    {
+      "type": 1,
+      "value": "placeName"
+    }
+  ],
+  "ranking-loading": [
+    {
+      "type": 0,
+      "value": "Cargando..."
+    }
+  ],
+  "ranking-no_data": [
+    {
+      "type": 0,
+      "value": "No hay datos disponibles sobre la clasificación."
+    }
+  ],
+  "ranking-page_title": [
+    {
+      "type": 0,
+      "value": "Clasificación por "
+    },
+    {
+      "type": 1,
+      "value": "statVar"
+    }
+  ],
+  "ranking-sort_bottom": [
+    {
+      "type": 0,
+      "value": "Mostrar últimos "
+    },
+    {
+      "type": 1,
+      "value": "rankSize"
+    }
+  ],
+  "ranking-sort_top": [
+    {
+      "type": 0,
+      "value": "Mostrar primeros "
+    },
+    {
+      "type": 1,
+      "value": "rankSize"
+    }
+  ],
+  "ranking-subtitle_all": [
+    {
+      "type": 0,
+      "value": "Todos los "
+    },
+    {
+      "type": 1,
+      "value": "pluralPlaceType"
+    },
+    {
+      "type": 0,
+      "value": " de "
+    },
+    {
+      "type": 1,
+      "value": "placeName"
+    }
+  ],
+  "ranking-subtitle_all_percapita": [
+    {
+      "type": 0,
+      "value": "Todos los "
+    },
+    {
+      "type": 1,
+      "value": "pluralPlaceType"
+    },
+    {
+      "type": 0,
+      "value": " de "
+    },
+    {
+      "type": 1,
+      "value": "placeName"
+    },
+    {
+      "type": 0,
+      "value": ", per cápita"
+    }
+  ],
+  "ranking-subtitle_bottom": [
+    {
+      "type": 0,
+      "value": "Últimos "
+    },
+    {
+      "type": 1,
+      "value": "rankSize"
+    },
+    {
+      "type": 0,
+      "value": " "
+    },
+    {
+      "type": 1,
+      "value": "pluralPlaceType"
+    },
+    {
+      "type": 0,
+      "value": " de "
+    },
+    {
+      "type": 1,
+      "value": "placeName"
+    }
+  ],
+  "ranking-subtitle_bottom_percapita": [
+    {
+      "type": 0,
+      "value": "Últimos "
+    },
+    {
+      "type": 1,
+      "value": "rankSize"
+    },
+    {
+      "type": 0,
+      "value": " "
+    },
+    {
+      "type": 1,
+      "value": "pluralPlaceType"
+    },
+    {
+      "type": 0,
+      "value": " de "
+    },
+    {
+      "type": 1,
+      "value": "placeName"
+    },
+    {
+      "type": 0,
+      "value": ", per cápita"
+    }
+  ],
+  "ranking-subtitle_none": [
+    {
+      "type": 1,
+      "value": "pluralPlaceType"
+    },
+    {
+      "type": 0,
+      "value": " de "
+    },
+    {
+      "type": 1,
+      "value": "placeName"
+    }
+  ],
+  "ranking-subtitle_none_percapita": [
+    {
+      "type": 1,
+      "value": "pluralPlaceType"
+    },
+    {
+      "type": 0,
+      "value": " de "
+    },
+    {
+      "type": 1,
+      "value": "placeName"
+    },
+    {
+      "type": 0,
+      "value": ", per cápita"
+    }
+  ],
+  "ranking-subtitle_top": [
+    {
+      "type": 0,
+      "value": "Primeros "
+    },
+    {
+      "type": 1,
+      "value": "rankSize"
+    },
+    {
+      "type": 0,
+      "value": " "
+    },
+    {
+      "type": 1,
+      "value": "pluralPlaceType"
+    },
+    {
+      "type": 0,
+      "value": " de "
+    },
+    {
+      "type": 1,
+      "value": "placeName"
+    }
+  ],
+  "ranking-subtitle_top_percapita": [
+    {
+      "type": 0,
+      "value": "Primeros "
+    },
+    {
+      "type": 1,
+      "value": "rankSize"
+    },
+    {
+      "type": 0,
+      "value": " "
+    },
+    {
+      "type": 1,
+      "value": "pluralPlaceType"
+    },
+    {
+      "type": 0,
+      "value": " de "
+    },
+    {
+      "type": 1,
+      "value": "placeName"
+    },
+    {
+      "type": 0,
+      "value": ", per cápita"
+    }
+  ],
+  "ranking_table-header_rank": [
+    {
+      "type": 0,
+      "value": "Clasificación"
+    }
+  ],
+  "ranking_table-header_value": [
+    {
+      "type": 0,
+      "value": "Valor"
+    }
+  ],
   "search_bar_placeholder-search_again": [
     {
       "type": 0,
       "value": "Busca otro sitio"
     }
   ],
+  "singular_administrative_area": [
+    {
+      "type": 0,
+      "value": "Área administrativa"
+    }
+  ],
+  "singular_administrative_area_level": [
+    {
+      "type": 0,
+      "value": "Lugar de un área administrativa de nivel "
+    },
+    {
+      "type": 1,
+      "value": "level"
+    }
+  ],
+  "singular_borough": [
+    {
+      "type": 0,
+      "value": "Municipio"
+    }
+  ],
+  "singular_city": [
+    {
+      "type": 0,
+      "value": "Ciudad"
+    }
+  ],
+  "singular_country": [
+    {
+      "type": 0,
+      "value": "País"
+    }
+  ],
+  "singular_county": [
+    {
+      "type": 0,
+      "value": "Condado"
+    }
+  ],
+  "singular_eurostat_nuts": [
+    {
+      "type": 0,
+      "value": "Lugar de nivel "
+    },
+    {
+      "type": 1,
+      "value": "level"
+    },
+    {
+      "type": 0,
+      "value": " en la clasificación NUTS de Eurostat"
+    }
+  ],
+  "singular_neighborhood": [
+    {
+      "type": 0,
+      "value": "Barrio"
+    }
+  ],
   "singular_place": [
     {
       "type": 0,
       "value": "Sitio"
+    }
+  ],
+  "singular_state": [
+    {
+      "type": 0,
+      "value": "Estado"
+    }
+  ],
+  "singular_town": [
+    {
+      "type": 0,
+      "value": "Localidad"
+    }
+  ],
+  "singular_village": [
+    {
+      "type": 0,
+      "value": "Pueblo"
     }
   ],
   "singular_zip_code": [

@@ -16,7 +16,7 @@
 
 import React from "react";
 import { displayNameForPlaceType } from "./util";
-import { intl } from "../i18n/i18n";
+import { intl, LocalizedLink } from "../i18n/i18n";
 
 interface ChildPlacePropType {
   childPlaces: { string: string[] };
@@ -47,16 +47,15 @@ class ChildPlace extends React.Component<ChildPlacePropType> {
               {displayNameForPlaceType(placeType, true /* isPlural */)}
             </div>
             {this.props.childPlaces[placeType].map((place, i) => (
-              <a
+              <LocalizedLink
                 key={place.dcid}
                 className="child-place-link"
                 href={"/place/" + place.dcid}
-              >
-                {place.name}
-                {i < this.props.childPlaces[placeType].length - 1 && (
-                  <span>,</span>
-                )}
-              </a>
+                text={
+                  place.name +
+                  (i < this.props.childPlaces[placeType].length - 1 ? "," : "")
+                }
+              />
             ))}
           </div>
         ))}

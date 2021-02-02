@@ -2,1411 +2,1399 @@
   "Amount_Consumption_Alcohol_15OrMoreYears_AsFractionOf_Count_Person_15OrMoreYears": [
     {
       "type": 0,
-      "value": "Consommation d'alcool pur"
+      "value": "1 人あたりの純アルコール消費量（年間）"
     }
   ],
   "Amount_Consumption_Electricity_PerCapita": [
     {
       "type": 0,
-      "value": "Consommation d'électricité"
+      "value": "1 人あたりの電力消費量"
     }
   ],
   "Amount_Consumption_Energy_PerCapita": [
     {
       "type": 0,
-      "value": "Consommation énergétique"
+      "value": "1 人あたりのエネルギー消費量"
     }
   ],
   "Amount_Debt_Government": [
     {
       "type": 0,
-      "value": "Dette publique en pourcentage du PIB"
+      "value": "国債"
     }
   ],
   "Amount_EconomicActivity_ExpenditureActivity_EducationExpenditure_Government_AsFractionOf_Amount_EconomicActivity_ExpenditureActivity_Government": [
     {
       "type": 0,
-      "value": "Dépenses publiques en éducation (% des dépenses publiques)"
+      "value": "政府の教育支出（政府支出比）"
     }
   ],
   "Amount_EconomicActivity_ExpenditureActivity_EducationExpenditure_Government_AsFractionOf_Amount_EconomicActivity_GrossDomesticProduction_Nominal": [
     {
       "type": 0,
-      "value": "Dépenses publiques en éducation (% du PIB)"
+      "value": "政府の教育支出（GDP 比）"
     }
   ],
   "Amount_EconomicActivity_ExpenditureActivity_MilitaryExpenditure_Government": [
     {
       "type": 0,
-      "value": "Dépenses publiques militaires"
+      "value": "政府の軍事支出"
     }
   ],
   "Amount_EconomicActivity_ExpenditureActivity_MilitaryExpenditure_Government_AsFractionOf_Amount_EconomicActivity_GrossDomesticProduction_Nominal": [
     {
       "type": 0,
-      "value": "Dépenses publiques militaires (% du PIB)"
+      "value": "政府の軍事支出（GDP 比）"
     }
   ],
   "Amount_EconomicActivity_GrossDomesticProduction_Nominal": [
     {
       "type": 0,
-      "value": "PIB"
+      "value": "国内総生産（名目）"
     }
   ],
   "Amount_EconomicActivity_GrossDomesticProduction_Nominal_PerCapita": [
     {
       "type": 0,
-      "value": "PIB par habitant"
+      "value": "1 人あたりの国内総生産（名目）"
     }
   ],
   "Amount_EconomicActivity_GrossNationalIncome_PurchasingPowerParity": [
     {
       "type": 0,
-      "value": "RNB (PPA)"
+      "value": "国民総所得（購買力平価）"
     }
   ],
   "Amount_EconomicActivity_GrossNationalIncome_PurchasingPowerParity_PerCapita": [
     {
       "type": 0,
-      "value": "RNB (PPA) par habitant"
+      "value": "1 人あたりの国民総所得（購買力平価）"
     }
   ],
   "Amount_Emissions_CarbonDioxide_PerCapita": [
     {
       "type": 0,
-      "value": "Émissions de CO2"
+      "value": "1 人あたりの二酸化炭素排出量"
     }
   ],
   "Amount_Remittance_InwardRemittance": [
     {
       "type": 0,
-      "value": "Fonds transférés de l'étranger"
+      "value": "被仕向送金"
     }
   ],
   "Amount_Remittance_InwardRemittance_AsFractionOf_Amount_EconomicActivity_GrossDomesticProduction_Nominal": [
     {
       "type": 0,
-      "value": "Fonds transférés de l'étranger (% du PIB)"
+      "value": "被仕向送金（GDP 比）"
     }
   ],
   "Amount_Remittance_OutwardRemittance": [
     {
       "type": 0,
-      "value": "Fonds transférés à l'étranger"
+      "value": "仕向送金"
     }
   ],
   "Amount_Stock": [
     {
       "type": 0,
-      "value": "Capitalisation boursière des entreprises nationales"
+      "value": "国内企業の時価総額"
     }
   ],
   "Amount_Stock_AsFractionOf_Amount_EconomicActivity_GrossDomesticProduction_Nominal": [
     {
       "type": 0,
-      "value": "Capitalisation boursière des entreprises nationales (% du PIB)"
+      "value": "国内企業の時価総額（GDP 比）"
     }
   ],
   "Count_CriminalActivities_Arson": [
     {
       "type": 0,
-      "value": "Incendies"
+      "value": "犯罪件数（放火）"
     }
   ],
   "Count_CriminalActivities_CombinedCrime": [
     {
       "type": 0,
-      "value": "Total des crimes"
+      "value": "犯罪件数（すべての犯罪）"
     }
   ],
   "Count_CriminalActivities_PropertyCrime": [
     {
       "type": 0,
-      "value": "Crimes contre les biens"
+      "value": "犯罪件数（窃盗）"
     }
   ],
   "Count_CriminalActivities_ViolentCrime": [
     {
       "type": 0,
-      "value": "Crimes violents"
+      "value": "犯罪件数（暴力犯罪）"
     }
   ],
   "Count_CycloneEvent": [
     {
       "type": 0,
-      "value": "Cyclone"
+      "value": "サイクロン災害件数"
     }
   ],
   "Count_Death_0Years_AsFractionOf_Count_BirthEvent_LiveBirth": [
     {
       "type": 0,
-      "value": "Taux de mortalité infantile"
+      "value": "乳児死亡率"
     }
   ],
   "Count_Death_0Years_Female_AsFractionOf_Count_BirthEvent_LiveBirth_Female": [
     {
       "type": 0,
-      "value": "Filles"
+      "value": "乳児死亡率（女児）"
     }
   ],
   "Count_Death_0Years_Male_AsFractionOf_Count_BirthEvent_LiveBirth_Male": [
     {
       "type": 0,
-      "value": "Garçons"
+      "value": "乳児死亡率（男児）"
     }
   ],
   "Count_Death_DiseasesOfTheCirculatorySystem": [
     {
       "type": 0,
-      "value": "Maladies circulatoires"
+      "value": "循環器系の疾患による死亡者数"
     }
   ],
   "Count_Death_DiseasesOfTheNervousSystem": [
     {
       "type": 0,
-      "value": "Système nerveux"
+      "value": "神経系の疾患による死亡者数"
     }
   ],
   "Count_Death_DiseasesOfTheRespiratorySystem": [
     {
       "type": 0,
-      "value": "Maladies respiratoires"
+      "value": "呼吸器系の疾患による死亡者数"
     }
   ],
   "Count_Death_ExternalCauses": [
     {
       "type": 0,
-      "value": "Causes externes"
+      "value": "外因による死亡者数"
     }
   ],
   "Count_Death_Neoplasms": [
     {
       "type": 0,
-      "value": "Néoplasmes"
+      "value": "腫瘍による死亡者数"
     }
   ],
   "Count_DroughtEvent": [
     {
       "type": 0,
-      "value": "Sécheresse"
+      "value": "干ばつ災害件数"
     }
   ],
   "Count_EarthquakeEvent": [
     {
       "type": 0,
-      "value": "Séisme"
+      "value": "地震災害件数"
     }
   ],
   "Count_FloodEvent": [
     {
       "type": 0,
-      "value": "Inondations"
+      "value": "洪水災害件数"
     }
   ],
   "Count_Household_IncomeOf100000To124999USDollar": [
     {
       "type": 0,
-      "value": "De 100 000 à 125 000 $"
+      "value": "世帯数（所得 100,000～125,000 ドル）"
     }
   ],
   "Count_Household_IncomeOf10000To14999USDollar": [
     {
       "type": 0,
-      "value": "De 10 000 à 15 000 $"
+      "value": "世帯数（所得 10,000～15,000 ドル）"
     }
   ],
   "Count_Household_IncomeOf125000To149999USDollar": [
     {
       "type": 0,
-      "value": "De 125 000 à 150 000 $"
+      "value": "世帯数（所得 125,000～150,000 ドル）"
     }
   ],
   "Count_Household_IncomeOf150000To199999USDollar": [
     {
       "type": 0,
-      "value": "De 150 000 à 200 000 $"
+      "value": "世帯数（所得 150,000～200,000 ドル）"
     }
   ],
   "Count_Household_IncomeOf200000OrMoreUSDollar": [
     {
       "type": 0,
-      "value": "Plus de 200 000 $"
+      "value": "世帯数（所得 200,000 ドル超）"
     }
   ],
   "Count_Household_IncomeOf20000To24999USDollar": [
     {
       "type": 0,
-      "value": "De 20 000 à 25 000 $"
+      "value": "世帯数（所得 20,000～25,000 ドル）"
     }
   ],
   "Count_Household_IncomeOf30000To34999USDollar": [
     {
       "type": 0,
-      "value": "De 30 000 à 35 000 $"
+      "value": "世帯数（所得 30,000～35,000 ドル）"
     }
   ],
   "Count_Household_IncomeOf40000To44999USDollar": [
     {
       "type": 0,
-      "value": "De 40 000 à 45 000 $"
+      "value": "世帯数（所得 40,000～45,000 ドル）"
     }
   ],
   "Count_Household_IncomeOf50000To59999USDollar": [
     {
       "type": 0,
-      "value": "De 50 000 à 60 000 $"
+      "value": "世帯数（所得 50,000～60,000 ドル）"
     }
   ],
   "Count_Household_IncomeOf60000To74999USDollar": [
     {
       "type": 0,
-      "value": "De 60 000 à 75 000 $"
+      "value": "世帯数（所得 60,000～75,000 ドル）"
     }
   ],
   "Count_Household_IncomeOf75000To99999USDollar": [
     {
       "type": 0,
-      "value": "De 75 000 à 100 000 $"
+      "value": "世帯数（所得 75,000～100,000 ドル）"
     }
   ],
   "Count_Household_IncomeOfUpto10000USDollar": [
     {
       "type": 0,
-      "value": "Moins de 10 000 $"
+      "value": "世帯数（所得 10,000 ドル未満）"
     }
   ],
   "Count_HousingUnit": [
     {
       "type": 0,
-      "value": "Logements"
+      "value": "住宅戸数"
     }
   ],
   "Count_HousingUnit_1940To1949DateBuilt": [
     {
       "type": 0,
-      "value": "1940 - 1949"
+      "value": "住宅戸数（1940 年～1949 年）"
     }
   ],
   "Count_HousingUnit_1950To1959DateBuilt": [
     {
       "type": 0,
-      "value": "1950 - 1959"
+      "value": "住宅戸数（1950 年～1959 年）"
     }
   ],
   "Count_HousingUnit_1960To1969DateBuilt": [
     {
       "type": 0,
-      "value": "1960 - 1969"
+      "value": "住宅戸数（1960 年～1969 年）"
     }
   ],
   "Count_HousingUnit_1970To1979DateBuilt": [
     {
       "type": 0,
-      "value": "1970 - 1979"
+      "value": "住宅戸数（1970 年～1979 年）"
     }
   ],
   "Count_HousingUnit_1980To1989DateBuilt": [
     {
       "type": 0,
-      "value": "1980 - 1989"
+      "value": "住宅戸数（1980 年～1989 年）"
     }
   ],
   "Count_HousingUnit_1990To1999DateBuilt": [
     {
       "type": 0,
-      "value": "1990 - 1999"
+      "value": "住宅戸数（1990 年～1999 年）"
     }
   ],
   "Count_HousingUnit_2000To2009DateBuilt": [
     {
       "type": 0,
-      "value": "2000 - 2009"
+      "value": "住宅戸数（2000 年～2009 年）"
     }
   ],
   "Count_HousingUnit_2010OrLaterDateBuilt": [
     {
       "type": 0,
-      "value": "Après 2010"
+      "value": "住宅戸数（2010 年以降）"
     }
   ],
   "Count_HousingUnit_Before1939DateBuilt": [
     {
       "type": 0,
-      "value": "Avant 1939"
+      "value": "住宅戸数（1939 年より前）"
     }
   ],
   "Count_HousingUnit_HomeValue1000000To1499999USDollar": [
     {
       "type": 0,
-      "value": "De 1 000 000 à 1,5 000 000 $"
+      "value": "住宅戸数（住宅価格 1,000,000～1,500,000 ドル）"
     }
   ],
   "Count_HousingUnit_HomeValue100000To199999USDollar": [
     {
       "type": 0,
-      "value": "De 100 000 à 200 000 $"
+      "value": "住宅戸数（住宅価格 100,000～200,000 ドル）"
     }
   ],
   "Count_HousingUnit_HomeValue1500000To1999999USDollar": [
     {
       "type": 0,
-      "value": "De 1,5 000 000 à 2 000 000 $"
+      "value": "住宅戸数（住宅価格 1,500,000～2,000,000 ドル）"
     }
   ],
   "Count_HousingUnit_HomeValue2000000OrMoreUSDollar": [
     {
       "type": 0,
-      "value": "Plus de 2 000 000 $"
+      "value": "住宅戸数（住宅価格 2,000,000 ドル超）"
     }
   ],
   "Count_HousingUnit_HomeValue200000To299999USDollar": [
     {
       "type": 0,
-      "value": "De 200 000 à 300 000 $"
+      "value": "住宅戸数（住宅価格 200,000～300,000 ドル）"
     }
   ],
   "Count_HousingUnit_HomeValue300000To499999USDollar": [
     {
       "type": 0,
-      "value": "De 300 000 à 500 000 $"
+      "value": "住宅戸数（住宅価格 300,000～500,000 ドル）"
     }
   ],
   "Count_HousingUnit_HomeValue500000To999999USDollar": [
     {
       "type": 0,
-      "value": "De 500 000 à 1 000 000 $"
+      "value": "住宅戸数（住宅価格 500,000～1,000,000 ドル）"
     }
   ],
   "Count_HousingUnit_HomeValue50000To99999USDollar": [
     {
       "type": 0,
-      "value": "De 50 000 à 100 000 $"
+      "value": "住宅戸数（住宅価格 50,000～100,000 ドル）"
     }
   ],
   "Count_HousingUnit_HomeValueUpto49999USDollar": [
     {
       "type": 0,
-      "value": "De 0 à 50 000 $"
+      "value": "住宅戸数（住宅価格 50,000 ドル未満）"
     }
   ],
   "Count_HousingUnit_HouseholderRaceAmericanIndianOrAlaskaNativeAlone": [
     {
       "type": 0,
-      "value": "Amérindiens ou natifs de l'Alaska"
+      "value": "世帯数（アメリカ先住民 / アラスカ先住民）"
     }
   ],
   "Count_HousingUnit_HouseholderRaceAsianAlone": [
     {
       "type": 0,
-      "value": "Asiatiques uniquement"
+      "value": "世帯数（アジア系のみ）"
     }
   ],
   "Count_HousingUnit_HouseholderRaceBlackOrAfricanAmericanAlone": [
     {
       "type": 0,
-      "value": "Noirs ou afro-américains"
+      "value": "世帯数（黒人 / アフリカ系アメリカ人）"
     }
   ],
   "Count_HousingUnit_HouseholderRaceHispanicOrLatino": [
     {
       "type": 0,
-      "value": "Hispaniques ou latinos"
+      "value": "世帯数（ヒスパニック / ラテン系）"
     }
   ],
   "Count_HousingUnit_HouseholderRaceNativeHawaiianOrOtherPacificIslanderAlone": [
     {
       "type": 0,
-      "value": "Natifs d'Hawaï ou d'autres îles du Pacifique"
+      "value": "世帯数（ハワイ先住民 / 太平洋諸島住民）"
     }
   ],
   "Count_HousingUnit_HouseholderRaceSomeOtherRaceAlone": [
     {
       "type": 0,
-      "value": "Autre origine ethnique"
+      "value": "世帯数（その他の人種）"
     }
   ],
   "Count_HousingUnit_HouseholderRaceTwoOrMoreRaces": [
     {
       "type": 0,
-      "value": "Deux origines ethniques ou plus"
+      "value": "世帯数（2 つ以上の人種）"
     }
   ],
   "Count_HousingUnit_HouseholderRaceWhiteAlone": [
     {
       "type": 0,
-      "value": "Blancs uniquement"
+      "value": "世帯数（白人のみ）"
     }
   ],
   "Count_HousingUnit_OwnerOccupied": [
     {
       "type": 0,
-      "value": "Propriétaires"
+      "value": "住宅戸数（持ち家）"
     }
   ],
   "Count_HousingUnit_RenterOccupied": [
     {
       "type": 0,
-      "value": "Locataire"
+      "value": "住宅戸数（借家）"
     }
   ],
   "Count_Person": [
     {
       "type": 0,
-      "value": "Population totale"
+      "value": "人口"
     }
   ],
   "Count_Person_10To14Years": [
     {
       "type": 0,
-      "value": "10 - 14"
+      "value": "人口（10～14 歳）"
     }
   ],
   "Count_Person_10To19Years": [
     {
       "type": 0,
-      "value": "10 - 19"
+      "value": "人口（10～19 歳）"
     }
   ],
   "Count_Person_15OrMoreYears": [
     {
       "type": 0,
-      "value": "15 ans et plus"
+      "value": "人口（15 歳以上）"
     }
   ],
   "Count_Person_15To19Years": [
     {
       "type": 0,
-      "value": "15 - 19"
+      "value": "人口（15～19 歳）"
     }
   ],
   "Count_Person_15To64Years_InLaborForce_AsFractionOf_Count_Person_15To64Years": [
     {
       "type": 0,
-      "value": "Population active occupée"
+      "value": "就労可能な人の割合（15～64 歳）"
     }
   ],
   "Count_Person_16OrMoreYears": [
     {
       "type": 0,
-      "value": "16 et plus"
+      "value": "人口（16 歳以上）"
     }
   ],
   "Count_Person_18To24Years": [
     {
       "type": 0,
-      "value": "18 - 24"
+      "value": "人口（18～24 歳）"
     }
   ],
   "Count_Person_20To24Years": [
     {
       "type": 0,
-      "value": "20 - 24"
+      "value": "人口（20～24 歳）"
     }
   ],
   "Count_Person_20To29Years": [
     {
       "type": 0,
-      "value": "20 - 29"
+      "value": "人口（20～29 歳）"
     }
   ],
   "Count_Person_25To29Years": [
     {
       "type": 0,
-      "value": "25 - 29"
+      "value": "人口（25～29 歳）"
     }
   ],
   "Count_Person_25To34Years": [
     {
       "type": 0,
-      "value": "25 - 34"
+      "value": "人口（25～34 歳）"
     }
   ],
   "Count_Person_25To34Years_EducationalAttainmentAssociatesDegree_Female": [
     {
       "type": 0,
-      "value": "Femmes"
+      "value": "人口（準学士号取得者）"
     }
   ],
   "Count_Person_25To34Years_EducationalAttainmentAssociatesDegree_Male": [
     {
       "type": 0,
-      "value": "Hommes"
+      "value": "人口（準学士号取得者）"
     }
   ],
   "Count_Person_25To34Years_EducationalAttainmentBachelorsDegree_Female": [
     {
       "type": 0,
-      "value": "Femmes"
+      "value": "人口（学士号取得者）"
     }
   ],
   "Count_Person_25To34Years_EducationalAttainmentBachelorsDegree_Male": [
     {
       "type": 0,
-      "value": "Hommes"
+      "value": "人口（学士号取得者）"
     }
   ],
   "Count_Person_25To34Years_EducationalAttainmentGraduateOrProfessionalDegree_Female": [
     {
       "type": 0,
-      "value": "Femmes"
+      "value": "人口（学位取得者 / 専門職学位取得者）"
     }
   ],
   "Count_Person_25To34Years_EducationalAttainmentGraduateOrProfessionalDegree_Male": [
     {
       "type": 0,
-      "value": "Hommes"
+      "value": "人口（学位取得者 / 専門職学位取得者）"
     }
   ],
   "Count_Person_30To34Years": [
     {
       "type": 0,
-      "value": "30 - 34"
+      "value": "人口（30～34 歳）"
     }
   ],
   "Count_Person_30To39Years": [
     {
       "type": 0,
-      "value": "30 - 39"
+      "value": "人口（30～39 歳）"
     }
   ],
   "Count_Person_35To39Years": [
     {
       "type": 0,
-      "value": "35 - 39"
+      "value": "人口（35～39 歳）"
     }
   ],
   "Count_Person_35To44Years": [
     {
       "type": 0,
-      "value": "35 - 44"
+      "value": "人口（35～44 歳）"
     }
   ],
   "Count_Person_40To44Years": [
     {
       "type": 0,
-      "value": "40 - 44"
+      "value": "人口（40～44 歳）"
     }
   ],
   "Count_Person_40To49Years": [
     {
       "type": 0,
-      "value": "40 - 49"
+      "value": "人口（40～49 歳）"
     }
   ],
   "Count_Person_45To49Years": [
     {
       "type": 0,
-      "value": "45-49"
+      "value": "人口（45～49 歳）"
     }
   ],
   "Count_Person_45To54Years": [
     {
       "type": 0,
-      "value": "45 - 54"
+      "value": "人口（45～54 歳）"
     }
   ],
   "Count_Person_50To54Years": [
     {
       "type": 0,
-      "value": "50 - 54"
+      "value": "人口（50～54 歳）"
     }
   ],
   "Count_Person_50To59Years": [
     {
       "type": 0,
-      "value": "50 - 59"
+      "value": "人口（50～59 歳）"
     }
   ],
   "Count_Person_55To59Years": [
     {
       "type": 0,
-      "value": "55 - 59"
+      "value": "人口（55～59 歳）"
     }
   ],
   "Count_Person_55To64Years": [
     {
       "type": 0,
-      "value": "55 - 64"
+      "value": "人口（55～64 歳）"
     }
   ],
   "Count_Person_5To17Years": [
     {
       "type": 0,
-      "value": "5 - 17"
+      "value": "人口（5～17 歳）"
     }
   ],
   "Count_Person_5To9Years": [
     {
       "type": 0,
-      "value": "5 - 9"
+      "value": "人口（5～9 歳）"
     }
   ],
   "Count_Person_60To61Years": [
     {
       "type": 0,
-      "value": "60 - 61"
+      "value": "人口（60～61 歳）"
     }
   ],
   "Count_Person_60To64Years": [
     {
       "type": 0,
-      "value": "60 - 64"
+      "value": "人口（60～64 歳）"
     }
   ],
   "Count_Person_60To69Years": [
     {
       "type": 0,
-      "value": "60 - 69"
+      "value": "人口（60～69 歳）"
     }
   ],
   "Count_Person_62To64Years": [
     {
       "type": 0,
-      "value": "62 - 64"
+      "value": "人口（62～64 歳）"
     }
   ],
   "Count_Person_65To69Years": [
     {
       "type": 0,
-      "value": "65 - 69"
+      "value": "人口（65～69 歳）"
     }
   ],
   "Count_Person_65To74Years": [
     {
       "type": 0,
-      "value": "65 - 74"
+      "value": "人口（65～74 歳）"
     }
   ],
   "Count_Person_70OrMoreYears": [
     {
       "type": 0,
-      "value": "70 et plus"
+      "value": "人口（70 歳以上）"
     }
   ],
   "Count_Person_70To74Years": [
     {
       "type": 0,
-      "value": "70 - 74"
+      "value": "人口（70～74 歳）"
     }
   ],
   "Count_Person_70To79Years": [
     {
       "type": 0,
-      "value": "70 - 79"
+      "value": "人口（70～79 歳）"
     }
   ],
   "Count_Person_75OrMoreYears": [
     {
       "type": 0,
-      "value": "75 et plus"
+      "value": "人口（75 歳以上）"
     }
   ],
   "Count_Person_75To79Years": [
     {
       "type": 0,
-      "value": "75 - 79"
+      "value": "人口（75～79 歳）"
     }
   ],
   "Count_Person_7To14Years_Employed_AsFractionOf_Count_Person_7To14Years": [
     {
       "type": 0,
-      "value": "Enfants qui travaillent"
+      "value": "就労している 7～14 歳の児童数"
     }
   ],
   "Count_Person_7To14Years_Female_Employed_AsFractionOf_Count_Person_7To14Years_Female": [
     {
       "type": 0,
-      "value": "Filles"
+      "value": "就労している児童の割合（女児）"
     }
   ],
   "Count_Person_7To14Years_Male_Employed_AsFractionOf_Count_Person_7To14Years_Male": [
     {
       "type": 0,
-      "value": "Garçons"
+      "value": "就労している児童の割合（男児）"
     }
   ],
   "Count_Person_80OrMoreYears": [
     {
       "type": 0,
-      "value": "80 et plus"
+      "value": "人口（80 歳以上）"
     }
   ],
   "Count_Person_80To84Years": [
     {
       "type": 0,
-      "value": "80 - 84"
+      "value": "人口（80～84 歳）"
     }
   ],
   "Count_Person_AmericanIndianOrAlaskaNativeAlone": [
     {
       "type": 0,
-      "value": "Amérindiens ou natifs de l'Alaska"
+      "value": "人口（アメリカ先住民 / アラスカ先住民）"
     }
   ],
   "Count_Person_AsianAlone": [
     {
       "type": 0,
-      "value": "Asiatiques uniquement"
+      "value": "人口（アジア系のみ）"
     }
   ],
   "Count_Person_BelowPovertyLevelInThePast12Months": [
     {
       "type": 0,
-      "value": "Pauvreté"
+      "value": "人口（貧困レベル以下）"
     }
   ],
   "Count_Person_BelowPovertyLevelInThePast12Months_AmericanIndianOrAlaskaNativeAlone": [
     {
       "type": 0,
-      "value": "Amérindiens ou natifs de l'Alaska"
+      "value": "人口（貧困レベル以下、アメリカ先住民 / アラスカ先住民）"
     }
   ],
   "Count_Person_BelowPovertyLevelInThePast12Months_AsianAlone": [
-    {
-      "type": 0,
-      "value": "Asiatiques"
-    }
   ],
   "Count_Person_BelowPovertyLevelInThePast12Months_BlackOrAfricanAmericanAlone": [
-    {
-      "type": 0,
-      "value": "Noirs ou afro-américains"
-    }
   ],
   "Count_Person_BelowPovertyLevelInThePast12Months_HispanicOrLatino": [
-    {
-      "type": 0,
-      "value": "Hispaniques ou latinos"
-    }
   ],
   "Count_Person_BelowPovertyLevelInThePast12Months_NativeHawaiianOrOtherPacificIslanderAlone": [
     {
       "type": 0,
-      "value": "Natifs d'Hawaï ou d'autres îles du Pacifique"
+      "value": "人口（貧困レベル以下、ハワイ先住民 / 太平洋諸島住民）"
     }
   ],
   "Count_Person_BelowPovertyLevelInThePast12Months_WhiteAlone": [
     {
       "type": 0,
-      "value": "Blancs"
+      "value": "人口（貧困レベル以下、白人）"
     }
   ],
   "Count_Person_BlackOrAfricanAmericanAlone": [
     {
       "type": 0,
-      "value": "Noirs ou afro-américains"
+      "value": "人口（黒人 / アフリカ系アメリカ人）"
     }
   ],
   "Count_Person_Divorced": [
     {
       "type": 0,
-      "value": "Divorcés"
+      "value": "人口（離婚）"
     }
   ],
   "Count_Person_EducationalAttainmentBachelorsDegree": [
     {
       "type": 0,
-      "value": "Licence"
+      "value": "人口（学士号取得者）"
     }
   ],
   "Count_Person_EducationalAttainmentDoctorateDegree": [
     {
       "type": 0,
-      "value": "Doctorat"
+      "value": "人口（博士号取得者）"
     }
   ],
   "Count_Person_EducationalAttainmentMastersDegree": [
     {
       "type": 0,
-      "value": "Maîtrise"
+      "value": "人口（修士号取得者）"
     }
   ],
   "Count_Person_EducationalAttainmentNoSchoolingCompleted": [
     {
       "type": 0,
-      "value": "Aucune scolarisation"
+      "value": "人口（学歴なし）"
     }
   ],
   "Count_Person_EducationalAttainmentRegularHighSchoolDiploma": [
     {
       "type": 0,
-      "value": "Établissement d'enseignement secondaire"
+      "value": "人口（高等学校卒業者）"
     }
   ],
   "Count_Person_Employed": [
     {
       "type": 0,
-      "value": "Personnes employées"
+      "value": "就業者数"
     }
   ],
   "Count_Person_EnrolledInSchool": [
     {
       "type": 0,
-      "value": "Inscrits à l'école"
+      "value": "人口（在学中）"
     }
   ],
   "Count_Person_Female": [
     {
       "type": 0,
-      "value": "Femmes"
+      "value": "人口（女性）"
     }
   ],
   "Count_Person_Female_BelowPovertyLevelInThePast12Months": [
     {
       "type": 0,
-      "value": "Femmes"
+      "value": "人口（貧困レベル以下、女性）"
     }
   ],
   "Count_Person_HispanicOrLatino": [
     {
       "type": 0,
-      "value": "Hispaniques ou latinos"
+      "value": "人口（ヒスパニック / ラテン系）"
     }
   ],
   "Count_Person_InLaborForce": [
     {
       "type": 0,
-      "value": "Population active occupée"
+      "value": "就労可能な人口"
     }
   ],
   "Count_Person_IncomeOf10000To14999USDollar": [
     {
       "type": 0,
-      "value": "De 10 000 à 15 000 $"
+      "value": "人口（個人所得 10,000～15,000 ドル）"
     }
   ],
   "Count_Person_IncomeOf15000To24999USDollar": [
     {
       "type": 0,
-      "value": "De 15 000 à 25 000 $"
+      "value": "人口（個人所得 15,000～25,000 ドル）"
     }
   ],
   "Count_Person_IncomeOf25000To34999USDollar": [
     {
       "type": 0,
-      "value": "De 25 000 à 35 000 $"
+      "value": "人口（個人所得 25,000～35,000 ドル）"
     }
   ],
   "Count_Person_IncomeOf35000To49999USDollar": [
     {
       "type": 0,
-      "value": "De 35 000 à 50 000 $"
+      "value": "人口（個人所得 35,000～50,000 ドル）"
     }
   ],
   "Count_Person_IncomeOf50000To64999USDollar": [
     {
       "type": 0,
-      "value": "De 50 000 à 65 000 $"
+      "value": "人口（個人所得 50,000～65,000 ドル）"
     }
   ],
   "Count_Person_IncomeOf65000To74999USDollar": [
     {
       "type": 0,
-      "value": "De 65 000 à 75 000 $"
+      "value": "人口（個人所得 65,000～75,000 ドル）"
     }
   ],
   "Count_Person_IncomeOf75000OrMoreUSDollar": [
     {
       "type": 0,
-      "value": "Plus de 75 000 $"
+      "value": "人口（個人所得 75,000 ドル超）"
     }
   ],
   "Count_Person_IncomeOfUpto9999USDollar": [
     {
       "type": 0,
-      "value": "Moins de 10 000 $"
+      "value": "人口（個人所得 10,000 ドル未満）"
     }
   ],
   "Count_Person_Male": [
     {
       "type": 0,
-      "value": "Hommes"
+      "value": "人口（男性）"
     }
   ],
   "Count_Person_Male_BelowPovertyLevelInThePast12Months": [
     {
       "type": 0,
-      "value": "Hommes"
+      "value": "人口（貧困レベル以下、男性）"
     }
   ],
   "Count_Person_MarriedAndNotSeparated": [
     {
       "type": 0,
-      "value": "Mariés"
+      "value": "人口（既婚かつ同居）"
     }
   ],
   "Count_Person_NativeHawaiianOrOtherPacificIslanderAlone": [
     {
       "type": 0,
-      "value": "Natifs d'Hawaï ou d'autres îles du Pacifique"
+      "value": "人口（ハワイ先住民 / 太平洋諸島住民）"
     }
   ],
   "Count_Person_NeverMarried": [
     {
       "type": 0,
-      "value": "Jamais mariés"
+      "value": "人口（未婚）"
     }
   ],
   "Count_Person_NotAUSCitizen": [
     {
       "type": 0,
-      "value": "Non citoyen"
+      "value": "人口（米国市民以外）"
     }
   ],
   "Count_Person_NotEnrolledInSchool": [
     {
       "type": 0,
-      "value": "Non inscrits à l'école"
+      "value": "人口（在学中でない）"
     }
   ],
   "Count_Person_PerArea": [
     {
       "type": 0,
-      "value": "Densité de la population"
+      "value": "人口密度"
     }
   ],
   "Count_Person_Rural": [
     {
       "type": 0,
-      "value": "Population rurale"
+      "value": "人口（農村部）"
     }
   ],
   "Count_Person_Separated": [
     {
       "type": 0,
-      "value": "Séparés"
+      "value": "人口（別居）"
     }
   ],
   "Count_Person_SomeOtherRaceAlone": [
     {
       "type": 0,
-      "value": "Autre origine ethnique"
+      "value": "人口（その他の人種）"
     }
   ],
   "Count_Person_TwoOrMoreRaces": [
     {
       "type": 0,
-      "value": "Deux origines ethniques ou plus"
+      "value": "人口（2 つ以上の人種）"
     }
   ],
   "Count_Person_USCitizenBornAbroadOfAmericanParents": [
     {
       "type": 0,
-      "value": "Nés à l'étranger"
+      "value": "人口（米国外で米国人の両親から生まれた市民）"
     }
   ],
   "Count_Person_USCitizenBornInTheUnitedStates": [
     {
       "type": 0,
-      "value": "Nés aux États-Unis"
+      "value": "人口（米国で出生）"
     }
   ],
   "Count_Person_USCitizenByNaturalization": [
     {
       "type": 0,
-      "value": "Citoyens par naturalisation"
+      "value": "人口（帰化した米国市民）"
     }
   ],
   "Count_Person_Upto4Years": [
     {
       "type": 0,
-      "value": "0 - 4"
+      "value": "人口（0～4 歳）"
     }
   ],
   "Count_Person_Upto4Years_Female_SevereWasting_AsFractionOf_Count_Person_Upto4Years_Female": [
     {
       "type": 0,
-      "value": "Filles"
+      "value": "5 歳未満の児童の深刻な栄養不良の発症率（女児）"
     }
   ],
   "Count_Person_Upto4Years_Female_Wasting_AsFractionOf_Count_Person_Upto4Years_Female": [
     {
       "type": 0,
-      "value": "Filles"
+      "value": "5 歳未満の児童の栄養不良の発症率（女児）"
     }
   ],
   "Count_Person_Upto4Years_Male_SevereWasting_AsFractionOf_Count_Person_Upto4Years_Male": [
     {
       "type": 0,
-      "value": "Garçons"
+      "value": "5 歳未満の児童の深刻な栄養不良の発症率（男児）"
     }
   ],
   "Count_Person_Upto4Years_Male_Wasting_AsFractionOf_Count_Person_Upto4Years_Male": [
     {
       "type": 0,
-      "value": "Garçons"
+      "value": "5 歳未満の児童の栄養不良の発症率（男児）"
     }
   ],
   "Count_Person_Upto4Years_SevereWasting_AsFractionOf_Count_Person_Upto4Years": [
     {
       "type": 0,
-      "value": "Enfants de moins de 5 ans souffrant gravement d'émaciation"
+      "value": "5 歳未満の児童の深刻な栄養不良の発症率"
     }
   ],
   "Count_Person_Upto4Years_Wasting_AsFractionOf_Count_Person_Upto4Years": [
     {
       "type": 0,
-      "value": "Enfants de moins de 5 ans souffrant d'émaciation"
+      "value": "5 歳未満の児童の栄養不良の発症率"
     }
   ],
   "Count_Person_Upto9Years": [
     {
       "type": 0,
-      "value": "0 - 9"
+      "value": "人口（0～9 歳）"
     }
   ],
   "Count_Person_Urban": [
     {
       "type": 0,
-      "value": "Population urbaine"
+      "value": "人口（都市部）"
     }
   ],
   "Count_Person_WhiteAlone": [
     {
       "type": 0,
-      "value": "Blancs uniquement"
+      "value": "人口（白人のみ）"
     }
   ],
   "Count_Person_Widowed": [
     {
       "type": 0,
-      "value": "Veufs"
+      "value": "人口（死別）"
     }
   ],
   "Count_StormSurgeTideEvent": [
     {
       "type": 0,
-      "value": "Onde de tempête"
+      "value": "高潮災害件数"
     }
   ],
   "Count_ThunderstormWindEvent": [
     {
       "type": 0,
-      "value": "Orage"
+      "value": "雷雨災害件数"
     }
   ],
   "Count_TornadoEvent": [
     {
       "type": 0,
-      "value": "Tornade"
+      "value": "竜巻災害件数"
     }
   ],
   "Count_UnemploymentInsuranceClaim_StateUnemploymentInsurance": [
     {
       "type": 0,
-      "value": "Demandes d'allocations de chômage"
+      "value": "州の失業保険請求件数"
     }
   ],
   "Count_WildlandFireEvent": [
     {
       "type": 0,
-      "value": "Feu de forêt"
+      "value": "原野火災災害件数"
     }
   ],
   "CumulativeCount_MedicalConditionIncident_COVID_19_ConfirmedOrProbableCase": [
     {
       "type": 0,
-      "value": "Nombre cumulé de cas de COVID-19"
+      "value": "COVID-19（新型コロナウイルス感染症）の累計感染者数（確定または推定）"
     }
   ],
   "CumulativeCount_MedicalConditionIncident_COVID_19_PatientDeceased": [
     {
       "type": 0,
-      "value": "Nombre cumulé de décès de la COVID-19"
+      "value": "COVID-19（新型コロナウイルス感染症）の累積死亡者数"
     }
   ],
   "FertilityRate_Person_Female": [
     {
       "type": 0,
-      "value": "Taux de fécondité"
+      "value": "出生率"
     }
   ],
   "GiniIndex_EconomicActivity": [
     {
       "type": 0,
-      "value": "Indice de GINI"
+      "value": "ジニ係数"
     }
   ],
   "GrowthRate_Amount_EconomicActivity_GrossDomesticProduction": [
     {
       "type": 0,
-      "value": "Taux de croissance du PIB"
+      "value": "国内総生産の成長率"
     }
   ],
   "GrowthRate_Count_Person": [
     {
       "type": 0,
-      "value": "Taux de croissance de la population"
+      "value": "人口増加率"
     }
   ],
   "LifeExpectancy_Person": [
     {
       "type": 0,
-      "value": "Espérance de vie"
+      "value": "平均寿命"
     }
   ],
   "Median_Age_Person": [
     {
       "type": 0,
-      "value": "Âge moyen"
+      "value": "年齢の中央値"
     }
   ],
   "Median_Age_Person_AmericanIndianOrAlaskaNativeAlone": [
     {
       "type": 0,
-      "value": "Amérindiens ou natifs de l'Alaska"
+      "value": "年齢の中央値（アメリカ先住民 / アラスカ先住民）"
     }
   ],
   "Median_Age_Person_AsianAlone": [
     {
       "type": 0,
-      "value": "Asiatiques uniquement"
+      "value": "年齢の中央値（アジア系のみ）"
     }
   ],
   "Median_Age_Person_BlackOrAfricanAmericanAlone": [
     {
       "type": 0,
-      "value": "Noirs ou afro-américains"
+      "value": "年齢の中央値（黒人 / アフリカ系アメリカ人）"
     }
   ],
   "Median_Age_Person_Female": [
     {
       "type": 0,
-      "value": "Femmes"
+      "value": "年齢の中央値（女性）"
     }
   ],
   "Median_Age_Person_HispanicOrLatino": [
     {
       "type": 0,
-      "value": "Hispaniques ou latinos"
+      "value": "年齢の中央値（ヒスパニック / ラテン系）"
     }
   ],
   "Median_Age_Person_Male": [
     {
       "type": 0,
-      "value": "Hommes"
+      "value": "年齢の中央値（男性）"
     }
   ],
   "Median_Age_Person_NativeHawaiianOrOtherPacificIslanderAlone": [
     {
       "type": 0,
-      "value": "Natifs d'Hawaï ou d'autres îles du Pacifique"
+      "value": "年齢の中央値（ハワイ先住民 / 太平洋諸島住民）"
     }
   ],
   "Median_Age_Person_SomeOtherRaceAlone": [
     {
       "type": 0,
-      "value": "Autre origine ethnique"
+      "value": "年齢の中央値（その他の人種）"
     }
   ],
   "Median_Age_Person_TwoOrMoreRaces": [
     {
       "type": 0,
-      "value": "Deux origines ethniques ou plus"
+      "value": "年齢の中央値（2 つ以上の人種）"
     }
   ],
   "Median_Age_Person_WhiteAlone": [
     {
       "type": 0,
-      "value": "Blancs uniquement"
+      "value": "年齢の中央値（白人のみ）"
     }
   ],
   "Median_Income_Household": [
     {
       "type": 0,
-      "value": "Revenu moyen du foyer"
+      "value": "世帯収入の中央値"
     }
   ],
   "Median_Income_Household_HouseholderRaceAmericanIndianOrAlaskaNativeAlone": [
     {
       "type": 0,
-      "value": "Amérindiens ou natifs de l'Alaska"
+      "value": "世帯収入の中央値（アメリカ先住民 / アラスカ先住民）"
     }
   ],
   "Median_Income_Household_HouseholderRaceAsianAlone": [
     {
       "type": 0,
-      "value": "Asiatiques"
+      "value": "世帯収入の中央値（アジア系）"
     }
   ],
   "Median_Income_Household_HouseholderRaceBlackOrAfricanAmericanAlone": [
     {
       "type": 0,
-      "value": "Noirs ou afro-américains"
+      "value": "世帯収入の中央値（黒人 / アフリカ系アメリカ人）"
     }
   ],
   "Median_Income_Household_HouseholderRaceHispanicOrLatino": [
     {
       "type": 0,
-      "value": "Hispaniques ou latinos"
+      "value": "世帯収入の中央値（ヒスパニック / ラテン系）"
     }
   ],
   "Median_Income_Household_HouseholderRaceNativeHawaiianOrOtherPacificIslanderAlone": [
     {
       "type": 0,
-      "value": "Natifs d'Hawaï ou d'autres îles du Pacifique"
+      "value": "世帯収入の中央値（ハワイ先住民 / 太平洋諸島住民）"
     }
   ],
   "Median_Income_Household_HouseholderRaceWhiteAlone": [
     {
       "type": 0,
-      "value": "Blancs"
+      "value": "世帯収入の中央値（白人）"
     }
   ],
   "Median_Income_Person": [
     {
       "type": 0,
-      "value": "Revenu moyen"
+      "value": "個人所得の中央値"
     }
   ],
   "Median_Income_Person_15OrMoreYears_Female_WithIncome": [
     {
       "type": 0,
-      "value": "Femmes"
+      "value": "個人所得の中央値（女性）"
     }
   ],
   "Median_Income_Person_15OrMoreYears_Male_WithIncome": [
     {
       "type": 0,
-      "value": "Hommes"
+      "value": "個人所得の中央値（男性）"
     }
   ],
   "Percent_Person_18To64Years_Female_NoHealthInsurance": [
     {
       "type": 0,
-      "value": "Femmes"
+      "value": "健康保険未加入者の割合（女性）"
     }
   ],
   "Percent_Person_18To64Years_Male_NoHealthInsurance": [
     {
       "type": 0,
-      "value": "Hommes"
+      "value": "健康保険を未加入者の割合（男性）"
     }
   ],
   "Percent_Person_18To64Years_NoHealthInsurance_BlackOrAfricanAmericanAlone": [
     {
       "type": 0,
-      "value": "Noirs ou afro-américains"
+      "value": "健康保険未加入者の割合（黒人 / アフリカ系アメリカ人）"
     }
   ],
   "Percent_Person_18To64Years_NoHealthInsurance_HispanicOrLatino": [
     {
       "type": 0,
-      "value": "Hispaniques ou latinos"
+      "value": "健康保険未加入者の割合（ヒスパニック / ラテン系）"
     }
   ],
   "Percent_Person_18To64Years_NoHealthInsurance_WhiteAlone": [
     {
       "type": 0,
-      "value": "Blancs"
+      "value": "健康保険未加入者の割合（白人）"
     }
   ],
   "Percent_Person_BingeDrinking": [
     {
       "type": 0,
-      "value": "Consommation excessive d'alcool"
+      "value": "大量に飲酒している成人の割合"
     }
   ],
   "Percent_Person_Obesity": [
     {
       "type": 0,
-      "value": "Obésité"
+      "value": "肥満の成人の割合"
     }
   ],
   "Percent_Person_PhysicalInactivity": [
     {
       "type": 0,
-      "value": "Inactivité physique"
+      "value": "運動していない成人の割合"
     }
   ],
   "Percent_Person_SleepLessThan7Hours": [
     {
       "type": 0,
-      "value": "Moins de 7 heures de sommeil"
+      "value": "睡眠時間が 7 時間未満の成人の割合"
     }
   ],
   "Percent_Person_Smoking": [
     {
       "type": 0,
-      "value": "Fumeurs"
+      "value": "喫煙している成人の割合"
     }
   ],
   "Percent_Person_WithArthritis": [
     {
       "type": 0,
-      "value": "Arthrite"
+      "value": "関節炎の成人の割合"
     }
   ],
   "Percent_Person_WithHighBloodPressure": [
     {
       "type": 0,
-      "value": "Hypertension artérielle"
+      "value": "高血圧症の成人の割合"
     }
   ],
   "Percent_Person_WithHighCholesterol": [
     {
       "type": 0,
-      "value": "Taux de cholestérol élevé"
+      "value": "高コレステロール症の成人の割合"
     }
   ],
   "Percent_Person_WithMentalHealthNotGood": [
     {
       "type": 0,
-      "value": "Mauvais état de santé mentale"
+      "value": "メンタルヘルス状態が良好でない成人の割合"
     }
   ],
   "Percent_Person_WithPhysicalHealthNotGood": [
     {
       "type": 0,
-      "value": "Mauvais état de santé"
+      "value": "健康状態が良好でない成人の割合"
     }
   ],
   "RetailDrugDistribution_DrugDistribution_Amphetamine": [
     {
       "type": 0,
-      "value": "Amphétamine"
+      "value": "アンフェタミンの小売医薬品総流通量"
     }
   ],
   "RetailDrugDistribution_DrugDistribution_Codeine": [
     {
       "type": 0,
-      "value": "Codéine"
+      "value": "コデインの小売医薬品総流通量"
     }
   ],
   "RetailDrugDistribution_DrugDistribution_Hydrocodone": [
     {
       "type": 0,
-      "value": "Hydrocodone"
+      "value": "ヒドロコドンの小売医薬品総流通量"
     }
   ],
   "RetailDrugDistribution_DrugDistribution_Morphine": [
     {
       "type": 0,
-      "value": "Morphine"
+      "value": "モルヒネの小売医薬品総流通量"
     }
   ],
   "RetailDrugDistribution_DrugDistribution_Oxycodone": [
     {
       "type": 0,
-      "value": "Oxycodone"
+      "value": "オキシコドンの小売医薬品総流通量"
     }
   ],
   "UnemploymentRate_Person": [
     {
       "type": 0,
-      "value": "Taux de chômage"
+      "value": "失業率"
     }
   ],
   "UnemploymentRate_Person_Female": [
     {
       "type": 0,
-      "value": "Femmes"
+      "value": "失業率（女性）"
     }
   ],
   "UnemploymentRate_Person_Male": [
     {
       "type": 0,
-      "value": "Hommes"
+      "value": "失業率（男性）"
     }
   ]
 }

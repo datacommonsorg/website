@@ -122,10 +122,10 @@ msgid "CHART_TITLE-Government_debt"
 msgstr "Государственный долг"
 
 msgid "CHART_TITLE-Government_debt_per_capita"
-msgstr "Расходы правительства на образование (в % от общих расходов)"
+msgstr "Государственный долг на душу населения"
 
 msgid "CHART_TITLE-Government_expenditures_education"
-msgstr "Расходы правительства на образование (в % от ВВП)"
+msgstr "Расходы правительства на образование (в % от общих расходов)"
 
 msgid "CHART_TITLE-Government_expenditures_education_gdp"
 msgstr "Расходы правительства на образование (в % от ВВП)"
@@ -340,6 +340,12 @@ msgstr "Насильственные преступления"
 msgid "CHART_TITLE-Violent_crime_rate"
 msgstr "Количество насильственных преступлений на 100 000 человек"
 
+msgid "%(cityName)s Demographics"
+msgstr "%(cityName)s: демография"
+
+msgid "%(cityName)s Health"
+msgstr "%(cityName)s: здоровье"
+
 msgid "%(project)s is a Google supported project"
 msgstr "Проект %(project)s поддерживается Google"
 
@@ -355,6 +361,12 @@ msgstr "О Data Commons"
 msgid "Blog"
 msgstr "Блог"
 
+msgid "Browse entities in the %(project)s Graph"
+msgstr "Просматривайте данные в графиках %(project)s"
+
+msgid "Build your own"
+msgstr "Собирайте данные самостоятельно"
+
 msgid "Cities, United States"
 msgstr "Города в США"
 
@@ -366,6 +378,9 @@ msgstr "Округа в США"
 
 msgid "Countries"
 msgstr "Страны"
+
+msgid "Create Timeline Charts"
+msgstr "Создавайте диаграммы"
 
 msgid "Data Commons"
 msgstr "Data Commons"
@@ -382,11 +397,23 @@ msgstr "Документация"
 msgid "Economic Indicators, Worldwide"
 msgstr "Экономические показатели в мире"
 
+msgid "Employment Differences Across Neighboring Cities"
+msgstr "различия в уровне занятости населения между соседними городами"
+
+msgid "Encyclopedia of DNA Elements Biosamples"
+msgstr "энциклопедия биопроб из элементов ДНК"
+
 msgid "Enter a country, state, county or city"
 msgstr "Укажите страну, штат, округ или город"
 
 msgid "Explore"
 msgstr "Обзор"
+
+msgid "Explore Places"
+msgstr "Узнавайте о новых местах"
+
+msgid "Explore the data"
+msgstr "Изучайте данные"
 
 msgid "FAQ"
 msgstr "Часто задаваемые вопросы"
@@ -415,20 +442,68 @@ msgstr "Graph Browser"
 msgid "Gross National Income"
 msgstr "Валовой национальный доход"
 
+msgid "HOME-BLOG_POST_1"
+msgstr "Проект %(project)s теперь доступен в Google Поиске. <a href=%(blog_url)s>Подробнее…</a>"
+
+msgid "HOME-BUILD_CALLOUT"
+msgstr "Используйте Python и REST API, чтобы проводить собственные анализы, создавать инструменты и многое другое."
+
+msgid "HOME-DATA_SOURCES"
+msgstr "Среди наших источников данных"
+
+msgid "HOME-EXPLORE_CALLOUT"
+msgstr "Мы уже очистили и обработали данные, от вас не требуется никаких действий. Информация о некоторых объектах объединена в единую сводку из разных источников."
+
+msgid "HOME-HERO_MESSAGE"
+msgstr "Data Commons – это открытая база данных, объединяющая общедоступные наборы данных с помощью сопоставления общих объектов. Специальные инструменты позволяют легко просматривать и анализировать информацию из разных наборов. При этом данные не нужно очищать и объединять."
+
+msgid "HOME-JOIN_EFFORT"
+msgstr "Присоединиться к проекту"
+
+msgid "HOME-OPEN_SOURCED"
+msgstr "<a href=%(github_url)s>ПО с открытым исходным кодом</a>, разработанное с помощью <a href=%(schemaorg_url)s>%(tool)s</a>."
+
+msgid "Highest Crime Per Capita"
+msgstr "Самое большое количество преступлений на душу населения"
+
+msgid "Highest Median Age"
+msgstr "Самый высокий медианный возраст"
+
+msgid "Highest Median Income"
+msgstr "Самый высокий медианный доход"
+
+msgid "Highest Unemployment Rate"
+msgstr "Самый высокий уровень безработицы"
+
+msgid "Largest Population"
+msgstr "Самое большое население"
+
 msgid "Life Expectancy"
 msgstr "Средняя продолжительность жизни"
 
 msgid "Loading..."
 msgstr "Загрузка…"
 
+msgid "MORE"
+msgstr "ещё…"
+
 msgid "Median Income, United States"
 msgstr "Медианный доход в США"
 
-msgid "PLACE_EXPLORER_INTRO"
-msgstr "<p>Place Explorer – это инструмент, который помогает получить основные данные о выбранном месте. Информация выводится в виде диаграмм данных по демографии, образованию, экономике и т. д. в сравнении с другими местами. Вы также можете посмотреть рейтинг разных мест по определенным показателям, таким как безработица, преступность и доход.</p><p>Вы можете искать данные по городу, почтовому индексу, округу, штату или стране с помощью окна поиска выше.</p><p>Кроме того, можно начать с просмотра данных об известных местах.</p>"
+msgid "New York City Department of Education"
+msgstr "Департамент образования Нью-Йорка"
 
-msgid "Place Explorer"
-msgstr "Place Explorer"
+msgid "Open"
+msgstr "Открытый ресурс"
+
+msgid "Open Data."
+msgstr "Данные из открытого источника."
+
+msgid "PLACE_EXPLORER_INTRO"
+msgstr "<p>Place Explorer – это инструмент, который помогает получить основные данные о выбранном месте. Информация выводится в виде диаграмм данных по демографии, образованию, экономике и т. д. в сравнении с другими местами. Вы также можете посмотреть рейтинг разных мест по определенным показателям, таким как безработица, преступность и доход.</p><p>В окне выше доступен поиск информации по городу, почтовому индексу, округу, штату или стране.</p><p>Кроме того, можно начать с просмотра данных об известных местах.</p>"
+
+msgid "Place Rankings"
+msgstr "Рейтинги мест"
 
 msgid "Places"
 msgstr "Места"
@@ -438,6 +513,15 @@ msgstr "Политика конфиденциальности"
 
 msgid "Rankings"
 msgstr "Рейтинги"
+
+msgid "Richest vs. Poorest California Counties"
+msgstr "самые богатые и бедные округи Калифорнии"
+
+msgid "See API documentation."
+msgstr "Смотреть документацию по API"
+
+msgid "See some sample Python notebooks."
+msgstr "Смотреть примеры документов на Python"
 
 msgid "States, United States"
 msgstr "Штаты в США"
@@ -451,8 +535,14 @@ msgstr "Timelines Explorer"
 msgid "Tutorials"
 msgstr "Руководства"
 
+msgid "US University Towns by Income"
+msgstr "студенческие города США по уровню доходов"
+
 msgid "Unemployment Rate, United States"
 msgstr "Уровень безработицы в США"
+
+msgid "What's new"
+msgstr "Что нового"
 
 msgid "Worldwide"
 msgstr "в мире"
@@ -468,4 +558,7 @@ msgstr "по штату"
 
 msgid "in United States"
 msgstr "в США"
+
+msgid "CHART_TITLE-CHART_CATEGORY-Overview"
+msgstr "Обзор"
 

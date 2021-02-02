@@ -122,10 +122,10 @@ msgid "CHART_TITLE-Government_debt"
 msgstr "Staatsverschuldung"
 
 msgid "CHART_TITLE-Government_debt_per_capita"
-msgstr "Staatliche Ausgaben für Bildung (% der staatlichen Ausgaben)"
+msgstr "Staatsverschuldung pro Kopf"
 
 msgid "CHART_TITLE-Government_expenditures_education"
-msgstr "Staatliche Ausgaben für Bildung (% des BIP)"
+msgstr "Staatliche Ausgaben für Bildung (% der staatlichen Ausgaben)"
 
 msgid "CHART_TITLE-Government_expenditures_education_gdp"
 msgstr "Staatliche Ausgaben für Bildung (% des BIP)"
@@ -340,6 +340,12 @@ msgstr "Gewaltverbrechen"
 msgid "CHART_TITLE-Violent_crime_rate"
 msgstr "Gewaltverbrechen pro 100.000 Einwohner"
 
+msgid "%(cityName)s Demographics"
+msgstr "Demografische Werte für %(cityName)s"
+
+msgid "%(cityName)s Health"
+msgstr "Gesundheit in %(cityName)s"
+
 msgid "%(project)s is a Google supported project"
 msgstr "%(project)s ist ein von Google unterstütztes Projekt"
 
@@ -355,6 +361,12 @@ msgstr "Informationen zu Data Commons"
 msgid "Blog"
 msgstr "Blog"
 
+msgid "Browse entities in the %(project)s Graph"
+msgstr "Im %(project)s Graph nach Entitäten suchen"
+
+msgid "Build your own"
+msgstr "Eigene Tools und Analysen erstellen"
+
 msgid "Cities, United States"
 msgstr "Städte, USA"
 
@@ -366,6 +378,9 @@ msgstr "Counties, USA"
 
 msgid "Countries"
 msgstr "Länder"
+
+msgid "Create Timeline Charts"
+msgstr "Zeitachsendiagramm erstellen"
 
 msgid "Data Commons"
 msgstr "Data Commons"
@@ -382,11 +397,23 @@ msgstr "Dokumentation"
 msgid "Economic Indicators, Worldwide"
 msgstr "Wirtschaftsindikatoren, weltweit"
 
+msgid "Employment Differences Across Neighboring Cities"
+msgstr "Unterschiede hinsichtlich Beschäftigung, benachbarte Städte im Vergleich"
+
+msgid "Encyclopedia of DNA Elements Biosamples"
+msgstr "Enzyklopädie der DNA-Elemente"
+
 msgid "Enter a country, state, county or city"
 msgstr "Geben Sie ein Land, einen Bundesstaat, ein County oder eine Stadt ein"
 
 msgid "Explore"
 msgstr "Erkunden"
+
+msgid "Explore Places"
+msgstr "Orte erkunden"
+
+msgid "Explore the data"
+msgstr "Daten ansehen"
 
 msgid "FAQ"
 msgstr "FAQ"
@@ -415,20 +442,68 @@ msgstr "Graph Browser"
 msgid "Gross National Income"
 msgstr "Bruttonationaleinkommen"
 
+msgid "HOME-BLOG_POST_1"
+msgstr "%(project)s ist jetzt in der Google Suche verfügbar. <a href=%(blog_url)s>Weitere Informationen</a>"
+
+msgid "HOME-BUILD_CALLOUT"
+msgstr "Nutzen Sie Python und REST APIs für Ihre benutzerdefinierte Analyse, zum Erstellen eigener Tools und mehr."
+
+msgid "HOME-DATA_SOURCES"
+msgstr "mit Daten von"
+
+msgid "HOME-EXPLORE_CALLOUT"
+msgstr "Wir haben Ihre Daten für Sie bereinigt und verarbeitet. Für eine ganzheitliche Übersicht wurden Daten zu bestimmten Entitäten aus verschiedenen Quellen zusammengefasst."
+
+msgid "HOME-HERO_MESSAGE"
+msgstr "Data Commons ist ein Open Knowledge Repository, das zugeordnete allgemeine Entitäten nutzt, um Daten aus öffentlichen Datensätzen miteinander zu kombinieren. Es enthält Tools, mit denen Sie Daten aus verschiedenen Datensätzen einfach analysieren und auswerten können, ohne diese bereinigen oder kombinieren zu müssen."
+
+msgid "HOME-JOIN_EFFORT"
+msgstr "Mitmachen."
+
+msgid "HOME-OPEN_SOURCED"
+msgstr "<a href=%(github_url)s>Open Source</a>, mit <a href=%(schemaorg_url)s>%(tool)s</a> erstellt."
+
+msgid "Highest Crime Per Capita"
+msgstr "Höchste Kriminalitätsrate pro Kopf"
+
+msgid "Highest Median Age"
+msgstr "Höchster Medianwert des Alters"
+
+msgid "Highest Median Income"
+msgstr "Höchstes mittleres Einkommen"
+
+msgid "Highest Unemployment Rate"
+msgstr "Höchste Arbeitslosenrate"
+
+msgid "Largest Population"
+msgstr "Größte Einwohnerzahl"
+
 msgid "Life Expectancy"
 msgstr "Lebenserwartung"
 
 msgid "Loading..."
 msgstr "Wird geladen…"
 
+msgid "MORE"
+msgstr "und mehr"
+
 msgid "Median Income, United States"
 msgstr "Medianeinkommen, USA"
 
-msgid "PLACE_EXPLORER_INTRO"
-msgstr "<p>Das Tool „Place Explorer“ liefert Informationen zu den wichtigsten Daten eines Ortes. Es fasst verschiedene Diagramme für den jeweiligen Ort zusammen, unter anderem zu Demografie, Bildung oder Wirtschaft, und setzt diese durch den Vergleich mit anderen Orten in einen Kontext. Sie können auch eine Rangfolge mehrerer Orte mit unterschiedlichen Kennzahlen wie Arbeitslosigkeit, Kriminalität und Einkommen ansehen.</p><p>Über das Suchfeld oben haben Sie die Möglichkeit, Diagramme für Ihre Lieblingsstadt, eine bestimmte Postleitzahl, ein County, einen Bundesstaat oder ein Land aufzurufen.</p><p>Oder Sie erkunden zuerst einige bekannte Orte ...</p>"
+msgid "New York City Department of Education"
+msgstr "Amt für Bildung, New York City"
 
-msgid "Place Explorer"
-msgstr "Place Explorer"
+msgid "Open"
+msgstr "Open"
+
+msgid "Open Data."
+msgstr "Open Data."
+
+msgid "PLACE_EXPLORER_INTRO"
+msgstr "<p>Das Tool „Place Explorer“ liefert Informationen zu den wichtigsten Daten eines Ortes. Es fasst verschiedene Diagramme für den jeweiligen Ort zusammen, unter anderem zu Demografie, Bildung oder Wirtschaft, und setzt diese durch den Vergleich mit anderen Orten in einen Kontext. Sie können auch eine Rangfolge mehrerer Orte mit unterschiedlichen Kennzahlen wie Arbeitslosigkeit, Kriminalität und Einkommen ansehen.</p><p>Über das Suchfeld oben haben Sie die Möglichkeit, Diagramme für Ihre Lieblingsstadt, eine bestimmte Postleitzahl, ein County, einen Bundesstaat oder ein Land aufzurufen.</p><p>Oder Sie entdecken zuerst einige bekannte Orte ...</p>"
+
+msgid "Place Rankings"
+msgstr "Ranking von Orten"
 
 msgid "Places"
 msgstr "Orte"
@@ -438,6 +513,15 @@ msgstr "Datenschutzerklärung"
 
 msgid "Rankings"
 msgstr "Ranglisten"
+
+msgid "Richest vs. Poorest California Counties"
+msgstr "Counties mit dem höchsten Wohlstand in Kalifornien im Vergleich mit den ärmsten"
+
+msgid "See API documentation."
+msgstr "Siehe API-Dokumentation"
+
+msgid "See some sample Python notebooks."
+msgstr "Beispiele für Python-Notebooks ansehen."
 
 msgid "States, United States"
 msgstr "Bundesstaaten, USA"
@@ -451,8 +535,14 @@ msgstr "Timelines Explorer"
 msgid "Tutorials"
 msgstr "Anleitungen"
 
+msgid "US University Towns by Income"
+msgstr "Universitätsstädte der USA nach Einkommen"
+
 msgid "Unemployment Rate, United States"
 msgstr "Arbeitslosenquote, USA"
+
+msgid "What's new"
+msgstr "Neu"
 
 msgid "Worldwide"
 msgstr "Weltweit"
@@ -468,4 +558,7 @@ msgstr "nach Bundesstaat"
 
 msgid "in United States"
 msgstr "in den USA"
+
+msgid "CHART_TITLE-CHART_CATEGORY-Overview"
+msgstr "Übersicht"
 

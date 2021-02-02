@@ -17,9 +17,7 @@ DEFAULT_LOCALE = 'en'
 
 # List of available languages for translations.
 # NOTE: language codes must be lowercase!
-AVAILABLE_LANGUAGES = [
-    'de', 'en', 'es', 'fr', 'hi', 'it', 'ja', 'ko', 'pt', 'ru', 'zh'
-]
+AVAILABLE_LANGUAGES = ['de', 'en', 'es', 'fr', 'hi', 'it', 'ja', 'ko', 'ru']
 
 
 def locale_choices(requested_locale=''):

@@ -122,10 +122,10 @@ msgid "CHART_TITLE-Government_debt"
 msgstr "정부 부채"
 
 msgid "CHART_TITLE-Government_debt_per_capita"
-msgstr "정부 교육비 지출(정부 지출 비율)"
+msgstr "1인당 정부 부채"
 
 msgid "CHART_TITLE-Government_expenditures_education"
-msgstr "정부의 교육비 지출(GDP 대비 %)"
+msgstr "정부의 교육비 지출(정부 지출 대비 백분율)"
 
 msgid "CHART_TITLE-Government_expenditures_education_gdp"
 msgstr "정부의 교육비 지출(GDP 대비 %)"
@@ -340,6 +340,12 @@ msgstr "폭력 범죄"
 msgid "CHART_TITLE-Violent_crime_rate"
 msgstr "10만 명당 폭력 범죄 수"
 
+msgid "%(cityName)s Demographics"
+msgstr "%(cityName)s 인구통계"
+
+msgid "%(cityName)s Health"
+msgstr "%(cityName)s 건강"
+
 msgid "%(project)s is a Google supported project"
 msgstr "%(project)s은(는) Google에서 지원하는 프로젝트입니다"
 
@@ -355,6 +361,12 @@ msgstr "Data Commons 정보"
 msgid "Blog"
 msgstr "블로그"
 
+msgid "Browse entities in the %(project)s Graph"
+msgstr "%(project)s 그래프에서 항목 살펴보기"
+
+msgid "Build your own"
+msgstr "나만의 도구 빌드"
+
 msgid "Cities, United States"
 msgstr "도시, 미국"
 
@@ -366,6 +378,9 @@ msgstr "국가, 미국"
 
 msgid "Countries"
 msgstr "국가"
+
+msgid "Create Timeline Charts"
+msgstr "타임라인 차트 만들기"
 
 msgid "Data Commons"
 msgstr "Data Commons"
@@ -382,11 +397,23 @@ msgstr "문서"
 msgid "Economic Indicators, Worldwide"
 msgstr "경제지표, 전 세계"
 
+msgid "Employment Differences Across Neighboring Cities"
+msgstr "인근 도시 간 취업률 차이"
+
+msgid "Encyclopedia of DNA Elements Biosamples"
+msgstr "DNA 요소 생물학적 표본 백과사전"
+
 msgid "Enter a country, state, county or city"
 msgstr "국가나 시/도/구를 입력하세요"
 
 msgid "Explore"
 msgstr "탐색"
+
+msgid "Explore Places"
+msgstr "장소 살펴보기"
+
+msgid "Explore the data"
+msgstr "데이터 살펴보기"
 
 msgid "FAQ"
 msgstr "FAQ"
@@ -415,20 +442,68 @@ msgstr "그래프 브라우저"
 msgid "Gross National Income"
 msgstr "총국민소득"
 
+msgid "HOME-BLOG_POST_1"
+msgstr "이제 Google 검색에서 %(project)s에 액세스할 수 있습니다. <a href=%(blog_url)s>자세히 알아보기</a>"
+
+msgid "HOME-BUILD_CALLOUT"
+msgstr "Python 및 REST API를 사용해 맞춤 분석을 실행하고 나만의 도구 등을 빌드합니다."
+
+msgid "HOME-DATA_SOURCES"
+msgstr "다음 데이터 출처 포함"
+
+msgid "HOME-EXPLORE_CALLOUT"
+msgstr "데이터 정리 및 처리 과정은 이미 완료되어 있습니다. 특정 항목에 관한 데이터를 한눈에 확인할 수 있도록 여러 출처의 데이터를 집계했습니다."
+
+msgid "HOME-HERO_MESSAGE"
+msgstr "Data Commons는 매핑된 공통 항목을 사용해 공개 데이터 세트의 데이터를 결합하는 개방형 지식 저장소입니다. 데이터 정리나 결합 없이도 여러 데이터 세트의 데이터를 쉽게 살펴보고 분석할 수 있는 도구가 포함되어 있습니다."
+
+msgid "HOME-JOIN_EFFORT"
+msgstr "참여하기"
+
+msgid "HOME-OPEN_SOURCED"
+msgstr "<a href=%(github_url)s>오픈소스</a> 프로젝트이며 <a href=%(schemaorg_url)s>%(tool)s</a> 도구를 사용해 빌드되었습니다."
+
+msgid "Highest Crime Per Capita"
+msgstr "최대 범죄 발생 수(1인당)"
+
+msgid "Highest Median Age"
+msgstr "최고 중위 연령"
+
+msgid "Highest Median Income"
+msgstr "최고 중위 소득"
+
+msgid "Highest Unemployment Rate"
+msgstr "최고 실업률"
+
+msgid "Largest Population"
+msgstr "최대 인구"
+
 msgid "Life Expectancy"
 msgstr "기대수명"
 
 msgid "Loading..."
 msgstr "로드 중..."
 
+msgid "MORE"
+msgstr "더보기..."
+
 msgid "Median Income, United States"
 msgstr "중위 소득, 미국"
 
-msgid "PLACE_EXPLORER_INTRO"
-msgstr "<p>장소 탐색기 도구를 사용하면 장소에 관한 핵심 데이터를 파악할 수 있습니다 인구, 교육, 경제 등에 대한 차트 세트를 가져와서 다른 장소와 비교하여 보여줍니다 실업률, 범죄율, 소득과 같은 다양한 지표에 따라 여러 장소의 순위를 확인할 수도 있습니다</p><p>위 검색 상자에 도시, 우편번호, 국가, 주 등을 입력하여 차트를 볼 수 있습니다</p><p>또는 유명한 장소에 관한 데이터를 먼저 살펴보세요 ...</p>"
+msgid "New York City Department of Education"
+msgstr "뉴욕 교육부"
 
-msgid "Place Explorer"
-msgstr "장소 탐색기"
+msgid "Open"
+msgstr "공개"
+
+msgid "Open Data."
+msgstr "데이터를 엽니다."
+
+msgid "PLACE_EXPLORER_INTRO"
+msgstr "<p>장소 탐색기 도구를 사용하면 장소에 관한 핵심 데이터를 파악할 수 있습니다. 인구, 교육, 경제 등에 대한 여러 차트를 가져와서 다른 장소와 비교하며 확인이 가능합니다. 실업률, 범죄율, 소득과 같은 다양한 지표에 따라 여러 장소의 순위를 확인할 수도 있습니다.</p><p>위 검색 상자에 관심 있는 도시, 우편번호, 카운티, 주, 국가를 입력하여 차트를 확인하세요.</p><p>또는 유명한 장소에 관한 데이터를 살펴볼 수도 있습니다.</p>"
+
+msgid "Place Rankings"
+msgstr "장소 순위"
 
 msgid "Places"
 msgstr "장소"
@@ -438,6 +513,15 @@ msgstr "개인정보처리방침"
 
 msgid "Rankings"
 msgstr "순위"
+
+msgid "Richest vs. Poorest California Counties"
+msgstr "캘리포니아 카운티 간 소득 격차"
+
+msgid "See API documentation."
+msgstr "API 설명서 보기"
+
+msgid "See some sample Python notebooks."
+msgstr "샘플 Python 메모장을 확인하세요."
 
 msgid "States, United States"
 msgstr "주, 미국"
@@ -451,8 +535,14 @@ msgstr "타임라인 탐색기"
 msgid "Tutorials"
 msgstr "튜토리얼"
 
+msgid "US University Towns by Income"
+msgstr "미국 대학도시 소득 비교"
+
 msgid "Unemployment Rate, United States"
 msgstr "실업률, 미국"
+
+msgid "What's new"
+msgstr "새로운 소식"
 
 msgid "Worldwide"
 msgstr "전 세계"
@@ -468,4 +558,7 @@ msgstr "주별"
 
 msgid "in United States"
 msgstr "미국"
+
+msgid "CHART_TITLE-CHART_CATEGORY-Overview"
+msgstr "개요"
 

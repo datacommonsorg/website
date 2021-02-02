@@ -51,31 +51,145 @@
     "defaultMessage": "Vista general"
   },
   "link-return_to_overview": {
-    "defaultMessage": "Volver a la vista general ›"
+    "defaultMessage": "Volver a la vista general "
   },
   "more_charts": {
-    "defaultMessage": "Más gráficos ›"
+    "defaultMessage": "Más gráficos "
   },
   "place_breadcrumb": {
-    "defaultMessage": "{placeType} en {placeName}"
+    "defaultMessage": "{placeType} de {placeName}"
   },
   "place_page_ranking_table-ranking_in": {
-    "defaultMessage": "Clasificaciones (en)"
+    "defaultMessage": "Clasificaciones"
   },
   "place_page_ranking_table-ranking_value": {
     "defaultMessage": "{rank} de {total}"
   },
+  "plural_administrative_area": {
+    "defaultMessage": "Áreas administrativas"
+  },
+  "plural_administrative_area_level": {
+    "defaultMessage": "Lugares de un área administrativa de nivel {level}"
+  },
+  "plural_borough": {
+    "defaultMessage": "Municipios"
+  },
+  "plural_city": {
+    "defaultMessage": "Ciudades"
+  },
+  "plural_country": {
+    "defaultMessage": "Países"
+  },
+  "plural_county": {
+    "defaultMessage": "Condados"
+  },
+  "plural_eurostat_nuts": {
+    "defaultMessage": "Lugares de nivel {level} en la clasificación NUTS de Eurostat"
+  },
+  "plural_neighborhood": {
+    "defaultMessage": "Barrios"
+  },
   "plural_places": {
     "defaultMessage": "Sitios"
+  },
+  "plural_state": {
+    "defaultMessage": "Estados"
+  },
+  "plural_town": {
+    "defaultMessage": "Localidades"
+  },
+  "plural_village": {
+    "defaultMessage": "Pueblos"
   },
   "plural_zip_codes": {
     "defaultMessage": "Códigos postales"
   },
+  "ranking-document_title": {
+    "defaultMessage": "Clasificación por {statVar} - {pluralPlaceType} de {placeName}"
+  },
+  "ranking-loading": {
+    "defaultMessage": "Cargando..."
+  },
+  "ranking-no_data": {
+    "defaultMessage": "No hay datos disponibles sobre la clasificación."
+  },
+  "ranking-page_title": {
+    "defaultMessage": "Clasificación por {statVar}"
+  },
+  "ranking-sort_bottom": {
+    "defaultMessage": "Mostrar últimos {rankSize}"
+  },
+  "ranking-sort_top": {
+    "defaultMessage": "Mostrar primeros {rankSize}"
+  },
+  "ranking-subtitle_all": {
+    "defaultMessage": "Todos los {pluralPlaceType} de {placeName}"
+  },
+  "ranking-subtitle_all_percapita": {
+    "defaultMessage": "Todos los {pluralPlaceType} de {placeName}, per cápita"
+  },
+  "ranking-subtitle_bottom": {
+    "defaultMessage": "Últimos {rankSize} {pluralPlaceType} de {placeName}"
+  },
+  "ranking-subtitle_bottom_percapita": {
+    "defaultMessage": "Últimos {rankSize} {pluralPlaceType} de {placeName}, per cápita"
+  },
+  "ranking-subtitle_none": {
+    "defaultMessage": "{pluralPlaceType} de {placeName}"
+  },
+  "ranking-subtitle_none_percapita": {
+    "defaultMessage": "{pluralPlaceType} de {placeName}, per cápita"
+  },
+  "ranking-subtitle_top": {
+    "defaultMessage": "Primeros {rankSize} {pluralPlaceType} de {placeName}"
+  },
+  "ranking-subtitle_top_percapita": {
+    "defaultMessage": "Primeros {rankSize} {pluralPlaceType} de {placeName}, per cápita"
+  },
+  "ranking_table-header_rank": {
+    "defaultMessage": "Clasificación"
+  },
+  "ranking_table-header_value": {
+    "defaultMessage": "Valor"
+  },
   "search_bar_placeholder-search_again": {
     "defaultMessage": "Busca otro sitio"
   },
+  "singular_administrative_area": {
+    "defaultMessage": "Área administrativa"
+  },
+  "singular_administrative_area_level": {
+    "defaultMessage": "Lugar de un área administrativa de nivel {level}"
+  },
+  "singular_borough": {
+    "defaultMessage": "Municipio"
+  },
+  "singular_city": {
+    "defaultMessage": "Ciudad"
+  },
+  "singular_country": {
+    "defaultMessage": "País"
+  },
+  "singular_county": {
+    "defaultMessage": "Condado"
+  },
+  "singular_eurostat_nuts": {
+    "defaultMessage": "Lugar de nivel {level} en la clasificación NUTS de Eurostat"
+  },
+  "singular_neighborhood": {
+    "defaultMessage": "Barrio"
+  },
   "singular_place": {
     "defaultMessage": "Sitio"
+  },
+  "singular_state": {
+    "defaultMessage": "Estado"
+  },
+  "singular_town": {
+    "defaultMessage": "Localidad"
+  },
+  "singular_village": {
+    "defaultMessage": "Pueblo"
   },
   "singular_zip_code": {
     "defaultMessage": "Código postal"

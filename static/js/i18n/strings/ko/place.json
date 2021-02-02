@@ -51,10 +51,10 @@
     "defaultMessage": "개요"
   },
   "link-return_to_overview": {
-    "defaultMessage": "개요로 돌아가기 ›"
+    "defaultMessage": "개요로 돌아가기 "
   },
   "more_charts": {
-    "defaultMessage": "차트 더보기 ›"
+    "defaultMessage": "차트 더보기 "
   },
   "place_breadcrumb": {
     "defaultMessage": "{placeName} {placeType}"
@@ -65,17 +65,131 @@
   "place_page_ranking_table-ranking_value": {
     "defaultMessage": "{total} 중 {rank}위"
   },
+  "plural_administrative_area": {
+    "defaultMessage": "행정 구역"
+  },
+  "plural_administrative_area_level": {
+    "defaultMessage": "{level}급 행정 구역"
+  },
+  "plural_borough": {
+    "defaultMessage": "자치구"
+  },
+  "plural_city": {
+    "defaultMessage": "도시"
+  },
+  "plural_country": {
+    "defaultMessage": "국가"
+  },
+  "plural_county": {
+    "defaultMessage": "카운티"
+  },
+  "plural_eurostat_nuts": {
+    "defaultMessage": "유럽 연합통계청 NUTS {level}급 장소"
+  },
+  "plural_neighborhood": {
+    "defaultMessage": "동네"
+  },
   "plural_places": {
     "defaultMessage": "장소"
+  },
+  "plural_state": {
+    "defaultMessage": "주"
+  },
+  "plural_town": {
+    "defaultMessage": "소도시"
+  },
+  "plural_village": {
+    "defaultMessage": "마을"
   },
   "plural_zip_codes": {
     "defaultMessage": "우편번호"
   },
+  "ranking-document_title": {
+    "defaultMessage": "{statVar} 순위 - {placeName} {pluralPlaceType}"
+  },
+  "ranking-loading": {
+    "defaultMessage": "로드 중..."
+  },
+  "ranking-no_data": {
+    "defaultMessage": "사용 가능한 순위 데이터가 없습니다."
+  },
+  "ranking-page_title": {
+    "defaultMessage": "{statVar} 순위"
+  },
+  "ranking-sort_bottom": {
+    "defaultMessage": "하위 {rankSize}개 보기"
+  },
+  "ranking-sort_top": {
+    "defaultMessage": "상위 {rankSize}개 보기"
+  },
+  "ranking-subtitle_all": {
+    "defaultMessage": "{placeName} 전체 {pluralPlaceType}"
+  },
+  "ranking-subtitle_all_percapita": {
+    "defaultMessage": "{placeName} 전체 {pluralPlaceType}(1인당)"
+  },
+  "ranking-subtitle_bottom": {
+    "defaultMessage": "{placeName} 하위 {pluralPlaceType} {rankSize}개"
+  },
+  "ranking-subtitle_bottom_percapita": {
+    "defaultMessage": "{placeName} 하위 {rankSize}개 {pluralPlaceType}(1인당)"
+  },
+  "ranking-subtitle_none": {
+    "defaultMessage": "{placeName} {pluralPlaceType}"
+  },
+  "ranking-subtitle_none_percapita": {
+    "defaultMessage": "{placeName} {pluralPlaceType}(1인당)"
+  },
+  "ranking-subtitle_top": {
+    "defaultMessage": "{placeName} 상위 {pluralPlaceType} {rankSize}개"
+  },
+  "ranking-subtitle_top_percapita": {
+    "defaultMessage": "{placeName} 상위 {rankSize}개 {pluralPlaceType}(1인당)"
+  },
+  "ranking_table-header_rank": {
+    "defaultMessage": "순위"
+  },
+  "ranking_table-header_value": {
+    "defaultMessage": "값"
+  },
   "search_bar_placeholder-search_again": {
     "defaultMessage": "다른 장소 검색"
   },
+  "singular_administrative_area": {
+    "defaultMessage": "행정 구역"
+  },
+  "singular_administrative_area_level": {
+    "defaultMessage": "{level}급 행정 구역"
+  },
+  "singular_borough": {
+    "defaultMessage": "자치구"
+  },
+  "singular_city": {
+    "defaultMessage": "시"
+  },
+  "singular_country": {
+    "defaultMessage": "국가"
+  },
+  "singular_county": {
+    "defaultMessage": "카운티"
+  },
+  "singular_eurostat_nuts": {
+    "defaultMessage": "유럽 연합통계청 NUTS {level}급 장소"
+  },
+  "singular_neighborhood": {
+    "defaultMessage": "동네"
+  },
   "singular_place": {
     "defaultMessage": "장소"
+  },
+  "singular_state": {
+    "defaultMessage": "주"
+  },
+  "singular_town": {
+    "defaultMessage": "소도시"
+  },
+  "singular_village": {
+    "defaultMessage": "마을"
   },
   "singular_zip_code": {
     "defaultMessage": "우편번호"

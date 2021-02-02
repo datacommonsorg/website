@@ -27,7 +27,7 @@ import { PlaceHighlight } from "./place_highlight";
 import { PageSubtitle } from "./page_subtitle";
 import { isPlaceInUsa } from "./util";
 import { initSearchAutocomplete } from "./search";
-import { loadLocaleData, translateVariableString } from "../i18n/i18n";
+import { loadLocaleData } from "../i18n/i18n";
 
 import { CachedChoroplethData, GeoJsonData, PageData } from "../chart/types";
 
@@ -186,7 +186,6 @@ function renderPage(): void {
       loadingElem.style.display = "none";
       const data: PageData = landingPageData;
       const isUsaPlace = isPlaceInUsa(dcid, data.parentPlaces);
-      data.categories["Overview"] = translateVariableString("Overview");
       if (Object.keys(data.pageChart).length == 1) {
         topic = "Overview";
       }
