@@ -89,7 +89,7 @@ cd static
 npm test testfilename -- -u
 ```
 
-## Develop with Flask
+## Develop with Flask (simple/lite)
 
 This way the website talks to the [autopush Mixer](autopush.api.datacommons.org)
 
