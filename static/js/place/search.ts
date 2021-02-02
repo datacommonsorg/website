@@ -15,12 +15,14 @@
  */
 
 import axios from "axios";
-import { intl } from "../i18n/i18n";
+import { intl, localizeLink } from "../i18n/i18n";
 let ac: google.maps.places.Autocomplete;
 let acs: google.maps.places.AutocompleteService;
 
 /**
  * Setup search input autocomplete
+ *
+ * Note: i18n.loadLocaleData must be called before this.
  */
 function initSearchAutocomplete(): void {
   // Create the autocomplete object, restricting the search predictions to
@@ -75,7 +77,7 @@ function getPlaceAndRender(place_id, place_name): void {
   axios
     .get(`/api/placeid2dcid/${place_id}`)
     .then((resp) => {
-      window.location.href = `/place/${resp.data}`;
+      window.location.href = localizeLink(`/place/${resp.data}`);
     })
     .catch(() => {
       placeNotFoundAlert(place_name);

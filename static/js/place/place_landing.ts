@@ -15,7 +15,13 @@
  */
 
 import { initSearchAutocomplete } from "./search";
+import { loadLocaleData } from "../i18n/i18n";
 
 window.onload = () => {
-  initSearchAutocomplete();
+  const locale = document.getElementById("locale").dataset.lc;
+  loadLocaleData(locale, [
+    import(`../i18n/compiled-lang/${locale}/place.json`),
+  ]).then(() => {
+    initSearchAutocomplete();
+  });
 };
