@@ -29,6 +29,7 @@ git submodule foreach git pull origin master
   ```
 
 - Initialize the mixer submodule
+
   ```bash
   git submodule update --init --recursive
   ```
@@ -142,6 +143,14 @@ Start the flask webserver locally at localhost:8080
 ```bash
 ./run_server.sh
 ```
+
+If you don't have DataCommons GCP permissions, can run
+
+```bash
+./run_server.sh lite
+```
+
+This will bring up local website without place search functionality.
 
 ## Other Developing Tips
 
