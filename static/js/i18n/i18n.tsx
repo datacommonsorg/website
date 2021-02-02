@@ -140,6 +140,7 @@ function LocalizedLink(props: LocalizedLinkProps): JSX.Element {
 
 export {
   LocalizedLink,
+  localizeLink,
   localizeSearchParams,
   loadLocaleData,
   intl,
