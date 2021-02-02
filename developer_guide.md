@@ -29,6 +29,7 @@ git submodule foreach git pull origin master
   ```
 
 - Initialize the mixer submodule
+
   ```bash
   git submodule update --init --recursive
   ```
@@ -88,7 +89,41 @@ cd static
 npm test testfilename -- -u
 ```
 
-## Develop with local Kubernetes (Recommended)
+## Develop with Flask (simple/lite)
+
+This way the website talks to the [autopush Mixer](autopush.api.datacommons.org)
+
+Note: the autopushed mixer can deviate from the mixer submodule and may
+not be fully compatible with website.
+
+### Package javascript and static assets
+
+```bash
+./run_npm.sh
+```
+
+This will watch static files change and re-build on code edit.
+
+### Start the Flask Server
+
+Start the flask webserver locally at localhost:8080
+
+```bash
+./run_server.sh
+```
+
+If you don't have DataCommons GCP permissions, run
+
+```bash
+./run_server.sh lite
+```
+
+This will bring up local website without place search functionality.
+
+## Develop with local Kubernetes
+
+This is an alternative way to bring up website stack locally and this is close
+to how the production server is deployed in GKE.
 
 Local Kubernetes cluster has the exact same settings and configurations as the
 production deployment. This is recommended way for development.
@@ -121,27 +156,6 @@ Python code change will trigger a restart of the Flask server automatically.
 
 Run `minikube dashboard` in a separate terminal to start the dashboard, which
 is useful for monitoring and controlling the containers.
-
-## Develop with Flask (Not Recommended)
-
-This way the website talks to the [autopush Mixer](autopush.api.datacommons.org)
-which might not be the same version as the submodule and may have API compatibility issue.
-
-### Package javascript and static assets
-
-```bash
-./run_npm.sh
-```
-
-This will watch static files change and re-build on code edit.
-
-### Start the Flask Server
-
-Start the flask webserver locally at localhost:8080
-
-```bash
-./run_server.sh
-```
 
 ## Other Developing Tips
 

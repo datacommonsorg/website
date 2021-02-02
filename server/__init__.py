@@ -69,6 +69,8 @@ def create_app():
         cfg = import_string('configmodule.AutopushConfig')()
     elif os.environ.get('FLASK_ENV') == 'development':
         cfg = import_string('configmodule.DevelopmentConfig')()
+    elif os.environ.get('FLASK_ENV') == 'development-lite':
+        cfg = import_string('configmodule.DevelopmentLiteConfig')()
     elif os.environ.get('FLASK_ENV') == 'minikube':
         cfg = import_string('configmodule.MinikubeConfig')()
     else:
@@ -110,7 +112,7 @@ def create_app():
         chart_config = json.load(f)
     app.config['CHART_CONFIG'] = chart_config
 
-    if not cfg.TEST:
+    if not cfg.TEST and not cfg.LITE:
         secret_client = secretmanager.SecretManagerServiceClient()
         secret_name = secret_client.secret_version_path(cfg.SECRET_PROJECT,
                                                         'maps-api-key', '1')
@@ -118,7 +120,7 @@ def create_app():
         app.config['MAPS_API_KEY'] = secret_response.payload.data.decode(
             'UTF-8')
 
-    if cfg.TEST or cfg.WEBDRIVER:
+    if cfg.TEST or cfg.WEBDRIVER or cfg.LITE:
         app.config['PLACEID2DCID'] = {
             "ChIJCzYy5IS16lQRQrfeQ5K5Oxw": "country/USA",
             "ChIJPV4oX_65j4ARVW8IJ6IJUYs": "geoId/06"

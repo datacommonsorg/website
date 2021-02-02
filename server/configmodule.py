@@ -9,6 +9,7 @@ class Config:
     TEST = False
     WEBDRIVER = False
     DEVELOPMENT = False
+    LITE = False
     CACHE_TYPE = 'simple'  # Flask-Caching related configs
     GAE_VERSION = (os.environ.get('GAE_VERSION') or
                    datetime.datetime.today().strftime("%m-%d-%H-%M"))
@@ -42,6 +43,13 @@ class DevelopmentConfig(Config):
     API_PROJECT = 'datcom-mixer-autopush'
     API_ROOT = 'https://autopush.api.datacommons.org'
     GCS_BUCKET = 'datcom-website-autopush-resources'
+
+
+class DevelopmentLiteConfig(Config):
+    DEVELOPMENT = True
+    LITE = True
+    API_PROJECT = 'datcom-mixer-autopush'
+    API_ROOT = 'https://autopush.api.datacommons.org'
 
 
 class WebdriverConfig(Config):

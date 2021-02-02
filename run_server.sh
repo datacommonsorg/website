@@ -12,13 +12,19 @@
 # WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 # See the License for the specific language governing permissions and
 # limitations under the License.
+
 set -e
 
 python3 -m venv .env
 source .env/bin/activate
 
-export GOOGLE_CLOUD_PROJECT=datcom-website-autopush
-export FLASK_ENV=development
+export GOOGLE_CLOUD_PROJECT=datcom-website-staging
+if [[ $1 == "lite" ]]
+then
+  export FLASK_ENV=development-lite
+else
+  export FLASK_ENV=development
+fi
 
 pip3 install -r server/requirements.txt -q
 cd server
