@@ -18,6 +18,8 @@ git submodule foreach git pull origin master
 
 ## Prerequisites
 
+You can skip the prerequisites by using the Develop with Flask steps below to call the API from a local build.  
+
 - Contact Data Commons team to get dev maps api key.
 
 - Contact Data Commons team to get permission for BigTable and BigQuery permission.
@@ -133,7 +135,9 @@ which might not be the same version as the submodule and may have API compatibil
 ./run_npm.sh
 ```
 
-This will watch static files change and re-build on code edit.
+This will watch static files change and re-build on code edit.  
+To run "npm audit" or "npm audit fix" change to the static directory in a new terminal.  
+For the next step, open a new terminal at the root.  
 
 ### Start the Flask Server
 
