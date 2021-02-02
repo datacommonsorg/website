@@ -27,7 +27,7 @@ import { PlaceHighlight } from "./place_highlight";
 import { PageSubtitle } from "./page_subtitle";
 import { isPlaceInUsa } from "./util";
 import { initSearchAutocomplete } from "./search";
-import { loadLocaleData, translateVariableString } from "../i18n/i18n";
+import { loadLocaleData } from "../i18n/i18n";
 
 import { CachedChoroplethData, GeoJsonData, PageData } from "../chart/types";
 

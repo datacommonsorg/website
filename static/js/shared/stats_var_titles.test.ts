@@ -16,7 +16,7 @@
 
 import { getStatsVarTitle } from "./stats_var_titles";
 import chartConfig from "../../../server/chart_config.json";
-import { loadLocaleData, translateVariableString } from "../i18n/i18n";
+import { loadLocaleData } from "../i18n/i18n";
 
 test("stats var label", () => {
   loadLocaleData("en", [

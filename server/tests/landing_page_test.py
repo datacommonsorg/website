@@ -81,21 +81,23 @@ class TestI18n(unittest.TestCase):
         Babel(app, default_domain='all')
         app.config['BABEL_DEFAULT_LOCALE'] = 'en'
         app.config['BABEL_TRANSLATION_DIRECTORIES'] = '../i18n'
+        # TODO(beets): Change language codes in this test back to zh once
+        # that's added to the AVAILABLE_LANGUAGES
         self.context = app.test_request_context(
-            '/api/landingpage/data/geoId/06?hl=zh')
+            '/api/landingpage/data/geoId/06?hl=ru')
 
     @staticmethod
     def side_effect(url, req, compress, post):
         return {
             "geoId/0646870": {
                 "out": [{
-                    "value": "门洛帕克@zh",
+                    "value": "门洛帕克@ru",
                     "provenance": "prov1"
                 }]
             },
             "geoId/0651840": {
                 "out": [{
-                    "value": "北費爾奧克斯 (加利福尼亞州)@zh",
+                    "value": "北費爾奧克斯 (加利福尼亞州)@ru",
                     "provenance": "prov1"
                 }, {
                     "value": "North Fair Oaks@en",

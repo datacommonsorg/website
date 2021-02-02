@@ -17,7 +17,7 @@
 import React from "react";
 import axios from "axios";
 import { FormattedMessage } from "react-intl";
-import { intl, LocalizedLink, translateVariableString } from "../i18n/i18n";
+import { intl, LocalizedLink } from "../i18n/i18n";
 
 interface RankingPropsType {
   dcid: string;

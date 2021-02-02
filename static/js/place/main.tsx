@@ -15,7 +15,7 @@
  */
 import React from "react";
 import { RawIntlProvider } from "react-intl";
-import { intl, LocalizedLink, translateVariableString } from "../i18n/i18n";
+import { intl, LocalizedLink } from "../i18n/i18n";
 import { ChartBlock } from "./chart_block";
 import { Overview } from "./overview";
 import {
@@ -106,7 +106,7 @@ class MainPane extends React.Component<MainPanePropType> {
                   href={`/place/${this.props.dcid}?topic=${topic}`}
                   text={this.props.categoryStrings[topic]}
                 />
-                {Object.keys(this.props.pageChart).length == 1 ? null : (
+                {Object.keys(this.props.pageChart).length === 1 ? null : (
                   <span className="more">
                     <LocalizedLink
                       href={`/place/${this.props.dcid}?topic=${topic}`}
@@ -124,9 +124,7 @@ class MainPane extends React.Component<MainPanePropType> {
               </h3>
             );
           } else {
-            subtopicHeader = (
-              <h3 id={topic}>{topic}</h3>
-            );
+            subtopicHeader = <h3 id={topic}>{topic}</h3>;
           }
           return (
             <section className="subtopic col-12" key={topic}>
