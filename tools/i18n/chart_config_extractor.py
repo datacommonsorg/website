@@ -58,6 +58,7 @@ def main():
 
     messages = {}
     categories = set()
+    categories.add("Overview")
 
     # Extract strings from each chart
     for conf in chart_config:

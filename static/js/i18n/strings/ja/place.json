@@ -51,13 +51,13 @@
     "defaultMessage": "概要"
   },
   "link-return_to_overview": {
-    "defaultMessage": "概要に戻る ›"
+    "defaultMessage": "概要に戻る"
   },
   "more_charts": {
-    "defaultMessage": "その他のグラフ ›"
+    "defaultMessage": "その他のグラフ"
   },
   "place_breadcrumb": {
-    "defaultMessage": "{placeName} の {placeType}"
+    "defaultMessage": "{placeName} 内の {placeType}"
   },
   "place_page_ranking_table-ranking_in": {
     "defaultMessage": "ランキング"
@@ -65,17 +65,131 @@
   "place_page_ranking_table-ranking_value": {
     "defaultMessage": "{rank}/{total}"
   },
+  "plural_administrative_area": {
+    "defaultMessage": "行政区域"
+  },
+  "plural_administrative_area_level": {
+    "defaultMessage": "行政区域 {level} の地域"
+  },
+  "plural_borough": {
+    "defaultMessage": "特別区"
+  },
+  "plural_city": {
+    "defaultMessage": "都市"
+  },
+  "plural_country": {
+    "defaultMessage": "国"
+  },
+  "plural_county": {
+    "defaultMessage": "郡"
+  },
+  "plural_eurostat_nuts": {
+    "defaultMessage": "Eurostat NUTS {level} の地域"
+  },
+  "plural_neighborhood": {
+    "defaultMessage": "近隣地区"
+  },
   "plural_places": {
     "defaultMessage": "地域"
+  },
+  "plural_state": {
+    "defaultMessage": "州"
+  },
+  "plural_town": {
+    "defaultMessage": "町"
+  },
+  "plural_village": {
+    "defaultMessage": "村"
   },
   "plural_zip_codes": {
     "defaultMessage": "郵便番号"
   },
+  "ranking-document_title": {
+    "defaultMessage": "{statVar} 別のランキング - {placeName} 内の {pluralPlaceType}"
+  },
+  "ranking-loading": {
+    "defaultMessage": "読み込んでいます…"
+  },
+  "ranking-no_data": {
+    "defaultMessage": "利用可能なランキング データがありません。"
+  },
+  "ranking-page_title": {
+    "defaultMessage": "{statVar} 別のランキング"
+  },
+  "ranking-sort_bottom": {
+    "defaultMessage": "下位 {rankSize} 件を表示"
+  },
+  "ranking-sort_top": {
+    "defaultMessage": "上位 {rankSize} 件を表示"
+  },
+  "ranking-subtitle_all": {
+    "defaultMessage": "{placeName} 内のすべての {pluralPlaceType}"
+  },
+  "ranking-subtitle_all_percapita": {
+    "defaultMessage": "{placeName} 内のすべての {pluralPlaceType}（1 人あたり）"
+  },
+  "ranking-subtitle_bottom": {
+    "defaultMessage": "{placeName} 内の下位 {rankSize} 件の {pluralPlaceType}"
+  },
+  "ranking-subtitle_bottom_percapita": {
+    "defaultMessage": "{placeName} 内の下位 {rankSize} 件の {pluralPlaceType}（1 人あたり）"
+  },
+  "ranking-subtitle_none": {
+    "defaultMessage": "{placeName} 内の {pluralPlaceType}"
+  },
+  "ranking-subtitle_none_percapita": {
+    "defaultMessage": "{placeName} 内の {pluralPlaceType}（1 人あたり）"
+  },
+  "ranking-subtitle_top": {
+    "defaultMessage": "{placeName} 内の上位 {rankSize} 件の {pluralPlaceType}"
+  },
+  "ranking-subtitle_top_percapita": {
+    "defaultMessage": "{placeName} 内の上位 {rankSize} 件の {pluralPlaceType}（1 人あたり）"
+  },
+  "ranking_table-header_rank": {
+    "defaultMessage": "ランク"
+  },
+  "ranking_table-header_value": {
+    "defaultMessage": "値"
+  },
   "search_bar_placeholder-search_again": {
     "defaultMessage": "別の場所を検索する"
   },
+  "singular_administrative_area": {
+    "defaultMessage": "行政区域"
+  },
+  "singular_administrative_area_level": {
+    "defaultMessage": "行政区域 {level} の地域"
+  },
+  "singular_borough": {
+    "defaultMessage": "特別区"
+  },
+  "singular_city": {
+    "defaultMessage": "都市"
+  },
+  "singular_country": {
+    "defaultMessage": "国"
+  },
+  "singular_county": {
+    "defaultMessage": "郡"
+  },
+  "singular_eurostat_nuts": {
+    "defaultMessage": "Eurostat NUTS {level} の地域"
+  },
+  "singular_neighborhood": {
+    "defaultMessage": "近隣地区"
+  },
   "singular_place": {
     "defaultMessage": "場所"
+  },
+  "singular_state": {
+    "defaultMessage": "州"
+  },
+  "singular_town": {
+    "defaultMessage": "町"
+  },
+  "singular_village": {
+    "defaultMessage": "村"
   },
   "singular_zip_code": {
     "defaultMessage": "郵便番号"

@@ -74,7 +74,7 @@ class Ranking extends React.Component<RankingPropsType, RankingStateType> {
                 {data.label.map((item, index) => {
                   return (
                     <tr key={index}>
-                      <th scope="row">{translateVariableString(item)}</th>
+                      <th scope="row">{item}</th>
                       {data[item].map((rankingInfo, index: number) => {
                         const top = rankingInfo.data.rankFromTop;
                         const bottom = rankingInfo.data.rankFromBottom;

@@ -1,0 +1,707 @@
+{
+  "Median_Income_Person": {
+    "defaultMessage": "औसत व्यक्तिगत आय"
+  },
+  "Median_Income_Person_15OrMoreYears_Male_WithIncome": {
+    "defaultMessage": "औसत व्यक्तिगत आमदनी (पुरुष)"
+  },
+  "Median_Income_Person_15OrMoreYears_Female_WithIncome": {
+    "defaultMessage": "व्यक्तिगत औसत आमदनी (महिला)"
+  },
+  "UnemploymentRate_Person": {
+    "defaultMessage": "बेरोज़गारी दर"
+  },
+  "UnemploymentRate_Person_Male": {
+    "defaultMessage": "बेरोज़गारी दर (पुरुष)"
+  },
+  "UnemploymentRate_Person_Female": {
+    "defaultMessage": "बेरोज़गारी दर (महिला)"
+  },
+  "Count_UnemploymentInsuranceClaim_StateUnemploymentInsurance": {
+    "defaultMessage": "राज्य में बेरोज़गारी भत्तों के लिए दावों की संख्या"
+  },
+  "Count_Person_Employed": {
+    "defaultMessage": "रोज़गार पाने वाले लोगों की संख्या"
+  },
+  "Count_Person_InLaborForce": {
+    "defaultMessage": "मज़दूरों की संख्या"
+  },
+  "Count_Person": {
+    "defaultMessage": "जनसंख्या"
+  },
+  "Count_Person_PerArea": {
+    "defaultMessage": "जनसंख्या घनत्व"
+  },
+  "LifeExpectancy_Person": {
+    "defaultMessage": "औसत उम्र"
+  },
+  "GrowthRate_Count_Person": {
+    "defaultMessage": "जनसंख्या में बढ़ोतरी की दर"
+  },
+  "FertilityRate_Person_Female": {
+    "defaultMessage": "प्रजनन दर"
+  },
+  "Amount_EconomicActivity_GrossDomesticProduction_Nominal": {
+    "defaultMessage": "सकल घरेलू उत्पाद (नॉमिनल)"
+  },
+  "GrowthRate_Amount_EconomicActivity_GrossDomesticProduction": {
+    "defaultMessage": "सकल घरेलू उत्पाद वृद्धि दर"
+  },
+  "Amount_Debt_Government": {
+    "defaultMessage": "सरकारी क़र्ज़"
+  },
+  "Amount_EconomicActivity_GrossDomesticProduction_Nominal_PerCapita": {
+    "defaultMessage": "प्रति व्यक्ति सकल घरेलू उत्पाद (नॉमिनल)"
+  },
+  "Amount_EconomicActivity_GrossNationalIncome_PurchasingPowerParity_PerCapita": {
+    "defaultMessage": "प्रति व्यक्ति सकल राष्ट्रीय आय (क्रय क्षमता की समानता)"
+  },
+  "Amount_EconomicActivity_GrossNationalIncome_PurchasingPowerParity": {
+    "defaultMessage": "सकल राष्ट्रीय आय (क्रय क्षमता की समानता)"
+  },
+  "Count_Person_7To14Years_Employed_AsFractionOf_Count_Person_7To14Years": {
+    "defaultMessage": "रोज़गार में ऐसे बच्चों की संख्या जिनकी उम्र 7 से 14 है"
+  },
+  "Amount_EconomicActivity_ExpenditureActivity_EducationExpenditure_Government_AsFractionOf_Amount_EconomicActivity_ExpenditureActivity_Government": {
+    "defaultMessage": "शिक्षा पर सरकारी खर्च (कुल सरकारी खर्च का प्रतिशत)"
+  },
+  "Amount_EconomicActivity_ExpenditureActivity_EducationExpenditure_Government_AsFractionOf_Amount_EconomicActivity_GrossDomesticProduction_Nominal": {
+    "defaultMessage": "शिक्षा पर होने वाला सरकारी खर्च (GDP के प्रतिशत के हिसाब से)"
+  },
+  "Amount_EconomicActivity_ExpenditureActivity_MilitaryExpenditure_Government": {
+    "defaultMessage": "सेना पर होने वाला सरकारी खर्च"
+  },
+  "Amount_EconomicActivity_ExpenditureActivity_MilitaryExpenditure_Government_AsFractionOf_Amount_EconomicActivity_GrossDomesticProduction_Nominal": {
+    "defaultMessage": "सेना पर होने वाला सरकारी खर्च (GDP के प्रतिशत के हिसाब से)"
+  },
+  "Amount_Stock": {
+    "defaultMessage": "घरेलू कंपनियों का बाज़ार पूंजीकरण"
+  },
+  "Amount_Stock_AsFractionOf_Amount_EconomicActivity_GrossDomesticProduction_Nominal": {
+    "defaultMessage": "घरेलू कंपनियों का बाज़ार पूंजीकरण (GDP के प्रतिशत के हिसाब से)"
+  },
+  "Amount_Remittance_InwardRemittance": {
+    "defaultMessage": "लोगों के बैंक खातों में जमा कुल रकम"
+  },
+  "Amount_Remittance_InwardRemittance_AsFractionOf_Amount_EconomicActivity_GrossDomesticProduction_Nominal": {
+    "defaultMessage": "लोगों के बैंक खातों में जमा कुल रकम (GDP के प्रतिशत के हिसाब से)"
+  },
+  "Amount_Remittance_OutwardRemittance": {
+    "defaultMessage": "लोगों के बैंक खातों से निकाली गई कुल रकम"
+  },
+  "Count_Person_15To64Years_InLaborForce_AsFractionOf_Count_Person_15To64Years": {
+    "defaultMessage": "मज़दूरों की संख्या का प्रतिशत (15 से 64 साल की उम्र के लोग)"
+  },
+  "Amount_Consumption_Energy_PerCapita": {
+    "defaultMessage": "प्रति व्यक्ति ऊर्जा की खपत"
+  },
+  "Amount_Emissions_CarbonDioxide_PerCapita": {
+    "defaultMessage": "प्रति व्यक्ति कार्बन डाई ऑक्साइड उत्सर्जन"
+  },
+  "Amount_Consumption_Electricity_PerCapita": {
+    "defaultMessage": "प्रति व्यक्ति बिजली की खपत"
+  },
+  "Count_EarthquakeEvent": {
+    "defaultMessage": "किसी एक इलाके में आए भूकंपों की संख्या"
+  },
+  "Count_CycloneEvent": {
+    "defaultMessage": "एक जगह पर आए चक्रवातों की संख्या"
+  },
+  "Count_StormSurgeTideEvent": {
+    "defaultMessage": "किसी इलाके में तूफ़ानी ज्वार बढ़ने की घटनाओं की संख्या"
+  },
+  "Count_WildlandFireEvent": {
+    "defaultMessage": "किसी एक इलाके में जंगल में आग लगने की घटनाओं की संख्या"
+  },
+  "Count_TornadoEvent": {
+    "defaultMessage": "किसी एक इलाके में आए बवंडरों की संख्या"
+  },
+  "Count_ThunderstormWindEvent": {
+    "defaultMessage": "एक जगह पर आए आंधी-तूफ़ान की संख्या"
+  },
+  "Count_FloodEvent": {
+    "defaultMessage": "किसी इलाके में आए बाढ़ की संख्या"
+  },
+  "Count_DroughtEvent": {
+    "defaultMessage": "किसी इलाके में पड़े सूखे की संख्या"
+  },
+  "Count_Person_Upto4Years": {
+    "defaultMessage": "जनसंख्या (0 से 4 साल की उम्र के लोग)"
+  },
+  "Count_Person_Upto9Years": {
+    "defaultMessage": "जनसंख्या (0 से 9 साल की उम्र के लोग)"
+  },
+  "Count_Person_5To9Years": {
+    "defaultMessage": "जनसंख्या (5 से 9 साल की उम्र के लोग)"
+  },
+  "Count_Person_5To17Years": {
+    "defaultMessage": "जनसंख्या (5 से 17 साल की उम्र के लोग)"
+  },
+  "Count_Person_10To14Years": {
+    "defaultMessage": "जनसंख्या (10 से 14 साल की उम्र के लोग)"
+  },
+  "Count_Person_10To19Years": {
+    "defaultMessage": "जनसंख्या (10 से 19 साल की उम्र के लोग)"
+  },
+  "Count_Person_15To19Years": {
+    "defaultMessage": "जनसंख्या (15 से 19 साल की उम्र के लोग)"
+  },
+  "Count_Person_15OrMoreYears": {
+    "defaultMessage": "जनसंख्या (15 साल से ज़्यादा उम्र के लोग)"
+  },
+  "Count_Person_16OrMoreYears": {
+    "defaultMessage": "जनसंख्या (16 साल से ज़्यादा उम्र के लोग)"
+  },
+  "Count_Person_18To24Years": {
+    "defaultMessage": "जनसंख्या (18 से 24 साल की उम्र के लोग)"
+  },
+  "Count_Person_20To24Years": {
+    "defaultMessage": "जनसंख्या (20 से 24 साल की उम्र के लोग)"
+  },
+  "Count_Person_20To29Years": {
+    "defaultMessage": "जनसंख्या (20 से 29 साल की उम्र के लोग)"
+  },
+  "Count_Person_25To29Years": {
+    "defaultMessage": "जनसंख्या (25 से 29 साल की उम्र के लोग)"
+  },
+  "Count_Person_25To34Years": {
+    "defaultMessage": "जनसंख्या (25 से 34 साल की उम्र के लोग)"
+  },
+  "Count_Person_30To34Years": {
+    "defaultMessage": "जनसंख्या (30 से 34 साल की उम्र के लोग)"
+  },
+  "Count_Person_30To39Years": {
+    "defaultMessage": "जनसंख्या (30 से 39 साल की उम्र के लोग)"
+  },
+  "Count_Person_35To39Years": {
+    "defaultMessage": "जनसंख्या (35 से 39 साल की उम्र के लोग)"
+  },
+  "Count_Person_35To44Years": {
+    "defaultMessage": "जनसंख्या (35 से 44 साल की उम्र के लोग)"
+  },
+  "Count_Person_40To44Years": {
+    "defaultMessage": "जनसंख्या (40 से 44 साल की उम्र के लोग)"
+  },
+  "Count_Person_40To49Years": {
+    "defaultMessage": "जनसंख्या (40 से 49 साल की उम्र के लोग)"
+  },
+  "Count_Person_45To49Years": {
+    "defaultMessage": "जनसंख्या (45 से 49 साल की उम्र के लोग)"
+  },
+  "Count_Person_45To54Years": {
+    "defaultMessage": "जनसंख्या (45 से 54 साल की उम्र के लोग)"
+  },
+  "Count_Person_50To54Years": {
+    "defaultMessage": "जनसंख्या (50 से 54 साल की उम्र के लोग)"
+  },
+  "Count_Person_50To59Years": {
+    "defaultMessage": "जनसंख्या (55 से 59 साल की उम्र के लोग)"
+  },
+  "Count_Person_55To59Years": {
+    "defaultMessage": "जनसंख्या (55 से 59 साल की उम्र के लोग)"
+  },
+  "Count_Person_55To64Years": {
+    "defaultMessage": "जनसंख्या (55 से 64 साल की उम्र के लोग)"
+  },
+  "Count_Person_60To61Years": {
+    "defaultMessage": "जनसंख्या (60 से 61 साल की उम्र के लोग)"
+  },
+  "Count_Person_60To64Years": {
+    "defaultMessage": "जनसंख्या (60 से 64 साल की उम्र के लोग)"
+  },
+  "Count_Person_60To69Years": {
+    "defaultMessage": "जनसंख्या (60 से 69 साल की उम्र के लोग)"
+  },
+  "Count_Person_62To64Years": {
+    "defaultMessage": "जनसंख्या (62 से 64 साल की उम्र के लोग)"
+  },
+  "Count_Person_65To69Years": {
+    "defaultMessage": "जनसंख्या (65 से 69 साल की उम्र के लोग)"
+  },
+  "Count_Person_65To74Years": {
+    "defaultMessage": "जनसंख्या (65 से 74 साल की उम्र के लोग)"
+  },
+  "Count_Person_70To74Years": {
+    "defaultMessage": "जनसंख्या (70 से 74 साल की उम्र के लोग)"
+  },
+  "Count_Person_70To79Years": {
+    "defaultMessage": "जनसंख्या (70 से 79 साल की उम्र के लोग)"
+  },
+  "Count_Person_70OrMoreYears": {
+    "defaultMessage": "जनसंख्या (70 साल से ज़्यादा उम्र के लोग)"
+  },
+  "Count_Person_75To79Years": {
+    "defaultMessage": "जनसंख्या (75 से 79 साल की उम्र के लोग)"
+  },
+  "Count_Person_75OrMoreYears": {
+    "defaultMessage": "जनसंख्या (75 साल से ज़्यादा उम्र के लोग)"
+  },
+  "Count_Person_80To84Years": {
+    "defaultMessage": "जनसंख्या (80 से 84 साल की उम्र के लोग)"
+  },
+  "Count_Person_80OrMoreYears": {
+    "defaultMessage": "जनसंख्या (80 साल से ज़्यादा उम्र के लोग)"
+  },
+  "Count_Person_Male": {
+    "defaultMessage": "जनसंख्या (पुरुष)"
+  },
+  "Count_Person_Female": {
+    "defaultMessage": "जनसंख्या (महिला)"
+  },
+  "Count_Person_AmericanIndianOrAlaskaNativeAlone": {
+    "defaultMessage": "लोगों की संख्या (अमेरिकन इंडियन या अलास्का के मूल निवासी)"
+  },
+  "Count_Person_AsianAlone": {
+    "defaultMessage": "लोगों की संख्या (सिर्फ़ एशियन)"
+  },
+  "Count_Person_BlackOrAfricanAmericanAlone": {
+    "defaultMessage": "लोगों की संख्या (अफ़्रीकी-अमेरिकी)"
+  },
+  "Count_Person_HispanicOrLatino": {
+    "defaultMessage": "लोगों की संख्या (हिस्पैनिक या लैटिनो)"
+  },
+  "Count_Person_NativeHawaiianOrOtherPacificIslanderAlone": {
+    "defaultMessage": "लोगों की संख्या (हवाई के मूल निवासी या पैसिफ़िक आइलैंडर)"
+  },
+  "Count_Person_SomeOtherRaceAlone": {
+    "defaultMessage": "लोगों की संख्या (दूसरी नस्लें)"
+  },
+  "Count_Person_TwoOrMoreRaces": {
+    "defaultMessage": "लोगों की संख्या (दो या दो से ज़्यादा नस्लें)"
+  },
+  "Count_Person_WhiteAlone": {
+    "defaultMessage": "लोगों की संख्या (सिर्फ़ श्वेत)"
+  },
+  "Count_HousingUnit_HouseholderRaceAmericanIndianOrAlaskaNativeAlone": {
+    "defaultMessage": "परिवारों की संख्या (अमेरिकन इंडियन या अलास्का के मूल निवासी)"
+  },
+  "Count_HousingUnit_HouseholderRaceAsianAlone": {
+    "defaultMessage": "परिवारों की संख्या (सिर्फ़ एशियन)"
+  },
+  "Count_HousingUnit_HouseholderRaceBlackOrAfricanAmericanAlone": {
+    "defaultMessage": "परिवारों की संख्या (अफ़्रीकी-अमेरिकी)"
+  },
+  "Count_HousingUnit_HouseholderRaceHispanicOrLatino": {
+    "defaultMessage": "परिवारों की संख्या (हिस्पैनिक या लैटिनो)"
+  },
+  "Count_HousingUnit_HouseholderRaceNativeHawaiianOrOtherPacificIslanderAlone": {
+    "defaultMessage": "परिवारों की संख्या (हवाई का मूल निवासी या पैसिफ़िक आइलैंडर)"
+  },
+  "Count_HousingUnit_HouseholderRaceSomeOtherRaceAlone": {
+    "defaultMessage": "परिवारों की संख्या (दूसरी नस्लें)"
+  },
+  "Count_HousingUnit_HouseholderRaceTwoOrMoreRaces": {
+    "defaultMessage": "परिवारों की संख्या (दो या दो से ज़्यादा नस्लें)"
+  },
+  "Count_HousingUnit_HouseholderRaceWhiteAlone": {
+    "defaultMessage": "परिवारों की संख्या (सिर्फ़ श्वेत)"
+  },
+  "Median_Age_Person": {
+    "defaultMessage": "औसत उम्र"
+  },
+  "Median_Age_Person_Male": {
+    "defaultMessage": "औसत उम्र (पुरुष)"
+  },
+  "Median_Age_Person_Female": {
+    "defaultMessage": "औसत उम्र (महिला)"
+  },
+  "Median_Age_Person_AmericanIndianOrAlaskaNativeAlone": {
+    "defaultMessage": "औसत उम्र (अमेरिकन इंडियन या अलास्का के मूल निवासी)"
+  },
+  "Median_Age_Person_AsianAlone": {
+    "defaultMessage": "औसत उम्र (सिर्फ़ एशियन)"
+  },
+  "Median_Age_Person_BlackOrAfricanAmericanAlone": {
+    "defaultMessage": "औसत उम्र (अफ़्रीकी-अमेरिकी)"
+  },
+  "Median_Age_Person_HispanicOrLatino": {
+    "defaultMessage": "औसत उम्र (हिस्पैनिक या लैटिनो)"
+  },
+  "Median_Age_Person_NativeHawaiianOrOtherPacificIslanderAlone": {
+    "defaultMessage": "औसत उम्र (हवाई के मूल निवासी या पैसिफ़िक आईलैंडर)"
+  },
+  "Median_Age_Person_SomeOtherRaceAlone": {
+    "defaultMessage": "औसत उम्र (दूसरी नस्लें)"
+  },
+  "Median_Age_Person_TwoOrMoreRaces": {
+    "defaultMessage": "औसत उम्र (दो या दो से ज़्यादा नस्लें)"
+  },
+  "Median_Age_Person_WhiteAlone": {
+    "defaultMessage": "औसत उम्र (सिर्फ़ श्वेत)"
+  },
+  "Count_Person_IncomeOfUpto9999USDollar": {
+    "defaultMessage": "जनसंख्या (10 हज़ार डॉलर की व्यक्तिगत आमदनी वाले)"
+  },
+  "Count_Person_IncomeOf10000To14999USDollar": {
+    "defaultMessage": "जनसंख्या (10 से 15 हज़ार डॉलर व्यक्तिगत आमदनी वाले)"
+  },
+  "Count_Person_IncomeOf15000To24999USDollar": {
+    "defaultMessage": "जनसंख्या (15 से 25 हज़ार डॉलर व्यक्तिगत आमदनी वाले)"
+  },
+  "Count_Person_IncomeOf25000To34999USDollar": {
+    "defaultMessage": "जनसंख्या (25 से 35 हज़ार डॉलर की व्यक्तिगत आमदनी वाले)"
+  },
+  "Count_Person_IncomeOf35000To49999USDollar": {
+    "defaultMessage": "जनसंख्या (35 से 50 हज़ार डॉलर व्यक्तिगत आमदनी वाले)"
+  },
+  "Count_Person_IncomeOf50000To64999USDollar": {
+    "defaultMessage": "जनसंख्या (50 से 65 हज़ार डॉलर व्यक्तिगत आमदनी वाले)"
+  },
+  "Count_Person_IncomeOf65000To74999USDollar": {
+    "defaultMessage": "जनसंख्या (65 से 75 हज़ार डॉलर व्यक्तिगत आमदनी)"
+  },
+  "Count_Person_IncomeOf75000OrMoreUSDollar": {
+    "defaultMessage": "जनसंख्या (75 हज़ार डॉलर से ज़्यादा व्यक्तिगत आय)"
+  },
+  "Count_Person_MarriedAndNotSeparated": {
+    "defaultMessage": "जनसंख्या (विवाहित और अलग नहीं रहने वाले)"
+  },
+  "Count_Person_Divorced": {
+    "defaultMessage": "जनसंख्या (तलाकशुदा)"
+  },
+  "Count_Person_NeverMarried": {
+    "defaultMessage": "जनसंख्या (अविवाहित)"
+  },
+  "Count_Person_Widowed": {
+    "defaultMessage": "जनसंख्या (विधवा)"
+  },
+  "Count_Person_Separated": {
+    "defaultMessage": "जनसंख्या (अलग रह रहे लोग)"
+  },
+  "Count_Person_Urban": {
+    "defaultMessage": "जनसंख्या (शहरी)"
+  },
+  "Count_Person_Rural": {
+    "defaultMessage": "जनसंख्या (ग्रामीण)"
+  },
+  "Count_Person_EducationalAttainmentNoSchoolingCompleted": {
+    "defaultMessage": "जनसंख्या (स्कूली शिक्षा न लेने वाले)"
+  },
+  "Count_Person_EducationalAttainmentRegularHighSchoolDiploma": {
+    "defaultMessage": "जनसंख्या (हाई स्कूल पास चुके लोग)"
+  },
+  "Count_Person_EducationalAttainmentBachelorsDegree": {
+    "defaultMessage": "जनसंख्या (स्नातक डिग्री हासिल कर चुके लोग)"
+  },
+  "Count_Person_EducationalAttainmentMastersDegree": {
+    "defaultMessage": "जनसंख्या (स्नातकोत्तर डिग्री हासिल कर चुके)"
+  },
+  "Count_Person_EducationalAttainmentDoctorateDegree": {
+    "defaultMessage": "जनसंख्या (डॉक्टरेट डिग्री हासिल कर चुके लोग)"
+  },
+  "Count_Person_25To34Years_EducationalAttainmentAssociatesDegree_Female": {
+    "defaultMessage": "जनसंख्या (असोसिएट डिग्री हासिल कर चुके लोग)"
+  },
+  "Count_Person_25To34Years_EducationalAttainmentAssociatesDegree_Male": {
+    "defaultMessage": "जनसंख्या (असोसिएट डिग्री हासिल कर चुके लोग)"
+  },
+  "Count_Person_25To34Years_EducationalAttainmentBachelorsDegree_Female": {
+    "defaultMessage": "जनसंख्या (स्नातक कर चुकी महिलाएं)"
+  },
+  "Count_Person_25To34Years_EducationalAttainmentBachelorsDegree_Male": {
+    "defaultMessage": "जनसंख्या (स्नातक कर चुके लोग)"
+  },
+  "Count_Person_25To34Years_EducationalAttainmentGraduateOrProfessionalDegree_Female": {
+    "defaultMessage": "जनसंख्या (स्नातक या पेशेवर डिग्री ले चुके लोग)"
+  },
+  "Count_Person_25To34Years_EducationalAttainmentGraduateOrProfessionalDegree_Male": {
+    "defaultMessage": "जनसंख्या (स्नातक या पेशेवर डिग्री ले चुके लोग)"
+  },
+  "Count_Household_IncomeOfUpto10000USDollar": {
+    "defaultMessage": "परिवारों की संख्या (10 हज़ार डॉलर से कम आमदनी वाले)"
+  },
+  "Count_Household_IncomeOf10000To14999USDollar": {
+    "defaultMessage": "परिवारों की संख्या (10 से 15 हज़ार डॉलर की आमदनी वाले)"
+  },
+  "Count_Household_IncomeOf20000To24999USDollar": {
+    "defaultMessage": "परिवारों की संख्या (20 से 25 हज़ार डॉलर की आमदनी वाले)"
+  },
+  "Count_Household_IncomeOf30000To34999USDollar": {
+    "defaultMessage": "परिवारों की संख्या (30 से 35 हज़ार डॉलर की आमदनी वाले)"
+  },
+  "Count_Household_IncomeOf40000To44999USDollar": {
+    "defaultMessage": "परिवारों की संख्या (40 से 45 हज़ार डॉलर की आमदनी वाले)"
+  },
+  "Count_Household_IncomeOf50000To59999USDollar": {
+    "defaultMessage": "परिवारों की संख्या (50 से 60 हज़ार डॉलर की आमदनी वाले)"
+  },
+  "Count_Household_IncomeOf60000To74999USDollar": {
+    "defaultMessage": "परिवारों की संख्या (60 से 75 हज़ार डॉलर आमदनी वाले)"
+  },
+  "Count_Household_IncomeOf75000To99999USDollar": {
+    "defaultMessage": "परिवारों की संख्या (75 हज़ार से 1 लाख डॉलर की आमदनी वाले)"
+  },
+  "Count_Household_IncomeOf100000To124999USDollar": {
+    "defaultMessage": "परिवारों की संख्या (1 से 1.25 लाख डॉलर की आमदनी वाले)"
+  },
+  "Count_Household_IncomeOf125000To149999USDollar": {
+    "defaultMessage": "परिवारों की संख्या (1.25 से 1.5 लाख डॉलर की आमदनी वाले)"
+  },
+  "Count_Household_IncomeOf150000To199999USDollar": {
+    "defaultMessage": "परिवारों की संख्या (1.5 से 2 लाख डॉलर आमदनी वाले)"
+  },
+  "Count_Household_IncomeOf200000OrMoreUSDollar": {
+    "defaultMessage": "परिवारों की संख्या (2 लाख डॉलर से ज़्यादा आमदनी वाले)"
+  },
+  "Median_Income_Household": {
+    "defaultMessage": "परिवार की औसत आमदनी"
+  },
+  "Median_Income_Household_HouseholderRaceAmericanIndianOrAlaskaNativeAlone": {
+    "defaultMessage": "परिवार की औसत आमदनी (अमेरिकन इंडियन या अलास्का के मूल निवासी)"
+  },
+  "Median_Income_Household_HouseholderRaceAsianAlone": {
+    "defaultMessage": "परिवार की औसत आमदनी (एशियन)"
+  },
+  "Median_Income_Household_HouseholderRaceBlackOrAfricanAmericanAlone": {
+    "defaultMessage": "परिवार की औसत आमदनी (अफ़्रीकी-अमेरिकी)"
+  },
+  "Median_Income_Household_HouseholderRaceHispanicOrLatino": {
+    "defaultMessage": "परिवारों की औसत आमदनी (हिस्पैनिक या लैटिनो)"
+  },
+  "Median_Income_Household_HouseholderRaceNativeHawaiianOrOtherPacificIslanderAlone": {
+    "defaultMessage": "परिवार की औसत आमदनी (हवाई के मूल निवासी या पैसिफ़िक आईलैंडर)"
+  },
+  "Median_Income_Household_HouseholderRaceWhiteAlone": {
+    "defaultMessage": "परिवार की औसत आमदनी (श्वेत)"
+  },
+  "CumulativeCount_MedicalConditionIncident_COVID_19_ConfirmedOrProbableCase": {
+    "defaultMessage": "COVID-19 से प्रभावित लोगों की संख्या (पुष्टि किए गए या संभावित)"
+  },
+  "CumulativeCount_MedicalConditionIncident_COVID_19_PatientDeceased": {
+    "defaultMessage": "COVID-19 की वजह से हुई मौतें"
+  },
+  "Count_Person_USCitizenBornInTheUnitedStates": {
+    "defaultMessage": "जनसंख्या (अमेरिका में पैदा हुए)"
+  },
+  "Count_Person_USCitizenByNaturalization": {
+    "defaultMessage": "जनसंख्या (मूल रूप से अमेरिकी नागरिक)"
+  },
+  "Count_Person_NotAUSCitizen": {
+    "defaultMessage": "जनसंख्या (अमेरिकी नागरिक नहीं हैं)"
+  },
+  "Count_Person_USCitizenBornAbroadOfAmericanParents": {
+    "defaultMessage": "जनसंख्या (दूसरे देश में पैदा हुए ऐसे नागरिक जिनके माता-पिता अमेरिकी मूल के हैं)"
+  },
+  "Count_Death_0Years_AsFractionOf_Count_BirthEvent_LiveBirth": {
+    "defaultMessage": "शिशु मृत्यु दर"
+  },
+  "Count_Death_0Years_Female_AsFractionOf_Count_BirthEvent_LiveBirth_Female": {
+    "defaultMessage": "शिशु मृत्यु दर (बच्ची)"
+  },
+  "Count_Death_0Years_Male_AsFractionOf_Count_BirthEvent_LiveBirth_Male": {
+    "defaultMessage": "शिशु मृत्यु दर (बच्चा)"
+  },
+  "Count_Death_DiseasesOfTheCirculatorySystem": {
+    "defaultMessage": "परिसंचरण तंत्र (सर्कुलेटरी सिस्टम) के रोगों की वजह से होने वाली मौतों की संख्या"
+  },
+  "Count_Death_Neoplasms": {
+    "defaultMessage": "नियोप्लाज़्म (ट्यूमर) से होने वाली मौतों की संख्या"
+  },
+  "Count_Death_DiseasesOfTheRespiratorySystem": {
+    "defaultMessage": "श्वसन तंत्र (रेस्पिरेटरी सिस्टम) के रोगों की वजह से होने वाली मौतों की संख्या"
+  },
+  "Count_Death_ExternalCauses": {
+    "defaultMessage": "दूसरी वजहों से मरने वालों की संख्या"
+  },
+  "Count_Death_DiseasesOfTheNervousSystem": {
+    "defaultMessage": "तंत्रिका तंत्र (नर्वस सिस्टम) के रोगों की वजह से होने वाली मौतों की संख्या"
+  },
+  "Percent_Person_WithHighCholesterol": {
+    "defaultMessage": "हाई कोलेस्ट्रॉल वाले वयस्कों की प्रतिशत"
+  },
+  "Percent_Person_WithHighBloodPressure": {
+    "defaultMessage": "उच्च रक्तचाप वाले वयस्कों का प्रतिशत"
+  },
+  "Percent_Person_WithArthritis": {
+    "defaultMessage": "गठिया रोग से पीड़ित लोगों का प्रतिशत"
+  },
+  "Percent_Person_WithMentalHealthNotGood": {
+    "defaultMessage": "ऐसे वयस्कों का प्रतिशत जिनका मानसिक स्वास्थ्य ठीक नहीं है"
+  },
+  "Percent_Person_WithPhysicalHealthNotGood": {
+    "defaultMessage": "ऐसे वयस्कों का प्रतिशत जिनका शारीरिक स्वास्थ्य ठीक नहीं है"
+  },
+  "Percent_Person_SleepLessThan7Hours": {
+    "defaultMessage": "ऐसे वयस्कों का प्रतिशत जो सात घंटे से कम सोते हैं"
+  },
+  "Percent_Person_Obesity": {
+    "defaultMessage": "मोटापे से पीड़ित वयस्कों का प्रतिशत"
+  },
+  "Percent_Person_BingeDrinking": {
+    "defaultMessage": "ज़्यादा शराब पीने वालों वयस्कों का प्रतिशत"
+  },
+  "Percent_Person_PhysicalInactivity": {
+    "defaultMessage": "शारीरिक गतिविधि न करने वाले वयस्कों का प्रतिशत"
+  },
+  "Percent_Person_Smoking": {
+    "defaultMessage": "धूम्रपान करने वाले वयस्कों का प्रतिशत"
+  },
+  "Count_Person_Upto4Years_Wasting_AsFractionOf_Count_Person_Upto4Years": {
+    "defaultMessage": "पांच साल से छोटे बच्चों में गंभीर कुपोषण का प्रसार"
+  },
+  "Count_Person_Upto4Years_Female_Wasting_AsFractionOf_Count_Person_Upto4Years_Female": {
+    "defaultMessage": "पांच साल से छोटी बच्चियों में गंभीर कुपोषण का प्रसार"
+  },
+  "Count_Person_Upto4Years_Male_Wasting_AsFractionOf_Count_Person_Upto4Years_Male": {
+    "defaultMessage": "पांच साल से छोटे बच्चों में गंभीर कुपोषण का प्रसार"
+  },
+  "Count_Person_Upto4Years_SevereWasting_AsFractionOf_Count_Person_Upto4Years": {
+    "defaultMessage": "पांच साल से छोटे बच्चों में गंभीर कुपोषण का प्रसार"
+  },
+  "Count_Person_Upto4Years_Female_SevereWasting_AsFractionOf_Count_Person_Upto4Years_Female": {
+    "defaultMessage": "पांच साल से छोटी बच्चियों में गंभीर कुपोषण का प्रसार"
+  },
+  "Count_Person_Upto4Years_Male_SevereWasting_AsFractionOf_Count_Person_Upto4Years_Male": {
+    "defaultMessage": "पांच साल से छोटे बच्चों में गंभीर कुपोषण का प्रसार"
+  },
+  "Amount_Consumption_Alcohol_15OrMoreYears_AsFractionOf_Count_Person_15OrMoreYears": {
+    "defaultMessage": "प्रति व्यक्ति अल्कोहल की खपत (सालाना)"
+  },
+  "RetailDrugDistribution_DrugDistribution_Oxycodone": {
+    "defaultMessage": "ऑक्सीकोडोन दवाई का कुल खुदरा वितरण"
+  },
+  "RetailDrugDistribution_DrugDistribution_Hydrocodone": {
+    "defaultMessage": "हाइड्रॉकोडोन दवाई का कुल खुदरा वितरण"
+  },
+  "RetailDrugDistribution_DrugDistribution_Codeine": {
+    "defaultMessage": "कोडीन दवाई का कुल खुदरा वितरण"
+  },
+  "RetailDrugDistribution_DrugDistribution_Amphetamine": {
+    "defaultMessage": "एंफ़ैटामिन दवाई का कुल खुदरा वितरण"
+  },
+  "RetailDrugDistribution_DrugDistribution_Morphine": {
+    "defaultMessage": "मोर्फ़ीन दवाई का कुल खुदरा वितरण"
+  },
+  "Count_Person_EnrolledInSchool": {
+    "defaultMessage": "जनसंख्या (जिनके नाम स्कूल में दर्ज हैं)"
+  },
+  "Count_Person_NotEnrolledInSchool": {
+    "defaultMessage": "जनसंख्या (जिनके नाम स्कूल में दर्ज नहीं हैं)"
+  },
+  "Count_CriminalActivities_CombinedCrime": {
+    "defaultMessage": "आपराधिक गतिविधियों की संख्या (हर तरह के अपराध)"
+  },
+  "Count_CriminalActivities_ViolentCrime": {
+    "defaultMessage": "आपराधिक गतिविधियों की संख्या (हिंसक अपराध)"
+  },
+  "Count_CriminalActivities_PropertyCrime": {
+    "defaultMessage": "आपराधिक गतिविधियों की संख्या (प्रॉपर्टी से जुड़े अपराध)"
+  },
+  "Count_CriminalActivities_Arson": {
+    "defaultMessage": "आपराधिक गतिविधियों की संख्या (आगज़नी)"
+  },
+  "Count_Person_BelowPovertyLevelInThePast12Months": {
+    "defaultMessage": "जनसंख्या (गरीबी रेखा से नीचे जीवनयापन करने वाले लोग)"
+  },
+  "Count_Person_BelowPovertyLevelInThePast12Months_AmericanIndianOrAlaskaNativeAlone": {
+    "defaultMessage": "जनसंख्या (गरीबी रेखा से नीचे जीवनयापन करने वाले अमेरिकन इंडियन या अलास्का के मूल निवासी)"
+  },
+  "Count_Person_BelowPovertyLevelInThePast12Months_AsianAlone": {
+    "defaultMessage": ""
+  },
+  "Count_Person_BelowPovertyLevelInThePast12Months_BlackOrAfricanAmericanAlone": {
+    "defaultMessage": ""
+  },
+  "Count_Person_BelowPovertyLevelInThePast12Months_HispanicOrLatino": {
+    "defaultMessage": ""
+  },
+  "Count_Person_BelowPovertyLevelInThePast12Months_NativeHawaiianOrOtherPacificIslanderAlone": {
+    "defaultMessage": "जनसंख्या (गरीबी रेखा से नीचे जीवनयापन करने वाले हवाई के मूल निवासी या दूसरे पैसिफ़िक आईलैंडर)"
+  },
+  "Count_Person_BelowPovertyLevelInThePast12Months_WhiteAlone": {
+    "defaultMessage": "जनसंख्या (गरीबी रेखा से नीचे जीवनयापन करने वाले श्वेत)"
+  },
+  "Count_Person_Female_BelowPovertyLevelInThePast12Months": {
+    "defaultMessage": "जनसंख्या (गरीबा रेखा से नीचे जीवनयापन करने वाली महिलाएं)"
+  },
+  "Count_Person_Male_BelowPovertyLevelInThePast12Months": {
+    "defaultMessage": "जनसंख्या (गरीबी रेखा के नीचे जीवनयापन करने वाले पुरुष)"
+  },
+  "Percent_Person_18To64Years_Female_NoHealthInsurance": {
+    "defaultMessage": "ऐसे लोगों का प्रतिशत जिनके पास स्वास्थ्य बीमा नहीं है (महिला)"
+  },
+  "Percent_Person_18To64Years_Male_NoHealthInsurance": {
+    "defaultMessage": "ऐसे लोगों का प्रतिशत जिनके पास स्वास्थ्य बीमा नहीं है (पुरुष)"
+  },
+  "Percent_Person_18To64Years_NoHealthInsurance_BlackOrAfricanAmericanAlone": {
+    "defaultMessage": "ऐसे लोगों का प्रतिशत जिनके पास स्वास्थ्य बीमा नहीं है (अफ़्रीकी-अमेरिकी)"
+  },
+  "Percent_Person_18To64Years_NoHealthInsurance_HispanicOrLatino": {
+    "defaultMessage": "ऐसे लोगों का प्रतिशत जिनके पास स्वास्थ्य बीमा नहीं है (हिस्पैनिक या लैटिनो)"
+  },
+  "Percent_Person_18To64Years_NoHealthInsurance_WhiteAlone": {
+    "defaultMessage": "ऐसे लोगों का प्रतिशत जिनके पास स्वास्थ्य बीमा नहीं है (श्वेत)"
+  },
+  "Count_Person_7To14Years_Female_Employed_AsFractionOf_Count_Person_7To14Years_Female": {
+    "defaultMessage": "नौकरी करने वाले लोगों का प्रतिशत (महिला)"
+  },
+  "Count_Person_7To14Years_Male_Employed_AsFractionOf_Count_Person_7To14Years_Male": {
+    "defaultMessage": "नौकरी करने वाले बच्चों का प्रतिशत"
+  },
+  "GiniIndex_EconomicActivity": {
+    "defaultMessage": "Gini इंडेक्स"
+  },
+  "Count_HousingUnit": {
+    "defaultMessage": "घरों की संख्या"
+  },
+  "Count_HousingUnit_HomeValueUpto49999USDollar": {
+    "defaultMessage": "घरों की संख्या (50 हज़ार डॉलर से कम कीमत वाले)"
+  },
+  "Count_HousingUnit_HomeValue50000To99999USDollar": {
+    "defaultMessage": "घरों की संख्या (50 हज़ार से 1 लाख डॉलर कीमत वाले)"
+  },
+  "Count_HousingUnit_HomeValue100000To199999USDollar": {
+    "defaultMessage": "घरों की संख्या (1 से 2 लाख डॉलर की कीमत वाले)"
+  },
+  "Count_HousingUnit_HomeValue200000To299999USDollar": {
+    "defaultMessage": "घरों की संख्या (2 से 3 लाख डॉलर कीमत वाले)"
+  },
+  "Count_HousingUnit_HomeValue300000To499999USDollar": {
+    "defaultMessage": "घरों की संख्या (3 से 5 लाख डॉलर कीमत वाले)"
+  },
+  "Count_HousingUnit_HomeValue500000To999999USDollar": {
+    "defaultMessage": "घरों की संख्या (5 से 10 लाख डॉलर की कीमत वाले घर)"
+  },
+  "Count_HousingUnit_HomeValue1000000To1499999USDollar": {
+    "defaultMessage": "घरों की संख्या (10 से 15 लाख डॉलर कीमत वाले)"
+  },
+  "Count_HousingUnit_HomeValue1500000To1999999USDollar": {
+    "defaultMessage": "घरों की संख्या (15 से 20 लाख डॉलर कीमत वाले)"
+  },
+  "Count_HousingUnit_HomeValue2000000OrMoreUSDollar": {
+    "defaultMessage": "घरों की संख्या (20 लाख डॉलर कीमत वाले)"
+  },
+  "Count_HousingUnit_OwnerOccupied": {
+    "defaultMessage": "घरों की संख्या (मालिक के अधिकार वाले)"
+  },
+  "Count_HousingUnit_RenterOccupied": {
+    "defaultMessage": "घरों की संख्या (किरायदार के अधिकार वाले)"
+  },
+  "Count_HousingUnit_Before1939DateBuilt": {
+    "defaultMessage": "घरों की संख्या (1939 से पहले)"
+  },
+  "Count_HousingUnit_1940To1949DateBuilt": {
+    "defaultMessage": "घरों की संख्या (1940 से 1949 के बीच)"
+  },
+  "Count_HousingUnit_1950To1959DateBuilt": {
+    "defaultMessage": "घरों की संख्या (1950 से 1959 के बीच)"
+  },
+  "Count_HousingUnit_1960To1969DateBuilt": {
+    "defaultMessage": "घरों की संख्या (1960 से 1969 के बीच)"
+  },
+  "Count_HousingUnit_1970To1979DateBuilt": {
+    "defaultMessage": "घरों की संख्या (1970 से 1979 के बीच)"
+  },
+  "Count_HousingUnit_1980To1989DateBuilt": {
+    "defaultMessage": "घरों की संख्या (1980 से 1989 के बीच)"
+  },
+  "Count_HousingUnit_1990To1999DateBuilt": {
+    "defaultMessage": "घरों की संख्या (1990 से 1999 के बीच)"
+  },
+  "Count_HousingUnit_2000To2009DateBuilt": {
+    "defaultMessage": "घरों की संख्या (2000 से 2009 के बीच)"
+  },
+  "Count_HousingUnit_2010OrLaterDateBuilt": {
+    "defaultMessage": "घरों की संख्या (2010 के बाद)"
+  }
+}

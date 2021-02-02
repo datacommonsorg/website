@@ -1,0 +1,707 @@
+{
+  "Median_Income_Person": {
+    "defaultMessage": "個人所得の中央値"
+  },
+  "Median_Income_Person_15OrMoreYears_Male_WithIncome": {
+    "defaultMessage": "個人所得の中央値（男性）"
+  },
+  "Median_Income_Person_15OrMoreYears_Female_WithIncome": {
+    "defaultMessage": "個人所得の中央値（女性）"
+  },
+  "UnemploymentRate_Person": {
+    "defaultMessage": "失業率"
+  },
+  "UnemploymentRate_Person_Male": {
+    "defaultMessage": "失業率（男性）"
+  },
+  "UnemploymentRate_Person_Female": {
+    "defaultMessage": "失業率（女性）"
+  },
+  "Count_UnemploymentInsuranceClaim_StateUnemploymentInsurance": {
+    "defaultMessage": "州の失業保険請求件数"
+  },
+  "Count_Person_Employed": {
+    "defaultMessage": "就業者数"
+  },
+  "Count_Person_InLaborForce": {
+    "defaultMessage": "就労可能な人口"
+  },
+  "Count_Person": {
+    "defaultMessage": "人口"
+  },
+  "Count_Person_PerArea": {
+    "defaultMessage": "人口密度"
+  },
+  "LifeExpectancy_Person": {
+    "defaultMessage": "平均寿命"
+  },
+  "GrowthRate_Count_Person": {
+    "defaultMessage": "人口増加率"
+  },
+  "FertilityRate_Person_Female": {
+    "defaultMessage": "出生率"
+  },
+  "Amount_EconomicActivity_GrossDomesticProduction_Nominal": {
+    "defaultMessage": "国内総生産（名目）"
+  },
+  "GrowthRate_Amount_EconomicActivity_GrossDomesticProduction": {
+    "defaultMessage": "国内総生産の成長率"
+  },
+  "Amount_Debt_Government": {
+    "defaultMessage": "国債"
+  },
+  "Amount_EconomicActivity_GrossDomesticProduction_Nominal_PerCapita": {
+    "defaultMessage": "1 人あたりの国内総生産（名目）"
+  },
+  "Amount_EconomicActivity_GrossNationalIncome_PurchasingPowerParity_PerCapita": {
+    "defaultMessage": "1 人あたりの国民総所得（購買力平価）"
+  },
+  "Amount_EconomicActivity_GrossNationalIncome_PurchasingPowerParity": {
+    "defaultMessage": "国民総所得（購買力平価）"
+  },
+  "Count_Person_7To14Years_Employed_AsFractionOf_Count_Person_7To14Years": {
+    "defaultMessage": "就労している 7～14 歳の児童数"
+  },
+  "Amount_EconomicActivity_ExpenditureActivity_EducationExpenditure_Government_AsFractionOf_Amount_EconomicActivity_ExpenditureActivity_Government": {
+    "defaultMessage": "政府の教育支出（政府支出比）"
+  },
+  "Amount_EconomicActivity_ExpenditureActivity_EducationExpenditure_Government_AsFractionOf_Amount_EconomicActivity_GrossDomesticProduction_Nominal": {
+    "defaultMessage": "政府の教育支出（GDP 比）"
+  },
+  "Amount_EconomicActivity_ExpenditureActivity_MilitaryExpenditure_Government": {
+    "defaultMessage": "政府の軍事支出"
+  },
+  "Amount_EconomicActivity_ExpenditureActivity_MilitaryExpenditure_Government_AsFractionOf_Amount_EconomicActivity_GrossDomesticProduction_Nominal": {
+    "defaultMessage": "政府の軍事支出（GDP 比）"
+  },
+  "Amount_Stock": {
+    "defaultMessage": "国内企業の時価総額"
+  },
+  "Amount_Stock_AsFractionOf_Amount_EconomicActivity_GrossDomesticProduction_Nominal": {
+    "defaultMessage": "国内企業の時価総額（GDP 比）"
+  },
+  "Amount_Remittance_InwardRemittance": {
+    "defaultMessage": "被仕向送金"
+  },
+  "Amount_Remittance_InwardRemittance_AsFractionOf_Amount_EconomicActivity_GrossDomesticProduction_Nominal": {
+    "defaultMessage": "被仕向送金（GDP 比）"
+  },
+  "Amount_Remittance_OutwardRemittance": {
+    "defaultMessage": "仕向送金"
+  },
+  "Count_Person_15To64Years_InLaborForce_AsFractionOf_Count_Person_15To64Years": {
+    "defaultMessage": "就労可能な人の割合（15～64 歳）"
+  },
+  "Amount_Consumption_Energy_PerCapita": {
+    "defaultMessage": "1 人あたりのエネルギー消費量"
+  },
+  "Amount_Emissions_CarbonDioxide_PerCapita": {
+    "defaultMessage": "1 人あたりの二酸化炭素排出量"
+  },
+  "Amount_Consumption_Electricity_PerCapita": {
+    "defaultMessage": "1 人あたりの電力消費量"
+  },
+  "Count_EarthquakeEvent": {
+    "defaultMessage": "地震災害件数"
+  },
+  "Count_CycloneEvent": {
+    "defaultMessage": "サイクロン災害件数"
+  },
+  "Count_StormSurgeTideEvent": {
+    "defaultMessage": "高潮災害件数"
+  },
+  "Count_WildlandFireEvent": {
+    "defaultMessage": "原野火災災害件数"
+  },
+  "Count_TornadoEvent": {
+    "defaultMessage": "竜巻災害件数"
+  },
+  "Count_ThunderstormWindEvent": {
+    "defaultMessage": "雷雨災害件数"
+  },
+  "Count_FloodEvent": {
+    "defaultMessage": "洪水災害件数"
+  },
+  "Count_DroughtEvent": {
+    "defaultMessage": "干ばつ災害件数"
+  },
+  "Count_Person_Upto4Years": {
+    "defaultMessage": "人口（0～4 歳）"
+  },
+  "Count_Person_Upto9Years": {
+    "defaultMessage": "人口（0～9 歳）"
+  },
+  "Count_Person_5To9Years": {
+    "defaultMessage": "人口（5～9 歳）"
+  },
+  "Count_Person_5To17Years": {
+    "defaultMessage": "人口（5～17 歳）"
+  },
+  "Count_Person_10To14Years": {
+    "defaultMessage": "人口（10～14 歳）"
+  },
+  "Count_Person_10To19Years": {
+    "defaultMessage": "人口（10～19 歳）"
+  },
+  "Count_Person_15To19Years": {
+    "defaultMessage": "人口（15～19 歳）"
+  },
+  "Count_Person_15OrMoreYears": {
+    "defaultMessage": "人口（15 歳以上）"
+  },
+  "Count_Person_16OrMoreYears": {
+    "defaultMessage": "人口（16 歳以上）"
+  },
+  "Count_Person_18To24Years": {
+    "defaultMessage": "人口（18～24 歳）"
+  },
+  "Count_Person_20To24Years": {
+    "defaultMessage": "人口（20～24 歳）"
+  },
+  "Count_Person_20To29Years": {
+    "defaultMessage": "人口（20～29 歳）"
+  },
+  "Count_Person_25To29Years": {
+    "defaultMessage": "人口（25～29 歳）"
+  },
+  "Count_Person_25To34Years": {
+    "defaultMessage": "人口（25～34 歳）"
+  },
+  "Count_Person_30To34Years": {
+    "defaultMessage": "人口（30～34 歳）"
+  },
+  "Count_Person_30To39Years": {
+    "defaultMessage": "人口（30～39 歳）"
+  },
+  "Count_Person_35To39Years": {
+    "defaultMessage": "人口（35～39 歳）"
+  },
+  "Count_Person_35To44Years": {
+    "defaultMessage": "人口（35～44 歳）"
+  },
+  "Count_Person_40To44Years": {
+    "defaultMessage": "人口（40～44 歳）"
+  },
+  "Count_Person_40To49Years": {
+    "defaultMessage": "人口（40～49 歳）"
+  },
+  "Count_Person_45To49Years": {
+    "defaultMessage": "人口（45～49 歳）"
+  },
+  "Count_Person_45To54Years": {
+    "defaultMessage": "人口（45～54 歳）"
+  },
+  "Count_Person_50To54Years": {
+    "defaultMessage": "人口（50～54 歳）"
+  },
+  "Count_Person_50To59Years": {
+    "defaultMessage": "人口（50～59 歳）"
+  },
+  "Count_Person_55To59Years": {
+    "defaultMessage": "人口（55～59 歳）"
+  },
+  "Count_Person_55To64Years": {
+    "defaultMessage": "人口（55～64 歳）"
+  },
+  "Count_Person_60To61Years": {
+    "defaultMessage": "人口（60～61 歳）"
+  },
+  "Count_Person_60To64Years": {
+    "defaultMessage": "人口（60～64 歳）"
+  },
+  "Count_Person_60To69Years": {
+    "defaultMessage": "人口（60～69 歳）"
+  },
+  "Count_Person_62To64Years": {
+    "defaultMessage": "人口（62～64 歳）"
+  },
+  "Count_Person_65To69Years": {
+    "defaultMessage": "人口（65～69 歳）"
+  },
+  "Count_Person_65To74Years": {
+    "defaultMessage": "人口（65～74 歳）"
+  },
+  "Count_Person_70To74Years": {
+    "defaultMessage": "人口（70～74 歳）"
+  },
+  "Count_Person_70To79Years": {
+    "defaultMessage": "人口（70～79 歳）"
+  },
+  "Count_Person_70OrMoreYears": {
+    "defaultMessage": "人口（70 歳以上）"
+  },
+  "Count_Person_75To79Years": {
+    "defaultMessage": "人口（75～79 歳）"
+  },
+  "Count_Person_75OrMoreYears": {
+    "defaultMessage": "人口（75 歳以上）"
+  },
+  "Count_Person_80To84Years": {
+    "defaultMessage": "人口（80～84 歳）"
+  },
+  "Count_Person_80OrMoreYears": {
+    "defaultMessage": "人口（80 歳以上）"
+  },
+  "Count_Person_Male": {
+    "defaultMessage": "人口（男性）"
+  },
+  "Count_Person_Female": {
+    "defaultMessage": "人口（女性）"
+  },
+  "Count_Person_AmericanIndianOrAlaskaNativeAlone": {
+    "defaultMessage": "人口（アメリカ先住民 / アラスカ先住民）"
+  },
+  "Count_Person_AsianAlone": {
+    "defaultMessage": "人口（アジア系のみ）"
+  },
+  "Count_Person_BlackOrAfricanAmericanAlone": {
+    "defaultMessage": "人口（黒人 / アフリカ系アメリカ人）"
+  },
+  "Count_Person_HispanicOrLatino": {
+    "defaultMessage": "人口（ヒスパニック / ラテン系）"
+  },
+  "Count_Person_NativeHawaiianOrOtherPacificIslanderAlone": {
+    "defaultMessage": "人口（ハワイ先住民 / 太平洋諸島住民）"
+  },
+  "Count_Person_SomeOtherRaceAlone": {
+    "defaultMessage": "人口（その他の人種）"
+  },
+  "Count_Person_TwoOrMoreRaces": {
+    "defaultMessage": "人口（2 つ以上の人種）"
+  },
+  "Count_Person_WhiteAlone": {
+    "defaultMessage": "人口（白人のみ）"
+  },
+  "Count_HousingUnit_HouseholderRaceAmericanIndianOrAlaskaNativeAlone": {
+    "defaultMessage": "世帯数（アメリカ先住民 / アラスカ先住民）"
+  },
+  "Count_HousingUnit_HouseholderRaceAsianAlone": {
+    "defaultMessage": "世帯数（アジア系のみ）"
+  },
+  "Count_HousingUnit_HouseholderRaceBlackOrAfricanAmericanAlone": {
+    "defaultMessage": "世帯数（黒人 / アフリカ系アメリカ人）"
+  },
+  "Count_HousingUnit_HouseholderRaceHispanicOrLatino": {
+    "defaultMessage": "世帯数（ヒスパニック / ラテン系）"
+  },
+  "Count_HousingUnit_HouseholderRaceNativeHawaiianOrOtherPacificIslanderAlone": {
+    "defaultMessage": "世帯数（ハワイ先住民 / 太平洋諸島住民）"
+  },
+  "Count_HousingUnit_HouseholderRaceSomeOtherRaceAlone": {
+    "defaultMessage": "世帯数（その他の人種）"
+  },
+  "Count_HousingUnit_HouseholderRaceTwoOrMoreRaces": {
+    "defaultMessage": "世帯数（2 つ以上の人種）"
+  },
+  "Count_HousingUnit_HouseholderRaceWhiteAlone": {
+    "defaultMessage": "世帯数（白人のみ）"
+  },
+  "Median_Age_Person": {
+    "defaultMessage": "年齢の中央値"
+  },
+  "Median_Age_Person_Male": {
+    "defaultMessage": "年齢の中央値（男性）"
+  },
+  "Median_Age_Person_Female": {
+    "defaultMessage": "年齢の中央値（女性）"
+  },
+  "Median_Age_Person_AmericanIndianOrAlaskaNativeAlone": {
+    "defaultMessage": "年齢の中央値（アメリカ先住民 / アラスカ先住民）"
+  },
+  "Median_Age_Person_AsianAlone": {
+    "defaultMessage": "年齢の中央値（アジア系のみ）"
+  },
+  "Median_Age_Person_BlackOrAfricanAmericanAlone": {
+    "defaultMessage": "年齢の中央値（黒人 / アフリカ系アメリカ人）"
+  },
+  "Median_Age_Person_HispanicOrLatino": {
+    "defaultMessage": "年齢の中央値（ヒスパニック / ラテン系）"
+  },
+  "Median_Age_Person_NativeHawaiianOrOtherPacificIslanderAlone": {
+    "defaultMessage": "年齢の中央値（ハワイ先住民 / 太平洋諸島住民）"
+  },
+  "Median_Age_Person_SomeOtherRaceAlone": {
+    "defaultMessage": "年齢の中央値（その他の人種）"
+  },
+  "Median_Age_Person_TwoOrMoreRaces": {
+    "defaultMessage": "年齢の中央値（2 つ以上の人種）"
+  },
+  "Median_Age_Person_WhiteAlone": {
+    "defaultMessage": "年齢の中央値（白人のみ）"
+  },
+  "Count_Person_IncomeOfUpto9999USDollar": {
+    "defaultMessage": "人口（個人所得 10,000 ドル未満）"
+  },
+  "Count_Person_IncomeOf10000To14999USDollar": {
+    "defaultMessage": "人口（個人所得 10,000～15,000 ドル）"
+  },
+  "Count_Person_IncomeOf15000To24999USDollar": {
+    "defaultMessage": "人口（個人所得 15,000～25,000 ドル）"
+  },
+  "Count_Person_IncomeOf25000To34999USDollar": {
+    "defaultMessage": "人口（個人所得 25,000～35,000 ドル）"
+  },
+  "Count_Person_IncomeOf35000To49999USDollar": {
+    "defaultMessage": "人口（個人所得 35,000～50,000 ドル）"
+  },
+  "Count_Person_IncomeOf50000To64999USDollar": {
+    "defaultMessage": "人口（個人所得 50,000～65,000 ドル）"
+  },
+  "Count_Person_IncomeOf65000To74999USDollar": {
+    "defaultMessage": "人口（個人所得 65,000～75,000 ドル）"
+  },
+  "Count_Person_IncomeOf75000OrMoreUSDollar": {
+    "defaultMessage": "人口（個人所得 75,000 ドル超）"
+  },
+  "Count_Person_MarriedAndNotSeparated": {
+    "defaultMessage": "人口（既婚かつ同居）"
+  },
+  "Count_Person_Divorced": {
+    "defaultMessage": "人口（離婚）"
+  },
+  "Count_Person_NeverMarried": {
+    "defaultMessage": "人口（未婚）"
+  },
+  "Count_Person_Widowed": {
+    "defaultMessage": "人口（死別）"
+  },
+  "Count_Person_Separated": {
+    "defaultMessage": "人口（別居）"
+  },
+  "Count_Person_Urban": {
+    "defaultMessage": "人口（都市部）"
+  },
+  "Count_Person_Rural": {
+    "defaultMessage": "人口（農村部）"
+  },
+  "Count_Person_EducationalAttainmentNoSchoolingCompleted": {
+    "defaultMessage": "人口（学歴なし）"
+  },
+  "Count_Person_EducationalAttainmentRegularHighSchoolDiploma": {
+    "defaultMessage": "人口（高等学校卒業者）"
+  },
+  "Count_Person_EducationalAttainmentBachelorsDegree": {
+    "defaultMessage": "人口（学士号取得者）"
+  },
+  "Count_Person_EducationalAttainmentMastersDegree": {
+    "defaultMessage": "人口（修士号取得者）"
+  },
+  "Count_Person_EducationalAttainmentDoctorateDegree": {
+    "defaultMessage": "人口（博士号取得者）"
+  },
+  "Count_Person_25To34Years_EducationalAttainmentAssociatesDegree_Female": {
+    "defaultMessage": "人口（準学士号取得者）"
+  },
+  "Count_Person_25To34Years_EducationalAttainmentAssociatesDegree_Male": {
+    "defaultMessage": "人口（準学士号取得者）"
+  },
+  "Count_Person_25To34Years_EducationalAttainmentBachelorsDegree_Female": {
+    "defaultMessage": "人口（学士号取得者）"
+  },
+  "Count_Person_25To34Years_EducationalAttainmentBachelorsDegree_Male": {
+    "defaultMessage": "人口（学士号取得者）"
+  },
+  "Count_Person_25To34Years_EducationalAttainmentGraduateOrProfessionalDegree_Female": {
+    "defaultMessage": "人口（学位取得者 / 専門職学位取得者）"
+  },
+  "Count_Person_25To34Years_EducationalAttainmentGraduateOrProfessionalDegree_Male": {
+    "defaultMessage": "人口（学位取得者 / 専門職学位取得者）"
+  },
+  "Count_Household_IncomeOfUpto10000USDollar": {
+    "defaultMessage": "世帯数（所得 10,000 ドル未満）"
+  },
+  "Count_Household_IncomeOf10000To14999USDollar": {
+    "defaultMessage": "世帯数（所得 10,000～15,000 ドル）"
+  },
+  "Count_Household_IncomeOf20000To24999USDollar": {
+    "defaultMessage": "世帯数（所得 20,000～25,000 ドル）"
+  },
+  "Count_Household_IncomeOf30000To34999USDollar": {
+    "defaultMessage": "世帯数（所得 30,000～35,000 ドル）"
+  },
+  "Count_Household_IncomeOf40000To44999USDollar": {
+    "defaultMessage": "世帯数（所得 40,000～45,000 ドル）"
+  },
+  "Count_Household_IncomeOf50000To59999USDollar": {
+    "defaultMessage": "世帯数（所得 50,000～60,000 ドル）"
+  },
+  "Count_Household_IncomeOf60000To74999USDollar": {
+    "defaultMessage": "世帯数（所得 60,000～75,000 ドル）"
+  },
+  "Count_Household_IncomeOf75000To99999USDollar": {
+    "defaultMessage": "世帯数（所得 75,000～100,000 ドル）"
+  },
+  "Count_Household_IncomeOf100000To124999USDollar": {
+    "defaultMessage": "世帯数（所得 100,000～125,000 ドル）"
+  },
+  "Count_Household_IncomeOf125000To149999USDollar": {
+    "defaultMessage": "世帯数（所得 125,000～150,000 ドル）"
+  },
+  "Count_Household_IncomeOf150000To199999USDollar": {
+    "defaultMessage": "世帯数（所得 150,000～200,000 ドル）"
+  },
+  "Count_Household_IncomeOf200000OrMoreUSDollar": {
+    "defaultMessage": "世帯数（所得 200,000 ドル超）"
+  },
+  "Median_Income_Household": {
+    "defaultMessage": "世帯収入の中央値"
+  },
+  "Median_Income_Household_HouseholderRaceAmericanIndianOrAlaskaNativeAlone": {
+    "defaultMessage": "世帯収入の中央値（アメリカ先住民 / アラスカ先住民）"
+  },
+  "Median_Income_Household_HouseholderRaceAsianAlone": {
+    "defaultMessage": "世帯収入の中央値（アジア系）"
+  },
+  "Median_Income_Household_HouseholderRaceBlackOrAfricanAmericanAlone": {
+    "defaultMessage": "世帯収入の中央値（黒人 / アフリカ系アメリカ人）"
+  },
+  "Median_Income_Household_HouseholderRaceHispanicOrLatino": {
+    "defaultMessage": "世帯収入の中央値（ヒスパニック / ラテン系）"
+  },
+  "Median_Income_Household_HouseholderRaceNativeHawaiianOrOtherPacificIslanderAlone": {
+    "defaultMessage": "世帯収入の中央値（ハワイ先住民 / 太平洋諸島住民）"
+  },
+  "Median_Income_Household_HouseholderRaceWhiteAlone": {
+    "defaultMessage": "世帯収入の中央値（白人）"
+  },
+  "CumulativeCount_MedicalConditionIncident_COVID_19_ConfirmedOrProbableCase": {
+    "defaultMessage": "COVID-19（新型コロナウイルス感染症）の累計感染者数（確定または推定）"
+  },
+  "CumulativeCount_MedicalConditionIncident_COVID_19_PatientDeceased": {
+    "defaultMessage": "COVID-19（新型コロナウイルス感染症）の累積死亡者数"
+  },
+  "Count_Person_USCitizenBornInTheUnitedStates": {
+    "defaultMessage": "人口（米国で出生）"
+  },
+  "Count_Person_USCitizenByNaturalization": {
+    "defaultMessage": "人口（帰化した米国市民）"
+  },
+  "Count_Person_NotAUSCitizen": {
+    "defaultMessage": "人口（米国市民以外）"
+  },
+  "Count_Person_USCitizenBornAbroadOfAmericanParents": {
+    "defaultMessage": "人口（米国外で米国人の両親から生まれた市民）"
+  },
+  "Count_Death_0Years_AsFractionOf_Count_BirthEvent_LiveBirth": {
+    "defaultMessage": "乳児死亡率"
+  },
+  "Count_Death_0Years_Female_AsFractionOf_Count_BirthEvent_LiveBirth_Female": {
+    "defaultMessage": "乳児死亡率（女児）"
+  },
+  "Count_Death_0Years_Male_AsFractionOf_Count_BirthEvent_LiveBirth_Male": {
+    "defaultMessage": "乳児死亡率（男児）"
+  },
+  "Count_Death_DiseasesOfTheCirculatorySystem": {
+    "defaultMessage": "循環器系の疾患による死亡者数"
+  },
+  "Count_Death_Neoplasms": {
+    "defaultMessage": "腫瘍による死亡者数"
+  },
+  "Count_Death_DiseasesOfTheRespiratorySystem": {
+    "defaultMessage": "呼吸器系の疾患による死亡者数"
+  },
+  "Count_Death_ExternalCauses": {
+    "defaultMessage": "外因による死亡者数"
+  },
+  "Count_Death_DiseasesOfTheNervousSystem": {
+    "defaultMessage": "神経系の疾患による死亡者数"
+  },
+  "Percent_Person_WithHighCholesterol": {
+    "defaultMessage": "高コレステロール症の成人の割合"
+  },
+  "Percent_Person_WithHighBloodPressure": {
+    "defaultMessage": "高血圧症の成人の割合"
+  },
+  "Percent_Person_WithArthritis": {
+    "defaultMessage": "関節炎の成人の割合"
+  },
+  "Percent_Person_WithMentalHealthNotGood": {
+    "defaultMessage": "メンタルヘルス状態が良好でない成人の割合"
+  },
+  "Percent_Person_WithPhysicalHealthNotGood": {
+    "defaultMessage": "健康状態が良好でない成人の割合"
+  },
+  "Percent_Person_SleepLessThan7Hours": {
+    "defaultMessage": "睡眠時間が 7 時間未満の成人の割合"
+  },
+  "Percent_Person_Obesity": {
+    "defaultMessage": "肥満の成人の割合"
+  },
+  "Percent_Person_BingeDrinking": {
+    "defaultMessage": "大量に飲酒している成人の割合"
+  },
+  "Percent_Person_PhysicalInactivity": {
+    "defaultMessage": "運動していない成人の割合"
+  },
+  "Percent_Person_Smoking": {
+    "defaultMessage": "喫煙している成人の割合"
+  },
+  "Count_Person_Upto4Years_Wasting_AsFractionOf_Count_Person_Upto4Years": {
+    "defaultMessage": "5 歳未満の児童の栄養不良の発症率"
+  },
+  "Count_Person_Upto4Years_Female_Wasting_AsFractionOf_Count_Person_Upto4Years_Female": {
+    "defaultMessage": "5 歳未満の児童の栄養不良の発症率（女児）"
+  },
+  "Count_Person_Upto4Years_Male_Wasting_AsFractionOf_Count_Person_Upto4Years_Male": {
+    "defaultMessage": "5 歳未満の児童の栄養不良の発症率（男児）"
+  },
+  "Count_Person_Upto4Years_SevereWasting_AsFractionOf_Count_Person_Upto4Years": {
+    "defaultMessage": "5 歳未満の児童の深刻な栄養不良の発症率"
+  },
+  "Count_Person_Upto4Years_Female_SevereWasting_AsFractionOf_Count_Person_Upto4Years_Female": {
+    "defaultMessage": "5 歳未満の児童の深刻な栄養不良の発症率（女児）"
+  },
+  "Count_Person_Upto4Years_Male_SevereWasting_AsFractionOf_Count_Person_Upto4Years_Male": {
+    "defaultMessage": "5 歳未満の児童の深刻な栄養不良の発症率（男児）"
+  },
+  "Amount_Consumption_Alcohol_15OrMoreYears_AsFractionOf_Count_Person_15OrMoreYears": {
+    "defaultMessage": "1 人あたりの純アルコール消費量（年間）"
+  },
+  "RetailDrugDistribution_DrugDistribution_Oxycodone": {
+    "defaultMessage": "オキシコドンの小売医薬品総流通量"
+  },
+  "RetailDrugDistribution_DrugDistribution_Hydrocodone": {
+    "defaultMessage": "ヒドロコドンの小売医薬品総流通量"
+  },
+  "RetailDrugDistribution_DrugDistribution_Codeine": {
+    "defaultMessage": "コデインの小売医薬品総流通量"
+  },
+  "RetailDrugDistribution_DrugDistribution_Amphetamine": {
+    "defaultMessage": "アンフェタミンの小売医薬品総流通量"
+  },
+  "RetailDrugDistribution_DrugDistribution_Morphine": {
+    "defaultMessage": "モルヒネの小売医薬品総流通量"
+  },
+  "Count_Person_EnrolledInSchool": {
+    "defaultMessage": "人口（在学中）"
+  },
+  "Count_Person_NotEnrolledInSchool": {
+    "defaultMessage": "人口（在学中でない）"
+  },
+  "Count_CriminalActivities_CombinedCrime": {
+    "defaultMessage": "犯罪件数（すべての犯罪）"
+  },
+  "Count_CriminalActivities_ViolentCrime": {
+    "defaultMessage": "犯罪件数（暴力犯罪）"
+  },
+  "Count_CriminalActivities_PropertyCrime": {
+    "defaultMessage": "犯罪件数（窃盗）"
+  },
+  "Count_CriminalActivities_Arson": {
+    "defaultMessage": "犯罪件数（放火）"
+  },
+  "Count_Person_BelowPovertyLevelInThePast12Months": {
+    "defaultMessage": "人口（貧困レベル以下）"
+  },
+  "Count_Person_BelowPovertyLevelInThePast12Months_AmericanIndianOrAlaskaNativeAlone": {
+    "defaultMessage": "人口（貧困レベル以下、アメリカ先住民 / アラスカ先住民）"
+  },
+  "Count_Person_BelowPovertyLevelInThePast12Months_AsianAlone": {
+    "defaultMessage": ""
+  },
+  "Count_Person_BelowPovertyLevelInThePast12Months_BlackOrAfricanAmericanAlone": {
+    "defaultMessage": ""
+  },
+  "Count_Person_BelowPovertyLevelInThePast12Months_HispanicOrLatino": {
+    "defaultMessage": ""
+  },
+  "Count_Person_BelowPovertyLevelInThePast12Months_NativeHawaiianOrOtherPacificIslanderAlone": {
+    "defaultMessage": "人口（貧困レベル以下、ハワイ先住民 / 太平洋諸島住民）"
+  },
+  "Count_Person_BelowPovertyLevelInThePast12Months_WhiteAlone": {
+    "defaultMessage": "人口（貧困レベル以下、白人）"
+  },
+  "Count_Person_Female_BelowPovertyLevelInThePast12Months": {
+    "defaultMessage": "人口（貧困レベル以下、女性）"
+  },
+  "Count_Person_Male_BelowPovertyLevelInThePast12Months": {
+    "defaultMessage": "人口（貧困レベル以下、男性）"
+  },
+  "Percent_Person_18To64Years_Female_NoHealthInsurance": {
+    "defaultMessage": "健康保険未加入者の割合（女性）"
+  },
+  "Percent_Person_18To64Years_Male_NoHealthInsurance": {
+    "defaultMessage": "健康保険を未加入者の割合（男性）"
+  },
+  "Percent_Person_18To64Years_NoHealthInsurance_BlackOrAfricanAmericanAlone": {
+    "defaultMessage": "健康保険未加入者の割合（黒人 / アフリカ系アメリカ人）"
+  },
+  "Percent_Person_18To64Years_NoHealthInsurance_HispanicOrLatino": {
+    "defaultMessage": "健康保険未加入者の割合（ヒスパニック / ラテン系）"
+  },
+  "Percent_Person_18To64Years_NoHealthInsurance_WhiteAlone": {
+    "defaultMessage": "健康保険未加入者の割合（白人）"
+  },
+  "Count_Person_7To14Years_Female_Employed_AsFractionOf_Count_Person_7To14Years_Female": {
+    "defaultMessage": "就労している児童の割合（女児）"
+  },
+  "Count_Person_7To14Years_Male_Employed_AsFractionOf_Count_Person_7To14Years_Male": {
+    "defaultMessage": "就労している児童の割合（男児）"
+  },
+  "GiniIndex_EconomicActivity": {
+    "defaultMessage": "ジニ係数"
+  },
+  "Count_HousingUnit": {
+    "defaultMessage": "住宅戸数"
+  },
+  "Count_HousingUnit_HomeValueUpto49999USDollar": {
+    "defaultMessage": "住宅戸数（住宅価格 50,000 ドル未満）"
+  },
+  "Count_HousingUnit_HomeValue50000To99999USDollar": {
+    "defaultMessage": "住宅戸数（住宅価格 50,000～100,000 ドル）"
+  },
+  "Count_HousingUnit_HomeValue100000To199999USDollar": {
+    "defaultMessage": "住宅戸数（住宅価格 100,000～200,000 ドル）"
+  },
+  "Count_HousingUnit_HomeValue200000To299999USDollar": {
+    "defaultMessage": "住宅戸数（住宅価格 200,000～300,000 ドル）"
+  },
+  "Count_HousingUnit_HomeValue300000To499999USDollar": {
+    "defaultMessage": "住宅戸数（住宅価格 300,000～500,000 ドル）"
+  },
+  "Count_HousingUnit_HomeValue500000To999999USDollar": {
+    "defaultMessage": "住宅戸数（住宅価格 500,000～1,000,000 ドル）"
+  },
+  "Count_HousingUnit_HomeValue1000000To1499999USDollar": {
+    "defaultMessage": "住宅戸数（住宅価格 1,000,000～1,500,000 ドル）"
+  },
+  "Count_HousingUnit_HomeValue1500000To1999999USDollar": {
+    "defaultMessage": "住宅戸数（住宅価格 1,500,000～2,000,000 ドル）"
+  },
+  "Count_HousingUnit_HomeValue2000000OrMoreUSDollar": {
+    "defaultMessage": "住宅戸数（住宅価格 2,000,000 ドル超）"
+  },
+  "Count_HousingUnit_OwnerOccupied": {
+    "defaultMessage": "住宅戸数（持ち家）"
+  },
+  "Count_HousingUnit_RenterOccupied": {
+    "defaultMessage": "住宅戸数（借家）"
+  },
+  "Count_HousingUnit_Before1939DateBuilt": {
+    "defaultMessage": "住宅戸数（1939 年より前）"
+  },
+  "Count_HousingUnit_1940To1949DateBuilt": {
+    "defaultMessage": "住宅戸数（1940 年～1949 年）"
+  },
+  "Count_HousingUnit_1950To1959DateBuilt": {
+    "defaultMessage": "住宅戸数（1950 年～1959 年）"
+  },
+  "Count_HousingUnit_1960To1969DateBuilt": {
+    "defaultMessage": "住宅戸数（1960 年～1969 年）"
+  },
+  "Count_HousingUnit_1970To1979DateBuilt": {
+    "defaultMessage": "住宅戸数（1970 年～1979 年）"
+  },
+  "Count_HousingUnit_1980To1989DateBuilt": {
+    "defaultMessage": "住宅戸数（1980 年～1989 年）"
+  },
+  "Count_HousingUnit_1990To1999DateBuilt": {
+    "defaultMessage": "住宅戸数（1990 年～1999 年）"
+  },
+  "Count_HousingUnit_2000To2009DateBuilt": {
+    "defaultMessage": "住宅戸数（2000 年～2009 年）"
+  },
+  "Count_HousingUnit_2010OrLaterDateBuilt": {
+    "defaultMessage": "住宅戸数（2010 年以降）"
+  }
+}

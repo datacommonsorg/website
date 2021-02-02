@@ -51,10 +51,10 @@
     "defaultMessage": "Übersicht"
   },
   "link-return_to_overview": {
-    "defaultMessage": "Zurück zur Übersicht ›"
+    "defaultMessage": "Zurück zur Übersicht "
   },
   "more_charts": {
-    "defaultMessage": "Weitere Diagramme ›"
+    "defaultMessage": "Weitere Diagramme "
   },
   "place_breadcrumb": {
     "defaultMessage": "{placeType} in {placeName}"
@@ -65,17 +65,131 @@
   "place_page_ranking_table-ranking_value": {
     "defaultMessage": "{rank} von {total}"
   },
+  "plural_administrative_area": {
+    "defaultMessage": "Verwaltungsbereiche"
+  },
+  "plural_administrative_area_level": {
+    "defaultMessage": "Orte des Verwaltungsgebiets {level}"
+  },
+  "plural_borough": {
+    "defaultMessage": "Bezirke"
+  },
+  "plural_city": {
+    "defaultMessage": "Städte"
+  },
+  "plural_country": {
+    "defaultMessage": "Länder"
+  },
+  "plural_county": {
+    "defaultMessage": "Counties"
+  },
+  "plural_eurostat_nuts": {
+    "defaultMessage": "Eurostat NUTS {level} Orte"
+  },
+  "plural_neighborhood": {
+    "defaultMessage": "Stadtteile"
+  },
   "plural_places": {
     "defaultMessage": "Orte"
+  },
+  "plural_state": {
+    "defaultMessage": "Bundesstaaten"
+  },
+  "plural_town": {
+    "defaultMessage": "Ortschaften"
+  },
+  "plural_village": {
+    "defaultMessage": "Dörfer"
   },
   "plural_zip_codes": {
     "defaultMessage": "Postleitzahlen"
   },
+  "ranking-document_title": {
+    "defaultMessage": "Ranking nach {statVar} – {pluralPlaceType} in {placeName}"
+  },
+  "ranking-loading": {
+    "defaultMessage": "Wird geladen…"
+  },
+  "ranking-no_data": {
+    "defaultMessage": "Es sind keine Rankingdaten verfügbar."
+  },
+  "ranking-page_title": {
+    "defaultMessage": "Ranking nach {statVar}"
+  },
+  "ranking-sort_bottom": {
+    "defaultMessage": "Niedrigste {rankSize} anzeigen"
+  },
+  "ranking-sort_top": {
+    "defaultMessage": "Die {rankSize} Höchstplatzierten anzeigen"
+  },
+  "ranking-subtitle_all": {
+    "defaultMessage": "Alle {pluralPlaceType} in {placeName}"
+  },
+  "ranking-subtitle_all_percapita": {
+    "defaultMessage": "Alle {pluralPlaceType} in {placeName}, pro Kopf"
+  },
+  "ranking-subtitle_bottom": {
+    "defaultMessage": "Untere {rankSize} {pluralPlaceType} in {placeName}"
+  },
+  "ranking-subtitle_bottom_percapita": {
+    "defaultMessage": "Untere {rankSize} {pluralPlaceType} in {placeName}, pro Kopf"
+  },
+  "ranking-subtitle_none": {
+    "defaultMessage": "{pluralPlaceType} in {placeName}"
+  },
+  "ranking-subtitle_none_percapita": {
+    "defaultMessage": "{pluralPlaceType} in {placeName}, pro Kopf"
+  },
+  "ranking-subtitle_top": {
+    "defaultMessage": "Top {rankSize} {pluralPlaceType} in {placeName}"
+  },
+  "ranking-subtitle_top_percapita": {
+    "defaultMessage": "Top {rankSize} {pluralPlaceType} in {placeName}, pro Kopf"
+  },
+  "ranking_table-header_rank": {
+    "defaultMessage": "Rang"
+  },
+  "ranking_table-header_value": {
+    "defaultMessage": "Wert"
+  },
   "search_bar_placeholder-search_again": {
     "defaultMessage": "Nach einem anderen Ort suchen"
   },
+  "singular_administrative_area": {
+    "defaultMessage": "Verwaltungseinheit"
+  },
+  "singular_administrative_area_level": {
+    "defaultMessage": "Ort im Verwaltungsbereich {level}"
+  },
+  "singular_borough": {
+    "defaultMessage": "Bezirk"
+  },
+  "singular_city": {
+    "defaultMessage": "Stadt"
+  },
+  "singular_country": {
+    "defaultMessage": "Land"
+  },
+  "singular_county": {
+    "defaultMessage": "County"
+  },
+  "singular_eurostat_nuts": {
+    "defaultMessage": "Eurostat NUTS {level} Ort"
+  },
+  "singular_neighborhood": {
+    "defaultMessage": "Stadtteil"
+  },
   "singular_place": {
     "defaultMessage": "Ort"
+  },
+  "singular_state": {
+    "defaultMessage": "Bundesstaat"
+  },
+  "singular_town": {
+    "defaultMessage": "Ortschaft"
+  },
+  "singular_village": {
+    "defaultMessage": "Dorf"
   },
   "singular_zip_code": {
     "defaultMessage": "Postleitzahl"

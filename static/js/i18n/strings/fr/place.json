@@ -51,13 +51,13 @@
     "defaultMessage": "Aperçu"
   },
   "link-return_to_overview": {
-    "defaultMessage": "Retour à la vue d'ensemble ›"
+    "defaultMessage": "Retour à la vue d'ensemble "
   },
   "more_charts": {
-    "defaultMessage": "Autres graphiques ›"
+    "defaultMessage": "Autres graphiques "
   },
   "place_breadcrumb": {
-    "defaultMessage": "{placeType} - {placeName}"
+    "defaultMessage": "{placeType} ({placeName})"
   },
   "place_page_ranking_table-ranking_in": {
     "defaultMessage": "Classements"
@@ -65,17 +65,131 @@
   "place_page_ranking_table-ranking_value": {
     "defaultMessage": "{rank} sur {total}"
   },
+  "plural_administrative_area": {
+    "defaultMessage": "Régions administratives"
+  },
+  "plural_administrative_area_level": {
+    "defaultMessage": "Lieux de la région administrative de niveau {level}"
+  },
+  "plural_borough": {
+    "defaultMessage": "Arrondissements"
+  },
+  "plural_city": {
+    "defaultMessage": "Villes"
+  },
+  "plural_country": {
+    "defaultMessage": "Pays"
+  },
+  "plural_county": {
+    "defaultMessage": "Comtés"
+  },
+  "plural_eurostat_nuts": {
+    "defaultMessage": "Lieux Eurostat NUTS {level}"
+  },
+  "plural_neighborhood": {
+    "defaultMessage": "Quartiers"
+  },
   "plural_places": {
     "defaultMessage": "Lieux"
+  },
+  "plural_state": {
+    "defaultMessage": "États"
+  },
+  "plural_town": {
+    "defaultMessage": "Villes"
+  },
+  "plural_village": {
+    "defaultMessage": "Villages"
   },
   "plural_zip_codes": {
     "defaultMessage": "Code postal"
   },
+  "ranking-document_title": {
+    "defaultMessage": "Classement par {statVar} - {pluralPlaceType} ({placeName})"
+  },
+  "ranking-loading": {
+    "defaultMessage": "Chargement…"
+  },
+  "ranking-no_data": {
+    "defaultMessage": "Aucune donnée de classement n'est disponible."
+  },
+  "ranking-page_title": {
+    "defaultMessage": "Classement par {statVar}"
+  },
+  "ranking-sort_bottom": {
+    "defaultMessage": "Afficher le top {rankSize} inversé"
+  },
+  "ranking-sort_top": {
+    "defaultMessage": "Afficher le top {rankSize}"
+  },
+  "ranking-subtitle_all": {
+    "defaultMessage": "L'ensemble des {pluralPlaceType} ({placeName})"
+  },
+  "ranking-subtitle_all_percapita": {
+    "defaultMessage": "L'ensemble des {pluralPlaceType} ({placeName}), par habitant"
+  },
+  "ranking-subtitle_bottom": {
+    "defaultMessage": "Top {rankSize} inversé des {pluralPlaceType} ({placeName})"
+  },
+  "ranking-subtitle_bottom_percapita": {
+    "defaultMessage": "Top {rankSize} inversé des {pluralPlaceType} ({placeName}), par habitant"
+  },
+  "ranking-subtitle_none": {
+    "defaultMessage": "{pluralPlaceType} ({placeName})"
+  },
+  "ranking-subtitle_none_percapita": {
+    "defaultMessage": "{pluralPlaceType} ({placeName}), par habitant"
+  },
+  "ranking-subtitle_top": {
+    "defaultMessage": "Top {rankSize} des {pluralPlaceType} ({placeName})"
+  },
+  "ranking-subtitle_top_percapita": {
+    "defaultMessage": "Top {rankSize} des {pluralPlaceType} ({placeName}), par habitant"
+  },
+  "ranking_table-header_rank": {
+    "defaultMessage": "Classement"
+  },
+  "ranking_table-header_value": {
+    "defaultMessage": "Valeur"
+  },
   "search_bar_placeholder-search_again": {
     "defaultMessage": "Recherchez un autre lieu"
   },
+  "singular_administrative_area": {
+    "defaultMessage": "Région administrative"
+  },
+  "singular_administrative_area_level": {
+    "defaultMessage": "Lieu de la région administrative de niveau {level}"
+  },
+  "singular_borough": {
+    "defaultMessage": "Arrondissement"
+  },
+  "singular_city": {
+    "defaultMessage": "Ville"
+  },
+  "singular_country": {
+    "defaultMessage": "Pays"
+  },
+  "singular_county": {
+    "defaultMessage": "Comté"
+  },
+  "singular_eurostat_nuts": {
+    "defaultMessage": "Lieu Eurostat NUTS {level}"
+  },
+  "singular_neighborhood": {
+    "defaultMessage": "Quartier"
+  },
   "singular_place": {
     "defaultMessage": "Lieu"
+  },
+  "singular_state": {
+    "defaultMessage": "État"
+  },
+  "singular_town": {
+    "defaultMessage": "Ville"
+  },
+  "singular_village": {
+    "defaultMessage": "Village"
   },
   "singular_zip_code": {
     "defaultMessage": "Code postal"

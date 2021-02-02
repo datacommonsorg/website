@@ -1,0 +1,1400 @@
+{
+  "Amount_Consumption_Alcohol_15OrMoreYears_AsFractionOf_Count_Person_15OrMoreYears": [
+    {
+      "type": 0,
+      "value": "Потребление алкоголя на душу населения в литрах чистого этилового спирта (ежегодно)"
+    }
+  ],
+  "Amount_Consumption_Electricity_PerCapita": [
+    {
+      "type": 0,
+      "value": "Электропотребление на душу населения"
+    }
+  ],
+  "Amount_Consumption_Energy_PerCapita": [
+    {
+      "type": 0,
+      "value": "Энергопотребление на душу населения"
+    }
+  ],
+  "Amount_Debt_Government": [
+    {
+      "type": 0,
+      "value": "Государственный долг"
+    }
+  ],
+  "Amount_EconomicActivity_ExpenditureActivity_EducationExpenditure_Government_AsFractionOf_Amount_EconomicActivity_ExpenditureActivity_Government": [
+    {
+      "type": 0,
+      "value": "Расходы правительства на образование (в проценте от общих расходов)"
+    }
+  ],
+  "Amount_EconomicActivity_ExpenditureActivity_EducationExpenditure_Government_AsFractionOf_Amount_EconomicActivity_GrossDomesticProduction_Nominal": [
+    {
+      "type": 0,
+      "value": "Расходы правительства на образование в процентах от ВВП"
+    }
+  ],
+  "Amount_EconomicActivity_ExpenditureActivity_MilitaryExpenditure_Government": [
+    {
+      "type": 0,
+      "value": "Военные расходы правительства"
+    }
+  ],
+  "Amount_EconomicActivity_ExpenditureActivity_MilitaryExpenditure_Government_AsFractionOf_Amount_EconomicActivity_GrossDomesticProduction_Nominal": [
+    {
+      "type": 0,
+      "value": "Военные расходы правительства в процентах от ВВП"
+    }
+  ],
+  "Amount_EconomicActivity_GrossDomesticProduction_Nominal": [
+    {
+      "type": 0,
+      "value": "Валовой внутренний продукт (номинальный)"
+    }
+  ],
+  "Amount_EconomicActivity_GrossDomesticProduction_Nominal_PerCapita": [
+    {
+      "type": 0,
+      "value": "Номинальный валовой внутренний продукт на душу населения"
+    }
+  ],
+  "Amount_EconomicActivity_GrossNationalIncome_PurchasingPowerParity": [
+    {
+      "type": 0,
+      "value": "Валовой национальный доход (по паритету покупательной способности)"
+    }
+  ],
+  "Amount_EconomicActivity_GrossNationalIncome_PurchasingPowerParity_PerCapita": [
+    {
+      "type": 0,
+      "value": "Валовой национальный доход на душу населения (по паритету покупательной способности)"
+    }
+  ],
+  "Amount_Emissions_CarbonDioxide_PerCapita": [
+    {
+      "type": 0,
+      "value": "Выбросы углекислого газа на душу населения"
+    }
+  ],
+  "Amount_Remittance_InwardRemittance": [
+    {
+      "type": 0,
+      "value": "Внутренние переводы"
+    }
+  ],
+  "Amount_Remittance_InwardRemittance_AsFractionOf_Amount_EconomicActivity_GrossDomesticProduction_Nominal": [
+    {
+      "type": 0,
+      "value": "Внутренние переводы (в процентах от ВВП)"
+    }
+  ],
+  "Amount_Remittance_OutwardRemittance": [
+    {
+      "type": 0,
+      "value": "Переводы за рубеж"
+    }
+  ],
+  "Amount_Stock": [
+    {
+      "type": 0,
+      "value": "Рыночная капитализация отечественных компаний"
+    }
+  ],
+  "Amount_Stock_AsFractionOf_Amount_EconomicActivity_GrossDomesticProduction_Nominal": [
+    {
+      "type": 0,
+      "value": "Рыночная капитализация отечественных компаний (в процентах от ВВП)"
+    }
+  ],
+  "Count_CriminalActivities_Arson": [
+    {
+      "type": 0,
+      "value": "Количество преступлений (поджоги)"
+    }
+  ],
+  "Count_CriminalActivities_CombinedCrime": [
+    {
+      "type": 0,
+      "value": "Количество преступлений (всех видов)"
+    }
+  ],
+  "Count_CriminalActivities_PropertyCrime": [
+    {
+      "type": 0,
+      "value": "Количество преступлений (имущественные)"
+    }
+  ],
+  "Count_CriminalActivities_ViolentCrime": [
+    {
+      "type": 0,
+      "value": "Количество преступлений (насильственные)"
+    }
+  ],
+  "Count_CycloneEvent": [
+    {
+      "type": 0,
+      "value": "Количество случаев циклонов"
+    }
+  ],
+  "Count_Death_0Years_AsFractionOf_Count_BirthEvent_LiveBirth": [
+    {
+      "type": 0,
+      "value": "Уровень детской смертности"
+    }
+  ],
+  "Count_Death_0Years_Female_AsFractionOf_Count_BirthEvent_LiveBirth_Female": [
+    {
+      "type": 0,
+      "value": "Уровень детской смертности (девочки)"
+    }
+  ],
+  "Count_Death_0Years_Male_AsFractionOf_Count_BirthEvent_LiveBirth_Male": [
+    {
+      "type": 0,
+      "value": "Уровень детской смертности (мальчики)"
+    }
+  ],
+  "Count_Death_DiseasesOfTheCirculatorySystem": [
+    {
+      "type": 0,
+      "value": "Количество смертей, вызванных заболеваниями сердечно-сосудистой системы"
+    }
+  ],
+  "Count_Death_DiseasesOfTheNervousSystem": [
+    {
+      "type": 0,
+      "value": "Количество смертей, вызванных заболеваниями нервной системы"
+    }
+  ],
+  "Count_Death_DiseasesOfTheRespiratorySystem": [
+    {
+      "type": 0,
+      "value": "Количество смертей, вызванных заболеваниями дыхательной системы"
+    }
+  ],
+  "Count_Death_ExternalCauses": [
+    {
+      "type": 0,
+      "value": "Количество смертей, вызванных внешними факторами"
+    }
+  ],
+  "Count_Death_Neoplasms": [
+    {
+      "type": 0,
+      "value": "Количество смертей, вызванных опухолями"
+    }
+  ],
+  "Count_DroughtEvent": [
+    {
+      "type": 0,
+      "value": "Количество случаев засухи"
+    }
+  ],
+  "Count_EarthquakeEvent": [
+    {
+      "type": 0,
+      "value": "Количество случаев землетрясений"
+    }
+  ],
+  "Count_FloodEvent": [
+    {
+      "type": 0,
+      "value": "Количество случаев наводнений"
+    }
+  ],
+  "Count_Household_IncomeOf100000To124999USDollar": [
+    {
+      "type": 0,
+      "value": "Количество семей (доход 100–125 тыс. долларов США)"
+    }
+  ],
+  "Count_Household_IncomeOf10000To14999USDollar": [
+    {
+      "type": 0,
+      "value": "Количество семей (доход 10–15 тыс. долларов США)"
+    }
+  ],
+  "Count_Household_IncomeOf125000To149999USDollar": [
+    {
+      "type": 0,
+      "value": "Количество семей (доход 125–150 тыс. долларов США)"
+    }
+  ],
+  "Count_Household_IncomeOf150000To199999USDollar": [
+    {
+      "type": 0,
+      "value": "Количество семей (доход 150–200 тыс. долларов США)"
+    }
+  ],
+  "Count_Household_IncomeOf200000OrMoreUSDollar": [
+    {
+      "type": 0,
+      "value": "Количество семей (доход больше 200 тыс. долларов США)"
+    }
+  ],
+  "Count_Household_IncomeOf20000To24999USDollar": [
+    {
+      "type": 0,
+      "value": "Количество семей (доход 20–25 тыс. долларов США)"
+    }
+  ],
+  "Count_Household_IncomeOf30000To34999USDollar": [
+    {
+      "type": 0,
+      "value": "Количество семей (доход 30–35 тыс. долларов США)"
+    }
+  ],
+  "Count_Household_IncomeOf40000To44999USDollar": [
+    {
+      "type": 0,
+      "value": "Количество семей (доход 40–45 тыс. долларов США)"
+    }
+  ],
+  "Count_Household_IncomeOf50000To59999USDollar": [
+    {
+      "type": 0,
+      "value": "Количество семей (доход 50–60 тыс. долларов США)"
+    }
+  ],
+  "Count_Household_IncomeOf60000To74999USDollar": [
+    {
+      "type": 0,
+      "value": "Количество семей (доход 60–75 тыс. долларов США)"
+    }
+  ],
+  "Count_Household_IncomeOf75000To99999USDollar": [
+    {
+      "type": 0,
+      "value": "Количество семей (доход 75–100 тыс. долларов США)"
+    }
+  ],
+  "Count_Household_IncomeOfUpto10000USDollar": [
+    {
+      "type": 0,
+      "value": "Количество семей (доход менее 10 тыс. долларов США)"
+    }
+  ],
+  "Count_HousingUnit": [
+    {
+      "type": 0,
+      "value": "Количество жилищных единиц"
+    }
+  ],
+  "Count_HousingUnit_1940To1949DateBuilt": [
+    {
+      "type": 0,
+      "value": "Количество жилищных единиц 1940–1949 годов постройки"
+    }
+  ],
+  "Count_HousingUnit_1950To1959DateBuilt": [
+    {
+      "type": 0,
+      "value": "Количество жилищных единиц 1950–1959 годов постройки"
+    }
+  ],
+  "Count_HousingUnit_1960To1969DateBuilt": [
+    {
+      "type": 0,
+      "value": "Количество жилищных единиц 1960–1969 годов постройки"
+    }
+  ],
+  "Count_HousingUnit_1970To1979DateBuilt": [
+    {
+      "type": 0,
+      "value": "Количество жилищных единиц 1970–1979 годов постройки"
+    }
+  ],
+  "Count_HousingUnit_1980To1989DateBuilt": [
+    {
+      "type": 0,
+      "value": "Количество жилищных единиц 1980–1989 годов постройки"
+    }
+  ],
+  "Count_HousingUnit_1990To1999DateBuilt": [
+    {
+      "type": 0,
+      "value": "Количество жилищных единиц 1990–1999 годов постройки"
+    }
+  ],
+  "Count_HousingUnit_2000To2009DateBuilt": [
+    {
+      "type": 0,
+      "value": "Количество жилищных единиц 2000–2009 годов постройки"
+    }
+  ],
+  "Count_HousingUnit_2010OrLaterDateBuilt": [
+    {
+      "type": 0,
+      "value": "Количество жилищных единиц, построенных после 2010 года"
+    }
+  ],
+  "Count_HousingUnit_Before1939DateBuilt": [
+    {
+      "type": 0,
+      "value": "Количество жилищных единиц, построенных до 1939 года"
+    }
+  ],
+  "Count_HousingUnit_HomeValue1000000To1499999USDollar": [
+    {
+      "type": 0,
+      "value": "Количество жилищных единиц (стоимость 1–1,5 млн долларов США)"
+    }
+  ],
+  "Count_HousingUnit_HomeValue100000To199999USDollar": [
+    {
+      "type": 0,
+      "value": "Количество жилищных единиц (стоимость 100–200 тыс. долларов США)"
+    }
+  ],
+  "Count_HousingUnit_HomeValue1500000To1999999USDollar": [
+    {
+      "type": 0,
+      "value": "Количество жилищных единиц (стоимость 1,5–2 млн долларов США)"
+    }
+  ],
+  "Count_HousingUnit_HomeValue2000000OrMoreUSDollar": [
+    {
+      "type": 0,
+      "value": "Количество жилищных единиц (стоимость более 2 млн долларов США)"
+    }
+  ],
+  "Count_HousingUnit_HomeValue200000To299999USDollar": [
+    {
+      "type": 0,
+      "value": "Количество жилищных единиц (стоимость 200–300 тыс. долларов США)"
+    }
+  ],
+  "Count_HousingUnit_HomeValue300000To499999USDollar": [
+    {
+      "type": 0,
+      "value": "Количество жилищных единиц (стоимость 300–500 тыс. долларов США)"
+    }
+  ],
+  "Count_HousingUnit_HomeValue500000To999999USDollar": [
+    {
+      "type": 0,
+      "value": "Количество жилищных единиц (стоимость от 500 тыс. до 1 млн долларов США)"
+    }
+  ],
+  "Count_HousingUnit_HomeValue50000To99999USDollar": [
+    {
+      "type": 0,
+      "value": "Количество жилищных единиц (стоимость 50–100 тыс. долларов США)"
+    }
+  ],
+  "Count_HousingUnit_HomeValueUpto49999USDollar": [
+    {
+      "type": 0,
+      "value": "Количество жилищных единиц (стоимость до 50 тыс. долларов США)"
+    }
+  ],
+  "Count_HousingUnit_HouseholderRaceAmericanIndianOrAlaskaNativeAlone": [
+    {
+      "type": 0,
+      "value": "Количество семей (американские индейцы и коренные жители Аляски)"
+    }
+  ],
+  "Count_HousingUnit_HouseholderRaceAsianAlone": [
+    {
+      "type": 0,
+      "value": "Количество семей (только представители азиатской расы)"
+    }
+  ],
+  "Count_HousingUnit_HouseholderRaceBlackOrAfricanAmericanAlone": [
+    {
+      "type": 0,
+      "value": "Количество семей (темнокожие и афроамериканцы)"
+    }
+  ],
+  "Count_HousingUnit_HouseholderRaceHispanicOrLatino": [
+    {
+      "type": 0,
+      "value": "Количество семей (испаноговорящие и латиноамериканцы)"
+    }
+  ],
+  "Count_HousingUnit_HouseholderRaceNativeHawaiianOrOtherPacificIslanderAlone": [
+    {
+      "type": 0,
+      "value": "Количество семей (коренные жители Гавайев и тихоокеанских островов)"
+    }
+  ],
+  "Count_HousingUnit_HouseholderRaceSomeOtherRaceAlone": [
+    {
+      "type": 0,
+      "value": "Количество семей (другие расы)"
+    }
+  ],
+  "Count_HousingUnit_HouseholderRaceTwoOrMoreRaces": [
+    {
+      "type": 0,
+      "value": "Количество семей (две и более расы)"
+    }
+  ],
+  "Count_HousingUnit_HouseholderRaceWhiteAlone": [
+    {
+      "type": 0,
+      "value": "Количество семей (только белокожие)"
+    }
+  ],
+  "Count_HousingUnit_OwnerOccupied": [
+    {
+      "type": 0,
+      "value": "Количество жилищных единиц (заняты владельцем)"
+    }
+  ],
+  "Count_HousingUnit_RenterOccupied": [
+    {
+      "type": 0,
+      "value": "Количество жилищных единиц (заняты арендаторами)"
+    }
+  ],
+  "Count_Person": [
+    {
+      "type": 0,
+      "value": "Население"
+    }
+  ],
+  "Count_Person_10To14Years": [
+    {
+      "type": 0,
+      "value": "Население в возрасте 10–14 лет"
+    }
+  ],
+  "Count_Person_10To19Years": [
+    {
+      "type": 0,
+      "value": "Население в возрасте 10–19 лет"
+    }
+  ],
+  "Count_Person_15OrMoreYears": [
+    {
+      "type": 0,
+      "value": "Население старше 15 лет"
+    }
+  ],
+  "Count_Person_15To19Years": [
+    {
+      "type": 0,
+      "value": "Население в возрасте 15–19 лет"
+    }
+  ],
+  "Count_Person_15To64Years_InLaborForce_AsFractionOf_Count_Person_15To64Years": [
+    {
+      "type": 0,
+      "value": "Процент трудоспособных людей в возрасте 15–64 лет"
+    }
+  ],
+  "Count_Person_16OrMoreYears": [
+    {
+      "type": 0,
+      "value": "Население старше 16 лет"
+    }
+  ],
+  "Count_Person_18To24Years": [
+    {
+      "type": 0,
+      "value": "Население в возрасте 18–24 лет"
+    }
+  ],
+  "Count_Person_20To24Years": [
+    {
+      "type": 0,
+      "value": "Население в возрасте 20–24 лет"
+    }
+  ],
+  "Count_Person_20To29Years": [
+    {
+      "type": 0,
+      "value": "Население в возрасте 20–29 лет"
+    }
+  ],
+  "Count_Person_25To29Years": [
+    {
+      "type": 0,
+      "value": "Население в возрасте 25–29 лет"
+    }
+  ],
+  "Count_Person_25To34Years": [
+    {
+      "type": 0,
+      "value": "Население в возрасте 25–34 лет"
+    }
+  ],
+  "Count_Person_25To34Years_EducationalAttainmentAssociatesDegree_Female": [
+    {
+      "type": 0,
+      "value": "Население (имеющие неполное высшее образование)"
+    }
+  ],
+  "Count_Person_25To34Years_EducationalAttainmentAssociatesDegree_Male": [
+    {
+      "type": 0,
+      "value": "Население (имеющие неполное высшее образование)"
+    }
+  ],
+  "Count_Person_25To34Years_EducationalAttainmentBachelorsDegree_Female": [
+    {
+      "type": 0,
+      "value": "Население (имеющие степень бакалавра)"
+    }
+  ],
+  "Count_Person_25To34Years_EducationalAttainmentBachelorsDegree_Male": [
+    {
+      "type": 0,
+      "value": "Население (имеющие степень бакалавра)"
+    }
+  ],
+  "Count_Person_25To34Years_EducationalAttainmentGraduateOrProfessionalDegree_Female": [
+    {
+      "type": 0,
+      "value": "Население (имеющие степень магистра или высшее профессиональное образование)"
+    }
+  ],
+  "Count_Person_25To34Years_EducationalAttainmentGraduateOrProfessionalDegree_Male": [
+    {
+      "type": 0,
+      "value": "Население (имеющие степень магистра или высшее профессиональное образование)"
+    }
+  ],
+  "Count_Person_30To34Years": [
+    {
+      "type": 0,
+      "value": "Население в возрасте 30–34 лет"
+    }
+  ],
+  "Count_Person_30To39Years": [
+    {
+      "type": 0,
+      "value": "Население в возрасте 30–39 лет"
+    }
+  ],
+  "Count_Person_35To39Years": [
+    {
+      "type": 0,
+      "value": "Население в возрасте 35–39 лет"
+    }
+  ],
+  "Count_Person_35To44Years": [
+    {
+      "type": 0,
+      "value": "Население в возрасте 35–44 лет"
+    }
+  ],
+  "Count_Person_40To44Years": [
+    {
+      "type": 0,
+      "value": "Население в возрасте 40–44 лет"
+    }
+  ],
+  "Count_Person_40To49Years": [
+    {
+      "type": 0,
+      "value": "Население в возрасте 40–49 лет"
+    }
+  ],
+  "Count_Person_45To49Years": [
+    {
+      "type": 0,
+      "value": "Население в возрасте 45–49 лет"
+    }
+  ],
+  "Count_Person_45To54Years": [
+    {
+      "type": 0,
+      "value": "Население в возрасте 45–54 лет"
+    }
+  ],
+  "Count_Person_50To54Years": [
+    {
+      "type": 0,
+      "value": "Население в возрасте 50–54 лет"
+    }
+  ],
+  "Count_Person_50To59Years": [
+    {
+      "type": 0,
+      "value": "Население в возрасте 50–59 лет"
+    }
+  ],
+  "Count_Person_55To59Years": [
+    {
+      "type": 0,
+      "value": "Население в возрасте 55–59 лет"
+    }
+  ],
+  "Count_Person_55To64Years": [
+    {
+      "type": 0,
+      "value": "Население в возрасте 55–64 лет"
+    }
+  ],
+  "Count_Person_5To17Years": [
+    {
+      "type": 0,
+      "value": "Население в возрасте 5–17 лет"
+    }
+  ],
+  "Count_Person_5To9Years": [
+    {
+      "type": 0,
+      "value": "Население в возрасте 5–9 лет"
+    }
+  ],
+  "Count_Person_60To61Years": [
+    {
+      "type": 0,
+      "value": "Население в возрасте от 60 лет до 61 года"
+    }
+  ],
+  "Count_Person_60To64Years": [
+    {
+      "type": 0,
+      "value": "Население в возрасте 60–64 лет"
+    }
+  ],
+  "Count_Person_60To69Years": [
+    {
+      "type": 0,
+      "value": "Население в возрасте 60–69 лет"
+    }
+  ],
+  "Count_Person_62To64Years": [
+    {
+      "type": 0,
+      "value": "Население в возрасте 62–64 лет"
+    }
+  ],
+  "Count_Person_65To69Years": [
+    {
+      "type": 0,
+      "value": "Население в возрасте 65–69 лет"
+    }
+  ],
+  "Count_Person_65To74Years": [
+    {
+      "type": 0,
+      "value": "Население в возрасте 65–74 лет"
+    }
+  ],
+  "Count_Person_70OrMoreYears": [
+    {
+      "type": 0,
+      "value": "Население старше 70 лет"
+    }
+  ],
+  "Count_Person_70To74Years": [
+    {
+      "type": 0,
+      "value": "Население в возрасте 70–74 лет"
+    }
+  ],
+  "Count_Person_70To79Years": [
+    {
+      "type": 0,
+      "value": "Население в возрасте 70–79 лет"
+    }
+  ],
+  "Count_Person_75OrMoreYears": [
+    {
+      "type": 0,
+      "value": "Население старше 75 лет"
+    }
+  ],
+  "Count_Person_75To79Years": [
+    {
+      "type": 0,
+      "value": "Население в возрасте 75–79 лет"
+    }
+  ],
+  "Count_Person_7To14Years_Employed_AsFractionOf_Count_Person_7To14Years": [
+    {
+      "type": 0,
+      "value": "Количество работающих детей в возрасте 7–14 лет"
+    }
+  ],
+  "Count_Person_7To14Years_Female_Employed_AsFractionOf_Count_Person_7To14Years_Female": [
+    {
+      "type": 0,
+      "value": "Процент работающих детей (девочки)"
+    }
+  ],
+  "Count_Person_7To14Years_Male_Employed_AsFractionOf_Count_Person_7To14Years_Male": [
+    {
+      "type": 0,
+      "value": "Процент работающих детей (мальчики)"
+    }
+  ],
+  "Count_Person_80OrMoreYears": [
+    {
+      "type": 0,
+      "value": "Население старше 80 лет"
+    }
+  ],
+  "Count_Person_80To84Years": [
+    {
+      "type": 0,
+      "value": "Население в возрасте 80–84 лет"
+    }
+  ],
+  "Count_Person_AmericanIndianOrAlaskaNativeAlone": [
+    {
+      "type": 0,
+      "value": "Количество человек (американские индейцы и коренные жители Аляски)"
+    }
+  ],
+  "Count_Person_AsianAlone": [
+    {
+      "type": 0,
+      "value": "Количество человек (только представители азиатской расы)"
+    }
+  ],
+  "Count_Person_BelowPovertyLevelInThePast12Months": [
+    {
+      "type": 0,
+      "value": "Население (за чертой бедности)"
+    }
+  ],
+  "Count_Person_BelowPovertyLevelInThePast12Months_AmericanIndianOrAlaskaNativeAlone": [
+    {
+      "type": 0,
+      "value": "Население (за чертой бедности, американские индейцы и коренные жители Аляски)"
+    }
+  ],
+  "Count_Person_BelowPovertyLevelInThePast12Months_AsianAlone": [
+  ],
+  "Count_Person_BelowPovertyLevelInThePast12Months_BlackOrAfricanAmericanAlone": [
+  ],
+  "Count_Person_BelowPovertyLevelInThePast12Months_HispanicOrLatino": [
+  ],
+  "Count_Person_BelowPovertyLevelInThePast12Months_NativeHawaiianOrOtherPacificIslanderAlone": [
+    {
+      "type": 0,
+      "value": "Население (за чертой бедности, коренные жители Гавайев и тихоокеанских островов)"
+    }
+  ],
+  "Count_Person_BelowPovertyLevelInThePast12Months_WhiteAlone": [
+    {
+      "type": 0,
+      "value": "Население (за чертой бедности, белокожие)"
+    }
+  ],
+  "Count_Person_BlackOrAfricanAmericanAlone": [
+    {
+      "type": 0,
+      "value": "Количество человек (темнокожие и афроамериканцы)"
+    }
+  ],
+  "Count_Person_Divorced": [
+    {
+      "type": 0,
+      "value": "Население (в разводе)"
+    }
+  ],
+  "Count_Person_EducationalAttainmentBachelorsDegree": [
+    {
+      "type": 0,
+      "value": "Население (имеющие степень бакалавра)"
+    }
+  ],
+  "Count_Person_EducationalAttainmentDoctorateDegree": [
+    {
+      "type": 0,
+      "value": "Население (имеющие ученую степень)"
+    }
+  ],
+  "Count_Person_EducationalAttainmentMastersDegree": [
+    {
+      "type": 0,
+      "value": "Население (имеющие степень магистра)"
+    }
+  ],
+  "Count_Person_EducationalAttainmentNoSchoolingCompleted": [
+    {
+      "type": 0,
+      "value": "Население (нет образования)"
+    }
+  ],
+  "Count_Person_EducationalAttainmentRegularHighSchoolDiploma": [
+    {
+      "type": 0,
+      "value": "Население (окончившие среднюю школу)"
+    }
+  ],
+  "Count_Person_Employed": [
+    {
+      "type": 0,
+      "value": "Количество трудоустроенных"
+    }
+  ],
+  "Count_Person_EnrolledInSchool": [
+    {
+      "type": 0,
+      "value": "Население (зачисленные в школу)"
+    }
+  ],
+  "Count_Person_Female": [
+    {
+      "type": 0,
+      "value": "Население (женщины)"
+    }
+  ],
+  "Count_Person_Female_BelowPovertyLevelInThePast12Months": [
+    {
+      "type": 0,
+      "value": "Население (за чертой бедности, женщины)"
+    }
+  ],
+  "Count_Person_HispanicOrLatino": [
+    {
+      "type": 0,
+      "value": "Количество человек (испаноговорящие и латиноамериканцы)"
+    }
+  ],
+  "Count_Person_InLaborForce": [
+    {
+      "type": 0,
+      "value": "Количество трудоспособных"
+    }
+  ],
+  "Count_Person_IncomeOf10000To14999USDollar": [
+    {
+      "type": 0,
+      "value": "Население (личный доход 10–15 тыс. долларов США)"
+    }
+  ],
+  "Count_Person_IncomeOf15000To24999USDollar": [
+    {
+      "type": 0,
+      "value": "Население (личный доход 15–25 тыс. долларов США)"
+    }
+  ],
+  "Count_Person_IncomeOf25000To34999USDollar": [
+    {
+      "type": 0,
+      "value": "Население (личный доход 25–35 тыс. долларов США)"
+    }
+  ],
+  "Count_Person_IncomeOf35000To49999USDollar": [
+    {
+      "type": 0,
+      "value": "Население (личный доход 35–50 тыс. долларов США)"
+    }
+  ],
+  "Count_Person_IncomeOf50000To64999USDollar": [
+    {
+      "type": 0,
+      "value": "Население (личный доход 50–65 тыс. долларов США)"
+    }
+  ],
+  "Count_Person_IncomeOf65000To74999USDollar": [
+    {
+      "type": 0,
+      "value": "Население (личный доход 65–75 тыс. долларов США)"
+    }
+  ],
+  "Count_Person_IncomeOf75000OrMoreUSDollar": [
+    {
+      "type": 0,
+      "value": "Население (личный доход более 75 тыс. долларов США)"
+    }
+  ],
+  "Count_Person_IncomeOfUpto9999USDollar": [
+    {
+      "type": 0,
+      "value": "Население (личный доход менее 10 тыс. долларов США)"
+    }
+  ],
+  "Count_Person_Male": [
+    {
+      "type": 0,
+      "value": "Население (мужчины)"
+    }
+  ],
+  "Count_Person_Male_BelowPovertyLevelInThePast12Months": [
+    {
+      "type": 0,
+      "value": "Население (за чертой бедности, мужчины)"
+    }
+  ],
+  "Count_Person_MarriedAndNotSeparated": [
+    {
+      "type": 0,
+      "value": "Население (в браке, проживают совместно)"
+    }
+  ],
+  "Count_Person_NativeHawaiianOrOtherPacificIslanderAlone": [
+    {
+      "type": 0,
+      "value": "Количество человек (коренные жители Гавайев и тихоокеанских островов)"
+    }
+  ],
+  "Count_Person_NeverMarried": [
+    {
+      "type": 0,
+      "value": "Население (никогда не состоявшие в браке)"
+    }
+  ],
+  "Count_Person_NotAUSCitizen": [
+    {
+      "type": 0,
+      "value": "Население (не являющиеся гражданами США)"
+    }
+  ],
+  "Count_Person_NotEnrolledInSchool": [
+    {
+      "type": 0,
+      "value": "Население (не зачисленные в школу)"
+    }
+  ],
+  "Count_Person_PerArea": [
+    {
+      "type": 0,
+      "value": "Плотность населения"
+    }
+  ],
+  "Count_Person_Rural": [
+    {
+      "type": 0,
+      "value": "Население (сельское)"
+    }
+  ],
+  "Count_Person_Separated": [
+    {
+      "type": 0,
+      "value": "Население (проживают раздельно)"
+    }
+  ],
+  "Count_Person_SomeOtherRaceAlone": [
+    {
+      "type": 0,
+      "value": "Количество человек (другие расы)"
+    }
+  ],
+  "Count_Person_TwoOrMoreRaces": [
+    {
+      "type": 0,
+      "value": "Количество человек (две и более расы)"
+    }
+  ],
+  "Count_Person_USCitizenBornAbroadOfAmericanParents": [
+    {
+      "type": 0,
+      "value": "Население (рожденные за границей от родителей-американцев)"
+    }
+  ],
+  "Count_Person_USCitizenBornInTheUnitedStates": [
+    {
+      "type": 0,
+      "value": "Население (рожденные в США)"
+    }
+  ],
+  "Count_Person_USCitizenByNaturalization": [
+    {
+      "type": 0,
+      "value": "Население (граждане США по натурализации)"
+    }
+  ],
+  "Count_Person_Upto4Years": [
+    {
+      "type": 0,
+      "value": "Население в возрасте 0–4 лет"
+    }
+  ],
+  "Count_Person_Upto4Years_Female_SevereWasting_AsFractionOf_Count_Person_Upto4Years_Female": [
+    {
+      "type": 0,
+      "value": "Распространенность тяжелой формы истощения среди детей в возрасте до 5 лет (девочки)"
+    }
+  ],
+  "Count_Person_Upto4Years_Female_Wasting_AsFractionOf_Count_Person_Upto4Years_Female": [
+    {
+      "type": 0,
+      "value": "Распространенность истощения среди детей в возрасте до 5 лет (девочки)"
+    }
+  ],
+  "Count_Person_Upto4Years_Male_SevereWasting_AsFractionOf_Count_Person_Upto4Years_Male": [
+    {
+      "type": 0,
+      "value": "Распространенность тяжелой формы истощения среди детей в возрасте до 5 лет (мальчики)"
+    }
+  ],
+  "Count_Person_Upto4Years_Male_Wasting_AsFractionOf_Count_Person_Upto4Years_Male": [
+    {
+      "type": 0,
+      "value": "Распространенность истощения среди детей в возрасте до 5 лет (мальчики)"
+    }
+  ],
+  "Count_Person_Upto4Years_SevereWasting_AsFractionOf_Count_Person_Upto4Years": [
+    {
+      "type": 0,
+      "value": "Распространенность тяжелой формы истощения среди детей в возрасте до 5 лет"
+    }
+  ],
+  "Count_Person_Upto4Years_Wasting_AsFractionOf_Count_Person_Upto4Years": [
+    {
+      "type": 0,
+      "value": "Распространенность истощения среди детей в возрасте до 5 лет"
+    }
+  ],
+  "Count_Person_Upto9Years": [
+    {
+      "type": 0,
+      "value": "Население в возрасте 0–9 лет"
+    }
+  ],
+  "Count_Person_Urban": [
+    {
+      "type": 0,
+      "value": "Население (городское)"
+    }
+  ],
+  "Count_Person_WhiteAlone": [
+    {
+      "type": 0,
+      "value": "Количество человек (только белокожие)"
+    }
+  ],
+  "Count_Person_Widowed": [
+    {
+      "type": 0,
+      "value": "Население (вдовствующие)"
+    }
+  ],
+  "Count_StormSurgeTideEvent": [
+    {
+      "type": 0,
+      "value": "Количество случаев штормовых приливов"
+    }
+  ],
+  "Count_ThunderstormWindEvent": [
+    {
+      "type": 0,
+      "value": "Количество гроз"
+    }
+  ],
+  "Count_TornadoEvent": [
+    {
+      "type": 0,
+      "value": "Количество случаев торнадо"
+    }
+  ],
+  "Count_UnemploymentInsuranceClaim_StateUnemploymentInsurance": [
+    {
+      "type": 0,
+      "value": "Количество заявлений на получение страховки по безработице в штате"
+    }
+  ],
+  "Count_WildlandFireEvent": [
+    {
+      "type": 0,
+      "value": "Количество случаев лесных пожаров"
+    }
+  ],
+  "CumulativeCount_MedicalConditionIncident_COVID_19_ConfirmedOrProbableCase": [
+    {
+      "type": 0,
+      "value": "Общее количество случаев заболевания COVID-19 (подтвержденные или вероятные)"
+    }
+  ],
+  "CumulativeCount_MedicalConditionIncident_COVID_19_PatientDeceased": [
+    {
+      "type": 0,
+      "value": "Общее количество летальных исходов от COVID-19"
+    }
+  ],
+  "FertilityRate_Person_Female": [
+    {
+      "type": 0,
+      "value": "Коэффициент суммарной рождаемости"
+    }
+  ],
+  "GiniIndex_EconomicActivity": [
+    {
+      "type": 0,
+      "value": "Коэффициент Джини"
+    }
+  ],
+  "GrowthRate_Amount_EconomicActivity_GrossDomesticProduction": [
+    {
+      "type": 0,
+      "value": "Темпы роста ВВП"
+    }
+  ],
+  "GrowthRate_Count_Person": [
+    {
+      "type": 0,
+      "value": "Темп роста населения"
+    }
+  ],
+  "LifeExpectancy_Person": [
+    {
+      "type": 0,
+      "value": "Средняя продолжительность жизни"
+    }
+  ],
+  "Median_Age_Person": [
+    {
+      "type": 0,
+      "value": "Медианный возраст"
+    }
+  ],
+  "Median_Age_Person_AmericanIndianOrAlaskaNativeAlone": [
+    {
+      "type": 0,
+      "value": "Медианный возраст (американские индейцы и коренные жители Аляски)"
+    }
+  ],
+  "Median_Age_Person_AsianAlone": [
+    {
+      "type": 0,
+      "value": "Медианный возраст (только представители азиатской расы)"
+    }
+  ],
+  "Median_Age_Person_BlackOrAfricanAmericanAlone": [
+    {
+      "type": 0,
+      "value": "Медианный возраст (темнокожие и афроамериканцы)"
+    }
+  ],
+  "Median_Age_Person_Female": [
+    {
+      "type": 0,
+      "value": "Медианный возраст (женщины)"
+    }
+  ],
+  "Median_Age_Person_HispanicOrLatino": [
+    {
+      "type": 0,
+      "value": "Медианный возраст (испаноговорящие и латиноамериканцы)"
+    }
+  ],
+  "Median_Age_Person_Male": [
+    {
+      "type": 0,
+      "value": "Медианный возраст (мужчины)"
+    }
+  ],
+  "Median_Age_Person_NativeHawaiianOrOtherPacificIslanderAlone": [
+    {
+      "type": 0,
+      "value": "Медианный возраст (коренные жители Гавайев и тихоокеанских островов)"
+    }
+  ],
+  "Median_Age_Person_SomeOtherRaceAlone": [
+    {
+      "type": 0,
+      "value": "Медианный возраст (другие расы)"
+    }
+  ],
+  "Median_Age_Person_TwoOrMoreRaces": [
+    {
+      "type": 0,
+      "value": "Медианный возраст (две и более расы)"
+    }
+  ],
+  "Median_Age_Person_WhiteAlone": [
+    {
+      "type": 0,
+      "value": "Медианный возраст (только белокожие)"
+    }
+  ],
+  "Median_Income_Household": [
+    {
+      "type": 0,
+      "value": "Медианный семейный доход"
+    }
+  ],
+  "Median_Income_Household_HouseholderRaceAmericanIndianOrAlaskaNativeAlone": [
+    {
+      "type": 0,
+      "value": "Медианный семейный доход (американские индейцы и коренные жители Аляски)"
+    }
+  ],
+  "Median_Income_Household_HouseholderRaceAsianAlone": [
+    {
+      "type": 0,
+      "value": "Медианный семейный доход (представители азиатской расы)"
+    }
+  ],
+  "Median_Income_Household_HouseholderRaceBlackOrAfricanAmericanAlone": [
+    {
+      "type": 0,
+      "value": "Медианный семейный доход (темнокожие и афроамериканцы)"
+    }
+  ],
+  "Median_Income_Household_HouseholderRaceHispanicOrLatino": [
+    {
+      "type": 0,
+      "value": "Медианный семейный доход (испаноговорящие и латиноамериканцы)"
+    }
+  ],
+  "Median_Income_Household_HouseholderRaceNativeHawaiianOrOtherPacificIslanderAlone": [
+    {
+      "type": 0,
+      "value": "Медианный семейный доход (коренные жители Гавайев и тихоокеанских островов)"
+    }
+  ],
+  "Median_Income_Household_HouseholderRaceWhiteAlone": [
+    {
+      "type": 0,
+      "value": "Медианный семейный доход (белокожие)"
+    }
+  ],
+  "Median_Income_Person": [
+    {
+      "type": 0,
+      "value": "Медианный личный доход"
+    }
+  ],
+  "Median_Income_Person_15OrMoreYears_Female_WithIncome": [
+    {
+      "type": 0,
+      "value": "Медианный личный доход (женщины)"
+    }
+  ],
+  "Median_Income_Person_15OrMoreYears_Male_WithIncome": [
+    {
+      "type": 0,
+      "value": "Медианный личный доход (мужчины)"
+    }
+  ],
+  "Percent_Person_18To64Years_Female_NoHealthInsurance": [
+    {
+      "type": 0,
+      "value": "Процент населения без медицинской страховки (женщины)"
+    }
+  ],
+  "Percent_Person_18To64Years_Male_NoHealthInsurance": [
+    {
+      "type": 0,
+      "value": "Процент населения без медицинской страховки (мужчины)"
+    }
+  ],
+  "Percent_Person_18To64Years_NoHealthInsurance_BlackOrAfricanAmericanAlone": [
+    {
+      "type": 0,
+      "value": "Процент населения без медицинской страховки (темнокожие и афроамериканцы)"
+    }
+  ],
+  "Percent_Person_18To64Years_NoHealthInsurance_HispanicOrLatino": [
+    {
+      "type": 0,
+      "value": "Процент населения без медицинской страховки (испаноговорящие и латиноамериканцы)"
+    }
+  ],
+  "Percent_Person_18To64Years_NoHealthInsurance_WhiteAlone": [
+    {
+      "type": 0,
+      "value": "Процент населения без медицинской страховки (белокожие)"
+    }
+  ],
+  "Percent_Person_BingeDrinking": [
+    {
+      "type": 0,
+      "value": "Процент взрослых, злоупотребляющих алкоголем"
+    }
+  ],
+  "Percent_Person_Obesity": [
+    {
+      "type": 0,
+      "value": "Процент взрослых с ожирением"
+    }
+  ],
+  "Percent_Person_PhysicalInactivity": [
+    {
+      "type": 0,
+      "value": "Процент взрослых с гиподинамией"
+    }
+  ],
+  "Percent_Person_SleepLessThan7Hours": [
+    {
+      "type": 0,
+      "value": "Процент взрослых, которые спят менее 7 часов"
+    }
+  ],
+  "Percent_Person_Smoking": [
+    {
+      "type": 0,
+      "value": "Процент взрослых курильщиков"
+    }
+  ],
+  "Percent_Person_WithArthritis": [
+    {
+      "type": 0,
+      "value": "Процент взрослых с артритом"
+    }
+  ],
+  "Percent_Person_WithHighBloodPressure": [
+    {
+      "type": 0,
+      "value": "Процент взрослых с повышенным артериальным давлением"
+    }
+  ],
+  "Percent_Person_WithHighCholesterol": [
+    {
+      "type": 0,
+      "value": "Процент взрослых с высоким уровнем холестерина"
+    }
+  ],
+  "Percent_Person_WithMentalHealthNotGood": [
+    {
+      "type": 0,
+      "value": "Процент взрослых, у которых имеются проблемы с психическим здоровьем"
+    }
+  ],
+  "Percent_Person_WithPhysicalHealthNotGood": [
+    {
+      "type": 0,
+      "value": "Процент взрослых, у которых имеются проблемы с физическим здоровьем"
+    }
+  ],
+  "RetailDrugDistribution_DrugDistribution_Amphetamine": [
+    {
+      "type": 0,
+      "value": "Общее количество розничных продаж амфетамина"
+    }
+  ],
+  "RetailDrugDistribution_DrugDistribution_Codeine": [
+    {
+      "type": 0,
+      "value": "Общее количество розничных продаж кодеина"
+    }
+  ],
+  "RetailDrugDistribution_DrugDistribution_Hydrocodone": [
+    {
+      "type": 0,
+      "value": "Общее количество розничных продаж гидрокодона"
+    }
+  ],
+  "RetailDrugDistribution_DrugDistribution_Morphine": [
+    {
+      "type": 0,
+      "value": "Общее количество розничных продаж морфина"
+    }
+  ],
+  "RetailDrugDistribution_DrugDistribution_Oxycodone": [
+    {
+      "type": 0,
+      "value": "Общее количество розничных продаж оксикодона"
+    }
+  ],
+  "UnemploymentRate_Person": [
+    {
+      "type": 0,
+      "value": "Уровень безработицы"
+    }
+  ],
+  "UnemploymentRate_Person_Female": [
+    {
+      "type": 0,
+      "value": "Уровень безработицы (женщины)"
+    }
+  ],
+  "UnemploymentRate_Person_Male": [
+    {
+      "type": 0,
+      "value": "Уровень безработицы (мужчины)"
+    }
+  ]
+}

@@ -186,7 +186,6 @@ function renderPage(): void {
       loadingElem.style.display = "none";
       const data: PageData = landingPageData;
       const isUsaPlace = isPlaceInUsa(dcid, data.parentPlaces);
-      data.categories["Overview"] = translateVariableString("Overview");
       if (Object.keys(data.pageChart).length == 1) {
         topic = "Overview";
       }

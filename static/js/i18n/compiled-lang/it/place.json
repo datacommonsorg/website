@@ -176,13 +176,13 @@
   "link-return_to_overview": [
     {
       "type": 0,
-      "value": "Torna alla panoramica ›"
+      "value": "Torna alla panoramica "
     }
   ],
   "more_charts": [
     {
       "type": 0,
-      "value": "Altri grafici ›"
+      "value": "Altri grafici "
     }
   ],
   "place_breadcrumb": [
@@ -192,7 +192,7 @@
     },
     {
       "type": 0,
-      "value": " di: "
+      "value": " in "
     },
     {
       "type": 1,
@@ -219,10 +219,92 @@
       "value": "total"
     }
   ],
+  "plural_administrative_area": [
+    {
+      "type": 0,
+      "value": "Aree amministrative"
+    }
+  ],
+  "plural_administrative_area_level": [
+    {
+      "type": 0,
+      "value": "Posizioni "
+    },
+    {
+      "type": 1,
+      "value": "level"
+    },
+    {
+      "type": 0,
+      "value": " area amministrativa"
+    }
+  ],
+  "plural_borough": [
+    {
+      "type": 0,
+      "value": "Distretti"
+    }
+  ],
+  "plural_city": [
+    {
+      "type": 0,
+      "value": "Città"
+    }
+  ],
+  "plural_country": [
+    {
+      "type": 0,
+      "value": "Paesi"
+    }
+  ],
+  "plural_county": [
+    {
+      "type": 0,
+      "value": "Contee"
+    }
+  ],
+  "plural_eurostat_nuts": [
+    {
+      "type": 0,
+      "value": "Posizioni "
+    },
+    {
+      "type": 1,
+      "value": "level"
+    },
+    {
+      "type": 0,
+      "value": " Eurostat NUTS"
+    }
+  ],
+  "plural_neighborhood": [
+    {
+      "type": 0,
+      "value": "Quartieri"
+    }
+  ],
   "plural_places": [
     {
       "type": 0,
       "value": "Luoghi"
+    }
+  ],
+  "plural_state": [
+    {
+      "type": 0,
+      "value": "Stati"
+    }
+  ],
+  "plural_town": [
+    {
+      "type": 0,
+      "value": "Città"
+    }
+  ],
+  "plural_village": [
+    {
+      "type": 0,
+      "value": "Villaggi"
     }
   ],
   "plural_zip_codes": [
@@ -231,16 +313,350 @@
       "value": "Codici postali"
     }
   ],
+  "ranking-document_title": [
+    {
+      "type": 0,
+      "value": "Classifica per "
+    },
+    {
+      "type": 1,
+      "value": "statVar"
+    },
+    {
+      "type": 0,
+      "value": " - "
+    },
+    {
+      "type": 1,
+      "value": "pluralPlaceType"
+    },
+    {
+      "type": 0,
+      "value": " in "
+    },
+    {
+      "type": 1,
+      "value": "placeName"
+    }
+  ],
+  "ranking-loading": [
+    {
+      "type": 0,
+      "value": "Caricamento in corso…"
+    }
+  ],
+  "ranking-no_data": [
+    {
+      "type": 0,
+      "value": "Non sono disponibili dati relativi al posizionamento."
+    }
+  ],
+  "ranking-page_title": [
+    {
+      "type": 0,
+      "value": "Classifica per "
+    },
+    {
+      "type": 1,
+      "value": "statVar"
+    }
+  ],
+  "ranking-sort_bottom": [
+    {
+      "type": 0,
+      "value": "Mostra ultime "
+    },
+    {
+      "type": 1,
+      "value": "rankSize"
+    },
+    {
+      "type": 0,
+      "value": " posizioni"
+    }
+  ],
+  "ranking-sort_top": [
+    {
+      "type": 0,
+      "value": "Mostra prime "
+    },
+    {
+      "type": 1,
+      "value": "rankSize"
+    },
+    {
+      "type": 0,
+      "value": " posizioni"
+    }
+  ],
+  "ranking-subtitle_all": [
+    {
+      "type": 1,
+      "value": "pluralPlaceType"
+    },
+    {
+      "type": 0,
+      "value": " in "
+    },
+    {
+      "type": 1,
+      "value": "placeName"
+    },
+    {
+      "type": 0,
+      "value": " (tutti i valori)"
+    }
+  ],
+  "ranking-subtitle_all_percapita": [
+    {
+      "type": 1,
+      "value": "pluralPlaceType"
+    },
+    {
+      "type": 0,
+      "value": " in "
+    },
+    {
+      "type": 1,
+      "value": "placeName"
+    },
+    {
+      "type": 0,
+      "value": ", pro capite (tutti i valori)"
+    }
+  ],
+  "ranking-subtitle_bottom": [
+    {
+      "type": 1,
+      "value": "rankSize"
+    },
+    {
+      "type": 0,
+      "value": " "
+    },
+    {
+      "type": 1,
+      "value": "pluralPlaceType"
+    },
+    {
+      "type": 0,
+      "value": " con il posizionamento più basso in "
+    },
+    {
+      "type": 1,
+      "value": "placeName"
+    }
+  ],
+  "ranking-subtitle_bottom_percapita": [
+    {
+      "type": 1,
+      "value": "rankSize"
+    },
+    {
+      "type": 0,
+      "value": " "
+    },
+    {
+      "type": 1,
+      "value": "pluralPlaceType"
+    },
+    {
+      "type": 0,
+      "value": " con il posizionamento più basso in "
+    },
+    {
+      "type": 1,
+      "value": "placeName"
+    },
+    {
+      "type": 0,
+      "value": ", pro capite"
+    }
+  ],
+  "ranking-subtitle_none": [
+    {
+      "type": 1,
+      "value": "pluralPlaceType"
+    },
+    {
+      "type": 0,
+      "value": " in "
+    },
+    {
+      "type": 1,
+      "value": "placeName"
+    }
+  ],
+  "ranking-subtitle_none_percapita": [
+    {
+      "type": 1,
+      "value": "pluralPlaceType"
+    },
+    {
+      "type": 0,
+      "value": " in "
+    },
+    {
+      "type": 1,
+      "value": "placeName"
+    },
+    {
+      "type": 0,
+      "value": ", pro capite"
+    }
+  ],
+  "ranking-subtitle_top": [
+    {
+      "type": 1,
+      "value": "rankSize"
+    },
+    {
+      "type": 0,
+      "value": " "
+    },
+    {
+      "type": 1,
+      "value": "pluralPlaceType"
+    },
+    {
+      "type": 0,
+      "value": " con il posizionamento più alto in "
+    },
+    {
+      "type": 1,
+      "value": "placeName"
+    }
+  ],
+  "ranking-subtitle_top_percapita": [
+    {
+      "type": 1,
+      "value": "rankSize"
+    },
+    {
+      "type": 0,
+      "value": " "
+    },
+    {
+      "type": 1,
+      "value": "pluralPlaceType"
+    },
+    {
+      "type": 0,
+      "value": " con il posizionamento più alto in "
+    },
+    {
+      "type": 1,
+      "value": "placeName"
+    },
+    {
+      "type": 0,
+      "value": ", pro capite"
+    }
+  ],
+  "ranking_table-header_rank": [
+    {
+      "type": 0,
+      "value": "Posizione"
+    }
+  ],
+  "ranking_table-header_value": [
+    {
+      "type": 0,
+      "value": "Valore"
+    }
+  ],
   "search_bar_placeholder-search_again": [
     {
       "type": 0,
       "value": "Cerca un altro luogo"
     }
   ],
+  "singular_administrative_area": [
+    {
+      "type": 0,
+      "value": "Area amministrativa"
+    }
+  ],
+  "singular_administrative_area_level": [
+    {
+      "type": 0,
+      "value": "Posizione "
+    },
+    {
+      "type": 1,
+      "value": "level"
+    },
+    {
+      "type": 0,
+      "value": " area amministrativa"
+    }
+  ],
+  "singular_borough": [
+    {
+      "type": 0,
+      "value": "Distretto"
+    }
+  ],
+  "singular_city": [
+    {
+      "type": 0,
+      "value": "Città"
+    }
+  ],
+  "singular_country": [
+    {
+      "type": 0,
+      "value": "Paese"
+    }
+  ],
+  "singular_county": [
+    {
+      "type": 0,
+      "value": "Contea"
+    }
+  ],
+  "singular_eurostat_nuts": [
+    {
+      "type": 0,
+      "value": "Posizione "
+    },
+    {
+      "type": 1,
+      "value": "level"
+    },
+    {
+      "type": 0,
+      "value": " Eurostat NUTS"
+    }
+  ],
+  "singular_neighborhood": [
+    {
+      "type": 0,
+      "value": "Quartiere"
+    }
+  ],
   "singular_place": [
     {
       "type": 0,
       "value": "Luogo"
+    }
+  ],
+  "singular_state": [
+    {
+      "type": 0,
+      "value": "Stato"
+    }
+  ],
+  "singular_town": [
+    {
+      "type": 0,
+      "value": "Città"
+    }
+  ],
+  "singular_village": [
+    {
+      "type": 0,
+      "value": "Villaggio"
     }
   ],
   "singular_zip_code": [

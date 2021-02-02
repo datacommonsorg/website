@@ -184,13 +184,13 @@
   "link-return_to_overview": [
     {
       "type": 0,
-      "value": "개요로 돌아가기 ›"
+      "value": "개요로 돌아가기 "
     }
   ],
   "more_charts": [
     {
       "type": 0,
-      "value": "차트 더보기 ›"
+      "value": "차트 더보기 "
     }
   ],
   "place_breadcrumb": [
@@ -231,10 +231,88 @@
       "value": "위"
     }
   ],
+  "plural_administrative_area": [
+    {
+      "type": 0,
+      "value": "행정 구역"
+    }
+  ],
+  "plural_administrative_area_level": [
+    {
+      "type": 1,
+      "value": "level"
+    },
+    {
+      "type": 0,
+      "value": "급 행정 구역"
+    }
+  ],
+  "plural_borough": [
+    {
+      "type": 0,
+      "value": "자치구"
+    }
+  ],
+  "plural_city": [
+    {
+      "type": 0,
+      "value": "도시"
+    }
+  ],
+  "plural_country": [
+    {
+      "type": 0,
+      "value": "국가"
+    }
+  ],
+  "plural_county": [
+    {
+      "type": 0,
+      "value": "카운티"
+    }
+  ],
+  "plural_eurostat_nuts": [
+    {
+      "type": 0,
+      "value": "유럽 연합통계청 NUTS "
+    },
+    {
+      "type": 1,
+      "value": "level"
+    },
+    {
+      "type": 0,
+      "value": "급 장소"
+    }
+  ],
+  "plural_neighborhood": [
+    {
+      "type": 0,
+      "value": "동네"
+    }
+  ],
   "plural_places": [
     {
       "type": 0,
       "value": "장소"
+    }
+  ],
+  "plural_state": [
+    {
+      "type": 0,
+      "value": "주"
+    }
+  ],
+  "plural_town": [
+    {
+      "type": 0,
+      "value": "소도시"
+    }
+  ],
+  "plural_village": [
+    {
+      "type": 0,
+      "value": "마을"
     }
   ],
   "plural_zip_codes": [
@@ -243,16 +321,346 @@
       "value": "우편번호"
     }
   ],
+  "ranking-document_title": [
+    {
+      "type": 1,
+      "value": "statVar"
+    },
+    {
+      "type": 0,
+      "value": " 순위 - "
+    },
+    {
+      "type": 1,
+      "value": "placeName"
+    },
+    {
+      "type": 0,
+      "value": " "
+    },
+    {
+      "type": 1,
+      "value": "pluralPlaceType"
+    }
+  ],
+  "ranking-loading": [
+    {
+      "type": 0,
+      "value": "로드 중..."
+    }
+  ],
+  "ranking-no_data": [
+    {
+      "type": 0,
+      "value": "사용 가능한 순위 데이터가 없습니다."
+    }
+  ],
+  "ranking-page_title": [
+    {
+      "type": 1,
+      "value": "statVar"
+    },
+    {
+      "type": 0,
+      "value": " 순위"
+    }
+  ],
+  "ranking-sort_bottom": [
+    {
+      "type": 0,
+      "value": "하위 "
+    },
+    {
+      "type": 1,
+      "value": "rankSize"
+    },
+    {
+      "type": 0,
+      "value": "개 보기"
+    }
+  ],
+  "ranking-sort_top": [
+    {
+      "type": 0,
+      "value": "상위 "
+    },
+    {
+      "type": 1,
+      "value": "rankSize"
+    },
+    {
+      "type": 0,
+      "value": "개 보기"
+    }
+  ],
+  "ranking-subtitle_all": [
+    {
+      "type": 1,
+      "value": "placeName"
+    },
+    {
+      "type": 0,
+      "value": " 전체 "
+    },
+    {
+      "type": 1,
+      "value": "pluralPlaceType"
+    }
+  ],
+  "ranking-subtitle_all_percapita": [
+    {
+      "type": 1,
+      "value": "placeName"
+    },
+    {
+      "type": 0,
+      "value": " 전체 "
+    },
+    {
+      "type": 1,
+      "value": "pluralPlaceType"
+    },
+    {
+      "type": 0,
+      "value": "(1인당)"
+    }
+  ],
+  "ranking-subtitle_bottom": [
+    {
+      "type": 1,
+      "value": "placeName"
+    },
+    {
+      "type": 0,
+      "value": " 하위 "
+    },
+    {
+      "type": 1,
+      "value": "pluralPlaceType"
+    },
+    {
+      "type": 0,
+      "value": " "
+    },
+    {
+      "type": 1,
+      "value": "rankSize"
+    },
+    {
+      "type": 0,
+      "value": "개"
+    }
+  ],
+  "ranking-subtitle_bottom_percapita": [
+    {
+      "type": 1,
+      "value": "placeName"
+    },
+    {
+      "type": 0,
+      "value": " 하위 "
+    },
+    {
+      "type": 1,
+      "value": "rankSize"
+    },
+    {
+      "type": 0,
+      "value": "개 "
+    },
+    {
+      "type": 1,
+      "value": "pluralPlaceType"
+    },
+    {
+      "type": 0,
+      "value": "(1인당)"
+    }
+  ],
+  "ranking-subtitle_none": [
+    {
+      "type": 1,
+      "value": "placeName"
+    },
+    {
+      "type": 0,
+      "value": " "
+    },
+    {
+      "type": 1,
+      "value": "pluralPlaceType"
+    }
+  ],
+  "ranking-subtitle_none_percapita": [
+    {
+      "type": 1,
+      "value": "placeName"
+    },
+    {
+      "type": 0,
+      "value": " "
+    },
+    {
+      "type": 1,
+      "value": "pluralPlaceType"
+    },
+    {
+      "type": 0,
+      "value": "(1인당)"
+    }
+  ],
+  "ranking-subtitle_top": [
+    {
+      "type": 1,
+      "value": "placeName"
+    },
+    {
+      "type": 0,
+      "value": " 상위 "
+    },
+    {
+      "type": 1,
+      "value": "pluralPlaceType"
+    },
+    {
+      "type": 0,
+      "value": " "
+    },
+    {
+      "type": 1,
+      "value": "rankSize"
+    },
+    {
+      "type": 0,
+      "value": "개"
+    }
+  ],
+  "ranking-subtitle_top_percapita": [
+    {
+      "type": 1,
+      "value": "placeName"
+    },
+    {
+      "type": 0,
+      "value": " 상위 "
+    },
+    {
+      "type": 1,
+      "value": "rankSize"
+    },
+    {
+      "type": 0,
+      "value": "개 "
+    },
+    {
+      "type": 1,
+      "value": "pluralPlaceType"
+    },
+    {
+      "type": 0,
+      "value": "(1인당)"
+    }
+  ],
+  "ranking_table-header_rank": [
+    {
+      "type": 0,
+      "value": "순위"
+    }
+  ],
+  "ranking_table-header_value": [
+    {
+      "type": 0,
+      "value": "값"
+    }
+  ],
   "search_bar_placeholder-search_again": [
     {
       "type": 0,
       "value": "다른 장소 검색"
     }
   ],
+  "singular_administrative_area": [
+    {
+      "type": 0,
+      "value": "행정 구역"
+    }
+  ],
+  "singular_administrative_area_level": [
+    {
+      "type": 1,
+      "value": "level"
+    },
+    {
+      "type": 0,
+      "value": "급 행정 구역"
+    }
+  ],
+  "singular_borough": [
+    {
+      "type": 0,
+      "value": "자치구"
+    }
+  ],
+  "singular_city": [
+    {
+      "type": 0,
+      "value": "시"
+    }
+  ],
+  "singular_country": [
+    {
+      "type": 0,
+      "value": "국가"
+    }
+  ],
+  "singular_county": [
+    {
+      "type": 0,
+      "value": "카운티"
+    }
+  ],
+  "singular_eurostat_nuts": [
+    {
+      "type": 0,
+      "value": "유럽 연합통계청 NUTS "
+    },
+    {
+      "type": 1,
+      "value": "level"
+    },
+    {
+      "type": 0,
+      "value": "급 장소"
+    }
+  ],
+  "singular_neighborhood": [
+    {
+      "type": 0,
+      "value": "동네"
+    }
+  ],
   "singular_place": [
     {
       "type": 0,
       "value": "장소"
+    }
+  ],
+  "singular_state": [
+    {
+      "type": 0,
+      "value": "주"
+    }
+  ],
+  "singular_town": [
+    {
+      "type": 0,
+      "value": "소도시"
+    }
+  ],
+  "singular_village": [
+    {
+      "type": 0,
+      "value": "마을"
     }
   ],
   "singular_zip_code": [

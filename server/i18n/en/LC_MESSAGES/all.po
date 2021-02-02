@@ -395,6 +395,10 @@ msgid "CHART_TITLE-Bachelors_degree_rate_gender"
 msgstr "Rate of bachelor's degree attainment by gender"
 
 #. The category for a group of statistical charts.
+msgid "CHART_TITLE-CHART_CATEGORY-Overview"
+msgstr "Overview"
+
+#. The category for a group of statistical charts.
 msgid "CHART_TITLE-CHART_CATEGORY-Crime"
 msgstr "Crime"
 

@@ -1,0 +1,1400 @@
+{
+  "Amount_Consumption_Alcohol_15OrMoreYears_AsFractionOf_Count_Person_15OrMoreYears": [
+    {
+      "type": 0,
+      "value": "प्रति व्यक्ति अल्कोहल की खपत (सालाना)"
+    }
+  ],
+  "Amount_Consumption_Electricity_PerCapita": [
+    {
+      "type": 0,
+      "value": "प्रति व्यक्ति बिजली की खपत"
+    }
+  ],
+  "Amount_Consumption_Energy_PerCapita": [
+    {
+      "type": 0,
+      "value": "प्रति व्यक्ति ऊर्जा की खपत"
+    }
+  ],
+  "Amount_Debt_Government": [
+    {
+      "type": 0,
+      "value": "सरकारी क़र्ज़"
+    }
+  ],
+  "Amount_EconomicActivity_ExpenditureActivity_EducationExpenditure_Government_AsFractionOf_Amount_EconomicActivity_ExpenditureActivity_Government": [
+    {
+      "type": 0,
+      "value": "शिक्षा पर सरकारी खर्च (कुल सरकारी खर्च का प्रतिशत)"
+    }
+  ],
+  "Amount_EconomicActivity_ExpenditureActivity_EducationExpenditure_Government_AsFractionOf_Amount_EconomicActivity_GrossDomesticProduction_Nominal": [
+    {
+      "type": 0,
+      "value": "शिक्षा पर होने वाला सरकारी खर्च (GDP के प्रतिशत के हिसाब से)"
+    }
+  ],
+  "Amount_EconomicActivity_ExpenditureActivity_MilitaryExpenditure_Government": [
+    {
+      "type": 0,
+      "value": "सेना पर होने वाला सरकारी खर्च"
+    }
+  ],
+  "Amount_EconomicActivity_ExpenditureActivity_MilitaryExpenditure_Government_AsFractionOf_Amount_EconomicActivity_GrossDomesticProduction_Nominal": [
+    {
+      "type": 0,
+      "value": "सेना पर होने वाला सरकारी खर्च (GDP के प्रतिशत के हिसाब से)"
+    }
+  ],
+  "Amount_EconomicActivity_GrossDomesticProduction_Nominal": [
+    {
+      "type": 0,
+      "value": "सकल घरेलू उत्पाद (नॉमिनल)"
+    }
+  ],
+  "Amount_EconomicActivity_GrossDomesticProduction_Nominal_PerCapita": [
+    {
+      "type": 0,
+      "value": "प्रति व्यक्ति सकल घरेलू उत्पाद (नॉमिनल)"
+    }
+  ],
+  "Amount_EconomicActivity_GrossNationalIncome_PurchasingPowerParity": [
+    {
+      "type": 0,
+      "value": "सकल राष्ट्रीय आय (क्रय क्षमता की समानता)"
+    }
+  ],
+  "Amount_EconomicActivity_GrossNationalIncome_PurchasingPowerParity_PerCapita": [
+    {
+      "type": 0,
+      "value": "प्रति व्यक्ति सकल राष्ट्रीय आय (क्रय क्षमता की समानता)"
+    }
+  ],
+  "Amount_Emissions_CarbonDioxide_PerCapita": [
+    {
+      "type": 0,
+      "value": "प्रति व्यक्ति कार्बन डाई ऑक्साइड उत्सर्जन"
+    }
+  ],
+  "Amount_Remittance_InwardRemittance": [
+    {
+      "type": 0,
+      "value": "लोगों के बैंक खातों में जमा कुल रकम"
+    }
+  ],
+  "Amount_Remittance_InwardRemittance_AsFractionOf_Amount_EconomicActivity_GrossDomesticProduction_Nominal": [
+    {
+      "type": 0,
+      "value": "लोगों के बैंक खातों में जमा कुल रकम (GDP के प्रतिशत के हिसाब से)"
+    }
+  ],
+  "Amount_Remittance_OutwardRemittance": [
+    {
+      "type": 0,
+      "value": "लोगों के बैंक खातों से निकाली गई कुल रकम"
+    }
+  ],
+  "Amount_Stock": [
+    {
+      "type": 0,
+      "value": "घरेलू कंपनियों का बाज़ार पूंजीकरण"
+    }
+  ],
+  "Amount_Stock_AsFractionOf_Amount_EconomicActivity_GrossDomesticProduction_Nominal": [
+    {
+      "type": 0,
+      "value": "घरेलू कंपनियों का बाज़ार पूंजीकरण (GDP के प्रतिशत के हिसाब से)"
+    }
+  ],
+  "Count_CriminalActivities_Arson": [
+    {
+      "type": 0,
+      "value": "आपराधिक गतिविधियों की संख्या (आगज़नी)"
+    }
+  ],
+  "Count_CriminalActivities_CombinedCrime": [
+    {
+      "type": 0,
+      "value": "आपराधिक गतिविधियों की संख्या (हर तरह के अपराध)"
+    }
+  ],
+  "Count_CriminalActivities_PropertyCrime": [
+    {
+      "type": 0,
+      "value": "आपराधिक गतिविधियों की संख्या (प्रॉपर्टी से जुड़े अपराध)"
+    }
+  ],
+  "Count_CriminalActivities_ViolentCrime": [
+    {
+      "type": 0,
+      "value": "आपराधिक गतिविधियों की संख्या (हिंसक अपराध)"
+    }
+  ],
+  "Count_CycloneEvent": [
+    {
+      "type": 0,
+      "value": "एक जगह पर आए चक्रवातों की संख्या"
+    }
+  ],
+  "Count_Death_0Years_AsFractionOf_Count_BirthEvent_LiveBirth": [
+    {
+      "type": 0,
+      "value": "शिशु मृत्यु दर"
+    }
+  ],
+  "Count_Death_0Years_Female_AsFractionOf_Count_BirthEvent_LiveBirth_Female": [
+    {
+      "type": 0,
+      "value": "शिशु मृत्यु दर (बच्ची)"
+    }
+  ],
+  "Count_Death_0Years_Male_AsFractionOf_Count_BirthEvent_LiveBirth_Male": [
+    {
+      "type": 0,
+      "value": "शिशु मृत्यु दर (बच्चा)"
+    }
+  ],
+  "Count_Death_DiseasesOfTheCirculatorySystem": [
+    {
+      "type": 0,
+      "value": "परिसंचरण तंत्र (सर्कुलेटरी सिस्टम) के रोगों की वजह से होने वाली मौतों की संख्या"
+    }
+  ],
+  "Count_Death_DiseasesOfTheNervousSystem": [
+    {
+      "type": 0,
+      "value": "तंत्रिका तंत्र (नर्वस सिस्टम) के रोगों की वजह से होने वाली मौतों की संख्या"
+    }
+  ],
+  "Count_Death_DiseasesOfTheRespiratorySystem": [
+    {
+      "type": 0,
+      "value": "श्वसन तंत्र (रेस्पिरेटरी सिस्टम) के रोगों की वजह से होने वाली मौतों की संख्या"
+    }
+  ],
+  "Count_Death_ExternalCauses": [
+    {
+      "type": 0,
+      "value": "दूसरी वजहों से मरने वालों की संख्या"
+    }
+  ],
+  "Count_Death_Neoplasms": [
+    {
+      "type": 0,
+      "value": "नियोप्लाज़्म (ट्यूमर) से होने वाली मौतों की संख्या"
+    }
+  ],
+  "Count_DroughtEvent": [
+    {
+      "type": 0,
+      "value": "किसी इलाके में पड़े सूखे की संख्या"
+    }
+  ],
+  "Count_EarthquakeEvent": [
+    {
+      "type": 0,
+      "value": "किसी एक इलाके में आए भूकंपों की संख्या"
+    }
+  ],
+  "Count_FloodEvent": [
+    {
+      "type": 0,
+      "value": "किसी इलाके में आए बाढ़ की संख्या"
+    }
+  ],
+  "Count_Household_IncomeOf100000To124999USDollar": [
+    {
+      "type": 0,
+      "value": "परिवारों की संख्या (1 से 1.25 लाख डॉलर की आमदनी वाले)"
+    }
+  ],
+  "Count_Household_IncomeOf10000To14999USDollar": [
+    {
+      "type": 0,
+      "value": "परिवारों की संख्या (10 से 15 हज़ार डॉलर की आमदनी वाले)"
+    }
+  ],
+  "Count_Household_IncomeOf125000To149999USDollar": [
+    {
+      "type": 0,
+      "value": "परिवारों की संख्या (1.25 से 1.5 लाख डॉलर की आमदनी वाले)"
+    }
+  ],
+  "Count_Household_IncomeOf150000To199999USDollar": [
+    {
+      "type": 0,
+      "value": "परिवारों की संख्या (1.5 से 2 लाख डॉलर आमदनी वाले)"
+    }
+  ],
+  "Count_Household_IncomeOf200000OrMoreUSDollar": [
+    {
+      "type": 0,
+      "value": "परिवारों की संख्या (2 लाख डॉलर से ज़्यादा आमदनी वाले)"
+    }
+  ],
+  "Count_Household_IncomeOf20000To24999USDollar": [
+    {
+      "type": 0,
+      "value": "परिवारों की संख्या (20 से 25 हज़ार डॉलर की आमदनी वाले)"
+    }
+  ],
+  "Count_Household_IncomeOf30000To34999USDollar": [
+    {
+      "type": 0,
+      "value": "परिवारों की संख्या (30 से 35 हज़ार डॉलर की आमदनी वाले)"
+    }
+  ],
+  "Count_Household_IncomeOf40000To44999USDollar": [
+    {
+      "type": 0,
+      "value": "परिवारों की संख्या (40 से 45 हज़ार डॉलर की आमदनी वाले)"
+    }
+  ],
+  "Count_Household_IncomeOf50000To59999USDollar": [
+    {
+      "type": 0,
+      "value": "परिवारों की संख्या (50 से 60 हज़ार डॉलर की आमदनी वाले)"
+    }
+  ],
+  "Count_Household_IncomeOf60000To74999USDollar": [
+    {
+      "type": 0,
+      "value": "परिवारों की संख्या (60 से 75 हज़ार डॉलर आमदनी वाले)"
+    }
+  ],
+  "Count_Household_IncomeOf75000To99999USDollar": [
+    {
+      "type": 0,
+      "value": "परिवारों की संख्या (75 हज़ार से 1 लाख डॉलर की आमदनी वाले)"
+    }
+  ],
+  "Count_Household_IncomeOfUpto10000USDollar": [
+    {
+      "type": 0,
+      "value": "परिवारों की संख्या (10 हज़ार डॉलर से कम आमदनी वाले)"
+    }
+  ],
+  "Count_HousingUnit": [
+    {
+      "type": 0,
+      "value": "घरों की संख्या"
+    }
+  ],
+  "Count_HousingUnit_1940To1949DateBuilt": [
+    {
+      "type": 0,
+      "value": "घरों की संख्या (1940 से 1949 के बीच)"
+    }
+  ],
+  "Count_HousingUnit_1950To1959DateBuilt": [
+    {
+      "type": 0,
+      "value": "घरों की संख्या (1950 से 1959 के बीच)"
+    }
+  ],
+  "Count_HousingUnit_1960To1969DateBuilt": [
+    {
+      "type": 0,
+      "value": "घरों की संख्या (1960 से 1969 के बीच)"
+    }
+  ],
+  "Count_HousingUnit_1970To1979DateBuilt": [
+    {
+      "type": 0,
+      "value": "घरों की संख्या (1970 से 1979 के बीच)"
+    }
+  ],
+  "Count_HousingUnit_1980To1989DateBuilt": [
+    {
+      "type": 0,
+      "value": "घरों की संख्या (1980 से 1989 के बीच)"
+    }
+  ],
+  "Count_HousingUnit_1990To1999DateBuilt": [
+    {
+      "type": 0,
+      "value": "घरों की संख्या (1990 से 1999 के बीच)"
+    }
+  ],
+  "Count_HousingUnit_2000To2009DateBuilt": [
+    {
+      "type": 0,
+      "value": "घरों की संख्या (2000 से 2009 के बीच)"
+    }
+  ],
+  "Count_HousingUnit_2010OrLaterDateBuilt": [
+    {
+      "type": 0,
+      "value": "घरों की संख्या (2010 के बाद)"
+    }
+  ],
+  "Count_HousingUnit_Before1939DateBuilt": [
+    {
+      "type": 0,
+      "value": "घरों की संख्या (1939 से पहले)"
+    }
+  ],
+  "Count_HousingUnit_HomeValue1000000To1499999USDollar": [
+    {
+      "type": 0,
+      "value": "घरों की संख्या (10 से 15 लाख डॉलर कीमत वाले)"
+    }
+  ],
+  "Count_HousingUnit_HomeValue100000To199999USDollar": [
+    {
+      "type": 0,
+      "value": "घरों की संख्या (1 से 2 लाख डॉलर की कीमत वाले)"
+    }
+  ],
+  "Count_HousingUnit_HomeValue1500000To1999999USDollar": [
+    {
+      "type": 0,
+      "value": "घरों की संख्या (15 से 20 लाख डॉलर कीमत वाले)"
+    }
+  ],
+  "Count_HousingUnit_HomeValue2000000OrMoreUSDollar": [
+    {
+      "type": 0,
+      "value": "घरों की संख्या (20 लाख डॉलर कीमत वाले)"
+    }
+  ],
+  "Count_HousingUnit_HomeValue200000To299999USDollar": [
+    {
+      "type": 0,
+      "value": "घरों की संख्या (2 से 3 लाख डॉलर कीमत वाले)"
+    }
+  ],
+  "Count_HousingUnit_HomeValue300000To499999USDollar": [
+    {
+      "type": 0,
+      "value": "घरों की संख्या (3 से 5 लाख डॉलर कीमत वाले)"
+    }
+  ],
+  "Count_HousingUnit_HomeValue500000To999999USDollar": [
+    {
+      "type": 0,
+      "value": "घरों की संख्या (5 से 10 लाख डॉलर की कीमत वाले घर)"
+    }
+  ],
+  "Count_HousingUnit_HomeValue50000To99999USDollar": [
+    {
+      "type": 0,
+      "value": "घरों की संख्या (50 हज़ार से 1 लाख डॉलर कीमत वाले)"
+    }
+  ],
+  "Count_HousingUnit_HomeValueUpto49999USDollar": [
+    {
+      "type": 0,
+      "value": "घरों की संख्या (50 हज़ार डॉलर से कम कीमत वाले)"
+    }
+  ],
+  "Count_HousingUnit_HouseholderRaceAmericanIndianOrAlaskaNativeAlone": [
+    {
+      "type": 0,
+      "value": "परिवारों की संख्या (अमेरिकन इंडियन या अलास्का के मूल निवासी)"
+    }
+  ],
+  "Count_HousingUnit_HouseholderRaceAsianAlone": [
+    {
+      "type": 0,
+      "value": "परिवारों की संख्या (सिर्फ़ एशियन)"
+    }
+  ],
+  "Count_HousingUnit_HouseholderRaceBlackOrAfricanAmericanAlone": [
+    {
+      "type": 0,
+      "value": "परिवारों की संख्या (अफ़्रीकी-अमेरिकी)"
+    }
+  ],
+  "Count_HousingUnit_HouseholderRaceHispanicOrLatino": [
+    {
+      "type": 0,
+      "value": "परिवारों की संख्या (हिस्पैनिक या लैटिनो)"
+    }
+  ],
+  "Count_HousingUnit_HouseholderRaceNativeHawaiianOrOtherPacificIslanderAlone": [
+    {
+      "type": 0,
+      "value": "परिवारों की संख्या (हवाई का मूल निवासी या पैसिफ़िक आइलैंडर)"
+    }
+  ],
+  "Count_HousingUnit_HouseholderRaceSomeOtherRaceAlone": [
+    {
+      "type": 0,
+      "value": "परिवारों की संख्या (दूसरी नस्लें)"
+    }
+  ],
+  "Count_HousingUnit_HouseholderRaceTwoOrMoreRaces": [
+    {
+      "type": 0,
+      "value": "परिवारों की संख्या (दो या दो से ज़्यादा नस्लें)"
+    }
+  ],
+  "Count_HousingUnit_HouseholderRaceWhiteAlone": [
+    {
+      "type": 0,
+      "value": "परिवारों की संख्या (सिर्फ़ श्वेत)"
+    }
+  ],
+  "Count_HousingUnit_OwnerOccupied": [
+    {
+      "type": 0,
+      "value": "घरों की संख्या (मालिक के अधिकार वाले)"
+    }
+  ],
+  "Count_HousingUnit_RenterOccupied": [
+    {
+      "type": 0,
+      "value": "घरों की संख्या (किरायदार के अधिकार वाले)"
+    }
+  ],
+  "Count_Person": [
+    {
+      "type": 0,
+      "value": "जनसंख्या"
+    }
+  ],
+  "Count_Person_10To14Years": [
+    {
+      "type": 0,
+      "value": "जनसंख्या (10 से 14 साल की उम्र के लोग)"
+    }
+  ],
+  "Count_Person_10To19Years": [
+    {
+      "type": 0,
+      "value": "जनसंख्या (10 से 19 साल की उम्र के लोग)"
+    }
+  ],
+  "Count_Person_15OrMoreYears": [
+    {
+      "type": 0,
+      "value": "जनसंख्या (15 साल से ज़्यादा उम्र के लोग)"
+    }
+  ],
+  "Count_Person_15To19Years": [
+    {
+      "type": 0,
+      "value": "जनसंख्या (15 से 19 साल की उम्र के लोग)"
+    }
+  ],
+  "Count_Person_15To64Years_InLaborForce_AsFractionOf_Count_Person_15To64Years": [
+    {
+      "type": 0,
+      "value": "मज़दूरों की संख्या का प्रतिशत (15 से 64 साल की उम्र के लोग)"
+    }
+  ],
+  "Count_Person_16OrMoreYears": [
+    {
+      "type": 0,
+      "value": "जनसंख्या (16 साल से ज़्यादा उम्र के लोग)"
+    }
+  ],
+  "Count_Person_18To24Years": [
+    {
+      "type": 0,
+      "value": "जनसंख्या (18 से 24 साल की उम्र के लोग)"
+    }
+  ],
+  "Count_Person_20To24Years": [
+    {
+      "type": 0,
+      "value": "जनसंख्या (20 से 24 साल की उम्र के लोग)"
+    }
+  ],
+  "Count_Person_20To29Years": [
+    {
+      "type": 0,
+      "value": "जनसंख्या (20 से 29 साल की उम्र के लोग)"
+    }
+  ],
+  "Count_Person_25To29Years": [
+    {
+      "type": 0,
+      "value": "जनसंख्या (25 से 29 साल की उम्र के लोग)"
+    }
+  ],
+  "Count_Person_25To34Years": [
+    {
+      "type": 0,
+      "value": "जनसंख्या (25 से 34 साल की उम्र के लोग)"
+    }
+  ],
+  "Count_Person_25To34Years_EducationalAttainmentAssociatesDegree_Female": [
+    {
+      "type": 0,
+      "value": "जनसंख्या (असोसिएट डिग्री हासिल कर चुके लोग)"
+    }
+  ],
+  "Count_Person_25To34Years_EducationalAttainmentAssociatesDegree_Male": [
+    {
+      "type": 0,
+      "value": "जनसंख्या (असोसिएट डिग्री हासिल कर चुके लोग)"
+    }
+  ],
+  "Count_Person_25To34Years_EducationalAttainmentBachelorsDegree_Female": [
+    {
+      "type": 0,
+      "value": "जनसंख्या (स्नातक कर चुकी महिलाएं)"
+    }
+  ],
+  "Count_Person_25To34Years_EducationalAttainmentBachelorsDegree_Male": [
+    {
+      "type": 0,
+      "value": "जनसंख्या (स्नातक कर चुके लोग)"
+    }
+  ],
+  "Count_Person_25To34Years_EducationalAttainmentGraduateOrProfessionalDegree_Female": [
+    {
+      "type": 0,
+      "value": "जनसंख्या (स्नातक या पेशेवर डिग्री ले चुके लोग)"
+    }
+  ],
+  "Count_Person_25To34Years_EducationalAttainmentGraduateOrProfessionalDegree_Male": [
+    {
+      "type": 0,
+      "value": "जनसंख्या (स्नातक या पेशेवर डिग्री ले चुके लोग)"
+    }
+  ],
+  "Count_Person_30To34Years": [
+    {
+      "type": 0,
+      "value": "जनसंख्या (30 से 34 साल की उम्र के लोग)"
+    }
+  ],
+  "Count_Person_30To39Years": [
+    {
+      "type": 0,
+      "value": "जनसंख्या (30 से 39 साल की उम्र के लोग)"
+    }
+  ],
+  "Count_Person_35To39Years": [
+    {
+      "type": 0,
+      "value": "जनसंख्या (35 से 39 साल की उम्र के लोग)"
+    }
+  ],
+  "Count_Person_35To44Years": [
+    {
+      "type": 0,
+      "value": "जनसंख्या (35 से 44 साल की उम्र के लोग)"
+    }
+  ],
+  "Count_Person_40To44Years": [
+    {
+      "type": 0,
+      "value": "जनसंख्या (40 से 44 साल की उम्र के लोग)"
+    }
+  ],
+  "Count_Person_40To49Years": [
+    {
+      "type": 0,
+      "value": "जनसंख्या (40 से 49 साल की उम्र के लोग)"
+    }
+  ],
+  "Count_Person_45To49Years": [
+    {
+      "type": 0,
+      "value": "जनसंख्या (45 से 49 साल की उम्र के लोग)"
+    }
+  ],
+  "Count_Person_45To54Years": [
+    {
+      "type": 0,
+      "value": "जनसंख्या (45 से 54 साल की उम्र के लोग)"
+    }
+  ],
+  "Count_Person_50To54Years": [
+    {
+      "type": 0,
+      "value": "जनसंख्या (50 से 54 साल की उम्र के लोग)"
+    }
+  ],
+  "Count_Person_50To59Years": [
+    {
+      "type": 0,
+      "value": "जनसंख्या (55 से 59 साल की उम्र के लोग)"
+    }
+  ],
+  "Count_Person_55To59Years": [
+    {
+      "type": 0,
+      "value": "जनसंख्या (55 से 59 साल की उम्र के लोग)"
+    }
+  ],
+  "Count_Person_55To64Years": [
+    {
+      "type": 0,
+      "value": "जनसंख्या (55 से 64 साल की उम्र के लोग)"
+    }
+  ],
+  "Count_Person_5To17Years": [
+    {
+      "type": 0,
+      "value": "जनसंख्या (5 से 17 साल की उम्र के लोग)"
+    }
+  ],
+  "Count_Person_5To9Years": [
+    {
+      "type": 0,
+      "value": "जनसंख्या (5 से 9 साल की उम्र के लोग)"
+    }
+  ],
+  "Count_Person_60To61Years": [
+    {
+      "type": 0,
+      "value": "जनसंख्या (60 से 61 साल की उम्र के लोग)"
+    }
+  ],
+  "Count_Person_60To64Years": [
+    {
+      "type": 0,
+      "value": "जनसंख्या (60 से 64 साल की उम्र के लोग)"
+    }
+  ],
+  "Count_Person_60To69Years": [
+    {
+      "type": 0,
+      "value": "जनसंख्या (60 से 69 साल की उम्र के लोग)"
+    }
+  ],
+  "Count_Person_62To64Years": [
+    {
+      "type": 0,
+      "value": "जनसंख्या (62 से 64 साल की उम्र के लोग)"
+    }
+  ],
+  "Count_Person_65To69Years": [
+    {
+      "type": 0,
+      "value": "जनसंख्या (65 से 69 साल की उम्र के लोग)"
+    }
+  ],
+  "Count_Person_65To74Years": [
+    {
+      "type": 0,
+      "value": "जनसंख्या (65 से 74 साल की उम्र के लोग)"
+    }
+  ],
+  "Count_Person_70OrMoreYears": [
+    {
+      "type": 0,
+      "value": "जनसंख्या (70 साल से ज़्यादा उम्र के लोग)"
+    }
+  ],
+  "Count_Person_70To74Years": [
+    {
+      "type": 0,
+      "value": "जनसंख्या (70 से 74 साल की उम्र के लोग)"
+    }
+  ],
+  "Count_Person_70To79Years": [
+    {
+      "type": 0,
+      "value": "जनसंख्या (70 से 79 साल की उम्र के लोग)"
+    }
+  ],
+  "Count_Person_75OrMoreYears": [
+    {
+      "type": 0,
+      "value": "जनसंख्या (75 साल से ज़्यादा उम्र के लोग)"
+    }
+  ],
+  "Count_Person_75To79Years": [
+    {
+      "type": 0,
+      "value": "जनसंख्या (75 से 79 साल की उम्र के लोग)"
+    }
+  ],
+  "Count_Person_7To14Years_Employed_AsFractionOf_Count_Person_7To14Years": [
+    {
+      "type": 0,
+      "value": "रोज़गार में ऐसे बच्चों की संख्या जिनकी उम्र 7 से 14 है"
+    }
+  ],
+  "Count_Person_7To14Years_Female_Employed_AsFractionOf_Count_Person_7To14Years_Female": [
+    {
+      "type": 0,
+      "value": "नौकरी करने वाले लोगों का प्रतिशत (महिला)"
+    }
+  ],
+  "Count_Person_7To14Years_Male_Employed_AsFractionOf_Count_Person_7To14Years_Male": [
+    {
+      "type": 0,
+      "value": "नौकरी करने वाले बच्चों का प्रतिशत"
+    }
+  ],
+  "Count_Person_80OrMoreYears": [
+    {
+      "type": 0,
+      "value": "जनसंख्या (80 साल से ज़्यादा उम्र के लोग)"
+    }
+  ],
+  "Count_Person_80To84Years": [
+    {
+      "type": 0,
+      "value": "जनसंख्या (80 से 84 साल की उम्र के लोग)"
+    }
+  ],
+  "Count_Person_AmericanIndianOrAlaskaNativeAlone": [
+    {
+      "type": 0,
+      "value": "लोगों की संख्या (अमेरिकन इंडियन या अलास्का के मूल निवासी)"
+    }
+  ],
+  "Count_Person_AsianAlone": [
+    {
+      "type": 0,
+      "value": "लोगों की संख्या (सिर्फ़ एशियन)"
+    }
+  ],
+  "Count_Person_BelowPovertyLevelInThePast12Months": [
+    {
+      "type": 0,
+      "value": "जनसंख्या (गरीबी रेखा से नीचे जीवनयापन करने वाले लोग)"
+    }
+  ],
+  "Count_Person_BelowPovertyLevelInThePast12Months_AmericanIndianOrAlaskaNativeAlone": [
+    {
+      "type": 0,
+      "value": "जनसंख्या (गरीबी रेखा से नीचे जीवनयापन करने वाले अमेरिकन इंडियन या अलास्का के मूल निवासी)"
+    }
+  ],
+  "Count_Person_BelowPovertyLevelInThePast12Months_AsianAlone": [
+  ],
+  "Count_Person_BelowPovertyLevelInThePast12Months_BlackOrAfricanAmericanAlone": [
+  ],
+  "Count_Person_BelowPovertyLevelInThePast12Months_HispanicOrLatino": [
+  ],
+  "Count_Person_BelowPovertyLevelInThePast12Months_NativeHawaiianOrOtherPacificIslanderAlone": [
+    {
+      "type": 0,
+      "value": "जनसंख्या (गरीबी रेखा से नीचे जीवनयापन करने वाले हवाई के मूल निवासी या दूसरे पैसिफ़िक आईलैंडर)"
+    }
+  ],
+  "Count_Person_BelowPovertyLevelInThePast12Months_WhiteAlone": [
+    {
+      "type": 0,
+      "value": "जनसंख्या (गरीबी रेखा से नीचे जीवनयापन करने वाले श्वेत)"
+    }
+  ],
+  "Count_Person_BlackOrAfricanAmericanAlone": [
+    {
+      "type": 0,
+      "value": "लोगों की संख्या (अफ़्रीकी-अमेरिकी)"
+    }
+  ],
+  "Count_Person_Divorced": [
+    {
+      "type": 0,
+      "value": "जनसंख्या (तलाकशुदा)"
+    }
+  ],
+  "Count_Person_EducationalAttainmentBachelorsDegree": [
+    {
+      "type": 0,
+      "value": "जनसंख्या (स्नातक डिग्री हासिल कर चुके लोग)"
+    }
+  ],
+  "Count_Person_EducationalAttainmentDoctorateDegree": [
+    {
+      "type": 0,
+      "value": "जनसंख्या (डॉक्टरेट डिग्री हासिल कर चुके लोग)"
+    }
+  ],
+  "Count_Person_EducationalAttainmentMastersDegree": [
+    {
+      "type": 0,
+      "value": "जनसंख्या (स्नातकोत्तर डिग्री हासिल कर चुके)"
+    }
+  ],
+  "Count_Person_EducationalAttainmentNoSchoolingCompleted": [
+    {
+      "type": 0,
+      "value": "जनसंख्या (स्कूली शिक्षा न लेने वाले)"
+    }
+  ],
+  "Count_Person_EducationalAttainmentRegularHighSchoolDiploma": [
+    {
+      "type": 0,
+      "value": "जनसंख्या (हाई स्कूल पास चुके लोग)"
+    }
+  ],
+  "Count_Person_Employed": [
+    {
+      "type": 0,
+      "value": "रोज़गार पाने वाले लोगों की संख्या"
+    }
+  ],
+  "Count_Person_EnrolledInSchool": [
+    {
+      "type": 0,
+      "value": "जनसंख्या (जिनके नाम स्कूल में दर्ज हैं)"
+    }
+  ],
+  "Count_Person_Female": [
+    {
+      "type": 0,
+      "value": "जनसंख्या (महिला)"
+    }
+  ],
+  "Count_Person_Female_BelowPovertyLevelInThePast12Months": [
+    {
+      "type": 0,
+      "value": "जनसंख्या (गरीबा रेखा से नीचे जीवनयापन करने वाली महिलाएं)"
+    }
+  ],
+  "Count_Person_HispanicOrLatino": [
+    {
+      "type": 0,
+      "value": "लोगों की संख्या (हिस्पैनिक या लैटिनो)"
+    }
+  ],
+  "Count_Person_InLaborForce": [
+    {
+      "type": 0,
+      "value": "मज़दूरों की संख्या"
+    }
+  ],
+  "Count_Person_IncomeOf10000To14999USDollar": [
+    {
+      "type": 0,
+      "value": "जनसंख्या (10 से 15 हज़ार डॉलर व्यक्तिगत आमदनी वाले)"
+    }
+  ],
+  "Count_Person_IncomeOf15000To24999USDollar": [
+    {
+      "type": 0,
+      "value": "जनसंख्या (15 से 25 हज़ार डॉलर व्यक्तिगत आमदनी वाले)"
+    }
+  ],
+  "Count_Person_IncomeOf25000To34999USDollar": [
+    {
+      "type": 0,
+      "value": "जनसंख्या (25 से 35 हज़ार डॉलर की व्यक्तिगत आमदनी वाले)"
+    }
+  ],
+  "Count_Person_IncomeOf35000To49999USDollar": [
+    {
+      "type": 0,
+      "value": "जनसंख्या (35 से 50 हज़ार डॉलर व्यक्तिगत आमदनी वाले)"
+    }
+  ],
+  "Count_Person_IncomeOf50000To64999USDollar": [
+    {
+      "type": 0,
+      "value": "जनसंख्या (50 से 65 हज़ार डॉलर व्यक्तिगत आमदनी वाले)"
+    }
+  ],
+  "Count_Person_IncomeOf65000To74999USDollar": [
+    {
+      "type": 0,
+      "value": "जनसंख्या (65 से 75 हज़ार डॉलर व्यक्तिगत आमदनी)"
+    }
+  ],
+  "Count_Person_IncomeOf75000OrMoreUSDollar": [
+    {
+      "type": 0,
+      "value": "जनसंख्या (75 हज़ार डॉलर से ज़्यादा व्यक्तिगत आय)"
+    }
+  ],
+  "Count_Person_IncomeOfUpto9999USDollar": [
+    {
+      "type": 0,
+      "value": "जनसंख्या (10 हज़ार डॉलर की व्यक्तिगत आमदनी वाले)"
+    }
+  ],
+  "Count_Person_Male": [
+    {
+      "type": 0,
+      "value": "जनसंख्या (पुरुष)"
+    }
+  ],
+  "Count_Person_Male_BelowPovertyLevelInThePast12Months": [
+    {
+      "type": 0,
+      "value": "जनसंख्या (गरीबी रेखा के नीचे जीवनयापन करने वाले पुरुष)"
+    }
+  ],
+  "Count_Person_MarriedAndNotSeparated": [
+    {
+      "type": 0,
+      "value": "जनसंख्या (विवाहित और अलग नहीं रहने वाले)"
+    }
+  ],
+  "Count_Person_NativeHawaiianOrOtherPacificIslanderAlone": [
+    {
+      "type": 0,
+      "value": "लोगों की संख्या (हवाई के मूल निवासी या पैसिफ़िक आइलैंडर)"
+    }
+  ],
+  "Count_Person_NeverMarried": [
+    {
+      "type": 0,
+      "value": "जनसंख्या (अविवाहित)"
+    }
+  ],
+  "Count_Person_NotAUSCitizen": [
+    {
+      "type": 0,
+      "value": "जनसंख्या (अमेरिकी नागरिक नहीं हैं)"
+    }
+  ],
+  "Count_Person_NotEnrolledInSchool": [
+    {
+      "type": 0,
+      "value": "जनसंख्या (जिनके नाम स्कूल में दर्ज नहीं हैं)"
+    }
+  ],
+  "Count_Person_PerArea": [
+    {
+      "type": 0,
+      "value": "जनसंख्या घनत्व"
+    }
+  ],
+  "Count_Person_Rural": [
+    {
+      "type": 0,
+      "value": "जनसंख्या (ग्रामीण)"
+    }
+  ],
+  "Count_Person_Separated": [
+    {
+      "type": 0,
+      "value": "जनसंख्या (अलग रह रहे लोग)"
+    }
+  ],
+  "Count_Person_SomeOtherRaceAlone": [
+    {
+      "type": 0,
+      "value": "लोगों की संख्या (दूसरी नस्लें)"
+    }
+  ],
+  "Count_Person_TwoOrMoreRaces": [
+    {
+      "type": 0,
+      "value": "लोगों की संख्या (दो या दो से ज़्यादा नस्लें)"
+    }
+  ],
+  "Count_Person_USCitizenBornAbroadOfAmericanParents": [
+    {
+      "type": 0,
+      "value": "जनसंख्या (दूसरे देश में पैदा हुए ऐसे नागरिक जिनके माता-पिता अमेरिकी मूल के हैं)"
+    }
+  ],
+  "Count_Person_USCitizenBornInTheUnitedStates": [
+    {
+      "type": 0,
+      "value": "जनसंख्या (अमेरिका में पैदा हुए)"
+    }
+  ],
+  "Count_Person_USCitizenByNaturalization": [
+    {
+      "type": 0,
+      "value": "जनसंख्या (मूल रूप से अमेरिकी नागरिक)"
+    }
+  ],
+  "Count_Person_Upto4Years": [
+    {
+      "type": 0,
+      "value": "जनसंख्या (0 से 4 साल की उम्र के लोग)"
+    }
+  ],
+  "Count_Person_Upto4Years_Female_SevereWasting_AsFractionOf_Count_Person_Upto4Years_Female": [
+    {
+      "type": 0,
+      "value": "पांच साल से छोटी बच्चियों में गंभीर कुपोषण का प्रसार"
+    }
+  ],
+  "Count_Person_Upto4Years_Female_Wasting_AsFractionOf_Count_Person_Upto4Years_Female": [
+    {
+      "type": 0,
+      "value": "पांच साल से छोटी बच्चियों में गंभीर कुपोषण का प्रसार"
+    }
+  ],
+  "Count_Person_Upto4Years_Male_SevereWasting_AsFractionOf_Count_Person_Upto4Years_Male": [
+    {
+      "type": 0,
+      "value": "पांच साल से छोटे बच्चों में गंभीर कुपोषण का प्रसार"
+    }
+  ],
+  "Count_Person_Upto4Years_Male_Wasting_AsFractionOf_Count_Person_Upto4Years_Male": [
+    {
+      "type": 0,
+      "value": "पांच साल से छोटे बच्चों में गंभीर कुपोषण का प्रसार"
+    }
+  ],
+  "Count_Person_Upto4Years_SevereWasting_AsFractionOf_Count_Person_Upto4Years": [
+    {
+      "type": 0,
+      "value": "पांच साल से छोटे बच्चों में गंभीर कुपोषण का प्रसार"
+    }
+  ],
+  "Count_Person_Upto4Years_Wasting_AsFractionOf_Count_Person_Upto4Years": [
+    {
+      "type": 0,
+      "value": "पांच साल से छोटे बच्चों में गंभीर कुपोषण का प्रसार"
+    }
+  ],
+  "Count_Person_Upto9Years": [
+    {
+      "type": 0,
+      "value": "जनसंख्या (0 से 9 साल की उम्र के लोग)"
+    }
+  ],
+  "Count_Person_Urban": [
+    {
+      "type": 0,
+      "value": "जनसंख्या (शहरी)"
+    }
+  ],
+  "Count_Person_WhiteAlone": [
+    {
+      "type": 0,
+      "value": "लोगों की संख्या (सिर्फ़ श्वेत)"
+    }
+  ],
+  "Count_Person_Widowed": [
+    {
+      "type": 0,
+      "value": "जनसंख्या (विधवा)"
+    }
+  ],
+  "Count_StormSurgeTideEvent": [
+    {
+      "type": 0,
+      "value": "किसी इलाके में तूफ़ानी ज्वार बढ़ने की घटनाओं की संख्या"
+    }
+  ],
+  "Count_ThunderstormWindEvent": [
+    {
+      "type": 0,
+      "value": "एक जगह पर आए आंधी-तूफ़ान की संख्या"
+    }
+  ],
+  "Count_TornadoEvent": [
+    {
+      "type": 0,
+      "value": "किसी एक इलाके में आए बवंडरों की संख्या"
+    }
+  ],
+  "Count_UnemploymentInsuranceClaim_StateUnemploymentInsurance": [
+    {
+      "type": 0,
+      "value": "राज्य में बेरोज़गारी भत्तों के लिए दावों की संख्या"
+    }
+  ],
+  "Count_WildlandFireEvent": [
+    {
+      "type": 0,
+      "value": "किसी एक इलाके में जंगल में आग लगने की घटनाओं की संख्या"
+    }
+  ],
+  "CumulativeCount_MedicalConditionIncident_COVID_19_ConfirmedOrProbableCase": [
+    {
+      "type": 0,
+      "value": "COVID-19 से प्रभावित लोगों की संख्या (पुष्टि किए गए या संभावित)"
+    }
+  ],
+  "CumulativeCount_MedicalConditionIncident_COVID_19_PatientDeceased": [
+    {
+      "type": 0,
+      "value": "COVID-19 की वजह से हुई मौतें"
+    }
+  ],
+  "FertilityRate_Person_Female": [
+    {
+      "type": 0,
+      "value": "प्रजनन दर"
+    }
+  ],
+  "GiniIndex_EconomicActivity": [
+    {
+      "type": 0,
+      "value": "Gini इंडेक्स"
+    }
+  ],
+  "GrowthRate_Amount_EconomicActivity_GrossDomesticProduction": [
+    {
+      "type": 0,
+      "value": "सकल घरेलू उत्पाद वृद्धि दर"
+    }
+  ],
+  "GrowthRate_Count_Person": [
+    {
+      "type": 0,
+      "value": "जनसंख्या में बढ़ोतरी की दर"
+    }
+  ],
+  "LifeExpectancy_Person": [
+    {
+      "type": 0,
+      "value": "औसत उम्र"
+    }
+  ],
+  "Median_Age_Person": [
+    {
+      "type": 0,
+      "value": "औसत उम्र"
+    }
+  ],
+  "Median_Age_Person_AmericanIndianOrAlaskaNativeAlone": [
+    {
+      "type": 0,
+      "value": "औसत उम्र (अमेरिकन इंडियन या अलास्का के मूल निवासी)"
+    }
+  ],
+  "Median_Age_Person_AsianAlone": [
+    {
+      "type": 0,
+      "value": "औसत उम्र (सिर्फ़ एशियन)"
+    }
+  ],
+  "Median_Age_Person_BlackOrAfricanAmericanAlone": [
+    {
+      "type": 0,
+      "value": "औसत उम्र (अफ़्रीकी-अमेरिकी)"
+    }
+  ],
+  "Median_Age_Person_Female": [
+    {
+      "type": 0,
+      "value": "औसत उम्र (महिला)"
+    }
+  ],
+  "Median_Age_Person_HispanicOrLatino": [
+    {
+      "type": 0,
+      "value": "औसत उम्र (हिस्पैनिक या लैटिनो)"
+    }
+  ],
+  "Median_Age_Person_Male": [
+    {
+      "type": 0,
+      "value": "औसत उम्र (पुरुष)"
+    }
+  ],
+  "Median_Age_Person_NativeHawaiianOrOtherPacificIslanderAlone": [
+    {
+      "type": 0,
+      "value": "औसत उम्र (हवाई के मूल निवासी या पैसिफ़िक आईलैंडर)"
+    }
+  ],
+  "Median_Age_Person_SomeOtherRaceAlone": [
+    {
+      "type": 0,
+      "value": "औसत उम्र (दूसरी नस्लें)"
+    }
+  ],
+  "Median_Age_Person_TwoOrMoreRaces": [
+    {
+      "type": 0,
+      "value": "औसत उम्र (दो या दो से ज़्यादा नस्लें)"
+    }
+  ],
+  "Median_Age_Person_WhiteAlone": [
+    {
+      "type": 0,
+      "value": "औसत उम्र (सिर्फ़ श्वेत)"
+    }
+  ],
+  "Median_Income_Household": [
+    {
+      "type": 0,
+      "value": "परिवार की औसत आमदनी"
+    }
+  ],
+  "Median_Income_Household_HouseholderRaceAmericanIndianOrAlaskaNativeAlone": [
+    {
+      "type": 0,
+      "value": "परिवार की औसत आमदनी (अमेरिकन इंडियन या अलास्का के मूल निवासी)"
+    }
+  ],
+  "Median_Income_Household_HouseholderRaceAsianAlone": [
+    {
+      "type": 0,
+      "value": "परिवार की औसत आमदनी (एशियन)"
+    }
+  ],
+  "Median_Income_Household_HouseholderRaceBlackOrAfricanAmericanAlone": [
+    {
+      "type": 0,
+      "value": "परिवार की औसत आमदनी (अफ़्रीकी-अमेरिकी)"
+    }
+  ],
+  "Median_Income_Household_HouseholderRaceHispanicOrLatino": [
+    {
+      "type": 0,
+      "value": "परिवारों की औसत आमदनी (हिस्पैनिक या लैटिनो)"
+    }
+  ],
+  "Median_Income_Household_HouseholderRaceNativeHawaiianOrOtherPacificIslanderAlone": [
+    {
+      "type": 0,
+      "value": "परिवार की औसत आमदनी (हवाई के मूल निवासी या पैसिफ़िक आईलैंडर)"
+    }
+  ],
+  "Median_Income_Household_HouseholderRaceWhiteAlone": [
+    {
+      "type": 0,
+      "value": "परिवार की औसत आमदनी (श्वेत)"
+    }
+  ],
+  "Median_Income_Person": [
+    {
+      "type": 0,
+      "value": "औसत व्यक्तिगत आय"
+    }
+  ],
+  "Median_Income_Person_15OrMoreYears_Female_WithIncome": [
+    {
+      "type": 0,
+      "value": "व्यक्तिगत औसत आमदनी (महिला)"
+    }
+  ],
+  "Median_Income_Person_15OrMoreYears_Male_WithIncome": [
+    {
+      "type": 0,
+      "value": "औसत व्यक्तिगत आमदनी (पुरुष)"
+    }
+  ],
+  "Percent_Person_18To64Years_Female_NoHealthInsurance": [
+    {
+      "type": 0,
+      "value": "ऐसे लोगों का प्रतिशत जिनके पास स्वास्थ्य बीमा नहीं है (महिला)"
+    }
+  ],
+  "Percent_Person_18To64Years_Male_NoHealthInsurance": [
+    {
+      "type": 0,
+      "value": "ऐसे लोगों का प्रतिशत जिनके पास स्वास्थ्य बीमा नहीं है (पुरुष)"
+    }
+  ],
+  "Percent_Person_18To64Years_NoHealthInsurance_BlackOrAfricanAmericanAlone": [
+    {
+      "type": 0,
+      "value": "ऐसे लोगों का प्रतिशत जिनके पास स्वास्थ्य बीमा नहीं है (अफ़्रीकी-अमेरिकी)"
+    }
+  ],
+  "Percent_Person_18To64Years_NoHealthInsurance_HispanicOrLatino": [
+    {
+      "type": 0,
+      "value": "ऐसे लोगों का प्रतिशत जिनके पास स्वास्थ्य बीमा नहीं है (हिस्पैनिक या लैटिनो)"
+    }
+  ],
+  "Percent_Person_18To64Years_NoHealthInsurance_WhiteAlone": [
+    {
+      "type": 0,
+      "value": "ऐसे लोगों का प्रतिशत जिनके पास स्वास्थ्य बीमा नहीं है (श्वेत)"
+    }
+  ],
+  "Percent_Person_BingeDrinking": [
+    {
+      "type": 0,
+      "value": "ज़्यादा शराब पीने वालों वयस्कों का प्रतिशत"
+    }
+  ],
+  "Percent_Person_Obesity": [
+    {
+      "type": 0,
+      "value": "मोटापे से पीड़ित वयस्कों का प्रतिशत"
+    }
+  ],
+  "Percent_Person_PhysicalInactivity": [
+    {
+      "type": 0,
+      "value": "शारीरिक गतिविधि न करने वाले वयस्कों का प्रतिशत"
+    }
+  ],
+  "Percent_Person_SleepLessThan7Hours": [
+    {
+      "type": 0,
+      "value": "ऐसे वयस्कों का प्रतिशत जो सात घंटे से कम सोते हैं"
+    }
+  ],
+  "Percent_Person_Smoking": [
+    {
+      "type": 0,
+      "value": "धूम्रपान करने वाले वयस्कों का प्रतिशत"
+    }
+  ],
+  "Percent_Person_WithArthritis": [
+    {
+      "type": 0,
+      "value": "गठिया रोग से पीड़ित लोगों का प्रतिशत"
+    }
+  ],
+  "Percent_Person_WithHighBloodPressure": [
+    {
+      "type": 0,
+      "value": "उच्च रक्तचाप वाले वयस्कों का प्रतिशत"
+    }
+  ],
+  "Percent_Person_WithHighCholesterol": [
+    {
+      "type": 0,
+      "value": "हाई कोलेस्ट्रॉल वाले वयस्कों की प्रतिशत"
+    }
+  ],
+  "Percent_Person_WithMentalHealthNotGood": [
+    {
+      "type": 0,
+      "value": "ऐसे वयस्कों का प्रतिशत जिनका मानसिक स्वास्थ्य ठीक नहीं है"
+    }
+  ],
+  "Percent_Person_WithPhysicalHealthNotGood": [
+    {
+      "type": 0,
+      "value": "ऐसे वयस्कों का प्रतिशत जिनका शारीरिक स्वास्थ्य ठीक नहीं है"
+    }
+  ],
+  "RetailDrugDistribution_DrugDistribution_Amphetamine": [
+    {
+      "type": 0,
+      "value": "एंफ़ैटामिन दवाई का कुल खुदरा वितरण"
+    }
+  ],
+  "RetailDrugDistribution_DrugDistribution_Codeine": [
+    {
+      "type": 0,
+      "value": "कोडीन दवाई का कुल खुदरा वितरण"
+    }
+  ],
+  "RetailDrugDistribution_DrugDistribution_Hydrocodone": [
+    {
+      "type": 0,
+      "value": "हाइड्रॉकोडोन दवाई का कुल खुदरा वितरण"
+    }
+  ],
+  "RetailDrugDistribution_DrugDistribution_Morphine": [
+    {
+      "type": 0,
+      "value": "मोर्फ़ीन दवाई का कुल खुदरा वितरण"
+    }
+  ],
+  "RetailDrugDistribution_DrugDistribution_Oxycodone": [
+    {
+      "type": 0,
+      "value": "ऑक्सीकोडोन दवाई का कुल खुदरा वितरण"
+    }
+  ],
+  "UnemploymentRate_Person": [
+    {
+      "type": 0,
+      "value": "बेरोज़गारी दर"
+    }
+  ],
+  "UnemploymentRate_Person_Female": [
+    {
+      "type": 0,
+      "value": "बेरोज़गारी दर (महिला)"
+    }
+  ],
+  "UnemploymentRate_Person_Male": [
+    {
+      "type": 0,
+      "value": "बेरोज़गारी दर (पुरुष)"
+    }
+  ]
+}

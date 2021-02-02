@@ -1,0 +1,707 @@
+{
+  "Median_Income_Person": {
+    "defaultMessage": "Ingresos medios por persona"
+  },
+  "Median_Income_Person_15OrMoreYears_Male_WithIncome": {
+    "defaultMessage": "Ingresos medios por persona (hombres)"
+  },
+  "Median_Income_Person_15OrMoreYears_Female_WithIncome": {
+    "defaultMessage": "Ingresos medios por persona (mujeres)"
+  },
+  "UnemploymentRate_Person": {
+    "defaultMessage": "Tasa de desempleo"
+  },
+  "UnemploymentRate_Person_Male": {
+    "defaultMessage": "Tasa de desempleo (hombres)"
+  },
+  "UnemploymentRate_Person_Female": {
+    "defaultMessage": "Tasa de desempleo (mujeres)"
+  },
+  "Count_UnemploymentInsuranceClaim_StateUnemploymentInsurance": {
+    "defaultMessage": "Número de solicitudes de seguro estatal por desempleo"
+  },
+  "Count_Person_Employed": {
+    "defaultMessage": "Número de personas ocupadas"
+  },
+  "Count_Person_InLaborForce": {
+    "defaultMessage": "Número de personas en la fuerza laboral"
+  },
+  "Count_Person": {
+    "defaultMessage": "Población"
+  },
+  "Count_Person_PerArea": {
+    "defaultMessage": "Densidad de población"
+  },
+  "LifeExpectancy_Person": {
+    "defaultMessage": "Esperanza de vida"
+  },
+  "GrowthRate_Count_Person": {
+    "defaultMessage": "Índice de crecimiento demográfico"
+  },
+  "FertilityRate_Person_Female": {
+    "defaultMessage": "Tasa de fertilidad"
+  },
+  "Amount_EconomicActivity_GrossDomesticProduction_Nominal": {
+    "defaultMessage": "Producto Interior Bruto (nominal)"
+  },
+  "GrowthRate_Amount_EconomicActivity_GrossDomesticProduction": {
+    "defaultMessage": "Tasa de crecimiento del Producto Interior Bruto"
+  },
+  "Amount_Debt_Government": {
+    "defaultMessage": "Deuda gubernamental"
+  },
+  "Amount_EconomicActivity_GrossDomesticProduction_Nominal_PerCapita": {
+    "defaultMessage": "Producto Interior Bruto (nominal) per cápita"
+  },
+  "Amount_EconomicActivity_GrossNationalIncome_PurchasingPowerParity_PerCapita": {
+    "defaultMessage": "Renta Nacional Bruta (paridad del poder adquisitivo) per cápita"
+  },
+  "Amount_EconomicActivity_GrossNationalIncome_PurchasingPowerParity": {
+    "defaultMessage": "Renta Nacional Bruta (paridad del poder adquisitivo)"
+  },
+  "Count_Person_7To14Years_Employed_AsFractionOf_Count_Person_7To14Years": {
+    "defaultMessage": "Número de niños trabajadores (7-14 años)"
+  },
+  "Amount_EconomicActivity_ExpenditureActivity_EducationExpenditure_Government_AsFractionOf_Amount_EconomicActivity_ExpenditureActivity_Government": {
+    "defaultMessage": "Gasto público en educación (como porcentaje del gasto público)"
+  },
+  "Amount_EconomicActivity_ExpenditureActivity_EducationExpenditure_Government_AsFractionOf_Amount_EconomicActivity_GrossDomesticProduction_Nominal": {
+    "defaultMessage": "Gasto público en educación (como porcentaje del PIB)"
+  },
+  "Amount_EconomicActivity_ExpenditureActivity_MilitaryExpenditure_Government": {
+    "defaultMessage": "Gasto público militar"
+  },
+  "Amount_EconomicActivity_ExpenditureActivity_MilitaryExpenditure_Government_AsFractionOf_Amount_EconomicActivity_GrossDomesticProduction_Nominal": {
+    "defaultMessage": "Gasto público militar (como porcentaje del PIB)"
+  },
+  "Amount_Stock": {
+    "defaultMessage": "Capitalización en el mercado de las empresas nacionales"
+  },
+  "Amount_Stock_AsFractionOf_Amount_EconomicActivity_GrossDomesticProduction_Nominal": {
+    "defaultMessage": "Capitalización en el mercado de las empresas nacionales (como porcentaje del PIB)"
+  },
+  "Amount_Remittance_InwardRemittance": {
+    "defaultMessage": "Remesas recibidas"
+  },
+  "Amount_Remittance_InwardRemittance_AsFractionOf_Amount_EconomicActivity_GrossDomesticProduction_Nominal": {
+    "defaultMessage": "Remesas recibidas (como porcentaje del PIB)"
+  },
+  "Amount_Remittance_OutwardRemittance": {
+    "defaultMessage": "Remesas pagadas"
+  },
+  "Count_Person_15To64Years_InLaborForce_AsFractionOf_Count_Person_15To64Years": {
+    "defaultMessage": "Porcentaje de personas en la fuerza laboral (edad: 15-64 años)"
+  },
+  "Amount_Consumption_Energy_PerCapita": {
+    "defaultMessage": "Consumo de energía per cápita"
+  },
+  "Amount_Emissions_CarbonDioxide_PerCapita": {
+    "defaultMessage": "Emisiones de dióxido de carbono per cápita"
+  },
+  "Amount_Consumption_Electricity_PerCapita": {
+    "defaultMessage": "Consumo de electricidad per cápita"
+  },
+  "Count_EarthquakeEvent": {
+    "defaultMessage": "Número de terremotos"
+  },
+  "Count_CycloneEvent": {
+    "defaultMessage": "Número de ciclones"
+  },
+  "Count_StormSurgeTideEvent": {
+    "defaultMessage": "Número de marejadas ciclónicas"
+  },
+  "Count_WildlandFireEvent": {
+    "defaultMessage": "Número de incendios forestales"
+  },
+  "Count_TornadoEvent": {
+    "defaultMessage": "Número de tornados"
+  },
+  "Count_ThunderstormWindEvent": {
+    "defaultMessage": "Número de tormentas eléctricas"
+  },
+  "Count_FloodEvent": {
+    "defaultMessage": "Número de inundaciones"
+  },
+  "Count_DroughtEvent": {
+    "defaultMessage": "Número de periodos de sequía"
+  },
+  "Count_Person_Upto4Years": {
+    "defaultMessage": "Población (edad: 0-4 años)"
+  },
+  "Count_Person_Upto9Years": {
+    "defaultMessage": "Población (edad: 0-9 años)"
+  },
+  "Count_Person_5To9Years": {
+    "defaultMessage": "Población (edad: 5-9 años)"
+  },
+  "Count_Person_5To17Years": {
+    "defaultMessage": "Población (edad: 5-17 años)"
+  },
+  "Count_Person_10To14Years": {
+    "defaultMessage": "Población (edad: 10-14 años)"
+  },
+  "Count_Person_10To19Years": {
+    "defaultMessage": "Población (edad: 10-19 años)"
+  },
+  "Count_Person_15To19Years": {
+    "defaultMessage": "Población (edad: 15-19 años)"
+  },
+  "Count_Person_15OrMoreYears": {
+    "defaultMessage": "Población (edad: 15 años o más)"
+  },
+  "Count_Person_16OrMoreYears": {
+    "defaultMessage": "Población (edad: 16 años o más)"
+  },
+  "Count_Person_18To24Years": {
+    "defaultMessage": "Población (edad: 18-24 años)"
+  },
+  "Count_Person_20To24Years": {
+    "defaultMessage": "Población (edad: 20-24 años)"
+  },
+  "Count_Person_20To29Years": {
+    "defaultMessage": "Población (edad: 20-29 años)"
+  },
+  "Count_Person_25To29Years": {
+    "defaultMessage": "Población (edad: 25-29 años)"
+  },
+  "Count_Person_25To34Years": {
+    "defaultMessage": "Población (edad: 25-34 años)"
+  },
+  "Count_Person_30To34Years": {
+    "defaultMessage": "Población (edad: 30-34 años)"
+  },
+  "Count_Person_30To39Years": {
+    "defaultMessage": "Población (edad: 30-39 años)"
+  },
+  "Count_Person_35To39Years": {
+    "defaultMessage": "Población (edad: 35-39 años)"
+  },
+  "Count_Person_35To44Years": {
+    "defaultMessage": "Población (edad: 35-44 años)"
+  },
+  "Count_Person_40To44Years": {
+    "defaultMessage": "Población (edad: 40-44 años)"
+  },
+  "Count_Person_40To49Years": {
+    "defaultMessage": "Población (edad: 40-49 años)"
+  },
+  "Count_Person_45To49Years": {
+    "defaultMessage": "Población (edad: 45-49 años)"
+  },
+  "Count_Person_45To54Years": {
+    "defaultMessage": "Población (edad: 45-54 años)"
+  },
+  "Count_Person_50To54Years": {
+    "defaultMessage": "Población (edad: 50-54 años)"
+  },
+  "Count_Person_50To59Years": {
+    "defaultMessage": "Población (edad: 50-59 años)"
+  },
+  "Count_Person_55To59Years": {
+    "defaultMessage": "Población (edad: 55-59 años)"
+  },
+  "Count_Person_55To64Years": {
+    "defaultMessage": "Población (edad: 55-64 años)"
+  },
+  "Count_Person_60To61Years": {
+    "defaultMessage": "Población (edad: 60-61 años)"
+  },
+  "Count_Person_60To64Years": {
+    "defaultMessage": "Población (edad: 60-64 años)"
+  },
+  "Count_Person_60To69Years": {
+    "defaultMessage": "Población (edad: 60-69 años)"
+  },
+  "Count_Person_62To64Years": {
+    "defaultMessage": "Población (edad: 62-64 años)"
+  },
+  "Count_Person_65To69Years": {
+    "defaultMessage": "Población (edad: 65-69 años)"
+  },
+  "Count_Person_65To74Years": {
+    "defaultMessage": "Población (edad: 65-74 años)"
+  },
+  "Count_Person_70To74Years": {
+    "defaultMessage": "Población (edad: 70-74 años)"
+  },
+  "Count_Person_70To79Years": {
+    "defaultMessage": "Población (edad: 70-79 años)"
+  },
+  "Count_Person_70OrMoreYears": {
+    "defaultMessage": "Población (edad: 70 años o más)"
+  },
+  "Count_Person_75To79Years": {
+    "defaultMessage": "Población (edad: 75-79 años)"
+  },
+  "Count_Person_75OrMoreYears": {
+    "defaultMessage": "Población (edad: 75 años o más)"
+  },
+  "Count_Person_80To84Years": {
+    "defaultMessage": "Población (edad: 80-84 años)"
+  },
+  "Count_Person_80OrMoreYears": {
+    "defaultMessage": "Población (edad: 80 años o más)"
+  },
+  "Count_Person_Male": {
+    "defaultMessage": "Población (hombres)"
+  },
+  "Count_Person_Female": {
+    "defaultMessage": "Población (mujeres)"
+  },
+  "Count_Person_AmericanIndianOrAlaskaNativeAlone": {
+    "defaultMessage": "Número de personas (indígenas americanas o nativas de Alaska)"
+  },
+  "Count_Person_AsianAlone": {
+    "defaultMessage": "Número de personas (solo asiáticas)"
+  },
+  "Count_Person_BlackOrAfricanAmericanAlone": {
+    "defaultMessage": "Número de personas (negras o afroamericanas)"
+  },
+  "Count_Person_HispanicOrLatino": {
+    "defaultMessage": "Número de personas (hispanas o latinoamericanas)"
+  },
+  "Count_Person_NativeHawaiianOrOtherPacificIslanderAlone": {
+    "defaultMessage": "Número de personas (hawaianas nativas o de otra raza isleña del Pacífico)"
+  },
+  "Count_Person_SomeOtherRaceAlone": {
+    "defaultMessage": "Número de personas (otras razas)"
+  },
+  "Count_Person_TwoOrMoreRaces": {
+    "defaultMessage": "Número de personas (de dos o más razas)"
+  },
+  "Count_Person_WhiteAlone": {
+    "defaultMessage": "Número de personas (solo blancas)"
+  },
+  "Count_HousingUnit_HouseholderRaceAmericanIndianOrAlaskaNativeAlone": {
+    "defaultMessage": "Número de hogares (con personas indígenas americanas o nativas de Alaska)"
+  },
+  "Count_HousingUnit_HouseholderRaceAsianAlone": {
+    "defaultMessage": "Número de hogares (solo con personas asiáticas)"
+  },
+  "Count_HousingUnit_HouseholderRaceBlackOrAfricanAmericanAlone": {
+    "defaultMessage": "Número de hogares (con personas negras o afroamericanas)"
+  },
+  "Count_HousingUnit_HouseholderRaceHispanicOrLatino": {
+    "defaultMessage": "Número de hogares (con personas hispanas o latinoamericanas)"
+  },
+  "Count_HousingUnit_HouseholderRaceNativeHawaiianOrOtherPacificIslanderAlone": {
+    "defaultMessage": "Número de hogares (con personas hawaianas nativas o de otra raza isleña del Pacífico)"
+  },
+  "Count_HousingUnit_HouseholderRaceSomeOtherRaceAlone": {
+    "defaultMessage": "Número de hogares (con personas de otras razas)"
+  },
+  "Count_HousingUnit_HouseholderRaceTwoOrMoreRaces": {
+    "defaultMessage": "Número de hogares (con personas de dos o más razas)"
+  },
+  "Count_HousingUnit_HouseholderRaceWhiteAlone": {
+    "defaultMessage": "Número de hogares (solo con personas blancas)"
+  },
+  "Median_Age_Person": {
+    "defaultMessage": "Edad media"
+  },
+  "Median_Age_Person_Male": {
+    "defaultMessage": "Media de edad (hombres)"
+  },
+  "Median_Age_Person_Female": {
+    "defaultMessage": "Media de edad (mujeres)"
+  },
+  "Median_Age_Person_AmericanIndianOrAlaskaNativeAlone": {
+    "defaultMessage": "Media de edad (personas indígenas americanas o nativas de Alaska)"
+  },
+  "Median_Age_Person_AsianAlone": {
+    "defaultMessage": "Media de edad (solo personas asiáticas)"
+  },
+  "Median_Age_Person_BlackOrAfricanAmericanAlone": {
+    "defaultMessage": "Media de edad (personas negras o afroamericanas)"
+  },
+  "Median_Age_Person_HispanicOrLatino": {
+    "defaultMessage": "Media de edad (personas hispanas y latinoamericanas)"
+  },
+  "Median_Age_Person_NativeHawaiianOrOtherPacificIslanderAlone": {
+    "defaultMessage": "Media de edad (personas hawaianas nativas o de otra raza isleña del Pacífico)"
+  },
+  "Median_Age_Person_SomeOtherRaceAlone": {
+    "defaultMessage": "Media de edad (personas de otras razas)"
+  },
+  "Median_Age_Person_TwoOrMoreRaces": {
+    "defaultMessage": "Media de edad (personas de dos o más razas)"
+  },
+  "Median_Age_Person_WhiteAlone": {
+    "defaultMessage": "Media de edad (solo personas blancas)"
+  },
+  "Count_Person_IncomeOfUpto9999USDollar": {
+    "defaultMessage": "Población (personas con ingresos inferiores a 10.000 $)"
+  },
+  "Count_Person_IncomeOf10000To14999USDollar": {
+    "defaultMessage": "Población (personas con ingresos entre 10.000 $ y 15.000 $)"
+  },
+  "Count_Person_IncomeOf15000To24999USDollar": {
+    "defaultMessage": "Población (personas con ingresos entre 15.000 $ y 25.000 $)"
+  },
+  "Count_Person_IncomeOf25000To34999USDollar": {
+    "defaultMessage": "Población (personas con ingresos entre 25.000 $ y 35.000 $)"
+  },
+  "Count_Person_IncomeOf35000To49999USDollar": {
+    "defaultMessage": "Población (personas con ingresos entre 35.000 $ y 50.000 $)"
+  },
+  "Count_Person_IncomeOf50000To64999USDollar": {
+    "defaultMessage": "Población (personas con ingresos entre 50.000 $ y 65.000 $)"
+  },
+  "Count_Person_IncomeOf65000To74999USDollar": {
+    "defaultMessage": "Población (personas con ingresos entre 65.000 $ y 75.000 $)"
+  },
+  "Count_Person_IncomeOf75000OrMoreUSDollar": {
+    "defaultMessage": "Población (personas con ingresos superiores a 75.000 $)"
+  },
+  "Count_Person_MarriedAndNotSeparated": {
+    "defaultMessage": "Población (personas casadas no separadas)"
+  },
+  "Count_Person_Divorced": {
+    "defaultMessage": "Población (personas divorciadas)"
+  },
+  "Count_Person_NeverMarried": {
+    "defaultMessage": "Población (personas que nunca se han casado)"
+  },
+  "Count_Person_Widowed": {
+    "defaultMessage": "Población (personas viudas)"
+  },
+  "Count_Person_Separated": {
+    "defaultMessage": "Población (personas separadas)"
+  },
+  "Count_Person_Urban": {
+    "defaultMessage": "Población (áreas urbanas)"
+  },
+  "Count_Person_Rural": {
+    "defaultMessage": "Población (áreas rurales)"
+  },
+  "Count_Person_EducationalAttainmentNoSchoolingCompleted": {
+    "defaultMessage": "Población (sin escolarizar)"
+  },
+  "Count_Person_EducationalAttainmentRegularHighSchoolDiploma": {
+    "defaultMessage": "Población (con educación secundaria completada)"
+  },
+  "Count_Person_EducationalAttainmentBachelorsDegree": {
+    "defaultMessage": "Población (con grado universitario)"
+  },
+  "Count_Person_EducationalAttainmentMastersDegree": {
+    "defaultMessage": "Población (con máster universitario)"
+  },
+  "Count_Person_EducationalAttainmentDoctorateDegree": {
+    "defaultMessage": "Población (con doctorado)"
+  },
+  "Count_Person_25To34Years_EducationalAttainmentAssociatesDegree_Female": {
+    "defaultMessage": "Población (con grado de asociado)"
+  },
+  "Count_Person_25To34Years_EducationalAttainmentAssociatesDegree_Male": {
+    "defaultMessage": "Población (con grado de asociado)"
+  },
+  "Count_Person_25To34Years_EducationalAttainmentBachelorsDegree_Female": {
+    "defaultMessage": "Población (con grado universitario)"
+  },
+  "Count_Person_25To34Years_EducationalAttainmentBachelorsDegree_Male": {
+    "defaultMessage": "Población (con grado universitario)"
+  },
+  "Count_Person_25To34Years_EducationalAttainmentGraduateOrProfessionalDegree_Female": {
+    "defaultMessage": "Población (con diploma o grado profesional)"
+  },
+  "Count_Person_25To34Years_EducationalAttainmentGraduateOrProfessionalDegree_Male": {
+    "defaultMessage": "Población (con diploma o grado profesional)"
+  },
+  "Count_Household_IncomeOfUpto10000USDollar": {
+    "defaultMessage": "Número de hogares (ingresos: menos de 10.000 $)"
+  },
+  "Count_Household_IncomeOf10000To14999USDollar": {
+    "defaultMessage": "Número de hogares (ingresos: 10.000-15.000 $)"
+  },
+  "Count_Household_IncomeOf20000To24999USDollar": {
+    "defaultMessage": "Número de hogares (ingresos: 20.000-25.000 $)"
+  },
+  "Count_Household_IncomeOf30000To34999USDollar": {
+    "defaultMessage": "Número de hogares (ingresos: 30.000-35.000 $)"
+  },
+  "Count_Household_IncomeOf40000To44999USDollar": {
+    "defaultMessage": "Número de hogares (ingresos: 40.000-45.000 $)"
+  },
+  "Count_Household_IncomeOf50000To59999USDollar": {
+    "defaultMessage": "Número de hogares (ingresos: 50.000-60.000 $)"
+  },
+  "Count_Household_IncomeOf60000To74999USDollar": {
+    "defaultMessage": "Número de hogares (ingresos: 60.000-75.000 $)"
+  },
+  "Count_Household_IncomeOf75000To99999USDollar": {
+    "defaultMessage": "Número de hogares (ingresos: 75.000-100.000 $)"
+  },
+  "Count_Household_IncomeOf100000To124999USDollar": {
+    "defaultMessage": "Número de hogares (ingresos: 100.000-125.000 $)"
+  },
+  "Count_Household_IncomeOf125000To149999USDollar": {
+    "defaultMessage": "Número de hogares (ingresos: 125.000-150.000 $)"
+  },
+  "Count_Household_IncomeOf150000To199999USDollar": {
+    "defaultMessage": "Número de hogares (ingresos: 150.000-200.000 $)"
+  },
+  "Count_Household_IncomeOf200000OrMoreUSDollar": {
+    "defaultMessage": "Número de hogares (ingresos: más de 200.000 $)"
+  },
+  "Median_Income_Household": {
+    "defaultMessage": "Ingresos familiares medios"
+  },
+  "Median_Income_Household_HouseholderRaceAmericanIndianOrAlaskaNativeAlone": {
+    "defaultMessage": "Ingresos familiares medios (personas indígenas americanas o nativas de Alaska)"
+  },
+  "Median_Income_Household_HouseholderRaceAsianAlone": {
+    "defaultMessage": "Ingresos familiares medios (personas asiáticas)"
+  },
+  "Median_Income_Household_HouseholderRaceBlackOrAfricanAmericanAlone": {
+    "defaultMessage": "Ingresos familiares medios (personas negras o afroamericanas)"
+  },
+  "Median_Income_Household_HouseholderRaceHispanicOrLatino": {
+    "defaultMessage": "Ingresos familiares medios (personas hispanas o latinoamericanas)"
+  },
+  "Median_Income_Household_HouseholderRaceNativeHawaiianOrOtherPacificIslanderAlone": {
+    "defaultMessage": "Ingresos familiares medios (personas hawaianas nativas o de otra raza isleña del Pacífico)"
+  },
+  "Median_Income_Household_HouseholderRaceWhiteAlone": {
+    "defaultMessage": "Ingresos familiares medios (personas blancas)"
+  },
+  "CumulativeCount_MedicalConditionIncident_COVID_19_ConfirmedOrProbableCase": {
+    "defaultMessage": "Casos acumulados de COVID-19 (confirmados o probables)"
+  },
+  "CumulativeCount_MedicalConditionIncident_COVID_19_PatientDeceased": {
+    "defaultMessage": "Muertes acumuladas por COVID-19"
+  },
+  "Count_Person_USCitizenBornInTheUnitedStates": {
+    "defaultMessage": "Población (personas nacidas en Estados Unidos)"
+  },
+  "Count_Person_USCitizenByNaturalization": {
+    "defaultMessage": "Población (con ciudadanía estadounidense por naturalización)"
+  },
+  "Count_Person_NotAUSCitizen": {
+    "defaultMessage": "Población (sin nacionalidad estadounidense)"
+  },
+  "Count_Person_USCitizenBornAbroadOfAmericanParents": {
+    "defaultMessage": "Población (personas con nacionalidad estadounidense nacidas en el extranjero con padres de EE. UU.)"
+  },
+  "Count_Death_0Years_AsFractionOf_Count_BirthEvent_LiveBirth": {
+    "defaultMessage": "Tasa de mortalidad infantil"
+  },
+  "Count_Death_0Years_Female_AsFractionOf_Count_BirthEvent_LiveBirth_Female": {
+    "defaultMessage": "Tasa de mortalidad infantil (niñas)"
+  },
+  "Count_Death_0Years_Male_AsFractionOf_Count_BirthEvent_LiveBirth_Male": {
+    "defaultMessage": "Tasa de mortalidad infantil (varones)"
+  },
+  "Count_Death_DiseasesOfTheCirculatorySystem": {
+    "defaultMessage": "Número de fallecimientos provocados por enfermedades del sistema circulatorio"
+  },
+  "Count_Death_Neoplasms": {
+    "defaultMessage": "Número de fallecimientos provocados por neoplasias"
+  },
+  "Count_Death_DiseasesOfTheRespiratorySystem": {
+    "defaultMessage": "Número de fallecimientos provocados por enfermedades del sistema respiratorio"
+  },
+  "Count_Death_ExternalCauses": {
+    "defaultMessage": "Número de fallecimientos provocados por causas externas"
+  },
+  "Count_Death_DiseasesOfTheNervousSystem": {
+    "defaultMessage": "Número de fallecimientos provocados por enfermedades del sistema nervioso"
+  },
+  "Percent_Person_WithHighCholesterol": {
+    "defaultMessage": "Porcentaje de adultos con colesterol alto"
+  },
+  "Percent_Person_WithHighBloodPressure": {
+    "defaultMessage": "Porcentaje de adultos con hipertensión"
+  },
+  "Percent_Person_WithArthritis": {
+    "defaultMessage": "Porcentaje de adultos con artritis"
+  },
+  "Percent_Person_WithMentalHealthNotGood": {
+    "defaultMessage": "Porcentaje de adultos cuya salud mental no es buena"
+  },
+  "Percent_Person_WithPhysicalHealthNotGood": {
+    "defaultMessage": "Porcentaje de adultos cuya salud física no es buena"
+  },
+  "Percent_Person_SleepLessThan7Hours": {
+    "defaultMessage": "Porcentaje de adultos que duermen menos de 7 horas"
+  },
+  "Percent_Person_Obesity": {
+    "defaultMessage": "Porcentaje de adultos con obesidad"
+  },
+  "Percent_Person_BingeDrinking": {
+    "defaultMessage": "Porcentaje de adultos que consumen alcohol en exceso"
+  },
+  "Percent_Person_PhysicalInactivity": {
+    "defaultMessage": "Porcentaje de adultos con inactividad física"
+  },
+  "Percent_Person_Smoking": {
+    "defaultMessage": "Porcentaje de adultos que fuman"
+  },
+  "Count_Person_Upto4Years_Wasting_AsFractionOf_Count_Person_Upto4Years": {
+    "defaultMessage": "Prevalencia de emaciación en niños menores de 5 años"
+  },
+  "Count_Person_Upto4Years_Female_Wasting_AsFractionOf_Count_Person_Upto4Years_Female": {
+    "defaultMessage": "Prevalencia de emaciación en niñas menores de 5 años"
+  },
+  "Count_Person_Upto4Years_Male_Wasting_AsFractionOf_Count_Person_Upto4Years_Male": {
+    "defaultMessage": "Prevalencia de emaciación en niños menores de 5 años (varones)"
+  },
+  "Count_Person_Upto4Years_SevereWasting_AsFractionOf_Count_Person_Upto4Years": {
+    "defaultMessage": "Prevalencia de emaciación severa en niños menores de 5 años"
+  },
+  "Count_Person_Upto4Years_Female_SevereWasting_AsFractionOf_Count_Person_Upto4Years_Female": {
+    "defaultMessage": "Prevalencia de emaciación severa en niñas menores de 5 años"
+  },
+  "Count_Person_Upto4Years_Male_SevereWasting_AsFractionOf_Count_Person_Upto4Years_Male": {
+    "defaultMessage": "Prevalencia de emaciación severa en niños menores de 5 años (varones)"
+  },
+  "Amount_Consumption_Alcohol_15OrMoreYears_AsFractionOf_Count_Person_15OrMoreYears": {
+    "defaultMessage": "Consumo de alcohol puro al año per cápita"
+  },
+  "RetailDrugDistribution_DrugDistribution_Oxycodone": {
+    "defaultMessage": "Distribución total de oxicodona en tiendas"
+  },
+  "RetailDrugDistribution_DrugDistribution_Hydrocodone": {
+    "defaultMessage": "Distribución total de hidrocodona en tiendas"
+  },
+  "RetailDrugDistribution_DrugDistribution_Codeine": {
+    "defaultMessage": "Distribución total de codeína en tiendas"
+  },
+  "RetailDrugDistribution_DrugDistribution_Amphetamine": {
+    "defaultMessage": "Distribución total de anfetamina en tiendas"
+  },
+  "RetailDrugDistribution_DrugDistribution_Morphine": {
+    "defaultMessage": "Distribución total de morfina en tiendas"
+  },
+  "Count_Person_EnrolledInSchool": {
+    "defaultMessage": "Población (personas escolarizadas)"
+  },
+  "Count_Person_NotEnrolledInSchool": {
+    "defaultMessage": "Población (no escolarizada)"
+  },
+  "Count_CriminalActivities_CombinedCrime": {
+    "defaultMessage": "Número de actos delictivos (todos los tipos)"
+  },
+  "Count_CriminalActivities_ViolentCrime": {
+    "defaultMessage": "Número de actos delictivos (violentos)"
+  },
+  "Count_CriminalActivities_PropertyCrime": {
+    "defaultMessage": "Número de actos delictivos (contra la propiedad)"
+  },
+  "Count_CriminalActivities_Arson": {
+    "defaultMessage": "Número de actos delictivos (incendios provocados)"
+  },
+  "Count_Person_BelowPovertyLevelInThePast12Months": {
+    "defaultMessage": "Población (por debajo del umbral de la pobreza)"
+  },
+  "Count_Person_BelowPovertyLevelInThePast12Months_AmericanIndianOrAlaskaNativeAlone": {
+    "defaultMessage": "Población (personas indígenas americanas o nativas de Alaska por debajo del umbral de la pobreza)"
+  },
+  "Count_Person_BelowPovertyLevelInThePast12Months_AsianAlone": {
+    "defaultMessage": ""
+  },
+  "Count_Person_BelowPovertyLevelInThePast12Months_BlackOrAfricanAmericanAlone": {
+    "defaultMessage": ""
+  },
+  "Count_Person_BelowPovertyLevelInThePast12Months_HispanicOrLatino": {
+    "defaultMessage": ""
+  },
+  "Count_Person_BelowPovertyLevelInThePast12Months_NativeHawaiianOrOtherPacificIslanderAlone": {
+    "defaultMessage": "Población (personas hawaianas nativas o de otra raza isleña del Pacífico por debajo del umbral de la pobreza)"
+  },
+  "Count_Person_BelowPovertyLevelInThePast12Months_WhiteAlone": {
+    "defaultMessage": "Población (personas blancas por debajo del umbral de la pobreza)"
+  },
+  "Count_Person_Female_BelowPovertyLevelInThePast12Months": {
+    "defaultMessage": "Población (mujeres por debajo del umbral de la pobreza)"
+  },
+  "Count_Person_Male_BelowPovertyLevelInThePast12Months": {
+    "defaultMessage": "Población (hombres por debajo del umbral de la pobreza)"
+  },
+  "Percent_Person_18To64Years_Female_NoHealthInsurance": {
+    "defaultMessage": "Porcentaje de mujeres sin seguro médico"
+  },
+  "Percent_Person_18To64Years_Male_NoHealthInsurance": {
+    "defaultMessage": "Porcentaje de hombres sin seguro médico"
+  },
+  "Percent_Person_18To64Years_NoHealthInsurance_BlackOrAfricanAmericanAlone": {
+    "defaultMessage": "Porcentaje de personas negras o afroamericanas sin seguro médico"
+  },
+  "Percent_Person_18To64Years_NoHealthInsurance_HispanicOrLatino": {
+    "defaultMessage": "Porcentaje de personas hispanas o latinoamericanas sin seguro médico"
+  },
+  "Percent_Person_18To64Years_NoHealthInsurance_WhiteAlone": {
+    "defaultMessage": "Porcentaje de personas blancas sin seguro médico"
+  },
+  "Count_Person_7To14Years_Female_Employed_AsFractionOf_Count_Person_7To14Years_Female": {
+    "defaultMessage": "Porcentaje de niñas trabajadoras"
+  },
+  "Count_Person_7To14Years_Male_Employed_AsFractionOf_Count_Person_7To14Years_Male": {
+    "defaultMessage": "Porcentaje de niños trabajadores (varones)"
+  },
+  "GiniIndex_EconomicActivity": {
+    "defaultMessage": "Coeficiente de GINI"
+  },
+  "Count_HousingUnit": {
+    "defaultMessage": "Número de viviendas"
+  },
+  "Count_HousingUnit_HomeValueUpto49999USDollar": {
+    "defaultMessage": "Número de viviendas (valor: menos de 50.000 $)"
+  },
+  "Count_HousingUnit_HomeValue50000To99999USDollar": {
+    "defaultMessage": "Número de viviendas (valor: 50.000-100.000 $)"
+  },
+  "Count_HousingUnit_HomeValue100000To199999USDollar": {
+    "defaultMessage": "Número de viviendas (valor: 100.000-200.000 $)"
+  },
+  "Count_HousingUnit_HomeValue200000To299999USDollar": {
+    "defaultMessage": "Número de viviendas (valor: 200.000-300.000 $)"
+  },
+  "Count_HousingUnit_HomeValue300000To499999USDollar": {
+    "defaultMessage": "Número de viviendas (valor: 300.000-500.000 $)"
+  },
+  "Count_HousingUnit_HomeValue500000To999999USDollar": {
+    "defaultMessage": "Número de viviendas (valor: 500.000-1.000.000 $)"
+  },
+  "Count_HousingUnit_HomeValue1000000To1499999USDollar": {
+    "defaultMessage": "Número de viviendas (valor: 1.000.000-1.500.000 $)"
+  },
+  "Count_HousingUnit_HomeValue1500000To1999999USDollar": {
+    "defaultMessage": "Número de viviendas (valor: 1.500.000-2.000.000 $)"
+  },
+  "Count_HousingUnit_HomeValue2000000OrMoreUSDollar": {
+    "defaultMessage": "Número de viviendas (valor: más de 2.000.000 $)"
+  },
+  "Count_HousingUnit_OwnerOccupied": {
+    "defaultMessage": "Número de viviendas (en las que vive el propietario)"
+  },
+  "Count_HousingUnit_RenterOccupied": {
+    "defaultMessage": "Número de viviendas (en las que vive un arrendatario)"
+  },
+  "Count_HousingUnit_Before1939DateBuilt": {
+    "defaultMessage": "Número de viviendas (antes de 1939)"
+  },
+  "Count_HousingUnit_1940To1949DateBuilt": {
+    "defaultMessage": "Número de viviendas (1940-1949)"
+  },
+  "Count_HousingUnit_1950To1959DateBuilt": {
+    "defaultMessage": "Número de viviendas (1950-1959)"
+  },
+  "Count_HousingUnit_1960To1969DateBuilt": {
+    "defaultMessage": "Número de viviendas (1960-1969)"
+  },
+  "Count_HousingUnit_1970To1979DateBuilt": {
+    "defaultMessage": "Número de viviendas (1970-1979)"
+  },
+  "Count_HousingUnit_1980To1989DateBuilt": {
+    "defaultMessage": "Número de viviendas (1980-1989)"
+  },
+  "Count_HousingUnit_1990To1999DateBuilt": {
+    "defaultMessage": "Número de viviendas (1990-1999)"
+  },
+  "Count_HousingUnit_2000To2009DateBuilt": {
+    "defaultMessage": "Número de viviendas (2000-2009)"
+  },
+  "Count_HousingUnit_2010OrLaterDateBuilt": {
+    "defaultMessage": "Número de viviendas (después del 2010)"
+  }
+}
