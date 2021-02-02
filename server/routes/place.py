@@ -36,6 +36,7 @@ def place(place_dcid=None):
     if not place_dcid:
         return flask.render_template(
             'place_landing.html',
+            locale=g.locale,
             maps_api_key=current_app.config['MAPS_API_KEY'])
 
     place_type = place_api.get_place_type(place_dcid)
