@@ -16,7 +16,6 @@ import unittest
 from unittest.mock import patch
 
 from main import app
-from unittest.mock import patch
 
 
 class TestStaticPages(unittest.TestCase):
