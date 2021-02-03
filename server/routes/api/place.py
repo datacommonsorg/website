@@ -647,8 +647,11 @@ def get_display_name(dcids, locale="en"):
                     break
         result[dcid] = place_names[dcid]
 
-    state_codes = get_state_code('^'.join(
-        (sorted(dcid_state_mapping.values()))))
+    states_lookup = '^'.join(sorted(set(dcid_state_mapping.values())))
+    if locale == "en":
+        state_codes = get_state_code(states_lookup)
+    else:
+        state_codes = cached_i18n_name(states_lookup, locale, True)
     for dcid in dcid_state_mapping.keys():
         state_code = state_codes[dcid_state_mapping[dcid]]
         if state_code:
