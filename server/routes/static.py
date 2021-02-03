@@ -13,18 +13,25 @@
 # limitations under the License.
 """Data Commons static content routes."""
 
-from flask import Blueprint, render_template
+from flask import Blueprint, render_template, g
 from lib.gcs import list_blobs
+import routes.api.place as place_api
 
 _SA_FEED_BUCKET = 'datacommons-frog-feed'
 _MAX_BLOBS = 1
 
 bp = Blueprint('static', __name__)
 
+_HOMEPAGE_PLACE_DCIDS = [
+    'geoId/1150000', 'geoId/3651000', 'geoId/0649670', 'geoId/4805000'
+]
+
 
 @bp.route('/')
 def homepage():
-    return render_template('static/homepage.html')
+    place_names = place_api.get_display_name('^'.join(_HOMEPAGE_PLACE_DCIDS),
+                                             g.locale)
+    return render_template('static/homepage.html', place_names=place_names)
 
 
 @bp.route('/about')

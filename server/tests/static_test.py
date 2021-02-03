@@ -20,7 +20,15 @@ from main import app
 
 class TestStaticPages(unittest.TestCase):
 
-    def test_homepage(self):
+    @patch('routes.api.place.get_display_name')
+    def test_homepage(self, mock_get_display_name):
+        mock_get_display_name.return_value = {
+            'geoId/1150000': 'Washington, DC',
+            'geoId/3651000': 'New York City, NY',
+            'geoId/0649670': 'Mountain View, CA',
+            'geoId/4805000': 'Austin, TX'
+        }
+
         response = app.test_client().get('/')
         assert response.status_code == 200
         assert b"Data Commons is an open knowledge repository" in response.data
@@ -32,6 +40,7 @@ class TestStaticPages(unittest.TestCase):
         assert b"Open sourced" in response.data
         assert b"Schema.org" in response.data
         assert b"Explore the data" in response.data
+        assert b"Mountain View, CA" in response.data
 
     def test_about(self):
         response = app.test_client().get('/about')
