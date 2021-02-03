@@ -19,6 +19,7 @@ import routes.api.place as place_api
 
 bp = flask.Blueprint('place', __name__, url_prefix='/place')
 
+# List of DCIDs displayed in the static place_landing.html page.
 _PLACE_LANDING_DCIDS = [
     'geoId/1714000',
     'geoId/4805000',
@@ -56,6 +57,7 @@ def place(place_dcid=None):
         return flask.redirect(url)
 
     if not place_dcid:
+        # Use display names (including state, if applicable) for the static page
         place_names = place_api.get_display_name('^'.join(_PLACE_LANDING_DCIDS),
                                                  g.locale)
         return flask.render_template(
