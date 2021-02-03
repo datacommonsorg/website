@@ -74,15 +74,18 @@
       <a class="main" href="{{ url_for('place.place') }}">{% trans %}Explore Places{% endtrans %}</a>:
       <ul>
         <li>
-          <a class="sub" href="{{ url_for('place.place', place_dcid='geoId/0649670') }}">Mountain View, CA</a>,
+          {% set geoid='geoId/0649670' %}
+          <a class="sub" href="{{ url_for('place.place', place_dcid=geoid) }}">{{ place_names[geoid] }}</a>,
         </li>
         <li>
+          {% set geoid='geoId/3651000' %}
           {# TRANSLATORS: Link to a Place page showing data related to Health for a place { cityName }. Please keep the string `%(cityName)s` as is in the final translation. Please see this string in action as "New York City Health" at https://datacommons.org #}
-          <a class="sub" href="{{ url_for('place.place', place_dcid='geoId/3651000', topic='Health') }}">{% trans cityName="New York City" %}{{ cityName }} Health{% endtrans %}</a>,
+          <a class="sub" href="{{ url_for('place.place', place_dcid=geoid, topic='Health') }}">{% trans cityName=place_names[geoid] %}{{ cityName }} Health{% endtrans %}</a>,
         </li>
         <li>
+          {% set geoid='geoId/1150000' %}
           {# TRANSLATORS: Link to a Place page showing data related to Demographics for a place { cityName }. Please keep the string `%(cityName)s` as is in the final translation. Please see this string in action as "Washington, DC Demographics" at https://datacommons.org #}
-          <a class="sub" href="{{ url_for('place.place', place_dcid='geoId/1150000', topic='Demographics') }}">{% trans cityName="Washington, DC" %}{{ cityName }} Demographics{% endtrans %}</a>,
+          <a class="sub" href="{{ url_for('place.place', place_dcid=geoid, topic='Demographics') }}">{% trans cityName=place_names[geoid] %}{{ cityName }} Demographics{% endtrans %}</a>,
         </li>
         {# TRANSLATORS: String showing that there are many more links available. Feel free to replace ellipsis with other language appropriate equivalents. Will always be preceded by a comma. Please see this string in action at https://datacommons.org #}
         <li><a class="sub" href="{{ url_for('place.place') }}">{% trans %}MORE{% endtrans %}</a>
@@ -116,7 +119,8 @@
       <a class="main" href="{{ url_for('browser.kg_main') }}">{% trans project="Data Commons" %}Browse entities in the {{ project }} Graph{% endtrans %}</a>:
       <ul>
         <li>
-          <a class="sub" href="{{ url_for('browser.kg_entity', dcid='geoId/4805000') }}">Austin, TX</a>,
+          {% set geoid='geoId/4805000' %}
+          <a class="sub" href="{{ url_for('browser.kg_entity', dcid=geoid) }}">{{ place_names[geoid] }}</a>,
         </li>
         <li>
           {# TRANSLATORS: Link to a node for the entity (the New York City school district, https://www.schools.nyc.gov/) in the Data Commons Graph. Please see this string in action at https://datacommons.org #}

@@ -18,23 +18,50 @@ from unittest.mock import patch
 from main import app
 
 
-class TestPlace(unittest.TestCase):
+class TestPlaceLandingPage(unittest.TestCase):
 
-    @patch('routes.api.place.get_i18n_name')
-    @patch('routes.api.place.get_place_type')
-    def test_place(self, mock_get_place_type, mock_get_i18n_name):
-        mock_get_place_type.return_value = 'City'
+    @patch('routes.api.place.get_display_name')
+    def test_place_landing(self, mock_get_display_name):
+        mock_get_display_name.return_value = {
+            'geoId/1714000': 'Chicago, IL',
+            'geoId/4805000': 'Austin, TX',
+            'geoId/0667000': 'San Francisco, CA',
+            'geoId/5363000': 'Seattle, WA',
+            'geoId/17031': 'Cook County, IL',
+            'geoId/06059': 'Orange County, CA',
+            'geoId/48201': 'Harris County, TX',
+            'geoId/06085': 'Santa Clara County, CA',
+            'geoId/06': 'California',
+            'geoId/48': 'Texas',
+            'geoId/17': 'Illinois',
+            'geoId/21': 'Kentucky',
+            'geoId/36': 'New York',
+            'geoId/26': 'Michigan',
+            'country/CAN': 'Canada',
+            'country/USA': 'United States of America',
+            'country/IND': 'India',
+            'country/MYS': 'Malaysia',
+            'country/DEU': 'Germany'
+        }
 
         response = app.test_client().get('/place', follow_redirects=True)
         assert response.status_code == 200
         assert b"<title>Place Explorer" in response.data
         assert b"<p>The Place Explorer tool helps you" in response.data
+        assert b"Cook County, IL" in response.data
 
         response = app.test_client().get('/place/', follow_redirects=True)
         assert response.status_code == 200
         assert b"<title>Place Explorer" in response.data
         assert b"<p>The Place Explorer tool helps you" in response.data
+        assert b"Canada" in response.data
 
+
+class TestPlacePage(unittest.TestCase):
+
+    @patch('routes.api.place.get_i18n_name')
+    @patch('routes.api.place.get_place_type')
+    def test_place(self, mock_get_place_type, mock_get_i18n_name):
         mock_get_i18n_name.return_value = {'geoId/06': 'California'}
         mock_get_place_type.return_value = 'State'
 
