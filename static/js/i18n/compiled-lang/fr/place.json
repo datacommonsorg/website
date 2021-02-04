@@ -172,13 +172,13 @@
   "link-return_to_overview": [
     {
       "type": 0,
-      "value": "Retour à la vue d'ensemble "
+      "value": "Retour à la vue d'ensemble"
     }
   ],
   "more_charts": [
     {
       "type": 0,
-      "value": "Autres graphiques "
+      "value": "Autres graphiques"
     }
   ],
   "place_breadcrumb": [
