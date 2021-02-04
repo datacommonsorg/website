@@ -172,13 +172,13 @@
   "link-return_to_overview": [
     {
       "type": 0,
-      "value": "Back to overview ›"
+      "value": "Back to overview"
     }
   ],
   "more_charts": [
     {
       "type": 0,
-      "value": "More charts ›"
+      "value": "More charts"
     }
   ],
   "place_breadcrumb": [

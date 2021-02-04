@@ -184,13 +184,13 @@
   "link-return_to_overview": [
     {
       "type": 0,
-      "value": "개요로 돌아가기 "
+      "value": "개요로 돌아가기"
     }
   ],
   "more_charts": [
     {
       "type": 0,
-      "value": "차트 더보기 "
+      "value": "차트 더보기"
     }
   ],
   "place_breadcrumb": [

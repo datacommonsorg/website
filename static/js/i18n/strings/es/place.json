@@ -51,10 +51,10 @@
     "defaultMessage": "Vista general"
   },
   "link-return_to_overview": {
-    "defaultMessage": "Volver a la vista general "
+    "defaultMessage": "Volver a la vista general"
   },
   "more_charts": {
-    "defaultMessage": "Más gráficos "
+    "defaultMessage": "Más gráficos"
   },
   "place_breadcrumb": {
     "defaultMessage": "{placeType} de {placeName}"
