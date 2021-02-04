@@ -183,7 +183,6 @@ msgstr "Use the Python and REST API's to do your own custom analysis, build your
 
 #. A header of a section showing the many data sources included in the Data Commons Graph. See this string at https://datacommons.org
 #: server/templates/static/homepage.html:176
-#, fuzzy
 msgid "HOME-DATA_SOURCES"
 msgstr "Including data from"
 
@@ -279,9 +278,8 @@ msgstr "Place Explorer"
 
 #. The name of a tool to view rankings of places by a specified dimension.
 #: server/templates/ranking.html:19 server/templates/ranking.html:20
-#, fuzzy
 msgid "Place Rankings"
-msgstr "Rankings"
+msgstr "Place Rankings"
 
 #. Heading for a list of places
 #: server/templates/place_landing.html:52
@@ -305,9 +303,8 @@ msgstr ""
 
 #. The label for a link to our API documentation. See this string at https://datacommons.org
 #: server/templates/static/homepage.html:147
-#, fuzzy
 msgid "See API documentation."
-msgstr "Documentation"
+msgstr "See API documentation."
 
 #. Blog post entry. Please take care to maintain valid <a> tags in translation. See this string in action at https://datacommons.org
 #: server/templates/static/homepage.html:149
@@ -544,11 +541,11 @@ msgstr "Government debt"
 
 #. Title of a place chart: Government debt divided by the population
 msgid "CHART_TITLE-Government_debt_per_capita"
-msgstr "Government expenditures on education (% of government expenditure)"
+msgstr "Government debt per capita"
 
 #. Title of a place chart: Government expenditures on education as a percentage of government expenditure
 msgid "CHART_TITLE-Government_expenditures_education"
-msgstr "Government expenditures on education (% of GDP)"
+msgstr "Government expenditures on education (% of government expenditure)"
 
 #. Title of a place chart: Government expenditures on education as a percentage of GDP
 msgid "CHART_TITLE-Government_expenditures_education_gdp"
