@@ -138,11 +138,16 @@ function LocalizedLink(props: LocalizedLinkProps): JSX.Element {
   );
 }
 
+function setLocaleForTest(locale, messages) {
+  intl = createIntl({ locale, messages: messages }, intlCache);
+}
+
 export {
   LocalizedLink,
   localizeLink,
   localizeSearchParams,
   loadLocaleData,
   intl,
+  setLocaleForTest,
   translateVariableString,
 };

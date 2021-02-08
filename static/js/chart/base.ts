@@ -15,6 +15,7 @@
  */
 
 import * as d3 from "d3";
+import { intl } from "../i18n/i18n";
 
 const DEFAULT_COLOR = "#000";
 
@@ -263,20 +264,59 @@ function formatYAxisTicks(
     yticks[1] - yticks[0],
     yticks[yticks.length - 1]
   );
-  let tText = String(d);
+  // console.log(yScale.domain, p);
+  let value = d.valueOf();
+  let formatOptions: any = {
+  // let formatOptions: NumberFormatOptions = {
+  // let formatOptions = {
+    // @ts-ignore
+    notation: "compact",
+    compactDisplay: "short",
+    // maximumIntegerDigits: 2,
+    // maximumFractionDigits: 1,
+    maximumSignificantDigits: 2,
+    style: "decimal",
+  }
+
+  let shouldAddUnit = false;
+  switch (unit) {
+    case "$":
+      formatOptions.style = "currency";
+      formatOptions.currency = "USD";
+      formatOptions.currencyDisplay = "narrowSymbol";
+      break;
+    case "%":
+      formatOptions.style = "percent";
+      value = value / 100;  // Values are scaled by formatter for percent display
+      break;
+    case "t":
+    case "g":
+    case "kg":
+    case "kWh":
+    case "L":
+      // formatOptions.style = "unit";
+      // formatOptions.unit = "gram";
+      // formatOptions.unitDisplay = "short";
+      shouldAddUnit = true;
+      // value = value * 1000;  // 1 metric ton = 1000 kg
+      // break;
+      // formatOptions.style = "unit";
+      // formatOptions.unit = "gram";
+      // formatOptions.unitDisplay = "short";
+      break;
+  }
+  let tText = Intl.NumberFormat(intl.locale, formatOptions).format(value);
+  if (shouldAddUnit) {
+    tText = `${tText} ${unit}`;
+  }
+  // let tText = String(d);
   // When the y value is less than one, use the original value.
   // Otherwise 0.3 is formatted into 300m which is confusing to 300M.
-  if (d > 1 || d < -1) {
-    tText = d3.formatPrefix(`.${p}`, yScale.domain()[1])(d).replace(/G/, "B");
-  }
-  const dollar = unit === "$" ? "$" : "";
-  const percent = unit === "%" ? "%" : "";
-  const tons = unit === "t" ? " t" : "";
-  const grams = unit === "g" ? " g" : "";
-  const kg = unit === "kg" ? " kg" : "";
-  const kWh = unit === "kWh" ? " kWh" : "";
-  const liters = unit === "L" ? " L" : "";
-  return `${dollar}${tText}${percent}${tons}${grams}${kg}${kWh}${liters}`;
+  // if (d > 1 || d < -1) {
+  // tText = d3.formatPrefix(`.${p}`, yScale.domain()[1])(d).replace(/G/, "B");
+  // }
+  // return `${dollar}${tText}${percent}${tons}${grams}${kg}${kWh}${liters}`;
+  return tText;
 }
 
 interface Range {
