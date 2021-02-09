@@ -354,6 +354,79 @@ class TestApiDisplayName(unittest.TestCase):
             dcid3: dcid3
         }
 
+    @patch('routes.api.place.cached_i18n_name')
+    @patch('routes.api.place.parent_places')
+    def test_i18n_api_display_name(self, mock_parent_places,
+                                   mock_cached_i18n_name):
+
+        def side_effect(dcids, locale, should_resolve_all):
+            if locale != 'fr':
+                return {}
+            if dcids == 'geoId/0665042^nuts/UKG3^wikidataId/Q21':
+                return {
+                    'geoId/0665042': 'San Buenaventura (Ventura)',
+                    'nuts/UKG3': 'Midlands de l\'Ouest',
+                    'wikidataId/Q21': 'Angleterre',
+                }
+            if dcids == 'geoId/06^wikidataId/Q21':
+                return {
+                    'geoId/06': 'Californie',
+                    'wikidataId/Q21': 'Angleterre',
+                }
+
+        mock_parent_places.return_value = {
+            'geoId/0665042': [{
+                'dcid': 'geoId/06111',
+                'name': 'Ventura County',
+                'provenanceId': 'dc/sm3m2w3',
+                'types': ['County']
+            }, {
+                'dcid': 'geoId/06',
+                'name': 'California',
+                'provenanceId': 'dc/sm3m2w3',
+                'types': ['State']
+            }, {
+                'dcid': 'country/USA',
+                'name': 'United States',
+                'provenanceId': 'dc/5n63hr1',
+                'types': ['Country']
+            }],
+            'nuts/UKG3': [{
+                'dcid': 'nuts/UKG',
+                'name': 'West Midlands',
+                'provenanceId': 'dc/5j06ly1',
+                'types': ['EurostatNUTS1']
+            }, {
+                'dcid': 'wikidataId/Q21',
+                'name': 'England',
+                'provenanceId': 'dc/5j06ly1',
+                'types': ['AdministrativeArea1']
+            }, {
+                'dcid': 'country/GBR',
+                'name': 'United Kingdom',
+                'provenanceId': 'dc/5j06ly1',
+                'types': ['Country']
+            }],
+            'wikidataId/Q21': [{
+                'dcid': 'country/GBR',
+                'name': 'United Kingdom',
+                'provenanceId': 'dc/5n63hr1',
+                'types': ['Country']
+            }]
+        }
+
+        mock_cached_i18n_name.side_effect = side_effect
+
+        response = app.test_client().get(
+            '/api/place/displayname?hl=fr&dcid=geoId/0665042&dcid=nuts/UKG3&dcid=wikidataId/Q21'
+        )
+        assert response.status_code == 200
+        assert json.loads(response.data) == {
+            'geoId/0665042': 'San Buenaventura (Ventura), Californie',
+            'nuts/UKG3': 'Midlands de l\'Ouest, Angleterre',
+            'wikidataId/Q21': 'Angleterre',
+        }
+
 
 class TestApiGetPlacesIn(unittest.TestCase):
 
