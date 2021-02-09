@@ -558,7 +558,7 @@ msgstr "Government expenditures on military"
 
 #. Title of a place chart: Amount spent by a government on the military as a percentage of GDP
 msgid "CHART_TITLE-Government_expenditures_military_per_gdp"
-msgstr "Government expenditures on military as a percentage of GDP"
+msgstr "Government expenditures on military (% of GDP)"
 
 #. Title of a place chart: Percentage of young adults who have a graduate or professional degree, broken down by gender
 msgid "CHART_TITLE-Graduate_or_professional_degree_rate_gender"

@@ -68,11 +68,11 @@
     "description": "Text for header or subheader of Overview charts on place pages."
   },
   "link-return_to_overview": {
-    "defaultMessage": "Back to overview ›",
+    "defaultMessage": "Back to overview",
     "description": "Text for the link present in subtopic place pages directing the user back to the Overview page. Please keep the '›' symbol."
   },
   "more_charts": {
-    "defaultMessage": "More charts ›",
+    "defaultMessage": "More charts",
     "description": "Link to explore more charts about a particular domain, such as Education or Health."
   },
   "place_breadcrumb": {
