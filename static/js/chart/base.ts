@@ -264,21 +264,17 @@ function formatYAxisTicks(
     yticks[1] - yticks[0],
     yticks[yticks.length - 1]
   );
-  // console.log(yScale.domain, p);
   let value = d.valueOf();
   let formatOptions: any = {
-  // let formatOptions: NumberFormatOptions = {
-  // let formatOptions = {
     // @ts-ignore
     notation: "compact",
     compactDisplay: "short",
-    // maximumIntegerDigits: 2,
-    // maximumFractionDigits: 1,
     maximumSignificantDigits: 2,
     style: "decimal",
-  }
+  };
 
   let shouldAddUnit = false;
+  let unitKey: string;
   switch (unit) {
     case "$":
       formatOptions.style = "currency";
@@ -287,35 +283,39 @@ function formatYAxisTicks(
       break;
     case "%":
       formatOptions.style = "percent";
-      value = value / 100;  // Values are scaled by formatter for percent display
+      value = value / 100; // Values are scaled by formatter for percent display
       break;
     case "t":
-    case "g":
-    case "kg":
-    case "kWh":
-    case "L":
-      // formatOptions.style = "unit";
-      // formatOptions.unit = "gram";
-      // formatOptions.unitDisplay = "short";
       shouldAddUnit = true;
-      // value = value * 1000;  // 1 metric ton = 1000 kg
-      // break;
-      // formatOptions.style = "unit";
-      // formatOptions.unit = "gram";
-      // formatOptions.unitDisplay = "short";
+      unitKey = "metric-ton";
+      break;
+    case "kWh":
+      shouldAddUnit = true;
+      unitKey = "kilowatt-hour";
+      break;
+    case "g":
+      shouldAddUnit = true;
+      unitKey = "gram";
+      break;
+    case "kg":
+      shouldAddUnit = true;
+      unitKey = "kilogram";
+      break;
+    case "L":
+      shouldAddUnit = true;
+      unitKey = "liter";
       break;
   }
   let tText = Intl.NumberFormat(intl.locale, formatOptions).format(value);
   if (shouldAddUnit) {
-    tText = `${tText} ${unit}`;
+    tText = intl.formatMessage(
+      {
+        id: unitKey,
+        defaultMessage: `{0} {unit}`,
+      },
+      { 0: tText, unit: unit }
+    );
   }
-  // let tText = String(d);
-  // When the y value is less than one, use the original value.
-  // Otherwise 0.3 is formatted into 300m which is confusing to 300M.
-  // if (d > 1 || d < -1) {
-  // tText = d3.formatPrefix(`.${p}`, yScale.domain()[1])(d).replace(/G/, "B");
-  // }
-  // return `${dollar}${tText}${percent}${tons}${grams}${kg}${kWh}${liters}`;
   return tText;
 }
 

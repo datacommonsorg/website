@@ -1,0 +1,32 @@
+{
+  "metric-ton": {
+    "defaultMessage": "{0} t"
+  },
+  "metric-ton-display": {
+    "defaultMessage": "Tonnen"
+  },
+  "kilowatt-hour": {
+    "defaultMessage": "{0} kWh"
+  },
+  "kilowatt-hour-display": {
+    "defaultMessage": "Kilowattstunden"
+  },
+  "liter": {
+    "defaultMessage": "{0} l"
+  },
+  "liter-display": {
+    "defaultMessage": "Liter"
+  },
+  "kilogram": {
+    "defaultMessage": "{0} kg"
+  },
+  "kilogram-display": {
+    "defaultMessage": "Kilogramm"
+  },
+  "gram": {
+    "defaultMessage": "{0} g"
+  },
+  "gram-display": {
+    "defaultMessage": "Gramm"
+  }
+}

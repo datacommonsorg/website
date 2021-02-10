@@ -1,0 +1,32 @@
+{
+  "metric-ton": {
+    "defaultMessage": "{0} मीट्रिक टन"
+  },
+  "metric-ton-display": {
+    "defaultMessage": "मीट्रिक टन"
+  },
+  "kilowatt-hour": {
+    "defaultMessage": "{0} kWh"
+  },
+  "kilowatt-hour-display": {
+    "defaultMessage": "किलोवॉट घंटे"
+  },
+  "liter": {
+    "defaultMessage": "{0} ली॰"
+  },
+  "liter-display": {
+    "defaultMessage": "लीटर"
+  },
+  "kilogram": {
+    "defaultMessage": "{0} कि॰ग्रा॰"
+  },
+  "kilogram-display": {
+    "defaultMessage": "किलोग्राम"
+  },
+  "gram": {
+    "defaultMessage": "{0} ग्रा॰"
+  },
+  "gram-display": {
+    "defaultMessage": "ग्राम"
+  }
+}

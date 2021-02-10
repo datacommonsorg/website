@@ -15,7 +15,7 @@
  */
 
 import { formatYAxisTicks, shouldFillInValues } from "./base";
-import { setLocaleForTest } from "../i18n/i18n";
+import { loadLocaleData } from "../i18n/i18n";
 import * as d3 from "d3";
 
 test("shouldFillInValues", () => {
@@ -68,6 +68,10 @@ test("shouldFillInValues", () => {
   expect(shouldFillInValues(series)).toBe(true);
 });
 
+/**
+ * Prints a string as hex - useful to displaying non-breaking spaces and other
+ * characters that do not print well.
+ */
 function hexEncode(str: string): string {
   var hex, i;
 
@@ -75,25 +79,12 @@ function hexEncode(str: string): string {
   for (i = 0; i < str.length; i++) {
     hex = str.charCodeAt(i).toString(16);
     result += "\\u00" + hex;
-    // console.log(("000" + hex).slice(-4));
-    // result += ("\\u000" + hex).slice(-4);
   }
 
   return result;
 }
 
-function hexDecode(str: string): string {
-  var j;
-  var hexes = str.match(/.{1,4}/g) || [];
-  var back = "";
-  for (j = 0; j < hexes.length; j++) {
-    back += String.fromCharCode(parseInt(hexes[j], 16));
-  }
-
-  return back;
-}
-
-test("formatYAxisTicks", () => {
+test("formatYAxisTicks", async () => {
   const cases: {
     value: number;
     domain: number[];
@@ -233,27 +224,11 @@ test("formatYAxisTicks", () => {
         de: "20 t",
         es: "20 t",
         fr: "20 t",
-        hi: "20 t",
+        hi: "20 मीट्रिक टन",
         it: "20 t",
         ja: "20 t",
-        ko: "20 t",
-        ru: "20 t",
-      },
-    },
-    {
-      value: 150000000,
-      domain: [0, 200000000],
-      unit: "g",
-      expected: {
-        en: "150M g",
-        de: "150\xa0Mio. g",
-        es: "150\xa0M g",
-        fr: "150\xa0M g", // \xa0 is a non-breaking space
-        hi: "15\xa0क॰ g",
-        it: "150\xa0Mln g",
-        ja: "1.5億 g",
-        ko: "1.5억 g",
-        ru: "150\xa0млн g",
+        ko: "20t",
+        ru: "20 т",
       },
     },
     {
@@ -268,26 +243,77 @@ test("formatYAxisTicks", () => {
         hi: "0.05 kWh",
         it: "0,05 kWh",
         ja: "0.05 kWh",
-        ko: "0.05 kWh",
-        ru: "0,05 kWh",
+        ko: "0.05kWh",
+        ru: "0,05 кВт⋅ч",
+      },
+    },
+    {
+      value: 130000000,
+      domain: [0, 200000000],
+      unit: "g",
+      expected: {
+        en: "130M g",
+        de: "130\xa0Mio. g",
+        es: "130\xa0M g",
+        fr: "130\xa0M g",
+        hi: "13\xa0क॰ ग्रा॰",
+        it: "130\xa0Mln g",
+        ja: "1.3億 g",
+        ko: "1.3억g",
+        ru: "130\xa0млн г",
+      },
+    },
+    {
+      value: 1200000000,
+      domain: [0, 1750000000],
+      unit: "kg",
+      expected: {
+        en: "1.2B kg",
+        de: "1,2\xa0Mrd. kg",
+        es: "1200\xa0M kg",
+        fr: "1,2\xa0Md kg",
+        hi: "1.2\xa0अ॰ कि॰ग्रा॰",
+        it: "1,2\xa0Mrd kg",
+        ja: "12億 kg",
+        ko: "12억kg",
+        ru: "1,2\xa0млрд кг",
+      },
+    },
+    {
+      value: -0.5,
+      domain: [-0.5, 0.05],
+      unit: "L",
+      expected: {
+        en: "-0.5 L",
+        de: "-0,5 l",
+        es: "-0,5 l",
+        fr: "-0,5 l",
+        hi: "-0.5 ली॰",
+        it: "-0,5 l",
+        ja: "-0.5 L",
+        ko: "-0.5L",
+        ru: "-0,5 л",
       },
     },
   ];
 
-  for (let c of cases) {
-    for (let [lang, result] of Object.entries(c.expected)) {
-      setLocaleForTest(lang, {});
-
-      let yScale = d3.scaleLinear().domain(c.domain);
-      let text = formatYAxisTicks(c.value, yScale, c.unit);
-      try {
-        expect(text).toEqual(result);
-      } catch (e) {
-        console.log(
-          `Failed for ${c.value}, ${lang}: return value = ${hexEncode(text)}`
-        );
-        throw e;
+  for (let locale of [ "de", "en", "es", "fr", "hi", "it", "ja", "ko", "ru" ]) {
+    await loadLocaleData(locale, [
+      import(`../i18n/compiled-lang/${locale}/units.json`),
+    ]);
+      for (let c of cases) {
+        let yScale = d3.scaleLinear().domain(c.domain);
+        let text = formatYAxisTicks(c.value, yScale, c.unit);
+        try {
+          expect(text).toEqual(c.expected[locale]);
+        } catch (e) {
+          console.log(
+            `Failed for ${c.value}, ${locale}: return value = ${hexEncode(
+              text
+            )}`
+          );
+          throw e;
+        }
       }
-    }
   }
 });

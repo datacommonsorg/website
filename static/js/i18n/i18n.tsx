@@ -39,7 +39,7 @@ let intl: IntlShape;
  *   the app so that we won't have to bundle all compiled messages across apps.
  *   See https://webpack.js.org/api/module-methods/#dynamic-expressions-in-import
  */
-async function loadLocaleData(
+function loadLocaleData(
   locale: string,
   modules: Promise<Record<any, any>>[]
 ): Promise<void> {
@@ -138,16 +138,11 @@ function LocalizedLink(props: LocalizedLinkProps): JSX.Element {
   );
 }
 
-function setLocaleForTest(locale, messages) {
-  intl = createIntl({ locale, messages: messages }, intlCache);
-}
-
 export {
   LocalizedLink,
   localizeLink,
   localizeSearchParams,
   loadLocaleData,
   intl,
-  setLocaleForTest,
   translateVariableString,
 };
