@@ -279,7 +279,7 @@ function formatYAxisTicks(
     case "$":
       formatOptions.style = "currency";
       formatOptions.currency = "USD";
-      formatOptions.currencyDisplay = "narrowSymbol";
+      formatOptions.currencyDisplay = "code";
       break;
     case "%":
       formatOptions.style = "percent";
