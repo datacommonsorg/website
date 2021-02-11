@@ -28,7 +28,7 @@ const intlCache: IntlCache = createIntlCache();
 // This IntlShape object will be used for both React Intl's
 // React Component API (arg for RawIntlProvider) and
 // Imperative API (format<X> method).
-let intl: IntlShape;
+let intl: IntlShape = createIntl({ locale: "en", messages: {} }, intlCache);
 
 /**
  * Load compiled messages into the global intl object.
