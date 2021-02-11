@@ -24,7 +24,7 @@ function hexEncode(str: string): string {
   let hex, i;
 
   let result = "";
-  for (i = 0; i < str.length; i++) {
+  for (let i = 0; i < str.length; i++) {
     hex = str.charCodeAt(i).toString(16);
     result += "\\u00" + hex;
   }
@@ -41,8 +41,8 @@ test("formatNumber", async () => {
     {
       value: 150000000,
       expected: {
-        en: "150M",
         de: "150\xa0Mio.",
+        en: "150M",
         es: "150\xa0M",
         fr: "150\xa0M", // \xa0 is a non-breaking space
         hi: "15\xa0क॰",
@@ -55,8 +55,8 @@ test("formatNumber", async () => {
     {
       value: 800000,
       expected: {
-        en: "800K", // Ideally: 0.8M
         de: "800.000",
+        en: "800K", // Ideally: 0.8M
         es: "800\xa0mil",
         fr: "800\xa0k",
         hi: "8\xa0लाख",
@@ -69,8 +69,8 @@ test("formatNumber", async () => {
     {
       value: 2000,
       expected: {
-        en: "2K",
         de: "2000",
+        en: "2K",
         es: "2\xa0mil",
         fr: "2\xa0k",
         hi: "2\xa0हज़ार",
@@ -83,8 +83,8 @@ test("formatNumber", async () => {
     {
       value: 0.05,
       expected: {
-        en: "0.05",
         de: "0,05",
+        en: "0.05",
         es: "0,05",
         fr: "0,05",
         hi: "0.05",
@@ -98,8 +98,8 @@ test("formatNumber", async () => {
       value: 35000000000,
       unit: "$",
       expected: {
-        en: "USD\xa035B",
         de: "35\xa0Mrd.\xa0USD",
+        en: "USD\xa035B",
         es: "35\xa0mil\xa0MUSD",
         fr: "35\xa0Md\xa0USD",
         hi: "USD\xa035\xa0अ॰",
@@ -113,8 +113,8 @@ test("formatNumber", async () => {
       value: 25000,
       unit: "$",
       expected: {
-        en: "USD\xa025K",
         de: "25.000\xa0USD",
+        en: "USD\xa025K",
         es: "25\xa0mil\xa0USD",
         fr: "25\xa0k\xa0USD",
         hi: "USD\xa025\xa0हज़ार",
@@ -128,8 +128,8 @@ test("formatNumber", async () => {
       value: 0.25,
       unit: "%",
       expected: {
-        en: "0.25%",
         de: "0,25\xa0%",
+        en: "0.25%",
         es: "0,25\xa0%",
         fr: "0,25\xa0%",
         hi: "0.25%",
@@ -143,8 +143,8 @@ test("formatNumber", async () => {
       value: 30,
       unit: "%",
       expected: {
-        en: "30%",
         de: "30\xa0%",
+        en: "30%",
         es: "30\xa0%",
         fr: "30\xa0%",
         hi: "30%",
@@ -158,8 +158,8 @@ test("formatNumber", async () => {
       value: 20,
       unit: "t",
       expected: {
-        en: "20 t",
         de: "20 t",
+        en: "20 t",
         es: "20 t",
         fr: "20 t",
         hi: "20 मीट्रिक टन",
@@ -173,8 +173,8 @@ test("formatNumber", async () => {
       value: 0.05,
       unit: "kWh",
       expected: {
-        en: "0.05 kWh",
         de: "0,05 kWh",
+        en: "0.05 kWh",
         es: "0,05 kWh",
         fr: "0,05 kWh",
         hi: "0.05 kWh",
@@ -188,8 +188,8 @@ test("formatNumber", async () => {
       value: 130000000,
       unit: "g",
       expected: {
-        en: "130M g",
         de: "130\xa0Mio. g",
+        en: "130M g",
         es: "130\xa0M g",
         fr: "130\xa0M g",
         hi: "13\xa0क॰ ग्रा॰",
@@ -203,8 +203,8 @@ test("formatNumber", async () => {
       value: 1200000000,
       unit: "kg",
       expected: {
-        en: "1.2B kg",
         de: "1,2\xa0Mrd. kg",
+        en: "1.2B kg",
         es: "1200\xa0M kg",
         fr: "1,2\xa0Md kg",
         hi: "1.2\xa0अ॰ कि॰ग्रा॰",
@@ -218,8 +218,8 @@ test("formatNumber", async () => {
       value: -0.5,
       unit: "L",
       expected: {
-        en: "-0.5 L",
         de: "-0,5 l",
+        en: "-0.5 L",
         es: "-0,5 l",
         fr: "-0,5 l",
         hi: "-0.5 ली॰",
