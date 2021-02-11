@@ -27,14 +27,20 @@ import { formatNumber } from "../i18n/i18n";
 
 const NUM_X_TICKS = 5;
 const NUM_Y_TICKS = 5;
-const MARGIN = { top: 20, right: 10, bottom: 30, left: 10, yAxis: 3, grid: 5 };
+const MARGIN = {
+  top: 20, // margin between chart and top edge
+  right: 10, // margin between chart and right edge
+  bottom: 30, // margin between chart and bottom edge
+  left: 0, // margin between chart and left edge
+  grid: 10, // margin between y-axis and chart content
+};
 const ROTATE_MARGIN_BOTTOM = 75; // margin bottom to use for histogram
 const LEGEND = {
   ratio: 0.2,
   minTextWidth: 100,
   dashWidth: 30,
   lineMargin: 10,
-  marginLeft: 15,
+  marginLeft: 10,
   marginTop: 40,
   defaultColor: "#000",
 };
@@ -232,10 +238,14 @@ function updateXAxis(
   chartWidth?: number
 ): void {
   const xDomain = xAxis.select(".domain");
-  const yCoord = Math.floor(yScale(0) + xAxisHeight - chartHeight) + .5; // the rendered path is sharper at the 1/2 pixel boundary
+  const xDomainPath = xDomain.attr("d");
   xDomain
-    .attr("d", `M0,${yCoord}H${chartWidth - MARGIN.right}`)
-    .attr("stroke", AXIS_GRID_FILL);
+    .attr("d", xDomainPath.replace(/^M[^,]+,/, `M${MARGIN.left},`))
+    .attr("stroke", AXIS_GRID_FILL)
+    .attr(
+      "transform",
+      `translate(0, ${yScale(0) + xAxisHeight - chartHeight})`
+    );
 }
 
 /**
@@ -254,13 +264,14 @@ function addYAxis(
   yScale: d3.ScaleLinear<any, any>,
   unit?: string
 ) {
+  const tickLength = chartWidth - MARGIN.right - MARGIN.left;
   axis
-    .attr("transform", `translate(${chartWidth - MARGIN.right}, 0)`)
+    .attr("transform", `translate(${tickLength}, 0)`)
     .call(
       d3
         .axisLeft(yScale)
         .ticks(NUM_Y_TICKS)
-        .tickSize(chartWidth - MARGIN.grid - MARGIN.right)
+        .tickSize(tickLength)
         .tickFormat((d) => {
           return formatNumber(d.valueOf(), unit);
         })
@@ -278,7 +289,7 @@ function addYAxis(
     .call((g) =>
       g
         .selectAll("text")
-        .attr("x", -chartWidth)
+        .attr("x", -tickLength)
         .attr("dy", -4)
         .style("fill", AXIS_TEXT_FILL)
         .style("font-family", TEXT_FONT_FAMILY)
@@ -286,10 +297,12 @@ function addYAxis(
     );
 
   let maxLabelWidth = 0;
-  axis.selectAll("text").each(function() {
-    maxLabelWidth = Math.max((<SVGSVGElement>this).getBBox().width, maxLabelWidth);
+  axis.selectAll("text").each(function () {
+    maxLabelWidth = Math.max(
+      (<SVGSVGElement>this).getBBox().width,
+      maxLabelWidth
+    );
   });
-  maxLabelWidth += MARGIN.left + MARGIN.yAxis;
   axis
     .call((g) =>
       g
@@ -297,7 +310,7 @@ function addYAxis(
         .attr("transform", `translate(${maxLabelWidth}, 0)`)
     );
 
-  return maxLabelWidth;
+  return maxLabelWidth + MARGIN.left + MARGIN.grid;
 }
 
 /**
@@ -870,7 +883,7 @@ function drawGroupLineChart(
   yScale.rangeRound([height - bottomHeight, MARGIN.top + YLABEL.height]);
   tempYAxis.remove();
   addYAxis(yAxis, width - legendWidth, yScale, unit);
-  updateXAxis(xAxis, bottomHeight, height, yScale, width);
+  updateXAxis(xAxis, bottomHeight, height, yScale, width - legendWidth);
 
   // add ylabel
   svg
