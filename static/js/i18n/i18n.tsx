@@ -138,6 +138,19 @@ function LocalizedLink(props: LocalizedLinkProps): JSX.Element {
   );
 }
 
+/**
+ * Formats numbers to the currently set locale. To call this,
+ * i18n/compiled-strings/{locale}/units.json must be loaded.
+ * Only a subset of units are available. To add a unit, add the appropriate
+ * "short-other-nominative" unit from CLDR, as well as the display name for the
+ * unit to each locale's unit message bundle.
+ * e.g. https://unicode-org.github.io/cldr-staging/charts/38/summary/ru.html
+ *
+ * @param value: the number to format
+ * @param unit: (optional) short unit
+ *
+ * @return localized display string for the number
+ */
 function formatNumber(value: number, unit?: string): string {
   let formatOptions: any = {
     // @ts-ignore
