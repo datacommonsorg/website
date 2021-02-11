@@ -15,7 +15,6 @@
  */
 
 import * as d3 from "d3";
-import { intl } from "../i18n/i18n";
 
 const DEFAULT_COLOR = "#000";
 
@@ -251,74 +250,6 @@ function dataGroupsToCsv(dataGroups: DataGroup[]): string {
   return result;
 }
 
-/**
- * Applies formatting to y-axis ticks, based on a scale and optional unit.
- */
-function formatYAxisTicks(
-  d: number | { valueOf(): number },
-  yScale: d3.ScaleLinear<any, any>,
-  unit?: string
-): string {
-  const yticks = yScale.ticks();
-  const p = d3.precisionPrefix(
-    yticks[1] - yticks[0],
-    yticks[yticks.length - 1]
-  );
-  let value = d.valueOf();
-  let formatOptions: any = {
-    // @ts-ignore
-    notation: "compact",
-    compactDisplay: "short",
-    maximumSignificantDigits: 2,
-    style: "decimal",
-  };
-
-  let shouldAddUnit = false;
-  let unitKey: string;
-  switch (unit) {
-    case "$":
-      formatOptions.style = "currency";
-      formatOptions.currency = "USD";
-      formatOptions.currencyDisplay = "code";
-      break;
-    case "%":
-      formatOptions.style = "percent";
-      value = value / 100; // Values are scaled by formatter for percent display
-      break;
-    case "t":
-      shouldAddUnit = true;
-      unitKey = "metric-ton";
-      break;
-    case "kWh":
-      shouldAddUnit = true;
-      unitKey = "kilowatt-hour";
-      break;
-    case "g":
-      shouldAddUnit = true;
-      unitKey = "gram";
-      break;
-    case "kg":
-      shouldAddUnit = true;
-      unitKey = "kilogram";
-      break;
-    case "L":
-      shouldAddUnit = true;
-      unitKey = "liter";
-      break;
-  }
-  let tText = Intl.NumberFormat(intl.locale, formatOptions).format(value);
-  if (shouldAddUnit) {
-    tText = intl.formatMessage(
-      {
-        id: unitKey,
-        defaultMessage: `{0} {unit}`,
-      },
-      { 0: tText, unit: unit }
-    );
-  }
-  return tText;
-}
-
 interface Range {
   // min value of the range.
   minV: number;
@@ -334,7 +265,6 @@ export {
   Style,
   computePlotParams,
   dataGroupsToCsv,
-  formatYAxisTicks,
   getColorFn,
   getDashes,
   shouldFillInValues,

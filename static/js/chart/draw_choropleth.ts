@@ -21,8 +21,9 @@
 import * as d3 from "d3";
 import * as geo from "geo-albers-usa-territories";
 import { GeoJsonData, GeoJsonFeature } from "./types";
-import { getColorFn, formatYAxisTicks } from "./base";
+import { getColorFn } from "./base";
 import { getStatsVarLabel } from "../shared/stats_var_labels";
+import { formatNumber } from "../i18n/i18n";
 
 const MISSING_DATA_COLOR = "#999";
 const TOOLTIP_ID = "tooltip";
@@ -261,7 +262,7 @@ function generateLegend(
         .tickSize(TICK_SIZE)
         .ticks(NUM_TICKS)
         .tickFormat((d) => {
-          return formatYAxisTicks(d, yScale, unit);
+          return formatNumber(d.valueOf(), unit);
         })
     )
     .call((g) =>

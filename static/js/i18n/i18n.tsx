@@ -138,7 +138,63 @@ function LocalizedLink(props: LocalizedLinkProps): JSX.Element {
   );
 }
 
+function formatNumber(value: number, unit?: string): string {
+  let formatOptions: any = {
+    // @ts-ignore
+    notation: "compact",
+    compactDisplay: "short",
+    maximumSignificantDigits: 2,
+    style: "decimal",
+  };
+
+  let shouldAddUnit = false;
+  let unitKey: string;
+  switch (unit) {
+    case "$":
+      formatOptions.style = "currency";
+      formatOptions.currency = "USD";
+      formatOptions.currencyDisplay = "code";
+      break;
+    case "%":
+      formatOptions.style = "percent";
+      value = value / 100; // Values are scaled by formatter for percent display
+      break;
+    case "t":
+      shouldAddUnit = true;
+      unitKey = "metric-ton";
+      break;
+    case "kWh":
+      shouldAddUnit = true;
+      unitKey = "kilowatt-hour";
+      break;
+    case "g":
+      shouldAddUnit = true;
+      unitKey = "gram";
+      break;
+    case "kg":
+      shouldAddUnit = true;
+      unitKey = "kilogram";
+      break;
+    case "L":
+      shouldAddUnit = true;
+      unitKey = "liter";
+      break;
+  }
+  let returnText = Intl.NumberFormat(intl.locale, formatOptions).format(value);
+  if (shouldAddUnit) {
+    returnText = intl.formatMessage(
+      {
+        id: unitKey,
+        defaultMessage: `{0} {unit}`,
+      },
+      { 0: returnText, unit: unit }
+    );
+  }
+  return returnText;
+}
+
 export {
+  formatNumber,
   LocalizedLink,
   localizeLink,
   localizeSearchParams,

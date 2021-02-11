@@ -15,7 +15,6 @@
  */
 
 import * as d3 from "d3";
-
 import {
   DataGroup,
   DataPoint,
@@ -23,8 +22,8 @@ import {
   Style,
   getColorFn,
   shouldFillInValues,
-  formatYAxisTicks,
 } from "./base";
+import { formatNumber } from "../i18n/i18n";
 
 const NUM_X_TICKS = 5;
 const NUM_Y_TICKS = 5;
@@ -263,7 +262,7 @@ function addYAxis(
         .ticks(NUM_Y_TICKS)
         .tickSize(chartWidth - MARGIN.grid - MARGIN.right)
         .tickFormat((d) => {
-          return formatYAxisTicks(d, yScale, unit);
+          return formatNumber(d.valueOf(), unit);
         })
     )
     .call((g) => g.select(".domain").remove())
