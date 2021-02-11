@@ -81,7 +81,7 @@ export function axios_mock(): void {
         "geoId/05": {
           placeDcid: "geoId/05",
           placeName: "Arkansas",
-          provenanceDomain: "census.gov",
+          provenanceUrl: "census.gov",
           data: { "2011": 37.3, "2012": 37.4, "2013": 37.5, "2014": 37.6 },
         },
       },
@@ -95,7 +95,7 @@ export function axios_mock(): void {
         "geoId/05": {
           placeDcid: "geoId/05",
           placeName: "Arkansas",
-          provenanceDomain: "census.gov",
+          provenanceUrl: "census.gov",
           data: { "1999": 37.3, "2010": 37.4, "2020": 37.5 },
         },
       },
@@ -108,7 +108,7 @@ export function axios_mock(): void {
         "geoId/05": {
           placeDcid: "geoId/05",
           placeName: "Arkansas",
-          provenanceDomain: "census.gov",
+          provenanceUrl: "census.gov",
           data: { "1999": 37.3, "2010": 37.4, "2020": 37.5 },
         },
       },

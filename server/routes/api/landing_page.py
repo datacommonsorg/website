@@ -134,7 +134,7 @@ def get_series(data, place, stat_vars):
             return {}, []
         series = data[place][sv]
         all_series.append(series['data'])
-        sources.add(series['provenanceDomain'])
+        sources.add(series['provenanceUrl'])
     # One series, no need to aggregate
     if num_sv == 1:
         return all_series[0], sources

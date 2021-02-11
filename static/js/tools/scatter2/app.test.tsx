@@ -65,7 +65,6 @@ function mockAxios(): () => void {
       },
       measurementMethod: "CensusPEPSurvey",
       importName: "CensusPEP",
-      provenanceDomain: "census.gov",
       provenanceUrl: "https://www.census.gov/programs-surveys/popest.html",
     },
     Count_Person_Employed: {
@@ -77,14 +76,12 @@ function mockAxios(): () => void {
       measurementMethod: "BLSSeasonallyUnadjusted",
       observationPeriod: "P1Y",
       importName: "BLS_LAUS",
-      provenanceDomain: "bls.gov",
       provenanceUrl: "https://www.bls.gov/lau/",
     },
     Count_Establishment: {
       val: { "geoId/10001": 3422, "geoId/10003": 16056, "geoId/10005": 5601 },
       measurementMethod: "CensusCBPSurvey",
       importName: "CensusCountyBusinessPatterns",
-      provenanceDomain: "census.gov",
       provenanceUrl: "https://www.census.gov/",
     },
     Count_HousingUnit: {
@@ -95,7 +92,6 @@ function mockAxios(): () => void {
       },
       measurementMethod: "CensusACS5yrSurvey",
       importName: "CensusACS5YearSurvey",
-      provenanceDomain: "census.gov",
       provenanceUrl: "https://www.census.gov/",
     },
   };
