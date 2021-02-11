@@ -705,8 +705,8 @@ async function renderKGPage(
   // Add "More" to existing cards.
   util.appendMoreToAll();
 
-  const loadingElem = document.getElementById("page-loading");
   if (!hasPopObsError) {
+    const loadingElem = document.getElementById("page-loading");
     loadingElem.style.display = "none";
   }
 
