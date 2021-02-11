@@ -153,7 +153,7 @@ function LocalizedLink(props: LocalizedLinkProps): JSX.Element {
  * @return localized display string for the number
  */
 function formatNumber(value: number, unit?: string): string {
-  let formatOptions: any = {
+  const formatOptions: any = {
     // @ts-ignore
     notation: "compact",
     compactDisplay: "short",

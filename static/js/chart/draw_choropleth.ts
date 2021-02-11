@@ -178,7 +178,7 @@ const onMouseMove = (
   if (dataValues[geoProperties.geoDcid]) {
     value = formatNumber(
       Math.round((dataValues[geoProperties.geoDcid] + Number.EPSILON) * 100) /
-          100,
+        100,
       unit
     );
   }

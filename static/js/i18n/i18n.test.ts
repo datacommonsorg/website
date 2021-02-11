@@ -21,9 +21,9 @@ import { formatNumber, loadLocaleData } from "./i18n";
  * characters that do not print well.
  */
 function hexEncode(str: string): string {
-  var hex, i;
+  let hex, i;
 
-  var result = "";
+  let result = "";
   for (i = 0; i < str.length; i++) {
     hex = str.charCodeAt(i).toString(16);
     result += "\\u00" + hex;
@@ -231,12 +231,12 @@ test("formatNumber", async () => {
     },
   ];
 
-  for (let locale of ["de", "en", "es", "fr", "hi", "it", "ja", "ko", "ru"]) {
+  for (const locale of ["de", "en", "es", "fr", "hi", "it", "ja", "ko", "ru"]) {
     await loadLocaleData(locale, [
       import(`../i18n/compiled-lang/${locale}/units.json`),
     ]);
-    for (let c of cases) {
-      let text = formatNumber(c.value, c.unit);
+    for (const c of cases) {
+      const text = formatNumber(c.value, c.unit);
       try {
         expect(text).toEqual(c.expected[locale]);
       } catch (e) {

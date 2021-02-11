@@ -303,12 +303,9 @@ function addYAxis(
       maxLabelWidth
     );
   });
-  axis
-    .call((g) =>
-      g
-        .selectAll("text")
-        .attr("transform", `translate(${maxLabelWidth}, 0)`)
-    );
+  axis.call((g) =>
+    g.selectAll("text").attr("transform", `translate(${maxLabelWidth}, 0)`)
+  );
 
   return maxLabelWidth + MARGIN.left + MARGIN.grid;
 }
