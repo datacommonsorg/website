@@ -37,6 +37,7 @@ import _ from "lodash";
 import { FormattedMessage } from "react-intl";
 import { getStatsVarLabel } from "../shared/stats_var_labels";
 import { LocalizedLink, intl, localizeSearchParams } from "../i18n/i18n";
+import { urlToDomain } from "../shared/util";
 
 const CHART_HEIGHT = 194;
 const MIN_CHOROPLETH_DATAPOINTS = 9;
@@ -174,12 +175,7 @@ class Chart extends React.Component<ChartPropType, ChartStateType> {
       return null;
     }
     const sourcesJsx = sources.map((source, index) => {
-      const domain = source
-        .replace("http://", "")
-        .replace("https://", "")
-        .replace("www.", "")
-        .split(/[/?#]/)[0];
-
+      const domain = urlToDomain(source);
       return (
         <span key={source}>
           <a href={source}>{domain}</a>

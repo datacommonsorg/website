@@ -415,6 +415,18 @@ function saveToFile(filename, contents) {
   link.remove();
 }
 
+/**
+ * Get the domain from a url.
+ * @param {string} url
+ */
+function urlToDomain(url) {
+  return url
+    .replace("http://", "")
+    .replace("https://", "")
+    .replace("www.", "")
+    .split(/[/?#]/)[0];
+}
+
 export {
   STATS,
   OBS_KEYS,
@@ -441,4 +453,5 @@ export {
   saveToFile,
   setElementShown,
   unzip,
+  urlToDomain,
 };
