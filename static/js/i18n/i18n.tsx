@@ -139,12 +139,13 @@ function LocalizedLink(props: LocalizedLinkProps): JSX.Element {
 }
 
 /**
- * Formats numbers to the currently set locale. To call this,
- * i18n/compiled-strings/{locale}/units.json must be loaded.
- * Only a subset of units are available. To add a unit, add the appropriate
- * "short-other-nominative" unit from CLDR, as well as the display name for the
- * unit to each locale's unit message bundle.
- * e.g. https://unicode-org.github.io/cldr-staging/charts/38/summary/ru.html
+ * Formats numbers to the currently set locale. Only shows a certain number of
+ * significant digits. To call this, i18n/compiled-strings/{locale}/units.json
+ * must be loaded. Only a subset of units are available. To add a unit, add the
+ * appropriate "short-other-nominative" unit from CLDR, as well as the display
+ * name for the unit to each locale's unit message bundle. e.g.
+ * https://unicode-org.github.io/cldr-staging/charts/38/summary/ru.html or
+ * https://github.com/unicode-org/cldr/blob/release-38-1/common/main/de.xml
  *
  * @param value: the number to format
  * @param unit: (optional) short unit
@@ -206,6 +207,37 @@ function formatNumber(value: number, unit?: string): string {
   return returnText;
 }
 
+function translateUnit(unit: string): string {
+  let messageId;
+  switch (unit) {
+    case "$":
+      return "USD";
+    case "%":
+      return "%";
+    case "t":
+      messageId = "metric-ton-display";
+      break;
+    case "kWh":
+      messageId = "kilowatt-hour-display";
+      break;
+    case "g":
+      messageId = "gram-display";
+      break;
+    case "kg":
+      messageId = "kilogram-display";
+      break;
+    case "L":
+      messageId = "liter-display";
+      break;
+    default:
+      return unit;
+  }
+  return intl.formatMessage({
+    id: messageId,
+    defaultMessage: unit,
+  });
+}
+
 export {
   formatNumber,
   LocalizedLink,
@@ -213,5 +245,6 @@ export {
   localizeSearchParams,
   loadLocaleData,
   intl,
+  translateUnit,
   translateVariableString,
 };
