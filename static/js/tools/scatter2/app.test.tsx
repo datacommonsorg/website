@@ -208,8 +208,8 @@ test("all functionalities", async (done) => {
       8359.667,
       108149.894,
       6753.678,
-      "bls.gov",
-      "census.gov",
+      "https://www.bls.gov/",
+      "https://www.census.gov/",
       app
     );
     // Points
@@ -226,8 +226,8 @@ test("all functionalities", async (done) => {
     152696,
     6753.678,
     108149.894,
-    "census.gov",
-    "bls.gov",
+    "https://www.census.gov/",
+    "https://www.bls.gov/",
     app
   );
   expectCircles(3, app);
@@ -242,7 +242,15 @@ test("all functionalities", async (done) => {
     .at(0)
     .simulate("change", { target: { checked: true } });
   expectTitle("Employed Per Capita vs Number Of Establishments Per Capita");
-  expectInfo(0.024, 0.456, 0.005, 0.036, "census.gov", "bls.gov", app);
+  expectInfo(
+    0.024,
+    0.456,
+    0.005,
+    0.036,
+    "https://www.census.gov/",
+    "https://www.bls.gov/",
+    app
+  );
   expectCircles(3, app);
 
   // Log
@@ -277,7 +285,15 @@ test("all functionalities", async (done) => {
     expect(app.text()).toContain(
       "Housing Units Per Capita vs Employed Per Capita"
     );
-    expectInfo(0.456, 0.456, 0.036, 0.107, "bls.gov", "census.gov", app);
+    expectInfo(
+      0.456,
+      0.456,
+      0.036,
+      0.107,
+      "https://www.bls.gov/",
+      "https://www.census.gov/",
+      app
+    );
     expectCircles(3, app);
   });
 
