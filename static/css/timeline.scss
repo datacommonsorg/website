@@ -116,10 +116,6 @@ sup {
   margin-bottom: 30px;
 }
 
-.statsVarChipRegion {
-  margin-left: 3px;
-}
-
 .perCapitaCheckbox {
   cursor: pointer;
   width: 14px;
@@ -137,7 +133,6 @@ sup {
 .chartPerCapita {
   font-size: 14px;
   margin-bottom: 10px;
-  margin-left: 5px;
 }
 
 #observation {
@@ -157,12 +152,11 @@ sup {
   line-height: 36px;
   padding: 0 15px;
   border: 20;
-  border-radius: 16px;
+  border-radius: 18px;
   background-color: #999;
   display: inline-block;
   color: white;
-  margin: 2px 2px;
+  margin: 0 8px 8px 0;
   font-size: 0;
   white-space: nowrap;
-  margin-right: 8px;
 }

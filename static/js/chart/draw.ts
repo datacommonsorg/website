@@ -890,7 +890,7 @@ function drawGroupLineChart(
     .append("text")
     .attr("class", "label")
     .attr("text-anchor", "start")
-    .attr("transform", `translate(${MARGIN.grid}, ${YLABEL.topMargin})`)
+    .attr("transform", `translate(${MARGIN.left}, ${YLABEL.topMargin})`)
     .style("font-size", "12px")
     .style("text-rendering", "optimizedLegibility")
     .text(ylabel);
@@ -928,7 +928,7 @@ function drawGroupLineChart(
       .attr("class", "label")
       .attr(
         "transform",
-        `translate(${MARGIN.grid}, ${height + SOURCE.topMargin})`
+        `translate(${MARGIN.left}, ${height + SOURCE.topMargin})`
       )
       .style("fill", "#808080")
       .style("font-size", "12px")
