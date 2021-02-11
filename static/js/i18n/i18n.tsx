@@ -207,6 +207,18 @@ function formatNumber(value: number, unit?: string): string {
   return returnText;
 }
 
+/**
+ * Returns a sentence-cased, translated unit in the current locale for display
+ * purposes. To call this, i18n/compiled-strings/{locale}/units.json must be
+ * loaded. Only a subset of units are available. To add a unit, add the
+ * appropriate display name for the unit from CLDR, e.g.
+ * https://unicode-org.github.io/cldr-staging/charts/38/summary/ru.html or
+ * https://github.com/unicode-org/cldr/blob/release-38-1/common/main/de.xml
+ *
+ * @param unit: short unit
+ *
+ * @return localized display string for the number
+ */
 function translateUnit(unit: string): string {
   let messageId;
   switch (unit) {
@@ -232,10 +244,15 @@ function translateUnit(unit: string): string {
     default:
       return unit;
   }
-  return intl.formatMessage({
+  let displayUnit = intl.formatMessage({
     id: messageId,
     defaultMessage: unit,
   });
+  // A hack to use since there is no standardized equivalent:
+  // https://github.com/tc39/ecma402/issues/294
+  displayUnit =
+    displayUnit.charAt(0).toLocaleUpperCase() + displayUnit.slice(1);
+  return displayUnit;
 }
 
 export {

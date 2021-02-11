@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-import { formatNumber, loadLocaleData } from "./i18n";
+import { formatNumber, translateUnit, loadLocaleData } from "./i18n";
 
 /**
  * Prints a string as hex - useful to displaying non-breaking spaces and other
@@ -243,6 +243,144 @@ test("formatNumber", async () => {
         console.log(
           `Failed for ${c.value}, ${locale}: return value = ${hexEncode(text)}`
         );
+        throw e;
+      }
+    }
+  }
+});
+
+test("translateUnit", async () => {
+  const cases: {
+    unit: string;
+    expected: { [lang: string]: string };
+  }[] = [
+    {
+      unit: "$",
+      expected: {
+        de: "USD",
+        en: "USD",
+        es: "USD",
+        fr: "USD",
+        hi: "USD",
+        it: "USD",
+        ja: "USD",
+        ko: "USD",
+        ru: "USD",
+      },
+    },
+    {
+      unit: "%",
+      expected: {
+        de: "%",
+        en: "%",
+        es: "%",
+        fr: "%",
+        hi: "%",
+        it: "%",
+        ja: "%",
+        ko: "%",
+        ru: "%",
+      },
+    },
+    {
+      unit: "t",
+      expected: {
+        de: "Tonnen",
+        en: "Metric tons",
+        es: "Toneladas",
+        fr: "Tonnes",
+        hi: "मीट्रिक टन",
+        it: "Tonnellate metriche",
+        ja: "トン",
+        ko: "메트릭 톤",
+        ru: "Тонны",
+      },
+    },
+    {
+      unit: "kWh",
+      expected: {
+        de: "Kilowattstunden",
+        en: "Kilowatt-hours",
+        es: "Kilovatios-hora",
+        fr: "Kilowattheures",
+        hi: "किलोवॉट घंटे",
+        it: "Chilowattora",
+        ja: "キロワット時",
+        ko: "킬로와트시",
+        ru: "Киловатт-часы",
+      },
+    },
+    {
+      unit: "g",
+      expected: {
+        de: "Gramm",
+        en: "Grams",
+        es: "Gramos",
+        fr: "Grammes",
+        hi: "ग्राम",
+        it: "Grammi",
+        ja: "グラム",
+        ko: "그램",
+        ru: "Граммы",
+      },
+    },
+    {
+      unit: "kg",
+      expected: {
+        de: "Kilogramm",
+        en: "Kilograms",
+        es: "Kilogramos",
+        fr: "Kilogrammes",
+        hi: "किलोग्राम",
+        it: "Chilogrammi",
+        ja: "キログラム",
+        ko: "킬로그램",
+        ru: "Килограммы",
+      },
+    },
+    {
+      unit: "L",
+      expected: {
+        de: "Liter",
+        en: "Liters",
+        es: "Litros",
+        fr: "Litres",
+        hi: "लीटर",
+        it: "Litri",
+        ja: "リットル",
+        ko: "리터",
+        ru: "Литры",
+      },
+    },
+    {
+      unit: "foo",
+      expected: {
+        de: "foo",
+        en: "foo",
+        es: "foo",
+        fr: "foo",
+        hi: "foo",
+        it: "foo",
+        ja: "foo",
+        ko: "foo",
+        ru: "foo",
+      },
+    },
+  ];
+
+  for (const locale of ["de", "en", "es", "fr", "hi", "it", "ja", "ko", "ru"]) {
+    await loadLocaleData(locale, [
+      import(`../i18n/compiled-lang/${locale}/units.json`),
+    ]);
+    for (const c of cases) {
+      const text = translateUnit(c.unit);
+      /*
+      console.log(text);
+      */
+      try {
+        expect(text).toEqual(c.expected[locale]);
+      } catch (e) {
+        console.log(`Failed for ${c.unit}, ${locale}: return value = ${text}`);
         throw e;
       }
     }
