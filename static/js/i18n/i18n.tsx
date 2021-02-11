@@ -154,7 +154,6 @@ function LocalizedLink(props: LocalizedLinkProps): JSX.Element {
  */
 function formatNumber(value: number, unit?: string): string {
   const formatOptions: any = {
-    // @ts-ignore
     notation: "compact",
     compactDisplay: "short",
     maximumSignificantDigits: 2,
