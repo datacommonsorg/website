@@ -171,13 +171,11 @@ const onMouseMove = (
   const placeName = geoProperties.name;
   let value = "Data Missing";
   if (dataValues[geoProperties.geoDcid]) {
-    value = (
+    value = formatNumber(
       Math.round((dataValues[geoProperties.geoDcid] + Number.EPSILON) * 100) /
-      100
-    ).toLocaleString();
-    if (unit) {
-      value = unit == "$" ? unit + value : value + unit;
-    }
+          100,
+      unit
+    );
   }
   const tooltipSelect = d3.select(domContainerId).select(`#${TOOLTIP_ID}`);
   const text = placeName + ": " + value;
