@@ -41,7 +41,7 @@ test("fetch stats data", () => {
               "2012": 22000,
             },
             placeName: "Arkansas",
-            provenanceDomain: "source1",
+            provenanceUrl: "source1",
           },
           "geoId/06": {
             data: {
@@ -49,7 +49,7 @@ test("fetch stats data", () => {
               "2012": 32000,
             },
             placeName: "California",
-            provenanceDomain: "source2",
+            provenanceUrl: "source2",
           },
         },
       });
@@ -64,7 +64,7 @@ test("fetch stats data", () => {
               "2012": 13000,
             },
             placeName: "Arkansas",
-            provenanceDomain: "source1",
+            provenanceUrl: "source1",
           },
           "geoId/06": {
             data: {
@@ -72,7 +72,7 @@ test("fetch stats data", () => {
               "2012": 16000,
             },
             placeName: "California",
-            provenanceDomain: "source2",
+            provenanceUrl: "source2",
           },
         },
       });
@@ -99,7 +99,7 @@ test("fetch stats data", () => {
               "2012": 13000,
             },
             placeName: "Arkansas",
-            provenanceDomain: "source1",
+            provenanceUrl: "source1",
           },
           "geoId/06": {
             data: {
@@ -107,7 +107,7 @@ test("fetch stats data", () => {
               "2012": 16000,
             },
             placeName: "California",
-            provenanceDomain: "source2",
+            provenanceUrl: "source2",
           },
         },
         Count_Person: {
@@ -117,7 +117,7 @@ test("fetch stats data", () => {
               "2012": 22000,
             },
             placeName: "Arkansas",
-            provenanceDomain: "source1",
+            provenanceUrl: "source1",
           },
           "geoId/06": {
             data: {
@@ -125,7 +125,7 @@ test("fetch stats data", () => {
               "2012": 32000,
             },
             placeName: "California",
-            provenanceDomain: "source2",
+            provenanceUrl: "source2",
           },
         },
       },
@@ -187,7 +187,7 @@ test("fetch stats data with state code", () => {
               "2012": 22000,
             },
             placeName: "Arkansas",
-            provenanceDomain: "source1",
+            provenanceUrl: "source1",
           },
           "geoId/06085": {
             data: {
@@ -195,7 +195,7 @@ test("fetch stats data with state code", () => {
               "2012": 32000,
             },
             placeName: "Santa Clara",
-            provenanceDomain: "source2",
+            provenanceUrl: "source2",
           },
         },
       });
@@ -222,7 +222,7 @@ test("fetch stats data with state code", () => {
                 "2012": 22000,
               },
               placeName: "Arkansas",
-              provenanceDomain: "source1",
+              provenanceUrl: "source1",
             },
             "geoId/06085": {
               data: {
@@ -230,7 +230,7 @@ test("fetch stats data with state code", () => {
                 "2012": 32000,
               },
               placeName: "Santa Clara, CA",
-              provenanceDomain: "source2",
+              provenanceUrl: "source2",
             },
           },
         },
@@ -261,7 +261,7 @@ test("fetch stats data where latest date with data for all stat vars is not the 
         "2012": 22000,
       },
       placeName: "Arkansas",
-      provenanceDomain: "source1",
+      provenanceUrl: "source1",
     },
     "geoId/06": {
       data: {
@@ -269,7 +269,7 @@ test("fetch stats data where latest date with data for all stat vars is not the 
         "2013": 32000,
       },
       placeName: "California",
-      provenanceDomain: "source2",
+      provenanceUrl: "source2",
     },
   };
   mockedAxios.get.mockImplementation((url: string) => {
@@ -340,7 +340,7 @@ test("fetch stats data where there is no date with data for all stat vars", () =
         "2013": 22000,
       },
       placeName: "Arkansas",
-      provenanceDomain: "source1",
+      provenanceUrl: "source1",
     },
     "geoId/06": {
       data: {
@@ -348,7 +348,7 @@ test("fetch stats data where there is no date with data for all stat vars", () =
         "2012": 32000,
       },
       placeName: "California",
-      provenanceDomain: "source2",
+      provenanceUrl: "source2",
     },
   };
   mockedAxios.get.mockImplementation((url: string) => {
@@ -426,7 +426,7 @@ test("fetch stats data from cache where latest date with data for all stat vars 
             "2011": 1300,
             "2012": 2100,
           },
-          provenanceDomain: "source1",
+          provenanceUrl: "source1",
         },
       },
       "geoId/06": {
@@ -435,7 +435,7 @@ test("fetch stats data from cache where latest date with data for all stat vars 
             "2011": 200,
             "2013": 300,
           },
-          provenanceDomain: "source2",
+          provenanceUrl: "source2",
         },
       },
     }
@@ -448,14 +448,14 @@ test("fetch stats data from cache where latest date with data for all stat vars 
               "2011": 1300,
               "2012": 2100,
             },
-            provenanceDomain: "source1",
+            provenanceUrl: "source1",
           },
           "geoId/06": {
             data: {
               "2011": 200,
               "2013": 300,
             },
-            provenanceDomain: "source2",
+            provenanceUrl: "source2",
           },
         },
       },
@@ -482,7 +482,7 @@ test("fetch stats data from cache where there is no date with data for all stat 
             "2010": 1300,
             "2012": 2100,
           },
-          provenanceDomain: "source1",
+          provenanceUrl: "source1",
         },
       },
       "geoId/06": {
@@ -491,7 +491,7 @@ test("fetch stats data from cache where there is no date with data for all stat 
             "2011": 200,
             "2013": 300,
           },
-          provenanceDomain: "source2",
+          provenanceUrl: "source2",
         },
       },
     }
@@ -504,14 +504,14 @@ test("fetch stats data from cache where there is no date with data for all stat 
               "2010": 1300,
               "2012": 2100,
             },
-            provenanceDomain: "source1",
+            provenanceUrl: "source1",
           },
           "geoId/06": {
             data: {
               "2011": 200,
               "2013": 300,
             },
-            provenanceDomain: "source2",
+            provenanceUrl: "source2",
           },
         },
       },
@@ -535,7 +535,7 @@ test("fetch stats data with per capita with population size 0", () => {
               "2012": 0,
             },
             placeName: "Arkansas",
-            provenanceDomain: "source1",
+            provenanceUrl: "source1",
           },
         },
       });
@@ -548,7 +548,7 @@ test("fetch stats data with per capita with population size 0", () => {
               "2012": 13000,
             },
             placeName: "Arkansas",
-            provenanceDomain: "source1",
+            provenanceUrl: "source1",
           },
         },
       });
@@ -572,7 +572,7 @@ test("fetch stats data with per capita with population size 0", () => {
                 "2012": 0,
               },
               placeName: "Arkansas",
-              provenanceDomain: "source1",
+              provenanceUrl: "source1",
             },
           },
         },
@@ -598,7 +598,7 @@ test("StatsData test", () => {
         "geoId/02": {
           placeDcid: "geoId/02",
           placeName: "Place2",
-          provenanceDomain: "test.domain",
+          provenanceUrl: "test.domain",
           data: { "1990": 10, "1992": 20 },
         },
       },
@@ -619,7 +619,7 @@ test("Per capita with specified denominators test", () => {
               "2012": 22000,
             },
             placeName: "Arkansas",
-            provenanceDomain: "source1",
+            provenanceUrl: "source1",
           },
           "geoId/06": {
             data: {
@@ -627,7 +627,7 @@ test("Per capita with specified denominators test", () => {
               "2012": 32000,
             },
             placeName: "California",
-            provenanceDomain: "source2",
+            provenanceUrl: "source2",
           },
         },
       });
@@ -642,7 +642,7 @@ test("Per capita with specified denominators test", () => {
               "2012": 13000,
             },
             placeName: "Arkansas",
-            provenanceDomain: "source1",
+            provenanceUrl: "source1",
           },
           "geoId/06": {
             data: {
@@ -650,7 +650,7 @@ test("Per capita with specified denominators test", () => {
               "2012": 16000,
             },
             placeName: "California",
-            provenanceDomain: "source2",
+            provenanceUrl: "source2",
           },
         },
       });
@@ -680,7 +680,7 @@ test("Per capita with specified denominators test", () => {
               "2012": 1,
             },
             placeName: "Arkansas",
-            provenanceDomain: "source1",
+            provenanceUrl: "source1",
           },
           "geoId/06": {
             data: {
@@ -688,7 +688,7 @@ test("Per capita with specified denominators test", () => {
               "2012": 1,
             },
             placeName: "California",
-            provenanceDomain: "source2",
+            provenanceUrl: "source2",
           },
         },
         Count_Person_Female: {
@@ -698,7 +698,7 @@ test("Per capita with specified denominators test", () => {
               "2012": 1,
             },
             placeName: "Arkansas",
-            provenanceDomain: "source1",
+            provenanceUrl: "source1",
           },
           "geoId/06": {
             data: {
@@ -706,7 +706,7 @@ test("Per capita with specified denominators test", () => {
               "2012": 1,
             },
             placeName: "California",
-            provenanceDomain: "source2",
+            provenanceUrl: "source2",
           },
         },
       },
@@ -771,14 +771,14 @@ test("Per capita with specified denominators test from cache", () => {
             "2011": 1300,
             "2012": 2100,
           },
-          provenanceDomain: "source1",
+          provenanceUrl: "source1",
         },
         Count_Person_Female: {
           data: {
             "2011": 500,
             "2012": 300,
           },
-          provenanceDomain: "source1",
+          provenanceUrl: "source1",
         },
       },
       "geoId/06": {
@@ -787,14 +787,14 @@ test("Per capita with specified denominators test from cache", () => {
             "2011": 200,
             "2012": 300,
           },
-          provenanceDomain: "source2",
+          provenanceUrl: "source2",
         },
         Count_Person_Female: {
           data: {
             "2011": 1000,
             "2012": 3000,
           },
-          provenanceDomain: "source2",
+          provenanceUrl: "source2",
         },
       },
     }
@@ -807,14 +807,14 @@ test("Per capita with specified denominators test from cache", () => {
               "2011": 1,
               "2012": 1,
             },
-            provenanceDomain: "source1",
+            provenanceUrl: "source1",
           },
           "geoId/06": {
             data: {
               "2011": 1,
               "2012": 1,
             },
-            provenanceDomain: "source2",
+            provenanceUrl: "source2",
           },
         },
         Count_Person_Female: {
@@ -823,14 +823,14 @@ test("Per capita with specified denominators test from cache", () => {
               "2011": 1,
               "2012": 1,
             },
-            provenanceDomain: "source1",
+            provenanceUrl: "source1",
           },
           "geoId/06": {
             data: {
               "2011": 1,
               "2012": 1,
             },
-            provenanceDomain: "source2",
+            provenanceUrl: "source2",
           },
         },
       },
@@ -858,7 +858,7 @@ test("Per capita with specified denominators test - missing place data", () => {
               "2012": 22000,
             },
             placeName: "USA",
-            provenanceDomain: "source1",
+            provenanceUrl: "source1",
           },
         },
       });
@@ -874,7 +874,7 @@ test("Per capita with specified denominators test - missing place data", () => {
               "2012": 2,
             },
             placeName: "Arkansas",
-            provenanceDomain: "source2",
+            provenanceUrl: "source2",
           },
           "country/USA": null,
         },
@@ -908,7 +908,7 @@ test("Per capita with specified denominators test - missing place data", () => {
               "2012": 22000,
             },
             placeName: "USA",
-            provenanceDomain: "source1",
+            provenanceUrl: "source1",
           },
         },
         UnemploymentRate_Person_Female: {
@@ -918,7 +918,7 @@ test("Per capita with specified denominators test - missing place data", () => {
               "2012": 2,
             },
             placeName: "Arkansas",
-            provenanceDomain: "source2",
+            provenanceUrl: "source2",
           },
           "country/USA": null,
         },
@@ -969,7 +969,7 @@ test("getTimeGroupWithStatsVar with missing data", () => {
             "2013": 0,
           },
           placeName: "Arkansas",
-          provenanceDomain: "source1",
+          provenanceUrl: "source1",
         },
       },
       Count_Person_Male: {
@@ -979,7 +979,7 @@ test("getTimeGroupWithStatsVar with missing data", () => {
             "2012": 13000,
           },
           placeName: "Arkansas",
-          provenanceDomain: "source1",
+          provenanceUrl: "source1",
         },
       },
     },

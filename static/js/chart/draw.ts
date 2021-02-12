@@ -15,6 +15,8 @@
  */
 
 import * as d3 from "d3";
+import { urlToDomain } from "../shared/util";
+
 import {
   DataGroup,
   DataPoint,
@@ -804,7 +806,7 @@ function computeRanges(dataGroupsDict: { [geoId: string]: DataGroup[] }) {
  * @param statsVarsTitle: object from stats var dcid to display title.
  * @param dataGroupsDict: data groups for plotting.
  * @param plotParams: contains all plot params for chart.
- * @param source: an array of source domain.
+ * @param sources: an array of source domain.
  * @param unit the unit of the measurement.
  */
 function drawGroupLineChart(
@@ -815,7 +817,7 @@ function drawGroupLineChart(
   dataGroupsDict: { [place: string]: DataGroup[] },
   plotParams: PlotParams,
   ylabel?: string,
-  source?: string[],
+  sources?: string[],
   unit?: string
 ): void {
   // Get a non-empty array as dataGroups
@@ -918,8 +920,11 @@ function drawGroupLineChart(
     }
   }
   // add source info to the chart
-  if (source) {
-    const sourceText = "Data source: " + source.filter(Boolean).join(", ");
+  if (sources) {
+    const domains = new Set(
+      sources.map((source) => urlToDomain(source)).filter(Boolean)
+    );
+    const sourceText = "Data source: " + Array.from(domains).join(", ");
     svg
       .append("text")
       .attr("class", "label")

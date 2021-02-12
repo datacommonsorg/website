@@ -182,7 +182,7 @@ async function loadData(
  */
 function getProvenance(cache: Cache, statVar: string) {
   if (statVar in cache) {
-    return cache[statVar].provenanceDomain;
+    return cache[statVar].provenanceUrl;
   }
   return "";
 }

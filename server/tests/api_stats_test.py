@@ -49,7 +49,6 @@ class TestApiGetStatsCollection(unittest.TestCase):
                     },
                     "measurementMethod": "CensusACS5yrSurvey",
                     "importName": "CensusACS5YearSurvey",
-                    "provenanceDomain": "census.gov",
                     "provenanceUrl": "https://www.census.gov/"
                 },
                 "Count_Person": {
@@ -62,8 +61,6 @@ class TestApiGetStatsCollection(unittest.TestCase):
                         "CensusPEPSurvey",
                     "importName":
                         "CensusPEP",
-                    "provenanceDomain":
-                        "census.gov",
                     "provenanceUrl":
                         "https://www.census.gov/programs-surveys/popest.html"
                 }

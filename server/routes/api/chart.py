@@ -199,7 +199,7 @@ def process_choropleth_data(all_sv_data):
                     most_recent_date = sorted_dates[-1]
                     result[geo][sv] = {
                         'data': source_values,
-                        'provenanceDomain': source.get('provenanceDomain', '')
+                        'provenanceUrl': source.get('provenanceUrl', '')
                     }
     return result
 
