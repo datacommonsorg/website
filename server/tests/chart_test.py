@@ -258,13 +258,13 @@ class TestChoroplethDataHelpers(unittest.TestCase):
         source_series_1_source = 'provDomain1'
         source_series_1 = {
             'val': source_series_1_vals,
-            'provenanceDomain': source_series_1_source
+            'provenanceUrl': source_series_1_source
         }
         source_series_2_vals = {'2018': 1, '2013': 2}
         source_series_2_source = 'provDomain2'
         source_series_2 = {
             'val': source_series_2_vals,
-            'provenanceDomain': source_series_2_source
+            'provenanceUrl': source_series_2_source
         }
         test_data = {
             'dcid1': {
@@ -283,11 +283,11 @@ class TestChoroplethDataHelpers(unittest.TestCase):
             'dcid1': {
                 'SV1': {
                     'data': source_series_1_vals,
-                    'provenanceDomain': source_series_1_source
+                    'provenanceUrl': source_series_1_source
                 },
                 'SV3': {
                     'data': source_series_2_vals,
-                    'provenanceDomain': source_series_2_source
+                    'provenanceUrl': source_series_2_source
                 }
             }
         }

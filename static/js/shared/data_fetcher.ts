@@ -28,7 +28,7 @@ interface TimeSeries {
   };
   placeName?: string;
   placeDcid?: string;
-  provenanceDomain: string;
+  provenanceUrl: string;
 }
 
 interface StatApiResponse {
@@ -303,7 +303,7 @@ function getStatsDataFromCachedData(
         numStatVarsPerPlace[place] = 0;
       }
       const timeSeries = result.data[sv][place];
-      result.sources.add(timeSeries.provenanceDomain);
+      result.sources.add(timeSeries.provenanceUrl);
       if (Object.keys(timeSeries.data).length > 0) {
         numStatVarsPerPlace[place] = numStatVarsPerPlace[place] + 1;
       }
@@ -486,7 +486,7 @@ function fetchStatsData(
         if (Object.keys(timeSeries.data).length > 0) {
           numStatVarsPerPlace[place] = numStatVarsPerPlace[place] + 1;
         }
-        result.sources.add(timeSeries.provenanceDomain);
+        result.sources.add(timeSeries.provenanceUrl);
         for (const date in timeSeries.data) {
           if (date in numOccurencesPerDate) {
             numOccurencesPerDate[date] = numOccurencesPerDate[date] + 1;

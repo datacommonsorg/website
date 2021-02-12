@@ -37,6 +37,7 @@ import _ from "lodash";
 import { FormattedMessage } from "react-intl";
 import { getStatsVarLabel } from "../shared/stats_var_labels";
 import { LocalizedLink, intl, localizeSearchParams } from "../i18n/i18n";
+import { urlToDomain } from "../shared/util";
 
 const CHART_HEIGHT = 194;
 const MIN_CHOROPLETH_DATAPOINTS = 9;
@@ -174,17 +175,10 @@ class Chart extends React.Component<ChartPropType, ChartStateType> {
       return null;
     }
     const sourcesJsx = sources.map((source, index) => {
-      // TDOO(shifucun): Use provenance name and url from cache data
-      // https://github.com/datacommonsorg/website/issues/429
-      let sourceUrl = source;
-      if (source === "worldbank.org") {
-        sourceUrl = "www.worldbank.org";
-      } else if (source === "europa.eu") {
-        sourceUrl = "ec.europa.eu/eurostat";
-      }
+      const domain = urlToDomain(source);
       return (
         <span key={source}>
-          <a href={"https://" + sourceUrl}>{source}</a>
+          <a href={source}>{domain}</a>
           {index < sources.length - 1 ? ", " : ""}
         </span>
       );

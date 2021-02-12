@@ -36,7 +36,6 @@ interface SourceSeries {
   val: Record<string, number>;
   measurementMethod: string;
   importName: string;
-  provenanceDomain: string;
   provenanceUrl: string;
   observationPeriod: string;
   unit: string;
