@@ -705,7 +705,14 @@ async function renderKGPage(
   // Add "More" to existing cards.
   util.appendMoreToAll();
 
-  if (NO_POP_TYPES.includes(type)) return;
+  if (!hasPopObsError) {
+    const loadingElem = document.getElementById("page-loading");
+    loadingElem.style.display = "none";
+  }
+
+  if (NO_POP_TYPES.includes(type)) {
+    return;
+  }
 
   const subPopHintElem = document.getElementById("subpop-hint");
   const populationElem = document.getElementById("population");
@@ -737,11 +744,6 @@ async function renderKGPage(
         }
       });
     }
-  }
-
-  const loadingElem = document.getElementById("page-loading");
-  if (!hasPopObsError) {
-    loadingElem.style.display = "none";
   }
 
   if (popobs) {
