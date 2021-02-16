@@ -1,0 +1,82 @@
+{
+  "gram": [
+    {
+      "type": 1,
+      "value": "0"
+    },
+    {
+      "type": 0,
+      "value": "g"
+    }
+  ],
+  "gram-display": [
+    {
+      "type": 0,
+      "value": "그램"
+    }
+  ],
+  "kilogram": [
+    {
+      "type": 1,
+      "value": "0"
+    },
+    {
+      "type": 0,
+      "value": "kg"
+    }
+  ],
+  "kilogram-display": [
+    {
+      "type": 0,
+      "value": "킬로그램"
+    }
+  ],
+  "kilowatt-hour": [
+    {
+      "type": 1,
+      "value": "0"
+    },
+    {
+      "type": 0,
+      "value": "kWh"
+    }
+  ],
+  "kilowatt-hour-display": [
+    {
+      "type": 0,
+      "value": "킬로와트시"
+    }
+  ],
+  "liter": [
+    {
+      "type": 1,
+      "value": "0"
+    },
+    {
+      "type": 0,
+      "value": "L"
+    }
+  ],
+  "liter-display": [
+    {
+      "type": 0,
+      "value": "리터"
+    }
+  ],
+  "metric-ton": [
+    {
+      "type": 1,
+      "value": "0"
+    },
+    {
+      "type": 0,
+      "value": "t"
+    }
+  ],
+  "metric-ton-display": [
+    {
+      "type": 0,
+      "value": "메트릭 톤"
+    }
+  ]
+}

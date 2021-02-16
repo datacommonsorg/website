@@ -20,7 +20,7 @@ import { LocationRankData } from "./ranking_types";
 import { RankingHistogram } from "./ranking_histogram";
 import { RankingTable } from "./ranking_table";
 import { displayNameForPlaceType } from "../place/util";
-import { intl, LocalizedLink, translateVariableString } from "../i18n/i18n";
+import { intl, LocalizedLink } from "../i18n/i18n";
 import { defineMessages } from "react-intl";
 import { getStatsVarTitle } from "../shared/stats_var_titles";
 

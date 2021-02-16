@@ -24,19 +24,25 @@ import {
   Style,
   getColorFn,
   shouldFillInValues,
-  formatYAxisTicks,
 } from "./base";
+import { formatNumber } from "../i18n/i18n";
 
 const NUM_X_TICKS = 5;
 const NUM_Y_TICKS = 5;
-const MARGIN = { top: 20, right: 10, bottom: 30, left: 40, yAxis: 3, grid: 5 };
+const MARGIN = {
+  top: 20, // margin between chart and top edge
+  right: 10, // margin between chart and right edge
+  bottom: 30, // margin between chart and bottom edge
+  left: 0, // margin between chart and left edge
+  grid: 10, // margin between y-axis and chart content
+};
 const ROTATE_MARGIN_BOTTOM = 75; // margin bottom to use for histogram
 const LEGEND = {
   ratio: 0.2,
   minTextWidth: 100,
   dashWidth: 30,
   lineMargin: 10,
-  marginLeft: 15,
+  marginLeft: 10,
   marginTop: 40,
   defaultColor: "#000",
 };
@@ -141,9 +147,8 @@ function wrap(
 /**
  * Adds an X-Axis to the svg chart. Tick labels will be wrapped if necessary (unless shouldRotate).
  *
- * @param svg: d3-selection with an SVG element to add the x-axis to
+ * @param axis: d3-selection with an SVG element to add the x-axis to
  * @param chartHeight: The height of the SVG chart
- * @param chartWidth: The width of the SVG chart
  * @param xScale: d3-scale for the x-axis
  * @param shouldRotate: true if the x-ticks should be rotated (no wrapping applied).
  * @param labelToLink: optional map of [label] -> link for each ordinal tick
@@ -225,17 +230,19 @@ function addXAxis(
  * @param xHeight: The height of the X-Axis
  * @param chartHeight: The height of the SVG chart
  * @param yScale: d3-scale for the Y-axis
+ * @param chartWidth: The width of the SVG chart
  */
 function updateXAxis(
   xAxis: d3.Selection<SVGGElement, any, any, any>,
   xAxisHeight: number,
   chartHeight: number,
-  yScale: d3.AxisScale<any>
+  yScale: d3.AxisScale<any>,
+  chartWidth?: number
 ): void {
   const xDomain = xAxis.select(".domain");
   const xDomainPath = xDomain.attr("d");
   xDomain
-    .attr("d", xDomainPath.replace(`M${MARGIN.left}`, "M5"))
+    .attr("d", xDomainPath.replace(/^M[^,]+,/, `M${MARGIN.left},`))
     .attr("stroke", AXIS_GRID_FILL)
     .attr(
       "transform",
@@ -243,59 +250,80 @@ function updateXAxis(
     );
 }
 
+/**
+ * Adds a Y-Axis to the svg chart.
+ *
+ * @param axis: d3-selection with an SVG element to add the y-axis to
+ * @param chartWidth: The width of the SVG chart
+ * @param yScale: d3-scale for the y-ayis
+ * @param unit: optional unit for the tick values
+ *
+ * @return the width of the y-axis bounding-box. The x-coordinate of the grid starts at this value.
+ */
 function addYAxis(
-  g: d3.Selection<SVGGElement, any, any, any>,
-  width: number,
+  axis: d3.Selection<SVGGElement, any, any, any>,
+  chartWidth: number,
   yScale: d3.ScaleLinear<any, any>,
   unit?: string
 ) {
-  g.attr("transform", `translate(${width - MARGIN.right}, 0)`)
+  const tickLength = chartWidth - MARGIN.right - MARGIN.left;
+  axis
+    .attr("transform", `translate(${tickLength}, 0)`)
     .call(
       d3
         .axisLeft(yScale)
         .ticks(NUM_Y_TICKS)
-        .tickSize(width - MARGIN.grid - MARGIN.right)
+        .tickSize(tickLength)
         .tickFormat((d) => {
-          return formatYAxisTicks(d, yScale, unit);
+          return formatNumber(d.valueOf(), unit);
         })
     )
     .call((g) => g.select(".domain").remove())
     .call((g) =>
       g
         .selectAll("line")
+        .attr("class", "grid-line")
         .style("stroke", AXIS_GRID_FILL)
         .style("stroke-width", "0.5")
-    )
-    .call((g) =>
-      g
-        .selectAll(".tick line")
-        .attr("class", "grid-line")
         .style("stroke-opacity", "0.5")
         .style("stroke-dasharray", "2, 2")
     )
     .call((g) =>
       g
-        .selectAll(".tick text")
-        .attr("x", -width + MARGIN.left + MARGIN.yAxis)
+        .selectAll("text")
+        .attr("x", -tickLength)
         .attr("dy", -4)
         .style("fill", AXIS_TEXT_FILL)
         .style("font-family", TEXT_FONT_FAMILY)
         .style("shape-rendering", "crispEdges")
     );
+
+  let maxLabelWidth = 0;
+  axis.selectAll("text").each(function () {
+    maxLabelWidth = Math.max(
+      (<SVGSVGElement>this).getBBox().width,
+      maxLabelWidth
+    );
+  });
+  axis.call((g) =>
+    g.selectAll("text").attr("transform", `translate(${maxLabelWidth}, 0)`)
+  );
+
+  return maxLabelWidth + MARGIN.left + MARGIN.grid;
 }
 
 /**
  * Draw histogram. Used for ranking pages. Labels will not be translated - expects translated place names as labels.
  * @param id
- * @param width
- * @param height
+ * @param chartWidth
+ * @param chartHeight
  * @param dataPoints
  * @param unit
  */
 function drawHistogram(
   id: string,
-  width: number,
-  height: number,
+  chartWidth: number,
+  chartHeight: number,
   dataPoints: DataPoint[],
   unit?: string
 ): void {
@@ -307,32 +335,38 @@ function drawHistogram(
     .append("svg")
     .attr("xmlns", SVGNS)
     .attr("xmlns:xlink", XLINKNS)
-    .attr("width", width)
-    .attr("height", height);
+    .attr("width", chartWidth)
+    .attr("height", chartHeight);
 
   const yAxis = svg.append("g").attr("class", "y axis");
   const chart = svg.append("g").attr("class", "chart-area");
   const xAxis = svg.append("g").attr("class", "x axis");
-
-  const x = d3
-    .scaleBand()
-    .domain(textList)
-    .rangeRound([MARGIN.left, width - MARGIN.right])
-    .paddingInner(0.1)
-    .paddingOuter(0.1);
-
-  const bottomHeight = addXAxis(xAxis, height, x, true);
+  const tempYAxis = svg.append("g");
 
   const yExtent = d3.extent(values);
   const y = d3
     .scaleLinear()
     .domain([Math.min(0, yExtent[0]), yExtent[1]])
-    .rangeRound([height - bottomHeight, MARGIN.top]);
+    .rangeRound([chartHeight - MARGIN.bottom, MARGIN.top]);
+
+  const leftWidth = addYAxis(tempYAxis, chartWidth, y, unit);
+
+  const x = d3
+    .scaleBand()
+    .domain(textList)
+    .rangeRound([leftWidth, chartWidth - MARGIN.right])
+    .paddingInner(0.1)
+    .paddingOuter(0.1);
+
+  const bottomHeight = addXAxis(xAxis, chartHeight, x, true);
+
+  // Update and redraw the y-axis based on the new x-axis height.
+  y.rangeRound([chartHeight - bottomHeight, MARGIN.top]);
+  tempYAxis.remove();
+  addYAxis(yAxis, chartWidth, y, unit);
+  updateXAxis(xAxis, bottomHeight, chartHeight, y, chartWidth);
 
   const color = getColorFn(["A"])("A"); // we only need one color
-
-  addYAxis(yAxis, width, y, unit);
-  updateXAxis(xAxis, bottomHeight, height, y);
 
   chart
     .append("g")
@@ -453,15 +487,7 @@ function drawStackBarChart(
   const yAxis = svg.append("g").attr("class", "y axis");
   const chart = svg.append("g").attr("class", "chart-area");
   const xAxis = svg.append("g").attr("class", "x axis");
-
-  const x = d3
-    .scaleBand()
-    .domain(dataGroups.map((dg) => dg.label))
-    .rangeRound([MARGIN.left, chartWidth - MARGIN.right])
-    .paddingInner(0.1)
-    .paddingOuter(0.1);
-
-  const bottomHeight = addXAxis(xAxis, chartHeight, x, false, labelToLink);
+  const tempYAxis = svg.append("g");
 
   const y = d3
     .scaleLinear()
@@ -470,10 +496,24 @@ function drawStackBarChart(
       d3.max(series, (d) => d3.max(d, (d1) => d1[1])),
     ])
     .nice()
-    .rangeRound([chartHeight - bottomHeight, MARGIN.top]);
+    .rangeRound([chartHeight - MARGIN.bottom, MARGIN.top]);
 
+  const leftWidth = addYAxis(tempYAxis, chartWidth, y, unit);
+
+  const x = d3
+    .scaleBand()
+    .domain(dataGroups.map((dg) => dg.label))
+    .rangeRound([leftWidth, chartWidth - MARGIN.right])
+    .paddingInner(0.1)
+    .paddingOuter(0.1);
+
+  const bottomHeight = addXAxis(xAxis, chartHeight, x, false, labelToLink);
+
+  // Update and redraw the y-axis based on the new x-axis height.
+  y.rangeRound([chartHeight - bottomHeight, MARGIN.top]);
+  tempYAxis.remove();
   addYAxis(yAxis, chartWidth, y, unit);
-  updateXAxis(xAxis, bottomHeight, chartHeight, y);
+  updateXAxis(xAxis, bottomHeight, chartHeight, y, chartWidth);
 
   const color = getColorFn(keys);
 
@@ -524,18 +564,11 @@ function drawGroupBarChart(
     labelToLink[dataGroup.label] = dataGroup.link;
   }
   const keys = dataGroups[0].value.map((dp) => dp.label);
-  const x0 = d3
-    .scaleBand()
-    .domain(dataGroups.map((dg) => dg.label))
-    .rangeRound([MARGIN.left, chartWidth - MARGIN.right])
-    .paddingInner(0.1)
-    .paddingOuter(0.1);
-
-  const x1 = d3
-    .scaleBand()
-    .domain(keys)
-    .rangeRound([0, x0.bandwidth()])
-    .padding(0.05);
+  const minV = Math.min(
+    0,
+    Math.min(...dataGroups.map((dataGroup) => dataGroup.min()))
+  );
+  const maxV = Math.max(...dataGroups.map((dataGroup) => dataGroup.max()));
 
   const svg = d3
     .select("#" + id)
@@ -548,22 +581,34 @@ function drawGroupBarChart(
   const yAxis = svg.append("g").attr("class", "y axis");
   const chart = svg.append("g").attr("class", "chart-area");
   const xAxis = svg.append("g").attr("class", "x axis");
+  const tempYAxis = svg.append("g");
 
-  const bottomHeight = addXAxis(xAxis, chartHeight, x0, false, labelToLink);
-
-  const minV = Math.min(
-    0,
-    Math.min(...dataGroups.map((dataGroup) => dataGroup.min()))
-  );
-  const maxV = Math.max(...dataGroups.map((dataGroup) => dataGroup.max()));
   const y = d3
     .scaleLinear()
     .domain([minV, maxV])
     .nice()
-    .rangeRound([chartHeight - bottomHeight, MARGIN.top]);
+    .rangeRound([chartHeight - MARGIN.bottom, MARGIN.top]);
+  const leftWidth = addYAxis(tempYAxis, chartWidth, y, unit);
 
+  const x0 = d3
+    .scaleBand()
+    .domain(dataGroups.map((dg) => dg.label))
+    .rangeRound([leftWidth, chartWidth - MARGIN.right])
+    .paddingInner(0.1)
+    .paddingOuter(0.1);
+  const bottomHeight = addXAxis(xAxis, chartHeight, x0, false, labelToLink);
+
+  const x1 = d3
+    .scaleBand()
+    .domain(keys)
+    .rangeRound([0, x0.bandwidth()])
+    .padding(0.05);
+
+  // Update and redraw the y-axis based on the new x-axis height.
+  y.rangeRound([chartHeight - bottomHeight, MARGIN.top]);
+  tempYAxis.remove();
   addYAxis(yAxis, chartWidth, y, unit);
-  updateXAxis(xAxis, bottomHeight, chartHeight, y);
+  updateXAxis(xAxis, bottomHeight, chartHeight, y, chartWidth);
 
   const colorFn = getColorFn(keys);
 
@@ -631,24 +676,24 @@ function drawLineChart(
     .attr("width", width)
     .attr("height", height);
 
-  const yAxis = svg.append("g").attr("class", "y axis");
   const xAxis = svg.append("g").attr("class", "x axis");
+  const yAxis = svg.append("g").attr("class", "y axis");
   const chart = svg.append("g").attr("class", "chart-area");
-
-  const xScale = d3
-    .scaleTime()
-    .domain(d3.extent(dataGroups[0].value, (d) => new Date(d.label).getTime()))
-    .range([MARGIN.left, width - MARGIN.right]);
 
   const yScale = d3
     .scaleLinear()
     .domain([minV, maxV])
     .range([height - MARGIN.bottom, MARGIN.top])
     .nice(NUM_Y_TICKS);
+  const leftWidth = addYAxis(yAxis, width, yScale, unit);
+
+  const xScale = d3
+    .scaleTime()
+    .domain(d3.extent(dataGroups[0].value, (d) => new Date(d.label).getTime()))
+    .range([leftWidth, width - MARGIN.right]);
 
   const bottomHeight = addXAxis(xAxis, height, xScale);
-  addYAxis(yAxis, width, yScale, unit);
-  updateXAxis(xAxis, bottomHeight, height, yScale);
+  updateXAxis(xAxis, bottomHeight, height, yScale, width);
 
   const legendText = dataGroups.map((dataGroup) =>
     dataGroup.label ? dataGroup.label : "A"
@@ -816,11 +861,7 @@ function drawGroupLineChart(
   const yAxis = svg.append("g").attr("class", "y axis");
   const xAxis = svg.append("g").attr("class", "x axis");
   const chart = svg.append("g").attr("class", "chart-area");
-
-  const xScale = d3
-    .scaleTime()
-    .domain(d3.extent(dataGroups[0].value, (d) => new Date(d.label).getTime()))
-    .range([MARGIN.left, width - MARGIN.right - legendWidth]);
+  const tempYAxis = svg.append("g");
 
   const yScale = d3
     .scaleLinear()
@@ -828,16 +869,27 @@ function drawGroupLineChart(
     .range([height - MARGIN.bottom, MARGIN.top + YLABEL.height])
     .nice(NUM_Y_TICKS);
 
+  const leftWidth = addYAxis(tempYAxis, width - legendWidth, yScale, unit);
+
+  const xScale = d3
+    .scaleTime()
+    .domain(d3.extent(dataGroups[0].value, (d) => new Date(d.label).getTime()))
+    .range([leftWidth, width - MARGIN.right - legendWidth]);
+
   const bottomHeight = addXAxis(xAxis, height, xScale);
+
+  // Update and redraw the y-axis based on the new x-axis height.
+  yScale.rangeRound([height - bottomHeight, MARGIN.top + YLABEL.height]);
+  tempYAxis.remove();
   addYAxis(yAxis, width - legendWidth, yScale, unit);
-  updateXAxis(xAxis, bottomHeight, height, yScale);
+  updateXAxis(xAxis, bottomHeight, height, yScale, width - legendWidth);
 
   // add ylabel
   svg
     .append("text")
     .attr("class", "label")
     .attr("text-anchor", "start")
-    .attr("transform", `translate(${MARGIN.grid}, ${YLABEL.topMargin})`)
+    .attr("transform", `translate(${MARGIN.left}, ${YLABEL.topMargin})`)
     .style("font-size", "12px")
     .style("text-rendering", "optimizedLegibility")
     .text(ylabel);
@@ -878,7 +930,7 @@ function drawGroupLineChart(
       .attr("class", "label")
       .attr(
         "transform",
-        `translate(${MARGIN.grid}, ${height + SOURCE.topMargin})`
+        `translate(${MARGIN.left}, ${height + SOURCE.topMargin})`
       )
       .style("fill", "#808080")
       .style("font-size", "12px")

@@ -250,35 +250,6 @@ function dataGroupsToCsv(dataGroups: DataGroup[]): string {
   return result;
 }
 
-/**
- * Applies formatting to y-axis ticks, based on a scale and optional unit.
- */
-function formatYAxisTicks(
-  d: number | { valueOf(): number },
-  yScale: d3.ScaleLinear<any, any>,
-  unit?: string
-): string {
-  const yticks = yScale.ticks();
-  const p = d3.precisionPrefix(
-    yticks[1] - yticks[0],
-    yticks[yticks.length - 1]
-  );
-  let tText = String(d);
-  // When the y value is less than one, use the original value.
-  // Otherwise 0.3 is formatted into 300m which is confusing to 300M.
-  if (d > 1 || d < -1) {
-    tText = d3.formatPrefix(`.${p}`, yScale.domain()[1])(d).replace(/G/, "B");
-  }
-  const dollar = unit === "$" ? "$" : "";
-  const percent = unit === "%" ? "%" : "";
-  const tons = unit === "t" ? " t" : "";
-  const grams = unit === "g" ? " g" : "";
-  const kg = unit === "kg" ? " kg" : "";
-  const kWh = unit === "kWh" ? " kWh" : "";
-  const liters = unit === "L" ? " L" : "";
-  return `${dollar}${tText}${percent}${tons}${grams}${kg}${kWh}${liters}`;
-}
-
 interface Range {
   // min value of the range.
   minV: number;
@@ -294,7 +265,6 @@ export {
   Style,
   computePlotParams,
   dataGroupsToCsv,
-  formatYAxisTicks,
   getColorFn,
   getDashes,
   shouldFillInValues,

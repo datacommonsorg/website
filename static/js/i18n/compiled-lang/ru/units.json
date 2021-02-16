@@ -1,0 +1,82 @@
+{
+  "gram": [
+    {
+      "type": 1,
+      "value": "0"
+    },
+    {
+      "type": 0,
+      "value": " г"
+    }
+  ],
+  "gram-display": [
+    {
+      "type": 0,
+      "value": "граммы"
+    }
+  ],
+  "kilogram": [
+    {
+      "type": 1,
+      "value": "0"
+    },
+    {
+      "type": 0,
+      "value": " кг"
+    }
+  ],
+  "kilogram-display": [
+    {
+      "type": 0,
+      "value": "килограммы"
+    }
+  ],
+  "kilowatt-hour": [
+    {
+      "type": 1,
+      "value": "0"
+    },
+    {
+      "type": 0,
+      "value": " кВт⋅ч"
+    }
+  ],
+  "kilowatt-hour-display": [
+    {
+      "type": 0,
+      "value": "киловатт-часы"
+    }
+  ],
+  "liter": [
+    {
+      "type": 1,
+      "value": "0"
+    },
+    {
+      "type": 0,
+      "value": " л"
+    }
+  ],
+  "liter-display": [
+    {
+      "type": 0,
+      "value": "литры"
+    }
+  ],
+  "metric-ton": [
+    {
+      "type": 1,
+      "value": "0"
+    },
+    {
+      "type": 0,
+      "value": " т"
+    }
+  ],
+  "metric-ton-display": [
+    {
+      "type": 0,
+      "value": "тонны"
+    }
+  ]
+}

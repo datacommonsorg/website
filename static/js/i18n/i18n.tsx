@@ -28,7 +28,7 @@ const intlCache: IntlCache = createIntlCache();
 // This IntlShape object will be used for both React Intl's
 // React Component API (arg for RawIntlProvider) and
 // Imperative API (format<X> method).
-let intl: IntlShape;
+let intl: IntlShape = createIntl({ locale: "en", messages: {} }, intlCache);
 
 /**
  * Load compiled messages into the global intl object.
@@ -39,7 +39,7 @@ let intl: IntlShape;
  *   the app so that we won't have to bundle all compiled messages across apps.
  *   See https://webpack.js.org/api/module-methods/#dynamic-expressions-in-import
  */
-async function loadLocaleData(
+function loadLocaleData(
   locale: string,
   modules: Promise<Record<any, any>>[]
 ): Promise<void> {
@@ -138,11 +138,130 @@ function LocalizedLink(props: LocalizedLinkProps): JSX.Element {
   );
 }
 
+/**
+ * Formats numbers to the currently set locale. Only shows a certain number of
+ * significant digits. To call this, i18n/compiled-strings/{locale}/units.json
+ * must be loaded. Only a subset of units are available. To add a unit, add the
+ * appropriate "short-other-nominative" unit from CLDR, as well as the display
+ * name for the unit to each locale's unit message bundle. e.g.
+ * https://unicode-org.github.io/cldr-staging/charts/38/summary/ru.html or
+ * https://github.com/unicode-org/cldr/blob/release-38-1/common/main/de.xml
+ *
+ * @param value: the number to format
+ * @param unit: (optional) short unit
+ *
+ * @return localized display string for the number
+ */
+function formatNumber(value: number, unit?: string): string {
+  const formatOptions: any = {
+    /* any is used since not all available options are defined in NumberFormatOptions */
+    compactDisplay: "short",
+    maximumSignificantDigits: 2,
+    notation: "compact",
+    style: "decimal",
+  };
+
+  let shouldAddUnit = false;
+  let unitKey: string;
+  switch (unit) {
+    case "$":
+      formatOptions.style = "currency";
+      formatOptions.currency = "USD";
+      formatOptions.currencyDisplay = "code";
+      break;
+    case "%":
+      formatOptions.style = "percent";
+      value = value / 100; // Values are scaled by formatter for percent display
+      break;
+    case "t":
+      shouldAddUnit = true;
+      unitKey = "metric-ton";
+      break;
+    case "kWh":
+      shouldAddUnit = true;
+      unitKey = "kilowatt-hour";
+      break;
+    case "g":
+      shouldAddUnit = true;
+      unitKey = "gram";
+      break;
+    case "kg":
+      shouldAddUnit = true;
+      unitKey = "kilogram";
+      break;
+    case "L":
+      shouldAddUnit = true;
+      unitKey = "liter";
+      break;
+  }
+  let returnText = Intl.NumberFormat(intl.locale, formatOptions).format(value);
+  if (shouldAddUnit) {
+    returnText = intl.formatMessage(
+      {
+        id: unitKey,
+        defaultMessage: `{0} {unit}`,
+      },
+      { 0: returnText, unit: unit }
+    );
+  }
+  return returnText;
+}
+
+/**
+ * Returns a sentence-cased, translated unit in the current locale for display
+ * purposes. To call this, i18n/compiled-strings/{locale}/units.json must be
+ * loaded. Only a subset of units are available. To add a unit, add the
+ * appropriate display name for the unit from CLDR, e.g.
+ * https://unicode-org.github.io/cldr-staging/charts/38/summary/ru.html or
+ * https://github.com/unicode-org/cldr/blob/release-38-1/common/main/de.xml
+ *
+ * @param unit: short unit
+ *
+ * @return localized display string for the number
+ */
+function translateUnit(unit: string): string {
+  let messageId;
+  switch (unit) {
+    case "$":
+      return "USD";
+    case "%":
+      return "%";
+    case "t":
+      messageId = "metric-ton-display";
+      break;
+    case "kWh":
+      messageId = "kilowatt-hour-display";
+      break;
+    case "g":
+      messageId = "gram-display";
+      break;
+    case "kg":
+      messageId = "kilogram-display";
+      break;
+    case "L":
+      messageId = "liter-display";
+      break;
+    default:
+      return unit;
+  }
+  let displayUnit = intl.formatMessage({
+    id: messageId,
+    defaultMessage: unit,
+  });
+  // A hack to use since there is no standardized equivalent:
+  // https://github.com/tc39/ecma402/issues/294
+  displayUnit =
+    displayUnit.charAt(0).toLocaleUpperCase() + displayUnit.slice(1);
+  return displayUnit;
+}
+
 export {
+  formatNumber,
   LocalizedLink,
   localizeLink,
   localizeSearchParams,
   loadLocaleData,
   intl,
+  translateUnit,
   translateVariableString,
 };

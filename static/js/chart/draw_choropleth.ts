@@ -21,8 +21,9 @@
 import * as d3 from "d3";
 import * as geo from "geo-albers-usa-territories";
 import { GeoJsonData, GeoJsonFeature } from "./types";
-import { getColorFn, formatYAxisTicks } from "./base";
+import { getColorFn } from "./base";
 import { getStatsVarLabel } from "../shared/stats_var_labels";
+import { formatNumber } from "../i18n/i18n";
 
 const MISSING_DATA_COLOR = "#999";
 const TOOLTIP_ID = "tooltip";
@@ -33,7 +34,6 @@ const STROKE_WIDTH = "1px";
 const HIGHLIGHTED_STROKE_WIDTH = "1.25px";
 const AXIS_TEXT_FILL = "#2b2929";
 const AXIS_GRID_FILL = "#999";
-const LEGEND_WIDTH = 50;
 const TICK_SIZE = 6;
 const LEGEND_MARGIN_TOP = 4;
 const LEGEND_MARGIN_BOTTOM = TICK_SIZE;
@@ -96,6 +96,13 @@ function drawChoropleth(
     .append("svg")
     .attr("width", chartWidth)
     .attr("height", chartHeight);
+  const legendWidth = generateLegend(
+    svg,
+    chartWidth,
+    chartHeight,
+    colorScale,
+    unit
+  );
   const map = svg.append("g").attr("class", "map");
 
   // Combine path elements from D3 content.
@@ -105,7 +112,7 @@ function drawChoropleth(
   const geomap = d3.geoPath().projection(projection);
 
   // Scale and center the map
-  fitSize(chartWidth - LEGEND_WIDTH, chartHeight, geoJson, projection, geomap);
+  fitSize(chartWidth - legendWidth, chartHeight, geoJson, projection, geomap);
 
   // Build map objects.
   mapContent
@@ -145,7 +152,6 @@ function drawChoropleth(
     .raise()
     .attr("stroke-width", HIGHLIGHTED_STROKE_WIDTH)
     .attr("stroke", HIGHLIGHTED_STROKE_COLOR);
-  generateLegend(svg, chartWidth, chartHeight, colorScale, unit);
   addTooltip(domContainerId);
 }
 
@@ -170,13 +176,11 @@ const onMouseMove = (
   const placeName = geoProperties.name;
   let value = "Data Missing";
   if (dataValues[geoProperties.geoDcid]) {
-    value = (
+    value = formatNumber(
       Math.round((dataValues[geoProperties.geoDcid] + Number.EPSILON) * 100) /
-      100
-    ).toLocaleString();
-    if (unit) {
-      value = unit == "$" ? unit + value : value + unit;
-    }
+        100,
+      unit
+    );
   }
   const tooltipSelect = d3.select(domContainerId).select(`#${TOOLTIP_ID}`);
   const text = placeName + ": " + value;
@@ -219,6 +223,8 @@ function addTooltip(domContainerId: string) {
  * Draw a color scale legend.
  * @param color The d3 linearScale that encodes the color gradient to be
  *        plotted.
+ *
+ * @return the width of the legend
  */
 function generateLegend(
   svg: d3.Selection<SVGElement, any, any, any>,
@@ -230,10 +236,7 @@ function generateLegend(
   const height = chartHeight - LEGEND_MARGIN_TOP - LEGEND_MARGIN_BOTTOM;
   const n = Math.min(color.domain().length, color.range().length);
 
-  const legend = svg
-    .append("g")
-    .attr("class", "legend")
-    .attr("transform", `translate(${chartWidth - LEGEND_WIDTH}, 0)`);
+  const legend = svg.append("g").attr("class", "legend");
 
   legend
     .append("image")
@@ -261,7 +264,7 @@ function generateLegend(
         .tickSize(TICK_SIZE)
         .ticks(NUM_TICKS)
         .tickFormat((d) => {
-          return formatYAxisTicks(d, yScale, unit);
+          return formatNumber(d.valueOf(), unit);
         })
     )
     .call((g) =>
@@ -277,6 +280,10 @@ function generateLegend(
         .attr("transform", `translate(${LEGEND_IMG_WIDTH}, 0)`)
     )
     .call((g) => g.select(".domain").remove());
+
+  const legendWidth = legend.node().getBBox().width;
+  legend.attr("transform", `translate(${chartWidth - legendWidth}, 0)`);
+  return legendWidth;
 }
 
 const genScaleImg = (

@@ -1,0 +1,32 @@
+{
+  "metric-ton": {
+    "defaultMessage": "{0}t"
+  },
+  "metric-ton-display": {
+    "defaultMessage": "메트릭 톤"
+  },
+  "kilowatt-hour": {
+    "defaultMessage": "{0}kWh"
+  },
+  "kilowatt-hour-display": {
+    "defaultMessage": "킬로와트시"
+  },
+  "liter": {
+    "defaultMessage": "{0}L"
+  },
+  "liter-display": {
+    "defaultMessage": "리터"
+  },
+  "kilogram": {
+    "defaultMessage": "{0}kg"
+  },
+  "kilogram-display": {
+    "defaultMessage": "킬로그램"
+  },
+  "gram": {
+    "defaultMessage": "{0}g"
+  },
+  "gram-display": {
+    "defaultMessage": "그램"
+  }
+}

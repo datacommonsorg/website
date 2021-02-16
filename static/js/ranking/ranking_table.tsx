@@ -16,7 +16,7 @@
 
 import React from "react";
 import { Ranking, RankInfo } from "./ranking_types";
-import { intl, LocalizedLink } from "../i18n/i18n";
+import { translateUnit, intl, LocalizedLink } from "../i18n/i18n";
 import { displayNameForPlaceType } from "../place/util";
 
 interface RankingTablePropType {
@@ -72,7 +72,7 @@ class RankingTable extends React.Component<RankingTablePropType> {
         </td>
         <td className="text-center">
           <span className="num-value">
-            {value.toLocaleString(undefined, {
+            {value.toLocaleString(intl.locale, {
               maximumFractionDigits: this.numFractionDigits,
               minimumFractionDigits: this.numFractionDigits,
             })}
@@ -98,7 +98,7 @@ class RankingTable extends React.Component<RankingTablePropType> {
             <th scope="col">{displayNameForPlaceType(this.props.placeType)}</th>
             <th scope="col" className="text-center">
               {this.props.unit
-                ? this.props.unit
+                ? translateUnit(this.props.unit)
                 : intl.formatMessage({
                     id: "ranking_table-header_value",
                     defaultMessage: "Value",

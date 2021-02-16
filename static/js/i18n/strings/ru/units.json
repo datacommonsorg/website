@@ -1,0 +1,32 @@
+{
+  "metric-ton": {
+    "defaultMessage": "{0} т"
+  },
+  "metric-ton-display": {
+    "defaultMessage": "тонны"
+  },
+  "kilowatt-hour": {
+    "defaultMessage": "{0} кВт⋅ч"
+  },
+  "kilowatt-hour-display": {
+    "defaultMessage": "киловатт-часы"
+  },
+  "liter": {
+    "defaultMessage": "{0} л"
+  },
+  "liter-display": {
+    "defaultMessage": "литры"
+  },
+  "kilogram": {
+    "defaultMessage": "{0} кг"
+  },
+  "kilogram-display": {
+    "defaultMessage": "килограммы"
+  },
+  "gram": {
+    "defaultMessage": "{0} г"
+  },
+  "gram-display": {
+    "defaultMessage": "граммы"
+  }
+}

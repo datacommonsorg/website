@@ -1,0 +1,82 @@
+{
+  "gram": [
+    {
+      "type": 1,
+      "value": "0"
+    },
+    {
+      "type": 0,
+      "value": " ग्रा॰"
+    }
+  ],
+  "gram-display": [
+    {
+      "type": 0,
+      "value": "ग्राम"
+    }
+  ],
+  "kilogram": [
+    {
+      "type": 1,
+      "value": "0"
+    },
+    {
+      "type": 0,
+      "value": " कि॰ग्रा॰"
+    }
+  ],
+  "kilogram-display": [
+    {
+      "type": 0,
+      "value": "किलोग्राम"
+    }
+  ],
+  "kilowatt-hour": [
+    {
+      "type": 1,
+      "value": "0"
+    },
+    {
+      "type": 0,
+      "value": " kWh"
+    }
+  ],
+  "kilowatt-hour-display": [
+    {
+      "type": 0,
+      "value": "किलोवॉट घंटे"
+    }
+  ],
+  "liter": [
+    {
+      "type": 1,
+      "value": "0"
+    },
+    {
+      "type": 0,
+      "value": " ली॰"
+    }
+  ],
+  "liter-display": [
+    {
+      "type": 0,
+      "value": "लीटर"
+    }
+  ],
+  "metric-ton": [
+    {
+      "type": 1,
+      "value": "0"
+    },
+    {
+      "type": 0,
+      "value": " मीट्रिक टन"
+    }
+  ],
+  "metric-ton-display": [
+    {
+      "type": 0,
+      "value": "मीट्रिक टन"
+    }
+  ]
+}
