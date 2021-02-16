@@ -174,3 +174,10 @@ This file is stored in GCS bucket. The bucket is set in the config files
 [Redis memcache](https://pantheon.corp.google.com/memorystore/redis/instances?project=datcom-website-prod)
 is used for production deployment. Each cluster has a Redis instance located in
 the same region.
+
+### Adding new charts
+
+- Update server/chart_config.json with the new chart. Manually restart the flask or minikube instance to load the config.
+- If required, update localization related files. See localization.md for further instructions:
+  - If a new stat var is introduced, update static/js/i18n/strings/en/stat_var_[labels|titles].json.
+  - If a new unit is required, update static/js/i18n/i18n.tsx as well as static/js/i18n/strings/en/units.json with display names and labels for the unit.
