@@ -52,7 +52,7 @@ def documentation():
 
 @bp.route('/colab')
 def colab():
-    return redirect('https://docs.datacommons.org/tutorials.html', code=302)
+    return redirect('https://docs.datacommons.org/tutorials', code=302)
 
 
 @bp.route('/getinvolved')
