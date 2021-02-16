@@ -18,12 +18,15 @@ import React from "react";
 import { Button, Modal, ModalHeader, ModalBody, ModalFooter } from "reactstrap";
 import { randDomId, saveToFile } from "../shared/util";
 import * as d3 from "d3";
-import { intl, translateVariableString } from "../i18n/i18n";
+import { intl } from "../i18n/i18n";
+import { urlToDomain } from "../shared/util";
+import { wrap } from "../chart/draw";
+
 // SVG adjustment related constants
-const TITLE_HEIGHT = 20;
+const TITLE_Y = 20;
 const TITLE_MARGIN = 10;
-const SOURCES_HEIGHT = 10;
 const SOURCES_MARGIN = 30;
+const CHART_PADDING = 10;
 const SVGNS = "http://www.w3.org/2000/svg";
 const XLINKNS = "http://www.w3.org/1999/xlink";
 
@@ -112,6 +115,7 @@ class ChartEmbed extends React.Component<unknown, ChartEmbedStateType> {
   private decorateSvgChart(): string {
     const container = this.svgContainerElement.current;
     container.innerHTML = "";
+    const chartWidth = this.state.chartWidth + 2 * CHART_PADDING;
 
     // Decorate a hidden chart svg with title and provenance
     const svg = d3
@@ -119,46 +123,36 @@ class ChartEmbed extends React.Component<unknown, ChartEmbedStateType> {
       .append("svg")
       .attr("xmlns", SVGNS)
       .attr("xmlns:xlink", XLINKNS)
-      .attr("width", this.state.chartWidth)
-      .attr(
-        "height",
-        this.state.chartHeight +
-          TITLE_HEIGHT +
-          TITLE_MARGIN +
-          SOURCES_HEIGHT +
-          SOURCES_MARGIN
-      );
-    // TODO(tjann): i18n the date
-    svg
+      .attr("width", chartWidth);
+
+    const title = svg
       .append("g")
-      .attr(
-        "transform",
-        `translate(${this.state.chartWidth / 2}, ${TITLE_HEIGHT})`
-      )
       .append("text")
       .style("font-family", "sans-serif")
       .style("fill", "#3b3b3b")
       .style("font-size", ".85rem")
       .style("font-weight", "bold")
       .style("text-anchor", "middle")
-      .text(
-        `${translateVariableString(this.state.chartTitle)} ${
-          this.state.chartDate
-        }`
-      );
-
-    svg
-      .append("g")
-      .attr("transform", `translate(0, ${TITLE_HEIGHT + TITLE_MARGIN})`)
-      .append("svg")
-      .html(this.state.svgXml);
+      .text(`${this.state.chartTitle} ${this.state.chartDate}`)
+      .call(wrap, this.state.chartWidth);
+    const titleHeight = title.node().getBBox().height;
+    title.attr("transform", `translate(${chartWidth / 2}, ${TITLE_Y})`);
 
     svg
       .append("g")
       .attr(
         "transform",
-        `translate(5, ${
-          TITLE_HEIGHT + TITLE_MARGIN + this.state.chartHeight + SOURCES_MARGIN
+        `translate(${CHART_PADDING}, ${titleHeight + TITLE_MARGIN})`
+      )
+      .append("svg")
+      .html(this.state.svgXml);
+
+    const sources = svg
+      .append("g")
+      .attr(
+        "transform",
+        `translate(${CHART_PADDING}, ${
+          titleHeight + TITLE_MARGIN + this.state.chartHeight + SOURCES_MARGIN
         })`
       )
       .append("text")
@@ -173,11 +167,23 @@ class ChartEmbed extends React.Component<unknown, ChartEmbedStateType> {
             description:
               'Used to cite where the data is from, but that it was provided through Data Commons. For example, "Data from {nytimes.com} via Data Commons" or "Data from {census.gov, nytimes.com} via Data Commons". Please keep the name "Data Commons".',
           },
-          { sources: this.state.sources.join(", ") }
+          { sources: this.state.sources.map((s) => urlToDomain(s)).join(", ") }
         )
-      );
+      )
+      .call(wrap, this.state.chartWidth);
 
-    const svgXml = svg.node().outerHTML;
+    const sourcesHeight = sources.node().getBBox().height;
+    svg.attr(
+      "height",
+      this.state.chartHeight +
+        titleHeight +
+        TITLE_MARGIN +
+        sourcesHeight +
+        SOURCES_MARGIN
+    );
+
+    const s = new XMLSerializer();
+    const svgXml = s.serializeToString(svg.node());
     container.innerHTML = "";
 
     return svgXml;
@@ -191,14 +197,15 @@ class ChartEmbed extends React.Component<unknown, ChartEmbedStateType> {
       return;
     }
     if (this.textareaElement.current) {
-      this.textareaElement.current.style.width = this.state.chartWidth + "px";
+      this.textareaElement.current.style.width =
+        this.state.chartWidth + CHART_PADDING * 2 + "px";
     }
 
     this.chartDownloadXml = this.decorateSvgChart();
 
     const imageElement = document.createElement("img");
     const chartBase64 =
-      "data:image/svg+xml;base64," + btoa(this.chartDownloadXml);
+      "data:image/svg+xml," + encodeURIComponent(this.chartDownloadXml);
     imageElement.src = chartBase64;
     this.svgContainerElement.current.append(imageElement);
   }

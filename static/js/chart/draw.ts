@@ -113,7 +113,7 @@ function wrap(
     let lineNumber = 0;
     const lineHeight = 1.1; // ems
     const y = text.attr("y");
-    const dy = parseFloat(text.attr("dy"));
+    const dy = parseFloat(text.attr("dy") || "0");
     let tspan = text
       .text(null)
       .append("tspan")
@@ -1004,4 +1004,5 @@ export {
   drawLineChart,
   drawSingleBarChart,
   drawStackBarChart,
+  wrap,
 };
