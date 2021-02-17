@@ -47,21 +47,21 @@ class PlaceHighlight extends React.Component<PlaceHighlightPropsType> {
       }
       const factStatVar = Object.keys(factData)[0];
       const factValue = factData[factStatVar];
-    const sourcesJsx = factSnapshot.sources.map((source, index) => {
-      const domain = urlToDomain(source);
+      const sourcesJsx = factSnapshot.sources.map((source, index) => {
+        const domain = urlToDomain(source);
+        return (
+          <span key={source}>
+            <a href={source}>{domain}</a>
+            {index < factSnapshot.sources.length - 1 ? ", " : ""}
+          </span>
+        );
+      });
       return (
-        <span key={source}>
-          <a href={source}>{domain}</a>
-          {index < factSnapshot.sources.length - 1 ? ", " : ""}
-        </span>
+        <h4 key={factStatVar}>
+          {factTitle}: {factValue.toLocaleString(intl.locale)} (
+          {factSnapshot.date.toLocaleString()}) {sourcesJsx}
+        </h4>
       );
-    });
-    return (
-      <h4 key={factStatVar}>
-        {factTitle}: {factValue.toLocaleString(intl.locale)} (
-        {factSnapshot.date.toLocaleString()}) {sourcesJsx}
-      </h4>
-    );
     });
 
     return <>{facts}</>;
