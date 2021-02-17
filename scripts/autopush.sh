@@ -32,6 +32,7 @@ git checkout master
 
 # Update bigtable and bigquery version
 gsutil cp gs://automation_control/latest_base_cache_version.txt deploy/storage/bigtable.version
+gsutil cp gs://automation_control/latest_base_bigquery_version.txt deploy/storage/bigquery.version
 
 ## Deploy autopush instance
 $ROOT/scripts/deploy_gke.sh autopush us-central1
