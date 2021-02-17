@@ -266,15 +266,11 @@
   "plural_eurostat_nuts": [
     {
       "type": 0,
-      "value": "Posizioni "
+      "value": "Luoghi Eurostat NUTS "
     },
     {
       "type": 1,
       "value": "level"
-    },
-    {
-      "type": 0,
-      "value": " Eurostat NUTS"
     }
   ],
   "plural_neighborhood": [
@@ -580,15 +576,11 @@
   "singular_administrative_area_level": [
     {
       "type": 0,
-      "value": "Posizione "
+      "value": "Luogo dell'area amministrativa "
     },
     {
       "type": 1,
       "value": "level"
-    },
-    {
-      "type": 0,
-      "value": " area amministrativa"
     }
   ],
   "singular_borough": [
@@ -618,15 +610,11 @@
   "singular_eurostat_nuts": [
     {
       "type": 0,
-      "value": "Posizione "
+      "value": "Luogo Eurostat NUTS "
     },
     {
       "type": 1,
       "value": "level"
-    },
-    {
-      "type": 0,
-      "value": " Eurostat NUTS"
     }
   ],
   "singular_neighborhood": [
