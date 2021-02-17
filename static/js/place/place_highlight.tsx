@@ -16,6 +16,8 @@
 
 import React from "react";
 import { PageHighlight } from "../chart/types";
+import { urlToDomain } from "../shared/util";
+import { intl } from "../i18n/i18n";
 import _ from "lodash";
 
 interface PlaceHighlightPropsType {
@@ -45,13 +47,21 @@ class PlaceHighlight extends React.Component<PlaceHighlightPropsType> {
       }
       const factStatVar = Object.keys(factData)[0];
       const factValue = factData[factStatVar];
+    const sourcesJsx = factSnapshot.sources.map((source, index) => {
+      const domain = urlToDomain(source);
       return (
-        <h4 key={factStatVar}>
-          {factTitle}: {factValue.toLocaleString()} (
-          {factSnapshot.date.toLocaleString()}){" "}
-          <span>{factSnapshot.sources.join(", ")}</span>
-        </h4>
+        <span key={source}>
+          <a href={source}>{domain}</a>
+          {index < factSnapshot.sources.length - 1 ? ", " : ""}
+        </span>
       );
+    });
+    return (
+      <h4 key={factStatVar}>
+        {factTitle}: {factValue.toLocaleString(intl.locale)} (
+        {factSnapshot.date.toLocaleString()}) {sourcesJsx}
+      </h4>
+    );
     });
 
     return <>{facts}</>;
