@@ -16,10 +16,9 @@
 
 import React from "react";
 import { Button, Modal, ModalHeader, ModalBody, ModalFooter } from "reactstrap";
-import { randDomId, saveToFile } from "../shared/util";
+import { randDomId, saveToFile, urlToDomain } from "../shared/util";
 import * as d3 from "d3";
 import { intl } from "../i18n/i18n";
-import { urlToDomain } from "../shared/util";
 import { wrap } from "../chart/draw";
 
 // SVG adjustment related constants
