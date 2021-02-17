@@ -84,7 +84,7 @@
     "defaultMessage": "Contee"
   },
   "plural_eurostat_nuts": {
-    "defaultMessage": "Posizioni {level} Eurostat NUTS"
+    "defaultMessage": "Luoghi Eurostat NUTS {level}"
   },
   "plural_neighborhood": {
     "defaultMessage": "Quartieri"
@@ -159,7 +159,7 @@
     "defaultMessage": "Area amministrativa"
   },
   "singular_administrative_area_level": {
-    "defaultMessage": "Posizione {level} area amministrativa"
+    "defaultMessage": "Luogo dell'area amministrativa {level}"
   },
   "singular_borough": {
     "defaultMessage": "Distretto"
@@ -174,7 +174,7 @@
     "defaultMessage": "Contea"
   },
   "singular_eurostat_nuts": {
-    "defaultMessage": "Posizione {level} Eurostat NUTS"
+    "defaultMessage": "Luogo Eurostat NUTS {level}"
   },
   "singular_neighborhood": {
     "defaultMessage": "Quartiere"
