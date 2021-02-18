@@ -88,8 +88,8 @@ function getColorFn(labels: string[]): d3.ScaleOrdinal<string, string> {
     // TODO(beets): This relies on the fact that we will always have
     // stats_var_labels.json for the locale loaded. Ideally, we would look for
     // the gender in the stat var itself.
-    labels.length == 2 &&
-    labels[0] == translateVariableString("Count_Person_Female")
+    labels.length === 2 &&
+    labels[0] === translateVariableString("Count_Person_Female")
   ) {
     range = ["#a60000", "#3288bd"];
   } else {
