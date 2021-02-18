@@ -95,7 +95,7 @@ function getColorFn(labels: string[]): d3.ScaleOrdinal<string, string> {
   } else {
     if (labels.length == 1) {
       // Get varied but stable color scheme for single stat var charts.
-      const label = labels[0];
+      const label = labels[0] || "";
       let charCodeSum = 0;
       for (let i = 0; i < label.length; i++) {
         charCodeSum += label.charCodeAt(i);
