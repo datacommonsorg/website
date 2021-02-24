@@ -154,4 +154,9 @@ def create_app():
             return
         values['hl'] = g.locale
 
+    # Provides locale parameter in all templates
+    @app.context_processor
+    def inject_locale():
+        return dict(locale=get_locale())
+
     return app
