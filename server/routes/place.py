@@ -62,7 +62,6 @@ def place(place_dcid=None):
                                                  g.locale)
         return flask.render_template(
             'place_landing.html',
-            locale=g.locale,
             place_names=place_names,
             maps_api_key=current_app.config['MAPS_API_KEY'])
 
@@ -77,6 +76,5 @@ def place(place_dcid=None):
         place_type=place_type,
         place_name=place_name,
         place_dcid=place_dcid,
-        locale=g.locale,
         topic=topic if topic else '',
         maps_api_key=current_app.config['MAPS_API_KEY'])
