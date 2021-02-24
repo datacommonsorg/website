@@ -374,9 +374,6 @@ test("translateUnit", async () => {
     ]);
     for (const c of cases) {
       const text = translateUnit(c.unit);
-      /*
-      console.log(text);
-      */
       try {
         expect(text).toEqual(c.expected[locale]);
       } catch (e) {

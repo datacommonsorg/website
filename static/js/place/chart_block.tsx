@@ -234,7 +234,7 @@ class ChartBlock extends React.Component<ChartBlockPropType> {
     }
     scaling && rankingParam.set("scaling", String(scaling));
     unit && rankingParam.set("unit", unit);
-    const rankingArg = `?${rankingParam.toString()}`;
+    const rankingArg = `?${localizeSearchParams(rankingParam).toString()}`;
     const choroplethTitle =
       this.props.placeType === "County"
         ? intl.formatMessage(chartTitleMsgs.placeTypeNearPlace, {
