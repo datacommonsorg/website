@@ -19,7 +19,7 @@ import { Button, Modal, ModalHeader, ModalBody, ModalFooter } from "reactstrap";
 import { randDomId, saveToFile, urlToDomain } from "../shared/util";
 import * as d3 from "d3";
 import { intl } from "../i18n/i18n";
-import { wrap } from "../chart/draw";
+import { wrap } from "../chart/base";
 
 // SVG adjustment related constants
 const TITLE_Y = 20;

@@ -147,32 +147,32 @@ class DevPage extends React.Component {
     );
 
     let dataGroups = [
-      new DataGroup("San Jose", [
+      new DataGroup("Staten Island, NY", [
         new DataPoint("2011", -10000),
         new DataPoint("2012", null),
         new DataPoint("2013", -30000),
       ]),
-      new DataGroup("Fremont", [
+      new DataGroup("Queens, NY", [
         new DataPoint("2011", null),
         new DataPoint("2012", 26000),
         new DataPoint("2013", 24000),
       ]),
-      new DataGroup("San Francisco", [
+      new DataGroup("New York, NY", [
         new DataPoint("2011", null),
         new DataPoint("2012", -25000),
         new DataPoint("2013", 22000),
       ]),
-      new DataGroup("Mountain View", [
+      new DataGroup("United States of America", [
         new DataPoint("2011", null),
         new DataPoint("2012", 5000),
         new DataPoint("2013", 2000),
       ]),
-      new DataGroup("Very-Long-City-Name", [
+      new DataGroup("Very-Long City-Name", [
         new DataPoint("2011", 1000),
         new DataPoint("2012", 5000),
         new DataPoint("2013", null),
       ]),
-      new DataGroup("Multi several very long city name long", [
+      new DataGroup("Multi several-very long city name long", [
         new DataPoint("2011", 1000),
         new DataPoint("2012", 5000),
         new DataPoint("2013", null),
@@ -229,6 +229,63 @@ class DevPage extends React.Component {
         type={chartTypeEnum.SINGLE_BAR}
         dataGroups={dataGroups}
         unit="$"
+      ></DevChart>
+    );
+
+    // Draw group bar with long i18n names.
+    dataGroups = [
+      new DataGroup("スタテンアイランド, ニューヨーク州, アメリカ合衆国", [
+        new DataPoint("2011", -10),
+        new DataPoint("2012", null),
+        new DataPoint("2013", -30),
+      ]),
+      new DataGroup("クイーンズ区, ニューヨーク州", [
+        new DataPoint("2011", null),
+        new DataPoint("2012", 2.6),
+        new DataPoint("2013", 24),
+      ]),
+      new DataGroup("マンハッタン, ニューヨーク州", [
+        new DataPoint("2011", null),
+        new DataPoint("2012", -25),
+        new DataPoint("2013", 22),
+      ]),
+      new DataGroup("マンハッタン, ニューヨーク州", [
+        new DataPoint("2011", null),
+        new DataPoint("2012", 50),
+        new DataPoint("2013", 20),
+      ]),
+      new DataGroup("ブルックリン区, ニューヨーク州", [
+        new DataPoint("2011", 10),
+        new DataPoint("2012", 50),
+        new DataPoint("2013", null),
+      ]),
+      new DataGroup("ブロンクス区, ニューヨーク州", [
+        new DataPoint("2011", 10),
+        new DataPoint("2012", 50),
+        new DataPoint("2013", null),
+      ]),
+      new DataGroup("ニューヨーク州", [
+        new DataPoint("2011", 10),
+        new DataPoint("2012", 50),
+        new DataPoint("2013", null),
+      ]),
+      new DataGroup("アメリカ合衆国", [
+        new DataPoint("2011", 23.6),
+        new DataPoint("2012", 24),
+        new DataPoint("2013", null),
+      ]),
+    ];
+    width = 354;
+    id = randDomId();
+    chartElements.push(
+      <DevChart
+        key={id}
+        id={id}
+        width={width}
+        height={height}
+        type={chartTypeEnum.GROUP_BAR}
+        dataGroups={dataGroups}
+        unit="%"
       ></DevChart>
     );
 

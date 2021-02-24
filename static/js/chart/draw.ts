@@ -24,6 +24,7 @@ import {
   Style,
   getColorFn,
   shouldFillInValues,
+  wrap,
 } from "./base";
 import { formatNumber } from "../i18n/i18n";
 
@@ -82,66 +83,6 @@ function appendLegendElem(
     .append("a")
     .text((d) => d.label)
     .attr("href", (d) => d.link || null);
-}
-
-function getWrapLineSeparator(line: string[]): string {
-  return line.length > 0
-    ? line[line.length - 1].slice(-1) === "-"
-      ? ""
-      : " "
-    : "";
-}
-
-/**
- * From https://bl.ocks.org/mbostock/7555321
- * Wraps axis text by fitting as many words per line as would fit a given width.
- */
-function wrap(
-  texts: d3.Selection<SVGTextElement, any, any, any>,
-  width: number
-) {
-  texts.each(function () {
-    const text = d3.select(this);
-    const words = text
-      .text()
-      .replace("-", "-#") // Handle e.g. "ABC-AB A" -> "ABC-", "AB" "A"
-      .split(/[ #]/)
-      .filter((w) => w.trim() != "")
-      .reverse();
-
-    let line: string[] = [];
-    let lineNumber = 0;
-    const lineHeight = 1.1; // ems
-    const y = text.attr("y");
-    const dy = parseFloat(text.attr("dy") || "0");
-    let tspan = text
-      .text(null)
-      .append("tspan")
-      .attr("x", 0)
-      .attr("y", y)
-      .attr("dy", dy + "em");
-    let word: string;
-    word = words.pop();
-    while (word) {
-      word = word.trim();
-      let separator = getWrapLineSeparator(line);
-      line.push(word);
-      tspan.text(line.join(separator));
-      if (tspan.node().getComputedTextLength() > width) {
-        line.pop();
-        separator = getWrapLineSeparator(line);
-        tspan.text(line.join(separator));
-        line = [word];
-        tspan = text
-          .append("tspan")
-          .attr("x", 0)
-          .attr("y", y)
-          .attr("dy", ++lineNumber * lineHeight + dy + "em")
-          .text(word);
-      }
-      word = words.pop();
-    }
-  });
 }
 
 /**
