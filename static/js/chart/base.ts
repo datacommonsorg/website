@@ -15,7 +15,6 @@
  */
 
 import * as d3 from "d3";
-import { translateVariableString } from "../i18n/i18n";
 
 const DEFAULT_COLOR = "#000";
 
@@ -156,24 +155,14 @@ function getDashes(n: number): string[] {
 function getColorFn(labels: string[]): d3.ScaleOrdinal<string, string> {
   let domain = labels;
   let range;
-  if (
-    // TODO(beets): This relies on the fact that we will always have
-    // stats_var_labels.json for the locale loaded. Ideally, we would look for
-    // the gender in the stat var itself.
-    labels.length === 2 &&
-    labels[0] === translateVariableString("Count_Person_Female")
-  ) {
+  if (labels.length == 2 && labels[0] == "Female") {
     range = ["#a60000", "#3288bd"];
   } else {
     if (labels.length == 1) {
       // Get varied but stable color scheme for single stat var charts.
-      const label = labels[0] || "";
-      let charCodeSum = 0;
-      for (let i = 0; i < label.length; i++) {
-        charCodeSum += label.charCodeAt(i);
-      }
       domain = Array.from("ABCDEFGHIJKLMNOPQRSTUVWXYZ");
-      domain[charCodeSum % domain.length] = label;
+      domain = domain.concat(labels);
+      domain.sort();
     }
     range = d3.quantize(
       d3.interpolateRgbBasis([
