@@ -61,6 +61,78 @@ class DataGroup {
 }
 
 /**
+ * Join words in :line: with appropriate separator (handles "-" or " ")
+ */
+function joinLineForWrap(line: string[]): string {
+  let ret = "";
+  for (let i = 0; i < line.length; i++) {
+    const word = line[i];
+    const separator =
+      i === line.length - 1 ? "" : word.slice(-1) === "-" ? "" : " ";
+    ret = `${ret}${word}${separator}`;
+  }
+  return ret;
+}
+
+/**
+ * From https://bl.ocks.org/mbostock/7555321
+ * Wraps axis text by fitting as many words per line as would fit a given width.
+ */
+function wrap(
+  textSelection: d3.Selection<SVGTextElement, any, any, any>,
+  width: number
+): void {
+  textSelection.each(function () {
+    const text = d3.select(this);
+    const words = text
+      .text()
+      .replace(/-/g, "-#") // Handle e.g. "ABC-AB A" -> "ABC-", "AB" "A"
+      .split(/[ #]/)
+      .filter((w) => w.trim() != "")
+      .reverse();
+    text.text(null);
+
+    const lineHeight = 1.1; // ems
+    const y = text.attr("y");
+    const dy = parseFloat(text.attr("dy") || "0");
+
+    let lineToFit: string[] = [];
+    for (
+      let lineNumber = 0;
+      words.length > 0 || lineToFit.length > 0;
+      lineNumber++
+    ) {
+      const tspan = text
+        .append("tspan")
+        .attr("x", 0)
+        .attr("y", y)
+        .attr("dy", lineNumber * lineHeight + dy + "em")
+        .text(null);
+      do {
+        // Find as many words that fit in each line.
+        const word: string = words.pop();
+        if (word) {
+          word.trim();
+          lineToFit.push(word);
+        }
+        const line = joinLineForWrap(lineToFit);
+        if (line == tspan.text()) {
+          lineToFit = [];
+          break;
+        }
+        tspan.text(line);
+      } while (tspan.node().getComputedTextLength() < width);
+      // Can't fit - prepare for the next line.
+      const word = lineToFit.pop();
+      if (lineToFit.length) {
+        tspan.text(joinLineForWrap(lineToFit));
+        lineToFit = [word];
+      }
+    }
+  });
+}
+
+/**
  * Return an array of dashes.
  */
 function getDashes(n: number): string[] {
@@ -279,4 +351,5 @@ export {
   getColorFn,
   getDashes,
   shouldFillInValues,
+  wrap,
 };
