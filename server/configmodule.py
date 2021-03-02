@@ -19,6 +19,7 @@ class Config:
     API_PROJECT = ''
     GA_ACCOUNT = ''
     MAPS_API_KEY = ''
+    SCHEME = 'https'
 
 
 class ProductionConfig(Config):
@@ -35,6 +36,7 @@ class AutopushConfig(Config):
 
 class MinikubeConfig(Config):
     DEVELOPMENT = True
+    SCHEME = 'http'
 
 
 class DevelopmentConfig(Config):
@@ -43,6 +45,7 @@ class DevelopmentConfig(Config):
     API_PROJECT = 'datcom-mixer-autopush'
     API_ROOT = 'https://autopush.api.datacommons.org'
     GCS_BUCKET = 'datcom-website-autopush-resources'
+    SCHEME = 'http'
 
 
 class DevelopmentLiteConfig(Config):
@@ -50,6 +53,7 @@ class DevelopmentLiteConfig(Config):
     LITE = True
     API_PROJECT = 'datcom-mixer-autopush'
     API_ROOT = 'https://autopush.api.datacommons.org'
+    SCHEME = 'http'
 
 
 class WebdriverConfig(Config):
@@ -58,6 +62,7 @@ class WebdriverConfig(Config):
     API_PROJECT = 'datcom-mixer-staging'
     API_ROOT = 'https://staging.api.datacommons.org'
     GCS_BUCKET = ''
+    SCHEME = 'http'
 
 
 class TestConfig(Config):
@@ -65,3 +70,4 @@ class TestConfig(Config):
     API_PROJECT = 'api-project'
     API_ROOT = 'api-root'
     GCS_BUCKET = 'gcs-bucket'
+    SCHEME = 'http'

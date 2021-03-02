@@ -49,11 +49,16 @@ def place(place_dcid=None):
     dcid = flask.request.args.get('dcid', None)
     topic = flask.request.args.get('topic', None)
     if dcid:
+        # Traffic from "explore more" in Search. Forward along all parameters,
+        # except for dcid, to the new URL format.
+        redirect_args = dict(flask.request.args)
+        redirect_args['place_dcid'] = dcid
+        del redirect_args['dcid']
+        redirect_args['topic'] = topic
         url = flask.url_for('place.place',
-                            place_dcid=dcid,
-                            topic=topic,
+                            **redirect_args,
                             _external=True,
-                            _scheme="https")
+                            _scheme=current_app.config.get('SCHEME', 'https'))
         return flask.redirect(url)
 
     if not place_dcid:
