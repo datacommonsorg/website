@@ -73,6 +73,17 @@ beforeEach(() => {
   (window.SVGElement as any).prototype.getComputedTextLength = function () {
     return this.textContent.length;
   };
+
+  // JSDom does not define SVGTSpanElements, and use SVGElement instead. Defines
+  // a shim for getBBox (only returns width) where each character is 1 px wide.
+  (window.SVGElement as any).prototype.getBBox = function () {
+    let maxWidth = 0;
+    const children = this.childNodes;
+    for (let i = 0; i < children.length; i++) {
+      maxWidth = Math.max(children[i].getComputedTextLength(), maxWidth);
+    }
+    return { width: maxWidth };
+  };
 });
 
 describe("wrap tests", () => {
@@ -80,22 +91,24 @@ describe("wrap tests", () => {
     width: number;
     label: string;
     expectedLabels: string[];
+    shouldOverflow: boolean;
   }
   test.each`
-    width | label                             | expectedLabels
-    ${4}  | ${"ab-d e f"}                     | ${["ab-", "d e", "f"]}
-    ${10} | ${"a-b c"}                        | ${["a-b c"]}
-    ${10} | ${"a b-c"}                        | ${["a b-c"]}
-    ${2}  | ${"a-b c"}                        | ${["a-", "b", "c"]}
-    ${3}  | ${"New York, NY"}                 | ${["New", "York,", "NY"]}
-    ${3}  | ${"Queens, NY"}                   | ${["Queens,", "NY"]}
-    ${3}  | ${"Queens-NY"}                    | ${["Queens-", "NY"]}
-    ${6}  | ${"United-States-of-America"}     | ${["United-", "States-", "of-", "America"]}
-    ${6}  | ${"United States of America"}     | ${["United", "States", "of", "America"]}
-    ${10} | ${"United States of America"}     | ${["United", "States of", "America"]}
-    ${1}  | ${"アメリカ合衆国"}               | ${["アメリカ合衆国"]}
-    ${1}  | ${"ブロンクス区, ニューヨーク州"} | ${["ブロンクス区,", "ニューヨーク州"]}
-  `("wraps $label", ({ width, label, expectedLabels }) => {
+    width | label                             | expectedLabels                              | shouldOverflow
+    ${4}  | ${"ab-d e f"}                     | ${["ab-", "d e", "f"]}                      | ${false}
+    ${10} | ${"a-b c"}                        | ${["a-b c"]}                                | ${false}
+    ${10} | ${"a b-c"}                        | ${["a b-c"]}                                | ${false}
+    ${2}  | ${"a-b c"}                        | ${["a-", "b", "c"]}                         | ${false}
+    ${3}  | ${"New York, NY"}                 | ${["New", "York,", "NY"]}                   | ${true}
+    ${3}  | ${"Queens, NY"}                   | ${["Queens,", "NY"]}                        | ${true}
+    ${3}  | ${"Queens-NY"}                    | ${["Queens-", "NY"]}                        | ${true}
+    ${6}  | ${"United-States-of-America"}     | ${["United-", "States-", "of-", "America"]} | ${true}
+    ${6}  | ${"United States of America"}     | ${["United", "States", "of", "America"]}    | ${true}
+    ${10} | ${"United States of America"}     | ${["United", "States of", "America"]}       | ${false}
+    ${1}  | ${"アメリカ合衆国"}               | ${["アメリカ合衆国"]}                       | ${true}
+    ${1}  | ${"ブロンクス区, ニューヨーク州"} | ${["ブロンクス区,", "ニューヨーク州"]}      | ${true}
+    ${10} | ${"ニューヨーク, ニューヨーク州"} | ${["ニューヨーク,", "ニューヨーク州"]}      | ${false}
+  `("wraps $label", ({ width, label, expectedLabels, shouldOverflow }) => {
     document.body.innerHTML = `<svg width=100><text>${label}</text></svg>`;
     wrap(d3.selectAll("text"), width);
 
@@ -104,5 +117,8 @@ describe("wrap tests", () => {
     d3.selectAll("tspan").each(function (d, i) {
       expect(d3.select(this).text()).toBe(expectedLabels[i]);
     });
+    expect(d3.selectAll("text").filter("[wrap-overflow='1']").size() > 0).toBe(
+      shouldOverflow
+    );
   });
 });
