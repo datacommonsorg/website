@@ -146,12 +146,24 @@ function addXAxis(
       .attr("dy", ".15em")
       .attr("transform", "rotate(-35)");
   } else if (typeof xScale.bandwidth === "function") {
-    axis
-      .selectAll(".tick text")
+    const text = axis.selectAll("text");
+    text
       .style("fill", AXIS_TEXT_FILL)
       .style("font-family", TEXT_FONT_FAMILY)
       .style("text-rendering", "optimizedLegibility")
       .call(wrap, xScale.bandwidth());
+
+    if (!text.filter("[wrap-overflow='1']").empty()) {
+      // Rotate text if overflow occurs even after wrapping.
+      text.style("text-anchor", "end").each(function (d, i) {
+        const t = this as SVGTextElement;
+        const bbox = t.getBBox();
+        t.setAttribute(
+          "transform",
+          `translate(-${bbox.height / 2 + 0}, 3) rotate(-45)`
+        );
+      });
+    }
   }
 
   let axisHeight = axis.node().getBBox().height;
