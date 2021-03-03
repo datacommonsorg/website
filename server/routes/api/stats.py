@@ -180,3 +180,12 @@ def get_stats_collection():
                                 stat_vars)['data']),
                     200,
                     mimetype='application/json')
+
+
+@bp.route('/api/stats/set', methods=["POST"])
+def get_stats_set():
+    dcids = request.json.get("places")
+    stat_vars = request.json.get("stat_vars")
+    return Response(json.dumps(dc.get_stats_set(dcids, stat_vars)),
+                    200,
+                    mimetype="application/json")

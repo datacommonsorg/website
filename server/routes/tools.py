@@ -26,6 +26,12 @@ def timeline():
         'tools/timeline.html', maps_api_key=current_app.config['MAPS_API_KEY'])
 
 
+# This tool is used by the Harvard Data Science course
+@bp.route('/timeline/bulk_download')
+def timeline_bulk_download():
+    return flask.render_template('tools/timeline_bulk_download.html')
+
+
 @bp.route('/scatter')
 def scatter():
     return flask.render_template('tools/scatter.html')
