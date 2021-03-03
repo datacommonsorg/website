@@ -18,12 +18,12 @@ import { TimelineParams } from "./timeline_util";
 import { saveToFile } from "../shared/util";
 
 /* Start the loading spinner and gray out the background. */
-function loadSpinner() {
+function loadSpinner(): void {
   document.getElementById("screen").classList.add("d-block");
 }
 
 /* Remove the spinner and gray background. */
-function removeSpinner() {
+function removeSpinner(): void {
   document.getElementById("screen").classList.remove("d-block");
 }
 
@@ -31,7 +31,11 @@ function removeSpinner() {
  * Downloads data for all places of a certain type for the specified ptpv's in
  * the chart.
  */
-function downloadBulkData(statVars, placeType, ancestorDcid) {
+function downloadBulkData(
+  statVars: string[],
+  placeType: string,
+  ancestorDcid: string
+): void {
   loadSpinner();
   axios
     .get("/api/place/places-in", {
@@ -70,8 +74,8 @@ function downloadBulkData(statVars, placeType, ancestorDcid) {
     });
 }
 
-function saveToCsv(placeDcids, statVars, data) {
-  (window as any).data = data;
+// TODO(beets): Define interfaces for all responses
+function saveToCsv(placeDcids: string[], statVars: string[], data: any): void {
   const results = [];
   results.push("placeDcid," + statVars.join(","));
   for (const place of placeDcids.sort()) {
