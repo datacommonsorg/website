@@ -13,7 +13,8 @@
 # limitations under the License.
 """Data Commons Knowledge Graph Browser routes
 """
-
+import os
+import services.datacommons as dc
 from flask import Blueprint, render_template
 
 bp = Blueprint('browser', __name__, url_prefix='/browser')
@@ -27,3 +28,20 @@ def kg_main():
 @bp.route('/<path:dcid>')
 def kg_entity(dcid):
     return render_template('/browser/kg_entity.html', dcid=dcid)
+
+
+@bp.route('/browser2')
+@bp.route('/browser2/<path:dcid>')
+def browser(dcid=None):
+    # TODO(chejennifer): Permit production use after development finishes and update routes
+    if os.environ.get('FLASK_ENV') == 'production':
+        flask.abort(404)
+    if not dcid:
+        return render_template('/browser/kg_main.html')
+    node_name_values = dc.get_property_values([dcid], "name").get(dcid, [])
+    node_name = dcid
+    if node_name_values:
+        node_name = node_name_values[0]
+    return render_template('browser/browser2_entity.html',
+                           dcid=dcid,
+                           node_name=node_name)

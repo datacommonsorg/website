@@ -13,6 +13,7 @@
 # limitations under the License.
 
 import unittest
+from unittest.mock import patch
 
 from main import app
 
@@ -28,3 +29,11 @@ class TestStaticPage(unittest.TestCase):
         response = app.test_client().get('/browser/geoId/06')
         assert response.status_code == 200
         assert b"geoId/06" in response.data
+
+    @patch('services.datacommons.get_property_values')
+    def test_browser2_entity(self, mock_get_property_value):
+        mock_get_property_value.return_value = {'geoId/06': ['California']}
+        response = app.test_client().get('/browser/browser2/geoId/06')
+        assert response.status_code == 200
+        assert b"geoId/06" in response.data
+        assert b"California" in response.data

@@ -18,6 +18,8 @@ import json
 
 from cache import cache
 import services.datacommons as dc
+from services.datacommons import fetch_data
+from flask import Response
 
 bp = flask.Blueprint('api.browser', __name__, url_prefix='/api/browser')
 
@@ -34,3 +36,28 @@ def triple_api(dcid):
 def popobs_api(dcid):
     """Returns all the triples given a node dcid."""
     return dc.get_pop_obs(dcid)
+
+
+@cache.memoize(timeout=3600 * 24)  # Cache for one day.
+@bp.route('/propvals/<path:prop>/<path:dcid>')
+def get_property_value(dcid, prop):
+    response = fetch_data('/node/property-values', {
+        'dcids': [dcid],
+        'property': prop,
+    },
+                          compress=False,
+                          post=False)
+    result = {}
+    result["property"] = prop
+    result["values"] = response.get(dcid, {})
+    return Response(json.dumps(result), 200, mimetype='application/json')
+
+
+@cache.memoize(timeout=3600 * 24)  # Cache for one day.
+@bp.route('/proplabels/<path:dcid>')
+def get_property_labels(dcid):
+    response = fetch_data('/node/property-labels', {'dcids': [dcid]},
+                          compress=False,
+                          post=False)
+    labels = response.get(dcid, {})
+    return Response(json.dumps(labels), 200, mimetype='application/json')
