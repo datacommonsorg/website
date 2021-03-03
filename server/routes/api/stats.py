@@ -82,6 +82,7 @@ def stats(stats_var):
         with value to be the observation time series.
     """
     place_dcids = request.args.getlist('dcid')
+    print(place_dcids)
     result = get_stats_wrapper('^'.join(place_dcids), stats_var)
     return Response(result, 200, mimetype='application/json')
 
@@ -180,3 +181,12 @@ def get_stats_collection():
                                 stat_vars)['data']),
                     200,
                     mimetype='application/json')
+
+
+@bp.route('/api/stats/set', methods=["POST"])
+def get_stats_set():
+    dcids = request.json.get("places")
+    stat_vars = request.json.get("stat_vars")
+    return Response(json.dumps(dc.get_stats_set(dcids, stat_vars)),
+                    200,
+                    mimetype="application/json")

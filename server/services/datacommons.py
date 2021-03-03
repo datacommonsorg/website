@@ -65,6 +65,7 @@ API_ENDPOINTS = {
     'get_stats_all': '/stat/all',
     'get_stats_value': '/stat/value',
     'get_stats_collection': '/stat/collection',
+    'get_stats_set': '/stat/set',
     # TODO(shifucun): switch back to /node/related-places after data switch.
     'get_related_places': '/node/related-locations',
     'get_interesting_places': '/node/interesting-place-aspects',
@@ -154,6 +155,16 @@ def get_stats_collection(parent_place, child_type, date, stat_vars):
         'stat_vars': stat_vars
     }
     return send_request(url, req_json=req_json, post=False, has_payload=False)
+
+
+def get_stats_set(place_dcids, stat_vars, date=None):
+    url = API_ROOT + API_ENDPOINTS['get_stats_set']
+    req_json = {
+        'places': place_dcids,
+        'stat_vars': stat_vars,
+        'date': date,
+    }
+    return send_request(url, req_json=req_json, post=True, has_payload=False)
 
 
 def get_chart_data(keys):

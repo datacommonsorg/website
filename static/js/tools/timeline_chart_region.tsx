@@ -35,6 +35,7 @@ interface ChartRegionPropsType {
 
 class ChartRegion extends Component<ChartRegionPropsType> {
   downloadLink: HTMLAnchorElement;
+  bulkDownloadLink: HTMLAnchorElement;
   allStatsData: { [key: string]: StatsData };
 
   constructor(props: ChartRegionPropsType) {
@@ -46,6 +47,18 @@ class ChartRegion extends Component<ChartRegionPropsType> {
     if (this.downloadLink) {
       this.downloadLink.onclick = () => {
         saveToFile("export.csv", this.createDataCsv());
+      };
+    }
+    this.bulkDownloadLink = document.getElementById(
+      "bulk-download-link"
+    ) as HTMLAnchorElement;
+    if (this.bulkDownloadLink) {
+      this.bulkDownloadLink.onclick = () => {
+        window.location.href = window.location.href.replace(
+          "/timeline",
+
+          "/timeline/bulk_download"
+        );
       };
     }
     if (this.props.initialPC) {
@@ -106,8 +119,10 @@ class ChartRegion extends Component<ChartRegionPropsType> {
     this.allStatsData[groupId] = data;
     if (this.downloadLink && Object.keys(this.allStatsData).length > 0) {
       this.downloadLink.style.visibility = "visible";
+      this.bulkDownloadLink.style.visibility = "visible";
     } else {
       this.downloadLink.style.visibility = "hidden";
+      this.bulkDownloadLink.style.visibility = "hidden";
     }
   }
 

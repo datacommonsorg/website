@@ -35,6 +35,7 @@ const config = {
       __dirname + "/js/tools/timeline.ts",
       __dirname + "/css/timeline.scss",
     ],
+    timeline_bulk_download: [__dirname + "/js/tools/timeline_bulk_download.ts"],
     kg: [
       "babel-polyfill",
       __dirname + "/js/browser/kg.js",
