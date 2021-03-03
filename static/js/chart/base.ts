@@ -87,7 +87,7 @@ function wrap(
     const words = text
       .text()
       .replace(/-/g, "-#") // Handle e.g. "ABC-AB A" -> "ABC-", "AB" "A"
-      .split(/[ #]/)
+      .split(/[\s#]/)
       .filter((w) => w.trim() != "")
       .reverse();
     text.text(null);
@@ -128,6 +128,10 @@ function wrap(
         tspan.text(joinLineForWrap(lineToFit));
         lineToFit = [word];
       }
+    }
+    const bbox = text.node().getBBox();
+    if (bbox.width > width) {
+      text.attr("wrap-overflow", "1");
     }
   });
 }

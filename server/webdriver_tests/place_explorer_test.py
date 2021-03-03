@@ -163,36 +163,30 @@ class TestPlaceExplorer(WebdriverBaseTest):
         # Assert chart title is correct.
         self.assertEqual(CHART_TITLE, chart_title)
 
-    ## TODO(beets): Re-enable this test when feasible (without sacrificing potential ssl downgrade)
-    ## NOTE: Test case was re-designed but was not tested due to SSL issues. Possibly failing.
-    # def test_demographics_redirect_link(self):
-    #     """
-    #     Test a place page with demographics after a redirect.
-    #     """
-    #     # Load California's Demographics page.
-    #     self.driver.get(self.url_ + '/place?dcid=geoId/06&topic=Demographics')
+    def test_demographics_redirect_link(self):
+        """
+        Test a place page with demographics after a redirect.
+        """
+        # Load California's Demographics page.
+        start_url = self.url_ + '/place?dcid=geoId/06&topic=Demographics&utm_medium=um'
+        self.driver.get(start_url)
 
-    #     # Wait until the page has loaded.
-    #     element_present = EC.presence_of_element_located(
-    #         (By.CSS_SELECTOR, '.subtopic:nth-node(4)'))
-    #     WebDriverWait(self.driver, self.TIMEOUT_SEC).until(element_present)
+        # Wait for redirect.
+        WebDriverWait(self.driver, self.TIMEOUT_SEC).until(
+            lambda driver: driver.current_url != start_url)
+        self.assertTrue("topic=Demographics" in self.driver.current_url)
+        self.assertTrue("utm_medium=um" in self.driver.current_url)
 
-    #     # Assert "Demographics" is part of the URL.
-    #     self.assertTrue("Demographics" in self.driver.current_url)
+        element_present = EC.presence_of_element_located(
+            (By.XPATH, '//*[@id="main-pane"]/section[4]/div/div[2]/div/h4'))
+        WebDriverWait(self.driver, self.TIMEOUT_SEC * 2).until(element_present)
 
-    #     # Get the Age topic from the list of topics.
-    #     age_topic = self.driver.find_element_by_css_selector(
-    #         ".subtopic:nth-child(4)")
-    #     age_across_places_chart = age_topic.find_element_by_css_selector(
-    #         ".col:nth-child(2)")
+        chart_title = self.driver.find_element_by_xpath(
+            '//*[@id="main-pane"]/section[4]/div/div[2]/div/h4').text
 
-    #     chart_title = age_across_places_chart.find_element_by_tag_name(
-    #         "h4").text
-
-    #     # Assert chart title is correct.
-    #     self.assertEqual(
-    #         "Population by Gender Per Capita: states near California(2018)",
-    #         chart_title, chart_title)
+        # Assert chart title is correct.
+        self.assertEqual("Gender distribution: states near California(2019)",
+                         chart_title)
 
 
 if __name__ == '__main__':

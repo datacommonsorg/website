@@ -14,6 +14,7 @@
 
 import unittest
 from unittest.mock import patch
+from flask import request
 
 from main import app
 
@@ -104,3 +105,11 @@ class TestPlacePage(unittest.TestCase):
         response = app.test_client().get('/explore/place?dcid=geoId/06',
                                          follow_redirects=False)
         assert response.status_code == 302
+
+        test_client = app.test_client()
+        with test_client:
+            response = test_client.get(
+                '/place?dcid=geoId/06&utm_medium=explore&mprop=count&popt=Person&hl=fr',
+                follow_redirects=True)
+            assert '/place/geoId/06?utm_medium=explore&mprop=count&popt=Person&hl=fr' in request.url
+            assert response.status_code == 200
