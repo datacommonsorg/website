@@ -15,22 +15,33 @@
  */
 import axios from "axios";
 import { TimelineParams } from "./timeline_util";
+import { saveToFile } from "../shared/util";
+
+/* Start the loading spinner and gray out the background. */
+function loadSpinner() {
+  document.getElementById("screen").classList.add("d-block");
+}
+
+/* Remove the spinner and gray background. */
+function removeSpinner() {
+  document.getElementById("screen").classList.remove("d-block");
+}
 
 /**
  * Downloads data for all places of a certain type for the specified ptpv's in
  * the chart.
  */
-function downloadBulkData(statVars, placeType) {
-  console.log(statVars, placeType);
+function downloadBulkData(statVars, placeType, ancestorDcid) {
+  loadSpinner();
   axios
     .get("/api/place/places-in", {
       params: {
-        dcid: "country/USA",
+        dcid: ancestorDcid,
         placeType,
       },
     })
     .then((resp) => {
-      const placeDcids = resp.data["country/USA"];
+      const placeDcids = resp.data[ancestorDcid];
       axios
         .post("/api/stats/set", {
           places: placeDcids,
@@ -40,31 +51,21 @@ function downloadBulkData(statVars, placeType) {
           if (resp.data && resp.data["data"]) {
             saveToCsv(placeDcids, statVars, resp.data["data"]);
           } else {
-            alert("There was an error loading that data");
+            alert("There was an error loading the data");
           }
+          removeSpinner();
         })
         .catch((error) => {
+          let errorMsg = "There was an error loading the statistics";
           if (error.response) {
-            // The request was made and the server responded with a status code
-            // that falls out of the range of 2xx
-            alert(
-              "There was an error loading the statistics: " +
-                error.response.data.message
-            );
-            return;
+            errorMsg += ": " + error.response.data.message;
           }
-          if (error.request) {
-            // The request was made but no response was received
-            console.log(error.request);
-          } else {
-            // Something happened in setting up the request that triggered an Error
-            console.log("Error", error.message);
-          }
-          console.log(error.config);
-          alert("There was an error loading the statistics");
+          removeSpinner();
+          alert(errorMsg);
         });
     })
-    .catch((error) => {
+    .catch(() => {
+      removeSpinner();
       alert("There was an error loading places");
     });
 }
@@ -84,17 +85,6 @@ function saveToCsv(placeDcids, statVars, data) {
   saveToFile("datacommons_data.csv", csv);
 }
 
-function saveToFile(filename, csv) {
-  if (!csv.match(/^data:text\/csv/i)) {
-    csv = "data:text/csv;charset=utf-8," + csv;
-  }
-  const data = encodeURI(csv);
-  const link = document.createElement("a");
-  link.setAttribute("href", data);
-  link.setAttribute("download", filename);
-  link.click();
-}
-
 window.onload = function () {
   const timelineParams = new TimelineParams();
   timelineParams.getParamsFromUrl();
@@ -107,7 +97,7 @@ window.onload = function () {
     const link = links.item(i) as HTMLElement;
     const ptype = link.dataset.ptype;
     link.addEventListener("click", function () {
-      downloadBulkData(statVars, ptype);
+      downloadBulkData(statVars, ptype, "country/USA");
     });
   }
 };
