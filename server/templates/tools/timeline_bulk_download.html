@@ -16,7 +16,7 @@ limitations under the License.
 {%- extends 'base.html' -%}
 
 {% set is_hide_full_footer = true %}
-{% set subpage_title = "Timelines Bulk Download" %}
+{% set subpage_title = "Timelines" %}
 {% set subpage_url = url_for('tools.timeline') %}
 {% set title = "Timelines Explorer - Bulk Download" %}
 {% set hide_search = True %}
@@ -27,7 +27,8 @@ limitations under the License.
 {% endblock %}
 
 {% block content %}
-<div id="main-pane-download" class="mdc-layout-grid">
+<div id="main-pane" class="container mt-5">
+  <h1 class="mb-3">Bulk Download Data</h1>
   <p>
     Download CSVs of the latest data for these variables:<br />
     <b id="statVars"></b>
