@@ -38,14 +38,15 @@ function downloadBulkData(
 ): void {
   loadSpinner();
   axios
-    .get("/api/place/places-in", {
+    .get("/api/place/places-in-names", {
       params: {
         dcid: ancestorDcid,
         placeType,
       },
     })
     .then((resp) => {
-      const placeDcids = resp.data[ancestorDcid];
+      const placeDcids = Object.keys(resp.data);
+      const placeNames = resp.data;
       axios
         .post("/api/stats/set", {
           places: placeDcids,
@@ -53,7 +54,7 @@ function downloadBulkData(
         })
         .then((resp) => {
           if (resp.data && resp.data["data"]) {
-            saveToCsv(placeDcids, statVars, resp.data["data"]);
+            saveToCsv(placeDcids, placeNames, statVars, resp.data["data"]);
           } else {
             alert("There was an error loading the data");
           }
@@ -75,13 +76,18 @@ function downloadBulkData(
 }
 
 // TODO(beets): Define interfaces for all responses
-function saveToCsv(placeDcids: string[], statVars: string[], data: any): void {
+function saveToCsv(
+  placeDcids,
+  placeNames: { [dcid: string]: string },
+  statVars: string[],
+  data: any
+): void {
   const results = [];
-  results.push("placeDcid," + statVars.join(","));
+  results.push("placeDcid,placeName," + statVars.join(","));
   for (const place of placeDcids.sort()) {
-    const row = [place];
+    const row = [`"${place}"`, `"${placeNames[place]}"`];
     for (const sv of statVars) {
-      row.push(data[sv]["stat"][place]["value"]);
+      row.push(data[sv]["stat"][place]["value"] || "-");
     }
     results.push(row.join(","));
   }
