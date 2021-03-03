@@ -77,7 +77,7 @@ function downloadBulkData(
 
 // TODO(beets): Define interfaces for all responses
 function saveToCsv(
-  placeDcids,
+  placeDcids: string[],
   placeNames: { [dcid: string]: string },
   statVars: string[],
   data: any
