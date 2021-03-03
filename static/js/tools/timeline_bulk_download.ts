@@ -87,7 +87,7 @@ function saveToCsv(
   for (const place of placeDcids.sort()) {
     const row = [`"${place}"`, `"${placeNames[place]}"`];
     for (const sv of statVars) {
-      row.push(data[sv]["stat"][place]["value"] || "-");
+      row.push(data[sv]["stat"][place]["value"] || "");
     }
     results.push(row.join(","));
   }
