@@ -15,6 +15,8 @@
 """
 import os
 import services.datacommons as dc
+import flask
+
 from flask import Blueprint, render_template
 
 bp = Blueprint('browser', __name__, url_prefix='/browser')
@@ -30,14 +32,12 @@ def kg_entity(dcid):
     return render_template('/browser/kg_entity.html', dcid=dcid)
 
 
-@bp.route('/browser2')
 @bp.route('/browser2/<path:dcid>')
 def browser(dcid=None):
-    # TODO(chejennifer): Permit production use after development finishes and update routes
+    # TODO(chejennifer): Permit production use after development finishes
+    # and update routes (make sure to update routes in the React components as well)
     if os.environ.get('FLASK_ENV') == 'production':
         flask.abort(404)
-    if not dcid:
-        return render_template('/browser/kg_main.html')
     node_name_values = dc.get_property_values([dcid], "name").get(dcid, [])
     node_name = dcid
     if node_name_values:

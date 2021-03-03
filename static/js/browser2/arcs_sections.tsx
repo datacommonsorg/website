@@ -27,8 +27,8 @@ interface ArcsSectionPropType {
 }
 
 interface ArcsSectionStateType {
-  outLabels: Array<string>;
   inLabels: Array<string>;
+  outLabels: Array<string>;
   provDomain: { [key: string]: URL };
 }
 
@@ -39,8 +39,8 @@ export class ArcsSection extends React.Component<
   constructor(props: ArcsSectionPropType) {
     super(props);
     this.state = {
-      outLabels: [],
       inLabels: [],
+      outLabels: [],
       provDomain: {},
     };
   }
@@ -61,13 +61,13 @@ export class ArcsSection extends React.Component<
       ([labelsData, provenanceData]) => {
         const provDomain = {};
         for (const prov of provenanceData) {
-          if (prov["predicate"] == "typeOf" && !!prov["subjectName"]) {
+          if (prov["predicate"] === "typeOf" && !!prov["subjectName"]) {
             provDomain[prov["subjectId"]] = new URL(prov["subjectName"]).host;
           }
         }
         this.setState({
-          outLabels: labelsData["outLabels"],
           inLabels: labelsData["inLabels"],
+          outLabels: labelsData["outLabels"],
           provDomain: provDomain,
         });
       }

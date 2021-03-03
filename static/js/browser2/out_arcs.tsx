@@ -69,12 +69,12 @@ export class OutArcsSection extends React.Component<
       const propertyLabels = [];
       propertyLabels.push("typeOf");
       propValuesData.forEach((valuesData) => {
-        if (!valuesData) {
+        if (!valuesData || _.isEmpty(valuesData.values)) {
           return;
         }
         const predicate = valuesData.property;
         let values = valuesData.values.out;
-        if (predicate == "nameWithLanguage") {
+        if (predicate === "nameWithLanguage") {
           const extra = values.length - maxNameWithLanguageValues;
           values = _.slice(values, 0, maxNameWithLanguageValues);
           values.push({
@@ -82,7 +82,7 @@ export class OutArcsSection extends React.Component<
           });
         }
         outArcsByPredicate[predicate] = values;
-        if (predicate != "typeOf") {
+        if (predicate !== "typeOf") {
           propertyLabels.push(predicate);
         }
       });
@@ -123,11 +123,13 @@ export class OutArcsSection extends React.Component<
                 return (
                   <tr key={propertyLabel + index}>
                     <td className="property-column" width="25%">
-                      <a href={"/browser2/" + propertyLabel}>{propertyLabel}</a>
+                      <a href={"/browser/browser2/" + propertyLabel}>
+                        {propertyLabel}
+                      </a>
                     </td>
                     <td width="50%">
                       {value.dcid ? (
-                        <a href={"/browser2/" + value.dcid}>
+                        <a href={"/browser/browser2/" + value.dcid}>
                           {value.name ? value.name : value.dcid}
                         </a>
                       ) : (
@@ -136,7 +138,7 @@ export class OutArcsSection extends React.Component<
                     </td>
                     <td width="25%">
                       {value.provenanceId ? (
-                        <a href={"/browser2/" + value.provenanceId}>
+                        <a href={"/browser/browser2/" + value.provenanceId}>
                           {this.props.provDomain[value.provenanceId]}
                         </a>
                       ) : (

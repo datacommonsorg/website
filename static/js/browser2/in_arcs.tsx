@@ -16,6 +16,7 @@
 
 import React from "react";
 import axios from "axios";
+import { InArcsGroup } from "./in_arcs_group";
 
 const IGNORED_PARENT_TYPES = new Set(["StatisticalPopulation"]);
 
@@ -101,81 +102,6 @@ export class InArcsSection extends React.Component<
             );
           });
         })}
-      </div>
-    );
-  }
-}
-
-interface InArcsGroupPropType {
-  nodeName: string;
-  parentType: string;
-  property: string;
-  arcValues: Array<any>;
-  provDomain: { [key: string]: URL };
-}
-
-export class InArcsGroup extends React.Component<InArcsGroupPropType> {
-  constructor(props: InArcsGroupPropType) {
-    super(props);
-    this.state = {
-      showMore: false,
-    };
-  }
-
-  render(): JSX.Element {
-    // TODO (chejennifer): limit height of the card and add a show more button
-    const arcValues = this.props.arcValues;
-    arcValues.sort((a, b) => {
-      const aValue = a.name ? a.name : a.dcid;
-      const bValue = b.name ? b.name : b.dcid;
-      if (aValue < bValue) {
-        return -1;
-      } else if (aValue > bValue) {
-        return 1;
-      } else {
-        return 0;
-      }
-    });
-    return (
-      <div className="card">
-        <div id={this.props.parentType} className="arc-group-title">
-          <strong>
-            <span>
-              <span className="mp">{this.props.parentType}</span> of{" "}
-              {this.props.nodeName}
-            </span>
-          </strong>
-        </div>
-        <table className="node-table">
-          <tbody>
-            {arcValues.map((arcValue, index) => {
-              return (
-                <tr key={this.props.property + index}>
-                  <td className="property-column" width="25%">
-                    <a href={"/browser2/" + this.props.property}>
-                      {this.props.property}
-                    </a>{" "}
-                    of
-                  </td>
-                  <td width="50%">
-                    {arcValue.dcid ? (
-                      <a href={"/browser2/" + arcValue.dcid}>
-                        {arcValue.name ? arcValue.name : arcValue.dcid}
-                      </a>
-                    ) : (
-                      <span className="out-arc-text">{arcValue.value}</span>
-                    )}
-                  </td>
-                  <td width="25%">
-                    <a href={"/browser2/" + arcValue.provenanceId}>
-                      {this.props.provDomain[arcValue.provenanceId]}
-                    </a>
-                  </td>
-                </tr>
-              );
-            })}
-          </tbody>
-        </table>
       </div>
     );
   }
