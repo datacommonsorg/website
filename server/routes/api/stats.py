@@ -82,7 +82,6 @@ def stats(stats_var):
         with value to be the observation time series.
     """
     place_dcids = request.args.getlist('dcid')
-    print(place_dcids)
     result = get_stats_wrapper('^'.join(place_dcids), stats_var)
     return Response(result, 200, mimetype='application/json')
 

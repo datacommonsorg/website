@@ -54,9 +54,10 @@ class ChartRegion extends Component<ChartRegionPropsType> {
     ) as HTMLAnchorElement;
     if (this.bulkDownloadLink) {
       this.bulkDownloadLink.onclick = () => {
+        // Carry over hash params, which is used by the bulk download tool for
+        // stat var parsing.
         window.location.href = window.location.href.replace(
           "/timeline",
-
           "/timeline/bulk_download"
         );
       };

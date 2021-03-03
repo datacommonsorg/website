@@ -30,7 +30,8 @@ const globalAny: any = global;
 
 test("Single place and single stats var", () => {
   globalAny.window = Object.create(window);
-  document.body.innerHTML = '<button id="download-link"></div>';
+  document.body.innerHTML =
+    '<button id="download-link"></button><a id="bulk-download-link"></a>';
   // Set url hash
   Object.defineProperty(window, "location", {
     writable: true,
