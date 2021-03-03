@@ -15,7 +15,7 @@
 browser.datacommons.org with datacommons.org
 """
 
-from flask import Blueprint, redirect, request, url_for
+from flask import Blueprint, current_app, redirect, request, url_for
 
 bp = Blueprint(
     "redirects",
@@ -35,14 +35,20 @@ def kg():
 
 @bp.route('/gni')
 def gni():
-    return redirect(url_for('tools.timeline', _external=True, _scheme="https"),
-                    code=302)
+    return redirect(
+        url_for('tools.timeline',
+                _external=True,
+                _scheme=current_app.config.get('SCHEME', 'https'),
+                code=302))
 
 
 @bp.route('/scatter')
 def scatter():
-    return redirect(url_for('tools.scatter', _external=True, _scheme="https"),
-                    code=302)
+    return redirect(
+        url_for('tools.scatter',
+                _external=True,
+                _scheme=current_app.config.get('SCHEME', 'https'),
+                code=302))
 
 
 @bp.route('/documentation')
