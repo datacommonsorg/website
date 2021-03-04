@@ -35,4 +35,4 @@ def browser2(dcid=None):
     node_name = dcid
     if node_name_values:
         node_name = node_name_values[0]
-    return render_template('browser/page.html', dcid=dcid, node_name=node_name)
+    return render_template('browser/node.html', dcid=dcid, node_name=node_name)
