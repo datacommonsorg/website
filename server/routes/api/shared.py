@@ -14,8 +14,7 @@
 
 from services.datacommons import fetch_data
 from cache import cache
-"""Common library for functions used by multiple tools
-"""
+"""Common library for functions used by multiple tools"""
 
 
 @cache.memoize(timeout=3600 * 24)  # Cache for one day.
