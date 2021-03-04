@@ -127,27 +127,13 @@ class TestApiParentPlaces(unittest.TestCase):
 
 class TestApiPlaceName(unittest.TestCase):
 
-    @patch('routes.api.place.fetch_data')
-    def test_parent_places(self, mock_fetch_data):
-        mock_response = {
-            'geoId/06': {
-                'out': [{
-                    'value': 'California',
-                    'provenance': 'prov1'
-                }]
-            },
-            'geoId/07': {
-                'out': []
-            },
-            'geoId/08': {
-                'out': [{
-                    'value': 'Colorado',
-                    'provenance': 'prov2'
-                }]
-            }
+    @patch('routes.api.place.cached_name')
+    def test_parent_places(self, mock_cached_name):
+        mock_cached_name.return_value = {
+            'geoId/06': 'California',
+            'geoId/07': '',
+            'geoId/08': 'Colorado'
         }
-        mock_fetch_data.side_effect = (
-            lambda url, req, compress, post: mock_response)
 
         response = app.test_client().get(
             '/api/place/name?dcid=geoId/06&dcid=geoId/07&dcid=geoId/08')
@@ -163,8 +149,10 @@ class TestApiPlaceI18nName(unittest.TestCase):
 
     @patch('lib.i18n.AVAILABLE_LANGUAGES',
            ['en', 'io', 'la', 'la-ru', 'it', 'ru'])
+    @patch('routes.api.place.cached_name')
     @patch('routes.api.place.fetch_data')
-    def test_parent_places(self, mock_fetch_data):
+    def test_parent_places(self, mock_fetch_data, mock_cached_name):
+        mock_cached_name.return_value = {'geoId/08': 'Colorado'}
         mock_response = {
             'geoId/05': {
                 'out': [{
