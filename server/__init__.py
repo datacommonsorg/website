@@ -85,7 +85,7 @@ def create_app():
 
     # apply the blueprints to the app
     from routes import (browser, dev, factcheck, place, placelist, ranking,
-                        redirects, static, tools)
+                        redirects, static, tools, browser2)
     app.register_blueprint(browser.bp)
     app.register_blueprint(dev.bp)
     app.register_blueprint(place.bp)
@@ -93,6 +93,7 @@ def create_app():
     app.register_blueprint(ranking.bp)
     app.register_blueprint(redirects.bp)
     app.register_blueprint(tools.bp)
+    app.register_blueprint(browser2.bp)
     from routes.api import (browser as browser_api, chart, choropleth, place as
                             place_api, landing_page, ranking as ranking_api,
                             stats, translator)

@@ -14,8 +14,12 @@
  * limitations under the License.
  */
 
+/**
+ * Main component for browser2.
+ */
+
 import React from "react";
-import { ArcsSection } from "./arcs_sections";
+import { ArcSection } from "./arc_section";
 
 interface BrowserPagePropType {
   dcid: string;
@@ -25,9 +29,9 @@ interface BrowserPagePropType {
 export class BrowserPage extends React.Component<BrowserPagePropType> {
   render(): JSX.Element {
     return (
-      <div>
-        <ArcsSection dcid={this.props.dcid} nodeName={this.props.nodeName} />
-      </div>
+      <>
+        <ArcSection dcid={this.props.dcid} nodeName={this.props.nodeName} />
+      </>
     );
   }
 }

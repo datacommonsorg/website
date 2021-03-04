@@ -19,7 +19,7 @@
    {% set main_id = 'dc-browser2' %}
    {% set title = node_name + '- Graph Browser' %}
    {% set subpage_title = 'Graph Browser' %}
-   {% set subpage_url = url_for('browser.kg_main') %}
+   {% set subpage_url = url_for('browser2.browser2') %}
    
    {% block head %}
      <link rel="stylesheet" href={{url_for('static', filename='css/kg.min.css', t=config['GAE_VERSION'])}} >
@@ -32,11 +32,12 @@
                {{ 'About: ' + node_name }}
            </div>
            <div id="node-content"></div>
+           <div id="page-loading" className="mt-4">Loading... (please be patient)</div>
        </div>
    </div>
    {% endblock %}
 
    {% block footer %}
-   <script src={{url_for('static', filename='browser2.js', t=config['GAE_VERSION'])}}></script>
+   <script src={{url_for('static', filename='browser.js', t=config['GAE_VERSION'])}}></script>
    {% endblock %}
    

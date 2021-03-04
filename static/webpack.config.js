@@ -55,8 +55,8 @@ const config = {
       __dirname + "/js/tools/scatter.js",
       __dirname + "/css/scatter.scss",
     ],
-    browser2: [
-      __dirname + "/js/browser2/browser2.ts",
+    browser: [
+      __dirname + "/js/browser2/browser.ts",
     ],
     search: __dirname + "/css/search.scss",
     static: __dirname + "/css/static.scss",

@@ -14,9 +14,14 @@
  * limitations under the License.
  */
 
-import React from "react";
+/**
+ * Component for displaying a single group of in arcs of the same parentType and property.
+ */
 
-interface InArcsGroupPropType {
+import React from "react";
+import { ArcTableRow } from "./arc_table_row";
+
+interface InArcSubsectionPropType {
   nodeName: string;
   parentType: string;
   property: string;
@@ -24,12 +29,9 @@ interface InArcsGroupPropType {
   provDomain: { [key: string]: URL };
 }
 
-export class InArcsGroup extends React.Component<InArcsGroupPropType> {
-  constructor(props: InArcsGroupPropType) {
+export class InArcSubsection extends React.Component<InArcSubsectionPropType> {
+  constructor(props: InArcSubsectionPropType) {
     super(props);
-    this.state = {
-      showMore: false,
-    };
   }
 
   render(): JSX.Element {
@@ -60,28 +62,18 @@ export class InArcsGroup extends React.Component<InArcsGroupPropType> {
           <tbody>
             {arcValues.map((arcValue, index) => {
               return (
-                <tr key={this.props.property + index}>
-                  <td className="property-column" width="25%">
-                    <a href={"/browser/browser2/" + this.props.property}>
-                      {this.props.property}
-                    </a>{" "}
-                    of
-                  </td>
-                  <td width="50%">
-                    {arcValue.dcid ? (
-                      <a href={"/browser/browser2/" + arcValue.dcid}>
-                        {arcValue.name ? arcValue.name : arcValue.dcid}
-                      </a>
-                    ) : (
-                      <span className="out-arc-text">{arcValue.value}</span>
-                    )}
-                  </td>
-                  <td width="25%">
-                    <a href={"/browser/browser2/" + arcValue.provenanceId}>
-                      {this.props.provDomain[arcValue.provenanceId]}
-                    </a>
-                  </td>
-                </tr>
+                <ArcTableRow
+                  key={this.props.property + index}
+                  propertyLabel={this.props.property}
+                  valueDcid={arcValue.dcid}
+                  valueText={arcValue.name ? arcValue.name : arcValue.dcid}
+                  provenanceId={arcValue.provenanceId}
+                  src={
+                    arcValue.provenanceId
+                      ? this.props.provDomain[arcValue.provenanceId]
+                      : null
+                  }
+                />
               );
             })}
           </tbody>

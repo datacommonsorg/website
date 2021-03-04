@@ -56,8 +56,5 @@ def get_property_value(dcid, prop):
 @cache.memoize(timeout=3600 * 24)  # Cache for one day.
 @bp.route('/proplabels/<path:dcid>')
 def get_property_labels(dcid):
-    response = fetch_data('/node/property-labels', {'dcids': [dcid]},
-                          compress=False,
-                          post=False)
-    labels = response.get(dcid, {})
+    labels = dc.get_property_labels([dcid]).get(dcid, {})
     return Response(json.dumps(labels), 200, mimetype='application/json')

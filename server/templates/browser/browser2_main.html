@@ -1,0 +1,124 @@
+{#
+  Copyright 2020 Google LLC
+ 
+  Licensed under the Apache License, Version 2.0 (the "License");
+  you may not use this file except in compliance with the License.
+  You may obtain a copy of the License at
+ 
+       http://www.apache.org/licenses/LICENSE-2.0
+ 
+  Unless required by applicable law or agreed to in writing, software
+  distributed under the License is distributed on an "AS IS" BASIS,
+  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  See the License for the specific language governing permissions and
+  limitations under the License.
+ #}
+ 
+ {% extends 'base.html' %}
+ 
+ {% set main_id = 'browser2_main' %}
+ {% set title = 'Data Commons Graph Browser' %}
+ {% set subpage_title = 'Graph Browser' %}
+ {% set subpage_url = url_for('browser2.browser2') %}
+ 
+ {% block head %}
+   <link rel="stylesheet" href={{url_for('static', filename='css/kg.min.css', t=config['GAE_VERSION'])}} >
+ {% endblock %}
+ 
+ {% block content %}
+   <div class="container">
+     <h1 class="mb-4">Graph Browser</h1>
+     <p>
+       The Data Commons Graph is constructed by synthesizing a single
+       database from many different data sources.
+       This graph browser can be used both to explore what data is available and to understand the graph structure.
+     </p>
+     <p>
+       You can use the search box above or start looking around from some well known starting points:
+     </p>
+     {# TODO: Use a config to drive these lists #}
+     <ul>
+       <li class="type-list">
+         <strong>Cities</strong>:
+         <a href="/browser2/geoId/4261000">Pittsburgh, PA</a>,
+         <a href="/browser2/geoId/0649670">Mountain View, CA</a>,
+         <a href="/browser2/geoId/4805000">Austin, TX</a>,
+         <a href="/browser2/geoId/0606000">Berkeley, CA</a>,
+         <a href="/browser2/City"> More ...</a>
+       </li>
+       <li class="type-list">
+         <strong>Counties</strong>:
+         <a href="/browser2/geoId/06085">Santa Clara</a>,
+         <a href="/browser2/geoId/12086">Miami-Dade</a>,
+         <a href="/browser2/County">More ...</a>
+       </li>
+       <li class="type-list">
+         <strong>States</strong>:
+         <a href="/browser2/geoId/12">Florida</a>,
+         <a href="/browser2/geoId/06">California</a>,
+         <a href="/browser2/geoId/56">Wyoming</a>,
+         <a href="/browser2/geoId/36">New York</a>,
+         <a href="/browser2/State">More ...</a>
+       </li>
+       <li class="type-list">
+         <strong>Countries</strong>:
+         <a href="/browser2/country/USA">United States</a>,
+         <a href="/browser2/country/CAN">Canada</a>,
+         <a href="/browser2/Country">More ...</a>
+       </li>
+       <li class="type-list">
+         <strong>Congressional Districts</strong>:
+         <a href="/browser2/geoId/0618">CA-18</a>,
+         <a href="/browser2/geoId/3601">NY-01</a>,
+         <a href="/browser2/CongressionalDistrict">More ...</a>
+       </li>
+       <li class="type-list">
+         <strong>Elections</strong>:
+         <a href="/browser2/election/2016_P_US00">2016 US Presidential Election</a>,
+         <a href="/browser2/election/1990_S_MI00">1990 US Senate Elections for Michigan</a>,
+         <a href="/browser2/Election">More ...</a>
+       </li>
+       <li class="type-list">
+         <strong>Census Estimates </strong>:
+         <a href="/browser2/dc/p/pxxyedzk8nbp9">Asian Population in Santa Clara</a>,
+         <a href="/browser2/dc/p/xqv3f41jvpx29">Master Degree Holders in New Orleans</a>
+       </li>
+       <li class="type-list">
+         <strong>Labor Statistics </strong>:
+         <a href="/browser2/dc/p/820mxx8ejlrj7">Unemployment in Boston </a>
+       </li>
+       <li class="type-list">
+         <strong>Crime Data</strong>:
+         <a href="/browser2/dc/p/lxbzwmf6mrt88">Violent Robbery in Atlanta, Georgia</a>,
+         <a href="/browser2/dc/p/xhzdrlmy9262g">Larceny-Theft in Georgia</a>
+       </li>
+       <li class="type-list">
+         <strong>Health Data</strong>:
+         <a href="/browser2/dc/p/pqsvgs2qh8lnd">Prevalence of Diabetes in Atlanta</a>
+       </li>
+       <li class="type-list">
+         <strong>DEA ARCOS</strong>:
+         <a href="/browser2/dc/p/02t7t97c0c2g4">Cocaine distribution in Palm Beach, FL</a>,
+         <a href="/browser2/dc/p/1z2025y18gtc8">Amphetamine distribution in Wayne County, WV</a>
+       </li>
+       <li class="type-list">
+         <strong>Botanical Specimens</strong>:
+         <a href="/browser2/dc/bsmvthtq89217">Austrobaileya scandens</a>,
+         <a href="/browser2/BiologicalSpecimen">More ...</a>
+       </li>
+       <li class="type-list">
+         <strong>ENCODE (Encyclopedia Of DNA Elements)</strong>:
+         <a href="/browser2/Lab">Labs</a>,
+         <a href="/browser2/EncodeBiosampleType">Biosamples</a>,
+         <a href="/browser2/EncodeExperiment">Experiments</a>,
+         <a href="/browser2/EncodeBedFile">More ...</a>
+       </li>
+       <li class="type-list">
+         <strong>Public Schools and School Districts</strong>:
+         <a href="/browser2/nces/062961004587">Henry M. Gunn High</a>,
+         <a href="/browser2/nces/360007702877">Stuyvesant High School</a>,
+         <a href="/browser2/geoId/sch3620580">New York City Department of Education</a>
+       </li>
+     </ul>
+   </div>
+ {% endblock %}

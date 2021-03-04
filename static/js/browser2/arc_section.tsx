@@ -14,29 +14,33 @@
  * limitations under the License.
  */
 
+/**
+ * Component for rendering the in and out arc sections of the page.
+ */
+
 import React from "react";
 import axios from "axios";
 import _ from "lodash";
 
-import { InArcsSection } from "./in_arcs";
-import { OutArcsSection } from "./out_arcs";
+import { InArcSection } from "./in_arc_section";
+import { OutArcSection } from "./out_arc_section";
 
-interface ArcsSectionPropType {
+interface ArcSectionPropType {
   dcid: string;
   nodeName: string;
 }
 
-interface ArcsSectionStateType {
+interface ArcSectionStateType {
   inLabels: Array<string>;
   outLabels: Array<string>;
   provDomain: { [key: string]: URL };
 }
 
-export class ArcsSection extends React.Component<
-  ArcsSectionPropType,
-  ArcsSectionStateType
+export class ArcSection extends React.Component<
+  ArcSectionPropType,
+  ArcSectionStateType
 > {
-  constructor(props: ArcsSectionPropType) {
+  constructor(props: ArcSectionPropType) {
     super(props);
     this.state = {
       inLabels: [],
@@ -79,19 +83,19 @@ export class ArcsSection extends React.Component<
       return null;
     }
     return (
-      <div>
-        <OutArcsSection
+      <>
+        <OutArcSection
           dcid={this.props.dcid}
-          outArcLabels={this.state.outLabels}
+          labels={this.state.outLabels}
           provDomain={this.state.provDomain}
         />
-        <InArcsSection
+        <InArcSection
           nodeName={this.props.nodeName}
           dcid={this.props.dcid}
-          inArcLabels={this.state.inLabels}
+          labels={this.state.inLabels}
           provDomain={this.state.provDomain}
         />
-      </div>
+      </>
     );
   }
 }
