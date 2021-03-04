@@ -22,6 +22,7 @@ from flask_babel import gettext
 from cache import cache
 import services.datacommons as dc
 from services.datacommons import fetch_data
+from routes.api.shared import cached_name
 import routes.api.stats as stats_api
 import lib.i18n as i18n
 
@@ -76,33 +77,6 @@ def get_place_type(place_dcid):
             or chosen_type == 'Place':
             chosen_type = place_type
     return chosen_type
-
-
-@cache.memoize(timeout=3600 * 24)  # Cache for one day.
-def cached_name(dcids):
-    """Returns display names for set of dcids.
-
-    Args:
-        dcids: ^ separated string of dcids. It must be a single string for the cache.
-
-    Returns:
-        A dictionary of display place names, keyed by dcid.
-    """
-    dcids = dcids.split('^')
-    response = fetch_data('/node/property-values', {
-        'dcids': dcids,
-        'property': 'name',
-        'direction': 'out'
-    },
-                          compress=False,
-                          post=True)
-    result = {}
-    for dcid in dcids:
-        if not dcid:
-            continue
-        values = response[dcid].get('out')
-        result[dcid] = values[0]['value'] if values else ''
-    return result
 
 
 def get_name(dcids):
