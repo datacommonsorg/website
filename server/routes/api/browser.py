@@ -41,6 +41,7 @@ def popobs_api(dcid):
 @cache.memoize(timeout=3600 * 24)  # Cache for one day.
 @bp.route('/propvals/<path:prop>/<path:dcid>')
 def get_property_value(dcid, prop):
+    """Returns the property values for a given node dcid and property label."""
     response = fetch_data('/node/property-values', {
         'dcids': [dcid],
         'property': prop,
@@ -56,5 +57,6 @@ def get_property_value(dcid, prop):
 @cache.memoize(timeout=3600 * 24)  # Cache for one day.
 @bp.route('/proplabels/<path:dcid>')
 def get_property_labels(dcid):
+    """Returns all property labels given a node dcid."""
     labels = dc.get_property_labels([dcid]).get(dcid, {})
     return Response(json.dumps(labels), 200, mimetype='application/json')

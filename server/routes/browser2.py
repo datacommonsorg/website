@@ -30,7 +30,7 @@ def browser2(dcid=None):
     if os.environ.get('FLASK_ENV') == 'production':
         flask.abort(404)
     if not dcid:
-        return render_template('/browser/browser2_main.html')
+        return render_template('/browser/kg_main.html')
     node_name_values = dc.get_property_values([dcid], "name").get(dcid, [])
     node_name = dcid
     if node_name_values:
