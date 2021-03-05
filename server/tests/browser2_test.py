@@ -25,9 +25,9 @@ class TestStaticPage(unittest.TestCase):
         assert response.status_code == 200
         assert b"The Data Commons Graph is constructed by" in response.data
 
-    @patch('services.datacommons.get_property_values')
-    def test_browser2_page(self, mock_get_property_value):
-        mock_get_property_value.return_value = {'geoId/06': ['California']}
+    @patch('routes.api.shared.cached_name')
+    def test_browser2_page(self, mock_cached_name):
+        mock_cached_name.return_value = {'geoId/06': 'California'}
         response = app.test_client().get('/browser2/geoId/06')
         assert response.status_code == 200
         assert b"geoId/06" in response.data

@@ -14,7 +14,7 @@
 """Data Commons Knowledge Graph Browser 2 routes
 """
 import os
-import services.datacommons as dc
+import routes.api.shared as shared_api
 import flask
 
 from flask import Blueprint, render_template
@@ -31,8 +31,7 @@ def browser2(dcid=None):
         flask.abort(404)
     if not dcid:
         return render_template('/browser/kg_main.html')
-    node_name_values = dc.get_property_values([dcid], "name").get(dcid, [])
-    node_name = dcid
-    if node_name_values:
-        node_name = node_name_values[0]
+    node_name = shared_api.cached_name(dcid).get(dcid)
+    if not node_name:
+        node_name = dcid
     return render_template('browser/node.html', dcid=dcid, node_name=node_name)
