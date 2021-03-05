@@ -51,6 +51,28 @@ export class InArcSection extends React.Component<
     this.fetchData();
   }
 
+  render(): JSX.Element {
+    return (
+      <div>
+        {this.state.parentTypes.map((parentType) => {
+          const arcsByPredicate = this.state.data[parentType];
+          return Object.keys(arcsByPredicate).map((predicate) => {
+            return (
+              <InArcSubsection
+                nodeName={this.props.nodeName}
+                parentType={parentType}
+                property={predicate}
+                arcValues={arcsByPredicate[predicate]}
+                provDomain={this.props.provDomain}
+                key={parentType + predicate}
+              />
+            );
+          });
+        })}
+      </div>
+    );
+  }
+
   private removeLoadingMessage(): void {
     // TODO (chejennifer): better way to handle loading
     const loadingElem = document.getElementById("page-loading");
@@ -91,31 +113,9 @@ export class InArcSection extends React.Component<
         this.removeLoadingMessage();
         this.setState({
           data: inArcsByTypeAndPredicate,
-          parentTypes: parentTypes,
+          parentTypes,
         });
       })
       .catch(() => this.removeLoadingMessage());
-  }
-
-  render(): JSX.Element {
-    return (
-      <div>
-        {this.state.parentTypes.map((parentType) => {
-          const arcsByPredicate = this.state.data[parentType];
-          return Object.keys(arcsByPredicate).map((predicate) => {
-            return (
-              <InArcSubsection
-                nodeName={this.props.nodeName}
-                parentType={parentType}
-                property={predicate}
-                arcValues={arcsByPredicate[predicate]}
-                provDomain={this.props.provDomain}
-                key={parentType + predicate}
-              />
-            );
-          });
-        })}
-      </div>
-    );
   }
 }

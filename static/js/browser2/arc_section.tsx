@@ -53,31 +53,6 @@ export class ArcSection extends React.Component<
     this.fetchData();
   }
 
-  private fetchData(): void {
-    // TODO (chejennifer): observation nodes will need a different way of getting arc data
-    const labelsPromise = axios
-      .get(`/api/browser/proplabels/${this.props.dcid}`)
-      .then((resp) => resp.data);
-    const provenancePromise = axios
-      .get(`/api/browser/triples/Provenance`)
-      .then((resp) => resp.data);
-    Promise.all([labelsPromise, provenancePromise]).then(
-      ([labelsData, provenanceData]) => {
-        const provDomain = {};
-        for (const prov of provenanceData) {
-          if (prov["predicate"] === "typeOf" && !!prov["subjectName"]) {
-            provDomain[prov["subjectId"]] = new URL(prov["subjectName"]).host;
-          }
-        }
-        this.setState({
-          inLabels: labelsData["inLabels"],
-          outLabels: labelsData["outLabels"],
-          provDomain: provDomain,
-        });
-      }
-    );
-  }
-
   render(): JSX.Element {
     if (_.isEmpty(this.state.outLabels) && _.isEmpty(this.state.inLabels)) {
       return null;
@@ -96,6 +71,31 @@ export class ArcSection extends React.Component<
           provDomain={this.state.provDomain}
         />
       </>
+    );
+  }
+
+  private fetchData(): void {
+    // TODO (chejennifer): observation nodes will need a different way of getting arc data
+    const labelsPromise = axios
+      .get("/api/browser/proplabels/" + this.props.dcid)
+      .then((resp) => resp.data);
+    const provenancePromise = axios
+      .get("/api/browser/triples/Provenance")
+      .then((resp) => resp.data);
+    Promise.all([labelsPromise, provenancePromise]).then(
+      ([labelsData, provenanceData]) => {
+        const provDomain = {};
+        for (const prov of provenanceData) {
+          if (prov["predicate"] === "typeOf" && !!prov["subjectName"]) {
+            provDomain[prov["subjectId"]] = new URL(prov["subjectName"]).host;
+          }
+        }
+        this.setState({
+          inLabels: labelsData["inLabels"],
+          outLabels: labelsData["outLabels"],
+          provDomain,
+        });
+      }
     );
   }
 }

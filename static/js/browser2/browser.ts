@@ -19,13 +19,13 @@ import ReactDOM from "react-dom";
 
 import { BrowserPage } from "./browser_page";
 
-window.onload = function () {
+window.onload = () => {
   const dcid = document.getElementById("node").dataset.dcid;
   const nodeName = document.getElementById("node-name").dataset.nn;
   ReactDOM.render(
     React.createElement(BrowserPage, {
-      dcid: dcid,
-      nodeName: nodeName,
+      dcid,
+      nodeName,
     }),
     document.getElementById("node-content")
   );
