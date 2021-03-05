@@ -27,7 +27,7 @@ const IGNORED_PARENT_TYPES = new Set(["StatisticalPopulation"]);
 interface InArcSectionsPropType {
   nodeName: string;
   dcid: string;
-  labels: Array<string>;
+  labels: string[];
   provDomain: { [key: string]: URL };
 }
 interface InArcSectionStateType {

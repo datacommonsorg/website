@@ -31,8 +31,8 @@ interface ArcSectionPropType {
 }
 
 interface ArcSectionStateType {
-  inLabels: Array<string>;
-  outLabels: Array<string>;
+  inLabels: string[];
+  outLabels: string[];
   provDomain: { [key: string]: URL };
 }
 

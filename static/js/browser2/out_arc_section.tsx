@@ -36,14 +36,14 @@ const NUM_VALUES_TRIMMED = 10;
 
 interface OutArcSectionPropType {
   dcid: string;
-  labels: Array<string>;
+  labels: string[];
   provDomain: { [key: string]: URL };
 }
 
 interface OutArcSectionStateType {
   //TODO (chejennifer): replace the any type with an actual type
   data: { [predicate: string]: Array<any> };
-  propertyLabels: Array<string>;
+  propertyLabels: string[];
 }
 
 export class OutArcSection extends React.Component<
