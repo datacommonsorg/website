@@ -190,7 +190,7 @@ def get_place_ranking(stat_vars,
     return send_request(url, req_json=req_json, post=False, has_payload=False)
 
 
-def get_property_labels(dcids, out=True):
+def get_property_labels(dcids):
     # Generate the GetProperty query and send the request
     url = API_ROOT + API_ENDPOINTS['get_property_labels']
     payload = send_request(url, req_json={'dcids': dcids})
@@ -198,10 +198,7 @@ def get_property_labels(dcids, out=True):
     # Return the results based on the orientation
     results = {}
     for dcid in dcids:
-        if out:
-            results[dcid] = payload[dcid]['outLabels']
-        else:
-            results[dcid] = payload[dcid]['inLabels']
+        results[dcid] = payload[dcid]
     return results
 
 
