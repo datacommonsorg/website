@@ -13,18 +13,22 @@
 # limitations under the License.
 
 import unittest
+from unittest.mock import patch
 
 from main import app
 
 
 class TestStaticPage(unittest.TestCase):
 
-    def test_kg_static(self):
-        response = app.test_client().get('/browser/')
+    def test_browser2_static(self):
+        response = app.test_client().get('/browser2/')
         assert response.status_code == 200
         assert b"The Data Commons Graph is constructed by" in response.data
 
-    def test_kg_entity(self):
-        response = app.test_client().get('/browser/geoId/06')
+    @patch('routes.api.shared.cached_name')
+    def test_browser2_page(self, mock_cached_name):
+        mock_cached_name.return_value = {'geoId/06': 'California'}
+        response = app.test_client().get('/browser2/geoId/06')
         assert response.status_code == 200
         assert b"geoId/06" in response.data
+        assert b"California" in response.data
