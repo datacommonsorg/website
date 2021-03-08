@@ -192,11 +192,11 @@ def read_stat_var():
     sv_triples = {}
     for i in range(n_trunk + 1):
         if i == n_trunk:
-            trunk_triples = dc.get_triples_processed(sv_dcid[i * trunk_size:])
+            trunk_triples = dc.get_triples(sv_dcid[i * trunk_size:])
             sv_triples.update(trunk_triples)
         else:
-            trunk_triples = dc.get_triples_processed(
-                sv_dcid[i * trunk_size:(i + 1) * trunk_size])
+            trunk_triples = dc.get_triples(sv_dcid[i * trunk_size:(i + 1) *
+                                                   trunk_size])
             sv_triples.update(trunk_triples)
     # group all the statsVars according to the triples
     stat_vars = collections.defaultdict(list)
