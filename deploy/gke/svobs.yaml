@@ -1,4 +1,4 @@
-# Copyright 2019 Google LLC
+# Copyright 2020 Google LLC
 #
 # Licensed under the Apache License, Version 2.0 (the "License");
 # you may not use this file except in compliance with the License.
@@ -12,14 +12,16 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-# Kustomization configuration for base yaml files.
+# This is a yaml template to create gcp/gke configuration.
+# Copy this file to `config.yaml` and use that.
 
-apiVersion: kustomize.config.k8s.io/v1beta1
-kind: Kustomization
-
-namespace: website
-
-resources:
-  - ../git
-  - deployment.yaml
-  - namespace.yaml
+project: datcom-website-statvar-migrate
+ip: 34.117.29.205
+domain: svobs.datacommons.org
+region:
+  primary: us-central1
+  others:
+    - europe-west2
+nodes: 1
+storage_project: datcom-store
+gcs_bucket: datcom-website-statvar-migrate-resources

@@ -24,7 +24,7 @@ nameSuffix: -staging
 namespace: website
 
 resources:
-  - ../../base
+  - ../../popobs
 
 configMapGenerator:
   - name: website-configmap
@@ -36,7 +36,7 @@ configMapGenerator:
   - name: mixer-configmap
     behavior: create
     literals:
-      - projectId=datcom-website-staging
+      - mixerProject=datcom-website-staging
       - serviceName=website-esp.endpoints.datcom-website-staging.cloud.goog
 
 patchesStrategicMerge:

@@ -106,22 +106,25 @@ spec:
               memory: "2G"
               cpu: "500m"
           args:
+            - --mixer_project=$(MIXER_PROJECT)
+            - --store_project=$(STORE_PROJECT)
             - --bq_dataset=$(BIG_QUERY)
-            - --base_bt_instance=prophet-cache
             - --base_table=$(BIG_TABLE)
-            - --branch_bt_instance=prophet-branch-cache
-            - --bt_project=google.com:datcom-store-dev
-            - --project_id=$(PROJECT_ID)
             - --schema_path=/datacommons/mapping
           volumeMounts:
             - name: schema-mapping
               mountPath: /datacommons/mapping
           env:
-            - name: PROJECT_ID
+            - name: MIXER_PROJECT
               valueFrom:
                 configMapKeyRef:
                   name: mixer-configmap
-                  key: projectId
+                  key: mixerProject
+            - name: STORE_PROJECT
+              valueFrom:
+                configMapKeyRef:
+                  name: store-configmap
+                  key: store.project
             - name: BIG_QUERY
               valueFrom:
                 configMapKeyRef:

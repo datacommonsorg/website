@@ -20,6 +20,6 @@ kind: Kustomization
 namespace: website
 
 resources:
-  - ../git
-  - deployment.yaml
-  - namespace.yaml
+  - ../../mixer/deploy/storage
+  - ../../mixer/deploy/mapping
+  - ../base

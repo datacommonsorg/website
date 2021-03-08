@@ -18,7 +18,7 @@ metadata:
   name: website-mci
   namespace: website
   annotations:
-    networking.gke.io/pre-shared-certs: website-certificate
+    networking.gke.io/pre-shared-certs: multi-domain
     networking.gke.io/static-ip: <IP>
 spec:
   template:

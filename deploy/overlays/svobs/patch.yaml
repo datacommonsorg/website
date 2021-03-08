@@ -12,14 +12,6 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-# Kustomization configuration for base yaml files.
-
-apiVersion: kustomize.config.k8s.io/v1beta1
-kind: Kustomization
-
-namespace: website
-
-resources:
-  - ../git
-  - deployment.yaml
-  - namespace.yaml
+- op: add
+  path: /spec/template/spec/containers/1/args/0
+  value: --svobs_mode=true

@@ -32,3 +32,4 @@ deploy/overlays/**/endpoints.yaml
 deploy/overlays/prod/prod.yaml
 deploy/overlays/staging/staging.yaml
 deploy/overlays/autopush/autopush.yaml
+deploy/overlays/svobs/svobs.yaml
