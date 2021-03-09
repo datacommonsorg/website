@@ -12,6 +12,34 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-- op: add
-  path: /spec/template/spec/containers/1/args/0
-  value: --svobs_mode=true
+
+apiVersion: kustomize.config.k8s.io/v1beta1
+kind: Kustomization
+
+nameSuffix:
+namespace: website
+
+resources:
+  - ../../svobs
+
+configMapGenerator:
+  - name: website-configmap
+    behavior: create
+    literals:
+      - flaskEnv=autopush
+      - gcsBucket=
+      - secretProject=
+  - name: mixer-configmap
+    behavior: create
+    literals:
+      - mixerProject=
+      - serviceName=
+
+patchesStrategicMerge:
+  - |-
+    apiVersion: apps/v1
+    kind: Deployment
+    metadata:
+      name: website-app
+    spec:
+      replicas:

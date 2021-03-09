@@ -18,6 +18,7 @@ metadata:
   name: website-mci
   namespace: website
   annotations:
+    # multi-domain is the certificate name, it is set in setup_ssl.sh
     networking.gke.io/pre-shared-certs: multi-domain
     networking.gke.io/static-ip: <IP>
 spec:

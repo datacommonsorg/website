@@ -20,6 +20,6 @@ kind: Kustomization
 namespace: website
 
 resources:
-  - ../../mixer/deploy/storage-statvar
-  - ../../mixer/deploy/mapping-statvar
+  - ../../mixer/deploy/storage-svobs
+  - ../../mixer/deploy/mapping-svobs
   - ../base

@@ -45,10 +45,14 @@ patchesStrategicMerge:
     spec:
       replicas: 6
 
+# set svobs_mode to true
 patchesJson6902:
   - target:
       group: apps
       version: v1
       kind: Deployment
       name: website-app
-    path: patch.yaml
+    patch: |-
+      - op: add
+        path: /spec/template/spec/containers/1/args/0
+        value: --svobs_mode=true
