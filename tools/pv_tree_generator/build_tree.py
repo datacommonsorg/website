@@ -20,6 +20,12 @@ import text_format
 from constants import VERTICALS
 import copy
 
+COVID_TEST_SV = [
+    'CumulativeCount_MedicalTest_ConditionCOVID_19_Negative',  # Negative
+    'CumulativeCount_MedicalTest_ConditionCOVID_19_Positive',  # Positive
+    'dc/7ck14dlsnxrz2',  # Ready
+]
+
 
 def get_root_children(pop_obs_spec_all, stats_vars_all) -> List['ValueNode']:
     """Returns the list of vertical nodes, such as "Demographics", "Economics".
@@ -144,12 +150,17 @@ def find_denominators(pop_obs: PopObsSpec, cpvs: Dict[str, str],
             node with "pop_obs".
         stats_vars_all: Mapping from keys to candidate StatVars.
         stats_vars_to_exclude: StatVars to exclude from the answer.
-    
+
     Returns:
         The denominators in a specific order: the denominator that match all the
         dpvs, the denominator without any dpv, and the denominators with a mix
         of dpvs and cpvs.
     """
+    # Denominator for positive and negative Covid-19 test cases should be
+    # total population instead of the total test cases.
+    for sv in COVID_TEST_SV:
+        if sv in stats_vars_to_exclude:
+            return ['Count_Person']
     denominator_all_dpvs = []
     denominator_without_dpv = []
     denominators_mix = set()
