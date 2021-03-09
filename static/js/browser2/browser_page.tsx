@@ -20,7 +20,7 @@
 
 import React from "react";
 import { ArcSection } from "./arc_section";
-import { ObservationChartSection } from "./observation_charts_section";
+import { ObservationChartSection } from "./observation_chart_section";
 interface BrowserPagePropType {
   dcid: string;
   nodeName: string;
