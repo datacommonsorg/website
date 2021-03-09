@@ -23,8 +23,8 @@ import { ArcSection } from "./arc_section";
 import { ObservationChartSection } from "./observation_chart_section";
 interface BrowserPagePropType {
   dcid: string;
-  nodeName: string;
   isPlaceStatVarNode: boolean;
+  nodeName: string;
   statVarId: string;
 }
 

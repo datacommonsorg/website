@@ -87,9 +87,9 @@ export class ObservationChart extends React.Component<
     const plotData = [];
     Object.keys(values).forEach((key) =>
       plotData.push({
+        dateString: key,
         time: Date.parse(key),
         value: Number(values[key]),
-        dateString: key,
       })
     );
 
@@ -120,7 +120,7 @@ export class ObservationChart extends React.Component<
       } else {
         y.domain([yMin - 1, yMax + 1]);
       }
-    } else if (yMin == 0) {
+    } else if (yMin === 0) {
       y.domain([0, yMax]);
     } else if (yMin < 0) {
       y.domain([(yMin * 4 - yMax) / 3, yMax]);
@@ -206,7 +206,7 @@ export class ObservationChart extends React.Component<
     this.addTooltip();
   }
 
-  private addTooltip() {
+  private addTooltip(): void {
     d3.select("#svg-container" + this.props.idx)
       .attr("style", "position: relative")
       .append("div")

@@ -28,8 +28,8 @@ window.onload = () => {
   ReactDOM.render(
     React.createElement(BrowserPage, {
       dcid,
-      nodeName,
       isPlaceStatVarNode: !_.isEmpty(statVarId),
+      nodeName,
       statVarId,
     }),
     document.getElementById("node")
