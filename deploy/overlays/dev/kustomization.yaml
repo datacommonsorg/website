@@ -26,7 +26,7 @@ nameSuffix: -dev
 namespace: website
 
 bases:
-  - ../../base
+  - ../../popobs
 
 resources:
   - service.yaml
@@ -42,7 +42,7 @@ configMapGenerator:
   - name: mixer-configmap
     behavior: create
     literals:
-      - projectId=datcom-mixer-dev
+      - mixerProject=datcom-mixer-dev
       - serviceName=
 
 generatorOptions:

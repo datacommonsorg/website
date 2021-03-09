@@ -70,7 +70,7 @@ and make a patch to the deployment ([example](../deploy/overlays/patch_deploymen
 - Make sure the managed SSL certificate is "ACTIVE" by checking
   ["Load balancing" in GCP](https://pantheon.corp.google.com/net-services/loadbalancing/advanced/sslCertificates/list?project=PROJECT_ID&sslCertificateTablesize=50). This can take minutes up to hours.
 
-  **NOTE** Make sure the certificate is [associated with a target proxy](https://cloud.google.com/load-balancing/docs/ssl-certificates/troubleshooting#certificate-managed-status). For mixer, the certificate is linked the target proxy through the [GKE Ingress](mci.yaml.tpl). If they are not linked, then need to manually add the certificate to the load balancing ([example setup in GCP](ssl.png)).
+  **NOTE** Make sure the certificate is [associated with a target proxy](https://cloud.google.com/load-balancing/docs/ssl-certificates/troubleshooting#certificate-managed-status). The certificate is linked the target proxy through the [GKE Ingress](mci.yaml.tpl). If they are not linked, need to manually add the certificate to the load balancing ([example setup in GCP](ssl.png)).
 
 - [Configure the DNS in the domain registrar](https://cloud.google.com/load-balancing/docs/ssl-certificates/google-managed-certs#update-dns)).
 
@@ -78,5 +78,5 @@ and make a patch to the deployment ([example](../deploy/overlays/patch_deploymen
 
 ```bash
 ./create_cluster.sh <REGION>
-../scripts/deploy_gke.sh <"staging"|"prod"> <REGION>
+../scripts/deploy_gke.sh <"staging"|"prod"|"autopush"> <REGION>
 ```

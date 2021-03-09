@@ -1,4 +1,4 @@
-# Copyright 2020 Google LLC
+# Copyright 2019 Google LLC
 #
 # Licensed under the Apache License, Version 2.0 (the "License");
 # you may not use this file except in compliance with the License.
@@ -12,15 +12,14 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-steps:
-  # Deploy website with the latest mixer and base cache
-  - id: autopush
-    name: "gcr.io/datcom-ci/deploy-tool"
-    entrypoint: /bin/bash
-    args:
-      - -c
-      - |
-        set -e
-        ./scripts/autopush.sh
+# Kustomization configuration for base yaml files.
 
-timeout: 3600s
+apiVersion: kustomize.config.k8s.io/v1beta1
+kind: Kustomization
+
+namespace: website
+
+resources:
+  - ../../mixer/deploy/storage-svobs
+  - ../../mixer/deploy/mapping-svobs
+  - ../base
