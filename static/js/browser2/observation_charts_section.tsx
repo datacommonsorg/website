@@ -15,7 +15,7 @@
  */
 
 /**
- * Component for rendering the in and out arc sections of the page.
+ * Component for rendering the observation charts for a place stat var.
  */
 
 import React from "react";
