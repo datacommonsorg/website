@@ -76,7 +76,9 @@ export class InArcSection extends React.Component<
   private removeLoadingMessage(): void {
     // TODO (chejennifer): better way to handle loading
     const loadingElem = document.getElementById("page-loading");
-    loadingElem.style.display = "none";
+    if (loadingElem) {
+      loadingElem.style.display = "none";
+    }
   }
 
   private fetchData(): void {

@@ -23,17 +23,13 @@
    
    {% block head %}
      <link rel="stylesheet" href={{url_for('static', filename='css/kg.min.css', t=config['GAE_VERSION'])}} >
+     <link rel="stylesheet" href={{url_for('static', filename='css/browser.min.css', t=config['GAE_VERSION'])}} >
    {% endblock %}
    
    {% block content %}
    <div class="container">
-       <div id="node" data-dcid="{{dcid}}">
-           <div class="node-about" id="node-name" data-nn="{{node_name}}">
-               {{ 'About: ' + node_name }}
-           </div>
-           <div id="node-content"></div>
-           <div id="page-loading" className="mt-4">Loading... (please be patient)</div>
-       </div>
+       <div id="node" data-dcid="{{dcid}}" data-nn="{{node_name}}"></div>
+       <div id="page-loading" className="mt-4">Loading... (please be patient)</div>
    </div>
    {% endblock %}
 

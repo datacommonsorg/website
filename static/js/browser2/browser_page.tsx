@@ -20,17 +20,33 @@
 
 import React from "react";
 import { ArcSection } from "./arc_section";
-
+import { ObservationChartSection } from "./observation_charts_section";
 interface BrowserPagePropType {
   dcid: string;
   nodeName: string;
+  isPlaceStatVarNode: boolean;
+  statVarId: string;
 }
 
 export class BrowserPage extends React.Component<BrowserPagePropType> {
   render(): JSX.Element {
+    const pageName = this.props.isPlaceStatVarNode
+      ? this.props.statVarId + " in " + this.props.nodeName
+      : this.props.nodeName;
     return (
       <>
-        <ArcSection dcid={this.props.dcid} nodeName={this.props.nodeName} />
+        <div className="node-about">{"About: " + pageName}</div>
+        <div id="node-content">
+          {this.props.isPlaceStatVarNode ? (
+            <ObservationChartSection
+              placeDcid={this.props.dcid}
+              statVarId={this.props.statVarId}
+              placeName={this.props.nodeName}
+            />
+          ) : (
+            <ArcSection dcid={this.props.dcid} nodeName={this.props.nodeName} />
+          )}
+        </div>
       </>
     );
   }

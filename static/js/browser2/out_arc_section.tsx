@@ -117,7 +117,9 @@ export class OutArcSection extends React.Component<
 
   private removeLoadingMessage(): void {
     const loadingElem = document.getElementById("page-loading");
-    loadingElem.style.display = "none";
+    if (loadingElem) {
+      loadingElem.style.display = "none";
+    }
   }
 
   private fetchData(): void {

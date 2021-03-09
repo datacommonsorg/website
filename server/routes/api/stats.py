@@ -189,3 +189,13 @@ def get_stats_set():
     return Response(json.dumps(dc.get_stats_set(dcids, stat_vars)),
                     200,
                     mimetype="application/json")
+
+
+@bp.route('/api/stats/all')
+@cache.cached(timeout=3600 * 24, query_string=True)  # Cache for one day.
+def get_stats_all():
+    dcids = request.args.get("places")
+    stat_vars = request.args.get("stat_vars")
+    return Response(json.dumps(dc.get_stats_all(dcids, stat_vars)),
+                    200,
+                    mimetype="application/json")
