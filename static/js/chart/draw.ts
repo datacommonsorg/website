@@ -27,6 +27,7 @@ import {
   wrap,
 } from "./base";
 import { formatNumber } from "../i18n/i18n";
+import { DotDataPoint } from "./types";
 
 const NUM_X_TICKS = 5;
 const NUM_Y_TICKS = 5;
@@ -601,7 +602,9 @@ function drawGroupBarChart(
  * @param width
  * @param height
  * @param dataGroups
+ * @param showAllDots
  * @param unit
+ * @param handleDotClick
  *
  * @return false if any series in the chart was filled in
  */
@@ -610,7 +613,9 @@ function drawLineChart(
   width: number,
   height: number,
   dataGroups: DataGroup[],
-  unit?: string
+  showAllDots: boolean,
+  unit?: string,
+  handleDotClick?: (dotData: DotDataPoint) => void
 ): boolean {
   let maxV = Math.max(...dataGroups.map((dataGroup) => dataGroup.max()));
   let minV = Math.min(...dataGroups.map((dataGroup) => dataGroup.min()));
@@ -660,8 +665,7 @@ function drawLineChart(
     });
     const hasGap = shouldFillInValues(dataset);
     hasFilledInValues = hasFilledInValues || hasGap;
-    const shouldAddDots = dataset.length < 12;
-
+    const shouldAddDots = dataset.length < 12 || showAllDots;
     const line = d3
       .line()
       .defined((d) => d[1] !== null) // Ignore points that are null
@@ -694,18 +698,28 @@ function drawLineChart(
       .style("stroke", colorFn(dataGroup.label));
 
     if (shouldAddDots) {
-      chart
+      const dotsDataset: DotDataPoint[] = dataGroup.value.map((dp) => {
+        return {
+          label: dp.label,
+          time: new Date(dp.label).getTime(),
+          value: dp.value,
+        };
+      });
+      const dots = chart
         .append("g")
         .selectAll(".dot")
-        .data(dataset)
+        .data(dotsDataset)
         .enter()
         .append("circle")
         .attr("class", "dot")
-        .attr("cx", (d) => xScale(d[0]))
-        .attr("cy", (d) => yScale(d[1]))
-        .attr("r", (d) => (d[1] === null ? 0 : 3))
+        .attr("cx", (d) => xScale(d.time))
+        .attr("cy", (d) => yScale(d.value))
+        .attr("r", (d) => (d.value === null ? 0 : 3))
         .style("fill", colorFn(dataGroup.label))
         .style("stroke", "#fff");
+      if (handleDotClick) {
+        dots.on("click", handleDotClick);
+      }
     }
   }
 
