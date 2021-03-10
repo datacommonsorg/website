@@ -19,10 +19,10 @@
 {% set title = 'Schema Translator' %}
 
 {% block head %}
-  <link rel="stylesheet" href={{url_for('static', filename='css/translator.min.css', t=config['GAE_VERSION'])}} >
+  <link rel="stylesheet" href={{url_for('static', filename='css/translator.min.css', t=config['VERSION'])}} >
 {% endblock %}
 
 {% block content %}
   <div id="translator"></div>
-  <script src={{url_for('static', filename='translator.js', t=config['GAE_VERSION'])}}></script>
+  <script src={{url_for('static', filename='translator.js', t=config['VERSION'])}}></script>
 {% endblock %}

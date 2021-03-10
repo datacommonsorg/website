@@ -15,8 +15,9 @@ class Config:
     # by default.
     SVOBS = False
     CACHE_TYPE = 'simple'  # Flask-Caching related configs
-    GAE_VERSION = (os.environ.get('GAE_VERSION') or
-                   datetime.datetime.today().strftime("%m-%d-%H-%M"))
+    VERSION = '{}-{}'.format(os.environ.get('WEBSITE_HASH'),
+                             os.environ.get('MIXER_HASH'))
+
     API_ROOT = 'http://127.0.0.1:8081'  # Port for Kubernetes ESP.
     GCS_BUCKET = os.environ.get('GCS_BUCKET')
     SECRET_PROJECT = os.environ.get('SECRET_PROJECT')
