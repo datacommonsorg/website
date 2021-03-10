@@ -29,7 +29,7 @@ from lib import translator
 from __init__ import create_app
 from cache import cache
 
-logging.basicConfig(level=logging.DEBUG,
+logging.basicConfig(level=logging.INFO,
                     format='%(asctime)s %(levelname)s %(lineno)d : %(message)s')
 
 app = create_app()
