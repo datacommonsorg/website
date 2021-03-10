@@ -24,8 +24,8 @@ import { ObservationChartSection } from "./observation_chart_section";
 
 export const nodeTypeEnum = {
   PLACE_STAT_VAR: "PLACE_STAT_VAR",
-  GENERAL: "GENERAL"
-}
+  GENERAL: "GENERAL",
+};
 
 interface BrowserPagePropType {
   dcid: string;
@@ -36,9 +36,10 @@ interface BrowserPagePropType {
 
 export class BrowserPage extends React.Component<BrowserPagePropType> {
   render(): JSX.Element {
-    const pageName = this.props.nodeType === nodeTypeEnum.PLACE_STAT_VAR
-      ? `${this.props.statVarId} in ${this.props.nodeName}`
-      : this.props.nodeName;
+    const pageName =
+      this.props.nodeType === nodeTypeEnum.PLACE_STAT_VAR
+        ? `${this.props.statVarId} in ${this.props.nodeName}`
+        : this.props.nodeName;
     return (
       <>
         <div className="node-about">{"About: " + pageName}</div>

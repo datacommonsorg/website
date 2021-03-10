@@ -93,7 +93,7 @@ export class ObservationChartSection extends React.Component<
         });
       })
       .catch(() => {
-         removeLoadingMessage();
+        removeLoadingMessage();
       });
   }
 }
