@@ -18,9 +18,9 @@
  * Functions shared across different components of graph browser.
  */
 
- /**
-  * Removes the loading message on the browser page if it is present.
-  */
+/**
+ * Removes the loading message on the browser page if it is present.
+ */
 export function removeLoadingMessage(): void {
   // TODO (chejennifer): better way to handle loading
   const loadingElem = document.getElementById("page-loading");
