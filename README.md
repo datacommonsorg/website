@@ -5,13 +5,12 @@ This repo hosts code for the Data Commons website.
 ## About Data Commons
 
 [Data Commons](https://datacommons.org/) is an open knowledge graph that
-provides a unified view across multiple public data sets and statistics.
-We've bootstrapped the graph with lots of
-[data](https://datacommons.org/datasets) from US Census, CDC, NOAA, etc.,
-and through collaborations with the New York Botanical Garden,
-Opportunity Insights, and more. However, Data Commons is
-meant to be for community, by the community. We are excited to work with you
-to make public data accessible to everyone.
+provides a unified view across multiple public data sets and statistics. We've
+bootstrapped the graph with lots of [data](https://datacommons.org/datasets)
+from US Census, CDC, NOAA, etc., and through collaborations with the New York
+Botanical Garden, Opportunity Insights, and more. However, Data Commons is meant
+to be for community, by the community. We are excited to work with you to make
+public data accessible to everyone.
 
 To see the extent of data we have today, browse the graph using our
 [browser](https://datacommons.org/browser).
@@ -20,7 +19,9 @@ To see the extent of data we have today, browse the graph using our
 
 ### GitHub Workflow
 
-In [https://github.com/datacommonsorg/website](https://github.com/datacommonsorg/website), click on "Fork" button to fork the repo.
+In
+[https://github.com/datacommonsorg/website](https://github.com/datacommonsorg/website),
+click on "Fork" button to fork the repo.
 
 Clone your forked repo to your desktop.
 
