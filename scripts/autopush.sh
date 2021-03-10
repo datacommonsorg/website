@@ -30,10 +30,13 @@ git remote set-url origin https://github.com/datacommonsorg/mixer.git
 git pull origin master
 git checkout master
 
-# Update bigtable and bigquery version
+## Deploy autopush instance
 gsutil cp gs://automation_control/latest_base_cache_version.txt deploy/storage/bigtable.version
 gsutil cp gs://automation_control/latest_base_bigquery_version.txt deploy/storage/bigquery.version
-
-## Deploy autopush instance
 $ROOT/scripts/deploy_gke.sh autopush us-central1
 $ROOT/scripts/deploy_gke.sh autopush europe-west2
+
+## Deploy svobs instance
+gsutil cp gs://automation_control/latest_base_cache_version.txt deploy/storage-svobs/bigtable.version
+gsutil cp gs://automation_control/latest_base_bigquery_version.txt deploy/storage-svobs/bigquery.version
+$ROOT/scripts/deploy_gke.sh svobs us-central1

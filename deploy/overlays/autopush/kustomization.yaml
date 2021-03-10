@@ -24,7 +24,7 @@ nameSuffix: -autopush
 namespace: website
 
 resources:
-  - ../../base
+  - ../../popobs
 
 configMapGenerator:
   - name: website-configmap
@@ -36,7 +36,7 @@ configMapGenerator:
   - name: mixer-configmap
     behavior: create
     literals:
-      - projectId=datcom-website-autopush
+      - mixerProject=datcom-website-autopush
       - serviceName=website-esp.endpoints.datcom-website-autopush.cloud.goog
 
 patchesStrategicMerge:

@@ -12,35 +12,34 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-# Kustomization for prod website running on GCP `datcom-website-prod` project.
-# - Adds "prod" suffix to all the resources.
-# - Set environmnet variables.
-# - Update replicas.
 
 apiVersion: kustomize.config.k8s.io/v1beta1
 kind: Kustomization
 
-nameSuffix: -prod
+nameSuffix:
 namespace: website
 
 resources:
-  - ../../popobs
+  - ../../svobs
 
 configMapGenerator:
   - name: website-configmap
     behavior: create
     literals:
-      - flaskEnv=production
-      - gcsBucket=datcom-website-prod-resources
-      - secretProject=datcom-website-prod
+      - flaskEnv=autopush
+      - gcsBucket=
+      - secretProject=
   - name: mixer-configmap
     behavior: create
     literals:
-      - mixerProject=datcom-website-prod
-      - serviceName=website-esp.endpoints.datcom-website-prod.cloud.goog
-  - name: redis-config
-    files:
-      - redis.json
+      - mixerProject=
+      - serviceName=
 
 patchesStrategicMerge:
-  - patch_deployment.yaml
+  - |-
+    apiVersion: apps/v1
+    kind: Deployment
+    metadata:
+      name: website-app
+    spec:
+      replicas:

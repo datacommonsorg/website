@@ -378,7 +378,7 @@ def get_place_obs(place_type,
 
 def query(query_string):
     # Get the API Key and perform the POST request.
-    logging.info("[ Mixer Request ]: query")
+    logging.info("[ Mixer Request ]: \n" + query_string)
     headers = {'Content-Type': 'application/json'}
     req_url = API_ROOT + API_ENDPOINTS['query']
     response = requests.post(req_url,
@@ -424,7 +424,6 @@ def send_request(req_url,
       The payload returned by sending the POST/GET request formatted as a dict.
     """
     headers = {'Content-Type': 'application/json'}
-    logging.info("Send request to %s", req_url)
 
     # Send the request and verify the request succeeded
     if post:
@@ -434,9 +433,10 @@ def send_request(req_url,
 
     if response.status_code != 200:
         raise ValueError(
-            'Response error: An HTTP {} code was returned by the mixer. '
-            'Printing response\n{}'.format(response.status_code,
-                                           response.reason))
+            'Response error: An HTTP {} code ({}) was returned by the mixer. '
+            'Printing response:\n{}'.format(response.status_code,
+                                            response.reason,
+                                            response.json()['message']))
 
     # Get the JSON
     res_json = response.json()
