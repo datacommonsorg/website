@@ -16,17 +16,25 @@
 
 import React from "react";
 import ReactDOM from "react-dom";
+import _ from "lodash";
 
-import { BrowserPage } from "./browser_page";
+import { BrowserPage, nodeTypeEnum } from "./browser_page";
 
 window.onload = () => {
   const dcid = document.getElementById("node").dataset.dcid;
-  const nodeName = document.getElementById("node-name").dataset.nn;
+  const nodeName = document.getElementById("node").dataset.nn;
+  const urlParams = new URLSearchParams(window.location.search);
+  const statVarId = urlParams.get("statVar") || "";
+  const nodeType = _.isEmpty(statVarId)
+    ? nodeTypeEnum.GENERAL
+    : nodeTypeEnum.PLACE_STAT_VAR;
   ReactDOM.render(
     React.createElement(BrowserPage, {
       dcid,
+      nodeType,
       nodeName,
+      statVarId,
     }),
-    document.getElementById("node-content")
+    document.getElementById("node")
   );
 };
