@@ -22,7 +22,7 @@
 {% extends 'base.html' %}
 
 {% block head %}
-  <link rel="stylesheet" href={{url_for('static', filename='css/scatter.min.css', t=config['GAE_VERSION'])}}>
+<link rel="stylesheet" href={{url_for('static', filename='css/scatter.min.css', t=config['VERSION'])}}>
 {% endblock %}
 
 {% block content %}
@@ -170,7 +170,7 @@
 
 {% block footer %}
 <script src="https://www.gstatic.com/charts/loader.js"></script>
-<script src={{url_for('static', filename='scatter.js', t=config['GAE_VERSION'])}}></script>
+<script src={{url_for('static', filename='scatter.js', t=config['VERSION'])}}></script>
 {% endblock %}
 
 {% block subfooter_extra %}

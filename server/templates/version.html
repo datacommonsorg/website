@@ -16,7 +16,7 @@
 {% extends 'base.html' %}
 
 {% block head %}
-  <link rel="stylesheet" href={{url_for('static', filename='css/static.min.css', t=config['GAE_VERSION'])}} >
+  <link rel="stylesheet" href={{url_for('static', filename='css/static.min.css', t=config['VERSION'])}} >
 {% endblock %}
 
 {% block content %}
@@ -58,5 +58,5 @@
       </tbody>
     </table>
   </div>
-  <script src={{url_for('static', filename='translator.js', t=config['GAE_VERSION'])}}></script>
+  <script src={{url_for('static', filename='translator.js', t=config['VERSION'])}}></script>
 {% endblock %}
