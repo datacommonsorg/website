@@ -27,7 +27,7 @@ configMapGenerator:
   - name: website-configmap
     behavior: create
     literals:
-      - flaskEnv=autopush
+      - flaskEnv=svobs
       - gcsBucket=datcom-website-statvar-migrate-resources
       - secretProject=datcom-website-statvar-migrate
   - name: mixer-configmap

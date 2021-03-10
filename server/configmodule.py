@@ -10,6 +10,7 @@ class Config:
     WEBDRIVER = False
     DEVELOPMENT = False
     LITE = False
+    SVOBS = False
     CACHE_TYPE = 'simple'  # Flask-Caching related configs
     GAE_VERSION = (os.environ.get('GAE_VERSION') or
                    datetime.datetime.today().strftime("%m-%d-%H-%M"))
@@ -32,6 +33,10 @@ class StagingConfig(Config):
 
 class AutopushConfig(Config):
     pass
+
+
+class SvObsConfig(Config):
+    SVOBS = True
 
 
 class MinikubeConfig(Config):
