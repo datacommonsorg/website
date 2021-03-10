@@ -10,6 +10,9 @@ class Config:
     WEBDRIVER = False
     DEVELOPMENT = False
     LITE = False
+    # Use StatVarObs instead of PopObs data model.
+    # TODO(shifucun): change this to True after setting svobs_mode=true in mixer
+    # by default.
     SVOBS = False
     CACHE_TYPE = 'simple'  # Flask-Caching related configs
     GAE_VERSION = (os.environ.get('GAE_VERSION') or
