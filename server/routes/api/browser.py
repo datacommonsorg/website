@@ -64,18 +64,18 @@ def get_property_labels(dcid):
 
 
 @cache.cached(timeout=3600 * 24, query_string=True)  # Cache for one day.
-@bp.route('/observationId')
+@bp.route('/observation-id')
 def get_observation_id():
     """Returns the dcid of the observation node for a combination of predicates: observedNodeLocation,
     statisticalVariable, observationDate, measurementMethod (optional), observationPeriod (optional)"""
     place_id = request.args.get("place")
     if not place_id:
-        return Response(json.dumps("error: must provide a placeId field"),
+        return Response(json.dumps("error: must provide a place field"),
                         400,
                         mimetype='application/json')
-    stat_var_id = request.args.get("stat_var")
+    stat_var_id = request.args.get("statVar")
     if not stat_var_id:
-        return Response(json.dumps("error: must provide a statVarId field"),
+        return Response(json.dumps("error: must provide a statVar field"),
                         400,
                         mimetype='application/json')
     date = request.args.get("date")
@@ -83,14 +83,14 @@ def get_observation_id():
         return Response(json.dumps("error: must provide a date field"),
                         400,
                         mimetype='application/json')
-    measurement_method = request.args.get("measurement_method", "")
-    observation_period = request.args.get("obs_period", "")
+    measurement_method = request.args.get("measurementMethod", "")
+    observation_period = request.args.get("obsPeriod", "")
     measurement_method_line = ""
     if measurement_method:
-        measurement_method_line = "?observation measurementMethod " + measurement_method + " ."
+        measurement_method_line = f"""?observation measurementMethod {measurement_method} ."""
     observation_period_line = ""
     if observation_period:
-        observation_period_line = "?observation observationPeriod " + observation_period + " ."
+        observation_period_line = f"""?observation observationPeriod {observation_period} ."""
     sparql_query = '''
         SELECT ?dcid
         WHERE {{ 

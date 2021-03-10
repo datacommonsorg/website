@@ -21,6 +21,7 @@
 import React from "react";
 import axios from "axios";
 import { InArcSubsection } from "./in_arc_subsection";
+import { removeLoadingMessage } from "./shared";
 
 const IGNORED_PARENT_TYPES = new Set(["StatisticalPopulation"]);
 
@@ -73,14 +74,6 @@ export class InArcSection extends React.Component<
     );
   }
 
-  private removeLoadingMessage(): void {
-    // TODO (chejennifer): better way to handle loading
-    const loadingElem = document.getElementById("page-loading");
-    if (loadingElem) {
-      loadingElem.style.display = "none";
-    }
-  }
-
   private fetchData(): void {
     const propValuesPromises = this.props.labels.map((label) => {
       return axios
@@ -112,12 +105,12 @@ export class InArcSection extends React.Component<
           (type) => !IGNORED_PARENT_TYPES.has(type)
         );
         parentTypes.sort();
-        this.removeLoadingMessage();
+        removeLoadingMessage();
         this.setState({
           data: inArcsByTypeAndPredicate,
           parentTypes,
         });
       })
-      .catch(() => this.removeLoadingMessage());
+      .catch(() => removeLoadingMessage());
   }
 }

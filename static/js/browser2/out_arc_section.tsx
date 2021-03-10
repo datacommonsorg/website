@@ -22,6 +22,7 @@ import React from "react";
 import axios from "axios";
 import _ from "lodash";
 import { ArcTableRow } from "./arc_table_row";
+import { removeLoadingMessage } from "./shared";
 
 const IGNORED_OUT_ARC_PROPERTIES = new Set([
   "provenance",
@@ -115,13 +116,6 @@ export class OutArcSection extends React.Component<
     );
   }
 
-  private removeLoadingMessage(): void {
-    const loadingElem = document.getElementById("page-loading");
-    if (loadingElem) {
-      loadingElem.style.display = "none";
-    }
-  }
-
   private fetchData(): void {
     const propValuesPromises = this.props.labels.map((label) => {
       if (!IGNORED_OUT_ARC_PROPERTIES.has(label)) {
@@ -159,12 +153,12 @@ export class OutArcSection extends React.Component<
         });
         outArcsByPredicate["dcid"] = [{ value: this.props.dcid }];
         propertyLabels.push("dcid");
-        this.removeLoadingMessage();
+        removeLoadingMessage();
         this.setState({
           data: outArcsByPredicate,
           propertyLabels,
         });
       })
-      .catch(() => this.removeLoadingMessage());
+      .catch(() => removeLoadingMessage());
   }
 }

@@ -254,15 +254,15 @@ export class ObservationChart extends React.Component<
   private handleDotClick = (dataPoint: any): void => {
     // TODO (chejennifer): might need better way of getting dcid of observation node because this can be very slow
     const date = dataPoint.dateString;
-    let request = `/api/browser/observationId?place=${this.props.placeDcid}&stat_var=${this.props.statVarId}&date=${date}`;
+    let request = `/api/browser/observation-id?place=${this.props.placeDcid}&statVar=${this.props.statVarId}&date=${date}`;
     if (this.props.sourceSeries.measurementMethod) {
       request =
         request +
-        `&measurement_method=${this.props.sourceSeries.measurementMethod}`;
+        `&measurementMethod=${this.props.sourceSeries.measurementMethod}`;
     }
     if (this.props.sourceSeries.observationPeriod) {
       request =
-        request + `&obs_period=${this.props.sourceSeries.observationPeriod}`;
+        request + `&obsPeriod=${this.props.sourceSeries.observationPeriod}`;
     }
     const obsDcidPromise = axios.get(request).then((resp) => resp.data);
     obsDcidPromise.then((obsDcid) => {

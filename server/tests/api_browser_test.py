@@ -24,15 +24,15 @@ class TestObservationId(unittest.TestCase):
     def test_required_predicates(self):
         """Failure if required fields are not present."""
         no_stat_var = app.test_client().get(
-            '/api/browser/observationId?place=country/USA&date=2008')
+            '/api/browser/observation-id?place=country/USA&date=2008')
         assert no_stat_var.status_code == 400
 
         no_place = app.test_client().get(
-            '/api/browser/observationId?stat_var=testStatVar&date=2008')
+            '/api/browser/observation-id?statVar=testStatVar&date=2008')
         assert no_place.status_code == 400
 
         no_date = app.test_client().get(
-            '/api/browser/observationId?stat_var=testStatVar&place=geoId/06')
+            '/api/browser/observation-id?statVar=testStatVar&place=geoId/06')
         assert no_date.status_code == 400
 
     @patch('routes.api.browser.dc.query')
@@ -59,7 +59,7 @@ class TestObservationId(unittest.TestCase):
 
         mock_query.side_effect = side_effect
         response = app.test_client().get(
-            'api/browser/observationId?stat_var=test_stat_var&place=geoId/06&date=2006'
+            'api/browser/observation-id?statVar=test_stat_var&place=geoId/06&date=2006'
         )
         assert response.status_code == 200
         assert json.loads(response.data) == expected_obs_id
@@ -88,7 +88,7 @@ class TestObservationId(unittest.TestCase):
 
         mock_query.side_effect = side_effect
         response = app.test_client().get(
-            'api/browser/observationId?stat_var=test_stat_var&place=geoId/06&date=2006&measurement_method=testMethod&obs_period=testObsPeriod'
+            'api/browser/observation-id?statVar=test_stat_var&place=geoId/06&date=2006&measurementMethod=testMethod&obsPeriod=testObsPeriod'
         )
         assert response.status_code == 200
         assert json.loads(response.data) == expected_obs_id

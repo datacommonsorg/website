@@ -21,23 +21,29 @@
 import React from "react";
 import { ArcSection } from "./arc_section";
 import { ObservationChartSection } from "./observation_chart_section";
+
+export const nodeTypeEnum = {
+  PLACE_STAT_VAR: "PLACE_STAT_VAR",
+  GENERAL: "GENERAL"
+}
+
 interface BrowserPagePropType {
   dcid: string;
-  isPlaceStatVarNode: boolean;
   nodeName: string;
+  nodeType: string;
   statVarId: string;
 }
 
 export class BrowserPage extends React.Component<BrowserPagePropType> {
   render(): JSX.Element {
-    const pageName = this.props.isPlaceStatVarNode
-      ? this.props.statVarId + " in " + this.props.nodeName
+    const pageName = this.props.nodeType === nodeTypeEnum.PLACE_STAT_VAR
+      ? `${this.props.statVarId} in ${this.props.nodeName}`
       : this.props.nodeName;
     return (
       <>
         <div className="node-about">{"About: " + pageName}</div>
         <div id="node-content">
-          {this.props.isPlaceStatVarNode ? (
+          {this.props.nodeType === nodeTypeEnum.PLACE_STAT_VAR ? (
             <ObservationChartSection
               placeDcid={this.props.dcid}
               statVarId={this.props.statVarId}

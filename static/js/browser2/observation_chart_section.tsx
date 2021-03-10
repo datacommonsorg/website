@@ -22,6 +22,7 @@ import React from "react";
 import axios from "axios";
 import _ from "lodash";
 import { ObservationChart } from "./observation_chart";
+import { removeLoadingMessage } from "./shared";
 
 interface ObservationChartSectionPropType {
   placeDcid: string;
@@ -72,17 +73,16 @@ export class ObservationChartSection extends React.Component<
   }
 
   private fetchData(): void {
-    const statsPromise = axios
+    axios
       .get(
-        `/api/stats/all?places=${this.props.placeDcid}&stat_vars=${this.props.statVarId}`
+        `/api/stats/all?places=${this.props.placeDcid}&statVars=${this.props.statVarId}`
       )
-      .then((resp) => resp.data);
-    statsPromise
-      .then((data) => {
-        this.removeLoadingMessage();
+      .then((resp) => {
+        removeLoadingMessage();
         const sourceSeries =
-          data.placeData[this.props.placeDcid].statVarData[this.props.statVarId]
-            .sourceSeries;
+          resp.data.placeData[this.props.placeDcid].statVarData[
+            this.props.statVarId
+          ].sourceSeries;
         this.setState({
           data: sourceSeries,
           infoMessage: _.isEmpty(sourceSeries)
@@ -93,14 +93,7 @@ export class ObservationChartSection extends React.Component<
         });
       })
       .catch(() => {
-        this.removeLoadingMessage();
+         removeLoadingMessage();
       });
-  }
-
-  private removeLoadingMessage(): void {
-    const loadingElem = document.getElementById("page-loading");
-    if (loadingElem) {
-      loadingElem.style.display = "none";
-    }
   }
 }
