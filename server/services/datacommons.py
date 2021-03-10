@@ -433,8 +433,9 @@ def send_request(req_url,
 
     if response.status_code != 200:
         raise ValueError(
-            'Response error: An HTTP {} code was returned by the mixer. '
+            'Response error: An HTTP {} code ({}) was returned by the mixer. '
             'Printing response:\n{}'.format(response.status_code,
+                                            response.reason,
                                             response.json()['message']))
 
     # Get the JSON
