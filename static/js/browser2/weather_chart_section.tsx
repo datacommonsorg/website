@@ -22,8 +22,9 @@ import React from "react";
 import axios from "axios";
 import _ from "lodash";
 import { ObservationChart } from "./observation_chart";
+import { SourceSeries } from "./util";
 
-const WEATHER = [
+const WEATHER_PROPERTY_NAMES = [
   "temperature",
   "visibility",
   "rainfall",
@@ -36,8 +37,7 @@ interface WeatherChartSectionPropType {
 }
 
 interface WeatherChartSectionStateType {
-  // TODO (chejennifer): get rid of the any type
-  data: any;
+  data: { [weatherProp: string]: SourceSeries };
 }
 
 export class WeatherChartSection extends React.Component<
@@ -80,7 +80,7 @@ export class WeatherChartSection extends React.Component<
   }
 
   private fetchData(): void {
-    const weatherPromises = WEATHER.map((prop) => {
+    const weatherPromises = WEATHER_PROPERTY_NAMES.map((prop) => {
       return axios
         .get(`/weather?dcid=${this.props.dcid}&prop=${prop}`)
         .then((resp) => resp.data);

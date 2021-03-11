@@ -22,7 +22,8 @@ import React from "react";
 import axios from "axios";
 import _ from "lodash";
 import { ObservationChart } from "./observation_chart";
-import { removeLoadingMessage } from "./shared";
+import { removeLoadingMessage } from "./util";
+import { SourceSeries } from "./util";
 
 interface ObservationChartSectionPropType {
   placeDcid: string;
@@ -31,7 +32,7 @@ interface ObservationChartSectionPropType {
 }
 
 interface ObservationChartSectionStateType {
-  data: Array<any>;
+  data: Array<SourceSeries>;
   infoMessage: string;
 }
 

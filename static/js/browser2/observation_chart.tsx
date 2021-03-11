@@ -24,6 +24,7 @@ import axios from "axios";
 import { DataGroup } from "../chart/base";
 import { drawLineChart } from "../chart/draw";
 import { DotDataPoint } from "../chart/types";
+import { SourceSeries } from "./util";
 
 // Chart size
 const WIDTH = 500;
@@ -33,8 +34,7 @@ const URI_PREFIX = "/browser2/";
 const TOOLTIP_ID = "tooltip";
 
 interface ObservationChartPropType {
-  // TODO (chejennifer): get rid of the any type
-  sourceSeries: any;
+  sourceSeries: SourceSeries;
   idx: number;
   statVarId: string;
   placeDcid: string;

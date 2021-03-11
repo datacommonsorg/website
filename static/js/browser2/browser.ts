@@ -16,11 +16,10 @@
 
 import React from "react";
 import ReactDOM from "react-dom";
-import _ from "lodash";
 
-import { BrowserPage, nodeTypeEnum } from "./browser_page";
+import { BrowserPage } from "./browser_page";
 import axios from "axios";
-import { removeLoadingMessage } from "./shared";
+import { getPageDisplayType, removeLoadingMessage } from "./util";
 
 window.onload = () => {
   const dcid = document.getElementById("node").dataset.dcid;
@@ -33,11 +32,12 @@ window.onload = () => {
       const values = resp.data.values;
       const types = values.out ? values.out : [];
       const listOfTypes = types.map((type) => type.dcid);
+      const pageDisplayType = getPageDisplayType(listOfTypes, statVarId);
       ReactDOM.render(
         React.createElement(BrowserPage, {
           dcid,
-          nodeType: getNodeType(listOfTypes, statVarId),
           nodeName,
+          pageDisplayType,
           statVarId,
         }),
         document.getElementById("node")
@@ -45,26 +45,3 @@ window.onload = () => {
     })
     .catch(() => removeLoadingMessage());
 };
-
-function getNodeType(listOfTypes, statVarId): string {
-  if (!_.isEmpty(statVarId)) {
-    return nodeTypeEnum.PLACE_STAT_VAR;
-  }
-  let type = "";
-  if (listOfTypes.length > 0) {
-    type = listOfTypes[0];
-  }
-  for (const targetType of ["State", "County", "City"]) {
-    if (targetType in listOfTypes) {
-      type = targetType;
-      break;
-    }
-  }
-  if (
-    type === nodeTypeEnum.CITY ||
-    type === nodeTypeEnum.CENSUS_ZIPCODE_TABULATION_AREA
-  ) {
-    return type;
-  }
-  return nodeTypeEnum.GENERAL;
-}

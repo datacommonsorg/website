@@ -21,33 +21,27 @@
 import React from "react";
 import { ArcSection } from "./arc_section";
 import { ObservationChartSection } from "./observation_chart_section";
+import { PageDisplayType } from "./util";
 import { WeatherChartSection } from "./weather_chart_section";
-
-export const nodeTypeEnum = {
-  CENSUS_ZIPCODE_TABULATION_AREA: "CensusZipCodeTabulationArea",
-  CITY: "City",
-  GENERAL: "general",
-  PLACE_STAT_VAR: "placeStatVar",
-};
 
 interface BrowserPagePropType {
   dcid: string;
   nodeName: string;
-  nodeType: string;
+  pageDisplayType: PageDisplayType;
   statVarId: string;
 }
 
 export class BrowserPage extends React.Component<BrowserPagePropType> {
   render(): JSX.Element {
     const pageName =
-      this.props.nodeType === nodeTypeEnum.PLACE_STAT_VAR
+      this.props.pageDisplayType === PageDisplayType.PLACE_STAT_VAR
         ? `${this.props.statVarId} in ${this.props.nodeName}`
         : this.props.nodeName;
     return (
       <>
         <div className="node-about">{"About: " + pageName}</div>
         <div id="node-content">
-          {this.props.nodeType === nodeTypeEnum.PLACE_STAT_VAR ? (
+          {this.props.pageDisplayType === PageDisplayType.PLACE_STAT_VAR ? (
             <ObservationChartSection
               placeDcid={this.props.dcid}
               statVarId={this.props.statVarId}
@@ -56,8 +50,8 @@ export class BrowserPage extends React.Component<BrowserPagePropType> {
           ) : (
             <ArcSection dcid={this.props.dcid} nodeName={this.props.nodeName} />
           )}
-          {this.props.nodeType === nodeTypeEnum.CITY ||
-          this.props.nodeType == nodeTypeEnum.CENSUS_ZIPCODE_TABULATION_AREA ? (
+          {this.props.pageDisplayType ===
+          PageDisplayType.PLACE_WITH_WEATHER_INFO ? (
             <WeatherChartSection dcid={this.props.dcid} />
           ) : null}
         </div>
