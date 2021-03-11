@@ -96,7 +96,7 @@
   "chart_metadata-explore_more": [
     {
       "type": 0,
-      "value": "Ver más ›"
+      "value": "Ver más "
     }
   ],
   "chart_metadata-export": [
@@ -172,13 +172,13 @@
   "link-return_to_overview": [
     {
       "type": 0,
-      "value": "Volver a la vista general"
+      "value": "Volver a la vista general "
     }
   ],
   "more_charts": [
     {
       "type": 0,
-      "value": "Más gráficos"
+      "value": "Más gráficos "
     }
   ],
   "place_breadcrumb": [
