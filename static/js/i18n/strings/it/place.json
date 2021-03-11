@@ -21,7 +21,7 @@
     "defaultMessage": "(la linea tratteggiata indica dati mancanti)"
   },
   "chart_metadata-explore_more": {
-    "defaultMessage": "Scopri di più ›"
+    "defaultMessage": "Scopri di più "
   },
   "chart_metadata-export": {
     "defaultMessage": "Esporta"
@@ -51,10 +51,10 @@
     "defaultMessage": "Panoramica"
   },
   "link-return_to_overview": {
-    "defaultMessage": "Torna alla panoramica"
+    "defaultMessage": "Torna alla panoramica "
   },
   "more_charts": {
-    "defaultMessage": "Altri grafici"
+    "defaultMessage": "Altri grafici "
   },
   "place_breadcrumb": {
     "defaultMessage": "{placeType} in {placeName}"

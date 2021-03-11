@@ -21,7 +21,7 @@
     "defaultMessage": "(बिंदुओं वाली लाइन वह डेटा बताती है जो मौजूद नहीं है)"
   },
   "chart_metadata-explore_more": {
-    "defaultMessage": "ज़्यादा एक्सप्लोर करें ›"
+    "defaultMessage": "ज़्यादा  एक्सप्लोर करें"
   },
   "chart_metadata-export": {
     "defaultMessage": "एक्सपोर्ट करें"
@@ -51,10 +51,10 @@
     "defaultMessage": "खास जानकारी"
   },
   "link-return_to_overview": {
-    "defaultMessage": "खास जानकारी वाले पेज पर वापस जाएं"
+    "defaultMessage": "खास जानकारी  वाले पेज पर वापस जाएं"
   },
   "more_charts": {
-    "defaultMessage": "और चार्ट"
+    "defaultMessage": "और चार्ट "
   },
   "place_breadcrumb": {
     "defaultMessage": "{placeName} में {placeType}"
