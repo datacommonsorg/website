@@ -338,6 +338,7 @@ class Chart extends React.Component<ChartPropType, ChartStateType> {
         elem.offsetWidth,
         CHART_HEIGHT,
         this.state.dataGroups,
+        false,
         this.props.unit
       );
       if (!isCompleteLine) {
