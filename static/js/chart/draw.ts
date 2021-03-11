@@ -66,6 +66,8 @@ const AXIS_GRID_FILL = "#999";
 // Max Y value used for y domains for charts that have only 0 values.
 const MAX_Y_FOR_ZERO_CHARTS = 10;
 
+const MIN_POINTS_FOR_DOTS_ON_LINE_CHART = 12;
+
 function appendLegendElem(
   elem: string,
   color: d3.ScaleOrdinal<string, string>,
@@ -665,7 +667,7 @@ function drawLineChart(
     });
     const hasGap = shouldFillInValues(dataset);
     hasFilledInValues = hasFilledInValues || hasGap;
-    const shouldAddDots = dataset.length < 12 || showAllDots;
+    const shouldAddDots = dataset.length < MIN_POINTS_FOR_DOTS_ON_LINE_CHART || showAllDots;
     const line = d3
       .line()
       .defined((d) => d[1] !== null) // Ignore points that are null
