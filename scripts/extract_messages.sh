@@ -56,6 +56,8 @@ do
 done
 
 echo "!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!"
-echo "Please double-check changes in server/i18n/en/LC_MESSAGES/all.po which "
-echo "is the base file for translation."
+echo "Please pay special attention to these files as they serve as the base "
+echo "for translations: "
+echo "> server/i18n/en/LC_MESSAGES/all.po"
+echo "> static/js/i18n/en/*.json"
 echo "!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!"
