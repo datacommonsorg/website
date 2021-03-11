@@ -667,7 +667,8 @@ function drawLineChart(
     });
     const hasGap = shouldFillInValues(dataset);
     hasFilledInValues = hasFilledInValues || hasGap;
-    const shouldAddDots = dataset.length < MIN_POINTS_FOR_DOTS_ON_LINE_CHART || showAllDots;
+    const shouldAddDots =
+      dataset.length < MIN_POINTS_FOR_DOTS_ON_LINE_CHART || showAllDots;
     const line = d3
       .line()
       .defined((d) => d[1] !== null) // Ignore points that are null
