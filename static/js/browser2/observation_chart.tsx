@@ -63,8 +63,9 @@ export class ObservationChart extends React.Component<
 
   private plot(): void {
     const values = this.props.sourceSeries.val;
+    const sortedValueKeys = Object.keys(values).sort();
     const data = [];
-    Object.keys(values).forEach((key) => {
+    sortedValueKeys.forEach((key) => {
       data.push({
         label: key,
         value: Number(values[key]),

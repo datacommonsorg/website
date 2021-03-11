@@ -88,11 +88,6 @@ export class WeatherChartSection extends React.Component<
     Promise.all(weatherPromises).then((weatherPromisesData) => {
       const propToSourceSeries = {};
       weatherPromisesData.forEach((weatherData) => {
-        weatherData.sort((a, b) => {
-          if (a["observationDate"] < b["observationDate"]) return -1;
-          else if (a["observationDate"] > b["observationDate"]) return 1;
-          else return 0;
-        });
         if (_.isEmpty(weatherData)) {
           return;
         }
