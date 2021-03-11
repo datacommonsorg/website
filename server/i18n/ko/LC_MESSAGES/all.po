@@ -1,836 +1,567 @@
-#. Link to a Place page showing data related to Demographics for a place { cityName }. Please keep the string `%(cityName)s` as is in the final translation. Please see this string in action as "Washington, DC Demographics" at https://datacommons.org
-#: server/templates/static/homepage.html:88
-#, python-format
-msgid "%(cityName)s Demographics"
-msgstr "%(cityName)s 인구통계"
-
-#. Link to a Place page showing data related to Health for a place { cityName }. Please keep the string `%(cityName)s` as is in the final translation. Please see this string in action as "New York City Health" at https://datacommons.org
-#: server/templates/static/homepage.html:83
-#, python-format
-msgid "%(cityName)s Health"
-msgstr "%(cityName)s 건강"
-
-#. The label for a link to project homepage.
-#: server/templates/base.html:162
-#, python-format
-msgid "%(project)s is a Google supported project"
-msgstr "%(project)s은(는) Google에서 지원하는 프로젝트입니다"
-
-#. The label for a link to our API documentation.
-#: server/templates/base.html:82 server/templates/base.html:134
-msgid "API's"
-msgstr "API"
-
-#: server/templates/base.html:90
-msgid "About"
-msgstr "정보"
-
-#. The label for a link to the project's about page.
-#: server/templates/base.html:93 server/templates/base.html:146
-msgid "About Data Commons"
-msgstr "Data Commons 정보"
-
-#. The label for a link to the project's blog.
-#: server/templates/base.html:94 server/templates/base.html:148
-msgid "Blog"
-msgstr "블로그"
-
-#. Header for a set of links to the Data Commons Graph Browser product. Each page in the graph describes an entity (or node). Please see this string in action at https://datacommons.org
-#: server/templates/static/homepage.html:119
-#, python-format
-msgid "Browse entities in the %(project)s Graph"
-msgstr "%(project)s 그래프에서 항목 살펴보기"
-
-#. Header for a section on building your own tools and analysis using our API. Please see this string in action at https://datacommons.org
-#: server/templates/static/homepage.html:142
-msgid "Build your own"
-msgstr "나만의 도구 빌드"
-
-#. Heading for a list of cities in the US. See this message on https://datacommons.org/place
-#: server/templates/place_landing.html:56
-msgid "Cities, United States"
-msgstr "도시, 미국"
-
-#. The label for a link to instructions about contributing to the project.
-#: server/templates/base.html:84 server/templates/base.html:138
-msgid "Contribute"
-msgstr "참여"
-
-#. Heading for a list of counties in the US. See this message on https://datacommons.org/place
-#: server/templates/place_landing.html:63
-msgid "Counties, United States"
-msgstr "국가, 미국"
-
-#. Heading for a list of countries.
-#: server/templates/place_landing.html:77
-msgid "Countries"
-msgstr "국가"
-
-#. Header for a list of links to the Timeline Explorer tool, where users are able to create timeline charts on many topics. Please see this string in action at https://datacommons.org
-#: server/templates/static/homepage.html:98
-msgid "Create Timeline Charts"
-msgstr "타임라인 차트 만들기"
-
-#. The label for a link to informational pages about the Data Commons project.
-#: server/templates/base.html:144
-msgid "Data Commons"
-msgstr "Data Commons"
-
-#. The label for a link to data sources included in the Data Commons knowledge graph.
-#: server/templates/base.html:95 server/templates/base.html:150
-msgid "Data Sources"
-msgstr "데이터 소스"
-
-#. The label for a link to site disclaimers.
-#: server/templates/base.html:171
-msgid "Disclaimers"
-msgstr "면책조항"
-
-#. The label for a list of documentation links.
-#. The label for a link to our documentation site.
-#: server/templates/base.html:79 server/templates/base.html:81 server/templates/base.html:130 server/templates/base.html:132
-msgid "Documentation"
-msgstr "문서"
-
-#. Heading for a list of links to rankings of places worldwide, by their economic indicators.
-#: server/templates/place_landing.html:127
-msgid "Economic Indicators, Worldwide"
-msgstr "경제지표, 전 세계"
-
-#. Link to a chart comparing the differences in employment rate across the neighboring California cities (one city is much richer than the other). Please see this string in action at https://datacommons.org
-#: server/templates/static/homepage.html:110
-msgid "Employment Differences Across Neighboring Cities"
-msgstr "인근 도시 간 취업률 차이"
-
-#. Link to a node for the entity (describing the ENCODE project, https://www.encodeproject.org/) in the Data Commons Graph. Please see this string in action at https://datacommons.org
-#: server/templates/static/homepage.html:131
-msgid "Encyclopedia of DNA Elements (Biosamples)"
-msgstr ""
-
-#. A hint shown in the search box, asking users to search for places.
-#: server/templates/place.html:51 server/templates/place_landing.html:45
-msgid "Enter a country, state, county or city"
-msgstr "국가나 시/도/구를 입력하세요"
-
-#. The label for a collection of exploration tools.
-#: server/templates/base.html:69 server/templates/base.html:120
-msgid "Explore"
-msgstr "탐색"
-
-#. Header for a list of links to the Place Explorer product. Please see this string in action at https://datacommons.org
-#: server/templates/static/homepage.html:74
-msgid "Explore Places"
-msgstr "장소 살펴보기"
-
-#. Header for a list of links to Data Commons data displays. Please see this string in action at https://datacommons.org
-#: server/templates/static/homepage.html:64
-msgid "Explore the data"
-msgstr "데이터 살펴보기"
-
-#: server/templates/base.html:96
-msgid "FAQ"
-msgstr "FAQ"
-
-#. The label for a link to instructions about sending feedback.
-#: server/templates/base.html:97 server/templates/base.html:152
-msgid "Feedback"
-msgstr "의견"
-
-#. The label for a link to project FAQ page.
-#: server/templates/base.html:154
-msgid "Frequently Asked Questions"
-msgstr "자주 묻는 질문(FAQ)"
-
-#. Link to worldwide rankings for Gini Index, by country.
-#: server/templates/place_landing.html:130
-msgid "Gini Index"
-msgstr "지니 계수"
-
-#. The label for a link to the project's github repository (for open sourced code).
-#: server/templates/base.html:140
-msgid "Github Repository"
-msgstr "GitHub 저장소"
-
-#. Link to worldwide rankings for Government Expenditures on Education, by country.
-#: server/templates/place_landing.html:138
-msgid "Government Expenditures on Education"
-msgstr "정부의 교육비 지출"
-
-#. Link to worldwide rankings for Government Expenditures on Military, by country.
-#: server/templates/place_landing.html:142
-msgid "Government Expenditures on Military"
-msgstr "정부 군사비 지출"
-
-#. The name of a tool to browse the Data Commons knowledge graph.
-#: server/templates/base.html:73 server/templates/base.html:124
-msgid "Graph Browser"
-msgstr "그래프 브라우저"
-
-#. Link to worldwide rankings for Gross National Income, by country.
-#: server/templates/place_landing.html:134
-msgid "Gross National Income"
-msgstr "총국민소득"
-
-#. Blog post entry. Please take care to maintain valid <a> tags in translation. See this string in action at https://datacommons.org
-#: server/templates/static/homepage.html:54
-msgid "HOME-BLOG_POST_1"
-msgstr "이제 Google 검색에서 %(project)s에 액세스할 수 있습니다. <a href=%(blog_url)s>자세히 알아보기</a>"
-
-#. Describes building your own tools and analysis using our API (here Python refers to the programming language - see python.org, and REST is an acronym for REpresentational State Transfer). Python API and REST API are both names of the respective API's. Please see this string in action at https://datacommons.org
-#: server/templates/static/homepage.html:145
-msgid "HOME-BUILD_CALLOUT"
-msgstr "Python 및 REST API를 사용해 맞춤 분석을 실행하고 나만의 도구 등을 빌드합니다."
-
-#. A header of a section showing the many data sources included in the Data Commons Graph. See this string at https://datacommons.org
-#: server/templates/static/homepage.html:178
-msgid "HOME-DATA_SOURCES"
-msgstr "다음 데이터 출처 포함"
-
-#. Describes how we clean and process data for import once, usually a painful part of data analysis. Data cleaning here refers to a common step in data science analysis (e.g. https://elitedatascience.com/data-cleaning), and process refers to the transformation required to analyze a data set. Data is imported into a unified graph (e.g. data about California from many sources are all added to the same node in our graph. Please see this string in action at https://datacommons.org
-#: server/templates/static/homepage.html:67
-msgid "HOME-EXPLORE_CALLOUT"
-msgstr "데이터 정리 및 처리 과정은 이미 완료되어 있습니다. 특정 항목에 관한 데이터를 한눈에 확인할 수 있도록 여러 출처의 데이터를 집계했습니다."
-
-#. Description of the Data Commons project. "open knowledge repository": It's a knowledge repository, or knowledge graph (https://en.wikipedia.org/wiki/Knowledge_graph). It's also open: free to use, community maintained and open sourced. "combines data": Multiple datasets are combined into a single knowledge graph "mapped common entities": Data about the same entity across datasets are mapped to a single common entity. E.g. Data about "California" across the US Census and World Bank are combined under the same "California" entity (or node). Data joining (or merging), is the work that is required to analyze data across multiple datasets (e.g. https://www.displayr.com/what-is-data-merging/). In summary, Data Commons is an open sourced, community project that includes data from across many data sets into a single knowledge graph, where data about the same entity is already combined for easy exploration and analysis. Please see this string in action at https://datacommons.org
-#: server/templates/static/homepage.html:33
-msgid "HOME-HERO_MESSAGE"
-msgstr "Data Commons는 매핑된 공통 항목을 사용해 공개 데이터 세트의 데이터를 결합하는 개방형 지식 저장소입니다. 데이터 정리나 결합 없이도 여러 데이터 세트의 데이터를 쉽게 살펴보고 분석할 수 있는 도구가 포함되어 있습니다."
-
-#. A link soliciting contributions to the project from the community. See this string at https://datacommons.org
-#: server/templates/static/homepage.html:171
-msgid "HOME-JOIN_EFFORT"
-msgstr "참여하기"
-
-#. Describes that the project is open sourced, and what it is built on top of (it extends a schema defined by schema.org). Please take care to maintain valid <a> tags in translation. See this string in action at https://datacommons.org
-#: server/templates/static/homepage.html:165
-msgid "HOME-OPEN_SOURCED"
-msgstr "<a href=%(github_url)s>오픈소스</a> 프로젝트이며 <a href=%(schemaorg_url)s>%(tool)s</a> 도구를 사용해 빌드되었습니다."
-
-#. Label for rankings of places by the number of combined criminal activities, per capita (sorted from highest to lowest).
-#: server/routes/api/place.py:524
-msgid "Highest Crime Per Capita"
-msgstr "최대 범죄 발생 수(1인당)"
-
-#. Label for rankings of places by the median age of it's population (sorted from highest to lowest).
-#: server/routes/api/place.py:515
-msgid "Highest Median Age"
-msgstr "최고 중위 연령"
-
-#. Label for rankings of median individual income (sorted from highest to lowest).
-#: server/routes/api/place.py:513
-msgid "Highest Median Income"
-msgstr "최고 중위 소득"
-
-#. Label for rankings of places by the unemployment rate of it's population (sorted from highest to lowest).
-#: server/routes/api/place.py:517
-msgid "Highest Unemployment Rate"
-msgstr "최고 실업률"
-
-#. Label for rankings of places by size of population (sorted from highest to lowest).
-#: server/routes/api/place.py:511
-msgid "Largest Population"
-msgstr "최대 인구"
-
-#. Heading for a list of links to rankings of places in the US, by their life expectancy.
-#: server/templates/place_landing.html:116
-msgid "Life Expectancy"
-msgstr "기대수명"
-
-#. A message shown on the page while the content is loading.
-#: server/templates/place.html:59
-msgid "Loading..."
-msgstr "로드 중..."
-
-#. String showing that there are many more links available. Feel free to replace ellipsis with other language appropriate equivalents. Will always be preceded by a comma. Please see this string in action at https://datacommons.org
-#: server/templates/static/homepage.html:91 server/templates/static/homepage.html:112 server/templates/static/homepage.html:133
-msgid "MORE"
-msgstr "더보기..."
-
-#. Heading for a list of links to rankings of places in the US, by their median income. See this message on https://datacommons.org/place
-#: server/templates/place_landing.html:89
-msgid "Median Income, United States"
-msgstr "중위 소득, 미국"
-
-#. Link to a node for the entity (the New York City school district, https://www.schools.nyc.gov/) in the Data Commons Graph. Please see this string in action at https://datacommons.org
-#: server/templates/static/homepage.html:127
-msgid "New York City Department of Education"
-msgstr "뉴욕 교육부"
-
-#. The header for a section on how Data Commons is an open, community effort. See this string at https://datacommons.org
-#: server/templates/static/homepage.html:159
-msgid "Open"
-msgstr "공개"
-
-#. Describes that the data in the graph is open (the code importing the data into the graph is open sourced). See this string at https://datacommons.org
-#: server/templates/static/homepage.html:162
-msgid "Open Data."
-msgstr "데이터를 엽니다."
-
-#. Introduction to the Place Explorer tool. Please wrap each paragraph with <p> and </p> tags. See this message on https://datacommons.org/place
-#: server/templates/place_landing.html:50
-msgid "PLACE_EXPLORER_INTRO"
-msgstr "<p>장소 탐색기 도구를 사용하면 장소에 관한 핵심 데이터를 파악할 수 있습니다. 인구, 교육, 경제 등에 대한 여러 차트를 가져와서 다른 장소와 비교하며 확인이 가능합니다. 실업률, 범죄율, 소득과 같은 다양한 지표에 따라 여러 장소의 순위를 확인할 수도 있습니다.</p><p>위 검색 상자에 관심 있는 도시, 우편번호, 카운티, 주, 국가를 입력하여 차트를 확인하세요.</p><p>또는 유명한 장소에 관한 데이터를 살펴볼 수도 있습니다.</p>"
-
-#. The name of a tool to browse statistics about a place.
-#: server/templates/base.html:72 server/templates/base.html:122 server/templates/place.html:19 server/templates/place.html:20 server/templates/place_landing.html:19 server/templates/place_landing.html:20 server/templates/place_landing.html:38
-msgid "Place Explorer"
-msgstr ""
-
-#. The name of a tool to view rankings of places by a specified dimension.
-#: server/templates/ranking.html:19 server/templates/ranking.html:20
-msgid "Place Rankings"
-msgstr "장소 순위"
-
-#. Heading for a list of places
-#: server/templates/place_landing.html:53
-msgid "Places"
-msgstr "장소"
-
-#. The label for a link to site privacy policy.
-#: server/templates/base.html:169
-msgid "Privacy Policy"
-msgstr "개인정보처리방침"
-
-#. Heading for a list of place rankings.
-#: server/templates/place_landing.html:86
-msgid "Rankings"
-msgstr "순위"
-
-#. Link to a chart comparing the differences in median income across the richest and poorest California counties. Please see this string in action at https://datacommons.org
-#: server/templates/static/homepage.html:106
-msgid "Richest vs. Poorest California Counties"
-msgstr "캘리포니아 카운티 간 소득 격차"
-
-#. The label for a link to our API documentation. See this string at https://datacommons.org
-#: server/templates/static/homepage.html:151
-msgid "See API documentation."
-msgstr "API 설명서 보기"
-
-#. Blog post entry. Please take care to maintain valid <a> tags in translation. See this string in action at https://datacommons.org
-#: server/templates/static/homepage.html:153
-msgid "See some sample Python notebooks."
-msgstr "샘플 Python 메모장을 확인하세요."
-
-#. Heading for a list of states in the US. See this message on https://datacommons.org/place
-#: server/templates/place_landing.html:70
-msgid "States, United States"
-msgstr "주, 미국"
-
-#. The label for a link to site terms and conditions.
-#: server/templates/base.html:167
-msgid "Terms and Conditions"
-msgstr "이용약관"
-
-#. The name of a tool to explore timeline charts of statistical variables for places.
-#: server/templates/base.html:74 server/templates/base.html:126
-msgid "Timelines Explorer"
-msgstr "타임라인 탐색기"
-
-#. The label for a link to our API tutorials.
-#: server/templates/base.html:83 server/templates/base.html:136
-msgid "Tutorials"
-msgstr "튜토리얼"
-
-#. Link to a chart comparing median income across various university towns in the US. Please see this string in action at https://datacommons.org
-#: server/templates/static/homepage.html:102
-msgid "US University Towns by Income"
-msgstr "미국 대학도시 소득 비교"
-
-#. Heading for a list of links to rankings of places in the US, by their unemployment rate. See this message on https://datacommons.org/place
-#: server/templates/place_landing.html:104
-msgid "Unemployment Rate, United States"
-msgstr "실업률, 미국"
-
-#. Header for list of blog posts and project updates. Please see this string in action at https://datacommons.org
-#: server/templates/static/homepage.html:49
-msgid "What's new"
-msgstr "새로운 소식"
-
-#. Link to worldwide rankings for life expectancy by country. See this message on https://datacommons.org/place
-#: server/templates/place_landing.html:119
-msgid "Worldwide"
-msgstr "전 세계"
-
-#. Heading for a list of rankings, pivoted by city. See this message on https://datacommons.org/place
-#: server/templates/place_landing.html:92 server/templates/place_landing.html:106
-msgid "by city"
-msgstr "도시별"
-
-#. Heading for a list of rankings, pivoted by county. See this message on https://datacommons.org/place
-#: server/templates/place_landing.html:96 server/templates/place_landing.html:109
-msgid "by county"
-msgstr "국가별"
-
-#. Heading for a list of rankings, pivoted by state. See this message on https://datacommons.org/place
-#: server/templates/place_landing.html:100 server/templates/place_landing.html:112
-msgid "by state"
-msgstr "주별"
-
-#. Link to US rankings for life expectancy by state. See this message on https://datacommons.org/place
-#: server/templates/place_landing.html:123
-msgid "in United States"
-msgstr "미국"
-
-#. Title of a place chart: Total amount of alcohol consumed per person anually
-msgid "CHART_TITLE-Alcohol_consumption_per_capita"
-msgstr "1인당 알코올 소비량(연간)"
-
-#. Title of a place chart: Total number of arson incidents
-msgid "CHART_TITLE-Arson"
-msgstr "방화"
-
-#. Title of a place chart: Total number of arson incidents per 100,000 people
-msgid "CHART_TITLE-Arson_rate"
-msgstr "10만 명당 방화 건수"
-
-#. Title of a place chart: Percentage of young adults who have an associate degree, broken down by gender
-msgid "CHART_TITLE-Associate_degree_rate_gender"
-msgstr "성별에 따른 2년제 학위 취득률"
-
-#. Title of a place chart: Percentage of young adults who have an bachelor's degree, broken down by gender
-msgid "CHART_TITLE-Bachelors_degree_rate_gender"
-msgstr "성별에 따른 학사 학위 취득률"
-
-#. The category for a group of statistical charts.
 msgid "CHART_TITLE-CHART_CATEGORY-Crime"
 msgstr "범죄"
 
-#. The category for a group of statistical charts.
 msgid "CHART_TITLE-CHART_CATEGORY-Demographics"
 msgstr "인구통계"
 
-#. The category for a group of statistical charts.
 msgid "CHART_TITLE-CHART_CATEGORY-Economics"
 msgstr "경제학"
 
-#. The category for a group of statistical charts.
 msgid "CHART_TITLE-CHART_CATEGORY-Education"
 msgstr "교육"
 
-#. The category for a group of statistical charts.
 msgid "CHART_TITLE-CHART_CATEGORY-Environment"
 msgstr "환경"
 
-#. The category for a group of statistical charts.
 msgid "CHART_TITLE-CHART_CATEGORY-Equity"
 msgstr "지분"
 
-#. The category for a group of statistical charts.
 msgid "CHART_TITLE-CHART_CATEGORY-Health"
 msgstr "건강"
 
-#. The category for a group of statistical charts.
 msgid "CHART_TITLE-CHART_CATEGORY-Housing"
 msgstr "주택"
 
-#. The category for a group of statistical charts.
-msgid "CHART_TITLE-CHART_CATEGORY-Overview"
-msgstr "개요"
+msgid "CHART_TITLE-Alcohol_consumption_per_capita"
+msgstr "1인당 알코올 소비량(연간)"
 
-#. Title of a place chart: Number of children who are employed
+msgid "CHART_TITLE-Arson"
+msgstr "방화"
+
+msgid "CHART_TITLE-Arson_rate"
+msgstr "10만 명당 방화 건수"
+
+msgid "CHART_TITLE-Associate_degree_rate_gender"
+msgstr "성별에 따른 2년제 학위 취득률"
+
+msgid "CHART_TITLE-Bachelors_degree_rate_gender"
+msgstr "성별에 따른 학사 학위 취득률"
+
 msgid "CHART_TITLE-Children_employed"
 msgstr "고용 아동 수"
 
-#. Title of a place chart: Number of children who are employed, broken down by gender
 msgid "CHART_TITLE-Children_employed_gender"
 msgstr "성별에 따른 고용 아동 수"
 
-#. Title of a place chart: Prevalence of severe wasting (or severely low weight for height) among children under 5
 msgid "CHART_TITLE-Children_severe_wasting"
 msgstr "5세 미만 아동에서의 중증 급성영양장애 유병률"
 
-#. Title of a place chart: Prevalence of severe wasting (or severely low weight for height) among children under 5, broken down by gender
 msgid "CHART_TITLE-Children_severe_wasting_by_gender"
 msgstr "성별에 따른 5세 미만 아동에서의 중증급성영양장애 유병률"
 
-#. Title of a place chart: Prevalence of wasting (or low weight for height) among children under 5
 msgid "CHART_TITLE-Children_wasting"
 msgstr "5세 미만 급성영양장애 아동"
 
-#. Title of a place chart: Prevalence of wasting (or low weight for height) among children under 5, broken down by gender
 msgid "CHART_TITLE-Children_wasting_by_gender"
 msgstr "성별에 따른 5세 미만 아동에서의 급성영양장애 유병률"
 
-#. Title of a place chart: Total number of individuals, broken down by citizenship status
 msgid "CHART_TITLE-Citizenship"
 msgstr "시민권 상태"
 
-#. Title of a place chart: Percentage of population, broken down by citizenship status
 msgid "CHART_TITLE-Citizenship_distribution"
 msgstr "시민권 취득 기준 인구 분포"
 
-#. Title of a place chart: Total amount of carbon dioxied emissions per person
 msgid "CHART_TITLE-Co2_emissions_per_capita"
 msgstr "1인당 이산화탄소 배출량"
 
-#. Title of a place chart: Cumulative count of COVID-19 cases
 msgid "CHART_TITLE-Covid_cases"
 msgstr "코로나19 누적 사례 수"
 
-#. Title of a place chart: Cumulative count of COVID-19 cases as a percentage of the population
 msgid "CHART_TITLE-Covid_cases_per_capita"
 msgstr "1인당 코로나19 누적 사례"
 
-#. Title of a place chart: Cumulative count of deaths caused by COVID-19
 msgid "CHART_TITLE-Covid_deaths"
 msgstr "코로나19 누적 사망자 수"
 
-#. Title of a place chart: Cumulative count of deaths caused by COVID-19 as a percentage of the population
 msgid "CHART_TITLE-Covid_deaths_per_capita"
 msgstr "1인당 코로나19 누적 사망자"
 
-#. Title of a place chart: Total number of criminal incidents per 100,000 people
 msgid "CHART_TITLE-Crime_rate"
 msgstr "10만 명당 범죄 수"
 
-#. Title of a place chart: Total number of cyclones that occured
 msgid "CHART_TITLE-Cyclones"
 msgstr "사이클론"
 
-#. Title of a place chart: Total number of disasters that occured, broken down by disaster type
 msgid "CHART_TITLE-Disasters"
 msgstr "재해"
 
-#. Title of a place chart: Total number of earthquakes that occured
 msgid "CHART_TITLE-Earthquakes"
 msgstr "지진"
 
-#. Title of a place chart: Number of people who have attained various educational milestones, e.g. completed high school or have a bachelor's degree
 msgid "CHART_TITLE-Educational_attainment"
 msgstr "교육 수료"
 
-#. Title of a place chart: Percentage of the adult population who have attained various educational milestones, e.g. completed high school or have a bachelor's degree
 msgid "CHART_TITLE-Educational_attainment_rate"
 msgstr "교육 수료율"
 
-#. Title of a place chart: Total amount of electricity consumed per person
 msgid "CHART_TITLE-Electricity_consumption_per_capita"
 msgstr "1인당 전기 소비량"
 
-#. Title of a place chart: Total amount of energy consumed per person, measured by kilogram of oil equivalent
 msgid "CHART_TITLE-Energy_use"
 msgstr "에너지 사용(1인당 석유 환산량 kg당)"
 
-#. Title of a place chart: Average number of children that would be born to a woman over her lifetime
 msgid "CHART_TITLE-Fertility_rate"
 msgstr "출산율"
 
-#. Title of a place chart: Annual percentage growth rate of GDP at market prices based on constant local currency
 msgid "CHART_TITLE-Gdp_growth_rate"
 msgstr "GDP 성장률"
 
-#. Title of a place chart: Gross domestic product (nominal) per capita, see https://en.wikipedia.org/wiki/Gross_domestic_product
 msgid "CHART_TITLE-Gdp_per_capita"
 msgstr "1인당 국내총생산"
 
-#. Title of a place chart: The Gini index is a measure of inequality, see https://stats.oecd.org/glossary/detail.asp?ID=4842
 msgid "CHART_TITLE-Gini_index"
 msgstr "지니 계수"
 
-#. Title of a place chart: Gross national income, converted using purchasing power parity rates
 msgid "CHART_TITLE-Gni"
 msgstr "국민총소득(구매력평가지수)"
 
-#. Title of a place chart: Gross national income, divided by population, converted using purchasing power parity rates
 msgid "CHART_TITLE-Gni_per_capita"
 msgstr "1인당 국민총소득(구매력평가지수)"
 
-#. Title of a place chart: Amount of government debt
 msgid "CHART_TITLE-Government_debt"
 msgstr "정부 부채"
 
-#. Title of a place chart: Government debt divided by the population
 msgid "CHART_TITLE-Government_debt_per_capita"
 msgstr "1인당 정부 부채"
 
-#. Title of a place chart: Government expenditures on education as a percentage of government expenditure
 msgid "CHART_TITLE-Government_expenditures_education"
 msgstr "정부의 교육비 지출(정부 지출 대비 백분율)"
 
-#. Title of a place chart: Government expenditures on education as a percentage of GDP
 msgid "CHART_TITLE-Government_expenditures_education_gdp"
 msgstr "정부의 교육비 지출(GDP 대비 %)"
 
-#. Title of a place chart: Amount spent by a government on the military
 msgid "CHART_TITLE-Government_expenditures_military"
 msgstr "정부 군사비 지출"
 
-#. Title of a place chart: Amount spent by a government on the military as a percentage of GDP
 msgid "CHART_TITLE-Government_expenditures_military_per_gdp"
 msgstr "GDP 중 정부의 군사비 지출 비중"
 
-#. Title of a place chart: Percentage of young adults who have a graduate or professional degree, broken down by gender
 msgid "CHART_TITLE-Graduate_or_professional_degree_rate_gender"
 msgstr "성별에 따른 대학 졸업 또는 전문 학위 취득률"
 
-#. Title of a place chart: Percentage of people who report certain negative health behaviors, e.g. obesity, smoking or binge drinking
 msgid "CHART_TITLE-Health_behaviors"
 msgstr "보건행동"
 
-#. Title of a place chart: Percentage of people who are aflicted by certain negative health outcomes, e.g. high cholesterol or arthritis
 msgid "CHART_TITLE-Health_outcomes"
 msgstr "건강 상태"
 
-#. Title of a place chart: Count of households whose combined incomes fall in certain buckets
 msgid "CHART_TITLE-Household_income"
 msgstr "가계 소득"
 
-#. Title of a place chart: Percentage of households whose combined incomes fall in certain buckets
 msgid "CHART_TITLE-Household_income_by_bracket"
 msgstr "소득 계층별 가구 비율"
 
-#. Title of a place chart: Total number of housing units available
 msgid "CHART_TITLE-Housing_units"
 msgstr "주택 수"
 
-#. Title of a place chart: Number of available housing units by date built
 msgid "CHART_TITLE-Housing_units_date_built"
 msgstr "완공일별 주택 수"
 
-#. Title of a place chart: Percentage of available housing units by date built
 msgid "CHART_TITLE-Housing_units_date_built_distrubtion"
 msgstr "완공일별 주택 수 분포"
 
-#. Title of a place chart: Total number of housing units available per person
 msgid "CHART_TITLE-Housing_units_per_capita"
 msgstr "1인당 주택 수"
 
-#. Title of a place chart: Number of occupied housing units by price
 msgid "CHART_TITLE-Housing_units_price"
 msgstr "가격대별 주택 수"
 
-#. Title of a place chart: Percentage of housing units by price
 msgid "CHART_TITLE-Housing_units_price_distribution"
 msgstr "가격대별 소유 주택 수 분포"
 
-#. Title of a place chart: Total number of housing units occupied by members of various races
 msgid "CHART_TITLE-Housing_units_race"
 msgstr "세대주 인종별 주택 수"
 
-#. Title of a place chart: Percentage of housing units occupied by members of various races
 msgid "CHART_TITLE-Housing_units_race_distribution"
 msgstr "세대주 인종별 주택 수 분포"
 
-#. Title of a place chart: Number of housing units occupied by owner vs renter
 msgid "CHART_TITLE-Housing_units_rental_status"
 msgstr "임대 상태별 주택 수"
 
-#. Title of a place chart: Percentage of housing units occupied by owner vs renter
 msgid "CHART_TITLE-Housing_units_rental_status_distribution"
 msgstr "임대 상태별 주택 수 분포"
 
-#. Title of a place chart: Count of people whose individual incomes are in certain buckets
 msgid "CHART_TITLE-Individual_income"
 msgstr "개인 소득"
 
-#. Title of a place chart: Percentage of the population whose individual incomes are in certain buckets
 msgid "CHART_TITLE-Individual_income_by_bracket"
 msgstr "소득 계층별 개인 비율"
 
-#. Title of a place chart: Count of deaths in infants caused by various diseases
 msgid "CHART_TITLE-Infant_mortality_rate"
 msgstr "영아 사망률"
 
-#. Title of a place chart: Count of deaths in infants caused by various diseases, broken down by gender
 msgid "CHART_TITLE-Infant_mortality_rate_gender"
 msgstr "성별에 따른 영아 사망률"
 
-#. Title of a place chart: Total amount of inward remittance into a place
 msgid "CHART_TITLE-Inward_remittance"
 msgstr "타발송금"
 
-#. Title of a place chart: Total amount of inward remittance into a place (as a percentage of GDP)
 msgid "CHART_TITLE-Inward_remittance_per_gdp"
 msgstr "타발송금(GDP 대비 %)"
 
-#. Title of a place chart: Count of people in the labor force, see https://data.oecd.org/emp/labour-force.htm
 msgid "CHART_TITLE-Labor_force"
 msgstr "노동력"
 
-#. Title of a place chart: Percentage of the population, of working age, in the labor force, see https://data.oecd.org/emp/labour-force.htm
 msgid "CHART_TITLE-Labor_force_rate"
 msgstr "노동 인구 참여율"
 
-#. Title of a place chart: Life expectancy of an individual, measured in years
 msgid "CHART_TITLE-Life_expectancy"
 msgstr "기대수명(년)"
 
-#. Title of a place chart: Total number of individuals, broken down by marital status
 msgid "CHART_TITLE-Marital_status"
 msgstr "결혼 여부"
 
-#. Title of a place chart: Percentage of population, broken down by marital status
 msgid "CHART_TITLE-Marital_status_distribution"
 msgstr "결혼 상태 분포"
 
-#. Title of a place chart:
 msgid "CHART_TITLE-Market_capitalization"
 msgstr "국내 기업 시가총액"
 
-#. Title of a place chart: Market capitalization of domestic companies (as a percentage of GDP)
 msgid "CHART_TITLE-Market_capitalization_per_gdp"
 msgstr "국내 기업 시가총액(GDP 대비 %)"
 
-#. Title of a place chart: The median age of the population
 msgid "CHART_TITLE-Median_age"
 msgstr "중위 연령"
 
-#. Title of a place chart: The median age of the population, broken down by gender
 msgid "CHART_TITLE-Median_age_gender"
 msgstr "성별별 중위 연령"
 
-#. Title of a place chart: The median age of the population, broken down by race
 msgid "CHART_TITLE-Median_age_race"
 msgstr "인종별 연령 중앙값"
 
-#. Title of a place chart: Median incomes of households
 msgid "CHART_TITLE-Median_household_income"
 msgstr "중위 가계 소득"
 
-#. Title of a place chart: Median incomes of households, broken down by race
 msgid "CHART_TITLE-Median_household_income_race"
 msgstr "인종별 중위 가계 소득"
 
-#. Title of a place chart: Median incomes of individuals, broken down by gender
 msgid "CHART_TITLE-Median_income_gender"
 msgstr "성별에 따른 중위 소득"
 
-#. Title of a place chart:
 msgid "CHART_TITLE-Median_individual_income"
 msgstr "중위 개인 소득"
 
-#. Title of a place chart: Count of deaths caused by various diseases or external circumstances
 msgid "CHART_TITLE-Mortality_events"
 msgstr "사망률"
 
-#. Title of a place chart: Count of deaths caused by various diseases or external circumstances, divided by the population count
 msgid "CHART_TITLE-Mortality_events_per_capita"
 msgstr "1인당 사망률"
 
-#. Title of a place chart: Total amount of outward remittance from a place
 msgid "CHART_TITLE-Outward_remittance_per_gdp"
 msgstr "당발송금"
 
-#. Title of a place chart: Percentage of the population, of working age, who have no health insurance, broken down by gender
 msgid "CHART_TITLE-Percent_without_health_insurance_gender"
 msgstr "성별에 따른 보험 비보유자 비율"
 
-#. Title of a place chart: Percentage of the population, of working age, who have no health insurance, broken down by race
 msgid "CHART_TITLE-Percent_without_health_insurance_race"
 msgstr "인종별 보험 보유자 비율"
 
-#. Title of a place chart: Percentage of people employed
 msgid "CHART_TITLE-Percentage_employed"
 msgstr "고용 인구 비율"
 
-#. Title of a place chart: Total number of individuals
 msgid "CHART_TITLE-Population"
 msgstr "인구"
 
-#. Title of a place chart: Number of individuals who fall within various age buckets
 msgid "CHART_TITLE-Population_age"
 msgstr "연령별 인구"
 
-#. Title of a place chart: Percentage of the population who fall within various age buckets
 msgid "CHART_TITLE-Population_age_distribution"
 msgstr "연령 분포"
 
-#. Title of a place chart: Measurement of people per km²
 msgid "CHART_TITLE-Population_density"
 msgstr "인구 밀도(km²당 인구)"
 
-#. Title of a place chart: Total number of individuals, broken down by gender
 msgid "CHART_TITLE-Population_gender"
 msgstr "성별에 따른 인구"
 
-#. Title of a place chart: Percentage of the population by gender
 msgid "CHART_TITLE-Population_gender_distribution"
 msgstr "성별 분포"
 
-#. Title of a place chart: Increase in the number of individuals
 msgid "CHART_TITLE-Population_growth_rate"
 msgstr "인구 증가율"
 
-#. Title of a place chart: Total number of individuals, broken down by race
 msgid "CHART_TITLE-Population_race"
 msgstr "인종별 인구"
 
-#. Title of a place chart: Percentage of the population by race
 msgid "CHART_TITLE-Population_race_distribution"
 msgstr "인종 분포"
 
-#. Title of a place chart: Percentage of the population below poverty
 msgid "CHART_TITLE-Poverty_rate"
 msgstr "빈곤율"
 
-#. Title of a place chart: Percentage of the population below the poverty level, broken down by gender
 msgid "CHART_TITLE-Poverty_rate_gender"
 msgstr "성별에 따른 빈곤율"
 
-#. Title of a place chart: Percentage of the population below the poverty level, broken down by race
 msgid "CHART_TITLE-Poverty_rate_race"
 msgstr "인종별 빈곤율"
 
-#. Title of a place chart: Total amount of prescribed retail drugs distributed in a quarter of a year
 msgid "CHART_TITLE-Prescribed_drugs"
 msgstr "처방 의약품(분기별)"
 
-#. Title of a place chart: Total amount of prescribed retail drugs distributed in a quarter of a year (divided by the population)
 msgid "CHART_TITLE-Prescribed_drugs_per_capita"
 msgstr "1인당 처방약(분기별)"
 
-#. Title of a place chart: Total number of property crime incidents
 msgid "CHART_TITLE-Property_crime"
 msgstr "재산범죄"
 
-#. Title of a place chart: Total number of property crime incidents per 100,000 people
 msgid "CHART_TITLE-Property_crime_rate"
 msgstr "인구 10만 명당 재산범죄"
 
-#. Title of a place chart: Number of people who are enrolled in school, vs not enrolled in school
 msgid "CHART_TITLE-School_enrollment"
 msgstr "취학률"
 
-#. Title of a place chart: Percentage of people who are enrolled in school, vs not enrolled in school
 msgid "CHART_TITLE-School_enrollment_rate"
 msgstr "학교 입학률"
 
-#. Title of a place chart: Number of unemployment insurance claims filed with a US state
 msgid "CHART_TITLE-State_unemployment_claims"
 msgstr "주별 실업 보험 청구 건수"
 
-#. Title of a place chart: Percentage of the labor force who filed unemployment insurance claims with a US state
 msgid "CHART_TITLE-State_unemployment_claims_rate"
 msgstr "주별 실업 보험 청구율"
 
-#. Title of a place chart: Total number of criminal incidents
 msgid "CHART_TITLE-Total_crime"
 msgstr "총 범죄 수"
 
-#. Title of a place chart: Number of people employed
 msgid "CHART_TITLE-Total_employed"
 msgstr "고용 인구"
 
-#. Title of a place chart: Percentage of the population, of working age, who are unemployed.
 msgid "CHART_TITLE-Unemployment_rate"
 msgstr "실업률"
 
-#. Title of a place chart: Percentage of the population, of working age, who are unemployed, broken down by gender
 msgid "CHART_TITLE-Unemployment_rate_gender"
 msgstr "성별에 따른 실업률"
 
-#. Title of a place chart: Total number of individuals in rural vs urban parts of a place
 msgid "CHART_TITLE-Urban_v_rural_population"
 msgstr "도시 인구와 교외 인구"
 
-#. Title of a place chart: Total number of violent crime incidents
 msgid "CHART_TITLE-Violent_crime"
 msgstr "폭력 범죄"
 
-#. Title of a place chart: Total number of violent crime incidents per 100,000 people
 msgid "CHART_TITLE-Violent_crime_rate"
 msgstr "10만 명당 폭력 범죄 수"
 
-#~ msgid "Encyclopedia of DNA Elements Biosamples"
-#~ msgstr "DNA 요소 생물학적 표본 백과사전"
+msgid "%(cityName)s Demographics"
+msgstr "%(cityName)s 인구통계"
+
+msgid "%(cityName)s Health"
+msgstr "%(cityName)s 건강"
+
+msgid "%(project)s is a Google supported project"
+msgstr "%(project)s은(는) Google에서 지원하는 프로젝트입니다"
+
+msgid "API's"
+msgstr "API"
+
+msgid "About"
+msgstr "정보"
+
+msgid "About Data Commons"
+msgstr "Data Commons 정보"
+
+msgid "Blog"
+msgstr "블로그"
+
+msgid "Browse entities in the %(project)s Graph"
+msgstr "%(project)s 그래프에서 항목 살펴보기"
+
+msgid "Build your own"
+msgstr "나만의 도구 빌드"
+
+msgid "Cities, United States"
+msgstr "도시, 미국"
+
+msgid "Contribute"
+msgstr "참여"
+
+msgid "Counties, United States"
+msgstr "국가, 미국"
+
+msgid "Countries"
+msgstr "국가"
+
+msgid "Create Timeline Charts"
+msgstr "타임라인 차트 만들기"
+
+msgid "Data Commons"
+msgstr "Data Commons"
+
+msgid "Data Sources"
+msgstr "데이터 소스"
+
+msgid "Disclaimers"
+msgstr "면책조항"
+
+msgid "Documentation"
+msgstr "문서"
+
+msgid "Economic Indicators, Worldwide"
+msgstr "경제지표, 전 세계"
+
+msgid "Employment Differences Across Neighboring Cities"
+msgstr "인근 도시 간 취업률 차이"
+
+msgid "Encyclopedia of DNA Elements Biosamples"
+msgstr "DNA 요소 생물학적 표본 백과사전"
+
+msgid "Enter a country, state, county or city"
+msgstr "국가나 시/도/구를 입력하세요"
+
+msgid "Explore"
+msgstr "탐색"
+
+msgid "Explore Places"
+msgstr "장소 살펴보기"
+
+msgid "Explore the data"
+msgstr "데이터 살펴보기"
+
+msgid "FAQ"
+msgstr "FAQ"
+
+msgid "Feedback"
+msgstr "의견"
+
+msgid "Frequently Asked Questions"
+msgstr "자주 묻는 질문(FAQ)"
+
+msgid "Gini Index"
+msgstr "지니 계수"
+
+msgid "Github Repository"
+msgstr "GitHub 저장소"
+
+msgid "Government Expenditures on Education"
+msgstr "정부의 교육비 지출"
+
+msgid "Government Expenditures on Military"
+msgstr "정부 군사비 지출"
+
+msgid "Graph Browser"
+msgstr "그래프 브라우저"
+
+msgid "Gross National Income"
+msgstr "총국민소득"
+
+msgid "HOME-BLOG_POST_1"
+msgstr "이제 Google 검색에서 %(project)s에 액세스할 수 있습니다. <a href=%(blog_url)s>자세히 알아보기</a>"
+
+msgid "HOME-BUILD_CALLOUT"
+msgstr "Python 및 REST API를 사용해 맞춤 분석을 실행하고 나만의 도구 등을 빌드합니다."
+
+msgid "HOME-DATA_SOURCES"
+msgstr "다음 데이터 출처 포함"
+
+msgid "HOME-EXPLORE_CALLOUT"
+msgstr "데이터 정리 및 처리 과정은 이미 완료되어 있습니다. 특정 항목에 관한 데이터를 한눈에 확인할 수 있도록 여러 출처의 데이터를 집계했습니다."
+
+msgid "HOME-HERO_MESSAGE"
+msgstr "Data Commons는 매핑된 공통 항목을 사용해 공개 데이터 세트의 데이터를 결합하는 개방형 지식 저장소입니다. 데이터 정리나 결합 없이도 여러 데이터 세트의 데이터를 쉽게 살펴보고 분석할 수 있는 도구가 포함되어 있습니다."
+
+msgid "HOME-JOIN_EFFORT"
+msgstr "참여하기"
+
+msgid "HOME-OPEN_SOURCED"
+msgstr "<a href=%(github_url)s>오픈소스</a> 프로젝트이며 <a href=%(schemaorg_url)s>%(tool)s</a> 도구를 사용해 빌드되었습니다."
+
+msgid "Highest Crime Per Capita"
+msgstr "최대 범죄 발생 수(1인당)"
+
+msgid "Highest Median Age"
+msgstr "최고 중위 연령"
+
+msgid "Highest Median Income"
+msgstr "최고 중위 소득"
+
+msgid "Highest Unemployment Rate"
+msgstr "최고 실업률"
+
+msgid "Largest Population"
+msgstr "최대 인구"
+
+msgid "Life Expectancy"
+msgstr "기대수명"
+
+msgid "Loading..."
+msgstr "로드 중..."
+
+msgid "MORE"
+msgstr "더보기..."
+
+msgid "Median Income, United States"
+msgstr "중위 소득, 미국"
+
+msgid "New York City Department of Education"
+msgstr "뉴욕 교육부"
+
+msgid "Open"
+msgstr "공개"
+
+msgid "Open Data."
+msgstr "데이터를 엽니다."
+
+msgid "Place Explorer"
+msgstr "PLACE_EXPLORER_INTRO"
+
+msgid "PLACE_EXPLORER_INTRO"
+msgstr "<p>장소 탐색기 도구를 사용하면 장소에 관한 핵심 데이터를 파악할 수 있습니다. 인구, 교육, 경제 등에 대한 여러 차트를 가져와서 다른 장소와 비교하며 확인이 가능합니다. 실업률, 범죄율, 소득과 같은 다양한 지표에 따라 여러 장소의 순위를 확인할 수도 있습니다.</p><p>위 검색 상자에 관심 있는 도시, 우편번호, 카운티, 주, 국가를 입력하여 차트를 확인하세요.</p><p>또는 유명한 장소에 관한 데이터를 살펴볼 수도 있습니다.</p>"
+
+msgid "Place Rankings"
+msgstr "장소 순위"
+
+msgid "Places"
+msgstr "장소"
+
+msgid "Privacy Policy"
+msgstr "개인정보처리방침"
+
+msgid "Rankings"
+msgstr "순위"
+
+msgid "Richest vs. Poorest California Counties"
+msgstr "캘리포니아 카운티 간 소득 격차"
+
+msgid "See API documentation."
+msgstr "API 설명서 보기"
+
+msgid "See some sample Python notebooks."
+msgstr "샘플 Python 메모장을 확인하세요."
+
+msgid "States, United States"
+msgstr "주, 미국"
+
+msgid "Terms and Conditions"
+msgstr "이용약관"
+
+msgid "Timelines Explorer"
+msgstr "타임라인 탐색기"
+
+msgid "Tutorials"
+msgstr "튜토리얼"
+
+msgid "US University Towns by Income"
+msgstr "미국 대학도시 소득 비교"
+
+msgid "Unemployment Rate, United States"
+msgstr "실업률, 미국"
+
+msgid "What's new"
+msgstr "새로운 소식"
+
+msgid "Worldwide"
+msgstr "전 세계"
+
+msgid "by city"
+msgstr "도시별"
+
+msgid "by county"
+msgstr "국가별"
+
+msgid "by state"
+msgstr "주별"
+
+msgid "in United States"
+msgstr "미국"
+
+msgid "CHART_TITLE-CHART_CATEGORY-Overview"
+msgstr "개요"
 
