@@ -1,564 +1,836 @@
-msgid "CHART_TITLE-CHART_CATEGORY-Crime"
-msgstr "Criminalità"
-
-msgid "CHART_TITLE-CHART_CATEGORY-Demographics"
-msgstr "Dati demografici"
-
-msgid "CHART_TITLE-CHART_CATEGORY-Economics"
-msgstr "Aspetti economici"
-
-msgid "CHART_TITLE-CHART_CATEGORY-Education"
-msgstr "Istruzione"
-
-msgid "CHART_TITLE-CHART_CATEGORY-Environment"
-msgstr "Ambiente"
-
-msgid "CHART_TITLE-CHART_CATEGORY-Equity"
-msgstr "Patrimonio netto"
-
-msgid "CHART_TITLE-CHART_CATEGORY-Health"
-msgstr "Salute"
-
-msgid "CHART_TITLE-CHART_CATEGORY-Housing"
-msgstr "Abitazioni"
-
-msgid "CHART_TITLE-Alcohol_consumption_per_capita"
-msgstr "Consumo di alcol pro capite (annuale)"
-
-msgid "CHART_TITLE-Arson"
-msgstr "Incendio doloso"
-
-msgid "CHART_TITLE-Arson_rate"
-msgstr "Incendi dolosi per 100.000 persone"
-
-msgid "CHART_TITLE-Associate_degree_rate_gender"
-msgstr "Tasso di conseguimento di diplomi universitari per sesso"
-
-msgid "CHART_TITLE-Bachelors_degree_rate_gender"
-msgstr "Tasso di conseguimento della laurea per sesso"
-
-msgid "CHART_TITLE-Children_employed"
-msgstr "Bambini che lavorano"
-
-msgid "CHART_TITLE-Children_employed_gender"
-msgstr "Bambini che lavorano per sesso"
-
-msgid "CHART_TITLE-Children_severe_wasting"
-msgstr "Grave deperimento tra bambini sotto i 5 anni"
-
-msgid "CHART_TITLE-Children_severe_wasting_by_gender"
-msgstr "Grave deperimento tra bambini sotto i 5 anni per sesso"
-
-msgid "CHART_TITLE-Children_wasting"
-msgstr "Deperimento tra bambini sotto i 5 anni"
-
-msgid "CHART_TITLE-Children_wasting_by_gender"
-msgstr "Deperimento tra bambini sotto i 5 anni per sesso"
-
-msgid "CHART_TITLE-Citizenship"
-msgstr "Cittadinanza"
-
-msgid "CHART_TITLE-Citizenship_distribution"
-msgstr "Distribuzione della popolazione per cittadinanza"
-
-msgid "CHART_TITLE-Co2_emissions_per_capita"
-msgstr "Emissioni di CO2 pro capite"
-
-msgid "CHART_TITLE-Covid_cases"
-msgstr "Casi cumulativi di COVID-19"
-
-msgid "CHART_TITLE-Covid_cases_per_capita"
-msgstr "Casi cumulativi di COVID-19 pro capite"
-
-msgid "CHART_TITLE-Covid_deaths"
-msgstr "Decessi cumulativi per COVID-19"
-
-msgid "CHART_TITLE-Covid_deaths_per_capita"
-msgstr "Decessi cumulativi per COVID-19 pro capite"
-
-msgid "CHART_TITLE-Crime_rate"
-msgstr "Reati per 100.000 persone"
-
-msgid "CHART_TITLE-Cyclones"
-msgstr "Cicloni"
-
-msgid "CHART_TITLE-Disasters"
-msgstr "Catastrofi"
-
-msgid "CHART_TITLE-Earthquakes"
-msgstr "Terremoti"
-
-msgid "CHART_TITLE-Educational_attainment"
-msgstr "Completamento dell'istruzione"
-
-msgid "CHART_TITLE-Educational_attainment_rate"
-msgstr "Tasso di completamento dell'istruzione"
-
-msgid "CHART_TITLE-Electricity_consumption_per_capita"
-msgstr "Consumo di elettricità pro capite"
-
-msgid "CHART_TITLE-Energy_use"
-msgstr "Consumo energetico (kg di petrolio equivalente pro capite)"
-
-msgid "CHART_TITLE-Fertility_rate"
-msgstr "Tasso di fertilità"
-
-msgid "CHART_TITLE-Gdp_growth_rate"
-msgstr "Tasso di crescita del prodotto interno lordo"
-
-msgid "CHART_TITLE-Gdp_per_capita"
-msgstr "Prodotto interno lordo pro capite"
-
-msgid "CHART_TITLE-Gini_index"
-msgstr "Indice di Gini"
-
-msgid "CHART_TITLE-Gni"
-msgstr "Reddito nazionale lordo (Parità dei poteri di acquisto)"
-
-msgid "CHART_TITLE-Gni_per_capita"
-msgstr "Reddito nazionale lordo pro capite (Parità dei poteri di acquisto)"
-
-msgid "CHART_TITLE-Government_debt"
-msgstr "Debito pubblico"
-
-msgid "CHART_TITLE-Government_debt_per_capita"
-msgstr "Debito pubblico pro capite"
-
-msgid "CHART_TITLE-Government_expenditures_education"
-msgstr "Spesa pubblica per l'istruzione (percentuale della spesa pubblica)"
-
-msgid "CHART_TITLE-Government_expenditures_education_gdp"
-msgstr "Spesa pubblica per l'istruzione (% del PIL)"
-
-msgid "CHART_TITLE-Government_expenditures_military"
-msgstr "Spesa pubblica per le forze armate"
-
-msgid "CHART_TITLE-Government_expenditures_military_per_gdp"
-msgstr "Spesa pubblica per le forze armate (percentuale del PIL)"
-
-msgid "CHART_TITLE-Graduate_or_professional_degree_rate_gender"
-msgstr "Tasso di conseguimento della laurea o di un diploma professionale per sesso"
-
-msgid "CHART_TITLE-Health_behaviors"
-msgstr "Comportamenti legati alla salute"
-
-msgid "CHART_TITLE-Health_outcomes"
-msgstr "Problemi di salute"
-
-msgid "CHART_TITLE-Household_income"
-msgstr "Reddito familiare"
-
-msgid "CHART_TITLE-Household_income_by_bracket"
-msgstr "Percentuale di nuclei familiari per fasce di reddito"
-
-msgid "CHART_TITLE-Housing_units"
-msgstr "Unità abitative"
-
-msgid "CHART_TITLE-Housing_units_date_built"
-msgstr "Unità abitative per data di costruzione"
-
-msgid "CHART_TITLE-Housing_units_date_built_distrubtion"
-msgstr "Distribuzione di unità abitative occupate per data di costruzione"
-
-msgid "CHART_TITLE-Housing_units_per_capita"
-msgstr "Unità abitative pro capite"
-
-msgid "CHART_TITLE-Housing_units_price"
-msgstr "Unità abitative per prezzo"
-
-msgid "CHART_TITLE-Housing_units_price_distribution"
-msgstr "Distribuzione di unità abitative occupate per prezzo"
-
-msgid "CHART_TITLE-Housing_units_race"
-msgstr "Unità abitative per gruppo etnico del nucleo familiare"
-
-msgid "CHART_TITLE-Housing_units_race_distribution"
-msgstr "Distribuzione di unità abitative per gruppo etnico del nucleo familiare"
-
-msgid "CHART_TITLE-Housing_units_rental_status"
-msgstr "Unità abitative per stato di affitto"
-
-msgid "CHART_TITLE-Housing_units_rental_status_distribution"
-msgstr "Distribuzione di unità abitative per stato di affitto"
-
-msgid "CHART_TITLE-Individual_income"
-msgstr "Reddito personale"
-
-msgid "CHART_TITLE-Individual_income_by_bracket"
-msgstr "Percentuale di persone per fasce di reddito"
-
-msgid "CHART_TITLE-Infant_mortality_rate"
-msgstr "Tasso di mortalità infantile"
-
-msgid "CHART_TITLE-Infant_mortality_rate_gender"
-msgstr "Tasso di mortalità infantile per sesso"
-
-msgid "CHART_TITLE-Inward_remittance"
-msgstr "Rimessa interna"
-
-msgid "CHART_TITLE-Inward_remittance_per_gdp"
-msgstr "Rimessa interna (% del PIL)"
-
-msgid "CHART_TITLE-Labor_force"
-msgstr "Forza lavoro"
-
-msgid "CHART_TITLE-Labor_force_rate"
-msgstr "Tasso di partecipazione alla forza lavoro"
-
-msgid "CHART_TITLE-Life_expectancy"
-msgstr "Speranza di vita (anni)"
-
-msgid "CHART_TITLE-Marital_status"
-msgstr "Stato civile"
-
-msgid "CHART_TITLE-Marital_status_distribution"
-msgstr "Distribuzione per stato civile"
-
-msgid "CHART_TITLE-Market_capitalization"
-msgstr "Capitalizzazione di mercato delle società nazionali"
-
-msgid "CHART_TITLE-Market_capitalization_per_gdp"
-msgstr "Capitalizzazione di mercato delle società nazionali (% del PIL)"
-
-msgid "CHART_TITLE-Median_age"
-msgstr "Età media"
-
-msgid "CHART_TITLE-Median_age_gender"
-msgstr "Età media per sesso"
-
-msgid "CHART_TITLE-Median_age_race"
-msgstr "Età media per gruppo etnico"
-
-msgid "CHART_TITLE-Median_household_income"
-msgstr "Reddito familiare medio"
-
-msgid "CHART_TITLE-Median_household_income_race"
-msgstr "Reddito familiare medio per gruppo etnico"
-
-msgid "CHART_TITLE-Median_income_gender"
-msgstr "Reddito medio per sesso"
-
-msgid "CHART_TITLE-Median_individual_income"
-msgstr "Reddito personale medio"
-
-msgid "CHART_TITLE-Mortality_events"
-msgstr "Eventi di mortalità"
-
-msgid "CHART_TITLE-Mortality_events_per_capita"
-msgstr "Eventi di mortalità pro capite"
-
-msgid "CHART_TITLE-Outward_remittance_per_gdp"
-msgstr "Rimessa esterna"
-
-msgid "CHART_TITLE-Percent_without_health_insurance_gender"
-msgstr "Percentuale di persone senza assicurazione sanitaria per sesso"
-
-msgid "CHART_TITLE-Percent_without_health_insurance_race"
-msgstr "Percentuale di persone senza assicurazione sanitaria per gruppo etnico"
-
-msgid "CHART_TITLE-Percentage_employed"
-msgstr "Percentuale di persone che lavorano"
-
-msgid "CHART_TITLE-Population"
-msgstr "Popolazione"
-
-msgid "CHART_TITLE-Population_age"
-msgstr "Popolazione per età"
-
-msgid "CHART_TITLE-Population_age_distribution"
-msgstr "Distribuzione per fasce d'età"
-
-msgid "CHART_TITLE-Population_density"
-msgstr "Densità di popolazione (persone per km²)"
-
-msgid "CHART_TITLE-Population_gender"
-msgstr "Popolazione per sesso"
-
-msgid "CHART_TITLE-Population_gender_distribution"
-msgstr "Distribuzione in base al sesso"
-
-msgid "CHART_TITLE-Population_growth_rate"
-msgstr "Tasso di crescita della popolazione"
-
-msgid "CHART_TITLE-Population_race"
-msgstr "Popolazione per gruppo etnico"
-
-msgid "CHART_TITLE-Population_race_distribution"
-msgstr "Distribuzione razziale"
-
-msgid "CHART_TITLE-Poverty_rate"
-msgstr "Tasso di povertà"
-
-msgid "CHART_TITLE-Poverty_rate_gender"
-msgstr "Tasso di povertà per sesso"
-
-msgid "CHART_TITLE-Poverty_rate_race"
-msgstr "Tasso di povertà per gruppo etnico"
-
-msgid "CHART_TITLE-Prescribed_drugs"
-msgstr "Farmaci prescritti (per trimestre)"
-
-msgid "CHART_TITLE-Prescribed_drugs_per_capita"
-msgstr "Farmaci prescritti pro capite (per trimestre)"
-
-msgid "CHART_TITLE-Property_crime"
-msgstr "Reati contro la proprietà"
-
-msgid "CHART_TITLE-Property_crime_rate"
-msgstr "Reati contro la proprietà per 100.000 persone"
-
-msgid "CHART_TITLE-School_enrollment"
-msgstr "Iscrizione scolastica"
-
-msgid "CHART_TITLE-School_enrollment_rate"
-msgstr "Tasso di iscrizione scolastica"
-
-msgid "CHART_TITLE-State_unemployment_claims"
-msgstr "Richieste di indennizzo per assicurazioni contro la disoccupazione statale"
-
-msgid "CHART_TITLE-State_unemployment_claims_rate"
-msgstr "Percentuale di richieste di indennizzo per assicurazioni contro la disoccupazione statale"
-
-msgid "CHART_TITLE-Total_crime"
-msgstr "Numero totale di reati"
-
-msgid "CHART_TITLE-Total_employed"
-msgstr "Numero di persone che lavorano"
-
-msgid "CHART_TITLE-Unemployment_rate"
-msgstr "Tasso di disoccupazione"
-
-msgid "CHART_TITLE-Unemployment_rate_gender"
-msgstr "Tasso di disoccupazione per sesso"
-
-msgid "CHART_TITLE-Urban_v_rural_population"
-msgstr "Popolazione urbana e rurale"
-
-msgid "CHART_TITLE-Violent_crime"
-msgstr "Crimini violenti"
-
-msgid "CHART_TITLE-Violent_crime_rate"
-msgstr "Crimini violenti per 100.000 persone"
-
+#. Link to a Place page showing data related to Demographics for a place { cityName }. Please keep the string `%(cityName)s` as is in the final translation. Please see this string in action as "Washington, DC Demographics" at https://datacommons.org
+#: server/templates/static/homepage.html:88
+#, python-format
 msgid "%(cityName)s Demographics"
 msgstr "Dati demografici di %(cityName)s"
 
+#. Link to a Place page showing data related to Health for a place { cityName }. Please keep the string `%(cityName)s` as is in the final translation. Please see this string in action as "New York City Health" at https://datacommons.org
+#: server/templates/static/homepage.html:83
+#, python-format
 msgid "%(cityName)s Health"
 msgstr "Salute a %(cityName)s"
 
+#. The label for a link to project homepage.
+#: server/templates/base.html:162
+#, python-format
 msgid "%(project)s is a Google supported project"
 msgstr "%(project)s è un progetto supportato da Google"
 
+#. The label for a link to our API documentation.
+#: server/templates/base.html:82 server/templates/base.html:134
 msgid "API's"
 msgstr "API"
 
+#: server/templates/base.html:90
 msgid "About"
 msgstr "Informazioni"
 
+#. The label for a link to the project's about page.
+#: server/templates/base.html:93 server/templates/base.html:146
 msgid "About Data Commons"
 msgstr "Informazioni su Data Commons"
 
+#. The label for a link to the project's blog.
+#: server/templates/base.html:94 server/templates/base.html:148
 msgid "Blog"
 msgstr "Blog"
 
+#. Header for a set of links to the Data Commons Graph Browser product. Each page in the graph describes an entity (or node). Please see this string in action at https://datacommons.org
+#: server/templates/static/homepage.html:119
+#, python-format
 msgid "Browse entities in the %(project)s Graph"
 msgstr "Sfoglia le entità nel grafico di %(project)s"
 
+#. Header for a section on building your own tools and analysis using our API. Please see this string in action at https://datacommons.org
+#: server/templates/static/homepage.html:142
 msgid "Build your own"
 msgstr "Crea ciò di cui hai bisogno"
 
+#. Heading for a list of cities in the US. See this message on https://datacommons.org/place
+#: server/templates/place_landing.html:56
 msgid "Cities, United States"
 msgstr "Città, Stati Uniti"
 
+#. The label for a link to instructions about contributing to the project.
+#: server/templates/base.html:84 server/templates/base.html:138
 msgid "Contribute"
 msgstr "Contribuisci"
 
+#. Heading for a list of counties in the US. See this message on https://datacommons.org/place
+#: server/templates/place_landing.html:63
 msgid "Counties, United States"
 msgstr "Contee, Stati Uniti"
 
+#. Heading for a list of countries.
+#: server/templates/place_landing.html:77
 msgid "Countries"
 msgstr "Paesi"
 
+#. Header for a list of links to the Timeline Explorer tool, where users are able to create timeline charts on many topics. Please see this string in action at https://datacommons.org
+#: server/templates/static/homepage.html:98
 msgid "Create Timeline Charts"
 msgstr "Crea grafici a cronologia"
 
+#. The label for a link to informational pages about the Data Commons project.
+#: server/templates/base.html:144
 msgid "Data Commons"
 msgstr "Data Commons"
 
+#. The label for a link to data sources included in the Data Commons knowledge graph.
+#: server/templates/base.html:95 server/templates/base.html:150
 msgid "Data Sources"
 msgstr "Fonti dei dati"
 
+#. The label for a link to site disclaimers.
+#: server/templates/base.html:171
 msgid "Disclaimers"
 msgstr "Limitazioni di responsabilità"
 
+#. The label for a list of documentation links.
+#. The label for a link to our documentation site.
+#: server/templates/base.html:79 server/templates/base.html:81 server/templates/base.html:130 server/templates/base.html:132
 msgid "Documentation"
 msgstr "Documentazione"
 
+#. Heading for a list of links to rankings of places worldwide, by their economic indicators.
+#: server/templates/place_landing.html:127
 msgid "Economic Indicators, Worldwide"
 msgstr "Indicatori economici, Tutto il mondo"
 
+#. Link to a chart comparing the differences in employment rate across the neighboring California cities (one city is much richer than the other). Please see this string in action at https://datacommons.org
+#: server/templates/static/homepage.html:110
 msgid "Employment Differences Across Neighboring Cities"
 msgstr "Differenze occupazionali tra città limitrofe"
 
-msgid "Encyclopedia of DNA Elements Biosamples"
-msgstr "Campioni biologici Enciclopedia degli elementi del DNA"
+#. Link to a node for the entity (describing the ENCODE project, https://www.encodeproject.org/) in the Data Commons Graph. Please see this string in action at https://datacommons.org
+#: server/templates/static/homepage.html:131
+msgid "Encyclopedia of DNA Elements (Biosamples)"
+msgstr ""
 
+#. A hint shown in the search box, asking users to search for places.
+#: server/templates/place.html:51 server/templates/place_landing.html:45
 msgid "Enter a country, state, county or city"
 msgstr "Inserisci un paese, uno stato, una contea o una città"
 
+#. The label for a collection of exploration tools.
+#: server/templates/base.html:69 server/templates/base.html:120
 msgid "Explore"
 msgstr "Esplora"
 
+#. Header for a list of links to the Place Explorer product. Please see this string in action at https://datacommons.org
+#: server/templates/static/homepage.html:74
 msgid "Explore Places"
 msgstr "Esplora luoghi"
 
+#. Header for a list of links to Data Commons data displays. Please see this string in action at https://datacommons.org
+#: server/templates/static/homepage.html:64
 msgid "Explore the data"
 msgstr "Esplora i dati"
 
+#: server/templates/base.html:96
 msgid "FAQ"
 msgstr "Domande frequenti"
 
+#. The label for a link to instructions about sending feedback.
+#: server/templates/base.html:97 server/templates/base.html:152
 msgid "Feedback"
 msgstr "Feedback"
 
+#. The label for a link to project FAQ page.
+#: server/templates/base.html:154
 msgid "Frequently Asked Questions"
 msgstr "Domande frequenti"
 
+#. Link to worldwide rankings for Gini Index, by country.
+#: server/templates/place_landing.html:130
 msgid "Gini Index"
 msgstr "Indice di Gini"
 
+#. The label for a link to the project's github repository (for open sourced code).
+#: server/templates/base.html:140
 msgid "Github Repository"
 msgstr "Repository GitHub"
 
+#. Link to worldwide rankings for Government Expenditures on Education, by country.
+#: server/templates/place_landing.html:138
 msgid "Government Expenditures on Education"
 msgstr "Spesa pubblica per l'istruzione"
 
+#. Link to worldwide rankings for Government Expenditures on Military, by country.
+#: server/templates/place_landing.html:142
 msgid "Government Expenditures on Military"
 msgstr "Spesa pubblica per le forze armate"
 
+#. The name of a tool to browse the Data Commons knowledge graph.
+#: server/templates/base.html:73 server/templates/base.html:124
 msgid "Graph Browser"
 msgstr "Graph Browser"
 
+#. Link to worldwide rankings for Gross National Income, by country.
+#: server/templates/place_landing.html:134
 msgid "Gross National Income"
 msgstr "Reddito nazionale lordo"
 
+#. Blog post entry. Please take care to maintain valid <a> tags in translation. See this string in action at https://datacommons.org
+#: server/templates/static/homepage.html:54
 msgid "HOME-BLOG_POST_1"
 msgstr "Ora è possibile accedere a %(project)s dalla Ricerca Google. <a href=%(blog_url)s>Scopri di più</a>"
 
+#. Describes building your own tools and analysis using our API (here Python refers to the programming language - see python.org, and REST is an acronym for REpresentational State Transfer). Python API and REST API are both names of the respective API's. Please see this string in action at https://datacommons.org
+#: server/templates/static/homepage.html:145
 msgid "HOME-BUILD_CALLOUT"
 msgstr "Utilizza le API REST e Python per condurre le tue analisi personalizzate, realizzare i tuoi strumenti personali e molto altro."
 
+#. A header of a section showing the many data sources included in the Data Commons Graph. See this string at https://datacommons.org
+#: server/templates/static/homepage.html:178
 msgid "HOME-DATA_SOURCES"
 msgstr "Inclusi i dati da"
 
+#. Describes how we clean and process data for import once, usually a painful part of data analysis. Data cleaning here refers to a common step in data science analysis (e.g. https://elitedatascience.com/data-cleaning), and process refers to the transformation required to analyze a data set. Data is imported into a unified graph (e.g. data about California from many sources are all added to the same node in our graph. Please see this string in action at https://datacommons.org
+#: server/templates/static/homepage.html:67
 msgid "HOME-EXPLORE_CALLOUT"
 msgstr "Abbiamo pulito ed elaborato i dati al tuo posto, così non dovrai farlo tu. I dati relativi a entità particolari sono stati aggregati da origini diverse per offrire una visualizzazione unificata."
 
+#. Description of the Data Commons project. "open knowledge repository": It's a knowledge repository, or knowledge graph (https://en.wikipedia.org/wiki/Knowledge_graph). It's also open: free to use, community maintained and open sourced. "combines data": Multiple datasets are combined into a single knowledge graph "mapped common entities": Data about the same entity across datasets are mapped to a single common entity. E.g. Data about "California" across the US Census and World Bank are combined under the same "California" entity (or node). Data joining (or merging), is the work that is required to analyze data across multiple datasets (e.g. https://www.displayr.com/what-is-data-merging/). In summary, Data Commons is an open sourced, community project that includes data from across many data sets into a single knowledge graph, where data about the same entity is already combined for easy exploration and analysis. Please see this string in action at https://datacommons.org
+#: server/templates/static/homepage.html:33
 msgid "HOME-HERO_MESSAGE"
 msgstr "Data Commons è un repository di conoscenza aperto che combina i dati provenienti da set pubblici utilizzando entità comuni mappate. Include strumenti utili per esplorare e analizzare facilmente i dati provenienti da diversi set senza doverli pulire o unire."
 
+#. A link soliciting contributions to the project from the community. See this string at https://datacommons.org
+#: server/templates/static/homepage.html:171
 msgid "HOME-JOIN_EFFORT"
 msgstr "Partecipa a questa iniziativa."
 
+#. Describes that the project is open sourced, and what it is built on top of (it extends a schema defined by schema.org). Please take care to maintain valid <a> tags in translation. See this string in action at https://datacommons.org
+#: server/templates/static/homepage.html:165
 msgid "HOME-OPEN_SOURCED"
 msgstr "Progetto <a href=%(github_url)s>open source</a> realizzato con <a href=%(schemaorg_url)s>%(tool)s</a>."
 
+#. Label for rankings of places by the number of combined criminal activities, per capita (sorted from highest to lowest).
+#: server/routes/api/place.py:524
 msgid "Highest Crime Per Capita"
 msgstr "Numero più alto di crimini pro capite"
 
+#. Label for rankings of places by the median age of it's population (sorted from highest to lowest).
+#: server/routes/api/place.py:515
 msgid "Highest Median Age"
 msgstr "Età media più alta"
 
+#. Label for rankings of median individual income (sorted from highest to lowest).
+#: server/routes/api/place.py:513
 msgid "Highest Median Income"
 msgstr "Reddito medio più alto"
 
+#. Label for rankings of places by the unemployment rate of it's population (sorted from highest to lowest).
+#: server/routes/api/place.py:517
 msgid "Highest Unemployment Rate"
 msgstr "Tasso di disoccupazione più alto"
 
+#. Label for rankings of places by size of population (sorted from highest to lowest).
+#: server/routes/api/place.py:511
 msgid "Largest Population"
 msgstr "Popolazione più numerosa"
 
+#. Heading for a list of links to rankings of places in the US, by their life expectancy.
+#: server/templates/place_landing.html:116
 msgid "Life Expectancy"
 msgstr "Speranza di vita"
 
+#. A message shown on the page while the content is loading.
+#: server/templates/place.html:59
 msgid "Loading..."
 msgstr "Caricamento in corso…"
 
+#. String showing that there are many more links available. Feel free to replace ellipsis with other language appropriate equivalents. Will always be preceded by a comma. Please see this string in action at https://datacommons.org
+#: server/templates/static/homepage.html:91 server/templates/static/homepage.html:112 server/templates/static/homepage.html:133
 msgid "MORE"
 msgstr "altro…"
 
+#. Heading for a list of links to rankings of places in the US, by their median income. See this message on https://datacommons.org/place
+#: server/templates/place_landing.html:89
 msgid "Median Income, United States"
 msgstr "Reddito medio, Stati Uniti"
 
+#. Link to a node for the entity (the New York City school district, https://www.schools.nyc.gov/) in the Data Commons Graph. Please see this string in action at https://datacommons.org
+#: server/templates/static/homepage.html:127
 msgid "New York City Department of Education"
 msgstr "Consiglio di amministrazione della pubblica istruzione della Città di New York"
 
+#. The header for a section on how Data Commons is an open, community effort. See this string at https://datacommons.org
+#: server/templates/static/homepage.html:159
 msgid "Open"
 msgstr "La forza della collettività"
 
+#. Describes that the data in the graph is open (the code importing the data into the graph is open sourced). See this string at https://datacommons.org
+#: server/templates/static/homepage.html:162
 msgid "Open Data."
 msgstr "Dati aperti."
 
+#. Introduction to the Place Explorer tool. Please wrap each paragraph with <p> and </p> tags. See this message on https://datacommons.org/place
+#: server/templates/place_landing.html:50
 msgid "PLACE_EXPLORER_INTRO"
 msgstr "<p>Lo strumento Place Explorer ti consente di conoscere i dati fondamentali relativi a un luogo. Raccoglie una serie di grafici relativi a dati demografici, istruzione, aspetti economici e altro ancora, collocandoli nel contesto e confrontandoli con altri luoghi. Puoi anche conoscere il posizionamento di luoghi differenti in merito a diverse metriche quali disoccupazione, criminalità e reddito.</p><p>Puoi analizzare in dettaglio i grafici per città, codice postale, contea, stato o paese che preferisci usando la casella di ricerca in alto.</p><p>In alternativa puoi iniziare a esplorare alcuni luoghi molto noti.</p>"
 
+#. The name of a tool to browse statistics about a place.
+#: server/templates/base.html:72 server/templates/base.html:122 server/templates/place.html:19 server/templates/place.html:20 server/templates/place_landing.html:19 server/templates/place_landing.html:20 server/templates/place_landing.html:38
+msgid "Place Explorer"
+msgstr ""
+
+#. The name of a tool to view rankings of places by a specified dimension.
+#: server/templates/ranking.html:19 server/templates/ranking.html:20
 msgid "Place Rankings"
 msgstr "Classifiche dei luoghi"
 
+#. Heading for a list of places
+#: server/templates/place_landing.html:53
 msgid "Places"
 msgstr "Luoghi"
 
+#. The label for a link to site privacy policy.
+#: server/templates/base.html:169
 msgid "Privacy Policy"
 msgstr "Norme sulla privacy"
 
+#. Heading for a list of place rankings.
+#: server/templates/place_landing.html:86
 msgid "Rankings"
 msgstr "Posizioni"
 
+#. Link to a chart comparing the differences in median income across the richest and poorest California counties. Please see this string in action at https://datacommons.org
+#: server/templates/static/homepage.html:106
 msgid "Richest vs. Poorest California Counties"
 msgstr "Confronto tra contee californiane più ricche e quelle più povere"
 
+#. The label for a link to our API documentation. See this string at https://datacommons.org
+#: server/templates/static/homepage.html:151
 msgid "See API documentation."
 msgstr "Consulta la documentazione dell'API."
 
+#. Blog post entry. Please take care to maintain valid <a> tags in translation. See this string in action at https://datacommons.org
+#: server/templates/static/homepage.html:153
 msgid "See some sample Python notebooks."
 msgstr "Visualizza alcuni esempi di blocchi note di Python."
 
+#. Heading for a list of states in the US. See this message on https://datacommons.org/place
+#: server/templates/place_landing.html:70
 msgid "States, United States"
 msgstr "Stati, Stati Uniti"
 
+#. The label for a link to site terms and conditions.
+#: server/templates/base.html:167
 msgid "Terms and Conditions"
 msgstr "Termini e condizioni"
 
+#. The name of a tool to explore timeline charts of statistical variables for places.
+#: server/templates/base.html:74 server/templates/base.html:126
 msgid "Timelines Explorer"
 msgstr "Timelines Explorer"
 
+#. The label for a link to our API tutorials.
+#: server/templates/base.html:83 server/templates/base.html:136
 msgid "Tutorials"
 msgstr "Tutorial"
 
+#. Link to a chart comparing median income across various university towns in the US. Please see this string in action at https://datacommons.org
+#: server/templates/static/homepage.html:102
 msgid "US University Towns by Income"
 msgstr "Città universitarie statunitensi per reddito"
 
+#. Heading for a list of links to rankings of places in the US, by their unemployment rate. See this message on https://datacommons.org/place
+#: server/templates/place_landing.html:104
 msgid "Unemployment Rate, United States"
 msgstr "Tasso di disoccupazione, Stati Uniti"
 
+#. Header for list of blog posts and project updates. Please see this string in action at https://datacommons.org
+#: server/templates/static/homepage.html:49
 msgid "What's new"
 msgstr "Novità"
 
+#. Link to worldwide rankings for life expectancy by country. See this message on https://datacommons.org/place
+#: server/templates/place_landing.html:119
 msgid "Worldwide"
 msgstr "Tutto il mondo"
 
+#. Heading for a list of rankings, pivoted by city. See this message on https://datacommons.org/place
+#: server/templates/place_landing.html:92 server/templates/place_landing.html:106
 msgid "by city"
 msgstr "per città"
 
+#. Heading for a list of rankings, pivoted by county. See this message on https://datacommons.org/place
+#: server/templates/place_landing.html:96 server/templates/place_landing.html:109
 msgid "by county"
 msgstr "per contea"
 
+#. Heading for a list of rankings, pivoted by state. See this message on https://datacommons.org/place
+#: server/templates/place_landing.html:100 server/templates/place_landing.html:112
 msgid "by state"
 msgstr "per stato"
 
+#. Link to US rankings for life expectancy by state. See this message on https://datacommons.org/place
+#: server/templates/place_landing.html:123
 msgid "in United States"
 msgstr "negli Stati Uniti"
 
+#. Title of a place chart: Total amount of alcohol consumed per person anually
+msgid "CHART_TITLE-Alcohol_consumption_per_capita"
+msgstr "Consumo di alcol pro capite (annuale)"
+
+#. Title of a place chart: Total number of arson incidents
+msgid "CHART_TITLE-Arson"
+msgstr "Incendio doloso"
+
+#. Title of a place chart: Total number of arson incidents per 100,000 people
+msgid "CHART_TITLE-Arson_rate"
+msgstr "Incendi dolosi per 100.000 persone"
+
+#. Title of a place chart: Percentage of young adults who have an associate degree, broken down by gender
+msgid "CHART_TITLE-Associate_degree_rate_gender"
+msgstr "Tasso di conseguimento di diplomi universitari per sesso"
+
+#. Title of a place chart: Percentage of young adults who have an bachelor's degree, broken down by gender
+msgid "CHART_TITLE-Bachelors_degree_rate_gender"
+msgstr "Tasso di conseguimento della laurea per sesso"
+
+#. The category for a group of statistical charts.
+msgid "CHART_TITLE-CHART_CATEGORY-Crime"
+msgstr "Criminalità"
+
+#. The category for a group of statistical charts.
+msgid "CHART_TITLE-CHART_CATEGORY-Demographics"
+msgstr "Dati demografici"
+
+#. The category for a group of statistical charts.
+msgid "CHART_TITLE-CHART_CATEGORY-Economics"
+msgstr "Aspetti economici"
+
+#. The category for a group of statistical charts.
+msgid "CHART_TITLE-CHART_CATEGORY-Education"
+msgstr "Istruzione"
+
+#. The category for a group of statistical charts.
+msgid "CHART_TITLE-CHART_CATEGORY-Environment"
+msgstr "Ambiente"
+
+#. The category for a group of statistical charts.
+msgid "CHART_TITLE-CHART_CATEGORY-Equity"
+msgstr "Patrimonio netto"
+
+#. The category for a group of statistical charts.
+msgid "CHART_TITLE-CHART_CATEGORY-Health"
+msgstr "Salute"
+
+#. The category for a group of statistical charts.
+msgid "CHART_TITLE-CHART_CATEGORY-Housing"
+msgstr "Abitazioni"
+
+#. The category for a group of statistical charts.
 msgid "CHART_TITLE-CHART_CATEGORY-Overview"
 msgstr "Panoramica"
+
+#. Title of a place chart: Number of children who are employed
+msgid "CHART_TITLE-Children_employed"
+msgstr "Bambini che lavorano"
+
+#. Title of a place chart: Number of children who are employed, broken down by gender
+msgid "CHART_TITLE-Children_employed_gender"
+msgstr "Bambini che lavorano per sesso"
+
+#. Title of a place chart: Prevalence of severe wasting (or severely low weight for height) among children under 5
+msgid "CHART_TITLE-Children_severe_wasting"
+msgstr "Grave deperimento tra bambini sotto i 5 anni"
+
+#. Title of a place chart: Prevalence of severe wasting (or severely low weight for height) among children under 5, broken down by gender
+msgid "CHART_TITLE-Children_severe_wasting_by_gender"
+msgstr "Grave deperimento tra bambini sotto i 5 anni per sesso"
+
+#. Title of a place chart: Prevalence of wasting (or low weight for height) among children under 5
+msgid "CHART_TITLE-Children_wasting"
+msgstr "Deperimento tra bambini sotto i 5 anni"
+
+#. Title of a place chart: Prevalence of wasting (or low weight for height) among children under 5, broken down by gender
+msgid "CHART_TITLE-Children_wasting_by_gender"
+msgstr "Deperimento tra bambini sotto i 5 anni per sesso"
+
+#. Title of a place chart: Total number of individuals, broken down by citizenship status
+msgid "CHART_TITLE-Citizenship"
+msgstr "Cittadinanza"
+
+#. Title of a place chart: Percentage of population, broken down by citizenship status
+msgid "CHART_TITLE-Citizenship_distribution"
+msgstr "Distribuzione della popolazione per cittadinanza"
+
+#. Title of a place chart: Total amount of carbon dioxied emissions per person
+msgid "CHART_TITLE-Co2_emissions_per_capita"
+msgstr "Emissioni di CO2 pro capite"
+
+#. Title of a place chart: Cumulative count of COVID-19 cases
+msgid "CHART_TITLE-Covid_cases"
+msgstr "Casi cumulativi di COVID-19"
+
+#. Title of a place chart: Cumulative count of COVID-19 cases as a percentage of the population
+msgid "CHART_TITLE-Covid_cases_per_capita"
+msgstr "Casi cumulativi di COVID-19 pro capite"
+
+#. Title of a place chart: Cumulative count of deaths caused by COVID-19
+msgid "CHART_TITLE-Covid_deaths"
+msgstr "Decessi cumulativi per COVID-19"
+
+#. Title of a place chart: Cumulative count of deaths caused by COVID-19 as a percentage of the population
+msgid "CHART_TITLE-Covid_deaths_per_capita"
+msgstr "Decessi cumulativi per COVID-19 pro capite"
+
+#. Title of a place chart: Total number of criminal incidents per 100,000 people
+msgid "CHART_TITLE-Crime_rate"
+msgstr "Reati per 100.000 persone"
+
+#. Title of a place chart: Total number of cyclones that occured
+msgid "CHART_TITLE-Cyclones"
+msgstr "Cicloni"
+
+#. Title of a place chart: Total number of disasters that occured, broken down by disaster type
+msgid "CHART_TITLE-Disasters"
+msgstr "Catastrofi"
+
+#. Title of a place chart: Total number of earthquakes that occured
+msgid "CHART_TITLE-Earthquakes"
+msgstr "Terremoti"
+
+#. Title of a place chart: Number of people who have attained various educational milestones, e.g. completed high school or have a bachelor's degree
+msgid "CHART_TITLE-Educational_attainment"
+msgstr "Completamento dell'istruzione"
+
+#. Title of a place chart: Percentage of the adult population who have attained various educational milestones, e.g. completed high school or have a bachelor's degree
+msgid "CHART_TITLE-Educational_attainment_rate"
+msgstr "Tasso di completamento dell'istruzione"
+
+#. Title of a place chart: Total amount of electricity consumed per person
+msgid "CHART_TITLE-Electricity_consumption_per_capita"
+msgstr "Consumo di elettricità pro capite"
+
+#. Title of a place chart: Total amount of energy consumed per person, measured by kilogram of oil equivalent
+msgid "CHART_TITLE-Energy_use"
+msgstr "Consumo energetico (kg di petrolio equivalente pro capite)"
+
+#. Title of a place chart: Average number of children that would be born to a woman over her lifetime
+msgid "CHART_TITLE-Fertility_rate"
+msgstr "Tasso di fertilità"
+
+#. Title of a place chart: Annual percentage growth rate of GDP at market prices based on constant local currency
+msgid "CHART_TITLE-Gdp_growth_rate"
+msgstr "Tasso di crescita del prodotto interno lordo"
+
+#. Title of a place chart: Gross domestic product (nominal) per capita, see https://en.wikipedia.org/wiki/Gross_domestic_product
+msgid "CHART_TITLE-Gdp_per_capita"
+msgstr "Prodotto interno lordo pro capite"
+
+#. Title of a place chart: The Gini index is a measure of inequality, see https://stats.oecd.org/glossary/detail.asp?ID=4842
+msgid "CHART_TITLE-Gini_index"
+msgstr "Indice di Gini"
+
+#. Title of a place chart: Gross national income, converted using purchasing power parity rates
+msgid "CHART_TITLE-Gni"
+msgstr "Reddito nazionale lordo (Parità dei poteri di acquisto)"
+
+#. Title of a place chart: Gross national income, divided by population, converted using purchasing power parity rates
+msgid "CHART_TITLE-Gni_per_capita"
+msgstr "Reddito nazionale lordo pro capite (Parità dei poteri di acquisto)"
+
+#. Title of a place chart: Amount of government debt
+msgid "CHART_TITLE-Government_debt"
+msgstr "Debito pubblico"
+
+#. Title of a place chart: Government debt divided by the population
+msgid "CHART_TITLE-Government_debt_per_capita"
+msgstr "Debito pubblico pro capite"
+
+#. Title of a place chart: Government expenditures on education as a percentage of government expenditure
+msgid "CHART_TITLE-Government_expenditures_education"
+msgstr "Spesa pubblica per l'istruzione (percentuale della spesa pubblica)"
+
+#. Title of a place chart: Government expenditures on education as a percentage of GDP
+msgid "CHART_TITLE-Government_expenditures_education_gdp"
+msgstr "Spesa pubblica per l'istruzione (% del PIL)"
+
+#. Title of a place chart: Amount spent by a government on the military
+msgid "CHART_TITLE-Government_expenditures_military"
+msgstr "Spesa pubblica per le forze armate"
+
+#. Title of a place chart: Amount spent by a government on the military as a percentage of GDP
+msgid "CHART_TITLE-Government_expenditures_military_per_gdp"
+msgstr "Spesa pubblica per le forze armate (percentuale del PIL)"
+
+#. Title of a place chart: Percentage of young adults who have a graduate or professional degree, broken down by gender
+msgid "CHART_TITLE-Graduate_or_professional_degree_rate_gender"
+msgstr "Tasso di conseguimento della laurea o di un diploma professionale per sesso"
+
+#. Title of a place chart: Percentage of people who report certain negative health behaviors, e.g. obesity, smoking or binge drinking
+msgid "CHART_TITLE-Health_behaviors"
+msgstr "Comportamenti legati alla salute"
+
+#. Title of a place chart: Percentage of people who are aflicted by certain negative health outcomes, e.g. high cholesterol or arthritis
+msgid "CHART_TITLE-Health_outcomes"
+msgstr "Problemi di salute"
+
+#. Title of a place chart: Count of households whose combined incomes fall in certain buckets
+msgid "CHART_TITLE-Household_income"
+msgstr "Reddito familiare"
+
+#. Title of a place chart: Percentage of households whose combined incomes fall in certain buckets
+msgid "CHART_TITLE-Household_income_by_bracket"
+msgstr "Percentuale di nuclei familiari per fasce di reddito"
+
+#. Title of a place chart: Total number of housing units available
+msgid "CHART_TITLE-Housing_units"
+msgstr "Unità abitative"
+
+#. Title of a place chart: Number of available housing units by date built
+msgid "CHART_TITLE-Housing_units_date_built"
+msgstr "Unità abitative per data di costruzione"
+
+#. Title of a place chart: Percentage of available housing units by date built
+msgid "CHART_TITLE-Housing_units_date_built_distrubtion"
+msgstr "Distribuzione di unità abitative occupate per data di costruzione"
+
+#. Title of a place chart: Total number of housing units available per person
+msgid "CHART_TITLE-Housing_units_per_capita"
+msgstr "Unità abitative pro capite"
+
+#. Title of a place chart: Number of occupied housing units by price
+msgid "CHART_TITLE-Housing_units_price"
+msgstr "Unità abitative per prezzo"
+
+#. Title of a place chart: Percentage of housing units by price
+msgid "CHART_TITLE-Housing_units_price_distribution"
+msgstr "Distribuzione di unità abitative occupate per prezzo"
+
+#. Title of a place chart: Total number of housing units occupied by members of various races
+msgid "CHART_TITLE-Housing_units_race"
+msgstr "Unità abitative per gruppo etnico del nucleo familiare"
+
+#. Title of a place chart: Percentage of housing units occupied by members of various races
+msgid "CHART_TITLE-Housing_units_race_distribution"
+msgstr "Distribuzione di unità abitative per gruppo etnico del nucleo familiare"
+
+#. Title of a place chart: Number of housing units occupied by owner vs renter
+msgid "CHART_TITLE-Housing_units_rental_status"
+msgstr "Unità abitative per stato di affitto"
+
+#. Title of a place chart: Percentage of housing units occupied by owner vs renter
+msgid "CHART_TITLE-Housing_units_rental_status_distribution"
+msgstr "Distribuzione di unità abitative per stato di affitto"
+
+#. Title of a place chart: Count of people whose individual incomes are in certain buckets
+msgid "CHART_TITLE-Individual_income"
+msgstr "Reddito personale"
+
+#. Title of a place chart: Percentage of the population whose individual incomes are in certain buckets
+msgid "CHART_TITLE-Individual_income_by_bracket"
+msgstr "Percentuale di persone per fasce di reddito"
+
+#. Title of a place chart: Count of deaths in infants caused by various diseases
+msgid "CHART_TITLE-Infant_mortality_rate"
+msgstr "Tasso di mortalità infantile"
+
+#. Title of a place chart: Count of deaths in infants caused by various diseases, broken down by gender
+msgid "CHART_TITLE-Infant_mortality_rate_gender"
+msgstr "Tasso di mortalità infantile per sesso"
+
+#. Title of a place chart: Total amount of inward remittance into a place
+msgid "CHART_TITLE-Inward_remittance"
+msgstr "Rimessa interna"
+
+#. Title of a place chart: Total amount of inward remittance into a place (as a percentage of GDP)
+msgid "CHART_TITLE-Inward_remittance_per_gdp"
+msgstr "Rimessa interna (% del PIL)"
+
+#. Title of a place chart: Count of people in the labor force, see https://data.oecd.org/emp/labour-force.htm
+msgid "CHART_TITLE-Labor_force"
+msgstr "Forza lavoro"
+
+#. Title of a place chart: Percentage of the population, of working age, in the labor force, see https://data.oecd.org/emp/labour-force.htm
+msgid "CHART_TITLE-Labor_force_rate"
+msgstr "Tasso di partecipazione alla forza lavoro"
+
+#. Title of a place chart: Life expectancy of an individual, measured in years
+msgid "CHART_TITLE-Life_expectancy"
+msgstr "Speranza di vita (anni)"
+
+#. Title of a place chart: Total number of individuals, broken down by marital status
+msgid "CHART_TITLE-Marital_status"
+msgstr "Stato civile"
+
+#. Title of a place chart: Percentage of population, broken down by marital status
+msgid "CHART_TITLE-Marital_status_distribution"
+msgstr "Distribuzione per stato civile"
+
+#. Title of a place chart:
+msgid "CHART_TITLE-Market_capitalization"
+msgstr "Capitalizzazione di mercato delle società nazionali"
+
+#. Title of a place chart: Market capitalization of domestic companies (as a percentage of GDP)
+msgid "CHART_TITLE-Market_capitalization_per_gdp"
+msgstr "Capitalizzazione di mercato delle società nazionali (% del PIL)"
+
+#. Title of a place chart: The median age of the population
+msgid "CHART_TITLE-Median_age"
+msgstr "Età media"
+
+#. Title of a place chart: The median age of the population, broken down by gender
+msgid "CHART_TITLE-Median_age_gender"
+msgstr "Età media per sesso"
+
+#. Title of a place chart: The median age of the population, broken down by race
+msgid "CHART_TITLE-Median_age_race"
+msgstr "Età media per gruppo etnico"
+
+#. Title of a place chart: Median incomes of households
+msgid "CHART_TITLE-Median_household_income"
+msgstr "Reddito familiare medio"
+
+#. Title of a place chart: Median incomes of households, broken down by race
+msgid "CHART_TITLE-Median_household_income_race"
+msgstr "Reddito familiare medio per gruppo etnico"
+
+#. Title of a place chart: Median incomes of individuals, broken down by gender
+msgid "CHART_TITLE-Median_income_gender"
+msgstr "Reddito medio per sesso"
+
+#. Title of a place chart:
+msgid "CHART_TITLE-Median_individual_income"
+msgstr "Reddito personale medio"
+
+#. Title of a place chart: Count of deaths caused by various diseases or external circumstances
+msgid "CHART_TITLE-Mortality_events"
+msgstr "Eventi di mortalità"
+
+#. Title of a place chart: Count of deaths caused by various diseases or external circumstances, divided by the population count
+msgid "CHART_TITLE-Mortality_events_per_capita"
+msgstr "Eventi di mortalità pro capite"
+
+#. Title of a place chart: Total amount of outward remittance from a place
+msgid "CHART_TITLE-Outward_remittance_per_gdp"
+msgstr "Rimessa esterna"
+
+#. Title of a place chart: Percentage of the population, of working age, who have no health insurance, broken down by gender
+msgid "CHART_TITLE-Percent_without_health_insurance_gender"
+msgstr "Percentuale di persone senza assicurazione sanitaria per sesso"
+
+#. Title of a place chart: Percentage of the population, of working age, who have no health insurance, broken down by race
+msgid "CHART_TITLE-Percent_without_health_insurance_race"
+msgstr "Percentuale di persone senza assicurazione sanitaria per gruppo etnico"
+
+#. Title of a place chart: Percentage of people employed
+msgid "CHART_TITLE-Percentage_employed"
+msgstr "Percentuale di persone che lavorano"
+
+#. Title of a place chart: Total number of individuals
+msgid "CHART_TITLE-Population"
+msgstr "Popolazione"
+
+#. Title of a place chart: Number of individuals who fall within various age buckets
+msgid "CHART_TITLE-Population_age"
+msgstr "Popolazione per età"
+
+#. Title of a place chart: Percentage of the population who fall within various age buckets
+msgid "CHART_TITLE-Population_age_distribution"
+msgstr "Distribuzione per fasce d'età"
+
+#. Title of a place chart: Measurement of people per km²
+msgid "CHART_TITLE-Population_density"
+msgstr "Densità di popolazione (persone per km²)"
+
+#. Title of a place chart: Total number of individuals, broken down by gender
+msgid "CHART_TITLE-Population_gender"
+msgstr "Popolazione per sesso"
+
+#. Title of a place chart: Percentage of the population by gender
+msgid "CHART_TITLE-Population_gender_distribution"
+msgstr "Distribuzione in base al sesso"
+
+#. Title of a place chart: Increase in the number of individuals
+msgid "CHART_TITLE-Population_growth_rate"
+msgstr "Tasso di crescita della popolazione"
+
+#. Title of a place chart: Total number of individuals, broken down by race
+msgid "CHART_TITLE-Population_race"
+msgstr "Popolazione per gruppo etnico"
+
+#. Title of a place chart: Percentage of the population by race
+msgid "CHART_TITLE-Population_race_distribution"
+msgstr "Distribuzione razziale"
+
+#. Title of a place chart: Percentage of the population below poverty
+msgid "CHART_TITLE-Poverty_rate"
+msgstr "Tasso di povertà"
+
+#. Title of a place chart: Percentage of the population below the poverty level, broken down by gender
+msgid "CHART_TITLE-Poverty_rate_gender"
+msgstr "Tasso di povertà per sesso"
+
+#. Title of a place chart: Percentage of the population below the poverty level, broken down by race
+msgid "CHART_TITLE-Poverty_rate_race"
+msgstr "Tasso di povertà per gruppo etnico"
+
+#. Title of a place chart: Total amount of prescribed retail drugs distributed in a quarter of a year
+msgid "CHART_TITLE-Prescribed_drugs"
+msgstr "Farmaci prescritti (per trimestre)"
+
+#. Title of a place chart: Total amount of prescribed retail drugs distributed in a quarter of a year (divided by the population)
+msgid "CHART_TITLE-Prescribed_drugs_per_capita"
+msgstr "Farmaci prescritti pro capite (per trimestre)"
+
+#. Title of a place chart: Total number of property crime incidents
+msgid "CHART_TITLE-Property_crime"
+msgstr "Reati contro la proprietà"
+
+#. Title of a place chart: Total number of property crime incidents per 100,000 people
+msgid "CHART_TITLE-Property_crime_rate"
+msgstr "Reati contro la proprietà per 100.000 persone"
+
+#. Title of a place chart: Number of people who are enrolled in school, vs not enrolled in school
+msgid "CHART_TITLE-School_enrollment"
+msgstr "Iscrizione scolastica"
+
+#. Title of a place chart: Percentage of people who are enrolled in school, vs not enrolled in school
+msgid "CHART_TITLE-School_enrollment_rate"
+msgstr "Tasso di iscrizione scolastica"
+
+#. Title of a place chart: Number of unemployment insurance claims filed with a US state
+msgid "CHART_TITLE-State_unemployment_claims"
+msgstr "Richieste di indennizzo per assicurazioni contro la disoccupazione statale"
+
+#. Title of a place chart: Percentage of the labor force who filed unemployment insurance claims with a US state
+msgid "CHART_TITLE-State_unemployment_claims_rate"
+msgstr "Percentuale di richieste di indennizzo per assicurazioni contro la disoccupazione statale"
+
+#. Title of a place chart: Total number of criminal incidents
+msgid "CHART_TITLE-Total_crime"
+msgstr "Numero totale di reati"
+
+#. Title of a place chart: Number of people employed
+msgid "CHART_TITLE-Total_employed"
+msgstr "Numero di persone che lavorano"
+
+#. Title of a place chart: Percentage of the population, of working age, who are unemployed.
+msgid "CHART_TITLE-Unemployment_rate"
+msgstr "Tasso di disoccupazione"
+
+#. Title of a place chart: Percentage of the population, of working age, who are unemployed, broken down by gender
+msgid "CHART_TITLE-Unemployment_rate_gender"
+msgstr "Tasso di disoccupazione per sesso"
+
+#. Title of a place chart: Total number of individuals in rural vs urban parts of a place
+msgid "CHART_TITLE-Urban_v_rural_population"
+msgstr "Popolazione urbana e rurale"
+
+#. Title of a place chart: Total number of violent crime incidents
+msgid "CHART_TITLE-Violent_crime"
+msgstr "Crimini violenti"
+
+#. Title of a place chart: Total number of violent crime incidents per 100,000 people
+msgid "CHART_TITLE-Violent_crime_rate"
+msgstr "Crimini violenti per 100.000 persone"
+
+#~ msgid "Encyclopedia of DNA Elements Biosamples"
+#~ msgstr "Campioni biologici Enciclopedia degli elementi del DNA"
 
