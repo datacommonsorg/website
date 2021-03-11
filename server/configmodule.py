@@ -10,9 +10,14 @@ class Config:
     WEBDRIVER = False
     DEVELOPMENT = False
     LITE = False
+    # Use StatVarObs instead of PopObs data model.
+    # TODO(shifucun): change this to True after setting svobs_mode=true in mixer
+    # by default.
+    SVOBS = False
     CACHE_TYPE = 'simple'  # Flask-Caching related configs
-    GAE_VERSION = (os.environ.get('GAE_VERSION') or
-                   datetime.datetime.today().strftime("%m-%d-%H-%M"))
+    VERSION = '{}-{}'.format(os.environ.get('WEBSITE_HASH'),
+                             os.environ.get('MIXER_HASH'))
+
     API_ROOT = 'http://127.0.0.1:8081'  # Port for Kubernetes ESP.
     GCS_BUCKET = os.environ.get('GCS_BUCKET')
     SECRET_PROJECT = os.environ.get('SECRET_PROJECT')
@@ -32,6 +37,10 @@ class StagingConfig(Config):
 
 class AutopushConfig(Config):
     pass
+
+
+class SvObsConfig(Config):
+    SVOBS = True
 
 
 class MinikubeConfig(Config):

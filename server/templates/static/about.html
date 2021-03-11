@@ -19,8 +19,7 @@
 {% set title = 'About Us' %}
 
 {% block head %}
-<link rel="stylesheet"
-  href={{url_for('static', filename='css/static.min.css', t=config['GAE_VERSION'])}}>
+<link rel="stylesheet" href={{url_for('static', filename='css/static.min.css', t=config['VERSION'])}}>
 {% endblock %}
 
 {% block content %}
@@ -109,4 +108,4 @@
       <li><a href="{{ url_for('static.faq') }}">Frequently Asked Questions</a>
     </ul>
   </section>
-  {% endblock %}
+{% endblock %}

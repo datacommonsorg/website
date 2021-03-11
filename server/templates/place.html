@@ -22,7 +22,7 @@
 {% set hide_search = True %}
 
 {% block head %}
-<link rel="stylesheet" href={{url_for('static', filename='css/place.min.css', t=config['GAE_VERSION'])}}>
+<link rel="stylesheet" href={{url_for('static', filename='css/place.min.css', t=config['VERSION'])}}>
 {% endblock %}
 
 {% block content %}
@@ -78,7 +78,7 @@
 {% endblock %}
 
 {% block footer %}
-<script src={{url_for('static', filename='place.js', t=config['GAE_VERSION'])}}></script>
+<script src={{url_for('static', filename='place.js', t=config['VERSION'])}}></script>
 <script src="https://maps.googleapis.com/maps/api/js?key={{maps_api_key}}&libraries=places&language={{locale}}" async
   defer></script>
 {% endblock %}
