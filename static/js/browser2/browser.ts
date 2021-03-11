@@ -19,22 +19,52 @@ import ReactDOM from "react-dom";
 import _ from "lodash";
 
 import { BrowserPage, nodeTypeEnum } from "./browser_page";
+import axios from "axios";
+import { removeLoadingMessage } from "./shared";
 
 window.onload = () => {
   const dcid = document.getElementById("node").dataset.dcid;
   const nodeName = document.getElementById("node").dataset.nn;
   const urlParams = new URLSearchParams(window.location.search);
   const statVarId = urlParams.get("statVar") || "";
-  const nodeType = _.isEmpty(statVarId)
-    ? nodeTypeEnum.GENERAL
-    : nodeTypeEnum.PLACE_STAT_VAR;
-  ReactDOM.render(
-    React.createElement(BrowserPage, {
-      dcid,
-      nodeType,
-      nodeName,
-      statVarId,
-    }),
-    document.getElementById("node")
-  );
+  axios
+    .get(`/api/browser/propvals/typeOf/${dcid}`)
+    .then((resp) => {
+      const values = resp.data.values;
+      const types = values.out ? values.out : [];
+      const listOfTypes = types.map((type) => type.dcid);
+      ReactDOM.render(
+        React.createElement(BrowserPage, {
+          dcid,
+          nodeType: getNodeType(listOfTypes, statVarId),
+          nodeName,
+          statVarId,
+        }),
+        document.getElementById("node")
+      );
+    })
+    .catch(() => removeLoadingMessage());
 };
+
+function getNodeType(listOfTypes, statVarId): string {
+  if (!_.isEmpty(statVarId)) {
+    return nodeTypeEnum.PLACE_STAT_VAR;
+  }
+  let type = "";
+  if (listOfTypes.length > 0) {
+    type = listOfTypes[0];
+  }
+  for (const targetType of ["State", "County", "City"]) {
+    if (targetType in listOfTypes) {
+      type = targetType;
+      break;
+    }
+  }
+  if (
+    type === nodeTypeEnum.CITY ||
+    type === nodeTypeEnum.CENSUS_ZIPCODE_TABULATION_AREA
+  ) {
+    return type;
+  }
+  return nodeTypeEnum.GENERAL;
+}

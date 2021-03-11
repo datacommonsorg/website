@@ -59,13 +59,28 @@ export class ObservationChartSection extends React.Component<
       <>
         {this.state.data.map((sourceSeries, index) => {
           return (
-            <ObservationChart
-              sourceSeries={sourceSeries}
-              idx={index}
-              statVarId={this.props.statVarId}
-              placeDcid={this.props.placeDcid}
-              key={this.props.statVarId + index}
-            />
+            <div className="card" key={this.props.statVarId + index}>
+              <div className="chart-title">
+                <div>
+                  {sourceSeries.measurementMethod
+                    ? "measurementMethod: " + sourceSeries.measurementMethod
+                    : null}
+                </div>
+                <div>
+                  {sourceSeries.observationPeriod
+                    ? "observationPeriod: " + sourceSeries.observationPeriod
+                    : null}
+                </div>
+                <div>{"provenance: " + sourceSeries.provenanceDomain}</div>
+              </div>
+              <ObservationChart
+                sourceSeries={sourceSeries}
+                idx={index}
+                statVarId={this.props.statVarId}
+                placeDcid={this.props.placeDcid}
+                canClickDots={true}
+              />
+            </div>
           );
         })}
       </>

@@ -21,10 +21,13 @@
 import React from "react";
 import { ArcSection } from "./arc_section";
 import { ObservationChartSection } from "./observation_chart_section";
+import { WeatherChartSection } from "./weather_chart_section";
 
 export const nodeTypeEnum = {
-  PLACE_STAT_VAR: "PLACE_STAT_VAR",
-  GENERAL: "GENERAL",
+  CENSUS_ZIPCODE_TABULATION_AREA: "CensusZipCodeTabulationArea",
+  CITY: "City",
+  GENERAL: "general",
+  PLACE_STAT_VAR: "placeStatVar",
 };
 
 interface BrowserPagePropType {
@@ -53,6 +56,10 @@ export class BrowserPage extends React.Component<BrowserPagePropType> {
           ) : (
             <ArcSection dcid={this.props.dcid} nodeName={this.props.nodeName} />
           )}
+          {this.props.nodeType === nodeTypeEnum.CITY ||
+          this.props.nodeType == nodeTypeEnum.CENSUS_ZIPCODE_TABULATION_AREA ? (
+            <WeatherChartSection dcid={this.props.dcid} />
+          ) : null}
         </div>
       </>
     );
