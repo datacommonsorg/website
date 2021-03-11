@@ -65,6 +65,16 @@ class DevelopmentLiteConfig(Config):
     SCHEME = 'http'
 
 
+class DevelopmentSvObsConfig(Config):
+    SVOBS = True
+    DEVELOPMENT = True
+    SECRET_PROJECT = 'datcom-website-statvar-migrate'
+    API_PROJECT = 'datcom-mixer-statvar'
+    API_ROOT = 'https://mixer.endpoints.datcom-mixer-statvar.cloud.goog'
+    GCS_BUCKET = 'datcom-website-statvar-migrate-resources'
+    SCHEME = 'http'
+
+
 class WebdriverConfig(Config):
     WEBDRIVER = True
     SECRET_PROJECT = 'datcom-website-dev'
