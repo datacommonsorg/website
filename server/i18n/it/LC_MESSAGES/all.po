@@ -499,9 +499,6 @@ msgstr "La forza della collettività"
 msgid "Open Data."
 msgstr "Dati aperti."
 
-msgid "Place Explorer"
-msgstr "PLACE_EXPLORER_INTRO"
-
 msgid "PLACE_EXPLORER_INTRO"
 msgstr "<p>Lo strumento Place Explorer ti consente di conoscere i dati fondamentali relativi a un luogo. Raccoglie una serie di grafici relativi a dati demografici, istruzione, aspetti economici e altro ancora, collocandoli nel contesto e confrontandoli con altri luoghi. Puoi anche conoscere il posizionamento di luoghi differenti in merito a diverse metriche quali disoccupazione, criminalità e reddito.</p><p>Puoi analizzare in dettaglio i grafici per città, codice postale, contea, stato o paese che preferisci usando la casella di ricerca in alto.</p><p>In alternativa puoi iniziare a esplorare alcuni luoghi molto noti.</p>"
 

@@ -499,9 +499,6 @@ msgstr "Abierto"
 msgid "Open Data."
 msgstr "Datos importados con código abierto."
 
-msgid "Place Explorer"
-msgstr "PLACE_EXPLORER_INTRO"
-
 msgid "PLACE_EXPLORER_INTRO"
 msgstr "<p>La herramienta Explorador de lugares permite conocer los datos principales de un lugar. Reúne un conjunto de gráficos sobre demografía, educación, economía y otros aspectos del sitio y los compara con los de otros lugares. También permite ver las clasificaciones de los distintos lugares en relación con diferentes métricas, como el desempleo, la criminalidad o los ingresos.</p><p>Puedes acceder a los gráficos de la ciudad, el código postal, el condado, el estado o el país que quieras a través del cuadro de búsqueda que aparece arriba.</p><p>Si quieres, también puedes consultar los datos de lugares conocidos:</p>"
 
