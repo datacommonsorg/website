@@ -53,7 +53,7 @@
           {% for entity in result.entities %}
             <div class="search-result-entity">
               <div class="name">
-                <a href="{{ url_for('browser.kg_entity', dcid=entity.dcid) }}">
+                <a href="{{ url_for('browser.browser_node', dcid=entity.dcid) }}">
                   {{entity.name}}
                 </a>
               </div>

@@ -27,9 +27,9 @@ bp = Blueprint(
 def kg():
     dcid = request.args.get('dcid', '')
     if dcid:
-        url = url_for('browser.kg_entity', dcid=dcid)
+        url = url_for('browser.browser_node', dcid=dcid)
     else:
-        url = url_for('browser.kg_main')
+        url = url_for('browser.browser_main')
     return redirect('https://datacommons.org' + url, code=302)
 
 
