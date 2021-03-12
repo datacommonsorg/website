@@ -16,6 +16,7 @@
 
 /**
  * Helpers for formatJS i18n library. More info at formatjs.io
+ * NOTE: Messages in this file will not be extracted for translation.
  */
 
 import React from "react";

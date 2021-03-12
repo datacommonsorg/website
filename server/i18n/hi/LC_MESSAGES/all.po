@@ -251,7 +251,7 @@ msgid "CHART_TITLE-Outward_remittance_per_gdp"
 msgstr "लोगों के बैंक खातों से निकाली गई कुल रकम"
 
 msgid "CHART_TITLE-Percent_without_health_insurance_gender"
-msgstr "लिंग के हिसाब से ऐसे लोगों का प्रतिशत जिनके पास स्वास्थ्य बीमा नहीं है"
+msgstr "नस्ल के हिसाब से ऐसे लोगों का प्रतिशत जिनके पास स्वास्थ्य बीमा नहीं है"
 
 msgid "CHART_TITLE-Percent_without_health_insurance_race"
 msgstr "नस्ल के हिसाब से ऐसे लोगों का प्रतिशत जिनके पास स्वास्थ्य बीमा नहीं है"

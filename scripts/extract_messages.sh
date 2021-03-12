@@ -19,7 +19,10 @@ set -e
 
 cd static
 npm list @formatjs/cli || npm install formatjs
-npm run extract -- 'js/**/*.ts*' --out-file js/i18n/strings/en/place.json --id-interpolation-pattern '[sha512:contenthash:base64:6]'
+npm run extract -- 'js/**/*.ts*' \
+  --out-file js/i18n/strings/en/place.json \
+  --id-interpolation-pattern '[sha512:contenthash:base64:6]'\
+  --ignore '**/i18n/i18n.tsx'
 
 cd ..
 
@@ -35,6 +38,7 @@ pip3 install -r server/requirements.txt -q
   --strip-comments \
   server/
 
+# All server message Id's must start with an all-caps, underscore-separated prefix e.g. CHART_TITLE-.
 python3 tools/i18n/chart_config_extractor.py
 
 # for LOCALE in de en es fr hi it ja ko ru pt-BR zh-CN;
@@ -50,3 +54,10 @@ do
     --no-fuzzy-matching \
     --omit-header
 done
+
+echo "!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!"
+echo "Please pay special attention to these files as they serve as the base "
+echo "for translations: "
+echo "> server/i18n/en/LC_MESSAGES/all.po"
+echo "> static/js/i18n/en/*.json"
+echo "!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!"
