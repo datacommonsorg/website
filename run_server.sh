@@ -22,6 +22,9 @@ export GOOGLE_CLOUD_PROJECT=datcom-website-staging
 if [[ $1 == "lite" ]]
 then
   export FLASK_ENV=development-lite
+elif [[ $1 == "svobs" ]]
+then
+  export FLASK_ENV=development-svobs
 else
   export FLASK_ENV=development
 fi
