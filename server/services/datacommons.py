@@ -28,7 +28,6 @@ import lib.config as libconfig
 cfg = libconfig.get_config()
 
 API_ROOT = cfg.API_ROOT
-API_PROJECT = cfg.API_PROJECT
 
 # --------------------------------- CONSTANTS ---------------------------------
 

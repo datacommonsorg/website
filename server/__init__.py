@@ -59,7 +59,6 @@ def create_app():
 
     # Setup flask config
     cfg = libconfig.get_config()
-    cfg.MAPS_API_KEY = os.environ.get('MAPS_API_KEY')
     app.config.from_object(cfg)
 
     # Init extentions
