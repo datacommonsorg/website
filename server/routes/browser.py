@@ -28,8 +28,6 @@ def kg_main():
 
 @bp.route('/<path:dcid>')
 def kg_entity(dcid):
-    environ = os.environ.get('FLASK_ENV')
-    print(environ)
     if os.environ.get('FLASK_ENV') == 'svobs' or os.environ.get(
             'FLASK_ENV') == 'development-svobs':
         node_name = shared_api.cached_name(dcid).get(dcid)
