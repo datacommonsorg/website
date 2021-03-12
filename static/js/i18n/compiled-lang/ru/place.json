@@ -96,7 +96,7 @@
   "chart_metadata-explore_more": [
     {
       "type": 0,
-      "value": "Подробнее… ›"
+      "value": "Подробнее… "
     }
   ],
   "chart_metadata-export": [
@@ -172,13 +172,13 @@
   "link-return_to_overview": [
     {
       "type": 0,
-      "value": "Вернуться к обзору"
+      "value": "Вернуться к обзору "
     }
   ],
   "more_charts": [
     {
       "type": 0,
-      "value": "Другие диаграммы"
+      "value": "Другие диаграммы "
     }
   ],
   "place_breadcrumb": [

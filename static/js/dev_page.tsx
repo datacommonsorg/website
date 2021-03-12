@@ -74,6 +74,7 @@ class DevChart extends React.Component<DevChartPropType> {
         elem.current.offsetWidth,
         this.props.height,
         this.props.dataGroups,
+        false,
         this.props.unit
       );
     } else if (this.props.type == chartTypeEnum.SINGLE_BAR) {

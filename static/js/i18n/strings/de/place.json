@@ -21,7 +21,7 @@
     "defaultMessage": "(gestrichelte Linie zeigt fehlende Daten an)"
   },
   "chart_metadata-explore_more": {
-    "defaultMessage": "Weitere entdecken ›"
+    "defaultMessage": "Weitere  entdecken"
   },
   "chart_metadata-export": {
     "defaultMessage": "Exportieren"
@@ -51,10 +51,10 @@
     "defaultMessage": "Übersicht"
   },
   "link-return_to_overview": {
-    "defaultMessage": "Zurück zur Übersicht"
+    "defaultMessage": "Zurück zur Übersicht "
   },
   "more_charts": {
-    "defaultMessage": "Weitere Diagramme"
+    "defaultMessage": "Weitere Diagramme "
   },
   "place_breadcrumb": {
     "defaultMessage": "{placeType} in {placeName}"
