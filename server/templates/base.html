@@ -70,7 +70,7 @@
                 </a>
                 <div class="dropdown-menu" aria-labelledby="nav-explore-dropdown">
                   <a class="dropdown-item" href="{{ url_for('place.place') }}">{% trans %}Place Explorer{% endtrans %}</a>
-                  <a class="dropdown-item" href="{{ url_for('browser.kg_main') }}">{% trans %}Graph Browser{% endtrans %}</a>
+                  <a class="dropdown-item" href="{{ url_for('browser.browser_main') }}">{% trans %}Graph Browser{% endtrans %}</a>
                   <a class="dropdown-item" href="{{ url_for('tools.timeline') }}">{% trans %}Timelines Explorer{% endtrans %}</a>
                 </div>
               </li>
@@ -121,7 +121,7 @@
             {# TRANSLATORS: The name of a tool to browse statistics about a place. #}
             <a href="{{ url_for('place.place') }}">{% trans %}Place Explorer{% endtrans %}</a>
             {# TRANSLATORS: The name of a tool to browse the Data Commons knowledge graph. #}
-            <a href="{{ url_for('browser.kg_main') }}">{% trans %}Graph Browser{% endtrans %}</a>
+            <a href="{{ url_for('browser.browser_main') }}">{% trans %}Graph Browser{% endtrans %}</a>
             {# TRANSLATORS: The name of a tool to explore timeline charts of statistical variables for places. #}
             <a href="{{ url_for('tools.timeline') }}">{% trans %}Timelines Explorer{% endtrans %}</a>
           </section>
