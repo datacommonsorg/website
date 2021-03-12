@@ -32,7 +32,7 @@
             <div>
               <a href="{{url_for('placelist.node', dcid=place['dcid'])}}">{{place['name']}}</a>
               <span>: (</span>
-              <a href="{{url_for('browser.kg_entity', dcid=place['dcid'])}}">KG</a>
+              <a href="{{url_for('browser.browser_node', dcid=place['dcid'])}}">KG</a>
               <span>)</span>
             </div>
           {% endfor %}
@@ -42,7 +42,7 @@
       <h4>There are no sub-places in our knowledge graph for this place.</h4>
       <h4>
         Please check
-        <a href="{{url_for('browser.kg_entity', dcid=dcid)}}">KG</a> page
+        <a href="{{url_for('browser.browser_node', dcid=dcid)}}">KG</a> page
         for more information.
       </h4>
     {% endif %}

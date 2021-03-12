@@ -66,10 +66,9 @@ def create_app():
     cache.init_app(app)
 
     # apply the blueprints to the app
-    from routes import (browser, browser2, dev, factcheck, place, placelist,
-                        ranking, redirects, static, tools)
+    from routes import (browser, dev, factcheck, place, placelist, ranking,
+                        redirects, static, tools)
     app.register_blueprint(browser.bp)
-    app.register_blueprint(browser2.bp)
     app.register_blueprint(dev.bp)
     app.register_blueprint(place.bp)
     app.register_blueprint(placelist.bp)
