@@ -96,8 +96,8 @@ export class WeatherChartSection extends React.Component<
           values[data.observationDate] = data.meanValue;
         });
         const sourceSeries = {
-          unit: weatherData[0].unit,
           provenanceDomain: "",
+          unit: weatherData[0].unit,
           val: values,
         };
         propToSourceSeries[weatherData[0].measuredProperty] = sourceSeries;

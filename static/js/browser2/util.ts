@@ -23,11 +23,11 @@ import _ from "lodash";
 export interface SourceSeries {
   provenanceDomain: string;
   val: { [key: string]: string };
-  unit?: string;
-  scalingFactor?: string;
-  observationPeriod?: string;
-  measurementMethod?: string;
   importName?: string;
+  measurementMethod?: string;
+  observationPeriod?: string;
+  scalingFactor?: string;
+  unit?: string;
 }
 
 export enum PageDisplayType {
@@ -40,8 +40,8 @@ export enum PageDisplayType {
  * Mapping for nodeTypes that need to render a special page type
  */
 export const nodeTypeToPageDisplayTypeMapping = {
-  City: PageDisplayType.PLACE_WITH_WEATHER_INFO,
   CensusZipCodeTabulationArea: PageDisplayType.PLACE_WITH_WEATHER_INFO,
+  City: PageDisplayType.PLACE_WITH_WEATHER_INFO,
 };
 
 /**
