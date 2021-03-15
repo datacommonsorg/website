@@ -73,7 +73,9 @@ export class ObservationChart extends React.Component<
       });
     });
     if (data.length > MAX_DOTS) {
-      document.getElementById("svg-container" + this.props.idx).classList.add("hide-dots");
+      document
+        .getElementById("svg-container" + this.props.idx)
+        .classList.add("hide-dots");
     }
     const dataGroups = [new DataGroup("", data)];
     const svgContainerId: string = "svg-container" + this.props.idx;
