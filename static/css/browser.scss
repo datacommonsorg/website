@@ -16,6 +16,59 @@
 
 @import 'base';
 
+.node-about {
+  color: #666;
+  font-size: 24px;
+  margin: 20px 0;
+}
+
+.node-table {
+  font-size: 14px;
+  border-spacing: 0;
+  table-layout: fixed;
+  width: 100%;
+}
+
+.node-table tr:nth-child(even) {
+  background-color: #f0f0f0;
+}
+
+.node-table tr.vertical-padding {
+  background-color: #fff;
+}
+
+.node-table td {
+  padding: 8px;
+}
+
+.node-table tr.vertical-padding td {
+  padding: 8px 0;
+}
+
+.node-table li {
+  margin: 4px 0;
+}
+
+.property-column {
+  word-wrap: break-word;
+}
+
+td a {
+  word-wrap: break-word;
+}
+
+.card {
+  box-shadow: 0 2px 4px 0 rgba(0, 0, 0, 0.2);
+  padding: 7px 15px;
+  margin: 12px 0;
+  position: relative;
+  overflow: hidden;
+}
+
+.arc-group-title {
+  margin-top: 15px;
+}
+
 .dot {
   r: 2;
 }
@@ -26,4 +79,12 @@
 
 #tooltip {
   background-color: white;
+}
+
+.clickable circle {
+  cursor: pointer;
+}
+
+.no-click circle {
+  cursor: auto;
 }

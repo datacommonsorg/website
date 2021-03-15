@@ -15,7 +15,7 @@
  */
 
 /**
- * Component for displaying a chart for a single source series for a place stat var.
+ * Component for displaying a line chart for a single source series.
  */
 
 import React from "react";
@@ -24,6 +24,7 @@ import axios from "axios";
 import { DataGroup } from "../chart/base";
 import { drawLineChart } from "../chart/draw";
 import { DotDataPoint } from "../chart/types";
+import { SourceSeries } from "./util";
 
 // Chart size
 const WIDTH = 500;
@@ -33,11 +34,11 @@ const URI_PREFIX = "/browser2/";
 const TOOLTIP_ID = "tooltip";
 
 interface ObservationChartPropType {
-  // TODO (chejennifer): get rid of the any type
-  sourceSeries: any;
+  sourceSeries: SourceSeries;
   idx: number;
   statVarId: string;
   placeDcid: string;
+  canClickDots: boolean;
 }
 
 export class ObservationChart extends React.Component<
@@ -53,31 +54,18 @@ export class ObservationChart extends React.Component<
 
   render(): JSX.Element {
     return (
-      <div className="card">
-        <div id={this.props.statVarId} className="chart-title">
-          <div>
-            {this.props.sourceSeries.measurementMethod
-              ? "measurementMethod: " +
-                this.props.sourceSeries.measurementMethod
-              : null}
-          </div>
-          <div>
-            {this.props.sourceSeries.observationPeriod
-              ? "observationPeriod: " +
-                this.props.sourceSeries.observationPeriod
-              : null}
-          </div>
-          <div>{"provenance: " + this.props.sourceSeries.provenanceDomain}</div>
-        </div>
-        <div id={"svg-container" + this.props.idx}></div>
-      </div>
+      <div
+        id={"svg-container" + this.props.idx}
+        className={this.props.canClickDots ? "clickable" : "no-click"}
+      />
     );
   }
 
   private plot(): void {
     const values = this.props.sourceSeries.val;
+    const sortedValueKeys = Object.keys(values).sort();
     const data = [];
-    Object.keys(values).forEach((key) => {
+    sortedValueKeys.forEach((key) => {
       data.push({
         label: key,
         value: Number(values[key]),
@@ -92,7 +80,7 @@ export class ObservationChart extends React.Component<
       dataGroups,
       true,
       this.getUnits(),
-      this.handleDotClick
+      this.props.canClickDots ? this.handleDotClick : null
     );
     // show tooltip on hover
     this.addTooltip(svgContainerId);
