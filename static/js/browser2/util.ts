@@ -37,7 +37,8 @@ export enum PageDisplayType {
 }
 
 /**
- * Mapping for nodeTypes that need to render a special page type
+ * Mapping for nodeTypes that need to render a special page type.
+ * More mappings may be added as more display types are added.
  */
 export const nodeTypeToPageDisplayTypeMapping = {
   CensusZipCodeTabulationArea: PageDisplayType.PLACE_WITH_WEATHER_INFO,
@@ -45,9 +46,10 @@ export const nodeTypeToPageDisplayTypeMapping = {
 };
 
 /**
- * Returns the type of page to display
- * @param listOfTypes
- * @param statVarId
+ * Returns the type of page to display.
+ * @param listOfTypes list of types that comes from the kg.
+ * @param statVarId either a statVarId or empty string. If this string is not empty,
+ * the page display type is PLACE_STAT_VAR.
  */
 export function getPageDisplayType(
   listOfTypes: string[],
