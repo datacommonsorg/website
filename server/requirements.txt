@@ -14,7 +14,7 @@ wheel
 gunicorn
 selenium
 flask_testing
-yapf
+yapf==0.31.0
 redis==3.5.3
 opencensus
 opencensus-ext-stackdriver
