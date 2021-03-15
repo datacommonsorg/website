@@ -58,26 +58,28 @@ export class InArcSubsection extends React.Component<InArcSubsectionPropType> {
             </span>
           </strong>
         </div>
-        <table className="node-table">
-          <tbody>
-            {arcValues.map((arcValue, index) => {
-              return (
-                <ArcTableRow
-                  key={this.props.property + index}
-                  propertyLabel={this.props.property}
-                  valueDcid={arcValue.dcid}
-                  valueText={arcValue.name ? arcValue.name : arcValue.dcid}
-                  provenanceId={arcValue.provenanceId}
-                  src={
-                    arcValue.provenanceId
-                      ? this.props.provDomain[arcValue.provenanceId]
-                      : null
-                  }
-                />
-              );
-            })}
-          </tbody>
-        </table>
+        <div className="in-arc-table">
+          <table className="node-table">
+            <tbody>
+              {arcValues.map((arcValue, index) => {
+                return (
+                  <ArcTableRow
+                    key={this.props.property + index}
+                    propertyLabel={this.props.property}
+                    valueDcid={arcValue.dcid}
+                    valueText={arcValue.name ? arcValue.name : arcValue.dcid}
+                    provenanceId={arcValue.provenanceId}
+                    src={
+                      arcValue.provenanceId
+                        ? this.props.provDomain[arcValue.provenanceId]
+                        : null
+                    }
+                  />
+                );
+              })}
+            </tbody>
+          </table>
+        </div>
       </div>
     );
   }

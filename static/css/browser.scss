@@ -60,6 +60,7 @@ td a {
 .card {
   box-shadow: 0 2px 4px 0 rgba(0, 0, 0, 0.2);
   padding: 7px 15px;
+  padding-right: 0px;
   margin: 12px 0;
   position: relative;
   overflow: hidden;
@@ -69,12 +70,17 @@ td a {
   margin-top: 15px;
 }
 
+.hide-dots .dot {
+  opacity: 0;
+}
+
 .dot {
   r: 2;
 }
 
 .dot:hover {
   r: 5;
+  opacity: 1;
 }
 
 #tooltip {
@@ -87,4 +93,9 @@ td a {
 
 .no-click circle {
   cursor: auto;
+}
+
+.in-arc-table {
+  max-height: 450px;
+  overflow-y: scroll;
 }
