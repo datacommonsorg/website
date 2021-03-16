@@ -13,12 +13,10 @@
 # limitations under the License.
 
 import unittest
-import urllib
 
 from webdriver_tests.base_test import WebdriverBaseTest
 from selenium.webdriver.support.ui import WebDriverWait
 from selenium.webdriver.common.by import By
-from selenium.common.exceptions import TimeoutException
 from selenium.webdriver.support import expected_conditions as EC
 
 
@@ -96,3 +94,7 @@ class TestPlaceLanding(WebdriverBaseTest):
         more_msg = self.driver.find_element_by_xpath(
             '//*[@id="homepage"]/section[3]/ul/li[3]/ul/li[4]/a')
         self.assertEqual(more_msg.text, 'altro…')
+
+
+if __name__ == '__main__':
+    unittest.main()

@@ -154,3 +154,7 @@ class TestRanking(WebdriverBaseTest):
             'x')[0].find_elements_by_tag_name('text')
         self.assertEqual(x_text[0].text, '카타르')
         self.assertEqual(x_text[-1].text, '에콰도르')
+
+
+if __name__ == '__main__':
+    unittest.main()

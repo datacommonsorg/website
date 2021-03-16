@@ -44,7 +44,7 @@ class TestStaticPages(unittest.TestCase):
         assert b"more ..." in response.data
 
     @patch('routes.api.place.get_display_name')
-    def test_homepage(self, mock_get_display_name):
+    def test_homepage_i18n(self, mock_get_display_name):
         mock_get_display_name.return_value = {
             'geoId/1150000': 'Washington, Distrito de Columbia',
             'geoId/3651000': 'New York City, New York',

@@ -106,3 +106,7 @@ class TestPlaceLanding(WebdriverBaseTest):
             '//*[@id="place-autocomplete"]')
         self.assertEqual(map_search.get_attribute('placeholder'),
                          'Укажите страну, штат, округ или город')
+
+
+if __name__ == '__main__':
+    unittest.main()
