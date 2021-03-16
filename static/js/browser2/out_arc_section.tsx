@@ -31,6 +31,8 @@ const IGNORED_OUT_ARC_PROPERTIES = new Set([
   "geoJsonCoordinatesDP1",
   "geoJsonCoordinatesDP2",
   "geoJsonCoordinatesDP3",
+  "censusACSTableId",
+  "populationType",
 ]);
 const PROPERTIES_TO_TRIM = new Set(["nameWithLanguage"]);
 const NUM_VALUES_TRIMMED = 10;
