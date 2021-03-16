@@ -26,8 +26,8 @@ CA_URL = '/place/geoId/06'
 PLACE_SEARCH = 'California, USA'
 
 
-# Class to test place explorer tool.
 class TestPlaceExplorer(WebdriverBaseTest):
+    """Class to test place explorer tool."""
 
     def test_page_serve_usa(self):
         """Test the place explorer page for USA can be loaded successfullly."""
