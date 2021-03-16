@@ -23,26 +23,11 @@ import urllib
 
 import requests
 from werkzeug.utils import import_string
+import lib.config as libconfig
 
-if os.environ.get('FLASK_ENV') == 'test':
-    cfg = import_string('configmodule.TestConfig')()
-elif os.environ.get('FLASK_ENV') == 'webdriver':
-    cfg = import_string('configmodule.WebdriverConfig')()
-elif os.environ.get('FLASK_ENV') == 'production':
-    cfg = import_string('configmodule.ProductionConfig')()
-elif os.environ.get('FLASK_ENV') == 'staging':
-    cfg = import_string('configmodule.StagingConfig')()
-elif os.environ.get('FLASK_ENV') == 'autopush':
-    cfg = import_string('configmodule.AutopushConfig')()
-elif os.environ.get('FLASK_ENV') == 'minikube':
-    cfg = import_string('configmodule.MinikubeConfig')()
-elif os.environ.get('FLASK_ENV') == 'gke':
-    cfg = import_string('configmodule.GKEConfig')()
-else:
-    cfg = import_string('configmodule.DevelopmentConfig')()
+cfg = libconfig.get_config()
 
 API_ROOT = cfg.API_ROOT
-API_PROJECT = cfg.API_PROJECT
 
 # --------------------------------- CONSTANTS ---------------------------------
 

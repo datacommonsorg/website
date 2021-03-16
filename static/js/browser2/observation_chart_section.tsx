@@ -22,7 +22,7 @@ import React from "react";
 import axios from "axios";
 import _ from "lodash";
 import { ObservationChart } from "./observation_chart";
-import { removeLoadingMessage } from "./shared";
+import { removeLoadingMessage, SourceSeries } from "./util";
 
 interface ObservationChartSectionPropType {
   placeDcid: string;
@@ -31,7 +31,7 @@ interface ObservationChartSectionPropType {
 }
 
 interface ObservationChartSectionStateType {
-  data: Array<any>;
+  data: Array<SourceSeries>;
   infoMessage: string;
 }
 
@@ -59,13 +59,28 @@ export class ObservationChartSection extends React.Component<
       <>
         {this.state.data.map((sourceSeries, index) => {
           return (
-            <ObservationChart
-              sourceSeries={sourceSeries}
-              idx={index}
-              statVarId={this.props.statVarId}
-              placeDcid={this.props.placeDcid}
-              key={this.props.statVarId + index}
-            />
+            <div className="card" key={this.props.statVarId + index}>
+              <div className="chart-title">
+                <div>
+                  {sourceSeries.measurementMethod
+                    ? "measurementMethod: " + sourceSeries.measurementMethod
+                    : null}
+                </div>
+                <div>
+                  {sourceSeries.observationPeriod
+                    ? "observationPeriod: " + sourceSeries.observationPeriod
+                    : null}
+                </div>
+                <div>{"provenance: " + sourceSeries.provenanceDomain}</div>
+              </div>
+              <ObservationChart
+                sourceSeries={sourceSeries}
+                idx={index}
+                statVarId={this.props.statVarId}
+                placeDcid={this.props.placeDcid}
+                canClickDots={true}
+              />
+            </div>
           );
         })}
       </>

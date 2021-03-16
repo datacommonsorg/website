@@ -118,6 +118,12 @@ Start the flask webserver locally at localhost:8080
 ./run_server.sh
 ```
 
+Run website under StatVarObs mode:
+
+```bash
+./run_server.sh svobs
+```
+
 If you don't have DataCommons GCP permissions, run
 
 ```bash

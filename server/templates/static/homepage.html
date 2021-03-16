@@ -116,21 +116,21 @@
 
     <li>
       {# TRANSLATORS: Header for a set of links to the Data Commons Graph Browser product. Each page in the graph describes an entity (or node). Please see this string in action at https://datacommons.org #}
-      <a class="main" href="{{ url_for('browser.kg_main') }}">{% trans project="Data Commons" %}Browse entities in the {{ project }} Graph{% endtrans %}</a>:
+      <a class="main" href="{{ url_for('browser.browser_main') }}">{% trans project="Data Commons" %}Browse entities in the {{ project }} Graph{% endtrans %}</a>:
       <ul>
         <li>
           {% set geoid='geoId/4805000' %}
-          <a class="sub" href="{{ url_for('browser.kg_entity', dcid=geoid) }}">{{ place_names[geoid] }}</a>,
+          <a class="sub" href="{{ url_for('browser.browser_node', dcid=geoid) }}">{{ place_names[geoid] }}</a>,
         </li>
         <li>
           {# TRANSLATORS: Link to a node for the entity (the New York City school district, https://www.schools.nyc.gov/) in the Data Commons Graph. Please see this string in action at https://datacommons.org #}
-          <a class="sub" href="{{ url_for('browser.kg_entity', dcid='geoId/sch3620580') }}">{% trans %}New York City Department of Education{% endtrans %}</a>,
+          <a class="sub" href="{{ url_for('browser.browser_node', dcid='geoId/sch3620580') }}">{% trans %}New York City Department of Education{% endtrans %}</a>,
         </li>
         <li>
           {# TRANSLATORS: Link to a node for the entity (describing the ENCODE project, https://www.encodeproject.org/) in the Data Commons Graph. Please see this string in action at https://datacommons.org #}
-          <a class="sub" href="{{ url_for('browser.kg_entity', dcid='EncodeBiosampleType') }}">{% trans %}Encyclopedia of DNA Elements (Biosamples){% endtrans %}</a>,
+          <a class="sub" href="{{ url_for('browser.browser_node', dcid='EncodeBiosampleType') }}">{% trans %}Encyclopedia of DNA Elements (Biosamples){% endtrans %}</a>,
         </li>
-        <li><a class="sub" href="{{ url_for('browser.kg_main') }}">{% trans %}MORE{% endtrans %}</a>
+        <li><a class="sub" href="{{ url_for('browser.browser_main') }}">{% trans %}MORE{% endtrans %}</a>
         </li>
       </ul>
     </li>

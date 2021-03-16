@@ -16,25 +16,32 @@
 
 import React from "react";
 import ReactDOM from "react-dom";
-import _ from "lodash";
 
-import { BrowserPage, nodeTypeEnum } from "./browser_page";
+import { BrowserPage } from "./browser_page";
+import axios from "axios";
+import { getPageDisplayType, removeLoadingMessage } from "./util";
 
 window.onload = () => {
   const dcid = document.getElementById("node").dataset.dcid;
   const nodeName = document.getElementById("node").dataset.nn;
   const urlParams = new URLSearchParams(window.location.search);
   const statVarId = urlParams.get("statVar") || "";
-  const nodeType = _.isEmpty(statVarId)
-    ? nodeTypeEnum.GENERAL
-    : nodeTypeEnum.PLACE_STAT_VAR;
-  ReactDOM.render(
-    React.createElement(BrowserPage, {
-      dcid,
-      nodeType,
-      nodeName,
-      statVarId,
-    }),
-    document.getElementById("node")
-  );
+  axios
+    .get(`/api/browser/propvals/typeOf/${dcid}`)
+    .then((resp) => {
+      const values = resp.data.values;
+      const types = values.out ? values.out : [];
+      const listOfTypes = types.map((type) => type.dcid);
+      const pageDisplayType = getPageDisplayType(listOfTypes, statVarId);
+      ReactDOM.render(
+        React.createElement(BrowserPage, {
+          dcid,
+          nodeName,
+          pageDisplayType,
+          statVarId,
+        }),
+        document.getElementById("node")
+      );
+    })
+    .catch(() => removeLoadingMessage());
 };

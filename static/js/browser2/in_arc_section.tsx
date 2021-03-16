@@ -21,7 +21,7 @@
 import React from "react";
 import axios from "axios";
 import { InArcSubsection } from "./in_arc_subsection";
-import { removeLoadingMessage } from "./shared";
+import { removeLoadingMessage } from "./util";
 
 const IGNORED_PARENT_TYPES = new Set(["StatisticalPopulation"]);
 

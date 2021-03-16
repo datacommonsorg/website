@@ -21,7 +21,7 @@
     "defaultMessage": "(les lignes pointillées signalent des données manquantes)"
   },
   "chart_metadata-explore_more": {
-    "defaultMessage": "En savoir plus ›"
+    "defaultMessage": "En savoir plus "
   },
   "chart_metadata-export": {
     "defaultMessage": "Exporter"
@@ -51,10 +51,10 @@
     "defaultMessage": "Aperçu"
   },
   "link-return_to_overview": {
-    "defaultMessage": "Retour à la vue d'ensemble"
+    "defaultMessage": "Retour à la vue d'ensemble "
   },
   "more_charts": {
-    "defaultMessage": "Autres graphiques"
+    "defaultMessage": "Autres graphiques "
   },
   "place_breadcrumb": {
     "defaultMessage": "{placeType} ({placeName})"

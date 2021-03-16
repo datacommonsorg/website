@@ -21,40 +21,56 @@
 import React from "react";
 import { ArcSection } from "./arc_section";
 import { ObservationChartSection } from "./observation_chart_section";
-
-export const nodeTypeEnum = {
-  PLACE_STAT_VAR: "PLACE_STAT_VAR",
-  GENERAL: "GENERAL",
-};
+import { PageDisplayType } from "./util";
+import { WeatherChartSection } from "./weather_chart_section";
 
 interface BrowserPagePropType {
   dcid: string;
   nodeName: string;
-  nodeType: string;
+  pageDisplayType: PageDisplayType;
   statVarId: string;
 }
 
 export class BrowserPage extends React.Component<BrowserPagePropType> {
   render(): JSX.Element {
-    const pageName =
-      this.props.nodeType === nodeTypeEnum.PLACE_STAT_VAR
-        ? `${this.props.statVarId} in ${this.props.nodeName}`
-        : this.props.nodeName;
+    const pageTitle = this.getPageTitle();
+    const arcDcid = this.getArcDcid();
     return (
       <>
-        <div className="node-about">{"About: " + pageName}</div>
+        <div className="node-about">{"About: " + pageTitle}</div>
         <div id="node-content">
-          {this.props.nodeType === nodeTypeEnum.PLACE_STAT_VAR ? (
+          <ArcSection
+            dcid={arcDcid}
+            nodeName={this.props.nodeName}
+            displayInArcs={
+              this.props.pageDisplayType !== PageDisplayType.PLACE_STAT_VAR
+            }
+          />
+          {this.props.pageDisplayType === PageDisplayType.PLACE_STAT_VAR ? (
             <ObservationChartSection
               placeDcid={this.props.dcid}
               statVarId={this.props.statVarId}
               placeName={this.props.nodeName}
             />
-          ) : (
-            <ArcSection dcid={this.props.dcid} nodeName={this.props.nodeName} />
-          )}
+          ) : null}
+          {this.props.pageDisplayType ===
+          PageDisplayType.PLACE_WITH_WEATHER_INFO ? (
+            <WeatherChartSection dcid={this.props.dcid} />
+          ) : null}
         </div>
       </>
     );
+  }
+
+  private getPageTitle(): string {
+    return this.props.pageDisplayType === PageDisplayType.PLACE_STAT_VAR
+      ? `${this.props.statVarId} in ${this.props.nodeName}`
+      : this.props.nodeName;
+  }
+
+  private getArcDcid(): string {
+    return this.props.pageDisplayType === PageDisplayType.PLACE_STAT_VAR
+      ? this.props.statVarId
+      : this.props.dcid;
   }
 }

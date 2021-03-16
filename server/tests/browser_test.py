@@ -19,12 +19,12 @@ from main import app
 
 class TestStaticPage(unittest.TestCase):
 
-    def test_kg_static(self):
+    def test_browser_static(self):
         response = app.test_client().get('/browser/')
         assert response.status_code == 200
         assert b"The Data Commons Graph is constructed by" in response.data
 
-    def test_kg_entity(self):
+    def test_browser_node(self):
         response = app.test_client().get('/browser/geoId/06')
         assert response.status_code == 200
         assert b"geoId/06" in response.data

@@ -19,10 +19,9 @@
    {% set main_id = 'dc-browser2' %}
    {% set title = node_name + '- Graph Browser' %}
    {% set subpage_title = 'Graph Browser' %}
-   {% set subpage_url = url_for('browser2.browser2') %}
+   {% set subpage_url = url_for('browser.browser_main') %}
 
    {% block head %}
-     <link rel="stylesheet" href={{url_for('static', filename='css/kg.min.css', t=config['VERSION'])}} >
      <link rel="stylesheet" href={{url_for('static', filename='css/browser.min.css', t=config['VERSION'])}} >
    {% endblock %}
 
