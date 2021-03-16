@@ -42,7 +42,9 @@ export class BrowserPage extends React.Component<BrowserPagePropType> {
           <ArcSection
             dcid={arcDcid}
             nodeName={this.props.nodeName}
-            displayInArcs={this.props.pageDisplayType !== PageDisplayType.PLACE_STAT_VAR}
+            displayInArcs={
+              this.props.pageDisplayType !== PageDisplayType.PLACE_STAT_VAR
+            }
           />
           {this.props.pageDisplayType === PageDisplayType.PLACE_STAT_VAR ? (
             <ObservationChartSection
