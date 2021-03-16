@@ -29,7 +29,7 @@ import { PageDisplayType } from "./util";
 interface ArcSectionPropType {
   dcid: string;
   nodeName: string;
-  pageDisplayType: PageDisplayType;
+  displayInArcs: boolean;
 }
 
 interface ArcSectionStateType {
@@ -66,7 +66,7 @@ export class ArcSection extends React.Component<
           labels={this.state.outLabels}
           provDomain={this.state.provDomain}
         />
-        {this.props.pageDisplayType !== PageDisplayType.PLACE_STAT_VAR ? (
+        {this.props.displayInArcs ? (
           <InArcSection
             nodeName={this.props.nodeName}
             dcid={this.props.dcid}
