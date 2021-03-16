@@ -41,6 +41,30 @@ class TestStaticPages(unittest.TestCase):
         assert b"Schema.org" in response.data
         assert b"Explore the data" in response.data
         assert b"Mountain View, CA" in response.data
+        assert b"more ..." in response.data
+
+    @patch('routes.api.place.get_display_name')
+    def test_homepage(self, mock_get_display_name):
+        mock_get_display_name.return_value = {
+            'geoId/1150000': 'Washington, Distrito de Columbia',
+            'geoId/3651000': 'New York City, New York',
+            'geoId/0649670': 'Mountain View, California',
+            'geoId/4805000': 'Austin, Texas'
+        }
+
+        response = app.test_client().get('/?hl=es')
+        assert response.status_code == 200
+        assert b"Data Commons es un repositorio abierto en el que se aglutina información procedente" in response.data
+        assert b"Ya se puede acceder a Data Commons desde la Búsqueda de Google" in response.data
+        assert b"Usa las API REST y Python para hacer análisis personalizados" in response.data
+        assert b"Se incluyen datos de" in response.data
+        assert b"Hemos filtrado y organizado los datos para que no tengas que hacerlo tú." in response.data
+        assert b"Colabora en el proyecto." in response.data
+        assert b"código abierto" in response.data
+        assert b"Schema.org" in response.data
+        assert b"Consulta los datos" in response.data
+        assert b"Washington, Distrito de Columbia" in response.data
+        assert b"más..." in response.data
 
     def test_about(self):
         response = app.test_client().get('/about')
