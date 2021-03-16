@@ -44,8 +44,7 @@ class TestPlaceI18nExplorer(WebdriverBaseTest):
         gdp_chart = self.driver.find_element_by_xpath(
             '//*[@id="main-pane"]/section[1]/div/div[5]/div')
         self.assertEqual(
-            gdp_chart.find_element_by_xpath('h4').text,
-            '1 人あたりの国内総生産: その他の 国(2019)')
+            gdp_chart.find_element_by_xpath('h4').text, '日本 の 1 人あたりの国内総生産')
 
         # Test that chart tick values are translated
         y_text = gdp_chart.find_elements_by_class_name(
@@ -55,7 +54,7 @@ class TestPlaceI18nExplorer(WebdriverBaseTest):
 
         x_text = gdp_chart.find_elements_by_class_name(
             'x')[0].find_elements_by_tag_name('text')
-        self.assertEqual(x_text[0].text, '日本')
+        self.assertEqual(x_text[0].text, '1960')
 
         # Test that sv labels are translated
         sv_legend = gdp_chart.find_elements_by_class_name('legend')[0]

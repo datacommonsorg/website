@@ -54,17 +54,21 @@ class TestStaticPages(unittest.TestCase):
 
         response = app.test_client().get('/?hl=es')
         assert response.status_code == 200
-        assert b"Data Commons es un repositorio abierto en el que se aglutina información procedente" in response.data
-        assert b"Ya se puede acceder a Data Commons desde la Búsqueda de Google" in response.data
-        assert b"Usa las API REST y Python para hacer análisis personalizados" in response.data
-        assert b"Se incluyen datos de" in response.data
-        assert b"Hemos filtrado y organizado los datos para que no tengas que hacerlo tú." in response.data
-        assert b"Colabora en el proyecto." in response.data
-        assert b"código abierto" in response.data
-        assert b"Schema.org" in response.data
-        assert b"Consulta los datos" in response.data
-        assert b"Washington, Distrito de Columbia" in response.data
-        assert b"más..." in response.data
+        assert "Data Commons es un repositorio abierto en el que se aglutina información procedente".encode(
+        ) in response.data
+        assert "Ya se puede acceder a Data Commons desde la Búsqueda de Google".encode(
+        ) in response.data
+        assert "Usa las API REST y Python para hacer análisis personalizados".encode(
+        ) in response.data
+        assert "Se incluyen datos de".encode() in response.data
+        assert "Hemos filtrado y organizado los datos para que no tengas que hacerlo tú.".encode(
+        ) in response.data
+        assert "Colabora en el proyecto.".encode() in response.data
+        assert "código abierto".encode() in response.data
+        assert "Schema.org".encode() in response.data
+        assert "Consulta los datos".encode() in response.data
+        assert "Washington, Distrito de Columbia".encode() in response.data
+        assert "más...".encode() in response.data
 
     def test_about(self):
         response = app.test_client().get('/about')
