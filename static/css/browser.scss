@@ -60,7 +60,7 @@ td a {
 .card {
   box-shadow: 0 2px 4px 0 rgba(0, 0, 0, 0.2);
   padding: 7px 15px;
-  padding-right: 0px;
+  padding-right: 0;
   margin: 12px 0;
   position: relative;
   overflow: hidden;
@@ -96,6 +96,6 @@ td a {
 }
 
 .in-arc-table {
-  max-height: 20em;
+  max-height: 19em;
   overflow-y: scroll;
 }
