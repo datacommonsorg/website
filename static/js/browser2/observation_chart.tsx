@@ -30,8 +30,9 @@ import { SourceSeries } from "./util";
 const WIDTH = 500;
 const HEIGHT = 250;
 
-const URI_PREFIX = "/browser2/";
+const URI_PREFIX = "/browser/";
 const TOOLTIP_ID = "tooltip";
+const MAX_DOTS = 100;
 
 interface ObservationChartPropType {
   sourceSeries: SourceSeries;
@@ -71,6 +72,11 @@ export class ObservationChart extends React.Component<
         value: Number(values[key]),
       });
     });
+    if (data.length > MAX_DOTS) {
+      document
+        .getElementById("svg-container" + this.props.idx)
+        .classList.add("hide-dots");
+    }
     const dataGroups = [new DataGroup("", data)];
     const svgContainerId: string = "svg-container" + this.props.idx;
     drawLineChart(

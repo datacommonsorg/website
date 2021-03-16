@@ -21,7 +21,7 @@
 
 import React from "react";
 
-const HREF_PREFIX = "/browser2/";
+const HREF_PREFIX = "/browser/";
 
 interface ArcTableRowProps {
   propertyLabel: string;
