@@ -24,10 +24,12 @@ import _ from "lodash";
 
 import { InArcSection } from "./in_arc_section";
 import { OutArcSection } from "./out_arc_section";
+import { PageDisplayType } from "./util";
 
 interface ArcSectionPropType {
   dcid: string;
   nodeName: string;
+  pageDisplayType: PageDisplayType;
 }
 
 interface ArcSectionStateType {
@@ -64,12 +66,14 @@ export class ArcSection extends React.Component<
           labels={this.state.outLabels}
           provDomain={this.state.provDomain}
         />
-        <InArcSection
-          nodeName={this.props.nodeName}
-          dcid={this.props.dcid}
-          labels={this.state.inLabels}
-          provDomain={this.state.provDomain}
-        />
+        {this.props.pageDisplayType !== PageDisplayType.PLACE_STAT_VAR ? (
+          <InArcSection
+            nodeName={this.props.nodeName}
+            dcid={this.props.dcid}
+            labels={this.state.inLabels}
+            provDomain={this.state.provDomain}
+          />
+        ) : null}
       </>
     );
   }
