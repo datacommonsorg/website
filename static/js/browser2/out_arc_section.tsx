@@ -22,6 +22,7 @@ import React from "react";
 import axios from "axios";
 import _ from "lodash";
 import { ArcTableRow } from "./arc_table_row";
+import { removeLoadingMessage } from "./util";
 
 const IGNORED_OUT_ARC_PROPERTIES = new Set([
   "provenance",
@@ -30,6 +31,8 @@ const IGNORED_OUT_ARC_PROPERTIES = new Set([
   "geoJsonCoordinatesDP1",
   "geoJsonCoordinatesDP2",
   "geoJsonCoordinatesDP3",
+  "censusACSTableId",
+  "populationType",
 ]);
 const PROPERTIES_TO_TRIM = new Set(["nameWithLanguage"]);
 const NUM_VALUES_TRIMMED = 10;
@@ -115,11 +118,6 @@ export class OutArcSection extends React.Component<
     );
   }
 
-  private removeLoadingMessage(): void {
-    const loadingElem = document.getElementById("page-loading");
-    loadingElem.style.display = "none";
-  }
-
   private fetchData(): void {
     const propValuesPromises = this.props.labels.map((label) => {
       if (!IGNORED_OUT_ARC_PROPERTIES.has(label)) {
@@ -157,12 +155,12 @@ export class OutArcSection extends React.Component<
         });
         outArcsByPredicate["dcid"] = [{ value: this.props.dcid }];
         propertyLabels.push("dcid");
-        this.removeLoadingMessage();
+        removeLoadingMessage();
         this.setState({
           data: outArcsByPredicate,
           propertyLabels,
         });
       })
-      .catch(() => this.removeLoadingMessage());
+      .catch(() => removeLoadingMessage());
   }
 }

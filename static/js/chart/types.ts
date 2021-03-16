@@ -125,3 +125,9 @@ export interface GeoJsonData extends GeoJSON.FeatureCollection {
     current_geo: string;
   };
 }
+
+export interface DotDataPoint {
+  label: string;
+  time: number;
+  value: number;
+}

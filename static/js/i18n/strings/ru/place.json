@@ -21,7 +21,7 @@
     "defaultMessage": "(прерывистая линия обозначает недостающие данные)"
   },
   "chart_metadata-explore_more": {
-    "defaultMessage": "Подробнее… ›"
+    "defaultMessage": "Подробнее… "
   },
   "chart_metadata-export": {
     "defaultMessage": "Экспорт"
@@ -51,10 +51,10 @@
     "defaultMessage": "Обзор"
   },
   "link-return_to_overview": {
-    "defaultMessage": "Вернуться к обзору"
+    "defaultMessage": "Вернуться к обзору "
   },
   "more_charts": {
-    "defaultMessage": "Другие диаграммы"
+    "defaultMessage": "Другие диаграммы "
   },
   "place_breadcrumb": {
     "defaultMessage": "{placeName}: {placeType}"

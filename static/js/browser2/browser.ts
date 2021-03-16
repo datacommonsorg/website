@@ -18,15 +18,30 @@ import React from "react";
 import ReactDOM from "react-dom";
 
 import { BrowserPage } from "./browser_page";
+import axios from "axios";
+import { getPageDisplayType, removeLoadingMessage } from "./util";
 
 window.onload = () => {
   const dcid = document.getElementById("node").dataset.dcid;
-  const nodeName = document.getElementById("node-name").dataset.nn;
-  ReactDOM.render(
-    React.createElement(BrowserPage, {
-      dcid,
-      nodeName,
-    }),
-    document.getElementById("node-content")
-  );
+  const nodeName = document.getElementById("node").dataset.nn;
+  const urlParams = new URLSearchParams(window.location.search);
+  const statVarId = urlParams.get("statVar") || "";
+  axios
+    .get(`/api/browser/propvals/typeOf/${dcid}`)
+    .then((resp) => {
+      const values = resp.data.values;
+      const types = values.out ? values.out : [];
+      const listOfTypes = types.map((type) => type.dcid);
+      const pageDisplayType = getPageDisplayType(listOfTypes, statVarId);
+      ReactDOM.render(
+        React.createElement(BrowserPage, {
+          dcid,
+          nodeName,
+          pageDisplayType,
+          statVarId,
+        }),
+        document.getElementById("node")
+      );
+    })
+    .catch(() => removeLoadingMessage());
 };

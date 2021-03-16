@@ -57,6 +57,7 @@ const config = {
     ],
     browser: [
       __dirname + "/js/browser2/browser.ts",
+      __dirname + "/css/browser.scss"
     ],
     search: __dirname + "/css/search.scss",
     static: __dirname + "/css/static.scss",

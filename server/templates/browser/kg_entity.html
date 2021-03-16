@@ -19,7 +19,7 @@
 {% set main_id = 'kg_entity' %}
 {% set title = 'Graph Browser' %}
 {% set subpage_title = 'Graph Browser' %}
-{% set subpage_url = url_for('browser.kg_main') %}
+{% set subpage_url = url_for('browser.browser_main') %}
 
 {% block head %}
   <link rel="stylesheet" href={{url_for('static', filename='css/kg.min.css', t=config['GAE_VERSION'])}} >
@@ -35,5 +35,5 @@
     <div id="page-loading" className="mt-4">Loading... (please be patient)</div>
   </div>
 
-  <script src={{url_for('static', filename='kg.js', t=config['GAE_VERSION'])}}></script>
+  <script src={{url_for('static', filename='kg.js', t=config['VERSION'])}}></script>
 {% endblock %}

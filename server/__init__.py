@@ -26,6 +26,7 @@ from opencensus.ext.flask.flask_middleware import FlaskMiddleware
 from opencensus.ext.stackdriver.trace_exporter import StackdriverExporter
 from opencensus.trace.propagation import google_cloud_format
 from opencensus.trace.samplers import AlwaysOnSampler
+import lib.config as libconfig
 import lib.i18n as i18n
 
 propagator = google_cloud_format.GoogleCloudFormatPropagator()
@@ -57,26 +58,7 @@ def create_app():
             logging.error(exc)
 
     # Setup flask config
-    if os.environ.get('FLASK_ENV') == 'test':
-        cfg = import_string('configmodule.TestConfig')()
-    elif os.environ.get('FLASK_ENV') == 'production':
-        cfg = import_string('configmodule.ProductionConfig')()
-    elif os.environ.get('FLASK_ENV') == 'webdriver':
-        cfg = import_string('configmodule.WebdriverConfig')()
-    elif os.environ.get('FLASK_ENV') == 'staging':
-        cfg = import_string('configmodule.StagingConfig')()
-    elif os.environ.get('FLASK_ENV') == 'autopush':
-        cfg = import_string('configmodule.AutopushConfig')()
-    elif os.environ.get('FLASK_ENV') == 'development':
-        cfg = import_string('configmodule.DevelopmentConfig')()
-    elif os.environ.get('FLASK_ENV') == 'development-lite':
-        cfg = import_string('configmodule.DevelopmentLiteConfig')()
-    elif os.environ.get('FLASK_ENV') == 'minikube':
-        cfg = import_string('configmodule.MinikubeConfig')()
-    else:
-        raise ValueError("No valid FLASK_ENV is specified: %s" %
-                         os.environ.get('FLASK_ENV'))
-    cfg.MAPS_API_KEY = os.environ.get('MAPS_API_KEY')
+    cfg = libconfig.get_config()
     app.config.from_object(cfg)
 
     # Init extentions
@@ -84,10 +66,9 @@ def create_app():
     cache.init_app(app)
 
     # apply the blueprints to the app
-    from routes import (browser, browser2, dev, factcheck, place, placelist,
-                        ranking, redirects, static, tools)
+    from routes import (browser, dev, factcheck, place, placelist, ranking,
+                        redirects, static, tools)
     app.register_blueprint(browser.bp)
-    app.register_blueprint(browser2.bp)
     app.register_blueprint(dev.bp)
     app.register_blueprint(place.bp)
     app.register_blueprint(placelist.bp)
