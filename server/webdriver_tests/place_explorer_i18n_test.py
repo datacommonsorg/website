@@ -12,8 +12,6 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-import unittest
-
 from webdriver_tests.base_test import WebdriverBaseTest
 from selenium.webdriver.support.ui import WebDriverWait
 from selenium.webdriver.common.by import By
@@ -131,7 +129,3 @@ class TestPlaceI18nExplorer(WebdriverBaseTest):
         self.assertEqual(
             self.driver.find_element_by_tag_name('h1').text,
             'Classement par Taux de croissance de la population')
-
-
-if __name__ == '__main__':
-    unittest.main()

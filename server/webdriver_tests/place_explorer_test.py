@@ -12,8 +12,8 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-import unittest
 import urllib
+
 from webdriver_tests.base_test import WebdriverBaseTest
 from selenium.webdriver.support.ui import WebDriverWait
 from selenium.webdriver.common.by import By
@@ -187,7 +187,3 @@ class TestPlaceExplorer(WebdriverBaseTest):
         # Assert chart title is correct.
         self.assertEqual("Gender distribution: states near California(2019)",
                          chart_title)
-
-
-if __name__ == '__main__':
-    unittest.main()

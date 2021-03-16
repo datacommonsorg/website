@@ -12,8 +12,6 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-import unittest
-
 from webdriver_tests.base_test import WebdriverBaseTest
 from selenium.webdriver.support.ui import WebDriverWait
 from selenium.webdriver.common.by import By
@@ -95,6 +93,45 @@ class TestPlaceLanding(WebdriverBaseTest):
             '//*[@id="homepage"]/section[3]/ul/li[3]/ul/li[4]/a')
         self.assertEqual(more_msg.text, 'altro…')
 
+    def test_hero_all_langs(self):
+        """Test hero message translation in *all* languages.
 
-if __name__ == '__main__':
-    unittest.main()
+        NOTE: EN and IT are tested in other tests in this module.
+        """
+
+        self.driver.get(self.url_ + '/?hl=de')
+        hero_msg = self.driver.find_elements_by_class_name('lead')[0]
+        self.assertTrue(
+            hero_msg.text.startswith(
+                'Data Commons ist ein Open Knowledge Repository'))
+
+        self.driver.get(self.url_ + '/?hl=es')
+        hero_msg = self.driver.find_elements_by_class_name('lead')[0]
+        self.assertTrue(
+            hero_msg.text.startswith('Data Commons es un repositorio abierto'))
+
+        self.driver.get(self.url_ + '/?hl=fr')
+        hero_msg = self.driver.find_elements_by_class_name('lead')[0]
+        self.assertTrue(
+            hero_msg.text.startswith(
+                'Data Commons est un dépôt de connaissances'))
+
+        self.driver.get(self.url_ + '/?hl=hi')
+        hero_msg = self.driver.find_elements_by_class_name('lead')[0]
+        self.assertTrue(
+            hero_msg.text.startswith(
+                'Data Commons, एक ऐसा प्रोजेक्ट है जिसमें डेटा'))
+
+        self.driver.get(self.url_ + '/?hl=ja')
+        hero_msg = self.driver.find_elements_by_class_name('lead')[0]
+        self.assertTrue(hero_msg.text.startswith('データコモンズは、マッピングされた共通'))
+
+        self.driver.get(self.url_ + '/?hl=ko')
+        hero_msg = self.driver.find_elements_by_class_name('lead')[0]
+        self.assertTrue(
+            hero_msg.text.startswith('Data Commons는 매핑된 공통 항목을 사용해'))
+
+        self.driver.get(self.url_ + '/?hl=ru')
+        hero_msg = self.driver.find_elements_by_class_name('lead')[0]
+        self.assertTrue(
+            hero_msg.text.startswith('Data Commons – это открытая база данных'))
