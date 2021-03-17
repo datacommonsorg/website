@@ -99,3 +99,20 @@ td a {
   max-height: 19em;
   overflow-y: scroll;
 }
+
+.property-column {
+  vertical-align: top;
+}
+
+.provenance-column {
+  vertical-align: top;
+}
+
+.clickable-text {
+  color: #660000;
+  cursor: pointer;
+}
+
+.clickable-text:hover {
+  text-decoration: underline;
+}

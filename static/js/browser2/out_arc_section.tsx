@@ -22,7 +22,7 @@ import React from "react";
 import axios from "axios";
 import _ from "lodash";
 import { ArcTableRow } from "./arc_table_row";
-import { removeLoadingMessage } from "./util";
+import { ArcValue, removeLoadingMessage } from "./util";
 
 const IGNORED_OUT_ARC_PROPERTIES = new Set([
   "provenance",
@@ -34,8 +34,6 @@ const IGNORED_OUT_ARC_PROPERTIES = new Set([
   "censusACSTableId",
   "populationType",
 ]);
-const PROPERTIES_TO_TRIM = new Set(["nameWithLanguage"]);
-const NUM_VALUES_TRIMMED = 10;
 
 interface OutArcSectionPropType {
   dcid: string;
@@ -44,8 +42,7 @@ interface OutArcSectionPropType {
 }
 
 interface OutArcSectionStateType {
-  //TODO (chejennifer): replace the any type with an actual type
-  data: { [predicate: string]: Array<any> };
+  data: { [predicate: string]: { [provenance: string]: Array<ArcValue> } };
   propertyLabels: string[];
 }
 
@@ -85,27 +82,20 @@ export class OutArcSection extends React.Component<
               </td>
             </tr>
             {this.state.propertyLabels.map((propertyLabel) => {
-              const valuesArray =
+              const values =
                 propertyLabel in this.state.data
                   ? this.state.data[propertyLabel]
-                  : [];
-              return valuesArray.map((value, index) => {
-                let valueText = "";
-                if (value.dcid) {
-                  valueText = value.name ? value.name : value.dcid;
-                } else {
-                  valueText = value.value;
-                }
+                  : {};
+              return Object.keys(values).map((provenanceId, index) => {
                 return (
                   <ArcTableRow
                     key={propertyLabel + index}
                     propertyLabel={propertyLabel}
-                    valueDcid={value.dcid}
-                    valueText={valueText}
-                    provenanceId={value.provenanceId}
+                    values={values[provenanceId]}
+                    provenanceId={provenanceId}
                     src={
-                      value.provenanceId
-                        ? this.props.provDomain[value.provenanceId]
+                      this.props.provDomain[provenanceId]
+                        ? this.props.provDomain[provenanceId]
                         : null
                     }
                   />
@@ -128,7 +118,7 @@ export class OutArcSection extends React.Component<
     });
     Promise.all(propValuesPromises)
       .then((propValuesData) => {
-        const outArcsByPredicate = {};
+        const outArcsByPredicateAndProvenance = {};
         const propertyLabels = [];
         propertyLabels.push("typeOf");
         propValuesData.forEach((valuesData) => {
@@ -136,28 +126,38 @@ export class OutArcSection extends React.Component<
             return;
           }
           const predicate = valuesData.property;
-          let values = valuesData.values.out;
-          if (
-            PROPERTIES_TO_TRIM.has(predicate) &&
-            values.length > NUM_VALUES_TRIMMED
-          ) {
-            const extra = values.length - NUM_VALUES_TRIMMED;
-            values = _.slice(values, 0, NUM_VALUES_TRIMMED);
-            // TODO (chejennifer): find better way to do this
-            values.push({
-              value: "(... " + extra + " more ...)",
+          const values = valuesData.values.out;
+          for (const value of values) {
+            if (!(predicate in outArcsByPredicateAndProvenance)) {
+              outArcsByPredicateAndProvenance[predicate] = {};
+            }
+            const provId = value.provenanceId;
+            if (!(provId in outArcsByPredicateAndProvenance[predicate])) {
+              outArcsByPredicateAndProvenance[predicate][provId] = [];
+            }
+            let valueText = "";
+            if (value.dcid) {
+              valueText = value.name ? value.name : value.dcid;
+            } else {
+              valueText = value.value;
+            }
+            outArcsByPredicateAndProvenance[predicate][provId].push({
+              dcid: value.dcid,
+              text: valueText,
             });
           }
-          outArcsByPredicate[predicate] = values;
           if (predicate !== "typeOf") {
             propertyLabels.push(predicate);
           }
         });
-        outArcsByPredicate["dcid"] = [{ value: this.props.dcid }];
+        outArcsByPredicateAndProvenance["dcid"] = {};
+        outArcsByPredicateAndProvenance["dcid"]["none"] = [
+          { text: this.props.dcid },
+        ];
         propertyLabels.push("dcid");
         removeLoadingMessage();
         this.setState({
-          data: outArcsByPredicate,
+          data: outArcsByPredicateAndProvenance,
           propertyLabels,
         });
       })

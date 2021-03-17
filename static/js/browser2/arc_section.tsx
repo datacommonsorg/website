@@ -24,7 +24,6 @@ import _ from "lodash";
 
 import { InArcSection } from "./in_arc_section";
 import { OutArcSection } from "./out_arc_section";
-import { PageDisplayType } from "./util";
 
 interface ArcSectionPropType {
   dcid: string;

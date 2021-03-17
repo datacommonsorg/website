@@ -20,18 +20,39 @@
  */
 
 import React from "react";
+import _ from "lodash";
+import { ArcValue } from "./util";
 
 const HREF_PREFIX = "/browser/";
+const NUM_VALUES_UNEXPANDED = 10;
 
-interface ArcTableRowProps {
+interface ArcTableRowPropType {
   propertyLabel: string;
-  valueDcid?: string;
-  valueText: string;
-  provenanceId?: string;
+  values: Array<ArcValue>;
+  provenanceId: string;
   src: URL;
 }
-export class ArcTableRow extends React.Component<ArcTableRowProps> {
+
+interface ArcTableRowStateType {
+  expanded: boolean;
+}
+
+export class ArcTableRow extends React.Component<
+  ArcTableRowPropType,
+  ArcTableRowStateType
+> {
+  constructor(props: ArcTableRowPropType) {
+    super(props);
+    this.state = {
+      expanded: false,
+    };
+  }
+
   render(): JSX.Element {
+    const values = this.state.expanded
+      ? this.props.values
+      : _.slice(this.props.values, 0, NUM_VALUES_UNEXPANDED);
+    const hasMoreValues = this.props.values.length > NUM_VALUES_UNEXPANDED;
     return (
       <tr>
         <td className="property-column" width="25%">
@@ -40,20 +61,48 @@ export class ArcTableRow extends React.Component<ArcTableRowProps> {
           </a>
         </td>
         <td width="50%">
-          {this.props.valueDcid ? (
-            <a href={HREF_PREFIX + this.props.valueDcid}>
-              {this.props.valueText}
-            </a>
-          ) : (
-            <span className="out-arc-text">{this.props.valueText}</span>
-          )}
+          <div className="values-row">
+            {values.map((value) => {
+              return (
+                <div className="arc-text" key={value.text}>
+                  {value.dcid ? (
+                    <a href={HREF_PREFIX + value.dcid}>{value.text}</a>
+                  ) : (
+                    <span>{value.text}</span>
+                  )}
+                </div>
+              );
+            })}
+          </div>
+          {this.state.expanded ? (
+            <div className="clickable-text" onClick={this.showLess.bind(this)}>
+              Show less
+            </div>
+          ) : null}
+          {hasMoreValues && !this.state.expanded ? (
+            <div className="clickable-text" onClick={this.showMore.bind(this)}>
+              Show more
+            </div>
+          ) : null}
         </td>
-        <td width="25%">
+        <td width="25%" className="provenance-column">
           {this.props.provenanceId && (
             <a href={HREF_PREFIX + this.props.provenanceId}>{this.props.src}</a>
           )}
         </td>
       </tr>
     );
+  }
+
+  private showMore(): void {
+    this.setState({
+      expanded: true,
+    });
+  }
+
+  private showLess(): void {
+    this.setState({
+      expanded: false,
+    });
   }
 }
