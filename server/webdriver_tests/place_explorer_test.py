@@ -12,8 +12,8 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-import unittest
 import urllib
+
 from webdriver_tests.base_test import WebdriverBaseTest
 from selenium.webdriver.support.ui import WebDriverWait
 from selenium.webdriver.common.by import By
@@ -26,8 +26,8 @@ CA_URL = '/place/geoId/06'
 PLACE_SEARCH = 'California, USA'
 
 
-# Class to test place explorer tool.
 class TestPlaceExplorer(WebdriverBaseTest):
+    """Class to test place explorer tool."""
 
     def test_page_serve_usa(self):
         """Test the place explorer page for USA can be loaded successfullly."""
@@ -187,7 +187,3 @@ class TestPlaceExplorer(WebdriverBaseTest):
         # Assert chart title is correct.
         self.assertEqual("Gender distribution: states near California(2019)",
                          chart_title)
-
-
-if __name__ == '__main__':
-    unittest.main()
