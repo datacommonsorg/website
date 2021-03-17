@@ -78,7 +78,7 @@ export class ObservationChartSection extends React.Component<
                 idx={index}
                 statVarId={this.props.statVarId}
                 placeDcid={this.props.placeDcid}
-                canClickDots={true}
+                hasClickableDots={true}
               />
             </div>
           );
@@ -101,9 +101,7 @@ export class ObservationChartSection extends React.Component<
         this.setState({
           data: sourceSeries,
           infoMessage: _.isEmpty(sourceSeries)
-            ? this.props.statVarId +
-              " is not a statistical variable for " +
-              this.props.placeName
+            ? `No data for ${this.props.statVarId} in ${this.props.placeName}`
             : "",
         });
       })

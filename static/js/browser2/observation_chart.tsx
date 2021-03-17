@@ -39,25 +39,38 @@ interface ObservationChartPropType {
   idx: number;
   statVarId: string;
   placeDcid: string;
+  hasClickableDots: boolean;
+}
+
+interface ObservationChartStateType {
   canClickDots: boolean;
+  obsDcidMapping: { [date: string]: string };
 }
 
 export class ObservationChart extends React.Component<
-  ObservationChartPropType
+  ObservationChartPropType,
+  ObservationChartStateType
 > {
   constructor(props: ObservationChartPropType) {
     super(props);
+    this.state = {
+      canClickDots: false,
+      obsDcidMapping: {},
+    };
   }
 
   componentDidMount(): void {
     this.plot();
+    if (this.props.hasClickableDots) {
+      this.fetchObservationDcidsData();
+    }
   }
 
   render(): JSX.Element {
     return (
       <div
         id={"svg-container" + this.props.idx}
-        className={this.props.canClickDots ? "clickable" : "no-click"}
+        className={this.state.canClickDots ? "clickable" : "no-click"}
       />
     );
   }
@@ -86,7 +99,7 @@ export class ObservationChart extends React.Component<
       dataGroups,
       true,
       this.getUnits(),
-      this.props.canClickDots ? this.handleDotClick : null
+      this.props.hasClickableDots ? this.handleDotClick : null
     );
     // show tooltip on hover
     this.addTooltip(svgContainerId);
@@ -94,6 +107,26 @@ export class ObservationChart extends React.Component<
       .selectAll("circle")
       .on("mouseover", this.handleDotHover(svgContainerId))
       .on("mouseleave", this.handleDotLeave(svgContainerId));
+  }
+
+  private fetchObservationDcidsData(): void {
+    let request = `/api/browser/observation-ids?place=${this.props.placeDcid}&statVar=${this.props.statVarId}`;
+    if (this.props.sourceSeries.measurementMethod) {
+      request =
+        request +
+        `&measurementMethod=${this.props.sourceSeries.measurementMethod}`;
+    }
+    if (this.props.sourceSeries.observationPeriod) {
+      request =
+        request + `&obsPeriod=${this.props.sourceSeries.observationPeriod}`;
+    }
+    axios.get(request).then((resp) => {
+      const data = resp.data;
+      this.setState({
+        obsDcidMapping: data,
+        canClickDots: true,
+      });
+    });
   }
 
   private getUnits(): string {
@@ -143,22 +176,11 @@ export class ObservationChart extends React.Component<
   };
 
   private handleDotClick = (dotData: DotDataPoint): void => {
-    // TODO (chejennifer): might need better way of getting dcid of observation node because this can be very slow
     const date = dotData.label;
-    let request = `/api/browser/observation-id?place=${this.props.placeDcid}&statVar=${this.props.statVarId}&date=${date}`;
-    if (this.props.sourceSeries.measurementMethod) {
-      request =
-        request +
-        `&measurementMethod=${this.props.sourceSeries.measurementMethod}`;
-    }
-    if (this.props.sourceSeries.observationPeriod) {
-      request =
-        request + `&obsPeriod=${this.props.sourceSeries.observationPeriod}`;
-    }
-    const obsDcidPromise = axios.get(request).then((resp) => resp.data);
-    obsDcidPromise.then((obsDcid) => {
+    const obsDcid = this.state.obsDcidMapping[date];
+    if (obsDcid) {
       const uri = URI_PREFIX + obsDcid;
       window.open(uri);
-    });
+    }
   };
 }
