@@ -12,7 +12,6 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-import unittest
 import urllib
 from webdriver_tests.base_test import WebdriverBaseTest
 from selenium.webdriver.support.ui import WebDriverWait
@@ -203,7 +202,3 @@ class TestCharts(WebdriverBaseTest):
         # Assert number of charts and lines is correct.
         self.assertEqual(len(charts), 1)
         self.assertEqual(len(lines), 1)
-
-
-if __name__ == '__main__':
-    unittest.main()
