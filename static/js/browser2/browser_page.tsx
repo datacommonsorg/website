@@ -20,6 +20,7 @@
 
 import React from "react";
 import { ArcSection } from "./arc_section";
+import { ImageSection } from "./image_section";
 import { ObservationChartSection } from "./observation_chart_section";
 import { PageDisplayType } from "./util";
 import { WeatherChartSection } from "./weather_chart_section";
@@ -56,6 +57,10 @@ export class BrowserPage extends React.Component<BrowserPagePropType> {
           {this.props.pageDisplayType ===
           PageDisplayType.PLACE_WITH_WEATHER_INFO ? (
             <WeatherChartSection dcid={this.props.dcid} />
+          ) : null}
+          {this.props.pageDisplayType ===
+          PageDisplayType.BIOLOGICAL_SPECIMEN ? (
+            <ImageSection dcid={this.props.dcid} />
           ) : null}
         </div>
       </>
