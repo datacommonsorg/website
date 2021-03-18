@@ -44,6 +44,7 @@ export enum PageDisplayType {
   PLACE_STAT_VAR,
   PLACE_WITH_WEATHER_INFO,
   GENERAL,
+  BIOLOGICAL_SPECIMEN,
 }
 
 /**
@@ -53,6 +54,7 @@ export enum PageDisplayType {
 export const nodeTypeToPageDisplayTypeMapping = {
   CensusZipCodeTabulationArea: PageDisplayType.PLACE_WITH_WEATHER_INFO,
   City: PageDisplayType.PLACE_WITH_WEATHER_INFO,
+  BiologicalSpecimen: PageDisplayType.BIOLOGICAL_SPECIMEN,
 };
 
 /**
