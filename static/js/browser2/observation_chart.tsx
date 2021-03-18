@@ -46,7 +46,7 @@ interface ObservationChartPropType {
 
 interface ObservationChartStateType {
   canClickDots: boolean;
-  obsDcidMapping: { [date: string]: string };
+  dateToDcid: { [date: string]: string };
   errorMessage: string;
 }
 
@@ -58,7 +58,7 @@ export class ObservationChart extends React.Component<
     super(props);
     this.state = {
       canClickDots: false,
-      obsDcidMapping: {},
+      dateToDcid: {},
       errorMessage: "",
     };
   }
@@ -129,7 +129,7 @@ export class ObservationChart extends React.Component<
     axios.get(request).then((resp) => {
       const data = resp.data;
       this.setState({
-        obsDcidMapping: data,
+        dateToDcid: data,
         canClickDots: true,
       });
     });
@@ -184,12 +184,12 @@ export class ObservationChart extends React.Component<
 
   private handleDotClick = (dotData: DotDataPoint): void => {
     const date = dotData.label;
-    const obsDcid = this.state.obsDcidMapping[date];
+    const obsDcid = this.state.dateToDcid[date];
     if (obsDcid) {
       const uri = URI_PREFIX + obsDcid;
       window.open(uri);
     } else if (this.state.canClickDots) {
-      this.updateErrorMessage(NO_OBSDCID_ERROR_MESSAGE)
+      this.updateErrorMessage(NO_OBSDCID_ERROR_MESSAGE);
     }
   };
 

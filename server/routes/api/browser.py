@@ -80,12 +80,12 @@ def get_observation_ids():
                         mimetype='application/json')
     measurement_method = request.args.get("measurementMethod", "")
     observation_period = request.args.get("obsPeriod", "")
-    measurement_method_line = ""
+    measurement_method_triple = ""
     if measurement_method:
-        measurement_method_line = f"""?svObservation measurementMethod {measurement_method} ."""
-    observation_period_line = ""
+        measurement_method_triple = f"""?svObservation measurementMethod {measurement_method} ."""
+    observation_period_triple = ""
     if observation_period:
-        observation_period_line = f"""?svObservation observationPeriod {observation_period} ."""
+        observation_period_triple = f"""?svObservation observationPeriod {observation_period} ."""
     sparql_query = '''
         SELECT ?dcid ?obsDate
         WHERE {{ 
@@ -97,14 +97,14 @@ def get_observation_ids():
             {}
             {}
         }}
-    '''.format(stat_var_id, place_id, measurement_method_line,
-               observation_period_line)
+    '''.format(stat_var_id, place_id, measurement_method_triple,
+               observation_period_triple)
     result = ""
     (_, rows) = dc.query(sparql_query)
     result = {}
     for row in rows:
         cells = row.get('cells', [])
-        if not len(cells) == 2:
+        if len(cells) != 2:
             continue
         obsDate = cells[1].get('value', '')
         dcid = cells[0].get('value', '')

@@ -49,7 +49,6 @@ class TestObservationId(unittest.TestCase):
         expected_obs_id = "test_obs_id"
 
         def side_effect(query):
-            print(query)
             if query == expected_query:
                 return (['?dcid', '?obsDate'], [{
                     'cells': [{
@@ -86,7 +85,6 @@ class TestObservationId(unittest.TestCase):
         expected_obs_id = "test_obs_id"
 
         def side_effect(query):
-            print(query)
             if query == expected_query:
                 return (['?dcid', '?obsDate'], [{
                     'cells': [{
