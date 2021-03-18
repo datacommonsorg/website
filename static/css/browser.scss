@@ -99,3 +99,8 @@ td a {
   max-height: 19em;
   overflow-y: scroll;
 }
+
+.error-message {
+  font: 14px;
+  color: var(--dc-red-lite);
+}

@@ -33,6 +33,8 @@ const HEIGHT = 250;
 const URI_PREFIX = "/browser/";
 const TOOLTIP_ID = "tooltip";
 const MAX_DOTS = 100;
+const NO_OBSDCID_ERROR_MESSAGE =
+  "Sorry, could not open the browser page for the selected Observation Node.";
 
 interface ObservationChartPropType {
   sourceSeries: SourceSeries;
@@ -45,6 +47,7 @@ interface ObservationChartPropType {
 interface ObservationChartStateType {
   canClickDots: boolean;
   obsDcidMapping: { [date: string]: string };
+  errorMessage: string;
 }
 
 export class ObservationChart extends React.Component<
@@ -56,6 +59,7 @@ export class ObservationChart extends React.Component<
     this.state = {
       canClickDots: false,
       obsDcidMapping: {},
+      errorMessage: "",
     };
   }
 
@@ -68,10 +72,15 @@ export class ObservationChart extends React.Component<
 
   render(): JSX.Element {
     return (
-      <div
-        id={"svg-container" + this.props.idx}
-        className={this.state.canClickDots ? "clickable" : "no-click"}
-      />
+      <>
+        <div
+          id={"svg-container" + this.props.idx}
+          className={this.state.canClickDots ? "clickable" : "no-click"}
+        />
+        {this.state.errorMessage ? (
+          <div className="error-message">{this.state.errorMessage}</div>
+        ) : null}
+      </>
     );
   }
 
@@ -112,13 +121,10 @@ export class ObservationChart extends React.Component<
   private fetchObservationDcidsData(): void {
     let request = `/api/browser/observation-ids?place=${this.props.placeDcid}&statVar=${this.props.statVarId}`;
     if (this.props.sourceSeries.measurementMethod) {
-      request =
-        request +
-        `&measurementMethod=${this.props.sourceSeries.measurementMethod}`;
+      request = `${request}&measurementMethod=${this.props.sourceSeries.measurementMethod}`;
     }
     if (this.props.sourceSeries.observationPeriod) {
-      request =
-        request + `&obsPeriod=${this.props.sourceSeries.observationPeriod}`;
+      request = `${request}&obsPeriod=${this.props.sourceSeries.observationPeriod}`;
     }
     axios.get(request).then((resp) => {
       const data = resp.data;
@@ -167,6 +173,7 @@ export class ObservationChart extends React.Component<
       .style("left", d3.event.offsetX + leftOffset + "px")
       .style("top", d3.event.offsetY + topOffset + "px")
       .style("display", "block");
+    this.updateErrorMessage("");
   };
 
   private handleDotLeave = (svgContainerId: string) => (): void => {
@@ -181,6 +188,14 @@ export class ObservationChart extends React.Component<
     if (obsDcid) {
       const uri = URI_PREFIX + obsDcid;
       window.open(uri);
+    } else if (this.state.canClickDots) {
+      this.updateErrorMessage(NO_OBSDCID_ERROR_MESSAGE)
     }
   };
+
+  private updateErrorMessage(message: string): void {
+    this.setState({
+      errorMessage: message,
+    });
+  }
 }
