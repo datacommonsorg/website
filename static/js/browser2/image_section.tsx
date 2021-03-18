@@ -22,7 +22,7 @@ import React from "react";
 import axios from "axios";
 import _ from "lodash";
 
-const PROPERTY_LABEL = "imageUrl";
+const IMAGE_URL_PROPERTY_LABEL = "imageUrl";
 
 interface ImageSectionPropType {
   dcid: string;
@@ -66,14 +66,17 @@ export class ImageSection extends React.Component<
 
   private fetchData(): void {
     axios
-      .get(`/api/browser/propvals/${PROPERTY_LABEL}/${this.props.dcid}`)
+      .get(
+        `/api/browser/propvals/${IMAGE_URL_PROPERTY_LABEL}/${this.props.dcid}`
+      )
       .then((resp) => {
         const data = resp.data;
         if (!data || _.isEmpty(data.values)) {
           return;
         }
+        const imgUrls = data.values.out.map((imgUrlValue) => imgUrlValue.value);
         this.setState({
-          imageUrls: data.values.out,
+          imageUrls: imgUrls,
         });
       });
   }
