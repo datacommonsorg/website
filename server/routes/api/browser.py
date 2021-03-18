@@ -66,7 +66,7 @@ def get_property_labels(dcid):
 @cache.cached(timeout=3600 * 24, query_string=True)  # Cache for one day.
 @bp.route('/observation-ids')
 def get_observation_ids():
-    """Returns a mapping of date to observation node dcid for a combination of predicates: 
+    """Returns a mapping of date to observation node dcid for a combination of predicates:
     observedNodeLocation, statisticalVariable, measurementMethod (optional), observationPeriod (optional)"""
     place_id = request.args.get("place")
     if not place_id:

@@ -129,8 +129,8 @@ export class ObservationChart extends React.Component<
     axios.get(request).then((resp) => {
       const data = resp.data;
       this.setState({
-        dateToDcid: data,
         canClickDots: true,
+        dateToDcid: data,
       });
     });
   }
