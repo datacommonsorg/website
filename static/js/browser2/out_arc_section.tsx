@@ -22,7 +22,15 @@ import React from "react";
 import axios from "axios";
 import _ from "lodash";
 import { ArcTableRow } from "./arc_table_row";
-import { removeLoadingMessage } from "./util";
+import { ArcValue, removeLoadingMessage } from "./util";
+
+const DCID_PREDICATE = "dcid";
+
+interface OutArcData {
+  [predicate: string]: {
+    [provenanceId: string]: Array<ArcValue>;
+  };
+}
 
 const IGNORED_OUT_ARC_PROPERTIES = new Set([
   "provenance",
@@ -34,8 +42,6 @@ const IGNORED_OUT_ARC_PROPERTIES = new Set([
   "censusACSTableId",
   "populationType",
 ]);
-const PROPERTIES_TO_TRIM = new Set(["nameWithLanguage"]);
-const NUM_VALUES_TRIMMED = 10;
 
 interface OutArcSectionPropType {
   dcid: string;
@@ -44,9 +50,7 @@ interface OutArcSectionPropType {
 }
 
 interface OutArcSectionStateType {
-  //TODO (chejennifer): replace the any type with an actual type
-  data: { [predicate: string]: Array<any> };
-  propertyLabels: string[];
+  data: OutArcData;
 }
 
 export class OutArcSection extends React.Component<
@@ -57,7 +61,6 @@ export class OutArcSection extends React.Component<
     super(props);
     this.state = {
       data: {},
-      propertyLabels: [],
     };
   }
 
@@ -66,9 +69,11 @@ export class OutArcSection extends React.Component<
   }
 
   render(): JSX.Element {
-    if (_.isEmpty(this.state.propertyLabels)) {
+    if (_.isEmpty(this.state.data)) {
       return null;
     }
+    const predicates = Object.keys(this.state.data);
+    predicates.sort(this.predicateComparator);
     return (
       <div>
         <table className="node-table">
@@ -84,34 +89,33 @@ export class OutArcSection extends React.Component<
                 <strong>Provenance</strong>
               </td>
             </tr>
-            {this.state.propertyLabels.map((propertyLabel) => {
-              const valuesArray =
-                propertyLabel in this.state.data
-                  ? this.state.data[propertyLabel]
-                  : [];
-              return valuesArray.map((value, index) => {
-                let valueText = "";
-                if (value.dcid) {
-                  valueText = value.name ? value.name : value.dcid;
-                } else {
-                  valueText = value.value;
+            {predicates.map((predicate) => {
+              const valuesByProvenance = this.state.data[predicate];
+              return Object.keys(valuesByProvenance).map(
+                (provenanceId, index) => {
+                  return (
+                    <ArcTableRow
+                      key={predicate + index}
+                      propertyLabel={predicate}
+                      values={valuesByProvenance[provenanceId]}
+                      provenanceId={provenanceId}
+                      src={
+                        this.props.provDomain[provenanceId]
+                          ? this.props.provDomain[provenanceId]
+                          : null
+                      }
+                    />
+                  );
                 }
-                return (
-                  <ArcTableRow
-                    key={propertyLabel + index}
-                    propertyLabel={propertyLabel}
-                    valueDcid={value.dcid}
-                    valueText={valueText}
-                    provenanceId={value.provenanceId}
-                    src={
-                      value.provenanceId
-                        ? this.props.provDomain[value.provenanceId]
-                        : null
-                    }
-                  />
-                );
-              });
+              );
             })}
+            <ArcTableRow
+              key={DCID_PREDICATE}
+              propertyLabel={DCID_PREDICATE}
+              values={[{ text: this.props.dcid }]}
+              provenanceId={""}
+              src={null}
+            />
           </tbody>
         </table>
       </div>
@@ -128,39 +132,48 @@ export class OutArcSection extends React.Component<
     });
     Promise.all(propValuesPromises)
       .then((propValuesData) => {
-        const outArcsByPredicate = {};
-        const propertyLabels = [];
-        propertyLabels.push("typeOf");
+        const outArcsByPredicateAndProvenance: OutArcData = {};
         propValuesData.forEach((valuesData) => {
           if (!valuesData || _.isEmpty(valuesData.values)) {
             return;
           }
           const predicate = valuesData.property;
-          let values = valuesData.values.out;
-          if (
-            PROPERTIES_TO_TRIM.has(predicate) &&
-            values.length > NUM_VALUES_TRIMMED
-          ) {
-            const extra = values.length - NUM_VALUES_TRIMMED;
-            values = _.slice(values, 0, NUM_VALUES_TRIMMED);
-            // TODO (chejennifer): find better way to do this
-            values.push({
-              value: "(... " + extra + " more ...)",
+          const values = valuesData.values.out;
+          for (const value of values) {
+            if (!(predicate in outArcsByPredicateAndProvenance)) {
+              outArcsByPredicateAndProvenance[predicate] = {};
+            }
+            const provId = value.provenanceId;
+            if (!(provId in outArcsByPredicateAndProvenance[predicate])) {
+              outArcsByPredicateAndProvenance[predicate][provId] = [];
+            }
+            let valueText = "";
+            if (value.dcid) {
+              valueText = value.name ? value.name : value.dcid;
+            } else {
+              valueText = value.value;
+            }
+            outArcsByPredicateAndProvenance[predicate][provId].push({
+              dcid: value.dcid,
+              text: valueText,
             });
           }
-          outArcsByPredicate[predicate] = values;
-          if (predicate !== "typeOf") {
-            propertyLabels.push(predicate);
-          }
         });
-        outArcsByPredicate["dcid"] = [{ value: this.props.dcid }];
-        propertyLabels.push("dcid");
         removeLoadingMessage();
         this.setState({
-          data: outArcsByPredicate,
-          propertyLabels,
+          data: outArcsByPredicateAndProvenance,
         });
       })
       .catch(() => removeLoadingMessage());
   }
+
+  private predicateComparator = (a: string, b: string): number => {
+    if (a === "typeOf") {
+      return -1;
+    }
+    if (b === "typeOf") {
+      return 1;
+    }
+    return a > b ? 1 : -1;
+  };
 }

@@ -21,7 +21,7 @@
 import React from "react";
 import axios from "axios";
 import { InArcSubsection } from "./in_arc_subsection";
-import { removeLoadingMessage } from "./util";
+import { InArcValue, removeLoadingMessage } from "./util";
 
 const IGNORED_PARENT_TYPES = new Set(["StatisticalPopulation"]);
 
@@ -32,7 +32,7 @@ interface InArcSectionsPropType {
   provDomain: { [key: string]: URL };
 }
 interface InArcSectionStateType {
-  data: { [parentType: string]: { [property: string]: Array<any> } };
+  data: { [parentType: string]: { [property: string]: Array<InArcValue> } };
   parentTypes: string[];
 }
 
