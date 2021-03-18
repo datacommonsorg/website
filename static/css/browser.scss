@@ -116,3 +116,8 @@ td a {
 .clickable-text:hover {
   text-decoration: underline;
 }
+
+.error-message {
+  font-size: 14px;
+  color: var(--dc-red-lite);
+}
