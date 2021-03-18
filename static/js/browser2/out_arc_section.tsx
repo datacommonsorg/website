@@ -24,6 +24,14 @@ import _ from "lodash";
 import { ArcTableRow } from "./arc_table_row";
 import { ArcValue, removeLoadingMessage } from "./util";
 
+const DCID_PREDICATE = "dcid";
+
+interface OutArcData {
+  [predicate: string]: {
+    [provenanceId: string]: Array<ArcValue>;
+  };
+}
+
 const IGNORED_OUT_ARC_PROPERTIES = new Set([
   "provenance",
   "kmlCoordinates",
@@ -42,8 +50,7 @@ interface OutArcSectionPropType {
 }
 
 interface OutArcSectionStateType {
-  data: { [predicate: string]: { [provenance: string]: Array<ArcValue> } };
-  propertyLabels: string[];
+  data: OutArcData;
 }
 
 export class OutArcSection extends React.Component<
@@ -54,7 +61,6 @@ export class OutArcSection extends React.Component<
     super(props);
     this.state = {
       data: {},
-      propertyLabels: [],
     };
   }
 
@@ -63,9 +69,11 @@ export class OutArcSection extends React.Component<
   }
 
   render(): JSX.Element {
-    if (_.isEmpty(this.state.propertyLabels)) {
+    if (_.isEmpty(this.state.data)) {
       return null;
     }
+    const predicates = Object.keys(this.state.data);
+    predicates.sort(this.predicateComparator);
     return (
       <div>
         <table className="node-table">
@@ -81,27 +89,33 @@ export class OutArcSection extends React.Component<
                 <strong>Provenance</strong>
               </td>
             </tr>
-            {this.state.propertyLabels.map((propertyLabel) => {
-              const values =
-                propertyLabel in this.state.data
-                  ? this.state.data[propertyLabel]
-                  : {};
-              return Object.keys(values).map((provenanceId, index) => {
-                return (
-                  <ArcTableRow
-                    key={propertyLabel + index}
-                    propertyLabel={propertyLabel}
-                    values={values[provenanceId]}
-                    provenanceId={provenanceId}
-                    src={
-                      this.props.provDomain[provenanceId]
-                        ? this.props.provDomain[provenanceId]
-                        : null
-                    }
-                  />
-                );
-              });
+            {predicates.map((predicate) => {
+              const valuesByProvenance = this.state.data[predicate];
+              return Object.keys(valuesByProvenance).map(
+                (provenanceId, index) => {
+                  return (
+                    <ArcTableRow
+                      key={predicate + index}
+                      propertyLabel={predicate}
+                      values={valuesByProvenance[provenanceId]}
+                      provenanceId={provenanceId}
+                      src={
+                        this.props.provDomain[provenanceId]
+                          ? this.props.provDomain[provenanceId]
+                          : null
+                      }
+                    />
+                  );
+                }
+              );
             })}
+            <ArcTableRow
+              key={DCID_PREDICATE}
+              propertyLabel={DCID_PREDICATE}
+              values={[{ text: this.props.dcid }]}
+              provenanceId={""}
+              src={null}
+            />
           </tbody>
         </table>
       </div>
@@ -118,9 +132,7 @@ export class OutArcSection extends React.Component<
     });
     Promise.all(propValuesPromises)
       .then((propValuesData) => {
-        const outArcsByPredicateAndProvenance = {};
-        const propertyLabels = [];
-        propertyLabels.push("typeOf");
+        const outArcsByPredicateAndProvenance: OutArcData = {};
         propValuesData.forEach((valuesData) => {
           if (!valuesData || _.isEmpty(valuesData.values)) {
             return;
@@ -146,21 +158,22 @@ export class OutArcSection extends React.Component<
               text: valueText,
             });
           }
-          if (predicate !== "typeOf") {
-            propertyLabels.push(predicate);
-          }
         });
-        outArcsByPredicateAndProvenance["dcid"] = {};
-        outArcsByPredicateAndProvenance["dcid"]["none"] = [
-          { text: this.props.dcid },
-        ];
-        propertyLabels.push("dcid");
         removeLoadingMessage();
         this.setState({
           data: outArcsByPredicateAndProvenance,
-          propertyLabels,
         });
       })
       .catch(() => removeLoadingMessage());
   }
+
+  private predicateComparator = (a: string, b: string): number => {
+    if (a === "typeOf") {
+      return -1;
+    }
+    if (b === "typeOf") {
+      return 1;
+    }
+    return a > b ? 1 : -1;
+  };
 }

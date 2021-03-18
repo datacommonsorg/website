@@ -109,7 +109,7 @@ td a {
 }
 
 .clickable-text {
-  color: #660000;
+  color: var(--link-color);
   cursor: pointer;
 }
 
