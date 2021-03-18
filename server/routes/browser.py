@@ -30,8 +30,6 @@ def browser_main():
 def browser_node(dcid):
     if os.environ.get('FLASK_ENV') == 'svobs' or os.environ.get(
             'FLASK_ENV') == 'development-svobs':
-        print('HEREE')
-        print(dcid)
         node_name = shared_api.cached_name(dcid).get(dcid)
         if not node_name:
             node_name = dcid

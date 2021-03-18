@@ -33,32 +33,54 @@ const HEIGHT = 250;
 const URI_PREFIX = "/browser/";
 const TOOLTIP_ID = "tooltip";
 const MAX_DOTS = 100;
+const NO_OBSDCID_ERROR_MESSAGE =
+  "Sorry, could not open the browser page for the selected Observation Node.";
 
 interface ObservationChartPropType {
   sourceSeries: SourceSeries;
   idx: number;
   statVarId: string;
   placeDcid: string;
+  hasClickableDots: boolean;
+}
+
+interface ObservationChartStateType {
   canClickDots: boolean;
+  dateToDcid: { [date: string]: string };
+  errorMessage: string;
 }
 
 export class ObservationChart extends React.Component<
-  ObservationChartPropType
+  ObservationChartPropType,
+  ObservationChartStateType
 > {
   constructor(props: ObservationChartPropType) {
     super(props);
+    this.state = {
+      canClickDots: false,
+      dateToDcid: {},
+      errorMessage: "",
+    };
   }
 
   componentDidMount(): void {
     this.plot();
+    if (this.props.hasClickableDots) {
+      this.fetchObservationDcidsData();
+    }
   }
 
   render(): JSX.Element {
     return (
-      <div
-        id={"svg-container" + this.props.idx}
-        className={this.props.canClickDots ? "clickable" : "no-click"}
-      />
+      <>
+        <div
+          id={"svg-container" + this.props.idx}
+          className={this.state.canClickDots ? "clickable" : "no-click"}
+        />
+        {this.state.errorMessage ? (
+          <div className="error-message">{this.state.errorMessage}</div>
+        ) : null}
+      </>
     );
   }
 
@@ -86,7 +108,7 @@ export class ObservationChart extends React.Component<
       dataGroups,
       true,
       this.getUnits(),
-      this.props.canClickDots ? this.handleDotClick : null
+      this.props.hasClickableDots ? this.handleDotClick : null
     );
     // show tooltip on hover
     this.addTooltip(svgContainerId);
@@ -94,6 +116,23 @@ export class ObservationChart extends React.Component<
       .selectAll("circle")
       .on("mouseover", this.handleDotHover(svgContainerId))
       .on("mouseleave", this.handleDotLeave(svgContainerId));
+  }
+
+  private fetchObservationDcidsData(): void {
+    let request = `/api/browser/observation-ids?place=${this.props.placeDcid}&statVar=${this.props.statVarId}`;
+    if (this.props.sourceSeries.measurementMethod) {
+      request = `${request}&measurementMethod=${this.props.sourceSeries.measurementMethod}`;
+    }
+    if (this.props.sourceSeries.observationPeriod) {
+      request = `${request}&obsPeriod=${this.props.sourceSeries.observationPeriod}`;
+    }
+    axios.get(request).then((resp) => {
+      const data = resp.data;
+      this.setState({
+        canClickDots: true,
+        dateToDcid: data,
+      });
+    });
   }
 
   private getUnits(): string {
@@ -134,6 +173,7 @@ export class ObservationChart extends React.Component<
       .style("left", d3.event.offsetX + leftOffset + "px")
       .style("top", d3.event.offsetY + topOffset + "px")
       .style("display", "block");
+    this.updateErrorMessage("");
   };
 
   private handleDotLeave = (svgContainerId: string) => (): void => {
@@ -143,22 +183,19 @@ export class ObservationChart extends React.Component<
   };
 
   private handleDotClick = (dotData: DotDataPoint): void => {
-    // TODO (chejennifer): might need better way of getting dcid of observation node because this can be very slow
     const date = dotData.label;
-    let request = `/api/browser/observation-id?place=${this.props.placeDcid}&statVar=${this.props.statVarId}&date=${date}`;
-    if (this.props.sourceSeries.measurementMethod) {
-      request =
-        request +
-        `&measurementMethod=${this.props.sourceSeries.measurementMethod}`;
-    }
-    if (this.props.sourceSeries.observationPeriod) {
-      request =
-        request + `&obsPeriod=${this.props.sourceSeries.observationPeriod}`;
-    }
-    const obsDcidPromise = axios.get(request).then((resp) => resp.data);
-    obsDcidPromise.then((obsDcid) => {
+    const obsDcid = this.state.dateToDcid[date];
+    if (obsDcid) {
       const uri = URI_PREFIX + obsDcid;
       window.open(uri);
-    });
+    } else if (this.state.canClickDots) {
+      this.updateErrorMessage(NO_OBSDCID_ERROR_MESSAGE);
+    }
   };
+
+  private updateErrorMessage(message: string): void {
+    this.setState({
+      errorMessage: message,
+    });
+  }
 }
