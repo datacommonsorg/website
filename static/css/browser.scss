@@ -51,6 +51,7 @@
 
 .property-column {
   word-wrap: break-word;
+  vertical-align: top;
 }
 
 td a {
@@ -98,10 +99,6 @@ td a {
 .in-arc-table {
   max-height: 19em;
   overflow-y: scroll;
-}
-
-.property-column {
-  vertical-align: top;
 }
 
 .provenance-column {
