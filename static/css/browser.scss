@@ -51,6 +51,7 @@
 
 .property-column {
   word-wrap: break-word;
+  vertical-align: top;
 }
 
 td a {
@@ -100,7 +101,20 @@ td a {
   overflow-y: scroll;
 }
 
+.provenance-column {
+  vertical-align: top;
+}
+
+.clickable-text {
+  color: var(--link-color);
+  cursor: pointer;
+}
+
+.clickable-text:hover {
+  text-decoration: underline;
+}
+
 .error-message {
-  font: 14px;
+  font-size: 14px;
   color: var(--dc-red-lite);
 }

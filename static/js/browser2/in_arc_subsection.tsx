@@ -20,12 +20,13 @@
 
 import React from "react";
 import { ArcTableRow } from "./arc_table_row";
+import { InArcValue } from "./util";
 
 interface InArcSubsectionPropType {
   nodeName: string;
   parentType: string;
   property: string;
-  arcValues: Array<any>;
+  arcValues: Array<InArcValue>;
   provDomain: { [key: string]: URL };
 }
 
@@ -62,15 +63,15 @@ export class InArcSubsection extends React.Component<InArcSubsectionPropType> {
           <table className="node-table">
             <tbody>
               {arcValues.map((arcValue, index) => {
+                const valueText = arcValue.name ? arcValue.name : arcValue.dcid;
                 return (
                   <ArcTableRow
                     key={this.props.property + index}
                     propertyLabel={this.props.property}
-                    valueDcid={arcValue.dcid}
-                    valueText={arcValue.name ? arcValue.name : arcValue.dcid}
+                    values={[{ dcid: arcValue.dcid, text: valueText }]}
                     provenanceId={arcValue.provenanceId}
                     src={
-                      arcValue.provenanceId
+                      this.props.provDomain[arcValue.provenanceId]
                         ? this.props.provDomain[arcValue.provenanceId]
                         : null
                     }

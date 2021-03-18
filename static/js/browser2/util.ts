@@ -20,6 +20,16 @@
 
 import _ from "lodash";
 
+export interface ArcValue {
+  text: string;
+  dcid?: string;
+}
+
+export interface InArcValue {
+  provenanceId: string;
+  dcid: string;
+  name?: string;
+}
 export interface SourceSeries {
   provenanceDomain: string;
   val: { [key: string]: string };
