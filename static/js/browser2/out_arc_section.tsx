@@ -40,7 +40,6 @@ const IGNORED_OUT_ARC_PROPERTIES = new Set([
   "geoJsonCoordinatesDP2",
   "geoJsonCoordinatesDP3",
   "censusACSTableId",
-  "populationType",
 ]);
 
 interface OutArcSectionPropType {
