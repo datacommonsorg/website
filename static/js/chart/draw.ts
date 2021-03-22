@@ -605,8 +605,11 @@ function drawGroupBarChart(
  * @param height
  * @param dataGroups
  * @param showAllDots
+ * @param highlightOnHover
+ * @param tooltipId
  * @param unit
  * @param handleDotClick
+ * @param handleDotHighlight
  *
  * @return false if any series in the chart was filled in
  */
@@ -616,8 +619,17 @@ function drawLineChart(
   height: number,
   dataGroups: DataGroup[],
   showAllDots: boolean,
+  highlightOnHover: boolean,
+  tooltipId?: string,
   unit?: string,
-  handleDotClick?: (dotData: DotDataPoint) => void
+  handleDotClick?: (dotData: DotDataPoint) => void,
+  handleDotHighlight?: (
+    dotData: DataPoint,
+    dataPointX: number,
+    dataPointY: number,
+    chartLeftMargin: number,
+    chartBottomMargin: number
+  ) => void
 ): boolean {
   let maxV = Math.max(...dataGroups.map((dataGroup) => dataGroup.max()));
   let minV = Math.min(...dataGroups.map((dataGroup) => dataGroup.min()));
@@ -638,6 +650,7 @@ function drawLineChart(
 
   const xAxis = svg.append("g").attr("class", "x axis");
   const yAxis = svg.append("g").attr("class", "y axis");
+  const highlight = svg.append("g").attr("class", "highlight");
   const chart = svg.append("g").attr("class", "chart-area");
 
   const yScale = d3
@@ -723,6 +736,76 @@ function drawLineChart(
       if (handleDotClick) {
         dots.on("click", handleDotClick);
       }
+    }
+
+    if (highlightOnHover) {
+      highlight.style("opacity", "0");
+      const highlightedDot = highlight
+        .append("circle")
+        .attr("r", 5)
+        .style("fill", colorFn(dataGroup.label))
+        .style("stroke", "#fff");
+      const highlightedLine = highlight
+        .append("line")
+        .attr("x1", 0)
+        .attr("y1", 0)
+        .attr("x2", 0)
+        .attr("y2", height - MARGIN.bottom)
+        .style("stroke", colorFn(dataGroup.label))
+        .style("stroke-opacity", "0.5");
+      const tooltip = tooltipId
+        ? d3.select(`#${id}`).select(`#${tooltipId}`)
+        : null;
+      svg
+        .on("mouseover", () => {
+          highlight.style("opacity", "1");
+          if (tooltip) {
+            tooltip.style("display", "block");
+          }
+        })
+        .on("mouseout", () => {
+          highlight.style("opacity", "0");
+          if (tooltip) {
+            tooltip.style("display", "none");
+          }
+        })
+        .on("mousemove", () => {
+          // calculation of data point corresponding to mouse position from https://bl.ocks.org/Qizly/8f6ba236b79d9bb03a80.
+          const mouseX = d3.mouse(d3.select("#" + id).node() as HTMLElement)[0];
+          const highlightedTime = xScale.invert(mouseX).getTime();
+          const bisect = d3.bisector((d) => d[0]);
+          let idx = bisect.right(dataset, highlightedTime);
+          if (idx > 0 && idx < dataset.length) {
+            idx =
+              dataset[idx][0] - highlightedTime >
+              highlightedTime - dataset[idx - 1][0]
+                ? idx - 1
+                : idx;
+          } else if (idx === dataset.length) {
+            idx = idx - 1;
+          }
+          if (dataset[idx]) {
+            const datapointX = xScale(dataset[idx][0]);
+            const datapointY = yScale(dataset[idx][1]);
+            highlightedDot.attr(
+              "transform",
+              "translate(" + datapointX + "," + datapointY + ")"
+            );
+            highlightedLine.attr(
+              "transform",
+              "translate(" + datapointX + "," + "0)"
+            );
+            if (handleDotHighlight) {
+              handleDotHighlight(
+                dataGroup.value[idx],
+                datapointX,
+                datapointY,
+                leftWidth,
+                bottomHeight
+              );
+            }
+          }
+        });
     }
   }
 

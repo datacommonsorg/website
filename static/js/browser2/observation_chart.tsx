@@ -21,7 +21,7 @@
 import React from "react";
 import * as d3 from "d3";
 import axios from "axios";
-import { DataGroup } from "../chart/base";
+import { DataGroup, DataPoint } from "../chart/base";
 import { drawLineChart } from "../chart/draw";
 import { DotDataPoint } from "../chart/types";
 import { SourceSeries } from "./util";
@@ -32,7 +32,8 @@ const HEIGHT = 250;
 
 const URI_PREFIX = "/browser/";
 const TOOLTIP_ID = "tooltip";
-const MAX_DOTS = 100;
+// Only show dots when there's only a single data point
+const MAX_DOTS = 1;
 const NO_OBSDCID_ERROR_MESSAGE =
   "Sorry, could not open the browser page for the selected Observation Node.";
 
@@ -71,11 +72,15 @@ export class ObservationChart extends React.Component<
   }
 
   render(): JSX.Element {
+    let svgContainerClass = this.state.canClickDots ? "clickable" : "no-click";
+    if (Object.keys(this.props.sourceSeries.val).length > MAX_DOTS) {
+      svgContainerClass = svgContainerClass + " hide-dots";
+    }
     return (
       <>
         <div
           id={"svg-container" + this.props.idx}
-          className={this.state.canClickDots ? "clickable" : "no-click"}
+          className={svgContainerClass}
         />
         {this.state.errorMessage ? (
           <div className="error-message">{this.state.errorMessage}</div>
@@ -94,28 +99,21 @@ export class ObservationChart extends React.Component<
         value: Number(values[key]),
       });
     });
-    if (data.length > MAX_DOTS) {
-      document
-        .getElementById("svg-container" + this.props.idx)
-        .classList.add("hide-dots");
-    }
-    const dataGroups = [new DataGroup("", data)];
     const svgContainerId: string = "svg-container" + this.props.idx;
+    const dataGroups = [new DataGroup("", data)];
+    this.addTooltip(svgContainerId);
     drawLineChart(
       svgContainerId,
       WIDTH,
       HEIGHT,
       dataGroups,
       true,
+      true,
+      TOOLTIP_ID,
       this.getUnits(),
-      this.props.hasClickableDots ? this.handleDotClick : null
+      this.props.hasClickableDots ? this.handleDotClick : null,
+      this.handleDotHighlight(svgContainerId)
     );
-    // show tooltip on hover
-    this.addTooltip(svgContainerId);
-    d3.select("#" + svgContainerId)
-      .selectAll("circle")
-      .on("mouseover", this.handleDotHover(svgContainerId))
-      .on("mouseleave", this.handleDotLeave(svgContainerId));
   }
 
   private fetchObservationDcidsData(): void {
@@ -157,29 +155,34 @@ export class ObservationChart extends React.Component<
       .attr("style", "position: absolute; display: none; z-index: 1");
   }
 
-  private handleDotHover = (svgContainerId: string) => (
-    dotData: DotDataPoint
+  private handleDotHighlight = (svgContainerId: string) => (
+    dotData: DataPoint,
+    datapointX: number,
+    datapointY: number,
+    leftMargin: number,
+    bottomMargin: number
   ): void => {
+    const text = `${dotData.label}: ${dotData.value} ${this.getUnits()}`;
     const tooltipSelect = d3
       .select("#" + svgContainerId)
-      .select(`#${TOOLTIP_ID}`);
-    const text = `${dotData.label}: ${dotData.value}${this.getUnits()}`;
-    const tooltipHeight = (tooltipSelect.node() as HTMLDivElement).clientHeight;
-    const offset = 10;
-    const leftOffset = offset;
-    const topOffset = -tooltipHeight - offset;
-    tooltipSelect
-      .text(text)
-      .style("left", d3.event.offsetX + leftOffset + "px")
-      .style("top", d3.event.offsetY + topOffset + "px")
-      .style("display", "block");
-    this.updateErrorMessage("");
-  };
-
-  private handleDotLeave = (svgContainerId: string) => (): void => {
-    d3.select("#" + svgContainerId)
       .select(`#${TOOLTIP_ID}`)
-      .style("display", "none");
+      .text(text);
+    const rect = (tooltipSelect.node() as HTMLDivElement).getBoundingClientRect();
+    const width = rect.width;
+    const height = rect.height;
+    const topOffset = 5;
+    let left = datapointX - width / 2;
+    if (left < leftMargin) {
+      left = leftMargin;
+    } else if (left + width > WIDTH) {
+      left = WIDTH - width;
+    }
+    let top = 0;
+    if (height > datapointY - topOffset) {
+      top = HEIGHT - bottomMargin - height;
+    }
+    tooltipSelect.style("left", left + "px").style("top", top + "px");
+    this.updateErrorMessage("");
   };
 
   private handleDotClick = (dotData: DotDataPoint): void => {
