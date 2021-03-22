@@ -88,3 +88,21 @@ export function removeLoadingMessage(): void {
     loadingElem.style.display = "none";
   }
 }
+
+/**
+ * Returns the unit for a sourceSeries if there is a unit.
+ * @param sourceSeries
+ */
+export function getUnit(sourceSeries: SourceSeries): string {
+  let units = "";
+  if (sourceSeries["unit"]) {
+    units = sourceSeries["unit"];
+  }
+  if (
+    sourceSeries["scalingFactor"] &&
+    sourceSeries["scalingFactor"] === "100"
+  ) {
+    units = "%";
+  }
+  return units;
+}
