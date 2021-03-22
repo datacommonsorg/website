@@ -149,7 +149,9 @@ export class ObservationChart extends React.Component<
     const tooltipSelect = d3
       .select("#" + svgContainerId)
       .select(`#${TOOLTIP_ID}`);
-    const text = `${dotData.label}: ${dotData.value}${getUnit(this.props.sourceSeries)}`;
+    const text = `${dotData.label}: ${dotData.value}${getUnit(
+      this.props.sourceSeries
+    )}`;
     const tooltipHeight = (tooltipSelect.node() as HTMLDivElement).clientHeight;
     const offset = 10;
     const leftOffset = offset;

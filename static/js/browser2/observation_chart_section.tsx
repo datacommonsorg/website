@@ -73,9 +73,7 @@ export class ObservationChartSection extends React.Component<
                     : null}
                 </div>
                 <div>{"provenance: " + sourceSeries.provenanceDomain}</div>
-                <div>
-                  {unit ? "unit: " + unit : null}
-                </div>
+                <div>{unit ? "unit: " + unit : null}</div>
               </div>
               <ObservationChart
                 sourceSeries={sourceSeries}
