@@ -67,6 +67,14 @@ const AXIS_GRID_FILL = "#999";
 const MAX_Y_FOR_ZERO_CHARTS = 10;
 
 const MIN_POINTS_FOR_DOTS_ON_LINE_CHART = 12;
+const TOOLTIP_ID = "tooltip";
+
+interface Boundary {
+  top: number;
+  bottom: number;
+  left: number;
+  right: number;
+}
 
 function appendLegendElem(
   elem: string,
@@ -606,10 +614,8 @@ function drawGroupBarChart(
  * @param dataGroups
  * @param showAllDots
  * @param highlightOnHover
- * @param tooltipId
  * @param unit
  * @param handleDotClick
- * @param handleDotHighlight
  *
  * @return false if any series in the chart was filled in
  */
@@ -620,16 +626,8 @@ function drawLineChart(
   dataGroups: DataGroup[],
   showAllDots: boolean,
   highlightOnHover: boolean,
-  tooltipId?: string,
   unit?: string,
-  handleDotClick?: (dotData: DotDataPoint) => void,
-  handleDotHighlight?: (
-    dotData: DataPoint,
-    dataPointX: number,
-    dataPointY: number,
-    chartLeftMargin: number,
-    chartBottomMargin: number
-  ) => void
+  handleDotClick?: (dotData: DotDataPoint) => void
 ): boolean {
   let maxV = Math.max(...dataGroups.map((dataGroup) => dataGroup.max()));
   let minV = Math.min(...dataGroups.map((dataGroup) => dataGroup.min()));
@@ -739,6 +737,7 @@ function drawLineChart(
     }
 
     if (highlightOnHover) {
+      addTooltip(id);
       highlight.style("opacity", "0");
       const highlightedDot = highlight
         .append("circle")
@@ -753,21 +752,15 @@ function drawLineChart(
         .attr("y2", height - MARGIN.bottom)
         .style("stroke", colorFn(dataGroup.label))
         .style("stroke-opacity", "0.5");
-      const tooltip = tooltipId
-        ? d3.select(`#${id}`).select(`#${tooltipId}`)
-        : null;
+      const tooltip = d3.select(`#${id}`).select(`#${TOOLTIP_ID}`);
       svg
         .on("mouseover", () => {
           highlight.style("opacity", "1");
-          if (tooltip) {
-            tooltip.style("display", "block");
-          }
+          tooltip.style("display", "block");
         })
         .on("mouseout", () => {
           highlight.style("opacity", "0");
-          if (tooltip) {
-            tooltip.style("display", "none");
-          }
+          tooltip.style("display", "none");
         })
         .on("mousemove", () => {
           // calculation of data point corresponding to mouse position from https://bl.ocks.org/Qizly/8f6ba236b79d9bb03a80.
@@ -795,15 +788,24 @@ function drawLineChart(
               "transform",
               "translate(" + datapointX + "," + "0)"
             );
-            if (handleDotHighlight) {
-              handleDotHighlight(
-                dataGroup.value[idx],
-                datapointX,
-                datapointY,
-                leftWidth,
-                bottomHeight
-              );
-            }
+            const dataPoint: DataPoint = dataGroup.value[idx];
+            const tooltipText = `${dataPoint.label}: ${dataPoint.value} ${
+              unit ? unit : ""
+            }`;
+            // boundary of the tooltip relative to the svg container element
+            const tooltipRelativeBoundary = {
+              top: 0,
+              bottom: height - bottomHeight,
+              left: leftWidth,
+              right: width,
+            };
+            showTooltip(
+              tooltipText,
+              id,
+              datapointX,
+              datapointY,
+              tooltipRelativeBoundary
+            );
           }
         });
     }
@@ -818,6 +820,60 @@ function drawLineChart(
     }))
   );
   return !hasFilledInValues;
+}
+
+/**
+ * Adds tooltip element within a given container.
+ *
+ * @param containerId
+ */
+function addTooltip(containerId: string): void {
+  d3.select("#" + containerId)
+    .attr("style", "position: relative")
+    .append("div")
+    .attr("id", TOOLTIP_ID)
+    .attr("style", "position: absolute; display: none; z-index: 1");
+}
+
+/**
+ * Position and show the tooltip.
+ *
+ * @param text
+ * @param containerId
+ * @param datapointX
+ * @param datapointY
+ * @param relativeBoundary tooltip boundary relative to its container element
+ */
+function showTooltip(
+  text: string,
+  containerId: string,
+  datapointX: number,
+  datapointY: number,
+  relativeBoundary: Boundary
+): void {
+  const tooltipSelect = d3
+    .select("#" + containerId)
+    .select(`#${TOOLTIP_ID}`)
+    .text(text);
+  const rect = (tooltipSelect.node() as HTMLDivElement).getBoundingClientRect();
+  const width = rect.width;
+  const height = rect.height;
+  const topOffset = 5;
+  // center tooltip over the datapoint. If this causes the tooltip to overflow the boundary,
+  // place the tooltip against the respective boundary.
+  let left = datapointX - width / 2;
+  if (left < relativeBoundary.left) {
+    left = relativeBoundary.left;
+  } else if (left + width > relativeBoundary.right) {
+    left = relativeBoundary.right - width;
+  }
+  // place the tooltip against the top of the chart area unless there is too little space between it
+  // and the datapoint, then place the tooltip against the bottom of the chart area
+  let top = 0;
+  if (height > datapointY - topOffset) {
+    top = relativeBoundary.bottom - height;
+  }
+  tooltipSelect.style("left", left + "px").style("top", top + "px");
 }
 
 /**

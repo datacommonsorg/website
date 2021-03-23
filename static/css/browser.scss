@@ -84,10 +84,6 @@ td a {
   opacity: 1;
 }
 
-#tooltip {
-  background-color: white;
-}
-
 .clickable circle {
   cursor: pointer;
 }
@@ -120,10 +116,10 @@ td a {
 }
 
 #tooltip {
-  background-color: #fff;
-  color: #3b3b3b;
+  background-color: var(--dc-white);
+  color: var(--dc-gray);
   font-size: 0.8rem;
   border-radius: 3px;
-  border: 0.5px solid #dee2e6;
+  border: 0.5px solid var(--dc-gray-lite);
   padding: 0.3rem;
 }

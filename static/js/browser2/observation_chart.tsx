@@ -31,7 +31,6 @@ const WIDTH = 500;
 const HEIGHT = 250;
 
 const URI_PREFIX = "/browser/";
-const TOOLTIP_ID = "tooltip";
 // Only show dots when there's only a single data point
 const MAX_DOTS = 1;
 const NO_OBSDCID_ERROR_MESSAGE =
@@ -78,16 +77,15 @@ export class ObservationChart extends React.Component<
     }
     return (
       <>
-        <div
-          id={"svg-container" + this.props.idx}
-          className={svgContainerClass}
-        />
+        <div id={this.svgContainerId} className={svgContainerClass} />
         {this.state.errorMessage ? (
           <div className="error-message">{this.state.errorMessage}</div>
         ) : null}
       </>
     );
   }
+
+  private svgContainerId = "svg-container" + this.props.idx;
 
   private plot(): void {
     const values = this.props.sourceSeries.val;
@@ -99,20 +97,16 @@ export class ObservationChart extends React.Component<
         value: Number(values[key]),
       });
     });
-    const svgContainerId: string = "svg-container" + this.props.idx;
     const dataGroups = [new DataGroup("", data)];
-    this.addTooltip(svgContainerId);
     drawLineChart(
-      svgContainerId,
+      this.svgContainerId,
       WIDTH,
       HEIGHT,
       dataGroups,
       true,
       true,
-      TOOLTIP_ID,
       this.getUnits(),
-      this.props.hasClickableDots ? this.handleDotClick : null,
-      this.handleDotHighlight(svgContainerId)
+      this.props.hasClickableDots ? this.handleDotClick : null
     );
   }
 
@@ -147,47 +141,10 @@ export class ObservationChart extends React.Component<
     return units;
   }
 
-  private addTooltip(svgContainerId: string): void {
-    d3.select("#" + svgContainerId)
-      .attr("style", "position: relative")
-      .append("div")
-      .attr("id", TOOLTIP_ID)
-      .attr("style", "position: absolute; display: none; z-index: 1");
-  }
-
-  private handleDotHighlight = (svgContainerId: string) => (
-    dotData: DataPoint,
-    datapointX: number,
-    datapointY: number,
-    leftMargin: number,
-    bottomMargin: number
-  ): void => {
-    const text = `${dotData.label}: ${dotData.value} ${this.getUnits()}`;
-    const tooltipSelect = d3
-      .select("#" + svgContainerId)
-      .select(`#${TOOLTIP_ID}`)
-      .text(text);
-    const rect = (tooltipSelect.node() as HTMLDivElement).getBoundingClientRect();
-    const width = rect.width;
-    const height = rect.height;
-    const topOffset = 5;
-    let left = datapointX - width / 2;
-    if (left < leftMargin) {
-      left = leftMargin;
-    } else if (left + width > WIDTH) {
-      left = WIDTH - width;
-    }
-    let top = 0;
-    if (height > datapointY - topOffset) {
-      top = HEIGHT - bottomMargin - height;
-    }
-    tooltipSelect.style("left", left + "px").style("top", top + "px");
-    this.updateErrorMessage("");
-  };
-
   private handleDotClick = (dotData: DotDataPoint): void => {
     const date = dotData.label;
     const obsDcid = this.state.dateToDcid[date];
+    this.updateErrorMessage("");
     if (obsDcid) {
       const uri = URI_PREFIX + obsDcid;
       window.open(uri);
