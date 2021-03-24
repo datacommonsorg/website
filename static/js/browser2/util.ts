@@ -94,15 +94,15 @@ export function removeLoadingMessage(): void {
  * @param sourceSeries
  */
 export function getUnit(sourceSeries: SourceSeries): string {
-  let units = "";
+  let unit = "";
   if (sourceSeries["unit"]) {
-    units = sourceSeries["unit"];
+    unit = sourceSeries["unit"];
   }
   if (
     sourceSeries["scalingFactor"] &&
     sourceSeries["scalingFactor"] === "100"
   ) {
-    units = "%";
+    unit = "%";
   }
-  return units;
+  return unit;
 }
