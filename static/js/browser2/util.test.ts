@@ -73,8 +73,8 @@ test("getUnit", () => {
 
   const sourceSeriesWithUnitAndScalingFactor = {
     ...baseSourceSeries,
-    unit: testUnit,
     scalingFactor: "100",
+    unit: testUnit,
   };
   expect(getUnit(sourceSeriesWithUnitAndScalingFactor) === testUnit);
 });
