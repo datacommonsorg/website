@@ -22,7 +22,7 @@ import React from "react";
 import axios from "axios";
 import _ from "lodash";
 import { ObservationChart } from "./observation_chart";
-import { SourceSeries } from "./util";
+import { getUnit, SourceSeries } from "./util";
 
 const WEATHER_PROPERTY_NAMES = [
   "temperature",
@@ -62,9 +62,14 @@ export class WeatherChartSection extends React.Component<
     return (
       <>
         {Object.keys(this.state.data).map((measuredProperty, index) => {
+          const unit = getUnit(this.state.data[measuredProperty]);
+          let title = measuredProperty;
+          if (unit) {
+            title = title + ` (${unit})`;
+          }
           return (
             <div className="card" key={measuredProperty}>
-              <div className="chart-title">{measuredProperty}</div>
+              <div className="chart-title">{title}</div>
               <ObservationChart
                 sourceSeries={this.state.data[measuredProperty]}
                 idx={index}

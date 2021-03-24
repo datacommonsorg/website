@@ -24,7 +24,7 @@ import axios from "axios";
 import { DataGroup } from "../chart/base";
 import { drawLineChart } from "../chart/draw";
 import { DotDataPoint } from "../chart/types";
-import { SourceSeries } from "./util";
+import { getUnit, SourceSeries } from "./util";
 
 // Chart size
 const WIDTH = 500;
@@ -107,7 +107,7 @@ export class ObservationChart extends React.Component<
       HEIGHT,
       dataGroups,
       true,
-      this.getUnits(),
+      getUnit(this.props.sourceSeries),
       this.props.hasClickableDots ? this.handleDotClick : null
     );
     // show tooltip on hover
@@ -135,20 +135,6 @@ export class ObservationChart extends React.Component<
     });
   }
 
-  private getUnits(): string {
-    let units = "";
-    if (this.props.sourceSeries["unit"]) {
-      units = this.props.sourceSeries["unit"];
-    }
-    if (
-      this.props.sourceSeries["scalingFactor"] &&
-      this.props.sourceSeries["scalingFactor"] === "100"
-    ) {
-      units = "%";
-    }
-    return units;
-  }
-
   private addTooltip(svgContainerId: string): void {
     d3.select("#" + svgContainerId)
       .attr("style", "position: relative")
@@ -163,7 +149,9 @@ export class ObservationChart extends React.Component<
     const tooltipSelect = d3
       .select("#" + svgContainerId)
       .select(`#${TOOLTIP_ID}`);
-    const text = `${dotData.label}: ${dotData.value}${this.getUnits()}`;
+    const text = `${dotData.label}: ${dotData.value}${getUnit(
+      this.props.sourceSeries
+    )}`;
     const tooltipHeight = (tooltipSelect.node() as HTMLDivElement).clientHeight;
     const offset = 10;
     const leftOffset = offset;
