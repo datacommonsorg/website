@@ -19,9 +19,8 @@
  */
 
 import React from "react";
-import * as d3 from "d3";
 import axios from "axios";
-import { DataGroup, DataPoint } from "../chart/base";
+import { DataGroup } from "../chart/base";
 import { drawLineChart } from "../chart/draw";
 import { DotDataPoint } from "../chart/types";
 import { SourceSeries } from "./util";
