@@ -84,7 +84,7 @@ export class ObservationChart extends React.Component<
     );
   }
 
-  private svgContainerId = "svg-container" + this.props.idx;
+  private svgContainerId: string = "svg-container" + this.props.idx;
 
   private plot(): void {
     const values = this.props.sourceSeries.val;

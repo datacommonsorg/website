@@ -940,10 +940,10 @@ function drawLineChart(
     const listOfTimePoints: number[] = Array.from(timePoints);
     listOfTimePoints.sort((a, b) => a - b);
     const chartAreaBoundary = {
-      top: 0,
       bottom: height - bottomHeight,
       left: leftWidth,
       right: width - MARGIN.right,
+      top: 0,
     };
 
     addHighlightOnHover(
