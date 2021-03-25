@@ -165,7 +165,7 @@ function getHighlightedTime(
   listOfTimePoints: number[]
 ): number {
   const mouseX = d3.mouse(
-    d3.select("#" + containerId).node() as HTMLElement
+    d3.select(`#${containerId}`).node() as HTMLElement
   )[0];
   const mouseTime = xScale.invert(mouseX).getTime();
   listOfTimePoints.sort((a, b) => a - b);
