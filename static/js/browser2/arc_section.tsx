@@ -35,7 +35,8 @@ interface ArcSectionStateType {
   inLabels: string[];
   outLabels: string[];
   provDomain: { [key: string]: URL };
-  dataFetched: boolean;
+  isDataFetched: boolean;
+  errorMessage: string;
 }
 
 export class ArcSection extends React.Component<
@@ -45,10 +46,11 @@ export class ArcSection extends React.Component<
   constructor(props: ArcSectionPropType) {
     super(props);
     this.state = {
+      errorMessage: "",
       inLabels: [],
+      isDataFetched: false,
       outLabels: [],
       provDomain: {},
-      dataFetched: false,
     };
   }
 
@@ -57,7 +59,7 @@ export class ArcSection extends React.Component<
   }
 
   render(): JSX.Element {
-    if (!this.state.dataFetched) {
+    if (!this.state.isDataFetched) {
       return null;
     }
     return (
@@ -74,6 +76,9 @@ export class ArcSection extends React.Component<
             labels={this.state.inLabels}
             provDomain={this.state.provDomain}
           />
+        ) : null}
+        {this.state.errorMessage ? (
+          <div className="error-message">{this.state.errorMessage}</div>
         ) : null}
       </>
     );
@@ -98,12 +103,12 @@ export class ArcSection extends React.Component<
           inLabels: labelsData["inLabels"],
           outLabels: labelsData["outLabels"],
           provDomain,
-          dataFetched: true,
+          isDataFetched: true,
         });
       })
       .catch(() => {
         this.setState({
-          dataFetched: true,
+          errorMessage: `Error retrieving property labels for ${this.props.dcid}`,
         });
       });
   }

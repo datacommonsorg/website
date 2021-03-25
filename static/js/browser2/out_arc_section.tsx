@@ -121,7 +121,8 @@ export class OutArcSection extends React.Component<
   }
 
   private fetchData(): void {
-    // If a node doesn't have out arc property labels (ie. Observation Nodes), try getting the out arcs from triples data.
+    // If a node doesn't have out arc property labels (ie. Observation Nodes),
+    // try getting the out arcs from triples data.
     if (_.isEmpty(this.props.labels)) {
       this.fetchDataFromTriples();
       return;
@@ -146,9 +147,10 @@ export class OutArcSection extends React.Component<
             if (!(predicate in outArcsByPredicateAndProvenance)) {
               outArcsByPredicateAndProvenance[predicate] = {};
             }
+            const outArcsOfPredicate = outArcsByPredicateAndProvenance[predicate];
             const provId = value.provenanceId;
-            if (!(provId in outArcsByPredicateAndProvenance[predicate])) {
-              outArcsByPredicateAndProvenance[predicate][provId] = [];
+            if (!(provId in outArcsOfPredicate)) {
+              outArcsOfPredicate[provId] = [];
             }
             let valueText = "";
             if (value.dcid) {
@@ -156,7 +158,7 @@ export class OutArcSection extends React.Component<
             } else {
               valueText = value.value;
             }
-            outArcsByPredicateAndProvenance[predicate][provId].push({
+            outArcsOfPredicate[provId].push({
               dcid: value.dcid,
               text: valueText,
             });
@@ -184,10 +186,10 @@ export class OutArcSection extends React.Component<
     axios.get("/api/browser/triples/" + this.props.dcid).then((resp) => {
       const triplesData = resp.data;
       const outArcs = triplesData.filter(
-        (t) => t["subjectId"] == this.props.dcid
+        (t) => t.subjectId === this.props.dcid
       );
       const outArcsByPredicateAndProvenance: OutArcData = {};
-      outArcs.forEach((outArc) => {
+      for (const outArc of outArcs) {
         const predicate = outArc.predicate;
         if (IGNORED_OUT_ARC_PROPERTIES.has(predicate)) {
           return;
@@ -195,9 +197,10 @@ export class OutArcSection extends React.Component<
         if (!outArcsByPredicateAndProvenance[predicate]) {
           outArcsByPredicateAndProvenance[predicate] = {};
         }
+        const outArcsOfPredicate = outArcsByPredicateAndProvenance[predicate];
         const provId = outArc.provenanceId;
-        if (!(provId in outArcsByPredicateAndProvenance[predicate])) {
-          outArcsByPredicateAndProvenance[predicate][provId] = [];
+        if (!(provId in outArcsOfPredicate)) {
+          outArcsOfPredicate[provId] = [];
         }
         let valueText = "";
         let valueDcid: string;
@@ -207,11 +210,11 @@ export class OutArcSection extends React.Component<
         } else {
           valueText = outArc.objectValue;
         }
-        outArcsByPredicateAndProvenance[predicate][provId].push({
+        outArcsOfPredicate[provId].push({
           dcid: valueDcid,
           text: valueText,
         });
-      });
+      }
       removeLoadingMessage();
       this.setState({
         data: outArcsByPredicateAndProvenance,
