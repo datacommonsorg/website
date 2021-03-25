@@ -15,6 +15,7 @@
  */
 
 @import 'base';
+@import 'draw';
 
 .node-about {
   color: #666;
@@ -84,10 +85,6 @@ td a {
   opacity: 1;
 }
 
-#tooltip {
-  background-color: white;
-}
-
 .clickable circle {
   cursor: pointer;
 }
@@ -117,4 +114,8 @@ td a {
 .error-message {
   font-size: 14px;
   color: var(--dc-red-lite);
+}
+
+.legend {
+  display: none;
 }

@@ -339,6 +339,7 @@ class Chart extends React.Component<ChartPropType, ChartStateType> {
         CHART_HEIGHT,
         this.state.dataGroups,
         false,
+        false,
         this.props.unit
       );
       if (!isCompleteLine) {

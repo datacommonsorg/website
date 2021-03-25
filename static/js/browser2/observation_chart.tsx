@@ -19,7 +19,6 @@
  */
 
 import React from "react";
-import * as d3 from "d3";
 import axios from "axios";
 import { DataGroup } from "../chart/base";
 import { drawLineChart } from "../chart/draw";
@@ -31,8 +30,8 @@ const WIDTH = 500;
 const HEIGHT = 250;
 
 const URI_PREFIX = "/browser/";
-const TOOLTIP_ID = "tooltip";
-const MAX_DOTS = 100;
+// Only show dots when there's only a single data point
+const MAX_DOTS = 1;
 const NO_OBSDCID_ERROR_MESSAGE =
   "Sorry, could not open the browser page for the selected Observation Node.";
 
@@ -71,18 +70,21 @@ export class ObservationChart extends React.Component<
   }
 
   render(): JSX.Element {
+    let svgContainerClass = this.state.canClickDots ? "clickable" : "no-click";
+    if (Object.keys(this.props.sourceSeries.val).length > MAX_DOTS) {
+      svgContainerClass = svgContainerClass + " hide-dots";
+    }
     return (
       <>
-        <div
-          id={"svg-container" + this.props.idx}
-          className={this.state.canClickDots ? "clickable" : "no-click"}
-        />
+        <div id={this.svgContainerId} className={svgContainerClass} />
         {this.state.errorMessage ? (
           <div className="error-message">{this.state.errorMessage}</div>
         ) : null}
       </>
     );
   }
+
+  private svgContainerId: string = "svg-container" + this.props.idx;
 
   private plot(): void {
     const values = this.props.sourceSeries.val;
@@ -94,28 +96,17 @@ export class ObservationChart extends React.Component<
         value: Number(values[key]),
       });
     });
-    if (data.length > MAX_DOTS) {
-      document
-        .getElementById("svg-container" + this.props.idx)
-        .classList.add("hide-dots");
-    }
     const dataGroups = [new DataGroup("", data)];
-    const svgContainerId: string = "svg-container" + this.props.idx;
     drawLineChart(
-      svgContainerId,
+      this.svgContainerId,
       WIDTH,
       HEIGHT,
       dataGroups,
       true,
+      true,
       getUnit(this.props.sourceSeries),
       this.props.hasClickableDots ? this.handleDotClick : null
     );
-    // show tooltip on hover
-    this.addTooltip(svgContainerId);
-    d3.select("#" + svgContainerId)
-      .selectAll("circle")
-      .on("mouseover", this.handleDotHover(svgContainerId))
-      .on("mouseleave", this.handleDotLeave(svgContainerId));
   }
 
   private fetchObservationDcidsData(): void {
@@ -135,44 +126,10 @@ export class ObservationChart extends React.Component<
     });
   }
 
-  private addTooltip(svgContainerId: string): void {
-    d3.select("#" + svgContainerId)
-      .attr("style", "position: relative")
-      .append("div")
-      .attr("id", TOOLTIP_ID)
-      .attr("style", "position: absolute; display: none; z-index: 1");
-  }
-
-  private handleDotHover = (svgContainerId: string) => (
-    dotData: DotDataPoint
-  ): void => {
-    const tooltipSelect = d3
-      .select("#" + svgContainerId)
-      .select(`#${TOOLTIP_ID}`);
-    const text = `${dotData.label}: ${dotData.value}${getUnit(
-      this.props.sourceSeries
-    )}`;
-    const tooltipHeight = (tooltipSelect.node() as HTMLDivElement).clientHeight;
-    const offset = 10;
-    const leftOffset = offset;
-    const topOffset = -tooltipHeight - offset;
-    tooltipSelect
-      .text(text)
-      .style("left", d3.event.offsetX + leftOffset + "px")
-      .style("top", d3.event.offsetY + topOffset + "px")
-      .style("display", "block");
-    this.updateErrorMessage("");
-  };
-
-  private handleDotLeave = (svgContainerId: string) => (): void => {
-    d3.select("#" + svgContainerId)
-      .select(`#${TOOLTIP_ID}`)
-      .style("display", "none");
-  };
-
   private handleDotClick = (dotData: DotDataPoint): void => {
     const date = dotData.label;
     const obsDcid = this.state.dateToDcid[date];
+    this.updateErrorMessage("");
     if (obsDcid) {
       const uri = URI_PREFIX + obsDcid;
       window.open(uri);
