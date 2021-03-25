@@ -54,7 +54,7 @@ Wait for approval of the Pull Request and merge the change.
 
 ### Local Development
 
-Check steps in [developer guide](developer_guide.md)
+Check steps in [developer guide](docs/developer_guide.md)
 
 ## License
 
