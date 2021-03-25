@@ -49,6 +49,7 @@ interface OutArcSectionPropType {
 
 interface OutArcSectionStateType {
   data: OutArcData;
+  isDataFetched: boolean;
 }
 
 export class OutArcSection extends React.Component<
@@ -59,6 +60,7 @@ export class OutArcSection extends React.Component<
     super(props);
     this.state = {
       data: {},
+      isDataFetched: false,
     };
   }
 
@@ -67,8 +69,11 @@ export class OutArcSection extends React.Component<
   }
 
   render(): JSX.Element {
-    if (_.isEmpty(this.state.data)) {
+    if (!this.state.isDataFetched) {
       return null;
+    }
+    if (_.isEmpty(this.state.data)) {
+      return (<div className="info-message">{this.notANodeMessage}</div>)
     }
     const predicates = Object.keys(this.state.data);
     predicates.sort(this.predicateComparator);
@@ -120,6 +125,8 @@ export class OutArcSection extends React.Component<
     );
   }
 
+  private notANodeMessage: string = `${this.props.dcid} is not a node.`
+
   private fetchData(): void {
     // If a node doesn't have out arc property labels (ie. Observation Nodes),
     // try getting the out arcs from triples data.
@@ -167,6 +174,7 @@ export class OutArcSection extends React.Component<
         removeLoadingMessage();
         this.setState({
           data: outArcsByPredProv,
+          isDataFetched: true,
         });
       })
       .catch(() => removeLoadingMessage());
@@ -218,6 +226,7 @@ export class OutArcSection extends React.Component<
       removeLoadingMessage();
       this.setState({
         data: outArcsByPredProv,
+        isDataFetched: true,
       });
     });
   }
