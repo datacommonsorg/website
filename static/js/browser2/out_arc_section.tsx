@@ -136,7 +136,7 @@ export class OutArcSection extends React.Component<
     });
     Promise.all(propValuesPromises)
       .then((propValuesData) => {
-        const outArcsByPredicateAndProvenance: OutArcData = {};
+        const outArcsByPredProv: OutArcData = {};
         propValuesData.forEach((valuesData) => {
           if (!valuesData || _.isEmpty(valuesData.values)) {
             return;
@@ -144,11 +144,10 @@ export class OutArcSection extends React.Component<
           const predicate = valuesData.property;
           const values = valuesData.values.out;
           for (const value of values) {
-            if (!(predicate in outArcsByPredicateAndProvenance)) {
-              outArcsByPredicateAndProvenance[predicate] = {};
+            if (!(predicate in outArcsByPredProv)) {
+              outArcsByPredProv[predicate] = {};
             }
-            const outArcsOfPredicate =
-              outArcsByPredicateAndProvenance[predicate];
+            const outArcsOfPredicate = outArcsByPredProv[predicate];
             const provId = value.provenanceId;
             if (!(provId in outArcsOfPredicate)) {
               outArcsOfPredicate[provId] = [];
@@ -167,7 +166,7 @@ export class OutArcSection extends React.Component<
         });
         removeLoadingMessage();
         this.setState({
-          data: outArcsByPredicateAndProvenance,
+          data: outArcsByPredProv,
         });
       })
       .catch(() => removeLoadingMessage());
@@ -189,16 +188,16 @@ export class OutArcSection extends React.Component<
       const outArcs = triplesData.filter(
         (t) => t.subjectId === this.props.dcid
       );
-      const outArcsByPredicateAndProvenance: OutArcData = {};
+      const outArcsByPredProv: OutArcData = {};
       for (const outArc of outArcs) {
         const predicate = outArc.predicate;
         if (IGNORED_OUT_ARC_PROPERTIES.has(predicate)) {
           return;
         }
-        if (!outArcsByPredicateAndProvenance[predicate]) {
-          outArcsByPredicateAndProvenance[predicate] = {};
+        if (!outArcsByPredProv[predicate]) {
+          outArcsByPredProv[predicate] = {};
         }
-        const outArcsOfPredicate = outArcsByPredicateAndProvenance[predicate];
+        const outArcsOfPredicate = outArcsByPredProv[predicate];
         const provId = outArc.provenanceId;
         if (!(provId in outArcsOfPredicate)) {
           outArcsOfPredicate[provId] = [];
@@ -218,7 +217,7 @@ export class OutArcSection extends React.Component<
       }
       removeLoadingMessage();
       this.setState({
-        data: outArcsByPredicateAndProvenance,
+        data: outArcsByPredProv,
       });
     });
   }
