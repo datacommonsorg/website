@@ -248,7 +248,8 @@ function addHighlightOnHover(
       highlightDots
         .attr("transform", (d: DataGroup) => {
           const dataPoint = d.value.find(
-            (dataPoint) => new Date(dataPoint.label).getTime() === highlightedTime
+            (dataPoint) =>
+              new Date(dataPoint.label).getTime() === highlightedTime
           );
           if (dataPoint) {
             const dataPointY = yScale(dataPoint.value);

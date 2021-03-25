@@ -125,7 +125,7 @@ export class ObservationChart extends React.Component<
       });
     });
   }
-  
+
   private handleDotClick = (dotData: DotDataPoint): void => {
     const date = dotData.label;
     const obsDcid = this.state.dateToDcid[date];
