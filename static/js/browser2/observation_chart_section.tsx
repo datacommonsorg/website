@@ -22,7 +22,7 @@ import React from "react";
 import axios from "axios";
 import _ from "lodash";
 import { ObservationChart } from "./observation_chart";
-import { removeLoadingMessage, SourceSeries } from "./util";
+import { getUnit, removeLoadingMessage, SourceSeries } from "./util";
 
 interface ObservationChartSectionPropType {
   placeDcid: string;
@@ -58,6 +58,7 @@ export class ObservationChartSection extends React.Component<
     return (
       <>
         {this.state.data.map((sourceSeries, index) => {
+          const unit = getUnit(sourceSeries);
           return (
             <div className="card" key={this.props.statVarId + index}>
               <div className="chart-title">
@@ -72,6 +73,7 @@ export class ObservationChartSection extends React.Component<
                     : null}
                 </div>
                 <div>{"provenance: " + sourceSeries.provenanceDomain}</div>
+                <div>{unit ? "unit: " + unit : null}</div>
               </div>
               <ObservationChart
                 sourceSeries={sourceSeries}

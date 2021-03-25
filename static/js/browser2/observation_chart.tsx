@@ -23,7 +23,7 @@ import axios from "axios";
 import { DataGroup } from "../chart/base";
 import { drawLineChart } from "../chart/draw";
 import { DotDataPoint } from "../chart/types";
-import { SourceSeries } from "./util";
+import { getUnit, SourceSeries } from "./util";
 
 // Chart size
 const WIDTH = 500;
@@ -104,7 +104,7 @@ export class ObservationChart extends React.Component<
       dataGroups,
       true,
       true,
-      this.getUnits(),
+      getUnit(this.props.sourceSeries),
       this.props.hasClickableDots ? this.handleDotClick : null
     );
   }
@@ -125,21 +125,7 @@ export class ObservationChart extends React.Component<
       });
     });
   }
-
-  private getUnits(): string {
-    let units = "";
-    if (this.props.sourceSeries["unit"]) {
-      units = this.props.sourceSeries["unit"];
-    }
-    if (
-      this.props.sourceSeries["scalingFactor"] &&
-      this.props.sourceSeries["scalingFactor"] === "100"
-    ) {
-      units = "%";
-    }
-    return units;
-  }
-
+  
   private handleDotClick = (dotData: DotDataPoint): void => {
     const date = dotData.label;
     const obsDcid = this.state.dateToDcid[date];
