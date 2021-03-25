@@ -121,6 +121,11 @@ export class OutArcSection extends React.Component<
   }
 
   private fetchData(): void {
+    // If a node doesn't have out arc property labels (ie. Observation Nodes), try getting the out arcs from triples data.
+    if (_.isEmpty(this.props.labels)) {
+      this.fetchDataFromTriples();
+      return;
+    }
     const propValuesPromises = this.props.labels.map((label) => {
       if (!IGNORED_OUT_ARC_PROPERTIES.has(label)) {
         return axios
@@ -174,4 +179,43 @@ export class OutArcSection extends React.Component<
     }
     return a > b ? 1 : -1;
   };
+
+  private fetchDataFromTriples(): void {
+    axios.get("/api/browser/triples/" + this.props.dcid).then((resp) => {
+      const triplesData = resp.data;
+      const outArcs = triplesData.filter(
+        (t) => t["subjectId"] == this.props.dcid
+      );
+      const outArcsByPredicateAndProvenance: OutArcData = {};
+      outArcs.forEach((outArc) => {
+        const predicate = outArc.predicate;
+        if (IGNORED_OUT_ARC_PROPERTIES.has(predicate)) {
+          return;
+        }
+        if (!outArcsByPredicateAndProvenance[predicate]) {
+          outArcsByPredicateAndProvenance[predicate] = {};
+        }
+        const provId = outArc.provenanceId;
+        if (!(provId in outArcsByPredicateAndProvenance[predicate])) {
+          outArcsByPredicateAndProvenance[predicate][provId] = [];
+        }
+        let valueText = "";
+        let valueDcid: string;
+        if (outArc.objectId) {
+          valueText = outArc.objectName ? outArc.objectName : outArc.objectId;
+          valueDcid = outArc.objectId;
+        } else {
+          valueText = outArc.objectValue;
+        }
+        outArcsByPredicateAndProvenance[predicate][provId].push({
+          dcid: valueDcid,
+          text: valueText,
+        });
+      });
+      removeLoadingMessage();
+      this.setState({
+        data: outArcsByPredicateAndProvenance,
+      });
+    });
+  }
 }

@@ -35,6 +35,7 @@ interface ArcSectionStateType {
   inLabels: string[];
   outLabels: string[];
   provDomain: { [key: string]: URL };
+  dataFetched: boolean;
 }
 
 export class ArcSection extends React.Component<
@@ -47,6 +48,7 @@ export class ArcSection extends React.Component<
       inLabels: [],
       outLabels: [],
       provDomain: {},
+      dataFetched: false,
     };
   }
 
@@ -55,7 +57,7 @@ export class ArcSection extends React.Component<
   }
 
   render(): JSX.Element {
-    if (_.isEmpty(this.state.outLabels) && _.isEmpty(this.state.inLabels)) {
+    if (!this.state.dataFetched) {
       return null;
     }
     return (
@@ -78,15 +80,14 @@ export class ArcSection extends React.Component<
   }
 
   private fetchData(): void {
-    // TODO (chejennifer): observation nodes will need a different way of getting arc data
     const labelsPromise = axios
       .get("/api/browser/proplabels/" + this.props.dcid)
       .then((resp) => resp.data);
     const provenancePromise = axios
       .get("/api/browser/triples/Provenance")
       .then((resp) => resp.data);
-    Promise.all([labelsPromise, provenancePromise]).then(
-      ([labelsData, provenanceData]) => {
+    Promise.all([labelsPromise, provenancePromise])
+      .then(([labelsData, provenanceData]) => {
         const provDomain = {};
         for (const prov of provenanceData) {
           if (prov["predicate"] === "typeOf" && !!prov["subjectName"]) {
@@ -97,8 +98,13 @@ export class ArcSection extends React.Component<
           inLabels: labelsData["inLabels"],
           outLabels: labelsData["outLabels"],
           provDomain,
+          dataFetched: true,
         });
-      }
-    );
+      })
+      .catch(() => {
+        this.setState({
+          dataFetched: true,
+        });
+      });
   }
 }
