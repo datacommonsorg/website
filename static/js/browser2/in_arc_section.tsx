@@ -20,6 +20,7 @@
 
 import React from "react";
 import axios from "axios";
+import _ from "lodash";
 import { InArcSubsection } from "./in_arc_subsection";
 import { InArcValue, removeLoadingMessage } from "./util";
 
@@ -75,6 +76,9 @@ export class InArcSection extends React.Component<
   }
 
   private fetchData(): void {
+    if (_.isEmpty(this.props.labels)) {
+      return;
+    }
     const propValuesPromises = this.props.labels.map((label) => {
       return axios
         .get(`/api/browser/propvals/${label}/${this.props.dcid}`)

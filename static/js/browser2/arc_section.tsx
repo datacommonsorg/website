@@ -20,7 +20,6 @@
 
 import React from "react";
 import axios from "axios";
-import _ from "lodash";
 
 import { InArcSection } from "./in_arc_section";
 import { OutArcSection } from "./out_arc_section";
@@ -35,6 +34,8 @@ interface ArcSectionStateType {
   inLabels: string[];
   outLabels: string[];
   provDomain: { [key: string]: URL };
+  isDataFetched: boolean;
+  errorMessage: string;
 }
 
 export class ArcSection extends React.Component<
@@ -44,7 +45,9 @@ export class ArcSection extends React.Component<
   constructor(props: ArcSectionPropType) {
     super(props);
     this.state = {
+      errorMessage: "",
       inLabels: [],
+      isDataFetched: false,
       outLabels: [],
       provDomain: {},
     };
@@ -55,7 +58,7 @@ export class ArcSection extends React.Component<
   }
 
   render(): JSX.Element {
-    if (_.isEmpty(this.state.outLabels) && _.isEmpty(this.state.inLabels)) {
+    if (!this.state.isDataFetched) {
       return null;
     }
     return (
@@ -73,20 +76,22 @@ export class ArcSection extends React.Component<
             provDomain={this.state.provDomain}
           />
         ) : null}
+        {this.state.errorMessage ? (
+          <div className="error-message">{this.state.errorMessage}</div>
+        ) : null}
       </>
     );
   }
 
   private fetchData(): void {
-    // TODO (chejennifer): observation nodes will need a different way of getting arc data
     const labelsPromise = axios
       .get("/api/browser/proplabels/" + this.props.dcid)
       .then((resp) => resp.data);
     const provenancePromise = axios
       .get("/api/browser/triples/Provenance")
       .then((resp) => resp.data);
-    Promise.all([labelsPromise, provenancePromise]).then(
-      ([labelsData, provenanceData]) => {
+    Promise.all([labelsPromise, provenancePromise])
+      .then(([labelsData, provenanceData]) => {
         const provDomain = {};
         for (const prov of provenanceData) {
           if (prov["predicate"] === "typeOf" && !!prov["subjectName"]) {
@@ -97,8 +102,13 @@ export class ArcSection extends React.Component<
           inLabels: labelsData["inLabels"],
           outLabels: labelsData["outLabels"],
           provDomain,
+          isDataFetched: true,
         });
-      }
-    );
+      })
+      .catch(() => {
+        this.setState({
+          errorMessage: `Error retrieving property labels for ${this.props.dcid}`,
+        });
+      });
   }
 }
