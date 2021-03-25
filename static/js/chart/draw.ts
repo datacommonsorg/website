@@ -102,7 +102,7 @@ function appendLegendElem(
 /**
  * Adds tooltip element within a given container.
  *
- * @param containerId
+ * @param containerId container to add tooltip element to.
  */
 function addTooltip(containerId: string): void {
   d3.select("#" + containerId)
@@ -115,11 +115,11 @@ function addTooltip(containerId: string): void {
 /**
  * Position and show the tooltip.
  *
- * @param contentHTML innerHTML of the tooltip as a string
- * @param containerId
- * @param datapointX
- * @param datapointY
- * @param relativeBoundary tooltip boundary relative to its container element
+ * @param contentHTML innerHTML of the tooltip as a string.
+ * @param containerId id of the div containing the tooltip.
+ * @param datapointX x coordinate of the datapoint that the tooltip is being shown for.
+ * @param datapointY y coordinate of the datapoint that the tooltip is being shown for.
+ * @param relativeBoundary tooltip boundary relative to its container element.
  */
 function showTooltip(
   contentHTML: string,
@@ -182,34 +182,33 @@ function getHighlightedTime(
 }
 
 /**
- * Adds highlighting and showing a tooltip on hover for a chart.
+ * Adds highlighting and showing a tooltip on hover for a line chart.
  *
- * @param svg
- * @param xScale
- * @param yScale
- * @param containerId
- * @param dataGroups
- * @param colorFn
- * @param listOfTimePoints
- * @param highlight
- * @param chartAreaBoundary
- * @param unit
+ * @param xScale time scale corresponding to the x-axis.
+ * @param yScale linear scale corresponding to the y-axis.
+ * @param containerId id of the div containing the line chart to add highlighting for.
+ * @param dataGroups datagroups of the line chart of interest.
+ * @param colorFn color scale that returns a color for a given string.
+ * @param listOfTimePoints all the timepoints in the datagroups.
+ * @param highlightArea svg element to hold the elements for highlighting points.
+ * @param chartAreaBoundary boundary of the chart of interest relative to its container.
+ * @param unit units of the data of the chart of interest.
  */
 function addHighlightOnHover(
-  svg: d3.Selection<SVGGElement, any, any, any>,
   xScale: d3.ScaleTime<number, number>,
   yScale: d3.ScaleLinear<number, number>,
   containerId: string,
   dataGroups: DataGroup[],
   colorFn: d3.ScaleOrdinal<string, string>,
   listOfTimePoints: number[],
-  highlight: d3.Selection<SVGGElement, any, any, any>,
+  highlightArea: d3.Selection<SVGGElement, any, any, any>,
   chartAreaBoundary: Boundary,
   unit?: string
 ): void {
+  const svg = d3.select(`#${containerId}`).select("svg");
   addTooltip(containerId);
   for (const dataGroup of dataGroups) {
-    highlight
+    highlightArea
       .append("circle")
       .attr("r", HIGHLIGHTING_DOT_R)
       .style("fill", colorFn(dataGroup.label))
@@ -217,8 +216,8 @@ function addHighlightOnHover(
       .datum(dataGroup);
   }
   const tooltip = d3.select(`#${containerId}`).select(`#${TOOLTIP_ID}`);
-  highlight.style("opacity", "0");
-  const highlightLine = highlight
+  highlightArea.style("opacity", "0");
+  const highlightLine = highlightArea
     .append("line")
     .attr("x1", 0)
     .attr("y1", 0)
@@ -229,11 +228,11 @@ function addHighlightOnHover(
 
   svg
     .on("mouseover", () => {
-      highlight.style("opacity", "1");
+      highlightArea.style("opacity", "1");
       tooltip.style("display", "block");
     })
     .on("mouseout", () => {
-      highlight.style("opacity", "0");
+      highlightArea.style("opacity", "0");
       tooltip.style("display", "none");
     })
     .on("mousemove", () => {
@@ -242,7 +241,7 @@ function addHighlightOnHover(
         xScale,
         listOfTimePoints
       );
-      const highlightDots = highlight.selectAll("circle");
+      const highlightDots = highlightArea.selectAll("circle");
       const dataPointX = xScale(highlightedTime);
       let maxDataPointY = 0;
       highlightDots
@@ -948,7 +947,6 @@ function drawLineChart(
     };
 
     addHighlightOnHover(
-      svg,
       xScale,
       yScale,
       id,
