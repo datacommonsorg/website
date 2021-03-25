@@ -147,7 +147,8 @@ export class OutArcSection extends React.Component<
             if (!(predicate in outArcsByPredicateAndProvenance)) {
               outArcsByPredicateAndProvenance[predicate] = {};
             }
-            const outArcsOfPredicate = outArcsByPredicateAndProvenance[predicate];
+            const outArcsOfPredicate =
+              outArcsByPredicateAndProvenance[predicate];
             const provId = value.provenanceId;
             if (!(provId in outArcsOfPredicate)) {
               outArcsOfPredicate[provId] = [];
