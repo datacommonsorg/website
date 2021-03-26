@@ -67,6 +67,17 @@ const AXIS_GRID_FILL = "#999";
 const MAX_Y_FOR_ZERO_CHARTS = 10;
 
 const MIN_POINTS_FOR_DOTS_ON_LINE_CHART = 12;
+const TOOLTIP_ID = "draw-tooltip";
+// min distance between bottom of the tooltip and a datapoint
+const TOOLTIP_BOTTOM_OFFSET = 5;
+const HIGHLIGHTING_DOT_R = 5;
+
+interface Boundary {
+  top: number;
+  bottom: number;
+  left: number;
+  right: number;
+}
 
 function appendLegendElem(
   elem: string,
@@ -86,6 +97,199 @@ function appendLegendElem(
     .append("a")
     .text((d) => d.label)
     .attr("href", (d) => d.link || null);
+}
+
+/**
+ * Adds tooltip element within a given container.
+ *
+ * @param containerId container to add tooltip element to.
+ */
+function addTooltip(containerId: string): void {
+  d3.select("#" + containerId)
+    .attr("style", "position: relative")
+    .append("div")
+    .attr("id", TOOLTIP_ID)
+    .attr("style", "position: absolute; display: none; z-index: 1");
+}
+
+/**
+ * Position and show the tooltip.
+ *
+ * @param contentHTML innerHTML of the tooltip as a string.
+ * @param containerId id of the div containing the tooltip.
+ * @param datapointX x coordinate of the datapoint that the tooltip is being shown for.
+ * @param datapointY y coordinate of the datapoint that the tooltip is being shown for.
+ * @param relativeBoundary tooltip boundary relative to its container element.
+ */
+function showTooltip(
+  contentHTML: string,
+  containerId: string,
+  datapointX: number,
+  datapointY: number,
+  relativeBoundary: Boundary
+): void {
+  const tooltipSelect = d3
+    .select(`#${containerId}`)
+    .select(`#${TOOLTIP_ID}`)
+    .html(contentHTML);
+  const rect = (tooltipSelect.node() as HTMLDivElement).getBoundingClientRect();
+  const width = rect.width;
+  const height = rect.height;
+  // center tooltip over the datapoint. If this causes the tooltip to overflow the boundary,
+  // place the tooltip against the respective boundary.
+  let left = datapointX - width / 2;
+  if (left < relativeBoundary.left) {
+    left = relativeBoundary.left;
+  } else if (left + width > relativeBoundary.right) {
+    left = relativeBoundary.right - width;
+  }
+  // place the tooltip against the top of the chart area unless there is too little space between it
+  // and the datapoint, then place the tooltip against the bottom of the chart area
+  let top = 0;
+  if (height > datapointY - TOOLTIP_BOTTOM_OFFSET) {
+    top = relativeBoundary.bottom - height;
+  }
+  tooltipSelect.style("left", left + "px").style("top", top + "px");
+}
+
+/**
+ * Gets the timepoint that the mouse is hovering at. Calculation from https://bl.ocks.org/Qizly/8f6ba236b79d9bb03a80.
+ *
+ * @param containerId
+ * @param xScale
+ * @param listOfTimePoints
+ */
+function getHighlightedTime(
+  containerId: string,
+  xScale: d3.ScaleTime<number, number>,
+  listOfTimePoints: number[]
+): number {
+  const mouseX = d3.mouse(
+    d3.select(`#${containerId}`).node() as HTMLElement
+  )[0];
+  const mouseTime = xScale.invert(mouseX).getTime();
+  listOfTimePoints.sort((a, b) => a - b);
+  let idx = d3.bisect(listOfTimePoints, mouseTime);
+  if (idx > 0 && idx < listOfTimePoints.length) {
+    idx =
+      listOfTimePoints[idx] - mouseTime > mouseTime - listOfTimePoints[idx - 1]
+        ? idx - 1
+        : idx;
+  } else if (idx === listOfTimePoints.length) {
+    idx = idx - 1;
+  }
+  return listOfTimePoints[idx];
+}
+
+/**
+ * Adds highlighting and showing a tooltip on hover for a line chart.
+ *
+ * @param xScale time scale corresponding to the x-axis.
+ * @param yScale linear scale corresponding to the y-axis.
+ * @param containerId id of the div containing the line chart to add highlighting for.
+ * @param dataGroups datagroups of the line chart of interest.
+ * @param colorFn color scale that returns a color for a given string.
+ * @param listOfTimePoints all the timepoints in the datagroups.
+ * @param highlightArea svg element to hold the elements for highlighting points.
+ * @param chartAreaBoundary boundary of the chart of interest relative to its container.
+ * @param unit units of the data of the chart of interest.
+ */
+function addHighlightOnHover(
+  xScale: d3.ScaleTime<number, number>,
+  yScale: d3.ScaleLinear<number, number>,
+  containerId: string,
+  dataGroups: DataGroup[],
+  colorFn: d3.ScaleOrdinal<string, string>,
+  listOfTimePoints: number[],
+  highlightArea: d3.Selection<SVGGElement, any, any, any>,
+  chartAreaBoundary: Boundary,
+  unit?: string
+): void {
+  const svg = d3.select(`#${containerId}`).select("svg");
+  addTooltip(containerId);
+  for (const dataGroup of dataGroups) {
+    highlightArea
+      .append("circle")
+      .attr("r", HIGHLIGHTING_DOT_R)
+      .style("fill", colorFn(dataGroup.label))
+      .style("stroke", "#fff")
+      .datum(dataGroup);
+  }
+  const tooltip = d3.select(`#${containerId}`).select(`#${TOOLTIP_ID}`);
+  highlightArea.style("opacity", "0");
+  const highlightLine = highlightArea
+    .append("line")
+    .attr("x1", 0)
+    .attr("y1", 0)
+    .attr("x2", 0)
+    .attr("y2", chartAreaBoundary.bottom)
+    .style("stroke", "#3B3B3B")
+    .style("stroke-opacity", "0.5");
+
+  svg
+    .on("mouseover", () => {
+      highlightArea.style("opacity", "1");
+      tooltip.style("display", "block");
+    })
+    .on("mouseout", () => {
+      highlightArea.style("opacity", "0");
+      tooltip.style("display", "none");
+    })
+    .on("mousemove", () => {
+      const highlightedTime = getHighlightedTime(
+        containerId,
+        xScale,
+        listOfTimePoints
+      );
+      const highlightDots = highlightArea.selectAll("circle");
+      const dataPointX = xScale(highlightedTime);
+      let maxDataPointY = 0;
+      highlightDots
+        .attr("transform", (d: DataGroup) => {
+          const dataPoint = d.value.find(
+            (dataPoint) =>
+              new Date(dataPoint.label).getTime() === highlightedTime
+          );
+          if (dataPoint) {
+            const dataPointY = yScale(dataPoint.value);
+            maxDataPointY = Math.max(maxDataPointY, dataPointY);
+            return `translate(${dataPointX},${dataPointY})`;
+          }
+        })
+        .style("opacity", (d: DataGroup) => {
+          const dataPoint = d.value.find(
+            (data) => new Date(data.label).getTime() === highlightedTime
+          );
+          if (dataPoint && dataPoint.value) {
+            return "1";
+          } else {
+            return "0";
+          }
+        });
+      highlightLine.attr("transform", () => {
+        return `translate(${dataPointX},0)`;
+      });
+      let tooltipContent = "";
+      for (const dataGroup of dataGroups) {
+        const dataPoint = dataGroup.value.find(
+          (val) => new Date(val.label).getTime() === highlightedTime
+        );
+        if (dataPoint) {
+          // TODO(chejennifer): place and timeline explorer will need i18n functions for the tooltip text.
+          // Also need to update formatting of the tooltip content for place and timeline explorer.
+          tooltipContent =
+            tooltipContent +
+            `${dataPoint.label}: ${dataPoint.value} ${unit ? unit : ""}<br/>`;
+        }
+      }
+      showTooltip(
+        tooltipContent,
+        containerId,
+        dataPointX,
+        maxDataPointY,
+        chartAreaBoundary
+      );
+    });
 }
 
 /**
@@ -605,6 +809,7 @@ function drawGroupBarChart(
  * @param height
  * @param dataGroups
  * @param showAllDots
+ * @param highlightOnHover
  * @param unit
  * @param handleDotClick
  *
@@ -616,6 +821,7 @@ function drawLineChart(
   height: number,
   dataGroups: DataGroup[],
   showAllDots: boolean,
+  highlightOnHover: boolean,
   unit?: string,
   handleDotClick?: (dotData: DotDataPoint) => void
 ): boolean {
@@ -638,6 +844,7 @@ function drawLineChart(
 
   const xAxis = svg.append("g").attr("class", "x axis");
   const yAxis = svg.append("g").attr("class", "y axis");
+  const highlight = svg.append("g").attr("class", "highlight");
   const chart = svg.append("g").attr("class", "chart-area");
 
   const yScale = d3
@@ -661,9 +868,12 @@ function drawLineChart(
   const colorFn = getColorFn(legendText);
 
   let hasFilledInValues = false;
+  const timePoints = new Set<number>();
   for (const dataGroup of dataGroups) {
     const dataset = dataGroup.value.map((dp) => {
-      return [new Date(dp.label).getTime(), dp.value];
+      const time = new Date(dp.label).getTime();
+      timePoints.add(time);
+      return [time, dp.value];
     });
     const hasGap = shouldFillInValues(dataset);
     hasFilledInValues = hasFilledInValues || hasGap;
@@ -724,6 +934,29 @@ function drawLineChart(
         dots.on("click", handleDotClick);
       }
     }
+  }
+
+  if (highlightOnHover) {
+    const listOfTimePoints: number[] = Array.from(timePoints);
+    listOfTimePoints.sort((a, b) => a - b);
+    const chartAreaBoundary = {
+      bottom: height - bottomHeight,
+      left: leftWidth,
+      right: width - MARGIN.right,
+      top: 0,
+    };
+
+    addHighlightOnHover(
+      xScale,
+      yScale,
+      id,
+      dataGroups,
+      colorFn,
+      listOfTimePoints,
+      highlight,
+      chartAreaBoundary,
+      unit
+    );
   }
 
   appendLegendElem(
