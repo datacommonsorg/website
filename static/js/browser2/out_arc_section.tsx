@@ -73,7 +73,7 @@ export class OutArcSection extends React.Component<
       return null;
     }
     if (_.isEmpty(this.state.data)) {
-      return (<div className="info-message">{this.notANodeMessage}</div>)
+      return <div className="info-message">{this.notANodeMessage}</div>;
     }
     const predicates = Object.keys(this.state.data);
     predicates.sort(this.predicateComparator);
@@ -125,7 +125,7 @@ export class OutArcSection extends React.Component<
     );
   }
 
-  private notANodeMessage: string = `${this.props.dcid} is not a node.`
+  private notANodeMessage = `${this.props.dcid} is not a node.`;
 
   private fetchData(): void {
     // If a node doesn't have out arc property labels (ie. Observation Nodes),
