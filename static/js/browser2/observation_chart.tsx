@@ -92,8 +92,8 @@ export class ObservationChart extends React.Component<
     sortedValueKeys.forEach((key) => {
       data.push({
         label: key,
-        value: Number(values[key]),
         time: new Date(key).getTime(),
+        value: Number(values[key]),
       });
     });
     const dataGroups = [new DataGroup("", data)];

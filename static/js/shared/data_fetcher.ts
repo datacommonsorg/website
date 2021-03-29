@@ -134,8 +134,8 @@ class StatsData {
         for (const date of this.dates) {
           dataPoints.push({
             label: date,
-            value: timeSeries.data[date] || null,
             time: new Date(date).getTime(),
+            value: timeSeries.data[date] || null,
           });
         }
         result.push(new DataGroup(statsVar, dataPoints));
