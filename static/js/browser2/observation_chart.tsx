@@ -20,7 +20,7 @@
 
 import React from "react";
 import axios from "axios";
-import { DataGroup } from "../chart/base";
+import { DataGroup, DataPoint } from "../chart/base";
 import { drawLineChart } from "../chart/draw";
 import { DotDataPoint } from "../chart/types";
 import { getUnit, SourceSeries } from "./util";
@@ -94,6 +94,7 @@ export class ObservationChart extends React.Component<
       data.push({
         label: key,
         value: Number(values[key]),
+        time: new Date(key).getTime()
       });
     });
     const dataGroups = [new DataGroup("", data)];
@@ -126,7 +127,7 @@ export class ObservationChart extends React.Component<
     });
   }
 
-  private handleDotClick = (dotData: DotDataPoint): void => {
+  private handleDotClick = (dotData: DataPoint): void => {
     const date = dotData.label;
     const obsDcid = this.state.dateToDcid[date];
     this.updateErrorMessage("");

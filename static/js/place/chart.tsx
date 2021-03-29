@@ -423,6 +423,7 @@ class Chart extends React.Component<ChartPropType, ChartStateType> {
             dataPoints.push({
               label: date,
               value: this.props.trend.series[statVar][date] * scaling,
+              time: new Date(date).getTime(),
             });
           }
           dataGroups.push(

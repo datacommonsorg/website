@@ -135,6 +135,7 @@ class StatsData {
           dataPoints.push({
             label: date,
             value: timeSeries.data[date] || null,
+            time: new Date(date).getTime(),
           });
         }
         result.push(new DataGroup(statsVar, dataPoints));
