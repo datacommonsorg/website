@@ -253,10 +253,7 @@ function addHighlightOnHover(
       let minDataPointY = chartAreaBoundary.bottom;
       highlightDots
         .attr("transform", (d: DataGroup) => {
-          const dataPoint = d.value.find(
-            (dataPoint) =>
-              new Date(dataPoint.label).getTime() === highlightedTime
-          );
+          const dataPoint = d.value.find((val) => val.time === highlightedTime);
           if (dataPoint) {
             const dataPointY = yScale(dataPoint.value);
             minDataPointY = Math.min(minDataPointY, dataPointY);
@@ -264,9 +261,7 @@ function addHighlightOnHover(
           }
         })
         .style("opacity", (d: DataGroup) => {
-          const dataPoint = d.value.find(
-            (data) => new Date(data.label).getTime() === highlightedTime
-          );
+          const dataPoint = d.value.find((val) => val.time === highlightedTime);
           if (dataPoint && dataPoint.value) {
             return "1";
           } else {
@@ -850,7 +845,7 @@ function drawLineChart(
 
   const xScale = d3
     .scaleTime()
-    .domain(d3.extent(dataGroups[0].value, (d) => new Date(d.label).getTime()))
+    .domain(d3.extent(dataGroups[0].value, (d) => d.time))
     .range([leftWidth, width - MARGIN.right]);
 
   const bottomHeight = addXAxis(xAxis, height, xScale);
@@ -865,9 +860,8 @@ function drawLineChart(
   const timePoints = new Set<number>();
   for (const dataGroup of dataGroups) {
     const dataset = dataGroup.value.map((dp) => {
-      const time = new Date(dp.label).getTime();
-      timePoints.add(time);
-      return [time, dp.value];
+      timePoints.add(dp.time);
+      return [dp.time, dp.value];
     });
     const hasGap = shouldFillInValues(dataset);
     hasFilledInValues = hasFilledInValues || hasGap;
@@ -905,17 +899,10 @@ function drawLineChart(
       .style("stroke", colorFn(dataGroup.label));
 
     if (shouldAddDots) {
-      const dotsDataset: DotDataPoint[] = dataGroup.value.map((dp) => {
-        return {
-          label: dp.label,
-          time: new Date(dp.label).getTime(),
-          value: dp.value,
-        };
-      });
       const dots = chart
         .append("g")
         .selectAll(".dot")
-        .data(dotsDataset)
+        .data(dataGroup.value)
         .enter()
         .append("circle")
         .attr("class", "dot")
@@ -1095,7 +1082,7 @@ function drawGroupLineChart(
 
   const xScale = d3
     .scaleTime()
-    .domain(d3.extent(dataGroups[0].value, (d) => new Date(d.label).getTime()))
+    .domain(d3.extent(dataGroups[0].value, (d) => d.time))
     .range([leftWidth, width - MARGIN.right - legendWidth]);
 
   const bottomHeight = addXAxis(xAxis, height, xScale);
@@ -1120,11 +1107,7 @@ function drawGroupLineChart(
   for (const place in dataGroupsDict) {
     dataGroups = dataGroupsDict[place];
     for (const dataGroup of dataGroups) {
-      const dataset = dataGroup.value.map((dp) => {
-        const time = new Date(dp.label).getTime();
-        timePoints.add(time);
-        return [time,dp.value];
-      });
+      const dataset = dataGroup.value.map((dp) => [dp.time, dp.value]);
       const line = d3
         .line()
         .defined((d) => d[1] != null)

@@ -150,34 +150,142 @@ class DevPage extends React.Component {
 
     let dataGroups = [
       new DataGroup("Staten Island, NY", [
-        new DataPoint("2011", -10000),
-        new DataPoint("2012", null),
-        new DataPoint("2013", -30000),
+        new DataPoint(
+          "2011",
+          -10000,
+          undefined,
+          undefined,
+          new Date("2011").getTime()
+        ),
+        new DataPoint(
+          "2012",
+          null,
+          undefined,
+          undefined,
+          new Date("2012").getTime()
+        ),
+        new DataPoint(
+          "2013",
+          -30000,
+          undefined,
+          undefined,
+          new Date("2013").getTime()
+        ),
       ]),
       new DataGroup("Queens, NY", [
-        new DataPoint("2011", null),
-        new DataPoint("2012", 26000),
-        new DataPoint("2013", 24000),
+        new DataPoint(
+          "2011",
+          null,
+          undefined,
+          undefined,
+          new Date("2011").getTime()
+        ),
+        new DataPoint(
+          "2012",
+          26000,
+          undefined,
+          undefined,
+          new Date("2012").getTime()
+        ),
+        new DataPoint(
+          "2013",
+          24000,
+          undefined,
+          undefined,
+          new Date("2013").getTime()
+        ),
       ]),
       new DataGroup("New York, NY", [
-        new DataPoint("2011", null),
-        new DataPoint("2012", -25000),
-        new DataPoint("2013", 22000),
+        new DataPoint(
+          "2011",
+          null,
+          undefined,
+          undefined,
+          new Date("2011").getTime()
+        ),
+        new DataPoint(
+          "2012",
+          -25000,
+          undefined,
+          undefined,
+          new Date("2012").getTime()
+        ),
+        new DataPoint(
+          "2013",
+          22000,
+          undefined,
+          undefined,
+          new Date("2013").getTime()
+        ),
       ]),
       new DataGroup("United States of America", [
-        new DataPoint("2011", null),
-        new DataPoint("2012", 5000),
-        new DataPoint("2013", 2000),
+        new DataPoint(
+          "2011",
+          null,
+          undefined,
+          undefined,
+          new Date("2011").getTime()
+        ),
+        new DataPoint(
+          "2012",
+          5000,
+          undefined,
+          undefined,
+          new Date("2012").getTime()
+        ),
+        new DataPoint(
+          "2013",
+          2000,
+          undefined,
+          undefined,
+          new Date("2013").getTime()
+        ),
       ]),
       new DataGroup("Very-Long City-Name", [
-        new DataPoint("2011", 1000),
-        new DataPoint("2012", 5000),
-        new DataPoint("2013", null),
+        new DataPoint(
+          "2011",
+          1000,
+          undefined,
+          undefined,
+          new Date("2011").getTime()
+        ),
+        new DataPoint(
+          "2012",
+          5000,
+          undefined,
+          undefined,
+          new Date("2012").getTime()
+        ),
+        new DataPoint(
+          "2013",
+          null,
+          undefined,
+          undefined,
+          new Date("2013").getTime()
+        ),
       ]),
       new DataGroup("Multi several-very long city name long", [
-        new DataPoint("2011", 1000),
-        new DataPoint("2012", 5000),
-        new DataPoint("2013", null),
+        new DataPoint(
+          "2011",
+          1000,
+          undefined,
+          undefined,
+          new Date("2011").getTime()
+        ),
+        new DataPoint(
+          "2012",
+          5000,
+          undefined,
+          undefined,
+          new Date("2012").getTime()
+        ),
+        new DataPoint(
+          "2013",
+          null,
+          undefined,
+          undefined,
+          new Date("2013").getTime()
+        ),
       ]),
     ];
 
@@ -237,44 +345,188 @@ class DevPage extends React.Component {
     // Draw group bar with long i18n names.
     dataGroups = [
       new DataGroup("スタテンアイランド, ニューヨーク州, アメリカ合衆国", [
-        new DataPoint("2011", -10),
-        new DataPoint("2012", null),
-        new DataPoint("2013", -30),
+        new DataPoint(
+          "2011",
+          -10,
+          undefined,
+          undefined,
+          new Date("2011").getTime()
+        ),
+        new DataPoint(
+          "2012",
+          null,
+          undefined,
+          undefined,
+          new Date("2012").getTime()
+        ),
+        new DataPoint(
+          "2013",
+          -30,
+          undefined,
+          undefined,
+          new Date("2013").getTime()
+        ),
       ]),
       new DataGroup("クイーンズ区, ニューヨーク州", [
-        new DataPoint("2011", null),
-        new DataPoint("2012", 2.6),
-        new DataPoint("2013", 24),
+        new DataPoint(
+          "2011",
+          null,
+          undefined,
+          undefined,
+          new Date("2011").getTime()
+        ),
+        new DataPoint(
+          "2012",
+          2.6,
+          undefined,
+          undefined,
+          new Date("2012").getTime()
+        ),
+        new DataPoint(
+          "2013",
+          24,
+          undefined,
+          undefined,
+          new Date("2013").getTime()
+        ),
       ]),
       new DataGroup("マンハッタン, ニューヨーク州", [
-        new DataPoint("2011", null),
-        new DataPoint("2012", -25),
-        new DataPoint("2013", 22),
+        new DataPoint(
+          "2011",
+          null,
+          undefined,
+          undefined,
+          new Date("2011").getTime()
+        ),
+        new DataPoint(
+          "2012",
+          -25,
+          undefined,
+          undefined,
+          new Date("2012").getTime()
+        ),
+        new DataPoint(
+          "2013",
+          22,
+          undefined,
+          undefined,
+          new Date("2013").getTime()
+        ),
       ]),
       new DataGroup("マンハッタン, ニューヨーク州", [
-        new DataPoint("2011", null),
-        new DataPoint("2012", 50),
-        new DataPoint("2013", 20),
+        new DataPoint(
+          "2011",
+          null,
+          undefined,
+          undefined,
+          new Date("2011").getTime()
+        ),
+        new DataPoint(
+          "2012",
+          50,
+          undefined,
+          undefined,
+          new Date("2012").getTime()
+        ),
+        new DataPoint(
+          "2013",
+          20,
+          undefined,
+          undefined,
+          new Date("2013").getTime()
+        ),
       ]),
       new DataGroup("ブルックリン区, ニューヨーク州", [
-        new DataPoint("2011", 10),
-        new DataPoint("2012", 50),
-        new DataPoint("2013", null),
+        new DataPoint(
+          "2011",
+          10,
+          undefined,
+          undefined,
+          new Date("2011").getTime()
+        ),
+        new DataPoint(
+          "2012",
+          50,
+          undefined,
+          undefined,
+          new Date("2012").getTime()
+        ),
+        new DataPoint(
+          "2013",
+          null,
+          undefined,
+          undefined,
+          new Date("2013").getTime()
+        ),
       ]),
       new DataGroup("ブロンクス区, ニューヨーク州", [
-        new DataPoint("2011", 10),
-        new DataPoint("2012", 50),
-        new DataPoint("2013", null),
+        new DataPoint(
+          "2011",
+          10,
+          undefined,
+          undefined,
+          new Date("2011").getTime()
+        ),
+        new DataPoint(
+          "2012",
+          50,
+          undefined,
+          undefined,
+          new Date("2012").getTime()
+        ),
+        new DataPoint(
+          "2013",
+          null,
+          undefined,
+          undefined,
+          new Date("2013").getTime()
+        ),
       ]),
       new DataGroup("ニューヨーク州", [
-        new DataPoint("2011", 10),
-        new DataPoint("2012", 50),
-        new DataPoint("2013", null),
+        new DataPoint(
+          "2011",
+          10,
+          undefined,
+          undefined,
+          new Date("2011").getTime()
+        ),
+        new DataPoint(
+          "2012",
+          50,
+          undefined,
+          undefined,
+          new Date("2012").getTime()
+        ),
+        new DataPoint(
+          "2013",
+          null,
+          undefined,
+          undefined,
+          new Date("2013").getTime()
+        ),
       ]),
       new DataGroup("アメリカ合衆国", [
-        new DataPoint("2011", 23.6),
-        new DataPoint("2012", 24),
-        new DataPoint("2013", null),
+        new DataPoint(
+          "2011",
+          23.6,
+          undefined,
+          undefined,
+          new Date("2011").getTime()
+        ),
+        new DataPoint(
+          "2012",
+          24,
+          undefined,
+          undefined,
+          new Date("2012").getTime()
+        ),
+        new DataPoint(
+          "2013",
+          null,
+          undefined,
+          undefined,
+          new Date("2013").getTime()
+        ),
       ]),
     ];
     width = 354;
@@ -366,8 +618,20 @@ class DevPage extends React.Component {
     // Test y-axis with small values
     dataGroups = [
       new DataGroup("label-1", [
-        new DataPoint("01-01-2011", 7),
-        new DataPoint("01-02-2011", 10),
+        new DataPoint(
+          "01-01-2011",
+          7,
+          undefined,
+          undefined,
+          new Date("01-01-2011").getTime()
+        ),
+        new DataPoint(
+          "01-02-2011",
+          10,
+          undefined,
+          undefined,
+          new Date("01-02-2011").getTime()
+        ),
       ]),
     ];
     id = randDomId();
@@ -385,20 +649,92 @@ class DevPage extends React.Component {
     // Draw line chart with missing values.
     dataGroups = [
       new DataGroup("label-1", [
-        new DataPoint("01-01-2011", 702134),
-        new DataPoint("01-02-2011", 1002342),
-        new DataPoint("01-03-2011", 3002342),
-        new DataPoint("01-04-2011", 9520234),
-        new DataPoint("01-05-2011", 3520234),
-        new DataPoint("01-06-2011", 7520234),
+        new DataPoint(
+          "01-01-2011",
+          702134,
+          undefined,
+          undefined,
+          new Date("01-01-2011").getTime()
+        ),
+        new DataPoint(
+          "01-02-2011",
+          1002342,
+          undefined,
+          undefined,
+          new Date("01-02-2011").getTime()
+        ),
+        new DataPoint(
+          "01-03-2011",
+          3002342,
+          undefined,
+          undefined,
+          new Date("01-03-2011").getTime()
+        ),
+        new DataPoint(
+          "01-04-2011",
+          9520234,
+          undefined,
+          undefined,
+          new Date("01-04-2011").getTime()
+        ),
+        new DataPoint(
+          "01-05-2011",
+          3520234,
+          undefined,
+          undefined,
+          new Date("01-05-2011").getTime()
+        ),
+        new DataPoint(
+          "01-06-2011",
+          7520234,
+          undefined,
+          undefined,
+          new Date("01-06-2011").getTime()
+        ),
       ]),
       new DataGroup("label-2", [
-        new DataPoint("01-01-2011", 2134),
-        new DataPoint("01-02-2011", null),
-        new DataPoint("01-03-2011", 2342),
-        new DataPoint("01-04-2011", null),
-        new DataPoint("01-05-2011", 520234),
-        new DataPoint("01-06-2011", 520234),
+        new DataPoint(
+          "01-01-2011",
+          2134,
+          undefined,
+          undefined,
+          new Date("01-01-2011").getTime()
+        ),
+        new DataPoint(
+          "01-02-2011",
+          null,
+          undefined,
+          undefined,
+          new Date("01-02-2011").getTime()
+        ),
+        new DataPoint(
+          "01-03-2011",
+          2342,
+          undefined,
+          undefined,
+          new Date("01-03-2011").getTime()
+        ),
+        new DataPoint(
+          "01-04-2011",
+          null,
+          undefined,
+          undefined,
+          new Date("01-04-2011").getTime()
+        ),
+        new DataPoint(
+          "01-05-2011",
+          520234,
+          undefined,
+          undefined,
+          new Date("01-05-2011").getTime()
+        ),
+        new DataPoint(
+          "01-06-2011",
+          520234,
+          undefined,
+          undefined,
+          new Date("01-06-2011").getTime()
+        ),
       ]),
     ];
     id = randDomId();
@@ -474,7 +810,16 @@ class DevPage extends React.Component {
       placeData1.push(
         new DataGroup(
           label,
-          years.map((year, i) => new DataPoint(year, placeValue1[label][i]))
+          years.map(
+            (year, i) =>
+              new DataPoint(
+                year,
+                placeValue1[label][i],
+                undefined,
+                undefined,
+                new Date(year).getTime()
+              )
+          )
         )
       );
     }
@@ -483,7 +828,16 @@ class DevPage extends React.Component {
       placeData2.push(
         new DataGroup(
           label,
-          years.map((year, i) => new DataPoint(year, placeValue2[label][i]))
+          years.map(
+            (year, i) =>
+              new DataPoint(
+                year,
+                placeValue2[label][i],
+                undefined,
+                undefined,
+                new Date(year).getTime()
+              )
+          )
         )
       );
     }

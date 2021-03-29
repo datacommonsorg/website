@@ -149,12 +149,12 @@ test("fetch stats data", () => {
 
     expect(data.getStatsVarGroupWithTime("geoId/06")).toEqual([
       new DataGroup("Count_Person", [
-        { label: "2011", value: 31000 },
-        { label: "2012", value: 32000 },
+        { label: "2011", value: 31000, time: new Date("2011").getTime() },
+        { label: "2012", value: 32000, time: new Date("2012").getTime() },
       ]),
       new DataGroup("Count_Person_Male", [
-        { label: "2011", value: 15000 },
-        { label: "2012", value: 16000 },
+        { label: "2011", value: 15000, time: new Date("2011").getTime() },
+        { label: "2012", value: 16000, time: new Date("2012").getTime() },
       ]),
     ]);
 
@@ -311,9 +311,9 @@ test("fetch stats data where latest date with data for all stat vars is not the 
 
       expect(data.getStatsVarGroupWithTime("geoId/06")).toEqual([
         new DataGroup("Count_Person", [
-          { label: "2011", value: 31000 },
-          { label: "2012", value: null },
-          { label: "2013", value: 32000 },
+          { label: "2011", value: 31000, time: new Date("2011").getTime() },
+          { label: "2012", value: null, time: new Date("2012").getTime() },
+          { label: "2013", value: 32000, time: new Date("2013").getTime() },
         ]),
       ]);
 
@@ -387,10 +387,10 @@ test("fetch stats data where there is no date with data for all stat vars", () =
 
       expect(data.getStatsVarGroupWithTime("geoId/06")).toEqual([
         new DataGroup("Count_Person", [
-          { label: "2010", value: null },
-          { label: "2011", value: 31000 },
-          { label: "2012", value: 32000 },
-          { label: "2013", value: null },
+          { label: "2010", value: null, time: new Date("2010").getTime() },
+          { label: "2011", value: 31000, time: new Date("2011").getTime() },
+          { label: "2012", value: 32000, time: new Date("2012").getTime() },
+          { label: "2013", value: null, time: new Date("2013").getTime() },
         ]),
       ]);
 
@@ -730,12 +730,12 @@ test("Per capita with specified denominators test", () => {
 
     expect(data.getStatsVarGroupWithTime("geoId/06")).toEqual([
       new DataGroup("Count_Person_Male", [
-        { label: "2011", value: 1 },
-        { label: "2012", value: 1 },
+        { label: "2011", value: 1, time: new Date("2011").getTime() },
+        { label: "2012", value: 1, time: new Date("2012").getTime() },
       ]),
       new DataGroup("Count_Person_Female", [
-        { label: "2011", value: 1 },
-        { label: "2012", value: 1 },
+        { label: "2011", value: 1, time: new Date("2011").getTime() },
+        { label: "2012", value: 1, time: new Date("2012").getTime() },
       ]),
     ]);
 
@@ -940,8 +940,8 @@ test("Per capita with specified denominators test - missing place data", () => {
 
     expect(data.getStatsVarGroupWithTime("geoId/05")).toEqual([
       new DataGroup("UnemploymentRate_Person_Female", [
-        { label: "2011", value: 1 },
-        { label: "2012", value: 2 },
+        { label: "2011", value: 1, time: new Date("2011").getTime() },
+        { label: "2012", value: 2, time: new Date("2012").getTime() },
       ]),
     ]);
 
