@@ -22,7 +22,6 @@ import React from "react";
 import axios from "axios";
 import { DataGroup, DataPoint } from "../chart/base";
 import { drawLineChart } from "../chart/draw";
-import { DotDataPoint } from "../chart/types";
 import { getUnit, SourceSeries } from "./util";
 
 // Chart size
