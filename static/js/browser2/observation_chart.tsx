@@ -94,7 +94,7 @@ export class ObservationChart extends React.Component<
       data.push({
         label: key,
         value: Number(values[key]),
-        time: new Date(key).getTime()
+        time: new Date(key).getTime(),
       });
     });
     const dataGroups = [new DataGroup("", data)];

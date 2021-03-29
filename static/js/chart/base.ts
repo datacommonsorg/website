@@ -26,10 +26,16 @@ class DataPoint {
   dcid?: string;
   // Optional Label link to show on UI element
   link?: string;
-  // Optional time value. If datapoint label is a date string, 
+  // Optional time value. If datapoint label is a date string,
   // this field should be set.
-  time? : number;
-  constructor(label: string, value: number, dcid?: string, link?: string, time?: number) {
+  time?: number;
+  constructor(
+    label: string,
+    value: number,
+    dcid?: string,
+    link?: string,
+    time?: number
+  ) {
     this.value = value;
     this.label = label;
     this.dcid = dcid;

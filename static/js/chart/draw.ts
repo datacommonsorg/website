@@ -246,9 +246,7 @@ function addHighlightOnHover(
       let maxDataPointY = 0;
       highlightDots
         .attr("transform", (d: DataGroup) => {
-          const dataPoint = d.value.find(
-            (val) => val.time === highlightedTime
-          );
+          const dataPoint = d.value.find((val) => val.time === highlightedTime);
           if (dataPoint) {
             const dataPointY = yScale(dataPoint.value);
             maxDataPointY = Math.max(maxDataPointY, dataPointY);
@@ -256,9 +254,7 @@ function addHighlightOnHover(
           }
         })
         .style("opacity", (d: DataGroup) => {
-          const dataPoint = d.value.find(
-            (val) => val.time === highlightedTime
-          );
+          const dataPoint = d.value.find((val) => val.time === highlightedTime);
           if (dataPoint && dataPoint.value) {
             return "1";
           } else {
@@ -1091,10 +1087,7 @@ function drawGroupLineChart(
   for (const place in dataGroupsDict) {
     dataGroups = dataGroupsDict[place];
     for (const dataGroup of dataGroups) {
-      const dataset = dataGroup.value.map((dp) => [
-        dp.time,
-        dp.value,
-      ]);
+      const dataset = dataGroup.value.map((dp) => [dp.time, dp.value]);
       const line = d3
         .line()
         .defined((d) => d[1] != null)
