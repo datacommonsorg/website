@@ -260,7 +260,7 @@ function addHighlightOnHover(
         })
         .style("opacity", (d: DataGroup) => {
           const dataPoint = d.value.find((val) => val.time === highlightedTime);
-          if (dataPoint && dataPoint.value) {
+          if (dataPoint && dataPoint.value !== null) {
             return "1";
           } else {
             return "0";
@@ -858,7 +858,9 @@ function drawLineChart(
   const timePoints = new Set<number>();
   for (const dataGroup of dataGroups) {
     const dataset = dataGroup.value.map((dp) => {
-      timePoints.add(dp.time);
+      if (dp.time) {
+        timePoints.add(dp.time);
+      }
       return [dp.time, dp.value];
     });
     const hasGap = shouldFillInValues(dataset);
@@ -936,7 +938,7 @@ function drawLineChart(
         const dataPoint = dataGroup.value.find(
           (val) => val.time === highlightedTime
         );
-        if (dataPoint && dataPoint.value) {
+        if (dataPoint && dataPoint.value !== null) {
           const label =
             dataGroups.length === 1 ? dataPoint.label : dataGroup.label;
           tooltipDate = dataPoint.label;
@@ -1179,7 +1181,7 @@ function drawGroupLineChart(
         const dataPoint = dataGroup.value.find(
           (val) => val.time === highlightedTime
         );
-        if (dataPoint && dataPoint.value) {
+        if (dataPoint && dataPoint.value !== null) {
           tooltipDate = `${dataPoint.label}<br/>`;
           let rowLabel = "";
           if (dataGroups.length > 1) {
