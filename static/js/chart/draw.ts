@@ -155,6 +155,51 @@ function showTooltip(
 }
 
 /**
+ * Gets the html content of a tooltip
+ *
+ * @param dataGroupsDict mapping of place to datagroups from which the html content will be generated from.
+ * @param highlightedTime the timepoint we are showing a tooltip for.
+ * @param unit units for the data.
+ */
+function getTooltipContent(
+  dataGroupsDict: { [place: string]: DataGroup[] },
+  highlightedTime: number,
+  unit?: string
+): string {
+  let tooltipDate = "";
+  let tooltipContent = "";
+  const places = Object.keys(dataGroupsDict);
+  for (const place of places) {
+    const dataGroups = dataGroupsDict[place];
+    for (const dataGroup of dataGroups) {
+      const dataPoint = dataGroup.value.find(
+        (val) => val.time === highlightedTime
+      );
+      if (dataPoint && dataPoint.value !== null) {
+        tooltipDate = dataPoint.label;
+        let rowLabel =
+          dataGroups.length === 1 && places.length === 1 ? dataPoint.label : "";
+        if (dataGroups.length > 1) {
+          rowLabel += dataGroup.label;
+        }
+        if (places.length > 1) {
+          rowLabel += ` ${place}`;
+        }
+        tooltipContent += `${rowLabel}: ${formatNumber(
+          dataPoint.value,
+          unit
+        )}<br/>`;
+      }
+    }
+  }
+  if (places.length === 1 && dataGroupsDict[places[0]].length === 1) {
+    return tooltipContent;
+  } else {
+    return `${tooltipDate}<br/>` + tooltipContent;
+  }
+}
+
+/**
  * Gets the timepoint that the mouse is hovering at. Calculation from https://bl.ocks.org/Qizly/8f6ba236b79d9bb03a80.
  *
  * @param containerId
@@ -186,10 +231,10 @@ function getHighlightedTime(
  *
  * @param xScale time scale corresponding to the x-axis.
  * @param yScale linear scale corresponding to the y-axis.
- * @param containerId id of the div containing the line chart to add highlighting for.
- * @param dataGroups datagroups of the line chart of interest.
- * @param colorFn color scale that returns a color for a given string.
- * @param listOfTimePoints all the timepoints in the datagroups.
+ * @param container the div element that holds the line chart we are adding highlighting for.
+ * @param dataGroupsDict dictionary of place to datagroups of the line chart of interest.
+ * @param colorFn color function that returns a color for a given place and datagroup.
+ * @param setOfTimePoints all the timepoints in the dataGroupsDict.
  * @param highlightArea svg element to hold the elements for highlighting points.
  * @param chartAreaBoundary boundary of the chart of interest relative to its container.
  * @param unit units of the data of the chart of interest.
@@ -203,7 +248,7 @@ function addHighlightOnHover(
   setOfTimePoints: Set<number>,
   highlightArea: d3.Selection<SVGGElement, any, any, any>,
   chartAreaBoundary: Boundary,
-  getTooltipContent: (highlightedTime: number) => string
+  unit?: string
 ): void {
   const listOfTimePoints: number[] = Array.from(setOfTimePoints);
   listOfTimePoints.sort((a, b) => a - b);
@@ -269,8 +314,13 @@ function addHighlightOnHover(
       highlightLine.attr("transform", () => {
         return `translate(${dataPointX},0)`;
       });
+      const tooltipContent = getTooltipContent(
+        dataGroupsDict,
+        highlightedTime,
+        unit
+      );
       showTooltip(
-        getTooltipContent(highlightedTime),
+        tooltipContent,
         container,
         dataPointX,
         minDataPointY,
@@ -931,28 +981,6 @@ function drawLineChart(
     const highlightColorFn = (_: string, dataGroup: DataGroup) => {
       return colorFn(dataGroup.label);
     };
-    const getTooltipContent = (highlightedTime: number) => {
-      let tooltipContent = "";
-      let tooltipDate = "";
-      for (const dataGroup of dataGroups) {
-        const dataPoint = dataGroup.value.find(
-          (val) => val.time === highlightedTime
-        );
-        if (dataPoint && dataPoint.value !== null) {
-          const label =
-            dataGroups.length === 1 ? dataPoint.label : dataGroup.label;
-          tooltipDate = dataPoint.label;
-          tooltipContent =
-            tooltipContent +
-            `${label}: ${formatNumber(dataPoint.value, unit)}<br/>`;
-        }
-      }
-      if (dataGroups.length > 1) {
-        return `${tooltipDate}<br/>` + tooltipContent;
-      } else {
-        return tooltipContent;
-      }
-    };
 
     addHighlightOnHover(
       xScale,
@@ -963,7 +991,7 @@ function drawLineChart(
       timePoints,
       highlight,
       chartAreaBoundary,
-      getTooltipContent
+      unit
     );
   }
 
@@ -1172,35 +1200,6 @@ function drawGroupLineChart(
   const highlightColorFn = (place: string, dataGroup: DataGroup) => {
     return plotParams.lines[place + statsVarsTitle[dataGroup.label]].color;
   };
-  const getTooltipContent = (highlightedTime: number): string => {
-    let tooltipDate = "";
-    let tooltipContent = "";
-    for (const place in dataGroupsDict) {
-      const dataGroups = dataGroupsDict[place];
-      for (const dataGroup of dataGroups) {
-        const dataPoint = dataGroup.value.find(
-          (val) => val.time === highlightedTime
-        );
-        if (dataPoint && dataPoint.value !== null) {
-          tooltipDate = `${dataPoint.label}<br/>`;
-          let rowLabel = "";
-          if (dataGroups.length > 1) {
-            rowLabel += dataGroup.label;
-          }
-          if (Object.keys(dataGroupsDict).length > 1) {
-            rowLabel += ` ${place}`;
-          }
-          tooltipContent =
-            tooltipContent +
-            `${rowLabel ? rowLabel + ":" : ""} ${formatNumber(
-              dataPoint.value,
-              unit
-            )}<br/>`;
-        }
-      }
-    }
-    return tooltipDate + tooltipContent;
-  };
   addHighlightOnHover(
     xScale,
     yScale,
@@ -1210,7 +1209,7 @@ function drawGroupLineChart(
     timePoints,
     highlight,
     chartAreaBoundary,
-    getTooltipContent
+    unit
   );
 }
 
