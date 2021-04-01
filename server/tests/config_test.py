@@ -25,7 +25,7 @@ class TestConfig(unittest.TestCase):
         ('test', {
             'TEST': True,
             'WEBDRIVER': False,
-            'DEVELOPMENT': False,
+            'LOCAL': False,
             'LITE': False,
             'SVOBS': False,
             'CACHE_TYPE': 'simple',
@@ -36,10 +36,10 @@ class TestConfig(unittest.TestCase):
             'MAPS_API_KEY': '',
             'SCHEME': 'http',
         }),
-        ('development', {
+        ('local', {
             'TEST': False,
             'WEBDRIVER': False,
-            'DEVELOPMENT': True,
+            'LOCAL': True,
             'LITE': False,
             'SVOBS': False,
             'CACHE_TYPE': 'simple',
@@ -50,10 +50,10 @@ class TestConfig(unittest.TestCase):
             'MAPS_API_KEY': '',
             'SCHEME': 'http',
         }),
-        ('development-lite', {
+        ('local-lite', {
             'TEST': False,
             'WEBDRIVER': False,
-            'DEVELOPMENT': True,
+            'LOCAL': True,
             'LITE': True,
             'SVOBS': False,
             'CACHE_TYPE': 'simple',
@@ -64,12 +64,12 @@ class TestConfig(unittest.TestCase):
             'MAPS_API_KEY': '',
             'SCHEME': 'http',
         }),
-        ('development-svobs', {
+        ('local-svobs', {
             'TEST':
                 False,
             'WEBDRIVER':
                 False,
-            'DEVELOPMENT':
+            'LOCAL':
                 True,
             'LITE':
                 False,
@@ -93,7 +93,7 @@ class TestConfig(unittest.TestCase):
         ('webdriver', {
             'TEST': False,
             'WEBDRIVER': True,
-            'DEVELOPMENT': False,
+            'LOCAL': False,
             'LITE': False,
             'SVOBS': False,
             'CACHE_TYPE': 'simple',
@@ -114,7 +114,7 @@ class TestConfig(unittest.TestCase):
     def assertConfigEqual(self, config, expected):
         self.assertEqual(config.TEST, expected['TEST'])
         self.assertEqual(config.WEBDRIVER, expected['WEBDRIVER'])
-        self.assertEqual(config.DEVELOPMENT, expected['DEVELOPMENT'])
+        self.assertEqual(config.LOCAL, expected['LOCAL'])
         self.assertEqual(config.LITE, expected['LITE'])
         self.assertEqual(config.SVOBS, expected['SVOBS'])
         self.assertEqual(config.CACHE_TYPE, expected['CACHE_TYPE'])

@@ -25,6 +25,4 @@ IMAGE=gcr.io/datcom-ci/datacommons-website
 gcloud config set project datcom-ci
 export TAG="$(git rev-parse --short HEAD)"
 DOCKER_BUILDKIT=1 docker build -f build/Dockerfile --tag $IMAGE:$TAG $ROOT
-DOCKER_BUILDKIT=1 docker build -f build/Dockerfile --tag $IMAGE:latest $ROOT
 docker push $IMAGE:$TAG
-docker push $IMAGE:latest

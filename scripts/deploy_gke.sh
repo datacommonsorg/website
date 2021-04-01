@@ -18,9 +18,9 @@
 #
 # Usage:
 #
-# ./deploy_key.sh <"autopush"|"staging"|"prod"|"svobs">
+# ./deploy_key.sh <"autopush"|"staging"|"prod"|"svobs"|"dev">
 #
-# First argument is either "svobs", "autopush", "staging" or "prod".
+# First argument is either "dev", "svobs", "autopush", "staging" or "prod".
 #
 # !!! WARNING: Run this script in a clean Git checkout at the desired commit.
 #
@@ -30,8 +30,8 @@ set -e
 ENV=$1
 REGION=$2
 
-if [[ $ENV != "staging" && $ENV != "prod" && $ENV != "autopush" && $ENV != "svobs" ]]; then
-  echo "First argument should be 'staging' or 'prod' or 'autopush' or 'svobs'"
+if [[ $ENV != "staging" && $ENV != "prod" && $ENV != "autopush" && $ENV != "svobs" && $ENV != "dev" ]]; then
+  echo "First argument should be 'staging' or 'prod' or 'autopush' or 'svobs' or 'dev'"
   exit
 fi
 

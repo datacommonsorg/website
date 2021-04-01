@@ -31,12 +31,14 @@ def get_config():
         return import_string('configmodule.AutopushConfig')()
     elif os.environ.get('FLASK_ENV') == 'svobs':
         return import_string('configmodule.SvObsConfig')()
-    elif os.environ.get('FLASK_ENV') == 'development':
-        return import_string('configmodule.DevelopmentConfig')()
-    elif os.environ.get('FLASK_ENV') == 'development-lite':
-        return import_string('configmodule.DevelopmentLiteConfig')()
-    elif os.environ.get('FLASK_ENV') == 'development-svobs':
-        return import_string('configmodule.DevelopmentSvObsConfig')()
+    elif os.environ.get('FLASK_ENV') == 'dev':
+        return import_string('configmodule.DevConfig')()
+    elif os.environ.get('FLASK_ENV') == 'local':
+        return import_string('configmodule.LocalConfig')()
+    elif os.environ.get('FLASK_ENV') == 'local-lite':
+        return import_string('configmodule.LocalLiteConfig')()
+    elif os.environ.get('FLASK_ENV') == 'local-svobs':
+        return import_string('configmodule.LocalSvObsConfig')()
     elif os.environ.get('FLASK_ENV') == 'minikube':
         return import_string('configmodule.MinikubeConfig')()
     else:
