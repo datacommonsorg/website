@@ -1,11 +1,10 @@
-#!/bin/bash
 # Copyright 2020 Google LLC
 #
 # Licensed under the Apache License, Version 2.0 (the "License");
 # you may not use this file except in compliance with the License.
 # You may obtain a copy of the License at
 #
-#      http://www.apache.org/licenses/LICENSE-2.0
+#     https://www.apache.org/licenses/LICENSE-2.0
 #
 # Unless required by applicable law or agreed to in writing, software
 # distributed under the License is distributed on an "AS IS" BASIS,
@@ -13,23 +12,13 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-set -e
-
-python3 -m venv .env
-source .env/bin/activate
-
-export GOOGLE_CLOUD_PROJECT=datcom-website-staging
-if [[ $1 == "lite" ]]
-then
-  export FLASK_ENV=local-lite
-elif [[ $1 == "svobs" ]]
-then
-  export FLASK_ENV=local-svobs
-else
-  export FLASK_ENV=local
-fi
-
-pip3 install -r server/requirements.txt -q
-cd server
-python3 main.py
-cd ..
+project: datcom-website-dev
+ip: 130.211.4.131
+domain: dev.datacommons.org
+region:
+  primary: us-central1
+  others:
+    - europe-west2
+nodes: 1
+storage_project: datcom-store
+gcs_bucket: datcom-website-autopush-resources

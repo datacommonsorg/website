@@ -12,47 +12,51 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-# Kustomization for dev website running on GCP `datcom-website-dev` project.
+# Kustomization for local website in Minikube environment.
+# - Adds "local" suffix to all the resources
+# - Use "serviceaccount.yaml" to create service account explicitly.
+#   Note the GKE cluster service account is created once at cluster creation time.
+# - Patch deployment with "api-compiler" image that can updates the gRPC config on code change.
+# - Update the esp startup options for local container.
 
 apiVersion: kustomize.config.k8s.io/v1beta1
 kind: Kustomization
 
-nameSuffix: -dev
+nameSuffix: -local
 namespace: website
 
-resources:
-  - ../../svobs
+bases:
+  - ../../popobs
 
+resources:
+  - service.yaml
+  - serviceaccount.yaml
+
+# local instance shares some config with "dev" project and uses the gcsBucket
+# in "autopush" project, since that should have the latest version.
 configMapGenerator:
   - name: website-configmap
     behavior: create
     literals:
-      - flaskEnv=svobs
+      - flaskEnv=minikube
       - gcsBucket=datcom-website-autopush-resources
       - secretProject=datcom-website-dev
   - name: mixer-configmap
     behavior: create
     literals:
-      - mixerProject=datcom-website-dev
-      - serviceName=website-esp.endpoints.datcom-website-dev.cloud.goog
+      - mixerProject=datcom-mixer-dev
+      - serviceName=
+
+generatorOptions:
+  disableNameSuffixHash: true
 
 patchesStrategicMerge:
-  - |-
-    apiVersion: apps/v1
-    kind: Deployment
-    metadata:
-      name: website-app
-    spec:
-      replicas: 6
+  - patch_deployment.yaml
 
-# set svobs_mode to true
 patchesJson6902:
   - target:
       group: apps
       version: v1
       kind: Deployment
       name: website-app
-    patch: |-
-      - op: add
-        path: /spec/template/spec/containers/1/args/0
-        value: --svobs_mode=true
+    path: patch_args.yaml

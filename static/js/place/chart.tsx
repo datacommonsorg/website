@@ -399,7 +399,7 @@ class Chart extends React.Component<ChartPropType, ChartStateType> {
       }
     }
     dates.forEach((date) => {
-      result.push({ label: date, value: null });
+      result.push({ label: date, time: new Date(date).getTime(), value: null });
     });
 
     result.sort(function (a, b) {

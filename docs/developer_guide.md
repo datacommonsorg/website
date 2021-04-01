@@ -169,6 +169,20 @@ Python code change will trigger a restart of the Flask server automatically.
 Run `minikube dashboard` in a separate terminal to start the dashboard, which is
 useful for monitoring and controlling the containers.
 
+## Deploy local instance to GCP
+
+Commit all changes locally. Then run
+
+```bash
+./scripts/push_image.sh
+./scripts/deploy_gke.sh dev us-central1
+```
+
+The script will build docker image locally and tag it with the local git commit
+hash at HEAD, then deploy to GKE.
+
+View the deployoment at [link](https://dev.datacommons.org)
+
 ## Other Developing Tips
 
 ### GKE config

@@ -14,7 +14,7 @@
 
 # Website Kubernetes Service config. (https://kubernetes.io/docs/concepts/services-networking/service/)
 # The service exposes the website port 8080 via NodePort.
-# Note this is only needed for dev environment since the staging/production uses multi-cluster service.
+# Note this is only needed for local environment since the staging/production uses multi-cluster service.
 
 apiVersion: v1
 kind: Service
