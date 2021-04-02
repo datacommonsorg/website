@@ -174,7 +174,7 @@ class TestStatVarHierarchy(unittest.TestCase):
         for sv in sv_result.keys():
             assert sv_result[sv].get("parent", "") == expected_sv_parents[sv]
         for svg in svg_result.keys():
-            assert set(sv_result[sv].get("parent",
-                                         [])) == set(expected_sv_parents[sv])
+            assert set(svg_result[svg].get("parent", [])) == set(
+                expected_svg_parents[svg])
         assert expected_sv_parents.keys() == sv_result.keys()
         assert expected_svg_parents.keys() == svg_result.keys()

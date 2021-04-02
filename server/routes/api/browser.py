@@ -137,12 +137,12 @@ def statvar_hierarchy_helper(svg_id, sv_groups, processed_svg, processed_sv,
 @cache.cached(timeout=3600 * 24, query_string=True)  # Cache for one day.
 @bp.route('/statvar-hierarchy/<path:dcid>')
 def get_statvar_hierarchy(dcid):
-    """Returns the stat var groups objects and stat vars objects relevant to a specific dcid. 
+    """Returns the stat var groups objects and stat vars objects relevant to a specific dcid.
     
-    Each stat var group object (keyed by its stat var group id) will have an absolute name, optional list of 
+    Each stat var group object (keyed by its stat var group id) will have an absolute name, optional list of
     child stat vars, optional list of child stat var groups, and optional list of parent stat var groups.
 
-    Each stat var object (keyed by its stat var id) will have its parent stat var group id. 
+    Each stat var object (keyed by its stat var id) will have its parent stat var group id.
     """
     sv_groups = dc.get_statvar_groups(dcid)
     processed_svg = {}
