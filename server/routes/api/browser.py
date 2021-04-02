@@ -110,3 +110,45 @@ def get_observation_ids():
         dcid = cells[0].get('value', '')
         result[obsDate] = dcid
     return Response(json.dumps(result), 200, mimetype='application/json')
+
+
+def statvar_hierarchy_helper(svg_id, sv_groups, processed_svg, processed_sv,
+                             seen_nodes):
+    sv_group = sv_groups.get(svg_id, {})
+    for child_sv in sv_group.get("childStatVars", []):
+        if child_sv in seen_nodes:
+            continue
+        child_sv_node = {}
+        child_sv_node["parent"] = svg_id
+        processed_sv[child_sv] = child_sv_node
+        seen_nodes.add(child_sv)
+    for child_svg in sv_group.get("childStatVarGroups", []):
+        child_svg_id = child_svg.get("id")
+        child_svg_node = sv_groups[child_svg_id]
+        if not "parent" in child_svg_node:
+            child_svg_node["parent"] = []
+        child_svg_node["parent"].append(svg_id)
+        processed_svg[child_svg_id] = child_svg_node
+        seen_nodes.add(child_svg_id)
+        statvar_hierarchy_helper(child_svg_id, sv_groups, processed_svg,
+                                 processed_sv, seen_nodes)
+
+
+@cache.cached(timeout=3600 * 24, query_string=True)  # Cache for one day.
+@bp.route('/statvar-hierarchy/<path:dcid>')
+def get_statvar_hierarchy(dcid):
+    sv_groups = dc.get_statvar_groups(dcid)
+    processed_svg = {}
+    processed_sv = {}
+    seen_nodes = set()
+    for svg_id in sv_groups.keys():
+        if svg_id in seen_nodes:
+            continue
+        sv_group = sv_groups[svg_id]
+        processed_svg[svg_id] = sv_group
+        statvar_hierarchy_helper(svg_id, sv_groups, processed_svg, processed_sv,
+                                 seen_nodes)
+    result = {}
+    result["statVarGroups"] = processed_svg
+    result["statVars"] = processed_sv
+    return Response(json.dumps(result), 200, mimetype='application/json')

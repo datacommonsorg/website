@@ -54,6 +54,7 @@ API_ENDPOINTS = {
     # TODO(shifucun): switch back to /node/related-places after data switch.
     'get_related_places': '/node/related-locations',
     'get_interesting_places': '/node/interesting-place-aspects',
+    'get_statvar_groups': '/place/stat-var-group',
 }
 
 # The default value to limit to
@@ -394,6 +395,15 @@ def get_interesting_places(dcids):
     req_json = {'dcids': dcids}
     payload = send_request(url, req_json, post=False)
     return payload
+
+
+def get_statvar_groups(dcid):
+    url = API_ROOT + API_ENDPOINTS['get_statvar_groups']
+    req_json = {
+        'place': dcid,
+    }
+    response = send_request(url, req_json, post=False, has_payload=False)
+    return response.get('statVarGroups', {})
 
 
 # ------------------------- INTERNAL HELPER FUNCTIONS -------------------------
