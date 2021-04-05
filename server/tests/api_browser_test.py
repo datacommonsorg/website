@@ -103,3 +103,103 @@ class TestObservationId(unittest.TestCase):
         assert response.status_code == 200
         result = json.loads(response.data)
         assert result[obs_date] == expected_obs_id
+
+
+class TestStatVarHierarchy(unittest.TestCase):
+
+    @patch('routes.api.browser.dc.get_statvar_groups')
+    def test_get_statvar_hierarchy(self, mock_sv_groups):
+        expected_sv_parents = {
+            "sv1": "group1",
+            "sv2": "group1",
+            "sv3": "group3",
+            "sv4": "group3",
+            "sv5": "group4",
+            "sv6": "group4",
+            "sv7": "group5",
+            "sv8": "group5",
+        }
+        expected_svg_parents = {
+            "group1": ["group2"],
+            "group2": [],
+            "group3": ["group2"],
+            "group4": ["group1", "group3"],
+            "group5": []
+        }
+        mock_sv_groups.return_value = {
+            "group1": {
+                "absoluteName":
+                    "group 1",
+                "childStatVars": ["sv1", "sv2"],
+                "childStatVarGroups": [{
+                    "id": "group4",
+                    "specializedEntity": "specializedEntity4"
+                }]
+            },
+            "group2": {
+                "absoluteName":
+                    "group 2",
+                "childStatVarGroups": [{
+                    "id": "group1",
+                    "specializedEntity": "specializedEntity1"
+                }, {
+                    "id": "group3",
+                    "specializedEntity": "specializedEntity3"
+                }]
+            },
+            "group3": {
+                "absoluteName":
+                    "group 3",
+                "childStatVars": ["sv3", "sv4"],
+                "childStatVarGroups": [{
+                    "id": "group4",
+                    "specializedEntity": "specializedEntity4"
+                }]
+            },
+            "group4": {
+                "absoluteName": "group 4",
+                "childStatVars": ["sv5", "sv6"]
+            },
+            "group5": {
+                "absoluteName": "group 5",
+                "childStatVars": ["sv7", "sv8"],
+            }
+        }
+        response = app.test_client().get(
+            'api/browser/statvar-hierarchy/geoId/06')
+        assert response.status_code == 200
+        result = json.loads(response.data)
+        sv_result = result["statVars"]
+        svg_result = result["statVarGroups"]
+        expected_sv_result = {
+            'sv1': {
+                'parent': 'group1'
+            },
+            'sv2': {
+                'parent': 'group1'
+            },
+            'sv3': {
+                'parent': 'group3'
+            },
+            'sv4': {
+                'parent': 'group3'
+            },
+            'sv5': {
+                'parent': 'group4'
+            },
+            'sv6': {
+                'parent': 'group4'
+            },
+            'sv7': {
+                'parent': 'group5'
+            },
+            'sv8': {
+                'parent': 'group5'
+            }
+        }
+        assert sv_result == expected_sv_result
+        for svg in svg_result.keys():
+            assert set(svg_result[svg].get("parent", [])) == set(
+                expected_svg_parents[svg])
+        assert expected_sv_parents.keys() == sv_result.keys()
+        assert expected_svg_parents.keys() == svg_result.keys()
