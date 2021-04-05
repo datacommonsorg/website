@@ -171,8 +171,33 @@ class TestStatVarHierarchy(unittest.TestCase):
         result = json.loads(response.data)
         sv_result = result["statVars"]
         svg_result = result["statVarGroups"]
-        for sv in sv_result.keys():
-            assert sv_result[sv].get("parent", "") == expected_sv_parents[sv]
+        expected_sv_result = {
+            'sv1': {
+                'parent': 'group1'
+            },
+            'sv2': {
+                'parent': 'group1'
+            },
+            'sv3': {
+                'parent': 'group3'
+            },
+            'sv4': {
+                'parent': 'group3'
+            },
+            'sv5': {
+                'parent': 'group4'
+            },
+            'sv6': {
+                'parent': 'group4'
+            },
+            'sv7': {
+                'parent': 'group5'
+            },
+            'sv8': {
+                'parent': 'group5'
+            }
+        }
+        assert sv_result == expected_sv_result
         for svg in svg_result.keys():
             assert set(svg_result[svg].get("parent", [])) == set(
                 expected_svg_parents[svg])

@@ -112,50 +112,62 @@ def get_observation_ids():
     return Response(json.dumps(result), 200, mimetype='application/json')
 
 
-def statvar_hierarchy_helper(svg_id, sv_groups, processed_svg, processed_sv,
-                             seen_nodes):
-    sv_group = sv_groups.get(svg_id, {})
-    for child_sv in sv_group.get("childStatVars", []):
-        if child_sv in seen_nodes:
+def statvar_hierarchy_helper(svg_id, svg_map, processed_svg_map, processed_sv,
+                             seen_sv):
+    """Processes the childStatVars and childStatVarGroups of a stat var group.
+    Adds parent field for those processed statVars and statVarGroups.
+
+    Args:
+        svg_id: stat var group of interest
+        svg_map: mapping of svg_id to the unprocessed svg object
+        processed_svg_map: mapping of svg_id to the processed svg object
+        processed_sv: mapping of stat var id to the processed stat var object
+        seen_sv: stat vars that have already been processed
+    """
+    svg = svg_map.get(svg_id, {})
+    for child_sv in svg.get("childStatVars", []):
+        if child_sv in seen_sv:
             continue
-        child_sv_node = {}
-        child_sv_node["parent"] = svg_id
-        processed_sv[child_sv] = child_sv_node
-        seen_nodes.add(child_sv)
-    for child_svg in sv_group.get("childStatVarGroups", []):
+        sv2svg = {}
+        sv2svg["parent"] = svg_id
+        processed_sv[child_sv] = sv2svg
+        seen_sv.add(child_sv)
+    for child_svg in svg.get("childStatVarGroups", []):
         child_svg_id = child_svg.get("id")
-        child_svg_node = sv_groups[child_svg_id]
-        if not "parent" in child_svg_node:
-            child_svg_node["parent"] = []
-        child_svg_node["parent"].append(svg_id)
-        processed_svg[child_svg_id] = child_svg_node
-        seen_nodes.add(child_svg_id)
-        statvar_hierarchy_helper(child_svg_id, sv_groups, processed_svg,
-                                 processed_sv, seen_nodes)
+        child_svg = processed_svg_map.get(child_svg_id, svg_map[child_svg_id])
+        if "parent" not in child_svg:
+            child_svg["parent"] = []
+        child_svg["parent"].append(svg_id)
+        processed_svg_map[child_svg_id] = child_svg
+        seen_sv.add(child_svg_id)
+        statvar_hierarchy_helper(child_svg_id, svg_map, processed_svg_map,
+                                 processed_sv, seen_sv)
 
 
 @cache.cached(timeout=3600 * 24, query_string=True)  # Cache for one day.
 @bp.route('/statvar-hierarchy/<path:dcid>')
 def get_statvar_hierarchy(dcid):
-    """Returns the stat var groups objects and stat vars objects relevant to a specific dcid.
+    """Returns the stat var groups objects and stat vars objects relevant to a
+    specific dcid.
     
-    Each stat var group object (keyed by its stat var group id) will have an absolute name, optional list of
-    child stat vars, optional list of child stat var groups, and optional list of parent stat var groups.
+    Each stat var group object (keyed by its stat var group id) will have an
+    absolute name, optional list of child stat vars, optional list of child stat
+    var groups, and optional list of parent stat var groups.
 
-    Each stat var object (keyed by its stat var id) will have its parent stat var group id.
+    Each stat var object (keyed by its stat var id) will have its parent stat
+    var group id.
     """
-    sv_groups = dc.get_statvar_groups(dcid)
-    processed_svg = {}
+    svg_map = dc.get_statvar_groups(dcid)
+    processed_svg_map = {}
     processed_sv = {}
-    seen_nodes = set()
-    for svg_id in sv_groups.keys():
-        if svg_id in seen_nodes:
+    seen_sv = set()
+    for svg_id, svg in svg_map.items():
+        if svg_id in seen_sv:
             continue
-        sv_group = sv_groups[svg_id]
-        processed_svg[svg_id] = sv_group
-        statvar_hierarchy_helper(svg_id, sv_groups, processed_svg, processed_sv,
-                                 seen_nodes)
+        processed_svg_map[svg_id] = svg
+        statvar_hierarchy_helper(svg_id, svg_map, processed_svg_map,
+                                 processed_sv, seen_sv)
     result = {}
-    result["statVarGroups"] = processed_svg
+    result["statVarGroups"] = processed_svg_map
     result["statVars"] = processed_sv
     return Response(json.dumps(result), 200, mimetype='application/json')
