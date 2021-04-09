@@ -179,11 +179,21 @@ export class StatVarHierarchySearch extends React.Component<
       | { [key: string]: StatVarNodeType }
       | { [key: string]: StatVarGroupNodeType }
   ) => (a, b) => {
-    const levelDiff = data[a].level - data[b].level;
-    if (levelDiff === 0) {
-      return a.length - b.length;
+    const aNumPv = a.split("_").length;
+    const bNumPv = b.split("_").length;
+    // if non human curated id, move to the bottom of the list
+    if (aNumPv === 1) {
+      return 1;
+    } else if (bNumPv === 1) {
+      return -1;
+    }
+    const pvDiff = aNumPv - bNumPv;
+    if (pvDiff === 0) {
+      const aName = "searchName" in data[a] ? data[a]["searchName"] : data[a]["absoluteName"];
+      const bName = "searchName" in data[b] ? data[b]["searchName"] : data[b]["absoluteName"];
+      return aName.length - bName.length;
     } else {
-      return levelDiff;
+      return pvDiff;
     }
   };
 
