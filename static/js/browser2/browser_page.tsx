@@ -22,6 +22,7 @@ import React from "react";
 import { ArcSection } from "./arc_section";
 import { ImageSection } from "./image_section";
 import { ObservationChartSection } from "./observation_chart_section";
+import { StatVarHierarchy } from "./statvar_hierarchy";
 import { PageDisplayType } from "./util";
 import { WeatherChartSection } from "./weather_chart_section";
 
@@ -62,6 +63,10 @@ export class BrowserPage extends React.Component<BrowserPagePropType> {
           PageDisplayType.BIOLOGICAL_SPECIMEN ? (
             <ImageSection dcid={this.props.dcid} />
           ) : null}
+          <StatVarHierarchy
+            dcid={this.props.dcid}
+            placeName={this.props.nodeName}
+          />
         </div>
       </>
     );

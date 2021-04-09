@@ -43,7 +43,7 @@ export class ObservationChartSection extends React.Component<
     super(props);
     this.state = {
       data: [],
-      infoMessage: "",
+      infoMessage: "Loading Charts...",
     };
   }
 
@@ -103,7 +103,7 @@ export class ObservationChartSection extends React.Component<
         this.setState({
           data: sourceSeries,
           infoMessage: _.isEmpty(sourceSeries)
-            ? `No data for ${this.props.statVarId} in ${this.props.placeName}`
+            ? `No charts for ${this.props.statVarId} in ${this.props.placeName}`
             : "",
         });
       })

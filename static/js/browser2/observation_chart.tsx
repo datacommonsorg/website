@@ -75,7 +75,7 @@ export class ObservationChart extends React.Component<
     }
     return (
       <>
-        <div id={this.svgContainerId} className={svgContainerClass} />
+        <div id={this.svgContainerId()} className={svgContainerClass} />
         {this.state.errorMessage ? (
           <div className="error-message">{this.state.errorMessage}</div>
         ) : null}
@@ -83,7 +83,10 @@ export class ObservationChart extends React.Component<
     );
   }
 
-  private svgContainerId: string = "svg-container" + this.props.idx;
+  private svgContainerId(): string {
+    const statVarId = this.props.statVarId.replace("/", "");
+    return statVarId + this.props.idx;
+  }
 
   private plot(): void {
     const values = this.props.sourceSeries.val;
@@ -98,7 +101,7 @@ export class ObservationChart extends React.Component<
     });
     const dataGroups = [new DataGroup("", data)];
     drawLineChart(
-      this.svgContainerId,
+      this.svgContainerId(),
       WIDTH,
       HEIGHT,
       dataGroups,

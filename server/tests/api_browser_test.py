@@ -126,11 +126,36 @@ class TestStatVarHierarchy(unittest.TestCase):
             "group4": ["group1", "group3"],
             "group5": []
         }
+        expected_sv_levels = {
+            "sv1": 2,
+            "sv2": 2,
+            "sv3": 2,
+            "sv4": 2,
+            "sv5": 3,
+            "sv6": 3,
+            "sv7": 1,
+            "sv8": 1,
+        }
+        expected_svg_levels = {
+            "group1": 1,
+            "group2": 0,
+            "group3": 1,
+            "group4": 2,
+            "group5": 0
+        }
         mock_sv_groups.return_value = {
             "group1": {
                 "absoluteName":
                     "group 1",
-                "childStatVars": ["sv1", "sv2"],
+                "childStatVars": [{
+                    "id": "sv1",
+                    "searchName": "sv1",
+                    "displayName": "sv1"
+                }, {
+                    "id": "sv2",
+                    "searchName": "sv2",
+                    "displayName": "sv2"
+                }],
                 "childStatVarGroups": [{
                     "id": "group4",
                     "specializedEntity": "specializedEntity4"
@@ -150,19 +175,45 @@ class TestStatVarHierarchy(unittest.TestCase):
             "group3": {
                 "absoluteName":
                     "group 3",
-                "childStatVars": ["sv3", "sv4"],
+                "childStatVars": [{
+                    "id": "sv3",
+                    "searchName": "sv3",
+                    "displayName": "sv3"
+                }, {
+                    "id": "sv4",
+                    "searchName": "sv4",
+                    "displayName": "sv4"
+                }],
                 "childStatVarGroups": [{
                     "id": "group4",
                     "specializedEntity": "specializedEntity4"
                 }]
             },
             "group4": {
-                "absoluteName": "group 4",
-                "childStatVars": ["sv5", "sv6"]
+                "absoluteName":
+                    "group 4",
+                "childStatVars": [{
+                    "id": "sv5",
+                    "searchName": "sv5",
+                    "displayName": "sv5"
+                }, {
+                    "id": "sv6",
+                    "searchName": "sv6",
+                    "displayName": "sv6"
+                }],
             },
             "group5": {
-                "absoluteName": "group 5",
-                "childStatVars": ["sv7", "sv8"],
+                "absoluteName":
+                    "group 5",
+                "childStatVars": [{
+                    "id": "sv7",
+                    "searchName": "sv7",
+                    "displayName": "sv7"
+                }, {
+                    "id": "sv8",
+                    "searchName": "sv8",
+                    "displayName": "sv8"
+                }],
             }
         }
         response = app.test_client().get(
@@ -171,35 +222,49 @@ class TestStatVarHierarchy(unittest.TestCase):
         result = json.loads(response.data)
         sv_result = result["statVars"]
         svg_result = result["statVarGroups"]
-        expected_sv_result = {
-            'sv1': {
-                'parent': 'group1'
-            },
-            'sv2': {
-                'parent': 'group1'
-            },
-            'sv3': {
-                'parent': 'group3'
-            },
-            'sv4': {
-                'parent': 'group3'
-            },
-            'sv5': {
-                'parent': 'group4'
-            },
-            'sv6': {
-                'parent': 'group4'
-            },
-            'sv7': {
-                'parent': 'group5'
-            },
-            'sv8': {
-                'parent': 'group5'
-            }
-        }
-        assert sv_result == expected_sv_result
+        for sv in sv_result.keys():
+            assert sv_result[sv].get("parent", "") == expected_sv_parents[sv]
+            assert sv_result[sv]["level"] == expected_sv_levels[sv]
         for svg in svg_result.keys():
-            assert set(svg_result[svg].get("parent", [])) == set(
-                expected_svg_parents[svg])
+            parent = svg_result[svg].get("parent", None)
+            if parent:
+                assert parent in set(expected_svg_parents[svg])
+            else:
+                assert len(expected_svg_parents[svg]) == 0
+            assert svg_result[svg]["level"] == expected_svg_levels[svg]
         assert expected_sv_parents.keys() == sv_result.keys()
         assert expected_svg_parents.keys() == svg_result.keys()
+
+
+class TestSearchStatVarHierarchy(unittest.TestCase):
+
+    def test_search_statvar_hierarchy_single_token(self):
+        search_index = {
+            'person': {'test_1', 'test_2', 'test_3'},
+            'race': {'test_1', 'test_2', 'test_4'},
+            'age': {'test', 'test_1', 'test_3', 'test_2'}
+        }
+        with app.app_context():
+            app.config['STAT_VAR_SEARCH_INDEX'] = search_index
+            response = app.test_client().get(
+                'api/browser/search_statvar_hierarchy?query=person')
+            assert response.status_code == 200
+            result = json.loads(response.data)
+            expected_result = ['test_1', 'test_2', 'test_3']
+            assert set(result) == set(expected_result)
+
+    def test_search_statvar_hierarchy_multiple_tokens(self):
+        search_index = {
+            'person': {'test_1', 'test_2', 'test_3'},
+            'race': {'test_1', 'test_2', 'test_4'},
+            'age': {'test', 'test_1', 'test_3', 'test_2'}
+        }
+        with app.app_context():
+            app.config['STAT_VAR_SEARCH_INDEX'] = search_index
+            response = app.test_client().get(
+                'api/browser/search_statvar_hierarchy?query=person%20age%20race'
+            )
+            assert response.status_code == 200
+            result = json.loads(response.data)
+            expected_result = ['test_1', 'test_2']
+            assert set(result) == set(expected_result)
