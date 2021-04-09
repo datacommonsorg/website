@@ -121,7 +121,7 @@ def create_app():
     app.config['BABEL_TRANSLATION_DIRECTORIES'] = 'i18n'
 
     # build stat var hierarchy search index
-    if not cfg.TEST or cfg.WEBDRIVER:
+    if not cfg.TEST and not cfg.WEBDRIVER:
         app.config['STAT_VAR_SEARCH_INDEX'] = svh.getStatVarSearchIndex()
 
     @app.before_request
