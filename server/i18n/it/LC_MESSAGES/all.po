@@ -448,9 +448,6 @@ msgstr "Ora è possibile accedere a %(project)s dalla Ricerca Google. <a href=%(
 msgid "HOME-BUILD_CALLOUT"
 msgstr "Utilizza le API REST e Python per condurre le tue analisi personalizzate, realizzare i tuoi strumenti personali e molto altro."
 
-msgid "HOME-DATA_SOURCES"
-msgstr "Inclusi i dati da"
-
 msgid "HOME-EXPLORE_CALLOUT"
 msgstr "Abbiamo pulito ed elaborato i dati al tuo posto, così non dovrai farlo tu. I dati relativi a entità particolari sono stati aggregati da origini diverse per offrire una visualizzazione unificata."
 
