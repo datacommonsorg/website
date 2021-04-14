@@ -181,11 +181,6 @@ msgstr ""
 msgid "HOME-BUILD_CALLOUT"
 msgstr ""
 
-#. A header of a section showing the many data sources included in the Data Commons Graph. See this string at https://datacommons.org
-#: server/templates/static/homepage.html:178
-msgid "HOME-DATA_SOURCES"
-msgstr ""
-
 #. Describes how we clean and process data for import once, usually a painful part of data analysis. Data cleaning here refers to a common step in data science analysis (e.g. https://elitedatascience.com/data-cleaning), and process refers to the transformation required to analyze a data set. Data is imported into a unified graph (e.g. data about California from many sources are all added to the same node in our graph. Please see this string in action at https://datacommons.org
 #: server/templates/static/homepage.html:67
 msgid "HOME-EXPLORE_CALLOUT"

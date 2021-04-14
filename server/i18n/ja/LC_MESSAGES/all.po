@@ -448,9 +448,6 @@ msgstr "%(project)s が Google 検索でアクセス可能になりました。<
 msgid "HOME-BUILD_CALLOUT"
 msgstr "Python API と REST API を使用して、独自のカスタム分析を実行したり、独自のツールを構築したりできます。"
 
-msgid "HOME-DATA_SOURCES"
-msgstr "データのソース"
-
 msgid "HOME-EXPLORE_CALLOUT"
 msgstr "データのクリーンアップと処理は Google によって行われるので、ご自身で行う必要はありません。特定のエンティティに関するデータは、さまざまなソースから集約されて一元的なビューに表示されます。"
 

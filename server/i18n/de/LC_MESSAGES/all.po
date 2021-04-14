@@ -448,9 +448,6 @@ msgstr "%(project)s ist jetzt in der Google Suche verfügbar. <a href=%(blog_url
 msgid "HOME-BUILD_CALLOUT"
 msgstr "Nutzen Sie Python und REST APIs für Ihre benutzerdefinierte Analyse, zum Erstellen eigener Tools und mehr."
 
-msgid "HOME-DATA_SOURCES"
-msgstr "mit Daten von"
-
 msgid "HOME-EXPLORE_CALLOUT"
 msgstr "Wir haben Ihre Daten für Sie bereinigt und verarbeitet. Für eine ganzheitliche Übersicht wurden Daten zu bestimmten Entitäten aus verschiedenen Quellen zusammengefasst."
 
