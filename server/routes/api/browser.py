@@ -18,10 +18,10 @@ import json
 
 from cache import cache
 import services.datacommons as dc
+import lib.statvar_hierarchy_search as svh_search
 from services.datacommons import fetch_data
 from flask import Response
 from flask import request
-from flask import current_app
 
 bp = flask.Blueprint('api.browser', __name__, url_prefix='/api/browser')
 
@@ -176,36 +176,14 @@ def get_statvar_hierarchy(dcid):
     return Response(json.dumps(result), 200, mimetype='application/json')
 
 
-@cache.memoize(timeout=3600 * 24)  # Cache for one day.
-def search_helper(token_string):
-    """gets the set of results that matches all the tokens in the token_string
-    
-    Args:
-        token_string: list of tokens as a string separated by ^
-    
-    Returns:
-        set of values that matches all the tokens in the token_string
-    """
-    tokens = token_string.split("^")
-    last_token_result = set(current_app.config['STAT_VAR_SEARCH_INDEX'].get(
-        tokens[-1], {}))
-    if len(tokens) == 1:
-        return last_token_result
-    prev_tokens = tokens[:(len(tokens) - 1)]
-    prev_tokens_string = "^".join(prev_tokens)
-    prev_intersection = search_helper(prev_tokens_string)
-    return last_token_result.intersection(prev_intersection)
-
-
 @bp.route('/search_statvar_hierarchy')
 @cache.cached(timeout=3600 * 24, query_string=True)
 def search_statvar_hierarchy():
     """Gets the statvars and statvar groups that match the tokens in the query
     """
     query = request.args.get("query").lower()
-    query = query.replace(",", "")
-    tokens = query.split(" ")
-    sorted_tokens = sorted(tokens)
-    token_string = "^".join(sorted_tokens)
-    result = search_helper(token_string)
+    query = query.replace(",", " ")
+    tokens = query.split()
+    token_string = "^".join(tokens)
+    result = svh_search.get_search_result(token_string)
     return Response(json.dumps(list(result)), 200, mimetype='application/json')

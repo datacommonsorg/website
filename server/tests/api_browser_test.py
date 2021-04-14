@@ -109,40 +109,6 @@ class TestStatVarHierarchy(unittest.TestCase):
 
     @patch('routes.api.browser.dc.get_statvar_groups')
     def test_get_statvar_hierarchy(self, mock_sv_groups):
-        expected_sv_parents = {
-            "sv1": "group1",
-            "sv2": "group1",
-            "sv3": "group3",
-            "sv4": "group3",
-            "sv5": "group4",
-            "sv6": "group4",
-            "sv7": "group5",
-            "sv8": "group5",
-        }
-        expected_svg_parents = {
-            "group1": ["group2"],
-            "group2": [],
-            "group3": ["group2"],
-            "group4": ["group1", "group3"],
-            "group5": []
-        }
-        expected_sv_levels = {
-            "sv1": 2,
-            "sv2": 2,
-            "sv3": 2,
-            "sv4": 2,
-            "sv5": 3,
-            "sv6": 3,
-            "sv7": 1,
-            "sv8": 1,
-        }
-        expected_svg_levels = {
-            "group1": 1,
-            "group2": 0,
-            "group3": 1,
-            "group4": 2,
-            "group5": 0
-        }
         mock_sv_groups.return_value = {
             "group1": {
                 "absoluteName":
@@ -159,7 +125,10 @@ class TestStatVarHierarchy(unittest.TestCase):
                 "childStatVarGroups": [{
                     "id": "group4",
                     "specializedEntity": "specializedEntity4"
-                }]
+                }, {
+                    "id": "group3",
+                    "specializedEntity": "specializedEntity3"
+                }],
             },
             "group2": {
                 "absoluteName":
@@ -167,9 +136,6 @@ class TestStatVarHierarchy(unittest.TestCase):
                 "childStatVarGroups": [{
                     "id": "group1",
                     "specializedEntity": "specializedEntity1"
-                }, {
-                    "id": "group3",
-                    "specializedEntity": "specializedEntity3"
                 }]
             },
             "group3": {
@@ -184,10 +150,6 @@ class TestStatVarHierarchy(unittest.TestCase):
                     "searchName": "sv4",
                     "displayName": "sv4"
                 }],
-                "childStatVarGroups": [{
-                    "id": "group4",
-                    "specializedEntity": "specializedEntity4"
-                }]
             },
             "group4": {
                 "absoluteName":
@@ -220,51 +182,229 @@ class TestStatVarHierarchy(unittest.TestCase):
             'api/browser/statvar-hierarchy/geoId/06')
         assert response.status_code == 200
         result = json.loads(response.data)
-        sv_result = result["statVars"]
-        svg_result = result["statVarGroups"]
-        for sv in sv_result.keys():
-            assert sv_result[sv].get("parent", "") == expected_sv_parents[sv]
-            assert sv_result[sv]["level"] == expected_sv_levels[sv]
-        for svg in svg_result.keys():
-            parent = svg_result[svg].get("parent", None)
-            if parent:
-                assert parent in set(expected_svg_parents[svg])
-            else:
-                assert len(expected_svg_parents[svg]) == 0
-            assert svg_result[svg]["level"] == expected_svg_levels[svg]
-        assert expected_sv_parents.keys() == sv_result.keys()
-        assert expected_svg_parents.keys() == svg_result.keys()
+        expected_result = {
+            'statVarGroups': {
+                'group1': {
+                    'absoluteName': 'group 1',
+                    'childStatVars': [{
+                        'id': 'sv1',
+                        'searchName': 'sv1',
+                        'displayName': 'sv1',
+                        'parent': 'group1',
+                        'level': 2
+                    }, {
+                        'id': 'sv2',
+                        'searchName': 'sv2',
+                        'displayName': 'sv2',
+                        'parent': 'group1',
+                        'level': 2
+                    }],
+                    'childStatVarGroups': [{
+                        'id': 'group4',
+                        'specializedEntity': 'specializedEntity4'
+                    }, {
+                        'id': 'group3',
+                        'specializedEntity': 'specializedEntity3'
+                    }],
+                    'level': 1,
+                    'parent': 'group2'
+                },
+                'group4': {
+                    'absoluteName': 'group 4',
+                    'childStatVars': [{
+                        'id': 'sv5',
+                        'searchName': 'sv5',
+                        'displayName': 'sv5',
+                        'parent': 'group4',
+                        'level': 3
+                    }, {
+                        'id': 'sv6',
+                        'searchName': 'sv6',
+                        'displayName': 'sv6',
+                        'parent': 'group4',
+                        'level': 3
+                    }],
+                    'parent': 'group1',
+                    'level': 2
+                },
+                'group3': {
+                    'absoluteName': 'group 3',
+                    'childStatVars': [{
+                        'id': 'sv3',
+                        'searchName': 'sv3',
+                        'displayName': 'sv3',
+                        'parent': 'group3',
+                        'level': 3
+                    }, {
+                        'id': 'sv4',
+                        'searchName': 'sv4',
+                        'displayName': 'sv4',
+                        'parent': 'group3',
+                        'level': 3
+                    }],
+                    'parent': 'group1',
+                    'level': 2
+                },
+                'group2': {
+                    'absoluteName': 'group 2',
+                    'childStatVarGroups': [{
+                        'id': 'group1',
+                        'specializedEntity': 'specializedEntity1'
+                    }],
+                    'level': 0
+                },
+                'group5': {
+                    'absoluteName': 'group 5',
+                    'childStatVars': [{
+                        'id': 'sv7',
+                        'searchName': 'sv7',
+                        'displayName': 'sv7',
+                        'parent': 'group5',
+                        'level': 1
+                    }, {
+                        'id': 'sv8',
+                        'searchName': 'sv8',
+                        'displayName': 'sv8',
+                        'parent': 'group5',
+                        'level': 1
+                    }],
+                    'level': 0
+                }
+            },
+            'statVars': {
+                'sv1': {
+                    'id': 'sv1',
+                    'searchName': 'sv1',
+                    'displayName': 'sv1',
+                    'parent': 'group1',
+                    'level': 2
+                },
+                'sv2': {
+                    'id': 'sv2',
+                    'searchName': 'sv2',
+                    'displayName': 'sv2',
+                    'parent': 'group1',
+                    'level': 2
+                },
+                'sv5': {
+                    'id': 'sv5',
+                    'searchName': 'sv5',
+                    'displayName': 'sv5',
+                    'parent': 'group4',
+                    'level': 3
+                },
+                'sv6': {
+                    'id': 'sv6',
+                    'searchName': 'sv6',
+                    'displayName': 'sv6',
+                    'parent': 'group4',
+                    'level': 3
+                },
+                'sv3': {
+                    'id': 'sv3',
+                    'searchName': 'sv3',
+                    'displayName': 'sv3',
+                    'parent': 'group3',
+                    'level': 3
+                },
+                'sv4': {
+                    'id': 'sv4',
+                    'searchName': 'sv4',
+                    'displayName': 'sv4',
+                    'parent': 'group3',
+                    'level': 3
+                },
+                'sv7': {
+                    'id': 'sv7',
+                    'searchName': 'sv7',
+                    'displayName': 'sv7',
+                    'parent': 'group5',
+                    'level': 1
+                },
+                'sv8': {
+                    'id': 'sv8',
+                    'searchName': 'sv8',
+                    'displayName': 'sv8',
+                    'parent': 'group5',
+                    'level': 1
+                }
+            }
+        }
+        assert result == expected_result
 
 
 class TestSearchStatVarHierarchy(unittest.TestCase):
 
-    def test_search_statvar_hierarchy_single_token(self):
-        search_index = {
-            'person': {'test_1', 'test_2', 'test_3'},
-            'race': {'test_1', 'test_2', 'test_4'},
-            'age': {'test', 'test_1', 'test_3', 'test_2'}
-        }
-        with app.app_context():
-            app.config['STAT_VAR_SEARCH_INDEX'] = search_index
-            response = app.test_client().get(
-                'api/browser/search_statvar_hierarchy?query=person')
-            assert response.status_code == 200
-            result = json.loads(response.data)
-            expected_result = ['test_1', 'test_2', 'test_3']
-            assert set(result) == set(expected_result)
+    @patch('routes.api.browser.svh_search.get_search_result')
+    def test_search_statvar_hierarchy_single_token(self, mock_search_result):
+        expected_query = 'person'
+        expected_result = ['group_1', 'group_2']
 
-    def test_search_statvar_hierarchy_multiple_tokens(self):
-        search_index = {
-            'person': {'test_1', 'test_2', 'test_3'},
-            'race': {'test_1', 'test_2', 'test_4'},
-            'age': {'test', 'test_1', 'test_3', 'test_2'}
-        }
-        with app.app_context():
-            app.config['STAT_VAR_SEARCH_INDEX'] = search_index
-            response = app.test_client().get(
-                'api/browser/search_statvar_hierarchy?query=person%20age%20race'
-            )
-            assert response.status_code == 200
-            result = json.loads(response.data)
-            expected_result = ['test_1', 'test_2']
-            assert set(result) == set(expected_result)
+        def side_effect(query):
+            if query == expected_query:
+                return expected_result
+            else:
+                return []
+
+        mock_search_result.side_effect = side_effect
+        response = app.test_client().get(
+            'api/browser/search_statvar_hierarchy?query=person')
+        assert response.status_code == 200
+        result = json.loads(response.data)
+        assert result == expected_result
+
+    @patch('routes.api.browser.svh_search.get_search_result')
+    def test_search_statvar_hierarchy_single_token_comma(
+            self, mock_search_result):
+        expected_query = 'person'
+        expected_result = ['group_1', 'group_2']
+
+        def side_effect(query):
+            if query == expected_query:
+                return expected_result
+            else:
+                return []
+
+        mock_search_result.side_effect = side_effect
+        response = app.test_client().get(
+            'api/browser/search_statvar_hierarchy?query=person,')
+        assert response.status_code == 200
+        result = json.loads(response.data)
+        assert result == expected_result
+
+    @patch('routes.api.browser.svh_search.get_search_result')
+    def test_search_statvar_hierarchy_multiple_tokens(self, mock_search_result):
+        expected_query = 'person^age^race'
+        expected_result = ['group_1', 'group_2']
+
+        def side_effect(query):
+            if query == expected_query:
+                return expected_result
+            else:
+                return []
+
+        mock_search_result.side_effect = side_effect
+        response = app.test_client().get(
+            'api/browser/search_statvar_hierarchy?query=person%20age%20race')
+        assert response.status_code == 200
+        result = json.loads(response.data)
+        assert result == expected_result
+
+    @patch('routes.api.browser.svh_search.get_search_result')
+    def test_search_statvar_hierarchy_multiple_tokens_comma(
+            self, mock_search_result):
+        expected_query = 'person^age^race'
+        expected_result = ['group_1', 'group_2']
+
+        def side_effect(query):
+            if query == expected_query:
+                return expected_result
+            else:
+                return []
+
+        mock_search_result.side_effect = side_effect
+        response = app.test_client().get(
+            'api/browser/search_statvar_hierarchy?query=person%20age,race')
+        assert response.status_code == 200
+        result = json.loads(response.data)
+        assert result == expected_result

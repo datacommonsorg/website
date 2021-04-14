@@ -59,7 +59,7 @@ export class StatVarNode extends React.Component<
         open={this.props.selected}
         onOpening={() => this.setState({ renderContent: true })}
       >
-        {this.state.renderContent ? (
+        {this.state.renderContent && (
           <div className="statvars-charts-section">
             <ObservationChartSection
               placeDcid={this.props.dcid}
@@ -67,7 +67,7 @@ export class StatVarNode extends React.Component<
               placeName={this.props.nodeName}
             />
           </div>
-        ) : null}
+        )}
       </Collapsible>
     );
   }

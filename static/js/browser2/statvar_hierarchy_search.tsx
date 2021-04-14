@@ -71,9 +71,9 @@ export class StatVarHierarchySearch extends React.Component<
           placeholder="Search"
           onBlur={() => this.setState({ showNoResultsMessage: false })}
         />
-        {renderResults ? (
+        {renderResults && (
           <div className="statvar-hierarchy-search-results">
-            {!_.isEmpty(this.state.svgResults) ? (
+            {!_.isEmpty(this.state.svgResults) && (
               <div className="svg-search-results">
                 <div className="search-results-heading">Stat Var Groups</div>
                 {this.state.svgResults.map((svg) => {
@@ -88,8 +88,8 @@ export class StatVarHierarchySearch extends React.Component<
                   );
                 })}
               </div>
-            ) : null}
-            {!_.isEmpty(this.state.svResults) ? (
+            )}
+            {!_.isEmpty(this.state.svResults) && (
               <div className="sv-search-rsults">
                 <div className="search-results-heading">Stat Vars</div>
                 {this.state.svResults.map((sv) => {
@@ -104,12 +104,12 @@ export class StatVarHierarchySearch extends React.Component<
                   );
                 })}
               </div>
-            ) : null}
-            {this.state.showNoResultsMessage ? (
+            )}
+            {this.state.showNoResultsMessage && (
               <div className="no-results-message">No Results</div>
-            ) : null}
+            )}
           </div>
-        ) : null}
+        )}
       </div>
     );
   }
@@ -165,37 +165,8 @@ export class StatVarHierarchySearch extends React.Component<
         svResults.push(result);
       }
     }
-    const sortedSvgResults = svgResults.sort(
-      this.sortResultsComparator(this.props.statVarGroupsData)
-    );
-    const sortedSvResults = svResults.sort(
-      this.sortResultsComparator(this.props.statVarsData)
-    );
-    return { statVarGroups: sortedSvgResults, statVars: sortedSvResults };
+    return { statVarGroups: svgResults, statVars: svResults };
   }
-
-  private sortResultsComparator = (
-    data:
-      | { [key: string]: StatVarNodeType }
-      | { [key: string]: StatVarGroupNodeType }
-  ) => (a, b) => {
-    const aNumPv = a.split("_").length;
-    const bNumPv = b.split("_").length;
-    // if non human curated id, move to the bottom of the list
-    if (aNumPv === 1) {
-      return 1;
-    } else if (bNumPv === 1) {
-      return -1;
-    }
-    const pvDiff = aNumPv - bNumPv;
-    if (pvDiff === 0) {
-      const aName = "searchName" in data[a] ? data[a]["searchName"] : data[a]["absoluteName"];
-      const bName = "searchName" in data[b] ? data[b]["searchName"] : data[b]["absoluteName"];
-      return aName.length - bName.length;
-    } else {
-      return pvDiff;
-    }
-  };
 
   private onResultSelected = (selectedResult: string) => () => {
     this.props.onSelectionChange(selectedResult);

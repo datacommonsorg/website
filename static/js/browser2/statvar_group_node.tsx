@@ -21,22 +21,31 @@
 import React from "react";
 import _ from "lodash";
 import Collapsible from "react-collapsible";
-import { StatVarGroupNodeType, StatVarHierarchyNodeType } from "./util";
+import {
+  StatVarGroupNodeType,
+  StatVarHierarchyNodeType,
+  StatVarNodeType,
+} from "./util";
 import { StatVarNode } from "./statvar_node";
 
+const SCROLL_DELAY = 400;
+const BULLET_POINT_HTML = <span>&#8226;</span>;
+const DOWN_ARROW_HTML = <span>&#x25BC;</span>;
+const RIGHT_ARROW_HTML = <span>&#x25BA;</span>;
+
 interface StatVarGroupNodePropType {
-  dcid: string;
+  placeDcid: string;
   placeName: string;
   statVarGroupId: string;
   data: { [key: string]: StatVarGroupNodeType };
   pathToSelection: string[];
   specializedEntity?: string;
   isSelected: boolean;
-  isOpened: boolean;
+  open: boolean;
 }
 
 interface StatVarGroupNodeStateType {
-  renderContent: boolean;
+  isRendered: boolean;
 }
 
 export class StatVarGroupNode extends React.Component<
@@ -48,7 +57,7 @@ export class StatVarGroupNode extends React.Component<
   constructor(props: StatVarGroupNodePropType) {
     super(props);
     this.state = {
-      renderContent: this.props.isOpened,
+      isRendered: this.props.open,
     };
     this.highlightedStatVar = React.createRef();
     this.scrollToHighlighted = this.scrollToHighlighted.bind(this);
@@ -75,82 +84,37 @@ export class StatVarGroupNode extends React.Component<
       <Collapsible
         trigger={getTrigger(false)}
         triggerWhenOpen={getTrigger(true)}
-        open={this.props.isOpened}
-        onOpening={() => this.setState({ renderContent: true })}
+        open={this.props.open}
+        onOpening={() => this.setState({ isRendered: true })}
         transitionTime={200}
         onOpen={this.scrollToHighlighted}
       >
-        {this.state.renderContent ? (
+        {this.state.isRendered && (
           <>
-            {this.props.pathToSelection.length < 2 ? (
-              <div className="svg-node-child">
-                {this.props.data[this.props.statVarGroupId].childStatVars
-                  ? this.props.data[
-                      this.props.statVarGroupId
-                    ].childStatVars.map((statVar) => {
-                      const isSelected =
-                        this.props.pathToSelection.length === 1 &&
-                        this.props.pathToSelection[0] === statVar.id;
-                      return (
-                        <div
-                          key={statVar.id}
-                          ref={isSelected ? this.highlightedStatVar : null}
-                        >
-                          <StatVarNode
-                            dcid={this.props.dcid}
-                            statVar={statVar}
-                            nodeName={this.props.placeName}
-                            selected={isSelected}
-                          />
-                        </div>
-                      );
-                    })
-                  : null}
-              </div>
-            ) : null}
-            <div className="svg-node-child">
-              {this.props.data[this.props.statVarGroupId].childStatVarGroups
-                ? this.props.data[
-                    this.props.statVarGroupId
-                  ].childStatVarGroups.map((childStatVarGroup) => {
-                    if (
-                      _.isEmpty(this.props.pathToSelection) ||
-                      this.props.pathToSelection[0] === childStatVarGroup.id
-                    ) {
-                      return (
-                        <div
-                          key={childStatVarGroup.id}
-                          ref={
-                            this.props.pathToSelection.length === 1
-                              ? this.highlightedStatVar
-                              : null
-                          }
-                        >
-                          <StatVarGroupNode
-                            dcid={this.props.dcid}
-                            placeName={this.props.placeName}
-                            statVarGroupId={childStatVarGroup.id}
-                            data={this.props.data}
-                            pathToSelection={this.props.pathToSelection.slice(
-                              1
-                            )}
-                            specializedEntity={
-                              childStatVarGroup.specializedEntity
-                            }
-                            isOpened={
-                              this.props.pathToSelection[0] ===
-                              childStatVarGroup.id
-                            }
-                            isSelected={this.props.pathToSelection.length === 1}
-                          />
-                        </div>
-                      );
-                    }
-                  })
-                : null}
-            </div>
+            {this.props.pathToSelection.length < 2 &&
+              this.props.data[this.props.statVarGroupId].childStatVars && (
+                <ChildStatVarSection
+                  data={
+                    this.props.data[this.props.statVarGroupId].childStatVars
+                  }
+                  pathToSelection={this.props.pathToSelection}
+                  placeDcid={this.props.placeDcid}
+                  placeName={this.props.placeName}
+                  highlightedStatVar={this.highlightedStatVar}
+                />
+              )}
+            {this.props.data[this.props.statVarGroupId].childStatVarGroups && (
+              <ChildStatVarGroupSection
+                data={this.props.data}
+                statVarGroupId={this.props.statVarGroupId}
+                pathToSelection={this.props.pathToSelection}
+                highlightedStatVar={this.highlightedStatVar}
+                placeDcid={this.props.placeDcid}
+                placeName={this.props.placeName}
+              />
+            )}
           </>
-        ) : null}
+        )}
       </Collapsible>
     );
   }
@@ -166,11 +130,11 @@ export class StatVarGroupNode extends React.Component<
           });
         }
       }
-    }, 400);
+    }, SCROLL_DELAY);
   }
 }
 
-interface statVarHierarchyNodeHeaderPropType {
+interface StatVarHierarchyNodeHeaderPropType {
   title: string;
   opened: boolean;
   highlighted: boolean;
@@ -178,19 +142,15 @@ interface statVarHierarchyNodeHeaderPropType {
 }
 
 export class StatVarHierarchyNodeHeader extends React.Component<
-  statVarHierarchyNodeHeaderPropType
+  StatVarHierarchyNodeHeaderPropType
 > {
   render(): JSX.Element {
     let prefixHtml =
-      this.props.nodeType === StatVarHierarchyNodeType.STAT_VAR ? (
-        <span>&#8226;</span>
-      ) : null;
+      this.props.nodeType === StatVarHierarchyNodeType.STAT_VAR
+        ? BULLET_POINT_HTML
+        : null;
     if (this.props.nodeType === StatVarHierarchyNodeType.STAT_VAR_GROUP) {
-      prefixHtml = this.props.opened ? (
-        <span>&#x25BC;</span>
-      ) : (
-        <span>&#x25BA;</span>
-      );
+      prefixHtml = this.props.opened ? DOWN_ARROW_HTML : RIGHT_ARROW_HTML;
     }
     return (
       <div
@@ -202,6 +162,95 @@ export class StatVarHierarchyNodeHeader extends React.Component<
       >
         {prefixHtml}
         <span className="title">{this.props.title}</span>
+      </div>
+    );
+  }
+}
+
+interface ChildStatVarSectionPropType {
+  data: StatVarNodeType[];
+  pathToSelection: string[];
+  placeDcid: string;
+  placeName: string;
+  highlightedStatVar: React.RefObject<HTMLDivElement>;
+}
+
+export class ChildStatVarSection extends React.Component<
+  ChildStatVarSectionPropType
+> {
+  render(): JSX.Element {
+    return (
+      <div className="svg-node-child">
+        {this.props.data.map((statVar) => {
+          const isSelected =
+            this.props.pathToSelection.length === 1 &&
+            this.props.pathToSelection[0] === statVar.id;
+          return (
+            <div
+              key={statVar.id}
+              ref={isSelected ? this.props.highlightedStatVar : null}
+            >
+              <StatVarNode
+                dcid={this.props.placeDcid}
+                statVar={statVar}
+                nodeName={this.props.placeName}
+                selected={isSelected}
+              />
+            </div>
+          );
+        })}
+      </div>
+    );
+  }
+}
+
+interface ChildStatVarGroupSectionPropType {
+  data: { [key: string]: StatVarGroupNodeType };
+  statVarGroupId: string;
+  pathToSelection: string[];
+  highlightedStatVar: React.RefObject<HTMLDivElement>;
+  placeDcid: string;
+  placeName: string;
+}
+
+export class ChildStatVarGroupSection extends React.Component<
+  ChildStatVarGroupSectionPropType
+> {
+  render(): JSX.Element {
+    return (
+      <div className="svg-node-child">
+        {this.props.data[this.props.statVarGroupId].childStatVarGroups.map(
+          (childStatVarGroup) => {
+            if (
+              _.isEmpty(this.props.pathToSelection) ||
+              this.props.pathToSelection[0] === childStatVarGroup.id
+            ) {
+              return (
+                <div
+                  key={childStatVarGroup.id}
+                  ref={
+                    this.props.pathToSelection.length === 1
+                      ? this.props.highlightedStatVar
+                      : null
+                  }
+                >
+                  <StatVarGroupNode
+                    placeDcid={this.props.placeDcid}
+                    placeName={this.props.placeName}
+                    statVarGroupId={childStatVarGroup.id}
+                    data={this.props.data}
+                    pathToSelection={this.props.pathToSelection.slice(1)}
+                    specializedEntity={childStatVarGroup.specializedEntity}
+                    open={
+                      this.props.pathToSelection[0] === childStatVarGroup.id
+                    }
+                    isSelected={this.props.pathToSelection.length === 1}
+                  />
+                </div>
+              );
+            }
+          }
+        )}
       </div>
     );
   }

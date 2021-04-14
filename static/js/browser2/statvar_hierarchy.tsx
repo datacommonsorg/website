@@ -94,13 +94,13 @@ export class StatVarHierarchy extends React.Component<
             ) {
               return (
                 <StatVarGroupNode
-                  dcid={this.props.dcid}
+                  placeDcid={this.props.dcid}
                   placeName={this.props.placeName}
                   statVarGroupId={svgId}
                   data={this.state.statVarGroups}
                   pathToSelection={this.state.pathToSelection.slice(1)}
                   isSelected={this.state.pathToSelection.length === 1}
-                  isOpened={this.state.pathToSelection[0] === svgId}
+                  open={this.state.pathToSelection[0] === svgId}
                   key={svgId}
                 />
               );
