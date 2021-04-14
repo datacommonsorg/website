@@ -34,7 +34,6 @@ class TestStaticPages(unittest.TestCase):
         assert b"Data Commons is an open knowledge repository" in response.data
         assert b"Data Commons is now accessible on Google Search!" in response.data
         assert b"Use the Python and REST API's to do your own custom analysis" in response.data
-        assert b"Including data from" in response.data
         assert b"We cleaned and processed the data so you don't have to" in response.data
         assert b"Join the effort." in response.data
         assert b"Open sourced" in response.data
@@ -60,7 +59,6 @@ class TestStaticPages(unittest.TestCase):
         ) in response.data
         assert "Usa las API REST y Python para hacer análisis personalizados".encode(
         ) in response.data
-        assert "Se incluyen datos de".encode() in response.data
         assert "Hemos filtrado y organizado los datos para que no tengas que hacerlo tú.".encode(
         ) in response.data
         assert "Colabora en el proyecto.".encode() in response.data
