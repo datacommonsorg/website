@@ -64,11 +64,76 @@ def get_property_labels(dcid):
     return Response(json.dumps(labels), 200, mimetype='application/json')
 
 
-@bp.route('/observation-ids')
+def get_sparql_query(place_id, stat_var_id, date, measurement_method,
+                     observation_period):
+    measurement_method_triple = ""
+    if measurement_method:
+        measurement_method_triple = f"""?svObservation measurementMethod {measurement_method} ."""
+    observation_period_triple = ""
+    if observation_period:
+        observation_period_triple = f"""?svObservation observationPeriod {observation_period} ."""
+    date_triple = f"""?svObservation observationDate ?obsDate ."""
+    date_selector = "?obsDate"
+    if date:
+        date_triple = f"""?svObservation observationDate "{date}" ."""
+        date_selector = ""
+    sparql_query = '''
+        SELECT ?dcid {}
+        WHERE {{ 
+            ?svObservation typeOf StatVarObservation .
+            ?svObservation variableMeasured {} . 
+            ?svObservation observationAbout {} .
+            ?svObservation dcid ?dcid .
+            {}
+            {}
+            {}
+        }}
+    '''.format(date_selector, stat_var_id, place_id, date_triple,
+               measurement_method_triple, observation_period_triple)
+    return sparql_query
+
+
 @cache.cached(timeout=3600 * 24, query_string=True)  # Cache for one day.
-def get_observation_ids():
-    """Returns a mapping of date to observation node dcid for a combination of predicates:
-    observedNodeLocation, statisticalVariable, measurementMethod (optional), observationPeriod (optional)"""
+@bp.route('/observation-id')
+def get_observation_id():
+    """Returns the observation node dcid for a combination of 
+    predicates: observedNodeLocation, statisticalVariable, date,
+    measurementMethod optional), observationPeriod (optional)"""
+    place_id = request.args.get("place")
+    if not place_id:
+        return Response(json.dumps("error: must provide a place field"),
+                        400,
+                        mimetype='application/json')
+    stat_var_id = request.args.get("statVar")
+    if not stat_var_id:
+        return Response(json.dumps("error: must provide a statVar field"),
+                        400,
+                        mimetype='application/json')
+    date = request.args.get("date", "")
+    print(date)
+    if not date:
+        return Response(json.dumps("error: must provide a date field"),
+                        400,
+                        mimetype='application/json')
+    measurement_method = request.args.get("measurementMethod", "")
+    observation_period = request.args.get("obsPeriod", "")
+    sparql_query = get_sparql_query(place_id, stat_var_id, date,
+                                    measurement_method, observation_period)
+    result = ""
+    (_, rows) = dc.query(sparql_query)
+    if len(rows) > 0:
+        cells = rows[0].get('cells', [])
+        if len(cells) > 0:
+            result = cells[0].get('value', '')
+    return Response(json.dumps(result), 200, mimetype='application/json')
+
+
+@cache.cached(timeout=3600 * 24, query_string=True)  # Cache for one day.
+@bp.route('/observation-ids-map')
+def get_observation_ids_map():
+    """Returns a mapping of date to observation node dcid for a combination of
+    predicates: observedNodeLocation, statisticalVariable, measurementMethod
+    (optional), observationPeriod (optional)"""
     place_id = request.args.get("place")
     if not place_id:
         return Response(json.dumps("error: must provide a place field"),
@@ -81,25 +146,8 @@ def get_observation_ids():
                         mimetype='application/json')
     measurement_method = request.args.get("measurementMethod", "")
     observation_period = request.args.get("obsPeriod", "")
-    measurement_method_triple = ""
-    if measurement_method:
-        measurement_method_triple = f"""?svObservation measurementMethod {measurement_method} ."""
-    observation_period_triple = ""
-    if observation_period:
-        observation_period_triple = f"""?svObservation observationPeriod {observation_period} ."""
-    sparql_query = '''
-        SELECT ?dcid ?obsDate
-        WHERE {{ 
-            ?svObservation typeOf StatVarObservation .
-            ?svObservation variableMeasured {} . 
-            ?svObservation observationAbout {} .
-            ?svObservation dcid ?dcid .
-            ?svObservation observationDate ?obsDate .
-            {}
-            {}
-        }}
-    '''.format(stat_var_id, place_id, measurement_method_triple,
-               observation_period_triple)
+    sparql_query = get_sparql_query(place_id, stat_var_id, "",
+                                    measurement_method, observation_period)
     result = ""
     (_, rows) = dc.query(sparql_query)
     result = {}

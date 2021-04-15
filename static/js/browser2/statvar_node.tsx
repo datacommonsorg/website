@@ -24,8 +24,10 @@ import { StatVarHierarchyNodeHeader } from "./statvar_group_node";
 import Collapsible from "react-collapsible";
 import { ObservationChartSection } from "./observation_chart_section";
 
+const URI_PREFIX = "/browser/";
+
 interface StatVarNodePropType {
-  dcid: string;
+  placeDcid: string;
   statVar: StatVarNodeType;
   nodeName: string;
   selected: boolean;
@@ -44,6 +46,8 @@ export class StatVarNode extends React.Component<
     this.state = {
       renderContent: this.props.selected,
     };
+    this.onClickStatVarLink = this.onClickStatVarLink.bind(this);
+    this.onClickPlaceStatVarLink = this.onClickPlaceStatVarLink.bind(this);
   }
 
   render(): JSX.Element {
@@ -61,8 +65,26 @@ export class StatVarNode extends React.Component<
       >
         {this.state.renderContent && (
           <div className="statvars-charts-section">
+            <div className="stat-var-link">
+              <span>Statistical Variable: </span>
+              <span
+                className="clickable-text"
+                onClick={this.onClickStatVarLink}
+              >
+                {this.props.statVar.id}
+              </span>
+            </div>
+            <div className="place-stat-var-link">
+              <span>Place Stat Var Page: </span>
+              <span
+                className="clickable-text"
+                onClick={this.onClickPlaceStatVarLink}
+              >
+                {`${this.props.statVar.id} in ${this.props.nodeName}`}
+              </span>
+            </div>
             <ObservationChartSection
-              placeDcid={this.props.dcid}
+              placeDcid={this.props.placeDcid}
               statVarId={this.props.statVar.id}
               placeName={this.props.nodeName}
             />
@@ -71,4 +93,14 @@ export class StatVarNode extends React.Component<
       </Collapsible>
     );
   }
+
+  private onClickStatVarLink = () => {
+    const uri = URI_PREFIX + this.props.statVar.id;
+    window.open(uri);
+  };
+
+  private onClickPlaceStatVarLink = () => {
+    const uri = `${URI_PREFIX}${this.props.placeDcid}?statVar=${this.props.statVar.id}`;
+    window.open(uri);
+  };
 }

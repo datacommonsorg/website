@@ -75,7 +75,7 @@ export class WeatherChartSection extends React.Component<
                 idx={index}
                 statVarId={measuredProperty}
                 placeDcid={this.props.dcid}
-                hasClickableDots={false}
+                canClickObs={false}
               />
             </div>
           );

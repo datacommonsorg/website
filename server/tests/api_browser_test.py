@@ -19,16 +19,16 @@ from unittest.mock import patch
 from main import app
 
 
-class TestObservationId(unittest.TestCase):
+class TestObservationIdsMap(unittest.TestCase):
 
     def test_required_predicates(self):
         """Failure if required fields are not present."""
         no_stat_var = app.test_client().get(
-            '/api/browser/observation-ids?place=country/USA')
+            '/api/browser/observation-ids-map?place=country/USA')
         assert no_stat_var.status_code == 400
 
         no_place = app.test_client().get(
-            '/api/browser/observation-ids?statVar=testStatVar')
+            '/api/browser/observation-ids-map?statVar=testStatVar')
         assert no_place.status_code == 400
 
     @patch('routes.api.browser.dc.query')
@@ -62,7 +62,8 @@ class TestObservationId(unittest.TestCase):
 
         mock_query.side_effect = side_effect
         response = app.test_client().get(
-            'api/browser/observation-ids?statVar=test_stat_var&place=geoId/06')
+            'api/browser/observation-ids-map?statVar=test_stat_var&place=geoId/06'
+        )
         assert response.status_code == 200
         result = json.loads(response.data)
         assert result[obs_date] == expected_obs_id
@@ -98,11 +99,86 @@ class TestObservationId(unittest.TestCase):
 
         mock_query.side_effect = side_effect
         response = app.test_client().get(
-            'api/browser/observation-ids?statVar=test_stat_var&place=geoId/06&measurementMethod=testMethod&obsPeriod=testObsPeriod'
+            'api/browser/observation-ids-map?statVar=test_stat_var&place=geoId/06&measurementMethod=testMethod&obsPeriod=testObsPeriod'
         )
         assert response.status_code == 200
         result = json.loads(response.data)
         assert result[obs_date] == expected_obs_id
+
+
+class TestObservationId(unittest.TestCase):
+
+    def test_required_predicates(self):
+        """Failure if required fields are not present."""
+        no_stat_var = app.test_client().get(
+            '/api/browser/observation-id?place=country/USA&date=2021')
+        assert no_stat_var.status_code == 400
+
+        no_place = app.test_client().get(
+            '/api/browser/observation-id?statVar=testStatVar&date=2021')
+        assert no_place.status_code == 400
+
+        no_date = app.test_client().get(
+            '/api/browser/observation-id?statVar=testStatVar&place=country/USA')
+        assert no_place.status_code == 400
+
+    @patch('routes.api.browser.dc.query')
+    def test_observation_node_dcid_returned(self, mock_query):
+        expected_query = '''
+        SELECT ?dcid 
+        WHERE { 
+            ?svObservation typeOf StatVarObservation .
+            ?svObservation variableMeasured test_stat_var . 
+            ?svObservation observationAbout geoId/06 .
+            ?svObservation dcid ?dcid .
+            ?svObservation observationDate "2021" .
+            
+            
+        }
+    '''
+        expected_obs_id = "test_obs_id"
+
+        def side_effect(query):
+            if query == expected_query:
+                return (['?dcid'], [{'cells': [{'value': expected_obs_id}]}])
+            else:
+                return ([], [])
+
+        mock_query.side_effect = side_effect
+        response = app.test_client().get(
+            'api/browser/observation-id?statVar=test_stat_var&place=geoId/06&date=2021'
+        )
+        assert response.status_code == 200
+        assert json.loads(response.data) == expected_obs_id
+
+    @patch('routes.api.browser.dc.query')
+    def test_with_optional_predicates(self, mock_query):
+        expected_query = '''
+        SELECT ?dcid 
+        WHERE { 
+            ?svObservation typeOf StatVarObservation .
+            ?svObservation variableMeasured test_stat_var . 
+            ?svObservation observationAbout geoId/06 .
+            ?svObservation dcid ?dcid .
+            ?svObservation observationDate "2021" .
+            ?svObservation measurementMethod testMethod .
+            ?svObservation observationPeriod testObsPeriod .
+        }
+    '''
+        expected_obs_id = "test_obs_id"
+
+        def side_effect(query):
+            if query == expected_query:
+                return (['?dcid'], [{'cells': [{'value': expected_obs_id}]}])
+            else:
+                return ([], [])
+
+        mock_query.side_effect = side_effect
+        response = app.test_client().get(
+            'api/browser/observation-id?statVar=test_stat_var&place=geoId/06&date=2021&measurementMethod=testMethod&obsPeriod=testObsPeriod'
+        )
+        assert response.status_code == 200
+        assert json.loads(response.data) == expected_obs_id
 
 
 class TestStatVarHierarchy(unittest.TestCase):

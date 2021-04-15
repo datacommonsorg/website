@@ -81,7 +81,6 @@ td a {
 
 .dot:hover {
   r: 5;
-  opacity: 1;
 }
 
 .clickable circle {
@@ -181,4 +180,19 @@ td a {
 .search-results-heading {
   background-color: #f0f0f0;
   padding: 0.1rem 0.2rem;
+}
+
+.stat-var-link {
+  padding-top: 0.2rem;
+}
+
+.observations-table {
+  max-height: 250px;
+  overflow-y: scroll;
+  font-size: 0.8rem;
+}
+
+.observations-table .observation-table-row-clickable:hover {
+  cursor: pointer;
+  background-color: var(--dc-gray-lite);
 }
