@@ -167,7 +167,7 @@ def get_statvar_hierarchy(dcid):
         processed_svg_map[svg_id] = svg
         statvar_hierarchy_helper(svg_id, svg_map, processed_svg_map,
                                  processed_sv, seen_sv, 1)
-    for sv_id, sv in processed_sv.items():
+    for _, sv in processed_sv.items():
         parent_svg = processed_svg_map.get(sv["parent"])
         sv["level"] = parent_svg["level"] + 1
     result = {}

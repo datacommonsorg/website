@@ -46,9 +46,9 @@ export class StatVarHierarchy extends React.Component<
   constructor(props: StatVarHierarchyPropType) {
     super(props);
     this.state = {
+      pathToSelection: [],
       statVarGroups: {},
       statVars: {},
-      pathToSelection: [],
     };
     this.onSearchSelectionChange = this.onSearchSelectionChange.bind(this);
   }
@@ -141,7 +141,7 @@ export class StatVarHierarchy extends React.Component<
       }
     }
     this.setState({
-      pathToSelection: pathToSelection,
+      pathToSelection,
     });
   }
 }

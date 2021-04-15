@@ -48,10 +48,10 @@ export class StatVarNode extends React.Component<
 
   render(): JSX.Element {
     const trigger = React.createElement(StatVarHierarchyNodeHeader, {
-      title: this.props.statVar.displayName,
-      opened: false,
       highlighted: this.props.selected,
       nodeType: StatVarHierarchyNodeType.STAT_VAR,
+      opened: false,
+      title: this.props.statVar.displayName,
     });
     return (
       <Collapsible

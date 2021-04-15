@@ -156,13 +156,13 @@ td a {
   border-radius: 6px;
 }
 
+.search-result-value {
+  padding: 0.1rem 0.4rem;
+}
+
 .search-result-value:hover {
   cursor: pointer;
   background-color: var(--dc-gray-lite);
-}
-
-.search-result-value {
-  padding: 0.1rem 0.4rem;
 }
 
 .highlighted-node-title {

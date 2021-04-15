@@ -177,3 +177,4 @@ class TestGetSearchResult(unittest.TestCase):
             result = svh_search.get_search_result(
                 ["token3", "token4", "token2"])
             expected_result = ['sv_1_2']
+            assert result == expected_result

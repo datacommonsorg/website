@@ -34,13 +34,22 @@ const DOWN_ARROW_HTML = <span>&#x25BC;</span>;
 const RIGHT_ARROW_HTML = <span>&#x25BA;</span>;
 
 interface StatVarGroupNodePropType {
+  // the dcid of the node of the current browser page
   placeDcid: string;
+  // the name of the node of the current browser page
   placeName: string;
+  // the dcid of the current stat var group
   statVarGroupId: string;
+  // the mapping of all stat var groups to their corresponding information
   data: { [key: string]: StatVarGroupNodeType };
+  // if a statvar or statvar group has been selected, the path of stat var
+  // groups from root to selected stat var group or stat var
   pathToSelection: string[];
+  // the specializedEntity string for the current stat var group if there is one
   specializedEntity?: string;
+  // whether the current component has been selected and should be highlighted
   isSelected: boolean;
+  // whether the current component should be opened when rendered
   open: boolean;
 }
 
@@ -74,10 +83,10 @@ export class StatVarGroupNode extends React.Component<
       : statVarGroup.absoluteName;
     const getTrigger = (opened: boolean) => {
       return React.createElement(StatVarHierarchyNodeHeader, {
-        title: triggerTitle,
-        opened,
         highlighted: this.props.isSelected,
         nodeType: StatVarHierarchyNodeType.STAT_VAR_GROUP,
+        opened,
+        title: triggerTitle,
       });
     };
     return (

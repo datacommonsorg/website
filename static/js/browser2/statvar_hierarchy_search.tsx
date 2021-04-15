@@ -47,9 +47,9 @@ export class StatVarHierarchySearch extends React.Component<
     super(props);
     this.state = {
       query: "",
-      svgResults: [],
-      svResults: [],
       showNoResultsMessage: false,
+      svResults: [],
+      svgResults: [],
     };
     this.onInputChanged = this.onInputChanged.bind(this);
     this.search = this.search.bind(this);
@@ -129,7 +129,7 @@ export class StatVarHierarchySearch extends React.Component<
     }
   };
 
-  private search = (query) => () => {
+  private search = (query: string) => () => {
     axios
       .get(`/api/browser/search_statvar_hierarchy?query=${query}`)
       .then((resp) => {
@@ -140,8 +140,8 @@ export class StatVarHierarchySearch extends React.Component<
           const svgResults = processedResults.statVarGroups;
           const svResults = processedResults.statVars;
           this.setState({
-            svgResults,
             svResults,
+            svgResults,
             showNoResultsMessage:
               _.isEmpty(svgResults) &&
               _.isEmpty(svResults) &&
@@ -176,8 +176,8 @@ export class StatVarHierarchySearch extends React.Component<
         : this.props.statVarsData[selectedResult].displayName;
     this.setState({
       query: displayName,
-      svgResults: [],
       svResults: [],
+      svgResults: [],
     });
   };
 }
