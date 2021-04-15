@@ -18,6 +18,7 @@ import json
 
 from cache import cache
 import services.datacommons as dc
+import lib.statvar_hierarchy_search as svh_search
 from services.datacommons import fetch_data
 from flask import Response
 from flask import request
@@ -63,8 +64,8 @@ def get_property_labels(dcid):
     return Response(json.dumps(labels), 200, mimetype='application/json')
 
 
-@cache.cached(timeout=3600 * 24, query_string=True)  # Cache for one day.
 @bp.route('/observation-ids')
+@cache.cached(timeout=3600 * 24, query_string=True)  # Cache for one day.
 def get_observation_ids():
     """Returns a mapping of date to observation node dcid for a combination of predicates:
     observedNodeLocation, statisticalVariable, measurementMethod (optional), observationPeriod (optional)"""
@@ -113,7 +114,7 @@ def get_observation_ids():
 
 
 def statvar_hierarchy_helper(svg_id, svg_map, processed_svg_map, processed_sv,
-                             seen_sv):
+                             seen_sv, level):
     """Processes the childStatVars and childStatVarGroups of a stat var group.
     Adds parent field for those processed statVars and statVarGroups.
 
@@ -126,25 +127,23 @@ def statvar_hierarchy_helper(svg_id, svg_map, processed_svg_map, processed_sv,
     """
     svg = svg_map.get(svg_id, {})
     for child_sv in svg.get("childStatVars", []):
-        if child_sv in seen_sv:
+        if child_sv["id"] in seen_sv:
             continue
-        sv2svg = {}
-        sv2svg["parent"] = svg_id
-        processed_sv[child_sv] = sv2svg
-        seen_sv.add(child_sv)
+        child_sv["parent"] = svg_id
+        processed_sv[child_sv["id"]] = child_sv
+        seen_sv.add(child_sv["id"])
     for child_svg in svg.get("childStatVarGroups", []):
         child_svg_id = child_svg.get("id")
         child_svg = processed_svg_map.get(child_svg_id, svg_map[child_svg_id])
-        if "parent" not in child_svg:
-            child_svg["parent"] = []
-        child_svg["parent"].append(svg_id)
+        child_svg["parent"] = svg_id
+        child_svg["level"] = level
         processed_svg_map[child_svg_id] = child_svg
         seen_sv.add(child_svg_id)
         statvar_hierarchy_helper(child_svg_id, svg_map, processed_svg_map,
-                                 processed_sv, seen_sv)
+                                 processed_sv, seen_sv, level + 1)
 
 
-@cache.cached(timeout=3600 * 24, query_string=True)  # Cache for one day.
+@cache.memoize(timeout=3600 * 24)  # Cache for one day.
 @bp.route('/statvar-hierarchy/<path:dcid>')
 def get_statvar_hierarchy(dcid):
     """Returns the stat var groups objects and stat vars objects relevant to a
@@ -164,10 +163,26 @@ def get_statvar_hierarchy(dcid):
     for svg_id, svg in svg_map.items():
         if svg_id in seen_sv:
             continue
+        svg["level"] = 0
         processed_svg_map[svg_id] = svg
         statvar_hierarchy_helper(svg_id, svg_map, processed_svg_map,
-                                 processed_sv, seen_sv)
+                                 processed_sv, seen_sv, 1)
+    for _, sv in processed_sv.items():
+        parent_svg = processed_svg_map.get(sv["parent"])
+        sv["level"] = parent_svg["level"] + 1
     result = {}
     result["statVarGroups"] = processed_svg_map
     result["statVars"] = processed_sv
     return Response(json.dumps(result), 200, mimetype='application/json')
+
+
+@bp.route('/search_statvar_hierarchy')
+@cache.cached(timeout=3600 * 24, query_string=True)
+def search_statvar_hierarchy():
+    """Gets the statvars and statvar groups that match the tokens in the query
+    """
+    query = request.args.get("query").lower()
+    query = query.replace(",", " ")
+    tokens = query.split()
+    result = svh_search.get_search_result(tokens)
+    return Response(json.dumps(list(result)), 200, mimetype='application/json')

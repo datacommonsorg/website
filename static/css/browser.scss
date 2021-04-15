@@ -62,7 +62,6 @@ td a {
 .card {
   box-shadow: 0 2px 4px 0 rgba(0, 0, 0, 0.2);
   padding: 7px 15px;
-  padding-right: 0;
   margin: 12px 0;
   position: relative;
   overflow: hidden;
@@ -77,7 +76,7 @@ td a {
 }
 
 .dot {
-  r: 2;
+  r: 5;
 }
 
 .dot:hover {
@@ -118,4 +117,68 @@ td a {
 
 .legend {
   display: none;
+}
+
+.Collapsible__trigger {
+  cursor: pointer;
+}
+
+.svg-node-child {
+  margin-left: 1rem;
+}
+
+.stat-var-hierarchy-container {
+  min-height: 20rem;
+  font-size: 0.9rem;
+}
+
+.statvar-hierarchy-search-section {
+  position: relative;
+  margin-bottom: 1rem;
+  margin-top: 1rem;
+}
+
+.statvar-hierarchy-search-results {
+  position: absolute;
+  max-height: 15rem;
+  background-color: white;
+  width: 100%;
+  box-shadow: 0 2px 4px 0 rgb(0 0 0 / 20%);
+  border-radius: 8px;
+  border-style: solid;
+  border-color: var(--dc-gray-lite);
+  overflow-y: scroll;
+  z-index: 2;
+}
+
+.statvar-search-input {
+  width: 100%;
+  border-radius: 6px;
+}
+
+.search-result-value {
+  padding: 0.1rem 0.4rem;
+}
+
+.search-result-value:hover {
+  cursor: pointer;
+  background-color: var(--dc-gray-lite);
+}
+
+.highlighted-node-title {
+  background-color: var(--dc-red-fade);
+}
+
+.node-title:hover {
+  cursor: pointer;
+  background-color: var(--dc-gray-lite);
+}
+
+.statvars-charts-section {
+  margin-left: 1rem;
+}
+
+.search-results-heading {
+  background-color: #f0f0f0;
+  padding: 0.1rem 0.2rem;
 }

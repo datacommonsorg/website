@@ -47,6 +47,27 @@ export enum PageDisplayType {
   BIOLOGICAL_SPECIMEN,
 }
 
+export interface StatVarGroupNodeType {
+  absoluteName: string;
+  level: number;
+  parent?: string;
+  childStatVarGroups?: Array<{ id: string; specializedEntity: string }>;
+  childStatVars?: StatVarNodeType[];
+}
+
+export interface StatVarNodeType {
+  displayName: string;
+  id: string;
+  searchName: string;
+  parent: string;
+  level: number;
+}
+
+export enum StatVarHierarchyNodeType {
+  STAT_VAR_GROUP,
+  STAT_VAR,
+}
+
 /**
  * Mapping for nodeTypes that need to render a special page type.
  * More mappings may be added as more display types are added.
