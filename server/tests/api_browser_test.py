@@ -337,7 +337,7 @@ class TestSearchStatVarHierarchy(unittest.TestCase):
 
     @patch('routes.api.browser.svh_search.get_search_result')
     def test_search_statvar_hierarchy_single_token(self, mock_search_result):
-        expected_query = 'person'
+        expected_query = ["person"]
         expected_result = ['group_1', 'group_2']
 
         def side_effect(query):
@@ -356,7 +356,7 @@ class TestSearchStatVarHierarchy(unittest.TestCase):
     @patch('routes.api.browser.svh_search.get_search_result')
     def test_search_statvar_hierarchy_single_token_comma(
             self, mock_search_result):
-        expected_query = 'person'
+        expected_query = ["person"]
         expected_result = ['group_1', 'group_2']
 
         def side_effect(query):
@@ -374,7 +374,7 @@ class TestSearchStatVarHierarchy(unittest.TestCase):
 
     @patch('routes.api.browser.svh_search.get_search_result')
     def test_search_statvar_hierarchy_multiple_tokens(self, mock_search_result):
-        expected_query = 'person^age^race'
+        expected_query = ["person", "age", "race"]
         expected_result = ['group_1', 'group_2']
 
         def side_effect(query):
@@ -393,7 +393,7 @@ class TestSearchStatVarHierarchy(unittest.TestCase):
     @patch('routes.api.browser.svh_search.get_search_result')
     def test_search_statvar_hierarchy_multiple_tokens_comma(
             self, mock_search_result):
-        expected_query = 'person^age^race'
+        expected_query = ["person", "age", "race"]
         expected_result = ['group_1', 'group_2']
 
         def side_effect(query):

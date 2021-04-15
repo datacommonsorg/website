@@ -184,6 +184,5 @@ def search_statvar_hierarchy():
     query = request.args.get("query").lower()
     query = query.replace(",", " ")
     tokens = query.split()
-    token_string = "^".join(tokens)
-    result = svh_search.get_search_result(token_string)
+    result = svh_search.get_search_result(tokens)
     return Response(json.dumps(list(result)), 200, mimetype='application/json')

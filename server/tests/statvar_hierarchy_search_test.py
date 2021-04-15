@@ -131,7 +131,7 @@ class TestGetSearchResult(unittest.TestCase):
         }
         with app.app_context():
             app.config['STAT_VAR_SEARCH_INDEX'] = search_index
-            result = svh_search.get_search_result("token1")
+            result = svh_search.get_search_result(["token1"])
             expected_result = ['group_1', 'group_31', 'sv_1_2']
             assert result == expected_result
 
@@ -174,5 +174,6 @@ class TestGetSearchResult(unittest.TestCase):
         }
         with app.app_context():
             app.config['STAT_VAR_SEARCH_INDEX'] = search_index
-            result = svh_search.get_search_result("token3^token4^token2")
+            result = svh_search.get_search_result(
+                ["token3", "token4", "token2"])
             expected_result = ['sv_1_2']

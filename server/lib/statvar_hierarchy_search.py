@@ -1,4 +1,4 @@
-# Copyright 2020 Google LLC
+# Copyright 2021 Google LLC
 #
 # Licensed under the Apache License, Version 2.0 (the "License");
 # you may not use this file except in compliance with the License.
@@ -23,7 +23,8 @@
 # stat var groups) to ranking information (approxNumPv and rankingName).
 #
 # format of index:
-# {person: {
+# {
+#   person: {
 #     count_person_female: {
 #         approxNumPv: 3,
 #         rankingName: Count Person Female
@@ -71,7 +72,7 @@ def update_index(token_string, index, node_id, node):
     if approx_num_pv == 1:
         node_ranking_data["approxNumPv"] = NON_HUMAN_CURATED_NUM_PV
     else:
-        node_ranking_data["approxNumPv"] = len(node_id.split("_"))
+        node_ranking_data["approxNumPv"] = approx_num_pv
     node_ranking_data["rankingName"] = node.get("searchName",
                                                 node.get("absoluteName"))
     for token in token_list:
@@ -123,24 +124,23 @@ def rank_search_result(token_result_ids, token_result_nodes):
 
 
 @cache.memoize(timeout=3600 * 24)  # Cache for one day.
-def get_search_result(token_string):
+def get_search_result(tokens):
     """gets the sorted list of results that matches all the tokens in the
     token_string
     
     Args:
-        token_string: list of tokens as a string separated by ^
+        tokens: list of tokens 
     
     Returns:
         set of values that matches all the tokens in the token_string
     """
-    tokens = token_string.split("^")
     search_index = current_app.config['STAT_VAR_SEARCH_INDEX']
     token_result_ids = {}
     token_result_nodes = {}
     if len(tokens) > 0:
         token_result_nodes = search_index.get(tokens[0], {})
         token_result_ids = set(token_result_nodes.keys())
-    for token in tokens:
+    for token in tokens[1:]:
         curr_token_result = search_index.get(token, {})
         curr_token_ids = set(curr_token_result.keys())
         token_result_ids = token_result_ids.intersection(curr_token_ids)
