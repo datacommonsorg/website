@@ -200,10 +200,10 @@ export class ChildStatVarSection extends React.Component<
               ref={isSelected ? this.props.highlightedStatVar : null}
             >
               <StatVarNode
-                dcid={this.props.placeDcid}
-                statVar={statVar}
                 nodeName={this.props.placeName}
+                placeDcid={this.props.placeDcid}
                 selected={isSelected}
+                statVar={statVar}
               />
             </div>
           );

@@ -39,43 +39,111 @@ interface ObservationChartPropType {
   idx: number;
   statVarId: string;
   placeDcid: string;
-  hasClickableDots: boolean;
+  canClickObs: boolean;
 }
 
 interface ObservationChartStateType {
-  canClickDots: boolean;
   dateToDcid: { [date: string]: string };
   errorMessage: string;
+  showTableView: boolean;
 }
 
 export class ObservationChart extends React.Component<
   ObservationChartPropType,
   ObservationChartStateType
 > {
+  private sortedDates: string[] = Object.keys(
+    this.props.sourceSeries.val
+  ).sort();
+
   constructor(props: ObservationChartPropType) {
     super(props);
     this.state = {
-      canClickDots: false,
       dateToDcid: {},
       errorMessage: "",
+      showTableView: false,
     };
+    this.getObsDcidRequest = this.getObsDcidRequest.bind(this);
   }
 
   componentDidMount(): void {
     this.plot();
-    if (this.props.hasClickableDots) {
+    if (this.props.canClickObs) {
       this.fetchObservationDcidsData();
     }
   }
 
   render(): JSX.Element {
-    let svgContainerClass = this.state.canClickDots ? "clickable" : "no-click";
+    let svgContainerClass = this.props.canClickObs ? "clickable" : "no-click";
     if (Object.keys(this.props.sourceSeries.val).length > MAX_DOTS) {
       svgContainerClass = svgContainerClass + " hide-dots";
     }
+    const obsTableRowClass = this.props.canClickObs
+      ? "observation-table-row-clickable"
+      : "observation-table-row";
+    const chartVisibility = this.state.showTableView ? "none" : "block";
+    const tableVisibility = this.state.showTableView ? "block" : "none";
+    const unit = getUnit(this.props.sourceSeries);
     return (
       <>
-        <div id={this.svgContainerId()} className={svgContainerClass} />
+        <div>
+          <i className="material-icons">
+            {this.state.showTableView ? "show_chart" : "table_view"}
+          </i>
+          <span
+            className="clickable-text"
+            onClick={() =>
+              this.setState({ showTableView: !this.state.showTableView })
+            }
+          >
+            {this.state.showTableView ? "show chart" : "show table"}
+          </span>
+        </div>
+        <div
+          id={this.svgContainerId() + "-content-area"}
+          style={{ position: "relative" }}
+        >
+          <div style={{ display: tableVisibility }}>
+            <div className="observations-table">
+              <table className="node-table">
+                <tbody>
+                  <tr key="header">
+                    <td width="40%">
+                      <strong>Date</strong>
+                    </td>
+                    <td width="60%">
+                      <strong>{this.props.statVarId}</strong>
+                    </td>
+                  </tr>
+                  {this.sortedDates.map((date) => {
+                    if (date in this.props.sourceSeries.val) {
+                      return (
+                        <tr
+                          className={obsTableRowClass}
+                          key={date}
+                          onClick={() => this.redirectToObsPage(date)}
+                        >
+                          <td width="50%">{date}</td>
+                          <td width="50%">
+                            {this.props.sourceSeries.val[date] + unit}
+                          </td>
+                        </tr>
+                      );
+                    }
+                  })}
+                </tbody>
+              </table>
+            </div>
+          </div>
+          <div
+            id={this.svgContainerId()}
+            className={svgContainerClass}
+            style={{ display: chartVisibility }}
+          />
+          <div id="screen" className="screen">
+            <div id="spinner"></div>
+          </div>
+        </div>
         {this.state.errorMessage ? (
           <div className="error-message">{this.state.errorMessage}</div>
         ) : null}
@@ -90,9 +158,8 @@ export class ObservationChart extends React.Component<
 
   private plot(): void {
     const values = this.props.sourceSeries.val;
-    const sortedValueKeys = Object.keys(values).sort();
     const data = [];
-    sortedValueKeys.forEach((key) => {
+    this.sortedDates.forEach((key) => {
       data.push({
         label: key,
         time: new Date(key).getTime(),
@@ -108,42 +175,88 @@ export class ObservationChart extends React.Component<
       true,
       true,
       getUnit(this.props.sourceSeries),
-      this.props.hasClickableDots ? this.handleDotClick : null
+      this.props.canClickObs ? this.handleDotClick : null
     );
   }
 
-  private fetchObservationDcidsData(): void {
-    let request = `/api/browser/observation-ids?place=${this.props.placeDcid}&statVar=${this.props.statVarId}`;
+  private getObsDcidRequest(requestPrefix: string): string {
+    let request = requestPrefix;
     if (this.props.sourceSeries.measurementMethod) {
       request = `${request}&measurementMethod=${this.props.sourceSeries.measurementMethod}`;
     }
     if (this.props.sourceSeries.observationPeriod) {
       request = `${request}&obsPeriod=${this.props.sourceSeries.observationPeriod}`;
     }
+    return request;
+  }
+
+  private fetchObservationDcidsData(): void {
+    const request = this.getObsDcidRequest(
+      `/api/browser/observation-ids-map?place=${this.props.placeDcid}&statVar=${this.props.statVarId}`
+    );
     axios.get(request).then((resp) => {
       const data = resp.data;
       this.setState({
-        canClickDots: true,
         dateToDcid: data,
       });
     });
   }
 
   private handleDotClick = (dotData: DataPoint): void => {
-    const date = dotData.label;
-    const obsDcid = this.state.dateToDcid[date];
-    this.updateErrorMessage("");
-    if (obsDcid) {
-      const uri = URI_PREFIX + obsDcid;
-      window.open(uri);
-    } else if (this.state.canClickDots) {
-      this.updateErrorMessage(NO_OBSDCID_ERROR_MESSAGE);
+    if (this.props.canClickObs) {
+      const date = dotData.label;
+      this.redirectToObsPage(date);
     }
   };
+
+  private redirectToObsPage(date: string): void {
+    if (date in this.state.dateToDcid) {
+      const obsDcid = this.state.dateToDcid[date];
+      const uri = URI_PREFIX + obsDcid;
+      window.open(uri);
+    } else {
+      // TODO(chejennifer): triggers pop up warning because opening the new tab
+      // is not result of user action. Find better way to do this.
+      this.loadSpinner();
+      const request = this.getObsDcidRequest(
+        `/api/browser/observation-id?place=${this.props.placeDcid}&statVar=${this.props.statVarId}&date=${date}`
+      );
+      axios
+        .get(request)
+        .then((resp) => {
+          this.removeSpinner();
+          const obsDcid = resp.data;
+          if (obsDcid) {
+            const uri = URI_PREFIX + obsDcid;
+            window.open(uri);
+          } else {
+            this.updateErrorMessage(NO_OBSDCID_ERROR_MESSAGE);
+          }
+        })
+        .catch(() => {
+          this.removeSpinner();
+          this.updateErrorMessage(NO_OBSDCID_ERROR_MESSAGE);
+        });
+    }
+  }
 
   private updateErrorMessage(message: string): void {
     this.setState({
       errorMessage: message,
     });
+  }
+
+  private loadSpinner(): void {
+    document
+      .getElementById(this.svgContainerId() + "-content-area")
+      .getElementsByClassName("screen")[0]
+      .classList.add("d-block");
+  }
+
+  private removeSpinner(): void {
+    document
+      .getElementById(this.svgContainerId() + "-content-area")
+      .getElementsByClassName("screen")[0]
+      .classList.remove("d-block");
   }
 }

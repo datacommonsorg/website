@@ -72,7 +72,6 @@ export class ObservationChartSection extends React.Component<
                     ? "observationPeriod: " + sourceSeries.observationPeriod
                     : null}
                 </div>
-                <div>{"provenance: " + sourceSeries.provenanceDomain}</div>
                 <div>{unit ? "unit: " + unit : null}</div>
               </div>
               <ObservationChart
@@ -80,8 +79,9 @@ export class ObservationChartSection extends React.Component<
                 idx={index}
                 statVarId={this.props.statVarId}
                 placeDcid={this.props.placeDcid}
-                hasClickableDots={true}
+                canClickObs={true}
               />
+              <div>{"provenance: " + sourceSeries.provenanceDomain}</div>
             </div>
           );
         })}
