@@ -120,7 +120,7 @@ class TestObservationId(unittest.TestCase):
 
         no_date = app.test_client().get(
             '/api/browser/observation-id?statVar=testStatVar&place=country/USA')
-        assert no_place.status_code == 400
+        assert no_date.status_code == 400
 
     @patch('routes.api.browser.dc.query')
     def test_observation_node_dcid_returned(self, mock_query):

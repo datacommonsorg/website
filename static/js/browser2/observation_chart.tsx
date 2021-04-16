@@ -52,6 +52,10 @@ export class ObservationChart extends React.Component<
   ObservationChartPropType,
   ObservationChartStateType
 > {
+  private sortedDates: string[] = Object.keys(
+    this.props.sourceSeries.val
+  ).sort();
+
   constructor(props: ObservationChartPropType) {
     super(props);
     this.state = {
@@ -104,10 +108,10 @@ export class ObservationChart extends React.Component<
               <table className="node-table">
                 <tbody>
                   <tr key="header">
-                    <td width="50%">
+                    <td width="40%">
                       <strong>Date</strong>
                     </td>
-                    <td width="50%">
+                    <td width="60%">
                       <strong>{this.props.statVarId}</strong>
                     </td>
                   </tr>
@@ -146,10 +150,6 @@ export class ObservationChart extends React.Component<
       </>
     );
   }
-
-  private sortedDates: string[] = Object.keys(
-    this.props.sourceSeries.val
-  ).sort();
 
   private svgContainerId(): string {
     const statVarId = this.props.statVarId.replace("/", "");
@@ -209,12 +209,14 @@ export class ObservationChart extends React.Component<
     }
   };
 
-  private redirectToObsPage(date: string) {
+  private redirectToObsPage(date: string): void {
     if (date in this.state.dateToDcid) {
       const obsDcid = this.state.dateToDcid[date];
       const uri = URI_PREFIX + obsDcid;
       window.open(uri);
     } else {
+      // TODO(chejennifer): triggers pop up warning because opening the new tab
+      // is not result of user action. Find better way to do this.
       this.loadSpinner();
       const request = this.getObsDcidRequest(
         `/api/browser/observation-id?place=${this.props.placeDcid}&statVar=${this.props.statVarId}&date=${date}`
