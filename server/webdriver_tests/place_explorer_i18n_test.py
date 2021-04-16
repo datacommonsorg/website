@@ -108,7 +108,7 @@ class TestPlaceI18nExplorer(WebdriverBaseTest):
         chart_title = self.driver.find_element_by_xpath(
             '//*[@id="main-pane"]/section[4]/div/div[2]/div/h4')
         self.assertEqual(chart_title.text,
-                         'Population urbaine et rurale : autres pays(2019)')
+                         'Population urbaine et rurale : autres pays(2011)')
 
         # Click through to ranking
         pop_growth_rate_chip = self.driver.find_element_by_xpath(
