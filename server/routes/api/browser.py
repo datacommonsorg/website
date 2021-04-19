@@ -28,6 +28,7 @@ bp = flask.Blueprint('api.browser', __name__, url_prefix='/api/browser')
 NO_MMETHOD_KEY = 'no_mmethod'
 NO_OBSPERIOD_KEY = 'no_obsPeriod'
 
+
 @cache.memoize(timeout=3600 * 24)  # Cache for one day.
 @bp.route('/triples/<path:dcid>')
 def triple_api(dcid):
