@@ -34,29 +34,61 @@ class TestObservationIdsMap(unittest.TestCase):
     @patch('routes.api.browser.dc.query')
     def test_observation_node_dcid_returned(self, mock_query):
         expected_query = '''
-        SELECT ?dcid ?obsDate
+        SELECT ?dcid ?mmethod ?obsPeriod ?obsDate
         WHERE { 
             ?svObservation typeOf StatVarObservation .
             ?svObservation variableMeasured test_stat_var . 
             ?svObservation observationAbout geoId/06 .
             ?svObservation dcid ?dcid .
+            ?svObservation measurementMethod ?mmethod .
+            ?svObservation observationPeriod ?obsPeriod .
             ?svObservation observationDate ?obsDate .
-            
-            
         }
     '''
-        obs_date = "2001"
-        expected_obs_id = "test_obs_id"
+        expected_result = {
+            'WikiData': {
+                'no_obsPeriod': {
+                    '2012': 'obsId1',
+                    '2013': 'obsId2'
+                },
+                'P1Y': {
+                    '2012': 'obsId3',
+                    '2013': 'obsId4',
+                    '2014': 'obsId5'
+                }
+            },
+            'no_mmethod': {
+                'P5Y': {
+                    '2011': 'obsId6',
+                    '2012': 'obsId7',
+                    '2013': 'obsId8'
+                },
+                'no_obsPeriod': {
+                    '2015': 'obsId9',
+                    '2016': 'obsId10'
+                }
+            }
+        }
 
         def side_effect(query):
             if query == expected_query:
-                return (['?dcid', '?obsDate'], [{
-                    'cells': [{
-                        'value': expected_obs_id
-                    }, {
-                        'value': obs_date
-                    }]
-                }])
+                rows = []
+                for mmethod, obsPeriod_mapping in expected_result.items():
+                    for obsPeriod, date_mapping in obsPeriod_mapping.items():
+                        for date, dcid in date_mapping.items():
+                            cells = []
+                            cells.append({'value': dcid})
+                            if mmethod == 'no_mmethod':
+                                cells.append({})
+                            else:
+                                cells.append({'value': mmethod})
+                            if obsPeriod == 'no_obsPeriod':
+                                cells.append({})
+                            else:
+                                cells.append({'value': obsPeriod})
+                            cells.append({'value': date})
+                            rows.append({'cells': cells})
+                return (['?dcid', '?mmethod', '?obsPeriod', '?obsDate'], rows)
             else:
                 return ([], [])
 
@@ -66,44 +98,7 @@ class TestObservationIdsMap(unittest.TestCase):
         )
         assert response.status_code == 200
         result = json.loads(response.data)
-        assert result[obs_date] == expected_obs_id
-
-    @patch('routes.api.browser.dc.query')
-    def test_with_optional_predicates(self, mock_query):
-        expected_query = '''
-        SELECT ?dcid ?obsDate
-        WHERE { 
-            ?svObservation typeOf StatVarObservation .
-            ?svObservation variableMeasured test_stat_var . 
-            ?svObservation observationAbout geoId/06 .
-            ?svObservation dcid ?dcid .
-            ?svObservation observationDate ?obsDate .
-            ?svObservation measurementMethod testMethod .
-            ?svObservation observationPeriod testObsPeriod .
-        }
-    '''
-        obs_date = "2001"
-        expected_obs_id = "test_obs_id"
-
-        def side_effect(query):
-            if query == expected_query:
-                return (['?dcid', '?obsDate'], [{
-                    'cells': [{
-                        'value': expected_obs_id
-                    }, {
-                        'value': obs_date
-                    }]
-                }])
-            else:
-                return ([], [])
-
-        mock_query.side_effect = side_effect
-        response = app.test_client().get(
-            'api/browser/observation-ids-map?statVar=test_stat_var&place=geoId/06&measurementMethod=testMethod&obsPeriod=testObsPeriod'
-        )
-        assert response.status_code == 200
-        result = json.loads(response.data)
-        assert result[obs_date] == expected_obs_id
+        assert result == expected_result
 
 
 class TestObservationId(unittest.TestCase):
@@ -125,22 +120,33 @@ class TestObservationId(unittest.TestCase):
     @patch('routes.api.browser.dc.query')
     def test_observation_node_dcid_returned(self, mock_query):
         expected_query = '''
-        SELECT ?dcid 
+        SELECT ?dcid ?mmethod ?obsPeriod 
         WHERE { 
             ?svObservation typeOf StatVarObservation .
             ?svObservation variableMeasured test_stat_var . 
             ?svObservation observationAbout geoId/06 .
             ?svObservation dcid ?dcid .
+            ?svObservation measurementMethod ?mmethod .
+            ?svObservation observationPeriod ?obsPeriod .
             ?svObservation observationDate "2021" .
-            
-            
         }
     '''
         expected_obs_id = "test_obs_id"
 
         def side_effect(query):
+            print(query)
             if query == expected_query:
-                return (['?dcid'], [{'cells': [{'value': expected_obs_id}]}])
+                return (['?dcid', '?mmethod', '?obsPeriod', '?obsDate'], [{
+                    'cells': [{
+                        'value': 'obs_id1'
+                    }, {
+                        'value': 'test_mmethod'
+                    }, {}]
+                }, {
+                    'cells': [{
+                        'value': expected_obs_id
+                    }, {}, {}]
+                }])
             else:
                 return ([], [])
 
@@ -154,22 +160,36 @@ class TestObservationId(unittest.TestCase):
     @patch('routes.api.browser.dc.query')
     def test_with_optional_predicates(self, mock_query):
         expected_query = '''
-        SELECT ?dcid 
+        SELECT ?dcid ?mmethod ?obsPeriod 
         WHERE { 
             ?svObservation typeOf StatVarObservation .
             ?svObservation variableMeasured test_stat_var . 
             ?svObservation observationAbout geoId/06 .
             ?svObservation dcid ?dcid .
+            ?svObservation measurementMethod ?mmethod .
+            ?svObservation observationPeriod ?obsPeriod .
             ?svObservation observationDate "2021" .
-            ?svObservation measurementMethod testMethod .
-            ?svObservation observationPeriod testObsPeriod .
         }
     '''
         expected_obs_id = "test_obs_id"
 
         def side_effect(query):
             if query == expected_query:
-                return (['?dcid'], [{'cells': [{'value': expected_obs_id}]}])
+                return (['?dcid', '?mmethod', '?obsPeriod', '?obsDate'], [{
+                    'cells': [{
+                        'value': 'obs_id1'
+                    }, {
+                        'value': 'test_mmethod'
+                    }, {}]
+                }, {
+                    'cells': [{
+                        'value': expected_obs_id
+                    }, {
+                        'value': 'testMethod'
+                    }, {
+                        'value': 'testObsPeriod'
+                    }]
+                }])
             else:
                 return ([], [])
 

@@ -40,10 +40,11 @@ interface ObservationChartPropType {
   statVarId: string;
   placeDcid: string;
   canClickObs: boolean;
+  statVarName?: string;
+  dateToDcid?: { [date: string]: string };
 }
 
 interface ObservationChartStateType {
-  dateToDcid: { [date: string]: string };
   errorMessage: string;
   showTableView: boolean;
 }
@@ -59,18 +60,13 @@ export class ObservationChart extends React.Component<
   constructor(props: ObservationChartPropType) {
     super(props);
     this.state = {
-      dateToDcid: {},
       errorMessage: "",
       showTableView: false,
     };
-    this.getObsDcidRequest = this.getObsDcidRequest.bind(this);
   }
 
   componentDidMount(): void {
     this.plot();
-    if (this.props.canClickObs) {
-      this.fetchObservationDcidsData();
-    }
   }
 
   render(): JSX.Element {
@@ -112,7 +108,11 @@ export class ObservationChart extends React.Component<
                       <strong>Date</strong>
                     </td>
                     <td width="60%">
-                      <strong>{this.props.statVarId}</strong>
+                      <strong>
+                        {this.props.statVarName
+                          ? this.props.statVarName
+                          : this.props.statVarId}
+                      </strong>
                     </td>
                   </tr>
                   {this.sortedDates.map((date) => {
@@ -179,29 +179,6 @@ export class ObservationChart extends React.Component<
     );
   }
 
-  private getObsDcidRequest(requestPrefix: string): string {
-    let request = requestPrefix;
-    if (this.props.sourceSeries.measurementMethod) {
-      request = `${request}&measurementMethod=${this.props.sourceSeries.measurementMethod}`;
-    }
-    if (this.props.sourceSeries.observationPeriod) {
-      request = `${request}&obsPeriod=${this.props.sourceSeries.observationPeriod}`;
-    }
-    return request;
-  }
-
-  private fetchObservationDcidsData(): void {
-    const request = this.getObsDcidRequest(
-      `/api/browser/observation-ids-map?place=${this.props.placeDcid}&statVar=${this.props.statVarId}`
-    );
-    axios.get(request).then((resp) => {
-      const data = resp.data;
-      this.setState({
-        dateToDcid: data,
-      });
-    });
-  }
-
   private handleDotClick = (dotData: DataPoint): void => {
     if (this.props.canClickObs) {
       const date = dotData.label;
@@ -210,17 +187,21 @@ export class ObservationChart extends React.Component<
   };
 
   private redirectToObsPage(date: string): void {
-    if (date in this.state.dateToDcid) {
-      const obsDcid = this.state.dateToDcid[date];
+    if (date in this.props.dateToDcid) {
+      const obsDcid = this.props.dateToDcid[date];
       const uri = URI_PREFIX + obsDcid;
       window.open(uri);
     } else {
       // TODO(chejennifer): triggers pop up warning because opening the new tab
       // is not result of user action. Find better way to do this.
       this.loadSpinner();
-      const request = this.getObsDcidRequest(
-        `/api/browser/observation-id?place=${this.props.placeDcid}&statVar=${this.props.statVarId}&date=${date}`
-      );
+      let request = `/api/browser/observation-id?place=${this.props.placeDcid}&statVar=${this.props.statVarId}&date=${date}`;
+      if (this.props.sourceSeries.measurementMethod) {
+        request = `${request}&measurementMethod=${this.props.sourceSeries.measurementMethod}`;
+      }
+      if (this.props.sourceSeries.observationPeriod) {
+        request = `${request}&obsPeriod=${this.props.sourceSeries.observationPeriod}`;
+      }
       axios
         .get(request)
         .then((resp) => {

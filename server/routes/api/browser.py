@@ -25,6 +25,8 @@ from flask import request
 
 bp = flask.Blueprint('api.browser', __name__, url_prefix='/api/browser')
 
+NO_MMETHOD_KEY = 'no_mmethod'
+NO_OBSPERIOD_KEY = 'no_obsPeriod'
 
 @cache.memoize(timeout=3600 * 24)  # Cache for one day.
 @bp.route('/triples/<path:dcid>')
@@ -64,29 +66,22 @@ def get_property_labels(dcid):
     return Response(json.dumps(labels), 200, mimetype='application/json')
 
 
-def get_sparql_query(place_id, stat_var_id, date, measurement_method,
-                     observation_period):
-    measurement_method_triple = ""
-    if measurement_method:
-        measurement_method_triple = f"?svObservation measurementMethod {measurement_method} ."
-    observation_period_triple = ""
-    if observation_period:
-        observation_period_triple = f"?svObservation observationPeriod {observation_period} ."
+def get_sparql_query(place_id, stat_var_id, date):
     date_triple = "?svObservation observationDate ?obsDate ."
     date_selector = "?obsDate"
     if date:
         date_triple = f'?svObservation observationDate "{date}" .'
         date_selector = ""
     sparql_query = f"""
-        SELECT ?dcid {date_selector}
+        SELECT ?dcid ?mmethod ?obsPeriod {date_selector}
         WHERE {{ 
             ?svObservation typeOf StatVarObservation .
             ?svObservation variableMeasured {stat_var_id} . 
             ?svObservation observationAbout {place_id} .
             ?svObservation dcid ?dcid .
+            ?svObservation measurementMethod ?mmethod .
+            ?svObservation observationPeriod ?obsPeriod .
             {date_triple}
-            {measurement_method_triple}
-            {observation_period_triple}
         }}
     """
     return sparql_query
@@ -113,16 +108,21 @@ def get_observation_id():
         return Response(json.dumps("error: must provide a date field"),
                         400,
                         mimetype='application/json')
-    measurement_method = request.args.get("measurementMethod", "")
-    observation_period = request.args.get("obsPeriod", "")
-    sparql_query = get_sparql_query(place_id, stat_var_id, date,
-                                    measurement_method, observation_period)
+    request_mmethod = request.args.get("measurementMethod", NO_MMETHOD_KEY)
+    request_obsPeriod = request.args.get("obsPeriod", NO_OBSPERIOD_KEY)
+    sparql_query = get_sparql_query(place_id, stat_var_id, date)
     result = ""
     (_, rows) = dc.query(sparql_query)
-    if len(rows) > 0:
-        cells = rows[0].get('cells', [])
-        if len(cells) > 0:
-            result = cells[0].get('value', '')
+    for row in rows:
+        cells = row.get('cells', [])
+        if len(cells) != 3:
+            continue
+        dcid = cells[0].get('value', '')
+        mmethod = cells[1].get('value', NO_MMETHOD_KEY)
+        obsPeriod = cells[2].get('value', NO_OBSPERIOD_KEY)
+        if mmethod == request_mmethod and obsPeriod == request_obsPeriod:
+            result = dcid
+            break
     return Response(json.dumps(result), 200, mimetype='application/json')
 
 
@@ -142,20 +142,24 @@ def get_observation_ids_map():
         return Response(json.dumps("error: must provide a statVar field"),
                         400,
                         mimetype='application/json')
-    measurement_method = request.args.get("measurementMethod", "")
-    observation_period = request.args.get("obsPeriod", "")
-    sparql_query = get_sparql_query(place_id, stat_var_id, "",
-                                    measurement_method, observation_period)
+    sparql_query = get_sparql_query(place_id, stat_var_id, "")
     result = ""
     (_, rows) = dc.query(sparql_query)
     result = {}
     for row in rows:
         cells = row.get('cells', [])
-        if len(cells) != 2:
+        if len(cells) != 4:
             continue
-        obsDate = cells[1].get('value', '')
         dcid = cells[0].get('value', '')
-        result[obsDate] = dcid
+        mmethod = cells[1].get('value', NO_MMETHOD_KEY)
+        obsPeriod = cells[2].get('value', NO_OBSPERIOD_KEY)
+        obsDate = cells[3].get('value', '')
+        if mmethod not in result:
+            result[mmethod] = {}
+        if obsPeriod not in result[mmethod]:
+            result[mmethod][obsPeriod] = {}
+        obsDateMapping = result[mmethod][obsPeriod]
+        obsDateMapping[obsDate] = dcid
     return Response(json.dumps(result), 200, mimetype='application/json')
 
 
