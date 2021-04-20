@@ -24,15 +24,22 @@ import _ from "lodash";
 import { ObservationChart } from "./observation_chart";
 import { getUnit, removeLoadingMessage, SourceSeries } from "./util";
 
+const NO_MMETHOD_KEY = "no_mmethod";
+const NO_OBSPERIOD_KEY = "no_obsPeriod";
+
 interface ObservationChartSectionPropType {
   placeDcid: string;
   statVarId: string;
   placeName: string;
+  statVarName?: string;
 }
 
 interface ObservationChartSectionStateType {
   data: Array<SourceSeries>;
   infoMessage: string;
+  obsDcidMapping: {
+    [mmethod: string]: { [obsPeriod: string]: { [date: string]: string } };
+  };
 }
 
 export class ObservationChartSection extends React.Component<
@@ -44,11 +51,13 @@ export class ObservationChartSection extends React.Component<
     this.state = {
       data: [],
       infoMessage: "Loading Charts...",
+      obsDcidMapping: {},
     };
   }
 
   componentDidMount(): void {
     this.fetchData();
+    this.fetchObsDcidMap();
   }
 
   render(): JSX.Element {
@@ -59,6 +68,16 @@ export class ObservationChartSection extends React.Component<
       <>
         {this.state.data.map((sourceSeries, index) => {
           const unit = getUnit(sourceSeries);
+          const mmethod = sourceSeries.measurementMethod
+            ? sourceSeries.measurementMethod
+            : NO_MMETHOD_KEY;
+          const obsPeriod = sourceSeries.observationPeriod
+            ? sourceSeries.observationPeriod
+            : NO_OBSPERIOD_KEY;
+          const dateToDcid =
+            mmethod in this.state.obsDcidMapping
+              ? this.state.obsDcidMapping[mmethod][obsPeriod]
+              : {};
           return (
             <div className="card" key={this.props.statVarId + index}>
               <div className="chart-title">
@@ -80,6 +99,8 @@ export class ObservationChartSection extends React.Component<
                 statVarId={this.props.statVarId}
                 placeDcid={this.props.placeDcid}
                 canClickObs={true}
+                statVarName={this.props.statVarName}
+                dateToDcid={dateToDcid}
               />
               <div>{"provenance: " + sourceSeries.provenanceDomain}</div>
             </div>
@@ -109,6 +130,23 @@ export class ObservationChartSection extends React.Component<
       })
       .catch(() => {
         removeLoadingMessage();
+      });
+  }
+
+  private fetchObsDcidMap(): void {
+    axios
+      .get(
+        `/api/browser/observation-ids-map?place=${this.props.placeDcid}&statVar=${this.props.statVarId}`
+      )
+      .then((resp) => {
+        this.setState({
+          obsDcidMapping: resp.data,
+        });
+      })
+      .catch(() => {
+        this.setState({
+          obsDcidMapping: {},
+        });
       });
   }
 }

@@ -175,7 +175,7 @@ function getTooltipContent(
       const dataPoint = dataGroup.value.find(
         (val) => val.time === highlightedTime
       );
-      if (dataPoint && dataPoint.value !== null) {
+      if (dataPoint) {
         tooltipDate = dataPoint.label;
         let rowLabel =
           dataGroups.length === 1 && places.length === 1 ? dataPoint.label : "";
@@ -185,10 +185,10 @@ function getTooltipContent(
         if (places.length > 1) {
           rowLabel += ` ${place}`;
         }
-        tooltipContent += `${rowLabel}: ${formatNumber(
-          dataPoint.value,
-          unit
-        )}<br/>`;
+        const value = dataPoint.value
+          ? formatNumber(dataPoint.value, unit)
+          : "N/A";
+        tooltipContent += `${rowLabel}: ${value}<br/>`;
       }
     }
   }

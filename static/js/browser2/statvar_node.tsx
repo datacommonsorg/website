@@ -87,6 +87,7 @@ export class StatVarNode extends React.Component<
               placeDcid={this.props.placeDcid}
               statVarId={this.props.statVar.id}
               placeName={this.props.nodeName}
+              statVarName={this.props.statVar.displayName}
             />
           </div>
         )}
