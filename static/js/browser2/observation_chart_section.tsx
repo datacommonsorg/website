@@ -22,7 +22,9 @@ import React from "react";
 import axios from "axios";
 import _ from "lodash";
 import { ObservationChart } from "./observation_chart";
-import { getUnit, removeLoadingMessage, SourceSeries } from "./util";
+import { getUnit, loadSpinner, removeSpinner, SourceSeries } from "./util";
+
+const LOADING_CONTAINER_ID = "observation-chart-section";
 
 interface ObservationChartSectionPropType {
   placeDcid: string;
@@ -33,6 +35,7 @@ interface ObservationChartSectionPropType {
 interface ObservationChartSectionStateType {
   data: Array<SourceSeries>;
   infoMessage: string;
+  errorMessage: string;
 }
 
 export class ObservationChartSection extends React.Component<
@@ -43,7 +46,8 @@ export class ObservationChartSection extends React.Component<
     super(props);
     this.state = {
       data: [],
-      infoMessage: "Loading Charts...",
+      infoMessage: "",
+      errorMessage: ""
     };
   }
 
@@ -52,11 +56,14 @@ export class ObservationChartSection extends React.Component<
   }
 
   render(): JSX.Element {
-    if (_.isEmpty(this.state.data)) {
-      return <div id={"info-message"}>{this.state.infoMessage}</div>;
-    }
     return (
-      <>
+      <div id={LOADING_CONTAINER_ID} className="loading-spinner-container">
+        {!_.isEmpty(this.state.errorMessage) && (
+          <div id={"error-message"}>{this.state.errorMessage}</div>
+        )}
+        {!_.isEmpty(this.state.infoMessage) && (
+          <div id={"info-message"}>{this.state.infoMessage}</div>
+        )}
         {this.state.data.map((sourceSeries, index) => {
           const unit = getUnit(sourceSeries);
           return (
@@ -85,17 +92,21 @@ export class ObservationChartSection extends React.Component<
             </div>
           );
         })}
-      </>
+        <div id="browser-screen" className="screen">
+          <div id="spinner"></div>
+        </div>
+      </div>
     );
   }
 
   private fetchData(): void {
+    loadSpinner(LOADING_CONTAINER_ID);
     axios
       .get(
         `/api/stats/all?places=${this.props.placeDcid}&statVars=${this.props.statVarId}`
       )
       .then((resp) => {
-        removeLoadingMessage();
+        removeSpinner(LOADING_CONTAINER_ID);
         const sourceSeries =
           resp.data.placeData[this.props.placeDcid].statVarData[
             this.props.statVarId
@@ -108,7 +119,10 @@ export class ObservationChartSection extends React.Component<
         });
       })
       .catch(() => {
-        removeLoadingMessage();
+        removeSpinner(LOADING_CONTAINER_ID);
+        this.setState({
+          errorMessage: "Error retrieving observation charts data."
+        });
       });
   }
 }

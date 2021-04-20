@@ -16,10 +16,15 @@
 
 import React from "react";
 import ReactDOM from "react-dom";
+import _ from "lodash";
 
 import { BrowserPage } from "./browser_page";
 import axios from "axios";
-import { getPageDisplayType, removeLoadingMessage } from "./util";
+import { getPageDisplayType, PageDisplayType } from "./util";
+
+const TYPE_OF_UNKNOWN = "Unknown";
+const TYPE_OF_STAT_VAR = "StatisticalVariable";
+const TYPE_OF_OBSERVATION = "Observation";
 
 window.onload = () => {
   const dcid = document.getElementById("node").dataset.dcid;
@@ -32,6 +37,7 @@ window.onload = () => {
       const values = resp.data.values;
       const types = values.out ? values.out : [];
       const listOfTypes = types.map((type) => type.dcid);
+      const nodeType = getNodeType(dcid, listOfTypes, statVarId);
       const pageDisplayType = getPageDisplayType(listOfTypes, statVarId);
       ReactDOM.render(
         React.createElement(BrowserPage, {
@@ -39,9 +45,31 @@ window.onload = () => {
           nodeName,
           pageDisplayType,
           statVarId,
+          nodeType
         }),
         document.getElementById("node")
       );
     })
-    .catch(() => removeLoadingMessage());
+    .catch(() => {
+      ReactDOM.render(
+        React.createElement(BrowserPage, {
+          dcid,
+          nodeName,
+          pageDisplayType: PageDisplayType.GENERAL,
+          statVarId,
+          nodeType: getNodeType(dcid, [], statVarId),
+        }),
+        document.getElementById("node")
+      );
+    });
 };
+
+function getNodeType(dcid: string, listOfTypes: string[], statVarId: string): string {
+  if (!_.isEmpty(statVarId)) {
+    return TYPE_OF_STAT_VAR;
+  }
+  if (dcid.startsWith("dc/o/")) {
+    return TYPE_OF_OBSERVATION;
+  }
+  return _.isEmpty(listOfTypes) ? TYPE_OF_UNKNOWN : listOfTypes[0];
+}

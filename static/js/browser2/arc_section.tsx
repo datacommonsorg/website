@@ -20,6 +20,7 @@
 
 import React from "react";
 import axios from "axios";
+import _ from "lodash";
 
 import { InArcSection } from "./in_arc_section";
 import { OutArcSection } from "./out_arc_section";
@@ -62,23 +63,26 @@ export class ArcSection extends React.Component<
       return null;
     }
     return (
-      <>
-        <OutArcSection
-          dcid={this.props.dcid}
-          labels={this.state.outLabels}
-          provDomain={this.state.provDomain}
-        />
-        {this.props.displayInArcs ? (
-          <InArcSection
-            nodeName={this.props.nodeName}
+      <>  
+        <div className="browser-page-section">
+          <h3>Properties</h3>
+          <OutArcSection
             dcid={this.props.dcid}
-            labels={this.state.inLabels}
+            labels={this.state.outLabels}
             provDomain={this.state.provDomain}
           />
-        ) : null}
-        {this.state.errorMessage ? (
-          <div className="error-message">{this.state.errorMessage}</div>
-        ) : null}
+        </div>
+        {this.props.displayInArcs && !_.isEmpty(this.state.inLabels) && (
+          <div className="browser-page-section">
+            <h3>In Arcs</h3>
+            <InArcSection
+              nodeName={this.props.nodeName}
+              dcid={this.props.dcid}
+              labels={this.state.inLabels}
+              provDomain={this.state.provDomain}
+            />
+          </div>
+        )}
       </>
     );
   }
@@ -107,7 +111,7 @@ export class ArcSection extends React.Component<
       })
       .catch(() => {
         this.setState({
-          errorMessage: `Error retrieving property labels for ${this.props.dcid}`,
+          isDataFetched: true,
         });
       });
   }

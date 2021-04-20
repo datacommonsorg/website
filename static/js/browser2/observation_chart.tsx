@@ -199,6 +199,10 @@ export class ObservationChart extends React.Component<
       this.setState({
         dateToDcid: data,
       });
+    }).catch(() => {
+      this.setState({
+        dateToDcid: {},
+      });
     });
   }
 
