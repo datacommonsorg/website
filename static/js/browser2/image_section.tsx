@@ -51,8 +51,8 @@ export class ImageSection extends React.Component<
   }
 
   render(): JSX.Element {
-    if(!_.isEmpty(this.state.errorMessage)) {
-      return <div className="error-message">{this.state.errorMessage}</div>
+    if (!_.isEmpty(this.state.errorMessage)) {
+      return <div className="error-message">{this.state.errorMessage}</div>;
     }
     return (
       <div id={LOADING_CONTAINER_ID} className="loading-spinner-container">
@@ -83,11 +83,12 @@ export class ImageSection extends React.Component<
         this.setState({
           imageUrls: imgUrls,
         });
-      }).catch(() => {
+      })
+      .catch(() => {
         removeSpinner(LOADING_CONTAINER_ID);
         this.setState({
-          errorMessage: "Error retrieiving image url."
-        })
+          errorMessage: "Error retrieiving image url.",
+        });
       });
   }
 }

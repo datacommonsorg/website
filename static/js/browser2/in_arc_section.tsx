@@ -58,7 +58,7 @@ export class InArcSection extends React.Component<
 
   render(): JSX.Element {
     if (!_.isEmpty(this.state.errorMessage)) {
-      return <div className="error-message">{this.state.errorMessage}</div>
+      return <div className="error-message">{this.state.errorMessage}</div>;
     }
     return (
       <div id={LOADING_CONTAINER_ID} className="loading-spinner-container">
@@ -128,8 +128,8 @@ export class InArcSection extends React.Component<
       .catch(() => {
         removeSpinner(LOADING_CONTAINER_ID);
         this.setState({
-          errorMessage: "Error retrieving property values."
-        })
+          errorMessage: "Error retrieving property values.",
+        });
       });
   }
 }

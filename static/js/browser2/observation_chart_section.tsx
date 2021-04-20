@@ -47,7 +47,7 @@ export class ObservationChartSection extends React.Component<
     this.state = {
       data: [],
       infoMessage: "",
-      errorMessage: ""
+      errorMessage: "",
     };
   }
 
@@ -121,7 +121,7 @@ export class ObservationChartSection extends React.Component<
       .catch(() => {
         removeSpinner(LOADING_CONTAINER_ID);
         this.setState({
-          errorMessage: "Error retrieving observation charts data."
+          errorMessage: "Error retrieving observation charts data.",
         });
       });
   }

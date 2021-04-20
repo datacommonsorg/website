@@ -73,14 +73,16 @@ export class OutArcSection extends React.Component<
 
   render(): JSX.Element {
     if (!this.state.isDataFetched) {
-      return <div id={LOADING_CONTAINER_ID} className="loading-spinner-container">
-        <div id="browser-screen" className="screen">
-          <div id="spinner"></div>
+      return (
+        <div id={LOADING_CONTAINER_ID} className="loading-spinner-container">
+          <div id="browser-screen" className="screen">
+            <div id="spinner"></div>
+          </div>
         </div>
-      </div>
+      );
     }
     if (!_.isEmpty(this.state.errorMessage)) {
-      return <div className="error-message">{this.state.errorMessage}</div>
+      return <div className="error-message">{this.state.errorMessage}</div>;
     }
     if (_.isEmpty(this.state.data)) {
       return <div className="info-message">{this.notANodeMessage}</div>;
@@ -209,49 +211,52 @@ export class OutArcSection extends React.Component<
 
   private fetchDataFromTriples(): void {
     loadSpinner(LOADING_CONTAINER_ID);
-    axios.get("/api/browser/triples/" + this.props.dcid).then((resp) => {
-      const triplesData = resp.data;
-      const outArcs = triplesData.filter(
-        (t) => t.subjectId === this.props.dcid
-      );
-      const outArcsByPredProv: OutArcData = {};
-      for (const outArc of outArcs) {
-        const predicate = outArc.predicate;
-        if (IGNORED_OUT_ARC_PROPERTIES.has(predicate)) {
-          return;
+    axios
+      .get("/api/browser/triples/" + this.props.dcid)
+      .then((resp) => {
+        const triplesData = resp.data;
+        const outArcs = triplesData.filter(
+          (t) => t.subjectId === this.props.dcid
+        );
+        const outArcsByPredProv: OutArcData = {};
+        for (const outArc of outArcs) {
+          const predicate = outArc.predicate;
+          if (IGNORED_OUT_ARC_PROPERTIES.has(predicate)) {
+            return;
+          }
+          if (!outArcsByPredProv[predicate]) {
+            outArcsByPredProv[predicate] = {};
+          }
+          const outArcsOfPredicate = outArcsByPredProv[predicate];
+          const provId = outArc.provenanceId;
+          if (!(provId in outArcsOfPredicate)) {
+            outArcsOfPredicate[provId] = [];
+          }
+          let valueText = "";
+          let valueDcid: string;
+          if (outArc.objectId) {
+            valueText = outArc.objectName ? outArc.objectName : outArc.objectId;
+            valueDcid = outArc.objectId;
+          } else {
+            valueText = outArc.objectValue;
+          }
+          outArcsOfPredicate[provId].push({
+            dcid: valueDcid,
+            text: valueText,
+          });
         }
-        if (!outArcsByPredProv[predicate]) {
-          outArcsByPredProv[predicate] = {};
-        }
-        const outArcsOfPredicate = outArcsByPredProv[predicate];
-        const provId = outArc.provenanceId;
-        if (!(provId in outArcsOfPredicate)) {
-          outArcsOfPredicate[provId] = [];
-        }
-        let valueText = "";
-        let valueDcid: string;
-        if (outArc.objectId) {
-          valueText = outArc.objectName ? outArc.objectName : outArc.objectId;
-          valueDcid = outArc.objectId;
-        } else {
-          valueText = outArc.objectValue;
-        }
-        outArcsOfPredicate[provId].push({
-          dcid: valueDcid,
-          text: valueText,
+        removeSpinner(LOADING_CONTAINER_ID);
+        this.setState({
+          data: outArcsByPredProv,
+          isDataFetched: true,
         });
-      }
-      removeSpinner(LOADING_CONTAINER_ID);
-      this.setState({
-        data: outArcsByPredProv,
-        isDataFetched: true,
+      })
+      .catch(() => {
+        removeSpinner(LOADING_CONTAINER_ID);
+        this.setState({
+          errorMessage: "Error retrieving triples.",
+          isDataFetched: true,
+        });
       });
-    }).catch(() => {
-      removeSpinner(LOADING_CONTAINER_ID);
-      this.setState({
-        errorMessage: "Error retrieving triples.",
-        isDataFetched: true,
-      });
-    });
   }
 }

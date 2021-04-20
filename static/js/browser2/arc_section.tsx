@@ -63,7 +63,7 @@ export class ArcSection extends React.Component<
       return null;
     }
     return (
-      <>  
+      <>
         <div className="browser-page-section">
           <h3>Properties</h3>
           <OutArcSection

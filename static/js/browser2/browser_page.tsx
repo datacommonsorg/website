@@ -61,14 +61,14 @@ export class BrowserPage extends React.Component<BrowserPagePropType> {
             </div>
           )}
           {this.props.pageDisplayType ===
-          PageDisplayType.PLACE_WITH_WEATHER_INFO && (
+            PageDisplayType.PLACE_WITH_WEATHER_INFO && (
             <div className="browser-page-section">
               <h3>Weather Charts</h3>
               <WeatherChartSection dcid={this.props.dcid} />
             </div>
           )}
           {this.props.pageDisplayType ===
-          PageDisplayType.BIOLOGICAL_SPECIMEN && (
+            PageDisplayType.BIOLOGICAL_SPECIMEN && (
             <div className="browser-page-section">
               <h3>Image</h3>
               <ImageSection dcid={this.props.dcid} />

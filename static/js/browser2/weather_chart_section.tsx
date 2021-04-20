@@ -50,7 +50,7 @@ export class WeatherChartSection extends React.Component<
     super(props);
     this.state = {
       data: {},
-      errorMessage: ""
+      errorMessage: "",
     };
   }
 
@@ -59,8 +59,8 @@ export class WeatherChartSection extends React.Component<
   }
 
   render(): JSX.Element {
-    if(!_.isEmpty(this.state.errorMessage)) {
-      return <div className="error-message">{this.state.errorMessage}</div>
+    if (!_.isEmpty(this.state.errorMessage)) {
+      return <div className="error-message">{this.state.errorMessage}</div>;
     }
     return (
       <div id={LOADING_CONTAINER_ID} className="loading-spinner-container">
@@ -97,32 +97,34 @@ export class WeatherChartSection extends React.Component<
         .then((resp) => resp.data);
     });
     loadSpinner(LOADING_CONTAINER_ID);
-    Promise.all(weatherPromises).then((weatherPromisesData) => {
-      const propToSourceSeries = {};
-      weatherPromisesData.forEach((weatherData) => {
-        if (_.isEmpty(weatherData)) {
-          return;
-        }
-        const values = {};
-        weatherData.forEach((data) => {
-          values[data.observationDate] = data.meanValue;
+    Promise.all(weatherPromises)
+      .then((weatherPromisesData) => {
+        const propToSourceSeries = {};
+        weatherPromisesData.forEach((weatherData) => {
+          if (_.isEmpty(weatherData)) {
+            return;
+          }
+          const values = {};
+          weatherData.forEach((data) => {
+            values[data.observationDate] = data.meanValue;
+          });
+          const sourceSeries = {
+            provenanceDomain: "",
+            unit: weatherData[0].unit,
+            val: values,
+          };
+          propToSourceSeries[weatherData[0].measuredProperty] = sourceSeries;
         });
-        const sourceSeries = {
-          provenanceDomain: "",
-          unit: weatherData[0].unit,
-          val: values,
-        };
-        propToSourceSeries[weatherData[0].measuredProperty] = sourceSeries;
-      });
-      removeSpinner(LOADING_CONTAINER_ID);
-      this.setState({
-        data: propToSourceSeries,
-      });
-    }).catch(() => {
-      removeSpinner(LOADING_CONTAINER_ID);
-      this.setState({
-        errorMessage: "Error retrieving weather data."
+        removeSpinner(LOADING_CONTAINER_ID);
+        this.setState({
+          data: propToSourceSeries,
+        });
       })
-    });
+      .catch(() => {
+        removeSpinner(LOADING_CONTAINER_ID);
+        this.setState({
+          errorMessage: "Error retrieving weather data.",
+        });
+      });
   }
 }

@@ -45,7 +45,7 @@ window.onload = () => {
           nodeName,
           pageDisplayType,
           statVarId,
-          nodeType
+          nodeType,
         }),
         document.getElementById("node")
       );
@@ -64,7 +64,11 @@ window.onload = () => {
     });
 };
 
-function getNodeType(dcid: string, listOfTypes: string[], statVarId: string): string {
+function getNodeType(
+  dcid: string,
+  listOfTypes: string[],
+  statVarId: string
+): string {
   if (!_.isEmpty(statVarId)) {
     return TYPE_OF_STAT_VAR;
   }

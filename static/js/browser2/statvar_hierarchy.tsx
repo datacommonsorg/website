@@ -130,10 +130,11 @@ export class StatVarHierarchy extends React.Component<
           statVarGroups,
           statVars,
         });
-      }).catch(() => {
+      })
+      .catch(() => {
         this.setState({
-          errorMessage: "Error retrieving stat var hierarchy."
-        })
+          errorMessage: "Error retrieving stat var hierarchy.",
+        });
       });
   }
 

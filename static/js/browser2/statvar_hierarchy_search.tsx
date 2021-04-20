@@ -148,7 +148,8 @@ export class StatVarHierarchySearch extends React.Component<
               !_.isEmpty(query),
           });
         }
-      }).catch(() => {
+      })
+      .catch(() => {
         this.setState({
           showNoResultsMessage: true,
         });

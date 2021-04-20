@@ -194,16 +194,19 @@ export class ObservationChart extends React.Component<
     const request = this.getObsDcidRequest(
       `/api/browser/observation-ids-map?place=${this.props.placeDcid}&statVar=${this.props.statVarId}`
     );
-    axios.get(request).then((resp) => {
-      const data = resp.data;
-      this.setState({
-        dateToDcid: data,
+    axios
+      .get(request)
+      .then((resp) => {
+        const data = resp.data;
+        this.setState({
+          dateToDcid: data,
+        });
+      })
+      .catch(() => {
+        this.setState({
+          dateToDcid: {},
+        });
       });
-    }).catch(() => {
-      this.setState({
-        dateToDcid: {},
-      });
-    });
   }
 
   private handleDotClick = (dotData: DataPoint): void => {
