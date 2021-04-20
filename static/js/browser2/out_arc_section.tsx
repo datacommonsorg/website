@@ -104,6 +104,13 @@ export class OutArcSection extends React.Component<
                 <strong>Provenance</strong>
               </td>
             </tr>
+            <ArcTableRow
+              key={DCID_PREDICATE}
+              propertyLabel={DCID_PREDICATE}
+              values={[{ text: this.props.dcid }]}
+              provenanceId={""}
+              src={null}
+            />
             {predicates.map((predicate) => {
               const valuesByProvenance = this.state.data[predicate];
               return Object.keys(valuesByProvenance).map(
@@ -124,13 +131,6 @@ export class OutArcSection extends React.Component<
                 }
               );
             })}
-            <ArcTableRow
-              key={DCID_PREDICATE}
-              propertyLabel={DCID_PREDICATE}
-              values={[{ text: this.props.dcid }]}
-              provenanceId={""}
-              src={null}
-            />
           </tbody>
         </table>
       </div>
