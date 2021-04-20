@@ -43,9 +43,9 @@ window.onload = () => {
         React.createElement(BrowserPage, {
           dcid,
           nodeName,
+          nodeType,
           pageDisplayType,
           statVarId,
-          nodeType,
         }),
         document.getElementById("node")
       );
@@ -55,9 +55,9 @@ window.onload = () => {
         React.createElement(BrowserPage, {
           dcid,
           nodeName,
+          nodeType: getNodeType(dcid, [], statVarId),
           pageDisplayType: PageDisplayType.GENERAL,
           statVarId,
-          nodeType: getNodeType(dcid, [], statVarId),
         }),
         document.getElementById("node")
       );
@@ -69,7 +69,7 @@ function getNodeType(
   listOfTypes: string[],
   statVarId: string
 ): string {
-  if (!_.isEmpty(statVarId)) {
+  if (statVarId !== "") {
     return TYPE_OF_STAT_VAR;
   }
   if (dcid.startsWith("dc/o/")) {

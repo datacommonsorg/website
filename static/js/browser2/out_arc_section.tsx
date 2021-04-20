@@ -62,8 +62,8 @@ export class OutArcSection extends React.Component<
     super(props);
     this.state = {
       data: {},
-      isDataFetched: false,
       errorMessage: "",
+      isDataFetched: false,
     };
   }
 
@@ -222,7 +222,7 @@ export class OutArcSection extends React.Component<
         for (const outArc of outArcs) {
           const predicate = outArc.predicate;
           if (IGNORED_OUT_ARC_PROPERTIES.has(predicate)) {
-            return;
+            continue;
           }
           if (!outArcsByPredProv[predicate]) {
             outArcsByPredProv[predicate] = {};

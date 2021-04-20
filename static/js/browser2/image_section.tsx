@@ -41,8 +41,8 @@ export class ImageSection extends React.Component<
   constructor(props: ImageSectionPropType) {
     super(props);
     this.state = {
-      imageUrls: [],
       errorMessage: "",
+      imageUrls: [],
     };
   }
 

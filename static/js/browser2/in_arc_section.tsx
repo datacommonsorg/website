@@ -47,8 +47,8 @@ export class InArcSection extends React.Component<
     super(props);
     this.state = {
       data: {},
-      parentTypes: [],
       errorMessage: "",
+      parentTypes: [],
     };
   }
 

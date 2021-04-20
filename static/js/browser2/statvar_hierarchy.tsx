@@ -47,10 +47,10 @@ export class StatVarHierarchy extends React.Component<
   constructor(props: StatVarHierarchyPropType) {
     super(props);
     this.state = {
+      errorMessage: "",
       pathToSelection: [],
       statVarGroups: {},
       statVars: {},
-      errorMessage: "",
     };
     this.onSearchSelectionChange = this.onSearchSelectionChange.bind(this);
   }

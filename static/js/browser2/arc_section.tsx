@@ -59,6 +59,9 @@ export class ArcSection extends React.Component<
   }
 
   render(): JSX.Element {
+    const showInArcSection =
+      this.props.displayInArcs &&
+      (!_.isEmpty(this.state.inLabels) || !_.isEmpty(this.state.errorMessage));
     if (!this.state.isDataFetched) {
       return null;
     }
@@ -72,15 +75,20 @@ export class ArcSection extends React.Component<
             provDomain={this.state.provDomain}
           />
         </div>
-        {this.props.displayInArcs && !_.isEmpty(this.state.inLabels) && (
+        {showInArcSection && (
           <div className="browser-page-section">
             <h3>In Arcs</h3>
-            <InArcSection
-              nodeName={this.props.nodeName}
-              dcid={this.props.dcid}
-              labels={this.state.inLabels}
-              provDomain={this.state.provDomain}
-            />
+            {!_.isEmpty(this.state.errorMessage) && (
+              <div className="error-message">{this.state.errorMessage}</div>
+            )}
+            {!_.isEmpty(this.state.inLabels) && (
+              <InArcSection
+                nodeName={this.props.nodeName}
+                dcid={this.props.dcid}
+                labels={this.state.inLabels}
+                provDomain={this.state.provDomain}
+              />
+            )}
           </div>
         )}
       </>
@@ -111,6 +119,7 @@ export class ArcSection extends React.Component<
       })
       .catch(() => {
         this.setState({
+          errorMessage: `Error retrieving property labels.`,
           isDataFetched: true,
         });
       });

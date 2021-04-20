@@ -53,8 +53,8 @@ export class ObservationChartSection extends React.Component<
     super(props);
     this.state = {
       data: [],
-      infoMessage: "",
       errorMessage: "",
+      infoMessage: "",
       obsDcidMapping: {},
     };
   }
