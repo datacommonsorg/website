@@ -21,15 +21,17 @@
 import React from "react";
 import axios from "axios";
 import _ from "lodash";
+import { loadSpinner, removeSpinner } from "./util";
 
 const IMAGE_URL_PROPERTY_LABEL = "imageUrl";
-
+const LOADING_CONTAINER_ID = "browser-image-section";
 interface ImageSectionPropType {
   dcid: string;
 }
 
 interface ImageSectionStateType {
   imageUrls: string[];
+  errorMessage: string;
 }
 
 export class ImageSection extends React.Component<
@@ -39,6 +41,7 @@ export class ImageSection extends React.Component<
   constructor(props: ImageSectionPropType) {
     super(props);
     this.state = {
+      errorMessage: "",
       imageUrls: [],
     };
   }
@@ -48,11 +51,11 @@ export class ImageSection extends React.Component<
   }
 
   render(): JSX.Element {
-    if (_.isEmpty(this.state.imageUrls)) {
-      return null;
+    if (!_.isEmpty(this.state.errorMessage)) {
+      return <div className="error-message">{this.state.errorMessage}</div>;
     }
     return (
-      <>
+      <div id={LOADING_CONTAINER_ID} className="loading-spinner-container">
         {this.state.imageUrls.map((url, idx) => {
           return (
             <div key={"image" + idx} className="card">
@@ -60,11 +63,12 @@ export class ImageSection extends React.Component<
             </div>
           );
         })}
-      </>
+      </div>
     );
   }
 
   private fetchData(): void {
+    loadSpinner(LOADING_CONTAINER_ID);
     axios
       .get(
         `/api/browser/propvals/${IMAGE_URL_PROPERTY_LABEL}/${this.props.dcid}`
@@ -75,8 +79,15 @@ export class ImageSection extends React.Component<
           return;
         }
         const imgUrls = data.values.out.map((imgUrlValue) => imgUrlValue.value);
+        removeSpinner(LOADING_CONTAINER_ID);
         this.setState({
           imageUrls: imgUrls,
+        });
+      })
+      .catch(() => {
+        removeSpinner(LOADING_CONTAINER_ID);
+        this.setState({
+          errorMessage: "Error retrieiving image url.",
         });
       });
   }

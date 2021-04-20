@@ -17,10 +17,18 @@
 @import 'base';
 @import 'draw';
 
+.browser-page-header {
+  margin: 20px 0;
+}
+
 .node-about {
   color: #666;
-  font-size: 24px;
-  margin: 20px 0;
+  font-size: 1.7rem;
+}
+
+.node-type {
+  color: #666;
+  font-size: 1.2rem;
 }
 
 .node-table {
@@ -195,4 +203,30 @@ td a {
 .observations-table .observation-table-row-clickable:hover {
   cursor: pointer;
   background-color: var(--dc-gray-lite);
+}
+
+.browser-page-section h3 {
+  background: rgba(0, 0, 0, .05);
+  color: #222;
+  font-weight: 600;
+  font-size: 1.2rem;
+  margin: 1.5rem -1rem 1.5rem -1rem;
+  padding: 6px 12px;
+  border-radius: 3px;
+}
+
+#browser-screen {
+  display: none;
+  position: absolute;
+  left: 0;
+  top: 0;
+  background: rgba(0, 0, 0, 0);
+  z-index: 100;
+  width: 100%;
+  height: 100%;
+}
+
+.loading-spinner-container {
+  position: relative;
+  min-height: 200px;
 }

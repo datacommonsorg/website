@@ -22,9 +22,10 @@ import React from "react";
 import axios from "axios";
 import _ from "lodash";
 import { ArcTableRow } from "./arc_table_row";
-import { ArcValue, removeLoadingMessage } from "./util";
+import { ArcValue, loadSpinner, removeSpinner } from "./util";
 
 const DCID_PREDICATE = "dcid";
+const LOADING_CONTAINER_ID = "out-arc-loading";
 
 interface OutArcData {
   [predicate: string]: {
@@ -50,6 +51,7 @@ interface OutArcSectionPropType {
 interface OutArcSectionStateType {
   data: OutArcData;
   isDataFetched: boolean;
+  errorMessage: string;
 }
 
 export class OutArcSection extends React.Component<
@@ -60,6 +62,7 @@ export class OutArcSection extends React.Component<
     super(props);
     this.state = {
       data: {},
+      errorMessage: "",
       isDataFetched: false,
     };
   }
@@ -70,7 +73,16 @@ export class OutArcSection extends React.Component<
 
   render(): JSX.Element {
     if (!this.state.isDataFetched) {
-      return null;
+      return (
+        <div id={LOADING_CONTAINER_ID} className="loading-spinner-container">
+          <div id="browser-screen" className="screen">
+            <div id="spinner"></div>
+          </div>
+        </div>
+      );
+    }
+    if (!_.isEmpty(this.state.errorMessage)) {
+      return <div className="error-message">{this.state.errorMessage}</div>;
     }
     if (_.isEmpty(this.state.data)) {
       return <div className="info-message">{this.notANodeMessage}</div>;
@@ -78,7 +90,7 @@ export class OutArcSection extends React.Component<
     const predicates = Object.keys(this.state.data);
     predicates.sort(this.predicateComparator);
     return (
-      <div>
+      <div className="card">
         <table className="node-table">
           <tbody>
             <tr key="header">
@@ -141,6 +153,7 @@ export class OutArcSection extends React.Component<
           .then((resp) => resp.data);
       }
     });
+    loadSpinner(LOADING_CONTAINER_ID);
     Promise.all(propValuesPromises)
       .then((propValuesData) => {
         const outArcsByPredProv: OutArcData = {};
@@ -171,13 +184,19 @@ export class OutArcSection extends React.Component<
             });
           }
         });
-        removeLoadingMessage();
+        removeSpinner(LOADING_CONTAINER_ID);
         this.setState({
           data: outArcsByPredProv,
           isDataFetched: true,
         });
       })
-      .catch(() => removeLoadingMessage());
+      .catch(() => {
+        removeSpinner(LOADING_CONTAINER_ID);
+        this.setState({
+          errorMessage: "Error retrieving property values.",
+          isDataFetched: true,
+        });
+      });
   }
 
   private predicateComparator = (a: string, b: string): number => {
@@ -191,43 +210,53 @@ export class OutArcSection extends React.Component<
   };
 
   private fetchDataFromTriples(): void {
-    axios.get("/api/browser/triples/" + this.props.dcid).then((resp) => {
-      const triplesData = resp.data;
-      const outArcs = triplesData.filter(
-        (t) => t.subjectId === this.props.dcid
-      );
-      const outArcsByPredProv: OutArcData = {};
-      for (const outArc of outArcs) {
-        const predicate = outArc.predicate;
-        if (IGNORED_OUT_ARC_PROPERTIES.has(predicate)) {
-          return;
+    loadSpinner(LOADING_CONTAINER_ID);
+    axios
+      .get("/api/browser/triples/" + this.props.dcid)
+      .then((resp) => {
+        const triplesData = resp.data;
+        const outArcs = triplesData.filter(
+          (t) => t.subjectId === this.props.dcid
+        );
+        const outArcsByPredProv: OutArcData = {};
+        for (const outArc of outArcs) {
+          const predicate = outArc.predicate;
+          if (IGNORED_OUT_ARC_PROPERTIES.has(predicate)) {
+            continue;
+          }
+          if (!outArcsByPredProv[predicate]) {
+            outArcsByPredProv[predicate] = {};
+          }
+          const outArcsOfPredicate = outArcsByPredProv[predicate];
+          const provId = outArc.provenanceId;
+          if (!(provId in outArcsOfPredicate)) {
+            outArcsOfPredicate[provId] = [];
+          }
+          let valueText = "";
+          let valueDcid: string;
+          if (outArc.objectId) {
+            valueText = outArc.objectName ? outArc.objectName : outArc.objectId;
+            valueDcid = outArc.objectId;
+          } else {
+            valueText = outArc.objectValue;
+          }
+          outArcsOfPredicate[provId].push({
+            dcid: valueDcid,
+            text: valueText,
+          });
         }
-        if (!outArcsByPredProv[predicate]) {
-          outArcsByPredProv[predicate] = {};
-        }
-        const outArcsOfPredicate = outArcsByPredProv[predicate];
-        const provId = outArc.provenanceId;
-        if (!(provId in outArcsOfPredicate)) {
-          outArcsOfPredicate[provId] = [];
-        }
-        let valueText = "";
-        let valueDcid: string;
-        if (outArc.objectId) {
-          valueText = outArc.objectName ? outArc.objectName : outArc.objectId;
-          valueDcid = outArc.objectId;
-        } else {
-          valueText = outArc.objectValue;
-        }
-        outArcsOfPredicate[provId].push({
-          dcid: valueDcid,
-          text: valueText,
+        removeSpinner(LOADING_CONTAINER_ID);
+        this.setState({
+          data: outArcsByPredProv,
+          isDataFetched: true,
         });
-      }
-      removeLoadingMessage();
-      this.setState({
-        data: outArcsByPredProv,
-        isDataFetched: true,
+      })
+      .catch(() => {
+        removeSpinner(LOADING_CONTAINER_ID);
+        this.setState({
+          errorMessage: "Error retrieving triples.",
+          isDataFetched: true,
+        });
       });
-    });
   }
 }

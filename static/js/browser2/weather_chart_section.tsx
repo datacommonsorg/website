@@ -22,7 +22,7 @@ import React from "react";
 import axios from "axios";
 import _ from "lodash";
 import { ObservationChart } from "./observation_chart";
-import { getUnit, SourceSeries } from "./util";
+import { getUnit, loadSpinner, removeSpinner, SourceSeries } from "./util";
 
 const WEATHER_PROPERTY_NAMES = [
   "temperature",
@@ -31,6 +31,7 @@ const WEATHER_PROPERTY_NAMES = [
   "snowfall",
   "barometricPressure",
 ];
+const LOADING_CONTAINER_ID = "weather-chart-section";
 
 interface WeatherChartSectionPropType {
   dcid: string;
@@ -38,6 +39,7 @@ interface WeatherChartSectionPropType {
 
 interface WeatherChartSectionStateType {
   data: { [weatherProp: string]: SourceSeries };
+  errorMessage: string;
 }
 
 export class WeatherChartSection extends React.Component<
@@ -48,6 +50,7 @@ export class WeatherChartSection extends React.Component<
     super(props);
     this.state = {
       data: {},
+      errorMessage: "",
     };
   }
 
@@ -56,11 +59,11 @@ export class WeatherChartSection extends React.Component<
   }
 
   render(): JSX.Element {
-    if (_.isEmpty(this.state.data)) {
-      return null;
+    if (!_.isEmpty(this.state.errorMessage)) {
+      return <div className="error-message">{this.state.errorMessage}</div>;
     }
     return (
-      <>
+      <div id={LOADING_CONTAINER_ID} className="loading-spinner-container">
         {Object.keys(this.state.data).map((measuredProperty, index) => {
           const unit = getUnit(this.state.data[measuredProperty]);
           let title = measuredProperty;
@@ -80,7 +83,10 @@ export class WeatherChartSection extends React.Component<
             </div>
           );
         })}
-      </>
+        <div id="browser-screen" className="screen">
+          <div id="spinner"></div>
+        </div>
+      </div>
     );
   }
 
@@ -90,26 +96,35 @@ export class WeatherChartSection extends React.Component<
         .get(`/weather?dcid=${this.props.dcid}&prop=${prop}`)
         .then((resp) => resp.data);
     });
-    Promise.all(weatherPromises).then((weatherPromisesData) => {
-      const propToSourceSeries = {};
-      weatherPromisesData.forEach((weatherData) => {
-        if (_.isEmpty(weatherData)) {
-          return;
-        }
-        const values = {};
-        weatherData.forEach((data) => {
-          values[data.observationDate] = data.meanValue;
+    loadSpinner(LOADING_CONTAINER_ID);
+    Promise.all(weatherPromises)
+      .then((weatherPromisesData) => {
+        const propToSourceSeries = {};
+        weatherPromisesData.forEach((weatherData) => {
+          if (_.isEmpty(weatherData)) {
+            return;
+          }
+          const values = {};
+          weatherData.forEach((data) => {
+            values[data.observationDate] = data.meanValue;
+          });
+          const sourceSeries = {
+            provenanceDomain: "",
+            unit: weatherData[0].unit,
+            val: values,
+          };
+          propToSourceSeries[weatherData[0].measuredProperty] = sourceSeries;
         });
-        const sourceSeries = {
-          provenanceDomain: "",
-          unit: weatherData[0].unit,
-          val: values,
-        };
-        propToSourceSeries[weatherData[0].measuredProperty] = sourceSeries;
+        removeSpinner(LOADING_CONTAINER_ID);
+        this.setState({
+          data: propToSourceSeries,
+        });
+      })
+      .catch(() => {
+        removeSpinner(LOADING_CONTAINER_ID);
+        this.setState({
+          errorMessage: "Error retrieving weather data.",
+        });
       });
-      this.setState({
-        data: propToSourceSeries,
-      });
-    });
   }
 }

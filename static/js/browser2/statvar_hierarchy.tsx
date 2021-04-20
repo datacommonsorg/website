@@ -35,6 +35,7 @@ interface StatVarHierarchyStateType {
   statVarGroups: { [svgId: string]: StatVarGroupNodeType };
   statVars: { [statVarId: string]: StatVarNodeType };
   pathToSelection: string[];
+  errorMessage: string;
 }
 
 const SORTED_FIRST_SVG_ID = "dc/g/Demographics";
@@ -46,6 +47,7 @@ export class StatVarHierarchy extends React.Component<
   constructor(props: StatVarHierarchyPropType) {
     super(props);
     this.state = {
+      errorMessage: "",
       pathToSelection: [],
       statVarGroups: {},
       statVars: {},
@@ -58,7 +60,7 @@ export class StatVarHierarchy extends React.Component<
   }
 
   render(): JSX.Element {
-    if (_.isEmpty(this.state.statVars)) {
+    if (_.isEmpty(this.state.statVars) && _.isEmpty(this.state.errorMessage)) {
       return null;
     }
     const initialStatVarGroups = Object.keys(this.state.statVarGroups).filter(
@@ -80,33 +82,39 @@ export class StatVarHierarchy extends React.Component<
       return a > b ? 1 : -1;
     });
     return (
-      <div className="stat-var-hierarchy-container card">
-        <StatVarHierarchySearch
-          statVarGroupsData={this.state.statVarGroups}
-          statVarsData={this.state.statVars}
-          onSelectionChange={this.onSearchSelectionChange}
-        />
-        <div className="hierarchy-section">
-          {initialStatVarGroups.map((svgId) => {
-            if (
-              _.isEmpty(this.state.pathToSelection) ||
-              this.state.pathToSelection[0] === svgId
-            ) {
-              return (
-                <StatVarGroupNode
-                  placeDcid={this.props.dcid}
-                  placeName={this.props.placeName}
-                  statVarGroupId={svgId}
-                  data={this.state.statVarGroups}
-                  pathToSelection={this.state.pathToSelection.slice(1)}
-                  isSelected={this.state.pathToSelection.length === 1}
-                  open={this.state.pathToSelection[0] === svgId}
-                  key={svgId}
-                />
-              );
-            }
-          })}
-        </div>
+      <div className="browser-page-section" id="stat-var-hierarchy-section">
+        <h3>Stat Var Hierarchy</h3>
+        <div className="error-message">{this.state.errorMessage}</div>
+        {!_.isEmpty(this.state.statVars) && (
+          <div className="stat-var-hierarchy-container card">
+            <StatVarHierarchySearch
+              statVarGroupsData={this.state.statVarGroups}
+              statVarsData={this.state.statVars}
+              onSelectionChange={this.onSearchSelectionChange}
+            />
+            <div className="hierarchy-section">
+              {initialStatVarGroups.map((svgId) => {
+                if (
+                  _.isEmpty(this.state.pathToSelection) ||
+                  this.state.pathToSelection[0] === svgId
+                ) {
+                  return (
+                    <StatVarGroupNode
+                      placeDcid={this.props.dcid}
+                      placeName={this.props.placeName}
+                      statVarGroupId={svgId}
+                      data={this.state.statVarGroups}
+                      pathToSelection={this.state.pathToSelection.slice(1)}
+                      isSelected={this.state.pathToSelection.length === 1}
+                      open={this.state.pathToSelection[0] === svgId}
+                      key={svgId}
+                    />
+                  );
+                }
+              })}
+            </div>
+          </div>
+        )}
       </div>
     );
   }
@@ -121,6 +129,11 @@ export class StatVarHierarchy extends React.Component<
         this.setState({
           statVarGroups,
           statVars,
+        });
+      })
+      .catch(() => {
+        this.setState({
+          errorMessage: "Error retrieving stat var hierarchy.",
         });
       });
   }

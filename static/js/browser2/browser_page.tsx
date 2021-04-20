@@ -31,6 +31,7 @@ interface BrowserPagePropType {
   nodeName: string;
   pageDisplayType: PageDisplayType;
   statVarId: string;
+  nodeType: string;
 }
 
 export class BrowserPage extends React.Component<BrowserPagePropType> {
@@ -40,6 +41,7 @@ export class BrowserPage extends React.Component<BrowserPagePropType> {
     return (
       <>
         <div className="node-about">{"About: " + pageTitle}</div>
+        <div className="node-type">{"type: " + this.props.nodeType}</div>
         <div id="node-content">
           <ArcSection
             dcid={arcDcid}
@@ -48,25 +50,36 @@ export class BrowserPage extends React.Component<BrowserPagePropType> {
               this.props.pageDisplayType !== PageDisplayType.PLACE_STAT_VAR
             }
           />
-          {this.props.pageDisplayType === PageDisplayType.PLACE_STAT_VAR ? (
-            <ObservationChartSection
-              placeDcid={this.props.dcid}
-              statVarId={this.props.statVarId}
+          {this.props.pageDisplayType === PageDisplayType.PLACE_STAT_VAR && (
+            <div className="browser-page-section">
+              <h3>Observation Charts</h3>
+              <ObservationChartSection
+                placeDcid={this.props.dcid}
+                statVarId={this.props.statVarId}
+                placeName={this.props.nodeName}
+              />
+            </div>
+          )}
+          {this.props.pageDisplayType ===
+            PageDisplayType.PLACE_WITH_WEATHER_INFO && (
+            <div className="browser-page-section">
+              <h3>Weather Charts</h3>
+              <WeatherChartSection dcid={this.props.dcid} />
+            </div>
+          )}
+          {this.props.pageDisplayType ===
+            PageDisplayType.BIOLOGICAL_SPECIMEN && (
+            <div className="browser-page-section">
+              <h3>Image</h3>
+              <ImageSection dcid={this.props.dcid} />
+            </div>
+          )}
+          {this.props.pageDisplayType !== PageDisplayType.PLACE_STAT_VAR && (
+            <StatVarHierarchy
+              dcid={this.props.dcid}
               placeName={this.props.nodeName}
             />
-          ) : null}
-          {this.props.pageDisplayType ===
-          PageDisplayType.PLACE_WITH_WEATHER_INFO ? (
-            <WeatherChartSection dcid={this.props.dcid} />
-          ) : null}
-          {this.props.pageDisplayType ===
-          PageDisplayType.BIOLOGICAL_SPECIMEN ? (
-            <ImageSection dcid={this.props.dcid} />
-          ) : null}
-          <StatVarHierarchy
-            dcid={this.props.dcid}
-            placeName={this.props.nodeName}
-          />
+          )}
         </div>
       </>
     );

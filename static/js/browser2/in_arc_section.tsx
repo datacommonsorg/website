@@ -22,9 +22,10 @@ import React from "react";
 import axios from "axios";
 import _ from "lodash";
 import { InArcSubsection } from "./in_arc_subsection";
-import { InArcValue, removeLoadingMessage } from "./util";
+import { InArcValue, loadSpinner, removeSpinner } from "./util";
 
 const IGNORED_PARENT_TYPES = new Set(["StatisticalPopulation"]);
+const LOADING_CONTAINER_ID = "browser-in-arc-section";
 
 interface InArcSectionsPropType {
   nodeName: string;
@@ -35,6 +36,7 @@ interface InArcSectionsPropType {
 interface InArcSectionStateType {
   data: { [parentType: string]: { [property: string]: Array<InArcValue> } };
   parentTypes: string[];
+  errorMessage: string;
 }
 
 export class InArcSection extends React.Component<
@@ -45,6 +47,7 @@ export class InArcSection extends React.Component<
     super(props);
     this.state = {
       data: {},
+      errorMessage: "",
       parentTypes: [],
     };
   }
@@ -54,8 +57,11 @@ export class InArcSection extends React.Component<
   }
 
   render(): JSX.Element {
+    if (!_.isEmpty(this.state.errorMessage)) {
+      return <div className="error-message">{this.state.errorMessage}</div>;
+    }
     return (
-      <div>
+      <div id={LOADING_CONTAINER_ID} className="loading-spinner-container">
         {this.state.parentTypes.map((parentType) => {
           const arcsByPredicate = this.state.data[parentType];
           return Object.keys(arcsByPredicate).map((predicate) => {
@@ -71,6 +77,9 @@ export class InArcSection extends React.Component<
             );
           });
         })}
+        <div id="browser-screen" className="screen">
+          <div id="spinner"></div>
+        </div>
       </div>
     );
   }
@@ -84,6 +93,7 @@ export class InArcSection extends React.Component<
         .get(`/api/browser/propvals/${label}/${this.props.dcid}`)
         .then((resp) => resp.data);
     });
+    loadSpinner(LOADING_CONTAINER_ID);
     Promise.all(propValuesPromises)
       .then((propValuesData) => {
         const inArcsByTypeAndPredicate = {};
@@ -109,12 +119,17 @@ export class InArcSection extends React.Component<
           (type) => !IGNORED_PARENT_TYPES.has(type)
         );
         parentTypes.sort();
-        removeLoadingMessage();
+        removeSpinner(LOADING_CONTAINER_ID);
         this.setState({
           data: inArcsByTypeAndPredicate,
           parentTypes,
         });
       })
-      .catch(() => removeLoadingMessage());
+      .catch(() => {
+        removeSpinner(LOADING_CONTAINER_ID);
+        this.setState({
+          errorMessage: "Error retrieving property values.",
+        });
+      });
   }
 }
