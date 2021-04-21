@@ -44,18 +44,20 @@ export class BrowserPage extends React.Component<BrowserPagePropType> {
         <div className="browser-page-header">
           {this.props.pageDisplayType === PageDisplayType.PLACE_STAT_VAR && (
             <div className="browser-header-title">
-              <span>Statistical Variable: </span>
+              Statistical Variable:
               <a href={URL_PREFIX + this.props.statVarId}>
-                {this.props.statVarId}
+                {" " + this.props.statVarId}
               </a>
             </div>
           )}
           <div className="browser-header-title">
-            <span>About: </span>
+            About:
             {this.props.pageDisplayType === PageDisplayType.PLACE_STAT_VAR ? (
-              <a href={URL_PREFIX + this.props.dcid}>{this.props.nodeName}</a>
+              <a href={URL_PREFIX + this.props.dcid}>
+                {" " + this.props.nodeName}
+              </a>
             ) : (
-              <span>{this.props.nodeName}</span>
+              <span>{" " + this.props.nodeName}</span>
             )}
           </div>
           {this.props.pageDisplayType !== PageDisplayType.PLACE_STAT_VAR && (

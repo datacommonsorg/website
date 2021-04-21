@@ -168,9 +168,9 @@ export class StatVarHierarchySearch extends React.Component<
     this.props.onSelectionChange("");
     this.setState({
       query: "",
+      showNoResultsMessage: false,
       svResults: [],
       svgResults: [],
-      showNoResultsMessage: false,
     });
   };
 
