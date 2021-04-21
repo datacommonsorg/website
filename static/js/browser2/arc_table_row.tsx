@@ -24,7 +24,7 @@ import _ from "lodash";
 import { ArcValue } from "./util";
 
 const HREF_PREFIX = "/browser/";
-const NUM_VALUES_UNEXPANDED = 10;
+const NUM_VALUES_UNEXPANDED = 5;
 
 interface ArcTableRowPropType {
   propertyLabel: string;

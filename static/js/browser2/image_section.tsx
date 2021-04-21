@@ -63,6 +63,9 @@ export class ImageSection extends React.Component<
             </div>
           );
         })}
+        <div id="browser-screen" className="screen">
+          <div id="spinner"></div>
+        </div>
       </div>
     );
   }

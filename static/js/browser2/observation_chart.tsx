@@ -23,6 +23,7 @@ import axios from "axios";
 import { DataGroup, DataPoint } from "../chart/base";
 import { drawLineChart } from "../chart/draw";
 import { getUnit, SourceSeries } from "./util";
+import { randDomId } from "../shared/util";
 
 // Chart size
 const WIDTH = 500;
@@ -53,6 +54,8 @@ export class ObservationChart extends React.Component<
   ObservationChartPropType,
   ObservationChartStateType
 > {
+  private chartId: string;
+  private chartContainerId: string;
   private sortedDates: string[] = Object.keys(
     this.props.sourceSeries.val
   ).sort();
@@ -63,6 +66,8 @@ export class ObservationChart extends React.Component<
       errorMessage: "",
       showTableView: false,
     };
+    this.chartId = randDomId();
+    this.chartContainerId = this.chartId + "container";
   }
 
   componentDidMount(): void {
@@ -95,10 +100,7 @@ export class ObservationChart extends React.Component<
             {this.state.showTableView ? "show chart" : "show table"}
           </span>
         </div>
-        <div
-          id={this.svgContainerId() + "-content-area"}
-          style={{ position: "relative" }}
-        >
+        <div id={this.chartContainerId} style={{ position: "relative" }}>
           <div style={{ display: tableVisibility }}>
             <div className="observations-table">
               <table className="node-table">
@@ -125,7 +127,9 @@ export class ObservationChart extends React.Component<
                         >
                           <td width="50%">{date}</td>
                           <td width="50%">
-                            {this.props.sourceSeries.val[date] + unit}
+                            <div className="clickable-text">
+                              {this.props.sourceSeries.val[date] + unit}
+                            </div>
                           </td>
                         </tr>
                       );
@@ -136,7 +140,7 @@ export class ObservationChart extends React.Component<
             </div>
           </div>
           <div
-            id={this.svgContainerId()}
+            id={this.chartId}
             className={svgContainerClass}
             style={{ display: chartVisibility }}
           />
@@ -151,11 +155,6 @@ export class ObservationChart extends React.Component<
     );
   }
 
-  private svgContainerId(): string {
-    const statVarId = this.props.statVarId.replace("/", "");
-    return statVarId + this.props.idx;
-  }
-
   private plot(): void {
     const values = this.props.sourceSeries.val;
     const data = [];
@@ -168,7 +167,7 @@ export class ObservationChart extends React.Component<
     });
     const dataGroups = [new DataGroup("", data)];
     drawLineChart(
-      this.svgContainerId(),
+      this.chartId,
       WIDTH,
       HEIGHT,
       dataGroups,
@@ -180,13 +179,14 @@ export class ObservationChart extends React.Component<
   }
 
   private handleDotClick = (dotData: DataPoint): void => {
-    if (this.props.canClickObs) {
-      const date = dotData.label;
-      this.redirectToObsPage(date);
-    }
+    const date = dotData.label;
+    this.redirectToObsPage(date);
   };
 
   private redirectToObsPage(date: string): void {
+    if (!this.props.canClickObs) {
+      return;
+    }
     if (date in this.props.dateToDcid) {
       const obsDcid = this.props.dateToDcid[date];
       const uri = URI_PREFIX + obsDcid;
@@ -229,14 +229,14 @@ export class ObservationChart extends React.Component<
 
   private loadSpinner(): void {
     document
-      .getElementById(this.svgContainerId() + "-content-area")
+      .getElementById(this.chartContainerId)
       .getElementsByClassName("screen")[0]
       .classList.add("d-block");
   }
 
   private removeSpinner(): void {
     document
-      .getElementById(this.svgContainerId() + "-content-area")
+      .getElementById(this.chartContainerId)
       .getElementsByClassName("screen")[0]
       .classList.remove("d-block");
   }
