@@ -63,7 +63,10 @@ export class WeatherChartSection extends React.Component<
       return <div className="error-message">{this.state.errorMessage}</div>;
     }
     return (
-      <div id={LOADING_CONTAINER_ID} className="loading-spinner-container">
+      <div
+        id={LOADING_CONTAINER_ID}
+        className="loading-spinner-container chart-section"
+      >
         {Object.keys(this.state.data).map((measuredProperty, index) => {
           const unit = getUnit(this.state.data[measuredProperty]);
           let title = measuredProperty;
@@ -72,7 +75,9 @@ export class WeatherChartSection extends React.Component<
           }
           return (
             <div className="card" key={measuredProperty}>
-              <div className="chart-title">{title}</div>
+              <div className="chart-title">
+                <p className="metadata">{title}</p>
+              </div>
               <ObservationChart
                 sourceSeries={this.state.data[measuredProperty]}
                 idx={index}

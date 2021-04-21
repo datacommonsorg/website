@@ -17,18 +17,21 @@
 @import 'base';
 @import 'draw';
 
-.browser-page-header {
-  margin: 20px 0;
-}
+$vertical-spacing: 15px;
+$horizontal-spacing: 15px;
+$result-background: #f0f0f0;
+$border-radius: 3px;
 
-.browser-header-title {
-  color: #666;
-  font-size: 1.5rem;
+.browser-page-header {
+  font-size: 1.6rem;
+  font-weight: 700;
 }
 
 .browser-header-subtitle {
-  color: #666;
+  color: var(--secondary);
   font-size: 1rem;
+  font-weight: 600;
+  line-height: 1.2rem;
 }
 
 .node-table {
@@ -38,16 +41,28 @@
   width: 100%;
 }
 
-.node-table tr:nth-child(even) {
-  background-color: #f0f0f0;
+.node-table .property-column,
+.node-table tr > td:last-of-type,
+.node-table tr > th:last-of-type {
+  width: 25%;
+}
+
+.observations-table
+.node-table tr > td:last-of-type {
+  width: 70%;
+}
+
+.node-table tr:nth-child(odd) {
+  background-color: $result-background;
 }
 
 .node-table tr.vertical-padding {
   background-color: #fff;
 }
 
+.node-table th,
 .node-table td {
-  padding: 8px;
+  padding: 8px 12px;
 }
 
 .node-table tr.vertical-padding td {
@@ -63,20 +78,28 @@
   vertical-align: top;
 }
 
+th a,
 td a {
   word-wrap: break-word;
 }
 
 .card {
-  box-shadow: 0 2px 4px 0 rgba(0, 0, 0, 0.2);
-  padding: 7px 15px;
-  margin: 12px 0;
   position: relative;
   overflow: hidden;
+  border: .5px solid #dee2e6;
+  border-radius: $border-radius;
+  margin: $vertical-spacing 0;
+  padding: $vertical-spacing;
+  position: relative;
+}
+
+.browser-in-arc-section .card {
+  margin: $vertical-spacing 0 2*$vertical-spacing;
 }
 
 .arc-group-title {
-  margin-top: 15px;
+  margin: $vertical-spacing $horizontal-spacing;
+  font-size: 1rem;
 }
 
 .hide-dots .dot {
@@ -131,18 +154,39 @@ td a {
 }
 
 .svg-node-child {
-  margin-left: 1rem;
+  margin-left: 20px;
 }
 
 .stat-var-hierarchy-container {
   min-height: 20rem;
-  font-size: 0.9rem;
+  font-size: .95rem;
+  padding: $vertical-spacing $horizontal-spacing;
+  line-height: 1.8rem;
 }
 
 .statvar-hierarchy-search-section {
   position: relative;
-  margin-bottom: 1rem;
-  margin-top: 1rem;
+  margin-bottom: $vertical-spacing;
+}
+
+.stat-var-hierarchy-container .material-icons {
+  font-size: 18px;
+  vertical-align: middle;
+}
+
+.stat-var-hierarchy-container .bullet {
+  margin: 0 5px;
+}
+
+.stat-var-hierarchy-container .title {
+  padding-left: 5.5px;
+  vertical-align: middle;
+}
+
+.node-title .material-icons+.title {
+  font-size: 1rem;
+  font-weight: 600;
+  line-height: 2rem;
 }
 
 .statvar-hierarchy-search-results {
@@ -150,17 +194,18 @@ td a {
   max-height: 15rem;
   background-color: white;
   width: 100%;
-  box-shadow: 0 2px 4px 0 rgb(0 0 0 / 20%);
-  border-radius: 8px;
-  border-style: solid;
-  border-color: var(--dc-gray-lite);
+  box-shadow: 0 4px 8px 0 rgb(0 0 0 / 20%);
+  border-radius: $border-radius;
+  border: 1px solid var(--gray);
+  border-top: none;
   overflow-y: scroll;
   z-index: 2;
 }
 
 .statvar-search-input {
+  border-radius: $border-radius;
+  color: inherit;
   width: 100%;
-  border-radius: 6px;
 }
 
 .clear-search {
@@ -170,8 +215,22 @@ td a {
   cursor: pointer;
 }
 
+.statvar-search-input:focus {
+  border-color: var(--gray);
+}
+
+.no-results-message,
+.search-results-heading,
 .search-result-value {
-  padding: 0.1rem 0.4rem;
+  padding: 0.4rem $horizontal-spacing;
+  line-height: 1.5;
+}
+
+.search-results-heading {
+  background-color: #f0f0f0;
+  font-size: 1rem;
+  margin-bottom: 0;
+  line-height: 1.8;
 }
 
 .search-result-value:hover {
@@ -189,16 +248,52 @@ td a {
 }
 
 .statvars-charts-section {
-  margin-left: 1rem;
-}
-
-.search-results-heading {
-  background-color: #f0f0f0;
-  padding: 0.1rem 0.2rem;
+  margin-left: 24px;
+  padding: $vertical-spacing;
+  background: $result-background;
+  border-radius: $border-radius;
 }
 
 .stat-var-link {
-  padding-top: 0.2rem;
+  font-size: .9rem;
+}
+
+.stat-var-link .material-icons {
+  padding-left: .5rem;
+}
+
+#observation-chart-section {
+  margin-bottom: (-$vertical-spacing);
+}
+
+.chart-toggle {
+  background: #fff !important;
+  border: 1px solid var(--dc-red-strong) !important;
+  color: var(--dc-red-strong) !important;
+  height: 2rem;
+  padding-bottom: 0;
+  padding-top: 0;
+  position: absolute;
+  right: $horizontal-spacing;
+  top: 10px;
+}
+
+.chart-toggle .material-icons {
+  font-size: 18px;
+  vertical-align: middle;
+  padding-right: 4px;
+  line-height: 2rem;;
+}
+
+.chart-toggle span {
+  font-size: .8rem;
+  line-height: 18px;
+  vertical-align: middle;
+  line-height: 2rem;;
+}
+
+.chart-title {
+  min-height: 2.5rem;
 }
 
 .observations-table {
@@ -212,14 +307,21 @@ td a {
   background-color: var(--dc-gray-lite);
 }
 
+.chart-section .metadata {
+  line-height: 1.5;
+  font-size: .9rem;
+  margin-bottom: 0;
+}
+
+.browser-page-section {
+  padding-top: 10px;
+}
+
 .browser-page-section h3 {
-  background: rgba(0, 0, 0, .05);
-  color: #222;
-  font-weight: 600;
+  border-radius: $border-radius;
   font-size: 1.2rem;
-  margin: 1.5rem -1rem 1.5rem -1rem;
-  padding: 6px 12px;
-  border-radius: 3px;
+  margin: 10px (-$horizontal-spacing);
+  padding: 6px $horizontal-spacing;
 }
 
 #browser-screen {

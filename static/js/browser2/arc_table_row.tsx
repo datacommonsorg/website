@@ -55,12 +55,12 @@ export class ArcTableRow extends React.Component<
     const hasMoreValues = this.props.values.length > NUM_VALUES_UNEXPANDED;
     return (
       <tr>
-        <td className="property-column" width="25%">
+        <td className="property-column">
           <a href={HREF_PREFIX + this.props.propertyLabel}>
             {this.props.propertyLabel}
           </a>
         </td>
-        <td width="50%">
+        <td>
           <div className="values-row">
             {values.map((value) => {
               return (
@@ -85,7 +85,7 @@ export class ArcTableRow extends React.Component<
             </div>
           ) : null}
         </td>
-        <td width="25%" className="provenance-column">
+        <td className="provenance-column">
           {this.props.provenanceId && (
             <a href={HREF_PREFIX + this.props.provenanceId}>{this.props.src}</a>
           )}

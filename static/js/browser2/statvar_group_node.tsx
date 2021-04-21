@@ -29,9 +29,9 @@ import {
 import { StatVarNode } from "./statvar_node";
 
 const SCROLL_DELAY = 400;
-const BULLET_POINT_HTML = <span>&#8226;</span>;
-const DOWN_ARROW_HTML = <span>&#x25BC;</span>;
-const RIGHT_ARROW_HTML = <span>&#x25BA;</span>;
+const BULLET_POINT_HTML = <span className="bullet">&#8226;</span>;
+const DOWN_ARROW_HTML = <i className="material-icons">remove</i>;
+const RIGHT_ARROW_HTML = <i className="material-icons">add</i>;
 
 interface StatVarGroupNodePropType {
   // the dcid of the node of the current browser page
