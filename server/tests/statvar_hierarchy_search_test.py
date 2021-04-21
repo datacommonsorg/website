@@ -178,3 +178,52 @@ class TestGetSearchResult(unittest.TestCase):
                 ["token3", "token4", "token2"])
             expected_result = ['sv_1_2']
             assert result == expected_result
+
+    def test_search_statvar_hierarchy_multiple_queries(self):
+        search_index = {
+            'token5': {
+                'group_3': {
+                    'approxNumPv': 2,
+                    'rankingName': 'token2 token4, token6'
+                },
+                'sv_1_2': {
+                    'approxNumPv': 3,
+                    'rankingName': 'token2 token3, token4'
+                }
+            },
+            'token6': {
+                'sv_1_2': {
+                    'approxNumPv': 3,
+                    'rankingName': 'token2 token3, token4'
+                },
+                'sv_1_1': {
+                    'approxNumPv': 3,
+                    'rankingName': 'token2 token3'
+                }
+            },
+            'token7': {
+                'group_3': {
+                    'approxNumPv': 2,
+                    'rankingName': 'token2 token4, token6'
+                },
+                'sv3': {
+                    'approxNumPv': 20,
+                    'rankingName': 'token4'
+                },
+                'sv_1_2': {
+                    'approxNumPv': 3,
+                    'rankingName': 'token2 token3, token4'
+                }
+            }
+        }
+
+        with app.app_context():
+            app.config['STAT_VAR_SEARCH_INDEX'] = search_index
+            result1 = svh_search.get_search_result(["token6", "token7"])
+            expected_result1 = ['sv_1_2']
+            assert result1 == expected_result1
+
+            result2 = svh_search.get_search_result(
+                ["token6", "token7", "token5"])
+            expected_result2 = ['sv_1_2']
+            assert result2 == expected_result2
