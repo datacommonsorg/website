@@ -26,6 +26,8 @@ import { StatVarHierarchy } from "./statvar_hierarchy";
 import { PageDisplayType } from "./util";
 import { WeatherChartSection } from "./weather_chart_section";
 
+const URL_PREFIX = "/browser/";
+
 interface BrowserPagePropType {
   dcid: string;
   nodeName: string;
@@ -36,12 +38,39 @@ interface BrowserPagePropType {
 
 export class BrowserPage extends React.Component<BrowserPagePropType> {
   render(): JSX.Element {
-    const pageTitle = this.getPageTitle();
     const arcDcid = this.getArcDcid();
     return (
       <>
-        <div className="node-about">{"About: " + pageTitle}</div>
-        <div className="node-type">{"type: " + this.props.nodeType}</div>
+        <div className="browser-page-header">
+          {this.props.pageDisplayType === PageDisplayType.PLACE_STAT_VAR && (
+            <div className="browser-header-title">
+              Statistical Variable:
+              <a href={URL_PREFIX + this.props.statVarId}>
+                {" " + this.props.statVarId}
+              </a>
+            </div>
+          )}
+          <div className="browser-header-title">
+            About:
+            {this.props.pageDisplayType === PageDisplayType.PLACE_STAT_VAR ? (
+              <a href={URL_PREFIX + this.props.dcid}>
+                {" " + this.props.nodeName}
+              </a>
+            ) : (
+              <span>{" " + this.props.nodeName}</span>
+            )}
+          </div>
+          {this.props.pageDisplayType !== PageDisplayType.PLACE_STAT_VAR && (
+            <>
+              <div className="browser-header-subtitle">
+                {"dcid: " + this.props.dcid}
+              </div>
+              <div className="browser-header-subtitle">
+                {"typeOf: " + this.props.nodeType}
+              </div>
+            </>
+          )}
+        </div>
         <div id="node-content">
           <ArcSection
             dcid={arcDcid}
@@ -52,7 +81,7 @@ export class BrowserPage extends React.Component<BrowserPagePropType> {
           />
           {this.props.pageDisplayType === PageDisplayType.PLACE_STAT_VAR && (
             <div className="browser-page-section">
-              <h3>Observation Charts</h3>
+              <h3>Observations</h3>
               <ObservationChartSection
                 placeDcid={this.props.dcid}
                 statVarId={this.props.statVarId}
@@ -63,7 +92,7 @@ export class BrowserPage extends React.Component<BrowserPagePropType> {
           {this.props.pageDisplayType ===
             PageDisplayType.PLACE_WITH_WEATHER_INFO && (
             <div className="browser-page-section">
-              <h3>Weather Charts</h3>
+              <h3>Weather Observations</h3>
               <WeatherChartSection dcid={this.props.dcid} />
             </div>
           )}
@@ -83,12 +112,6 @@ export class BrowserPage extends React.Component<BrowserPagePropType> {
         </div>
       </>
     );
-  }
-
-  private getPageTitle(): string {
-    return this.props.pageDisplayType === PageDisplayType.PLACE_STAT_VAR
-      ? `${this.props.statVarId} in ${this.props.nodeName}`
-      : this.props.nodeName;
   }
 
   private getArcDcid(): string {
