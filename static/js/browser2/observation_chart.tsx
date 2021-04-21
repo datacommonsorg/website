@@ -54,7 +54,8 @@ export class ObservationChart extends React.Component<
   ObservationChartPropType,
   ObservationChartStateType
 > {
-  private containerId: string;
+  private chartId: string;
+  private chartContainerId: string;
   private sortedDates: string[] = Object.keys(
     this.props.sourceSeries.val
   ).sort();
@@ -65,7 +66,8 @@ export class ObservationChart extends React.Component<
       errorMessage: "",
       showTableView: false,
     };
-    this.containerId = randDomId();
+    this.chartId = randDomId();
+    this.chartContainerId = this.chartId + "container";
   }
 
   componentDidMount(): void {
@@ -98,10 +100,7 @@ export class ObservationChart extends React.Component<
             {this.state.showTableView ? "show chart" : "show table"}
           </span>
         </div>
-        <div
-          id={this.containerId + "-content-area"}
-          style={{ position: "relative" }}
-        >
+        <div id={this.chartContainerId} style={{ position: "relative" }}>
           <div style={{ display: tableVisibility }}>
             <div className="observations-table">
               <table className="node-table">
@@ -141,7 +140,7 @@ export class ObservationChart extends React.Component<
             </div>
           </div>
           <div
-            id={this.containerId}
+            id={this.chartId}
             className={svgContainerClass}
             style={{ display: chartVisibility }}
           />
@@ -168,7 +167,7 @@ export class ObservationChart extends React.Component<
     });
     const dataGroups = [new DataGroup("", data)];
     drawLineChart(
-      this.containerId,
+      this.chartId,
       WIDTH,
       HEIGHT,
       dataGroups,
@@ -230,14 +229,14 @@ export class ObservationChart extends React.Component<
 
   private loadSpinner(): void {
     document
-      .getElementById(this.containerId + "-content-area")
+      .getElementById(this.chartContainerId)
       .getElementsByClassName("screen")[0]
       .classList.add("d-block");
   }
 
   private removeSpinner(): void {
     document
-      .getElementById(this.containerId + "-content-area")
+      .getElementById(this.chartContainerId)
       .getElementsByClassName("screen")[0]
       .classList.remove("d-block");
   }
