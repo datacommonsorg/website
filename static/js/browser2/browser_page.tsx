@@ -49,8 +49,8 @@ export class BrowserPage extends React.Component<
   constructor(props: BrowserPagePropType) {
     super(props);
     this.state = {
-      provDomain: {},
       dataFetched: false,
+      provDomain: {},
     };
   }
 
@@ -160,8 +160,8 @@ export class BrowserPage extends React.Component<
           }
         }
         this.setState({
-          provDomain,
           dataFetched: true,
+          provDomain,
         });
       })
       .catch(() => {
