@@ -14,90 +14,12 @@
  * limitations under the License.
  */
 
-/**
- * Functions and types shared across different components of graph browser.
- */
-
 import _ from "lodash";
-
-export interface ArcValue {
-  text: string;
-  dcid?: string;
-}
-
-export interface InArcValue {
-  provenanceId: string;
-  dcid: string;
-  name?: string;
-}
-export interface SourceSeries {
-  provenanceDomain: string;
-  val: { [key: string]: string };
-  importName?: string;
-  measurementMethod?: string;
-  observationPeriod?: string;
-  scalingFactor?: string;
-  unit?: string;
-}
-
-export enum PageDisplayType {
-  PLACE_STAT_VAR,
-  PLACE_WITH_WEATHER_INFO,
-  GENERAL,
-  BIOLOGICAL_SPECIMEN,
-}
-
-export interface StatVarGroupNodeType {
-  absoluteName: string;
-  level: number;
-  parent?: string;
-  childStatVarGroups?: Array<{ id: string; specializedEntity: string }>;
-  childStatVars?: StatVarNodeType[];
-}
-
-export interface StatVarNodeType {
-  displayName: string;
-  id: string;
-  searchName: string;
-  parent: string;
-  level: number;
-}
-
-export enum StatVarHierarchyNodeType {
-  STAT_VAR_GROUP,
-  STAT_VAR,
-}
+import { SourceSeries } from "./types";
 
 /**
- * Mapping for nodeTypes that need to render a special page type.
- * More mappings may be added as more display types are added.
+ * Utility functions shared across different components of graph browser.
  */
-export const nodeTypeToPageDisplayTypeMapping = {
-  CensusZipCodeTabulationArea: PageDisplayType.PLACE_WITH_WEATHER_INFO,
-  City: PageDisplayType.PLACE_WITH_WEATHER_INFO,
-  BiologicalSpecimen: PageDisplayType.BIOLOGICAL_SPECIMEN,
-};
-
-/**
- * Returns the type of page to display.
- * @param listOfTypes list of types that comes from the kg.
- * @param statVarId either a statVarId or empty string. If this string is not empty,
- * the page display type is PLACE_STAT_VAR.
- */
-export function getPageDisplayType(
-  listOfTypes: string[],
-  statVarId: string
-): PageDisplayType {
-  if (!_.isEmpty(statVarId)) {
-    return PageDisplayType.PLACE_STAT_VAR;
-  }
-  for (const nodeType in nodeTypeToPageDisplayTypeMapping) {
-    if (listOfTypes.includes(nodeType)) {
-      return nodeTypeToPageDisplayTypeMapping[nodeType];
-    }
-  }
-  return PageDisplayType.GENERAL;
-}
 
 /**
  * Removes the loading message on the browser page if it is present.

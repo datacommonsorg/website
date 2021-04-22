@@ -20,7 +20,7 @@
 
 import React from "react";
 import { ArcTableRow } from "./arc_table_row";
-import { InArcValue } from "./util";
+import { InArcValue } from "./types";
 
 interface InArcSubsectionPropType {
   nodeName: string;

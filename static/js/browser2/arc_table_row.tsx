@@ -21,7 +21,7 @@
 
 import React from "react";
 import _ from "lodash";
-import { ArcValue } from "./util";
+import { ArcValue } from "./types";
 
 const HREF_PREFIX = "/browser/";
 const NUM_VALUES_UNEXPANDED = 5;

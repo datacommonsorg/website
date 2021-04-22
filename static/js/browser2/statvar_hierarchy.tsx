@@ -24,7 +24,7 @@ import axios from "axios";
 import _ from "lodash";
 import { StatVarHierarchySearch } from "./statvar_hierarchy_search";
 import { StatVarGroupNode } from "./statvar_group_node";
-import { StatVarGroupNodeType, StatVarNodeType } from "./util";
+import { StatVarGroupNodeType, StatVarNodeType } from "./types";
 
 interface StatVarHierarchyPropType {
   dcid: string;

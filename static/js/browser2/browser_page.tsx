@@ -24,7 +24,7 @@ import { ArcSection } from "./arc_section";
 import { ImageSection } from "./image_section";
 import { ObservationChartSection } from "./observation_chart_section";
 import { StatVarHierarchy } from "./statvar_hierarchy";
-import { PageDisplayType } from "./util";
+import { PageDisplayType } from "./types";
 import { WeatherChartSection } from "./weather_chart_section";
 
 const URL_PREFIX = "/browser/";

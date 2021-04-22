@@ -14,12 +14,8 @@
  * limitations under the License.
  */
 
-import {
-  getPageDisplayType,
-  PageDisplayType,
-  removeLoadingMessage,
-  getUnit,
-} from "./util";
+import { getPageDisplayType, PageDisplayType } from "./types";
+import { removeLoadingMessage, getUnit } from "./util";
 
 test("getPageDisplayType", () => {
   // non empty stat var id

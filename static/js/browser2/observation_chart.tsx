@@ -22,7 +22,8 @@ import React from "react";
 import axios from "axios";
 import { DataGroup, DataPoint } from "../chart/base";
 import { drawLineChart } from "../chart/draw";
-import { getUnit, SourceSeries } from "./util";
+import { getUnit } from "./util";
+import { SourceSeries } from "./types";
 import { randDomId } from "../shared/util";
 import { URI_PREFIX } from "./constants";
 

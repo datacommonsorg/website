@@ -1,0 +1,100 @@
+/**
+ * Copyright 2021 Google LLC
+ *
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ *      http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ */
+
+import _ from "lodash";
+
+/**
+ * Types shared across different components of graph browser.
+ */
+
+export interface ArcValue {
+  text: string;
+  dcid?: string;
+}
+
+export interface InArcValue {
+  provenanceId: string;
+  dcid: string;
+  name?: string;
+}
+export interface SourceSeries {
+  provenanceDomain: string;
+  val: { [key: string]: string };
+  importName?: string;
+  measurementMethod?: string;
+  observationPeriod?: string;
+  scalingFactor?: string;
+  unit?: string;
+}
+
+export interface StatVarGroupNodeType {
+  absoluteName: string;
+  level: number;
+  parent?: string;
+  childStatVarGroups?: Array<{ id: string; specializedEntity: string }>;
+  childStatVars?: StatVarNodeType[];
+}
+
+export interface StatVarNodeType {
+  displayName: string;
+  id: string;
+  searchName: string;
+  parent: string;
+  level: number;
+}
+
+export enum StatVarHierarchyNodeType {
+  STAT_VAR_GROUP,
+  STAT_VAR,
+}
+
+export enum PageDisplayType {
+  PLACE_STAT_VAR,
+  PLACE_WITH_WEATHER_INFO,
+  GENERAL,
+  BIOLOGICAL_SPECIMEN,
+}
+
+/**
+ * Mapping for nodeTypes that need to render a special page type.
+ * More mappings may be added as more display types are added.
+ */
+const NODE_TYPE_TO_PAGE_DISPLAY_TYPE = {
+  CensusZipCodeTabulationArea: PageDisplayType.PLACE_WITH_WEATHER_INFO,
+  City: PageDisplayType.PLACE_WITH_WEATHER_INFO,
+  BiologicalSpecimen: PageDisplayType.BIOLOGICAL_SPECIMEN,
+};
+
+/**
+ * Returns the type of page to display.
+ * @param listOfTypes list of types that comes from the kg.
+ * @param statVarId either a statVarId or empty string. If this string is not empty,
+ * the page display type is PLACE_STAT_VAR.
+ */
+export function getPageDisplayType(
+  listOfTypes: string[],
+  statVarId: string
+): PageDisplayType {
+  if (!_.isEmpty(statVarId)) {
+    return PageDisplayType.PLACE_STAT_VAR;
+  }
+  for (const nodeType in NODE_TYPE_TO_PAGE_DISPLAY_TYPE) {
+    if (listOfTypes.includes(nodeType)) {
+      return NODE_TYPE_TO_PAGE_DISPLAY_TYPE[nodeType];
+    }
+  }
+  return PageDisplayType.GENERAL;
+}
