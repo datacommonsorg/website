@@ -59,11 +59,9 @@ export class BrowserPage extends React.Component<BrowserPagePropType> {
         </h1>
         {this.props.pageDisplayType !== PageDisplayType.PLACE_STAT_VAR && (
           <>
+            <h2 className="browser-header-subtitle">dcid: {this.props.dcid}</h2>
             <h2 className="browser-header-subtitle">
-              dcid: {this.props.dcid}
-            </h2>
-            <h2 className="browser-header-subtitle">
-              typeOf {this.props.nodeType}
+              typeOf: {this.props.nodeType}
             </h2>
           </>
         )}
