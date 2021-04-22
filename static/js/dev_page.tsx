@@ -25,7 +25,6 @@ import { chartTypeEnum } from "./chart/types";
 import {
   drawHistogram,
   drawLineChart,
-  drawSingleBarChart,
   drawStackBarChart,
   drawGroupBarChart,
   drawGroupLineChart,
@@ -78,14 +77,6 @@ class DevChart extends React.Component<DevChartPropType> {
         true,
         this.props.unit
       );
-    } else if (this.props.type == chartTypeEnum.SINGLE_BAR) {
-      drawSingleBarChart(
-        this.props.id,
-        elem.current.offsetWidth,
-        this.props.height,
-        this.props.dataPoints,
-        this.props.unit
-      );
     } else if (this.props.type == chartTypeEnum.GROUP_BAR) {
       drawGroupBarChart(
         this.props.id,
@@ -129,25 +120,8 @@ class DevPage extends React.Component {
     let width = 350;
     const height = 300;
 
-    // Draw single bar chart.
+    // Draw stack bar chart.
     let id = randDomId();
-    let dataPoints = [
-      new DataPoint("San Jose", 702134),
-      new DataPoint("Santa Clara County", 1002342),
-      new DataPoint("California", 3002342),
-      new DataPoint("United States", 9520234),
-    ];
-    chartElements.push(
-      <DevChart
-        key={id}
-        id={id}
-        width={width}
-        height={height}
-        type={chartTypeEnum.SINGLE_BAR}
-        dataPoints={dataPoints}
-      ></DevChart>
-    );
-
     let dataGroups = [
       new DataGroup("Staten Island, NY", [
         new DataPoint(
@@ -289,8 +263,6 @@ class DevPage extends React.Component {
       ]),
     ];
 
-    // Draw stack bar chart.
-    id = randDomId();
     chartElements.push(
       <DevChart
         key={id}
@@ -315,7 +287,7 @@ class DevPage extends React.Component {
       ></DevChart>
     );
 
-    // Draw line chart.
+    // Draw line chart with dollar values
     id = randDomId();
     chartElements.push(
       <DevChart
@@ -328,7 +300,12 @@ class DevPage extends React.Component {
       ></DevChart>
     );
 
-    // Draw single bar chart with dollar values
+    // Draw narrow stack bar chart with potentially weird y-axis values
+    width = 315;
+    dataGroups = [
+      new DataGroup("Enrolled in School", [new DataPoint("2011", 510475)]),
+      new DataGroup("Not Enrolled in School", [new DataPoint("2011", 1341885)]),
+    ];
     id = randDomId();
     chartElements.push(
       <DevChart
@@ -336,7 +313,7 @@ class DevPage extends React.Component {
         id={id}
         width={width}
         height={height}
-        type={chartTypeEnum.SINGLE_BAR}
+        type={chartTypeEnum.STACK_BAR}
         dataGroups={dataGroups}
         unit="$"
       ></DevChart>
@@ -539,65 +516,6 @@ class DevPage extends React.Component {
         height={height}
         type={chartTypeEnum.GROUP_BAR}
         dataGroups={dataGroups}
-        unit="%"
-      ></DevChart>
-    );
-
-    // Draw single bar chart with percentage values
-    width = 225;
-    dataPoints = [
-      new DataPoint("San Jose", 70.2),
-      new DataPoint("Santa Clara County", 12.4),
-      new DataPoint("California", 30),
-      new DataPoint("United States", 95.9),
-    ];
-    id = randDomId();
-    chartElements.push(
-      <DevChart
-        key={id}
-        id={id}
-        width={width}
-        height={height}
-        type={chartTypeEnum.SINGLE_BAR}
-        dataGroups={dataGroups}
-        unit="%"
-      ></DevChart>
-    );
-
-    // Draw narrow single bar chart with potentially weird y-axis values
-    width = 315;
-    dataPoints = [
-      new DataPoint("Enrolled in School", 510475),
-      new DataPoint("Not Enrolled in School", 1341885),
-    ];
-    id = randDomId();
-    chartElements.push(
-      <DevChart
-        key={id}
-        id={id}
-        width={width}
-        height={height}
-        type={chartTypeEnum.SINGLE_BAR}
-        dataPoints={dataPoints}
-      ></DevChart>
-    );
-
-    // Test percent and narrow chart
-    dataPoints = [
-      new DataPoint("San Jose", 20.2),
-      new DataPoint("Santa Clara County", 22.4),
-      new DataPoint("California", 23),
-      new DataPoint("United States", 25.9),
-    ];
-    id = randDomId();
-    chartElements.push(
-      <DevChart
-        key={id}
-        id={id}
-        width={width}
-        height={height}
-        type={chartTypeEnum.SINGLE_BAR}
-        dataPoints={dataPoints}
         unit="%"
       ></DevChart>
     );
@@ -907,7 +825,7 @@ class DevPage extends React.Component {
       ></DevChart>
     );
 
-    dataPoints = [
+    const dataPoints = [
       new DataPoint("San Jose", 20.2),
       new DataPoint("Santa Clara County", -22.4),
       new DataPoint("California", 23),
