@@ -252,7 +252,6 @@ function addHighlightOnHover(
 ): void {
   const listOfTimePoints: number[] = Array.from(setOfTimePoints);
   listOfTimePoints.sort((a, b) => a - b);
-  const svg = container.select("svg");
   addTooltip(container);
   for (const place in dataGroupsDict) {
     const dataGroups = dataGroupsDict[place];
@@ -399,7 +398,7 @@ function addXAxis(
 
     if (!text.filter("[wrap-overflow='1']").empty()) {
       // Rotate text if overflow occurs even after wrapping.
-      text.style("text-anchor", "end").each(function (d, i) {
+      text.style("text-anchor", "end").each(function () {
         const t = this as SVGTextElement;
         const bbox = t.getBBox();
         t.setAttribute(
@@ -433,8 +432,7 @@ function updateXAxis(
   xAxis: d3.Selection<SVGGElement, any, any, any>,
   xAxisHeight: number,
   chartHeight: number,
-  yScale: d3.AxisScale<any>,
-  chartWidth?: number
+  yScale: d3.AxisScale<any>
 ): void {
   const xDomain = xAxis.select(".domain");
   const xDomainPath = xDomain.attr("d");
@@ -561,7 +559,7 @@ function drawHistogram(
   y.rangeRound([chartHeight - bottomHeight, MARGIN.top]);
   tempYAxis.remove();
   addYAxis(yAxis, chartWidth, y, unit);
-  updateXAxis(xAxis, bottomHeight, chartHeight, y, chartWidth);
+  updateXAxis(xAxis, bottomHeight, chartHeight, y);
 
   const color = getColorFn(["A"])("A"); // we only need one color
 
@@ -575,67 +573,6 @@ function drawHistogram(
     .attr("width", x.bandwidth())
     .attr("height", (d) => Math.abs(y(0) - y(d.value)))
     .attr("fill", color);
-}
-
-/**
- * Draw single bar chart.
- * @param id
- * @param chartWidth
- * @param chartHeight
- * @param dataPoints
- * @param unit
- */
-function drawSingleBarChart(
-  id: string,
-  chartWidth: number,
-  chartHeight: number,
-  dataPoints: DataPoint[],
-  unit?: string
-): void {
-  /*
-  TODO(beets): Fix me with negative value update, or delete me.
-  const textList = dataPoints.map((dataPoint) => dataPoint.label);
-  const values = dataPoints.map((dataPoint) => dataPoint.value);
-  const color = getColorFn(textList);
-
-  const svg = d3
-    .select("#" + id)
-    .append("svg")
-    .attr("xmlns", SVGNS)
-    .attr("xmlns:xlink", XLINKNS)
-    .attr("width", chartWidth)
-    .attr("height", chartHeight);
-
-  const x = d3
-    .scaleBand()
-    .domain(textList)
-    .rangeRound([MARGIN.left, chartWidth - MARGIN.right])
-    .paddingInner(0.1)
-    .paddingOuter(0.1);
-
-  const bottomHeight = addXAxis(svg, chartHeight, x);
-
-  const y = d3
-    .scaleLinear()
-    .domain([0, d3.max(values)])
-    .nice()
-    .rangeRound([chartHeight - bottomHeight, MARGIN.top]);
-
-  addYAxis(svg, chartWidth, y, unit);
-
-  svg
-    .append("g")
-    .selectAll("rect")
-    .data(dataPoints)
-    .join("rect")
-    .classed("g-bar", true)
-    .attr("data-dcid", (d) => d.dcid)
-    .attr("x", (d) => x(d.label))
-    .attr("y", (d) => y(d.value))
-    .attr("width", x.bandwidth())
-    .attr("height", (d) => y(0) - y(d.value))
-    .attr("fill", (d) => color(d.label));
-    */
 }
 
 /**
@@ -710,7 +647,7 @@ function drawStackBarChart(
   y.rangeRound([chartHeight - bottomHeight, MARGIN.top]);
   tempYAxis.remove();
   addYAxis(yAxis, chartWidth, y, unit);
-  updateXAxis(xAxis, bottomHeight, chartHeight, y, chartWidth);
+  updateXAxis(xAxis, bottomHeight, chartHeight, y);
 
   const color = getColorFn(keys);
 
@@ -805,7 +742,7 @@ function drawGroupBarChart(
   y.rangeRound([chartHeight - bottomHeight, MARGIN.top]);
   tempYAxis.remove();
   addYAxis(yAxis, chartWidth, y, unit);
-  updateXAxis(xAxis, bottomHeight, chartHeight, y, chartWidth);
+  updateXAxis(xAxis, bottomHeight, chartHeight, y);
 
   const colorFn = getColorFn(keys);
 
@@ -897,7 +834,7 @@ function drawLineChart(
     .range([leftWidth, width - MARGIN.right]);
 
   const bottomHeight = addXAxis(xAxis, height, xScale);
-  updateXAxis(xAxis, bottomHeight, height, yScale, width);
+  updateXAxis(xAxis, bottomHeight, height, yScale);
 
   const legendText = dataGroups.map((dataGroup) =>
     dataGroup.label ? dataGroup.label : "A"
@@ -1122,7 +1059,7 @@ function drawGroupLineChart(
   yScale.rangeRound([height - bottomHeight, MARGIN.top + YLABEL.height]);
   tempYAxis.remove();
   addYAxis(yAxis, width - legendWidth, yScale, unit);
-  updateXAxis(xAxis, bottomHeight, height, yScale, width - legendWidth);
+  updateXAxis(xAxis, bottomHeight, height, yScale);
 
   // add ylabel
   svg
@@ -1265,7 +1202,6 @@ export {
   drawGroupLineChart,
   drawHistogram,
   drawLineChart,
-  drawSingleBarChart,
   drawStackBarChart,
   wrap,
 };
