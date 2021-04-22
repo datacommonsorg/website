@@ -83,8 +83,10 @@ export class StatVarHierarchy extends React.Component<
     });
     return (
       <div className="browser-page-section" id="stat-var-hierarchy-section">
-        <h3>Stat Var Hierarchy</h3>
-        <div className="error-message">{this.state.errorMessage}</div>
+        <h3>Statistical Variables</h3>
+        {!_.isEmpty(this.state.errorMessage) && (
+          <div className="error-message">{this.state.errorMessage}</div>
+        )}
         {!_.isEmpty(this.state.statVars) && (
           <div className="stat-var-hierarchy-container card">
             <StatVarHierarchySearch
