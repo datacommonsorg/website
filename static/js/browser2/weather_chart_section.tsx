@@ -67,27 +67,23 @@ export class WeatherChartSection extends React.Component<
       <div id={LOADING_CONTAINER_ID} className="loading-spinner-container">
         {Object.keys(this.state.data).map((measuredProperty, index) => {
           const unit = getUnit(this.state.data[measuredProperty]);
-          const provId = this.state.data[measuredProperty].provenanceDomain;
-          const provenance =
-            provId in this.props.provDomain
-              ? this.props.provDomain[provId]
-              : "";
           let title = measuredProperty;
           if (unit) {
             title = title + ` (${unit})`;
           }
+          const sourceSeries = this.state.data[measuredProperty];
           return (
             <div className="card" key={measuredProperty}>
               <div className="chart-title">{title}</div>
               <ObservationChart
-                sourceSeries={this.state.data[measuredProperty]}
+                sourceSeries={sourceSeries}
                 idx={index}
                 statVarId={measuredProperty}
                 placeDcid={this.props.dcid}
                 canClickObs={false}
               />
-              {!_.isEmpty(provenance) && (
-                <div>{"provenance: " + provenance}</div>
+              {!_.isEmpty(sourceSeries.provenanceDomain) && (
+                <div>{"provenance: " + sourceSeries.provenanceDomain}</div>
               )}
             </div>
           );
@@ -121,8 +117,12 @@ export class WeatherChartSection extends React.Component<
               provId = data.provId;
             }
           });
+          const provenanceDomain =
+            provId in this.props.provDomain
+              ? this.props.provDomain[provId]
+              : "";
           const sourceSeries = {
-            provenanceDomain: provId,
+            provenanceDomain,
             unit: weatherData[0].unit,
             val: values,
           };
