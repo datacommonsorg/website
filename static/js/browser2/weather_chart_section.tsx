@@ -88,7 +88,9 @@ export class WeatherChartSection extends React.Component<
                 canClickObs={false}
               />
               {!_.isEmpty(sourceSeries.provenanceDomain) && (
-                <div>{"provenance: " + sourceSeries.provenanceDomain}</div>
+                <p className="metadata">
+                  provenance: {sourceSeries.provenanceDomain}
+                </p>
               )}
             </div>
           );
