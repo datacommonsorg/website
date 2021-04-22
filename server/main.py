@@ -125,14 +125,15 @@ def get_weather():
     if not prop:
         flask.abort(400, 'Missing url parameter "prop"')
 
-    query_string = ('SELECT ?date ?mean ?unit '
+    query_string = ('SELECT ?date ?mean ?unit ?provId '
                     'WHERE {{'
                     ' ?o typeOf WeatherObservation .'
                     ' ?o observedNode {dcid} .'
                     ' ?o measuredProperty {prop} .'
                     ' ?o observationDate ?date .'
                     ' ?o unit ?unit .'
-                    ' ?o meanValue ?mean .}}').format(dcid=dcid, prop=prop)
+                    ' ?o meanValue ?mean .'
+                    ' ?o provenance ?provId .}}').format(dcid=dcid, prop=prop)
 
     _, rows = dc.query(query_string)
 
@@ -152,6 +153,7 @@ def get_weather():
             'meanValue': row['cells'][1]['value'],
             'unit': row['cells'][2]['value'],
             'text': text,
+            'provId': row['cells'][3]['value'],
         })
     return json.dumps(observations)
 
