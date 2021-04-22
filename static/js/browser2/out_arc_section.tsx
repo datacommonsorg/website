@@ -22,7 +22,8 @@ import React from "react";
 import axios from "axios";
 import _ from "lodash";
 import { ArcTableRow } from "./arc_table_row";
-import { ArcValue, loadSpinner, removeSpinner } from "./util";
+import { loadSpinner, removeSpinner } from "./util";
+import { ArcValue } from "./types";
 
 const DCID_PREDICATE = "dcid";
 const LOADING_CONTAINER_ID = "out-arc-loading";

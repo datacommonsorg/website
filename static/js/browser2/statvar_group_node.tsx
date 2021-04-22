@@ -23,9 +23,9 @@ import _ from "lodash";
 import Collapsible from "react-collapsible";
 import {
   StatVarGroupNodeType,
-  StatVarHierarchyNodeType,
   StatVarNodeType,
-} from "./util";
+  StatVarHierarchyNodeType,
+} from "./types";
 import { StatVarNode } from "./statvar_node";
 
 const SCROLL_DELAY = 400;

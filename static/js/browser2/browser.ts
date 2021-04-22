@@ -20,7 +20,7 @@ import _ from "lodash";
 
 import { BrowserPage } from "./browser_page";
 import axios from "axios";
-import { getPageDisplayType, PageDisplayType } from "./util";
+import { getPageDisplayType, PageDisplayType } from "./types";
 
 const TYPE_OF_UNKNOWN = "Unknown";
 const TYPE_OF_STAT_VAR = "StatisticalVariable";

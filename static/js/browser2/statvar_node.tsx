@@ -19,7 +19,7 @@
  */
 
 import React from "react";
-import { StatVarNodeType, StatVarHierarchyNodeType } from "./util";
+import { StatVarNodeType, StatVarHierarchyNodeType } from "./types";
 import { StatVarHierarchyNodeHeader } from "./statvar_group_node";
 import Collapsible from "react-collapsible";
 import { ObservationChartSection } from "./observation_chart_section";

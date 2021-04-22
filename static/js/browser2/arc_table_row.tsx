@@ -21,7 +21,7 @@
 
 import React from "react";
 import _ from "lodash";
-import { ArcValue } from "./util";
+import { ArcValue } from "./types";
 
 const HREF_PREFIX = "/browser/";
 const NUM_VALUES_UNEXPANDED = 5;
@@ -100,11 +100,10 @@ export class ArcTableRow extends React.Component<
               }
             )}
             {this.renderExpando()}
-            {this.state.expanded && _.slice(this.props.values, NUM_VALUES_UNEXPANDED).map(
-              (value) => {
+            {this.state.expanded &&
+              _.slice(this.props.values, NUM_VALUES_UNEXPANDED).map((value) => {
                 return this.renderValue(value);
-              }
-            )}
+              })}
           </div>
         </td>
         <td className="provenance-column">
