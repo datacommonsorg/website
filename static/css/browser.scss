@@ -47,8 +47,7 @@ $border-radius: 3px;
   width: 25%;
 }
 
-.observations-table
-.node-table tr > td:last-of-type {
+.observations-table .node-table tr > td:last-of-type {
   width: 70%;
 }
 
@@ -56,17 +55,9 @@ $border-radius: 3px;
   background-color: $result-background;
 }
 
-.node-table tr.vertical-padding {
-  background-color: #fff;
-}
-
 .node-table th,
 .node-table td {
   padding: 8px 12px;
-}
-
-.node-table tr.vertical-padding td {
-  padding: 8px 0;
 }
 
 .node-table li {
@@ -84,11 +75,10 @@ td a {
 }
 
 .card {
-  position: relative;
-  overflow: hidden;
-  border: .5px solid #dee2e6;
   border-radius: $border-radius;
+  border: .5px solid #dee2e6;
   margin: $vertical-spacing 0;
+  overflow: hidden;
   padding: $vertical-spacing;
   position: relative;
 }
@@ -186,7 +176,7 @@ td a {
   vertical-align: middle;
 }
 
-.node-title .material-icons+.title {
+.node-title .material-icons + .title {
   font-size: 1rem;
   font-weight: 600;
   line-height: 2rem;
@@ -282,18 +272,16 @@ td a {
   top: 10px;
 }
 
+.chart-toggle span,
 .chart-toggle .material-icons {
   font-size: 18px;
-  vertical-align: middle;
+  line-height: 2rem;
   padding-right: 4px;
-  line-height: 2rem;;
+  vertical-align: middle;
 }
 
-.chart-toggle span {
-  font-size: .8rem;
-  line-height: 18px;
-  vertical-align: middle;
-  line-height: 2rem;;
+.chart-toggle .material-icons {
+  padding-right: 4px;
 }
 
 .chart-title {
