@@ -31,6 +31,9 @@ window.onload = () => {
   const nodeName = document.getElementById("node").dataset.nn;
   const urlParams = new URLSearchParams(window.location.search);
   const statVarId = urlParams.get("statVar") || "";
+  if (!_.isEmpty(statVarId)) {
+    document.title = `${statVarId} - ${document.title}`;
+  }
   axios
     .get(`/api/browser/propvals/typeOf/${dcid}`)
     .then((resp) => {

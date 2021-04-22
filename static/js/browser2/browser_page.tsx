@@ -103,11 +103,12 @@ export class BrowserPage extends React.Component<
             displayInArcs={
               this.props.pageDisplayType !== PageDisplayType.PLACE_STAT_VAR
             }
+            pageDisplayType={this.props.pageDisplayType}
             provDomain={this.state.provDomain}
           />
           {this.props.pageDisplayType === PageDisplayType.PLACE_STAT_VAR && (
             <div className="browser-page-section">
-              <h3>Observations</h3>
+              <h3>{`Observations for ${this.props.nodeName}`}</h3>
               <ObservationChartSection
                 placeDcid={this.props.dcid}
                 statVarId={this.props.statVarId}
