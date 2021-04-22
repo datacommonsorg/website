@@ -29,12 +29,12 @@ interface ArcSectionPropType {
   dcid: string;
   nodeName: string;
   displayInArcs: boolean;
+  provDomain: { [key: string]: URL };
 }
 
 interface ArcSectionStateType {
   inLabels: string[];
   outLabels: string[];
-  provDomain: { [key: string]: URL };
   isDataFetched: boolean;
   errorMessage: string;
 }
@@ -50,7 +50,6 @@ export class ArcSection extends React.Component<
       inLabels: [],
       isDataFetched: false,
       outLabels: [],
-      provDomain: {},
     };
   }
 
@@ -72,7 +71,7 @@ export class ArcSection extends React.Component<
           <OutArcSection
             dcid={this.props.dcid}
             labels={this.state.outLabels}
-            provDomain={this.state.provDomain}
+            provDomain={this.props.provDomain}
           />
         </div>
         {showInArcSection && (
@@ -86,7 +85,7 @@ export class ArcSection extends React.Component<
                 nodeName={this.props.nodeName}
                 dcid={this.props.dcid}
                 labels={this.state.inLabels}
-                provDomain={this.state.provDomain}
+                provDomain={this.props.provDomain}
               />
             )}
           </div>
@@ -96,24 +95,13 @@ export class ArcSection extends React.Component<
   }
 
   private fetchData(): void {
-    const labelsPromise = axios
+    axios
       .get("/api/browser/proplabels/" + this.props.dcid)
-      .then((resp) => resp.data);
-    const provenancePromise = axios
-      .get("/api/browser/triples/Provenance")
-      .then((resp) => resp.data);
-    Promise.all([labelsPromise, provenancePromise])
-      .then(([labelsData, provenanceData]) => {
-        const provDomain = {};
-        for (const prov of provenanceData) {
-          if (prov["predicate"] === "typeOf" && !!prov["subjectName"]) {
-            provDomain[prov["subjectId"]] = new URL(prov["subjectName"]).host;
-          }
-        }
+      .then((resp) => {
+        const labelsData = resp.data;
         this.setState({
           inLabels: labelsData["inLabels"],
           outLabels: labelsData["outLabels"],
-          provDomain,
           isDataFetched: true,
         });
       })
