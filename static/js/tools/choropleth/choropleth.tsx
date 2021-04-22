@@ -114,9 +114,11 @@ class ChoroplethMap extends Component<PropsType, StateType> {
     let valueUrl = "/api/choropleth/values";
     valueUrl += buildChoroplethParams(["geoDcid", "statVar", "level"]);
     if (geoName) {
+      /* XSS
       const searchParams = new URLSearchParams(window.location.search);
       updateTitle(searchParams.get("statVar"), geoName);
       showLoading();
+      */
     }
 
     // Create request and generate map.
@@ -160,11 +162,13 @@ class ChoroplethMap extends Component<PropsType, StateType> {
   private loadValues = (): void => {
     let baseUrl = "/api/choropleth/values";
     baseUrl += buildChoroplethParams(["geoDcid", "level", "statVar"]);
+    /* XSS
     const searchParams = new URLSearchParams(window.location.search);
     updateTitle(
       searchParams.get("statVar"),
       this.state.geoJson.properties.current_geo
     );
+    */
     showLoading();
 
     axios.get(baseUrl).then(
@@ -338,6 +342,7 @@ class ChoroplethMap extends Component<PropsType, StateType> {
 
     // Update title.
     // TODO(iancostello): Use react component instead of innerHTML throughout.
+    /* XSS
     const url = new URL(window.location.href);
     const currentGeo = this.state["geoJson"]["properties"]["current_geo"];
     const currentStatVar = url.searchParams.get("statVar");
@@ -348,6 +353,7 @@ class ChoroplethMap extends Component<PropsType, StateType> {
       document.getElementById("hover-text-display").innerHTML =
         "Pick a statistical variable to get started!";
     }
+    */
     this.generateLegend(colorScale);
   };
 
