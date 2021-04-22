@@ -35,6 +35,7 @@ const LOADING_CONTAINER_ID = "weather-chart-section";
 
 interface WeatherChartSectionPropType {
   dcid: string;
+  provDomain: { [key: string]: URL };
 }
 
 interface WeatherChartSectionStateType {
@@ -70,16 +71,20 @@ export class WeatherChartSection extends React.Component<
           if (unit) {
             title = title + ` (${unit})`;
           }
+          const sourceSeries = this.state.data[measuredProperty];
           return (
             <div className="card" key={measuredProperty}>
               <div className="chart-title">{title}</div>
               <ObservationChart
-                sourceSeries={this.state.data[measuredProperty]}
+                sourceSeries={sourceSeries}
                 idx={index}
                 statVarId={measuredProperty}
                 placeDcid={this.props.dcid}
                 canClickObs={false}
               />
+              {!_.isEmpty(sourceSeries.provenanceDomain) && (
+                <div>{"provenance: " + sourceSeries.provenanceDomain}</div>
+              )}
             </div>
           );
         })}
@@ -105,11 +110,19 @@ export class WeatherChartSection extends React.Component<
             return;
           }
           const values = {};
+          let provId = "";
           weatherData.forEach((data) => {
             values[data.observationDate] = data.meanValue;
+            if (_.isEmpty(provId)) {
+              provId = data.provId;
+            }
           });
+          const provenanceDomain =
+            provId in this.props.provDomain
+              ? this.props.provDomain[provId]
+              : "";
           const sourceSeries = {
-            provenanceDomain: "",
+            provenanceDomain,
             unit: weatherData[0].unit,
             val: values,
           };

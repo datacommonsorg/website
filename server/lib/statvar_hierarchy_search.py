@@ -147,9 +147,9 @@ def get_search_result(tokens: List[str]) -> List[str]:
     search_index: Dict[str, Dict[
         str, RankingInformation]] = current_app.config['STAT_VAR_SEARCH_INDEX']
     token_result_ids: Set[str] = {}
-    token_result_nodes: Dict[str, RankingInformation] = {}
+    token_result_nodes: Dict[str, RankingInformation] = dict()
     if len(tokens) > 0:
-        token_result_nodes = search_index.get(tokens[0], {})
+        token_result_nodes.update(search_index.get(tokens[0], {}))
         token_result_ids = set(token_result_nodes.keys())
     for token in tokens[1:]:
         curr_token_result: Dict[str, RankingInformation] = search_index.get(
