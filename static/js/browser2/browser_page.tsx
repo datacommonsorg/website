@@ -19,6 +19,7 @@
  */
 
 import React from "react";
+import axios from "axios";
 import { ArcSection } from "./arc_section";
 import { ImageSection } from "./image_section";
 import { ObservationChartSection } from "./observation_chart_section";
@@ -36,8 +37,32 @@ interface BrowserPagePropType {
   nodeType: string;
 }
 
-export class BrowserPage extends React.Component<BrowserPagePropType> {
+interface BrowserPageStateType {
+  provDomain: { [key: string]: URL };
+  dataFetched: boolean;
+}
+
+export class BrowserPage extends React.Component<
+  BrowserPagePropType,
+  BrowserPageStateType
+> {
+  constructor(props: BrowserPagePropType) {
+    super(props);
+    this.state = {
+      provDomain: {},
+      dataFetched: false,
+    };
+  }
+
+  componentDidMount(): void {
+    this.fetchData();
+  }
+
   render(): JSX.Element {
+    if (!this.state.dataFetched) {
+      return null;
+    }
+
     const arcDcid = this.getArcDcid();
     return (
       <>
@@ -78,6 +103,7 @@ export class BrowserPage extends React.Component<BrowserPagePropType> {
             displayInArcs={
               this.props.pageDisplayType !== PageDisplayType.PLACE_STAT_VAR
             }
+            provDomain={this.state.provDomain}
           />
           {this.props.pageDisplayType === PageDisplayType.PLACE_STAT_VAR && (
             <div className="browser-page-section">
@@ -93,7 +119,10 @@ export class BrowserPage extends React.Component<BrowserPagePropType> {
             PageDisplayType.PLACE_WITH_WEATHER_INFO && (
             <div className="browser-page-section">
               <h3>Weather Observations</h3>
-              <WeatherChartSection dcid={this.props.dcid} />
+              <WeatherChartSection
+                dcid={this.props.dcid}
+                provDomain={this.state.provDomain}
+              />
             </div>
           )}
           {this.props.pageDisplayType ===
@@ -118,5 +147,27 @@ export class BrowserPage extends React.Component<BrowserPagePropType> {
     return this.props.pageDisplayType === PageDisplayType.PLACE_STAT_VAR
       ? this.props.statVarId
       : this.props.dcid;
+  }
+
+  private fetchData(): void {
+    axios
+      .get("/api/browser/triples/Provenance")
+      .then((resp) => {
+        const provDomain = {};
+        for (const prov of resp.data) {
+          if (prov["predicate"] === "typeOf" && !!prov["subjectName"]) {
+            provDomain[prov["subjectId"]] = new URL(prov["subjectName"]).host;
+          }
+        }
+        this.setState({
+          provDomain,
+          dataFetched: true,
+        });
+      })
+      .catch(() => {
+        this.setState({
+          dataFetched: true,
+        });
+      });
   }
 }
