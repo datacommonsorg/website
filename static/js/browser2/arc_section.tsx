@@ -24,11 +24,13 @@ import _ from "lodash";
 
 import { InArcSection } from "./in_arc_section";
 import { OutArcSection } from "./out_arc_section";
+import { PageDisplayType } from "./types";
 
 interface ArcSectionPropType {
   dcid: string;
   nodeName: string;
   displayInArcs: boolean;
+  pageDisplayType: PageDisplayType;
   provDomain: { [key: string]: URL };
 }
 
@@ -64,10 +66,14 @@ export class ArcSection extends React.Component<
     if (!this.state.isDataFetched) {
       return null;
     }
+    const propertiesHeader =
+      this.props.pageDisplayType === PageDisplayType.PLACE_STAT_VAR
+        ? "Statistical Variable Properties"
+        : "Properties";
     return (
       <>
         <div className="browser-page-section">
-          <h3>Properties</h3>
+          <h3>{propertiesHeader}</h3>
           <OutArcSection
             dcid={this.props.dcid}
             labels={this.state.outLabels}

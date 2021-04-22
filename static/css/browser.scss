@@ -41,6 +41,15 @@ $border-radius: 3px;
   width: 100%;
 }
 
+.node-table tr:nth-child(odd) {
+  background-color: $result-background;
+}
+
+.node-table th,
+.node-table td {
+  padding: 8px 12px;
+}
+
 .node-table .property-column,
 .node-table tr > td:last-of-type,
 .node-table tr > th:last-of-type {
@@ -49,15 +58,6 @@ $border-radius: 3px;
 
 .observations-table .node-table tr > td:last-of-type {
   width: 70%;
-}
-
-.node-table tr:nth-child(odd) {
-  background-color: $result-background;
-}
-
-.node-table th,
-.node-table td {
-  padding: 8px 12px;
 }
 
 .node-table li {
