@@ -54,6 +54,7 @@ export class StatVarHierarchySearch extends React.Component<
     this.onInputChanged = this.onInputChanged.bind(this);
     this.search = this.search.bind(this);
     this.onResultSelected = this.onResultSelected.bind(this);
+    this.onInputClear = this.onInputClear.bind(this);
   }
 
   render(): JSX.Element {
@@ -63,14 +64,21 @@ export class StatVarHierarchySearch extends React.Component<
       this.state.showNoResultsMessage;
     return (
       <div className="statvar-hierarchy-search-section">
+        <div className="search-input-container"></div>
         <input
           className="statvar-search-input"
           type="text"
           value={this.state.query}
           onChange={this.onInputChanged}
-          placeholder="Search"
+          placeholder="Filter"
           onBlur={() => this.setState({ showNoResultsMessage: false })}
         />
+        <span
+          className="material-icons clear-search"
+          onClick={this.onInputClear}
+        >
+          clear
+        </span>
         {renderResults && (
           <div className="statvar-hierarchy-search-results">
             {!_.isEmpty(this.state.svgResults) && (
@@ -154,6 +162,16 @@ export class StatVarHierarchySearch extends React.Component<
           showNoResultsMessage: true,
         });
       });
+  };
+
+  private onInputClear = () => {
+    this.props.onSelectionChange("");
+    this.setState({
+      query: "",
+      showNoResultsMessage: false,
+      svResults: [],
+      svgResults: [],
+    });
   };
 
   private processSearchResults(

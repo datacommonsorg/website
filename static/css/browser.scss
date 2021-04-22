@@ -21,14 +21,14 @@
   margin: 20px 0;
 }
 
-.node-about {
+.browser-header-title {
   color: #666;
-  font-size: 1.7rem;
+  font-size: 1.5rem;
 }
 
-.node-type {
+.browser-header-subtitle {
   color: #666;
-  font-size: 1.2rem;
+  font-size: 1rem;
 }
 
 .node-table {
@@ -161,6 +161,13 @@ td a {
 .statvar-search-input {
   width: 100%;
   border-radius: 6px;
+}
+
+.clear-search {
+  position: absolute;
+  right: 0.3rem;
+  top: 0.1rem;
+  cursor: pointer;
 }
 
 .search-result-value {

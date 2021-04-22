@@ -23,11 +23,14 @@ import axios from "axios";
 import _ from "lodash";
 import { ObservationChart } from "./observation_chart";
 import { getUnit, loadSpinner, removeSpinner, SourceSeries } from "./util";
-
-const LOADING_CONTAINER_ID = "observation-chart-section";
+import { randDomId } from "../shared/util";
 
 const NO_MMETHOD_KEY = "no_mmethod";
 const NO_OBSPERIOD_KEY = "no_obsPeriod";
+const IGNORED_SOURCE_SERIES_MMETHODS = new Set([
+  "GoogleKGHumanCurated",
+  "HumanCuratedStats",
+]);
 
 interface ObservationChartSectionPropType {
   placeDcid: string;
@@ -49,6 +52,7 @@ export class ObservationChartSection extends React.Component<
   ObservationChartSectionPropType,
   ObservationChartSectionStateType
 > {
+  private containerId: string;
   constructor(props: ObservationChartSectionPropType) {
     super(props);
     this.state = {
@@ -57,6 +61,7 @@ export class ObservationChartSection extends React.Component<
       infoMessage: "",
       obsDcidMapping: {},
     };
+    this.containerId = randDomId();
   }
 
   componentDidMount(): void {
@@ -66,7 +71,7 @@ export class ObservationChartSection extends React.Component<
 
   render(): JSX.Element {
     return (
-      <div id={LOADING_CONTAINER_ID} className="loading-spinner-container">
+      <div id={this.containerId} className="loading-spinner-container">
         {!_.isEmpty(this.state.errorMessage) && (
           <div id={"error-message"}>{this.state.errorMessage}</div>
         )}
@@ -121,26 +126,31 @@ export class ObservationChartSection extends React.Component<
   }
 
   private fetchData(): void {
-    loadSpinner(LOADING_CONTAINER_ID);
+    loadSpinner(this.containerId);
     axios
       .get(
         `/api/stats/all?places=${this.props.placeDcid}&statVars=${this.props.statVarId}`
       )
       .then((resp) => {
-        removeSpinner(LOADING_CONTAINER_ID);
+        removeSpinner(this.containerId);
         const sourceSeries =
           resp.data.placeData[this.props.placeDcid].statVarData[
             this.props.statVarId
           ].sourceSeries;
+        const filteredSourceSeries = sourceSeries.filter(
+          (series) =>
+            !series.measurementMethod ||
+            !IGNORED_SOURCE_SERIES_MMETHODS.has(series.measurementMethod)
+        );
         this.setState({
-          data: sourceSeries,
-          infoMessage: _.isEmpty(sourceSeries)
+          data: filteredSourceSeries,
+          infoMessage: _.isEmpty(filteredSourceSeries)
             ? `No charts for ${this.props.statVarId} in ${this.props.placeName}`
             : "",
         });
       })
       .catch(() => {
-        removeSpinner(LOADING_CONTAINER_ID);
+        removeSpinner(this.containerId);
         this.setState({
           errorMessage: "Error retrieving observation charts data.",
         });

@@ -1,11 +1,12 @@
 #!/bin/bash
-# Copyright 2020 Google LLC
+#
+# Copyright 2021 Google LLC
 #
 # Licensed under the Apache License, Version 2.0 (the "License");
 # you may not use this file except in compliance with the License.
 # You may obtain a copy of the License at
 #
-#      http://www.apache.org/licenses/LICENSE-2.0
+#     https://www.apache.org/licenses/LICENSE-2.0
 #
 # Unless required by applicable law or agreed to in writing, software
 # distributed under the License is distributed on an "AS IS" BASIS,
@@ -13,10 +14,13 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-PROJECT_ID=$(yq r config.yaml project)
-DOMAIN=$(yq r config.yaml domain)
 
-echo $PROJECT_ID
-gcloud config set project $PROJECT_ID
+# Find the current production version from deployment repo.
 
-gcloud compute ssl-certificates create website-certificate --domains=$DOMAIN --global
+set -e
+
+mkdir -p /tmp/datacommons/website
+cd /tmp/datacommons/website
+rm -rf deployment
+gcloud source repos clone deployment --project=datcom-ci > /dev/null 2>&1
+cat deployment/website/prod/commit_hash.txt
