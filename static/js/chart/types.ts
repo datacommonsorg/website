@@ -16,7 +16,6 @@
 
 export const chartTypeEnum = {
   LINE: "LINE",
-  SINGLE_BAR: "SINGLE_BAR",
   STACK_BAR: "STACK_BAR",
   GROUP_BAR: "GROUP_BAR",
   CHOROPLETH: "CHOROPLETH",
