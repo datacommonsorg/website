@@ -170,7 +170,7 @@ export class ObservationChart extends React.Component<
         value: Number(values[key]),
       });
     });
-    const dataGroups = [new DataGroup("", data)];
+    const dataGroups = [new DataGroup(this.props.statVarId, data)];
     const boundingRect = this.svgContainerRef.current.getBoundingClientRect();
     drawLineChart(
       this.chartId,
