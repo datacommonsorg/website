@@ -126,7 +126,11 @@ export class ObservationChart extends React.Component<
                             onClick={() => this.redirectToObsPage(date)}
                           >
                             <td>{date}</td>
-                            <td className="clickable-text">
+                            <td
+                              className={
+                                this.props.canClickObs && "clickable-text"
+                              }
+                            >
                               {this.props.sourceSeries.val[date] + unit}
                             </td>
                           </tr>
