@@ -22,7 +22,6 @@
 import React from "react";
 import _ from "lodash";
 import { ArcValue } from "./util";
-import { HashedModuleIdsPlugin } from "webpack";
 
 const HREF_PREFIX = "/browser/";
 const NUM_VALUES_UNEXPANDED = 5;
