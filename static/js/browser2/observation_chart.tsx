@@ -46,6 +46,7 @@ interface ObservationChartPropType {
 }
 
 interface ObservationChartStateType {
+  chartWidth: number;
   errorMessage: string;
   showTableView: boolean;
 }
@@ -64,16 +65,25 @@ export class ObservationChart extends React.Component<
   constructor(props: ObservationChartPropType) {
     super(props);
     this.state = {
+      chartWidth: 0,
       errorMessage: "",
       showTableView: false,
     };
     this.chartId = randDomId();
     this.chartContainerId = this.chartId + "container";
     this.svgContainerRef = React.createRef();
+    // Consider debouncing / throttling this if it gets expensive at
+    // small screen sizes
+    this._handleWindowResize = this._handleWindowResize.bind(this);
   }
 
   componentDidMount(): void {
+    window.addEventListener("resize", this._handleWindowResize);
     this.plot();
+  }
+
+  componentWillUnmount(): void {
+    window.removeEventListener("resize", this._handleWindowResize);
   }
 
   render(): JSX.Element {
@@ -129,7 +139,9 @@ export class ObservationChart extends React.Component<
                             <td>{date}</td>
                             <td
                               className={
-                                this.props.canClickObs && "clickable-text"
+                                this.props.canClickObs
+                                  ? "clickable-text"
+                                  : undefined
                               }
                             >
                               {this.props.sourceSeries.val[date] + unit}
@@ -160,7 +172,20 @@ export class ObservationChart extends React.Component<
     );
   }
 
+  private _handleWindowResize(): void {
+    if (this.svgContainerRef.current) {
+      const width = this.svgContainerRef.current.offsetWidth;
+      if (width !== this.state.chartWidth) {
+        this.setState({
+          chartWidth: width,
+        });
+        this.plot();
+      }
+    }
+  }
+
   private plot(): void {
+    this.svgContainerRef.current.innerHTML = "";
     const values = this.props.sourceSeries.val;
     const data = [];
     this.sortedDates.forEach((key) => {
@@ -171,10 +196,9 @@ export class ObservationChart extends React.Component<
       });
     });
     const dataGroups = [new DataGroup(this.props.statVarId, data)];
-    const boundingRect = this.svgContainerRef.current.getBoundingClientRect();
     drawLineChart(
       this.chartId,
-      boundingRect.width,
+      this.svgContainerRef.current.offsetWidth,
       HEIGHT,
       dataGroups,
       true,
