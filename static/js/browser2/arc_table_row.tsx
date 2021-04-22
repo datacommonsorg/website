@@ -41,51 +41,72 @@ export class ArcTableRow extends React.Component<
   ArcTableRowPropType,
   ArcTableRowStateType
 > {
+  showExpando: boolean;
+
   constructor(props: ArcTableRowPropType) {
     super(props);
     this.state = {
       expanded: false,
     };
+    this.showExpando = this.props.values.length > NUM_VALUES_UNEXPANDED;
+  }
+
+  renderValue(value: ArcValue): JSX.Element {
+    return (
+      <div className="arc-text" key={value.text}>
+        {value.dcid ? (
+          <a href={HREF_PREFIX + value.dcid}>{value.text}</a>
+        ) : (
+          <span>{value.text}</span>
+        )}
+      </div>
+    );
+  }
+
+  renderExpando(): JSX.Element {
+    if (!this.showExpando) {
+      return null;
+    }
+    if (this.state.expanded) {
+      return (
+        <div className="expando" onClick={this.showLess.bind(this)}>
+          <i className="material-icons">remove</i>
+          <span>Show less</span>
+        </div>
+      );
+    } else {
+      return (
+        <div className="expando" onClick={this.showMore.bind(this)}>
+          <i className="material-icons">add</i>
+          <span>Show more</span>
+        </div>
+      );
+    }
   }
 
   render(): JSX.Element {
-    const values = this.state.expanded
-      ? this.props.values
-      : _.slice(this.props.values, 0, NUM_VALUES_UNEXPANDED);
-    const hasMoreValues = this.props.values.length > NUM_VALUES_UNEXPANDED;
     return (
       <tr>
-        <td className="property-column" width="25%">
+        <td className="property-column">
           <a href={HREF_PREFIX + this.props.propertyLabel}>
             {this.props.propertyLabel}
           </a>
         </td>
-        <td width="50%">
+        <td>
           <div className="values-row">
-            {values.map((value) => {
-              return (
-                <div className="arc-text" key={value.text}>
-                  {value.dcid ? (
-                    <a href={HREF_PREFIX + value.dcid}>{value.text}</a>
-                  ) : (
-                    <span>{value.text}</span>
-                  )}
-                </div>
-              );
-            })}
+            {_.slice(this.props.values, 0, NUM_VALUES_UNEXPANDED).map(
+              (value) => {
+                return this.renderValue(value);
+              }
+            )}
+            {this.renderExpando()}
+            {this.state.expanded &&
+              _.slice(this.props.values, NUM_VALUES_UNEXPANDED).map((value) => {
+                return this.renderValue(value);
+              })}
           </div>
-          {this.state.expanded ? (
-            <div className="clickable-text" onClick={this.showLess.bind(this)}>
-              Show less
-            </div>
-          ) : null}
-          {hasMoreValues && !this.state.expanded ? (
-            <div className="clickable-text" onClick={this.showMore.bind(this)}>
-              Show more
-            </div>
-          ) : null}
         </td>
-        <td width="25%" className="provenance-column">
+        <td className="provenance-column">
           {this.props.provenanceId && (
             <a href={HREF_PREFIX + this.props.provenanceId}>{this.props.src}</a>
           )}
