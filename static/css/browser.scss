@@ -123,7 +123,7 @@ td a {
 }
 
 .in-arc-table {
-  max-height: 19em;
+  max-height: 12.6em;
   overflow-y: scroll;
 }
 
@@ -141,8 +141,11 @@ td a {
 }
 
 .error-message {
-  font-size: 14px;
-  color: var(--dc-red-lite);
+  color: #721c24;
+  font-size: .9rem;
+  padding: $vertical-spacing $horizontal-spacing;
+  border-radius: $border-radius;
+  background: #f8d7da;
 }
 
 .legend {
@@ -211,7 +214,7 @@ td a {
 .clear-search {
   position: absolute;
   right: 0.3rem;
-  top: 0.1rem;
+  top: 0.7rem;
   cursor: pointer;
 }
 
@@ -252,6 +255,7 @@ td a {
   padding: $vertical-spacing;
   background: $result-background;
   border-radius: $border-radius;
+  margin-bottom: (-$vertical-spacing);
 }
 
 .stat-var-link {

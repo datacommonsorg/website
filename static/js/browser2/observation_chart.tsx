@@ -27,8 +27,7 @@ import { randDomId } from "../shared/util";
 import { URI_PREFIX } from "./constants";
 
 // Chart size
-// const WIDTH = 500;
-const HEIGHT = 250;
+const HEIGHT = 220;
 
 // Only show dots when there's only a single data point
 const MAX_DOTS = 1;
