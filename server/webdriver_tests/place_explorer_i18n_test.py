@@ -107,8 +107,8 @@ class TestPlaceI18nExplorer(WebdriverBaseTest):
         # Assert chart title is correct.
         chart_title = self.driver.find_element_by_xpath(
             '//*[@id="main-pane"]/section[4]/div/div[2]/div/h4')
-        self.assertTrue(
-            'Population urbaine et rurale : autres pays(' in chart_title.text)
+        self.assertEqual(chart_title.text,
+                         'Population urbaine et rurale : autres pays(2019)')
 
         # Click through to ranking
         pop_growth_rate_chip = self.driver.find_element_by_xpath(
