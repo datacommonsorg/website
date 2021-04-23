@@ -52,9 +52,9 @@ window.onload = () => {
           nodeName,
           nodeType,
           pageDisplayType,
-          statVarId,
           shouldShowStatVarHierarchy:
             !_.isEmpty(statVarsData) && _.isEmpty(statVarId),
+          statVarId,
         }),
         document.getElementById("node")
       );
@@ -66,8 +66,8 @@ window.onload = () => {
           nodeName,
           nodeType: getNodeType(dcid, [], statVarId),
           pageDisplayType: PageDisplayType.GENERAL,
-          statVarId,
           shouldShowStatVarHierarchy: false,
+          statVarId,
         }),
         document.getElementById("node")
       );
