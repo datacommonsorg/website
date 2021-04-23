@@ -20,12 +20,14 @@
 
 import React from "react";
 import axios from "axios";
-import { ArcSection } from "./arc_section";
+import _ from "lodash";
 import { ImageSection } from "./image_section";
 import { ObservationChartSection } from "./observation_chart_section";
 import { StatVarHierarchy } from "./statvar_hierarchy";
 import { PageDisplayType } from "./types";
 import { WeatherChartSection } from "./weather_chart_section";
+import { OutArcSection } from "./out_arc_section";
+import { InArcSection } from "./in_arc_section";
 
 const URL_PREFIX = "/browser/";
 
@@ -35,11 +37,14 @@ interface BrowserPagePropType {
   pageDisplayType: PageDisplayType;
   statVarId: string;
   nodeType: string;
+  shouldShowStatVarHierarchy: boolean;
 }
 
 interface BrowserPageStateType {
   provDomain: { [key: string]: URL };
   dataFetched: boolean;
+  inLabels: string[];
+  outLabels: string[];
 }
 
 export class BrowserPage extends React.Component<
@@ -50,6 +55,8 @@ export class BrowserPage extends React.Component<
     super(props);
     this.state = {
       dataFetched: false,
+      inLabels: [],
+      outLabels: [],
       provDomain: {},
     };
   }
@@ -62,7 +69,13 @@ export class BrowserPage extends React.Component<
     if (!this.state.dataFetched) {
       return null;
     }
-
+    const showInArcSection =
+      this.props.pageDisplayType !== PageDisplayType.PLACE_STAT_VAR &&
+      !_.isEmpty(this.state.inLabels);
+    const outArcHeader =
+      this.props.pageDisplayType === PageDisplayType.PLACE_STAT_VAR
+        ? "Statistical Variable Properties"
+        : "Properties";
     const arcDcid = this.getArcDcid();
     return (
       <>
@@ -91,15 +104,34 @@ export class BrowserPage extends React.Component<
           </>
         )}
         <div id="node-content">
-          <ArcSection
-            dcid={arcDcid}
-            nodeName={this.props.nodeName}
-            displayInArcs={
-              this.props.pageDisplayType !== PageDisplayType.PLACE_STAT_VAR
-            }
-            pageDisplayType={this.props.pageDisplayType}
-            provDomain={this.state.provDomain}
-          />
+          <div className="browser-page-section">
+            <h3>{outArcHeader}</h3>
+            <OutArcSection
+              dcid={arcDcid}
+              labels={this.state.outLabels}
+              provDomain={this.state.provDomain}
+            />
+          </div>
+          {this.props.shouldShowStatVarHierarchy && (
+            <div className="browser-page-section">
+              <h3>Statistical Variables</h3>
+              <StatVarHierarchy
+                dcid={this.props.dcid}
+                placeName={this.props.nodeName}
+              />
+            </div>
+          )}
+          {showInArcSection && (
+            <div className="browser-page-section">
+              <h3>In Arcs</h3>
+              <InArcSection
+                nodeName={this.props.nodeName}
+                dcid={this.props.dcid}
+                labels={this.state.inLabels}
+                provDomain={this.state.provDomain}
+              />
+            </div>
+          )}
           {this.props.pageDisplayType === PageDisplayType.PLACE_STAT_VAR && (
             <div className="browser-page-section">
               <h3>{`Observations for ${this.props.nodeName}`}</h3>
@@ -127,12 +159,6 @@ export class BrowserPage extends React.Component<
               <ImageSection dcid={this.props.dcid} />
             </div>
           )}
-          {this.props.pageDisplayType !== PageDisplayType.PLACE_STAT_VAR && (
-            <StatVarHierarchy
-              dcid={this.props.dcid}
-              placeName={this.props.nodeName}
-            />
-          )}
         </div>
       </>
     );
@@ -145,17 +171,24 @@ export class BrowserPage extends React.Component<
   }
 
   private fetchData(): void {
-    axios
+    const provenancePromise = axios
       .get("/api/browser/triples/Provenance")
-      .then((resp) => {
+      .then((resp) => resp.data);
+    const labelsPromise = axios
+      .get("/api/browser/proplabels/" + this.getArcDcid())
+      .then((resp) => resp.data);
+    Promise.all([labelsPromise, provenancePromise])
+      .then(([labelsData, ProvenanceData]) => {
         const provDomain = {};
-        for (const prov of resp.data) {
+        for (const prov of ProvenanceData) {
           if (prov["predicate"] === "typeOf" && !!prov["subjectName"]) {
             provDomain[prov["subjectId"]] = new URL(prov["subjectName"]).host;
           }
         }
         this.setState({
           dataFetched: true,
+          inLabels: labelsData["inLabels"],
+          outLabels: labelsData["outLabels"],
           provDomain,
         });
       })
