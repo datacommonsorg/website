@@ -24,8 +24,10 @@ MTV_URL = '/browser/geoId/0649670'
 CA_POPULATION_URL = '/browser/geoId/06?statVar=Count_Person'
 LANDING_PAGE_URL = '/browser'
 
+
 # Class to test Graph Browser.
 class TestBrowser(WebdriverBaseTest):
+
     def test_page_landing(self):
         """Test the browser landing page can be loaded successfully."""
         TITLE_TEXT = "Graph Browser - Data Commons"
@@ -44,16 +46,14 @@ class TestBrowser(WebdriverBaseTest):
         self.assertEqual(TITLE_TEXT, self.driver.title)
 
         # Wait for title to be present
-        title_present = subtitle_present = EC.text_to_be_present_in_element((By.TAG_NAME, 'h1'),
-                                                            'Graph Browser')
+        title_present = subtitle_present = EC.text_to_be_present_in_element(
+            (By.TAG_NAME, 'h1'), 'Graph Browser')
         WebDriverWait(self.driver, self.TIMEOUT_SEC).until(title_present)
 
         # Assert intro is correct
         intro = self.driver.find_element_by_xpath('//*[@id="kg_main"]/div/p[1]')
         self.assertTrue(
-            intro.text.startswith(
-                'The Data Commons Graph is constructed'))
-        
+            intro.text.startswith('The Data Commons Graph is constructed'))
 
     def test_page_serve_mtv(self):
         """Test the browser page for MTV can be loaded successfully."""
