@@ -19,12 +19,11 @@
  */
 
 import React from "react";
-import { StatVarNodeType, StatVarHierarchyNodeType } from "./util";
+import { StatVarNodeType, StatVarHierarchyNodeType } from "./types";
 import { StatVarHierarchyNodeHeader } from "./statvar_group_node";
 import Collapsible from "react-collapsible";
 import { ObservationChartSection } from "./observation_chart_section";
-
-const URI_PREFIX = "/browser/";
+import { URI_PREFIX } from "./constants";
 
 interface StatVarNodePropType {
   placeDcid: string;
@@ -65,24 +64,14 @@ export class StatVarNode extends React.Component<
       >
         {this.state.renderContent && (
           <div className="statvars-charts-section">
-            <div className="stat-var-link">
-              <span>Statistical Variable: </span>
-              <span
-                className="clickable-text"
-                onClick={this.onClickStatVarLink}
+            <h5 className="stat-var-link">
+              <a
+                href={`${URI_PREFIX}${this.props.placeDcid}?statVar=${this.props.statVar.id}`}
               >
-                {this.props.statVar.id}
-              </span>
-            </div>
-            <div className="place-stat-var-link">
-              <span>Place Stat Var Page: </span>
-              <span
-                className="clickable-text"
-                onClick={this.onClickPlaceStatVarLink}
-              >
-                {`${this.props.statVar.id} in ${this.props.nodeName}`}
-              </span>
-            </div>
+                {this.props.statVar.id} for {this.props.nodeName}
+                <span className="material-icons">open_in_new</span>
+              </a>
+            </h5>
             <ObservationChartSection
               placeDcid={this.props.placeDcid}
               statVarId={this.props.statVar.id}

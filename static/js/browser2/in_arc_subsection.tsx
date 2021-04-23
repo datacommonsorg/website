@@ -20,7 +20,7 @@
 
 import React from "react";
 import { ArcTableRow } from "./arc_table_row";
-import { InArcValue } from "./util";
+import { InArcValue } from "./types";
 
 interface InArcSubsectionPropType {
   nodeName: string;
@@ -50,15 +50,11 @@ export class InArcSubsection extends React.Component<InArcSubsectionPropType> {
       }
     });
     return (
-      <div className="card">
-        <div id={this.props.parentType} className="arc-group-title">
-          <strong>
-            <span>
-              <span className="mp">{this.props.parentType}</span> of{" "}
-              {this.props.nodeName}
-            </span>
-          </strong>
-        </div>
+      <div className="card p-0">
+        <h4 id={this.props.parentType} className="arc-group-title">
+          <span className="mp">{this.props.parentType}</span> of{" "}
+          {this.props.nodeName}
+        </h4>
         <div className="in-arc-table">
           <table className="node-table">
             <tbody>

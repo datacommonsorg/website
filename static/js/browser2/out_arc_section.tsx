@@ -22,7 +22,8 @@ import React from "react";
 import axios from "axios";
 import _ from "lodash";
 import { ArcTableRow } from "./arc_table_row";
-import { ArcValue, loadSpinner, removeSpinner } from "./util";
+import { loadSpinner, removeSpinner } from "./util";
+import { ArcValue } from "./types";
 
 const DCID_PREDICATE = "dcid";
 const LOADING_CONTAINER_ID = "out-arc-loading";
@@ -90,19 +91,13 @@ export class OutArcSection extends React.Component<
     const predicates = Object.keys(this.state.data);
     predicates.sort(this.predicateComparator);
     return (
-      <div className="card">
+      <div className="card p-0">
         <table className="node-table">
           <tbody>
             <tr key="header">
-              <td className="property-column" width="25%">
-                <strong>Property</strong>
-              </td>
-              <td width="50%">
-                <strong>Value</strong>
-              </td>
-              <td width="25%">
-                <strong>Provenance</strong>
-              </td>
+              <th className="property-column">Property</th>
+              <th>Value</th>
+              <th>Provenance</th>
             </tr>
             <ArcTableRow
               key={DCID_PREDICATE}

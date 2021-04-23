@@ -22,8 +22,10 @@ import React from "react";
 import axios from "axios";
 import _ from "lodash";
 import { ObservationChart } from "./observation_chart";
-import { getUnit, loadSpinner, removeSpinner, SourceSeries } from "./util";
+import { getUnit, loadSpinner, removeSpinner } from "./util";
+import { SourceSeries } from "./types";
 import { randDomId } from "../shared/util";
+import { URI_PREFIX } from "./constants";
 
 const NO_MMETHOD_KEY = "no_mmethod";
 const NO_OBSPERIOD_KEY = "no_obsPeriod";
@@ -71,7 +73,10 @@ export class ObservationChartSection extends React.Component<
 
   render(): JSX.Element {
     return (
-      <div id={this.containerId} className="loading-spinner-container">
+      <div
+        id={this.containerId}
+        className="loading-spinner-container chart-section"
+      >
         {!_.isEmpty(this.state.errorMessage) && (
           <div id={"error-message"}>{this.state.errorMessage}</div>
         )}
@@ -93,17 +98,17 @@ export class ObservationChartSection extends React.Component<
           return (
             <div className="card" key={this.props.statVarId + index}>
               <div className="chart-title">
-                <div>
-                  {sourceSeries.measurementMethod
-                    ? "measurementMethod: " + sourceSeries.measurementMethod
-                    : null}
-                </div>
-                <div>
-                  {sourceSeries.observationPeriod
-                    ? "observationPeriod: " + sourceSeries.observationPeriod
-                    : null}
-                </div>
-                <div>{unit ? "unit: " + unit : null}</div>
+                {sourceSeries.measurementMethod && (
+                  <p className="metadata">
+                    measurementMethod: {sourceSeries.measurementMethod}
+                  </p>
+                )}
+                {sourceSeries.observationPeriod && (
+                  <p className="metadata">
+                    observationPeriod: {sourceSeries.observationPeriod}
+                  </p>
+                )}
+                {unit && <p className="metadata">unit: {unit}</p>}
               </div>
               <ObservationChart
                 sourceSeries={sourceSeries}
@@ -114,7 +119,9 @@ export class ObservationChartSection extends React.Component<
                 statVarName={this.props.statVarName}
                 dateToDcid={dateToDcid}
               />
-              <div>{"provenance: " + sourceSeries.provenanceDomain}</div>
+              <p className="metadata">
+                provenance: {sourceSeries.provenanceDomain}
+              </p>
             </div>
           );
         })}
@@ -172,5 +179,9 @@ export class ObservationChartSection extends React.Component<
           obsDcidMapping: {},
         });
       });
+  }
+
+  private placeStatVarUri(): string {
+    return `${URI_PREFIX}${this.props.placeDcid}?statVar=${this.props.statVarId}`;
   }
 }

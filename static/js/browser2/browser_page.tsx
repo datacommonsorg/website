@@ -24,7 +24,7 @@ import { ArcSection } from "./arc_section";
 import { ImageSection } from "./image_section";
 import { ObservationChartSection } from "./observation_chart_section";
 import { StatVarHierarchy } from "./statvar_hierarchy";
-import { PageDisplayType } from "./util";
+import { PageDisplayType } from "./types";
 import { WeatherChartSection } from "./weather_chart_section";
 
 const URL_PREFIX = "/browser/";
@@ -66,36 +66,30 @@ export class BrowserPage extends React.Component<
     const arcDcid = this.getArcDcid();
     return (
       <>
-        <div className="browser-page-header">
-          {this.props.pageDisplayType === PageDisplayType.PLACE_STAT_VAR && (
-            <div className="browser-header-title">
-              Statistical Variable:
-              <a href={URL_PREFIX + this.props.statVarId}>
-                {" " + this.props.statVarId}
-              </a>
-            </div>
+        {this.props.pageDisplayType === PageDisplayType.PLACE_STAT_VAR && (
+          <h1 className="browser-page-header">
+            Statistical Variable:{" "}
+            <a href={URL_PREFIX + this.props.statVarId}>
+              {this.props.statVarId}
+            </a>
+          </h1>
+        )}
+        <h1 className="browser-page-header">
+          About:{" "}
+          {this.props.pageDisplayType === PageDisplayType.PLACE_STAT_VAR ? (
+            <a href={URL_PREFIX + this.props.dcid}>{this.props.nodeName}</a>
+          ) : (
+            <>{this.props.nodeName}</>
           )}
-          <div className="browser-header-title">
-            About:
-            {this.props.pageDisplayType === PageDisplayType.PLACE_STAT_VAR ? (
-              <a href={URL_PREFIX + this.props.dcid}>
-                {" " + this.props.nodeName}
-              </a>
-            ) : (
-              <span>{" " + this.props.nodeName}</span>
-            )}
-          </div>
-          {this.props.pageDisplayType !== PageDisplayType.PLACE_STAT_VAR && (
-            <>
-              <div className="browser-header-subtitle">
-                {"dcid: " + this.props.dcid}
-              </div>
-              <div className="browser-header-subtitle">
-                {"typeOf: " + this.props.nodeType}
-              </div>
-            </>
-          )}
-        </div>
+        </h1>
+        {this.props.pageDisplayType !== PageDisplayType.PLACE_STAT_VAR && (
+          <>
+            <h2 className="browser-header-subtitle">dcid: {this.props.dcid}</h2>
+            <h2 className="browser-header-subtitle">
+              typeOf: {this.props.nodeType}
+            </h2>
+          </>
+        )}
         <div id="node-content">
           <ArcSection
             dcid={arcDcid}

@@ -22,7 +22,8 @@ import React from "react";
 import axios from "axios";
 import _ from "lodash";
 import { InArcSubsection } from "./in_arc_subsection";
-import { InArcValue, loadSpinner, removeSpinner } from "./util";
+import { loadSpinner, removeSpinner } from "./util";
+import { InArcValue } from "./types";
 
 const IGNORED_PARENT_TYPES = new Set(["StatisticalPopulation"]);
 const LOADING_CONTAINER_ID = "browser-in-arc-section";

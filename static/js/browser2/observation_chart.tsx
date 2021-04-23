@@ -22,14 +22,14 @@ import React from "react";
 import axios from "axios";
 import { DataGroup, DataPoint } from "../chart/base";
 import { drawLineChart } from "../chart/draw";
-import { getUnit, SourceSeries } from "./util";
+import { getUnit } from "./util";
+import { SourceSeries } from "./types";
 import { randDomId } from "../shared/util";
+import { URI_PREFIX } from "./constants";
 
 // Chart size
-const WIDTH = 500;
-const HEIGHT = 250;
+const HEIGHT = 220;
 
-const URI_PREFIX = "/browser/";
 // Only show dots when there's only a single data point
 const MAX_DOTS = 1;
 const NO_OBSDCID_ERROR_MESSAGE =
@@ -46,6 +46,7 @@ interface ObservationChartPropType {
 }
 
 interface ObservationChartStateType {
+  chartWidth: number;
   errorMessage: string;
   showTableView: boolean;
 }
@@ -59,19 +60,30 @@ export class ObservationChart extends React.Component<
   private sortedDates: string[] = Object.keys(
     this.props.sourceSeries.val
   ).sort();
+  private svgContainerRef: React.RefObject<HTMLDivElement>;
 
   constructor(props: ObservationChartPropType) {
     super(props);
     this.state = {
+      chartWidth: 0,
       errorMessage: "",
       showTableView: false,
     };
     this.chartId = randDomId();
     this.chartContainerId = this.chartId + "container";
+    this.svgContainerRef = React.createRef();
+    // Consider debouncing / throttling this if it gets expensive at
+    // small screen sizes
+    this._handleWindowResize = this._handleWindowResize.bind(this);
   }
 
   componentDidMount(): void {
+    window.addEventListener("resize", this._handleWindowResize);
     this.plot();
+  }
+
+  componentWillUnmount(): void {
+    window.removeEventListener("resize", this._handleWindowResize);
   }
 
   render(): JSX.Element {
@@ -87,79 +99,93 @@ export class ObservationChart extends React.Component<
     const unit = getUnit(this.props.sourceSeries);
     return (
       <>
-        <div>
+        <button
+          className="btn btn-sm btn-light chart-toggle"
+          onClick={() =>
+            this.setState({ showTableView: !this.state.showTableView })
+          }
+        >
           <i className="material-icons">
             {this.state.showTableView ? "show_chart" : "table_view"}
           </i>
-          <span
-            className="clickable-text"
-            onClick={() =>
-              this.setState({ showTableView: !this.state.showTableView })
-            }
-          >
-            {this.state.showTableView ? "show chart" : "show table"}
-          </span>
-        </div>
-        <div id={this.chartContainerId} style={{ position: "relative" }}>
-          <div style={{ display: tableVisibility }}>
-            <div className="observations-table">
-              <table className="node-table">
-                <tbody>
-                  <tr key="header">
-                    <td width="40%">
-                      <strong>Date</strong>
-                    </td>
-                    <td width="60%">
-                      <strong>
-                        {this.props.statVarName
-                          ? this.props.statVarName
-                          : this.props.statVarId}
-                      </strong>
-                    </td>
-                  </tr>
-                  {this.sortedDates.map((date) => {
-                    if (date in this.props.sourceSeries.val) {
-                      return (
-                        <tr
-                          className={obsTableRowClass}
-                          key={date}
-                          onClick={() => this.redirectToObsPage(date)}
-                        >
-                          <td width="50%">{date}</td>
-                          <td width="50%">
-                            <div
+          <span>{this.state.showTableView ? "show chart" : "show table"}</span>
+        </button>
+        <div className="observation-chart">
+          <div id={this.chartContainerId} style={{ position: "relative" }}>
+            <div style={{ display: tableVisibility }}>
+              <div className="observations-table card p-0">
+                <table className="node-table">
+                  <tbody>
+                    <tr key="header">
+                      <td>
+                        <strong>Date</strong>
+                      </td>
+                      <td>
+                        <strong>
+                          {this.props.statVarName
+                            ? this.props.statVarName
+                            : this.props.statVarId}
+                        </strong>
+                      </td>
+                    </tr>
+                    {this.sortedDates.map((date) => {
+                      if (date in this.props.sourceSeries.val) {
+                        return (
+                          <tr
+                            className={obsTableRowClass}
+                            key={date}
+                            onClick={() => this.redirectToObsPage(date)}
+                          >
+                            <td>{date}</td>
+                            <td
                               className={
-                                this.props.canClickObs ? "clickable-text" : ""
+                                this.props.canClickObs
+                                  ? "clickable-text"
+                                  : undefined
                               }
                             >
                               {this.props.sourceSeries.val[date] + unit}
-                            </div>
-                          </td>
-                        </tr>
-                      );
-                    }
-                  })}
-                </tbody>
-              </table>
+                            </td>
+                          </tr>
+                        );
+                      }
+                    })}
+                  </tbody>
+                </table>
+              </div>
+            </div>
+            <div
+              id={this.chartId}
+              className={svgContainerClass}
+              style={{ display: chartVisibility }}
+              ref={this.svgContainerRef}
+            />
+            <div id="screen" className="screen">
+              <div id="spinner"></div>
             </div>
           </div>
-          <div
-            id={this.chartId}
-            className={svgContainerClass}
-            style={{ display: chartVisibility }}
-          />
-          <div id="screen" className="screen">
-            <div id="spinner"></div>
-          </div>
+          {this.state.errorMessage ? (
+            <div className="error-message">{this.state.errorMessage}</div>
+          ) : null}
         </div>
-        {this.state.errorMessage ? (
-          <div className="error-message">{this.state.errorMessage}</div>
-        ) : null}
       </>
     );
   }
 
+  private _handleWindowResize(): void {
+    if (this.svgContainerRef.current) {
+      const width = this.svgContainerRef.current.offsetWidth;
+      if (width !== this.state.chartWidth) {
+        this.setState({
+          chartWidth: width,
+        });
+        this.plot();
+      }
+    }
+  }
+
   private plot(): void {
+    this.svgContainerRef.current.innerHTML = "";
     const values = this.props.sourceSeries.val;
     const data = [];
     this.sortedDates.forEach((key) => {
@@ -169,10 +195,10 @@ export class ObservationChart extends React.Component<
         value: Number(values[key]),
       });
     });
-    const dataGroups = [new DataGroup("", data)];
+    const dataGroups = [new DataGroup(this.props.statVarId, data)];
     drawLineChart(
       this.chartId,
-      WIDTH,
+      this.svgContainerRef.current.offsetWidth,
       HEIGHT,
       dataGroups,
       true,

@@ -22,7 +22,7 @@
 import React from "react";
 import axios from "axios";
 import _ from "lodash";
-import { StatVarGroupNodeType, StatVarNodeType } from "./util";
+import { StatVarGroupNodeType, StatVarNodeType } from "./types";
 
 interface StatVarHierarchySearchPropType {
   statVarGroupsData: { [key: string]: StatVarGroupNodeType };
@@ -66,11 +66,11 @@ export class StatVarHierarchySearch extends React.Component<
       <div className="statvar-hierarchy-search-section">
         <div className="search-input-container"></div>
         <input
-          className="statvar-search-input"
+          className="statvar-search-input form-control"
           type="text"
           value={this.state.query}
           onChange={this.onInputChanged}
-          placeholder="Filter"
+          placeholder="Filter Statistical Variables"
           onBlur={() => this.setState({ showNoResultsMessage: false })}
         />
         <span
@@ -83,7 +83,9 @@ export class StatVarHierarchySearch extends React.Component<
           <div className="statvar-hierarchy-search-results">
             {!_.isEmpty(this.state.svgResults) && (
               <div className="svg-search-results">
-                <div className="search-results-heading">Stat Var Groups</div>
+                <h5 className="search-results-heading">
+                  Statistical Variable Groups
+                </h5>
                 {this.state.svgResults.map((svg) => {
                   return (
                     <div
@@ -98,8 +100,10 @@ export class StatVarHierarchySearch extends React.Component<
               </div>
             )}
             {!_.isEmpty(this.state.svResults) && (
-              <div className="sv-search-rsults">
-                <div className="search-results-heading">Stat Vars</div>
+              <div className="sv-search-results">
+                <h5 className="search-results-heading">
+                  Statistical Variables
+                </h5>
                 {this.state.svResults.map((sv) => {
                   return (
                     <div

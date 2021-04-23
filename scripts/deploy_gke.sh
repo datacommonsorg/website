@@ -18,7 +18,7 @@
 #
 # Usage:
 #
-# ./deploy_key.sh <"autopush"|"staging"|"prod"|"svobs"|"dev">
+# ./deploy_key.sh <"autopush"|"staging"|"prod"|"svobs"|"dev"> us-central1 <git_hash>
 #
 # First argument is either "dev", "svobs", "autopush", "staging" or "prod".
 #
@@ -38,6 +38,10 @@ fi
 DIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )" >/dev/null 2>&1 && pwd )"
 ROOT="$(dirname "$DIR")"
 
+
+if [[ $3 != "" ]]; then
+  WEBSITE_HASH=$3
+fi
 cd $ROOT
 WEBSITE_HASH=$(git rev-parse --short HEAD)
 

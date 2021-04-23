@@ -18,7 +18,6 @@ import React from "react";
 import { DataPoint, DataGroup, dataGroupsToCsv } from "../chart/base";
 import {
   drawLineChart,
-  drawSingleBarChart,
   drawStackBarChart,
   drawGroupBarChart,
 } from "../chart/draw";
@@ -347,14 +346,6 @@ class Chart extends React.Component<ChartPropType, ChartStateType> {
           ".dotted-warning"
         )[0].className += " d-inline";
       }
-    } else if (chartType === chartTypeEnum.SINGLE_BAR) {
-      drawSingleBarChart(
-        this.props.id,
-        elem.offsetWidth,
-        CHART_HEIGHT,
-        this.state.dataPoints,
-        this.props.unit
-      );
     } else if (chartType === chartTypeEnum.STACK_BAR) {
       drawStackBarChart(
         this.props.id,
@@ -410,7 +401,6 @@ class Chart extends React.Component<ChartPropType, ChartStateType> {
 
   private processData(): void {
     const dataGroups: DataGroup[] = [];
-    const dataPoints: DataPoint[] = [];
     const allDates = new Set<string>();
     // TODO(datcom): handle i18n for scaled numbers
     const scaling = this.props.scaling ? this.props.scaling : 1;
@@ -442,21 +432,6 @@ class Chart extends React.Component<ChartPropType, ChartStateType> {
         }
         this.setState({
           dataGroups,
-        });
-        break;
-      case chartTypeEnum.SINGLE_BAR:
-        {
-          const snapshotData = this.props.snapshot.data[0];
-          for (const statVar in snapshotData.data) {
-            dataPoints.push({
-              label: getStatsVarLabel(statVar),
-              value: snapshotData.data[statVar] * scaling,
-              dcid: snapshotData.dcid,
-            });
-          }
-        }
-        this.setState({
-          dataPoints,
         });
         break;
       case chartTypeEnum.GROUP_BAR:

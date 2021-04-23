@@ -21,7 +21,7 @@ import { formatNumber, translateUnit, loadLocaleData } from "./i18n";
  * characters that do not print well.
  */
 function hexEncode(str: string): string {
-  let hex, i;
+  let hex;
 
   let result = "";
   for (let i = 0; i < str.length; i++) {
