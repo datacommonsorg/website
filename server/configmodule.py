@@ -14,7 +14,7 @@ class Config:
     # Use StatVarObs instead of PopObs data model.
     # TODO(shifucun): change this to True after setting svobs_mode=true in mixer
     # by default.
-    SVOBS = False
+    SVOBS = True
     CACHE_TYPE = 'simple'  # Flask-Caching related configs
     VERSION = '{}-{}'.format(os.environ.get('WEBSITE_HASH'),
                              os.environ.get('MIXER_HASH'))
@@ -40,11 +40,11 @@ class AutopushConfig(Config):
 
 
 class SvObsConfig(Config):
-    SVOBS = True
+    pass
 
 
 class DevConfig(Config):
-    SVOBS = True
+    pass
 
 
 class MinikubeConfig(Config):
@@ -68,7 +68,6 @@ class LocalLiteConfig(Config):
 
 
 class LocalSvObsConfig(Config):
-    SVOBS = True
     LOCAL = True
     SECRET_PROJECT = 'datcom-website-statvar-migrate'
     API_ROOT = 'https://mixer.endpoints.datcom-mixer-statvar.cloud.goog'
