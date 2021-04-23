@@ -29,7 +29,8 @@ def browser_main():
 @bp.route('/<path:dcid>')
 def browser_node(dcid):
     if os.environ.get('FLASK_ENV') == 'svobs' or os.environ.get(
-            'FLASK_ENV') == 'local-svobs':
+            'FLASK_ENV') == 'local-svobs' or os.environ.get(
+                'FLASK_ENV') == 'webdriver':
         node_name = shared_api.cached_name(dcid).get(dcid)
         if not node_name:
             node_name = dcid
