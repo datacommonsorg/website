@@ -26,7 +26,7 @@ nameSuffix: -local
 namespace: website
 
 bases:
-  - ../../popobs
+  - ../../svobs
 
 resources:
   - service.yaml
