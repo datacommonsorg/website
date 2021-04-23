@@ -11,10 +11,6 @@ class Config:
     WEBDRIVER = False
     LOCAL = False
     LITE = False
-    # Use StatVarObs instead of PopObs data model.
-    # TODO(shifucun): change this to True after setting svobs_mode=true in mixer
-    # by default.
-    SVOBS = True
     CACHE_TYPE = 'simple'  # Flask-Caching related configs
     VERSION = '{}-{}'.format(os.environ.get('WEBSITE_HASH'),
                              os.environ.get('MIXER_HASH'))
