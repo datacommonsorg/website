@@ -120,7 +120,6 @@ def create_app():
     app.config['BABEL_DEFAULT_LOCALE'] = i18n.DEFAULT_LOCALE
     app.config['BABEL_TRANSLATION_DIRECTORIES'] = 'i18n'
 
-    # build stat var hierarchy search index only in svobs mode
     if not cfg.TEST:
         app.config[
             'STAT_VAR_SEARCH_INDEX'] = svh_search.get_statvar_search_index()
