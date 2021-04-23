@@ -17,7 +17,6 @@ import urllib
 from webdriver_tests.base_test import WebdriverBaseTest
 from selenium.webdriver.support.ui import WebDriverWait
 from selenium.webdriver.common.by import By
-from selenium.common.exceptions import TimeoutException
 from selenium.webdriver.support import expected_conditions as EC
 
 MTV_URL = '/browser/geoId/0649670'
@@ -46,8 +45,8 @@ class TestBrowser(WebdriverBaseTest):
         self.assertEqual(TITLE_TEXT, self.driver.title)
 
         # Wait for title to be present
-        title_present = subtitle_present = EC.text_to_be_present_in_element(
-            (By.TAG_NAME, 'h1'), 'Graph Browser')
+        title_present = EC.text_to_be_present_in_element((By.TAG_NAME, 'h1'),
+                                                         'Graph Browser')
         WebDriverWait(self.driver, self.TIMEOUT_SEC).until(title_present)
 
         # Assert intro is correct
