@@ -37,11 +37,11 @@ window.onload = () => {
   const typesPromise = axios
     .get(`/api/browser/propvals/typeOf/${dcid}`)
     .then((resp) => resp.data);
-  const statVarsPromise = axios
-    .get(`/api/place/statsvars/${dcid}`)
+  const numStatVarsPromise = axios
+    .get(`/api/browser/num_stat_vars/${dcid}`)
     .then((resp) => resp.data);
-  Promise.all([typesPromise, statVarsPromise])
-    .then(([typesData, statVarsData]) => {
+  Promise.all([typesPromise, numStatVarsPromise])
+    .then(([typesData, numStatVars]) => {
       const types = typesData.values.out ? typesData.values.out : [];
       const listOfTypes = types.map((type) => type.dcid);
       const nodeType = getNodeType(dcid, listOfTypes, statVarId);
@@ -52,8 +52,7 @@ window.onload = () => {
           nodeName,
           nodeType,
           pageDisplayType,
-          shouldShowStatVarHierarchy:
-            !_.isEmpty(statVarsData) && _.isEmpty(statVarId),
+          shouldShowStatVarHierarchy: numStatVars > 0 && _.isEmpty(statVarId),
           statVarId,
         }),
         document.getElementById("node")

@@ -228,15 +228,15 @@ export class ChildStatVarGroupSection extends React.Component<
   render(): JSX.Element {
     const childStatVarGroups = this.props.data[this.props.statVarGroupId]
       .childStatVarGroups;
-    childStatVarGroups.sort((a, b) => {
-      if (a.id.startsWith(VARIABLES_STATVAR_GROUP_PREFIX)) {
-        return -1;
-      }
-      if (b.id.startsWith(VARIABLES_STATVAR_GROUP_PREFIX)) {
-        return 1;
-      }
-      return a > b ? 1 : -1;
-    });
+    const variableGroupItem = childStatVarGroups.find((svg) =>
+      svg.id.startsWith(VARIABLES_STATVAR_GROUP_PREFIX)
+    );
+    if (variableGroupItem) {
+      childStatVarGroups.filter((svg) =>
+        svg.id.startsWith(VARIABLES_STATVAR_GROUP_PREFIX)
+      );
+      childStatVarGroups.unshift(variableGroupItem);
+    }
     return (
       <div className="svg-node-child">
         {this.props.data[this.props.statVarGroupId].childStatVarGroups.map(
