@@ -21,8 +21,9 @@ from selenium.webdriver.support import expected_conditions as EC
 
 MTV_URL = '/browser/geoId/0649670'
 CA_POPULATION_URL = '/browser/geoId/06?statVar=Count_Person'
+AUSTROBAILEYA_URL = '/browser/dc/bsmvthtq89217'
 LANDING_PAGE_URL = '/browser'
-
+SEARCH_INPUT = 'male asian '
 
 # Class to test Graph Browser.
 class TestBrowser(WebdriverBaseTest):
@@ -185,9 +186,98 @@ class TestBrowser(WebdriverBaseTest):
             '//*[@id="node-content"]/div[2]')
         observations = observations_section.find_elements_by_class_name('card')
         self.assertTrue(len(observations) > 0)
+    
+    def test_page_serve_austrobaileya(self):
+        """Test the browser page for Austrobaileya scandens can be loaded successfully."""
+        TITLE_TEXT = "Austrobaileya scandens C.T.White - Graph Browser - Data Commons"
 
-    def test_observation_chart_redirect(self):
-        """Test that the observation chart observation node links can redirect properly"""
+        # Load Austrobaileya browser page.
+        self.driver.get(self.url_ + AUSTROBAILEYA_URL)
+
+        # Assert 200 HTTP code: successful page load.
+        req = urllib.request.Request(self.driver.current_url)
+        with urllib.request.urlopen(req) as response:
+            self.assertEqual(response.getcode(), 200)
+
+        # Assert 200 HTTP code: successful JS generation.
+        req = urllib.request.Request(self.url_ + "/browser.js")
+        with urllib.request.urlopen(req) as response:
+            self.assertEqual(response.getcode(), 200)
+
+        # Assert page title is correct.
+        WebDriverWait(self.driver,
+                      self.TIMEOUT_SEC).until(EC.title_contains(TITLE_TEXT))
+        self.assertEqual(TITLE_TEXT, self.driver.title)
+
+        # Assert header is correct.
+        element_present = EC.presence_of_element_located((By.TAG_NAME, 'h1'))
+        WebDriverWait(self.driver, self.TIMEOUT_SEC).until(element_present)
+        title = self.driver.find_element_by_xpath('//*[@id="node"]/h1')
+        self.assertEqual(title.text, 'About: Austrobaileya scandens C.T.White')
+        dcid_subtitle = self.driver.find_element_by_xpath(
+            '//*[@id="node"]/h2[1]')
+        self.assertEqual(dcid_subtitle.text, 'dcid: dc/bsmvthtq89217')
+        typeOf_subtitle = self.driver.find_element_by_xpath(
+            '//*[@id="node"]/h2[2]')
+        self.assertEqual(typeOf_subtitle.text, 'typeOf: BiologicalSpecimen')
+
+        # Assert properties contains correct dcid and typeOf
+        element_present = EC.presence_of_element_located(
+            (By.XPATH, '//*[@id="node-content"]/div[1]/div/table'))
+        WebDriverWait(self.driver, self.TIMEOUT_SEC).until(element_present)
+        table = self.driver.find_element_by_xpath(
+            '//*[@id="node-content"]/div[1]/div/table')
+        dcid_row = table.find_elements_by_xpath('.//tbody/tr[2]/td')
+        self.assertEqual(dcid_row[0].text, 'dcid')
+        self.assertEqual(dcid_row[1].text, 'dc/bsmvthtq89217')
+        typeOf_row = table.find_elements_by_xpath('.//tbody/tr[3]/td')
+        self.assertEqual(typeOf_row[0].text, 'typeOf')
+        self.assertEqual(typeOf_row[1].text, 'BiologicalSpecimen')
+        self.assertEqual(typeOf_row[2].text, 'nybg.org')
+
+        # Assert image loaded.
+        element_present = EC.presence_of_element_located(
+            (By.ID, 'browser-image-section'))
+        WebDriverWait(self.driver, 2 * self.TIMEOUT_SEC).until(element_present)
+        image_section = self.driver.find_element_by_id(
+            'browser-image-section')
+        image = image_section.find_element_by_tag_name('img')
+        self.assertTrue(image)
+
+    def test_stat_var_hierarchy(self):
+        """Test that the stat var hierarchy can search properly"""
+        # Load MTV browser page.
+        self.driver.get(self.url_ + MTV_URL)
+
+        # Wait for the search box of the statvar hierarchy section to be present
+        element_present = EC.presence_of_element_located(
+            (By.XPATH, '//*[@id="stat-var-hierarchy-section"]/div/div[1]/input')
+        )
+        WebDriverWait(self.driver, self.TIMEOUT_SEC).until(element_present)
+        search_input = self.driver.find_element_by_xpath('//*[@id="stat-var-hierarchy-section"]/div/div[1]/input')
+
+        # Search for "male asian " and select the first result
+        search_input.send_keys(SEARCH_INPUT)
+        element_present = EC.presence_of_element_located(
+            (By.XPATH, '//*[@id="stat-var-hierarchy-section"]/div/div[1]/div[2]/div/div[1]')
+        )
+        WebDriverWait(self.driver, self.TIMEOUT_SEC).until(element_present)
+        first_result = self.driver.find_element_by_xpath('//*[@id="stat-var-hierarchy-section"]/div/div[1]/div[2]/div/div[1]')
+        first_result.click()
+
+        # Assert that the section Count_Person_Male_AsianAlone opened and shows at least one chart
+        element_present = EC.presence_of_element_located(
+            (By.XPATH, '//*[@id="stat-var-hierarchy-section"]/div/div[2]/div/div/div/div/div/div/div/div/div/div/div/div/div/div/div/div/div/div/div/div[11]/div/div/div/div/div/div[1]/div[2]')
+        )
+        WebDriverWait(self.driver, self.TIMEOUT_SEC).until(element_present)
+        chart_title = self.driver.find_element_by_xpath('//*[@id="stat-var-hierarchy-section"]/div/div[2]/div/div/div/div/div/div/div/div/div/div/div/div/div/div/div/div/div/div/div/div[11]/div/div/div/div/h5/a')
+        self.assertTrue(chart_title.text.startswith('Count_Person_Male_AsianAlone for Mountain View'))
+        charts_section = self.driver.find_element_by_class_name('statvars-charts-section')
+        observation_charts = charts_section.find_elements_by_class_name('observation-chart')
+        self.assertTrue(len(observation_charts) > 0)
+
+    def test_observation_table_redirect(self):
+        """Test that the observation table observation row links can redirect properly"""
         # Load California population browser page.
         self.driver.get(self.url_ + CA_POPULATION_URL)
 
@@ -211,7 +301,7 @@ class TestBrowser(WebdriverBaseTest):
         first_row.click()
 
         # Wait for the new page to open in a new tab
-        new_page_opened = EC.new_window_is_opened(self.driver.window_handles)
+        new_page_opened = EC.number_of_windows_to_be(2)
         WebDriverWait(self.driver, self.TIMEOUT_SEC).until(new_page_opened)
 
         # Switch tabs to the page for the observation
@@ -235,3 +325,46 @@ class TestBrowser(WebdriverBaseTest):
         typeOf_subtitle = self.driver.find_element_by_xpath(
             '//*[@id="node"]/h2[2]')
         self.assertEqual(typeOf_subtitle.text, 'typeOf: Observation')
+
+    def test_observation_chart_redirect(self):
+        """Test that the observation chart observation node links can redirect properly"""
+        # Load California population browser page.
+        self.driver.get(self.url_ + CA_POPULATION_URL)
+        element_present = EC.presence_of_element_located(
+            (By.XPATH, '//*[@id="node-content"]/div[1]/div/table'))
+        WebDriverWait(self.driver, self.TIMEOUT_SEC).until(element_present)
+
+        # Click the point on the chart for the year 1850
+        element_present = EC.presence_of_element_located(
+            (By.TAG_NAME, 'svg'))
+        WebDriverWait(self.driver, self.TIMEOUT_SEC).until(element_present)
+        point = self.driver.find_element_by_xpath(
+            '//*[@id="node-content"]/div[2]/div/div[1]/div[2]/div/div[2]/*[name()="svg"]/*[name()="g"][4]/*[name()="g"]/*[name()="circle"][1]')
+        point.click()
+    
+        # Wait for the new page to open in a new tab
+        new_page_opened = EC.number_of_windows_to_be(2)
+        WebDriverWait(self.driver, self.TIMEOUT_SEC).until(new_page_opened)
+
+        # Switch tabs to the page for the observation
+        new_page = self.driver.window_handles[-1]
+        self.driver.switch_to.window(new_page)
+
+        # Assert the title of the new page is correct
+        NEW_PAGE_TITLE = 'dc/o/75nyhng64bygb - Graph Browser - Data Commons'
+        WebDriverWait(self.driver,
+                      self.TIMEOUT_SEC).until(EC.title_contains(NEW_PAGE_TITLE))
+        self.assertEqual(NEW_PAGE_TITLE, self.driver.title)
+
+        # Assert header of the new page is correct.
+        element_present = EC.presence_of_element_located((By.TAG_NAME, 'h1'))
+        WebDriverWait(self.driver, self.TIMEOUT_SEC).until(element_present)
+        about_title = self.driver.find_element_by_xpath('//*[@id="node"]/h1')
+        self.assertEqual(about_title.text, 'About: dc/o/75nyhng64bygb')
+        dcid_subtitle = self.driver.find_element_by_xpath(
+            '//*[@id="node"]/h2[1]')
+        self.assertEqual(dcid_subtitle.text, 'dcid: dc/o/75nyhng64bygb')
+        typeOf_subtitle = self.driver.find_element_by_xpath(
+            '//*[@id="node"]/h2[2]')
+        self.assertEqual(typeOf_subtitle.text, 'typeOf: Observation')
+    
