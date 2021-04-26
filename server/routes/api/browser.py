@@ -22,6 +22,7 @@ import lib.statvar_hierarchy_search as svh_search
 from services.datacommons import fetch_data
 from flask import Response
 from flask import request
+import routes.api.place as place_api
 
 bp = flask.Blueprint('api.browser', __name__, url_prefix='/api/browser')
 
@@ -237,3 +238,13 @@ def search_statvar_hierarchy():
     tokens = query.split()
     result = svh_search.get_search_result(tokens)
     return Response(json.dumps(list(result)), 200, mimetype='application/json')
+
+
+@cache.memoize(timeout=3600 * 24)  # Cache for one day.
+@bp.route('/num_stat_vars/<path:dcid>')
+def get_num_statvars(dcid):
+    """Returns number of stat vars for a dcid
+    """
+    statsvars = place_api.statsvars(dcid)
+    num_statvars = len(statsvars)
+    return Response(json.dumps(num_statvars), 200, mimetype='application/json')

@@ -32,7 +32,7 @@ const SCROLL_DELAY = 400;
 const BULLET_POINT_HTML = <span className="bullet">&#8226;</span>;
 const DOWN_ARROW_HTML = <i className="material-icons">remove</i>;
 const RIGHT_ARROW_HTML = <i className="material-icons">add</i>;
-
+const VARIABLES_STATVAR_GROUP_PREFIX = "dc/g/Variables_";
 interface StatVarGroupNodePropType {
   // the dcid of the node of the current browser page
   placeDcid: string;
@@ -226,6 +226,17 @@ export class ChildStatVarGroupSection extends React.Component<
   ChildStatVarGroupSectionPropType
 > {
   render(): JSX.Element {
+    const childStatVarGroups = this.props.data[this.props.statVarGroupId]
+      .childStatVarGroups;
+    const variableGroupItem = childStatVarGroups.find((svg) =>
+      svg.id.startsWith(VARIABLES_STATVAR_GROUP_PREFIX)
+    );
+    if (variableGroupItem) {
+      childStatVarGroups.filter((svg) =>
+        svg.id.startsWith(VARIABLES_STATVAR_GROUP_PREFIX)
+      );
+      childStatVarGroups.unshift(variableGroupItem);
+    }
     return (
       <div className="svg-node-child">
         {this.props.data[this.props.statVarGroupId].childStatVarGroups.map(

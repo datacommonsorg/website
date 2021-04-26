@@ -25,7 +25,9 @@ import _ from "lodash";
 import { StatVarHierarchySearch } from "./statvar_hierarchy_search";
 import { StatVarGroupNode } from "./statvar_group_node";
 import { StatVarGroupNodeType, StatVarNodeType } from "./types";
+import { loadSpinner, removeSpinner } from "./util";
 
+const LOADING_CONTAINER_ID = "stat-var-hierarchy-section";
 interface StatVarHierarchyPropType {
   dcid: string;
   placeName: string;
@@ -60,9 +62,6 @@ export class StatVarHierarchy extends React.Component<
   }
 
   render(): JSX.Element {
-    if (_.isEmpty(this.state.statVars) && _.isEmpty(this.state.errorMessage)) {
-      return null;
-    }
     const initialStatVarGroups = Object.keys(this.state.statVarGroups).filter(
       (svgId) => !("parent" in this.state.statVarGroups[svgId])
     );
@@ -82,8 +81,7 @@ export class StatVarHierarchy extends React.Component<
       return a > b ? 1 : -1;
     });
     return (
-      <div className="browser-page-section" id="stat-var-hierarchy-section">
-        <h3>Statistical Variables</h3>
+      <div id={LOADING_CONTAINER_ID} className="loading-spinner-container">
         {!_.isEmpty(this.state.errorMessage) && (
           <div className="error-message">{this.state.errorMessage}</div>
         )}
@@ -117,23 +115,29 @@ export class StatVarHierarchy extends React.Component<
             </div>
           </div>
         )}
+        <div id="browser-screen" className="screen">
+          <div id="spinner"></div>
+        </div>
       </div>
     );
   }
 
   private fetchData(): void {
+    loadSpinner(LOADING_CONTAINER_ID);
     axios
       .get(`/api/browser/statvar-hierarchy/${this.props.dcid}`)
       .then((resp) => {
         const data = resp.data;
         const statVarGroups = data["statVarGroups"];
         const statVars = data["statVars"];
+        removeSpinner(LOADING_CONTAINER_ID);
         this.setState({
           statVarGroups,
           statVars,
         });
       })
       .catch(() => {
+        removeSpinner(LOADING_CONTAINER_ID);
         this.setState({
           errorMessage: "Error retrieving stat var hierarchy.",
         });
