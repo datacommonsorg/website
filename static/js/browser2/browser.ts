@@ -42,7 +42,7 @@ window.onload = () => {
     .then((resp) => resp.data);
   Promise.all([typesPromise, numStatVarsPromise])
     .then(([typesData, numStatVars]) => {
-      const types = typesData.values.out ? typesData.values.out : [];
+      const types = typesData.values.out || [];
       const listOfTypes = types.map((type) => type.dcid);
       const nodeType = getNodeType(dcid, listOfTypes, statVarId);
       const pageDisplayType = getPageDisplayType(listOfTypes, statVarId);

@@ -30,7 +30,8 @@ import { OutArcSection } from "./out_arc_section";
 import { InArcSection } from "./in_arc_section";
 
 const URL_PREFIX = "/browser/";
-
+const PLACE_STAT_VAR_PROPERTIES_HEADER = "Statistical Variable Properties";
+const GENERAL_PROPERTIES_HEADER = "Properties";
 interface BrowserPagePropType {
   dcid: string;
   nodeName: string;
@@ -74,8 +75,8 @@ export class BrowserPage extends React.Component<
       !_.isEmpty(this.state.inLabels);
     const outArcHeader =
       this.props.pageDisplayType === PageDisplayType.PLACE_STAT_VAR
-        ? "Statistical Variable Properties"
-        : "Properties";
+        ? PLACE_STAT_VAR_PROPERTIES_HEADER
+        : GENERAL_PROPERTIES_HEADER;
     const arcDcid = this.getArcDcid();
     return (
       <>
