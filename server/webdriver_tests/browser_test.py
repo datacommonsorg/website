@@ -25,6 +25,7 @@ AUSTROBAILEYA_URL = '/browser/dc/bsmvthtq89217'
 LANDING_PAGE_URL = '/browser'
 SEARCH_INPUT = 'male asian '
 
+
 # Class to test Graph Browser.
 class TestBrowser(WebdriverBaseTest):
 
@@ -186,7 +187,7 @@ class TestBrowser(WebdriverBaseTest):
             '//*[@id="node-content"]/div[2]')
         observations = observations_section.find_elements_by_class_name('card')
         self.assertTrue(len(observations) > 0)
-    
+
     def test_page_serve_austrobaileya(self):
         """Test the browser page for Austrobaileya scandens can be loaded successfully."""
         TITLE_TEXT = "Austrobaileya scandens C.T.White - Graph Browser - Data Commons"
@@ -239,8 +240,7 @@ class TestBrowser(WebdriverBaseTest):
         element_present = EC.presence_of_element_located(
             (By.ID, 'browser-image-section'))
         WebDriverWait(self.driver, 2 * self.TIMEOUT_SEC).until(element_present)
-        image_section = self.driver.find_element_by_id(
-            'browser-image-section')
+        image_section = self.driver.find_element_by_id('browser-image-section')
         image = image_section.find_element_by_tag_name('img')
         self.assertTrue(image)
 
@@ -251,29 +251,40 @@ class TestBrowser(WebdriverBaseTest):
 
         # Wait for the search box of the statvar hierarchy section to be present
         element_present = EC.presence_of_element_located(
-            (By.XPATH, '//*[@id="stat-var-hierarchy-section"]/div/div[1]/input')
-        )
+            (By.XPATH,
+             '//*[@id="stat-var-hierarchy-section"]/div/div[1]/input'))
         WebDriverWait(self.driver, self.TIMEOUT_SEC).until(element_present)
-        search_input = self.driver.find_element_by_xpath('//*[@id="stat-var-hierarchy-section"]/div/div[1]/input')
+        search_input = self.driver.find_element_by_xpath(
+            '//*[@id="stat-var-hierarchy-section"]/div/div[1]/input')
 
         # Search for "male asian " and select the first result
         search_input.send_keys(SEARCH_INPUT)
-        element_present = EC.presence_of_element_located(
-            (By.XPATH, '//*[@id="stat-var-hierarchy-section"]/div/div[1]/div[2]/div/div[1]')
-        )
+        element_present = EC.presence_of_element_located((
+            By.XPATH,
+            '//*[@id="stat-var-hierarchy-section"]/div/div[1]/div[2]/div/div[1]'
+        ))
         WebDriverWait(self.driver, self.TIMEOUT_SEC).until(element_present)
-        first_result = self.driver.find_element_by_xpath('//*[@id="stat-var-hierarchy-section"]/div/div[1]/div[2]/div/div[1]')
+        first_result = self.driver.find_element_by_xpath(
+            '//*[@id="stat-var-hierarchy-section"]/div/div[1]/div[2]/div/div[1]'
+        )
         first_result.click()
 
         # Assert that the section Count_Person_Male_AsianAlone opened and shows at least one chart
-        element_present = EC.presence_of_element_located(
-            (By.XPATH, '//*[@id="stat-var-hierarchy-section"]/div/div[2]/div/div/div/div/div/div/div/div/div/div/div/div/div/div/div/div/div/div/div/div[11]/div/div/div/div/div/div[1]/div[2]')
-        )
+        element_present = EC.presence_of_element_located((
+            By.XPATH,
+            '//*[@id="stat-var-hierarchy-section"]/div/div[2]/div/div/div/div/div/div/div/div/div/div/div/div/div/div/div/div/div/div/div/div[11]/div/div/div/div/div/div[1]/div[2]'
+        ))
         WebDriverWait(self.driver, self.TIMEOUT_SEC).until(element_present)
-        chart_title = self.driver.find_element_by_xpath('//*[@id="stat-var-hierarchy-section"]/div/div[2]/div/div/div/div/div/div/div/div/div/div/div/div/div/div/div/div/div/div/div/div[11]/div/div/div/div/h5/a')
-        self.assertTrue(chart_title.text.startswith('Count_Person_Male_AsianAlone for Mountain View'))
-        charts_section = self.driver.find_element_by_class_name('statvars-charts-section')
-        observation_charts = charts_section.find_elements_by_class_name('observation-chart')
+        chart_title = self.driver.find_element_by_xpath(
+            '//*[@id="stat-var-hierarchy-section"]/div/div[2]/div/div/div/div/div/div/div/div/div/div/div/div/div/div/div/div/div/div/div/div[11]/div/div/div/div/h5/a'
+        )
+        self.assertTrue(
+            chart_title.text.startswith(
+                'Count_Person_Male_AsianAlone for Mountain View'))
+        charts_section = self.driver.find_element_by_class_name(
+            'statvars-charts-section')
+        observation_charts = charts_section.find_elements_by_class_name(
+            'observation-chart')
         self.assertTrue(len(observation_charts) > 0)
 
     def test_observation_table_redirect(self):
@@ -335,13 +346,13 @@ class TestBrowser(WebdriverBaseTest):
         WebDriverWait(self.driver, self.TIMEOUT_SEC).until(element_present)
 
         # Click the point on the chart for the year 1850
-        element_present = EC.presence_of_element_located(
-            (By.TAG_NAME, 'svg'))
+        element_present = EC.presence_of_element_located((By.TAG_NAME, 'svg'))
         WebDriverWait(self.driver, self.TIMEOUT_SEC).until(element_present)
         point = self.driver.find_element_by_xpath(
-            '//*[@id="node-content"]/div[2]/div/div[1]/div[2]/div/div[2]/*[name()="svg"]/*[name()="g"][4]/*[name()="g"]/*[name()="circle"][1]')
+            '//*[@id="node-content"]/div[2]/div/div[1]/div[2]/div/div[2]/*[name()="svg"]/*[name()="g"][4]/*[name()="g"]/*[name()="circle"][1]'
+        )
         point.click()
-    
+
         # Wait for the new page to open in a new tab
         new_page_opened = EC.number_of_windows_to_be(2)
         WebDriverWait(self.driver, self.TIMEOUT_SEC).until(new_page_opened)
@@ -367,4 +378,3 @@ class TestBrowser(WebdriverBaseTest):
         typeOf_subtitle = self.driver.find_element_by_xpath(
             '//*[@id="node"]/h2[2]')
         self.assertEqual(typeOf_subtitle.text, 'typeOf: Observation')
-    
