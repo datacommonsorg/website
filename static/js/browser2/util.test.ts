@@ -15,7 +15,7 @@
  */
 
 import { getPageDisplayType, PageDisplayType } from "./types";
-import { removeLoadingMessage, getUnit } from "./util";
+import { getUnit } from "./util";
 
 test("getPageDisplayType", () => {
   // non empty stat var id
@@ -36,12 +36,6 @@ test("getPageDisplayType", () => {
   );
   // list of types doesn't contain anything special
   expect(getPageDisplayType(["country"], "")).toEqual(PageDisplayType.GENERAL);
-});
-
-test("removeLoadingMessage", () => {
-  document.body.innerHTML = '<div id="page-loading"></div>';
-  removeLoadingMessage();
-  expect(document.getElementById("page-loading").style.display).toBe("none");
 });
 
 test("getUnit", () => {
