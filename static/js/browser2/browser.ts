@@ -24,7 +24,7 @@ import { getPageDisplayType, PageDisplayType } from "./types";
 
 const TYPE_OF_UNKNOWN = "Unknown";
 const TYPE_OF_STAT_VAR = "StatisticalVariable";
-const TYPE_OF_OBSERVATION = "Observation";
+const TYPE_OF_OBSERVATION = "StatVarObservation";
 
 window.onload = () => {
   const dcid = document.getElementById("node").dataset.dcid;
@@ -44,13 +44,13 @@ window.onload = () => {
     .then(([typesData, numStatVars]) => {
       const types = typesData.values.out || [];
       const listOfTypes = types.map((type) => type.dcid);
-      const nodeType = getNodeType(dcid, listOfTypes, statVarId);
+      const nodeTypes = getNodeTypes(dcid, listOfTypes, statVarId);
       const pageDisplayType = getPageDisplayType(listOfTypes, statVarId);
       ReactDOM.render(
         React.createElement(BrowserPage, {
           dcid,
           nodeName,
-          nodeType,
+          nodeTypes,
           pageDisplayType,
           shouldShowStatVarHierarchy: numStatVars > 0 && _.isEmpty(statVarId),
           statVarId,
@@ -63,7 +63,7 @@ window.onload = () => {
         React.createElement(BrowserPage, {
           dcid,
           nodeName,
-          nodeType: getNodeType(dcid, [], statVarId),
+          nodeTypes: getNodeTypes(dcid, [], statVarId),
           pageDisplayType: PageDisplayType.GENERAL,
           shouldShowStatVarHierarchy: false,
           statVarId,
@@ -73,16 +73,16 @@ window.onload = () => {
     });
 };
 
-function getNodeType(
+function getNodeTypes(
   dcid: string,
   listOfTypes: string[],
   statVarId: string
-): string {
+): string[] {
   if (statVarId !== "") {
-    return TYPE_OF_STAT_VAR;
+    return [TYPE_OF_STAT_VAR];
   }
   if (dcid.startsWith("dc/o/")) {
-    return TYPE_OF_OBSERVATION;
+    return [TYPE_OF_OBSERVATION];
   }
-  return _.isEmpty(listOfTypes) ? TYPE_OF_UNKNOWN : listOfTypes[0];
+  return _.isEmpty(listOfTypes) ? [TYPE_OF_UNKNOWN] : listOfTypes;
 }
