@@ -104,25 +104,6 @@ class TestBrowser(WebdriverBaseTest):
         self.assertEqual(typeOf_row[1].text, 'City')
         self.assertEqual(typeOf_row[2].text, 'www.wikidata.org')
 
-        # Assert in arcs loaded
-        element_present = EC.presence_of_element_located(
-            (By.ID, 'browser-in-arc-section'))
-        WebDriverWait(self.driver, self.TIMEOUT_SEC).until(element_present)
-        in_arc_section = self.driver.find_element_by_id(
-            'browser-in-arc-section')
-        in_arc_cards = in_arc_section.find_elements_by_class_name('card')
-        self.assertTrue(len(in_arc_cards) > 0)
-
-        # Assert weather charts loaded
-        element_present = EC.presence_of_element_located(
-            (By.XPATH, '//*[@id="weather-chart-section"]/div[1]'))
-        WebDriverWait(self.driver, self.TIMEOUT_SEC).until(element_present)
-        weather_charts_section = self.driver.find_element_by_id(
-            'weather-chart-section')
-        weather_charts = weather_charts_section.find_elements_by_class_name(
-            'observation-chart')
-        self.assertEqual(len(weather_charts), 5)
-
         # Assert stat var hierarchy loaded
         element_present = EC.presence_of_element_located(
             (By.ID, 'stat-var-hierarchy-section'))
@@ -132,6 +113,26 @@ class TestBrowser(WebdriverBaseTest):
         sv_hierarchy_container = sv_hierarchy_section.find_elements_by_xpath(
             '//*[@id="stat-var-hierarchy-section"]/div')
         self.assertEqual(len(sv_hierarchy_container), 1)
+
+        # Assert in arcs loaded
+        element_present = EC.presence_of_element_located(
+            (By.XPATH,
+             '//*[@id="browser-in-arc-section"]/div[@class="card p-0"]'))
+        WebDriverWait(self.driver, self.TIMEOUT_SEC).until(element_present)
+        in_arc_section = self.driver.find_element_by_id(
+            'browser-in-arc-section')
+        in_arc_cards = in_arc_section.find_elements_by_class_name('card')
+        self.assertTrue(len(in_arc_cards) > 0)
+
+        # Assert weather charts loaded
+        element_present = EC.presence_of_element_located(
+            (By.XPATH, '//*[@id="weather-chart-section"]/div[@class="card"]'))
+        WebDriverWait(self.driver, self.TIMEOUT_SEC).until(element_present)
+        weather_charts_section = self.driver.find_element_by_id(
+            'weather-chart-section')
+        weather_charts = weather_charts_section.find_elements_by_class_name(
+            'observation-chart')
+        self.assertEqual(len(weather_charts), 5)
 
     def test_page_serve_ca_population(self):
         """Test the browser page for California population can be loaded successfully."""
@@ -272,15 +273,16 @@ class TestBrowser(WebdriverBaseTest):
         # Assert that the section Count_Person_Male_AsianAlone opened and shows at least one chart
         element_present = EC.presence_of_element_located((
             By.XPATH,
-            '//*[@id="stat-var-hierarchy-section"]/div/div[2]/div/div/div/div/div/div/div/div/div/div/div/div/div/div/div/div/div/div/div/div[11]/div/div/div/div/div/div[1]/div[2]'
+            '//div[@class="highlighted-stat-var"]/div/div/div/div/div[@class="card"]/div[@class="observation-chart"]'
         ))
         WebDriverWait(self.driver, self.TIMEOUT_SEC).until(element_present)
         chart_title = self.driver.find_element_by_xpath(
-            '//*[@id="stat-var-hierarchy-section"]/div/div[2]/div/div/div/div/div/div/div/div/div/div/div/div/div/div/div/div/div/div/div/div[11]/div/div/div/div/h5/a'
-        )
+            '//div[@class="highlighted-stat-var"]/div/div/div/h5/a')
+        self.assertEqual(
+            chart_title.text,
+            'Count_Person_Male_AsianAlone for Mountain Viewopen_in_new')
         self.assertTrue(
-            chart_title.text.startswith(
-                'Count_Person_Male_AsianAlone for Mountain View'))
+            chart_title.text.startswith('Count_Person_Male_AsianAlone'))
         charts_section = self.driver.find_element_by_class_name(
             'statvars-charts-section')
         observation_charts = charts_section.find_elements_by_class_name(
@@ -346,7 +348,10 @@ class TestBrowser(WebdriverBaseTest):
         WebDriverWait(self.driver, self.TIMEOUT_SEC).until(element_present)
 
         # Click the point on the chart for the year 1850
-        element_present = EC.presence_of_element_located((By.TAG_NAME, 'svg'))
+        element_present = EC.presence_of_element_located((
+            By.XPATH,
+            '//*[@id="node-content"]/div[2]/div/div[1]/div[2]/div/div[2]/*[name()="svg"]/*[name()="g"][4]/*[name()="g"]/*[name()="circle"][1]'
+        ))
         WebDriverWait(self.driver, self.TIMEOUT_SEC).until(element_present)
         point = self.driver.find_element_by_xpath(
             '//*[@id="node-content"]/div[2]/div/div[1]/div[2]/div/div[2]/*[name()="svg"]/*[name()="g"][4]/*[name()="g"]/*[name()="circle"][1]'

@@ -79,9 +79,9 @@ class LocalSvObsConfig(Config):
 class WebdriverConfig(Config):
     SVOBS = True
     WEBDRIVER = True
-    SECRET_PROJECT = 'datcom-website-statvar-migrate'
-    API_ROOT = 'https://mixer.endpoints.datcom-mixer-statvar.cloud.goog'
-    GCS_BUCKET = 'datcom-website-statvar-migrate-resources'
+    SECRET_PROJECT = 'datcom-website-dev'
+    API_ROOT = 'https://staging.api.datacommons.org'
+    GCS_BUCKET = ''
     SCHEME = 'http'
 
 

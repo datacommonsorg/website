@@ -95,7 +95,7 @@ class TestConfig(unittest.TestCase):
             'WEBDRIVER': True,
             'LOCAL': False,
             'LITE': False,
-            'SVOBS': False,
+            'SVOBS': True,
             'CACHE_TYPE': 'simple',
             'API_ROOT': 'https://staging.api.datacommons.org',
             'GCS_BUCKET': '',
