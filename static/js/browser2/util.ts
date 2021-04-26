@@ -22,17 +22,6 @@ import { SourceSeries } from "./types";
  */
 
 /**
- * Removes the loading message on the browser page if it is present.
- */
-export function removeLoadingMessage(): void {
-  // TODO (chejennifer): better way to handle loading
-  const loadingElem = document.getElementById("page-loading");
-  if (loadingElem) {
-    loadingElem.style.display = "none";
-  }
-}
-
-/**
  * Returns the unit for a sourceSeries if there is a unit.
  * @param sourceSeries
  */

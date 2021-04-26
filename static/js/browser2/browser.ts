@@ -34,11 +34,15 @@ window.onload = () => {
   if (!_.isEmpty(statVarId)) {
     document.title = `${statVarId} - ${document.title}`;
   }
-  axios
+  const typesPromise = axios
     .get(`/api/browser/propvals/typeOf/${dcid}`)
-    .then((resp) => {
-      const values = resp.data.values;
-      const types = values.out ? values.out : [];
+    .then((resp) => resp.data);
+  const numStatVarsPromise = axios
+    .get(`/api/browser/num_stat_vars/${dcid}`)
+    .then((resp) => resp.data);
+  Promise.all([typesPromise, numStatVarsPromise])
+    .then(([typesData, numStatVars]) => {
+      const types = typesData.values.out || [];
       const listOfTypes = types.map((type) => type.dcid);
       const nodeType = getNodeType(dcid, listOfTypes, statVarId);
       const pageDisplayType = getPageDisplayType(listOfTypes, statVarId);
@@ -48,6 +52,7 @@ window.onload = () => {
           nodeName,
           nodeType,
           pageDisplayType,
+          shouldShowStatVarHierarchy: numStatVars > 0 && _.isEmpty(statVarId),
           statVarId,
         }),
         document.getElementById("node")
@@ -60,6 +65,7 @@ window.onload = () => {
           nodeName,
           nodeType: getNodeType(dcid, [], statVarId),
           pageDisplayType: PageDisplayType.GENERAL,
+          shouldShowStatVarHierarchy: false,
           statVarId,
         }),
         document.getElementById("node")
