@@ -14,7 +14,6 @@
 """Data Commons Knowledge Graph Browser routes
 """
 
-import os
 from flask import Blueprint, render_template, current_app
 import routes.api.shared as shared_api
 
