@@ -77,6 +77,7 @@ class LocalSvObsConfig(Config):
 
 
 class WebdriverConfig(Config):
+    SVOBS = True
     WEBDRIVER = True
     SECRET_PROJECT = 'datcom-website-dev'
     API_ROOT = 'https://staging.api.datacommons.org'
