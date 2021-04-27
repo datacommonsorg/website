@@ -17,7 +17,7 @@ steps:
   - id: package_js
     name: gcr.io/datcom-ci/node
     entrypoint: /bin/bash
-    waitFor: ['-']
+    waitFor: ["-"]
     args:
       - -c
       - |
@@ -46,33 +46,30 @@ steps:
         # -t enables parallel testing flag.
         ./run_test.sh -tw
 
-  # Run screenshot test and save the images
-  - id: screenshot_test
-    name: gcr.io/datcom-ci/webdriver-chrome:2020-11-25
-    entrypoint: /bin/sh
-    waitFor:
-      - flask_webdriver_test
-    args:
-      - -c
-      - |
-        # Point SELENIUM_SERVER to the JAR file, needed to start Selenium Server/Grid.
-        export SELENIUM_SERVER=/resources/selenium-server-standalone-3.141.59.jar
-
-        # -t enables parallel testing flag.
-        ./run_test.sh -ts
-
-  # Copy over the screenshots to gcs
-  - name: gcr.io/cloud-builders/gsutil
-    entrypoint: /bin/sh
-    waitFor:
-      - screenshot_test
-    args:
-      - -c
-      - |
-        set -e
-        gsutil cp server/test_screenshots/*.png gs://datcom-browser-screenshot/$SHORT_SHA/
-        rm -rf server/test_screenshots
-
+  # # Run screenshot test and save the images
+  # - id: screenshot_test
+  #   name: gcr.io/datcom-ci/webdriver-chrome:2020-11-25
+  #   entrypoint: /bin/sh
+  #   waitFor:
+  #     - flask_webdriver_test
+  #   args:
+  #     - -c
+  #     - |
+  #       # Point SELENIUM_SERVER to the JAR file, needed to start Selenium Server/Grid.
+  #       export SELENIUM_SERVER=/resources/selenium-server-standalone-3.141.59.jar
+  #       # -t enables parallel testing flag.
+  #       ./run_test.sh -ts
+  # # Copy over the screenshots to gcs
+  # - name: gcr.io/cloud-builders/gsutil
+  #   entrypoint: /bin/sh
+  #   waitFor:
+  #     - screenshot_test
+  #   args:
+  #     - -c
+  #     - |
+  #       set -e
+  #       gsutil cp server/test_screenshots/*.png gs://datcom-browser-screenshot/$SHORT_SHA/
+  #       rm -rf server/test_screenshots
   # # Fetch author email from git commit history
   # - id: fetch author email
   #   name: "gcr.io/cloud-builders/git"

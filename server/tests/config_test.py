@@ -27,7 +27,6 @@ class TestConfig(unittest.TestCase):
             'WEBDRIVER': False,
             'LOCAL': False,
             'LITE': False,
-            'SVOBS': False,
             'CACHE_TYPE': 'simple',
             'API_ROOT': 'api-root',
             'GCS_BUCKET': 'gcs-bucket',
@@ -41,7 +40,6 @@ class TestConfig(unittest.TestCase):
             'WEBDRIVER': False,
             'LOCAL': True,
             'LITE': False,
-            'SVOBS': False,
             'CACHE_TYPE': 'simple',
             'API_ROOT': 'https://autopush.api.datacommons.org',
             'GCS_BUCKET': 'datcom-website-autopush-resources',
@@ -55,7 +53,6 @@ class TestConfig(unittest.TestCase):
             'WEBDRIVER': False,
             'LOCAL': True,
             'LITE': True,
-            'SVOBS': False,
             'CACHE_TYPE': 'simple',
             'API_ROOT': 'https://autopush.api.datacommons.org',
             'GCS_BUCKET': '',
@@ -73,8 +70,6 @@ class TestConfig(unittest.TestCase):
                 True,
             'LITE':
                 False,
-            'SVOBS':
-                True,
             'CACHE_TYPE':
                 'simple',
             'API_ROOT':
@@ -116,7 +111,6 @@ class TestConfig(unittest.TestCase):
         self.assertEqual(config.WEBDRIVER, expected['WEBDRIVER'])
         self.assertEqual(config.LOCAL, expected['LOCAL'])
         self.assertEqual(config.LITE, expected['LITE'])
-        self.assertEqual(config.SVOBS, expected['SVOBS'])
         self.assertEqual(config.CACHE_TYPE, expected['CACHE_TYPE'])
         self.assertEqual(config.API_ROOT, expected['API_ROOT'])
         self.assertEqual(config.GCS_BUCKET, expected['GCS_BUCKET'])
