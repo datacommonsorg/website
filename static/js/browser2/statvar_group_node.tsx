@@ -226,51 +226,47 @@ export class ChildStatVarGroupSection extends React.Component<
   ChildStatVarGroupSectionPropType
 > {
   render(): JSX.Element {
-    const childStatVarGroups = this.props.data[this.props.statVarGroupId]
+    let childStatVarGroups = this.props.data[this.props.statVarGroupId]
       .childStatVarGroups;
     const variableGroupItem = childStatVarGroups.find((svg) =>
       svg.id.startsWith(VARIABLES_STATVAR_GROUP_PREFIX)
     );
     if (variableGroupItem) {
-      childStatVarGroups.filter((svg) =>
-        svg.id.startsWith(VARIABLES_STATVAR_GROUP_PREFIX)
+      childStatVarGroups = childStatVarGroups.filter(
+        (svg) => !svg.id.startsWith(VARIABLES_STATVAR_GROUP_PREFIX)
       );
       childStatVarGroups.unshift(variableGroupItem);
     }
     return (
       <div className="svg-node-child">
-        {this.props.data[this.props.statVarGroupId].childStatVarGroups.map(
-          (childStatVarGroup) => {
-            if (
-              _.isEmpty(this.props.pathToSelection) ||
-              this.props.pathToSelection[0] === childStatVarGroup.id
-            ) {
-              return (
-                <div
-                  key={childStatVarGroup.id}
-                  ref={
-                    this.props.pathToSelection.length === 1
-                      ? this.props.highlightedStatVar
-                      : null
-                  }
-                >
-                  <StatVarGroupNode
-                    placeDcid={this.props.placeDcid}
-                    placeName={this.props.placeName}
-                    statVarGroupId={childStatVarGroup.id}
-                    data={this.props.data}
-                    pathToSelection={this.props.pathToSelection.slice(1)}
-                    specializedEntity={childStatVarGroup.specializedEntity}
-                    open={
-                      this.props.pathToSelection[0] === childStatVarGroup.id
-                    }
-                    isSelected={this.props.pathToSelection.length === 1}
-                  />
-                </div>
-              );
-            }
+        {childStatVarGroups.map((childStatVarGroup) => {
+          if (
+            _.isEmpty(this.props.pathToSelection) ||
+            this.props.pathToSelection[0] === childStatVarGroup.id
+          ) {
+            return (
+              <div
+                key={childStatVarGroup.id}
+                ref={
+                  this.props.pathToSelection.length === 1
+                    ? this.props.highlightedStatVar
+                    : null
+                }
+              >
+                <StatVarGroupNode
+                  placeDcid={this.props.placeDcid}
+                  placeName={this.props.placeName}
+                  statVarGroupId={childStatVarGroup.id}
+                  data={this.props.data}
+                  pathToSelection={this.props.pathToSelection.slice(1)}
+                  specializedEntity={childStatVarGroup.specializedEntity}
+                  open={this.props.pathToSelection[0] === childStatVarGroup.id}
+                  isSelected={this.props.pathToSelection.length === 1}
+                />
+              </div>
+            );
           }
-        )}
+        })}
       </div>
     );
   }

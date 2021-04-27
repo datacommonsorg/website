@@ -29,7 +29,7 @@ const DCID_PREDICATE = "dcid";
 const TYPEOF_PREDICATE = "typeOf";
 const LOADING_CONTAINER_ID = "out-arc-loading";
 const STAT_VAR_OBS_DCID = "StatVarObservation";
-const STAT_VAR_OBS_PROVENANCE = "dc/5l5zxr1"
+const STAT_VAR_OBS_PROVENANCE = "dc/5l5zxr1";
 
 interface OutArcData {
   [predicate: string]: {
@@ -94,7 +94,11 @@ export class OutArcSection extends React.Component<
     }
     const data = this.state.data;
     if (this.props.nodeTypes.includes(STAT_VAR_OBS_DCID)) {
-      data[TYPEOF_PREDICATE] = {[STAT_VAR_OBS_PROVENANCE]: [{text: STAT_VAR_OBS_DCID, dcid: STAT_VAR_OBS_DCID}]}
+      data[TYPEOF_PREDICATE] = {
+        [STAT_VAR_OBS_PROVENANCE]: [
+          { text: STAT_VAR_OBS_DCID, dcid: STAT_VAR_OBS_DCID },
+        ],
+      };
     }
     const predicates = Object.keys(this.state.data);
     predicates.sort(this.predicateComparator);
