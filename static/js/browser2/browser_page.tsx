@@ -37,7 +37,7 @@ interface BrowserPagePropType {
   nodeName: string;
   pageDisplayType: PageDisplayType;
   statVarId: string;
-  nodeType: string;
+  nodeTypes: string[];
   shouldShowStatVarHierarchy: boolean;
 }
 
@@ -100,7 +100,7 @@ export class BrowserPage extends React.Component<
           <>
             <h2 className="browser-header-subtitle">dcid: {this.props.dcid}</h2>
             <h2 className="browser-header-subtitle">
-              typeOf: {this.props.nodeType}
+              typeOf: {this.props.nodeTypes.join(", ")}
             </h2>
           </>
         )}
@@ -111,6 +111,7 @@ export class BrowserPage extends React.Component<
               dcid={arcDcid}
               labels={this.state.outLabels}
               provDomain={this.state.provDomain}
+              nodeTypes={this.props.nodeTypes}
             />
           </div>
           {this.props.shouldShowStatVarHierarchy && (

@@ -11,14 +11,11 @@ class Config:
     WEBDRIVER = False
     LOCAL = False
     LITE = False
-    # Use StatVarObs instead of PopObs data model.
-    # TODO(shifucun): change this to True after setting svobs_mode=true in mixer
-    # by default.
-    SVOBS = False
     CACHE_TYPE = 'simple'  # Flask-Caching related configs
     VERSION = '{}-{}'.format(os.environ.get('WEBSITE_HASH'),
                              os.environ.get('MIXER_HASH'))
 
+    SVOBS = True
     API_ROOT = 'http://127.0.0.1:8081'  # Port for Kubernetes ESP.
     GCS_BUCKET = os.environ.get('GCS_BUCKET') or ''
     SECRET_PROJECT = os.environ.get('SECRET_PROJECT') or ''
@@ -40,11 +37,11 @@ class AutopushConfig(Config):
 
 
 class SvObsConfig(Config):
-    SVOBS = True
+    pass
 
 
 class DevConfig(Config):
-    SVOBS = True
+    pass
 
 
 class MinikubeConfig(Config):
@@ -68,7 +65,6 @@ class LocalLiteConfig(Config):
 
 
 class LocalSvObsConfig(Config):
-    SVOBS = True
     LOCAL = True
     SECRET_PROJECT = 'datcom-website-statvar-migrate'
     API_ROOT = 'https://mixer.endpoints.datcom-mixer-statvar.cloud.goog'

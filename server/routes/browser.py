@@ -14,8 +14,7 @@
 """Data Commons Knowledge Graph Browser routes
 """
 
-import os
-from flask import Blueprint, render_template
+from flask import Blueprint, render_template, current_app
 import routes.api.shared as shared_api
 
 bp = Blueprint('browser', __name__, url_prefix='/browser')
@@ -28,7 +27,7 @@ def browser_main():
 
 @bp.route('/<path:dcid>')
 def browser_node(dcid):
-    if os.environ.get('FLASK_ENV') in ['svobs', 'local-svobs', 'webdriver']:
+    if current_app.config['SVOBS']:
         node_name = shared_api.cached_name(dcid).get(dcid)
         if not node_name:
             node_name = dcid
