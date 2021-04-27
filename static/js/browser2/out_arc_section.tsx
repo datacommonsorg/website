@@ -26,7 +26,10 @@ import { loadSpinner, removeSpinner } from "./util";
 import { ArcValue } from "./types";
 
 const DCID_PREDICATE = "dcid";
+const TYPEOF_PREDICATE = "typeOf";
 const LOADING_CONTAINER_ID = "out-arc-loading";
+const STAT_VAR_OBS_DCID = "StatVarObservation";
+const STAT_VAR_OBS_PROVENANCE = "dc/5l5zxr1";
 
 interface OutArcData {
   [predicate: string]: {
@@ -47,6 +50,7 @@ interface OutArcSectionPropType {
   dcid: string;
   labels: string[];
   provDomain: { [key: string]: URL };
+  nodeTypes: string[];
 }
 
 interface OutArcSectionStateType {
@@ -87,6 +91,14 @@ export class OutArcSection extends React.Component<
     }
     if (_.isEmpty(this.state.data)) {
       return <div className="info-message">{this.notANodeMessage}</div>;
+    }
+    const data = this.state.data;
+    if (this.props.nodeTypes.includes(STAT_VAR_OBS_DCID)) {
+      data[TYPEOF_PREDICATE] = {
+        [STAT_VAR_OBS_PROVENANCE]: [
+          { text: STAT_VAR_OBS_DCID, dcid: STAT_VAR_OBS_DCID },
+        ],
+      };
     }
     const predicates = Object.keys(this.state.data);
     predicates.sort(this.predicateComparator);
