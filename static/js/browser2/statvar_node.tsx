@@ -61,6 +61,9 @@ export class StatVarNode extends React.Component<
         trigger={trigger}
         open={this.props.selected}
         onOpening={() => this.setState({ renderContent: true })}
+        containerElementProps={
+          this.props.selected ? { class: "highlighted-stat-var" } : {}
+        }
       >
         {this.state.renderContent && (
           <div className="statvars-charts-section">
