@@ -337,7 +337,7 @@ class TestBrowser(WebdriverBaseTest):
         self.assertEqual(dcid_subtitle.text, 'dcid: dc/o/75nyhng64bygb')
         typeOf_subtitle = self.driver.find_element_by_xpath(
             '//*[@id="node"]/h2[2]')
-        self.assertEqual(typeOf_subtitle.text, 'typeOf: Observation')
+        self.assertEqual(typeOf_subtitle.text, 'typeOf: StatVarObservation')
 
     def test_observation_chart_redirect(self):
         """Test that the observation chart observation node links can redirect properly"""
@@ -382,4 +382,4 @@ class TestBrowser(WebdriverBaseTest):
         self.assertEqual(dcid_subtitle.text, 'dcid: dc/o/75nyhng64bygb')
         typeOf_subtitle = self.driver.find_element_by_xpath(
             '//*[@id="node"]/h2[2]')
-        self.assertEqual(typeOf_subtitle.text, 'typeOf: Observation')
+        self.assertEqual(typeOf_subtitle.text, 'typeOf: StatVarObservation')
