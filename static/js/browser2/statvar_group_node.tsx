@@ -97,6 +97,9 @@ export class StatVarGroupNode extends React.Component<
         onOpening={() => this.setState({ isRendered: true })}
         transitionTime={200}
         onOpen={this.scrollToHighlighted}
+        containerElementProps={
+          this.props.isSelected ? { class: "highlighted-stat-var-group" } : {}
+        }
       >
         {this.state.isRendered && (
           <>
