@@ -112,7 +112,7 @@ class TestBrowser(WebdriverBaseTest):
             'stat-var-hierarchy-section')
         sv_hierarchy_container = sv_hierarchy_section.find_elements_by_xpath(
             '//*[@id="stat-var-hierarchy-section"]/div')
-        self.assertEqual(len(sv_hierarchy_container), 1)
+        self.assertTrue(len(sv_hierarchy_container) > 0)
 
         # Assert in arcs loaded
         element_present = EC.presence_of_element_located(
