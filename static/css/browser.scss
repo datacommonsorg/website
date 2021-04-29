@@ -350,3 +350,12 @@ td a {
   position: relative;
   min-height: 200px;
 }
+
+.browser-section-trigger .title:hover {
+  background-color: var(--dc-gray-lite);
+}
+
+.browser-section-trigger .material-icons {
+  padding-right: 6px;
+  vertical-align: bottom;
+}

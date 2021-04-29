@@ -42,7 +42,6 @@ interface ObservationChartPropType {
   placeDcid: string;
   canClickObs: boolean;
   statVarName?: string;
-  dateToDcid?: { [date: string]: string };
 }
 
 interface ObservationChartStateType {
@@ -217,38 +216,32 @@ export class ObservationChart extends React.Component<
     if (!this.props.canClickObs) {
       return;
     }
-    if (date in this.props.dateToDcid) {
-      const obsDcid = this.props.dateToDcid[date];
-      const uri = URI_PREFIX + obsDcid;
-      window.open(uri);
-    } else {
-      // TODO(chejennifer): triggers pop up warning because opening the new tab
-      // is not result of user action. Find better way to do this.
-      this.loadSpinner();
-      let request = `/api/browser/observation-id?place=${this.props.placeDcid}&statVar=${this.props.statVarId}&date=${date}`;
-      if (this.props.sourceSeries.measurementMethod) {
-        request = `${request}&measurementMethod=${this.props.sourceSeries.measurementMethod}`;
-      }
-      if (this.props.sourceSeries.observationPeriod) {
-        request = `${request}&obsPeriod=${this.props.sourceSeries.observationPeriod}`;
-      }
-      axios
-        .get(request)
-        .then((resp) => {
-          this.removeSpinner();
-          const obsDcid = resp.data;
-          if (obsDcid) {
-            const uri = URI_PREFIX + obsDcid;
-            window.open(uri);
-          } else {
-            this.updateErrorMessage(NO_OBSDCID_ERROR_MESSAGE);
-          }
-        })
-        .catch(() => {
-          this.removeSpinner();
-          this.updateErrorMessage(NO_OBSDCID_ERROR_MESSAGE);
-        });
+    // TODO(chejennifer): triggers pop up warning because opening the new tab
+    // is not result of user action. Find better way to do this.
+    this.loadSpinner();
+    let request = `/api/browser/observation-id?place=${this.props.placeDcid}&statVar=${this.props.statVarId}&date=${date}`;
+    if (this.props.sourceSeries.measurementMethod) {
+      request = `${request}&measurementMethod=${this.props.sourceSeries.measurementMethod}`;
     }
+    if (this.props.sourceSeries.observationPeriod) {
+      request = `${request}&obsPeriod=${this.props.sourceSeries.observationPeriod}`;
+    }
+    axios
+      .get(request)
+      .then((resp) => {
+        this.removeSpinner();
+        const obsDcid = resp.data;
+        if (obsDcid) {
+          const uri = URI_PREFIX + obsDcid;
+          window.open(uri);
+        } else {
+          this.updateErrorMessage(NO_OBSDCID_ERROR_MESSAGE);
+        }
+      })
+      .catch(() => {
+        this.removeSpinner();
+        this.updateErrorMessage(NO_OBSDCID_ERROR_MESSAGE);
+      });
   }
 
   private updateErrorMessage(message: string): void {

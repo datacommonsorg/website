@@ -21,6 +21,7 @@
 import React from "react";
 import axios from "axios";
 import _ from "lodash";
+import Collapsible from "react-collapsible";
 import { ImageSection } from "./image_section";
 import { ObservationChartSection } from "./observation_chart_section";
 import { StatVarHierarchy } from "./statvar_hierarchy";
@@ -46,6 +47,7 @@ interface BrowserPageStateType {
   dataFetched: boolean;
   inLabels: string[];
   outLabels: string[];
+  isWeatherChartsSectionOpen: boolean;
 }
 
 export class BrowserPage extends React.Component<
@@ -59,6 +61,7 @@ export class BrowserPage extends React.Component<
       inLabels: [],
       outLabels: [],
       provDomain: {},
+      isWeatherChartsSectionOpen: false,
     };
   }
 
@@ -78,6 +81,12 @@ export class BrowserPage extends React.Component<
         ? PLACE_STAT_VAR_PROPERTIES_HEADER
         : GENERAL_PROPERTIES_HEADER;
     const arcDcid = this.getArcDcid();
+    const getWeatherChartTrigger = (opened: boolean) => {
+      return React.createElement(BrowserSectionTrigger, {
+        opened,
+        title: "Weather Observations",
+      });
+    };
     return (
       <>
         {this.props.pageDisplayType === PageDisplayType.PLACE_STAT_VAR && (
@@ -147,11 +156,21 @@ export class BrowserPage extends React.Component<
           {this.props.pageDisplayType ===
             PageDisplayType.PLACE_WITH_WEATHER_INFO && (
             <div className="browser-page-section">
-              <h3>Weather Observations</h3>
-              <WeatherChartSection
-                dcid={this.props.dcid}
-                provDomain={this.state.provDomain}
-              />
+              <Collapsible
+                trigger={getWeatherChartTrigger(false)}
+                triggerWhenOpen={getWeatherChartTrigger(true)}
+                open={false}
+                onOpening={() =>
+                  this.setState({ isWeatherChartsSectionOpen: true })
+                }
+              >
+                {this.state.isWeatherChartsSectionOpen && (
+                  <WeatherChartSection
+                    dcid={this.props.dcid}
+                    provDomain={this.state.provDomain}
+                  />
+                )}
+              </Collapsible>
             </div>
           )}
           {this.props.pageDisplayType ===
@@ -199,5 +218,29 @@ export class BrowserPage extends React.Component<
           dataFetched: true,
         });
       });
+  }
+}
+
+interface BrowserSectionTriggerPropType {
+  title: string;
+  opened: boolean;
+}
+
+export class BrowserSectionTrigger extends React.Component<
+  BrowserSectionTriggerPropType
+> {
+  render(): JSX.Element {
+    return (
+      <div className="browser-section-trigger">
+        <h3 className="title">
+          {this.props.opened ? (
+            <i className="material-icons">remove</i>
+          ) : (
+            <i className="material-icons">add</i>
+          )}
+          {this.props.title}
+        </h3>
+      </div>
+    );
   }
 }

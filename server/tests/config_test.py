@@ -86,18 +86,30 @@ class TestConfig(unittest.TestCase):
                 'http',
         }),
         ('webdriver', {
-            'TEST': False,
-            'WEBDRIVER': True,
-            'LOCAL': False,
-            'LITE': False,
-            'SVOBS': True,
-            'CACHE_TYPE': 'simple',
-            'API_ROOT': 'https://staging.api.datacommons.org',
-            'GCS_BUCKET': '',
-            'SECRET_PROJECT': 'datcom-website-dev',
-            'GA_ACCOUNT': '',
-            'MAPS_API_KEY': '',
-            'SCHEME': 'http',
+            'TEST':
+                False,
+            'WEBDRIVER':
+                True,
+            'LOCAL':
+                False,
+            'LITE':
+                False,
+            'SVOBS':
+                True,
+            'CACHE_TYPE':
+                'simple',
+            'API_ROOT':
+                'https://mixer.endpoints.datcom-mixer-statvar.cloud.goog',
+            'GCS_BUCKET':
+                '',
+            'SECRET_PROJECT':
+                'datcom-website-dev',
+            'GA_ACCOUNT':
+                '',
+            'MAPS_API_KEY':
+                '',
+            'SCHEME':
+                'http',
         })
     ])
     def test_format_title(self, env, expected):
