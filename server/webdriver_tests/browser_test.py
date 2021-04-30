@@ -124,7 +124,18 @@ class TestBrowser(WebdriverBaseTest):
         in_arc_cards = in_arc_section.find_elements_by_class_name('card')
         self.assertTrue(len(in_arc_cards) > 0)
 
-        # Assert weather charts loaded
+        # Assert weather charts start off collapsed
+        element_present = EC.presence_of_element_located(
+            (By.CLASS_NAME, 'browser-section-trigger'))
+        WebDriverWait(self.driver, self.TIMEOUT_SEC).until(element_present)
+        weather_charts = self.driver.find_elements_by_class_name(
+            'observation-chart')
+        self.assertEqual(len(weather_charts), 0)
+
+        # expand weather charts section and assert there are charts present
+        trigger = self.driver.find_element_by_xpath(
+            '//*[@id="node-content"]/div[4]/div/span')
+        trigger.click()
         element_present = EC.presence_of_element_located(
             (By.XPATH, '//*[@id="weather-chart-section"]/div[@class="card"]'))
         WebDriverWait(self.driver, self.TIMEOUT_SEC).until(element_present)

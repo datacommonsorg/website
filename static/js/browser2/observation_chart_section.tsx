@@ -25,10 +25,7 @@ import { ObservationChart } from "./observation_chart";
 import { getUnit, loadSpinner, removeSpinner } from "./util";
 import { SourceSeries } from "./types";
 import { randDomId } from "../shared/util";
-import { URI_PREFIX } from "./constants";
 
-const NO_MMETHOD_KEY = "no_mmethod";
-const NO_OBSPERIOD_KEY = "no_obsPeriod";
 const IGNORED_SOURCE_SERIES_MMETHODS = new Set([
   "GoogleKGHumanCurated",
   "HumanCuratedStats",
@@ -68,7 +65,6 @@ export class ObservationChartSection extends React.Component<
 
   componentDidMount(): void {
     this.fetchData();
-    this.fetchObsDcidMap();
   }
 
   render(): JSX.Element {
@@ -85,16 +81,6 @@ export class ObservationChartSection extends React.Component<
         )}
         {this.state.data.map((sourceSeries, index) => {
           const unit = getUnit(sourceSeries);
-          const mmethod = sourceSeries.measurementMethod
-            ? sourceSeries.measurementMethod
-            : NO_MMETHOD_KEY;
-          const obsPeriod = sourceSeries.observationPeriod
-            ? sourceSeries.observationPeriod
-            : NO_OBSPERIOD_KEY;
-          const dateToDcid =
-            mmethod in this.state.obsDcidMapping
-              ? this.state.obsDcidMapping[mmethod][obsPeriod]
-              : {};
           return (
             <div className="card" key={this.props.statVarId + index}>
               <div className="chart-title">
@@ -117,7 +103,6 @@ export class ObservationChartSection extends React.Component<
                 placeDcid={this.props.placeDcid}
                 canClickObs={true}
                 statVarName={this.props.statVarName}
-                dateToDcid={dateToDcid}
               />
               <p className="metadata">
                 provenance: {sourceSeries.provenanceDomain}
@@ -162,26 +147,5 @@ export class ObservationChartSection extends React.Component<
           errorMessage: "Error retrieving observation charts data.",
         });
       });
-  }
-
-  private fetchObsDcidMap(): void {
-    axios
-      .get(
-        `/api/browser/observation-ids-map?place=${this.props.placeDcid}&statVar=${this.props.statVarId}`
-      )
-      .then((resp) => {
-        this.setState({
-          obsDcidMapping: resp.data,
-        });
-      })
-      .catch(() => {
-        this.setState({
-          obsDcidMapping: {},
-        });
-      });
-  }
-
-  private placeStatVarUri(): string {
-    return `${URI_PREFIX}${this.props.placeDcid}?statVar=${this.props.statVarId}`;
   }
 }

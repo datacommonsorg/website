@@ -73,10 +73,11 @@ class LocalSvObsConfig(Config):
 
 
 class WebdriverConfig(Config):
-    SVOBS = True
     WEBDRIVER = True
     SECRET_PROJECT = 'datcom-website-dev'
-    API_ROOT = 'https://staging.api.datacommons.org'
+    # TODO (chejennifer): switch API_ROOT back to staging.api.datacommons.org
+    # after mixer has been updated to svobs mode
+    API_ROOT = 'https://mixer.endpoints.datcom-mixer-statvar.cloud.goog'
     GCS_BUCKET = ''
     SCHEME = 'http'
 

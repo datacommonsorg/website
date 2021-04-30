@@ -128,43 +128,6 @@ def get_observation_id():
     return Response(json.dumps(result), 200, mimetype='application/json')
 
 
-@cache.cached(timeout=3600 * 24, query_string=True)  # Cache for one day.
-@bp.route('/observation-ids-map')
-def get_observation_ids_map():
-    """Returns a mapping of date to observation node dcid for a combination of
-    predicates: observedNodeLocation, statisticalVariable, measurementMethod
-    (optional), observationPeriod (optional)"""
-    place_id = request.args.get("place")
-    if not place_id:
-        return Response(json.dumps("error: must provide a place field"),
-                        400,
-                        mimetype='application/json')
-    stat_var_id = request.args.get("statVar")
-    if not stat_var_id:
-        return Response(json.dumps("error: must provide a statVar field"),
-                        400,
-                        mimetype='application/json')
-    sparql_query = get_sparql_query(place_id, stat_var_id, "")
-    result = ""
-    (_, rows) = dc.query(sparql_query)
-    result = {}
-    for row in rows:
-        cells = row.get('cells', [])
-        if len(cells) != 4:
-            continue
-        dcid = cells[0].get('value', '')
-        mmethod = cells[1].get('value', NO_MMETHOD_KEY)
-        obsPeriod = cells[2].get('value', NO_OBSPERIOD_KEY)
-        obsDate = cells[3].get('value', '')
-        if mmethod not in result:
-            result[mmethod] = {}
-        if obsPeriod not in result[mmethod]:
-            result[mmethod][obsPeriod] = {}
-        obsDateMapping = result[mmethod][obsPeriod]
-        obsDateMapping[obsDate] = dcid
-    return Response(json.dumps(result), 200, mimetype='application/json')
-
-
 def statvar_hierarchy_helper(svg_id, svg_map, processed_svg_map, processed_sv,
                              seen_sv, level):
     """Processes the childStatVars and childStatVarGroups of a stat var group.
