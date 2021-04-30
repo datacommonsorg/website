@@ -20,7 +20,7 @@ nameSuffix:
 namespace: website
 
 resources:
-  - ../../svobs
+  - ../../base
 
 configMapGenerator:
   - name: website-configmap

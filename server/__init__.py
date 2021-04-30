@@ -16,10 +16,9 @@ import json
 import logging
 import os
 
-from flask import Flask, redirect, request, g
+from flask import Flask, request, g
 from flask_babel import Babel
 from google.cloud import storage
-from werkzeug.utils import import_string
 
 from google.cloud import secretmanager
 from opencensus.ext.flask.flask_middleware import FlaskMiddleware

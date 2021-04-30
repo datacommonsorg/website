@@ -33,7 +33,3 @@
 # TODO(shifucun): Figure out why readiness probe fails when running "python main.py"
 - op: remove
   path: /spec/template/spec/containers/0/readinessProbe
-
-- op: add
-  path: /spec/template/spec/containers/1/args/0
-  value: --svobs_mode=true

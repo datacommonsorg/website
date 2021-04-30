@@ -15,7 +15,6 @@ class Config:
     VERSION = '{}-{}'.format(os.environ.get('WEBSITE_HASH'),
                              os.environ.get('MIXER_HASH'))
 
-    SVOBS = True
     API_ROOT = 'http://127.0.0.1:8081'  # Port for Kubernetes ESP.
     GCS_BUCKET = os.environ.get('GCS_BUCKET') or ''
     SECRET_PROJECT = os.environ.get('SECRET_PROJECT') or ''
@@ -33,10 +32,6 @@ class StagingConfig(Config):
 
 
 class AutopushConfig(Config):
-    pass
-
-
-class SvObsConfig(Config):
     pass
 
 
@@ -61,14 +56,6 @@ class LocalLiteConfig(Config):
     LOCAL = True
     LITE = True
     API_ROOT = 'https://autopush.api.datacommons.org'
-    SCHEME = 'http'
-
-
-class LocalSvObsConfig(Config):
-    LOCAL = True
-    SECRET_PROJECT = 'datcom-website-statvar-migrate'
-    API_ROOT = 'https://mixer.endpoints.datcom-mixer-statvar.cloud.goog'
-    GCS_BUCKET = 'datcom-website-statvar-migrate-resources'
     SCHEME = 'http'
 
 

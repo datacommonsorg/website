@@ -24,7 +24,7 @@ nameSuffix: -autopush
 namespace: website
 
 resources:
-  - ../../svobs
+  - ../../base
 
 configMapGenerator:
   - name: website-configmap
@@ -47,15 +47,3 @@ patchesStrategicMerge:
       name: website-app
     spec:
       replicas: 6
-
-# set svobs_mode to true
-patchesJson6902:
-  - target:
-      group: apps
-      version: v1
-      kind: Deployment
-      name: website-app
-    patch: |-
-      - op: add
-        path: /spec/template/spec/containers/1/args/0
-        value: --svobs_mode=true
