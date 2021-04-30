@@ -113,7 +113,7 @@ function run_webdriver_test {
     exit 1
   fi
   export FLASK_ENV=webdriver
-  export GOOGLE_CLOUD_PROJECT=datcom-website-staging
+  export GOOGLE_CLOUD_PROJECT=datcom-website-dev
 
   if [ $PYTEST_PARALLEL ]
   then

@@ -50,10 +50,10 @@ deploy:
   kubeContext: minikube
   kustomize:
     paths:
-      - deploy/overlays/dev
+      - deploy/overlays/local
 portForward:
   - resourceType: service
-    resourceName: website-service-dev
+    resourceName: website-service-local
     namespace: website
     port: 8080
     localPort: 8080
