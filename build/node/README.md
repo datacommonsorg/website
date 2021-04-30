@@ -21,7 +21,8 @@ entire node_modules from scratch.
 
 ## How to build the Docker image
 
-To generate the Docker image and push it to GCS, run
+To generate the Docker image and push it to GCS, change the version number in
+cloudbuild.yaml, then run:
 
 ```bash
 gcloud builds submit . --config=cloudbuild.yaml

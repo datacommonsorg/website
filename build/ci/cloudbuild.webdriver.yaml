@@ -15,7 +15,7 @@
 steps:
   # Build the static files
   - id: package_js
-    name: gcr.io/datcom-ci/node
+    name: gcr.io/datcom-ci/node:2021-04-30
     entrypoint: /bin/bash
     waitFor: ["-"]
     args:
@@ -33,7 +33,7 @@ steps:
 
   # Run the webdriver tests
   - id: flask_webdriver_test
-    name: gcr.io/datcom-ci/webdriver-chrome:2020-11-25
+    name: gcr.io/datcom-ci/webdriver-chrome:2021-04-30
     entrypoint: /bin/sh
     waitFor:
       - package_js
@@ -102,3 +102,6 @@ steps:
   #         --pull_request=$_PR_NUMBER
 
 timeout: 3600s
+
+options:
+  machineType: "N1_HIGHCPU_8"
