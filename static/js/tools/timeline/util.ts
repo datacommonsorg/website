@@ -264,4 +264,4 @@ class TimelineParams {
   }
 }
 
-export { getPlaceNames, TimelineParams, StatsVarNode, ChartOptions };
+export { getPlaceNames, TimelineParams, ChartOptions };

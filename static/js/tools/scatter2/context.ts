@@ -19,7 +19,7 @@
  */
 
 import { createContext, useState } from "react";
-import { StatsVarNode } from "../timeline/util";
+import { StatsVarNode } from "../statvar_menu/util";
 
 interface Axis {
   // StatVar to plot for this axis

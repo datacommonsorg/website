@@ -16,7 +16,7 @@
 
 import React, { Component } from "react";
 import axios from "axios";
-import { StatsVarNode } from "../timeline/util";
+import { StatsVarNode } from "../statvar_menu/util";
 import hierarchy from "../../../data/hierarchy_top.json";
 import { StatsVarFilterInterface } from "../commons";
 import _ from "lodash";
