@@ -17,6 +17,8 @@ import axios from "axios";
 import statsVarPathMap from "../../../data/statsvar_path.json";
 import _ from "lodash";
 
+import { StatsVarNode } from "../statvar_menu/util";
+
 function getPlaceNames(dcids: string[]): Promise<{ [key: string]: string }> {
   let url = "/api/place/name?";
   const urls = [];
@@ -32,14 +34,6 @@ function getPlaceNames(dcids: string[]): Promise<{ [key: string]: string }> {
 const placeSep = ",";
 const nodePathSep = ",";
 const statsVarSep = "__";
-
-interface StatsVarNode {
-  // key: statsVar Id
-  // value: object of two fields
-  // 1) "paths" is an array of nodePath
-  // 2) "denominators" is an array of possible per capita denominator DCIDs
-  [key: string]: { paths: string[][]; denominators?: string[] };
-}
 
 interface ChartOptions {
   [key: string]: {
