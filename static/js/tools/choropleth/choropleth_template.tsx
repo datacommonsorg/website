@@ -16,7 +16,7 @@
 
 import React, { Component } from "react";
 import ReactDOM from "react-dom";
-import { Menu } from "../statsvar_menu";
+import { Menu } from "../statvar_menu/menu";
 import { ChoroplethMap } from "./choropleth";
 import { NoopStatsVarFilter, TimelineStatsVarFilter } from "../commons";
 import axios from "axios";

@@ -14,8 +14,8 @@
  * limitations under the License.
  */
 import axios from "axios";
-import { TimelineParams } from "./timeline_util";
-import { saveToFile } from "../shared/util";
+import { TimelineParams } from "./util";
+import { saveToFile } from "../../shared/util";
 
 /* Start the loading spinner and gray out the background. */
 function loadSpinner(): void {
