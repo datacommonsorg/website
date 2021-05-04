@@ -65,18 +65,11 @@ const TestContext = ({
       upperBound: 99999,
     },
   },
-  date: {
-    value: {
-      year: 2016,
-      month: 0,
-      day: 0,
-    },
-  },
 } as unknown) as ContextType;
 const Hash =
   "#%26svx%3DCount_Person%26svpx%3D0-1%26svdx%3DCount_Person_Female%26svnx%3DPeople" +
   "%26lx%3D1%26svy%3DCount_HousingUnit%26svpy%3D5-6%26svny%3DHousing%20Units%26pcy%3D1" +
-  "%26epd%3DgeoId%2F10%26epn%3DDelaware%26ept%3DCounty%26ub%3D99999%26y%3D2016";
+  "%26epd%3DgeoId%2F10%26epn%3DDelaware%26ept%3DCounty%26ub%3D99999";
 
 test("updateHash", () => {
   history.pushState = jest.fn();
@@ -89,11 +82,10 @@ test("updateHash", () => {
 });
 
 test("applyHash", () => {
-  const context = { x: {}, y: {}, place: {}, date: {} } as ContextType;
+  const context = { x: {}, y: {}, place: {} } as ContextType;
   context.x.set = (value) => (context.x.value = value);
   context.y.set = (value) => (context.y.value = value);
   context.place.set = (value) => (context.place.value = value);
-  context.date.set = (value) => (context.date.value = value);
   location.hash = Hash;
   applyHash(context);
   expect(context.x.value).toEqual({
@@ -110,5 +102,4 @@ test("applyHash", () => {
     ...TestContext.place.value,
     enclosedPlaces: [],
   });
-  expect(context.date.value).toEqual(TestContext.date.value);
 });

@@ -33,11 +33,6 @@ function Info(): JSX.Element {
           enter the containing place in the search box above.
         </li>
         <li>
-          Select the date of data to retrieve below the place options. For
-          monthly data, leave day empty. For quaterly data, select the start
-          month of the quarter.
-        </li>
-        <li>
           Pick two variables in the left pane. There are thousands of variables
           to choose from, arranged in a topical hierarchy.
         </li>

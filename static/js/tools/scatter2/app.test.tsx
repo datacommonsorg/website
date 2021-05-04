@@ -57,71 +57,151 @@ function mockAxios(): () => void {
 
   // Population and statvar data
   const data = {
-    Count_Person: {
-      val: {
-        "geoId/10001": 180786,
-        "geoId/10003": 558753,
-        "geoId/10005": 234225,
-      },
-      measurementMethod: "CensusPEPSurvey",
-      importName: "CensusPEP",
-      provenanceUrl: "https://www.census.gov/programs-surveys/popest.html",
-    },
     Count_Person_Employed: {
-      val: {
-        "geoId/10001": 76726,
-        "geoId/10003": 276517,
-        "geoId/10005": 104845,
+      metadata: {
+        BLS_LAUS: {
+          provenanceUrl: "https://www.bls.gov/lau/",
+          measurementMethod: "BLSSeasonallyUnadjusted",
+        },
       },
-      measurementMethod: "BLSSeasonallyUnadjusted",
-      observationPeriod: "P1Y",
-      importName: "BLS_LAUS",
-      provenanceUrl: "https://www.bls.gov/lau/",
+      stat: {
+        "geoId/10001": {
+          date: "2016",
+          value: 76726,
+          metadata: {
+            importName: "BLS_LAUS",
+          },
+        },
+        "geoId/10003": {
+          date: "2016",
+          value: 276517,
+          metadata: {
+            importName: "BLS_LAUS",
+          },
+        },
+        "geoId/10005": {
+          date: "2016",
+          value: 104845,
+          metadata: {
+            importName: "BLS_LAUS",
+          },
+        },
+      },
     },
     Count_Establishment: {
-      val: { "geoId/10001": 3422, "geoId/10003": 16056, "geoId/10005": 5601 },
-      measurementMethod: "CensusCBPSurvey",
-      importName: "CensusCountyBusinessPatterns",
-      provenanceUrl: "https://www.census.gov/",
+      metadata: {
+        CensusCountyBusinessPatterns: {
+          provenanceUrl: "https://www.census.gov/",
+          measurementMethod: "CensusCBPSurvey",
+        },
+      },
+      stat: {
+        "geoId/10001": {
+          date: "2016",
+          value: 3422,
+          metadata: {
+            importName: "CensusCountyBusinessPatterns",
+          },
+        },
+        "geoId/10003": {
+          date: "2016",
+          value: 16056,
+          metadata: {
+            importName: "CensusCountyBusinessPatterns",
+          },
+        },
+        "geoId/10005": {
+          date: "2016",
+          value: 5601,
+          metadata: {
+            importName: "CensusCountyBusinessPatterns",
+          },
+        },
+      },
     },
     Count_HousingUnit: {
-      val: {
-        "geoId/10001": 70576,
-        "geoId/10003": 222146,
-        "geoId/10005": 135529,
+      metadata: {
+        CensusACS5YearSurvey: {
+          provenanceUrl: "https://www.census.gov/",
+          measurementMethod: "CensusACS5yrSurvey",
+        },
       },
-      measurementMethod: "CensusACS5yrSurvey",
-      importName: "CensusACS5YearSurvey",
-      provenanceUrl: "https://www.census.gov/",
+      stat: {
+        "geoId/10001": {
+          date: "2016",
+          value: 70576,
+          metadata: {
+            importName: "CensusACS5YearSurvey",
+          },
+        },
+        "geoId/10003": {
+          date: "2016",
+          value: 222146,
+          metadata: {
+            importName: "CensusACS5YearSurvey",
+          },
+        },
+        "geoId/10005": {
+          date: "2016",
+          value: 135529,
+          metadata: {
+            importName: "CensusACS5YearSurvey",
+          },
+        },
+      },
     },
   };
   when(axios.get)
     .calledWith(
-      "/api/stats/collection?parent_place=geoId/10&child_type=County&date=2016" +
-        "&stat_vars=Count_Person&stat_vars=Count_Person&stat_vars=Count_Person_Employed&" +
-        "stat_vars=Count_Establishment"
+      "/api/stats/collection?parent_place=geoId/10&child_type=County" +
+        "&stat_vars=Count_Person_Employed&stat_vars=Count_Establishment"
     )
     .mockResolvedValue({
       data: {
-        Count_Person: data.Count_Person,
         Count_Person_Employed: data.Count_Person_Employed,
         Count_Establishment: data.Count_Establishment,
       },
     });
   when(axios.get)
     .calledWith(
-      "/api/stats/collection?parent_place=geoId/10&child_type=County&date=2016" +
-        "&stat_vars=Count_Person&stat_vars=Count_Person&stat_vars=Count_Person_Employed&" +
-        "stat_vars=Count_HousingUnit"
+      "/api/stats/collection?parent_place=geoId/10&child_type=County" +
+        "&stat_vars=Count_Person_Employed&stat_vars=Count_HousingUnit"
     )
     .mockResolvedValue({
       data: {
-        Count_Person: data.Count_Person,
         Count_Person_Employed: data.Count_Person_Employed,
         Count_HousingUnit: data.Count_HousingUnit,
       },
     });
-
+  when(axios.get)
+    .calledWith(
+      "/api/stats/Count_Person?&dcid=geoId/10001&dcid=geoId/10003&dcid=geoId/10005"
+    )
+    .mockResolvedValue({
+      data: {
+        "geoId/10001": {
+          data: {
+            "2016": 180786,
+          },
+          placeName: "Kent County",
+          provenanceUrl: "https://www.census.gov/programs-surveys/popest.html",
+        },
+        "geoId/10003": {
+          data: {
+            "2016": 558753,
+          },
+          placeName: "Kent County",
+          provenanceUrl: "https://www.census.gov/programs-surveys/popest.html",
+        },
+        "geoId/10005": {
+          data: {
+            "2016": 234225,
+          },
+          placeName: "Kent County",
+          provenanceUrl: "https://www.census.gov/programs-surveys/popest.html",
+        },
+      },
+    });
   const post = axios.post;
   axios.post = jest.fn();
   when(axios.post)
@@ -157,8 +237,6 @@ function expectInfo(
   yMean: number,
   xStd: number,
   yStd: number,
-  xProvenance: string,
-  yProvenance: string,
   app: Enzyme.ReactWrapper
 ): void {
   const text = app.text();
@@ -166,8 +244,6 @@ function expectInfo(
   expect(text).toContain(`Y Mean: ${yMean}`);
   expect(text).toContain(`X Standard Deviation: ${xStd}`);
   expect(text).toContain(`Y Standard Deviation: ${yStd}`);
-  expect(text).toContain(`X Data Source: ${xProvenance}`);
-  expect(text).toContain(`Y Data Source: ${yProvenance}`);
 }
 
 test("all functionalities", async (done) => {
@@ -189,12 +265,6 @@ test("all functionalities", async (done) => {
   // Population density should be filtered out
   await waitFor(() => expect(app.text()).not.toContain("Population Density"));
 
-  // Choose 2016 for date
-  app
-    .find(`.datepicker`)
-    .at(0)
-    .simulate("change", { target: { value: 2016 } });
-
   // Choose employed for x and establishments for y
   app.find(`[id="Employed"] button`).simulate("click");
   app.find(`[id="Number of Establishments"] button`).simulate("click");
@@ -203,15 +273,7 @@ test("all functionalities", async (done) => {
     // Title
     expect(app.text()).toContain("Number Of Establishments vs Employed");
     // Stats
-    expectInfo(
-      152696,
-      8359.667,
-      108149.894,
-      6753.678,
-      "https://www.bls.gov/",
-      "https://www.census.gov/",
-      app
-    );
+    expectInfo(152696, 8359.667, 108149.894, 6753.678, app);
     // Points
     expectCircles(3, app);
   });
@@ -221,15 +283,7 @@ test("all functionalities", async (done) => {
   const expectTitle = (title: string) => expect(app.text()).toContain(title);
 
   expectTitle("Employed vs Number Of Establishments");
-  expectInfo(
-    8359.667,
-    152696,
-    6753.678,
-    108149.894,
-    "https://www.census.gov/",
-    "https://www.bls.gov/",
-    app
-  );
+  expectInfo(8359.667, 152696, 6753.678, 108149.894, app);
   expectCircles(3, app);
 
   // Per capita
@@ -242,15 +296,7 @@ test("all functionalities", async (done) => {
     .at(0)
     .simulate("change", { target: { checked: true } });
   expectTitle("Employed Per Capita vs Number Of Establishments Per Capita");
-  expectInfo(
-    0.024,
-    0.456,
-    0.005,
-    0.036,
-    "https://www.census.gov/",
-    "https://www.bls.gov/",
-    app
-  );
+  expectInfo(0.024, 0.456, 0.005, 0.036, app);
   expectCircles(3, app);
 
   // Log
@@ -285,15 +331,7 @@ test("all functionalities", async (done) => {
     expect(app.text()).toContain(
       "Housing Units Per Capita vs Employed Per Capita"
     );
-    expectInfo(
-      0.456,
-      0.456,
-      0.036,
-      0.107,
-      "https://www.bls.gov/",
-      "https://www.census.gov/",
-      app
-    );
+    expectInfo(0.456, 0.456, 0.036, 0.107, app);
     expectCircles(3, app);
   });
 

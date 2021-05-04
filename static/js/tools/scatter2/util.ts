@@ -27,21 +27,29 @@ import {
   PlaceInfo,
   EmptyAxis,
   EmptyPlace,
-  EmptyDate,
   FieldToAbbreviation,
-  DateInfo,
 } from "./context";
 
-interface SourceSeries {
-  val: Record<string, number>;
-  measurementMethod: string;
-  importName: string;
+interface PlacePointStatMetadata {
   provenanceUrl: string;
-  observationPeriod: string;
-  unit: string;
-  scalingFactor: string;
-  isDcAggregate: boolean;
+  measurementMethod: string;
+  unit?: string;
+}
+
+interface PlacePointStatData {
   date: string;
+  value: number;
+  metadata: { importName: string };
+}
+interface PlacePointStat {
+  metadata: { [importName: string]: PlacePointStatMetadata };
+  stat: { [dcid: string]: PlacePointStatData };
+}
+
+interface SourceSeries {
+  data: { [date: string]: number };
+  placeName: string;
+  provenanceUrl: string;
 }
 
 async function getPlacesInNames(
@@ -57,26 +65,19 @@ async function getPlacesInNames(
 async function getStatsCollection(
   parent_place: string,
   child_type: string,
-  date: string,
   statVars: Array<string>
-): Promise<Record<string, SourceSeries>> {
+): Promise<Record<string, PlacePointStat>> {
   let statVarParams = "";
   for (const statVar of statVars) {
     statVarParams += `&stat_vars=${statVar}`;
   }
-  const resp = await axios.get(
-    `/api/stats/collection?parent_place=${parent_place}&child_type=${child_type}&date=${date}${statVarParams}`
-  );
-  // Tag `SourceSeries`'s with the requested date
-  const data = resp.data;
-  for (const dcid in data) {
-    const sourceSeries = data[dcid];
-    if (_.isEmpty(sourceSeries)) {
-      continue;
-    }
-    sourceSeries["date"] = date;
-  }
-  return data;
+  return axios
+    .get(
+      `/api/stats/collection?parent_place=${parent_place}&child_type=${child_type}${statVarParams}`
+    )
+    .then((resp) => {
+      return resp.data;
+    });
 }
 
 /**
@@ -86,20 +87,6 @@ async function getStatsCollection(
  */
 function nodeGetStatVar(node: StatsVarNode): string {
   return _.findKey(node);
-}
-
-/**
- * Checks if the date of data to retrieve is chosen.
- * Returns true if year is chosen, or year and month are chosen,
- * or year, month, and day are chosen.
- * @param date
- */
-function isDateChosen(date: DateInfo): boolean {
-  return (
-    (date.year > 0 && !date.month && !date.day) ||
-    (date.year > 0 && date.month > 0 && !date.day) ||
-    (date.year > 0 && date.month > 0 && date.day > 0)
-  );
 }
 
 /**
@@ -113,7 +100,6 @@ function applyHash(context: ContextType): void {
   context.x.set(applyHashAxis(params, true));
   context.y.set(applyHashAxis(params, false));
   context.place.set(applyHashPlace(params));
-  context.date.set(applyHashDate(params));
 }
 
 /**
@@ -192,21 +178,6 @@ function applyHashPlace(params: URLSearchParams): PlaceInfo {
 }
 
 /**
- * Uses the parsed hash to produce a `DateInfo`.
- * @param params
- */
-function applyHashDate(params: URLSearchParams): DateInfo {
-  const date = _.cloneDeep(EmptyDate);
-  for (const key of ["year", "month", "day"]) {
-    const value = params.get(FieldToAbbreviation[key]);
-    if (value) {
-      date[key] = Number.parseInt(value);
-    }
-  }
-  return date;
-}
-
-/**
  * Updates the hash based on the context and returns the new hash.
  * If there are multiple denominators for a statvar, only the first
  * one is stored in the hash.
@@ -216,11 +187,9 @@ function updateHash(context: ContextType): void {
   const x = context.x.value;
   const y = context.y.value;
   const place = context.place.value;
-  const date = context.date.value;
   let hash = updateHashAxis("", x, true);
   hash = updateHashAxis(hash, y, false);
   hash = updateHashPlace(hash, place);
-  hash = updateHashDate(hash, date);
   if (hash) {
     history.pushState({}, "", `/tools/scatter2#${encodeURIComponent(hash)}`);
   }
@@ -310,29 +279,12 @@ function updateHashPlace(hash: string, place: PlaceInfo): string {
   return hash;
 }
 
-/**
- * Updates the hash based on the `DateInfo` and returns the new hash.
- * @param hash
- * @param date
- */
-function updateHashDate(hash: string, date: DateInfo) {
-  if (_.isEqual(date, EmptyDate)) {
-    return hash;
-  }
-  for (const key of ["year", "month", "day"]) {
-    if (date[key]) {
-      hash = appendEntry(hash, FieldToAbbreviation[key], date[key].toString());
-    }
-  }
-  return hash;
-}
-
 export {
   getPlacesInNames,
   getStatsCollection,
   nodeGetStatVar,
-  isDateChosen,
   updateHash,
   applyHash,
+  PlacePointStat,
   SourceSeries,
 };
