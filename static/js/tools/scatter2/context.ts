@@ -139,8 +139,6 @@ interface ContextType {
   y: AxisWrapper;
   // Places to plot
   place: PlaceInfoWrapper;
-  // Date of data to retrieve
-  date: DateInfoWrapper;
   // Whether there are currently active network tasks
   isLoading: IsLoadingWrapper;
 }
@@ -177,7 +175,6 @@ function useContextStore(): ContextType {
   const [x, setX] = useState(EmptyAxis);
   const [y, setY] = useState(EmptyAxis);
   const [place, setPlace] = useState(EmptyPlace);
-  const [date, setDate] = useState(EmptyDate);
   const [arePlacesLoading, setArePlacesLoading] = useState(false);
   const [areStatVarsLoading, setAreStatVarsLoading] = useState(false);
   const [areDataLoading, setAreDataLoading] = useState(false);
@@ -208,13 +205,6 @@ function useContextStore(): ContextType {
       setEnclosedPlaces: getSetEnclosedPlaces(place, setPlace),
       setLowerBound: getSetLowerBound(place, setPlace),
       setUpperBound: getSetUpperBound(place, setPlace),
-    },
-    date: {
-      value: date,
-      set: (date) => setDate(date),
-      setYear: getSetYear(date, setDate),
-      setMonth: getSetMonth(date, setDate),
-      setDay: getSetDay(date, setDate),
     },
     isLoading: {
       arePlacesLoading: arePlacesLoading,
@@ -368,42 +358,6 @@ function getSetUpperBound(
       ...place,
       upperBound: upperBound,
     });
-}
-
-function getSetYear(
-  date: DateInfo,
-  setDate: React.Dispatch<React.SetStateAction<DateInfo>>
-): Setter<number> {
-  return (year) => {
-    setDate({
-      ...date,
-      year: year,
-    });
-  };
-}
-
-function getSetMonth(
-  date: DateInfo,
-  setDate: React.Dispatch<React.SetStateAction<DateInfo>>
-): Setter<number> {
-  return (month) => {
-    setDate({
-      ...date,
-      month: month,
-    });
-  };
-}
-
-function getSetDay(
-  date: DateInfo,
-  setDate: React.Dispatch<React.SetStateAction<DateInfo>>
-): Setter<number> {
-  return (day) => {
-    setDate({
-      ...date,
-      day: day,
-    });
-  };
 }
 
 export {

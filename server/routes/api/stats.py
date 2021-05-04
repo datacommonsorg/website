@@ -163,7 +163,8 @@ def get_stats_value():
 @cache.cached(timeout=3600 * 24, query_string=True)  # Cache for one day.
 def get_stats_collection():
     """Gets the statistical variable values for child places of a certain place
-    type contained in a parent place at a given date.
+    type contained in a parent place at a given date. If no date given, will
+    return values for most recent date.
     
     Returns:
         Dict keyed by statvar DCIDs with dicts as values. See `SourceSeries` in
@@ -172,12 +173,24 @@ def get_stats_collection():
         are dicts keyed by child place DCIDs with the statvar values as values.
     """
     parent_place = request.args.get("parent_place")
+    if not parent_place:
+        return Response(json.dumps("error: must provide a parent_place field"),
+                        400,
+                        mimetype='application/json')
     child_type = request.args.get("child_type")
-    date = request.args.get("date")
+    if not child_type:
+        return Response(json.dumps("error: must provide a child_type field"),
+                        400,
+                        mimetype='application/json')
     stat_vars = request.args.getlist("stat_vars")
+    if not stat_vars:
+        return Response(json.dumps("error: must provide a stat_vars field"),
+                        400,
+                        mimetype='application/json')
+    date = request.args.get("date")
     return Response(json.dumps(
-        dc.get_stats_collection(parent_place, child_type, date,
-                                stat_vars)['data']),
+        dc.get_stats_collection(parent_place, child_type, stat_vars,
+                                date)['data']),
                     200,
                     mimetype='application/json')
 

@@ -32,8 +32,6 @@ interface ChartPropsType {
   yLog: boolean;
   xPerCapita: boolean;
   yPerCapita: boolean;
-  xProvenance: string;
-  yProvenance: string;
 }
 
 function Chart(props: ChartPropsType): JSX.Element {
@@ -55,8 +53,6 @@ function Chart(props: ChartPropsType): JSX.Element {
       </Row>
       <Row>
         <Card id="stats">
-          <Badge color="light">X Data Source: {props.xProvenance}</Badge>
-          <Badge color="light">Y Data Source: {props.yProvenance}</Badge>
           <Badge color="light">X Mean: {getXMean(props.points)}</Badge>
           <Badge color="light">Y Mean: {getYMean(props.points)}</Badge>
           <Badge color="light">
@@ -305,8 +301,10 @@ function addTooltip(
   const onTooltipMouseover = (point: Point) => {
     const html =
       `${point.place.name || point.place.dcid}<br/>` +
-      `${xLabel}: ${getStringOrNA(point.xVal)}<br/>` +
-      `${yLabel}: ${getStringOrNA(point.yVal)}`;
+      `${xLabel} (${point.xDate}): ${getStringOrNA(point.xVal)}<br/>` +
+      `${yLabel} (${point.yDate}): ${getStringOrNA(point.yVal)}<br/>` +
+      `${xLabel} data from: ${point.xSource}<br/>` +
+      `${yLabel} data from: ${point.ySource}<br/>`;
     div
       .html(html)
       .style("left", d3.event.pageX + 15 + "px")
