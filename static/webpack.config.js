@@ -32,10 +32,10 @@ const config = {
     ],
     dev: [__dirname + "/js/dev.ts", __dirname + "/css/dev.scss"],
     timeline: [
-      __dirname + "/js/tools/timeline.ts",
+      __dirname + "/js/tools/timeline/timeline.ts",
       __dirname + "/css/timeline.scss",
     ],
-    timeline_bulk_download: [__dirname + "/js/tools/timeline_bulk_download.ts"],
+    timeline_bulk_download: [__dirname + "/js/tools/timeline/bulk_download.ts"],
     kg: [
       "babel-polyfill",
       __dirname + "/js/browser/kg.js",
@@ -57,7 +57,7 @@ const config = {
     ],
     browser: [
       __dirname + "/js/browser2/browser.ts",
-      __dirname + "/css/browser.scss"
+      __dirname + "/css/browser.scss",
     ],
     search: __dirname + "/css/search.scss",
     static: __dirname + "/css/static.scss",

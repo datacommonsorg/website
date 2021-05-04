@@ -15,24 +15,22 @@
  */
 
 import React, { Component } from "react";
+import { getPlaceNames, TimelineParams, ChartOptions } from "./util";
 import {
   getStatsVarInfo,
-  getPlaceNames,
   getStatsVar,
   StatsVarNode,
   StatsVarInfo,
-  TimelineParams,
-  ChartOptions,
-} from "./timeline_util";
-import { SearchBar } from "./timeline_search";
-import { Menu } from "./statsvar_menu";
-import { Info } from "./timeline_info";
-import { ChartRegion } from "./timeline_chart_region";
+} from "../statvar_menu/util";
+import { SearchBar } from "./search";
+import { Menu } from "../statvar_menu/menu";
+import { Info } from "./info";
+import { ChartRegion } from "./chart_region";
 import {
   NoopStatsVarFilter,
   TimelineStatsVarFilter,
   StatsVarFilterInterface,
-} from "./commons";
+} from "../commons";
 import _ from "lodash";
 
 interface PageStateType {

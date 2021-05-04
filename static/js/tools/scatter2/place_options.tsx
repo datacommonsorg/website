@@ -27,8 +27,8 @@ import {
   PlaceInfo,
   PlaceInfoWrapper,
 } from "./context";
-import { SearchBar } from "../timeline_search";
-import { getPlaceNames } from "../timeline_util";
+import { SearchBar } from "../timeline/search";
+import { getPlaceNames } from "../timeline/util";
 import { getPlacesInNames } from "./util";
 
 import { Container, Row, Col, CustomInput } from "reactstrap";

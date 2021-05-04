@@ -33,9 +33,9 @@ import {
   Label,
   Input,
 } from "reactstrap";
-import { Menu } from "../statsvar_menu";
+import { Menu } from "../statvar_menu/menu";
 import { NoopStatsVarFilter, TimelineStatsVarFilter } from "../commons";
-import { StatsVarNode, getStatsVar } from "../timeline_util";
+import { StatsVarNode, getStatsVar } from "../statvar_menu/util";
 import {
   Context,
   EmptyAxis,

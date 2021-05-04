@@ -15,10 +15,11 @@
  */
 
 import React, { Component } from "react";
-import { StatsData } from "../shared/data_fetcher";
-import { StatsVarInfo, ChartOptions } from "./timeline_util";
-import { saveToFile } from "../shared/util";
-import { Chart } from "./timeline_chart";
+import { StatsData } from "../../shared/data_fetcher";
+import { ChartOptions } from "./util";
+import { StatsVarInfo } from "../statvar_menu/util";
+import { saveToFile } from "../../shared/util";
+import { Chart } from "./chart";
 
 interface ChartRegionPropsType {
   // An array of place dcids.
