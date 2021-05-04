@@ -56,6 +56,7 @@ interface Point {
 }
 
 type Cache = {
+  // key here is stat var.
   statsVarData: Record<string, PlacePointStat>;
   populationData: { [statVar: string]: { [dcid: string]: SourceSeries } };
 };
@@ -76,7 +77,10 @@ function ChartLoader(): JSX.Element {
       {shouldRenderChart && (
         <>
           {_.isEmpty(points) ? (
-            <div className="error-message">Sorry, no data available</div>
+            <div className="error-message">
+              Sorry, no data available. Try different stat vars or place
+              options.
+            </div>
           ) : (
             <Chart
               points={points}
@@ -146,7 +150,7 @@ async function loadData(
     place.enclosedPlaceType,
     [nodeGetStatVar(x.value.statVar), nodeGetStatVar(y.value.statVar)]
   );
-  let dcidParams = `?`;
+  let dcidParams = "?";
   for (const placeInfo of place.enclosedPlaces) {
     dcidParams += `&dcid=${placeInfo.dcid}`;
   }
@@ -169,14 +173,14 @@ async function loadData(
         populationData[yPopulationStatVar] = yPopulationData;
       }
       const cache = {
-        statsVarData,
         populationData,
+        statsVarData,
       };
       isLoading.setAreDataLoading(false);
       setCache(cache);
     })
     .catch(() => {
-      alert(`Error fetching data.`);
+      alert("Error fetching data.");
       isLoading.setAreDataLoading(false);
     });
 }
@@ -288,19 +292,19 @@ function getPoints(
           yPop = placeYPopData.data[matchingDate];
         }
         return {
-          xVal: placeXStatData.value,
-          yVal: placeYStatData.value,
           place,
           xDate: placeXStatData.date,
-          yDate: placeYStatData.date,
+          xPop,
           xSource:
             xStatData.metadata[placeXStatData.metadata.importName]
               .provenanceUrl,
+          xVal: placeXStatData.value,
+          yDate: placeYStatData.date,
+          yPop,
           ySource:
             yStatData.metadata[placeYStatData.metadata.importName]
               .provenanceUrl,
-          xPop,
-          yPop,
+          yVal: placeYStatData.value,
         };
       })
       // Filter out unavailable data

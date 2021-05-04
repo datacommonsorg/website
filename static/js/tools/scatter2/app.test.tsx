@@ -67,24 +67,24 @@ function mockAxios(): () => void {
       stat: {
         "geoId/10001": {
           date: "2016",
-          value: 76726,
           metadata: {
             importName: "BLS_LAUS",
           },
+          value: 76726,
         },
         "geoId/10003": {
           date: "2016",
-          value: 276517,
           metadata: {
             importName: "BLS_LAUS",
           },
+          value: 276517,
         },
         "geoId/10005": {
           date: "2016",
-          value: 104845,
           metadata: {
             importName: "BLS_LAUS",
           },
+          value: 104845,
         },
       },
     },
@@ -98,24 +98,24 @@ function mockAxios(): () => void {
       stat: {
         "geoId/10001": {
           date: "2016",
-          value: 3422,
           metadata: {
             importName: "CensusCountyBusinessPatterns",
           },
+          value: 3422,
         },
         "geoId/10003": {
           date: "2016",
-          value: 16056,
           metadata: {
             importName: "CensusCountyBusinessPatterns",
           },
+          value: 16056,
         },
         "geoId/10005": {
           date: "2016",
-          value: 5601,
           metadata: {
             importName: "CensusCountyBusinessPatterns",
           },
+          value: 5601,
         },
       },
     },
@@ -129,24 +129,24 @@ function mockAxios(): () => void {
       stat: {
         "geoId/10001": {
           date: "2016",
-          value: 70576,
           metadata: {
             importName: "CensusACS5YearSurvey",
           },
+          value: 70576,
         },
         "geoId/10003": {
           date: "2016",
-          value: 222146,
           metadata: {
             importName: "CensusACS5YearSurvey",
           },
+          value: 222146,
         },
         "geoId/10005": {
           date: "2016",
-          value: 135529,
           metadata: {
             importName: "CensusACS5YearSurvey",
           },
+          value: 135529,
         },
       },
     },
