@@ -14,16 +14,8 @@
  * limitations under the License.
  */
 import axios from "axios";
-import statsVarPathMap from "../../data/statsvar_path.json";
+import statsVarPathMap from "../../../data/statsvar_path.json";
 import _ from "lodash";
-
-interface StatsVarInfo {
-  md: string;
-  mprop: string;
-  pt: string;
-  pvs: { [key: string]: string };
-  title: string;
-}
 
 function getPlaceNames(dcids: string[]): Promise<{ [key: string]: string }> {
   let url = "/api/place/name?";
@@ -35,41 +27,6 @@ function getPlaceNames(dcids: string[]): Promise<{ [key: string]: string }> {
   return axios.get(url).then((resp) => {
     return resp.data;
   });
-}
-
-function getStatsVarInfo(
-  dcids: string[]
-): Promise<Record<string, StatsVarInfo>> {
-  let url = "/api/stats/stats-var-property?";
-  const urls = [];
-  for (const dcid of dcids) {
-    urls.push(`dcid=${dcid}`);
-  }
-  url += urls.join("&");
-  return axios.get(url).then((resp) => {
-    return resp.data;
-  });
-}
-
-/**
- * Returns the union of all statvars available for the given places.
- * @param dcids
- * @param sample Whether to sample `sampleSize` places from the given places, and only
- * get the statvars for them.
- * @param sampleSize
- */
-async function getStatsVar(
-  dcids: string[],
-  sample = false,
-  sampleSize = 50
-): Promise<Set<string>> {
-  if (dcids.length === 0) {
-    return Promise.resolve(new Set<string>());
-  }
-  const resp = await axios.post("/api/place/stat-vars/union", {
-    dcids: sample ? _.sampleSize(dcids, sampleSize).sort() : dcids,
-  });
-  return new Set<string>(resp.data);
 }
 
 const placeSep = ",";
@@ -313,12 +270,4 @@ class TimelineParams {
   }
 }
 
-export {
-  StatsVarInfo,
-  getStatsVarInfo,
-  getPlaceNames,
-  getStatsVar,
-  TimelineParams,
-  StatsVarNode,
-  ChartOptions,
-};
+export { getPlaceNames, TimelineParams, StatsVarNode, ChartOptions };

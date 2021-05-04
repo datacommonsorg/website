@@ -20,7 +20,7 @@
 
 import axios from "axios";
 import _ from "lodash";
-import { StatsVarNode } from "../timeline_util";
+import { StatsVarNode } from "../timeline/util";
 import {
   ContextType,
   Axis,

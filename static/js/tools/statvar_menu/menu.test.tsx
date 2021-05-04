@@ -21,9 +21,9 @@ import Enzyme, { mount } from "enzyme";
 import Adapter from "enzyme-adapter-react-16";
 import pretty from "pretty";
 
-import { Menu } from "./statsvar_menu";
-import { TimelineStatsVarFilter } from "./commons";
-import { mock_hierarchy_complete } from "./mock_functions";
+import { Menu } from "./menu";
+import { TimelineStatsVarFilter } from "../commons";
+import { mock_hierarchy_complete } from "../mock_functions";
 
 Enzyme.configure({ adapter: new Adapter() });
 jest.mock("axios");

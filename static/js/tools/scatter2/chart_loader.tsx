@@ -38,7 +38,7 @@ import {
   DateInfo,
   IsLoadingWrapper,
 } from "./context";
-import { StatsVarNode } from "../timeline_util";
+import { StatsVarNode } from "../timeline/util";
 
 /**
  * Represents a point in the scatter plot.
