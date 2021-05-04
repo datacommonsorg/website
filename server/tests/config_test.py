@@ -61,30 +61,6 @@ class TestConfig(unittest.TestCase):
             'MAPS_API_KEY': '',
             'SCHEME': 'http',
         }),
-        ('local-svobs', {
-            'TEST':
-                False,
-            'WEBDRIVER':
-                False,
-            'LOCAL':
-                True,
-            'LITE':
-                False,
-            'CACHE_TYPE':
-                'simple',
-            'API_ROOT':
-                'https://mixer.endpoints.datcom-mixer-statvar.cloud.goog',
-            'GCS_BUCKET':
-                'datcom-website-statvar-migrate-resources',
-            'SECRET_PROJECT':
-                'datcom-website-statvar-migrate',
-            'GA_ACCOUNT':
-                '',
-            'MAPS_API_KEY':
-                '',
-            'SCHEME':
-                'http',
-        }),
         ('webdriver', {
             'TEST':
                 False,
@@ -94,8 +70,6 @@ class TestConfig(unittest.TestCase):
                 False,
             'LITE':
                 False,
-            'SVOBS':
-                True,
             'CACHE_TYPE':
                 'simple',
             'API_ROOT':

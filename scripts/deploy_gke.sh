@@ -18,9 +18,9 @@
 #
 # Usage:
 #
-# ./deploy_key.sh <"autopush"|"staging"|"prod"|"svobs"|"dev"> us-central1 <git_hash>
+# ./deploy_key.sh <"autopush"|"staging"|"prod"|"dev"> us-central1 <git_hash>
 #
-# First argument is either "dev", "svobs", "autopush", "staging" or "prod".
+# First argument is either "dev", "autopush", "staging" or "prod".
 #
 # !!! WARNING: Run this script in a clean Git checkout at the desired commit.
 #
@@ -30,8 +30,8 @@ set -e
 ENV=$1
 REGION=$2
 
-if [[ $ENV != "staging" && $ENV != "prod" && $ENV != "autopush" && $ENV != "svobs" && $ENV != "dev" ]]; then
-  echo "First argument should be 'staging' or 'prod' or 'autopush' or 'svobs' or 'dev'"
+if [[ $ENV != "staging" && $ENV != "prod" && $ENV != "autopush" && $ENV != "dev" ]]; then
+  echo "First argument should be 'staging' or 'prod' or 'autopush' or 'dev'"
   exit
 fi
 
@@ -39,11 +39,14 @@ DIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )" >/dev/null 2>&1 && pwd )"
 ROOT="$(dirname "$DIR")"
 
 
-if [[ $3 != "" ]]; then
-  WEBSITE_HASH=$3
-fi
 cd $ROOT
 WEBSITE_HASH=$(git rev-parse --short HEAD)
+
+if [[ $3 != "" ]]; then
+  WEBSITE_HASH=$3
+  git checkout "$WEBSITE_HASH"
+fi
+
 
 cd $ROOT/mixer
 MIXER_HASH=$(git rev-parse --short HEAD)
