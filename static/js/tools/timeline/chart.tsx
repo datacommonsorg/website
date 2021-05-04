@@ -15,10 +15,10 @@
  */
 
 import React, { Component } from "react";
-import { StatsVarInfo } from "./timeline_util";
-import { fetchStatsData, StatsData } from "../shared/data_fetcher";
-import { drawGroupLineChart } from "../chart/draw";
-import { PlotParams, computePlotParams } from "../chart/base";
+import { StatsVarInfo } from "../statvar_menu/util";
+import { fetchStatsData, StatsData } from "../../shared/data_fetcher";
+import { drawGroupLineChart } from "../../chart/draw";
+import { PlotParams, computePlotParams } from "../../chart/base";
 
 const CHART_HEIGHT = 300;
 
