@@ -49,7 +49,7 @@ API_ENDPOINTS = {
     'get_stats': '/bulk/stats',
     'get_stats_all': '/stat/all',
     'get_stats_value': '/stat/value',
-    'get_stats_collection': '/stat/collection',
+    'get_stat_set_within_place': '/stat/set/within-place',
     'get_stats_set': '/stat/set',
     # TODO(shifucun): switch back to /node/related-places after data switch.
     'get_related_places': '/node/related-locations',
@@ -116,7 +116,7 @@ def get_stats_value(place, stat_var, date, measurement_method,
     return send_request(url, req_json=req_json, post=False, has_payload=False)
 
 
-def get_stats_collection(parent_place, child_type, stat_vars, date):
+def get_stat_set_within_place(parent_place, child_type, stat_vars, date):
     """Gets the statistical variable values for child places of a certain place
     type contained in a parent place at a given date.
 
@@ -133,7 +133,7 @@ def get_stats_collection(parent_place, child_type, stat_vars, date):
         for the definition of the inner dicts. In particular, the values for "val"
         are dicts keyed by child place DCIDs with the statvar values as values.
     """
-    url = API_ROOT + API_ENDPOINTS['get_stats_collection']
+    url = API_ROOT + API_ENDPOINTS['get_stat_set_within_place']
     req_json = {
         'parent_place': parent_place,
         'child_type': child_type,
