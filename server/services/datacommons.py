@@ -140,7 +140,7 @@ def get_stat_set_within_place(parent_place, child_type, stat_vars, date):
         'date': date,
         'stat_vars': stat_vars
     }
-    return send_request(url, req_json=req_json, post=False, has_payload=False)
+    return send_request(url, req_json=req_json, has_payload=False)
 
 
 def get_stats_set(place_dcids, stat_vars, date=None):
