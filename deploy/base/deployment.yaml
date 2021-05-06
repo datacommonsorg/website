@@ -48,10 +48,6 @@ spec:
         - name: website
           image: gcr.io/datcom-ci/datacommons-website:latest
           imagePullPolicy: Always
-          resources:
-            limits:
-              memory: "2G"
-              cpu: "500m"
           args: []
           ports:
             - containerPort: 8080
@@ -101,10 +97,6 @@ spec:
         - name: mixer
           image: gcr.io/datcom-ci/datacommons-mixer:latest
           imagePullPolicy: Always
-          resources:
-            limits:
-              memory: "2G"
-              cpu: "500m"
           args:
             - --mixer_project=$(MIXER_PROJECT)
             - --store_project=$(STORE_PROJECT)
@@ -161,10 +153,6 @@ spec:
                 configMapKeyRef:
                   name: mixer-configmap
                   key: serviceName
-          resources:
-            limits:
-              memory: "0.5G"
-              cpu: "100m"
           readinessProbe:
             httpGet:
               path: /healthz
