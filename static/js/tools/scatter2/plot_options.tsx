@@ -91,7 +91,7 @@ function PlotOptions(): JSX.Element {
             </FormGroup>
           </Col>
         </Row>
-        <Row className="plot-options-row">
+        <Row className="plot-options-row centered-items-row">
           <Col sm={1}>Swap:</Col>
           <Col sm="auto">
             <Button
@@ -105,9 +105,9 @@ function PlotOptions(): JSX.Element {
             </Button>
           </Col>
         </Row>
-        <Row className="plot-options-row">
+        <Row className="plot-options-row centered-items-row">
           <Col sm={2}>Filter by population:</Col>
-          <Col>
+          <Col sm="auto">
             <FormGroup check>
               <Input
                 type="number"
@@ -117,7 +117,7 @@ function PlotOptions(): JSX.Element {
             </FormGroup>
           </Col>
           <Col sm="auto">to</Col>
-          <Col>
+          <Col sm="auto">
             <FormGroup check>
               <Input
                 type="number"
