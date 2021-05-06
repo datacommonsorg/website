@@ -87,7 +87,6 @@ def stats(stats_var):
     if request.method == 'GET':
         place_dcids = request.args.getlist('dcid')
     result = get_stats_wrapper('^'.join(place_dcids), stats_var)
-    print(result)
     return Response(result, 200, mimetype='application/json')
 
 
