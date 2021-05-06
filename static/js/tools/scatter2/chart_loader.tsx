@@ -150,13 +150,13 @@ async function loadData(
     place.enclosedPlaceType,
     [nodeGetStatVar(x.value.statVar), nodeGetStatVar(y.value.statVar)]
   );
-  const child_place_dcid = place.enclosedPlaces.map(
+  const childPlaceDcids = place.enclosedPlaces.map(
     (placeInfo) => placeInfo.dcid
   );
   const xPopulationStatVar = getPopulationStatVar(x.value.statVar);
   const xPopulationPromise = axios
     .post(`/api/stats/${xPopulationStatVar}`, {
-      dcid: child_place_dcid,
+      dcid: childPlaceDcids,
     })
     .then((resp) => resp.data);
   const yPopulationStatVar = getPopulationStatVar(y.value.statVar);
@@ -164,7 +164,7 @@ async function loadData(
     yPopulationStatVar !== xPopulationStatVar
       ? axios
           .post(`/api/stats/${yPopulationStatVar}`, {
-            dcid: child_place_dcid,
+            dcid: childPlaceDcids,
           })
           .then((resp) => resp.data)
       : Promise.resolve({});
