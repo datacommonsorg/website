@@ -69,7 +69,7 @@ def get_stats_wrapper(dcid_str, stats_var):
     return json.dumps(result)
 
 
-@bp.route('/api/stats/<path:stats_var>')
+@bp.route('/api/stats/<path:stats_var>', methods=['POST', 'GET'])
 def stats(stats_var):
     """Handler to get the observation given stats var for multiple places.
 
@@ -81,7 +81,11 @@ def stats(stats_var):
         An serialized json str. The json is an object keyed by the place dcid
         with value to be the observation time series.
     """
-    place_dcids = request.args.getlist('dcid')
+    place_dcids = []
+    if request.method == 'POST':
+        place_dcids = request.json.get('dcid', [])
+    if request.method == 'GET':
+        place_dcids = request.args.getlist('dcid')
     result = get_stats_wrapper('^'.join(place_dcids), stats_var)
     return Response(result, 200, mimetype='application/json')
 
