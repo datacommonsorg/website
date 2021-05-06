@@ -24,7 +24,7 @@ import _ from "lodash";
 import axios from "axios";
 import { saveToFile } from "../../shared/util";
 import {
-  getStatsCollection,
+  getStatsWithinPlace,
   nodeGetStatVar,
   PlacePointStat,
   SourceSeries,
@@ -151,7 +151,7 @@ async function loadData(
   setCache: (cache: Cache) => void
 ) {
   isLoading.setAreDataLoading(true);
-  const statVarsDataPromise = getStatsCollection(
+  const statVarsDataPromise = getStatsWithinPlace(
     place.enclosingPlace.dcid,
     place.enclosedPlaceType,
     [nodeGetStatVar(x.value.statVar), nodeGetStatVar(y.value.statVar)]
@@ -276,7 +276,7 @@ function getPoints(
       .map((place) => {
         const placeXStatData = xStatData.stat[place.dcid];
         const placeYStatData = yStatData.stat[place.dcid];
-        if (!placeXStatData || !placeYStatData) {
+        if (_.isEmpty(placeXStatData) || _.isEmpty(placeYStatData)) {
           return null;
         }
         let xPop = null;

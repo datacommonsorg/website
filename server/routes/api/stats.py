@@ -159,9 +159,9 @@ def get_stats_value():
                     mimetype='application/json')
 
 
-@bp.route('/api/stats/collection')
+@bp.route('/api/stats/within-place')
 @cache.cached(timeout=3600 * 24, query_string=True)  # Cache for one day.
-def get_stats_collection():
+def get_stat_set_within_place():
     """Gets the statistical variable values for child places of a certain place
     type contained in a parent place at a given date. If no date given, will
     return values for most recent date.
@@ -189,8 +189,8 @@ def get_stats_collection():
                         mimetype='application/json')
     date = request.args.get("date")
     return Response(json.dumps(
-        dc.get_stats_collection(parent_place, child_type, stat_vars,
-                                date)['data']),
+        dc.get_stat_set_within_place(parent_place, child_type, stat_vars,
+                                     date)['data']),
                     200,
                     mimetype='application/json')
 

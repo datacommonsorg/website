@@ -62,7 +62,7 @@ async function getPlacesInNames(
   return resp.data;
 }
 
-async function getStatsCollection(
+async function getStatsWithinPlace(
   parent_place: string,
   child_type: string,
   statVars: Array<string>
@@ -73,7 +73,7 @@ async function getStatsCollection(
   }
   return axios
     .get(
-      `/api/stats/collection?parent_place=${parent_place}&child_type=${child_type}${statVarParams}`
+      `/api/stats/within-place?parent_place=${parent_place}&child_type=${child_type}${statVarParams}`
     )
     .then((resp) => {
       return resp.data;
@@ -281,7 +281,7 @@ function updateHashPlace(hash: string, place: PlaceInfo): string {
 
 export {
   getPlacesInNames,
-  getStatsCollection,
+  getStatsWithinPlace,
   nodeGetStatVar,
   updateHash,
   applyHash,
