@@ -15,6 +15,8 @@
 import json
 import logging
 import os
+import time
+import urllib
 
 from flask import Flask, request, g
 from flask_babel import Babel
@@ -120,6 +122,18 @@ def create_app():
     app.config['BABEL_TRANSLATION_DIRECTORIES'] = 'i18n'
 
     if not cfg.TEST:
+        timeout = 30  # seconds
+        counter = 0
+        isOpen = False
+        while not isOpen:
+            try:
+                urllib.request.urlopen(cfg.API_ROOT + "/version")
+                break
+            except urllib.error.URLError:
+                time.sleep(1)
+                counter += 1
+            if counter > timeout:
+                raise RuntimeError("Mixer not ready after %s second" % timeout)
         app.config[
             'STAT_VAR_SEARCH_INDEX'] = svh_search.get_statvar_search_index()
 
