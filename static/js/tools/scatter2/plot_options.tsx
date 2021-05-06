@@ -19,8 +19,8 @@
  * lower and upper bounds for populations.
  */
 
-import React, { useContext, useState } from "react";
-import { FormGroup, Label, Input, Card, Button, Collapse } from "reactstrap";
+import React, { useContext } from "react";
+import { FormGroup, Label, Input, Card, Button } from "reactstrap";
 import { AxisWrapper, Context, PlaceInfoWrapper } from "./context";
 
 import { Container, Row, Col } from "reactstrap";
@@ -30,119 +30,106 @@ import { Container, Row, Col } from "reactstrap";
 // the dates.
 function PlotOptions(): JSX.Element {
   const { place, x, y } = useContext(Context);
-
-  const [open, setOpen] = useState(false);
-
   return (
-    <Card>
-      <Container id="plot-options">
-        <Row>
-          <Col xs="auto">
+    <Card id="plot-options">
+      <Container>
+        <Row className="plot-options-row">
+          <Col sm={1}>Per capita:</Col>
+          <Col sm="auto">
+            <FormGroup check>
+              <Label check>
+                <Input
+                  id="per-capita-x"
+                  type="checkbox"
+                  checked={x.value.perCapita}
+                  onChange={(e) => checkPerCapita(x, e)}
+                />
+                x-axis
+              </Label>
+            </FormGroup>
+          </Col>
+          <Col sm="auto">
+            <FormGroup check>
+              <Label check>
+                <Input
+                  id="per-capita-y"
+                  type="checkbox"
+                  checked={y.value.perCapita}
+                  onChange={(e) => checkPerCapita(y, e)}
+                />
+                y-axis
+              </Label>
+            </FormGroup>
+          </Col>
+        </Row>
+        <Row className="plot-options-row">
+          <Col sm={1}>Log scale:</Col>
+          <Col sm="auto">
+            <FormGroup check>
+              <Label check>
+                <Input
+                  id="log-x"
+                  type="checkbox"
+                  checked={x.value.log}
+                  onChange={(e) => checkLog(x, e)}
+                />
+                x-axis
+              </Label>
+            </FormGroup>
+          </Col>
+          <Col sm="auto">
+            <FormGroup check>
+              <Label check>
+                <Input
+                  id="log-y"
+                  type="checkbox"
+                  checked={y.value.log}
+                  onChange={(e) => checkLog(y, e)}
+                />
+                y-axis
+              </Label>
+            </FormGroup>
+          </Col>
+        </Row>
+        <Row className="plot-options-row">
+          <Col sm={1}>Swap:</Col>
+          <Col sm="auto">
             <Button
-              className="flex-container"
-              color="light"
+              id="swap-axes"
               size="sm"
-              onClick={() => setOpen(!open)}
+              color="light"
+              onClick={() => swapAxes(x, y)}
+              className="plot-options-swap-button"
             >
-              <i className="material-icons">
-                {open ? "expand_less" : "expand_more"}
-              </i>
-              Options
+              Swap X and Y axes
             </Button>
           </Col>
         </Row>
-        <Row>
-          <Collapse isOpen={open} className="flex-container">
-            <Container>
-              <Row>
-                <Col xs="3">Only plot places of this size</Col>
-                <Col>
-                  <FormGroup check>
-                    <Input
-                      type="number"
-                      onChange={(e) => selectLowerBound(place, e)}
-                      value={place.value.lowerBound}
-                    />
-                  </FormGroup>
-                </Col>
-                <Col xs="auto">to</Col>
-                <Col>
-                  <FormGroup check>
-                    <Input
-                      type="number"
-                      onChange={(e) => selectUpperBound(place, e)}
-                      value={
-                        place.value.upperBound === Number.POSITIVE_INFINITY
-                          ? 1e10
-                          : place.value.upperBound
-                      }
-                    />
-                  </FormGroup>
-                </Col>
-              </Row>
-              <Row>
-                <Col xs="3">Plot Options</Col>
-                <Col>
-                  <Button
-                    id="swap-axes"
-                    size="sm"
-                    color="light"
-                    onClick={() => swapAxes(x, y)}
-                  >
-                    Swap X and Y axes
-                  </Button>
-                </Col>
-                <Col>
-                  <FormGroup check>
-                    <Label check>
-                      <Input
-                        id="per-capita-x"
-                        type="checkbox"
-                        checked={x.value.perCapita}
-                        onChange={(e) => checkPerCapita(x, e)}
-                      />
-                      Plot X-axis per capita
-                    </Label>
-                  </FormGroup>
-                  <FormGroup check>
-                    <Label check>
-                      <Input
-                        id="per-capita-y"
-                        type="checkbox"
-                        checked={y.value.perCapita}
-                        onChange={(e) => checkPerCapita(y, e)}
-                      />
-                      Plot Y-axis per capita
-                    </Label>
-                  </FormGroup>
-                </Col>
-                <Col>
-                  <FormGroup check>
-                    <Label check>
-                      <Input
-                        id="log-x"
-                        type="checkbox"
-                        checked={x.value.log}
-                        onChange={(e) => checkLog(x, e)}
-                      />
-                      Plot X-axis on log scale
-                    </Label>
-                  </FormGroup>
-                  <FormGroup check>
-                    <Label check>
-                      <Input
-                        id="log-y"
-                        type="checkbox"
-                        checked={y.value.log}
-                        onChange={(e) => checkLog(y, e)}
-                      />
-                      Plot Y-axis on log scale
-                    </Label>
-                  </FormGroup>
-                </Col>
-              </Row>
-            </Container>
-          </Collapse>
+        <Row className="plot-options-row">
+          <Col sm={2}>Filter by population:</Col>
+          <Col>
+            <FormGroup check>
+              <Input
+                type="number"
+                onChange={(e) => selectLowerBound(place, e)}
+                value={place.value.lowerBound}
+              />
+            </FormGroup>
+          </Col>
+          <Col sm="auto">to</Col>
+          <Col>
+            <FormGroup check>
+              <Input
+                type="number"
+                onChange={(e) => selectUpperBound(place, e)}
+                value={
+                  place.value.upperBound === Number.POSITIVE_INFINITY
+                    ? 1e10
+                    : place.value.upperBound
+                }
+              />
+            </FormGroup>
+          </Col>
         </Row>
       </Container>
     </Card>

@@ -48,7 +48,7 @@ function getStatsVarInfo(
 async function getStatsVar(
   dcids: string[],
   sample = false,
-  sampleSize = 50
+  sampleSize = 5
 ): Promise<Set<string>> {
   if (dcids.length === 0) {
     return Promise.resolve(new Set<string>());

@@ -18,8 +18,9 @@
  * Place options for selecting the child place type and the enclosing place.
  */
 
-import React, { useContext, useEffect } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import _ from "lodash";
+import axios from "axios";
 import { Card } from "reactstrap";
 import {
   Context,
@@ -29,22 +30,22 @@ import {
 } from "./context";
 import { SearchBar } from "../timeline/search";
 import { getPlaceNames } from "../timeline/util";
-import { getPlacesInNames } from "./util";
 
 import { Container, Row, Col, CustomInput } from "reactstrap";
 
-/**
- * Possible child place types.
- */
-const EnclosedTypes = [
-  // "Country", // TODO: Search bar should be able to search for "Earth".
-  "State",
-  "County",
-  "City",
-  "Town",
-  "Village",
-  "Borough",
-  "CensusZipCodeTabulationArea",
+const USA_CITY_CHILD_TYPES = ["CensusZipCodeTabulationArea", "City"];
+const USA_COUNTY_CHILD_TYPES = ["Town", "Village", ...USA_CITY_CHILD_TYPES];
+const USA_STATE_CHILD_TYPES = ["County", ...USA_COUNTY_CHILD_TYPES];
+const USA_COUNTRY_CHILD_TYPES = ["State", ...USA_STATE_CHILD_TYPES];
+
+const USA_CHILD_PLACE_TYPES = {
+  Country: USA_COUNTRY_CHILD_TYPES,
+  State: USA_STATE_CHILD_TYPES,
+  County: USA_COUNTY_CHILD_TYPES,
+  City: USA_CITY_CHILD_TYPES,
+};
+
+const NON_USA_PLACE_TYPES = [
   "EurostatNUTS1",
   "EurostatNUTS2",
   "EurostatNUTS3",
@@ -55,9 +56,27 @@ const EnclosedTypes = [
   "AdministrativeArea5",
 ];
 
+/**
+ * Possible child place types.
+ */
+const ALL_PLACE_TYPES = [
+  // "Country", // TODO: Search bar should be able to search for "Earth".
+  "State",
+  "County",
+  "City",
+  "Town",
+  "Village",
+  "Borough",
+  "CensusZipCodeTabulationArea",
+  ...NON_USA_PLACE_TYPES,
+];
+
 function PlaceOptions(): JSX.Element {
   const { place, isLoading } = useContext(Context);
-
+  const [childPlaceTypes, setChildPlaceTypes] = useState(ALL_PLACE_TYPES);
+  if (place.value.enclosingPlace.dcid && childPlaceTypes === ALL_PLACE_TYPES) {
+    updateChildPlaceTypes(place.value.enclosingPlace.dcid, setChildPlaceTypes);
+  }
   /**
    * Reloads child places if the enclosing place or child place type changes.
    */
@@ -72,23 +91,7 @@ function PlaceOptions(): JSX.Element {
     <Card>
       <Container>
         <Row>
-          <Col xs="auto">Plot places of type</Col>
-          <Col xs="3">
-            <CustomInput
-              id="enclosed-place-type"
-              type="select"
-              value={place.value.enclosedPlaceType}
-              onChange={(e) => selectEnclosedPlaceType(place, e)}
-            >
-              <option value="">Select a place type</option>
-              {EnclosedTypes.map((type) => (
-                <option value={type} key={type}>
-                  {type}
-                </option>
-              ))}
-            </CustomInput>
-          </Col>
-          <Col xs="auto">in</Col>
+          <Col xs="auto">Plot places in</Col>
           <Col>
             <div id="search">
               <SearchBar
@@ -101,10 +104,29 @@ function PlaceOptions(): JSX.Element {
                     : {}
                 }
                 addPlace={(e) => selectEnclosingPlace(place, e)}
-                removePlace={() => unselectEnclosingPlace(place)}
+                removePlace={() =>
+                  unselectEnclosingPlace(place, setChildPlaceTypes)
+                }
                 numPlacesLimit={1}
               />
             </div>
+          </Col>
+          <Col xs="auto">of type</Col>
+          <Col xs="3">
+            <CustomInput
+              id="enclosed-place-type"
+              type="select"
+              value={place.value.enclosedPlaceType}
+              onChange={(e) => selectEnclosedPlaceType(place, e)}
+              className="pac-target-input"
+            >
+              <option value="">Select a place type</option>
+              {childPlaceTypes.map((type) => (
+                <option value={type} key={type}>
+                  {type}
+                </option>
+              ))}
+            </CustomInput>
           </Col>
         </Row>
       </Container>
@@ -134,30 +156,56 @@ async function loadPlaces(
   place: PlaceInfoWrapper,
   isLoading: IsLoadingWrapper
 ): Promise<void> {
-  let dcidToName: Record<string, string>;
+  const placeDcid = place.value.enclosingPlace.dcid;
+  const childPlaceType = place.value.enclosedPlaceType;
+  let placeNamesRetrieved = false;
+  axios
+    .get(
+      `/api/place/places-in-names?dcid=${placeDcid}&placeType=${childPlaceType}`
+    )
+    .then((resp) => {
+      const childPlacesToNames = resp.data;
+      if (!_.isEmpty(childPlacesToNames)) {
+        const enclosedPlaces = Object.keys(childPlacesToNames).map((dcid) => {
+          return {
+            dcid: dcid,
+            name: childPlacesToNames[dcid],
+          };
+        });
+        place.setEnclosedPlaces(enclosedPlaces);
+        placeNamesRetrieved = true;
+      }
+    })
+    .catch(() => (placeNamesRetrieved = false));
   isLoading.setArePlacesLoading(true);
-  try {
-    dcidToName = await getPlacesInNames(
-      place.value.enclosingPlace.dcid,
-      place.value.enclosedPlaceType
-    );
-  } catch (err) {
-    dcidToName = {};
-  }
-  if (!_.isEmpty(dcidToName)) {
-    place.setEnclosedPlaces(
-      _.keys(dcidToName).map((dcid) => ({
-        dcid: dcid,
-        name: dcidToName[dcid] || dcid,
-      }))
-    );
-  } else {
-    alert(
-      `Sorry, ${place.value.enclosingPlace.name} does not contain places of type ` +
-        `${place.value.enclosedPlaceType}. Try picking another type or place.`
-    );
-  }
-  isLoading.setArePlacesLoading(false);
+  axios
+    .get(`/api/place/places-in?dcid=${placeDcid}&placeType=${childPlaceType}`)
+    .then((resp) => {
+      const childPlaces = resp.data[placeDcid];
+      if (!placeNamesRetrieved) {
+        const enclosedPlaces = childPlaces.map((dcid) => {
+          return {
+            dcid: dcid,
+            name: dcid,
+          };
+        });
+        if (!_.isEmpty(enclosedPlaces)) {
+          place.setEnclosedPlaces(enclosedPlaces);
+        } else {
+          alert(
+            `Sorry, ${place.value.enclosingPlace.name} does not contain places of type ` +
+              `${childPlaceType}. Try picking another type or place.`
+          );
+        }
+      }
+      isLoading.setArePlacesLoading(false);
+    })
+    .catch(() => {
+      isLoading.setArePlacesLoading(false);
+      alert(
+        `Error fetching places of type ${childPlaceType} for ${place.value.enclosingPlace.name}.`
+      );
+    });
 }
 
 /**
@@ -182,12 +230,44 @@ async function selectEnclosingPlace(place: PlaceInfoWrapper, dcid: string) {
   place.setEnclosingPlace({ dcid: dcid, name: dcidToName[dcid] });
 }
 
+function updateChildPlaceTypes(
+  dcid: string,
+  setChildPlaceTypes: (childPlaceTypes: string[]) => void
+) {
+  const parentPlacePromise = axios
+    .get(`/api/place/parent/${dcid}`)
+    .then((resp) => resp.data);
+  const placeTypePromise = axios
+    .get(`/api/place/type/${dcid}`)
+    .then((resp) => resp.data);
+  Promise.all([parentPlacePromise, placeTypePromise])
+    .then(([parents, placeType]) => {
+      const isUSPlace =
+        dcid === "country/USA" ||
+        parents.findIndex((parent) => parent.dcid === "country/USA") > -1;
+      if (isUSPlace) {
+        if (placeType in USA_CHILD_PLACE_TYPES) {
+          setChildPlaceTypes(USA_CHILD_PLACE_TYPES[placeType]);
+        }
+      } else {
+        setChildPlaceTypes(NON_USA_PLACE_TYPES);
+      }
+    })
+    .catch(() => {
+      setChildPlaceTypes(ALL_PLACE_TYPES);
+    });
+}
+
 /**
  * Removes the enclosing place
  * @param place
  */
-function unselectEnclosingPlace(place: PlaceInfoWrapper) {
+function unselectEnclosingPlace(
+  place: PlaceInfoWrapper,
+  setChildPlaceTypes: (childPlaceTypes: string[]) => void
+) {
   place.setEnclosingPlace({ dcid: "", name: "" });
+  setChildPlaceTypes(ALL_PLACE_TYPES);
 }
 
 export { PlaceOptions };
