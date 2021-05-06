@@ -173,10 +173,24 @@ function mockAxios(): () => void {
         Count_HousingUnit: data.Count_HousingUnit,
       },
     });
-  when(axios.get)
-    .calledWith(
-      "/api/stats/Count_Person?&dcid=geoId/10001&dcid=geoId/10003&dcid=geoId/10005"
-    )
+  const post = axios.post;
+  axios.post = jest.fn();
+  when(axios.post)
+    .calledWith("/api/place/stat-vars/union", {
+      dcids: ["geoId/10001", "geoId/10003", "geoId/10005"],
+    })
+    .mockResolvedValue({
+      data: [
+        "Count_Person_Employed",
+        "Count_Establishment",
+        "Count_HousingUnit",
+      ],
+    });
+
+  when(axios.post)
+    .calledWith("/api/stats/Count_Person", {
+      dcid: ["geoId/10001", "geoId/10003", "geoId/10005"],
+    })
     .mockResolvedValue({
       data: {
         "geoId/10001": {
@@ -201,19 +215,6 @@ function mockAxios(): () => void {
           provenanceUrl: "https://www.census.gov/programs-surveys/popest.html",
         },
       },
-    });
-  const post = axios.post;
-  axios.post = jest.fn();
-  when(axios.post)
-    .calledWith("/api/place/stat-vars/union", {
-      dcids: ["geoId/10001", "geoId/10003", "geoId/10005"],
-    })
-    .mockResolvedValue({
-      data: [
-        "Count_Person_Employed",
-        "Count_Establishment",
-        "Count_HousingUnit",
-      ],
     });
 
   // Statvar menu

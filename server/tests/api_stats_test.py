@@ -92,7 +92,7 @@ class TestApiGetStatSetWithinPlace(unittest.TestCase):
                     'child_type': 'County',
                     'date': '2018',
                     'stat_vars': ['Count_Person', 'Count_Person_Male']
-            } and not post and not has_payload:
+            } and post and not has_payload:
                 return result
 
         send_request.side_effect = side_effect
@@ -145,7 +145,7 @@ class TestApiGetStatSetWithinPlace(unittest.TestCase):
                     'child_type': 'County',
                     'date': None,
                     'stat_vars': ['Count_Person', 'Count_Person_Male']
-            } and not post and not has_payload:
+            } and post and not has_payload:
                 return result
 
         send_request.side_effect = side_effect
