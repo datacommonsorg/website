@@ -14,7 +14,7 @@
 """Data Commons Knowledge Graph Browser routes
 """
 
-from flask import Blueprint, render_template, current_app
+from flask import Blueprint, render_template
 import routes.api.shared as shared_api
 
 bp = Blueprint('browser', __name__, url_prefix='/browser')
@@ -22,7 +22,7 @@ bp = Blueprint('browser', __name__, url_prefix='/browser')
 
 @bp.route('/')
 def browser_main():
-    return render_template('/browser/kg_main.html')
+    return render_template('/browser/landing.html')
 
 
 @bp.route('/<path:dcid>')

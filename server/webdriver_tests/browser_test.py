@@ -52,7 +52,8 @@ class TestBrowser(WebdriverBaseTest):
         WebDriverWait(self.driver, self.TIMEOUT_SEC).until(title_present)
 
         # Assert intro is correct
-        intro = self.driver.find_element_by_xpath('//*[@id="kg_main"]/div/p[1]')
+        intro = self.driver.find_element_by_xpath(
+            '//*[@id="browser_landing"]/div/p[1]')
         self.assertTrue(
             intro.text.startswith('The Data Commons Graph is constructed'))
 

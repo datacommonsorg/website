@@ -36,11 +36,6 @@ const config = {
       __dirname + "/css/timeline.scss",
     ],
     timeline_bulk_download: [__dirname + "/js/tools/timeline/bulk_download.ts"],
-    kg: [
-      "babel-polyfill",
-      __dirname + "/js/browser/kg.js",
-      __dirname + "/css/kg.scss",
-    ],
     mcf_playground: __dirname + "/js/mcf_playground.js",
     place: [
       __dirname + "/js/place/place.ts",
