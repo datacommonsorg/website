@@ -66,6 +66,7 @@ def get_property_value(dcid, prop, out=True):
     return dc.get_property_values([dcid], prop, out)[dcid]
 
 
+@bp.route('/type/<path:place_dcid>')
 @cache.memoize(timeout=3600 * 24)  # Cache for one day.
 def get_place_type(place_dcid):
     place_types = get_property_value(place_dcid, 'typeOf')

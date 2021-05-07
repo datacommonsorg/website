@@ -173,10 +173,24 @@ function mockAxios(): () => void {
         Count_HousingUnit: data.Count_HousingUnit,
       },
     });
-  when(axios.get)
-    .calledWith(
-      "/api/stats/Count_Person?&dcid=geoId/10001&dcid=geoId/10003&dcid=geoId/10005"
-    )
+  const post = axios.post;
+  axios.post = jest.fn();
+  when(axios.post)
+    .calledWith("/api/place/stat-vars/union", {
+      dcids: ["geoId/10001", "geoId/10003", "geoId/10005"],
+    })
+    .mockResolvedValue({
+      data: [
+        "Count_Person_Employed",
+        "Count_Establishment",
+        "Count_HousingUnit",
+      ],
+    });
+
+  when(axios.post)
+    .calledWith("/api/stats/Count_Person", {
+      dcid: ["geoId/10001", "geoId/10003", "geoId/10005"],
+    })
     .mockResolvedValue({
       data: {
         "geoId/10001": {
@@ -202,24 +216,29 @@ function mockAxios(): () => void {
         },
       },
     });
-  const post = axios.post;
-  axios.post = jest.fn();
-  when(axios.post)
-    .calledWith("/api/place/stat-vars/union", {
-      dcids: ["geoId/10001", "geoId/10003", "geoId/10005"],
-    })
-    .mockResolvedValue({
-      data: [
-        "Count_Person_Employed",
-        "Count_Establishment",
-        "Count_HousingUnit",
-      ],
-    });
 
   // Statvar menu
   when(axios.get)
     .calledWith("../../data/hierarchy_statsvar.json")
     .mockResolvedValue({ data: hierarchy });
+
+  when(axios.get)
+    .calledWith("/api/place/parent/geoId/10")
+    .mockResolvedValue({
+      data: ["country/USA"],
+    });
+
+  when(axios.get).calledWith("/api/place/type/geoId/10").mockResolvedValue({
+    data: "State",
+  });
+
+  when(axios.get)
+    .calledWith("/api/place/places-in?dcid=geoId/10&placeType=County")
+    .mockResolvedValue({
+      data: {
+        "geoId/10": ["geoId/10001", "geoId/10003", "geoId/10005"],
+      },
+    });
 
   return () => {
     axios.get = get;
@@ -230,20 +249,6 @@ function mockAxios(): () => void {
 function expectCircles(n: number, app: Enzyme.ReactWrapper): void {
   const $ = Cheerio.load(app.html());
   expect($("circle").length).toEqual(n);
-}
-
-function expectInfo(
-  xMean: number,
-  yMean: number,
-  xStd: number,
-  yStd: number,
-  app: Enzyme.ReactWrapper
-): void {
-  const text = app.text();
-  expect(text).toContain(`X Mean: ${xMean}`);
-  expect(text).toContain(`Y Mean: ${yMean}`);
-  expect(text).toContain(`X Standard Deviation: ${xStd}`);
-  expect(text).toContain(`Y Standard Deviation: ${yStd}`);
 }
 
 test("all functionalities", async (done) => {
@@ -272,18 +277,16 @@ test("all functionalities", async (done) => {
   await waitFor(() => {
     // Title
     expect(app.text()).toContain("Number Of Establishments vs Employed");
-    // Stats
-    expectInfo(152696, 8359.667, 108149.894, 6753.678, app);
     // Points
     expectCircles(3, app);
+    //expect(app.find("#plot-options")).toHaveLength(1);
   });
-
+  app.update();
   // Swap axes
   app.find("#swap-axes").at(0).simulate("click");
   const expectTitle = (title: string) => expect(app.text()).toContain(title);
 
   expectTitle("Employed vs Number Of Establishments");
-  expectInfo(8359.667, 152696, 6753.678, 108149.894, app);
   expectCircles(3, app);
 
   // Per capita
@@ -296,7 +299,6 @@ test("all functionalities", async (done) => {
     .at(0)
     .simulate("change", { target: { checked: true } });
   expectTitle("Employed Per Capita vs Number Of Establishments Per Capita");
-  expectInfo(0.024, 0.456, 0.005, 0.036, app);
   expectCircles(3, app);
 
   // Log
@@ -331,7 +333,6 @@ test("all functionalities", async (done) => {
     expect(app.text()).toContain(
       "Housing Units Per Capita vs Employed Per Capita"
     );
-    expectInfo(0.456, 0.456, 0.036, 0.107, app);
     expectCircles(3, app);
   });
 
