@@ -37,13 +37,19 @@ import { updateHash, applyHash } from "./util";
 
 function App(): JSX.Element {
   const { x, y, place, isLoading } = useContext(Context);
-  const hideInfo = shouldHideInfo(x.value, y.value, place.value);
+  const showChart = shouldShowChart(x.value, y.value, place.value);
+  const showChooseStatVarMessage = shouldShowChooseStatVarMessage(
+    x.value,
+    y.value,
+    place.value
+  );
+  const showInfo = !showChart && !showChooseStatVarMessage;
   return (
     <div>
       <StatVarChooser />
       <div id="plot-container">
         <Container>
-          {!hideInfo && (
+          {!showChart && (
             <Row>
               <h1 className="mb-4">Scatter Plot Tool</h1>
             </Row>
@@ -51,13 +57,19 @@ function App(): JSX.Element {
           <Row>
             <PlaceOptions />
           </Row>
-          {hideInfo ? (
-            <Row id="chart-row">
-              <ChartLoader />
+          {showChooseStatVarMessage && (
+            <Row className="info-message">
+              Choose 2 statistical variables from the left pane.
             </Row>
-          ) : (
+          )}
+          {showInfo && (
             <Row>
               <Info />
+            </Row>
+          )}
+          {showChart && (
+            <Row id="chart-row">
+              <ChartLoader />
             </Row>
           )}
         </Container>
@@ -101,12 +113,24 @@ function shouldDisplaySpinner(isLoading: IsLoadingWrapper): boolean {
  * @param y
  * @param place
  */
-function shouldHideInfo(x: Axis, y: Axis, place: PlaceInfo): boolean {
+function shouldShowChart(x: Axis, y: Axis, place: PlaceInfo): boolean {
   return (
     !_.isEmpty(place.enclosedPlaceType) &&
     !_.isEmpty(place.enclosingPlace.dcid) &&
     !_.isEmpty(x.statVar) &&
     !_.isEmpty(y.statVar)
+  );
+}
+
+function shouldShowChooseStatVarMessage(
+  x: Axis,
+  y: Axis,
+  place: PlaceInfo
+): boolean {
+  return (
+    !_.isEmpty(place.enclosedPlaceType) &&
+    !_.isEmpty(place.enclosingPlace.dcid) &&
+    (_.isEmpty(x.statVar) || _.isEmpty(y.statVar))
   );
 }
 

@@ -62,6 +62,7 @@ type Cache = {
   // key here is stat var.
   statsVarData: Record<string, PlacePointStat>;
   populationData: { [statVar: string]: { [dcid: string]: SourceSeries } };
+  noDataError: boolean;
 };
 
 function ChartLoader(): JSX.Element {
@@ -79,7 +80,7 @@ function ChartLoader(): JSX.Element {
     <div>
       {shouldRenderChart && (
         <>
-          {_.isEmpty(points) ? (
+          {cache.noDataError ? (
             <div className="error-message">
               Sorry, no data available. Try different stat vars or place
               options.
@@ -123,7 +124,7 @@ function useCache(): Cache {
    */
   useEffect(() => {
     if (!arePlacesLoaded(placeVal) || !areStatVarNamesLoaded(xVal, yVal)) {
-      setCache({ statsVarData: {}, populationData: {} });
+      setCache({ statsVarData: {}, populationData: {}, noDataError: false });
       return;
     }
     if (!areDataLoaded(cache, xVal, yVal)) {
@@ -184,6 +185,7 @@ async function loadData(
       const cache = {
         populationData,
         statsVarData,
+        noDataError: _.isEmpty(statsVarData),
       };
       isLoading.setAreDataLoading(false);
       setCache(cache);
