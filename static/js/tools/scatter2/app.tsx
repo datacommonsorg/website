@@ -23,7 +23,6 @@ import _ from "lodash";
 import { Container, Row } from "reactstrap";
 import { StatVarChooser } from "./statvar";
 import { PlaceOptions } from "./place_options";
-import { PlotOptions } from "./plot_options";
 import { ChartLoader } from "./chart_loader";
 import { Info } from "./info";
 import { Spinner } from "./spinner";
@@ -51,9 +50,6 @@ function App(): JSX.Element {
           )}
           <Row>
             <PlaceOptions />
-          </Row>
-          <Row>
-            <PlotOptions />
           </Row>
           {hideInfo ? (
             <Row id="chart-row">
