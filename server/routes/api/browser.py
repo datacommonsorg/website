@@ -38,13 +38,6 @@ def triple_api(dcid):
 
 
 @cache.memoize(timeout=3600 * 24)  # Cache for one day.
-@bp.route('/popobs/<path:dcid>')
-def popobs_api(dcid):
-    """Returns all the triples given a node dcid."""
-    return dc.get_pop_obs(dcid)
-
-
-@cache.memoize(timeout=3600 * 24)  # Cache for one day.
 @bp.route('/propvals/<path:prop>/<path:dcid>')
 def get_property_value(dcid, prop):
     """Returns the property values for a given node dcid and property label."""
@@ -70,15 +63,15 @@ def get_property_labels(dcid):
 
 def get_sparql_query(place_id, stat_var_id, date):
     date_triple = "?svObservation observationDate ?obsDate ."
-    date_selector = "?obsDate"
+    date_selector = " ?obsDate"
     if date:
         date_triple = f'?svObservation observationDate "{date}" .'
         date_selector = ""
     sparql_query = f"""
-        SELECT ?dcid ?mmethod ?obsPeriod {date_selector}
-        WHERE {{ 
+        SELECT ?dcid ?mmethod ?obsPeriod{date_selector}
+        WHERE {{
             ?svObservation typeOf StatVarObservation .
-            ?svObservation variableMeasured {stat_var_id} . 
+            ?svObservation variableMeasured {stat_var_id} .
             ?svObservation observationAbout {place_id} .
             ?svObservation dcid ?dcid .
             ?svObservation measurementMethod ?mmethod .
@@ -163,7 +156,7 @@ def statvar_hierarchy_helper(svg_id, svg_map, processed_svg_map, processed_sv,
 def get_statvar_hierarchy(dcid):
     """Returns the stat var groups objects and stat vars objects relevant to a
     specific dcid.
-    
+
     Each stat var group object (keyed by its stat var group id) will have an
     absolute name, optional list of child stat vars, optional list of child stat
     var groups, and optional list of parent stat var groups.

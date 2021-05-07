@@ -17,12 +17,10 @@ import base64
 import collections
 import json
 import logging
-import os
 import zlib
 import urllib
 
 import requests
-from werkzeug.utils import import_string
 import lib.config as libconfig
 
 cfg = libconfig.get_config()
@@ -40,9 +38,6 @@ API_ENDPOINTS = {
     'get_property_values': '/node/property-values',
     'get_triples': '/node/triples',
     'get_places_in': '/node/places-in',
-    'get_populations': '/node/populations',
-    'get_observations': '/node/observations',
-    'get_pop_obs': '/bulk/pop-obs',
     'get_place_obs': '/bulk/place-obs',
     'get_place_ranking': '/node/ranking-locations',
     'get_chart_data': '/node/chart-data',
@@ -275,70 +270,6 @@ def get_places_in(dcids, place_type):
     # Create the results and format it appropriately
     result = _format_expand_payload(payload, 'place', must_exist=dcids)
     return result
-
-
-def get_populations(dcids, population_type, constraining_properties={}):
-    # Convert the dcids field and format the request to GetPopulations
-    pv = [{
-        'property': k,
-        'value': v
-    } for k, v in constraining_properties.items()]
-    url = API_ROOT + API_ENDPOINTS['get_populations']
-    payload = send_request(url,
-                           req_json={
-                               'dcids': dcids,
-                               'population_type': population_type,
-                               'pvs': pv,
-                           })
-
-    # Create the results and format it appropriately
-    result = _format_expand_payload(payload, 'population', must_exist=dcids)
-
-    # Drop empty results while flattening
-    return _flatten_results(result)
-
-
-def get_observations(dcids,
-                     measured_property,
-                     stats_type,
-                     observation_date,
-                     observation_period=None,
-                     measurement_method=None):
-    # Convert the dcids field and format the request to GetObservation
-    req_json = {
-        'dcids': dcids,
-        'measured_property': measured_property,
-        'stats_type': stats_type,
-        'observation_date': observation_date,
-    }
-    if observation_period:
-        req_json['observation_period'] = observation_period
-    if measurement_method:
-        req_json['measurement_method'] = measurement_method
-
-    # Issue the request to GetObservation
-    url = API_ROOT + API_ENDPOINTS['get_observations']
-    payload = send_request(url, req_json=req_json)
-
-    # Create the results and format it appropriately
-    result = _format_expand_payload(payload, 'observation', must_exist=dcids)
-
-    # Drop empty results by calling _flatten_results without default_value,
-    # then coerce the type to float if possible.
-    typed_results = {}
-    for k, v in _flatten_results(result).items():
-        try:
-            typed_results[k] = float(v)
-        except ValueError:
-            typed_results[k] = v
-    return typed_results
-
-
-def get_pop_obs(dcid):
-    url = API_ROOT + API_ENDPOINTS['get_pop_obs'] + '?dcid={}'.format(dcid)
-    return requests.get(url, headers={
-        'Content-Type': 'application/json'
-    }).json()['payload']
 
 
 def get_place_obs(place_type,
