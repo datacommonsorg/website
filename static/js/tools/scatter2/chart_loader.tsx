@@ -24,7 +24,7 @@ import _ from "lodash";
 import axios from "axios";
 import { saveToFile } from "../../shared/util";
 import {
-  getStatsCollection,
+  getStatsWithinPlace,
   nodeGetStatVar,
   PlacePointStat,
   SourceSeries,
@@ -39,6 +39,7 @@ import {
   IsLoadingWrapper,
 } from "./context";
 import { StatsVarNode } from "../statvar_menu/util";
+import { PlotOptions } from "./plot_options";
 
 /**
  * Represents a point in the scatter plot.
@@ -53,6 +54,8 @@ interface Point {
   ySource: string;
   xPop?: number;
   yPop?: number;
+  xPopSource?: string;
+  yPopSource?: string;
 }
 
 type Cache = {
@@ -82,15 +85,18 @@ function ChartLoader(): JSX.Element {
               options.
             </div>
           ) : (
-            <Chart
-              points={points}
-              xLabel={getLabel(xVal.name, xVal.perCapita)}
-              yLabel={getLabel(yVal.name, yVal.perCapita)}
-              xLog={xVal.log}
-              yLog={yVal.log}
-              xPerCapita={xVal.perCapita}
-              yPerCapita={yVal.perCapita}
-            />
+            <>
+              <Chart
+                points={points}
+                xLabel={getLabel(xVal.name, xVal.perCapita)}
+                yLabel={getLabel(yVal.name, yVal.perCapita)}
+                xLog={xVal.log}
+                yLog={yVal.log}
+                xPerCapita={xVal.perCapita}
+                yPerCapita={yVal.perCapita}
+              />
+              <PlotOptions />
+            </>
           )}
         </>
       )}
@@ -145,24 +151,27 @@ async function loadData(
   setCache: (cache: Cache) => void
 ) {
   isLoading.setAreDataLoading(true);
-  const statVarsDataPromise = getStatsCollection(
+  const statVarsDataPromise = getStatsWithinPlace(
     place.enclosingPlace.dcid,
     place.enclosedPlaceType,
     [nodeGetStatVar(x.value.statVar), nodeGetStatVar(y.value.statVar)]
   );
-  let dcidParams = "?";
-  for (const placeInfo of place.enclosedPlaces) {
-    dcidParams += `&dcid=${placeInfo.dcid}`;
-  }
+  const childPlaceDcids = place.enclosedPlaces.map(
+    (placeInfo) => placeInfo.dcid
+  );
   const xPopulationStatVar = getPopulationStatVar(x.value.statVar);
   const xPopulationPromise = axios
-    .get(`/api/stats/${xPopulationStatVar}${dcidParams}`)
+    .post(`/api/stats/${xPopulationStatVar}`, {
+      dcid: childPlaceDcids,
+    })
     .then((resp) => resp.data);
   const yPopulationStatVar = getPopulationStatVar(y.value.statVar);
   const yPopulationPromise =
     yPopulationStatVar !== xPopulationStatVar
       ? axios
-          .get(`/api/stats/${yPopulationStatVar}${dcidParams}`)
+          .post(`/api/stats/${yPopulationStatVar}`, {
+            dcid: childPlaceDcids,
+          })
           .then((resp) => resp.data)
       : Promise.resolve({});
   Promise.all([statVarsDataPromise, xPopulationPromise, yPopulationPromise])
@@ -270,10 +279,11 @@ function getPoints(
       .map((place) => {
         const placeXStatData = xStatData.stat[place.dcid];
         const placeYStatData = yStatData.stat[place.dcid];
-        if (!placeXStatData || !placeYStatData) {
+        if (_.isEmpty(placeXStatData) || _.isEmpty(placeYStatData)) {
           return null;
         }
         let xPop = null;
+        let xPopSource = null;
         const placeXPopData = xPopData[place.dcid];
         if (placeXPopData) {
           const matchingDate = Object.keys(placeXPopData.data).find((date) => {
@@ -281,8 +291,10 @@ function getPoints(
             return placeXStatData.date.includes(popYear);
           });
           xPop = placeXPopData.data[matchingDate];
+          xPopSource = placeXPopData.provenanceUrl;
         }
         let yPop = null;
+        let yPopSource = null;
         const placeYPopData = yPopData[place.dcid];
         if (placeYPopData) {
           const matchingDate = Object.keys(placeYPopData.data).find((date) => {
@@ -290,17 +302,20 @@ function getPoints(
             return placeYStatData.date.includes(popYear);
           });
           yPop = placeYPopData.data[matchingDate];
+          yPopSource = placeYPopData.provenanceUrl;
         }
         return {
           place,
           xDate: placeXStatData.date,
           xPop,
+          xPopSource,
           xSource:
             xStatData.metadata[placeXStatData.metadata.importName]
               .provenanceUrl,
           xVal: placeXStatData.value,
           yDate: placeYStatData.date,
           yPop,
+          yPopSource,
           ySource:
             yStatData.metadata[placeYStatData.metadata.importName]
               .provenanceUrl,

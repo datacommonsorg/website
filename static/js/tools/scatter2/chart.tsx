@@ -20,9 +20,10 @@
 
 import React, { useEffect, useRef } from "react";
 import _ from "lodash";
-import { Container, Row, Card, Badge } from "reactstrap";
+import { Container, Row, Card } from "reactstrap";
 import * as d3 from "d3";
 import { Point } from "./chart_loader";
+import { urlToDomain } from "../../shared/util";
 
 interface ChartPropsType {
   points: Array<Point>;
@@ -37,30 +38,38 @@ interface ChartPropsType {
 function Chart(props: ChartPropsType): JSX.Element {
   const svg = useRef<SVGSVGElement>();
   const tooltip = useRef<HTMLDivElement>();
-
+  const sources: Set<string> = new Set();
+  props.points.forEach((point) => {
+    sources.add(point.xSource);
+    sources.add(point.ySource);
+    if (props.xPerCapita && point.xPopSource) {
+      sources.add(point.xPopSource);
+    }
+    if (props.yPerCapita && point.yPopSource) {
+      sources.add(point.yPopSource);
+    }
+  });
+  const sourceList: string[] = Array.from(sources);
+  const sourcesJsx = sourceList.map((source, index) => {
+    const domain = urlToDomain(source);
+    return (
+      <span key={source}>
+        <a href={source}>{domain}</a>
+        {index < sourceList.length - 1 ? ", " : ""}
+      </span>
+    );
+  });
   // Replot when data changes.
   useEffect(() => {
     plot(svg, tooltip, props);
   }, [props]);
-
   return (
     <Container id="chart">
       <Row>
         <Card id="no-padding">
           <svg ref={svg} />
           <div id="tooltip" ref={tooltip} />
-        </Card>
-      </Row>
-      <Row>
-        <Card id="stats">
-          <Badge color="light">X Mean: {getXMean(props.points)}</Badge>
-          <Badge color="light">Y Mean: {getYMean(props.points)}</Badge>
-          <Badge color="light">
-            X Standard Deviation: {getXStd(props.points)}
-          </Badge>
-          <Badge color="light">
-            Y Standard Deviation: {getYStd(props.points)}
-          </Badge>
+          <div>Data from {sourcesJsx}</div>
         </Card>
       </Row>
     </Container>
@@ -194,7 +203,14 @@ function plot(
     .attr("fill", "#FFFFFF")
     .style("opacity", "0.7");
 
-  addTooltip(tooltip, dots, props.xLabel, props.yLabel);
+  addTooltip(
+    tooltip,
+    dots,
+    props.xLabel,
+    props.yLabel,
+    props.xPerCapita,
+    props.yPerCapita
+  );
 }
 
 /**
@@ -291,20 +307,29 @@ function addTooltip(
   tooltip: React.MutableRefObject<HTMLDivElement>,
   dots: d3.Selection<SVGCircleElement, Point, SVGGElement, unknown>,
   xLabel: string,
-  yLabel: string
+  yLabel: string,
+  xPerCapita: boolean,
+  yPerCapita: boolean
 ): void {
   const div = d3
     .select(tooltip.current)
     .style("visibility", "hidden")
     .style("position", "fixed");
-
   const onTooltipMouseover = (point: Point) => {
+    let xSource = urlToDomain(point.xSource);
+    if (xPerCapita && point.xPopSource) {
+      xSource += `, ${urlToDomain(point.xPopSource)}`;
+    }
+    let ySource = urlToDomain(point.ySource);
+    if (yPerCapita && point.yPopSource) {
+      ySource += `, ${urlToDomain(point.yPopSource)}`;
+    }
     const html =
       `${point.place.name || point.place.dcid}<br/>` +
       `${xLabel} (${point.xDate}): ${getStringOrNA(point.xVal)}<br/>` +
       `${yLabel} (${point.yDate}): ${getStringOrNA(point.yVal)}<br/>` +
-      `${xLabel} data from: ${point.xSource}<br/>` +
-      `${yLabel} data from: ${point.ySource}<br/>`;
+      `${xLabel} data from: ${xSource}<br/>` +
+      `${yLabel} data from: ${ySource}<br/>`;
     div
       .html(html)
       .style("left", d3.event.pageX + 15 + "px")

@@ -34,25 +34,25 @@ class TestApiGetStatsValue(unittest.TestCase):
         assert json.loads(response.data) == {"value": 19640794}
 
 
-class TestApiGetStatsCollection(unittest.TestCase):
+class TestApiGetStatSetWithinPlace(unittest.TestCase):
 
     def test_required_predicates(self):
         """Failure if required fields are not present."""
         no_parent_place = app.test_client().get(
-            '/api/stats/collection?child_type=City&stat_vars=Count_Person')
+            '/api/stats/within-place?child_type=City&stat_vars=Count_Person')
         assert no_parent_place.status_code == 400
 
         no_child_type = app.test_client().get(
-            '/api/stats/collection?parent_place=country/USA&stat_vars=Count_Person'
+            '/api/stats/within-place?parent_place=country/USA&stat_vars=Count_Person'
         )
         assert no_child_type.status_code == 400
 
         no_stat_var = app.test_client().get(
-            '/api/stats/collection?parent_place=country/USA&child_type=City')
+            '/api/stats/within-place?parent_place=country/USA&child_type=City')
         assert no_stat_var.status_code == 400
 
     @mock.patch('services.datacommons.send_request')
-    def test_api_get_stats_collection(self, send_request):
+    def test_api_get_stats_set_within_place(self, send_request):
 
         result = {
             "data": {
@@ -87,23 +87,23 @@ class TestApiGetStatsCollection(unittest.TestCase):
                         compress=False,
                         post=True,
                         has_payload=True):
-            if req_url == dc.API_ROOT + "/stat/collection" and req_json == {
+            if req_url == dc.API_ROOT + "/stat/set/within-place" and req_json == {
                     'parent_place': 'geoId/10',
                     'child_type': 'County',
                     'date': '2018',
                     'stat_vars': ['Count_Person', 'Count_Person_Male']
-            } and not post and not has_payload:
+            } and post and not has_payload:
                 return result
 
         send_request.side_effect = side_effect
         response = app.test_client().get(
-            '/api/stats/collection?parent_place=geoId/10&child_type=County'
+            '/api/stats/within-place?parent_place=geoId/10&child_type=County'
             '&date=2018&stat_vars=Count_Person&stat_vars=Count_Person_Male')
         assert response.status_code == 200
         assert json.loads(response.data) == result['data']
 
     @mock.patch('services.datacommons.send_request')
-    def test_api_get_stats_collection_no_date(self, send_request):
+    def test_api_get_stat_set_within_place_no_date(self, send_request):
 
         result = {
             "data": {
@@ -140,17 +140,17 @@ class TestApiGetStatsCollection(unittest.TestCase):
                         has_payload=True):
             print(req_url)
             print(req_json)
-            if req_url == dc.API_ROOT + "/stat/collection" and req_json == {
+            if req_url == dc.API_ROOT + "/stat/set/within-place" and req_json == {
                     'parent_place': 'geoId/10',
                     'child_type': 'County',
                     'date': None,
                     'stat_vars': ['Count_Person', 'Count_Person_Male']
-            } and not post and not has_payload:
+            } and post and not has_payload:
                 return result
 
         send_request.side_effect = side_effect
         response = app.test_client().get(
-            '/api/stats/collection?parent_place=geoId/10&child_type=County'
+            '/api/stats/within-place?parent_place=geoId/10&child_type=County'
             '&stat_vars=Count_Person&stat_vars=Count_Person_Male')
         assert response.status_code == 200
         assert json.loads(response.data) == result['data']

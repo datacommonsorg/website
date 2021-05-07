@@ -29,8 +29,8 @@ function Info(): JSX.Element {
       </p>
       <ol>
         <li>
-          Select the type of places you want to plot in the dropdown menu and
-          enter the containing place in the search box above.
+          Enter a place in the search box and then select the type of places you
+          want to plot in the dropdown menu above.
         </li>
         <li>
           Pick two variables in the left pane. There are thousands of variables

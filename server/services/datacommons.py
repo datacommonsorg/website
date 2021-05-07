@@ -17,12 +17,10 @@ import base64
 import collections
 import json
 import logging
-import os
 import zlib
 import urllib
 
 import requests
-from werkzeug.utils import import_string
 import lib.config as libconfig
 
 cfg = libconfig.get_config()
@@ -40,16 +38,13 @@ API_ENDPOINTS = {
     'get_property_values': '/node/property-values',
     'get_triples': '/node/triples',
     'get_places_in': '/node/places-in',
-    'get_populations': '/node/populations',
-    'get_observations': '/node/observations',
-    'get_pop_obs': '/bulk/pop-obs',
     'get_place_obs': '/bulk/place-obs',
     'get_place_ranking': '/node/ranking-locations',
     'get_chart_data': '/node/chart-data',
     'get_stats': '/bulk/stats',
     'get_stats_all': '/stat/all',
     'get_stats_value': '/stat/value',
-    'get_stats_collection': '/stat/collection',
+    'get_stat_set_within_place': '/stat/set/within-place',
     'get_stats_set': '/stat/set',
     # TODO(shifucun): switch back to /node/related-places after data switch.
     'get_related_places': '/node/related-locations',
@@ -116,7 +111,7 @@ def get_stats_value(place, stat_var, date, measurement_method,
     return send_request(url, req_json=req_json, post=False, has_payload=False)
 
 
-def get_stats_collection(parent_place, child_type, stat_vars, date):
+def get_stat_set_within_place(parent_place, child_type, stat_vars, date):
     """Gets the statistical variable values for child places of a certain place
     type contained in a parent place at a given date.
 
@@ -133,14 +128,14 @@ def get_stats_collection(parent_place, child_type, stat_vars, date):
         for the definition of the inner dicts. In particular, the values for "val"
         are dicts keyed by child place DCIDs with the statvar values as values.
     """
-    url = API_ROOT + API_ENDPOINTS['get_stats_collection']
+    url = API_ROOT + API_ENDPOINTS['get_stat_set_within_place']
     req_json = {
         'parent_place': parent_place,
         'child_type': child_type,
         'date': date,
         'stat_vars': stat_vars
     }
-    return send_request(url, req_json=req_json, post=False, has_payload=False)
+    return send_request(url, req_json=req_json, has_payload=False)
 
 
 def get_stats_set(place_dcids, stat_vars, date=None):
@@ -275,70 +270,6 @@ def get_places_in(dcids, place_type):
     # Create the results and format it appropriately
     result = _format_expand_payload(payload, 'place', must_exist=dcids)
     return result
-
-
-def get_populations(dcids, population_type, constraining_properties={}):
-    # Convert the dcids field and format the request to GetPopulations
-    pv = [{
-        'property': k,
-        'value': v
-    } for k, v in constraining_properties.items()]
-    url = API_ROOT + API_ENDPOINTS['get_populations']
-    payload = send_request(url,
-                           req_json={
-                               'dcids': dcids,
-                               'population_type': population_type,
-                               'pvs': pv,
-                           })
-
-    # Create the results and format it appropriately
-    result = _format_expand_payload(payload, 'population', must_exist=dcids)
-
-    # Drop empty results while flattening
-    return _flatten_results(result)
-
-
-def get_observations(dcids,
-                     measured_property,
-                     stats_type,
-                     observation_date,
-                     observation_period=None,
-                     measurement_method=None):
-    # Convert the dcids field and format the request to GetObservation
-    req_json = {
-        'dcids': dcids,
-        'measured_property': measured_property,
-        'stats_type': stats_type,
-        'observation_date': observation_date,
-    }
-    if observation_period:
-        req_json['observation_period'] = observation_period
-    if measurement_method:
-        req_json['measurement_method'] = measurement_method
-
-    # Issue the request to GetObservation
-    url = API_ROOT + API_ENDPOINTS['get_observations']
-    payload = send_request(url, req_json=req_json)
-
-    # Create the results and format it appropriately
-    result = _format_expand_payload(payload, 'observation', must_exist=dcids)
-
-    # Drop empty results by calling _flatten_results without default_value,
-    # then coerce the type to float if possible.
-    typed_results = {}
-    for k, v in _flatten_results(result).items():
-        try:
-            typed_results[k] = float(v)
-        except ValueError:
-            typed_results[k] = v
-    return typed_results
-
-
-def get_pop_obs(dcid):
-    url = API_ROOT + API_ENDPOINTS['get_pop_obs'] + '?dcid={}'.format(dcid)
-    return requests.get(url, headers={
-        'Content-Type': 'application/json'
-    }).json()['payload']
 
 
 def get_place_obs(place_type,

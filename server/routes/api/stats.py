@@ -69,7 +69,7 @@ def get_stats_wrapper(dcid_str, stats_var):
     return json.dumps(result)
 
 
-@bp.route('/api/stats/<path:stats_var>')
+@bp.route('/api/stats/<path:stats_var>', methods=['POST', 'GET'])
 def stats(stats_var):
     """Handler to get the observation given stats var for multiple places.
 
@@ -81,7 +81,11 @@ def stats(stats_var):
         An serialized json str. The json is an object keyed by the place dcid
         with value to be the observation time series.
     """
-    place_dcids = request.args.getlist('dcid')
+    place_dcids = []
+    if request.method == 'POST':
+        place_dcids = request.json.get('dcid', [])
+    if request.method == 'GET':
+        place_dcids = request.args.getlist('dcid')
     result = get_stats_wrapper('^'.join(place_dcids), stats_var)
     return Response(result, 200, mimetype='application/json')
 
@@ -159,9 +163,9 @@ def get_stats_value():
                     mimetype='application/json')
 
 
-@bp.route('/api/stats/collection')
+@bp.route('/api/stats/within-place')
 @cache.cached(timeout=3600 * 24, query_string=True)  # Cache for one day.
-def get_stats_collection():
+def get_stat_set_within_place():
     """Gets the statistical variable values for child places of a certain place
     type contained in a parent place at a given date. If no date given, will
     return values for most recent date.
@@ -189,8 +193,8 @@ def get_stats_collection():
                         mimetype='application/json')
     date = request.args.get("date")
     return Response(json.dumps(
-        dc.get_stats_collection(parent_place, child_type, stat_vars,
-                                date)['data']),
+        dc.get_stat_set_within_place(parent_place, child_type, stat_vars,
+                                     date)['data']),
                     200,
                     mimetype='application/json')
 
