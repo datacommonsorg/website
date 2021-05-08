@@ -43,7 +43,7 @@ function Info(): JSX.Element {
           <b>Asians Per Capita vs Median Income</b> for counties in
           <a
             href={
-              "#%26svx%3DMedian_Income_Person%26svpx%3D0-3%26svnx%3DMedian%20income%26svy%3DCount_Person_AsianAlone%26svpy%3D0-14-1%26svdy%3DCount_Person%26svny%3DAsian%20Alone%26pcy%3D1%26epd%3DgeoId%2F06%26epn%3DCalifornia%26ept%3DCounty"
+              "#&svx=Median_Income_Person&svpx=0-3&svnx=Median_income&svy=Count_Person_AsianAlone&svpy=0-14-1&svdy=Count_Person&svny=Asian_Alone&pcy=1&epd=geoId%2F06&epn=California&ept=County"
             }
           >
             {" "}
@@ -52,7 +52,7 @@ function Info(): JSX.Element {
           ,
           <a
             href={
-              "#%26svx%3DMedian_Income_Person%26svpx%3D0-3%26svnx%3DMedian%20income%26svy%3DCount_Person_AsianAlone%26svpy%3D0-14-1%26svdy%3DCount_Person%26svny%3DAsian%20Alone%26pcy%3D1%26epd%3DgeoId%2F48%26epn%3DTexas%26ept%3DCounty"
+              "#&svx=Median_Income_Person&svpx=0-3&svnx=Median_income&svy=Count_Person_AsianAlone&svpy=0-14-1&svdy=Count_Person&svny=Asian_Alone&pcy=1&epd=geoId%2F48&epn=Texas&ept=County"
             }
           >
             {" "}
@@ -61,7 +61,7 @@ function Info(): JSX.Element {
           ,
           <a
             href={
-              "#%26svx%3DMedian_Income_Person%26svpx%3D0-3%26svnx%3DMedian%20income%26svy%3DCount_Person_AsianAlone%26svpy%3D0-14-1%26svdy%3DCount_Person%26svny%3DAsian%20Alone%26pcy%3D1%26epd%3DgeoId%2F17%26epn%3DIllinois%26ept%3DCounty"
+              "#&svx=Median_Income_Person&svpx=0-3&svnx=Median_income&svy=Count_Person_AsianAlone&svpy=0-14-1&svdy=Count_Person&svny=Asian_Alone&pcy=1&epd=geoId%2F17&epn=Illinois&ept=County"
             }
           >
             {" "}
@@ -70,7 +70,7 @@ function Info(): JSX.Element {
           ,
           <a
             href={
-              "#%26svx%3DMedian_Income_Person%26svpx%3D0-3%26svnx%3DMedian%20income%26svy%3DCount_Person_AsianAlone%26svpy%3D0-14-1%26svdy%3DCount_Person%26svny%3DAsian%20Alone%26pcy%3D1%26epd%3Dcountry%2FUSA%26epn%3DUnited%20States%20of%20America%26ept%3DCounty"
+              "#&svx=Median_Income_Person&svpx=0-3&svnx=Median_income&svy=Count_Person_AsianAlone&svpy=0-14-1&svdy=Count_Person&svny=Asian_Alone&pcy=1&epd=country%2FUSA&epn=United_States_of_America&ept=County"
             }
           >
             {" "}
@@ -81,7 +81,7 @@ function Info(): JSX.Element {
           <b>Bachelor Degree Attained vs Females Per Capita</b> for counties in
           <a
             href={
-              "#%26svx%3DCount_Person_Female%26svpx%3D0-8-0%26svdx%3DCount_Person%26svnx%3DFemale%26pcx%3D1%26svy%3DCount_Person_EducationalAttainmentBachelorsDegree%26svpy%3D2-0-6%26svdy%3DCount_Person_25OrMoreYears%26svny%3DBachelors%20Degree%26pcy%3D1%26epd%3DgeoId%2F06%26epn%3DCalifornia%26ept%3DCounty"
+              "#&svx=Count_Person_Female&svpx=0-8-0&svdx=Count_Person&svnx=Female&pcx=1&svy=Count_Person_EducationalAttainmentBachelorsDegree&svpy=2-0-6&svdy=Count_Person_25OrMoreYears&svny=Bachelors_Degree&pcy=1&epd=geoId%2F06&epn=California&ept=County"
             }
           >
             {" "}
@@ -90,7 +90,7 @@ function Info(): JSX.Element {
           ,
           <a
             href={
-              "#%26svx%3DCount_Person_Female%26svpx%3D0-8-0%26svdx%3DCount_Person%26svnx%3DFemale%26pcx%3D1%26svy%3DCount_Person_EducationalAttainmentBachelorsDegree%26svpy%3D2-0-6%26svdy%3DCount_Person_25OrMoreYears%26svny%3DBachelors%20Degree%26pcy%3D1%26epd%3DgeoId%2F36%26epn%3DNew%20York%26ept%3DCounty"
+              "#&svx=Count_Person_Female&svpx=0-8-0&svdx=Count_Person&svnx=Female&pcx=1&svy=Count_Person_EducationalAttainmentBachelorsDegree&svpy=2-0-6&svdy=Count_Person_25OrMoreYears&svny=Bachelors_Degree&pcy=1&epd=geoId%2F36&epn=New_York&ept=County"
             }
           >
             {" "}
@@ -99,7 +99,7 @@ function Info(): JSX.Element {
           ,
           <a
             href={
-              "#%26svx%3DCount_Person_Female%26svpx%3D0-8-0%26svdx%3DCount_Person%26svnx%3DFemale%26pcx%3D1%26svy%3DCount_Person_EducationalAttainmentBachelorsDegree%26svpy%3D2-0-6%26svdy%3DCount_Person_25OrMoreYears%26svny%3DBachelors%20Degree%26pcy%3D1%26epd%3DgeoId%2F56%26epn%3DWyoming%26ept%3DCounty"
+              "#&svx=Count_Person_Female&svpx=0-8-0&svdx=Count_Person&svnx=Female&pcx=1&svy=Count_Person_EducationalAttainmentBachelorsDegree&svpy=2-0-6&svdy=Count_Person_25OrMoreYears&svny=Bachelors_Degree&pcy=1&epd=geoId%2F56&epn=Wyoming&ept=County"
             }
           >
             {" "}
@@ -110,7 +110,7 @@ function Info(): JSX.Element {
           <b>Foreign Born vs Unemployment Rate</b> for
           <a
             href={
-              "#%26svx%3DUnemploymentRate_Person%26svpx%3D3-3%26svnx%3DUnemployment%20Rate%26svy%3DCount_Person_ForeignBorn%26svpy%3D0-12-2%26svdy%3DCount_Person%26svny%3DForeign%20Born%26pcy%3D1%26epd%3Dcountry%2FUSA%26epn%3DUnited%20States%20of%20America%26ept%3DState"
+              "#&svx=UnemploymentRate_Person&svpx=3-3&svnx=Unemployment_Rate&svy=Count_Person_ForeignBorn&svpy=0-12-2&svdy=Count_Person&svny=Foreign_Born&pcy=1&epd=country%2FUSA&epn=United_States_of_America&ept=State"
             }
           >
             {" "}
@@ -119,7 +119,7 @@ function Info(): JSX.Element {
           ,
           <a
             href={
-              "#%26svx%3DUnemploymentRate_Person%26svpx%3D3-3%26svnx%3DUnemployment%20Rate%26svy%3DCount_Person_ForeignBorn%26svpy%3D0-12-2%26svdy%3DCount_Person%26svny%3DForeign%20Born%26pcy%3D1%26epd%3Dcountry%2FUSA%26epn%3DUnited%20States%20of%20America%26ept%3DCounty"
+              "#&svx=UnemploymentRate_Person&svpx=3-3&svnx=Unemployment_Rate&svy=Count_Person_ForeignBorn&svpy=0-12-2&svdy=Count_Person&svny=Foreign_Born&pcy=1&epd=country%2FUSA&epn=United_States_of_America&ept=County"
             }
           >
             {" "}
