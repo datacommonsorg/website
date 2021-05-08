@@ -92,7 +92,7 @@ function PlaceOptions(): JSX.Element {
       <Container>
         <Row className="centered-items-row">
           <Col xs="auto">Plot places in</Col>
-          <Col>
+          <Col xs="7">
             <div id="search">
               <SearchBar
                 places={

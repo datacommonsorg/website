@@ -50,12 +50,17 @@ function Chart(props: ChartPropsType): JSX.Element {
     }
   });
   const sourceList: string[] = Array.from(sources);
+  const seenSourceDomains = new Set();
   const sourcesJsx = sourceList.map((source, index) => {
     const domain = urlToDomain(source);
+    if (seenSourceDomains.has(domain)) {
+      return null;
+    }
+    seenSourceDomains.add(domain);
     return (
       <span key={source}>
+        {index > 0 ? ", " : ""}
         <a href={source}>{domain}</a>
-        {index < sourceList.length - 1 ? ", " : ""}
       </span>
     );
   });
@@ -318,11 +323,17 @@ function addTooltip(
   const onTooltipMouseover = (point: Point) => {
     let xSource = urlToDomain(point.xSource);
     if (xPerCapita && point.xPopSource) {
-      xSource += `, ${urlToDomain(point.xPopSource)}`;
+      const xPopDomain = urlToDomain(point.xPopSource);
+      if (xPopDomain !== xSource) {
+        xSource += `, ${xPopDomain}`;
+      }
     }
     let ySource = urlToDomain(point.ySource);
     if (yPerCapita && point.yPopSource) {
-      ySource += `, ${urlToDomain(point.yPopSource)}`;
+      const yPopDomain = urlToDomain(point.yPopSource);
+      if (yPopDomain !== ySource) {
+        ySource += `, ${yPopDomain}`;
+      }
     }
     const html =
       `${point.place.name || point.place.dcid}<br/>` +
