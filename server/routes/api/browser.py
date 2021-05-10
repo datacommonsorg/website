@@ -164,7 +164,7 @@ def get_statvar_hierarchy(dcid):
     Each stat var object (keyed by its stat var id) will have its parent stat
     var group id.
     """
-    svg_map = dc.get_statvar_groups(dcid)
+    svg_map = dc.get_statvar_groups([dcid])
     processed_svg_map = {}
     processed_sv = {}
     seen_sv = set()
