@@ -89,7 +89,7 @@ function PlaceOptions(): JSX.Element {
 
   return (
     <Card>
-      <Container>
+      <Container className="place-options">
         <Row className="centered-items-row">
           <Col xs="auto">Plot places in</Col>
           <Col>

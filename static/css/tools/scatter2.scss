@@ -93,6 +93,7 @@
   padding: 10px;
   border-radius: 8px;
   opacity: 0.9;
+  z-index: 2;
 }
 
 #statvar-modal .row {
@@ -128,10 +129,27 @@
   align-items: center;
 }
 
-.place-options-label {
-  font-size: 1.1rem;
+.place-options, #chart,  #plot-options{
+  font-size: 0.9rem;
 }
 
 .plot-options-input {
   width: 15rem;
+}
+
+.info-message {
+  padding: 1.2rem 0;
+}
+
+.plot-options-label {
+  min-width: 8rem;
+}
+
+.input-area-hidden #place-list {
+  flex-grow: 1;
+}
+
+.input-area-hidden #ac {
+  visibility: hidden;
+  width: 0;
 }

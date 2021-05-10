@@ -65,12 +65,16 @@ class SearchBar extends Component<SearchBarPropType> {
   }
 
   render(): JSX.Element {
+    const placeIds = Object.keys(this.props.places);
+    const hideInput = this.props.numPlacesLimit
+      ? placeIds.length >= this.props.numPlacesLimit
+      : false;
     return (
-      <div id="location-field">
+      <div id="location-field" className={hideInput ? "input-area-hidden" : ""}>
         <div id="search-icon"></div>
         <span id="prompt">Find : </span>
         <span id="place-list">
-          {Object.keys(this.props.places).map((placeId) => (
+          {placeIds.map((placeId) => (
             <Chip
               placeId={placeId}
               placeName={

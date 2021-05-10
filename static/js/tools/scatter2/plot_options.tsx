@@ -19,7 +19,7 @@
  * lower and upper bounds for populations.
  */
 
-import React, { useContext } from "react";
+import React, { useContext, useState } from "react";
 import { FormGroup, Label, Input, Card, Button } from "reactstrap";
 import { AxisWrapper, Context, PlaceInfoWrapper } from "./context";
 
@@ -30,11 +30,19 @@ import { Container, Row, Col } from "reactstrap";
 // the dates.
 function PlotOptions(): JSX.Element {
   const { place, x, y } = useContext(Context);
+  const [lowerBound, setLowerBound] = useState(
+    place.value.lowerBound.toString()
+  );
+  const [upperBound, setUpperBound] = useState(
+    place.value.upperBound.toString()
+  );
   return (
     <Card id="plot-options">
       <Container>
         <Row className="plot-options-row">
-          <Col sm={1}>Per capita:</Col>
+          <Col sm={1} className="plot-options-label">
+            Per capita:
+          </Col>
           <Col sm="auto">
             <FormGroup check>
               <Label check>
@@ -44,7 +52,7 @@ function PlotOptions(): JSX.Element {
                   checked={x.value.perCapita}
                   onChange={(e) => checkPerCapita(x, e)}
                 />
-                x-axis
+                X-axis
               </Label>
             </FormGroup>
           </Col>
@@ -57,13 +65,15 @@ function PlotOptions(): JSX.Element {
                   checked={y.value.perCapita}
                   onChange={(e) => checkPerCapita(y, e)}
                 />
-                y-axis
+                Y-axis
               </Label>
             </FormGroup>
           </Col>
         </Row>
         <Row className="plot-options-row">
-          <Col sm={1}>Log scale:</Col>
+          <Col sm={1} className="plot-options-label">
+            Log scale:
+          </Col>
           <Col sm="auto">
             <FormGroup check>
               <Label check>
@@ -73,7 +83,7 @@ function PlotOptions(): JSX.Element {
                   checked={x.value.log}
                   onChange={(e) => checkLog(x, e)}
                 />
-                x-axis
+                X-axis
               </Label>
             </FormGroup>
           </Col>
@@ -86,13 +96,15 @@ function PlotOptions(): JSX.Element {
                   checked={y.value.log}
                   onChange={(e) => checkLog(y, e)}
                 />
-                y-axis
+                Y-axis
               </Label>
             </FormGroup>
           </Col>
         </Row>
         <Row className="plot-options-row centered-items-row">
-          <Col sm={1}>Swap:</Col>
+          <Col sm={1} className="plot-options-label">
+            Swap:
+          </Col>
           <Col sm="auto">
             <Button
               id="swap-axes"
@@ -106,13 +118,16 @@ function PlotOptions(): JSX.Element {
           </Col>
         </Row>
         <Row className="plot-options-row centered-items-row">
-          <Col sm={2}>Filter by population:</Col>
+          <Col sm={2} className="plot-options-label">
+            Filter by population:
+          </Col>
           <Col sm="auto">
             <FormGroup check>
               <Input
                 type="number"
-                onChange={(e) => selectLowerBound(place, e)}
-                value={place.value.lowerBound}
+                onChange={(e) => selectLowerBound(place, e, setLowerBound)}
+                value={lowerBound}
+                onBlur={() => setLowerBound(place.value.lowerBound.toString())}
               />
             </FormGroup>
           </Col>
@@ -121,12 +136,9 @@ function PlotOptions(): JSX.Element {
             <FormGroup check>
               <Input
                 type="number"
-                onChange={(e) => selectUpperBound(place, e)}
-                value={
-                  place.value.upperBound === Number.POSITIVE_INFINITY
-                    ? 1e10
-                    : place.value.upperBound
-                }
+                onChange={(e) => selectUpperBound(place, e, setUpperBound)}
+                value={upperBound}
+                onBlur={() => setUpperBound(place.value.upperBound.toString())}
               />
             </FormGroup>
           </Col>
@@ -178,9 +190,13 @@ function checkLog(
  */
 function selectLowerBound(
   place: PlaceInfoWrapper,
-  event: React.ChangeEvent<HTMLInputElement>
+  event: React.ChangeEvent<HTMLInputElement>,
+  setLowerBound: (lowerBound: string) => void
 ): void {
-  place.setLowerBound(parseInt(event.target.value) || 0);
+  if (event.target.value) {
+    place.setLowerBound(parseInt(event.target.value));
+  }
+  setLowerBound(event.target.value);
 }
 
 /**
@@ -190,9 +206,13 @@ function selectLowerBound(
  */
 function selectUpperBound(
   place: PlaceInfoWrapper,
-  event: React.ChangeEvent<HTMLInputElement>
+  event: React.ChangeEvent<HTMLInputElement>,
+  setUpperBound: (upperBound: string) => void
 ): void {
-  place.setUpperBound(parseInt(event.target.value) || 1e10);
+  if (event.target.value) {
+    place.setUpperBound(parseInt(event.target.value));
+  }
+  setUpperBound(event.target.value);
 }
 
 export { PlotOptions };
