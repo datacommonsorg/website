@@ -32,11 +32,6 @@ def timeline_bulk_download():
     return flask.render_template('tools/timeline_bulk_download.html')
 
 
-@bp.route('/scatter')
-def scatter():
-    return flask.render_template('tools/scatter.html')
-
-
 @bp.route('/choropleth')
 def choropleth():
     # TODO(iancostello): Permit production use after development finishes.
@@ -45,10 +40,7 @@ def choropleth():
     return flask.render_template('tools/choropleth.html')
 
 
-@bp.route('/scatter2')
-def scatter2():
-    # TODO(intrepiditee): Permit production use after development finishes.
-    if os.environ.get('FLASK_ENV') == 'production':
-        flask.abort(404)
+@bp.route('/scatter')
+def scatter():
     return flask.render_template(
-        'tools/scatter2.html', maps_api_key=current_app.config['MAPS_API_KEY'])
+        'tools/scatter.html', maps_api_key=current_app.config['MAPS_API_KEY'])

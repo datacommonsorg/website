@@ -134,6 +134,23 @@
         </li>
       </ul>
     </li>
+
+    <li>
+      {# TRANSLATORS: Header for a set of links to the Data Commons Scatter Plot Explorer tool, where users are able to create scatter plots on many topics. Please see this string in action at https://datacommons.org #}
+      <a class="main" href="{{ url_for('tools.scatter') }}">{% trans project="Data Commons" %}Create Scatter Plots{% endtrans %}</a>:
+      <ul>
+        <li>
+          {# TRANSLATORS: Link to a chart comparing bachelor degree attained vs females per capita across counties in California. Please see this string in action at https://datacommons.org #}
+          <a class="sub" href="{{ url_for('tools.scatter') }}##&svx=Count_Person_Female&svpx=0-8-0&svdx=Count_Person&svnx=Female&pcx=1&svy=Count_Person_EducationalAttainmentBachelorsDegree&svpy=2-0-6&svdy=Count_Person_25OrMoreYears&svny=Bachelors_Degree&pcy=1&epd=geoId%2F06&epn=California&ept=County">{% trans %}Bachelor Degree Attained vs Females Per Capita for California Counties{% endtrans %}</a>,
+        </li>
+        <li>
+          {# TRANSLATORS: Link to a chart comparing foreign born vs unemployment rate across states in the US. Please see this string in action at https://datacommons.org #}
+          <a class="sub" href="{{ url_for('tools.scatter') }}#&svx=UnemploymentRate_Person&svpx=3-3&svnx=Unemployment_Rate&svy=Count_Person_ForeignBorn&svpy=0-12-2&svdy=Count_Person&svny=Foreign_Born&pcy=1&epd=country%2FUSA&epn=United_States_of_America&ept=State">{% trans %}Foreign Born vs Unemployment Rate for US States{% endtrans %}</a>,
+        </li>
+        <li><a class="sub" href="{{ url_for('tools.scatter') }}">{% trans %}MORE{% endtrans %}</a>
+        </li>
+      </ul>
+    </li>
   </ul>
 </section>
 

@@ -77,7 +77,7 @@ test("updateHash", () => {
   expect(history.pushState).toHaveBeenCalledWith(
     {},
     "",
-    `/tools/scatter2${Hash}`
+    `/tools/scatter${Hash}`
   );
 });
 

@@ -15,7 +15,7 @@
  */
 
 /**
- * Main app component for scatter2.
+ * Main app component for scatter.
  */
 
 import React, { useContext, useEffect } from "react";
@@ -51,7 +51,7 @@ function App(): JSX.Element {
         <Container>
           {!showChart && (
             <Row>
-              <h1 className="mb-4">Scatter Plot Tool</h1>
+              <h1 className="mb-4">Scatter Plot Explorer</h1>
             </Row>
           )}
           <Row>
