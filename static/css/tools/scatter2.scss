@@ -129,8 +129,8 @@
   align-items: center;
 }
 
-.place-options-label {
-  font-size: 1.1rem;
+.place-options, #chart,  #plot-options{
+  font-size: 0.9rem;
 }
 
 .plot-options-input {
@@ -139,10 +139,6 @@
 
 .info-message {
   padding: 1.2rem 0;
-}
-
-body {
-  font-size: 0.9rem;
 }
 
 .plot-options-label {

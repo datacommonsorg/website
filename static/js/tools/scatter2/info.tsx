@@ -40,89 +40,80 @@ function Info(): JSX.Element {
       <p>Or you can start your exploration from these interesting points ...</p>
       <ul>
         <li>
-          <b>Asians Per Capita vs Median Income</b> for counties in
+          <b>Asians Per Capita vs Median Income</b> for counties in{" "}
           <a
             href={
               "#&svx=Median_Income_Person&svpx=0-3&svnx=Median_income&svy=Count_Person_AsianAlone&svpy=0-14-1&svdy=Count_Person&svny=Asian_Alone&pcy=1&epd=geoId%2F06&epn=California&ept=County"
             }
           >
-            {" "}
             California
           </a>
-          ,
+          ,{" "}
           <a
             href={
               "#&svx=Median_Income_Person&svpx=0-3&svnx=Median_income&svy=Count_Person_AsianAlone&svpy=0-14-1&svdy=Count_Person&svny=Asian_Alone&pcy=1&epd=geoId%2F48&epn=Texas&ept=County"
             }
           >
-            {" "}
             Texas
           </a>
-          ,
+          ,{" "}
           <a
             href={
               "#&svx=Median_Income_Person&svpx=0-3&svnx=Median_income&svy=Count_Person_AsianAlone&svpy=0-14-1&svdy=Count_Person&svny=Asian_Alone&pcy=1&epd=geoId%2F17&epn=Illinois&ept=County"
             }
           >
-            {" "}
             Illinois
           </a>
-          ,
+          ,{" "}
           <a
             href={
               "#&svx=Median_Income_Person&svpx=0-3&svnx=Median_income&svy=Count_Person_AsianAlone&svpy=0-14-1&svdy=Count_Person&svny=Asian_Alone&pcy=1&epd=country%2FUSA&epn=United_States_of_America&ept=County"
             }
           >
-            {" "}
             USA
           </a>
         </li>
         <li>
-          <b>Bachelor Degree Attained vs Females Per Capita</b> for counties in
+          <b>Bachelor Degree Attained vs Females Per Capita</b> for counties in{" "}
           <a
             href={
               "#&svx=Count_Person_Female&svpx=0-8-0&svdx=Count_Person&svnx=Female&pcx=1&svy=Count_Person_EducationalAttainmentBachelorsDegree&svpy=2-0-6&svdy=Count_Person_25OrMoreYears&svny=Bachelors_Degree&pcy=1&epd=geoId%2F06&epn=California&ept=County"
             }
           >
-            {" "}
             California
           </a>
-          ,
+          ,{" "}
           <a
             href={
               "#&svx=Count_Person_Female&svpx=0-8-0&svdx=Count_Person&svnx=Female&pcx=1&svy=Count_Person_EducationalAttainmentBachelorsDegree&svpy=2-0-6&svdy=Count_Person_25OrMoreYears&svny=Bachelors_Degree&pcy=1&epd=geoId%2F36&epn=New_York&ept=County"
             }
           >
-            {" "}
             New York
           </a>
-          ,
+          ,{" "}
           <a
             href={
               "#&svx=Count_Person_Female&svpx=0-8-0&svdx=Count_Person&svnx=Female&pcx=1&svy=Count_Person_EducationalAttainmentBachelorsDegree&svpy=2-0-6&svdy=Count_Person_25OrMoreYears&svny=Bachelors_Degree&pcy=1&epd=geoId%2F56&epn=Wyoming&ept=County"
             }
           >
-            {" "}
             Wyoming
           </a>
         </li>
         <li>
-          <b>Foreign Born vs Unemployment Rate</b> for
+          <b>Foreign Born vs Unemployment Rate</b> for{" "}
           <a
             href={
               "#&svx=UnemploymentRate_Person&svpx=3-3&svnx=Unemployment_Rate&svy=Count_Person_ForeignBorn&svpy=0-12-2&svdy=Count_Person&svny=Foreign_Born&pcy=1&epd=country%2FUSA&epn=United_States_of_America&ept=State"
             }
           >
-            {" "}
             US states
           </a>
-          ,
+          ,{" "}
           <a
             href={
               "#&svx=UnemploymentRate_Person&svpx=3-3&svnx=Unemployment_Rate&svy=Count_Person_ForeignBorn&svpy=0-12-2&svdy=Count_Person&svny=Foreign_Born&pcy=1&epd=country%2FUSA&epn=United_States_of_America&ept=County"
             }
           >
-            {" "}
             US counties
           </a>
         </li>
