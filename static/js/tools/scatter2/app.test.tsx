@@ -279,7 +279,6 @@ test("all functionalities", async (done) => {
     expect(app.text()).toContain("Number Of Establishments vs Employed");
     // Points
     expectCircles(3, app);
-    //expect(app.find("#plot-options")).toHaveLength(1);
   });
   app.update();
   // Swap axes
