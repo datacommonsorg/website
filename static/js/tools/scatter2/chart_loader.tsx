@@ -183,9 +183,9 @@ async function loadData(
         populationData[yPopulationStatVar] = yPopulationData;
       }
       const cache = {
+        noDataError: _.isEmpty(statsVarData),
         populationData,
         statsVarData,
-        noDataError: _.isEmpty(statsVarData),
       };
       isLoading.setAreDataLoading(false);
       setCache(cache);
