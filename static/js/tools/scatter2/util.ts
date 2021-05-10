@@ -191,7 +191,7 @@ function updateHash(context: ContextType): void {
   hash = updateHashAxis(hash, y, false);
   hash = updateHashPlace(hash, place);
   if (hash) {
-    history.pushState({}, "", `/tools/scatter2#${encodeURIComponent(hash)}`);
+    history.pushState({}, "", `/tools/scatter#${encodeURIComponent(hash)}`);
   }
 }
 

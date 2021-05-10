@@ -27,7 +27,7 @@ class TestRedirects(unittest.TestCase):
     def test_scatter(self):
         response = app.test_client().get('/scatter', follow_redirects=True)
         assert response.status_code == 200
-        assert b"Please select two variables from the left menu" in response.data
+        assert b"Scatter Plot Explorer - Data Commons" in response.data
 
     def test_browser(self):
         response = app.test_client().get('/kg', follow_redirects=False)

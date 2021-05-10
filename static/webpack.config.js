@@ -21,10 +21,9 @@ const WebpackShellPlugin = require("webpack-shell-plugin");
 
 const config = {
   entry: {
-    // TODO(intrepiditee): Rename to scatter when ready.
-    scatter2: [
-      __dirname + "/js/tools/scatter2/scatter2.ts",
-      __dirname + "/css/tools/scatter2.scss",
+    scatter: [
+      __dirname + "/js/tools/scatter2/scatter.ts",
+      __dirname + "/css/tools/scatter.scss",
     ],
     choropleth: [
       __dirname + "/js/tools/choropleth/choropleth_template.tsx",
@@ -45,10 +44,6 @@ const config = {
     ranking: [
       __dirname + "/js/ranking/ranking.ts",
       __dirname + "/css/ranking.scss",
-    ],
-    scatter: [
-      __dirname + "/js/tools/scatter.js",
-      __dirname + "/css/scatter.scss",
     ],
     browser: [
       __dirname + "/js/browser2/browser.ts",
