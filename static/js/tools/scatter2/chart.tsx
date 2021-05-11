@@ -379,7 +379,9 @@ function addTooltip(
     }
     ReactDOM.render(
       <>
-        <title>{point.place.name || point.place.dcid}</title>
+        <header>
+          <b>{point.place.name || point.place.dcid}</b>
+        </header>
         {xLabel}({point.xDate}): {getStringOrNA(point.xVal)}
         <br />
         {yLabel} ({point.yDate}): {getStringOrNA(point.yVal)} <br />
