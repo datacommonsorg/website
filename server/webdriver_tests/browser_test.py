@@ -190,7 +190,7 @@ class TestBrowser(WebdriverBaseTest):
         typeOf_row = table.find_elements_by_xpath('.//tbody/tr[3]/td')
         self.assertEqual(typeOf_row[0].text, 'typeOf')
         self.assertEqual(typeOf_row[1].text, 'StatisticalVariable')
-        self.assertEqual(typeOf_row[2].text, 'www.datacommons.org')
+        self.assertEqual(typeOf_row[2].text, 'datacommons.org')
 
         # Assert observation charts loaded.
         element_present = EC.presence_of_element_located(
