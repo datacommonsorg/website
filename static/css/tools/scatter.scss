@@ -34,6 +34,7 @@
 @include scatter-search;
 
 #main-pane #plot-container {
+  background: #f8f8f8;
   direction: initial;
   padding: 2rem;
   overflow-y: scroll;
@@ -75,9 +76,7 @@
   flex-grow: 1;
   flex-shrink: 1;
   margin-bottom: 15px;
-
-  // Copied from timeline.scss
-  box-shadow: 0 2px 4px 0 rgba(0, 0, 0, 0.2);
+  border: 1px solid rgba(0,0,0,.2);
   padding: 15px;
 }
 
@@ -88,12 +87,22 @@
 }
 
 #tooltip {
-  background-color: #f8f9fa;
+  background-color: var(--dc-gray-lite);
+  box-shadow: 0 3px 6px 0 rgba(0, 0, 0, 0.2);
   font-size: 10pt;
   padding: 10px;
   border-radius: 8px;
   opacity: 0.9;
   z-index: 2;
+}
+
+#tooltip header {
+  font-weight: bold;
+  margin-bottom: .5rem;
+}
+
+#tooltip footer {
+  margin-top: .5rem;
 }
 
 #statvar-modal .row {
@@ -125,12 +134,26 @@
   margin-left: -1.6rem;
 }
 
+#plot-options .btn-light {
+  background-color: var(--dc-red-fade);
+}
+
 .centered-items-row {
   align-items: center;
 }
 
 .place-options, #chart,  #plot-options{
   font-size: 0.9rem;
+}
+
+.provenance {
+  font-size: .7rem;
+  color: var(--dc-gray);
+}
+
+.provenance a {
+  color: var(--dc-gray);
+  text-decoration: underline;
 }
 
 .plot-options-input {
@@ -152,4 +175,13 @@
 .input-area-hidden #ac {
   visibility: hidden;
   width: 0;
+}
+
+svg {
+  height: 430px;
+  width: 100%;
+}
+
+circle:hover {
+  fill: rgba(147, 0, 0, .5);
 }

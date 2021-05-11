@@ -18,6 +18,7 @@
  * Chart component for plotting a scatter plot.
  */
 
+import ReactDOM from "react-dom";
 import React, { useEffect, useRef } from "react";
 import _ from "lodash";
 import { Container, Row, Card } from "reactstrap";
@@ -74,7 +75,7 @@ function Chart(props: ChartPropsType): JSX.Element {
         <Card id="no-padding">
           <svg ref={svg} />
           <div id="tooltip" ref={tooltip} />
-          <div>Data from {sourcesJsx}</div>
+          <div className="provenance">Data from {sourcesJsx}</div>
         </Card>
       </Row>
     </Container>
@@ -91,8 +92,8 @@ function getStringOrNA(num: number): string {
   return _.isNil(num)
     ? "N/A"
     : Number.isInteger(num)
-    ? num.toString()
-    : num.toFixed(3);
+      ? num.toString()
+      : num.toFixed(3);
 }
 
 /**
@@ -150,7 +151,7 @@ function plot(
     bottom: 60,
     left: 90,
   };
-  const svgWidth = 1200;
+  const svgWidth = svg.current.clientWidth;
   const svgHeight = 430;
   const width = svgWidth - margin.left - margin.right;
   const height = svgHeight - margin.top - margin.bottom;
@@ -158,8 +159,8 @@ function plot(
   const g = d3
     .select(svg.current)
     .attr("id", "scatterplot")
-    .attr("width", "100%")
-    .attr("height", "100%")
+    .attr("width", width)
+    .attr("height", height)
     // The following two lines make the plot responsive.
     .attr("viewBox", `0 0 ${svgWidth} ${svgHeight}`)
     .attr("preserveAspectRatio", "xMidYMid meet")
@@ -335,14 +336,15 @@ function addTooltip(
         ySource += `, ${yPopDomain}`;
       }
     }
-    const html =
-      `${point.place.name || point.place.dcid}<br/>` +
-      `${xLabel} (${point.xDate}): ${getStringOrNA(point.xVal)}<br/>` +
-      `${yLabel} (${point.yDate}): ${getStringOrNA(point.yVal)}<br/>` +
-      `${xLabel} data from: ${xSource}<br/>` +
-      `${yLabel} data from: ${ySource}<br/>`;
+    ReactDOM.render(<>
+      <title>{point.place.name || point.place.dcid}</title>
+      {xLabel}({point.xDate}): {getStringOrNA(point.xVal)}<br />
+      {yLabel} ({point.yDate}): {getStringOrNA(point.yVal)} <br />
+      <footer>
+        {xLabel} data from: {xSource}<br />
+        {yLabel} data from: {ySource}
+      </footer></>, tooltip.current);
     div
-      .html(html)
       .style("left", d3.event.pageX + 15 + "px")
       .style("top", d3.event.pageY - 28 + "px")
       .style("visibility", "visible");

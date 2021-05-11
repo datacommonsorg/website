@@ -331,7 +331,7 @@ def get_interesting_places(dcids):
 def get_statvar_groups(dcid):
     url = API_ROOT + API_ENDPOINTS['get_statvar_groups']
     req_json = {
-        'place': dcid,
+        'places': dcid,
     }
     response = send_request(url, req_json, post=False, has_payload=False)
     return response.get('statVarGroups', {})
