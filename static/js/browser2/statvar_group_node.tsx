@@ -190,7 +190,6 @@ export function ChildStatVarSection(
   props: ChildStatVarSectionPropType
 ): JSX.Element {
   const appContext = useContext(Context);
-  console.log(appContext);
   return (
     <div className="svg-node-child">
       {props.data.map((statVar) => {
