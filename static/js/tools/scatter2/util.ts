@@ -286,5 +286,6 @@ export {
   updateHash,
   applyHash,
   PlacePointStat,
+  PlacePointStatData,
   SourceSeries,
 };

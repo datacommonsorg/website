@@ -22,11 +22,13 @@
 import React, { useContext, useEffect, useState } from "react";
 import _ from "lodash";
 import axios from "axios";
+import * as d3 from "d3";
 import { saveToFile } from "../../shared/util";
 import {
   getStatsWithinPlace,
   nodeGetStatVar,
   PlacePointStat,
+  PlacePointStatData,
   SourceSeries,
 } from "./util";
 import { Chart } from "./chart";
@@ -56,6 +58,8 @@ interface Point {
   yPop?: number;
   xPopSource?: string;
   yPopSource?: string;
+  xPopDate?: string;
+  yPopDate?: string;
 }
 
 type Cache = {
@@ -217,7 +221,8 @@ function usePoints(cache: Cache): Array<Point> {
       return;
     }
     const points = getPoints(xVal, yVal, placeVal, cache);
-    setPoints(computeCapita(points, xVal.perCapita, yVal.perCapita));
+    const pointsCapita = computeCapita(points, xVal.perCapita, yVal.perCapita);
+    setPoints(computeLog(pointsCapita, xVal.log, yVal.log));
 
     const downloadButton = document.getElementById("download-link");
     if (downloadButton) {
@@ -255,6 +260,20 @@ function computeCapita(
     yVal: yPerCapita ? point.yVal / point.yPop : point.yVal,
   }));
 }
+/**
+ * computes the log for each `xVal` and `yVal` if per capita is
+ * selected for that axis.
+ * @param points
+ * @param xPerCapita
+ * @param yPerCapita
+ */
+function computeLog(points: Array<Point>, xLog: boolean, yLog: boolean) {
+  return points.map((point) => ({
+    ...point,
+    xVal: xLog ? Math.log(point.xVal) : point.xVal,
+    yVal: yLog ? Math.log(point.yVal) : point.yVal,
+  }));
+}
 
 /**
  * Constructs an array of points for plotting.
@@ -286,30 +305,27 @@ function getPoints(
         }
         let xPop = null;
         let xPopSource = null;
+        let xPopDate = null;
         const placeXPopData = xPopData[place.dcid];
         if (placeXPopData) {
-          const matchingDate = Object.keys(placeXPopData.data).find((date) => {
-            const popYear = date.substring(date.length - 4);
-            return placeXStatData.date.includes(popYear);
-          });
-          xPop = placeXPopData.data[matchingDate];
+          xPopDate = getPopulationDate(placeXPopData, placeXStatData);
+          xPop = placeXPopData.data[xPopDate];
           xPopSource = placeXPopData.provenanceUrl;
         }
         let yPop = null;
         let yPopSource = null;
+        let yPopDate = null;
         const placeYPopData = yPopData[place.dcid];
         if (placeYPopData) {
-          const matchingDate = Object.keys(placeYPopData.data).find((date) => {
-            const popYear = date.substring(date.length - 4);
-            return placeYStatData.date.includes(popYear);
-          });
-          yPop = placeYPopData.data[matchingDate];
+          yPopDate = getPopulationDate(placeYPopData, placeYStatData);
+          yPop = placeYPopData.data[yPopDate];
           yPopSource = placeYPopData.provenanceUrl;
         }
         return {
           place,
           xDate: placeXStatData.date,
           xPop,
+          xPopDate,
           xPopSource,
           xSource:
             xStatData.metadata[placeXStatData.metadata.importName]
@@ -317,6 +333,7 @@ function getPoints(
           xVal: placeXStatData.value,
           yDate: placeYStatData.date,
           yPop,
+          yPopDate,
           yPopSource,
           ySource:
             yStatData.metadata[placeYStatData.metadata.importName]
@@ -454,6 +471,31 @@ function getLabel(name: string, perCapita: boolean): string {
     name = _.startCase(name);
   }
   return `${name}${perCapita ? " Per Capita" : ""}`;
+}
+
+/**
+ * Helper function to choose the date to use for the population data. Choose the
+ * date that is the same year as the stat data. If this is not available, choose
+ * the most recent date before the date of the stat data.
+ * @param popData
+ * @param statData
+ */
+function getPopulationDate(
+  popData: SourceSeries,
+  statData: PlacePointStatData
+): string {
+  let popDate = null;
+  const xPopDataDates = Object.keys(popData.data);
+  popDate = xPopDataDates.find((date) => {
+    const popYear = date.substring(date.length - 4);
+    return statData.date.includes(popYear);
+  });
+  if (!popDate) {
+    xPopDataDates.sort();
+    const idx = d3.bisect(xPopDataDates, statData.date);
+    popDate = idx > 0 ? xPopDataDates[idx - 1] : undefined;
+  }
+  return popDate;
 }
 
 export { ChartLoader, Point };

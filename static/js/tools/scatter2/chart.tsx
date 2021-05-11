@@ -241,17 +241,10 @@ function addXAxis(
   min: number,
   max: number
 ): d3.ScaleLinear<number, number> | d3.ScaleLogarithmic<number, number> {
-  const xScale = (log ? d3.scaleLog() : d3.scaleLinear())
-    .domain([min, max])
-    .range([0, width])
-    .nice();
+  const xScale = d3.scaleLinear().domain([min, max]).range([0, width]).nice();
   g.append("g")
     .attr("transform", `translate(0,${height})`)
-    .call(
-      d3
-        .axisBottom(xScale)
-        .ticks(log ? 5 : 10, d3.format(perCapita ? ".3f" : "d"))
-    );
+    .call(d3.axisBottom(xScale).ticks(10, d3.format(perCapita ? ".3f" : "d")));
   g.append("text")
     .attr("text-anchor", "middle")
     .attr(
@@ -283,12 +276,9 @@ function addYAxis(
   min: number,
   max: number
 ): d3.ScaleLinear<number, number> | d3.ScaleLogarithmic<number, number> {
-  const yScale = (log ? d3.scaleLog() : d3.scaleLinear())
-    .domain([min, max])
-    .range([height, 0])
-    .nice();
+  const yScale = d3.scaleLinear().domain([min, max]).range([height, 0]).nice();
   g.append("g").call(
-    d3.axisLeft(yScale).ticks(log ? 5 : 10, d3.format(perCapita ? ".3f" : "d"))
+    d3.axisLeft(yScale).ticks(10, d3.format(perCapita ? ".3f" : "d"))
   );
   g.append("text")
     .attr("text-anchor", "middle")
@@ -335,12 +325,18 @@ function addTooltip(
         ySource += `, ${yPopDomain}`;
       }
     }
-    const html =
+    let html =
       `${point.place.name || point.place.dcid}<br/>` +
       `${xLabel} (${point.xDate}): ${getStringOrNA(point.xVal)}<br/>` +
       `${yLabel} (${point.yDate}): ${getStringOrNA(point.yVal)}<br/>` +
       `${xLabel} data from: ${xSource}<br/>` +
       `${yLabel} data from: ${ySource}<br/>`;
+    if (xPerCapita && point.xPopDate && !point.xDate.includes(point.xPopDate)) {
+      html += `* ${xLabel} uses population data from: ${point.xPopDate}<br/>`;
+    }
+    if (yPerCapita && point.yPopDate && !point.yDate.includes(point.yPopDate)) {
+      html += `* ${yLabel} uses population data from: ${point.yPopDate}`;
+    }
     div
       .html(html)
       .style("left", d3.event.pageX + 15 + "px")
