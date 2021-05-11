@@ -120,8 +120,8 @@ function getStringOrNA(num: number): string {
   return _.isNil(num)
     ? "N/A"
     : Number.isInteger(num)
-      ? num.toString()
-      : num.toFixed(3);
+    ? num.toString()
+    : num.toFixed(3);
 }
 
 /**
@@ -377,14 +377,20 @@ function addTooltip(
         ySource += `, ${yPopDomain}`;
       }
     }
-    ReactDOM.render(<>
-      <title>{point.place.name || point.place.dcid}</title>
-      {xLabel}({point.xDate}): {getStringOrNA(point.xVal)}<br />
-      {yLabel} ({point.yDate}): {getStringOrNA(point.yVal)} <br />
-      <footer>
-        {xLabel} data from: {xSource}<br />
-        {yLabel} data from: {ySource}
-      </footer></>, tooltip.current);
+    ReactDOM.render(
+      <>
+        <title>{point.place.name || point.place.dcid}</title>
+        {xLabel}({point.xDate}): {getStringOrNA(point.xVal)}
+        <br />
+        {yLabel} ({point.yDate}): {getStringOrNA(point.yVal)} <br />
+        <footer>
+          {xLabel} data from: {xSource}
+          <br />
+          {yLabel} data from: {ySource}
+        </footer>
+      </>,
+      tooltip.current
+    );
     div
       .style("left", d3.event.pageX + 15 + "px")
       .style("top", d3.event.pageY - 28 + "px")
