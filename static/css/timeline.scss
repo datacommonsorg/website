@@ -21,6 +21,10 @@
 
 @include search_place.search-place;
 
+#location-field #ac {
+  margin-left: 16px;
+}
+
 #main-pane-download {
   margin: 64px auto;
   border-radius: 10px;

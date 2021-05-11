@@ -18,6 +18,7 @@
  * Chart component for plotting a scatter plot.
  */
 
+import ReactDOM from "react-dom";
 import React, { useEffect, useRef, useState } from "react";
 import _ from "lodash";
 import { Container, Row, Card } from "reactstrap";
@@ -102,7 +103,7 @@ function Chart(props: ChartPropsType): JSX.Element {
             <svg ref={svgRef}></svg>
           </div>
           <div id="tooltip" ref={tooltip} />
-          <div>Data from {sourcesJsx}</div>
+          <div className="provenance">Data from {sourcesJsx}</div>
         </Card>
       </Row>
     </Container>
@@ -370,20 +371,36 @@ function addTooltip(
         ySource += `, ${yPopDomain}`;
       }
     }
-    let html =
-      `<b>${point.place.name || point.place.dcid}</b><br/>` +
-      `${xLabel} (${point.xDate}): ${getStringOrNA(point.xVal)}<br/>` +
-      `${yLabel} (${point.yDate}): ${getStringOrNA(point.yVal)}<br/>` +
-      `${xLabel} data from: ${xSource}<br/>` +
-      `${yLabel} data from: ${ySource}<br/>`;
-    if (xPerCapita && point.xPopDate && !point.xDate.includes(point.xPopDate)) {
-      html += `<sup>*</sup> ${xLabel} uses population data from: ${point.xPopDate}<br/>`;
-    }
-    if (yPerCapita && point.yPopDate && !point.yDate.includes(point.yPopDate)) {
-      html += `<sup>*</sup> ${yLabel} uses population data from: ${point.yPopDate}`;
-    }
+    const showXPopDateMessage = xPerCapita && point.xPopDate && !point.xDate.includes(point.xPopDate);
+    const showYPopDateMessage = yPerCapita && point.yPopDate && !point.yDate.includes(point.yPopDate);
+    ReactDOM.render(
+      <>
+        <header>
+          <b>{point.place.name || point.place.dcid}</b>
+        </header>
+        {xLabel}({point.xDate}): {getStringOrNA(point.xVal)}
+        <br />
+        {yLabel} ({point.yDate}): {getStringOrNA(point.yVal)} <br />
+        <footer>
+          {xLabel} data from: {xSource}
+          <br />
+          {yLabel} data from: {ySource}
+          <br />
+          {showXPopDateMessage && (
+            <>
+              <sup>*</sup>{" "}{xLabel} uses population data from: {point.xPopDate}
+            </>
+          )}
+          {showYPopDateMessage && (
+            <>
+              <sup>*</sup>{" "}{yLabel} uses population data from: {point.yPopDate}
+            </>
+          )}
+        </footer>
+      </>,
+      tooltip.current
+    );
     div
-      .html(html)
       .style("left", d3.event.pageX + 15 + "px")
       .style("top", d3.event.pageY - 28 + "px")
       .style("visibility", "visible");
