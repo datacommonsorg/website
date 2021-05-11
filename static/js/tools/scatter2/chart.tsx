@@ -332,10 +332,10 @@ function addTooltip(
       `${xLabel} data from: ${xSource}<br/>` +
       `${yLabel} data from: ${ySource}<br/>`;
     if (xPerCapita && point.xPopDate && !point.xDate.includes(point.xPopDate)) {
-      html += `* ${xLabel} uses population data from: ${point.xPopDate}<br/>`;
+      html += `<sup>*</sup> ${xLabel} uses population data from: ${point.xPopDate}<br/>`;
     }
     if (yPerCapita && point.yPopDate && !point.yDate.includes(point.yPopDate)) {
-      html += `* ${yLabel} uses population data from: ${point.yPopDate}`;
+      html += `<sup>*</sup> ${yLabel} uses population data from: ${point.yPopDate}`;
     }
     div
       .html(html)

@@ -474,9 +474,7 @@ function getLabel(name: string, perCapita: boolean): string {
 }
 
 /**
- * Helper function to choose the date to use for the population data. Choose the
- * date that is the same year as the stat data. If this is not available, choose
- * the most recent date before the date of the stat data.
+ * Helper function to choose the date to use for the population data.
  * @param popData
  * @param statData
  */
@@ -484,16 +482,26 @@ function getPopulationDate(
   popData: SourceSeries,
   statData: PlacePointStatData
 ): string {
-  let popDate = null;
   const xPopDataDates = Object.keys(popData.data);
-  popDate = xPopDataDates.find((date) => {
-    const popYear = date.substring(date.length - 4);
-    return statData.date.includes(popYear);
-  });
-  if (!popDate) {
-    xPopDataDates.sort();
-    const idx = d3.bisect(xPopDataDates, statData.date);
-    popDate = idx > 0 ? xPopDataDates[idx - 1] : undefined;
+  let popDate = xPopDataDates.find((date) => date === statData.date);
+  if (!popDate && !_.isEmpty(xPopDataDates)) {
+    // Filter for all population dates encompassed by the stat var date.
+    // ie. if stat var date is year, filter for all population dates with
+    // the same year
+    const encompassedPopDates = xPopDataDates.filter((date) => {
+      return date.includes(statData.date);
+    });
+    if (encompassedPopDates.length > 0) {
+      // when there are multiple population dates encompassed by the stat var
+      // date, choose the latest date
+      popDate = encompassedPopDates[encompassedPopDates.length - 1];
+    } else {
+      // From ordered list of population dates, choose the date immediately
+      // before the stat var date (if there is a date that encompasses the stat
+      // var date, this will get chosen). If none, return the first pop date.
+      const idx = d3.bisect(xPopDataDates, statData.date);
+      popDate = idx > 0 ? xPopDataDates[idx - 1] : xPopDataDates[0];
+    }
   }
   return popDate;
 }
