@@ -371,8 +371,10 @@ function addTooltip(
         ySource += `, ${yPopDomain}`;
       }
     }
-    const showXPopDateMessage = xPerCapita && point.xPopDate && !point.xDate.includes(point.xPopDate);
-    const showYPopDateMessage = yPerCapita && point.yPopDate && !point.yDate.includes(point.yPopDate);
+    const showXPopDateMessage =
+      xPerCapita && point.xPopDate && !point.xDate.includes(point.xPopDate);
+    const showYPopDateMessage =
+      yPerCapita && point.yPopDate && !point.yDate.includes(point.yPopDate);
     ReactDOM.render(
       <>
         <header>
@@ -388,12 +390,12 @@ function addTooltip(
           <br />
           {showXPopDateMessage && (
             <>
-              <sup>*</sup>{" "}{xLabel} uses population data from: {point.xPopDate}
+              <sup>*</sup> {xLabel} uses population data from: {point.xPopDate}
             </>
           )}
           {showYPopDateMessage && (
             <>
-              <sup>*</sup>{" "}{yLabel} uses population data from: {point.yPopDate}
+              <sup>*</sup> {yLabel} uses population data from: {point.yPopDate}
             </>
           )}
         </footer>
