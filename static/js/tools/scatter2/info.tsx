@@ -67,7 +67,7 @@ function Info(): JSX.Element {
           ,{" "}
           <a
             href={
-              "#&svx=Median_Income_Person&svpx=0-3&svnx=Median_income&svy=Count_Person_AsianAlone&svpy=0-14-1&svdy=Count_Person&svny=Asian_Alone&pcy=1&epd=country%2FUSA&epn=United_States_of_America&ept=County"
+              "#&svx=Median_Income_Person&svpx=0-3&svnx=Median_income&svy=Count_Person_AsianAlone&svpy=0-14-1&svdy=Count_Person&svny=Asian_Alone&pcy=1&epd=country%2FUSA&epn=United%20States%20of%20America&ept=County"
             }
           >
             USA
@@ -85,7 +85,7 @@ function Info(): JSX.Element {
           ,{" "}
           <a
             href={
-              "#&svx=Count_Person_Female&svpx=0-8-0&svdx=Count_Person&svnx=Female&pcx=1&svy=Count_Person_EducationalAttainmentBachelorsDegree&svpy=2-0-6&svdy=Count_Person_25OrMoreYears&svny=Bachelors_Degree&pcy=1&epd=geoId%2F36&epn=New_York&ept=County"
+              "#&svx=Count_Person_Female&svpx=0-8-0&svdx=Count_Person&svnx=Female&pcx=1&svy=Count_Person_EducationalAttainmentBachelorsDegree&svpy=2-0-6&svdy=Count_Person_25OrMoreYears&svny=Bachelors_Degree&pcy=1&epd=geoId%2F36&epn=New%20York&ept=County"
             }
           >
             New York
@@ -103,7 +103,7 @@ function Info(): JSX.Element {
           <b>Foreign Born vs Unemployment Rate</b> for{" "}
           <a
             href={
-              "#&svx=UnemploymentRate_Person&svpx=3-3&svnx=Unemployment_Rate&svy=Count_Person_ForeignBorn&svpy=0-12-2&svdy=Count_Person&svny=Foreign_Born&pcy=1&epd=country%2FUSA&epn=United_States_of_America&ept=State"
+              "#&svx=UnemploymentRate_Person&svpx=3-3&svnx=Unemployment_Rate&svy=Count_Person_ForeignBorn&svpy=0-12-2&svdy=Count_Person&svny=Foreign_Born&pcy=1&epd=country%2FUSA&epn=United%20States%20of%20America&ept=State"
             }
           >
             US states
@@ -111,7 +111,7 @@ function Info(): JSX.Element {
           ,{" "}
           <a
             href={
-              "#&svx=UnemploymentRate_Person&svpx=3-3&svnx=Unemployment_Rate&svy=Count_Person_ForeignBorn&svpy=0-12-2&svdy=Count_Person&svny=Foreign_Born&pcy=1&epd=country%2FUSA&epn=United_States_of_America&ept=County"
+              "#&svx=UnemploymentRate_Person&svpx=3-3&svnx=Unemployment_Rate&svy=Count_Person_ForeignBorn&svpy=0-12-2&svdy=Count_Person&svny=Foreign_Born&pcy=1&epd=country%2FUSA&epn=United%20States%20of%20America&ept=County"
             }
           >
             US counties

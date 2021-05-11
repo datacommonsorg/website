@@ -18,12 +18,13 @@
  * Chart component for plotting a scatter plot.
  */
 
-import React, { useEffect, useRef } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import _ from "lodash";
 import { Container, Row, Card } from "reactstrap";
 import * as d3 from "d3";
 import { Point } from "./chart_loader";
 import { urlToDomain } from "../../shared/util";
+import { formatNumber } from "../../i18n/i18n";
 
 interface ChartPropsType {
   points: Array<Point>;
@@ -33,12 +34,21 @@ interface ChartPropsType {
   yLog: boolean;
   xPerCapita: boolean;
   yPerCapita: boolean;
+  xStatVar: string;
+  yStatVar: string;
+  xUnits?: string;
+  yUnits?: string;
 }
 
+const DOT_REDIRECT_PREFIX = "/tools/timeline";
+const SVG_CONTAINER_ID = "scatter-plot-container";
+
 function Chart(props: ChartPropsType): JSX.Element {
-  const svg = useRef<SVGSVGElement>();
+  const svgRef = useRef<SVGSVGElement>();
+  const svgContainerRef = useRef<HTMLDivElement>();
   const tooltip = useRef<HTMLDivElement>();
   const sources: Set<string> = new Set();
+  const [chartWidth, setChartWidth] = useState(0);
   props.points.forEach((point) => {
     sources.add(point.xSource);
     sources.add(point.ySource);
@@ -66,13 +76,31 @@ function Chart(props: ChartPropsType): JSX.Element {
   });
   // Replot when data changes.
   useEffect(() => {
-    plot(svg, tooltip, props);
+    plot(svgRef, svgContainerRef, tooltip, props);
+  }, [props]);
+
+  useEffect(() => {
+    function _handleWindowResize() {
+      if (svgContainerRef.current) {
+        const width = svgContainerRef.current.offsetWidth;
+        if (width !== chartWidth) {
+          setChartWidth(width);
+          plot(svgRef, svgContainerRef, tooltip, props);
+        }
+      }
+    }
+    window.addEventListener("resize", _handleWindowResize);
+    return () => {
+      window.removeEventListener("resize", _handleWindowResize);
+    };
   }, [props]);
   return (
     <Container id="chart">
       <Row>
         <Card id="no-padding">
-          <svg ref={svg} />
+          <div id={SVG_CONTAINER_ID} ref={svgContainerRef}>
+            <svg ref={svgRef}></svg>
+          </div>
           <div id="tooltip" ref={tooltip} />
           <div>Data from {sourcesJsx}</div>
         </Card>
@@ -134,11 +162,19 @@ function getYStd(points: Array<Point>): string {
  * @param props
  */
 function plot(
-  svg: React.MutableRefObject<SVGElement>,
+  svgRef: React.MutableRefObject<SVGElement>,
+  svgContainerRef: React.MutableRefObject<HTMLDivElement>,
   tooltip: React.MutableRefObject<HTMLDivElement>,
   props: ChartPropsType
 ): void {
-  d3.select(svg.current).selectAll("*").remove();
+  d3.select(svgRef.current).selectAll("*").remove();
+  const svgContainerWidth = Math.max(svgContainerRef.current.offsetWidth, 400);
+  const svgContainerHeight = Math.max(300, svgContainerWidth / 3);
+  const svg = d3
+    .select(svgRef.current)
+    .attr("id", "scatterplot")
+    .attr("width", svgContainerWidth)
+    .attr("height", svgContainerHeight);
 
   // TODO: Handle log domain 0.
   const xMinMax = d3.extent(props.points, (point) => point.xVal);
@@ -150,19 +186,11 @@ function plot(
     bottom: 60,
     left: 90,
   };
-  const svgWidth = 1200;
-  const svgHeight = 430;
-  const width = svgWidth - margin.left - margin.right;
-  const height = svgHeight - margin.top - margin.bottom;
 
-  const g = d3
-    .select(svg.current)
-    .attr("id", "scatterplot")
-    .attr("width", "100%")
-    .attr("height", "100%")
-    // The following two lines make the plot responsive.
-    .attr("viewBox", `0 0 ${svgWidth} ${svgHeight}`)
-    .attr("preserveAspectRatio", "xMidYMid meet")
+  const width = svgContainerWidth - margin.left - margin.right;
+  const height = svgContainerHeight - margin.top - margin.bottom;
+
+  const g = svg
     .append("g")
     .attr("transform", `translate(${margin.left},${margin.top})`);
 
@@ -175,7 +203,8 @@ function plot(
     width,
     margin.bottom,
     xMinMax[0],
-    xMinMax[1]
+    xMinMax[1],
+    props.xUnits
   );
   const yScale = addYAxis(
     g,
@@ -185,7 +214,8 @@ function plot(
     height,
     margin.left,
     yMinMax[0],
-    yMinMax[1]
+    yMinMax[1],
+    props.yUnits
   );
 
   g.append("text")
@@ -206,7 +236,8 @@ function plot(
     .attr("stroke", "rgb(147, 0, 0)")
     .attr("stroke-width", 1.5)
     .attr("fill", "#FFFFFF")
-    .style("opacity", "0.7");
+    .style("opacity", "0.7")
+    .on("click", handleDotClick(props.xStatVar, props.yStatVar));
 
   addTooltip(
     tooltip,
@@ -239,7 +270,8 @@ function addXAxis(
   width: number,
   marginBottom: number,
   min: number,
-  max: number
+  max: number,
+  unit?: string
 ): d3.ScaleLinear<number, number> | d3.ScaleLogarithmic<number, number> {
   const xScale = (log ? d3.scaleLog() : d3.scaleLinear())
     .domain([min, max])
@@ -251,6 +283,9 @@ function addXAxis(
       d3
         .axisBottom(xScale)
         .ticks(log ? 5 : 10, d3.format(perCapita ? ".3f" : "d"))
+        .tickFormat((d) => {
+          return formatNumber(d.valueOf(), unit);
+        })
     );
   g.append("text")
     .attr("text-anchor", "middle")
@@ -281,14 +316,20 @@ function addYAxis(
   height: number,
   marginLeft: number,
   min: number,
-  max: number
+  max: number,
+  unit?: string
 ): d3.ScaleLinear<number, number> | d3.ScaleLogarithmic<number, number> {
   const yScale = (log ? d3.scaleLog() : d3.scaleLinear())
     .domain([min, max])
     .range([height, 0])
     .nice();
   g.append("g").call(
-    d3.axisLeft(yScale).ticks(log ? 5 : 10, d3.format(perCapita ? ".3f" : "d"))
+    d3
+      .axisLeft(yScale)
+      .ticks(log ? 5 : 10, d3.format(perCapita ? ".3f" : "d"))
+      .tickFormat((d) => {
+        return formatNumber(d.valueOf(), unit);
+      })
   );
   g.append("text")
     .attr("text-anchor", "middle")
@@ -336,7 +377,7 @@ function addTooltip(
       }
     }
     const html =
-      `${point.place.name || point.place.dcid}<br/>` +
+      `<b>${point.place.name || point.place.dcid}</b><br/>` +
       `${xLabel} (${point.xDate}): ${getStringOrNA(point.xVal)}<br/>` +
       `${yLabel} (${point.yDate}): ${getStringOrNA(point.yVal)}<br/>` +
       `${xLabel} data from: ${xSource}<br/>` +
@@ -352,5 +393,12 @@ function addTooltip(
   };
   dots.on("mouseover", onTooltipMouseover).on("mouseout", onTooltipMouseout);
 }
+
+const handleDotClick = (xStatVar: string, yStatVar: string) => (
+  point: Point
+) => {
+  const uri = `${DOT_REDIRECT_PREFIX}#place=${point.place.dcid}&statsVar=${xStatVar}__${yStatVar}`;
+  window.open(uri);
+};
 
 export { Chart, ChartPropsType };

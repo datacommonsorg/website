@@ -62,7 +62,7 @@ class LocalLiteConfig(Config):
 class WebdriverConfig(Config):
     WEBDRIVER = True
     SECRET_PROJECT = 'datcom-website-dev'
-    API_ROOT = 'https://staging.api.datacommons.org'
+    API_ROOT = 'https://autopush.api.datacommons.org'
     GCS_BUCKET = ''
     SCHEME = 'http'
 
