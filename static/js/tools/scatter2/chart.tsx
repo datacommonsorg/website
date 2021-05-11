@@ -18,6 +18,7 @@
  * Chart component for plotting a scatter plot.
  */
 
+import ReactDOM from "react-dom";
 import React, { useEffect, useRef, useState } from "react";
 import _ from "lodash";
 import { Container, Row, Card } from "reactstrap";
@@ -102,7 +103,7 @@ function Chart(props: ChartPropsType): JSX.Element {
             <svg ref={svgRef}></svg>
           </div>
           <div id="tooltip" ref={tooltip} />
-          <div>Data from {sourcesJsx}</div>
+          <div className="provenance">Data from {sourcesJsx}</div>
         </Card>
       </Row>
     </Container>
@@ -376,14 +377,23 @@ function addTooltip(
         ySource += `, ${yPopDomain}`;
       }
     }
-    const html =
-      `<b>${point.place.name || point.place.dcid}</b><br/>` +
-      `${xLabel} (${point.xDate}): ${getStringOrNA(point.xVal)}<br/>` +
-      `${yLabel} (${point.yDate}): ${getStringOrNA(point.yVal)}<br/>` +
-      `${xLabel} data from: ${xSource}<br/>` +
-      `${yLabel} data from: ${ySource}<br/>`;
+    ReactDOM.render(
+      <>
+        <header>
+          <b>{point.place.name || point.place.dcid}</b>
+        </header>
+        {xLabel}({point.xDate}): {getStringOrNA(point.xVal)}
+        <br />
+        {yLabel} ({point.yDate}): {getStringOrNA(point.yVal)} <br />
+        <footer>
+          {xLabel} data from: {xSource}
+          <br />
+          {yLabel} data from: {ySource}
+        </footer>
+      </>,
+      tooltip.current
+    );
     div
-      .html(html)
       .style("left", d3.event.pageX + 15 + "px")
       .style("top", d3.event.pageY - 28 + "px")
       .style("visibility", "visible");
