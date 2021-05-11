@@ -24,6 +24,7 @@ import _ from "lodash";
 import axios from "axios";
 import { saveToFile } from "../../shared/util";
 import {
+  getPopulationDate,
   getStatsWithinPlace,
   nodeGetStatVar,
   PlacePointStat,
@@ -56,6 +57,8 @@ interface Point {
   yPop?: number;
   xPopSource?: string;
   yPopSource?: string;
+  xPopDate?: string;
+  yPopDate?: string;
 }
 
 type Cache = {
@@ -231,7 +234,8 @@ function usePoints(cache: Cache): Array<Point> {
       return;
     }
     const points = getPoints(xVal, yVal, placeVal, cache);
-    setPoints(computeCapita(points, xVal.perCapita, yVal.perCapita));
+    const pointsCapita = computeCapita(points, xVal.perCapita, yVal.perCapita);
+    setPoints(computeLog(pointsCapita, xVal.log, yVal.log));
 
     const downloadButton = document.getElementById("download-link");
     if (downloadButton) {
@@ -269,6 +273,20 @@ function computeCapita(
     yVal: yPerCapita ? point.yVal / point.yPop : point.yVal,
   }));
 }
+/**
+ * computes the log for each `xVal` and `yVal` if per capita is
+ * selected for that axis.
+ * @param points
+ * @param xPerCapita
+ * @param yPerCapita
+ */
+function computeLog(points: Array<Point>, xLog: boolean, yLog: boolean) {
+  return points.map((point) => ({
+    ...point,
+    xVal: xLog ? Math.log(point.xVal) : point.xVal,
+    yVal: yLog ? Math.log(point.yVal) : point.yVal,
+  }));
+}
 
 /**
  * Constructs an array of points for plotting.
@@ -300,30 +318,27 @@ function getPoints(
         }
         let xPop = null;
         let xPopSource = null;
+        let xPopDate = null;
         const placeXPopData = xPopData[place.dcid];
         if (placeXPopData) {
-          const matchingDate = Object.keys(placeXPopData.data).find((date) => {
-            const popYear = date.substring(date.length - 4);
-            return placeXStatData.date.includes(popYear);
-          });
-          xPop = placeXPopData.data[matchingDate];
+          xPopDate = getPopulationDate(placeXPopData, placeXStatData);
+          xPop = placeXPopData.data[xPopDate];
           xPopSource = placeXPopData.provenanceUrl;
         }
         let yPop = null;
         let yPopSource = null;
+        let yPopDate = null;
         const placeYPopData = yPopData[place.dcid];
         if (placeYPopData) {
-          const matchingDate = Object.keys(placeYPopData.data).find((date) => {
-            const popYear = date.substring(date.length - 4);
-            return placeYStatData.date.includes(popYear);
-          });
-          yPop = placeYPopData.data[matchingDate];
+          yPopDate = getPopulationDate(placeYPopData, placeYStatData);
+          yPop = placeYPopData.data[yPopDate];
           yPopSource = placeYPopData.provenanceUrl;
         }
         return {
           place,
           xDate: placeXStatData.date,
           xPop,
+          xPopDate,
           xPopSource,
           xSource:
             xStatData.metadata[placeXStatData.metadata.importName]
@@ -331,6 +346,7 @@ function getPoints(
           xVal: placeXStatData.value,
           yDate: placeYStatData.date,
           yPop,
+          yPopDate,
           yPopSource,
           ySource:
             yStatData.metadata[placeYStatData.metadata.importName]

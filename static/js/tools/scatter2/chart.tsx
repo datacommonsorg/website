@@ -274,16 +274,13 @@ function addXAxis(
   max: number,
   unit?: string
 ): d3.ScaleLinear<number, number> | d3.ScaleLogarithmic<number, number> {
-  const xScale = (log ? d3.scaleLog() : d3.scaleLinear())
-    .domain([min, max])
-    .range([0, width])
-    .nice();
+  const xScale = d3.scaleLinear().domain([min, max]).range([0, width]).nice();
   g.append("g")
     .attr("transform", `translate(0,${height})`)
     .call(
       d3
         .axisBottom(xScale)
-        .ticks(log ? 5 : 10, d3.format(perCapita ? ".3f" : "d"))
+        .ticks(10, d3.format(perCapita ? ".3f" : "d"))
         .tickFormat((d) => {
           return formatNumber(d.valueOf(), unit);
         })
@@ -320,14 +317,11 @@ function addYAxis(
   max: number,
   unit?: string
 ): d3.ScaleLinear<number, number> | d3.ScaleLogarithmic<number, number> {
-  const yScale = (log ? d3.scaleLog() : d3.scaleLinear())
-    .domain([min, max])
-    .range([height, 0])
-    .nice();
+  const yScale = d3.scaleLinear().domain([min, max]).range([height, 0]).nice();
   g.append("g").call(
     d3
       .axisLeft(yScale)
-      .ticks(log ? 5 : 10, d3.format(perCapita ? ".3f" : "d"))
+      .ticks(10, d3.format(perCapita ? ".3f" : "d"))
       .tickFormat((d) => {
         return formatNumber(d.valueOf(), unit);
       })
@@ -377,6 +371,10 @@ function addTooltip(
         ySource += `, ${yPopDomain}`;
       }
     }
+    const showXPopDateMessage =
+      xPerCapita && point.xPopDate && !point.xDate.includes(point.xPopDate);
+    const showYPopDateMessage =
+      yPerCapita && point.yPopDate && !point.yDate.includes(point.yPopDate);
     ReactDOM.render(
       <>
         <header>
@@ -389,6 +387,17 @@ function addTooltip(
           {xLabel} data from: {xSource}
           <br />
           {yLabel} data from: {ySource}
+          <br />
+          {showXPopDateMessage && (
+            <>
+              <sup>*</sup> {xLabel} uses population data from: {point.xPopDate}
+            </>
+          )}
+          {showYPopDateMessage && (
+            <>
+              <sup>*</sup> {yLabel} uses population data from: {point.yPopDate}
+            </>
+          )}
         </footer>
       </>,
       tooltip.current
