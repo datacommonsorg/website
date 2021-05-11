@@ -1,5 +1,5 @@
 /**
- * Copyright 2020 Google LLC
+ * Copyright 2021 Google LLC
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -14,16 +14,20 @@
  * limitations under the License.
  */
 
-@import "base";
-@import "tools/statvar_menu";
-@import "draw";
-@import "browser";
+/**
+ * Global app context.
+ */
 
-.card {
-  box-shadow: 0 2px 4px 0 rgba(0, 0, 0, 0.2);
-  position: relative;
+import { createContext } from "react";
+
+export const StatVarHierarchyType = {
+  GRAPH: "GRAPH",
+  TIMELINE: "TIMELINE",
+};
+
+// Global app state
+interface ContextType {
+  StatVarHierarchyType: string;
 }
 
-.screenshot-image {
-  margin: 10px;
-}
+export const Context = createContext({} as ContextType);

@@ -24,11 +24,11 @@ import { StatVarHierarchyNodeHeader } from "./statvar_group_node";
 import Collapsible from "react-collapsible";
 import { ObservationChartSection } from "./observation_chart_section";
 import { URI_PREFIX } from "./constants";
+import { NamedPlace } from "../shared/types";
 
 interface StatVarNodePropType {
-  placeDcid: string;
+  place: NamedPlace;
   statVar: StatVarNodeType;
-  nodeName: string;
   selected: boolean;
 }
 
@@ -62,23 +62,23 @@ export class StatVarNode extends React.Component<
         open={this.props.selected}
         onOpening={() => this.setState({ renderContent: true })}
         containerElementProps={
-          this.props.selected ? { class: "highlighted-stat-var" } : {}
+          this.props.selected ? { className: "highlighted-stat-var" } : {}
         }
       >
         {this.state.renderContent && (
           <div className="statvars-charts-section">
             <h5 className="stat-var-link">
               <a
-                href={`${URI_PREFIX}${this.props.placeDcid}?statVar=${this.props.statVar.id}`}
+                href={`${URI_PREFIX}${this.props.place.dcid}?statVar=${this.props.statVar.id}`}
               >
-                {this.props.statVar.id} for {this.props.nodeName}
+                {this.props.statVar.id} for {this.props.place.name}
                 <span className="material-icons">open_in_new</span>
               </a>
             </h5>
             <ObservationChartSection
-              placeDcid={this.props.placeDcid}
+              placeDcid={this.props.place.dcid}
               statVarId={this.props.statVar.id}
-              placeName={this.props.nodeName}
+              placeName={this.props.place.name}
               statVarName={this.props.statVar.displayName}
             />
           </div>
@@ -93,7 +93,7 @@ export class StatVarNode extends React.Component<
   };
 
   private onClickPlaceStatVarLink = () => {
-    const uri = `${URI_PREFIX}${this.props.placeDcid}?statVar=${this.props.statVar.id}`;
+    const uri = `${URI_PREFIX}${this.props.place.dcid}?statVar=${this.props.statVar.id}`;
     window.open(uri);
   };
 }

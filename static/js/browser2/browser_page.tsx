@@ -29,10 +29,12 @@ import { PageDisplayType } from "./types";
 import { WeatherChartSection } from "./weather_chart_section";
 import { OutArcSection } from "./out_arc_section";
 import { InArcSection } from "./in_arc_section";
+import { StatVarHierarchyType, Context } from "../shared/context";
 
 const URL_PREFIX = "/browser/";
 const PLACE_STAT_VAR_PROPERTIES_HEADER = "Statistical Variable Properties";
 const GENERAL_PROPERTIES_HEADER = "Properties";
+
 interface BrowserPagePropType {
   dcid: string;
   nodeName: string;
@@ -126,10 +128,15 @@ export class BrowserPage extends React.Component<
           {this.props.shouldShowStatVarHierarchy && (
             <div className="browser-page-section">
               <h3>Statistical Variables</h3>
-              <StatVarHierarchy
-                dcid={this.props.dcid}
-                placeName={this.props.nodeName}
-              />
+              <Context.Provider
+                value={{ StatVarHierarchyType: StatVarHierarchyType.GRAPH }}
+              >
+                <StatVarHierarchy
+                  places={[
+                    { dcid: this.props.dcid, name: this.props.nodeName },
+                  ]}
+                />
+              </Context.Provider>
             </div>
           )}
           {showInArcSection && (

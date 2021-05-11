@@ -41,9 +41,9 @@ import {
   EmptyAxis,
   Axis,
   AxisWrapper,
-  NamedPlace,
   IsLoadingWrapper,
 } from "./context";
+import { NamedPlace } from "../../shared/types";
 import { nodeGetStatVar } from "./util";
 
 interface NamedStatVar {
