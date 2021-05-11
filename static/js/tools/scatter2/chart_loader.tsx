@@ -80,6 +80,16 @@ function ChartLoader(): JSX.Element {
     areStatVarNamesLoaded(xVal, yVal) &&
     !isLoading.areDataLoading &&
     !isLoading.arePlacesLoading;
+  const xStatVar = nodeGetStatVar(xVal.statVar);
+  const yStatVar = nodeGetStatVar(yVal.statVar);
+  let xUnits = null;
+  let yUnits = null;
+  if (cache.statsVarData) {
+    const xStatData = cache.statsVarData[xStatVar];
+    const yStatData = cache.statsVarData[yStatVar];
+    xUnits = xStatData ? getUnits(xStatData) : null;
+    yUnits = yStatData ? getUnits(yStatData) : null;
+  }
   return (
     <div>
       {shouldRenderChart && (
@@ -99,6 +109,10 @@ function ChartLoader(): JSX.Element {
                 yLog={yVal.log}
                 xPerCapita={xVal.perCapita}
                 yPerCapita={yVal.perCapita}
+                xStatVar={xStatVar}
+                yStatVar={yStatVar}
+                xUnits={xUnits}
+                yUnits={yUnits}
               />
               <PlotOptions />
             </>
@@ -504,6 +518,14 @@ function getPopulationDate(
     }
   }
   return popDate;
+}
+
+function getUnits(placePointStat: PlacePointStat): string {
+  const metadata = placePointStat.metadata;
+  const metadataKeys = Object.keys(metadata);
+  if (metadataKeys.length > 0) {
+    return metadata[metadataKeys[0]].unit;
+  }
 }
 
 export { ChartLoader, Point };

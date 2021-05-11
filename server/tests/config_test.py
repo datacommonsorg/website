@@ -67,7 +67,7 @@ class TestConfig(unittest.TestCase):
             'LOCAL': False,
             'LITE': False,
             'CACHE_TYPE': 'simple',
-            'API_ROOT': 'https://staging.api.datacommons.org',
+            'API_ROOT': 'https://autopush.api.datacommons.org',
             'GCS_BUCKET': '',
             'SECRET_PROJECT': 'datcom-website-dev',
             'GA_ACCOUNT': '',

@@ -24,6 +24,8 @@
 
   #search {
     margin-bottom: 0;
+    box-shadow: none;
+    border: 1px solid rgba(0, 0, 0, 0.125);
   }
 
   #search #location-field {
@@ -77,7 +79,6 @@
   margin-bottom: 15px;
 
   // Copied from timeline.scss
-  box-shadow: 0 2px 4px 0 rgba(0, 0, 0, 0.2);
   padding: 15px;
 }
 
@@ -94,6 +95,7 @@
   border-radius: 8px;
   opacity: 0.9;
   z-index: 2;
+  border: 0.5px solid var(--dc-gray-lite);
 }
 
 #statvar-modal .row {
@@ -152,4 +154,13 @@
 .input-area-hidden #ac {
   visibility: hidden;
   width: 0;
+}
+
+circle:hover {
+  cursor: pointer;
+  fill: var(--dc-red-strong);
+}
+
+circle {
+  stroke: var(--dc-red-strong);
 }
