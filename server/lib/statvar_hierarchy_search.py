@@ -107,7 +107,7 @@ def get_statvar_search_index() -> Dict[str, Dict[str, RankingInformation]]:
     },
     ...
     """
-    svg_map: dict[str, any] = dc.get_statvar_groups("")
+    svg_map: dict[str, any] = dc.get_statvar_groups([])
     index: Dict[str, Dict[str, RankingInformation]] = {}
     for svg_id, svg in svg_map.items():
         token_string: str = svg.get("absoluteName", "")
@@ -137,10 +137,10 @@ def rank_search_result(
 def get_search_result(tokens: List[str]) -> List[str]:
     """gets the sorted list of results that matches all the tokens in the
     token_string
-    
+
     Args:
         tokens: list of tokens
-    
+
     Returns:
         set of values that matches all the tokens in the token_string
     """
