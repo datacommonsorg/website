@@ -120,8 +120,8 @@ function getStringOrNA(num: number): string {
   return _.isNil(num)
     ? "N/A"
     : Number.isInteger(num)
-      ? num.toString()
-      : num.toFixed(3);
+    ? num.toString()
+    : num.toFixed(3);
 }
 
 /**
