@@ -33,6 +33,7 @@ const BULLET_POINT_HTML = <span className="bullet">&#8226;</span>;
 const DOWN_ARROW_HTML = <i className="material-icons">remove</i>;
 const RIGHT_ARROW_HTML = <i className="material-icons">add</i>;
 const VARIABLES_STATVAR_GROUP_PREFIX = "dc/g/Variables_";
+
 interface StatVarGroupNodePropType {
   // the dcid of the node of the current browser page
   placeDcid: string;

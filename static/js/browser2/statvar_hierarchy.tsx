@@ -28,6 +28,9 @@ import { StatVarGroupNodeType, StatVarNodeType } from "./types";
 import { loadSpinner, removeSpinner } from "./util";
 
 const LOADING_CONTAINER_ID = "stat-var-hierarchy-section";
+const SORTED_FIRST_SVG_ID = "dc/g/Demographics";
+const SORTED_LAST_SVG_ID = "dc/g/Miscellaneous";
+
 interface StatVarHierarchyPropType {
   dcid: string;
   placeName: string;
@@ -40,8 +43,6 @@ interface StatVarHierarchyStateType {
   errorMessage: string;
 }
 
-const SORTED_FIRST_SVG_ID = "dc/g/Demographics";
-const SORTED_LAST_SVG_ID = "dc/g/Miscellaneous";
 export class StatVarHierarchy extends React.Component<
   StatVarHierarchyPropType,
   StatVarHierarchyStateType
@@ -62,10 +63,10 @@ export class StatVarHierarchy extends React.Component<
   }
 
   render(): JSX.Element {
-    const initialStatVarGroups = Object.keys(this.state.statVarGroups).filter(
+    const rootStatVarGroups = Object.keys(this.state.statVarGroups).filter(
       (svgId) => !("parent" in this.state.statVarGroups[svgId])
     );
-    initialStatVarGroups.sort((a, b) => {
+    rootStatVarGroups.sort((a, b) => {
       if (a === SORTED_FIRST_SVG_ID) {
         return -1;
       }
@@ -93,7 +94,7 @@ export class StatVarHierarchy extends React.Component<
               onSelectionChange={this.onSearchSelectionChange}
             />
             <div className="hierarchy-section">
-              {initialStatVarGroups.map((svgId) => {
+              {rootStatVarGroups.map((svgId) => {
                 if (
                   _.isEmpty(this.state.pathToSelection) ||
                   this.state.pathToSelection[0] === svgId
