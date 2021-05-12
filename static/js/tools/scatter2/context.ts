@@ -20,6 +20,7 @@
 
 import { createContext, useState } from "react";
 import { StatsVarNode } from "../statvar_menu/util";
+import { NamedPlace } from "../../shared/types";
 
 interface Axis {
   // StatVar to plot for this axis
@@ -53,11 +54,6 @@ interface AxisWrapper {
   setStatVarName: Setter<string>;
   setLog: Setter<boolean>;
   setPerCapita: Setter<boolean>;
-}
-
-interface NamedPlace {
-  name: string;
-  dcid: string;
 }
 
 interface PlaceInfo {
@@ -366,7 +362,6 @@ export {
   ContextType,
   Axis,
   AxisWrapper,
-  NamedPlace,
   PlaceInfo,
   PlaceInfoWrapper,
   DateInfo,

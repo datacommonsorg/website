@@ -26,14 +26,14 @@ import { StatVarHierarchySearch } from "./statvar_hierarchy_search";
 import { StatVarGroupNode } from "./statvar_group_node";
 import { StatVarGroupNodeType, StatVarNodeType } from "./types";
 import { loadSpinner, removeSpinner } from "./util";
+import { NamedPlace } from "../shared/types";
 
 const LOADING_CONTAINER_ID = "stat-var-hierarchy-section";
 const SORTED_FIRST_SVG_ID = "dc/g/Demographics";
 const SORTED_LAST_SVG_ID = "dc/g/Miscellaneous";
 
 interface StatVarHierarchyPropType {
-  dcid: string;
-  placeName: string;
+  places: NamedPlace[];
 }
 
 interface StatVarHierarchyStateType {
@@ -101,8 +101,7 @@ export class StatVarHierarchy extends React.Component<
                 ) {
                   return (
                     <StatVarGroupNode
-                      placeDcid={this.props.dcid}
-                      placeName={this.props.placeName}
+                      places={this.props.places}
                       statVarGroupId={svgId}
                       data={this.state.statVarGroups}
                       pathToSelection={this.state.pathToSelection.slice(1)}
@@ -126,7 +125,9 @@ export class StatVarHierarchy extends React.Component<
   private fetchData(): void {
     loadSpinner(LOADING_CONTAINER_ID);
     axios
-      .get(`/api/browser/statvar-hierarchy/${this.props.dcid}`)
+      .post("/api/browser/statvar-hierarchy", {
+        dcids: this.props.places.map((place) => place.dcid),
+      })
       .then((resp) => {
         const data = resp.data;
         const statVarGroups = data["statVarGroups"];

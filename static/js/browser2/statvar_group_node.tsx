@@ -18,7 +18,7 @@
  * Component for rendering a stat var group node in the stat var hierarchy
  */
 
-import React from "react";
+import React, { useContext } from "react";
 import _ from "lodash";
 import Collapsible from "react-collapsible";
 import {
@@ -27,6 +27,10 @@ import {
   StatVarHierarchyNodeType,
 } from "./types";
 import { StatVarNode } from "./statvar_node";
+import { StatVarCheckbox } from "./statvar_checkbox";
+import { NamedPlace } from "../shared/types";
+import { Context } from "../shared/context";
+import { StatVarHierarchyType } from "../shared/types";
 
 const SCROLL_DELAY = 400;
 const BULLET_POINT_HTML = <span className="bullet">&#8226;</span>;
@@ -35,10 +39,8 @@ const RIGHT_ARROW_HTML = <i className="material-icons">add</i>;
 const VARIABLES_STATVAR_GROUP_PREFIX = "dc/g/Variables_";
 
 interface StatVarGroupNodePropType {
-  // the dcid of the node of the current browser page
-  placeDcid: string;
-  // the name of the node of the current browser page
-  placeName: string;
+  // A list of named places object.
+  places: NamedPlace[];
   // the dcid of the current stat var group
   statVarGroupId: string;
   // the mapping of all stat var groups to their corresponding information
@@ -111,8 +113,7 @@ export class StatVarGroupNode extends React.Component<
                     this.props.data[this.props.statVarGroupId].childStatVars
                   }
                   pathToSelection={this.props.pathToSelection}
-                  placeDcid={this.props.placeDcid}
-                  placeName={this.props.placeName}
+                  places={this.props.places}
                   highlightedStatVar={this.highlightedStatVar}
                 />
               )}
@@ -122,8 +123,7 @@ export class StatVarGroupNode extends React.Component<
                 statVarGroupId={this.props.statVarGroupId}
                 pathToSelection={this.props.pathToSelection}
                 highlightedStatVar={this.highlightedStatVar}
-                placeDcid={this.props.placeDcid}
-                placeName={this.props.placeName}
+                places={this.props.places}
               />
             )}
           </>
@@ -183,38 +183,42 @@ export class StatVarHierarchyNodeHeader extends React.Component<
 interface ChildStatVarSectionPropType {
   data: StatVarNodeType[];
   pathToSelection: string[];
-  placeDcid: string;
-  placeName: string;
+  places: NamedPlace[];
   highlightedStatVar: React.RefObject<HTMLDivElement>;
 }
 
-export class ChildStatVarSection extends React.Component<
-  ChildStatVarSectionPropType
-> {
-  render(): JSX.Element {
-    return (
-      <div className="svg-node-child">
-        {this.props.data.map((statVar) => {
-          const isSelected =
-            this.props.pathToSelection.length === 1 &&
-            this.props.pathToSelection[0] === statVar.id;
-          return (
-            <div
-              key={statVar.id}
-              ref={isSelected ? this.props.highlightedStatVar : null}
-            >
+export function ChildStatVarSection(
+  props: ChildStatVarSectionPropType
+): JSX.Element {
+  const appContext = useContext(Context);
+  return (
+    <div className="svg-node-child">
+      {props.data.map((statVar) => {
+        const isSelected =
+          props.pathToSelection.length === 1 &&
+          props.pathToSelection[0] === statVar.id;
+        return (
+          <div
+            key={statVar.id}
+            ref={isSelected ? props.highlightedStatVar : null}
+          >
+            {appContext.StatVarHierarchyType ==
+              StatVarHierarchyType.TIMELINE && (
+              <StatVarCheckbox statVar={statVar.id} />
+            )}
+            {appContext.StatVarHierarchyType ==
+              StatVarHierarchyType.BROWSER && (
               <StatVarNode
-                nodeName={this.props.placeName}
-                placeDcid={this.props.placeDcid}
+                place={props.places[0]}
                 selected={isSelected}
                 statVar={statVar}
               />
-            </div>
-          );
-        })}
-      </div>
-    );
-  }
+            )}
+          </div>
+        );
+      })}
+    </div>
+  );
 }
 
 interface ChildStatVarGroupSectionPropType {
@@ -222,8 +226,7 @@ interface ChildStatVarGroupSectionPropType {
   statVarGroupId: string;
   pathToSelection: string[];
   highlightedStatVar: React.RefObject<HTMLDivElement>;
-  placeDcid: string;
-  placeName: string;
+  places: NamedPlace[];
 }
 
 export class ChildStatVarGroupSection extends React.Component<
@@ -258,8 +261,7 @@ export class ChildStatVarGroupSection extends React.Component<
                 }
               >
                 <StatVarGroupNode
-                  placeDcid={this.props.placeDcid}
-                  placeName={this.props.placeName}
+                  places={this.props.places}
                   statVarGroupId={childStatVarGroup.id}
                   data={this.props.data}
                   pathToSelection={this.props.pathToSelection.slice(1)}

@@ -33,12 +33,12 @@ import {
 import { Chart } from "./chart";
 import {
   Context,
-  NamedPlace,
   Axis,
   AxisWrapper,
   PlaceInfo,
   IsLoadingWrapper,
 } from "./context";
+import { NamedPlace } from "../../shared/types";
 import { StatsVarNode } from "../statvar_menu/util";
 import { PlotOptions } from "./plot_options";
 
