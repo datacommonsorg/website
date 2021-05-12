@@ -29,7 +29,8 @@ import {
 import { StatVarNode } from "./statvar_node";
 import { StatVarCheckbox } from "./statvar_checkbox";
 import { NamedPlace } from "../shared/types";
-import { Context, StatVarHierarchyType } from "../shared/context";
+import { Context } from "../shared/context";
+import { StatVarHierarchyType } from "../shared/types";
 
 const SCROLL_DELAY = 400;
 const BULLET_POINT_HTML = <span className="bullet">&#8226;</span>;
@@ -205,7 +206,8 @@ export function ChildStatVarSection(
               StatVarHierarchyType.TIMELINE && (
               <StatVarCheckbox statVar={statVar.id} />
             )}
-            {appContext.StatVarHierarchyType == StatVarHierarchyType.GRAPH && (
+            {appContext.StatVarHierarchyType ==
+              StatVarHierarchyType.BROWSER && (
               <StatVarNode
                 place={props.places[0]}
                 selected={isSelected}

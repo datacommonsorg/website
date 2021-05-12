@@ -15,15 +15,12 @@
  */
 
 /**
- * Global app context.
+ * This module holds the global context of the Website.
+ *
+ * The context is meant to be shared among all visulization tools.
  */
 
 import { createContext } from "react";
-
-export const StatVarHierarchyType = {
-  GRAPH: "GRAPH",
-  TIMELINE: "TIMELINE",
-};
 
 // Global app state
 interface ContextType {

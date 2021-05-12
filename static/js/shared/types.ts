@@ -14,7 +14,21 @@
  * limitations under the License.
  */
 
+/**
+ * Struct to hold a place with dcid and display name. This is commonly used
+ * throught out the repo.
+ *
+ * TODO(shifucun): migrate existing code to use this struct whenever possible.
+ */
 export interface NamedPlace {
   name: string;
   dcid: string;
 }
+
+/**
+ * Enum type of the stat var hierarchy wizard.
+ */
+export const StatVarHierarchyType = {
+  BROWSER: "BROWSER",
+  TIMELINE: "TIMELINE",
+};

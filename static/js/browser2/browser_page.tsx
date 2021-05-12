@@ -29,7 +29,8 @@ import { PageDisplayType } from "./types";
 import { WeatherChartSection } from "./weather_chart_section";
 import { OutArcSection } from "./out_arc_section";
 import { InArcSection } from "./in_arc_section";
-import { StatVarHierarchyType, Context } from "../shared/context";
+import { Context } from "../shared/context";
+import { StatVarHierarchyType } from "../shared/types";
 
 const URL_PREFIX = "/browser/";
 const PLACE_STAT_VAR_PROPERTIES_HEADER = "Statistical Variable Properties";
@@ -129,7 +130,7 @@ export class BrowserPage extends React.Component<
             <div className="browser-page-section">
               <h3>Statistical Variables</h3>
               <Context.Provider
-                value={{ StatVarHierarchyType: StatVarHierarchyType.GRAPH }}
+                value={{ StatVarHierarchyType: StatVarHierarchyType.BROWSER }}
               >
                 <StatVarHierarchy
                   places={[

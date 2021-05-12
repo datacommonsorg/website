@@ -30,7 +30,8 @@ import {
   drawGroupLineChart,
 } from "./chart/draw";
 import { randDomId } from "./shared/util";
-import { StatVarHierarchyType, Context } from "./shared/context";
+import { Context } from "./shared/context";
+import { StatVarHierarchyType } from "./shared/types";
 import { StatVarHierarchy } from "./browser2/statvar_hierarchy";
 
 interface DevChartPropType {

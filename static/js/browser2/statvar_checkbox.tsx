@@ -15,7 +15,7 @@
  */
 
 /**
- * Component for rendering a stat var node in the stat var hierarchy.
+ * Component for rendering a stat var checkbox in the stat var hierarchy.
  */
 
 import React from "react";
