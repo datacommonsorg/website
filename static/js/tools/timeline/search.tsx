@@ -88,6 +88,7 @@ class SearchBar extends Component<SearchBarPropType> {
           ))}
         </span>
         <input ref={this.inputElem} id="ac" type="text" />
+        {!hideInput && <i className="material-icons search-icon">search</i>}
         <span id="place-name"></span>
       </div>
     );

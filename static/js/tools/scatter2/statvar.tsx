@@ -60,13 +60,11 @@ const emptyStatVar: NamedStatVar = Object.freeze({
 interface ModalSelected {
   x: boolean;
   y: boolean;
-  third: boolean;
 }
 
 const defaultModalSelected: ModalSelected = Object.freeze({
   x: true,
-  y: true,
-  third: false,
+  y: false,
 });
 
 function StatVarChooser(): JSX.Element {
@@ -76,6 +74,7 @@ function StatVarChooser(): JSX.Element {
   const [thirdStatVar, setThirdStatVar] = useState(emptyStatVar);
   // Records which two of the three statvars are wanted if a third statvar is selected.
   const [modalSelected, setModalSelected] = useState(defaultModalSelected);
+  const [modalOpen, setModalOpen] = useState(false);
   // Passed to the statvar menu.
   const menuSelected = {
     ...x.value.statVar,
@@ -84,6 +83,10 @@ function StatVarChooser(): JSX.Element {
   };
   // Filtered statvar DCIDs.
   const validStatVars = useValidStatVars();
+  const closeModal = () => {
+    setThirdStatVar(emptyStatVar);
+    setModalOpen(false);
+  };
 
   return (
     <div className="explore-menu-container" id="explore">
@@ -106,62 +109,57 @@ function StatVarChooser(): JSX.Element {
             )
           }
           addStatsVar={(statsVar, nodePath, denominators) =>
-            addStatVar(x, y, statsVar, nodePath, denominators, setThirdStatVar)
+            addStatVar(
+              x,
+              y,
+              statsVar,
+              nodePath,
+              denominators,
+              setThirdStatVar,
+              setModalOpen
+            )
           }
           removeStatsVar={(statsVar, nodePath) =>
             removeStatVar(x, y, statsVar, nodePath)
           }
         ></Menu>
       </div>
-      <Modal
-        isOpen={!_.isEmpty(thirdStatVar.statVar)}
-        backdrop="static"
-        id="statvar-modal"
-      >
-        <ModalHeader close={null}>
-          Select two of the three statistical variables
-        </ModalHeader>
+      <Modal isOpen={modalOpen} backdrop="static" id="statvar-modal">
+        <ModalHeader toggle={closeModal}>Third Variable Selected</ModalHeader>
         <ModalBody>
           <Container>
-            <FormGroup check row>
-              <Label check>
-                <Input
-                  type="checkbox"
-                  checked={modalSelected.x}
-                  onChange={(e) =>
-                    selectStatVar(modalSelected, setModalSelected, e)
-                  }
-                  name="x"
-                />
-                {x.value.name}
-              </Label>
-            </FormGroup>
-            <FormGroup check row>
-              <Label check>
-                <Input
-                  type="checkbox"
-                  checked={modalSelected.y}
-                  onChange={(e) =>
-                    selectStatVar(modalSelected, setModalSelected, e)
-                  }
-                  name="y"
-                />
-                {y.value.name}
-              </Label>
-            </FormGroup>
-            <FormGroup check row>
-              <Label check>
-                <Input
-                  type="checkbox"
-                  checked={modalSelected.third}
-                  onChange={(e) =>
-                    selectStatVar(modalSelected, setModalSelected, e)
-                  }
-                  name="third"
-                />
-                {thirdStatVar.name}
-              </Label>
-            </FormGroup>
+            <div>
+              You selected: <b>{thirdStatVar.name}</b>
+            </div>
+            <div className="radio-selection-label">
+              Please choose 1 more variable to keep:
+            </div>
+            <div className="radio-selection-section">
+              <FormGroup radio row>
+                <Label radio>
+                  <Input
+                    id="x-radio-button"
+                    type="radio"
+                    name="statvar"
+                    defaultChecked={modalSelected.x}
+                    onClick={() => setModalSelected({ x: true, y: false })}
+                  />
+                  {x.value.name}
+                </Label>
+              </FormGroup>
+              <FormGroup radio row>
+                <Label radio>
+                  <Input
+                    id="y-radio-button"
+                    type="radio"
+                    name="statvar"
+                    defaultChecked={modalSelected.y}
+                    onClick={() => setModalSelected({ x: false, y: true })}
+                  />
+                  {y.value.name}
+                </Label>
+              </FormGroup>
+            </div>
           </Container>
         </ModalBody>
         <ModalFooter>
@@ -174,7 +172,8 @@ function StatVarChooser(): JSX.Element {
                 thirdStatVar,
                 setThirdStatVar,
                 modalSelected,
-                setModalSelected
+                setModalSelected,
+                setModalOpen
               )
             }
           >
@@ -286,7 +285,8 @@ function addStatVar(
   statVar: string,
   nodePath: string[],
   denominators: string[],
-  setThirdStatVar: (statVar: NamedStatVar) => void
+  setThirdStatVar: (statVar: NamedStatVar) => void,
+  setModalOpen: (open: boolean) => void
 ) {
   const node = {
     [statVar]: { paths: [nodePath], denominators: denominators },
@@ -297,6 +297,7 @@ function addStatVar(
     y.setStatVar(node);
   } else {
     setThirdStatVar({ statVar: node, name: "" });
+    setModalOpen(true);
   }
 }
 
@@ -361,30 +362,6 @@ function setStatsVarTitle(
 }
 
 /**
- * Selects or unselects one of the three statvars displayed in the modal.
- * @param modalSelected
- * @param setModalSelected
- * @param event
- */
-function selectStatVar(
-  modalSelected: ModalSelected,
-  setModalSelected: (modalSelected: ModalSelected) => void,
-  event: React.ChangeEvent<HTMLInputElement>
-): void {
-  switch (event.target.name) {
-    case "x":
-      setModalSelected({ ...modalSelected, x: event.target.checked });
-      break;
-    case "y":
-      setModalSelected({ ...modalSelected, y: event.target.checked });
-      break;
-    case "third":
-      setModalSelected({ ...modalSelected, third: event.target.checked });
-      break;
-  }
-}
-
-/**
  * Confirms the statvar selections in the modal.
  * No-op if all three statvars are selected.
  * Clears the third, extra statvar and the modal selections.
@@ -401,15 +378,11 @@ function confirmStatVars(
   thirdStatVar: NamedStatVar,
   setThirdStatVar: (statVar: NamedStatVar) => void,
   modalSelected: ModalSelected,
-  setModalSelected: (modalSelected: ModalSelected) => void
+  setModalSelected: (modalSelected: ModalSelected) => void,
+  setModalOpened: (open: boolean) => void
 ): void {
-  if (modalSelected.x && modalSelected.y && modalSelected.third) {
-    // TODO: Maybe display an error message.
-    return;
-  }
   const values: Array<Axis> = [];
   const axes = [x, y];
-
   if (modalSelected.x) {
     values.push(x.value);
   } else {
@@ -425,19 +398,11 @@ function confirmStatVars(
     statVar: thirdStatVar.statVar,
     name: thirdStatVar.name,
   });
-
-  if (modalSelected.x) {
-    assignAxes(axes, values);
-  }
-  if (modalSelected.y) {
-    assignAxes(axes, values);
-  }
-  if (modalSelected.third) {
-    assignAxes(axes, values);
-  }
-
+  assignAxes(axes, values);
+  assignAxes(axes, values);
   setThirdStatVar(emptyStatVar);
   setModalSelected(defaultModalSelected);
+  setModalOpened(false);
 }
 
 /**

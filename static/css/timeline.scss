@@ -23,6 +23,7 @@
 
 #location-field #ac {
   margin-left: 16px;
+  background: none;
 }
 
 #main-pane-download {
@@ -163,4 +164,8 @@ sup {
   margin: 0 8px 8px 0;
   font-size: 0;
   white-space: nowrap;
+}
+
+.search-icon {
+  padding: 0.5rem;
 }
