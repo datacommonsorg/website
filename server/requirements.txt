@@ -5,7 +5,7 @@ attrs==19.3.0
 google-cloud-profiler
 google-cloud-storage
 google-cloud-secret-manager==1.0.0
-jinja2
+jinja2==2.11.3
 parameterized
 pytest-parallel
 requests
@@ -20,3 +20,4 @@ opencensus
 opencensus-ext-stackdriver
 opencensus-ext-flask
 typing_extensions
+Werkzeug==1.0.1
