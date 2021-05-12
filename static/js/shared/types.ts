@@ -16,7 +16,7 @@
 
 /**
  * Struct to hold a place with dcid and display name. This is commonly used
- * throught out the repo.
+ * throughout the repo.
  *
  * TODO(shifucun): migrate existing code to use this struct whenever possible.
  */
