@@ -33,12 +33,12 @@ import {
 import { Chart } from "./chart";
 import {
   Context,
-  NamedPlace,
   Axis,
   AxisWrapper,
   PlaceInfo,
   IsLoadingWrapper,
 } from "./context";
+import { NamedPlace } from "../../shared/types";
 import { StatsVarNode } from "../statvar_menu/util";
 import { PlotOptions } from "./plot_options";
 
@@ -234,8 +234,7 @@ function usePoints(cache: Cache): Array<Point> {
       return;
     }
     const points = getPoints(xVal, yVal, placeVal, cache);
-    const pointsCapita = computeCapita(points, xVal.perCapita, yVal.perCapita);
-    setPoints(computeLog(pointsCapita, xVal.log, yVal.log));
+    setPoints(computeCapita(points, xVal.perCapita, yVal.perCapita));
 
     const downloadButton = document.getElementById("download-link");
     if (downloadButton) {
@@ -271,20 +270,6 @@ function computeCapita(
     ...point,
     xVal: xPerCapita ? point.xVal / point.xPop : point.xVal,
     yVal: yPerCapita ? point.yVal / point.yPop : point.yVal,
-  }));
-}
-/**
- * computes the log for each `xVal` and `yVal` if per capita is
- * selected for that axis.
- * @param points
- * @param xPerCapita
- * @param yPerCapita
- */
-function computeLog(points: Array<Point>, xLog: boolean, yLog: boolean) {
-  return points.map((point) => ({
-    ...point,
-    xVal: xLog ? Math.log(point.xVal) : point.xVal,
-    yVal: yLog ? Math.log(point.yVal) : point.yVal,
   }));
 }
 

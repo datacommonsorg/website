@@ -192,8 +192,8 @@ class TestStatVarHierarchy(unittest.TestCase):
                 }],
             }
         }
-        response = app.test_client().get(
-            'api/browser/statvar-hierarchy/geoId/06')
+        response = app.test_client().post('api/browser/statvar-hierarchy',
+                                          json={})
         assert response.status_code == 200
         result = json.loads(response.data)
         expected_result = {

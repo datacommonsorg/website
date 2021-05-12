@@ -274,24 +274,25 @@ function addXAxis(
   max: number,
   unit?: string
 ): d3.ScaleLinear<number, number> | d3.ScaleLogarithmic<number, number> {
-  const xScale = d3.scaleLinear().domain([min, max]).range([0, width]).nice();
-  g.append("g")
-    .attr("transform", `translate(0,${height})`)
-    .call(
-      d3
-        .axisBottom(xScale)
-        .ticks(10, d3.format(perCapita ? ".3f" : "d"))
-        .tickFormat((d) => {
-          return formatNumber(d.valueOf(), unit);
-        })
-    );
+  const xScale = (log ? d3.scaleLog() : d3.scaleLinear())
+    .domain([min, max])
+    .range([0, width])
+    .nice();
+  const xAxis = d3.axisBottom(xScale).ticks(10);
+  if (!log) {
+    xAxis.tickFormat((d) => {
+      return formatNumber(d.valueOf());
+    });
+  }
+  g.append("g").attr("transform", `translate(0,${height})`).call(xAxis);
+  const unitLabelString = unit ? ` (${unit})` : "";
   g.append("text")
     .attr("text-anchor", "middle")
     .attr(
       "transform",
       `translate(${width / 2},${height + marginBottom / 2 + 10})`
     )
-    .text(xLabel);
+    .text(xLabel + unitLabelString);
   return xScale;
 }
 
@@ -317,22 +318,25 @@ function addYAxis(
   max: number,
   unit?: string
 ): d3.ScaleLinear<number, number> | d3.ScaleLogarithmic<number, number> {
-  const yScale = d3.scaleLinear().domain([min, max]).range([height, 0]).nice();
-  g.append("g").call(
-    d3
-      .axisLeft(yScale)
-      .ticks(10, d3.format(perCapita ? ".3f" : "d"))
-      .tickFormat((d) => {
-        return formatNumber(d.valueOf(), unit);
-      })
-  );
+  const yScale = (log ? d3.scaleLog() : d3.scaleLinear())
+    .domain([min, max])
+    .range([height, 0])
+    .nice();
+  const yAxis = d3.axisLeft(yScale).ticks(10);
+  if (!log) {
+    yAxis.tickFormat((d) => {
+      return formatNumber(d.valueOf());
+    });
+  }
+  g.append("g").call(yAxis);
+  const unitLabelString = unit ? ` (${unit})` : "";
   g.append("text")
     .attr("text-anchor", "middle")
     .attr(
       "transform",
       `rotate(-90) translate(${-height / 2},${-(marginLeft / 2 + 5)})`
     )
-    .text(yLabel);
+    .text(yLabel + unitLabelString);
   return yScale;
 }
 

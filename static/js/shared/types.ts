@@ -1,5 +1,5 @@
 /**
- * Copyright 2020 Google LLC
+ * Copyright 2021 Google LLC
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -14,16 +14,21 @@
  * limitations under the License.
  */
 
-@import "base";
-@import "tools/statvar_menu";
-@import "draw";
-@import "browser";
-
-.card {
-  box-shadow: 0 2px 4px 0 rgba(0, 0, 0, 0.2);
-  position: relative;
+/**
+ * Struct to hold a place with dcid and display name. This is commonly used
+ * throughout the repo.
+ *
+ * TODO(shifucun): migrate existing code to use this struct whenever possible.
+ */
+export interface NamedPlace {
+  name: string;
+  dcid: string;
 }
 
-.screenshot-image {
-  margin: 10px;
-}
+/**
+ * Enum type of the stat var hierarchy wizard.
+ */
+export const StatVarHierarchyType = {
+  BROWSER: "BROWSER",
+  TIMELINE: "TIMELINE",
+};

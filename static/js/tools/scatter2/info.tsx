@@ -100,10 +100,10 @@ function Info(): JSX.Element {
           </a>
         </li>
         <li>
-          <b>Foreign Born vs Unemployment Rate</b> for{" "}
+          <b>Covid-19 Cases vs African American Per Capita</b> for{" "}
           <a
             href={
-              "#&svx=UnemploymentRate_Person&svpx=3-3&svnx=Unemployment_Rate&svy=Count_Person_ForeignBorn&svpy=0-12-2&svdy=Count_Person&svny=Foreign_Born&pcy=1&epd=country%2FUSA&epn=United%20States%20of%20America&ept=State"
+              "#&svx=Count_Person_BlackOrAfricanAmericanAlone&svpx=0-14-2&svdx=Count_Person&svnx=Black_Or_African_American_Alone&pcx=1&svy=CumulativeCount_MedicalTest_ConditionCOVID_19_Positive&svpy=5-2-0-1&svdy=Count_Person&svny=Positive&pcy=1&epd=country/USA&epn=United%20States%20of%20America&ept=State"
             }
           >
             US states
@@ -111,7 +111,7 @@ function Info(): JSX.Element {
           ,{" "}
           <a
             href={
-              "#&svx=UnemploymentRate_Person&svpx=3-3&svnx=Unemployment_Rate&svy=Count_Person_ForeignBorn&svpy=0-12-2&svdy=Count_Person&svny=Foreign_Born&pcy=1&epd=country%2FUSA&epn=United%20States%20of%20America&ept=County"
+              "#&svx=Count_Person_BlackOrAfricanAmericanAlone&svpx=0-14-2&svdx=Count_Person&svnx=Black_Or_African_American_Alone&pcx=1&svy=CumulativeCount_MedicalTest_ConditionCOVID_19_Positive&svpy=5-2-0-1&svdy=Count_Person&svny=Positive&pcy=1&epd=country/USA&epn=United%20States%20of%20America&ept=County"
             }
           >
             US counties
