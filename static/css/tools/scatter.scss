@@ -26,6 +26,7 @@
     margin-bottom: 0;
     box-shadow: none;
     border: 1px solid rgba(0, 0, 0, 0.125);
+    flex-grow: 1;
   }
 
   #search #location-field {
@@ -187,4 +188,45 @@ circle:hover {
 
 circle {
   stroke: var(--dc-red-strong);
+}
+
+.place-options {
+  display: flex;
+  flex-wrap: wrap;
+}
+
+.place-options-section {
+  display: flex;
+  align-items: center;
+  padding: 0.5rem 0.5rem;
+  overflow: hidden;
+}
+
+#place-search-section {
+  flex-grow: 1;
+}
+
+.place-options-label {
+  padding-right: 1rem;
+}
+
+.place-options-card {
+  padding-right: 0;
+  padding-left: 0;
+}
+
+.search-icon {
+  padding: 0.5rem;
+}
+
+#location-field #ac {
+  background: none;
+}
+
+.radio-selection-label, .radio-selection-section {
+  padding-top: 0.5rem;
+}
+
+.radio-selection-section {
+  margin-left: 2rem;
 }

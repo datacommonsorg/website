@@ -316,17 +316,12 @@ test("all functionalities", async (done) => {
   app.find(`[id="Housing Units"] button`).simulate("click");
   await waitFor(() =>
     expect(app.find(".modal-title").text()).toContain(
-      "Select two of the three statistical variables"
+      "Only Two Variables Supported"
     )
   );
 
-  // Uncheck establishments and check housing
-  app
-    .find(`input[name="x"]`)
-    .simulate("change", { target: { name: "x", checked: false } });
-  app
-    .find(`input[name="third"]`)
-    .simulate("change", { target: { name: "third", checked: true } });
+  // choose employed
+  app.find(`input[id="y-radio-button"]`).simulate("click");
   app.find(".modal-footer button").simulate("click");
   await waitFor(() => {
     expect(app.text()).toContain(

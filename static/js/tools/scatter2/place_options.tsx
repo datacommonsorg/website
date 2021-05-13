@@ -31,7 +31,7 @@ import {
 import { SearchBar } from "../timeline/search";
 import { getPlaceNames } from "../timeline/util";
 
-import { Container, Row, Col, CustomInput } from "reactstrap";
+import { Container, CustomInput } from "reactstrap";
 
 const USA_CITY_CHILD_TYPES = ["CensusZipCodeTabulationArea", "City"];
 const USA_COUNTY_CHILD_TYPES = ["Town", "Village", ...USA_CITY_CHILD_TYPES];
@@ -88,31 +88,31 @@ function PlaceOptions(): JSX.Element {
   }, [place.value]);
 
   return (
-    <Card>
+    <Card className="place-options-card">
       <Container className="place-options">
-        <Row className="centered-items-row">
-          <Col xs="auto">Plot places in</Col>
-          <Col>
-            <div id="search">
-              <SearchBar
-                places={
-                  place.value.enclosingPlace.dcid
-                    ? {
-                        [place.value.enclosingPlace.dcid]:
-                          place.value.enclosingPlace.name,
-                      }
-                    : {}
-                }
-                addPlace={(e) => selectEnclosingPlace(place, e)}
-                removePlace={() =>
-                  unselectEnclosingPlace(place, setChildPlaceTypes)
-                }
-                numPlacesLimit={1}
-              />
-            </div>
-          </Col>
-          <Col xs="auto">of type</Col>
-          <Col xs="3">
+        <div className="place-options-section" id="place-search-section">
+          <div className="place-options-label">Plot places in</div>
+          <div id="search">
+            <SearchBar
+              places={
+                place.value.enclosingPlace.dcid
+                  ? {
+                      [place.value.enclosingPlace.dcid]:
+                        place.value.enclosingPlace.name,
+                    }
+                  : {}
+              }
+              addPlace={(e) => selectEnclosingPlace(place, e)}
+              removePlace={() =>
+                unselectEnclosingPlace(place, setChildPlaceTypes)
+              }
+              numPlacesLimit={1}
+            />
+          </div>
+        </div>
+        <div className="place-options-section">
+          <div className="place-options-label">of type</div>
+          <div>
             <CustomInput
               id="enclosed-place-type"
               type="select"
@@ -127,8 +127,8 @@ function PlaceOptions(): JSX.Element {
                 </option>
               ))}
             </CustomInput>
-          </Col>
-        </Row>
+          </div>
+        </div>
       </Container>
     </Card>
   );
