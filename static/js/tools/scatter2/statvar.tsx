@@ -125,7 +125,9 @@ function StatVarChooser(): JSX.Element {
         ></Menu>
       </div>
       <Modal isOpen={modalOpen} backdrop="static" id="statvar-modal">
-        <ModalHeader toggle={closeModal}>Third Variable Selected</ModalHeader>
+        <ModalHeader toggle={closeModal}>
+          Only Two Variables Supported
+        </ModalHeader>
         <ModalBody>
           <Container>
             <div>

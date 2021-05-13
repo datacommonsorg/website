@@ -315,7 +315,9 @@ test("all functionalities", async (done) => {
   app.find("#Housing a").simulate("click");
   app.find(`[id="Housing Units"] button`).simulate("click");
   await waitFor(() =>
-    expect(app.find(".modal-title").text()).toContain("Third Variable Selected")
+    expect(app.find(".modal-title").text()).toContain(
+      "Only Two Variables Supported"
+    )
   );
 
   // choose employed

@@ -90,7 +90,7 @@ function PlaceOptions(): JSX.Element {
   return (
     <Card className="place-options-card">
       <Container className="place-options">
-        <div className="place-options-section place-search-section">
+        <div className="place-options-section" id="place-search-section">
           <div className="place-options-label">Plot places in</div>
           <div id="search">
             <SearchBar
@@ -110,7 +110,7 @@ function PlaceOptions(): JSX.Element {
             />
           </div>
         </div>
-        <div className="place-options-section place-type-section">
+        <div className="place-options-section">
           <div className="place-options-label">of type</div>
           <div>
             <CustomInput
