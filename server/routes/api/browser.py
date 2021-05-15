@@ -24,8 +24,6 @@ from flask import Response
 from flask import request
 import routes.api.place as place_api
 
-import logging
-
 bp = flask.Blueprint('api.browser', __name__, url_prefix='/api/browser')
 
 NO_MMETHOD_KEY = 'no_mmethod'

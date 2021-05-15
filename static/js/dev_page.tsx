@@ -31,6 +31,7 @@ import {
 } from "./chart/draw";
 import { randDomId } from "./shared/util";
 import { StatVarHierarchy } from "./browser2/statvar_hierarchy";
+import { StatVarHierarchyType } from "./shared/types";
 
 interface DevChartPropType {
   id: string;
@@ -849,6 +850,7 @@ class DevPage extends React.Component {
         {chartElements}
         <div style={{ width: "400px" }}>
           <StatVarHierarchy
+            type={StatVarHierarchyType.TIMELINE}
             places={[]}
             statVars={["Count_Person", "FertilityRate_Person_Female"]}
           />

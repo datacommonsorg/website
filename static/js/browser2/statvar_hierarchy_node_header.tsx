@@ -17,8 +17,9 @@
 import React from "react";
 import _ from "lodash";
 
-import { StatVarHierarchyNodeType, StatVarNodeType } from "./types";
-import { NamedPlace } from "../shared/types";
+import { StatVarHierarchyNodeType } from "./types";
+import { Context } from "../shared/context";
+import { StatVarHierarchyType } from "../shared/types";
 
 const BULLET_POINT_HTML = <span className="bullet">&#8226;</span>;
 const DOWN_ARROW_HTML = <i className="material-icons">remove</i>;
@@ -53,8 +54,11 @@ export class StatVarHierarchyNodeHeader extends React.Component<
       >
         {prefixHtml}
         <span className="title">{this.props.title}</span>
-        {this.props.count > 0 && <span>({this.props.count})</span>}
+        {this.context.StatVarHierarchyType && this.props.count > 0 && (
+          <span>({this.props.count})</span>
+        )}
       </div>
     );
   }
 }
+StatVarHierarchyNodeHeader.contextType = Context;

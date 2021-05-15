@@ -22,19 +22,21 @@
 import React from "react";
 import axios from "axios";
 import _ from "lodash";
+
 import { StatVarHierarchySearch } from "./statvar_hierarchy_search";
 import { StatVarGroupNode } from "./statvar_group_node";
 import { StatVarGroupNodeType, StatVarNodeType } from "./types";
 import { NamedPlace } from "../shared/types";
+
 import { loadSpinner, removeSpinner } from "./util";
 import { Context } from "../shared/context";
-import { StatVarHierarchyType } from "../shared/types";
 
 const LOADING_CONTAINER_ID = "stat-var-hierarchy-section";
 const SORTED_FIRST_SVG_ID = "dc/g/Demographics";
 const SORTED_LAST_SVG_ID = "dc/g/Miscellaneous";
 
 interface StatVarHierarchyPropType {
+  type: string;
   places: NamedPlace[];
   statVars?: string[];
 }
@@ -42,7 +44,7 @@ interface StatVarHierarchyPropType {
 interface StatVarHierarchyStateType {
   statVarGroups: { [svgId: string]: StatVarGroupNodeType };
   statVars: { [statVarId: string]: StatVarNodeType };
-  selectionPath: string[];
+  focusStatVar: string;
   statVarPath: Record<string, string[]>;
   errorMessage: string;
   toggleStatVarPath: (statVar: string) => void;
@@ -56,7 +58,7 @@ export class StatVarHierarchy extends React.Component<
     super(props);
     this.state = {
       errorMessage: "",
-      selectionPath: [],
+      focusStatVar: "",
       statVarPath: {},
       statVarGroups: {},
       statVars: {},
@@ -103,7 +105,6 @@ export class StatVarHierarchy extends React.Component<
       }
       return a > b ? 1 : -1;
     });
-    console.log("render");
     return (
       <div id={LOADING_CONTAINER_ID} className="loading-spinner-container">
         {!_.isEmpty(this.state.errorMessage) && (
@@ -118,14 +119,18 @@ export class StatVarHierarchy extends React.Component<
             />
             <div className="hierarchy-section">
               {rootStatVarGroups.map((svgId) => {
+                let focusPath = [];
+                if (this.state.focusStatVar !== "") {
+                  focusPath = this.state.statVarPath[this.state.focusStatVar];
+                }
                 if (
-                  _.isEmpty(this.state.selectionPath) ||
-                  this.state.selectionPath[0] === svgId
+                  _.isEmpty(this.state.focusStatVar) ||
+                  focusPath[0] === svgId
                 ) {
                   return (
                     <Context.Provider
                       value={{
-                        statVarHierarchyType: StatVarHierarchyType.TIMELINE,
+                        statVarHierarchyType: this.props.type,
                         statVarPath: this.state.statVarPath,
                         toggleStatVarPath: this.toggleStatVarPath,
                       }}
@@ -136,9 +141,9 @@ export class StatVarHierarchy extends React.Component<
                         places={this.props.places}
                         statVarGroupId={svgId}
                         data={this.state.statVarGroups}
-                        pathToSelection={this.state.selectionPath.slice(1)}
-                        isSelected={this.state.selectionPath.length === 1}
-                        open={this.state.selectionPath[0] === svgId}
+                        pathToSelection={focusPath.slice(1)}
+                        isSelected={focusPath.length === 1}
+                        open={focusPath[0] === svgId}
                         getPath={this.getPath}
                       />
                     </Context.Provider>
@@ -171,17 +176,19 @@ export class StatVarHierarchy extends React.Component<
           statVars,
         });
         const statVarPath = {};
-        for (const statVar of this.props.statVars) {
-          statVarPath[statVar] = this.getPath(statVar);
+        if (this.props.statVars) {
+          for (const statVar of this.props.statVars) {
+            statVarPath[statVar] = this.getPath(statVar);
+          }
+          this.setState({
+            statVarPath,
+          });
         }
-        this.setState({
-          statVarPath,
-        });
       })
       .catch(() => {
         removeSpinner(LOADING_CONTAINER_ID);
         this.setState({
-          errorMessage: "Error retrieving stat var hierarchy.",
+          errorMessage: "Error retrieving stat var hierarchy",
         });
       });
   }
@@ -189,7 +196,7 @@ export class StatVarHierarchy extends React.Component<
   private onSearchSelectionChange(selection: string): void {
     const path = this.getPath(selection);
     this.setState({
-      selectionPath: path,
+      focusStatVar: selection,
       statVarPath: Object.assign({ [selection]: path }, this.state.statVarPath),
     });
   }

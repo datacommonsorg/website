@@ -129,18 +129,10 @@ export class BrowserPage extends React.Component<
           {this.props.shouldShowStatVarHierarchy && (
             <div className="browser-page-section">
               <h3>Statistical Variables</h3>
-              <Context.Provider
-                value={{
-                  statVarHierarchyType: StatVarHierarchyType.BROWSER,
-                  statVarPath: {},
-                }}
-              >
-                <StatVarHierarchy
-                  places={[
-                    { dcid: this.props.dcid, name: this.props.nodeName },
-                  ]}
-                />
-              </Context.Provider>
+              <StatVarHierarchy
+                type={StatVarHierarchyType.BROWSER}
+                places={[{ dcid: this.props.dcid, name: this.props.nodeName }]}
+              />
             </div>
           )}
           {showInArcSection && (

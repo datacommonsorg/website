@@ -61,7 +61,6 @@ export class StatVarCheckbox extends React.Component<
   }
 
   render(): JSX.Element {
-    console.log(this.context.statVarPath);
     return (
       <form>
         <label>
