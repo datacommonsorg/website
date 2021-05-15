@@ -852,7 +852,7 @@ class DevPage extends React.Component {
           <StatVarHierarchy
             type={StatVarHierarchyType.TIMELINE}
             places={[]}
-            statVars={["Count_Person", "FertilityRate_Person_Female"]}
+            svs={["Count_Person", "FertilityRate_Person_Female"]}
           />
         </div>
       </div>

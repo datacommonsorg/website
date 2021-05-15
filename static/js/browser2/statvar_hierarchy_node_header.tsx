@@ -17,7 +17,7 @@
 import React from "react";
 
 import { StatVarHierarchyNodeType } from "./types";
-import { Context } from "../shared/context";
+import { Context, ContextType } from "../shared/context";
 import { StatVarHierarchyType } from "../shared/types";
 
 const BULLET_POINT_HTML = <span className="bullet">&#8226;</span>;
@@ -35,6 +35,8 @@ interface StatVarHierarchyNodeHeaderPropType {
 export class StatVarHierarchyNodeHeader extends React.Component<
   StatVarHierarchyNodeHeaderPropType
 > {
+  context: ContextType;
+
   render(): JSX.Element {
     let prefixHtml =
       this.props.nodeType === StatVarHierarchyNodeType.STAT_VAR
@@ -53,7 +55,7 @@ export class StatVarHierarchyNodeHeader extends React.Component<
       >
         {prefixHtml}
         <span className="title">{this.props.title}</span>
-        {this.context.StatVarHierarchyType === StatVarHierarchyType.TIMELINE &&
+        {this.context.statVarHierarchyType === StatVarHierarchyType.TIMELINE &&
           this.props.count > 0 && <span>({this.props.count})</span>}
       </div>
     );

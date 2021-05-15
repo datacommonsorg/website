@@ -23,6 +23,7 @@ import { Context } from "../shared/context";
 import { StatVarCheckbox } from "./statvar_checkbox";
 
 interface StatVarSectionPropType {
+  path: string[];
   data: StatVarNodeType[];
   pathToSelection: string[];
   places: NamedPlace[];
@@ -45,7 +46,11 @@ export class StatVarSection extends React.Component<StatVarSectionPropType> {
             >
               {context.statVarHierarchyType ==
                 StatVarHierarchyType.TIMELINE && (
-                <StatVarCheckbox selected={isSelected} statVar={statVar.id} />
+                <StatVarCheckbox
+                  path={this.props.path.concat([statVar.id])}
+                  selected={isSelected}
+                  statVar={statVar.id}
+                />
               )}
               {context.statVarHierarchyType == StatVarHierarchyType.BROWSER && (
                 <StatVarNode

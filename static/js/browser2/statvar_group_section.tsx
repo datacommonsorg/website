@@ -24,7 +24,7 @@ import { StatVarGroupNode } from "./statvar_group_node";
 const VARIABLES_STATVAR_GROUP_PREFIX = "dc/g/Variables_";
 
 interface StatVarGroupSectionPropType {
-  level: number;
+  path: string[];
   data: { [key: string]: StatVarGroupNodeType };
   statVarGroupId: string;
   pathToSelection: string[];
@@ -64,7 +64,7 @@ export class StatVarGroupSection extends React.Component<
                 }
               >
                 <StatVarGroupNode
-                  level={this.props.level}
+                  path={this.props.path.concat([childStatVarGroup.id])}
                   places={this.props.places}
                   statVarGroupId={childStatVarGroup.id}
                   data={this.props.data}

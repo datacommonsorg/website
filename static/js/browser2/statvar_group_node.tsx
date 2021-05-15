@@ -19,20 +19,22 @@
  */
 
 import React from "react";
-import _ from "lodash";
 import Collapsible from "react-collapsible";
+import _ from "lodash";
+
 import { StatVarGroupNodeType, StatVarHierarchyNodeType } from "./types";
 import { StatVarHierarchyNodeHeader } from "./statvar_hierarchy_node_header";
 import { StatVarSection } from "./statvar_section";
-import { NamedPlace } from "../shared/types";
-import { Context } from "../shared/context";
 import { StatVarGroupSection } from "./statvar_group_section";
+import { NamedPlace } from "../shared/types";
+
+import { Context, ContextType } from "../shared/context";
 
 const SCROLL_DELAY = 400;
 
 interface StatVarGroupNodePropType {
-  // The level of the stat var group in the hierarchy.
-  level: number;
+  // The path of this stat var group node.
+  path: string[];
   // A list of named places object.
   places: NamedPlace[];
   // the dcid of the current stat var group
@@ -60,6 +62,8 @@ export class StatVarGroupNode extends React.Component<
 > {
   highlightedStatVar: React.RefObject<HTMLDivElement>;
   delayTimer: NodeJS.Timeout;
+  context: ContextType;
+
   constructor(props: StatVarGroupNodePropType) {
     super(props);
     this.state = {
@@ -79,12 +83,11 @@ export class StatVarGroupNode extends React.Component<
       ? this.props.specializedEntity
       : statVarGroup.absoluteName;
 
+    const level = this.props.path.length;
     let count = 0;
-    for (const sv in this.context.statVarPath) {
-      if (
-        this.context.statVarPath[sv][this.props.level] ==
-        this.props.statVarGroupId
-      ) {
+    for (const sv in this.context.svPath) {
+      const path = this.context.svPath[sv];
+      if (_.isEqual(path.slice(0, level), this.props.path)) {
         count += 1;
       }
     }
@@ -118,6 +121,7 @@ export class StatVarGroupNode extends React.Component<
             {this.props.pathToSelection.length < 2 &&
               this.props.data[this.props.statVarGroupId].childStatVars && (
                 <StatVarSection
+                  path={this.props.path}
                   data={
                     this.props.data[this.props.statVarGroupId].childStatVars
                   }
@@ -128,7 +132,7 @@ export class StatVarGroupNode extends React.Component<
               )}
             {this.props.data[this.props.statVarGroupId].childStatVarGroups && (
               <StatVarGroupSection
-                level={this.props.level + 1}
+                path={this.props.path}
                 data={this.props.data}
                 statVarGroupId={this.props.statVarGroupId}
                 pathToSelection={this.props.pathToSelection}
