@@ -27,7 +27,6 @@ interface StatVarSectionPropType {
   pathToSelection: string[];
   places: NamedPlace[];
   highlightedStatVar: React.RefObject<HTMLDivElement>;
-  getPath: (string) => string[];
 }
 
 export class StatVarSection extends React.Component<StatVarSectionPropType> {
@@ -46,11 +45,7 @@ export class StatVarSection extends React.Component<StatVarSectionPropType> {
             >
               {context.statVarHierarchyType ==
                 StatVarHierarchyType.TIMELINE && (
-                <StatVarCheckbox
-                  selected={isSelected}
-                  statVar={statVar.id}
-                  getPath={this.props.getPath}
-                />
+                <StatVarCheckbox selected={isSelected} statVar={statVar.id} />
               )}
               {context.statVarHierarchyType == StatVarHierarchyType.BROWSER && (
                 <StatVarNode

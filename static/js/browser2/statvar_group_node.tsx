@@ -48,7 +48,6 @@ interface StatVarGroupNodePropType {
   isSelected: boolean;
   // whether the current component should be opened when rendered
   open: boolean;
-  getPath: (string) => string[];
 }
 
 interface StatVarGroupNodeStateType {
@@ -125,7 +124,6 @@ export class StatVarGroupNode extends React.Component<
                   pathToSelection={this.props.pathToSelection}
                   places={this.props.places}
                   highlightedStatVar={this.highlightedStatVar}
-                  getPath={this.props.getPath}
                 />
               )}
             {this.props.data[this.props.statVarGroupId].childStatVarGroups && (
@@ -136,7 +134,6 @@ export class StatVarGroupNode extends React.Component<
                 pathToSelection={this.props.pathToSelection}
                 highlightedStatVar={this.highlightedStatVar}
                 places={this.props.places}
-                getPath={this.props.getPath}
               />
             )}
           </>

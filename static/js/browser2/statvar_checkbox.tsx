@@ -25,7 +25,6 @@ import { Context } from "../shared/context";
 interface StatVarCheckboxPropType {
   statVar: string;
   selected: boolean;
-  getPath: (string) => string[];
 }
 
 interface StatVarCheckboxStateType {
@@ -53,7 +52,7 @@ export class StatVarCheckbox extends React.Component<
   private handleInputChange(): void {
     this.context.toggleStatVarPath(
       this.props.statVar,
-      this.props.getPath(this.props.statVar)
+      this.context.getPath(this.props.statVar)
     );
     this.setState({
       checked: !this.state.checked,

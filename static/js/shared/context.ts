@@ -26,6 +26,7 @@ import { createContext } from "react";
 interface ContextType {
   statVarHierarchyType: string;
   statVarPath?: Record<string, string[]>;
+  getPath?: (statVar: string) => string[];
   toggleStatVarPath?: (statVar: string) => void;
 }
 

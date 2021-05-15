@@ -29,7 +29,6 @@ import { PageDisplayType } from "./types";
 import { WeatherChartSection } from "./weather_chart_section";
 import { OutArcSection } from "./out_arc_section";
 import { InArcSection } from "./in_arc_section";
-import { Context } from "../shared/context";
 import { StatVarHierarchyType } from "../shared/types";
 
 const URL_PREFIX = "/browser/";

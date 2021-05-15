@@ -30,7 +30,6 @@ interface StatVarGroupSectionPropType {
   pathToSelection: string[];
   highlightedStatVar: React.RefObject<HTMLDivElement>;
   places: NamedPlace[];
-  getPath: (string) => string[];
 }
 
 export class StatVarGroupSection extends React.Component<
@@ -73,7 +72,6 @@ export class StatVarGroupSection extends React.Component<
                   specializedEntity={childStatVarGroup.specializedEntity}
                   open={this.props.pathToSelection[0] === childStatVarGroup.id}
                   isSelected={this.props.pathToSelection.length === 1}
-                  getPath={this.props.getPath}
                 />
               </div>
             );

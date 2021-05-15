@@ -15,7 +15,6 @@
  */
 
 import React from "react";
-import _ from "lodash";
 
 import { StatVarHierarchyNodeType } from "./types";
 import { Context } from "../shared/context";
@@ -54,9 +53,8 @@ export class StatVarHierarchyNodeHeader extends React.Component<
       >
         {prefixHtml}
         <span className="title">{this.props.title}</span>
-        {this.context.StatVarHierarchyType && this.props.count > 0 && (
-          <span>({this.props.count})</span>
-        )}
+        {this.context.StatVarHierarchyType === StatVarHierarchyType.TIMELINE &&
+          this.props.count > 0 && <span>({this.props.count})</span>}
       </div>
     );
   }

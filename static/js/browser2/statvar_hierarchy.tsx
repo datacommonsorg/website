@@ -132,6 +132,7 @@ export class StatVarHierarchy extends React.Component<
                       value={{
                         statVarHierarchyType: this.props.type,
                         statVarPath: this.state.statVarPath,
+                        getPath: this.getPath,
                         toggleStatVarPath: this.toggleStatVarPath,
                       }}
                       key={svgId}
@@ -144,7 +145,6 @@ export class StatVarHierarchy extends React.Component<
                         pathToSelection={focusPath.slice(1)}
                         isSelected={focusPath.length === 1}
                         open={focusPath[0] === svgId}
-                        getPath={this.getPath}
                       />
                     </Context.Provider>
                   );
