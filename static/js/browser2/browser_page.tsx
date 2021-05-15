@@ -130,7 +130,10 @@ export class BrowserPage extends React.Component<
             <div className="browser-page-section">
               <h3>Statistical Variables</h3>
               <Context.Provider
-                value={{ StatVarHierarchyType: StatVarHierarchyType.BROWSER }}
+                value={{
+                  statVarHierarchyType: StatVarHierarchyType.BROWSER,
+                  statVarPath: {},
+                }}
               >
                 <StatVarHierarchy
                   places={[

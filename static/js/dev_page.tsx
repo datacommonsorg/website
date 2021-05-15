@@ -30,8 +30,6 @@ import {
   drawGroupLineChart,
 } from "./chart/draw";
 import { randDomId } from "./shared/util";
-import { Context } from "./shared/context";
-import { StatVarHierarchyType } from "./shared/types";
 import { StatVarHierarchy } from "./browser2/statvar_hierarchy";
 
 interface DevChartPropType {
@@ -850,11 +848,10 @@ class DevPage extends React.Component {
       <div>
         {chartElements}
         <div style={{ width: "400px" }}>
-          <Context.Provider
-            value={{ StatVarHierarchyType: StatVarHierarchyType.TIMELINE }}
-          >
-            <StatVarHierarchy places={[]} />
-          </Context.Provider>
+          <StatVarHierarchy
+            places={[]}
+            statVars={["Count_Person", "FertilityRate_Person_Female"]}
+          />
         </div>
       </div>
     );

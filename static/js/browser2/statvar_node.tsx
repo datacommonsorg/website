@@ -20,7 +20,7 @@
 
 import React from "react";
 import { StatVarNodeType, StatVarHierarchyNodeType } from "./types";
-import { StatVarHierarchyNodeHeader } from "./statvar_group_node";
+import { StatVarHierarchyNodeHeader } from "./statvar_hierarchy_node_header";
 import Collapsible from "react-collapsible";
 import { ObservationChartSection } from "./observation_chart_section";
 import { URI_PREFIX } from "./constants";
@@ -51,6 +51,7 @@ export class StatVarNode extends React.Component<
 
   render(): JSX.Element {
     const trigger = React.createElement(StatVarHierarchyNodeHeader, {
+      count: 0,
       highlighted: this.props.selected,
       nodeType: StatVarHierarchyNodeType.STAT_VAR,
       opened: false,

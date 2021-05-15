@@ -127,8 +127,10 @@ export class StatVarHierarchySearch extends React.Component<
   }
 
   private onInputChanged = (event) => {
-    this.props.onSelectionChange("");
     const query = event.target.value;
+    if (query === "") {
+      this.props.onSelectionChange("");
+    }
     this.setState({
       query: event.target.value,
       showNoResultsMessage: false,
