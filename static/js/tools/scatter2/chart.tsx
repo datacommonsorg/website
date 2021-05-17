@@ -169,20 +169,30 @@ function plot(
   props: ChartPropsType
 ): void {
   d3.select(svgRef.current).selectAll("*").remove();
-  const svgContainerWidth = Math.max(svgContainerRef.current.offsetWidth, 400);
-  const svgContainerHeight = Math.max(300, svgContainerWidth / 3);
+  const svgContainerRealWidth = svgContainerRef.current.offsetWidth;
+  const svgContainerMaxWidth = window.innerHeight * 0.65;
+  const svgContainerWidth = Math.max(
+    Math.min(svgContainerRealWidth, svgContainerMaxWidth),
+    400
+  );
+  const svgContainerHeight = Math.max(350, svgContainerWidth);
+  const svgXTranslation =
+    svgContainerWidth < svgContainerRealWidth
+      ? (svgContainerRealWidth - svgContainerWidth) / 2
+      : 0;
   const svg = d3
     .select(svgRef.current)
     .attr("id", "scatterplot")
     .attr("width", svgContainerWidth)
-    .attr("height", svgContainerHeight);
+    .attr("height", svgContainerHeight)
+    .attr("transform", `translate(${svgXTranslation},0)`);
 
   // TODO: Handle log domain 0.
   const xMinMax = d3.extent(props.points, (point) => point.xVal);
   const yMinMax = d3.extent(props.points, (point) => point.yVal);
 
   const margin = {
-    top: 50,
+    top: 60,
     right: 30,
     bottom: 60,
     left: 90,
@@ -278,9 +288,11 @@ function addXAxis(
     .domain([min, max])
     .range([0, width])
     .nice();
-  const xAxis = d3.axisBottom(xScale).ticks(10);
-  if (!log) {
-    xAxis.tickFormat((d) => {
+  const xAxis = d3.axisBottom(xScale);
+  if (log) {
+    xAxis.ticks(5, formatNumber);
+  } else {
+    xAxis.ticks(10).tickFormat((d) => {
       return formatNumber(d.valueOf());
     });
   }
@@ -323,8 +335,10 @@ function addYAxis(
     .range([height, 0])
     .nice();
   const yAxis = d3.axisLeft(yScale).ticks(10);
-  if (!log) {
-    yAxis.tickFormat((d) => {
+  if (log) {
+    yAxis.ticks(5, formatNumber);
+  } else {
+    yAxis.ticks(10).tickFormat((d) => {
       return formatNumber(d.valueOf());
     });
   }
