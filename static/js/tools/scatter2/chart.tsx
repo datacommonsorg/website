@@ -171,11 +171,11 @@ function plot(
   d3.select(svgRef.current).selectAll("*").remove();
   const svgContainerRealWidth = svgContainerRef.current.offsetWidth;
   const svgContainerMaxWidth = window.innerHeight * 0.65;
-  const svgContainerWidth = Math.max(
-    Math.min(svgContainerRealWidth, svgContainerMaxWidth),
-    400
+  const svgContainerWidth = Math.min(
+    svgContainerRealWidth,
+    svgContainerMaxWidth
   );
-  const svgContainerHeight = Math.max(350, svgContainerWidth);
+  const svgContainerHeight = svgContainerWidth;
   const svgXTranslation =
     svgContainerWidth < svgContainerRealWidth
       ? (svgContainerRealWidth - svgContainerWidth) / 2
