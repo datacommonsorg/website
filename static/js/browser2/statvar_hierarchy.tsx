@@ -51,11 +51,12 @@ interface StatVarHierarchyStateType {
   // The stat var (group) from search result. The hierarchy focuses on it by
   // displaying the path from root to it.
   focus?: string;
-  // The path to the focus node. If the focus is not an svg, it will not be
+  // The path to the focus node. If the focus is an svg, it will not be
   // stored in this.state.svPath.
   focusPath: string[];
-  // Map from stat var dcid to the path for all selected stat vars.
+  // A map from stat var dcid to the its path in the hierarchy.
   svPath: Record<string, string[]>;
+  // Error message.
   errorMessage: string;
   // Select or de-select a stat var with its path.
   togglePath: (sv: string, path?: string[]) => void;
@@ -72,24 +73,12 @@ export class StatVarHierarchy extends React.Component<
       focus: null,
       focusPath: [],
       svPath: {},
-      svgInfo: {},
       svInfo: {},
+      svgInfo: {},
       togglePath: this.togglePath,
     };
     this.onSearchSelectionChange = this.onSearchSelectionChange.bind(this);
     this.togglePath = this.togglePath.bind(this);
-  }
-
-  togglePath(sv: string, path?: string[]): void {
-    if (sv in this.state.svPath) {
-      const tmp = _.cloneDeep(this.state.svPath);
-      delete tmp[sv];
-      this.setState({ svPath: tmp });
-    } else {
-      this.setState({
-        svPath: Object.assign({ [sv]: path }, this.state.svPath),
-      });
-    }
   }
 
   componentDidMount(): void {
@@ -135,6 +124,9 @@ export class StatVarHierarchy extends React.Component<
                   this.state.focusPath[0] === svgId
                 ) {
                   return (
+                    // Each SVG node has a context of the svPath from the state.
+                    // This way, a deep node down the tree is able to update
+                    // the svPath as a context.
                     <Context.Provider
                       value={{
                         statVarHierarchyType: this.props.type,
@@ -213,6 +205,20 @@ export class StatVarHierarchy extends React.Component<
     }
   }
 
+  // Add or remove a stat var and its path from the state.
+  private togglePath(sv: string, path?: string[]): void {
+    if (sv in this.state.svPath) {
+      const tmp = _.cloneDeep(this.state.svPath);
+      delete tmp[sv];
+      this.setState({ svPath: tmp });
+    } else {
+      this.setState({
+        svPath: Object.assign({ [sv]: path }, this.state.svPath),
+      });
+    }
+  }
+
+  // Get the path of a stat var from the hierarchy.
   private getPath(sv: string): string[] {
     if (sv == "") {
       return [];
