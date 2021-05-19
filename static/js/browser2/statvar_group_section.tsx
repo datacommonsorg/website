@@ -14,6 +14,11 @@
  * limitations under the License.
  */
 
+/**
+ * Component for rendering a section that contains a list of stat var groups
+ * in the stat var hierarchy.
+ */
+
 import React from "react";
 import _ from "lodash";
 

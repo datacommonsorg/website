@@ -71,7 +71,7 @@ export class StatVarHierarchy extends React.Component<
     super(props);
     this.state = {
       errorMessage: "",
-      focus: null,
+      focus: "",
       focusPath: [],
       svPath: null,
       togglePath: this.togglePath,
@@ -197,7 +197,7 @@ export class StatVarHierarchy extends React.Component<
       focusPath: path,
     });
     // If selection is stat var, added it to svPath.
-    if (!selection.startsWith("dc/g")) {
+    if (selection != "" && !selection.startsWith("dc/g")) {
       this.setState({
         svPath: Object.assign({ [selection]: path }, this.state.svPath),
       });

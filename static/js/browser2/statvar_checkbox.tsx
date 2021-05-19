@@ -20,11 +20,12 @@
 
 import React from "react";
 
+import { StatVarNodeType } from "./types";
 import { Context, ContextType } from "../shared/context";
 
 interface StatVarCheckboxPropType {
   path: string[];
-  statVar: string;
+  statVar: StatVarNodeType;
   selected: boolean;
 }
 
@@ -46,13 +47,13 @@ export class StatVarCheckbox extends React.Component<
   }
 
   componentDidMount(): void {
-    if (this.props.selected || this.props.statVar in this.context.svPath) {
+    if (this.props.selected || this.props.statVar.id in this.context.svPath) {
       this.setState({ checked: true });
     }
   }
 
   private handleInputChange(): void {
-    this.context.togglePath(this.props.statVar, this.props.path);
+    this.context.togglePath(this.props.statVar.id, this.props.path);
     this.setState({
       checked: !this.state.checked,
     });
@@ -60,14 +61,20 @@ export class StatVarCheckbox extends React.Component<
 
   render(): JSX.Element {
     return (
-      <form>
+      <form
+        className={
+          this.props.selected
+            ? "highlighted-node-title node-title"
+            : "node-title"
+        }
+      >
         <label>
-          {this.props.statVar}
           <input
             type="checkbox"
             checked={this.state.checked}
             onChange={this.handleInputChange}
-          />
+          />{" "}
+          {this.props.statVar.displayName}
         </label>
       </form>
     );

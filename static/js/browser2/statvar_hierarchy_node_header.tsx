@@ -14,6 +14,10 @@
  * limitations under the License.
  */
 
+/**
+ * Component for rendering the header of a stat var node.
+ */
+
 import React from "react";
 
 import { StatVarHierarchyNodeType } from "./types";
@@ -45,6 +49,9 @@ export class StatVarHierarchyNodeHeader extends React.Component<
     if (this.props.nodeType === StatVarHierarchyNodeType.STAT_VAR_GROUP) {
       prefixHtml = this.props.opened ? DOWN_ARROW_HTML : RIGHT_ARROW_HTML;
     }
+    const showCount =
+      this.context.statVarHierarchyType === StatVarHierarchyType.TIMELINE &&
+      this.props.count > 0;
     return (
       <div
         className={
@@ -54,9 +61,10 @@ export class StatVarHierarchyNodeHeader extends React.Component<
         }
       >
         {prefixHtml}
-        <span className="title">{this.props.title}</span>
-        {this.context.statVarHierarchyType === StatVarHierarchyType.TIMELINE &&
-          this.props.count > 0 && <span>({this.props.count})</span>}
+        <span className="title">
+          {this.props.title}
+          {showCount && " (" + this.props.count + ")"}
+        </span>
       </div>
     );
   }

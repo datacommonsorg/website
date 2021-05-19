@@ -14,10 +14,15 @@
  * limitations under the License.
  */
 
+/**
+ * Component for rendering a section for a stat, which could be a collapsible
+ * region with chart, or a checkbox.
+ */
+
 import React from "react";
 
 import { StatVarNodeType } from "./types";
-import { StatVarNode } from "./statvar_node";
+import { StatVarCharts } from "./statvar_charts";
 import { NamedPlace, StatVarHierarchyType } from "../shared/types";
 import { Context } from "../shared/context";
 import { StatVarCheckbox } from "./statvar_checkbox";
@@ -49,11 +54,11 @@ export class StatVarSection extends React.Component<StatVarSectionPropType> {
                 <StatVarCheckbox
                   path={this.props.path.concat([statVar.id])}
                   selected={isSelected}
-                  statVar={statVar.id}
+                  statVar={statVar}
                 />
               )}
               {context.statVarHierarchyType == StatVarHierarchyType.BROWSER && (
-                <StatVarNode
+                <StatVarCharts
                   place={this.props.places[0]}
                   selected={isSelected}
                   statVar={statVar}

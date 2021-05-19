@@ -14,8 +14,8 @@
  * limitations under the License.
  */
 
-@import 'base';
-@import 'draw';
+@import "base";
+@import "draw";
 
 $vertical-spacing: 15px;
 $horizontal-spacing: 15px;
@@ -95,7 +95,7 @@ td a {
 
 .card {
   border-radius: $border-radius;
-  border: .5px solid #dee2e6;
+  border: 0.5px solid #dee2e6;
   margin: $vertical-spacing 0;
   overflow: hidden;
   padding: $vertical-spacing;
@@ -103,7 +103,7 @@ td a {
 }
 
 .browser-in-arc-section .card {
-  margin: $vertical-spacing 0 2*$vertical-spacing;
+  margin: $vertical-spacing 0 2 * $vertical-spacing;
 }
 
 .arc-group-title {
@@ -151,7 +151,7 @@ td a {
 
 .error-message {
   color: #721c24;
-  font-size: .9rem;
+  font-size: 0.9rem;
   padding: $vertical-spacing $horizontal-spacing;
   border-radius: $border-radius;
   background: #f8d7da;
@@ -171,7 +171,7 @@ td a {
 
 .stat-var-hierarchy-container {
   min-height: 20rem;
-  font-size: .95rem;
+  font-size: 0.95rem;
   padding: $vertical-spacing $horizontal-spacing;
   line-height: 1.8rem;
 }
@@ -254,6 +254,11 @@ td a {
   background-color: var(--dc-red-fade);
 }
 
+.node-title label {
+  margin-bottom: 0;
+  margin-left: 0.5rem;
+}
+
 .node-title:hover {
   cursor: pointer;
   background-color: var(--dc-gray-lite);
@@ -268,11 +273,11 @@ td a {
 }
 
 .stat-var-link {
-  font-size: .9rem;
+  font-size: 0.9rem;
 }
 
 .stat-var-link .material-icons {
-  padding-left: .5rem;
+  padding-left: 0.5rem;
 }
 
 #observation-chart-section {
@@ -320,7 +325,7 @@ td a {
 
 .chart-section .metadata {
   line-height: 1.5;
-  font-size: .9rem;
+  font-size: 0.9rem;
   margin-bottom: 0;
 }
 
