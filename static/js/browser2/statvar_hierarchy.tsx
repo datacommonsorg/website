@@ -22,40 +22,64 @@
 import React from "react";
 import axios from "axios";
 import _ from "lodash";
+
 import { StatVarHierarchySearch } from "./statvar_hierarchy_search";
 import { StatVarGroupNode } from "./statvar_group_node";
 import { StatVarGroupNodeType, StatVarNodeType } from "./types";
-import { loadSpinner, removeSpinner } from "./util";
 import { NamedPlace } from "../shared/types";
+
+import { loadSpinner, removeSpinner } from "./util";
+import { Context } from "../shared/context";
 
 const LOADING_CONTAINER_ID = "stat-var-hierarchy-section";
 const SORTED_FIRST_SVG_ID = "dc/g/Demographics";
 const SORTED_LAST_SVG_ID = "dc/g/Miscellaneous";
 
 interface StatVarHierarchyPropType {
+  type: string;
   places: NamedPlace[];
+  // (Optional) A list of stat vars selected from parent componenet.
+  // For example, in timeline tool, these are stat vars parsed from URL.
+  svs?: string[];
 }
 
 interface StatVarHierarchyStateType {
-  statVarGroups: { [svgId: string]: StatVarGroupNodeType };
-  statVars: { [statVarId: string]: StatVarNodeType };
-  pathToSelection: string[];
+  focus?: string;
+  // The path to the focus node. If the focus is an svg, it will not be
+  // stored in this.state.svPath.
+  focusPath: string[];
+  // A map from stat var dcid to its path in the hierarchy.
+  svPath: Record<string, string[]>;
+  // Error message.
   errorMessage: string;
+  // Select or de-select a stat var with its path.
+  togglePath: (sv: string, path?: string[]) => void;
 }
 
 export class StatVarHierarchy extends React.Component<
   StatVarHierarchyPropType,
   StatVarHierarchyStateType
 > {
+  // A map from stat var group dcid to the metadata.
+  svgInfo: { [svgId: string]: StatVarGroupNodeType };
+  // A map from stat var dcid to the metadata.
+  svInfo: { [svId: string]: StatVarNodeType };
+  // The stat var (group) from search result. The hierarchy focuses on it by
+  // displaying the path from root to it.
+
   constructor(props: StatVarHierarchyPropType) {
     super(props);
     this.state = {
       errorMessage: "",
-      pathToSelection: [],
-      statVarGroups: {},
-      statVars: {},
+      focus: "",
+      focusPath: [],
+      svPath: null,
+      togglePath: this.togglePath,
     };
+    this.svInfo = {};
+    this.svgInfo = {};
     this.onSearchSelectionChange = this.onSearchSelectionChange.bind(this);
+    this.togglePath = this.togglePath.bind(this);
   }
 
   componentDidMount(): void {
@@ -63,10 +87,11 @@ export class StatVarHierarchy extends React.Component<
   }
 
   render(): JSX.Element {
-    const rootStatVarGroups = Object.keys(this.state.statVarGroups).filter(
-      (svgId) => !("parent" in this.state.statVarGroups[svgId])
+    // TODO(shifucun): this should be obtained from the root of root.
+    const rootSVGs = Object.keys(this.svgInfo).filter(
+      (svgId) => !("parent" in this.svgInfo[svgId])
     );
-    rootStatVarGroups.sort((a, b) => {
+    rootSVGs.sort((a, b) => {
       if (a === SORTED_FIRST_SVG_ID) {
         return -1;
       }
@@ -86,32 +111,44 @@ export class StatVarHierarchy extends React.Component<
         {!_.isEmpty(this.state.errorMessage) && (
           <div className="error-message">{this.state.errorMessage}</div>
         )}
-        {!_.isEmpty(this.state.statVars) && (
+        {!_.isEmpty(this.svInfo) && (
           <div className="stat-var-hierarchy-container card">
             <StatVarHierarchySearch
-              statVarGroupsData={this.state.statVarGroups}
-              statVarsData={this.state.statVars}
+              statVarGroupsData={this.svgInfo}
+              statVarsData={this.svInfo}
               onSelectionChange={this.onSearchSelectionChange}
             />
             <div className="hierarchy-section">
-              {rootStatVarGroups.map((svgId) => {
+              {rootSVGs.map((svgId) => {
                 if (
-                  _.isEmpty(this.state.pathToSelection) ||
-                  this.state.pathToSelection[0] === svgId
+                  _.isEmpty(this.state.focus) ||
+                  this.state.focusPath[0] === svgId
                 ) {
                   return (
-                    <StatVarGroupNode
-                      places={this.props.places}
-                      statVarGroupId={svgId}
-                      data={this.state.statVarGroups}
-                      pathToSelection={this.state.pathToSelection.slice(1)}
-                      isSelected={this.state.pathToSelection.length === 1}
-                      open={this.state.pathToSelection[0] === svgId}
+                    // Each SVG node has a context of the svPath from the state.
+                    // This way, a deep node down the tree is able to update
+                    // the svPath as a context.
+                    <Context.Provider
+                      value={{
+                        statVarHierarchyType: this.props.type,
+                        svPath: this.state.svPath,
+                        togglePath: this.togglePath,
+                      }}
                       key={svgId}
-                    />
+                    >
+                      <StatVarGroupNode
+                        path={[svgId]}
+                        places={this.props.places}
+                        statVarGroupId={svgId}
+                        data={this.svgInfo}
+                        pathToSelection={this.state.focusPath.slice(1)}
+                        isSelected={this.state.focusPath.length === 1}
+                        open={this.state.focusPath[0] === svgId}
+                      />
+                    </Context.Provider>
                   );
                 }
-              })}
+              }, this)}
             </div>
           </div>
         )}
@@ -130,39 +167,73 @@ export class StatVarHierarchy extends React.Component<
       })
       .then((resp) => {
         const data = resp.data;
-        const statVarGroups = data["statVarGroups"];
-        const statVars = data["statVars"];
+        const svgInfo = data["statVarGroups"];
+        const svInfo = data["statVars"];
         removeSpinner(LOADING_CONTAINER_ID);
+        this.svgInfo = svgInfo;
+        this.svInfo = svInfo;
+        const svPath = {};
+        if (this.props.svs) {
+          for (const sv of this.props.svs) {
+            svPath[sv] = this.getPath(sv);
+          }
+        }
         this.setState({
-          statVarGroups,
-          statVars,
+          svPath,
         });
       })
       .catch(() => {
         removeSpinner(LOADING_CONTAINER_ID);
         this.setState({
-          errorMessage: "Error retrieving stat var hierarchy.",
+          errorMessage: "Error retrieving stat var hierarchy",
         });
       });
   }
 
   private onSearchSelectionChange(selection: string): void {
-    const pathToSelection = [];
-    if (!_.isEmpty(selection)) {
-      pathToSelection.push(selection);
-      let parent = null;
-      if (selection in this.state.statVars) {
-        parent = this.state.statVars[selection].parent;
-      } else if (selection in this.state.statVarGroups) {
-        parent = this.state.statVarGroups[selection].parent;
-      }
-      while (parent) {
-        pathToSelection.unshift(parent);
-        parent = this.state.statVarGroups[parent].parent;
-      }
-    }
+    const path = this.getPath(selection);
     this.setState({
-      pathToSelection,
+      focus: selection,
+      focusPath: path,
     });
+    // If selection is stat var, added it to svPath.
+    if (selection != "" && !selection.startsWith("dc/g")) {
+      this.setState({
+        svPath: Object.assign({ [selection]: path }, this.state.svPath),
+      });
+    }
+  }
+
+  // Add or remove a stat var and its path from the state.
+  private togglePath(sv: string, path?: string[]): void {
+    if (sv in this.state.svPath) {
+      const tmp = _.cloneDeep(this.state.svPath);
+      delete tmp[sv];
+      this.setState({ svPath: tmp });
+    } else {
+      this.setState({
+        svPath: Object.assign({ [sv]: path }, this.state.svPath),
+      });
+    }
+  }
+
+  // Get the path of a stat var from the hierarchy.
+  private getPath(sv: string): string[] {
+    if (sv == "") {
+      return [];
+    }
+    const path = [];
+    path.push(sv);
+    let parent = null;
+    if (sv in this.svInfo) {
+      parent = this.svInfo[sv].parent;
+    } else if (sv in this.svgInfo) {
+      parent = this.svgInfo[sv].parent;
+    }
+    while (parent) {
+      path.unshift(parent);
+      parent = this.svgInfo[parent].parent;
+    }
+    return path;
   }
 }

@@ -127,8 +127,12 @@ export class StatVarHierarchySearch extends React.Component<
   }
 
   private onInputChanged = (event) => {
-    this.props.onSelectionChange("");
     const query = event.target.value;
+    // When the seach text is fully removed, should call onSelectChange to
+    // show the clean hierarchy.
+    if (query === "") {
+      this.props.onSelectionChange("");
+    }
     this.setState({
       query: event.target.value,
       showNoResultsMessage: false,

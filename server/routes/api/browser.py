@@ -151,7 +151,6 @@ def statvar_hierarchy_helper(svg_id, svg_map, processed_svg_map, processed_sv,
                                  processed_sv, seen_sv, level + 1)
 
 
-@cache.memoize(timeout=3600 * 24)  # Cache for one day.
 @bp.route('/statvar-hierarchy', methods=['POST'])
 def get_statvar_hierarchy():
     """Returns the stat var groups objects and stat vars objects relevant to a
@@ -165,6 +164,14 @@ def get_statvar_hierarchy():
     var group id.
     """
     dcids = request.json.get('dcids', [])
+    return get_statvar_hierarchy_helper("^".join(sorted(dcids)))
+
+
+@cache.memoize(timeout=3600 * 24)  # Cache for one day.
+def get_statvar_hierarchy_helper(dcid_string):
+    dcids = []
+    if dcid_string != "":
+        dcids = dcid_string.split("^")
     svg_map = dc.get_statvar_groups(dcids)
     processed_svg_map = {}
     processed_sv = {}
