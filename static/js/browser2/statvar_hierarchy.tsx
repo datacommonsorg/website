@@ -155,7 +155,7 @@ export class StatVarHierarchy extends React.Component<
                         data={this.svgInfo}
                         pathToSelection={this.state.focusPath.slice(1)}
                         isSelected={this.state.focusPath.length === 1}
-                        open={this.state.focusPath[0] === svgId}
+                        startsOpened={this.state.focusPath[0] === svgId}
                       />
                     </Context.Provider>
                   );
