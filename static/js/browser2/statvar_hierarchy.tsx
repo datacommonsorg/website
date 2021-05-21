@@ -52,6 +52,7 @@ interface StatVarHierarchyStateType {
   svPath: Record<string, string[]>;
   // Error message.
   errorMessage: string;
+  // Indicates when search input was cleared after a result was selected.
   searchSelectionCleared: boolean;
   // Select or de-select a stat var with its path.
   togglePath: (sv: string, path?: string[]) => void;
@@ -72,9 +73,9 @@ export class StatVarHierarchy extends React.Component<
     super(props);
     this.state = {
       errorMessage: "",
-      searchSelectionCleared: false,
       focus: "",
       focusPath: [],
+      searchSelectionCleared: false,
       svPath: null,
       togglePath: this.togglePath,
     };
@@ -208,7 +209,7 @@ export class StatVarHierarchy extends React.Component<
     this.setState({
       focus: selection,
       focusPath: path,
-      searchSelectionCleared
+      searchSelectionCleared,
     });
     // If selection is stat var, added it to svPath.
     if (selection != "" && !selection.startsWith("dc/g")) {
