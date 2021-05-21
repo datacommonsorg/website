@@ -18,27 +18,23 @@
  * Component for rendering a stat var group node in the stat var hierarchy
  */
 
-import React, { useContext } from "react";
-import _ from "lodash";
+import React from "react";
 import Collapsible from "react-collapsible";
-import {
-  StatVarGroupNodeType,
-  StatVarNodeType,
-  StatVarHierarchyNodeType,
-} from "./types";
-import { StatVarNode } from "./statvar_node";
-import { StatVarCheckbox } from "./statvar_checkbox";
+import _ from "lodash";
+
+import { StatVarGroupNodeType, StatVarHierarchyNodeType } from "./types";
+import { StatVarHierarchyNodeHeader } from "./statvar_hierarchy_node_header";
+import { StatVarSection } from "./statvar_section";
+import { StatVarGroupSection } from "./statvar_group_section";
 import { NamedPlace } from "../shared/types";
-import { Context } from "../shared/context";
-import { StatVarHierarchyType } from "../shared/types";
+
+import { Context, ContextType } from "../shared/context";
 
 const SCROLL_DELAY = 400;
-const BULLET_POINT_HTML = <span className="bullet">&#8226;</span>;
-const DOWN_ARROW_HTML = <i className="material-icons">remove</i>;
-const RIGHT_ARROW_HTML = <i className="material-icons">add</i>;
-const VARIABLES_STATVAR_GROUP_PREFIX = "dc/g/Variables_";
 
 interface StatVarGroupNodePropType {
+  // The path of this stat var group node.
+  path: string[];
   // A list of named places object.
   places: NamedPlace[];
   // the dcid of the current stat var group
@@ -66,6 +62,8 @@ export class StatVarGroupNode extends React.Component<
 > {
   highlightedStatVar: React.RefObject<HTMLDivElement>;
   delayTimer: NodeJS.Timeout;
+  context: ContextType;
+
   constructor(props: StatVarGroupNodePropType) {
     super(props);
     this.state = {
@@ -84,19 +82,25 @@ export class StatVarGroupNode extends React.Component<
     const triggerTitle = this.props.specializedEntity
       ? this.props.specializedEntity
       : statVarGroup.absoluteName;
+
+    const level = this.props.path.length;
+    let count = 0;
+    for (const sv in this.context.svPath) {
+      const path = this.context.svPath[sv];
+      if (_.isEqual(path.slice(0, level), this.props.path)) {
+        count += 1;
+      }
+    }
+
     const getTrigger = (opened: boolean) => {
       return React.createElement(StatVarHierarchyNodeHeader, {
+        count: count,
         highlighted: this.props.isSelected,
         nodeType: StatVarHierarchyNodeType.STAT_VAR_GROUP,
         opened,
         title: triggerTitle,
       });
     };
-    console.log(
-      this.props.statVarGroupId,
-      this.props.open,
-      this.state.toggledOpen
-    );
     return (
       <Collapsible
         trigger={getTrigger(false)}
@@ -108,14 +112,17 @@ export class StatVarGroupNode extends React.Component<
         transitionTime={200}
         onOpen={this.scrollToHighlighted}
         containerElementProps={
-          this.props.isSelected ? { class: "highlighted-stat-var-group" } : {}
+          this.props.isSelected
+            ? { className: "highlighted-stat-var-group" }
+            : {}
         }
       >
         {(this.props.open || this.state.toggledOpen) && (
           <>
             {this.props.pathToSelection.length < 2 &&
               this.props.data[this.props.statVarGroupId].childStatVars && (
-                <ChildStatVarSection
+                <StatVarSection
+                  path={this.props.path}
                   data={
                     this.props.data[this.props.statVarGroupId].childStatVars
                   }
@@ -125,7 +132,8 @@ export class StatVarGroupNode extends React.Component<
                 />
               )}
             {this.props.data[this.props.statVarGroupId].childStatVarGroups && (
-              <ChildStatVarGroupSection
+              <StatVarGroupSection
+                path={this.props.path}
                 data={this.props.data}
                 statVarGroupId={this.props.statVarGroupId}
                 pathToSelection={this.props.pathToSelection}
@@ -154,133 +162,4 @@ export class StatVarGroupNode extends React.Component<
   }
 }
 
-interface StatVarHierarchyNodeHeaderPropType {
-  title: string;
-  opened: boolean;
-  highlighted: boolean;
-  nodeType: StatVarHierarchyNodeType;
-}
-
-export class StatVarHierarchyNodeHeader extends React.Component<
-  StatVarHierarchyNodeHeaderPropType
-> {
-  render(): JSX.Element {
-    let prefixHtml =
-      this.props.nodeType === StatVarHierarchyNodeType.STAT_VAR
-        ? BULLET_POINT_HTML
-        : null;
-    if (this.props.nodeType === StatVarHierarchyNodeType.STAT_VAR_GROUP) {
-      prefixHtml = this.props.opened ? DOWN_ARROW_HTML : RIGHT_ARROW_HTML;
-    }
-    return (
-      <div
-        className={
-          this.props.highlighted
-            ? "highlighted-node-title node-title"
-            : "node-title"
-        }
-      >
-        {prefixHtml}
-        <span className="title">{this.props.title}</span>
-      </div>
-    );
-  }
-}
-
-interface ChildStatVarSectionPropType {
-  data: StatVarNodeType[];
-  pathToSelection: string[];
-  places: NamedPlace[];
-  highlightedStatVar: React.RefObject<HTMLDivElement>;
-}
-
-export function ChildStatVarSection(
-  props: ChildStatVarSectionPropType
-): JSX.Element {
-  const appContext = useContext(Context);
-  return (
-    <div className="svg-node-child">
-      {props.data.map((statVar) => {
-        const isSelected =
-          props.pathToSelection.length === 1 &&
-          props.pathToSelection[0] === statVar.id;
-        return (
-          <div
-            key={statVar.id}
-            ref={isSelected ? props.highlightedStatVar : null}
-          >
-            {appContext.StatVarHierarchyType ==
-              StatVarHierarchyType.TIMELINE && (
-              <StatVarCheckbox statVar={statVar.id} />
-            )}
-            {appContext.StatVarHierarchyType ==
-              StatVarHierarchyType.BROWSER && (
-              <StatVarNode
-                place={props.places[0]}
-                selected={isSelected}
-                statVar={statVar}
-              />
-            )}
-          </div>
-        );
-      })}
-    </div>
-  );
-}
-
-interface ChildStatVarGroupSectionPropType {
-  data: { [key: string]: StatVarGroupNodeType };
-  statVarGroupId: string;
-  pathToSelection: string[];
-  highlightedStatVar: React.RefObject<HTMLDivElement>;
-  places: NamedPlace[];
-}
-
-export class ChildStatVarGroupSection extends React.Component<
-  ChildStatVarGroupSectionPropType
-> {
-  render(): JSX.Element {
-    let childStatVarGroups = this.props.data[this.props.statVarGroupId]
-      .childStatVarGroups;
-    const variableGroupItem = childStatVarGroups.find((svg) =>
-      svg.id.startsWith(VARIABLES_STATVAR_GROUP_PREFIX)
-    );
-    if (variableGroupItem) {
-      childStatVarGroups = childStatVarGroups.filter(
-        (svg) => !svg.id.startsWith(VARIABLES_STATVAR_GROUP_PREFIX)
-      );
-      childStatVarGroups.unshift(variableGroupItem);
-    }
-    return (
-      <div className="svg-node-child">
-        {childStatVarGroups.map((childStatVarGroup) => {
-          if (
-            _.isEmpty(this.props.pathToSelection) ||
-            this.props.pathToSelection[0] === childStatVarGroup.id
-          ) {
-            return (
-              <div
-                key={childStatVarGroup.id}
-                ref={
-                  this.props.pathToSelection.length === 1
-                    ? this.props.highlightedStatVar
-                    : null
-                }
-              >
-                <StatVarGroupNode
-                  places={this.props.places}
-                  statVarGroupId={childStatVarGroup.id}
-                  data={this.props.data}
-                  pathToSelection={this.props.pathToSelection.slice(1)}
-                  specializedEntity={childStatVarGroup.specializedEntity}
-                  open={this.props.pathToSelection[0] === childStatVarGroup.id}
-                  isSelected={this.props.pathToSelection.length === 1}
-                />
-              </div>
-            );
-          }
-        })}
-      </div>
-    );
-  }
-}
+StatVarGroupNode.contextType = Context;

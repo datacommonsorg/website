@@ -23,8 +23,10 @@
 import { createContext } from "react";
 
 // Global app state
-interface ContextType {
-  StatVarHierarchyType: string;
+export interface ContextType {
+  statVarHierarchyType: string;
+  svPath?: Record<string, string[]>;
+  togglePath?: (statVar: string, path?: string[]) => void;
 }
 
 export const Context = createContext({} as ContextType);

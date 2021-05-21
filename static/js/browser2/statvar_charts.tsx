@@ -15,32 +15,32 @@
  */
 
 /**
- * Component for rendering a stat var node in the stat var hierarchy.
+ * Component for rendering a stat var with charts in the stat var hierarchy.
  */
 
 import React from "react";
 import { StatVarNodeType, StatVarHierarchyNodeType } from "./types";
-import { StatVarHierarchyNodeHeader } from "./statvar_group_node";
+import { StatVarHierarchyNodeHeader } from "./statvar_hierarchy_node_header";
 import Collapsible from "react-collapsible";
 import { ObservationChartSection } from "./observation_chart_section";
 import { URI_PREFIX } from "./constants";
 import { NamedPlace } from "../shared/types";
 
-interface StatVarNodePropType {
+interface StatVarChartsPropType {
   place: NamedPlace;
   statVar: StatVarNodeType;
   selected: boolean;
 }
 
-interface StatVarNodeStateType {
+interface StatVarChartsStateType {
   renderContent: boolean;
 }
 
-export class StatVarNode extends React.Component<
-  StatVarNodePropType,
-  StatVarNodeStateType
+export class StatVarCharts extends React.Component<
+  StatVarChartsPropType,
+  StatVarChartsStateType
 > {
-  constructor(props: StatVarNodePropType) {
+  constructor(props: StatVarChartsPropType) {
     super(props);
     this.state = {
       renderContent: this.props.selected,
@@ -51,6 +51,7 @@ export class StatVarNode extends React.Component<
 
   render(): JSX.Element {
     const trigger = React.createElement(StatVarHierarchyNodeHeader, {
+      count: 0,
       highlighted: this.props.selected,
       nodeType: StatVarHierarchyNodeType.STAT_VAR,
       opened: false,
