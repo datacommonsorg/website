@@ -41,6 +41,7 @@ interface StatVarHierarchyStateType {
   statVars: { [statVarId: string]: StatVarNodeType };
   pathToSelection: string[];
   errorMessage: string;
+  searchSelectionCleared: boolean;
 }
 
 export class StatVarHierarchy extends React.Component<
@@ -54,6 +55,7 @@ export class StatVarHierarchy extends React.Component<
       pathToSelection: [],
       statVarGroups: {},
       statVars: {},
+      searchSelectionCleared: false,
     };
     this.onSearchSelectionChange = this.onSearchSelectionChange.bind(this);
   }
@@ -62,7 +64,16 @@ export class StatVarHierarchy extends React.Component<
     this.fetchData();
   }
 
+  componentDidUpdate(): void {
+    if (this.state.searchSelectionCleared) {
+      this.setState({ searchSelectionCleared: false });
+    }
+  }
+
   render(): JSX.Element {
+    if (this.state.searchSelectionCleared) {
+      return null;
+    }
     const rootStatVarGroups = Object.keys(this.state.statVarGroups).filter(
       (svgId) => !("parent" in this.state.statVarGroups[svgId])
     );
@@ -161,8 +172,11 @@ export class StatVarHierarchy extends React.Component<
         parent = this.state.statVarGroups[parent].parent;
       }
     }
+    const searchSelectionCleared =
+      !_.isEmpty(this.state.pathToSelection) && _.isEmpty(pathToSelection);
     this.setState({
       pathToSelection,
+      searchSelectionCleared,
     });
   }
 }

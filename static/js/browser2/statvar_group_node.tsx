@@ -57,7 +57,7 @@ interface StatVarGroupNodePropType {
 }
 
 interface StatVarGroupNodeStateType {
-  isRendered: boolean;
+  toggledOpen: boolean;
 }
 
 export class StatVarGroupNode extends React.Component<
@@ -69,7 +69,7 @@ export class StatVarGroupNode extends React.Component<
   constructor(props: StatVarGroupNodePropType) {
     super(props);
     this.state = {
-      isRendered: this.props.open,
+      toggledOpen: false,
     };
     this.highlightedStatVar = React.createRef();
     this.scrollToHighlighted = this.scrollToHighlighted.bind(this);
@@ -92,19 +92,26 @@ export class StatVarGroupNode extends React.Component<
         title: triggerTitle,
       });
     };
+    console.log(
+      this.props.statVarGroupId,
+      this.props.open,
+      this.state.toggledOpen
+    );
     return (
       <Collapsible
         trigger={getTrigger(false)}
         triggerWhenOpen={getTrigger(true)}
-        open={this.props.open}
-        onOpening={() => this.setState({ isRendered: true })}
+        open={this.props.open || this.state.toggledOpen}
+        handleTriggerClick={() =>
+          this.setState({ toggledOpen: !this.state.toggledOpen })
+        }
         transitionTime={200}
         onOpen={this.scrollToHighlighted}
         containerElementProps={
           this.props.isSelected ? { class: "highlighted-stat-var-group" } : {}
         }
       >
-        {this.state.isRendered && (
+        {(this.props.open || this.state.toggledOpen) && (
           <>
             {this.props.pathToSelection.length < 2 &&
               this.props.data[this.props.statVarGroupId].childStatVars && (
