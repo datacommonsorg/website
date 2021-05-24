@@ -52,6 +52,8 @@ interface StatVarHierarchyStateType {
   svPath: Record<string, string[]>;
   // Error message.
   errorMessage: string;
+  // Indicates when search input was cleared after a result was selected.
+  searchSelectionCleared: boolean;
   // Select or de-select a stat var with its path.
   togglePath: (sv: string, path?: string[]) => void;
 }
@@ -73,6 +75,7 @@ export class StatVarHierarchy extends React.Component<
       errorMessage: "",
       focus: "",
       focusPath: [],
+      searchSelectionCleared: false,
       svPath: null,
       togglePath: this.togglePath,
     };
@@ -86,7 +89,19 @@ export class StatVarHierarchy extends React.Component<
     this.fetchData();
   }
 
+  componentDidUpdate(): void {
+    if (this.state.searchSelectionCleared) {
+      this.setState({ searchSelectionCleared: false });
+    }
+  }
+
   render(): JSX.Element {
+    if (this.state.searchSelectionCleared) {
+      // return null when selected search result gets cleared so the stat var
+      // hierarchy sections can be reset by removing all the sections and then
+      // rendering them again after the componentDidUpdate hook.
+      return null;
+    }
     // TODO(shifucun): this should be obtained from the root of root.
     const rootSVGs = Object.keys(this.svgInfo).filter(
       (svgId) => !("parent" in this.svgInfo[svgId])
@@ -143,7 +158,7 @@ export class StatVarHierarchy extends React.Component<
                         data={this.svgInfo}
                         pathToSelection={this.state.focusPath.slice(1)}
                         isSelected={this.state.focusPath.length === 1}
-                        open={this.state.focusPath[0] === svgId}
+                        startsOpened={this.state.focusPath[0] === svgId}
                       />
                     </Context.Provider>
                   );
@@ -192,9 +207,12 @@ export class StatVarHierarchy extends React.Component<
 
   private onSearchSelectionChange(selection: string): void {
     const path = this.getPath(selection);
+    const searchSelectionCleared =
+      !_.isEmpty(this.state.focusPath) && _.isEmpty(path);
     this.setState({
       focus: selection,
       focusPath: path,
+      searchSelectionCleared,
     });
     // If selection is stat var, added it to svPath.
     if (selection != "" && !selection.startsWith("dc/g")) {

@@ -75,7 +75,9 @@ export class StatVarGroupSection extends React.Component<
                   data={this.props.data}
                   pathToSelection={this.props.pathToSelection.slice(1)}
                   specializedEntity={childStatVarGroup.specializedEntity}
-                  open={this.props.pathToSelection[0] === childStatVarGroup.id}
+                  startsOpened={
+                    this.props.pathToSelection[0] === childStatVarGroup.id
+                  }
                   isSelected={this.props.pathToSelection.length === 1}
                 />
               </div>
