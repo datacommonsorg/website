@@ -97,6 +97,9 @@ export class StatVarHierarchy extends React.Component<
 
   render(): JSX.Element {
     if (this.state.searchSelectionCleared) {
+      // return null when selected search result gets cleared so the stat var
+      // hierarchy sections can be reset by removing all the sections and then
+      // rendering them again after the componentDidUpdate hook.
       return null;
     }
     // TODO(shifucun): this should be obtained from the root of root.
