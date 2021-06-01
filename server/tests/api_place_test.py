@@ -597,7 +597,7 @@ class TestApiGetStatVarsUnion(unittest.TestCase):
                         compress=False,
                         post=True,
                         has_payload=True):
-            if (req_url == dc.API_ROOT + "/place/stat-vars/union" and
+            if (req_url == dc.API_ROOT + "/v1/place/stat-vars/union" and
                     req_json == req and post and not has_payload):
                 return {'statVars': {'statVars': result}}
 

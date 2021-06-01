@@ -223,12 +223,12 @@ def get_stat_vars_union(dcids):
     """
     dcids = dcids.split("^")
     # The two indexings are due to how protobuf fields are converted to json
-    return fetch_data('/place/stat-vars/union', {
+    return fetch_data('/v1/place/stat-vars/union', {
         'dcids': dcids,
     },
                       compress=False,
                       post=True,
-                      has_payload=False)['statVars']['statVars']
+                      has_payload=False)['statVars']
 
 
 @bp.route('/stat-vars/union', methods=['POST'])
@@ -648,7 +648,7 @@ def api_display_name():
 @cache.cached(timeout=3600 * 24, query_string=True)  # Cache for one day.
 def get_places_in():
     """Gets DCIDs of places of a certain type contained in some places.
-    
+
     Sends the request to the Data Commons "/node/places-in" API.
     See https://docs.datacommons.org/api/rest/place_in.html.
 
