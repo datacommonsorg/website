@@ -599,7 +599,7 @@ class TestApiGetStatVarsUnion(unittest.TestCase):
                         has_payload=True):
             if (req_url == dc.API_ROOT + "/v1/place/stat-vars/union" and
                     req_json == req and post and not has_payload):
-                return {'statVars': {'statVars': result}}
+                return {'statVars': result}
 
         send_request.side_effect = side_effect
         response = app.test_client().post('/api/place/stat-vars/union',
