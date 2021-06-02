@@ -15,7 +15,7 @@
  */
 
 /**
- * Main component for browser2.
+ * Main component for browser.
  */
 
 import React from "react";
