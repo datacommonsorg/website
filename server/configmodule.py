@@ -21,10 +21,14 @@ class Config:
     MAPS_API_KEY = os.environ.get('MAPS_API_KEY') or ''
     GA_ACCOUNT = ''
     SCHEME = 'https'
+    # Additional stat vars that need to be fetched for place page data.
+    # This is only needed for local development when cache is not up to date.
+    NEW_STAT_VARS = []
 
 
 class ProductionConfig(Config):
     GA_ACCOUNT = 'UA-117119267-1'
+    NEW_STAT_VARS = []
 
 
 class StagingConfig(Config):
