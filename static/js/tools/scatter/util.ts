@@ -20,7 +20,6 @@
 
 import axios from "axios";
 import _ from "lodash";
-import * as d3 from "d3";
 import { StatsVarNode } from "../statvar_menu/util";
 import {
   ContextType,
@@ -30,28 +29,7 @@ import {
   EmptyPlace,
   FieldToAbbreviation,
 } from "./context";
-
-interface PlacePointStatMetadata {
-  provenanceUrl: string;
-  measurementMethod: string;
-  unit?: string;
-}
-
-interface PlacePointStatData {
-  date: string;
-  value: number;
-  metadata: { importName: string };
-}
-interface PlacePointStat {
-  metadata: { [importName: string]: PlacePointStatMetadata };
-  stat: { [dcid: string]: PlacePointStatData };
-}
-
-interface SourceSeries {
-  data: { [date: string]: number };
-  placeName: string;
-  provenanceUrl: string;
-}
+import { PlacePointStat } from "../shared_util";
 
 async function getPlacesInNames(
   dcid: string,
@@ -280,46 +258,10 @@ function updateHashPlace(hash: string, place: PlaceInfo): string {
   return hash;
 }
 
-/**
- * Helper function to choose the date to use for the population data.
- * @param popData
- * @param statData
- */
-function getPopulationDate(
-  popData: SourceSeries,
-  statData: PlacePointStatData
-): string {
-  const xPopDataDates = Object.keys(popData.data);
-  let popDate = xPopDataDates.find((date) => date === statData.date);
-  if (!popDate && !_.isEmpty(xPopDataDates)) {
-    // Filter for all population dates encompassed by the stat var date.
-    // ie. if stat var date is year, filter for all population dates with
-    // the same year
-    const encompassedPopDates = xPopDataDates.filter((date) => {
-      return date.includes(statData.date);
-    });
-    if (encompassedPopDates.length > 0) {
-      // when there are multiple population dates encompassed by the stat var
-      // date, choose the latest date
-      popDate = encompassedPopDates[encompassedPopDates.length - 1];
-    } else {
-      // From ordered list of population dates, choose the date immediately
-      // before the stat var date (if there is a date that encompasses the stat
-      // var date, this will get chosen). If none, return the first pop date.
-      const idx = d3.bisect(xPopDataDates, statData.date);
-      popDate = idx > 0 ? xPopDataDates[idx - 1] : xPopDataDates[0];
-    }
-  }
-  return popDate;
-}
-
 export {
   getPlacesInNames,
   getStatsWithinPlace,
   nodeGetStatVar,
   updateHash,
   applyHash,
-  getPopulationDate,
-  PlacePointStat,
-  SourceSeries,
 };

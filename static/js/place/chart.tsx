@@ -28,6 +28,7 @@ import {
   ChoroplethDataGroup,
   CachedChoroplethData,
   GeoJsonData,
+  GeoJsonFeatureProperties,
 } from "../chart/types";
 import { updatePageLayoutState } from "./place";
 import { ChartEmbed } from "./chart_embed";
@@ -40,6 +41,7 @@ import { urlToDomain } from "../shared/util";
 
 const CHART_HEIGHT = 194;
 const MIN_CHOROPLETH_DATAPOINTS = 9;
+const CHOROPLETH_REDIRECT_BASE_URL = `/place/`;
 
 interface ChartPropType {
   /**
@@ -366,6 +368,9 @@ class Chart extends React.Component<ChartPropType, ChartStateType> {
       chartType === chartTypeEnum.CHOROPLETH &&
       this.state.choroplethDataGroup
     ) {
+      const getRedirectLink = (geoProperty: GeoJsonFeatureProperties) => {
+        return `${CHOROPLETH_REDIRECT_BASE_URL}${geoProperty.geoDcid}${this.placeLinkSearch}`;
+      };
       drawChoropleth(
         this.props.id,
         this.state.geoJson,
@@ -374,7 +379,8 @@ class Chart extends React.Component<ChartPropType, ChartStateType> {
         this.state.choroplethDataGroup.data,
         this.props.unit,
         this.props.statsVars[0],
-        this.placeLinkSearch
+        true,
+        getRedirectLink
       );
     }
   }

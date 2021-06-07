@@ -25,9 +25,9 @@ const config = {
       __dirname + "/js/tools/scatter/scatter.ts",
       __dirname + "/css/tools/scatter.scss",
     ],
-    choropleth: [
-      __dirname + "/js/tools/choropleth/choropleth_template.tsx",
-      __dirname + "/css/tools/choropleth.scss",
+    map: [
+      __dirname + "/js/tools/map/map.ts",
+      __dirname + "/css/tools/map.scss",
     ],
     dev: [__dirname + "/js/dev.ts", __dirname + "/css/dev.scss"],
     timeline: [

@@ -29,6 +29,6 @@ class TestStaticPage(unittest.TestCase):
         assert response.status_code == 200
         assert b"Scatter Plot Explorer - Data Commons" in response.data
 
-    def test_choropleth(self):
-        response = app.test_client().get('/tools/choropleth')
+    def test_map(self):
+        response = app.test_client().get('/tools/map')
         assert response.status_code == 200
