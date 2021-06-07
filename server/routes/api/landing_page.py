@@ -48,7 +48,7 @@ def get_landing_page_data(dcid, stat_vars):
     },
                                      compress=False,
                                      post=True,
-                                     has_payload=True)
+                                     has_payload=False)
     return response
 
 
@@ -130,11 +130,11 @@ def get_series(data, place, stat_vars):
     sources = set()
     num_sv = len(stat_vars)
     for sv in stat_vars:
-        if not data[place].get(sv, {}):
+        if not data[place]['data'].get(sv, {}):
             return {}, []
-        series = data[place][sv]
-        all_series.append(series['data'])
-        sources.add(series['provenanceUrl'])
+        series = data[place]['data'][sv]
+        all_series.append(series['val'])
+        sources.add(series['metadata']['provenanceUrl'])
     # One series, no need to aggregate
     if num_sv == 1:
         return all_series[0], sources
@@ -159,7 +159,7 @@ def get_stat_var_group(cc, data, places):
             if place not in data:
                 continue
             for sv in cc['statsVars']:
-                if data[place][sv]:
+                if sv in data[place]['data']:
                     place_stat_vars[place].append(sv)
         result = lib_range.aggregate_stat_var(place_stat_vars, agg_type)
         for place in places:
@@ -357,16 +357,18 @@ def get_i18n_all_child_places(raw_page_data):
     all_child_places = raw_page_data.get('allChildPlaces', {})
     all_dcids = []
     for place_type in list(all_child_places.keys()):
-        for place in all_child_places[place_type]:
-            all_dcids.append(place.get('dcid', ""))
+        for place in all_child_places[place_type]['places']:
+            all_dcids.append(place.get('dcid', ''))
     i18n_names = place_api.get_i18n_name(all_dcids,
                                          False)  # Don't resolve en-only names
     for place_type in list(all_child_places.keys()):
-        for place in all_child_places[place_type]:
+        for place in all_child_places[place_type]['places']:
             dcid = place.get('dcid')
             i18n_name = i18n_names.get(dcid, '')
             if i18n_name:
                 place['name'] = i18n_name
+    for place_type in list(all_child_places.keys()):
+        all_child_places[place_type] = all_child_places[place_type]['places']
     return all_child_places
 
 
@@ -381,7 +383,7 @@ def data(dcid):
     spec_and_stat, stat_vars = build_spec(current_app.config['CHART_CONFIG'])
     raw_page_data = get_landing_page_data(dcid, stat_vars)
 
-    if not 'data' in raw_page_data:
+    if not 'statVarSeries' in raw_page_data:
         logging.info("Landing Page: No data for %s", dcid)
         return Response(json.dumps({}), 200, mimetype='application/json')
 
@@ -399,7 +401,7 @@ def data(dcid):
             is_usa_place = True
             break
     # Populate the data for each chart
-    all_stat = raw_page_data['data']
+    all_stat = raw_page_data['statVarSeries']
     for category in spec_and_stat:
         if category == OVERVIEW:
             if is_usa_place:

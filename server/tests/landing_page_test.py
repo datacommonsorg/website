@@ -113,19 +113,21 @@ class TestI18n(unittest.TestCase):
 
         raw_page_data = {
             "allChildPlaces": {
-                "City": [{
-                    "dcid": "geoId/0646870",
-                    "name": "Menlo Park",
-                    "pop": 34549
-                }, {
-                    "dcid": "geoId/0651840",
-                    "name": "North Fair Oaks",
-                    "pop": 14372
-                }, {
-                    "dcid": "geoId/0684536",
-                    "name": "West Menlo Park",
-                    "pop": 4160
-                }]
+                "City": {
+                    "places": [{
+                        "dcid": "geoId/0646870",
+                        "name": "Menlo Park",
+                        "pop": 34549
+                    }, {
+                        "dcid": "geoId/0651840",
+                        "name": "North Fair Oaks",
+                        "pop": 14372
+                    }, {
+                        "dcid": "geoId/0684536",
+                        "name": "West Menlo Park",
+                        "pop": 4160
+                    }]
+                },
             },
         }
 
