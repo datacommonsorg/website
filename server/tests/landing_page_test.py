@@ -64,14 +64,10 @@ class TestBuildSpec(unittest.TestCase):
             }
         }]
         with self.context:
-            result, stat_vars = landing_page.build_spec(chart_config)
+            result = landing_page.build_spec(chart_config)
             with open('tests/test_data/golden_config.json') as f:
                 expected = json.load(f)
                 assert expected == result
-                assert [
-                    'UnemploymentRate_Person', 'Count_Person_InLaborForce',
-                    'Count_Person_Employed', 'Count_Person'
-                ] == stat_vars
 
 
 class TestI18n(unittest.TestCase):

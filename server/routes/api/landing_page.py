@@ -78,7 +78,6 @@ def fill_translation(chart):
 def build_spec(chart_config):
     """Builds hierachical spec based on chart config."""
     spec = defaultdict(lambda: defaultdict(list))
-    stat_vars = []
     # Map: category -> topic -> [config]
     for conf in chart_config:
         config = copy.deepcopy(conf)
@@ -93,11 +92,7 @@ def build_spec(chart_config):
         if is_overview:
             spec[OVERVIEW][category].append(copy.deepcopy(config))
         spec[category][config['title']].append(config)
-        stat_vars.extend(config['statsVars'])
-        stat_vars.extend(config.get('denominator', []))
-        if 'relatedChart' in config and 'denominator' in config['relatedChart']:
-            stat_vars.append(config['relatedChart']['denominator'])
-    return spec, stat_vars
+    return spec
 
 
 def get_denom(cc, related_chart=False):
@@ -380,7 +375,8 @@ def data(dcid):
     """
     logging.info("Landing Page: cache miss for %s, fetch and process data ...",
                  dcid)
-    spec_and_stat, stat_vars = build_spec(current_app.config['CHART_CONFIG'])
+    spec_and_stat = build_spec(current_app.config['CHART_CONFIG'])
+    stat_vars = current_app.config['NEW_STAT_VARS']
     raw_page_data = get_landing_page_data(dcid, stat_vars)
 
     if not 'statVarSeries' in raw_page_data:
