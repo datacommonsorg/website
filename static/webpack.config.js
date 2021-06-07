@@ -22,7 +22,7 @@ const WebpackShellPlugin = require("webpack-shell-plugin");
 const config = {
   entry: {
     scatter: [
-      __dirname + "/js/tools/scatter2/scatter.ts",
+      __dirname + "/js/tools/scatter/scatter.ts",
       __dirname + "/css/tools/scatter.scss",
     ],
     choropleth: [
@@ -46,7 +46,7 @@ const config = {
       __dirname + "/css/ranking.scss",
     ],
     browser: [
-      __dirname + "/js/browser2/browser.ts",
+      __dirname + "/js/browser/browser.ts",
       __dirname + "/css/browser.scss",
     ],
     search: __dirname + "/css/search.scss",

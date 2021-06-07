@@ -64,14 +64,10 @@ class TestBuildSpec(unittest.TestCase):
             }
         }]
         with self.context:
-            result, stat_vars = landing_page.build_spec(chart_config)
+            result = landing_page.build_spec(chart_config)
             with open('tests/test_data/golden_config.json') as f:
                 expected = json.load(f)
                 assert expected == result
-                assert [
-                    'UnemploymentRate_Person', 'Count_Person_InLaborForce',
-                    'Count_Person_Employed', 'Count_Person'
-                ] == stat_vars
 
 
 class TestI18n(unittest.TestCase):
@@ -113,19 +109,21 @@ class TestI18n(unittest.TestCase):
 
         raw_page_data = {
             "allChildPlaces": {
-                "City": [{
-                    "dcid": "geoId/0646870",
-                    "name": "Menlo Park",
-                    "pop": 34549
-                }, {
-                    "dcid": "geoId/0651840",
-                    "name": "North Fair Oaks",
-                    "pop": 14372
-                }, {
-                    "dcid": "geoId/0684536",
-                    "name": "West Menlo Park",
-                    "pop": 4160
-                }]
+                "City": {
+                    "places": [{
+                        "dcid": "geoId/0646870",
+                        "name": "Menlo Park",
+                        "pop": 34549
+                    }, {
+                        "dcid": "geoId/0651840",
+                        "name": "North Fair Oaks",
+                        "pop": 14372
+                    }, {
+                        "dcid": "geoId/0684536",
+                        "name": "West Menlo Park",
+                        "pop": 4160
+                    }]
+                },
             },
         }
 
