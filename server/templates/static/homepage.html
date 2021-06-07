@@ -19,8 +19,7 @@
 {% set title = 'Home' %}
 
 {% block head %}
-<link rel="stylesheet"
-  href={{url_for('static', filename='css/static.min.css', t=config['VERSION'])}}>
+<link rel="stylesheet" href={{url_for('static', filename='css/static.min.css', t=config['VERSION'])}}>
 {% endblock %}
 
 {% block content %}
@@ -36,8 +35,7 @@
         </p>
       </div>
       <div class="img-col col-12 col-lg-6 mt-4 mt-lg-0">
-        <img class="img-fluid"
-          src="{{ url_for('static', filename='images/homepage_knowledge_graph.png') }}" />
+        <img class="img-fluid" src="{{ url_for('static', filename='images/homepage_knowledge_graph.png') }}" />
       </div>
     </div>
   </div>
@@ -48,12 +46,12 @@
     {# TRANSLATORS: Header for list of blog posts and project updates. Please see this string in action at https://datacommons.org #}
     <h2>{% trans %}What's new{% endtrans %}</h2>
     <dl>
-      <dt>October 15, 2020</dt>
+      <dt>June 1, 2021</dt>
       <dd>
         {# TRANSLATORS: Blog post entry. Please take care to maintain valid <a> tags in translation. See this string in action at https://datacommons.org #}
-          {% trans blog_url="https://docs.datacommons.org/2020/10/15/search_launch.html",project="Data Commons" -%}
-          HOME-BLOG_POST_1
-          {%- endtrans %}
+        {% trans blog_url="https://docs.datacommons.org/2021/06/01/updates.html",project="Data Commons" -%}
+        We have launched exciting new features, including internationalization support, a new graph browser and scatter plot explorer, new Stats API, updated documentation, and new data. <a href=%(blog_url)s>Read our blog post for more details</a>.
+        {%- endtrans %}
       </dd>
     </dl>
   </div>
@@ -141,7 +139,7 @@
       <ul>
         <li>
           {# TRANSLATORS: Link to a scatter plot comparing bachelor degree attained vs females per capita across counties in California. Please see this string in action at https://datacommons.org #}
-          <a class="sub" href="{{ url_for('tools.scatter') }}##&svx=Count_Person_Female&svpx=0-8-0&svdx=Count_Person&svnx=Female&pcx=1&svy=Count_Person_EducationalAttainmentBachelorsDegree&svpy=2-0-6&svdy=Count_Person_25OrMoreYears&svny=Bachelors_Degree&pcy=1&epd=geoId%2F06&epn=California&ept=County">{% trans %}Bachelor Degree Attained vs Females Per Capita for California Counties{% endtrans %}</a>,
+          <a class="sub" href="{{ url_for('tools.scatter') }}##&svx=Count_Person_Female&svpx=0-8-0&svdx=Count_Person&svnx=Female&pcx=1&svy=Count_Person_EducationalAttainmentBachelorsDegree&svpy=2-0-6&svdy=Count_Person_25OrMoreYears&svny=Bachelors_Degree&pcy=1&epd=geoId%2F06&epn=California&ept=County">{% trans %}Bachelor Degree Attained vs Females per capita for California Counties{% endtrans %}</a>,
         </li>
         <li>
           {# TRANSLATORS: Link to a scatter plot comparing foreign born vs unemployment rate across states in the US. Please see this string in action at https://datacommons.org #}
@@ -167,7 +165,7 @@
     {# TRANSLATORS: The label for a link to our API documentation. See this string at https://datacommons.org #}
     <li><a href="http://docs.datacommons.org/api/">{% trans %}See API documentation.{% endtrans %}</a></li>
     {# TRANSLATORS: Blog post entry. Please take care to maintain valid <a> tags in translation. See this string in action at https://datacommons.org #}
-      <li><a href="http://docs.datacommons.org/tutorials">{% trans %}See some sample Python notebooks.{% endtrans %}</a></li>
+    <li><a href="http://docs.datacommons.org/tutorials">{% trans %}See some sample Python notebooks.{% endtrans %}</a></li>
   </ul>
 </section>
 
@@ -179,9 +177,9 @@
     <li>{% trans %}Open Data.{% endtrans %}</li>
     <li>
       {# TRANSLATORS: Describes that the project is open sourced, and what it is built on top of (it extends a schema defined by schema.org). Please take care to maintain valid <a> tags in translation. See this string in action at https://datacommons.org #}
-        {% trans github_url='http://github.com/datacommonsorg',schemaorg_url="https://schema.org",tool='Schema.org' -%}
-        HOME-OPEN_SOURCED
-        {%- endtrans %}
+      {% trans github_url='http://github.com/datacommonsorg',schemaorg_url="https://schema.org",tool='Schema.org' -%}
+      HOME-OPEN_SOURCED
+      {%- endtrans %}
     </li>
     <li>
       {# TRANSLATORS: A link soliciting contributions to the project from the community. See this string at https://datacommons.org #}
