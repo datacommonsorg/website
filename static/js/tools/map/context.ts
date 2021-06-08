@@ -86,13 +86,13 @@ function getInitialContext(params: URLSearchParams): ContextType {
     isPlaceInfoLoading: false,
   });
   return {
-    statVarInfo: {
-      value: statVarInfo,
-      set: (statVarInfo) => setStatVarInfo(statVarInfo),
-      setStatVar: (statVar) => setStatVarInfo({ ...statVarInfo, statVar }),
-      setStatVarName: (name) => setStatVarInfo({ ...statVarInfo, name }),
-      setPerCapita: (perCapita) =>
-        setStatVarInfo({ ...statVarInfo, perCapita }),
+    isLoading: {
+      value: isLoading,
+      set: (isLoading) => setIsLoading(isLoading),
+      setIsDataLoading: (isDataLoading) =>
+        setIsLoading({ ...isLoading, isDataLoading }),
+      setIsPlaceInfoLoading: (isPlaceInfoLoading) =>
+        setIsLoading({ ...isLoading, isPlaceInfoLoading }),
     },
     placeInfo: {
       value: placeInfo,
@@ -101,21 +101,21 @@ function getInitialContext(params: URLSearchParams): ContextType {
         setPlaceInfo({
           ...placeInfo,
           enclosingPlace,
-          enclosedPlaceType: "",
           enclosedPlaces: [],
+          enclosedPlaceType: "",
         }),
       setEnclosedPlaceType: (enclosedPlaceType) =>
-        setPlaceInfo({ ...placeInfo, enclosedPlaceType, enclosedPlaces: [] }),
+        setPlaceInfo({ ...placeInfo, enclosedPlaces: [], enclosedPlaceType }),
       setEnclosedPlaces: (enclosedPlaces) =>
         setPlaceInfo({ ...placeInfo, enclosedPlaces }),
     },
-    isLoading: {
-      value: isLoading,
-      set: (isLoading) => setIsLoading(isLoading),
-      setIsDataLoading: (isDataLoading) =>
-        setIsLoading({ ...isLoading, isDataLoading }),
-      setIsPlaceInfoLoading: (isPlaceInfoLoading) =>
-        setIsLoading({ ...isLoading, isPlaceInfoLoading }),
+    statVarInfo: {
+      value: statVarInfo,
+      set: (statVarInfo) => setStatVarInfo(statVarInfo),
+      setStatVar: (statVar) => setStatVarInfo({ ...statVarInfo, statVar }),
+      setStatVarName: (name) => setStatVarInfo({ ...statVarInfo, name }),
+      setPerCapita: (perCapita) =>
+        setStatVarInfo({ ...statVarInfo, perCapita }),
     },
   };
 }

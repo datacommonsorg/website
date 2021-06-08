@@ -31,25 +31,25 @@ const USA_CHILD_PLACE_TYPES = {
 };
 
 const URLParamKeys = {
+  enclosedPlaceType: "pt",
+  enclosingPlaceDcid: "pd",
+  enclosingPlaceName: "pn",
+  perCapita: "pc",
   statVarDcid: "sv",
-  statVarPath: "svp",
   statVarDenominator: "svd",
   statVarName: "svn",
-  perCapita: "pc",
-  enclosingPlaceName: "pn",
-  enclosingPlaceDcid: "pd",
-  enclosedPlaceType: "pt",
+  statVarPath: "svp",
 };
 
 function applyHashStatVarInfo(params: URLSearchParams): StatVarInfo {
   const dcid = params.get(URLParamKeys.statVarDcid);
   if (!dcid) {
-    return { statVar: {}, name: "", perCapita: false };
+    return { name: "", perCapita: false, statVar: {} };
   }
   const statVarNode: StatsVarNode = {
     [dcid]: {
-      paths: [],
       denominators: [],
+      paths: [],
     },
   };
   const path = params.get(URLParamKeys.statVarPath);
@@ -63,9 +63,9 @@ function applyHashStatVarInfo(params: URLSearchParams): StatVarInfo {
   const statVarName = params.get(URLParamKeys.statVarName);
   const perCapita = params.get(URLParamKeys.perCapita);
   return {
-    statVar: statVarNode,
     name: statVarName ? statVarName : dcid,
     perCapita: perCapita && perCapita === "1" ? true : false,
+    statVar: statVarNode,
   };
 }
 
@@ -78,8 +78,8 @@ function applyHashPlaceInfo(params: URLSearchParams): PlaceInfo {
       dcid: enclosingPlaceDcid ? enclosingPlaceDcid : "",
       name: enclosingPlaceName ? enclosingPlaceName : "",
     },
-    enclosedPlaceType: enclosedPlaceType ? enclosedPlaceType : "",
     enclosedPlaces: [],
+    enclosedPlaceType: enclosedPlaceType ? enclosedPlaceType : "",
   };
 }
 

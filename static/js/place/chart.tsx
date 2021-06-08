@@ -41,7 +41,7 @@ import { urlToDomain } from "../shared/util";
 
 const CHART_HEIGHT = 194;
 const MIN_CHOROPLETH_DATAPOINTS = 9;
-const CHOROPLETH_REDIRECT_BASE_URL = `/place/`;
+const CHOROPLETH_REDIRECT_BASE_URL = "/place/";
 
 interface ChartPropType {
   /**

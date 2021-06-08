@@ -37,7 +37,6 @@
 
 @include map-search;
 
-
 .place-options {
   display: flex;
   flex-wrap: wrap;
@@ -76,7 +75,7 @@
   flex-grow: 1;
   flex-shrink: 1;
   margin-bottom: 15px;
-  border: 1px solid rgba(0,0,0,.2);
+  border: 1px solid rgba(0, 0, 0, .2);
   padding: 15px;
 }
 

@@ -33,7 +33,7 @@ def timeline_bulk_download():
 
 
 @bp.route('/map')
-def map():
+def map_explorer():
     # TODO(iancostello): Permit production use after development finishes.
     if os.environ.get('FLASK_ENV') == 'production':
         flask.abort(404)

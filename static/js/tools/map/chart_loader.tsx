@@ -139,7 +139,7 @@ function loadChartData(
   populationData: { [dcid: string]: SourceSeries },
   isPerCapita: boolean,
   geoJsonData: GeoJsonData,
-  setChartData: (data: any) => void
+  setChartData: (data: ChartData) => void
 ): void {
   const dataValues = {};
   const sources: Set<string> = new Set();

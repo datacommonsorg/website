@@ -97,7 +97,7 @@ export function PlaceOptions(): JSX.Element {
 function selectEnclosedPlaceType(
   placeInfo: PlaceInfoWrapper,
   event: React.ChangeEvent<HTMLInputElement>
-) {
+): void {
   placeInfo.setEnclosedPlaceType(event.target.value);
 }
 
@@ -106,7 +106,7 @@ function selectEnclosedPlaceType(
  * @param place
  * @param dcid
  */
-function selectEnclosingPlace(place: PlaceInfoWrapper, dcid: string) {
+function selectEnclosingPlace(place: PlaceInfoWrapper, dcid: string): void {
   axios.get(`/api/place/name?dcid=${dcid}`).then((resp) => {
     place.setEnclosingPlace({ dcid: dcid, name: resp.data[dcid] });
   });
@@ -119,7 +119,7 @@ function selectEnclosingPlace(place: PlaceInfoWrapper, dcid: string) {
 function unselectEnclosingPlace(
   place: PlaceInfoWrapper,
   setEnclosedPlaceTypes: (placeTypes: string[]) => void
-) {
+): void {
   place.setEnclosingPlace({ dcid: "", name: "" });
   setEnclosedPlaceTypes([]);
 }
@@ -127,7 +127,7 @@ function unselectEnclosingPlace(
 function updateEnclosedPlaceTypes(
   dcid: string,
   setEnclosedPlaceTypes: (placeTypes: string[]) => void
-) {
+): void {
   const parentPlacePromise = axios
     .get(`/api/place/parent/${dcid}`)
     .then((resp) => resp.data);

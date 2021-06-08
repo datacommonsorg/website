@@ -18,7 +18,6 @@ import json
 import services.datacommons as dc
 import routes.api.place as place
 from flask import Response, request, g
-from flask import request
 
 # Map from a geographic level to its closest fine-grained level.
 LEVEL_MAP = {

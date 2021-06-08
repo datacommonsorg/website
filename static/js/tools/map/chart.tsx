@@ -129,8 +129,7 @@ function getSourcesJsx(sources: Set<string>): JSX.Element[] {
 }
 
 function exploreTimelineOnClick(placeDcid: string, statVarDcid: string): void {
-  const uri = `/tools/timeline#place=${placeDcid}&statsVar=${statVarDcid}`;
-  window.open(uri);
+  window.open(`/tools/timeline#place=${placeDcid}&statsVar=${statVarDcid}`);
 }
 
 const getMapRedirectLink = (statVarInfo: StatVarInfo, placeInfo: PlaceInfo) => (
@@ -138,15 +137,15 @@ const getMapRedirectLink = (statVarInfo: StatVarInfo, placeInfo: PlaceInfo) => (
 ) => {
   let hash = updateHashStatVarInfo("", statVarInfo);
   const enclosingPlace = {
-    name: geoProperties.name,
     dcid: geoProperties.geoDcid,
+    name: geoProperties.name,
   };
   const enclosedPlaceType =
     USA_CHILD_PLACE_TYPES[placeInfo.enclosedPlaceType][0];
   hash = updateHashPlaceInfo(hash, {
-    enclosingPlace,
-    enclosedPlaceType,
     enclosedPlaces: [],
+    enclosedPlaceType,
+    enclosingPlace,
   });
   return `${MAP_REDIRECT_PREFIX}#${encodeURIComponent(hash)}`;
 };

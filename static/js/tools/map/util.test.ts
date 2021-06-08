@@ -23,35 +23,35 @@ import {
 } from "./util";
 
 const TestContext = ({
+  placeInfo: {
+    value: {
+      enclosingPlace: {
+        dcid: "geoId/10",
+        name: "Delaware",
+      },
+      enclosedPlaceType: "County",
+      enclosedPlaces: [
+        {
+          dcid: "geoId/10003",
+          name: "a county",
+        },
+        {
+          dcid: "geoId/10005",
+          name: "another county",
+        },
+      ],
+    },
+  },
   statVarInfo: {
     value: {
+      name: "People",
+      perCapita: false,
       statVar: {
         Count_Person: {
           denominators: [],
           paths: [],
         },
       },
-      name: "People",
-      perCapita: false,
-    },
-  },
-  placeInfo: {
-    value: {
-      enclosingPlace: {
-        name: "Delaware",
-        dcid: "geoId/10",
-      },
-      enclosedPlaceType: "County",
-      enclosedPlaces: [
-        {
-          name: "a county",
-          dcid: "geoId/10003",
-        },
-        {
-          name: "another county",
-          dcid: "geoId/10005",
-        },
-      ],
     },
   },
 } as unknown) as ContextType;

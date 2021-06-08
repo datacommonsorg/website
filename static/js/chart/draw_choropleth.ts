@@ -40,7 +40,6 @@ const LEGEND_MARGIN_BOTTOM = TICK_SIZE;
 const LEGEND_MARGIN_RIGHT = 5;
 const LEGEND_IMG_WIDTH = 10;
 const NUM_TICKS = 5;
-const REDIRECT_BASE_URL = `/place/`;
 const HIGHLIGHTED_CLASS_NAME = "highlighted";
 
 /**
@@ -204,9 +203,10 @@ const onMouseMove = (
 
 const onMapClick = (
   domContainerId: string,
-  getBaseRedirectLink: (properties: GeoJsonFeatureProperties) => string
+  getRedirectLink: (properties: GeoJsonFeatureProperties) => string
 ) => (geo: GeoJsonFeature, index) => {
-  window.open(getBaseRedirectLink(geo.properties), "_blank");
+  const redirectLink = getRedirectLink(geo.properties);
+  window.open(redirectLink, "_blank");
   mouseOutAction(domContainerId, index);
 };
 
