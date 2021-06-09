@@ -46,16 +46,16 @@ CHOROPLETH_GEOJSON_PROPERTY_MAP = {
 
 
 @cache.memoize(timeout=3600 * 24)  # Cache for one day.
-def get_choropleth_places(geoDcid):
-    """ Get the list of places to show on a choropleth chart for a given place
+def get_choropleth_display_level(geoDcid):
+    """ Get the display level of places to show on a choropleth chart for a
+    given place
 
     Args:
         geoDcid: dcid of the place of interest
 
     Returns:
-        (list of dcids, property to use for fetching geo json)
+        (dcid of the enclosing place of the choropleth, display level)
     """
-    place_list = []
     place_type = place_api.get_place_type(geoDcid)
     display_level = None
     if place_type in CHOROPLETH_DISPLAY_LEVEL_MAP:
@@ -65,7 +65,7 @@ def get_choropleth_places(geoDcid):
         place_type = EQUIVALENT_PLACE_TYPES[place_type]
         display_level = CHOROPLETH_DISPLAY_LEVEL_MAP[place_type]
     else:
-        return place_list
+        return None, None
 
     if place_type == display_level:
         parents_places = place_api.parent_places(geoDcid)
@@ -81,23 +81,10 @@ def get_choropleth_places(geoDcid):
                     parent_display_level = CHOROPLETH_DISPLAY_LEVEL_MAP.get(
                         EQUIVALENT_PLACE_TYPES.get(parent_place_type, ''))
                 if parent_display_level == display_level:
-                    place_list = dc_service.get_places_in([parent_dcid],
-                                                          display_level).get(
-                                                              parent_dcid, [])
-                    geo_prop = CHOROPLETH_GEOJSON_PROPERTY_MAP[display_level]
-                    # Puerto Rico (geoId/72) requires higher resolution geoJson
-                    if parent_dcid == 'geoId/72':
-                        geo_prop = 'geoJsonCoordinatesDP1'
-                    return place_list, geo_prop
-        return place_list
+                    return parent_dcid, display_level
+        return None, None
     else:
-        place_list = dc_service.get_places_in([geoDcid],
-                                              display_level).get(geoDcid, [])
-        geo_prop = CHOROPLETH_GEOJSON_PROPERTY_MAP[display_level]
-        # Puerto Rico (geoId/72) requires higher resolution geoJson
-        if geoDcid == 'geoId/72':
-            geo_prop = 'geoJsonCoordinatesDP1'
-        return place_list, geo_prop
+        return geoDcid, display_level
 
 
 @bp.route('/geojson/<path:dcid>')
@@ -106,10 +93,14 @@ def geojson(dcid):
     """
     Get geoJson data for a given place
     """
-    geos, geojson_prop = get_choropleth_places(dcid)
+    display_dcid, display_level = get_choropleth_display_level(dcid)
+    geos = dc_service.get_places_in([display_dcid],
+                                    display_level).get(display_dcid, [])
     if not geos:
         return Response(json.dumps({}), 200, mimetype='application/json')
-
+    geojson_prop = CHOROPLETH_GEOJSON_PROPERTY_MAP.get(display_level, "")
+    if dcid == 'geoId/72':
+        geojson_prop = 'geoJsonCoordinatesDP1'
     names_by_geo = place_api.get_display_name('^'.join(geos), g.locale)
     geojson_by_geo = dc_service.get_property_values(geos, geojson_prop)
     features = []
@@ -147,61 +138,67 @@ def geojson(dcid):
                     mimetype='application/json')
 
 
-def get_choropleth_sv():
-    """ Gets all the chart configs that have choropleth charts and gets all the stat vars and denominators
-    in those chart configs
+def get_choropleth_configs():
+    """ Gets all the chart configs that have choropleth charts
 
     Returns:
-        a tuple consisting of:
-            set of all stat vars including both the stat vars of the charts and stat vars of denominators
-            list of chart configs that are choropleth chart configs
+        list of chart configs that are choropleth chart configs
     """
     chart_config = current_app.config['CHART_CONFIG']
-    all_sv = set()
     chart_configs = []
     for config in chart_config:
         if config.get('isChoropleth', False):
-            # we should only be making choropleths for configs with a single stat var
-            # TODO(chejennifer) add test for chart config to ensure isChoropleth is only added to charts with single statvar
-            sv = config['statsVars'][0]
-            all_sv.add(sv)
-            if 'relatedChart' in config and config['relatedChart'].get(
-                    'scale', False):
-                all_sv.add(config['relatedChart'].get('denominator',
-                                                      'Count_Person'))
-            if 'denominator' in config:
-                all_sv.add(config['denominator'][0])
             chart_configs.append(config)
-    return all_sv, chart_configs
+    return chart_configs
 
 
-def process_choropleth_data(all_sv_data):
-    """ For each combination of geo dcid and stat var, gets the source series containing
-    data from the most recent date
+def get_stat_vars(configs):
+    """  Gets all the stat vars and denominators in the given list of chart
+    configs
 
-    Args:
-        all_sv_data: value of the key 'placeData' in the object received from getStatsAll
+    Args: 
+        configs: list of chart configs
 
     Returns:
-        dictionary of dictionary of statvar: data for single source series, keyed by place dcid
+        tuple consisting of
+            set of all stat var dcids
+            set of all denominator stat var dcids
     """
-    result = {}
-    for geo, data_for_geo in all_sv_data.items():
-        result[geo] = dict()
-        for sv, sv_data in data_for_geo.get('statVarData', {}).items():
-            most_recent_date = None
-            for source in sv_data.get('sourceSeries', []):
-                source_values = source.get('val', {})
-                if len(source_values.keys()) < 1:
-                    continue
-                sorted_dates = sorted(source_values.keys())
-                if not most_recent_date or sorted_dates[-1] > most_recent_date:
-                    most_recent_date = sorted_dates[-1]
-                    result[geo][sv] = {
-                        'data': source_values,
-                        'provenanceUrl': source.get('provenanceUrl', '')
-                    }
-    return result
+    stat_vars = set()
+    denoms = set()
+    for config in configs:
+        stat_vars.add(config['statsVars'][0])
+        if 'relatedChart' in config and config['relatedChart'].get(
+                'scale', False):
+            denoms.add(config['relatedChart'].get('denominator',
+                                                  'Count_Person'))
+        if 'denominator' in config:
+            denoms.add(config['denominator'][0])
+    return stat_vars, denoms
+
+
+def get_denom_val(stat_date, denom_data):
+    """ Gets the best denominator value for a given date
+
+    Args:
+        stat_date: date as a string
+        denom_data: dict of date to value
+    
+    Returns:
+        the value from denom_data that best matches the stat_date
+    """
+    denom_dates = denom_data.keys()
+    if stat_date in denom_dates:
+        return denom_data[stat_date]
+    encompassed_denom_dates = list(filter(lambda x: stat_date in x,
+                                          denom_dates))
+    if len(encompassed_denom_dates) > 0:
+        return denom_data[encompassed_denom_dates[-1]]
+    denom_date = list(denom_dates)[0]
+    for date in denom_dates:
+        if date < stat_date and date > denom_date:
+            denom_date = date
+    return denom_data[denom_date]
 
 
 @bp.route('/choroplethdata/<path:dcid>')
@@ -213,48 +210,74 @@ def choropleth_data(dcid):
     API Returns:
         Dictionary with
             key as stat var
-            value as object with date,dictionary of place: value, number of data points, exploreUrl, list of sources
+            value as object with date,dictionary of place: value, number of
+            data points, exploreUrl, list of sources
     """
-    all_stat_vars, choropleth_configs = get_choropleth_sv()
-    geos, _ = get_choropleth_places(dcid)
-    if not all_stat_vars or not geos:
+    configs = get_choropleth_configs()
+    stat_vars, denoms = get_stat_vars(configs)
+    display_dcid, display_level = get_choropleth_display_level(dcid)
+    geos = dc_service.get_places_in([display_dcid],
+                                    display_level).get(display_dcid, [])
+    if not stat_vars or not geos:
         return Response(json.dumps({}), 200, mimetype='application/json')
     # Get data for all the stat vars for every place we will need and process the data
-    all_sv_data = dc_service.get_stats_all(geos, list(all_stat_vars))
-    if not 'placeData' in all_sv_data:
-        return Response(json.dumps({}), 200, mimetype='application/json')
-    processed_data = process_choropleth_data(all_sv_data['placeData'])
-
+    sv_data = dc_service.get_stat_set_within_place(display_dcid, display_level,
+                                                   list(stat_vars),
+                                                   "").get('data', {})
+    denoms_data = {}
+    for denom in denoms:
+        denoms_data[denom] = dc_service.get_stats(geos, denom)
     result = {}
-    for cc in choropleth_configs:
+    for cc in configs:
         # we should only be making choropleths for configs with a single stat var
         sv = cc['statsVars'][0]
-        cc_data, statvar_denom = landing_page_api.get_snapshot_across_places(
-            cc, processed_data, geos)
-        data_values = cc_data.get('data', [])
-        data_dict = dict()
+        cc_sv_data_values = sv_data.get(sv, {}).get('stat', {})
+        cc_sv_data_metadata = sv_data.get(sv, {}).get('metadata', {})
+        denom = landing_page_api.get_denom(cc, True)
+        cc_denom_data = denoms_data.get(denom, {})
         scaling = cc.get('scaling', 1)
         if 'relatedChart' in cc:
             scaling = cc['relatedChart'].get('scaling', scaling)
-        for value in data_values:
-            if 'dcid' not in value or 'data' not in value:
+        sources = set()
+        dates = set()
+        data_dict = dict()
+        for place_dcid in cc_sv_data_values:
+            dcid_sv_data = cc_sv_data_values.get(place_dcid)
+            val = dcid_sv_data.get("value", None)
+            if not val:
                 continue
-            val = value['data'].get(sv, None)
-            if val:
-                val = val * scaling
-            data_dict[value['dcid']] = val
+            date = dcid_sv_data.get("date", "")
+            dates.add(date)
+            import_name = dcid_sv_data.get("metadata", {}).get("importName", "")
+            source = cc_sv_data_metadata.get(import_name,
+                                             {}).get("provenanceUrl", "")
+            sources.add(source)
+            if denom:
+                if not cc_denom_data.get(place_dcid, {}):
+                    continue
+                denom_val = get_denom_val(
+                    date, cc_denom_data[place_dcid].get('data', {}))
+                val = val / denom_val
+                sources.add(cc_denom_data[place_dcid].get('provenanceUrl', ""))
+            val = val * scaling
+            data_dict[place_dcid] = val
         is_scaled = (('relatedChart' in cc and
                       cc['relatedChart'].get('scale', False)) or
                      ('denominator' in cc))
-        exploreUrl = landing_page_api.build_url([dcid], statvar_denom,
-                                                is_scaled)
+        exploreUrl = landing_page_api.build_url([dcid], {sv: denom}, is_scaled)
+        dates = filter(lambda x: x != "", dates)
+        sources = filter(lambda x: x != "", sources)
+        sorted_dates_list = sorted(list(dates))
+        date_range = sorted_dates_list[0]
+        if len(sorted_dates_list) > 1:
+            date_range = f'{sorted_dates_list[0]} - {sorted_dates_list[-1]}'
         cc_result = {
-            'date': cc_data.get('date', None),
+            'date': date_range,
             'data': data_dict,
-            'numDataPoints': len(data_values),
+            'numDataPoints': len(data_dict.values()),
             # TODO (chejennifer): exploreUrl should link to choropleth tool once the tool is ready
             'exploreUrl': exploreUrl,
-            'sources': cc_data.get('sources', [])
+            'sources': list(sources)
         }
         result[sv] = cc_result
     return Response(json.dumps(result), 200, mimetype='application/json')
