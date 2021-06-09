@@ -278,7 +278,7 @@ def choropleth_data(dcid):
                 date: string,
                 data: {
                     [dcid]: number,
-                    ... 
+                    ...
                 },
                 numDataPoints: number,
                 exploreUrl: string,
