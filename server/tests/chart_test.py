@@ -117,7 +117,7 @@ class TestChoroplethPlaces(unittest.TestCase):
                 if args[0] == ["parentDcid"] and args[1] == "State":
                     return {"parentDcid": [dcid1, dcid2]}
                 else:
-                    return {dcid: []}
+                    return {args[0]: []}
 
             mock_places.side_effect = get_places_in_
             mock_display_name.return_value = {dcid1: dcid1, dcid2: dcid2}
@@ -236,7 +236,7 @@ class TestChoroplethDataHelpers(unittest.TestCase):
         assert result_denom_date_less_specific_no_match == 2
         result_denom_date_more_specific = chart_api.get_denom_val(
             "2018", test_denom_data)
-        assert result_denom_date_less_specific == 2
+        assert result_denom_date_more_specific == 2
         result_denom_date_less_specific_no_match = chart_api.get_denom_val(
             "2019", test_denom_data)
         assert result_denom_date_less_specific_no_match == 2
@@ -263,9 +263,9 @@ class TestChoroplethData(unittest.TestCase):
         sv1 = 'StatVar1'
         sv2 = 'StatVar2'
         sv3 = 'StatVar3'
-        sv1_date = '2018'
-        sv2_date1 = '2018'
-        sv2_date2 = '2019'
+        sv1_date1 = '2018'
+        sv1_date2 = '2019'
+        sv2_date = '2018'
         sv1_val = 2
         sv2_val1 = 4
         sv2_val2 = 6
@@ -320,14 +320,14 @@ class TestChoroplethData(unittest.TestCase):
                 sv1: {
                     'stat': {
                         geo1: {
-                            'date': sv1_date,
+                            'date': sv1_date1,
                             'value': sv1_val,
                             'metadata': {
                                 'importName': 'importName1'
                             }
                         },
                         geo2: {
-                            'date': sv1_date,
+                            'date': sv1_date2,
                             'value': sv1_val,
                             'metadata': {
                                 'importName': 'importName1'
@@ -343,14 +343,14 @@ class TestChoroplethData(unittest.TestCase):
                 sv2: {
                     'stat': {
                         geo1: {
-                            'date': sv2_date1,
+                            'date': sv2_date,
                             'value': sv2_val1,
                             'metadata': {
                                 'importName': 'importName1'
                             }
                         },
                         geo2: {
-                            'date': sv2_date2,
+                            'date': sv2_date,
                             'value': sv2_val2,
                             'metadata': {
                                 'importName': 'importName2'
@@ -430,11 +430,10 @@ class TestChoroplethData(unittest.TestCase):
         assert response.status_code == 200
         response_data = json.loads(response.data)
         response_data_sv2_sources = response_data[sv2]['sources']
-        assert set(response_data_sv2_sources) == set(
-            [source1, source2, source3])
+        assert set(response_data_sv2_sources) == set([source1, source3])
         expected_data = {
             sv1: {
-                'date': sv1_date,
+                'date': f'{sv1_date1} - {sv1_date2}',
                 'data': {
                     geo1: sv1_val,
                     geo2: sv1_val
@@ -444,7 +443,7 @@ class TestChoroplethData(unittest.TestCase):
                 'sources': [source1]
             },
             sv2: {
-                'date': f'{sv2_date1} - {sv2_date2}',
+                'date': sv2_date,
                 'data': {
                     geo1: (sv2_val1 / denom_val) * scaling_val
                 },

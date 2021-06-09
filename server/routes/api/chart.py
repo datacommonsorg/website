@@ -48,13 +48,17 @@ CHOROPLETH_GEOJSON_PROPERTY_MAP = {
 @cache.memoize(timeout=3600 * 24)  # Cache for one day.
 def get_choropleth_display_level(geoDcid):
     """ Get the display level of places to show on a choropleth chart for a
-    given place
+    given place.
 
     Args:
         geoDcid: dcid of the place of interest
 
     Returns:
-        (dcid of the enclosing place of the choropleth, display level)
+        tuple consisting of:
+            dcid of the enclosing place to use (if the display level and the
+                place type of the geoDcid arg are the same, this would be the
+                parent place dcid)
+            display level (AdministrativeArea1 or AdministrativeArea2)
     """
     place_type = place_api.get_place_type(geoDcid)
     display_level = None
@@ -91,7 +95,7 @@ def get_choropleth_display_level(geoDcid):
 @cache.cached(timeout=3600 * 24, query_string=True)  # Cache for one day.
 def geojson(dcid):
     """
-    Get geoJson data for a given place
+    Get geoJson data for places enclosed within the given dcid
     """
     display_dcid, display_level = get_choropleth_display_level(dcid)
     geos = dc_service.get_places_in([display_dcid],
@@ -99,6 +103,8 @@ def geojson(dcid):
     if not geos:
         return Response(json.dumps({}), 200, mimetype='application/json')
     geojson_prop = CHOROPLETH_GEOJSON_PROPERTY_MAP.get(display_level, "")
+    # geoId/72 needs higher resolution geojson because otherwise, the map looks
+    # too fragmented
     if dcid == 'geoId/72':
         geojson_prop = 'geoJsonCoordinatesDP1'
     names_by_geo = place_api.get_display_name('^'.join(geos), g.locale)
@@ -156,7 +162,7 @@ def get_stat_vars(configs):
     """  Gets all the stat vars and denominators in the given list of chart
     configs
 
-    Args: 
+    Args:
         configs: list of chart configs
 
     Returns:
@@ -167,12 +173,13 @@ def get_stat_vars(configs):
     stat_vars = set()
     denoms = set()
     for config in configs:
-        stat_vars.add(config['statsVars'][0])
+        if len(config.get('statsVars', [])) > 0:
+            stat_vars.add(config['statsVars'][0])
         if 'relatedChart' in config and config['relatedChart'].get(
                 'scale', False):
             denoms.add(config['relatedChart'].get('denominator',
                                                   'Count_Person'))
-        if 'denominator' in config:
+        if len(config.get('denominator', [])) > 0:
             denoms.add(config['denominator'][0])
     return stat_vars, denoms
 
@@ -183,11 +190,13 @@ def get_denom_val(stat_date, denom_data):
     Args:
         stat_date: date as a string
         denom_data: dict of date to value
-    
+
     Returns:
         the value from denom_data that best matches the stat_date
     """
     denom_dates = denom_data.keys()
+    if len(denom_dates) == 0:
+        return None
     if stat_date in denom_dates:
         return denom_data[stat_date]
     encompassed_denom_dates = list(filter(lambda x: stat_date in x,
@@ -201,6 +210,62 @@ def get_denom_val(stat_date, denom_data):
     return denom_data[denom_date]
 
 
+def get_value(place_dcid, sv_data, denom, denom_data, scaling):
+    """ Gets the processed value for a place
+
+    Args:
+        place_dcid: dcid of the place of interest as a string
+        sv_data: the stat var data for the place of interest as an object with
+            the fields value, date, and metadata
+        denom: the denom stat var if there is one as a string
+        denom_data: the denom data for the denom stat var with the form:
+            {
+                [place_dcid]: {
+                    data: {
+                        [date]: number,
+                        ...
+                    },
+                    provenanceUrl: string
+                },
+                ...
+            }
+        scaling: number the value should be multiplied by
+
+    Returns:
+        processed value as a number
+    """
+    val = sv_data.get("value", None)
+    if not val:
+        return None
+    if denom:
+        date = sv_data.get('date', "")
+        denom_val = get_denom_val(
+            date,
+            denom_data.get(place_dcid, {}).get('data', {}))
+        if not denom_val:
+            return None
+        val = val / denom_val
+    return val * scaling
+
+
+def get_date_range(dates):
+    """ Gets the date range from a set of dates
+
+    Args:
+        dates: set of dates (strings)
+
+    Returns:
+        date range as a string. Either a single date or
+        [earliest date] - [latest date]
+    """
+    dates = filter(lambda x: x != "", dates)
+    sorted_dates_list = sorted(list(dates))
+    date_range = sorted_dates_list[0]
+    if len(sorted_dates_list) > 1:
+        date_range = f'{sorted_dates_list[0]} - {sorted_dates_list[-1]}'
+    return date_range
+
+
 @bp.route('/choroplethdata/<path:dcid>')
 @cache.memoize(timeout=3600 * 24)  # Cache for one day.
 def choropleth_data(dcid):
@@ -208,10 +273,19 @@ def choropleth_data(dcid):
     Get stats var data needed for choropleth charts for a given place
 
     API Returns:
-        Dictionary with
-            key as stat var
-            value as object with date,dictionary of place: value, number of
-            data points, exploreUrl, list of sources
+        {
+            [stat var]: {
+                date: string,
+                data: {
+                    [dcid]: number,
+                    ... 
+                },
+                numDataPoints: number,
+                exploreUrl: string,
+                sources: [],
+            },
+            ...
+        }
     """
     configs = get_choropleth_configs()
     stat_vars, denoms = get_stat_vars(configs)
@@ -228,6 +302,7 @@ def choropleth_data(dcid):
     for denom in denoms:
         denoms_data[denom] = dc_service.get_stats(geos, denom)
     result = {}
+    # Process the data for each config
     for cc in configs:
         # we should only be making choropleths for configs with a single stat var
         sv = cc['statsVars'][0]
@@ -241,36 +316,38 @@ def choropleth_data(dcid):
         sources = set()
         dates = set()
         data_dict = dict()
+        # Process the data for each place we have stat var data for
         for place_dcid in cc_sv_data_values:
             dcid_sv_data = cc_sv_data_values.get(place_dcid)
-            val = dcid_sv_data.get("value", None)
+            # process and then update data_dict with the value for this
+            # place_dcid
+            val = get_value(place_dcid, dcid_sv_data, denom, cc_denom_data,
+                            scaling)
             if not val:
                 continue
-            date = dcid_sv_data.get("date", "")
-            dates.add(date)
+            data_dict[place_dcid] = val
+            # add the date of the stat var value for this place_dcid to the set
+            # of dates
+            dates.add(dcid_sv_data.get("date", ""))
+            # add stat var source and denom source (if there is a denom) to the
+            # set of sources
             import_name = dcid_sv_data.get("metadata", {}).get("importName", "")
             source = cc_sv_data_metadata.get(import_name,
                                              {}).get("provenanceUrl", "")
             sources.add(source)
             if denom:
-                if not cc_denom_data.get(place_dcid, {}):
-                    continue
-                denom_val = get_denom_val(
-                    date, cc_denom_data[place_dcid].get('data', {}))
-                val = val / denom_val
-                sources.add(cc_denom_data[place_dcid].get('provenanceUrl', ""))
-            val = val * scaling
-            data_dict[place_dcid] = val
+                sources.add(
+                    cc_denom_data.get(place_dcid, {}).get('provenanceUrl', ""))
+        # build the exploreUrl
         is_scaled = (('relatedChart' in cc and
                       cc['relatedChart'].get('scale', False)) or
                      ('denominator' in cc))
         exploreUrl = landing_page_api.build_url([dcid], {sv: denom}, is_scaled)
-        dates = filter(lambda x: x != "", dates)
+        # process the set of sources and set of dates collected for this chart
+        # config
         sources = filter(lambda x: x != "", sources)
-        sorted_dates_list = sorted(list(dates))
-        date_range = sorted_dates_list[0]
-        if len(sorted_dates_list) > 1:
-            date_range = f'{sorted_dates_list[0]} - {sorted_dates_list[-1]}'
+        date_range = get_date_range(dates)
+        # build the result for this chart config and add it to the result
         cc_result = {
             'date': date_range,
             'data': data_dict,
