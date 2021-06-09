@@ -17,17 +17,18 @@ import statistics
 import json
 import services.datacommons as dc
 import routes.api.place as place
+from flask import Response, request, g
 
 # Map from a geographic level to its closest fine-grained level.
 LEVEL_MAP = {
-    "Country": "AdministrativeArea1",
-    "AdministrativeArea1": "AdministrativeArea2",
+    "Country": "State",
+    "State": "County",
 }
 
 # GeoJSON property to use, keyed by display level.
 GEOJSON_PROPERTY_MAP = {
-    "AdministrativeArea1": "geoJsonCoordinatesDP3",
-    "AdministrativeArea2": "geoJsonCoordinatesDP1",
+    "State": "geoJsonCoordinatesDP3",
+    "County": "geoJsonCoordinatesDP1",
 }
 
 # All choropleth endpoints are defined with the choropleth/ prefix.
@@ -267,14 +268,6 @@ def coerce_geojson_to_righthand_rule(geoJsonCords, obj_type):
         assert False, f"Type {obj_type} unknown!"
 
 
-# Defines the map from higher geos to their respective subgeos.
-SUB_GEO_LEVEL_MAP = {
-    "Country": "AdministrativeArea1",
-    "AdministrativeArea1": "AdministrativeArea2",
-    "AdministrativeArea2": "City"
-}
-
-
 @bp.route('child/statvars')
 def child_statvars():
     """
@@ -318,3 +311,85 @@ def child_statvars():
         stat_vars_for_subgeo = stat_vars_for_subgeo.union(
             place.statsvars(geoId))
     return json.dumps(list(stat_vars_for_subgeo))
+
+
+@bp.route('/geo2')
+def choropleth_geo2():
+    # TODO(chejennifer): delete /geo once new choropleth tool is ready
+    """Returns data for geographic subregions for a certain statistical
+            variable.
+
+    API Params:
+        geoDcid: The currently viewed geography to render, as a string.
+        level: The subgeographic level to pull and display information for,
+                as a string. Choices: State, County, City.
+
+    API Returns:
+        geoJson: geoJson format that includes statistical variables info,
+            geoDcid, and name for all subregions.
+    """
+    # Get required request parameters.
+    place_dcid = request.args.get("placeDcid")
+    if not place_dcid:
+        return Response(json.dumps("error: must provide a placeDcid field"),
+                        400,
+                        mimetype='application/json')
+    place_type = request.args.get("placeType")
+    if not place_type:
+        return Response(json.dumps("error: must provide a placeType field."),
+                        400,
+                        mimetype='application/json')
+    geo_json_prop = GEOJSON_PROPERTY_MAP.get(place_type, None)
+    if not geo_json_prop:
+        return Response(json.dumps("error: geojson data not available for the" +
+                                   f"placeType needed for {place_dcid}"),
+                        400,
+                        mimetype='application/json')
+    # Get list of all contained places.
+    geos_contained_in_place = dc.get_places_in([place_dcid],
+                                               place_type).get(place_dcid, [])
+    # Download statistical variable, names, and geojson for subgeos.
+    # Also, handle the case where only a fraction of values are returned.
+    names_by_geo = place.get_display_name(
+        '^'.join(geos_contained_in_place + [place_dcid]), g.locale)
+    geojson_by_geo = dc.get_property_values(geos_contained_in_place,
+                                            geo_json_prop)
+    # Process into a combined json object.
+    features = []
+    for geo_id, json_text in geojson_by_geo.items():
+        # Valid response needs at least geometry and a name.
+        if json_text and geo_id in names_by_geo:
+            geo_feature = {
+                "type": "Feature",
+                "geometry": {
+                    "type": "MultiPolygon",
+                },
+                "id": geo_id,
+                "properties": {
+                    # Choose the first name when multiple are present.
+                    "name": names_by_geo.get(geo_id, "Unnamed Area"),
+                    "hasSublevel": (place_type in LEVEL_MAP),
+                    "geoDcid": geo_id,
+                }
+            }
+            # Load, simplify, and add geoJSON coordinates.
+            # Exclude geo if no or multiple renderings are present.
+            if len(json_text) != 1:
+                continue
+
+            geojson = json.loads(json_text[0])
+            geo_feature['geometry']['coordinates'] = (
+                coerce_geojson_to_righthand_rule(geojson['coordinates'],
+                                                 geojson['type']))
+            features.append(geo_feature)
+
+    # Return as json payload.
+    return Response(json.dumps({
+        "type": "FeatureCollection",
+        "features": features,
+        "properties": {
+            "current_geo": names_by_geo.get(place_dcid, ["Unnamed Area"])[0]
+        }
+    }),
+                    200,
+                    mimetype='application/json')

@@ -25,11 +25,10 @@ import axios from "axios";
 import { saveToFile } from "../../shared/util";
 import {
   getPopulationDate,
-  getStatsWithinPlace,
-  nodeGetStatVar,
   PlacePointStat,
   SourceSeries,
-} from "./util";
+} from "../shared_util";
+import { getStatsWithinPlace, nodeGetStatVar } from "./util";
 import { Chart } from "./chart";
 import {
   Context,

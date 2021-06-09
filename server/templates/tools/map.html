@@ -17,11 +17,13 @@
 {% extends 'base.html' %}
 
 {% set is_hide_full_footer = true %}
-{% set subpage_title = "Choropleth [Alpha]" %}
-{% set title = "Choropleth tool" %}
+{% set subpage_title = "Map Explorer" %}
+{% set title = "Map Explorer" %}
+{% set hide_search = True %}
 
 {% block head %}
-  <link rel="stylesheet" href={{url_for('static', filename='css/choropleth.min.css')}} >
+  <link rel="stylesheet" href={{url_for('static', filename='css/map.min.css')}} >
+  <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
 {% endblock %}
 
 {% block content %}
@@ -29,5 +31,6 @@
 {% endblock %}
 
 {% block footer %}
-  <script src={{url_for('static', filename='choropleth.js', t=config['VERSION'])}}></script>
+  <script src={{url_for('static', filename='map.js', t=config['VERSION'])}}></script>
+  <script src="https://maps.googleapis.com/maps/api/js?key={{maps_api_key}}&libraries=places" async defer></script>
 {% endblock %}
