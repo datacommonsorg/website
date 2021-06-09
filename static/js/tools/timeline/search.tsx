@@ -51,6 +51,8 @@ interface SearchBarPropType {
   addPlace: (place: string) => void;
   removePlace: (place: string) => void;
   numPlacesLimit?: number; // Maximum number of places allowed
+  countryRestrictions?: string[];
+  customPlaceHolder?: string;
 }
 
 class SearchBar extends Component<SearchBarPropType> {
@@ -101,6 +103,11 @@ class SearchBar extends Component<SearchBarPropType> {
       types: ["(regions)"],
       fields: ["place_id", "name", "types"],
     };
+    if (this.props.countryRestrictions) {
+      options["componentRestrictions"] = {
+        country: this.props.countryRestrictions,
+      };
+    }
     if (google.maps) {
       this.ac = new google.maps.places.Autocomplete(
         this.inputElem.current,
@@ -143,8 +150,9 @@ class SearchBar extends Component<SearchBarPropType> {
         this.inputElem.current.placeholder = "Add another place";
       }
     } else {
-      this.inputElem.current.placeholder =
-        "Enter a country, state, county, or city to get started";
+      this.inputElem.current.placeholder = this.props.customPlaceHolder
+        ? this.props.customPlaceHolder
+        : "Enter a country, state, county, or city to get started";
     }
   }
 }

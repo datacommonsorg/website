@@ -20,7 +20,7 @@
 
 import * as d3 from "d3";
 import * as geo from "geo-albers-usa-territories";
-import { GeoJsonData, GeoJsonFeature } from "./types";
+import { GeoJsonData, GeoJsonFeature, GeoJsonFeatureProperties } from "./types";
 import { getColorFn } from "./base";
 import { getStatsVarLabel } from "../shared/stats_var_labels";
 import { formatNumber } from "../i18n/i18n";
@@ -40,7 +40,6 @@ const LEGEND_MARGIN_BOTTOM = TICK_SIZE;
 const LEGEND_MARGIN_RIGHT = 5;
 const LEGEND_IMG_WIDTH = 10;
 const NUM_TICKS = 5;
-const REDIRECT_BASE_URL = `/place/`;
 const HIGHLIGHTED_CLASS_NAME = "highlighted";
 
 /**
@@ -73,7 +72,8 @@ function drawChoropleth(
   },
   unit: string,
   statVar: string,
-  urlSuffix: string
+  canClick: boolean,
+  getRedirectLink: (geoDcid: GeoJsonFeatureProperties) => string
 ): void {
   const label = getStatsVarLabel(statVar);
   const maxColor = d3.color(getColorFn([label])(label));
@@ -115,7 +115,7 @@ function drawChoropleth(
   fitSize(chartWidth - legendWidth, chartHeight, geoJson, projection, geomap);
 
   // Build map objects.
-  mapContent
+  const mapObjects = mapContent
     .enter()
     .append("path")
     .attr("d", geomap)
@@ -141,10 +141,12 @@ function drawChoropleth(
     })
     .attr("stroke-width", STROKE_WIDTH)
     .attr("stroke", GEO_STROKE_COLOR)
-    .on("mouseover", onMouseOver(domContainerId))
+    .on("mouseover", onMouseOver(domContainerId, canClick))
     .on("mouseout", onMouseOut(domContainerId))
-    .on("mousemove", onMouseMove(domContainerId, dataValues, unit))
-    .on("click", onMapClick(domContainerId, urlSuffix));
+    .on("mousemove", onMouseMove(domContainerId, dataValues, unit));
+  if (canClick) {
+    mapObjects.on("click", onMapClick(domContainerId, getRedirectLink));
+  }
 
   // style highlighted region and bring to the front
   d3.select(domContainerId)
@@ -155,10 +157,15 @@ function drawChoropleth(
   addTooltip(domContainerId);
 }
 
-const onMouseOver = (domContainerId: string) => (_, index): void => {
+const onMouseOver = (domContainerId: string, canClick: boolean) => (
+  _,
+  index
+): void => {
   const container = d3.select(domContainerId);
   // show highlighted border and show cursor as a pointer
-  container.select("#geoPath" + index).classed("region-highlighted", true);
+  if (canClick) {
+    container.select("#geoPath" + index).classed("region-highlighted", true);
+  }
   // show tooltip
   container.select(`#${TOOLTIP_ID}`).style("display", "block");
 };
@@ -194,14 +201,12 @@ const onMouseMove = (
     .style("top", d3.event.offsetY + topOffset + "px");
 };
 
-const onMapClick = (domContainerId: string, urlSuffix: string) => (
-  geo: GeoJsonFeature,
-  index
-) => {
-  window.open(
-    `${REDIRECT_BASE_URL}${geo.properties.geoDcid}${urlSuffix}`,
-    "_blank"
-  );
+const onMapClick = (
+  domContainerId: string,
+  getRedirectLink: (properties: GeoJsonFeatureProperties) => string
+) => (geo: GeoJsonFeature, index) => {
+  const redirectLink = getRedirectLink(geo.properties);
+  window.open(redirectLink, "_blank");
   mouseOutAction(domContainerId, index);
 };
 
