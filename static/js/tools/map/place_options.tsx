@@ -107,9 +107,14 @@ function selectEnclosedPlaceType(
  * @param dcid
  */
 function selectEnclosingPlace(place: PlaceInfoWrapper, dcid: string): void {
-  axios.get(`/api/place/name?dcid=${dcid}`).then((resp) => {
-    place.setEnclosingPlace({ dcid: dcid, name: resp.data[dcid] });
-  });
+  axios
+    .get(`/api/place/name?dcid=${dcid}`)
+    .then((resp) => {
+      place.setEnclosingPlace({ dcid: dcid, name: resp.data[dcid] });
+    })
+    .catch(() => {
+      place.setEnclosingPlace({ dcid: dcid, name: dcid });
+    });
 }
 
 /**

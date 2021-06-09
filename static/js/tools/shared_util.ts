@@ -26,17 +26,17 @@ interface PlacePointStatMetadata {
   unit?: string;
 }
 
-interface PlacePointStatData {
+export interface PlacePointStatData {
   date: string;
   value: number;
   metadata: { importName: string };
 }
-interface PlacePointStat {
+export interface PlacePointStat {
   metadata: { [importName: string]: PlacePointStatMetadata };
   stat: { [dcid: string]: PlacePointStatData };
 }
 
-interface SourceSeries {
+export interface SourceSeries {
   data: { [date: string]: number };
   placeName: string;
   provenanceUrl: string;
@@ -47,7 +47,7 @@ interface SourceSeries {
  * @param popData
  * @param statData
  */
-function getPopulationDate(
+export function getPopulationDate(
   popData: SourceSeries,
   statData: PlacePointStatData
 ): string {
@@ -74,5 +74,3 @@ function getPopulationDate(
   }
   return popDate;
 }
-
-export { getPopulationDate, PlacePointStat, SourceSeries, PlacePointStatData };

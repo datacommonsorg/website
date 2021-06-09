@@ -66,7 +66,7 @@ test("updateHashPlaceInfo", () => {
 test("updateHashStatVarInfo", () => {
   history.pushState = jest.fn();
   const resultHash = updateHashStatVarInfo("", TestContext.statVarInfo.value);
-  const expectedHash = "&sv=Count_Person&svn=People&pc=0";
+  const expectedHash = "&sv=Count_Person&svp=&svd=&svn=People&pc=0";
   expect(resultHash).toEqual(expectedHash);
 });
 

@@ -55,7 +55,7 @@ export function Chart(props: ChartProps): JSX.Element {
   const placeDcid = props.placeInfo.enclosingPlace.dcid;
   const statVarDcid = _.findKey(props.statVarInfo.statVar);
   return (
-    <div>
+    <>
       <Container>
         <div className="chart-section">
           <div className="map-title">
@@ -74,7 +74,7 @@ export function Chart(props: ChartProps): JSX.Element {
           </div>
         </div>
       </Container>
-    </div>
+    </>
   );
 }
 

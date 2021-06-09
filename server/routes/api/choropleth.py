@@ -315,6 +315,7 @@ def child_statvars():
 
 @bp.route('/geo2')
 def choropleth_geo2():
+    # TODO(chejennifer): delete /geo once new choropleth tool is ready
     """Returns data for geographic subregions for a certain statistical
             variable.
 

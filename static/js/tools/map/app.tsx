@@ -40,7 +40,7 @@ function App(): JSX.Element {
   const showLoadingSpinner =
     isLoading.value.isDataLoading || isLoading.value.isPlaceInfoLoading;
   return (
-    <div>
+    <>
       <div id="plot-container">
         <Container>
           {!showChart && (
@@ -64,11 +64,11 @@ function App(): JSX.Element {
           </div>
         </Container>
       </div>
-    </div>
+    </>
   );
 }
 
-function AppWithContext(): JSX.Element {
+export function AppWithContext(): JSX.Element {
   const params = new URLSearchParams(
     decodeURIComponent(location.hash).replace("#", "?")
   );
@@ -99,5 +99,3 @@ function updateHash(context: ContextType): void {
     history.pushState({}, "", `/tools/map#${encodeURIComponent(hash)}`);
   }
 }
-
-export { AppWithContext };

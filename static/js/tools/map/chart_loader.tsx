@@ -46,29 +46,29 @@ interface ChartData {
 
 export function ChartLoader(): JSX.Element {
   const { placeInfo, statVarInfo, isLoading } = useContext(Context);
-  const [data, setData] = useState<MapRawData | undefined>(undefined);
+  const [rawData, setRawData] = useState<MapRawData | undefined>(undefined);
   const [chartData, setChartData] = useState<ChartData | undefined>(undefined);
   useEffect(() => {
     const placesLoaded =
       !_.isEmpty(placeInfo.value.enclosingPlace.dcid) &&
       !_.isEmpty(placeInfo.value.enclosedPlaces);
     if (placesLoaded && !_.isEmpty(statVarInfo.value.statVar)) {
-      loadData(placeInfo.value, statVarInfo.value, isLoading, setData);
+      fetchData(placeInfo.value, statVarInfo.value, isLoading, setRawData);
     } else {
-      setData(undefined);
+      setRawData(undefined);
     }
   }, [placeInfo.value, statVarInfo.value.statVar]);
   useEffect(() => {
-    if (!_.isEmpty(data)) {
+    if (!_.isEmpty(rawData)) {
       loadChartData(
-        data.statVarData[_.findKey(statVarInfo.value.statVar)],
-        data.populationData,
+        rawData.statVarData[_.findKey(statVarInfo.value.statVar)],
+        rawData.populationData,
         statVarInfo.value.perCapita,
-        data.geoJsonData,
+        rawData.geoJsonData,
         setChartData
       );
     }
-  }, [data, statVarInfo.value.perCapita]);
+  }, [rawData, statVarInfo.value.perCapita]);
   if (
     _.isEmpty(chartData) ||
     _.isEmpty(chartData.dataValues) ||
@@ -90,14 +90,18 @@ export function ChartLoader(): JSX.Element {
   );
 }
 
-function loadData(
+// Fetches the data needed for the charts.
+function fetchData(
   placeInfo: PlaceInfo,
   statVarInfo: StatVarInfo,
   isLoading: IsLoadingWrapper,
-  setData: (data: MapRawData) => void
+  setRawData: (data: MapRawData) => void
 ): void {
   isLoading.setIsDataLoading(true);
   const statVarDcid = _.findKey(statVarInfo.statVar);
+  if (!statVarDcid) {
+    return;
+  }
   const denomStatVars = Object.values(statVarInfo.statVar)[0].denominators;
   const populationStatVar = _.isEmpty(denomStatVars)
     ? "Count_Person"
@@ -122,7 +126,7 @@ function loadData(
   Promise.all([statVarDataPromise, populationPromise, geoJsonPromise])
     .then(([statVarData, populationData, geoJsonData]) => {
       isLoading.setIsDataLoading(false);
-      setData({
+      setRawData({
         geoJsonData,
         populationData,
         statVarData,
@@ -134,6 +138,8 @@ function loadData(
     });
 }
 
+// Takes fetched data and processes it to be in a form that can be used for
+// rendering the chart component
 function loadChartData(
   statVarData: PlacePointStat,
   populationData: { [dcid: string]: SourceSeries },

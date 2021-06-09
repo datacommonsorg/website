@@ -23,17 +23,23 @@ import { applyHashStatVarInfo, applyHashPlaceInfo } from "./util";
  * Global app context for map explorer tool.
  */
 
+// used to set fields in context
 interface Setter<T> {
   (value: T): void;
 }
 
-interface StatVarInfo {
+// Information relating to the stat var to plot
+export interface StatVarInfo {
+  // The stat var to plot
   statVar: StatsVarNode;
+  // Human readable name of the stat var
   name: string;
+  // Whether to plot per capita values
   perCapita: boolean;
 }
 
-interface StatVarInfoWrapper {
+// Wraps StatVarInfo with its setters
+export interface StatVarInfoWrapper {
   value: StatVarInfo;
 
   set: Setter<StatVarInfo>;
@@ -42,13 +48,18 @@ interface StatVarInfoWrapper {
   setPerCapita: Setter<boolean>;
 }
 
-interface PlaceInfo {
+// Information relating to the places to plot
+export interface PlaceInfo {
+  // Place that encloses the places to plot
   enclosingPlace: NamedPlace;
+  // The type of place to plot
   enclosedPlaceType: string;
+  // The places to plot
   enclosedPlaces: Array<string>;
 }
 
-interface PlaceInfoWrapper {
+// Wraps PlaceInfo with its setters
+export interface PlaceInfoWrapper {
   value: PlaceInfo;
 
   set: Setter<PlaceInfo>;
@@ -57,12 +68,16 @@ interface PlaceInfoWrapper {
   setEnclosedPlaces: Setter<Array<string>>;
 }
 
-interface IsLoading {
+// Information relating to things loading
+export interface IsLoading {
+  // Whether geojson and stat var data are being retrieved for plotting
   isDataLoading: boolean;
+  // Whether child places are being retrieved
   isPlaceInfoLoading: boolean;
 }
 
-interface IsLoadingWrapper {
+// Wraps IsLoading with its setters
+export interface IsLoadingWrapper {
   value: IsLoading;
 
   set: Setter<IsLoading>;
@@ -70,15 +85,15 @@ interface IsLoadingWrapper {
   setIsPlaceInfoLoading: Setter<boolean>;
 }
 
-interface ContextType {
+export interface ContextType {
   statVarInfo: StatVarInfoWrapper;
   placeInfo: PlaceInfoWrapper;
   isLoading: IsLoadingWrapper;
 }
 
-const Context = createContext({} as ContextType);
+export const Context = createContext({} as ContextType);
 
-function getInitialContext(params: URLSearchParams): ContextType {
+export function getInitialContext(params: URLSearchParams): ContextType {
   const [statVarInfo, setStatVarInfo] = useState(applyHashStatVarInfo(params));
   const [placeInfo, setPlaceInfo] = useState(applyHashPlaceInfo(params));
   const [isLoading, setIsLoading] = useState({
@@ -119,15 +134,3 @@ function getInitialContext(params: URLSearchParams): ContextType {
     },
   };
 }
-
-export {
-  Context,
-  getInitialContext,
-  ContextType,
-  StatVarInfo,
-  StatVarInfoWrapper,
-  PlaceInfo,
-  PlaceInfoWrapper,
-  IsLoading,
-  IsLoadingWrapper,
-};
