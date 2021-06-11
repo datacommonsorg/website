@@ -176,10 +176,13 @@ function loadChartData(
           statVarData.stat[dcid]
         );
         const popValue = populationData[dcid].data[popDate];
-        statVarValue =
-          popValue === 0
-            ? statVarValue
-            : statVarValue / populationData[dcid].data[popDate];
+        if (popValue === 0) {
+          // TODO (chejennifer): invalid cases like this one and the one where
+          // there's no population data for dcid when isPerCapita is true,
+          // tooltip should show as data invalid instead of data missing.
+          continue;
+        }
+        statVarValue = statVarValue / popValue;
         sources.add(populationData[dcid].provenanceUrl);
       } else {
         continue;
