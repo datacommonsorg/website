@@ -28,6 +28,7 @@ interface Setter<T> {
   (value: T): void;
 }
 
+// Information regarding a parent place.
 export interface ParentPlace {
   dcid: string;
   name: string;

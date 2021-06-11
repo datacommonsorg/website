@@ -169,15 +169,21 @@ function loadChartData(
       continue;
     }
     let statVarValue = statVarData.stat[dcid].value;
-    if (isPerCapita && dcid in populationData) {
-      const popDate = getPopulationDate(
-        populationData[dcid],
-        statVarData.stat[dcid]
-      );
-      statVarValue = statVarValue / populationData[dcid].data[popDate];
-      sources.add(populationData[dcid].provenanceUrl);
-    } else if (isPerCapita && !(dcid in populationData)) {
-      continue;
+    if (isPerCapita) {
+      if (dcid in populationData) {
+        const popDate = getPopulationDate(
+          populationData[dcid],
+          statVarData.stat[dcid]
+        );
+        const popValue = populationData[dcid].data[popDate];
+        statVarValue =
+          popValue === 0
+            ? statVarValue
+            : statVarValue / populationData[dcid].data[popDate];
+        sources.add(populationData[dcid].provenanceUrl);
+      } else {
+        continue;
+      }
     }
     if (
       placeInfo.parentPlaces.find((place) => place.dcid === dcid) ||

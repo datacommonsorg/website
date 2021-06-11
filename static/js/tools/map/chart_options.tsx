@@ -14,6 +14,10 @@
  * limitations under the License.
  */
 
+/**
+ * Component to allow per capita toggling and navigating to a parent place map.
+ */
+
 import React, { useContext } from "react";
 import { Context, ParentPlace, PlaceInfo, StatVarInfo } from "./context";
 import { FormGroup, Label, Input } from "reactstrap";
