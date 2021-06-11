@@ -82,10 +82,11 @@ test("applyHashPlaceInfo", () => {
   expect(placeInfo).toEqual({
     ...TestContext.placeInfo.value,
     enclosedPlaces: [],
+    parentPlaces: null,
   });
 });
 
-test("applyHashPlaceInfo", () => {
+test("applyHashStatVarInfo", () => {
   const context = { statVarInfo: {}, placeInfo: {} } as ContextType;
   context.statVarInfo.set = (value) => (context.statVarInfo.value = value);
   const urlParams = new URLSearchParams(

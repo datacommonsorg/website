@@ -25,23 +25,26 @@ import { Container } from "reactstrap";
 import _ from "lodash";
 import { drawChoropleth } from "../../chart/draw_choropleth";
 import {
+  MAP_REDIRECT_PREFIX,
   updateHashPlaceInfo,
   updateHashStatVarInfo,
   USA_CHILD_PLACE_TYPES,
 } from "./util";
 import { urlToDomain } from "../../shared/util";
+import { ChartOptions } from "./chart_options";
 
 interface ChartProps {
   geoJsonData: GeoJsonData;
-  dataValues: { [dcid: string]: number };
+  mapDataValues: { [dcid: string]: number };
+  breadcrumbDataValues: { [dcid: string]: number };
   placeInfo: PlaceInfo;
   statVarInfo: StatVarInfo;
   statVarDates: { [dcid: string]: string };
   sources: Set<string>;
+  unit: string;
 }
 
 const SVG_CONTAINER_ID = "choropleth_map";
-const MAP_REDIRECT_PREFIX = "/tools/map";
 
 export function Chart(props: ChartProps): JSX.Element {
   useEffect(() => {
@@ -62,6 +65,12 @@ export function Chart(props: ChartProps): JSX.Element {
             <h3>{title}</h3>
           </div>
           <div id={SVG_CONTAINER_ID}></div>
+          <ChartOptions
+            dataValues={props.breadcrumbDataValues}
+            placeInfo={props.placeInfo}
+            statVarDates={props.statVarDates}
+            unit={props.unit}
+          />
           <div className="map-footer">
             <div className="sources">Data from {sourcesJsx}</div>
             <div
@@ -86,13 +95,13 @@ function draw(props: ChartProps): void {
     props.statVarInfo,
     props.placeInfo
   );
-  if (!_.isEmpty(props.geoJsonData) && !_.isEmpty(props.dataValues)) {
+  if (!_.isEmpty(props.geoJsonData) && !_.isEmpty(props.mapDataValues)) {
     drawChoropleth(
       SVG_CONTAINER_ID,
       props.geoJsonData,
       height,
       width,
-      props.dataValues,
+      props.mapDataValues,
       "",
       props.statVarInfo.name,
       props.placeInfo.enclosedPlaceType in USA_CHILD_PLACE_TYPES,
@@ -146,6 +155,7 @@ const getMapRedirectLink = (statVarInfo: StatVarInfo, placeInfo: PlaceInfo) => (
     enclosedPlaces: [],
     enclosedPlaceType,
     enclosingPlace,
+    parentPlaces: [],
   });
   return `${MAP_REDIRECT_PREFIX}#${encodeURIComponent(hash)}`;
 };

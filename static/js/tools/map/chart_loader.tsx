@@ -24,6 +24,7 @@ import _ from "lodash";
 import { GeoJsonData } from "../../chart/types";
 import {
   getPopulationDate,
+  getUnit,
   PlacePointStat,
   SourceSeries,
 } from "../shared_util";
@@ -31,27 +32,30 @@ import { Context, IsLoadingWrapper, PlaceInfo, StatVarInfo } from "./context";
 import { Chart } from "./chart";
 import axios from "axios";
 
-interface MapRawData {
+interface ChartRawData {
   geoJsonData: GeoJsonData;
   statVarData: PlacePointStat;
   populationData: { [dcid: string]: SourceSeries };
 }
 
 interface ChartData {
-  dataValues: { [dcid: string]: number };
+  mapDataValues: { [dcid: string]: number };
+  breadcrumbDataValues: { [dcid: string]: number };
   sources: Set<string>;
   statVarDates: { [dcid: string]: string };
   geoJsonData: GeoJsonData;
+  unit: string;
 }
 
 export function ChartLoader(): JSX.Element {
   const { placeInfo, statVarInfo, isLoading } = useContext(Context);
-  const [rawData, setRawData] = useState<MapRawData | undefined>(undefined);
+  const [rawData, setRawData] = useState<ChartRawData | undefined>(undefined);
   const [chartData, setChartData] = useState<ChartData | undefined>(undefined);
   useEffect(() => {
     const placesLoaded =
       !_.isEmpty(placeInfo.value.enclosingPlace.dcid) &&
-      !_.isEmpty(placeInfo.value.enclosedPlaces);
+      !_.isEmpty(placeInfo.value.enclosedPlaces) &&
+      !_.isNull(placeInfo.value.parentPlaces);
     if (placesLoaded && !_.isEmpty(statVarInfo.value.statVar)) {
       fetchData(placeInfo.value, statVarInfo.value, isLoading, setRawData);
     } else {
@@ -65,13 +69,14 @@ export function ChartLoader(): JSX.Element {
         rawData.populationData,
         statVarInfo.value.perCapita,
         rawData.geoJsonData,
+        placeInfo.value,
         setChartData
       );
     }
   }, [rawData, statVarInfo.value.perCapita]);
   if (
     _.isEmpty(chartData) ||
-    _.isEmpty(chartData.dataValues) ||
+    _.isEmpty(chartData.mapDataValues) ||
     _.isEmpty(chartData.geoJsonData)
   ) {
     return null;
@@ -80,11 +85,13 @@ export function ChartLoader(): JSX.Element {
     <div className="chart-region">
       <Chart
         geoJsonData={chartData.geoJsonData}
-        dataValues={chartData.dataValues}
+        mapDataValues={chartData.mapDataValues}
+        breadcrumbDataValues={chartData.breadcrumbDataValues}
         placeInfo={placeInfo.value}
         statVarInfo={statVarInfo.value}
         statVarDates={chartData.statVarDates}
         sources={chartData.sources}
+        unit={chartData.unit}
       />
     </div>
   );
@@ -95,7 +102,7 @@ function fetchData(
   placeInfo: PlaceInfo,
   statVarInfo: StatVarInfo,
   isLoading: IsLoadingWrapper,
-  setRawData: (data: MapRawData) => void
+  setRawData: (data: ChartRawData) => void
 ): void {
   isLoading.setIsDataLoading(true);
   const statVarDcid = _.findKey(statVarInfo.statVar);
@@ -108,14 +115,13 @@ function fetchData(
     : denomStatVars[0];
   const enclosingPlaceDcid = placeInfo.enclosingPlace.dcid;
   const enclosedPlaceType = placeInfo.enclosedPlaceType;
-  const statVarDataPromise = axios
-    .get(
-      `/api/stats/within-place?parent_place=${enclosingPlaceDcid}&child_type=${enclosedPlaceType}&stat_vars=${statVarDcid}`
-    )
-    .then((resp) => resp.data);
+  const breadcrumbPlaceDcids = placeInfo.parentPlaces.map(
+    (namedPlace) => namedPlace.dcid
+  );
+  breadcrumbPlaceDcids.push(enclosingPlaceDcid);
   const populationPromise = axios
     .post(`/api/stats/${populationStatVar}`, {
-      dcid: placeInfo.enclosedPlaces,
+      dcid: placeInfo.enclosedPlaces.concat(breadcrumbPlaceDcids),
     })
     .then((resp) => resp.data);
   const geoJsonPromise = axios
@@ -123,13 +129,19 @@ function fetchData(
       `/api/choropleth/geo2?placeDcid=${enclosingPlaceDcid}&placeType=${enclosedPlaceType}`
     )
     .then((resp) => resp.data);
-  Promise.all([statVarDataPromise, populationPromise, geoJsonPromise])
-    .then(([statVarData, populationData, geoJsonData]) => {
+  const statVarDataPromise = axios
+    .post(`/api/stats/set`, {
+      places: placeInfo.enclosedPlaces.concat(breadcrumbPlaceDcids),
+      stat_vars: statVarDcid,
+    })
+    .then((resp) => resp.data);
+  Promise.all([populationPromise, geoJsonPromise, statVarDataPromise])
+    .then(([populationData, geoJsonData, statVarData]) => {
       isLoading.setIsDataLoading(false);
       setRawData({
         geoJsonData,
         populationData,
-        statVarData,
+        statVarData: statVarData.data,
       });
     })
     .catch(() => {
@@ -145,29 +157,47 @@ function loadChartData(
   populationData: { [dcid: string]: SourceSeries },
   isPerCapita: boolean,
   geoJsonData: GeoJsonData,
+  placeInfo: PlaceInfo,
   setChartData: (data: ChartData) => void
 ): void {
-  const dataValues = {};
+  const mapDataValues = {};
+  const breadcrumbDataValues = {};
   const sources: Set<string> = new Set();
   const statVarDates = {};
   for (const dcid in statVarData.stat) {
     if (_.isEmpty(statVarData.stat[dcid])) {
       continue;
     }
-    const statVarValue = statVarData.stat[dcid].value;
-    const importName = statVarData.stat[dcid].metadata.importName;
-    sources.add(statVarData.metadata[importName].provenanceUrl);
-    statVarDates[dcid] = statVarData.stat[dcid].date;
+    let statVarValue = statVarData.stat[dcid].value;
     if (isPerCapita && dcid in populationData) {
       const popDate = getPopulationDate(
         populationData[dcid],
         statVarData.stat[dcid]
       );
-      dataValues[dcid] = statVarValue / populationData[dcid].data[popDate];
+      statVarValue = statVarValue / populationData[dcid].data[popDate];
       sources.add(populationData[dcid].provenanceUrl);
-    } else if (!isPerCapita) {
-      dataValues[dcid] = statVarValue;
+    } else if (isPerCapita && !(dcid in populationData)) {
+      continue;
     }
+    if (
+      placeInfo.parentPlaces.find((place) => place.dcid === dcid) ||
+      dcid === placeInfo.enclosingPlace.dcid
+    ) {
+      breadcrumbDataValues[dcid] = statVarValue;
+    } else {
+      mapDataValues[dcid] = statVarValue;
+    }
+    const importName = statVarData.stat[dcid].metadata.importName;
+    sources.add(statVarData.metadata[importName].provenanceUrl);
+    statVarDates[dcid] = statVarData.stat[dcid].date;
   }
-  setChartData({ dataValues, sources, statVarDates, geoJsonData });
+  const unit = getUnit(statVarData);
+  setChartData({
+    mapDataValues,
+    sources,
+    statVarDates,
+    geoJsonData,
+    unit,
+    breadcrumbDataValues,
+  });
 }

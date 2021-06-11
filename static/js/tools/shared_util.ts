@@ -74,3 +74,20 @@ export function getPopulationDate(
   }
   return popDate;
 }
+
+/**
+ * Helper function to get units given a PlacePointStat
+ * @param placePointStat
+ */
+export function getUnit(placePointStat: PlacePointStat): string {
+  const metadata = placePointStat.metadata;
+  if (_.isEmpty(metadata)) {
+    return "";
+  }
+  const metadataKeys = Object.keys(metadata);
+  if (metadataKeys.length > 0) {
+    return metadata[metadataKeys[0]].unit;
+  } else {
+    return "";
+  }
+}
