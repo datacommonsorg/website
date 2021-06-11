@@ -30,6 +30,7 @@ import {
   updateHashStatVarInfo,
 } from "./util";
 import { ChartLoader } from "./chart_loader";
+import { Info } from "./info";
 
 function App(): JSX.Element {
   const { statVarInfo, placeInfo, isLoading } = useContext(Context);
@@ -51,6 +52,11 @@ function App(): JSX.Element {
           <Row>
             <PlaceOptions />
           </Row>
+          {!showChart && (
+            <Row>
+              <Info />
+            </Row>
+          )}
           {showChart && (
             <Row id="chart-row">
               <ChartLoader />
