@@ -41,6 +41,8 @@ const URL_PARAM_KEYS = {
   STAT_VAR_PATH: "svp",
 };
 
+export const MAP_REDIRECT_PREFIX = "/tools/map";
+
 export function applyHashStatVarInfo(params: URLSearchParams): StatVarInfo {
   const dcid = params.get(URL_PARAM_KEYS.STAT_VAR_DCID);
   if (!dcid) {
@@ -74,6 +76,7 @@ export function applyHashPlaceInfo(params: URLSearchParams): PlaceInfo {
     },
     enclosedPlaces: [],
     enclosedPlaceType: enclosedPlaceType ? enclosedPlaceType : "",
+    parentPlaces: null,
   };
 }
 

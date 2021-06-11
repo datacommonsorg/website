@@ -29,20 +29,26 @@ import { USA_CHILD_PLACE_TYPES } from "./util";
 export function PlaceOptions(): JSX.Element {
   const { placeInfo, isLoading } = useContext(Context);
   const [enclosedPlaceTypes, setEnclosedPlaceTypes] = useState([]);
-  if (placeInfo.value.enclosingPlace.dcid && _.isEmpty(enclosedPlaceTypes)) {
-    updateEnclosedPlaceTypes(
-      placeInfo.value.enclosingPlace.dcid,
-      setEnclosedPlaceTypes
-    );
-  }
+  useEffect(() => {
+    if (placeInfo.value.enclosingPlace.dcid) {
+      updateEnclosedPlaceTypes(
+        placeInfo.value.enclosingPlace.dcid,
+        setEnclosedPlaceTypes
+      );
+    }
+  }, [placeInfo.value.enclosingPlace]);
   useEffect(() => {
     const placeInfoVal = placeInfo.value;
-    if (
-      placeInfoVal.enclosingPlace.dcid &&
-      placeInfoVal.enclosedPlaceType &&
-      _.isEmpty(placeInfoVal.enclosedPlaces)
-    ) {
-      loadEnclosedPlaces(placeInfo, isLoading);
+    if (placeInfoVal.enclosingPlace.dcid) {
+      if (_.isNull(placeInfoVal.parentPlaces)) {
+        loadParentPlaces(placeInfo);
+      }
+      if (
+        placeInfoVal.enclosedPlaceType &&
+        _.isEmpty(placeInfoVal.enclosedPlaces)
+      ) {
+        loadEnclosedPlaces(placeInfo, isLoading);
+      }
     }
   }, [placeInfo.value]);
   return (
@@ -155,6 +161,23 @@ function updateEnclosedPlaceTypes(
     .catch(() => {
       setEnclosedPlaceTypes([]);
     });
+}
+
+function loadParentPlaces(place: PlaceInfoWrapper): void {
+  const placeDcid = place.value.enclosingPlace.dcid;
+  axios
+    .get(`/api/place/parent/${placeDcid}`)
+    .then((resp) => {
+      const parentsData = resp.data;
+      const filteredParentsData = parentsData.filter(
+        (parent) => parent.types.indexOf("Continent") === -1
+      );
+      const parentNamedPlaces = filteredParentsData.map((parent) => {
+        return { dcid: parent.dcid, name: parent.name, types: parent.types };
+      });
+      place.setParentPlaces(parentNamedPlaces);
+    })
+    .catch(() => place.setParentPlaces([]));
 }
 
 function loadEnclosedPlaces(
