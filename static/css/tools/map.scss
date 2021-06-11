@@ -101,7 +101,7 @@
 .map-footer {
   display: flex;
   justify-content: space-between;
-  padding-top: 0.5rem;
+  padding-top: 1.5rem;
 }
 
 .map-title {
@@ -114,7 +114,16 @@
 
 .explore-timeline-link {
   cursor: pointer;
-  font-size: 0.9rem;
-  font-weight: 500;
+  font-weight: $headings-font-weight;
   display: flex;
+}
+
+.chart-options,
+.explore-timeline-link {
+  font-size: 0.9rem;
+}
+
+.breadcrumbs-title {
+  font-weight: $headings-font-weight;
+  padding-top: 0.3rem;
 }

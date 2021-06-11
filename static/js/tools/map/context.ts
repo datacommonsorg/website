@@ -28,6 +28,13 @@ interface Setter<T> {
   (value: T): void;
 }
 
+// Information regarding a parent place.
+export interface ParentPlace {
+  dcid: string;
+  name: string;
+  types: Array<string>;
+}
+
 // Information relating to the stat var to plot
 export interface StatVarInfo {
   // The stat var to plot
@@ -56,6 +63,8 @@ export interface PlaceInfo {
   enclosedPlaceType: string;
   // The places to plot
   enclosedPlaces: Array<string>;
+  // The parent places of the enclosing place
+  parentPlaces: Array<ParentPlace>;
 }
 
 // Wraps PlaceInfo with its setters
@@ -66,6 +75,7 @@ export interface PlaceInfoWrapper {
   setEnclosingPlace: Setter<NamedPlace>;
   setEnclosedPlaceType: Setter<string>;
   setEnclosedPlaces: Setter<Array<string>>;
+  setParentPlaces: Setter<Array<ParentPlace>>;
 }
 
 // Information relating to things loading
@@ -118,11 +128,19 @@ export function getInitialContext(params: URLSearchParams): ContextType {
           enclosingPlace,
           enclosedPlaces: [],
           enclosedPlaceType: "",
+          parentPlaces: null,
         }),
       setEnclosedPlaceType: (enclosedPlaceType) =>
-        setPlaceInfo({ ...placeInfo, enclosedPlaces: [], enclosedPlaceType }),
+        setPlaceInfo({
+          ...placeInfo,
+          enclosedPlaces: [],
+          enclosedPlaceType,
+          parentPlaces: null,
+        }),
       setEnclosedPlaces: (enclosedPlaces) =>
         setPlaceInfo({ ...placeInfo, enclosedPlaces }),
+      setParentPlaces: (parentPlaces) =>
+        setPlaceInfo({ ...placeInfo, parentPlaces }),
     },
     statVarInfo: {
       value: statVarInfo,

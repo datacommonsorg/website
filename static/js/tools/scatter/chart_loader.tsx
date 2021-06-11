@@ -25,6 +25,7 @@ import axios from "axios";
 import { saveToFile } from "../../shared/util";
 import {
   getPopulationDate,
+  getUnit,
   PlacePointStat,
   SourceSeries,
 } from "../shared_util";
@@ -85,8 +86,8 @@ function ChartLoader(): JSX.Element {
   if (cache.statsVarData) {
     const xStatData = cache.statsVarData[xStatVar];
     const yStatData = cache.statsVarData[yStatVar];
-    xUnits = xStatData ? getUnits(xStatData) : null;
-    yUnits = yStatData ? getUnits(yStatData) : null;
+    xUnits = xStatData ? getUnit(xStatData) : null;
+    yUnits = yStatData ? getUnit(yStatData) : null;
   }
   return (
     <div>
@@ -468,14 +469,6 @@ function getLabel(name: string, perCapita: boolean): string {
     name = _.startCase(name);
   }
   return `${name}${perCapita ? " Per Capita" : ""}`;
-}
-
-function getUnits(placePointStat: PlacePointStat): string {
-  const metadata = placePointStat.metadata;
-  const metadataKeys = Object.keys(metadata);
-  if (metadataKeys.length > 0) {
-    return metadata[metadataKeys[0]].unit;
-  }
 }
 
 export { ChartLoader, Point };
