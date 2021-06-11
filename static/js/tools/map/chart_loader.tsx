@@ -130,7 +130,7 @@ function fetchData(
     )
     .then((resp) => resp.data);
   const statVarDataPromise = axios
-    .post(`/api/stats/set`, {
+    .post("/api/stats/set", {
       places: placeInfo.enclosedPlaces.concat(breadcrumbPlaceDcids),
       stat_vars: statVarDcid,
     })
@@ -193,11 +193,11 @@ function loadChartData(
   }
   const unit = getUnit(statVarData);
   setChartData({
+    breadcrumbDataValues,
+    geoJsonData,
     mapDataValues,
     sources,
     statVarDates,
-    geoJsonData,
     unit,
-    breadcrumbDataValues,
   });
 }

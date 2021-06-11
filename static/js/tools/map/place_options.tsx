@@ -170,7 +170,7 @@ function loadParentPlaces(place: PlaceInfoWrapper): void {
     .then((resp) => {
       const parentsData = resp.data;
       const filteredParentsData = parentsData.filter(
-        (parent) => parent.types.indexOf("Continent") == -1
+        (parent) => parent.types.indexOf("Continent") === -1
       );
       const parentNamedPlaces = filteredParentsData.map((parent) => {
         return { dcid: parent.dcid, name: parent.name, types: parent.types };

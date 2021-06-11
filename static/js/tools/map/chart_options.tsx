@@ -104,9 +104,9 @@ export function getRedirectLink(
     }
   }
   hash = updateHashPlaceInfo(hash, {
+    enclosingPlace,
     enclosedPlaces: [],
     enclosedPlaceType,
-    enclosingPlace,
     parentPlaces: [],
   });
   return `${MAP_REDIRECT_PREFIX}#${encodeURIComponent(hash)}`;
