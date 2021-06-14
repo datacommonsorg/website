@@ -96,8 +96,8 @@ function drawChoropleth(
   const svg = d3
     .select(domContainerId)
     .append("svg")
-    .attr("width", chartWidth)
-    .attr("height", chartHeight);
+    .attr("viewBox", `0 0 ${chartWidth} ${chartHeight}`)
+    .attr("preserveAspectRatio", "xMidYMid meet");
   const legendWidth = generateLegend(
     svg,
     chartWidth,
