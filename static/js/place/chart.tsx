@@ -36,8 +36,14 @@ import { drawChoropleth } from "../chart/draw_choropleth";
 import _ from "lodash";
 import { FormattedMessage } from "react-intl";
 import { getStatsVarLabel } from "../shared/stats_var_labels";
-import { LocalizedLink, intl, localizeSearchParams } from "../i18n/i18n";
+import {
+  LocalizedLink,
+  intl,
+  localizeSearchParams,
+  formatNumber,
+} from "../i18n/i18n";
 import { urlToDomain } from "../shared/util";
+import { NamedPlace } from "../shared/types";
 
 const CHART_HEIGHT = 194;
 const MIN_CHOROPLETH_DATAPOINTS = 9;
@@ -371,6 +377,19 @@ class Chart extends React.Component<ChartPropType, ChartStateType> {
       const getRedirectLink = (geoProperty: GeoJsonFeatureProperties) => {
         return `${CHOROPLETH_REDIRECT_BASE_URL}${geoProperty.geoDcid}${this.placeLinkSearch}`;
       };
+      const getTooltipHtml = (place: NamedPlace) => {
+        let value = "Data Missing";
+        if (this.state.choroplethDataGroup[place.dcid]) {
+          value = formatNumber(
+            Math.round(
+              (this.state.choroplethDataGroup[place.dcid] + Number.EPSILON) *
+                100
+            ) / 100,
+            this.props.unit
+          );
+        }
+        return place.name + ": " + value;
+      };
       drawChoropleth(
         this.props.id,
         this.state.geoJson,
@@ -380,7 +399,8 @@ class Chart extends React.Component<ChartPropType, ChartStateType> {
         this.props.unit,
         this.props.statsVars[0],
         true,
-        getRedirectLink
+        getRedirectLink,
+        getTooltipHtml
       );
     }
   }

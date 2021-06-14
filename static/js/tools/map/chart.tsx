@@ -32,14 +32,18 @@ import {
 } from "./util";
 import { urlToDomain } from "../../shared/util";
 import { ChartOptions } from "./chart_options";
+import { NamedPlace } from "../../shared/types";
+import { DataPointMetadata } from "./chart_loader";
+import { formatNumber } from "../../i18n/i18n";
 
 interface ChartProps {
   geoJsonData: GeoJsonData;
   mapDataValues: { [dcid: string]: number };
+  metadata: { [dcid: string]: DataPointMetadata };
   breadcrumbDataValues: { [dcid: string]: number };
   placeInfo: PlaceInfo;
   statVarInfo: StatVarInfo;
-  statVarDates: { [dcid: string]: string };
+  dates: Set<string>;
   sources: Set<string>;
   unit: string;
 }
@@ -50,10 +54,7 @@ export function Chart(props: ChartProps): JSX.Element {
   useEffect(() => {
     draw(props);
   }, [props]);
-  const title = getTitle(
-    Object.values(props.statVarDates),
-    props.statVarInfo.name
-  );
+  const title = getTitle(Array.from(props.dates), props.statVarInfo.name);
   const sourcesJsx = getSourcesJsx(props.sources);
   const placeDcid = props.placeInfo.enclosingPlace.dcid;
   const statVarDcid = _.findKey(props.statVarInfo.statVar);
@@ -68,7 +69,7 @@ export function Chart(props: ChartProps): JSX.Element {
           <ChartOptions
             dataValues={props.breadcrumbDataValues}
             placeInfo={props.placeInfo}
-            statVarDates={props.statVarDates}
+            metadata={props.metadata}
             unit={props.unit}
           />
           <div className="map-footer">
@@ -105,7 +106,13 @@ function draw(props: ChartProps): void {
       "",
       props.statVarInfo.name,
       props.placeInfo.enclosedPlaceType in USA_CHILD_PLACE_TYPES,
-      getRedirectLink
+      getRedirectLink,
+      getTooltipHtml(
+        props.metadata,
+        props.statVarInfo,
+        props.mapDataValues,
+        props.unit
+      )
     );
   }
 }
@@ -114,7 +121,7 @@ function getTitle(statVarDates: string[], statVarName: string): string {
   const minDate = _.min(statVarDates);
   const maxDate = _.max(statVarDates);
   const dateRange =
-    minDate === maxDate ? `(${minDate})` : `(${minDate} - ${maxDate})`;
+    minDate === maxDate ? `(${minDate})` : `(${minDate} to ${maxDate})`;
   return `${statVarName} ${dateRange}`;
 }
 
@@ -158,4 +165,46 @@ const getMapRedirectLink = (statVarInfo: StatVarInfo, placeInfo: PlaceInfo) => (
     parentPlaces: [],
   });
   return `${MAP_REDIRECT_PREFIX}#${encodeURIComponent(hash)}`;
+};
+
+const getTooltipHtml = (
+  metadataMapping: { [dcid: string]: DataPointMetadata },
+  statVarInfo: StatVarInfo,
+  dataValues: { [dcid: string]: number },
+  unit: string
+) => (place: NamedPlace) => {
+  const titleHtml = `<b>${place.name}</b><br/>`;
+  let hasValue = false;
+  let value = "Data Missing";
+  if (dataValues[place.dcid]) {
+    value = formatNumber(dataValues[place.dcid], unit);
+    hasValue = true;
+  }
+  if (!hasValue || !(place.dcid in metadataMapping)) {
+    return titleHtml + `${statVarInfo.name}: ${value}<br />`;
+  }
+  const metadata = metadataMapping[place.dcid];
+  if (!_.isEmpty(metadata.errorMessage)) {
+    return titleHtml + `${statVarInfo.name}: ${metadata.errorMessage}<br />`;
+  }
+  let sources = urlToDomain(metadata.statVarSource);
+  if (statVarInfo.perCapita && !_.isEmpty(metadata.popSource)) {
+    const popDomain = urlToDomain(metadata.popSource);
+    if (popDomain !== sources) {
+      sources += `, ${popDomain}`;
+    }
+  }
+  const showPopDateMessage =
+    statVarInfo.perCapita &&
+    !_.isEmpty(metadata.popDate) &&
+    !metadata.statVarDate.includes(metadata.popDate) &&
+    !metadata.popDate.includes(metadata.statVarDate);
+  const popDateHtml = showPopDateMessage
+    ? `<sup>*</sup> Uses population data from: ${metadata.popDate}`
+    : "";
+  const html =
+    titleHtml +
+    `${statVarInfo.name} (${metadata.statVarDate}): ${value}<br />` +
+    `<footer>Data from: ${sources} <br/>${popDateHtml}</footer>`;
+  return html;
 };

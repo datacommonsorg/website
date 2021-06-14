@@ -24,6 +24,7 @@ import { GeoJsonData, GeoJsonFeature, GeoJsonFeatureProperties } from "./types";
 import { getColorFn } from "./base";
 import { getStatsVarLabel } from "../shared/stats_var_labels";
 import { formatNumber } from "../i18n/i18n";
+import { NamedPlace } from "../shared/types";
 
 const MISSING_DATA_COLOR = "#999";
 const TOOLTIP_ID = "tooltip";
@@ -73,7 +74,8 @@ function drawChoropleth(
   unit: string,
   statVar: string,
   canClick: boolean,
-  getRedirectLink: (geoDcid: GeoJsonFeatureProperties) => string
+  getRedirectLink: (geoDcid: GeoJsonFeatureProperties) => string,
+  getTooltipHtml: (place: NamedPlace) => string
 ): void {
   const label = getStatsVarLabel(statVar);
   const maxColor = d3.color(getColorFn([label])(label));
@@ -143,7 +145,7 @@ function drawChoropleth(
     .attr("stroke", GEO_STROKE_COLOR)
     .on("mouseover", onMouseOver(domContainerId, canClick))
     .on("mouseout", onMouseOut(domContainerId))
-    .on("mousemove", onMouseMove(domContainerId, dataValues, unit));
+    .on("mousemove", onMouseMove(domContainerId, getTooltipHtml));
   if (canClick) {
     mapObjects.on("click", onMapClick(domContainerId, getRedirectLink));
   }
@@ -176,27 +178,22 @@ const onMouseOut = (domContainerId: string) => (_, index): void => {
 
 const onMouseMove = (
   domContainerId: string,
-  dataValues: { [placeDcid: string]: number },
-  unit: string
+  getTooltipHtml: (place: NamedPlace) => string
 ) => (e) => {
   const geoProperties = e["properties"];
   const placeName = geoProperties.name;
-  let value = "Data Missing";
-  if (dataValues[geoProperties.geoDcid]) {
-    value = formatNumber(
-      Math.round((dataValues[geoProperties.geoDcid] + Number.EPSILON) * 100) /
-        100,
-      unit
-    );
-  }
   const tooltipSelect = d3.select(domContainerId).select(`#${TOOLTIP_ID}`);
-  const text = placeName + ": " + value;
+  const place = {
+    dcid: geoProperties.geoDcid,
+    name: placeName,
+  };
+  const tooltipHtml = getTooltipHtml(place);
   const tooltipHeight = (tooltipSelect.node() as HTMLDivElement).clientHeight;
   const offset = 5;
   const leftOffset = offset;
   const topOffset = -tooltipHeight - offset;
   tooltipSelect
-    .text(text)
+    .html(tooltipHtml)
     .style("left", d3.event.offsetX + leftOffset + "px")
     .style("top", d3.event.offsetY + topOffset + "px");
 };
