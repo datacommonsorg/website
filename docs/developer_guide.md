@@ -143,7 +143,7 @@ website changes.
 This takes a few minutes to complete, as it involves building several docker
 images. If only website code is changed, can use the [alternative approach](<##-Develop-with-Flask-(simple/lite)>).
 
-**NOTE** Make sure the local Dokcer engine has more than 5G of memory.
+**NOTE** Make sure the local Docker engine has more than 5G of memory.
 
 ```bash
 minikube start --memory=5G
