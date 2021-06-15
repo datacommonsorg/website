@@ -43,7 +43,7 @@ patchesStrategicMerge:
     metadata:
       name: website-app
     spec:
-      replicas: 4
+      replicas: 6
       strategy:
         type: RollingUpdate
         rollingUpdate:
