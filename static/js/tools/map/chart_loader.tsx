@@ -38,11 +38,19 @@ interface ChartRawData {
   populationData: { [dcid: string]: SourceSeries };
 }
 
+export interface DataPointMetadata {
+  popDate: string;
+  popSource: string;
+  statVarDate: string;
+  statVarSource: string;
+  errorMessage?: string;
+}
 interface ChartData {
   mapDataValues: { [dcid: string]: number };
+  metadata: { [dcid: string]: DataPointMetadata };
   breadcrumbDataValues: { [dcid: string]: number };
   sources: Set<string>;
-  statVarDates: { [dcid: string]: string };
+  dates: Set<string>;
   geoJsonData: GeoJsonData;
   unit: string;
 }
@@ -86,10 +94,11 @@ export function ChartLoader(): JSX.Element {
       <Chart
         geoJsonData={chartData.geoJsonData}
         mapDataValues={chartData.mapDataValues}
+        metadata={chartData.metadata}
         breadcrumbDataValues={chartData.breadcrumbDataValues}
         placeInfo={placeInfo.value}
         statVarInfo={statVarInfo.value}
-        statVarDates={chartData.statVarDates}
+        dates={chartData.dates}
         sources={chartData.sources}
         unit={chartData.unit}
       />
@@ -161,30 +170,48 @@ function loadChartData(
   setChartData: (data: ChartData) => void
 ): void {
   const mapDataValues = {};
+  const metadata = {};
   const breadcrumbDataValues = {};
-  const sources: Set<string> = new Set();
-  const statVarDates = {};
+  const sourceSet: Set<string> = new Set();
+  const statVarDates: Set<string> = new Set();
   for (const dcid in statVarData.stat) {
     if (_.isEmpty(statVarData.stat[dcid])) {
       continue;
     }
-    let statVarValue = statVarData.stat[dcid].value;
+    const statVarDate = statVarData.stat[dcid].date;
+    const importName = statVarData.stat[dcid].metadata.importName;
+    const statVarSource = statVarData.metadata[importName].provenanceUrl;
+    let value = statVarData.stat[dcid].value;
+    let popDate = "";
+    let popSource = "";
     if (isPerCapita) {
       if (dcid in populationData) {
-        const popDate = getPopulationDate(
+        popDate = getPopulationDate(
           populationData[dcid],
           statVarData.stat[dcid]
         );
         const popValue = populationData[dcid].data[popDate];
+        popSource = populationData[dcid].provenanceUrl;
         if (popValue === 0) {
-          // TODO (chejennifer): invalid cases like this one and the one where
-          // there's no population data for dcid when isPerCapita is true,
-          // tooltip should show as data invalid instead of data missing.
+          metadata[dcid] = {
+            popDate,
+            popSource,
+            statVarDate,
+            statVarSource,
+            errorMessage: "Invalid Data",
+          };
           continue;
         }
-        statVarValue = statVarValue / popValue;
-        sources.add(populationData[dcid].provenanceUrl);
+        value = value / popValue;
+        sourceSet.add(popSource);
       } else {
+        metadata[dcid] = {
+          popDate,
+          popSource,
+          statVarDate,
+          statVarSource,
+          errorMessage: "Population Data Missing",
+        };
         continue;
       }
     }
@@ -192,21 +219,27 @@ function loadChartData(
       placeInfo.parentPlaces.find((place) => place.dcid === dcid) ||
       dcid === placeInfo.enclosingPlace.dcid
     ) {
-      breadcrumbDataValues[dcid] = statVarValue;
+      breadcrumbDataValues[dcid] = value;
     } else {
-      mapDataValues[dcid] = statVarValue;
+      mapDataValues[dcid] = value;
     }
-    const importName = statVarData.stat[dcid].metadata.importName;
-    sources.add(statVarData.metadata[importName].provenanceUrl);
-    statVarDates[dcid] = statVarData.stat[dcid].date;
+    metadata[dcid] = {
+      popDate,
+      popSource,
+      statVarDate,
+      statVarSource,
+    };
+    sourceSet.add(statVarSource);
+    statVarDates.add(statVarDate);
   }
   const unit = getUnit(statVarData);
   setChartData({
     breadcrumbDataValues,
+    dates: statVarDates,
     geoJsonData,
     mapDataValues,
-    sources,
-    statVarDates,
+    metadata,
+    sources: sourceSet,
     unit,
   });
 }

@@ -29,11 +29,12 @@ import {
   USA_CHILD_PLACE_TYPES,
   MAP_REDIRECT_PREFIX,
 } from "./util";
+import { DataPointMetadata } from "./chart_loader";
 
 interface ChartOptionsPropType {
   dataValues: { [dcid: string]: number };
   placeInfo: PlaceInfo;
-  statVarDates: { [dcid: string]: string };
+  metadata: { [dcid: string]: DataPointMetadata };
   unit: string;
 }
 export function ChartOptions(props: ChartOptionsPropType): JSX.Element {
@@ -44,8 +45,8 @@ export function ChartOptions(props: ChartOptionsPropType): JSX.Element {
       ? formatNumber(props.dataValues[enclosingPlace.dcid], props.unit)
       : "N/A";
   const enclosingPlaceDate =
-    enclosingPlace.dcid in props.statVarDates
-      ? ` (${props.statVarDates[enclosingPlace.dcid]})`
+    enclosingPlace.dcid in props.metadata
+      ? ` (${props.metadata[enclosingPlace.dcid].statVarDate})`
       : "";
   const parentPlaces = !_.isEmpty(props.placeInfo.parentPlaces)
     ? props.placeInfo.parentPlaces.reverse()
@@ -76,8 +77,8 @@ export function ChartOptions(props: ChartOptionsPropType): JSX.Element {
             ? formatNumber(props.dataValues[place.dcid], props.unit)
             : "N/A";
         const date =
-          place.dcid in props.statVarDates
-            ? ` (${props.statVarDates[place.dcid]})`
+          place.dcid in props.metadata
+            ? ` (${props.metadata[place.dcid].statVarDate})`
             : "";
         const redirectLink = getRedirectLink(statVarInfo.value, place);
         return (
