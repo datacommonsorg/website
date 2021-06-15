@@ -18,6 +18,8 @@ metadata:
   name: website-mcs
   namespace: website
   annotations:
+    # Refers to the backend config from backendconfig.yaml.
+    # This is to get 60s timeout for the Cloud Load Balancer.
     cloud.google.com/backend-config: '{"ports": {"8080":"backendconfig"}}'
 spec:
   template:
