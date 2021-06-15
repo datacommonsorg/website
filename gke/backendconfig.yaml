@@ -1,4 +1,4 @@
-# Copyright 2020 Google LLC
+# Copyright 2021 Google LLC
 #
 # Licensed under the Apache License, Version 2.0 (the "License");
 # you may not use this file except in compliance with the License.
@@ -12,20 +12,12 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-apiVersion: networking.gke.io/v1
-kind: MultiClusterService
+apiVersion: cloud.google.com/v1
+kind: BackendConfig
 metadata:
-  name: website-mcs
+  name: backendconfig
   namespace: website
-  annotations:
-    cloud.google.com/backend-config: '{"ports": {"8080":"backendconfig"}}'
 spec:
-  template:
-    spec:
-      selector:
-        app: website-app
-      ports:
-        - name: web
-          protocol: TCP
-          port: 8080
-          targetPort: 8080
+  timeoutSec: 60
+  connectionDraining:
+    drainingTimeoutSec: 60
