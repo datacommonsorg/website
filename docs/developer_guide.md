@@ -97,7 +97,7 @@ npm test testfilename -- -u
 
 ## Develop with Flask (simple/lite)
 
-This way the website talks to the [autopush Mixer](autopush.api.datacommons.org)
+This way the website talks to the [autopush Mixer](autopush.api.datacommons.org).
 
 Note: the autopushed mixer can deviate from the mixer submodule and may not be
 fully compatible with website.
@@ -131,13 +131,22 @@ This will bring up local website without place search functionality.
 This is an alternative way to bring up website stack locally and this is close
 to how the production server is deployed in GKE.
 
-Local Kubernetes cluster has the exact same settings and configurations as the
-production deployment. This is recommended way for development.
+Local Kubernetes cluster has similar configurations as the production
+deployment, for example, it brings up a local mixer instead of talking to the
+autopush/staging mixer.
+
+This is useful for local development that involves data version, mixer and
+website changes.
 
 ### Start website in Minikube
 
+This takes a few minutes to complete, as it involves building several docker
+images. If only website code is changed, can use the [alternative approach](<##-Develop-with-Flask-(simple/lite)>).
+
+**NOTE** Make sure the local Docker engine has more than 5G of memory.
+
 ```bash
-minikube start --memory=6G
+minikube start --memory=5G
 minikube addons enable gcp-auth
 eval $(minikube docker-env)
 kubectl config use-context minikube
