@@ -37,13 +37,34 @@ spec:
         - name: website
           image: datacommons/website
           imagePullPolicy: Never
+          resources:
+            limits:
+              memory: "2G"
+              cpu: "300m"
+            requests:
+              memory: "2G"
+              cpu: "300m"
         - name: mixer
           image: datacommons/mixer
           imagePullPolicy: Never
+          resources:
+            limits:
+              memory: "2G"
+              cpu: "300m"
+            requests:
+              memory: "2G"
+              cpu: "300m"
         - name: esp
           volumeMounts:
             - mountPath: /esp
               name: mixer-grpc-json
+          resources:
+            limits:
+              memory: "0.5G"
+              cpu: "100m"
+            requests:
+              memory: "0.5G"
+              cpu: "100m"
         - name: api-compiler
           image: datacommons/api-compiler
           imagePullPolicy: Never

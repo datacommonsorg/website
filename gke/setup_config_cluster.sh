@@ -31,6 +31,7 @@ yq w mci.yaml.tpl \
   $(yq r config.yaml ip) \
   > mci.yaml
 
+kubectl apply -f backendconfig.yaml
 kubectl apply -f mci.yaml
 kubectl apply -f mcs.yaml
 
