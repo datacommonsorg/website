@@ -262,7 +262,7 @@ def get_date_range(dates):
     sorted_dates_list = sorted(list(dates))
     date_range = sorted_dates_list[0]
     if len(sorted_dates_list) > 1:
-        date_range = f'{sorted_dates_list[0]} - {sorted_dates_list[-1]}'
+        date_range = f'{sorted_dates_list[0]} to {sorted_dates_list[-1]}'
     return date_range
 
 
