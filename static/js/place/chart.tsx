@@ -379,10 +379,11 @@ class Chart extends React.Component<ChartPropType, ChartStateType> {
       };
       const getTooltipHtml = (place: NamedPlace) => {
         let value = "Data Missing";
-        if (this.state.choroplethDataGroup[place.dcid]) {
+        if (this.state.choroplethDataGroup.data[place.dcid]) {
           value = formatNumber(
             Math.round(
-              (this.state.choroplethDataGroup[place.dcid] + Number.EPSILON) *
+              (this.state.choroplethDataGroup.data[place.dcid] +
+                Number.EPSILON) *
                 100
             ) / 100,
             this.props.unit
