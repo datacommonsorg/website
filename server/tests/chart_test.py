@@ -433,7 +433,7 @@ class TestChoroplethData(unittest.TestCase):
         assert set(response_data_sv2_sources) == set([source1, source3])
         expected_data = {
             sv1: {
-                'date': f'{sv1_date1} to {sv1_date2}',
+                'date': f'{sv1_date1} – {sv1_date2}',
                 'data': {
                     geo1: sv1_val,
                     geo2: sv1_val
