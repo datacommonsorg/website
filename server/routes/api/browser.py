@@ -199,8 +199,28 @@ def search_statvar_hierarchy():
     """
     query = request.args.get("query")
     places = request.args.getlist("places")
-    logging.info(places)
     result = dc.search_statvar(query, places)
+    return Response(json.dumps(result), 200, mimetype='application/json')
+
+
+@bp.route('/statvar/group')
+@cache.cached(timeout=3600 * 24, query_string=True)
+def get_statvar_group():
+    """Gets the statvars and statvar groups that match the tokens in the query
+    """
+    stat_var_group = request.args.get("stat_var_group")
+    places = request.args.getlist("places")
+    result = dc.get_statvar_group(stat_var_group, places)
+    return Response(json.dumps(result), 200, mimetype='application/json')
+
+
+@bp.route('/statvar/path')
+@cache.cached(timeout=3600 * 24, query_string=True)
+def get_statvar_path():
+    """Gets the statvars and statvar groups that match the tokens in the query
+    """
+    id = request.args.get("id")
+    result = dc.get_statvar_path(id)
     return Response(json.dumps(result), 200, mimetype='application/json')
 
 

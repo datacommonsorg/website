@@ -25,7 +25,7 @@ import _ from "lodash";
 
 import { StatVarHierarchySearch } from "./statvar_hierarchy_search";
 import { StatVarGroupNode } from "./statvar_group_node";
-import { StatVarGroupNodeType, StatVarNodeType } from "./types";
+import { StatVarGroupInfo } from "./types";
 import { Node } from "../shared/types";
 
 import { loadSpinner, removeSpinner } from "./util";
@@ -54,6 +54,8 @@ interface StatVarHierarchyStateType {
   errorMessage: string;
   // Indicates when search input was cleared after a result was selected.
   searchSelectionCleared: boolean;
+  // A map from stat var group dcid to the metadata.
+  rootSVGs: StatVarGroupInfo[];
   // Select or de-select a stat var with its path.
   togglePath: (sv: string, path?: string[]) => void;
 }
@@ -62,13 +64,6 @@ export class StatVarHierarchy extends React.Component<
   StatVarHierarchyPropType,
   StatVarHierarchyStateType
 > {
-  // A map from stat var group dcid to the metadata.
-  svgInfo: { [svgId: string]: StatVarGroupNodeType };
-  // A map from stat var dcid to the metadata.
-  svInfo: { [svId: string]: StatVarNodeType };
-  // The stat var (group) from search result. The hierarchy focuses on it by
-  // displaying the path from root to it.
-
   constructor(props: StatVarHierarchyPropType) {
     super(props);
     this.state = {
@@ -77,10 +72,9 @@ export class StatVarHierarchy extends React.Component<
       focusPath: [],
       searchSelectionCleared: false,
       svPath: null,
+      rootSVGs: [],
       togglePath: this.togglePath,
     };
-    this.svInfo = {};
-    this.svgInfo = {};
     this.onSearchSelectionChange = this.onSearchSelectionChange.bind(this);
     this.togglePath = this.togglePath.bind(this);
   }
@@ -102,21 +96,17 @@ export class StatVarHierarchy extends React.Component<
       // rendering them again after the componentDidUpdate hook.
       return null;
     }
-    // TODO(shifucun): this should be obtained from the root of root.
-    const rootSVGs = Object.keys(this.svgInfo).filter(
-      (svgId) => !("parent" in this.svgInfo[svgId])
-    );
-    rootSVGs.sort((a, b) => {
-      if (a === SORTED_FIRST_SVG_ID) {
+    this.state.rootSVGs.sort((a, b) => {
+      if (a.id === SORTED_FIRST_SVG_ID) {
         return -1;
       }
-      if (b === SORTED_FIRST_SVG_ID) {
+      if (b.id === SORTED_FIRST_SVG_ID) {
         return 1;
       }
-      if (a === SORTED_LAST_SVG_ID) {
+      if (a.id === SORTED_LAST_SVG_ID) {
         return 1;
       }
-      if (b === SORTED_LAST_SVG_ID) {
+      if (b.id === SORTED_LAST_SVG_ID) {
         return -1;
       }
       return a > b ? 1 : -1;
@@ -126,17 +116,17 @@ export class StatVarHierarchy extends React.Component<
         {!_.isEmpty(this.state.errorMessage) && (
           <div className="error-message">{this.state.errorMessage}</div>
         )}
-        {!_.isEmpty(this.svInfo) && (
+        {!_.isEmpty(this.state.rootSVGs) && (
           <div className="stat-var-hierarchy-container card">
             <StatVarHierarchySearch
               places={this.props.places.map((x) => x.dcid)}
               onSelectionChange={this.onSearchSelectionChange}
             />
             <div className="hierarchy-section">
-              {rootSVGs.map((svgId) => {
+              {this.state.rootSVGs.map((svg) => {
                 if (
                   _.isEmpty(this.state.focus) ||
-                  this.state.focusPath[0] === svgId
+                  this.state.focusPath[0] === svg.id
                 ) {
                   return (
                     // Each SVG node has a context of the svPath from the state.
@@ -148,16 +138,15 @@ export class StatVarHierarchy extends React.Component<
                         svPath: this.state.svPath,
                         togglePath: this.togglePath,
                       }}
-                      key={svgId}
+                      key={svg.id}
                     >
                       <StatVarGroupNode
-                        path={[svgId]}
+                        path={[svg.id]}
                         places={this.props.places}
-                        statVarGroupId={svgId}
-                        data={this.svgInfo}
+                        data={svg}
                         pathToSelection={this.state.focusPath.slice(1)}
                         isSelected={this.state.focusPath.length === 1}
-                        startsOpened={this.state.focusPath[0] === svgId}
+                        startsOpened={this.state.focusPath[0] === svg.id}
                       />
                     </Context.Provider>
                   );
@@ -175,50 +164,63 @@ export class StatVarHierarchy extends React.Component<
 
   private fetchData(): void {
     loadSpinner(LOADING_CONTAINER_ID);
+    let url = "/api/browser/statvar/group?stat_var_group=dc/g/Root";
+    for (const place of this.props.places) {
+      url += `&places=${place.dcid}`;
+    }
     axios
-      .post("/api/browser/statvar-hierarchy", {
-        dcids: this.props.places.map((place) => place.dcid),
-      })
+      .get(url)
       .then((resp) => {
         const data = resp.data;
-        const svgInfo = data["statVarGroups"];
-        const svInfo = data["statVars"];
+        const rootSVGs = data["childStatVarGroups"];
         removeSpinner(LOADING_CONTAINER_ID);
-        this.svgInfo = svgInfo;
-        this.svInfo = svInfo;
-        const svPath = {};
+        this.setState({
+          rootSVGs,
+        });
+        const pathPromises: Promise<string[]>[] = [];
         if (this.props.svs) {
           for (const sv of this.props.svs) {
-            svPath[sv] = this.getPath(sv);
+            pathPromises.push(this.getPath(sv));
           }
+          Promise.all(pathPromises).then((paths: string[][]) => {
+            const svPath = {};
+            for (const path of paths) {
+              svPath[path[-1]] = path;
+            }
+            this.setState({
+              svPath,
+            });
+          });
+        } else {
+          this.setState({
+            svPath: {},
+          });
         }
-        this.setState({
-          svPath,
-        });
       })
       .catch(() => {
         removeSpinner(LOADING_CONTAINER_ID);
         this.setState({
-          errorMessage: "Error retrieving stat var hierarchy",
+          errorMessage: "Error retrieving stat var group root nodes",
         });
       });
   }
 
   private onSearchSelectionChange(selection: string): void {
-    const path = this.getPath(selection);
-    const searchSelectionCleared =
-      !_.isEmpty(this.state.focusPath) && _.isEmpty(path);
-    this.setState({
-      focus: selection,
-      focusPath: path,
-      searchSelectionCleared,
-    });
-    // If selection is stat var, added it to svPath.
-    if (selection != "" && !selection.startsWith("dc/g")) {
+    this.getPath(selection).then((path) => {
+      const searchSelectionCleared =
+        !_.isEmpty(this.state.focusPath) && _.isEmpty(path);
       this.setState({
-        svPath: Object.assign({ [selection]: path }, this.state.svPath),
+        focus: selection,
+        focusPath: path,
+        searchSelectionCleared,
       });
-    }
+      // If selection is stat var, added it to svPath.
+      if (selection != "" && !selection.startsWith("dc/g")) {
+        this.setState({
+          svPath: Object.assign({ [selection]: path }, this.state.svPath),
+        });
+      }
+    });
   }
 
   // Add or remove a stat var and its path from the state.
@@ -235,22 +237,13 @@ export class StatVarHierarchy extends React.Component<
   }
 
   // Get the path of a stat var from the hierarchy.
-  private getPath(sv: string): string[] {
+  private getPath(sv: string): Promise<string[]> {
     if (sv == "") {
-      return [];
+      return Promise.resolve([]);
     }
-    const path = [];
-    path.push(sv);
-    let parent = null;
-    if (sv in this.svInfo) {
-      parent = this.svInfo[sv].parent;
-    } else if (sv in this.svgInfo) {
-      parent = this.svgInfo[sv].parent;
-    }
-    while (parent) {
-      path.unshift(parent);
-      parent = this.svgInfo[parent].parent;
-    }
-    return path;
+    return axios.get(`/api/browser/statvar/path?id=${sv}`).then((resp) => {
+      const data = resp.data;
+      return data["path"].reverse();
+    });
   }
 }

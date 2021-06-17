@@ -19,10 +19,15 @@
  */
 
 import React from "react";
+import axios from "axios";
 import Collapsible from "react-collapsible";
 import _ from "lodash";
 
-import { StatVarGroupNodeType, StatVarHierarchyNodeType } from "./types";
+import {
+  StatVarInfo,
+  StatVarGroupInfo,
+  StatVarHierarchyNodeType,
+} from "./types";
 import { StatVarHierarchyNodeHeader } from "./statvar_hierarchy_node_header";
 import { StatVarSection } from "./statvar_section";
 import { StatVarGroupSection } from "./statvar_group_section";
@@ -37,15 +42,11 @@ interface StatVarGroupNodePropType {
   path: string[];
   // A list of named places object.
   places: Node[];
-  // the dcid of the current stat var group
-  statVarGroupId: string;
   // the mapping of all stat var groups to their corresponding information
-  data: { [key: string]: StatVarGroupNodeType };
+  data: StatVarGroupInfo;
   // if a statvar or statvar group has been selected, the path of stat var
   // groups from root to selected stat var group or stat var
   pathToSelection: string[];
-  // the specializedEntity string for the current stat var group if there is one
-  specializedEntity?: string;
   // whether the current component has been selected and should be highlighted
   isSelected: boolean;
   // whether the current component should be opened when rendered
@@ -57,6 +58,9 @@ interface StatVarGroupNodeStateType {
   // open, we want to render an expanded collapsible by passing in true for the
   // open prop.
   toggledOpen: boolean;
+  childSVG: StatVarGroupInfo[];
+  childSV: StatVarInfo[];
+  errorMessage: string;
 }
 
 export class StatVarGroupNode extends React.Component<
@@ -66,14 +70,20 @@ export class StatVarGroupNode extends React.Component<
   highlightedStatVar: React.RefObject<HTMLDivElement>;
   delayTimer: NodeJS.Timeout;
   context: ContextType;
+  hasData: boolean;
 
   constructor(props: StatVarGroupNodePropType) {
     super(props);
     this.state = {
       toggledOpen: false,
+      childSVG: [],
+      childSV: [],
+      errorMessage: "",
     };
     this.highlightedStatVar = React.createRef();
     this.scrollToHighlighted = this.scrollToHighlighted.bind(this);
+    this.fetchData = this.fetchData.bind(this);
+    this.hasData = false;
   }
 
   componentDidMount(): void {
@@ -81,10 +91,12 @@ export class StatVarGroupNode extends React.Component<
   }
 
   render(): JSX.Element {
-    const statVarGroup = this.props.data[this.props.statVarGroupId];
-    const triggerTitle = this.props.specializedEntity
-      ? this.props.specializedEntity
-      : statVarGroup.absoluteName;
+    console.log(this.props);
+    console.log(this.state);
+
+    const triggerTitle = this.props.data.specializedEntity
+      ? this.props.data.specializedEntity
+      : this.props.data.displayName;
 
     const level = this.props.path.length;
     let count = 0;
@@ -109,9 +121,10 @@ export class StatVarGroupNode extends React.Component<
         trigger={getTrigger(false)}
         triggerWhenOpen={getTrigger(true)}
         open={this.props.startsOpened || this.state.toggledOpen}
-        handleTriggerClick={() =>
-          this.setState({ toggledOpen: !this.state.toggledOpen })
-        }
+        handleTriggerClick={() => {
+          this.setState({ toggledOpen: !this.state.toggledOpen });
+        }}
+        onOpening={this.fetchData}
         transitionTime={200}
         onOpen={this.scrollToHighlighted}
         containerElementProps={
@@ -122,23 +135,19 @@ export class StatVarGroupNode extends React.Component<
       >
         {(this.props.startsOpened || this.state.toggledOpen) && (
           <>
-            {this.props.pathToSelection.length < 2 &&
-              this.props.data[this.props.statVarGroupId].childStatVars && (
-                <StatVarSection
-                  path={this.props.path}
-                  data={
-                    this.props.data[this.props.statVarGroupId].childStatVars
-                  }
-                  pathToSelection={this.props.pathToSelection}
-                  places={this.props.places}
-                  highlightedStatVar={this.highlightedStatVar}
-                />
-              )}
-            {this.props.data[this.props.statVarGroupId].childStatVarGroups && (
+            {this.props.pathToSelection.length < 2 && this.state.childSV && (
+              <StatVarSection
+                path={this.props.path}
+                data={this.state.childSV}
+                pathToSelection={this.props.pathToSelection}
+                places={this.props.places}
+                highlightedStatVar={this.highlightedStatVar}
+              />
+            )}
+            {this.state.childSVG && (
               <StatVarGroupSection
                 path={this.props.path}
-                data={this.props.data}
-                statVarGroupId={this.props.statVarGroupId}
+                data={this.state.childSVG}
                 pathToSelection={this.props.pathToSelection}
                 highlightedStatVar={this.highlightedStatVar}
                 places={this.props.places}
@@ -148,6 +157,31 @@ export class StatVarGroupNode extends React.Component<
         )}
       </Collapsible>
     );
+  }
+
+  private fetchData(): void {
+    if (this.hasData) {
+      return;
+    }
+    let url = `/api/browser/statvar/group?stat_var_group=${this.props.data.id}`;
+    for (const place of this.props.places) {
+      url += `&places=${place.dcid}`;
+    }
+    axios
+      .get(url)
+      .then((resp) => {
+        const data = resp.data;
+        this.setState({
+          childSV: data["childStatVars"],
+          childSVG: data["childStatVarGroups"],
+        });
+        this.hasData = true;
+      })
+      .catch(() => {
+        this.setState({
+          errorMessage: "Error retrieving stat var group children",
+        });
+      });
   }
 
   private scrollToHighlighted(): void {

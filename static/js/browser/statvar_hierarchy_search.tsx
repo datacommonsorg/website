@@ -149,7 +149,6 @@ export class StatVarHierarchySearch extends React.Component<
     for (const place of this.props.places) {
       url += `&places=${place}`;
     }
-    console.log(url);
     axios
       .get(url)
       .then((resp) => {
