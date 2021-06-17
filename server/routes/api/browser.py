@@ -15,11 +15,9 @@
 
 import flask
 import json
-import logging
 
 from cache import cache
 import services.datacommons as dc
-from services.datacommons import fetch_data
 from flask import Response
 from flask import request
 import routes.api.place as place_api
@@ -41,12 +39,12 @@ def triple_api(dcid):
 @bp.route('/propvals/<path:prop>/<path:dcid>')
 def get_property_value(dcid, prop):
     """Returns the property values for a given node dcid and property label."""
-    response = fetch_data('/node/property-values', {
+    response = dc.fetch_data('/node/property-values', {
         'dcids': [dcid],
         'property': prop,
     },
-                          compress=False,
-                          post=False)
+                             compress=False,
+                             post=False)
     result = {}
     result["property"] = prop
     result["values"] = response.get(dcid, {})
