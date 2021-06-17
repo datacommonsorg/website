@@ -61,6 +61,7 @@ interface StatVarGroupNodeStateType {
   childSVG: StatVarGroupInfo[];
   childSV: StatVarInfo[];
   errorMessage: string;
+  dataFetched: boolean;
 }
 
 export class StatVarGroupNode extends React.Component<
@@ -79,21 +80,33 @@ export class StatVarGroupNode extends React.Component<
       childSVG: [],
       childSV: [],
       errorMessage: "",
+      dataFetched: false,
     };
     this.highlightedStatVar = React.createRef();
     this.scrollToHighlighted = this.scrollToHighlighted.bind(this);
     this.fetchData = this.fetchData.bind(this);
-    this.hasData = false;
   }
 
   componentDidMount(): void {
+    if (
+      (this.props.startsOpened || this.state.toggledOpen) &&
+      !this.state.dataFetched
+    ) {
+      this.fetchData();
+    }
     this.scrollToHighlighted();
   }
 
-  render(): JSX.Element {
-    console.log(this.props);
-    console.log(this.state);
+  componentDidUpdate(): void {
+    if (
+      (this.props.startsOpened || this.state.toggledOpen) &&
+      !this.state.dataFetched
+    ) {
+      this.fetchData();
+    }
+  }
 
+  render(): JSX.Element {
     const triggerTitle = this.props.data.specializedEntity
       ? this.props.data.specializedEntity
       : this.props.data.displayName;
@@ -120,7 +133,10 @@ export class StatVarGroupNode extends React.Component<
       <Collapsible
         trigger={getTrigger(false)}
         triggerWhenOpen={getTrigger(true)}
-        open={this.props.startsOpened || this.state.toggledOpen}
+        open={
+          (this.props.startsOpened || this.state.toggledOpen) &&
+          this.state.dataFetched
+        }
         handleTriggerClick={() => {
           this.setState({ toggledOpen: !this.state.toggledOpen });
         }}
@@ -160,7 +176,7 @@ export class StatVarGroupNode extends React.Component<
   }
 
   private fetchData(): void {
-    if (this.hasData) {
+    if (this.state.dataFetched) {
       return;
     }
     let url = `/api/browser/statvar/group?stat_var_group=${this.props.data.id}`;
@@ -174,12 +190,13 @@ export class StatVarGroupNode extends React.Component<
         this.setState({
           childSV: data["childStatVars"],
           childSVG: data["childStatVarGroups"],
+          dataFetched: true,
         });
-        this.hasData = true;
       })
       .catch(() => {
         this.setState({
           errorMessage: "Error retrieving stat var group children",
+          dataFetched: false,
         });
       });
   }
