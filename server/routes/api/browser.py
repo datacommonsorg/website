@@ -15,10 +15,10 @@
 
 import flask
 import json
+import logging
 
 from cache import cache
 import services.datacommons as dc
-import lib.statvar_hierarchy_search as svh_search
 from services.datacommons import fetch_data
 from flask import Response
 from flask import request
@@ -197,11 +197,11 @@ def get_statvar_hierarchy_helper(dcid_string):
 def search_statvar_hierarchy():
     """Gets the statvars and statvar groups that match the tokens in the query
     """
-    query = request.args.get("query").lower()
-    query = query.replace(",", " ")
-    tokens = query.split()
-    result = svh_search.get_search_result(tokens)
-    return Response(json.dumps(list(result)), 200, mimetype='application/json')
+    query = request.args.get("query")
+    places = request.args.getlist("places")
+    logging.info(places)
+    result = dc.search_statvar(query, places)
+    return Response(json.dumps(result), 200, mimetype='application/json')
 
 
 @cache.memoize(timeout=3600 * 24)  # Cache for one day.

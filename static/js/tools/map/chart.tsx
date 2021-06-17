@@ -32,7 +32,7 @@ import {
 } from "./util";
 import { urlToDomain } from "../../shared/util";
 import { ChartOptions } from "./chart_options";
-import { NamedPlace } from "../../shared/types";
+import { Node } from "../../shared/types";
 import { DataPointMetadata } from "./chart_loader";
 import { formatNumber } from "../../i18n/i18n";
 
@@ -172,7 +172,7 @@ const getTooltipHtml = (
   statVarInfo: StatVarInfo,
   dataValues: { [dcid: string]: number },
   unit: string
-) => (place: NamedPlace) => {
+) => (place: Node) => {
   const titleHtml = `<b>${place.name}</b><br/>`;
   let hasValue = false;
   let value = "Data Missing";

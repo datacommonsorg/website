@@ -20,7 +20,7 @@
 
 import { createContext, useState } from "react";
 import { StatsVarNode } from "../statvar_menu/util";
-import { NamedPlace } from "../../shared/types";
+import { Node } from "../../shared/types";
 
 interface Axis {
   // StatVar to plot for this axis
@@ -58,11 +58,11 @@ interface AxisWrapper {
 
 interface PlaceInfo {
   // Place that encloses the child places to plot
-  enclosingPlace: NamedPlace;
+  enclosingPlace: Node;
   // Type of places to plot
   enclosedPlaceType: string;
   // Places to plot
-  enclosedPlaces: Array<NamedPlace>;
+  enclosedPlaces: Array<Node>;
   // Only plot places with populations between these
   lowerBound: number;
   upperBound: number;
@@ -73,9 +73,9 @@ interface PlaceInfoWrapper {
 
   // Setters
   set: Setter<PlaceInfo>;
-  setEnclosingPlace: Setter<NamedPlace>;
+  setEnclosingPlace: Setter<Node>;
   setEnclosedPlaceType: Setter<string>;
-  setEnclosedPlaces: Setter<Array<NamedPlace>>;
+  setEnclosedPlaces: Setter<Array<Node>>;
   setLowerBound: Setter<number>;
   setUpperBound: Setter<number>;
 }
@@ -222,7 +222,7 @@ function useContextStore(): ContextType {
 function getSetEnclosingPlace(
   place: PlaceInfo,
   setPlace: React.Dispatch<React.SetStateAction<PlaceInfo>>
-): Setter<NamedPlace> {
+): Setter<Node> {
   return (enclosingPlace) =>
     setPlace({
       ...place,
@@ -252,7 +252,7 @@ function getSetEnclosedPlaceType(
 function getSetEnclosedPlaces(
   place: PlaceInfo,
   setPlace: React.Dispatch<React.SetStateAction<PlaceInfo>>
-): Setter<Array<NamedPlace>> {
+): Setter<Array<Node>> {
   return (enclosedPlaces) =>
     setPlace({
       ...place,

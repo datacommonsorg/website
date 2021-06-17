@@ -44,10 +44,8 @@ optional childStatVars.
 """
 
 import services.datacommons as dc
-from cache import cache
-from flask import current_app
 from typing_extensions import TypedDict
-from typing import Dict, List, Set
+from typing import Dict, List
 
 # we want non human curated stat vars to be ranked last, so set their number of
 # PVs to a number greater than max number of PVs for a human curated stat var.
@@ -116,47 +114,3 @@ def get_statvar_search_index() -> Dict[str, Dict[str, RankingInformation]]:
             token_string: str = childStatVar.get("searchName", "")
             update_index(token_string, index, childStatVar["id"], childStatVar)
     return index
-
-
-def rank_search_result(
-        token_result_ids: Set[str],
-        token_result_nodes: Dict[str, RankingInformation]) -> List[str]:
-    """ Sorts the results by approxNumPv and rankingName
-
-    Args:
-        token_result_ids: set of ids
-        token_result_nodes: dictionary mapping id to node
-    """
-    sorted_result: List[str] = sorted(token_result_ids, key=len)
-    sorted_result.sort(key=lambda result: token_result_nodes.get(result, {}).
-                       get("approxNumPv"))
-    return sorted_result
-
-
-@cache.memoize(timeout=3600 * 24)  # Cache for one day.
-def get_search_result(tokens: List[str]) -> List[str]:
-    """gets the sorted list of results that matches all the tokens in the
-    token_string
-
-    Args:
-        tokens: list of tokens
-
-    Returns:
-        set of values that matches all the tokens in the token_string
-    """
-    search_index: Dict[str, Dict[
-        str, RankingInformation]] = current_app.config['STAT_VAR_SEARCH_INDEX']
-    token_result_ids: Set[str] = {}
-    token_result_nodes: Dict[str, RankingInformation] = dict()
-    if len(tokens) > 0:
-        token_result_nodes.update(search_index.get(tokens[0], {}))
-        token_result_ids = set(token_result_nodes.keys())
-    for token in tokens[1:]:
-        curr_token_result: Dict[str, RankingInformation] = search_index.get(
-            token, {})
-        curr_token_ids: Set[str] = set(curr_token_result.keys())
-        token_result_ids = token_result_ids.intersection(curr_token_ids)
-        token_result_nodes.update(curr_token_result)
-    sorted_result: List[str] = rank_search_result(token_result_ids,
-                                                  token_result_nodes)
-    return sorted_result

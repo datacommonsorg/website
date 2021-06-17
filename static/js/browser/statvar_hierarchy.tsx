@@ -26,7 +26,7 @@ import _ from "lodash";
 import { StatVarHierarchySearch } from "./statvar_hierarchy_search";
 import { StatVarGroupNode } from "./statvar_group_node";
 import { StatVarGroupNodeType, StatVarNodeType } from "./types";
-import { NamedPlace } from "../shared/types";
+import { Node } from "../shared/types";
 
 import { loadSpinner, removeSpinner } from "./util";
 import { Context } from "../shared/context";
@@ -37,7 +37,7 @@ const SORTED_LAST_SVG_ID = "dc/g/Miscellaneous";
 
 interface StatVarHierarchyPropType {
   type: string;
-  places: NamedPlace[];
+  places: Node[];
   // (Optional) A list of stat vars selected from parent componenet.
   // For example, in timeline tool, these are stat vars parsed from URL.
   svs?: string[];
@@ -129,8 +129,7 @@ export class StatVarHierarchy extends React.Component<
         {!_.isEmpty(this.svInfo) && (
           <div className="stat-var-hierarchy-container card">
             <StatVarHierarchySearch
-              statVarGroupsData={this.svgInfo}
-              statVarsData={this.svInfo}
+              places={this.props.places.map((x) => x.dcid)}
               onSelectionChange={this.onSearchSelectionChange}
             />
             <div className="hierarchy-section">

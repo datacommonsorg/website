@@ -52,7 +52,6 @@ class TestObservationId(unittest.TestCase):
         expected_obs_id = "test_obs_id"
 
         def side_effect(query):
-            print(query)
             if query == expected_query:
                 return (['?dcid', '?mmethod', '?obsPeriod', '?obsDate'], [{
                     'cells': [{
@@ -349,12 +348,12 @@ class TestStatVarHierarchy(unittest.TestCase):
 
 class TestSearchStatVarHierarchy(unittest.TestCase):
 
-    @patch('routes.api.browser.svh_search.get_search_result')
+    @patch('services.datacommons.search_statvar')
     def test_search_statvar_hierarchy_single_token(self, mock_search_result):
         expected_query = ["person"]
-        expected_result = ['group_1', 'group_2']
+        expected_result = {'statVarGroups': ['group_1', 'group_2']}
 
-        def side_effect(query):
+        def side_effect(query, _):
             if query == expected_query:
                 return expected_result
             else:
@@ -367,13 +366,13 @@ class TestSearchStatVarHierarchy(unittest.TestCase):
         result = json.loads(response.data)
         assert result == expected_result
 
-    @patch('routes.api.browser.svh_search.get_search_result')
+    @patch('services.datacommons.search_statvar')
     def test_search_statvar_hierarchy_single_token_comma(
             self, mock_search_result):
         expected_query = ["person"]
-        expected_result = ['group_1', 'group_2']
+        expected_result = {'statVarGroups': ['group_1', 'group_2']}
 
-        def side_effect(query):
+        def side_effect(query, _):
             if query == expected_query:
                 return expected_result
             else:
@@ -386,12 +385,12 @@ class TestSearchStatVarHierarchy(unittest.TestCase):
         result = json.loads(response.data)
         assert result == expected_result
 
-    @patch('routes.api.browser.svh_search.get_search_result')
+    @patch('services.datacommons.search_statvar')
     def test_search_statvar_hierarchy_multiple_tokens(self, mock_search_result):
         expected_query = ["person", "age", "race"]
-        expected_result = ['group_1', 'group_2']
+        expected_result = {'statVarGroups': ['group_1', 'group_2']}
 
-        def side_effect(query):
+        def side_effect(query, _):
             if query == expected_query:
                 return expected_result
             else:
@@ -404,13 +403,13 @@ class TestSearchStatVarHierarchy(unittest.TestCase):
         result = json.loads(response.data)
         assert result == expected_result
 
-    @patch('routes.api.browser.svh_search.get_search_result')
+    @patch('services.datacommons.search_statvar')
     def test_search_statvar_hierarchy_multiple_tokens_comma(
             self, mock_search_result):
         expected_query = ["person", "age", "race"]
-        expected_result = ['group_1', 'group_2']
+        expected_result = {'statVarGroups': ['group_1', 'group_2']}
 
-        def side_effect(query):
+        def side_effect(query, _):
             if query == expected_query:
                 return expected_result
             else:

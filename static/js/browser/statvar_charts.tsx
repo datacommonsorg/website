@@ -24,10 +24,10 @@ import { StatVarHierarchyNodeHeader } from "./statvar_hierarchy_node_header";
 import Collapsible from "react-collapsible";
 import { ObservationChartSection } from "./observation_chart_section";
 import { URI_PREFIX } from "./constants";
-import { NamedPlace } from "../shared/types";
+import { Node } from "../shared/types";
 
 interface StatVarChartsPropType {
-  place: NamedPlace;
+  place: Node;
   statVar: StatVarNodeType;
   selected: boolean;
 }

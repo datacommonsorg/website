@@ -20,7 +20,7 @@
  *
  * TODO(shifucun): migrate existing code to use this struct whenever possible.
  */
-export interface NamedPlace {
+export interface Node {
   name: string;
   dcid: string;
 }
