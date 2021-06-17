@@ -18,7 +18,7 @@
  * Chart component for drawing a choropleth.
  */
 
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import { GeoJsonData, GeoJsonFeatureProperties } from "../../chart/types";
 import { PlaceInfo, StatVarInfo } from "./context";
 import { Container } from "reactstrap";
@@ -51,8 +51,9 @@ interface ChartProps {
 const SVG_CONTAINER_ID = "choropleth_map";
 
 export function Chart(props: ChartProps): JSX.Element {
+  const [errorMessage, setErrorMessage] = useState("");
   useEffect(() => {
-    draw(props);
+    draw(props, setErrorMessage);
   }, [props]);
   const title = getTitle(Array.from(props.dates), props.statVarInfo.name);
   const sourcesJsx = getSourcesJsx(props.sources);
@@ -65,7 +66,11 @@ export function Chart(props: ChartProps): JSX.Element {
           <div className="map-title">
             <h3>{title}</h3>
           </div>
-          <div id={SVG_CONTAINER_ID}></div>
+          {errorMessage ? (
+            <div className="error-message">{errorMessage}</div>
+          ) : (
+            <div id={SVG_CONTAINER_ID}></div>
+          )}
           <ChartOptions
             dataValues={props.breadcrumbDataValues}
             placeInfo={props.placeInfo}
@@ -88,7 +93,10 @@ export function Chart(props: ChartProps): JSX.Element {
   );
 }
 
-function draw(props: ChartProps): void {
+function draw(
+  props: ChartProps,
+  setErrorMessage: (errorMessage: string) => void
+): void {
   document.getElementById(SVG_CONTAINER_ID).innerHTML = "";
   const width = document.getElementById(SVG_CONTAINER_ID).offsetWidth;
   const height = (width * 2) / 5;
@@ -100,6 +108,15 @@ function draw(props: ChartProps): void {
     props.placeInfo.enclosingPlace.dcid !== props.placeInfo.selectedPlace.dcid
       ? props.placeInfo.selectedPlace.dcid
       : "";
+  if (zoomDcid) {
+    const geoJsonFeature = props.geoJsonData.features.find(
+      (feature) => feature.properties.geoDcid === zoomDcid
+    );
+    if (!geoJsonFeature) {
+      setErrorMessage("Sorry, we are unable to draw the map for this place.");
+      return;
+    }
+  }
   if (!_.isEmpty(props.geoJsonData) && !_.isEmpty(props.mapDataValues)) {
     drawChoropleth(
       SVG_CONTAINER_ID,

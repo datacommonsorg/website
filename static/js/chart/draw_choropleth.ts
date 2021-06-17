@@ -120,6 +120,7 @@ function drawChoropleth(
   );
 
   // Scale and center the map
+  let isMapFitted = false;
   if (zoomDcid) {
     const geoJsonFeature = geoJson.features.find(
       (feature) => feature.properties.geoDcid === zoomDcid
@@ -133,8 +134,10 @@ function drawChoropleth(
         geomap,
         ZOOMED_SCALE_AMOUNT
       );
+      isMapFitted = true;
     }
-  } else {
+  }
+  if (!isMapFitted) {
     fitSize(
       chartWidth - legendWidth,
       chartHeight,
