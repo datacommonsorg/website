@@ -164,10 +164,10 @@ export class StatVarHierarchy extends React.Component<
 
   private fetchData(): void {
     loadSpinner(LOADING_CONTAINER_ID);
-    let url = "/api/browser/statvar/group?stat_var_group=dc/g/Root";
-    for (const place of this.props.places) {
-      url += `&places=${place.dcid}`;
-    }
+    const url = "/api/browser/statvar/group?stat_var_group=dc/g/Root";
+    // for (const place of this.props.places) {
+    //   url += `&places=${place.dcid}`;
+    // }
     axios
       .get(url)
       .then((resp) => {
