@@ -260,9 +260,11 @@ def get_date_range(dates):
     """
     dates = filter(lambda x: x != "", dates)
     sorted_dates_list = sorted(list(dates))
+    if not sorted_dates_list:
+        return ""
     date_range = sorted_dates_list[0]
     if len(sorted_dates_list) > 1:
-        date_range = f'{sorted_dates_list[0]} - {sorted_dates_list[-1]}'
+        date_range = f'{sorted_dates_list[0]} – {sorted_dates_list[-1]}'
     return date_range
 
 
