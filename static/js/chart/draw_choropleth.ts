@@ -42,6 +42,10 @@ const LEGEND_MARGIN_RIGHT = 5;
 const LEGEND_IMG_WIDTH = 10;
 const NUM_TICKS = 5;
 const HIGHLIGHTED_CLASS_NAME = "highlighted";
+const REGULAR_SCALE_AMOUNT = 1;
+const ZOOMED_SCALE_AMOUNT = 0.7;
+const LEGEND_BACKGROUND_MARGIN_LEFT = 30;
+const LEGEND_BACKGROUND_FILL = "white";
 
 /**
  * From https://bl.ocks.org/HarryStevens/0e440b73fbd88df7c6538417481c9065
@@ -50,14 +54,15 @@ const HIGHLIGHTED_CLASS_NAME = "highlighted";
 function fitSize(
   width: number,
   height: number,
-  object: GeoJsonData,
+  object: GeoJsonData | GeoJsonFeature,
   projection: d3.GeoProjection,
-  path: d3.GeoPath<any, d3.GeoPermissibleObjects>
+  path: d3.GeoPath<any, d3.GeoPermissibleObjects>,
+  scale: number
 ): void {
   projection.scale(1).translate([0, 0]);
   const b = path.bounds(object);
   const s =
-    1 / Math.max((b[1][0] - b[0][0]) / width, (b[1][1] - b[0][1]) / height);
+    scale / Math.max((b[1][0] - b[0][0]) / width, (b[1][1] - b[0][1]) / height);
   const translateX = (width - s * (b[1][0] + b[0][0])) / 2;
   const translateY = (height - s * (b[1][1] + b[0][1])) / 2;
   projection.scale(s).translate([translateX, translateY]);
@@ -75,7 +80,8 @@ function drawChoropleth(
   statVar: string,
   canClick: boolean,
   getRedirectLink: (geoDcid: GeoJsonFeatureProperties) => string,
-  getTooltipHtml: (place: NamedPlace) => string
+  getTooltipHtml: (place: NamedPlace) => string,
+  zoomDcid?: string
 ): void {
   const label = getStatsVarLabel(statVar);
   const maxColor = d3.color(getColorFn([label])(label));
@@ -98,13 +104,6 @@ function drawChoropleth(
     .append("svg")
     .attr("viewBox", `0 0 ${chartWidth} ${chartHeight}`)
     .attr("preserveAspectRatio", "xMidYMid meet");
-  const legendWidth = generateLegend(
-    svg,
-    chartWidth,
-    chartHeight,
-    colorScale,
-    unit
-  );
   const map = svg.append("g").attr("class", "map");
 
   // Combine path elements from D3 content.
@@ -112,9 +111,39 @@ function drawChoropleth(
 
   const projection = geo.geoAlbersUsaTerritories();
   const geomap = d3.geoPath().projection(projection);
+  const legendWidth = generateLegend(
+    svg,
+    chartWidth,
+    chartHeight,
+    colorScale,
+    unit
+  );
 
   // Scale and center the map
-  fitSize(chartWidth - legendWidth, chartHeight, geoJson, projection, geomap);
+  if (zoomDcid) {
+    const geoJsonFeature = geoJson.features.find(
+      (feature) => feature.properties.geoDcid === zoomDcid
+    );
+    if (geoJsonFeature) {
+      fitSize(
+        chartWidth - legendWidth,
+        chartHeight,
+        geoJsonFeature,
+        projection,
+        geomap,
+        ZOOMED_SCALE_AMOUNT
+      );
+    }
+  } else {
+    fitSize(
+      chartWidth - legendWidth,
+      chartHeight,
+      geoJson,
+      projection,
+      geomap,
+      REGULAR_SCALE_AMOUNT
+    );
+  }
 
   // Build map objects.
   const mapObjects = mapContent
@@ -123,7 +152,10 @@ function drawChoropleth(
     .attr("d", geomap)
     .attr("class", (geo: GeoJsonFeature) => {
       // highlight the place of the current page
-      if (geo.properties.geoDcid === geoJson.properties.current_geo) {
+      if (
+        geo.properties.geoDcid === geoJson.properties.current_geo ||
+        geo.properties.geoDcid === zoomDcid
+      ) {
         return HIGHLIGHTED_CLASS_NAME;
       }
     })
@@ -239,7 +271,7 @@ function generateLegend(
   const n = Math.min(color.domain().length, color.range().length);
 
   const legend = svg.append("g").attr("class", "legend");
-
+  const background = legend.append("rect");
   legend
     .append("image")
     .attr("id", "legend-img")
@@ -256,7 +288,6 @@ function generateLegend(
     );
 
   const yScale = d3.scaleLinear().domain(color.domain()).range([0, height]);
-
   legend
     .append("g")
     .attr("transform", `translate(0, ${LEGEND_MARGIN_TOP})`)
@@ -284,6 +315,11 @@ function generateLegend(
     .call((g) => g.select(".domain").remove());
 
   const legendWidth = legend.node().getBBox().width;
+  background
+    .attr("height", "100%")
+    .attr("width", legendWidth + LEGEND_BACKGROUND_MARGIN_LEFT)
+    .attr("fill", LEGEND_BACKGROUND_FILL)
+    .attr("transform", `translate(-${LEGEND_BACKGROUND_MARGIN_LEFT}, 0)`);
   legend.attr("transform", `translate(${chartWidth - legendWidth}, 0)`);
   return legendWidth;
 }

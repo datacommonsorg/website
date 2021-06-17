@@ -96,6 +96,10 @@ function draw(props: ChartProps): void {
     props.statVarInfo,
     props.placeInfo
   );
+  const zoomDcid =
+    props.placeInfo.enclosingPlace.dcid !== props.placeInfo.selectedPlace.dcid
+      ? props.placeInfo.selectedPlace.dcid
+      : "";
   if (!_.isEmpty(props.geoJsonData) && !_.isEmpty(props.mapDataValues)) {
     drawChoropleth(
       SVG_CONTAINER_ID,
@@ -112,7 +116,8 @@ function draw(props: ChartProps): void {
         props.statVarInfo,
         props.mapDataValues,
         props.unit
-      )
+      ),
+      zoomDcid
     );
   }
 }
@@ -152,16 +157,18 @@ const getMapRedirectLink = (statVarInfo: StatVarInfo, placeInfo: PlaceInfo) => (
   geoProperties: GeoJsonFeatureProperties
 ) => {
   let hash = updateHashStatVarInfo("", statVarInfo);
-  const enclosingPlace = {
+  const selectedPlace = {
     dcid: geoProperties.geoDcid,
     name: geoProperties.name,
+    types: [placeInfo.enclosedPlaceType],
   };
   const enclosedPlaceType =
     USA_CHILD_PLACE_TYPES[placeInfo.enclosedPlaceType][0];
   hash = updateHashPlaceInfo(hash, {
+    enclosingPlace: { dcid: "", name: "" },
     enclosedPlaces: [],
     enclosedPlaceType,
-    enclosingPlace,
+    selectedPlace,
     parentPlaces: [],
   });
   return `${MAP_REDIRECT_PREFIX}#${encodeURIComponent(hash)}`;

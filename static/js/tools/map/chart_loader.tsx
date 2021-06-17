@@ -31,6 +31,7 @@ import {
 import { Context, IsLoadingWrapper, PlaceInfo, StatVarInfo } from "./context";
 import { Chart } from "./chart";
 import axios from "axios";
+import { PlaceInfoWrapper } from "../scatter/context";
 
 interface ChartRawData {
   geoJsonData: GeoJsonData;
@@ -122,12 +123,10 @@ function fetchData(
   const populationStatVar = _.isEmpty(denomStatVars)
     ? "Count_Person"
     : denomStatVars[0];
-  const enclosingPlaceDcid = placeInfo.enclosingPlace.dcid;
-  const enclosedPlaceType = placeInfo.enclosedPlaceType;
   const breadcrumbPlaceDcids = placeInfo.parentPlaces.map(
     (namedPlace) => namedPlace.dcid
   );
-  breadcrumbPlaceDcids.push(enclosingPlaceDcid);
+  breadcrumbPlaceDcids.push(placeInfo.selectedPlace.dcid);
   const populationPromise = axios
     .post(`/api/stats/${populationStatVar}`, {
       dcid: placeInfo.enclosedPlaces.concat(breadcrumbPlaceDcids),
@@ -135,7 +134,7 @@ function fetchData(
     .then((resp) => resp.data);
   const geoJsonPromise = axios
     .get(
-      `/api/choropleth/geo2?placeDcid=${enclosingPlaceDcid}&placeType=${enclosedPlaceType}`
+      `/api/choropleth/geo2?placeDcid=${placeInfo.enclosingPlace.dcid}&placeType=${placeInfo.enclosedPlaceType}`
     )
     .then((resp) => resp.data);
   const statVarDataPromise = axios
@@ -215,13 +214,13 @@ function loadChartData(
         continue;
       }
     }
-    if (
-      placeInfo.parentPlaces.find((place) => place.dcid === dcid) ||
-      dcid === placeInfo.enclosingPlace.dcid
-    ) {
+    if (placeInfo.parentPlaces.find((place) => place.dcid === dcid)) {
       breadcrumbDataValues[dcid] = value;
     } else {
       mapDataValues[dcid] = value;
+    }
+    if (dcid === placeInfo.selectedPlace.dcid) {
+      breadcrumbDataValues[dcid] = value;
     }
     metadata[dcid] = {
       popDate,

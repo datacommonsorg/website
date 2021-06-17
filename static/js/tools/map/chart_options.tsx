@@ -19,7 +19,7 @@
  */
 
 import React, { useContext } from "react";
-import { Context, ParentPlace, PlaceInfo, StatVarInfo } from "./context";
+import { Context, NamedTypedPlace, PlaceInfo, StatVarInfo } from "./context";
 import { FormGroup, Label, Input } from "reactstrap";
 import _ from "lodash";
 import { formatNumber } from "../../i18n/i18n";
@@ -39,18 +39,15 @@ interface ChartOptionsPropType {
 }
 export function ChartOptions(props: ChartOptionsPropType): JSX.Element {
   const { statVarInfo } = useContext(Context);
-  const enclosingPlace = props.placeInfo.enclosingPlace;
-  const enclosingPlaceValue =
-    enclosingPlace.dcid in props.dataValues
-      ? formatNumber(props.dataValues[enclosingPlace.dcid], props.unit)
+  const selectedPlace = props.placeInfo.selectedPlace;
+  const selectedPlaceValue =
+    selectedPlace.dcid in props.dataValues
+      ? formatNumber(props.dataValues[selectedPlace.dcid], props.unit)
       : "N/A";
-  const enclosingPlaceDate =
-    enclosingPlace.dcid in props.metadata
-      ? ` (${props.metadata[enclosingPlace.dcid].statVarDate})`
+  const selectedPlaceDate =
+    selectedPlace.dcid in props.metadata
+      ? ` (${props.metadata[selectedPlace.dcid].statVarDate})`
       : "";
-  const parentPlaces = !_.isEmpty(props.placeInfo.parentPlaces)
-    ? props.placeInfo.parentPlaces.reverse()
-    : [];
   return (
     <div className="chart-options">
       <div>
@@ -68,10 +65,10 @@ export function ChartOptions(props: ChartOptionsPropType): JSX.Element {
       </div>
       <div className="breadcrumbs-title">{statVarInfo.value.name}</div>
       <div>
-        {enclosingPlace.name}
-        {enclosingPlaceDate}: {enclosingPlaceValue}
+        {selectedPlace.name}
+        {selectedPlaceDate}: {selectedPlaceValue}
       </div>
-      {parentPlaces.map((place) => {
+      {props.placeInfo.parentPlaces.map((place) => {
         const value =
           place.dcid in props.dataValues
             ? formatNumber(props.dataValues[place.dcid], props.unit)
@@ -94,25 +91,22 @@ export function ChartOptions(props: ChartOptionsPropType): JSX.Element {
 
 export function getRedirectLink(
   statVarInfo: StatVarInfo,
-  place: ParentPlace
+  selectedPlace: NamedTypedPlace
 ): string {
   let hash = updateHashStatVarInfo("", statVarInfo);
-  const enclosingPlace = {
-    dcid: place.dcid,
-    name: place.name,
-  };
   let enclosedPlaceType = "";
-  for (const type of place.types) {
+  for (const type of selectedPlace.types) {
     if (type in USA_CHILD_PLACE_TYPES) {
       enclosedPlaceType = USA_CHILD_PLACE_TYPES[type][0];
       break;
     }
   }
   hash = updateHashPlaceInfo(hash, {
-    enclosingPlace,
+    enclosingPlace: { name: "", dcid: "" },
     enclosedPlaces: [],
     enclosedPlaceType,
     parentPlaces: [],
+    selectedPlace,
   });
   return `${MAP_REDIRECT_PREFIX}#${encodeURIComponent(hash)}`;
 }
