@@ -31,7 +31,6 @@ import {
 import { Context, IsLoadingWrapper, PlaceInfo, StatVarInfo } from "./context";
 import { Chart } from "./chart";
 import axios from "axios";
-import { PlaceInfoWrapper } from "../scatter/context";
 
 interface ChartRawData {
   geoJsonData: GeoJsonData;

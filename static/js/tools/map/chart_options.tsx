@@ -21,7 +21,6 @@
 import React, { useContext } from "react";
 import { Context, NamedTypedPlace, PlaceInfo, StatVarInfo } from "./context";
 import { FormGroup, Label, Input } from "reactstrap";
-import _ from "lodash";
 import { formatNumber } from "../../i18n/i18n";
 import {
   updateHashPlaceInfo,
