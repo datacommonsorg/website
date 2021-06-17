@@ -243,7 +243,7 @@ export class StatVarHierarchy extends React.Component<
     }
     return axios.get(`/api/browser/statvar/path?id=${sv}`).then((resp) => {
       const data = resp.data;
-      return data["path"].reverse().slice(1);
+      return data["path"].reverse();
     });
   }
 }
