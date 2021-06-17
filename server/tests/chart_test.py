@@ -241,6 +241,21 @@ class TestChoroplethDataHelpers(unittest.TestCase):
             "2019", test_denom_data)
         assert result_denom_date_less_specific_no_match == 2
 
+    def test_get_date_range(self):
+        test_single_date = {"2019"}
+        single_date_result = chart_api.get_date_range(test_single_date)
+        assert single_date_result == "2019"
+        test_multiple_dates = {"2019", "2018", "2017"}
+        multiple_date_result = chart_api.get_date_range(test_multiple_dates)
+        assert multiple_date_result == "2017 – 2019"
+        test_empty_dates = {}
+        empty_date_result = chart_api.get_date_range(test_empty_dates)
+        assert empty_date_result == ""
+        test_empty_valid_dates = {""}
+        empty_valid_date_result = chart_api.get_date_range(
+            test_empty_valid_dates)
+        assert empty_valid_date_result == ""
+
 
 class TestChoroplethData(unittest.TestCase):
 
