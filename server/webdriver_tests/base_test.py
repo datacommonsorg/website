@@ -25,6 +25,7 @@ PYTEST_PARALLEL = environ.get("PYTEST_PARALLEL")
 DEFAULT_HEIGHT = 1200
 DEFAULT_WIDTH = 1200
 
+
 # Base test class to setup the server.
 # Please refer to README.md to see the order of method execution during test.
 class WebdriverBaseTest(LiveServerTestCase):
