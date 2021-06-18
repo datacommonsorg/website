@@ -29,7 +29,6 @@ from opencensus.trace.propagation import google_cloud_format
 from opencensus.trace.samplers import AlwaysOnSampler
 import lib.config as libconfig
 import lib.i18n as i18n
-import lib.statvar_hierarchy_search as svh_search
 
 propagator = google_cloud_format.GoogleCloudFormatPropagator()
 
@@ -134,8 +133,6 @@ def create_app():
                 counter += 1
             if counter > timeout:
                 raise RuntimeError("Mixer not ready after %s second" % timeout)
-        app.config[
-            'STAT_VAR_SEARCH_INDEX'] = svh_search.get_statvar_search_index()
 
     @app.before_request
     def before_request():

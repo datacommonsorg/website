@@ -30,22 +30,29 @@ export function PlaceOptions(): JSX.Element {
   const { placeInfo, isLoading } = useContext(Context);
   const [enclosedPlaceTypes, setEnclosedPlaceTypes] = useState([]);
   useEffect(() => {
-    if (placeInfo.value.enclosingPlace.dcid) {
+    if (placeInfo.value.selectedPlace.dcid) {
       updateEnclosedPlaceTypes(
-        placeInfo.value.enclosingPlace.dcid,
+        placeInfo.value.selectedPlace.dcid,
         setEnclosedPlaceTypes
       );
     }
-  }, [placeInfo.value.enclosingPlace]);
+  }, [placeInfo.value.selectedPlace]);
   useEffect(() => {
-    const placeInfoVal = placeInfo.value;
-    if (placeInfoVal.enclosingPlace.dcid) {
-      if (_.isNull(placeInfoVal.parentPlaces)) {
+    if (placeInfo.value.selectedPlace.dcid) {
+      if (_.isNull(placeInfo.value.parentPlaces)) {
         loadParentPlaces(placeInfo);
       }
       if (
-        placeInfoVal.enclosedPlaceType &&
-        _.isEmpty(placeInfoVal.enclosedPlaces)
+        placeInfo.value.enclosedPlaceType &&
+        !_.isNull(placeInfo.value.parentPlaces) &&
+        !placeInfo.value.enclosingPlace.dcid
+      ) {
+        loadEnclosingPlace(placeInfo);
+      }
+      if (
+        placeInfo.value.enclosingPlace.dcid &&
+        placeInfo.value.enclosedPlaceType &&
+        _.isEmpty(placeInfo.value.enclosedPlaces)
       ) {
         loadEnclosedPlaces(placeInfo, isLoading);
       }
@@ -59,16 +66,16 @@ export function PlaceOptions(): JSX.Element {
           <div id="search">
             <SearchBar
               places={
-                placeInfo.value.enclosingPlace.dcid
+                placeInfo.value.selectedPlace.dcid
                   ? {
-                      [placeInfo.value.enclosingPlace.dcid]:
-                        placeInfo.value.enclosingPlace.name,
+                      [placeInfo.value.selectedPlace.dcid]:
+                        placeInfo.value.selectedPlace.name,
                     }
                   : {}
               }
-              addPlace={(e) => selectEnclosingPlace(placeInfo, e)}
+              addPlace={(e) => selectPlace(placeInfo, e)}
               removePlace={() =>
-                unselectEnclosingPlace(placeInfo, setEnclosedPlaceTypes)
+                unselectPlace(placeInfo, setEnclosedPlaceTypes)
               }
               numPlacesLimit={1}
               countryRestrictions={["us"]}
@@ -112,14 +119,20 @@ function selectEnclosedPlaceType(
  * @param place
  * @param dcid
  */
-function selectEnclosingPlace(place: PlaceInfoWrapper, dcid: string): void {
-  axios
+function selectPlace(place: PlaceInfoWrapper, dcid: string): void {
+  const placeTypePromise = axios
+    .get(`/api/place/type/${dcid}`)
+    .then((resp) => resp.data);
+  const placeNamePromise = axios
     .get(`/api/place/name?dcid=${dcid}`)
-    .then((resp) => {
-      place.setEnclosingPlace({ dcid: dcid, name: resp.data[dcid] });
+    .then((resp) => resp.data);
+  Promise.all([placeTypePromise, placeNamePromise])
+    .then(([placeType, placeName]) => {
+      const name = dcid in placeName ? placeName[dcid] : dcid;
+      place.setSelectedPlace({ dcid, name, types: [placeType] });
     })
     .catch(() => {
-      place.setEnclosingPlace({ dcid: dcid, name: dcid });
+      place.setSelectedPlace({ dcid, name: dcid, types: [] });
     });
 }
 
@@ -127,11 +140,11 @@ function selectEnclosingPlace(place: PlaceInfoWrapper, dcid: string): void {
  * Removes the enclosing place
  * @param place
  */
-function unselectEnclosingPlace(
+function unselectPlace(
   place: PlaceInfoWrapper,
   setEnclosedPlaceTypes: (placeTypes: string[]) => void
 ): void {
-  place.setEnclosingPlace({ dcid: "", name: "" });
+  place.setSelectedPlace({ dcid: "", name: "", types: [] });
   setEnclosedPlaceTypes([]);
 }
 
@@ -163,19 +176,47 @@ function updateEnclosedPlaceTypes(
     });
 }
 
+function loadEnclosingPlace(place: PlaceInfoWrapper): void {
+  const selectedPlace = place.value.selectedPlace;
+  if (selectedPlace.types.indexOf(place.value.enclosedPlaceType) > -1) {
+    for (const parent of place.value.parentPlaces) {
+      for (const type of parent.types) {
+        if (
+          type in USA_CHILD_PLACE_TYPES &&
+          USA_CHILD_PLACE_TYPES[type].indexOf(place.value.enclosedPlaceType) >
+            -1
+        ) {
+          place.setEnclosingPlace({ dcid: parent.dcid, name: parent.name });
+          return;
+        }
+      }
+    }
+  }
+  place.setEnclosingPlace({
+    dcid: selectedPlace.dcid,
+    name: selectedPlace.name,
+  });
+}
+
 function loadParentPlaces(place: PlaceInfoWrapper): void {
-  const placeDcid = place.value.enclosingPlace.dcid;
+  const placeDcid = place.value.selectedPlace.dcid;
   axios
     .get(`/api/place/parent/${placeDcid}`)
     .then((resp) => {
       const parentsData = resp.data;
-      const filteredParentsData = parentsData.filter(
-        (parent) => parent.types.indexOf("Continent") === -1
-      );
-      const parentNamedPlaces = filteredParentsData.map((parent) => {
+      const possibleTypes = Object.keys(USA_CHILD_PLACE_TYPES);
+      const filteredParentsData = parentsData.filter((parent) => {
+        for (const type of parent.types) {
+          if (possibleTypes.includes(type)) {
+            return true;
+          }
+        }
+        return false;
+      });
+      const parentPlaces = filteredParentsData.map((parent) => {
         return { dcid: parent.dcid, name: parent.name, types: parent.types };
       });
-      place.setParentPlaces(parentNamedPlaces);
+      place.setParentPlaces(parentPlaces);
     })
     .catch(() => place.setParentPlaces([]));
 }

@@ -40,6 +40,18 @@ export interface SourceSeries {
   unit?: string;
 }
 
+export interface StatVarInfo {
+  id: string;
+  specializedEntity: string;
+  displayName: string;
+}
+
+export interface StatVarGroupInfo {
+  id: string;
+  specializedEntity: string;
+  displayName: string;
+}
+
 export interface StatVarGroupNodeType {
   absoluteName: string;
   level: number;

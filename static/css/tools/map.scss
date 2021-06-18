@@ -131,3 +131,15 @@
 #tooltip footer {
   margin-top: .5rem;
 }
+
+.legend rect {
+  fill: #f8f8f8;
+}
+
+.error-message {
+  color: #721c24;
+  font-size: .9rem;
+  padding: 15px;
+  border-radius: 3px;
+  background: #f8d7da;
+}
