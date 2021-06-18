@@ -106,6 +106,7 @@ function run_py_test {
 
 # Run test for webdriver automation test codes.
 function run_webdriver_test {
+  printf '\n\e[1;35m%-6s\e[m\n\n' "!!! Have you generated the prod client packages? Run './run_test.sh -b' first to do so"
   setup_python
   cd server
   if [ ! -d dist  ]
@@ -127,6 +128,7 @@ function run_webdriver_test {
 }
 
 function run_screenshot_test {
+  printf '\n\e[1;35m%-6s\e[m\n\n' "!!! Have you generated the prod client packages? Run './run_test.sh -b' first to do so"
   setup_python
   cd server
   if [ ! -d dist  ]
