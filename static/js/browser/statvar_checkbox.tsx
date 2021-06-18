@@ -20,12 +20,12 @@
 
 import React from "react";
 
-import { StatVarNodeType } from "./types";
+import { StatVarInfo } from "./types";
 import { Context, ContextType } from "../shared/context";
 
 interface StatVarCheckboxPropType {
   path: string[];
-  statVar: StatVarNodeType;
+  statVar: StatVarInfo;
   selected: boolean;
 }
 

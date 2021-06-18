@@ -49,7 +49,10 @@ API_ENDPOINTS = {
     # TODO(shifucun): switch back to /node/related-places after data switch.
     'get_related_places': '/node/related-locations',
     'get_interesting_places': '/node/interesting-place-aspects',
-    'get_statvar_groups': '/place/stat-var-group',
+    'get_statvar_groups': '/stat-var/group/all',
+    'get_statvar_group': '/stat-var/group',
+    'get_statvar_path': '/stat-var/path',
+    'search_statvar': '/stat-var/search',
 }
 
 # The default value to limit to
@@ -337,6 +340,32 @@ def get_statvar_groups(dcids):
     return response.get('statVarGroups', {})
 
 
+def search_statvar(query, places):
+    url = API_ROOT + API_ENDPOINTS['search_statvar']
+    req_json = {
+        'query': query,
+        'places': places,
+    }
+    return send_request(url, req_json, has_payload=False)
+
+
+def get_statvar_group(stat_var_group, places):
+    url = API_ROOT + API_ENDPOINTS['get_statvar_group']
+    req_json = {
+        'stat_var_group': stat_var_group,
+        'places': places,
+    }
+    return send_request(url, req_json, has_payload=False)
+
+
+def get_statvar_path(id):
+    url = API_ROOT + API_ENDPOINTS['get_statvar_path']
+    req_json = {
+        'id': id,
+    }
+    return send_request(url, req_json, has_payload=False)
+
+
 # ------------------------- INTERNAL HELPER FUNCTIONS -------------------------
 
 
@@ -394,17 +423,3 @@ def _format_expand_payload(payload, new_key, must_exist=[]):
     for dcid in must_exist:
         results[dcid]
     return {k: sorted(list(v)) for k, v in results.items()}
-
-
-def _flatten_results(result, default_value=None):
-    """ Formats results to map to a single value or default value if empty. """
-    flattened = {}
-    for k, v in result.items():
-        if len(v) > 1:
-            raise ValueError(
-                'Expected one, but more returned for "{}": {}'.format(k, v))
-        if len(v) == 1:
-            flattened[k] = v[0]
-        elif default_value is not None:
-            flattened[k] = default_value
-    return flattened
