@@ -292,8 +292,10 @@ def choropleth_data(dcid):
     configs = get_choropleth_configs()
     stat_vars, denoms = get_stat_vars(configs)
     display_dcid, display_level = get_choropleth_display_level(dcid)
-    geos = dc_service.get_places_in([display_dcid],
-                                    display_level).get(display_dcid, [])
+    geos = []
+    if display_dcid and display_level:
+        geos = dc_service.get_places_in([display_dcid],
+                                        display_level).get(display_dcid, [])
     if not stat_vars or not geos:
         return Response(json.dumps({}), 200, mimetype='application/json')
     # Get data for all the stat vars for every place we will need and process the data
