@@ -22,18 +22,17 @@
 import React from "react";
 import axios from "axios";
 import _ from "lodash";
-import { StatVarGroupNodeType, StatVarNodeType } from "./types";
+import { NamedNode } from "../shared/types";
 
 interface StatVarHierarchySearchPropType {
-  statVarGroupsData: { [key: string]: StatVarGroupNodeType };
-  statVarsData: { [key: string]: StatVarNodeType };
+  places: string[];
   onSelectionChange: (newSelection: string) => void;
 }
 
 interface StatVarHierarchySearchStateType {
   query: string;
-  svgResults: string[];
-  svResults: string[];
+  svgResults: NamedNode[];
+  svResults: NamedNode[];
   showNoResultsMessage: boolean;
 }
 
@@ -90,10 +89,10 @@ export class StatVarHierarchySearch extends React.Component<
                   return (
                     <div
                       className="search-result-value"
-                      onClick={this.onResultSelected(svg)}
-                      key={svg}
+                      onClick={this.onResultSelected(svg.dcid)}
+                      key={svg.dcid}
                     >
-                      {this.props.statVarGroupsData[svg].absoluteName}
+                      {svg.name}
                     </div>
                   );
                 })}
@@ -108,10 +107,10 @@ export class StatVarHierarchySearch extends React.Component<
                   return (
                     <div
                       className="search-result-value"
-                      onClick={this.onResultSelected(sv)}
-                      key={sv}
+                      onClick={this.onResultSelected(sv.dcid)}
+                      key={sv.dcid}
                     >
-                      {this.props.statVarsData[sv].displayName}
+                      {sv.name}
                     </div>
                   );
                 })}
@@ -146,15 +145,18 @@ export class StatVarHierarchySearch extends React.Component<
   };
 
   private search = (query: string) => () => {
+    let url = `/api/browser/search_statvar_hierarchy?query=${query}`;
+    for (const place of this.props.places) {
+      url += `&places=${place}`;
+    }
     axios
-      .get(`/api/browser/search_statvar_hierarchy?query=${query}`)
+      .get(url)
       .then((resp) => {
         const currQuery = this.state.query;
         const data = resp.data;
         if (query === currQuery) {
-          const processedResults = this.processSearchResults(data);
-          const svgResults = processedResults.statVarGroups;
-          const svResults = processedResults.statVars;
+          const svgResults: NamedNode[] = data.statVarGroups;
+          const svResults: NamedNode[] = data.statVars;
           this.setState({
             svResults,
             svgResults,
@@ -182,29 +184,23 @@ export class StatVarHierarchySearch extends React.Component<
     });
   };
 
-  private processSearchResults(
-    resultsList: string[]
-  ): { statVarGroups: string[]; statVars: string[] } {
-    const statVarGroupIds = new Set(Object.keys(this.props.statVarGroupsData));
-    const statVarIds = new Set(Object.keys(this.props.statVarsData));
-    const svgResults = [];
-    const svResults = [];
-    for (const result of resultsList) {
-      if (statVarGroupIds.has(result)) {
-        svgResults.push(result);
-      } else if (statVarIds.has(result)) {
-        svResults.push(result);
+  private onResultSelected = (selectedID: string) => () => {
+    this.props.onSelectionChange(selectedID);
+    let displayName = "";
+    for (const sv of this.state.svResults) {
+      if (sv.dcid == selectedID) {
+        displayName = sv.name;
+        break;
       }
     }
-    return { statVarGroups: svgResults, statVars: svResults };
-  }
-
-  private onResultSelected = (selectedResult: string) => () => {
-    this.props.onSelectionChange(selectedResult);
-    const displayName =
-      selectedResult in this.props.statVarGroupsData
-        ? this.props.statVarGroupsData[selectedResult].absoluteName
-        : this.props.statVarsData[selectedResult].displayName;
+    if (displayName == "") {
+      for (const svg of this.state.svgResults) {
+        if (svg.dcid == selectedID) {
+          displayName = svg.name;
+          break;
+        }
+      }
+    }
     this.setState({
       query: displayName,
       svResults: [],

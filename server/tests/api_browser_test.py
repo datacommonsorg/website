@@ -52,7 +52,6 @@ class TestObservationId(unittest.TestCase):
         expected_obs_id = "test_obs_id"
 
         def side_effect(query):
-            print(query)
             if query == expected_query:
                 return (['?dcid', '?mmethod', '?obsPeriod', '?obsDate'], [{
                     'cells': [{
@@ -349,76 +348,21 @@ class TestStatVarHierarchy(unittest.TestCase):
 
 class TestSearchStatVarHierarchy(unittest.TestCase):
 
-    @patch('routes.api.browser.svh_search.get_search_result')
+    @patch('routes.api.browser.dc.search_statvar')
     def test_search_statvar_hierarchy_single_token(self, mock_search_result):
-        expected_query = ["person"]
-        expected_result = ['group_1', 'group_2']
+        expected_query = 'person'
+        expected_places = ["geoId/06"]
+        expected_result = {'statVarGroups': ['group_1', 'group_2']}
 
-        def side_effect(query):
-            if query == expected_query:
+        def side_effect(query, places):
+            if query == expected_query and places == expected_places:
                 return expected_result
             else:
                 return []
 
         mock_search_result.side_effect = side_effect
         response = app.test_client().get(
-            'api/browser/search_statvar_hierarchy?query=person')
-        assert response.status_code == 200
-        result = json.loads(response.data)
-        assert result == expected_result
-
-    @patch('routes.api.browser.svh_search.get_search_result')
-    def test_search_statvar_hierarchy_single_token_comma(
-            self, mock_search_result):
-        expected_query = ["person"]
-        expected_result = ['group_1', 'group_2']
-
-        def side_effect(query):
-            if query == expected_query:
-                return expected_result
-            else:
-                return []
-
-        mock_search_result.side_effect = side_effect
-        response = app.test_client().get(
-            'api/browser/search_statvar_hierarchy?query=person,')
-        assert response.status_code == 200
-        result = json.loads(response.data)
-        assert result == expected_result
-
-    @patch('routes.api.browser.svh_search.get_search_result')
-    def test_search_statvar_hierarchy_multiple_tokens(self, mock_search_result):
-        expected_query = ["person", "age", "race"]
-        expected_result = ['group_1', 'group_2']
-
-        def side_effect(query):
-            if query == expected_query:
-                return expected_result
-            else:
-                return []
-
-        mock_search_result.side_effect = side_effect
-        response = app.test_client().get(
-            'api/browser/search_statvar_hierarchy?query=person%20age%20race')
-        assert response.status_code == 200
-        result = json.loads(response.data)
-        assert result == expected_result
-
-    @patch('routes.api.browser.svh_search.get_search_result')
-    def test_search_statvar_hierarchy_multiple_tokens_comma(
-            self, mock_search_result):
-        expected_query = ["person", "age", "race"]
-        expected_result = ['group_1', 'group_2']
-
-        def side_effect(query):
-            if query == expected_query:
-                return expected_result
-            else:
-                return []
-
-        mock_search_result.side_effect = side_effect
-        response = app.test_client().get(
-            'api/browser/search_statvar_hierarchy?query=person%20age,race')
+            'api/browser/search_statvar_hierarchy?query=person&places=geoId/06')
         assert response.status_code == 200
         result = json.loads(response.data)
         assert result == expected_result

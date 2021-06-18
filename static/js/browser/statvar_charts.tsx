@@ -19,7 +19,7 @@
  */
 
 import React from "react";
-import { StatVarNodeType, StatVarHierarchyNodeType } from "./types";
+import { StatVarInfo, StatVarHierarchyNodeType } from "./types";
 import { StatVarHierarchyNodeHeader } from "./statvar_hierarchy_node_header";
 import Collapsible from "react-collapsible";
 import { ObservationChartSection } from "./observation_chart_section";
@@ -28,7 +28,7 @@ import { NamedPlace } from "../shared/types";
 
 interface StatVarChartsPropType {
   place: NamedPlace;
-  statVar: StatVarNodeType;
+  statVar: StatVarInfo;
   selected: boolean;
 }
 

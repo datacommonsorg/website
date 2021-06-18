@@ -22,7 +22,7 @@
 import React from "react";
 import _ from "lodash";
 
-import { StatVarGroupNodeType } from "./types";
+import { StatVarGroupInfo } from "./types";
 import { NamedPlace } from "../shared/types";
 import { StatVarGroupNode } from "./statvar_group_node";
 
@@ -30,8 +30,7 @@ const VARIABLES_STATVAR_GROUP_PREFIX = "dc/g/Variables_";
 
 interface StatVarGroupSectionPropType {
   path: string[];
-  data: { [key: string]: StatVarGroupNodeType };
-  statVarGroupId: string;
+  data: StatVarGroupInfo[];
   pathToSelection: string[];
   highlightedStatVar: React.RefObject<HTMLDivElement>;
   places: NamedPlace[];
@@ -41,8 +40,7 @@ export class StatVarGroupSection extends React.Component<
   StatVarGroupSectionPropType
 > {
   render(): JSX.Element {
-    let childStatVarGroups = this.props.data[this.props.statVarGroupId]
-      .childStatVarGroups;
+    let childStatVarGroups = this.props.data;
     const variableGroupItem = childStatVarGroups.find((svg) =>
       svg.id.startsWith(VARIABLES_STATVAR_GROUP_PREFIX)
     );
@@ -52,6 +50,7 @@ export class StatVarGroupSection extends React.Component<
       );
       childStatVarGroups.unshift(variableGroupItem);
     }
+    const singleChild = childStatVarGroups.length == 1;
     return (
       <div className="svg-node-child">
         {childStatVarGroups.map((childStatVarGroup) => {
@@ -71,11 +70,10 @@ export class StatVarGroupSection extends React.Component<
                 <StatVarGroupNode
                   path={this.props.path.concat([childStatVarGroup.id])}
                   places={this.props.places}
-                  statVarGroupId={childStatVarGroup.id}
-                  data={this.props.data}
+                  data={childStatVarGroup}
                   pathToSelection={this.props.pathToSelection.slice(1)}
-                  specializedEntity={childStatVarGroup.specializedEntity}
                   startsOpened={
+                    singleChild ||
                     this.props.pathToSelection[0] === childStatVarGroup.id
                   }
                   isSelected={this.props.pathToSelection.length === 1}
