@@ -188,7 +188,8 @@ export class StatVarGroupNode extends React.Component<
     if (this.state.dataFetched) {
       return;
     }
-    // stat var (group) dcid can contain "&", need to encode here.
+    // stat var (group) dcid can contain [/_-.&], need to encode here.
+    // Example: dc/g/Person_Citizenship-NotAUSCitizen_CorrectionalFacilityOperator-StateOperated&FederallyOperated&PrivatelyOperated
     let url = `/api/browser/statvar/group?stat_var_group=${encodeURIComponent(
       this.props.data.id
     )}`;
