@@ -88,19 +88,19 @@ export class StatVarGroupNode extends React.Component<
   }
 
   componentDidMount(): void {
-    if (
-      (this.props.startsOpened || this.state.toggledOpen) &&
-      !this.state.dataFetched
-    ) {
-      this.fetchData();
-    }
-    this.scrollToHighlighted();
+    this.fetchDataIfNecessary();
   }
 
   componentDidUpdate(): void {
+    this.fetchDataIfNecessary();
+    this.scrollToHighlighted();
+  }
+
+  fetchDataIfNecessary(): void {
     if (
       (this.props.startsOpened || this.state.toggledOpen) &&
-      !this.state.dataFetched
+      !this.state.dataFetched &&
+      !this.state.errorMessage
     ) {
       this.fetchData();
     }
@@ -179,7 +179,9 @@ export class StatVarGroupNode extends React.Component<
     if (this.state.dataFetched) {
       return;
     }
-    let url = `/api/browser/statvar/group?stat_var_group=${this.props.data.id}`;
+    let url = `/api/browser/statvar/group?stat_var_group=${encodeURIComponent(
+      this.props.data.id
+    )}`;
     for (const place of this.props.places) {
       url += `&places=${place.dcid}`;
     }

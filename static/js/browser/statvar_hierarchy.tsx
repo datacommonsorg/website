@@ -241,9 +241,11 @@ export class StatVarHierarchy extends React.Component<
     if (sv == "") {
       return Promise.resolve([]);
     }
-    return axios.get(`/api/browser/statvar/path?id=${sv}`).then((resp) => {
-      const data = resp.data;
-      return data["path"].reverse();
-    });
+    return axios
+      .get(`/api/browser/statvar/path?id=${encodeURIComponent(sv)}`)
+      .then((resp) => {
+        const data = resp.data;
+        return data["path"].reverse();
+      });
   }
 }
