@@ -208,7 +208,7 @@ def get_statvar_group():
     """
     stat_var_group = request.args.get("stat_var_group")
     places = request.args.getlist("places")
-    result = dc.get_statvar_group(stat_var_group, [])
+    result = dc.get_statvar_group(stat_var_group, places)
     return Response(json.dumps(result), 200, mimetype='application/json')
 
 

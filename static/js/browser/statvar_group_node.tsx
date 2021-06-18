@@ -179,6 +179,7 @@ export class StatVarGroupNode extends React.Component<
     if (this.state.dataFetched) {
       return;
     }
+    // stat var (group) dcid count contain "&", need to encode here.
     let url = `/api/browser/statvar/group?stat_var_group=${encodeURIComponent(
       this.props.data.id
     )}`;
