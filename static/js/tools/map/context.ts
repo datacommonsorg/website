@@ -15,7 +15,7 @@
  */
 
 import { createContext, useState } from "react";
-import { NamedNode } from "../../shared/types";
+import { NamedPlace } from "../../shared/types";
 import { StatsVarNode } from "../statvar_menu/util";
 import { applyHashStatVarInfo, applyHashPlaceInfo } from "./util";
 
@@ -58,7 +58,7 @@ export interface StatVarInfoWrapper {
 // Information relating to the places to plot
 export interface PlaceInfo {
   // Place that encloses the places to plot
-  enclosingPlace: NamedNode;
+  enclosingPlace: NamedPlace;
   // The type of place to plot
   enclosedPlaceType: string;
   // The places to plot
@@ -72,7 +72,7 @@ export interface PlaceInfoWrapper {
   value: PlaceInfo;
 
   set: Setter<PlaceInfo>;
-  setEnclosingPlace: Setter<NamedNode>;
+  setEnclosingPlace: Setter<NamedPlace>;
   setEnclosedPlaceType: Setter<string>;
   setEnclosedPlaces: Setter<Array<string>>;
   setParentPlaces: Setter<Array<ParentPlace>>;
