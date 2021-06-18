@@ -28,8 +28,8 @@ interface Setter<T> {
   (value: T): void;
 }
 
-// Information regarding a parent place.
-export interface ParentPlace {
+// Place with name and its type.
+export interface NamedTypedPlace {
   dcid: string;
   name: string;
   types: Array<string>;
@@ -57,14 +57,16 @@ export interface StatVarInfoWrapper {
 
 // Information relating to the places to plot
 export interface PlaceInfo {
+  // The current place that has been selected
+  selectedPlace: NamedTypedPlace;
+  // The parent places of the selected place
+  parentPlaces: Array<NamedTypedPlace>;
   // Place that encloses the places to plot
   enclosingPlace: NamedPlace;
   // The type of place to plot
   enclosedPlaceType: string;
   // The places to plot
   enclosedPlaces: Array<string>;
-  // The parent places of the enclosing place
-  parentPlaces: Array<ParentPlace>;
 }
 
 // Wraps PlaceInfo with its setters
@@ -72,10 +74,11 @@ export interface PlaceInfoWrapper {
   value: PlaceInfo;
 
   set: Setter<PlaceInfo>;
+  setSelectedPlace: Setter<NamedTypedPlace>;
+  setParentPlaces: Setter<Array<NamedTypedPlace>>;
   setEnclosingPlace: Setter<NamedPlace>;
   setEnclosedPlaceType: Setter<string>;
   setEnclosedPlaces: Setter<Array<string>>;
-  setParentPlaces: Setter<Array<ParentPlace>>;
 }
 
 // Information relating to things loading
@@ -122,17 +125,25 @@ export function getInitialContext(params: URLSearchParams): ContextType {
     placeInfo: {
       value: placeInfo,
       set: (placeInfo) => setPlaceInfo(placeInfo),
+      setSelectedPlace: (selectedPlace) =>
+        setPlaceInfo({
+          ...placeInfo,
+          selectedPlace,
+          enclosedPlaces: [],
+          enclosedPlaceType: "",
+          parentPlaces: null,
+          enclosingPlace: { dcid: "", name: "" },
+        }),
       setEnclosingPlace: (enclosingPlace) =>
         setPlaceInfo({
           ...placeInfo,
           enclosingPlace,
           enclosedPlaces: [],
-          enclosedPlaceType: "",
-          parentPlaces: null,
         }),
       setEnclosedPlaceType: (enclosedPlaceType) =>
         setPlaceInfo({
           ...placeInfo,
+          enclosingPlace: { dcid: "", name: "" },
           enclosedPlaces: [],
           enclosedPlaceType,
           parentPlaces: null,

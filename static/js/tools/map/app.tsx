@@ -36,8 +36,7 @@ function App(): JSX.Element {
   const { statVarInfo, placeInfo, isLoading } = useContext(Context);
   const showChart =
     !_.isEmpty(statVarInfo.value.statVar) &&
-    !_.isEmpty(placeInfo.value.enclosingPlace.dcid) &&
-    !_.isEmpty(placeInfo.value.enclosedPlaceType);
+    !_.isEmpty(placeInfo.value.enclosedPlaces);
   const showLoadingSpinner =
     isLoading.value.isDataLoading || isLoading.value.isPlaceInfoLoading;
   return (

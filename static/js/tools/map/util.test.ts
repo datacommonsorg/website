@@ -25,9 +25,14 @@ import {
 const TestContext = ({
   placeInfo: {
     value: {
-      enclosingPlace: {
+      selectedPlace: {
         dcid: "geoId/10",
         name: "Delaware",
+        types: ["State"],
+      },
+      enclosingPlace: {
+        dcid: "",
+        name: "",
       },
       enclosedPlaceType: "County",
       enclosedPlaces: [
@@ -59,7 +64,7 @@ const TestContext = ({
 test("updateHashPlaceInfo", () => {
   history.pushState = jest.fn();
   const resultHash = updateHashPlaceInfo("", TestContext.placeInfo.value);
-  const expectedHash = "&pd=geoId/10&pn=Delaware&pt=County";
+  const expectedHash = "&pd=geoId/10&pn=Delaware&pt=State&ept=County";
   expect(resultHash).toEqual(expectedHash);
 });
 
@@ -75,7 +80,7 @@ test("applyHashPlaceInfo", () => {
   context.placeInfo.set = (value) => (context.placeInfo.value = value);
   const urlParams = new URLSearchParams(
     decodeURIComponent(
-      "#%26sv%3DCount_Person%26svn%3DPeople%26pc%3D0%26pd%3DgeoId%2F10%26pn%3DDelaware%26pt%3DCounty"
+      "#%26sv%3DCount_Person%26svn%3DPeople%26pc%3D0%26pd%3DgeoId%2F10%26pn%3DDelaware%26pt%3DState&ept=County"
     ).replace("#", "?")
   );
   const placeInfo = applyHashPlaceInfo(urlParams);
