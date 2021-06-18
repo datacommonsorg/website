@@ -246,8 +246,7 @@ export class StatVarHierarchy extends React.Component<
     return axios
       .get(`/api/browser/statvar/path?id=${encodeURIComponent(sv)}`)
       .then((resp) => {
-        const data = resp.data;
-        return data["path"].reverse();
+        return resp.data["path"].reverse();
       });
   }
 }

@@ -58,9 +58,13 @@ interface StatVarGroupNodeStateType {
   // open, we want to render an expanded collapsible by passing in true for the
   // open prop.
   toggledOpen: boolean;
+  // A list of child stat var group nodes.
   childSVG: StatVarGroupInfo[];
+  // A list of child stat var nodes.
   childSV: StatVarInfo[];
+  // Error message when failed to render this componenet.
   errorMessage: string;
+  // Whether the next level of information is fetched.
   dataFetched: boolean;
 }
 
@@ -130,48 +134,53 @@ export class StatVarGroupNode extends React.Component<
       });
     };
     return (
-      <Collapsible
-        trigger={getTrigger(false)}
-        triggerWhenOpen={getTrigger(true)}
-        open={
-          (this.props.startsOpened || this.state.toggledOpen) &&
-          this.state.dataFetched
-        }
-        handleTriggerClick={() => {
-          this.setState({ toggledOpen: !this.state.toggledOpen });
-        }}
-        onOpening={this.fetchData}
-        transitionTime={200}
-        onOpen={this.scrollToHighlighted}
-        containerElementProps={
-          this.props.isSelected
-            ? { className: "highlighted-stat-var-group" }
-            : {}
-        }
-      >
-        {(this.props.startsOpened || this.state.toggledOpen) && (
-          <>
-            {this.props.pathToSelection.length < 2 && this.state.childSV && (
-              <StatVarSection
-                path={this.props.path}
-                data={this.state.childSV}
-                pathToSelection={this.props.pathToSelection}
-                places={this.props.places}
-                highlightedStatVar={this.highlightedStatVar}
-              />
-            )}
-            {this.state.childSVG && (
-              <StatVarGroupSection
-                path={this.props.path}
-                data={this.state.childSVG}
-                pathToSelection={this.props.pathToSelection}
-                highlightedStatVar={this.highlightedStatVar}
-                places={this.props.places}
-              />
-            )}
-          </>
+      <>
+        {!_.isEmpty(this.state.errorMessage) && (
+          <div className="error-message">{this.state.errorMessage}</div>
         )}
-      </Collapsible>
+        <Collapsible
+          trigger={getTrigger(false)}
+          triggerWhenOpen={getTrigger(true)}
+          open={
+            (this.props.startsOpened || this.state.toggledOpen) &&
+            this.state.dataFetched
+          }
+          handleTriggerClick={() => {
+            this.setState({ toggledOpen: !this.state.toggledOpen });
+          }}
+          onOpening={this.fetchData}
+          transitionTime={200}
+          onOpen={this.scrollToHighlighted}
+          containerElementProps={
+            this.props.isSelected
+              ? { className: "highlighted-stat-var-group" }
+              : {}
+          }
+        >
+          {(this.props.startsOpened || this.state.toggledOpen) && (
+            <>
+              {this.props.pathToSelection.length < 2 && this.state.childSV && (
+                <StatVarSection
+                  path={this.props.path}
+                  data={this.state.childSV}
+                  pathToSelection={this.props.pathToSelection}
+                  places={this.props.places}
+                  highlightedStatVar={this.highlightedStatVar}
+                />
+              )}
+              {this.state.childSVG && (
+                <StatVarGroupSection
+                  path={this.props.path}
+                  data={this.state.childSVG}
+                  pathToSelection={this.props.pathToSelection}
+                  highlightedStatVar={this.highlightedStatVar}
+                  places={this.props.places}
+                />
+              )}
+            </>
+          )}
+        </Collapsible>
+      </>
     );
   }
 
@@ -179,7 +188,7 @@ export class StatVarGroupNode extends React.Component<
     if (this.state.dataFetched) {
       return;
     }
-    // stat var (group) dcid count contain "&", need to encode here.
+    // stat var (group) dcid can contain "&", need to encode here.
     let url = `/api/browser/statvar/group?stat_var_group=${encodeURIComponent(
       this.props.data.id
     )}`;

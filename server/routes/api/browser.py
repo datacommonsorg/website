@@ -206,7 +206,7 @@ def search_statvar_hierarchy():
 def get_statvar_group():
     """Gets the stat var group node information.
 
-    This is to retrieve the adjust nodes, including child stat vars, child stat
+    This is to retrieve the adjacent nodes, including child stat vars, child stat
     var groups and parent stat var groups for the given stat var group node.
     """
     stat_var_group = request.args.get("stat_var_group")
