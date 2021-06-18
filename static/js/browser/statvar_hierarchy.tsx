@@ -26,7 +26,7 @@ import _ from "lodash";
 import { StatVarHierarchySearch } from "./statvar_hierarchy_search";
 import { StatVarGroupNode } from "./statvar_group_node";
 import { StatVarGroupInfo } from "./types";
-import { Node } from "../shared/types";
+import { NamedNode } from "../shared/types";
 
 import { loadSpinner, removeSpinner } from "./util";
 import { Context } from "../shared/context";
@@ -37,7 +37,7 @@ const SORTED_LAST_SVG_ID = "dc/g/Miscellaneous";
 
 interface StatVarHierarchyPropType {
   type: string;
-  places: Node[];
+  places: NamedNode[];
   // (Optional) A list of stat vars selected from parent componenet.
   // For example, in timeline tool, these are stat vars parsed from URL.
   svs?: string[];

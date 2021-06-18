@@ -23,7 +23,7 @@ import React from "react";
 
 import { StatVarInfo } from "./types";
 import { StatVarCharts } from "./statvar_charts";
-import { Node, StatVarHierarchyType } from "../shared/types";
+import { NamedNode, StatVarHierarchyType } from "../shared/types";
 import { Context } from "../shared/context";
 import { StatVarCheckbox } from "./statvar_checkbox";
 
@@ -31,7 +31,7 @@ interface StatVarSectionPropType {
   path: string[];
   data: StatVarInfo[];
   pathToSelection: string[];
-  places: Node[];
+  places: NamedNode[];
   highlightedStatVar: React.RefObject<HTMLDivElement>;
 }
 

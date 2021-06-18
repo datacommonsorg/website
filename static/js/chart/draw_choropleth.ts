@@ -24,7 +24,7 @@ import { GeoJsonData, GeoJsonFeature, GeoJsonFeatureProperties } from "./types";
 import { getColorFn } from "./base";
 import { getStatsVarLabel } from "../shared/stats_var_labels";
 import { formatNumber } from "../i18n/i18n";
-import { Node } from "../shared/types";
+import { NamedNode } from "../shared/types";
 
 const MISSING_DATA_COLOR = "#999";
 const TOOLTIP_ID = "tooltip";
@@ -75,7 +75,7 @@ function drawChoropleth(
   statVar: string,
   canClick: boolean,
   getRedirectLink: (geoDcid: GeoJsonFeatureProperties) => string,
-  getTooltipHtml: (place: Node) => string
+  getTooltipHtml: (place: NamedNode) => string
 ): void {
   const label = getStatsVarLabel(statVar);
   const maxColor = d3.color(getColorFn([label])(label));
@@ -178,7 +178,7 @@ const onMouseOut = (domContainerId: string) => (_, index): void => {
 
 const onMouseMove = (
   domContainerId: string,
-  getTooltipHtml: (place: Node) => string
+  getTooltipHtml: (place: NamedNode) => string
 ) => (e) => {
   const geoProperties = e["properties"];
   const placeName = geoProperties.name;

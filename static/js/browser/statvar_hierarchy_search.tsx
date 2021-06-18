@@ -22,7 +22,7 @@
 import React from "react";
 import axios from "axios";
 import _ from "lodash";
-import { Node } from "../shared/types";
+import { NamedNode } from "../shared/types";
 
 interface StatVarHierarchySearchPropType {
   places: string[];
@@ -31,8 +31,8 @@ interface StatVarHierarchySearchPropType {
 
 interface StatVarHierarchySearchStateType {
   query: string;
-  svgResults: Node[];
-  svResults: Node[];
+  svgResults: NamedNode[];
+  svResults: NamedNode[];
   showNoResultsMessage: boolean;
 }
 
@@ -155,8 +155,8 @@ export class StatVarHierarchySearch extends React.Component<
         const currQuery = this.state.query;
         const data = resp.data;
         if (query === currQuery) {
-          const svgResults: Node[] = data.statVarGroups;
-          const svResults: Node[] = data.statVars;
+          const svgResults: NamedNode[] = data.statVarGroups;
+          const svResults: NamedNode[] = data.statVars;
           this.setState({
             svResults,
             svgResults,

@@ -31,7 +31,7 @@ import {
 import { StatVarHierarchyNodeHeader } from "./statvar_hierarchy_node_header";
 import { StatVarSection } from "./statvar_section";
 import { StatVarGroupSection } from "./statvar_group_section";
-import { Node } from "../shared/types";
+import { NamedNode } from "../shared/types";
 
 import { Context, ContextType } from "../shared/context";
 
@@ -41,7 +41,7 @@ interface StatVarGroupNodePropType {
   // The path of this stat var group node.
   path: string[];
   // A list of named places object.
-  places: Node[];
+  places: NamedNode[];
   // the mapping of all stat var groups to their corresponding information
   data: StatVarGroupInfo;
   // if a statvar or statvar group has been selected, the path of stat var
