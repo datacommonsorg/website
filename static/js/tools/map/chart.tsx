@@ -54,8 +54,9 @@ const ZOOM_OUT_BUTTON_ID = "zoom-out-button";
 
 export function Chart(props: ChartProps): JSX.Element {
   const [errorMessage, setErrorMessage] = useState("");
+  const hasZoomButtons = props.placeInfo.enclosingPlace.dcid === props.placeInfo.selectedPlace.dcid;
   useEffect(() => {
-    draw(props, setErrorMessage);
+    draw(props, setErrorMessage, hasZoomButtons);
   }, [props]);
   const title = getTitle(Array.from(props.dates), props.statVarInfo.name);
   const sourcesJsx = getSourcesJsx(props.sources);
@@ -75,7 +76,8 @@ export function Chart(props: ChartProps): JSX.Element {
           )}
           <div className="map-section-container">
             <div id={SVG_CONTAINER_ID}></div>
-            <div className="zoom-button-section">
+            {hasZoomButtons && (
+              <div className="zoom-button-section">
               <div id={ZOOM_IN_BUTTON_ID} className="zoom-button">
                 <i className="material-icons">add</i>
               </div>
@@ -83,8 +85,8 @@ export function Chart(props: ChartProps): JSX.Element {
                 <i className="material-icons">remove</i>
               </div>
             </div>
+            )}
           </div>
-
           <ChartOptions
             dataValues={props.breadcrumbDataValues}
             placeInfo={props.placeInfo}
@@ -109,7 +111,8 @@ export function Chart(props: ChartProps): JSX.Element {
 
 function draw(
   props: ChartProps,
-  setErrorMessage: (errorMessage: string) => void
+  setErrorMessage: (errorMessage: string) => void,
+  hasZoomButtons: boolean
 ): void {
   document.getElementById(SVG_CONTAINER_ID).innerHTML = "";
   const width = document.getElementById(SVG_CONTAINER_ID).offsetWidth;
@@ -149,8 +152,8 @@ function draw(
         props.unit
       ),
       zoomDcid,
-      ZOOM_IN_BUTTON_ID,
-      ZOOM_OUT_BUTTON_ID
+      hasZoomButtons ? ZOOM_IN_BUTTON_ID : "",
+      hasZoomButtons ? ZOOM_OUT_BUTTON_ID : ""
     );
   }
 }
