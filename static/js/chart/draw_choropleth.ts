@@ -81,7 +81,9 @@ function drawChoropleth(
   canClick: boolean,
   getRedirectLink: (geoDcid: GeoJsonFeatureProperties) => string,
   getTooltipHtml: (place: NamedPlace) => string,
-  zoomDcid?: string
+  zoomDcid?: string,
+  zoomInButtonId?: string,
+  zoomOutButtonId?: string
 ): void {
   const label = getStatsVarLabel(statVar);
   const maxColor = d3.color(getColorFn([label])(label));
@@ -192,6 +194,30 @@ function drawChoropleth(
     .attr("stroke-width", HIGHLIGHTED_STROKE_WIDTH)
     .attr("stroke", HIGHLIGHTED_STROKE_COLOR);
   addTooltip(domContainerId);
+
+  if (zoomInButtonId || zoomOutButtonId) {
+    const zoom = d3
+      .zoom()
+      .scaleExtent([1, Infinity])
+      .translateExtent([
+        [0, 0],
+        [chartWidth, chartHeight],
+      ])
+      .on("zoom", function () {
+        map.selectAll("path").attr("transform", d3.event.transform);
+      });
+    svg.call(zoom);
+    if (zoomInButtonId) {
+      d3.select(`#${zoomInButtonId}`).on("click", () => {
+        svg.call(zoom.scaleBy, 2);
+      });
+    }
+    if (zoomOutButtonId) {
+      d3.select(`#${zoomOutButtonId}`).on("click", () => {
+        svg.call(zoom.scaleBy, 0.5);
+      });
+    }
+  }
 }
 
 const onMouseOver = (domContainerId: string, canClick: boolean) => (

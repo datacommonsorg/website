@@ -123,6 +123,10 @@
   font-size: 0.9rem;
 }
 
+.chart-options {
+  padding-top: 1rem;
+}
+
 .breadcrumbs-title {
   font-weight: $headings-font-weight;
   padding-top: 0.3rem;
@@ -130,6 +134,11 @@
 
 #tooltip footer {
   margin-top: .5rem;
+}
+
+#choropleth-map {
+  overflow-x: hidden;
+  overflow-y: hidden;
 }
 
 .legend rect {
@@ -142,4 +151,31 @@
   padding: 15px;
   border-radius: 3px;
   background: #f8d7da;
+}
+
+.zoom-button {
+  cursor: pointer;
+  border: 1px solid rgba(0, 0, 0, 0.125);
+  padding: 0.1rem;
+  display: flex;
+  width: fit-content;
+}
+
+.zoom-button:hover {
+  background-color: var(--dc-gray-lite);
+}
+
+.map-section-container {
+  position: relative;
+}
+
+.zoom-button-section {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  background-color: #f8f8f8;
+}
+
+.zoom-button i {
+  font-size: 1.3rem;
 }
