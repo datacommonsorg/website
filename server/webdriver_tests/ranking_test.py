@@ -54,7 +54,7 @@ class TestRanking(WebdriverBaseTest):
         x_text = chart.find_elements_by_class_name(
             'x')[0].find_elements_by_tag_name('text')
         self.assertEqual(x_text[0].text, 'United States of America')
-        self.assertEqual(x_text[-1].text, 'Saint Pierre and Miquelon')
+        self.assertEqual(x_text[-1].text, 'Saint Barthélemy')
 
     def test_energy_consumption_bottom_ranking_hi(self):
         """Test translations are displayed correctly in hindi, as well as bottom rankings rendered correctly."""

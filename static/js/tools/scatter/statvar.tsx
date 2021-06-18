@@ -43,7 +43,7 @@ import {
   AxisWrapper,
   IsLoadingWrapper,
 } from "./context";
-import { NamedNode } from "../../shared/types";
+import { NamedPlace } from "../../shared/types";
 import { nodeGetStatVar } from "./util";
 
 interface NamedStatVar {
@@ -227,7 +227,7 @@ function useValidStatVars(): Set<string> {
 async function filterStatVars(
   x: AxisWrapper,
   y: AxisWrapper,
-  enclosedPlaces: Array<NamedNode>,
+  enclosedPlaces: Array<NamedPlace>,
   isLoading: IsLoadingWrapper,
   setValidStatVars: (statVars: Set<string>) => void
 ): Promise<void> {

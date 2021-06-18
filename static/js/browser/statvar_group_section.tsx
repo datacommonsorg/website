@@ -23,7 +23,7 @@ import React from "react";
 import _ from "lodash";
 
 import { StatVarGroupInfo } from "./types";
-import { NamedNode } from "../shared/types";
+import { NamedPlace } from "../shared/types";
 import { StatVarGroupNode } from "./statvar_group_node";
 
 const VARIABLES_STATVAR_GROUP_PREFIX = "dc/g/Variables_";
@@ -33,7 +33,7 @@ interface StatVarGroupSectionPropType {
   data: StatVarGroupInfo[];
   pathToSelection: string[];
   highlightedStatVar: React.RefObject<HTMLDivElement>;
-  places: NamedNode[];
+  places: NamedPlace[];
 }
 
 export class StatVarGroupSection extends React.Component<

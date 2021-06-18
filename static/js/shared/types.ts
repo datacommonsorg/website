@@ -25,6 +25,8 @@ export interface NamedNode {
   dcid: string;
 }
 
+export type NamedPlace = NamedNode;
+
 /**
  * Enum type of the stat var hierarchy wizard.
  */

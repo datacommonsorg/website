@@ -38,7 +38,7 @@ import {
   PlaceInfo,
   IsLoadingWrapper,
 } from "./context";
-import { NamedNode } from "../../shared/types";
+import { NamedPlace } from "../../shared/types";
 import { StatsVarNode } from "../statvar_menu/util";
 import { PlotOptions } from "./plot_options";
 
@@ -48,7 +48,7 @@ import { PlotOptions } from "./plot_options";
 interface Point {
   xVal: number;
   yVal: number;
-  place: NamedNode;
+  place: NamedPlace;
   xDate: string;
   yDate: string;
   xSource: string;

@@ -43,7 +43,7 @@ import {
   formatNumber,
 } from "../i18n/i18n";
 import { urlToDomain } from "../shared/util";
-import { NamedNode } from "../shared/types";
+import { NamedPlace } from "../shared/types";
 
 const CHART_HEIGHT = 194;
 const MIN_CHOROPLETH_DATAPOINTS = 9;
@@ -377,7 +377,7 @@ class Chart extends React.Component<ChartPropType, ChartStateType> {
       const getRedirectLink = (geoProperty: GeoJsonFeatureProperties) => {
         return `${CHOROPLETH_REDIRECT_BASE_URL}${geoProperty.geoDcid}${this.placeLinkSearch}`;
       };
-      const getTooltipHtml = (place: NamedNode) => {
+      const getTooltipHtml = (place: NamedPlace) => {
         let value = "Data Missing";
         if (this.state.choroplethDataGroup.data[place.dcid]) {
           value = formatNumber(

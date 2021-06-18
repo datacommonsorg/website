@@ -204,7 +204,10 @@ def search_statvar_hierarchy():
 @bp.route('/statvar/group')
 @cache.cached(timeout=3600 * 24, query_string=True)
 def get_statvar_group():
-    """Gets the statvars and statvar groups that match the tokens in the query
+    """Gets the stat var group node information.
+
+    This is to retrieve the adjust nodes, including child stat vars, child stat
+    var groups and parent stat var groups for the given stat var group node.
     """
     stat_var_group = request.args.get("stat_var_group")
     places = request.args.getlist("places")
@@ -215,7 +218,7 @@ def get_statvar_group():
 @bp.route('/statvar/path')
 @cache.cached(timeout=3600 * 24, query_string=True)
 def get_statvar_path():
-    """Gets the statvars and statvar groups that match the tokens in the query
+    """Gets the path of a stat var to the root of the hierarchy.
     """
     id = request.args.get("id")
     result = dc.get_statvar_path(id)
