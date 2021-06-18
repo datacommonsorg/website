@@ -122,7 +122,7 @@ function run_webdriver_test {
     echo -e "#### Running webdriver tests in parallel"
     python3 -m pytest --tests-per-worker auto webdriver_tests/*.py
   else
-    python3 -m pytest webdriver_tests/ranking_test.py
+    python3 -m pytest webdriver_tests/*.py
   fi
   cd ..
 }
