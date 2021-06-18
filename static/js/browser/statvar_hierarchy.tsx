@@ -96,7 +96,9 @@ export class StatVarHierarchy extends React.Component<
       // rendering them again after the componentDidUpdate hook.
       return null;
     }
-    this.state.rootSVGs.sort((a, b) => {
+    // Do not want to change the state here.
+    const rootSVGs = _.cloneDeep(this.state.rootSVGs);
+    rootSVGs.sort((a, b) => {
       if (a.id === SORTED_FIRST_SVG_ID) {
         return -1;
       }
@@ -116,14 +118,14 @@ export class StatVarHierarchy extends React.Component<
         {!_.isEmpty(this.state.errorMessage) && (
           <div className="error-message">{this.state.errorMessage}</div>
         )}
-        {!_.isEmpty(this.state.rootSVGs) && (
+        {!_.isEmpty(rootSVGs) && (
           <div className="stat-var-hierarchy-container card">
             <StatVarHierarchySearch
               places={this.props.places.map((x) => x.dcid)}
               onSelectionChange={this.onSearchSelectionChange}
             />
             <div className="hierarchy-section">
-              {this.state.rootSVGs.map((svg) => {
+              {rootSVGs.map((svg) => {
                 if (
                   _.isEmpty(this.state.focus) ||
                   this.state.focusPath[0] === svg.id
