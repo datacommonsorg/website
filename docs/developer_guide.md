@@ -233,5 +233,5 @@ the same region.
 
 - Another option is to save a screenshot at various points of the test:
   ```python
-  self.driver.save_screenshot(filename
+  self.driver.save_screenshot(filename)
   ```
