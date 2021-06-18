@@ -98,8 +98,10 @@ def geojson(dcid):
     Get geoJson data for places enclosed within the given dcid
     """
     display_dcid, display_level = get_choropleth_display_level(dcid)
-    geos = dc_service.get_places_in([display_dcid],
-                                    display_level).get(display_dcid, [])
+    geos = []
+    if display_dcid and display_level:
+        geos = dc_service.get_places_in([display_dcid],
+                                        display_level).get(display_dcid, [])
     if not geos:
         return Response(json.dumps({}), 200, mimetype='application/json')
     geojson_prop = CHOROPLETH_GEOJSON_PROPERTY_MAP.get(display_level, "")

@@ -228,7 +228,7 @@ def get_stat_vars_union(dcids):
     },
                       compress=False,
                       post=True,
-                      has_payload=False)['statVars']
+                      has_payload=False).get('statVars', [])
 
 
 @bp.route('/stat-vars/union', methods=['POST'])
@@ -501,7 +501,8 @@ def api_ranking(dcid):
             continue
         selected_parents.append(parent_dcid)
         i18n_name = parent_i18n_names[parent_dcid]
-        parent_names[parent_dcid] = i18n_name if i18n_name else parent['name']
+        parent_names[parent_dcid] = i18n_name if i18n_name else parent.get(
+            'name', "")
         if len(selected_parents) == 3:
             break
     result = collections.defaultdict(list)

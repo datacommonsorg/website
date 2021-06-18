@@ -18,8 +18,6 @@ import json
 
 from cache import cache
 import services.datacommons as dc
-import lib.statvar_hierarchy_search as svh_search
-from services.datacommons import fetch_data
 from flask import Response
 from flask import request
 import routes.api.place as place_api
@@ -41,12 +39,12 @@ def triple_api(dcid):
 @bp.route('/propvals/<path:prop>/<path:dcid>')
 def get_property_value(dcid, prop):
     """Returns the property values for a given node dcid and property label."""
-    response = fetch_data('/node/property-values', {
+    response = dc.fetch_data('/node/property-values', {
         'dcids': [dcid],
         'property': prop,
     },
-                          compress=False,
-                          post=False)
+                             compress=False,
+                             post=False)
     result = {}
     result["property"] = prop
     result["values"] = response.get(dcid, {})
@@ -197,11 +195,34 @@ def get_statvar_hierarchy_helper(dcid_string):
 def search_statvar_hierarchy():
     """Gets the statvars and statvar groups that match the tokens in the query
     """
-    query = request.args.get("query").lower()
-    query = query.replace(",", " ")
-    tokens = query.split()
-    result = svh_search.get_search_result(tokens)
-    return Response(json.dumps(list(result)), 200, mimetype='application/json')
+    query = request.args.get("query")
+    places = request.args.getlist("places")
+    result = dc.search_statvar(query, places)
+    return Response(json.dumps(result), 200, mimetype='application/json')
+
+
+@bp.route('/statvar/group')
+@cache.cached(timeout=3600 * 24, query_string=True)
+def get_statvar_group():
+    """Gets the stat var group node information.
+
+    This is to retrieve the adjacent nodes, including child stat vars, child stat
+    var groups and parent stat var groups for the given stat var group node.
+    """
+    stat_var_group = request.args.get("stat_var_group")
+    places = request.args.getlist("places")
+    result = dc.get_statvar_group(stat_var_group, places)
+    return Response(json.dumps(result), 200, mimetype='application/json')
+
+
+@bp.route('/statvar/path')
+@cache.cached(timeout=3600 * 24, query_string=True)
+def get_statvar_path():
+    """Gets the path of a stat var to the root of the hierarchy.
+    """
+    id = request.args.get("id")
+    result = dc.get_statvar_path(id)
+    return Response(json.dumps(result), 200, mimetype='application/json')
 
 
 @cache.memoize(timeout=3600 * 24)  # Cache for one day.

@@ -590,6 +590,7 @@ class TestApiGetStatVarsUnion(unittest.TestCase):
     @patch('services.datacommons.send_request')
     def test_api_get_stat_vars_union(self, send_request):
         req = {'dcids': ['geoId/10001', 'geoId/10003', 'geoId/10005']}
+        req2 = {'dcids': ['geoId/10002']}
         result = ["sv1", "sv2", "sv3"]
 
         def side_effect(req_url,
@@ -600,9 +601,16 @@ class TestApiGetStatVarsUnion(unittest.TestCase):
             if (req_url == dc.API_ROOT + "/v1/place/stat-vars/union" and
                     req_json == req and post and not has_payload):
                 return {'statVars': result}
+            if (req_url == dc.API_ROOT + "/v1/place/stat-vars/union" and
+                    req_json == req2 and post and not has_payload):
+                return {}
 
         send_request.side_effect = side_effect
         response = app.test_client().post('/api/place/stat-vars/union',
                                           json=req)
         assert response.status_code == 200
         assert json.loads(response.data) == result
+        empty_response = app.test_client().post('/api/place/stat-vars/union',
+                                                json=req2)
+        assert empty_response.status_code == 200
+        assert json.loads(empty_response.data) == []
