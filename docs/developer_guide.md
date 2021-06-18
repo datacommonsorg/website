@@ -219,3 +219,19 @@ the same region.
   - If a new unit is required, update static/js/i18n/i18n.tsx as well as
     static/js/i18n/strings/en/units.json with display names and labels for the
     unit.
+
+### Debugging Webdriver tests
+
+- Disable headless mode in webdriver to follow the test in Chrome. Chrome
+  features like the dev inspector are available in this mode which is useful
+  combined with `sleep()` to give you time to inspect the page. To enter this
+  mode, comment out this line in
+  [base_test.py](../server/webdriver_tests/base_test.py):
+  ```python
+  chrome_options.add_argument('--headless')
+  ```
+
+- Another option is to save a screenshot at various points of the test:
+  ```python
+  self.driver.save_screenshot(filename)
+  ```

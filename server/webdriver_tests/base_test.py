@@ -22,6 +22,9 @@ from os import environ
 # TODO(edumorales): Figure out a way to pass down an argument using Pytest.
 PYTEST_PARALLEL = environ.get("PYTEST_PARALLEL")
 
+DEFAULT_HEIGHT = 1200
+DEFAULT_WIDTH = 1200
+
 
 # Base test class to setup the server.
 # Please refer to README.md to see the order of method execution during test.
@@ -60,6 +63,9 @@ class WebdriverBaseTest(LiveServerTestCase):
         # Otherwise, start a simple WebDriver instance.
         else:
             self.driver = webdriver.Chrome(options=chrome_options)
+
+        # Set a reliable window size for all tests (can be overwritten though)
+        self.driver.set_window_size(DEFAULT_WIDTH, DEFAULT_HEIGHT)
 
         # The URL of the Data Commons server.
         self.url_ = self.get_server_url()
