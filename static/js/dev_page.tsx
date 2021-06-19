@@ -857,7 +857,7 @@ class DevPage extends React.Component {
                 name: "California",
               },
             ]}
-            svs={["Count_Person", "FertilityRate_Person_Female"]}
+            selectedSVs={["Count_Person", "FertilityRate_Person_Female"]}
           />
         </div>
       </div>

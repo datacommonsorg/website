@@ -35,12 +35,18 @@ const LOADING_CONTAINER_ID = "stat-var-hierarchy-section";
 const SORTED_FIRST_SVG_ID = "dc/g/Demographics";
 const SORTED_LAST_SVG_ID = "dc/g/Miscellaneous";
 
+import { setTokensToUrl, statVarSep } from "../tools/timeline/util";
+
 interface StatVarHierarchyPropType {
   type: string;
   places: NamedPlace[];
   // (Optional) A list of stat vars selected from parent componenet.
   // For example, in timeline tool, these are stat vars parsed from URL.
-  svs?: string[];
+  selectedSVs?: string[];
+  // Callback function when a stat var is selected
+  selectSV?: (sv: string) => void;
+  // Callback function when a stat var is deselected
+  deselectSV?: (sv: string) => void;
 }
 
 interface StatVarHierarchyStateType {
@@ -180,8 +186,8 @@ export class StatVarHierarchy extends React.Component<
           rootSVGs,
         });
         const pathPromises: Promise<string[]>[] = [];
-        if (this.props.svs) {
-          for (const sv of this.props.svs) {
+        if (this.props.selectedSVs) {
+          for (const sv of this.props.selectedSVs) {
             pathPromises.push(this.getPath(sv));
           }
           Promise.all(pathPromises).then((paths: string[][]) => {
@@ -218,6 +224,9 @@ export class StatVarHierarchy extends React.Component<
       });
       // If selection is stat var, added it to svPath.
       if (selection != "" && !selection.startsWith("dc/g")) {
+        if (this.props.selectSV) {
+          this.props.selectSV(selection);
+        }
         this.setState({
           svPath: Object.assign({ [selection]: path }, this.state.svPath),
         });
@@ -230,8 +239,14 @@ export class StatVarHierarchy extends React.Component<
     if (sv in this.state.svPath) {
       const tmp = _.cloneDeep(this.state.svPath);
       delete tmp[sv];
+      if (this.props.deselectSV) {
+        this.props.deselectSV(sv);
+      }
       this.setState({ svPath: tmp });
     } else {
+      if (this.props.selectSV) {
+        this.props.selectSV(sv);
+      }
       this.setState({
         svPath: Object.assign({ [sv]: path }, this.state.svPath),
       });

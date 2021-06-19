@@ -108,16 +108,8 @@ function StatVarChooser(): JSX.Element {
               setThirdStatVar
             )
           }
-          addStatsVar={(statsVar, nodePath, denominators) =>
-            addStatVar(
-              x,
-              y,
-              statsVar,
-              nodePath,
-              denominators,
-              setThirdStatVar,
-              setModalOpen
-            )
+          addStatsVar={(statsVar) =>
+            addStatVar(x, y, statsVar, [], [], setThirdStatVar, setModalOpen)
           }
           removeStatsVar={(statsVar, nodePath) =>
             removeStatVar(x, y, statsVar, nodePath)

@@ -19,6 +19,7 @@ import { StatsVarInfo } from "../statvar_menu/util";
 import { fetchStatsData, StatsData } from "../../shared/data_fetcher";
 import { drawGroupLineChart } from "../../chart/draw";
 import { PlotParams, computePlotParams } from "../../chart/base";
+import { setChartPerCapita } from "./util";
 
 const CHART_HEIGHT = 300;
 
@@ -26,7 +27,7 @@ interface StatsVarChipPropsType {
   statsVar: string;
   color: string;
   title: string;
-  removeStatsVar: (statsVar: string, nodePath?: string[]) => void;
+  removeStatVar: (statVar: string) => void;
 }
 
 class StatsVarChip extends Component<StatsVarChipPropsType> {
@@ -40,7 +41,7 @@ class StatsVarChip extends Component<StatsVarChipPropsType> {
         <button className="mdl-chip__action">
           <i
             className="material-icons"
-            onClick={() => this.props.removeStatsVar(this.props.statsVar)}
+            onClick={() => this.props.removeStatVar(this.props.statsVar)}
           >
             cancel
           </i>
@@ -53,14 +54,11 @@ class StatsVarChip extends Component<StatsVarChipPropsType> {
 interface ChartPropsType {
   groupId: string; // unique identifier of the chart
   places: Record<string, string>; // An array of place dcids.
-  statsVars: { [key: string]: StatsVarInfo };
+  statVars: Record<string, StatsVarInfo>;
+  statVarTitle: Record<string, string>;
   perCapita: boolean;
+  removeStatVar: (statVar: string) => void;
   onDataUpdate: (groupId: string, data: StatsData) => void;
-  statsVarTitle: Record<string, string>;
-  removeStatsVar: (statsVar: string, nodePath?: string[]) => void;
-  setPC: (groupId: string, pc: boolean) => void;
-  // mappings from StatVar DCIDs to their per capita denominators
-  denominators: { [key: string]: string };
 }
 
 class Chart extends Component<ChartPropsType> {
@@ -76,12 +74,12 @@ class Chart extends Component<ChartPropsType> {
   }
 
   render(): JSX.Element {
-    const statsVars = Object.keys(this.props.statsVars);
+    const statsVars = Object.keys(this.props.statVars);
     // TODO(shifucun): investigate on stats var title, now this is updated
     // several times.
     this.plotParams = computePlotParams(
       Object.values(this.props.places),
-      Object.values(this.props.statsVarTitle)
+      Object.keys(this.props.statVars)
     );
     // Stats var chip color is independent of places, so pick one place to
     // provide a key for style look up.
@@ -97,7 +95,7 @@ class Chart extends Component<ChartPropsType> {
                 : "perCapitaCheckbox"
             }
             onClick={() => {
-              this.props.setPC(this.props.groupId, !this.props.perCapita);
+              setChartPerCapita(this.props.groupId, !this.props.perCapita);
             }}
           ></button>
           <a href="/faq#perCapita">
@@ -109,7 +107,7 @@ class Chart extends Component<ChartPropsType> {
           {statsVars.map(
             function (statsVar: string) {
               let color: string;
-              const title = this.props.statsVarTitle[statsVar];
+              const title = statsVar;
               if (statsVars.length > 1) {
                 color = this.plotParams.lines[placeName + title].color;
               }
@@ -119,7 +117,7 @@ class Chart extends Component<ChartPropsType> {
                   statsVar={statsVar}
                   title={title}
                   color={color}
-                  removeStatsVar={this.props.removeStatsVar}
+                  removeStatVar={this.props.removeStatVar}
                 />
               );
             }.bind(this)
@@ -137,7 +135,7 @@ class Chart extends Component<ChartPropsType> {
   componentWillUnmount(): void {
     window.removeEventListener("resize", this.handleWindowResize);
     // reset the options to default value if the chart is removed
-    this.props.setPC(this.props.groupId, false);
+    setChartPerCapita(this.props.groupId, false);
   }
 
   componentDidUpdate(): void {
@@ -152,20 +150,12 @@ class Chart extends Component<ChartPropsType> {
   }
 
   private loadDataAndDrawChart() {
-    const statVars = Object.keys(this.props.statsVars);
-    const hasAllDenominators = statVars.every(
-      (dcid) => dcid in this.props.denominators
-    );
     fetchStatsData(
       Object.keys(this.props.places),
-      Object.keys(this.props.statsVars),
-      this.props.perCapita && !hasAllDenominators,
+      Object.keys(this.props.statVars),
+      this.props.perCapita,
       1,
-      this.props.perCapita && hasAllDenominators
-        ? Object.keys(this.props.statsVars).map(
-            (dcid) => this.props.denominators[dcid]
-          )
-        : [],
+      this.props.perCapita ? ["Count_Person"] : [],
       {}
     ).then((statsData) => {
       this.statsData = statsData;
@@ -190,7 +180,7 @@ class Chart extends Component<ChartPropsType> {
       this.svgContainer.current,
       this.svgContainer.current.offsetWidth,
       CHART_HEIGHT,
-      this.props.statsVarTitle,
+      this.props.statVarTitle,
       dataGroupsDict,
       this.plotParams,
       this.ylabel(),
@@ -200,11 +190,11 @@ class Chart extends Component<ChartPropsType> {
 
   private ylabel(): string {
     // get mprop from one statsVar
-    const statsVarSample = Object.keys(this.props.statsVars)[0];
-    let mprop = this.props.statsVars[statsVarSample].mprop;
+    const statsVarSample = Object.keys(this.props.statVars)[0];
+    let mprop = this.props.statVars[statsVarSample].mprop;
     // ensure the mprop is the same for all the statsVars
-    for (const statsVar in this.props.statsVars) {
-      if (this.props.statsVars[statsVar].mprop !== mprop) {
+    for (const statsVar in this.props.statVars) {
+      if (this.props.statVars[statsVar].mprop !== mprop) {
         mprop = "";
       }
     }
