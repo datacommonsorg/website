@@ -194,7 +194,7 @@ export class StatVarHierarchy extends React.Component<
           Promise.all(pathPromises).then((paths: string[][]) => {
             const svPath = {};
             for (const path of paths) {
-              svPath[path[-1]] = path;
+              svPath[path.slice(-1)[0]] = path;
             }
             this.setState({
               svPath,

@@ -28,7 +28,6 @@ import { SearchBar } from "./search";
 import { Info } from "./info";
 import { ChartRegion } from "./chart_region";
 
-import { Context } from "../../shared/context";
 import { StatVarHierarchyType, NamedPlace } from "../../shared/types";
 import { StatVarHierarchy } from "../../browser/statvar_hierarchy";
 
@@ -135,7 +134,5 @@ class Page extends Component<unknown, PageStateType> {
     );
   }
 }
-
-Page.contextType = Context;
 
 export { Page };
