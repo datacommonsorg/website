@@ -35,8 +35,6 @@ const LOADING_CONTAINER_ID = "stat-var-hierarchy-section";
 const SORTED_FIRST_SVG_ID = "dc/g/Demographics";
 const SORTED_LAST_SVG_ID = "dc/g/Miscellaneous";
 
-import { setTokensToUrl, statVarSep } from "../tools/timeline/util";
-
 interface StatVarHierarchyPropType {
   type: string;
   places: NamedPlace[];
@@ -89,9 +87,12 @@ export class StatVarHierarchy extends React.Component<
     this.fetchData();
   }
 
-  componentDidUpdate(): void {
+  componentDidUpdate(prevProps: StatVarHierarchyPropType): void {
     if (this.state.searchSelectionCleared) {
       this.setState({ searchSelectionCleared: false });
+    }
+    if (this.props.places !== prevProps.places) {
+      this.fetchData();
     }
   }
 
