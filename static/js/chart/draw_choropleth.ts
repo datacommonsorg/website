@@ -68,6 +68,24 @@ function fitSize(
   projection.scale(s).translate([translateX, translateY]);
 }
 
+/** Draws a choropleth chart
+ *
+ * @param containerId id of the div to draw the choropleth in
+ * @param geoJson the geojson data for drawing choropleth
+ * @param chartHeight height for the chart
+ * @param chartWidth width for the chart
+ * @param dataValues data values for plotting
+ * @param unit the unit of measurement
+ * @param statVar the stat var the choropleth is showing
+ * @param canClick whether the regions on the map should be clickable
+ * @param getRedirectLink function to get the link to redirect to when region on
+ *                        the map is clicked
+ * @param getTooltipHtml function to get the html content for the tooltip
+ * @param zoomDcid the dcid of the region to zoom in on when drawing the chart
+ * @param zoomInButtonId the id of the zoom in button
+ * @param zoomOutButtonId the id of the zoom out button
+ * @param legendMargins the top and bottom margins for the legend
+ */
 function drawChoropleth(
   containerId: string,
   geoJson: GeoJsonData,
@@ -82,6 +100,8 @@ function drawChoropleth(
   getRedirectLink: (geoDcid: GeoJsonFeatureProperties) => string,
   getTooltipHtml: (place: NamedPlace) => string,
   zoomDcid?: string,
+  zoomInButtonId?: string,
+  zoomOutButtonId?: string,
   legendMargins?: { top: number; bottom: number }
 ): void {
   const label = getStatsVarLabel(statVar);
@@ -194,6 +214,30 @@ function drawChoropleth(
     .attr("stroke-width", HIGHLIGHTED_STROKE_WIDTH)
     .attr("stroke", HIGHLIGHTED_STROKE_COLOR);
   addTooltip(domContainerId);
+
+  if (zoomInButtonId || zoomOutButtonId) {
+    const zoom = d3
+      .zoom()
+      .scaleExtent([1, Infinity])
+      .translateExtent([
+        [0, 0],
+        [chartWidth, chartHeight],
+      ])
+      .on("zoom", function () {
+        map.selectAll("path").attr("transform", d3.event.transform);
+      });
+    svg.call(zoom);
+    if (zoomInButtonId) {
+      d3.select(`#${zoomInButtonId}`).on("click", () => {
+        svg.call(zoom.scaleBy, 2);
+      });
+    }
+    if (zoomOutButtonId) {
+      d3.select(`#${zoomOutButtonId}`).on("click", () => {
+        svg.call(zoom.scaleBy, 0.5);
+      });
+    }
+  }
 }
 
 const onMouseOver = (domContainerId: string, canClick: boolean) => (
