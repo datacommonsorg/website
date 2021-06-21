@@ -68,6 +68,24 @@ function fitSize(
   projection.scale(s).translate([translateX, translateY]);
 }
 
+/** Draws a choropleth chart
+ *
+ * @param containerId id of the div to draw the choropleth in
+ * @param geoJson the geojson data for drawing choropleth
+ * @param chartHeight height for the chart
+ * @param chartWidth width for the chart
+ * @param dataValues data values for plotting
+ * @param unit the unit of measurement
+ * @param statVar the stat var the choropleth is showing
+ * @param canClick whether the regions on the map should be clickable
+ * @param getRedirectLink function to get the link to redirect to when region on
+ *                        the map is clicked
+ * @param getTooltipHtml function to get the html content for the tooltip
+ * @param zoomDcid the dcid of the region to zoom in on when drawing the chart
+ * @param zoomInButtonId the id of the zoom in button
+ * @param zoomOutButtonId the id of the zoom out button
+ * @param legendMargins the top and bottom margins for the legend
+ */
 function drawChoropleth(
   containerId: string,
   geoJson: GeoJsonData,
