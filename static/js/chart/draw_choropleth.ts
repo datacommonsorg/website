@@ -262,6 +262,8 @@ function addTooltip(domContainerId: string) {
  * Draw a color scale legend.
  * @param color The d3 linearScale that encodes the color gradient to be
  *        plotted.
+ * @param margins Optional object that holds the margin top and margin bottom
+ *        of the legend to be plotted
  *
  * @return the width of the legend
  */
