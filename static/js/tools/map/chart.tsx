@@ -100,6 +100,7 @@ function draw(
   document.getElementById(SVG_CONTAINER_ID).innerHTML = "";
   const width = document.getElementById(SVG_CONTAINER_ID).offsetWidth;
   const height = (width * 2) / 5;
+  const legendMargins = height * 0.2;
   const getRedirectLink = getMapRedirectLink(
     props.statVarInfo,
     props.placeInfo
@@ -134,7 +135,8 @@ function draw(
         props.mapDataValues,
         props.unit
       ),
-      zoomDcid
+      zoomDcid,
+      { top: legendMargins, bottom: legendMargins }
     );
   }
 }

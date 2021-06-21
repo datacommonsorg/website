@@ -81,7 +81,8 @@ function drawChoropleth(
   canClick: boolean,
   getRedirectLink: (geoDcid: GeoJsonFeatureProperties) => string,
   getTooltipHtml: (place: NamedPlace) => string,
-  zoomDcid?: string
+  zoomDcid?: string,
+  legendMargins?: { top: number; bottom: number }
 ): void {
   const label = getStatsVarLabel(statVar);
   const maxColor = d3.color(getColorFn([label])(label));
@@ -116,7 +117,8 @@ function drawChoropleth(
     chartWidth,
     chartHeight,
     colorScale,
-    unit
+    unit,
+    legendMargins
   );
 
   // Scale and center the map
@@ -260,6 +262,8 @@ function addTooltip(domContainerId: string) {
  * Draw a color scale legend.
  * @param color The d3 linearScale that encodes the color gradient to be
  *        plotted.
+ * @param margins Optional object that holds the margin top and margin bottom
+ *        of the legend to be plotted
  *
  * @return the width of the legend
  */
@@ -268,9 +272,12 @@ function generateLegend(
   chartWidth: number,
   chartHeight: number,
   color: d3.ScaleLinear<number, number>,
-  unit: string
+  unit: string,
+  margins?: { top: number; bottom: number }
 ) {
-  const height = chartHeight - LEGEND_MARGIN_TOP - LEGEND_MARGIN_BOTTOM;
+  const marginTop = margins ? margins.top : LEGEND_MARGIN_TOP;
+  const marginBottom = margins ? margins.bottom : LEGEND_MARGIN_BOTTOM;
+  const height = chartHeight - marginTop - marginBottom;
   const n = Math.min(color.domain().length, color.range().length);
 
   const legend = svg.append("g").attr("class", "legend");
@@ -279,7 +286,7 @@ function generateLegend(
     .append("image")
     .attr("id", "legend-img")
     .attr("x", 0)
-    .attr("y", LEGEND_MARGIN_TOP)
+    .attr("y", marginTop)
     .attr("width", LEGEND_IMG_WIDTH)
     .attr("height", height)
     .attr("preserveAspectRatio", "none")
@@ -293,7 +300,7 @@ function generateLegend(
   const yScale = d3.scaleLinear().domain(color.domain()).range([0, height]);
   legend
     .append("g")
-    .attr("transform", `translate(0, ${LEGEND_MARGIN_TOP})`)
+    .attr("transform", `translate(0, ${marginTop})`)
     .call(
       d3
         .axisRight(yScale)
