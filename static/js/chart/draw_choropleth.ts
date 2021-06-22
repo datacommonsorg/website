@@ -97,7 +97,7 @@ function drawChoropleth(
   unit: string,
   statVar: string,
   canClick: boolean,
-  getRedirectLink: (geoDcid: GeoJsonFeatureProperties) => string,
+  redirectAction: (geoDcid: GeoJsonFeatureProperties) => void,
   getTooltipHtml: (place: NamedPlace) => string,
   zoomDcid?: string,
   zoomInButtonId?: string,
@@ -202,9 +202,9 @@ function drawChoropleth(
     .attr("stroke", GEO_STROKE_COLOR)
     .on("mouseover", onMouseOver(domContainerId, canClick))
     .on("mouseout", onMouseOut(domContainerId))
-    .on("mousemove", onMouseMove(domContainerId, getTooltipHtml));
+    .on("mousemove", onMouseMove(domContainerId, getTooltipHtml, canClick));
   if (canClick) {
-    mapObjects.on("click", onMapClick(domContainerId, getRedirectLink));
+    mapObjects.on("click", onMapClick(domContainerId, redirectAction));
   }
 
   // style highlighted region and bring to the front
@@ -224,7 +224,20 @@ function drawChoropleth(
         [chartWidth, chartHeight],
       ])
       .on("zoom", function () {
-        map.selectAll("path").attr("transform", d3.event.transform);
+        mapObjects.on("mousemove", null).on("mouseover", null);
+        d3.select(`#${TOOLTIP_ID}`).style("display", "none");
+        map
+          .selectAll("path")
+          .classed("region-highlighted", false)
+          .attr("transform", d3.event.transform);
+      })
+      .on("end", function () {
+        mapObjects
+          .on(
+            "mousemove",
+            onMouseMove(domContainerId, getTooltipHtml, canClick)
+          )
+          .on("mouseover", onMouseOver(domContainerId, canClick));
       });
     svg.call(zoom);
     if (zoomInButtonId) {
@@ -244,13 +257,7 @@ const onMouseOver = (domContainerId: string, canClick: boolean) => (
   _,
   index
 ): void => {
-  const container = d3.select(domContainerId);
-  // show highlighted border and show cursor as a pointer
-  if (canClick) {
-    container.select("#geoPath" + index).classed("region-highlighted", true);
-  }
-  // show tooltip
-  container.select(`#${TOOLTIP_ID}`).style("display", "block");
+  mouseHoverAction(domContainerId, index, canClick);
 };
 
 const onMouseOut = (domContainerId: string) => (_, index): void => {
@@ -259,32 +266,44 @@ const onMouseOut = (domContainerId: string) => (_, index): void => {
 
 const onMouseMove = (
   domContainerId: string,
-  getTooltipHtml: (place: NamedPlace) => string
-) => (e) => {
+  getTooltipHtml: (place: NamedPlace) => string,
+  canClick: boolean
+) => (e, index) => {
+  mouseHoverAction(domContainerId, index, canClick);
+  const container = d3.select(domContainerId);
   const geoProperties = e["properties"];
   const placeName = geoProperties.name;
-  const tooltipSelect = d3.select(domContainerId).select(`#${TOOLTIP_ID}`);
+  const tooltipSelect = container.select(`#${TOOLTIP_ID}`);
   const place = {
     dcid: geoProperties.geoDcid,
     name: placeName,
   };
   const tooltipHtml = getTooltipHtml(place);
   const tooltipHeight = (tooltipSelect.node() as HTMLDivElement).clientHeight;
+  const tooltipWidth = (tooltipSelect.node() as HTMLDivElement).clientWidth;
+  const containerWidth = (container.node() as HTMLDivElement).clientWidth;
   const offset = 5;
   const leftOffset = offset;
   const topOffset = -tooltipHeight - offset;
+  const left = Math.min(
+    d3.event.offsetX + leftOffset,
+    containerWidth - tooltipWidth
+  );
+  let top = d3.event.offsetY + topOffset;
+  if (top < 0) {
+    top = d3.event.offsetY + offset;
+  }
   tooltipSelect
     .html(tooltipHtml)
-    .style("left", d3.event.offsetX + leftOffset + "px")
-    .style("top", d3.event.offsetY + topOffset + "px");
+    .style("left", left + "px")
+    .style("top", top + "px");
 };
 
 const onMapClick = (
   domContainerId: string,
-  getRedirectLink: (properties: GeoJsonFeatureProperties) => string
+  redirectAction: (properties: GeoJsonFeatureProperties) => void
 ) => (geo: GeoJsonFeature, index) => {
-  const redirectLink = getRedirectLink(geo.properties);
-  window.open(redirectLink, "_blank");
+  redirectAction(geo.properties);
   mouseOutAction(domContainerId, index);
 };
 
@@ -292,6 +311,20 @@ function mouseOutAction(domContainerId: string, index: number) {
   const container = d3.select(domContainerId);
   container.select("#geoPath" + index).classed("region-highlighted", false);
   container.select(`#${TOOLTIP_ID}`).style("display", "none");
+}
+
+function mouseHoverAction(
+  domContainerId: string,
+  index: number,
+  canClick: boolean
+) {
+  const container = d3.select(domContainerId);
+  // show highlighted border and show cursor as a pointer
+  if (canClick) {
+    container.select("#geoPath" + index).classed("region-highlighted", true);
+  }
+  // show tooltip
+  container.select(`#${TOOLTIP_ID}`).style("display", "block");
 }
 
 function addTooltip(domContainerId: string) {

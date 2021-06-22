@@ -22,7 +22,12 @@ import React, { useContext, useEffect, useState } from "react";
 import _ from "lodash";
 import axios from "axios";
 import { Card, Container, CustomInput } from "reactstrap";
-import { Context, IsLoadingWrapper, PlaceInfoWrapper } from "./context";
+import {
+  Context,
+  IsLoadingWrapper,
+  NamedTypedPlace,
+  PlaceInfoWrapper,
+} from "./context";
 import { SearchBar } from "../timeline/search";
 import { USA_CHILD_PLACE_TYPES } from "./util";
 
@@ -32,7 +37,7 @@ export function PlaceOptions(): JSX.Element {
   useEffect(() => {
     if (placeInfo.value.selectedPlace.dcid) {
       updateEnclosedPlaceTypes(
-        placeInfo.value.selectedPlace.dcid,
+        placeInfo.value.selectedPlace,
         setEnclosedPlaceTypes
       );
     }
@@ -137,7 +142,7 @@ function selectPlace(place: PlaceInfoWrapper, dcid: string): void {
 }
 
 /**
- * Removes the enclosing place
+ * Removes the selected place
  * @param place
  */
 function unselectPlace(
@@ -149,25 +154,30 @@ function unselectPlace(
 }
 
 function updateEnclosedPlaceTypes(
-  dcid: string,
+  selectedPlace: NamedTypedPlace,
   setEnclosedPlaceTypes: (placeTypes: string[]) => void
 ): void {
   const parentPlacePromise = axios
-    .get(`/api/place/parent/${dcid}`)
+    .get(`/api/place/parent/${selectedPlace.dcid}`)
     .then((resp) => resp.data);
   const placeTypePromise = axios
-    .get(`/api/place/type/${dcid}`)
+    .get(`/api/place/type/${selectedPlace.dcid}`)
     .then((resp) => resp.data);
   Promise.all([parentPlacePromise, placeTypePromise])
     .then(([parents, placeType]) => {
       const isUSPlace =
-        dcid === "country/USA" ||
+        selectedPlace.dcid === "country/USA" ||
         parents.findIndex((parent) => parent.dcid === "country/USA") > -1;
-      if (isUSPlace) {
-        if (placeType in USA_CHILD_PLACE_TYPES) {
-          setEnclosedPlaceTypes(USA_CHILD_PLACE_TYPES[placeType]);
-        }
-      } else {
+      let hasEnclosedPlaceTypes = false;
+      if (isUSPlace && placeType in USA_CHILD_PLACE_TYPES) {
+        hasEnclosedPlaceTypes = true;
+        setEnclosedPlaceTypes(USA_CHILD_PLACE_TYPES[placeType]);
+      }
+      if (!hasEnclosedPlaceTypes) {
+        alert(
+          `Sorry, we don't support maps for ${selectedPlace.name}.` +
+            `Please select a different place.`
+        );
         setEnclosedPlaceTypes([]);
       }
     })
