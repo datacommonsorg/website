@@ -131,7 +131,7 @@ export class StatVarHierarchy extends React.Component<
               places={this.props.places.map((x) => x.dcid)}
               onSelectionChange={this.onSearchSelectionChange}
             />
-            <div className="hierarchy-section">
+            <div id="hierarchy-section">
               {rootSVGs.map((svg) => {
                 if (
                   _.isEmpty(this.state.focus) ||
@@ -248,6 +248,9 @@ export class StatVarHierarchy extends React.Component<
       if (this.props.selectSV) {
         this.props.selectSV(sv);
       }
+      console.log(sv);
+      console.log(path);
+      console.log(this.state.svPath);
       this.setState({
         svPath: Object.assign({ [sv]: path }, this.state.svPath),
       });

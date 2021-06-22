@@ -119,9 +119,9 @@ def get_observation_id():
     return Response(json.dumps(result), 200, mimetype='application/json')
 
 
-@bp.route('/search_statvar_hierarchy')
+@bp.route('/statvar/search')
 @cache.cached(timeout=3600 * 24, query_string=True)
-def search_statvar_hierarchy():
+def search_statvar():
     """Gets the statvars and statvar groups that match the tokens in the query
     """
     query = request.args.get("query")

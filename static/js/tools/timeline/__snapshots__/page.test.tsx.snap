@@ -4,13 +4,7 @@ exports[`Single place and single stats var 1`] = `
 "<div class=\\"card\\"><span class=\\"chartPerCapita\\">Per capita<button class=\\"perCapitaCheckbox\\"></button><a href=\\"/faq#perCapita\\"><span> *</span></a></span>
   <div class=\\"chart-svg\\"><svg width=\\"500\\" height=\\"500\\"><text>svg text</text></svg></div>
   <div class=\\"statsVarChipRegion\\">
-    <div class=\\"pv-chip mdl-chip--deletable\\"><span class=\\"mdl-chip__text\\">Median age</span><button class=\\"mdl-chip__action\\"><i class=\\"material-icons\\">cancel</i></button></div>
-  </div>
-</div>
-<div class=\\"card\\"><span class=\\"chartPerCapita\\">Per capita<button class=\\"perCapitaCheckbox\\"></button><a href=\\"/faq#perCapita\\"><span> *</span></a></span>
-  <div class=\\"chart-svg\\"></div>
-  <div class=\\"statsVarChipRegion\\">
-    <div class=\\"pv-chip mdl-chip--deletable\\"><span class=\\"mdl-chip__text\\">Population</span><button class=\\"mdl-chip__action\\"><i class=\\"material-icons\\">cancel</i></button></div>
+    <div class=\\"pv-chip mdl-chip--deletable\\"><span class=\\"mdl-chip__text\\">Median_Age_Person</span><button class=\\"mdl-chip__action\\"><i class=\\"material-icons\\">cancel</i></button></div>
   </div>
 </div>"
 `;
@@ -19,57 +13,45 @@ exports[`Single place and single stats var 2`] = `
 "<div class=\\"card\\"><span class=\\"chartPerCapita\\">Per capita<button class=\\"perCapitaCheckbox\\"></button><a href=\\"/faq#perCapita\\"><span> *</span></a></span>
   <div class=\\"chart-svg\\"><svg width=\\"500\\" height=\\"500\\"><text>svg text</text></svg></div>
   <div class=\\"statsVarChipRegion\\">
-    <div class=\\"pv-chip mdl-chip--deletable\\"><span class=\\"mdl-chip__text\\">Median age</span><button class=\\"mdl-chip__action\\"><i class=\\"material-icons\\">cancel</i></button></div>
+    <div class=\\"pv-chip mdl-chip--deletable\\"><span class=\\"mdl-chip__text\\">Median_Age_Person</span><button class=\\"mdl-chip__action\\"><i class=\\"material-icons\\">cancel</i></button></div>
   </div>
 </div>"
 `;
 
 exports[`Single place and single stats var 3`] = `
-"<div class=\\"noedge\\">
-  <ul class=\\"noborder\\">
-    <li class=\\"value\\" id=\\"Demographics\\"><span><a class=\\"value-link\\">Demographics  <sup>(1968)</sup><img class=\\"right-caret transform-up\\" src=\\"/images/right-caret-light.png\\"></a></span>
-      <ul class=\\"noborder\\">
-        <li class=\\"value\\" id=\\"Population\\"><span><a class=\\"value-link\\">Population  <sup>(1)</sup></a><button class=\\"checkbox\\"></button></span></li>
-      </ul>
-      <ul class=\\"noborder\\">
-        <li class=\\"value\\" id=\\"Median age\\"><span><a class=\\"value-link\\">Median age  <sup>(1)</sup></a><button class=\\"checkbox checked\\"></button></span></li>
-      </ul>
-    </li>
-  </ul>
-</div>"
-`;
-
-exports[`chart options 1`] = `
-"<div class=\\"card\\"><span class=\\"chartPerCapita\\">Per capita<button class=\\"perCapitaCheckbox checked\\"></button><a href=\\"/faq#perCapita\\"><span> *</span></a></span>
-  <div class=\\"chart-svg\\"><svg width=\\"500\\" height=\\"500\\"><text>svg text</text></svg></div>
-  <div class=\\"statsVarChipRegion\\">
-    <div class=\\"pv-chip mdl-chip--deletable\\"><span class=\\"mdl-chip__text\\">Median age</span><button class=\\"mdl-chip__action\\"><i class=\\"material-icons\\">cancel</i></button></div>
+"<div class=\\"Collapsible\\"><span class=\\"Collapsible__trigger is-open\\"><div class=\\"node-title\\"><i class=\\"material-icons\\">remove</i><span class=\\"title\\">Demographics (2)</span></div></span>
+<div class=\\"Collapsible__contentOuter\\" style=\\"height: 0px; transition: height 200ms linear; overflow: hidden;\\">
+  <div class=\\"Collapsible__contentInner\\">
+    <div class=\\"svg-node-child\\">
+      <div>
+        <form class=\\"node-title\\"><label><input type=\\"checkbox\\"> Count Of Person</label></form>
+      </div>
+      <div>
+        <form class=\\"node-title\\"><label><input type=\\"checkbox\\"> Median age of person</label></form>
+      </div>
+    </div>
+    <div class=\\"svg-node-child\\">
+      <div>
+        <div class=\\"Collapsible\\"><span class=\\"Collapsible__trigger is-closed\\"><div class=\\"node-title\\"><i class=\\"material-icons\\">add</i><span class=\\"title\\">Age</span></div></span>
+        <div class=\\"Collapsible__contentOuter\\" style=\\"height: 0px; transition: height 200ms linear; overflow: hidden;\\">
+          <div class=\\"Collapsible__contentInner\\"></div>
+        </div>
+      </div>
+    </div>
+    <div>
+      <div class=\\"Collapsible\\"><span class=\\"Collapsible__trigger is-closed\\"><div class=\\"node-title\\"><i class=\\"material-icons\\">add</i><span class=\\"title\\">ArmedForcesStatus</span></div></span>
+      <div class=\\"Collapsible__contentOuter\\" style=\\"height: 0px; transition: height 200ms linear; overflow: hidden;\\">
+        <div class=\\"Collapsible__contentInner\\"></div>
+      </div>
+    </div>
   </div>
-</div>"
-`;
-
-exports[`chart options 2`] = `
-"<div class=\\"card\\"><span class=\\"chartPerCapita\\">Per capita<button class=\\"perCapitaCheckbox\\"></button><a href=\\"/faq#perCapita\\"><span> *</span></a></span>
-  <div class=\\"chart-svg\\"></div>
-  <div class=\\"statsVarChipRegion\\">
-    <div class=\\"pv-chip mdl-chip--deletable\\"><span class=\\"mdl-chip__text\\">Median age</span><button class=\\"mdl-chip__action\\"><i class=\\"material-icons\\">cancel</i></button></div>
-  </div>
-</div>"
-`;
-
-exports[`statsVar not in PV-tree 1`] = `
-"<div class=\\"card\\"><span class=\\"chartPerCapita\\">Per capita<button class=\\"perCapitaCheckbox\\"></button><a href=\\"/faq#perCapita\\"><span> *</span></a></span>
-  <div class=\\"chart-svg\\"></div>
-  <div class=\\"statsVarChipRegion\\">
-    <div class=\\"pv-chip mdl-chip--deletable\\"><span class=\\"mdl-chip__text\\">NotInTheTree</span><button class=\\"mdl-chip__action\\"><i class=\\"material-icons\\">cancel</i></button></div>
-  </div>
-</div>"
-`;
-
-exports[`statsVar not in PV-tree 2`] = `
-"<div class=\\"noedge\\">
-  <ul class=\\"noborder\\">
-    <li class=\\"value\\" id=\\"Demographics\\"><span><a class=\\"value-link\\">Demographics  <sup>(1968)</sup><img class=\\"right-caret\\" src=\\"/images/right-caret-light.png\\"></a></span></li>
-  </ul>
+</div>
+</div>
+</div>
+</div>
+<div class=\\"Collapsible\\"><span class=\\"Collapsible__trigger is-closed\\"><div class=\\"node-title\\"><i class=\\"material-icons\\">add</i><span class=\\"title\\">Economics</span></div></span>
+<div class=\\"Collapsible__contentOuter\\" style=\\"height: 0px; transition: height 200ms linear; overflow: hidden;\\">
+  <div class=\\"Collapsible__contentInner\\"></div>
+</div>
 </div>"
 `;

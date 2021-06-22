@@ -121,6 +121,90 @@ export function axios_mock(): void {
         "geoId/05": "Arkansas",
       },
     });
+  when(axios.get)
+    .calledWith("/api/browser/statvar/group?stat_var_group=dc/g/Root")
+    .mockResolvedValue({
+      data: {
+        childStatVarGroups: [
+          {
+            id: "dc/g/Demographics",
+            specializedEntity: "Demographics",
+            displayName: "Demographics",
+          },
+          {
+            id: "dc/g/Economics",
+            specializedEntity: "Economics",
+            displayName: "Economics",
+          },
+        ],
+      },
+    });
+  when(axios.get)
+    .calledWith(
+      "/api/browser/statvar/group?stat_var_group=dc%2Fg%2FDemographics&places=geoId/05"
+    )
+    .mockResolvedValue({
+      data: {
+        childStatVars: [
+          {
+            id: "Count_Person",
+            searchName: "Count Of Person",
+            displayName: "Count Of Person",
+          },
+          {
+            id: "Median_Age_Person",
+            searchName: "Median age of person",
+            displayName: "Median age of person",
+          },
+        ],
+        childStatVarGroups: [
+          {
+            id: "dc/g/Person_Age",
+            specializedEntity: "Age",
+            displayName: "Person By Age",
+          },
+          {
+            id: "dc/g/Person_ArmedForcesStatus",
+            specializedEntity: "ArmedForcesStatus",
+            displayName: "Person By ArmedForcesStatus",
+          },
+        ],
+      },
+    });
+  when(axios.get)
+    .calledWith(
+      "/api/browser/statvar/group?stat_var_group=dc/g/Root&places=geoId/05"
+    )
+    .mockResolvedValue({
+      data: {
+        childStatVarGroups: [
+          {
+            id: "dc/g/Demographics",
+            specializedEntity: "Demographics",
+            displayName: "Demographics",
+          },
+          {
+            id: "dc/g/Economics",
+            specializedEntity: "Economics",
+            displayName: "Economics",
+          },
+        ],
+      },
+    });
+  when(axios.get)
+    .calledWith("/api/browser/statvar/path?id=Count_Person")
+    .mockResolvedValue({
+      data: {
+        path: ["Count_Person", "dc/g/Demographics"],
+      },
+    });
+  when(axios.get)
+    .calledWith("/api/browser/statvar/path?id=Median_Age_Person")
+    .mockResolvedValue({
+      data: {
+        path: ["Median_Age_Person", "dc/g/Demographics"],
+      },
+    });
 }
 
 export function mock_hierarchy_complete(): void {
