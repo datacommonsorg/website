@@ -58,7 +58,7 @@ test("Single place and single stats var", () => {
           `</button><a href="/faq#perCapita"><span> *</span></a></span>` +
           `<div class="chart-svg"></div><div class="statsVarChipRegion">` +
           `<div class="pv-chip mdl-chip--deletable">` +
-          `<span class="mdl-chip__text">Median_Age_Person</span>` +
+          `<span class="mdl-chip__text">Age</span>` +
           `<button class="mdl-chip__action"><i class="material-icons">` +
           `cancel</i></button></div></div></div>`
       );

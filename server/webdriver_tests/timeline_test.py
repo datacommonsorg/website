@@ -60,7 +60,11 @@ class TestCharts(WebdriverBaseTest):
         self.driver.get(self.url_ + TIMELINE_URL)
 
         # Find the group of charts.
-        charts = self.driver.find_elements_by_class_name("card")
+        charts = self.driver.find_elements_by_xpath(
+            '//*[@id="chart-region"]/div[@class="chart"]')
+
+        # Assert there is no chart.
+        self.assertEqual(len(charts), 0)
 
         # Assert no card is present since no search has been performed.
         self.assertEqual(len(charts), 0)

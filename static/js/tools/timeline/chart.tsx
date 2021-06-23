@@ -53,9 +53,8 @@ class StatsVarChip extends Component<StatsVarChipPropsType> {
 
 interface ChartPropsType {
   groupId: string; // unique identifier of the chart
-  places: Record<string, string>; // An array of place dcids.
-  statVars: Record<string, StatsVarInfo>;
-  statVarTitle: Record<string, string>;
+  placeName: Record<string, string>; // An array of place dcids.
+  statVarInfo: Record<string, StatsVarInfo>;
   perCapita: boolean;
   removeStatVar: (statVar: string) => void;
   onDataUpdate: (groupId: string, data: StatsData) => void;
@@ -74,16 +73,16 @@ class Chart extends Component<ChartPropsType> {
   }
 
   render(): JSX.Element {
-    const statsVars = Object.keys(this.props.statVars);
+    const statVars = Object.keys(this.props.statVarInfo);
     // TODO(shifucun): investigate on stats var title, now this is updated
     // several times.
     this.plotParams = computePlotParams(
-      Object.values(this.props.places),
-      Object.keys(this.props.statVars)
+      Object.values(this.props.placeName),
+      statVars
     );
     // Stats var chip color is independent of places, so pick one place to
     // provide a key for style look up.
-    const placeName = Object.values(this.props.places)[0];
+    const placeName = Object.values(this.props.placeName)[0];
     return (
       <div className="card">
         <span className="chartPerCapita">
@@ -104,18 +103,17 @@ class Chart extends Component<ChartPropsType> {
         </span>
         <div ref={this.svgContainer} className="chart-svg"></div>
         <div className="statsVarChipRegion">
-          {statsVars.map(
-            function (statsVar: string) {
+          {statVars.map(
+            function (statVar: string) {
               let color: string;
-              const title = statsVar;
-              if (statsVars.length > 1) {
-                color = this.plotParams.lines[placeName + title].color;
+              if (statVars.length > 1) {
+                color = this.plotParams.lines[placeName + statVar].color;
               }
               return (
                 <StatsVarChip
-                  key={statsVar}
-                  statsVar={statsVar}
-                  title={title}
+                  key={statVar}
+                  statsVar={statVar}
+                  title={this.props.statVarInfo[statVar].title}
                   color={color}
                   removeStatVar={this.props.removeStatVar}
                 />
@@ -151,8 +149,8 @@ class Chart extends Component<ChartPropsType> {
 
   private loadDataAndDrawChart() {
     fetchStatsData(
-      Object.keys(this.props.places),
-      Object.keys(this.props.statVars),
+      Object.keys(this.props.placeName),
+      Object.keys(this.props.statVarInfo),
       this.props.perCapita,
       1,
       this.props.perCapita ? ["Count_Person"] : [],
@@ -173,14 +171,14 @@ class Chart extends Component<ChartPropsType> {
     const dataGroupsDict = {};
     for (const placeDcid of this.statsData.places) {
       dataGroupsDict[
-        this.props.places[placeDcid]
+        this.props.placeName[placeDcid]
       ] = this.statsData.getStatsVarGroupWithTime(placeDcid);
     }
     drawGroupLineChart(
       this.svgContainer.current,
       this.svgContainer.current.offsetWidth,
       CHART_HEIGHT,
-      this.props.statVarTitle,
+      this.props.statVarInfo,
       dataGroupsDict,
       this.plotParams,
       this.ylabel(),
@@ -190,11 +188,11 @@ class Chart extends Component<ChartPropsType> {
 
   private ylabel(): string {
     // get mprop from one statsVar
-    const statsVarSample = Object.keys(this.props.statVars)[0];
-    let mprop = this.props.statVars[statsVarSample].mprop;
+    const statsVarSample = Object.keys(this.props.statVarInfo)[0];
+    let mprop = this.props.statVarInfo[statsVarSample].mprop;
     // ensure the mprop is the same for all the statsVars
-    for (const statsVar in this.props.statVars) {
-      if (this.props.statVars[statsVar].mprop !== mprop) {
+    for (const statsVar in this.props.statVarInfo) {
+      if (this.props.statVarInfo[statsVar].mprop !== mprop) {
         mprop = "";
       }
     }

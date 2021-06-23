@@ -37,7 +37,7 @@ interface PageStateType {
 
 class Page extends Component<unknown, PageStateType> {
   statVarInfo: Record<string, StatsVarInfo>;
-  placeNames: Record<string, string>;
+  placeName: Record<string, string>;
 
   constructor(props: unknown) {
     super(props);
@@ -45,7 +45,7 @@ class Page extends Component<unknown, PageStateType> {
     this.state = {
       renderTrigger: 0,
     };
-    this.placeNames = {};
+    this.placeName = {};
     this.statVarInfo = {};
   }
 
@@ -69,7 +69,7 @@ class Page extends Component<unknown, PageStateType> {
     Promise.all([statVarInfoPromise, placesPromise]).then(
       ([statVarInfo, placeNames]) => {
         this.statVarInfo = statVarInfo;
-        this.placeNames = placeNames;
+        this.placeName = placeNames;
         this.setState({
           renderTrigger: this.state.renderTrigger + 1,
         });
@@ -78,16 +78,16 @@ class Page extends Component<unknown, PageStateType> {
   }
 
   render(): JSX.Element {
-    const numPlaces = Object.keys(this.placeNames).length;
+    const numPlaces = Object.keys(this.placeName).length;
     const numStatsVarInfo = Object.keys(this.statVarInfo).length;
     const namedPlaces: NamedPlace[] = [];
-    for (const place in this.placeNames) {
-      namedPlaces.push({ dcid: place, name: this.placeNames[place] });
+    for (const place in this.placeName) {
+      namedPlaces.push({ dcid: place, name: this.placeName[place] });
     }
     const statVars = Array.from(getTokensFromUrl("statsVar", statVarSep));
     return (
       <div>
-        <div className="explore-menu-container" id="explore">
+        <div className="stat-var-hierarchy-container" id="explore">
           <div id="drill-scroll-container">
             <div className="title">Select variables:</div>
             <div style={{ width: "350px" }}>
@@ -110,7 +110,7 @@ class Page extends Component<unknown, PageStateType> {
             {numPlaces === 0 && <h1 className="mb-4">Timelines Explorer</h1>}
             <div id="search">
               <SearchBar
-                places={this.placeNames}
+                places={this.placeName}
                 addPlace={(place) => {
                   addToken("place", placeSep, place);
                 }}
@@ -123,8 +123,8 @@ class Page extends Component<unknown, PageStateType> {
             {numPlaces !== 0 && numStatsVarInfo !== 0 && (
               <div id="chart-region">
                 <ChartRegion
-                  places={this.placeNames}
-                  statVars={this.statVarInfo}
+                  placeName={this.placeName}
+                  statVarInfo={this.statVarInfo}
                 ></ChartRegion>
               </div>
             )}

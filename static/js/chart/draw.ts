@@ -26,6 +26,8 @@ import {
   shouldFillInValues,
   wrap,
 } from "./base";
+import { StatsVarInfo } from "../tools/statvar_menu/util";
+
 import { formatNumber } from "../i18n/i18n";
 import { DotDataPoint } from "./types";
 
@@ -979,7 +981,7 @@ function computeRanges(dataGroupsDict: { [geoId: string]: DataGroup[] }) {
  * @param id: DOM id.
  * @param width: width for the chart.
  * @param height: height for the chart.
- * @param statsVarsTitle: object from stats var dcid to display title.
+ * @param StatsVarInfo: object from stat var dcid to its info struct.
  * @param dataGroupsDict: data groups for plotting.
  * @param plotParams: contains all plot params for chart.
  * @param sources: an array of source domain.
@@ -989,7 +991,7 @@ function drawGroupLineChart(
   selector: string | HTMLDivElement,
   width: number,
   height: number,
-  statsVarsTitle: { [key: string]: string },
+  statsVarInfo: { [key: string]: StatsVarInfo },
   dataGroupsDict: { [place: string]: DataGroup[] },
   plotParams: PlotParams,
   ylabel?: string,
@@ -1004,7 +1006,7 @@ function drawGroupLineChart(
   const legendTextdWidth = Math.max(width * LEGEND.ratio, LEGEND.minTextWidth);
   const legendWidth =
     Object.keys(dataGroupsDict).length > 1 &&
-    Object.keys(statsVarsTitle).length > 1
+    Object.keys(statsVarInfo).length > 1
       ? LEGEND.dashWidth + legendTextdWidth
       : legendTextdWidth;
 
@@ -1084,8 +1086,7 @@ function drawGroupLineChart(
         .defined((d) => d[1] != null)
         .x((d) => xScale(d[0]))
         .y((d) => yScale(d[1]));
-      const lineStyle =
-        plotParams.lines[place + statsVarsTitle[dataGroup.label]];
+      const lineStyle = plotParams.lines[place + dataGroup.label];
       chart
         .append("path")
         .datum(dataset)
@@ -1135,7 +1136,7 @@ function drawGroupLineChart(
     top: 0,
   };
   const highlightColorFn = (place: string, dataGroup: DataGroup) => {
-    return plotParams.lines[place + statsVarsTitle[dataGroup.label]].color;
+    return plotParams.lines[place + dataGroup.label].color;
   };
   addHighlightOnHover(
     xScale,

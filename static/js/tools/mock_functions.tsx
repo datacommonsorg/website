@@ -38,7 +38,13 @@ export function axios_mock(): void {
     .calledWith("/api/stats/stats-var-property?dcid=Median_Age_Person")
     .mockResolvedValue({
       data: {
-        Median_Age_Person: { md: "", mprop: "age", pt: "Person", pvs: {} },
+        Median_Age_Person: {
+          md: "",
+          mprop: "age",
+          pt: "Person",
+          pvs: {},
+          title: "Age",
+        },
       },
     });
 
@@ -49,8 +55,20 @@ export function axios_mock(): void {
     )
     .mockResolvedValue({
       data: {
-        Median_Age_Person: { md: "", mprop: "age", pt: "Person", pvs: {} },
-        Count_Person: { md: "", mprop: "count", pt: "Person", pvs: {} },
+        Median_Age_Person: {
+          md: "",
+          mprop: "age",
+          pt: "Person",
+          pvs: {},
+          title: "Age",
+        },
+        Count_Person: {
+          md: "",
+          mprop: "count",
+          pt: "Person",
+          pvs: {},
+          title: "Population",
+        },
       },
     });
 
@@ -58,7 +76,13 @@ export function axios_mock(): void {
     .calledWith("/api/stats/stats-var-property?dcid=NotInTheTree")
     .mockResolvedValue({
       data: {
-        NotInTheTree: { md: "", mprop: "count", pt: "Person", pvs: {} },
+        NotInTheTree: {
+          md: "",
+          mprop: "count",
+          pt: "Person",
+          pvs: {},
+          title: "",
+        },
       },
     });
 

@@ -22,9 +22,10 @@ import { Chart } from "./chart";
 import { removeToken, getChartPerCapita, statVarSep } from "./util";
 
 interface ChartRegionPropsType {
-  // An array of place dcids.
-  places: Record<string, string>;
-  statVars: { [key: string]: StatsVarInfo };
+  // Map from place dcid to place name.
+  placeName: Record<string, string>;
+  // Map from stat var dcid to info.
+  statVarInfo: { [key: string]: StatsVarInfo };
 }
 
 class ChartRegion extends Component<ChartRegionPropsType> {
@@ -60,29 +61,21 @@ class ChartRegion extends Component<ChartRegionPropsType> {
 
   render(): JSX.Element {
     if (
-      Object.keys(this.props.places).length === 0 ||
-      Object.keys(this.props.statVars).length === 0
+      Object.keys(this.props.placeName).length === 0 ||
+      Object.keys(this.props.statVarInfo).length === 0
     ) {
       return <div></div>;
     }
-    const groups = this.groupStatsVars(this.props.statVars);
+    const groups = this.groupStatsVars(this.props.statVarInfo);
     return (
       <React.Fragment>
         {Object.keys(groups).map((groupId) => {
-          const statVarIds = groups[groupId];
-          const statVars = {};
-          const statVarTitle = {};
-          for (const id of statVarIds) {
-            statVars[id] = this.props.statVars[id];
-            statVarTitle[id] = id;
-          }
           return (
             <Chart
               key={groupId}
               groupId={groupId}
-              places={this.props.places}
-              statVars={statVars}
-              statVarTitle={statVarTitle}
+              placeName={this.props.placeName}
+              statVarInfo={this.props.statVarInfo}
               perCapita={getChartPerCapita(groupId)}
               onDataUpdate={this.onDataUpdate.bind(this)}
               removeStatVar={(statVar) => {

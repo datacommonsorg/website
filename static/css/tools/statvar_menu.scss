@@ -36,6 +36,11 @@ $menu-line: #5b5e60;
   letter-spacing: 0;
 }
 
+.stat-var-hierarchy-container {
+  @extend .explore-menu-container;
+  background-color: #eee;
+}
+
 .explore-menu-container .title {
   padding: 20px 31px 0;
   margin-bottom: 3px;
