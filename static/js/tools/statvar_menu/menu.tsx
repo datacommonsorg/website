@@ -42,7 +42,11 @@ interface NodePropType {
   selectedNodes: StatsVarNode; // path to all the selected statsVars
   nodePath: string[]; // path to current node
   addStatsVarTitle: (statsVarId: string, statsVarName: string) => void; // pass the title of selected statsVar to parent
-  addStatsVar: (statsVar: string) => void; // function for adding statsVar
+  addStatsVar: (
+    statsVar: string,
+    nodePath: string[],
+    denominators: string[]
+  ) => void; // function for adding statsVar
   removeStatsVar: (statsVar: string, nodePath?: string[]) => void; // function for removing statsVar
   statsVarFilter: StatsVarFilterInterface; // filtering the statsVar
 }
@@ -191,7 +195,7 @@ class Node extends Component<NodePropType, NodeStateType> {
       // add available statsVars only
       for (const statsVar of this.props.sv) {
         if (this.props.statsVarFilter.isValid(statsVar)) {
-          this.props.addStatsVar(statsVar);
+          this.props.addStatsVar(statsVar, this.props.nodePath, this.props.d);
         }
       }
     }
@@ -249,7 +253,11 @@ interface MenuPropType {
   selectedNodes: StatsVarNode;
   statsVarFilter: StatsVarFilterInterface;
   setStatsVarTitle: (statsVarId2Title: Record<string, string>) => void;
-  addStatsVar: (statsVar: string) => void;
+  addStatsVar: (
+    statsVar: string,
+    nodePath: string[],
+    denominators?: string[]
+  ) => void;
   removeStatsVar: (statsVar: string, nodePath?: string[]) => void;
 }
 
