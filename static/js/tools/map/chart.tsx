@@ -48,7 +48,9 @@ interface ChartProps {
   unit: string;
 }
 
-const SVG_CONTAINER_ID = "choropleth_map";
+const SVG_CONTAINER_ID = "choropleth-map";
+const ZOOM_IN_BUTTON_ID = "zoom-in-button";
+const ZOOM_OUT_BUTTON_ID = "zoom-out-button";
 
 export function Chart(props: ChartProps): JSX.Element {
   const [errorMessage, setErrorMessage] = useState("");
@@ -71,6 +73,17 @@ export function Chart(props: ChartProps): JSX.Element {
           ) : (
             <div id={SVG_CONTAINER_ID}></div>
           )}
+          <div className="map-section-container">
+            <div id={SVG_CONTAINER_ID}></div>
+            <div className="zoom-button-section">
+              <div id={ZOOM_IN_BUTTON_ID} className="zoom-button">
+                <i className="material-icons">add</i>
+              </div>
+              <div id={ZOOM_OUT_BUTTON_ID} className="zoom-button">
+                <i className="material-icons">remove</i>
+              </div>
+            </div>
+          </div>
           <ChartOptions
             dataValues={props.breadcrumbDataValues}
             placeInfo={props.placeInfo}
@@ -100,6 +113,7 @@ function draw(
   document.getElementById(SVG_CONTAINER_ID).innerHTML = "";
   const width = document.getElementById(SVG_CONTAINER_ID).offsetWidth;
   const height = (width * 2) / 5;
+  const legendMargins = height * 0.2;
   const getRedirectLink = getMapRedirectLink(
     props.statVarInfo,
     props.placeInfo
@@ -134,7 +148,10 @@ function draw(
         props.mapDataValues,
         props.unit
       ),
-      zoomDcid
+      zoomDcid,
+      ZOOM_IN_BUTTON_ID,
+      ZOOM_OUT_BUTTON_ID,
+      { top: legendMargins, bottom: legendMargins }
     );
   }
 }

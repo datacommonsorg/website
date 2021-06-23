@@ -68,6 +68,24 @@ function fitSize(
   projection.scale(s).translate([translateX, translateY]);
 }
 
+/** Draws a choropleth chart
+ *
+ * @param containerId id of the div to draw the choropleth in
+ * @param geoJson the geojson data for drawing choropleth
+ * @param chartHeight height for the chart
+ * @param chartWidth width for the chart
+ * @param dataValues data values for plotting
+ * @param unit the unit of measurement
+ * @param statVar the stat var the choropleth is showing
+ * @param canClick whether the regions on the map should be clickable
+ * @param getRedirectLink function to get the link to redirect to when region on
+ *                        the map is clicked
+ * @param getTooltipHtml function to get the html content for the tooltip
+ * @param zoomDcid the dcid of the region to zoom in on when drawing the chart
+ * @param zoomInButtonId the id of the zoom in button
+ * @param zoomOutButtonId the id of the zoom out button
+ * @param legendMargins the top and bottom margins for the legend
+ */
 function drawChoropleth(
   containerId: string,
   geoJson: GeoJsonData,
@@ -81,7 +99,10 @@ function drawChoropleth(
   canClick: boolean,
   getRedirectLink: (geoDcid: GeoJsonFeatureProperties) => string,
   getTooltipHtml: (place: NamedPlace) => string,
-  zoomDcid?: string
+  zoomDcid?: string,
+  zoomInButtonId?: string,
+  zoomOutButtonId?: string,
+  legendMargins?: { top: number; bottom: number }
 ): void {
   const label = getStatsVarLabel(statVar);
   const maxColor = d3.color(getColorFn([label])(label));
@@ -116,7 +137,8 @@ function drawChoropleth(
     chartWidth,
     chartHeight,
     colorScale,
-    unit
+    unit,
+    legendMargins
   );
 
   // Scale and center the map
@@ -192,6 +214,30 @@ function drawChoropleth(
     .attr("stroke-width", HIGHLIGHTED_STROKE_WIDTH)
     .attr("stroke", HIGHLIGHTED_STROKE_COLOR);
   addTooltip(domContainerId);
+
+  if (zoomInButtonId || zoomOutButtonId) {
+    const zoom = d3
+      .zoom()
+      .scaleExtent([1, Infinity])
+      .translateExtent([
+        [0, 0],
+        [chartWidth, chartHeight],
+      ])
+      .on("zoom", function () {
+        map.selectAll("path").attr("transform", d3.event.transform);
+      });
+    svg.call(zoom);
+    if (zoomInButtonId) {
+      d3.select(`#${zoomInButtonId}`).on("click", () => {
+        svg.call(zoom.scaleBy, 2);
+      });
+    }
+    if (zoomOutButtonId) {
+      d3.select(`#${zoomOutButtonId}`).on("click", () => {
+        svg.call(zoom.scaleBy, 0.5);
+      });
+    }
+  }
 }
 
 const onMouseOver = (domContainerId: string, canClick: boolean) => (
@@ -260,6 +306,8 @@ function addTooltip(domContainerId: string) {
  * Draw a color scale legend.
  * @param color The d3 linearScale that encodes the color gradient to be
  *        plotted.
+ * @param margins Optional object that holds the margin top and margin bottom
+ *        of the legend to be plotted
  *
  * @return the width of the legend
  */
@@ -268,9 +316,12 @@ function generateLegend(
   chartWidth: number,
   chartHeight: number,
   color: d3.ScaleLinear<number, number>,
-  unit: string
+  unit: string,
+  margins?: { top: number; bottom: number }
 ) {
-  const height = chartHeight - LEGEND_MARGIN_TOP - LEGEND_MARGIN_BOTTOM;
+  const marginTop = margins ? margins.top : LEGEND_MARGIN_TOP;
+  const marginBottom = margins ? margins.bottom : LEGEND_MARGIN_BOTTOM;
+  const height = chartHeight - marginTop - marginBottom;
   const n = Math.min(color.domain().length, color.range().length);
 
   const legend = svg.append("g").attr("class", "legend");
@@ -279,7 +330,7 @@ function generateLegend(
     .append("image")
     .attr("id", "legend-img")
     .attr("x", 0)
-    .attr("y", LEGEND_MARGIN_TOP)
+    .attr("y", marginTop)
     .attr("width", LEGEND_IMG_WIDTH)
     .attr("height", height)
     .attr("preserveAspectRatio", "none")
@@ -293,7 +344,7 @@ function generateLegend(
   const yScale = d3.scaleLinear().domain(color.domain()).range([0, height]);
   legend
     .append("g")
-    .attr("transform", `translate(0, ${LEGEND_MARGIN_TOP})`)
+    .attr("transform", `translate(0, ${marginTop})`)
     .call(
       d3
         .axisRight(yScale)
