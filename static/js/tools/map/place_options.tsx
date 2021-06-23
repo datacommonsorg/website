@@ -176,7 +176,7 @@ function updateEnclosedPlaceTypes(
       if (!hasEnclosedPlaceTypes) {
         alert(
           `Sorry, we don't support maps for ${selectedPlace.name}.` +
-            `Please select a different place.`
+            "Please select a different place."
         );
         setEnclosedPlaceTypes([]);
       }

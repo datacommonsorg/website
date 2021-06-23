@@ -78,8 +78,7 @@ function fitSize(
  * @param unit the unit of measurement
  * @param statVar the stat var the choropleth is showing
  * @param canClick whether the regions on the map should be clickable
- * @param getRedirectLink function to get the link to redirect to when region on
- *                        the map is clicked
+ * @param redirectAction function that runs when region on map is clicked
  * @param getTooltipHtml function to get the html content for the tooltip
  * @param zoomDcid the dcid of the region to zoom in on when drawing the chart
  * @param zoomInButtonId the id of the zoom in button
@@ -223,7 +222,7 @@ function drawChoropleth(
         [0, 0],
         [chartWidth, chartHeight],
       ])
-      .on("zoom", function () {
+      .on("zoom", function (): void {
         mapObjects.on("mousemove", null).on("mouseover", null);
         d3.select(`#${TOOLTIP_ID}`).style("display", "none");
         map
@@ -231,7 +230,7 @@ function drawChoropleth(
           .classed("region-highlighted", false)
           .attr("transform", d3.event.transform);
       })
-      .on("end", function () {
+      .on("end", function (): void {
         mapObjects
           .on(
             "mousemove",
@@ -307,7 +306,7 @@ const onMapClick = (
   mouseOutAction(domContainerId, index);
 };
 
-function mouseOutAction(domContainerId: string, index: number) {
+function mouseOutAction(domContainerId: string, index: number): void {
   const container = d3.select(domContainerId);
   container.select("#geoPath" + index).classed("region-highlighted", false);
   container.select(`#${TOOLTIP_ID}`).style("display", "none");
@@ -317,7 +316,7 @@ function mouseHoverAction(
   domContainerId: string,
   index: number,
   canClick: boolean
-) {
+): void {
   const container = d3.select(domContainerId);
   // show highlighted border and show cursor as a pointer
   if (canClick) {
@@ -327,7 +326,7 @@ function mouseHoverAction(
   container.select(`#${TOOLTIP_ID}`).style("display", "block");
 }
 
-function addTooltip(domContainerId: string) {
+function addTooltip(domContainerId: string): void {
   d3.select(domContainerId)
     .attr("style", "position: relative")
     .append("div")
