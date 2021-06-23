@@ -26,7 +26,6 @@ bp = Blueprint("stats", __name__)
 
 def get_stats_latest(dcid_str, stats_var):
     """ Returns the most recent data as from a DataCommons API payload.
-
     Args:
         dcid_str: place dcids concatenated by "^".
         stats_var: the dcid of the statistical variable.

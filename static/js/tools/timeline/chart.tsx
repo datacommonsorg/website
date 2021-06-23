@@ -103,23 +103,21 @@ class Chart extends Component<ChartPropsType> {
         </span>
         <div ref={this.svgContainer} className="chart-svg"></div>
         <div className="statsVarChipRegion">
-          {statVars.map(
-            function (statVar: string) {
-              let color: string;
-              if (statVars.length > 1) {
-                color = this.plotParams.lines[placeName + statVar].color;
-              }
-              return (
-                <StatsVarChip
-                  key={statVar}
-                  statsVar={statVar}
-                  title={this.props.statVarInfo[statVar].title}
-                  color={color}
-                  removeStatVar={this.props.removeStatVar}
-                />
-              );
-            }.bind(this)
-          )}
+          {statVars.map((statVar) => {
+            let color: string;
+            if (statVars.length > 1) {
+              color = this.plotParams.lines[placeName + statVar].color;
+            }
+            return (
+              <StatsVarChip
+                key={statVar}
+                statsVar={statVar}
+                title={this.props.statVarInfo[statVar].title}
+                color={color}
+                removeStatVar={this.props.removeStatVar}
+              />
+            );
+          })}
         </div>
       </div>
     );

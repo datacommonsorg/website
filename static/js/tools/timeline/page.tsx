@@ -36,8 +36,8 @@ interface PageStateType {
 }
 
 class Page extends Component<unknown, PageStateType> {
-  statVarInfo: Record<string, StatsVarInfo>;
   placeName: Record<string, string>;
+  statVarInfo: Record<string, StatsVarInfo>;
 
   constructor(props: unknown) {
     super(props);
