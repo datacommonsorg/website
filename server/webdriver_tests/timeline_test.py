@@ -17,10 +17,12 @@ from webdriver_tests.base_test import WebdriverBaseTest
 from selenium.webdriver.support.ui import WebDriverWait
 from selenium.webdriver.common.by import By
 from selenium.webdriver.support import expected_conditions as EC
+import time
+import logging
 
 TIMELINE_URL = '/tools/timeline'
-URL_HASH_1 = '#&statsVar=Median_Age_Person,0,2__Median_Income_Person,0,3__Count_Person_Upto5Years,'\
-    '0,6,0__Count_Person_5To17Years,0,6,1&place=geoId/06,geoId/08'
+URL_HASH_1 = '#&statsVar=Median_Age_Person__Median_Income_Person__Count_Person_Upto5Years'\
+    '__Count_Person_5To17Years&place=geoId/06,geoId/08'
 GEO_URL_1 = '#&place=geoId/06'
 STATVAR_URL_1 = '#&statsVar=Count_Person'
 PLACE_SEARCH_CA = 'California, USA'
@@ -77,19 +79,32 @@ class TestCharts(WebdriverBaseTest):
         WebDriverWait(self.driver, self.TIMEOUT_SEC).until(element_present)
 
         # Store a list of all the charts.
-        charts = self.driver.find_elements_by_class_name("card")
-
+        chart_region = self.driver.find_element_by_xpath(
+            '//*[@id="chart-region"]')
+        charts = chart_region.find_elements_by_class_name('card')
         # Assert there are three charts.
         self.assertEqual(len(charts), 3)
 
+        # Click on Demograhpics link to expand it.
+        hierarchy = self.driver.find_element_by_xpath(
+            '//*[@id="hierarchy-section"]')
+        demographics_button = hierarchy.find_elements_by_class_name(
+            'Collapsible')[0]
+        demographics_button.click()
+
+        element_present = EC.text_to_be_present_in_element(
+            (By.ID, 'hierarchy-section'), "Median Age")
+        WebDriverWait(self.driver, self.TIMEOUT_SEC).until(element_present)
+
         # Uncheck median age statvar, and the number of charts will become two.
         median_age_checkbox = self.driver.find_element_by_xpath(
-            '//*[@id="Median age"]/span/button')
+            '//*[text()="Median Age"]')
         median_age_checkbox.click()
+        # Check if there is a way to find the chart region refreshed.
+        time.sleep(2)
 
         # Re-store a list of all the charts.
-        charts = self.driver.find_elements_by_class_name("card")
-
+        charts = chart_region.find_elements_by_class_name('card')
         # Assert there are two charts.
         self.assertEqual(len(charts), 2)
 
@@ -98,34 +113,42 @@ class TestCharts(WebdriverBaseTest):
         # Load Timeline Tool page for California.
         self.driver.get(self.url_ + TIMELINE_URL + GEO_URL_1)
 
-        # Store a list of all the charts.
-        # There is no chart available, so no need to wait for it.
-        # Simply make sure there are none.
-        charts = self.driver.find_elements_by_class_name("card")
+        element_present = EC.presence_of_element_located(
+            (By.ID, 'hierarchy-section'))
+        WebDriverWait(self.driver, self.TIMEOUT_SEC).until(element_present)
+
+        charts = self.driver.find_elements_by_xpath(
+            '//*[@id="chart-region"]/div[@class="chart"]')
 
         # Assert there is no chart.
         self.assertEqual(len(charts), 0)
 
         # Explore the menu and check the population box.
-        caret = self.driver.find_element_by_xpath(
-            '//*[@id="Demographics"]/span/a/img')
-        caret.click()
+        hierarchy = self.driver.find_element_by_xpath(
+            '//*[@id="hierarchy-section"]')
+        demographics_button = hierarchy.find_elements_by_class_name(
+            'Collapsible')[0]
+        demographics_button.click()
 
         # Wait until population checkbox is present and click on it.
-        element_present = EC.presence_of_element_located(
-            (By.XPATH, '//*[@id="Population"]/span/button'))
+        element_present = EC.text_to_be_present_in_element(
+            (By.ID, 'hierarchy-section'), "Population")
         WebDriverWait(self.driver, self.TIMEOUT_SEC).until(element_present)
+
+        # Uncheck median age statvar, and the number of charts will become two.
         population_checkbox = self.driver.find_element_by_xpath(
-            '//*[@id="Population"]/span/button')
+            '//*[text()="Population"]')
         population_checkbox.click()
+        # Check if there is a way to find the chart region refreshed.
 
         # Wait until there is one card present.
         element_present = EC.presence_of_element_located(
-            (By.CSS_SELECTOR, '.card'))
+            (By.XPATH, '//*[@id="chart-region"]/div'))
         WebDriverWait(self.driver, self.TIMEOUT_SEC).until(element_present)
 
         # Re-store a list of all the charts.
-        charts = self.driver.find_elements_by_class_name("card")
+        charts = self.driver.find_elements_by_xpath(
+            '//*[@id="chart-region"]/div')
 
         # Assert there is one chart.
         self.assertEqual(len(charts), 1)
@@ -173,7 +196,8 @@ class TestCharts(WebdriverBaseTest):
         WebDriverWait(self.driver, self.TIMEOUT_SEC).until(element_present)
 
         # Store a list of all the charts and lines.
-        charts = self.driver.find_elements_by_class_name("card")
+        charts = self.driver.find_elements_by_xpath(
+            '//*[@id="chart-region"]/div')
         lines = charts[0].find_elements_by_class_name("line")
 
         # Assert number of charts and lines is correct.
@@ -196,7 +220,8 @@ class TestCharts(WebdriverBaseTest):
         WebDriverWait(self.driver, self.TIMEOUT_SEC).until(element_present)
 
         # Store a list of all the charts and lines.
-        charts = self.driver.find_elements_by_class_name("card")
+        charts = self.driver.find_elements_by_xpath(
+            '//*[@id="chart-region"]/div')
         lines = charts[0].find_elements_by_class_name("line")
 
         # Assert number of charts and lines is correct.

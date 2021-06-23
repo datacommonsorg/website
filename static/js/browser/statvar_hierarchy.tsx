@@ -248,9 +248,6 @@ export class StatVarHierarchy extends React.Component<
       if (this.props.selectSV) {
         this.props.selectSV(sv);
       }
-      console.log(sv);
-      console.log(path);
-      console.log(this.state.svPath);
       this.setState({
         svPath: Object.assign({ [sv]: path }, this.state.svPath),
       });
@@ -265,7 +262,9 @@ export class StatVarHierarchy extends React.Component<
     return axios
       .get(`/api/browser/statvar/path?id=${encodeURIComponent(sv)}`)
       .then((resp) => {
-        return resp.data["path"].reverse();
+        // This is to make jest test working, should find a better way to let
+        // mock return new object each time.
+        return _.cloneDeep(resp.data["path"]).reverse();
       });
   }
 }

@@ -227,11 +227,13 @@ the same region.
   combined with `sleep()` to give you time to inspect the page. To enter this
   mode, comment out this line in
   [base_test.py](../server/webdriver_tests/base_test.py):
+
   ```python
   chrome_options.add_argument('--headless')
   ```
 
 - Another option is to save a screenshot at various points of the test:
+
   ```python
   self.driver.save_screenshot(filename)
   ```

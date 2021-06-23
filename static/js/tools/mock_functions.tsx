@@ -17,6 +17,7 @@
 jest.mock("axios");
 import { when } from "jest-when";
 import axios from "axios";
+
 import hierarchy from "../../data/hierarchy_top.json";
 import hierarchy_complete from "../../data/hierarchy_statsvar.json";
 import { drawGroupLineChart } from "../chart/draw";

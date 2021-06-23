@@ -53,8 +53,6 @@ export class StatVarCheckbox extends React.Component<
   }
 
   private handleInputChange(): void {
-    console.log("handle input change");
-    console.log(this.state.checked);
     this.context.togglePath(this.props.statVar.id, this.props.path);
     this.setState({
       checked: !this.state.checked,
