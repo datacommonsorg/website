@@ -15,30 +15,31 @@
  */
 
 /**
- * Component for rendering a stat var checkbox in the stat var hierarchy.
+ * Component for rendering a stat var section input (checkbox or radio button)
+ * in the stat var hierarchy.
  */
 
 import React from "react";
 
-import { StatVarInfo } from "../shared/types";
+import { StatVarHierarchyType, StatVarInfo } from "../shared/types";
 import { Context, ContextType } from "../shared/context";
 
-interface StatVarCheckboxPropType {
+interface StatVarSectionInputPropType {
   path: string[];
   statVar: StatVarInfo;
   selected: boolean;
 }
 
-interface StatVarCheckboxStateType {
+interface StatVarSectionInputStateType {
   checked: boolean;
 }
 
-export class StatVarCheckbox extends React.Component<
-  StatVarCheckboxPropType,
-  StatVarCheckboxStateType
+export class StatVarSectionInput extends React.Component<
+  StatVarSectionInputPropType,
+  StatVarSectionInputStateType
 > {
   context: ContextType;
-  constructor(props: StatVarCheckboxPropType) {
+  constructor(props: StatVarSectionInputPropType) {
     super(props);
     this.state = {
       checked: false,
@@ -52,7 +53,7 @@ export class StatVarCheckbox extends React.Component<
     });
   }
 
-  componentDidUpdate(prevProps: StatVarCheckboxPropType): void {
+  componentDidUpdate(prevProps: StatVarSectionInputPropType): void {
     if (this.props !== prevProps) {
       this.setState({
         checked: this.isChecked(),
@@ -72,6 +73,10 @@ export class StatVarCheckbox extends React.Component<
   }
 
   render(): JSX.Element {
+    const inputType =
+      this.context.statVarHierarchyType === StatVarHierarchyType.MAP
+        ? "radio"
+        : "checkbox";
     return (
       <form
         className={
@@ -82,7 +87,9 @@ export class StatVarCheckbox extends React.Component<
       >
         <label>
           <input
-            type="checkbox"
+            id={this.props.statVar.id + this.props.path.join}
+            name="stat-var-hierarchy"
+            type={inputType}
             checked={this.state.checked}
             onChange={this.handleInputChange}
           />{" "}
@@ -93,4 +100,4 @@ export class StatVarCheckbox extends React.Component<
   }
 }
 
-StatVarCheckbox.contextType = Context;
+StatVarSectionInput.contextType = Context;

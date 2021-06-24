@@ -25,7 +25,11 @@ import _ from "lodash";
 
 import { StatVarHierarchySearch } from "./stat_var_search";
 import { StatVarGroupNode } from "./stat_var_group_node";
-import { NamedPlace, StatVarGroupInfo } from "../shared/types";
+import {
+  NamedPlace,
+  StatVarGroupInfo,
+  StatVarHierarchyType,
+} from "../shared/types";
 
 import { loadSpinner, removeSpinner } from "../browser/util";
 import { Context } from "../shared/context";
@@ -248,9 +252,15 @@ export class StatVarHierarchy extends React.Component<
       if (this.props.selectSV) {
         this.props.selectSV(sv);
       }
-      this.setState({
-        svPath: Object.assign({ [sv]: path }, this.state.svPath),
-      });
+      if (this.props.type === StatVarHierarchyType.MAP) {
+        this.setState({
+          svPath: { [sv]: path },
+        });
+      } else {
+        this.setState({
+          svPath: Object.assign({ [sv]: path }, this.state.svPath),
+        });
+      }
     }
   }
 

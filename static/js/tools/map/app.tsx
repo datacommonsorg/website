@@ -25,23 +25,24 @@ import _ from "lodash";
 import { PlaceOptions } from "./place_options";
 import {
   applyHashPlaceInfo,
-  applyHashStatVarInfo,
+  applyHashStatVar,
   MAP_REDIRECT_PREFIX,
   updateHashPlaceInfo,
-  updateHashStatVarInfo,
+  updateHashStatVar,
 } from "./util";
 import { ChartLoader } from "./chart_loader";
 import { Info } from "./info";
+import { StatVarChooser } from "./stat_var_chooser";
 
 function App(): JSX.Element {
-  const { statVarInfo, placeInfo, isLoading } = useContext(Context);
+  const { statVar, placeInfo, isLoading } = useContext(Context);
   const showChart =
-    !_.isEmpty(statVarInfo.value.statVar) &&
-    !_.isEmpty(placeInfo.value.enclosedPlaces);
+    !_.isNull(statVar.value.info) && !_.isEmpty(placeInfo.value.enclosedPlaces);
   const showLoadingSpinner =
     isLoading.value.isDataLoading || isLoading.value.isPlaceInfoLoading;
   return (
     <>
+      <StatVarChooser />
       <div id="plot-container">
         <Container>
           {!showChart && (
@@ -95,11 +96,11 @@ function applyHash(context: ContextType): void {
     decodeURIComponent(location.hash).replace("#", "?")
   );
   context.placeInfo.set(applyHashPlaceInfo(params));
-  context.statVarInfo.set(applyHashStatVarInfo(params));
+  context.statVar.set(applyHashStatVar(params));
 }
 
 function updateHash(context: ContextType): void {
-  let hash = updateHashStatVarInfo("", context.statVarInfo.value);
+  let hash = updateHashStatVar("", context.statVar.value);
   hash = updateHashPlaceInfo(hash, context.placeInfo.value);
   const newHash = encodeURIComponent(hash);
   const currentHash = location.hash.replace("#", "");

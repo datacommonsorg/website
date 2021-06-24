@@ -429,9 +429,9 @@ function generateLegendSvg(
     generateLegend(svg, height, colorScale, unit) + marginLeft;
   svg
     .attr("width", legendWidth)
-    .attr("height", height + LEGEND_MARGIN_BOTTOM)
+    .attr("height", height + TICK_SIZE * 2)
     .select(`.${LEGEND_CLASS_NAME}`)
-    .attr("transform", `translate(${marginLeft}, 0)`);
+    .attr("transform", `translate(${marginLeft}, ${TICK_SIZE})`);
   return legendWidth;
 }
 

@@ -25,7 +25,7 @@ import { StatVarInfo } from "../shared/types";
 import { StatVarCharts } from "../browser/stat_var_charts";
 import { NamedPlace, StatVarHierarchyType } from "../shared/types";
 import { Context } from "../shared/context";
-import { StatVarCheckbox } from "./stat_var_checkbox";
+import { StatVarSectionInput } from "./stat_var_section_input";
 
 interface StatVarSectionPropType {
   path: string[];
@@ -49,17 +49,15 @@ export class StatVarSection extends React.Component<StatVarSectionPropType> {
               key={statVar.id}
               ref={isSelected ? this.props.highlightedStatVar : null}
             >
-              {context.statVarHierarchyType ==
-                StatVarHierarchyType.TIMELINE && (
-                <StatVarCheckbox
-                  path={this.props.path.concat([statVar.id])}
+              {context.statVarHierarchyType == StatVarHierarchyType.BROWSER ? (
+                <StatVarCharts
+                  place={this.props.places[0]}
                   selected={isSelected}
                   statVar={statVar}
                 />
-              )}
-              {context.statVarHierarchyType == StatVarHierarchyType.BROWSER && (
-                <StatVarCharts
-                  place={this.props.places[0]}
+              ) : (
+                <StatVarSectionInput
+                  path={this.props.path.concat([statVar.id])}
                   selected={isSelected}
                   statVar={statVar}
                 />

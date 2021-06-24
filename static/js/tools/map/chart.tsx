@@ -18,9 +18,9 @@
  * Chart component for drawing a choropleth.
  */
 
-import React, { useEffect, useState, useRef } from "react";
+import React, { useEffect, useState } from "react";
 import { GeoJsonData, GeoJsonFeatureProperties } from "../../chart/types";
-import { PlaceInfo, StatVarInfo } from "./context";
+import { PlaceInfo, StatVar } from "./context";
 import { Container } from "reactstrap";
 import _ from "lodash";
 import {
@@ -31,7 +31,7 @@ import {
 import {
   MAP_REDIRECT_PREFIX,
   updateHashPlaceInfo,
-  updateHashStatVarInfo,
+  updateHashStatVar,
   USA_CHILD_PLACE_TYPES,
 } from "./util";
 import { urlToDomain } from "../../shared/util";
@@ -46,7 +46,7 @@ interface ChartProps {
   metadata: { [dcid: string]: DataPointMetadata };
   breadcrumbDataValues: { [dcid: string]: number };
   placeInfo: PlaceInfo;
-  statVarInfo: StatVarInfo;
+  statVar: StatVar;
   dates: Set<string>;
   sources: Set<string>;
   unit: string;
@@ -62,10 +62,13 @@ const LEGEND_HEIGHT_SCALING = 0.6;
 
 export function Chart(props: ChartProps): JSX.Element {
   const [errorMessage, setErrorMessage] = useState("");
-  const title = getTitle(Array.from(props.dates), props.statVarInfo.name);
+  const title = getTitle(
+    Array.from(props.dates),
+    props.statVar.info.title ? props.statVar.info.title : props.statVar.dcid
+  );
   const sourcesJsx = getSourcesJsx(props.sources);
   const placeDcid = props.placeInfo.enclosingPlace.dcid;
-  const statVarDcid = _.findKey(props.statVarInfo.statVar);
+  const statVarDcid = props.statVar.dcid;
   const [chartWidth, setChartWidth] = useState(0);
   useEffect(() => {
     draw(props, setErrorMessage, true);
@@ -141,10 +144,7 @@ function draw(
   document.getElementById(LEGEND_CONTAINER_ID).innerHTML = "";
   const width = document.getElementById(CHART_CONTAINER_ID).offsetWidth;
   const height = (width * 2) / 5;
-  const redirectAction = getMapRedirectAction(
-    props.statVarInfo,
-    props.placeInfo
-  );
+  const redirectAction = getMapRedirectAction(props.statVar, props.placeInfo);
   const zoomDcid =
     props.placeInfo.enclosingPlace.dcid !== props.placeInfo.selectedPlace.dcid
       ? props.placeInfo.selectedPlace.dcid
@@ -158,7 +158,10 @@ function draw(
       return;
     }
   }
-  const colorScale = getColorScale(props.statVarInfo.name, props.mapDataValues);
+  const colorScale = getColorScale(
+    props.statVar.info.title ? props.statVar.info.title : props.statVar.dcid,
+    props.mapDataValues
+  );
   const legendHeight = height * LEGEND_HEIGHT_SCALING;
   const legendWidth = generateLegendSvg(
     LEGEND_CONTAINER_ID,
@@ -185,7 +188,7 @@ function draw(
       redirectAction,
       getTooltipHtml(
         props.metadata,
-        props.statVarInfo,
+        props.statVar,
         props.mapDataValues,
         props.unit
       ),
@@ -228,11 +231,10 @@ function exploreTimelineOnClick(placeDcid: string, statVarDcid: string): void {
   window.open(`/tools/timeline#place=${placeDcid}&statsVar=${statVarDcid}`);
 }
 
-const getMapRedirectAction = (
-  statVarInfo: StatVarInfo,
-  placeInfo: PlaceInfo
-) => (geoProperties: GeoJsonFeatureProperties) => {
-  let hash = updateHashStatVarInfo("", statVarInfo);
+const getMapRedirectAction = (statVar: StatVar, placeInfo: PlaceInfo) => (
+  geoProperties: GeoJsonFeatureProperties
+) => {
+  let hash = updateHashStatVar("", statVar);
   const selectedPlace = {
     dcid: geoProperties.geoDcid,
     name: geoProperties.name,
@@ -253,10 +255,11 @@ const getMapRedirectAction = (
 
 const getTooltipHtml = (
   metadataMapping: { [dcid: string]: DataPointMetadata },
-  statVarInfo: StatVarInfo,
+  statVar: StatVar,
   dataValues: { [dcid: string]: number },
   unit: string
 ) => (place: NamedPlace) => {
+  const statVarTitle = statVar.info.title ? statVar.info.title : statVar.dcid;
   const titleHtml = `<b>${place.name}</b><br/>`;
   let hasValue = false;
   let value = "Data Missing";
@@ -265,23 +268,21 @@ const getTooltipHtml = (
     hasValue = true;
   }
   if (!hasValue || !(place.dcid in metadataMapping)) {
-    return titleHtml + `${statVarInfo.name}: <wbr>${value}<br />`;
+    return titleHtml + `${statVarTitle}: <wbr>${value}<br />`;
   }
   const metadata = metadataMapping[place.dcid];
   if (!_.isEmpty(metadata.errorMessage)) {
-    return (
-      titleHtml + `${statVarInfo.name}: <wbr>${metadata.errorMessage}<br />`
-    );
+    return titleHtml + `${statVarTitle}: <wbr>${metadata.errorMessage}<br />`;
   }
   let sources = urlToDomain(metadata.statVarSource);
-  if (statVarInfo.perCapita && !_.isEmpty(metadata.popSource)) {
+  if (statVar.perCapita && !_.isEmpty(metadata.popSource)) {
     const popDomain = urlToDomain(metadata.popSource);
     if (popDomain !== sources) {
       sources += `, ${popDomain}`;
     }
   }
   const showPopDateMessage =
-    statVarInfo.perCapita &&
+    statVar.perCapita &&
     !_.isEmpty(metadata.popDate) &&
     !metadata.statVarDate.includes(metadata.popDate) &&
     !metadata.popDate.includes(metadata.statVarDate);
@@ -290,7 +291,7 @@ const getTooltipHtml = (
     : "";
   const html =
     titleHtml +
-    `${statVarInfo.name} (${metadata.statVarDate}): <wbr>${value}<br />` +
+    `${statVarTitle} (${metadata.statVarDate}): <wbr>${value}<br />` +
     `<footer>Data from: <wbr>${sources} <br/>${popDateHtml}</footer>`;
   return html;
 };

@@ -19,6 +19,7 @@
 @import 'statvar_menu';
 @import '../draw';
 @import '../draw_choropleth';
+@import '../browser';
 
 @mixin map-search {
   @include search_place.search-place;
@@ -198,4 +199,8 @@
 #choropleth-legend {
   display: flex;
   align-items: center;
+}
+
+#choropleth-legend .legend {
+  display: block;
 }
