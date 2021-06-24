@@ -21,11 +21,11 @@
 
 import React from "react";
 
-import { StatVarInfo } from "./types";
-import { StatVarCharts } from "./statvar_charts";
+import { StatVarInfo } from "../shared/types";
+import { StatVarCharts } from "../browser/stat_var_charts";
 import { NamedPlace, StatVarHierarchyType } from "../shared/types";
 import { Context } from "../shared/context";
-import { StatVarCheckbox } from "./statvar_checkbox";
+import { StatVarCheckbox } from "./stat_var_checkbox";
 
 interface StatVarSectionPropType {
   path: string[];

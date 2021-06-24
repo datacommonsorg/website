@@ -23,12 +23,11 @@ import React from "react";
 import axios from "axios";
 import _ from "lodash";
 
-import { StatVarHierarchySearch } from "./statvar_hierarchy_search";
-import { StatVarGroupNode } from "./statvar_group_node";
-import { StatVarGroupInfo } from "./types";
-import { NamedPlace } from "../shared/types";
+import { StatVarHierarchySearch } from "./stat_var_search";
+import { StatVarGroupNode } from "./stat_var_group_node";
+import { NamedPlace, StatVarGroupInfo } from "../shared/types";
 
-import { loadSpinner, removeSpinner } from "./util";
+import { loadSpinner, removeSpinner } from "../browser/util";
 import { Context } from "../shared/context";
 
 const LOADING_CONTAINER_ID = "stat-var-hierarchy-section";

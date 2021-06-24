@@ -20,7 +20,7 @@
 
 import React from "react";
 
-import { StatVarInfo } from "./types";
+import { StatVarInfo } from "../shared/types";
 import { Context, ContextType } from "../shared/context";
 
 interface StatVarCheckboxPropType {
