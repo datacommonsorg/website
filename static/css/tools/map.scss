@@ -139,6 +139,7 @@
 #choropleth-map {
   overflow-x: hidden;
   overflow-y: hidden;
+  flex-grow: 1;
 }
 
 .legend rect {
@@ -187,4 +188,14 @@
 .input-area-hidden #ac {
   visibility: hidden;
   width: 0;
+}
+
+#chart-container {
+  width: 100%;
+  display: flex;
+}
+
+#choropleth-legend {
+  display: flex;
+  align-items: center;
 }
