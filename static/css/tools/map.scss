@@ -139,6 +139,7 @@
 #choropleth-map {
   overflow-x: hidden;
   overflow-y: hidden;
+  flex-grow: 1;
 }
 
 .legend rect {
@@ -178,4 +179,14 @@
 
 .zoom-button i {
   font-size: 1.3rem;
+}
+
+#chart-container {
+  width: 100%;
+  display: flex;
+}
+
+#choropleth-legend {
+  display: flex;
+  align-items: center;
 }
