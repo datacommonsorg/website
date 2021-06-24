@@ -3,7 +3,7 @@
 exports[`Single place and single stats var 1`] = `
 "<div class=\\"card\\"><span class=\\"chartPerCapita\\">Per capita<button class=\\"perCapitaCheckbox\\"></button><a href=\\"/faq#perCapita\\"><span> *</span></a></span>
   <div class=\\"chart-svg\\"><svg width=\\"500\\" height=\\"500\\"><text>svg text</text></svg></div>
-  <div class=\\"statsVarChipRegion\\">
+  <div class=\\"statVarChipRegion\\">
     <div class=\\"pv-chip mdl-chip--deletable\\"><span class=\\"mdl-chip__text\\">Age</span><button class=\\"mdl-chip__action\\"><i class=\\"material-icons\\">cancel</i></button></div>
   </div>
 </div>"
@@ -12,7 +12,7 @@ exports[`Single place and single stats var 1`] = `
 exports[`Single place and single stats var 2`] = `
 "<div class=\\"card\\"><span class=\\"chartPerCapita\\">Per capita<button class=\\"perCapitaCheckbox\\"></button><a href=\\"/faq#perCapita\\"><span> *</span></a></span>
   <div class=\\"chart-svg\\"><svg width=\\"500\\" height=\\"500\\"><text>svg text</text></svg></div>
-  <div class=\\"statsVarChipRegion\\">
+  <div class=\\"statVarChipRegion\\">
     <div class=\\"pv-chip mdl-chip--deletable\\"><span class=\\"mdl-chip__text\\">Age</span><button class=\\"mdl-chip__action\\"><i class=\\"material-icons\\">cancel</i></button></div>
   </div>
 </div>"
@@ -59,22 +59,22 @@ exports[`Single place and single stats var 3`] = `
 exports[`chart options 1`] = `
 "<div class=\\"card\\"><span class=\\"chartPerCapita\\">Per capita<button class=\\"perCapitaCheckbox\\"></button><a href=\\"/faq#perCapita\\"><span> *</span></a></span>
   <div class=\\"chart-svg\\"><svg width=\\"500\\" height=\\"500\\"><text>svg text</text></svg></div>
-  <div class=\\"statsVarChipRegion\\">
+  <div class=\\"statVarChipRegion\\">
     <div class=\\"pv-chip mdl-chip--deletable\\"><span class=\\"mdl-chip__text\\">Age</span><button class=\\"mdl-chip__action\\"><i class=\\"material-icons\\">cancel</i></button></div>
   </div>
 </div>"
 `;
 
-exports[`statsVar not in PV-tree 1`] = `
+exports[`statVar not in PV-tree 1`] = `
 "<div class=\\"card\\"><span class=\\"chartPerCapita\\">Per capita<button class=\\"perCapitaCheckbox\\"></button><a href=\\"/faq#perCapita\\"><span> *</span></a></span>
   <div class=\\"chart-svg\\"></div>
-  <div class=\\"statsVarChipRegion\\">
+  <div class=\\"statVarChipRegion\\">
     <div class=\\"pv-chip mdl-chip--deletable\\"><span class=\\"mdl-chip__text\\"></span><button class=\\"mdl-chip__action\\"><i class=\\"material-icons\\">cancel</i></button></div>
   </div>
 </div>"
 `;
 
-exports[`statsVar not in PV-tree 2`] = `
+exports[`statVar not in PV-tree 2`] = `
 "<div class=\\"Collapsible\\"><span class=\\"Collapsible__trigger is-closed\\"><div class=\\"node-title\\"><i class=\\"material-icons\\">add</i><span class=\\"title\\">Demographics</span></div></span>
 <div class=\\"Collapsible__contentOuter\\" style=\\"height: 0px; transition: height 200ms linear; overflow: hidden;\\">
   <div class=\\"Collapsible__contentInner\\"></div>

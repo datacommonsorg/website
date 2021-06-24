@@ -39,7 +39,7 @@ import {
   IsLoadingWrapper,
 } from "./context";
 import { NamedPlace } from "../../shared/types";
-import { StatsVarNode } from "../statvar_menu/util";
+import { StatVarNode } from "../statvar_menu/util";
 import { PlotOptions } from "./plot_options";
 
 /**
@@ -250,7 +250,7 @@ function usePoints(cache: Cache): Array<Point> {
  * Gets the DCID of the per capita denominator.
  * @param node
  */
-function getPopulationStatVar(node: StatsVarNode): string {
+function getPopulationStatVar(node: StatVarNode): string {
   return Object.values(node)[0].denominators[0] || "Count_Person";
 }
 

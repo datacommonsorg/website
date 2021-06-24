@@ -17,7 +17,7 @@
 import _ from "lodash";
 import React, { Component } from "react";
 import { StatsData } from "../../shared/data_fetcher";
-import { StatsVarInfo } from "../statvar_menu/util";
+import { StatVarInfo } from "../statvar_menu/util";
 import { saveToFile } from "../../shared/util";
 import { Chart } from "./chart";
 import { removeToken, getChartPerCapita, statVarSep } from "./util";
@@ -26,7 +26,7 @@ interface ChartRegionPropsType {
   // Map from place dcid to place name.
   placeName: Record<string, string>;
   // Map from stat var dcid to info.
-  statVarInfo: { [key: string]: StatsVarInfo };
+  statVarInfo: { [key: string]: StatVarInfo };
 }
 
 class ChartRegion extends Component<ChartRegionPropsType> {
@@ -67,7 +67,7 @@ class ChartRegion extends Component<ChartRegionPropsType> {
     ) {
       return <div></div>;
     }
-    const groups = this.groupStatsVars(this.props.statVarInfo);
+    const groups = this.groupStatVars(this.props.statVarInfo);
     return (
       <React.Fragment>
         {Object.keys(groups).map((groupId) => {
@@ -106,18 +106,18 @@ class ChartRegion extends Component<ChartRegionPropsType> {
    *
    * TODO(shifucun): extend this to accomodate other stats var properties.
    *
-   * @param statsVars All the input stats vars.
+   * @param statVars All the input stats vars.
    */
-  private groupStatsVars(statsVars: {
-    [key: string]: StatsVarInfo;
+  private groupStatVars(statVars: {
+    [key: string]: StatVarInfo;
   }): { [key: string]: string[] } {
     const groups = {};
-    for (const statsVarId in statsVars) {
-      const mprop = statsVars[statsVarId].mprop;
+    for (const statVarId in statVars) {
+      const mprop = statVars[statVarId].mprop;
       if (!groups[mprop]) {
         groups[mprop] = [];
       }
-      groups[mprop].push(statsVarId);
+      groups[mprop].push(statVarId);
     }
     return groups;
   }
@@ -142,10 +142,10 @@ class ChartRegion extends Component<ChartRegionPropsType> {
     // Get the place name
     const placeName: { [key: string]: string } = {};
     const sample = Object.values(this.allStatsData)[0];
-    const statsVar = sample.statsVars[0];
+    const statVar = sample.statsVars[0];
     for (const place of sample.places) {
-      placeName[sample.data[statsVar][place].placeDcid] =
-        sample.data[statsVar][place].placeName;
+      placeName[sample.data[statVar][place].placeDcid] =
+        sample.data[statVar][place].placeName;
     }
 
     // Iterate each year, group, place, stats var to populate data
@@ -180,4 +180,4 @@ class ChartRegion extends Component<ChartRegionPropsType> {
   }
 }
 
-export { ChartRegionPropsType, ChartRegion, StatsVarInfo };
+export { ChartRegionPropsType, ChartRegion, StatVarInfo };

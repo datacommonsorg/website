@@ -96,7 +96,7 @@ function saveToCsv(
 }
 
 window.onload = function () {
-  const statVars = Array.from(getTokensFromUrl("statVar", "__"));
+  const statVars = Array.from(getTokensFromUrl("statsVar", "__"));
   const statVarDisplay = document.getElementById("statVars");
   statVarDisplay.innerText = statVars.join(", ");
 
