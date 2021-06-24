@@ -35,43 +35,43 @@ test("get place names", () => {
 
 test("test getTokensFromUrl", () => {
   window.location.hash =
-    "#&place=country/USA,geoId/06&statVar=Count_Person__Median_Age_Person";
+    "#&place=country/USA,geoId/06&statsVar=Count_Person__Median_Age_Person";
   // places
   let tokens = getTokensFromUrl("place", ",");
   expect(tokens).toContain("country/USA");
   expect(tokens).toContain("geoId/06");
   // stat vars
-  tokens = getTokensFromUrl("statVar", "__");
+  tokens = getTokensFromUrl("statsVar", "__");
   expect(tokens).toContain("Count_Person");
   expect(tokens).toContain("Median_Age_Person");
 });
 
 test("test setTokensToUrl", () => {
-  window.location.hash = "#&statVar=Count_Person__Median_Age_Person";
+  window.location.hash = "#&statsVar=Count_Person__Median_Age_Person";
   // places
   setTokensToUrl("place", ",", new Set(["country/USA", "geoId/06"]));
   expect(window.location.hash).toBe(
-    "#statVar=Count_Person__Median_Age_Person&place=country%2FUSA%2CgeoId%2F06"
+    "#statsVar=Count_Person__Median_Age_Person&place=country%2FUSA%2CgeoId%2F06"
   );
 });
 
 test("test addToken", () => {
-  window.location.hash = "#&statVar=Count_Person__Median_Age_Person";
+  window.location.hash = "#&statsVar=Count_Person__Median_Age_Person";
   // existing token
-  addToken("statVar", "__", "Median_Age_Person");
+  addToken("statsVar", "__", "Median_Age_Person");
   expect(window.location.hash).toBe(
-    "#&statVar=Count_Person__Median_Age_Person"
+    "#&statsVar=Count_Person__Median_Age_Person"
   );
   // new token
-  addToken("statVar", "__", "Count_Person_Female");
+  addToken("statsVar", "__", "Count_Person_Female");
   expect(window.location.hash).toBe(
-    "#statVar=Count_Person__Median_Age_Person__Count_Person_Female"
+    "#statsVar=Count_Person__Median_Age_Person__Count_Person_Female"
   );
 });
 
 test("test removeToken", () => {
-  window.location.hash = "#&statVar=Count_Person__Median_Age_Person";
+  window.location.hash = "#&statsVar=Count_Person__Median_Age_Person";
   // places
-  removeToken("statVar", "__", "Count_Person");
-  expect(window.location.hash).toBe("#statVar=Median_Age_Person");
+  removeToken("statsVar", "__", "Count_Person");
+  expect(window.location.hash).toBe("#statsVar=Median_Age_Person");
 });

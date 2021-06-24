@@ -35,7 +35,7 @@ class Info extends Component {
             <b>University towns</b> by
             <a
               href={
-                "#&place=geoId/0606000,geoId/2511000,geoId/2603000,geoId/1777005,geoId/1225175,geoId/4815976&statVar=Median_Age_Person"
+                "#&place=geoId/0606000,geoId/2511000,geoId/2603000,geoId/1777005,geoId/1225175,geoId/4815976&statsVar=Median_Age_Person"
               }
             >
               {" "}
@@ -44,7 +44,7 @@ class Info extends Component {
             ,
             <a
               href={
-                "#&place=geoId/0606000,geoId/2511000,geoId/2603000,geoId/1777005,geoId/1225175,geoId/4815976&statVar=Median_Income_Person"
+                "#&place=geoId/0606000,geoId/2511000,geoId/2603000,geoId/1777005,geoId/1225175,geoId/4815976&statsVar=Median_Income_Person"
               }
             >
               {" "}
@@ -53,7 +53,7 @@ class Info extends Component {
             ,
             <a
               href={
-                "#&place=geoId/0606000,geoId/2511000,geoId/2603000,geoId/1777005,geoId/1225175,geoId/4815976&statVar=Count_CriminalActivities_ViolentCrime"
+                "#&place=geoId/0606000,geoId/2511000,geoId/2603000,geoId/1777005,geoId/1225175,geoId/4815976&statsVar=Count_CriminalActivities_ViolentCrime"
               }
             >
               {" "}
@@ -67,7 +67,7 @@ class Info extends Component {
               Berkeley &amp; Piedmont:
               <a
                 href={
-                  "#&&place=geoId/0606000,geoId/0656938&statVar=Count_Person__BelowPovertyLine"
+                  "#&&place=geoId/0606000,geoId/0656938&statsVar=Count_Person__BelowPovertyLine"
                 }
               >
                 {" "}
@@ -76,7 +76,7 @@ class Info extends Component {
               ,
               <a
                 href={
-                  "#&&place=geoId/0606000,geoId/0656938&statVar=Count_Person_18To24Years__Count_Person_35To44Years__Count_Person_45To54Years__Count_Person_65To74Years"
+                  "#&&place=geoId/0606000,geoId/0656938&statsVar=Count_Person_18To24Years__Count_Person_35To44Years__Count_Person_45To54Years__Count_Person_65To74Years"
                 }
               >
                 {" "}
@@ -85,7 +85,7 @@ class Info extends Component {
               ,
               <a
                 href={
-                  "#&&place=geoId/0606000,geoId/0656938&pc=1&statVar=Count_Person_EducationalAttainmentBachelorsDegree__Count_Person_EducationalAttainmentMastersDegree__Count_Person_EducationalAttainmentDoctorateDegree"
+                  "#&&place=geoId/0606000,geoId/0656938&pc=1&statsVar=Count_Person_EducationalAttainmentBachelorsDegree__Count_Person_EducationalAttainmentMastersDegree__Count_Person_EducationalAttainmentDoctorateDegree"
                 }
               >
                 {" "}
@@ -97,7 +97,7 @@ class Info extends Component {
               Palo Alto &amp; East Palo Alto:
               <a
                 href={
-                  "#&&place=geoId/0655282,geoId/0620956&statVar=Count_Person_AsianAlone__Count_Person_BlackOrAfricanAmericanAlone__Count_Person_NativeHawaiianOrOtherPacificIslanderAlone__Count_Person_WhiteAlone"
+                  "#&&place=geoId/0655282,geoId/0620956&statsVar=Count_Person_AsianAlone__Count_Person_BlackOrAfricanAmericanAlone__Count_Person_NativeHawaiianOrOtherPacificIslanderAlone__Count_Person_WhiteAlone"
                 }
               >
                 {" "}
@@ -106,7 +106,7 @@ class Info extends Component {
               ,
               <a
                 href={
-                  "#&&place=geoId/0655282,geoId/0620956&pc=0&statVar=Median_Income_Person"
+                  "#&&place=geoId/0655282,geoId/0620956&pc=0&statsVar=Median_Income_Person"
                 }
               >
                 {" "}
@@ -115,7 +115,7 @@ class Info extends Component {
               ,
               <a
                 href={
-                  "#&&place=geoId/0655282,geoId/0620956&pc=1&statVar=Count_Person_Employed"
+                  "#&&place=geoId/0655282,geoId/0620956&pc=1&statsVar=Count_Person_Employed"
                 }
               >
                 {" "}
@@ -124,7 +124,7 @@ class Info extends Component {
               ,
               <a
                 href={
-                  "#&&place=geoId/0655282,geoId/0620956&pc=1&statVar=Count_Person_Divorced__Count_Person_MarriedAndNotSeparated__Count_Person_NeverMarried"
+                  "#&&place=geoId/0655282,geoId/0620956&pc=1&statsVar=Count_Person_Divorced__Count_Person_MarriedAndNotSeparated__Count_Person_NeverMarried"
                 }
               >
                 {" "}
@@ -138,7 +138,7 @@ class Info extends Component {
               Santa Clara County vs Imperial County:
               <a
                 href={
-                  "#&&place=geoId/06085,geoId/06025&statVar=Median_Income_Person"
+                  "#&&place=geoId/06085,geoId/06025&statsVar=Median_Income_Person"
                 }
               >
                 {" "}
@@ -147,7 +147,7 @@ class Info extends Component {
               ,
               <a
                 href={
-                  "#&&place=geoId/06085,geoId/06025&statVar=Count_Death_DiseasesOfTheCirculatorySystem__Count_Death_ExternalCauses"
+                  "#&&place=geoId/06085,geoId/06025&statsVar=Count_Death_DiseasesOfTheCirculatorySystem__Count_Death_ExternalCauses"
                 }
               >
                 {" "}
@@ -159,7 +159,7 @@ class Info extends Component {
               Atlanta vs West Jordan:
               <a
                 href={
-                  "#&&place=geoId/1304000,geoId/4982950&statVar=Median_Income_Person"
+                  "#&&place=geoId/1304000,geoId/4982950&statsVar=Median_Income_Person"
                 }
               >
                 {" "}
@@ -168,7 +168,7 @@ class Info extends Component {
               ,
               <a
                 href={
-                  "#&&place=geoId/1304000,geoId/4982950&pc=1&statVar=Count_Person_Female__Count_Person_Male"
+                  "#&&place=geoId/1304000,geoId/4982950&pc=1&statsVar=Count_Person_Female__Count_Person_Male"
                 }
               >
                 {" "}

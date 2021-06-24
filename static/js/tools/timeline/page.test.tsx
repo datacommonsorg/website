@@ -35,7 +35,7 @@ test("Single place and single stats var", () => {
   Object.defineProperty(window, "location", {
     writable: true,
     value: {
-      hash: "#&place=geoId/05&statVar=Median_Age_Person",
+      hash: "#&place=geoId/05&statsVar=Median_Age_Person",
     },
   });
   // Mock drawGroupLineChart() as getComputedTextLength can has issue with jest
@@ -79,7 +79,7 @@ test("Single place and single stats var", () => {
           // browser environment in jest.
           window.location.hash = "#" + window.location.hash;
           expect(window.location.hash).toEqual(
-            "#place=geoId%2F05&statVar=Median_Age_Person__Count_Person"
+            "#place=geoId%2F05&statsVar=Median_Age_Person__Count_Person"
           );
 
           expect(
@@ -97,7 +97,7 @@ test("Single place and single stats var", () => {
             // browser environment in jest.
             window.location.hash = "#" + window.location.hash;
             expect(window.location.hash).toEqual(
-              "#place=geoId%2F05&statVar=Count_Person"
+              "#place=geoId%2F05&statsVar=Count_Person"
             );
             expect(
               pretty(wrapper.find("#chart-region").getDOMNode().innerHTML)
@@ -114,7 +114,7 @@ test("Single place and single stats var", () => {
 test("statVar not in PV-tree", () => {
   Object.defineProperty(window, "location", {
     value: {
-      hash: "#&place=geoId/05&statVar=NotInTheTree",
+      hash: "#&place=geoId/05&statsVar=NotInTheTree",
     },
   });
   // Mock drawGroupLineChart() as getComputedTextLength can has issue with jest
@@ -147,7 +147,7 @@ test("chart options", () => {
   Object.defineProperty(window, "location", {
     writable: true,
     value: {
-      hash: "#&place=geoId/05&statVar=Median_Age_Person",
+      hash: "#&place=geoId/05&statsVar=Median_Age_Person",
     },
   });
 
@@ -175,7 +175,7 @@ test("chart options", () => {
           wrapper.update();
           window.location.hash = "#" + window.location.hash;
           expect(window.location.hash).toBe(
-            "#place=geoId%2F05&statVar=Median_Age_Person&chart=%7B%22age%22%3Atrue%7D"
+            "#place=geoId%2F05&statsVar=Median_Age_Person&chart=%7B%22age%22%3Atrue%7D"
           );
           expect(
             pretty(wrapper.find("#chart-region").getDOMNode().innerHTML)
@@ -201,7 +201,7 @@ test("chart options", () => {
                 // expect(wrapper.find("#chart-region").length).toBe(0); // chart deleted
                 window.location.hash = "#" + window.location.hash;
                 expect(window.location.hash).toBe(
-                  "#place=geoId%2F05&statVar=&chart=%7B%22age%22%3Atrue%7D"
+                  "#place=geoId%2F05&statsVar=&chart=%7B%22age%22%3Atrue%7D"
                 );
               });
           });

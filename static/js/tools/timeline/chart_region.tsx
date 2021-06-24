@@ -80,7 +80,7 @@ class ChartRegion extends Component<ChartRegionPropsType> {
               perCapita={getChartPerCapita(groupId)}
               onDataUpdate={this.onDataUpdate.bind(this)}
               removeStatVar={(statVar) => {
-                removeToken("statVar", statVarSep, statVar);
+                removeToken("statsVar", statVarSep, statVar);
               }}
             ></Chart>
           );

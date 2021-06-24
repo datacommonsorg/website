@@ -52,7 +52,7 @@ class Page extends Component<unknown, PageStateType> {
   }
 
   private fetchDataAndRender(): void {
-    const statVars = Array.from(getTokensFromUrl("statVar", statVarSep));
+    const statVars = Array.from(getTokensFromUrl("statsVar", statVarSep));
     const places = Array.from(getTokensFromUrl("place", placeSep));
 
     let statVarInfoPromise = Promise.resolve({});
@@ -80,7 +80,7 @@ class Page extends Component<unknown, PageStateType> {
     for (const place in this.state.placeName) {
       namedPlaces.push({ dcid: place, name: this.state.placeName[place] });
     }
-    const statVars = Array.from(getTokensFromUrl("statVar", statVarSep));
+    const statVars = Array.from(getTokensFromUrl("statsVar", statVarSep));
     return (
       <div>
         <div className="stat-var-hierarchy-container" id="explore">
@@ -91,10 +91,10 @@ class Page extends Component<unknown, PageStateType> {
               places={namedPlaces}
               selectedSVs={statVars}
               selectSV={(sv) => {
-                addToken("statVar", statVarSep, sv);
+                addToken("statsVar", statVarSep, sv);
               }}
               deselectSV={(sv) => {
-                removeToken("statVar", statVarSep, sv);
+                removeToken("statsVar", statVarSep, sv);
               }}
             />
           </div>
