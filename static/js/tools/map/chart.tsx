@@ -52,7 +52,7 @@ interface ChartProps {
   unit: string;
 }
 
-const SVG_CONTAINER_ID = "choropleth-map";
+const MAP_CONTAINER_ID = "choropleth-map";
 const LEGEND_CONTAINER_ID = "choropleth-legend";
 const CHART_CONTAINER_ID = "chart-container";
 const ZOOM_IN_BUTTON_ID = "zoom-in-button";
@@ -98,7 +98,7 @@ export function Chart(props: ChartProps): JSX.Element {
           ) : (
             <div className="map-section-container">
               <div id={CHART_CONTAINER_ID}>
-                <div id={SVG_CONTAINER_ID}></div>
+                <div id={MAP_CONTAINER_ID}></div>
                 <div id={LEGEND_CONTAINER_ID}></div>
               </div>
               <div className="zoom-button-section">
@@ -172,8 +172,9 @@ function draw(
     !_.isEmpty(props.geoJsonData) &&
     !_.isEmpty(props.mapDataValues)
   ) {
+    document.getElementById(MAP_CONTAINER_ID).innerHTML = "";
     drawChoropleth(
-      SVG_CONTAINER_ID,
+      MAP_CONTAINER_ID,
       props.geoJsonData,
       height,
       width - legendWidth,
