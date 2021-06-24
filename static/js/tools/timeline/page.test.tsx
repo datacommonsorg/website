@@ -45,7 +45,7 @@ test("Single place and single stats var", () => {
   axios_mock();
   // Do the actual render!
   const wrapper = mount(<Page />);
-  // Resolve statsVarInfo promise and placeName promise
+  // Resolve statVarInfo promise and placeName promise
   return Promise.resolve(wrapper)
     .then(() => wrapper.update())
     .then(() => wrapper.update())
@@ -56,7 +56,7 @@ test("Single place and single stats var", () => {
       expect(wrapper.find("#chart-region").getDOMNode().innerHTML).toEqual(
         `<div class="card"><span class="chartPerCapita">Per capita<button class="perCapitaCheckbox">` +
           `</button><a href="/faq#perCapita"><span> *</span></a></span>` +
-          `<div class="chart-svg"></div><div class="statsVarChipRegion">` +
+          `<div class="chart-svg"></div><div class="statVarChipRegion">` +
           `<div class="pv-chip mdl-chip--deletable">` +
           `<span class="mdl-chip__text">Age</span>` +
           `<button class="mdl-chip__action"><i class="material-icons">` +
@@ -68,7 +68,7 @@ test("Single place and single stats var", () => {
         .simulate("click");
       Promise.resolve(wrapper).then(() => {
         wrapper.update();
-        // add one statsVar by clicking the checkbox
+        // add one statVar by clicking the checkbox
         wrapper
           .find("#hierarchy-section input")
           .at(0)
@@ -86,7 +86,7 @@ test("Single place and single stats var", () => {
             pretty(wrapper.find("#chart-region").getDOMNode().innerHTML)
           ).toMatchSnapshot();
 
-          // delete one statsVar from the statsVar chips
+          // delete one statVar from the statVar chips
           wrapper
             .find("#hierarchy-section input")
             .at(1)
@@ -111,7 +111,7 @@ test("Single place and single stats var", () => {
     });
 });
 
-test("statsVar not in PV-tree", () => {
+test("statVar not in PV-tree", () => {
   Object.defineProperty(window, "location", {
     value: {
       hash: "#&place=geoId/05&statsVar=NotInTheTree",
@@ -124,7 +124,7 @@ test("statsVar not in PV-tree", () => {
   axios_mock();
   // Do the actual render!
   const wrapper = mount(<Page />);
-  // Resolve statsVarInfo promise and placeName promise
+  // Resolve statVarInfo promise and placeName promise
   return Promise.resolve(wrapper)
     .then(() => wrapper.update())
     .then(() => wrapper.update())
@@ -159,7 +159,7 @@ test("chart options", () => {
 
   // Do the actual render!
   const wrapper = mount(<Page />);
-  // Resolve statsVarInfo promise and placeName promise
+  // Resolve statVarInfo promise and placeName promise
   return Promise.resolve(wrapper)
     .then(() => wrapper.update())
     .then(() => wrapper.update())
@@ -189,7 +189,7 @@ test("chart options", () => {
 
           Promise.resolve(wrapper).then(() => {
             wrapper.update();
-            // remove the statsVar
+            // remove the statVar
             wrapper
               .find("#hierarchy-section input")
               .at(1)

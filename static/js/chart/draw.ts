@@ -26,7 +26,7 @@ import {
   shouldFillInValues,
   wrap,
 } from "./base";
-import { StatsVarInfo } from "../tools/statvar_menu/util";
+import { StatVarInfo } from "../tools/statvar_menu/util";
 import { formatNumber } from "../i18n/i18n";
 import { DotDataPoint } from "./types";
 
@@ -990,7 +990,7 @@ function drawGroupLineChart(
   selector: string | HTMLDivElement,
   width: number,
   height: number,
-  statsVarInfo: { [key: string]: StatsVarInfo },
+  statsVarInfo: { [key: string]: StatVarInfo },
   dataGroupsDict: { [place: string]: DataGroup[] },
   plotParams: PlotParams,
   ylabel?: string,
