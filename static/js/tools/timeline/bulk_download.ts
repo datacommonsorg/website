@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 import axios from "axios";
-import { TimelineParams } from "./util";
+import { getTokensFromUrl } from "./util";
 import { saveToFile } from "../../shared/util";
 
 /* Start the loading spinner and gray out the background. */
@@ -96,9 +96,7 @@ function saveToCsv(
 }
 
 window.onload = function () {
-  const timelineParams = new TimelineParams();
-  timelineParams.getParamsFromUrl();
-  const statVars = timelineParams.getStatsVarDcids();
+  const statVars = Array.from(getTokensFromUrl("statVar", "__"));
   const statVarDisplay = document.getElementById("statVars");
   statVarDisplay.innerText = statVars.join(", ");
 
