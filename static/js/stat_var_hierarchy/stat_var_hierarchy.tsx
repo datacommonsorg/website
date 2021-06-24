@@ -254,15 +254,13 @@ export class StatVarHierarchy extends React.Component<
       if (this.props.selectSV) {
         this.props.selectSV(sv);
       }
-      if (this.props.type === StatVarHierarchyType.MAP) {
-        this.setState({
-          svPath: { [sv]: path },
-        });
-      } else {
-        this.setState({
-          svPath: Object.assign({ [sv]: path }, this.state.svPath),
-        });
-      }
+      const svPath =
+        this.props.type === StatVarHierarchyType.MAP
+          ? { [sv]: path }
+          : Object.assign({ [sv]: path }, this.state.svPath);
+      this.setState({
+        svPath,
+      });
     }
   }
 

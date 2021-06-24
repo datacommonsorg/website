@@ -25,6 +25,8 @@ import { Context, StatVarWrapper } from "./context";
 import { getStatVarInfo } from "../statvar_menu/util";
 import { StatVarHierarchy } from "../../stat_var_hierarchy/stat_var_hierarchy";
 
+const SAMPLE_SIZE = 3;
+
 export function StatVarChooser(): JSX.Element {
   const { statVar, placeInfo } = useContext(Context);
   useEffect(() => {
@@ -46,7 +48,7 @@ export function StatVarChooser(): JSX.Element {
         <div className="title">Select variables:</div>
         <StatVarHierarchy
           type={StatVarHierarchyType.MAP}
-          places={placeInfo.value.enclosedPlaces}
+          places={_.sampleSize(placeInfo.value.enclosedPlaces, SAMPLE_SIZE)}
           selectedSVs={[statVar.value.dcid]}
           selectSV={(svDcid) => {
             selectStatVar(statVar, svDcid);

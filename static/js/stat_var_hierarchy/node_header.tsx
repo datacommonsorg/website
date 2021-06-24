@@ -52,6 +52,9 @@ export class StatVarHierarchyNodeHeader extends React.Component<
     const showCount =
       this.context.statVarHierarchyType === StatVarHierarchyType.TIMELINE &&
       this.props.count > 0;
+    const showAsterisk =
+      this.context.statVarHierarchyType === StatVarHierarchyType.MAP &&
+      this.props.count > 0;
     return (
       <div
         className={
@@ -64,6 +67,12 @@ export class StatVarHierarchyNodeHeader extends React.Component<
         <span className="title">
           {this.props.title}
           {showCount && " (" + this.props.count + ")"}
+          {showAsterisk && (
+            <>
+              {" "}
+              (<sup>*</sup>)
+            </>
+          )}
         </span>
       </div>
     );
