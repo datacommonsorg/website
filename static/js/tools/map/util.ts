@@ -19,7 +19,7 @@
  */
 
 import { StatVarInfo, PlaceInfo } from "./context";
-import { StatsVarNode } from "../statvar_menu/util";
+import { StatVarNode } from "../statvar_menu/util";
 import _ from "lodash";
 
 const USA_STATE_CHILD_TYPES = ["County"];
@@ -54,7 +54,7 @@ export function applyHashStatVarInfo(params: URLSearchParams): StatVarInfo {
   }
   const path = params.get(URL_PARAM_KEYS.STAT_VAR_PATH);
   const denominator = params.get(URL_PARAM_KEYS.STAT_VAR_DENOM);
-  const statVarNode: StatsVarNode = {
+  const statVarNode: StatVarNode = {
     [dcid]: {
       denominators: denominator ? [denominator] : [],
       paths: path ? [path.split(URL_PARAM_VALUE_SEPARATOR)] : [],

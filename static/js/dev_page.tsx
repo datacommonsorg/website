@@ -30,7 +30,7 @@ import {
   drawGroupLineChart,
 } from "./chart/draw";
 import { randDomId } from "./shared/util";
-import { StatsVarInfo } from "./tools/statvar_menu/util";
+import { StatVarInfo } from "./tools/statvar_menu/util";
 import { StatVarHierarchy } from "./stat_var_hierarchy/stat_var_hierarchy";
 import { StatVarHierarchyType } from "./shared/types";
 
@@ -43,7 +43,7 @@ interface DevChartPropType {
   dataGroups?: DataGroup[];
   dataGroupsDict?: { [key: string]: DataGroup[] };
   unit?: string;
-  statVarInfo?: { [key: string]: StatsVarInfo };
+  statVarInfo?: { [key: string]: StatVarInfo };
   plotParams?: PlotParams;
 }
 

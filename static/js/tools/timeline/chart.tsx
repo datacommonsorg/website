@@ -15,7 +15,7 @@
  */
 
 import React, { Component } from "react";
-import { StatsVarInfo } from "../statvar_menu/util";
+import { StatVarInfo } from "../statvar_menu/util";
 import { fetchStatsData, StatsData } from "../../shared/data_fetcher";
 import { drawGroupLineChart } from "../../chart/draw";
 import { PlotParams, computePlotParams } from "../../chart/base";
@@ -23,14 +23,14 @@ import { setChartPerCapita } from "./util";
 
 const CHART_HEIGHT = 300;
 
-interface StatsVarChipPropsType {
-  statsVar: string;
+interface StatVarChipPropsType {
+  statVar: string;
   color: string;
   title: string;
   removeStatVar: (statVar: string) => void;
 }
 
-class StatsVarChip extends Component<StatsVarChipPropsType> {
+class StatVarChip extends Component<StatVarChipPropsType> {
   render() {
     return (
       <div
@@ -41,7 +41,7 @@ class StatsVarChip extends Component<StatsVarChipPropsType> {
         <button className="mdl-chip__action">
           <i
             className="material-icons"
-            onClick={() => this.props.removeStatVar(this.props.statsVar)}
+            onClick={() => this.props.removeStatVar(this.props.statVar)}
           >
             cancel
           </i>
@@ -54,7 +54,7 @@ class StatsVarChip extends Component<StatsVarChipPropsType> {
 interface ChartPropsType {
   groupId: string; // unique identifier of the chart
   placeName: Record<string, string>; // An array of place dcids.
-  statVarInfo: Record<string, StatsVarInfo>;
+  statVarInfo: Record<string, StatVarInfo>;
   perCapita: boolean;
   removeStatVar: (statVar: string) => void;
   onDataUpdate: (groupId: string, data: StatsData) => void;
@@ -102,16 +102,16 @@ class Chart extends Component<ChartPropsType> {
           </a>
         </span>
         <div ref={this.svgContainer} className="chart-svg"></div>
-        <div className="statsVarChipRegion">
+        <div className="statVarChipRegion">
           {statVars.map((statVar) => {
             let color: string;
             if (statVars.length > 1) {
               color = this.plotParams.lines[placeName + statVar].color;
             }
             return (
-              <StatsVarChip
+              <StatVarChip
                 key={statVar}
-                statsVar={statVar}
+                statVar={statVar}
                 title={this.props.statVarInfo[statVar].title}
                 color={color}
                 removeStatVar={this.props.removeStatVar}
@@ -185,12 +185,12 @@ class Chart extends Component<ChartPropsType> {
   }
 
   private ylabel(): string {
-    // get mprop from one statsVar
-    const statsVarSample = Object.keys(this.props.statVarInfo)[0];
-    let mprop = this.props.statVarInfo[statsVarSample].mprop;
-    // ensure the mprop is the same for all the statsVars
-    for (const statsVar in this.props.statVarInfo) {
-      if (this.props.statVarInfo[statsVar].mprop !== mprop) {
+    // get mprop from one statVar
+    const statVarSample = Object.keys(this.props.statVarInfo)[0];
+    let mprop = this.props.statVarInfo[statVarSample].mprop;
+    // ensure the mprop is the same for all the statVars
+    for (const statVar in this.props.statVarInfo) {
+      if (this.props.statVarInfo[statVar].mprop !== mprop) {
         mprop = "";
       }
     }

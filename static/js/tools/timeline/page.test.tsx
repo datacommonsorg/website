@@ -35,7 +35,7 @@ test("Single place and single stats var", () => {
   Object.defineProperty(window, "location", {
     writable: true,
     value: {
-      hash: "#&place=geoId/05&statsVar=Median_Age_Person",
+      hash: "#&place=geoId/05&statVar=Median_Age_Person",
     },
   });
   // Mock drawGroupLineChart() as getComputedTextLength can has issue with jest
@@ -45,7 +45,7 @@ test("Single place and single stats var", () => {
   axios_mock();
   // Do the actual render!
   const wrapper = mount(<Page />);
-  // Resolve statsVarInfo promise and placeName promise
+  // Resolve statVarInfo promise and placeName promise
   return Promise.resolve(wrapper)
     .then(() => wrapper.update())
     .then(() => wrapper.update())
@@ -56,7 +56,7 @@ test("Single place and single stats var", () => {
       expect(wrapper.find("#chart-region").getDOMNode().innerHTML).toEqual(
         `<div class="card"><span class="chartPerCapita">Per capita<button class="perCapitaCheckbox">` +
           `</button><a href="/faq#perCapita"><span> *</span></a></span>` +
-          `<div class="chart-svg"></div><div class="statsVarChipRegion">` +
+          `<div class="chart-svg"></div><div class="statVarChipRegion">` +
           `<div class="pv-chip mdl-chip--deletable">` +
           `<span class="mdl-chip__text">Age</span>` +
           `<button class="mdl-chip__action"><i class="material-icons">` +
@@ -68,7 +68,7 @@ test("Single place and single stats var", () => {
         .simulate("click");
       Promise.resolve(wrapper).then(() => {
         wrapper.update();
-        // add one statsVar by clicking the checkbox
+        // add one statVar by clicking the checkbox
         wrapper
           .find("#hierarchy-section input")
           .at(0)
@@ -79,14 +79,14 @@ test("Single place and single stats var", () => {
           // browser environment in jest.
           window.location.hash = "#" + window.location.hash;
           expect(window.location.hash).toEqual(
-            "#place=geoId%2F05&statsVar=Median_Age_Person__Count_Person"
+            "#place=geoId%2F05&statVar=Median_Age_Person__Count_Person"
           );
 
           expect(
             pretty(wrapper.find("#chart-region").getDOMNode().innerHTML)
           ).toMatchSnapshot();
 
-          // delete one statsVar from the statsVar chips
+          // delete one statVar from the statVar chips
           wrapper
             .find("#hierarchy-section input")
             .at(1)
@@ -97,7 +97,7 @@ test("Single place and single stats var", () => {
             // browser environment in jest.
             window.location.hash = "#" + window.location.hash;
             expect(window.location.hash).toEqual(
-              "#place=geoId%2F05&statsVar=Count_Person"
+              "#place=geoId%2F05&statVar=Count_Person"
             );
             expect(
               pretty(wrapper.find("#chart-region").getDOMNode().innerHTML)
@@ -111,10 +111,10 @@ test("Single place and single stats var", () => {
     });
 });
 
-test("statsVar not in PV-tree", () => {
+test("statVar not in PV-tree", () => {
   Object.defineProperty(window, "location", {
     value: {
-      hash: "#&place=geoId/05&statsVar=NotInTheTree",
+      hash: "#&place=geoId/05&statVar=NotInTheTree",
     },
   });
   // Mock drawGroupLineChart() as getComputedTextLength can has issue with jest
@@ -124,7 +124,7 @@ test("statsVar not in PV-tree", () => {
   axios_mock();
   // Do the actual render!
   const wrapper = mount(<Page />);
-  // Resolve statsVarInfo promise and placeName promise
+  // Resolve statVarInfo promise and placeName promise
   return Promise.resolve(wrapper)
     .then(() => wrapper.update())
     .then(() => wrapper.update())
@@ -147,7 +147,7 @@ test("chart options", () => {
   Object.defineProperty(window, "location", {
     writable: true,
     value: {
-      hash: "#&place=geoId/05&statsVar=Median_Age_Person",
+      hash: "#&place=geoId/05&statVar=Median_Age_Person",
     },
   });
 
@@ -159,7 +159,7 @@ test("chart options", () => {
 
   // Do the actual render!
   const wrapper = mount(<Page />);
-  // Resolve statsVarInfo promise and placeName promise
+  // Resolve statVarInfo promise and placeName promise
   return Promise.resolve(wrapper)
     .then(() => wrapper.update())
     .then(() => wrapper.update())
@@ -175,7 +175,7 @@ test("chart options", () => {
           wrapper.update();
           window.location.hash = "#" + window.location.hash;
           expect(window.location.hash).toBe(
-            "#place=geoId%2F05&statsVar=Median_Age_Person&chart=%7B%22age%22%3Atrue%7D"
+            "#place=geoId%2F05&statVar=Median_Age_Person&chart=%7B%22age%22%3Atrue%7D"
           );
           expect(
             pretty(wrapper.find("#chart-region").getDOMNode().innerHTML)
@@ -189,7 +189,7 @@ test("chart options", () => {
 
           Promise.resolve(wrapper).then(() => {
             wrapper.update();
-            // remove the statsVar
+            // remove the statVar
             wrapper
               .find("#hierarchy-section input")
               .at(1)
@@ -201,7 +201,7 @@ test("chart options", () => {
                 // expect(wrapper.find("#chart-region").length).toBe(0); // chart deleted
                 window.location.hash = "#" + window.location.hash;
                 expect(window.location.hash).toBe(
-                  "#place=geoId%2F05&statsVar=&chart=%7B%22age%22%3Atrue%7D"
+                  "#place=geoId%2F05&statVar=&chart=%7B%22age%22%3Atrue%7D"
                 );
               });
           });

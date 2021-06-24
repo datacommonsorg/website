@@ -16,7 +16,7 @@
 
 import React, { Component } from "react";
 import axios from "axios";
-import { StatsVarNode } from "../statvar_menu/util";
+import { StatVarNode } from "../statvar_menu/util";
 import hierarchy from "../../../data/hierarchy_top.json";
 import { StatsVarFilterInterface } from "../commons";
 import _ from "lodash";
@@ -39,7 +39,7 @@ interface NodePropType {
   t: string; // type
   sv: string[]; // statsVar dcid
   d?: string[]; // possible denominators
-  selectedNodes: StatsVarNode; // path to all the selected statsVars
+  selectedNodes: StatVarNode; // path to all the selected statsVars
   nodePath: string[]; // path to current node
   addStatsVarTitle: (statsVarId: string, statsVarName: string) => void; // pass the title of selected statsVar to parent
   addStatsVar: (
@@ -250,7 +250,7 @@ class Node extends Component<NodePropType, NodeStateType> {
 }
 
 interface MenuPropType {
-  selectedNodes: StatsVarNode;
+  selectedNodes: StatVarNode;
   statsVarFilter: StatsVarFilterInterface;
   setStatsVarTitle: (statsVarId2Title: Record<string, string>) => void;
   addStatsVar: (

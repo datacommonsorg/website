@@ -20,7 +20,7 @@
 
 import axios from "axios";
 import _ from "lodash";
-import { StatsVarNode } from "../statvar_menu/util";
+import { StatVarNode } from "../statvar_menu/util";
 import {
   ContextType,
   Axis,
@@ -64,7 +64,7 @@ async function getStatsWithinPlace(
  * return the key.
  * @param node
  */
-function nodeGetStatVar(node: StatsVarNode): string {
+function nodeGetStatVar(node: StatVarNode): string {
   return _.findKey(node);
 }
 
@@ -102,7 +102,7 @@ function applyHashAxis(params: URLSearchParams, isX: boolean): Axis {
   }
   const axis = _.cloneDeep(EmptyAxis);
 
-  const node: StatsVarNode = {
+  const node: StatVarNode = {
     [dcid]: {
       paths: [],
       denominators: [],

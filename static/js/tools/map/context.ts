@@ -16,7 +16,7 @@
 
 import { createContext, useState } from "react";
 import { NamedPlace } from "../../shared/types";
-import { StatsVarNode } from "../statvar_menu/util";
+import { StatVarNode } from "../statvar_menu/util";
 import { applyHashStatVarInfo, applyHashPlaceInfo } from "./util";
 
 /**
@@ -38,7 +38,7 @@ export interface NamedTypedPlace {
 // Information relating to the stat var to plot
 export interface StatVarInfo {
   // The stat var to plot
-  statVar: StatsVarNode;
+  statVar: StatVarNode;
   // Human readable name of the stat var
   name: string;
   // Whether to plot per capita values
@@ -50,7 +50,7 @@ export interface StatVarInfoWrapper {
   value: StatVarInfo;
 
   set: Setter<StatVarInfo>;
-  setStatVar: Setter<StatsVarNode>;
+  setStatVar: Setter<StatVarNode>;
   setStatVarName: Setter<string>;
   setPerCapita: Setter<boolean>;
 }
