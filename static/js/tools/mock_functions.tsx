@@ -152,14 +152,14 @@ export function axios_mock(): void {
       data: {
         childStatVarGroups: [
           {
+            displayName: "Demographics",
             id: "dc/g/Demographics",
             specializedEntity: "Demographics",
-            displayName: "Demographics",
           },
           {
+            displayName: "Economics",
             id: "dc/g/Economics",
             specializedEntity: "Economics",
-            displayName: "Economics",
           },
         ],
       },
@@ -170,28 +170,28 @@ export function axios_mock(): void {
     )
     .mockResolvedValue({
       data: {
-        childStatVars: [
-          {
-            id: "Count_Person",
-            searchName: "Count Of Person",
-            displayName: "Count Of Person",
-          },
-          {
-            id: "Median_Age_Person",
-            searchName: "Median age of person",
-            displayName: "Median age of person",
-          },
-        ],
         childStatVarGroups: [
           {
+            displayName: "Person By Age",
             id: "dc/g/Person_Age",
             specializedEntity: "Age",
-            displayName: "Person By Age",
           },
           {
+            displayName: "Person By ArmedForcesStatus",
             id: "dc/g/Person_ArmedForcesStatus",
             specializedEntity: "ArmedForcesStatus",
-            displayName: "Person By ArmedForcesStatus",
+          },
+        ],
+        childStatVars: [
+          {
+            displayName: "Count Of Person",
+            id: "Count_Person",
+            searchName: "Count Of Person",
+          },
+          {
+            displayName: "Median age of person",
+            id: "Median_Age_Person",
+            searchName: "Median age of person",
           },
         ],
       },
@@ -204,14 +204,14 @@ export function axios_mock(): void {
       data: {
         childStatVarGroups: [
           {
+            displayName: "Demographics",
             id: "dc/g/Demographics",
             specializedEntity: "Demographics",
-            displayName: "Demographics",
           },
           {
+            displayName: "Economics",
             id: "dc/g/Economics",
             specializedEntity: "Economics",
-            displayName: "Economics",
           },
         ],
       },

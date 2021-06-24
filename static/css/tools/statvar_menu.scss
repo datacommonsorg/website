@@ -32,13 +32,15 @@ $menu-line: #5b5e60;
   width: 350px;
   height: 100%;
   background: $menu-background;
-  // color: #fff;
+  color: white;
   letter-spacing: 0;
 }
 
 .stat-var-hierarchy-container {
   @extend .explore-menu-container;
+
   background-color: #eee;
+  color: black;
 }
 
 .explore-menu-container .title {

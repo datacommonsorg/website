@@ -27,7 +27,6 @@ import {
   wrap,
 } from "./base";
 import { StatsVarInfo } from "../tools/statvar_menu/util";
-
 import { formatNumber } from "../i18n/i18n";
 import { DotDataPoint } from "./types";
 
@@ -981,7 +980,7 @@ function computeRanges(dataGroupsDict: { [geoId: string]: DataGroup[] }) {
  * @param id: DOM id.
  * @param width: width for the chart.
  * @param height: height for the chart.
- * @param StatsVarInfo: object from stat var dcid to its info struct.
+ * @param statsVarInfo: object from stat var dcid to its info struct.
  * @param dataGroupsDict: data groups for plotting.
  * @param plotParams: contains all plot params for chart.
  * @param sources: an array of source domain.

@@ -32,21 +32,18 @@ import { StatVarHierarchyType, NamedPlace } from "../../shared/types";
 import { StatVarHierarchy } from "../../browser/statvar_hierarchy";
 
 interface PageStateType {
-  renderTrigger: number;
+  placeName: Record<string, string>;
+  statVarInfo: Record<string, StatsVarInfo>;
 }
 
 class Page extends Component<unknown, PageStateType> {
-  placeName: Record<string, string>;
-  statVarInfo: Record<string, StatsVarInfo>;
-
   constructor(props: unknown) {
     super(props);
     this.fetchDataAndRender = this.fetchDataAndRender.bind(this);
     this.state = {
-      renderTrigger: 0,
+      placeName: {},
+      statVarInfo: {},
     };
-    this.placeName = {};
-    this.statVarInfo = {};
   }
 
   componentDidMount(): void {
@@ -67,22 +64,21 @@ class Page extends Component<unknown, PageStateType> {
       placesPromise = getPlaceNames(places);
     }
     Promise.all([statVarInfoPromise, placesPromise]).then(
-      ([statVarInfo, placeNames]) => {
-        this.statVarInfo = statVarInfo;
-        this.placeName = placeNames;
+      ([statVarInfo, placeName]) => {
         this.setState({
-          renderTrigger: this.state.renderTrigger + 1,
+          statVarInfo,
+          placeName,
         });
       }
     );
   }
 
   render(): JSX.Element {
-    const numPlaces = Object.keys(this.placeName).length;
-    const numStatsVarInfo = Object.keys(this.statVarInfo).length;
+    const numPlaces = Object.keys(this.state.placeName).length;
+    const numStatsVarInfo = Object.keys(this.state.statVarInfo).length;
     const namedPlaces: NamedPlace[] = [];
-    for (const place in this.placeName) {
-      namedPlaces.push({ dcid: place, name: this.placeName[place] });
+    for (const place in this.state.placeName) {
+      namedPlaces.push({ dcid: place, name: this.state.placeName[place] });
     }
     const statVars = Array.from(getTokensFromUrl("statsVar", statVarSep));
     return (
@@ -90,19 +86,17 @@ class Page extends Component<unknown, PageStateType> {
         <div className="stat-var-hierarchy-container" id="explore">
           <div id="drill-scroll-container">
             <div className="title">Select variables:</div>
-            <div style={{ width: "350px" }}>
-              <StatVarHierarchy
-                type={StatVarHierarchyType.TIMELINE}
-                places={namedPlaces}
-                selectedSVs={statVars}
-                selectSV={(sv) => {
-                  addToken("statsVar", statVarSep, sv);
-                }}
-                deselectSV={(sv) => {
-                  removeToken("statsVar", statVarSep, sv);
-                }}
-              />
-            </div>
+            <StatVarHierarchy
+              type={StatVarHierarchyType.TIMELINE}
+              places={namedPlaces}
+              selectedSVs={statVars}
+              selectSV={(sv) => {
+                addToken("statsVar", statVarSep, sv);
+              }}
+              deselectSV={(sv) => {
+                removeToken("statsVar", statVarSep, sv);
+              }}
+            />
           </div>
         </div>
         <div id="plot-container">
@@ -110,7 +104,7 @@ class Page extends Component<unknown, PageStateType> {
             {numPlaces === 0 && <h1 className="mb-4">Timelines Explorer</h1>}
             <div id="search">
               <SearchBar
-                places={this.placeName}
+                places={this.state.placeName}
                 addPlace={(place) => {
                   addToken("place", placeSep, place);
                 }}
@@ -123,8 +117,8 @@ class Page extends Component<unknown, PageStateType> {
             {numPlaces !== 0 && numStatsVarInfo !== 0 && (
               <div id="chart-region">
                 <ChartRegion
-                  placeName={this.placeName}
-                  statVarInfo={this.statVarInfo}
+                  placeName={this.state.placeName}
+                  statVarInfo={this.state.statVarInfo}
                 ></ChartRegion>
               </div>
             )}

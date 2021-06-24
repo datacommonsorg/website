@@ -13,7 +13,6 @@
 # limitations under the License.
 
 import urllib
-import time
 
 from webdriver_tests.base_test import WebdriverBaseTest
 from selenium.webdriver.support.ui import WebDriverWait
@@ -273,7 +272,6 @@ class TestBrowser(WebdriverBaseTest):
 
         # Search for "male asian " and select the first result
         search_input.send_keys(SEARCH_INPUT)
-        # time.sleep(60)
         element_present = EC.presence_of_element_located((
             By.XPATH,
             '//*[@id="stat-var-hierarchy-section"]/div[1]/div[1]/div[2]/div[2]/div[1]'

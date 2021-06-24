@@ -118,7 +118,7 @@ class TestObservationId(unittest.TestCase):
         assert json.loads(response.data) == expected_obs_id
 
 
-class TestSearchStatVarHierarchy(unittest.TestCase):
+class TestSearchStatVar(unittest.TestCase):
 
     @patch('routes.api.browser.dc.search_statvar')
     def test_search_statvar_single_token(self, mock_search_result):
@@ -135,6 +135,62 @@ class TestSearchStatVarHierarchy(unittest.TestCase):
         mock_search_result.side_effect = side_effect
         response = app.test_client().get(
             'api/browser/statvar/search?query=person&places=geoId/06')
+        assert response.status_code == 200
+        result = json.loads(response.data)
+        assert result == expected_result
+
+
+class TestGetStatVarGroup(unittest.TestCase):
+
+    @patch('routes.api.browser.dc.get_statvar_group')
+    def test_statvar_path(self, mock_result):
+        expected_svg = 'dc/g/Root'
+        expected_places = ["geoId/06"]
+        expected_result = {
+            "absoluteName":
+                "Data Commons Variables",
+            "childStatVarGroups": [{
+                "id": "dc/g/Crime",
+                "specializedEntity": "Crime",
+                "displayName": "Crime"
+            }, {
+                "id": "dc/g/Demographics",
+                "specializedEntity": "Demographics",
+                "displayName": "Demographics"
+            }]
+        }
+
+        def side_effect(svg, places):
+            if svg == expected_svg and places == expected_places:
+                return expected_result
+            else:
+                return {}
+
+        mock_result.side_effect = side_effect
+        response = app.test_client().get(
+            'api/browser/statvar/group?stat_var_group=dc/g/Root&places=geoId/06'
+        )
+        assert response.status_code == 200
+        result = json.loads(response.data)
+        assert result == expected_result
+
+
+class TestStatVarPath(unittest.TestCase):
+
+    @patch('routes.api.browser.dc.get_statvar_path')
+    def test_statvar_path(self, mock_result):
+        expected_id = 'Count_Person'
+        expected_result = {"path": ["Count_Person", "dc/g/Demographics"]}
+
+        def side_effect(id):
+            if id == expected_id:
+                return expected_result
+            else:
+                return {}
+
+        mock_result.side_effect = side_effect
+        response = app.test_client().get(
+            'api/browser/statvar/path?id=Count_Person')
         assert response.status_code == 200
         result = json.loads(response.data)
         assert result == expected_result

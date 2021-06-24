@@ -18,7 +18,6 @@ from selenium.webdriver.support.ui import WebDriverWait
 from selenium.webdriver.common.by import By
 from selenium.webdriver.support import expected_conditions as EC
 import time
-import logging
 
 TIMELINE_URL = '/tools/timeline'
 URL_HASH_1 = '#&statsVar=Median_Age_Person__Median_Income_Person__Count_Person_Upto5Years'\
@@ -89,7 +88,7 @@ class TestCharts(WebdriverBaseTest):
         # Assert there are three charts.
         self.assertEqual(len(charts), 3)
 
-        # Click on Demograhpics link to expand it.
+        # Click on Demographics link to expand it.
         hierarchy = self.driver.find_element_by_xpath(
             '//*[@id="hierarchy-section"]')
         demographics_button = hierarchy.find_elements_by_class_name(

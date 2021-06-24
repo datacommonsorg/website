@@ -14,6 +14,7 @@
  * limitations under the License.
  */
 
+import _ from "lodash";
 import React, { Component } from "react";
 import { StatsData } from "../../shared/data_fetcher";
 import { StatsVarInfo } from "../statvar_menu/util";
@@ -75,7 +76,7 @@ class ChartRegion extends Component<ChartRegionPropsType> {
               key={groupId}
               groupId={groupId}
               placeName={this.props.placeName}
-              statVarInfo={this.props.statVarInfo}
+              statVarInfo={_.pick(this.props.statVarInfo, groups[groupId])}
               perCapita={getChartPerCapita(groupId)}
               onDataUpdate={this.onDataUpdate.bind(this)}
               removeStatVar={(statVar) => {
