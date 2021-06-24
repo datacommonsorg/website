@@ -53,7 +53,7 @@ export class StatVarCheckbox extends React.Component<
   }
 
   componentDidUpdate(prevProps: StatVarCheckboxPropType): void {
-    if (this.props != prevProps) {
+    if (this.props !== prevProps) {
       this.setState({
         checked: this.isChecked(),
       });
