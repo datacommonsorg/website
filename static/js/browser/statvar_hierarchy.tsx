@@ -34,13 +34,18 @@ import { Context } from "../shared/context";
 const LOADING_CONTAINER_ID = "stat-var-hierarchy-section";
 const SORTED_FIRST_SVG_ID = "dc/g/Demographics";
 const SORTED_LAST_SVG_ID = "dc/g/Miscellaneous";
+const ROOT_SVG = "dc/g/Root";
 
 interface StatVarHierarchyPropType {
   type: string;
   places: NamedPlace[];
   // (Optional) A list of stat vars selected from parent componenet.
   // For example, in timeline tool, these are stat vars parsed from URL.
-  svs?: string[];
+  selectedSVs?: string[];
+  // Callback function when a stat var is selected
+  selectSV?: (sv: string) => void;
+  // Callback function when a stat var is deselected
+  deselectSV?: (sv: string) => void;
 }
 
 interface StatVarHierarchyStateType {
@@ -83,9 +88,12 @@ export class StatVarHierarchy extends React.Component<
     this.fetchData();
   }
 
-  componentDidUpdate(): void {
+  componentDidUpdate(prevProps: StatVarHierarchyPropType): void {
     if (this.state.searchSelectionCleared) {
       this.setState({ searchSelectionCleared: false });
+    }
+    if (this.props.places !== prevProps.places) {
+      this.fetchData();
     }
   }
 
@@ -124,7 +132,7 @@ export class StatVarHierarchy extends React.Component<
               places={this.props.places.map((x) => x.dcid)}
               onSelectionChange={this.onSearchSelectionChange}
             />
-            <div className="hierarchy-section">
+            <div id="hierarchy-section">
               {rootSVGs.map((svg) => {
                 if (
                   _.isEmpty(this.state.focus) ||
@@ -166,38 +174,38 @@ export class StatVarHierarchy extends React.Component<
 
   private fetchData(): void {
     loadSpinner(LOADING_CONTAINER_ID);
-    let url = "/api/browser/statvar/group?stat_var_group=dc/g/Root";
+    let url = `/api/browser/statvar/group?stat_var_group=${ROOT_SVG}`;
     for (const place of this.props.places) {
       url += `&places=${place.dcid}`;
     }
-    axios
-      .get(url)
-      .then((resp) => {
-        const data = resp.data;
-        const rootSVGs = data["childStatVarGroups"];
+    const allPromises: Promise<string[] | StatVarGroupInfo[]>[] = [];
+    allPromises.push(
+      axios.get(url).then((resp) => {
+        return resp.data["childStatVarGroups"];
+      })
+    );
+    if (this.props.selectedSVs) {
+      for (const sv of this.props.selectedSVs) {
+        allPromises.push(this.getPath(sv));
+      }
+    }
+    Promise.all(allPromises)
+      .then((allResult) => {
         removeSpinner(LOADING_CONTAINER_ID);
+        const rootSVGs = allResult[0] as StatVarGroupInfo[];
+        const paths = allResult.slice(1) as string[][];
+        const svPath = {};
+        for (const path of paths) {
+          // In this case, the stat var is not in hierarchy.
+          if (path.length == 1) {
+            continue;
+          }
+          svPath[path.slice(-1)[0]] = path;
+        }
         this.setState({
           rootSVGs,
+          svPath,
         });
-        const pathPromises: Promise<string[]>[] = [];
-        if (this.props.svs) {
-          for (const sv of this.props.svs) {
-            pathPromises.push(this.getPath(sv));
-          }
-          Promise.all(pathPromises).then((paths: string[][]) => {
-            const svPath = {};
-            for (const path of paths) {
-              svPath[path[-1]] = path;
-            }
-            this.setState({
-              svPath,
-            });
-          });
-        } else {
-          this.setState({
-            svPath: {},
-          });
-        }
       })
       .catch(() => {
         removeSpinner(LOADING_CONTAINER_ID);
@@ -218,6 +226,9 @@ export class StatVarHierarchy extends React.Component<
       });
       // If selection is stat var, added it to svPath.
       if (selection != "" && !selection.startsWith("dc/g")) {
+        if (this.props.selectSV) {
+          this.props.selectSV(selection);
+        }
         this.setState({
           svPath: Object.assign({ [selection]: path }, this.state.svPath),
         });
@@ -230,8 +241,14 @@ export class StatVarHierarchy extends React.Component<
     if (sv in this.state.svPath) {
       const tmp = _.cloneDeep(this.state.svPath);
       delete tmp[sv];
+      if (this.props.deselectSV) {
+        this.props.deselectSV(sv);
+      }
       this.setState({ svPath: tmp });
     } else {
+      if (this.props.selectSV) {
+        this.props.selectSV(sv);
+      }
       this.setState({
         svPath: Object.assign({ [sv]: path }, this.state.svPath),
       });
@@ -246,7 +263,9 @@ export class StatVarHierarchy extends React.Component<
     return axios
       .get(`/api/browser/statvar/path?id=${encodeURIComponent(sv)}`)
       .then((resp) => {
-        return resp.data["path"].reverse();
+        // This is to make jest test working, should find a better way to let
+        // mock return new object each time.
+        return _.cloneDeep(resp.data["path"]).reverse();
       });
   }
 }

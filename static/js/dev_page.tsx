@@ -30,6 +30,7 @@ import {
   drawGroupLineChart,
 } from "./chart/draw";
 import { randDomId } from "./shared/util";
+import { StatsVarInfo } from "./tools/statvar_menu/util";
 import { StatVarHierarchy } from "./browser/statvar_hierarchy";
 import { StatVarHierarchyType } from "./shared/types";
 
@@ -42,7 +43,7 @@ interface DevChartPropType {
   dataGroups?: DataGroup[];
   dataGroupsDict?: { [key: string]: DataGroup[] };
   unit?: string;
-  statsVarsTitle?: { [key: string]: string };
+  statVarInfo?: { [key: string]: StatsVarInfo };
   plotParams?: PlotParams;
 }
 
@@ -100,7 +101,7 @@ class DevChart extends React.Component<DevChartPropType> {
         this.props.id,
         elem.current.offsetWidth,
         this.props.height,
-        this.props.statsVarsTitle,
+        this.props.statVarInfo,
         this.props.dataGroupsDict,
         this.props.plotParams
       );
@@ -776,7 +777,7 @@ class DevPage extends React.Component {
         height={height}
         type={chartTypeEnum.GROUP_LINE}
         dataGroupsDict={dataGroupsDict1}
-        statsVarsTitle={{ Total: "Total", Male: "Male" }}
+        statVarInfo={{ Total: { title: "Total" }, Male: { title: "Male" } }}
         plotParams={computePlotParams(
           ["Nevada", "California"],
           ["Total", "Male"]
@@ -797,7 +798,7 @@ class DevPage extends React.Component {
         height={height}
         type={chartTypeEnum.GROUP_LINE}
         dataGroupsDict={dataGroupsDict2}
-        statsVarsTitle={{ Total: "Total", Male: "Male" }}
+        statVarInfo={{ Total: { title: "Total" }, Male: { title: "Male" } }}
         plotParams={computePlotParams(["California"], ["Total", "Male"])}
       ></DevChart>
     );
@@ -816,7 +817,7 @@ class DevPage extends React.Component {
         height={height}
         type={chartTypeEnum.GROUP_LINE}
         dataGroupsDict={dataGroupsDict3}
-        statsVarsTitle={{ Total: "Total" }}
+        statVarInfo={{ Total: { title: "Total" } }}
         plotParams={computePlotParams(
           [
             "very very very long place name",
@@ -857,7 +858,10 @@ class DevPage extends React.Component {
                 name: "California",
               },
             ]}
-            svs={["Count_Person", "FertilityRate_Person_Female"]}
+            selectedSVs={[
+              "Count_Person",
+              "Count_Person_DetailedEnrolledInCollegeUndergraduateYears",
+            ]}
           />
         </div>
       </div>

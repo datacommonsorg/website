@@ -26,7 +26,6 @@ bp = Blueprint("stats", __name__)
 
 def get_stats_latest(dcid_str, stats_var):
     """ Returns the most recent data as from a DataCommons API payload.
-    
     Args:
         dcid_str: place dcids concatenated by "^".
         stats_var: the dcid of the statistical variable.
@@ -120,6 +119,7 @@ def stats_var_property_wrapper(dcids):
         pt = ''
         md = ''
         mprop = ''
+        name = dcid
         for triple in triples:
             if triple['predicate'] == 'measuredProperty':
                 mprop = triple['objectId']
@@ -127,13 +127,17 @@ def stats_var_property_wrapper(dcids):
                 pt = triple['objectId']
             if triple['predicate'] == 'measurementDenominator':
                 md = triple['objectId']
+            if triple['predicate'] == 'name':
+                name = triple['objectValue']
             if triple['predicate'] in pvs:
                 pvs[triple['predicate']] = triple['objectId']
+
         result[dcid] = {
             'mprop': mprop,
             'pt': pt,
             'md': md,
             'pvs': pvs,
+            'title': name,
         }
     return result
 
@@ -169,7 +173,7 @@ def get_stat_set_within_place():
     """Gets the statistical variable values for child places of a certain place
     type contained in a parent place at a given date. If no date given, will
     return values for most recent date.
-    
+
     Returns:
         Dict keyed by statvar DCIDs with dicts as values. See `SourceSeries` in
         https://github.com/datacommonsorg/mixer/blob/master/proto/mixer.proto

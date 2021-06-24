@@ -374,8 +374,9 @@ class Chart extends React.Component<ChartPropType, ChartStateType> {
       chartType === chartTypeEnum.CHOROPLETH &&
       this.state.choroplethDataGroup
     ) {
-      const getRedirectLink = (geoProperty: GeoJsonFeatureProperties) => {
-        return `${CHOROPLETH_REDIRECT_BASE_URL}${geoProperty.geoDcid}${this.placeLinkSearch}`;
+      const redirectAction = (geoProperty: GeoJsonFeatureProperties) => {
+        const redirectLink = `${CHOROPLETH_REDIRECT_BASE_URL}${geoProperty.geoDcid}${this.placeLinkSearch}`;
+        window.open(redirectLink, "_blank");
       };
       const getTooltipHtml = (place: NamedPlace) => {
         let value = "Data Missing";
@@ -404,7 +405,7 @@ class Chart extends React.Component<ChartPropType, ChartStateType> {
         this.props.unit,
         colorScale,
         true,
-        getRedirectLink,
+        redirectAction,
         getTooltipHtml,
         true
       );

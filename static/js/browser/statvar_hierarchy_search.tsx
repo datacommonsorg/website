@@ -145,7 +145,7 @@ export class StatVarHierarchySearch extends React.Component<
   };
 
   private search = (query: string) => () => {
-    let url = `/api/browser/search_statvar_hierarchy?query=${query}`;
+    let url = `/api/browser/statvar/search?query=${query}`;
     for (const place of this.props.places) {
       url += `&places=${place}`;
     }

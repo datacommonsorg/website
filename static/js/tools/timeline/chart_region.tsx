@@ -14,24 +14,19 @@
  * limitations under the License.
  */
 
+import _ from "lodash";
 import React, { Component } from "react";
 import { StatsData } from "../../shared/data_fetcher";
-import { ChartOptions } from "./util";
 import { StatsVarInfo } from "../statvar_menu/util";
 import { saveToFile } from "../../shared/util";
 import { Chart } from "./chart";
+import { removeToken, getChartPerCapita, statVarSep } from "./util";
 
 interface ChartRegionPropsType {
-  // An array of place dcids.
-  places: Record<string, string>;
-  statsVars: { [key: string]: StatsVarInfo };
-  statsVarTitle: Record<string, string>;
-  removeStatsVar: (statsVar: string, nodePath?: string[]) => void;
-  chartOptions: ChartOptions;
-  setPC: (mprop: string, pc: boolean) => void;
-  initialPC: boolean;
-  // mappings from StatVar DCIDs to all their possible per capita denominators
-  denominators: { [key: string]: string[] };
+  // Map from place dcid to place name.
+  placeName: Record<string, string>;
+  // Map from stat var dcid to info.
+  statVarInfo: { [key: string]: StatsVarInfo };
 }
 
 class ChartRegion extends Component<ChartRegionPropsType> {
@@ -63,53 +58,30 @@ class ChartRegion extends Component<ChartRegionPropsType> {
         );
       };
     }
-    if (this.props.initialPC) {
-      const groups = this.groupStatsVars(this.props.statsVars);
-      for (const groupId in groups) {
-        this.props.setPC(groupId, true);
-      }
-    }
   }
 
   render(): JSX.Element {
     if (
-      Object.keys(this.props.places).length === 0 ||
-      Object.keys(this.props.statsVars).length === 0
+      Object.keys(this.props.placeName).length === 0 ||
+      Object.keys(this.props.statVarInfo).length === 0
     ) {
       return <div></div>;
     }
-    const groups = this.groupStatsVars(this.props.statsVars);
+    const groups = this.groupStatsVars(this.props.statVarInfo);
     return (
       <React.Fragment>
         {Object.keys(groups).map((groupId) => {
-          const statsVarDcids = groups[groupId];
-          const statsVars = {};
-          const statsVarTitle = {};
-          const denominators = {};
-          for (const id of statsVarDcids) {
-            statsVars[id] = this.props.statsVars[id];
-            statsVarTitle[id] = this.props.statsVarTitle[id];
-            if (id in this.props.denominators) {
-              denominators[id] =
-                this.props.denominators[id][0] || "Count_Person";
-            }
-          }
           return (
             <Chart
               key={groupId}
               groupId={groupId}
-              places={this.props.places}
-              statsVars={statsVars}
-              perCapita={
-                groupId in this.props.chartOptions
-                  ? this.props.chartOptions[groupId].pc
-                  : false
-              }
+              placeName={this.props.placeName}
+              statVarInfo={_.pick(this.props.statVarInfo, groups[groupId])}
+              perCapita={getChartPerCapita(groupId)}
               onDataUpdate={this.onDataUpdate.bind(this)}
-              statsVarTitle={statsVarTitle}
-              removeStatsVar={this.props.removeStatsVar}
-              setPC={this.props.setPC}
-              denominators={denominators}
+              removeStatVar={(statVar) => {
+                removeToken("statsVar", statVarSep, statVar);
+              }}
             ></Chart>
           );
         }, this)}

@@ -17,11 +17,11 @@ import axios from "axios";
 import _ from "lodash";
 
 interface StatsVarInfo {
-  md: string;
-  mprop: string;
-  pt: string;
-  pvs: { [key: string]: string };
-  title: string;
+  md?: string;
+  mprop?: string;
+  pt?: string;
+  pvs?: { [key: string]: string };
+  title?: string;
 }
 
 function getStatsVarInfo(
