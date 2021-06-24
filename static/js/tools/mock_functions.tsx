@@ -17,6 +17,7 @@
 jest.mock("axios");
 import { when } from "jest-when";
 import axios from "axios";
+
 import hierarchy from "../../data/hierarchy_top.json";
 import hierarchy_complete from "../../data/hierarchy_statsvar.json";
 import { drawGroupLineChart } from "../chart/draw";
@@ -37,7 +38,13 @@ export function axios_mock(): void {
     .calledWith("/api/stats/stats-var-property?dcid=Median_Age_Person")
     .mockResolvedValue({
       data: {
-        Median_Age_Person: { md: "", mprop: "age", pt: "Person", pvs: {} },
+        Median_Age_Person: {
+          md: "",
+          mprop: "age",
+          pt: "Person",
+          pvs: {},
+          title: "Age",
+        },
       },
     });
 
@@ -48,8 +55,20 @@ export function axios_mock(): void {
     )
     .mockResolvedValue({
       data: {
-        Median_Age_Person: { md: "", mprop: "age", pt: "Person", pvs: {} },
-        Count_Person: { md: "", mprop: "count", pt: "Person", pvs: {} },
+        Median_Age_Person: {
+          md: "",
+          mprop: "age",
+          pt: "Person",
+          pvs: {},
+          title: "Age",
+        },
+        Count_Person: {
+          md: "",
+          mprop: "count",
+          pt: "Person",
+          pvs: {},
+          title: "Population",
+        },
       },
     });
 
@@ -57,7 +76,13 @@ export function axios_mock(): void {
     .calledWith("/api/stats/stats-var-property?dcid=NotInTheTree")
     .mockResolvedValue({
       data: {
-        NotInTheTree: { md: "", mprop: "count", pt: "Person", pvs: {} },
+        NotInTheTree: {
+          md: "",
+          mprop: "count",
+          pt: "Person",
+          pvs: {},
+          title: "",
+        },
       },
     });
 
@@ -119,6 +144,97 @@ export function axios_mock(): void {
     .mockResolvedValue({
       data: {
         "geoId/05": "Arkansas",
+      },
+    });
+  when(axios.get)
+    .calledWith("/api/browser/statvar/group?stat_var_group=dc/g/Root")
+    .mockResolvedValue({
+      data: {
+        childStatVarGroups: [
+          {
+            displayName: "Demographics",
+            id: "dc/g/Demographics",
+            specializedEntity: "Demographics",
+          },
+          {
+            displayName: "Economics",
+            id: "dc/g/Economics",
+            specializedEntity: "Economics",
+          },
+        ],
+      },
+    });
+  when(axios.get)
+    .calledWith(
+      "/api/browser/statvar/group?stat_var_group=dc%2Fg%2FDemographics&places=geoId/05"
+    )
+    .mockResolvedValue({
+      data: {
+        childStatVarGroups: [
+          {
+            displayName: "Person By Age",
+            id: "dc/g/Person_Age",
+            specializedEntity: "Age",
+          },
+          {
+            displayName: "Person By ArmedForcesStatus",
+            id: "dc/g/Person_ArmedForcesStatus",
+            specializedEntity: "ArmedForcesStatus",
+          },
+        ],
+        childStatVars: [
+          {
+            displayName: "Count Of Person",
+            id: "Count_Person",
+            searchName: "Count Of Person",
+          },
+          {
+            displayName: "Median age of person",
+            id: "Median_Age_Person",
+            searchName: "Median age of person",
+          },
+        ],
+      },
+    });
+  when(axios.get)
+    .calledWith(
+      "/api/browser/statvar/group?stat_var_group=dc/g/Root&places=geoId/05"
+    )
+    .mockResolvedValue({
+      data: {
+        childStatVarGroups: [
+          {
+            displayName: "Demographics",
+            id: "dc/g/Demographics",
+            specializedEntity: "Demographics",
+          },
+          {
+            displayName: "Economics",
+            id: "dc/g/Economics",
+            specializedEntity: "Economics",
+          },
+        ],
+      },
+    });
+  when(axios.get)
+    .calledWith("/api/browser/statvar/path?id=Count_Person")
+    .mockResolvedValue({
+      data: {
+        path: ["Count_Person", "dc/g/Demographics"],
+      },
+    });
+  when(axios.get)
+    .calledWith("/api/browser/statvar/path?id=Median_Age_Person")
+    .mockResolvedValue({
+      data: {
+        path: ["Median_Age_Person", "dc/g/Demographics"],
+      },
+    });
+  when(axios.get)
+    .calledWith("/api/browser/statvar/path?id=NotInTheTree")
+    .mockResolvedValue({
+      data: {
+        path: ["NotInTheTree"],
       },
     });
 }

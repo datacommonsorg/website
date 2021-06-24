@@ -274,11 +274,11 @@ class TestBrowser(WebdriverBaseTest):
         search_input.send_keys(SEARCH_INPUT)
         element_present = EC.presence_of_element_located((
             By.XPATH,
-            '//*[@id="stat-var-hierarchy-section"]/div/div[1]/div[2]/div/div[1]'
+            '//*[@id="stat-var-hierarchy-section"]/div[1]/div[1]/div[2]/div[2]/div[1]'
         ))
         WebDriverWait(self.driver, self.TIMEOUT_SEC).until(element_present)
         first_result = self.driver.find_element_by_xpath(
-            '//*[@id="stat-var-hierarchy-section"]/div/div[1]/div[2]/div/div[1]'
+            '//*[@id="stat-var-hierarchy-section"]/div[1]/div[1]/div[2]/div[2]/div[1]'
         )
         first_result.click()
 

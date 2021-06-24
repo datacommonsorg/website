@@ -14,7 +14,13 @@
  * limitations under the License.
  */
 
-import { getPlaceNames, TimelineParams } from "./util";
+import {
+  getPlaceNames,
+  getTokensFromUrl,
+  setTokensToUrl,
+  addToken,
+  removeToken,
+} from "./util";
 
 test("get place names", () => {
   const dcids = ["geoId/4459000", "country/USA"];
@@ -27,110 +33,45 @@ test("get place names", () => {
   });
 });
 
-// test the functions of updating the parameters in class TimelineParams
-test("test TimelineParams", () => {
-  const urltest = new TimelineParams();
-
-  // add place
-  urltest.addPlace("country/USA");
-  expect(urltest.placeDcids).toStrictEqual(["country/USA"]);
-
-  // add one statsVar
-  urltest.addStatsVar("Count_Person", ["0", "0"], []);
-  expect(urltest.statsVarNodes).toStrictEqual({
-    Count_Person: { paths: [["0", "0"]], denominators: [] },
-  });
-
-  // add duplicated statsVar
-  urltest.addStatsVar("Count_Person", ["0", "0"], []);
-  expect(urltest.statsVarNodes).toStrictEqual({
-    Count_Person: { paths: [["0", "0"]], denominators: [] },
-  });
-
-  // add duplicated statsVar but with denominators
-  urltest.addStatsVar("Count_Person", ["0", "0"], ["Count_Person"]);
-  expect(urltest.statsVarNodes).toStrictEqual({
-    Count_Person: { paths: [["0", "0"]], denominators: ["Count_Person"] },
-  });
-
-  // add duplicated statsVar with different Path
-  urltest.addStatsVar("Count_Person", ["0", "5"], []);
-  expect(urltest.statsVarNodes).toStrictEqual({
-    Count_Person: {
-      paths: [
-        ["0", "0"],
-        ["0", "5"],
-      ],
-      denominators: ["Count_Person"],
-    },
-  });
-
-  // add one more statsVar
-  urltest.addStatsVar("Median_Age_Person", ["0", "1"], []);
-  expect(urltest.statsVarNodes).toStrictEqual({
-    Count_Person: {
-      paths: [
-        ["0", "0"],
-        ["0", "5"],
-      ],
-      denominators: ["Count_Person"],
-    },
-    Median_Age_Person: { paths: [["0", "1"]], denominators: [] },
-  });
-
-  // get statsVarDcids
-  expect(urltest.getStatsVarDcids()).toStrictEqual([
-    "Count_Person",
-    "Median_Age_Person",
-  ]);
-
-  // get statsVarPaths
-  expect(urltest.getStatsVarPaths()).toStrictEqual([
-    ["0", "0"],
-    ["0", "5"],
-    ["0", "1"],
-  ]);
-
-  // remove one place
-  urltest.removePLace("country/USA");
-  expect(urltest.placeDcids).toStrictEqual([]);
-
-  // remove statsVar with one Path when there're multiple paths
-  urltest.removeStatsVar("Count_Person", ["0", "5"]);
-  expect(urltest.statsVarNodes).toStrictEqual({
-    Count_Person: { paths: [["0", "0"]], denominators: ["Count_Person"] },
-    Median_Age_Person: { paths: [["0", "1"]], denominators: [] },
-  });
-
-  // remove statsVar without Path
-  urltest.removeStatsVar("Median_Age_Person");
-  expect(urltest.statsVarNodes).toStrictEqual({
-    Count_Person: { paths: [["0", "0"]], denominators: ["Count_Person"] },
-  });
-
-  // remove statsVar with Path
-  urltest.removeStatsVar("Count_Person", ["0", "0"]);
-  expect(urltest.statsVarNodes).toStrictEqual({});
+test("test getTokensFromUrl", () => {
+  window.location.hash =
+    "#&place=country/USA,geoId/06&statsVar=Count_Person__Median_Age_Person";
+  // places
+  let tokens = getTokensFromUrl("place", ",");
+  expect(tokens).toContain("country/USA");
+  expect(tokens).toContain("geoId/06");
+  // stat vars
+  tokens = getTokensFromUrl("statsVar", "__");
+  expect(tokens).toContain("Count_Person");
+  expect(tokens).toContain("Median_Age_Person");
 });
 
-test("test function of parsing the timeline parameters from the url", () => {
-  window.location.hash = "";
-  const params = new TimelineParams();
-  params.getParamsFromUrl();
-  expect(params.chartOptions).toEqual({});
-  expect(params.placeDcids).toStrictEqual([]);
-  expect(params.statsVarNodes).toStrictEqual({});
+test("test setTokensToUrl", () => {
+  window.location.hash = "#&statsVar=Count_Person__Median_Age_Person";
+  // places
+  setTokensToUrl("place", ",", new Set(["country/USA", "geoId/06"]));
+  expect(window.location.hash).toBe(
+    "#statsVar=Count_Person__Median_Age_Person&place=country%2FUSA%2CgeoId%2F06"
+  );
+});
 
-  window.location.hash = "#&place=country/USA,geoId/06";
-  params.getParamsFromUrl();
-  expect(params.placeDcids).toStrictEqual(["country/USA", "geoId/06"]);
+test("test addToken", () => {
+  window.location.hash = "#&statsVar=Count_Person__Median_Age_Person";
+  // existing token
+  addToken("statsVar", "__", "Median_Age_Person");
+  expect(window.location.hash).toBe(
+    "#&statsVar=Count_Person__Median_Age_Person"
+  );
+  // new token
+  addToken("statsVar", "__", "Count_Person_Female");
+  expect(window.location.hash).toBe(
+    "#statsVar=Count_Person__Median_Age_Person__Count_Person_Female"
+  );
+});
 
-  window.location.hash =
-    "&statsVar=Count_Person__Median_Age_Person,0,1__Unknown";
-  params.getParamsFromUrl();
-  expect(params.statsVarNodes).toStrictEqual({
-    Count_Person: { paths: [["0", "0"]], denominators: [] },
-    Median_Age_Person: { paths: [["0", "1"]], denominators: [] },
-    Unknown: { paths: [[]], denominators: [] },
-  });
+test("test removeToken", () => {
+  window.location.hash = "#&statsVar=Count_Person__Median_Age_Person";
+  // places
+  removeToken("statsVar", "__", "Count_Person");
+  expect(window.location.hash).toBe("#statsVar=Median_Age_Person");
 });
