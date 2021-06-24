@@ -34,6 +34,7 @@ import { Context } from "../shared/context";
 const LOADING_CONTAINER_ID = "stat-var-hierarchy-section";
 const SORTED_FIRST_SVG_ID = "dc/g/Demographics";
 const SORTED_LAST_SVG_ID = "dc/g/Miscellaneous";
+const ROOT_SVG = "dc/g/Root";
 
 interface StatVarHierarchyPropType {
   type: string;
@@ -173,38 +174,38 @@ export class StatVarHierarchy extends React.Component<
 
   private fetchData(): void {
     loadSpinner(LOADING_CONTAINER_ID);
-    let url = "/api/browser/statvar/group?stat_var_group=dc/g/Root";
+    let url = `/api/browser/statvar/group?stat_var_group=${ROOT_SVG}`;
     for (const place of this.props.places) {
       url += `&places=${place.dcid}`;
     }
-    axios
-      .get(url)
-      .then((resp) => {
-        const data = resp.data;
-        const rootSVGs = data["childStatVarGroups"];
+    const allPromises: Promise<string[] | StatVarGroupInfo[]>[] = [];
+    allPromises.push(
+      axios.get(url).then((resp) => {
+        return resp.data["childStatVarGroups"];
+      })
+    );
+    if (this.props.selectedSVs) {
+      for (const sv of this.props.selectedSVs) {
+        allPromises.push(this.getPath(sv));
+      }
+    }
+    Promise.all(allPromises)
+      .then((allResult) => {
         removeSpinner(LOADING_CONTAINER_ID);
+        const rootSVGs = allResult[0] as StatVarGroupInfo[];
+        const paths = allResult.slice(1) as string[][];
+        const svPath = {};
+        for (const path of paths) {
+          // In this case, the stat var is not in hierarchy.
+          if (path.length == 1) {
+            continue;
+          }
+          svPath[path.slice(-1)[0]] = path;
+        }
         this.setState({
           rootSVGs,
+          svPath,
         });
-        const pathPromises: Promise<string[]>[] = [];
-        if (this.props.selectedSVs) {
-          for (const sv of this.props.selectedSVs) {
-            pathPromises.push(this.getPath(sv));
-          }
-          Promise.all(pathPromises).then((paths: string[][]) => {
-            const svPath = {};
-            for (const path of paths) {
-              svPath[path.slice(-1)[0]] = path;
-            }
-            this.setState({
-              svPath,
-            });
-          });
-        } else {
-          this.setState({
-            svPath: {},
-          });
-        }
       })
       .catch(() => {
         removeSpinner(LOADING_CONTAINER_ID);

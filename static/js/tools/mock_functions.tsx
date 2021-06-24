@@ -230,6 +230,13 @@ export function axios_mock(): void {
         path: ["Median_Age_Person", "dc/g/Demographics"],
       },
     });
+  when(axios.get)
+    .calledWith("/api/browser/statvar/path?id=NotInTheTree")
+    .mockResolvedValue({
+      data: {
+        path: ["NotInTheTree"],
+      },
+    });
 }
 
 export function mock_hierarchy_complete(): void {
