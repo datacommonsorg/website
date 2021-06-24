@@ -257,7 +257,7 @@ class TestBrowser(WebdriverBaseTest):
         image = image_section.find_element_by_tag_name('img')
         self.assertTrue(image)
 
-    # TODO(chejennifer): uncomment out this test when stat var hierarchy cache 
+    # TODO(chejennifer): uncomment out this test when stat var hierarchy cache
     # updates are done
     # def test_stat_var_hierarchy(self):
     #     """Test that the stat var hierarchy can search properly"""
