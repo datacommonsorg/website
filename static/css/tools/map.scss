@@ -181,6 +181,15 @@
   font-size: 1.3rem;
 }
 
+.input-area-hidden #place-list {
+  flex-grow: 1;
+}
+
+.input-area-hidden #ac {
+  visibility: hidden;
+  width: 0;
+}
+
 #chart-container {
   width: 100%;
   display: flex;

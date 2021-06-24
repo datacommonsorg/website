@@ -213,13 +213,19 @@ function loadChartData(
         continue;
       }
     }
-    if (placeInfo.parentPlaces.find((place) => place.dcid === dcid)) {
+    if (
+      placeInfo.parentPlaces.find((place) => place.dcid === dcid) ||
+      dcid === placeInfo.selectedPlace.dcid
+    ) {
       breadcrumbDataValues[dcid] = value;
     } else {
       mapDataValues[dcid] = value;
     }
-    if (dcid === placeInfo.selectedPlace.dcid) {
-      breadcrumbDataValues[dcid] = value;
+    if (
+      dcid === placeInfo.selectedPlace.dcid &&
+      placeInfo.selectedPlace.dcid !== placeInfo.enclosingPlace.dcid
+    ) {
+      mapDataValues[dcid] = value;
     }
     metadata[dcid] = {
       popDate,
