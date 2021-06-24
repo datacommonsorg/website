@@ -47,9 +47,21 @@ export class StatVarCheckbox extends React.Component<
   }
 
   componentDidMount(): void {
-    if (this.props.selected || this.props.statVar.id in this.context.svPath) {
-      this.setState({ checked: true });
+    this.setState({
+      checked: this.isChecked(),
+    });
+  }
+
+  componentDidUpdate(prevProps: StatVarCheckboxPropType): void {
+    if (this.props !== prevProps) {
+      this.setState({
+        checked: this.isChecked(),
+      });
     }
+  }
+
+  private isChecked(): boolean {
+    return this.props.selected || this.props.statVar.id in this.context.svPath;
   }
 
   private handleInputChange(): void {
