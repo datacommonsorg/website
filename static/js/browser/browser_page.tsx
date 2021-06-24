@@ -24,7 +24,7 @@ import _ from "lodash";
 import Collapsible from "react-collapsible";
 import { ImageSection } from "./image_section";
 import { ObservationChartSection } from "./observation_chart_section";
-import { StatVarHierarchy } from "./statvar_hierarchy";
+import { StatVarHierarchy } from "../stat_var_hierarchy/stat_var_hierarchy";
 import { PageDisplayType } from "./types";
 import { WeatherChartSection } from "./weather_chart_section";
 import { OutArcSection } from "./out_arc_section";

@@ -20,7 +20,7 @@
 
 import React from "react";
 
-import { StatVarHierarchyNodeType } from "./types";
+import { StatVarHierarchyNodeType } from "../shared/types";
 import { Context, ContextType } from "../shared/context";
 import { StatVarHierarchyType } from "../shared/types";
 

@@ -27,10 +27,10 @@ import {
   StatVarInfo,
   StatVarGroupInfo,
   StatVarHierarchyNodeType,
-} from "./types";
-import { StatVarHierarchyNodeHeader } from "./statvar_hierarchy_node_header";
-import { StatVarSection } from "./statvar_section";
-import { StatVarGroupSection } from "./statvar_group_section";
+} from "../shared/types";
+import { StatVarHierarchyNodeHeader } from "./node_header";
+import { StatVarSection } from "./stat_var_section";
+import { StatVarGroupSection } from "./stat_var_group_section";
 import { NamedPlace } from "../shared/types";
 
 import { Context, ContextType } from "../shared/context";
