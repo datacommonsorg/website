@@ -22,9 +22,8 @@
 import React from "react";
 import _ from "lodash";
 
-import { StatVarGroupInfo } from "./types";
-import { NamedPlace } from "../shared/types";
-import { StatVarGroupNode } from "./statvar_group_node";
+import { NamedPlace, StatVarGroupInfo } from "../shared/types";
+import { StatVarGroupNode } from "./stat_var_group_node";
 
 const VARIABLES_STATVAR_GROUP_PREFIX = "dc/g/Variables_";
 

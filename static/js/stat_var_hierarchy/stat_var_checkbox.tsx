@@ -20,7 +20,7 @@
 
 import React from "react";
 
-import { StatVarInfo } from "./types";
+import { StatVarInfo } from "../shared/types";
 import { Context, ContextType } from "../shared/context";
 
 interface StatVarCheckboxPropType {
@@ -47,9 +47,21 @@ export class StatVarCheckbox extends React.Component<
   }
 
   componentDidMount(): void {
-    if (this.props.selected || this.props.statVar.id in this.context.svPath) {
-      this.setState({ checked: true });
+    this.setState({
+      checked: this.isChecked(),
+    });
+  }
+
+  componentDidUpdate(prevProps: StatVarCheckboxPropType): void {
+    if (this.props !== prevProps) {
+      this.setState({
+        checked: this.isChecked(),
+      });
     }
+  }
+
+  private isChecked(): boolean {
+    return this.props.selected || this.props.statVar.id in this.context.svPath;
   }
 
   private handleInputChange(): void {

@@ -31,7 +31,7 @@ import {
 } from "./chart/draw";
 import { randDomId } from "./shared/util";
 import { StatsVarInfo } from "./tools/statvar_menu/util";
-import { StatVarHierarchy } from "./browser/statvar_hierarchy";
+import { StatVarHierarchy } from "./stat_var_hierarchy/stat_var_hierarchy";
 import { StatVarHierarchyType } from "./shared/types";
 
 interface DevChartPropType {

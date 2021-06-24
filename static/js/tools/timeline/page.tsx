@@ -29,7 +29,7 @@ import { Info } from "./info";
 import { ChartRegion } from "./chart_region";
 
 import { StatVarHierarchyType, NamedPlace } from "../../shared/types";
-import { StatVarHierarchy } from "../../browser/statvar_hierarchy";
+import { StatVarHierarchy } from "../../stat_var_hierarchy/stat_var_hierarchy";
 
 interface PageStateType {
   placeName: Record<string, string>;
