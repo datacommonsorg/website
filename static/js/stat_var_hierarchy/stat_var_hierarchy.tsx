@@ -109,21 +109,23 @@ export class StatVarHierarchy extends React.Component<
     }
     // Do not want to change the state here.
     const rootSVGs = _.cloneDeep(this.state.rootSVGs);
-    rootSVGs.sort((a, b) => {
-      if (a.id === SORTED_FIRST_SVG_ID) {
-        return -1;
-      }
-      if (b.id === SORTED_FIRST_SVG_ID) {
-        return 1;
-      }
-      if (a.id === SORTED_LAST_SVG_ID) {
-        return 1;
-      }
-      if (b.id === SORTED_LAST_SVG_ID) {
-        return -1;
-      }
-      return a > b ? 1 : -1;
-    });
+    if (!_.isEmpty(rootSVGs)) {
+      rootSVGs.sort((a, b) => {
+        if (a.id === SORTED_FIRST_SVG_ID) {
+          return -1;
+        }
+        if (b.id === SORTED_FIRST_SVG_ID) {
+          return 1;
+        }
+        if (a.id === SORTED_LAST_SVG_ID) {
+          return 1;
+        }
+        if (b.id === SORTED_LAST_SVG_ID) {
+          return -1;
+        }
+        return a > b ? 1 : -1;
+      });
+    }
     return (
       <div id={LOADING_CONTAINER_ID} className="loading-spinner-container">
         {!_.isEmpty(this.state.errorMessage) && (

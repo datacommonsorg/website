@@ -22,14 +22,14 @@ import React, { useContext, useEffect } from "react";
 import _ from "lodash";
 import { StatVarHierarchyType } from "../../shared/types";
 import { Context, StatVarWrapper } from "./context";
-import { getStatsVarInfo } from "../statvar_menu/util";
+import { getStatVarInfo } from "../statvar_menu/util";
 import { StatVarHierarchy } from "../../stat_var_hierarchy/stat_var_hierarchy";
 
 export function StatVarChooser(): JSX.Element {
   const { statVar, placeInfo } = useContext(Context);
   useEffect(() => {
     if (statVar.value.dcid && _.isNull(statVar.value.info)) {
-      getStatsVarInfo([statVar.value.dcid])
+      getStatVarInfo([statVar.value.dcid])
         .then((info) => {
           const statVarInfo =
             statVar.value.dcid in info ? info[statVar.value.dcid] : {};
@@ -58,7 +58,7 @@ export function StatVarChooser(): JSX.Element {
 }
 
 function selectStatVar(statVar: StatVarWrapper, dcid: string): void {
-  getStatsVarInfo([dcid])
+  getStatVarInfo([dcid])
     .then((info) => {
       statVar.set({
         dcid,

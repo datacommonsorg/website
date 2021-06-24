@@ -156,8 +156,8 @@ export function getInitialContext(params: URLSearchParams): ContextType {
     statVar: {
       value: statVar,
       set: (statVar) => setStatVar(statVar),
-      setInfo: (info) => setStatVar({ ...statVar, info }),
       setDcid: (dcid) => setStatVar({ ...statVar, dcid, info: null }),
+      setInfo: (info) => setStatVar({ ...statVar, info }),
       setPerCapita: (perCapita) => setStatVar({ ...statVar, perCapita }),
     },
   };
