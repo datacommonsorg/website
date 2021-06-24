@@ -18,12 +18,16 @@
  * Chart component for drawing a choropleth.
  */
 
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useState, useRef } from "react";
 import { GeoJsonData, GeoJsonFeatureProperties } from "../../chart/types";
 import { PlaceInfo, StatVarInfo } from "./context";
 import { Container } from "reactstrap";
 import _ from "lodash";
-import { drawChoropleth } from "../../chart/draw_choropleth";
+import {
+  drawChoropleth,
+  getColorScale,
+  generateLegendSvg,
+} from "../../chart/draw_choropleth";
 import {
   MAP_REDIRECT_PREFIX,
   updateHashPlaceInfo,
@@ -49,18 +53,39 @@ interface ChartProps {
 }
 
 const SVG_CONTAINER_ID = "choropleth-map";
+const LEGEND_CONTAINER_ID = "choropleth-legend";
+const CHART_CONTAINER_ID = "chart-container";
 const ZOOM_IN_BUTTON_ID = "zoom-in-button";
 const ZOOM_OUT_BUTTON_ID = "zoom-out-button";
+const LEGEND_MARGIN_LEFT = 30;
+const LEGEND_HEIGHT_SCALING = 0.6;
 
 export function Chart(props: ChartProps): JSX.Element {
   const [errorMessage, setErrorMessage] = useState("");
-  useEffect(() => {
-    draw(props, setErrorMessage);
-  }, [props]);
   const title = getTitle(Array.from(props.dates), props.statVarInfo.name);
   const sourcesJsx = getSourcesJsx(props.sources);
   const placeDcid = props.placeInfo.enclosingPlace.dcid;
   const statVarDcid = _.findKey(props.statVarInfo.statVar);
+  const [chartWidth, setChartWidth] = useState(0);
+  useEffect(() => {
+    draw(props, setErrorMessage, true);
+  }, [props]);
+  useEffect(() => {
+    function _handleWindowResize() {
+      const chartContainer = document.getElementById(CHART_CONTAINER_ID);
+      if (chartContainer) {
+        const width = chartContainer.offsetWidth;
+        if (width !== chartWidth) {
+          setChartWidth(width);
+          draw(props, setErrorMessage, false);
+        }
+      }
+    }
+    window.addEventListener("resize", _handleWindowResize);
+    return () => {
+      window.removeEventListener("resize", _handleWindowResize);
+    };
+  }, [props]);
   return (
     <>
       <Container>
@@ -71,19 +96,21 @@ export function Chart(props: ChartProps): JSX.Element {
           {errorMessage ? (
             <div className="error-message">{errorMessage}</div>
           ) : (
-            <div id={SVG_CONTAINER_ID}></div>
-          )}
-          <div className="map-section-container">
-            <div id={SVG_CONTAINER_ID}></div>
-            <div className="zoom-button-section">
-              <div id={ZOOM_IN_BUTTON_ID} className="zoom-button">
-                <i className="material-icons">add</i>
+            <div className="map-section-container">
+              <div id={CHART_CONTAINER_ID}>
+                <div id={SVG_CONTAINER_ID}></div>
+                <div id={LEGEND_CONTAINER_ID}></div>
               </div>
-              <div id={ZOOM_OUT_BUTTON_ID} className="zoom-button">
-                <i className="material-icons">remove</i>
+              <div className="zoom-button-section">
+                <div id={ZOOM_IN_BUTTON_ID} className="zoom-button">
+                  <i className="material-icons">add</i>
+                </div>
+                <div id={ZOOM_OUT_BUTTON_ID} className="zoom-button">
+                  <i className="material-icons">remove</i>
+                </div>
               </div>
             </div>
-          </div>
+          )}
           <ChartOptions
             dataValues={props.breadcrumbDataValues}
             placeInfo={props.placeInfo}
@@ -108,13 +135,13 @@ export function Chart(props: ChartProps): JSX.Element {
 
 function draw(
   props: ChartProps,
-  setErrorMessage: (errorMessage: string) => void
+  setErrorMessage: (errorMessage: string) => void,
+  shouldDrawMap: boolean
 ): void {
-  document.getElementById(SVG_CONTAINER_ID).innerHTML = "";
-  const width = document.getElementById(SVG_CONTAINER_ID).offsetWidth;
+  document.getElementById(LEGEND_CONTAINER_ID).innerHTML = "";
+  const width = document.getElementById(CHART_CONTAINER_ID).offsetWidth;
   const height = (width * 2) / 5;
-  const legendMargins = height * 0.2;
-  const getRedirectLink = getMapRedirectLink(
+  const redirectAction = getMapRedirectAction(
     props.statVarInfo,
     props.placeInfo
   );
@@ -131,27 +158,40 @@ function draw(
       return;
     }
   }
-  if (!_.isEmpty(props.geoJsonData) && !_.isEmpty(props.mapDataValues)) {
+  const colorScale = getColorScale(props.statVarInfo.name, props.mapDataValues);
+  const legendHeight = height * LEGEND_HEIGHT_SCALING;
+  const legendWidth = generateLegendSvg(
+    LEGEND_CONTAINER_ID,
+    legendHeight,
+    colorScale,
+    props.unit,
+    LEGEND_MARGIN_LEFT
+  );
+  if (
+    shouldDrawMap &&
+    !_.isEmpty(props.geoJsonData) &&
+    !_.isEmpty(props.mapDataValues)
+  ) {
     drawChoropleth(
       SVG_CONTAINER_ID,
       props.geoJsonData,
       height,
-      width,
+      width - legendWidth,
       props.mapDataValues,
       "",
-      props.statVarInfo.name,
+      colorScale,
       props.placeInfo.enclosedPlaceType in USA_CHILD_PLACE_TYPES,
-      getRedirectLink,
+      redirectAction,
       getTooltipHtml(
         props.metadata,
         props.statVarInfo,
         props.mapDataValues,
         props.unit
       ),
+      false,
       zoomDcid,
       ZOOM_IN_BUTTON_ID,
-      ZOOM_OUT_BUTTON_ID,
-      { top: legendMargins, bottom: legendMargins }
+      ZOOM_OUT_BUTTON_ID
     );
   }
 }
@@ -187,9 +227,10 @@ function exploreTimelineOnClick(placeDcid: string, statVarDcid: string): void {
   window.open(`/tools/timeline#place=${placeDcid}&statsVar=${statVarDcid}`);
 }
 
-const getMapRedirectLink = (statVarInfo: StatVarInfo, placeInfo: PlaceInfo) => (
-  geoProperties: GeoJsonFeatureProperties
-) => {
+const getMapRedirectAction = (
+  statVarInfo: StatVarInfo,
+  placeInfo: PlaceInfo
+) => (geoProperties: GeoJsonFeatureProperties) => {
   let hash = updateHashStatVarInfo("", statVarInfo);
   const selectedPlace = {
     dcid: geoProperties.geoDcid,
@@ -205,7 +246,8 @@ const getMapRedirectLink = (statVarInfo: StatVarInfo, placeInfo: PlaceInfo) => (
     selectedPlace,
     parentPlaces: [],
   });
-  return `${MAP_REDIRECT_PREFIX}#${encodeURIComponent(hash)}`;
+  const redirectLink = `${MAP_REDIRECT_PREFIX}#${encodeURIComponent(hash)}`;
+  window.open(redirectLink, "_self");
 };
 
 const getTooltipHtml = (
@@ -222,11 +264,13 @@ const getTooltipHtml = (
     hasValue = true;
   }
   if (!hasValue || !(place.dcid in metadataMapping)) {
-    return titleHtml + `${statVarInfo.name}: ${value}<br />`;
+    return titleHtml + `${statVarInfo.name}: <wbr>${value}<br />`;
   }
   const metadata = metadataMapping[place.dcid];
   if (!_.isEmpty(metadata.errorMessage)) {
-    return titleHtml + `${statVarInfo.name}: ${metadata.errorMessage}<br />`;
+    return (
+      titleHtml + `${statVarInfo.name}: <wbr>${metadata.errorMessage}<br />`
+    );
   }
   let sources = urlToDomain(metadata.statVarSource);
   if (statVarInfo.perCapita && !_.isEmpty(metadata.popSource)) {
@@ -241,11 +285,11 @@ const getTooltipHtml = (
     !metadata.statVarDate.includes(metadata.popDate) &&
     !metadata.popDate.includes(metadata.statVarDate);
   const popDateHtml = showPopDateMessage
-    ? `<sup>*</sup> Uses population data from: ${metadata.popDate}`
+    ? `<sup>*</sup> Uses population data from: <wbr>${metadata.popDate}`
     : "";
   const html =
     titleHtml +
-    `${statVarInfo.name} (${metadata.statVarDate}): ${value}<br />` +
-    `<footer>Data from: ${sources} <br/>${popDateHtml}</footer>`;
+    `${statVarInfo.name} (${metadata.statVarDate}): <wbr>${value}<br />` +
+    `<footer>Data from: <wbr>${sources} <br/>${popDateHtml}</footer>`;
   return html;
 };
