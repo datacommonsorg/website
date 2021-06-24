@@ -114,7 +114,7 @@ function draw(
   const width = document.getElementById(SVG_CONTAINER_ID).offsetWidth;
   const height = (width * 2) / 5;
   const legendMargins = height * 0.2;
-  const getRedirectLink = getMapRedirectLink(
+  const redirectAction = getMapRedirectAction(
     props.statVarInfo,
     props.placeInfo
   );
@@ -141,7 +141,7 @@ function draw(
       "",
       props.statVarInfo.name,
       props.placeInfo.enclosedPlaceType in USA_CHILD_PLACE_TYPES,
-      getRedirectLink,
+      redirectAction,
       getTooltipHtml(
         props.metadata,
         props.statVarInfo,
@@ -187,9 +187,10 @@ function exploreTimelineOnClick(placeDcid: string, statVarDcid: string): void {
   window.open(`/tools/timeline#place=${placeDcid}&statsVar=${statVarDcid}`);
 }
 
-const getMapRedirectLink = (statVarInfo: StatVarInfo, placeInfo: PlaceInfo) => (
-  geoProperties: GeoJsonFeatureProperties
-) => {
+const getMapRedirectAction = (
+  statVarInfo: StatVarInfo,
+  placeInfo: PlaceInfo
+) => (geoProperties: GeoJsonFeatureProperties) => {
   let hash = updateHashStatVarInfo("", statVarInfo);
   const selectedPlace = {
     dcid: geoProperties.geoDcid,
@@ -205,7 +206,8 @@ const getMapRedirectLink = (statVarInfo: StatVarInfo, placeInfo: PlaceInfo) => (
     selectedPlace,
     parentPlaces: [],
   });
-  return `${MAP_REDIRECT_PREFIX}#${encodeURIComponent(hash)}`;
+  const redirectLink = `${MAP_REDIRECT_PREFIX}#${encodeURIComponent(hash)}`;
+  window.open(redirectLink, "_self");
 };
 
 const getTooltipHtml = (
@@ -222,11 +224,13 @@ const getTooltipHtml = (
     hasValue = true;
   }
   if (!hasValue || !(place.dcid in metadataMapping)) {
-    return titleHtml + `${statVarInfo.name}: ${value}<br />`;
+    return titleHtml + `${statVarInfo.name}: <wbr>${value}<br />`;
   }
   const metadata = metadataMapping[place.dcid];
   if (!_.isEmpty(metadata.errorMessage)) {
-    return titleHtml + `${statVarInfo.name}: ${metadata.errorMessage}<br />`;
+    return (
+      titleHtml + `${statVarInfo.name}: <wbr>${metadata.errorMessage}<br />`
+    );
   }
   let sources = urlToDomain(metadata.statVarSource);
   if (statVarInfo.perCapita && !_.isEmpty(metadata.popSource)) {
@@ -241,11 +245,11 @@ const getTooltipHtml = (
     !metadata.statVarDate.includes(metadata.popDate) &&
     !metadata.popDate.includes(metadata.statVarDate);
   const popDateHtml = showPopDateMessage
-    ? `<sup>*</sup> Uses population data from: ${metadata.popDate}`
+    ? `<sup>*</sup> Uses population data from: <wbr>${metadata.popDate}`
     : "";
   const html =
     titleHtml +
-    `${statVarInfo.name} (${metadata.statVarDate}): ${value}<br />` +
-    `<footer>Data from: ${sources} <br/>${popDateHtml}</footer>`;
+    `${statVarInfo.name} (${metadata.statVarDate}): <wbr>${value}<br />` +
+    `<footer>Data from: <wbr>${sources} <br/>${popDateHtml}</footer>`;
   return html;
 };

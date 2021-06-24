@@ -26,6 +26,7 @@ import { PlaceOptions } from "./place_options";
 import {
   applyHashPlaceInfo,
   applyHashStatVarInfo,
+  MAP_REDIRECT_PREFIX,
   updateHashPlaceInfo,
   updateHashStatVarInfo,
 } from "./util";
@@ -100,7 +101,9 @@ function applyHash(context: ContextType): void {
 function updateHash(context: ContextType): void {
   let hash = updateHashStatVarInfo("", context.statVarInfo.value);
   hash = updateHashPlaceInfo(hash, context.placeInfo.value);
-  if (hash) {
-    history.pushState({}, "", `/tools/map#${encodeURIComponent(hash)}`);
+  const newHash = encodeURIComponent(hash);
+  const currentHash = location.hash.replace("#", "");
+  if (newHash && newHash !== currentHash) {
+    history.pushState({}, "", `${MAP_REDIRECT_PREFIX}#${newHash}`);
   }
 }
