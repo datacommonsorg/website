@@ -44,8 +44,7 @@ const NUM_TICKS = 5;
 const HIGHLIGHTED_CLASS_NAME = "highlighted";
 const REGULAR_SCALE_AMOUNT = 1;
 const ZOOMED_SCALE_AMOUNT = 0.7;
-const LEGEND_BACKGROUND_MARGIN_LEFT = 30;
-const LEGEND_BACKGROUND_FILL = "white";
+const LEGEND_CLASS_NAME = "legend";
 
 /**
  * From https://bl.ocks.org/HarryStevens/0e440b73fbd88df7c6538417481c9065
@@ -68,45 +67,20 @@ function fitSize(
   projection.scale(s).translate([translateX, translateY]);
 }
 
-/** Draws a choropleth chart
+/** Generates a color scale to be used for drawing choropleth map and legend.
  *
- * @param containerId id of the div to draw the choropleth in
- * @param geoJson the geojson data for drawing choropleth
- * @param chartHeight height for the chart
- * @param chartWidth width for the chart
- * @param dataValues data values for plotting
- * @param unit the unit of measurement
- * @param statVar the stat var the choropleth is showing
- * @param canClick whether the regions on the map should be clickable
- * @param getRedirectLink function to get the link to redirect to when region on
- *                        the map is clicked
- * @param getTooltipHtml function to get the html content for the tooltip
- * @param zoomDcid the dcid of the region to zoom in on when drawing the chart
- * @param zoomInButtonId the id of the zoom in button
- * @param zoomOutButtonId the id of the zoom out button
- * @param legendMargins the top and bottom margins for the legend
+ * @param statVar name of the stat var we are drawing choropleth for
+ * @param dataValues the values we are using to plot our choropleth
  */
-function drawChoropleth(
-  containerId: string,
-  geoJson: GeoJsonData,
-  chartHeight: number,
-  chartWidth: number,
+function getColorScale(
+  statVar: string,
   dataValues: {
     [placeDcid: string]: number;
-  },
-  unit: string,
-  statVar: string,
-  canClick: boolean,
-  getRedirectLink: (geoDcid: GeoJsonFeatureProperties) => string,
-  getTooltipHtml: (place: NamedPlace) => string,
-  zoomDcid?: string,
-  zoomInButtonId?: string,
-  zoomOutButtonId?: string,
-  legendMargins?: { top: number; bottom: number }
-): void {
+  }
+): d3.ScaleLinear<number, number> {
   const label = getStatsVarLabel(statVar);
   const maxColor = d3.color(getColorFn([label])(label));
-  const colorScale = d3
+  return d3
     .scaleLinear()
     .domain(d3.extent(Object.values(dataValues)))
     .nice()
@@ -117,7 +91,43 @@ function drawChoropleth(
         b: unknown
       ) => (t: number) => number
     );
+}
 
+/** Draws a choropleth chart
+ *
+ * @param containerId id of the div to draw the choropleth in
+ * @param geoJson the geojson data for drawing choropleth
+ * @param chartHeight height for the chart
+ * @param chartWidth width for the chart
+ * @param dataValues data values for plotting
+ * @param unit the unit of measurement
+ * @param colorScale the color scale to use for drawing the map and legend
+ * @param canClick whether the regions on the map should be clickable
+ * @param redirectAction function that runs when region on map is clicked
+ * @param getTooltipHtml function to get the html content for the tooltip
+ * @param shouldGenerateLegend whether legend needs to be generated
+ * @param zoomDcid the dcid of the region to zoom in on when drawing the chart
+ * @param zoomInButtonId the id of the zoom in button
+ * @param zoomOutButtonId the id of the zoom out button
+ */
+function drawChoropleth(
+  containerId: string,
+  geoJson: GeoJsonData,
+  chartHeight: number,
+  chartWidth: number,
+  dataValues: {
+    [placeDcid: string]: number;
+  },
+  unit: string,
+  colorScale: d3.ScaleLinear<number, number>,
+  canClick: boolean,
+  redirectAction: (geoDcid: GeoJsonFeatureProperties) => void,
+  getTooltipHtml: (place: NamedPlace) => string,
+  shouldGenerateLegend: boolean,
+  zoomDcid?: string,
+  zoomInButtonId?: string,
+  zoomOutButtonId?: string
+): void {
   // Add svg for the map to the div holding the chart.
   const domContainerId = `#${containerId}`;
   const svg = d3
@@ -132,14 +142,15 @@ function drawChoropleth(
 
   const projection = geo.geoAlbersUsaTerritories();
   const geomap = d3.geoPath().projection(projection);
-  const legendWidth = generateLegend(
-    svg,
-    chartWidth,
-    chartHeight,
-    colorScale,
-    unit,
-    legendMargins
-  );
+
+  if (shouldGenerateLegend) {
+    const legendHeight = chartHeight - LEGEND_MARGIN_BOTTOM - LEGEND_MARGIN_TOP;
+    const legendWidth = generateLegend(svg, legendHeight, colorScale, unit);
+    chartWidth -= legendWidth;
+    svg
+      .select(`.${LEGEND_CLASS_NAME}`)
+      .attr("transform", `translate(${chartWidth}, ${LEGEND_MARGIN_TOP})`);
+  }
 
   // Scale and center the map
   let isMapFitted = false;
@@ -149,7 +160,7 @@ function drawChoropleth(
     );
     if (geoJsonFeature) {
       fitSize(
-        chartWidth - legendWidth,
+        chartWidth,
         chartHeight,
         geoJsonFeature,
         projection,
@@ -161,7 +172,7 @@ function drawChoropleth(
   }
   if (!isMapFitted) {
     fitSize(
-      chartWidth - legendWidth,
+      chartWidth,
       chartHeight,
       geoJson,
       projection,
@@ -202,9 +213,9 @@ function drawChoropleth(
     .attr("stroke", GEO_STROKE_COLOR)
     .on("mouseover", onMouseOver(domContainerId, canClick))
     .on("mouseout", onMouseOut(domContainerId))
-    .on("mousemove", onMouseMove(domContainerId, getTooltipHtml));
+    .on("mousemove", onMouseMove(domContainerId, getTooltipHtml, canClick));
   if (canClick) {
-    mapObjects.on("click", onMapClick(domContainerId, getRedirectLink));
+    mapObjects.on("click", onMapClick(domContainerId, redirectAction));
   }
 
   // style highlighted region and bring to the front
@@ -223,8 +234,21 @@ function drawChoropleth(
         [0, 0],
         [chartWidth, chartHeight],
       ])
-      .on("zoom", function () {
-        map.selectAll("path").attr("transform", d3.event.transform);
+      .on("zoom", function (): void {
+        mapObjects.on("mousemove", null).on("mouseover", null);
+        d3.select(`#${TOOLTIP_ID}`).style("display", "none");
+        map
+          .selectAll("path")
+          .classed("region-highlighted", false)
+          .attr("transform", d3.event.transform);
+      })
+      .on("end", function (): void {
+        mapObjects
+          .on(
+            "mousemove",
+            onMouseMove(domContainerId, getTooltipHtml, canClick)
+          )
+          .on("mouseover", onMouseOver(domContainerId, canClick));
       });
     svg.call(zoom);
     if (zoomInButtonId) {
@@ -244,13 +268,7 @@ const onMouseOver = (domContainerId: string, canClick: boolean) => (
   _,
   index
 ): void => {
-  const container = d3.select(domContainerId);
-  // show highlighted border and show cursor as a pointer
-  if (canClick) {
-    container.select("#geoPath" + index).classed("region-highlighted", true);
-  }
-  // show tooltip
-  container.select(`#${TOOLTIP_ID}`).style("display", "block");
+  mouseHoverAction(domContainerId, index, canClick);
 };
 
 const onMouseOut = (domContainerId: string) => (_, index): void => {
@@ -259,42 +277,68 @@ const onMouseOut = (domContainerId: string) => (_, index): void => {
 
 const onMouseMove = (
   domContainerId: string,
-  getTooltipHtml: (place: NamedPlace) => string
-) => (e) => {
+  getTooltipHtml: (place: NamedPlace) => string,
+  canClick: boolean
+) => (e, index) => {
+  mouseHoverAction(domContainerId, index, canClick);
+  const container = d3.select(domContainerId);
   const geoProperties = e["properties"];
   const placeName = geoProperties.name;
-  const tooltipSelect = d3.select(domContainerId).select(`#${TOOLTIP_ID}`);
+  const tooltipSelect = container.select(`#${TOOLTIP_ID}`);
   const place = {
     dcid: geoProperties.geoDcid,
     name: placeName,
   };
   const tooltipHtml = getTooltipHtml(place);
   const tooltipHeight = (tooltipSelect.node() as HTMLDivElement).clientHeight;
+  const tooltipWidth = (tooltipSelect.node() as HTMLDivElement).clientWidth;
+  const containerWidth = (container.node() as HTMLDivElement).clientWidth;
   const offset = 5;
   const leftOffset = offset;
   const topOffset = -tooltipHeight - offset;
+  const left = Math.min(
+    d3.event.offsetX + leftOffset,
+    containerWidth - tooltipWidth
+  );
+  let top = d3.event.offsetY + topOffset;
+  if (top < 0) {
+    top = d3.event.offsetY + offset;
+  }
   tooltipSelect
     .html(tooltipHtml)
-    .style("left", d3.event.offsetX + leftOffset + "px")
-    .style("top", d3.event.offsetY + topOffset + "px");
+    .style("left", left + "px")
+    .style("top", top + "px");
 };
 
 const onMapClick = (
   domContainerId: string,
-  getRedirectLink: (properties: GeoJsonFeatureProperties) => string
+  redirectAction: (properties: GeoJsonFeatureProperties) => void
 ) => (geo: GeoJsonFeature, index) => {
-  const redirectLink = getRedirectLink(geo.properties);
-  window.open(redirectLink, "_blank");
+  redirectAction(geo.properties);
   mouseOutAction(domContainerId, index);
 };
 
-function mouseOutAction(domContainerId: string, index: number) {
+function mouseOutAction(domContainerId: string, index: number): void {
   const container = d3.select(domContainerId);
   container.select("#geoPath" + index).classed("region-highlighted", false);
   container.select(`#${TOOLTIP_ID}`).style("display", "none");
 }
 
-function addTooltip(domContainerId: string) {
+function mouseHoverAction(
+  domContainerId: string,
+  index: number,
+  canClick: boolean
+): void {
+  const container = d3.select(domContainerId);
+  // show highlighted border and show cursor as a pointer
+  if (canClick) {
+    container.select("#geoPath" + index).classed("region-highlighted", true);
+  }
+  // show tooltip
+  container.select(`#${TOOLTIP_ID}`).style("display", "block");
+}
+
+function addTooltip(domContainerId: string): void {
   d3.select(domContainerId)
     .attr("style", "position: relative")
     .append("div")
@@ -306,31 +350,23 @@ function addTooltip(domContainerId: string) {
  * Draw a color scale legend.
  * @param color The d3 linearScale that encodes the color gradient to be
  *        plotted.
- * @param margins Optional object that holds the margin top and margin bottom
- *        of the legend to be plotted
  *
  * @return the width of the legend
  */
 function generateLegend(
   svg: d3.Selection<SVGElement, any, any, any>,
-  chartWidth: number,
-  chartHeight: number,
+  height: number,
   color: d3.ScaleLinear<number, number>,
-  unit: string,
-  margins?: { top: number; bottom: number }
-) {
-  const marginTop = margins ? margins.top : LEGEND_MARGIN_TOP;
-  const marginBottom = margins ? margins.bottom : LEGEND_MARGIN_BOTTOM;
-  const height = chartHeight - marginTop - marginBottom;
+  unit: string
+): number {
   const n = Math.min(color.domain().length, color.range().length);
 
-  const legend = svg.append("g").attr("class", "legend");
-  const background = legend.append("rect");
+  const legend = svg.append("g").attr("class", LEGEND_CLASS_NAME);
   legend
     .append("image")
     .attr("id", "legend-img")
     .attr("x", 0)
-    .attr("y", marginTop)
+    .attr("y", 0)
     .attr("width", LEGEND_IMG_WIDTH)
     .attr("height", height)
     .attr("preserveAspectRatio", "none")
@@ -344,7 +380,6 @@ function generateLegend(
   const yScale = d3.scaleLinear().domain(color.domain()).range([0, height]);
   legend
     .append("g")
-    .attr("transform", `translate(0, ${marginTop})`)
     .call(
       d3
         .axisRight(yScale)
@@ -369,12 +404,34 @@ function generateLegend(
     .call((g) => g.select(".domain").remove());
 
   const legendWidth = legend.node().getBBox().width;
-  background
-    .attr("height", "100%")
-    .attr("width", legendWidth + LEGEND_BACKGROUND_MARGIN_LEFT)
-    .attr("fill", LEGEND_BACKGROUND_FILL)
-    .attr("transform", `translate(-${LEGEND_BACKGROUND_MARGIN_LEFT}, 0)`);
-  legend.attr("transform", `translate(${chartWidth - legendWidth}, 0)`);
+  return legendWidth;
+}
+
+/** Generate a svg that contains a color scale legend
+ *
+ * @param containerId id of the container to draw the legend in
+ * @param height height of the legend
+ * @param colorScale the color scale to use for the legend
+ * @param unit unit of measurement
+ * @param marginLeft left margin of the legend
+ *
+ * @return width of the svg
+ */
+function generateLegendSvg(
+  containerId: string,
+  height: number,
+  colorScale: d3.ScaleLinear<number, number>,
+  unit: string,
+  marginLeft: number
+): number {
+  const svg = d3.select(`#${containerId}`).append("svg");
+  const legendWidth =
+    generateLegend(svg, height, colorScale, unit) + marginLeft;
+  svg
+    .attr("width", legendWidth)
+    .attr("height", height + TICK_SIZE * 2)
+    .select(`.${LEGEND_CLASS_NAME}`)
+    .attr("transform", `translate(${marginLeft}, ${TICK_SIZE})`);
   return legendWidth;
 }
 
@@ -393,4 +450,4 @@ const genScaleImg = (
   return canvas;
 };
 
-export { drawChoropleth };
+export { drawChoropleth, getColorScale, generateLegendSvg };

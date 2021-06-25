@@ -33,4 +33,38 @@ export type NamedPlace = NamedNode;
 export const StatVarHierarchyType = {
   BROWSER: "BROWSER",
   TIMELINE: "TIMELINE",
+  MAP: "MAP",
 };
+
+export interface StatVarInfo {
+  id: string;
+  specializedEntity: string;
+  displayName: string;
+}
+
+export interface StatVarGroupInfo {
+  id: string;
+  specializedEntity: string;
+  displayName: string;
+}
+
+export interface StatVarGroupNodeType {
+  absoluteName: string;
+  level: number;
+  parent?: string;
+  childStatVarGroups?: Array<{ id: string; specializedEntity: string }>;
+  childStatVars?: StatVarNodeType[];
+}
+
+export interface StatVarNodeType {
+  displayName: string;
+  id: string;
+  searchName: string;
+  parent: string;
+  level: number;
+}
+
+export enum StatVarHierarchyNodeType {
+  STAT_VAR_GROUP,
+  STAT_VAR,
+}

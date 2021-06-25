@@ -19,12 +19,12 @@
  */
 
 import React, { useContext } from "react";
-import { Context, NamedTypedPlace, PlaceInfo, StatVarInfo } from "./context";
+import { Context, NamedTypedPlace, PlaceInfo, StatVar } from "./context";
 import { FormGroup, Label, Input } from "reactstrap";
 import { formatNumber } from "../../i18n/i18n";
 import {
   updateHashPlaceInfo,
-  updateHashStatVarInfo,
+  updateHashStatVar,
   USA_CHILD_PLACE_TYPES,
   MAP_REDIRECT_PREFIX,
 } from "./util";
@@ -37,7 +37,7 @@ interface ChartOptionsPropType {
   unit: string;
 }
 export function ChartOptions(props: ChartOptionsPropType): JSX.Element {
-  const { statVarInfo } = useContext(Context);
+  const { statVar } = useContext(Context);
   const selectedPlace = props.placeInfo.selectedPlace;
   const selectedPlaceValue =
     selectedPlace.dcid in props.dataValues
@@ -55,14 +55,18 @@ export function ChartOptions(props: ChartOptionsPropType): JSX.Element {
             <Input
               id="per-capita"
               type="checkbox"
-              checked={statVarInfo.value.perCapita}
-              onChange={(e) => statVarInfo.setPerCapita(e.target.checked)}
+              checked={statVar.value.perCapita}
+              onChange={(e) => statVar.setPerCapita(e.target.checked)}
             />
             Per capita
           </Label>
         </FormGroup>
       </div>
-      <div className="breadcrumbs-title">{statVarInfo.value.name}</div>
+      <div className="breadcrumbs-title">
+        {statVar.value.info.title
+          ? statVar.value.info.title
+          : statVar.value.dcid}
+      </div>
       <div>
         {selectedPlace.name}
         {selectedPlaceDate}: {selectedPlaceValue}
@@ -76,7 +80,7 @@ export function ChartOptions(props: ChartOptionsPropType): JSX.Element {
           place.dcid in props.metadata
             ? ` (${props.metadata[place.dcid].statVarDate})`
             : "";
-        const redirectLink = getRedirectLink(statVarInfo.value, place);
+        const redirectLink = getRedirectLink(statVar.value, place);
         return (
           <div key={place.dcid}>
             <a href={redirectLink}>{place.name}</a>
@@ -89,10 +93,10 @@ export function ChartOptions(props: ChartOptionsPropType): JSX.Element {
 }
 
 export function getRedirectLink(
-  statVarInfo: StatVarInfo,
+  statVar: StatVar,
   selectedPlace: NamedTypedPlace
 ): string {
-  let hash = updateHashStatVarInfo("", statVarInfo);
+  let hash = updateHashStatVar("", statVar);
   let enclosedPlaceType = "";
   for (const type of selectedPlace.types) {
     if (type in USA_CHILD_PLACE_TYPES) {

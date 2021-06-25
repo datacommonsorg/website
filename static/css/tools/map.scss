@@ -19,6 +19,7 @@
 @import 'statvar_menu';
 @import '../draw';
 @import '../draw_choropleth';
+@import '../browser';
 
 @mixin map-search {
   @include search_place.search-place;
@@ -139,6 +140,7 @@
 #choropleth-map {
   overflow-x: hidden;
   overflow-y: hidden;
+  flex-grow: 1;
 }
 
 .legend rect {
@@ -178,4 +180,27 @@
 
 .zoom-button i {
   font-size: 1.3rem;
+}
+
+.input-area-hidden #place-list {
+  flex-grow: 1;
+}
+
+.input-area-hidden #ac {
+  visibility: hidden;
+  width: 0;
+}
+
+#chart-container {
+  width: 100%;
+  display: flex;
+}
+
+#choropleth-legend {
+  display: flex;
+  align-items: center;
+}
+
+#choropleth-legend .legend {
+  display: block;
 }

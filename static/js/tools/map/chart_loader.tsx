@@ -28,7 +28,7 @@ import {
   PlacePointStat,
   SourceSeries,
 } from "../shared_util";
-import { Context, IsLoadingWrapper, PlaceInfo, StatVarInfo } from "./context";
+import { Context, IsLoadingWrapper, PlaceInfo, StatVar } from "./context";
 import { Chart } from "./chart";
 import axios from "axios";
 
@@ -56,7 +56,7 @@ interface ChartData {
 }
 
 export function ChartLoader(): JSX.Element {
-  const { placeInfo, statVarInfo, isLoading } = useContext(Context);
+  const { placeInfo, statVar, isLoading } = useContext(Context);
   const [rawData, setRawData] = useState<ChartRawData | undefined>(undefined);
   const [chartData, setChartData] = useState<ChartData | undefined>(undefined);
   useEffect(() => {
@@ -64,24 +64,28 @@ export function ChartLoader(): JSX.Element {
       !_.isEmpty(placeInfo.value.enclosingPlace.dcid) &&
       !_.isEmpty(placeInfo.value.enclosedPlaces) &&
       !_.isNull(placeInfo.value.parentPlaces);
-    if (placesLoaded && !_.isEmpty(statVarInfo.value.statVar)) {
-      fetchData(placeInfo.value, statVarInfo.value, isLoading, setRawData);
+    if (
+      placesLoaded &&
+      !_.isEmpty(statVar.value.dcid) &&
+      !_.isNull(statVar.value.info)
+    ) {
+      fetchData(placeInfo.value, statVar.value, isLoading, setRawData);
     } else {
       setRawData(undefined);
     }
-  }, [placeInfo.value, statVarInfo.value.statVar]);
+  }, [placeInfo.value, statVar.value.dcid, statVar.value.info]);
   useEffect(() => {
     if (!_.isEmpty(rawData)) {
       loadChartData(
-        rawData.statVarData[_.findKey(statVarInfo.value.statVar)],
+        rawData.statVarData[statVar.value.dcid],
         rawData.populationData,
-        statVarInfo.value.perCapita,
+        statVar.value.perCapita,
         rawData.geoJsonData,
         placeInfo.value,
         setChartData
       );
     }
-  }, [rawData, statVarInfo.value.perCapita]);
+  }, [rawData, statVar.value.perCapita]);
   if (
     _.isEmpty(chartData) ||
     _.isEmpty(chartData.mapDataValues) ||
@@ -97,7 +101,7 @@ export function ChartLoader(): JSX.Element {
         metadata={chartData.metadata}
         breadcrumbDataValues={chartData.breadcrumbDataValues}
         placeInfo={placeInfo.value}
-        statVarInfo={statVarInfo.value}
+        statVar={statVar.value}
         dates={chartData.dates}
         sources={chartData.sources}
         unit={chartData.unit}
@@ -109,26 +113,25 @@ export function ChartLoader(): JSX.Element {
 // Fetches the data needed for the charts.
 function fetchData(
   placeInfo: PlaceInfo,
-  statVarInfo: StatVarInfo,
+  statVar: StatVar,
   isLoading: IsLoadingWrapper,
   setRawData: (data: ChartRawData) => void
 ): void {
   isLoading.setIsDataLoading(true);
-  const statVarDcid = _.findKey(statVarInfo.statVar);
-  if (!statVarDcid) {
+  if (!statVar.dcid) {
     return;
   }
-  const denomStatVars = Object.values(statVarInfo.statVar)[0].denominators;
-  const populationStatVar = _.isEmpty(denomStatVars)
-    ? "Count_Person"
-    : denomStatVars[0];
+  const populationStatVar = statVar.info.md ? statVar.info.md : "Count_Person";
   const breadcrumbPlaceDcids = placeInfo.parentPlaces.map(
     (namedPlace) => namedPlace.dcid
   );
   breadcrumbPlaceDcids.push(placeInfo.selectedPlace.dcid);
+  const enclosedPlaceDcids = placeInfo.enclosedPlaces.map(
+    (namedPlace) => namedPlace.dcid
+  );
   const populationPromise = axios
     .post(`/api/stats/${populationStatVar}`, {
-      dcid: placeInfo.enclosedPlaces.concat(breadcrumbPlaceDcids),
+      dcid: enclosedPlaceDcids.concat(breadcrumbPlaceDcids),
     })
     .then((resp) => resp.data);
   const geoJsonPromise = axios
@@ -138,8 +141,8 @@ function fetchData(
     .then((resp) => resp.data);
   const statVarDataPromise = axios
     .post("/api/stats/set", {
-      places: placeInfo.enclosedPlaces.concat(breadcrumbPlaceDcids),
-      stat_vars: statVarDcid,
+      places: enclosedPlaceDcids.concat(breadcrumbPlaceDcids),
+      stat_vars: statVar.dcid,
     })
     .then((resp) => resp.data);
   Promise.all([populationPromise, geoJsonPromise, statVarDataPromise])
@@ -213,13 +216,19 @@ function loadChartData(
         continue;
       }
     }
-    if (placeInfo.parentPlaces.find((place) => place.dcid === dcid)) {
+    if (
+      placeInfo.parentPlaces.find((place) => place.dcid === dcid) ||
+      dcid === placeInfo.selectedPlace.dcid
+    ) {
       breadcrumbDataValues[dcid] = value;
     } else {
       mapDataValues[dcid] = value;
     }
-    if (dcid === placeInfo.selectedPlace.dcid) {
-      breadcrumbDataValues[dcid] = value;
+    if (
+      dcid === placeInfo.selectedPlace.dcid &&
+      placeInfo.selectedPlace.dcid !== placeInfo.enclosingPlace.dcid
+    ) {
+      mapDataValues[dcid] = value;
     }
     metadata[dcid] = {
       popDate,

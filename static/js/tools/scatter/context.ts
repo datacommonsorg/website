@@ -19,12 +19,12 @@
  */
 
 import { createContext, useState } from "react";
-import { StatsVarNode } from "../statvar_menu/util";
+import { StatVarNode } from "../statvar_menu/util";
 import { NamedPlace } from "../../shared/types";
 
 interface Axis {
   // StatVar to plot for this axis
-  statVar: StatsVarNode;
+  statVar: StatVarNode;
   // Human readable name of the StatVar
   name: string;
   // Whether to plot on log scale
@@ -49,7 +49,7 @@ interface AxisWrapper {
 
   // Setters
   set: Setter<Axis>;
-  setStatVar: Setter<StatsVarNode>;
+  setStatVar: Setter<StatVarNode>;
   unsetStatVar: Setter<void>;
   setStatVarName: Setter<string>;
   setLog: Setter<boolean>;
@@ -269,7 +269,7 @@ function getSetEnclosedPlaces(
 function getSetStatVar(
   axis: Axis,
   setAxis: React.Dispatch<React.SetStateAction<Axis>>
-): Setter<StatsVarNode> {
+): Setter<StatVarNode> {
   return (statVar) => {
     setAxis({
       ...axis,

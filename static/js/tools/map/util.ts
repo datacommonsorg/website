@@ -18,8 +18,7 @@
  * Utility functions shared across different components of map explorer.
  */
 
-import { StatVarInfo, PlaceInfo } from "./context";
-import { StatsVarNode } from "../statvar_menu/util";
+import { StatVar, PlaceInfo } from "./context";
 import _ from "lodash";
 
 const USA_STATE_CHILD_TYPES = ["County"];
@@ -40,32 +39,20 @@ const URL_PARAM_KEYS = {
   ENCLOSED_PLACE_TYPE: "ept",
   PER_CAPITA: "pc",
   STAT_VAR_DCID: "sv",
-  STAT_VAR_DENOM: "svd",
-  STAT_VAR_NAME: "svn",
-  STAT_VAR_PATH: "svp",
 };
 
 export const MAP_REDIRECT_PREFIX = "/tools/map";
 
-export function applyHashStatVarInfo(params: URLSearchParams): StatVarInfo {
+export function applyHashStatVar(params: URLSearchParams): StatVar {
   const dcid = params.get(URL_PARAM_KEYS.STAT_VAR_DCID);
   if (!dcid) {
-    return { name: "", perCapita: false, statVar: {} };
+    return { dcid: "", perCapita: false, info: null };
   }
-  const path = params.get(URL_PARAM_KEYS.STAT_VAR_PATH);
-  const denominator = params.get(URL_PARAM_KEYS.STAT_VAR_DENOM);
-  const statVarNode: StatsVarNode = {
-    [dcid]: {
-      denominators: denominator ? [denominator] : [],
-      paths: path ? [path.split(URL_PARAM_VALUE_SEPARATOR)] : [],
-    },
-  };
-  const statVarName = params.get(URL_PARAM_KEYS.STAT_VAR_NAME);
   const perCapita = params.get(URL_PARAM_KEYS.PER_CAPITA);
   return {
-    name: statVarName ? statVarName : dcid,
+    dcid,
     perCapita: perCapita && perCapita === "1" ? true : false,
-    statVar: statVarNode,
+    info: null,
   };
 }
 
@@ -92,34 +79,15 @@ export function applyHashPlaceInfo(params: URLSearchParams): PlaceInfo {
   };
 }
 
-export function updateHashStatVarInfo(
-  hash: string,
-  statVarInfo: StatVarInfo
-): string {
-  if (_.isEmpty(statVarInfo.statVar)) {
+export function updateHashStatVar(hash: string, statVar: StatVar): string {
+  if (_.isEmpty(statVar.dcid)) {
     return hash;
   }
-  const statVarDcid = _.findKey(statVarInfo.statVar);
-  if (statVarDcid) {
-    const node = statVarInfo.statVar[statVarDcid];
-    const paramMapping = {
-      [URL_PARAM_KEYS.STAT_VAR_DCID]: statVarDcid,
-      [URL_PARAM_KEYS.STAT_VAR_PATH]: !_.isEmpty(node.paths)
-        ? node.paths[0].join(URL_PARAM_VALUE_SEPARATOR)
-        : "",
-      [URL_PARAM_KEYS.STAT_VAR_DENOM]: !_.isEmpty(node.denominators)
-        ? node.denominators[0]
-        : "",
-      [URL_PARAM_KEYS.STAT_VAR_NAME]: statVarInfo.name,
-      [URL_PARAM_KEYS.PER_CAPITA]: statVarInfo.perCapita ? "1" : "0",
-    };
-    let param = "";
-    for (const paramKey in paramMapping) {
-      param += `&${paramKey}=${paramMapping[paramKey]}`;
-    }
-    return hash + param;
-  }
-  return hash;
+  const perCapita = statVar.perCapita ? "1" : "0";
+  const params =
+    `&${URL_PARAM_KEYS.STAT_VAR_DCID}=${statVar.dcid}` +
+    `&${URL_PARAM_KEYS.PER_CAPITA}=${perCapita}`;
+  return hash + params;
 }
 
 export function updateHashPlaceInfo(

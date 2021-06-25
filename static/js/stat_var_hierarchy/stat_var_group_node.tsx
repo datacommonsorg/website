@@ -27,10 +27,11 @@ import {
   StatVarInfo,
   StatVarGroupInfo,
   StatVarHierarchyNodeType,
-} from "./types";
-import { StatVarHierarchyNodeHeader } from "./statvar_hierarchy_node_header";
-import { StatVarSection } from "./statvar_section";
-import { StatVarGroupSection } from "./statvar_group_section";
+  StatVarHierarchyType,
+} from "../shared/types";
+import { StatVarHierarchyNodeHeader } from "./node_header";
+import { StatVarSection } from "./stat_var_section";
+import { StatVarGroupSection } from "./stat_var_group_section";
 import { NamedPlace } from "../shared/types";
 
 import { Context, ContextType } from "../shared/context";
@@ -125,9 +126,13 @@ export class StatVarGroupNode extends React.Component<
     }
 
     const getTrigger = (opened: boolean) => {
+      const shouldHighlightForMap =
+        this.context.statVarHierarchyType === StatVarHierarchyType.MAP &&
+        count > 0 &&
+        !opened;
       return React.createElement(StatVarHierarchyNodeHeader, {
         count: count,
-        highlighted: this.props.isSelected,
+        highlighted: this.props.isSelected || shouldHighlightForMap,
         nodeType: StatVarHierarchyNodeType.STAT_VAR_GROUP,
         opened,
         title: triggerTitle,

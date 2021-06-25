@@ -16,7 +16,7 @@
 import axios from "axios";
 import _ from "lodash";
 
-interface StatsVarInfo {
+interface StatVarInfo {
   md?: string;
   mprop?: string;
   pt?: string;
@@ -24,9 +24,7 @@ interface StatsVarInfo {
   title?: string;
 }
 
-function getStatsVarInfo(
-  dcids: string[]
-): Promise<Record<string, StatsVarInfo>> {
+function getStatVarInfo(dcids: string[]): Promise<Record<string, StatVarInfo>> {
   let url = "/api/stats/stats-var-property?";
   const urls = [];
   for (const dcid of dcids) {
@@ -45,7 +43,7 @@ function getStatsVarInfo(
  * get the statvars for them.
  * @param sampleSize Since the stat vars for places of the same type are relatively uniform, default sample size can be small to speed up this function.
  */
-async function getStatsVar(
+async function getStatVar(
   dcids: string[],
   sample = false,
   sampleSize = 5
@@ -59,12 +57,12 @@ async function getStatsVar(
   return new Set<string>(resp.data);
 }
 
-interface StatsVarNode {
-  // key: statsVar Id
+interface StatVarNode {
+  // key: statVar Id
   // value: object of two fields
   // 1) "paths" is an array of nodePath
   // 2) "denominators" is an array of possible per capita denominator DCIDs
   [key: string]: { paths: string[][]; denominators?: string[] };
 }
 
-export { StatsVarInfo, getStatsVarInfo, getStatsVar, StatsVarNode };
+export { StatVarInfo, getStatVarInfo, getStatVar, StatVarNode };

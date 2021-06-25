@@ -32,7 +32,7 @@ import {
 } from "../chart/types";
 import { updatePageLayoutState } from "./place";
 import { ChartEmbed } from "./chart_embed";
-import { drawChoropleth } from "../chart/draw_choropleth";
+import { drawChoropleth, getColorScale } from "../chart/draw_choropleth";
 import _ from "lodash";
 import { FormattedMessage } from "react-intl";
 import { getStatsVarLabel } from "../shared/stats_var_labels";
@@ -374,8 +374,9 @@ class Chart extends React.Component<ChartPropType, ChartStateType> {
       chartType === chartTypeEnum.CHOROPLETH &&
       this.state.choroplethDataGroup
     ) {
-      const getRedirectLink = (geoProperty: GeoJsonFeatureProperties) => {
-        return `${CHOROPLETH_REDIRECT_BASE_URL}${geoProperty.geoDcid}${this.placeLinkSearch}`;
+      const redirectAction = (geoProperty: GeoJsonFeatureProperties) => {
+        const redirectLink = `${CHOROPLETH_REDIRECT_BASE_URL}${geoProperty.geoDcid}${this.placeLinkSearch}`;
+        window.open(redirectLink, "_blank");
       };
       const getTooltipHtml = (place: NamedPlace) => {
         let value = "Data Missing";
@@ -391,6 +392,10 @@ class Chart extends React.Component<ChartPropType, ChartStateType> {
         }
         return place.name + ": " + value;
       };
+      const colorScale = getColorScale(
+        this.props.statsVars[0],
+        this.state.choroplethDataGroup.data
+      );
       drawChoropleth(
         this.props.id,
         this.state.geoJson,
@@ -398,10 +403,11 @@ class Chart extends React.Component<ChartPropType, ChartStateType> {
         elem.offsetWidth,
         this.state.choroplethDataGroup.data,
         this.props.unit,
-        this.props.statsVars[0],
+        colorScale,
         true,
-        getRedirectLink,
-        getTooltipHtml
+        redirectAction,
+        getTooltipHtml,
+        true
       );
     }
   }

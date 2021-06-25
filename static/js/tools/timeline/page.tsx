@@ -23,17 +23,17 @@ import {
   statVarSep,
   placeSep,
 } from "./util";
-import { getStatsVarInfo, StatsVarInfo } from "../statvar_menu/util";
+import { getStatVarInfo, StatVarInfo } from "../statvar_menu/util";
 import { SearchBar } from "./search";
 import { Info } from "./info";
 import { ChartRegion } from "./chart_region";
 
 import { StatVarHierarchyType, NamedPlace } from "../../shared/types";
-import { StatVarHierarchy } from "../../browser/statvar_hierarchy";
+import { StatVarHierarchy } from "../../stat_var_hierarchy/stat_var_hierarchy";
 
 interface PageStateType {
   placeName: Record<string, string>;
-  statVarInfo: Record<string, StatsVarInfo>;
+  statVarInfo: Record<string, StatVarInfo>;
 }
 
 class Page extends Component<unknown, PageStateType> {
@@ -57,7 +57,7 @@ class Page extends Component<unknown, PageStateType> {
 
     let statVarInfoPromise = Promise.resolve({});
     if (statVars.length !== 0) {
-      statVarInfoPromise = getStatsVarInfo(statVars);
+      statVarInfoPromise = getStatVarInfo(statVars);
     }
     let placesPromise = Promise.resolve({});
     if (places.length !== 0) {
@@ -75,7 +75,7 @@ class Page extends Component<unknown, PageStateType> {
 
   render(): JSX.Element {
     const numPlaces = Object.keys(this.state.placeName).length;
-    const numStatsVarInfo = Object.keys(this.state.statVarInfo).length;
+    const numStatVarInfo = Object.keys(this.state.statVarInfo).length;
     const namedPlaces: NamedPlace[] = [];
     for (const place in this.state.placeName) {
       namedPlaces.push({ dcid: place, name: this.state.placeName[place] });
@@ -114,7 +114,7 @@ class Page extends Component<unknown, PageStateType> {
               />
             </div>
             {numPlaces === 0 && <Info />}
-            {numPlaces !== 0 && numStatsVarInfo !== 0 && (
+            {numPlaces !== 0 && numStatVarInfo !== 0 && (
               <div id="chart-region">
                 <ChartRegion
                   placeName={this.state.placeName}

@@ -17,9 +17,9 @@ import { ContextType } from "./context";
 
 import {
   updateHashPlaceInfo,
-  updateHashStatVarInfo,
+  updateHashStatVar,
   applyHashPlaceInfo,
-  applyHashStatVarInfo,
+  applyHashStatVar,
 } from "./util";
 
 const TestContext = ({
@@ -47,16 +47,11 @@ const TestContext = ({
       ],
     },
   },
-  statVarInfo: {
+  statVar: {
     value: {
-      name: "People",
+      dcid: "Count_Person",
       perCapita: false,
-      statVar: {
-        Count_Person: {
-          denominators: [],
-          paths: [],
-        },
-      },
+      info: null,
     },
   },
 } as unknown) as ContextType;
@@ -70,13 +65,13 @@ test("updateHashPlaceInfo", () => {
 
 test("updateHashStatVarInfo", () => {
   history.pushState = jest.fn();
-  const resultHash = updateHashStatVarInfo("", TestContext.statVarInfo.value);
-  const expectedHash = "&sv=Count_Person&svp=&svd=&svn=People&pc=0";
+  const resultHash = updateHashStatVar("", TestContext.statVar.value);
+  const expectedHash = "&sv=Count_Person&pc=0";
   expect(resultHash).toEqual(expectedHash);
 });
 
 test("applyHashPlaceInfo", () => {
-  const context = { statVarInfo: {}, placeInfo: {} } as ContextType;
+  const context = { statVar: {}, placeInfo: {} } as ContextType;
   context.placeInfo.set = (value) => (context.placeInfo.value = value);
   const urlParams = new URLSearchParams(
     decodeURIComponent(
@@ -92,13 +87,13 @@ test("applyHashPlaceInfo", () => {
 });
 
 test("applyHashStatVarInfo", () => {
-  const context = { statVarInfo: {}, placeInfo: {} } as ContextType;
-  context.statVarInfo.set = (value) => (context.statVarInfo.value = value);
+  const context = { statVar: {}, placeInfo: {} } as ContextType;
+  context.statVar.set = (value) => (context.statVar.value = value);
   const urlParams = new URLSearchParams(
     decodeURIComponent(
       "#%26sv%3DCount_Person%26svn%3DPeople%26pc%3D0%26pd%3DgeoId%2F10%26pn%3DDelaware%26pt%3DCounty"
     ).replace("#", "?")
   );
-  const statVarInfo = applyHashStatVarInfo(urlParams);
-  expect(statVarInfo).toEqual(TestContext.statVarInfo.value);
+  const statVar = applyHashStatVar(urlParams);
+  expect(statVar).toEqual(TestContext.statVar.value);
 });

@@ -35,7 +35,7 @@ import {
 } from "reactstrap";
 import { Menu } from "../statvar_menu/menu";
 import { NoopStatsVarFilter, TimelineStatsVarFilter } from "../commons";
-import { StatsVarNode, getStatsVar } from "../statvar_menu/util";
+import { StatVarNode, getStatVar } from "../statvar_menu/util";
 import {
   Context,
   EmptyAxis,
@@ -48,7 +48,7 @@ import { nodeGetStatVar } from "./util";
 
 interface NamedStatVar {
   // Always contains a single statvar.
-  statVar: StatsVarNode;
+  statVar: StatVarNode;
   name: string;
 }
 
@@ -232,7 +232,7 @@ async function filterStatVars(
   setValidStatVars: (statVars: Set<string>) => void
 ): Promise<void> {
   isLoading.setAreStatVarsLoading(true);
-  const statVars = await getStatsVar(
+  const statVars = await getStatVar(
     enclosedPlaces.map((namedPlace) => namedPlace.dcid),
     true
   );
