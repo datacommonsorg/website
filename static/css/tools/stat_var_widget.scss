@@ -60,8 +60,7 @@ $transparent-red: rgba(240, 230, 231, .2);
   line-height: 26px;
 }
 
-.statvar-hierarchy-search-section
-.statvar-search-input {
+.statvar-hierarchy-search-section .statvar-search-input {
   font-size: 1rem;
 }
 
@@ -70,13 +69,11 @@ $transparent-red: rgba(240, 230, 231, .2);
   color: white;
 }
 
-#hierarchy-section
-.highlighted-node-title {
+#hierarchy-section .highlighted-node-title {
   background-color: $transparent-red;
 }
 
-#hierarchy-section
-.node-title:hover {
+#hierarchy-section .node-title:hover {
   cursor: pointer;
   background-color: $transparent-gray;
 }
