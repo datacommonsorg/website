@@ -24,10 +24,10 @@ exports[`Single place and single stats var 3`] = `
   <div class=\\"Collapsible__contentInner\\">
     <div class=\\"svg-node-child\\">
       <div>
-        <form class=\\"node-title\\"><label><input type=\\"checkbox\\"> Count Of Person</label></form>
+        <form class=\\"node-title\\"><label><input id=\\"Count_Personfunction join() { [native code] }\\" name=\\"stat-var-hierarchy\\" type=\\"checkbox\\"> Count Of Person</label></form>
       </div>
       <div>
-        <form class=\\"node-title\\"><label><input type=\\"checkbox\\"> Median age of person</label></form>
+        <form class=\\"node-title\\"><label><input id=\\"Median_Age_Personfunction join() { [native code] }\\" name=\\"stat-var-hierarchy\\" type=\\"checkbox\\"> Median age of person</label></form>
       </div>
     </div>
     <div class=\\"svg-node-child\\">

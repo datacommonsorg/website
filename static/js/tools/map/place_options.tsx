@@ -246,7 +246,14 @@ function loadEnclosedPlaces(
       const enclosedPlaces = resp.data[placeDcid];
       isLoading.setIsPlaceInfoLoading(false);
       if (!_.isEmpty(enclosedPlaces)) {
-        place.setEnclosedPlaces(enclosedPlaces);
+        place.setEnclosedPlaces(
+          enclosedPlaces.map((dcid) => {
+            return {
+              dcid,
+              name: dcid,
+            };
+          })
+        );
       } else {
         alert(
           `Sorry, ${place.value.enclosingPlace.name} does not contain places of type ` +

@@ -25,7 +25,11 @@ import _ from "lodash";
 
 import { StatVarHierarchySearch } from "./stat_var_search";
 import { StatVarGroupNode } from "./stat_var_group_node";
-import { NamedPlace, StatVarGroupInfo } from "../shared/types";
+import {
+  NamedPlace,
+  StatVarGroupInfo,
+  StatVarHierarchyType,
+} from "../shared/types";
 
 import { loadSpinner, removeSpinner } from "../browser/util";
 import { Context } from "../shared/context";
@@ -105,21 +109,23 @@ export class StatVarHierarchy extends React.Component<
     }
     // Do not want to change the state here.
     const rootSVGs = _.cloneDeep(this.state.rootSVGs);
-    rootSVGs.sort((a, b) => {
-      if (a.id === SORTED_FIRST_SVG_ID) {
-        return -1;
-      }
-      if (b.id === SORTED_FIRST_SVG_ID) {
-        return 1;
-      }
-      if (a.id === SORTED_LAST_SVG_ID) {
-        return 1;
-      }
-      if (b.id === SORTED_LAST_SVG_ID) {
-        return -1;
-      }
-      return a > b ? 1 : -1;
-    });
+    if (!_.isEmpty(rootSVGs)) {
+      rootSVGs.sort((a, b) => {
+        if (a.id === SORTED_FIRST_SVG_ID) {
+          return -1;
+        }
+        if (b.id === SORTED_FIRST_SVG_ID) {
+          return 1;
+        }
+        if (a.id === SORTED_LAST_SVG_ID) {
+          return 1;
+        }
+        if (b.id === SORTED_LAST_SVG_ID) {
+          return -1;
+        }
+        return a > b ? 1 : -1;
+      });
+    }
     return (
       <div id={LOADING_CONTAINER_ID} className="loading-spinner-container">
         {!_.isEmpty(this.state.errorMessage) && (
@@ -248,8 +254,12 @@ export class StatVarHierarchy extends React.Component<
       if (this.props.selectSV) {
         this.props.selectSV(sv);
       }
+      const svPath =
+        this.props.type === StatVarHierarchyType.MAP
+          ? { [sv]: path }
+          : Object.assign({ [sv]: path }, this.state.svPath);
       this.setState({
-        svPath: Object.assign({ [sv]: path }, this.state.svPath),
+        svPath,
       });
     }
   }

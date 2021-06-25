@@ -16,8 +16,8 @@
 
 import { createContext, useState } from "react";
 import { NamedPlace } from "../../shared/types";
-import { StatVarNode } from "../statvar_menu/util";
-import { applyHashStatVarInfo, applyHashPlaceInfo } from "./util";
+import { StatVarInfo } from "../statvar_menu/util";
+import { applyHashStatVar, applyHashPlaceInfo } from "./util";
 
 /**
  * Global app context for map explorer tool.
@@ -36,22 +36,22 @@ export interface NamedTypedPlace {
 }
 
 // Information relating to the stat var to plot
-export interface StatVarInfo {
-  // The stat var to plot
-  statVar: StatVarNode;
-  // Human readable name of the stat var
-  name: string;
+export interface StatVar {
+  // additional information about the chosen stat var
+  info: StatVarInfo;
+  // dcid of the chosen stat var
+  dcid: string;
   // Whether to plot per capita values
   perCapita: boolean;
 }
 
 // Wraps StatVarInfo with its setters
-export interface StatVarInfoWrapper {
-  value: StatVarInfo;
+export interface StatVarWrapper {
+  value: StatVar;
 
-  set: Setter<StatVarInfo>;
-  setStatVar: Setter<StatVarNode>;
-  setStatVarName: Setter<string>;
+  set: Setter<StatVar>;
+  setInfo: Setter<StatVarInfo>;
+  setDcid: Setter<string>;
   setPerCapita: Setter<boolean>;
 }
 
@@ -66,7 +66,7 @@ export interface PlaceInfo {
   // The type of place to plot
   enclosedPlaceType: string;
   // The places to plot
-  enclosedPlaces: Array<string>;
+  enclosedPlaces: Array<NamedPlace>;
 }
 
 // Wraps PlaceInfo with its setters
@@ -78,7 +78,7 @@ export interface PlaceInfoWrapper {
   setParentPlaces: Setter<Array<NamedTypedPlace>>;
   setEnclosingPlace: Setter<NamedPlace>;
   setEnclosedPlaceType: Setter<string>;
-  setEnclosedPlaces: Setter<Array<string>>;
+  setEnclosedPlaces: Setter<Array<NamedPlace>>;
 }
 
 // Information relating to things loading
@@ -99,7 +99,7 @@ export interface IsLoadingWrapper {
 }
 
 export interface ContextType {
-  statVarInfo: StatVarInfoWrapper;
+  statVar: StatVarWrapper;
   placeInfo: PlaceInfoWrapper;
   isLoading: IsLoadingWrapper;
 }
@@ -107,7 +107,7 @@ export interface ContextType {
 export const Context = createContext({} as ContextType);
 
 export function getInitialContext(params: URLSearchParams): ContextType {
-  const [statVarInfo, setStatVarInfo] = useState(applyHashStatVarInfo(params));
+  const [statVar, setStatVar] = useState(applyHashStatVar(params));
   const [placeInfo, setPlaceInfo] = useState(applyHashPlaceInfo(params));
   const [isLoading, setIsLoading] = useState({
     isDataLoading: false,
@@ -153,13 +153,12 @@ export function getInitialContext(params: URLSearchParams): ContextType {
       setParentPlaces: (parentPlaces) =>
         setPlaceInfo({ ...placeInfo, parentPlaces }),
     },
-    statVarInfo: {
-      value: statVarInfo,
-      set: (statVarInfo) => setStatVarInfo(statVarInfo),
-      setStatVar: (statVar) => setStatVarInfo({ ...statVarInfo, statVar }),
-      setStatVarName: (name) => setStatVarInfo({ ...statVarInfo, name }),
-      setPerCapita: (perCapita) =>
-        setStatVarInfo({ ...statVarInfo, perCapita }),
+    statVar: {
+      value: statVar,
+      set: (statVar) => setStatVar(statVar),
+      setDcid: (dcid) => setStatVar({ ...statVar, dcid, info: null }),
+      setInfo: (info) => setStatVar({ ...statVar, info }),
+      setPerCapita: (perCapita) => setStatVar({ ...statVar, perCapita }),
     },
   };
 }
