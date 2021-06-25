@@ -55,7 +55,7 @@ interface BrowserPageStateType {
 export class BrowserPage extends React.Component<
   BrowserPagePropType,
   BrowserPageStateType
-  > {
+> {
   constructor(props: BrowserPagePropType) {
     super(props);
     this.state = {
@@ -104,8 +104,8 @@ export class BrowserPage extends React.Component<
           {this.props.pageDisplayType === PageDisplayType.PLACE_STAT_VAR ? (
             <a href={URL_PREFIX + this.props.dcid}>{this.props.nodeName}</a>
           ) : (
-              <>{this.props.nodeName}</>
-            )}
+            <>{this.props.nodeName}</>
+          )}
         </h1>
         {this.props.pageDisplayType !== PageDisplayType.PLACE_STAT_VAR && (
           <>
@@ -131,7 +131,9 @@ export class BrowserPage extends React.Component<
               <div className="card">
                 <StatVarHierarchy
                   type={StatVarHierarchyType.BROWSER}
-                  places={[{ dcid: this.props.dcid, name: this.props.nodeName }]}
+                  places={[
+                    { dcid: this.props.dcid, name: this.props.nodeName },
+                  ]}
                 />
               </div>
             </div>
@@ -159,31 +161,31 @@ export class BrowserPage extends React.Component<
           )}
           {this.props.pageDisplayType ===
             PageDisplayType.PLACE_WITH_WEATHER_INFO && (
-              <div className="browser-page-section">
-                <Collapsible
-                  trigger={getWeatherChartTrigger(false)}
-                  triggerWhenOpen={getWeatherChartTrigger(true)}
-                  open={false}
-                  onOpening={() =>
-                    this.setState({ isWeatherChartsSectionOpen: true })
-                  }
-                >
-                  {this.state.isWeatherChartsSectionOpen && (
-                    <WeatherChartSection
-                      dcid={this.props.dcid}
-                      provDomain={this.state.provDomain}
-                    />
-                  )}
-                </Collapsible>
-              </div>
-            )}
+            <div className="browser-page-section">
+              <Collapsible
+                trigger={getWeatherChartTrigger(false)}
+                triggerWhenOpen={getWeatherChartTrigger(true)}
+                open={false}
+                onOpening={() =>
+                  this.setState({ isWeatherChartsSectionOpen: true })
+                }
+              >
+                {this.state.isWeatherChartsSectionOpen && (
+                  <WeatherChartSection
+                    dcid={this.props.dcid}
+                    provDomain={this.state.provDomain}
+                  />
+                )}
+              </Collapsible>
+            </div>
+          )}
           {this.props.pageDisplayType ===
             PageDisplayType.BIOLOGICAL_SPECIMEN && (
-              <div className="browser-page-section">
-                <h3>Image</h3>
-                <ImageSection dcid={this.props.dcid} />
-              </div>
-            )}
+            <div className="browser-page-section">
+              <h3>Image</h3>
+              <ImageSection dcid={this.props.dcid} />
+            </div>
+          )}
         </div>
       </>
     );
@@ -232,7 +234,7 @@ interface BrowserSectionTriggerPropType {
 
 export class BrowserSectionTrigger extends React.Component<
   BrowserSectionTriggerPropType
-  > {
+> {
   render(): JSX.Element {
     return (
       <div className="browser-section-trigger">
@@ -240,8 +242,8 @@ export class BrowserSectionTrigger extends React.Component<
           {this.props.opened ? (
             <i className="material-icons">remove</i>
           ) : (
-              <i className="material-icons">add</i>
-            )}
+            <i className="material-icons">add</i>
+          )}
           {this.props.title}
         </h3>
       </div>
