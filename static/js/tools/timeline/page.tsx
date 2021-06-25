@@ -83,7 +83,7 @@ class Page extends Component<unknown, PageStateType> {
     const statVars = Array.from(getTokensFromUrl("statsVar", statVarSep));
     return (
       <div>
-        <div className="stat-var-hierarchy-container" id="explore">
+        <div className="explore-menu-container" id="explore">
           <div id="drill-scroll-container">
             <div className="title">Select variables:</div>
             <StatVarHierarchy
