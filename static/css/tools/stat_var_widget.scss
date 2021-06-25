@@ -20,6 +20,11 @@
 
 $menu-background: #525252;
 
+// opaque version of dc-red-lite
+$transparent-gray: rgba(204, 204, 204, .2);
+// opaque version of dc-gray-lite
+$transparent-red: rgba(240, 230, 231, .2);
+
 #drill-scroll-container {
   overflow-y: auto;
 }
@@ -37,7 +42,7 @@ $menu-background: #525252;
 }
 
 .stat-var-hierarchy-container {
-  padding: 24px;
+  padding: 15px 24px;
 }
 
 .stat-var-hierarchy-container .title {
@@ -54,4 +59,20 @@ $menu-background: #525252;
   font-size: 18px;
   letter-spacing: 0;
   line-height: 26px;
+}
+
+.statvar-hierarchy-search-section
+.statvar-search-input {
+  font-size: 1rem;
+}
+
+#hierarchy-section
+.highlighted-node-title {
+  background-color: $transparent-red;
+}
+
+#hierarchy-section
+.node-title:hover {
+  cursor: pointer;
+  background-color: $transparent-gray;
 }
