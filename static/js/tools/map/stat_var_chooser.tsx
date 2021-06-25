@@ -43,7 +43,7 @@ export function StatVarChooser(): JSX.Element {
     }
   });
   return (
-    <div className="stat-var-hierarchy-container" id="explore">
+    <div className="explore-menu-container" id="explore">
       <div id="drill-scroll-container">
         <div className="title">Select variables:</div>
         <StatVarHierarchy
