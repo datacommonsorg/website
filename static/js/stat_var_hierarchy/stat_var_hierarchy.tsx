@@ -71,7 +71,7 @@ interface StatVarHierarchyStateType {
 export class StatVarHierarchy extends React.Component<
   StatVarHierarchyPropType,
   StatVarHierarchyStateType
-> {
+  > {
   constructor(props: StatVarHierarchyPropType) {
     super(props);
     this.state = {
@@ -132,7 +132,7 @@ export class StatVarHierarchy extends React.Component<
           <div className="error-message">{this.state.errorMessage}</div>
         )}
         {!_.isEmpty(rootSVGs) && (
-          <div className="stat-var-hierarchy-container card">
+          <div className="stat-var-hierarchy-container">
             <StatVarHierarchySearch
               places={this.props.places.map((x) => x.dcid)}
               onSelectionChange={this.onSearchSelectionChange}
