@@ -37,7 +37,6 @@ $transparent-red: rgba(240, 230, 231, .2);
   width: 350px;
   height: 100%;
   background: $menu-background;
-  color: white;
   letter-spacing: 0;
 }
 
@@ -64,6 +63,11 @@ $transparent-red: rgba(240, 230, 231, .2);
 .statvar-hierarchy-search-section
 .statvar-search-input {
   font-size: 1rem;
+}
+
+#drill-scroll-container .title,
+#hierarchy-section {
+  color: white;
 }
 
 #hierarchy-section
