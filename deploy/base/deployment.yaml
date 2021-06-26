@@ -101,6 +101,8 @@ spec:
                 configMapKeyRef:
                   name: store-configmap
                   key: bigtable.version
+            # A dummy config used to bounce the server without any docker image
+            # or data config change.
             - name: BOUNCE
               valueFrom:
                 configMapKeyRef:
