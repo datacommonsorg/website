@@ -38,7 +38,10 @@ import { Context, EmptyAxis, Axis, AxisWrapper } from "./context";
 import { StatVarHierarchyType } from "../../shared/types";
 import { StatVarHierarchy } from "../../stat_var_hierarchy/stat_var_hierarchy";
 
+// Number of enclosed places to sample when filtering the stat vars in the
+// stat var menu
 const SAMPLE_SIZE = 3;
+
 interface StatVar {
   // Always contains a single statvar.
   info: StatVarInfo;
