@@ -16,7 +16,8 @@
 
 @use "../search_place";
 @import "base_tools";
-@import "statvar_menu";
+@import "stat_var_widget";
+@import "../browser";
 
 
 @mixin scatter-search {
