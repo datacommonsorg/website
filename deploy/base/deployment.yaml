@@ -101,6 +101,13 @@ spec:
                 configMapKeyRef:
                   name: store-configmap
                   key: bigtable.version
+            # A dummy config used to bounce the server without any docker image
+            # or data config change.
+            - name: BOUNCE
+              valueFrom:
+                configMapKeyRef:
+                  name: store-configmap
+                  key: bounce.config
         - name: mixer
           image: gcr.io/datcom-ci/datacommons-mixer:latest
           imagePullPolicy: Always
@@ -146,12 +153,12 @@ spec:
           readinessProbe:
             exec:
               command: ["/bin/grpc_health_probe", "-addr=:12345"]
-            periodSeconds: 5
+            periodSeconds: 10
           livenessProbe:
             exec:
               command: ["/bin/grpc_health_probe", "-addr=:12345"]
-            periodSeconds: 5
-            initialDelaySeconds: 5
+            periodSeconds: 10
+            initialDelaySeconds: 10
         - name: esp
           image: gcr.io/endpoints-release/endpoints-runtime:1
           args:

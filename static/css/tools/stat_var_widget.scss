@@ -14,19 +14,21 @@
  * limitations under the License.
  */
 
- /* New stat var hierarchy widget used for tools. */
+/* New stat var hierarchy widget used for tools. */
 
 @import "../stat_var_hierarchy";
 
 $menu-background: #525252;
 
 // opaque version of dc-red-lite
-$transparent-gray: rgba(204, 204, 204, .2);
+$transparent-gray: rgba(204, 204, 204, 0.2);
 // opaque version of dc-gray-lite
-$transparent-red: rgba(240, 230, 231, .2);
+$transparent-red: rgba(240, 230, 231, 0.2);
 
 #drill-scroll-container {
-  overflow-y: auto;
+  overflow: auto;
+  position: absolute;
+  min-width: 350px;
 }
 .explore-menu-container {
   direction: initial;
@@ -38,6 +40,7 @@ $transparent-red: rgba(240, 230, 231, .2);
   height: 100%;
   background: $menu-background;
   letter-spacing: 0;
+  overflow: auto;
 }
 
 .stat-var-hierarchy-container {
