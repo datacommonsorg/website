@@ -19,6 +19,8 @@
 @import "../stat_var_hierarchy";
 
 $menu-background: #525252;
+$widget-min-width: 350px;
+$container-outer-horizontal-margin: 8px;
 
 // opaque version of dc-red-lite
 $transparent-gray: rgba(204, 204, 204, 0.2);
@@ -28,7 +30,7 @@ $transparent-red: rgba(240, 230, 231, 0.2);
 #drill-scroll-container {
   overflow: auto;
   position: absolute;
-  min-width: 350px;
+  min-width: $widget-min-width;
 }
 .explore-menu-container {
   direction: initial;
@@ -36,7 +38,7 @@ $transparent-red: rgba(240, 230, 231, 0.2);
   flex-direction: column;
   position: absolute;
   left: 0;
-  width: 350px;
+  width: $widget-min-width;
   height: 100%;
   background: $menu-background;
   letter-spacing: 0;
@@ -44,10 +46,19 @@ $transparent-red: rgba(240, 230, 231, 0.2);
 }
 
 .stat-var-hierarchy-container {
-  padding: 15px 24px;
+  padding: 15px $container-outer-horizontal-margin;
 }
 
 .stat-var-hierarchy-container .title {
+//   padding: 20px 31px 0;
+  margin-bottom: 3px;
+  font-size: 18px;
+  letter-spacing: 0;
+  line-height: 26px;
+}
+
+.stat-var-hierarchy-search-section .title {
+// .explore-menu-container .title {
   padding: 20px 31px 0;
   margin-bottom: 3px;
   font-size: 18px;
@@ -55,19 +66,22 @@ $transparent-red: rgba(240, 230, 231, 0.2);
   line-height: 26px;
 }
 
-.explore-menu-container .title {
-  padding: 20px 31px 0;
-  margin-bottom: 3px;
-  font-size: 18px;
-  letter-spacing: 0;
-  line-height: 26px;
+.stat-var-hierarchy-search-section {
+  font-size: .9rem;
+  margin: 0 23px 15px !important;
+//   width: 350px;
 }
 
 .statvar-hierarchy-search-section .statvar-search-input {
   font-size: 1rem;
 }
 
-#drill-scroll-container .title,
+.statvar-hierarchy-search-results {
+    max-height: max(90%, 50vh) !important;
+    width: $widget-min-width - 2 * $container-outer-horizontal-margin !important;
+}
+
+.statvar-hierarchy-search-section .title,
 #hierarchy-section {
   color: white;
 }

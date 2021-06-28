@@ -49,6 +49,8 @@ interface StatVarHierarchyPropType {
   selectSV?: (sv: string) => void;
   // Callback function when a stat var is deselected
   deselectSV?: (sv: string) => void;
+  // Optional label to add above the search box
+  searchLabel?: string;
 }
 
 interface StatVarHierarchyStateType {
@@ -71,7 +73,7 @@ interface StatVarHierarchyStateType {
 export class StatVarHierarchy extends React.Component<
   StatVarHierarchyPropType,
   StatVarHierarchyStateType
-> {
+  > {
   constructor(props: StatVarHierarchyPropType) {
     super(props);
     this.state = {
@@ -136,6 +138,7 @@ export class StatVarHierarchy extends React.Component<
             <StatVarHierarchySearch
               places={this.props.places.map((x) => x.dcid)}
               onSelectionChange={this.onSearchSelectionChange}
+              searchLabel={this.props.searchLabel}
             />
             <div id="hierarchy-section">
               {rootSVGs.map((svg) => {
