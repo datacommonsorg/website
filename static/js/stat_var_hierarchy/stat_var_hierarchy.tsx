@@ -49,6 +49,8 @@ interface StatVarHierarchyPropType {
   selectSV?: (sv: string) => void;
   // Callback function when a stat var is deselected
   deselectSV?: (sv: string) => void;
+  // Optional label to add above the search box
+  searchLabel?: string;
 }
 
 interface StatVarHierarchyStateType {
@@ -139,37 +141,40 @@ export class StatVarHierarchy extends React.Component<
             <StatVarHierarchySearch
               places={this.props.places.map((x) => x.dcid)}
               onSelectionChange={this.onSearchSelectionChange}
+              searchLabel={this.props.searchLabel}
             />
-            <div id="hierarchy-section">
-              {rootSVGs.map((svg) => {
-                if (
-                  _.isEmpty(this.state.focus) ||
-                  this.state.focusPath[0] === svg.id
-                ) {
-                  return (
-                    // Each SVG node has a context of the svPath from the state.
-                    // This way, a deep node down the tree is able to update
-                    // the svPath as a context.
-                    <Context.Provider
-                      value={{
-                        statVarHierarchyType: this.props.type,
-                        svPath: this.state.svPath,
-                        togglePath: this.togglePath,
-                      }}
-                      key={svg.id}
-                    >
-                      <StatVarGroupNode
-                        path={[svg.id]}
-                        places={this.props.places}
-                        data={svg}
-                        pathToSelection={this.state.focusPath.slice(1)}
-                        isSelected={this.state.focusPath.length === 1}
-                        startsOpened={this.state.focusPath[0] === svg.id}
-                      />
-                    </Context.Provider>
-                  );
-                }
-              }, this)}
+            <div id="stat-var-hierarchy-scroll-container">
+              <div id="hierarchy-section">
+                {rootSVGs.map((svg) => {
+                  if (
+                    _.isEmpty(this.state.focus) ||
+                    this.state.focusPath[0] === svg.id
+                  ) {
+                    return (
+                      // Each SVG node has a context of the svPath from the state.
+                      // This way, a deep node down the tree is able to update
+                      // the svPath as a context.
+                      <Context.Provider
+                        value={{
+                          statVarHierarchyType: this.props.type,
+                          svPath: this.state.svPath,
+                          togglePath: this.togglePath,
+                        }}
+                        key={svg.id}
+                      >
+                        <StatVarGroupNode
+                          path={[svg.id]}
+                          places={this.props.places}
+                          data={svg}
+                          pathToSelection={this.state.focusPath.slice(1)}
+                          isSelected={this.state.focusPath.length === 1}
+                          startsOpened={this.state.focusPath[0] === svg.id}
+                        />
+                      </Context.Provider>
+                    );
+                  }
+                }, this)}
+              </div>
             </div>
           </div>
         )}
