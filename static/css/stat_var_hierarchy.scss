@@ -51,9 +51,12 @@ $horizontal-spacing: 15px;
 
 .node-title label,
 .node-title .material-icons + .title {
-  font-size: .9rem;
-  font-weight: 400;
+  font-size: .85rem;
   line-height: 2rem;
+}
+
+.node-title .material-icons + .title {
+  font-weight: 600;
 }
 
 .statvar-hierarchy-search-results {
