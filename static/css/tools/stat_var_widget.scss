@@ -55,7 +55,7 @@ $transparent-red: rgba(240, 230, 231, 0.2);
 }
 
 .statvar-hierarchy-search-section {
-  font-size: .9rem;
+  font-size: 0.9rem;
   padding: $container-outer-vert-margin $container-outer-horizontal-margin 0;
 }
 
@@ -96,4 +96,8 @@ $transparent-red: rgba(240, 230, 231, 0.2);
 #hierarchy-section .node-title:hover {
   cursor: pointer;
   background-color: $transparent-gray;
+}
+
+#hierarchy-section .node-no-data {
+  opacity: 30%;
 }

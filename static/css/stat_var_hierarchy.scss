@@ -50,7 +50,7 @@ $horizontal-spacing: 15px;
 }
 
 .node-title .material-icons + .title {
-  font-size: .9rem;
+  font-size: 0.9rem;
   font-weight: 400;
   line-height: 2rem;
 }
@@ -122,4 +122,8 @@ $horizontal-spacing: 15px;
 
 .svg-node-child {
   margin-left: 20px;
+}
+
+.node-no-data {
+  opacity: 30%;
 }
