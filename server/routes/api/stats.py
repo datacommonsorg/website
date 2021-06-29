@@ -119,6 +119,7 @@ def stats_var_property_wrapper(dcids):
         pt = ''
         md = ''
         mprop = ''
+        st = ''
         name = dcid
         for triple in triples:
             if triple['predicate'] == 'measuredProperty':
@@ -127,6 +128,8 @@ def stats_var_property_wrapper(dcids):
                 pt = triple['objectId']
             if triple['predicate'] == 'measurementDenominator':
                 md = triple['objectId']
+            if triple['predicate'] == 'statType':
+                st = triple['objectId']
             if triple['predicate'] == 'name':
                 name = triple['objectValue']
             if triple['predicate'] in pvs:
@@ -136,6 +139,7 @@ def stats_var_property_wrapper(dcids):
             'mprop': mprop,
             'pt': pt,
             'md': md,
+            'st': st,
             'pvs': pvs,
             'title': name,
         }
