@@ -24,8 +24,11 @@ $horizontal-spacing: 15px;
 }
 
 .statvar-hierarchy-search-section {
-  position: relative;
   margin-bottom: $vertical-spacing;
+}
+
+.statvar-hierarchy-search-section .search-input-container {
+  position: relative;
 }
 
 .stat-var-hierarchy-container .material-icons {
@@ -47,8 +50,8 @@ $horizontal-spacing: 15px;
 }
 
 .node-title .material-icons + .title {
-  font-size: 1rem;
-  font-weight: 600;
+  font-size: .9rem;
+  font-weight: 400;
   line-height: 2rem;
 }
 
@@ -58,9 +61,8 @@ $horizontal-spacing: 15px;
   background-color: white;
   width: 100%;
   box-shadow: 0 4px 8px 0 rgb(0 0 0 / 20%);
-  border-radius: $border-radius;
+  border-radius: 0 0 $border-radius $border-radius;
   border: 1px solid var(--gray);
-  border-top: none;
   overflow-y: scroll;
   z-index: 2;
 }

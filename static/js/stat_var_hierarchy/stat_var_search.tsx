@@ -26,6 +26,8 @@ import { NamedNode } from "../shared/types";
 
 interface StatVarHierarchySearchPropType {
   places: string[];
+  // Optional label to add above the search box
+  searchLabel?: string;
   onSelectionChange: (newSelection: string) => void;
 }
 
@@ -63,21 +65,25 @@ export class StatVarHierarchySearch extends React.Component<
       this.state.showNoResultsMessage;
     return (
       <div className="statvar-hierarchy-search-section">
-        <div className="search-input-container"></div>
-        <input
-          className="statvar-search-input form-control"
-          type="text"
-          value={this.state.query}
-          onChange={this.onInputChanged}
-          placeholder="Filter Statistical Variables"
-          onBlur={() => this.setState({ showNoResultsMessage: false })}
-        />
-        <span
-          className="material-icons clear-search"
-          onClick={this.onInputClear}
-        >
-          clear
-        </span>
+        {this.props.searchLabel && (
+          <div className="title">{this.props.searchLabel}</div>
+        )}
+        <div className="search-input-container">
+          <input
+            className="statvar-search-input form-control"
+            type="text"
+            value={this.state.query}
+            onChange={this.onInputChanged}
+            placeholder="Filter Statistical Variables"
+            onBlur={() => this.setState({ showNoResultsMessage: false })}
+          />
+          <span
+            className="material-icons clear-search"
+            onClick={this.onInputClear}
+          >
+            clear
+          </span>
+        </div>
         {renderResults && (
           <div className="statvar-hierarchy-search-results">
             {!_.isEmpty(this.state.svgResults) && (

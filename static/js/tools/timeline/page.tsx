@@ -82,22 +82,20 @@ class Page extends Component<unknown, PageStateType> {
     }
     const statVars = Array.from(getTokensFromUrl("statsVar", statVarSep));
     return (
-      <div>
+      <>
         <div className="explore-menu-container" id="explore">
-          <div id="drill-scroll-container">
-            <div className="title">Select variables:</div>
-            <StatVarHierarchy
-              type={StatVarHierarchyType.TIMELINE}
-              places={namedPlaces}
-              selectedSVs={statVars}
-              selectSV={(sv) => {
-                addToken("statsVar", statVarSep, sv);
-              }}
-              deselectSV={(sv) => {
-                removeToken("statsVar", statVarSep, sv);
-              }}
-            />
-          </div>
+          <StatVarHierarchy
+            type={StatVarHierarchyType.TIMELINE}
+            places={namedPlaces}
+            selectedSVs={statVars}
+            selectSV={(sv) => {
+              addToken("statsVar", statVarSep, sv);
+            }}
+            deselectSV={(sv) => {
+              removeToken("statsVar", statVarSep, sv);
+            }}
+            searchLabel="Select variables:"
+          />
         </div>
         <div id="plot-container">
           <div className="container">
@@ -124,7 +122,7 @@ class Page extends Component<unknown, PageStateType> {
             )}
           </div>
         </div>
-      </div>
+      </>
     );
   }
 }
