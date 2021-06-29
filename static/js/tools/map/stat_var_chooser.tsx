@@ -44,17 +44,15 @@ export function StatVarChooser(): JSX.Element {
   });
   return (
     <div className="explore-menu-container" id="explore">
-      <div id="drill-scroll-container">
-        <div className="title">Select variables:</div>
-        <StatVarHierarchy
-          type={StatVarHierarchyType.MAP}
-          places={_.sampleSize(placeInfo.value.enclosedPlaces, SAMPLE_SIZE)}
-          selectedSVs={[statVar.value.dcid]}
-          selectSV={(svDcid) => {
-            selectStatVar(statVar, svDcid);
-          }}
-        />
-      </div>
+      <StatVarHierarchy
+        type={StatVarHierarchyType.MAP}
+        places={_.sampleSize(placeInfo.value.enclosedPlaces, SAMPLE_SIZE)}
+        selectedSVs={[statVar.value.dcid]}
+        selectSV={(svDcid) => {
+          selectStatVar(statVar, svDcid);
+        }}
+        searchLabel="Select variables:"
+      />
     </div>
   );
 }
@@ -64,14 +62,14 @@ function selectStatVar(statVar: StatVarWrapper, dcid: string): void {
     .then((info) => {
       statVar.set({
         dcid,
-        perCapita: statVar.value.perCapita,
+        perCapita: false,
         info: info[dcid],
       });
     })
     .catch(() => {
       statVar.set({
         dcid,
-        perCapita: statVar.value.perCapita,
+        perCapita: false,
         info: {},
       });
     });

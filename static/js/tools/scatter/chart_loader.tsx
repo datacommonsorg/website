@@ -61,6 +61,8 @@ interface Point {
   yPopDate?: string;
 }
 
+const DEFAULT_POPULATION_DCID = "Count_Person";
+
 type Cache = {
   // key here is stat var.
   statsVarData: Record<string, PlacePointStat>;
@@ -76,11 +78,11 @@ function ChartLoader(): JSX.Element {
   const xVal = x.value;
   const yVal = y.value;
   const shouldRenderChart =
-    areStatVarNamesLoaded(xVal, yVal) &&
+    areStatVarInfoLoaded(xVal, yVal) &&
     !isLoading.areDataLoading &&
     !isLoading.arePlacesLoading;
-  const xStatVar = nodeGetStatVar(xVal.statVar);
-  const yStatVar = nodeGetStatVar(yVal.statVar);
+  const xStatVar = xVal.statVarDcid;
+  const yStatVar = yVal.statVarDcid;
   let xUnits = null;
   let yUnits = null;
   if (cache.statsVarData) {
@@ -102,8 +104,14 @@ function ChartLoader(): JSX.Element {
             <>
               <Chart
                 points={points}
-                xLabel={getLabel(xVal.name, xVal.perCapita)}
-                yLabel={getLabel(yVal.name, yVal.perCapita)}
+                xLabel={getLabel(
+                  xVal.statVarInfo.title || xVal.statVarDcid,
+                  xVal.perCapita
+                )}
+                yLabel={getLabel(
+                  yVal.statVarInfo.title || yVal.statVarDcid,
+                  yVal.perCapita
+                )}
                 xLog={xVal.log}
                 yLog={yVal.log}
                 xPerCapita={xVal.perCapita}
@@ -140,7 +148,7 @@ function useCache(): Cache {
    * re-retreive data.
    */
   useEffect(() => {
-    if (!arePlacesLoaded(placeVal) || !areStatVarNamesLoaded(xVal, yVal)) {
+    if (!arePlacesLoaded(placeVal) || !areStatVarInfoLoaded(xVal, yVal)) {
       setCache({ statsVarData: {}, populationData: {}, noDataError: false });
       return;
     }
@@ -172,18 +180,18 @@ async function loadData(
   const statVarsDataPromise = getStatsWithinPlace(
     place.enclosingPlace.dcid,
     place.enclosedPlaceType,
-    [nodeGetStatVar(x.value.statVar), nodeGetStatVar(y.value.statVar)]
+    [x.value.statVarDcid, y.value.statVarDcid]
   );
   const childPlaceDcids = place.enclosedPlaces.map(
     (placeInfo) => placeInfo.dcid
   );
-  const xPopulationStatVar = getPopulationStatVar(x.value.statVar);
+  const xPopulationStatVar = x.value.statVarInfo.md || DEFAULT_POPULATION_DCID;
   const xPopulationPromise = axios
     .post(`/api/stats/${xPopulationStatVar}`, {
       dcid: childPlaceDcids,
     })
     .then((resp) => resp.data);
-  const yPopulationStatVar = getPopulationStatVar(y.value.statVar);
+  const yPopulationStatVar = y.value.statVarInfo.md || DEFAULT_POPULATION_DCID;
   const yPopulationPromise =
     yPopulationStatVar !== xPopulationStatVar
       ? axios
@@ -247,14 +255,6 @@ function usePoints(cache: Cache): Array<Point> {
 }
 
 /**
- * Gets the DCID of the per capita denominator.
- * @param node
- */
-function getPopulationStatVar(node: StatVarNode): string {
-  return Object.values(node)[0].denominators[0] || "Count_Person";
-}
-
-/**
  * Divides `xVal` and `yVal` by `xPop` and `yPop` if per capita is
  * selected for that axis.
  * @param points
@@ -286,10 +286,12 @@ function getPoints(
   place: PlaceInfo,
   cache: Cache
 ): Array<Point> {
-  const xStatData = cache.statsVarData[nodeGetStatVar(x.statVar)];
-  const yStatData = cache.statsVarData[nodeGetStatVar(y.statVar)];
-  const xPopData = cache.populationData[getPopulationStatVar(x.statVar)];
-  const yPopData = cache.populationData[getPopulationStatVar(y.statVar)];
+  const xStatData = cache.statsVarData[x.statVarDcid];
+  const yStatData = cache.statsVarData[y.statVarDcid];
+  const xPopData =
+    cache.populationData[x.statVarInfo.md || DEFAULT_POPULATION_DCID];
+  const yPopData =
+    cache.populationData[y.statVarInfo.md || DEFAULT_POPULATION_DCID];
   const lower = place.lowerBound;
   const upper = place.upperBound;
   return (
@@ -367,20 +369,18 @@ function arePlacesLoaded(place: PlaceInfo): boolean {
 }
 
 /**
- * Checks if the name of a statvar for an axis has been
- * loaded from the statvar menu.
+ * Checks if the stat var info for an axis has been loaded.
  * @param axis
  */
-function isStatVarNameLoaded(axis: Axis): boolean {
-  return !_.isEmpty(axis.name);
+function isStatVarInfoLoaded(axis: Axis): boolean {
+  return !_.isNull(axis.statVarInfo);
 }
 
 /**
- * Checks if the names of the two statvars for both axes
- * has been loaded from the statvar menu.
+ * Checks if the stat var info for both axes has been loaded.
  */
-function areStatVarNamesLoaded(x: Axis, y: Axis): boolean {
-  return isStatVarNameLoaded(x) && isStatVarNameLoaded(y);
+function areStatVarInfoLoaded(x: Axis, y: Axis): boolean {
+  return isStatVarInfoLoaded(x) && isStatVarInfoLoaded(y);
 }
 
 /**
@@ -390,10 +390,13 @@ function areStatVarNamesLoaded(x: Axis, y: Axis): boolean {
  * @param y
  */
 function areDataLoaded(cache: Cache, x: Axis, y: Axis): boolean {
-  const xStatVar = nodeGetStatVar(x.statVar);
-  const yStatVar = nodeGetStatVar(y.statVar);
-  const xPopStatVar = getPopulationStatVar(x.statVar);
-  const yPopStatVar = getPopulationStatVar(y.statVar);
+  if (_.isEmpty(cache)) {
+    return false;
+  }
+  const xStatVar = x.statVarDcid;
+  const yStatVar = y.statVarDcid;
+  const xPopStatVar = x.statVarInfo.md || DEFAULT_POPULATION_DCID;
+  const yPopStatVar = y.statVarInfo.md || DEFAULT_POPULATION_DCID;
   return (
     xStatVar in cache.statsVarData &&
     !_.isEmpty(cache.statsVarData[xStatVar]) &&
@@ -416,10 +419,10 @@ function downloadData(
   place: PlaceInfo,
   points: Array<Point>
 ): void {
-  const xStatVar = nodeGetStatVar(x.statVar);
-  const yStatVar = nodeGetStatVar(y.statVar);
-  const xPopStatVar = getPopulationStatVar(x.statVar);
-  const yPopStatVar = getPopulationStatVar(y.statVar);
+  const xStatVar = x.statVarDcid;
+  const yStatVar = y.statVarDcid;
+  const xPopStatVar = x.statVarInfo.md || DEFAULT_POPULATION_DCID;
+  const yPopStatVar = y.statVarInfo.md || DEFAULT_POPULATION_DCID;
 
   // Headers
   let csv =

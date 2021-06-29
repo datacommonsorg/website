@@ -263,12 +263,12 @@ class TestBrowser(WebdriverBaseTest):
         self.driver.get(self.url_ + MTV_URL)
 
         # Wait for the search box of the statvar hierarchy section to be present
+        STAT_VAR_SEARCH_INPUT_XPATH = '//*[@id="stat-var-hierarchy-section"]/div[1]/div[1]/div/input'
         element_present = EC.presence_of_element_located(
-            (By.XPATH,
-             '//*[@id="stat-var-hierarchy-section"]/div/div[1]/input'))
+            (By.XPATH, STAT_VAR_SEARCH_INPUT_XPATH))
         WebDriverWait(self.driver, self.TIMEOUT_SEC).until(element_present)
         search_input = self.driver.find_element_by_xpath(
-            '//*[@id="stat-var-hierarchy-section"]/div/div[1]/input')
+            STAT_VAR_SEARCH_INPUT_XPATH)
 
         # Search for "male asian " and select the first result
         search_input.send_keys(SEARCH_INPUT)
