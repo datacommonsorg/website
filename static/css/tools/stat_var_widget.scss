@@ -55,6 +55,7 @@ $transparent-red: rgba(240, 230, 231, 0.2);
 }
 
 .statvar-hierarchy-search-section {
+  font-size: .9rem;
   padding: $container-outer-vert-margin $container-outer-horizontal-margin 0;
 }
 
@@ -70,17 +71,13 @@ $transparent-red: rgba(240, 230, 231, 0.2);
   line-height: 26px;
 }
 
-.statvar-hierarchy-search-section {
-  font-size: .9rem;
-}
-
 .statvar-hierarchy-search-section .statvar-search-input {
   font-size: 1rem;
 }
 
 .statvar-hierarchy-search-results {
-    max-height: max(90%, 50vh) !important;
-    width: $widget-min-width - 2 * $container-outer-horizontal-margin !important;
+  max-height: max(90%, 50vh) !important;
+  width: $widget-min-width - 2 * $container-outer-horizontal-margin !important;
 }
 
 .statvar-hierarchy-search-section .title,

@@ -19,7 +19,6 @@
 @import 'stat_var_widget';
 @import '../draw';
 @import '../draw_choropleth';
-@import '../browser';
 
 @mixin map-search {
   @include search_place.search-place;
