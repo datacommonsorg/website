@@ -37,7 +37,7 @@ interface StatVarSectionInputStateType {
 export class StatVarSectionInput extends React.Component<
   StatVarSectionInputPropType,
   StatVarSectionInputStateType
-  > {
+> {
   context: ContextType;
   constructor(props: StatVarSectionInputPropType) {
     super(props);
