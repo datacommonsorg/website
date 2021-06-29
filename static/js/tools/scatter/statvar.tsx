@@ -101,7 +101,7 @@ function StatVarChooser(): JSX.Element {
           y.setStatVarInfo(info[y.value.statVarDcid]);
         }
       })
-      .catch((e) => {
+      .catch(() => {
         if (statVarsToGetInfo.indexOf(x.value.statVarDcid) > -1) {
           x.setStatVarInfo({});
         }
@@ -120,16 +120,14 @@ function StatVarChooser(): JSX.Element {
   }
   return (
     <div className="explore-menu-container" id="explore">
-      <div id="drill-scroll-container">
-        <div className="title">Select variables:</div>
-        <StatVarHierarchy
-          type={StatVarHierarchyType.SCATTER}
-          places={_.sampleSize(place.value.enclosedPlaces, SAMPLE_SIZE)}
-          selectedSVs={menuSelected}
-          selectSV={(sv) => addStatVar(x, y, sv, setThirdStatVar, setModalOpen)}
-          deselectSV={(sv) => removeStatVar(x, y, sv)}
-        ></StatVarHierarchy>
-      </div>
+      <StatVarHierarchy
+        type={StatVarHierarchyType.SCATTER}
+        places={_.sampleSize(place.value.enclosedPlaces, SAMPLE_SIZE)}
+        selectedSVs={menuSelected}
+        selectSV={(sv) => addStatVar(x, y, sv, setThirdStatVar, setModalOpen)}
+        deselectSV={(sv) => removeStatVar(x, y, sv)}
+        searchLabel="Select variables:"
+      ></StatVarHierarchy>
       <Modal isOpen={modalOpen} backdrop="static" id="statvar-modal">
         <ModalHeader toggle={closeModal}>
           Only Two Variables Supported
