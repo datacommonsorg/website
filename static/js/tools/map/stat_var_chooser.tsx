@@ -62,14 +62,14 @@ function selectStatVar(statVar: StatVarWrapper, dcid: string): void {
     .then((info) => {
       statVar.set({
         dcid,
-        perCapita: statVar.value.perCapita,
+        perCapita: false,
         info: info[dcid],
       });
     })
     .catch(() => {
       statVar.set({
         dcid,
-        perCapita: statVar.value.perCapita,
+        perCapita: false,
         info: {},
       });
     });

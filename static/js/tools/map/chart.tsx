@@ -23,6 +23,7 @@ import { GeoJsonData, GeoJsonFeatureProperties } from "../../chart/types";
 import { PlaceInfo, StatVar } from "./context";
 import { Container } from "reactstrap";
 import _ from "lodash";
+import * as d3 from "d3";
 import {
   drawChoropleth,
   getColorScale,
@@ -59,6 +60,8 @@ const ZOOM_IN_BUTTON_ID = "zoom-in-button";
 const ZOOM_OUT_BUTTON_ID = "zoom-out-button";
 const LEGEND_MARGIN_LEFT = 30;
 const LEGEND_HEIGHT_SCALING = 0.6;
+const DATE_RANGE_INFO_ID = "date-range-info";
+const DATE_RANGE_INFO_TEXT_ID = "date-range-tooltip-text";
 
 export function Chart(props: ChartProps): JSX.Element {
   const [errorMessage, setErrorMessage] = useState("");
@@ -94,7 +97,21 @@ export function Chart(props: ChartProps): JSX.Element {
       <Container>
         <div className="chart-section">
           <div className="map-title">
-            <h3>{title}</h3>
+            <h3>
+              {title}
+              {props.dates.size > 1 && (
+                <span
+                  onMouseOver={onDateRangeMouseOver}
+                  onMouseOut={onDateRangeMouseOut}
+                  id={DATE_RANGE_INFO_ID}
+                >
+                  <i className="material-icons-outlined">info</i>
+                </span>
+              )}
+            </h3>
+            <div id={DATE_RANGE_INFO_TEXT_ID}>
+              The date range represents the dates of the data shown in this map.
+            </div>
           </div>
           {errorMessage ? (
             <div className="error-message">{errorMessage}</div>
@@ -294,4 +311,18 @@ const getTooltipHtml = (
     `${statVarTitle} (${metadata.statVarDate}): <wbr>${value}<br />` +
     `<footer>Data from: <wbr>${sources} <br/>${popDateHtml}</footer>`;
   return html;
+};
+
+const onDateRangeMouseOver = () => {
+  const offset = 20;
+  const left =
+    (d3.select(`#${DATE_RANGE_INFO_ID}`).node() as HTMLElement).offsetLeft +
+    offset;
+  d3.select(`#${DATE_RANGE_INFO_TEXT_ID}`)
+    .style("left", left + "px")
+    .style("visibility", "visible");
+};
+
+const onDateRangeMouseOut = () => {
+  d3.select(`#${DATE_RANGE_INFO_TEXT_ID}`).style("visibility", "hidden");
 };

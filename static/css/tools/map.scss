@@ -105,7 +105,9 @@
 }
 
 .map-title {
-  text-align: center;
+  display: flex;
+  justify-content: center;
+  position: relative;
 }
 
 .sources {
@@ -202,4 +204,28 @@
 
 #choropleth-legend .legend {
   display: block;
+}
+
+#date-range-info {
+  height: fit-content;
+  width: fit-content;
+  position: relative;
+  padding-left: 0.2rem;
+}
+
+#date-range-info i {
+  cursor: pointer;
+  font-size: 1rem;
+}
+
+#date-range-tooltip-text {
+  visibility: hidden;
+  position: absolute;
+  top: -2rem;
+  z-index: 5;
+  background-color: var(--dc-gray-lite);
+  font-size: 0.8rem;
+  border-radius: 8px;
+  border: 0.5px solid var(--dc-gray-lite);
+  padding: 0.3rem;
 }

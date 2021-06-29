@@ -30,6 +30,8 @@ import {
 } from "./util";
 import { DataPointMetadata } from "./chart_loader";
 
+const NO_PER_CAPITA_TYPES = ["medianValue"];
+
 interface ChartOptionsPropType {
   dataValues: { [dcid: string]: number };
   placeInfo: PlaceInfo;
@@ -49,19 +51,21 @@ export function ChartOptions(props: ChartOptionsPropType): JSX.Element {
       : "";
   return (
     <div className="chart-options">
-      <div>
-        <FormGroup check>
-          <Label check>
-            <Input
-              id="per-capita"
-              type="checkbox"
-              checked={statVar.value.perCapita}
-              onChange={(e) => statVar.setPerCapita(e.target.checked)}
-            />
-            Per capita
-          </Label>
-        </FormGroup>
-      </div>
+      {NO_PER_CAPITA_TYPES.indexOf(statVar.value.info.st) === -1 && (
+        <div>
+          <FormGroup check>
+            <Label check>
+              <Input
+                id="per-capita"
+                type="checkbox"
+                checked={statVar.value.perCapita}
+                onChange={(e) => statVar.setPerCapita(e.target.checked)}
+              />
+              Per capita
+            </Label>
+          </FormGroup>
+        </div>
+      )}
       <div className="breadcrumbs-title">
         {statVar.value.info.title
           ? statVar.value.info.title

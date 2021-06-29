@@ -19,14 +19,14 @@
  */
 
 import { createContext, useState } from "react";
-import { StatVarNode } from "../statvar_menu/util";
+import { StatVarInfo, StatVarNode } from "../statvar_menu/util";
 import { NamedPlace } from "../../shared/types";
 
 interface Axis {
-  // StatVar to plot for this axis
-  statVar: StatVarNode;
-  // Human readable name of the StatVar
-  name: string;
+  // Additional info about the StatVar to plot for this axis
+  statVarInfo: StatVarInfo;
+  // Dcid of the StatVar to plot for this axis
+  statVarDcid: string;
   // Whether to plot on log scale
   log: boolean;
   // Whether to plot per capita values
@@ -34,8 +34,8 @@ interface Axis {
 }
 
 const EmptyAxis: Axis = Object.freeze({
-  statVar: {},
-  name: "",
+  statVarInfo: null,
+  statVarDcid: "",
   log: false,
   perCapita: false,
 });
@@ -49,9 +49,9 @@ interface AxisWrapper {
 
   // Setters
   set: Setter<Axis>;
-  setStatVar: Setter<StatVarNode>;
-  unsetStatVar: Setter<void>;
-  setStatVarName: Setter<string>;
+  setStatVarDcid: Setter<string>;
+  unsetStatVarDcid: Setter<void>;
+  setStatVarInfo: Setter<StatVarInfo>;
   setLog: Setter<boolean>;
   setPerCapita: Setter<boolean>;
 }
@@ -145,9 +145,6 @@ const Context = createContext({} as ContextType);
 const FieldToAbbreviation = {
   // Axis fields
   statVarDcid: "sv",
-  statVarPath: "svp",
-  statVarDenominator: "svd",
-  name: "svn",
   log: "l",
   perCapita: "pc",
 
@@ -157,11 +154,6 @@ const FieldToAbbreviation = {
   enclosedPlaceType: "ept",
   lowerBound: "lb",
   upperBound: "ub",
-
-  // DateInfo fields
-  year: "y",
-  month: "m",
-  day: "d",
 };
 
 /**
@@ -178,18 +170,18 @@ function useContextStore(): ContextType {
     x: {
       value: x,
       set: (axis) => setX(axis),
-      setStatVar: getSetStatVar(x, setX),
-      unsetStatVar: getUnsetStatVar(x, setX),
-      setStatVarName: getSetStatVarName(x, setX),
+      setStatVarDcid: getSetStatVarDcid(x, setX),
+      unsetStatVarDcid: getUnsetStatVarDcid(x, setX),
+      setStatVarInfo: getSetStatVarInfo(x, setX),
       setLog: getSetLog(x, setX),
       setPerCapita: getSetPerCapita(x, setX),
     },
     y: {
       value: y,
       set: (axis) => setY(axis),
-      setStatVar: getSetStatVar(y, setY),
-      unsetStatVar: getUnsetStatVar(y, setY),
-      setStatVarName: getSetStatVarName(y, setY),
+      setStatVarDcid: getSetStatVarDcid(y, setY),
+      unsetStatVarDcid: getUnsetStatVarDcid(y, setY),
+      setStatVarInfo: getSetStatVarInfo(y, setY),
       setLog: getSetLog(y, setY),
       setPerCapita: getSetPerCapita(y, setY),
     },
@@ -266,15 +258,14 @@ function getSetEnclosedPlaces(
  * @param axis
  * @param setAxis
  */
-function getSetStatVar(
+function getSetStatVarInfo(
   axis: Axis,
   setAxis: React.Dispatch<React.SetStateAction<Axis>>
 ): Setter<StatVarNode> {
-  return (statVar) => {
+  return (statVarInfo) => {
     setAxis({
       ...axis,
-      statVar: statVar,
-      name: "",
+      statVarInfo: statVarInfo,
     });
   };
 }
@@ -285,27 +276,28 @@ function getSetStatVar(
  * @param axis
  * @param setAxis
  */
-function getUnsetStatVar(
+function getUnsetStatVarDcid(
   axis: Axis,
   setAxis: React.Dispatch<React.SetStateAction<Axis>>
 ): Setter<void> {
   return () => {
     setAxis({
       ...axis,
-      statVar: {},
-      name: "",
+      statVarDcid: "",
+      statVarInfo: null,
     });
   };
 }
 
-function getSetStatVarName(
+function getSetStatVarDcid(
   axis: Axis,
   setAxis: React.Dispatch<React.SetStateAction<Axis>>
 ): Setter<string> {
-  return (name) => {
+  return (dcid) => {
     setAxis({
       ...axis,
-      name: name,
+      statVarDcid: dcid,
+      statVarInfo: null,
     });
   };
 }

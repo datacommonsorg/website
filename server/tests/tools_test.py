@@ -32,3 +32,4 @@ class TestStaticPage(unittest.TestCase):
     def test_map(self):
         response = app.test_client().get('/tools/map')
         assert response.status_code == 200
+        assert b"Map Explorer - Data Commons" in response.data

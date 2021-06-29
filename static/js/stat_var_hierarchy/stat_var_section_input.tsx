@@ -77,6 +77,7 @@ export class StatVarSectionInput extends React.Component<
       this.context.statVarHierarchyType === StatVarHierarchyType.MAP
         ? "radio"
         : "checkbox";
+    const sectionId = this.props.statVar.id + this.props.path.join("-");
     return (
       <form
         className={
