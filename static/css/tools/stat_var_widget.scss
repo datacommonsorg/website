@@ -101,3 +101,13 @@ form.node-title {
   cursor: pointer;
   background-color: $transparent-gray;
 }
+
+
+#stat-var-hierarchy-section .node-title label {
+  font-size: .85rem;
+}
+
+#stat-var-hierarchy-section .node-title .material-icons + .title {
+  font-size: .9rem;
+  line-height: 2em;
+}

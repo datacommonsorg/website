@@ -49,14 +49,14 @@ $horizontal-spacing: 15px;
   white-space: nowrap;
 }
 
-.node-title label,
-.node-title .material-icons + .title {
-  font-size: .85rem;
-  line-height: 2rem;
+.node-title .bullet + .title {
+  font-size: .9rem;
 }
 
 .node-title .material-icons + .title {
+  font-size: .9rem;
   font-weight: 600;
+  line-height: 2em;
 }
 
 .statvar-hierarchy-search-results {
