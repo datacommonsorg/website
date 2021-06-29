@@ -267,7 +267,8 @@ class TestBrowser(WebdriverBaseTest):
         element_present = EC.presence_of_element_located(
             (By.XPATH, STAT_VAR_SEARCH_INPUT_XPATH))
         WebDriverWait(self.driver, self.TIMEOUT_SEC).until(element_present)
-        search_input = self.driver.find_element_by_xpath(STAT_VAR_SEARCH_INPUT_XPATH)
+        search_input = self.driver.find_element_by_xpath(
+            STAT_VAR_SEARCH_INPUT_XPATH)
 
         # Search for "male asian " and select the first result
         search_input.send_keys(SEARCH_INPUT)
