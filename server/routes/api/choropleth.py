@@ -11,237 +11,84 @@
 # WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 # See the License for the specific language governing permissions and
 # limitations under the License.
-"""Defines endpoints to support choropleth map."""
-import flask
-import statistics
+"""This module defines the endpoints that support drawing a choropleth map.
+"""
+
 import json
-import services.datacommons as dc
-import routes.api.place as place
-from flask import Response, request, g
+import services.datacommons as dc_service
+import routes.api.place as place_api
+import routes.api.landing_page as landing_page_api
 
-# Map from a geographic level to its closest fine-grained level.
-LEVEL_MAP = {
-    "Country": "State",
-    "State": "County",
+from cache import cache
+from flask import Blueprint, current_app, request, Response, g
+from routes.api.place import EQUIVALENT_PLACE_TYPES
+# Define blueprint
+bp = Blueprint("choropleth", __name__, url_prefix='/api/choropleth')
+
+# Place type to get choropleth for, keyed by place type
+# TODO: Come up with a catch all way to determine place type to get choropleth for because
+# this works for US places, but hierarchy of places in other countries may be different
+CHOROPLETH_DISPLAY_LEVEL_MAP = {
+    "Country": "AdministrativeArea1",
+    "AdministrativeArea1": "AdministrativeArea2",
+    "AdministrativeArea2": "AdministrativeArea2"
 }
-
 # GeoJSON property to use, keyed by display level.
-GEOJSON_PROPERTY_MAP = {
+CHOROPLETH_GEOJSON_PROPERTY_MAP = {
     "State": "geoJsonCoordinatesDP3",
+    "AdministrativeArea1": "geoJsonCoordinatesDP3",
     "County": "geoJsonCoordinatesDP1",
+    "AdministrativeArea2": "geoJsonCoordinatesDP2",
 }
 
-# All choropleth endpoints are defined with the choropleth/ prefix.
-bp = flask.Blueprint("choropleth", __name__, url_prefix='/api/choropleth')
 
-
-def get_data(payload_for_geo):
-    """ Returns the full timeseries data as from a DataCommons API payload.
-
-    Args:
-        payload_for_geo -> The payload from a get_stats call for a
-            particular dcid.
-    Returns:
-        The full timeseries data available for that dcid.
-    """
-    if not payload_for_geo:
-        return {}
-
-    time_series = payload_for_geo.get('data')
-
-    if not time_series:
-        return {}
-    return time_series
-
-
-@bp.route('/values')
-def choropleth_values():
-    """Returns data for geographic subregions for a certain statistical
-            variable.
-
-    API Params:
-        geoDcid: The currently viewed geography to render, as a string.
-        level: The subgeographic level to pull and display information for,
-                as a string. Choices: Country, AdministrativeLevel[1/2], City.
-        statVar: The statistical variable to pull data about.
-
-    API Returns:
-        values: dictionary of geo to statistical variable values (as a float)
-            for all subgeos.
-    """
-    # Get required request parameters.
-    requested_geoDcid = flask.request.args.get("geoDcid")
-    if not requested_geoDcid:
-        return flask.jsonify({"error": "Must provide a 'geoDcid' field!"}, 400)
-    stat_var = flask.request.args.get("statVar")
-    if not stat_var:
-        return flask.jsonify({"error": "Must provide a 'statVar' field!"}, 400)
-    display_level = get_sublevel(requested_geoDcid,
-                                 flask.request.args.get("level"))
-    if not display_level:
-        return flask.jsonify(
-            {
-                "error":
-                    "Failed to automatically resolve geographic subdivision level for"
-                    +
-                    f"{requested_geoDcid}. Please provide a 'level' field manually."
-            }, 400)
-
-    # Get all subgeos.
-    geos_contained_in_place = dc.get_places_in([requested_geoDcid],
-                                               display_level).get(
-                                                   requested_geoDcid, [])
-    values_by_geo = dc.get_stats(geos_contained_in_place, stat_var)
-
-    # Add to dictionary for response.
-    populations_by_geo = {}
-    for geo_id, payload in values_by_geo.items():
-        data = get_data(payload)
-        if data:
-            populations_by_geo[geo_id] = data
-
-    # Return as json payload.
-    return flask.jsonify(populations_by_geo, 200)
-
-
-@bp.route('/geo')
-def choropleth_geo():
-    """Returns data for geographic subregions for a certain statistical
-            variable.
-
-    API Params:
-        geoDcid: The currently viewed geography to render, as a string.
-        level: The subgeographic level to pull and display information for,
-                as a string. Choices: Country, AdministrativeLevel[1/2], City.
-        mdom: The measurement denominator to use as a string.
-            Defaults to "Count_Person".
-
-
-    API Returns:
-        geoJson: geoJson format that includes statistical variables info,
-            geoDcid, and name for all subregions.
-    """
-    # Get required request parameters.
-    requested_geoDcid = flask.request.args.get("geoDcid")
-    if not requested_geoDcid:
-        return flask.jsonify({"error": "Must provide a 'geoDcid' field!"}, 400)
-    display_level = get_sublevel(requested_geoDcid,
-                                 flask.request.args.get("level"))
-    geo_json_prop = GEOJSON_PROPERTY_MAP.get(display_level, None)
-    if not display_level:
-        return flask.jsonify(
-            {
-                "error":
-                    f"Failed to automatically resolve geographic subdivision level for"
-                    +
-                    f"{requested_geoDcid}. Please provide a 'level' field manually."
-            }, 400)
-    if not geo_json_prop:
-        return flask.jsonify(
-            {
-                "error":
-                    f"Geojson data is not available for the geographic subdivision"
-                    + f"level needed for {requested_geoDcid}."
-            }, 400)
-    # Get optional fields.
-    measurement_denominator = flask.request.args.get("mdom",
-                                                     default="Count_Person")
-
-    # Get list of all contained places.
-    geos_contained_in_place = dc.get_places_in([requested_geoDcid],
-                                               display_level).get(
-                                                   requested_geoDcid, [])
-
-    # Download statistical variable, names, and geojson for subgeos.
-    # Also, handle the case where only a fraction of values are returned.
-    names_by_geo = dc.get_property_values(
-        geos_contained_in_place + [requested_geoDcid], "name")
-    geojson_by_geo = dc.get_property_values(geos_contained_in_place,
-                                            geo_json_prop)
-
-    # Download population data if per capita.
-    # TODO(iancostello): Determine how to handle populations
-    # and statistical values from different times.
-    population_by_geo = dc.get_stats(geos_contained_in_place,
-                                     measurement_denominator)
-
-    # Process into a combined json object.
-    features = []
-    for geo_id, json_text in geojson_by_geo.items():
-        # Valid response needs at least geometry and a name.
-        if not json_text:
-            continue
-        if geo_id not in names_by_geo:
-            continue
-        geo_feature = {
-            "type": "Feature",
-            "geometry": {
-                "type": "MultiPolygon",
-            },
-            "id": geo_id,
-            "properties": {
-                # Choose the first name when multiple are present.
-                "name": names_by_geo.get(geo_id, ["Unnamed Area"])[0],
-                "hasSublevel": (display_level in LEVEL_MAP),
-                "geoDcid": geo_id,
-            }
-        }
-
-        # Load, simplify, and add geoJSON coordinates.
-        # Exclude geo if no or multiple renderings are present.
-        if len(json_text) != 1:
-            continue
-
-        geojson = json.loads(json_text[0])
-        geo_feature['geometry']['coordinates'] = (
-            coerce_geojson_to_righthand_rule(geojson['coordinates'],
-                                             geojson['type']))
-
-        if geo_id not in population_by_geo:
-            continue
-
-        population_payload = population_by_geo[geo_id]
-        data = get_data(population_payload)
-
-        # TODO(edumorales): return the population
-        # for N date that all places have in common.
-        if data:
-            max_date = max(data)
-            geo_feature["properties"]["pop"] = data[max_date]
-
-        # Add to main dataframe.
-        features.append(geo_feature)
-
-    # Return as json payload.
-    return flask.jsonify(
-        {
-            "type": "FeatureCollection",
-            "features": features,
-            "properties": {
-                "current_geo":
-                    names_by_geo.get(requested_geoDcid, ["Unnamed Area"])[0]
-            }
-        }, 200)
-
-
-def get_sublevel(requested_geoDcid, display_level):
-    """Returns the best sublevel display for a geoDcid.
+@cache.memoize(timeout=3600 * 24)  # Cache for one day.
+def get_choropleth_display_level(geoDcid):
+    """ Get the display level of places to show on a choropleth chart for a
+    given place.
 
     Args:
-        requested_geoDcid: The parent geo DCID to find children.
-        display_level: Display level provided or None. Valid display_levels
-            are [AdministrativeLevel1, AdministrativeLevel2]
+        geoDcid: dcid of the place of interest
+
     Returns:
-       Directly returns display_level argument if it is not none.
-        Otherwise the next sublevel below the parent is returned.
+        tuple consisting of:
+            dcid of the enclosing place to use (if the display level and the
+                place type of the geoDcid arg are the same, this would be the
+                parent place dcid)
+            display level (AdministrativeArea1 or AdministrativeArea2)
     """
-    if not display_level:
-        requested_geoDcid_type = dc.get_property_values([requested_geoDcid],
-                                                        "typeOf")
-        for level in requested_geoDcid_type.get(requested_geoDcid, []):
-            if level in LEVEL_MAP:
-                return LEVEL_MAP[level]
-    return display_level
+    # Territories of the US, e.g. country/USA are also AA1. Restrict this view to only States.
+    if geoDcid == 'country/USA':
+        return geoDcid, 'State'
+    place_type = place_api.get_place_type(geoDcid)
+    display_level = None
+    if place_type in CHOROPLETH_DISPLAY_LEVEL_MAP:
+        display_level = CHOROPLETH_DISPLAY_LEVEL_MAP[place_type]
+    elif place_type in EQUIVALENT_PLACE_TYPES and EQUIVALENT_PLACE_TYPES[
+            place_type] in CHOROPLETH_DISPLAY_LEVEL_MAP:
+        place_type = EQUIVALENT_PLACE_TYPES[place_type]
+        display_level = CHOROPLETH_DISPLAY_LEVEL_MAP[place_type]
+    else:
+        return None, None
+
+    if place_type == display_level:
+        parents_places = place_api.parent_places(geoDcid)
+        for parent in parents_places.get(geoDcid, []):
+            parent_dcid = parent.get('dcid', None)
+            if not parent_dcid:
+                continue
+            parent_place_types = parent.get('types', [])
+            for parent_place_type in parent_place_types:
+                parent_display_level = CHOROPLETH_DISPLAY_LEVEL_MAP.get(
+                    parent_place_type, None)
+                if not parent_display_level:
+                    parent_display_level = CHOROPLETH_DISPLAY_LEVEL_MAP.get(
+                        EQUIVALENT_PLACE_TYPES.get(parent_place_type, ''))
+                if parent_display_level == display_level:
+                    return parent_dcid, display_level
+        return None, None
+    else:
+        return geoDcid, display_level
 
 
 def coerce_geojson_to_righthand_rule(geoJsonCords, obj_type):
@@ -268,67 +115,12 @@ def coerce_geojson_to_righthand_rule(geoJsonCords, obj_type):
         assert False, f"Type {obj_type} unknown!"
 
 
-@bp.route('child/statvars')
-def child_statvars():
+@bp.route('/geojson')
+@cache.cached(timeout=3600 * 24, query_string=True)  # Cache for one day.
+def geojson():
     """
-    Gets all statistical variables available for a particular sublevel of a
-        dcid.
-    API Params:
-        dcid: The place dcid to pull information for, as a string.
-        level: The level of children to pull for, as a string. If omitted,
-            then the subgeo is computed.
-    Example Query:
-        api/place/child/statvars?dcid=country/USA&level=State
-        Returns all statistical variables that are value for states of the USA.
-    Returns:
-        A json list of all the available statistical variables.
+    Get geoJson data for places enclosed within the given dcid
     """
-    # Get required params.
-    dcid = flask.request.args.get("dcid")
-    if not dcid:
-        return flask.jsonify({"error": "Must provide a 'dcid' field!"}, 400)
-    requested_level = get_sublevel(dcid, flask.request.args.get("level"))
-    if not requested_level:
-        return flask.jsonify(
-            {
-                "error":
-                    f"Failed to automatically resolve geographic subdivision level for"
-                    + f"{dcid}. Please provide a 'level' field manually."
-            }, 400)
-
-    # Get sublevels.
-    geos_contained_in_place = dc.get_places_in([dcid], requested_level)
-    if dcid not in geos_contained_in_place:
-        return flask.jsonify({"error": "Internal server error."}, 500)
-    geos_contained_in_place = geos_contained_in_place[dcid]
-
-    # Get all available Statistical Variables for subgeos.
-    # Only the union of the first 10 geos are returned for speed.
-    # TODO(iancostello): Determine whether this heuristic is too generous
-    # or too restrictive.
-    stat_vars_for_subgeo = set()
-    for geoId in geos_contained_in_place[:10]:
-        stat_vars_for_subgeo = stat_vars_for_subgeo.union(
-            place.statsvars(geoId))
-    return json.dumps(list(stat_vars_for_subgeo))
-
-
-@bp.route('/geo2')
-def choropleth_geo2():
-    # TODO(chejennifer): delete /geo once new choropleth tool is ready
-    """Returns data for geographic subregions for a certain statistical
-            variable.
-
-    API Params:
-        geoDcid: The currently viewed geography to render, as a string.
-        level: The subgeographic level to pull and display information for,
-                as a string. Choices: State, County, City.
-
-    API Returns:
-        geoJson: geoJson format that includes statistical variables info,
-            geoDcid, and name for all subregions.
-    """
-    # Get required request parameters.
     place_dcid = request.args.get("placeDcid")
     if not place_dcid:
         return Response(json.dumps("error: must provide a placeDcid field"),
@@ -336,28 +128,22 @@ def choropleth_geo2():
                         mimetype='application/json')
     place_type = request.args.get("placeType")
     if not place_type:
-        return Response(json.dumps("error: must provide a placeType field."),
-                        400,
-                        mimetype='application/json')
-    geo_json_prop = GEOJSON_PROPERTY_MAP.get(place_type, None)
-    if not geo_json_prop:
-        return Response(json.dumps("error: geojson data not available for the" +
-                                   f"placeType needed for {place_dcid}"),
-                        400,
-                        mimetype='application/json')
-    # Get list of all contained places.
-    geos_contained_in_place = dc.get_places_in([place_dcid],
-                                               place_type).get(place_dcid, [])
-    # Download statistical variable, names, and geojson for subgeos.
-    # Also, handle the case where only a fraction of values are returned.
-    names_by_geo = place.get_display_name(
-        '^'.join(geos_contained_in_place + [place_dcid]), g.locale)
-    geojson_by_geo = dc.get_property_values(geos_contained_in_place,
-                                            geo_json_prop)
-    # Process into a combined json object.
+        place_dcid, place_type = get_choropleth_display_level(place_dcid)
+    geos = []
+    if place_dcid and place_type:
+        geos = dc_service.get_places_in([place_dcid],
+                                        place_type).get(place_dcid, [])
+    if not geos:
+        return Response(json.dumps({}), 200, mimetype='application/json')
+    geojson_prop = CHOROPLETH_GEOJSON_PROPERTY_MAP.get(place_type, "")
+    # geoId/72 needs higher resolution geojson because otherwise, the map looks
+    # too fragmented
+    if place_dcid == 'geoId/72':
+        geojson_prop = 'geoJsonCoordinatesDP1'
+    names_by_geo = place_api.get_display_name('^'.join(geos), g.locale)
+    geojson_by_geo = dc_service.get_property_values(geos, geojson_prop)
     features = []
     for geo_id, json_text in geojson_by_geo.items():
-        # Valid response needs at least geometry and a name.
         if json_text and geo_id in names_by_geo:
             geo_feature = {
                 "type": "Feature",
@@ -366,9 +152,7 @@ def choropleth_geo2():
                 },
                 "id": geo_id,
                 "properties": {
-                    # Choose the first name when multiple are present.
                     "name": names_by_geo.get(geo_id, "Unnamed Area"),
-                    "hasSublevel": (place_type in LEVEL_MAP),
                     "geoDcid": geo_id,
                 }
             }
@@ -376,20 +160,237 @@ def choropleth_geo2():
             # Exclude geo if no or multiple renderings are present.
             if len(json_text) != 1:
                 continue
-
             geojson = json.loads(json_text[0])
             geo_feature['geometry']['coordinates'] = (
                 coerce_geojson_to_righthand_rule(geojson['coordinates'],
                                                  geojson['type']))
             features.append(geo_feature)
-
-    # Return as json payload.
     return Response(json.dumps({
         "type": "FeatureCollection",
         "features": features,
         "properties": {
-            "current_geo": names_by_geo.get(place_dcid, ["Unnamed Area"])[0]
+            "current_geo": place_dcid
         }
     }),
                     200,
                     mimetype='application/json')
+
+
+def get_choropleth_configs():
+    """ Gets all the chart configs that have choropleth charts
+
+    Returns:
+        list of chart configs that are choropleth chart configs
+    """
+    chart_config = current_app.config['CHART_CONFIG']
+    chart_configs = []
+    for config in chart_config:
+        if config.get('isChoropleth', False):
+            chart_configs.append(config)
+    return chart_configs
+
+
+def get_stat_vars(configs):
+    """  Gets all the stat vars and denominators in the given list of chart
+    configs
+
+    Args:
+        configs: list of chart configs
+
+    Returns:
+        tuple consisting of
+            set of all stat var dcids
+            set of all denominator stat var dcids
+    """
+    stat_vars = set()
+    denoms = set()
+    for config in configs:
+        if len(config.get('statsVars', [])) > 0:
+            stat_vars.add(config['statsVars'][0])
+        if 'relatedChart' in config and config['relatedChart'].get(
+                'scale', False):
+            denoms.add(config['relatedChart'].get('denominator',
+                                                  'Count_Person'))
+        if len(config.get('denominator', [])) > 0:
+            denoms.add(config['denominator'][0])
+    return stat_vars, denoms
+
+
+def get_denom_val(stat_date, denom_data):
+    """ Gets the best denominator value for a given date
+
+    Args:
+        stat_date: date as a string
+        denom_data: dict of date to value
+
+    Returns:
+        the value from denom_data that best matches the stat_date
+    """
+    denom_dates = denom_data.keys()
+    if len(denom_dates) == 0:
+        return None
+    if stat_date in denom_dates:
+        return denom_data[stat_date]
+    encompassed_denom_dates = list(filter(lambda x: stat_date in x,
+                                          denom_dates))
+    if len(encompassed_denom_dates) > 0:
+        return denom_data[encompassed_denom_dates[-1]]
+    denom_date = list(denom_dates)[0]
+    for date in denom_dates:
+        if date < stat_date and date > denom_date:
+            denom_date = date
+    return denom_data[denom_date]
+
+
+def get_value(place_dcid, sv_data, denom, denom_data, scaling):
+    """ Gets the processed value for a place
+
+    Args:
+        place_dcid: dcid of the place of interest as a string
+        sv_data: the stat var data for the place of interest as an object with
+            the fields value, date, and metadata
+        denom: the denom stat var if there is one as a string
+        denom_data: the denom data for the denom stat var with the form:
+            {
+                [place_dcid]: {
+                    data: {
+                        [date]: number,
+                        ...
+                    },
+                    provenanceUrl: string
+                },
+                ...
+            }
+        scaling: number the value should be multiplied by
+
+    Returns:
+        processed value as a number
+    """
+    val = sv_data.get("value", None)
+    if not val:
+        return None
+    if denom:
+        date = sv_data.get('date', "")
+        denom_val = get_denom_val(
+            date,
+            denom_data.get(place_dcid, {}).get('data', {}))
+        if not denom_val:
+            return None
+        val = val / denom_val
+    return val * scaling
+
+
+def get_date_range(dates):
+    """ Gets the date range from a set of dates
+
+    Args:
+        dates: set of dates (strings)
+
+    Returns:
+        date range as a string. Either a single date or
+        [earliest date] - [latest date]
+    """
+    dates = filter(lambda x: x != "", dates)
+    sorted_dates_list = sorted(list(dates))
+    if not sorted_dates_list:
+        return ""
+    date_range = sorted_dates_list[0]
+    if len(sorted_dates_list) > 1:
+        date_range = f'{sorted_dates_list[0]} – {sorted_dates_list[-1]}'
+    return date_range
+
+
+@bp.route('/data/<path:dcid>')
+@cache.memoize(timeout=3600 * 24)  # Cache for one day.
+def choropleth_data(dcid):
+    """
+    Get stats var data needed for choropleth charts for a given place
+
+    API Returns:
+        {
+            [stat var]: {
+                date: string,
+                data: {
+                    [dcid]: number,
+                    ...
+                },
+                numDataPoints: number,
+                exploreUrl: string,
+                sources: [],
+            },
+            ...
+        }
+    """
+    configs = get_choropleth_configs()
+    stat_vars, denoms = get_stat_vars(configs)
+    display_dcid, display_level = get_choropleth_display_level(dcid)
+    geos = []
+    if display_dcid and display_level:
+        geos = dc_service.get_places_in([display_dcid],
+                                        display_level).get(display_dcid, [])
+    if not stat_vars or not geos:
+        return Response(json.dumps({}), 200, mimetype='application/json')
+    # Get data for all the stat vars for every place we will need and process the data
+    sv_data = dc_service.get_stat_set_within_place(display_dcid, display_level,
+                                                   list(stat_vars),
+                                                   "").get('data', {})
+    denoms_data = {}
+    for denom in denoms:
+        denoms_data[denom] = dc_service.get_stats(geos, denom)
+    result = {}
+    # Process the data for each config
+    for cc in configs:
+        # we should only be making choropleths for configs with a single stat var
+        sv = cc['statsVars'][0]
+        cc_sv_data_values = sv_data.get(sv, {}).get('stat', {})
+        cc_sv_data_metadata = sv_data.get(sv, {}).get('metadata', {})
+        denom = landing_page_api.get_denom(cc, True)
+        cc_denom_data = denoms_data.get(denom, {})
+        scaling = cc.get('scaling', 1)
+        if 'relatedChart' in cc:
+            scaling = cc['relatedChart'].get('scaling', scaling)
+        sources = set()
+        dates = set()
+        data_dict = dict()
+        # Process the data for each place we have stat var data for
+        for place_dcid in cc_sv_data_values:
+            dcid_sv_data = cc_sv_data_values.get(place_dcid)
+            # process and then update data_dict with the value for this
+            # place_dcid
+            val = get_value(place_dcid, dcid_sv_data, denom, cc_denom_data,
+                            scaling)
+            if not val:
+                continue
+            data_dict[place_dcid] = val
+            # add the date of the stat var value for this place_dcid to the set
+            # of dates
+            dates.add(dcid_sv_data.get("date", ""))
+            # add stat var source and denom source (if there is a denom) to the
+            # set of sources
+            import_name = dcid_sv_data.get("metadata", {}).get("importName", "")
+            source = cc_sv_data_metadata.get(import_name,
+                                             {}).get("provenanceUrl", "")
+            sources.add(source)
+            if denom:
+                sources.add(
+                    cc_denom_data.get(place_dcid, {}).get('provenanceUrl', ""))
+        # build the exploreUrl
+        is_scaled = (('relatedChart' in cc and
+                      cc['relatedChart'].get('scale', False)) or
+                     ('denominator' in cc))
+        exploreUrl = landing_page_api.build_url([dcid], {sv: denom}, is_scaled)
+        # process the set of sources and set of dates collected for this chart
+        # config
+        sources = filter(lambda x: x != "", sources)
+        date_range = get_date_range(dates)
+        # build the result for this chart config and add it to the result
+        cc_result = {
+            'date': date_range,
+            'data': data_dict,
+            'numDataPoints': len(data_dict.values()),
+            # TODO (chejennifer): exploreUrl should link to choropleth tool once the tool is ready
+            'exploreUrl': exploreUrl,
+            'sources': list(sources)
+        }
+        result[sv] = cc_result
+    return Response(json.dumps(result), 200, mimetype='application/json')
