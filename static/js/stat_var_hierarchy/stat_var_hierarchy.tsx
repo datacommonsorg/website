@@ -73,7 +73,7 @@ interface StatVarHierarchyStateType {
 export class StatVarHierarchy extends React.Component<
   StatVarHierarchyPropType,
   StatVarHierarchyStateType
-  > {
+> {
   constructor(props: StatVarHierarchyPropType) {
     super(props);
     this.state = {

@@ -41,7 +41,7 @@ interface StatVarHierarchySearchStateType {
 export class StatVarHierarchySearch extends React.Component<
   StatVarHierarchySearchPropType,
   StatVarHierarchySearchStateType
-  > {
+> {
   private delayTimer: NodeJS.Timeout;
 
   constructor(props: StatVarHierarchySearchPropType) {
@@ -65,9 +65,9 @@ export class StatVarHierarchySearch extends React.Component<
       this.state.showNoResultsMessage;
     return (
       <div className="statvar-hierarchy-search-section">
-        {this.props.searchLabel &&
+        {this.props.searchLabel && (
           <div className="title">{this.props.searchLabel}</div>
-        }
+        )}
         <div className="search-input-container">
           <input
             className="statvar-search-input form-control"
@@ -82,7 +82,7 @@ export class StatVarHierarchySearch extends React.Component<
             onClick={this.onInputClear}
           >
             clear
-        </span>
+          </span>
         </div>
         {renderResults && (
           <div className="statvar-hierarchy-search-results">
