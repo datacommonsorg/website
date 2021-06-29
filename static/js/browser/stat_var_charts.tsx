@@ -52,7 +52,7 @@ export class StatVarCharts extends React.Component<
   render(): JSX.Element {
     const trigger = React.createElement(StatVarHierarchyNodeHeader, {
       selectionCount: 0,
-      statVarCount: this.props.statVar.hasData ? 1 : 0,
+      childrenStatVarCount: this.props.statVar.hasData ? 1 : 0,
       highlighted: this.props.selected,
       nodeType: StatVarHierarchyNodeType.STAT_VAR,
       opened: false,

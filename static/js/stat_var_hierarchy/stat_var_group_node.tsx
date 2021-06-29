@@ -131,7 +131,7 @@ export class StatVarGroupNode extends React.Component<
         selectionCount > 0 &&
         !opened;
       return React.createElement(StatVarHierarchyNodeHeader, {
-        statVarCount: this.props.data.numDescendentStatVars,
+        childrenStatVarCount: this.props.data.numDescendentStatVars,
         selectionCount: selectionCount,
         highlighted: this.props.isSelected || shouldHighlightForMap,
         nodeType: StatVarHierarchyNodeType.STAT_VAR_GROUP,

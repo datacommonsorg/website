@@ -29,7 +29,7 @@ const DOWN_ARROW_HTML = <i className="material-icons">remove</i>;
 const RIGHT_ARROW_HTML = <i className="material-icons">add</i>;
 
 interface StatVarHierarchyNodeHeaderPropType {
-  statVarCount: number;
+  childrenStatVarCount: number;
   selectionCount: number;
   title: string;
   opened: boolean;
@@ -56,7 +56,7 @@ export class StatVarHierarchyNodeHeader extends React.Component<
       this.props.selectionCount > 0;
 
     let className = "node-title";
-    if (!this.props.statVarCount) {
+    if (!this.props.childrenStatVarCount) {
       className = "node-title node-no-data";
     } else if (this.props.highlighted) {
       className = "node-title highlighted-node-title";
@@ -64,13 +64,13 @@ export class StatVarHierarchyNodeHeader extends React.Component<
     return (
       <div className={className}>
         {prefixHtml}
-        <span className="title">
+        <span
+          className={showSelectionCount ? "title selected-node-title" : "title"}
+        >
           {this.props.title}
-          {this.props.statVarCount > 0 &&
-            this.props.nodeType !== StatVarHierarchyNodeType.STAT_VAR && (
-              <sup>{this.props.statVarCount}</sup>
-            )}
-          {showSelectionCount && " (" + this.props.selectionCount + ")"}
+          {this.props.childrenStatVarCount > 0 &&
+            this.props.nodeType !== StatVarHierarchyNodeType.STAT_VAR &&
+            " (" + this.props.childrenStatVarCount + ")"}
         </span>
       </div>
     );

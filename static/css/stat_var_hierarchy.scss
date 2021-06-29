@@ -106,6 +106,10 @@ $horizontal-spacing: 15px;
   background-color: var(--dc-red-fade);
 }
 
+.selected-node-title {
+  color: #67adff;
+}
+
 .node-title label {
   margin-bottom: 0;
   margin-left: 0.5rem;
