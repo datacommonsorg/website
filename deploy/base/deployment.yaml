@@ -104,10 +104,7 @@ spec:
             # A dummy config used to bounce the server without any docker image
             # or data config change.
             - name: BOUNCE
-              valueFrom:
-                configMapKeyRef:
-                  name: store-configmap
-                  key: bounce.config
+              value: "dummy"
         - name: mixer
           image: gcr.io/datcom-ci/datacommons-mixer:latest
           imagePullPolicy: Always
