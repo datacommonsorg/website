@@ -478,8 +478,7 @@ class TestChoroplethData(unittest.TestCase):
 
         mock_explore_url.side_effect = build_url_side_effect
 
-        response = app.test_client().get('/api/choropleth/data/' +
-                                         test_dcid)
+        response = app.test_client().get('/api/choropleth/data/' + test_dcid)
         assert response.status_code == 200
         response_data = json.loads(response.data)
         response_data_sv2_sources = response_data[sv2]['sources']
