@@ -21,17 +21,13 @@
 $menu-background: #525252;
 $widget-min-width: 350px;
 $container-outer-horizontal-margin: 8px;
+$container-outer-vert-margin: 15px;
 
 // opaque version of dc-red-lite
 $transparent-gray: rgba(204, 204, 204, 0.2);
 // opaque version of dc-gray-lite
 $transparent-red: rgba(240, 230, 231, 0.2);
 
-#drill-scroll-container {
-  overflow: auto;
-  position: absolute;
-  min-width: $widget-min-width;
-}
 .explore-menu-container {
   direction: initial;
   display: flex;
@@ -42,34 +38,40 @@ $transparent-red: rgba(240, 230, 231, 0.2);
   height: 100%;
   background: $menu-background;
   letter-spacing: 0;
-  overflow: auto;
+}
+
+#stat-var-hierarchy-section {
+  height: 100%;
 }
 
 .stat-var-hierarchy-container {
-  padding: 15px $container-outer-horizontal-margin;
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+}
+
+#stat-var-hierarchy-scroll-container {
+  overflow: auto;
+}
+
+.statvar-hierarchy-search-section {
+  padding: $container-outer-vert-margin $container-outer-horizontal-margin 0;
+}
+
+#hierarchy-section {
+  padding: 0 $container-outer-horizontal-margin $container-outer-vert-margin;
+  width: fit-content;
 }
 
 .stat-var-hierarchy-container .title {
-//   padding: 20px 31px 0;
   margin-bottom: 3px;
   font-size: 18px;
   letter-spacing: 0;
   line-height: 26px;
 }
 
-.stat-var-hierarchy-search-section .title {
-// .explore-menu-container .title {
-  padding: 20px 31px 0;
-  margin-bottom: 3px;
-  font-size: 18px;
-  letter-spacing: 0;
-  line-height: 26px;
-}
-
-.stat-var-hierarchy-search-section {
+.statvar-hierarchy-search-section {
   font-size: .9rem;
-  margin: 0 23px 15px !important;
-//   width: 350px;
 }
 
 .statvar-hierarchy-search-section .statvar-search-input {
@@ -88,6 +90,10 @@ $transparent-red: rgba(240, 230, 231, 0.2);
 
 #hierarchy-section .highlighted-node-title {
   background-color: $transparent-red;
+}
+
+.node-title {
+  min-width: $widget-min-width - 2 * $container-outer-horizontal-margin;
 }
 
 #hierarchy-section .node-title:hover {
