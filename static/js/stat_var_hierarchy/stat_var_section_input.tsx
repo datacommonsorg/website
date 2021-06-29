@@ -37,7 +37,7 @@ interface StatVarSectionInputStateType {
 export class StatVarSectionInput extends React.Component<
   StatVarSectionInputPropType,
   StatVarSectionInputStateType
-> {
+  > {
   context: ContextType;
   constructor(props: StatVarSectionInputPropType) {
     super(props);
@@ -85,14 +85,14 @@ export class StatVarSectionInput extends React.Component<
             : "node-title"
         }
       >
-        <label>
-          <input
-            id={this.props.statVar.id + this.props.path.join}
-            name="stat-var-hierarchy"
-            type={inputType}
-            checked={this.state.checked}
-            onChange={this.handleInputChange}
-          />{" "}
+        <input
+          id={this.props.statVar.id + this.props.path.join}
+          name="stat-var-hierarchy"
+          type={inputType}
+          checked={this.state.checked}
+          onChange={this.handleInputChange}
+        />
+        <label htmlFor={this.props.statVar.id + this.props.path.join}>
           {this.props.statVar.displayName}
         </label>
       </form>
