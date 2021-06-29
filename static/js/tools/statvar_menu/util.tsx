@@ -22,6 +22,7 @@ interface StatVarInfo {
   pt?: string;
   pvs?: { [key: string]: string };
   title?: string;
+  st?: string;
 }
 
 function getStatVarInfo(dcids: string[]): Promise<Record<string, StatVarInfo>> {
