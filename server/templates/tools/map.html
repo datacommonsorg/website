@@ -18,12 +18,14 @@
 
 {% set is_hide_full_footer = true %}
 {% set subpage_title = "Map Explorer" %}
+{% set subpage_url = url_for('tools.map') %}
 {% set title = "Map Explorer" %}
 {% set hide_search = True %}
 
 {% block head %}
   <link rel="stylesheet" href={{url_for('static', filename='css/map.min.css')}} >
   <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
+  <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons+Outlined">
 {% endblock %}
 
 {% block content %}
