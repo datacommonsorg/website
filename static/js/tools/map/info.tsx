@@ -143,10 +143,10 @@ export function Info(): JSX.Element {
           </a>
         </li>
         <li>
-          <b>Foreign Born</b> across counties in{" "}
+          <b>Unemployment Rate</b> across counties in{" "}
           <a
             href={
-              "#&sv=dc/q18w8j7b2vxm4&pc=1&pd=country/USA&pn=United%20States%20of%20America&pt=Country&ept=County"
+              "#&sv=UnemploymentRate_Person&pc=0&pd=country/USA&pn=United%20States%20of%20America&pt=Country&ept=County"
             }
           >
             USA
@@ -154,7 +154,15 @@ export function Info(): JSX.Element {
           ,{" "}
           <a
             href={
-              "#&sv=dc/q18w8j7b2vxm4&pc=1&pd=geoId/06&pn=California&pt=State&ept=County"
+              "#&sv=UnemploymentRate_Person&pc=0&pd=geoId/48&pn=Texas&pt=State&ept=County"
+            }
+          >
+            Texas
+          </a>
+          ,{" "}
+          <a
+            href={
+              "#&sv=UnemploymentRate_Person&pc=0&pd=geoId/06&pn=California&pt=State&ept=County"
             }
           >
             California
@@ -162,18 +170,10 @@ export function Info(): JSX.Element {
           ,{" "}
           <a
             href={
-              "#&sv=dc/q18w8j7b2vxm4&pc=1&pd=geoId/16&pn=Idaho&pt=State&ept=County"
+              "#&sv=UnemploymentRate_Person&pc=0&pd=geoId/34&pn=New%20Jersey&pt=State&ept=County"
             }
           >
-            Idaho
-          </a>
-          ,{" "}
-          <a
-            href={
-              "#&sv=dc/q18w8j7b2vxm4&pc=1&pd=geoId/12&pn=Florida&pt=State&ept=County"
-            }
-          >
-            Florida
+            New Jersey
           </a>
         </li>
         <li>
