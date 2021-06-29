@@ -21,17 +21,21 @@ import Cheerio from "cheerio";
 import { when } from "jest-when";
 import axios from "axios";
 import { App } from "./app";
-import { Context, useContextStore } from "./context";
+import { Context, EmptyPlace, useContextStore } from "./context";
 
-import hierarchy from "../../../data/hierarchy_top.json";
 import { waitFor } from "@testing-library/react";
-
 Enzyme.configure({ adapter: new Adapter() });
 
 function TestApp(): JSX.Element {
   const context = useContextStore();
   useEffect(() => {
-    context.place.setEnclosingPlace({ name: "Delaware", dcid: "geoId/10" });
+    context.place.set({
+      ...EmptyPlace,
+      enclosingPlace: {
+        name: "Delaware",
+        dcid: "geoId/10",
+      },
+    });
   }, []);
   return (
     <Context.Provider value={context}>
@@ -151,6 +155,84 @@ function mockAxios(): () => void {
       },
     },
   };
+
+  const rootGroupsData = {
+    data: {
+      childStatVarGroups: [
+        {
+          displayName: "Demographics",
+          id: "dc/g/Demographics",
+          specializedEntity: "Demographics",
+        },
+        {
+          displayName: "Economics",
+          id: "dc/g/Economics",
+          specializedEntity: "Economics",
+        },
+      ],
+    },
+  };
+
+  const demographicsGroupsData = {
+    data: {
+      childStatVarGroups: [
+        {
+          displayName: "Person By Age",
+          id: "dc/g/Person_Age",
+          specializedEntity: "Age",
+        },
+        {
+          displayName: "Person By ArmedForcesStatus",
+          id: "dc/g/Person_ArmedForcesStatus",
+          specializedEntity: "ArmedForcesStatus",
+        },
+      ],
+      childStatVars: [
+        {
+          displayName: "Count Employed",
+          id: "Count_Person_Employed",
+          searchName: "Count Of Person Employed",
+        },
+        {
+          displayName: "Count Housing Unit",
+          id: "Count_HousingUnit",
+          searchName: "Count Housing Unit",
+        },
+        {
+          displayName: "Count Establishment",
+          id: "Count_Establishment",
+          searchName: "Count Establishment",
+        },
+      ],
+    },
+  };
+
+  const statVarInfoData = {
+    data: {
+      Count_Person_Employed: {
+        title: "Employed",
+      },
+      Count_Establishment: {
+        title: "Number Of Establishments",
+      },
+      Count_HousingUnit: {
+        title: "Housing Units",
+      },
+    },
+  };
+
+  const pathsData = {
+    Count_Person_Employed: {
+      path: ["Count_Person_Employed", "dc/g/Demographics"],
+    },
+    Count_Establishment: {
+      path: ["Count_Establishment", "dc/g/Economics"],
+    },
+    Count_HousingUnit: {
+      path: ["Count_HousingUnit", "dc/g/Demographics"],
+    },
+  };
+
   when(axios.get)
     .calledWith(
       "/api/stats/within-place?parent_place=geoId/10&child_type=County" +
@@ -175,17 +257,6 @@ function mockAxios(): () => void {
     });
   const post = axios.post;
   axios.post = jest.fn();
-  when(axios.post)
-    .calledWith("/api/place/stat-vars/union", {
-      dcids: ["geoId/10001", "geoId/10003", "geoId/10005"],
-    })
-    .mockResolvedValue({
-      data: [
-        "Count_Person_Employed",
-        "Count_Establishment",
-        "Count_HousingUnit",
-      ],
-    });
 
   when(axios.post)
     .calledWith("/api/stats/Count_Person", {
@@ -217,11 +288,6 @@ function mockAxios(): () => void {
       },
     });
 
-  // Statvar menu
-  when(axios.get)
-    .calledWith("../../data/hierarchy_statsvar.json")
-    .mockResolvedValue({ data: hierarchy });
-
   when(axios.get)
     .calledWith("/api/place/parent/geoId/10")
     .mockResolvedValue({
@@ -240,6 +306,106 @@ function mockAxios(): () => void {
       },
     });
 
+  when(axios.get)
+    .calledWith("/api/browser/statvar/group?stat_var_group=dc/g/Root")
+    .mockResolvedValue(rootGroupsData);
+
+  when(axios.get)
+    .calledWith(
+      "/api/browser/statvar/group?stat_var_group=dc/g/Root&places=geoId/10001&places=geoId/10003&places=geoId/10005"
+    )
+    .mockResolvedValue(rootGroupsData);
+
+  when(axios.get)
+    .calledWith(
+      "/api/browser/statvar/group?stat_var_group=dc/g/Root&places=geoId/10001&places=geoId/10005&places=geoId/10003"
+    )
+    .mockResolvedValue(rootGroupsData);
+
+  when(axios.get)
+    .calledWith(
+      "/api/browser/statvar/group?stat_var_group=dc/g/Root&places=geoId/10003&places=geoId/10001&places=geoId/10005"
+    )
+    .mockResolvedValue(rootGroupsData);
+
+  when(axios.get)
+    .calledWith(
+      "/api/browser/statvar/group?stat_var_group=dc/g/Root&places=geoId/10003&places=geoId/10005&places=geoId/10001"
+    )
+    .mockResolvedValue(rootGroupsData);
+
+  when(axios.get)
+    .calledWith(
+      "/api/browser/statvar/group?stat_var_group=dc/g/Root&places=geoId/10005&places=geoId/10003&places=geoId/10001"
+    )
+    .mockResolvedValue(rootGroupsData);
+
+  when(axios.get)
+    .calledWith(
+      "/api/browser/statvar/group?stat_var_group=dc/g/Root&places=geoId/10005&places=geoId/10001&places=geoId/10003"
+    )
+    .mockResolvedValue(rootGroupsData);
+
+  when(axios.get)
+    .calledWith(
+      "/api/browser/statvar/group?stat_var_group=dc%2Fg%2FDemographics&places=geoId/10001&places=geoId/10003&places=geoId/10005"
+    )
+    .mockResolvedValue(demographicsGroupsData);
+
+  when(axios.get)
+    .calledWith(
+      "/api/browser/statvar/group?stat_var_group=dc%2Fg%2FDemographics&places=geoId/10001&places=geoId/10005&places=geoId/10003"
+    )
+    .mockResolvedValue(demographicsGroupsData);
+
+  when(axios.get)
+    .calledWith(
+      "/api/browser/statvar/group?stat_var_group=dc%2Fg%2FDemographics&places=geoId/10003&places=geoId/10001&places=geoId/10005"
+    )
+    .mockResolvedValue(demographicsGroupsData);
+
+  when(axios.get)
+    .calledWith(
+      "/api/browser/statvar/group?stat_var_group=dc%2Fg%2FDemographics&places=geoId/10003&places=geoId/10005&places=geoId/10001"
+    )
+    .mockResolvedValue(demographicsGroupsData);
+
+  when(axios.get)
+    .calledWith(
+      "/api/browser/statvar/group?stat_var_group=dc%2Fg%2FDemographics&places=geoId/10005&places=geoId/10003&places=geoId/10001"
+    )
+    .mockResolvedValue(demographicsGroupsData);
+
+  when(axios.get)
+    .calledWith(
+      "/api/browser/statvar/group?stat_var_group=dc%2Fg%2FDemographics&places=geoId/10005&places=geoId/10001&places=geoId/10003"
+    )
+    .mockResolvedValue(demographicsGroupsData);
+
+  when(axios.get)
+    .calledWith("/api/stats/stats-var-property?dcid=Count_Establishment")
+    .mockResolvedValue(statVarInfoData);
+
+  when(axios.get)
+    .calledWith("/api/stats/stats-var-property?dcid=Count_HousingUnit")
+    .mockResolvedValue(statVarInfoData);
+
+  when(axios.get)
+    .calledWith("/api/stats/stats-var-property?dcid=Count_Person_Employed")
+    .mockResolvedValue(statVarInfoData);
+
+  when(axios.get)
+    .calledWith("/api/browser/statvar/path?id=Count_Establishment")
+    .mockResolvedValue({ data: pathsData.Count_Establishment });
+
+  when(axios.get)
+    .calledWith("/api/browser/statvar/path?id=Count_HousingUnit")
+    .mockResolvedValue({ data: pathsData.Count_HousingUnit });
+
+  when(axios.get)
+    .calledWith("/api/browser/statvar/path?id=Count_Person_Employed")
+    .mockResolvedValue({ data: pathsData.Count_Person_Employed });
+
   return () => {
     axios.get = get;
     axios.post = post;
@@ -251,85 +417,107 @@ function expectCircles(n: number, app: Enzyme.ReactWrapper): void {
   expect($("circle").length).toEqual(n);
 }
 
-test("all functionalities", async (done) => {
-  const unmock = mockAxios();
+test("all functionalities", async () => {
+  mockAxios();
   const app = mount(<TestApp />);
-
-  // Expand these verticals
-  app.find("#Demographics a").simulate("click");
-  app.find("#Employment a").simulate("click");
-  app.find("#Economics a").simulate("click");
-  await waitFor(() => expect(app.text()).toContain("Population Density"));
-
-  // Select county as child place type
-  app
-    .find("#enclosed-place-type")
-    .at(0)
-    .simulate("change", { target: { value: "County" } });
-
-  // Population density should be filtered out
-  await waitFor(() => expect(app.text()).not.toContain("Population Density"));
-
-  // Choose employed for x and establishments for y
-  app.find(`[id="Employed"] button`).simulate("click");
-  app.find(`[id="Number of Establishments"] button`).simulate("click");
-
   await waitFor(() => {
-    // Title
-    expect(app.text()).toContain("Number Of Establishments vs Employed");
-    // Points
-    expectCircles(3, app);
+    expect(axios.get).toHaveBeenCalledWith("/api/place/type/geoId/10");
   });
-  app.update();
-  // Swap axes
-  app.find("#swap-axes").at(0).simulate("click");
-  const expectTitle = (title: string) => expect(app.text()).toContain(title);
+  return Promise.resolve(app)
+    .then(() => app.update())
+    .then(() => app.update())
+    .then(() => app.update())
+    .then(() => app.update())
+    .then(() => {
+      app.update();
+      // Select county as child place type
+      app
+        .find("#enclosed-place-type")
+        .at(0)
+        .simulate("change", { target: { value: "County" } });
+      waitFor(() => {
+        expect(axios.get).toHaveBeenCalledWith(
+          "/api/place/places-in?dcid=geoId/10&placeType=County"
+        );
+      }).then(() => {
+        app.update();
+        app
+          .find("#hierarchy-section .Collapsible__trigger")
+          .at(0)
+          .simulate("click");
+        Promise.resolve(app).then(() => {
+          app.update();
+          app
+            .find("#hierarchy-section input")
+            .at(0)
+            .simulate("change", { target: { checked: true } });
+          app.update();
+          app
+            .find("#hierarchy-section input")
+            .at(1)
+            .simulate("change", { target: { checked: true } });
+          waitFor(() => {
+            expect(app.text()).toContain(
+              "Number Of Establishments vs Employed"
+            );
+            expectCircles(3, app);
+          }).then(() => {
+            app.update();
+            app.find("#swap-axes").at(0).simulate("click");
+            const expectTitle = (title: string) =>
+              expect(app.text()).toContain(title);
 
-  expectTitle("Employed vs Number Of Establishments");
-  expectCircles(3, app);
+            expectTitle("Employed vs Number Of Establishments");
+            expectCircles(3, app);
+            // Per capita
+            app
+              .find("#per-capita-x")
+              .at(0)
+              .simulate("change", { target: { checked: true } });
+            app
+              .find("#per-capita-y")
+              .at(0)
+              .simulate("change", { target: { checked: true } });
+            expectTitle(
+              "Employed Per Capita vs Number Of Establishments Per Capita"
+            );
+            expectCircles(3, app);
 
-  // Per capita
-  app
-    .find("#per-capita-x")
-    .at(0)
-    .simulate("change", { target: { checked: true } });
-  app
-    .find("#per-capita-y")
-    .at(0)
-    .simulate("change", { target: { checked: true } });
-  expectTitle("Employed Per Capita vs Number Of Establishments Per Capita");
-  expectCircles(3, app);
-
-  // Log
-  app
-    .find("#log-x")
-    .at(0)
-    .simulate("change", { target: { checked: true } });
-  app
-    .find("#log-y")
-    .at(0)
-    .simulate("change", { target: { checked: true } });
-  expectCircles(3, app);
-
-  // Choose a third statvar
-  app.find("#Housing a").simulate("click");
-  app.find(`[id="Housing Units"] button`).simulate("click");
-  await waitFor(() =>
-    expect(app.find(".modal-title").text()).toContain(
-      "Only Two Variables Supported"
-    )
-  );
-
-  // choose employed
-  app.find(`input[id="y-radio-button"]`).simulate("click");
-  app.find(".modal-footer button").simulate("click");
-  await waitFor(() => {
-    expect(app.text()).toContain(
-      "Housing Units Per Capita vs Employed Per Capita"
-    );
-    expectCircles(3, app);
-  });
-
-  unmock();
-  done();
+            // Log
+            app
+              .find("#log-x")
+              .at(0)
+              .simulate("change", { target: { checked: true } });
+            app
+              .find("#log-y")
+              .at(0)
+              .simulate("change", { target: { checked: true } });
+            expectCircles(3, app);
+            // Choose a third statvar
+            app
+              .find("#hierarchy-section input")
+              .at(2)
+              .simulate("change", { target: { checked: true } });
+            Promise.resolve(app)
+              .then(() => app.update())
+              .then(() => {
+                app.update();
+                expect(app.find(".modal-title").text()).toContain(
+                  "Only Two Variables Supported"
+                );
+                app.find(`input[id="y-radio-button"]`).simulate("click");
+                app.find(".modal-footer button").simulate("click");
+                Promise.resolve(app)
+                  .then(() => app.update())
+                  .then(() => {
+                    expectTitle(
+                      "Housing Units Per Capita vs Employed Per Capita"
+                    );
+                    expectCircles(3, app);
+                  });
+              });
+          });
+        });
+      });
+    });
 });

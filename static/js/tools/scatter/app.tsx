@@ -117,8 +117,8 @@ function shouldShowChart(x: Axis, y: Axis, place: PlaceInfo): boolean {
   return (
     !_.isEmpty(place.enclosedPlaceType) &&
     !_.isEmpty(place.enclosingPlace.dcid) &&
-    !_.isEmpty(x.statVar) &&
-    !_.isEmpty(y.statVar)
+    !_.isNull(x.statVarInfo) &&
+    !_.isNull(y.statVarInfo)
   );
 }
 
@@ -130,7 +130,7 @@ function shouldShowChooseStatVarMessage(
   return (
     !_.isEmpty(place.enclosedPlaceType) &&
     !_.isEmpty(place.enclosingPlace.dcid) &&
-    (_.isEmpty(x.statVar) || _.isEmpty(y.statVar))
+    (_.isNull(x.statVarInfo) || _.isNull(y.statVarInfo))
   );
 }
 

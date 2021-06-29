@@ -20,26 +20,16 @@ import { updateHash, applyHash } from "./util";
 const TestContext = ({
   x: {
     value: {
-      statVar: {
-        Count_Person: {
-          paths: [["0", "1"]],
-          denominators: ["Count_Person_Female", "Count_Person_Male"],
-        },
-      },
-      name: "People",
+      statVarDcid: "Count_Person",
+      statVarInfo: null,
       log: true,
       perCapita: false,
     },
   },
   y: {
     value: {
-      statVar: {
-        Count_HousingUnit: {
-          paths: [["5", "6"]],
-          denominators: [],
-        },
-      },
-      name: "Housing Units",
+      statVarDcid: "Count_HousingUnit",
+      statVarInfo: null,
       log: false,
       perCapita: true,
     },
@@ -67,9 +57,7 @@ const TestContext = ({
   },
 } as unknown) as ContextType;
 const Hash =
-  "#%26svx%3DCount_Person%26svpx%3D0-1%26svdx%3DCount_Person_Female%26svnx%3DPeople" +
-  "%26lx%3D1%26svy%3DCount_HousingUnit%26svpy%3D5-6%26svny%3DHousing%20Units%26pcy%3D1" +
-  "%26epd%3DgeoId%2F10%26epn%3DDelaware%26ept%3DCounty%26ub%3D99999";
+  "#%26svx%3DCount_Person%26lx%3D1%26svy%3DCount_HousingUnit%26pcy%3D1%26epd%3DgeoId%2F10%26epn%3DDelaware%26ept%3DCounty%26ub%3D99999";
 
 test("updateHash", () => {
   history.pushState = jest.fn();
@@ -88,15 +76,7 @@ test("applyHash", () => {
   context.place.set = (value) => (context.place.value = value);
   location.hash = Hash;
   applyHash(context);
-  expect(context.x.value).toEqual({
-    ...TestContext.x.value,
-    statVar: {
-      Count_Person: {
-        paths: [["0", "1"]],
-        denominators: ["Count_Person_Female"],
-      },
-    },
-  });
+  expect(context.x.value).toEqual(TestContext.x.value);
   expect(context.y.value).toEqual(TestContext.y.value);
   expect(context.place.value).toEqual({
     ...TestContext.place.value,

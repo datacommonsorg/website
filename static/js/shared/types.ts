@@ -33,6 +33,7 @@ export type NamedPlace = NamedNode;
 export const StatVarHierarchyType = {
   BROWSER: "BROWSER",
   TIMELINE: "TIMELINE",
+  SCATTER: "SCATTER",
   MAP: "MAP",
 };
 

@@ -33,28 +33,24 @@ import {
   Label,
   Input,
 } from "reactstrap";
-import { Menu } from "../statvar_menu/menu";
-import { NoopStatsVarFilter, TimelineStatsVarFilter } from "../commons";
-import { StatVarNode, getStatVar } from "../statvar_menu/util";
-import {
-  Context,
-  EmptyAxis,
-  Axis,
-  AxisWrapper,
-  IsLoadingWrapper,
-} from "./context";
-import { NamedPlace } from "../../shared/types";
-import { nodeGetStatVar } from "./util";
+import { StatVarInfo, getStatVarInfo } from "../statvar_menu/util";
+import { Context, EmptyAxis, Axis, AxisWrapper } from "./context";
+import { StatVarHierarchyType } from "../../shared/types";
+import { StatVarHierarchy } from "../../stat_var_hierarchy/stat_var_hierarchy";
 
-interface NamedStatVar {
+// Number of enclosed places to sample when filtering the stat vars in the
+// stat var menu
+const SAMPLE_SIZE = 3;
+
+interface StatVar {
   // Always contains a single statvar.
-  statVar: StatVarNode;
-  name: string;
+  info: StatVarInfo;
+  dcid: string;
 }
 
-const emptyStatVar: NamedStatVar = Object.freeze({
-  statVar: {},
-  name: "",
+const emptyStatVar: StatVar = Object.freeze({
+  info: {},
+  dcid: "",
 });
 
 interface ModalSelected {
@@ -68,62 +64,70 @@ const defaultModalSelected: ModalSelected = Object.freeze({
 });
 
 function StatVarChooser(): JSX.Element {
-  const { x, y } = useContext(Context);
+  const { x, y, place } = useContext(Context);
 
   // Temporary variable for storing an extra statvar.
   const [thirdStatVar, setThirdStatVar] = useState(emptyStatVar);
   // Records which two of the three statvars are wanted if a third statvar is selected.
   const [modalSelected, setModalSelected] = useState(defaultModalSelected);
   const [modalOpen, setModalOpen] = useState(false);
-  // Passed to the statvar menu.
-  const menuSelected = {
-    ...x.value.statVar,
-    ...y.value.statVar,
-    ...thirdStatVar.statVar,
-  };
-  // Filtered statvar DCIDs.
-  const validStatVars = useValidStatVars();
+  const menuSelected = [
+    x.value.statVarDcid,
+    y.value.statVarDcid,
+    thirdStatVar.dcid,
+  ];
   const closeModal = () => {
     setThirdStatVar(emptyStatVar);
     setModalOpen(false);
   };
 
+  useEffect(() => {
+    const statVarsToGetInfo = [];
+    if (!_.isEmpty(x.value.statVarDcid) && _.isNull(x.value.statVarInfo)) {
+      statVarsToGetInfo.push(x.value.statVarDcid);
+    }
+    if (!_.isEmpty(y.value.statVarDcid) && _.isNull(y.value.statVarInfo)) {
+      statVarsToGetInfo.push(y.value.statVarDcid);
+    }
+    if (_.isEmpty(statVarsToGetInfo)) {
+      return;
+    }
+    getStatVarInfo(statVarsToGetInfo)
+      .then((info) => {
+        if (x.value.statVarDcid in info) {
+          x.setStatVarInfo(info[x.value.statVarDcid]);
+        }
+        if (y.value.statVarDcid in info) {
+          y.setStatVarInfo(info[y.value.statVarDcid]);
+        }
+      })
+      .catch(() => {
+        if (statVarsToGetInfo.indexOf(x.value.statVarDcid) > -1) {
+          x.setStatVarInfo({});
+        }
+        if (statVarsToGetInfo.indexOf(y.value.statVarDcid) > -1) {
+          y.setStatVarInfo({});
+        }
+      });
+  });
+  let yTitle = y.value.statVarDcid;
+  if (y.value.statVarInfo && y.value.statVarInfo.title) {
+    yTitle = y.value.statVarInfo.title;
+  }
+  let xTitle = x.value.statVarDcid;
+  if (x.value.statVarInfo && x.value.statVarInfo.title) {
+    xTitle = x.value.statVarInfo.title;
+  }
   return (
     <div className="explore-menu-container" id="explore">
-      <div id="drill-scroll-container">
-        <div className="title">Select variables:</div>
-        <Menu
-          selectedNodes={menuSelected}
-          statsVarFilter={
-            _.isEmpty(validStatVars)
-              ? new NoopStatsVarFilter()
-              : new TimelineStatsVarFilter(validStatVars)
-          }
-          setStatsVarTitle={(statsVarId2Title) =>
-            setStatsVarTitle(
-              x,
-              y,
-              statsVarId2Title,
-              thirdStatVar,
-              setThirdStatVar
-            )
-          }
-          addStatsVar={(statsVar, nodePath, denominators) =>
-            addStatVar(
-              x,
-              y,
-              statsVar,
-              nodePath,
-              denominators,
-              setThirdStatVar,
-              setModalOpen
-            )
-          }
-          removeStatsVar={(statsVar, nodePath) =>
-            removeStatVar(x, y, statsVar, nodePath)
-          }
-        ></Menu>
-      </div>
+      <StatVarHierarchy
+        type={StatVarHierarchyType.SCATTER}
+        places={_.sampleSize(place.value.enclosedPlaces, SAMPLE_SIZE)}
+        selectedSVs={menuSelected}
+        selectSV={(sv) => addStatVar(x, y, sv, setThirdStatVar, setModalOpen)}
+        deselectSV={(sv) => removeStatVar(x, y, sv)}
+        searchLabel="Select variables:"
+      ></StatVarHierarchy>
       <Modal isOpen={modalOpen} backdrop="static" id="statvar-modal">
         <ModalHeader toggle={closeModal}>
           Only Two Variables Supported
@@ -131,7 +135,8 @@ function StatVarChooser(): JSX.Element {
         <ModalBody>
           <Container>
             <div>
-              You selected: <b>{thirdStatVar.name}</b>
+              You selected:{" "}
+              <b>{thirdStatVar.info.title || thirdStatVar.dcid}</b>
             </div>
             <div className="radio-selection-label">
               Please choose 1 more variable to keep:
@@ -146,7 +151,7 @@ function StatVarChooser(): JSX.Element {
                     defaultChecked={modalSelected.x}
                     onClick={() => setModalSelected({ x: true, y: false })}
                   />
-                  {x.value.name}
+                  {xTitle}
                 </Label>
               </FormGroup>
               <FormGroup radio row>
@@ -158,7 +163,7 @@ function StatVarChooser(): JSX.Element {
                     defaultChecked={modalSelected.y}
                     onClick={() => setModalSelected({ x: false, y: true })}
                   />
-                  {y.value.name}
+                  {yTitle}
                 </Label>
               </FormGroup>
             </div>
@@ -188,89 +193,6 @@ function StatVarChooser(): JSX.Element {
 }
 
 /**
- * Hook that returns a set of statvars available for the child places.
- */
-function useValidStatVars(): Set<string> {
-  const { place, x, y, isLoading } = useContext(Context);
-
-  // Stores filtered statvar DCIDs.
-  const [validStatVars, setValidStatVars] = useState(new Set<string>());
-
-  // When child places change, refilter the statvars.
-  useEffect(() => {
-    if (_.isEmpty(place.value.enclosedPlaces)) {
-      setValidStatVars(new Set<string>());
-      return;
-    }
-    filterStatVars(
-      x,
-      y,
-      place.value.enclosedPlaces,
-      isLoading,
-      setValidStatVars
-    );
-  }, [place.value.enclosedPlaces]);
-
-  return validStatVars;
-}
-
-/**
- * Retrieves and sets statvars shown in the statvar menu.
- * A statvar is kept if it is available for at least one of the child places.
- * Throws an alert if a currently selected statvar is filtered out.
- * @param x
- * @param y
- * @param enclosedPlaces
- * @param isLoading
- * @param setValidStatVars
- */
-async function filterStatVars(
-  x: AxisWrapper,
-  y: AxisWrapper,
-  enclosedPlaces: Array<NamedPlace>,
-  isLoading: IsLoadingWrapper,
-  setValidStatVars: (statVars: Set<string>) => void
-): Promise<void> {
-  isLoading.setAreStatVarsLoading(true);
-  const statVars = await getStatVar(
-    enclosedPlaces.map((namedPlace) => namedPlace.dcid),
-    true
-  );
-  setValidStatVars(statVars);
-  isLoading.setAreStatVarsLoading(false);
-  alertIfStatVarsUnavailable(x, y, statVars);
-}
-
-/**
- * Throws an alert if a currently selected statvar is not available.
- * @param x
- * @param y
- * @param statVars Set of available statvars
- */
-function alertIfStatVarsUnavailable(
-  x: AxisWrapper,
-  y: AxisWrapper,
-  statVars: Set<string>
-) {
-  let message = "";
-  const statVarX = nodeGetStatVar(x.value.statVar);
-  const statVarY = nodeGetStatVar(y.value.statVar);
-  if (statVarX && !statVars.has(statVarX)) {
-    x.unsetStatVar();
-    message += `Sorry, no data available for ${statVarX}`;
-  }
-  if (statVarY && !statVars.has(statVarY)) {
-    y.unsetStatVar();
-    message += message.length
-      ? ` or ${statVarY}`
-      : `Sorry, no data available for ${statVarY}`;
-  }
-  if (message) {
-    alert(`${message}. Try picking other variables.`);
-  }
-}
-
-/**
  * Adds a statvar.
  * If either x or y axis does not yet have a statvar selected, assign the new
  * statvar to that axis. Otherwise, set the new statvar as the third, extra statvar.
@@ -284,21 +206,49 @@ function alertIfStatVarsUnavailable(
 function addStatVar(
   x: AxisWrapper,
   y: AxisWrapper,
-  statVar: string,
-  nodePath: string[],
-  denominators: string[],
-  setThirdStatVar: (statVar: NamedStatVar) => void,
+  svDcid: string,
+  setThirdStatVar: (statVar: StatVar) => void,
   setModalOpen: (open: boolean) => void
 ) {
-  const node = {
-    [statVar]: { paths: [nodePath], denominators: denominators },
-  };
-  if (_.isEmpty(x.value.statVar)) {
-    x.setStatVar(node);
-  } else if (_.isEmpty(y.value.statVar)) {
-    y.setStatVar(node);
+  getStatVarInfo([svDcid])
+    .then((info) => {
+      const svInfo = info[svDcid] ? info[svDcid] : {};
+      addStatVarHelper(x, y, svInfo, svDcid, setThirdStatVar, setModalOpen);
+    })
+    .catch(() => {
+      addStatVarHelper(x, y, {}, svDcid, setThirdStatVar, setModalOpen);
+    });
+}
+
+/** Helper function to update the right axis with the new selected stat var.
+ * If either x or y axis does not yet have a statvar selected, assign the new
+ * statvar to that axis. Otherwise, set the new statvar as the third, extra
+ * statvar.
+ */
+function addStatVarHelper(
+  x: AxisWrapper,
+  y: AxisWrapper,
+  svInfo: StatVarInfo,
+  svDcid: string,
+  setThirdStatVar: (statVar: StatVar) => void,
+  setModalOpen: (open: boolean) => void
+): void {
+  if (_.isEmpty(x.value.statVarDcid)) {
+    x.set({
+      statVarInfo: svInfo,
+      statVarDcid: svDcid,
+      log: x.value.log,
+      perCapita: x.value.perCapita,
+    });
+  } else if (_.isEmpty(y.value.statVarDcid)) {
+    y.set({
+      statVarInfo: svInfo,
+      statVarDcid: svDcid,
+      log: y.value.log,
+      perCapita: y.value.perCapita,
+    });
   } else {
-    setThirdStatVar({ statVar: node, name: "" });
+    setThirdStatVar({ info: svInfo, dcid: svDcid });
     setModalOpen(true);
   }
 }
@@ -310,56 +260,13 @@ function addStatVar(
  * @param statVar
  * @param nodePath
  */
-function removeStatVar(
-  x: AxisWrapper,
-  y: AxisWrapper,
-  statVar: string,
-  nodePath?: string[]
-) {
-  const statVarX = _.keys(x.value.statVar)[0];
-  const statVarY = _.keys(y.value.statVar)[0];
-  const path = [nodePath];
-  if (
-    statVarX === statVar &&
-    (!nodePath || _.isEqual(x.value.statVar[statVarX].paths, path))
-  ) {
-    x.unsetStatVar();
-  } else if (
-    statVarY === statVar &&
-    (!nodePath || _.isEqual(y.value.statVar[statVarY].paths, path))
-  ) {
-    y.unsetStatVar();
-  }
-}
-
-/**
- * Sets the title of a statvar.
- * The title could be for the statvar for the x axis,
- * the statvar for the y axis, or the third, extra statvar.
- * @param x
- * @param y
- * @param statsVarId2Title
- * @param thirdStatVar
- * @param setThirdStatVar
- */
-function setStatsVarTitle(
-  x: AxisWrapper,
-  y: AxisWrapper,
-  statsVarId2Title: Record<string, string>,
-  thirdStatVar: NamedStatVar,
-  setThirdStatVar: (statVar: NamedStatVar) => void
-): void {
-  const statVarX = nodeGetStatVar(x.value.statVar);
-  if (statVarX && statVarX in statsVarId2Title) {
-    x.setStatVarName(statsVarId2Title[statVarX]);
-  }
-  const statVarY = nodeGetStatVar(y.value.statVar);
-  if (statVarY && statVarY in statsVarId2Title) {
-    y.setStatVarName(statsVarId2Title[statVarY]);
-  }
-  const statVarThird = nodeGetStatVar(thirdStatVar.statVar);
-  if (statVarThird && statVarThird in statsVarId2Title) {
-    setThirdStatVar({ ...thirdStatVar, name: statsVarId2Title[statVarThird] });
+function removeStatVar(x: AxisWrapper, y: AxisWrapper, svDcid: string) {
+  const statVarX = x.value.statVarDcid;
+  const statVarY = y.value.statVarDcid;
+  if (statVarX === svDcid) {
+    x.unsetStatVarDcid();
+  } else if (statVarY === svDcid) {
+    y.unsetStatVarDcid();
   }
 }
 
@@ -377,8 +284,8 @@ function setStatsVarTitle(
 function confirmStatVars(
   x: AxisWrapper,
   y: AxisWrapper,
-  thirdStatVar: NamedStatVar,
-  setThirdStatVar: (statVar: NamedStatVar) => void,
+  thirdStatVar: StatVar,
+  setThirdStatVar: (statVar: StatVar) => void,
   modalSelected: ModalSelected,
   setModalSelected: (modalSelected: ModalSelected) => void,
   setModalOpened: (open: boolean) => void
@@ -397,8 +304,8 @@ function confirmStatVars(
   }
   values.push({
     ...EmptyAxis,
-    statVar: thirdStatVar.statVar,
-    name: thirdStatVar.name,
+    statVarInfo: thirdStatVar.info,
+    statVarDcid: thirdStatVar.dcid,
   });
   assignAxes(axes, values);
   assignAxes(axes, values);

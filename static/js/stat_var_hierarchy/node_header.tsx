@@ -50,7 +50,8 @@ export class StatVarHierarchyNodeHeader extends React.Component<
       prefixHtml = this.props.opened ? DOWN_ARROW_HTML : RIGHT_ARROW_HTML;
     }
     const showCount =
-      this.context.statVarHierarchyType === StatVarHierarchyType.TIMELINE &&
+      (this.context.statVarHierarchyType === StatVarHierarchyType.TIMELINE ||
+        this.context.statVarHierarchyType === StatVarHierarchyType.SCATTER) &&
       this.props.count > 0;
     return (
       <div
