@@ -101,26 +101,9 @@ function applyHashAxis(params: URLSearchParams, isX: boolean): Axis {
     return EmptyAxis;
   }
   const axis = _.cloneDeep(EmptyAxis);
+  axis.statVarDcid = dcid;
 
-  const node: StatVarNode = {
-    [dcid]: {
-      paths: [],
-      denominators: [],
-    },
-  };
-  const path = params.get(addSuffix(FieldToAbbreviation.statVarPath, isX));
-  if (path) {
-    node[dcid].paths = [path.split("-")];
-  }
-  const denominator = params.get(
-    addSuffix(FieldToAbbreviation.statVarDenominator, isX)
-  );
-  if (denominator) {
-    node[dcid].denominators = [denominator];
-  }
-  axis.statVar = node;
-
-  for (const key of ["name", "log", "perCapita"]) {
+  for (const key of ["log", "perCapita"]) {
     const value = params.get(addSuffix(FieldToAbbreviation[key], isX));
     if (value) {
       axis[key] = value === "1" ? true : value;
@@ -194,36 +177,19 @@ function updateHashAxis(hash: string, axis: Axis, isX: boolean): string {
   if (_.isEqual(axis, EmptyAxis)) {
     return hash;
   }
-  const statVarDcid = nodeGetStatVar(axis.statVar);
-  if (statVarDcid) {
-    hash = appendEntry(
-      hash,
-      addSuffix(FieldToAbbreviation.statVarDcid, isX),
-      statVarDcid
-    );
-    const node = axis.statVar[statVarDcid];
-    if (!_.isEmpty(node.paths)) {
+
+  hash = appendEntry(
+    hash,
+    addSuffix(FieldToAbbreviation.statVarDcid, isX),
+    axis.statVarDcid
+  );
+  for (const key of ["log", "perCapita"]) {
+    if (axis[key]) {
       hash = appendEntry(
         hash,
-        addSuffix(FieldToAbbreviation.statVarPath, isX),
-        node.paths[0].join("-")
+        addSuffix(FieldToAbbreviation[key], isX),
+        axis[key] === true ? "1" : axis[key]
       );
-    }
-    if (!_.isEmpty(node.denominators)) {
-      hash = appendEntry(
-        hash,
-        addSuffix(FieldToAbbreviation.statVarDenominator, isX),
-        node.denominators[0]
-      );
-    }
-    for (const key of ["name", "log", "perCapita"]) {
-      if (axis[key]) {
-        hash = appendEntry(
-          hash,
-          addSuffix(FieldToAbbreviation[key], isX),
-          axis[key] === true ? "1" : axis[key]
-        );
-      }
     }
   }
   return hash;
