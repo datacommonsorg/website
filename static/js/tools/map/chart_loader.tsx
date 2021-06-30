@@ -136,7 +136,7 @@ function fetchData(
     .then((resp) => resp.data);
   const geoJsonPromise = axios
     .get(
-      `/api/choropleth/geo2?placeDcid=${placeInfo.enclosingPlace.dcid}&placeType=${placeInfo.enclosedPlaceType}`
+      `/api/choropleth/geojson?placeDcid=${placeInfo.enclosingPlace.dcid}&placeType=${placeInfo.enclosedPlaceType}`
     )
     .then((resp) => resp.data);
   const statVarDataPromise = axios
