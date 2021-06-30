@@ -62,7 +62,7 @@ export class StatVarSectionInput extends React.Component<
   }
 
   private isChecked(): boolean {
-    return this.props.selected || this.props.statVar.id in this.context.svPath;
+    return this.props.statVar.id in this.context.svPath;
   }
 
   private handleInputChange(): void {

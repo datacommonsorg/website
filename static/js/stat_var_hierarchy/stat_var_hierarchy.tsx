@@ -244,15 +244,6 @@ export class StatVarHierarchy extends React.Component<
         focusPath: path,
         searchSelectionCleared,
       });
-      // If selection is stat var, added it to svPath.
-      if (selection != "" && !selection.startsWith("dc/g")) {
-        if (this.props.selectSV) {
-          this.props.selectSV(selection);
-        }
-        this.setState({
-          svPath: Object.assign({ [selection]: path }, this.state.svPath),
-        });
-      }
     });
   }
 
