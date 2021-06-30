@@ -107,7 +107,6 @@ export interface ChoroplethDataGroup {
 
 export interface GeoJsonFeatureProperties {
   name: string;
-  hasSublevel: boolean;
   geoDcid: string;
   pop?: number;
 }

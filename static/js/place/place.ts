@@ -112,9 +112,11 @@ async function getGeoJsonData(
   locale: string
 ): Promise<GeoJsonData> {
   if (shouldMakeChoroplethCalls(dcid, placeType)) {
-    return axios.get(`/api/chart/geojson/${dcid}?hl=${locale}`).then((resp) => {
-      return resp.data;
-    });
+    return axios
+      .get(`/api/choropleth/geojson?placeDcid=${dcid}&hl=${locale}`)
+      .then((resp) => {
+        return resp.data;
+      });
   } else {
     return Promise.resolve(null);
   }
@@ -128,7 +130,7 @@ async function getChoroplethData(
   placeType: string
 ): Promise<CachedChoroplethData> {
   if (shouldMakeChoroplethCalls(dcid, placeType)) {
-    return axios.get(`/api/chart/choroplethdata/${dcid}`).then((resp) => {
+    return axios.get(`/api/choropleth/data/${dcid}`).then((resp) => {
       return resp.data;
     });
   } else {

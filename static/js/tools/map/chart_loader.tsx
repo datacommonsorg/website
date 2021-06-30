@@ -136,7 +136,7 @@ function fetchData(
     .then((resp) => resp.data);
   const geoJsonPromise = axios
     .get(
-      `/api/choropleth/geo2?placeDcid=${placeInfo.enclosingPlace.dcid}&placeType=${placeInfo.enclosedPlaceType}`
+      `/api/choropleth/geojson?placeDcid=${placeInfo.enclosingPlace.dcid}&placeType=${placeInfo.enclosedPlaceType}`
     )
     .then((resp) => resp.data);
   const statVarDataPromise = axios
@@ -175,6 +175,9 @@ function loadChartData(
   const breadcrumbDataValues = {};
   const sourceSet: Set<string> = new Set();
   const statVarDates: Set<string> = new Set();
+  if (_.isEmpty(statVarData)) {
+    return;
+  }
   for (const dcid in statVarData.stat) {
     if (_.isEmpty(statVarData.stat[dcid])) {
       continue;
@@ -223,12 +226,14 @@ function loadChartData(
       breadcrumbDataValues[dcid] = value;
     } else {
       mapDataValues[dcid] = value;
+      statVarDates.add(statVarDate);
     }
     if (
       dcid === placeInfo.selectedPlace.dcid &&
       placeInfo.selectedPlace.dcid !== placeInfo.enclosingPlace.dcid
     ) {
       mapDataValues[dcid] = value;
+      statVarDates.add(statVarDate);
     }
     metadata[dcid] = {
       popDate,
@@ -237,7 +242,6 @@ function loadChartData(
       statVarSource,
     };
     sourceSet.add(statVarSource);
-    statVarDates.add(statVarDate);
   }
   const unit = getUnit(statVarData);
   setChartData({
