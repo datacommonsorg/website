@@ -52,6 +52,7 @@ $transparent-red: rgba(240, 230, 231, 0.2);
 
 #stat-var-hierarchy-scroll-container {
   overflow: auto;
+  flex-grow: 1;
 }
 
 .statvar-hierarchy-search-section {
