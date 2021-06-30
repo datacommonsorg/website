@@ -66,7 +66,7 @@ interface StatVarGroupNodeStateType {
   // Error message when failed to render this componenet.
   errorMessage: string;
   // Whether the next level of information is fetched.
-  dataFetched: boolean;
+  dataFetchedPlaces: NamedPlace[];
 }
 
 export class StatVarGroupNode extends React.Component<
@@ -85,7 +85,7 @@ export class StatVarGroupNode extends React.Component<
       childSVG: [],
       childSV: [],
       errorMessage: "",
-      dataFetched: false,
+      dataFetchedPlaces: null,
     };
     this.highlightedStatVar = React.createRef();
     this.scrollToHighlighted = this.scrollToHighlighted.bind(this);
@@ -104,8 +104,7 @@ export class StatVarGroupNode extends React.Component<
   fetchDataIfNecessary(): void {
     if (
       (this.props.startsOpened || this.state.toggledOpen) &&
-      !this.state.dataFetched &&
-      !this.state.errorMessage
+      !_.isEqual(this.state.dataFetchedPlaces, this.props.places)
     ) {
       this.fetchData();
     }
@@ -124,7 +123,6 @@ export class StatVarGroupNode extends React.Component<
         selectionCount += 1;
       }
     }
-
     const getTrigger = (opened: boolean) => {
       return React.createElement(StatVarHierarchyNodeHeader, {
         childrenStatVarCount: this.props.data.numDescendentStatVars,
@@ -145,12 +143,11 @@ export class StatVarGroupNode extends React.Component<
           triggerWhenOpen={getTrigger(true)}
           open={
             (this.props.startsOpened || this.state.toggledOpen) &&
-            this.state.dataFetched
+            !_.isNull(this.state.dataFetchedPlaces)
           }
           handleTriggerClick={() => {
             this.setState({ toggledOpen: !this.state.toggledOpen });
           }}
-          onOpening={this.fetchData}
           transitionTime={200}
           onOpen={this.scrollToHighlighted}
           containerElementProps={
@@ -187,15 +184,13 @@ export class StatVarGroupNode extends React.Component<
   }
 
   private fetchData(): void {
-    if (this.state.dataFetched) {
-      return;
-    }
     // stat var (group) dcid can contain [/_-.&], need to encode here.
     // Example: dc/g/Person_Citizenship-NotAUSCitizen_CorrectionalFacilityOperator-StateOperated&FederallyOperated&PrivatelyOperated
     let url = `/api/browser/statvar/group?stat_var_group=${encodeURIComponent(
       this.props.data.id
     )}`;
-    for (const place of this.props.places) {
+    const placeList = this.props.places;
+    for (const place of placeList) {
       url += `&places=${place.dcid}`;
     }
     axios
@@ -213,13 +208,13 @@ export class StatVarGroupNode extends React.Component<
         this.setState({
           childSV,
           childSVG,
-          dataFetched: true,
+          dataFetchedPlaces: placeList,
         });
       })
       .catch(() => {
         this.setState({
           errorMessage: "Error retrieving stat var group children",
-          dataFetched: false,
+          dataFetchedPlaces: placeList,
         });
       });
   }
