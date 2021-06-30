@@ -19,27 +19,27 @@ exports[`Single place and single stats var 2`] = `
 `;
 
 exports[`Single place and single stats var 3`] = `
-"<div class=\\"Collapsible\\"><span class=\\"Collapsible__trigger is-open\\"><div class=\\"node-title\\"><i class=\\"material-icons\\">remove</i><span class=\\"title\\">Demographics (1)</span></div></span>
+"<div class=\\"Collapsible\\"><span class=\\"Collapsible__trigger is-open\\"><div class=\\"node-title node-no-data\\"><i class=\\"material-icons\\">remove</i><span class=\\"title selected-node-title\\">Demographics</span></div></span>
 <div class=\\"Collapsible__contentOuter\\" style=\\"height: 0px; transition: height 200ms linear; overflow: hidden;\\">
   <div class=\\"Collapsible__contentInner\\">
     <div class=\\"svg-node-child\\">
       <div>
-        <form class=\\"node-title\\"><label><input id=\\"Count_Persondc/g/Demographics-Count_Person\\" name=\\"stat-var-hierarchy\\" type=\\"checkbox\\"> Count Of Person</label></form>
+        <form class=\\"node-title node-no-data\\"><label><input id=\\"Count_Persondc/g/Demographics-Count_Person\\" name=\\"stat-var-hierarchy\\" type=\\"checkbox\\" disabled=\\"\\"> Count Of Person</label></form>
       </div>
       <div>
-        <form class=\\"node-title\\"><label><input id=\\"Median_Age_Persondc/g/Demographics-Median_Age_Person\\" name=\\"stat-var-hierarchy\\" type=\\"checkbox\\"> Median age of person</label></form>
+        <form class=\\"node-title node-no-data\\"><label><input id=\\"Median_Age_Persondc/g/Demographics-Median_Age_Person\\" name=\\"stat-var-hierarchy\\" type=\\"checkbox\\" disabled=\\"\\"> Median age of person</label></form>
       </div>
     </div>
     <div class=\\"svg-node-child\\">
       <div>
-        <div class=\\"Collapsible\\"><span class=\\"Collapsible__trigger is-closed\\"><div class=\\"node-title\\"><i class=\\"material-icons\\">add</i><span class=\\"title\\">Age</span></div></span>
+        <div class=\\"Collapsible\\"><span class=\\"Collapsible__trigger is-closed\\"><div class=\\"node-title node-no-data\\"><i class=\\"material-icons\\">add</i><span class=\\"title\\">Age</span></div></span>
         <div class=\\"Collapsible__contentOuter\\" style=\\"height: 0px; transition: height 200ms linear; overflow: hidden;\\">
           <div class=\\"Collapsible__contentInner\\"></div>
         </div>
       </div>
     </div>
     <div>
-      <div class=\\"Collapsible\\"><span class=\\"Collapsible__trigger is-closed\\"><div class=\\"node-title\\"><i class=\\"material-icons\\">add</i><span class=\\"title\\">ArmedForcesStatus</span></div></span>
+      <div class=\\"Collapsible\\"><span class=\\"Collapsible__trigger is-closed\\"><div class=\\"node-title node-no-data\\"><i class=\\"material-icons\\">add</i><span class=\\"title\\">ArmedForcesStatus</span></div></span>
       <div class=\\"Collapsible__contentOuter\\" style=\\"height: 0px; transition: height 200ms linear; overflow: hidden;\\">
         <div class=\\"Collapsible__contentInner\\"></div>
       </div>
@@ -49,7 +49,7 @@ exports[`Single place and single stats var 3`] = `
 </div>
 </div>
 </div>
-<div class=\\"Collapsible\\"><span class=\\"Collapsible__trigger is-closed\\"><div class=\\"node-title\\"><i class=\\"material-icons\\">add</i><span class=\\"title\\">Economics</span></div></span>
+<div class=\\"Collapsible\\"><span class=\\"Collapsible__trigger is-closed\\"><div class=\\"node-title node-no-data\\"><i class=\\"material-icons\\">add</i><span class=\\"title\\">Economics</span></div></span>
 <div class=\\"Collapsible__contentOuter\\" style=\\"height: 0px; transition: height 200ms linear; overflow: hidden;\\">
   <div class=\\"Collapsible__contentInner\\"></div>
 </div>
@@ -75,12 +75,12 @@ exports[`statVar not in PV-tree 1`] = `
 `;
 
 exports[`statVar not in PV-tree 2`] = `
-"<div class=\\"Collapsible\\"><span class=\\"Collapsible__trigger is-closed\\"><div class=\\"node-title\\"><i class=\\"material-icons\\">add</i><span class=\\"title\\">Demographics</span></div></span>
+"<div class=\\"Collapsible\\"><span class=\\"Collapsible__trigger is-closed\\"><div class=\\"node-title node-no-data\\"><i class=\\"material-icons\\">add</i><span class=\\"title\\">Demographics</span></div></span>
 <div class=\\"Collapsible__contentOuter\\" style=\\"height: 0px; transition: height 200ms linear; overflow: hidden;\\">
   <div class=\\"Collapsible__contentInner\\"></div>
 </div>
 </div>
-<div class=\\"Collapsible\\"><span class=\\"Collapsible__trigger is-closed\\"><div class=\\"node-title\\"><i class=\\"material-icons\\">add</i><span class=\\"title\\">Economics</span></div></span>
+<div class=\\"Collapsible\\"><span class=\\"Collapsible__trigger is-closed\\"><div class=\\"node-title node-no-data\\"><i class=\\"material-icons\\">add</i><span class=\\"title\\">Economics</span></div></span>
 <div class=\\"Collapsible__contentOuter\\" style=\\"height: 0px; transition: height 200ms linear; overflow: hidden;\\">
   <div class=\\"Collapsible__contentInner\\"></div>
 </div>
