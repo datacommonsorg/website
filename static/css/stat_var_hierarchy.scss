@@ -54,9 +54,9 @@ $horizontal-spacing: 15px;
 }
 
 .node-title .material-icons + .title {
-  font-size: .9rem;
+  font-size: 0.9rem;
   font-weight: 600;
-  line-height: 2em;
+  line-height: 2rem;
 }
 
 .statvar-hierarchy-search-results {
@@ -110,6 +110,10 @@ $horizontal-spacing: 15px;
   background-color: var(--dc-red-fade);
 }
 
+.selected-node-title {
+  color: var(--dc-blue);
+}
+
 .node-title label {
   margin-bottom: 0;
   margin-left: 0.5rem;
@@ -126,4 +130,8 @@ $horizontal-spacing: 15px;
 
 .svg-node-child {
   margin-left: 20px;
+}
+
+.node-no-data {
+  opacity: 30%;
 }

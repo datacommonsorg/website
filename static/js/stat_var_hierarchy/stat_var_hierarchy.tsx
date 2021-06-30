@@ -98,8 +98,8 @@ export class StatVarHierarchy extends React.Component<
       this.setState({ searchSelectionCleared: false });
     }
     if (
-      _.difference(this.props.places, prevProps.places).length > 0 ||
-      _.difference(this.props.selectedSVs, prevProps.selectedSVs).length > 0
+      !_.isEqual(this.props.places, prevProps.places) ||
+      !_.isEqual(this.props.selectedSVs, prevProps.selectedSVs)
     ) {
       this.fetchData();
     }
