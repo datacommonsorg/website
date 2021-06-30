@@ -119,6 +119,12 @@ $horizontal-spacing: 15px;
   margin-left: 0.5rem;
 }
 
+.node-title .sv-count {
+  margin-left: 1ch;
+  font-weight: 300;
+  font-size: 85%;
+}
+
 .node-title:hover {
   cursor: pointer;
   background-color: var(--dc-gray-lite);
