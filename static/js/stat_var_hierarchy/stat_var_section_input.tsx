@@ -86,17 +86,15 @@ export class StatVarSectionInput extends React.Component<
     }
     return (
       <form className={className}>
-        <label>
-          <input
-            id={sectionId}
-            name="stat-var-hierarchy"
-            type={inputType}
-            checked={this.state.checked}
-            onChange={this.handleInputChange}
-            disabled={!this.props.statVar.hasData}
-          />{" "}
-          {this.props.statVar.displayName}
-        </label>
+        <input
+          id={sectionId}
+          name="stat-var-hierarchy"
+          type={inputType}
+          checked={this.state.checked}
+          onChange={this.handleInputChange}
+          disabled={!this.props.statVar.hasData}
+        />
+        <label htmlFor={sectionId}>{this.props.statVar.displayName}</label>
       </form>
     );
   }

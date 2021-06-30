@@ -49,9 +49,13 @@ $horizontal-spacing: 15px;
   white-space: nowrap;
 }
 
+.node-title .bullet + .title {
+  font-size: .9rem;
+}
+
 .node-title .material-icons + .title {
   font-size: 0.9rem;
-  font-weight: 400;
+  font-weight: 600;
   line-height: 2rem;
 }
 
@@ -113,6 +117,12 @@ $horizontal-spacing: 15px;
 .node-title label {
   margin-bottom: 0;
   margin-left: 0.5rem;
+}
+
+.node-title .sv-count {
+  margin-left: 1ch;
+  font-weight: 300;
+  font-size: 85%;
 }
 
 .node-title:hover {
