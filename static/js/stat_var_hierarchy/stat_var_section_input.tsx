@@ -37,7 +37,7 @@ interface StatVarSectionInputStateType {
 export class StatVarSectionInput extends React.Component<
   StatVarSectionInputPropType,
   StatVarSectionInputStateType
-  > {
+> {
   context: ContextType;
   constructor(props: StatVarSectionInputPropType) {
     super(props);
@@ -94,9 +94,7 @@ export class StatVarSectionInput extends React.Component<
           onChange={this.handleInputChange}
           disabled={!this.props.statVar.hasData}
         />
-        <label htmlFor={sectionId}>
-          {this.props.statVar.displayName}
-        </label>
+        <label htmlFor={sectionId}>{this.props.statVar.displayName}</label>
       </form>
     );
   }

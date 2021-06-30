@@ -39,7 +39,7 @@ interface StatVarHierarchyNodeHeaderPropType {
 
 export class StatVarHierarchyNodeHeader extends React.Component<
   StatVarHierarchyNodeHeaderPropType
-  > {
+> {
   context: ContextType;
 
   render(): JSX.Element {
@@ -69,11 +69,11 @@ export class StatVarHierarchyNodeHeader extends React.Component<
         >
           {this.props.title}
           {this.props.childrenStatVarCount > 0 &&
-            this.props.nodeType !== StatVarHierarchyNodeType.STAT_VAR &&
-            <span className="sv-count">
-              ({this.props.childrenStatVarCount})
-            </span>
-          }
+            this.props.nodeType !== StatVarHierarchyNodeType.STAT_VAR && (
+              <span className="sv-count">
+                ({this.props.childrenStatVarCount})
+              </span>
+            )}
         </span>
       </div>
     );
