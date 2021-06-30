@@ -64,19 +64,5 @@ export function StatVarChooser(): JSX.Element {
 }
 
 function selectStatVar(statVar: StatVarWrapper, dcid: string): void {
-  getStatVarInfo([dcid])
-    .then((info) => {
-      statVar.set({
-        dcid,
-        perCapita: false,
-        info: info[dcid],
-      });
-    })
-    .catch(() => {
-      statVar.set({
-        dcid,
-        perCapita: false,
-        info: {},
-      });
-    });
+  statVar.setDcid(dcid);
 }
