@@ -18,7 +18,7 @@
  * Component to pick statvar for map.
  */
 
-import React, { useContext, useEffect } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import _ from "lodash";
 import { StatVarHierarchyType } from "../../shared/types";
 import { Context, StatVarWrapper } from "./context";
@@ -29,6 +29,12 @@ const SAMPLE_SIZE = 3;
 
 export function StatVarChooser(): JSX.Element {
   const { statVar, placeInfo } = useContext(Context);
+  const [samplePlaces, setSamplePlaces] = useState(
+    _.sampleSize(placeInfo.value.enclosedPlaces, SAMPLE_SIZE)
+  );
+  useEffect(() => {
+    setSamplePlaces(_.sampleSize(placeInfo.value.enclosedPlaces, SAMPLE_SIZE));
+  }, [placeInfo.value.enclosedPlaces]);
   useEffect(() => {
     if (statVar.value.dcid && _.isNull(statVar.value.info)) {
       getStatVarInfo([statVar.value.dcid])
@@ -41,12 +47,12 @@ export function StatVarChooser(): JSX.Element {
           statVar.setInfo({});
         });
     }
-  });
+  }, [statVar.value]);
   return (
     <div className="explore-menu-container" id="explore">
       <StatVarHierarchy
         type={StatVarHierarchyType.MAP}
-        places={_.sampleSize(placeInfo.value.enclosedPlaces, SAMPLE_SIZE)}
+        places={samplePlaces}
         selectedSVs={[statVar.value.dcid]}
         selectSV={(svDcid) => {
           selectStatVar(statVar, svDcid);
@@ -58,19 +64,5 @@ export function StatVarChooser(): JSX.Element {
 }
 
 function selectStatVar(statVar: StatVarWrapper, dcid: string): void {
-  getStatVarInfo([dcid])
-    .then((info) => {
-      statVar.set({
-        dcid,
-        perCapita: false,
-        info: info[dcid],
-      });
-    })
-    .catch(() => {
-      statVar.set({
-        dcid,
-        perCapita: false,
-        info: {},
-      });
-    });
+  statVar.setDcid(dcid);
 }

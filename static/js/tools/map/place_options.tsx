@@ -22,12 +22,7 @@ import React, { useContext, useEffect, useState } from "react";
 import _ from "lodash";
 import axios from "axios";
 import { Card, Container, CustomInput } from "reactstrap";
-import {
-  Context,
-  IsLoadingWrapper,
-  NamedTypedPlace,
-  PlaceInfoWrapper,
-} from "./context";
+import { Context, IsLoadingWrapper, PlaceInfoWrapper } from "./context";
 import { SearchBar } from "../timeline/search";
 import { USA_CHILD_PLACE_TYPES } from "./util";
 
@@ -36,12 +31,15 @@ export function PlaceOptions(): JSX.Element {
   const [enclosedPlaceTypes, setEnclosedPlaceTypes] = useState([]);
   useEffect(() => {
     if (placeInfo.value.selectedPlace.dcid) {
-      updateEnclosedPlaceTypes(
-        placeInfo.value.selectedPlace,
-        setEnclosedPlaceTypes
-      );
+      updateEnclosedPlaceTypes(placeInfo, setEnclosedPlaceTypes);
     }
   }, [placeInfo.value.selectedPlace]);
+  const placeInfoDeps = [
+    placeInfo.value.enclosedPlaceType,
+    placeInfo.value.enclosingPlace.dcid,
+    placeInfo.value.selectedPlace.dcid,
+    placeInfo.value.parentPlaces,
+  ];
   useEffect(() => {
     if (placeInfo.value.selectedPlace.dcid) {
       if (_.isNull(placeInfo.value.parentPlaces)) {
@@ -62,7 +60,7 @@ export function PlaceOptions(): JSX.Element {
         loadEnclosedPlaces(placeInfo, isLoading);
       }
     }
-  }, [placeInfo.value]);
+  }, placeInfoDeps);
   return (
     <Card className="place-options-card">
       <Container className="place-options">
@@ -154,28 +152,32 @@ function unselectPlace(
 }
 
 function updateEnclosedPlaceTypes(
-  selectedPlace: NamedTypedPlace,
+  place: PlaceInfoWrapper,
   setEnclosedPlaceTypes: (placeTypes: string[]) => void
 ): void {
   const parentPlacePromise = axios
-    .get(`/api/place/parent/${selectedPlace.dcid}`)
+    .get(`/api/place/parent/${place.value.selectedPlace.dcid}`)
     .then((resp) => resp.data);
   const placeTypePromise = axios
-    .get(`/api/place/type/${selectedPlace.dcid}`)
+    .get(`/api/place/type/${place.value.selectedPlace.dcid}`)
     .then((resp) => resp.data);
   Promise.all([parentPlacePromise, placeTypePromise])
     .then(([parents, placeType]) => {
       const isUSPlace =
-        selectedPlace.dcid === "country/USA" ||
+        place.value.selectedPlace.dcid === "country/USA" ||
         parents.findIndex((parent) => parent.dcid === "country/USA") > -1;
       let hasEnclosedPlaceTypes = false;
       if (isUSPlace && placeType in USA_CHILD_PLACE_TYPES) {
         hasEnclosedPlaceTypes = true;
-        setEnclosedPlaceTypes(USA_CHILD_PLACE_TYPES[placeType]);
+        const enclosedPlacetypes = USA_CHILD_PLACE_TYPES[placeType];
+        if (enclosedPlacetypes.length === 1) {
+          place.setEnclosedPlaceType(enclosedPlacetypes[0]);
+        }
+        setEnclosedPlaceTypes(enclosedPlacetypes);
       }
       if (!hasEnclosedPlaceTypes) {
         alert(
-          `Sorry, we don't support maps for ${selectedPlace.name}.` +
+          `Sorry, we don't support maps for ${place.value.selectedPlace.name}.` +
             "Please select a different place."
         );
         setEnclosedPlaceTypes([]);

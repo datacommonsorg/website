@@ -73,7 +73,7 @@ export function ChartLoader(): JSX.Element {
     } else {
       setRawData(undefined);
     }
-  }, [placeInfo.value, statVar.value.dcid, statVar.value.info]);
+  }, [placeInfo.value.enclosedPlaces, statVar.value.dcid, statVar.value.info]);
   useEffect(() => {
     if (!_.isEmpty(rawData)) {
       loadChartData(
