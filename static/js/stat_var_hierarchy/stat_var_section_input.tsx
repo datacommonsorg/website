@@ -78,14 +78,14 @@ export class StatVarSectionInput extends React.Component<
         ? "radio"
         : "checkbox";
     const sectionId = this.props.statVar.id + this.props.path.join("-");
+    let className = "node-title";
+    if (!this.props.statVar.hasData) {
+      className = "node-title node-no-data";
+    } else if (this.props.selected) {
+      className = "node-title highlighted-node-title";
+    }
     return (
-      <form
-        className={
-          this.props.selected
-            ? "highlighted-node-title node-title"
-            : "node-title"
-        }
-      >
+      <form className={className}>
         <label>
           <input
             id={sectionId}
@@ -93,6 +93,7 @@ export class StatVarSectionInput extends React.Component<
             type={inputType}
             checked={this.state.checked}
             onChange={this.handleInputChange}
+            disabled={!this.props.statVar.hasData}
           />{" "}
           {this.props.statVar.displayName}
         </label>

@@ -41,12 +41,14 @@ export interface StatVarInfo {
   id: string;
   specializedEntity: string;
   displayName: string;
+  hasData: boolean;
 }
 
 export interface StatVarGroupInfo {
   id: string;
   specializedEntity: string;
   displayName: string;
+  numDescendentStatVars: number;
 }
 
 export interface StatVarGroupNodeType {

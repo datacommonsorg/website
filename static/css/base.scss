@@ -15,15 +15,16 @@
  */
 
 :root {
-    --font-family: "Roboto", "Helvetica Neue", Arial, sans-serif !important;
-    --breakpoint-xl: 1040px;
-    --dc-red-strong: #660000;
-    --dc-red-lite: #9A0000;
-    --dc-red-fade: #f0e6e7;
-    --dc-gray: #3B3B3B;
-    --dc-gray-lite: #ccc;
-    --link-color: #660000;
-    --dc-white: #fff;
+  --font-family: "Roboto", "Helvetica Neue", Arial, sans-serif !important;
+  --breakpoint-xl: 1040px;
+  --dc-red-strong: #660000;
+  --dc-red-lite: #9a0000;
+  --dc-red-fade: #f0e6e7;
+  --dc-gray: #3b3b3b;
+  --dc-gray-lite: #ccc;
+  --link-color: #660000;
+  --dc-white: #fff;
+  --dc-blue: #67adff;
 }
 
 /** Bootstrap overrides **/
@@ -31,8 +32,10 @@ $link-color: #660000;
 $link-hover-color: $link-color;
 $primary: $link-color;
 
-$font-family-sans-serif: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol";
-$headings-font-family: 'Public Sans', $font-family-sans-serif;
+$font-family-sans-serif: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto,
+  "Helvetica Neue", Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji",
+  "Segoe UI Symbol";
+$headings-font-family: "Public Sans", $font-family-sans-serif;
 
 $font-size-base: 1.1rem;
 $h1-font-size: 2rem;
@@ -46,14 +49,14 @@ $grid-breakpoints: (
   sm: 576px,
   md: 768px,
   lg: 992px,
-  xl: 1600px
+  xl: 1600px,
 );
 
 $container-max-widths: (
   sm: 540px,
   md: 720px,
   lg: 960px,
-  xl: 1500px
+  xl: 1500px,
 );
 
 @import "~bootstrap/scss/bootstrap";
@@ -72,7 +75,7 @@ $container-max-widths: (
 #main-nav .navbar-brand span a {
   font-weight: 200;
   letter-spacing: 2px;
-  margin-left: .2rem;
+  margin-left: 0.2rem;
 }
 
 .main-content {
@@ -106,7 +109,7 @@ $container-max-widths: (
 }
 
 #main-header .gsc-search-button.gsc-search-button-v2 {
-  background: rgba(255, 255, 255, .2) !important;
+  background: rgba(255, 255, 255, 0.2) !important;
   border-radius: 0 10px 10px 0;
   border: none !important;
   margin: 0 0 1px 0;
@@ -125,9 +128,9 @@ $container-max-widths: (
 
 /** Shared page elements **/
 #main-header {
-  padding: .5rem 0;
+  padding: 0.5rem 0;
   background: var(--dc-red-strong);
-  box-shadow: 0px 2px 3px rgba(0,0,0,.1);
+  box-shadow: 0px 2px 3px rgba(0, 0, 0, 0.1);
 }
 
 #main-header .nav-item.dropdown {
@@ -150,8 +153,9 @@ $container-max-widths: (
   box-shadow: 0 50vh 0 50vh #f0f0f0;
 }
 
-#main-footer, #main-footer h6 {
-  font-size: .9rem;
+#main-footer,
+#main-footer h6 {
+  font-size: 0.9rem;
 }
 
 #main-footer #sub-footer {
@@ -176,7 +180,7 @@ $container-max-widths: (
   position: absolute;
   left: 0;
   top: 0;
-  background: rgba(0, 0, 0, .5);
+  background: rgba(0, 0, 0, 0.5);
   z-index: 100;
   width: 100%;
   height: 100%;

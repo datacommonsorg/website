@@ -117,24 +117,25 @@ export class StatVarGroupNode extends React.Component<
       : this.props.data.displayName;
 
     const level = this.props.path.length;
-    let count = 0;
+    let selectionCount = 0;
     for (const sv in this.context.svPath) {
       const path = this.context.svPath[sv];
       if (_.isEqual(path.slice(0, level), this.props.path)) {
-        count += 1;
+        selectionCount += 1;
       }
     }
 
     const getTrigger = (opened: boolean) => {
       const shouldHighlightForMap =
         this.context.statVarHierarchyType === StatVarHierarchyType.MAP &&
-        count > 0 &&
+        selectionCount > 0 &&
         !opened;
       return React.createElement(StatVarHierarchyNodeHeader, {
-        count: count,
+        childrenStatVarCount: this.props.data.numDescendentStatVars,
         highlighted: this.props.isSelected || shouldHighlightForMap,
         nodeType: StatVarHierarchyNodeType.STAT_VAR_GROUP,
         opened,
+        selectionCount,
         title: triggerTitle,
       });
     };
