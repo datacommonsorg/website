@@ -27,7 +27,6 @@ import {
   StatVarInfo,
   StatVarGroupInfo,
   StatVarHierarchyNodeType,
-  StatVarHierarchyType,
 } from "../shared/types";
 import { StatVarHierarchyNodeHeader } from "./node_header";
 import { StatVarSection } from "./stat_var_section";
@@ -126,13 +125,9 @@ export class StatVarGroupNode extends React.Component<
     }
 
     const getTrigger = (opened: boolean) => {
-      const shouldHighlightForMap =
-        this.context.statVarHierarchyType === StatVarHierarchyType.MAP &&
-        selectionCount > 0 &&
-        !opened;
       return React.createElement(StatVarHierarchyNodeHeader, {
         childrenStatVarCount: this.props.data.numDescendentStatVars,
-        highlighted: this.props.isSelected || shouldHighlightForMap,
+        highlighted: this.props.isSelected,
         nodeType: StatVarHierarchyNodeType.STAT_VAR_GROUP,
         opened,
         selectionCount,

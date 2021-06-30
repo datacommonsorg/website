@@ -51,8 +51,7 @@ export class StatVarHierarchyNodeHeader extends React.Component<
       prefixHtml = this.props.opened ? DOWN_ARROW_HTML : RIGHT_ARROW_HTML;
     }
     const showSelectionCount =
-      (this.context.statVarHierarchyType === StatVarHierarchyType.TIMELINE ||
-        this.context.statVarHierarchyType === StatVarHierarchyType.SCATTER) &&
+      this.context.statVarHierarchyType !== StatVarHierarchyType.BROWSER &&
       this.props.selectionCount > 0;
 
     let className = "node-title";

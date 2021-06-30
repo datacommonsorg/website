@@ -94,7 +94,12 @@ export class StatVarSectionInput extends React.Component<
           onChange={this.handleInputChange}
           disabled={!this.props.statVar.hasData}
         />
-        <label htmlFor={sectionId}>{this.props.statVar.displayName}</label>
+        <label
+          className={this.state.checked ? "selected-node-title" : ""}
+          htmlFor={sectionId}
+        >
+          {this.props.statVar.displayName}
+        </label>
       </form>
     );
   }

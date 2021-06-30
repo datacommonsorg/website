@@ -197,9 +197,14 @@ export class StatVarHierarchy extends React.Component<
         return resp.data["childStatVarGroups"];
       })
     );
+    const svPath = {};
     if (this.props.selectedSVs) {
       for (const sv of this.props.selectedSVs) {
-        allPromises.push(this.getPath(sv));
+        if (this.state.svPath && sv in this.state.svPath) {
+          svPath[sv] = this.state.svPath[sv];
+        } else {
+          allPromises.push(this.getPath(sv));
+        }
       }
     }
     Promise.all(allPromises)
@@ -207,7 +212,6 @@ export class StatVarHierarchy extends React.Component<
         removeSpinner(LOADING_CONTAINER_ID);
         const rootSVGs = allResult[0] as StatVarGroupInfo[];
         const paths = allResult.slice(1) as string[][];
-        const svPath = {};
         for (const path of paths) {
           // In this case, the stat var is not in hierarchy.
           if (path.length == 1) {
