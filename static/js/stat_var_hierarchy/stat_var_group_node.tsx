@@ -27,6 +27,7 @@ import {
   StatVarInfo,
   StatVarGroupInfo,
   StatVarHierarchyNodeType,
+  StatVarHierarchyType,
 } from "../shared/types";
 import { StatVarHierarchyNodeHeader } from "./node_header";
 import { StatVarSection } from "./stat_var_section";
@@ -201,9 +202,17 @@ export class StatVarGroupNode extends React.Component<
       .get(url)
       .then((resp) => {
         const data = resp.data;
+        let childSV: StatVarInfo[] = data["childStatVars"] || [];
+        let childSVG: StatVarGroupInfo[] = data["childStatVarGroups"] || [];
+        if (
+          this.context.statVarHierarchyType === StatVarHierarchyType.BROWSER
+        ) {
+          childSV = childSV.filter((sv) => sv.hasData);
+          childSVG = childSVG.filter((svg) => svg.numDescendentStatVars > 0);
+        }
         this.setState({
-          childSV: data["childStatVars"],
-          childSVG: data["childStatVarGroups"],
+          childSV,
+          childSVG,
           dataFetched: true,
         });
       })
