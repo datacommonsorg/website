@@ -71,6 +71,12 @@ function StatVarChooser(): JSX.Element {
   // Records which two of the three statvars are wanted if a third statvar is selected.
   const [modalSelected, setModalSelected] = useState(defaultModalSelected);
   const [modalOpen, setModalOpen] = useState(false);
+  const [samplePlaces, setSamplePlaces] = useState(
+    _.sampleSize(place.value.enclosedPlaces, SAMPLE_SIZE)
+  );
+  useEffect(() => {
+    setSamplePlaces(_.sampleSize(place.value.enclosedPlaces, SAMPLE_SIZE));
+  }, [place.value.enclosedPlaces]);
   const menuSelected = [
     x.value.statVarDcid,
     y.value.statVarDcid,
@@ -122,7 +128,7 @@ function StatVarChooser(): JSX.Element {
     <div className="explore-menu-container" id="explore">
       <StatVarHierarchy
         type={StatVarHierarchyType.SCATTER}
-        places={_.sampleSize(place.value.enclosedPlaces, SAMPLE_SIZE)}
+        places={samplePlaces}
         selectedSVs={menuSelected}
         selectSV={(sv) => addStatVar(x, y, sv, setThirdStatVar, setModalOpen)}
         deselectSV={(sv) => removeStatVar(x, y, sv)}

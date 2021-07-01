@@ -113,7 +113,7 @@ export class StatVarHierarchy extends React.Component<
       return null;
     }
     // Do not want to change the state here.
-    const rootSVGs = _.cloneDeep(this.state.rootSVGs);
+    let rootSVGs = _.cloneDeep(this.state.rootSVGs);
     if (!_.isEmpty(rootSVGs)) {
       rootSVGs.sort((a, b) => {
         if (a.id === SORTED_FIRST_SVG_ID) {
@@ -130,6 +130,9 @@ export class StatVarHierarchy extends React.Component<
         }
         return a > b ? 1 : -1;
       });
+    }
+    if (this.props.type === StatVarHierarchyType.BROWSER) {
+      rootSVGs = rootSVGs.filter((svg) => svg.numDescendentStatVars > 0);
     }
     return (
       <div id={LOADING_CONTAINER_ID} className="loading-spinner-container">
@@ -197,9 +200,14 @@ export class StatVarHierarchy extends React.Component<
         return resp.data["childStatVarGroups"];
       })
     );
+    const svPath = {};
     if (this.props.selectedSVs) {
       for (const sv of this.props.selectedSVs) {
-        allPromises.push(this.getPath(sv));
+        if (this.state.svPath && sv in this.state.svPath) {
+          svPath[sv] = this.state.svPath[sv];
+        } else {
+          allPromises.push(this.getPath(sv));
+        }
       }
     }
     Promise.all(allPromises)
@@ -207,7 +215,6 @@ export class StatVarHierarchy extends React.Component<
         removeSpinner(LOADING_CONTAINER_ID);
         const rootSVGs = allResult[0] as StatVarGroupInfo[];
         const paths = allResult.slice(1) as string[][];
-        const svPath = {};
         for (const path of paths) {
           // In this case, the stat var is not in hierarchy.
           if (path.length == 1) {
@@ -237,15 +244,6 @@ export class StatVarHierarchy extends React.Component<
         focusPath: path,
         searchSelectionCleared,
       });
-      // If selection is stat var, added it to svPath.
-      if (selection != "" && !selection.startsWith("dc/g")) {
-        if (this.props.selectSV) {
-          this.props.selectSV(selection);
-        }
-        this.setState({
-          svPath: Object.assign({ [selection]: path }, this.state.svPath),
-        });
-      }
     });
   }
 

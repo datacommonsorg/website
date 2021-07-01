@@ -62,7 +62,7 @@ export class StatVarSectionInput extends React.Component<
   }
 
   private isChecked(): boolean {
-    return this.props.selected || this.props.statVar.id in this.context.svPath;
+    return this.props.statVar.id in this.context.svPath;
   }
 
   private handleInputChange(): void {
@@ -94,7 +94,12 @@ export class StatVarSectionInput extends React.Component<
           onChange={this.handleInputChange}
           disabled={!this.props.statVar.hasData}
         />
-        <label htmlFor={sectionId}>{this.props.statVar.displayName}</label>
+        <label
+          className={this.state.checked ? "selected-node-title" : ""}
+          htmlFor={sectionId}
+        >
+          {this.props.statVar.displayName}
+        </label>
       </form>
     );
   }
