@@ -29,6 +29,7 @@ import {
 import { StatVarInfo } from "../tools/statvar_menu/util";
 import { formatNumber } from "../i18n/i18n";
 import { DotDataPoint } from "./types";
+import { Boundary } from "../shared/types";
 
 const NUM_X_TICKS = 5;
 const NUM_Y_TICKS = 5;
@@ -75,13 +76,6 @@ const HIGHLIGHTING_DOT_R = 5;
 // if building a datagroup dictionary and the place for a datagroup is
 // unknown, use this as the place.
 const DATAGROUP_UNKNOWN_PLACE = "unknown";
-
-interface Boundary {
-  top: number;
-  bottom: number;
-  left: number;
-  right: number;
-}
 
 function appendLegendElem(
   elem: string,

@@ -22,6 +22,7 @@
 import React from "react";
 import axios from "axios";
 import _ from "lodash";
+import * as d3 from "d3";
 
 import { StatVarHierarchySearch } from "./stat_var_search";
 import { StatVarGroupNode } from "./stat_var_group_node";
@@ -33,6 +34,7 @@ import {
 
 import { loadSpinner, removeSpinner } from "../browser/util";
 import { Context } from "../shared/context";
+import { hideTooltip, showTooltip, TOOLTIP_ID } from "./util";
 
 const LOADING_CONTAINER_ID = "stat-var-hierarchy-section";
 const SORTED_FIRST_SVG_ID = "dc/g/Demographics";
@@ -136,6 +138,13 @@ export class StatVarHierarchy extends React.Component<
     }
     return (
       <div id={LOADING_CONTAINER_ID} className="loading-spinner-container">
+        <div
+          id="tree-widget-info"
+          onMouseOver={this.onMouseOverInfoIcon}
+          onMouseOut={() => hideTooltip()}
+        >
+          <i className="material-icons-outlined">info</i>
+        </div>
         {!_.isEmpty(this.state.errorMessage) && (
           <div className="error-message">{this.state.errorMessage}</div>
         )}
@@ -184,6 +193,7 @@ export class StatVarHierarchy extends React.Component<
         <div id="browser-screen" className="screen">
           <div id="spinner"></div>
         </div>
+        <div id={TOOLTIP_ID}></div>
       </div>
     );
   }
@@ -283,4 +293,25 @@ export class StatVarHierarchy extends React.Component<
         return _.cloneDeep(resp.data["path"]).reverse();
       });
   }
+
+  private onMouseOverInfoIcon = () => {
+    const html =
+      "<ul><li>The number in parentheses represents the number of available" +
+      "stat vars within the group that we have for the chosen place(s).</li>" +
+      "<li>Greyed out stat var groups have no available stat vars for the" +
+      "chosen place(s), but can still be expanded for you to explore.</li></ul>";
+    const topOffset = 30;
+    const margin = 5;
+    const containerY = (d3
+      .select("#explore")
+      .node() as HTMLElement).getBoundingClientRect().y;
+    const iconY = (d3
+      .select("#tree-widget-info i")
+      .node() as HTMLElement).getBoundingClientRect().y;
+    showTooltip(html, {
+      left: margin,
+      right: margin,
+      top: iconY - containerY + topOffset,
+    });
+  };
 }

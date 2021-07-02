@@ -20,9 +20,11 @@
  */
 
 import React from "react";
+import * as d3 from "d3";
 
 import { StatVarHierarchyType, StatVarInfo } from "../shared/types";
 import { Context, ContextType } from "../shared/context";
+import { hideTooltip, showTooltip } from "./util";
 
 interface StatVarSectionInputPropType {
   path: string[];
@@ -97,12 +99,30 @@ export class StatVarSectionInput extends React.Component<
         <label
           className={this.state.checked ? "selected-node-title" : ""}
           htmlFor={sectionId}
+          onMouseMove={
+            !this.props.statVar.hasData ? this.mouseMoveAction : null
+          }
+          onMouseOut={() => hideTooltip()}
         >
           {this.props.statVar.displayName}
         </label>
       </form>
     );
   }
+
+  private mouseMoveAction = (e) => {
+    if (this.props.statVar.hasData) {
+      return;
+    }
+    const html = "placeholder";
+    const left = e.pageX;
+    const topOffset = 10;
+    const containerY = (d3
+      .select("#explore")
+      .node() as HTMLElement).getBoundingClientRect().y;
+    const top = e.pageY - containerY + topOffset;
+    showTooltip(html, { left, top });
+  };
 }
 
 StatVarSectionInput.contextType = Context;

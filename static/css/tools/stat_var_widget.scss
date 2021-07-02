@@ -112,3 +112,28 @@ form.node-title {
   font-size: .9rem;
   line-height: 2em;
 }
+
+#tree-widget-tooltip {
+  visibility: hidden;
+  position: absolute;
+  background-color: #fff;
+  color: #3b3b3b;;
+  font-size: 0.8rem;
+  border-radius: 3px;
+  border: 0.5px solid #dee2e6;
+  padding: 0.3rem;
+}
+
+#tree-widget-info i {
+  position: absolute;
+  right: 0;
+  padding: 0.3rem;
+  color: white;
+  cursor: pointer;
+  font-size: 1.2rem;
+}
+
+#tree-widget-tooltip ul {
+  padding-left: 1rem;
+  margin-bottom: 0;
+}

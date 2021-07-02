@@ -71,3 +71,10 @@ export enum StatVarHierarchyNodeType {
   STAT_VAR_GROUP,
   STAT_VAR,
 }
+
+export interface Boundary {
+  top?: number;
+  bottom?: number;
+  left?: number;
+  right?: number;
+}
