@@ -406,6 +406,44 @@ function mockAxios(): () => void {
     .calledWith("/api/browser/statvar/path?id=Count_Person_Employed")
     .mockResolvedValue({ data: pathsData.Count_Person_Employed });
 
+  when(axios.post)
+    .calledWith("/api/stats/stat-var-summary", {
+      statVars: [
+        "Count_Person_Employed",
+        "Count_HousingUnit",
+        "Count_Establishment",
+      ],
+    })
+    .mockResolvedValue({
+      data: {
+        statVarSummary: {
+          Count_Person_Employed: {
+            placeTypeSummary: {
+              type1: {
+                numPlaces: 0,
+                topPlaces: [],
+              },
+            },
+          },
+          Count_HousingUnit: {
+            placeTypeSummary: {
+              type1: {
+                numPlaces: 0,
+                topPlaces: [],
+              },
+            },
+          },
+          Count_Establishment: {
+            placeTypeSummary: {
+              type1: {
+                numPlaces: 0,
+                topPlaces: [],
+              },
+            },
+          },
+        },
+      },
+    });
   return () => {
     axios.get = get;
     axios.post = post;

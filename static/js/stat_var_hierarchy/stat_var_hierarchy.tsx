@@ -22,6 +22,7 @@
 import React from "react";
 import axios from "axios";
 import _ from "lodash";
+import * as d3 from "d3";
 
 import { StatVarHierarchySearch } from "./stat_var_search";
 import { StatVarGroupNode } from "./stat_var_group_node";
@@ -33,11 +34,18 @@ import {
 
 import { loadSpinner, removeSpinner } from "../browser/util";
 import { Context } from "../shared/context";
+import {
+  hideTooltip,
+  SV_HIERARCHY_SECTION_ID,
+  showTooltip,
+  TOOLTIP_ID,
+} from "./util";
 
-const LOADING_CONTAINER_ID = "stat-var-hierarchy-section";
 const SORTED_FIRST_SVG_ID = "dc/g/Demographics";
 const SORTED_LAST_SVG_ID = "dc/g/Miscellaneous";
 const ROOT_SVG = "dc/g/Root";
+const TOOLTIP_TOP_OFFSET = 30;
+const TOOLTIP_MARGIN = 5;
 
 interface StatVarHierarchyPropType {
   type: string;
@@ -135,7 +143,16 @@ export class StatVarHierarchy extends React.Component<
       rootSVGs = rootSVGs.filter((svg) => svg.numDescendentStatVars > 0);
     }
     return (
-      <div id={LOADING_CONTAINER_ID} className="loading-spinner-container">
+      <div id={SV_HIERARCHY_SECTION_ID} className="loading-spinner-container">
+        {this.props.type !== StatVarHierarchyType.BROWSER && (
+          <div
+            id="tree-widget-info"
+            onMouseOver={this.onMouseOverInfoIcon}
+            onMouseOut={() => hideTooltip()}
+          >
+            <i className="material-icons-outlined">info</i>
+          </div>
+        )}
         {!_.isEmpty(this.state.errorMessage) && (
           <div className="error-message">{this.state.errorMessage}</div>
         )}
@@ -184,12 +201,13 @@ export class StatVarHierarchy extends React.Component<
         <div id="browser-screen" className="screen">
           <div id="spinner"></div>
         </div>
+        <div id={TOOLTIP_ID}></div>
       </div>
     );
   }
 
   private fetchData(): void {
-    loadSpinner(LOADING_CONTAINER_ID);
+    loadSpinner(SV_HIERARCHY_SECTION_ID);
     let url = `/api/browser/statvar/group?stat_var_group=${ROOT_SVG}`;
     for (const place of this.props.places) {
       url += `&places=${place.dcid}`;
@@ -212,7 +230,7 @@ export class StatVarHierarchy extends React.Component<
     }
     Promise.all(allPromises)
       .then((allResult) => {
-        removeSpinner(LOADING_CONTAINER_ID);
+        removeSpinner(SV_HIERARCHY_SECTION_ID);
         const rootSVGs = allResult[0] as StatVarGroupInfo[];
         const paths = allResult.slice(1) as string[][];
         for (const path of paths) {
@@ -228,7 +246,7 @@ export class StatVarHierarchy extends React.Component<
         });
       })
       .catch(() => {
-        removeSpinner(LOADING_CONTAINER_ID);
+        removeSpinner(SV_HIERARCHY_SECTION_ID);
         this.setState({
           errorMessage: "Error retrieving stat var group root nodes",
         });
@@ -283,4 +301,23 @@ export class StatVarHierarchy extends React.Component<
         return _.cloneDeep(resp.data["path"]).reverse();
       });
   }
+
+  private onMouseOverInfoIcon = () => {
+    const html =
+      "<ul><li>The number in parentheses represents the number of stat vars " +
+      "within the group where we have data for the chosen place(s).</li>" +
+      "<li>Greyed out stat var groups have no available stat vars for the " +
+      "chosen place(s), but can still be expanded for you to explore.</li></ul>";
+    const containerY = (d3
+      .select("#explore")
+      .node() as HTMLElement).getBoundingClientRect().y;
+    const iconY = (d3
+      .select("#tree-widget-info i")
+      .node() as HTMLElement).getBoundingClientRect().y;
+    showTooltip(html, {
+      left: TOOLTIP_MARGIN,
+      right: TOOLTIP_MARGIN,
+      top: iconY - containerY + TOOLTIP_TOP_OFFSET,
+    });
+  };
 }

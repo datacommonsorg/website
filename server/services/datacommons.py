@@ -53,6 +53,7 @@ API_ENDPOINTS = {
     'get_statvar_group': '/stat-var/group',
     'get_statvar_path': '/stat-var/path',
     'search_statvar': '/stat-var/search',
+    'get_statvar_summary': '/stat-var/summary',
 }
 
 # The default value to limit to
@@ -362,6 +363,14 @@ def get_statvar_path(id):
     url = API_ROOT + API_ENDPOINTS['get_statvar_path']
     req_json = {
         'id': id,
+    }
+    return send_request(url, req_json, has_payload=False)
+
+
+def get_statvar_summary(dcids):
+    url = API_ROOT + API_ENDPOINTS['get_statvar_summary']
+    req_json = {
+        'stat_vars': dcids,
     }
     return send_request(url, req_json, has_payload=False)
 

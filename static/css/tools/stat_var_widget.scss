@@ -42,6 +42,8 @@ $transparent-red: rgba(240, 230, 231, 0.2);
 
 #stat-var-hierarchy-section {
   height: 100%;
+  position: relative;
+  overflow-y: hidden;
 }
 
 .stat-var-hierarchy-container {
@@ -111,4 +113,30 @@ form.node-title {
 #stat-var-hierarchy-section .node-title .material-icons + .title {
   font-size: .9rem;
   line-height: 2em;
+}
+
+#tree-widget-tooltip {
+  visibility: hidden;
+  position: absolute;
+  background-color: #fff;
+  color: #3b3b3b;
+  font-size: 0.8rem;
+  border-radius: 3px;
+  border: 0.5px solid #dee2e6;
+  padding: 0.3rem;
+  overflow-wrap: anywhere;
+}
+
+#tree-widget-info i {
+  position: absolute;
+  right: 0;
+  padding: 0.3rem;
+  color: white;
+  cursor: pointer;
+  font-size: 1.2rem;
+}
+
+#tree-widget-tooltip ul {
+  padding-left: 1rem;
+  margin-bottom: 0;
 }

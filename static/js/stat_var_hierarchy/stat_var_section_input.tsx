@@ -20,14 +20,26 @@
  */
 
 import React from "react";
+import * as d3 from "d3";
+import _ from "lodash";
 
-import { StatVarHierarchyType, StatVarInfo } from "../shared/types";
+import {
+  StatVarHierarchyType,
+  StatVarInfo,
+  StatVarSummary,
+} from "../shared/types";
 import { Context, ContextType } from "../shared/context";
+import { hideTooltip, SV_HIERARCHY_SECTION_ID, showTooltip } from "./util";
+import { USA_CHILD_PLACE_TYPES } from "../tools/map/util";
+
+const TOOLTIP_TOP_OFFSET = 10;
+const TOOLTIP_RIGHT_MARGIN = 20;
 
 interface StatVarSectionInputPropType {
   path: string[];
   statVar: StatVarInfo;
   selected: boolean;
+  summary: StatVarSummary;
 }
 
 interface StatVarSectionInputStateType {
@@ -97,12 +109,51 @@ export class StatVarSectionInput extends React.Component<
         <label
           className={this.state.checked ? "selected-node-title" : ""}
           htmlFor={sectionId}
+          onMouseMove={
+            !this.props.statVar.hasData ? this.mouseMoveAction : null
+          }
+          onMouseOut={() => hideTooltip()}
         >
           {this.props.statVar.displayName}
         </label>
       </form>
     );
   }
+
+  private mouseMoveAction = (e) => {
+    let html = "loading stat var summary...";
+    if (!_.isEmpty(this.props.summary)) {
+      let availablePlaceTypes = Object.keys(
+        this.props.summary.placeTypeSummary
+      );
+      if (this.context.statVarHierarchyType === StatVarHierarchyType.MAP) {
+        availablePlaceTypes = availablePlaceTypes.filter(
+          (placeType) =>
+            placeType in USA_CHILD_PLACE_TYPES && placeType !== "Country"
+        );
+      }
+      html =
+        availablePlaceTypes.length > 0
+          ? "This stat var has no data for any of the chosen places." +
+            "You can try these types of places instead. <ul>"
+          : "Sorry, this stat var is not supported by this tool.";
+      for (const placeType of availablePlaceTypes) {
+        const placeSummary = this.props.summary.placeTypeSummary[placeType];
+        const placeList = placeSummary.topPlaces.map((place) => place.name);
+        html +=
+          this.context.statVarHierarchyType === StatVarHierarchyType.TIMELINE
+            ? `<li>${placeType} (eg. ${placeList.join(", ")})</li>`
+            : `<li>${placeType}</li>`;
+      }
+      html += "</ul>";
+    }
+    const left = e.pageX;
+    const containerY = (d3
+      .select(`#${SV_HIERARCHY_SECTION_ID}`)
+      .node() as HTMLElement).getBoundingClientRect().y;
+    const top = e.pageY - containerY + TOOLTIP_TOP_OFFSET;
+    showTooltip(html, { left, top, right: TOOLTIP_RIGHT_MARGIN });
+  };
 }
 
 StatVarSectionInput.contextType = Context;
