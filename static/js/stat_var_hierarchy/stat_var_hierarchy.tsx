@@ -302,7 +302,7 @@ export class StatVarHierarchy extends React.Component<
     const html =
       "<ul><li>The number in parentheses represents the number of available" +
       "stat vars within the group that we have for the chosen place(s).</li>" +
-      "<li>Greyed out stat var groups have no available stat vars for the" +
+      "<li>Greyed out stat var groups have no available stat vars for the " +
       "chosen place(s), but can still be expanded for you to explore.</li></ul>";
     const topOffset = 30;
     const margin = 5;
