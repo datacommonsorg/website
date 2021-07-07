@@ -44,6 +44,8 @@ import {
 const SORTED_FIRST_SVG_ID = "dc/g/Demographics";
 const SORTED_LAST_SVG_ID = "dc/g/Miscellaneous";
 const ROOT_SVG = "dc/g/Root";
+const TOOLTIP_TOP_OFFSET = 30;
+const TOOLTIP_MARGIN = 5;
 
 interface StatVarHierarchyPropType {
   type: string;
@@ -300,12 +302,10 @@ export class StatVarHierarchy extends React.Component<
 
   private onMouseOverInfoIcon = () => {
     const html =
-      "<ul><li>The number in parentheses represents the number of available" +
-      "stat vars within the group that we have for the chosen place(s).</li>" +
+      "<ul><li>The number in parentheses represents the number of stat vars " +
+      "within the group where we have data for the chosen place(s).</li>" +
       "<li>Greyed out stat var groups have no available stat vars for the " +
       "chosen place(s), but can still be expanded for you to explore.</li></ul>";
-    const topOffset = 30;
-    const margin = 5;
     const containerY = (d3
       .select("#explore")
       .node() as HTMLElement).getBoundingClientRect().y;
@@ -313,9 +313,9 @@ export class StatVarHierarchy extends React.Component<
       .select("#tree-widget-info i")
       .node() as HTMLElement).getBoundingClientRect().y;
     showTooltip(html, {
-      left: margin,
-      right: margin,
-      top: iconY - containerY + topOffset,
+      left: TOOLTIP_MARGIN,
+      right: TOOLTIP_MARGIN,
+      top: iconY - containerY + TOOLTIP_TOP_OFFSET,
     });
   };
 }

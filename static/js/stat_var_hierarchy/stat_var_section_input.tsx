@@ -32,6 +32,9 @@ import { Context, ContextType } from "../shared/context";
 import { hideTooltip, SV_HIERARCHY_SECTION_ID, showTooltip } from "./util";
 import { USA_CHILD_PLACE_TYPES } from "../tools/map/util";
 
+const TOOLTIP_TOP_OFFSET = 10;
+const TOOLTIP_RIGHT_MARGIN = 20;
+
 interface StatVarSectionInputPropType {
   path: string[];
   statVar: StatVarInfo;
@@ -145,13 +148,11 @@ export class StatVarSectionInput extends React.Component<
       html += "</ul>";
     }
     const left = e.pageX;
-    const topOffset = 10;
     const containerY = (d3
       .select(`#${SV_HIERARCHY_SECTION_ID}`)
       .node() as HTMLElement).getBoundingClientRect().y;
-    const top = e.pageY - containerY + topOffset;
-    const right = 20;
-    showTooltip(html, { left, top, right });
+    const top = e.pageY - containerY + TOOLTIP_TOP_OFFSET;
+    showTooltip(html, { left, top, right: TOOLTIP_RIGHT_MARGIN });
   };
 }
 

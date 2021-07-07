@@ -227,11 +227,11 @@ def get_stats_all():
 
 
 @bp.route('/api/stats/stat-var-summary', methods=["POST"])
-@cache.cached(timeout=3600 * 24, query_string=True)
 def get_statvar_summary():
     """Gets the summaries for a list of stat vars.
     """
     stat_vars = request.json.get("statVars")
+    print(stat_vars)
     result = dc.get_statvar_summary(stat_vars)
     return Response(json.dumps(result.get("statVarSummary", {})),
                     200,
