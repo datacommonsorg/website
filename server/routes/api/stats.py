@@ -224,3 +224,15 @@ def get_stats_all():
     return Response(json.dumps(dc.get_stats_all(dcids, stat_vars)),
                     200,
                     mimetype="application/json")
+
+
+@bp.route('/api/stats/stat-var-summary', methods=["POST"])
+@cache.cached(timeout=3600 * 24, query_string=True)
+def get_statvar_summary():
+    """Gets the summaries for a list of stat vars.
+    """
+    stat_vars = request.json.get("statVars")
+    result = dc.get_statvar_summary(stat_vars)
+    return Response(json.dumps(result.get("statVarSummary", {})),
+                    200,
+                    mimetype='application/json')

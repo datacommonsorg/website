@@ -21,11 +21,12 @@
 
 import React from "react";
 
-import { StatVarInfo } from "../shared/types";
+import { StatVarInfo, StatVarSummary } from "../shared/types";
 import { StatVarCharts } from "../browser/stat_var_charts";
 import { NamedPlace, StatVarHierarchyType } from "../shared/types";
 import { Context } from "../shared/context";
 import { StatVarSectionInput } from "./stat_var_section_input";
+import axios from "axios";
 
 interface StatVarSectionPropType {
   path: string[];
@@ -35,7 +36,33 @@ interface StatVarSectionPropType {
   highlightedStatVar: React.RefObject<HTMLDivElement>;
 }
 
-export class StatVarSection extends React.Component<StatVarSectionPropType> {
+interface StatVarSectionStateType {
+  svSummary: { [sv: string]: StatVarSummary };
+  svSummaryFetched: boolean;
+}
+
+export class StatVarSection extends React.Component<
+  StatVarSectionPropType,
+  StatVarSectionStateType
+> {
+  constructor(props: StatVarSectionPropType) {
+    super(props);
+    this.state = {
+      svSummary: {},
+      svSummaryFetched: false,
+    };
+  }
+
+  componentDidMount(): void {
+    this.fetchSummary();
+  }
+
+  componentDidUpdate(): void {
+    if (!this.state.svSummaryFetched) {
+      this.fetchSummary();
+    }
+  }
+
   render(): JSX.Element {
     const context = this.context;
     return (
@@ -44,6 +71,7 @@ export class StatVarSection extends React.Component<StatVarSectionPropType> {
           const isSelected =
             this.props.pathToSelection.length === 1 &&
             this.props.pathToSelection[0] === statVar.id;
+          const summary = this.state.svSummary[statVar.id];
           return (
             <div
               key={statVar.id}
@@ -60,6 +88,7 @@ export class StatVarSection extends React.Component<StatVarSectionPropType> {
                   path={this.props.path.concat([statVar.id])}
                   selected={isSelected}
                   statVar={statVar}
+                  summary={summary}
                 />
               )}
             </div>
@@ -67,6 +96,20 @@ export class StatVarSection extends React.Component<StatVarSectionPropType> {
         }, this)}
       </div>
     );
+  }
+
+  private fetchSummary(): void {
+    if (this.props.data.length === 0) {
+      return;
+    }
+    const statVarList = this.props.data.map((sv) => sv.id);
+    axios
+      .post("/api/stats/stat-var-summary", { statVars: statVarList })
+      .then((resp) => {
+        const data = resp.data;
+        this.setState({ svSummary: data, svSummaryFetched: true });
+      })
+      .catch(() => this.setState({ svSummaryFetched: true }));
   }
 }
 

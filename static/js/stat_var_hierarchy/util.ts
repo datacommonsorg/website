@@ -22,6 +22,8 @@ import * as d3 from "d3";
 import { Boundary } from "../shared/types";
 
 export const TOOLTIP_ID = "tree-widget-tooltip";
+// id value of the div that holds this stat var hierarchy section.
+export const SV_HIERARCHY_SECTION_ID = "stat-var-hierarchy-section";
 
 /** Function to make tooltip show up given the html for the tooltip and position
  * to display the tooltip at.

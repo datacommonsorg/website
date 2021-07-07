@@ -34,9 +34,13 @@ import {
 
 import { loadSpinner, removeSpinner } from "../browser/util";
 import { Context } from "../shared/context";
-import { hideTooltip, showTooltip, TOOLTIP_ID } from "./util";
+import {
+  hideTooltip,
+  SV_HIERARCHY_SECTION_ID,
+  showTooltip,
+  TOOLTIP_ID,
+} from "./util";
 
-const LOADING_CONTAINER_ID = "stat-var-hierarchy-section";
 const SORTED_FIRST_SVG_ID = "dc/g/Demographics";
 const SORTED_LAST_SVG_ID = "dc/g/Miscellaneous";
 const ROOT_SVG = "dc/g/Root";
@@ -137,7 +141,7 @@ export class StatVarHierarchy extends React.Component<
       rootSVGs = rootSVGs.filter((svg) => svg.numDescendentStatVars > 0);
     }
     return (
-      <div id={LOADING_CONTAINER_ID} className="loading-spinner-container">
+      <div id={SV_HIERARCHY_SECTION_ID} className="loading-spinner-container">
         <div
           id="tree-widget-info"
           onMouseOver={this.onMouseOverInfoIcon}
@@ -199,7 +203,7 @@ export class StatVarHierarchy extends React.Component<
   }
 
   private fetchData(): void {
-    loadSpinner(LOADING_CONTAINER_ID);
+    loadSpinner(SV_HIERARCHY_SECTION_ID);
     let url = `/api/browser/statvar/group?stat_var_group=${ROOT_SVG}`;
     for (const place of this.props.places) {
       url += `&places=${place.dcid}`;
@@ -222,7 +226,7 @@ export class StatVarHierarchy extends React.Component<
     }
     Promise.all(allPromises)
       .then((allResult) => {
-        removeSpinner(LOADING_CONTAINER_ID);
+        removeSpinner(SV_HIERARCHY_SECTION_ID);
         const rootSVGs = allResult[0] as StatVarGroupInfo[];
         const paths = allResult.slice(1) as string[][];
         for (const path of paths) {
@@ -238,7 +242,7 @@ export class StatVarHierarchy extends React.Component<
         });
       })
       .catch(() => {
-        removeSpinner(LOADING_CONTAINER_ID);
+        removeSpinner(SV_HIERARCHY_SECTION_ID);
         this.setState({
           errorMessage: "Error retrieving stat var group root nodes",
         });
