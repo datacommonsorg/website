@@ -54,18 +54,22 @@ export class StatVarHierarchyNodeHeader extends React.Component<
       this.context.statVarHierarchyType !== StatVarHierarchyType.BROWSER &&
       this.props.selectionCount > 0;
 
-    let className = "node-title";
+    let className = "title";
     if (!this.props.childrenStatVarCount) {
-      className = "node-title node-no-data";
-    } else if (this.props.highlighted) {
-      className = "node-title highlighted-node-title";
+      className = "title node-no-data";
+    } else if (showSelectionCount) {
+      className = "title selected-node-title";
     }
     return (
-      <div className={className}>
+      <div
+        className={
+          this.props.highlighted
+            ? "node-title highlighted-node-title"
+            : "node-title"
+        }
+      >
         {prefixHtml}
-        <span
-          className={showSelectionCount ? "title selected-node-title" : "title"}
-        >
+        <span className={className}>
           {this.props.title}
           {this.props.childrenStatVarCount > 0 &&
             this.props.nodeType !== StatVarHierarchyNodeType.STAT_VAR && (

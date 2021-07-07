@@ -1119,7 +1119,7 @@ function drawGroupLineChart(
         LEGEND.marginTop
       })`
     );
-  buildInChartLegend(legend, plotParams.legend, legendTextdWidth);
+  buildInChartLegend(legend, plotParams.legend, legendTextdWidth, statsVarInfo);
 
   // Add highlight on hover
   const chartAreaBoundary = {
@@ -1150,11 +1150,13 @@ function drawGroupLineChart(
  * @param legend: The legend svg selection.
  * @param params: An object keyed by legend text with value of legend style.
  * @param legendTextdWidth: The width of the legend text.
+ * @param statVarInfo: object from stat var dcid to its info struct.
  */
 function buildInChartLegend(
   legend: d3.Selection<SVGGElement, any, any, any>,
   params: { [key: string]: Style },
-  legendTextdWidth: number
+  legendTextdWidth: number,
+  statVarInfo: Record<string, StatVarInfo>
 ) {
   let yOffset = 0;
   for (const label in params) {
@@ -1176,13 +1178,17 @@ function buildInChartLegend(
       dashWidth = LEGEND.dashWidth;
     }
     // Draw the text.
+    let labelText = label;
+    if (label in statVarInfo) {
+      labelText = statVarInfo[label].title || label;
+    }
     lgGroup
       .append("text")
       .attr("class", "legend-text")
       .attr("transform", `translate(${dashWidth}, 0)`)
       .attr("y", "0.3em")
       .attr("dy", "0")
-      .text(label)
+      .text(labelText)
       .style("text-rendering", "optimizedLegibility")
       .style("fill", `${legendStyle.color}`)
       .call(wrap, legendTextdWidth);
