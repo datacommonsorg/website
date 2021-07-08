@@ -121,7 +121,7 @@ export class StatVarSectionInput extends React.Component<
   }
 
   private mouseMoveAction = (e) => {
-    let html = "loading stat var summary...";
+    let html = "This stat var has no data for any of the chosen places.";
     if (!_.isEmpty(this.props.summary)) {
       let availablePlaceTypes = Object.keys(
         this.props.summary.placeTypeSummary
@@ -132,11 +132,11 @@ export class StatVarSectionInput extends React.Component<
             placeType in USA_CHILD_PLACE_TYPES && placeType !== "Country"
         );
       }
-      html =
-        availablePlaceTypes.length > 0
-          ? "This stat var has no data for any of the chosen places." +
-            "You can try these types of places instead. <ul>"
-          : "Sorry, this stat var is not supported by this tool.";
+      if (availablePlaceTypes.length === 0) {
+        html = "Sorry, this stat var is not supported by this tool.";
+      } else {
+        html += " You can try these types of places instead. <ul>";
+      }
       for (const placeType of availablePlaceTypes) {
         const placeSummary = this.props.summary.placeTypeSummary[placeType];
         const placeList = placeSummary.topPlaces.map((place) => place.name);
