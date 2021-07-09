@@ -34,6 +34,30 @@ import { USA_CHILD_PLACE_TYPES } from "../tools/map/util";
 
 const TOOLTIP_TOP_OFFSET = 10;
 const TOOLTIP_RIGHT_MARGIN = 20;
+const PLACE_TYPE_MAPPING = {
+  EurostatNUTS1: "State",
+  EurostatNUTS2: "State",
+  Town: "City",
+  Village: "City",
+  Borough: "City",
+};
+const IGNORED_PLACE_TYPES = new Set([
+  "Continent",
+  "CommutingZone",
+  "PowerPlantUnit",
+  "PoliticalCampaignCmte",
+  "AirQualitySite",
+  "CongressionalDistrict",
+  "ElementarySchoolDistrict",
+  "HighSchoolDistrict",
+  "UnifiedSchoolDistrict",
+  "SchoolDistrict",
+  "StateComponent",
+  "CensusCoreBasedStatisticalArea",
+  "CensusTract",
+  "CensusCountyDivision",
+]);
+const IGNORED_PLACE_DCIDS = new Set(["Earth"]);
 
 interface StatVarSectionInputPropType {
   path: string[];
@@ -109,9 +133,7 @@ export class StatVarSectionInput extends React.Component<
         <label
           className={this.state.checked ? "selected-node-title" : ""}
           htmlFor={sectionId}
-          onMouseMove={
-            !this.props.statVar.hasData ? this.mouseMoveAction : null
-          }
+          onMouseMove={this.mouseMoveAction(this.props.statVar.hasData)}
           onMouseOut={() => hideTooltip()}
         >
           {this.props.statVar.displayName}
@@ -120,33 +142,69 @@ export class StatVarSectionInput extends React.Component<
     );
   }
 
-  private mouseMoveAction = (e) => {
-    let html = "This stat var has no data for any of the chosen places.";
-    if (!_.isEmpty(this.props.summary)) {
-      let availablePlaceTypes = Object.keys(
-        this.props.summary.placeTypeSummary
-      );
-      if (this.context.statVarHierarchyType === StatVarHierarchyType.MAP) {
-        availablePlaceTypes = availablePlaceTypes.filter(
-          (placeType) =>
-            placeType in USA_CHILD_PLACE_TYPES && placeType !== "Country"
-        );
-      }
-      if (availablePlaceTypes.length === 0) {
-        html = "Sorry, this stat var is not supported by this tool.";
-      } else {
-        html += " You can try these types of places instead. <ul>";
-      }
-      for (const placeType of availablePlaceTypes) {
-        const placeSummary = this.props.summary.placeTypeSummary[placeType];
-        const placeList = placeSummary.topPlaces.map((place) => place.name);
-        html +=
-          this.context.statVarHierarchyType === StatVarHierarchyType.TIMELINE
-            ? `<li>${placeType} (eg. ${placeList.join(", ")})</li>`
-            : `<li>${placeType}</li>`;
-      }
-      html += "</ul>";
+  private getTooltipHtml(hasData: boolean): string {
+    let html = hasData
+      ? ""
+      : "This variable has no data for any of the chosen places.";
+    if (_.isEmpty(this.props.summary)) {
+      return html;
     }
+    const availablePlaceTypes = Object.keys(
+      this.props.summary.placeTypeSummary
+    ).filter((placeType) => {
+      if (this.context.statVarHierarchyType === StatVarHierarchyType.MAP) {
+        return placeType in USA_CHILD_PLACE_TYPES && placeType !== "Country";
+      }
+      return !IGNORED_PLACE_TYPES.has(placeType);
+    });
+    if (availablePlaceTypes.length === 0) {
+      html = "Sorry, this variable is not supported by this tool.";
+    } else {
+      html += hasData
+        ? "You can also try these types of places:<ul>"
+        : "You can try these types of places instead:<ul>";
+    }
+    // Some place types are considered equivalent, so need to consolidate the
+    // information for equivalent place types.
+    const placeTypeToPlaceNames = {};
+    for (let placeType of availablePlaceTypes) {
+      const placeSummary = this.props.summary.placeTypeSummary[placeType];
+      const placeList = placeSummary.topPlaces.filter(
+        (place) =>
+          !_.isEmpty(place.name) && !IGNORED_PLACE_DCIDS.has(place.dcid)
+      );
+      if (_.isEmpty(placeList)) {
+        continue;
+      }
+      const placeNames = placeList.map((place) => place.name);
+      placeType =
+        placeType in PLACE_TYPE_MAPPING
+          ? PLACE_TYPE_MAPPING[placeType]
+          : placeType;
+      if (placeType in placeTypeToPlaceNames) {
+        placeTypeToPlaceNames[placeType].push(...placeNames);
+      } else {
+        placeTypeToPlaceNames[placeType] = placeNames;
+      }
+    }
+    for (const placeType in placeTypeToPlaceNames) {
+      // We only want to show a unique list of 3 items as examples.
+      const uniquePlaces = new Set(placeTypeToPlaceNames[placeType]);
+      const placeList =
+        uniquePlaces.size > 3
+          ? Array.from(uniquePlaces).slice(0, 3)
+          : Array.from(uniquePlaces);
+      html +=
+        this.context.statVarHierarchyType === StatVarHierarchyType.TIMELINE
+          ? `<li>${placeType} (eg. ${placeList.join(", ")})</li>`
+          : `<li>${placeType}</li>`;
+    }
+    html += "</ul>";
+    return html;
+  }
+
+  private mouseMoveAction = (hasData: boolean) => (e) => {
+    const html = this.getTooltipHtml(hasData);
     const left = e.pageX;
     const containerY = (d3
       .select(`#${SV_HIERARCHY_SECTION_ID}`)
