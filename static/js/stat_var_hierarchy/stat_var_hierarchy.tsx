@@ -42,7 +42,7 @@ import {
 } from "./util";
 
 const SORTED_FIRST_SVG_ID = "dc/g/Demographics";
-const SORTED_LAST_SVG_ID = "dc/g/Miscellaneous";
+const SORTED_LAST_SVG_ID = "dc/g/Uncategorized";
 const ROOT_SVG = "dc/g/Root";
 const TOOLTIP_TOP_OFFSET = 30;
 const TOOLTIP_MARGIN = 5;
