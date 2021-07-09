@@ -161,7 +161,7 @@ export class StatVarSectionInput extends React.Component<
       html = "Sorry, this variable is not supported by this tool.";
     } else {
       html += hasData
-        ? "You can also try these types of places:<ul>"
+        ? "This variable is available for these types of places:<ul>"
         : "You can try these types of places instead:<ul>";
     }
     // Some place types are considered equivalent, so need to consolidate the
