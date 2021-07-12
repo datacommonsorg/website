@@ -34,6 +34,47 @@ import { USA_CHILD_PLACE_TYPES } from "../tools/map/util";
 
 const TOOLTIP_TOP_OFFSET = 10;
 const TOOLTIP_RIGHT_MARGIN = 20;
+const STATE_OR_EQUIVALENT = "State or equivalent";
+const COUNTY_OR_EQUIVALENT = "County or equivalent";
+const CITY_OR_EQUIVALENT = "City or equivalent";
+// Some place types are considered equivalent so this maps a place type to the
+// place type that we will display its information under.
+const PLACE_TYPE_MAPPING = {
+  EurostatNUTS1: STATE_OR_EQUIVALENT,
+  EurostatNUTS2: STATE_OR_EQUIVALENT,
+  State: STATE_OR_EQUIVALENT,
+  AdministrativeArea1: STATE_OR_EQUIVALENT,
+  AdministrativeArea2: COUNTY_OR_EQUIVALENT,
+  County: COUNTY_OR_EQUIVALENT,
+  Town: CITY_OR_EQUIVALENT,
+  Village: CITY_OR_EQUIVALENT,
+  Borough: CITY_OR_EQUIVALENT,
+  City: CITY_OR_EQUIVALENT,
+};
+const ALLOWED_PLACE_TYPES = new Set([
+  "Country",
+  "State",
+  "Province",
+  "County",
+  "City",
+  "Town",
+  "Village",
+  "School",
+  "Borough",
+  "CensusZipCodeTabulationArea",
+  "EurostatNUTS1",
+  "EurostatNUTS2",
+  "EurostatNUTS3",
+  "AdministrativeArea1",
+  "AdministrativeArea2",
+  "AdministrativeArea3",
+  "AdministrativeArea4",
+  "AdministrativeArea5",
+  "AdministrativeArea",
+  "Neighborhood",
+  "Place",
+]);
+const IGNORED_PLACE_DCIDS = new Set(["Earth"]);
 
 interface StatVarSectionInputPropType {
   path: string[];
@@ -109,9 +150,7 @@ export class StatVarSectionInput extends React.Component<
         <label
           className={this.state.checked ? "selected-node-title" : ""}
           htmlFor={sectionId}
-          onMouseMove={
-            !this.props.statVar.hasData ? this.mouseMoveAction : null
-          }
+          onMouseMove={this.mouseMoveAction(this.props.statVar.hasData)}
           onMouseOut={() => hideTooltip()}
         >
           {this.props.statVar.displayName}
@@ -120,32 +159,89 @@ export class StatVarSectionInput extends React.Component<
     );
   }
 
-  private mouseMoveAction = (e) => {
-    let html = "This stat var has no data for any of the chosen places.";
-    if (!_.isEmpty(this.props.summary)) {
-      let availablePlaceTypes = Object.keys(
-        this.props.summary.placeTypeSummary
-      );
+  /**
+   * Gets the place types and example places available for the current stat var.
+   * Returns a dictionary of place type to list of place names
+   */
+  private getAvailablePlaceTypesAndExamples(): Record<string, string[]> {
+    const availablePlaceTypes = Object.keys(
+      this.props.summary.placeTypeSummary
+    ).filter((placeType) => {
       if (this.context.statVarHierarchyType === StatVarHierarchyType.MAP) {
-        availablePlaceTypes = availablePlaceTypes.filter(
-          (placeType) =>
-            placeType in USA_CHILD_PLACE_TYPES && placeType !== "Country"
-        );
+        return placeType in USA_CHILD_PLACE_TYPES && placeType !== "Country";
       }
-      if (availablePlaceTypes.length === 0) {
-        html = "Sorry, this stat var is not supported by this tool.";
+      return ALLOWED_PLACE_TYPES.has(placeType);
+    });
+    // Some place types are considered equivalent, so need to consolidate the
+    // information for equivalent place types.
+    const placeTypeToPlaceNames = {};
+    for (let placeType of availablePlaceTypes) {
+      const placeSummary = this.props.summary.placeTypeSummary[placeType];
+      const placeList = placeSummary.topPlaces.filter(
+        (place) =>
+          !_.isEmpty(place.name) && !IGNORED_PLACE_DCIDS.has(place.dcid)
+      );
+      if (_.isEmpty(placeList)) {
+        continue;
+      }
+      const placeNames = placeList.map((place) => place.name);
+      if (_.isEmpty(placeNames)) {
+        continue;
+      }
+      placeType =
+        placeType in PLACE_TYPE_MAPPING
+          ? PLACE_TYPE_MAPPING[placeType]
+          : placeType;
+      if (placeType in placeTypeToPlaceNames) {
+        placeTypeToPlaceNames[placeType].push(...placeNames);
       } else {
-        html += " You can try these types of places instead. <ul>";
+        placeTypeToPlaceNames[placeType] = placeNames;
       }
-      for (const placeType of availablePlaceTypes) {
-        const placeSummary = this.props.summary.placeTypeSummary[placeType];
-        const placeList = placeSummary.topPlaces.map((place) => place.name);
-        html +=
-          this.context.statVarHierarchyType === StatVarHierarchyType.TIMELINE
-            ? `<li>${placeType} (eg. ${placeList.join(", ")})</li>`
-            : `<li>${placeType}</li>`;
-      }
-      html += "</ul>";
+    }
+    return placeTypeToPlaceNames;
+  }
+
+  /**
+   * Returns the html content for the tooltip. The content can be an empty
+   * string.
+   */
+  private getTooltipHtml(hasData: boolean): string {
+    let html = hasData
+      ? ""
+      : "This variable has no data for any of the chosen places.";
+    if (_.isEmpty(this.props.summary)) {
+      return html;
+    }
+    const placeTypeToPlaceNames = this.getAvailablePlaceTypesAndExamples();
+    if (_.isEmpty(placeTypeToPlaceNames)) {
+      return hasData
+        ? ""
+        : "Sorry, this variable is not supported by this tool.";
+    } else {
+      html += hasData
+        ? "This variable is available for these types of places:<ul>"
+        : "You can try these types of places instead:<ul>";
+    }
+    for (const placeType in placeTypeToPlaceNames) {
+      // We only want to show a unique list of 3 items as examples.
+      const uniquePlaces = new Set(placeTypeToPlaceNames[placeType]);
+      const placeList =
+        uniquePlaces.size > 3
+          ? Array.from(uniquePlaces).slice(0, 3)
+          : Array.from(uniquePlaces);
+      html +=
+        this.context.statVarHierarchyType === StatVarHierarchyType.TIMELINE
+          ? `<li>${placeType} (eg. ${placeList.join(", ")})</li>`
+          : `<li>${placeType}</li>`;
+    }
+    html += "</ul>";
+    return html;
+  }
+
+  private mouseMoveAction = (hasData: boolean) => (e) => {
+    const html = this.getTooltipHtml(hasData);
+    if (_.isEmpty(html)) {
+      return;
     }
     const left = e.pageX;
     const containerY = (d3
