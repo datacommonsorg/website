@@ -37,6 +37,8 @@ const TOOLTIP_RIGHT_MARGIN = 20;
 const STATE_OR_EQUIVALENT = "State or equivalent";
 const COUNTY_OR_EQUIVALENT = "County or equivalent";
 const CITY_OR_EQUIVALENT = "City or equivalent";
+// Some place types are considered equivalent so this maps a place type to the
+// place type that we will display its information under.
 const PLACE_TYPE_MAPPING = {
   EurostatNUTS1: STATE_OR_EQUIVALENT,
   EurostatNUTS2: STATE_OR_EQUIVALENT,
@@ -49,22 +51,28 @@ const PLACE_TYPE_MAPPING = {
   Borough: CITY_OR_EQUIVALENT,
   City: CITY_OR_EQUIVALENT,
 };
-const IGNORED_PLACE_TYPES = new Set([
-  "Continent",
-  "CommutingZone",
-  "PowerPlantUnit",
-  "PoliticalCampaignCmte",
-  "AirQualitySite",
-  "CongressionalDistrict",
-  "ElementarySchoolDistrict",
-  "HighSchoolDistrict",
-  "UnifiedSchoolDistrict",
-  "SchoolDistrict",
-  "StateComponent",
-  "CensusCoreBasedStatisticalArea",
-  "CensusTract",
-  "CensusCountyDivision",
-  "CensusBlockGroup",
+const ALLOWED_PLACE_TYPES = new Set([
+  "Country",
+  "State",
+  "Province",
+  "County",
+  "City",
+  "Town",
+  "Village",
+  "School",
+  "Borough",
+  "CensusZipCodeTabulationArea",
+  "EurostatNUTS1",
+  "EurostatNUTS2",
+  "EurostatNUTS3",
+  "AdministrativeArea1",
+  "AdministrativeArea2",
+  "AdministrativeArea3",
+  "AdministrativeArea4",
+  "AdministrativeArea5",
+  "AdministrativeArea",
+  "Neighborhood",
+  "Place",
 ]);
 const IGNORED_PLACE_DCIDS = new Set(["Earth"]);
 
@@ -151,30 +159,19 @@ export class StatVarSectionInput extends React.Component<
     );
   }
 
-  private getTooltipHtml(hasData: boolean): string {
-    let html = hasData
-      ? ""
-      : "This variable has no data for any of the chosen places.";
-    if (_.isEmpty(this.props.summary)) {
-      return html;
-    }
+  /**
+   * Gets the place types and example places available for the current stat var.
+   * Returns a dictionary of place type to list of place names
+   */
+  private getAvailablePlaceTypesAndExamples(): Record<string, string[]> {
     const availablePlaceTypes = Object.keys(
       this.props.summary.placeTypeSummary
     ).filter((placeType) => {
       if (this.context.statVarHierarchyType === StatVarHierarchyType.MAP) {
         return placeType in USA_CHILD_PLACE_TYPES && placeType !== "Country";
       }
-      return !IGNORED_PLACE_TYPES.has(placeType);
+      return ALLOWED_PLACE_TYPES.has(placeType);
     });
-    if (availablePlaceTypes.length === 0) {
-      return hasData
-        ? ""
-        : "Sorry, this variable is not supported by this tool.";
-    } else {
-      html += hasData
-        ? "This variable is available for these types of places:<ul>"
-        : "You can try these types of places instead:<ul>";
-    }
     // Some place types are considered equivalent, so need to consolidate the
     // information for equivalent place types.
     const placeTypeToPlaceNames = {};
@@ -201,10 +198,29 @@ export class StatVarSectionInput extends React.Component<
         placeTypeToPlaceNames[placeType] = placeNames;
       }
     }
+    return placeTypeToPlaceNames;
+  }
+
+  /**
+   * Returns the html content for the tooltip. The content can be an empty
+   * string.
+   */
+  private getTooltipHtml(hasData: boolean): string {
+    let html = hasData
+      ? ""
+      : "This variable has no data for any of the chosen places.";
+    if (_.isEmpty(this.props.summary)) {
+      return html;
+    }
+    const placeTypeToPlaceNames = this.getAvailablePlaceTypesAndExamples();
     if (_.isEmpty(placeTypeToPlaceNames)) {
       return hasData
         ? ""
         : "Sorry, this variable is not supported by this tool.";
+    } else {
+      html += hasData
+        ? "This variable is available for these types of places:<ul>"
+        : "You can try these types of places instead:<ul>";
     }
     for (const placeType in placeTypeToPlaceNames) {
       // We only want to show a unique list of 3 items as examples.
