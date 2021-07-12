@@ -34,12 +34,20 @@ import { USA_CHILD_PLACE_TYPES } from "../tools/map/util";
 
 const TOOLTIP_TOP_OFFSET = 10;
 const TOOLTIP_RIGHT_MARGIN = 20;
+const STATE_OR_EQUIVALENT = "State or equivalent";
+const COUNTY_OR_EQUIVALENT = "County or equivalent";
+const CITY_OR_EQUIVALENT = "City or equivalent";
 const PLACE_TYPE_MAPPING = {
-  EurostatNUTS1: "State",
-  EurostatNUTS2: "State",
-  Town: "City",
-  Village: "City",
-  Borough: "City",
+  EurostatNUTS1: STATE_OR_EQUIVALENT,
+  EurostatNUTS2: STATE_OR_EQUIVALENT,
+  State: STATE_OR_EQUIVALENT,
+  AdministrativeArea1: STATE_OR_EQUIVALENT,
+  AdministrativeArea2: COUNTY_OR_EQUIVALENT,
+  County: COUNTY_OR_EQUIVALENT,
+  Town: CITY_OR_EQUIVALENT,
+  Village: CITY_OR_EQUIVALENT,
+  Borough: CITY_OR_EQUIVALENT,
+  City: CITY_OR_EQUIVALENT,
 };
 const IGNORED_PLACE_TYPES = new Set([
   "Continent",
@@ -56,6 +64,7 @@ const IGNORED_PLACE_TYPES = new Set([
   "CensusCoreBasedStatisticalArea",
   "CensusTract",
   "CensusCountyDivision",
+  "CensusBlockGroup",
 ]);
 const IGNORED_PLACE_DCIDS = new Set(["Earth"]);
 
@@ -158,7 +167,9 @@ export class StatVarSectionInput extends React.Component<
       return !IGNORED_PLACE_TYPES.has(placeType);
     });
     if (availablePlaceTypes.length === 0) {
-      html = "Sorry, this variable is not supported by this tool.";
+      return hasData
+        ? ""
+        : "Sorry, this variable is not supported by this tool.";
     } else {
       html += hasData
         ? "This variable is available for these types of places:<ul>"
@@ -177,6 +188,9 @@ export class StatVarSectionInput extends React.Component<
         continue;
       }
       const placeNames = placeList.map((place) => place.name);
+      if (_.isEmpty(placeNames)) {
+        continue;
+      }
       placeType =
         placeType in PLACE_TYPE_MAPPING
           ? PLACE_TYPE_MAPPING[placeType]
@@ -186,6 +200,11 @@ export class StatVarSectionInput extends React.Component<
       } else {
         placeTypeToPlaceNames[placeType] = placeNames;
       }
+    }
+    if (_.isEmpty(placeTypeToPlaceNames)) {
+      return hasData
+        ? ""
+        : "Sorry, this variable is not supported by this tool.";
     }
     for (const placeType in placeTypeToPlaceNames) {
       // We only want to show a unique list of 3 items as examples.
@@ -205,6 +224,9 @@ export class StatVarSectionInput extends React.Component<
 
   private mouseMoveAction = (hasData: boolean) => (e) => {
     const html = this.getTooltipHtml(hasData);
+    if (_.isEmpty(html)) {
+      return;
+    }
     const left = e.pageX;
     const containerY = (d3
       .select(`#${SV_HIERARCHY_SECTION_ID}`)
