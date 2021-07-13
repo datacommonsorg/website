@@ -48,6 +48,21 @@ export function axios_mock(): void {
       },
     });
 
+  // get statsvar properties Count_Person
+  when(axios.get)
+    .calledWith("/api/stats/stats-var-property?dcid=Count_Person")
+    .mockResolvedValue({
+      data: {
+        Count_Person: {
+          md: "",
+          mprop: "count",
+          pt: "Person",
+          pvs: {},
+          title: "Population",
+        },
+      },
+    });
+
   // get statsVar info of Median_Age_Person and Count_Person
   when(axios.get)
     .calledWith(
@@ -216,6 +231,7 @@ export function axios_mock(): void {
         ],
       },
     });
+
   when(axios.get)
     .calledWith("/api/browser/statvar/path?id=Count_Person")
     .mockResolvedValue({
@@ -223,6 +239,7 @@ export function axios_mock(): void {
         path: ["Count_Person", "dc/g/Demographics"],
       },
     });
+
   when(axios.get)
     .calledWith("/api/browser/statvar/path?id=Median_Age_Person")
     .mockResolvedValue({
@@ -230,6 +247,7 @@ export function axios_mock(): void {
         path: ["Median_Age_Person", "dc/g/Demographics"],
       },
     });
+
   when(axios.get)
     .calledWith("/api/browser/statvar/path?id=NotInTheTree")
     .mockResolvedValue({
@@ -237,6 +255,7 @@ export function axios_mock(): void {
         path: ["NotInTheTree"],
       },
     });
+
   when(axios.post)
     .calledWith("/api/stats/stat-var-summary", {
       statVars: ["Count_Person", "Median_Age_Person"],
