@@ -27,7 +27,7 @@
     "defaultMessage": "एक्सपोर्ट करें"
   },
   "chart_metadata-feedback": {
-    "defaultMessage": "सुझाव, शिकायत या राय"
+    "defaultMessage": "Feedback"
   },
   "chart_metadata-provenance": {
     "defaultMessage": "{sources} से लिया गया डेटा"
@@ -51,10 +51,10 @@
     "defaultMessage": "खास जानकारी"
   },
   "link-return_to_overview": {
-    "defaultMessage": "खास जानकारी  वाले पेज पर वापस जाएं"
+    "defaultMessage": "खास जानकारी वाले पेज पर वापस जाएं"
   },
   "more_charts": {
-    "defaultMessage": "और चार्ट "
+    "defaultMessage": "और चार्ट देखें"
   },
   "place_breadcrumb": {
     "defaultMessage": "{placeName} में {placeType}"

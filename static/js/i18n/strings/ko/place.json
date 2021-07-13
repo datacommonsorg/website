@@ -51,10 +51,10 @@
     "defaultMessage": "개요"
   },
   "link-return_to_overview": {
-    "defaultMessage": "개요로 돌아가기 "
+    "defaultMessage": "개요 페이지로 돌아가기"
   },
   "more_charts": {
-    "defaultMessage": "차트 더보기 "
+    "defaultMessage": "차트 더보기"
   },
   "place_breadcrumb": {
     "defaultMessage": "{placeName} {placeType}"

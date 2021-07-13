@@ -558,19 +558,19 @@
     "defaultMessage": "1 人あたりの純アルコール消費量（年間）"
   },
   "RetailDrugDistribution_DrugDistribution_Oxycodone": {
-    "defaultMessage": "オキシコドンの小売医薬品総流通量"
+    "defaultMessage": "小売医薬品総流通量（オキシコドン）"
   },
   "RetailDrugDistribution_DrugDistribution_Hydrocodone": {
-    "defaultMessage": "ヒドロコドンの小売医薬品総流通量"
+    "defaultMessage": "小売医薬品総流通量（ヒドロコドン）"
   },
   "RetailDrugDistribution_DrugDistribution_Codeine": {
-    "defaultMessage": "コデインの小売医薬品総流通量"
+    "defaultMessage": "小売医薬品総流通量（コデイン）"
   },
   "RetailDrugDistribution_DrugDistribution_Amphetamine": {
-    "defaultMessage": "アンフェタミンの小売医薬品総流通量"
+    "defaultMessage": "小売医薬品総流通量（アンフェタミン）"
   },
   "RetailDrugDistribution_DrugDistribution_Morphine": {
-    "defaultMessage": "モルヒネの小売医薬品総流通量"
+    "defaultMessage": "小売医薬品総流通量（モルヒネ）"
   },
   "Count_Person_EnrolledInSchool": {
     "defaultMessage": "人口（在学中）"
@@ -597,13 +597,13 @@
     "defaultMessage": "人口（貧困レベル以下、アメリカ先住民 / アラスカ先住民）"
   },
   "Count_Person_BelowPovertyLevelInThePast12Months_AsianAlone": {
-    "defaultMessage": ""
+    "defaultMessage": "人口（貧困レベル以下、アジア系）"
   },
   "Count_Person_BelowPovertyLevelInThePast12Months_BlackOrAfricanAmericanAlone": {
-    "defaultMessage": ""
+    "defaultMessage": "人口（貧困レベル以下、黒人 / アフリカ系アメリカ人）"
   },
   "Count_Person_BelowPovertyLevelInThePast12Months_HispanicOrLatino": {
-    "defaultMessage": ""
+    "defaultMessage": "人口（貧困レベル以下、ヒスパニック / ラテン系）"
   },
   "Count_Person_BelowPovertyLevelInThePast12Months_NativeHawaiianOrOtherPacificIslanderAlone": {
     "defaultMessage": "人口（貧困レベル以下、ハワイ先住民 / 太平洋諸島住民）"

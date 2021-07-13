@@ -762,10 +762,22 @@
     }
   ],
   "Count_Person_BelowPovertyLevelInThePast12Months_AsianAlone": [
+    {
+      "type": 0,
+      "value": "Population (sous le seuil de pauvreté, Asiatiques)"
+    }
   ],
   "Count_Person_BelowPovertyLevelInThePast12Months_BlackOrAfricanAmericanAlone": [
+    {
+      "type": 0,
+      "value": "Population (sous le seuil de pauvreté, Noirs ou Afro-américains)"
+    }
   ],
   "Count_Person_BelowPovertyLevelInThePast12Months_HispanicOrLatino": [
+    {
+      "type": 0,
+      "value": "Population (sous le seuil de pauvreté, Hispaniques ou Latinos)"
+    }
   ],
   "Count_Person_BelowPovertyLevelInThePast12Months_NativeHawaiianOrOtherPacificIslanderAlone": [
     {
@@ -1352,31 +1364,31 @@
   "RetailDrugDistribution_DrugDistribution_Amphetamine": [
     {
       "type": 0,
-      "value": "Quantité totale d'amphétamine vendue au détail"
+      "value": "Quantité totale vendue au détail (amphétamine)"
     }
   ],
   "RetailDrugDistribution_DrugDistribution_Codeine": [
     {
       "type": 0,
-      "value": "Quantité totale de codéine vendue au détail"
+      "value": "Quantité totale vendue au détail (codéine)"
     }
   ],
   "RetailDrugDistribution_DrugDistribution_Hydrocodone": [
     {
       "type": 0,
-      "value": "Quantité totale d'hydrocodone vendue au détail"
+      "value": "Quantité totale vendue au détail (hydrocodone)"
     }
   ],
   "RetailDrugDistribution_DrugDistribution_Morphine": [
     {
       "type": 0,
-      "value": "Quantité totale de morphine vendue au détail"
+      "value": "Quantité totale vendue au détail (morphine)"
     }
   ],
   "RetailDrugDistribution_DrugDistribution_Oxycodone": [
     {
       "type": 0,
-      "value": "Quantité totale d'oxycodone vendue au détail"
+      "value": "Quantité totale vendue au détail (oxycodone)"
     }
   ],
   "UnemploymentRate_Person": [
