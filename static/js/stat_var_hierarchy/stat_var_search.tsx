@@ -195,13 +195,15 @@ export class StatVarHierarchySearch extends React.Component<
   private onResultSelected = (selectedID: string) => () => {
     this.props.onSelectionChange(selectedID);
     let displayName = "";
-    for (const sv of this.state.svResults) {
-      if (sv.dcid == selectedID) {
-        displayName = sv.name;
-        break;
+    if (this.state.svResults) {
+      for (const sv of this.state.svResults) {
+        if (sv.dcid == selectedID) {
+          displayName = sv.name;
+          break;
+        }
       }
     }
-    if (displayName == "") {
+    if (displayName == "" && this.state.svgResults) {
       for (const svg of this.state.svgResults) {
         if (svg.dcid == selectedID) {
           displayName = svg.name;
