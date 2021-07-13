@@ -132,7 +132,8 @@ class Page extends Component<unknown, PageStateType> {
 
   private addPlaceAction(place: string): void {
     // We only need to check the availability of selected stat vars when adding
-    // the first place (ie. when the current list of places is empty).
+    // the first place (ie. when the current list of places is empty) because
+    // we take the union of the eligible stat vars for all places.
     if (!_.isEmpty(this.state.statVarInfo) && _.isEmpty(this.state.placeName)) {
       axios
         .post("/api/place/stat-vars/union", {
@@ -140,17 +141,24 @@ class Page extends Component<unknown, PageStateType> {
           statVars: Object.keys(this.state.statVarInfo),
         })
         .then((resp) => {
-          const availableSVs = resp.data;
+          const availableSVs: string[] = resp.data;
           const unavailableSV = [];
           for (const sv in this.state.statVarInfo) {
             if (availableSVs.indexOf(sv) === -1) {
               unavailableSV.push(this.state.statVarInfo[sv].title || sv);
             }
           }
-          const tokensMap = {};
-          tokensMap["place"] = { sep: placeSep, tokens: [place] };
-          tokensMap["statsVar"] = { sep: statVarSep, tokens: availableSVs };
-          setTokensToUrl(tokensMap);
+          const placeTokenInfo = {
+            name: "place",
+            sep: placeSep,
+            tokens: new Set([place]),
+          };
+          const statVarTokenInfo = {
+            name: "statsVar",
+            sep: statVarSep,
+            tokens: new Set(availableSVs),
+          };
+          setTokensToUrl([placeTokenInfo, statVarTokenInfo]);
           if (!_.isEmpty(unavailableSV)) {
             alert(
               `Sorry, the selected variable(s) [${unavailableSV.join(", ")}] ` +
