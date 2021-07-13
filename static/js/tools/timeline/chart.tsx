@@ -23,6 +23,8 @@ import { setChartPerCapita } from "./util";
 
 const CHART_HEIGHT = 300;
 
+const PER_CAPITA_MPROP = ["cumulativeCount", "incrementalCount", "count"];
+
 interface StatVarChipPropsType {
   statVar: string;
   color: string;
@@ -85,7 +87,7 @@ class Chart extends Component<ChartPropsType> {
     const placeName = Object.values(this.props.placeName)[0];
     return (
       <div className="card">
-        {this.props.mprop == "count" && (
+        {PER_CAPITA_MPROP.includes(this.props.mprop) && (
           <span className="chartPerCapita">
             Per capita
             <button
