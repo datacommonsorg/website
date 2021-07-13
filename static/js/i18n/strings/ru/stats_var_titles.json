@@ -558,19 +558,19 @@
     "defaultMessage": "Потребление алкоголя на душу населения в литрах чистого этилового спирта (ежегодно)"
   },
   "RetailDrugDistribution_DrugDistribution_Oxycodone": {
-    "defaultMessage": "Общее количество розничных продаж оксикодона"
+    "defaultMessage": "Общее количество розничных продаж (оксикодон)"
   },
   "RetailDrugDistribution_DrugDistribution_Hydrocodone": {
-    "defaultMessage": "Общее количество розничных продаж гидрокодона"
+    "defaultMessage": "Общее количество розничных продаж (гидрокодон)"
   },
   "RetailDrugDistribution_DrugDistribution_Codeine": {
-    "defaultMessage": "Общее количество розничных продаж кодеина"
+    "defaultMessage": "Общее количество розничных продаж (кодеин)"
   },
   "RetailDrugDistribution_DrugDistribution_Amphetamine": {
-    "defaultMessage": "Общее количество розничных продаж амфетамина"
+    "defaultMessage": "Общее количество розничных продаж (амфетамин)"
   },
   "RetailDrugDistribution_DrugDistribution_Morphine": {
-    "defaultMessage": "Общее количество розничных продаж морфина"
+    "defaultMessage": "Общее количество розничных продаж (морфин)"
   },
   "Count_Person_EnrolledInSchool": {
     "defaultMessage": "Население (зачисленные в школу)"
@@ -597,13 +597,13 @@
     "defaultMessage": "Население (за чертой бедности, американские индейцы и коренные жители Аляски)"
   },
   "Count_Person_BelowPovertyLevelInThePast12Months_AsianAlone": {
-    "defaultMessage": ""
+    "defaultMessage": "Население (за чертой бедности, представители азиатской расы)"
   },
   "Count_Person_BelowPovertyLevelInThePast12Months_BlackOrAfricanAmericanAlone": {
-    "defaultMessage": ""
+    "defaultMessage": "Население (за чертой бедности, темнокожие и афроамериканцы)"
   },
   "Count_Person_BelowPovertyLevelInThePast12Months_HispanicOrLatino": {
-    "defaultMessage": ""
+    "defaultMessage": "Население (за чертой бедности, испаноговорящие и латиноамериканцы)"
   },
   "Count_Person_BelowPovertyLevelInThePast12Months_NativeHawaiianOrOtherPacificIslanderAlone": {
     "defaultMessage": "Население (за чертой бедности, коренные жители Гавайев и тихоокеанских островов)"

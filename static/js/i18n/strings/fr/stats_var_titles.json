@@ -558,19 +558,19 @@
     "defaultMessage": "Consommation (annuelle) d'alcool pur par habitant"
   },
   "RetailDrugDistribution_DrugDistribution_Oxycodone": {
-    "defaultMessage": "Quantité totale d'oxycodone vendue au détail"
+    "defaultMessage": "Quantité totale vendue au détail (oxycodone)"
   },
   "RetailDrugDistribution_DrugDistribution_Hydrocodone": {
-    "defaultMessage": "Quantité totale d'hydrocodone vendue au détail"
+    "defaultMessage": "Quantité totale vendue au détail (hydrocodone)"
   },
   "RetailDrugDistribution_DrugDistribution_Codeine": {
-    "defaultMessage": "Quantité totale de codéine vendue au détail"
+    "defaultMessage": "Quantité totale vendue au détail (codéine)"
   },
   "RetailDrugDistribution_DrugDistribution_Amphetamine": {
-    "defaultMessage": "Quantité totale d'amphétamine vendue au détail"
+    "defaultMessage": "Quantité totale vendue au détail (amphétamine)"
   },
   "RetailDrugDistribution_DrugDistribution_Morphine": {
-    "defaultMessage": "Quantité totale de morphine vendue au détail"
+    "defaultMessage": "Quantité totale vendue au détail (morphine)"
   },
   "Count_Person_EnrolledInSchool": {
     "defaultMessage": "Population (personnes inscrites à l'école)"
@@ -597,13 +597,13 @@
     "defaultMessage": "Population (sous le seuil de pauvreté, Amérindiens ou natifs de l'Alaska)"
   },
   "Count_Person_BelowPovertyLevelInThePast12Months_AsianAlone": {
-    "defaultMessage": ""
+    "defaultMessage": "Population (sous le seuil de pauvreté, Asiatiques)"
   },
   "Count_Person_BelowPovertyLevelInThePast12Months_BlackOrAfricanAmericanAlone": {
-    "defaultMessage": ""
+    "defaultMessage": "Population (sous le seuil de pauvreté, Noirs ou Afro-américains)"
   },
   "Count_Person_BelowPovertyLevelInThePast12Months_HispanicOrLatino": {
-    "defaultMessage": ""
+    "defaultMessage": "Population (sous le seuil de pauvreté, Hispaniques ou Latinos)"
   },
   "Count_Person_BelowPovertyLevelInThePast12Months_NativeHawaiianOrOtherPacificIslanderAlone": {
     "defaultMessage": "Population (sous le seuil de pauvreté, natifs d'Hawaï ou d'autres îles du Pacifique)"

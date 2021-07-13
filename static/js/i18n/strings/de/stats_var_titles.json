@@ -558,19 +558,19 @@
     "defaultMessage": "Alkoholkonsum pro Kopf (jährlich)"
   },
   "RetailDrugDistribution_DrugDistribution_Oxycodone": {
-    "defaultMessage": "Gesamtvertrieb von Oxycodon im Einzelhandel"
+    "defaultMessage": "Gesamtvertrieb im Einzelhandel (Oxycodone)"
   },
   "RetailDrugDistribution_DrugDistribution_Hydrocodone": {
-    "defaultMessage": "Gesamtvertrieb von Hydrocodon im Einzelhandel"
+    "defaultMessage": "Gesamtvertrieb im Einzelhandel (Hydrocodone)"
   },
   "RetailDrugDistribution_DrugDistribution_Codeine": {
-    "defaultMessage": "Gesamtvertrieb von Codein im Einzelhandel"
+    "defaultMessage": "Gesamtvertrieb im Einzelhandel (Codeine)"
   },
   "RetailDrugDistribution_DrugDistribution_Amphetamine": {
-    "defaultMessage": "Gesamtvertrieb von Amphetaminen im Einzelhandel"
+    "defaultMessage": "Gesamtvertrieb im Einzelhandel (Amphetamine)"
   },
   "RetailDrugDistribution_DrugDistribution_Morphine": {
-    "defaultMessage": "Gesamtvertrieb von Morphium im Einzelhandel"
+    "defaultMessage": "Gesamtvertrieb im Einzelhandel (Morphine)"
   },
   "Count_Person_EnrolledInSchool": {
     "defaultMessage": "Bevölkerung (Schulbesuch)"
@@ -597,13 +597,13 @@
     "defaultMessage": "Bevölkerung (unterhalb der Armutsgrenze, Angehörige der indigenen Völker Amerikas/Alaskas)"
   },
   "Count_Person_BelowPovertyLevelInThePast12Months_AsianAlone": {
-    "defaultMessage": ""
+    "defaultMessage": "Bevölkerung (unterhalb der Armutsgrenze, asiatisch)"
   },
   "Count_Person_BelowPovertyLevelInThePast12Months_BlackOrAfricanAmericanAlone": {
-    "defaultMessage": ""
+    "defaultMessage": "Bevölkerung (unterhalb der Armutsgrenze, Schwarz oder afroamerikanisch)"
   },
   "Count_Person_BelowPovertyLevelInThePast12Months_HispanicOrLatino": {
-    "defaultMessage": ""
+    "defaultMessage": "Bevölkerung (unterhalb der Armutsgrenze, Hispano- oder Lateinamerikaner)"
   },
   "Count_Person_BelowPovertyLevelInThePast12Months_NativeHawaiianOrOtherPacificIslanderAlone": {
     "defaultMessage": "Bevölkerung (unterhalb der Armutsgrenze, Hawaiianisch oder andere Pazifikinsulaner)"

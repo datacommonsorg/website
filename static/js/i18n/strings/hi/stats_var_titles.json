@@ -330,7 +330,7 @@
     "defaultMessage": "औसत उम्र (सिर्फ़ श्वेत)"
   },
   "Count_Person_IncomeOfUpto9999USDollar": {
-    "defaultMessage": "जनसंख्या (10 हज़ार डॉलर की व्यक्तिगत आमदनी वाले)"
+    "defaultMessage": "जनसंख्या (10 हज़ार डॉलर तक व्यक्तिगत आमदनी वाले लोग)"
   },
   "Count_Person_IncomeOf10000To14999USDollar": {
     "defaultMessage": "जनसंख्या (10 से 15 हज़ार डॉलर व्यक्तिगत आमदनी वाले)"
@@ -558,19 +558,19 @@
     "defaultMessage": "प्रति व्यक्ति अल्कोहल की खपत (सालाना)"
   },
   "RetailDrugDistribution_DrugDistribution_Oxycodone": {
-    "defaultMessage": "ऑक्सीकोडोन दवाई का कुल खुदरा वितरण"
+    "defaultMessage": "दवाई का कुल खुदरा वितरण (ऑक्सीकोडोन)"
   },
   "RetailDrugDistribution_DrugDistribution_Hydrocodone": {
-    "defaultMessage": "हाइड्रॉकोडोन दवाई का कुल खुदरा वितरण"
+    "defaultMessage": "दवाई का कुल खुदरा वितरण (हाइड्रोकोडोन)"
   },
   "RetailDrugDistribution_DrugDistribution_Codeine": {
-    "defaultMessage": "कोडीन दवाई का कुल खुदरा वितरण"
+    "defaultMessage": "दवाई का कुल खुदरा वितरण (कोडीन)"
   },
   "RetailDrugDistribution_DrugDistribution_Amphetamine": {
-    "defaultMessage": "एंफ़ैटामिन दवाई का कुल खुदरा वितरण"
+    "defaultMessage": "दवाई का कुल खुदरा वितरण (एंफ़ेटामीन)"
   },
   "RetailDrugDistribution_DrugDistribution_Morphine": {
-    "defaultMessage": "मोर्फ़ीन दवाई का कुल खुदरा वितरण"
+    "defaultMessage": "दवाई का कुल खुदरा वितरण (मोर्फ़ीन)"
   },
   "Count_Person_EnrolledInSchool": {
     "defaultMessage": "जनसंख्या (जिनके नाम स्कूल में दर्ज हैं)"
@@ -597,13 +597,13 @@
     "defaultMessage": "जनसंख्या (गरीबी रेखा से नीचे जीवनयापन करने वाले अमेरिकन इंडियन या अलास्का के मूल निवासी)"
   },
   "Count_Person_BelowPovertyLevelInThePast12Months_AsianAlone": {
-    "defaultMessage": ""
+    "defaultMessage": "जनसंख्या (गरीबी रेखा से नीचे जीवनयापन करने वाले एशियन)"
   },
   "Count_Person_BelowPovertyLevelInThePast12Months_BlackOrAfricanAmericanAlone": {
-    "defaultMessage": ""
+    "defaultMessage": "जनसंख्या (गरीबी रेखा से नीचे जीवनयापन करने वाले ऐफ़्रिकन-अमेरिकन)"
   },
   "Count_Person_BelowPovertyLevelInThePast12Months_HispanicOrLatino": {
-    "defaultMessage": ""
+    "defaultMessage": "जनसंख्या (गरीबी रेखा से नीचे जीवनयापन करने वाले हिस्पैनिक या लैटिनो)"
   },
   "Count_Person_BelowPovertyLevelInThePast12Months_NativeHawaiianOrOtherPacificIslanderAlone": {
     "defaultMessage": "जनसंख्या (गरीबी रेखा से नीचे जीवनयापन करने वाले हवाई के मूल निवासी या दूसरे पैसिफ़िक आईलैंडर)"

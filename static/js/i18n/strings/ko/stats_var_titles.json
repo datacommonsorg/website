@@ -558,19 +558,19 @@
     "defaultMessage": "1인당 순수알코올 소비량(연간)"
   },
   "RetailDrugDistribution_DrugDistribution_Oxycodone": {
-    "defaultMessage": "옥시코돈의 총 소매 유통량"
+    "defaultMessage": "약품의 총 소매 유통량(옥시코돈)"
   },
   "RetailDrugDistribution_DrugDistribution_Hydrocodone": {
-    "defaultMessage": "하이드로콘의 총 소매 유통량"
+    "defaultMessage": "약품의 총 소매 유통량(하이드로콘)"
   },
   "RetailDrugDistribution_DrugDistribution_Codeine": {
-    "defaultMessage": "코데인의 총 소매 유통량"
+    "defaultMessage": "약품의 총 소매 유통량(코데인)"
   },
   "RetailDrugDistribution_DrugDistribution_Amphetamine": {
-    "defaultMessage": "암페타민의 총 소매 유통량"
+    "defaultMessage": "약품의 총 소매 유통량(암페타민)"
   },
   "RetailDrugDistribution_DrugDistribution_Morphine": {
-    "defaultMessage": "모르핀의 총 소매 유통량"
+    "defaultMessage": "약품의 총 소매 유통량(모르핀)"
   },
   "Count_Person_EnrolledInSchool": {
     "defaultMessage": "인구(학교에 등록됨)"
@@ -597,13 +597,13 @@
     "defaultMessage": "인구(빈곤선 이하, 아메리카 원주민 또는 알래스카 원주민)"
   },
   "Count_Person_BelowPovertyLevelInThePast12Months_AsianAlone": {
-    "defaultMessage": ""
+    "defaultMessage": "인구(빈곤선 이하, 아시아인)"
   },
   "Count_Person_BelowPovertyLevelInThePast12Months_BlackOrAfricanAmericanAlone": {
-    "defaultMessage": ""
+    "defaultMessage": "인구(빈곤선 이하, 흑인 또는 아프리카계 미국인)"
   },
   "Count_Person_BelowPovertyLevelInThePast12Months_HispanicOrLatino": {
-    "defaultMessage": ""
+    "defaultMessage": "인구(빈곤선 이하, 히스패닉 또는 라티노)"
   },
   "Count_Person_BelowPovertyLevelInThePast12Months_NativeHawaiianOrOtherPacificIslanderAlone": {
     "defaultMessage": "인구(빈곤선 이하, 하와이 원주민 또는 기타 태평양 섬 주민)"

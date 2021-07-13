@@ -558,19 +558,19 @@
     "defaultMessage": "Consumo di alcol puro pro capite (annuale)"
   },
   "RetailDrugDistribution_DrugDistribution_Oxycodone": {
-    "defaultMessage": "Distribuzione al dettaglio totale di ossicodone"
+    "defaultMessage": "Distribuzione al dettaglio totale di farmaci (ossicodone)"
   },
   "RetailDrugDistribution_DrugDistribution_Hydrocodone": {
-    "defaultMessage": "Distribuzione al dettaglio totale di idrocodone"
+    "defaultMessage": "Distribuzione al dettaglio totale di farmaci (idrocodone)"
   },
   "RetailDrugDistribution_DrugDistribution_Codeine": {
-    "defaultMessage": "Distribuzione al dettaglio totale di codeina"
+    "defaultMessage": "Distribuzione al dettaglio totale di farmaci (codeina)"
   },
   "RetailDrugDistribution_DrugDistribution_Amphetamine": {
-    "defaultMessage": "Distribuzione al dettaglio totale di anfetamina"
+    "defaultMessage": "Distribuzione al dettaglio totale di farmaci (amfetamina)"
   },
   "RetailDrugDistribution_DrugDistribution_Morphine": {
-    "defaultMessage": "Distribuzione al dettaglio totale di morfina"
+    "defaultMessage": "Distribuzione al dettaglio totale di droga (morfina)"
   },
   "Count_Person_EnrolledInSchool": {
     "defaultMessage": "Popolazione (iscrizione scolastica)"
@@ -597,13 +597,13 @@
     "defaultMessage": "Popolazione (sotto la soglia di povertà, indoamericana o nativa dell'Alaska)"
   },
   "Count_Person_BelowPovertyLevelInThePast12Months_AsianAlone": {
-    "defaultMessage": ""
+    "defaultMessage": "Popolazione (sotto la soglia di povertà, asiatica)"
   },
   "Count_Person_BelowPovertyLevelInThePast12Months_BlackOrAfricanAmericanAlone": {
-    "defaultMessage": ""
+    "defaultMessage": "Popolazione (sotto la soglia di povertà, nera o afroamericana)"
   },
   "Count_Person_BelowPovertyLevelInThePast12Months_HispanicOrLatino": {
-    "defaultMessage": ""
+    "defaultMessage": "Popolazione (sotto la soglia di povertà, ispanica o latina)"
   },
   "Count_Person_BelowPovertyLevelInThePast12Months_NativeHawaiianOrOtherPacificIslanderAlone": {
     "defaultMessage": "Popolazione (sotto la soglia di povertà, nativa delle Hawaii o di altre isole del Pacifico)"

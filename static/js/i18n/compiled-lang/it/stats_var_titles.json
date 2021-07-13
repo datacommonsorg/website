@@ -762,10 +762,22 @@
     }
   ],
   "Count_Person_BelowPovertyLevelInThePast12Months_AsianAlone": [
+    {
+      "type": 0,
+      "value": "Popolazione (sotto la soglia di povertà, asiatica)"
+    }
   ],
   "Count_Person_BelowPovertyLevelInThePast12Months_BlackOrAfricanAmericanAlone": [
+    {
+      "type": 0,
+      "value": "Popolazione (sotto la soglia di povertà, nera o afroamericana)"
+    }
   ],
   "Count_Person_BelowPovertyLevelInThePast12Months_HispanicOrLatino": [
+    {
+      "type": 0,
+      "value": "Popolazione (sotto la soglia di povertà, ispanica o latina)"
+    }
   ],
   "Count_Person_BelowPovertyLevelInThePast12Months_NativeHawaiianOrOtherPacificIslanderAlone": [
     {
@@ -1352,31 +1364,31 @@
   "RetailDrugDistribution_DrugDistribution_Amphetamine": [
     {
       "type": 0,
-      "value": "Distribuzione al dettaglio totale di anfetamina"
+      "value": "Distribuzione al dettaglio totale di farmaci (amfetamina)"
     }
   ],
   "RetailDrugDistribution_DrugDistribution_Codeine": [
     {
       "type": 0,
-      "value": "Distribuzione al dettaglio totale di codeina"
+      "value": "Distribuzione al dettaglio totale di farmaci (codeina)"
     }
   ],
   "RetailDrugDistribution_DrugDistribution_Hydrocodone": [
     {
       "type": 0,
-      "value": "Distribuzione al dettaglio totale di idrocodone"
+      "value": "Distribuzione al dettaglio totale di farmaci (idrocodone)"
     }
   ],
   "RetailDrugDistribution_DrugDistribution_Morphine": [
     {
       "type": 0,
-      "value": "Distribuzione al dettaglio totale di morfina"
+      "value": "Distribuzione al dettaglio totale di droga (morfina)"
     }
   ],
   "RetailDrugDistribution_DrugDistribution_Oxycodone": [
     {
       "type": 0,
-      "value": "Distribuzione al dettaglio totale di ossicodone"
+      "value": "Distribuzione al dettaglio totale di farmaci (ossicodone)"
     }
   ],
   "UnemploymentRate_Person": [

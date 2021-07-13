@@ -1,863 +1,579 @@
-#. Link to a Place page showing data related to Demographics for a place { cityName }. Please keep the string `%(cityName)s` as is in the final translation. Please see this string in action as "Washington, DC Demographics" at https://datacommons.org
-#: server/templates/static/homepage.html:86
-#, python-format
 msgid "%(cityName)s Demographics"
 msgstr "%(cityName)s の人口統計"
 
-#. Link to a Place page showing data related to Health for a place { cityName }. Please keep the string `%(cityName)s` as is in the final translation. Please see this string in action as "New York City Health" at https://datacommons.org
-#: server/templates/static/homepage.html:81
-#, python-format
 msgid "%(cityName)s Health"
 msgstr "%(cityName)s の健康状態"
 
-#. The label for a link to project homepage.
-#: server/templates/base.html:165
-#, python-format
 msgid "%(project)s is a Google supported project"
 msgstr "%(project)s は Google がサポートするプロジェクトです"
 
-#. The label for a link to our API documentation.
-#: server/templates/base.html:83 server/templates/base.html:137
 msgid "API's"
 msgstr "API"
 
-#: server/templates/base.html:91
 msgid "About"
 msgstr "基本情報"
 
-#. The label for a link to the project's about page.
-#: server/templates/base.html:94 server/templates/base.html:149
 msgid "About Data Commons"
 msgstr "データコモンズについて"
 
-#. Link to a scatter plot comparing bachelor degree attained vs females per capita across counties in California. Please see this string in action at https://datacommons.org
-#: server/templates/static/homepage.html:142
 msgid "Bachelor Degree Attained vs Females per capita for California Counties"
-msgstr ""
+msgstr "カリフォルニア州の各郡における一人当たりの学士号取得数と女性の割合"
 
-#. The label for a link to the project's blog.
-#: server/templates/base.html:95 server/templates/base.html:151
 msgid "Blog"
 msgstr "ブログ"
 
-#. Header for a set of links to the Data Commons Graph Browser product. Each page in the graph describes an entity (or node). Please see this string in action at https://datacommons.org
-#: server/templates/static/homepage.html:117
-#, python-format
 msgid "Browse entities in the %(project)s Graph"
 msgstr "%(project)s のグラフでエンティティをブラウジング"
 
-#. Header for a section on building your own tools and analysis using our API. Please see this string in action at https://datacommons.org
-#: server/templates/static/homepage.html:157
 msgid "Build your own"
 msgstr "自分で作成"
 
-#. Heading for a list of cities in the US. See this message on https://datacommons.org/place
-#: server/templates/place_landing.html:55
 msgid "Cities, United States"
 msgstr "米国の都市"
 
-#. The label for a link to instructions about contributing to the project.
-#: server/templates/base.html:85 server/templates/base.html:141
 msgid "Contribute"
 msgstr "協力する"
 
-#. Heading for a list of counties in the US. See this message on https://datacommons.org/place
-#: server/templates/place_landing.html:62
 msgid "Counties, United States"
 msgstr "米国の郡"
 
-#. Heading for a list of countries.
-#: server/templates/place_landing.html:76
 msgid "Countries"
 msgstr "国"
 
-#. Header for a set of links to the Data Commons Scatter Plot Explorer tool, where users are able to create scatter plots on many topics. Please see this string in action at https://datacommons.org
-#: server/templates/static/homepage.html:138
 msgid "Create Scatter Plots"
-msgstr ""
+msgstr "散布図を作成する"
 
-#. Header for a list of links to the Timeline Explorer tool, where users are able to create timeline charts on many topics. Please see this string in action at https://datacommons.org
-#: server/templates/static/homepage.html:96
 msgid "Create Timeline Charts"
 msgstr "タイムライン グラフを作成"
 
-#. The label for a link to informational pages about the Data Commons project.
-#: server/templates/base.html:147
 msgid "Data Commons"
 msgstr "データコモンズ"
 
-#. The label for a link to data sources included in the Data Commons knowledge graph.
-#: server/templates/base.html:96 server/templates/base.html:153
 msgid "Data Sources"
 msgstr "データソース"
 
-#. The label for a link to site disclaimers.
-#: server/templates/base.html:174
 msgid "Disclaimers"
 msgstr "免責事項"
 
-#. The label for a list of documentation links.
-#. The label for a link to our documentation site.
-#: server/templates/base.html:80 server/templates/base.html:82 server/templates/base.html:133 server/templates/base.html:135
 msgid "Documentation"
 msgstr "ドキュメント"
 
-#. Heading for a list of links to rankings of places worldwide, by their economic indicators.
-#: server/templates/place_landing.html:126
 msgid "Economic Indicators, Worldwide"
 msgstr "全世界の経済指標"
 
-#. Link to a chart comparing the differences in employment rate across the neighboring California cities (one city is much richer than the other). Please see this string in action at https://datacommons.org
-#: server/templates/static/homepage.html:108
 msgid "Employment Differences Across Neighboring Cities"
 msgstr "近隣都市間の雇用率の差"
 
-#. Link to a node for the entity (describing the ENCODE project, https://www.encodeproject.org/) in the Data Commons Graph. Please see this string in action at https://datacommons.org
-#: server/templates/static/homepage.html:129
 msgid "Encyclopedia of DNA Elements (Biosamples)"
-msgstr ""
+msgstr "DNA 要素エンサイクロペディア（生体サンプル）"
 
-#. A hint shown in the search box, asking users to search for places.
-#: server/templates/place.html:51 server/templates/place_landing.html:44
 msgid "Enter a country, state, county or city"
 msgstr "国、州、郡、都市のいずれかを入力してください"
 
-#. The label for a collection of exploration tools.
-#: server/templates/base.html:69 server/templates/base.html:121
 msgid "Explore"
 msgstr "探索"
 
-#. Header for a list of links to the Place Explorer product. Please see this string in action at https://datacommons.org
-#: server/templates/static/homepage.html:72
 msgid "Explore Places"
 msgstr "地域を検索"
 
-#. Header for a list of links to Data Commons data displays. Please see this string in action at https://datacommons.org
-#: server/templates/static/homepage.html:62
 msgid "Explore the data"
 msgstr "データを検索"
 
-#: server/templates/base.html:97
 msgid "FAQ"
 msgstr "よくある質問"
 
-#. The label for a link to instructions about sending feedback.
-#: server/templates/base.html:98 server/templates/base.html:155
 msgid "Feedback"
 msgstr "フィードバック"
 
-#. Link to a scatter plot comparing foreign born vs unemployment rate across states in the US. Please see this string in action at https://datacommons.org
-#: server/templates/static/homepage.html:146
 msgid "Foreign Born vs Unemployment Rate for US States"
-msgstr ""
+msgstr "米国の各州における外国人と失業率の比較"
 
-#. The label for a link to project FAQ page.
-#: server/templates/base.html:157
 msgid "Frequently Asked Questions"
 msgstr "よくある質問"
 
-#. Link to worldwide rankings for Gini Index, by country.
-#: server/templates/place_landing.html:129
 msgid "Gini Index"
 msgstr "ジニ係数"
 
-#. The label for a link to the project's github repository (for open sourced code).
-#: server/templates/base.html:143
 msgid "Github Repository"
 msgstr "GitHub リポジトリ"
 
-#. Link to worldwide rankings for Government Expenditures on Education, by country.
-#: server/templates/place_landing.html:137
 msgid "Government Expenditures on Education"
 msgstr "政府の教育支出"
 
-#. Link to worldwide rankings for Government Expenditures on Military, by country.
-#: server/templates/place_landing.html:141
 msgid "Government Expenditures on Military"
 msgstr "政府の軍事支出"
 
-#. The name of a tool to browse the Data Commons knowledge graph.
-#: server/templates/base.html:73 server/templates/base.html:125
 msgid "Graph Browser"
 msgstr "グラフブラウザ"
 
-#. Link to worldwide rankings for Gross National Income, by country.
-#: server/templates/place_landing.html:133
 msgid "Gross National Income"
 msgstr "国民総所得"
 
-#. Describes building your own tools and analysis using our API (here Python refers to the programming language - see python.org, and REST is an acronym for REpresentational State Transfer). Python API and REST API are both names of the respective API's. Please see this string in action at https://datacommons.org
-#: server/templates/static/homepage.html:160
 msgid "HOME-BUILD_CALLOUT"
 msgstr "Python API と REST API を使用して、独自のカスタム分析を実行したり、独自のツールを構築したりできます。"
 
-#. Describes how we clean and process data for import once, usually a painful part of data analysis. Data cleaning here refers to a common step in data science analysis (e.g. https://elitedatascience.com/data-cleaning), and process refers to the transformation required to analyze a data set. Data is imported into a unified graph (e.g. data about California from many sources are all added to the same node in our graph. Please see this string in action at https://datacommons.org
-#: server/templates/static/homepage.html:65
 msgid "HOME-EXPLORE_CALLOUT"
 msgstr "データのクリーンアップと処理は Google によって行われるので、ご自身で行う必要はありません。特定のエンティティに関するデータは、さまざまなソースから集約されて一元的なビューに表示されます。"
 
-#. Description of the Data Commons project. "open knowledge repository": It's a knowledge repository, or knowledge graph (https://en.wikipedia.org/wiki/Knowledge_graph). It's also open: free to use, community maintained and open sourced. "combines data": Multiple datasets are combined into a single knowledge graph "mapped common entities": Data about the same entity across datasets are mapped to a single common entity. E.g. Data about "California" across the US Census and World Bank are combined under the same "California" entity (or node). Data joining (or merging), is the work that is required to analyze data across multiple datasets (e.g. https://www.displayr.com/what-is-data-merging/). In summary, Data Commons is an open sourced, community project that includes data from across many data sets into a single knowledge graph, where data about the same entity is already combined for easy exploration and analysis. Please see this string in action at https://datacommons.org
-#: server/templates/static/homepage.html:32
 msgid "HOME-HERO_MESSAGE"
 msgstr "データコモンズは、マッピングされた共通エンティティを使用して公開データセットからのデータを結合するオープン ナレッジ リポジトリです。データのクリーニングや結合を行わなくても、さまざまなデータセットのデータを簡単に検索して分析できるツールが含まれています。"
 
-#. A link soliciting contributions to the project from the community. See this string at https://datacommons.org
-#: server/templates/static/homepage.html:186
 msgid "HOME-JOIN_EFFORT"
 msgstr "取り組みに参加しましょう。"
 
-#. Describes that the project is open sourced, and what it is built on top of (it extends a schema defined by schema.org). Please take care to maintain valid <a> tags in translation. See this string in action at https://datacommons.org
-#: server/templates/static/homepage.html:180
 msgid "HOME-OPEN_SOURCED"
 msgstr "<a href=%(github_url)s>オープンソース</a>、<a href=%(schemaorg_url)s>%(tool)s</a>で作成。"
 
-#. Label for rankings of places by the number of combined criminal activities, per capita (sorted from highest to lowest).
-#: server/routes/api/place.py:525
 msgid "Highest Crime Per Capita"
 msgstr "1 人あたりの犯罪件数上位"
 
-#. Label for rankings of places by the median age of it's population (sorted from highest to lowest).
-#: server/routes/api/place.py:516
 msgid "Highest Median Age"
 msgstr "年齢の中央値上位"
 
-#. Label for rankings of median individual income (sorted from highest to lowest).
-#: server/routes/api/place.py:514
 msgid "Highest Median Income"
 msgstr "所得の中央値上位"
 
-#. Label for rankings of places by the unemployment rate of it's population (sorted from highest to lowest).
-#: server/routes/api/place.py:518
 msgid "Highest Unemployment Rate"
 msgstr "失業率上位"
 
-#. Label for rankings of places by size of population (sorted from highest to lowest).
-#: server/routes/api/place.py:512
 msgid "Largest Population"
 msgstr "人口上位"
 
-#. Heading for a list of links to rankings of places in the US, by their life expectancy.
-#: server/templates/place_landing.html:115
 msgid "Life Expectancy"
 msgstr "平均寿命"
 
-#. A message shown on the page while the content is loading.
-#: server/templates/place.html:59
 msgid "Loading..."
 msgstr "読み込んでいます…"
 
-#. String showing that there are many more links available. Feel free to replace ellipsis with other language appropriate equivalents. Will always be preceded by a comma. Please see this string in action at https://datacommons.org
-#: server/templates/static/homepage.html:89 server/templates/static/homepage.html:110 server/templates/static/homepage.html:131 server/templates/static/homepage.html:148
 msgid "MORE"
 msgstr "その他"
 
-#. Heading for a list of links to rankings of places in the US, by their median income. See this message on https://datacommons.org/place
-#: server/templates/place_landing.html:88
 msgid "Median Income, United States"
 msgstr "米国の所得の中央値"
 
-#. Link to a node for the entity (the New York City school district, https://www.schools.nyc.gov/) in the Data Commons Graph. Please see this string in action at https://datacommons.org
-#: server/templates/static/homepage.html:125
 msgid "New York City Department of Education"
 msgstr "ニューヨーク市教育局"
 
-#. The header for a section on how Data Commons is an open, community effort. See this string at https://datacommons.org
-#: server/templates/static/homepage.html:174
 msgid "Open"
 msgstr "オープン"
 
-#. Describes that the data in the graph is open (the code importing the data into the graph is open sourced). See this string at https://datacommons.org
-#: server/templates/static/homepage.html:177
 msgid "Open Data."
 msgstr "データはオープンソースです。"
 
-#. Introduction to the Place Explorer tool. Please wrap each paragraph with <p> and </p> tags. See this message on https://datacommons.org/place
-#: server/templates/place_landing.html:49
 msgid "PLACE_EXPLORER_INTRO"
 msgstr "<p>プレイス エクスプローラは、地域の基礎的なコアデータを把握するために役立つツールです。特定の地域の人口統計、教育、経済などに関する一連のグラフをまとめて、他の地域と比較できるように配置します。また、失業、犯罪、所得などのさまざまな指標で、個々の地域がどのようにランク付けされるかを確認できます。</p><p>上の検索ボックスで都市、郵便番号、郡、州、国を指定して、該当するグラフを表示できます。</p><p>また、よく知られている地域を探索することもできます。</p>"
 
-#. The name of a tool to browse statistics about a place.
-#: server/templates/base.html:72 server/templates/base.html:123 server/templates/place.html:19 server/templates/place.html:20 server/templates/place_landing.html:19 server/templates/place_landing.html:20 server/templates/place_landing.html:37
 msgid "Place Explorer"
-msgstr ""
+msgstr "プレイス エクスプローラ"
 
-#. The name of a tool to view rankings of places by a specified dimension.
-#: server/templates/ranking.html:19 server/templates/ranking.html:20
 msgid "Place Rankings"
 msgstr "地域ランキング"
 
-#. Heading for a list of places
-#: server/templates/place_landing.html:52
 msgid "Places"
 msgstr "場所"
 
-#. The label for a link to site privacy policy.
-#: server/templates/base.html:172
 msgid "Privacy Policy"
 msgstr "プライバシー ポリシー"
 
-#. Heading for a list of place rankings.
-#: server/templates/place_landing.html:85
 msgid "Rankings"
 msgstr "ランキング"
 
-#. Link to a chart comparing the differences in median income across the richest and poorest California counties. Please see this string in action at https://datacommons.org
-#: server/templates/static/homepage.html:104
 msgid "Richest vs. Poorest California Counties"
 msgstr "カリフォルニア州の最も富裕な郡と最も貧しい郡"
 
-#. The name of a tool to explore scatter plots of statistical variables for places.
-#: server/templates/base.html:75 server/templates/base.html:129
 msgid "Scatter Plot Explorer"
-msgstr ""
+msgstr "散布図エクスプローラ"
 
-#. The label for a link to our API documentation. See this string at https://datacommons.org
-#: server/templates/static/homepage.html:166
 msgid "See API documentation."
 msgstr "API ドキュメントをご覧ください。"
 
-#. Blog post entry. Please take care to maintain valid <a> tags in translation. See this string in action at https://datacommons.org
-#: server/templates/static/homepage.html:168
 msgid "See some sample Python notebooks."
 msgstr "サンプル Python ノートブックをご覧ください。"
 
-#. Heading for a list of states in the US. See this message on https://datacommons.org/place
-#: server/templates/place_landing.html:69
 msgid "States, United States"
 msgstr "米国の州"
 
-#. The label for a link to site terms and conditions.
-#: server/templates/base.html:170
 msgid "Terms and Conditions"
 msgstr "利用規約"
 
-#. The name of a tool to explore timeline charts of statistical variables for places.
-#: server/templates/base.html:74 server/templates/base.html:127
 msgid "Timelines Explorer"
 msgstr "タイムライン エクスプローラ"
 
-#. The label for a link to our API tutorials.
-#: server/templates/base.html:84 server/templates/base.html:139
 msgid "Tutorials"
 msgstr "チュートリアル"
 
-#. Link to a chart comparing median income across various university towns in the US. Please see this string in action at https://datacommons.org
-#: server/templates/static/homepage.html:100
 msgid "US University Towns by Income"
 msgstr "所得別の米国の大学都市"
 
-#. Heading for a list of links to rankings of places in the US, by their unemployment rate. See this message on https://datacommons.org/place
-#: server/templates/place_landing.html:103
 msgid "Unemployment Rate, United States"
 msgstr "米国の失業率"
 
-#. Blog post entry. Please take care to maintain valid <a> tags in translation. See this string in action at https://datacommons.org
-#: server/templates/static/homepage.html:52
-#, python-format
 msgid "We have launched exciting new features, including internationalization support, a new graph browser and scatter plot explorer, new Stats API, updated documentation, and new data. <a href=%(blog_url)s>Read our blog post for more details</a>."
-msgstr ""
+msgstr "国際化のサポート、新しいグラフブラウザと散布図エクスプローラ、新しい Stats API、ドキュメントの更新、新しいデータなど、新機能をリリースしました。<a href=%(blog_url)s>詳細はブログ投稿をご覧ください</a>。"
 
-#. Header for list of blog posts and project updates. Please see this string in action at https://datacommons.org
-#: server/templates/static/homepage.html:47
 msgid "What's new"
 msgstr "最新情報"
 
-#. Link to worldwide rankings for life expectancy by country. See this message on https://datacommons.org/place
-#: server/templates/place_landing.html:118
 msgid "Worldwide"
 msgstr "全世界"
 
-#. Heading for a list of rankings, pivoted by city. See this message on https://datacommons.org/place
-#: server/templates/place_landing.html:91 server/templates/place_landing.html:105
 msgid "by city"
 msgstr "都市別"
 
-#. Heading for a list of rankings, pivoted by county. See this message on https://datacommons.org/place
-#: server/templates/place_landing.html:95 server/templates/place_landing.html:108
 msgid "by county"
 msgstr "国別"
 
-#. Heading for a list of rankings, pivoted by state. See this message on https://datacommons.org/place
-#: server/templates/place_landing.html:99 server/templates/place_landing.html:111
 msgid "by state"
 msgstr "州別"
 
-#. Link to US rankings for life expectancy by state. See this message on https://datacommons.org/place
-#: server/templates/place_landing.html:122
 msgid "in United States"
 msgstr "米国内"
 
-#. Title of a place chart: Total amount of alcohol consumed per person anually
 msgid "CHART_TITLE-Alcohol_consumption_per_capita"
 msgstr "1 人あたりのアルコール消費量（年間）"
 
-#. Title of a place chart: Total number of arson incidents
 msgid "CHART_TITLE-Arson"
 msgstr "放火"
 
-#. Title of a place chart: Total number of arson incidents per 100,000 people
 msgid "CHART_TITLE-Arson_rate"
 msgstr "放火件数（人口 100,000 人あたり）"
 
-#. Title of a place chart: Percentage of young adults who have an associate degree, broken down by gender
 msgid "CHART_TITLE-Associate_degree_rate_gender"
 msgstr "準学士号の取得率（性別ごと）"
 
-#. Title of a place chart: Percentage of young adults who have an bachelor's degree, broken down by gender
 msgid "CHART_TITLE-Bachelors_degree_rate_gender"
 msgstr "学士号の取得率（性別ごと）"
 
-#. The category for a group of statistical charts.
 msgid "CHART_TITLE-CHART_CATEGORY-Crime"
 msgstr "犯罪"
 
-#. The category for a group of statistical charts.
 msgid "CHART_TITLE-CHART_CATEGORY-Demographics"
 msgstr "人口統計"
 
-#. The category for a group of statistical charts.
 msgid "CHART_TITLE-CHART_CATEGORY-Economics"
 msgstr "経済"
 
-#. The category for a group of statistical charts.
 msgid "CHART_TITLE-CHART_CATEGORY-Education"
 msgstr "学歴"
 
-#. The category for a group of statistical charts.
 msgid "CHART_TITLE-CHART_CATEGORY-Environment"
 msgstr "環境"
 
-#. The category for a group of statistical charts.
 msgid "CHART_TITLE-CHART_CATEGORY-Equity"
 msgstr "資産"
 
-#. The category for a group of statistical charts.
 msgid "CHART_TITLE-CHART_CATEGORY-Health"
 msgstr "健康"
 
-#. The category for a group of statistical charts.
 msgid "CHART_TITLE-CHART_CATEGORY-Housing"
 msgstr "住宅"
 
-#. The category for a group of statistical charts.
 msgid "CHART_TITLE-CHART_CATEGORY-Overview"
 msgstr "概要"
 
-#. Title of a place chart: Number of children who are employed
 msgid "CHART_TITLE-Children_employed"
 msgstr "就労している児童"
 
-#. Title of a place chart: Number of children who are employed, broken down by gender
 msgid "CHART_TITLE-Children_employed_gender"
 msgstr "就労している児童（性別ごと）"
 
-#. Title of a place chart: Prevalence of severe wasting (or severely low weight for height) among children under 5
 msgid "CHART_TITLE-Children_severe_wasting"
 msgstr "5 歳未満の児童の深刻な栄養不良"
 
-#. Title of a place chart: Prevalence of severe wasting (or severely low weight for height) among children under 5, broken down by gender
 msgid "CHART_TITLE-Children_severe_wasting_by_gender"
 msgstr "5 歳未満の児童の深刻な消耗症（性別ごと）"
 
-#. Title of a place chart: Prevalence of wasting (or low weight for height) among children under 5
 msgid "CHART_TITLE-Children_wasting"
 msgstr "5 歳未満の児童の消耗症"
 
-#. Title of a place chart: Prevalence of wasting (or low weight for height) among children under 5, broken down by gender
 msgid "CHART_TITLE-Children_wasting_by_gender"
 msgstr "5 歳未満の児童の消耗症（性別ごと）"
 
-#. Title of a place chart: Total number of individuals, broken down by citizenship status
 msgid "CHART_TITLE-Citizenship"
 msgstr "市民権ステータス"
 
-#. Title of a place chart: Percentage of population, broken down by citizenship status
 msgid "CHART_TITLE-Citizenship_distribution"
 msgstr "市民権ステータス別の人口分布"
 
-#. Title of a place chart: Total amount of carbon dioxied emissions per person
 msgid "CHART_TITLE-Co2_emissions_per_capita"
 msgstr "1 人あたりの CO2 排出量"
 
-#. Title of a place chart: Cumulative count of COVID-19 cases
 msgid "CHART_TITLE-Covid_cases"
 msgstr "COVID-19（新型コロナウイルス感染症）の累積感染者数"
 
-#. Title of a place chart: Cumulative count of COVID-19 cases as a percentage of the population
 msgid "CHART_TITLE-Covid_cases_per_capita"
 msgstr "人口あたりの COVID-19（新型コロナウイルス感染症）の累計感染者数"
 
-#. Title of a place chart: Cumulative count of deaths caused by COVID-19
 msgid "CHART_TITLE-Covid_deaths"
 msgstr "COVID-19（新型コロナウイルス感染症）の累積死亡者数"
 
-#. Title of a place chart: Cumulative count of deaths caused by COVID-19 as a percentage of the population
 msgid "CHART_TITLE-Covid_deaths_per_capita"
 msgstr "人口あたり COVID-19（新型コロナウイルス感染症）の累計死亡者数"
 
-#. Title of a place chart: Total number of criminal incidents per 100,000 people
 msgid "CHART_TITLE-Crime_rate"
 msgstr "犯罪件数（人口 100,000 人あたり）"
 
-#. Title of a place chart: Total number of cyclones that occured
 msgid "CHART_TITLE-Cyclones"
 msgstr "サイクロン"
 
-#. Title of a place chart: Total number of disasters that occured, broken down by disaster type
 msgid "CHART_TITLE-Disasters"
 msgstr "災害"
 
-#. Title of a place chart: Total number of earthquakes that occured
 msgid "CHART_TITLE-Earthquakes"
 msgstr "地震"
 
-#. Title of a place chart: Number of people who have attained various educational milestones, e.g. completed high school or have a bachelor's degree
 msgid "CHART_TITLE-Educational_attainment"
 msgstr "学歴"
 
-#. Title of a place chart: Percentage of the adult population who have attained various educational milestones, e.g. completed high school or have a bachelor's degree
 msgid "CHART_TITLE-Educational_attainment_rate"
 msgstr "学歴取得率"
 
-#. Title of a place chart: Total amount of electricity consumed per person
 msgid "CHART_TITLE-Electricity_consumption_per_capita"
 msgstr "1 人あたりの電力消費量"
 
-#. Title of a place chart: Total amount of energy consumed per person, measured by kilogram of oil equivalent
 msgid "CHART_TITLE-Energy_use"
 msgstr "エネルギー使用量（1 人あたりの石油換算 kg）"
 
-#. Title of a place chart: Average number of children that would be born to a woman over her lifetime
 msgid "CHART_TITLE-Fertility_rate"
 msgstr "出生率"
 
-#. Title of a place chart: Annual percentage growth rate of GDP at market prices based on constant local currency
 msgid "CHART_TITLE-Gdp_growth_rate"
 msgstr "国内総生産の成長率"
 
-#. Title of a place chart: Gross domestic product (nominal) per capita, see https://en.wikipedia.org/wiki/Gross_domestic_product
 msgid "CHART_TITLE-Gdp_per_capita"
 msgstr "1 人あたりの国内総生産"
 
-#. Title of a place chart: The Gini index is a measure of inequality, see https://stats.oecd.org/glossary/detail.asp?ID=4842
 msgid "CHART_TITLE-Gini_index"
 msgstr "ジニ係数"
 
-#. Title of a place chart: Gross national income, converted using purchasing power parity rates
 msgid "CHART_TITLE-Gni"
 msgstr "国民総所得（購買力平価）"
 
-#. Title of a place chart: Gross national income, divided by population, converted using purchasing power parity rates
 msgid "CHART_TITLE-Gni_per_capita"
 msgstr "1 人あたりの国民総所得（購買力平価）"
 
-#. Title of a place chart: Amount of government debt
 msgid "CHART_TITLE-Government_debt"
 msgstr "国債"
 
-#. Title of a place chart: Government debt divided by the population
 msgid "CHART_TITLE-Government_debt_per_capita"
 msgstr "1 人あたりの国債"
 
-#. Title of a place chart: Government expenditures on education as a percentage of government expenditure
 msgid "CHART_TITLE-Government_expenditures_education"
 msgstr "政府の教育支出（政府支出比）"
 
-#. Title of a place chart: Government expenditures on education as a percentage of GDP
 msgid "CHART_TITLE-Government_expenditures_education_gdp"
 msgstr "政府の教育支出（GDP 比）"
 
-#. Title of a place chart: Amount spent by a government on the military
 msgid "CHART_TITLE-Government_expenditures_military"
 msgstr "政府の軍事支出"
 
-#. Title of a place chart: Amount spent by a government on the military as a percentage of GDP
 msgid "CHART_TITLE-Government_expenditures_military_per_gdp"
 msgstr "政府の軍事支出（GDP 比）"
 
-#. Title of a place chart: Percentage of young adults who have a graduate or professional degree, broken down by gender
 msgid "CHART_TITLE-Graduate_or_professional_degree_rate_gender"
 msgstr "学位または専門職学位の取得率（性別ごと）"
 
-#. Title of a place chart: Percentage of people who report certain negative health behaviors, e.g. obesity, smoking or binge drinking
 msgid "CHART_TITLE-Health_behaviors"
 msgstr "健康習慣"
 
-#. Title of a place chart: Percentage of people who are aflicted by certain negative health outcomes, e.g. high cholesterol or arthritis
 msgid "CHART_TITLE-Health_outcomes"
 msgstr "健康アウトカム"
 
-#. Title of a place chart: Count of households whose combined incomes fall in certain buckets
 msgid "CHART_TITLE-Household_income"
 msgstr "世帯収入"
 
-#. Title of a place chart: Percentage of households whose combined incomes fall in certain buckets
 msgid "CHART_TITLE-Household_income_by_bracket"
 msgstr "所得階層別の世帯の割合"
 
-#. Title of a place chart: Total number of housing units available
 msgid "CHART_TITLE-Housing_units"
 msgstr "住宅戸数"
 
-#. Title of a place chart: Number of available housing units by date built
 msgid "CHART_TITLE-Housing_units_date_built"
 msgstr "住宅戸数（築年数別）"
 
-#. Title of a place chart: Percentage of available housing units by date built
 msgid "CHART_TITLE-Housing_units_date_built_distrubtion"
 msgstr "住宅戸数分布（築年数別）"
 
-#. Title of a place chart: Total number of housing units available per person
 msgid "CHART_TITLE-Housing_units_per_capita"
 msgstr "人口あたりの住宅戸数"
 
-#. Title of a place chart: Number of occupied housing units by price
 msgid "CHART_TITLE-Housing_units_price"
 msgstr "住宅戸数（価格別）"
 
-#. Title of a place chart: Percentage of housing units by price
 msgid "CHART_TITLE-Housing_units_price_distribution"
 msgstr "持ち家住宅の分布（価格別）"
 
-#. Title of a place chart: Total number of housing units occupied by members of various races
 msgid "CHART_TITLE-Housing_units_race"
 msgstr "世帯主の人種別の住宅戸数"
 
-#. Title of a place chart: Percentage of housing units occupied by members of various races
 msgid "CHART_TITLE-Housing_units_race_distribution"
 msgstr "世帯主の人種別の住宅戸数分布"
 
-#. Title of a place chart: Number of housing units occupied by owner vs renter
 msgid "CHART_TITLE-Housing_units_rental_status"
 msgstr "住宅戸数（賃貸ステータス別）"
 
-#. Title of a place chart: Percentage of housing units occupied by owner vs renter
 msgid "CHART_TITLE-Housing_units_rental_status_distribution"
 msgstr "賃貸ステータス別の住宅戸数分布"
 
-#. Title of a place chart: Count of people whose individual incomes are in certain buckets
 msgid "CHART_TITLE-Individual_income"
 msgstr "個人所得"
 
-#. Title of a place chart: Percentage of the population whose individual incomes are in certain buckets
 msgid "CHART_TITLE-Individual_income_by_bracket"
 msgstr "所得階層別の割合"
 
-#. Title of a place chart: Count of deaths in infants caused by various diseases
 msgid "CHART_TITLE-Infant_mortality_rate"
 msgstr "乳児の死亡率"
 
-#. Title of a place chart: Count of deaths in infants caused by various diseases, broken down by gender
 msgid "CHART_TITLE-Infant_mortality_rate_gender"
 msgstr "乳児死亡率（性別ごと）"
 
-#. Title of a place chart: Total amount of inward remittance into a place
 msgid "CHART_TITLE-Inward_remittance"
 msgstr "被仕向送金"
 
-#. Title of a place chart: Total amount of inward remittance into a place (as a percentage of GDP)
 msgid "CHART_TITLE-Inward_remittance_per_gdp"
 msgstr "被仕向送金（GDP 比）"
 
-#. Title of a place chart: Count of people in the labor force, see https://data.oecd.org/emp/labour-force.htm
 msgid "CHART_TITLE-Labor_force"
 msgstr "労働力人口"
 
-#. Title of a place chart: Percentage of the population, of working age, in the labor force, see https://data.oecd.org/emp/labour-force.htm
 msgid "CHART_TITLE-Labor_force_rate"
 msgstr "労働力率"
 
-#. Title of a place chart: Life expectancy of an individual, measured in years
 msgid "CHART_TITLE-Life_expectancy"
 msgstr "平均寿命（年）"
 
-#. Title of a place chart: Total number of individuals, broken down by marital status
 msgid "CHART_TITLE-Marital_status"
 msgstr "配偶者の有無"
 
-#. Title of a place chart: Percentage of population, broken down by marital status
 msgid "CHART_TITLE-Marital_status_distribution"
 msgstr "配偶者の有無の分布"
 
-#. Title of a place chart:
 msgid "CHART_TITLE-Market_capitalization"
 msgstr "国内企業の時価総額"
 
-#. Title of a place chart: Market capitalization of domestic companies (as a percentage of GDP)
 msgid "CHART_TITLE-Market_capitalization_per_gdp"
 msgstr "国内企業の時価総額（GDP 比）"
 
-#. Title of a place chart: The median age of the population
 msgid "CHART_TITLE-Median_age"
 msgstr "年齢の中央値"
 
-#. Title of a place chart: The median age of the population, broken down by gender
 msgid "CHART_TITLE-Median_age_gender"
 msgstr "年齢の中央値（性別ごと）"
 
-#. Title of a place chart: The median age of the population, broken down by race
 msgid "CHART_TITLE-Median_age_race"
 msgstr "年齢の中央値（人種別）"
 
-#. Title of a place chart: Median incomes of households
 msgid "CHART_TITLE-Median_household_income"
 msgstr "世帯収入の中央値"
 
-#. Title of a place chart: Median incomes of households, broken down by race
 msgid "CHART_TITLE-Median_household_income_race"
 msgstr "世帯収入の中央値（人種別）"
 
-#. Title of a place chart: Median incomes of individuals, broken down by gender
 msgid "CHART_TITLE-Median_income_gender"
 msgstr "所得の中央値（性別ごと）"
 
-#. Title of a place chart:
 msgid "CHART_TITLE-Median_individual_income"
 msgstr "個人所得の中央値"
 
-#. Title of a place chart: Count of deaths caused by various diseases or external circumstances
 msgid "CHART_TITLE-Mortality_events"
 msgstr "死亡者数"
 
-#. Title of a place chart: Count of deaths caused by various diseases or external circumstances, divided by the population count
 msgid "CHART_TITLE-Mortality_events_per_capita"
 msgstr "人口あたりの死亡者数"
 
-#. Title of a place chart: Total amount of outward remittance from a place
 msgid "CHART_TITLE-Outward_remittance_per_gdp"
 msgstr "仕向送金"
 
-#. Title of a place chart: Percentage of the population, of working age, who have no health insurance, broken down by gender
 msgid "CHART_TITLE-Percent_without_health_insurance_gender"
 msgstr "健康保険加入者の割合（性別ごと）"
 
-#. Title of a place chart: Percentage of the population, of working age, who have no health insurance, broken down by race
 msgid "CHART_TITLE-Percent_without_health_insurance_race"
 msgstr "健康保険未加入者の割合（性別ごと）"
 
-#. Title of a place chart: Percentage of people employed
 msgid "CHART_TITLE-Percentage_employed"
 msgstr "就業者の割合"
 
-#. Title of a place chart: Total number of individuals
 msgid "CHART_TITLE-Population"
 msgstr "人口"
 
-#. Title of a place chart: Number of individuals who fall within various age buckets
 msgid "CHART_TITLE-Population_age"
 msgstr "人口（年齢別）"
 
-#. Title of a place chart: Percentage of the population who fall within various age buckets
 msgid "CHART_TITLE-Population_age_distribution"
 msgstr "年齢分布"
 
-#. Title of a place chart: Measurement of people per km²
 msgid "CHART_TITLE-Population_density"
 msgstr "人口密度（km² あたりの人口）"
 
-#. Title of a place chart: Total number of individuals, broken down by gender
 msgid "CHART_TITLE-Population_gender"
 msgstr "人口（性別ごと）"
 
-#. Title of a place chart: Percentage of the population by gender
 msgid "CHART_TITLE-Population_gender_distribution"
 msgstr "性別の分布"
 
-#. Title of a place chart: Increase in the number of individuals
 msgid "CHART_TITLE-Population_growth_rate"
 msgstr "人口増加率"
 
-#. Title of a place chart: Total number of individuals, broken down by race
 msgid "CHART_TITLE-Population_race"
 msgstr "人口（人種別）"
 
-#. Title of a place chart: Percentage of the population by race
 msgid "CHART_TITLE-Population_race_distribution"
 msgstr "人種の分布"
 
-#. Title of a place chart: Percentage of the population below poverty
 msgid "CHART_TITLE-Poverty_rate"
 msgstr "貧困率"
 
-#. Title of a place chart: Percentage of the population below the poverty level, broken down by gender
 msgid "CHART_TITLE-Poverty_rate_gender"
 msgstr "貧困率（性別ごと）"
 
-#. Title of a place chart: Percentage of the population below the poverty level, broken down by race
 msgid "CHART_TITLE-Poverty_rate_race"
 msgstr "貧困率（人種別）"
 
-#. Title of a place chart: Total amount of prescribed retail drugs distributed in a quarter of a year
 msgid "CHART_TITLE-Prescribed_drugs"
 msgstr "処方薬（四半期単位）"
 
-#. Title of a place chart: Total amount of prescribed retail drugs distributed in a quarter of a year (divided by the population)
 msgid "CHART_TITLE-Prescribed_drugs_per_capita"
 msgstr "1 人あたりの処方薬の量（四半期別）"
 
-#. Title of a place chart: Total number of property crime incidents
 msgid "CHART_TITLE-Property_crime"
 msgstr "窃盗"
 
-#. Title of a place chart: Total number of property crime incidents per 100,000 people
 msgid "CHART_TITLE-Property_crime_rate"
 msgstr "10 万人あたりの窃盗件数"
 
-#. Title of a place chart: Number of people who are enrolled in school, vs not enrolled in school
 msgid "CHART_TITLE-School_enrollment"
 msgstr "就学"
 
-#. Title of a place chart: Percentage of people who are enrolled in school, vs not enrolled in school
 msgid "CHART_TITLE-School_enrollment_rate"
 msgstr "就学率"
 
-#. Title of a place chart: Number of unemployment insurance claims filed with a US state
 msgid "CHART_TITLE-State_unemployment_claims"
 msgstr "州の失業保険請求件数"
 
-#. Title of a place chart: Percentage of the labor force who filed unemployment insurance claims with a US state
 msgid "CHART_TITLE-State_unemployment_claims_rate"
 msgstr "州の失業保険請求率"
 
-#. Title of a place chart: Total number of criminal incidents
 msgid "CHART_TITLE-Total_crime"
 msgstr "総犯罪件数"
 
-#. Title of a place chart: Number of people employed
 msgid "CHART_TITLE-Total_employed"
 msgstr "就業者の数"
 
-#. Title of a place chart: Percentage of the population, of working age, who are unemployed.
 msgid "CHART_TITLE-Unemployment_rate"
 msgstr "失業率"
 
-#. Title of a place chart: Percentage of the population, of working age, who are unemployed, broken down by gender
 msgid "CHART_TITLE-Unemployment_rate_gender"
 msgstr "失業率（性別ごと）"
 
-#. Title of a place chart: Total number of individuals in rural vs urban parts of a place
 msgid "CHART_TITLE-Urban_v_rural_population"
 msgstr "都市部と農村部の人口"
 
-#. Title of a place chart: Total number of violent crime incidents
 msgid "CHART_TITLE-Violent_crime"
 msgstr "暴力犯罪"
 
-#. Title of a place chart: Total number of violent crime incidents per 100,000 people
 msgid "CHART_TITLE-Violent_crime_rate"
 msgstr "暴力犯罪件数（人口 100,000 人あたり）"
 
-#~ msgid "Encyclopedia of DNA Elements Biosamples"
-#~ msgstr "DNA 要素エンサイクロペディア生体サンプル"
-
-#~ msgid "HOME-BLOG_POST_1"
-#~ msgstr "%(project)s が Google 検索でアクセス可能になりました。<a href=%(blog_url)s>詳しくはこちら</a>"
-
-#~ msgid "Bachelor Degree Attained vs Females Per Capita for California Counties"
-#~ msgstr ""
-
-#~ msgid ""
-#~ "We have launched exciting new features, including internationalization support, a new graph browser and scatter plot explorer, new Stats API, updated documentation, and new data.\n"
-#~ "        <a href=%(blog_url)s>Read our blog post for more details</a>."
-#~ msgstr ""
+msgid "CHART_TITLE-CHART_CATEGORY-Overview"
+msgstr "概要"
 
