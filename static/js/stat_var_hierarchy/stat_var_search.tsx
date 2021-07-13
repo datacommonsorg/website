@@ -74,15 +74,15 @@ export class StatVarHierarchySearch extends React.Component<
             type="text"
             value={this.state.query}
             onChange={this.onInputChanged}
-            placeholder="Filter Statistical Variables"
+            placeholder="Search Statistical Variables"
             onBlur={() => this.setState({ showNoResultsMessage: false })}
           />
-          <span
+          {!_.isEmpty(this.state.query) &&<span
             className="material-icons clear-search"
             onClick={this.onInputClear}
           >
             clear
-          </span>
+          </span>}
         </div>
         {renderResults && (
           <div className="statvar-hierarchy-search-results">

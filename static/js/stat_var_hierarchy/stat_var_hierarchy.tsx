@@ -147,10 +147,11 @@ export class StatVarHierarchy extends React.Component<
         {this.props.type !== StatVarHierarchyType.BROWSER && (
           <div
             id="tree-widget-info"
+          >
+            <i 
             onMouseOver={this.onMouseOverInfoIcon}
             onMouseOut={() => hideTooltip()}
-          >
-            <i className="material-icons-outlined">info</i>
+            className="material-icons-outlined">info</i>
           </div>
         )}
         {!_.isEmpty(this.state.errorMessage) && (
