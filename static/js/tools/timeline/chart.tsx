@@ -23,6 +23,9 @@ import { setChartPerCapita } from "./util";
 
 const CHART_HEIGHT = 300;
 
+// Per capita toggle is only valid for the following measured properties. Many
+// other measured property like "income" "age" does not make sense for
+// "per capita".
 const PER_CAPITA_MPROP = ["cumulativeCount", "incrementalCount", "count"];
 
 interface StatVarChipPropsType {
