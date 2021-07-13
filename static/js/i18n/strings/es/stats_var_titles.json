@@ -330,7 +330,7 @@
     "defaultMessage": "Media de edad (solo personas blancas)"
   },
   "Count_Person_IncomeOfUpto9999USDollar": {
-    "defaultMessage": "Población (personas con ingresos inferiores a 10.000 $)"
+    "defaultMessage": "Población (personas con ingresos inferiores a 10.000 USD)"
   },
   "Count_Person_IncomeOf10000To14999USDollar": {
     "defaultMessage": "Población (personas con ingresos entre 10.000 $ y 15.000 $)"
@@ -558,19 +558,19 @@
     "defaultMessage": "Consumo de alcohol puro al año per cápita"
   },
   "RetailDrugDistribution_DrugDistribution_Oxycodone": {
-    "defaultMessage": "Distribución total de oxicodona en tiendas"
+    "defaultMessage": "Distribución total de medicamentos al por menor (oxicodona)"
   },
   "RetailDrugDistribution_DrugDistribution_Hydrocodone": {
-    "defaultMessage": "Distribución total de hidrocodona en tiendas"
+    "defaultMessage": "Distribución total de medicamentos al por menor (hidrocodona)"
   },
   "RetailDrugDistribution_DrugDistribution_Codeine": {
-    "defaultMessage": "Distribución total de codeína en tiendas"
+    "defaultMessage": "Distribución total de medicamentos al por menor (codeína)"
   },
   "RetailDrugDistribution_DrugDistribution_Amphetamine": {
-    "defaultMessage": "Distribución total de anfetamina en tiendas"
+    "defaultMessage": "Distribución total de medicamentos al por menor (anfetamina)"
   },
   "RetailDrugDistribution_DrugDistribution_Morphine": {
-    "defaultMessage": "Distribución total de morfina en tiendas"
+    "defaultMessage": "Distribución total de medicamentos al por menor (morfina)"
   },
   "Count_Person_EnrolledInSchool": {
     "defaultMessage": "Población (personas escolarizadas)"
@@ -597,13 +597,13 @@
     "defaultMessage": "Población (personas indígenas americanas o nativas de Alaska por debajo del umbral de la pobreza)"
   },
   "Count_Person_BelowPovertyLevelInThePast12Months_AsianAlone": {
-    "defaultMessage": ""
+    "defaultMessage": "Población (personas asiáticas por debajo del umbral de la pobreza)"
   },
   "Count_Person_BelowPovertyLevelInThePast12Months_BlackOrAfricanAmericanAlone": {
-    "defaultMessage": ""
+    "defaultMessage": "Población (personas negras o afroamericanas por debajo del umbral de la pobreza)"
   },
   "Count_Person_BelowPovertyLevelInThePast12Months_HispanicOrLatino": {
-    "defaultMessage": ""
+    "defaultMessage": "Población (personas hispanas o latinoamericanas por debajo del umbral de la pobreza)"
   },
   "Count_Person_BelowPovertyLevelInThePast12Months_NativeHawaiianOrOtherPacificIslanderAlone": {
     "defaultMessage": "Población (personas hawaianas nativas o de otra raza isleña del Pacífico por debajo del umbral de la pobreza)"

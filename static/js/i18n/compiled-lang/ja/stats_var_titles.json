@@ -762,10 +762,22 @@
     }
   ],
   "Count_Person_BelowPovertyLevelInThePast12Months_AsianAlone": [
+    {
+      "type": 0,
+      "value": "人口（貧困レベル以下、アジア系）"
+    }
   ],
   "Count_Person_BelowPovertyLevelInThePast12Months_BlackOrAfricanAmericanAlone": [
+    {
+      "type": 0,
+      "value": "人口（貧困レベル以下、黒人 / アフリカ系アメリカ人）"
+    }
   ],
   "Count_Person_BelowPovertyLevelInThePast12Months_HispanicOrLatino": [
+    {
+      "type": 0,
+      "value": "人口（貧困レベル以下、ヒスパニック / ラテン系）"
+    }
   ],
   "Count_Person_BelowPovertyLevelInThePast12Months_NativeHawaiianOrOtherPacificIslanderAlone": [
     {
@@ -1352,31 +1364,31 @@
   "RetailDrugDistribution_DrugDistribution_Amphetamine": [
     {
       "type": 0,
-      "value": "アンフェタミンの小売医薬品総流通量"
+      "value": "小売医薬品総流通量（アンフェタミン）"
     }
   ],
   "RetailDrugDistribution_DrugDistribution_Codeine": [
     {
       "type": 0,
-      "value": "コデインの小売医薬品総流通量"
+      "value": "小売医薬品総流通量（コデイン）"
     }
   ],
   "RetailDrugDistribution_DrugDistribution_Hydrocodone": [
     {
       "type": 0,
-      "value": "ヒドロコドンの小売医薬品総流通量"
+      "value": "小売医薬品総流通量（ヒドロコドン）"
     }
   ],
   "RetailDrugDistribution_DrugDistribution_Morphine": [
     {
       "type": 0,
-      "value": "モルヒネの小売医薬品総流通量"
+      "value": "小売医薬品総流通量（モルヒネ）"
     }
   ],
   "RetailDrugDistribution_DrugDistribution_Oxycodone": [
     {
       "type": 0,
-      "value": "オキシコドンの小売医薬品総流通量"
+      "value": "小売医薬品総流通量（オキシコドン）"
     }
   ],
   "UnemploymentRate_Person": [

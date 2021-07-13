@@ -762,10 +762,22 @@
     }
   ],
   "Count_Person_BelowPovertyLevelInThePast12Months_AsianAlone": [
+    {
+      "type": 0,
+      "value": "Población (personas asiáticas por debajo del umbral de la pobreza)"
+    }
   ],
   "Count_Person_BelowPovertyLevelInThePast12Months_BlackOrAfricanAmericanAlone": [
+    {
+      "type": 0,
+      "value": "Población (personas negras o afroamericanas por debajo del umbral de la pobreza)"
+    }
   ],
   "Count_Person_BelowPovertyLevelInThePast12Months_HispanicOrLatino": [
+    {
+      "type": 0,
+      "value": "Población (personas hispanas o latinoamericanas por debajo del umbral de la pobreza)"
+    }
   ],
   "Count_Person_BelowPovertyLevelInThePast12Months_NativeHawaiianOrOtherPacificIslanderAlone": [
     {
@@ -902,7 +914,7 @@
   "Count_Person_IncomeOfUpto9999USDollar": [
     {
       "type": 0,
-      "value": "Población (personas con ingresos inferiores a 10.000 $)"
+      "value": "Población (personas con ingresos inferiores a 10.000 USD)"
     }
   ],
   "Count_Person_Male": [
@@ -1352,31 +1364,31 @@
   "RetailDrugDistribution_DrugDistribution_Amphetamine": [
     {
       "type": 0,
-      "value": "Distribución total de anfetamina en tiendas"
+      "value": "Distribución total de medicamentos al por menor (anfetamina)"
     }
   ],
   "RetailDrugDistribution_DrugDistribution_Codeine": [
     {
       "type": 0,
-      "value": "Distribución total de codeína en tiendas"
+      "value": "Distribución total de medicamentos al por menor (codeína)"
     }
   ],
   "RetailDrugDistribution_DrugDistribution_Hydrocodone": [
     {
       "type": 0,
-      "value": "Distribución total de hidrocodona en tiendas"
+      "value": "Distribución total de medicamentos al por menor (hidrocodona)"
     }
   ],
   "RetailDrugDistribution_DrugDistribution_Morphine": [
     {
       "type": 0,
-      "value": "Distribución total de morfina en tiendas"
+      "value": "Distribución total de medicamentos al por menor (morfina)"
     }
   ],
   "RetailDrugDistribution_DrugDistribution_Oxycodone": [
     {
       "type": 0,
-      "value": "Distribución total de oxicodona en tiendas"
+      "value": "Distribución total de medicamentos al por menor (oxicodona)"
     }
   ],
   "UnemploymentRate_Person": [
