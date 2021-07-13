@@ -57,7 +57,7 @@ export function StatVarChooser(): JSX.Element {
         selectSV={(svDcid) => {
           selectStatVar(statVar, svDcid);
         }}
-        searchLabel="Select variables:"
+        searchLabel="Select statistical variables:"
       />
     </div>
   );

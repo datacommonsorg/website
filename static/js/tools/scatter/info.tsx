@@ -25,7 +25,7 @@ function Info(): JSX.Element {
     <div id="placeholder-container">
       <p>
         The scatter plot tool helps you visualize the correlation between two
-        variables that appear in the pane to the left.
+        statistical variables that appear in the pane to the left.
       </p>
       <ol>
         <li>
@@ -33,8 +33,9 @@ function Info(): JSX.Element {
           want to plot in the dropdown menu above.
         </li>
         <li>
-          Pick two variables in the left pane. There are thousands of variables
-          to choose from, arranged in a topical hierarchy.
+          Pick two statistical variables in the left pane. There are thousands
+          of statistical variables to choose from, arranged in a topical
+          hierarchy.
         </li>
       </ol>
       <p>Or you can start your exploration from these interesting points ...</p>

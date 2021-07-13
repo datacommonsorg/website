@@ -145,13 +145,14 @@ export class StatVarHierarchy extends React.Component<
     return (
       <div id={SV_HIERARCHY_SECTION_ID} className="loading-spinner-container">
         {this.props.type !== StatVarHierarchyType.BROWSER && (
-          <div
-            id="tree-widget-info"
-          >
-            <i 
-            onMouseOver={this.onMouseOverInfoIcon}
-            onMouseOut={() => hideTooltip()}
-            className="material-icons-outlined">info</i>
+          <div id="tree-widget-info">
+            <i
+              onMouseOver={this.onMouseOverInfoIcon}
+              onMouseOut={() => hideTooltip()}
+              className="material-icons-outlined"
+            >
+              info
+            </i>
           </div>
         )}
         {!_.isEmpty(this.state.errorMessage) && (
