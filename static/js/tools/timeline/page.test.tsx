@@ -54,8 +54,7 @@ test("Single place and single stats var", () => {
     .then(() => {
       wrapper.update();
       expect(wrapper.find("#chart-region").getDOMNode().innerHTML).toEqual(
-        `<div class="card"><span class="chartPerCapita">Per capita<button class="perCapitaCheckbox">` +
-          `</button><a href="/faq#perCapita"><span> *</span></a></span>` +
+        `<div class="card">` +
           `<div class="chart-svg"></div><div class="statVarChipRegion">` +
           `<div class="pv-chip mdl-chip--deletable">` +
           `<span class="mdl-chip__text">Age</span>` +
@@ -147,7 +146,7 @@ test("chart options", () => {
   Object.defineProperty(window, "location", {
     writable: true,
     value: {
-      hash: "#&place=geoId/05&statsVar=Median_Age_Person",
+      hash: "#&place=geoId/05&statsVar=Count_Person",
     },
   });
 
@@ -175,7 +174,7 @@ test("chart options", () => {
           wrapper.update();
           window.location.hash = "#" + window.location.hash;
           expect(window.location.hash).toBe(
-            "#place=geoId%2F05&statsVar=Median_Age_Person&chart=%7B%22age%22%3Atrue%7D"
+            "#place=geoId%2F05&statsVar=Count_Person&chart=%7B%22count%22%3Atrue%7D"
           );
           expect(
             pretty(wrapper.find("#chart-region").getDOMNode().innerHTML)
@@ -192,7 +191,7 @@ test("chart options", () => {
             // remove the statVar
             wrapper
               .find("#hierarchy-section input")
-              .at(1)
+              .at(0)
               .simulate("change", { target: { checked: false } });
             Promise.resolve(wrapper)
               .then(() => wrapper.update())
@@ -201,7 +200,7 @@ test("chart options", () => {
                 // expect(wrapper.find("#chart-region").length).toBe(0); // chart deleted
                 window.location.hash = "#" + window.location.hash;
                 expect(window.location.hash).toBe(
-                  "#place=geoId%2F05&statsVar=&chart=%7B%22age%22%3Atrue%7D"
+                  "#place=geoId%2F05&statsVar=&chart=%7B%22count%22%3Atrue%7D"
                 );
               });
           });

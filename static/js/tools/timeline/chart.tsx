@@ -23,6 +23,11 @@ import { setChartPerCapita } from "./util";
 
 const CHART_HEIGHT = 300;
 
+// Per capita toggle is only valid for the following measured properties. Many
+// other measured property like "income" "age" does not make sense for
+// "per capita".
+const PER_CAPITA_MPROP = ["cumulativeCount", "incrementalCount", "count"];
+
 interface StatVarChipPropsType {
   statVar: string;
   color: string;
@@ -52,12 +57,12 @@ class StatVarChip extends Component<StatVarChipPropsType> {
 }
 
 interface ChartPropsType {
-  groupId: string; // unique identifier of the chart
+  mprop: string; // measured property
   placeName: Record<string, string>; // An array of place dcids.
   statVarInfo: Record<string, StatVarInfo>;
   perCapita: boolean;
   removeStatVar: (statVar: string) => void;
-  onDataUpdate: (groupId: string, data: StatsData) => void;
+  onDataUpdate: (mprop: string, data: StatsData) => void;
 }
 
 class Chart extends Component<ChartPropsType> {
@@ -85,22 +90,24 @@ class Chart extends Component<ChartPropsType> {
     const placeName = Object.values(this.props.placeName)[0];
     return (
       <div className="card">
-        <span className="chartPerCapita">
-          Per capita
-          <button
-            className={
-              this.props.perCapita
-                ? "perCapitaCheckbox checked"
-                : "perCapitaCheckbox"
-            }
-            onClick={() => {
-              setChartPerCapita(this.props.groupId, !this.props.perCapita);
-            }}
-          ></button>
-          <a href="/faq#perCapita">
-            <span> *</span>
-          </a>
-        </span>
+        {PER_CAPITA_MPROP.includes(this.props.mprop) && (
+          <span className="chartPerCapita">
+            Per capita
+            <button
+              className={
+                this.props.perCapita
+                  ? "perCapitaCheckbox checked"
+                  : "perCapitaCheckbox"
+              }
+              onClick={() => {
+                setChartPerCapita(this.props.mprop, !this.props.perCapita);
+              }}
+            ></button>
+            <a href="/faq#perCapita">
+              <span> *</span>
+            </a>
+          </span>
+        )}
         <div ref={this.svgContainer} className="chart-svg"></div>
         <div className="statVarChipRegion">
           {statVars.map((statVar) => {
@@ -131,7 +138,7 @@ class Chart extends Component<ChartPropsType> {
   componentWillUnmount(): void {
     window.removeEventListener("resize", this.handleWindowResize);
     // reset the options to default value if the chart is removed
-    setChartPerCapita(this.props.groupId, false);
+    setChartPerCapita(this.props.mprop, false);
   }
 
   componentDidUpdate(): void {
@@ -155,7 +162,7 @@ class Chart extends Component<ChartPropsType> {
       {}
     ).then((statsData) => {
       this.statsData = statsData;
-      this.props.onDataUpdate(this.props.groupId, statsData);
+      this.props.onDataUpdate(this.props.mprop, statsData);
       if (this.svgContainer.current) {
         this.drawChart();
       }

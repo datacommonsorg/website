@@ -1,7 +1,7 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
 exports[`Single place and single stats var 1`] = `
-"<div class=\\"card\\"><span class=\\"chartPerCapita\\">Per capita<button class=\\"perCapitaCheckbox\\"></button><a href=\\"/faq#perCapita\\"><span> *</span></a></span>
+"<div class=\\"card\\">
   <div class=\\"chart-svg\\"><svg width=\\"500\\" height=\\"500\\"><text>svg text</text></svg></div>
   <div class=\\"statVarChipRegion\\">
     <div class=\\"pv-chip mdl-chip--deletable\\"><span class=\\"mdl-chip__text\\">Age</span><button class=\\"mdl-chip__action\\"><i class=\\"material-icons\\">cancel</i></button></div>
@@ -10,7 +10,7 @@ exports[`Single place and single stats var 1`] = `
 `;
 
 exports[`Single place and single stats var 2`] = `
-"<div class=\\"card\\"><span class=\\"chartPerCapita\\">Per capita<button class=\\"perCapitaCheckbox\\"></button><a href=\\"/faq#perCapita\\"><span> *</span></a></span>
+"<div class=\\"card\\">
   <div class=\\"chart-svg\\"><svg width=\\"500\\" height=\\"500\\"><text>svg text</text></svg></div>
   <div class=\\"statVarChipRegion\\">
     <div class=\\"pv-chip mdl-chip--deletable\\"><span class=\\"mdl-chip__text\\">Age</span><button class=\\"mdl-chip__action\\"><i class=\\"material-icons\\">cancel</i></button></div>
@@ -60,7 +60,7 @@ exports[`chart options 1`] = `
 "<div class=\\"card\\"><span class=\\"chartPerCapita\\">Per capita<button class=\\"perCapitaCheckbox\\"></button><a href=\\"/faq#perCapita\\"><span> *</span></a></span>
   <div class=\\"chart-svg\\"><svg width=\\"500\\" height=\\"500\\"><text>svg text</text></svg></div>
   <div class=\\"statVarChipRegion\\">
-    <div class=\\"pv-chip mdl-chip--deletable\\"><span class=\\"mdl-chip__text\\">Age</span><button class=\\"mdl-chip__action\\"><i class=\\"material-icons\\">cancel</i></button></div>
+    <div class=\\"pv-chip mdl-chip--deletable\\"><span class=\\"mdl-chip__text\\">Population</span><button class=\\"mdl-chip__action\\"><i class=\\"material-icons\\">cancel</i></button></div>
   </div>
 </div>"
 `;

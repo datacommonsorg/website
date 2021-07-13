@@ -67,17 +67,18 @@ class ChartRegion extends Component<ChartRegionPropsType> {
     ) {
       return <div></div>;
     }
+    // Group stat vars by measured property.
     const groups = this.groupStatVars(this.props.statVarInfo);
     return (
       <React.Fragment>
-        {Object.keys(groups).map((groupId) => {
+        {Object.keys(groups).map((mprop) => {
           return (
             <Chart
-              key={groupId}
-              groupId={groupId}
+              key={mprop}
+              mprop={mprop}
               placeName={this.props.placeName}
-              statVarInfo={_.pick(this.props.statVarInfo, groups[groupId])}
-              perCapita={getChartPerCapita(groupId)}
+              statVarInfo={_.pick(this.props.statVarInfo, groups[mprop])}
+              perCapita={getChartPerCapita(mprop)}
               onDataUpdate={this.onDataUpdate.bind(this)}
               removeStatVar={(statVar) => {
                 removeToken("statsVar", statVarSep, statVar);
