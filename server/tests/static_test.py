@@ -55,7 +55,7 @@ class TestStaticPages(unittest.TestCase):
         assert response.status_code == 200
         assert "Data Commons es un repositorio abierto en el que se aglutina información procedente".encode(
         ) in response.data
-        assert b"We have launched exciting new features" in response.data
+        assert b"Hemos lanzado funciones nuevas e interesantes" in response.data
         assert "Usa las API REST y Python para hacer análisis personalizados".encode(
         ) in response.data
         assert "Hemos filtrado y organizado los datos para que no tengas que hacerlo tú.".encode(
