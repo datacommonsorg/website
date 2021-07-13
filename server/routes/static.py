@@ -13,8 +13,10 @@
 # limitations under the License.
 """Data Commons static content routes."""
 
+from datetime import date
 from flask import Blueprint, render_template, g
 from lib.gcs import list_blobs
+import babel.dates as babel_dates
 import routes.api.place as place_api
 
 _SA_FEED_BUCKET = 'datacommons-frog-feed'
@@ -31,7 +33,12 @@ _HOMEPAGE_PLACE_DCIDS = [
 def homepage():
     place_names = place_api.get_display_name('^'.join(_HOMEPAGE_PLACE_DCIDS),
                                              g.locale)
-    return render_template('static/homepage.html', place_names=place_names)
+    blog_date = babel_dates.format_date(date(2021, 6, 1),
+                                        format='long',
+                                        locale=g.locale)
+    return render_template('static/homepage.html',
+                           place_names=place_names,
+                           blog_date=blog_date)
 
 
 @bp.route('/about')
