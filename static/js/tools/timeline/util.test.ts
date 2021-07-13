@@ -49,7 +49,9 @@ test("test getTokensFromUrl", () => {
 test("test setTokensToUrl", () => {
   window.location.hash = "#&statsVar=Count_Person__Median_Age_Person";
   // places
-  setTokensToUrl("place", ",", new Set(["country/USA", "geoId/06"]));
+  setTokensToUrl({
+    place: { sep: ",", tokens: new Set(["country/USA", "geoId/06"]) },
+  });
   expect(window.location.hash).toBe(
     "#statsVar=Count_Person__Median_Age_Person&place=country%2FUSA%2CgeoId%2F06"
   );
