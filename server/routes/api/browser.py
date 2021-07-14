@@ -13,6 +13,7 @@
 # limitations under the License.
 """Graph browser related handlers."""
 
+import os
 import flask
 import json
 
@@ -27,6 +28,8 @@ bp = flask.Blueprint('api.browser', __name__, url_prefix='/api/browser')
 
 NO_MMETHOD_KEY = 'no_mmethod'
 NO_OBSPERIOD_KEY = 'no_obsPeriod'
+
+BLACKLISTED_STAT_VAR_GROUPS = {}
 
 
 @cache.memoize(timeout=3600 * 24)  # Cache for one day.
@@ -142,6 +145,13 @@ def get_statvar_group():
     stat_var_group = request.args.get("stat_var_group")
     places = request.args.getlist("places")
     result = dc.get_statvar_group(stat_var_group, places)
+    if os.environ.get('FLASK_ENV') == 'production':
+        childSVG = result.get("childStatVarGroups", [])
+        filteredChildSVG = []
+        for svg in childSVG:
+            if svg.get("id", "") not in BLACKLISTED_STAT_VAR_GROUPS:
+                filteredChildSVG.append(svg)
+        result["childStatVarGroups"] = filteredChildSVG
     return Response(json.dumps(result), 200, mimetype='application/json')
 
 
