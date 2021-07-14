@@ -98,7 +98,7 @@ class Page extends Component<unknown, PageStateType> {
             deselectSV={(sv) => {
               removeToken("statsVar", statVarSep, sv);
             }}
-            searchLabel="Select variables:"
+            searchLabel="Select statistical variables:"
           />
         </div>
         <div id="plot-container">

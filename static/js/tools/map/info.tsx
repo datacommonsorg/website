@@ -25,8 +25,8 @@ export function Info(): JSX.Element {
   return (
     <div id="placeholder-container">
       <p>
-        The map explorer helps you visualize how a variable from the pane to the
-        left can vary across geographic regions.
+        The map explorer helps you visualize how a statistical variable from the
+        pane to the left can vary across geographic regions.
       </p>
       <ol>
         <li>
@@ -34,8 +34,8 @@ export function Info(): JSX.Element {
           want to plot in the dropdown menu above.
         </li>
         <li>
-          Pick a variable in the left pane. There are thousands of variables to
-          choose from, arranged in a topical hierarchy.
+          Pick a statistical variable in the left pane. There are thousands of
+          statistical variables to choose from, arranged in a topical hierarchy.
         </li>
       </ol>
       <p>Or you can start your exploration from these interesting points ...</p>
