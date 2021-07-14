@@ -16,7 +16,7 @@
 
 import React, { Component } from "react";
 import { StatVarInfo } from "../statvar_menu/util";
-import { fetchStatsData, StatsData } from "../../shared/data_fetcher";
+import { fetchStatData, StatData } from "../../shared/data_fetcher";
 import { drawGroupLineChart } from "../../chart/draw";
 import { PlotParams, computePlotParams } from "../../chart/base";
 import { setChartPerCapita } from "./util";
@@ -62,14 +62,14 @@ interface ChartPropsType {
   statVarInfo: Record<string, StatVarInfo>;
   perCapita: boolean;
   removeStatVar: (statVar: string) => void;
-  onDataUpdate: (mprop: string, data: StatsData) => void;
+  onDataUpdate: (mprop: string, data: StatData) => void;
 }
 
 class Chart extends Component<ChartPropsType> {
-  data: StatsData;
+  data: StatData;
   svgContainer: React.RefObject<HTMLDivElement>;
   plotParams: PlotParams;
-  statsData: StatsData;
+  statData: StatData;
 
   constructor(props: ChartPropsType) {
     super(props);
@@ -153,16 +153,14 @@ class Chart extends Component<ChartPropsType> {
   }
 
   private loadDataAndDrawChart() {
-    fetchStatsData(
+    fetchStatData(
       Object.keys(this.props.placeName),
       Object.keys(this.props.statVarInfo),
       this.props.perCapita,
-      1,
-      this.props.perCapita ? ["Count_Person"] : [],
-      {}
-    ).then((statsData) => {
-      this.statsData = statsData;
-      this.props.onDataUpdate(this.props.mprop, statsData);
+      1
+    ).then((statData) => {
+      this.statData = statData;
+      this.props.onDataUpdate(this.props.mprop, statData);
       if (this.svgContainer.current) {
         this.drawChart();
       }
@@ -174,10 +172,10 @@ class Chart extends Component<ChartPropsType> {
    */
   private drawChart() {
     const dataGroupsDict = {};
-    for (const placeDcid of this.statsData.places) {
+    for (const place of this.statData.places) {
       dataGroupsDict[
-        this.props.placeName[placeDcid]
-      ] = this.statsData.getStatsVarGroupWithTime(placeDcid);
+        this.props.placeName[place]
+      ] = this.statData.getStatsVarGroupWithTime(place);
     }
     drawGroupLineChart(
       this.svgContainer.current,
@@ -187,7 +185,7 @@ class Chart extends Component<ChartPropsType> {
       dataGroupsDict,
       this.plotParams,
       this.ylabel(),
-      Array.from(this.statsData.sources)
+      Array.from(this.statData.sources)
     );
   }
 

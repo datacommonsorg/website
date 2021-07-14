@@ -16,7 +16,7 @@
 
 import _ from "lodash";
 import React, { Component } from "react";
-import { StatsData } from "../../shared/data_fetcher";
+import { StatData } from "../../shared/data_fetcher";
 import { StatVarInfo } from "../statvar_menu/util";
 import { saveToFile } from "../../shared/util";
 import { Chart } from "./chart";
@@ -32,11 +32,11 @@ interface ChartRegionPropsType {
 class ChartRegion extends Component<ChartRegionPropsType> {
   downloadLink: HTMLAnchorElement;
   bulkDownloadLink: HTMLAnchorElement;
-  allStatsData: { [key: string]: StatsData };
+  allStatData: { [key: string]: StatData };
 
   constructor(props: ChartRegionPropsType) {
     super(props);
-    this.allStatsData = {};
+    this.allStatData = {};
     this.downloadLink = document.getElementById(
       "download-link"
     ) as HTMLAnchorElement;
@@ -90,9 +90,9 @@ class ChartRegion extends Component<ChartRegionPropsType> {
     );
   }
 
-  private onDataUpdate(groupId: string, data: StatsData) {
-    this.allStatsData[groupId] = data;
-    if (this.downloadLink && Object.keys(this.allStatsData).length > 0) {
+  private onDataUpdate(groupId: string, data: StatData) {
+    this.allStatData[groupId] = data;
+    if (this.downloadLink && Object.keys(this.allStatData).length > 0) {
       this.downloadLink.style.visibility = "visible";
       this.bulkDownloadLink.style.visibility = "visible";
     } else {
@@ -126,24 +126,24 @@ class ChartRegion extends Component<ChartRegionPropsType> {
   private createDataCsv() {
     // Get all the dates
     let allDates = new Set<string>();
-    for (const mprop in this.allStatsData) {
-      const statData = this.allStatsData[mprop];
+    for (const mprop in this.allStatData) {
+      const statData = this.allStatData[mprop];
       allDates = new Set([...Array.from(allDates), ...statData.dates]);
     }
     // Create the the header row.
     const header = ["date"];
-    for (const mprop in this.allStatsData) {
-      const statData = this.allStatsData[mprop];
+    for (const mprop in this.allStatData) {
+      const statData = this.allStatData[mprop];
       for (const place of statData.places) {
-        for (const sv of statData.statsVars) {
+        for (const sv of statData.statVars) {
           header.push(`${place} ${sv}`);
         }
       }
     }
     // Get the place name
     const placeName: { [key: string]: string } = {};
-    const sample = Object.values(this.allStatsData)[0];
-    const statVar = sample.statsVars[0];
+    const sample = Object.values(this.allStatData)[0];
+    const statVar = sample.statVars[0];
     for (const place of sample.places) {
       placeName[sample.data[statVar][place].placeDcid] =
         sample.data[statVar][place].placeName;
@@ -153,10 +153,10 @@ class ChartRegion extends Component<ChartRegionPropsType> {
     const rows: string[][] = [];
     for (const date of Array.from(allDates)) {
       const row: string[] = [date];
-      for (const mprop in this.allStatsData) {
-        const statData = this.allStatsData[mprop];
+      for (const mprop in this.allStatData) {
+        const statData = this.allStatData[mprop];
         for (const p of statData.places) {
-          for (const sv of statData.statsVars) {
+          for (const sv of statData.statVars) {
             const tmp = statData.data[sv][p];
             if (tmp && tmp.data && tmp.data[date]) {
               row.push(String(tmp.data[date]));

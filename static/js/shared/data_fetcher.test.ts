@@ -16,7 +16,7 @@
 
 import axios from "axios";
 
-import { fetchStatsData, StatsData } from "./data_fetcher";
+import { fetchStatsData, StatData } from "./data_fetcher";
 import { DataGroup } from "../chart/base";
 import { loadLocaleData } from "../i18n/i18n";
 
@@ -136,17 +136,6 @@ test("fetch stats data", () => {
       latestCommonDate: "2012",
     });
 
-    expect(data.getPlaceGroupWithStatsVar()).toEqual([
-      new DataGroup("Arkansas", [
-        { label: "Total Population", value: 22000 },
-        { label: "Male", value: 13000 },
-      ]),
-      new DataGroup("California", [
-        { label: "Total Population", value: 32000 },
-        { label: "Male", value: 16000 },
-      ]),
-    ]);
-
     expect(data.getStatsVarGroupWithTime("geoId/06")).toEqual([
       new DataGroup("Count_Person", [
         { label: "2011", value: 31000, time: new Date("2011").getTime() },
@@ -155,17 +144,6 @@ test("fetch stats data", () => {
       new DataGroup("Count_Person_Male", [
         { label: "2011", value: 15000, time: new Date("2011").getTime() },
         { label: "2012", value: 16000, time: new Date("2012").getTime() },
-      ]),
-    ]);
-
-    expect(data.getTimeGroupWithStatsVar("geoId/06")).toEqual([
-      new DataGroup("2011", [
-        { label: "Total Population", value: 31000 },
-        { label: "Male", value: 15000 },
-      ]),
-      new DataGroup("2012", [
-        { label: "Total Population", value: 32000 },
-        { label: "Male", value: 16000 },
       ]),
     ]);
 
@@ -240,15 +218,6 @@ test("fetch stats data with state code", () => {
         sources: new Set(["source1", "source2"]),
         latestCommonDate: "2012",
       });
-
-      expect(data.getPlaceGroupWithStatsVar()).toEqual([
-        new DataGroup("Arkansas", [
-          { label: "Total Population", value: 22000 },
-        ]),
-        new DataGroup("Santa Clara, CA", [
-          { label: "Total Population", value: 32000 },
-        ]),
-      ]);
     }
   );
 });
@@ -300,29 +269,12 @@ test("fetch stats data where latest date with data for all stat vars is not the 
         latestCommonDate: "2011",
       });
 
-      expect(data.getPlaceGroupWithStatsVar()).toEqual([
-        new DataGroup("Arkansas", [
-          { label: "Total Population", value: 21000 },
-        ]),
-        new DataGroup("California", [
-          { label: "Total Population", value: 31000 },
-        ]),
-      ]);
-
       expect(data.getStatsVarGroupWithTime("geoId/06")).toEqual([
         new DataGroup("Count_Person", [
           { label: "2011", value: 31000, time: new Date("2011").getTime() },
           { label: "2012", value: null, time: new Date("2012").getTime() },
           { label: "2013", value: 32000, time: new Date("2013").getTime() },
         ]),
-      ]);
-
-      expect(data.getTimeGroupWithStatsVar("geoId/06")).toEqual([
-        new DataGroup("2011", [{ label: "Total Population", value: 31000 }]),
-        new DataGroup("2012", [
-          { label: "Total Population", value: undefined },
-        ]),
-        new DataGroup("2013", [{ label: "Total Population", value: 32000 }]),
       ]);
 
       expect(data.getStatsPoint("geoId/06")).toEqual([
@@ -379,29 +331,12 @@ test("fetch stats data where there is no date with data for all stat vars", () =
         latestCommonDate: "2013",
       });
 
-      expect(data.getPlaceGroupWithStatsVar()).toEqual([
-        new DataGroup("Arkansas", [
-          { label: "Total Population", value: 22000 },
-        ]),
-      ]);
-
       expect(data.getStatsVarGroupWithTime("geoId/06")).toEqual([
         new DataGroup("Count_Person", [
           { label: "2010", value: null, time: new Date("2010").getTime() },
           { label: "2011", value: 31000, time: new Date("2011").getTime() },
           { label: "2012", value: 32000, time: new Date("2012").getTime() },
           { label: "2013", value: null, time: new Date("2013").getTime() },
-        ]),
-      ]);
-
-      expect(data.getTimeGroupWithStatsVar("geoId/06")).toEqual([
-        new DataGroup("2010", [
-          { label: "Total Population", value: undefined },
-        ]),
-        new DataGroup("2011", [{ label: "Total Population", value: 31000 }]),
-        new DataGroup("2012", [{ label: "Total Population", value: 32000 }]),
-        new DataGroup("2013", [
-          { label: "Total Population", value: undefined },
         ]),
       ]);
 
@@ -717,17 +652,6 @@ test("Per capita with specified denominators test", () => {
       latestCommonDate: "2012",
     });
 
-    expect(data.getPlaceGroupWithStatsVar()).toEqual([
-      new DataGroup("Arkansas", [
-        { label: "Male", value: 1 },
-        { label: "Female", value: 1 },
-      ]),
-      new DataGroup("California", [
-        { label: "Male", value: 1 },
-        { label: "Female", value: 1 },
-      ]),
-    ]);
-
     expect(data.getStatsVarGroupWithTime("geoId/06")).toEqual([
       new DataGroup("Count_Person_Male", [
         { label: "2011", value: 1, time: new Date("2011").getTime() },
@@ -736,17 +660,6 @@ test("Per capita with specified denominators test", () => {
       new DataGroup("Count_Person_Female", [
         { label: "2011", value: 1, time: new Date("2011").getTime() },
         { label: "2012", value: 1, time: new Date("2012").getTime() },
-      ]),
-    ]);
-
-    expect(data.getTimeGroupWithStatsVar("geoId/06")).toEqual([
-      new DataGroup("2011", [
-        { label: "Male", value: 1 },
-        { label: "Female", value: 1 },
-      ]),
-      new DataGroup("2012", [
-        { label: "Male", value: 1 },
-        { label: "Female", value: 1 },
       ]),
     ]);
 
@@ -933,11 +846,6 @@ test("Per capita with specified denominators test - missing place data", () => {
       latestCommonDate: "2012",
     });
 
-    expect(data.getPlaceGroupWithStatsVar()).toEqual([
-      new DataGroup("Arkansas", [{ label: "Female", value: 2 }]),
-      new DataGroup("USA", [{ label: "Male", value: 22000 }]),
-    ]);
-
     expect(data.getStatsVarGroupWithTime("geoId/05")).toEqual([
       new DataGroup("UnemploymentRate_Person_Female", [
         { label: "2011", value: 1, time: new Date("2011").getTime() },
@@ -945,59 +853,8 @@ test("Per capita with specified denominators test - missing place data", () => {
       ]),
     ]);
 
-    expect(data.getTimeGroupWithStatsVar("geoId/05")).toEqual([
-      new DataGroup("2011", [{ label: "Female", value: 1 }]),
-      new DataGroup("2012", [{ label: "Female", value: 2 }]),
-    ]);
-
     expect(data.getStatsPoint("geoId/05")).toEqual([
       { label: "Female", value: 2 },
     ]);
   });
-});
-
-test("getTimeGroupWithStatsVar with missing data", () => {
-  const statsData = new StatsData(
-    ["geoId/05"],
-    ["Count_Person_Female", "Count_Person_Male"],
-    ["2011", "2012", "2013"],
-    {
-      Count_Person_Female: {
-        "geoId/05": {
-          data: {
-            "2012": 150,
-            "2013": 0,
-          },
-          placeName: "Arkansas",
-          provenanceUrl: "source1",
-        },
-      },
-      Count_Person_Male: {
-        "geoId/05": {
-          data: {
-            "2011": 11000,
-            "2012": 13000,
-          },
-          placeName: "Arkansas",
-          provenanceUrl: "source1",
-        },
-      },
-    },
-    "2012"
-  );
-
-  expect(statsData.getTimeGroupWithStatsVar("geoId/05")).toEqual([
-    new DataGroup("2011", [
-      { label: "Female", value: undefined },
-      { label: "Male", value: 11000 },
-    ]),
-    new DataGroup("2012", [
-      { label: "Female", value: 150 },
-      { label: "Male", value: 13000 },
-    ]),
-    new DataGroup("2013", [
-      { label: "Female", value: undefined },
-      { label: "Male", value: undefined },
-    ]),
-  ]);
 });
