@@ -74,6 +74,7 @@ class Page extends Component<unknown, PageStateType> {
   }
 
   render(): JSX.Element {
+    console.log("render");
     const numPlaces = Object.keys(this.state.placeName).length;
     const numStatVarInfo = Object.keys(this.state.statVarInfo).length;
     const namedPlaces: NamedPlace[] = [];

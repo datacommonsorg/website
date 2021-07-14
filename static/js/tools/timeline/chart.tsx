@@ -153,6 +153,7 @@ class Chart extends Component<ChartPropsType> {
   }
 
   private loadDataAndDrawChart() {
+    console.log("hahaha");
     fetchStatData(
       Object.keys(this.props.placeName),
       Object.keys(this.props.statVarInfo),

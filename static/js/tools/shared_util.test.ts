@@ -18,13 +18,14 @@ import { getPopulationDate } from "./shared_util";
 
 test("getPopulationDate", () => {
   const basePopData = {
-    data: {
+    val: {
       "2017": 1,
       "2018": 2,
       "2020": 3,
     },
-    placeName: "geoId/06",
-    provenanceUrl: "provenance",
+    metadata: {
+      provenanceUrl: "provenance",
+    },
   };
   const baseStatData = {
     date: "2018",
@@ -77,7 +78,7 @@ test("getPopulationDate", () => {
 
   const popDataDateMoreSpecific = {
     ...basePopData,
-    data: {
+    val: {
       "2018-02": 1,
       "2018-03": 2,
       "2018-04": 3,
@@ -89,7 +90,7 @@ test("getPopulationDate", () => {
 
   const popDataDateMoreSpecificNoMatching = {
     ...basePopData,
-    data: {
+    val: {
       "2019-02": 1,
       "2019-03": 2,
       "2019-04": 3,

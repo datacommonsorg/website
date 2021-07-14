@@ -18,7 +18,6 @@ import _ from "lodash";
 import axios from "axios";
 
 import { DataPoint, DataGroup } from "../chart/base";
-import { getStatsVarLabel } from "./stats_var_labels";
 
 const TOTAL_POPULATION_SV = "Count_Person";
 const ZERO_POPULATION = 0;
@@ -40,7 +39,7 @@ export interface StatApiResponse {
     data: {
       [statVar: string]: TimeSeries | null;
     };
-    name: string;
+    name?: string;
   };
 }
 
@@ -104,33 +103,6 @@ export class StatData {
     }
     return result;
   }
-
-  /**
-   * Get points by stats var.
-   *
-   * @param place? The place to get the stats.
-   * @param date? The date to get the stats.
-   */
-  getStatsPoint(place?: string, date?: string): DataPoint[] {
-    if (!place) {
-      place = this.places[0];
-    }
-    if (!date) {
-      date = this.latestCommonDate;
-    }
-    const result: DataPoint[] = [];
-    for (const statsVar of this.statVars) {
-      if (!this.data[statsVar][place]) {
-        continue;
-      }
-      const timeSeries = this.data[statsVar][place];
-      result.push({
-        label: getStatsVarLabel(statsVar),
-        value: timeSeries.data[date] || 0,
-      });
-    }
-    return result;
-  }
 }
 
 /**
@@ -187,7 +159,7 @@ export function fetchStatData(
   scaling = 1,
   denominators: Record<string, string> = {}
 ): Promise<StatData> {
-  const denomStatVars = [];
+  let denomStatVars = [];
   if (perCapita) {
     denomStatVars.push(TOTAL_POPULATION_SV);
   } else {
@@ -195,6 +167,14 @@ export function fetchStatData(
       denomStatVars.push(denominators[sv]);
     }
   }
+  denomStatVars = Array.from(new Set(denomStatVars));
+
+  console.log("stat data");
+  console.log({
+    places: places,
+    statVars: statVars,
+  });
+
   const statDataPromise: Promise<StatApiResponse> = axios
     .post(`/api/stats`, {
       places: places,
@@ -203,14 +183,25 @@ export function fetchStatData(
     .then((resp) => {
       return resp.data;
     });
-  const denomDataPromise: Promise<StatApiResponse> = axios
-    .post(`/api/stats`, {
+  let denomDataPromise: Promise<StatApiResponse>;
+  if (denomStatVars.length > 0) {
+    console.log("stat data");
+    console.log({
       places: places,
       statVars: denomStatVars,
-    })
-    .then((resp) => {
-      return resp.data;
     });
+
+    denomDataPromise = axios
+      .post(`/api/stats`, {
+        places: places,
+        statVars: denomStatVars,
+      })
+      .then((resp) => {
+        return resp.data;
+      });
+  } else {
+    denomDataPromise = Promise.resolve({});
+  }
 
   let placeParams = `?`;
   for (const place of places) {
