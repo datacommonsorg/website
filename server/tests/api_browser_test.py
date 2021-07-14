@@ -125,19 +125,31 @@ class TestSearchStatVar(unittest.TestCase):
         expected_query = 'person'
         expected_places = ["geoId/06"]
         expected_result = {'statVarGroups': ['group_1', 'group_2']}
+        expected_blocklist_places = ["geoId/07"]
+        expected_blocklist_result = {'statVarGroups': ['group_1']}
 
-        def side_effect(query, places):
-            if query == expected_query and places == expected_places:
+        def side_effect(query, places, enable_blocklist):
+            if query == expected_query and places == expected_places and not enable_blocklist:
                 return expected_result
+            elif query == expected_query and places == expected_blocklist_places and enable_blocklist:
+                return expected_blocklist_result
             else:
                 return []
 
-        mock_search_result.side_effect = side_effect
-        response = app.test_client().get(
-            'api/browser/statvar/search?query=person&places=geoId/06')
-        assert response.status_code == 200
-        result = json.loads(response.data)
-        assert result == expected_result
+        with app.app_context():
+            mock_search_result.side_effect = side_effect
+            app.config['ENABLE_BLOCKLIST'] = False
+            response = app.test_client().get(
+                'api/browser/statvar/search?query=person&places=geoId/06')
+            assert response.status_code == 200
+            result = json.loads(response.data)
+            assert result == expected_result
+            app.config['ENABLE_BLOCKLIST'] = True
+            response = app.test_client().get(
+                'api/browser/statvar/search?query=person&places=geoId/07')
+            assert response.status_code == 200
+            result = json.loads(response.data)
+            assert result == expected_blocklist_result
 
 
 class TestGetStatVarGroup(unittest.TestCase):
