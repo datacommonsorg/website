@@ -589,8 +589,11 @@ class TestApiGetStatVarsUnion(unittest.TestCase):
 
     @patch('services.datacommons.send_request')
     def test_api_get_stat_vars_union(self, send_request):
-        req = {'dcids': ['geoId/10001', 'geoId/10003', 'geoId/10005']}
-        req2 = {'dcids': ['geoId/10002']}
+        req = {
+            'dcids': ['geoId/10001', 'geoId/10003', 'geoId/10005'],
+            'statVars': []
+        }
+        req2 = {'dcids': ['geoId/10002'], 'statVars': []}
         result = ["sv1", "sv2", "sv3"]
 
         def side_effect(req_url,
