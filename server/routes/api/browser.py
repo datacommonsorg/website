@@ -29,6 +29,11 @@ bp = flask.Blueprint('api.browser', __name__, url_prefix='/api/browser')
 NO_MMETHOD_KEY = 'no_mmethod'
 NO_OBSPERIOD_KEY = 'no_obsPeriod'
 
+BLOCKLISTED_STAT_VAR_GROUPS = {
+    "dc/g/Person_EmploymentStatus", "dc/g/Establishment", "dc/g/Person_Industry"
+}
+EMPLOYMENT_NUM_DESCENDENTS = 1759
+
 
 @cache.memoize(timeout=3600 * 24)  # Cache for one day.
 @bp.route('/triples/<path:dcid>')
@@ -128,7 +133,8 @@ def search_statvar():
     """
     query = request.args.get("query")
     places = request.args.getlist("places")
-    result = dc.search_statvar(query, places)
+    result = dc.search_statvar(query, places,
+                               current_app.config["ENABLE_BLOCKLIST"])
     return Response(json.dumps(result), 200, mimetype='application/json')
 
 
@@ -143,13 +149,17 @@ def get_statvar_group():
     stat_var_group = request.args.get("stat_var_group")
     places = request.args.getlist("places")
     result = dc.get_statvar_group(stat_var_group, places)
-    blocklisted_svg = current_app.config["BLOCKLISTED_STAT_VAR_GROUPS"]
-    if len(blocklisted_svg) > 0:
+    if current_app.config["ENABLE_BLOCKLIST"]:
         childSVG = result.get("childStatVarGroups", [])
         filteredChildSVG = []
         for svg in childSVG:
-            if svg.get("id", "") not in blocklisted_svg:
-                filteredChildSVG.append(svg)
+            svg_id = svg.get("id", "")
+            if svg_id in BLOCKLISTED_STAT_VAR_GROUPS:
+                continue
+            if svg_id == "dc/g/Employment" and svg.get(
+                    "numDescendentStatVars", 0) > EMPLOYMENT_NUM_DESCENDENTS:
+                svg["numDescendentStatVars"] = EMPLOYMENT_NUM_DESCENDENTS
+            filteredChildSVG.append(svg)
         result["childStatVarGroups"] = filteredChildSVG
     return Response(json.dumps(result), 200, mimetype='application/json')
 
