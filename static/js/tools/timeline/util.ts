@@ -18,6 +18,12 @@ import axios from "axios";
 export const statVarSep = "__";
 export const placeSep = ",";
 
+export interface TokenInfo {
+  name: string;
+  sep: string;
+  tokens: Set<string>;
+}
+
 export function getPlaceNames(
   dcids: string[]
 ): Promise<{ [key: string]: string }> {
@@ -42,13 +48,11 @@ export function getTokensFromUrl(name: string, sep: string): Set<string> {
   return tokens;
 }
 
-export function setTokensToUrl(
-  name: string,
-  sep: string,
-  tokens: Set<string>
-): void {
+export function setTokensToUrl(tokens: TokenInfo[]): void {
   const urlParams = new URLSearchParams(window.location.hash.split("#")[1]);
-  urlParams.set(name, Array.from(tokens).join(sep));
+  for (const token of tokens) {
+    urlParams.set(token.name, Array.from(token.tokens).join(token.sep));
+  }
   window.location.hash = urlParams.toString();
 }
 
@@ -59,8 +63,9 @@ export function addToken(name: string, sep: string, token: string): void {
     return;
   }
   tokens.add(token);
-  setTokensToUrl(name, sep, tokens);
+  setTokensToUrl([{ name, sep, tokens }]);
 }
+
 // remove one statVar
 export function removeToken(name: string, sep: string, token: string): void {
   const tokens = getTokensFromUrl(name, sep);
@@ -68,7 +73,7 @@ export function removeToken(name: string, sep: string, token: string): void {
     return;
   }
   tokens.delete(token);
-  setTokensToUrl(name, sep, tokens);
+  setTokensToUrl([{ name, sep, tokens }]);
 }
 
 // set PerCapita for a chart
