@@ -16,6 +16,7 @@
 
 import * as d3 from "d3";
 import { urlToDomain } from "../shared/util";
+import _ from "lodash";
 
 import {
   DataGroup,
@@ -180,7 +181,7 @@ function getTooltipContent(
         if (places.length > 1) {
           rowLabel += ` ${place}`;
         }
-        const value = dataPoint.value
+        const value = !_.isNull(dataPoint.value)
           ? formatNumber(dataPoint.value, unit)
           : "N/A";
         tooltipContent += `${rowLabel}: ${value}<br/>`;
