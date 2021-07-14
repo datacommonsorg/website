@@ -203,7 +203,7 @@ export class StatVarHierarchySearch extends React.Component<
         }
       }
     }
-    if (displayName == "" && this.state.svgResults) {
+    if (displayName === "" && this.state.svgResults) {
       for (const svg of this.state.svgResults) {
         if (svg.dcid == selectedID) {
           displayName = svg.name;
