@@ -301,7 +301,7 @@ class TestChoroplethData(unittest.TestCase):
     @patch('routes.api.choropleth.landing_page_api.get_denom')
     @patch('routes.api.choropleth.landing_page_api.build_url')
     @patch('routes.api.choropleth.dc_service.get_stat_set_within_place')
-    @patch('routes.api.choropleth.dc_service.get_stats')
+    @patch('routes.api.choropleth.dc_service.get_stat_set_series')
     @patch('routes.api.choropleth.get_choropleth_display_level')
     @patch('routes.api.choropleth.get_choropleth_configs')
     @patch('routes.api.choropleth.get_stat_vars')
@@ -432,15 +432,27 @@ class TestChoroplethData(unittest.TestCase):
 
         denom_data = {'2018': 2}
         denom_stat = {
-            geo1: {
-                'data': denom_data,
-                'provenanceUrl': source3
-            },
-            geo2: {}
+            'data': {
+                geo1: {
+                    'data': {
+                        'StatVar3': {
+                            'val': denom_data,
+                            'metadata': {
+                                'provenanceUrl': source3
+                            }
+                        }
+                    }
+                },
+                geo2: {
+                    'data': {
+                        'StatVar3': {}
+                    }
+                }
+            }
         }
 
         def stat_side_effect(*args):
-            if args[0] == geos and args[1] == sv3:
+            if args[0] == geos and args[1] == [sv3]:
                 return denom_stat
             else:
                 return {}
@@ -481,8 +493,6 @@ class TestChoroplethData(unittest.TestCase):
         response = app.test_client().get('/api/choropleth/data/' + test_dcid)
         assert response.status_code == 200
         response_data = json.loads(response.data)
-        response_data_sv2_sources = response_data[sv2]['sources']
-        assert set(response_data_sv2_sources) == set([source1, source3])
         expected_data = {
             sv1: {
                 'date': f'{sv1_date1} – {sv1_date2}',
@@ -501,7 +511,7 @@ class TestChoroplethData(unittest.TestCase):
                 },
                 'numDataPoints': 1,
                 'exploreUrl': test_url2,
-                'sources': response_data_sv2_sources
+                'sources': [source1, source3]
             }
         }
         assert response_data == expected_data

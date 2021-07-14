@@ -15,7 +15,7 @@
  */
 
 import _ from "lodash";
-import axios, { AxiosResponse } from "axios";
+import axios from "axios";
 
 import { DataPoint, DataGroup } from "../chart/base";
 import { getStatsVarLabel } from "./stats_var_labels";

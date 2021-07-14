@@ -334,9 +334,21 @@ def choropleth_data(dcid):
     sv_data = dc_service.get_stat_set_within_place(display_dcid, display_level,
                                                    list(stat_vars),
                                                    "").get('data', {})
+    denoms_data_raw = dc_service.get_stat_set_series(list(geos),
+                                                     list(denoms)).get(
+                                                         'data', {})
     denoms_data = {}
-    for denom in denoms:
-        denoms_data[denom] = dc_service.get_stats(geos, denom)
+    # Covert data to compatible format
+    for place, stat_data in denoms_data_raw.items():
+        for stat_var, info in stat_data['data'].items():
+            if 'val' in info:
+                denoms_data[stat_var] = {
+                    place: {
+                        'data': info['val'],
+                        'provenanceUrl': info['metadata']['provenanceUrl']
+                    }
+                }
+
     result = {}
     # Process the data for each config
     for cc in configs:
@@ -390,7 +402,7 @@ def choropleth_data(dcid):
             'numDataPoints': len(data_dict.values()),
             # TODO (chejennifer): exploreUrl should link to choropleth tool once the tool is ready
             'exploreUrl': exploreUrl,
-            'sources': list(sources)
+            'sources': sorted(list(sources))
         }
         result[sv] = cc_result
     return Response(json.dumps(result), 200, mimetype='application/json')
