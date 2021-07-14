@@ -13,7 +13,6 @@
 # limitations under the License.
 """Graph browser related handlers."""
 
-import os
 import flask
 import json
 
@@ -21,6 +20,7 @@ from cache import cache
 import services.datacommons as dc
 from flask import Response
 from flask import request
+from flask import current_app
 import routes.api.place as place_api
 import logging
 
@@ -28,10 +28,6 @@ bp = flask.Blueprint('api.browser', __name__, url_prefix='/api/browser')
 
 NO_MMETHOD_KEY = 'no_mmethod'
 NO_OBSPERIOD_KEY = 'no_obsPeriod'
-
-BLACKLISTED_STAT_VAR_GROUPS = {
-    "dc/g/Person_EmploymentStatus", "dc/g/Establishment", "dc/g/Person_Industry"
-}
 
 
 @cache.memoize(timeout=3600 * 24)  # Cache for one day.
@@ -147,11 +143,12 @@ def get_statvar_group():
     stat_var_group = request.args.get("stat_var_group")
     places = request.args.getlist("places")
     result = dc.get_statvar_group(stat_var_group, places)
-    if os.environ.get('FLASK_ENV') == 'production':
+    blacklisted_svg = current_app.config["BLACKLISTED_STAT_VAR_GROUPS"]
+    if len(blacklisted_svg) > 0:
         childSVG = result.get("childStatVarGroups", [])
         filteredChildSVG = []
         for svg in childSVG:
-            if svg.get("id", "") not in BLACKLISTED_STAT_VAR_GROUPS:
+            if svg.get("id", "") not in blacklisted_svg:
                 filteredChildSVG.append(svg)
         result["childStatVarGroups"] = filteredChildSVG
     return Response(json.dumps(result), 200, mimetype='application/json')
