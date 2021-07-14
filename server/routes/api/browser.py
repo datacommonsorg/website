@@ -29,6 +29,7 @@ bp = flask.Blueprint('api.browser', __name__, url_prefix='/api/browser')
 NO_MMETHOD_KEY = 'no_mmethod'
 NO_OBSPERIOD_KEY = 'no_obsPeriod'
 
+# Temporary fix for messy svgs. Remove once svgs have been fixed.
 BLOCKLISTED_STAT_VAR_GROUPS = {
     "dc/g/Person_EmploymentStatus", "dc/g/Establishment", "dc/g/Person_Industry"
 }

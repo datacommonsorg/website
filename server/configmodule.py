@@ -56,7 +56,6 @@ class LocalConfig(Config):
     API_ROOT = 'https://autopush.api.datacommons.org'
     GCS_BUCKET = 'datcom-website-autopush-resources'
     SCHEME = 'http'
-    ENABLE_BLOCKLIST = True
 
 
 class LocalLiteConfig(Config):
