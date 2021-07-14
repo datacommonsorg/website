@@ -24,6 +24,12 @@ import { StatVarHierarchyType } from "../../shared/types";
 import { Context, StatVarWrapper } from "./context";
 import { getStatVarInfo } from "../statvar_menu/util";
 import { StatVarHierarchy } from "../../stat_var_hierarchy/stat_var_hierarchy";
+import axios from "axios";
+import {
+  MAP_REDIRECT_PREFIX,
+  updateHashPlaceInfo,
+  updateHashStatVar,
+} from "./util";
 
 const SAMPLE_SIZE = 3;
 
@@ -48,6 +54,36 @@ export function StatVarChooser(): JSX.Element {
         });
     }
   }, [statVar.value]);
+  useEffect(() => {
+    if (!_.isEmpty(samplePlaces) && !_.isEmpty(statVar.value.dcid)) {
+      axios
+        .post("/api/place/stat-vars/union", {
+          dcids: samplePlaces.map((place) => place.dcid),
+          statVars: statVar.value.dcid,
+        })
+        .then((resp) => {
+          if (_.isEmpty(resp.data)) {
+            let hash = updateHashStatVar("", {
+              dcid: "",
+              info: {},
+              perCapita: false,
+            });
+            hash = updateHashPlaceInfo(hash, placeInfo.value);
+            hash = encodeURIComponent(hash);
+            history.replaceState({}, "", `${MAP_REDIRECT_PREFIX}#${hash}`);
+            let statVarName = statVar.value.dcid;
+            if (statVar.value.info) {
+              statVarName = statVar.value.info.title || statVar.value.dcid;
+            }
+            alert(
+              `Sorry, the selected variable ${statVarName} ` +
+                "is not available for the chosen place."
+            );
+            statVar.setDcid("");
+          }
+        });
+    }
+  }, [samplePlaces]);
   return (
     <div className="explore-menu-container" id="explore">
       <StatVarHierarchy
