@@ -41,8 +41,6 @@ import {
   TOOLTIP_ID,
 } from "./util";
 
-const SORTED_FIRST_SVG_ID = "dc/g/Demographics";
-const SORTED_LAST_SVG_ID = "dc/g/Uncategorized";
 const ROOT_SVG = "dc/g/Root";
 const TOOLTIP_TOP_OFFSET = 30;
 const TOOLTIP_MARGIN = 5;
@@ -120,25 +118,7 @@ export class StatVarHierarchy extends React.Component<
       // rendering them again after the componentDidUpdate hook.
       return null;
     }
-    // Do not want to change the state here.
-    let rootSVGs = _.cloneDeep(this.state.rootSVGs);
-    if (!_.isEmpty(rootSVGs)) {
-      rootSVGs.sort((a, b) => {
-        if (a.id === SORTED_FIRST_SVG_ID) {
-          return -1;
-        }
-        if (b.id === SORTED_FIRST_SVG_ID) {
-          return 1;
-        }
-        if (a.id === SORTED_LAST_SVG_ID) {
-          return 1;
-        }
-        if (b.id === SORTED_LAST_SVG_ID) {
-          return -1;
-        }
-        return a > b ? 1 : -1;
-      });
-    }
+    let rootSVGs = this.state.rootSVGs;
     if (this.props.type === StatVarHierarchyType.BROWSER) {
       rootSVGs = rootSVGs.filter((svg) => svg.numDescendentStatVars > 0);
     }
