@@ -143,12 +143,12 @@ def get_statvar_group():
     stat_var_group = request.args.get("stat_var_group")
     places = request.args.getlist("places")
     result = dc.get_statvar_group(stat_var_group, places)
-    blacklisted_svg = current_app.config["BLACKLISTED_STAT_VAR_GROUPS"]
-    if len(blacklisted_svg) > 0:
+    blocklisted_svg = current_app.config["BLOCKLISTED_STAT_VAR_GROUPS"]
+    if len(blocklisted_svg) > 0:
         childSVG = result.get("childStatVarGroups", [])
         filteredChildSVG = []
         for svg in childSVG:
-            if svg.get("id", "") not in blacklisted_svg:
+            if svg.get("id", "") not in blocklisted_svg:
                 filteredChildSVG.append(svg)
         result["childStatVarGroups"] = filteredChildSVG
     return Response(json.dumps(result), 200, mimetype='application/json')

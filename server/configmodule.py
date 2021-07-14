@@ -24,13 +24,13 @@ class Config:
     # Additional stat vars that need to be fetched for place page data.
     # This is only needed for local development when cache is not up to date.
     NEW_STAT_VARS = []
-    BLACKLISTED_STAT_VAR_GROUPS = {}
+    BLOCKLISTED_STAT_VAR_GROUPS = {}
 
 
 class ProductionConfig(Config):
     GA_ACCOUNT = 'UA-117119267-1'
     NEW_STAT_VARS = []
-    BLACKLISTED_STAT_VAR_GROUPS = {
+    BLOCKLISTED_STAT_VAR_GROUPS = {
         "dc/g/Person_EmploymentStatus", "dc/g/Establishment",
         "dc/g/Person_Industry"
     }
