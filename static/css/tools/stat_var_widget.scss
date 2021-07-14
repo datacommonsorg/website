@@ -42,7 +42,6 @@ $transparent-red: rgba(240, 230, 231, 0.2);
 
 #stat-var-hierarchy-section {
   height: 100%;
-  position: relative;
   overflow-y: hidden;
 }
 
@@ -125,6 +124,8 @@ form.node-title {
   border: 0.5px solid #dee2e6;
   padding: 0.3rem;
   overflow-wrap: anywhere;
+  z-index: 5;
+  min-width: 12rem;
 }
 
 #tree-widget-info i {

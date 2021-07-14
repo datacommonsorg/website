@@ -176,11 +176,11 @@ function StatVarChooser(): JSX.Element {
         selectedSVs={menuSelected}
         selectSV={(sv) => addStatVar(x, y, sv, setThirdStatVar, setModalOpen)}
         deselectSV={(sv) => removeStatVar(x, y, sv)}
-        searchLabel="Select variables:"
+        searchLabel="Select statistical variables:"
       ></StatVarHierarchy>
       <Modal isOpen={modalOpen} backdrop="static" id="statvar-modal">
         <ModalHeader toggle={closeModal}>
-          Only Two Variables Supported
+          Only Two Statistical Variables Supported
         </ModalHeader>
         <ModalBody>
           <Container>
@@ -189,7 +189,7 @@ function StatVarChooser(): JSX.Element {
               <b>{thirdStatVar.info.title || thirdStatVar.dcid}</b>
             </div>
             <div className="radio-selection-label">
-              Please choose 1 more variable to keep:
+              Please choose 1 more statistical variable to keep:
             </div>
             <div className="radio-selection-section">
               <FormGroup radio row>
