@@ -200,7 +200,20 @@ class Chart extends Component<ChartPropsType> {
       }
     }
     // use mprop as the ylabel
-    const ylabelText = mprop.charAt(0).toUpperCase() + mprop.slice(1);
+    let ylabelText = mprop.charAt(0).toUpperCase() + mprop.slice(1);
+
+    // TODO(shifucun):
+    // Pick unit from one place and one stat var. This assumes all the stat var
+    // observation have same unit, which is mostly wrong but not strictly true.
+    // To do this accurately need a bigger change that group the stat vars at
+    // an early stage.
+    const placeData = Object.values(this.statData.data)[0];
+    const series = Object.values(placeData.data)[0];
+    const unit = series["metadata"].unit || "";
+    if (unit) {
+      ylabelText += ` (${unit})`;
+    }
+
     return ylabelText;
   }
 }
