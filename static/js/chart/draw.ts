@@ -159,7 +159,8 @@ function showTooltip(
 function getTooltipContent(
   dataGroupsDict: { [place: string]: DataGroup[] },
   highlightedTime: number,
-  unit?: string
+  unit?: string,
+  format?: boolean
 ): string {
   let tooltipDate = "";
   let tooltipContent = "";
@@ -180,9 +181,16 @@ function getTooltipContent(
         if (places.length > 1) {
           rowLabel += ` ${place}`;
         }
-        const value = dataPoint.value
-          ? formatNumber(dataPoint.value, unit)
-          : "N/A";
+        let value: string;
+        if (!dataPoint.value) {
+          value = "N/A";
+        } else {
+          if (format) {
+            value = formatNumber(dataPoint.value, unit);
+          } else {
+            value = ` ${dataPoint.value} ${unit}`;
+          }
+        }
         tooltipContent += `${rowLabel}: ${value}<br/>`;
       }
     }
