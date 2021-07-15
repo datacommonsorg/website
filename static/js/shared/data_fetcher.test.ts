@@ -17,7 +17,13 @@
 import _ from "lodash";
 import axios from "axios";
 
-import { fetchStatData, StatData, StatApiResponse } from "./data_fetcher";
+import {
+  computePerCapita,
+  fetchStatData,
+  StatApiResponse,
+  StatData,
+  TimeSeries,
+} from "./data_fetcher";
 import { DataGroup } from "../chart/base";
 import { loadLocaleData } from "../i18n/i18n";
 
@@ -833,4 +839,29 @@ test("Per capita with specified denominators test - missing place data", () => {
       ]),
     ]);
   });
+});
+
+test("compute per capita", () => {
+  const statSeries: TimeSeries = {
+    val: {
+      "2001": 1000,
+      "2005": 2000,
+      "2010": 3000,
+    },
+  };
+  const popSeries: TimeSeries = {
+    val: {
+      "2001": 100,
+      "2004": 200,
+      "2009": 300,
+    },
+  };
+  const expected: TimeSeries = {
+    val: {
+      "2001": 10,
+      "2005": 10,
+      "2010": 10,
+    },
+  };
+  expect(computePerCapita(statSeries, popSeries)).toEqual(expected);
 });

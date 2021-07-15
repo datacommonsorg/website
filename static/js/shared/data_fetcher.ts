@@ -86,7 +86,7 @@ export class StatData {
     const result: DataGroup[] = [];
     for (const statVar of this.statVars) {
       const dataPoints: DataPoint[] = [];
-      if (!this.data[place].data[statVar]) {
+      if (!this.data[place] || !this.data[place].data[statVar]) {
         continue;
       }
       const timeSeries = this.data[place].data[statVar];
@@ -108,20 +108,21 @@ export class StatData {
 /**
  * Returns per capita computation applied to the time series
  *
- * @param statsVarResponse Response to apply per capita computation to
- * @param populationResponse Population data to use for the per capita computation
- * @returns statVarResponse with the per capita calculation applied to it's values
+ * @param statSeries Time series to apply per capita computation to.
+ * @param popSeries Population series data to use for the per capita computation.
+ *
+ * @returns TimeSeries with the per capita calculation applied to its values.
  */
-function computePerCapita(
+export function computePerCapita(
   statSeries: TimeSeries,
   popSeries: TimeSeries,
   scaling = 1
 ): TimeSeries {
   const result = _.cloneDeep(statSeries);
-  const years = Object.keys(popSeries.val);
-  years.sort();
-  const yearMin = years[0];
-  const yearMax = years[years.length - 1];
+  const popYears = Object.keys(popSeries.val);
+  popYears.sort();
+  const yearMin = popYears[0];
+  const yearMax = popYears[popYears.length - 1];
   for (const date in statSeries.val) {
     const year = date.split("-")[0];
     let pop: number;
@@ -129,8 +130,18 @@ function computePerCapita(
       pop = popSeries.val[year];
     } else if (year < yearMin) {
       pop = popSeries.val[yearMin];
-    } else {
+    } else if (year > yearMax) {
       pop = popSeries.val[yearMax];
+    } else {
+      // Choose the population year that is the closest to stat year.
+      let minDiff = parseInt(yearMax);
+      for (const y of popYears) {
+        const diff = Math.abs(parseInt(y) - parseInt(year));
+        if (diff < minDiff) {
+          minDiff = diff;
+          pop = popSeries.val[y];
+        }
+      }
     }
     if (pop === ZERO_POPULATION) {
       result.val[date] = ZERO_POPULATION;
@@ -214,9 +225,7 @@ export function fetchStatData(
     const numStatVarsPerPlace: { [key: string]: number } = {};
     const statResp = allResp[0] as StatApiResponse;
     const denomResp = allResp[1] as StatApiResponse;
-    const displayNameMapping = (allResp[2]
-      ? allResp[2]
-      : {}) as DisplayNameApiResponse;
+    const displayNameMapping = allResp[2] as DisplayNameApiResponse;
 
     for (const place in statResp) {
       const placeData = statResp[place].data;
