@@ -90,7 +90,7 @@ export class StatData {
         continue;
       }
       const timeSeries = this.data[place].data[statVar];
-      if (Object.keys(timeSeries.val).length !== 0) {
+      if (timeSeries.val && Object.keys(timeSeries.val).length !== 0) {
         for (const date of this.dates) {
           dataPoints.push({
             label: date,
@@ -256,10 +256,12 @@ export function fetchStatData(
       }
       for (const statVar in placeData) {
         const timeSeries = placeData[statVar];
-        if (Object.keys(timeSeries.val).length > 0) {
+        if (timeSeries.val && Object.keys(timeSeries.val).length > 0) {
           numStatVarsPerPlace[place] = numStatVarsPerPlace[place] + 1;
         }
-        result.sources.add(timeSeries.metadata.provenanceUrl);
+        if (timeSeries.metadata) {
+          result.sources.add(timeSeries.metadata.provenanceUrl);
+        }
         for (const date in timeSeries.val) {
           if (date in numOccurencesPerDate) {
             numOccurencesPerDate[date] = numOccurencesPerDate[date] + 1;
