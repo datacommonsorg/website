@@ -24,11 +24,13 @@ class Config:
     # Additional stat vars that need to be fetched for place page data.
     # This is only needed for local development when cache is not up to date.
     NEW_STAT_VARS = []
+    ENABLE_BLOCKLIST = False
 
 
 class ProductionConfig(Config):
     GA_ACCOUNT = 'UA-117119267-1'
     NEW_STAT_VARS = []
+    ENABLE_BLOCKLIST = True
 
 
 class StagingConfig(Config):

@@ -16,6 +16,8 @@
 import * as d3 from "d3";
 import _ from "lodash";
 
+import { TimeSeries } from "../shared/data_fetcher";
+
 /**
  * Functions and interfaces shared between tools components
  */
@@ -48,10 +50,10 @@ export interface SourceSeries {
  * @param statData
  */
 export function getPopulationDate(
-  popData: SourceSeries,
+  popData: TimeSeries,
   statData: PlacePointStatData
 ): string {
-  const xPopDataDates = Object.keys(popData.data);
+  const xPopDataDates = Object.keys(popData.val);
   let popDate = xPopDataDates.find((date) => date === statData.date);
   if (!popDate && !_.isEmpty(xPopDataDates)) {
     // Filter for all population dates encompassed by the stat var date.
