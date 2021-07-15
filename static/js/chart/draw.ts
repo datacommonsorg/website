@@ -161,7 +161,7 @@ function getTooltipContent(
   dataGroupsDict: { [place: string]: DataGroup[] },
   highlightedTime: number,
   unit?: string,
-  statsVarInfo?: { [key: string]: StatVarInfo }
+  statVarInfo?: { [key: string]: StatVarInfo }
 ): string {
   let tooltipDate = "";
   let tooltipContent = "";
@@ -178,9 +178,9 @@ function getTooltipContent(
           dataGroups.length === 1 && places.length === 1 ? dataPoint.label : "";
         if (dataGroups.length > 1) {
           let statVarLabel = dataGroup.label;
-          if (statsVarInfo && dataGroup.label in statsVarInfo) {
+          if (statVarInfo && dataGroup.label in statVarInfo) {
             statVarLabel =
-              statsVarInfo[dataGroup.label].title || dataGroup.label;
+              statVarInfo[dataGroup.label].title || dataGroup.label;
           }
           rowLabel += statVarLabel;
         }
@@ -251,7 +251,7 @@ function addHighlightOnHover(
   highlightArea: d3.Selection<SVGGElement, any, any, any>,
   chartAreaBoundary: Boundary,
   unit?: string,
-  statsVarInfo?: { [key: string]: StatVarInfo }
+  statVarInfo?: { [key: string]: StatVarInfo }
 ): void {
   const listOfTimePoints: number[] = Array.from(setOfTimePoints);
   listOfTimePoints.sort((a, b) => a - b);
@@ -320,7 +320,7 @@ function addHighlightOnHover(
         dataGroupsDict,
         highlightedTime,
         unit,
-        statsVarInfo
+        statVarInfo
       );
       showTooltip(
         tooltipContent,
@@ -983,7 +983,7 @@ function computeRanges(dataGroupsDict: { [geoId: string]: DataGroup[] }) {
  * @param id: DOM id.
  * @param width: width for the chart.
  * @param height: height for the chart.
- * @param statsVarInfo: object from stat var dcid to its info struct.
+ * @param statVarInfo: object from stat var dcid to its info struct.
  * @param dataGroupsDict: data groups for plotting.
  * @param plotParams: contains all plot params for chart.
  * @param sources: an array of source domain.
@@ -993,7 +993,7 @@ function drawGroupLineChart(
   selector: string | HTMLDivElement,
   width: number,
   height: number,
-  statsVarInfo: { [key: string]: StatVarInfo },
+  statVarInfo: { [key: string]: StatVarInfo },
   dataGroupsDict: { [place: string]: DataGroup[] },
   plotParams: PlotParams,
   ylabel?: string,
@@ -1008,7 +1008,7 @@ function drawGroupLineChart(
   const legendTextdWidth = Math.max(width * LEGEND.ratio, LEGEND.minTextWidth);
   const legendWidth =
     Object.keys(dataGroupsDict).length > 1 &&
-    Object.keys(statsVarInfo).length > 1
+    Object.keys(statVarInfo).length > 1
       ? LEGEND.dashWidth + legendTextdWidth
       : legendTextdWidth;
 
@@ -1128,7 +1128,7 @@ function drawGroupLineChart(
         LEGEND.marginTop
       })`
     );
-  buildInChartLegend(legend, plotParams.legend, legendTextdWidth, statsVarInfo);
+  buildInChartLegend(legend, plotParams.legend, legendTextdWidth, statVarInfo);
 
   // Add highlight on hover
   const chartAreaBoundary = {
@@ -1150,7 +1150,7 @@ function drawGroupLineChart(
     highlight,
     chartAreaBoundary,
     unit,
-    statsVarInfo
+    statVarInfo
   );
 }
 
