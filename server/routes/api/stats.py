@@ -199,6 +199,15 @@ def get_stat_set_within_place():
                     mimetype='application/json')
 
 
+@bp.route('/api/stats/set', methods=["POST"])
+def get_stats_set():
+    places = request.json.get("places")
+    stat_vars = request.json.get("stat_vars")
+    return Response(json.dumps(dc.get_stat_set(places, stat_vars)),
+                    200,
+                    mimetype="application/json")
+
+
 @bp.route('/api/stats/all')
 @cache.cached(timeout=3600 * 24, query_string=True)  # Cache for one day.
 def get_stats_all():

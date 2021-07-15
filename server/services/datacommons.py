@@ -45,6 +45,7 @@ API_ENDPOINTS = {
     'get_stats_all': '/stat/all',
     'get_stats_value': '/stat/value',
     'get_stat_set_within_place': '/stat/set/within-place',
+    'get_stat_set': '/stat/set',
     # TODO(shifucun): switch back to /node/related-places after data switch.
     'get_related_places': '/node/related-locations',
     'get_interesting_places': '/node/interesting-place-aspects',
@@ -141,10 +142,10 @@ def get_stat_set_within_place(parent_place, child_type, stat_vars, date):
     return send_request(url, req_json=req_json, has_payload=False)
 
 
-def get_stats_set(place_dcids, stat_vars, date=None):
-    url = API_ROOT + API_ENDPOINTS['get_stats_set']
+def get_stat_set(places, stat_vars, date=None):
+    url = API_ROOT + API_ENDPOINTS['get_stat_set']
     req_json = {
-        'places': place_dcids,
+        'places': places,
         'stat_vars': stat_vars,
         'date': date,
     }

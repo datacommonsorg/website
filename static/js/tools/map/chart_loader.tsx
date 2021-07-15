@@ -22,12 +22,7 @@
 import React, { useContext, useEffect, useState } from "react";
 import _ from "lodash";
 import { GeoJsonData } from "../../chart/types";
-import {
-  getPopulationDate,
-  getUnit,
-  PlacePointStat,
-  SourceSeries,
-} from "../shared_util";
+import { getPopulationDate, getUnit, PlacePointStat } from "../shared_util";
 import { Context, IsLoadingWrapper, PlaceInfo, StatVar } from "./context";
 import { Chart } from "./chart";
 import axios from "axios";
@@ -144,7 +139,7 @@ function fetchData(
   const statVarDataPromise = axios
     .post("/api/stats/set", {
       places: enclosedPlaceDcids.concat(breadcrumbPlaceDcids),
-      stat_vars: statVar.dcid,
+      stat_vars: [statVar.dcid],
     })
     .then((resp) => resp.data);
   Promise.all([populationPromise, geoJsonPromise, statVarDataPromise])
