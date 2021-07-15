@@ -1079,25 +1079,43 @@ function drawGroupLineChart(
   for (const place in dataGroupsDict) {
     dataGroups = dataGroupsDict[place];
     for (const dataGroup of dataGroups) {
-      const dataset = dataGroup.value.map((dp) => {
-        timePoints.add(dp.time);
-        return [dp.time, dp.value];
-      });
+      const dataset = dataGroup.value
+        .map((dp) => {
+          timePoints.add(dp.time);
+          return [dp.time, dp.value];
+        })
+        .filter((dp) => {
+          return dp[1] !== null;
+        });
       const line = d3
         .line()
-        .defined((d) => d[1] != null)
         .x((d) => xScale(d[0]))
         .y((d) => yScale(d[1]));
       const lineStyle = plotParams.lines[place + dataGroup.label];
-      chart
-        .append("path")
-        .datum(dataset)
-        .attr("class", "line")
-        .attr("d", line)
-        .style("fill", "none")
-        .style("stroke", lineStyle.color)
-        .style("stroke-width", "2px")
-        .style("stroke-dasharray", lineStyle.dash);
+      if (dataset.length > 1) {
+        chart
+          .append("path")
+          .datum(dataset)
+          .attr("class", "line")
+          .attr("d", line)
+          .style("fill", "none")
+          .style("stroke", lineStyle.color)
+          .style("stroke-width", "2px")
+          .style("stroke-dasharray", lineStyle.dash);
+      } else {
+        chart
+          .append("g")
+          .selectAll(".dot")
+          .data(dataGroup.value)
+          .enter()
+          .append("circle")
+          .attr("class", "dot")
+          .attr("cx", (d) => xScale(d.time))
+          .attr("cy", (d) => yScale(d.value))
+          .attr("r", (d) => (d.value === null ? 0 : 3))
+          .style("fill", lineStyle.color)
+          .style("stroke", "#fff");
+      }
     }
   }
   // add source info to the chart
