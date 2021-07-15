@@ -114,42 +114,88 @@ export function axios_mock(): void {
     .mockResolvedValue({ data: { "geoId/05": "Place" } });
 
   // get data, geoId/05, Median_Age_Person
-  when(axios.get)
-    .calledWith("/api/stats/Median_Age_Person?&dcid=geoId/05")
+  when(axios.post)
+    .calledWith("/api/stats", {
+      statVars: ["Median_Age_Person"],
+      places: ["geoId/05"],
+    })
     .mockResolvedValue({
       data: {
         "geoId/05": {
-          placeDcid: "geoId/05",
-          placeName: "Arkansas",
-          provenanceUrl: "census.gov",
-          data: { "2011": 37.3, "2012": 37.4, "2013": 37.5, "2014": 37.6 },
+          data: {
+            Median_Age_Person: {
+              val: {
+                "2015": 37.7,
+                "2016": 37.7,
+                "2017": 37.9,
+                "2018": 37.9,
+                "2013": 37.5,
+                "2012": 37.4,
+                "2014": 37.6,
+                "2019": 38.1,
+                "2011": 37.3,
+              },
+              metadata: {
+                importName: "CensusACS5YearSurvey",
+                provenanceUrl: "https://www.census.gov/",
+                measurementMethod: "CensusACS5yrSurvey",
+                unit: "Year",
+              },
+            },
+          },
         },
       },
     });
 
   // get data, geoId/05,Count_Person
-  when(axios.get)
-    .calledWith("/api/stats/Count_Person?&dcid=geoId/05")
+  when(axios.post)
+    .calledWith("/api/stats", {
+      statVars: ["Count_Person"],
+      places: ["geoId/05"],
+    })
     .mockResolvedValue({
       data: {
         "geoId/05": {
-          placeDcid: "geoId/05",
-          placeName: "Arkansas",
-          provenanceUrl: "census.gov",
-          data: { "1999": 37.3, "2010": 37.4, "2020": 37.5 },
+          data: {
+            Count_Person: {
+              val: {
+                "2001": 2690743,
+                "2012": 2952164,
+              },
+              metadata: {
+                importName: "CensusPEP",
+                provenanceUrl:
+                  "https://www.census.gov/programs-surveys/popest.html",
+                measurementMethod: "CensusPEPSurvey",
+              },
+            },
+          },
         },
       },
     });
 
-  when(axios.get)
-    .calledWith("/api/stats/NotInTheTree?&dcid=geoId/05")
+  when(axios.post)
+    .calledWith("/api/stats", {
+      statVars: ["NotInTheTree"],
+      places: ["geoId/05"],
+    })
     .mockResolvedValue({
       data: {
         "geoId/05": {
-          placeDcid: "geoId/05",
-          placeName: "Arkansas",
-          provenanceUrl: "census.gov",
-          data: { "1999": 37.3, "2010": 37.4, "2020": 37.5 },
+          data: {
+            NotInTheTree: {
+              val: {
+                "2001": 2690743,
+                "2012": 2952164,
+              },
+              metadata: {
+                importName: "CensusPEP",
+                provenanceUrl:
+                  "https://www.census.gov/programs-surveys/popest.html",
+                measurementMethod: "CensusPEPSurvey",
+              },
+            },
+          },
         },
       },
     });

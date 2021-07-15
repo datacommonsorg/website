@@ -15,5 +15,5 @@
     "esModuleInterop": true,
     "resolveJsonModule": true,
   },
-  "exclude": ["node_modules", "**/*.test.ts", "**/*.test.tsx", "**/mock_functions.tsx"]
+  "exclude": ["node_modules"]
 }

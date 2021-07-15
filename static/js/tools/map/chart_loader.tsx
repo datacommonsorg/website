@@ -22,20 +22,16 @@
 import React, { useContext, useEffect, useState } from "react";
 import _ from "lodash";
 import { GeoJsonData } from "../../chart/types";
-import {
-  getPopulationDate,
-  getUnit,
-  PlacePointStat,
-  SourceSeries,
-} from "../shared_util";
+import { getPopulationDate, getUnit, PlacePointStat } from "../shared_util";
 import { Context, IsLoadingWrapper, PlaceInfo, StatVar } from "./context";
 import { Chart } from "./chart";
 import axios from "axios";
+import { StatApiResponse } from "../../shared/data_fetcher";
 
 interface ChartRawData {
   geoJsonData: GeoJsonData;
   statVarData: PlacePointStat;
-  populationData: { [dcid: string]: SourceSeries };
+  populationData: StatApiResponse;
 }
 
 export interface DataPointMetadata {
@@ -121,7 +117,7 @@ function fetchData(
   if (!statVar.dcid) {
     return;
   }
-  const populationStatVar = statVar.info.md ? statVar.info.md : "Count_Person";
+  const populationStatVar = "Count_Person";
   const breadcrumbPlaceDcids = placeInfo.parentPlaces.map(
     (namedPlace) => namedPlace.dcid
   );
@@ -129,9 +125,10 @@ function fetchData(
   const enclosedPlaceDcids = placeInfo.enclosedPlaces.map(
     (namedPlace) => namedPlace.dcid
   );
-  const populationPromise = axios
-    .post(`/api/stats/${populationStatVar}`, {
-      dcid: enclosedPlaceDcids.concat(breadcrumbPlaceDcids),
+  const populationPromise: Promise<StatApiResponse> = axios
+    .post(`/api/stats`, {
+      statVars: [populationStatVar],
+      places: enclosedPlaceDcids.concat(breadcrumbPlaceDcids),
     })
     .then((resp) => resp.data);
   const geoJsonPromise = axios
@@ -142,7 +139,7 @@ function fetchData(
   const statVarDataPromise = axios
     .post("/api/stats/set", {
       places: enclosedPlaceDcids.concat(breadcrumbPlaceDcids),
-      stat_vars: statVar.dcid,
+      stat_vars: [statVar.dcid],
     })
     .then((resp) => resp.data);
   Promise.all([populationPromise, geoJsonPromise, statVarDataPromise])
@@ -164,7 +161,7 @@ function fetchData(
 // rendering the chart component
 function loadChartData(
   statVarData: PlacePointStat,
-  populationData: { [dcid: string]: SourceSeries },
+  populationData: StatApiResponse,
   isPerCapita: boolean,
   geoJsonData: GeoJsonData,
   placeInfo: PlaceInfo,
@@ -178,26 +175,24 @@ function loadChartData(
   if (_.isEmpty(statVarData)) {
     return;
   }
-  for (const dcid in statVarData.stat) {
-    if (_.isEmpty(statVarData.stat[dcid])) {
+  for (const placeDcid in statVarData.stat) {
+    if (_.isEmpty(statVarData.stat[placeDcid])) {
       continue;
     }
-    const statVarDate = statVarData.stat[dcid].date;
-    const importName = statVarData.stat[dcid].metadata.importName;
+    const statVarDate = statVarData.stat[placeDcid].date;
+    const importName = statVarData.stat[placeDcid].metadata.importName;
     const statVarSource = statVarData.metadata[importName].provenanceUrl;
-    let value = statVarData.stat[dcid].value;
+    let value = statVarData.stat[placeDcid].value;
     let popDate = "";
     let popSource = "";
     if (isPerCapita) {
-      if (dcid in populationData) {
-        popDate = getPopulationDate(
-          populationData[dcid],
-          statVarData.stat[dcid]
-        );
-        const popValue = populationData[dcid].data[popDate];
-        popSource = populationData[dcid].provenanceUrl;
+      if (placeDcid in populationData) {
+        const popSeries = Object.values(populationData[placeDcid].data)[0];
+        popDate = getPopulationDate(popSeries, statVarData.stat[placeDcid]);
+        const popValue = popSeries.val[popDate];
+        popSource = popSeries.metadata.provenanceUrl;
         if (popValue === 0) {
-          metadata[dcid] = {
+          metadata[placeDcid] = {
             popDate,
             popSource,
             statVarDate,
@@ -209,7 +204,7 @@ function loadChartData(
         value = value / popValue;
         sourceSet.add(popSource);
       } else {
-        metadata[dcid] = {
+        metadata[placeDcid] = {
           popDate,
           popSource,
           statVarDate,
@@ -220,22 +215,22 @@ function loadChartData(
       }
     }
     if (
-      placeInfo.parentPlaces.find((place) => place.dcid === dcid) ||
-      dcid === placeInfo.selectedPlace.dcid
+      placeInfo.parentPlaces.find((place) => place.dcid === placeDcid) ||
+      placeDcid === placeInfo.selectedPlace.dcid
     ) {
-      breadcrumbDataValues[dcid] = value;
+      breadcrumbDataValues[placeDcid] = value;
     } else {
-      mapDataValues[dcid] = value;
+      mapDataValues[placeDcid] = value;
       statVarDates.add(statVarDate);
     }
     if (
-      dcid === placeInfo.selectedPlace.dcid &&
+      placeDcid === placeInfo.selectedPlace.dcid &&
       placeInfo.selectedPlace.dcid !== placeInfo.enclosingPlace.dcid
     ) {
-      mapDataValues[dcid] = value;
+      mapDataValues[placeDcid] = value;
       statVarDates.add(statVarDate);
     }
-    metadata[dcid] = {
+    metadata[placeDcid] = {
       popDate,
       popSource,
       statVarDate,
