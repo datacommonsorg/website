@@ -95,7 +95,7 @@ export class StatData {
           dataPoints.push({
             label: date,
             time: new Date(date).getTime(),
-            value: timeSeries.val[date] || null,
+            value: date in timeSeries.val ? timeSeries.val[date] : null,
           });
         }
         result.push(new DataGroup(statVar, dataPoints));
