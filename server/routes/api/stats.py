@@ -54,10 +54,10 @@ def get_stats_wrapper(places_str, stat_vars_str):
 
     Args:
         places_str: place dcids concatenated by "^".
-        stat_var: the dcid of the statistical variable.
+        stat_vars_str: stat var dcids concatenated by "^".
     Returns:
-        An serialized json str. The json is an object keyed by the place dcid
-        with value to be the observation time series.
+        An object keyed by the place dcid with values keyed by the stat var dcid
+        with value to be the time series data.
     """
     places = places_str.split('^')
     stat_vars = stat_vars_str.split('^')

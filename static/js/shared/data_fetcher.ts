@@ -169,12 +169,6 @@ export function fetchStatData(
   }
   denomStatVars = Array.from(new Set(denomStatVars));
 
-  console.log("stat data");
-  console.log({
-    places: places,
-    statVars: statVars,
-  });
-
   const statDataPromise: Promise<StatApiResponse> = axios
     .post(`/api/stats`, {
       places: places,
@@ -185,12 +179,6 @@ export function fetchStatData(
     });
   let denomDataPromise: Promise<StatApiResponse>;
   if (denomStatVars.length > 0) {
-    console.log("stat data");
-    console.log({
-      places: places,
-      statVars: denomStatVars,
-    });
-
     denomDataPromise = axios
       .post(`/api/stats`, {
         places: places,

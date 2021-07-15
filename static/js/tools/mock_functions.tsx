@@ -116,7 +116,7 @@ export function axios_mock(): void {
   // get data, geoId/05, Median_Age_Person
   when(axios.post)
     .calledWith("/api/stats", {
-      stat_vars: ["Median_Age_Person"],
+      statVars: ["Median_Age_Person"],
       places: ["geoId/05"],
     })
     .mockResolvedValue({
@@ -174,7 +174,7 @@ export function axios_mock(): void {
       },
     });
 
-  when(axios.get)
+  when(axios.post)
     .calledWith("/api/stats", {
       statVars: ["NotInTheTree"],
       places: ["geoId/05"],

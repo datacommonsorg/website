@@ -45,7 +45,6 @@ API_ENDPOINTS = {
     'get_stats_all': '/stat/all',
     'get_stats_value': '/stat/value',
     'get_stat_set_within_place': '/stat/set/within-place',
-    'get_stats_set': '/stat/set',
     # TODO(shifucun): switch back to /node/related-places after data switch.
     'get_related_places': '/node/related-locations',
     'get_interesting_places': '/node/interesting-place-aspects',

@@ -33,7 +33,6 @@ function getStatVarInfo(dcids: string[]): Promise<Record<string, StatVarInfo>> {
   }
   url += urls.join("&");
   return axios.get(url).then((resp) => {
-    console.log("in getStatVarInfo");
     return resp.data;
   });
 }
