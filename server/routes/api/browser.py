@@ -30,9 +30,7 @@ NO_MMETHOD_KEY = 'no_mmethod'
 NO_OBSPERIOD_KEY = 'no_obsPeriod'
 
 # Temporary fix for messy svgs. Remove once svgs have been fixed.
-BLOCKLISTED_STAT_VAR_GROUPS = {
-    "dc/g/Person_EmploymentStatus", "dc/g/Establishment", "dc/g/Person_Industry"
-}
+BLOCKLISTED_STAT_VAR_GROUPS = {"dc/g/Establishment_Industry"}
 EMPLOYMENT_NUM_DESCENDENTS = 1759
 
 
