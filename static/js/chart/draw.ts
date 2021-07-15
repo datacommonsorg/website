@@ -160,7 +160,8 @@ function showTooltip(
 function getTooltipContent(
   dataGroupsDict: { [place: string]: DataGroup[] },
   highlightedTime: number,
-  unit?: string
+  unit?: string,
+  statsVarInfo?: { [key: string]: StatVarInfo }
 ): string {
   let tooltipDate = "";
   let tooltipContent = "";
@@ -176,10 +177,15 @@ function getTooltipContent(
         let rowLabel =
           dataGroups.length === 1 && places.length === 1 ? dataPoint.label : "";
         if (dataGroups.length > 1) {
-          rowLabel += dataGroup.label;
+          let statVarLabel = dataGroup.label;
+          if (statsVarInfo && dataGroup.label in statsVarInfo) {
+            statVarLabel =
+              statsVarInfo[dataGroup.label].title || dataGroup.label;
+          }
+          rowLabel += statVarLabel;
         }
         if (places.length > 1) {
-          rowLabel += ` ${place}`;
+          rowLabel += _.isEmpty(rowLabel) ? ` ${place}` : ` - ${place}`;
         }
         const value = !_.isNull(dataPoint.value)
           ? formatNumber(dataPoint.value, unit)
@@ -244,7 +250,8 @@ function addHighlightOnHover(
   setOfTimePoints: Set<number>,
   highlightArea: d3.Selection<SVGGElement, any, any, any>,
   chartAreaBoundary: Boundary,
-  unit?: string
+  unit?: string,
+  statsVarInfo?: { [key: string]: StatVarInfo }
 ): void {
   const listOfTimePoints: number[] = Array.from(setOfTimePoints);
   listOfTimePoints.sort((a, b) => a - b);
@@ -312,7 +319,8 @@ function addHighlightOnHover(
       const tooltipContent = getTooltipContent(
         dataGroupsDict,
         highlightedTime,
-        unit
+        unit,
+        statsVarInfo
       );
       showTooltip(
         tooltipContent,
@@ -1141,7 +1149,8 @@ function drawGroupLineChart(
     timePoints,
     highlight,
     chartAreaBoundary,
-    unit
+    unit,
+    statsVarInfo
   );
 }
 
