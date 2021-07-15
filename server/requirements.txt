@@ -3,7 +3,7 @@ Flask-Babel
 Flask-Caching
 attrs==19.3.0
 google-cloud-profiler
-google-cloud-storage
+google-cloud-storage==1.40.0
 google-cloud-secret-manager==1.0.0
 jinja2==2.11.3
 parameterized
