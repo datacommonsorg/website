@@ -27,12 +27,12 @@ COPY static/package-lock.json /workspace/static/package-lock.json
 WORKDIR /workspace/static
 RUN npm install
 
+# Flask
+COPY server/. /workspace/server/
+
 # NPM
 COPY static/. /workspace/static/
 RUN npm run-script build
-
-# Flask
-COPY server/. /workspace/server/
 
 # Run server
 WORKDIR /workspace/server
