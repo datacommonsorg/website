@@ -49,7 +49,6 @@ export class StatVarGroupSection extends React.Component<
       );
       childStatVarGroups.unshift(variableGroupItem);
     }
-    const singleChild = childStatVarGroups.length == 1;
     return (
       <div className="svg-node-child">
         {childStatVarGroups.map((childStatVarGroup) => {
@@ -72,7 +71,6 @@ export class StatVarGroupSection extends React.Component<
                   data={childStatVarGroup}
                   pathToSelection={this.props.pathToSelection.slice(1)}
                   startsOpened={
-                    singleChild ||
                     this.props.pathToSelection[0] === childStatVarGroup.id
                   }
                   isSelected={this.props.pathToSelection.length === 1}

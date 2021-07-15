@@ -208,7 +208,7 @@ export class StatVarSectionInput extends React.Component<
   private getTooltipHtml(hasData: boolean): string {
     let html = hasData
       ? ""
-      : "This variable has no data for any of the chosen places.";
+      : "This statistical variable has no data for any of the chosen places.";
     if (_.isEmpty(this.props.summary)) {
       return html;
     }
@@ -216,10 +216,10 @@ export class StatVarSectionInput extends React.Component<
     if (_.isEmpty(placeTypeToPlaceNames)) {
       return hasData
         ? ""
-        : "Sorry, this variable is not supported by this tool.";
+        : "Sorry, this statistical variable is not supported by this tool.";
     } else {
       html += hasData
-        ? "This variable is available for these types of places:<ul>"
+        ? "This statistical variable is available for these types of places:<ul>"
         : "You can try these types of places instead:<ul>";
     }
     for (const placeType in placeTypeToPlaceNames) {

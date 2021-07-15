@@ -152,8 +152,10 @@ function updateHash(context: ContextType): void {
   let hash = updateHashAxis("", x, true);
   hash = updateHashAxis(hash, y, false);
   hash = updateHashPlace(hash, place);
-  if (hash) {
-    history.pushState({}, "", `/tools/scatter#${encodeURIComponent(hash)}`);
+  const newHash = encodeURIComponent(hash);
+  const currentHash = location.hash.replace("#", "");
+  if (newHash && newHash !== currentHash) {
+    history.pushState({}, "", `/tools/scatter#${newHash}`);
   }
 }
 

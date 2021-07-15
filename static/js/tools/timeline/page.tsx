@@ -15,6 +15,8 @@
  */
 
 import React, { Component } from "react";
+import axios from "axios";
+import _ from "lodash";
 import {
   getPlaceNames,
   getTokensFromUrl,
@@ -22,6 +24,7 @@ import {
   removeToken,
   statVarSep,
   placeSep,
+  setTokensToUrl,
 } from "./util";
 import { getStatVarInfo, StatVarInfo } from "../statvar_menu/util";
 import { SearchBar } from "./search";
@@ -40,6 +43,7 @@ class Page extends Component<unknown, PageStateType> {
   constructor(props: unknown) {
     super(props);
     this.fetchDataAndRender = this.fetchDataAndRender.bind(this);
+    this.addPlaceAction = this.addPlaceAction.bind(this);
     this.state = {
       placeName: {},
       statVarInfo: {},
@@ -94,7 +98,7 @@ class Page extends Component<unknown, PageStateType> {
             deselectSV={(sv) => {
               removeToken("statsVar", statVarSep, sv);
             }}
-            searchLabel="Select variables:"
+            searchLabel="Select statistical variables:"
           />
         </div>
         <div id="plot-container">
@@ -104,7 +108,7 @@ class Page extends Component<unknown, PageStateType> {
               <SearchBar
                 places={this.state.placeName}
                 addPlace={(place) => {
-                  addToken("place", placeSep, place);
+                  this.addPlaceAction(place);
                 }}
                 removePlace={(place) => {
                   removeToken("place", placeSep, place);
@@ -124,6 +128,48 @@ class Page extends Component<unknown, PageStateType> {
         </div>
       </>
     );
+  }
+
+  private addPlaceAction(place: string): void {
+    // We only need to check the availability of selected stat vars when adding
+    // the first place (ie. when the current list of places is empty) because
+    // we take the union of the eligible stat vars for all places.
+    if (!_.isEmpty(this.state.statVarInfo) && _.isEmpty(this.state.placeName)) {
+      axios
+        .post("/api/place/stat-vars/union", {
+          dcids: [place],
+          statVars: Object.keys(this.state.statVarInfo),
+        })
+        .then((resp) => {
+          const availableSVs: string[] = resp.data;
+          const unavailableSV = [];
+          for (const sv in this.state.statVarInfo) {
+            if (availableSVs.indexOf(sv) === -1) {
+              unavailableSV.push(this.state.statVarInfo[sv].title || sv);
+            }
+          }
+          const placeTokenInfo = {
+            name: "place",
+            sep: placeSep,
+            tokens: new Set([place]),
+          };
+          const statVarTokenInfo = {
+            name: "statsVar",
+            sep: statVarSep,
+            tokens: new Set(availableSVs),
+          };
+          setTokensToUrl([placeTokenInfo, statVarTokenInfo]);
+          if (!_.isEmpty(unavailableSV)) {
+            alert(
+              `Sorry, the selected variable(s) [${unavailableSV.join(", ")}] ` +
+                "are not available for the chosen place."
+            );
+          }
+        })
+        .catch(() => addToken("place", placeSep, place));
+    } else {
+      addToken("place", placeSep, place);
+    }
   }
 }
 

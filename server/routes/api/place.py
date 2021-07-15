@@ -212,19 +212,21 @@ def statsvars(dcid):
 
 
 @cache.memoize(timeout=3600 * 24)  # Cache for one day.
-def get_stat_vars_union(dcids):
+def get_stat_vars_union(places, stat_vars):
     """Get all the statistical variable dcids for some places.
 
     Args:
-        dcids: Place DCIDs separated by "^" as a single string.
+        places: Place DCIDs separated by "^" as a single string.
+        stat_vars: list of stat var dcids.
 
     Returns:
         List of unique statistical variable dcids each as a string.
     """
-    dcids = dcids.split("^")
+    places = places.split("^")
     # The two indexings are due to how protobuf fields are converted to json
     return fetch_data('/v1/place/stat-vars/union', {
-        'dcids': dcids,
+        'dcids': places,
+        'statVars': stat_vars,
     },
                       compress=False,
                       post=True,
@@ -239,8 +241,9 @@ def get_stat_vars_union_route():
         List of unique statistical variable dcids each as a string.
     """
     dcids = sorted(request.json.get('dcids', []))
+    stat_vars = (request.json.get('statVars', []))
 
-    return Response(json.dumps(get_stat_vars_union("^".join(dcids))),
+    return Response(json.dumps(get_stat_vars_union("^".join(dcids), stat_vars)),
                     200,
                     mimetype='application/json')
 
