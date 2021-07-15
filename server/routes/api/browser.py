@@ -31,7 +31,8 @@ NO_OBSPERIOD_KEY = 'no_obsPeriod'
 
 # Temporary fix for messy svgs. Remove once svgs have been fixed.
 BLOCKLISTED_STAT_VAR_GROUPS = {"dc/g/Establishment_Industry"}
-EMPLOYMENT_NUM_DESCENDENTS = 1759
+UPDATE_NUM_DESCENDENTS_SVG = {"dc/g/Establishment", "dc/g/Employment"}
+NUM_DESCENDENTS_TO_SUBTRACT = 12123
 
 
 @cache.memoize(timeout=3600 * 24)  # Cache for one day.
@@ -155,9 +156,9 @@ def get_statvar_group():
             svg_id = svg.get("id", "")
             if svg_id in BLOCKLISTED_STAT_VAR_GROUPS:
                 continue
-            if svg_id == "dc/g/Employment" and svg.get(
-                    "numDescendentStatVars", 0) > EMPLOYMENT_NUM_DESCENDENTS:
-                svg["numDescendentStatVars"] = EMPLOYMENT_NUM_DESCENDENTS
+            svg_num_descendents = svg.get("numDescendentStatVars", 0)
+            if svg_id in UPDATE_NUM_DESCENDENTS_SVG and svg_num_descendents > NUM_DESCENDENTS_TO_SUBTRACT:
+                svg["numDescendentStatVars"] = svg_num_descendents - NUM_DESCENDENTS_TO_SUBTRACT
             filteredChildSVG.append(svg)
         result["childStatVarGroups"] = filteredChildSVG
     return Response(json.dumps(result), 200, mimetype='application/json')
