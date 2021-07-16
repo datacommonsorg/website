@@ -275,6 +275,18 @@
       "value": "Under $10K"
     }
   ],
+  "Count_Household_Rural": [
+    {
+      "type": 0,
+      "value": "Rural"
+    }
+  ],
+  "Count_Household_Urban": [
+    {
+      "type": 0,
+      "value": "Urban"
+    }
+  ],
   "Count_HousingUnit": [
     {
       "type": 0,
@@ -863,6 +875,12 @@
       "value": "Hispanic or Latino"
     }
   ],
+  "Count_Person_Illiterate": [
+    {
+      "type": 0,
+      "value": "Illiterate"
+    }
+  ],
   "Count_Person_InLaborForce": [
     {
       "type": 0,
@@ -915,6 +933,12 @@
     {
       "type": 0,
       "value": "Under $10K"
+    }
+  ],
+  "Count_Person_Literate": [
+    {
+      "type": 0,
+      "value": "Literate"
     }
   ],
   "Count_Person_Male": [
@@ -981,6 +1005,18 @@
     {
       "type": 0,
       "value": "Rural Poverty Population"
+    }
+  ],
+  "Count_Person_ScheduledCaste": [
+    {
+      "type": 0,
+      "value": "Scheduled Caste"
+    }
+  ],
+  "Count_Person_ScheduledTribe": [
+    {
+      "type": 0,
+      "value": "Scheduled Tribe"
     }
   ],
   "Count_Person_Separated": [
@@ -1431,43 +1467,6 @@
     {
       "type": 0,
       "value": "Male"
-    }
-  ],
-  "Count_Person_ScheduledCaste": [
-    {
-      "type": 0,
-      "value": "Scheduled Caste"
-    }
-  ],
-  "Count_Person_ScheduledTribe": [
-    {
-      "type": 0,
-      "value": "Scheduled Tribe"
-    }
-  ],
-
-  "Count_Person_Literate": [
-    {
-      "type": 0,
-      "value": "Literate"
-    }
-  ],
-  "Count_Person_Illiterate": [
-    {
-      "type": 0,
-      "value": "Illiterate"
-    }
-  ],
-  "Count_Household_Rural": [
-    {
-      "type": 0,
-      "value": "Rural"
-    }
-  ],
-  "Count_Household_Urban": [
-    {
-      "type": 0,
-      "value": "Urban"
     }
   ]
 }
