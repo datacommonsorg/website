@@ -188,7 +188,7 @@ function getTooltipContent(
           rowLabel += _.isEmpty(rowLabel) ? ` ${place}` : ` - ${place}`;
         }
         const value = !_.isNull(dataPoint.value)
-          ? formatNumber(dataPoint.value, unit)
+          ? `${dataPoint.value} ${unit}`
           : "N/A";
         tooltipContent += `${rowLabel}: ${value}<br/>`;
       }
