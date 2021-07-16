@@ -59,6 +59,22 @@
   },
   {
     "category": "Economics",
+    "titleId": "Worker vs nonworker population",
+    "title": "Worker vs nonworker population",
+    "description": "Worker vs nonworker population",
+    "statsVars": ["Count_Person_Workers", "Count_Person_NonWorker"],
+    "relatedChart": {
+      "titleId": "Percentage of workers and nonworkers",
+      "title": "Percentage of workers and nonworkers",
+      "description": "Percentage of workers and nonworkers",
+      "scale": true,
+      "denominator": "Count_Person",
+      "unit": "%",
+      "scaling": 100
+    }
+  },
+  {
+    "category": "Economics",
     "titleId": "CHART_TITLE-Poverty_rate",
     "description": "Percentage of the population below poverty",
     "title": "Poverty rate",
@@ -192,7 +208,7 @@
     "isOverview": true,
     "unit": "$",
     "relatedChart": {
-    "titleId": "CHART_TITLE-Government_debt_per_capita",
+      "titleId": "CHART_TITLE-Government_debt_per_capita",
       "title": "Government debt per capita",
       "description": "Government debt divided by the population",
       "scale": true,
@@ -708,6 +724,42 @@
   },
   {
     "category": "Equity",
+    "titleId": "Urban vs rural poverty population",
+    "title": "Urban vs rural poverty population",
+    "description": "Population below the poverty level, in urban and rural areas",
+    "statsVars": [
+      "Count_Person_Rural_BelowPovertyLevelInThePast12Months",
+      "Count_Person_Urban_BelowPovertyLevelInThePast12Months"
+    ],
+    "relatedChart": {
+      "titleId": "Urban vs rural poverty rate",
+      "title": "Urban vs rural poverty rate",
+      "scale": true,
+      "scaling": 100,
+      "unit": "%",
+      "denominator": "Count_Person"
+    }
+  },
+  {
+    "category": "Equity",
+    "titleId": "Urban vs rural homeless population",
+    "title": "Urban vs rural homeless population",
+    "description": "Homeless population in urban and rural areas",
+    "statsVars": [
+      "Count_Person_Houseless_Urban",
+      "Count_Person_Houseless_Rural"
+    ],
+    "relatedChart": {
+      "titleId": "Percentage of urban vs rural homeless population",
+      "title": "Percentage of urban vs rural homeless population",
+      "scale": true,
+      "scaling": 100,
+      "unit": "%",
+      "denominator": "Count_Person"
+    }
+  },
+  {
+    "category": "Equity",
     "titleId": "CHART_TITLE-Unemployment_rate_gender",
     "title": "Unemployment rate by gender",
     "description": "Percentage of the population, of working age, who are unemployed, broken down by gender",
@@ -962,6 +1014,22 @@
   },
   {
     "category": "Demographics",
+    "titleId": "Urban and rural households",
+    "title": "Urban and rural households",
+    "description": "Total number of households in rural vs urban parts of a place",
+    "statsVars": ["Count_Household_Rural", "Count_Household_Urban"],
+    "isOverview": false,
+    "relatedChart": {
+      "scale": true,
+      "denominator": "Count_Household",
+      "titleId": "Percentage of urban and rural households",
+      "title": "Percentage of urban and rural households",
+      "scaling": 100,
+      "unit": "%"
+    }
+  },
+  {
+    "category": "Demographics",
     "titleId": "CHART_TITLE-Population_age",
     "title": "Population by age",
     "description": "Number of individuals who fall within various age buckets",
@@ -1143,6 +1211,38 @@
     }
   },
   {
+    "category": "Demographics",
+    "titleId": "Literacy",
+    "title": "Literacy",
+    "description": "Literate and illiterate population",
+    "statsVars": ["Count_Person_Literate", "Count_Person_Illiterate"],
+    "isOverview": false,
+    "relatedChart": {
+      "scale": true,
+      "denominator": "Count_Person",
+      "titleId": "Percentage of literate and illiterate population",
+      "title": "Percentage of literate and illiterate population",
+      "scaling": 100,
+      "unit": "%"
+    }
+  },
+  {
+    "category": "Demographics",
+    "titleId": "Social Category",
+    "title": "Social Category",
+    "description": "Population by social category",
+    "statsVars": ["Count_Person_ScheduledCaste", "Count_Person_ScheduledTribe"],
+    "isOverview": false,
+    "relatedChart": {
+      "scale": true,
+      "denominator": "Count_Person",
+      "titleId": "Percentage of population by social category",
+      "title": "Percentage of population by social category",
+      "scaling": 100,
+      "unit": "%"
+    }
+  },
+  {
     "category": "Housing",
     "titleId": "CHART_TITLE-Housing_units",
     "title": "Housing units",
@@ -1174,7 +1274,7 @@
     ],
     "isOverview": true,
     "relatedChart": {
-    "titleId": "CHART_TITLE-Housing_units_race_distribution",
+      "titleId": "CHART_TITLE-Housing_units_race_distribution",
       "title": "Distribution of housing units by householder race",
       "description": "Percentage of housing units occupied by members of various races",
       "scale": true,
