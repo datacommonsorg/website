@@ -59,14 +59,14 @@
   },
   {
     "category": "Economics",
-    "titleId": "Worker vs non-worker population",
-    "title": "Worker vs non-worker population",
-    "description": "Worker vs non-worker population",
+    "titleId": "Worker vs nonworker population",
+    "title": "Worker vs nonworker population",
+    "description": "Worker vs nonworker population",
     "statsVars": ["Count_Person_Workers", "Count_Person_NonWorker"],
     "relatedChart": {
-      "titleId": "Percentage of worker and non-worker",
-      "title": "Percentage of worker and non-worker",
-      "description": "Percentage of worker and non-worker population",
+      "titleId": "Percentage of workers and nonworkers",
+      "title": "Percentage of workers and nonworkers",
+      "description": "Percentage of workers and nonworkers",
       "scale": true,
       "denominator": "Count_Person",
       "unit": "%",
@@ -1214,7 +1214,7 @@
     "category": "Demographics",
     "titleId": "Literacy",
     "title": "Literacy",
-    "description": "Number of literate and illiterate population",
+    "description": "Literate and illiterate population",
     "statsVars": ["Count_Person_Literate", "Count_Person_Illiterate"],
     "isOverview": false,
     "relatedChart": {
@@ -1230,7 +1230,7 @@
     "category": "Demographics",
     "titleId": "Social Category",
     "title": "Social Category",
-    "description": "Number of population by social category",
+    "description": "Population by social category",
     "statsVars": ["Count_Person_ScheduledCaste", "Count_Person_ScheduledTribe"],
     "isOverview": false,
     "relatedChart": {
