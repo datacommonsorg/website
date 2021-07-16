@@ -170,6 +170,12 @@ sup {
   padding: 0.5rem;
 }
 
-.mdl-chip__text {
+.mdl-chip__text:hover{
   cursor: pointer;
+  text-decoration: underline;
+}
+
+.legend-text:hover{
+  cursor: pointer;
+  text-decoration: underline;
 }

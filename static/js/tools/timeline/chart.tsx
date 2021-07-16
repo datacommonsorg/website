@@ -91,8 +91,9 @@ class Chart extends Component<ChartPropsType> {
     // TODO(shifucun): investigate on stats var title, now this is updated
     // several times.
     this.plotParams = computePlotParams(
-      Object.values(this.props.placeName),
-      statVars
+      this.props.placeName,
+      statVars,
+      this.props.statVarInfo
     );
     // Stats var chip color is independent of places, so pick one place to
     // provide a key for style look up.

@@ -209,11 +209,10 @@ function getTooltipContent(
  * @param listOfTimePoints
  */
 function getHighlightedTime(
-  container: d3.Selection<HTMLDivElement, any, any, any>,
   xScale: d3.ScaleTime<number, number>,
-  listOfTimePoints: number[]
+  listOfTimePoints: number[],
+  mouseX: number
 ): number {
-  const mouseX = d3.mouse(container.node() as HTMLElement)[0];
   const mouseTime = xScale.invert(mouseX).getTime();
   listOfTimePoints.sort((a, b) => a - b);
   let idx = d3.bisect(listOfTimePoints, mouseTime);
@@ -288,10 +287,16 @@ function addHighlightOnHover(
       tooltip.style("display", "none");
     })
     .on("mousemove", () => {
+      const mouseX = d3.mouse(container.node() as HTMLElement)[0];
+      if (mouseX > chartAreaBoundary.right) {
+        highlightArea.style("opacity", "0");
+        tooltip.style("display", "none");
+        return;
+      }
       const highlightedTime = getHighlightedTime(
-        container,
         xScale,
-        listOfTimePoints
+        listOfTimePoints,
+        mouseX
       );
       const highlightDots = highlightArea.selectAll("circle");
       const dataPointX = xScale(highlightedTime);
@@ -1146,13 +1151,13 @@ function drawGroupLineChart(
         LEGEND.marginTop
       })`
     );
-  buildInChartLegend(legend, plotParams.legend, legendTextdWidth, statVarInfo);
+  buildInChartLegend(legend, plotParams.legend, legendTextdWidth);
 
   // Add highlight on hover
   const chartAreaBoundary = {
     bottom: height - bottomHeight,
     left: leftWidth,
-    right: width - MARGIN.right,
+    right: width - legendWidth + LEGEND.marginLeft,
     top: 0,
   };
   const highlightColorFn = (place: string, dataGroup: DataGroup) => {
@@ -1183,8 +1188,7 @@ function drawGroupLineChart(
 function buildInChartLegend(
   legend: d3.Selection<SVGGElement, any, any, any>,
   params: { [key: string]: Style },
-  legendTextdWidth: number,
-  statVarInfo: Record<string, StatVarInfo>
+  legendTextdWidth: number
 ) {
   let yOffset = 0;
   for (const label in params) {
@@ -1206,20 +1210,21 @@ function buildInChartLegend(
       dashWidth = LEGEND.dashWidth;
     }
     // Draw the text.
-    let labelText = label;
-    if (label in statVarInfo) {
-      labelText = statVarInfo[label].title || label;
-    }
     lgGroup
       .append("text")
       .attr("class", "legend-text")
       .attr("transform", `translate(${dashWidth}, 0)`)
       .attr("y", "0.3em")
       .attr("dy", "0")
-      .text(labelText)
+      .text(label)
       .style("text-rendering", "optimizedLegibility")
       .style("fill", `${legendStyle.color}`)
-      .call(wrap, legendTextdWidth);
+      .call(wrap, legendTextdWidth)
+      .on("click", () => {
+        if (legendStyle.legendLink) {
+          window.open(legendStyle.legendLink);
+        }
+      });
     yOffset += lgGroup.node().getBBox().height + LEGEND.lineMargin;
   }
 }
