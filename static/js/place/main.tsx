@@ -89,6 +89,8 @@ class MainPane extends React.Component<MainPanePropType> {
     const topicData = this.props.pageChart[this.props.topic];
     const currentPageTopic = this.props.topic;
     const isOverview = currentPageTopic === "Overview";
+    const topics = Object.keys(topicData);
+    topics.sort();
     return (
       <RawIntlProvider value={intl}>
         {this.props.isUsaPlace &&
@@ -97,7 +99,7 @@ class MainPane extends React.Component<MainPanePropType> {
             // Only Show map and ranking for US places.
             <Overview dcid={this.props.dcid} locale={this.props.locale} />
           )}
-        {Object.keys(topicData).map((topic: string) => {
+        {topics.map((topic: string) => {
           let subtopicHeader: JSX.Element;
           if (isOverview) {
             subtopicHeader = (

@@ -100,6 +100,7 @@ class Menu extends React.Component<MenuPropsType> {
         )}
         {categories.map((category: string) => {
           let topics = Object.keys(this.props.pageChart[category]);
+          topics.sort();
           if (category === "Overview") {
             topics = topics.map((t) => this.props.categories[t]);
           }

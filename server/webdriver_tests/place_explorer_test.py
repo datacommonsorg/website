@@ -134,7 +134,7 @@ class TestPlaceExplorer(WebdriverBaseTest):
         """
         Test the demographics link can work correctly.
         """
-        CHART_TITLE = "Gender distribution: states near California(2019)"
+        CHART_TITLE = "Median age by gender: states near California(2019)"
         # Load California page.
         self.driver.get(self.url_ + CA_URL)
 
@@ -185,5 +185,5 @@ class TestPlaceExplorer(WebdriverBaseTest):
             '//*[@id="main-pane"]/section[4]/div/div[2]/div/h4').text
 
         # Assert chart title is correct.
-        self.assertEqual("Gender distribution: states near California(2019)",
+        self.assertEqual("Median age by gender: states near California(2019)",
                          chart_title)
