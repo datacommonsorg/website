@@ -9,14 +9,14 @@
   "license": "Apache-2.0",
   "main": "index.js",
   "scripts": {
-    "build": "webpack -p --progress --config webpack.config.js",
+    "build": "webpack --mode=production --progress --config webpack.config.js",
+    "dev-build": "webpack --mode=development --progress --config webpack.config.js",
+    "watch": "webpack --mode=development --progress --config webpack.config.js --watch",
     "compile": "formatjs compile-folder",
-    "dev-build": "webpack --progress -d --config webpack.config.js",
     "extract": "formatjs extract",
     "lint": "eslint --fix .",
-    "test": "NODE_ICU_DATA=node_modules/full-icu jest --unhandled-rejections=strict",
     "test-lint": "eslint .",
-    "watch": "webpack --progress -d --config webpack.config.js --watch"
+    "test": "NODE_ICU_DATA=node_modules/full-icu jest --unhandled-rejections=strict"
   },
   "dependencies": {
     "@babel/core": "^7.11.6",
@@ -31,10 +31,10 @@
     "babel-loader": "^8.1.0",
     "babel-polyfill": "^6.26.0",
     "bootstrap": "^4.5.2",
-    "copy-webpack-plugin": "^5.1.2",
+    "copy-webpack-plugin": "^9.0.1",
     "css-loader": "^3.6.0",
     "d3": "^5.16.0",
-    "d3-geo": "^1.12.1",
+    "d3-geo": "^2.0.1",
     "file-loader": "^6.1.0",
     "geo-albers-usa-territories": "0.1.0",
     "html-webpack-plugin": "^4.4.1",
@@ -52,10 +52,9 @@
     "sass-loader": "^8.0.2",
     "ts-loader": "^7.0.5",
     "typescript": "^3.9.7",
-    "webpack": "^4.44.1",
-    "webpack-cli": "^3.3.12",
-    "webpack-fix-style-only-entries": "^0.5.1",
-    "webpack-shell-plugin": "^0.5.0"
+    "webpack": "^5.44.0",
+    "webpack-cli": "^4.7.2",
+    "webpack-remove-empty-scripts": "^0.6.3"
   },
   "devDependencies": {
     "@babel/polyfill": "^7.11.5",
@@ -84,7 +83,6 @@
     "pretty": "^2.0.0",
     "react-test-renderer": "^16.13.1",
     "style-loader": "^1.2.1",
-    "ts-jest": "^25.5.1",
-    "webpack-shell-plugin": "^0.5.0"
+    "ts-jest": "^25.5.1"
   }
 }
