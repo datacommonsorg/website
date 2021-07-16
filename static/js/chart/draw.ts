@@ -16,6 +16,7 @@
 
 import * as d3 from "d3";
 import { urlToDomain } from "../shared/util";
+import _ from "lodash";
 
 import {
   DataGroup,
@@ -159,7 +160,8 @@ function showTooltip(
 function getTooltipContent(
   dataGroupsDict: { [place: string]: DataGroup[] },
   highlightedTime: number,
-  unit?: string
+  unit?: string,
+  statVarInfo?: { [key: string]: StatVarInfo }
 ): string {
   let tooltipDate = "";
   let tooltipContent = "";
@@ -175,13 +177,18 @@ function getTooltipContent(
         let rowLabel =
           dataGroups.length === 1 && places.length === 1 ? dataPoint.label : "";
         if (dataGroups.length > 1) {
-          rowLabel += dataGroup.label;
+          let statVarLabel = dataGroup.label;
+          if (statVarInfo && dataGroup.label in statVarInfo) {
+            statVarLabel =
+              statVarInfo[dataGroup.label].title || dataGroup.label;
+          }
+          rowLabel += statVarLabel;
         }
         if (places.length > 1) {
-          rowLabel += ` ${place}`;
+          rowLabel += _.isEmpty(rowLabel) ? ` ${place}` : ` - ${place}`;
         }
-        const value = dataPoint.value
-          ? formatNumber(dataPoint.value, unit)
+        const value = !_.isNull(dataPoint.value)
+          ? `${dataPoint.value} ${unit}`
           : "N/A";
         tooltipContent += `${rowLabel}: ${value}<br/>`;
       }
@@ -243,7 +250,8 @@ function addHighlightOnHover(
   setOfTimePoints: Set<number>,
   highlightArea: d3.Selection<SVGGElement, any, any, any>,
   chartAreaBoundary: Boundary,
-  unit?: string
+  unit?: string,
+  statVarInfo?: { [key: string]: StatVarInfo }
 ): void {
   const listOfTimePoints: number[] = Array.from(setOfTimePoints);
   listOfTimePoints.sort((a, b) => a - b);
@@ -311,7 +319,8 @@ function addHighlightOnHover(
       const tooltipContent = getTooltipContent(
         dataGroupsDict,
         highlightedTime,
-        unit
+        unit,
+        statVarInfo
       );
       showTooltip(
         tooltipContent,
@@ -974,7 +983,7 @@ function computeRanges(dataGroupsDict: { [geoId: string]: DataGroup[] }) {
  * @param id: DOM id.
  * @param width: width for the chart.
  * @param height: height for the chart.
- * @param statsVarInfo: object from stat var dcid to its info struct.
+ * @param statVarInfo: object from stat var dcid to its info struct.
  * @param dataGroupsDict: data groups for plotting.
  * @param plotParams: contains all plot params for chart.
  * @param sources: an array of source domain.
@@ -984,7 +993,7 @@ function drawGroupLineChart(
   selector: string | HTMLDivElement,
   width: number,
   height: number,
-  statsVarInfo: { [key: string]: StatVarInfo },
+  statVarInfo: { [key: string]: StatVarInfo },
   dataGroupsDict: { [place: string]: DataGroup[] },
   plotParams: PlotParams,
   ylabel?: string,
@@ -999,7 +1008,7 @@ function drawGroupLineChart(
   const legendTextdWidth = Math.max(width * LEGEND.ratio, LEGEND.minTextWidth);
   const legendWidth =
     Object.keys(dataGroupsDict).length > 1 &&
-    Object.keys(statsVarInfo).length > 1
+    Object.keys(statVarInfo).length > 1
       ? LEGEND.dashWidth + legendTextdWidth
       : legendTextdWidth;
 
@@ -1070,25 +1079,43 @@ function drawGroupLineChart(
   for (const place in dataGroupsDict) {
     dataGroups = dataGroupsDict[place];
     for (const dataGroup of dataGroups) {
-      const dataset = dataGroup.value.map((dp) => {
-        timePoints.add(dp.time);
-        return [dp.time, dp.value];
-      });
+      const dataset = dataGroup.value
+        .map((dp) => {
+          timePoints.add(dp.time);
+          return [dp.time, dp.value];
+        })
+        .filter((dp) => {
+          return dp[1] !== null;
+        });
       const line = d3
         .line()
-        .defined((d) => d[1] != null)
         .x((d) => xScale(d[0]))
         .y((d) => yScale(d[1]));
       const lineStyle = plotParams.lines[place + dataGroup.label];
-      chart
-        .append("path")
-        .datum(dataset)
-        .attr("class", "line")
-        .attr("d", line)
-        .style("fill", "none")
-        .style("stroke", lineStyle.color)
-        .style("stroke-width", "2px")
-        .style("stroke-dasharray", lineStyle.dash);
+      if (dataset.length > 1) {
+        chart
+          .append("path")
+          .datum(dataset)
+          .attr("class", "line")
+          .attr("d", line)
+          .style("fill", "none")
+          .style("stroke", lineStyle.color)
+          .style("stroke-width", "2px")
+          .style("stroke-dasharray", lineStyle.dash);
+      } else {
+        chart
+          .append("g")
+          .selectAll(".dot")
+          .data(dataGroup.value)
+          .enter()
+          .append("circle")
+          .attr("class", "dot")
+          .attr("cx", (d) => xScale(d.time))
+          .attr("cy", (d) => yScale(d.value))
+          .attr("r", (d) => (d.value === null ? 0 : 3))
+          .style("fill", lineStyle.color)
+          .style("stroke", "#fff");
+      }
     }
   }
   // add source info to the chart
@@ -1119,7 +1146,7 @@ function drawGroupLineChart(
         LEGEND.marginTop
       })`
     );
-  buildInChartLegend(legend, plotParams.legend, legendTextdWidth, statsVarInfo);
+  buildInChartLegend(legend, plotParams.legend, legendTextdWidth, statVarInfo);
 
   // Add highlight on hover
   const chartAreaBoundary = {
@@ -1140,7 +1167,8 @@ function drawGroupLineChart(
     timePoints,
     highlight,
     chartAreaBoundary,
-    unit
+    unit,
+    statVarInfo
   );
 }
 

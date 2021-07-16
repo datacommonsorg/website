@@ -143,10 +143,8 @@ class ChartRegion extends Component<ChartRegionPropsType> {
     // Get the place name
     const placeName: { [key: string]: string } = {};
     const sample = Object.values(this.allStatData)[0];
-    const statVar = sample.statVars[0];
     for (const place of sample.places) {
-      placeName[sample.data[statVar][place].placeDcid] =
-        sample.data[statVar][place].placeName;
+      placeName[place] = sample.data[place].name;
     }
 
     // Iterate each year, group, place, stats var to populate data
@@ -155,11 +153,11 @@ class ChartRegion extends Component<ChartRegionPropsType> {
       const row: string[] = [date];
       for (const mprop in this.allStatData) {
         const statData = this.allStatData[mprop];
-        for (const p of statData.places) {
+        for (const place of statData.places) {
           for (const sv of statData.statVars) {
-            const tmp = statData.data[sv][p];
-            if (tmp && tmp.data && tmp.data[date]) {
-              row.push(String(tmp.data[date]));
+            const tmp = statData.data[place].data[sv];
+            if (tmp && tmp.val && tmp.val[date]) {
+              row.push(String(tmp.val[date]));
             } else {
               row.push("");
             }
