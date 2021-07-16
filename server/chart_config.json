@@ -192,7 +192,7 @@
     "isOverview": true,
     "unit": "$",
     "relatedChart": {
-    "titleId": "CHART_TITLE-Government_debt_per_capita",
+      "titleId": "CHART_TITLE-Government_debt_per_capita",
       "title": "Government debt per capita",
       "description": "Government debt divided by the population",
       "scale": true,
@@ -962,6 +962,22 @@
   },
   {
     "category": "Demographics",
+    "titleId": "Urban and rural households",
+    "title": "Urban and rural households",
+    "description": "Total number of households in rural vs urban parts of a place",
+    "statsVars": ["Count_Household_Rural", "Count_Household_Urban"],
+    "isOverview": false,
+    "relatedChart": {
+      "scale": true,
+      "denominator": "Count_Household",
+      "titleId": "Percentage of urban and rural households",
+      "title": "Percentage of urban and rural households",
+      "scaling": 100,
+      "unit": "%"
+    }
+  },
+  {
+    "category": "Demographics",
     "titleId": "CHART_TITLE-Population_age",
     "title": "Population by age",
     "description": "Number of individuals who fall within various age buckets",
@@ -1143,6 +1159,38 @@
     }
   },
   {
+    "category": "Demographics",
+    "titleId": "Literacy",
+    "title": "Literacy",
+    "description": "Number of literate and illiterate population",
+    "statsVars": ["Count_Person_Literate", "Count_Person_Illiterate"],
+    "isOverview": false,
+    "relatedChart": {
+      "scale": true,
+      "denominator": "Count_Person",
+      "titleId": "Percentage of literate and illiterate population",
+      "title": "Percentage of literate and illiterate population",
+      "scaling": 100,
+      "unit": "%"
+    }
+  },
+  {
+    "category": "Demographics",
+    "titleId": "Social Category",
+    "title": "Social Category",
+    "description": "Number of population by social category",
+    "statsVars": ["Count_Person_ScheduledCaste", "Count_Person_ScheduledTribe"],
+    "isOverview": false,
+    "relatedChart": {
+      "scale": true,
+      "denominator": "Count_Person",
+      "titleId": "Percentage of population by social category",
+      "title": "Percentage of population by social category",
+      "scaling": 100,
+      "unit": "%"
+    }
+  },
+  {
     "category": "Housing",
     "titleId": "CHART_TITLE-Housing_units",
     "title": "Housing units",
@@ -1174,7 +1222,7 @@
     ],
     "isOverview": true,
     "relatedChart": {
-    "titleId": "CHART_TITLE-Housing_units_race_distribution",
+      "titleId": "CHART_TITLE-Housing_units_race_distribution",
       "title": "Distribution of housing units by householder race",
       "description": "Percentage of housing units occupied by members of various races",
       "scale": true,
