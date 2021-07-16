@@ -24,9 +24,18 @@ class Config:
     # Additional stat vars that need to be fetched for place page data.
     # This is only needed for local development when cache is not up to date.
     NEW_STAT_VARS = [
-        'Count_Person_Literate', 'Count_Person_Illiterate',
-        "Count_Person_ScheduledCaste", "Count_Person_ScheduledTribe",
-        "Count_Household_Rural", "Count_Household_Urban"
+        'Count_Person_Literate',
+        'Count_Person_Illiterate',
+        "Count_Person_ScheduledCaste",
+        "Count_Person_ScheduledTribe",
+        "Count_Household_Rural",
+        "Count_Household_Urban",
+        "Count_Person_Rural_BelowPovertyLevelInThePast12Months",
+        "Count_Person_Urban_BelowPovertyLevelInThePast12Months",
+        "Count_Person_Houseless_Urban",
+        "Count_Person_Houseless_Rural",
+        "Count_Person_NonWorker",
+        "Count_Person_Workers",
     ]
     ENABLE_BLOCKLIST = False
 

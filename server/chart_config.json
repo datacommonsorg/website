@@ -59,6 +59,22 @@
   },
   {
     "category": "Economics",
+    "titleId": "Worker vs non-worker population",
+    "title": "Worker vs non-worker population",
+    "description": "Worker vs non-worker population",
+    "statsVars": ["Count_Person_Workers", "Count_Person_NonWorker"],
+    "relatedChart": {
+      "titleId": "Percentage of worker and non-worker",
+      "title": "Percentage of worker and non-worker",
+      "description": "Percentage of worker and non-worker population",
+      "scale": true,
+      "denominator": "Count_Person",
+      "unit": "%",
+      "scaling": 100
+    }
+  },
+  {
+    "category": "Economics",
     "titleId": "CHART_TITLE-Poverty_rate",
     "description": "Percentage of the population below poverty",
     "title": "Poverty rate",
@@ -704,6 +720,42 @@
     "unit": "%",
     "relatedChart": {
       "scale": false
+    }
+  },
+  {
+    "category": "Equity",
+    "titleId": "Urban vs rural poverty population",
+    "title": "Urban vs rural poverty population",
+    "description": "Population below the poverty level, in urban and rural areas",
+    "statsVars": [
+      "Count_Person_Rural_BelowPovertyLevelInThePast12Months",
+      "Count_Person_Urban_BelowPovertyLevelInThePast12Months"
+    ],
+    "relatedChart": {
+      "titleId": "Urban vs rural poverty rate",
+      "title": "Urban vs rural poverty rate",
+      "scale": true,
+      "scaling": 100,
+      "unit": "%",
+      "denominator": "Count_Person"
+    }
+  },
+  {
+    "category": "Equity",
+    "titleId": "Urban vs rural homeless population",
+    "title": "Urban vs rural homeless population",
+    "description": "Homeless population in urban and rural areas",
+    "statsVars": [
+      "Count_Person_Houseless_Urban",
+      "Count_Person_Houseless_Rural"
+    ],
+    "relatedChart": {
+      "titleId": "Percentage of urban vs rural homeless population",
+      "title": "Percentage of urban vs rural homeless population",
+      "scale": true,
+      "scaling": 100,
+      "unit": "%",
+      "denominator": "Count_Person"
     }
   },
   {

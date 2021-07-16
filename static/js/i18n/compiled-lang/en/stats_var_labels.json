@@ -947,6 +947,12 @@
       "value": "Never Married"
     }
   ],
+  "Count_Person_NonWorker": [
+    {
+      "type": 0,
+      "value": "Non Worker"
+    }
+  ],
   "Count_Person_NotAUSCitizen": [
     {
       "type": 0,
@@ -969,6 +975,12 @@
     {
       "type": 0,
       "value": "Rural Population"
+    }
+  ],
+  "Count_Person_Rural_BelowPovertyLevelInThePast12Months": [
+    {
+      "type": 0,
+      "value": "Rural Poverty Population"
     }
   ],
   "Count_Person_Separated": [
@@ -1061,6 +1073,12 @@
       "value": "Urban Population"
     }
   ],
+  "Count_Person_Urban_BelowPovertyLevelInThePast12Months": [
+    {
+      "type": 0,
+      "value": "Urban Poverty Population"
+    }
+  ],
   "Count_Person_WhiteAlone": [
     {
       "type": 0,
@@ -1071,6 +1089,12 @@
     {
       "type": 0,
       "value": "Widowed"
+    }
+  ],
+  "Count_Person_Workers": [
+    {
+      "type": 0,
+      "value": "Worker"
     }
   ],
   "Count_StormSurgeTideEvent": [
