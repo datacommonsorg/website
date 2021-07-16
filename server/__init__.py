@@ -98,7 +98,7 @@ def create_app():
         secret_client = secretmanager.SecretManagerServiceClient()
         secret_name = secret_client.secret_version_path(cfg.SECRET_PROJECT,
                                                         'maps-api-key', '1')
-        secret_response = secret_client.access_secret_version(secret_name)
+        secret_response = secret_client.access_secret_version(name=secret_name)
         app.config['MAPS_API_KEY'] = secret_response.payload.data.decode(
             'UTF-8')
 
