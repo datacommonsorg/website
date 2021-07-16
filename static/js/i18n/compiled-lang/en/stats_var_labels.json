@@ -875,6 +875,18 @@
       "value": "Hispanic or Latino"
     }
   ],
+  "Count_Person_Houseless_Rural": [
+    {
+      "type": 0,
+      "value": "Rural"
+    }
+  ],
+  "Count_Person_Houseless_Urban": [
+    {
+      "type": 0,
+      "value": "Urban"
+    }
+  ],
   "Count_Person_Illiterate": [
     {
       "type": 0,
@@ -974,7 +986,7 @@
   "Count_Person_NonWorker": [
     {
       "type": 0,
-      "value": "Non Worker"
+      "value": "Nonworker"
     }
   ],
   "Count_Person_NotAUSCitizen": [
@@ -1004,7 +1016,7 @@
   "Count_Person_Rural_BelowPovertyLevelInThePast12Months": [
     {
       "type": 0,
-      "value": "Rural Poverty Population"
+      "value": "Rural Below Poverty"
     }
   ],
   "Count_Person_ScheduledCaste": [
@@ -1112,7 +1124,7 @@
   "Count_Person_Urban_BelowPovertyLevelInThePast12Months": [
     {
       "type": 0,
-      "value": "Urban Poverty Population"
+      "value": "Urban Below Poverty"
     }
   ],
   "Count_Person_WhiteAlone": [
