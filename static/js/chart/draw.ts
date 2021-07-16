@@ -160,8 +160,8 @@ function showTooltip(
 function getTooltipContent(
   dataGroupsDict: { [place: string]: DataGroup[] },
   highlightedTime: number,
-  statVarInfo?: { [key: string]: StatVarInfo },
-  unit?: string
+  unit?: string,
+  statVarInfo?: { [key: string]: StatVarInfo }
 ): string {
   let tooltipDate = "";
   let tooltipContent = "";
@@ -187,9 +187,9 @@ function getTooltipContent(
         if (places.length > 1) {
           rowLabel += _.isEmpty(rowLabel) ? ` ${place}` : ` - ${place}`;
         }
-        const value = _.isNull(dataPoint.value)
-          ? "N/A"
-          : `${dataPoint.value} ${unit}`;
+        const value = !_.isNull(dataPoint.value)
+          ? `${dataPoint.value} ${unit}`
+          : "N/A";
         tooltipContent += `${rowLabel}: ${value}<br/>`;
       }
     }
@@ -319,8 +319,8 @@ function addHighlightOnHover(
       const tooltipContent = getTooltipContent(
         dataGroupsDict,
         highlightedTime,
-        statVarInfo,
-        unit
+        unit,
+        statVarInfo
       );
       showTooltip(
         tooltipContent,
