@@ -78,6 +78,7 @@ class Chart extends Component<ChartPropsType> {
   svgContainer: React.RefObject<HTMLDivElement>;
   plotParams: PlotParams;
   statData: StatData;
+  units: string[];
 
   constructor(props: ChartPropsType) {
     super(props);
@@ -168,6 +169,16 @@ class Chart extends Component<ChartPropsType> {
       1
     ).then((statData) => {
       this.statData = statData;
+      // Get from all stat vars. In most cases there should be only one
+      // unit.
+      const placeData = Object.values(this.statData.data)[0];
+      this.units = [];
+      for (const series of Object.values(placeData.data)) {
+        const unit = series["metadata"].unit || "";
+        if (unit) {
+          this.units.push(unit);
+        }
+      }
       this.props.onDataUpdate(this.props.mprop, statData);
       if (this.svgContainer.current) {
         this.drawChart();
@@ -193,7 +204,8 @@ class Chart extends Component<ChartPropsType> {
       dataGroupsDict,
       this.plotParams,
       this.ylabel(),
-      Array.from(this.statData.sources)
+      Array.from(this.statData.sources),
+      this.units.join(", ")
     );
   }
 
@@ -208,7 +220,11 @@ class Chart extends Component<ChartPropsType> {
       }
     }
     // use mprop as the ylabel
-    const ylabelText = mprop.charAt(0).toUpperCase() + mprop.slice(1);
+    let ylabelText = mprop.charAt(0).toUpperCase() + mprop.slice(1);
+
+    if (this.units.length > 0) {
+      ylabelText += ` (${this.units.join(", ")})`;
+    }
     return ylabelText;
   }
 }
