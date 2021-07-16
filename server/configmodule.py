@@ -34,6 +34,7 @@ class ProductionConfig(Config):
 
 
 class StagingConfig(Config):
+    ENABLE_BLOCKLIST = True
     pass
 
 

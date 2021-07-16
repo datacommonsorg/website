@@ -42,7 +42,15 @@ class StatVarChip extends Component<StatVarChipPropsType> {
         className="pv-chip mdl-chip--deletable"
         style={{ backgroundColor: this.props.color }}
       >
-        <span className="mdl-chip__text">{this.props.title}</span>
+        <span
+          className="mdl-chip__text"
+          onClick={() => {
+            // TODO(chejennifer): open stat var explorer page once that's ready.
+            window.open(`/browser/${this.props.statVar}`);
+          }}
+        >
+          {this.props.title}
+        </span>
         <button className="mdl-chip__action">
           <i
             className="material-icons"
