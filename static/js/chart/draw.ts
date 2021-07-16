@@ -166,28 +166,39 @@ function getTooltipContent(
   let tooltipDate = "";
   let tooltipContent = "";
   const places = Object.keys(dataGroupsDict);
+  const dataGroupLabels: Set<string> = new Set();
   for (const place of places) {
-    const dataGroups = dataGroupsDict[place];
-    for (const dataGroup of dataGroups) {
+    dataGroupsDict[place].forEach((dataGroup) =>
+      dataGroupLabels.add(dataGroup.label)
+    );
+  }
+  for (const place of places) {
+    for (const dataGroupLabel of Array.from(dataGroupLabels)) {
+      const dataGroup = dataGroupsDict[place].find(
+        (datagroup) => datagroup.label === dataGroupLabel
+      );
+      let rowLabel = "";
+      if (dataGroupLabels.size > 1) {
+        let statVarLabel = dataGroupLabel;
+        if (statVarInfo && dataGroupLabel in statVarInfo) {
+          statVarLabel = statVarInfo[dataGroupLabel].title || dataGroupLabel;
+        }
+        rowLabel += statVarLabel;
+      }
+      if (places.length > 1) {
+        rowLabel += _.isEmpty(rowLabel) ? `${place}` : ` (${place})`;
+      }
+      let value = "N/A";
+      if (!dataGroup) {
+        tooltipContent += `${rowLabel}: ${value}<br/>`;
+        continue;
+      }
       const dataPoint = dataGroup.value.find(
         (val) => val.time === highlightedTime
       );
       if (dataPoint) {
         tooltipDate = dataPoint.label;
-        let rowLabel =
-          dataGroups.length === 1 && places.length === 1 ? dataPoint.label : "";
-        if (dataGroups.length > 1) {
-          let statVarLabel = dataGroup.label;
-          if (statVarInfo && dataGroup.label in statVarInfo) {
-            statVarLabel =
-              statVarInfo[dataGroup.label].title || dataGroup.label;
-          }
-          rowLabel += statVarLabel;
-        }
-        if (places.length > 1) {
-          rowLabel += _.isEmpty(rowLabel) ? ` ${place}` : ` - ${place}`;
-        }
-        const value = !_.isNull(dataPoint.value)
+        value = !_.isNull(dataPoint.value)
           ? `${dataPoint.value} ${unit}`
           : "N/A";
         tooltipContent += `${rowLabel}: ${value}<br/>`;
@@ -195,7 +206,7 @@ function getTooltipContent(
     }
   }
   if (places.length === 1 && dataGroupsDict[places[0]].length === 1) {
-    return tooltipContent;
+    return tooltipDate + tooltipContent;
   } else {
     return `${tooltipDate}<br/>` + tooltipContent;
   }
