@@ -1217,6 +1217,42 @@
       "value": "Life Expectancy"
     }
   ],
+  "Mean_WagesDaily_Worker": [
+    {
+      "type": 0,
+      "value": "Worker Daily Wage"
+    }
+  ],
+  "Mean_WagesMonthly_Worker": [
+    {
+      "type": 0,
+      "value": "Worker Monthly Wage"
+    }
+  ],
+  "Mean_WagesMonthly_Worker_Female": [
+    {
+      "type": 0,
+      "value": "Female"
+    }
+  ],
+  "Mean_WagesMonthly_Worker_Male": [
+    {
+      "type": 0,
+      "value": "Male"
+    }
+  ],
+  "Mean_WagesMonthly_Worker_Rural": [
+    {
+      "type": 0,
+      "value": "Rural"
+    }
+  ],
+  "Mean_WagesMonthly_Worker_Urban": [
+    {
+      "type": 0,
+      "value": "Urban"
+    }
+  ],
   "Median_Age_Person": [
     {
       "type": 0,
@@ -1479,6 +1515,66 @@
     {
       "type": 0,
       "value": "Male"
+    }
+  ],
+  "UnemploymentRate_Person_Rural": [
+    {
+      "type": 0,
+      "value": "Rural"
+    }
+  ],
+  "UnemploymentRate_Person_Urban": [
+    {
+      "type": 0,
+      "value": "Urban"
+    }
+  ],
+  "indianCensus/Count_Person_Religion_Buddhist": [
+    {
+      "type": 0,
+      "value": "Buddhist"
+    }
+  ],
+  "indianCensus/Count_Person_Religion_Christian": [
+    {
+      "type": 0,
+      "value": "Christian"
+    }
+  ],
+  "indianCensus/Count_Person_Religion_Hindu": [
+    {
+      "type": 0,
+      "value": "Hindu"
+    }
+  ],
+  "indianCensus/Count_Person_Religion_Jain": [
+    {
+      "type": 0,
+      "value": "Jain"
+    }
+  ],
+  "indianCensus/Count_Person_Religion_Muslim": [
+    {
+      "type": 0,
+      "value": "Muslim"
+    }
+  ],
+  "indianCensus/Count_Person_Religion_OtherReligionsAndPersuasions": [
+    {
+      "type": 0,
+      "value": "Other Religions And Persuasions"
+    }
+  ],
+  "indianCensus/Count_Person_Religion_ReligionNotStated": [
+    {
+      "type": 0,
+      "value": "Religion Not Stated"
+    }
+  ],
+  "indianCensus/Count_Person_Religion_Sikh": [
+    {
+      "type": 0,
+      "value": "Sikh"
     }
   ]
 }

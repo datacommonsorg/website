@@ -165,6 +165,10 @@ function formatNumber(value: number, unit?: string): string {
   let shouldAddUnit = false;
   let unitKey: string;
   switch (unit) {
+    case "₹":
+      shouldAddUnit = true;
+      unitKey = "rupee";
+      break;
     case "$":
       formatOptions.style = "currency";
       formatOptions.currency = "USD";

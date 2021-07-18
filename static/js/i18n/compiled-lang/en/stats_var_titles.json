@@ -1217,6 +1217,48 @@
       "value": "Life Expectancy"
     }
   ],
+  "Mean_WagesDaily_Worker": [
+    {
+      "type": 0,
+      "value": "Worker Daily Wage"
+    }
+  ],
+  "Mean_WagesMonthly_Worker": [
+    {
+      "type": 0,
+      "value": "Worker Monthly Wage"
+    }
+  ],
+  "Mean_WagesMonthly_Worker_Female": [
+    {
+      "type": 0,
+      "value": "Female Worker Monthly Wage"
+    }
+  ],
+  "Mean_WagesDaily_Worker_Male": [
+    {
+      "type": 0,
+      "value": "Male Worker Daily Wage"
+    }
+  ],
+  "Mean_WagesMonthly_Worker_Male": [
+    {
+      "type": 0,
+      "value": "Male Worker Monthly Wage"
+    }
+  ],
+  "Mean_WagesMonthly_Worker_Rural": [
+    {
+      "type": 0,
+      "value": "Rural Worker Monthly Wage"
+    }
+  ],
+  "Mean_WagesMonthly_Worker_Urban": [
+    {
+      "type": 0,
+      "value": "Urban Worker Monthly Wage"
+    }
+  ],
   "Median_Age_Person": [
     {
       "type": 0,
@@ -1479,6 +1521,66 @@
     {
       "type": 0,
       "value": "Unemployment Rate (Male)"
+    }
+  ],
+  "UnemploymentRate_Person_Rural": [
+    {
+      "type": 0,
+      "value": "Unemployment Rate (Rural)"
+    }
+  ],
+  "UnemploymentRate_Person_Urban": [
+    {
+      "type": 0,
+      "value": "Unemployment Rate (Urban)"
+    }
+  ],
+  "indianCensus/Count_Person_Religion_Buddhist": [
+    {
+      "type": 0,
+      "value": "Population (Buddhist)"
+    }
+  ],
+  "indianCensus/Count_Person_Religion_Christian": [
+    {
+      "type": 0,
+      "value": "Population (Christian)"
+    }
+  ],
+  "indianCensus/Count_Person_Religion_Hindu": [
+    {
+      "type": 0,
+      "value": "Population (Hindu)"
+    }
+  ],
+  "indianCensus/Count_Person_Religion_Jain": [
+    {
+      "type": 0,
+      "value": "Population (Jain)"
+    }
+  ],
+  "indianCensus/Count_Person_Religion_Muslim": [
+    {
+      "type": 0,
+      "value": "Population (Muslim)"
+    }
+  ],
+  "indianCensus/Count_Person_Religion_OtherReligionsAndPersuasions": [
+    {
+      "type": 0,
+      "value": "Population (Other Religions And Persuasions)"
+    }
+  ],
+  "indianCensus/Count_Person_Religion_ReligionNotStated": [
+    {
+      "type": 0,
+      "value": "Population (Religion Not Stated)"
+    }
+  ],
+  "indianCensus/Count_Person_Religion_Sikh": [
+    {
+      "type": 0,
+      "value": "Population (Sikh)"
     }
   ]
 }
