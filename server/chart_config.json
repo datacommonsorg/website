@@ -59,11 +59,12 @@
   },
   {
     "category": "Economics",
-    "titleId": "Unemployment rate in urban vs rural areas",
-    "title": "Unemployment rate in urban vs rural areas",
+    "titleId": "Unemployment rate: urban vs rural",
+    "title": "Unemployment rate: urban vs rural",
     "description": "Percentage of the population, of working age, who are unemployed in urban vs rural areas.",
     "statsVars": [
-      "UnemploymentRate_Person_Rural, UnemploymentRate_Person_Urban"
+      "UnemploymentRate_Person_Rural",
+      "UnemploymentRate_Person_Urban"
     ],
     "unit": "%",
     "isOverview": false
