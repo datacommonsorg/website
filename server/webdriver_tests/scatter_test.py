@@ -26,7 +26,7 @@ URL_HASH_1 = '#&svx=Median_Income_Person&svpx=0-3&svnx=Median_income&svy='\
 '&epd=geoId/06&epn=California&ept=County'
 PLACE_SEARCH_CA = 'California'
 
-
+# Class to test scatter tool.
 class TestScatter(WebdriverBaseTest):
 
     def test_server_and_page(self):

@@ -23,8 +23,8 @@ URL_HASH_1 = '#&sv=Median_Age_Person&pc=0&pd=geoId/06&pn=California&pt=State&ept
 PLACE_SEARCH_CA = 'California'
 
 
-# Class to test timeline tool.
-class TestScatter(WebdriverBaseTest):
+# Class to test map tool.
+class TestMap(WebdriverBaseTest):
 
     def test_server_and_page(self):
         """Test the server can run successfully."""
