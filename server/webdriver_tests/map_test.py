@@ -16,9 +16,7 @@ import urllib
 from webdriver_tests.base_test import WebdriverBaseTest
 from selenium.webdriver.support.ui import WebDriverWait
 from selenium.webdriver.common.by import By
-from selenium.webdriver.support.ui import Select
 from selenium.webdriver.support import expected_conditions as EC
-import time
 
 MAP_URL = '/tools/map'
 URL_HASH_1 = '#&sv=Median_Age_Person&pc=0&pd=geoId/06&pn=California&pt=State&ept=County'
@@ -116,7 +114,7 @@ class TestScatter(WebdriverBaseTest):
 
     def test_manually_enter_options(self):
         """
-        Test entering place and stat var options manually will cause chart to 
+        Test entering place and stat var options manually will cause chart to
         show up.
         """
         self.driver.get(self.url_ + MAP_URL)
