@@ -59,6 +59,18 @@
   },
   {
     "category": "Economics",
+    "titleId": "Unemployment rate: urban vs rural",
+    "title": "Unemployment rate: urban vs rural",
+    "description": "Percentage of the working age population that is unemployed in urban vs. rural areas.",
+    "statsVars": [
+      "UnemploymentRate_Person_Rural",
+      "UnemploymentRate_Person_Urban"
+    ],
+    "unit": "%",
+    "isOverview": false
+  },
+  {
+    "category": "Economics",
     "titleId": "Worker vs nonworker population",
     "title": "Worker vs nonworker population",
     "description": "Worker vs nonworker population",
@@ -401,6 +413,56 @@
       "denominator": "Count_Household",
       "unit": "%",
       "scaling": 100
+    }
+  },
+  {
+    "category": "Economics",
+    "titleId": "Worker wages (daily)",
+    "title": "Worker wages (daily)",
+    "description": "Mean daily worker wages",
+    "statsVars": ["Mean_WagesDaily_Worker"],
+    "unit": "₹",
+    "relatedChart": {
+      "scale": false
+    }
+  },
+  {
+    "category": "Economics",
+    "titleId": "Worker wages (monthly)",
+    "title": "Worker wages (monthly)",
+    "description": "Mean monthly worker wages",
+    "statsVars": ["Mean_WagesMonthly_Worker"],
+    "unit": "₹",
+    "relatedChart": {
+      "scale": false
+    }
+  },
+  {
+    "category": "Economics",
+    "titleId": "Worker wages (monthly): urban vs rural",
+    "title": "Worker wages (monthly): urban vs rural",
+    "description": "Mean monthly wages in urban vs. rural areas.",
+    "statsVars": [
+      "Mean_WagesMonthly_Worker_Urban",
+      "Mean_WagesMonthly_Worker_Rural"
+    ],
+    "unit": "₹",
+    "relatedChart": {
+      "scale": false
+    }
+  },
+  {
+    "category": "Economics",
+    "titleId": "Worker wages (monthly): female vs male",
+    "title": "Worker wages (monthly): female vs male",
+    "description": "Mean month wages by gender.",
+    "statsVars": [
+      "Mean_WagesMonthly_Worker_Female",
+      "Mean_WagesMonthly_Worker_Male"
+    ],
+    "unit": "₹",
+    "relatedChart": {
+      "scale": false
     }
   },
   {
@@ -1238,6 +1300,31 @@
       "denominator": "Count_Person",
       "titleId": "Percentage of population by social category",
       "title": "Percentage of population by social category",
+      "scaling": 100,
+      "unit": "%"
+    }
+  },
+  {
+    "category": "Demographics",
+    "titleId": "Religion",
+    "title": "Religion",
+    "description": "Population by religion",
+    "statsVars": [
+      "indianCensus/Count_Person_Religion_Buddhist",
+      "indianCensus/Count_Person_Religion_Christian",
+      "indianCensus/Count_Person_Religion_Hindu",
+      "indianCensus/Count_Person_Religion_Jain",
+      "indianCensus/Count_Person_Religion_Muslim",
+      "indianCensus/Count_Person_Religion_OtherReligionsAndPersuasions",
+      "indianCensus/Count_Person_Religion_ReligionNotStated",
+      "indianCensus/Count_Person_Religion_Sikh"
+    ],
+    "isOverview": false,
+    "relatedChart": {
+      "scale": true,
+      "denominator": "Count_Person",
+      "titleId": "Percentage of population by religon",
+      "title": "Percentage of population by religon",
       "scaling": 100,
       "unit": "%"
     }
