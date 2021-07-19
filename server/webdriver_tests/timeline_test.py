@@ -87,6 +87,19 @@ class TestCharts(WebdriverBaseTest):
         charts = chart_region.find_elements_by_class_name('card')
         # Assert there are three charts.
         self.assertEqual(len(charts), 3)
+        # Wait until the charts are drawn.
+        element_present = EC.presence_of_element_located(
+            (By.CLASS_NAME, 'legend-text'))
+        WebDriverWait(self.driver, self.TIMEOUT_SEC).until(element_present)
+        # Assert first chart has 4 lines (ie. has data)
+        chart_lines = charts[0].find_elements_by_class_name('line')
+        self.assertEqual(len(chart_lines), 4)
+        # Assert second chart has 2 lines (ie. has data)
+        chart_lines = charts[1].find_elements_by_class_name('line')
+        self.assertEqual(len(chart_lines), 2)
+        # Assert third chart has 2 lines (ie. has data)
+        chart_lines = charts[2].find_elements_by_class_name('line')
+        self.assertEqual(len(chart_lines), 2)
 
         # Click on Demographics link to expand it.
         hierarchy = self.driver.find_element_by_xpath(
