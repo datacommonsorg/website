@@ -112,7 +112,7 @@ def create_app():
         storage_client = storage.Client()
         bucket = storage_client.get_bucket(app.config['GCS_BUCKET'])
         blob = bucket.get_blob('placeid2dcid.json')
-        app.config['PLACEID2DCID'] = json.loads(blob.download_as_string())
+        app.config['PLACEID2DCID'] = json.loads(blob.download_as_bytes())
 
     # Initialize translations
     babel = Babel(app, default_domain='all')
