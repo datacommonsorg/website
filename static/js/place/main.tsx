@@ -90,7 +90,9 @@ class MainPane extends React.Component<MainPanePropType> {
     const currentPageTopic = this.props.topic;
     const isOverview = currentPageTopic === "Overview";
     const topics = Object.keys(topicData);
-    topics.sort();
+    if (!isOverview) {
+      topics.sort();
+    }
     return (
       <RawIntlProvider value={intl}>
         {this.props.isUsaPlace &&
@@ -128,6 +130,14 @@ class MainPane extends React.Component<MainPanePropType> {
           } else {
             subtopicHeader = <h3 id={topic}>{topic}</h3>;
           }
+          const data = topicData[topic];
+          data.sort((a, b) => {
+            if (a.title < b.title) {
+              return -1;
+            } else {
+              return 1;
+            }
+          });
           return (
             <section className="subtopic col-12" key={topic}>
               {subtopicHeader}
