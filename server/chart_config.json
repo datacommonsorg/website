@@ -61,7 +61,7 @@
     "category": "Economics",
     "titleId": "Unemployment rate: urban vs rural",
     "title": "Unemployment rate: urban vs rural",
-    "description": "Percentage of the population, of working age, who are unemployed in urban vs rural areas.",
+    "description": "Percentage of the working age population that is unemployed in urban vs. rural areas.",
     "statsVars": [
       "UnemploymentRate_Person_Rural",
       "UnemploymentRate_Person_Urban"
@@ -441,7 +441,7 @@
     "category": "Economics",
     "titleId": "Worker wages (monthly): urban vs rural",
     "title": "Worker wages (monthly): urban vs rural",
-    "description": "Urban vs rural mean monthly worker wages",
+    "description": "Mean monthly wages in urban vs. rural areas.",
     "statsVars": [
       "Mean_WagesMonthly_Worker_Urban",
       "Mean_WagesMonthly_Worker_Rural"
@@ -455,7 +455,7 @@
     "category": "Economics",
     "titleId": "Worker wages (monthly): female vs male",
     "title": "Worker wages (monthly): female vs male",
-    "description": "Female vs male mean monthly worker wages",
+    "description": "Mean month wages by gender.",
     "statsVars": [
       "Mean_WagesMonthly_Worker_Female",
       "Mean_WagesMonthly_Worker_Male"
