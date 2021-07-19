@@ -23,7 +23,36 @@ class Config:
     SCHEME = 'https'
     # Additional stat vars that need to be fetched for place page data.
     # This is only needed for local development when cache is not up to date.
-    NEW_STAT_VARS = []
+    NEW_STAT_VARS = [
+        "Count_Person_Literate",
+        "Count_Person_Illiterate",
+        "Count_Person_ScheduledCaste",
+        "Count_Person_ScheduledTribe",
+        "Count_Household_Rural",
+        "Count_Household_Urban",
+        "Count_Person_Rural_BelowPovertyLevelInThePast12Months",
+        "Count_Person_Urban_BelowPovertyLevelInThePast12Months",
+        "Count_Person_Houseless_Urban",
+        "Count_Person_Houseless_Rural",
+        "Count_Person_NonWorker",
+        "Count_Person_Workers",
+        "Mean_WagesDaily_Worker",
+        "Mean_WagesMonthly_Worker",
+        "Mean_WagesMonthly_Worker_Urban",
+        "Mean_WagesMonthly_Worker_Rural",
+        "Mean_WagesMonthly_Worker_Female",
+        "Mean_WagesMonthly_Worker_Male",
+        "indianCensus/Count_Person_Religion_Buddhist",
+        "indianCensus/Count_Person_Religion_Christian",
+        "indianCensus/Count_Person_Religion_Hindu",
+        "indianCensus/Count_Person_Religion_Jain",
+        "indianCensus/Count_Person_Religion_Muslim",
+        "indianCensus/Count_Person_Religion_OtherReligionsAndPersuasions",
+        "indianCensus/Count_Person_Religion_ReligionNotStated",
+        "indianCensus/Count_Person_Religion_Sikh",
+        "UnemploymentRate_Person_Rural",
+        "UnemploymentRate_Person_Urban",
+    ]
     ENABLE_BLOCKLIST = False
 
 
