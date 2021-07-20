@@ -17,6 +17,8 @@ from selenium.webdriver.support.ui import WebDriverWait
 from selenium.webdriver.common.by import By
 from selenium.webdriver.support import expected_conditions as EC
 
+import time
+
 
 class TestPlaceLanding(WebdriverBaseTest):
     """Tests for Place Landing page."""
@@ -102,3 +104,51 @@ class TestPlaceLanding(WebdriverBaseTest):
             '//*[@id="place-autocomplete"]')
         self.assertEqual(map_search.get_attribute('placeholder'),
                          'Укажите страну, штат, округ или город')
+
+    def test_place_landing_explore_more(self):
+        """Test place landing explore more link."""
+
+        self.driver.get(self.url_ + '/place/geoId/1714000?topic=Education')
+
+        # Wait until the chart has loaded.
+        element_present = EC.presence_of_element_located(
+            (By.CLASS_NAME, 'chart-container'))
+        WebDriverWait(self.driver, self.TIMEOUT_SEC).until(element_present)
+
+        explore_more = self.driver.find_element_by_xpath(
+            '//*[@id="main-pane"]/section[1]/div/div[2]/div/footer/div[2]/a[2]')
+        self.assertEqual(explore_more.text, 'Explore More ›')
+
+        explore_more.click()
+
+        # Wait for the new page to open in a new tab
+        new_page_opened = EC.number_of_windows_to_be(2)
+        WebDriverWait(self.driver, self.TIMEOUT_SEC).until(new_page_opened)
+
+        # Switch tabs to the page for the timeline tool
+        new_page = self.driver.window_handles[-1]
+        self.driver.switch_to.window(new_page)
+
+        # Assert timelines page loaded
+        NEW_PAGE_TITLE = 'Timelines Explorer - Data Commons'
+        WebDriverWait(self.driver,
+                      self.TIMEOUT_SEC).until(EC.title_contains(NEW_PAGE_TITLE))
+
+        # Wait until the group of charts has loaded.
+        element_present = EC.presence_of_element_located(
+            (By.CLASS_NAME, 'card'))
+        WebDriverWait(self.driver, self.TIMEOUT_SEC).until(element_present)
+
+        # Store a list of all the charts.
+        chart_region = self.driver.find_element_by_xpath(
+            '//*[@id="chart-region"]')
+        charts = chart_region.find_elements_by_class_name('card')
+        # Assert there are three charts.
+        self.assertEqual(len(charts), 1)
+        # Wait until the charts are drawn.
+        element_present = EC.presence_of_element_located(
+            (By.CLASS_NAME, 'legend-text'))
+        WebDriverWait(self.driver, self.TIMEOUT_SEC).until(element_present)
+        # Assert first chart has 36 lines (ie. has data)
+        chart_lines = charts[0].find_elements_by_class_name('line')
+        self.assertGreater(len(chart_lines), 10)

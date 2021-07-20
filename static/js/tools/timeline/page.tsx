@@ -71,6 +71,8 @@ class Page extends Component<unknown, PageStateType> {
         const parts = token.split("|");
         statVars.push(parts[0]);
         denomMap[parts[0]] = parts[1];
+      } else {
+        statVars.push(token);
       }
     }
 
