@@ -118,6 +118,9 @@ export function computePerCapita(
   popSeries: TimeSeries,
   scaling = 1
 ): TimeSeries {
+  if (!popSeries.val) {
+    return {};
+  }
   const result = _.cloneDeep(statSeries);
   const popYears = Object.keys(popSeries.val);
   popYears.sort();
