@@ -174,9 +174,8 @@ class Chart extends Component<ChartPropsType> {
       const placeData = Object.values(this.statData.data)[0];
       this.units = [];
       for (const series of Object.values(placeData.data)) {
-        const unit = series["metadata"].unit || "";
-        if (unit) {
-          this.units.push(unit);
+        if (series && series["metadata"] && series["metadata"].unit) {
+          this.units.push(series["metadata"].unit);
         }
       }
       this.props.onDataUpdate(this.props.mprop, statData);
