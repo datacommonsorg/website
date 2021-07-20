@@ -69,6 +69,7 @@ interface ChartPropsType {
   placeName: Record<string, string>; // An array of place dcids.
   statVarInfo: Record<string, StatVarInfo>;
   perCapita: boolean;
+  denomMap: Record<string, string>;
   removeStatVar: (statVar: string) => void;
   onDataUpdate: (mprop: string, data: StatData) => void;
 }
@@ -166,7 +167,8 @@ class Chart extends Component<ChartPropsType> {
       Object.keys(this.props.placeName),
       Object.keys(this.props.statVarInfo),
       this.props.perCapita,
-      1
+      1,
+      this.props.denomMap
     ).then((statData) => {
       this.statData = statData;
       // Get from all stat vars. In most cases there should be only one

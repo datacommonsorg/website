@@ -27,6 +27,8 @@ interface ChartRegionPropsType {
   placeName: Record<string, string>;
   // Map from stat var dcid to info.
   statVarInfo: { [key: string]: StatVarInfo };
+  // Map from stat var dcid to denominator dcid.
+  denomMap: Record<string, string>;
 }
 
 class ChartRegion extends Component<ChartRegionPropsType> {
@@ -79,6 +81,7 @@ class ChartRegion extends Component<ChartRegionPropsType> {
               placeName={this.props.placeName}
               statVarInfo={_.pick(this.props.statVarInfo, groups[mprop])}
               perCapita={getChartPerCapita(mprop)}
+              denomMap={this.props.denomMap}
               onDataUpdate={this.onDataUpdate.bind(this)}
               removeStatVar={(statVar) => {
                 removeToken("statsVar", statVarSep, statVar);
