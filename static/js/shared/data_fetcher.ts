@@ -230,7 +230,7 @@ export function fetchStatData(
       const placeData = statResp[place].data;
       for (const statVar in placeData) {
         if (perCapita) {
-          if (Object.keys(denominators).length == 0) {
+          if (Object.keys(denominators).length === 0) {
             placeData[statVar] = computePerCapita(
               placeData[statVar],
               denomResp[place].data[TOTAL_POPULATION_SV],

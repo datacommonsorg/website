@@ -46,9 +46,9 @@ class Page extends Component<unknown, PageStateType> {
     this.fetchDataAndRender = this.fetchDataAndRender.bind(this);
     this.addPlaceAction = this.addPlaceAction.bind(this);
     this.state = {
+      denomMap: {},
       placeName: {},
       statVarInfo: {},
-      denomMap: {},
     };
   }
 
