@@ -62,9 +62,6 @@ const config = {
   resolve: {
     extensions: [".js", ".ts", ".tsx"],
   },
-  optimization: {
-    minimize: true,
-  },
   module: {
     rules: [
       {
@@ -121,8 +118,8 @@ const config = {
 module.exports = (env, argv) => {
   // If in development, disable optimization.minimize.
   // development and production are arguments.
-  if (argv.mode === "development" && config.optimization.minimize) {
-    config.optimization.minimize = false;
+  if (argv.mode === "development") {
+    config.devtool = "eval-cheap-module-source-map";
   }
 
   return config;
