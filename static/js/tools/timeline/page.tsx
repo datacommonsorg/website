@@ -121,6 +121,7 @@ class Page extends Component<unknown, PageStateType> {
                 <ChartRegion
                   placeName={this.state.placeName}
                   statVarInfo={this.state.statVarInfo}
+                  statVarOrder={statVars}
                 ></ChartRegion>
               </div>
             )}
