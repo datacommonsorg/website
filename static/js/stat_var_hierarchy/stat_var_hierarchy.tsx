@@ -74,7 +74,7 @@ interface StatVarHierarchyStateType {
   rootSVGs: StatVarGroupInfo[];
   // Select or de-select a stat var with its path.
   togglePath: (sv: string, path?: string[]) => void;
-  //
+  // Whether we should show all stat vars, even the ones without data.
   showAllSV: boolean;
 }
 
