@@ -189,6 +189,7 @@ export class StatVarGroupNode extends React.Component<
                   pathToSelection={this.props.pathToSelection}
                   highlightedStatVar={this.highlightedStatVar}
                   places={this.props.places}
+                  showAllSV={this.props.showAllSV}
                 />
               )}
             </>
