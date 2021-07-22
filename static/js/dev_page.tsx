@@ -779,8 +779,9 @@ class DevPage extends React.Component {
         dataGroupsDict={dataGroupsDict1}
         statVarInfo={{ Total: { title: "Total" }, Male: { title: "Male" } }}
         plotParams={computePlotParams(
-          ["Nevada", "California"],
-          ["Total", "Male"]
+          { "geoId/32": "Nevada", "geoId/06": "California" },
+          ["Total", "Male"],
+          {}
         )}
       ></DevChart>
     );
@@ -799,7 +800,11 @@ class DevPage extends React.Component {
         type={chartTypeEnum.GROUP_LINE}
         dataGroupsDict={dataGroupsDict2}
         statVarInfo={{ Total: { title: "Total" }, Male: { title: "Male" } }}
-        plotParams={computePlotParams(["California"], ["Total", "Male"])}
+        plotParams={computePlotParams(
+          { "geoId/06": "California" },
+          ["Total", "Male"],
+          {}
+        )}
       ></DevChart>
     );
 
@@ -819,11 +824,12 @@ class DevPage extends React.Component {
         dataGroupsDict={dataGroupsDict3}
         statVarInfo={{ Total: { title: "Total" } }}
         plotParams={computePlotParams(
-          [
-            "very very very long place name",
-            "such a long name that it needs to span 4 lines",
-          ],
-          ["Total"]
+          {
+            longPlace: "very very very long place name",
+            longerPlace: "such a long name that it needs to span 4 lines",
+          },
+          ["Total"],
+          {}
         )}
       ></DevChart>
     );

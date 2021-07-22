@@ -16,6 +16,7 @@
 
 import * as d3 from "d3";
 import { translateVariableString } from "../i18n/i18n";
+import { StatVarInfo } from "../tools/statvar_menu/util";
 
 const DEFAULT_COLOR = "#000";
 
@@ -209,6 +210,7 @@ function getColorFn(labels: string[]): d3.ScaleOrdinal<string, string> {
 interface Style {
   color: string;
   dash?: string;
+  legendLink?: string;
 }
 
 interface PlotParams {
@@ -225,30 +227,50 @@ interface PlotParams {
  * which can be used together with this function in drawGroupLineChart().
  */
 function computePlotParams(
-  placeNames: string[],
-  statsVars: string[]
+  placeNames: Record<string, string>,
+  statVars: string[],
+  statVarInfo: Record<string, StatVarInfo>
 ): PlotParams {
   const lines: { [key: string]: Style } = {};
   const legend: { [key: string]: Style } = {};
-  if (placeNames.length === 1) {
-    const colorFn = getColorFn(statsVars);
-    for (const statsVar of statsVars) {
-      lines[placeNames[0] + statsVar] = { color: colorFn(statsVar), dash: "" };
-      legend[statsVar] = { color: colorFn(statsVar) };
+  const placeDcids = Object.keys(placeNames);
+  if (placeDcids.length === 1) {
+    const placeName = placeNames[placeDcids[0]];
+    const colorFn = getColorFn(statVars);
+    for (const statVar of statVars) {
+      lines[placeName + statVar] = { color: colorFn(statVar), dash: "" };
+      let legendLabel = `${statVar} (${placeName})`;
+      if (statVar in statVarInfo) {
+        legendLabel = `${statVarInfo[statVar].title || statVar} (${placeName})`;
+      }
+      const legendLink = `/browser/${placeDcids[0]}?statVar=${statVar}`;
+      legend[legendLabel] = { color: colorFn(statVar), legendLink };
     }
-  } else if (statsVars.length === 1) {
-    const colorFn = getColorFn(placeNames);
-    for (const placeName of placeNames) {
-      lines[placeName + statsVars[0]] = { color: colorFn(placeName), dash: "" };
-      legend[placeName] = { color: colorFn(placeName) };
+  } else if (statVars.length === 1) {
+    const colorFn = getColorFn(Object.values(placeNames));
+    for (const placeDcid of placeDcids) {
+      const placeName = placeNames[placeDcid];
+      lines[placeName + statVars[0]] = { color: colorFn(placeName), dash: "" };
+      let legendLabel = `${statVars[0]} (${placeName})`;
+      if (statVars[0] in statVarInfo) {
+        legendLabel = `${
+          statVarInfo[statVars[0]].title || statVars[0]
+        } (${placeName})`;
+      }
+      const legendLink = `/browser/${placeDcid}?statVar=${statVars[0]}`;
+      legend[legendLabel] = { color: colorFn(placeName), legendLink };
     }
   } else {
-    const colorFn = getColorFn(statsVars);
-    const dashFn = getDashes(placeNames.length);
-    for (let i = 0; i < placeNames.length; i++) {
-      legend[placeNames[i]] = { color: DEFAULT_COLOR, dash: dashFn[i] };
-      for (const statsVar of statsVars) {
-        lines[placeNames[i] + statsVar] = {
+    const colorFn = getColorFn(statVars);
+    const dashFn = getDashes(placeDcids.length);
+    for (let i = 0; i < placeDcids.length; i++) {
+      const placeName = placeNames[placeDcids[i]];
+      const legendLink = `/browser/${placeDcids[i]}?openSv=${statVars.join(
+        "__"
+      )}`;
+      legend[placeName] = { color: DEFAULT_COLOR, dash: dashFn[i], legendLink };
+      for (const statsVar of statVars) {
+        lines[placeName + statsVar] = {
           color: colorFn(statsVar),
           dash: dashFn[i],
         };

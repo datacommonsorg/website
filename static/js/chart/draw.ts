@@ -151,43 +151,74 @@ function showTooltip(
 }
 
 /**
+ * Given a dataGroupsDict, gets the row label for each combination of place and
+ * data group.
+ *
+ * @param dataGroupsDict mapping of place to datagroups from which the row
+ *                       labels will be generated
+ * @param dataGroups list of all datagroups
+ * @param statVarInfo mapping of stat var to information such as its title
+ */
+function getRowLabels(
+  dataGroupsDict: { [place: string]: DataGroup[] },
+  dataGroups: string[],
+  statVarInfo?: { [key: string]: StatVarInfo }
+): { [place: string]: { [sv: string]: string } } {
+  const places = Object.keys(dataGroupsDict);
+  const labels = {};
+  for (const place of places) {
+    labels[place] = {};
+    for (const dataGroup of Array.from(dataGroups)) {
+      let rowLabel = "";
+      if (dataGroups.length > 1) {
+        let statVarLabel = dataGroup;
+        if (statVarInfo && dataGroup in statVarInfo) {
+          statVarLabel = statVarInfo[dataGroup].title || dataGroup;
+        }
+        rowLabel += statVarLabel;
+      }
+      if (places.length > 1) {
+        rowLabel += _.isEmpty(rowLabel) ? `${place}` : ` (${place})`;
+      }
+      labels[place][dataGroup] = rowLabel;
+    }
+  }
+  return labels;
+}
+/**
  * Gets the html content of a tooltip
  *
  * @param dataGroupsDict mapping of place to datagroups from which the html content will be generated from.
  * @param highlightedTime the timepoint we are showing a tooltip for.
+ * @param dataLabels: mapping of place to mapping of datagroup to row label
  * @param unit units for the data.
  */
 function getTooltipContent(
   dataGroupsDict: { [place: string]: DataGroup[] },
   highlightedTime: number,
-  unit?: string,
-  statVarInfo?: { [key: string]: StatVarInfo }
+  rowLabels: { [place: string]: { [dataGroup: string]: string } },
+  unit?: string
 ): string {
   let tooltipDate = "";
   let tooltipContent = "";
   const places = Object.keys(dataGroupsDict);
   for (const place of places) {
-    const dataGroups = dataGroupsDict[place];
-    for (const dataGroup of dataGroups) {
+    for (const dataGroupLabel in rowLabels[place]) {
+      const dataGroup = dataGroupsDict[place].find(
+        (datagroup) => datagroup.label === dataGroupLabel
+      );
+      const rowLabel = rowLabels[place][dataGroupLabel];
+      let value = "N/A";
+      if (!dataGroup) {
+        tooltipContent += `${rowLabel}: ${value}<br/>`;
+        continue;
+      }
       const dataPoint = dataGroup.value.find(
         (val) => val.time === highlightedTime
       );
       if (dataPoint) {
         tooltipDate = dataPoint.label;
-        let rowLabel =
-          dataGroups.length === 1 && places.length === 1 ? dataPoint.label : "";
-        if (dataGroups.length > 1) {
-          let statVarLabel = dataGroup.label;
-          if (statVarInfo && dataGroup.label in statVarInfo) {
-            statVarLabel =
-              statVarInfo[dataGroup.label].title || dataGroup.label;
-          }
-          rowLabel += statVarLabel;
-        }
-        if (places.length > 1) {
-          rowLabel += _.isEmpty(rowLabel) ? ` ${place}` : ` - ${place}`;
-        }
-        const value = !_.isNull(dataPoint.value)
+        value = !_.isNull(dataPoint.value)
           ? `${dataPoint.value} ${unit}`
           : "N/A";
         tooltipContent += `${rowLabel}: ${value}<br/>`;
@@ -195,7 +226,7 @@ function getTooltipContent(
     }
   }
   if (places.length === 1 && dataGroupsDict[places[0]].length === 1) {
-    return tooltipContent;
+    return tooltipDate + tooltipContent;
   } else {
     return `${tooltipDate}<br/>` + tooltipContent;
   }
@@ -209,11 +240,10 @@ function getTooltipContent(
  * @param listOfTimePoints
  */
 function getHighlightedTime(
-  container: d3.Selection<HTMLDivElement, any, any, any>,
   xScale: d3.ScaleTime<number, number>,
-  listOfTimePoints: number[]
+  listOfTimePoints: number[],
+  mouseX: number
 ): number {
-  const mouseX = d3.mouse(container.node() as HTMLElement)[0];
   const mouseTime = xScale.invert(mouseX).getTime();
   listOfTimePoints.sort((a, b) => a - b);
   let idx = d3.bisect(listOfTimePoints, mouseTime);
@@ -277,7 +307,17 @@ function addHighlightOnHover(
     .attr("y2", chartAreaBoundary.bottom)
     .style("stroke", "#3B3B3B")
     .style("stroke-opacity", "0.5");
-
+  const dataGroups: Set<string> = new Set();
+  for (const place of Object.keys(dataGroupsDict)) {
+    dataGroupsDict[place].forEach((dataGroup) =>
+      dataGroups.add(dataGroup.label)
+    );
+  }
+  const rowLabels = getRowLabels(
+    dataGroupsDict,
+    Array.from(dataGroups),
+    statVarInfo
+  );
   container
     .on("mouseover", () => {
       highlightArea.style("opacity", "1");
@@ -288,10 +328,16 @@ function addHighlightOnHover(
       tooltip.style("display", "none");
     })
     .on("mousemove", () => {
+      const mouseX = d3.mouse(container.node() as HTMLElement)[0];
+      if (mouseX > chartAreaBoundary.right) {
+        highlightArea.style("opacity", "0");
+        tooltip.style("display", "none");
+        return;
+      }
       const highlightedTime = getHighlightedTime(
-        container,
         xScale,
-        listOfTimePoints
+        listOfTimePoints,
+        mouseX
       );
       const highlightDots = highlightArea.selectAll("circle");
       const dataPointX = xScale(highlightedTime);
@@ -319,8 +365,8 @@ function addHighlightOnHover(
       const tooltipContent = getTooltipContent(
         dataGroupsDict,
         highlightedTime,
-        unit,
-        statVarInfo
+        rowLabels,
+        unit
       );
       showTooltip(
         tooltipContent,
@@ -1146,13 +1192,13 @@ function drawGroupLineChart(
         LEGEND.marginTop
       })`
     );
-  buildInChartLegend(legend, plotParams.legend, legendTextdWidth, statVarInfo);
+  buildInChartLegend(legend, plotParams.legend, legendTextdWidth);
 
   // Add highlight on hover
   const chartAreaBoundary = {
     bottom: height - bottomHeight,
     left: leftWidth,
-    right: width - MARGIN.right,
+    right: width - legendWidth + LEGEND.marginLeft,
     top: 0,
   };
   const highlightColorFn = (place: string, dataGroup: DataGroup) => {
@@ -1183,8 +1229,7 @@ function drawGroupLineChart(
 function buildInChartLegend(
   legend: d3.Selection<SVGGElement, any, any, any>,
   params: { [key: string]: Style },
-  legendTextdWidth: number,
-  statVarInfo: Record<string, StatVarInfo>
+  legendTextdWidth: number
 ) {
   let yOffset = 0;
   for (const label in params) {
@@ -1206,20 +1251,21 @@ function buildInChartLegend(
       dashWidth = LEGEND.dashWidth;
     }
     // Draw the text.
-    let labelText = label;
-    if (label in statVarInfo) {
-      labelText = statVarInfo[label].title || label;
-    }
     lgGroup
       .append("text")
       .attr("class", "legend-text")
       .attr("transform", `translate(${dashWidth}, 0)`)
       .attr("y", "0.3em")
       .attr("dy", "0")
-      .text(labelText)
+      .text(label)
       .style("text-rendering", "optimizedLegibility")
       .style("fill", `${legendStyle.color}`)
-      .call(wrap, legendTextdWidth);
+      .call(wrap, legendTextdWidth)
+      .on("click", () => {
+        if (legendStyle.legendLink) {
+          window.open(legendStyle.legendLink);
+        }
+      });
     yOffset += lgGroup.node().getBBox().height + LEGEND.lineMargin;
   }
 }
