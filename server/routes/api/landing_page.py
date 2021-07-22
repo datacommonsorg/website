@@ -58,11 +58,11 @@ def build_url(dcids, statvar_to_denom, is_scaled=False):
     for statvar, denom in statvar_to_denom.items():
         part = statvar
         if denom:
-            part += ',' + denom
+            part += '|' + denom
         parts.append(part)
     anchor += ('&statsVar=' + '__'.join(parts))
     if is_scaled:
-        anchor = anchor + '&pc=1'
+        anchor = anchor + '&pc'
     return urllib.parse.unquote(url_for('tools.timeline', _anchor=anchor))
 
 
