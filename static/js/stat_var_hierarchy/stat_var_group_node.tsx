@@ -52,6 +52,8 @@ interface StatVarGroupNodePropType {
   isSelected: boolean;
   // whether the current component should be opened when rendered
   startsOpened: boolean;
+  // whether we should show all stat vars, even the ones without data.
+  showAllSV: boolean;
 }
 
 interface StatVarGroupNodeStateType {
@@ -206,9 +208,7 @@ export class StatVarGroupNode extends React.Component<
         const data = resp.data;
         let childSV: StatVarInfo[] = data["childStatVars"] || [];
         let childSVG: StatVarGroupInfo[] = data["childStatVarGroups"] || [];
-        if (
-          this.context.statVarHierarchyType === StatVarHierarchyType.BROWSER
-        ) {
+        if (!this.props.showAllSV) {
           childSV = childSV.filter((sv) => sv.hasData);
           childSVG = childSVG.filter((svg) => svg.numDescendentStatVars > 0);
         }

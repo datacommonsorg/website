@@ -74,6 +74,8 @@ interface StatVarHierarchyStateType {
   rootSVGs: StatVarGroupInfo[];
   // Select or de-select a stat var with its path.
   togglePath: (sv: string, path?: string[]) => void;
+  //
+  showAllSV: boolean;
 }
 
 export class StatVarHierarchy extends React.Component<
@@ -90,6 +92,8 @@ export class StatVarHierarchy extends React.Component<
       svPath: null,
       rootSVGs: [],
       togglePath: this.togglePath,
+      showAllSV:
+        this.props.type === StatVarHierarchyType.BROWSER ? false : true,
     };
     this.onSearchSelectionChange = this.onSearchSelectionChange.bind(this);
     this.togglePath = this.togglePath.bind(this);
@@ -119,22 +123,11 @@ export class StatVarHierarchy extends React.Component<
       return null;
     }
     let rootSVGs = this.state.rootSVGs;
-    if (this.props.type === StatVarHierarchyType.BROWSER) {
+    if (!this.state.showAllSV) {
       rootSVGs = rootSVGs.filter((svg) => svg.numDescendentStatVars > 0);
     }
     return (
       <div id={SV_HIERARCHY_SECTION_ID} className="loading-spinner-container">
-        {this.props.type !== StatVarHierarchyType.BROWSER && (
-          <div id="tree-widget-info">
-            <i
-              onMouseOver={this.onMouseOverInfoIcon}
-              onMouseOut={() => hideTooltip()}
-              className="material-icons-outlined"
-            >
-              info
-            </i>
-          </div>
-        )}
         {!_.isEmpty(this.state.errorMessage) && (
           <div className="error-message">{this.state.errorMessage}</div>
         )}
@@ -145,6 +138,32 @@ export class StatVarHierarchy extends React.Component<
               onSelectionChange={this.onSearchSelectionChange}
               searchLabel={this.props.searchLabel}
             />
+            {this.props.type !== StatVarHierarchyType.BROWSER && (
+              <div className="stat-var-hierarchy-options">
+                <div className="show-sv-toggle">
+                  <i
+                    className={`material-icons-outlined ${
+                      this.state.showAllSV ? "toggle-on" : "toggle-off"
+                    }`}
+                    onClick={() =>
+                      this.setState({ showAllSV: !this.state.showAllSV })
+                    }
+                  >
+                    {this.state.showAllSV ? "toggle_on" : "toggle_off"}
+                  </i>
+                  Show all statistical variables
+                </div>
+                <div id="tree-widget-info">
+                  <i
+                    onMouseOver={this.onMouseOverInfoIcon}
+                    onMouseOut={() => hideTooltip()}
+                    className="material-icons-outlined"
+                  >
+                    info
+                  </i>
+                </div>
+              </div>
+            )}
             <div id="stat-var-hierarchy-scroll-container">
               <div id="hierarchy-section">
                 {rootSVGs.map((svg) => {
@@ -171,6 +190,7 @@ export class StatVarHierarchy extends React.Component<
                           pathToSelection={this.state.focusPath.slice(1)}
                           isSelected={this.state.focusPath.length === 1}
                           startsOpened={this.state.focusPath[0] === svg.id}
+                          showAllSV={this.state.showAllSV}
                         />
                       </Context.Provider>
                     );
@@ -288,8 +308,9 @@ export class StatVarHierarchy extends React.Component<
     const html =
       "<ul><li>The number in parentheses represents the number of stat vars " +
       "within the group where we have data for the chosen place(s).</li>" +
-      "<li>Greyed out stat var groups have no available stat vars for the " +
-      "chosen place(s), but can still be expanded for you to explore.</li></ul>";
+      "<li>Greyed out groups and statistical variables have no available data " +
+      "for the chosen place(s). You can choose to hide these by using the " +
+      '"Show all statistical variables toggle".</li></ul>';
     const containerY = (d3
       .select("#explore")
       .node() as HTMLElement).getBoundingClientRect().y;

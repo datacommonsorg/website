@@ -176,7 +176,7 @@ function StatVarChooser(): JSX.Element {
         selectedSVs={menuSelected}
         selectSV={(sv) => addStatVar(x, y, sv, setThirdStatVar, setModalOpen)}
         deselectSV={(sv) => removeStatVar(x, y, sv)}
-        searchLabel="Select statistical variables:"
+        searchLabel="Statistical Variables"
       ></StatVarHierarchy>
       <Modal isOpen={modalOpen} backdrop="static" id="statvar-modal">
         <ModalHeader toggle={closeModal}>

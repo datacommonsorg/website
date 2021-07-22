@@ -74,7 +74,7 @@ export class StatVarHierarchySearch extends React.Component<
             type="text"
             value={this.state.query}
             onChange={this.onInputChanged}
-            placeholder="Search Statistical Variables"
+            placeholder="Search or explore below"
             onBlur={() => this.setState({ showNoResultsMessage: false })}
           />
           {!_.isEmpty(this.state.query) && (
