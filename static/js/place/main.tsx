@@ -90,7 +90,9 @@ class MainPane extends React.Component<MainPanePropType> {
     const currentPageTopic = this.props.topic;
     const isOverview = currentPageTopic === "Overview";
     const topics = Object.keys(topicData);
-    topics.sort();
+    if (!isOverview) {
+      topics.sort();
+    }
     return (
       <RawIntlProvider value={intl}>
         {this.props.isUsaPlace &&
@@ -128,31 +130,37 @@ class MainPane extends React.Component<MainPanePropType> {
           } else {
             subtopicHeader = <h3 id={topic}>{topic}</h3>;
           }
+          const data = topicData[topic];
+          data.sort((a, b) => {
+            if (a.title < b.title) {
+              return -1;
+            } else {
+              return 1;
+            }
+          });
           return (
             <section className="subtopic col-12" key={topic}>
               {subtopicHeader}
-              <div className="row row-cols-xl-3 row-cols-md-2 row-cols-1">
-                {topicData[topic].map((data: ChartBlockData) => {
-                  return (
-                    <ChartBlock
-                      key={data.title}
-                      isOverview={isOverview}
-                      dcid={this.props.dcid}
-                      placeName={this.props.placeName}
-                      placeType={this.props.placeType}
-                      isUsaPlace={this.props.isUsaPlace}
-                      names={this.props.names}
-                      data={data}
-                      locale={this.props.locale}
-                      geoJsonData={this.props.geoJsonData}
-                      choroplethData={this.props.choroplethData}
-                      childPlaceType={this.props.childPlacesType}
-                      parentPlaces={this.props.parentPlaces}
-                      topic={currentPageTopic}
-                    />
-                  );
-                })}
-              </div>
+              {topicData[topic].map((data: ChartBlockData) => {
+                return (
+                  <ChartBlock
+                    key={data.title}
+                    isOverview={isOverview}
+                    dcid={this.props.dcid}
+                    placeName={this.props.placeName}
+                    placeType={this.props.placeType}
+                    isUsaPlace={this.props.isUsaPlace}
+                    names={this.props.names}
+                    data={data}
+                    locale={this.props.locale}
+                    geoJsonData={this.props.geoJsonData}
+                    choroplethData={this.props.choroplethData}
+                    childPlaceType={this.props.childPlacesType}
+                    parentPlaces={this.props.parentPlaces}
+                    topic={currentPageTopic}
+                  />
+                );
+              })}
             </section>
           );
         })}

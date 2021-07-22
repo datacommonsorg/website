@@ -118,6 +118,9 @@ export function computePerCapita(
   popSeries: TimeSeries,
   scaling = 1
 ): TimeSeries {
+  if (!popSeries.val) {
+    return {};
+  }
   const result = _.cloneDeep(statSeries);
   const popYears = Object.keys(popSeries.val);
   popYears.sort();
@@ -173,7 +176,6 @@ export function fetchStatData(
   let denomStatVars = [];
   if (perCapita) {
     denomStatVars.push(TOTAL_POPULATION_SV);
-  } else {
     for (const sv in denominators) {
       denomStatVars.push(denominators[sv]);
     }
@@ -231,17 +233,19 @@ export function fetchStatData(
       const placeData = statResp[place].data;
       for (const statVar in placeData) {
         if (perCapita) {
-          placeData[statVar] = computePerCapita(
-            placeData[statVar],
-            denomResp[place].data[TOTAL_POPULATION_SV],
-            scaling
-          );
-        } else if (statVar in denominators) {
-          placeData[statVar] = computePerCapita(
-            placeData[statVar],
-            denomResp[place].data[denominators[statVar]],
-            scaling
-          );
+          if (Object.keys(denominators).length === 0) {
+            placeData[statVar] = computePerCapita(
+              placeData[statVar],
+              denomResp[place].data[TOTAL_POPULATION_SV],
+              scaling
+            );
+          } else if (statVar in denominators) {
+            placeData[statVar] = computePerCapita(
+              placeData[statVar],
+              denomResp[place].data[denominators[statVar]],
+              scaling
+            );
+          }
         }
       }
       // Build the dates collection, get the union of available dates for all data

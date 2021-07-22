@@ -645,7 +645,7 @@
   },
   "Count_Person_Rural": {
     "defaultMessage": "Rural Population",
-    "description": "Label used to describe statistical variables in chart legends, string should be short. Used to describe the size of the population living in urban areas."
+    "description": "Label used to describe statistical variables in chart legends, string should be short. Used to describe the size of the population living in rural areas."
   },
   "Count_Person_Separated": {
     "defaultMessage": "Separated",
