@@ -228,7 +228,12 @@ class Chart extends React.Component<ChartPropType, ChartStateType> {
                 />
               </a>
               {intl.locale != "en" ? null : (
-                <a className="explore-more" href={exploreUrl}>
+                <a
+                  className="explore-more"
+                  href={exploreUrl}
+                  rel="noopener noreferrer"
+                  target="_blank"
+                >
                   <FormattedMessage
                     id="chart_metadata-explore_more"
                     defaultMessage="Explore More ›"

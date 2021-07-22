@@ -653,7 +653,7 @@ test("Per capita with specified denominators test", () => {
   return fetchStatData(
     ["geoId/05", "geoId/06"],
     ["Count_Person_Male", "Count_Person_Female"],
-    false,
+    true,
     1,
     {
       Count_Person_Male: "Count_Person",

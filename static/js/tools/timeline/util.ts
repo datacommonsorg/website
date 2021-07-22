@@ -56,7 +56,8 @@ export function setTokensToUrl(tokens: TokenInfo[]): void {
   window.location.hash = urlParams.toString();
 }
 
-// add one statVar
+// Add a token to the url. A token could either be a place dcid, a stat var or
+// a [stat var,denominator] pair separated by comma.
 export function addToken(name: string, sep: string, token: string): void {
   const tokens = getTokensFromUrl(name, sep);
   if (tokens.has(token)) {
@@ -66,7 +67,7 @@ export function addToken(name: string, sep: string, token: string): void {
   setTokensToUrl([{ name, sep, tokens }]);
 }
 
-// remove one statVar
+// Remove a token from the url.
 export function removeToken(name: string, sep: string, token: string): void {
   const tokens = getTokensFromUrl(name, sep);
   if (!tokens.has(token)) {
@@ -85,11 +86,18 @@ export function setChartPerCapita(mprop: string, pc: boolean): void {
   }
   chartOptions[mprop] = pc;
   urlParams.set("chart", JSON.stringify(chartOptions));
+  if (!pc) {
+    // "&pc" means per capita for all charts.
+    urlParams.delete("pc");
+  }
   window.location.hash = urlParams.toString();
 }
 
 export function getChartPerCapita(mprop: string): boolean {
   const urlParams = new URLSearchParams(window.location.hash.split("#")[1]);
+  if (urlParams.get("pc")) {
+    return true;
+  }
   const chartOptions = JSON.parse(urlParams.get("chart"));
   if (!chartOptions) {
     return false;

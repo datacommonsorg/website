@@ -33,6 +33,8 @@ interface ChartRegionPropsType {
   statVarInfo: { [key: string]: StatVarInfo };
   // Order in which stat vars were selected.
   statVarOrder: string[];
+  // Map from stat var dcid to denominator dcid.
+  denomMap: Record<string, string>;
 }
 
 class ChartRegion extends Component<ChartRegionPropsType> {
@@ -91,6 +93,7 @@ class ChartRegion extends Component<ChartRegionPropsType> {
                 chartGroupInfo.chartIdToStatVars[mprop]
               )}
               perCapita={getChartPerCapita(mprop)}
+              denomMap={this.props.denomMap}
               onDataUpdate={this.onDataUpdate.bind(this)}
               removeStatVar={(statVar) => {
                 removeToken("statsVar", statVarSep, statVar);
