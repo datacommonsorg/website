@@ -80,7 +80,7 @@ export class StatVarSection extends React.Component<
               {context.statVarHierarchyType == StatVarHierarchyType.BROWSER ? (
                 <StatVarCharts
                   place={this.props.places[0]}
-                  selected={isSelected}
+                  selected={isSelected || statVar.id in context.svPath}
                   statVar={statVar}
                 />
               ) : (

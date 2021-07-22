@@ -265,7 +265,9 @@ function computePlotParams(
     const dashFn = getDashes(placeDcids.length);
     for (let i = 0; i < placeDcids.length; i++) {
       const placeName = placeNames[placeDcids[i]];
-      const legendLink = `/place/${placeDcids[i]}`;
+      const legendLink = `/browser/${placeDcids[i]}?openSv=${statVars.join(
+        "__"
+      )}`;
       legend[placeName] = { color: DEFAULT_COLOR, dash: dashFn[i], legendLink };
       for (const statsVar of statVars) {
         lines[placeName + statsVar] = {
