@@ -151,43 +151,63 @@ function showTooltip(
 }
 
 /**
- * Gets the html content of a tooltip
+ * Given a dataGroupsDict, gets the row label for each combination of place and
+ * data group.
  *
- * @param dataGroupsDict mapping of place to datagroups from which the html content will be generated from.
- * @param highlightedTime the timepoint we are showing a tooltip for.
- * @param unit units for the data.
+ * @param dataGroupsDict mapping of place to datagroups from which the row
+ *                       labels will be generated
+ * @param dataGroups list of all datagroups
+ * @param statVarInfo mapping of stat var to information such as its title
  */
-function getTooltipContent(
+function getRowLabels(
   dataGroupsDict: { [place: string]: DataGroup[] },
-  highlightedTime: number,
-  unit?: string,
+  dataGroups: string[],
   statVarInfo?: { [key: string]: StatVarInfo }
-): string {
-  let tooltipDate = "";
-  let tooltipContent = "";
+): { [place: string]: { [sv: string]: string } } {
   const places = Object.keys(dataGroupsDict);
-  const dataGroupLabels: Set<string> = new Set();
+  const labels = {};
   for (const place of places) {
-    dataGroupsDict[place].forEach((dataGroup) =>
-      dataGroupLabels.add(dataGroup.label)
-    );
-  }
-  for (const place of places) {
-    for (const dataGroupLabel of Array.from(dataGroupLabels)) {
-      const dataGroup = dataGroupsDict[place].find(
-        (datagroup) => datagroup.label === dataGroupLabel
-      );
+    labels[place] = {};
+    for (const dataGroup of Array.from(dataGroups)) {
       let rowLabel = "";
-      if (dataGroupLabels.size > 1) {
-        let statVarLabel = dataGroupLabel;
-        if (statVarInfo && dataGroupLabel in statVarInfo) {
-          statVarLabel = statVarInfo[dataGroupLabel].title || dataGroupLabel;
+      if (dataGroups.length > 1) {
+        let statVarLabel = dataGroup;
+        if (statVarInfo && dataGroup in statVarInfo) {
+          statVarLabel = statVarInfo[dataGroup].title || dataGroup;
         }
         rowLabel += statVarLabel;
       }
       if (places.length > 1) {
         rowLabel += _.isEmpty(rowLabel) ? `${place}` : ` (${place})`;
       }
+      labels[place][dataGroup] = rowLabel;
+    }
+  }
+  return labels;
+}
+/**
+ * Gets the html content of a tooltip
+ *
+ * @param dataGroupsDict mapping of place to datagroups from which the html content will be generated from.
+ * @param highlightedTime the timepoint we are showing a tooltip for.
+ * @param dataLabels: mapping of place to mapping of datagroup to row label
+ * @param unit units for the data.
+ */
+function getTooltipContent(
+  dataGroupsDict: { [place: string]: DataGroup[] },
+  highlightedTime: number,
+  rowLabels: { [place: string]: { [dataGroup: string]: string } },
+  unit?: string
+): string {
+  let tooltipDate = "";
+  let tooltipContent = "";
+  const places = Object.keys(dataGroupsDict);
+  for (const place of places) {
+    for (const dataGroupLabel in rowLabels[place]) {
+      const dataGroup = dataGroupsDict[place].find(
+        (datagroup) => datagroup.label === dataGroupLabel
+      );
+      const rowLabel = rowLabels[place][dataGroupLabel];
       let value = "N/A";
       if (!dataGroup) {
         tooltipContent += `${rowLabel}: ${value}<br/>`;
@@ -287,7 +307,17 @@ function addHighlightOnHover(
     .attr("y2", chartAreaBoundary.bottom)
     .style("stroke", "#3B3B3B")
     .style("stroke-opacity", "0.5");
-
+  const dataGroups: Set<string> = new Set();
+  for (const place of Object.keys(dataGroupsDict)) {
+    dataGroupsDict[place].forEach((dataGroup) =>
+      dataGroups.add(dataGroup.label)
+    );
+  }
+  const rowLabels = getRowLabels(
+    dataGroupsDict,
+    Array.from(dataGroups),
+    statVarInfo
+  );
   container
     .on("mouseover", () => {
       highlightArea.style("opacity", "1");
@@ -335,8 +365,8 @@ function addHighlightOnHover(
       const tooltipContent = getTooltipContent(
         dataGroupsDict,
         highlightedTime,
-        unit,
-        statVarInfo
+        rowLabels,
+        unit
       );
       showTooltip(
         tooltipContent,
