@@ -102,7 +102,10 @@ class Page extends Component<unknown, PageStateType> {
     for (const place in this.state.placeName) {
       namedPlaces.push({ dcid: place, name: this.state.placeName[place] });
     }
-    const statVars = Array.from(getTokensFromUrl("statsVar", statVarSep));
+    const statVarTokens = Array.from(getTokensFromUrl("statsVar", statVarSep));
+    const statVars = statVarTokens.map((sv) =>
+      sv.includes("|") ? sv.split("|")[0] : sv
+    );
     return (
       <>
         <div className="explore-menu-container" id="explore">
@@ -139,6 +142,7 @@ class Page extends Component<unknown, PageStateType> {
                 <ChartRegion
                   placeName={this.state.placeName}
                   statVarInfo={this.state.statVarInfo}
+                  statVarOrder={statVars}
                   denomMap={this.state.denomMap}
                 ></ChartRegion>
               </div>
