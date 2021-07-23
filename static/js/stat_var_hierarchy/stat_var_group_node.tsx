@@ -52,6 +52,8 @@ interface StatVarGroupNodePropType {
   isSelected: boolean;
   // whether the current component should be opened when rendered
   startsOpened: boolean;
+  // whether we should show all stat vars, even the ones without data.
+  showAllSV: boolean;
 }
 
 interface StatVarGroupNodeStateType {
@@ -130,6 +132,12 @@ export class StatVarGroupNode extends React.Component<
         this.selectionCount += 1;
       }
     }
+    const childSV = this.props.showAllSV
+      ? this.state.childSV
+      : this.state.childSV.filter((sv) => sv.hasData);
+    const childSVG = this.props.showAllSV
+      ? this.state.childSVG
+      : this.state.childSVG.filter((svg) => svg.numDescendentStatVars > 0);
     const getTrigger = (opened: boolean) => {
       return React.createElement(StatVarHierarchyNodeHeader, {
         childrenStatVarCount: this.props.data.numDescendentStatVars,
@@ -168,7 +176,7 @@ export class StatVarGroupNode extends React.Component<
               {this.props.pathToSelection.length < 2 && this.state.childSV && (
                 <StatVarSection
                   path={this.props.path}
-                  data={this.state.childSV}
+                  data={childSV}
                   pathToSelection={this.props.pathToSelection}
                   places={this.props.places}
                   highlightedStatVar={this.highlightedStatVar}
@@ -177,10 +185,11 @@ export class StatVarGroupNode extends React.Component<
               {this.state.childSVG && (
                 <StatVarGroupSection
                   path={this.props.path}
-                  data={this.state.childSVG}
+                  data={childSVG}
                   pathToSelection={this.props.pathToSelection}
                   highlightedStatVar={this.highlightedStatVar}
                   places={this.props.places}
+                  showAllSV={this.props.showAllSV}
                 />
               )}
             </>
@@ -204,14 +213,8 @@ export class StatVarGroupNode extends React.Component<
       .get(url)
       .then((resp) => {
         const data = resp.data;
-        let childSV: StatVarInfo[] = data["childStatVars"] || [];
-        let childSVG: StatVarGroupInfo[] = data["childStatVarGroups"] || [];
-        if (
-          this.context.statVarHierarchyType === StatVarHierarchyType.BROWSER
-        ) {
-          childSV = childSV.filter((sv) => sv.hasData);
-          childSVG = childSVG.filter((svg) => svg.numDescendentStatVars > 0);
-        }
+        const childSV: StatVarInfo[] = data["childStatVars"] || [];
+        const childSVG: StatVarGroupInfo[] = data["childStatVarGroups"] || [];
         this.setState({
           childSV,
           childSVG,
