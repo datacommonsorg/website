@@ -21,6 +21,8 @@ window.onload = () => {
   const locale = document.getElementById("locale").dataset.lc;
   loadLocaleData(locale, [
     import(`../i18n/compiled-lang/${locale}/place.json`),
+    // Load EN fallback
+    import(`../i18n/compiled-lang/en/place.json`),
   ]).then(() => {
     initSearchAutocomplete();
   });
