@@ -18,8 +18,38 @@ import { getStatsVarLabel } from "./stats_var_labels";
 import chartConfig from "../../../server/chart_config.json";
 import { loadLocaleData } from "../i18n/i18n";
 
-test("stats var label", () => {
+test("stats var label: marked for translation", () => {
+  const labels = require("../i18n/strings/en/stats_var_labels.json");
+    for (const chart of chartConfig) {
+      if (!("aggregate" in chart)) {
+        for (const statsVar of chart.statsVars) {
+          expect(Boolean(labels[statsVar])).toBe(true);
+        }
+      }
+    }
+});
+
+test("stats var label: compiled to en", () => {
   loadLocaleData("en", [
+    import("../i18n/compiled-lang/en/stats_var_labels.json"),
+  ]).then(() => {
+    for (const chart of chartConfig) {
+      if (!("aggregate" in chart)) {
+        for (const statsVar of chart.statsVars) {
+          const label = getStatsVarLabel(statsVar);
+          expect(label).not.toEqual(statsVar);
+        }
+      }
+    }
+    expect(
+      getStatsVarLabel("Count_HousingUnit_HouseholderRaceWhiteAlone")
+    ).toEqual("White Alone");
+  });
+});
+
+test("stats var label: compiled to es", () => {
+  loadLocaleData("es", [
+    import("../i18n/compiled-lang/es/stats_var_labels.json"),
     import("../i18n/compiled-lang/en/stats_var_labels.json"),
   ]).then(() => {
     for (const chart of chartConfig) {
