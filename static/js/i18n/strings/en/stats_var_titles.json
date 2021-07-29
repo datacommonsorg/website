@@ -938,5 +938,125 @@
   "Count_HousingUnit_2010OrLaterDateBuilt": {
     "defaultMessage": "Number of Housing Units (After 2010)",
     "description": "Title for a page about a statistical variable. Variable describes the total number of housing units which was built in that time period."
+  },
+  "Count_Household_Rural": {
+    "defaultMessage": "Number of Rural Households",
+    "description": "Title for a page about a statistical variable. Variable describes a population living in rural areas (usually in comparison with urban populations)."
+  },
+  "Count_Household_Urban": {
+    "defaultMessage": "Number of Urban Households",
+    "description": "Title for a page about a statistical variable. Variable describes a population living in urban areas (usually in comparison with rural populations)."
+  },
+  "Count_Person_Illiterate": {
+    "defaultMessage": "Population (Illiterate)",
+    "description": "Label used to describe statistical variables in chart legends, string should be short."
+  },
+  "Count_Person_Literate": {
+    "defaultMessage": "Population (Literate)",
+    "description": "Label used to describe statistical variables in chart legends, string should be short."
+  },
+  "Count_Person_Houseless_Rural": {
+    "defaultMessage": "Population (Houseless, Rural)",
+    "description": "Title for a page about a statistical variable. Variable describes a population living in rural areas (usually in comparison with urban populations)."
+  },
+  "Count_Person_Houseless_Urban": {
+    "defaultMessage": "Population (Houseless, Urban)",
+    "description": "Title for a page about a statistical variable. Variable describes a population living in urban areas (usually in comparison with rural populations)."
+  },
+  "Count_Person_NonWorker": {
+    "defaultMessage": "Population (Non-Workers)",
+    "description": "Title for a page about a statistical variable. Variable describes a population who did not work at all (or were not economically productive) in a period of time."
+  },
+  "Count_Person_Rural_BelowPovertyLevelInThePast12Months": {
+    "defaultMessage": "Population (Rural, in Poverty)",
+    "description": "Title for a page about a statistical variable. Variable describes a population living in rural areas (usually in comparison with urban populations)."
+  },
+  "Count_Person_ScheduledCaste": {
+    "defaultMessage": "Population (Scheduled Caste)",
+    "description": "Title for a page about a statistical variable. Variable describes a term that comes from the Indian Census. See https://en.wikipedia.org/wiki/Scheduled_Castes_and_Scheduled_Tribes"
+  },
+  "Count_Person_ScheduledTribe": {
+    "defaultMessage": "Population (Scheduled Tribe)",
+    "description": "Title for a page about a statistical variable. Variable describes a term that comes from the Indian Census. See https://en.wikipedia.org/wiki/Scheduled_Castes_and_Scheduled_Tribes"
+  },
+  "Count_Person_Urban_BelowPovertyLevelInThePast12Months": {
+    "defaultMessage": "Population (Urban, in Poverty)",
+    "description": "Title for a page about a statistical variable. Variable describes a population living in urban areas (usually in comparison with rural populations)."
+  },
+  "Count_Person_Workers": {
+    "defaultMessage": "Population (Workers)",
+    "description": "Title for a page about a statistical variable. Variable describes a population who worked (or were economically productive) for a period of time."
+  },
+  "Mean_WagesDaily_Worker": {
+    "defaultMessage": "Worker Daily Wage",
+    "description": "Title for a page about a statistical variable. Variable describes the daily wage of a worker."
+  },
+  "Mean_WagesDaily_Worker_Female": {
+    "defaultMessage": "Worker Monthly Wage",
+    "description": "Title for a page about a statistical variable. Variable describes the daily wage of a female workers."
+  },
+  "Mean_WagesDaily_Worker_Male": {
+    "defaultMessage": "Worker Monthly Wage",
+    "description": "Title for a page about a statistical variable. Variable describes the daily wage of a male workers."
+  },
+  "Mean_WagesMonthly_Worker": {
+    "defaultMessage": "Worker Monthly Wage",
+    "description": "Title for a page about a statistical variable. Variable describes the monthly wage of a worker."
+  },
+  "Mean_WagesMonthly_Worker_Female": {
+    "defaultMessage": "Worker Monthly Wage",
+    "description": "Title for a page about a statistical variable. Variable describes the monthly wage of a female workers."
+  },
+  "Mean_WagesMonthly_Worker_Male": {
+    "defaultMessage": "Worker Monthly Wage",
+    "description": "Title for a page about a statistical variable. Variable describes the monthly wage of a male workers."
+  },
+  "Mean_WagesMonthly_Worker_Rural": {
+    "defaultMessage": "Mean Worker Monthly Wage (Rural)",
+    "description": "Title for a page about a statistical variable. Variable describes a population living in rural areas (usually in comparison with urban populations)."
+  },
+  "Mean_WagesMonthly_Worker_Urban": {
+    "defaultMessage": "Mean Worker Monthly Wage (Urban)",
+    "description": "Title for a page about a statistical variable. Variable describes a population living in urban areas (usually in comparison with rural populations)."
+  },
+  "UnemploymentRate_Person_Rural": {
+    "defaultMessage": "Unemployment Rate (Rural)",
+    "description": "Title for a page about a statistical variable. Variable describes a population living in rural areas (usually in comparison with urban populations)."
+  },
+  "UnemploymentRate_Person_Urban": {
+    "defaultMessage": "Unemployment Rate (Urban)",
+    "description": "Title for a page about a statistical variable. Variable describes a population living in urban areas (usually in comparison with rural populations)."
+  },
+  "indianCensus/Count_Person_Religion_Buddhist": {
+    "defaultMessage": "Population (Buddhist)",
+    "description": "Title for a page about a statistical variable. Variable describes a population that practice the religion."
+  },
+  "indianCensus/Count_Person_Religion_Christian": {
+    "defaultMessage": "Population (Christian)",
+    "description": "Title for a page about a statistical variable. Variable describes a population that practice the religion."
+  },
+  "indianCensus/Count_Person_Religion_Hindu": {
+    "defaultMessage": "Population (Hindu)",
+    "description": "Title for a page about a statistical variable. Variable describes a population that practice the religion."
+  },
+  "indianCensus/Count_Person_Religion_Jain": {
+    "defaultMessage": "Population (Jain)",
+    "description": "Title for a page about a statistical variable. Variable describes a population that practice the religion."
+  },
+  "indianCensus/Count_Person_Religion_Muslim": {
+    "defaultMessage": "Population (Muslim)",
+    "description": "Title for a page about a statistical variable. Variable describes a population that practice the religion."
+  },
+  "indianCensus/Count_Person_Religion_OtherReligionsAndPersuasions": {
+    "defaultMessage": "Population (Other Religions and Persuasions)",
+    "description": "Title for a page about a statistical variable. Variable describes a population that practice a religion that is not specified in the census."
+  },
+  "indianCensus/Count_Person_Religion_ReligionNotStated": {
+    "defaultMessage": "Population (Religion Not Stated)",
+    "description": "Title for a page about a statistical variable. Variable describes a population that did not state whether they practiced a religion."
+  },
+  "indianCensus/Count_Person_Religion_Sikh": {
+    "defaultMessage": "Population (Sikh)",
+    "description": "Title for a page about a statistical variable. Variable describes a population that practice the relgion."
   }
 }
