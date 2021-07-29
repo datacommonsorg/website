@@ -33,7 +33,7 @@ _HOMEPAGE_PLACE_DCIDS = [
 def homepage():
     place_names = place_api.get_display_name('^'.join(_HOMEPAGE_PLACE_DCIDS),
                                              g.locale)
-    blog_date = babel_dates.format_date(date(2021, 6, 1),
+    blog_date = babel_dates.format_date(date(2021, 7, 26),
                                         format='long',
                                         locale=g.locale)
     return render_template('static/homepage.html',

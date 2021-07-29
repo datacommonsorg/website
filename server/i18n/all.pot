@@ -303,7 +303,7 @@ msgstr ""
 
 #. Blog post entry. Please take care to maintain valid <a> tags in translation. See this string in action at https://datacommons.org
 #, python-format
-msgid "We have launched exciting new features, including internationalization support, a new graph browser and scatter plot explorer, new Stats API, updated documentation, and new data. <a href=%(blog_url)s>Read our blog post for more details</a>."
+msgid "We have launched exciting new features, including a new map explorer, a new statistical variable menu that is used in all of our visualization tools (timeline explorer, scatter plot explorer, and map explorer), and new data. <a href=%(blog_url)s>Read our blog post for more details</a>."
 msgstr ""
 
 #. Header for list of blog posts and project updates. Please see this string in action at https://datacommons.org
@@ -790,3 +790,79 @@ msgstr "Violent crime"
 #. Title of a place chart: Total number of violent crime incidents per 100,000 people
 msgid "CHART_TITLE-Violent_crime_rate"
 msgstr "Violent crimes per 100,000 people"
+
+#. Title of a place chart: Literate and illiterate population
+msgid "Literacy"
+msgstr "Literacy"
+
+#. Title of a place chart: 
+msgid "Percentage of literate and illiterate population"
+msgstr "Percentage of literate and illiterate population"
+
+#. Title of a place chart: 
+msgid "Percentage of population by religon"
+msgstr "Percentage of population by religon"
+
+#. Title of a place chart: 
+msgid "Percentage of population by social category"
+msgstr "Percentage of population by social category"
+
+#. Title of a place chart: 
+msgid "Percentage of urban and rural households"
+msgstr "Percentage of urban and rural households"
+
+#. Title of a place chart: 
+msgid "Percentage of urban vs rural homeless population"
+msgstr "Percentage of urban vs rural homeless population"
+
+#. Title of a place chart: Percentage of workers and nonworkers
+msgid "Percentage of workers and nonworkers"
+msgstr "Percentage of workers and nonworkers"
+
+#. Title of a place chart: Population by religion
+msgid "Religion"
+msgstr "Religion"
+
+#. Title of a place chart: Population by social category
+msgid "Social Category"
+msgstr "Social Category"
+
+#. Title of a place chart: Percentage of the working age population that is unemployed in urban vs. rural areas.
+msgid "Unemployment rate: urban vs rural"
+msgstr "Unemployment rate: urban vs rural"
+
+#. Title of a place chart: Total number of households in rural vs urban parts of a place
+msgid "Urban and rural households"
+msgstr "Urban and rural households"
+
+#. Title of a place chart: Homeless population in urban and rural areas
+msgid "Urban vs rural homeless population"
+msgstr "Urban vs rural homeless population"
+
+#. Title of a place chart: Population below the poverty level, in urban and rural areas
+msgid "Urban vs rural poverty population"
+msgstr "Urban vs rural poverty population"
+
+#. Title of a place chart: 
+msgid "Urban vs rural poverty rate"
+msgstr "Urban vs rural poverty rate"
+
+#. Title of a place chart: Worker vs nonworker population
+msgid "Worker vs nonworker population"
+msgstr "Worker vs nonworker population"
+
+#. Title of a place chart: Mean daily worker wages
+msgid "Worker wages (daily)"
+msgstr "Worker wages (daily)"
+
+#. Title of a place chart: Mean monthly worker wages
+msgid "Worker wages (monthly)"
+msgstr "Worker wages (monthly)"
+
+#. Title of a place chart: Mean month wages by gender.
+msgid "Worker wages (monthly): female vs male"
+msgstr "Worker wages (monthly): female vs male"
+
+#. Title of a place chart: Mean monthly wages in urban vs. rural areas.
+msgid "Worker wages (monthly): urban vs rural"
+msgstr "Worker wages (monthly): urban vs rural"
