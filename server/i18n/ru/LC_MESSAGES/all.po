@@ -496,6 +496,9 @@ msgstr "Процент задействованной рабочей силы"
 msgid "CHART_TITLE-Life_expectancy"
 msgstr "Средняя продолжительность жизни (годы)"
 
+msgid "CHART_TITLE-Literacy"
+msgstr "Literacy"
+
 msgid "CHART_TITLE-Marital_status"
 msgstr "Семейное положение"
 
@@ -543,6 +546,24 @@ msgstr "Процент людей без медицинской страховк
 
 msgid "CHART_TITLE-Percent_without_health_insurance_race"
 msgstr "Процент людей без медицинской страховки по расам"
+
+msgid "CHART_TITLE-Percentage of literate and illiterate population"
+msgstr "Percentage of literate and illiterate population"
+
+msgid "CHART_TITLE-Percentage of population by religon"
+msgstr "Percentage of population by religon"
+
+msgid "CHART_TITLE-Percentage of population by social category"
+msgstr "Percentage of population by social category"
+
+msgid "CHART_TITLE-Percentage of urban and rural households"
+msgstr "Percentage of urban and rural households"
+
+msgid "CHART_TITLE-Percentage of urban vs rural homeless population"
+msgstr "Percentage of urban vs rural homeless population"
+
+msgid "CHART_TITLE-Percentage of workers and nonworkers"
+msgstr "Percentage of workers and nonworkers"
 
 msgid "CHART_TITLE-Percentage_employed"
 msgstr "Процент безработных"
@@ -595,11 +616,17 @@ msgstr "Имущественные преступления"
 msgid "CHART_TITLE-Property_crime_rate"
 msgstr "Имущественные преступления на 100 000 человек"
 
+msgid "CHART_TITLE-Religion"
+msgstr "Religion"
+
 msgid "CHART_TITLE-School_enrollment"
 msgstr "Зачисление в школу"
 
 msgid "CHART_TITLE-School_enrollment_rate"
 msgstr "Процент зачисленных в школу"
+
+msgid "CHART_TITLE-Social Category"
+msgstr "Social Category"
 
 msgid "CHART_TITLE-State_unemployment_claims"
 msgstr "Количество заявлений на получение страховки по безработице в штате"
@@ -616,8 +643,23 @@ msgstr "Количество работающих людей"
 msgid "CHART_TITLE-Unemployment_rate"
 msgstr "Уровень безработицы"
 
+msgid "CHART_TITLE-Unemployment_rate-urban-v-rural"
+msgstr "Unemployment rate: urban vs rural"
+
 msgid "CHART_TITLE-Unemployment_rate_gender"
 msgstr "Уровень безработицы по полу"
+
+msgid "CHART_TITLE-Urban and rural households"
+msgstr "Urban and rural households"
+
+msgid "CHART_TITLE-Urban vs rural homeless population"
+msgstr "Urban vs rural homeless population"
+
+msgid "CHART_TITLE-Urban vs rural poverty population"
+msgstr "Urban vs rural poverty population"
+
+msgid "CHART_TITLE-Urban vs rural poverty rate"
+msgstr "Urban vs rural poverty rate"
 
 msgid "CHART_TITLE-Urban_v_rural_population"
 msgstr "Городское и сельское население"
@@ -630,6 +672,7 @@ msgstr "Количество насильственных преступлени
 
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
 =======
 msgid "CHART_TITLE-CHART_CATEGORY-Overview"
 msgstr "Обзор"
@@ -637,3 +680,20 @@ msgstr "Обзор"
 >>>>>>> b22e3a3 (Add latest translations)
 =======
 >>>>>>> 3ed1b4f (run extract / compile scripts)
+=======
+msgid "CHART_TITLE-Worker wages (daily)"
+msgstr "Worker wages (daily)"
+
+msgid "CHART_TITLE-Worker wages (monthly)"
+msgstr "Worker wages (monthly)"
+
+msgid "CHART_TITLE-Worker wages (monthly): female vs male"
+msgstr "Worker wages (monthly): female vs male"
+
+msgid "CHART_TITLE-Worker wages (monthly): urban vs rural"
+msgstr "Worker wages (monthly): urban vs rural"
+
+msgid "CHART_TITLE-Worker-vs-nonworker-population"
+msgstr "Worker vs nonworker population"
+
+>>>>>>> 4197bf0 (add compiled strings)

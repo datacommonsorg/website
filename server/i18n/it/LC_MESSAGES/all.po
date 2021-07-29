@@ -496,6 +496,9 @@ msgstr "Tasso di partecipazione alla forza lavoro"
 msgid "CHART_TITLE-Life_expectancy"
 msgstr "Speranza di vita (anni)"
 
+msgid "CHART_TITLE-Literacy"
+msgstr "Literacy"
+
 msgid "CHART_TITLE-Marital_status"
 msgstr "Stato civile"
 
@@ -543,6 +546,24 @@ msgstr "Percentuale di persone senza assicurazione sanitaria per sesso"
 
 msgid "CHART_TITLE-Percent_without_health_insurance_race"
 msgstr "Percentuale di persone senza assicurazione sanitaria per gruppo etnico"
+
+msgid "CHART_TITLE-Percentage of literate and illiterate population"
+msgstr "Percentage of literate and illiterate population"
+
+msgid "CHART_TITLE-Percentage of population by religon"
+msgstr "Percentage of population by religon"
+
+msgid "CHART_TITLE-Percentage of population by social category"
+msgstr "Percentage of population by social category"
+
+msgid "CHART_TITLE-Percentage of urban and rural households"
+msgstr "Percentage of urban and rural households"
+
+msgid "CHART_TITLE-Percentage of urban vs rural homeless population"
+msgstr "Percentage of urban vs rural homeless population"
+
+msgid "CHART_TITLE-Percentage of workers and nonworkers"
+msgstr "Percentage of workers and nonworkers"
 
 msgid "CHART_TITLE-Percentage_employed"
 msgstr "Percentuale di persone che lavorano"
@@ -595,11 +616,17 @@ msgstr "Reati contro la proprietà"
 msgid "CHART_TITLE-Property_crime_rate"
 msgstr "Reati contro la proprietà per 100.000 persone"
 
+msgid "CHART_TITLE-Religion"
+msgstr "Religion"
+
 msgid "CHART_TITLE-School_enrollment"
 msgstr "Iscrizione scolastica"
 
 msgid "CHART_TITLE-School_enrollment_rate"
 msgstr "Tasso di iscrizione scolastica"
+
+msgid "CHART_TITLE-Social Category"
+msgstr "Social Category"
 
 msgid "CHART_TITLE-State_unemployment_claims"
 msgstr "Richieste di indennizzo per assicurazioni contro la disoccupazione statale"
@@ -616,8 +643,23 @@ msgstr "Numero di persone che lavorano"
 msgid "CHART_TITLE-Unemployment_rate"
 msgstr "Tasso di disoccupazione"
 
+msgid "CHART_TITLE-Unemployment_rate-urban-v-rural"
+msgstr "Unemployment rate: urban vs rural"
+
 msgid "CHART_TITLE-Unemployment_rate_gender"
 msgstr "Tasso di disoccupazione per sesso"
+
+msgid "CHART_TITLE-Urban and rural households"
+msgstr "Urban and rural households"
+
+msgid "CHART_TITLE-Urban vs rural homeless population"
+msgstr "Urban vs rural homeless population"
+
+msgid "CHART_TITLE-Urban vs rural poverty population"
+msgstr "Urban vs rural poverty population"
+
+msgid "CHART_TITLE-Urban vs rural poverty rate"
+msgstr "Urban vs rural poverty rate"
 
 msgid "CHART_TITLE-Urban_v_rural_population"
 msgstr "Popolazione urbana e rurale"
@@ -630,6 +672,7 @@ msgstr "Crimini violenti per 100.000 persone"
 
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
 =======
 msgid "CHART_TITLE-CHART_CATEGORY-Overview"
 msgstr "Panoramica"
@@ -637,3 +680,20 @@ msgstr "Panoramica"
 >>>>>>> b22e3a3 (Add latest translations)
 =======
 >>>>>>> 3ed1b4f (run extract / compile scripts)
+=======
+msgid "CHART_TITLE-Worker wages (daily)"
+msgstr "Worker wages (daily)"
+
+msgid "CHART_TITLE-Worker wages (monthly)"
+msgstr "Worker wages (monthly)"
+
+msgid "CHART_TITLE-Worker wages (monthly): female vs male"
+msgstr "Worker wages (monthly): female vs male"
+
+msgid "CHART_TITLE-Worker wages (monthly): urban vs rural"
+msgstr "Worker wages (monthly): urban vs rural"
+
+msgid "CHART_TITLE-Worker-vs-nonworker-population"
+msgstr "Worker vs nonworker population"
+
+>>>>>>> 4197bf0 (add compiled strings)

@@ -986,7 +986,7 @@
   "Count_Person_NonWorker": [
     {
       "type": 0,
-      "value": "Nonworker"
+      "value": "Non-Workers"
     }
   ],
   "Count_Person_NotAUSCitizen": [
@@ -1016,7 +1016,7 @@
   "Count_Person_Rural_BelowPovertyLevelInThePast12Months": [
     {
       "type": 0,
-      "value": "Rural Below Poverty"
+      "value": "Rural"
     }
   ],
   "Count_Person_ScheduledCaste": [
@@ -1124,7 +1124,7 @@
   "Count_Person_Urban_BelowPovertyLevelInThePast12Months": [
     {
       "type": 0,
-      "value": "Urban Below Poverty"
+      "value": "Urban"
     }
   ],
   "Count_Person_WhiteAlone": [
@@ -1142,7 +1142,7 @@
   "Count_Person_Workers": [
     {
       "type": 0,
-      "value": "Worker"
+      "value": "Workers"
     }
   ],
   "Count_StormSurgeTideEvent": [
@@ -1221,6 +1221,18 @@
     {
       "type": 0,
       "value": "Worker Daily Wage"
+    }
+  ],
+  "Mean_WagesDaily_Worker_Female": [
+    {
+      "type": 0,
+      "value": "Female"
+    }
+  ],
+  "Mean_WagesDaily_Worker_Male": [
+    {
+      "type": 0,
+      "value": "Male"
     }
   ],
   "Mean_WagesMonthly_Worker": [
@@ -1562,7 +1574,7 @@
   "indianCensus/Count_Person_Religion_OtherReligionsAndPersuasions": [
     {
       "type": 0,
-      "value": "Other Religions And Persuasions"
+      "value": "Other Religions and Persuasions"
     }
   ],
   "indianCensus/Count_Person_Religion_ReligionNotStated": [

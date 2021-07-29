@@ -496,6 +496,9 @@ msgstr "労働力率"
 msgid "CHART_TITLE-Life_expectancy"
 msgstr "平均寿命（年）"
 
+msgid "CHART_TITLE-Literacy"
+msgstr "Literacy"
+
 msgid "CHART_TITLE-Marital_status"
 msgstr "配偶者の有無"
 
@@ -543,6 +546,24 @@ msgstr "健康保険加入者の割合（性別ごと）"
 
 msgid "CHART_TITLE-Percent_without_health_insurance_race"
 msgstr "健康保険未加入者の割合（性別ごと）"
+
+msgid "CHART_TITLE-Percentage of literate and illiterate population"
+msgstr "Percentage of literate and illiterate population"
+
+msgid "CHART_TITLE-Percentage of population by religon"
+msgstr "Percentage of population by religon"
+
+msgid "CHART_TITLE-Percentage of population by social category"
+msgstr "Percentage of population by social category"
+
+msgid "CHART_TITLE-Percentage of urban and rural households"
+msgstr "Percentage of urban and rural households"
+
+msgid "CHART_TITLE-Percentage of urban vs rural homeless population"
+msgstr "Percentage of urban vs rural homeless population"
+
+msgid "CHART_TITLE-Percentage of workers and nonworkers"
+msgstr "Percentage of workers and nonworkers"
 
 msgid "CHART_TITLE-Percentage_employed"
 msgstr "就業者の割合"
@@ -595,11 +616,17 @@ msgstr "窃盗"
 msgid "CHART_TITLE-Property_crime_rate"
 msgstr "10 万人あたりの窃盗件数"
 
+msgid "CHART_TITLE-Religion"
+msgstr "Religion"
+
 msgid "CHART_TITLE-School_enrollment"
 msgstr "就学"
 
 msgid "CHART_TITLE-School_enrollment_rate"
 msgstr "就学率"
+
+msgid "CHART_TITLE-Social Category"
+msgstr "Social Category"
 
 msgid "CHART_TITLE-State_unemployment_claims"
 msgstr "州の失業保険請求件数"
@@ -616,8 +643,23 @@ msgstr "就業者の数"
 msgid "CHART_TITLE-Unemployment_rate"
 msgstr "失業率"
 
+msgid "CHART_TITLE-Unemployment_rate-urban-v-rural"
+msgstr "Unemployment rate: urban vs rural"
+
 msgid "CHART_TITLE-Unemployment_rate_gender"
 msgstr "失業率（性別ごと）"
+
+msgid "CHART_TITLE-Urban and rural households"
+msgstr "Urban and rural households"
+
+msgid "CHART_TITLE-Urban vs rural homeless population"
+msgstr "Urban vs rural homeless population"
+
+msgid "CHART_TITLE-Urban vs rural poverty population"
+msgstr "Urban vs rural poverty population"
+
+msgid "CHART_TITLE-Urban vs rural poverty rate"
+msgstr "Urban vs rural poverty rate"
 
 msgid "CHART_TITLE-Urban_v_rural_population"
 msgstr "都市部と農村部の人口"
@@ -630,6 +672,7 @@ msgstr "暴力犯罪件数（人口 100,000 人あたり）"
 
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
 =======
 msgid "CHART_TITLE-CHART_CATEGORY-Overview"
 msgstr "概要"
@@ -637,3 +680,20 @@ msgstr "概要"
 >>>>>>> b22e3a3 (Add latest translations)
 =======
 >>>>>>> 3ed1b4f (run extract / compile scripts)
+=======
+msgid "CHART_TITLE-Worker wages (daily)"
+msgstr "Worker wages (daily)"
+
+msgid "CHART_TITLE-Worker wages (monthly)"
+msgstr "Worker wages (monthly)"
+
+msgid "CHART_TITLE-Worker wages (monthly): female vs male"
+msgstr "Worker wages (monthly): female vs male"
+
+msgid "CHART_TITLE-Worker wages (monthly): urban vs rural"
+msgstr "Worker wages (monthly): urban vs rural"
+
+msgid "CHART_TITLE-Worker-vs-nonworker-population"
+msgstr "Worker vs nonworker population"
+
+>>>>>>> 4197bf0 (add compiled strings)
