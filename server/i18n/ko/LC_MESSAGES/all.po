@@ -223,8 +223,8 @@ msgstr ""
 msgid "Unemployment Rate, United States"
 msgstr "실업률, 미국"
 
-msgid "We have launched exciting new features, including internationalization support, a new graph browser and scatter plot explorer, new Stats API, updated documentation, and new data. <a href=%(blog_url)s>Read our blog post for more details</a>."
-msgstr "국제화 지원, 새로운 그래프 브라우저 및 분산형 차트 탐색기, 새로운 Stats API, 업데이트된 문서, 새로운 데이터 등의 기능이 추가되었습니다. <a href=%(blog_url)s>블로그 게시글에서 자세히 알아보기</a>"
+msgid "We have launched exciting new features, including a new map explorer, a new statistical variable menu that is used in all of our visualization tools (timeline explorer, scatter plot explorer, and map explorer), and new data. <a href=%(blog_url)s>Read our blog post for more details</a>."
+msgstr ""
 
 msgid "What's new"
 msgstr "새로운 소식"
@@ -588,4 +588,62 @@ msgstr "폭력 범죄"
 
 msgid "CHART_TITLE-Violent_crime_rate"
 msgstr "10만 명당 폭력 범죄 수"
+
+msgid "Literacy"
+msgstr "Literacy"
+
+msgid "Percentage of literate and illiterate population"
+msgstr "Percentage of literate and illiterate population"
+
+msgid "Percentage of population by religon"
+msgstr "Percentage of population by religon"
+
+msgid "Percentage of population by social category"
+msgstr "Percentage of population by social category"
+
+msgid "Percentage of urban and rural households"
+msgstr "Percentage of urban and rural households"
+
+msgid "Percentage of urban vs rural homeless population"
+msgstr "Percentage of urban vs rural homeless population"
+
+msgid "Percentage of workers and nonworkers"
+msgstr "Percentage of workers and nonworkers"
+
+msgid "Religion"
+msgstr "Religion"
+
+msgid "Social Category"
+msgstr "Social Category"
+
+msgid "Unemployment rate: urban vs rural"
+msgstr "Unemployment rate: urban vs rural"
+
+msgid "Urban and rural households"
+msgstr "Urban and rural households"
+
+msgid "Urban vs rural homeless population"
+msgstr "Urban vs rural homeless population"
+
+msgid "Urban vs rural poverty population"
+msgstr "Urban vs rural poverty population"
+
+msgid "Urban vs rural poverty rate"
+msgstr "Urban vs rural poverty rate"
+
+msgid "Worker vs nonworker population"
+msgstr "Worker vs nonworker population"
+
+msgid "Worker wages (daily)"
+msgstr "Worker wages (daily)"
+
+msgid "Worker wages (monthly)"
+msgstr "Worker wages (monthly)"
+
+msgid "Worker wages (monthly): female vs male"
+msgstr "Worker wages (monthly): female vs male"
+
+msgid "Worker wages (monthly): urban vs rural"
+msgstr "Worker wages (monthly): urban vs rural"
+
 
