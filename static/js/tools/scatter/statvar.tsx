@@ -22,6 +22,7 @@
 
 import React, { useContext, useEffect, useState } from "react";
 import _ from "lodash";
+import axios from "axios";
 import {
   Modal,
   ModalHeader,
@@ -81,7 +82,7 @@ function StatVarChooser(): JSX.Element {
     x.value.statVarDcid,
     y.value.statVarDcid,
     thirdStatVar.dcid,
-  ];
+  ].filter((sv) => !_.isEmpty(sv));
   const closeModal = () => {
     setThirdStatVar(emptyStatVar);
     setModalOpen(false);
@@ -115,7 +116,50 @@ function StatVarChooser(): JSX.Element {
           y.setStatVarInfo({});
         }
       });
-  });
+  }, [x.value.statVarDcid, y.value.statVarDcid]);
+
+  useEffect(() => {
+    if (!_.isEmpty(samplePlaces) && !_.isEmpty(menuSelected)) {
+      axios
+        .post("/api/place/stat-vars/union", {
+          dcids: samplePlaces.map((place) => place.dcid),
+          statVars: menuSelected,
+        })
+        .then((resp) => {
+          const availableSVs = resp.data;
+          const unavailableSVs = [];
+          if (
+            x.value.statVarDcid &&
+            availableSVs.indexOf(x.value.statVarDcid) === -1
+          ) {
+            let name = x.value.statVarDcid;
+            if (x.value.statVarInfo) {
+              name = x.value.statVarInfo.title || x.value.statVarDcid;
+            }
+            unavailableSVs.push(name);
+            x.unsetStatVarDcid();
+          }
+          if (
+            y.value.statVarDcid &&
+            availableSVs.indexOf(y.value.statVarDcid) === -1
+          ) {
+            let name = y.value.statVarDcid;
+            if (y.value.statVarInfo) {
+              name = y.value.statVarInfo.title || y.value.statVarDcid;
+            }
+            unavailableSVs.push(name);
+            y.unsetStatVarDcid();
+          }
+          if (!_.isEmpty(unavailableSVs)) {
+            alert(
+              `Sorry, the selected variable(s) [${unavailableSVs.join(
+                ", "
+              )}] ` + "are not available for the chosen place."
+            );
+          }
+        });
+    }
+  }, [samplePlaces]);
   let yTitle = y.value.statVarDcid;
   if (y.value.statVarInfo && y.value.statVarInfo.title) {
     yTitle = y.value.statVarInfo.title;
@@ -132,11 +176,11 @@ function StatVarChooser(): JSX.Element {
         selectedSVs={menuSelected}
         selectSV={(sv) => addStatVar(x, y, sv, setThirdStatVar, setModalOpen)}
         deselectSV={(sv) => removeStatVar(x, y, sv)}
-        searchLabel="Select variables:"
+        searchLabel="Statistical Variables"
       ></StatVarHierarchy>
       <Modal isOpen={modalOpen} backdrop="static" id="statvar-modal">
         <ModalHeader toggle={closeModal}>
-          Only Two Variables Supported
+          Only Two Statistical Variables Supported
         </ModalHeader>
         <ModalBody>
           <Container>
@@ -145,7 +189,7 @@ function StatVarChooser(): JSX.Element {
               <b>{thirdStatVar.info.title || thirdStatVar.dcid}</b>
             </div>
             <div className="radio-selection-label">
-              Please choose 1 more variable to keep:
+              Please choose 1 more statistical variable to keep:
             </div>
             <div className="radio-selection-section">
               <FormGroup radio row>

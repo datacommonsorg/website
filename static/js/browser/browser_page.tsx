@@ -34,6 +34,7 @@ import { StatVarHierarchyType } from "../shared/types";
 const URL_PREFIX = "/browser/";
 const PLACE_STAT_VAR_PROPERTIES_HEADER = "Statistical Variable Properties";
 const GENERAL_PROPERTIES_HEADER = "Properties";
+const SELECTED_SV_SEP = "__";
 
 interface BrowserPagePropType {
   dcid: string;
@@ -89,6 +90,12 @@ export class BrowserPage extends React.Component<
         title: "Weather Observations",
       });
     };
+    const urlParams = new URLSearchParams(window.location.search);
+    let selectedSVs = [];
+    const selectedSvString = urlParams.get("openSv") || "";
+    if (selectedSvString) {
+      selectedSVs = selectedSvString.split(SELECTED_SV_SEP);
+    }
     return (
       <>
         {this.props.pageDisplayType === PageDisplayType.PLACE_STAT_VAR && (
@@ -134,6 +141,7 @@ export class BrowserPage extends React.Component<
                   places={[
                     { dcid: this.props.dcid, name: this.props.nodeName },
                   ]}
+                  selectedSVs={selectedSVs}
                 />
               </div>
             </div>

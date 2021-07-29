@@ -41,10 +41,10 @@ MIN_CHART_TO_KEEP_TOPICS = 30
 OVERVIEW = 'Overview'
 
 
-def get_landing_page_data(dcid, stat_vars):
+def get_landing_page_data(dcid, new_stat_vars):
     response = dc_service.fetch_data('/landing-page', {
         'place': dcid,
-        'statVars': stat_vars,
+        'newStatVars': new_stat_vars,
     },
                                      compress=False,
                                      post=True,
@@ -58,11 +58,11 @@ def build_url(dcids, statvar_to_denom, is_scaled=False):
     for statvar, denom in statvar_to_denom.items():
         part = statvar
         if denom:
-            part += ',' + denom
+            part += '|' + denom
         parts.append(part)
     anchor += ('&statsVar=' + '__'.join(parts))
     if is_scaled:
-        anchor = anchor + '&pc=1'
+        anchor = anchor + '&pc'
     return urllib.parse.unquote(url_for('tools.timeline', _anchor=anchor))
 
 
@@ -125,7 +125,7 @@ def get_series(data, place, stat_vars):
     sources = set()
     num_sv = len(stat_vars)
     for sv in stat_vars:
-        if not data[place]['data'].get(sv, {}):
+        if 'data' not in data[place] or sv not in data[place]['data']:
             return {}, []
         series = data[place]['data'][sv]
         all_series.append(series['val'])
@@ -151,7 +151,7 @@ def get_stat_var_group(cc, data, places):
         agg_type = lib_range.get_aggregate_config(cc['aggregate'])
         place_stat_vars = defaultdict(list)
         for place in places:
-            if place not in data:
+            if place not in data or 'data' not in data[place]:
                 continue
             for sv in cc['statsVars']:
                 if sv in data[place]['data']:
@@ -376,8 +376,8 @@ def data(dcid):
     logging.info("Landing Page: cache miss for %s, fetch and process data ...",
                  dcid)
     spec_and_stat = build_spec(current_app.config['CHART_CONFIG'])
-    stat_vars = current_app.config['NEW_STAT_VARS']
-    raw_page_data = get_landing_page_data(dcid, stat_vars)
+    new_stat_vars = current_app.config['NEW_STAT_VARS']
+    raw_page_data = get_landing_page_data(dcid, new_stat_vars)
 
     if not 'statVarSeries' in raw_page_data:
         logging.info("Landing Page: No data for %s", dcid)

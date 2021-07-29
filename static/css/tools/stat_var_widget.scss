@@ -42,7 +42,6 @@ $transparent-red: rgba(240, 230, 231, 0.2);
 
 #stat-var-hierarchy-section {
   height: 100%;
-  position: relative;
   overflow-y: hidden;
 }
 
@@ -72,6 +71,7 @@ $transparent-red: rgba(240, 230, 231, 0.2);
   font-size: 1rem;
   letter-spacing: 0;
   line-height: 26px;
+  padding-bottom: 8px;
 }
 
 .statvar-hierarchy-search-section .statvar-search-input {
@@ -125,11 +125,11 @@ form.node-title {
   border: 0.5px solid #dee2e6;
   padding: 0.3rem;
   overflow-wrap: anywhere;
+  z-index: 5;
+  min-width: 12rem;
 }
 
 #tree-widget-info i {
-  position: absolute;
-  right: 0;
   padding: 0.3rem;
   color: white;
   cursor: pointer;
@@ -139,4 +139,27 @@ form.node-title {
 #tree-widget-tooltip ul {
   padding-left: 1rem;
   margin-bottom: 0;
+}
+
+.show-sv-toggle {
+  color: white;
+  font-size: 0.9rem;
+  display: flex;
+  align-items: center;
+}
+
+.toggle-on, .toggle-off {
+  cursor: pointer;
+  padding-right: 0.3rem;
+}
+
+.toggle-on {
+  color: var(--dc-blue);
+}
+
+.stat-var-hierarchy-options {
+  display: flex;
+  justify-content: space-between;
+  padding: 0 8px;
+  margin-bottom: 8px;
 }

@@ -125,38 +125,6 @@ function getStringOrNA(num: number): string {
 }
 
 /**
- * Returns the mean for x axis.
- * @param points
- */
-function getXMean(points: Array<Point>): string {
-  return getStringOrNA(d3.mean(points.map((point) => point.xVal)));
-}
-
-/**
- * Returns the mean for y axis.
- * @param points
- */
-function getYMean(points: Array<Point>): string {
-  return getStringOrNA(d3.mean(points.map((point) => point.yVal)));
-}
-
-/**
- * Returns the stdev for x axis.
- * @param points
- */
-function getXStd(points: Array<Point>): string {
-  return getStringOrNA(d3.deviation(points.map((point) => point.xVal)));
-}
-
-/**
- * Returns the stdev for y axis.
- * @param points
- */
-function getYStd(points: Array<Point>): string {
-  return getStringOrNA(d3.deviation(points.map((point) => point.yVal)));
-}
-
-/**
  * Plots a scatter plot.
  * @param svg
  * @param tooltip

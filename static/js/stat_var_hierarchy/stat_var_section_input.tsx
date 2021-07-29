@@ -44,6 +44,7 @@ const PLACE_TYPE_MAPPING = {
   EurostatNUTS2: STATE_OR_EQUIVALENT,
   State: STATE_OR_EQUIVALENT,
   AdministrativeArea1: STATE_OR_EQUIVALENT,
+  EurostatNUTS3: COUNTY_OR_EQUIVALENT,
   AdministrativeArea2: COUNTY_OR_EQUIVALENT,
   County: COUNTY_OR_EQUIVALENT,
   Town: CITY_OR_EQUIVALENT,
@@ -208,7 +209,7 @@ export class StatVarSectionInput extends React.Component<
   private getTooltipHtml(hasData: boolean): string {
     let html = hasData
       ? ""
-      : "This variable has no data for any of the chosen places.";
+      : "This statistical variable has no data for any of the chosen places.";
     if (_.isEmpty(this.props.summary)) {
       return html;
     }
@@ -216,10 +217,10 @@ export class StatVarSectionInput extends React.Component<
     if (_.isEmpty(placeTypeToPlaceNames)) {
       return hasData
         ? ""
-        : "Sorry, this variable is not supported by this tool.";
+        : "Sorry, this statistical variable is not supported by this tool.";
     } else {
       html += hasData
-        ? "This variable is available for these types of places:<ul>"
+        ? "This statistical variable is available for these types of places:<ul>"
         : "You can try these types of places instead:<ul>";
     }
     for (const placeType in placeTypeToPlaceNames) {

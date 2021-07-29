@@ -169,3 +169,13 @@ sup {
 .search-icon {
   padding: 0.5rem;
 }
+
+.mdl-chip__text:hover {
+  cursor: pointer;
+  text-decoration: underline;
+}
+
+.legend-text:hover {
+  cursor: pointer;
+  text-decoration: underline;
+}

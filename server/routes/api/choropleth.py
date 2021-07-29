@@ -300,6 +300,25 @@ def get_date_range(dates):
     return date_range
 
 
+def get_denoms_data(places, denom_stat_vars):
+    """Get denominator time series given stat vars"""
+    denoms_data_raw = dc_service.get_stat_set_series(list(places),
+                                                     list(denom_stat_vars)).get(
+                                                         'data', {})
+    denoms_data = {}
+    # Covert data to compatible format
+    for place, stat_data in denoms_data_raw.items():
+        for stat_var, info in stat_data['data'].items():
+            if 'val' in info:
+                denoms_data[stat_var] = {
+                    place: {
+                        'data': info['val'],
+                        'provenanceUrl': info['metadata']['provenanceUrl']
+                    }
+                }
+    return denoms_data
+
+
 @bp.route('/data/<path:dcid>')
 @cache.memoize(timeout=3600 * 24)  # Cache for one day.
 def choropleth_data(dcid):
@@ -334,9 +353,8 @@ def choropleth_data(dcid):
     sv_data = dc_service.get_stat_set_within_place(display_dcid, display_level,
                                                    list(stat_vars),
                                                    "").get('data', {})
-    denoms_data = {}
-    for denom in denoms:
-        denoms_data[denom] = dc_service.get_stats(geos, denom)
+    denoms_data = get_denoms_data(geos, denoms)
+
     result = {}
     # Process the data for each config
     for cc in configs:
@@ -390,7 +408,7 @@ def choropleth_data(dcid):
             'numDataPoints': len(data_dict.values()),
             # TODO (chejennifer): exploreUrl should link to choropleth tool once the tool is ready
             'exploreUrl': exploreUrl,
-            'sources': list(sources)
+            'sources': sorted(list(sources))
         }
         result[sv] = cc_result
     return Response(json.dumps(result), 200, mimetype='application/json')

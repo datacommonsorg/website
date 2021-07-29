@@ -541,7 +541,7 @@ test("all functionalities", async () => {
               .then(() => {
                 app.update();
                 expect(app.find(".modal-title").text()).toContain(
-                  "Only Two Variables Supported"
+                  "Only Two Statistical Variables Supported"
                 );
                 app.find(`input[id="y-radio-button"]`).simulate("click");
                 app.find(".modal-footer button").simulate("click");

@@ -16,27 +16,35 @@
 
 import _ from "lodash";
 import React, { Component } from "react";
-import { StatsData } from "../../shared/data_fetcher";
+import { StatData } from "../../shared/data_fetcher";
 import { StatVarInfo } from "../statvar_menu/util";
 import { saveToFile } from "../../shared/util";
 import { Chart } from "./chart";
 import { removeToken, getChartPerCapita, statVarSep } from "./util";
 
+interface ChartGroupInfo {
+  chartOrder: string[];
+  chartIdToStatVars: { [key: string]: string[] };
+}
 interface ChartRegionPropsType {
   // Map from place dcid to place name.
   placeName: Record<string, string>;
   // Map from stat var dcid to info.
   statVarInfo: { [key: string]: StatVarInfo };
+  // Order in which stat vars were selected.
+  statVarOrder: string[];
+  // Map from stat var dcid to denominator dcid.
+  denomMap: Record<string, string>;
 }
 
 class ChartRegion extends Component<ChartRegionPropsType> {
   downloadLink: HTMLAnchorElement;
   bulkDownloadLink: HTMLAnchorElement;
-  allStatsData: { [key: string]: StatsData };
+  allStatData: { [key: string]: StatData };
 
   constructor(props: ChartRegionPropsType) {
     super(props);
-    this.allStatsData = {};
+    this.allStatData = {};
     this.downloadLink = document.getElementById(
       "download-link"
     ) as HTMLAnchorElement;
@@ -67,17 +75,25 @@ class ChartRegion extends Component<ChartRegionPropsType> {
     ) {
       return <div></div>;
     }
-    const groups = this.groupStatVars(this.props.statVarInfo);
+    // Group stat vars by measured property.
+    const chartGroupInfo = this.groupStatVars(
+      this.props.statVarOrder,
+      this.props.statVarInfo
+    );
     return (
       <React.Fragment>
-        {Object.keys(groups).map((groupId) => {
+        {chartGroupInfo.chartOrder.map((mprop) => {
           return (
             <Chart
-              key={groupId}
-              groupId={groupId}
+              key={mprop}
+              mprop={mprop}
               placeName={this.props.placeName}
-              statVarInfo={_.pick(this.props.statVarInfo, groups[groupId])}
-              perCapita={getChartPerCapita(groupId)}
+              statVarInfo={_.pick(
+                this.props.statVarInfo,
+                chartGroupInfo.chartIdToStatVars[mprop]
+              )}
+              perCapita={getChartPerCapita(mprop)}
+              denomMap={this.props.denomMap}
               onDataUpdate={this.onDataUpdate.bind(this)}
               removeStatVar={(statVar) => {
                 removeToken("statsVar", statVarSep, statVar);
@@ -89,9 +105,9 @@ class ChartRegion extends Component<ChartRegionPropsType> {
     );
   }
 
-  private onDataUpdate(groupId: string, data: StatsData) {
-    this.allStatsData[groupId] = data;
-    if (this.downloadLink && Object.keys(this.allStatsData).length > 0) {
+  private onDataUpdate(groupId: string, data: StatData) {
+    this.allStatData[groupId] = data;
+    if (this.downloadLink && Object.keys(this.allStatData).length > 0) {
       this.downloadLink.style.visibility = "visible";
       this.bulkDownloadLink.style.visibility = "visible";
     } else {
@@ -102,63 +118,81 @@ class ChartRegion extends Component<ChartRegionPropsType> {
 
   /**
    * Group stats vars with same measured property together so they can be plot
-   * in the same chart.
+   * in the same chart and get the order in which the charts should be rendered.
    *
    * TODO(shifucun): extend this to accomodate other stats var properties.
    *
-   * @param statVars All the input stats vars.
+   * @param statVarOrder The input stat vars in the order they were selected.
+   * @param statVars The stat var info of the selected stat vars.
    */
-  private groupStatVars(statVars: {
-    [key: string]: StatVarInfo;
-  }): { [key: string]: string[] } {
+  private groupStatVars(
+    statVarOrder: string[],
+    statVarInfo: {
+      [key: string]: StatVarInfo;
+    }
+  ): ChartGroupInfo {
     const groups = {};
-    for (const statVarId in statVars) {
-      const mprop = statVars[statVarId].mprop;
+    const chartOrder = [];
+    for (const statVarId of statVarOrder) {
+      if (!statVarInfo[statVarId]) {
+        continue;
+      }
+      const mprop = statVarInfo[statVarId].mprop;
       if (!groups[mprop]) {
         groups[mprop] = [];
       }
       groups[mprop].push(statVarId);
+      chartOrder.push(mprop);
     }
-    return groups;
+    // we want to show the charts in reverse order of when the stat vars were
+    // picked. (ie. chart of last picked stat var should be shown first)
+    if (!_.isEmpty(chartOrder)) {
+      chartOrder.reverse();
+    }
+    const seenGroups = new Set();
+    const filteredChartOrder = chartOrder.filter((group) => {
+      const keep = !seenGroups.has(group);
+      seenGroups.add(group);
+      return keep;
+    });
+    return { chartOrder: filteredChartOrder, chartIdToStatVars: groups };
   }
 
   private createDataCsv() {
     // Get all the dates
     let allDates = new Set<string>();
-    for (const mprop in this.allStatsData) {
-      const statData = this.allStatsData[mprop];
+    for (const mprop in this.allStatData) {
+      const statData = this.allStatData[mprop];
       allDates = new Set([...Array.from(allDates), ...statData.dates]);
     }
     // Create the the header row.
     const header = ["date"];
-    for (const mprop in this.allStatsData) {
-      const statData = this.allStatsData[mprop];
+    for (const mprop in this.allStatData) {
+      const statData = this.allStatData[mprop];
       for (const place of statData.places) {
-        for (const sv of statData.statsVars) {
+        for (const sv of statData.statVars) {
           header.push(`${place} ${sv}`);
         }
       }
     }
     // Get the place name
     const placeName: { [key: string]: string } = {};
-    const sample = Object.values(this.allStatsData)[0];
-    const statVar = sample.statsVars[0];
+    const sample = Object.values(this.allStatData)[0];
     for (const place of sample.places) {
-      placeName[sample.data[statVar][place].placeDcid] =
-        sample.data[statVar][place].placeName;
+      placeName[place] = sample.data[place].name;
     }
 
     // Iterate each year, group, place, stats var to populate data
     const rows: string[][] = [];
     for (const date of Array.from(allDates)) {
       const row: string[] = [date];
-      for (const mprop in this.allStatsData) {
-        const statData = this.allStatsData[mprop];
-        for (const p of statData.places) {
-          for (const sv of statData.statsVars) {
-            const tmp = statData.data[sv][p];
-            if (tmp && tmp.data && tmp.data[date]) {
-              row.push(String(tmp.data[date]));
+      for (const mprop in this.allStatData) {
+        const statData = this.allStatData[mprop];
+        for (const place of statData.places) {
+          for (const sv of statData.statVars) {
+            const tmp = statData.data[place].data[sv];
+            if (tmp && tmp.val && tmp.val[date]) {
+              row.push(String(tmp.val[date]));
             } else {
               row.push("");
             }

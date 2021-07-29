@@ -18,6 +18,12 @@ import axios from "axios";
 export const statVarSep = "__";
 export const placeSep = ",";
 
+export interface TokenInfo {
+  name: string;
+  sep: string;
+  tokens: Set<string>;
+}
+
 export function getPlaceNames(
   dcids: string[]
 ): Promise<{ [key: string]: string }> {
@@ -42,33 +48,33 @@ export function getTokensFromUrl(name: string, sep: string): Set<string> {
   return tokens;
 }
 
-export function setTokensToUrl(
-  name: string,
-  sep: string,
-  tokens: Set<string>
-): void {
+export function setTokensToUrl(tokens: TokenInfo[]): void {
   const urlParams = new URLSearchParams(window.location.hash.split("#")[1]);
-  urlParams.set(name, Array.from(tokens).join(sep));
+  for (const token of tokens) {
+    urlParams.set(token.name, Array.from(token.tokens).join(token.sep));
+  }
   window.location.hash = urlParams.toString();
 }
 
-// add one statVar
+// Add a token to the url. A token could either be a place dcid, a stat var or
+// a [stat var,denominator] pair separated by comma.
 export function addToken(name: string, sep: string, token: string): void {
   const tokens = getTokensFromUrl(name, sep);
   if (tokens.has(token)) {
     return;
   }
   tokens.add(token);
-  setTokensToUrl(name, sep, tokens);
+  setTokensToUrl([{ name, sep, tokens }]);
 }
-// remove one statVar
+
+// Remove a token from the url.
 export function removeToken(name: string, sep: string, token: string): void {
   const tokens = getTokensFromUrl(name, sep);
   if (!tokens.has(token)) {
     return;
   }
   tokens.delete(token);
-  setTokensToUrl(name, sep, tokens);
+  setTokensToUrl([{ name, sep, tokens }]);
 }
 
 // set PerCapita for a chart
@@ -80,11 +86,18 @@ export function setChartPerCapita(mprop: string, pc: boolean): void {
   }
   chartOptions[mprop] = pc;
   urlParams.set("chart", JSON.stringify(chartOptions));
+  if (!pc) {
+    // "&pc" means per capita for all charts.
+    urlParams.delete("pc");
+  }
   window.location.hash = urlParams.toString();
 }
 
 export function getChartPerCapita(mprop: string): boolean {
   const urlParams = new URLSearchParams(window.location.hash.split("#")[1]);
+  if (urlParams.get("pc")) {
+    return true;
+  }
   const chartOptions = JSON.parse(urlParams.get("chart"));
   if (!chartOptions) {
     return false;

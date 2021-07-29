@@ -46,46 +46,38 @@ def get_stats_latest(dcid_str, stats_var):
 
 
 @cache.memoize(timeout=3600 * 24)  # Cache for one day.
-def get_stats_wrapper(dcid_str, stats_var):
-    """Wrapper function to get stats for multiple places and give statsvar.
+def get_stats_wrapper(places_str, stat_vars_str):
+    """Wrapper function to get stats for multiple places and give stat var.
 
     This wrapper takes concatenated place dcids as a string argument so the
     flask cache can work.
 
     Args:
-        dcid_str: place dcids concatenated by "^".
-        stats_var: the dcid of the statistical variable.
+        places_str: place dcids concatenated by "^".
+        stat_vars_str: stat var dcids concatenated by "^".
     Returns:
-        An serialized json str. The json is an object keyed by the place dcid
-        with value to be the observation time series.
+        An object keyed by the place dcid with values keyed by the stat var dcid
+        with value to be the time series data.
     """
-    dcids = dcid_str.split('^')
-    result = dc.get_stats(dcids, stats_var)
-    for dcid in result:
-        if not result[dcid]:
-            # Convert {} to None so client side sees null instead of {}
-            result[dcid] = None
+    places = places_str.split('^')
+    stat_vars = stat_vars_str.split('^')
+    result = dc.get_stat_set_series(places, stat_vars)['data']
     return json.dumps(result)
 
 
-@bp.route('/api/stats/<path:stats_var>', methods=['POST', 'GET'])
-def stats(stats_var):
-    """Handler to get the observation given stats var for multiple places.
+@bp.route('/api/stats', methods=['POST'])
+def stats():
+    """Handler to get the time series given stat vars for multiple places.
 
     This uses the get_stats_wrapper function so the result can be cached.
 
-    Args:
-        stats_var: the dcid of the statistical variable.
     Returns:
-        An serialized json str. The json is an object keyed by the place dcid
-        with value to be the observation time series.
+        An object keyed by the place dcid and then keyed by stat var dcid of
+        observation time series.
     """
-    place_dcids = []
-    if request.method == 'POST':
-        place_dcids = request.json.get('dcid', [])
-    if request.method == 'GET':
-        place_dcids = request.args.getlist('dcid')
-    result = get_stats_wrapper('^'.join(place_dcids), stats_var)
+    places = sorted(request.json.get('places', []))
+    stat_vars = sorted(request.json.get('statVars', []))
+    result = get_stats_wrapper('^'.join(places), '^'.join(stat_vars))
     return Response(result, 200, mimetype='application/json')
 
 
@@ -209,9 +201,9 @@ def get_stat_set_within_place():
 
 @bp.route('/api/stats/set', methods=["POST"])
 def get_stats_set():
-    dcids = request.json.get("places")
+    places = request.json.get("places")
     stat_vars = request.json.get("stat_vars")
-    return Response(json.dumps(dc.get_stats_set(dcids, stat_vars)),
+    return Response(json.dumps(dc.get_stat_set(places, stat_vars)),
                     200,
                     mimetype="application/json")
 

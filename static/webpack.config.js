@@ -16,8 +16,7 @@
 
 const path = require("path");
 const CopyPlugin = require("copy-webpack-plugin");
-const FixStyleOnlyEntriesPlugin = require("webpack-fix-style-only-entries");
-const WebpackShellPlugin = require("webpack-shell-plugin");
+const FixStyleOnlyEntriesPlugin = require("webpack-remove-empty-scripts");
 
 const config = {
   entry: {
@@ -74,7 +73,7 @@ const config = {
       },
       {
         test: /\.(ts|tsx)$/,
-        use: "ts-loader",
+        loader: "ts-loader",
         exclude: /node_modules/,
       },
       {
@@ -99,22 +98,29 @@ const config = {
     ],
   },
   plugins: [
-    new CopyPlugin([
-      { from: "css/**/*.css" },
-      { from: "images/*" },
-      { from: "fonts/*" },
-      { from: "data/**/*" },
-      { from: "sitemap/*.txt" },
-      { from: "favicon.ico" },
-      { from: "robots.txt" },
-    ]),
+    new CopyPlugin({
+      patterns: [
+        { from: "css/**/*.css" },
+        { from: "images/*" },
+        { from: "fonts/*" },
+        { from: "data/**/*" },
+        { from: "sitemap/*.txt" },
+        { from: "favicon.ico" },
+        { from: "robots.txt" },
+      ],
+    }),
     new FixStyleOnlyEntriesPlugin({
       silent: true,
     }),
-    // TODO(boxu): Add this back when re-use the Go Server
-    // new WebpackShellPlugin({
-    //   onBuildEnd: ["cp -r ../server/dist ../go/dist"],
-    // }),
   ],
 };
-module.exports = [config];
+
+module.exports = (env, argv) => {
+  // If in development, disable optimization.minimize.
+  // development and production are arguments.
+  if (argv.mode === "development") {
+    config.devtool = "eval-cheap-module-source-map";
+  }
+
+  return config;
+};

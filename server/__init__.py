@@ -98,7 +98,7 @@ def create_app():
         secret_client = secretmanager.SecretManagerServiceClient()
         secret_name = secret_client.secret_version_path(cfg.SECRET_PROJECT,
                                                         'maps-api-key', '1')
-        secret_response = secret_client.access_secret_version(secret_name)
+        secret_response = secret_client.access_secret_version(name=secret_name)
         app.config['MAPS_API_KEY'] = secret_response.payload.data.decode(
             'UTF-8')
 
@@ -112,7 +112,7 @@ def create_app():
         storage_client = storage.Client()
         bucket = storage_client.get_bucket(app.config['GCS_BUCKET'])
         blob = bucket.get_blob('placeid2dcid.json')
-        app.config['PLACEID2DCID'] = json.loads(blob.download_as_string())
+        app.config['PLACEID2DCID'] = json.loads(blob.download_as_bytes())
 
     # Initialize translations
     babel = Babel(app, default_domain='all')
