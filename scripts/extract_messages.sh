@@ -36,6 +36,7 @@ pip3 install -r server/requirements.txt -q
   --omit-header \
   --sort-output \
   --strip-comments \
+  --no-location \
   server/
 
 # All server message Id's must start with an all-caps, underscore-separated prefix e.g. CHART_TITLE-.
@@ -53,6 +54,10 @@ do
     --previous \
     --no-fuzzy-matching \
     --omit-header
+  # Strip out comments to kept by pybabel update
+  fname="server/i18n/$LOCALE/LC_MESSAGES/all.po"
+  grep -E -v "^#.*$" $fname > tmp.po
+  mv tmp.po $fname
 done
 
 echo "!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!"
@@ -61,3 +66,4 @@ echo "for translations: "
 echo "> server/i18n/en/LC_MESSAGES/all.po"
 echo "> static/js/i18n/en/*.json"
 echo "!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!"
+
