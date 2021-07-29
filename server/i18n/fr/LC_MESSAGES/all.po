@@ -16,6 +16,9 @@ msgstr "À propos"
 msgid "About Data Commons"
 msgstr "À propos de Data Commons"
 
+msgid "Attainment of Bachelor Degree or Higher across Washington Counties"
+msgstr ""
+
 msgid "Bachelor Degree Attained vs Females per capita for California Counties"
 msgstr "Diplôme de licence obtenu et Nombre de femmes par habitant pour les Comtés de Californie"
 
@@ -39,6 +42,9 @@ msgstr "Comtés des États-Unis"
 
 msgid "Countries"
 msgstr "Pays"
+
+msgid "Create Maps"
+msgstr ""
 
 msgid "Create Scatter Plots"
 msgstr "Générer des graphiques à nuage de points"
@@ -148,6 +154,12 @@ msgstr "Chargement…"
 msgid "MORE"
 msgstr "etc."
 
+msgid "Map Explorer"
+msgstr ""
+
+msgid "Median Income across US Counties"
+msgstr ""
+
 msgid "Median Income, United States"
 msgstr "Revenu moyen aux États-Unis"
 
@@ -204,6 +216,9 @@ msgstr "Tutoriels"
 
 msgid "US University Towns by Income"
 msgstr "Villes universitaires aux États-Unis par revenus"
+
+msgid "Unemployment Rate across US States"
+msgstr ""
 
 msgid "Unemployment Rate, United States"
 msgstr "Taux de chômage aux États-Unis"
@@ -573,7 +588,4 @@ msgstr "Crimes avec violence"
 
 msgid "CHART_TITLE-Violent_crime_rate"
 msgstr "Crimes violents par 100 000 habitants"
-
-msgid "CHART_TITLE-CHART_CATEGORY-Overview"
-msgstr "Aperçu"
 

@@ -16,6 +16,9 @@ msgstr "Информация"
 msgid "About Data Commons"
 msgstr "О Data Commons"
 
+msgid "Attainment of Bachelor Degree or Higher across Washington Counties"
+msgstr ""
+
 msgid "Bachelor Degree Attained vs Females per capita for California Counties"
 msgstr "Выпускницы со степенью бакалавра по округам Калифорнии"
 
@@ -39,6 +42,9 @@ msgstr "Округа в США"
 
 msgid "Countries"
 msgstr "Страны"
+
+msgid "Create Maps"
+msgstr ""
 
 msgid "Create Scatter Plots"
 msgstr "Создавайте точечные диаграммы"
@@ -148,6 +154,12 @@ msgstr "Загрузка…"
 msgid "MORE"
 msgstr "ещё…"
 
+msgid "Map Explorer"
+msgstr ""
+
+msgid "Median Income across US Counties"
+msgstr ""
+
 msgid "Median Income, United States"
 msgstr "Медианный доход в США"
 
@@ -204,6 +216,9 @@ msgstr "Руководства"
 
 msgid "US University Towns by Income"
 msgstr "студенческие города США по уровню доходов"
+
+msgid "Unemployment Rate across US States"
+msgstr ""
 
 msgid "Unemployment Rate, United States"
 msgstr "Уровень безработицы в США"
@@ -573,7 +588,4 @@ msgstr "Насильственные преступления"
 
 msgid "CHART_TITLE-Violent_crime_rate"
 msgstr "Количество насильственных преступлений на 100 000 человек"
-
-msgid "CHART_TITLE-CHART_CATEGORY-Overview"
-msgstr "Обзор"
 

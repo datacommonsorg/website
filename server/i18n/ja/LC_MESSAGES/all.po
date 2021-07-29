@@ -16,6 +16,9 @@ msgstr "基本情報"
 msgid "About Data Commons"
 msgstr "データコモンズについて"
 
+msgid "Attainment of Bachelor Degree or Higher across Washington Counties"
+msgstr ""
+
 msgid "Bachelor Degree Attained vs Females per capita for California Counties"
 msgstr "カリフォルニア州の各郡における一人当たりの学士号取得数と女性の割合"
 
@@ -39,6 +42,9 @@ msgstr "米国の郡"
 
 msgid "Countries"
 msgstr "国"
+
+msgid "Create Maps"
+msgstr ""
 
 msgid "Create Scatter Plots"
 msgstr "散布図を作成する"
@@ -148,6 +154,12 @@ msgstr "読み込んでいます…"
 msgid "MORE"
 msgstr "その他"
 
+msgid "Map Explorer"
+msgstr ""
+
+msgid "Median Income across US Counties"
+msgstr ""
+
 msgid "Median Income, United States"
 msgstr "米国の所得の中央値"
 
@@ -204,6 +216,9 @@ msgstr "チュートリアル"
 
 msgid "US University Towns by Income"
 msgstr "所得別の米国の大学都市"
+
+msgid "Unemployment Rate across US States"
+msgstr ""
 
 msgid "Unemployment Rate, United States"
 msgstr "米国の失業率"
@@ -573,7 +588,4 @@ msgstr "暴力犯罪"
 
 msgid "CHART_TITLE-Violent_crime_rate"
 msgstr "暴力犯罪件数（人口 100,000 人あたり）"
-
-msgid "CHART_TITLE-CHART_CATEGORY-Overview"
-msgstr "概要"
 
