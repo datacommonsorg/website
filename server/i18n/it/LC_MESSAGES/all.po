@@ -17,6 +17,7 @@ msgid "About Data Commons"
 msgstr "Informazioni su Data Commons"
 
 <<<<<<< HEAD
+<<<<<<< HEAD
 msgid "Attainment of Bachelor Degree or Higher across Washington Counties"
 msgstr ""
 
@@ -24,6 +25,11 @@ msgid "Bachelor Degree Attained vs Females per capita for California Counties"
 msgstr "Contee della California: lauree triennali conseguite - donne pro capite"
 
 =======
+=======
+msgid "Attainment of Bachelor Degree or Higher across Washington Counties"
+msgstr ""
+
+>>>>>>> 3ed1b4f (run extract / compile scripts)
 msgid "Bachelor Degree Attained vs Females per capita for California Counties"
 msgstr "Contee della California: lauree triennali conseguite - donne pro capite"
 
@@ -50,6 +56,9 @@ msgid "Countries"
 msgstr "Paesi"
 
 <<<<<<< HEAD
+<<<<<<< HEAD
+=======
+>>>>>>> 3ed1b4f (run extract / compile scripts)
 msgid "Create Maps"
 msgstr ""
 
@@ -167,14 +176,20 @@ msgid "MORE"
 msgstr "altro…"
 
 <<<<<<< HEAD
+<<<<<<< HEAD
+=======
+>>>>>>> 3ed1b4f (run extract / compile scripts)
 msgid "Map Explorer"
 msgstr ""
 
 msgid "Median Income across US Counties"
 msgstr ""
 
+<<<<<<< HEAD
 =======
 >>>>>>> b22e3a3 (Add latest translations)
+=======
+>>>>>>> 3ed1b4f (run extract / compile scripts)
 msgid "Median Income, United States"
 msgstr "Reddito medio, Stati Uniti"
 
@@ -233,11 +248,17 @@ msgid "US University Towns by Income"
 msgstr "Città universitarie statunitensi per reddito"
 
 <<<<<<< HEAD
+<<<<<<< HEAD
 msgid "Unemployment Rate across US States"
 msgstr ""
 
 =======
 >>>>>>> b22e3a3 (Add latest translations)
+=======
+msgid "Unemployment Rate across US States"
+msgstr ""
+
+>>>>>>> 3ed1b4f (run extract / compile scripts)
 msgid "Unemployment Rate, United States"
 msgstr "Tasso di disoccupazione, Stati Uniti"
 
@@ -608,8 +629,11 @@ msgid "CHART_TITLE-Violent_crime_rate"
 msgstr "Crimini violenti per 100.000 persone"
 
 <<<<<<< HEAD
+<<<<<<< HEAD
 =======
 msgid "CHART_TITLE-CHART_CATEGORY-Overview"
 msgstr "Panoramica"
 
 >>>>>>> b22e3a3 (Add latest translations)
+=======
+>>>>>>> 3ed1b4f (run extract / compile scripts)

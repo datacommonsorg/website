@@ -17,6 +17,7 @@ msgid "About Data Commons"
 msgstr "Informationen zu Data Commons"
 
 <<<<<<< HEAD
+<<<<<<< HEAD
 msgid "Attainment of Bachelor Degree or Higher across Washington Counties"
 msgstr ""
 
@@ -24,6 +25,11 @@ msgid "Bachelor Degree Attained vs Females per capita for California Counties"
 msgstr "Personen mit Bachelor-Abschluss im Vergleich zu Frauen pro Kopf in kalifornischen Countys"
 
 =======
+=======
+msgid "Attainment of Bachelor Degree or Higher across Washington Counties"
+msgstr ""
+
+>>>>>>> 3ed1b4f (run extract / compile scripts)
 msgid "Bachelor Degree Attained vs Females per capita for California Counties"
 msgstr "Personen mit Bachelor-Abschluss im Vergleich zu Frauen pro Kopf in kalifornischen Countys"
 
@@ -50,6 +56,9 @@ msgid "Countries"
 msgstr "Länder"
 
 <<<<<<< HEAD
+<<<<<<< HEAD
+=======
+>>>>>>> 3ed1b4f (run extract / compile scripts)
 msgid "Create Maps"
 msgstr ""
 
@@ -167,14 +176,20 @@ msgid "MORE"
 msgstr "und mehr"
 
 <<<<<<< HEAD
+<<<<<<< HEAD
+=======
+>>>>>>> 3ed1b4f (run extract / compile scripts)
 msgid "Map Explorer"
 msgstr ""
 
 msgid "Median Income across US Counties"
 msgstr ""
 
+<<<<<<< HEAD
 =======
 >>>>>>> b22e3a3 (Add latest translations)
+=======
+>>>>>>> 3ed1b4f (run extract / compile scripts)
 msgid "Median Income, United States"
 msgstr "Medianeinkommen, USA"
 
@@ -233,11 +248,17 @@ msgid "US University Towns by Income"
 msgstr "Universitätsstädte der USA nach Einkommen"
 
 <<<<<<< HEAD
+<<<<<<< HEAD
 msgid "Unemployment Rate across US States"
 msgstr ""
 
 =======
 >>>>>>> b22e3a3 (Add latest translations)
+=======
+msgid "Unemployment Rate across US States"
+msgstr ""
+
+>>>>>>> 3ed1b4f (run extract / compile scripts)
 msgid "Unemployment Rate, United States"
 msgstr "Arbeitslosenquote, USA"
 
@@ -608,8 +629,11 @@ msgid "CHART_TITLE-Violent_crime_rate"
 msgstr "Gewaltverbrechen pro 100.000 Einwohner"
 
 <<<<<<< HEAD
+<<<<<<< HEAD
 =======
 msgid "CHART_TITLE-CHART_CATEGORY-Overview"
 msgstr "Übersicht"
 
 >>>>>>> b22e3a3 (Add latest translations)
+=======
+>>>>>>> 3ed1b4f (run extract / compile scripts)

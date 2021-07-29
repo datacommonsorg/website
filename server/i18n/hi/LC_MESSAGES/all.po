@@ -17,6 +17,7 @@ msgid "About Data Commons"
 msgstr "Data Commons के बारे में जानकारी"
 
 <<<<<<< HEAD
+<<<<<<< HEAD
 msgid "Attainment of Bachelor Degree or Higher across Washington Counties"
 msgstr ""
 
@@ -24,6 +25,11 @@ msgid "Bachelor Degree Attained vs Females per capita for California Counties"
 msgstr "कैलिफ़ोर्निया काउंटी में, स्नातक डिग्री वाले लोग और प्रति व्यक्ति महिलाओं की संख्या के बीच तुलना"
 
 =======
+=======
+msgid "Attainment of Bachelor Degree or Higher across Washington Counties"
+msgstr ""
+
+>>>>>>> 3ed1b4f (run extract / compile scripts)
 msgid "Bachelor Degree Attained vs Females per capita for California Counties"
 msgstr "कैलिफ़ोर्निया काउंटी में, स्नातक डिग्री वाले लोग और प्रति व्यक्ति महिलाओं की संख्या के बीच तुलना"
 
@@ -50,6 +56,9 @@ msgid "Countries"
 msgstr "देश"
 
 <<<<<<< HEAD
+<<<<<<< HEAD
+=======
+>>>>>>> 3ed1b4f (run extract / compile scripts)
 msgid "Create Maps"
 msgstr ""
 
@@ -167,14 +176,20 @@ msgid "MORE"
 msgstr "ऐसे और भी लिंक हैं ..."
 
 <<<<<<< HEAD
+<<<<<<< HEAD
+=======
+>>>>>>> 3ed1b4f (run extract / compile scripts)
 msgid "Map Explorer"
 msgstr ""
 
 msgid "Median Income across US Counties"
 msgstr ""
 
+<<<<<<< HEAD
 =======
 >>>>>>> b22e3a3 (Add latest translations)
+=======
+>>>>>>> 3ed1b4f (run extract / compile scripts)
 msgid "Median Income, United States"
 msgstr "संयुक्त राज्य अमेरिका में औसत आय"
 
@@ -233,11 +248,17 @@ msgid "US University Towns by Income"
 msgstr "आमदनी के हिसाब से अमेरिकी यूनिवर्सिटी वाले टाउन"
 
 <<<<<<< HEAD
+<<<<<<< HEAD
 msgid "Unemployment Rate across US States"
 msgstr ""
 
 =======
 >>>>>>> b22e3a3 (Add latest translations)
+=======
+msgid "Unemployment Rate across US States"
+msgstr ""
+
+>>>>>>> 3ed1b4f (run extract / compile scripts)
 msgid "Unemployment Rate, United States"
 msgstr "संयुक्त राज्य अमेरिका में बेरोज़गारी की दर"
 
@@ -608,8 +629,11 @@ msgid "CHART_TITLE-Violent_crime_rate"
 msgstr "हर एक लाख लोगों के अनुपात में हिंसक अपराधों की संख्या"
 
 <<<<<<< HEAD
+<<<<<<< HEAD
 =======
 msgid "CHART_TITLE-CHART_CATEGORY-Overview"
 msgstr "खास जानकारी"
 
 >>>>>>> b22e3a3 (Add latest translations)
+=======
+>>>>>>> 3ed1b4f (run extract / compile scripts)
