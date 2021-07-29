@@ -16,24 +16,12 @@ msgstr "정보"
 msgid "About Data Commons"
 msgstr "Data Commons 정보"
 
-<<<<<<< HEAD
-<<<<<<< HEAD
 msgid "Attainment of Bachelor Degree or Higher across Washington Counties"
 msgstr ""
 
 msgid "Bachelor Degree Attained vs Females per capita for California Counties"
 msgstr "캘리포니아 카운티 학사 학위 취득률 및 인구당 여성 비율"
 
-=======
-=======
-msgid "Attainment of Bachelor Degree or Higher across Washington Counties"
-msgstr ""
-
->>>>>>> 3ed1b4f (run extract / compile scripts)
-msgid "Bachelor Degree Attained vs Females per capita for California Counties"
-msgstr "캘리포니아 카운티 학사 학위 취득률 및 인구당 여성 비율"
-
->>>>>>> b22e3a3 (Add latest translations)
 msgid "Blog"
 msgstr "블로그"
 
@@ -55,21 +43,12 @@ msgstr "국가, 미국"
 msgid "Countries"
 msgstr "국가"
 
-<<<<<<< HEAD
-<<<<<<< HEAD
-=======
->>>>>>> 3ed1b4f (run extract / compile scripts)
 msgid "Create Maps"
 msgstr ""
 
 msgid "Create Scatter Plots"
 msgstr "분산형 차트 만들기"
 
-=======
-msgid "Create Scatter Plots"
-msgstr "분산형 차트 만들기"
-
->>>>>>> b22e3a3 (Add latest translations)
 msgid "Create Timeline Charts"
 msgstr "타임라인 차트 만들기"
 
@@ -175,21 +154,12 @@ msgstr "로드 중..."
 msgid "MORE"
 msgstr "더보기..."
 
-<<<<<<< HEAD
-<<<<<<< HEAD
-=======
->>>>>>> 3ed1b4f (run extract / compile scripts)
 msgid "Map Explorer"
 msgstr ""
 
 msgid "Median Income across US Counties"
 msgstr ""
 
-<<<<<<< HEAD
-=======
->>>>>>> b22e3a3 (Add latest translations)
-=======
->>>>>>> 3ed1b4f (run extract / compile scripts)
 msgid "Median Income, United States"
 msgstr "중위 소득, 미국"
 
@@ -247,18 +217,9 @@ msgstr "튜토리얼"
 msgid "US University Towns by Income"
 msgstr "미국 대학도시 소득 비교"
 
-<<<<<<< HEAD
-<<<<<<< HEAD
 msgid "Unemployment Rate across US States"
 msgstr ""
 
-=======
->>>>>>> b22e3a3 (Add latest translations)
-=======
-msgid "Unemployment Rate across US States"
-msgstr ""
-
->>>>>>> 3ed1b4f (run extract / compile scripts)
 msgid "Unemployment Rate, United States"
 msgstr "실업률, 미국"
 
@@ -670,17 +631,6 @@ msgstr "폭력 범죄"
 msgid "CHART_TITLE-Violent_crime_rate"
 msgstr "10만 명당 폭력 범죄 수"
 
-<<<<<<< HEAD
-<<<<<<< HEAD
-<<<<<<< HEAD
-=======
-msgid "CHART_TITLE-CHART_CATEGORY-Overview"
-msgstr "개요"
-
->>>>>>> b22e3a3 (Add latest translations)
-=======
->>>>>>> 3ed1b4f (run extract / compile scripts)
-=======
 msgid "CHART_TITLE-Worker wages (daily)"
 msgstr "Worker wages (daily)"
 
@@ -696,4 +646,3 @@ msgstr "Worker wages (monthly): urban vs rural"
 msgid "CHART_TITLE-Worker-vs-nonworker-population"
 msgstr "Worker vs nonworker population"
 
->>>>>>> 4197bf0 (add compiled strings)

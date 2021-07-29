@@ -16,24 +16,12 @@ msgstr "Informazioni"
 msgid "About Data Commons"
 msgstr "Informazioni su Data Commons"
 
-<<<<<<< HEAD
-<<<<<<< HEAD
 msgid "Attainment of Bachelor Degree or Higher across Washington Counties"
 msgstr ""
 
 msgid "Bachelor Degree Attained vs Females per capita for California Counties"
 msgstr "Contee della California: lauree triennali conseguite - donne pro capite"
 
-=======
-=======
-msgid "Attainment of Bachelor Degree or Higher across Washington Counties"
-msgstr ""
-
->>>>>>> 3ed1b4f (run extract / compile scripts)
-msgid "Bachelor Degree Attained vs Females per capita for California Counties"
-msgstr "Contee della California: lauree triennali conseguite - donne pro capite"
-
->>>>>>> b22e3a3 (Add latest translations)
 msgid "Blog"
 msgstr "Blog"
 
@@ -55,21 +43,12 @@ msgstr "Contee, Stati Uniti"
 msgid "Countries"
 msgstr "Paesi"
 
-<<<<<<< HEAD
-<<<<<<< HEAD
-=======
->>>>>>> 3ed1b4f (run extract / compile scripts)
 msgid "Create Maps"
 msgstr ""
 
 msgid "Create Scatter Plots"
 msgstr "Crea grafici a dispersione"
 
-=======
-msgid "Create Scatter Plots"
-msgstr "Crea grafici a dispersione"
-
->>>>>>> b22e3a3 (Add latest translations)
 msgid "Create Timeline Charts"
 msgstr "Crea grafici a cronologia"
 
@@ -175,21 +154,12 @@ msgstr "Caricamento in corso…"
 msgid "MORE"
 msgstr "altro…"
 
-<<<<<<< HEAD
-<<<<<<< HEAD
-=======
->>>>>>> 3ed1b4f (run extract / compile scripts)
 msgid "Map Explorer"
 msgstr ""
 
 msgid "Median Income across US Counties"
 msgstr ""
 
-<<<<<<< HEAD
-=======
->>>>>>> b22e3a3 (Add latest translations)
-=======
->>>>>>> 3ed1b4f (run extract / compile scripts)
 msgid "Median Income, United States"
 msgstr "Reddito medio, Stati Uniti"
 
@@ -247,18 +217,9 @@ msgstr "Tutorial"
 msgid "US University Towns by Income"
 msgstr "Città universitarie statunitensi per reddito"
 
-<<<<<<< HEAD
-<<<<<<< HEAD
 msgid "Unemployment Rate across US States"
 msgstr ""
 
-=======
->>>>>>> b22e3a3 (Add latest translations)
-=======
-msgid "Unemployment Rate across US States"
-msgstr ""
-
->>>>>>> 3ed1b4f (run extract / compile scripts)
 msgid "Unemployment Rate, United States"
 msgstr "Tasso di disoccupazione, Stati Uniti"
 
@@ -670,17 +631,6 @@ msgstr "Crimini violenti"
 msgid "CHART_TITLE-Violent_crime_rate"
 msgstr "Crimini violenti per 100.000 persone"
 
-<<<<<<< HEAD
-<<<<<<< HEAD
-<<<<<<< HEAD
-=======
-msgid "CHART_TITLE-CHART_CATEGORY-Overview"
-msgstr "Panoramica"
-
->>>>>>> b22e3a3 (Add latest translations)
-=======
->>>>>>> 3ed1b4f (run extract / compile scripts)
-=======
 msgid "CHART_TITLE-Worker wages (daily)"
 msgstr "Worker wages (daily)"
 
@@ -696,4 +646,3 @@ msgstr "Worker wages (monthly): urban vs rural"
 msgid "CHART_TITLE-Worker-vs-nonworker-population"
 msgstr "Worker vs nonworker population"
 
->>>>>>> 4197bf0 (add compiled strings)

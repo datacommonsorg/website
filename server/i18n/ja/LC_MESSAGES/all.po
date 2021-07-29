@@ -16,24 +16,12 @@ msgstr "基本情報"
 msgid "About Data Commons"
 msgstr "データコモンズについて"
 
-<<<<<<< HEAD
-<<<<<<< HEAD
 msgid "Attainment of Bachelor Degree or Higher across Washington Counties"
 msgstr ""
 
 msgid "Bachelor Degree Attained vs Females per capita for California Counties"
 msgstr "カリフォルニア州の各郡における一人当たりの学士号取得数と女性の割合"
 
-=======
-=======
-msgid "Attainment of Bachelor Degree or Higher across Washington Counties"
-msgstr ""
-
->>>>>>> 3ed1b4f (run extract / compile scripts)
-msgid "Bachelor Degree Attained vs Females per capita for California Counties"
-msgstr "カリフォルニア州の各郡における一人当たりの学士号取得数と女性の割合"
-
->>>>>>> b22e3a3 (Add latest translations)
 msgid "Blog"
 msgstr "ブログ"
 
@@ -55,21 +43,12 @@ msgstr "米国の郡"
 msgid "Countries"
 msgstr "国"
 
-<<<<<<< HEAD
-<<<<<<< HEAD
-=======
->>>>>>> 3ed1b4f (run extract / compile scripts)
 msgid "Create Maps"
 msgstr ""
 
 msgid "Create Scatter Plots"
 msgstr "散布図を作成する"
 
-=======
-msgid "Create Scatter Plots"
-msgstr "散布図を作成する"
-
->>>>>>> b22e3a3 (Add latest translations)
 msgid "Create Timeline Charts"
 msgstr "タイムライン グラフを作成"
 
@@ -175,21 +154,12 @@ msgstr "読み込んでいます…"
 msgid "MORE"
 msgstr "その他"
 
-<<<<<<< HEAD
-<<<<<<< HEAD
-=======
->>>>>>> 3ed1b4f (run extract / compile scripts)
 msgid "Map Explorer"
 msgstr ""
 
 msgid "Median Income across US Counties"
 msgstr ""
 
-<<<<<<< HEAD
-=======
->>>>>>> b22e3a3 (Add latest translations)
-=======
->>>>>>> 3ed1b4f (run extract / compile scripts)
 msgid "Median Income, United States"
 msgstr "米国の所得の中央値"
 
@@ -247,18 +217,9 @@ msgstr "チュートリアル"
 msgid "US University Towns by Income"
 msgstr "所得別の米国の大学都市"
 
-<<<<<<< HEAD
-<<<<<<< HEAD
 msgid "Unemployment Rate across US States"
 msgstr ""
 
-=======
->>>>>>> b22e3a3 (Add latest translations)
-=======
-msgid "Unemployment Rate across US States"
-msgstr ""
-
->>>>>>> 3ed1b4f (run extract / compile scripts)
 msgid "Unemployment Rate, United States"
 msgstr "米国の失業率"
 
@@ -670,17 +631,6 @@ msgstr "暴力犯罪"
 msgid "CHART_TITLE-Violent_crime_rate"
 msgstr "暴力犯罪件数（人口 100,000 人あたり）"
 
-<<<<<<< HEAD
-<<<<<<< HEAD
-<<<<<<< HEAD
-=======
-msgid "CHART_TITLE-CHART_CATEGORY-Overview"
-msgstr "概要"
-
->>>>>>> b22e3a3 (Add latest translations)
-=======
->>>>>>> 3ed1b4f (run extract / compile scripts)
-=======
 msgid "CHART_TITLE-Worker wages (daily)"
 msgstr "Worker wages (daily)"
 
@@ -696,4 +646,3 @@ msgstr "Worker wages (monthly): urban vs rural"
 msgid "CHART_TITLE-Worker-vs-nonworker-population"
 msgstr "Worker vs nonworker population"
 
->>>>>>> 4197bf0 (add compiled strings)
