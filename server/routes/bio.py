@@ -14,6 +14,9 @@
 """Data Commons Biology Explorer routes
 """
 
+import os
+
+import flask
 from flask import Blueprint, render_template
 import routes.api.shared as shared_api
 
@@ -22,12 +25,15 @@ bp = Blueprint('bio', __name__, url_prefix='/bio')
 
 @bp.route('/')
 def main():
+    if os.environ.get('FLASK_ENV') == 'production':
+        flask.abort(404)
     return render_template('/bio/landing.html')
 
 
 @bp.route('/<path:dcid>')
 def node(dcid):
-    print(dcid)
+    if os.environ.get('FLASK_ENV') == 'production':
+        flask.abort(404)
     node_name = shared_api.cached_name(dcid).get(dcid)
     if not node_name:
         node_name = dcid
