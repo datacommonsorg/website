@@ -15,7 +15,7 @@
  */
 
 import React, { Component } from "react";
-import { StatVarInfo } from "../statvar_menu/util";
+import { StatVarInfo } from "../../shared/stat_var";
 import { fetchStatData, StatData } from "../../shared/data_fetcher";
 import { drawGroupLineChart } from "../../chart/draw";
 import { PlotParams, computePlotParams } from "../../chart/base";

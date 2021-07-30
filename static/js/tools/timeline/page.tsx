@@ -26,7 +26,7 @@ import {
   placeSep,
   setTokensToUrl,
 } from "./util";
-import { getStatVarInfo, StatVarInfo } from "../statvar_menu/util";
+import { getStatVarInfo, StatVarInfo } from "../../shared/stat_var";
 import { SearchBar } from "./search";
 import { Info } from "./info";
 import { ChartRegion } from "./chart_region";

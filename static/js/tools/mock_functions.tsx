@@ -18,8 +18,6 @@ jest.mock("axios");
 import { when } from "jest-when";
 import axios from "axios";
 
-import hierarchy from "../../data/hierarchy_top.json";
-import hierarchy_complete from "../../data/hierarchy_statsvar.json";
 import { drawGroupLineChart } from "../chart/draw";
 import * as d3 from "d3";
 
@@ -27,11 +25,6 @@ export function axios_mock(): void {
   // Mock all the async axios call.
   axios.get = jest.fn();
   axios.post = jest.fn();
-
-  // get hierachy.json
-  when(axios.get)
-    .calledWith("../../data/hierarchy_statsvar.json")
-    .mockResolvedValue({ data: hierarchy });
 
   // get statsvar properties Median_Age_Person
   when(axios.get)
@@ -328,13 +321,6 @@ export function axios_mock(): void {
         },
       },
     });
-}
-
-export function mock_hierarchy_complete(): void {
-  axios.get = jest.fn();
-  when(axios.get)
-    .calledWith("../../data/hierarchy_statsvar.json")
-    .mockResolvedValue({ data: hierarchy_complete });
 }
 
 // Mock drawGroupLineChart() as getComputedTextLength can has issue with jest
