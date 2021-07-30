@@ -67,8 +67,9 @@ def create_app():
     cache.init_app(app)
 
     # apply the blueprints to the app
-    from routes import (browser, dev, factcheck, place, placelist, ranking,
+    from routes import (bio, browser, dev, factcheck, place, placelist, ranking,
                         redirects, static, tools)
+    app.register_blueprint(bio.bp)
     app.register_blueprint(browser.bp)
     app.register_blueprint(dev.bp)
     app.register_blueprint(place.bp)
@@ -76,9 +77,10 @@ def create_app():
     app.register_blueprint(ranking.bp)
     app.register_blueprint(redirects.bp)
     app.register_blueprint(tools.bp)
-    from routes.api import (browser as browser_api, choropleth, place as
-                            place_api, landing_page, ranking as ranking_api,
-                            stats, translator)
+    from routes.api import (bio as bio_api, browser as browser_api, choropleth,
+                            place as place_api, landing_page, ranking as
+                            ranking_api, stats, translator)
+    app.register_blueprint(bio_api.bp)
     app.register_blueprint(browser_api.bp)
     app.register_blueprint(choropleth.bp)
     app.register_blueprint(factcheck.bp)
