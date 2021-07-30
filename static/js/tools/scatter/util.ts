@@ -20,7 +20,7 @@
 
 import axios from "axios";
 import _ from "lodash";
-import { StatVarNode } from "../statvar_menu/util";
+import { StatVarNode } from "../../shared/stat_var";
 import {
   ContextType,
   Axis,

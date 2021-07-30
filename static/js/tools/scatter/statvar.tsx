@@ -34,7 +34,7 @@ import {
   Label,
   Input,
 } from "reactstrap";
-import { StatVarInfo, getStatVarInfo } from "../statvar_menu/util";
+import { StatVarInfo, getStatVarInfo } from "../../shared/stat_var";
 import { Context, EmptyAxis, Axis, AxisWrapper } from "./context";
 import { StatVarHierarchyType } from "../../shared/types";
 import { StatVarHierarchy } from "../../stat_var_hierarchy/stat_var_hierarchy";

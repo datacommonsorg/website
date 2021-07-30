@@ -16,7 +16,7 @@
 
 import * as d3 from "d3";
 import { translateVariableString } from "../i18n/i18n";
-import { StatVarInfo } from "../tools/statvar_menu/util";
+import { StatVarInfo } from "../shared/stat_var";
 
 const DEFAULT_COLOR = "#000";
 
