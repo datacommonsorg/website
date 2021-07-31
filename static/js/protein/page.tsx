@@ -35,6 +35,6 @@ export class Page extends React.Component<PagePropType> {
   }
 
   render(): JSX.Element {
-    return <div> Bio Data Commons Data</div>;
+    return <div> Protein Data</div>;
   }
 }

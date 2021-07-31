@@ -16,29 +16,25 @@
 
 {% extends 'base.html' %}
 
-{% set main_id = 'bio_landing' %}
-{% set title = 'Bio Explorer' %}
-{% set subpage_title = 'Bio Explorer' %}
-{% set subpage_url = url_for('bio.main') %}
+{% set main_id = 'bio_protein_landing' %}
+{% set title = 'Protein Explorer' %}
+{% set subpage_title = 'Protein Explorer' %}
+{% set subpage_url = url_for('protein.main') %}
 
 {% block head %}
-  <link rel="stylesheet" href={{url_for('static', filename='css/bio.min.css', t=config['VERSION'])}} >
+  <link rel="stylesheet" href={{url_for('static', filename='css/protein.min.css', t=config['VERSION'])}} >
 {% endblock %}
 
 {% block content %}
   <div class="container">
     <h1 class="mb-4">Bio Data Commons</h1>
     <p>
-      Explore entities in Bio Data Commons.
+      Explore Proteins in Bio Data Commons.
     </p>
     <ul>
       <li class="type-list">
         <strong>Protein</strong>:
-        <a href="/bio/bio/P53_HUMAN">Cellular tumor antigen p53</a>,
-      </li>
-      <li class="type-list">
-        <strong>Gene</strong>:
-        <a href="/bio/bio/hg38_TP53">tumor protein p53</a>,
+        <a href="/bio/protein/bio/P53_HUMAN">Cellular tumor antigen p53</a>
       </li>
     </ul>
   </div>

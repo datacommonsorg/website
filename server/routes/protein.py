@@ -20,14 +20,14 @@ import flask
 from flask import Blueprint, render_template
 import routes.api.shared as shared_api
 
-bp = Blueprint('bio', __name__, url_prefix='/bio')
+bp = Blueprint('protein', __name__, url_prefix='/bio/protein')
 
 
 @bp.route('/')
 def main():
     if os.environ.get('FLASK_ENV') == 'production':
         flask.abort(404)
-    return render_template('/bio/landing.html')
+    return render_template('/protein/landing.html')
 
 
 @bp.route('/<path:dcid>')
@@ -37,4 +37,4 @@ def node(dcid):
     node_name = shared_api.cached_name(dcid).get(dcid)
     if not node_name:
         node_name = dcid
-    return render_template('/bio/node.html', dcid=dcid, node_name=node_name)
+    return render_template('/protein/node.html', dcid=dcid, node_name=node_name)
