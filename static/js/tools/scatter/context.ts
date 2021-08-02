@@ -19,7 +19,7 @@
  */
 
 import { createContext, useState } from "react";
-import { StatVarInfo, StatVarNode } from "../statvar_menu/util";
+import { StatVarInfo, StatVarNode } from "../../shared/stat_var";
 import { NamedPlace } from "../../shared/types";
 
 interface Axis {

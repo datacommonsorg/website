@@ -223,8 +223,8 @@ msgstr ""
 msgid "Unemployment Rate, United States"
 msgstr "Arbeitslosenquote, USA"
 
-msgid "We have launched exciting new features, including internationalization support, a new graph browser and scatter plot explorer, new Stats API, updated documentation, and new data. <a href=%(blog_url)s>Read our blog post for more details</a>."
-msgstr "Wir haben neue Funktionen eingeführt, z. B. Internationalisierungssupport, einen neuen Grafikbrowser und Streudiagramm-Explorer, eine neue Stats API, eine aktualisierte Dokumentation und neue Daten. <a href=%(blog_url)s>Weitere Informationen finden Sie in unserem Blogpost.</a>"
+msgid "We have launched exciting new features, including a new map explorer, a new statistical variable menu that is used in all of our visualization tools (timeline explorer, scatter plot explorer, and map explorer), and new data. <a href=%(blog_url)s>Read our blog post for more details</a>."
+msgstr ""
 
 msgid "What's new"
 msgstr "Neu"
@@ -645,4 +645,23 @@ msgstr "Worker wages (monthly): urban vs rural"
 
 msgid "CHART_TITLE-Worker-vs-nonworker-population"
 msgstr "Worker vs nonworker population"
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 

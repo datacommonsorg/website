@@ -16,7 +16,7 @@
 
 import { createContext, useState } from "react";
 import { NamedPlace } from "../../shared/types";
-import { StatVarInfo } from "../statvar_menu/util";
+import { StatVarInfo } from "../../shared/stat_var";
 import { applyHashStatVar, applyHashPlaceInfo } from "./util";
 
 /**

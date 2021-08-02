@@ -22,7 +22,7 @@ import React, { useContext, useEffect, useState } from "react";
 import _ from "lodash";
 import { StatVarHierarchyType } from "../../shared/types";
 import { Context, StatVarWrapper } from "./context";
-import { getStatVarInfo } from "../statvar_menu/util";
+import { getStatVarInfo } from "../../shared/stat_var";
 import { StatVarHierarchy } from "../../stat_var_hierarchy/stat_var_hierarchy";
 import axios from "axios";
 import {

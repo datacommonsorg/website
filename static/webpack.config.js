@@ -48,6 +48,10 @@ const config = {
       __dirname + "/js/browser/browser.ts",
       __dirname + "/css/browser.scss",
     ],
+    protein: [
+      __dirname + "/js/protein/protein.ts",
+      __dirname + "/css/protein.scss",
+    ],
     search: __dirname + "/css/search.scss",
     static: __dirname + "/css/static.scss",
     translator: [

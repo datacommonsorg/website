@@ -27,7 +27,7 @@ import {
   shouldFillInValues,
   wrap,
 } from "./base";
-import { StatVarInfo } from "../tools/statvar_menu/util";
+import { StatVarInfo } from "../shared/stat_var";
 import { formatNumber } from "../i18n/i18n";
 import { DotDataPoint } from "./types";
 import { Boundary } from "../shared/types";
