@@ -183,6 +183,14 @@
     "defaultMessage": "Under $10K",
     "description": "Label used to describe statistical variables in chart legends, string should be short. Used to describe a range of household income in US Dollars."
   },
+  "Count_Household_Rural": {
+    "defaultMessage": "Rural",
+    "description": "Label used to describe statistical variables in chart legends, string should be short. Describes a population living in rural areas (usually in comparison with urban populations)."
+  },
+  "Count_Household_Urban": {
+    "defaultMessage": "Urban",
+    "description": "Label used to describe statistical variables in chart legends, string should be short. Describes a population living in urban areas (usually in comparison with rural populations)."
+  },
   "Count_HousingUnit": {
     "defaultMessage": "Housing Units",
     "description": "Label used to describe statistical variables in chart legends, string should be short. Used to describe the number of housing units available."
@@ -575,6 +583,18 @@
     "defaultMessage": "Hispanic or Latino",
     "description": "Label used to describe statistical variables in chart legends, string should be short. Used to describe the race of a population."
   },
+  "Count_Person_Houseless_Rural": {
+    "defaultMessage": "Rural",
+    "description": "Label used to describe statistical variables in chart legends, string should be short. Describes a population living in rural areas (usually in comparison with urban populations)."
+  },
+  "Count_Person_Houseless_Urban": {
+    "defaultMessage": "Urban",
+    "description": "Label used to describe statistical variables in chart legends, string should be short. Describes a population living in urban areas (usually in comparison with rural populations)."
+  },
+  "Count_Person_Illiterate": {
+    "defaultMessage": "Illiterate",
+    "description": "Label used to describe statistical variables in chart legends, string should be short."
+  },
   "Count_Person_InLaborForce": {
     "defaultMessage": "People in Labor Force",
     "description": "Label used to describe statistical variables in chart legends, string should be short. Used to describe the number of people in the labor force."
@@ -611,6 +631,10 @@
     "defaultMessage": "Under $10K",
     "description": "Label used to describe statistical variables in chart legends, string should be short. Used to describe a range of indvidiual income, in US Dollars."
   },
+  "Count_Person_Literate": {
+    "defaultMessage": "Literate",
+    "description": "Label used to describe statistical variables in chart legends, string should be short."
+  },
   "Count_Person_Male": {
     "defaultMessage": "Male",
     "description": "Label used to describe statistical variables in chart legends, string should be short. Used to describe a gender of the population."
@@ -631,6 +655,10 @@
     "defaultMessage": "Never Married",
     "description": "Label used to describe statistical variables in chart legends, string should be short. Used to describe the marital status of a population."
   },
+  "Count_Person_NonWorker": {
+    "defaultMessage": "Non-Workers",
+    "description": "Label used to describe statistical variables in chart legends, string should be short. Describes a population who did not work at all (or were not economically productive) in a period of time."
+  },
   "Count_Person_NotAUSCitizen": {
     "defaultMessage": "Not a Citizen",
     "description": "Label used to describe statistical variables in chart legends, string should be short. Used to describe the citizenship of a population."
@@ -646,6 +674,18 @@
   "Count_Person_Rural": {
     "defaultMessage": "Rural Population",
     "description": "Label used to describe statistical variables in chart legends, string should be short. Used to describe the size of the population living in rural areas."
+  },
+  "Count_Person_Rural_BelowPovertyLevelInThePast12Months": {
+    "defaultMessage": "Rural",
+    "description": "Label used to describe statistical variables in chart legends, string should be short. Describes a population living in rural areas (usually in comparison with urban populations)."
+  },
+  "Count_Person_ScheduledCaste": {
+    "defaultMessage": "Scheduled Caste",
+    "description": "Label used to describe statistical variables in chart legends, string should be short. Term comes from the Indian Census. See https://en.wikipedia.org/wiki/Scheduled_Castes_and_Scheduled_Tribes"
+  },
+  "Count_Person_ScheduledTribe": {
+    "defaultMessage": "Scheduled Tribe",
+    "description": "Label used to describe statistical variables in chart legends, string should be short. Term comes from the Indian Census. See https://en.wikipedia.org/wiki/Scheduled_Castes_and_Scheduled_Tribes"
   },
   "Count_Person_Separated": {
     "defaultMessage": "Separated",
@@ -707,6 +747,10 @@
     "defaultMessage": "Urban Population",
     "description": "Label used to describe statistical variables in chart legends, string should be short. Used to describe the size of the population living in urban areas."
   },
+  "Count_Person_Urban_BelowPovertyLevelInThePast12Months": {
+    "defaultMessage": "Urban",
+    "description": "Label used to describe statistical variables in chart legends, string should be short. Describes a population living in urban areas (usually in comparison with rural populations)."
+  },
   "Count_Person_WhiteAlone": {
     "defaultMessage": "White Alone",
     "description": "Label used to describe statistical variables in chart legends, string should be short. Used to describe the race of a population."
@@ -714,6 +758,10 @@
   "Count_Person_Widowed": {
     "defaultMessage": "Widowed",
     "description": "Label used to describe statistical variables in chart legends, string should be short. Used to describe the marital status of a population."
+  },
+  "Count_Person_Workers": {
+    "defaultMessage": "Workers",
+    "description": "Label used to describe statistical variables in chart legends, string should be short. Describes a population who worked (or were economically productive) for a period of time."
   },
   "Count_StormSurgeTideEvent": {
     "defaultMessage": "Storm Surge Tide",
@@ -762,6 +810,38 @@
   "LifeExpectancy_Person": {
     "defaultMessage": "Life Expectancy",
     "description": "Label used to describe statistical variables in chart legends, string should be short."
+  },
+  "Mean_WagesDaily_Worker": {
+    "defaultMessage": "Worker Daily Wage",
+    "description": "Label used to describe statistical variables in chart legends, string should be short. Describes the daily wage of a worker."
+  },
+  "Mean_WagesDaily_Worker_Female": {
+    "defaultMessage": "Female",
+    "description": "Label used to describe statistical variables in chart legends, string should be short."
+  },
+  "Mean_WagesDaily_Worker_Male": {
+    "defaultMessage": "Male",
+    "description": "Label used to describe statistical variables in chart legends, string should be short."
+  },
+  "Mean_WagesMonthly_Worker": {
+    "defaultMessage": "Worker Monthly Wage",
+    "description": "Label used to describe statistical variables in chart legends, string should be short. Describes the monthly wage of a worker."
+  },
+  "Mean_WagesMonthly_Worker_Female": {
+    "defaultMessage": "Female",
+    "description": "Label used to describe statistical variables in chart legends, string should be short."
+  },
+  "Mean_WagesMonthly_Worker_Male": {
+    "defaultMessage": "Male",
+    "description": "Label used to describe statistical variables in chart legends, string should be short."
+  },
+  "Mean_WagesMonthly_Worker_Rural": {
+    "defaultMessage": "Rural",
+    "description": "Label used to describe statistical variables in chart legends, string should be short. Describes a population living in rural areas (usually in comparison with urban populations)."
+  },
+  "Mean_WagesMonthly_Worker_Urban": {
+    "defaultMessage": "Urban",
+    "description": "Label used to describe statistical variables in chart legends, string should be short. Describes a population living in urban areas (usually in comparison with rural populations)."
   },
   "Median_Age_Person": {
     "defaultMessage": "Median Age",
@@ -938,86 +1018,6 @@
   "UnemploymentRate_Person_Male": {
     "defaultMessage": "Male",
     "description": "Label used to describe statistical variables in chart legends, string should be short. Describes the gender of a population who are unemployed."
-  },
-  "Count_Household_Rural": {
-    "defaultMessage": "Rural",
-    "description": "Label used to describe statistical variables in chart legends, string should be short. Describes a population living in rural areas (usually in comparison with urban populations)."
-  },
-  "Count_Household_Urban": {
-    "defaultMessage": "Urban",
-    "description": "Label used to describe statistical variables in chart legends, string should be short. Describes a population living in urban areas (usually in comparison with rural populations)."
-  },
-  "Count_Person_Houseless_Rural": {
-    "defaultMessage": "Rural",
-    "description": "Label used to describe statistical variables in chart legends, string should be short. Describes a population living in rural areas (usually in comparison with urban populations)."
-  },
-  "Count_Person_Houseless_Urban": {
-    "defaultMessage": "Urban",
-    "description": "Label used to describe statistical variables in chart legends, string should be short. Describes a population living in urban areas (usually in comparison with rural populations)."
-  },
-  "Count_Person_Illiterate": {
-    "defaultMessage": "Illiterate",
-    "description": "Label used to describe statistical variables in chart legends, string should be short."
-  },
-  "Count_Person_Literate": {
-    "defaultMessage": "Literate",
-    "description": "Label used to describe statistical variables in chart legends, string should be short."
-  },
-  "Count_Person_NonWorker": {
-    "defaultMessage": "Non-Workers",
-    "description": "Label used to describe statistical variables in chart legends, string should be short. Describes a population who did not work at all (or were not economically productive) in a period of time."
-  },
-  "Count_Person_Rural_BelowPovertyLevelInThePast12Months": {
-    "defaultMessage": "Rural",
-    "description": "Label used to describe statistical variables in chart legends, string should be short. Describes a population living in rural areas (usually in comparison with urban populations)."
-  },
-  "Count_Person_ScheduledCaste": {
-    "defaultMessage": "Scheduled Caste",
-    "description": "Label used to describe statistical variables in chart legends, string should be short. Term comes from the Indian Census. See https://en.wikipedia.org/wiki/Scheduled_Castes_and_Scheduled_Tribes"
-  },
-  "Count_Person_ScheduledTribe": {
-    "defaultMessage": "Scheduled Tribe",
-    "description": "Label used to describe statistical variables in chart legends, string should be short. Term comes from the Indian Census. See https://en.wikipedia.org/wiki/Scheduled_Castes_and_Scheduled_Tribes"
-  },
-  "Count_Person_Urban_BelowPovertyLevelInThePast12Months": {
-    "defaultMessage": "Urban",
-    "description": "Label used to describe statistical variables in chart legends, string should be short. Describes a population living in urban areas (usually in comparison with rural populations)."
-  },
-  "Count_Person_Workers": {
-    "defaultMessage": "Workers",
-    "description": "Label used to describe statistical variables in chart legends, string should be short. Describes a population who worked (or were economically productive) for a period of time."
-  },
-  "Mean_WagesDaily_Worker": {
-    "defaultMessage": "Worker Daily Wage",
-    "description": "Label used to describe statistical variables in chart legends, string should be short. Describes the daily wage of a worker."
-  },
-  "Mean_WagesDaily_Worker_Female": {
-    "defaultMessage": "Female",
-    "description": "Label used to describe statistical variables in chart legends, string should be short."
-  },
-  "Mean_WagesDaily_Worker_Male": {
-    "defaultMessage": "Male",
-    "description": "Label used to describe statistical variables in chart legends, string should be short."
-  },
-  "Mean_WagesMonthly_Worker": {
-    "defaultMessage": "Worker Monthly Wage",
-    "description": "Label used to describe statistical variables in chart legends, string should be short. Describes the monthly wage of a worker."
-  },
-  "Mean_WagesMonthly_Worker_Female": {
-    "defaultMessage": "Female",
-    "description": "Label used to describe statistical variables in chart legends, string should be short."
-  },
-  "Mean_WagesMonthly_Worker_Male": {
-    "defaultMessage": "Male",
-    "description": "Label used to describe statistical variables in chart legends, string should be short."
-  },
-  "Mean_WagesMonthly_Worker_Rural": {
-    "defaultMessage": "Rural",
-    "description": "Label used to describe statistical variables in chart legends, string should be short. Describes a population living in rural areas (usually in comparison with urban populations)."
-  },
-  "Mean_WagesMonthly_Worker_Urban": {
-    "defaultMessage": "Urban",
-    "description": "Label used to describe statistical variables in chart legends, string should be short. Describes a population living in urban areas (usually in comparison with rural populations)."
   },
   "UnemploymentRate_Person_Rural": {
     "defaultMessage": "Rural",

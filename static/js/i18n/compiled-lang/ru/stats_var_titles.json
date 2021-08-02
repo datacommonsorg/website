@@ -275,6 +275,18 @@
       "value": "Количество семей (доход менее 10 тыс. долларов США)"
     }
   ],
+  "Count_Household_Rural": [
+    {
+      "type": 0,
+      "value": "Number of Rural Households"
+    }
+  ],
+  "Count_Household_Urban": [
+    {
+      "type": 0,
+      "value": "Number of Urban Households"
+    }
+  ],
   "Count_HousingUnit": [
     {
       "type": 0,
@@ -863,6 +875,24 @@
       "value": "Количество человек (испаноговорящие и латиноамериканцы)"
     }
   ],
+  "Count_Person_Houseless_Rural": [
+    {
+      "type": 0,
+      "value": "Population (Houseless, Rural)"
+    }
+  ],
+  "Count_Person_Houseless_Urban": [
+    {
+      "type": 0,
+      "value": "Population (Houseless, Urban)"
+    }
+  ],
+  "Count_Person_Illiterate": [
+    {
+      "type": 0,
+      "value": "Population (Illiterate)"
+    }
+  ],
   "Count_Person_InLaborForce": [
     {
       "type": 0,
@@ -917,6 +947,12 @@
       "value": "Население (личный доход менее 10 тыс. долларов США)"
     }
   ],
+  "Count_Person_Literate": [
+    {
+      "type": 0,
+      "value": "Population (Literate)"
+    }
+  ],
   "Count_Person_Male": [
     {
       "type": 0,
@@ -947,6 +983,12 @@
       "value": "Население (никогда не состоявшие в браке)"
     }
   ],
+  "Count_Person_NonWorker": [
+    {
+      "type": 0,
+      "value": "Population (Non-Workers)"
+    }
+  ],
   "Count_Person_NotAUSCitizen": [
     {
       "type": 0,
@@ -969,6 +1011,24 @@
     {
       "type": 0,
       "value": "Население (сельское)"
+    }
+  ],
+  "Count_Person_Rural_BelowPovertyLevelInThePast12Months": [
+    {
+      "type": 0,
+      "value": "Population (Rural, in Poverty)"
+    }
+  ],
+  "Count_Person_ScheduledCaste": [
+    {
+      "type": 0,
+      "value": "Population (Scheduled Caste)"
+    }
+  ],
+  "Count_Person_ScheduledTribe": [
+    {
+      "type": 0,
+      "value": "Population (Scheduled Tribe)"
     }
   ],
   "Count_Person_Separated": [
@@ -1061,6 +1121,12 @@
       "value": "Население (городское)"
     }
   ],
+  "Count_Person_Urban_BelowPovertyLevelInThePast12Months": [
+    {
+      "type": 0,
+      "value": "Population (Urban, in Poverty)"
+    }
+  ],
   "Count_Person_WhiteAlone": [
     {
       "type": 0,
@@ -1071,6 +1137,12 @@
     {
       "type": 0,
       "value": "Население (вдовствующие)"
+    }
+  ],
+  "Count_Person_Workers": [
+    {
+      "type": 0,
+      "value": "Population (Workers)"
     }
   ],
   "Count_StormSurgeTideEvent": [
@@ -1143,6 +1215,54 @@
     {
       "type": 0,
       "value": "Средняя продолжительность жизни"
+    }
+  ],
+  "Mean_WagesDaily_Worker": [
+    {
+      "type": 0,
+      "value": "Worker Daily Wage"
+    }
+  ],
+  "Mean_WagesDaily_Worker_Female": [
+    {
+      "type": 0,
+      "value": "Worker Monthly Wage"
+    }
+  ],
+  "Mean_WagesDaily_Worker_Male": [
+    {
+      "type": 0,
+      "value": "Worker Monthly Wage"
+    }
+  ],
+  "Mean_WagesMonthly_Worker": [
+    {
+      "type": 0,
+      "value": "Worker Monthly Wage"
+    }
+  ],
+  "Mean_WagesMonthly_Worker_Female": [
+    {
+      "type": 0,
+      "value": "Worker Monthly Wage"
+    }
+  ],
+  "Mean_WagesMonthly_Worker_Male": [
+    {
+      "type": 0,
+      "value": "Worker Monthly Wage"
+    }
+  ],
+  "Mean_WagesMonthly_Worker_Rural": [
+    {
+      "type": 0,
+      "value": "Mean Worker Monthly Wage (Rural)"
+    }
+  ],
+  "Mean_WagesMonthly_Worker_Urban": [
+    {
+      "type": 0,
+      "value": "Mean Worker Monthly Wage (Urban)"
     }
   ],
   "Median_Age_Person": [
@@ -1407,6 +1527,66 @@
     {
       "type": 0,
       "value": "Уровень безработицы (мужчины)"
+    }
+  ],
+  "UnemploymentRate_Person_Rural": [
+    {
+      "type": 0,
+      "value": "Unemployment Rate (Rural)"
+    }
+  ],
+  "UnemploymentRate_Person_Urban": [
+    {
+      "type": 0,
+      "value": "Unemployment Rate (Urban)"
+    }
+  ],
+  "indianCensus/Count_Person_Religion_Buddhist": [
+    {
+      "type": 0,
+      "value": "Population (Buddhist)"
+    }
+  ],
+  "indianCensus/Count_Person_Religion_Christian": [
+    {
+      "type": 0,
+      "value": "Population (Christian)"
+    }
+  ],
+  "indianCensus/Count_Person_Religion_Hindu": [
+    {
+      "type": 0,
+      "value": "Population (Hindu)"
+    }
+  ],
+  "indianCensus/Count_Person_Religion_Jain": [
+    {
+      "type": 0,
+      "value": "Population (Jain)"
+    }
+  ],
+  "indianCensus/Count_Person_Religion_Muslim": [
+    {
+      "type": 0,
+      "value": "Population (Muslim)"
+    }
+  ],
+  "indianCensus/Count_Person_Religion_OtherReligionsAndPersuasions": [
+    {
+      "type": 0,
+      "value": "Population (Other Religions and Persuasions)"
+    }
+  ],
+  "indianCensus/Count_Person_Religion_ReligionNotStated": [
+    {
+      "type": 0,
+      "value": "Population (Religion Not Stated)"
+    }
+  ],
+  "indianCensus/Count_Person_Religion_Sikh": [
+    {
+      "type": 0,
+      "value": "Population (Sikh)"
     }
   ]
 }
