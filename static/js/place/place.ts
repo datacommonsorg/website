@@ -177,10 +177,6 @@ function renderPage(): void {
       // TODO(beets): Figure out how to place this where it's used so dependencies can be automatically resolved.
       import(`../i18n/compiled-lang/${locale}/stats_var_labels.json`),
       import(`../i18n/compiled-lang/${locale}/units.json`),
-      // Load EN fallback
-      import(`../i18n/compiled-lang/en/place.json`),
-      import(`../i18n/compiled-lang/en/stats_var_labels.json`),
-      import(`../i18n/compiled-lang/en/units.json`),
     ]),
   ])
     .then(([landingPageData]) => {
