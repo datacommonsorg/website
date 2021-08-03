@@ -17,9 +17,39 @@
 import { getStatsVarTitle } from "./stats_var_titles";
 import chartConfig from "../../../server/chart_config.json";
 import { loadLocaleData } from "../i18n/i18n";
+import enTitles from "../i18n/strings/en/stats_var_titles.json";
 
-test("stats var label", () => {
+test("stats var label: marked for translation", async () => {
+  for (const chart of chartConfig) {
+    if (!("aggregate" in chart)) {
+      for (const statsVar of chart.statsVars) {
+        expect(Boolean(enTitles[statsVar])).toBe(true);
+      }
+    }
+  }
+});
+
+test("stats var label: compiled to en", () => {
   loadLocaleData("en", [
+    import("../i18n/compiled-lang/en/stats_var_titles.json"),
+  ]).then(() => {
+    for (const chart of chartConfig) {
+      if (!("aggregate" in chart)) {
+        for (const statsVar of chart.statsVars) {
+          const label = getStatsVarTitle(statsVar);
+          expect(label).not.toEqual(statsVar);
+        }
+      }
+    }
+    expect(
+      getStatsVarTitle("Count_HousingUnit_HouseholderRaceWhiteAlone")
+    ).toEqual("Number of Households (White Alone)");
+  });
+});
+
+test("stats var label: compiled to es", () => {
+  loadLocaleData("es", [
+    import("../i18n/compiled-lang/es/stats_var_titles.json"),
     import("../i18n/compiled-lang/en/stats_var_titles.json"),
   ]).then(() => {
     for (const chart of chartConfig) {

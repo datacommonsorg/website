@@ -878,19 +878,19 @@
   "Count_Person_Houseless_Rural": [
     {
       "type": 0,
-      "value": "Population (Rural Houseless)"
+      "value": "Population (Houseless, Rural)"
     }
   ],
   "Count_Person_Houseless_Urban": [
     {
       "type": 0,
-      "value": "Population (Urban Houseless)"
+      "value": "Population (Houseless, Urban)"
     }
   ],
   "Count_Person_Illiterate": [
     {
       "type": 0,
-      "value": "Illiterate Population"
+      "value": "Population (Illiterate)"
     }
   ],
   "Count_Person_InLaborForce": [
@@ -986,7 +986,7 @@
   "Count_Person_NonWorker": [
     {
       "type": 0,
-      "value": "Number of Nonworker"
+      "value": "Population (Non-Workers)"
     }
   ],
   "Count_Person_NotAUSCitizen": [
@@ -1142,7 +1142,7 @@
   "Count_Person_Workers": [
     {
       "type": 0,
-      "value": "Number of Workers"
+      "value": "Population (Workers)"
     }
   ],
   "Count_StormSurgeTideEvent": [
@@ -1223,6 +1223,18 @@
       "value": "Worker Daily Wage"
     }
   ],
+  "Mean_WagesDaily_Worker_Female": [
+    {
+      "type": 0,
+      "value": "Worker Monthly Wage"
+    }
+  ],
+  "Mean_WagesDaily_Worker_Male": [
+    {
+      "type": 0,
+      "value": "Worker Monthly Wage"
+    }
+  ],
   "Mean_WagesMonthly_Worker": [
     {
       "type": 0,
@@ -1232,31 +1244,25 @@
   "Mean_WagesMonthly_Worker_Female": [
     {
       "type": 0,
-      "value": "Female Worker Monthly Wage"
-    }
-  ],
-  "Mean_WagesDaily_Worker_Male": [
-    {
-      "type": 0,
-      "value": "Male Worker Daily Wage"
+      "value": "Worker Monthly Wage"
     }
   ],
   "Mean_WagesMonthly_Worker_Male": [
     {
       "type": 0,
-      "value": "Male Worker Monthly Wage"
+      "value": "Worker Monthly Wage"
     }
   ],
   "Mean_WagesMonthly_Worker_Rural": [
     {
       "type": 0,
-      "value": "Rural Worker Monthly Wage"
+      "value": "Mean Worker Monthly Wage (Rural)"
     }
   ],
   "Mean_WagesMonthly_Worker_Urban": [
     {
       "type": 0,
-      "value": "Urban Worker Monthly Wage"
+      "value": "Mean Worker Monthly Wage (Urban)"
     }
   ],
   "Median_Age_Person": [
@@ -1568,7 +1574,7 @@
   "indianCensus/Count_Person_Religion_OtherReligionsAndPersuasions": [
     {
       "type": 0,
-      "value": "Population (Other Religions And Persuasions)"
+      "value": "Population (Other Religions and Persuasions)"
     }
   ],
   "indianCensus/Count_Person_Religion_ReligionNotStated": [

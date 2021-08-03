@@ -59,7 +59,7 @@
   },
   {
     "category": "Economics",
-    "titleId": "Unemployment rate: urban vs rural",
+    "titleId": "CHART_TITLE-Unemployment_rate-urban-v-rural",
     "title": "Unemployment rate: urban vs rural",
     "description": "Percentage of the working age population that is unemployed in urban vs. rural areas.",
     "statsVars": [
@@ -71,12 +71,12 @@
   },
   {
     "category": "Economics",
-    "titleId": "Worker vs nonworker population",
+    "titleId": "CHART_TITLE-Worker-vs-nonworker-population",
     "title": "Worker vs nonworker population",
-    "description": "Worker vs nonworker population",
+    "description": "Compares worker vs nonworker population in an area",
     "statsVars": ["Count_Person_Workers", "Count_Person_NonWorker"],
     "relatedChart": {
-      "titleId": "Percentage of workers and nonworkers",
+      "titleId": "CHART_TITLE-Percentage of workers and nonworkers",
       "title": "Percentage of workers and nonworkers",
       "description": "Percentage of workers and nonworkers",
       "scale": true,
@@ -417,7 +417,7 @@
   },
   {
     "category": "Economics",
-    "titleId": "Worker wages (daily)",
+    "titleId": "CHART_TITLE-Worker wages (daily)",
     "title": "Worker wages (daily)",
     "description": "Mean daily worker wages",
     "statsVars": ["Mean_WagesDaily_Worker"],
@@ -428,7 +428,7 @@
   },
   {
     "category": "Economics",
-    "titleId": "Worker wages (monthly)",
+    "titleId": "CHART_TITLE-Worker wages (monthly)",
     "title": "Worker wages (monthly)",
     "description": "Mean monthly worker wages",
     "statsVars": ["Mean_WagesMonthly_Worker"],
@@ -439,7 +439,7 @@
   },
   {
     "category": "Economics",
-    "titleId": "Worker wages (monthly): urban vs rural",
+    "titleId": "CHART_TITLE-Worker wages (monthly): urban vs rural",
     "title": "Worker wages (monthly): urban vs rural",
     "description": "Mean monthly wages in urban vs. rural areas.",
     "statsVars": [
@@ -453,7 +453,7 @@
   },
   {
     "category": "Economics",
-    "titleId": "Worker wages (monthly): female vs male",
+    "titleId": "CHART_TITLE-Worker wages (monthly): female vs male",
     "title": "Worker wages (monthly): female vs male",
     "description": "Mean month wages by gender.",
     "statsVars": [
@@ -786,7 +786,7 @@
   },
   {
     "category": "Equity",
-    "titleId": "Urban vs rural poverty population",
+    "titleId": "CHART_TITLE-Urban vs rural poverty population",
     "title": "Urban vs rural poverty population",
     "description": "Population below the poverty level, in urban and rural areas",
     "statsVars": [
@@ -794,7 +794,7 @@
       "Count_Person_Urban_BelowPovertyLevelInThePast12Months"
     ],
     "relatedChart": {
-      "titleId": "Urban vs rural poverty rate",
+      "titleId": "CHART_TITLE-Urban vs rural poverty rate",
       "title": "Urban vs rural poverty rate",
       "scale": true,
       "scaling": 100,
@@ -804,7 +804,7 @@
   },
   {
     "category": "Equity",
-    "titleId": "Urban vs rural homeless population",
+    "titleId": "CHART_TITLE-Urban vs rural homeless population",
     "title": "Urban vs rural homeless population",
     "description": "Homeless population in urban and rural areas",
     "statsVars": [
@@ -812,7 +812,7 @@
       "Count_Person_Houseless_Rural"
     ],
     "relatedChart": {
-      "titleId": "Percentage of urban vs rural homeless population",
+      "titleId": "CHART_TITLE-Percentage of urban vs rural homeless population",
       "title": "Percentage of urban vs rural homeless population",
       "scale": true,
       "scaling": 100,
@@ -1076,7 +1076,7 @@
   },
   {
     "category": "Demographics",
-    "titleId": "Urban and rural households",
+    "titleId": "CHART_TITLE-Urban and rural households",
     "title": "Urban and rural households",
     "description": "Total number of households in rural vs urban parts of a place",
     "statsVars": ["Count_Household_Rural", "Count_Household_Urban"],
@@ -1084,7 +1084,7 @@
     "relatedChart": {
       "scale": true,
       "denominator": "Count_Household",
-      "titleId": "Percentage of urban and rural households",
+      "titleId": "CHART_TITLE-Percentage of urban and rural households",
       "title": "Percentage of urban and rural households",
       "scaling": 100,
       "unit": "%"
@@ -1274,39 +1274,40 @@
   },
   {
     "category": "Demographics",
-    "titleId": "Literacy",
+    "titleId": "CHART_TITLE-Literacy",
     "title": "Literacy",
-    "description": "Literate and illiterate population",
+    "description": "Comparison of number o literate and illiterate people in an area",
     "statsVars": ["Count_Person_Literate", "Count_Person_Illiterate"],
     "isOverview": false,
     "relatedChart": {
       "scale": true,
       "denominator": "Count_Person",
-      "titleId": "Percentage of literate and illiterate population",
+      "titleId": "CHART_TITLE-Percentage of literate and illiterate population",
       "title": "Percentage of literate and illiterate population",
+      "description": "Comparison of literate and illiterate population in an area, by percentage",
       "scaling": 100,
       "unit": "%"
     }
   },
   {
     "category": "Demographics",
-    "titleId": "Social Category",
+    "titleId": "CHART_TITLE-Social Category",
     "title": "Social Category",
-    "description": "Population by social category",
+    "description": "Population by social category (e.g. their cast or tribe).",
     "statsVars": ["Count_Person_ScheduledCaste", "Count_Person_ScheduledTribe"],
     "isOverview": false,
     "relatedChart": {
       "scale": true,
       "denominator": "Count_Person",
-      "titleId": "Percentage of population by social category",
-      "title": "Percentage of population by social category",
+      "titleId": "CHART_TITLE-Percentage of population by social category",
+      "title": "Percentage of population by social category (e.g. their cast or tribe).",
       "scaling": 100,
       "unit": "%"
     }
   },
   {
     "category": "Demographics",
-    "titleId": "Religion",
+    "titleId": "CHART_TITLE-Religion",
     "title": "Religion",
     "description": "Population by religion",
     "statsVars": [
@@ -1323,7 +1324,7 @@
     "relatedChart": {
       "scale": true,
       "denominator": "Count_Person",
-      "titleId": "Percentage of population by religon",
+      "titleId": "CHART_TITLE-Percentage of population by religon",
       "title": "Percentage of population by religon",
       "scaling": 100,
       "unit": "%"

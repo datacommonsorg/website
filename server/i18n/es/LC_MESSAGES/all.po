@@ -457,6 +457,9 @@ msgstr "Tasa de participación en la fuerza laboral"
 msgid "CHART_TITLE-Life_expectancy"
 msgstr "Esperanza de vida (años)"
 
+msgid "CHART_TITLE-Literacy"
+msgstr "Literacy"
+
 msgid "CHART_TITLE-Marital_status"
 msgstr "Estado civil"
 
@@ -504,6 +507,24 @@ msgstr "Porcentaje de personas sin seguro médico por sexo"
 
 msgid "CHART_TITLE-Percent_without_health_insurance_race"
 msgstr "Porcentaje de personas sin seguro médico por raza"
+
+msgid "CHART_TITLE-Percentage of literate and illiterate population"
+msgstr "Percentage of literate and illiterate population"
+
+msgid "CHART_TITLE-Percentage of population by religon"
+msgstr "Percentage of population by religon"
+
+msgid "CHART_TITLE-Percentage of population by social category"
+msgstr "Percentage of population by social category"
+
+msgid "CHART_TITLE-Percentage of urban and rural households"
+msgstr "Percentage of urban and rural households"
+
+msgid "CHART_TITLE-Percentage of urban vs rural homeless population"
+msgstr "Percentage of urban vs rural homeless population"
+
+msgid "CHART_TITLE-Percentage of workers and nonworkers"
+msgstr "Percentage of workers and nonworkers"
 
 msgid "CHART_TITLE-Percentage_employed"
 msgstr "Porcentaje de personas ocupadas"
@@ -556,11 +577,17 @@ msgstr "Delitos contra la propiedad"
 msgid "CHART_TITLE-Property_crime_rate"
 msgstr "Delitos contra la propiedad por 100.000 habitantes"
 
+msgid "CHART_TITLE-Religion"
+msgstr "Religion"
+
 msgid "CHART_TITLE-School_enrollment"
 msgstr "Escolarización"
 
 msgid "CHART_TITLE-School_enrollment_rate"
 msgstr "Tasa de escolarización"
+
+msgid "CHART_TITLE-Social Category"
+msgstr "Social Category"
 
 msgid "CHART_TITLE-State_unemployment_claims"
 msgstr "Solicitudes de seguro estatal de desempleo"
@@ -577,8 +604,23 @@ msgstr "Número de personas ocupadas"
 msgid "CHART_TITLE-Unemployment_rate"
 msgstr "Tasa de desempleo"
 
+msgid "CHART_TITLE-Unemployment_rate-urban-v-rural"
+msgstr "Unemployment rate: urban vs rural"
+
 msgid "CHART_TITLE-Unemployment_rate_gender"
 msgstr "Tasa de desempleo por sexo"
+
+msgid "CHART_TITLE-Urban and rural households"
+msgstr "Urban and rural households"
+
+msgid "CHART_TITLE-Urban vs rural homeless population"
+msgstr "Urban vs rural homeless population"
+
+msgid "CHART_TITLE-Urban vs rural poverty population"
+msgstr "Urban vs rural poverty population"
+
+msgid "CHART_TITLE-Urban vs rural poverty rate"
+msgstr "Urban vs rural poverty rate"
 
 msgid "CHART_TITLE-Urban_v_rural_population"
 msgstr "Población urbana y rural"
@@ -589,61 +631,37 @@ msgstr "Crímenes violentos"
 msgid "CHART_TITLE-Violent_crime_rate"
 msgstr "Crímenes violentos por 100.000 habitantes"
 
-msgid "Literacy"
-msgstr "Literacy"
-
-msgid "Percentage of literate and illiterate population"
-msgstr "Percentage of literate and illiterate population"
-
-msgid "Percentage of population by religon"
-msgstr "Percentage of population by religon"
-
-msgid "Percentage of population by social category"
-msgstr "Percentage of population by social category"
-
-msgid "Percentage of urban and rural households"
-msgstr "Percentage of urban and rural households"
-
-msgid "Percentage of urban vs rural homeless population"
-msgstr "Percentage of urban vs rural homeless population"
-
-msgid "Percentage of workers and nonworkers"
-msgstr "Percentage of workers and nonworkers"
-
-msgid "Religion"
-msgstr "Religion"
-
-msgid "Social Category"
-msgstr "Social Category"
-
-msgid "Unemployment rate: urban vs rural"
-msgstr "Unemployment rate: urban vs rural"
-
-msgid "Urban and rural households"
-msgstr "Urban and rural households"
-
-msgid "Urban vs rural homeless population"
-msgstr "Urban vs rural homeless population"
-
-msgid "Urban vs rural poverty population"
-msgstr "Urban vs rural poverty population"
-
-msgid "Urban vs rural poverty rate"
-msgstr "Urban vs rural poverty rate"
-
-msgid "Worker vs nonworker population"
-msgstr "Worker vs nonworker population"
-
-msgid "Worker wages (daily)"
+msgid "CHART_TITLE-Worker wages (daily)"
 msgstr "Worker wages (daily)"
 
-msgid "Worker wages (monthly)"
+msgid "CHART_TITLE-Worker wages (monthly)"
 msgstr "Worker wages (monthly)"
 
-msgid "Worker wages (monthly): female vs male"
+msgid "CHART_TITLE-Worker wages (monthly): female vs male"
 msgstr "Worker wages (monthly): female vs male"
 
-msgid "Worker wages (monthly): urban vs rural"
+msgid "CHART_TITLE-Worker wages (monthly): urban vs rural"
 msgstr "Worker wages (monthly): urban vs rural"
+
+msgid "CHART_TITLE-Worker-vs-nonworker-population"
+msgstr "Worker vs nonworker population"
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
