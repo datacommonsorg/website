@@ -42,7 +42,7 @@ pip3 install -r server/requirements.txt -q
   --no-location \
   server/
 
-# # All server message Id's must start with an all-caps, underscore-separated prefix e.g. CHART_TITLE-.
+# All server message Id's must start with an all-caps, underscore-separated prefix e.g. CHART_TITLE-.
 python3 tools/i18n/chart_config_extractor.py
 
 for LOCALE in $LOCALES;

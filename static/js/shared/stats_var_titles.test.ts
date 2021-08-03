@@ -17,16 +17,16 @@
 import { getStatsVarTitle } from "./stats_var_titles";
 import chartConfig from "../../../server/chart_config.json";
 import { loadLocaleData } from "../i18n/i18n";
+import enTitles from "../i18n/strings/en/stats_var_titles.json";
 
-test("stats var label: marked for translation", () => {
-  const labels = require("../i18n/strings/en/stats_var_titles.json");
-    for (const chart of chartConfig) {
-      if (!("aggregate" in chart)) {
-        for (const statsVar of chart.statsVars) {
-          expect(Boolean(labels[statsVar])).toBe(true);
-        }
+test("stats var label: marked for translation", async () => {
+  for (const chart of chartConfig) {
+    if (!("aggregate" in chart)) {
+      for (const statsVar of chart.statsVars) {
+        expect(Boolean(enTitles[statsVar])).toBe(true);
       }
     }
+  }
 });
 
 test("stats var label: compiled to en", () => {
