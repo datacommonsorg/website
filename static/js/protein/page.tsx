@@ -91,5 +91,6 @@ export class Page extends React.Component<PagePropType, PageStateType> {
       }
       return result;
     }
+    return {};
   }
 }
