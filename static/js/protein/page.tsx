@@ -74,21 +74,22 @@ export class Page extends React.Component<PagePropType, PageStateType> {
     }
     const result = {};
     for (const neighbour of this.state.data.neighbours) {
-      if (neighbour.property == "detectedProtein") {
-        for (const node of neighbour.nodes) {
-          let tissue = null;
-          let score = null;
-          for (const n of node.neighbours) {
-            if (n.property == "humanTissue") {
-              tissue = n.nodes[0].value;
-            } else if (n.property == "proteinExpressionScore") {
-              score = n.nodes[0].value;
-            }
-          }
-          result[tissue] = score;
-        }
-        return result;
+      if (neighbour.property !== "detectedProtein") {
+        continue;
       }
+      for (const node of neighbour.nodes) {
+        let tissue = null;
+        let score = null;
+        for (const n of node.neighbours) {
+          if (n.property === "humanTissue") {
+            tissue = n.nodes[0].value;
+          } else if (n.property === "proteinExpressionScore") {
+            score = n.nodes[0].value;
+          }
+        }
+        result[tissue] = score;
+      }
+      return result;
     }
   }
 }
