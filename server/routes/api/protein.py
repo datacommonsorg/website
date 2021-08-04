@@ -14,17 +14,21 @@
 """Protein browser related handlers."""
 
 import flask
-import json
 
 from cache import cache
-from flask import Response
+import services.datacommons as dc_service
 
 bp = flask.Blueprint('api.protein', __name__, url_prefix='/api/protein')
 
 
 @cache.memoize(timeout=3600 * 24)  # Cache for one day.
-@bp.route('/node/<path:dcid>')
+@bp.route('/<path:dcid>')
 def get_node(dcid):
     """Returns data given a protein node."""
-    data = {dcid: "Protein data commons"}
-    return Response(json.dumps(data), 200, mimetype='application/json')
+    response = dc_service.fetch_data('/internal/bio', {
+        'dcid': dcid,
+    },
+                                     compress=False,
+                                     post=False,
+                                     has_payload=False)
+    return response

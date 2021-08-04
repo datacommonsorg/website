@@ -93,3 +93,11 @@ interface PlaceTypeSummary {
 export interface StatVarSummary {
   placeTypeSummary: { [placeType: string]: PlaceTypeSummary };
 }
+
+export interface GraphNode {
+  value: string;
+  neighbours: {
+    property: string;
+    nodes: GraphNode[];
+  }[];
+}
