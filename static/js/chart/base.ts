@@ -53,10 +53,12 @@ class DataGroup {
   label: string;
   // Optional label link to show on UI element
   link?: string;
-  constructor(label: string, value: DataPoint[], link?: string) {
+  isProjection?: boolean;
+  constructor(label: string, value: DataPoint[], link?: string, isProjection?: boolean) {
     this.value = value;
     this.label = label;
     this.link = link;
+    this.isProjection = !!isProjection;
   }
   sum(): number {
     return this.value

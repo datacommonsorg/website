@@ -935,6 +935,10 @@ function drawLineChart(
       .style("stroke-width", "2.5px")
       .style("stroke", colorFn(dataGroup.label));
 
+    if (dataGroup.isProjection) {
+      chart.style("stroke-dasharray", 2);
+    }
+
     if (shouldAddDots) {
       const dots = chart
         .append("g")

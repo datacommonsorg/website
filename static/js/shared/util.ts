@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-function randDomId(): string {
+export function randDomId(): string {
   return Math.random()
     .toString(36)
     .replace(/[^a-z]+/g, "")
@@ -27,7 +27,7 @@ function randDomId(): string {
  * @param {contents} string
  * @return void
  */
-function saveToFile(filename: string, contents: string): void {
+export function saveToFile(filename: string, contents: string): void {
   let mimeType = "text/plan";
   if (filename.match(/\.csv$/i)) {
     mimeType = "text/csv;chartset=utf-8";
@@ -49,7 +49,7 @@ function saveToFile(filename: string, contents: string): void {
 /**
  * Get the domain from a url.
  */
-function urlToDomain(url: string): string {
+export function urlToDomain(url: string): string {
   return url
     .replace("http://", "")
     .replace("https://", "")
@@ -57,4 +57,15 @@ function urlToDomain(url: string): string {
     .split(/[/?#]/)[0];
 }
 
-export { randDomId, saveToFile, urlToDomain };
+export function isMeasurementMethodProjection(mmethod: string) {
+  switch (mmethod) {
+    case 'NASA_Mean_HadGEM2-AO':
+    case 'NASA_Mean_GISS-E2-R':
+    case 'NASA_Mean_CESM1-CAM5':
+    case 'NASA_Mean_CCSM4':
+      console.log("is projection");
+      return true;
+    default:
+      return false;
+  }
+}
