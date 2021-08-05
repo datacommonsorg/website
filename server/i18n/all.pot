@@ -157,15 +157,15 @@ msgstr ""
 msgid "Gross National Income"
 msgstr ""
 
-#. Describes building your own tools and analysis using our API (here Python refers to the programming language - see python.org, and REST is an acronym for REpresentational State Transfer). Python API and REST API are both names of the respective API's. Please see this string in action at https://datacommons.org
+#. Describes building your own tools and analysis using our API (here Python refers to the programming language - see python.org, and REST is an acronym for REST is an acronym for REpresentational State Transfer). Please see this string in action at https://datacommons.org
 msgid "HOME-BUILD_CALLOUT"
 msgstr ""
 
-#. Describes how we clean and process data for import once, usually a painful part of data analysis. Data cleaning here refers to a common step in data science analysis (e.g. https://elitedatascience.com/data-cleaning), and process refers to the transformation required to analyze a data set. Data is imported into a unified graph (e.g. data about California from many sources are all added to the same node in our graph. Please see this string in action at https://datacommons.org
+#. Describes how we clean and process data for import once, usually a painful part of data analysis. Data is imported into a unified graph (e.g. data about California from many sources are all added to the same node in our graph. Please see this string in action at https://datacommons.org
 msgid "HOME-EXPLORE_CALLOUT"
 msgstr ""
 
-#. Description of the Data Commons project. "open knowledge repository": It's a knowledge repository, or knowledge graph (https://en.wikipedia.org/wiki/Knowledge_graph). It's also open: free to use, community maintained and open sourced. "combines data": Multiple datasets are combined into a single knowledge graph "mapped common entities": Data about the same entity across datasets are mapped to a single common entity. E.g. Data about "California" across the US Census and World Bank are combined under the same "California" entity (or node). Data joining (or merging), is the work that is required to analyze data across multiple datasets (e.g. https://www.displayr.com/what-is-data-merging/). In summary, Data Commons is an open sourced, community project that includes data from across many data sets into a single knowledge graph, where data about the same entity is already combined for easy exploration and analysis. Please see this string in action at https://datacommons.org
+#. Description of the Data Commons project. Please see this string in action at https://datacommons.org
 msgid "HOME-HERO_MESSAGE"
 msgstr ""
 
@@ -233,7 +233,7 @@ msgstr ""
 msgid "Open Data."
 msgstr ""
 
-#. Introduction to the Place Explorer tool. Please wrap each paragraph with <p> and </p> tags. See this message on https://datacommons.org/place
+#. The name of a tool to browse statistics about a place.
 msgid "PLACE_EXPLORER_INTRO"
 msgstr ""
 
@@ -517,7 +517,7 @@ msgstr "Government expenditures on military"
 
 #. Title of a place chart: Amount spent by a government on the military as a percentage of GDP
 msgid "CHART_TITLE-Government_expenditures_military_per_gdp"
-msgstr "Government expenditures on military as a percentage of GDP"
+msgstr "Government expenditures on military (% of GDP)"
 
 #. Title of a place chart: Percentage of young adults who have a graduate or professional degree, broken down by gender
 msgid "CHART_TITLE-Graduate_or_professional_degree_rate_gender"
@@ -615,7 +615,7 @@ msgstr "Labor force participation rate"
 msgid "CHART_TITLE-Life_expectancy"
 msgstr "Life expectancy (years)"
 
-#. Title of a place chart: Comparison of number o literate and illiterate people in an area
+#. Title of a place chart: Comparison of number of literate and illiterate people in an area
 msgid "CHART_TITLE-Literacy"
 msgstr "Literacy"
 
@@ -855,7 +855,7 @@ msgstr "Worker wages (daily)"
 msgid "CHART_TITLE-Worker wages (monthly)"
 msgstr "Worker wages (monthly)"
 
-#. Title of a place chart: Mean month wages by gender.
+#. Title of a place chart: Mean monthly wages by gender.
 msgid "CHART_TITLE-Worker wages (monthly): female vs male"
 msgstr "Worker wages (monthly): female vs male"
 

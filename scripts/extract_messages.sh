@@ -66,10 +66,12 @@ do
     --previous \
     --no-fuzzy-matching \
     --omit-header
-  # Strip out comments to kept by pybabel update
-  fname="server/i18n/$LOCALE/LC_MESSAGES/all.po"
-  grep -E -v "^#.*$" $fname > tmp.po
-  mv tmp.po $fname
+  if [[ $LOCALE != 'en' ]]; then
+    # Strip out comments to kept by pybabel update (en is used for TC extraction).
+    fname="server/i18n/$LOCALE/LC_MESSAGES/all.po"
+    grep -E -v "^#.*$" $fname > tmp.po
+    mv tmp.po $fname
+  fi
 done
 
 echo "!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!"
