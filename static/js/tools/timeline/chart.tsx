@@ -176,11 +176,13 @@ class Chart extends Component<ChartPropsType> {
       // unit.
       const placeData = Object.values(this.statData.data)[0];
       this.units = [];
+      const units: Set<string> = new Set();
       for (const series of Object.values(placeData.data)) {
         if (series && series["metadata"] && series["metadata"].unit) {
-          this.units.push(series["metadata"].unit);
+          units.add(series["metadata"].unit);
         }
       }
+      this.units = Array.from(units).sort();
       this.props.onDataUpdate(this.props.mprop, statData);
       if (this.svgContainer.current) {
         this.drawChart();
