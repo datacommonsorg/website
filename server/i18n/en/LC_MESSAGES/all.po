@@ -614,7 +614,7 @@ msgstr "Labor force participation rate"
 msgid "CHART_TITLE-Life_expectancy"
 msgstr "Life expectancy (years)"
 
-#. Title of a place chart: Comparison of number o literate and illiterate people in an area
+#. Title of a place chart: Comparison of number of literate and illiterate people in an area
 msgid "CHART_TITLE-Literacy"
 msgstr "Literacy"
 
@@ -854,7 +854,7 @@ msgstr "Worker wages (daily)"
 msgid "CHART_TITLE-Worker wages (monthly)"
 msgstr "Worker wages (monthly)"
 
-#. Title of a place chart: Mean month wages by gender.
+#. Title of a place chart: Mean monthly wages by gender.
 msgid "CHART_TITLE-Worker wages (monthly): female vs male"
 msgstr "Worker wages (monthly): female vs male"
 

@@ -455,7 +455,7 @@
     "category": "Economics",
     "titleId": "CHART_TITLE-Worker wages (monthly): female vs male",
     "title": "Worker wages (monthly): female vs male",
-    "description": "Mean month wages by gender.",
+    "description": "Mean monthly wages by gender.",
     "statsVars": [
       "Mean_WagesMonthly_Worker_Female",
       "Mean_WagesMonthly_Worker_Male"
@@ -1276,7 +1276,7 @@
     "category": "Demographics",
     "titleId": "CHART_TITLE-Literacy",
     "title": "Literacy",
-    "description": "Comparison of number o literate and illiterate people in an area",
+    "description": "Comparison of number of literate and illiterate people in an area",
     "statsVars": ["Count_Person_Literate", "Count_Person_Illiterate"],
     "isOverview": false,
     "relatedChart": {
