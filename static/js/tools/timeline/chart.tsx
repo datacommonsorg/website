@@ -176,7 +176,7 @@ class Chart extends Component<ChartPropsType> {
       // unit.
       const placeData = Object.values(this.statData.data)[0];
       this.units = [];
-      let units: Set<string> = new Set();
+      const units: Set<string> = new Set();
       for (const series of Object.values(placeData.data)) {
         if (series && series["metadata"] && series["metadata"].unit) {
           units.add(series["metadata"].unit);
