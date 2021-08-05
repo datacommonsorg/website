@@ -646,22 +646,3 @@ msgstr "Worker wages (monthly): urban vs rural"
 msgid "CHART_TITLE-Worker-vs-nonworker-population"
 msgstr "Worker vs nonworker population"
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
