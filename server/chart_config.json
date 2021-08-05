@@ -269,7 +269,7 @@
   {
     "category": "Economics",
     "titleId": "CHART_TITLE-Government_expenditures_military_per_gdp",
-    "title": "Government expenditures on military as a percentage of GDP",
+    "title": "Government expenditures on military (% of GDP)",
     "description": "Amount spent by a government on the military as a percentage of GDP",
     "statsVars": [
       "Amount_EconomicActivity_ExpenditureActivity_MilitaryExpenditure_Government_AsFractionOf_Amount_EconomicActivity_GrossDomesticProduction_Nominal"
