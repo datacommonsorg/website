@@ -29,7 +29,7 @@ export function drawTissueScoreChart(
   id: string,
   data: { name: string; value: string }[]
 ): void {
-  // TODO: convert data to tmpData.
+  // TODO: convert data to tmpData format.
   const tmpData = [{ x1: 20, x2: 60, y1: 30, y2: 50 }];
   const svg = d3
     .select("#" + id)
