@@ -36,6 +36,8 @@ Development that involves place search need to:
 
 - Contact Data Commons team to get dev maps api key.
 
+- Install [`gcloud`](https://cloud.google.com/sdk/docs/install)
+
 - Get GCP authentication
 
   ```bash
@@ -51,7 +53,6 @@ This is only needed if developing in local Kubernetes cluster.
   - [`Docker`](https://www.docker.com/products/docker-desktop)
   - [`Minikube`](https://minikube.sigs.k8s.io/docs/start/)
   - [`Skaffold`](https://skaffold.dev/docs/install/)
-  - [`gcloud`](https://cloud.google.com/sdk/docs/install)
   - [`kubectl`](https://kubernetes.io/docs/tasks/tools/install-kubectl/)
   - [`kustomize`](https://kustomize.io/)
 
