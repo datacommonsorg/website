@@ -30,6 +30,8 @@ export const USA_CHILD_PLACE_TYPES = {
   County: ["County"],
 };
 
+export const USA_PLACE_HIERARCHY = ["Country", "State", "County"];
+
 const URL_PARAM_VALUE_SEPARATOR = "-";
 
 const URL_PARAM_KEYS = {
