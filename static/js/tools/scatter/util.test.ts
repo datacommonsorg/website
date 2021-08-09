@@ -56,8 +56,8 @@ const TestContext = ({
     },
   },
   isQuadrants: {
-    value: true
-  }
+    value: true,
+  },
 } as unknown) as ContextType;
 const Hash =
   "#%26svx%3DCount_Person%26lx%3D1%26svy%3DCount_HousingUnit%26pcy%3D1%26epd%3DgeoId%2F10%26epn%3DDelaware%26ept%3DCounty%26ub%3D99999%26qd%3D1";
