@@ -91,11 +91,13 @@ const EmptyPlace: PlaceInfo = Object.freeze({
   upperBound: 1e10,
 });
 
-interface IsQuadrantWrapper {
-  value: boolean;
+interface DisplayOptionsWrapper {
+  showQuadrants: boolean;
+  showLabels: boolean;
 
   // Setters
-  set: Setter<boolean>;
+  setQuadrants: Setter<boolean>;
+  setLabels: Setter<boolean>;
 }
 
 interface DateInfo {
@@ -142,8 +144,8 @@ interface ContextType {
   y: AxisWrapper;
   // Places to plot
   place: PlaceInfoWrapper;
-  // Whether to plot in Quadrant mode
-  isQuadrants: IsQuadrantWrapper;
+  // Plot display options
+  display: DisplayOptionsWrapper;
   // Whether there are currently active network tasks
   isLoading: IsLoadingWrapper;
 }
@@ -164,8 +166,9 @@ const FieldToAbbreviation = {
   lowerBound: "lb",
   upperBound: "ub",
 
-  // Quadrant fields
+  // DisplayOptions fields
   isQuadrant: "qd",
+  isLabels: "ld",
 };
 
 /**
@@ -176,6 +179,7 @@ function useContextStore(): ContextType {
   const [y, setY] = useState(EmptyAxis);
   const [place, setPlace] = useState(EmptyPlace);
   const [isQuadrants, setQuadrants] = useState(false);
+  const [isLabels, setLabels] = useState(false);
   const [arePlacesLoading, setArePlacesLoading] = useState(false);
   const [areStatVarsLoading, setAreStatVarsLoading] = useState(false);
   const [areDataLoading, setAreDataLoading] = useState(false);
@@ -207,9 +211,11 @@ function useContextStore(): ContextType {
       setLowerBound: getSetLowerBound(place, setPlace),
       setUpperBound: getSetUpperBound(place, setPlace),
     },
-    isQuadrants: {
-      value: isQuadrants,
-      set: (isQuadrants) => setQuadrants(isQuadrants),
+    display: {
+      showQuadrants: isQuadrants,
+      setQuadrants: (isQuadrants) => setQuadrants(isQuadrants),
+      showLabels: isLabels,
+      setLabels: (isLabels) => setLabels(isLabels),
     },
     isLoading: {
       arePlacesLoading: arePlacesLoading,
@@ -376,7 +382,7 @@ export {
   DateInfo,
   DateInfoWrapper,
   IsLoadingWrapper,
-  IsQuadrantWrapper,
+  DisplayOptionsWrapper,
   EmptyAxis,
   EmptyPlace,
   EmptyDate,

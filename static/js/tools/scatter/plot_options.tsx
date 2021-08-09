@@ -24,7 +24,7 @@ import { FormGroup, Label, Input, Card, Button } from "reactstrap";
 import {
   AxisWrapper,
   Context,
-  IsQuadrantWrapper,
+  DisplayOptionsWrapper,
   PlaceInfoWrapper,
 } from "./context";
 
@@ -34,7 +34,7 @@ import { Container, Row, Col } from "reactstrap";
 // returns the available dates for the statvar. Then, fill the datapicker with
 // the dates.
 function PlotOptions(): JSX.Element {
-  const { place, x, y, isQuadrants } = useContext(Context);
+  const { place, x, y, display } = useContext(Context);
   const [lowerBound, setLowerBound] = useState(
     place.value.lowerBound.toString()
   );
@@ -108,7 +108,7 @@ function PlotOptions(): JSX.Element {
         </Row>
         <Row className="plot-options-row centered-items-row">
           <Col sm={1} className="plot-options-label">
-            Swap:
+            Display:
           </Col>
           <Col sm="auto">
             <Button
@@ -121,10 +121,18 @@ function PlotOptions(): JSX.Element {
               Swap X and Y axes
             </Button>
           </Col>
-        </Row>
-        <Row className="plot-options-row centered-items-row">
-          <Col sm={1} className="plot-options-label">
-            Quadrants:
+          <Col sm="auto">
+            <FormGroup check>
+              <Label check>
+                <Input
+                  id="quadrants"
+                  type="checkbox"
+                  checked={display.showQuadrants}
+                  onChange={(e) => checkQuadrants(display, e)}
+                />
+                Show quadrants
+              </Label>
+            </FormGroup>
           </Col>
           <Col sm="auto">
             <FormGroup check>
@@ -132,10 +140,10 @@ function PlotOptions(): JSX.Element {
                 <Input
                   id="quadrants"
                   type="checkbox"
-                  checked={isQuadrants.value}
-                  onChange={(e) => checkQuadrants(isQuadrants, e)}
+                  checked={display.showLabels}
+                  onChange={(e) => checkLabels(display, e)}
                 />
-                Show Quadrants
+                Show labels
               </Label>
             </FormGroup>
           </Col>
@@ -206,11 +214,24 @@ function checkLog(
   axis.setLog(event.target.checked);
 }
 
+/**
+ * Toggles whether to show quadrant lines.
+ */
 function checkQuadrants(
-  isQuadrant: IsQuadrantWrapper,
+  display: DisplayOptionsWrapper,
   event: React.ChangeEvent<HTMLInputElement>
 ): void {
-  isQuadrant.set(event.target.checked);
+  display.setQuadrants(event.target.checked);
+}
+
+/**
+ * Toggles whether to show text labels for every dot.
+ */
+function checkLabels(
+  display: DisplayOptionsWrapper,
+  event: React.ChangeEvent<HTMLInputElement>
+): void {
+  display.setLabels(event.target.checked);
 }
 
 /**
