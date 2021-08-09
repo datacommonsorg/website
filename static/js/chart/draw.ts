@@ -208,9 +208,9 @@ function getTooltipContent(
         (datagroup) => datagroup.label === dataGroupLabel
       );
       const rowLabel = rowLabels[place][dataGroupLabel];
-      let value = "N/A";
+      let displayValue = "N/A";
       if (!dataGroup) {
-        tooltipContent += `${rowLabel}: ${value}<br/>`;
+        tooltipContent += `${rowLabel}: ${displayValue}<br/>`;
         continue;
       }
       const dataPoint = dataGroup.value.find(
@@ -218,10 +218,10 @@ function getTooltipContent(
       );
       if (dataPoint) {
         tooltipDate = dataPoint.label;
-        value = !_.isNull(dataPoint.value)
-          ? `${dataPoint.value} ${unit}`
+        displayValue = !_.isNull(dataPoint.value)
+          ? `${formatNumber(dataPoint.value)} ${unit}`
           : "N/A";
-        tooltipContent += `${rowLabel}: ${value}<br/>`;
+        tooltipContent += `${rowLabel}: ${displayValue}<br/>`;
       }
     }
   }
