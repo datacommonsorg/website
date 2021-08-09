@@ -142,7 +142,7 @@ function applyHashPlace(params: URLSearchParams): PlaceInfo {
 
 function applyHashQuadrants(params: URLSearchParams): boolean {
   const isQuadrant = params.get(FieldToAbbreviation.isQuadrant);
-  return isQuadrant === '1';
+  return isQuadrant === "1";
 }
 
 /**
@@ -159,8 +159,7 @@ function updateHash(context: ContextType): void {
   hash = updateHashAxis(hash, y, false);
   hash = updateHashPlace(hash, place);
   hash = updateHashQuadrant(hash, context.isQuadrants.value);
-  // const newHash = encodeURIComponent(hash);
-  const newHash = hash;
+  const newHash = encodeURIComponent(hash);
   const currentHash = location.hash.replace("#", "");
   if (newHash && newHash !== currentHash) {
     history.pushState({}, "", `/tools/scatter#${newHash}`);
@@ -234,8 +233,11 @@ function updateHashPlace(hash: string, place: PlaceInfo): string {
   return hash;
 }
 
+/**
+ * Updates the hash for quadrant related parameters.
+ */
 function updateHashQuadrant(hash: string, isQuadrants: boolean) {
-  const val = isQuadrants ? '1' : '0';
+  const val = isQuadrants ? "1" : "0";
   return appendEntry(hash, FieldToAbbreviation.isQuadrant, val);
 }
 

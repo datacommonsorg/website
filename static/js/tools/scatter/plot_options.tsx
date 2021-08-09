@@ -21,7 +21,12 @@
 
 import React, { useContext, useState } from "react";
 import { FormGroup, Label, Input, Card, Button } from "reactstrap";
-import { AxisWrapper, Context, IsQuadrantWrapper, PlaceInfoWrapper } from "./context";
+import {
+  AxisWrapper,
+  Context,
+  IsQuadrantWrapper,
+  PlaceInfoWrapper,
+} from "./context";
 
 import { Container, Row, Col } from "reactstrap";
 
@@ -201,7 +206,10 @@ function checkLog(
   axis.setLog(event.target.checked);
 }
 
-function checkQuadrants(isQuadrant: IsQuadrantWrapper, event: React.ChangeEvent<HTMLInputElement>): void {
+function checkQuadrants(
+  isQuadrant: IsQuadrantWrapper,
+  event: React.ChangeEvent<HTMLInputElement>
+): void {
   isQuadrant.set(event.target.checked);
 }
 
