@@ -999,14 +999,9 @@ function drawLineChart(
  * @param dataGroupsDict
  */
 function computeRanges(dataGroupsDict: { [geoId: string]: DataGroup[] }) {
-  const range = {
-    minV: 0,
-    maxV: 0,
-  };
-
   let dataGroups: DataGroup[];
-  let maxV = 0;
-  let minV = 0; // calculate the min value when its less than 0
+  let minV = Number.MAX_VALUE;
+  let maxV = Number.MIN_VALUE;
   for (const geoId in dataGroupsDict) {
     dataGroups = dataGroupsDict[geoId];
     maxV = Math.max(
@@ -1018,9 +1013,10 @@ function computeRanges(dataGroupsDict: { [geoId: string]: DataGroup[] }) {
       Math.min(...dataGroups.map((dataGroup) => dataGroup.min()))
     );
   }
-  range.maxV = maxV;
-  range.minV = minV;
-  return range;
+  return {
+    maxV: maxV,
+    minV: minV,
+  }
 }
 
 /**
