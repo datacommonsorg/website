@@ -124,6 +124,7 @@ function drawChoropleth(
   redirectAction: (geoDcid: GeoJsonFeatureProperties) => void,
   getTooltipHtml: (place: NamedPlace) => string,
   shouldGenerateLegend: boolean,
+  shouldShowBoundaryLines: boolean,
   zoomDcid?: string,
   zoomInButtonId?: string,
   zoomOutButtonId?: string
@@ -209,11 +210,14 @@ function drawChoropleth(
     .attr("id", (_, index) => {
       return "geoPath" + index;
     })
-    .attr("stroke-width", STROKE_WIDTH)
-    .attr("stroke", GEO_STROKE_COLOR)
     .on("mouseover", onMouseOver(domContainerId, canClick))
     .on("mouseout", onMouseOut(domContainerId))
     .on("mousemove", onMouseMove(domContainerId, getTooltipHtml, canClick));
+  if (shouldShowBoundaryLines) {
+    mapObjects
+      .attr("stroke-width", STROKE_WIDTH)
+      .attr("stroke", GEO_STROKE_COLOR);
+  }
   if (canClick) {
     mapObjects.on("click", onMapClick(domContainerId, redirectAction));
   }
