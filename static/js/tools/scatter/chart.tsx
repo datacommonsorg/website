@@ -198,24 +198,11 @@ function plot(
     props.yUnits
   );
 
-  console.log('is quadrants: ' + props.isQuadrants);
   if (props.isQuadrants) {
+    const quadrant = g.append('g');
     const xMean = d3.mean(props.points, (point) => point.xVal);
-    g.append('line')
-    .attr('x1', xScale(xMean))
-    .attr('x2', xScale(xMean))
-    .attr('y1', 0)
-    .attr('y2', height)
-    .attr('stroke', 'red')
-    .attr('class', 'quadrant-line')
-
     const yMean = d3.mean(props.points, (point) => point.yVal);
-    g.append('line')
-    .attr('y1', yScale(yMean))
-    .attr('y2', yScale(yMean))
-    .attr('x1', 0)
-    .attr('x2', width)
-    .attr('class', 'quadrant-line')
+    addQuadrants(quadrant, xScale, yScale, xMean, yMean, width, height);
   }
 
   g.append("text")
@@ -342,6 +329,36 @@ function addYAxis(
     )
     .text(yLabel + unitLabelString);
   return yScale;
+}
+
+function addQuadrants(
+  quadrant: d3.Selection<SVGGElement, any, any, any>,
+  xScale: d3.ScaleLinear<any, any>,
+  yScale: d3.ScaleLinear<any, any>,
+  xMean: number,
+  yMean: number,
+  chartWidth: number,
+  chartHeight: number,
+) {
+    quadrant.append('line')
+    .attr('x1', xScale(xMean))
+    .attr('x2', xScale(xMean))
+    .attr('y1', 0)
+    .attr('y2', chartHeight)
+    .attr('stroke', 'red')
+    .attr('class', 'quadrant-line')
+
+    quadrant.append('line')
+    .attr('y1', yScale(yMean))
+    .attr('y2', yScale(yMean))
+    .attr('x1', 0)
+    .attr('x2', chartWidth)
+    .attr('class', 'quadrant-line')
+
+    quadrant.append('text')
+    .text(`mean (${formatNumber(xMean)}, ${formatNumber(yMean)})`)
+    .attr('transform', `translate(${xScale(xMean) + 5}, 5)`)
+    .attr('class', 'quadrant-label')
 }
 
 /**
