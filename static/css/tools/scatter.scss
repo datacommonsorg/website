@@ -231,3 +231,13 @@ circle {
 .radio-selection-section {
   margin-left: 2rem;
 }
+
+#scatterplot .quadrant-line {
+  stroke: red;
+  stroke-dasharray: 1;
+}
+
+#scatterplot .quadrant-label {
+  fill: red;
+  font-size: .8em;
+}

@@ -55,9 +55,12 @@ const TestContext = ({
       upperBound: 99999,
     },
   },
+  isQuadrants: {
+    value: true,
+  },
 } as unknown) as ContextType;
 const Hash =
-  "#%26svx%3DCount_Person%26lx%3D1%26svy%3DCount_HousingUnit%26pcy%3D1%26epd%3DgeoId%2F10%26epn%3DDelaware%26ept%3DCounty%26ub%3D99999";
+  "#%26svx%3DCount_Person%26lx%3D1%26svy%3DCount_HousingUnit%26pcy%3D1%26epd%3DgeoId%2F10%26epn%3DDelaware%26ept%3DCounty%26ub%3D99999%26qd%3D1";
 
 test("updateHash", () => {
   history.pushState = jest.fn();
@@ -70,10 +73,11 @@ test("updateHash", () => {
 });
 
 test("applyHash", () => {
-  const context = { x: {}, y: {}, place: {} } as ContextType;
+  const context = { x: {}, y: {}, place: {}, isQuadrants: {} } as ContextType;
   context.x.set = (value) => (context.x.value = value);
   context.y.set = (value) => (context.y.value = value);
   context.place.set = (value) => (context.place.value = value);
+  context.isQuadrants.set = (value) => (context.isQuadrants.value = value);
   location.hash = Hash;
   applyHash(context);
   expect(context.x.value).toEqual(TestContext.x.value);
@@ -82,4 +86,5 @@ test("applyHash", () => {
     ...TestContext.place.value,
     enclosedPlaces: [],
   });
+  expect(context.isQuadrants.value).toEqual(TestContext.isQuadrants.value);
 });

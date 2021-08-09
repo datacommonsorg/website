@@ -91,6 +91,13 @@ const EmptyPlace: PlaceInfo = Object.freeze({
   upperBound: 1e10,
 });
 
+interface IsQuadrantWrapper {
+  value: boolean;
+
+  // Setters
+  set: Setter<boolean>;
+}
+
 interface DateInfo {
   year: number;
   month: number;
@@ -135,6 +142,8 @@ interface ContextType {
   y: AxisWrapper;
   // Places to plot
   place: PlaceInfoWrapper;
+  // Whether to plot in Quadrant mode
+  isQuadrants: IsQuadrantWrapper;
   // Whether there are currently active network tasks
   isLoading: IsLoadingWrapper;
 }
@@ -154,6 +163,9 @@ const FieldToAbbreviation = {
   enclosedPlaceType: "ept",
   lowerBound: "lb",
   upperBound: "ub",
+
+  // Quadrant fields
+  isQuadrant: "qd",
 };
 
 /**
@@ -163,6 +175,7 @@ function useContextStore(): ContextType {
   const [x, setX] = useState(EmptyAxis);
   const [y, setY] = useState(EmptyAxis);
   const [place, setPlace] = useState(EmptyPlace);
+  const [isQuadrants, setQuadrants] = useState(false);
   const [arePlacesLoading, setArePlacesLoading] = useState(false);
   const [areStatVarsLoading, setAreStatVarsLoading] = useState(false);
   const [areDataLoading, setAreDataLoading] = useState(false);
@@ -193,6 +206,10 @@ function useContextStore(): ContextType {
       setEnclosedPlaces: getSetEnclosedPlaces(place, setPlace),
       setLowerBound: getSetLowerBound(place, setPlace),
       setUpperBound: getSetUpperBound(place, setPlace),
+    },
+    isQuadrants: {
+      value: isQuadrants,
+      set: (isQuadrants) => setQuadrants(isQuadrants),
     },
     isLoading: {
       arePlacesLoading: arePlacesLoading,
@@ -359,6 +376,7 @@ export {
   DateInfo,
   DateInfoWrapper,
   IsLoadingWrapper,
+  IsQuadrantWrapper,
   EmptyAxis,
   EmptyPlace,
   EmptyDate,
