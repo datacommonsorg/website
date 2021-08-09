@@ -22,6 +22,7 @@ import React from "react";
 import axios from "axios";
 
 import { GraphNode } from "../shared/types";
+import { drawTissueScoreChart } from "./chart";
 
 interface PagePropType {
   dcid: string;
@@ -42,19 +43,21 @@ export class Page extends React.Component<PagePropType, PageStateType> {
     this.fetchData();
   }
 
-  render(): JSX.Element {
+  componentDidUpdate(): void {
+    const data: { name: string; value: string }[] = [];
     const tissueScore = this.getTissueScore();
+    for (const tissue in tissueScore) {
+      data.push({ name: tissue, value: tissueScore[tissue] });
+    }
+    drawTissueScoreChart("tissue-score-chart", data);
+  }
+
+  render(): JSX.Element {
     // TODO: use d3 to draw bar chart here.
     return (
       <>
         <h2>{this.props.nodeName}</h2>
-        {Object.keys(tissueScore).map((tissue) => {
-          return (
-            <div key={tissue}>
-              <span>{tissue}</span>: <span>{tissueScore[tissue]}</span>
-            </div>
-          );
-        })}
+        <div id="tissue-score-chart"></div>
       </>
     );
   }
