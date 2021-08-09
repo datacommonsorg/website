@@ -30,6 +30,7 @@ export const USA_CHILD_PLACE_TYPES = {
   County: ["County"],
 };
 
+// list of place types in the US in the order of high to low granularity.
 export const USA_PLACE_HIERARCHY = ["Country", "State", "County"];
 
 const URL_PARAM_VALUE_SEPARATOR = "-";

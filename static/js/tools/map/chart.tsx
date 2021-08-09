@@ -219,7 +219,7 @@ function draw(
   }
 }
 
-function shouldShowBoundary(placeInfo: PlaceInfo): boolean {
+export function shouldShowBoundary(placeInfo: PlaceInfo): boolean {
   const selectedPlaceTypes = placeInfo.selectedPlace.types;
   let selectedPlaceTypeIdx = -1;
   if (selectedPlaceTypes) {
