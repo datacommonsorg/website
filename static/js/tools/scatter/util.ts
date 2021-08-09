@@ -79,6 +79,7 @@ function applyHash(context: ContextType): void {
   context.x.set(applyHashAxis(params, true));
   context.y.set(applyHashAxis(params, false));
   context.place.set(applyHashPlace(params));
+  context.isQuadrants.set(applyHashQuadrants(params));
 }
 
 /**
@@ -139,6 +140,11 @@ function applyHashPlace(params: URLSearchParams): PlaceInfo {
   return place;
 }
 
+function applyHashQuadrants(params: URLSearchParams): boolean {
+  const isQuadrant = params.get(FieldToAbbreviation.isQuadrant);
+  return isQuadrant === '1';
+}
+
 /**
  * Updates the hash based on the context and returns the new hash.
  * If there are multiple denominators for a statvar, only the first
@@ -152,7 +158,9 @@ function updateHash(context: ContextType): void {
   let hash = updateHashAxis("", x, true);
   hash = updateHashAxis(hash, y, false);
   hash = updateHashPlace(hash, place);
-  const newHash = encodeURIComponent(hash);
+  hash = updateHashQuadrant(hash, context.isQuadrants.value);
+  // const newHash = encodeURIComponent(hash);
+  const newHash = hash;
   const currentHash = location.hash.replace("#", "");
   if (newHash && newHash !== currentHash) {
     history.pushState({}, "", `/tools/scatter#${newHash}`);
@@ -224,6 +232,11 @@ function updateHashPlace(hash: string, place: PlaceInfo): string {
     }
   }
   return hash;
+}
+
+function updateHashQuadrant(hash: string, isQuadrants: boolean) {
+  const val = isQuadrants ? '1' : '0';
+  return appendEntry(hash, FieldToAbbreviation.isQuadrant, val);
 }
 
 export {

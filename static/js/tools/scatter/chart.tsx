@@ -39,6 +39,7 @@ interface ChartPropsType {
   yStatVar: string;
   xUnits?: string;
   yUnits?: string;
+  isQuadrants: boolean;
 }
 
 const DOT_REDIRECT_PREFIX = "/tools/timeline";
@@ -197,6 +198,26 @@ function plot(
     props.yUnits
   );
 
+  console.log('is quadrants: ' + props.isQuadrants);
+  if (props.isQuadrants) {
+    const xMean = d3.mean(props.points, (point) => point.xVal);
+    g.append('line')
+    .attr('x1', xScale(xMean))
+    .attr('x2', xScale(xMean))
+    .attr('y1', 0)
+    .attr('y2', height)
+    .attr('stroke', 'red')
+    .attr('class', 'quadrant-line')
+
+    const yMean = d3.mean(props.points, (point) => point.yVal);
+    g.append('line')
+    .attr('y1', yScale(yMean))
+    .attr('y2', yScale(yMean))
+    .attr('x1', 0)
+    .attr('x2', width)
+    .attr('class', 'quadrant-line')
+  }
+
   g.append("text")
     .attr("class", "plot-title")
     .attr("transform", `translate(${width / 2},${-margin.top / 2})`)
@@ -273,6 +294,7 @@ function addXAxis(
       `translate(${width / 2},${height + marginBottom / 2 + 10})`
     )
     .text(xLabel + unitLabelString);
+
   return xScale;
 }
 
