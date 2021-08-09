@@ -81,10 +81,10 @@ function applyHash(context: ContextType): void {
   context.y.set(applyHashAxis(params, false));
   context.place.set(applyHashPlace(params));
   context.display.setQuadrants(
-    applyHashBoolean(params, FieldToAbbreviation.isQuadrant)
+    applyHashBoolean(params, FieldToAbbreviation.showQuadrant)
   );
   context.display.setLabels(
-    applyHashBoolean(params, FieldToAbbreviation.isLabels)
+    applyHashBoolean(params, FieldToAbbreviation.showLabels)
   );
 }
 
@@ -165,8 +165,7 @@ function updateHash(context: ContextType): void {
   hash = updateHashAxis(hash, y, false);
   hash = updateHashPlace(hash, place);
   hash = updateHashDisplayOptions(hash, context.display);
-  // const newHash = encodeURIComponent(hash);
-  const newHash = hash;
+  const newHash = encodeURIComponent(hash);
   const currentHash = location.hash.replace("#", "");
   if (newHash && newHash !== currentHash) {
     history.pushState({}, "", `/tools/scatter#${newHash}`);
@@ -245,10 +244,10 @@ function updateHashDisplayOptions(
   display: DisplayOptionsWrapper
 ) {
   let val = display.showQuadrants ? "1" : "0";
-  hash = appendEntry(hash, FieldToAbbreviation.isQuadrant, val);
+  hash = appendEntry(hash, FieldToAbbreviation.showQuadrant, val);
 
   val = display.showLabels ? "1" : "0";
-  hash = appendEntry(hash, FieldToAbbreviation.isLabels, val);
+  hash = appendEntry(hash, FieldToAbbreviation.showLabels, val);
 
   return hash;
 }

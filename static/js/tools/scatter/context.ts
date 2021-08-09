@@ -167,8 +167,8 @@ const FieldToAbbreviation = {
   upperBound: "ub",
 
   // DisplayOptions fields
-  isQuadrant: "qd",
-  isLabels: "ld",
+  showQuadrant: "qd",
+  showLabels: "ld",
 };
 
 /**
@@ -178,8 +178,8 @@ function useContextStore(): ContextType {
   const [x, setX] = useState(EmptyAxis);
   const [y, setY] = useState(EmptyAxis);
   const [place, setPlace] = useState(EmptyPlace);
-  const [isQuadrants, setQuadrants] = useState(false);
-  const [isLabels, setLabels] = useState(false);
+  const [showQuadrants, setQuadrants] = useState(false);
+  const [showLabels, setLabels] = useState(false);
   const [arePlacesLoading, setArePlacesLoading] = useState(false);
   const [areStatVarsLoading, setAreStatVarsLoading] = useState(false);
   const [areDataLoading, setAreDataLoading] = useState(false);
@@ -212,10 +212,10 @@ function useContextStore(): ContextType {
       setUpperBound: getSetUpperBound(place, setPlace),
     },
     display: {
-      showQuadrants: isQuadrants,
-      setQuadrants: (isQuadrants) => setQuadrants(isQuadrants),
-      showLabels: isLabels,
-      setLabels: (isLabels) => setLabels(isLabels),
+      showQuadrants: showQuadrants,
+      setQuadrants: (showQuadrants) => setQuadrants(showQuadrants),
+      showLabels: showLabels,
+      setLabels: (showLabels) => setLabels(showLabels),
     },
     isLoading: {
       arePlacesLoading: arePlacesLoading,

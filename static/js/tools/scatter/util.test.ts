@@ -56,8 +56,8 @@ const TestContext = ({
     },
   },
   display: {
-    isQuadrants: true,
-    isLabels: true,
+    showQuadrants: true,
+    showLabels: true,
   },
 } as unknown) as ContextType;
 const Hash =
