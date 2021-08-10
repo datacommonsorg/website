@@ -80,11 +80,12 @@ function getColorScale(
 ): d3.ScaleLinear<number, number> {
   const label = getStatsVarLabel(statVar);
   const maxColor = d3.color(getColorFn([label])(label));
+  const extent = d3.extent(Object.values(dataValues));
   return d3
     .scaleLinear()
-    .domain(d3.extent(Object.values(dataValues)))
+    .domain([extent[0], d3.mean(extent), extent[1]])
     .nice()
-    .range(([MIN_COLOR, maxColor, maxColor.darker(2)] as unknown) as number[])
+    .range(([MIN_COLOR, maxColor, maxColor.darker(1.5)] as unknown) as number[])
     .interpolate(
       (d3.interpolateHslLong as unknown) as (
         a: unknown,
@@ -388,10 +389,10 @@ function generateLegend(
       d3
         .axisRight(yScale)
         .tickSize(TICK_SIZE)
-        .ticks(NUM_TICKS)
         .tickFormat((d) => {
           return formatNumber(d.valueOf(), unit);
         })
+        .tickValues(color.ticks(NUM_TICKS).concat(yScale.domain()))
     )
     .call((g) =>
       g
