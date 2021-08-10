@@ -29,8 +29,6 @@ interface StatVarInfo {
   title?: string;
   // statType
   st?: string;
-  // baseDate
-  bd?: string;
   // measurementQualifier
   mq?: string;
 }
