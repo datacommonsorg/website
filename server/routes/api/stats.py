@@ -95,7 +95,7 @@ def stats_var_property():
 
 
 def stats_var_property_wrapper(dcids):
-    """Function to get properties for give statistical variables."""
+    """Function to get properties for given statistical variables."""
     data = dc.fetch_data('/node/triples', {
         'dcids': dcids,
     },
@@ -112,26 +112,41 @@ def stats_var_property_wrapper(dcids):
         md = ''
         mprop = ''
         st = ''
+        base = ''
+        mq = ''
         name = dcid
         for triple in triples:
-            if triple['predicate'] == 'measuredProperty':
-                mprop = triple['objectId']
-            if triple['predicate'] == 'populationType':
-                pt = triple['objectId']
-            if triple['predicate'] == 'measurementDenominator':
-                md = triple['objectId']
-            if triple['predicate'] == 'statType':
-                st = triple['objectId']
-            if triple['predicate'] == 'name':
-                name = triple['objectValue']
-            if triple['predicate'] in pvs:
-                pvs[triple['predicate']] = triple['objectId']
+            predicate = triple['predicate']
+            objId = triple.get('objectId', '')
+            objVal = triple.get('objectValue', '')
+            if predicate == 'measuredProperty':
+                mprop = objId
+            if predicate == 'populationType':
+                pt = objId
+            if predicate == 'measurementDenominator':
+                md = objId
+            if predicate == 'statType':
+                st = objId
+            if predicate == 'name':
+                name = objVal
+            if predicate == 'baseDate':
+                base = objVal
+            if predicate == 'measurementQualifier':
+                mq = objId
+            if predicate in pvs:
+                if predicate == 'baseDate':
+                    v = objVal
+                else:
+                    v = objId
+                pvs[predicate] = v
 
         result[dcid] = {
             'mprop': mprop,
             'pt': pt,
             'md': md,
             'st': st,
+            'bd': base,
+            'mq': mq,
             'pvs': pvs,
             'title': name,
         }
