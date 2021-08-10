@@ -183,7 +183,9 @@ function addYLabel(
     .call(wrap, height)
     .attr(
       "transform",
-      `rotate(-90) translate(${-height / 2 - marginTop}, ${MARGINS.left - Y_AXIS_WIDTH})`
+      `rotate(-90) translate(${-height / 2 - marginTop}, ${
+        MARGINS.left - Y_AXIS_WIDTH
+      })`
     );
   return yAxisLabel.node().getBBox().height;
 }
