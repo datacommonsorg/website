@@ -1114,19 +1114,21 @@ function drawGroupLineChart(
 
   // Denote forecasted data.
   // TODO: Handle the case when not ALL stat vars in a chart is a projection.
-  const highlightProjection = Object.values(statVarInfos).filter((i) => isProjection(i)).length > 0;
+  const highlightProjection =
+    Object.values(statVarInfos).filter((i) => isProjection(i)).length > 0;
   if (highlightProjection) {
-      const forecast = chart.append('g').attr('class', 'forecast');
-      forecast
-      .append('rect')
-      .attr('width', chartWidth - leftWidth)
-      .attr('height', yPosBottom - yPosTop)
-      .attr('transform', `translate(${leftWidth}, ${yPosTop})`)
-      forecast.append('text')
-      .text('Projected')
-      .attr('transform', `translate(${leftWidth + 3}, ${yPosTop + 3})`)
-      .attr("dy", "1em")
-    }
+    const forecast = chart.append("g").attr("class", "forecast");
+    forecast
+      .append("rect")
+      .attr("width", chartWidth - leftWidth)
+      .attr("height", yPosBottom - yPosTop)
+      .attr("transform", `translate(${leftWidth}, ${yPosTop})`);
+    forecast
+      .append("text")
+      .text("Projected")
+      .attr("transform", `translate(${leftWidth + 3}, ${yPosTop + 3})`)
+      .attr("dy", "1em");
+  }
 
   // add ylabel
   svg

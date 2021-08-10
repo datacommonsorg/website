@@ -100,7 +100,7 @@ export function getUnit(placePointStat: PlacePointStat): string {
  */
 export function isProjection(info: StatVarInfo): boolean {
   // TODO: Update this to longer-term logic.
-  if (['temperature', 'precipitationRate'].includes(info.mprop)) {
+  if (["temperature", "precipitationRate"].includes(info.mprop)) {
     return true;
   }
   return false;
