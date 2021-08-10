@@ -209,9 +209,9 @@ function getTooltipContent(
         (datagroup) => datagroup.label === dataGroupLabel
       );
       const rowLabel = rowLabels[place][dataGroupLabel];
-      let value = "N/A";
+      let displayValue = "N/A";
       if (!dataGroup) {
-        tooltipContent += `${rowLabel}: ${value}<br/>`;
+        tooltipContent += `${rowLabel}: ${displayValue}<br/>`;
         continue;
       }
       const dataPoint = dataGroup.value.find(
@@ -219,10 +219,10 @@ function getTooltipContent(
       );
       if (dataPoint) {
         tooltipDate = dataPoint.label;
-        value = !_.isNull(dataPoint.value)
-          ? `${dataPoint.value} ${unit}`
+        displayValue = !_.isNull(dataPoint.value)
+          ? `${formatNumber(dataPoint.value)} ${unit}`
           : "N/A";
-        tooltipContent += `${rowLabel}: ${value}<br/>`;
+        tooltipContent += `${rowLabel}: ${displayValue}<br/>`;
       }
     }
   }
@@ -1000,14 +1000,9 @@ function drawLineChart(
  * @param dataGroupsDict
  */
 function computeRanges(dataGroupsDict: { [geoId: string]: DataGroup[] }) {
-  const range = {
-    minV: 0,
-    maxV: 0,
-  };
-
   let dataGroups: DataGroup[];
-  let maxV = 0;
-  let minV = 0; // calculate the min value when its less than 0
+  let minV = Number.MAX_VALUE;
+  let maxV = Number.MIN_VALUE;
   for (const geoId in dataGroupsDict) {
     dataGroups = dataGroupsDict[geoId];
     maxV = Math.max(
@@ -1019,9 +1014,10 @@ function computeRanges(dataGroupsDict: { [geoId: string]: DataGroup[] }) {
       Math.min(...dataGroups.map((dataGroup) => dataGroup.min()))
     );
   }
-  range.maxV = maxV;
-  range.minV = minV;
-  return range;
+  return {
+    maxV: maxV,
+    minV: minV,
+  };
 }
 
 /**
@@ -1052,12 +1048,13 @@ function drawGroupLineChart(
     (x) => x.length > 0
   );
   let dataGroups = dataGroupsAll[0];
-  const legendTextdWidth = Math.max(width * LEGEND.ratio, LEGEND.minTextWidth);
-  const legendWidth =
+  const legendTextWidth = Math.max(width * LEGEND.ratio, LEGEND.minTextWidth);
+  let legendWidth =
     Object.keys(dataGroupsDict).length > 1 &&
-    Object.keys(statVarInfos).length > 1
-      ? LEGEND.dashWidth + legendTextdWidth
-      : legendTextdWidth;
+    Object.keys(statVarInfo).length > 1
+      ? LEGEND.dashWidth + legendTextWidth
+      : legendTextWidth;
+  legendWidth += LEGEND.marginLeft;
 
   // Adjust the width of in-chart legends.
   const yRange = computeRanges(dataGroupsDict);
@@ -1171,7 +1168,7 @@ function drawGroupLineChart(
           .attr("d", line)
           .style("fill", "none")
           .style("stroke", lineStyle.color)
-          .style("stroke-width", "2px")
+          .style("stroke-width", "1.5px")
           .style("stroke-dasharray", lineStyle.dash);
       } else {
         chart
@@ -1203,7 +1200,7 @@ function drawGroupLineChart(
         `translate(${MARGIN.left}, ${height + SOURCE.topMargin})`
       )
       .style("fill", "#808080")
-      .style("font-size", "12px")
+      .style("font-size", "11px")
       .style("text-anchor", "start")
       .style("text-rendering", "optimizedLegibility")
       .text(sourceText);
@@ -1217,7 +1214,7 @@ function drawGroupLineChart(
         LEGEND.marginTop
       })`
     );
-  buildInChartLegend(legend, plotParams.legend, legendTextdWidth);
+  buildInChartLegend(legend, plotParams.legend, legendTextWidth);
 
   // Add highlight on hover
   const chartAreaBoundary = {
@@ -1248,13 +1245,13 @@ function drawGroupLineChart(
  *
  * @param legend: The legend svg selection.
  * @param params: An object keyed by legend text with value of legend style.
- * @param legendTextdWidth: The width of the legend text.
+ * @param legendTextWidth: The width of the legend text.
  * @param statVarInfo: object from stat var dcid to its info struct.
  */
 function buildInChartLegend(
   legend: d3.Selection<SVGGElement, any, any, any>,
   params: { [key: string]: Style },
-  legendTextdWidth: number
+  legendTextWidth: number
 ) {
   let yOffset = 0;
   for (const label in params) {
@@ -1285,7 +1282,7 @@ function buildInChartLegend(
       .text(label)
       .style("text-rendering", "optimizedLegibility")
       .style("fill", `${legendStyle.color}`)
-      .call(wrap, legendTextdWidth)
+      .call(wrap, legendTextWidth)
       .on("click", () => {
         if (legendStyle.legendLink) {
           window.open(legendStyle.legendLink);

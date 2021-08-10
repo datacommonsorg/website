@@ -326,8 +326,6 @@ class TestApiGetStatSetWithinPlace(unittest.TestCase):
                     '',
                 'st':
                     'minValue',
-                'bd':
-                    '2006-01',
                 'mq':
                     'DifferenceRelativeToBaseDate&Daily',
                 'pvs': {
