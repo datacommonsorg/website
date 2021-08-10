@@ -31,6 +31,7 @@ import { StatVarInfo } from "../shared/stat_var";
 import { formatNumber } from "../i18n/i18n";
 import { DotDataPoint } from "./types";
 import { Boundary } from "../shared/types";
+import { isProjection } from "../tools/shared_util";
 
 const NUM_X_TICKS = 5;
 const NUM_Y_TICKS = 5;
@@ -208,9 +209,9 @@ function getTooltipContent(
         (datagroup) => datagroup.label === dataGroupLabel
       );
       const rowLabel = rowLabels[place][dataGroupLabel];
-      let value = "N/A";
+      let displayValue = "N/A";
       if (!dataGroup) {
-        tooltipContent += `${rowLabel}: ${value}<br/>`;
+        tooltipContent += `${rowLabel}: ${displayValue}<br/>`;
         continue;
       }
       const dataPoint = dataGroup.value.find(
@@ -218,10 +219,10 @@ function getTooltipContent(
       );
       if (dataPoint) {
         tooltipDate = dataPoint.label;
-        value = !_.isNull(dataPoint.value)
-          ? `${dataPoint.value} ${unit}`
+        displayValue = !_.isNull(dataPoint.value)
+          ? `${formatNumber(dataPoint.value)} ${unit}`
           : "N/A";
-        tooltipContent += `${rowLabel}: ${value}<br/>`;
+        tooltipContent += `${rowLabel}: ${displayValue}<br/>`;
       }
     }
   }
@@ -999,14 +1000,9 @@ function drawLineChart(
  * @param dataGroupsDict
  */
 function computeRanges(dataGroupsDict: { [geoId: string]: DataGroup[] }) {
-  const range = {
-    minV: 0,
-    maxV: 0,
-  };
-
   let dataGroups: DataGroup[];
-  let maxV = 0;
-  let minV = 0; // calculate the min value when its less than 0
+  let minV = Number.MAX_VALUE;
+  let maxV = Number.MIN_VALUE;
   for (const geoId in dataGroupsDict) {
     dataGroups = dataGroupsDict[geoId];
     maxV = Math.max(
@@ -1018,9 +1014,10 @@ function computeRanges(dataGroupsDict: { [geoId: string]: DataGroup[] }) {
       Math.min(...dataGroups.map((dataGroup) => dataGroup.min()))
     );
   }
-  range.maxV = maxV;
-  range.minV = minV;
-  return range;
+  return {
+    maxV: maxV,
+    minV: minV,
+  };
 }
 
 /**
@@ -1029,7 +1026,7 @@ function computeRanges(dataGroupsDict: { [geoId: string]: DataGroup[] }) {
  * @param id: DOM id.
  * @param width: width for the chart.
  * @param height: height for the chart.
- * @param statVarInfo: object from stat var dcid to its info struct.
+ * @param statVarInfos: object from stat var dcid to its info struct.
  * @param dataGroupsDict: data groups for plotting.
  * @param plotParams: contains all plot params for chart.
  * @param sources: an array of source domain.
@@ -1039,7 +1036,7 @@ function drawGroupLineChart(
   selector: string | HTMLDivElement,
   width: number,
   height: number,
-  statVarInfo: { [key: string]: StatVarInfo },
+  statVarInfos: { [key: string]: StatVarInfo },
   dataGroupsDict: { [place: string]: DataGroup[] },
   plotParams: PlotParams,
   ylabel?: string,
@@ -1051,12 +1048,13 @@ function drawGroupLineChart(
     (x) => x.length > 0
   );
   let dataGroups = dataGroupsAll[0];
-  const legendTextdWidth = Math.max(width * LEGEND.ratio, LEGEND.minTextWidth);
-  const legendWidth =
+  const legendTextWidth = Math.max(width * LEGEND.ratio, LEGEND.minTextWidth);
+  let legendWidth =
     Object.keys(dataGroupsDict).length > 1 &&
-    Object.keys(statVarInfo).length > 1
-      ? LEGEND.dashWidth + legendTextdWidth
-      : legendTextdWidth;
+    Object.keys(statVarInfos).length > 1
+      ? LEGEND.dashWidth + legendTextWidth
+      : legendTextWidth;
+  legendWidth += LEGEND.marginLeft;
 
   // Adjust the width of in-chart legends.
   const yRange = computeRanges(dataGroupsDict);
@@ -1098,18 +1096,39 @@ function drawGroupLineChart(
 
   const leftWidth = addYAxis(tempYAxis, width - legendWidth, yScale, unit);
 
+  const chartWidth = width - MARGIN.right - legendWidth;
   const xScale = d3
     .scaleTime()
     .domain(d3.extent(dataGroups[0].value, (d) => d.time))
-    .range([leftWidth, width - MARGIN.right - legendWidth]);
+    .range([leftWidth, chartWidth]);
 
   const bottomHeight = addXAxis(xAxis, height, xScale);
 
   // Update and redraw the y-axis based on the new x-axis height.
-  yScale.rangeRound([height - bottomHeight, MARGIN.top + YLABEL.height]);
+  const yPosBottom = height - bottomHeight;
+  const yPosTop = MARGIN.top + YLABEL.height;
+  yScale.rangeRound([yPosBottom, yPosTop]);
   tempYAxis.remove();
   addYAxis(yAxis, width - legendWidth, yScale, unit);
   updateXAxis(xAxis, bottomHeight, height, yScale);
+
+  // Denote forecasted data.
+  // TODO: Handle the case when not ALL stat vars in a chart is a projection.
+  const highlightProjection =
+    Object.values(statVarInfos).filter((i) => isProjection(i)).length > 0;
+  if (highlightProjection) {
+    const forecast = chart.append("g").attr("class", "forecast");
+    forecast
+      .append("rect")
+      .attr("width", chartWidth - leftWidth)
+      .attr("height", yPosBottom - yPosTop)
+      .attr("transform", `translate(${leftWidth}, ${yPosTop})`);
+    forecast
+      .append("text")
+      .text("Projected")
+      .attr("transform", `translate(${leftWidth + 3}, ${yPosTop + 3})`)
+      .attr("dy", "1em");
+  }
 
   // add ylabel
   svg
@@ -1146,7 +1165,7 @@ function drawGroupLineChart(
           .attr("d", line)
           .style("fill", "none")
           .style("stroke", lineStyle.color)
-          .style("stroke-width", "2px")
+          .style("stroke-width", "1.5px")
           .style("stroke-dasharray", lineStyle.dash);
       } else {
         chart
@@ -1178,7 +1197,7 @@ function drawGroupLineChart(
         `translate(${MARGIN.left}, ${height + SOURCE.topMargin})`
       )
       .style("fill", "#808080")
-      .style("font-size", "12px")
+      .style("font-size", "11px")
       .style("text-anchor", "start")
       .style("text-rendering", "optimizedLegibility")
       .text(sourceText);
@@ -1192,7 +1211,7 @@ function drawGroupLineChart(
         LEGEND.marginTop
       })`
     );
-  buildInChartLegend(legend, plotParams.legend, legendTextdWidth);
+  buildInChartLegend(legend, plotParams.legend, legendTextWidth);
 
   // Add highlight on hover
   const chartAreaBoundary = {
@@ -1214,7 +1233,7 @@ function drawGroupLineChart(
     highlight,
     chartAreaBoundary,
     unit,
-    statVarInfo
+    statVarInfos
   );
 }
 
@@ -1223,13 +1242,13 @@ function drawGroupLineChart(
  *
  * @param legend: The legend svg selection.
  * @param params: An object keyed by legend text with value of legend style.
- * @param legendTextdWidth: The width of the legend text.
+ * @param legendTextWidth: The width of the legend text.
  * @param statVarInfo: object from stat var dcid to its info struct.
  */
 function buildInChartLegend(
   legend: d3.Selection<SVGGElement, any, any, any>,
   params: { [key: string]: Style },
-  legendTextdWidth: number
+  legendTextWidth: number
 ) {
   let yOffset = 0;
   for (const label in params) {
@@ -1260,7 +1279,7 @@ function buildInChartLegend(
       .text(label)
       .style("text-rendering", "optimizedLegibility")
       .style("fill", `${legendStyle.color}`)
-      .call(wrap, legendTextdWidth)
+      .call(wrap, legendTextWidth)
       .on("click", () => {
         if (legendStyle.legendLink) {
           window.open(legendStyle.legendLink);

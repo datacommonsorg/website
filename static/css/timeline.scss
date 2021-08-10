@@ -179,3 +179,12 @@ sup {
   cursor: pointer;
   text-decoration: underline;
 }
+
+.forecast rect {
+  opacity: .1;
+}
+
+.forecast text {
+  font-size: 10px;
+  color: var(--dc-gray);
+}

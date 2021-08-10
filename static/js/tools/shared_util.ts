@@ -17,6 +17,7 @@ import * as d3 from "d3";
 import _ from "lodash";
 
 import { TimeSeries } from "../shared/data_fetcher";
+import { StatVarInfo } from "../shared/stat_var";
 
 /**
  * Functions and interfaces shared between tools components
@@ -92,4 +93,15 @@ export function getUnit(placePointStat: PlacePointStat): string {
   } else {
     return "";
   }
+}
+
+/**
+ * Returns true if the stat var is entirely a projection.
+ */
+export function isProjection(info: StatVarInfo): boolean {
+  // TODO: Update this to longer-term logic.
+  if (["temperature", "precipitationRate"].includes(info.mprop)) {
+    return true;
+  }
+  return false;
 }
