@@ -17,12 +17,22 @@ import axios from "axios";
 import _ from "lodash";
 
 interface StatVarInfo {
+  // measurementDenominator
   md?: string;
+  // measuredProperty
   mprop?: string;
+  // populationType
   pt?: string;
+  // constraint properties { property: value }
   pvs?: { [key: string]: string };
+  // name
   title?: string;
+  // statType
   st?: string;
+  // baseDate
+  bd?: string;
+  // measurementQualifier
+  mq?: string;
 }
 
 function getStatVarInfo(dcids: string[]): Promise<Record<string, StatVarInfo>> {
