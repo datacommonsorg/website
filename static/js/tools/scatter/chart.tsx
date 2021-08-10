@@ -40,7 +40,8 @@ interface ChartPropsType {
   yStatVar: string;
   xUnits?: string;
   yUnits?: string;
-  isQuadrants: boolean;
+  showQuadrants: boolean;
+  showLabels: boolean;
 }
 
 const DOT_REDIRECT_PREFIX = "/tools/timeline";
@@ -297,7 +298,7 @@ function plot(
   const xScale = addXAxis(g, props.xLog, height, width, xMinMax[0], xMinMax[1]);
   const yScale = addYAxis(g, props.yLog, height, yMinMax[0], yMinMax[1]);
 
-  if (props.isQuadrants) {
+  if (props.showQuadrants) {
     const quadrant = g.append("g");
     const xMean = d3.mean(props.points, (point) => point.xVal);
     const yMean = d3.mean(props.points, (point) => point.yVal);
@@ -317,6 +318,19 @@ function plot(
     .attr("fill", "#FFFFFF")
     .style("opacity", "0.7")
     .on("click", handleDotClick(props.xStatVar, props.yStatVar));
+
+  if (props.showLabels) {
+    g.append("g")
+      .attr("class", "dot-label")
+      .selectAll("text")
+      .data(props.points)
+      .enter()
+      .append("text")
+      .attr("dy", "0.35em")
+      .attr("x", (point) => xScale(point.xVal) + 7)
+      .attr("y", (point) => yScale(point.yVal))
+      .text((point) => point.place.name);
+  }
 
   addTooltip(
     tooltip,

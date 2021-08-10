@@ -28,6 +28,7 @@ import {
   EmptyAxis,
   EmptyPlace,
   FieldToAbbreviation,
+  DisplayOptionsWrapper,
 } from "./context";
 import { PlacePointStat } from "../shared_util";
 
@@ -79,7 +80,12 @@ function applyHash(context: ContextType): void {
   context.x.set(applyHashAxis(params, true));
   context.y.set(applyHashAxis(params, false));
   context.place.set(applyHashPlace(params));
-  context.isQuadrants.set(applyHashQuadrants(params));
+  context.display.setQuadrants(
+    applyHashBoolean(params, FieldToAbbreviation.showQuadrant)
+  );
+  context.display.setLabels(
+    applyHashBoolean(params, FieldToAbbreviation.showLabels)
+  );
 }
 
 /**
@@ -140,9 +146,9 @@ function applyHashPlace(params: URLSearchParams): PlaceInfo {
   return place;
 }
 
-function applyHashQuadrants(params: URLSearchParams): boolean {
-  const isQuadrant = params.get(FieldToAbbreviation.isQuadrant);
-  return isQuadrant === "1";
+function applyHashBoolean(params: URLSearchParams, key: string): boolean {
+  const val = params.get(key);
+  return val === "1";
 }
 
 /**
@@ -158,7 +164,7 @@ function updateHash(context: ContextType): void {
   let hash = updateHashAxis("", x, true);
   hash = updateHashAxis(hash, y, false);
   hash = updateHashPlace(hash, place);
-  hash = updateHashQuadrant(hash, context.isQuadrants.value);
+  hash = updateHashDisplayOptions(hash, context.display);
   const newHash = encodeURIComponent(hash);
   const currentHash = location.hash.replace("#", "");
   if (newHash && newHash !== currentHash) {
@@ -233,12 +239,17 @@ function updateHashPlace(hash: string, place: PlaceInfo): string {
   return hash;
 }
 
-/**
- * Updates the hash for quadrant related parameters.
- */
-function updateHashQuadrant(hash: string, isQuadrants: boolean) {
-  const val = isQuadrants ? "1" : "0";
-  return appendEntry(hash, FieldToAbbreviation.isQuadrant, val);
+function updateHashDisplayOptions(
+  hash: string,
+  display: DisplayOptionsWrapper
+) {
+  let val = display.showQuadrants ? "1" : "0";
+  hash = appendEntry(hash, FieldToAbbreviation.showQuadrant, val);
+
+  val = display.showLabels ? "1" : "0";
+  hash = appendEntry(hash, FieldToAbbreviation.showLabels, val);
+
+  return hash;
 }
 
 export {
