@@ -389,10 +389,10 @@ function generateLegend(
       d3
         .axisRight(yScale)
         .tickSize(TICK_SIZE)
-        .ticks(NUM_TICKS)
         .tickFormat((d) => {
           return formatNumber(d.valueOf(), unit);
         })
+        .tickValues(color.ticks(NUM_TICKS).concat(yScale.domain()))
     )
     .call((g) =>
       g
