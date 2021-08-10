@@ -17,6 +17,7 @@ import * as d3 from "d3";
 import _ from "lodash";
 
 import { TimeSeries } from "../shared/data_fetcher";
+import { StatVarInfo } from "../shared/stat_var";
 
 /**
  * Functions and interfaces shared between tools components
@@ -92,4 +93,15 @@ export function getUnit(placePointStat: PlacePointStat): string {
   } else {
     return "";
   }
+}
+
+/**
+ * Returns the base date for projections if the stat var is a projection.
+ * Returns undefined if not a projection.
+ */
+export function getProjectionBaseDate(info: StatVarInfo): string {
+  if (info.bd) {
+    return info.bd;
+  }
+  return undefined;
 }

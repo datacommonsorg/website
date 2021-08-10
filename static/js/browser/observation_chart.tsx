@@ -24,7 +24,7 @@ import { DataGroup, DataPoint } from "../chart/base";
 import { drawLineChart } from "../chart/draw";
 import { getUnit } from "./util";
 import { SourceSeries } from "./types";
-import { randDomId, isMeasurementMethodProjection } from "../shared/util";
+import { randDomId } from "../shared/util";
 import { URI_PREFIX } from "./constants";
 
 // Chart size
@@ -186,7 +186,6 @@ export class ObservationChart extends React.Component<
   private plot(): void {
     this.svgContainerRef.current.innerHTML = "";
     const values = this.props.sourceSeries.val;
-    console.log(this.props);
     const data = [];
     this.sortedDates.forEach((key) => {
       data.push({
@@ -195,7 +194,7 @@ export class ObservationChart extends React.Component<
         value: Number(values[key]),
       });
     });
-    const dataGroups = [new DataGroup(this.props.statVarId, data, undefined, isMeasurementMethodProjection(this.props.sourceSeries.measurementMethod))];
+    const dataGroups = [new DataGroup(this.props.statVarId, data)];
     drawLineChart(
       this.chartId,
       this.svgContainerRef.current.offsetWidth,
