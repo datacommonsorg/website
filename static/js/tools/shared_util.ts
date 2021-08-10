@@ -96,12 +96,12 @@ export function getUnit(placePointStat: PlacePointStat): string {
 }
 
 /**
- * Returns the base date for projections if the stat var is a projection.
- * Returns undefined if not a projection.
+ * Returns true if the stat var is entirely a projection.
  */
-export function getProjectionBaseDate(info: StatVarInfo): string {
-  if (info.bd) {
-    return info.bd;
+export function isProjection(info: StatVarInfo): boolean {
+  // TODO: Update this to longer-term logic.
+  if (['temperature', 'precipitationRate'].includes(info.mprop)) {
+    return true;
   }
-  return undefined;
+  return false;
 }

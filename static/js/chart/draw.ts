@@ -31,7 +31,7 @@ import { StatVarInfo } from "../shared/stat_var";
 import { formatNumber } from "../i18n/i18n";
 import { DotDataPoint } from "./types";
 import { Boundary } from "../shared/types";
-import { getProjectionBaseDate } from "../tools/shared_util";
+import { isProjection } from "../tools/shared_util";
 
 const NUM_X_TICKS = 5;
 const NUM_Y_TICKS = 5;
@@ -1051,7 +1051,7 @@ function drawGroupLineChart(
   const legendTextWidth = Math.max(width * LEGEND.ratio, LEGEND.minTextWidth);
   let legendWidth =
     Object.keys(dataGroupsDict).length > 1 &&
-    Object.keys(statVarInfo).length > 1
+    Object.keys(statVarInfos).length > 1
       ? LEGEND.dashWidth + legendTextWidth
       : legendTextWidth;
   legendWidth += LEGEND.marginLeft;
@@ -1112,24 +1112,19 @@ function drawGroupLineChart(
   addYAxis(yAxis, width - legendWidth, yScale, unit);
   updateXAxis(xAxis, bottomHeight, height, yScale);
 
-  // Denote forecasted data from the 'min' baseDate.
-  let baseDate;
-  for (let info of Object.values(statVarInfos)) {
-    let b = getProjectionBaseDate(info);
-    if (!b) continue;
-    baseDate = !baseDate ? b : (b < baseDate ? b : baseDate);
-  }
-  if (baseDate) {
-      const projectionOffset = xScale(new Date(baseDate).getTime());
+  // Denote forecasted data.
+  // TODO: Handle the case when not ALL stat vars in a chart is a projection.
+  const highlightProjection = Object.values(statVarInfos).filter((i) => isProjection(i)).length > 0;
+  if (highlightProjection) {
       const forecast = chart.append('g').attr('class', 'forecast');
       forecast
       .append('rect')
-      .attr('width', chartWidth - projectionOffset)
+      .attr('width', chartWidth - leftWidth)
       .attr('height', yPosBottom - yPosTop)
-      .attr('transform', `translate(${projectionOffset}, ${yPosTop})`)
+      .attr('transform', `translate(${leftWidth}, ${yPosTop})`)
       forecast.append('text')
       .text('Projected')
-      .attr('transform', `translate(${projectionOffset + 3}, ${yPosTop + 3})`)
+      .attr('transform', `translate(${leftWidth + 3}, ${yPosTop + 3})`)
       .attr("dy", "1em")
     }
 
