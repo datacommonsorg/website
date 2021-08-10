@@ -39,6 +39,8 @@ interface ChartPropsType {
   yStatVar: string;
   xUnits?: string;
   yUnits?: string;
+  showQuadrants: boolean;
+  showLabels: boolean;
 }
 
 const DOT_REDIRECT_PREFIX = "/tools/timeline";
@@ -197,6 +199,13 @@ function plot(
     props.yUnits
   );
 
+  if (props.showQuadrants) {
+    const quadrant = g.append("g");
+    const xMean = d3.mean(props.points, (point) => point.xVal);
+    const yMean = d3.mean(props.points, (point) => point.yVal);
+    addQuadrants(quadrant, xScale, yScale, xMean, yMean, width, height);
+  }
+
   g.append("text")
     .attr("class", "plot-title")
     .attr("transform", `translate(${width / 2},${-margin.top / 2})`)
@@ -217,6 +226,19 @@ function plot(
     .attr("fill", "#FFFFFF")
     .style("opacity", "0.7")
     .on("click", handleDotClick(props.xStatVar, props.yStatVar));
+
+  if (props.showLabels) {
+    g.append("g")
+      .attr("class", "dot-label")
+      .selectAll("text")
+      .data(props.points)
+      .enter()
+      .append("text")
+      .attr("dy", "0.35em")
+      .attr("x", (point) => xScale(point.xVal) + 7)
+      .attr("y", (point) => yScale(point.yVal))
+      .text((point) => point.place.name);
+  }
 
   addTooltip(
     tooltip,
@@ -320,6 +342,42 @@ function addYAxis(
     )
     .text(yLabel + unitLabelString);
   return yScale;
+}
+
+/**
+ * Draw quadrant lines at the mean of the x and y values.
+ */
+function addQuadrants(
+  quadrant: d3.Selection<SVGGElement, any, any, any>,
+  xScale: d3.ScaleLinear<any, any>,
+  yScale: d3.ScaleLinear<any, any>,
+  xMean: number,
+  yMean: number,
+  chartWidth: number,
+  chartHeight: number
+) {
+  quadrant
+    .append("line")
+    .attr("x1", xScale(xMean))
+    .attr("x2", xScale(xMean))
+    .attr("y1", 0)
+    .attr("y2", chartHeight)
+    .attr("stroke", "red")
+    .attr("class", "quadrant-line");
+
+  quadrant
+    .append("line")
+    .attr("y1", yScale(yMean))
+    .attr("y2", yScale(yMean))
+    .attr("x1", 0)
+    .attr("x2", chartWidth)
+    .attr("class", "quadrant-line");
+
+  quadrant
+    .append("text")
+    .text(`mean (${formatNumber(xMean)}, ${formatNumber(yMean)})`)
+    .attr("transform", `translate(${xScale(xMean) + 5}, 5)`)
+    .attr("class", "quadrant-label");
 }
 
 /**

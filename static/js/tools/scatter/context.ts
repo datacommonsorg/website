@@ -91,6 +91,15 @@ const EmptyPlace: PlaceInfo = Object.freeze({
   upperBound: 1e10,
 });
 
+interface DisplayOptionsWrapper {
+  showQuadrants: boolean;
+  showLabels: boolean;
+
+  // Setters
+  setQuadrants: Setter<boolean>;
+  setLabels: Setter<boolean>;
+}
+
 interface DateInfo {
   year: number;
   month: number;
@@ -135,6 +144,8 @@ interface ContextType {
   y: AxisWrapper;
   // Places to plot
   place: PlaceInfoWrapper;
+  // Plot display options
+  display: DisplayOptionsWrapper;
   // Whether there are currently active network tasks
   isLoading: IsLoadingWrapper;
 }
@@ -154,6 +165,10 @@ const FieldToAbbreviation = {
   enclosedPlaceType: "ept",
   lowerBound: "lb",
   upperBound: "ub",
+
+  // DisplayOptions fields
+  showQuadrant: "qd",
+  showLabels: "ld",
 };
 
 /**
@@ -163,6 +178,8 @@ function useContextStore(): ContextType {
   const [x, setX] = useState(EmptyAxis);
   const [y, setY] = useState(EmptyAxis);
   const [place, setPlace] = useState(EmptyPlace);
+  const [showQuadrants, setQuadrants] = useState(false);
+  const [showLabels, setLabels] = useState(false);
   const [arePlacesLoading, setArePlacesLoading] = useState(false);
   const [areStatVarsLoading, setAreStatVarsLoading] = useState(false);
   const [areDataLoading, setAreDataLoading] = useState(false);
@@ -193,6 +210,12 @@ function useContextStore(): ContextType {
       setEnclosedPlaces: getSetEnclosedPlaces(place, setPlace),
       setLowerBound: getSetLowerBound(place, setPlace),
       setUpperBound: getSetUpperBound(place, setPlace),
+    },
+    display: {
+      showQuadrants: showQuadrants,
+      setQuadrants: (showQuadrants) => setQuadrants(showQuadrants),
+      showLabels: showLabels,
+      setLabels: (showLabels) => setLabels(showLabels),
     },
     isLoading: {
       arePlacesLoading: arePlacesLoading,
@@ -359,6 +382,7 @@ export {
   DateInfo,
   DateInfoWrapper,
   IsLoadingWrapper,
+  DisplayOptionsWrapper,
   EmptyAxis,
   EmptyPlace,
   EmptyDate,

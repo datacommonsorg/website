@@ -28,6 +28,7 @@ import {
   EmptyAxis,
   EmptyPlace,
   FieldToAbbreviation,
+  DisplayOptionsWrapper,
 } from "./context";
 import { PlacePointStat } from "../shared_util";
 
@@ -79,6 +80,12 @@ function applyHash(context: ContextType): void {
   context.x.set(applyHashAxis(params, true));
   context.y.set(applyHashAxis(params, false));
   context.place.set(applyHashPlace(params));
+  context.display.setQuadrants(
+    applyHashBoolean(params, FieldToAbbreviation.showQuadrant)
+  );
+  context.display.setLabels(
+    applyHashBoolean(params, FieldToAbbreviation.showLabels)
+  );
 }
 
 /**
@@ -139,6 +146,11 @@ function applyHashPlace(params: URLSearchParams): PlaceInfo {
   return place;
 }
 
+function applyHashBoolean(params: URLSearchParams, key: string): boolean {
+  const val = params.get(key);
+  return val === "1";
+}
+
 /**
  * Updates the hash based on the context and returns the new hash.
  * If there are multiple denominators for a statvar, only the first
@@ -152,6 +164,7 @@ function updateHash(context: ContextType): void {
   let hash = updateHashAxis("", x, true);
   hash = updateHashAxis(hash, y, false);
   hash = updateHashPlace(hash, place);
+  hash = updateHashDisplayOptions(hash, context.display);
   const newHash = encodeURIComponent(hash);
   const currentHash = location.hash.replace("#", "");
   if (newHash && newHash !== currentHash) {
@@ -223,6 +236,19 @@ function updateHashPlace(hash: string, place: PlaceInfo): string {
       hash = appendEntry(hash, FieldToAbbreviation[key], place[key].toString());
     }
   }
+  return hash;
+}
+
+function updateHashDisplayOptions(
+  hash: string,
+  display: DisplayOptionsWrapper
+) {
+  let val = display.showQuadrants ? "1" : "0";
+  hash = appendEntry(hash, FieldToAbbreviation.showQuadrant, val);
+
+  val = display.showLabels ? "1" : "0";
+  hash = appendEntry(hash, FieldToAbbreviation.showLabels, val);
+
   return hash;
 }
 

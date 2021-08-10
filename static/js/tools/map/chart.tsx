@@ -34,6 +34,7 @@ import {
   updateHashPlaceInfo,
   updateHashStatVar,
   USA_CHILD_PLACE_TYPES,
+  USA_PLACE_HIERARCHY,
 } from "./util";
 import { urlToDomain } from "../../shared/util";
 import { ChartOptions } from "./chart_options";
@@ -210,11 +211,27 @@ function draw(
         props.unit
       ),
       false,
+      shouldShowBoundary(props.placeInfo),
       zoomDcid,
       ZOOM_IN_BUTTON_ID,
       ZOOM_OUT_BUTTON_ID
     );
   }
+}
+
+export function shouldShowBoundary(placeInfo: PlaceInfo): boolean {
+  const selectedPlaceTypes = placeInfo.selectedPlace.types;
+  let selectedPlaceTypeIdx = -1;
+  if (selectedPlaceTypes) {
+    selectedPlaceTypeIdx = USA_PLACE_HIERARCHY.indexOf(selectedPlaceTypes[0]);
+  }
+  const enclosedPlaceTypeIdx = USA_PLACE_HIERARCHY.indexOf(
+    placeInfo.enclosedPlaceType
+  );
+  if (selectedPlaceTypeIdx < 0 || enclosedPlaceTypeIdx < 0) {
+    return true;
+  }
+  return enclosedPlaceTypeIdx - selectedPlaceTypeIdx < 2;
 }
 
 function getTitle(statVarDates: string[], statVarName: string): string {
