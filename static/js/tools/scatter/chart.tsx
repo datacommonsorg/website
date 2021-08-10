@@ -47,11 +47,12 @@ interface ChartPropsType {
 const DOT_REDIRECT_PREFIX = "/tools/timeline";
 const SVG_CONTAINER_ID = "scatter-plot-container";
 const MARGINS = {
-  top: 30,
-  left: 60,
   bottom: 30,
+  left: 60,
   right: 30,
+  top: 30,
 };
+const Y_AXIS_WIDTH = 30;
 
 function Chart(props: ChartPropsType): JSX.Element {
   const svgRef = useRef<SVGSVGElement>();
@@ -182,7 +183,7 @@ function addYLabel(
     .call(wrap, height)
     .attr(
       "transform",
-      `rotate(-90) translate(${-height / 2 - marginTop}, ${MARGINS.left - 30})`
+      `rotate(-90) translate(${-height / 2 - marginTop}, ${MARGINS.left - Y_AXIS_WIDTH})`
     );
   return yAxisLabel.node().getBBox().height;
 }
