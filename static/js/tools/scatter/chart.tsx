@@ -26,6 +26,7 @@ import * as d3 from "d3";
 import { Point } from "./chart_loader";
 import { urlToDomain } from "../../shared/util";
 import { formatNumber } from "../../i18n/i18n";
+import { wrap } from "../../chart/base";
 
 interface ChartPropsType {
   points: Array<Point>;
@@ -44,6 +45,12 @@ interface ChartPropsType {
 
 const DOT_REDIRECT_PREFIX = "/tools/timeline";
 const SVG_CONTAINER_ID = "scatter-plot-container";
+const MARGINS = {
+  top: 30,
+  left: 60,
+  bottom: 30,
+  right: 30,
+};
 
 function Chart(props: ChartPropsType): JSX.Element {
   const svgRef = useRef<SVGSVGElement>();
@@ -126,6 +133,95 @@ function getStringOrNA(num: number): string {
 }
 
 /**
+ * Adds title to the plot and returns the height of the added title.
+ * @param titleSelection d3 selection with an SVG element to add the title to
+ * @param width width of the plot
+ * @param yLabel y-label of the plot
+ * @param xLabel x-label of the plot
+ */
+function addPlotTitle(
+  titleSelection: d3.Selection<SVGGElement, any, any, any>,
+  width: number,
+  yLabel: string,
+  xLabel: string
+): number {
+  const plotTitle = titleSelection
+    .append("text")
+    .attr("class", "plot-title")
+    .attr("y", 0)
+    .attr("transform", `translate(${width / 2}, ${MARGINS.top})`)
+    .attr("text-anchor", "middle")
+    .style("font-size", "1.1em")
+    .text(`${yLabel} vs ${xLabel}`)
+    .call(wrap, width);
+  return plotTitle.node().getBBox().height;
+}
+
+/**
+ * Adds a label for the y-axis
+ * @param labelElement d3 selection with an SVG to add the label to
+ * @param height height of the plot
+ * @param marginTop top margin for the label
+ * @param label label text to add
+ * @param unit unit text to add to the label
+ */
+function addYLabel(
+  labelElement: d3.Selection<SVGGElement, any, any, any>,
+  height: number,
+  marginTop: number,
+  label: string,
+  unit?: string
+): number {
+  const unitLabelString = unit ? ` (${unit})` : "";
+  const yAxisLabel = labelElement
+    .append("text")
+    .attr("text-anchor", "middle")
+    .attr("y", 0)
+    .text(label + unitLabelString)
+    .call(wrap, height)
+    .attr(
+      "transform",
+      `rotate(-90) translate(${-height / 2 - marginTop}, ${MARGINS.left - 30})`
+    );
+  return yAxisLabel.node().getBBox().height;
+}
+
+/**
+ * Adds a label for the x-axis
+ * @param labelElement d3 selection with an SVG to add the label to
+ * @param width width of the plot
+ * @param marginLeft left margin for the label
+ * @param containerHeight height of container holding the plot
+ * @param label label text to add
+ * @param unit unit text to add to the label
+ */
+function addXLabel(
+  labelElement: d3.Selection<SVGGElement, any, any, any>,
+  width: number,
+  marginLeft: number,
+  containerHeight: number,
+  label: string,
+  unit?: string
+): number {
+  const unitLabelString = unit ? ` (${unit})` : "";
+  const padding = 5;
+  const xAxisLabel = labelElement
+    .append("text")
+    .attr("text-anchor", "middle")
+    .attr("y", 0)
+    .text(label + unitLabelString)
+    .call(wrap, width);
+  const xAxisHeight = xAxisLabel.node().getBBox().height + padding;
+  xAxisLabel.attr(
+    "transform",
+    `translate(${marginLeft + width / 2},${
+      containerHeight - xAxisHeight + padding
+    })`
+  );
+  return xAxisHeight;
+}
+
+/**
  * Plots a scatter plot.
  * @param svg
  * @param tooltip
@@ -160,43 +256,46 @@ function plot(
   const xMinMax = d3.extent(props.points, (point) => point.xVal);
   const yMinMax = d3.extent(props.points, (point) => point.yVal);
 
-  const margin = {
-    top: 60,
-    right: 30,
-    bottom: 60,
-    left: 90,
-  };
+  const plotTitle = svg.append("g").attr("class", "plot-title");
+  const titleHeight = addPlotTitle(
+    plotTitle,
+    svgContainerWidth,
+    props.yLabel,
+    props.xLabel
+  );
 
-  const width = svgContainerWidth - margin.left - margin.right;
-  const height = svgContainerHeight - margin.top - margin.bottom;
+  let height = svgContainerHeight - titleHeight - MARGINS.top - MARGINS.bottom;
+  const minXAxisHeight = 30;
+  const yAxisLabel = svg.append("g").attr("class", "y-axis-label");
+  const yAxisWidth = addYLabel(
+    yAxisLabel,
+    height - minXAxisHeight,
+    titleHeight + MARGINS.top,
+    props.yLabel,
+    props.yUnits
+  );
+  const width = svgContainerWidth - MARGINS.left - MARGINS.right - yAxisWidth;
+
+  const xAxisLabel = svg.append("g").attr("class", "x-axis-label");
+  const xAxisHeight = addXLabel(
+    xAxisLabel,
+    width,
+    MARGINS.left + yAxisWidth,
+    svgContainerHeight,
+    props.xLabel,
+    props.xUnits
+  );
+  height = height - xAxisHeight;
 
   const g = svg
     .append("g")
-    .attr("transform", `translate(${margin.left},${margin.top})`);
+    .attr(
+      "transform",
+      `translate(${MARGINS.left + yAxisWidth},${MARGINS.top + titleHeight})`
+    );
 
-  const xScale = addXAxis(
-    g,
-    props.xLog,
-    props.xPerCapita,
-    props.xLabel,
-    height,
-    width,
-    margin.bottom,
-    xMinMax[0],
-    xMinMax[1],
-    props.xUnits
-  );
-  const yScale = addYAxis(
-    g,
-    props.yLog,
-    props.yPerCapita,
-    props.yLabel,
-    height,
-    margin.left,
-    yMinMax[0],
-    yMinMax[1],
-    props.yUnits
-  );
+  const xScale = addXAxis(g, props.xLog, height, width, xMinMax[0], xMinMax[1]);
+  const yScale = addYAxis(g, props.yLog, height, yMinMax[0], yMinMax[1]);
 
   if (props.isQuadrants) {
     const quadrant = g.append("g");
@@ -204,13 +303,6 @@ function plot(
     const yMean = d3.mean(props.points, (point) => point.yVal);
     addQuadrants(quadrant, xScale, yScale, xMean, yMean, width, height);
   }
-
-  g.append("text")
-    .attr("class", "plot-title")
-    .attr("transform", `translate(${width / 2},${-margin.top / 2})`)
-    .attr("text-anchor", "middle")
-    .style("font-size", "1.1em")
-    .text(`${props.yLabel} vs ${props.xLabel}`);
 
   const dots = g
     .selectAll("dot")
@@ -240,25 +332,18 @@ function plot(
  * Adds the x axis to the plot.
  * @param g plot container
  * @param log
- * @param perCapita
- * @param xLabel
  * @param height plot height
  * @param width plot width
- * @param marginBottom plot bottom margin
  * @param min domain min
  * @param max domain max
  */
 function addXAxis(
   g: d3.Selection<SVGGElement, unknown, HTMLElement, any>,
   log: boolean,
-  perCapita: boolean,
-  xLabel: string,
   height: number,
   width: number,
-  marginBottom: number,
   min: number,
-  max: number,
-  unit?: string
+  max: number
 ): d3.ScaleLinear<number, number> | d3.ScaleLogarithmic<number, number> {
   const xScale = (log ? d3.scaleLog() : d3.scaleLinear())
     .domain([min, max])
@@ -273,14 +358,6 @@ function addXAxis(
     });
   }
   g.append("g").attr("transform", `translate(0,${height})`).call(xAxis);
-  const unitLabelString = unit ? ` (${unit})` : "";
-  g.append("text")
-    .attr("text-anchor", "middle")
-    .attr(
-      "transform",
-      `translate(${width / 2},${height + marginBottom / 2 + 10})`
-    )
-    .text(xLabel + unitLabelString);
   return xScale;
 }
 
@@ -288,23 +365,16 @@ function addXAxis(
  * Adds the y axis to the plot.
  * @param g plot container
  * @param log
- * @param perCapita
- * @param yLabel
  * @param height plot height
- * @param marginLeft plot left margin
  * @param min domain min
  * @param max domain max
  */
 function addYAxis(
   g: d3.Selection<SVGGElement, unknown, HTMLElement, any>,
   log: boolean,
-  perCapita: boolean,
-  yLabel: string,
   height: number,
-  marginLeft: number,
   min: number,
-  max: number,
-  unit?: string
+  max: number
 ): d3.ScaleLinear<number, number> | d3.ScaleLogarithmic<number, number> {
   const yScale = (log ? d3.scaleLog() : d3.scaleLinear())
     .domain([min, max])
@@ -319,14 +389,6 @@ function addYAxis(
     });
   }
   g.append("g").call(yAxis);
-  const unitLabelString = unit ? ` (${unit})` : "";
-  g.append("text")
-    .attr("text-anchor", "middle")
-    .attr(
-      "transform",
-      `rotate(-90) translate(${-height / 2},${-(marginLeft / 2 + 5)})`
-    )
-    .text(yLabel + unitLabelString);
   return yScale;
 }
 
