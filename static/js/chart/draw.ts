@@ -1016,7 +1016,7 @@ function computeRanges(dataGroupsDict: { [geoId: string]: DataGroup[] }) {
   return {
     maxV: maxV,
     minV: minV,
-  }
+  };
 }
 
 /**
@@ -1053,7 +1053,7 @@ function drawGroupLineChart(
     Object.keys(statVarInfo).length > 1
       ? LEGEND.dashWidth + legendTextWidth
       : legendTextWidth;
-  legendWidth += LEGEND.marginLeft
+  legendWidth += LEGEND.marginLeft;
 
   // Adjust the width of in-chart legends.
   const yRange = computeRanges(dataGroupsDict);
