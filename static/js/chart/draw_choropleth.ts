@@ -80,11 +80,12 @@ function getColorScale(
 ): d3.ScaleLinear<number, number> {
   const label = getStatsVarLabel(statVar);
   const maxColor = d3.color(getColorFn([label])(label));
+  const extent = d3.extent(Object.values(dataValues));
   return d3
     .scaleLinear()
-    .domain(d3.extent(Object.values(dataValues)))
+    .domain([extent[0], d3.mean(extent), extent[1]])
     .nice()
-    .range(([MIN_COLOR, maxColor, maxColor.darker(2)] as unknown) as number[])
+    .range(([MIN_COLOR, maxColor, maxColor.darker(1.5)] as unknown) as number[])
     .interpolate(
       (d3.interpolateHslLong as unknown) as (
         a: unknown,
@@ -124,6 +125,7 @@ function drawChoropleth(
   redirectAction: (geoDcid: GeoJsonFeatureProperties) => void,
   getTooltipHtml: (place: NamedPlace) => string,
   shouldGenerateLegend: boolean,
+  shouldShowBoundaryLines: boolean,
   zoomDcid?: string,
   zoomInButtonId?: string,
   zoomOutButtonId?: string
@@ -209,11 +211,14 @@ function drawChoropleth(
     .attr("id", (_, index) => {
       return "geoPath" + index;
     })
-    .attr("stroke-width", STROKE_WIDTH)
-    .attr("stroke", GEO_STROKE_COLOR)
     .on("mouseover", onMouseOver(domContainerId, canClick))
     .on("mouseout", onMouseOut(domContainerId))
     .on("mousemove", onMouseMove(domContainerId, getTooltipHtml, canClick));
+  if (shouldShowBoundaryLines) {
+    mapObjects
+      .attr("stroke-width", STROKE_WIDTH)
+      .attr("stroke", GEO_STROKE_COLOR);
+  }
   if (canClick) {
     mapObjects.on("click", onMapClick(domContainerId, redirectAction));
   }
@@ -384,10 +389,10 @@ function generateLegend(
       d3
         .axisRight(yScale)
         .tickSize(TICK_SIZE)
-        .ticks(NUM_TICKS)
         .tickFormat((d) => {
           return formatNumber(d.valueOf(), unit);
         })
+        .tickValues(color.ticks(NUM_TICKS).concat(yScale.domain()))
     )
     .call((g) =>
       g

@@ -66,7 +66,7 @@ type Cache = {
 };
 
 function ChartLoader(): JSX.Element {
-  const { x, y, isLoading } = useContext(Context);
+  const { x, y, isLoading, display } = useContext(Context);
   const cache = useCache();
   const points = usePoints(cache);
 
@@ -115,6 +115,8 @@ function ChartLoader(): JSX.Element {
                 yStatVar={yStatVar}
                 xUnits={xUnits}
                 yUnits={yUnits}
+                showQuadrants={display.showQuadrants}
+                showLabels={display.showLabels}
               />
               <PlotOptions />
             </>
