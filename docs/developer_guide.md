@@ -20,7 +20,8 @@ git submodule foreach git pull origin master
 
 ### Basic Development
 
-For development that only involves minor bug fix and feature addition, need to:
+For development that only involves minor bug fixes or feature additions, the
+following steps are required:
 
 - Install [`nodejs`](https://nodejs.org/en/download/)
 
@@ -32,7 +33,8 @@ For development that only involves minor bug fix and feature addition, need to:
 
 ### Place Search
 
-Development that involves place search need to:
+Development that involves place search needs the following additional
+requirements:
 
 - Contact Data Commons team to get dev maps api key.
 
@@ -46,7 +48,8 @@ Development that involves place search need to:
 
 ### Develop with Kubernetes
 
-This is only needed if developing in local Kubernetes cluster.
+This is only needed for development with a local Kubernetes cluster (e.g. for
+changes dependent on mixer changes).
 
 - Install the following tools:
 
