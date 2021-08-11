@@ -18,16 +18,12 @@ git submodule foreach git pull origin master
 
 ## Prerequisites
 
-- Contact Data Commons team to get dev maps api key.
+### Basic Development
 
-- Contact Data Commons team to get permission for BigTable and BigQuery
-  permission.
+For development that only involves minor bug fixes or feature additions, the
+following steps are required:
 
-- Get GCP authentication
-
-  ```bash
-  gcloud auth application-default login
-  ```
+- Install [`nodejs`](https://nodejs.org/en/download/)
 
 - Initialize the mixer submodule
 
@@ -35,14 +31,32 @@ git submodule foreach git pull origin master
   git submodule update --init --recursive
   ```
 
+### Place Search
+
+Development that involves place search needs the following additional
+requirements:
+
+- Contact Data Commons team to get dev maps api key.
+
+- Install [`gcloud`](https://cloud.google.com/sdk/docs/install)
+
+- Get GCP authentication
+
+  ```bash
+  gcloud auth application-default login
+  ```
+
+### Develop with Kubernetes
+
+This is only needed for development with a local Kubernetes cluster (e.g. for
+changes dependent on mixer changes).
+
 - Install the following tools:
 
   - [`Docker`](https://www.docker.com/products/docker-desktop)
   - [`Minikube`](https://minikube.sigs.k8s.io/docs/start/)
   - [`Skaffold`](https://skaffold.dev/docs/install/)
-  - [`gcloud`](https://cloud.google.com/sdk/docs/install)
   - [`kubectl`](https://kubernetes.io/docs/tasks/tools/install-kubectl/)
-  - [`nodejs`](https://nodejs.org/en/download/)
   - [`kustomize`](https://kustomize.io/)
 
 ## Run Tests
