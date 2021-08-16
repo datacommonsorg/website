@@ -17,7 +17,7 @@ msgid "About Data Commons"
 msgstr "Informazioni su Data Commons"
 
 msgid "Attainment of Bachelor Degree or Higher across Washington Counties"
-msgstr ""
+msgstr "Conseguimento di lauree triennali o titoli superiori nelle contee di Washington"
 
 msgid "Bachelor Degree Attained vs Females per capita for California Counties"
 msgstr "Contee della California: lauree triennali conseguite - donne pro capite"
@@ -44,7 +44,7 @@ msgid "Countries"
 msgstr "Paesi"
 
 msgid "Create Maps"
-msgstr ""
+msgstr "Crea mappe"
 
 msgid "Create Scatter Plots"
 msgstr "Crea grafici a dispersione"
@@ -155,10 +155,10 @@ msgid "MORE"
 msgstr "altro…"
 
 msgid "Map Explorer"
-msgstr ""
+msgstr "Strumento di esplorazione delle mappe"
 
 msgid "Median Income across US Counties"
-msgstr ""
+msgstr "Reddito medio nelle contee degli Stati Uniti"
 
 msgid "Median Income, United States"
 msgstr "Reddito medio, Stati Uniti"
@@ -218,13 +218,13 @@ msgid "US University Towns by Income"
 msgstr "Città universitarie statunitensi per reddito"
 
 msgid "Unemployment Rate across US States"
-msgstr ""
+msgstr "Tasso di disoccupazione negli Stati degli USA"
 
 msgid "Unemployment Rate, United States"
 msgstr "Tasso di disoccupazione, Stati Uniti"
 
 msgid "We have launched exciting new features, including a new map explorer, a new statistical variable menu that is used in all of our visualization tools (timeline explorer, scatter plot explorer, and map explorer), and new data. <a href=%(blog_url)s>Read our blog post for more details</a>."
-msgstr ""
+msgstr "Abbiamo lanciato nuove funzionalità entusiasmanti, tra cui uno strumento di esplorazione delle mappe, un menu di variabili statistiche utilizzato in tutti i nostri strumenti di visualizzazione (gli strumenti di esplorazione per sequenze temporali, grafici a dispersione e mappe) e nuovi dati. <a href=%(blog_url)s>Leggi il nostro post del blog per maggiori dettagli</a>."
 
 msgid "What's new"
 msgstr "Novità"
@@ -458,7 +458,7 @@ msgid "CHART_TITLE-Life_expectancy"
 msgstr "Speranza di vita (anni)"
 
 msgid "CHART_TITLE-Literacy"
-msgstr "Literacy"
+msgstr "Alfabetizzazione"
 
 msgid "CHART_TITLE-Marital_status"
 msgstr "Stato civile"
@@ -509,22 +509,22 @@ msgid "CHART_TITLE-Percent_without_health_insurance_race"
 msgstr "Percentuale di persone senza assicurazione sanitaria per gruppo etnico"
 
 msgid "CHART_TITLE-Percentage of literate and illiterate population"
-msgstr "Percentage of literate and illiterate population"
+msgstr "Percentuale di popolazione alfabetizzata e analfabeta"
 
 msgid "CHART_TITLE-Percentage of population by religon"
-msgstr "Percentage of population by religon"
+msgstr "Percentuale di popolazione per religione"
 
 msgid "CHART_TITLE-Percentage of population by social category"
-msgstr "Percentage of population by social category"
+msgstr "Percentuale di popolazione per categoria sociale"
 
 msgid "CHART_TITLE-Percentage of urban and rural households"
-msgstr "Percentage of urban and rural households"
+msgstr "Percentuale di nuclei familiari urbani e rurali"
 
 msgid "CHART_TITLE-Percentage of urban vs rural homeless population"
-msgstr "Percentage of urban vs rural homeless population"
+msgstr "Percentuale di popolazione senzatetto urbana e rurale"
 
 msgid "CHART_TITLE-Percentage of workers and nonworkers"
-msgstr "Percentage of workers and nonworkers"
+msgstr "Percentuale di lavoratori e non lavoratori"
 
 msgid "CHART_TITLE-Percentage_employed"
 msgstr "Percentuale di persone che lavorano"
@@ -578,7 +578,7 @@ msgid "CHART_TITLE-Property_crime_rate"
 msgstr "Reati contro la proprietà per 100.000 persone"
 
 msgid "CHART_TITLE-Religion"
-msgstr "Religion"
+msgstr "Religione"
 
 msgid "CHART_TITLE-School_enrollment"
 msgstr "Iscrizione scolastica"
@@ -587,7 +587,7 @@ msgid "CHART_TITLE-School_enrollment_rate"
 msgstr "Tasso di iscrizione scolastica"
 
 msgid "CHART_TITLE-Social Category"
-msgstr "Social Category"
+msgstr "Categoria sociale"
 
 msgid "CHART_TITLE-State_unemployment_claims"
 msgstr "Richieste di indennizzo per assicurazioni contro la disoccupazione statale"
@@ -605,22 +605,22 @@ msgid "CHART_TITLE-Unemployment_rate"
 msgstr "Tasso di disoccupazione"
 
 msgid "CHART_TITLE-Unemployment_rate-urban-v-rural"
-msgstr "Unemployment rate: urban vs rural"
+msgstr "Tasso di disoccupazione: urbana e rurale"
 
 msgid "CHART_TITLE-Unemployment_rate_gender"
 msgstr "Tasso di disoccupazione per sesso"
 
 msgid "CHART_TITLE-Urban and rural households"
-msgstr "Urban and rural households"
+msgstr "Nuclei familiari urbani e rurali"
 
 msgid "CHART_TITLE-Urban vs rural homeless population"
-msgstr "Urban vs rural homeless population"
+msgstr "Popolazione senzatetto urbana e rurale"
 
 msgid "CHART_TITLE-Urban vs rural poverty population"
-msgstr "Urban vs rural poverty population"
+msgstr "Tasso di povertà della popolazione urbana e rurale"
 
 msgid "CHART_TITLE-Urban vs rural poverty rate"
-msgstr "Urban vs rural poverty rate"
+msgstr "Tasso di povertà urbano e rurale"
 
 msgid "CHART_TITLE-Urban_v_rural_population"
 msgstr "Popolazione urbana e rurale"
@@ -632,17 +632,20 @@ msgid "CHART_TITLE-Violent_crime_rate"
 msgstr "Crimini violenti per 100.000 persone"
 
 msgid "CHART_TITLE-Worker wages (daily)"
-msgstr "Worker wages (daily)"
+msgstr "Retribuzioni dei lavoratori (giornaliere)"
 
 msgid "CHART_TITLE-Worker wages (monthly)"
-msgstr "Worker wages (monthly)"
+msgstr "Retribuzioni dei lavoratori (mensili)"
 
 msgid "CHART_TITLE-Worker wages (monthly): female vs male"
-msgstr "Worker wages (monthly): female vs male"
+msgstr "Retribuzioni dei lavoratori (mensili): donne e uomini"
 
 msgid "CHART_TITLE-Worker wages (monthly): urban vs rural"
-msgstr "Worker wages (monthly): urban vs rural"
+msgstr "Retribuzioni dei lavoratori (mensili): popolazione urbana e rurale"
 
 msgid "CHART_TITLE-Worker-vs-nonworker-population"
-msgstr "Worker vs nonworker population"
+msgstr "Popolazione di lavoratori e non lavoratori"
+
+msgid "CHART_TITLE-CHART_CATEGORY-Overview"
+msgstr "Panoramica"
 

@@ -278,13 +278,13 @@
   "Count_Household_Rural": [
     {
       "type": 0,
-      "value": "Rural"
+      "value": "Zone rurale"
     }
   ],
   "Count_Household_Urban": [
     {
       "type": 0,
-      "value": "Urban"
+      "value": "Zone urbaine"
     }
   ],
   "Count_HousingUnit": [
@@ -878,19 +878,19 @@
   "Count_Person_Houseless_Rural": [
     {
       "type": 0,
-      "value": "Rural"
+      "value": "Zone rurale"
     }
   ],
   "Count_Person_Houseless_Urban": [
     {
       "type": 0,
-      "value": "Urban"
+      "value": "Zone urbaine"
     }
   ],
   "Count_Person_Illiterate": [
     {
       "type": 0,
-      "value": "Illiterate"
+      "value": "Analphabète"
     }
   ],
   "Count_Person_InLaborForce": [
@@ -950,7 +950,7 @@
   "Count_Person_Literate": [
     {
       "type": 0,
-      "value": "Literate"
+      "value": "Alphabète"
     }
   ],
   "Count_Person_Male": [
@@ -986,7 +986,7 @@
   "Count_Person_NonWorker": [
     {
       "type": 0,
-      "value": "Non-Workers"
+      "value": "Personnes sans emploi"
     }
   ],
   "Count_Person_NotAUSCitizen": [
@@ -1016,19 +1016,19 @@
   "Count_Person_Rural_BelowPovertyLevelInThePast12Months": [
     {
       "type": 0,
-      "value": "Rural"
+      "value": "Zone rurale"
     }
   ],
   "Count_Person_ScheduledCaste": [
     {
       "type": 0,
-      "value": "Scheduled Caste"
+      "value": "Caste répertoriée"
     }
   ],
   "Count_Person_ScheduledTribe": [
     {
       "type": 0,
-      "value": "Scheduled Tribe"
+      "value": "Tribu répertoriée"
     }
   ],
   "Count_Person_Separated": [
@@ -1124,7 +1124,7 @@
   "Count_Person_Urban_BelowPovertyLevelInThePast12Months": [
     {
       "type": 0,
-      "value": "Urban"
+      "value": "Zone urbaine"
     }
   ],
   "Count_Person_WhiteAlone": [
@@ -1142,7 +1142,7 @@
   "Count_Person_Workers": [
     {
       "type": 0,
-      "value": "Workers"
+      "value": "Travailleurs"
     }
   ],
   "Count_StormSurgeTideEvent": [
@@ -1220,49 +1220,49 @@
   "Mean_WagesDaily_Worker": [
     {
       "type": 0,
-      "value": "Worker Daily Wage"
+      "value": "Salaire quotidien d'un travailleur"
     }
   ],
   "Mean_WagesDaily_Worker_Female": [
     {
       "type": 0,
-      "value": "Female"
+      "value": "Femme"
     }
   ],
   "Mean_WagesDaily_Worker_Male": [
     {
       "type": 0,
-      "value": "Male"
+      "value": "Homme"
     }
   ],
   "Mean_WagesMonthly_Worker": [
     {
       "type": 0,
-      "value": "Worker Monthly Wage"
+      "value": "Salaire mensuel d'un travailleur"
     }
   ],
   "Mean_WagesMonthly_Worker_Female": [
     {
       "type": 0,
-      "value": "Female"
+      "value": "Femme"
     }
   ],
   "Mean_WagesMonthly_Worker_Male": [
     {
       "type": 0,
-      "value": "Male"
+      "value": "Homme"
     }
   ],
   "Mean_WagesMonthly_Worker_Rural": [
     {
       "type": 0,
-      "value": "Rural"
+      "value": "Zone rurale"
     }
   ],
   "Mean_WagesMonthly_Worker_Urban": [
     {
       "type": 0,
-      "value": "Urban"
+      "value": "Zone urbaine"
     }
   ],
   "Median_Age_Person": [
@@ -1532,61 +1532,61 @@
   "UnemploymentRate_Person_Rural": [
     {
       "type": 0,
-      "value": "Rural"
+      "value": "Zone rurale"
     }
   ],
   "UnemploymentRate_Person_Urban": [
     {
       "type": 0,
-      "value": "Urban"
+      "value": "Zone urbaine"
     }
   ],
   "indianCensus/Count_Person_Religion_Buddhist": [
     {
       "type": 0,
-      "value": "Buddhist"
+      "value": "Bouddhiste"
     }
   ],
   "indianCensus/Count_Person_Religion_Christian": [
     {
       "type": 0,
-      "value": "Christian"
+      "value": "Chrétienne"
     }
   ],
   "indianCensus/Count_Person_Religion_Hindu": [
     {
       "type": 0,
-      "value": "Hindu"
+      "value": "Hindou"
     }
   ],
   "indianCensus/Count_Person_Religion_Jain": [
     {
       "type": 0,
-      "value": "Jain"
+      "value": "Jaïne"
     }
   ],
   "indianCensus/Count_Person_Religion_Muslim": [
     {
       "type": 0,
-      "value": "Muslim"
+      "value": "Musulmane"
     }
   ],
   "indianCensus/Count_Person_Religion_OtherReligionsAndPersuasions": [
     {
       "type": 0,
-      "value": "Other Religions and Persuasions"
+      "value": "Autres religions et croyances"
     }
   ],
   "indianCensus/Count_Person_Religion_ReligionNotStated": [
     {
       "type": 0,
-      "value": "Religion Not Stated"
+      "value": "Religion non spécifiée"
     }
   ],
   "indianCensus/Count_Person_Religion_Sikh": [
     {
       "type": 0,
-      "value": "Sikh"
+      "value": "Sikhe"
     }
   ]
 }

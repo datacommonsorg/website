@@ -138,10 +138,10 @@
     "defaultMessage": "世帯数（所得 10,000 ドル未満）"
   },
   "Count_Household_Rural": {
-    "defaultMessage": "Number of Rural Households"
+    "defaultMessage": "農村部の世帯数"
   },
   "Count_Household_Urban": {
-    "defaultMessage": "Number of Urban Households"
+    "defaultMessage": "都市部の世帯数"
   },
   "Count_HousingUnit": {
     "defaultMessage": "住宅戸数"
@@ -438,13 +438,13 @@
     "defaultMessage": "人口（ヒスパニック / ラテン系）"
   },
   "Count_Person_Houseless_Rural": {
-    "defaultMessage": "Population (Houseless, Rural)"
+    "defaultMessage": "人口（ホームレス、農村部）"
   },
   "Count_Person_Houseless_Urban": {
-    "defaultMessage": "Population (Houseless, Urban)"
+    "defaultMessage": "人口（ホームレス、都市部）"
   },
   "Count_Person_Illiterate": {
-    "defaultMessage": "Population (Illiterate)"
+    "defaultMessage": "人口（読み書きができない）"
   },
   "Count_Person_InLaborForce": {
     "defaultMessage": "就労可能な人口"
@@ -474,7 +474,7 @@
     "defaultMessage": "人口（個人所得 10,000 ドル未満）"
   },
   "Count_Person_Literate": {
-    "defaultMessage": "Population (Literate)"
+    "defaultMessage": "人口（読み書きができる）"
   },
   "Count_Person_Male": {
     "defaultMessage": "人口（男性）"
@@ -492,7 +492,7 @@
     "defaultMessage": "人口（未婚）"
   },
   "Count_Person_NonWorker": {
-    "defaultMessage": "Population (Non-Workers)"
+    "defaultMessage": "人口（非労働者）"
   },
   "Count_Person_NotAUSCitizen": {
     "defaultMessage": "人口（米国市民以外）"
@@ -507,13 +507,13 @@
     "defaultMessage": "人口（農村部）"
   },
   "Count_Person_Rural_BelowPovertyLevelInThePast12Months": {
-    "defaultMessage": "Population (Rural, in Poverty)"
+    "defaultMessage": "人口（農村部、貧困層）"
   },
   "Count_Person_ScheduledCaste": {
-    "defaultMessage": "Population (Scheduled Caste)"
+    "defaultMessage": "人口（指定カースト）"
   },
   "Count_Person_ScheduledTribe": {
-    "defaultMessage": "Population (Scheduled Tribe)"
+    "defaultMessage": "人口（指定部族）"
   },
   "Count_Person_Separated": {
     "defaultMessage": "人口（別居）"
@@ -561,7 +561,7 @@
     "defaultMessage": "人口（都市部）"
   },
   "Count_Person_Urban_BelowPovertyLevelInThePast12Months": {
-    "defaultMessage": "Population (Urban, in Poverty)"
+    "defaultMessage": "人口（都市部、貧困層）"
   },
   "Count_Person_WhiteAlone": {
     "defaultMessage": "人口（白人のみ）"
@@ -570,7 +570,7 @@
     "defaultMessage": "人口（死別）"
   },
   "Count_Person_Workers": {
-    "defaultMessage": "Population (Workers)"
+    "defaultMessage": "人口（労働者）"
   },
   "Count_StormSurgeTideEvent": {
     "defaultMessage": "高潮災害件数"
@@ -609,28 +609,28 @@
     "defaultMessage": "平均寿命"
   },
   "Mean_WagesDaily_Worker": {
-    "defaultMessage": "Worker Daily Wage"
+    "defaultMessage": "労働者の 1 日の賃金"
   },
   "Mean_WagesDaily_Worker_Female": {
-    "defaultMessage": "Worker Monthly Wage"
+    "defaultMessage": "労働者の 1 か月の賃金"
   },
   "Mean_WagesDaily_Worker_Male": {
-    "defaultMessage": "Worker Monthly Wage"
+    "defaultMessage": "労働者の 1 か月の賃金"
   },
   "Mean_WagesMonthly_Worker": {
-    "defaultMessage": "Worker Monthly Wage"
+    "defaultMessage": "労働者の 1 か月の賃金"
   },
   "Mean_WagesMonthly_Worker_Female": {
-    "defaultMessage": "Worker Monthly Wage"
+    "defaultMessage": "労働者の 1 か月の賃金"
   },
   "Mean_WagesMonthly_Worker_Male": {
-    "defaultMessage": "Worker Monthly Wage"
+    "defaultMessage": "労働者の 1 か月の賃金"
   },
   "Mean_WagesMonthly_Worker_Rural": {
-    "defaultMessage": "Mean Worker Monthly Wage (Rural)"
+    "defaultMessage": "労働者の 1 か月の平均賃金（農村部）"
   },
   "Mean_WagesMonthly_Worker_Urban": {
-    "defaultMessage": "Mean Worker Monthly Wage (Urban)"
+    "defaultMessage": "労働者の 1 か月の平均賃金（都市部）"
   },
   "Median_Age_Person": {
     "defaultMessage": "年齢の中央値"
@@ -765,33 +765,33 @@
     "defaultMessage": "失業率（男性）"
   },
   "UnemploymentRate_Person_Rural": {
-    "defaultMessage": "Unemployment Rate (Rural)"
+    "defaultMessage": "失業率（農村部）"
   },
   "UnemploymentRate_Person_Urban": {
-    "defaultMessage": "Unemployment Rate (Urban)"
+    "defaultMessage": "失業率（都市部）"
   },
   "indianCensus/Count_Person_Religion_Buddhist": {
-    "defaultMessage": "Population (Buddhist)"
+    "defaultMessage": "人口（仏教）"
   },
   "indianCensus/Count_Person_Religion_Christian": {
-    "defaultMessage": "Population (Christian)"
+    "defaultMessage": "人口（キリスト教）"
   },
   "indianCensus/Count_Person_Religion_Hindu": {
-    "defaultMessage": "Population (Hindu)"
+    "defaultMessage": "人口（ヒンドゥー教）"
   },
   "indianCensus/Count_Person_Religion_Jain": {
-    "defaultMessage": "Population (Jain)"
+    "defaultMessage": "人口（ジャイナ教）"
   },
   "indianCensus/Count_Person_Religion_Muslim": {
-    "defaultMessage": "Population (Muslim)"
+    "defaultMessage": "人口（イスラム教）"
   },
   "indianCensus/Count_Person_Religion_OtherReligionsAndPersuasions": {
-    "defaultMessage": "Population (Other Religions and Persuasions)"
+    "defaultMessage": "人口（他の宗教、宗派）"
   },
   "indianCensus/Count_Person_Religion_ReligionNotStated": {
-    "defaultMessage": "Population (Religion Not Stated)"
+    "defaultMessage": "人口（宗教の記載なし）"
   },
   "indianCensus/Count_Person_Religion_Sikh": {
-    "defaultMessage": "Population (Sikh)"
+    "defaultMessage": "人口（シーク教）"
   }
 }

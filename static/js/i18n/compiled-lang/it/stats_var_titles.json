@@ -278,13 +278,13 @@
   "Count_Household_Rural": [
     {
       "type": 0,
-      "value": "Number of Rural Households"
+      "value": "Numero di nuclei familiari rurali"
     }
   ],
   "Count_Household_Urban": [
     {
       "type": 0,
-      "value": "Number of Urban Households"
+      "value": "Numero di nuclei familiari urbani"
     }
   ],
   "Count_HousingUnit": [
@@ -878,19 +878,19 @@
   "Count_Person_Houseless_Rural": [
     {
       "type": 0,
-      "value": "Population (Houseless, Rural)"
+      "value": "Popolazione (senzatetto, rurale)"
     }
   ],
   "Count_Person_Houseless_Urban": [
     {
       "type": 0,
-      "value": "Population (Houseless, Urban)"
+      "value": "Popolazione (senzatetto, urbana)"
     }
   ],
   "Count_Person_Illiterate": [
     {
       "type": 0,
-      "value": "Population (Illiterate)"
+      "value": "Popolazione (analfabeta)"
     }
   ],
   "Count_Person_InLaborForce": [
@@ -950,7 +950,7 @@
   "Count_Person_Literate": [
     {
       "type": 0,
-      "value": "Population (Literate)"
+      "value": "Popolazione (alfabetizzata)"
     }
   ],
   "Count_Person_Male": [
@@ -986,7 +986,7 @@
   "Count_Person_NonWorker": [
     {
       "type": 0,
-      "value": "Population (Non-Workers)"
+      "value": "Popolazione (non lavoratori)"
     }
   ],
   "Count_Person_NotAUSCitizen": [
@@ -1016,19 +1016,19 @@
   "Count_Person_Rural_BelowPovertyLevelInThePast12Months": [
     {
       "type": 0,
-      "value": "Population (Rural, in Poverty)"
+      "value": "Popolazione (rurale, in povertà)"
     }
   ],
   "Count_Person_ScheduledCaste": [
     {
       "type": 0,
-      "value": "Population (Scheduled Caste)"
+      "value": "Popolazione (casta riconosciuta)"
     }
   ],
   "Count_Person_ScheduledTribe": [
     {
       "type": 0,
-      "value": "Population (Scheduled Tribe)"
+      "value": "Popolazione (tribù riconosciuta)"
     }
   ],
   "Count_Person_Separated": [
@@ -1124,7 +1124,7 @@
   "Count_Person_Urban_BelowPovertyLevelInThePast12Months": [
     {
       "type": 0,
-      "value": "Population (Urban, in Poverty)"
+      "value": "Popolazione (urbana, in povertà)"
     }
   ],
   "Count_Person_WhiteAlone": [
@@ -1142,7 +1142,7 @@
   "Count_Person_Workers": [
     {
       "type": 0,
-      "value": "Population (Workers)"
+      "value": "Popolazione (lavoratori)"
     }
   ],
   "Count_StormSurgeTideEvent": [
@@ -1220,49 +1220,49 @@
   "Mean_WagesDaily_Worker": [
     {
       "type": 0,
-      "value": "Worker Daily Wage"
+      "value": "Retribuzione giornaliera del lavoratore"
     }
   ],
   "Mean_WagesDaily_Worker_Female": [
     {
       "type": 0,
-      "value": "Worker Monthly Wage"
+      "value": "Retribuzione mensile del lavoratore"
     }
   ],
   "Mean_WagesDaily_Worker_Male": [
     {
       "type": 0,
-      "value": "Worker Monthly Wage"
+      "value": "Retribuzione mensile del lavoratore"
     }
   ],
   "Mean_WagesMonthly_Worker": [
     {
       "type": 0,
-      "value": "Worker Monthly Wage"
+      "value": "Retribuzione mensile del lavoratore"
     }
   ],
   "Mean_WagesMonthly_Worker_Female": [
     {
       "type": 0,
-      "value": "Worker Monthly Wage"
+      "value": "Retribuzione mensile del lavoratore"
     }
   ],
   "Mean_WagesMonthly_Worker_Male": [
     {
       "type": 0,
-      "value": "Worker Monthly Wage"
+      "value": "Retribuzione mensile del lavoratore"
     }
   ],
   "Mean_WagesMonthly_Worker_Rural": [
     {
       "type": 0,
-      "value": "Mean Worker Monthly Wage (Rural)"
+      "value": "Retribuzione mensile media dei lavoratori (rurale)"
     }
   ],
   "Mean_WagesMonthly_Worker_Urban": [
     {
       "type": 0,
-      "value": "Mean Worker Monthly Wage (Urban)"
+      "value": "Retribuzione mensile media dei lavoratori (urbana)"
     }
   ],
   "Median_Age_Person": [
@@ -1532,61 +1532,61 @@
   "UnemploymentRate_Person_Rural": [
     {
       "type": 0,
-      "value": "Unemployment Rate (Rural)"
+      "value": "Tasso di disoccupazione (rurale)"
     }
   ],
   "UnemploymentRate_Person_Urban": [
     {
       "type": 0,
-      "value": "Unemployment Rate (Urban)"
+      "value": "Tasso di disoccupazione (urbano)"
     }
   ],
   "indianCensus/Count_Person_Religion_Buddhist": [
     {
       "type": 0,
-      "value": "Population (Buddhist)"
+      "value": "Popolazione (buddista)"
     }
   ],
   "indianCensus/Count_Person_Religion_Christian": [
     {
       "type": 0,
-      "value": "Population (Christian)"
+      "value": "Popolazione (cristiana)"
     }
   ],
   "indianCensus/Count_Person_Religion_Hindu": [
     {
       "type": 0,
-      "value": "Population (Hindu)"
+      "value": "Popolazione (indù)"
     }
   ],
   "indianCensus/Count_Person_Religion_Jain": [
     {
       "type": 0,
-      "value": "Population (Jain)"
+      "value": "Popolazione (giainista)"
     }
   ],
   "indianCensus/Count_Person_Religion_Muslim": [
     {
       "type": 0,
-      "value": "Population (Muslim)"
+      "value": "Popolazione (musulmana)"
     }
   ],
   "indianCensus/Count_Person_Religion_OtherReligionsAndPersuasions": [
     {
       "type": 0,
-      "value": "Population (Other Religions and Persuasions)"
+      "value": "Popolazione (altre religioni e fedi)"
     }
   ],
   "indianCensus/Count_Person_Religion_ReligionNotStated": [
     {
       "type": 0,
-      "value": "Population (Religion Not Stated)"
+      "value": "Popolazione (religione non specificata)"
     }
   ],
   "indianCensus/Count_Person_Religion_Sikh": [
     {
       "type": 0,
-      "value": "Population (Sikh)"
+      "value": "Popolazione (sikh)"
     }
   ]
 }

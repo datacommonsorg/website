@@ -278,13 +278,13 @@
   "Count_Household_Rural": [
     {
       "type": 0,
-      "value": "Number of Rural Households"
+      "value": "ग्रामीण परिवारों की संख्या"
     }
   ],
   "Count_Household_Urban": [
     {
       "type": 0,
-      "value": "Number of Urban Households"
+      "value": "शहरी परिवारों की संख्या"
     }
   ],
   "Count_HousingUnit": [
@@ -878,19 +878,19 @@
   "Count_Person_Houseless_Rural": [
     {
       "type": 0,
-      "value": "Population (Houseless, Rural)"
+      "value": "जनसंख्या (बेघर, ग्रामीण लोग)"
     }
   ],
   "Count_Person_Houseless_Urban": [
     {
       "type": 0,
-      "value": "Population (Houseless, Urban)"
+      "value": "जनसंख्या (बेघर, शहरी लोग)"
     }
   ],
   "Count_Person_Illiterate": [
     {
       "type": 0,
-      "value": "Population (Illiterate)"
+      "value": "जनसंख्या (नहीं पढ़े-लिखे लोग)"
     }
   ],
   "Count_Person_InLaborForce": [
@@ -950,7 +950,7 @@
   "Count_Person_Literate": [
     {
       "type": 0,
-      "value": "Population (Literate)"
+      "value": "जनसंख्या (पढ़े-लिखे लोग)"
     }
   ],
   "Count_Person_Male": [
@@ -986,7 +986,7 @@
   "Count_Person_NonWorker": [
     {
       "type": 0,
-      "value": "Population (Non-Workers)"
+      "value": "जनसंख्या (गैर-कामकाजी लोग)"
     }
   ],
   "Count_Person_NotAUSCitizen": [
@@ -1016,19 +1016,19 @@
   "Count_Person_Rural_BelowPovertyLevelInThePast12Months": [
     {
       "type": 0,
-      "value": "Population (Rural, in Poverty)"
+      "value": "जनसंख्या (ग्रामीण, गरीबी में रहने वाली)"
     }
   ],
   "Count_Person_ScheduledCaste": [
     {
       "type": 0,
-      "value": "Population (Scheduled Caste)"
+      "value": "जनसंख्या (अनुसूचित जाति)"
     }
   ],
   "Count_Person_ScheduledTribe": [
     {
       "type": 0,
-      "value": "Population (Scheduled Tribe)"
+      "value": "जनसंख्या (अनुसूचित जनजाति)"
     }
   ],
   "Count_Person_Separated": [
@@ -1124,7 +1124,7 @@
   "Count_Person_Urban_BelowPovertyLevelInThePast12Months": [
     {
       "type": 0,
-      "value": "Population (Urban, in Poverty)"
+      "value": "जनसंख्या (शहरी, गरीबी में रहने वाले लोग)"
     }
   ],
   "Count_Person_WhiteAlone": [
@@ -1142,7 +1142,7 @@
   "Count_Person_Workers": [
     {
       "type": 0,
-      "value": "Population (Workers)"
+      "value": "जनसंख्या (कामकाजी लोग)"
     }
   ],
   "Count_StormSurgeTideEvent": [
@@ -1220,49 +1220,49 @@
   "Mean_WagesDaily_Worker": [
     {
       "type": 0,
-      "value": "Worker Daily Wage"
+      "value": "कामकाजी व्यक्ति को हर दिन मिलने वाला वेतन"
     }
   ],
   "Mean_WagesDaily_Worker_Female": [
     {
       "type": 0,
-      "value": "Worker Monthly Wage"
+      "value": "कामकाजी महिला का मासिक वेतन"
     }
   ],
   "Mean_WagesDaily_Worker_Male": [
     {
       "type": 0,
-      "value": "Worker Monthly Wage"
+      "value": "कामकाजी पुरुष का मासिक वेतन"
     }
   ],
   "Mean_WagesMonthly_Worker": [
     {
       "type": 0,
-      "value": "Worker Monthly Wage"
+      "value": "कामकाजी व्यक्ति का मासिक वेतन"
     }
   ],
   "Mean_WagesMonthly_Worker_Female": [
     {
       "type": 0,
-      "value": "Worker Monthly Wage"
+      "value": "कामकाजी महिला का मासिक वेतन"
     }
   ],
   "Mean_WagesMonthly_Worker_Male": [
     {
       "type": 0,
-      "value": "Worker Monthly Wage"
+      "value": "कामकाजी पुरुष का मासिक वेतन"
     }
   ],
   "Mean_WagesMonthly_Worker_Rural": [
     {
       "type": 0,
-      "value": "Mean Worker Monthly Wage (Rural)"
+      "value": "कामकाजी व्यक्ति का मासिक वेतन (ग्रामीण)"
     }
   ],
   "Mean_WagesMonthly_Worker_Urban": [
     {
       "type": 0,
-      "value": "Mean Worker Monthly Wage (Urban)"
+      "value": "कामकाजी व्यक्ति का औसत मासिक वेतन (शहरी)"
     }
   ],
   "Median_Age_Person": [
@@ -1532,61 +1532,61 @@
   "UnemploymentRate_Person_Rural": [
     {
       "type": 0,
-      "value": "Unemployment Rate (Rural)"
+      "value": "बेरोज़गारी दर (ग्रामीण)"
     }
   ],
   "UnemploymentRate_Person_Urban": [
     {
       "type": 0,
-      "value": "Unemployment Rate (Urban)"
+      "value": "बेरोज़गारी दर (शहरी)"
     }
   ],
   "indianCensus/Count_Person_Religion_Buddhist": [
     {
       "type": 0,
-      "value": "Population (Buddhist)"
+      "value": "जनसंख्या (बौद्ध)"
     }
   ],
   "indianCensus/Count_Person_Religion_Christian": [
     {
       "type": 0,
-      "value": "Population (Christian)"
+      "value": "जनसंख्या (ईसाई)"
     }
   ],
   "indianCensus/Count_Person_Religion_Hindu": [
     {
       "type": 0,
-      "value": "Population (Hindu)"
+      "value": "जनसंख्या (हिंदू)"
     }
   ],
   "indianCensus/Count_Person_Religion_Jain": [
     {
       "type": 0,
-      "value": "Population (Jain)"
+      "value": "जनसंख्या (जैन)"
     }
   ],
   "indianCensus/Count_Person_Religion_Muslim": [
     {
       "type": 0,
-      "value": "Population (Muslim)"
+      "value": "जनसंख्या (मुस्लिम)"
     }
   ],
   "indianCensus/Count_Person_Religion_OtherReligionsAndPersuasions": [
     {
       "type": 0,
-      "value": "Population (Other Religions and Persuasions)"
+      "value": "जनसंख्या (दूसरे धर्म और आस्थाओं को मानने वाले लोग)"
     }
   ],
   "indianCensus/Count_Person_Religion_ReligionNotStated": [
     {
       "type": 0,
-      "value": "Population (Religion Not Stated)"
+      "value": "जनसंख्या (धर्म की जानकारी नहीं देने वाले लोग)"
     }
   ],
   "indianCensus/Count_Person_Religion_Sikh": [
     {
       "type": 0,
-      "value": "Population (Sikh)"
+      "value": "जनसंख्या (सिख)"
     }
   ]
 }

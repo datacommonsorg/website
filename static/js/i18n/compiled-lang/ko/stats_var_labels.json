@@ -278,13 +278,13 @@
   "Count_Household_Rural": [
     {
       "type": 0,
-      "value": "Rural"
+      "value": "농촌"
     }
   ],
   "Count_Household_Urban": [
     {
       "type": 0,
-      "value": "Urban"
+      "value": "도시"
     }
   ],
   "Count_HousingUnit": [
@@ -878,19 +878,19 @@
   "Count_Person_Houseless_Rural": [
     {
       "type": 0,
-      "value": "Rural"
+      "value": "농촌"
     }
   ],
   "Count_Person_Houseless_Urban": [
     {
       "type": 0,
-      "value": "Urban"
+      "value": "도시"
     }
   ],
   "Count_Person_Illiterate": [
     {
       "type": 0,
-      "value": "Illiterate"
+      "value": "비문해"
     }
   ],
   "Count_Person_InLaborForce": [
@@ -950,7 +950,7 @@
   "Count_Person_Literate": [
     {
       "type": 0,
-      "value": "Literate"
+      "value": "문해"
     }
   ],
   "Count_Person_Male": [
@@ -986,7 +986,7 @@
   "Count_Person_NonWorker": [
     {
       "type": 0,
-      "value": "Non-Workers"
+      "value": "비노동자"
     }
   ],
   "Count_Person_NotAUSCitizen": [
@@ -1016,19 +1016,19 @@
   "Count_Person_Rural_BelowPovertyLevelInThePast12Months": [
     {
       "type": 0,
-      "value": "Rural"
+      "value": "농촌"
     }
   ],
   "Count_Person_ScheduledCaste": [
     {
       "type": 0,
-      "value": "Scheduled Caste"
+      "value": "지정 카스트"
     }
   ],
   "Count_Person_ScheduledTribe": [
     {
       "type": 0,
-      "value": "Scheduled Tribe"
+      "value": "지정 부족"
     }
   ],
   "Count_Person_Separated": [
@@ -1124,7 +1124,7 @@
   "Count_Person_Urban_BelowPovertyLevelInThePast12Months": [
     {
       "type": 0,
-      "value": "Urban"
+      "value": "도시"
     }
   ],
   "Count_Person_WhiteAlone": [
@@ -1142,7 +1142,7 @@
   "Count_Person_Workers": [
     {
       "type": 0,
-      "value": "Workers"
+      "value": "노동자"
     }
   ],
   "Count_StormSurgeTideEvent": [
@@ -1220,49 +1220,49 @@
   "Mean_WagesDaily_Worker": [
     {
       "type": 0,
-      "value": "Worker Daily Wage"
+      "value": "노동자 일당"
     }
   ],
   "Mean_WagesDaily_Worker_Female": [
     {
       "type": 0,
-      "value": "Female"
+      "value": "여성"
     }
   ],
   "Mean_WagesDaily_Worker_Male": [
     {
       "type": 0,
-      "value": "Male"
+      "value": "남성"
     }
   ],
   "Mean_WagesMonthly_Worker": [
     {
       "type": 0,
-      "value": "Worker Monthly Wage"
+      "value": "노동자 월급"
     }
   ],
   "Mean_WagesMonthly_Worker_Female": [
     {
       "type": 0,
-      "value": "Female"
+      "value": "여성"
     }
   ],
   "Mean_WagesMonthly_Worker_Male": [
     {
       "type": 0,
-      "value": "Male"
+      "value": "남성"
     }
   ],
   "Mean_WagesMonthly_Worker_Rural": [
     {
       "type": 0,
-      "value": "Rural"
+      "value": "농촌"
     }
   ],
   "Mean_WagesMonthly_Worker_Urban": [
     {
       "type": 0,
-      "value": "Urban"
+      "value": "도시"
     }
   ],
   "Median_Age_Person": [
@@ -1532,61 +1532,61 @@
   "UnemploymentRate_Person_Rural": [
     {
       "type": 0,
-      "value": "Rural"
+      "value": "농촌"
     }
   ],
   "UnemploymentRate_Person_Urban": [
     {
       "type": 0,
-      "value": "Urban"
+      "value": "도시"
     }
   ],
   "indianCensus/Count_Person_Religion_Buddhist": [
     {
       "type": 0,
-      "value": "Buddhist"
+      "value": "불교"
     }
   ],
   "indianCensus/Count_Person_Religion_Christian": [
     {
       "type": 0,
-      "value": "Christian"
+      "value": "기독교"
     }
   ],
   "indianCensus/Count_Person_Religion_Hindu": [
     {
       "type": 0,
-      "value": "Hindu"
+      "value": "힌두교"
     }
   ],
   "indianCensus/Count_Person_Religion_Jain": [
     {
       "type": 0,
-      "value": "Jain"
+      "value": "자이나교"
     }
   ],
   "indianCensus/Count_Person_Religion_Muslim": [
     {
       "type": 0,
-      "value": "Muslim"
+      "value": "이슬람교"
     }
   ],
   "indianCensus/Count_Person_Religion_OtherReligionsAndPersuasions": [
     {
       "type": 0,
-      "value": "Other Religions and Persuasions"
+      "value": "기타 종교 및 신념"
     }
   ],
   "indianCensus/Count_Person_Religion_ReligionNotStated": [
     {
       "type": 0,
-      "value": "Religion Not Stated"
+      "value": "종교를 언급하지 않음"
     }
   ],
   "indianCensus/Count_Person_Religion_Sikh": [
     {
       "type": 0,
-      "value": "Sikh"
+      "value": "시크교"
     }
   ]
 }

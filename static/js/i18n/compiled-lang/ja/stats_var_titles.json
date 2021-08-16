@@ -278,13 +278,13 @@
   "Count_Household_Rural": [
     {
       "type": 0,
-      "value": "Number of Rural Households"
+      "value": "農村部の世帯数"
     }
   ],
   "Count_Household_Urban": [
     {
       "type": 0,
-      "value": "Number of Urban Households"
+      "value": "都市部の世帯数"
     }
   ],
   "Count_HousingUnit": [
@@ -878,19 +878,19 @@
   "Count_Person_Houseless_Rural": [
     {
       "type": 0,
-      "value": "Population (Houseless, Rural)"
+      "value": "人口（ホームレス、農村部）"
     }
   ],
   "Count_Person_Houseless_Urban": [
     {
       "type": 0,
-      "value": "Population (Houseless, Urban)"
+      "value": "人口（ホームレス、都市部）"
     }
   ],
   "Count_Person_Illiterate": [
     {
       "type": 0,
-      "value": "Population (Illiterate)"
+      "value": "人口（読み書きができない）"
     }
   ],
   "Count_Person_InLaborForce": [
@@ -950,7 +950,7 @@
   "Count_Person_Literate": [
     {
       "type": 0,
-      "value": "Population (Literate)"
+      "value": "人口（読み書きができる）"
     }
   ],
   "Count_Person_Male": [
@@ -986,7 +986,7 @@
   "Count_Person_NonWorker": [
     {
       "type": 0,
-      "value": "Population (Non-Workers)"
+      "value": "人口（非労働者）"
     }
   ],
   "Count_Person_NotAUSCitizen": [
@@ -1016,19 +1016,19 @@
   "Count_Person_Rural_BelowPovertyLevelInThePast12Months": [
     {
       "type": 0,
-      "value": "Population (Rural, in Poverty)"
+      "value": "人口（農村部、貧困層）"
     }
   ],
   "Count_Person_ScheduledCaste": [
     {
       "type": 0,
-      "value": "Population (Scheduled Caste)"
+      "value": "人口（指定カースト）"
     }
   ],
   "Count_Person_ScheduledTribe": [
     {
       "type": 0,
-      "value": "Population (Scheduled Tribe)"
+      "value": "人口（指定部族）"
     }
   ],
   "Count_Person_Separated": [
@@ -1124,7 +1124,7 @@
   "Count_Person_Urban_BelowPovertyLevelInThePast12Months": [
     {
       "type": 0,
-      "value": "Population (Urban, in Poverty)"
+      "value": "人口（都市部、貧困層）"
     }
   ],
   "Count_Person_WhiteAlone": [
@@ -1142,7 +1142,7 @@
   "Count_Person_Workers": [
     {
       "type": 0,
-      "value": "Population (Workers)"
+      "value": "人口（労働者）"
     }
   ],
   "Count_StormSurgeTideEvent": [
@@ -1220,49 +1220,49 @@
   "Mean_WagesDaily_Worker": [
     {
       "type": 0,
-      "value": "Worker Daily Wage"
+      "value": "労働者の 1 日の賃金"
     }
   ],
   "Mean_WagesDaily_Worker_Female": [
     {
       "type": 0,
-      "value": "Worker Monthly Wage"
+      "value": "労働者の 1 か月の賃金"
     }
   ],
   "Mean_WagesDaily_Worker_Male": [
     {
       "type": 0,
-      "value": "Worker Monthly Wage"
+      "value": "労働者の 1 か月の賃金"
     }
   ],
   "Mean_WagesMonthly_Worker": [
     {
       "type": 0,
-      "value": "Worker Monthly Wage"
+      "value": "労働者の 1 か月の賃金"
     }
   ],
   "Mean_WagesMonthly_Worker_Female": [
     {
       "type": 0,
-      "value": "Worker Monthly Wage"
+      "value": "労働者の 1 か月の賃金"
     }
   ],
   "Mean_WagesMonthly_Worker_Male": [
     {
       "type": 0,
-      "value": "Worker Monthly Wage"
+      "value": "労働者の 1 か月の賃金"
     }
   ],
   "Mean_WagesMonthly_Worker_Rural": [
     {
       "type": 0,
-      "value": "Mean Worker Monthly Wage (Rural)"
+      "value": "労働者の 1 か月の平均賃金（農村部）"
     }
   ],
   "Mean_WagesMonthly_Worker_Urban": [
     {
       "type": 0,
-      "value": "Mean Worker Monthly Wage (Urban)"
+      "value": "労働者の 1 か月の平均賃金（都市部）"
     }
   ],
   "Median_Age_Person": [
@@ -1532,61 +1532,61 @@
   "UnemploymentRate_Person_Rural": [
     {
       "type": 0,
-      "value": "Unemployment Rate (Rural)"
+      "value": "失業率（農村部）"
     }
   ],
   "UnemploymentRate_Person_Urban": [
     {
       "type": 0,
-      "value": "Unemployment Rate (Urban)"
+      "value": "失業率（都市部）"
     }
   ],
   "indianCensus/Count_Person_Religion_Buddhist": [
     {
       "type": 0,
-      "value": "Population (Buddhist)"
+      "value": "人口（仏教）"
     }
   ],
   "indianCensus/Count_Person_Religion_Christian": [
     {
       "type": 0,
-      "value": "Population (Christian)"
+      "value": "人口（キリスト教）"
     }
   ],
   "indianCensus/Count_Person_Religion_Hindu": [
     {
       "type": 0,
-      "value": "Population (Hindu)"
+      "value": "人口（ヒンドゥー教）"
     }
   ],
   "indianCensus/Count_Person_Religion_Jain": [
     {
       "type": 0,
-      "value": "Population (Jain)"
+      "value": "人口（ジャイナ教）"
     }
   ],
   "indianCensus/Count_Person_Religion_Muslim": [
     {
       "type": 0,
-      "value": "Population (Muslim)"
+      "value": "人口（イスラム教）"
     }
   ],
   "indianCensus/Count_Person_Religion_OtherReligionsAndPersuasions": [
     {
       "type": 0,
-      "value": "Population (Other Religions and Persuasions)"
+      "value": "人口（他の宗教、宗派）"
     }
   ],
   "indianCensus/Count_Person_Religion_ReligionNotStated": [
     {
       "type": 0,
-      "value": "Population (Religion Not Stated)"
+      "value": "人口（宗教の記載なし）"
     }
   ],
   "indianCensus/Count_Person_Religion_Sikh": [
     {
       "type": 0,
-      "value": "Population (Sikh)"
+      "value": "人口（シーク教）"
     }
   ]
 }

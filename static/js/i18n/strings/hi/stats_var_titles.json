@@ -138,10 +138,10 @@
     "defaultMessage": "परिवारों की संख्या (10 हज़ार डॉलर से कम आमदनी वाले)"
   },
   "Count_Household_Rural": {
-    "defaultMessage": "Number of Rural Households"
+    "defaultMessage": "ग्रामीण परिवारों की संख्या"
   },
   "Count_Household_Urban": {
-    "defaultMessage": "Number of Urban Households"
+    "defaultMessage": "शहरी परिवारों की संख्या"
   },
   "Count_HousingUnit": {
     "defaultMessage": "घरों की संख्या"
@@ -438,13 +438,13 @@
     "defaultMessage": "लोगों की संख्या (हिस्पैनिक या लैटिनो)"
   },
   "Count_Person_Houseless_Rural": {
-    "defaultMessage": "Population (Houseless, Rural)"
+    "defaultMessage": "जनसंख्या (बेघर, ग्रामीण लोग)"
   },
   "Count_Person_Houseless_Urban": {
-    "defaultMessage": "Population (Houseless, Urban)"
+    "defaultMessage": "जनसंख्या (बेघर, शहरी लोग)"
   },
   "Count_Person_Illiterate": {
-    "defaultMessage": "Population (Illiterate)"
+    "defaultMessage": "जनसंख्या (नहीं पढ़े-लिखे लोग)"
   },
   "Count_Person_InLaborForce": {
     "defaultMessage": "मज़दूरों की संख्या"
@@ -474,7 +474,7 @@
     "defaultMessage": "जनसंख्या (10 हज़ार डॉलर तक व्यक्तिगत आमदनी वाले लोग)"
   },
   "Count_Person_Literate": {
-    "defaultMessage": "Population (Literate)"
+    "defaultMessage": "जनसंख्या (पढ़े-लिखे लोग)"
   },
   "Count_Person_Male": {
     "defaultMessage": "जनसंख्या (पुरुष)"
@@ -492,7 +492,7 @@
     "defaultMessage": "जनसंख्या (अविवाहित)"
   },
   "Count_Person_NonWorker": {
-    "defaultMessage": "Population (Non-Workers)"
+    "defaultMessage": "जनसंख्या (गैर-कामकाजी लोग)"
   },
   "Count_Person_NotAUSCitizen": {
     "defaultMessage": "जनसंख्या (अमेरिकी नागरिक नहीं हैं)"
@@ -507,13 +507,13 @@
     "defaultMessage": "जनसंख्या (ग्रामीण)"
   },
   "Count_Person_Rural_BelowPovertyLevelInThePast12Months": {
-    "defaultMessage": "Population (Rural, in Poverty)"
+    "defaultMessage": "जनसंख्या (ग्रामीण, गरीबी में रहने वाली)"
   },
   "Count_Person_ScheduledCaste": {
-    "defaultMessage": "Population (Scheduled Caste)"
+    "defaultMessage": "जनसंख्या (अनुसूचित जाति)"
   },
   "Count_Person_ScheduledTribe": {
-    "defaultMessage": "Population (Scheduled Tribe)"
+    "defaultMessage": "जनसंख्या (अनुसूचित जनजाति)"
   },
   "Count_Person_Separated": {
     "defaultMessage": "जनसंख्या (अलग रह रहे लोग)"
@@ -561,7 +561,7 @@
     "defaultMessage": "जनसंख्या (शहरी)"
   },
   "Count_Person_Urban_BelowPovertyLevelInThePast12Months": {
-    "defaultMessage": "Population (Urban, in Poverty)"
+    "defaultMessage": "जनसंख्या (शहरी, गरीबी में रहने वाले लोग)"
   },
   "Count_Person_WhiteAlone": {
     "defaultMessage": "लोगों की संख्या (सिर्फ़ श्वेत)"
@@ -570,7 +570,7 @@
     "defaultMessage": "जनसंख्या (विधवा)"
   },
   "Count_Person_Workers": {
-    "defaultMessage": "Population (Workers)"
+    "defaultMessage": "जनसंख्या (कामकाजी लोग)"
   },
   "Count_StormSurgeTideEvent": {
     "defaultMessage": "किसी इलाके में तूफ़ानी ज्वार बढ़ने की घटनाओं की संख्या"
@@ -609,28 +609,28 @@
     "defaultMessage": "औसत उम्र"
   },
   "Mean_WagesDaily_Worker": {
-    "defaultMessage": "Worker Daily Wage"
+    "defaultMessage": "कामकाजी व्यक्ति को हर दिन मिलने वाला वेतन"
   },
   "Mean_WagesDaily_Worker_Female": {
-    "defaultMessage": "Worker Monthly Wage"
+    "defaultMessage": "कामकाजी महिला का मासिक वेतन"
   },
   "Mean_WagesDaily_Worker_Male": {
-    "defaultMessage": "Worker Monthly Wage"
+    "defaultMessage": "कामकाजी पुरुष का मासिक वेतन"
   },
   "Mean_WagesMonthly_Worker": {
-    "defaultMessage": "Worker Monthly Wage"
+    "defaultMessage": "कामकाजी व्यक्ति का मासिक वेतन"
   },
   "Mean_WagesMonthly_Worker_Female": {
-    "defaultMessage": "Worker Monthly Wage"
+    "defaultMessage": "कामकाजी महिला का मासिक वेतन"
   },
   "Mean_WagesMonthly_Worker_Male": {
-    "defaultMessage": "Worker Monthly Wage"
+    "defaultMessage": "कामकाजी पुरुष का मासिक वेतन"
   },
   "Mean_WagesMonthly_Worker_Rural": {
-    "defaultMessage": "Mean Worker Monthly Wage (Rural)"
+    "defaultMessage": "कामकाजी व्यक्ति का मासिक वेतन (ग्रामीण)"
   },
   "Mean_WagesMonthly_Worker_Urban": {
-    "defaultMessage": "Mean Worker Monthly Wage (Urban)"
+    "defaultMessage": "कामकाजी व्यक्ति का औसत मासिक वेतन (शहरी)"
   },
   "Median_Age_Person": {
     "defaultMessage": "औसत उम्र"
@@ -765,33 +765,33 @@
     "defaultMessage": "बेरोज़गारी दर (पुरुष)"
   },
   "UnemploymentRate_Person_Rural": {
-    "defaultMessage": "Unemployment Rate (Rural)"
+    "defaultMessage": "बेरोज़गारी दर (ग्रामीण)"
   },
   "UnemploymentRate_Person_Urban": {
-    "defaultMessage": "Unemployment Rate (Urban)"
+    "defaultMessage": "बेरोज़गारी दर (शहरी)"
   },
   "indianCensus/Count_Person_Religion_Buddhist": {
-    "defaultMessage": "Population (Buddhist)"
+    "defaultMessage": "जनसंख्या (बौद्ध)"
   },
   "indianCensus/Count_Person_Religion_Christian": {
-    "defaultMessage": "Population (Christian)"
+    "defaultMessage": "जनसंख्या (ईसाई)"
   },
   "indianCensus/Count_Person_Religion_Hindu": {
-    "defaultMessage": "Population (Hindu)"
+    "defaultMessage": "जनसंख्या (हिंदू)"
   },
   "indianCensus/Count_Person_Religion_Jain": {
-    "defaultMessage": "Population (Jain)"
+    "defaultMessage": "जनसंख्या (जैन)"
   },
   "indianCensus/Count_Person_Religion_Muslim": {
-    "defaultMessage": "Population (Muslim)"
+    "defaultMessage": "जनसंख्या (मुस्लिम)"
   },
   "indianCensus/Count_Person_Religion_OtherReligionsAndPersuasions": {
-    "defaultMessage": "Population (Other Religions and Persuasions)"
+    "defaultMessage": "जनसंख्या (दूसरे धर्म और आस्थाओं को मानने वाले लोग)"
   },
   "indianCensus/Count_Person_Religion_ReligionNotStated": {
-    "defaultMessage": "Population (Religion Not Stated)"
+    "defaultMessage": "जनसंख्या (धर्म की जानकारी नहीं देने वाले लोग)"
   },
   "indianCensus/Count_Person_Religion_Sikh": {
-    "defaultMessage": "Population (Sikh)"
+    "defaultMessage": "जनसंख्या (सिख)"
   }
 }

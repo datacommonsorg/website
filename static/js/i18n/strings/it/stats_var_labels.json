@@ -138,10 +138,10 @@
     "defaultMessage": "Meno di 10 K $"
   },
   "Count_Household_Rural": {
-    "defaultMessage": "Rural"
+    "defaultMessage": "Rurale"
   },
   "Count_Household_Urban": {
-    "defaultMessage": "Urban"
+    "defaultMessage": "Urbana"
   },
   "Count_HousingUnit": {
     "defaultMessage": "Unità abitative"
@@ -438,13 +438,13 @@
     "defaultMessage": "Ispanici o latini"
   },
   "Count_Person_Houseless_Rural": {
-    "defaultMessage": "Rural"
+    "defaultMessage": "Rurale"
   },
   "Count_Person_Houseless_Urban": {
-    "defaultMessage": "Urban"
+    "defaultMessage": "Urbana"
   },
   "Count_Person_Illiterate": {
-    "defaultMessage": "Illiterate"
+    "defaultMessage": "Analfabeta"
   },
   "Count_Person_InLaborForce": {
     "defaultMessage": "Persone in forza lavoro"
@@ -474,7 +474,7 @@
     "defaultMessage": "Meno di 10 K $"
   },
   "Count_Person_Literate": {
-    "defaultMessage": "Literate"
+    "defaultMessage": "Alfabetizzata"
   },
   "Count_Person_Male": {
     "defaultMessage": "Uomini"
@@ -492,7 +492,7 @@
     "defaultMessage": "Mai sposati"
   },
   "Count_Person_NonWorker": {
-    "defaultMessage": "Non-Workers"
+    "defaultMessage": "Non lavoratori"
   },
   "Count_Person_NotAUSCitizen": {
     "defaultMessage": "Non cittadini"
@@ -507,13 +507,13 @@
     "defaultMessage": "Popolazione rurale"
   },
   "Count_Person_Rural_BelowPovertyLevelInThePast12Months": {
-    "defaultMessage": "Rural"
+    "defaultMessage": "Rurale"
   },
   "Count_Person_ScheduledCaste": {
-    "defaultMessage": "Scheduled Caste"
+    "defaultMessage": "Casta riconosciuta"
   },
   "Count_Person_ScheduledTribe": {
-    "defaultMessage": "Scheduled Tribe"
+    "defaultMessage": "Tribù riconosciuta"
   },
   "Count_Person_Separated": {
     "defaultMessage": "Separati"
@@ -561,7 +561,7 @@
     "defaultMessage": "Popolazione urbana"
   },
   "Count_Person_Urban_BelowPovertyLevelInThePast12Months": {
-    "defaultMessage": "Urban"
+    "defaultMessage": "Urbana"
   },
   "Count_Person_WhiteAlone": {
     "defaultMessage": "Soltanto bianchi"
@@ -570,7 +570,7 @@
     "defaultMessage": "Vedovi/e"
   },
   "Count_Person_Workers": {
-    "defaultMessage": "Workers"
+    "defaultMessage": "Lavoratori"
   },
   "Count_StormSurgeTideEvent": {
     "defaultMessage": "Onda anomala"
@@ -609,28 +609,28 @@
     "defaultMessage": "Speranza di vita"
   },
   "Mean_WagesDaily_Worker": {
-    "defaultMessage": "Worker Daily Wage"
+    "defaultMessage": "Retribuzione giornaliera del lavoratore"
   },
   "Mean_WagesDaily_Worker_Female": {
-    "defaultMessage": "Female"
+    "defaultMessage": "Donne"
   },
   "Mean_WagesDaily_Worker_Male": {
-    "defaultMessage": "Male"
+    "defaultMessage": "Uomini"
   },
   "Mean_WagesMonthly_Worker": {
-    "defaultMessage": "Worker Monthly Wage"
+    "defaultMessage": "Retribuzione mensile del lavoratore"
   },
   "Mean_WagesMonthly_Worker_Female": {
-    "defaultMessage": "Female"
+    "defaultMessage": "Donne"
   },
   "Mean_WagesMonthly_Worker_Male": {
-    "defaultMessage": "Male"
+    "defaultMessage": "Uomini"
   },
   "Mean_WagesMonthly_Worker_Rural": {
-    "defaultMessage": "Rural"
+    "defaultMessage": "Rurale"
   },
   "Mean_WagesMonthly_Worker_Urban": {
-    "defaultMessage": "Urban"
+    "defaultMessage": "Urbana"
   },
   "Median_Age_Person": {
     "defaultMessage": "Età media"
@@ -765,31 +765,31 @@
     "defaultMessage": "Uomini"
   },
   "UnemploymentRate_Person_Rural": {
-    "defaultMessage": "Rural"
+    "defaultMessage": "Rurale"
   },
   "UnemploymentRate_Person_Urban": {
-    "defaultMessage": "Urban"
+    "defaultMessage": "Urbana"
   },
   "indianCensus/Count_Person_Religion_Buddhist": {
-    "defaultMessage": "Buddhist"
+    "defaultMessage": "Buddista"
   },
   "indianCensus/Count_Person_Religion_Christian": {
-    "defaultMessage": "Christian"
+    "defaultMessage": "Cristiana"
   },
   "indianCensus/Count_Person_Religion_Hindu": {
-    "defaultMessage": "Hindu"
+    "defaultMessage": "Indù"
   },
   "indianCensus/Count_Person_Religion_Jain": {
-    "defaultMessage": "Jain"
+    "defaultMessage": "Giainista"
   },
   "indianCensus/Count_Person_Religion_Muslim": {
-    "defaultMessage": "Muslim"
+    "defaultMessage": "Musulmana"
   },
   "indianCensus/Count_Person_Religion_OtherReligionsAndPersuasions": {
-    "defaultMessage": "Other Religions and Persuasions"
+    "defaultMessage": "Altre religioni e fedi"
   },
   "indianCensus/Count_Person_Religion_ReligionNotStated": {
-    "defaultMessage": "Religion Not Stated"
+    "defaultMessage": "Religione non specificata"
   },
   "indianCensus/Count_Person_Religion_Sikh": {
     "defaultMessage": "Sikh"
