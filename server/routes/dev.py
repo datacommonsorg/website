@@ -60,7 +60,7 @@ def clearcacheaction():
     secret_client = secretmanager.SecretManagerServiceClient()
     secret_name = secret_client.secret_version_path(cfg.SECRET_PROJECT,
                                                     'clearcache', '1')
-    secret_response = secret_client.access_secret_version(secret_name)
+    secret_response = secret_client.access_secret_version(name=secret_name)
     token = secret_response.payload.data.decode('UTF-8')
     if user_input == token:
         success = cache.clear()
