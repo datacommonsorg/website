@@ -138,10 +138,10 @@
     "defaultMessage": "10,000 ドル未満"
   },
   "Count_Household_Rural": {
-    "defaultMessage": "Rural"
+    "defaultMessage": "農村部"
   },
   "Count_Household_Urban": {
-    "defaultMessage": "Urban"
+    "defaultMessage": "都市部"
   },
   "Count_HousingUnit": {
     "defaultMessage": "住宅戸数"
@@ -438,13 +438,13 @@
     "defaultMessage": "ヒスパニック / ラテン系"
   },
   "Count_Person_Houseless_Rural": {
-    "defaultMessage": "Rural"
+    "defaultMessage": "農村部"
   },
   "Count_Person_Houseless_Urban": {
-    "defaultMessage": "Urban"
+    "defaultMessage": "都市部"
   },
   "Count_Person_Illiterate": {
-    "defaultMessage": "Illiterate"
+    "defaultMessage": "読み書きができない"
   },
   "Count_Person_InLaborForce": {
     "defaultMessage": "就業中の人々"
@@ -474,7 +474,7 @@
     "defaultMessage": "10,000 ドル未満"
   },
   "Count_Person_Literate": {
-    "defaultMessage": "Literate"
+    "defaultMessage": "読み書きができる"
   },
   "Count_Person_Male": {
     "defaultMessage": "男性"
@@ -492,7 +492,7 @@
     "defaultMessage": "未婚"
   },
   "Count_Person_NonWorker": {
-    "defaultMessage": "Non-Workers"
+    "defaultMessage": "非労働者"
   },
   "Count_Person_NotAUSCitizen": {
     "defaultMessage": "他国民"
@@ -507,13 +507,13 @@
     "defaultMessage": "地方の人口"
   },
   "Count_Person_Rural_BelowPovertyLevelInThePast12Months": {
-    "defaultMessage": "Rural"
+    "defaultMessage": "農村部"
   },
   "Count_Person_ScheduledCaste": {
-    "defaultMessage": "Scheduled Caste"
+    "defaultMessage": "指定カースト"
   },
   "Count_Person_ScheduledTribe": {
-    "defaultMessage": "Scheduled Tribe"
+    "defaultMessage": "指定部族"
   },
   "Count_Person_Separated": {
     "defaultMessage": "別居中"
@@ -561,7 +561,7 @@
     "defaultMessage": "都市の人口"
   },
   "Count_Person_Urban_BelowPovertyLevelInThePast12Months": {
-    "defaultMessage": "Urban"
+    "defaultMessage": "都市部"
   },
   "Count_Person_WhiteAlone": {
     "defaultMessage": "白人のみ"
@@ -570,7 +570,7 @@
     "defaultMessage": "死別"
   },
   "Count_Person_Workers": {
-    "defaultMessage": "Workers"
+    "defaultMessage": "労働者"
   },
   "Count_StormSurgeTideEvent": {
     "defaultMessage": "高潮"
@@ -609,28 +609,28 @@
     "defaultMessage": "平均寿命"
   },
   "Mean_WagesDaily_Worker": {
-    "defaultMessage": "Worker Daily Wage"
+    "defaultMessage": "労働者の 1 日の賃金"
   },
   "Mean_WagesDaily_Worker_Female": {
-    "defaultMessage": "Female"
+    "defaultMessage": "女性"
   },
   "Mean_WagesDaily_Worker_Male": {
-    "defaultMessage": "Male"
+    "defaultMessage": "男性"
   },
   "Mean_WagesMonthly_Worker": {
-    "defaultMessage": "Worker Monthly Wage"
+    "defaultMessage": "労働者の 1 か月の賃金"
   },
   "Mean_WagesMonthly_Worker_Female": {
-    "defaultMessage": "Female"
+    "defaultMessage": "女性"
   },
   "Mean_WagesMonthly_Worker_Male": {
-    "defaultMessage": "Male"
+    "defaultMessage": "男性"
   },
   "Mean_WagesMonthly_Worker_Rural": {
-    "defaultMessage": "Rural"
+    "defaultMessage": "農村部"
   },
   "Mean_WagesMonthly_Worker_Urban": {
-    "defaultMessage": "Urban"
+    "defaultMessage": "都市部"
   },
   "Median_Age_Person": {
     "defaultMessage": "年齢の中央値"
@@ -765,33 +765,33 @@
     "defaultMessage": "男性"
   },
   "UnemploymentRate_Person_Rural": {
-    "defaultMessage": "Rural"
+    "defaultMessage": "農村部"
   },
   "UnemploymentRate_Person_Urban": {
-    "defaultMessage": "Urban"
+    "defaultMessage": "都市部"
   },
   "indianCensus/Count_Person_Religion_Buddhist": {
-    "defaultMessage": "Buddhist"
+    "defaultMessage": "仏教"
   },
   "indianCensus/Count_Person_Religion_Christian": {
-    "defaultMessage": "Christian"
+    "defaultMessage": "キリスト教"
   },
   "indianCensus/Count_Person_Religion_Hindu": {
-    "defaultMessage": "Hindu"
+    "defaultMessage": "ヒンドゥー教"
   },
   "indianCensus/Count_Person_Religion_Jain": {
-    "defaultMessage": "Jain"
+    "defaultMessage": "ジャイナ教"
   },
   "indianCensus/Count_Person_Religion_Muslim": {
-    "defaultMessage": "Muslim"
+    "defaultMessage": "イスラム教"
   },
   "indianCensus/Count_Person_Religion_OtherReligionsAndPersuasions": {
-    "defaultMessage": "Other Religions and Persuasions"
+    "defaultMessage": "他の宗教、宗派"
   },
   "indianCensus/Count_Person_Religion_ReligionNotStated": {
-    "defaultMessage": "Religion Not Stated"
+    "defaultMessage": "宗教の記載なし"
   },
   "indianCensus/Count_Person_Religion_Sikh": {
-    "defaultMessage": "Sikh"
+    "defaultMessage": "シーク教"
   }
 }

@@ -138,10 +138,10 @@
     "defaultMessage": "$10000 미만"
   },
   "Count_Household_Rural": {
-    "defaultMessage": "Rural"
+    "defaultMessage": "농촌"
   },
   "Count_Household_Urban": {
-    "defaultMessage": "Urban"
+    "defaultMessage": "도시"
   },
   "Count_HousingUnit": {
     "defaultMessage": "주택 수"
@@ -438,13 +438,13 @@
     "defaultMessage": "히스패닉 또는 라티노"
   },
   "Count_Person_Houseless_Rural": {
-    "defaultMessage": "Rural"
+    "defaultMessage": "농촌"
   },
   "Count_Person_Houseless_Urban": {
-    "defaultMessage": "Urban"
+    "defaultMessage": "도시"
   },
   "Count_Person_Illiterate": {
-    "defaultMessage": "Illiterate"
+    "defaultMessage": "비문해"
   },
   "Count_Person_InLaborForce": {
     "defaultMessage": "노동인구"
@@ -474,7 +474,7 @@
     "defaultMessage": "$10000 미만"
   },
   "Count_Person_Literate": {
-    "defaultMessage": "Literate"
+    "defaultMessage": "문해"
   },
   "Count_Person_Male": {
     "defaultMessage": "남성"
@@ -492,7 +492,7 @@
     "defaultMessage": "미혼"
   },
   "Count_Person_NonWorker": {
-    "defaultMessage": "Non-Workers"
+    "defaultMessage": "비노동자"
   },
   "Count_Person_NotAUSCitizen": {
     "defaultMessage": "시민권자 아님"
@@ -507,13 +507,13 @@
     "defaultMessage": "농촌 인구"
   },
   "Count_Person_Rural_BelowPovertyLevelInThePast12Months": {
-    "defaultMessage": "Rural"
+    "defaultMessage": "농촌"
   },
   "Count_Person_ScheduledCaste": {
-    "defaultMessage": "Scheduled Caste"
+    "defaultMessage": "지정 카스트"
   },
   "Count_Person_ScheduledTribe": {
-    "defaultMessage": "Scheduled Tribe"
+    "defaultMessage": "지정 부족"
   },
   "Count_Person_Separated": {
     "defaultMessage": "별거 중"
@@ -561,7 +561,7 @@
     "defaultMessage": "도시 인구"
   },
   "Count_Person_Urban_BelowPovertyLevelInThePast12Months": {
-    "defaultMessage": "Urban"
+    "defaultMessage": "도시"
   },
   "Count_Person_WhiteAlone": {
     "defaultMessage": "백인만"
@@ -570,7 +570,7 @@
     "defaultMessage": "사별"
   },
   "Count_Person_Workers": {
-    "defaultMessage": "Workers"
+    "defaultMessage": "노동자"
   },
   "Count_StormSurgeTideEvent": {
     "defaultMessage": "폭우 해일"
@@ -609,28 +609,28 @@
     "defaultMessage": "기대수명"
   },
   "Mean_WagesDaily_Worker": {
-    "defaultMessage": "Worker Daily Wage"
+    "defaultMessage": "노동자 일당"
   },
   "Mean_WagesDaily_Worker_Female": {
-    "defaultMessage": "Female"
+    "defaultMessage": "여성"
   },
   "Mean_WagesDaily_Worker_Male": {
-    "defaultMessage": "Male"
+    "defaultMessage": "남성"
   },
   "Mean_WagesMonthly_Worker": {
-    "defaultMessage": "Worker Monthly Wage"
+    "defaultMessage": "노동자 월급"
   },
   "Mean_WagesMonthly_Worker_Female": {
-    "defaultMessage": "Female"
+    "defaultMessage": "여성"
   },
   "Mean_WagesMonthly_Worker_Male": {
-    "defaultMessage": "Male"
+    "defaultMessage": "남성"
   },
   "Mean_WagesMonthly_Worker_Rural": {
-    "defaultMessage": "Rural"
+    "defaultMessage": "농촌"
   },
   "Mean_WagesMonthly_Worker_Urban": {
-    "defaultMessage": "Urban"
+    "defaultMessage": "도시"
   },
   "Median_Age_Person": {
     "defaultMessage": "중위 연령"
@@ -765,33 +765,33 @@
     "defaultMessage": "남성"
   },
   "UnemploymentRate_Person_Rural": {
-    "defaultMessage": "Rural"
+    "defaultMessage": "농촌"
   },
   "UnemploymentRate_Person_Urban": {
-    "defaultMessage": "Urban"
+    "defaultMessage": "도시"
   },
   "indianCensus/Count_Person_Religion_Buddhist": {
-    "defaultMessage": "Buddhist"
+    "defaultMessage": "불교"
   },
   "indianCensus/Count_Person_Religion_Christian": {
-    "defaultMessage": "Christian"
+    "defaultMessage": "기독교"
   },
   "indianCensus/Count_Person_Religion_Hindu": {
-    "defaultMessage": "Hindu"
+    "defaultMessage": "힌두교"
   },
   "indianCensus/Count_Person_Religion_Jain": {
-    "defaultMessage": "Jain"
+    "defaultMessage": "자이나교"
   },
   "indianCensus/Count_Person_Religion_Muslim": {
-    "defaultMessage": "Muslim"
+    "defaultMessage": "이슬람교"
   },
   "indianCensus/Count_Person_Religion_OtherReligionsAndPersuasions": {
-    "defaultMessage": "Other Religions and Persuasions"
+    "defaultMessage": "기타 종교 및 신념"
   },
   "indianCensus/Count_Person_Religion_ReligionNotStated": {
-    "defaultMessage": "Religion Not Stated"
+    "defaultMessage": "종교를 언급하지 않음"
   },
   "indianCensus/Count_Person_Religion_Sikh": {
-    "defaultMessage": "Sikh"
+    "defaultMessage": "시크교"
   }
 }

@@ -17,7 +17,7 @@ msgid "About Data Commons"
 msgstr "Data Commons के बारे में जानकारी"
 
 msgid "Attainment of Bachelor Degree or Higher across Washington Counties"
-msgstr ""
+msgstr "वॉशिंगटन काउंटी में ग्रेजुएशन की डिग्री या उससे आगे की शिक्षा को पाना"
 
 msgid "Bachelor Degree Attained vs Females per capita for California Counties"
 msgstr "कैलिफ़ोर्निया काउंटी में, स्नातक डिग्री वाले लोग और प्रति व्यक्ति महिलाओं की संख्या के बीच तुलना"
@@ -44,7 +44,7 @@ msgid "Countries"
 msgstr "देश"
 
 msgid "Create Maps"
-msgstr ""
+msgstr "मैप बनाएं"
 
 msgid "Create Scatter Plots"
 msgstr "स्कैटर प्लॉट बनाएं"
@@ -89,7 +89,7 @@ msgid "FAQ"
 msgstr "अक्सर पूछे जाने वाले सवाल"
 
 msgid "Feedback"
-msgstr "Feedback"
+msgstr "सुझाव/राय दें या शिकायत करें"
 
 msgid "Foreign Born vs Unemployment Rate for US States"
 msgstr "अमेरिका के राज्यों में, विदेशियों और बेरोज़गारी दर के बीच तुलना"
@@ -155,10 +155,10 @@ msgid "MORE"
 msgstr "ऐसे और भी लिंक हैं ..."
 
 msgid "Map Explorer"
-msgstr ""
+msgstr "मैप एक्सप्लोरर"
 
 msgid "Median Income across US Counties"
-msgstr ""
+msgstr "संयुक्त राज्य अमेरिका के अलग-अलग काउंटी में लोगों की औसत आय"
 
 msgid "Median Income, United States"
 msgstr "संयुक्त राज्य अमेरिका में औसत आय"
@@ -218,13 +218,13 @@ msgid "US University Towns by Income"
 msgstr "आमदनी के हिसाब से अमेरिकी यूनिवर्सिटी वाले टाउन"
 
 msgid "Unemployment Rate across US States"
-msgstr ""
+msgstr "संयुक्त राज्य अमेरिका के अलग-अलग राज्यों में बेरोज़गारी दर"
 
 msgid "Unemployment Rate, United States"
 msgstr "संयुक्त राज्य अमेरिका में बेरोज़गारी की दर"
 
 msgid "We have launched exciting new features, including a new map explorer, a new statistical variable menu that is used in all of our visualization tools (timeline explorer, scatter plot explorer, and map explorer), and new data. <a href=%(blog_url)s>Read our blog post for more details</a>."
-msgstr ""
+msgstr "हमने कुछ बेहतरीन सुविधाएं लॉन्च की हैं. इनमें, एक नया मैप एक्सप्लोरर, एक नया स्टैटिस्टिकल वैरिएबल मेन्यू जो हमारे सभी विज़ुअलाइज़ेशन टूल (टाइमलाइन एक्सप्लोरर, स्कैटर प्लॉट एक्सप्लोरर, और मैप एक्सप्लोरर) में इस्तेमाल होता है, और नया डेटा शामिल हैं. <a href=%(blog_url)s>ज़्यादा जानकारी के लिए हमारी ब्लॉग पोस्ट पढ़ें</a>."
 
 msgid "What's new"
 msgstr "नया क्या है"
@@ -458,7 +458,7 @@ msgid "CHART_TITLE-Life_expectancy"
 msgstr "औसत उम्र (साल)"
 
 msgid "CHART_TITLE-Literacy"
-msgstr "Literacy"
+msgstr "साक्षरता"
 
 msgid "CHART_TITLE-Marital_status"
 msgstr "वैवाहिक स्थिति"
@@ -509,22 +509,22 @@ msgid "CHART_TITLE-Percent_without_health_insurance_race"
 msgstr "नस्ल के हिसाब से ऐसे लोगों का प्रतिशत जिनके पास स्वास्थ्य बीमा नहीं है"
 
 msgid "CHART_TITLE-Percentage of literate and illiterate population"
-msgstr "Percentage of literate and illiterate population"
+msgstr "पढ़े-लिखे और नहीं पढ़े-लिखे लोगों की जनसंख्या का प्रतिशत"
 
 msgid "CHART_TITLE-Percentage of population by religon"
-msgstr "Percentage of population by religon"
+msgstr "धर्म के आधार पर जनसंख्या का प्रतिशत"
 
 msgid "CHART_TITLE-Percentage of population by social category"
-msgstr "Percentage of population by social category"
+msgstr "सोशल कैटगरी के आधार पर जनसंख्या का प्रतिशत"
 
 msgid "CHART_TITLE-Percentage of urban and rural households"
-msgstr "Percentage of urban and rural households"
+msgstr "शहरी बनाम ग्रामीण परिवारों का प्रतिशत"
 
 msgid "CHART_TITLE-Percentage of urban vs rural homeless population"
-msgstr "Percentage of urban vs rural homeless population"
+msgstr "शहरी बनाम ग्रामीण बेघर जनसंख्या का प्रतिशत"
 
 msgid "CHART_TITLE-Percentage of workers and nonworkers"
-msgstr "Percentage of workers and nonworkers"
+msgstr "कामकाजी और गैर-कामकाजी लोगों का प्रतिशत"
 
 msgid "CHART_TITLE-Percentage_employed"
 msgstr "नौकरी करने वाले लोगों का प्रतिशत"
@@ -578,7 +578,7 @@ msgid "CHART_TITLE-Property_crime_rate"
 msgstr "प्रॉपर्टी से जुड़े अपराधों की कुल संख्या, 1 लाख लोगों में"
 
 msgid "CHART_TITLE-Religion"
-msgstr "Religion"
+msgstr "धर्म"
 
 msgid "CHART_TITLE-School_enrollment"
 msgstr "स्कूल में नाम दर्ज कराने वालों की संख्या"
@@ -587,7 +587,7 @@ msgid "CHART_TITLE-School_enrollment_rate"
 msgstr "स्कूल में नाम दर्ज कराने वालों की दर"
 
 msgid "CHART_TITLE-Social Category"
-msgstr "Social Category"
+msgstr "सोशल कैटगरी"
 
 msgid "CHART_TITLE-State_unemployment_claims"
 msgstr "राज्य में बेरोज़गारी भत्तों के दावे"
@@ -605,22 +605,22 @@ msgid "CHART_TITLE-Unemployment_rate"
 msgstr "बेरोज़गारी दर"
 
 msgid "CHART_TITLE-Unemployment_rate-urban-v-rural"
-msgstr "Unemployment rate: urban vs rural"
+msgstr "बेरोज़गारी दर: शहरी बनाम ग्रामीण"
 
 msgid "CHART_TITLE-Unemployment_rate_gender"
 msgstr "बेरोज़गारी दर, लिंग के हिसाब से"
 
 msgid "CHART_TITLE-Urban and rural households"
-msgstr "Urban and rural households"
+msgstr "शहरी और ग्रामीण परिवार"
 
 msgid "CHART_TITLE-Urban vs rural homeless population"
-msgstr "Urban vs rural homeless population"
+msgstr "शहरी बनाम ग्रामीण बेघर लोगों की जनसंख्या"
 
 msgid "CHART_TITLE-Urban vs rural poverty population"
-msgstr "Urban vs rural poverty population"
+msgstr "शहरी बनाम ग्रामीण: गरीबी में रहने वाले लोगों की जनसंख्या"
 
 msgid "CHART_TITLE-Urban vs rural poverty rate"
-msgstr "Urban vs rural poverty rate"
+msgstr "शहरी बनाम ग्रामीण गरीबी दर"
 
 msgid "CHART_TITLE-Urban_v_rural_population"
 msgstr "शहरी और ग्रामीण जनसंख्या"
@@ -632,17 +632,20 @@ msgid "CHART_TITLE-Violent_crime_rate"
 msgstr "हर एक लाख लोगों के अनुपात में हिंसक अपराधों की संख्या"
 
 msgid "CHART_TITLE-Worker wages (daily)"
-msgstr "Worker wages (daily)"
+msgstr "कामकाजी व्यक्ति का औसत वेतन (दिन का)"
 
 msgid "CHART_TITLE-Worker wages (monthly)"
-msgstr "Worker wages (monthly)"
+msgstr "कामकाजी व्यक्ति का औसत वेतन (महीने का)"
 
 msgid "CHART_TITLE-Worker wages (monthly): female vs male"
-msgstr "Worker wages (monthly): female vs male"
+msgstr "कामकाजी व्यक्ति का औसत वेतन (महीने का): महिला बनाम पुरुष"
 
 msgid "CHART_TITLE-Worker wages (monthly): urban vs rural"
-msgstr "Worker wages (monthly): urban vs rural"
+msgstr "कामकाजी व्यक्ति का औसत वेतन (महीने का): शहरी बनाम ग्रामीण"
 
 msgid "CHART_TITLE-Worker-vs-nonworker-population"
-msgstr "Worker vs nonworker population"
+msgstr "कामकाजी बनाम गैर-कामकाजी लोगों की जनसंख्या"
+
+msgid "CHART_TITLE-CHART_CATEGORY-Overview"
+msgstr "खास जानकारी"
 

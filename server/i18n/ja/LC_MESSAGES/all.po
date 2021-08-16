@@ -17,7 +17,7 @@ msgid "About Data Commons"
 msgstr "データコモンズについて"
 
 msgid "Attainment of Bachelor Degree or Higher across Washington Counties"
-msgstr ""
+msgstr "ワシントンの各郡における学士号以上の学位の取得"
 
 msgid "Bachelor Degree Attained vs Females per capita for California Counties"
 msgstr "カリフォルニア州の各郡における一人当たりの学士号取得数と女性の割合"
@@ -44,7 +44,7 @@ msgid "Countries"
 msgstr "国"
 
 msgid "Create Maps"
-msgstr ""
+msgstr "地図を作成"
 
 msgid "Create Scatter Plots"
 msgstr "散布図を作成する"
@@ -155,10 +155,10 @@ msgid "MORE"
 msgstr "その他"
 
 msgid "Map Explorer"
-msgstr ""
+msgstr "マップ エクスプローラ"
 
 msgid "Median Income across US Counties"
-msgstr ""
+msgstr "米国の各郡における所得の中央値"
 
 msgid "Median Income, United States"
 msgstr "米国の所得の中央値"
@@ -218,13 +218,13 @@ msgid "US University Towns by Income"
 msgstr "所得別の米国の大学都市"
 
 msgid "Unemployment Rate across US States"
-msgstr ""
+msgstr "米国の各州における失業率"
 
 msgid "Unemployment Rate, United States"
 msgstr "米国の失業率"
 
 msgid "We have launched exciting new features, including a new map explorer, a new statistical variable menu that is used in all of our visualization tools (timeline explorer, scatter plot explorer, and map explorer), and new data. <a href=%(blog_url)s>Read our blog post for more details</a>."
-msgstr ""
+msgstr "新しいマップ エクスプローラ、すべての可視化ツール（タイムライン エクスプローラ、散布図エクスプローラ、マップ エクスプローラ）で使用される新しい統計的な変数のメニュー、新しいデータなど、新機能をリリースしました。<a href=%(blog_url)s>詳細はブログ投稿をご覧ください</a>。"
 
 msgid "What's new"
 msgstr "最新情報"
@@ -458,7 +458,7 @@ msgid "CHART_TITLE-Life_expectancy"
 msgstr "平均寿命（年）"
 
 msgid "CHART_TITLE-Literacy"
-msgstr "Literacy"
+msgstr "読み書き"
 
 msgid "CHART_TITLE-Marital_status"
 msgstr "配偶者の有無"
@@ -509,22 +509,22 @@ msgid "CHART_TITLE-Percent_without_health_insurance_race"
 msgstr "健康保険未加入者の割合（性別ごと）"
 
 msgid "CHART_TITLE-Percentage of literate and illiterate population"
-msgstr "Percentage of literate and illiterate population"
+msgstr "読み書きができる人口と読み書きができない人口の割合"
 
 msgid "CHART_TITLE-Percentage of population by religon"
-msgstr "Percentage of population by religon"
+msgstr "宗教別の人口の割合"
 
 msgid "CHART_TITLE-Percentage of population by social category"
-msgstr "Percentage of population by social category"
+msgstr "社会的カテゴリ別の人口の割合"
 
 msgid "CHART_TITLE-Percentage of urban and rural households"
-msgstr "Percentage of urban and rural households"
+msgstr "都市部と農村部の世帯数の割合"
 
 msgid "CHART_TITLE-Percentage of urban vs rural homeless population"
-msgstr "Percentage of urban vs rural homeless population"
+msgstr "都市部と農村部のホームレスの人口の割合の比較"
 
 msgid "CHART_TITLE-Percentage of workers and nonworkers"
-msgstr "Percentage of workers and nonworkers"
+msgstr "労働者と非労働者の割合"
 
 msgid "CHART_TITLE-Percentage_employed"
 msgstr "就業者の割合"
@@ -578,7 +578,7 @@ msgid "CHART_TITLE-Property_crime_rate"
 msgstr "10 万人あたりの窃盗件数"
 
 msgid "CHART_TITLE-Religion"
-msgstr "Religion"
+msgstr "宗教"
 
 msgid "CHART_TITLE-School_enrollment"
 msgstr "就学"
@@ -587,7 +587,7 @@ msgid "CHART_TITLE-School_enrollment_rate"
 msgstr "就学率"
 
 msgid "CHART_TITLE-Social Category"
-msgstr "Social Category"
+msgstr "社会的カテゴリ"
 
 msgid "CHART_TITLE-State_unemployment_claims"
 msgstr "州の失業保険請求件数"
@@ -605,22 +605,22 @@ msgid "CHART_TITLE-Unemployment_rate"
 msgstr "失業率"
 
 msgid "CHART_TITLE-Unemployment_rate-urban-v-rural"
-msgstr "Unemployment rate: urban vs rural"
+msgstr "失業率: 都市部と農村部の比較"
 
 msgid "CHART_TITLE-Unemployment_rate_gender"
 msgstr "失業率（性別ごと）"
 
 msgid "CHART_TITLE-Urban and rural households"
-msgstr "Urban and rural households"
+msgstr "都市部と農村部の世帯数"
 
 msgid "CHART_TITLE-Urban vs rural homeless population"
-msgstr "Urban vs rural homeless population"
+msgstr "都市部と農村部のホームレスの人口の比較"
 
 msgid "CHART_TITLE-Urban vs rural poverty population"
-msgstr "Urban vs rural poverty population"
+msgstr "都市部と農村部の貧困人口の比較"
 
 msgid "CHART_TITLE-Urban vs rural poverty rate"
-msgstr "Urban vs rural poverty rate"
+msgstr "都市部と農村部の貧困率の比較"
 
 msgid "CHART_TITLE-Urban_v_rural_population"
 msgstr "都市部と農村部の人口"
@@ -632,17 +632,20 @@ msgid "CHART_TITLE-Violent_crime_rate"
 msgstr "暴力犯罪件数（人口 100,000 人あたり）"
 
 msgid "CHART_TITLE-Worker wages (daily)"
-msgstr "Worker wages (daily)"
+msgstr "労働者の賃金（日単位）"
 
 msgid "CHART_TITLE-Worker wages (monthly)"
-msgstr "Worker wages (monthly)"
+msgstr "労働者の賃金（月単位）"
 
 msgid "CHART_TITLE-Worker wages (monthly): female vs male"
-msgstr "Worker wages (monthly): female vs male"
+msgstr "労働者の賃金（月単位）: 女性と男性の比較"
 
 msgid "CHART_TITLE-Worker wages (monthly): urban vs rural"
-msgstr "Worker wages (monthly): urban vs rural"
+msgstr "労働者の賃金（月単位）: 都市部と農村部の比較"
 
 msgid "CHART_TITLE-Worker-vs-nonworker-population"
-msgstr "Worker vs nonworker population"
+msgstr "労働者と非労働者の人口の比較"
+
+msgid "CHART_TITLE-CHART_CATEGORY-Overview"
+msgstr "概要"
 

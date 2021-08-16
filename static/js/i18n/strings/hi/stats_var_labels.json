@@ -138,10 +138,10 @@
     "defaultMessage": "10 हज़ार डॉलर से कम"
   },
   "Count_Household_Rural": {
-    "defaultMessage": "Rural"
+    "defaultMessage": "ग्रामीण"
   },
   "Count_Household_Urban": {
-    "defaultMessage": "Urban"
+    "defaultMessage": "शहरी"
   },
   "Count_HousingUnit": {
     "defaultMessage": "घरों की संख्या"
@@ -438,13 +438,13 @@
     "defaultMessage": "हिस्पैनिक या लैटिनो"
   },
   "Count_Person_Houseless_Rural": {
-    "defaultMessage": "Rural"
+    "defaultMessage": "ग्रामीण"
   },
   "Count_Person_Houseless_Urban": {
-    "defaultMessage": "Urban"
+    "defaultMessage": "शहरी"
   },
   "Count_Person_Illiterate": {
-    "defaultMessage": "Illiterate"
+    "defaultMessage": "नहीं पढ़े-लिखे लोग"
   },
   "Count_Person_InLaborForce": {
     "defaultMessage": "मज़दूरों की संख्या"
@@ -474,7 +474,7 @@
     "defaultMessage": "10 हज़ार डॉलर से कम"
   },
   "Count_Person_Literate": {
-    "defaultMessage": "Literate"
+    "defaultMessage": "पढ़े-लिखे लोग"
   },
   "Count_Person_Male": {
     "defaultMessage": "पुरुष"
@@ -492,7 +492,7 @@
     "defaultMessage": "अविवाहित"
   },
   "Count_Person_NonWorker": {
-    "defaultMessage": "Non-Workers"
+    "defaultMessage": "गैर-कामकाजी लोग"
   },
   "Count_Person_NotAUSCitizen": {
     "defaultMessage": "नागरिक नहीं है"
@@ -507,13 +507,13 @@
     "defaultMessage": "ग्रामीण जनसंख्या"
   },
   "Count_Person_Rural_BelowPovertyLevelInThePast12Months": {
-    "defaultMessage": "Rural"
+    "defaultMessage": "ग्रामीण"
   },
   "Count_Person_ScheduledCaste": {
-    "defaultMessage": "Scheduled Caste"
+    "defaultMessage": "अनुसूचित जाति"
   },
   "Count_Person_ScheduledTribe": {
-    "defaultMessage": "Scheduled Tribe"
+    "defaultMessage": "अनुसूचित जनजाति"
   },
   "Count_Person_Separated": {
     "defaultMessage": "अलग किया गया"
@@ -561,7 +561,7 @@
     "defaultMessage": "शहरी जनसंख्या"
   },
   "Count_Person_Urban_BelowPovertyLevelInThePast12Months": {
-    "defaultMessage": "Urban"
+    "defaultMessage": "शहरी"
   },
   "Count_Person_WhiteAlone": {
     "defaultMessage": "सिर्फ़ श्वेत"
@@ -570,7 +570,7 @@
     "defaultMessage": "विधवा"
   },
   "Count_Person_Workers": {
-    "defaultMessage": "Workers"
+    "defaultMessage": "कामकाजी लोग"
   },
   "Count_StormSurgeTideEvent": {
     "defaultMessage": "तूफ़ानी ज्वार बढ़ना"
@@ -609,28 +609,28 @@
     "defaultMessage": "औसत उम्र"
   },
   "Mean_WagesDaily_Worker": {
-    "defaultMessage": "Worker Daily Wage"
+    "defaultMessage": "कामकाजी व्यक्ति को हर दिन मिलने वाला वेतन"
   },
   "Mean_WagesDaily_Worker_Female": {
-    "defaultMessage": "Female"
+    "defaultMessage": "महिला"
   },
   "Mean_WagesDaily_Worker_Male": {
-    "defaultMessage": "Male"
+    "defaultMessage": "पुरुष"
   },
   "Mean_WagesMonthly_Worker": {
-    "defaultMessage": "Worker Monthly Wage"
+    "defaultMessage": "कामकाजी व्यक्ति का मासिक वेतन"
   },
   "Mean_WagesMonthly_Worker_Female": {
-    "defaultMessage": "Female"
+    "defaultMessage": "महिला"
   },
   "Mean_WagesMonthly_Worker_Male": {
-    "defaultMessage": "Male"
+    "defaultMessage": "पुरुष"
   },
   "Mean_WagesMonthly_Worker_Rural": {
-    "defaultMessage": "Rural"
+    "defaultMessage": "ग्रामीण"
   },
   "Mean_WagesMonthly_Worker_Urban": {
-    "defaultMessage": "Urban"
+    "defaultMessage": "शहरी"
   },
   "Median_Age_Person": {
     "defaultMessage": "औसत उम्र"
@@ -765,33 +765,33 @@
     "defaultMessage": "पुरुष"
   },
   "UnemploymentRate_Person_Rural": {
-    "defaultMessage": "Rural"
+    "defaultMessage": "ग्रामीण"
   },
   "UnemploymentRate_Person_Urban": {
-    "defaultMessage": "Urban"
+    "defaultMessage": "शहरी"
   },
   "indianCensus/Count_Person_Religion_Buddhist": {
-    "defaultMessage": "Buddhist"
+    "defaultMessage": "बौद्ध"
   },
   "indianCensus/Count_Person_Religion_Christian": {
-    "defaultMessage": "Christian"
+    "defaultMessage": "ईसाई"
   },
   "indianCensus/Count_Person_Religion_Hindu": {
-    "defaultMessage": "Hindu"
+    "defaultMessage": "हिंदू"
   },
   "indianCensus/Count_Person_Religion_Jain": {
-    "defaultMessage": "Jain"
+    "defaultMessage": "जैन"
   },
   "indianCensus/Count_Person_Religion_Muslim": {
-    "defaultMessage": "Muslim"
+    "defaultMessage": "मुसलमान"
   },
   "indianCensus/Count_Person_Religion_OtherReligionsAndPersuasions": {
-    "defaultMessage": "Other Religions and Persuasions"
+    "defaultMessage": "दूसरे धर्म और आस्थाओं को मानने वाले लोग"
   },
   "indianCensus/Count_Person_Religion_ReligionNotStated": {
-    "defaultMessage": "Religion Not Stated"
+    "defaultMessage": "धर्म की जानकारी नहीं देने वाले लोग"
   },
   "indianCensus/Count_Person_Religion_Sikh": {
-    "defaultMessage": "Sikh"
+    "defaultMessage": "सिख"
   }
 }

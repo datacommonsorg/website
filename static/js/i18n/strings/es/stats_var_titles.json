@@ -138,10 +138,10 @@
     "defaultMessage": "Número de hogares (ingresos: menos de 10.000 $)"
   },
   "Count_Household_Rural": {
-    "defaultMessage": "Number of Rural Households"
+    "defaultMessage": "Número de unidades familiares en zonas rurales"
   },
   "Count_Household_Urban": {
-    "defaultMessage": "Number of Urban Households"
+    "defaultMessage": "Número de unidades familiares urbanas"
   },
   "Count_HousingUnit": {
     "defaultMessage": "Número de viviendas"
@@ -438,13 +438,13 @@
     "defaultMessage": "Número de personas (hispanas o latinoamericanas)"
   },
   "Count_Person_Houseless_Rural": {
-    "defaultMessage": "Population (Houseless, Rural)"
+    "defaultMessage": "Población (sin casa, rural)"
   },
   "Count_Person_Houseless_Urban": {
-    "defaultMessage": "Population (Houseless, Urban)"
+    "defaultMessage": "Población (sin casa, urbana)"
   },
   "Count_Person_Illiterate": {
-    "defaultMessage": "Population (Illiterate)"
+    "defaultMessage": "Población (analfabeta)"
   },
   "Count_Person_InLaborForce": {
     "defaultMessage": "Número de personas en la fuerza laboral"
@@ -474,7 +474,7 @@
     "defaultMessage": "Población (personas con ingresos inferiores a 10.000 USD)"
   },
   "Count_Person_Literate": {
-    "defaultMessage": "Population (Literate)"
+    "defaultMessage": "Población (alfabetizada)"
   },
   "Count_Person_Male": {
     "defaultMessage": "Población (hombres)"
@@ -492,7 +492,7 @@
     "defaultMessage": "Población (personas que nunca se han casado)"
   },
   "Count_Person_NonWorker": {
-    "defaultMessage": "Population (Non-Workers)"
+    "defaultMessage": "Población (personas no trabajadoras)"
   },
   "Count_Person_NotAUSCitizen": {
     "defaultMessage": "Población (sin nacionalidad estadounidense)"
@@ -507,13 +507,13 @@
     "defaultMessage": "Población (áreas rurales)"
   },
   "Count_Person_Rural_BelowPovertyLevelInThePast12Months": {
-    "defaultMessage": "Population (Rural, in Poverty)"
+    "defaultMessage": "Población (rural, en situación de pobreza)"
   },
   "Count_Person_ScheduledCaste": {
-    "defaultMessage": "Population (Scheduled Caste)"
+    "defaultMessage": "Población (castas registradas)"
   },
   "Count_Person_ScheduledTribe": {
-    "defaultMessage": "Population (Scheduled Tribe)"
+    "defaultMessage": "Población (tribus registradas)"
   },
   "Count_Person_Separated": {
     "defaultMessage": "Población (personas separadas)"
@@ -561,7 +561,7 @@
     "defaultMessage": "Población (áreas urbanas)"
   },
   "Count_Person_Urban_BelowPovertyLevelInThePast12Months": {
-    "defaultMessage": "Population (Urban, in Poverty)"
+    "defaultMessage": "Población (urbana, en situación de pobreza)"
   },
   "Count_Person_WhiteAlone": {
     "defaultMessage": "Número de personas (solo blancas)"
@@ -570,7 +570,7 @@
     "defaultMessage": "Población (personas viudas)"
   },
   "Count_Person_Workers": {
-    "defaultMessage": "Population (Workers)"
+    "defaultMessage": "Población (personas trabajadoras)"
   },
   "Count_StormSurgeTideEvent": {
     "defaultMessage": "Número de marejadas ciclónicas"
@@ -609,28 +609,28 @@
     "defaultMessage": "Esperanza de vida"
   },
   "Mean_WagesDaily_Worker": {
-    "defaultMessage": "Worker Daily Wage"
+    "defaultMessage": "Salario diario de las personas trabajadoras"
   },
   "Mean_WagesDaily_Worker_Female": {
-    "defaultMessage": "Worker Monthly Wage"
+    "defaultMessage": "Salario mensual de las personas trabajadoras"
   },
   "Mean_WagesDaily_Worker_Male": {
-    "defaultMessage": "Worker Monthly Wage"
+    "defaultMessage": "Salario mensual de las personas trabajadoras"
   },
   "Mean_WagesMonthly_Worker": {
-    "defaultMessage": "Worker Monthly Wage"
+    "defaultMessage": "Salario mensual de las personas trabajadoras"
   },
   "Mean_WagesMonthly_Worker_Female": {
-    "defaultMessage": "Worker Monthly Wage"
+    "defaultMessage": "Salario mensual de las personas trabajadoras"
   },
   "Mean_WagesMonthly_Worker_Male": {
-    "defaultMessage": "Worker Monthly Wage"
+    "defaultMessage": "Salario mensual de las personas trabajadoras"
   },
   "Mean_WagesMonthly_Worker_Rural": {
-    "defaultMessage": "Mean Worker Monthly Wage (Rural)"
+    "defaultMessage": "Salario mensual medio de las personas trabajadoras (zonas rurales)"
   },
   "Mean_WagesMonthly_Worker_Urban": {
-    "defaultMessage": "Mean Worker Monthly Wage (Urban)"
+    "defaultMessage": "Salario mensual medio de las personas trabajadoras (zonas urbanas)"
   },
   "Median_Age_Person": {
     "defaultMessage": "Edad media"
@@ -765,33 +765,33 @@
     "defaultMessage": "Tasa de desempleo (hombres)"
   },
   "UnemploymentRate_Person_Rural": {
-    "defaultMessage": "Unemployment Rate (Rural)"
+    "defaultMessage": "Tasa de desempleo (zonas rurales)"
   },
   "UnemploymentRate_Person_Urban": {
-    "defaultMessage": "Unemployment Rate (Urban)"
+    "defaultMessage": "Tasa de desempleo (urbana)"
   },
   "indianCensus/Count_Person_Religion_Buddhist": {
-    "defaultMessage": "Population (Buddhist)"
+    "defaultMessage": "Población (budistas)"
   },
   "indianCensus/Count_Person_Religion_Christian": {
-    "defaultMessage": "Population (Christian)"
+    "defaultMessage": "Población (cristianos)"
   },
   "indianCensus/Count_Person_Religion_Hindu": {
-    "defaultMessage": "Population (Hindu)"
+    "defaultMessage": "Población (hindúes)"
   },
   "indianCensus/Count_Person_Religion_Jain": {
-    "defaultMessage": "Population (Jain)"
+    "defaultMessage": "Población (jainistas)"
   },
   "indianCensus/Count_Person_Religion_Muslim": {
-    "defaultMessage": "Population (Muslim)"
+    "defaultMessage": "Población (musulmanes)"
   },
   "indianCensus/Count_Person_Religion_OtherReligionsAndPersuasions": {
-    "defaultMessage": "Population (Other Religions and Persuasions)"
+    "defaultMessage": "Población (otras religiones y creencias)"
   },
   "indianCensus/Count_Person_Religion_ReligionNotStated": {
-    "defaultMessage": "Population (Religion Not Stated)"
+    "defaultMessage": "Población (religión sin especificar)"
   },
   "indianCensus/Count_Person_Religion_Sikh": {
-    "defaultMessage": "Population (Sikh)"
+    "defaultMessage": "Población (sijes)"
   }
 }

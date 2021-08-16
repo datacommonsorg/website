@@ -17,7 +17,7 @@ msgid "About Data Commons"
 msgstr "Acerca de Data Commons"
 
 msgid "Attainment of Bachelor Degree or Higher across Washington Counties"
-msgstr ""
+msgstr "Consecución de un título universitario o superior en los condados de Washington (Estados Unidos)"
 
 msgid "Bachelor Degree Attained vs Females per capita for California Counties"
 msgstr "Licenciatura obtenida en comparación con Mujeres per cápita en los condados de California"
@@ -44,7 +44,7 @@ msgid "Countries"
 msgstr "Países"
 
 msgid "Create Maps"
-msgstr ""
+msgstr "Crear mapas"
 
 msgid "Create Scatter Plots"
 msgstr "Crear gráficos de dispersión"
@@ -155,10 +155,10 @@ msgid "MORE"
 msgstr "más..."
 
 msgid "Map Explorer"
-msgstr ""
+msgstr "Explorador de mapas"
 
 msgid "Median Income across US Counties"
-msgstr ""
+msgstr "Ingresos medios en los condados de Estados Unidos"
 
 msgid "Median Income, United States"
 msgstr "Ingresos medios (Estados Unidos)"
@@ -218,13 +218,13 @@ msgid "US University Towns by Income"
 msgstr "Ciudades universitarias estadounidenses clasificadas por ingresos"
 
 msgid "Unemployment Rate across US States"
-msgstr ""
+msgstr "Tasa de desempleo en los estados de Estados Unidos"
 
 msgid "Unemployment Rate, United States"
 msgstr "Tasa de desempleo (Estados Unidos)"
 
 msgid "We have launched exciting new features, including a new map explorer, a new statistical variable menu that is used in all of our visualization tools (timeline explorer, scatter plot explorer, and map explorer), and new data. <a href=%(blog_url)s>Read our blog post for more details</a>."
-msgstr ""
+msgstr "Hemos lanzado funciones nuevas, como un explorador de mapas, un menú de variables estadísticas que se usa en todas nuestras herramientas de visualización (el explorador de la cronología, el explorador de gráficos de dispersión y el explorador de mapas) y nuevos datos. <a href=%(blog_url)s>Lee nuestro blog para obtener más información</a>."
 
 msgid "What's new"
 msgstr "Novedades"
@@ -458,7 +458,7 @@ msgid "CHART_TITLE-Life_expectancy"
 msgstr "Esperanza de vida (años)"
 
 msgid "CHART_TITLE-Literacy"
-msgstr "Literacy"
+msgstr "Alfabetización"
 
 msgid "CHART_TITLE-Marital_status"
 msgstr "Estado civil"
@@ -509,22 +509,22 @@ msgid "CHART_TITLE-Percent_without_health_insurance_race"
 msgstr "Porcentaje de personas sin seguro médico por raza"
 
 msgid "CHART_TITLE-Percentage of literate and illiterate population"
-msgstr "Percentage of literate and illiterate population"
+msgstr "Porcentaje de población alfabetizada y analfabeta"
 
 msgid "CHART_TITLE-Percentage of population by religon"
-msgstr "Percentage of population by religon"
+msgstr "Porcentaje de la población por religión"
 
 msgid "CHART_TITLE-Percentage of population by social category"
-msgstr "Percentage of population by social category"
+msgstr "Porcentaje de población por categoría social"
 
 msgid "CHART_TITLE-Percentage of urban and rural households"
-msgstr "Percentage of urban and rural households"
+msgstr "Porcentaje de unidades familiares urbanas y rurales"
 
 msgid "CHART_TITLE-Percentage of urban vs rural homeless population"
-msgstr "Percentage of urban vs rural homeless population"
+msgstr "Porcentaje de población sin hogar: comparación entre zonas urbanas y rurales"
 
 msgid "CHART_TITLE-Percentage of workers and nonworkers"
-msgstr "Percentage of workers and nonworkers"
+msgstr "Porcentaje de personas trabajadoras y no trabajadoras"
 
 msgid "CHART_TITLE-Percentage_employed"
 msgstr "Porcentaje de personas ocupadas"
@@ -578,7 +578,7 @@ msgid "CHART_TITLE-Property_crime_rate"
 msgstr "Delitos contra la propiedad por 100.000 habitantes"
 
 msgid "CHART_TITLE-Religion"
-msgstr "Religion"
+msgstr "Religión"
 
 msgid "CHART_TITLE-School_enrollment"
 msgstr "Escolarización"
@@ -587,7 +587,7 @@ msgid "CHART_TITLE-School_enrollment_rate"
 msgstr "Tasa de escolarización"
 
 msgid "CHART_TITLE-Social Category"
-msgstr "Social Category"
+msgstr "Categoría social"
 
 msgid "CHART_TITLE-State_unemployment_claims"
 msgstr "Solicitudes de seguro estatal de desempleo"
@@ -605,22 +605,22 @@ msgid "CHART_TITLE-Unemployment_rate"
 msgstr "Tasa de desempleo"
 
 msgid "CHART_TITLE-Unemployment_rate-urban-v-rural"
-msgstr "Unemployment rate: urban vs rural"
+msgstr "Tasa de desempleo: comparación entre zonas urbanas y rurales"
 
 msgid "CHART_TITLE-Unemployment_rate_gender"
 msgstr "Tasa de desempleo por sexo"
 
 msgid "CHART_TITLE-Urban and rural households"
-msgstr "Urban and rural households"
+msgstr "Unidades familiares urbanas y rurales"
 
 msgid "CHART_TITLE-Urban vs rural homeless population"
-msgstr "Urban vs rural homeless population"
+msgstr "Población sin hogar: comparación entre zonas urbanas y rurales"
 
 msgid "CHART_TITLE-Urban vs rural poverty population"
-msgstr "Urban vs rural poverty population"
+msgstr "Población en situación de pobreza: comparación entre zonas urbanas y rurales"
 
 msgid "CHART_TITLE-Urban vs rural poverty rate"
-msgstr "Urban vs rural poverty rate"
+msgstr "Tasa de pobreza: comparación entre zonas urbanas y rurales"
 
 msgid "CHART_TITLE-Urban_v_rural_population"
 msgstr "Población urbana y rural"
@@ -632,17 +632,20 @@ msgid "CHART_TITLE-Violent_crime_rate"
 msgstr "Crímenes violentos por 100.000 habitantes"
 
 msgid "CHART_TITLE-Worker wages (daily)"
-msgstr "Worker wages (daily)"
+msgstr "Salario de las personas trabajadoras (diario)"
 
 msgid "CHART_TITLE-Worker wages (monthly)"
-msgstr "Worker wages (monthly)"
+msgstr "Salario de personas trabajadoras (mensual)"
 
 msgid "CHART_TITLE-Worker wages (monthly): female vs male"
-msgstr "Worker wages (monthly): female vs male"
+msgstr "Salario de las personas trabajadoras (mensual): comparación entre hombres y mujeres"
 
 msgid "CHART_TITLE-Worker wages (monthly): urban vs rural"
-msgstr "Worker wages (monthly): urban vs rural"
+msgstr "Salario de las personas trabajadoras (mensual): comparación entre zonas urbanas y rurales"
 
 msgid "CHART_TITLE-Worker-vs-nonworker-population"
-msgstr "Worker vs nonworker population"
+msgstr "Personas trabajadoras y no trabajadoras"
+
+msgid "CHART_TITLE-CHART_CATEGORY-Overview"
+msgstr "Vista general"
 
