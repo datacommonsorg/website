@@ -38,6 +38,7 @@ export interface SourceSeries {
   observationPeriod?: string;
   scalingFactor?: string;
   unit?: string;
+  mprop?: string;
 }
 
 export enum PageDisplayType {

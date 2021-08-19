@@ -130,7 +130,7 @@ def get_weather():
 
     query_string = ('SELECT ?date ?mean ?unit ?provId '
                     'WHERE {{'
-                    ' ?o typeOf WeatherObservation .'
+                    ' ?o typeOf {period}WeatherObservation .'
                     ' ?o observedNode {dcid} .'
                     ' ?o measuredProperty {prop} .'
                     ' ?o observationDate ?date .'
