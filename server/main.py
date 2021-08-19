@@ -120,10 +120,13 @@ def search_dc():
 def get_weather():
     dcid = request.args.get('dcid')
     prop = request.args.get('prop')
+    period = request.args.get('period')
     if not dcid:
         flask.abort(400, 'Missing url parameter "dcid"')
     if not prop:
         flask.abort(400, 'Missing url parameter "prop"')
+    if not period:
+        flask.abort(400, 'Missing url parameter "period"')
 
     query_string = ('SELECT ?date ?mean ?unit ?provId '
                     'WHERE {{'
@@ -133,7 +136,9 @@ def get_weather():
                     ' ?o observationDate ?date .'
                     ' ?o unit ?unit .'
                     ' ?o meanValue ?mean .'
-                    ' ?o provenance ?provId .}}').format(dcid=dcid, prop=prop)
+                    ' ?o provenance ?provId .}}').format(period=period,
+                                                         dcid=dcid,
+                                                         prop=prop)
 
     _, rows = dc.query(query_string)
 

@@ -104,11 +104,18 @@ export class WeatherChartSection extends React.Component<
   }
 
   private fetchData(): void {
-    const weatherPromises = WEATHER_PROPERTY_NAMES.map((prop) => {
-      return axios
-        .get(`/weather?dcid=${this.props.dcid}&prop=${prop}`)
-        .then((resp) => resp.data);
-    });
+    const weatherPromises = [];
+    for (const period of ["Daily", "Monthly"]) {
+      weatherPromises.concat(
+        WEATHER_PROPERTY_NAMES.map((prop) => {
+          return axios
+            .get(
+              `/weather?dcid=${this.props.dcid}&prop=${prop}&period=${period}`
+            )
+            .then((resp) => resp.data);
+        })
+      );
+    }
     loadSpinner(LOADING_CONTAINER_ID);
     Promise.all(weatherPromises)
       .then((weatherPromisesData) => {
