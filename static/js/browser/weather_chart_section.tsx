@@ -40,7 +40,7 @@ interface WeatherChartSectionPropType {
 }
 
 interface WeatherChartSectionStateType {
-  data: { [weatherProp: string]: SourceSeries };
+  data: SourceSeries[];
   errorMessage: string;
 }
 
@@ -51,7 +51,7 @@ export class WeatherChartSection extends React.Component<
   constructor(props: WeatherChartSectionPropType) {
     super(props);
     this.state = {
-      data: {},
+      data: [],
       errorMessage: "",
     };
   }
@@ -69,20 +69,21 @@ export class WeatherChartSection extends React.Component<
         id={LOADING_CONTAINER_ID}
         className="loading-spinner-container chart-section"
       >
-        {Object.keys(this.state.data).map((measuredProperty, index) => {
-          const unit = getUnit(this.state.data[measuredProperty]);
+        {this.state.data.map((sourceSeries, index) => {
+          const unit = getUnit(sourceSeries);
+          const measuredProperty = sourceSeries.mprop;
           let title = measuredProperty;
           if (unit) {
             title = title + ` (${unit})`;
           }
-          const sourceSeries = this.state.data[measuredProperty];
           return (
-            <div className="card" key={measuredProperty}>
+            <div className="card" key={measuredProperty + index}>
               <div className="chart-title">
                 <p className="metadata">{title}</p>
               </div>
               <ObservationChart
                 sourceSeries={sourceSeries}
+                key={index}
                 idx={index}
                 statVarId={measuredProperty}
                 placeDcid={this.props.dcid}
@@ -104,15 +105,22 @@ export class WeatherChartSection extends React.Component<
   }
 
   private fetchData(): void {
-    const weatherPromises = WEATHER_PROPERTY_NAMES.map((prop) => {
-      return axios
-        .get(`/weather?dcid=${this.props.dcid}&prop=${prop}`)
-        .then((resp) => resp.data);
-    });
+    const weatherPromises = [];
+    for (const prop of WEATHER_PROPERTY_NAMES) {
+      for (const period of ["Daily", "Monthly"]) {
+        weatherPromises.push(
+          axios
+            .get(
+              `/weather?dcid=${this.props.dcid}&prop=${prop}&period=${period}`
+            )
+            .then((resp) => resp.data)
+        );
+      }
+    }
     loadSpinner(LOADING_CONTAINER_ID);
     Promise.all(weatherPromises)
       .then((weatherPromisesData) => {
-        const propToSourceSeries = {};
+        const allSourceSeries = [];
         weatherPromisesData.forEach((weatherData) => {
           if (_.isEmpty(weatherData)) {
             return;
@@ -130,15 +138,16 @@ export class WeatherChartSection extends React.Component<
               ? this.props.provDomain[provId]
               : "";
           const sourceSeries = {
+            mprop: weatherData[0].measuredProperty,
             provenanceDomain,
             unit: weatherData[0].unit,
             val: values,
           };
-          propToSourceSeries[weatherData[0].measuredProperty] = sourceSeries;
+          allSourceSeries.push(sourceSeries);
         });
         removeSpinner(LOADING_CONTAINER_ID);
         this.setState({
-          data: propToSourceSeries,
+          data: allSourceSeries,
         });
       })
       .catch(() => {
