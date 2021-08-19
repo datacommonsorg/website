@@ -138,10 +138,10 @@ export class WeatherChartSection extends React.Component<
               ? this.props.provDomain[provId]
               : "";
           const sourceSeries = {
+            mprop: weatherData[0].measuredProperty,
             provenanceDomain,
             unit: weatherData[0].unit,
             val: values,
-            mprop: weatherData[0].measuredProperty,
           };
           allSourceSeries.push(sourceSeries);
         });
