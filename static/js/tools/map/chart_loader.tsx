@@ -73,7 +73,7 @@ export function ChartLoader(): JSX.Element {
   useEffect(() => {
     if (!_.isEmpty(rawData)) {
       loadChartData(
-        rawData.statVarData[statVar.value.dcid],
+        rawData.statVarData,
         rawData.populationData,
         statVar.value.perCapita,
         rawData.geoJsonData,
@@ -136,19 +136,18 @@ function fetchData(
       `/api/choropleth/geojson?placeDcid=${placeInfo.enclosingPlace.dcid}&placeType=${placeInfo.enclosedPlaceType}`
     )
     .then((resp) => resp.data);
-  const statVarDataPromise = axios
-    .post("/api/stats/set", {
-      places: enclosedPlaceDcids.concat(breadcrumbPlaceDcids),
-      stat_vars: [statVar.dcid],
-    })
-    .then((resp) => resp.data);
+  const statVarDataPromise: Promise<PlacePointStat> = axios
+    .get(
+      `/api/stats/within-place?parent_place=${placeInfo.enclosingPlace.dcid}&child_type=${placeInfo.enclosedPlaceType}&stat_vars=${statVar.dcid}`
+    )
+    .then((resp) => resp.data[statVar.dcid]);
   Promise.all([populationPromise, geoJsonPromise, statVarDataPromise])
     .then(([populationData, geoJsonData, statVarData]) => {
       isLoading.setIsDataLoading(false);
       setRawData({
         geoJsonData,
         populationData,
-        statVarData: statVarData.data,
+        statVarData,
       });
     })
     .catch(() => {
