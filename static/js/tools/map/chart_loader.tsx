@@ -73,7 +73,7 @@ export function ChartLoader(): JSX.Element {
   useEffect(() => {
     if (!_.isEmpty(rawData)) {
       loadChartData(
-        rawData.statVarData[statVar.value.dcid],
+        rawData.statVarData,
         rawData.populationData,
         statVar.value.perCapita,
         rawData.geoJsonData,
