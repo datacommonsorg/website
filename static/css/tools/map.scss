@@ -15,10 +15,10 @@
  */
 
 @use "../search_place";
-@import 'base_tools';
-@import 'stat_var_widget';
-@import '../draw';
-@import '../draw_choropleth';
+@import "base_tools";
+@import "stat_var_widget";
+@import "../draw";
+@import "../draw_choropleth";
 
 @mixin map-search {
   @include search_place.search-place;
@@ -76,7 +76,7 @@
   flex-grow: 1;
   flex-shrink: 1;
   margin-bottom: 15px;
-  border: 1px solid rgba(0, 0, 0, .2);
+  border: 1px solid rgba(0, 0, 0, 0.2);
   padding: 15px;
 }
 
@@ -135,7 +135,7 @@
 }
 
 #tooltip footer {
-  margin-top: .5rem;
+  margin-top: 0.5rem;
 }
 
 #choropleth-map {
@@ -150,7 +150,7 @@
 
 .error-message {
   color: #721c24;
-  font-size: .9rem;
+  font-size: 0.9rem;
   padding: 15px;
   border-radius: 3px;
   background: #f8d7da;
@@ -200,10 +200,16 @@
 #choropleth-legend {
   display: flex;
   align-items: center;
+  flex-direction: column;
+  font-size: 10px;
 }
 
 #choropleth-legend .legend {
   display: block;
+}
+
+#legend-unit {
+  margin: 0 0 5px 8px;
 }
 
 #date-range-info {

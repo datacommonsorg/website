@@ -159,7 +159,9 @@ function draw(
   setErrorMessage: (errorMessage: string) => void,
   shouldDrawMap: boolean
 ): void {
-  document.getElementById(LEGEND_CONTAINER_ID).innerHTML = "";
+  document.getElementById(
+    LEGEND_CONTAINER_ID
+  ).innerHTML = `<div id="legend-unit">${props.unit || ""}</div>`;
   const width = document.getElementById(CHART_CONTAINER_ID).offsetWidth;
   const height = (width * 2) / 5;
   const redirectAction = getMapRedirectAction(props.statVar, props.placeInfo);
@@ -185,7 +187,7 @@ function draw(
     LEGEND_CONTAINER_ID,
     legendHeight,
     colorScale,
-    props.unit,
+    "",
     LEGEND_MARGIN_LEFT
   );
   if (
