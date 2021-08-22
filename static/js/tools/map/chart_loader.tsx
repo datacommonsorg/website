@@ -141,8 +141,32 @@ function fetchData(
       `/api/stats/within-place?parent_place=${placeInfo.enclosingPlace.dcid}&child_type=${placeInfo.enclosedPlaceType}&stat_vars=${statVar.dcid}`
     )
     .then((resp) => resp.data[statVar.dcid]);
-  Promise.all([populationPromise, geoJsonPromise, statVarDataPromise])
-    .then(([populationData, geoJsonData, statVarData]) => {
+  const breadcrumbDataPromise: Promise<PlacePointStat> = axios
+    .post("/api/stats/set", {
+      places: breadcrumbPlaceDcids,
+      stat_vars: [statVar.dcid],
+    })
+    .then((resp) => (resp.data.data ? resp.data.data[statVar.dcid] : null));
+  Promise.all([
+    populationPromise,
+    geoJsonPromise,
+    statVarDataPromise,
+    breadcrumbDataPromise,
+  ])
+    .then(([populationData, geoJsonData, mapStatVarData, breadcrumbData]) => {
+      let statVarDataMetadata = mapStatVarData ? mapStatVarData.metadata : {};
+      let statVarDataStat = mapStatVarData ? mapStatVarData.stat : {};
+      if (breadcrumbData) {
+        statVarDataMetadata = Object.assign(
+          statVarDataMetadata,
+          breadcrumbData.metadata
+        );
+        statVarDataStat = Object.assign(statVarDataStat, breadcrumbData.stat);
+      }
+      const statVarData = {
+        metadata: statVarDataMetadata,
+        stat: statVarDataStat,
+      };
       isLoading.setIsDataLoading(false);
       setRawData({
         geoJsonData,
