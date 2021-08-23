@@ -29,6 +29,7 @@ import {
   MAP_REDIRECT_PREFIX,
 } from "./util";
 import { DataPointMetadata } from "./chart_loader";
+import _ from "lodash";
 
 const NO_PER_CAPITA_TYPES = ["medianValue"];
 
@@ -41,9 +42,10 @@ interface ChartOptionsPropType {
 export function ChartOptions(props: ChartOptionsPropType): JSX.Element {
   const { statVar } = useContext(Context);
   const selectedPlace = props.placeInfo.selectedPlace;
+  const unitString = _.isEmpty(props.unit) ? "" : ` ${props.unit}`;
   const selectedPlaceValue =
     selectedPlace.dcid in props.dataValues
-      ? formatNumber(props.dataValues[selectedPlace.dcid], props.unit)
+      ? formatNumber(props.dataValues[selectedPlace.dcid], "") + unitString
       : "N/A";
   const selectedPlaceDate =
     selectedPlace.dcid in props.metadata
@@ -78,7 +80,7 @@ export function ChartOptions(props: ChartOptionsPropType): JSX.Element {
       {props.placeInfo.parentPlaces.map((place) => {
         const value =
           place.dcid in props.dataValues
-            ? formatNumber(props.dataValues[place.dcid], props.unit)
+            ? formatNumber(props.dataValues[place.dcid], "") + unitString
             : "N/A";
         const date =
           place.dcid in props.metadata
