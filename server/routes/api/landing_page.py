@@ -501,8 +501,17 @@ def data(dcid):
     names = place_api.get_display_name('^'.join(sorted(all_places)), g.locale)
 
     # Pick data to highlight - only population for now
-    population, statvar_denom = get_snapshot_across_places(
-        {'statsVars': ['Count_Person']}, all_stat, [dcid])
+    pop_data = raw_page_data['latestPopulation'][dcid]
+    population = {
+        'date': pop_data['date'],
+        'data': [{
+            'dcid': dcid,
+            'data': {
+                'Count_Person': pop_data['value']
+            }
+        }],
+        'sources': [pop_data['metadata']['provenanceUrl']]
+    }
     highlight = {gettext('CHART_TITLE-Population'): population}
 
     response = {
