@@ -16,7 +16,7 @@
 
 import React from "react";
 import ReactDOM from "react-dom";
-import {Page} from "./page";
+import { Page } from "./page";
 
 window.onload = () => {
   ReactDOM.render(

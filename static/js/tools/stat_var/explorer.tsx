@@ -30,39 +30,49 @@ class Explorer extends Component<ExplorerPropType, unknown> {
       <div id="placeholder-container">
         <h1 className="mb-4">{this.props.displayName}</h1>
         <p>
-          dcid: {this.props.statVar}<br></br>
+          dcid: {this.props.statVar}
+          <br></br>
           <a href={`https://datacommons.org/browser/${this.props.statVar}`}>
             Graph Browser node
           </a>
         </p>
         This statistical variable has observations for the following places:
         <ul>
-          {placeTypeSummaryList.map((element) => { return element; })}
+          {placeTypeSummaryList.map((element) => {
+            return element;
+          })}
         </ul>
       </div>
     );
   }
 
   private createPlaceTypeSummaryList(): Array<HTMLElement> {
-    let placeTypeSummaryList = [];
-    const placeTypeSummary = this.props.summary['placeTypeSummary']
+    const placeTypeSummaryList = [];
+    const placeTypeSummary = this.props.summary["placeTypeSummary"];
     for (const placeType in placeTypeSummary) {
-      const numPlaces = placeTypeSummary[placeType]['numPlaces']
+      const numPlaces = placeTypeSummary[placeType]["numPlaces"];
       const subject = numPlaces > 1 ? "places" : "place";
-      let message = `${numPlaces} ${subject} of type ${placeType}`
-      const topPlaces = placeTypeSummary[placeType]['topPlaces']
+      const message = `${numPlaces} ${subject} of type ${placeType}`;
+      const topPlaces = placeTypeSummary[placeType]["topPlaces"];
       placeTypeSummaryList.push(
         <li key={placeType}>
-          {message} (e.g. {topPlaces.map((element, index) => {
-            const url = `https://datacommons.org/tools/timeline#` +
-              `statsVar=${this.props.statVar}&place=${element['dcid']}`;
-            const name = element['name'] || element['dcid'];
+          {message} (e.g.{" "}
+          {topPlaces.map((element, index) => {
+            const url =
+              `https://datacommons.org/tools/timeline#` +
+              `statsVar=${this.props.statVar}&place=${element["dcid"]}`;
+            const name = element["name"] || element["dcid"];
             const delimiter = index < topPlaces.length - 1 ? ", " : "";
-            return <span key={element['dcid']}>
-                <a href={url}>{name}</a>{delimiter}
-              </span>;
-          })})
-        </li>)
+            return (
+              <span key={element["dcid"]}>
+                <a href={url}>{name}</a>
+                {delimiter}
+              </span>
+            );
+          })}
+          )
+        </li>
+      );
     }
     return placeTypeSummaryList;
   }

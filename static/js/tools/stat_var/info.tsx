@@ -20,17 +20,17 @@ class Info extends Component {
   render(): JSX.Element {
     return (
       <div id="placeholder-container">
-      <h1 className="mb-4">Statistical Variable Explorer</h1>
+        <h1 className="mb-4">Statistical Variable Explorer</h1>
         <p>
           The statistical variable explorer provides information about what
           sorts of observations are available for each statistical variable.
           Select a variable from the pane in the left to get started. There are
-          thousands of statistical variables to choose from, arranged
-          in a topical hierarchy.
+          thousands of statistical variables to choose from, arranged in a
+          topical hierarchy.
         </p>
       </div>
     );
   }
 }
 
- export { Info };
+export { Info };

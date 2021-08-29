@@ -16,8 +16,8 @@
 
 import axios from "axios";
 import React, { Component } from "react";
-import { Explorer } from "./explorer"
-import { Info } from "./info"
+import { Explorer } from "./explorer";
+import { Info } from "./info";
 import { StatVarHierarchyType, StatVarSummary } from "../../shared/types";
 import { StatVarHierarchy } from "../../stat_var_hierarchy/stat_var_hierarchy";
 
@@ -31,15 +31,17 @@ class Page extends Component<unknown, PageStateType> {
   constructor(props: unknown) {
     super(props);
     this.state = {
-      statVar: '',
-      displayName: '',
+      statVar: "",
+      displayName: "",
       summary: { placeTypeSummary: {} },
     };
     this.fetchSummary();
   }
 
   componentDidMount(): void {
-    window.onhashchange = () => { this.fetchSummary() };
+    window.onhashchange = () => {
+      this.fetchSummary();
+    };
   }
 
   render(): JSX.Element {
@@ -50,20 +52,22 @@ class Page extends Component<unknown, PageStateType> {
             type={StatVarHierarchyType.STAT_VAR}
             places={[]}
             selectedSVs={[this.state.statVar]}
-            selectSV={(sv) => {this.updateHash(sv)}}
+            selectSV={(sv) => {
+              this.updateHash(sv);
+            }}
             searchLabel="Statistical Variables"
           />
         </div>
         <div id="plot-container">
           <div className="container">
-            {!this.state.statVar && <Info/>}
-            {this.state.statVar &&
+            {!this.state.statVar && <Info />}
+            {this.state.statVar && (
               <Explorer
                 statVar={this.state.statVar}
                 displayName={this.state.displayName}
                 summary={this.state.summary}
               />
-            }
+            )}
           </div>
         </div>
       </>
@@ -72,29 +76,30 @@ class Page extends Component<unknown, PageStateType> {
 
   private updateHash(sv: string): void {
     const urlParams = new URLSearchParams(window.location.hash.split("#")[1]);
-    urlParams.set('statVar', sv);
+    urlParams.set("statVar", sv);
     window.location.hash = urlParams.toString();
   }
 
   private fetchSummary(): void {
     const urlParams = new URLSearchParams(window.location.hash.split("#")[1]);
-    const sv = urlParams.get('statVar');
+    const sv = urlParams.get("statVar");
     if (!sv) {
       this.setState({
-        statVar: '',
-        displayName: '',
+        statVar: "",
+        displayName: "",
         summary: { placeTypeSummary: {} },
       });
       return;
     }
-    let displayName = ''
+    let displayName = "";
     axios
       .post(
         `https://api.datacommons.org/node/property-values?` +
-        `dcids=${sv}&property=name`)
-      .then((resp)=> {
-        displayName = JSON.parse(resp.data['payload'])[sv]['out'][0]['value']
-        return axios.post("/api/stats/stat-var-summary", { statVars: [sv] })
+          `dcids=${sv}&property=name`
+      )
+      .then((resp) => {
+        displayName = JSON.parse(resp.data["payload"])[sv]["out"][0]["value"];
+        return axios.post("/api/stats/stat-var-summary", { statVars: [sv] });
       })
       .then((resp) => {
         const summary = resp.data;
