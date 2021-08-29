@@ -22,8 +22,8 @@ import { StatVarHierarchyType, StatVarSummary } from "../../shared/types";
 import { StatVarHierarchy } from "../../stat_var_hierarchy/stat_var_hierarchy";
 
 interface PageStateType {
-  statVar: string;
   displayName: string;
+  statVar: string;
   summary: StatVarSummary;
 }
 
@@ -31,8 +31,8 @@ class Page extends Component<unknown, PageStateType> {
   constructor(props: unknown) {
     super(props);
     this.state = {
-      statVar: "",
       displayName: "",
+      statVar: "",
       summary: { placeTypeSummary: {} },
     };
     this.fetchSummary();
@@ -85,8 +85,8 @@ class Page extends Component<unknown, PageStateType> {
     const sv = urlParams.get("statVar");
     if (!sv) {
       this.setState({
-        statVar: "",
         displayName: "",
+        statVar: "",
         summary: { placeTypeSummary: {} },
       });
       return;
@@ -94,7 +94,7 @@ class Page extends Component<unknown, PageStateType> {
     let displayName = "";
     axios
       .post(
-        `https://api.datacommons.org/node/property-values?` +
+        "https://api.datacommons.org/node/property-values?" +
           `dcids=${sv}&property=name`
       )
       .then((resp) => {
@@ -104,8 +104,8 @@ class Page extends Component<unknown, PageStateType> {
       .then((resp) => {
         const summary = resp.data;
         this.setState({
+          displayName,
           statVar: sv,
-          displayName: displayName,
           summary: summary[sv],
         });
       })
