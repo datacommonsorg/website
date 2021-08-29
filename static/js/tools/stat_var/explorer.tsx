@@ -30,10 +30,10 @@ class Explorer extends Component<ExplorerPropType, unknown> {
       <div id="placeholder-container">
         <h1 className="mb-4">{this.props.displayName}</h1>
         <p>
-        dcid: {this.props.statVar}<br></br>
-        <a href={`https://datacommons.org/browser/${this.props.statVar}`}>
-          Graph Browser node
-        </a>
+          dcid: {this.props.statVar}<br></br>
+          <a href={`https://datacommons.org/browser/${this.props.statVar}`}>
+            Graph Browser node
+          </a>
         </p>
         This statistical variable has observations for the following places:
         <ul>
