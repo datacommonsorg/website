@@ -23,6 +23,12 @@ interface ExplorerPropType {
   summary: StatVarSummary;
 }
 
+interface PlaceTypeSummaryList {
+  listElement: HTMLElement,
+  numPlaces: number,
+  placeType: string,
+}
+
 class Explorer extends Component<ExplorerPropType, unknown> {
   render(): JSX.Element {
     const placeTypeSummaryList = this.createPlaceTypeSummaryList();
@@ -39,14 +45,14 @@ class Explorer extends Component<ExplorerPropType, unknown> {
         This statistical variable has observations for the following places:
         <ul>
           {placeTypeSummaryList.map((element) => {
-            return element;
+            return element.listElement;
           })}
         </ul>
       </div>
     );
   }
 
-  private createPlaceTypeSummaryList(): Array<HTMLElement> {
+  private createPlaceTypeSummaryList(): Array<PlaceTypeSummaryList> {
     const placeTypeSummaryList = [];
     const placeTypeSummary = this.props.summary["placeTypeSummary"];
     for (const placeType in placeTypeSummary) {
@@ -54,8 +60,8 @@ class Explorer extends Component<ExplorerPropType, unknown> {
       const subject = numPlaces > 1 ? "places" : "place";
       const message = `${numPlaces} ${subject} of type ${placeType}`;
       const topPlaces = placeTypeSummary[placeType]["topPlaces"];
-      placeTypeSummaryList.push(
-        <li key={placeType}>
+      placeTypeSummaryList.push({
+        listElement: <li key={placeType}>
           {message} (e.g.{" "}
           {topPlaces.map((element, index) => {
             const url =
@@ -70,9 +76,14 @@ class Explorer extends Component<ExplorerPropType, unknown> {
             );
           })}
           )
-        </li>
-      );
+        </li>,
+      numPlaces,
+      placeType,
+      });
     }
+    placeTypeSummaryList.sort(function (a, b): number {
+      return b.numPlaces - a.numPlaces || a.placeType.localeCompare(b.placeType);
+    });
     return placeTypeSummaryList;
   }
 }
