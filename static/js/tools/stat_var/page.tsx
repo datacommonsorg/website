@@ -91,22 +91,18 @@ class Page extends Component<unknown, PageStateType> {
       });
       return;
     }
-    let displayName = "";
-    axios
-      .post(
-        "https://api.datacommons.org/node/property-values?" +
-          `dcids=${sv}&property=name`
-      )
-      .then((resp) => {
-        displayName = JSON.parse(resp.data["payload"])[sv]["out"][0]["value"];
-        return axios.post("/api/stats/stat-var-summary", { statVars: [sv] });
-      })
-      .then((resp) => {
-        const summary = resp.data;
+    const displayNamePromise = axios
+      .get(`/api/browser/propvals/name/${sv}`)
+      .then((resp) => resp.data);
+    const summaryPromise = axios
+      .post(`/api/stats/stat-var-summary`, { statVars: [sv] })
+      .then((resp) => resp.data);
+    Promise.all([displayNamePromise, summaryPromise])
+      .then(([displayNameData, summaryData]) => {
         this.setState({
-          displayName,
+          displayName: displayNameData["values"]["out"][0]["value"],
           statVar: sv,
-          summary: summary[sv],
+          summary: summaryData[sv],
         });
       })
       .catch(() => {

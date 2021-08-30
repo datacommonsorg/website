@@ -18,8 +18,8 @@ import React, { Component } from "react";
 import { StatVarSummary } from "../../shared/types";
 
 interface ExplorerPropType {
-  statVar: string;
   displayName: string;
+  statVar: string;
   summary: StatVarSummary;
 }
 
