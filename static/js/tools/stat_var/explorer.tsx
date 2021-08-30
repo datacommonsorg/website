@@ -63,7 +63,8 @@ class Explorer extends Component<ExplorerPropType, unknown> {
           <li key={placeType}>
             {message} (e.g.{" "}
             {topPlaces.map((element, index) => {
-              const url = `/tools/timeline#statsVar=${this.props.statVar}&place=${element["dcid"]}`;
+              const url = "/tools/timeline#" +
+                `statsVar=${this.props.statVar}&place=${element["dcid"]}`;
               const name = element["name"] || element["dcid"];
               const delimiter = index < topPlaces.length - 1 ? ", " : "";
               return (
