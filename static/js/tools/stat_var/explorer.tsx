@@ -23,7 +23,7 @@ interface ExplorerPropType {
   summary: StatVarSummary;
 }
 
-interface PlaceTypeSummaryList {
+interface PlaceTypeSummaryListElement {
   listElement: HTMLElement;
   numPlaces: number;
   placeType: string;
@@ -50,7 +50,7 @@ class Explorer extends Component<ExplorerPropType, unknown> {
     );
   }
 
-  private createPlaceTypeSummaryList(): Array<PlaceTypeSummaryList> {
+  private createPlaceTypeSummaryList(): Array<PlaceTypeSummaryListElement> {
     const placeTypeSummaryList = [];
     const placeTypeSummary = this.props.summary["placeTypeSummary"];
     for (const placeType in placeTypeSummary) {
