@@ -24,9 +24,9 @@ interface ExplorerPropType {
 }
 
 interface PlaceTypeSummaryList {
-  listElement: HTMLElement,
-  numPlaces: number,
-  placeType: string,
+  listElement: HTMLElement;
+  numPlaces: number;
+  placeType: string;
 }
 
 class Explorer extends Component<ExplorerPropType, unknown> {
@@ -38,9 +38,7 @@ class Explorer extends Component<ExplorerPropType, unknown> {
         <p>
           dcid: {this.props.statVar}
           <br></br>
-          <a href={`/browser/${this.props.statVar}`}>
-            Graph Browser node
-          </a>
+          <a href={`/browser/${this.props.statVar}`}>Graph Browser node</a>
         </p>
         This statistical variable has observations for the following places:
         <ul>
@@ -61,28 +59,31 @@ class Explorer extends Component<ExplorerPropType, unknown> {
       const message = `${numPlaces} ${subject} of type ${placeType}`;
       const topPlaces = placeTypeSummary[placeType]["topPlaces"];
       placeTypeSummaryList.push({
-        listElement: <li key={placeType}>
-          {message} (e.g.{" "}
-          {topPlaces.map((element, index) => {
-            const url =
-              `/tools/timeline#statsVar=${this.props.statVar}&place=${element["dcid"]}`;
-            const name = element["name"] || element["dcid"];
-            const delimiter = index < topPlaces.length - 1 ? ", " : "";
-            return (
-              <span key={element["dcid"]}>
-                <a href={url}>{name}</a>
-                {delimiter}
-              </span>
-            );
-          })}
-          )
-        </li>,
-      numPlaces,
-      placeType,
+        listElement: (
+          <li key={placeType}>
+            {message} (e.g.{" "}
+            {topPlaces.map((element, index) => {
+              const url = `/tools/timeline#statsVar=${this.props.statVar}&place=${element["dcid"]}`;
+              const name = element["name"] || element["dcid"];
+              const delimiter = index < topPlaces.length - 1 ? ", " : "";
+              return (
+                <span key={element["dcid"]}>
+                  <a href={url}>{name}</a>
+                  {delimiter}
+                </span>
+              );
+            })}
+            )
+          </li>
+        ),
+        numPlaces,
+        placeType,
       });
     }
     placeTypeSummaryList.sort(function (a, b): number {
-      return b.numPlaces - a.numPlaces || a.placeType.localeCompare(b.placeType);
+      return (
+        b.numPlaces - a.numPlaces || a.placeType.localeCompare(b.placeType)
+      );
     });
     return placeTypeSummaryList;
   }
