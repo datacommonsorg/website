@@ -1,5 +1,5 @@
 /**
- * Copyright 2020 Google LLC
+ * Copyright 2021 Google LLC
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -22,11 +22,11 @@ class Info extends Component {
       <div id="placeholder-container">
         <h1 className="mb-4">Statistical Variable Explorer</h1>
         <p>
-          The statistical variable explorer provides information about what
-          sorts of observations are available for each statistical variable.
-          Select a variable from the pane in the left to get started. There are
-          thousands of statistical variables to choose from, arranged in a
-          topical hierarchy.
+          The statistical variable explorer provides information each
+          statistical variable, such as variable metadata, variable
+          observations, etc. Select a variable from the pane in the left to get
+          started. There are thousands of statistical variables to choose from,
+          arranged in a topical hierarchy.
         </p>
       </div>
     );

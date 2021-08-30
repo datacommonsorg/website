@@ -1,5 +1,5 @@
 /**
- * Copyright 2020 Google LLC
+ * Copyright 2021 Google LLC
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -32,7 +32,7 @@ class Explorer extends Component<ExplorerPropType, unknown> {
         <p>
           dcid: {this.props.statVar}
           <br></br>
-          <a href={`https://datacommons.org/browser/${this.props.statVar}`}>
+          <a href={`/browser/${this.props.statVar}`}>
             Graph Browser node
           </a>
         </p>
@@ -59,8 +59,7 @@ class Explorer extends Component<ExplorerPropType, unknown> {
           {message} (e.g.{" "}
           {topPlaces.map((element, index) => {
             const url =
-              "https://datacommons.org/tools/timeline#" +
-              `statsVar=${this.props.statVar}&place=${element["dcid"]}`;
+              `/tools/timeline#statsVar=${this.props.statVar}&place=${element["dcid"]}`;
             const name = element["name"] || element["dcid"];
             const delimiter = index < topPlaces.length - 1 ? ", " : "";
             return (

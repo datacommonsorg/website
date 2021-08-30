@@ -35,13 +35,13 @@ class Page extends Component<unknown, PageStateType> {
       statVar: "",
       summary: { placeTypeSummary: {} },
     };
-    this.fetchSummary();
   }
 
   componentDidMount(): void {
     window.onhashchange = () => {
       this.fetchSummary();
     };
+    this.fetchSummary();
   }
 
   render(): JSX.Element {
