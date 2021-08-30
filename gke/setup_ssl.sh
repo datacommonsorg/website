@@ -13,8 +13,8 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-PROJECT_ID=$(yq r config.yaml project)
-DOMAIN=$(yq r config.yaml domain)
+PROJECT_ID=$(yq eval '.project' config.yaml)
+DOMAIN=$(yq eval '.domain' config.yaml)
 
 echo $PROJECT_ID
 gcloud config set project $PROJECT_ID

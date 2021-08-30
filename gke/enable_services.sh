@@ -15,7 +15,7 @@
 
 set -e
 
-PROJECT_ID=$(yq r config.yaml project)
+PROJECT_ID=$(yq eval '.project' config.yaml)
 
 gcloud services enable --project=$PROJECT_ID \
   anthos.googleapis.com \

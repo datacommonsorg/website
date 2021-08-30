@@ -15,14 +15,15 @@
 
 set -e
 
-PROJECT_ID=$(yq r config.yaml project)
+PROJECT_ID=$(yq eval '.project' config.yaml)
 
-SERVICE_NAME="website-esp.endpoints.$PROJECT_ID.cloud.goog"
-API_TITLE=$SERVICE_NAME
+export SERVICE_NAME="website-esp.endpoints.$PROJECT_ID.cloud.goog"
+export API_TITLE=$SERVICE_NAME
 
 # ESP service configuration
-yq w --style=double endpoints.yaml.tpl name $SERVICE_NAME > endpoints.yaml
-yq w -i endpoints.yaml title "$API_TITLE"
+cp endpoints.yaml.tpl endpoints.yaml
+yq eval -i '.name = env(SERVICE_NAME)' endpoints.yaml
+yq eval -i '.title = env(API_TITLE)' endpoints.yaml
 
 ## Deploy ESP configuration
 gsutil cp gs://datcom-mixer-grpc/mixer-grpc/mixer-grpc.latest.pb .
