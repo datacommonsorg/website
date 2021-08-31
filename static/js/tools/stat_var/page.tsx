@@ -95,7 +95,7 @@ class Page extends Component<unknown, PageStateType> {
       .get(`/api/browser/propvals/name/${sv}`)
       .then((resp) => resp.data);
     const summaryPromise = axios
-      .post(`/api/stats/stat-var-summary`, { statVars: [sv] })
+      .post("/api/stats/stat-var-summary", { statVars: [sv] })
       .then((resp) => resp.data);
     Promise.all([displayNamePromise, summaryPromise])
       .then(([displayNameData, summaryData]) => {

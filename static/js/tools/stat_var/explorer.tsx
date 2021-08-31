@@ -82,7 +82,7 @@ class Explorer extends Component<ExplorerPropType, unknown> {
         placeType,
       });
     }
-    placeTypeSummaryList.sort(function (a, b): number {
+    placeTypeSummaryList.sort(function (a: PlaceTypeSummaryListElement, b: PlaceTypeSummaryListElement): number {
       return (
         b.numPlaces - a.numPlaces || a.placeType.localeCompare(b.placeType)
       );
