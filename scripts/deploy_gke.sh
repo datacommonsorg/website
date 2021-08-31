@@ -57,7 +57,7 @@ echo $WEBSITE_HASH > website_hash.txt
 echo $MIXER_HASH > mixer_hash.txt
 
 cd $ROOT
-PROJECT_ID=$(yq read $ROOT/deploy/gke/$ENV.yaml project)
+PROJECT_ID=$(yq eval '.project' $ROOT/deploy/gke/$ENV.yaml)
 CLUSTER_NAME=website-$REGION
 
 cd $ROOT/deploy/overlays/$ENV
@@ -71,10 +71,11 @@ gcloud container clusters get-credentials $CLUSTER_NAME --region $REGION
 kubectl apply -f $ENV.yaml
 
 # Deploy Cloud Endpoints
-SERVICE_NAME="website-esp.endpoints.$PROJECT_ID.cloud.goog"
-API_TITLE=$SERVICE_NAME
-yq w --style=double $ROOT/gke/endpoints.yaml.tpl name $SERVICE_NAME > endpoints.yaml
-yq w -i endpoints.yaml title "$API_TITLE"
+export SERVICE_NAME="website-esp.endpoints.$PROJECT_ID.cloud.goog"
+export API_TITLE=$SERVICE_NAME
+cp $ROOT/gke/endpoints.yaml.tpl endpoints.yaml
+yq eval -i '.name = env(SERVICE_NAME)' endpoints.yaml
+yq eval -i '.title = env(API_TITLE)' endpoints.yaml
 
 # Deploy ESP configuration
 gsutil cp gs://datcom-mixer-grpc/mixer-grpc/mixer-grpc.$MIXER_HASH.pb .

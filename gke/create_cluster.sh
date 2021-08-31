@@ -17,8 +17,8 @@ set -e
 
 REGION=$1
 
-PROJECT_ID=$(yq r config.yaml project)
-NODES=$(yq r config.yaml nodes)
+PROJECT_ID=$(yq eval '.project' config.yaml)
+NODES=$(yq eval '.nodes' config.yaml)
 
 CLUSTER_NAME="website-$REGION"
 

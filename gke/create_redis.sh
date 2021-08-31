@@ -17,7 +17,7 @@ set -e
 
 REGION=$1
 
-PROJECT_ID=$(yq r config.yaml project)
+PROJECT_ID=$(yq eval '.project' config.yaml)
 
 gcloud config set project $PROJECT_ID
 
