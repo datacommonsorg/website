@@ -28,6 +28,10 @@ const config = {
       __dirname + "/js/tools/map/map.ts",
       __dirname + "/css/tools/map.scss",
     ],
+    stat_var: [
+      __dirname + "/js/tools/stat_var/stat_var.ts",
+      __dirname + "/css/tools/stat_var.scss",
+    ],
     dev: [__dirname + "/js/dev.ts", __dirname + "/css/dev.scss"],
     timeline: [
       __dirname + "/js/tools/timeline/timeline.ts",

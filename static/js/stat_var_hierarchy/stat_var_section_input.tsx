@@ -128,7 +128,8 @@ export class StatVarSectionInput extends React.Component<
 
   render(): JSX.Element {
     const inputType =
-      this.context.statVarHierarchyType === StatVarHierarchyType.MAP
+      this.context.statVarHierarchyType === StatVarHierarchyType.MAP ||
+      this.context.statVarHierarchyType === StatVarHierarchyType.STAT_VAR
         ? "radio"
         : "checkbox";
     const sectionId = this.props.statVar.id + this.props.path.join("-");

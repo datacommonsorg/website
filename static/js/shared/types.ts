@@ -35,6 +35,7 @@ export const StatVarHierarchyType = {
   TIMELINE: "TIMELINE",
   SCATTER: "SCATTER",
   MAP: "MAP",
+  STAT_VAR: "STAT_VAR",
 };
 
 export interface StatVarInfo {
