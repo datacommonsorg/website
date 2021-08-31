@@ -15,7 +15,7 @@
 
 set -e
 
-PROJECT_ID=$(yq r config.yaml project)
+PROJECT_ID=$(yq eval '.project' config.yaml)
 NAME="website-robot"
 SERVICE_ACCOUNT="$NAME@$PROJECT_ID.iam.gserviceaccount.com"
 

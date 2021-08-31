@@ -58,6 +58,7 @@ changes dependent on mixer changes).
   - [`Skaffold`](https://skaffold.dev/docs/install/)
   - [`kubectl`](https://kubernetes.io/docs/tasks/tools/install-kubectl/)
   - [`kustomize`](https://kustomize.io/)
+  - [`yq` 4.x](https://github.com/mikefarah/yq#install)
 
 ## Run Tests
 

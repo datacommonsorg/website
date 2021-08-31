@@ -17,8 +17,8 @@ set -e
 
 # https://cloud.google.com/kubernetes-engine/docs/how-to/ingress-for-anthos-setup
 
-PROJECT_ID=$(yq r config.yaml project)
-REGION=$(yq r config.yaml region.primary)
+PROJECT_ID=$(yq eval '.project' config.yaml)
+REGION=$(yq eval '.region.primary' config.yaml)
 CLUSTER_NAME="website-$REGION"
 
 gcloud config set project $PROJECT_ID
@@ -26,10 +26,9 @@ gcloud container clusters get-credentials $CLUSTER_NAME --region $REGION
 gcloud alpha container hub ingress enable \
   --config-membership=projects/$PROJECT_ID/locations/global/memberships/$CLUSTER_NAME
 
-yq w mci.yaml.tpl \
-  metadata.annotations.[networking.gke.io/static-ip] \
-  $(yq r config.yaml ip) \
-  > mci.yaml
+cp mci.yaml.tpl mci.yaml
+export IP=$(yq eval '.ip' config.yaml)
+yq eval 'metadata.annotations.[networking.gke.io/static-ip] = env(IP)' mci.yaml.tpl
 
 kubectl apply -f backendconfig.yaml
 kubectl apply -f mci.yaml

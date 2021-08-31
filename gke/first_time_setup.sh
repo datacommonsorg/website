@@ -15,7 +15,7 @@
 
 set -e
 
-PROJECT_ID=$(yq r config.yaml project)
+PROJECT_ID=$(yq eval '.project' config.yaml)
 
 # Update gcloud
 gcloud components update
@@ -40,14 +40,15 @@ gcloud auth login
 ./setup_esp.sh
 
 # Setup cluster in primary region
-PRIMARY_REGION=$(yq r config.yaml region.primary)
+PRIMARY_REGION=$(yq eval '.region.primary' config.yaml)
 ./create_cluster.sh $PRIMARY_REGION
 
 # Setup cluster in other regions
-len=$(yq r config.yaml --length region.others)
+len=$(yq eval '.region.others | length' config.yaml)
 for index in $(seq 0 $(($len-1)));
 do
-  REGION=$(yq r config.yaml region.others[$index])
+  export index=$index
+  REGION=$(yq eval '.region.others[env(index)]' config.yaml)
   ./create_cluster.sh $REGION
 done
 
