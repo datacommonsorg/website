@@ -31,7 +31,6 @@ from cache import cache
 
 logging.basicConfig(level=logging.INFO,
                     format='%(asctime)s %(levelname)s %(lineno)d : %(message)s')
-print(os.getenv("FLASK_ENV"))
 app = create_app()
 app.jinja_env.globals['GA_ACCOUNT'] = app.config['GA_ACCOUNT']
 app.jinja_env.globals['DEPLOYMENT'] = ("private" if os.getenv("FLASK_ENV") in [
