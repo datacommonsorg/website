@@ -17,6 +17,8 @@ set -e
 
 PROJECT_ID=$(yq eval '.project' config.yaml)
 STORE_PROJECT_ID=$(yq eval '.storage_project' config.yaml)
+TMCF_CSV_BUCKET=$(yq eval '.tmcf_csv_bucket' config.yaml)
+
 
 NAME="website-robot"
 SERVICE_ACCOUNT="$NAME@$PROJECT_ID.iam.gserviceaccount.com"
@@ -57,3 +59,7 @@ do
     --member serviceAccount:$SERVICE_ACCOUNT \
     --role $role
 done
+
+if [[ $TMCF_CSV_BUCKET != 'null' ]]; then
+  gsutil iam ch serviceAccount:$SERVICE_ACCOUNT:roles/storage.objectViewer gs://$TMCF_CSV_BUCKET
+fi

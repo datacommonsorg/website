@@ -31,10 +31,14 @@ def get_config():
         return import_string('configmodule.AutopushConfig')()
     elif os.environ.get('FLASK_ENV') == 'dev':
         return import_string('configmodule.DevConfig')()
+    elif os.environ.get('FLASK_ENV') == 'private':
+        return import_string('configmodule.PrivateConfig')()
     elif os.environ.get('FLASK_ENV') == 'local':
         return import_string('configmodule.LocalConfig')()
     elif os.environ.get('FLASK_ENV') == 'local-lite':
         return import_string('configmodule.LocalLiteConfig')()
+    elif os.environ.get('FLASK_ENV') == 'local-private':
+        return import_string('configmodule.LocalPrivateConfig')()
     elif os.environ.get('FLASK_ENV') == 'minikube':
         return import_string('configmodule.MinikubeConfig')()
     else:
