@@ -30,8 +30,8 @@ set -e
 ENV=$1
 REGION=$2
 
-if [[ $ENV != "staging" && $ENV != "prod" && $ENV != "autopush" && $ENV != "dev" ]]; then
-  echo "First argument should be 'staging' or 'prod' or 'autopush' or 'dev'"
+if [[ $ENV != "staging" && $ENV != "prod" && $ENV != "autopush" && $ENV != "dev" && $ENV != "private" ]]; then
+  echo "First argument should be 'staging' or 'prod' or 'autopush' or 'dev' or 'private' "
   exit
 fi
 

@@ -24,17 +24,17 @@ resources:
   - ../../base
 
 configMapGenerator:
-  - name: website-configmap
-    behavior: create
+  - behavior: create
     literals:
       - flaskEnv=private
-      - gcsBucket=datcom-website-autopush-resources
+      - gcsBucket=datcom-website-private-resources
       - secretProject=datcom-website-private
-  - name: mixer-configmap
-    behavior: create
+    name: website-configmap
+  - behavior: create
     literals:
       - mixerProject=datcom-website-private
       - serviceName=website-esp.endpoints.datcom-website-private.cloud.goog
+    name: mixer-configmap
 
 patchesStrategicMerge:
   - |-
@@ -51,9 +51,9 @@ patchesStrategicMerge:
           maxUnavailable: 75%
 
 patchesJson6902:
-  - target:
+  - path: patch.yaml
+    target:
       group: apps
-      version: v1
       kind: Deployment
       name: website-app
-    path: patch.yaml
+      version: v1
