@@ -66,8 +66,8 @@ class LocalConfig(Config):
 # [Private DC] use a local mixer.
 class LocalPrivateConfig(Config):
     LOCAL = True
-    LITE = True
-    API_ROOT = 'http://127.0.0.1:9090'
+    SECRET_PROJECT = 'datcom-website-private'
+    GCS_BUCKET = 'datcom-website-private-resources'
     SCHEME = 'http'
 
 

@@ -19,9 +19,10 @@ python3 -m venv .env
 source .env/bin/activate
 
 export GOOGLE_CLOUD_PROJECT=datcom-website-staging
-if [[ $1 == "lite" ]]
-then
+if [[ $1 == "lite" ]]; then
   export FLASK_ENV=local-lite
+elif [[ $1 == "private" ]]; then
+  export FLASK_ENV=local-private
 else
   export FLASK_ENV=local
 fi

@@ -17,18 +17,18 @@
 :root {
   --font-family: "Roboto", "Helvetica Neue", Arial, sans-serif !important;
   --breakpoint-xl: 1040px;
-  --dc-red-strong: #0d6efd;
+  --dc-red-strong: #660000;
   --dc-red-lite: #9a0000;
   --dc-red-fade: #f0e6e7;
   --dc-gray: #3b3b3b;
   --dc-gray-lite: #ccc;
-  --link-color: #0d6efd;
+  --link-color: #660000;
   --dc-white: #fff;
   --dc-blue: #67adff;
 }
 
 /** Bootstrap overrides **/
-$link-color: #0d6efd;
+$link-color: #660000;
 $link-hover-color: $link-color;
 $primary: $link-color;
 
