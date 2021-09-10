@@ -49,7 +49,7 @@
       <nav class="navbar navbar-dark navbar-expand-lg col" id="main-nav">
         <div class="container-fluid">
           <div class="navbar-brand">
-            <a href="{{ url_for('static.homepage') }}">Data Commons</a>
+            <a href="{{ url_for('static.homepage') }}">{% if DEPLOYMENT == "private" %} International Energy Agency {% else %} Data Commons {% endif %}</a>
             {% if subpage_title %}
             <span>
               {% if subpage_url %}<a href="{{ subpage_url }}">{% endif %}

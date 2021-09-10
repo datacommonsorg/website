@@ -1,0 +1,57 @@
+{#
+ Copyright 2020 Google LLC
+
+ Licensed under the Apache License, Version 2.0 (the "License");
+ you may not use this file except in compliance with the License.
+ You may obtain a copy of the License at
+
+      http://www.apache.org/licenses/LICENSE-2.0
+
+ Unless required by applicable law or agreed to in writing, software
+ distributed under the License is distributed on an "AS IS" BASIS,
+ WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ See the License for the specific language governing permissions and
+ limitations under the License.
+#}
+{% extends 'base.html' %}
+
+{% set main_id = 'homepage' %}
+{% set title = 'Home' %}
+
+{% block head %}
+<link rel="stylesheet" href={{url_for('static', filename='css/static.min.css', t=config['VERSION'])}}>
+{% endblock %}
+
+{% block content %}
+<section id="homepage-top">
+  <div class="container">
+    <div class="row">
+      <div class="lead-col col-12 col-lg-6">
+        <p class="lead mr-lg-3">
+          Private Data Commons for International Energy Agency. The source data is in TMCF and CSV format stored in <a href="https://pantheon.corp.google.com/storage/browser/datcom-public/iea">Google Cloud Storage</a>.
+        </p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="container">
+  <h2>{% trans %}Explore the data{% endtrans %}</h2>
+  <p>
+    Your private data is merged with public data from Data Commons and served in a unified format.
+  </p>
+  <ul>
+
+    <li>
+      <a class="main" href="{{ url_for('tools.timeline') }}">{% trans %}Timeline Charts{% endtrans %}</a>:
+      <ul>
+        <li>
+          <a class="sub" href="{{ url_for('tools.timeline') }}#place=country%2FFRA%2Ccountry%2FUSA&statsVar=Monthly_Generation_Electricity">US and France Electricity Generation</a>
+        </li>
+      </ul>
+    </li>
+
+  </ul>
+</section>
+
+{% endblock %}
