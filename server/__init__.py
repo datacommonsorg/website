@@ -122,7 +122,7 @@ def create_app():
     app.config['BABEL_TRANSLATION_DIRECTORIES'] = 'i18n'
 
     if not cfg.TEST:
-        timeout = 60  # seconds
+        timeout = 120  # seconds
         counter = 0
         isOpen = False
         while not isOpen:

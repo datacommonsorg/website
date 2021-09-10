@@ -30,7 +30,7 @@
 -#}
 <!DOCTYPE html>
 
-<html lang={{ locale }} class={{ DEPLOYMENT }}>
+<html lang={{ locale }} {% if DEPLOYMENT == "private" %} class={{ DEPLOYMENT }} {% endif %}>
 
 <head>
   <title>{{ title }} - Data Commons</title>
