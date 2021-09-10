@@ -40,6 +40,7 @@ const URL_PARAM_KEYS = {
   SELECTED_PLACE_NAME: "pn",
   SELECTED_PLACE_TYPES: "pt",
   ENCLOSED_PLACE_TYPE: "ept",
+  MAP_POINTS_PLACE_TYPE: "ppt",
   PER_CAPITA: "pc",
   STAT_VAR_DCID: "sv",
 };
@@ -64,6 +65,7 @@ export function applyHashPlaceInfo(params: URLSearchParams): PlaceInfo {
   const selectedPlaceName = params.get(URL_PARAM_KEYS.SELECTED_PLACE_NAME);
   const selectedPlaceTypes = params.get(URL_PARAM_KEYS.SELECTED_PLACE_TYPES);
   const enclosedPlaceType = params.get(URL_PARAM_KEYS.ENCLOSED_PLACE_TYPE);
+  const mapPointsPlaceType = params.get(URL_PARAM_KEYS.MAP_POINTS_PLACE_TYPE);
   return {
     selectedPlace: {
       dcid: selectedPlaceDcid ? selectedPlaceDcid : "",
@@ -79,6 +81,7 @@ export function applyHashPlaceInfo(params: URLSearchParams): PlaceInfo {
     enclosedPlaces: [],
     enclosedPlaceType: enclosedPlaceType ? enclosedPlaceType : "",
     parentPlaces: null,
+    mapPointsPlaceType: mapPointsPlaceType ? mapPointsPlaceType : "",
   };
 }
 
@@ -109,6 +112,9 @@ export function updateHashPlaceInfo(
     `&${URL_PARAM_KEYS.SELECTED_PLACE_TYPES}=${selectedPlaceTypes}`;
   if (!_.isEmpty(placeInfo.enclosedPlaceType)) {
     params = `${params}&${URL_PARAM_KEYS.ENCLOSED_PLACE_TYPE}=${placeInfo.enclosedPlaceType}`;
+  }
+  if (!_.isEmpty(placeInfo.mapPointsPlaceType)) {
+    params = `${params}&${URL_PARAM_KEYS.MAP_POINTS_PLACE_TYPE}=${placeInfo.mapPointsPlaceType}`;
   }
   return hash + params;
 }

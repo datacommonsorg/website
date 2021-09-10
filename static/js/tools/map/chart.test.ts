@@ -31,6 +31,7 @@ test("shouldShowBoundary", () => {
       name: "United States of America",
       types: ["Country"],
     },
+    mapPointsPlaceType: "",
   };
   expect(shouldShowBoundary(basePlaceInfo)).toEqual(false);
   const placeInfoWithBoundary = {

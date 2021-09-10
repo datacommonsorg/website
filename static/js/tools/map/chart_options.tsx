@@ -116,6 +116,7 @@ export function getRedirectLink(
     enclosedPlaceType,
     parentPlaces: [],
     selectedPlace,
+    mapPointsPlaceType: "",
   });
   return `${MAP_REDIRECT_PREFIX}#${encodeURIComponent(hash)}`;
 }

@@ -129,3 +129,10 @@ export interface DotDataPoint {
   time: number;
   value: number;
 }
+
+export interface MapPoint {
+  placeDcid: string;
+  placeName: string;
+  latitude: number;
+  longitude: number;
+}

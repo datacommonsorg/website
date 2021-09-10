@@ -19,7 +19,11 @@
  */
 
 import React, { useEffect, useState } from "react";
-import { GeoJsonData, GeoJsonFeatureProperties } from "../../chart/types";
+import {
+  GeoJsonData,
+  GeoJsonFeatureProperties,
+  MapPoint,
+} from "../../chart/types";
 import { PlaceInfo, StatVar } from "./context";
 import { Container } from "reactstrap";
 import _ from "lodash";
@@ -52,6 +56,8 @@ interface ChartProps {
   dates: Set<string>;
   sources: Set<string>;
   unit: string;
+  mapPointValues: { [dcid: string]: number };
+  mapPoints: Array<MapPoint>;
 }
 
 const MAP_CONTAINER_ID = "choropleth-map";
@@ -210,10 +216,12 @@ function draw(
         props.metadata,
         props.statVar,
         props.mapDataValues,
+        props.mapPointValues,
         props.unit
       ),
       false,
       shouldShowBoundary(props.placeInfo),
+      props.mapPoints,
       zoomDcid,
       ZOOM_IN_BUTTON_ID,
       ZOOM_OUT_BUTTON_ID
@@ -284,6 +292,7 @@ const getMapRedirectAction = (statVar: StatVar, placeInfo: PlaceInfo) => (
     enclosedPlaceType,
     selectedPlace,
     parentPlaces: [],
+    mapPointsPlaceType: "",
   });
   const redirectLink = `${MAP_REDIRECT_PREFIX}#${encodeURIComponent(hash)}`;
   window.open(redirectLink, "_self");
@@ -293,6 +302,7 @@ const getTooltipHtml = (
   metadataMapping: { [dcid: string]: DataPointMetadata },
   statVar: StatVar,
   dataValues: { [dcid: string]: number },
+  mapPointValues: { [dcid: string]: number },
   unit: string
 ) => (place: NamedPlace) => {
   const statVarTitle = statVar.info.title ? statVar.info.title : statVar.dcid;
@@ -301,6 +311,9 @@ const getTooltipHtml = (
   let value = "Data Missing";
   if (dataValues[place.dcid]) {
     value = formatNumber(dataValues[place.dcid], unit);
+    hasValue = true;
+  } else if (mapPointValues[place.dcid]) {
+    value = formatNumber(mapPointValues[place.dcid], unit);
     hasValue = true;
   }
   if (!hasValue || !(place.dcid in metadataMapping)) {
