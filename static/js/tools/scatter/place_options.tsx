@@ -25,7 +25,7 @@ import { Card } from "reactstrap";
 import { Context, IsLoadingWrapper, PlaceInfoWrapper } from "./context";
 import { SearchBar } from "../timeline/search";
 import { getPlaceNames } from "../timeline/util";
-import { arePlacesLoaded } from "./util";
+import { isPlacePicked } from "./util";
 
 import { Container, CustomInput } from "reactstrap";
 
@@ -77,10 +77,9 @@ function PlaceOptions(): JSX.Element {
    * Reloads child places if the enclosing place or child place type changes.
    */
   useEffect(() => {
-    if (arePlacesLoaded(place.value)) {
-      return;
+    if (isPlacePicked(place.value) && _.isEmpty(place.value.enclosedPlaces)) {
+      loadPlaces(place, isLoading);
     }
-    loadPlaces(place, isLoading);
   }, [place.value]);
 
   return (
