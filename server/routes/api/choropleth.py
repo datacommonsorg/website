@@ -412,3 +412,45 @@ def choropleth_data(dcid):
         }
         result[sv] = cc_result
     return Response(json.dumps(result), 200, mimetype='application/json')
+
+
+@bp.route('/map-points')
+@cache.cached(timeout=3600 * 24, query_string=True)  # Cache for one day.
+def get_map_points():
+    """
+    Get map point data for the given place type enclosed within the given dcid
+    """
+    place_dcid = request.args.get("placeDcid")
+    if not place_dcid:
+        return Response(json.dumps("error: must provide a placeDcid field"),
+                        400,
+                        mimetype='application/json')
+    place_type = request.args.get("placeType")
+    if not place_type:
+        return Response(json.dumps("error: must provide a placeType field"),
+                        400,
+                        mimetype='application/json')
+    geos = []
+    geos = dc_service.get_places_in([place_dcid],
+                                    place_type).get(place_dcid, [])
+    if not geos:
+        return Response(json.dumps({}), 200, mimetype='application/json')
+    names_by_geo = place_api.get_display_name('^'.join(geos), g.locale)
+    latitude_by_geo = dc_service.get_property_values(geos, "latitude")
+    longitude_by_geo = dc_service.get_property_values(geos, "longitude")
+
+    map_points_list = []
+    for geo_id, latitude in latitude_by_geo.items():
+        longitude = longitude_by_geo.get(geo_id, [])
+        if len(latitude_by_geo) == 0 or len(longitude) == 0:
+            continue
+        map_point = {
+            "placeDcid": geo_id,
+            "placeName": names_by_geo.get(geo_id, "Unnamed Place"),
+            "latitude": float(latitude[0]),
+            "longitude": float(longitude[0])
+        }
+        map_points_list.append(map_point)
+    return Response(json.dumps(map_points_list),
+                    200,
+                    mimetype='application/json')

@@ -25,6 +25,7 @@ test("shouldShowBoundary", () => {
       dcid: "country/USA",
       name: "United States of America",
     },
+    mapPointsPlaceType: "",
     parentPlaces: [],
     selectedPlace: {
       dcid: "country/USA",

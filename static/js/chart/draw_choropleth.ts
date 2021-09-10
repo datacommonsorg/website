@@ -20,7 +20,13 @@
 
 import * as d3 from "d3";
 import * as geo from "geo-albers-usa-territories";
-import { GeoJsonData, GeoJsonFeature, GeoJsonFeatureProperties } from "./types";
+import _ from "lodash";
+import {
+  GeoJsonData,
+  GeoJsonFeature,
+  GeoJsonFeatureProperties,
+  MapPoint,
+} from "./types";
 import { getColorFn } from "./base";
 import { getStatsVarLabel } from "../shared/stats_var_labels";
 import { formatNumber } from "../i18n/i18n";
@@ -45,6 +51,7 @@ const HIGHLIGHTED_CLASS_NAME = "highlighted";
 const REGULAR_SCALE_AMOUNT = 1;
 const ZOOMED_SCALE_AMOUNT = 0.7;
 const LEGEND_CLASS_NAME = "legend";
+const MAP_ITEMS_GROUP_ID = "map-items";
 
 /**
  * From https://bl.ocks.org/HarryStevens/0e440b73fbd88df7c6538417481c9065
@@ -94,6 +101,83 @@ function getColorScale(
     );
 }
 
+/** Positions and shows the tooltip on the page
+ *
+ * @param domContainerId id of the container to show the tooltip in
+ * @param place place to show the tooltip for
+ * @param getTooltipHtml function to get the html content for the tooltip
+ */
+
+function showTooltip(
+  domContainerId: string,
+  place: NamedPlace,
+  getTooltipHtml: (place: NamedPlace) => string
+): void {
+  const container = d3.select(domContainerId);
+  const tooltipSelect = container
+    .select(`#${TOOLTIP_ID}`)
+    .style("display", "block");
+  const tooltipHtml = getTooltipHtml(place);
+  const tooltipHeight = (tooltipSelect.node() as HTMLDivElement).clientHeight;
+  const tooltipWidth = (tooltipSelect.node() as HTMLDivElement).clientWidth;
+  const containerWidth = (container.node() as HTMLDivElement).clientWidth;
+  const offset = 5;
+  const leftOffset = offset;
+  const topOffset = -tooltipHeight - offset;
+  const left = Math.min(
+    d3.event.offsetX + leftOffset,
+    containerWidth - tooltipWidth
+  );
+  let top = d3.event.offsetY + topOffset;
+  if (top < 0) {
+    top = d3.event.offsetY + offset;
+  }
+  tooltipSelect
+    .html(tooltipHtml)
+    .style("left", left + "px")
+    .style("top", top + "px");
+}
+
+/** Adds a layer of map points to the map
+ *
+ * @param domContainerId id of the container
+ * @param mapPoints list of MapPoints to add
+ * @param projection geo projection used by the map
+ * @param getTooltipHtml function to get the html content for the tooltip
+ */
+function addMapPoints(
+  domContainerId: string,
+  mapPoints: Array<MapPoint>,
+  projection: d3.GeoProjection,
+  getTooltipHtml: (place: NamedPlace) => string
+): void {
+  d3.select(`#${MAP_ITEMS_GROUP_ID}`)
+    .append("g")
+    .attr("class", "map-points-layer")
+    .selectAll("circle")
+    .data(mapPoints)
+    .enter()
+    .append("circle")
+    .attr("class", "dot")
+    .attr(
+      "cx",
+      (point: MapPoint) => projection([point.longitude, point.latitude])[0]
+    )
+    .attr("cy", (point) => projection([point.longitude, point.latitude])[1])
+    .on("mouseover", (point: MapPoint) => {
+      const place = {
+        dcid: point.placeDcid,
+        name: point.placeName,
+      };
+      showTooltip(domContainerId, place, getTooltipHtml);
+    })
+    .on("mouseout", () => {
+      d3.select(domContainerId)
+        .select(`#${TOOLTIP_ID}`)
+        .style("display", "none");
+    });
+}
+
 /** Draws a choropleth chart
  *
  * @param containerId id of the div to draw the choropleth in
@@ -107,6 +191,7 @@ function getColorScale(
  * @param redirectAction function that runs when region on map is clicked
  * @param getTooltipHtml function to get the html content for the tooltip
  * @param shouldGenerateLegend whether legend needs to be generated
+ * @param mapPoints list of points to add onto the map
  * @param zoomDcid the dcid of the region to zoom in on when drawing the chart
  * @param zoomInButtonId the id of the zoom in button
  * @param zoomOutButtonId the id of the zoom out button
@@ -126,6 +211,7 @@ function drawChoropleth(
   getTooltipHtml: (place: NamedPlace) => string,
   shouldGenerateLegend: boolean,
   shouldShowBoundaryLines: boolean,
+  mapPoints?: Array<MapPoint>,
   zoomDcid?: string,
   zoomInButtonId?: string,
   zoomOutButtonId?: string
@@ -137,10 +223,14 @@ function drawChoropleth(
     .append("svg")
     .attr("viewBox", `0 0 ${chartWidth} ${chartHeight}`)
     .attr("preserveAspectRatio", "xMidYMid meet");
-  const map = svg.append("g").attr("class", "map");
+  const map = svg.append("g").attr("id", MAP_ITEMS_GROUP_ID);
 
   // Combine path elements from D3 content.
-  const mapContent = map.selectAll("path").data(geoJson.features);
+  const mapRegionsLayer = map
+    .append("g")
+    .attr("class", "map-regions")
+    .selectAll("path")
+    .data(geoJson.features);
 
   const projection = geo.geoAlbersUsaTerritories();
   const geomap = d3.geoPath().projection(projection);
@@ -184,7 +274,7 @@ function drawChoropleth(
   }
 
   // Build map objects.
-  const mapObjects = mapContent
+  const mapObjects = mapRegionsLayer
     .enter()
     .append("path")
     .attr("d", geomap)
@@ -231,6 +321,11 @@ function drawChoropleth(
     .attr("stroke", HIGHLIGHTED_STROKE_COLOR);
   addTooltip(domContainerId);
 
+  // add map points if there are any to add
+  if (!_.isEmpty(mapPoints)) {
+    addMapPoints(domContainerId, mapPoints, projection, getTooltipHtml);
+  }
+
   if (zoomInButtonId || zoomOutButtonId) {
     const zoom = d3
       .zoom()
@@ -243,7 +338,7 @@ function drawChoropleth(
         mapObjects.on("mousemove", null).on("mouseover", null);
         d3.select(`#${TOOLTIP_ID}`).style("display", "none");
         map
-          .selectAll("path")
+          .selectAll("path,circle")
           .classed("region-highlighted", false)
           .attr("transform", d3.event.transform);
       })
@@ -286,33 +381,13 @@ const onMouseMove = (
   canClick: boolean
 ) => (e, index) => {
   mouseHoverAction(domContainerId, index, canClick);
-  const container = d3.select(domContainerId);
   const geoProperties = e["properties"];
   const placeName = geoProperties.name;
-  const tooltipSelect = container.select(`#${TOOLTIP_ID}`);
   const place = {
     dcid: geoProperties.geoDcid,
     name: placeName,
   };
-  const tooltipHtml = getTooltipHtml(place);
-  const tooltipHeight = (tooltipSelect.node() as HTMLDivElement).clientHeight;
-  const tooltipWidth = (tooltipSelect.node() as HTMLDivElement).clientWidth;
-  const containerWidth = (container.node() as HTMLDivElement).clientWidth;
-  const offset = 5;
-  const leftOffset = offset;
-  const topOffset = -tooltipHeight - offset;
-  const left = Math.min(
-    d3.event.offsetX + leftOffset,
-    containerWidth - tooltipWidth
-  );
-  let top = d3.event.offsetY + topOffset;
-  if (top < 0) {
-    top = d3.event.offsetY + offset;
-  }
-  tooltipSelect
-    .html(tooltipHtml)
-    .style("left", left + "px")
-    .style("top", top + "px");
+  showTooltip(domContainerId, place, getTooltipHtml);
 };
 
 const onMapClick = (

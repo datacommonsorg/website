@@ -235,3 +235,13 @@
   border: 0.5px solid var(--dc-gray-lite);
   padding: 0.3rem;
 }
+
+.dot {
+  r: 4;
+  stroke: var(--dc-gray-lite);
+  transition: r 0.25s;
+}
+
+.dot:hover {
+  r: 7;
+}
