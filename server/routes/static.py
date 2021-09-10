@@ -31,17 +31,16 @@ _HOMEPAGE_PLACE_DCIDS = [
 
 @bp.route('/')
 def homepage():
-    if current_app.jinja_env.globals['DEPLOYMENT'] == "private":
+    if current_app.config['PRIVATE']:
         return render_template('static/private.html')
-    else:
-        place_names = place_api.get_display_name(
-            '^'.join(_HOMEPAGE_PLACE_DCIDS), g.locale)
-        blog_date = babel_dates.format_date(date(2021, 7, 26),
-                                            format='long',
-                                            locale=g.locale)
-        return render_template('static/homepage.html',
-                               place_names=place_names,
-                               blog_date=blog_date)
+    place_names = place_api.get_display_name('^'.join(_HOMEPAGE_PLACE_DCIDS),
+                                             g.locale)
+    blog_date = babel_dates.format_date(date(2021, 7, 26),
+                                        format='long',
+                                        locale=g.locale)
+    return render_template('static/homepage.html',
+                           place_names=place_names,
+                           blog_date=blog_date)
 
 
 @bp.route('/about')

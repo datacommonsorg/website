@@ -33,9 +33,8 @@ logging.basicConfig(level=logging.INFO,
                     format='%(asctime)s %(levelname)s %(lineno)d : %(message)s')
 app = create_app()
 app.jinja_env.globals['GA_ACCOUNT'] = app.config['GA_ACCOUNT']
-app.jinja_env.globals['DEPLOYMENT'] = ("private" if os.getenv("FLASK_ENV") in [
-    "private", "local-private"
-] else "public")
+app.jinja_env.globals['PRIVATE'] = app.config['PRIVATE']
+app.jinja_env.globals['NAME'] = app.config['NAME']
 
 GCS_BUCKET = app.config['GCS_BUCKET']
 _MAX_SEARCH_RESULTS = 1000
