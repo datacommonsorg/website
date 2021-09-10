@@ -33,7 +33,7 @@ import {
   PlaceInfo,
   IsLoadingWrapper,
 } from "./context";
-import { updateHash, applyHash } from "./util";
+import { updateHash, applyHash, isPlacePicked } from "./util";
 
 function App(): JSX.Element {
   const { x, y, place, isLoading } = useContext(Context);
@@ -115,10 +115,7 @@ function shouldDisplaySpinner(isLoading: IsLoadingWrapper): boolean {
  */
 function shouldShowChart(x: Axis, y: Axis, place: PlaceInfo): boolean {
   return (
-    !_.isEmpty(place.enclosedPlaceType) &&
-    !_.isEmpty(place.enclosingPlace.dcid) &&
-    !_.isNull(x.statVarInfo) &&
-    !_.isNull(y.statVarInfo)
+    isPlacePicked(place) && !_.isNull(x.statVarInfo) && !_.isNull(y.statVarInfo)
   );
 }
 
@@ -128,9 +125,7 @@ function shouldShowChooseStatVarMessage(
   place: PlaceInfo
 ): boolean {
   return (
-    !_.isEmpty(place.enclosedPlaceType) &&
-    !_.isEmpty(place.enclosingPlace.dcid) &&
-    (_.isNull(x.statVarInfo) || _.isNull(y.statVarInfo))
+    isPlacePicked(place) && (_.isNull(x.statVarInfo) || _.isNull(y.statVarInfo))
   );
 }
 

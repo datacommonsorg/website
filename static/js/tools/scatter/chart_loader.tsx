@@ -25,7 +25,7 @@ import axios from "axios";
 import { saveToFile } from "../../shared/util";
 import { StatApiResponse } from "../../shared/data_fetcher";
 import { getPopulationDate, getUnit, PlacePointStat } from "../shared_util";
-import { getStatsWithinPlace } from "./util";
+import { getStatsWithinPlace, arePlacesLoaded } from "./util";
 import { Chart } from "./chart";
 import {
   Context,
@@ -341,18 +341,6 @@ function getPoints(
           isBetween(point.xPop, lower, upper) &&
           isBetween(point.yPop, lower, upper)
       )
-  );
-}
-
-/**
- * Checks if the child places have been loaded.
- * @param place
- */
-function arePlacesLoaded(place: PlaceInfo): boolean {
-  return (
-    place.enclosedPlaceType &&
-    place.enclosingPlace.dcid &&
-    !_.isEmpty(place.enclosedPlaces)
   );
 }
 

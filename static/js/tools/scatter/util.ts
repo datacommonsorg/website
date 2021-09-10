@@ -252,6 +252,26 @@ function updateHashDisplayOptions(
   return hash;
 }
 
+/**
+ * Checks if the place options have been selected.
+ * @param place
+ */
+export function isPlacePicked(place: PlaceInfo): boolean {
+  return (
+    place.enclosedPlaceType === "Country" ||
+    (!_.isEmpty(place.enclosedPlaceType) &&
+      !_.isEmpty(place.enclosingPlace.dcid))
+  );
+}
+
+/**
+ * Checks if the child places have been loaded.
+ * @param place
+ */
+export function arePlacesLoaded(place: PlaceInfo): boolean {
+  return isPlacePicked(place) && !_.isEmpty(place.enclosedPlaces);
+}
+
 export {
   getPlacesInNames,
   getStatsWithinPlace,

@@ -22,14 +22,10 @@ import React, { useContext, useEffect, useState } from "react";
 import _ from "lodash";
 import axios from "axios";
 import { Card } from "reactstrap";
-import {
-  Context,
-  IsLoadingWrapper,
-  PlaceInfo,
-  PlaceInfoWrapper,
-} from "./context";
+import { Context, IsLoadingWrapper, PlaceInfoWrapper } from "./context";
 import { SearchBar } from "../timeline/search";
 import { getPlaceNames } from "../timeline/util";
+import { arePlacesLoaded } from "./util";
 
 import { Container, CustomInput } from "reactstrap";
 
@@ -60,7 +56,7 @@ const NON_USA_PLACE_TYPES = [
  * Possible child place types.
  */
 const ALL_PLACE_TYPES = [
-  // "Country", // TODO: Search bar should be able to search for "Earth".
+  "Country",
   "State",
   "County",
   "City",
@@ -81,7 +77,7 @@ function PlaceOptions(): JSX.Element {
    * Reloads child places if the enclosing place or child place type changes.
    */
   useEffect(() => {
-    if (!shouldLoadPlaces(place.value)) {
+    if (arePlacesLoaded(place.value)) {
       return;
     }
     loadPlaces(place, isLoading);
@@ -131,19 +127,6 @@ function PlaceOptions(): JSX.Element {
         </div>
       </Container>
     </Card>
-  );
-}
-
-/**
- * Checks if the child place type and the enclosing place have been selected but
- * the child places are not.
- * @param place
- */
-function shouldLoadPlaces(place: PlaceInfo): boolean {
-  return (
-    place.enclosedPlaceType &&
-    place.enclosingPlace.dcid &&
-    _.isEmpty(place.enclosedPlaces)
   );
 }
 
@@ -217,7 +200,16 @@ function selectEnclosedPlaceType(
   place: PlaceInfoWrapper,
   event: React.ChangeEvent<HTMLInputElement>
 ) {
-  place.setEnclosedPlaceType(event.target.value);
+  const placeType = event.target.value;
+  if (placeType === "Country") {
+    place.set({
+      ...place.value,
+      enclosedPlaceType: placeType,
+      enclosingPlace: { name: "Earth", dcid: "Earth" },
+    });
+  } else {
+    place.setEnclosedPlaceType(placeType);
+  }
 }
 
 /**
@@ -234,6 +226,9 @@ function updateChildPlaceTypes(
   dcid: string,
   setChildPlaceTypes: (childPlaceTypes: string[]) => void
 ) {
+  if (dcid === "Earth") {
+    return;
+  }
   const parentPlacePromise = axios
     .get(`/api/place/parent/${dcid}`)
     .then((resp) => resp.data);
@@ -261,6 +256,7 @@ function updateChildPlaceTypes(
 /**
  * Removes the enclosing place
  * @param place
+ * @param setChildPlaceTypes
  */
 function unselectEnclosingPlace(
   place: PlaceInfoWrapper,
