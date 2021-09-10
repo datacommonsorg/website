@@ -200,10 +200,10 @@ function fetchData(
         isLoading.setIsDataLoading(false);
         setRawData({
           geoJsonData,
-          populationData,
-          statVarData,
           mapPointValues,
           mapPoints,
+          populationData,
+          statVarData,
         });
       }
     )

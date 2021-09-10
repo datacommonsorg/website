@@ -25,13 +25,13 @@ test("shouldShowBoundary", () => {
       dcid: "country/USA",
       name: "United States of America",
     },
+    mapPointsPlaceType: "",
     parentPlaces: [],
     selectedPlace: {
       dcid: "country/USA",
       name: "United States of America",
       types: ["Country"],
     },
-    mapPointsPlaceType: "",
   };
   expect(shouldShowBoundary(basePlaceInfo)).toEqual(false);
   const placeInfoWithBoundary = {

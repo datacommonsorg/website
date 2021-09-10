@@ -445,8 +445,8 @@ def get_map_points():
         if len(latitude_by_geo) == 0 or len(longitude) == 0:
             continue
         map_point = {
-            "dcid": geo_id,
-            "name": names_by_geo.get(geo_id, "Unnamed Place"),
+            "placeDcid": geo_id,
+            "placeName": names_by_geo.get(geo_id, "Unnamed Place"),
             "latitude": float(latitude[0]),
             "longitude": float(longitude[0])
         }
