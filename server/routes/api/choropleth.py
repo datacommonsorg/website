@@ -446,7 +446,7 @@ def get_map_points():
             continue
         map_point = {
             "dcid": geo_id,
-            "name": names_by_geo.get(geo_id, "Unnamed Area"),
+            "name": names_by_geo.get(geo_id, "Unnamed Place"),
             "latitude": float(latitude[0]),
             "longitude": float(longitude[0])
         }
