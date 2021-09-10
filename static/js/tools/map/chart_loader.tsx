@@ -354,11 +354,11 @@ function loadChartData(
     breadcrumbDataValues,
     dates: statVarDates,
     geoJsonData: rawData.geoJsonData,
+    mapPoints: rawData.mapPoints,
+    mapPointValues,
     mapValues,
     metadata,
     sources: sourceSet,
     unit,
-    mapPointValues,
-    mapPoints: rawData.mapPoints,
   });
 }
