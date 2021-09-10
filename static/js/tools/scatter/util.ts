@@ -272,6 +272,15 @@ export function arePlacesLoaded(place: PlaceInfo): boolean {
   return isPlacePicked(place) && !_.isEmpty(place.enclosedPlaces);
 }
 
+/**
+ * Checks if both x and y stat vars have been selected.
+ * @param x
+ * @param y
+ */
+export function areStatVarsPicked(x: Axis, y: Axis): boolean {
+  return !_.isNull(x.statVarInfo) && !_.isNull(y.statVarInfo);
+}
+
 export {
   getPlacesInNames,
   getStatsWithinPlace,

@@ -19,7 +19,6 @@
  */
 
 import React, { useContext, useEffect } from "react";
-import _ from "lodash";
 import { Container, Row } from "reactstrap";
 import { StatVarChooser } from "./statvar";
 import { PlaceOptions } from "./place_options";
@@ -33,7 +32,12 @@ import {
   PlaceInfo,
   IsLoadingWrapper,
 } from "./context";
-import { updateHash, applyHash, isPlacePicked } from "./util";
+import {
+  updateHash,
+  applyHash,
+  isPlacePicked,
+  areStatVarsPicked,
+} from "./util";
 
 function App(): JSX.Element {
   const { x, y, place, isLoading } = useContext(Context);
@@ -114,9 +118,7 @@ function shouldDisplaySpinner(isLoading: IsLoadingWrapper): boolean {
  * @param place
  */
 function shouldShowChart(x: Axis, y: Axis, place: PlaceInfo): boolean {
-  return (
-    isPlacePicked(place) && !_.isNull(x.statVarInfo) && !_.isNull(y.statVarInfo)
-  );
+  return isPlacePicked(place) && areStatVarsPicked(x, y);
 }
 
 function shouldShowChooseStatVarMessage(
@@ -124,9 +126,7 @@ function shouldShowChooseStatVarMessage(
   y: Axis,
   place: PlaceInfo
 ): boolean {
-  return (
-    isPlacePicked(place) && (_.isNull(x.statVarInfo) || _.isNull(y.statVarInfo))
-  );
+  return isPlacePicked(place) && !areStatVarsPicked(x, y);
 }
 
 export { App, AppWithContext };
