@@ -14,7 +14,7 @@
 """Data Commons static content routes."""
 
 from datetime import date
-from flask import Blueprint, render_template, g
+from flask import Blueprint, render_template, current_app, g
 from lib.gcs import list_blobs
 import babel.dates as babel_dates
 import routes.api.place as place_api
@@ -31,6 +31,8 @@ _HOMEPAGE_PLACE_DCIDS = [
 
 @bp.route('/')
 def homepage():
+    if current_app.config['PRIVATE']:
+        return render_template('static/private.html')
     place_names = place_api.get_display_name('^'.join(_HOMEPAGE_PLACE_DCIDS),
                                              g.locale)
     blog_date = babel_dates.format_date(date(2021, 7, 26),

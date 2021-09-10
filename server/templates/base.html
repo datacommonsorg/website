@@ -30,7 +30,7 @@
 -#}
 <!DOCTYPE html>
 
-<html lang={{ locale }} {% if DEPLOYMENT == "private" %} class={{ DEPLOYMENT }} {% endif %}>
+<html lang={{ locale }} {% if PRIVATE %} class="private" {% endif %}>
 
 <head>
   <title>{{ title }} - Data Commons</title>
@@ -49,7 +49,7 @@
       <nav class="navbar navbar-dark navbar-expand-lg col" id="main-nav">
         <div class="container-fluid">
           <div class="navbar-brand">
-            <a href="{{ url_for('static.homepage') }}">Data Commons</a>
+            <a href="{{ url_for('static.homepage') }}">{{ NAME }}</a>
             {% if subpage_title %}
             <span>
               {% if subpage_url %}<a href="{{ subpage_url }}">{% endif %}

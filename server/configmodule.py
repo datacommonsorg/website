@@ -25,6 +25,10 @@ class Config:
     # This is only needed for local development when cache is not up to date.
     NEW_STAT_VARS = []
     ENABLE_BLOCKLIST = False
+    # If the deployment is a private instance
+    PRIVATE = False
+    # Name of the site. The name is changed for private instance.
+    NAME = "Data Commons"
 
 
 class ProductionConfig(Config):
@@ -47,7 +51,8 @@ class DevConfig(Config):
 
 
 class PrivateConfig(Config):
-    pass
+    NAME = "International Energy Agency"
+    PRIVATE = True
 
 
 class MinikubeConfig(Config):
@@ -68,6 +73,8 @@ class LocalPrivateConfig(Config):
     LOCAL = True
     SECRET_PROJECT = 'datcom-website-private'
     GCS_BUCKET = 'datcom-website-private-resources'
+    NAME = "International Energy Agency"
+    PRIVATE = True
     SCHEME = 'http'
 
 
