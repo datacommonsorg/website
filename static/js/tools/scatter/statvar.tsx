@@ -345,18 +345,21 @@ function confirmStatVars(
   if (modalSelected.x) {
     values.push(x.value);
   } else {
-    assignAxes([x], [EmptyAxis]);
+    values.push({
+      ...EmptyAxis,
+      statVarInfo: thirdStatVar.info,
+      statVarDcid: thirdStatVar.dcid,
+    });
   }
   if (modalSelected.y) {
     values.push(y.value);
   } else {
-    assignAxes([y], [EmptyAxis]);
+    values.push({
+      ...EmptyAxis,
+      statVarInfo: thirdStatVar.info,
+      statVarDcid: thirdStatVar.dcid,
+    });
   }
-  values.push({
-    ...EmptyAxis,
-    statVarInfo: thirdStatVar.info,
-    statVarDcid: thirdStatVar.dcid,
-  });
   assignAxes(axes, values);
   assignAxes(axes, values);
   setThirdStatVar(emptyStatVar);
