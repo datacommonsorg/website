@@ -22,7 +22,7 @@
 $vertical-section-border: 1px solid var(--dc-gray-lite);
 $vertical-section-margin: 2rem;
 $sidebar-top-padding: 132px; // Keep in sync with place.ts: Y_SCROLL_LIMIT
-$subtopic-background: rgba(0,0,0,.05);
+$subtopic-background: rgba(0, 0, 0, 0.05);
 $subtopic-color: #222;
 $chart-border: 0.5px solid #dee2e6;
 
@@ -50,7 +50,7 @@ $chart-border: 0.5px solid #dee2e6;
 
 #dc-places #place-highlight h4 {
   color: var(--secondary);
-  font-size: .9rem;
+  font-size: 0.9rem;
   font-weight: 300;
   line-height: 1.4rem;
 }
@@ -81,8 +81,8 @@ $chart-border: 0.5px solid #dee2e6;
 
 #topics .nav-item .nav-item a {
   font-weight: 300;
-  padding: 0.25rem 0 .25rem .5rem;
-  font-size: .8rem;
+  padding: 0.25rem 0 0.25rem 0.5rem;
+  font-size: 0.8rem;
 }
 
 #topics a.active {
@@ -308,8 +308,8 @@ $chart-border: 0.5px solid #dee2e6;
 
 .outlinks a {
   font-size: 0.7rem;
-  color: var(--dc-red-strong);
-  margin-left: .5rem;
+  color: var(--dc-primary);
+  margin-left: 0.5rem;
 }
 
 .explore-more {
@@ -369,11 +369,11 @@ $chart-border: 0.5px solid #dee2e6;
   font-family: monospace;
   height: 8rem;
   margin: auto;
-  padding: .5rem;
+  padding: 0.5rem;
 }
 
 .landing-link {
-  margin-left: .25em;
+  margin-left: 0.25em;
 }
 
 .feedback {

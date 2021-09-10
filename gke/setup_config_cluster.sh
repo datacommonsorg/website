@@ -28,7 +28,7 @@ gcloud alpha container hub ingress enable \
 
 cp mci.yaml.tpl mci.yaml
 export IP=$(yq eval '.ip' config.yaml)
-yq eval 'metadata.annotations.[networking.gke.io/static-ip] = env(IP)' mci.yaml.tpl
+yq eval -i '.metadata.annotations."networking.gke.io/static-ip" = env(IP)' mci.yaml
 
 kubectl apply -f backendconfig.yaml
 kubectl apply -f mci.yaml

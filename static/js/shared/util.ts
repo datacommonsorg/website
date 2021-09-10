@@ -50,6 +50,9 @@ function saveToFile(filename: string, contents: string): void {
  * Get the domain from a url.
  */
 function urlToDomain(url: string): string {
+  if (!url) {
+    return "";
+  }
   return url
     .replace("http://", "")
     .replace("https://", "")

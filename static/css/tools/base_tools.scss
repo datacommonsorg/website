@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-@import '../base';
+@import "../base";
 
 body {
   font-size: 1rem;
@@ -61,7 +61,7 @@ body {
 }
 
 #sub-footer a {
-  margin-left: .75rem;
+  margin-left: 0.75rem;
 }
 
 #main-pane {
@@ -82,8 +82,8 @@ body {
 }
 
 .btn-subfooter {
-  font-size: .9rem;
-  margin: -.375rem .5rem -1px;
-  background-color: var(--dc-red-strong);
-  border-color: var(--dc-red-strong);
+  font-size: 0.9rem;
+  margin: -0.375rem 0.5rem -1px;
+  background-color: var(--dc-primary);
+  border-color: var(--dc-primary);
 }
