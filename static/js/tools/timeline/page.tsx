@@ -86,6 +86,14 @@ class Page extends Component<unknown, PageStateType> {
     }
     Promise.all([statVarInfoPromise, placesPromise]).then(
       ([statVarInfo, placeName]) => {
+        // Schemaless stat vars are not associated with any triples.
+        // Assign the measured property to be the DCID so the chart can be
+        // grouped (by measured property).
+        for (const statVar of statVars) {
+          if (!(statVar in statVarInfo)) {
+            statVarInfo[statVar] = { mprop: statVar };
+          }
+        }
         this.setState({
           statVarInfo,
           placeName,

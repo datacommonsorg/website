@@ -18,7 +18,6 @@
 @import "base_tools";
 @import "stat_var_widget";
 
-
 @mixin scatter-search {
   @include search_place.search-place;
 
@@ -79,7 +78,7 @@
   flex-grow: 1;
   flex-shrink: 1;
   margin-bottom: 15px;
-  border: 1px solid rgba(0,0,0,.2);
+  border: 1px solid rgba(0, 0, 0, 0.2);
   padding: 15px;
 }
 
@@ -102,11 +101,11 @@
 
 #tooltip header {
   font-weight: bold;
-  margin-bottom: .5rem;
+  margin-bottom: 0.5rem;
 }
 
 #tooltip footer {
-  margin-top: .5rem;
+  margin-top: 0.5rem;
 }
 
 #statvar-modal .row {
@@ -119,7 +118,7 @@
 
 .error-message {
   color: #721c24;
-  font-size: .9rem;
+  font-size: 0.9rem;
   padding: 15px;
   border-radius: 3px;
   background: #f8d7da;
@@ -146,12 +145,14 @@
   align-items: center;
 }
 
-.place-options, #chart,  #plot-options{
+.place-options,
+#chart,
+#plot-options {
   font-size: 0.9rem;
 }
 
 .provenance {
-  font-size: .7rem;
+  font-size: 0.7rem;
   color: var(--dc-gray);
 }
 
@@ -183,11 +184,11 @@
 
 circle:hover {
   cursor: pointer;
-  fill: var(--dc-red-strong);
+  fill: var(--dc-primary);
 }
 
 circle {
-  stroke: var(--dc-red-strong);
+  stroke: var(--dc-primary);
   r: 3.5;
 }
 
@@ -224,7 +225,8 @@ circle {
   background: none;
 }
 
-.radio-selection-label, .radio-selection-section {
+.radio-selection-label,
+.radio-selection-section {
   padding-top: 0.5rem;
 }
 
@@ -239,10 +241,9 @@ circle {
 
 #scatterplot .quadrant-label {
   fill: red;
-  font-size: .8em;
+  font-size: 0.8em;
 }
 
 #scatterplot .dot-label {
-  font-size: .8em;
-  
+  font-size: 0.8em;
 }

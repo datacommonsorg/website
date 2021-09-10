@@ -46,6 +46,10 @@ class DevConfig(Config):
     pass
 
 
+class PrivateConfig(Config):
+    pass
+
+
 class MinikubeConfig(Config):
     LOCAL = True
     SCHEME = 'http'
@@ -56,6 +60,14 @@ class LocalConfig(Config):
     SECRET_PROJECT = 'datcom-website-dev'
     API_ROOT = 'https://autopush.api.datacommons.org'
     GCS_BUCKET = 'datcom-website-autopush-resources'
+    SCHEME = 'http'
+
+
+# [Private DC] use a local mixer.
+class LocalPrivateConfig(Config):
+    LOCAL = True
+    SECRET_PROJECT = 'datcom-website-private'
+    GCS_BUCKET = 'datcom-website-private-resources'
     SCHEME = 'http'
 
 
