@@ -35,3 +35,4 @@ gsutil cp gs://datcom-control/latest_base_cache_version.txt deploy/storage/bigta
 gsutil cp gs://datcom-control/latest_base_bigquery_version.txt deploy/storage/bigquery.version
 $ROOT/scripts/deploy_gke.sh autopush us-central1
 $ROOT/scripts/deploy_gke.sh autopush europe-west2
+$ROOT/scripts/deploy_gke.sh private us-central1
