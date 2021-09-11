@@ -328,26 +328,28 @@ function loadChartData(
     });
   }
   const mapPointValues = {};
-  for (const placeDcid in rawData.mapPointValues.stat) {
-    const placeChartData = getPlaceChartData(
-      rawData.mapPointValues,
-      placeDcid,
-      false,
-      {}
-    );
-    if (_.isNull(placeChartData)) {
-      continue;
-    }
-    mapPointValues[placeDcid] = placeChartData.value;
-    statVarDates.add(placeChartData.date);
-    if (!_.isEmpty(placeChartData.metadata)) {
-      metadata[placeDcid] = placeChartData.metadata;
-    }
-    placeChartData.sources.forEach((source) => {
-      if (!_.isEmpty(source)) {
-        sourceSet.add(source);
+  if (!_.isEmpty(rawData.mapPointValues)) {
+    for (const placeDcid in rawData.mapPointValues.stat) {
+      const placeChartData = getPlaceChartData(
+        rawData.mapPointValues,
+        placeDcid,
+        false,
+        {}
+      );
+      if (_.isNull(placeChartData)) {
+        continue;
       }
-    });
+      mapPointValues[placeDcid] = placeChartData.value;
+      statVarDates.add(placeChartData.date);
+      if (!_.isEmpty(placeChartData.metadata)) {
+        metadata[placeDcid] = placeChartData.metadata;
+      }
+      placeChartData.sources.forEach((source) => {
+        if (!_.isEmpty(source)) {
+          sourceSet.add(source);
+        }
+      });
+    }
   }
   const unit = getUnit(rawData.statVarData);
   setChartData({
