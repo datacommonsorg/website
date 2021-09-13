@@ -123,7 +123,7 @@ export class StatVarGroupNode extends React.Component<
     let triggerTitle = this.props.data.specializedEntity
       ? this.props.data.specializedEntity
       : this.props.data.displayName;
-    if (this.props.data.id == "dc/g/Private") {
+    if (this.props.data.id === "dc/g/Private") {
       triggerTitle = "[PRIVATE] " + triggerTitle;
     }
 
