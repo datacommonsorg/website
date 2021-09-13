@@ -120,9 +120,12 @@ export class StatVarGroupNode extends React.Component<
   }
 
   render(): JSX.Element {
-    const triggerTitle = this.props.data.specializedEntity
+    let triggerTitle = this.props.data.specializedEntity
       ? this.props.data.specializedEntity
       : this.props.data.displayName;
+    if (this.props.data.id === "dc/g/Private") {
+      triggerTitle = "[PRIVATE] " + triggerTitle;
+    }
 
     const level = this.props.path.length;
     this.selectionCount = 0;
