@@ -18,10 +18,6 @@ from selenium.webdriver.chrome.options import Options
 from main import app
 from os import environ
 
-# Read flag from OS' environment.
-# TODO(edumorales): Figure out a way to pass down an argument using Pytest.
-PYTEST_PARALLEL = environ.get("PYTEST_PARALLEL")
-
 DEFAULT_HEIGHT = 1200
 DEFAULT_WIDTH = 1200
 
@@ -50,19 +46,7 @@ class WebdriverBaseTest(LiveServerTestCase):
 
         # Maximum time, in seconds, before throwing a TimeoutException.
         self.TIMEOUT_SEC = 60
-
-        # If flag is enabled, connect to Selenium Grid.
-        if PYTEST_PARALLEL:
-            # Connect to port 4444, where Selenium Grid is running.
-            # Tell Selenium Grid you need a new ChromeDriver instance.
-            # Selenium Grid will be in charge of keeping track of all the ChromeDriver instances.
-            self.driver = webdriver.Remote(
-                command_executor="http://0.0.0.0:4444/wd/hub",
-                desired_capabilities=webdriver.DesiredCapabilities.CHROME,
-                options=chrome_options)
-        # Otherwise, start a simple WebDriver instance.
-        else:
-            self.driver = webdriver.Chrome(options=chrome_options)
+        self.driver = webdriver.Chrome(options=chrome_options)
 
         # Set a reliable window size for all tests (can be overwritten though)
         self.driver.set_window_size(DEFAULT_WIDTH, DEFAULT_HEIGHT)

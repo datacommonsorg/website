@@ -6,14 +6,6 @@ Run the following command from the parent directory:
 
     ./run_tests.sh -w
 
-To run the tests in parallel, add the -t (threading) flag:
-NOTE: -t flag requires that Selenium Server/Grid is downloaded and the environment variable SELENIUM_SERVER points to the JAR file.
-Download Selenium Server/Grid JAR file from https://www.selenium.dev/downloads/
-Verified to be working on selenium-server-standalone-3.141.59.jar
-
-    export SELENIUM_SERVER=/path/to/selenium-server-standalone*.jar
-    ./run_tests.sh -tw
-
 ## Things To Note
 
 Data Commons sites can take up to a few seconds to load; thus, WebDriver needs to be told what elements to wait for to know that the page has finished loading/rendering.
@@ -21,6 +13,7 @@ Data Commons sites can take up to a few seconds to load; thus, WebDriver needs t
 - `SLEEP_SEC` represents the maximum time for a test to finish. If this time is exceeded, the test will fail with a `TimeoutException`. By default, the test cases use 60 seconds.
 - WebDriver allows to select HTML elements using `By.ID, By.CSS_SELECTOR, By.CLASS_NAME, By.XPATH`.
 - Sometimes, it is more convenient to use CSS_SELECTOR or XPATH.
+
   - `By.CSS_SELECTOR('.myclass:nth-element(3)')`
   - `By.XPATH('//*[@id="my-id"]/span/button')`
 
@@ -40,9 +33,9 @@ Data Commons sites can take up to a few seconds to load; thus, WebDriver needs t
 ### 1. Wait Until HTML Element is Present in DOM
 
 WebDriver can wait for an element to be present in the DOM using `presence_of_element_located`. An example would be to wait for "my-button" to appear after an event has triggered.
-    element_present = EC.presence_of_element_located(
-    (By.ID, 'my-button'))
-    WebDriverWait(self.driver, SLEEP_SEC).until(element_present)
+element_present = EC.presence_of_element_located(
+(By.ID, 'my-button'))
+WebDriverWait(self.driver, SLEEP_SEC).until(element_present)
 
 ### 2. Wait Until HTML Element Contains Desired Text
 
