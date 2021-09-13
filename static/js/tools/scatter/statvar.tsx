@@ -41,7 +41,10 @@ import { StatVarHierarchy } from "../../stat_var_hierarchy/stat_var_hierarchy";
 
 // Number of enclosed places to sample when filtering the stat vars in the
 // stat var menu
-const SAMPLE_SIZE = 3;
+// Use a large sample size here. Performance wise this is okay. When the filtered
+// stat vars are set, mixer can use the existence cache to check if stat vars
+// exist for the place, which is only a point read.
+const SAMPLE_SIZE = 50;
 
 interface StatVar {
   // Always contains a single statvar.
