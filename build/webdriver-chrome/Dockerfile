@@ -28,11 +28,3 @@ RUN wget -O /tmp/chromedriver.zip http://chromedriver.storage.googleapis.com/`cu
 RUN unzip /tmp/chromedriver.zip chromedriver -d /usr/bin/
 RUN chown root:root /usr/bin/chromedriver
 RUN chmod +x /usr/bin/chromedriver
-
-# Download Selenium Server JAR, handles multiple instances of ChromeDriver in parallel.
-RUN wget https://selenium-release.storage.googleapis.com/3.141/selenium-server-standalone-3.141.59.jar
-
-# Install Java, needed to run Selenium Server JAR.
-RUN apt install -yqq software-properties-common
-RUN apt -y update
-RUN apt install -y default-jre

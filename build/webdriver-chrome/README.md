@@ -6,9 +6,6 @@ This is a Docker image based on python:3.7, but comes with some other tools:
 
 - Google Chrome: the browser which is used to run the tests.
 - ChromeDriver: used to send commands to Google Chrome.
-- Java JDK: used to run the Selenium Server, which comes as a JAR file.
-- Selenium Server: used to start multiple ChromeDriver instances and run tests
-  in parallel.
 
 ## How to build the Docker image
 
