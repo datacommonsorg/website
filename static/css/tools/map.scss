@@ -239,4 +239,10 @@
 .dot {
   r: 4;
   stroke: var(--dc-gray-lite);
+  fill: black;
+}
+
+.dot:hover {
+  stroke: black;
+  fill: var(--dc-gray-lite);
 }
