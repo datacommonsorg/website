@@ -222,6 +222,7 @@ function draw(
       false,
       shouldShowBoundary(props.placeInfo),
       props.mapPoints,
+      props.mapPointValues,
       zoomDcid,
       ZOOM_IN_BUTTON_ID,
       ZOOM_OUT_BUTTON_ID

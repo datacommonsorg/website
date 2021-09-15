@@ -33,6 +33,7 @@ import { formatNumber } from "../i18n/i18n";
 import { NamedPlace } from "../shared/types";
 
 const MISSING_DATA_COLOR = "#999";
+const DOT_COLOR = "black";
 const TOOLTIP_ID = "tooltip";
 const MIN_COLOR = "#f0f0f0";
 const GEO_STROKE_COLOR = "#fff";
@@ -142,12 +143,14 @@ function showTooltip(
  *
  * @param domContainerId id of the container
  * @param mapPoints list of MapPoints to add
+ * @param mapPointValues data values for the map points
  * @param projection geo projection used by the map
  * @param getTooltipHtml function to get the html content for the tooltip
  */
 function addMapPoints(
   domContainerId: string,
   mapPoints: Array<MapPoint>,
+  mapPointValues: { [placeDcid: string]: number },
   projection: d3.GeoProjection,
   getTooltipHtml: (place: NamedPlace) => string
 ): void {
@@ -159,6 +162,13 @@ function addMapPoints(
     .enter()
     .append("circle")
     .attr("class", "dot")
+    .attr("fill", (d) => {
+      if (d.placeDcid in mapPointValues) {
+        return DOT_COLOR;
+      } else {
+        return MISSING_DATA_COLOR;
+      }
+    })
     .attr(
       "cx",
       (point: MapPoint) => projection([point.longitude, point.latitude])[0]
@@ -192,6 +202,7 @@ function addMapPoints(
  * @param getTooltipHtml function to get the html content for the tooltip
  * @param shouldGenerateLegend whether legend needs to be generated
  * @param mapPoints list of points to add onto the map
+ * @param mapPointValues data values for the map points
  * @param zoomDcid the dcid of the region to zoom in on when drawing the chart
  * @param zoomInButtonId the id of the zoom in button
  * @param zoomOutButtonId the id of the zoom out button
@@ -212,6 +223,7 @@ function drawChoropleth(
   shouldGenerateLegend: boolean,
   shouldShowBoundaryLines: boolean,
   mapPoints?: Array<MapPoint>,
+  mapPointValues?: { [placeDcid: string]: number },
   zoomDcid?: string,
   zoomInButtonId?: string,
   zoomOutButtonId?: string
@@ -322,8 +334,14 @@ function drawChoropleth(
   addTooltip(domContainerId);
 
   // add map points if there are any to add
-  if (!_.isEmpty(mapPoints)) {
-    addMapPoints(domContainerId, mapPoints, projection, getTooltipHtml);
+  if (!_.isEmpty(mapPoints) && !_.isUndefined(mapPointValues)) {
+    addMapPoints(
+      domContainerId,
+      mapPoints,
+      mapPointValues,
+      projection,
+      getTooltipHtml
+    );
   }
 
   if (zoomInButtonId || zoomOutButtonId) {
