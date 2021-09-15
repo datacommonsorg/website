@@ -17,6 +17,8 @@
 
 {% set main_id = 'homepage' %}
 {% set title = 'Home' %}
+{% set is_hide_full_footer = true %}
+{% set is_hide_sub_footer = true %}
 
 {% block head %}
 <link rel="stylesheet" href={{url_for('static', filename='css/static.min.css', t=config['VERSION'])}}>
@@ -28,7 +30,8 @@
     <div class="row">
       <div class="lead-col col-12 col-lg-6">
         <p class="lead mr-lg-3">
-          Private Data Commons for International Energy Agency. The source data (in TMCF and CSV format) is loaded from <a href="https://pantheon.corp.google.com/storage/browser/datcom-public/iea">Google Cloud Storage</a>.
+          IEA Data Commons for International Energy Agency. The source data is loaded from
+          <a href="https://pantheon.corp.google.com/storage/browser/datcom-public/iea">Google Cloud Storage</a>.
         </p>
       </div>
     </div>
@@ -38,10 +41,9 @@
 <section class="container">
   <h2>{% trans %}Explore the data{% endtrans %}</h2>
   <p>
-    Your private data is merged with public data from Data Commons and served in a unified format.
+    The IEA data is merged with public data from Data Commons and served in a unified format.
   </p>
   <ul>
-
     <li>
       <a class="main" href="{{ url_for('tools.timeline') }}">{% trans %}Timeline Charts{% endtrans %}</a>:
       <ul>
@@ -50,7 +52,14 @@
         </li>
       </ul>
     </li>
-
+    <li>
+      <a class="main" href="{{ url_for('tools.scatter') }}">{% trans %}Scatter Plots{% endtrans %}</a>:
+      <ul>
+        <li>
+          <a class="sub" href="{{ url_for('tools.scatter') }}#%26svx%3DMonthly_Generation_Electricity%26pcx%3D1%26svy%3DAmount_EconomicActivity_GrossDomesticProduction_Nominal%26pcy%3D1%26epd%3DEarth%26epn%3DEarth%26ept%3DCountry%26qd%3D0%26ld%3D0">GDP vs Electricity Generation</a>
+        </li>
+      </ul>
+    </li>
   </ul>
 </section>
 

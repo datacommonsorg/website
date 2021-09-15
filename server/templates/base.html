@@ -21,6 +21,7 @@
 
   Optional variables:
   is_hide_full_footer: boolean, if true, hides the full expanded footer. Default false
+  is_hide_sub_footer: boolean, if true, hides the sub footer. Default false
   subpage_title: string, if specified, will be displayed in the header next to Data Commons
   hide_search: boolean, if true, will remove the nav header search box
 
@@ -162,6 +163,7 @@
           </section>
         </div>
         {% endif %}
+        {% if not is_hide_sub_footer %}
         <div class="row">
           <div id="sub-footer" class="col-12">
             <!-- {% set homepage_url = "<a href={href}>Data Commons</a>".format(href=url_for('static.homepage'))  %} -->
@@ -179,6 +181,7 @@
             </div>
           </div>
         </div>
+        {% endif %}
       </div>
     </footer>
   </div>

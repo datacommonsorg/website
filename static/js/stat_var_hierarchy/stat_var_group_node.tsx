@@ -124,7 +124,7 @@ export class StatVarGroupNode extends React.Component<
       ? this.props.data.specializedEntity
       : this.props.data.displayName;
     if (this.props.data.id === "dc/g/Private") {
-      triggerTitle = "[PRIVATE] " + triggerTitle;
+      triggerTitle = `[${triggerTitle}]`;
     }
 
     const level = this.props.path.length;
