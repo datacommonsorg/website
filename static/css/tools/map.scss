@@ -241,7 +241,7 @@
   stroke: var(--dc-gray-lite);
 }
 
-.dot:hover, .dot-missing-values:hover{
+.dot:hover {
   fill: var(--dc-gray-lite);
   stroke: black;
 }

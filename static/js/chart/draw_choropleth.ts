@@ -165,7 +165,9 @@ function addMapPoints(
     .attr("fill", (d) => {
       if (d.placeDcid in mapPointValues) {
         return DOT_COLOR;
-      } else return MISSING_DATA_COLOR;
+      } else {
+        return MISSING_DATA_COLOR;
+      }
     })
     .attr(
       "cx",
