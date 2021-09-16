@@ -293,7 +293,7 @@ const getMapRedirectAction = (statVar: StatVar, placeInfo: PlaceInfo) => (
     enclosedPlaceType,
     selectedPlace,
     parentPlaces: [],
-    mapPointsPlaceType: "",
+    mapPointsPlaceType: placeInfo.mapPointsPlaceType,
   });
   const redirectLink = `${MAP_REDIRECT_PREFIX}#${encodeURIComponent(hash)}`;
   window.open(redirectLink, "_self");

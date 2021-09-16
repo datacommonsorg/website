@@ -86,7 +86,11 @@ export function ChartOptions(props: ChartOptionsPropType): JSX.Element {
           place.dcid in props.metadata
             ? ` (${props.metadata[place.dcid].statVarDate})`
             : "";
-        const redirectLink = getRedirectLink(statVar.value, place);
+        const redirectLink = getRedirectLink(
+          statVar.value,
+          place,
+          props.placeInfo.mapPointsPlaceType
+        );
         return (
           <div key={place.dcid}>
             <a href={redirectLink}>{place.name}</a>
@@ -100,7 +104,8 @@ export function ChartOptions(props: ChartOptionsPropType): JSX.Element {
 
 export function getRedirectLink(
   statVar: StatVar,
-  selectedPlace: NamedTypedPlace
+  selectedPlace: NamedTypedPlace,
+  mapPointsPlaceType: string
 ): string {
   let hash = updateHashStatVar("", statVar);
   let enclosedPlaceType = "";
@@ -116,7 +121,7 @@ export function getRedirectLink(
     enclosedPlaceType,
     parentPlaces: [],
     selectedPlace,
-    mapPointsPlaceType: "",
+    mapPointsPlaceType,
   });
   return `${MAP_REDIRECT_PREFIX}#${encodeURIComponent(hash)}`;
 }

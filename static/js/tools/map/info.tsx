@@ -202,6 +202,32 @@ export function Info(): JSX.Element {
             Median Income
           </a>
         </li>
+        <li>
+          <b>Greenhouse Gas Emissions</b> across{" "}
+          <a
+            href={
+              "#&sv=Annual_Emissions_GreenhouseGas_NonBiogenic&pc=0&pd=country/USA&pn=United%20States&pt=Country&ept=State&ppt=EpaReportingFacility"
+            }
+          >
+            states in USA
+          </a>
+          ,{" "}
+          <a
+            href={
+              "#&sv=Annual_Emissions_GreenhouseGas_NonBiogenic&pc=0&pd=geoId/06&pn=California&pt=State&ept=County&ppt=EpaReportingFacility"
+            }
+          >
+            counties in California
+          </a>
+          ,{" "}
+          <a
+            href={
+              "#&sv=Annual_Emissions_GreenhouseGas_NonBiogenic&pc=0&pd=geoId/06029&pn=Kern%20County%2C%20CA&pt=County&ept=County&ppt=EpaReportingFacility"
+            }
+          >
+            Kern County
+          </a>
+        </li>
       </ul>
       <p>Take the data and use it on your site!</p>
       <p>
