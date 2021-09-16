@@ -154,11 +154,14 @@ function addMapPoints(
   projection: d3.GeoProjection,
   getTooltipHtml: (place: NamedPlace) => string
 ): void {
+  const filteredMapPoints = mapPoints.filter(
+    (point) => !_.isNull(projection([point.longitude, point.latitude]))
+  );
   d3.select(`#${MAP_ITEMS_GROUP_ID}`)
     .append("g")
     .attr("class", "map-points-layer")
     .selectAll("circle")
-    .data(mapPoints)
+    .data(filteredMapPoints)
     .enter()
     .append("circle")
     .attr("class", "dot")
