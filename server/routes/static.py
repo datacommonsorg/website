@@ -50,7 +50,9 @@ def about():
 
 @bp.route('/faq')
 def faq():
-    return render_template('static/faq.html')
+    current_date = date.today().strftime('%-d %b %Y')
+    current_year = date.today().strftime('%Y')
+    return render_template('static/faq.html', current_date=current_date, current_year=current_year)
 
 
 @bp.route('/disclaimers')
