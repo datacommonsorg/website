@@ -30,7 +30,7 @@ interface FlatPlaceTypeSummary {
 
 class Place extends Component<PlacePropType, unknown> {
   render(): JSX.Element {
-    const placeTypeSummaryList = this.FlattenPlaceTypeSummary();
+    const placeTypeSummaryList = this.flattenPlaceTypeSummary();
     return (
       <div className="card p-0">
         <table className="node-table">
@@ -76,7 +76,7 @@ class Place extends Component<PlacePropType, unknown> {
     );
   }
 
-  private FlattenPlaceTypeSummary(): Array<FlatPlaceTypeSummary> {
+  private flattenPlaceTypeSummary(): Array<FlatPlaceTypeSummary> {
     const placeTypeSummaryList = [];
     for (const placeType in this.props.placeTypeSummary) {
       placeTypeSummaryList.push({

@@ -23,9 +23,9 @@ import { StatVarHierarchy } from "../../stat_var_hierarchy/stat_var_hierarchy";
 
 interface PageStateType {
   displayName: string;
+  error: boolean;
   statVar: string;
   summary: StatVarSummary;
-  error: boolean;
 }
 
 class Page extends Component<unknown, PageStateType> {
@@ -33,9 +33,9 @@ class Page extends Component<unknown, PageStateType> {
     super(props);
     this.state = {
       displayName: "",
+      error: false,
       statVar: "",
       summary: { placeTypeSummary: {} },
-      error: false,
     };
   }
 
@@ -91,9 +91,9 @@ class Page extends Component<unknown, PageStateType> {
     if (!sv) {
       this.setState({
         displayName: "",
+        error: false,
         statVar: "",
         summary: { placeTypeSummary: {} },
-        error: false,
       });
       return;
     }
@@ -107,15 +107,15 @@ class Page extends Component<unknown, PageStateType> {
       .then(([displayNameData, summaryData]) => {
         this.setState({
           displayName: displayNameData.values.out[0].value,
+          error: false,
           statVar: sv,
           summary: summaryData[sv],
-          error: false,
         });
       })
       .catch(() => {
         this.setState({
-          statVar: sv,
           error: true,
+          statVar: sv,
         });
       });
   }

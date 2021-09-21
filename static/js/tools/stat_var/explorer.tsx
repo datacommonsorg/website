@@ -80,7 +80,9 @@ class Explorer extends Component<ExplorerPropType, unknown> {
   }
 
   private flattenProvenanceSummary(): Array<ProvenancePropType> {
-    if (!this.props.summary) return [];
+    if (!this.props.summary) {
+      return [];
+    }
     const provenanceSummaryList = [];
     for (const provId in this.props.summary.provenanceSummary) {
       provenanceSummaryList.push({
@@ -98,7 +100,9 @@ class Explorer extends Component<ExplorerPropType, unknown> {
   }
 
   private getNumberOfPlaces(): number {
-    if (!this.props.summary?.placeTypeSummary) return 0;
+    if (!this.props.summary?.placeTypeSummary) {
+      return 0;
+    }
     let count = 0;
     for (const placeType in this.props.summary.placeTypeSummary) {
       count += Number(this.props.summary.placeTypeSummary[placeType].numPlaces);
