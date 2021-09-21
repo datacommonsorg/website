@@ -15,6 +15,8 @@
  */
 
 import React, { Component } from "react";
+import { Place } from "./place";
+import { Provenance, ProvenancePropType } from "./provenance";
 import { StatVarSummary } from "../../shared/types";
 
 interface ExplorerPropType {
@@ -23,74 +25,85 @@ interface ExplorerPropType {
   summary: StatVarSummary;
 }
 
-interface PlaceTypeSummaryListElement {
-  listElement: HTMLElement;
-  numPlaces: number;
-  placeType: string;
-}
-
 class Explorer extends Component<ExplorerPropType, unknown> {
   render(): JSX.Element {
-    const placeTypeSummaryList = this.createPlaceTypeSummaryList();
+    const provenanceSummaryList = this.flattenProvenanceSummary();
     return (
-      <div id="placeholder-container">
-        <h1 className="mb-4">{this.props.displayName}</h1>
-        <p>
-          dcid: {this.props.statVar}
-          <br></br>
-          <a href={`/browser/${this.props.statVar}`}>Graph Browser node</a>
-        </p>
-        This statistical variable has observations for the following places:
-        <ul>
-          {placeTypeSummaryList.map((element) => {
-            return element.listElement;
-          })}
-        </ul>
+      <div id="stat-var-explorer">
+        <h1>{this.props.displayName}</h1>
+        <h2>
+          dcid:{" "}
+          <a
+            href={`/browser/${this.props.statVar}`}
+            target="_blank"
+            rel="noreferrer"
+          >
+            {this.props.statVar}
+          </a>
+        </h2>
+        {!this.props.summary && <div>No data available.</div>}
+        {this.props.summary?.placeTypeSummary && (
+          <h4 className="highlight-text">
+            Total number of places: {this.getNumberOfPlaces()}
+          </h4>
+        )}
+        {this.props.summary?.provenanceSummary && (
+          <h4 className="highlight-text">
+            Total number of sources: {provenanceSummaryList.length}
+          </h4>
+        )}
+        {this.props.summary?.placeTypeSummary && (
+          <div id="place-type-summary-section" className="browser-page-section">
+            <h3>Places</h3>
+            <Place
+              statVar={this.props.statVar}
+              placeTypeSummary={this.props.summary.placeTypeSummary}
+            />
+          </div>
+        )}
+        {this.props.summary?.provenanceSummary && (
+          <div id="provenance-summary-section" className="browser-page-section">
+            <h3>Sources</h3>
+            {provenanceSummaryList.map((element) => {
+              return (
+                <Provenance
+                  provId={element.provId}
+                  summary={element.summary}
+                  key={element.provId}
+                />
+              );
+            })}
+          </div>
+        )}
       </div>
     );
   }
 
-  private createPlaceTypeSummaryList(): Array<PlaceTypeSummaryListElement> {
-    const placeTypeSummaryList = [];
-    const placeTypeSummary = this.props.summary["placeTypeSummary"];
-    for (const placeType in placeTypeSummary) {
-      const numPlaces = placeTypeSummary[placeType]["numPlaces"];
-      const subject = numPlaces > 1 ? "places" : "place";
-      const message = `${numPlaces} ${subject} of type ${placeType}`;
-      const topPlaces = placeTypeSummary[placeType]["topPlaces"];
-      placeTypeSummaryList.push({
-        listElement: (
-          <li key={placeType}>
-            {message} (e.g.{" "}
-            {topPlaces.map((element, index) => {
-              const url =
-                "/tools/timeline#" +
-                `statsVar=${this.props.statVar}&place=${element["dcid"]}`;
-              const name = element["name"] || element["dcid"];
-              const delimiter = index < topPlaces.length - 1 ? ", " : "";
-              return (
-                <span key={element["dcid"]}>
-                  <a href={url}>{name}</a>
-                  {delimiter}
-                </span>
-              );
-            })}
-            )
-          </li>
-        ),
-        numPlaces,
-        placeType,
+  private flattenProvenanceSummary(): Array<ProvenancePropType> {
+    if (!this.props.summary) return [];
+    const provenanceSummaryList = [];
+    for (const provId in this.props.summary.provenanceSummary) {
+      provenanceSummaryList.push({
+        provId,
+        summary: this.props.summary.provenanceSummary[provId],
       });
     }
-    placeTypeSummaryList.sort(function (
-      a: PlaceTypeSummaryListElement,
-      b: PlaceTypeSummaryListElement
+    provenanceSummaryList.sort(function (
+      a: ProvenancePropType,
+      b: ProvenancePropType
     ): number {
-      return (
-        b.numPlaces - a.numPlaces || a.placeType.localeCompare(b.placeType)
-      );
+      return a.summary.importName.localeCompare(b.summary.importName);
     });
-    return placeTypeSummaryList;
+    return provenanceSummaryList;
+  }
+
+  private getNumberOfPlaces(): number {
+    if (!this.props.summary?.placeTypeSummary) return 0;
+    let count = 0;
+    for (const placeType in this.props.summary.placeTypeSummary) {
+      count += Number(this.props.summary.placeTypeSummary[placeType].numPlaces);
+    }
+    return count;
   }
 }
 

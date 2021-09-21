@@ -25,6 +25,7 @@ interface PageStateType {
   displayName: string;
   statVar: string;
   summary: StatVarSummary;
+  error: boolean;
 }
 
 class Page extends Component<unknown, PageStateType> {
@@ -34,6 +35,7 @@ class Page extends Component<unknown, PageStateType> {
       displayName: "",
       statVar: "",
       summary: { placeTypeSummary: {} },
+      error: false,
     };
   }
 
@@ -61,7 +63,10 @@ class Page extends Component<unknown, PageStateType> {
         <div id="plot-container">
           <div className="container">
             {!this.state.statVar && <Info />}
-            {this.state.statVar && (
+            {this.state.error && this.state.statVar && (
+              <div>Error fetching data for {this.state.statVar}.</div>
+            )}
+            {!this.state.error && this.state.statVar && (
               <Explorer
                 statVar={this.state.statVar}
                 displayName={this.state.displayName}
@@ -88,6 +93,7 @@ class Page extends Component<unknown, PageStateType> {
         displayName: "",
         statVar: "",
         summary: { placeTypeSummary: {} },
+        error: false,
       });
       return;
     }
@@ -100,13 +106,17 @@ class Page extends Component<unknown, PageStateType> {
     Promise.all([displayNamePromise, summaryPromise])
       .then(([displayNameData, summaryData]) => {
         this.setState({
-          displayName: displayNameData["values"]["out"][0]["value"],
+          displayName: displayNameData.values.out[0].value,
           statVar: sv,
           summary: summaryData[sv],
+          error: false,
         });
       })
       .catch(() => {
-        alert("Error fetching data.");
+        this.setState({
+          statVar: sv,
+          error: true,
+        });
       });
   }
 }

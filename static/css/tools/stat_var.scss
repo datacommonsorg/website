@@ -15,10 +15,79 @@
  */
 @import "base_tools";
 @import "stat_var_widget";
+@import "../browser";
+@import "../place/place";
 
 #main-pane #plot-container {
   background: #f8f8f8;
   direction: initial;
-  padding: 2rem;
   overflow-y: scroll;
+  padding: 2rem;
+}
+
+#stat-var-explorer h2 {
+  color: var(--secondary);
+  font-size: 1rem;
+  font-weight: 600;
+  line-height: 1.2rem;
+  margin-bottom: 0.5rem;
+  text-transform: none;
+}
+
+#stat-var-explorer .highlight-text {
+  color: var(--secondary);
+  font-size: 0.9rem;
+  font-weight: 300;
+  line-height: 1.4rem;
+}
+
+#stat-var-explorer .type-column {
+  width: 30%
+}
+
+#stat-var-explorer .number-column {
+  text-align: right;
+}
+
+#place-type-summary-section
+.node-table tr > td:last-of-type,
+.node-table tr > th:last-of-type {
+  width: 50%;
+}
+
+#place-type-summary-section a {
+  color: #600;
+  text-decoration: none;
+}
+
+#place-type-summary-section a:hover {
+  text-decoration: underline;
+}
+
+#provenance-summary-section 
+.provenance-summary {
+  margin: 15px 12px;
+}
+
+#provenance-summary-section h4 {
+  font-size: 1rem;
+  margin: 0 0 5px;
+}
+
+#provenance-summary-section 
+.series-key-column {
+  width: 25%;
+}
+
+#provenance-summary-section .dc-aggregate {
+  font-style: italic;
+}
+
+#provenance-summary-section .detail-text {
+  font-size: 0.7rem;
+}
+
+#date-range-separator {
+  color: var(--gray);
+  font-weight: bolder;
 }
