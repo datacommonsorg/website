@@ -14,8 +14,12 @@
  * limitations under the License.
  */
 
+/**
+ * Component that contains the content for the Stat Var Explorer.
+ */
+
 import React, { Component } from "react";
-import { Place } from "./place";
+import { Places } from "./places";
 import { Provenance, ProvenancePropType } from "./provenance";
 import { StatVarSummary } from "../../shared/types";
 
@@ -55,7 +59,7 @@ class Explorer extends Component<ExplorerPropType, unknown> {
         {this.props.summary?.placeTypeSummary && (
           <div id="place-type-summary-section" className="browser-page-section">
             <h3>Places</h3>
-            <Place
+            <Places
               statVar={this.props.statVar}
               placeTypeSummary={this.props.summary.placeTypeSummary}
             />

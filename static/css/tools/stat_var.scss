@@ -15,6 +15,7 @@
  */
 @import "base_tools";
 @import "stat_var_widget";
+// TODO: Filter out shared css.
 @import "../browser";
 @import "../place/place";
 
@@ -83,6 +84,16 @@
 
 #provenance-summary-section .detail-text {
   font-size: 0.7rem;
+}
+
+#provenance-summary-section ul {
+  list-style-type: none;
+  margin: 0;
+  padding: 0;
+}
+
+#provenance-summary-section li {
+  margin: 0;
 }
 
 #date-range-separator {

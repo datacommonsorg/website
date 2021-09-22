@@ -14,11 +14,15 @@
  * limitations under the License.
  */
 
+/**
+ * Places table component for Stat Var Explorer.
+ */
+
 import React, { Component } from "react";
 import { formatNumber } from "../../i18n/i18n";
 import { PlaceTypeSummary } from "../../shared/types";
 
-interface PlacePropType {
+interface PlacesPropType {
   statVar: string;
   placeTypeSummary: { [placeType: string]: PlaceTypeSummary };
 }
@@ -28,7 +32,7 @@ interface FlatPlaceTypeSummary {
   summary: PlaceTypeSummary;
 }
 
-class Place extends Component<PlacePropType, unknown> {
+class Places extends Component<PlacesPropType, unknown> {
   render(): JSX.Element {
     const placeTypeSummaryList = this.flattenPlaceTypeSummary();
     return (
@@ -94,4 +98,4 @@ class Place extends Component<PlacePropType, unknown> {
   }
 }
 
-export { Place };
+export { Places };

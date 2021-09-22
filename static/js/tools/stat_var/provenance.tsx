@@ -14,6 +14,10 @@
  * limitations under the License.
  */
 
+/**
+ * Provenance table component for Stat Var Explorer.
+ */
+
 import React, { Component } from "react";
 import { formatNumber } from "../../i18n/i18n";
 import { ProvenanceSummary } from "../../shared/types";
@@ -29,8 +33,8 @@ class Provenance extends Component<ProvenancePropType, unknown> {
       <div className="card p-0">
         <div className="provenance-summary">
           <h4>{this.props.summary.importName}</h4>
-          <div className="detail-text">
-            <div>
+          <ul className="detail-text">
+            <li>
               dcid:{" "}
               <a
                 href={`/browser/${this.props.provId}`}
@@ -39,15 +43,13 @@ class Provenance extends Component<ProvenancePropType, unknown> {
               >
                 {this.props.provId}
               </a>
-            </div>
-            <div>Total observations: {this.props.summary.numObservations}</div>
-            <div>Total time series: {this.props.summary.numTimeSeries}</div>
+            </li>
+            <li>Total observations: {this.props.summary.numObservations}</li>
+            <li>Total time series: {this.props.summary.numTimeSeries}</li>
             {this.props.summary.releaseFrequency && (
-              <div>
-                Release frequency: {this.props.summary.releaseFrequency}
-              </div>
+              <li>Release frequency: {this.props.summary.releaseFrequency}</li>
             )}
-          </div>
+          </ul>
         </div>
         <table className="node-table">
           <tbody>
@@ -65,33 +67,31 @@ class Provenance extends Component<ProvenancePropType, unknown> {
                     {Object.keys(element.seriesKey).length === 0 && (
                       <div>--</div>
                     )}
-                    <div className="detail-text">
+                    <ul className="detail-text">
                       {element.seriesKey.measurementMethod && (
-                        <div>
+                        <li>
                           Measurement method:{" "}
                           {element.seriesKey.measurementMethod}
-                        </div>
+                        </li>
                       )}
                       {element.seriesKey.observationPeriod && (
-                        <div>
+                        <li>
                           Observation period:{" "}
                           {element.seriesKey.observationPeriod}
-                        </div>
+                        </li>
                       )}
                       {element.seriesKey.scalingFactor && (
-                        <div>
+                        <li>
                           Scaling factor: {element.seriesKey.scalingFactor}
-                        </div>
+                        </li>
                       )}
                       {element.seriesKey.unit && (
-                        <div>Unit: {element.seriesKey.unit}</div>
+                        <li>Unit: {element.seriesKey.unit}</li>
                       )}
                       {element.seriesKey.isDcAggregate && (
-                        <div className="dc-aggregate">
-                          Data Commons Aggregate
-                        </div>
+                        <li className="dc-aggregate">Data Commons Aggregate</li>
                       )}
-                    </div>
+                    </ul>
                   </td>
                   <td className="number-column">
                     {formatNumber(element.numObservations)}
@@ -105,11 +105,11 @@ class Provenance extends Component<ProvenancePropType, unknown> {
                     <span>{element.latestDate}</span>
                   </td>
                   <td className="type-column">
-                    <div>
+                    <ul>
                       {this.getPlaceTypes(index).map((placeType) => {
-                        return <div key={placeType}>{placeType}</div>;
+                        return <li key={placeType}>{placeType}</li>;
                       })}
-                    </div>
+                    </ul>
                   </td>
                 </tr>
               );

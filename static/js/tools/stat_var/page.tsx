@@ -14,6 +14,10 @@
  * limitations under the License.
  */
 
+/**
+ * Top-level wrapper component for Stat Var Explorer page.
+ */
+
 import axios from "axios";
 import React, { Component } from "react";
 import { Explorer } from "./explorer";
