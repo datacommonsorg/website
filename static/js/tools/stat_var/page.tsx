@@ -14,6 +14,10 @@
  * limitations under the License.
  */
 
+/**
+ * Top-level wrapper component for Stat Var Explorer page.
+ */
+
 import axios from "axios";
 import React, { Component } from "react";
 import { Explorer } from "./explorer";
@@ -23,6 +27,7 @@ import { StatVarHierarchy } from "../../stat_var_hierarchy/stat_var_hierarchy";
 
 interface PageStateType {
   displayName: string;
+  error: boolean;
   statVar: string;
   summary: StatVarSummary;
 }
@@ -32,6 +37,7 @@ class Page extends Component<unknown, PageStateType> {
     super(props);
     this.state = {
       displayName: "",
+      error: false,
       statVar: "",
       summary: { placeTypeSummary: {} },
     };
@@ -61,7 +67,10 @@ class Page extends Component<unknown, PageStateType> {
         <div id="plot-container">
           <div className="container">
             {!this.state.statVar && <Info />}
-            {this.state.statVar && (
+            {this.state.error && this.state.statVar && (
+              <div>Error fetching data for {this.state.statVar}.</div>
+            )}
+            {!this.state.error && this.state.statVar && (
               <Explorer
                 statVar={this.state.statVar}
                 displayName={this.state.displayName}
@@ -86,6 +95,7 @@ class Page extends Component<unknown, PageStateType> {
     if (!sv) {
       this.setState({
         displayName: "",
+        error: false,
         statVar: "",
         summary: { placeTypeSummary: {} },
       });
@@ -100,13 +110,17 @@ class Page extends Component<unknown, PageStateType> {
     Promise.all([displayNamePromise, summaryPromise])
       .then(([displayNameData, summaryData]) => {
         this.setState({
-          displayName: displayNameData["values"]["out"][0]["value"],
+          displayName: displayNameData.values.out[0].value,
+          error: false,
           statVar: sv,
           summary: summaryData[sv],
         });
       })
       .catch(() => {
-        alert("Error fetching data.");
+        this.setState({
+          error: true,
+          statVar: sv,
+        });
       });
   }
 }
