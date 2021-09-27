@@ -14,6 +14,17 @@
  * limitations under the License.
  */
 
+export const topics = [
+  "crime",
+  "demographics",
+  "economics",
+  "education",
+  "environment",
+  "equity",
+  "health",
+  "housing",
+];
+
 function randDomId(): string {
   return Math.random()
     .toString(36)

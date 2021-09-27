@@ -1,0 +1,66 @@
+[
+  {
+    "category": "Crime",
+    "titleId": "CHART_TITLE-Total_crime",
+    "title": "Total crime",
+    "description": "Total number of criminal incidents",
+    "statsVars": ["Count_CriminalActivities_CombinedCrime"],
+    "isOverview": true,
+    "relatedChart": {
+      "titleId": "CHART_TITLE-Crime_rate",
+      "title": "Crimes per 100,000 people",
+      "description": "Total number of criminal incidents per 100,000 people",
+      "scale": true,
+      "denominator": "Count_Person",
+      "scaling": 100000
+    }
+  },
+  {
+    "category": "Crime",
+    "titleId": "CHART_TITLE-Violent_crime",
+    "title": "Violent crime",
+    "description": "Total number of violent crime incidents",
+    "statsVars": ["Count_CriminalActivities_ViolentCrime"],
+    "isOverview": true,
+    "relatedChart": {
+      "titleId": "CHART_TITLE-Violent_crime_rate",
+      "title": "Violent crimes per 100,000 people",
+      "description": "Total number of violent crime incidents per 100,000 people",
+      "scale": true,
+      "denominator": "Count_Person",
+      "scaling": 100000
+    }
+  },
+  {
+    "category": "Crime",
+    "titleId": "CHART_TITLE-Property_crime",
+    "title": "Property crime",
+    "description": "Total number of property crime incidents",
+    "statsVars": ["Count_CriminalActivities_PropertyCrime"],
+    "isOverview": true,
+    "relatedChart": {
+      "titleId": "CHART_TITLE-Property_crime_rate",
+      "title": "Property crimes per 100,000 people",
+      "description": "Total number of property crime incidents per 100,000 people",
+      "scale": true,
+      "denominator": "Count_Person",
+      "scaling": 100000
+    }
+  },
+  {
+    "category": "Crime",
+    "titleId": "CHART_TITLE-Arson",
+    "title": "Arson",
+    "description": "Total number of arson incidents",
+    "statsVars": ["Count_CriminalActivities_Arson"],
+    "isOverview": true,
+    "relatedChart": {
+      "titleId": "CHART_TITLE-Arson_rate",
+      "title": "Arsons per 100,000 people",
+      "description": "Total number of arson incidents per 100,000 people",
+      "scale": true,
+      "denominator": "Count_Person",
+      "scaling": 100000
+    }
+  }
+]

@@ -15,24 +15,35 @@
  */
 
 import { getStatsVarLabel } from "./stats_var_labels";
-import chartConfig from "../../../server/chart_config.json";
 import { loadLocaleData } from "../i18n/i18n";
 import enLabels from "../i18n/strings/en/stats_var_labels.json";
+import { topics } from "./util";
 
 test("stats var label: marked for translation", async () => {
-  for (const chart of chartConfig) {
-    if (!("aggregate" in chart)) {
-      for (const statsVar of chart.statsVars) {
-        expect(Boolean(enLabels[statsVar])).toBe(true);
+  for (const topic of topics) {
+    const chartConfig = await import(
+      `../../../server/chart_config/${topic}.json`
+    );
+    const category = chartConfig[0].cateogry;
+    for (const chart of chartConfig) {
+      expect(chart.category).toBe(category);
+      if (!("aggregate" in chart)) {
+        for (const statsVar of chart.statsVars) {
+          expect(Boolean(enLabels[statsVar])).toBe(true);
+        }
       }
     }
   }
 });
 
-test("stats var label: compiled to en", () => {
-  loadLocaleData("en", [
+test("stats var label: compiled to en", async () => {
+  await loadLocaleData("en", [
     import("../i18n/compiled-lang/en/stats_var_labels.json"),
-  ]).then(() => {
+  ]);
+  for (const topic of topics) {
+    const chartConfig = await import(
+      `../../../server/chart_config/${topic}.json`
+    );
     for (const chart of chartConfig) {
       if (!("aggregate" in chart)) {
         for (const statsVar of chart.statsVars) {
@@ -41,17 +52,21 @@ test("stats var label: compiled to en", () => {
         }
       }
     }
-    expect(
-      getStatsVarLabel("Count_HousingUnit_HouseholderRaceWhiteAlone")
-    ).toEqual("White Alone");
-  });
+  }
+  expect(
+    getStatsVarLabel("Count_HousingUnit_HouseholderRaceWhiteAlone")
+  ).toEqual("White Alone");
 });
 
-test("stats var label: compiled to es", () => {
+test("stats var label: compiled to es", async () => {
   loadLocaleData("es", [
     import("../i18n/compiled-lang/es/stats_var_labels.json"),
     import("../i18n/compiled-lang/en/stats_var_labels.json"),
-  ]).then(() => {
+  ]);
+  for (const topic of topics) {
+    const chartConfig = await import(
+      `../../../server/chart_config/${topic}.json`
+    );
     for (const chart of chartConfig) {
       if (!("aggregate" in chart)) {
         for (const statsVar of chart.statsVars) {
@@ -60,8 +75,8 @@ test("stats var label: compiled to es", () => {
         }
       }
     }
-    expect(
-      getStatsVarLabel("Count_HousingUnit_HouseholderRaceWhiteAlone")
-    ).toEqual("White Alone");
-  });
+  }
+  expect(
+    getStatsVarLabel("Count_HousingUnit_HouseholderRaceWhiteAlone")
+  ).toEqual("White Alone");
 });

@@ -92,8 +92,12 @@ def create_app():
     app.register_blueprint(translator.bp)
 
     # Load chart config
-    with open('chart_config.json', encoding='utf-8') as f:
-        chart_config = json.load(f)
+    chart_config = []
+    for filename in os.listdir("chart_config"):
+        if filename.endswith(".json"):
+            with open(os.path.join('chart_config', filename),
+                      encoding='utf-8') as f:
+                chart_config.extend(json.load(f))
     app.config['CHART_CONFIG'] = chart_config
 
     if not cfg.TEST and not cfg.LITE:
