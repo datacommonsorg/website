@@ -52,7 +52,9 @@ def about():
 def faq():
     current_date = date.today().strftime('%-d %b %Y')
     current_year = date.today().strftime('%Y')
-    return render_template('static/faq.html', current_date=current_date, current_year=current_year)
+    return render_template('static/faq.html',
+                           current_date=current_date,
+                           current_year=current_year)
 
 
 @bp.route('/disclaimers')
