@@ -16,14 +16,14 @@
 
 // This has to be in sync with server/__init__.py
 export const placeExplorerCategories = [
-  "crime",
-  "demographics",
   "economics",
-  "education",
-  "environment",
-  "equity",
   "health",
+  "equity",
+  "crime",
+  "education",
+  "demographics",
   "housing",
+  "environment",
 ];
 
 function randDomId(): string {
