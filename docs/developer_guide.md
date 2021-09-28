@@ -222,7 +222,7 @@ the same region.
 
 ### Adding new charts
 
-- Update server/chart_config.json with the new chart. Manually restart the flask
+- Update json file in server/chart_config with the new chart. Manually restart the flask
   or minikube instance to load the config.
 
 - If required, update localization related files. See localization.md for

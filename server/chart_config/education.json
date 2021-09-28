@@ -1,0 +1,45 @@
+[
+  {
+    "category": "Education",
+    "titleId": "CHART_TITLE-Educational_attainment",
+    "title": "Education attainment",
+    "description": "Number of people who have attained various educational milestones, e.g. completed high school or have a bachelor's degree",
+    "statsVars": [
+      "Count_Person_EducationalAttainmentNoSchoolingCompleted",
+      "Count_Person_EducationalAttainmentRegularHighSchoolDiploma",
+      "Count_Person_EducationalAttainmentBachelorsDegree",
+      "Count_Person_EducationalAttainmentMastersDegree",
+      "Count_Person_EducationalAttainmentDoctorateDegree"
+    ],
+    "isOverview": true,
+    "relatedChart": {
+      "titleId": "CHART_TITLE-Educational_attainment_rate",
+      "title": "Education attainment rate",
+      "description": "Percentage of the adult population who have attained various educational milestones, e.g. completed high school or have a bachelor's degree",
+      "scale": true,
+      "denominator": "Count_Person_25OrMoreYears",
+      "scaling": 100,
+      "unit": "%"
+    }
+  },
+  {
+    "category": "Education",
+    "titleId": "CHART_TITLE-School_enrollment",
+    "title": "School enrollment",
+    "description": "Number of people who are enrolled in school, vs not enrolled in school",
+    "statsVars": [
+      "Count_Person_EnrolledInSchool",
+      "Count_Person_NotEnrolledInSchool"
+    ],
+    "isOverview": true,
+    "relatedChart": {
+      "titleId": "CHART_TITLE-School_enrollment_rate",
+      "title": "School enrollment rate",
+      "description": "Percentage of people who are enrolled in school, vs not enrolled in school",
+      "scale": true,
+      "denominator": "Count_Person_3OrMoreYears",
+      "scaling": 100,
+      "unit": "%"
+    }
+  }
+]
