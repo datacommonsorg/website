@@ -249,8 +249,8 @@ the same region.
      [en/stats_var_labels.json](../static/js/i18n/strings/en/stats_var_labels.json) and [en/stats_var_titles.json](../static/js/i18n/strings/en/stats_var_titles.json)
 
    - If a new unit is required, update:
-     - [i18n.tsx](../static/js/i18n/i18n.tsx) as well as
-     - [en/units.json](static/js/i18n/strings/en/units.json) with display names and labels for the unit.
+     - [i18n.tsx](../static/js/i18n/i18n.tsx)
+     - [en/units.json](static/js/i18n/strings/en/units.json) (with display names and labels for the unit)
 
    Note: Please add very detailed descriptions to guide our translators. See localization.md for more details.
 
@@ -261,6 +261,8 @@ the same region.
    ```
 
 1. Manually restart the flask or minikube instance to load the config and translations.
+
+1. Test the data on a place page!
 
 ### Debugging Webdriver tests
 
