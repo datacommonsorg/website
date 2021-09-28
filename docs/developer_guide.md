@@ -222,7 +222,7 @@ the same region.
 
 ### Adding new charts
 
-1. Update server/chart_config.json with the new chart.
+1. Update server/chart_config/`<category>`.json with the new chart.
    ```javascript
       {
         "category": "", // The top level category this chart belongs to. Order of charts in the spec matters.
@@ -241,7 +241,7 @@ the same region.
     ```
 
 1. Update related files.
-   - If adding a new category, create a new config file in [server/chart_config](../server/chart_config) and:
+   - If adding a new category, create a new config file in [server/chart_config](../server/chart_config) and add the new category to:
      - [static/js/shared/util.ts](../static/js/shared/util.ts)
      - [server/__init__.py](../server/__init__.py)
 
@@ -260,7 +260,7 @@ the same region.
    ./scripts/compiled_messages.sh
    ```
 
-1. Manually restart the flask or minikube instance to load the config and translations.
+1. IMPORTANT: Manually restart the flask or minikube instance to reload the config and translations.
 
 1. Test the data on a place page!
 
