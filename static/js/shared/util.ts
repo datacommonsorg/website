@@ -14,7 +14,8 @@
  * limitations under the License.
  */
 
-export const topics = [
+// This has to be in sync with server/__init__.py
+export const placeExplorerCategories = [
   "crime",
   "demographics",
   "economics",

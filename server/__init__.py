@@ -32,7 +32,8 @@ import lib.i18n as i18n
 
 propagator = google_cloud_format.GoogleCloudFormatPropagator()
 
-RANKED_CATEGORIES = [
+# This has to be in sync with static/js/shared/util.ts
+PLACE_EXPLORER_CATEGORIES = [
     "economics",
     "health",
     "equity",
@@ -104,7 +105,7 @@ def create_app():
 
     # Load chart config
     chart_config = []
-    for filename in RANKED_CATEGORIES:
+    for filename in PLACE_EXPLORER_CATEGORIES:
         with open(os.path.join('chart_config', filename + '.json'),
                   encoding='utf-8') as f:
             chart_config.extend(json.load(f))
