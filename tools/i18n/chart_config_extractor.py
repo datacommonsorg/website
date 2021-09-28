@@ -22,7 +22,7 @@ Though this should be run with the overall extract script:
 import json
 import os
 
-CHART_CONFIG_RELATIVE_PATH = '../../server/chart_config.json'
+CHART_CONFIG_RELATIVE_PATH = '../../server/chart_config'
 MESSAGES_POT_RELATIVE_PATH = '../../server/i18n/all.pot'
 
 
@@ -51,10 +51,14 @@ def maybe_add_message(messages, id, message):
 
 def main():
     basepath = os.path.dirname(__file__)
-    chart_config_path = os.path.abspath(
+    chart_config_dir = os.path.abspath(
         os.path.join(basepath, CHART_CONFIG_RELATIVE_PATH))
-    with open(chart_config_path, 'r') as f:
-        chart_config = json.load(f)
+    chart_config = []
+    for filename in os.listdir(chart_config_dir):
+        if filename.endswith(".json"):
+            with open(os.path.join(chart_config_dir, filename),
+                      encoding='utf-8') as f:
+                chart_config.extend(json.load(f))
 
     messages = {}
     categories = set()

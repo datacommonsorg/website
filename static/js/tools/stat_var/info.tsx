@@ -14,6 +14,10 @@
  * limitations under the License.
  */
 
+/**
+ * Default content for Stat Var Explorer when no stat var is selected.
+ */
+
 import React, { Component } from "react";
 
 class Info extends Component {

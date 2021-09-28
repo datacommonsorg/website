@@ -86,13 +86,39 @@ interface PlaceSummary {
   personCount: number;
 }
 
-interface PlaceTypeSummary {
+export interface PlaceTypeSummary {
   numPlaces: number;
   topPlaces: PlaceSummary[];
 }
 
+interface SeriesKey {
+  measurementMethod?: string;
+  observationPeriod?: string;
+  scalingFactor?: string;
+  unit?: string;
+  isDcAggregate?: boolean;
+}
+
+interface SeriesSummary {
+  seriesKey: SeriesKey;
+  earliestDate: string;
+  latestDate: string;
+  numObservations: number;
+  numTimeSeries: number;
+  placeTypeSummary: { [placeType: string]: PlaceTypeSummary };
+}
+
+export interface ProvenanceSummary {
+  importName: string;
+  numObservations: number;
+  numTimeSeries: number;
+  releaseFrequency?: number;
+  seriesSummary: SeriesSummary[];
+}
+
 export interface StatVarSummary {
   placeTypeSummary: { [placeType: string]: PlaceTypeSummary };
+  provenanceSummary?: { [provId: string]: ProvenanceSummary };
 }
 
 export interface GraphNode {
