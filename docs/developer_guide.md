@@ -222,18 +222,49 @@ the same region.
 
 ### Adding new charts
 
-- Update json file in server/chart_config with the new chart. Manually restart the flask
-  or minikube instance to load the config.
+- Update server/chart_config.json with the new chart.
+  - ```json
+      {
+        "category": "", // The top level category this chart belongs to. Order of charts in the spec matters.
+        "titleId": "", // Strictly for translation purposes.
+        "title": "", // Default (EN) display string
+        "description": "", // Strictly for translation purposes.
+        "statsVars": [""], // List of stat vars to include in the chart
+        "isOverview": true, // Optional - default false. If the chart should be added to the overview page.
+        "isChoropleth": true, // Optional - default false. If a map should be used to display the data
+        "unit": "",
+        "scaling": 100,
+        "relatedChart": {  // Defined if there should be comparison charts added
+          // All chart fields from above can be specified. If unspecified, it will be inherited.
+        }
+      }
+    ```
+  - If new stat vars are introduced, also update these files:
+    - static/js/i18n/strings/en/stat*var*[labels|titles].json.
+  - If adding new units, also add translations to ___
 
-- If required, update localization related files. See localization.md for
-  further instructions:
+- Update related files.
 
-  - If a new stat var is introduced, update
-    static/js/i18n/strings/en/stat*var*[labels|titles].json.
+  - If adding a new category, create a new config file in [server/chart_config](../server/chart_config) and:
+    - [static/js/shared/util.ts](../static/js/shared/util.ts)
+    - [server/__init__.py](../server/__init__.py)
 
-  - If a new unit is required, update static/js/i18n/i18n.tsx as well as
-    static/js/i18n/strings/en/units.json with display names and labels for the
-    unit.
+  - If a new stat var is introduced, also update:
+    [en/stats_var_labels.json](../static/js/i18n/strings/en/stats_var_labels.json) and [en/stats_var_titles.json](../static/js/i18n/strings/en/stats_var_titles.json)
+
+  - If a new unit is required, update:
+    - [i18n.tsx](../static/js/i18n/i18n.tsx) as well as
+    - [en/units.json](static/js/i18n/strings/en/units.json) with display names and labels for the unit.
+
+  Note: Please add very detailed descriptions to guide our translators. See localization.md for more details.
+
+- Run these commands:
+  ```bash
+  ./scripts/extract_messages.sh
+  ./scripts/compiled_messages.sh
+  ```
+
+- Manually restart the flask or minikube instance to load the config and translations.
 
 ### Debugging Webdriver tests
 
