@@ -222,7 +222,7 @@ the same region.
 
 ### Adding new charts
 
-1. Update server/chart_config/`<category>`.json with the new chart.
+1. Update [server/chart_config/](../server/chart_config)`<category>.json` with the new chart.
    ```javascript
       {
         "category": "", // The top level category this chart belongs to. Order of charts in the spec matters.
@@ -243,14 +243,15 @@ the same region.
 1. Update related files.
    - If adding a new category, create a new config file in [server/chart_config](../server/chart_config) and add the new category to:
      - [static/js/shared/util.ts](../static/js/shared/util.ts)
-     - [server/__init__.py](../server/__init__.py)
+     - [server/\_\_init\_\_.py](../server/__init__.py)
 
    - If a new stat var is introduced, also update:
-     [en/stats_var_labels.json](../static/js/i18n/strings/en/stats_var_labels.json) and [en/stats_var_titles.json](../static/js/i18n/strings/en/stats_var_titles.json)
+     - [static/js/i18n/strings/en/stats_var_labels.json](../static/js/i18n/strings/en/stats_var_labels.json)
+     - [static/js/i18n/strings/en/stats_var_titles.json](../static/js/i18n/strings/en/stats_var_titles.json)
 
    - If a new unit is required, update:
-     - [i18n.tsx](../static/js/i18n/i18n.tsx)
-     - [en/units.json](static/js/i18n/strings/en/units.json) (with display names and labels for the unit)
+     - [static/js/i18n/i18n.tsx](../static/js/i18n/i18n.tsx)
+     - [static/js/i18n/strings/*/units.json](static/js/i18n/strings/en/units.json) (with display names and labels for the unit in **ALL** languages)
 
    Note: Please add very detailed descriptions to guide our translators. See localization.md for more details.
 
@@ -260,7 +261,7 @@ the same region.
    ./scripts/compiled_messages.sh
    ```
 
-1. *IMPORTANT*: Manually restart the flask or minikube instance to reload the config and translations.
+1. **IMPORTANT**: Manually restart the flask or minikube instance to reload the config and translations.
 
 1. Test the data on a place page!
 
