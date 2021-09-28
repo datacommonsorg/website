@@ -223,7 +223,7 @@ the same region.
 ### Adding new charts
 
 - Update server/chart_config.json with the new chart.
-  - ```json
+  - ```javascript
       {
         "category": "", // The top level category this chart belongs to. Order of charts in the spec matters.
         "titleId": "", // Strictly for translation purposes.
