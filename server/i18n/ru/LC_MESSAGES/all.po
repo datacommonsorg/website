@@ -196,6 +196,9 @@ msgstr "самые богатые и бедные округи Калифорн�
 msgid "Scatter Plot Explorer"
 msgstr "Просмотр точечных диаграмм"
 
+msgid "Scatter Plots"
+msgstr ""
+
 msgid "See API documentation."
 msgstr "Смотреть документацию по API"
 
@@ -207,6 +210,9 @@ msgstr "Штаты в США"
 
 msgid "Terms and Conditions"
 msgstr "Условия использования"
+
+msgid "Timeline Charts"
+msgstr ""
 
 msgid "Timelines Explorer"
 msgstr "Timelines Explorer"
@@ -244,6 +250,9 @@ msgstr "по штату"
 msgid "in United States"
 msgstr "в США"
 
+msgid "CHART_TITLE-Air_quality_index"
+msgstr "Air quality index (AQI)"
+
 msgid "CHART_TITLE-Alcohol_consumption_per_capita"
 msgstr "Потребление алкоголя на душу населения (в год)"
 
@@ -258,6 +267,9 @@ msgstr "Процент людей с неоконченным высшим об�
 
 msgid "CHART_TITLE-Bachelors_degree_rate_gender"
 msgstr "Процент имеющих степень бакалавра людей по полу"
+
+msgid "CHART_TITLE-CHART_CATEGORY-Climate"
+msgstr "Climate"
 
 msgid "CHART_TITLE-CHART_CATEGORY-Crime"
 msgstr "Преступления"
@@ -645,7 +657,4 @@ msgstr "Заработок в месяц: город и сельская мес�
 
 msgid "CHART_TITLE-Worker-vs-nonworker-population"
 msgstr "Доля работающих и неработающих"
-
-msgid "CHART_TITLE-CHART_CATEGORY-Overview"
-msgstr "Обзор"
 

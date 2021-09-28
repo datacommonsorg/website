@@ -196,6 +196,9 @@ msgstr "カリフォルニア州の最も富裕な郡と最も貧しい郡"
 msgid "Scatter Plot Explorer"
 msgstr "散布図エクスプローラ"
 
+msgid "Scatter Plots"
+msgstr ""
+
 msgid "See API documentation."
 msgstr "API ドキュメントをご覧ください。"
 
@@ -207,6 +210,9 @@ msgstr "米国の州"
 
 msgid "Terms and Conditions"
 msgstr "利用規約"
+
+msgid "Timeline Charts"
+msgstr ""
 
 msgid "Timelines Explorer"
 msgstr "タイムライン エクスプローラ"
@@ -244,6 +250,9 @@ msgstr "州別"
 msgid "in United States"
 msgstr "米国内"
 
+msgid "CHART_TITLE-Air_quality_index"
+msgstr "Air quality index (AQI)"
+
 msgid "CHART_TITLE-Alcohol_consumption_per_capita"
 msgstr "1 人あたりのアルコール消費量（年間）"
 
@@ -258,6 +267,9 @@ msgstr "準学士号の取得率（性別ごと）"
 
 msgid "CHART_TITLE-Bachelors_degree_rate_gender"
 msgstr "学士号の取得率（性別ごと）"
+
+msgid "CHART_TITLE-CHART_CATEGORY-Climate"
+msgstr "Climate"
 
 msgid "CHART_TITLE-CHART_CATEGORY-Crime"
 msgstr "犯罪"
@@ -645,7 +657,4 @@ msgstr "労働者の賃金（月単位）: 都市部と農村部の比較"
 
 msgid "CHART_TITLE-Worker-vs-nonworker-population"
 msgstr "労働者と非労働者の人口の比較"
-
-msgid "CHART_TITLE-CHART_CATEGORY-Overview"
-msgstr "概要"
 
