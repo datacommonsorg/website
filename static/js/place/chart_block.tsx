@@ -437,11 +437,7 @@ class ChartBlock extends React.Component<ChartBlockPropType> {
         );
       }
     }
-    return (
-      <>
-        {chartElements}
-      </>
-    );
+    return <>{chartElements}</>;
   }
 }
 
