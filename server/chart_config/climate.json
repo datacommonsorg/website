@@ -2,7 +2,7 @@
   {
     "category": "Climate",
     "titleId": "CHART_TITLE-Air_quality_index",
-    "title": "Air quality index (AQI)",
+    "title": "Air quality index",
     "description": "Air quality index",
     "statsVars": ["AirQualityIndex_AirPollutant"],
     "isOverview": true,

@@ -1,4 +1,10 @@
 {
+  "AirQualityIndex_AirPollutant": [
+    {
+      "type": 0,
+      "value": "AQI"
+    }
+  ],
   "Amount_Consumption_Alcohol_15OrMoreYears_AsFractionOf_Count_Person_15OrMoreYears": [
     {
       "type": 0,

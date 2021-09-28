@@ -251,7 +251,7 @@ msgid "in United States"
 msgstr "aux États-Unis"
 
 msgid "CHART_TITLE-Air_quality_index"
-msgstr "Air quality index (AQI)"
+msgstr "Air quality index"
 
 msgid "CHART_TITLE-Alcohol_consumption_per_capita"
 msgstr "Consommation annuelle d'alcool par habitant"

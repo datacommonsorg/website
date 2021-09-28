@@ -1058,5 +1058,9 @@
   "indianCensus/Count_Person_Religion_Sikh": {
     "defaultMessage": "Sikh",
     "description": "Label used to describe statistical variables in chart legends, string should be short. Describes a population that practice the relgion."
+  },
+  "AirQualityIndex_AirPollutant": {
+    "defaultMessage": "AQI",
+    "description": "Label used to describe statistical variables in chart legends, string should be short. Describes the air quality index."
   }
 }

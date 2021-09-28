@@ -338,7 +338,7 @@ msgstr "in United States"
 
 #. Title of a place chart: Air quality index
 msgid "CHART_TITLE-Air_quality_index"
-msgstr "Air quality index (AQI)"
+msgstr "Air quality index"
 
 #. Title of a place chart: Total amount of alcohol consumed per person anually
 msgid "CHART_TITLE-Alcohol_consumption_per_capita"
