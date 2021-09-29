@@ -49,7 +49,7 @@ class Places extends Component<PlacesPropType, unknown> {
                 <tr key={element.placeType}>
                   <td className="type-column">{element.placeType}</td>
                   <td className="number-column">
-                    {formatNumber(element.summary.numPlaces)}
+                    {formatNumber(element.summary.numPlaces, undefined, true)}
                   </td>
                   <td>
                     {element.summary.topPlaces.map((place, index) => {

@@ -234,3 +234,10 @@ def get_statvar_summary():
     return Response(json.dumps(result.get("statVarSummary", {})),
                     200,
                     mimetype='application/json')
+
+
+@bp.route('/api/stats/propvals/<path:prop>/<path:dcids>')
+def get_property_value(dcids, prop):
+    """Returns the property values for given node dcids and property label."""
+    response = dc.get_property_values(dcids.split('^'), prop)
+    return Response(json.dumps(response), 200, mimetype='application/json')
