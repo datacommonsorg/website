@@ -20,7 +20,7 @@ set -e
 cd static
 npm list @formatjs/cli || npm install formatjs
 
-# for LOCALE in de en es fr hi it ja ko pt-BR ru zh-CN;
+# for LOCALE in de en es fr hi it ja ko ru;
 for LOCALE in de en es fr hi it ja ko ru;
 do
   npm run compile -- js/i18n/strings/$LOCALE --ast js/i18n/compiled-lang/$LOCALE

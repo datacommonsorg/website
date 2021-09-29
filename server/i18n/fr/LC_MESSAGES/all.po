@@ -343,6 +343,9 @@ msgstr "Crimes par 100 000 habitants"
 msgid "CHART_TITLE-Cyclones"
 msgstr "Cyclones"
 
+msgid "CHART_TITLE-Daily_max_temperature_rcp85_diff_to_2006"
+msgstr "Daily max temperature change (from year 2006)"
+
 msgid "CHART_TITLE-Disasters"
 msgstr "Catastrophes naturelles"
 

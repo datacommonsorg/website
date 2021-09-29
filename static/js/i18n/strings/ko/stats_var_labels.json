@@ -596,6 +596,12 @@
   "CumulativeCount_MedicalConditionIncident_COVID_19_PatientDeceased": {
     "defaultMessage": "코로나19 누적 사망자 수"
   },
+  "Daily_Max_Temperature_RCP85": {
+    "defaultMessage": "Max Temperature"
+  },
+  "DifferenceRelativeToBaseDate2006_Daily_Max_Temperature_RCP85": {
+    "defaultMessage": "Max Temperature Change"
+  },
   "FertilityRate_Person_Female": {
     "defaultMessage": "출산율"
   },

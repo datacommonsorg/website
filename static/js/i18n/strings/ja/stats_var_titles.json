@@ -596,6 +596,12 @@
   "CumulativeCount_MedicalConditionIncident_COVID_19_PatientDeceased": {
     "defaultMessage": "COVID-19（新型コロナウイルス感染症）の累積死亡者数"
   },
+  "Daily_Max_Temperature_RCP85": {
+    "defaultMessage": "Daily Max Temperature"
+  },
+  "DifferenceRelativeToBaseDate2006_Daily_Max_Temperature_RCP85": {
+    "defaultMessage": "Projected Max Temperature Change from Year 2006"
+  },
   "FertilityRate_Person_Female": {
     "defaultMessage": "出生率"
   },

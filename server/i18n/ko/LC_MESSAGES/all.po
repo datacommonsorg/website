@@ -343,6 +343,9 @@ msgstr "10만 명당 범죄 수"
 msgid "CHART_TITLE-Cyclones"
 msgstr "사이클론"
 
+msgid "CHART_TITLE-Daily_max_temperature_rcp85_diff_to_2006"
+msgstr "Daily max temperature change (from year 2006)"
+
 msgid "CHART_TITLE-Disasters"
 msgstr "재해"
 

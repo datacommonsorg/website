@@ -460,6 +460,10 @@ msgstr "Crimes per 100,000 people"
 msgid "CHART_TITLE-Cyclones"
 msgstr "Cyclones"
 
+#. Title of a place chart: Daily max temperature change from year 2006 based on RCP 8.5
+msgid "CHART_TITLE-Daily_max_temperature_rcp85_diff_to_2006"
+msgstr "Daily max temperature change (from year 2006)"
+
 #. Title of a place chart: Total number of disasters that occured, broken down by disaster type
 msgid "CHART_TITLE-Disasters"
 msgstr "Disasters"

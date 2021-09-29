@@ -23,7 +23,10 @@ class Config:
     SCHEME = 'https'
     # Additional stat vars that need to be fetched for place page data.
     # This is only needed for local development when cache is not up to date.
-    NEW_STAT_VARS = ["AirQualityIndex_AirPollutant"]
+    NEW_STAT_VARS = [
+        "AirQualityIndex_AirPollutant",
+        "DifferenceRelativeToBaseDate2006_Daily_Max_Temperature_RCP85"
+    ]
     ENABLE_BLOCKLIST = False
     # If the deployment is a private instance
     PRIVATE = False

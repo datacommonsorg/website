@@ -1062,5 +1062,9 @@
   "AirQualityIndex_AirPollutant": {
     "defaultMessage": "AQI",
     "description": "Title for a page about a statistical variable. Variable describes the air quality index."
+  },
+  "DifferenceRelativeToBaseDate2006_Daily_Max_Temperature_RCP85": {
+    "defaultMessage": "Projected Max Temperature Change from Year 2006",
+    "description": "Label used to describe statistical variables in chart legends, string should be short. Describes the relative daily max temperature change from year 2006, based on RCP 8.5."
   }
 }

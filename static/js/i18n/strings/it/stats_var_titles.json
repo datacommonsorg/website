@@ -596,6 +596,12 @@
   "CumulativeCount_MedicalConditionIncident_COVID_19_PatientDeceased": {
     "defaultMessage": "Decessi cumulativi per COVID-19"
   },
+  "Daily_Max_Temperature_RCP85": {
+    "defaultMessage": "Daily Max Temperature"
+  },
+  "DifferenceRelativeToBaseDate2006_Daily_Max_Temperature_RCP85": {
+    "defaultMessage": "Projected Max Temperature Change from Year 2006"
+  },
   "FertilityRate_Person_Female": {
     "defaultMessage": "Tasso di fertilità"
   },

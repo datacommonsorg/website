@@ -1193,6 +1193,18 @@
       "value": "Muertes acumuladas por COVID-19"
     }
   ],
+  "Daily_Max_Temperature_RCP85": [
+    {
+      "type": 0,
+      "value": "Max Temperature"
+    }
+  ],
+  "DifferenceRelativeToBaseDate2006_Daily_Max_Temperature_RCP85": [
+    {
+      "type": 0,
+      "value": "Max Temperature Change"
+    }
+  ],
   "FertilityRate_Person_Female": [
     {
       "type": 0,

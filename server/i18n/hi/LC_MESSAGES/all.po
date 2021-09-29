@@ -343,6 +343,9 @@ msgstr "हर एक लाख लोगों में होने वाल
 msgid "CHART_TITLE-Cyclones"
 msgstr "चक्रवात"
 
+msgid "CHART_TITLE-Daily_max_temperature_rcp85_diff_to_2006"
+msgstr "Daily max temperature change (from year 2006)"
+
 msgid "CHART_TITLE-Disasters"
 msgstr "आपदाएं"
 

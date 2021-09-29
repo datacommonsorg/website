@@ -10,5 +10,19 @@
       "scale": false
     },
     "isChoropleth": true
+  },
+  {
+    "category": "Climate",
+    "titleId": "CHART_TITLE-Daily_max_temperature_rcp85_diff_to_2006",
+    "title": "Daily max temperature change (from year 2006)",
+    "description": "Daily max temperature change from year 2006 based on RCP 8.5",
+    "statsVars": [
+      "DifferenceRelativeToBaseDate2006_Daily_Max_Temperature_RCP85"
+    ],
+    "unit": "K",
+    "isOverview": false,
+    "relatedChart": {
+      "scale": false
+    }
   }
 ]

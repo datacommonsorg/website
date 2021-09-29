@@ -596,6 +596,12 @@
   "CumulativeCount_MedicalConditionIncident_COVID_19_PatientDeceased": {
     "defaultMessage": "COVID-19 की वजह से हुई मौतें"
   },
+  "Daily_Max_Temperature_RCP85": {
+    "defaultMessage": "Max Temperature"
+  },
+  "DifferenceRelativeToBaseDate2006_Daily_Max_Temperature_RCP85": {
+    "defaultMessage": "Max Temperature Change"
+  },
   "FertilityRate_Person_Female": {
     "defaultMessage": "प्रजनन दर"
   },
