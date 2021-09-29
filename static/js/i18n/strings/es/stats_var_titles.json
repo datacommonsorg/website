@@ -1,4 +1,7 @@
 {
+  "AirQualityIndex_AirPollutant": {
+    "defaultMessage": "AQI"
+  },
   "Amount_Consumption_Alcohol_15OrMoreYears_AsFractionOf_Count_Person_15OrMoreYears": {
     "defaultMessage": "Consumo de alcohol puro al año per cápita"
   },

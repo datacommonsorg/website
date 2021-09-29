@@ -265,6 +265,9 @@ msgstr ""
 msgid "Scatter Plot Explorer"
 msgstr ""
 
+msgid "Scatter Plots"
+msgstr ""
+
 #. The label for a link to our API documentation. See this string at https://datacommons.org
 msgid "See API documentation."
 msgstr "See API documentation."
@@ -280,6 +283,9 @@ msgstr "States, United States"
 #. The label for a link to site terms and conditions.
 msgid "Terms and Conditions"
 msgstr "Terms and Conditions"
+
+msgid "Timeline Charts"
+msgstr ""
 
 #. The name of a tool to explore timeline charts of statistical variables for places.
 msgid "Timelines Explorer"
@@ -330,6 +336,10 @@ msgstr "by state"
 msgid "in United States"
 msgstr "in United States"
 
+#. Title of a place chart: Air quality index
+msgid "CHART_TITLE-Air_quality_index"
+msgstr "Air quality index"
+
 #. Title of a place chart: Total amount of alcohol consumed per person anually
 msgid "CHART_TITLE-Alcohol_consumption_per_capita"
 msgstr "Alcohol consumption per capita (annual)"
@@ -349,6 +359,10 @@ msgstr "Rate of associate degree attainment by gender"
 #. Title of a place chart: Percentage of young adults who have an bachelor's degree, broken down by gender
 msgid "CHART_TITLE-Bachelors_degree_rate_gender"
 msgstr "Rate of bachelor's degree attainment by gender"
+
+#. The category for a group of statistical charts.
+msgid "CHART_TITLE-CHART_CATEGORY-Climate"
+msgstr "Climate"
 
 #. The category for a group of statistical charts.
 msgid "CHART_TITLE-CHART_CATEGORY-Crime"
@@ -814,7 +828,7 @@ msgstr "Unemployment rate"
 msgid "CHART_TITLE-Unemployment_rate-urban-v-rural"
 msgstr "Unemployment rate: urban vs rural"
 
-#. Title of a place chart: Percentage of the population, of working age, who are unemployed, broken down by gender
+#. Title of a place chart: Percentage of the population, of working age, who are unemployed. Broken down by gender
 msgid "CHART_TITLE-Unemployment_rate_gender"
 msgstr "Unemployment rate by gender"
 

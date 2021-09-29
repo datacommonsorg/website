@@ -196,6 +196,9 @@ msgstr "Counties mit dem höchsten Wohlstand in Kalifornien im Vergleich mit den
 msgid "Scatter Plot Explorer"
 msgstr "Streudiagramm-Explorer"
 
+msgid "Scatter Plots"
+msgstr ""
+
 msgid "See API documentation."
 msgstr "Siehe API-Dokumentation"
 
@@ -207,6 +210,9 @@ msgstr "Bundesstaaten, USA"
 
 msgid "Terms and Conditions"
 msgstr "Nutzungsbedingungen"
+
+msgid "Timeline Charts"
+msgstr ""
 
 msgid "Timelines Explorer"
 msgstr "Timelines Explorer"
@@ -244,6 +250,9 @@ msgstr "nach Bundesstaat"
 msgid "in United States"
 msgstr "in den USA"
 
+msgid "CHART_TITLE-Air_quality_index"
+msgstr "Air quality index"
+
 msgid "CHART_TITLE-Alcohol_consumption_per_capita"
 msgstr "Alkoholkonsum pro Kopf (jährlich)"
 
@@ -258,6 +267,9 @@ msgstr "Anteil der Personen mit College-Abschluss nach Geschlecht"
 
 msgid "CHART_TITLE-Bachelors_degree_rate_gender"
 msgstr "Anteil der Personen mit Bachelor-Abschluss nach Geschlecht"
+
+msgid "CHART_TITLE-CHART_CATEGORY-Climate"
+msgstr "Climate"
 
 msgid "CHART_TITLE-CHART_CATEGORY-Crime"
 msgstr "Kriminalität"
@@ -645,7 +657,4 @@ msgstr "Arbeitsentgelt (monatlich): städtisch und ländlich im Vergleich"
 
 msgid "CHART_TITLE-Worker-vs-nonworker-population"
 msgstr "Arbeitende und nicht arbeitende Bevölkerung im Vergleich"
-
-msgid "CHART_TITLE-CHART_CATEGORY-Overview"
-msgstr "Übersicht"
 

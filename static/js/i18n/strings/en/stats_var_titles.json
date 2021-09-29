@@ -1058,5 +1058,9 @@
   "indianCensus/Count_Person_Religion_Sikh": {
     "defaultMessage": "Population (Sikh)",
     "description": "Title for a page about a statistical variable. Variable describes a population that practice the relgion."
+  },
+  "AirQualityIndex_AirPollutant": {
+    "defaultMessage": "AQI",
+    "description": "Title for a page about a statistical variable. Variable describes the air quality index."
   }
 }

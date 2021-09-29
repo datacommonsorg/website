@@ -196,6 +196,9 @@ msgstr "Comparación de los condados de California más ricos y más pobres"
 msgid "Scatter Plot Explorer"
 msgstr "Explorador de gráficos de dispersión"
 
+msgid "Scatter Plots"
+msgstr ""
+
 msgid "See API documentation."
 msgstr "Consulta la documentación de la API."
 
@@ -207,6 +210,9 @@ msgstr "Estados (Estados Unidos)"
 
 msgid "Terms and Conditions"
 msgstr "Términos y Condiciones"
+
+msgid "Timeline Charts"
+msgstr ""
 
 msgid "Timelines Explorer"
 msgstr "Timelines Explorer"
@@ -244,6 +250,9 @@ msgstr "por estado"
 msgid "in United States"
 msgstr "en Estados Unidos"
 
+msgid "CHART_TITLE-Air_quality_index"
+msgstr "Air quality index"
+
 msgid "CHART_TITLE-Alcohol_consumption_per_capita"
 msgstr "Consumo de alcohol per cápita (anual)"
 
@@ -258,6 +267,9 @@ msgstr "Tasa de diplomados por sexo"
 
 msgid "CHART_TITLE-Bachelors_degree_rate_gender"
 msgstr "Tasa de personas con grados por sexo"
+
+msgid "CHART_TITLE-CHART_CATEGORY-Climate"
+msgstr "Climate"
 
 msgid "CHART_TITLE-CHART_CATEGORY-Crime"
 msgstr "Criminalidad"
@@ -645,7 +657,4 @@ msgstr "Salario de las personas trabajadoras (mensual): comparación entre zonas
 
 msgid "CHART_TITLE-Worker-vs-nonworker-population"
 msgstr "Personas trabajadoras y no trabajadoras"
-
-msgid "CHART_TITLE-CHART_CATEGORY-Overview"
-msgstr "Vista general"
 
