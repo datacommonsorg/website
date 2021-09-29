@@ -32,6 +32,18 @@ import lib.i18n as i18n
 
 propagator = google_cloud_format.GoogleCloudFormatPropagator()
 
+# This has to be in sync with static/js/shared/util.ts
+PLACE_EXPLORER_CATEGORIES = [
+    "economics",
+    "health",
+    "equity",
+    "crime",
+    "education",
+    "demographics",
+    "housing",
+    "environment",
+]
+
 
 def createMiddleWare(app, exporter):
     # Configure a flask middleware that listens for each request and applies
@@ -92,8 +104,11 @@ def create_app():
     app.register_blueprint(translator.bp)
 
     # Load chart config
-    with open('chart_config.json', encoding='utf-8') as f:
-        chart_config = json.load(f)
+    chart_config = []
+    for filename in PLACE_EXPLORER_CATEGORIES:
+        with open(os.path.join('chart_config', filename + '.json'),
+                  encoding='utf-8') as f:
+            chart_config.extend(json.load(f))
     app.config['CHART_CONFIG'] = chart_config
 
     if not cfg.TEST and not cfg.LITE:

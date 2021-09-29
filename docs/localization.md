@@ -33,6 +33,8 @@ compile the messages to be used by both libraries.
 ./scripts/compile_messages.sh
 ```
 
+Restart the flask / minikube server (for template strings) or npm for these strings to take effect.
+
 NOTE: Don't forget to update the list of languages in that file if a new language is added.
 
 ## Adding languages

@@ -146,3 +146,10 @@ h2 {
   color: var(--dc-grey);
   font-weight: 500;
 }
+
+blockquote {
+  padding: .5rem 1rem .5rem 2rem;
+  border-left: 3px solid var(--gray);
+  display: block;
+  background: #f7f7f7;
+}

@@ -13,6 +13,7 @@
 # limitations under the License.
 
 import json
+import os
 import unittest
 
 import lib.range as lib_range
@@ -21,8 +22,12 @@ import lib.range as lib_range
 class TestChart(unittest.TestCase):
 
     def setUp(self):
-        with open('chart_config.json', encoding='utf-8') as f:
-            self.charts = json.load(f)
+        self.charts = []
+        for filename in os.listdir("chart_config"):
+            if filename.endswith(".json"):
+                with open(os.path.join('chart_config', filename),
+                          encoding='utf-8') as f:
+                    self.charts.extend(json.load(f))
 
     def test_unique_chart(self):
         chart_set = set()
