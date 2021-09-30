@@ -95,7 +95,7 @@ class Page extends Component<unknown, PageStateType> {
     window.location.hash = urlParams.toString();
   }
 
-  private async fetchSummary() {
+  private async fetchSummary(): Promise<void> {
     const urlParams = new URLSearchParams(window.location.hash.split("#")[1]);
     const sv = urlParams.get("statVar");
     if (!sv) {
