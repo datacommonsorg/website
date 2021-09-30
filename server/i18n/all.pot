@@ -781,6 +781,22 @@ msgstr "Prescribed drugs (quarterly)"
 msgid "CHART_TITLE-Prescribed_drugs_per_capita"
 msgstr "Prescribed drugs per capita (quarterly)"
 
+#. Title of a place chart: Projected max daily temperature change under RCP 2.6 (based on year 2006)
+msgid "CHART_TITLE-Projected_daily_temperature_change_under_rcp26_based_on_year_2006"
+msgstr "Projected max daily temperature change under RCP 2.6 (based on year 2006)"
+
+#. Title of a place chart: Projected max daily temperature change under RCP 4.5 (based on year 2006)
+msgid "CHART_TITLE-Projected_daily_temperature_change_under_rcp45_based_on_year_2006"
+msgstr "Projected max daily temperature change under RCP 4.5 (based on year 2006)"
+
+#. Title of a place chart: Projected max daily temperature change under RCP 6.0 (based on year 2006)
+msgid "CHART_TITLE-Projected_daily_temperature_change_under_rcp60_based_on_year_2006"
+msgstr "Projected max daily temperature change under RCP 6.0 (based on year 2006)"
+
+#. Title of a place chart: Projected max daily temperature change under RCP 8.5 (based on year 2006)
+msgid "CHART_TITLE-Projected_daily_temperature_change_under_rcp85_based_on_year_2006"
+msgstr "Projected max daily temperature change under RCP 8.5 (based on year 2006)"
+
 #. Title of a place chart: Total number of property crime incidents
 msgid "CHART_TITLE-Property_crime"
 msgstr "Property crime"
