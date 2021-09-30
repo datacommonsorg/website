@@ -1196,19 +1196,19 @@
   "DifferenceRelativeToBaseDate2006_Daily_Max_Temperature_RCP26": [
     {
       "type": 0,
-      "value": "Max Temperature Change (RCP 8.5, Base Year 2016)"
+      "value": "Max Temperature Change (RCP 2.6, Base Year 2016)"
     }
   ],
   "DifferenceRelativeToBaseDate2006_Daily_Max_Temperature_RCP45": [
     {
       "type": 0,
-      "value": "Max Temperature Change (RCP 8.5, Base Year 2016)"
+      "value": "Max Temperature Change (RCP 4.5, Base Year 2016)"
     }
   ],
   "DifferenceRelativeToBaseDate2006_Daily_Max_Temperature_RCP60": [
     {
       "type": 0,
-      "value": "Max Temperature Change (RCP 8.5, Base Year 2016)"
+      "value": "Max Temperature Change (RCP 6.0, Base Year 2016)"
     }
   ],
   "DifferenceRelativeToBaseDate2006_Daily_Max_Temperature_RCP85": [

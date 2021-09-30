@@ -32,4 +32,7 @@ cd ..
 python3 -m venv .env
 source .env/bin/activate
 pip3 install -r server/requirements.txt -q
-.env/bin/pybabel compile -d server/i18n -f -D all
+for LOCALE in $LOCALES;
+do
+  .env/bin/pybabel compile -d server/i18n -f -D all -l $LOCALE
+done
