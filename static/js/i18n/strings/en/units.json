@@ -34,5 +34,11 @@
   },
   "celsius-display": {
     "defaultMessage": "°c"
+  },
+  "micro-gram-per-cubic-meter": {
+    "defaultMessage": "{0} μg/m3"
+  },
+  "micro-gram-per-cubic-meter-display": {
+    "defaultMessage": "μg/m3"
   }
 }

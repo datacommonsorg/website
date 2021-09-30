@@ -203,6 +203,10 @@ function formatNumber(value: number, unit?: string): string {
       shouldAddUnit = true;
       unitKey = "celsius";
       break;
+    case "μg/m3":
+      shouldAddUnit = true;
+      unitKey = "micro-gram-per-cubic-meter";
+      break;
   }
   let returnText = Intl.NumberFormat(intl.locale, formatOptions).format(value);
   if (shouldAddUnit) {

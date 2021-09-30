@@ -649,6 +649,10 @@ msgstr "Market capitalization of domestic companies"
 msgid "CHART_TITLE-Market_capitalization_per_gdp"
 msgstr "Market capitalization of domestic companies (% of GDP)"
 
+#. Title of a place chart: Mean concentration of PM 2.5
+msgid "CHART_TITLE-Mean_concentration_PM2.5"
+msgstr "Mean concentration of PM 2.5"
+
 #. Title of a place chart: The median age of the population
 msgid "CHART_TITLE-Median_age"
 msgstr "Median Age"
@@ -782,19 +786,19 @@ msgid "CHART_TITLE-Prescribed_drugs_per_capita"
 msgstr "Prescribed drugs per capita (quarterly)"
 
 #. Title of a place chart: Projected max daily temperature change under RCP 2.6 (based on year 2006)
-msgid "CHART_TITLE-Projected_daily_temperature_change_under_rcp26_based_on_year_2006"
+msgid "CHART_TITLE-Projected_daily_temperature_change_under_rcp2.6_based_on_year_2006"
 msgstr "Projected max daily temperature change under RCP 2.6 (based on year 2006)"
 
 #. Title of a place chart: Projected max daily temperature change under RCP 4.5 (based on year 2006)
-msgid "CHART_TITLE-Projected_daily_temperature_change_under_rcp45_based_on_year_2006"
+msgid "CHART_TITLE-Projected_daily_temperature_change_under_rcp4.5_based_on_year_2006"
 msgstr "Projected max daily temperature change under RCP 4.5 (based on year 2006)"
 
 #. Title of a place chart: Projected max daily temperature change under RCP 6.0 (based on year 2006)
-msgid "CHART_TITLE-Projected_daily_temperature_change_under_rcp60_based_on_year_2006"
+msgid "CHART_TITLE-Projected_daily_temperature_change_under_rcp6.0_based_on_year_2006"
 msgstr "Projected max daily temperature change under RCP 6.0 (based on year 2006)"
 
 #. Title of a place chart: Projected max daily temperature change under RCP 8.5 (based on year 2006)
-msgid "CHART_TITLE-Projected_daily_temperature_change_under_rcp85_based_on_year_2006"
+msgid "CHART_TITLE-Projected_daily_temperature_change_under_rcp8.5_based_on_year_2006"
 msgstr "Projected max daily temperature change under RCP 8.5 (based on year 2006)"
 
 #. Title of a place chart: Total number of property crime incidents

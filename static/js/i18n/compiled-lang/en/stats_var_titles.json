@@ -1247,6 +1247,12 @@
       "value": "Life Expectancy"
     }
   ],
+  "Mean_Concentration_AirPollutant_PM2.5": [
+    {
+      "type": 0,
+      "value": "Mean Concentration of PM 2.5"
+    }
+  ],
   "Mean_WagesDaily_Worker": [
     {
       "type": 0,

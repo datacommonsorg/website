@@ -94,5 +94,21 @@
       "type": 0,
       "value": "metric tons"
     }
+  ],
+  "micro-gram-per-cubic-meter": [
+    {
+      "type": 1,
+      "value": "0"
+    },
+    {
+      "type": 0,
+      "value": " μg/m3"
+    }
+  ],
+  "micro-gram-per-cubic-meter-display": [
+    {
+      "type": 0,
+      "value": "μg/m3"
+    }
   ]
 }
