@@ -28,5 +28,11 @@
   },
   "gram-display": {
     "defaultMessage": "grams"
+  },
+  "celsius": {
+    "defaultMessage": "{0} °c"
+  },
+  "celsius-display": {
+    "defaultMessage": "°c"
   }
 }

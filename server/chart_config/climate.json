@@ -19,7 +19,7 @@
     "statsVars": [
       "DifferenceRelativeToBaseDate2006_Daily_Max_Temperature_RCP26"
     ],
-    "unit": "K",
+    "unit": "celsius",
     "isOverview": false
   },
   {
@@ -30,7 +30,7 @@
     "statsVars": [
       "DifferenceRelativeToBaseDate2006_Daily_Max_Temperature_RCP45"
     ],
-    "unit": "K",
+    "unit": "celsius",
     "isOverview": false
   },
   {
@@ -41,7 +41,7 @@
     "statsVars": [
       "DifferenceRelativeToBaseDate2006_Daily_Max_Temperature_RCP60"
     ],
-    "unit": "K",
+    "unit": "celsius",
     "isOverview": false
   },
   {
@@ -52,7 +52,7 @@
     "statsVars": [
       "DifferenceRelativeToBaseDate2006_Daily_Max_Temperature_RCP85"
     ],
-    "unit": "K",
+    "unit": "celsius",
     "isOverview": false
   }
 ]

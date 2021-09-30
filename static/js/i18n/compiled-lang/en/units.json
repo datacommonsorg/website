@@ -1,4 +1,20 @@
 {
+  "celsius": [
+    {
+      "type": 1,
+      "value": "0"
+    },
+    {
+      "type": 0,
+      "value": " °c"
+    }
+  ],
+  "celsius-display": [
+    {
+      "type": 0,
+      "value": "°c"
+    }
+  ],
   "gram": [
     {
       "type": 1,

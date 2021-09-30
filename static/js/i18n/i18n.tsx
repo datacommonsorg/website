@@ -199,9 +199,9 @@ function formatNumber(value: number, unit?: string): string {
       shouldAddUnit = true;
       unitKey = "liter";
       break;
-    case "K":
+    case "celsius":
       shouldAddUnit = true;
-      unitKey = "kelvin";
+      unitKey = "celsius";
       break;
   }
   let returnText = Intl.NumberFormat(intl.locale, formatOptions).format(value);
