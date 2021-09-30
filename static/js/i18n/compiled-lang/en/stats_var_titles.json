@@ -1193,10 +1193,28 @@
       "value": "COVID-19 Cumulative Deaths"
     }
   ],
+  "DifferenceRelativeToBaseDate2006_Daily_Max_Temperature_RCP26": [
+    {
+      "type": 0,
+      "value": "Max Temperature Change (RCP 8.5, Base Year 2016)"
+    }
+  ],
+  "DifferenceRelativeToBaseDate2006_Daily_Max_Temperature_RCP45": [
+    {
+      "type": 0,
+      "value": "Max Temperature Change (RCP 8.5, Base Year 2016)"
+    }
+  ],
+  "DifferenceRelativeToBaseDate2006_Daily_Max_Temperature_RCP60": [
+    {
+      "type": 0,
+      "value": "Max Temperature Change (RCP 8.5, Base Year 2016)"
+    }
+  ],
   "DifferenceRelativeToBaseDate2006_Daily_Max_Temperature_RCP85": [
     {
       "type": 0,
-      "value": "Projected Max Temperature Change from Year 2006"
+      "value": "Max Temperature Change (RCP 8.5, Base Year 2016)"
     }
   ],
   "FertilityRate_Person_Female": [

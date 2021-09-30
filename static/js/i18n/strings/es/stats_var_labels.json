@@ -599,6 +599,15 @@
   "Daily_Max_Temperature_RCP85": {
     "defaultMessage": "Max Temperature"
   },
+  "DifferenceRelativeToBaseDate2006_Daily_Max_Temperature_RCP26": {
+    "defaultMessage": "RCP 2.6"
+  },
+  "DifferenceRelativeToBaseDate2006_Daily_Max_Temperature_RCP45": {
+    "defaultMessage": "RCP 4.5"
+  },
+  "DifferenceRelativeToBaseDate2006_Daily_Max_Temperature_RCP60": {
+    "defaultMessage": "RCP 6.0"
+  },
   "DifferenceRelativeToBaseDate2006_Daily_Max_Temperature_RCP85": {
     "defaultMessage": "Max Temperature Change"
   },

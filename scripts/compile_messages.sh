@@ -17,11 +17,13 @@
 
 set -e
 
+# Change back to "de en es fr hi it ja ko ru"
+LOCALES="en"
+
 cd static
 npm list @formatjs/cli || npm install formatjs
 
-# for LOCALE in de en es fr hi it ja ko ru;
-for LOCALE in de en es fr hi it ja ko ru;
+for LOCALE in $LOCALES;
 do
   npm run compile -- js/i18n/strings/$LOCALE --ast js/i18n/compiled-lang/$LOCALE
 done

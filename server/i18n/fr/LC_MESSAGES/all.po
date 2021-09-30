@@ -343,9 +343,6 @@ msgstr "Crimes par 100 000 habitants"
 msgid "CHART_TITLE-Cyclones"
 msgstr "Cyclones"
 
-msgid "CHART_TITLE-Daily_max_temperature_rcp85_diff_to_2006"
-msgstr "Daily max temperature change (from year 2006)"
-
 msgid "CHART_TITLE-Disasters"
 msgstr "Catastrophes naturelles"
 
@@ -586,6 +583,9 @@ msgstr "Médicaments sur ordonnance (données trimestrielles)"
 msgid "CHART_TITLE-Prescribed_drugs_per_capita"
 msgstr "Médicaments sur ordonnance par habitant (données trimestrielles)"
 
+msgid "CHART_TITLE-Projected_daily_temperature_change_based_on_year_2006"
+msgstr "Projected max daily temperature change (based on year 2006)"
+
 msgid "CHART_TITLE-Property_crime"
 msgstr "Crimes contre les biens"
 
@@ -660,4 +660,5 @@ msgstr "Salaires des travailleurs (par mois) : zone urbaine et rurale"
 
 msgid "CHART_TITLE-Worker-vs-nonworker-population"
 msgstr "Population de personnes avec et sans emploi"
+
 

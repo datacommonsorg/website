@@ -343,9 +343,6 @@ msgstr "10만 명당 범죄 수"
 msgid "CHART_TITLE-Cyclones"
 msgstr "사이클론"
 
-msgid "CHART_TITLE-Daily_max_temperature_rcp85_diff_to_2006"
-msgstr "Daily max temperature change (from year 2006)"
-
 msgid "CHART_TITLE-Disasters"
 msgstr "재해"
 
@@ -586,6 +583,9 @@ msgstr "처방 의약품(분기별)"
 msgid "CHART_TITLE-Prescribed_drugs_per_capita"
 msgstr "1인당 처방약(분기별)"
 
+msgid "CHART_TITLE-Projected_daily_temperature_change_based_on_year_2006"
+msgstr "Projected max daily temperature change (based on year 2006)"
+
 msgid "CHART_TITLE-Property_crime"
 msgstr "재산범죄"
 
@@ -660,4 +660,5 @@ msgstr "노동자 월급: 도시 및 농촌 비교"
 
 msgid "CHART_TITLE-Worker-vs-nonworker-population"
 msgstr "노동자 및 비노동자 인구 비교"
+
 

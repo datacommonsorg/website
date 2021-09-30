@@ -13,16 +13,46 @@
   },
   {
     "category": "Climate",
-    "titleId": "CHART_TITLE-Daily_max_temperature_rcp85_diff_to_2006",
-    "title": "Daily max temperature change (from year 2006)",
-    "description": "Daily max temperature change from year 2006 based on RCP 8.5",
+    "titleId": "CHART_TITLE-Projected_daily_temperature_change_under_rcp26_based_on_year_2006",
+    "title": "Projected max daily temperature change under RCP 2.6 (based on year 2006)",
+    "description": "Projected max daily temperature change under RCP 2.6 (based on year 2006)",
+    "statsVars": [
+      "DifferenceRelativeToBaseDate2006_Daily_Max_Temperature_RCP26"
+    ],
+    "unit": "K",
+    "isOverview": false
+  },
+  {
+    "category": "Climate",
+    "titleId": "CHART_TITLE-Projected_daily_temperature_change_under_rcp45_based_on_year_2006",
+    "title": "Projected max daily temperature change under RCP 4.5 (based on year 2006)",
+    "description": "Projected max daily temperature change under RCP 4.5 (based on year 2006)",
+    "statsVars": [
+      "DifferenceRelativeToBaseDate2006_Daily_Max_Temperature_RCP45"
+    ],
+    "unit": "K",
+    "isOverview": false
+  },
+  {
+    "category": "Climate",
+    "titleId": "CHART_TITLE-Projected_daily_temperature_change_under_rcp60_based_on_year_2006",
+    "title": "Projected max daily temperature change under RCP 6.0 (based on year 2006)",
+    "description": "Projected max daily temperature change under RCP 6.0 (based on year 2006)",
+    "statsVars": [
+      "DifferenceRelativeToBaseDate2006_Daily_Max_Temperature_RCP60"
+    ],
+    "unit": "K",
+    "isOverview": false
+  },
+  {
+    "category": "Climate",
+    "titleId": "CHART_TITLE-Projected_daily_temperature_change_under_rcp85_based_on_year_2006",
+    "title": "Projected max daily temperature change under RCP 8.5 (based on year 2006)",
+    "description": "Projected max daily temperature change under RCP 8.5 (based on year 2006)",
     "statsVars": [
       "DifferenceRelativeToBaseDate2006_Daily_Max_Temperature_RCP85"
     ],
     "unit": "K",
-    "isOverview": false,
-    "relatedChart": {
-      "scale": false
-    }
+    "isOverview": false
   }
 ]
