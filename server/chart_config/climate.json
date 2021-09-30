@@ -13,7 +13,7 @@
   },
   {
     "category": "Climate",
-    "titleId": "CHART_TITLE-Projected_daily_temperature_change_under_rcp2.6_based_on_year_2006",
+    "titleId": "CHART_TITLE-Projected_daily_temperature_change_under_rcp26_based_on_year_2006",
     "title": "Projected max daily temperature change under RCP 2.6 (based on year 2006)",
     "description": "Projected max daily temperature change under RCP 2.6 (based on year 2006)",
     "statsVars": [
@@ -24,7 +24,7 @@
   },
   {
     "category": "Climate",
-    "titleId": "CHART_TITLE-Projected_daily_temperature_change_under_rcp4.5_based_on_year_2006",
+    "titleId": "CHART_TITLE-Projected_daily_temperature_change_under_rcp45_based_on_year_2006",
     "title": "Projected max daily temperature change under RCP 4.5 (based on year 2006)",
     "description": "Projected max daily temperature change under RCP 4.5 (based on year 2006)",
     "statsVars": [
@@ -35,7 +35,7 @@
   },
   {
     "category": "Climate",
-    "titleId": "CHART_TITLE-Projected_daily_temperature_change_under_rcp6.0_based_on_year_2006",
+    "titleId": "CHART_TITLE-Projected_daily_temperature_change_under_rcp60_based_on_year_2006",
     "title": "Projected max daily temperature change under RCP 6.0 (based on year 2006)",
     "description": "Projected max daily temperature change under RCP 6.0 (based on year 2006)",
     "statsVars": [
@@ -46,7 +46,7 @@
   },
   {
     "category": "Climate",
-    "titleId": "CHART_TITLE-Projected_daily_temperature_change_under_rcp8.5_based_on_year_2006",
+    "titleId": "CHART_TITLE-Projected_daily_temperature_change_under_rcp85_based_on_year_2006",
     "title": "Projected max daily temperature change under RCP 8.5 (based on year 2006)",
     "description": "Projected max daily temperature change under RCP 8.5 (based on year 2006)",
     "statsVars": [
