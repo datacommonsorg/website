@@ -32,6 +32,34 @@ class Info extends Component {
           thousands of statistical variables to choose from, arranged in a
           topical hierarchy.
         </p>
+        <p>
+          Or you can start your exploration with these statistical variables ...
+        </p>
+        <ul>
+          <li>
+            <a href="#statVar=Count_Person">Population</a>
+          </li>
+          <li>
+            <a href="#statVar=CumulativeCount_Vaccine_COVID_19_Administered">
+              Cumulative Count of COVID_19, Vaccine Administered
+            </a>
+          </li>
+          <li>
+            <a href="#statVar=Daily_PrecipitationRate_RCP85">
+              Daily Precipitation Rate Based on RCP 8.5
+            </a>
+          </li>
+          <li>
+            <a href="#statVar=Annual_Consumption_Electricity">
+              Annual Consumption of Electricity
+            </a>
+          </li>
+          <li>
+            <a href="#statVar=GiniIndex_EconomicActivity">
+              Gini Index of Economic Activity
+            </a>
+          </li>
+        </ul>
       </div>
     );
   }

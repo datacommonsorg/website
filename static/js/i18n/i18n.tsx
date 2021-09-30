@@ -153,7 +153,14 @@ function LocalizedLink(props: LocalizedLinkProps): JSX.Element {
  *
  * @return localized display string for the number
  */
-function formatNumber(value: number, unit?: string): string {
+function formatNumber(
+  value: number,
+  unit?: string,
+  useDefaultFormat?: boolean
+): string {
+  if (useDefaultFormat) {
+    return Intl.NumberFormat(intl.locale).format(value);
+  }
   const formatOptions: any = {
     /* any is used since not all available options are defined in NumberFormatOptions */
     compactDisplay: "short",
