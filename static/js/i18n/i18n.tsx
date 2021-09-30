@@ -199,6 +199,10 @@ function formatNumber(value: number, unit?: string): string {
       shouldAddUnit = true;
       unitKey = "liter";
       break;
+    case "celsius":
+      shouldAddUnit = true;
+      unitKey = "celsius";
+      break;
   }
   let returnText = Intl.NumberFormat(intl.locale, formatOptions).format(value);
   if (shouldAddUnit) {
