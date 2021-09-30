@@ -50,8 +50,13 @@ class Info extends Component {
             </a>
           </li>
           <li>
-            <a href="#statVar=Annual_Generation_Energy_NonRenewableWaste">
-              Annual Generation of Non Renewable Waste
+            <a href="#statVar=Annual_Consumption_Electricity">
+              Annual Consumption of Electricity
+            </a>
+          </li>
+          <li>
+            <a href="#statVar=GiniIndex_EconomicActivity">
+              Gini Index of Economic Activity
             </a>
           </li>
         </ul>
