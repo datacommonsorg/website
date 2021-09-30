@@ -1193,18 +1193,6 @@
       "value": "COVID-19（新型コロナウイルス感染症）の累積死亡者数"
     }
   ],
-  "Daily_Max_Temperature_RCP85": [
-    {
-      "type": 0,
-      "value": "Daily Max Temperature"
-    }
-  ],
-  "DifferenceRelativeToBaseDate2006_Daily_Max_Temperature_RCP85": [
-    {
-      "type": 0,
-      "value": "Projected Max Temperature Change from Year 2006"
-    }
-  ],
   "FertilityRate_Person_Female": [
     {
       "type": 0,

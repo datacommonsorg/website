@@ -583,9 +583,6 @@ msgstr "बताई गई दवाइयां (हर तिमाही म
 msgid "CHART_TITLE-Prescribed_drugs_per_capita"
 msgstr "बताई गई दवाई प्रति व्यक्ति (हर तिमाही में)"
 
-msgid "CHART_TITLE-Projected_daily_temperature_change_based_on_year_2006"
-msgstr "Projected max daily temperature change (based on year 2006)"
-
 msgid "CHART_TITLE-Property_crime"
 msgstr "प्रॉपर्टी से जुड़े अपराधों की कुल संख्या"
 
@@ -660,5 +657,4 @@ msgstr "कामकाजी व्यक्ति का औसत वेत�
 
 msgid "CHART_TITLE-Worker-vs-nonworker-population"
 msgstr "कामकाजी बनाम गैर-कामकाजी लोगों की जनसंख्या"
-
 

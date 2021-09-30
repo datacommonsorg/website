@@ -1193,36 +1193,6 @@
       "value": "Decessi cumulativi per COVID-19"
     }
   ],
-  "Daily_Max_Temperature_RCP85": [
-    {
-      "type": 0,
-      "value": "Max Temperature"
-    }
-  ],
-  "DifferenceRelativeToBaseDate2006_Daily_Max_Temperature_RCP26": [
-    {
-      "type": 0,
-      "value": "RCP 2.6"
-    }
-  ],
-  "DifferenceRelativeToBaseDate2006_Daily_Max_Temperature_RCP45": [
-    {
-      "type": 0,
-      "value": "RCP 4.5"
-    }
-  ],
-  "DifferenceRelativeToBaseDate2006_Daily_Max_Temperature_RCP60": [
-    {
-      "type": 0,
-      "value": "RCP 6.0"
-    }
-  ],
-  "DifferenceRelativeToBaseDate2006_Daily_Max_Temperature_RCP85": [
-    {
-      "type": 0,
-      "value": "Max Temperature Change"
-    }
-  ],
   "FertilityRate_Person_Female": [
     {
       "type": 0,

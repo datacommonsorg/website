@@ -583,9 +583,6 @@ msgstr "Количество прописанных лекарств (за кв�
 msgid "CHART_TITLE-Prescribed_drugs_per_capita"
 msgstr "Количество прописанных лекарств на душу населения (за квартал)"
 
-msgid "CHART_TITLE-Projected_daily_temperature_change_based_on_year_2006"
-msgstr "Projected max daily temperature change (based on year 2006)"
-
 msgid "CHART_TITLE-Property_crime"
 msgstr "Имущественные преступления"
 
@@ -660,5 +657,4 @@ msgstr "Заработок в месяц: город и сельская мес�
 
 msgid "CHART_TITLE-Worker-vs-nonworker-population"
 msgstr "Доля работающих и неработающих"
-
 

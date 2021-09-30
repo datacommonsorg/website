@@ -583,9 +583,6 @@ msgstr "処方薬（四半期単位）"
 msgid "CHART_TITLE-Prescribed_drugs_per_capita"
 msgstr "1 人あたりの処方薬の量（四半期別）"
 
-msgid "CHART_TITLE-Projected_daily_temperature_change_based_on_year_2006"
-msgstr "Projected max daily temperature change (based on year 2006)"
-
 msgid "CHART_TITLE-Property_crime"
 msgstr "窃盗"
 
@@ -660,5 +657,4 @@ msgstr "労働者の賃金（月単位）: 都市部と農村部の比較"
 
 msgid "CHART_TITLE-Worker-vs-nonworker-population"
 msgstr "労働者と非労働者の人口の比較"
-
 

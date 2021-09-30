@@ -583,9 +583,6 @@ msgstr "처방 의약품(분기별)"
 msgid "CHART_TITLE-Prescribed_drugs_per_capita"
 msgstr "1인당 처방약(분기별)"
 
-msgid "CHART_TITLE-Projected_daily_temperature_change_based_on_year_2006"
-msgstr "Projected max daily temperature change (based on year 2006)"
-
 msgid "CHART_TITLE-Property_crime"
 msgstr "재산범죄"
 
@@ -660,5 +657,4 @@ msgstr "노동자 월급: 도시 및 농촌 비교"
 
 msgid "CHART_TITLE-Worker-vs-nonworker-population"
 msgstr "노동자 및 비노동자 인구 비교"
-
 
