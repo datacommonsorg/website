@@ -123,7 +123,7 @@ export class BrowserPage extends React.Component<
           </>
         )}
         <div id="node-content">
-          <div className="browser-page-section">
+          <div className="table-page-section">
             <h3>{outArcHeader}</h3>
             <OutArcSection
               dcid={arcDcid}
@@ -133,7 +133,7 @@ export class BrowserPage extends React.Component<
             />
           </div>
           {this.props.shouldShowStatVarHierarchy && (
-            <div className="browser-page-section">
+            <div className="table-page-section">
               <h3>Statistical Variables</h3>
               <div className="card">
                 <StatVarHierarchy
@@ -147,7 +147,7 @@ export class BrowserPage extends React.Component<
             </div>
           )}
           {showInArcSection && (
-            <div className="browser-page-section">
+            <div className="table-page-section">
               <h3>In Arcs</h3>
               <InArcSection
                 nodeName={this.props.nodeName}
@@ -158,7 +158,7 @@ export class BrowserPage extends React.Component<
             </div>
           )}
           {this.props.pageDisplayType === PageDisplayType.PLACE_STAT_VAR && (
-            <div className="browser-page-section">
+            <div className="table-page-section">
               <h3>{`Observations for ${this.props.nodeName}`}</h3>
               <ObservationChartSection
                 placeDcid={this.props.dcid}
@@ -169,7 +169,7 @@ export class BrowserPage extends React.Component<
           )}
           {this.props.pageDisplayType ===
             PageDisplayType.PLACE_WITH_WEATHER_INFO && (
-            <div className="browser-page-section">
+            <div className="table-page-section">
               <Collapsible
                 trigger={getWeatherChartTrigger(false)}
                 triggerWhenOpen={getWeatherChartTrigger(true)}
@@ -189,7 +189,7 @@ export class BrowserPage extends React.Component<
           )}
           {this.props.pageDisplayType ===
             PageDisplayType.BIOLOGICAL_SPECIMEN && (
-            <div className="browser-page-section">
+            <div className="table-page-section">
               <h3>Image</h3>
               <ImageSection dcid={this.props.dcid} />
             </div>

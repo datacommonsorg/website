@@ -15,9 +15,8 @@
  */
 @import "base_tools";
 @import "stat_var_widget";
-// TODO: Filter out shared css.
-@import "../browser";
 @import "../place/place";
+@import "../table";
 
 #main-pane #plot-container {
   background: #f8f8f8;
