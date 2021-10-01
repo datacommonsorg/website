@@ -30,15 +30,15 @@
     "defaultMessage": "grams"
   },
   "celsius": {
-    "defaultMessage": "{0} °c"
+    "defaultMessage": "{0} °C"
   },
   "celsius-display": {
-    "defaultMessage": "°c"
+    "defaultMessage": "°C"
   },
   "micro-gram-per-cubic-meter": {
-    "defaultMessage": "{0} μg/m3"
+    "defaultMessage": "{0} μg/m³"
   },
   "micro-gram-per-cubic-meter-display": {
-    "defaultMessage": "μg/m3"
+    "defaultMessage": "μg/m³"
   }
 }

@@ -58,10 +58,10 @@
   {
     "category": "Climate",
     "titleId": "CHART_TITLE-Mean_concentration_PM2.5",
-    "title": "Mean concentration of PM 2.5",
-    "description": "Mean concentration of PM 2.5",
+    "title": "Mean PM2.5 concentration",
+    "description": "Used to quantify air quality with measures of concentrations of fine inhalable particles, with diameters that are generally 2.5 micrometers and smaller in the air. Also see https://www.epa.gov/air-trends/particulate-matter-pm25-trends",
     "statsVars": ["Mean_Concentration_AirPollutant_PM2.5"],
-    "unit": "μg/m3",
+    "unit": "μg/m³",
     "isOverview": true,
     "relatedChart": {
       "scale": false
