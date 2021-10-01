@@ -90,14 +90,11 @@ class Page extends Component<unknown, PageStateType> {
   }
 
   private updateHash(sv: string): void {
-    const urlParams = new URLSearchParams(window.location.hash.split("#")[1]);
-    urlParams.set("statVar", sv);
-    window.location.hash = urlParams.toString();
+    window.location.hash = `#${sv}`;
   }
 
   private async fetchSummary(): Promise<void> {
-    const urlParams = new URLSearchParams(window.location.hash.split("#")[1]);
-    const sv = urlParams.get("statVar");
+    const sv = window.location.hash.split("#")[1];
     if (!sv) {
       this.setState({
         description: "",
