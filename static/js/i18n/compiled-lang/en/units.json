@@ -6,13 +6,13 @@
     },
     {
       "type": 0,
-      "value": " °c"
+      "value": " °C"
     }
   ],
   "celsius-display": [
     {
       "type": 0,
-      "value": "°c"
+      "value": "°C"
     }
   ],
   "gram": [
@@ -93,6 +93,22 @@
     {
       "type": 0,
       "value": "metric tons"
+    }
+  ],
+  "micro-gram-per-cubic-meter": [
+    {
+      "type": 1,
+      "value": "0"
+    },
+    {
+      "type": 0,
+      "value": " μg/m³"
+    }
+  ],
+  "micro-gram-per-cubic-meter-display": [
+    {
+      "type": 0,
+      "value": "μg/m³"
     }
   ]
 }

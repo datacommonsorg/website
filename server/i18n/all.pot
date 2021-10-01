@@ -649,6 +649,10 @@ msgstr "Market capitalization of domestic companies"
 msgid "CHART_TITLE-Market_capitalization_per_gdp"
 msgstr "Market capitalization of domestic companies (% of GDP)"
 
+#. Title of a place chart: Used to quantify air quality with measures of concentrations of fine inhalable particles, with diameters that are generally 2.5 micrometers and smaller in the air. Also see https://www.epa.gov/air-trends/particulate-matter-pm25-trends
+msgid "CHART_TITLE-Mean_concentration_PM2.5"
+msgstr "Mean PM2.5 concentration"
+
 #. Title of a place chart: The median age of the population
 msgid "CHART_TITLE-Median_age"
 msgstr "Median Age"
