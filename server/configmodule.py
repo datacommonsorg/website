@@ -28,7 +28,7 @@ class Config:
     # If the deployment is a private instance
     PRIVATE = False
     # If the deployment is for sustainability.datacommons.org
-    SUSTAINABILITY = True
+    SUSTAINABILITY = False
     # Name of the site. The name is changed for private instance.
     NAME = "Data Commons"
 
