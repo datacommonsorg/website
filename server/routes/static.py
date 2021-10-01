@@ -34,7 +34,7 @@ def homepage():
     if current_app.config['PRIVATE']:
         return render_template('static/private.html')
     if current_app.config['SUSTAINABILITY']:
-        return render_template('static/home_sustainability.html')
+        return render_template('sustainability/homepage.html')
     place_names = place_api.get_display_name('^'.join(_HOMEPAGE_PLACE_DCIDS),
                                              g.locale)
     blog_date = babel_dates.format_date(date(2021, 7, 26),
