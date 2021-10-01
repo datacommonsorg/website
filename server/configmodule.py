@@ -27,6 +27,8 @@ class Config:
     ENABLE_BLOCKLIST = False
     # If the deployment is a private instance
     PRIVATE = False
+    # If the deployment is for sustainability.datacommons.org
+    SUSTAINABILITY = True
     # Name of the site. The name is changed for private instance.
     NAME = "Data Commons"
 
@@ -37,13 +39,25 @@ class ProductionConfig(Config):
     ENABLE_BLOCKLIST = True
 
 
+class ProdSustainabilityConfig(ProductionConfig):
+    SUSTAINABILITY = True
+
+
 class StagingConfig(Config):
     ENABLE_BLOCKLIST = True
     pass
 
 
+class StagingSustainabilityConfig(StagingConfig):
+    SUSTAINABILITY = True
+
+
 class AutopushConfig(Config):
     pass
+
+
+class AutopushSustainabilityConfig(StagingConfig):
+    SUSTAINABILITY = True
 
 
 class DevConfig(Config):
@@ -66,6 +80,10 @@ class LocalConfig(Config):
     API_ROOT = 'https://autopush.api.datacommons.org'
     GCS_BUCKET = 'datcom-website-autopush-resources'
     SCHEME = 'http'
+
+
+class LocalSustainabilityConfig(LocalConfig):
+    SUSTAINABILITY = True
 
 
 # [Private DC] use a local mixer.

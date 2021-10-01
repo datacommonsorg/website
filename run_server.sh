@@ -23,6 +23,8 @@ if [[ $1 == "lite" ]]; then
   export FLASK_ENV=local-lite
 elif [[ $1 == "private" ]]; then
   export FLASK_ENV=local-private
+elif [[ $1 == "sustainability" ]]; then
+  export FLASK_ENV=local-sustainability
 else
   export FLASK_ENV=local
 fi
