@@ -66,7 +66,7 @@ class Explorer extends Component<ExplorerPropType, unknown> {
           </h4>
         )}
         {this.props.summary?.placeTypeSummary && (
-          <div id="place-type-summary-section" className="browser-page-section">
+          <div id="place-type-summary-section" className="table-page-section">
             <h3>Places</h3>
             <Places
               statVar={this.props.statVar}
@@ -75,7 +75,7 @@ class Explorer extends Component<ExplorerPropType, unknown> {
           </div>
         )}
         {this.props.summary?.provenanceSummary && (
-          <div id="provenance-summary-section" className="browser-page-section">
+          <div id="provenance-summary-section" className="table-page-section">
             <h3>Sources</h3>
             {provenanceSummaryList.map((element) => {
               const url =
