@@ -693,6 +693,10 @@ msgstr "Mortality events per capita"
 msgid "CHART_TITLE-Outward_remittance_per_gdp"
 msgstr "Outward remittance"
 
+#. Title of a place chart: The Palmer Drought Severity Index (PDSI) uses readily available temperature and precipitation data to estimate relative dryness. See more details from https://climatedataguide.ucar.edu/climate-data/palmer-drought-severity-index-pdsi
+msgid "CHART_TITLE-Palmer_drought_severity_index"
+msgstr "Palmer drought severity index"
+
 #. Title of a place chart: Percentage of the population, of working age, who have no health insurance, broken down by gender
 msgid "CHART_TITLE-Percent_without_health_insurance_gender"
 msgstr "Percentage of people without health insurance by gender"

@@ -1427,6 +1427,12 @@
       "value": "Median Individual Income (Male)"
     }
   ],
+  "PalmerDroughtSeverityIndex_Atmosphere": [
+    {
+      "type": 0,
+      "value": "The Palmer Drought Severity Index"
+    }
+  ],
   "Percent_Person_18To64Years_Female_NoHealthInsurance": [
     {
       "type": 0,

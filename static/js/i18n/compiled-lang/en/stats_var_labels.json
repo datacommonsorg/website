@@ -1427,6 +1427,12 @@
       "value": "Male"
     }
   ],
+  "PalmerDroughtSeverityIndex_Atmosphere": [
+    {
+      "type": 0,
+      "value": "PDSI"
+    }
+  ],
   "Percent_Person_18To64Years_Female_NoHealthInsurance": [
     {
       "type": 0,

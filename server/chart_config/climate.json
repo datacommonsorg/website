@@ -67,5 +67,16 @@
       "scale": false
     },
     "isChoropleth": true
+  },
+  {
+    "category": "Climate",
+    "titleId": "CHART_TITLE-Palmer_drought_severity_index",
+    "title": "Palmer drought severity index",
+    "description": "The Palmer Drought Severity Index (PDSI) uses readily available temperature and precipitation data to estimate relative dryness. See more details from https://climatedataguide.ucar.edu/climate-data/palmer-drought-severity-index-pdsi",
+    "statsVars": ["PalmerDroughtSeverityIndex_Atmosphere"],
+    "relatedChart": {
+      "scale": false
+    },
+    "isChoropleth": true
   }
 ]
