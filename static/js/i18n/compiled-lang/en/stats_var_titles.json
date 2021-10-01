@@ -1250,7 +1250,7 @@
   "Mean_Concentration_AirPollutant_PM2.5": [
     {
       "type": 0,
-      "value": "Mean Concentration of PM 2.5"
+      "value": "Mean PM2.5 Concentration"
     }
   ],
   "Mean_WagesDaily_Worker": [

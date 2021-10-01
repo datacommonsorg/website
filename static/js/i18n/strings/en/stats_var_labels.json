@@ -1081,6 +1081,6 @@
   },
   "Mean_Concentration_AirPollutant_PM2.5": {
     "defaultMessage": "PM2.5",
-    "description": "Label used to describe statistical variables in chart legends, string should be short. Describes the mean concentration of PM 2.5"
+    "description": "Label used to describe statistical variables in chart legends, string should be short. Describes the mean PM2.5 concentration"
   }
 }
