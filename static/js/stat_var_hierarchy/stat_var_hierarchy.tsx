@@ -138,32 +138,33 @@ export class StatVarHierarchy extends React.Component<
               onSelectionChange={this.onSearchSelectionChange}
               searchLabel={this.props.searchLabel}
             />
-            {this.props.type !== StatVarHierarchyType.BROWSER && (
-              <div className="stat-var-hierarchy-options">
-                <div className="show-sv-toggle">
-                  <i
-                    className={`material-icons-outlined ${
-                      this.state.showAllSV ? "toggle-on" : "toggle-off"
-                    }`}
-                    onClick={() =>
-                      this.setState({ showAllSV: !this.state.showAllSV })
-                    }
-                  >
-                    {this.state.showAllSV ? "toggle_on" : "toggle_off"}
-                  </i>
-                  Show all statistical variables
+            {this.props.type !== StatVarHierarchyType.BROWSER &&
+              this.props.type !== StatVarHierarchyType.STAT_VAR && (
+                <div className="stat-var-hierarchy-options">
+                  <div className="show-sv-toggle">
+                    <i
+                      className={`material-icons-outlined ${
+                        this.state.showAllSV ? "toggle-on" : "toggle-off"
+                      }`}
+                      onClick={() =>
+                        this.setState({ showAllSV: !this.state.showAllSV })
+                      }
+                    >
+                      {this.state.showAllSV ? "toggle_on" : "toggle_off"}
+                    </i>
+                    Show all statistical variables
+                  </div>
+                  <div id="tree-widget-info">
+                    <i
+                      onMouseOver={this.onMouseOverInfoIcon}
+                      onMouseOut={() => hideTooltip()}
+                      className="material-icons-outlined"
+                    >
+                      info
+                    </i>
+                  </div>
                 </div>
-                <div id="tree-widget-info">
-                  <i
-                    onMouseOver={this.onMouseOverInfoIcon}
-                    onMouseOut={() => hideTooltip()}
-                    className="material-icons-outlined"
-                  >
-                    info
-                  </i>
-                </div>
-              </div>
-            )}
+              )}
             <div id="stat-var-hierarchy-scroll-container">
               <div id="hierarchy-section">
                 {rootSVGs.map((svg) => {

@@ -144,7 +144,7 @@ class TestBrowser(WebdriverBaseTest):
             'weather-chart-section')
         weather_charts = weather_charts_section.find_elements_by_class_name(
             'observation-chart')
-        self.assertEqual(len(weather_charts), 10)
+        self.assertEqual(len(weather_charts), 9)
 
     def test_page_serve_ca_population(self):
         """Test the browser page for California population can be loaded successfully."""

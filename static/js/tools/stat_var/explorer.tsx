@@ -19,14 +19,17 @@
  */
 
 import React, { Component } from "react";
+import { formatNumber } from "../../i18n/i18n";
 import { Places } from "./places";
 import { Provenance, ProvenancePropType } from "./provenance";
 import { StatVarSummary } from "../../shared/types";
 
 interface ExplorerPropType {
+  description: string;
   displayName: string;
   statVar: string;
   summary: StatVarSummary;
+  urls: Record<string, string>;
 }
 
 class Explorer extends Component<ExplorerPropType, unknown> {
@@ -43,17 +46,23 @@ class Explorer extends Component<ExplorerPropType, unknown> {
             rel="noreferrer"
           >
             {this.props.statVar}
-          </a>
+          </a>{" "}
+          (Graph Browser)
         </h2>
+        {this.props.description && (
+          <h4 className="description-text">{this.props.description}</h4>
+        )}
         {!this.props.summary && <div>No data available.</div>}
         {this.props.summary?.placeTypeSummary && (
           <h4 className="highlight-text">
-            Total number of places: {this.getNumberOfPlaces()}
+            Total number of places:{" "}
+            {formatNumber(this.getNumberOfPlaces(), undefined, true)}
           </h4>
         )}
         {this.props.summary?.provenanceSummary && (
           <h4 className="highlight-text">
-            Total number of sources: {provenanceSummaryList.length}
+            Total number of sources:{" "}
+            {formatNumber(provenanceSummaryList.length, undefined, true)}
           </h4>
         )}
         {this.props.summary?.placeTypeSummary && (
@@ -69,10 +78,15 @@ class Explorer extends Component<ExplorerPropType, unknown> {
           <div id="provenance-summary-section" className="browser-page-section">
             <h3>Sources</h3>
             {provenanceSummaryList.map((element) => {
+              const url =
+                element.provId in this.props.urls
+                  ? this.props.urls[element.provId][0]
+                  : "";
               return (
                 <Provenance
                   provId={element.provId}
                   summary={element.summary}
+                  url={url}
                   key={element.provId}
                 />
               );
