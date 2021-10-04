@@ -1089,6 +1089,6 @@
   },
   "Annual_Emissions_GreenhouseGas_NonBiogenic": {
     "defaultMessage": "Greenhouse Gas",
-    "description": "Label used to describe statistical variables in chart legends, string should be short. Describes the annual emission of non biogenic greenhouse gas"
+    "description": "Label used to describe statistical variables in chart legends, string should be short. Describes the annual emissions of greenhouse gas (non-biogenic)"
   }
 }
