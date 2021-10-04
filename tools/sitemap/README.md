@@ -1,7 +1,7 @@
 # Tool to generate sitemap files
 
 This tool generate the sitemap files based on the [sitemap protocol](https://www.sitemaps.org/protocol.html).
-The generated sitemap files are served as static files under https://datacommons.org/sitemap/*.
+The generated sitemap files are served as [static files](https://datacommons.org/sitemap/*).
 
 ## Update sitemap files
 
