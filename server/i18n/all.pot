@@ -337,6 +337,10 @@ msgid "in United States"
 msgstr ""
 
 
+#. Title of a place chart: Probability of contracting cancer over a 70 year lifetime due to air pollutant exposure
+msgid "CHART_TITLE-Air pollutant cancer risk"
+msgstr "Lifetime air toxics cancer risk"
+
 #. Title of a place chart: Air quality index
 msgid "CHART_TITLE-Air_quality_index"
 msgstr "Air quality index"

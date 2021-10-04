@@ -32,6 +32,7 @@ class Config:
         "Mean_Concentration_AirPollutant_PM2.5",
         "PalmerDroughtSeverityIndex_Atmosphere",
         "Annual_Emissions_GreenhouseGas_NonBiogenic",
+        "AirPollutant_Cancer_Risk",
     ]
     ENABLE_BLOCKLIST = False
     # If the deployment is a private instance

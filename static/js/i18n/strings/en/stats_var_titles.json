@@ -1081,14 +1081,18 @@
   },
   "Mean_Concentration_AirPollutant_PM2.5": {
     "defaultMessage": "Mean PM2.5 Concentration",
-    "description": "Title for a page about a statistical variable. Describes the mean PM2.5 concentration"
+    "description": "Title for a page about a statistical variable. Describes the mean PM2.5 concentration."
   },
   "PalmerDroughtSeverityIndex_Atmosphere": {
     "defaultMessage": "The Palmer Drought Severity Index",
-    "description": "Title for a page about a statistical variable. Describes the Palmer Drought Severity Index"
+    "description": "Title for a page about a statistical variable. Describes the Palmer Drought Severity Index."
   },
   "Annual_Emissions_GreenhouseGas_NonBiogenic": {
     "defaultMessage": "Annual Emissions of Greenhouse Gas (Non-Biogenic)",
-    "description": "Title for a page about a statistical variable. Describes the Annual Emissions of Greenhouse Gas (Non-Biogenic)"
+    "description": "Title for a page about a statistical variable. Describes the Annual Emissions of Greenhouse Gas (Non-Biogenic)."
+  },
+  "AirPollutant_Cancer_Risk": {
+    "defaultMessage": "Air Toxics Cancer Risk",
+    "description": "Title for a page about a statistical variable. Describes the probability of contracting cancer over a 70 year lifetime due to air pollutant exposure."
   }
 }

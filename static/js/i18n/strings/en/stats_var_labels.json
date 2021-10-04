@@ -1081,14 +1081,18 @@
   },
   "Mean_Concentration_AirPollutant_PM2.5": {
     "defaultMessage": "PM2.5",
-    "description": "Label used to describe statistical variables in chart legends, string should be short. Describes the mean PM2.5 concentration"
+    "description": "Label used to describe statistical variables in chart legends, string should be short. Describes the mean PM2.5 concentration."
   },
   "PalmerDroughtSeverityIndex_Atmosphere": {
     "defaultMessage": "PDSI",
-    "description": "Label used to describe statistical variables in chart legends, string should be short. Describes the Palmer drought severity index"
+    "description": "Label used to describe statistical variables in chart legends, string should be short. Describes the Palmer drought severity index."
   },
   "Annual_Emissions_GreenhouseGas_NonBiogenic": {
     "defaultMessage": "Greenhouse Gas",
-    "description": "Label used to describe statistical variables in chart legends, string should be short. Describes the annual emissions of greenhouse gas (non-biogenic)"
+    "description": "Label used to describe statistical variables in chart legends, string should be short. Describes the annual emissions of greenhouse gas (non-biogenic)."
+  },
+  "AirPollutant_Cancer_Risk": {
+    "defaultMessage": "Air Toxics Cancer Risk",
+    "description": "Label used to describe statistical variables in chart legends, string should be short. Describes the probability of contracting cancer over a 70 year lifetime due to air pollutant exposure."
   }
 }

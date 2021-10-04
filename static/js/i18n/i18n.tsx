@@ -207,6 +207,14 @@ function formatNumber(value: number, unit?: string): string {
       shouldAddUnit = true;
       unitKey = "micro-gram-per-cubic-meter";
       break;
+    case "MTCO2e":
+      shouldAddUnit = true;
+      unitKey = "metric-tons-of-co2";
+      break;
+    case "per million people":
+      shouldAddUnit = true;
+      unitKey = "per-million-people";
+      break;
   }
   let returnText = Intl.NumberFormat(intl.locale, formatOptions).format(value);
   if (shouldAddUnit) {
