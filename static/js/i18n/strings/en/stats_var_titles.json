@@ -1085,6 +1085,10 @@
   },
   "PalmerDroughtSeverityIndex_Atmosphere": {
     "defaultMessage": "The Palmer Drought Severity Index",
-    "description": "Title for a page about a statistical variable. Describes the The Palmer Drought Severity Index"
+    "description": "Title for a page about a statistical variable. Describes the Palmer Drought Severity Index"
+  },
+  "Annual_Emissions_GreenhouseGas_NonBiogenic": {
+    "defaultMessage": "Annual Emissions of Greenhouse Gas (Non-Biogenic)",
+    "description": "Title for a page about a statistical variable. Describes the Annual Emissions of Greenhouse Gas (Non-Biogenic)"
   }
 }

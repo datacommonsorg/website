@@ -78,5 +78,17 @@
       "scale": false
     },
     "isChoropleth": true
+  },
+  {
+    "category": "Climate",
+    "titleId": "CHART_TITLE-Annual_emissions_greenhouse_gas",
+    "title": "Annual greenhouse gas emissions",
+    "description": "Measures the total annual greenhouse gas emissions (non-biogenic) for a place",
+    "statsVars": ["Annual_Emissions_GreenhouseGas_NonBiogenic"],
+    "unit": "MTCO2e",
+    "relatedChart": {
+      "scale": false
+    },
+    "isChoropleth": true
   }
 ]

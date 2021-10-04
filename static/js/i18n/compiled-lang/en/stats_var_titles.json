@@ -113,6 +113,12 @@
       "value": "Market Capitalization of Domestic Companies (as a percentage of GDP)"
     }
   ],
+  "Annual_Emissions_GreenhouseGas_NonBiogenic": [
+    {
+      "type": 0,
+      "value": "Annual Emissions of Greenhouse Gas (Non-Biogenic)"
+    }
+  ],
   "Count_CriminalActivities_Arson": [
     {
       "type": 0,
