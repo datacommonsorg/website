@@ -44,6 +44,6 @@ def scatter():
         'tools/scatter.html', maps_api_key=current_app.config['MAPS_API_KEY'])
 
 
-@bp.route('/stat-var')
+@bp.route('/statvar')
 def stat_var():
     return flask.render_template('tools/stat_var.html')

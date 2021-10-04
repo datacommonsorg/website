@@ -35,6 +35,6 @@ class TestStaticPage(unittest.TestCase):
         assert b"Map Explorer - Data Commons" in response.data
 
     def test_stat_var(self):
-        response = app.test_client().get('/tools/stat-var')
+        response = app.test_client().get('/tools/statvar')
         assert response.status_code == 200
         assert b"Statistical Variable Explorer - Data Commons" in response.data
