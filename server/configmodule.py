@@ -30,7 +30,8 @@ class Config:
         "DifferenceRelativeToBaseDate2006_Daily_Max_Temperature_RCP60",
         "DifferenceRelativeToBaseDate2006_Daily_Max_Temperature_RCP85",
         "Mean_Concentration_AirPollutant_PM2.5",
-        "PalmerDroughtSeverityIndex_Atmosphere"
+        "PalmerDroughtSeverityIndex_Atmosphere",
+        "Annual_Emissions_GreenhouseGas_NonBiogenic",
     ]
     ENABLE_BLOCKLIST = False
     # If the deployment is a private instance

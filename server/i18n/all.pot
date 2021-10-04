@@ -345,6 +345,10 @@ msgstr "Air quality index"
 msgid "CHART_TITLE-Alcohol_consumption_per_capita"
 msgstr "Alcohol consumption per capita (annual)"
 
+#. Title of a place chart: Measures the total annual greenhouse gas emissions (non-biogenic) for a place
+msgid "CHART_TITLE-Annual_emissions_greenhouse_gas"
+msgstr "Annual greenhouse gas emissions"
+
 #. Title of a place chart: Total number of arson incidents
 msgid "CHART_TITLE-Arson"
 msgstr "Arson"
