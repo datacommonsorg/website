@@ -97,7 +97,7 @@
     "title": "Lifetime air toxics cancer risk",
     "description": "Probability of contracting cancer over a 70 year lifetime due to air pollutant exposure",
     "statsVars": ["AirPollutant_Cancer_Risk"],
-    "unit": "per million people",
+    "unit": "per-million",
     "relatedChart": {
       "scale": false
     },

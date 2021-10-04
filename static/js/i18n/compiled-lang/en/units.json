@@ -127,20 +127,20 @@
       "value": "μg/m³"
     }
   ],
-  "per-million-people": [
+  "per-million": [
     {
       "type": 1,
       "value": "0"
     },
     {
       "type": 0,
-      "value": " per million people"
+      "value": "/million"
     }
   ],
-  "per-million-people-display": [
+  "per-million-display": [
     {
       "type": 0,
-      "value": "per million people"
+      "value": "/million"
     }
   ]
 }

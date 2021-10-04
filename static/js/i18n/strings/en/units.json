@@ -47,10 +47,10 @@
   "metric-tons-of-co2-display": {
     "defaultMessage": "MTCO2e"
   },
-  "per-million-people": {
-    "defaultMessage": "{0} per million people"
+  "per-million": {
+    "defaultMessage": "{0}/million"
   },
-  "per-million-people-display": {
-    "defaultMessage": "per million people"
+  "per-million-display": {
+    "defaultMessage": "/million"
   }
 }
