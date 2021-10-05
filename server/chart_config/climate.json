@@ -83,7 +83,7 @@
     "category": "Climate",
     "titleId": "CHART_TITLE-Annual_emissions_greenhouse_gas",
     "title": "Annual greenhouse gas emissions from large facilities",
-    "description": "Measures the total annual greenhouse gas emissions (non-biogenic) ffrom large facilities",
+    "description": "Measures the total annual greenhouse gas emissions (non-biogenic) from large facilities",
     "statsVars": ["Annual_Emissions_GreenhouseGas_NonBiogenic"],
     "unit": "MTCO2e",
     "relatedChart": {
