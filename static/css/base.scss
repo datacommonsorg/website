@@ -23,7 +23,7 @@
   --dc-gray-lite: #ccc;
   --dc-white: #fff;
   --dc-blue: #67adff;
-  // Following vars are override in "private" mode
+  // Following vars are override in "private" and "sustainability" mode
   --dc-primary: #660000;
   --link-color: #660000;
 }
@@ -31,6 +31,11 @@
 :root.private {
   --dc-primary: #4285f4;
   --link-color: #4285f4;
+}
+
+:root.sustainability {
+  --dc-primary: #007800;
+  --link-color: #007800;
 }
 
 /** Bootstrap overrides **/

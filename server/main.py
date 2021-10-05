@@ -34,6 +34,7 @@ logging.basicConfig(level=logging.INFO,
 app = create_app()
 app.jinja_env.globals['GA_ACCOUNT'] = app.config['GA_ACCOUNT']
 app.jinja_env.globals['PRIVATE'] = app.config['PRIVATE']
+app.jinja_env.globals['SUSTAINABILITY'] = app.config['SUSTAINABILITY']
 app.jinja_env.globals['NAME'] = app.config['NAME']
 
 GCS_BUCKET = app.config['GCS_BUCKET']
