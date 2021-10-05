@@ -40,5 +40,17 @@
   },
   "micro-gram-per-cubic-meter-display": {
     "defaultMessage": "μg/m³"
+  },
+  "metric-tons-of-co2": {
+    "defaultMessage": "{0} MTCO2e"
+  },
+  "metric-tons-of-co2-display": {
+    "defaultMessage": "MTCO2e"
+  },
+  "per-million": {
+    "defaultMessage": "{0}/million"
+  },
+  "per-million-display": {
+    "defaultMessage": "/million"
   }
 }

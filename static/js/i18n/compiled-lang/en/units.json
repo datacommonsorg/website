@@ -95,6 +95,22 @@
       "value": "metric tons"
     }
   ],
+  "metric-tons-of-co2": [
+    {
+      "type": 1,
+      "value": "0"
+    },
+    {
+      "type": 0,
+      "value": " MTCO2e"
+    }
+  ],
+  "metric-tons-of-co2-display": [
+    {
+      "type": 0,
+      "value": "MTCO2e"
+    }
+  ],
   "micro-gram-per-cubic-meter": [
     {
       "type": 1,
@@ -109,6 +125,22 @@
     {
       "type": 0,
       "value": "μg/m³"
+    }
+  ],
+  "per-million": [
+    {
+      "type": 1,
+      "value": "0"
+    },
+    {
+      "type": 0,
+      "value": "/million"
+    }
+  ],
+  "per-million-display": [
+    {
+      "type": 0,
+      "value": "/million"
     }
   ]
 }

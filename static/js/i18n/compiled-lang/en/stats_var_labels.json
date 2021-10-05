@@ -1,4 +1,10 @@
 {
+  "AirPollutant_Cancer_Risk": [
+    {
+      "type": 0,
+      "value": "Air Toxics Cancer Risk"
+    }
+  ],
   "AirQualityIndex_AirPollutant": [
     {
       "type": 0,

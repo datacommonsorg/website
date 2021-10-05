@@ -90,5 +90,17 @@
       "scale": false
     },
     "isChoropleth": true
+  },
+  {
+    "category": "Climate",
+    "titleId": "CHART_TITLE-Air pollutant cancer risk",
+    "title": "Lifetime air toxics cancer risk",
+    "description": "Probability of contracting cancer over a 70 year lifetime due to air pollutant exposure",
+    "statsVars": ["AirPollutant_Cancer_Risk"],
+    "unit": "per-million",
+    "relatedChart": {
+      "scale": false
+    },
+    "isChoropleth": true
   }
 ]
