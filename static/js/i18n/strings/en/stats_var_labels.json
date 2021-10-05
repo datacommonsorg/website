@@ -1088,7 +1088,7 @@
     "description": "Label used to describe statistical variables in chart legends, string should be short. Describes the Palmer drought severity index."
   },
   "Annual_Emissions_GreenhouseGas_NonBiogenic": {
-    "defaultMessage": "Greenhouse Gas",
+    "defaultMessage": "Greenhouse Gas (Non-biogenic)",
     "description": "Label used to describe statistical variables in chart legends, string should be short. Describes the annual emissions of greenhouse gas (non-biogenic)."
   },
   "AirPollutant_Cancer_Risk": {
