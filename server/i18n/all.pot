@@ -349,9 +349,9 @@ msgstr "Air quality index"
 msgid "CHART_TITLE-Alcohol_consumption_per_capita"
 msgstr "Alcohol consumption per capita (annual)"
 
-#. Title of a place chart: Measures the total annual greenhouse gas emissions (non-biogenic) for a place
+#. Title of a place chart: Measures the total annual greenhouse gas emissions (non-biogenic) from large facilities
 msgid "CHART_TITLE-Annual_emissions_greenhouse_gas"
-msgstr "Annual greenhouse gas emissions"
+msgstr "Annual greenhouse gas emissions from large facilities"
 
 #. Title of a place chart: Total number of arson incidents
 msgid "CHART_TITLE-Arson"
@@ -390,8 +390,8 @@ msgid "CHART_TITLE-CHART_CATEGORY-Education"
 msgstr "Education"
 
 #. The category for a group of statistical charts.
-msgid "CHART_TITLE-CHART_CATEGORY-Environment"
-msgstr "Environment"
+msgid "CHART_TITLE-CHART_CATEGORY-Energy"
+msgstr "Energy"
 
 #. The category for a group of statistical charts.
 msgid "CHART_TITLE-CHART_CATEGORY-Equity"
@@ -649,7 +649,7 @@ msgstr "Marital status"
 msgid "CHART_TITLE-Marital_status_distribution"
 msgstr "Marital status distribution"
 
-#. Title of a place chart: 
+#. Title of a place chart:
 msgid "CHART_TITLE-Market_capitalization"
 msgstr "Market capitalization of domestic companies"
 
@@ -685,7 +685,7 @@ msgstr "Median household income by race"
 msgid "CHART_TITLE-Median_income_gender"
 msgstr "Median income by gender"
 
-#. Title of a place chart: 
+#. Title of a place chart:
 msgid "CHART_TITLE-Median_individual_income"
 msgstr "Median individual income"
 
@@ -717,19 +717,19 @@ msgstr "Percentage of people without health insurance by race"
 msgid "CHART_TITLE-Percentage of literate and illiterate population"
 msgstr "Percentage of literate and illiterate population"
 
-#. Title of a place chart: 
+#. Title of a place chart:
 msgid "CHART_TITLE-Percentage of population by religon"
 msgstr "Percentage of population by religon"
 
-#. Title of a place chart: 
+#. Title of a place chart:
 msgid "CHART_TITLE-Percentage of population by social category"
 msgstr "Percentage of population by social category (e.g. their cast or tribe)."
 
-#. Title of a place chart: 
+#. Title of a place chart:
 msgid "CHART_TITLE-Percentage of urban and rural households"
 msgstr "Percentage of urban and rural households"
 
-#. Title of a place chart: 
+#. Title of a place chart:
 msgid "CHART_TITLE-Percentage of urban vs rural homeless population"
 msgstr "Percentage of urban vs rural homeless population"
 
@@ -877,7 +877,7 @@ msgstr "Urban vs rural homeless population"
 msgid "CHART_TITLE-Urban vs rural poverty population"
 msgstr "Urban vs rural poverty population"
 
-#. Title of a place chart: 
+#. Title of a place chart:
 msgid "CHART_TITLE-Urban vs rural poverty rate"
 msgstr "Urban vs rural poverty rate"
 

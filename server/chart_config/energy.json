@@ -1,0 +1,26 @@
+[
+  {
+    "category": "Energy",
+    "titleId": "CHART_TITLE-Energy_use",
+    "title": "Energy use (kg of oil equivalent per capita)",
+    "description": "Total amount of energy consumed per person, measured by kilogram of oil equivalent",
+    "statsVars": ["Amount_Consumption_Energy_PerCapita"],
+    "unit": "kg",
+    "isOverview": true,
+    "relatedChart": {
+      "scale": false
+    }
+  },
+  {
+    "category": "Energy",
+    "titleId": "CHART_TITLE-Electricity_consumption_per_capita",
+    "title": "Electricity consumption per capita",
+    "description": "Total amount of electricity consumed per person",
+    "statsVars": ["Amount_Consumption_Electricity_PerCapita"],
+    "unit": "kWh",
+    "nonDividable": true,
+    "relatedChart": {
+      "scale": false
+    }
+  }
+]
