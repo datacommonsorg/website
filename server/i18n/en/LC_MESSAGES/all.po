@@ -389,8 +389,8 @@ msgid "CHART_TITLE-CHART_CATEGORY-Education"
 msgstr "Education"
 
 #. The category for a group of statistical charts.
-msgid "CHART_TITLE-CHART_CATEGORY-Environment"
-msgstr "Environment"
+msgid "CHART_TITLE-CHART_CATEGORY-Energy"
+msgstr "Energy"
 
 #. The category for a group of statistical charts.
 msgid "CHART_TITLE-CHART_CATEGORY-Equity"
@@ -911,4 +911,7 @@ msgstr "Worker wages (monthly): urban vs rural"
 #. Title of a place chart: Compares worker vs nonworker population in an area
 msgid "CHART_TITLE-Worker-vs-nonworker-population"
 msgstr "Worker vs nonworker population"
+
+#~ msgid "CHART_TITLE-CHART_CATEGORY-Environment"
+#~ msgstr "Environment"
 

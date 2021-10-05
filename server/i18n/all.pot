@@ -390,8 +390,8 @@ msgid "CHART_TITLE-CHART_CATEGORY-Education"
 msgstr "Education"
 
 #. The category for a group of statistical charts.
-msgid "CHART_TITLE-CHART_CATEGORY-Environment"
-msgstr "Environment"
+msgid "CHART_TITLE-CHART_CATEGORY-Energy"
+msgstr "Energy"
 
 #. The category for a group of statistical charts.
 msgid "CHART_TITLE-CHART_CATEGORY-Equity"
