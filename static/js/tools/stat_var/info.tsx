@@ -37,25 +37,25 @@ class Info extends Component {
         </p>
         <ul>
           <li>
-            <a href="#statVar=Count_Person">Population</a>
+            <a href="#Count_Person">Population</a>
           </li>
           <li>
-            <a href="#statVar=CumulativeCount_Vaccine_COVID_19_Administered">
+            <a href="#CumulativeCount_Vaccine_COVID_19_Administered">
               Cumulative Count of COVID_19, Vaccine Administered
             </a>
           </li>
           <li>
-            <a href="#statVar=Daily_PrecipitationRate_RCP85">
+            <a href="#Daily_PrecipitationRate_RCP85">
               Daily Precipitation Rate Based on RCP 8.5
             </a>
           </li>
           <li>
-            <a href="#statVar=Annual_Consumption_Electricity">
+            <a href="#Annual_Consumption_Electricity">
               Annual Consumption of Electricity
             </a>
           </li>
           <li>
-            <a href="#statVar=GiniIndex_EconomicActivity">
+            <a href="#GiniIndex_EconomicActivity">
               Gini Index of Economic Activity
             </a>
           </li>

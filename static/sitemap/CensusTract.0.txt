@@ -2486,6 +2486,7 @@ https://datacommons.org/place/geoId/04019002506
 https://datacommons.org/place/geoId/04019002602
 https://datacommons.org/place/geoId/04019002603
 https://datacommons.org/place/geoId/04019002604
+https://datacommons.org/place/geoId/04019002701
 https://datacommons.org/place/geoId/04019002702
 https://datacommons.org/place/geoId/04019002703
 https://datacommons.org/place/geoId/04019002704
@@ -2493,6 +2494,7 @@ https://datacommons.org/place/geoId/04019002801
 https://datacommons.org/place/geoId/04019002802
 https://datacommons.org/place/geoId/04019002803
 https://datacommons.org/place/geoId/04019002901
+https://datacommons.org/place/geoId/04019002903
 https://datacommons.org/place/geoId/04019002904
 https://datacommons.org/place/geoId/04019002905
 https://datacommons.org/place/geoId/04019002906
@@ -2686,6 +2688,11 @@ https://datacommons.org/place/geoId/04019004725
 https://datacommons.org/place/geoId/04019004726
 https://datacommons.org/place/geoId/04019005200
 https://datacommons.org/place/geoId/04019005300
+https://datacommons.org/place/geoId/04019410501
+https://datacommons.org/place/geoId/04019410502
+https://datacommons.org/place/geoId/04019410503
+https://datacommons.org/place/geoId/04019470400
+https://datacommons.org/place/geoId/04019470500
 https://datacommons.org/place/geoId/04019940600
 https://datacommons.org/place/geoId/04019940700
 https://datacommons.org/place/geoId/04019940800
@@ -7047,6 +7054,7 @@ https://datacommons.org/place/geoId/06037920339
 https://datacommons.org/place/geoId/06037930101
 https://datacommons.org/place/geoId/06037930200
 https://datacommons.org/place/geoId/06037930301
+https://datacommons.org/place/geoId/06037930401
 https://datacommons.org/place/geoId/06037980001
 https://datacommons.org/place/geoId/06037980002
 https://datacommons.org/place/geoId/06037980003
@@ -44990,11 +44998,3 @@ https://datacommons.org/place/geoId/36047102000
 https://datacommons.org/place/geoId/36047102200
 https://datacommons.org/place/geoId/36047102400
 https://datacommons.org/place/geoId/36047102600
-https://datacommons.org/place/geoId/36047102800
-https://datacommons.org/place/geoId/36047103400
-https://datacommons.org/place/geoId/36047105801
-https://datacommons.org/place/geoId/36047105804
-https://datacommons.org/place/geoId/36047107000
-https://datacommons.org/place/geoId/36047107800
-https://datacommons.org/place/geoId/36047109800
-https://datacommons.org/place/geoId/36047110400

@@ -66,6 +66,11 @@ def get_involved():
     return redirect('https://docs.datacommons.org/contributing/', code=302)
 
 
+@bp.route('/tools/stat-var')
+def stat_var():
+    return redirect('https://datacommons.org/tools/statvar', code=302)
+
+
 # This is used to handle explore more link from Google search. Do not remove.
 # arg params from search: mprop, dcid, popt
 @bp.route('/explore/place')
