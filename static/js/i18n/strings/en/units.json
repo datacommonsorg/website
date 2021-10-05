@@ -11,6 +11,12 @@
   "kilowatt-hour-display": {
     "defaultMessage": "kilowatt-hours"
   },
+  "gigawatt-hour": {
+    "defaultMessage": "{0} GWh"
+  },
+  "gigawatt-hour-display": {
+    "defaultMessage": "gigawatt-hours"
+  },
   "liter": {
     "defaultMessage": "{0} L"
   },
@@ -52,5 +58,12 @@
   },
   "per-million-display": {
     "defaultMessage": "/million"
+  },
+
+  "cent-per-kilowatt": {
+    "defaultMessage": "{0} ¢/kWh"
+  },
+  "cent-per-kilowatt-display": {
+    "defaultMessage": " ¢/kWh"
   }
 }

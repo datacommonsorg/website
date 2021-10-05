@@ -119,10 +119,22 @@
       "value": "Market Capitalization of Domestic Companies (as a percentage of GDP)"
     }
   ],
+  "Annual_Average_RetailPrice_Electricity": [
+    {
+      "type": 0,
+      "value": "Annual Electricity Generation"
+    }
+  ],
   "Annual_Emissions_GreenhouseGas_NonBiogenic": [
     {
       "type": 0,
       "value": "Annual Emissions of Greenhouse Gas (Non-Biogenic)"
+    }
+  ],
+  "Annual_Generation_Electricity": [
+    {
+      "type": 0,
+      "value": "Annual Electricity Generation"
     }
   ],
   "Count_CriminalActivities_Arson": [

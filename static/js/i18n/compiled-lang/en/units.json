@@ -15,6 +15,38 @@
       "value": "°C"
     }
   ],
+  "cent-per-kilowatt": [
+    {
+      "type": 1,
+      "value": "0"
+    },
+    {
+      "type": 0,
+      "value": " ¢/kWh"
+    }
+  ],
+  "cent-per-kilowatt-display": [
+    {
+      "type": 0,
+      "value": " ¢/kWh"
+    }
+  ],
+  "gigawatt-hour": [
+    {
+      "type": 1,
+      "value": "0"
+    },
+    {
+      "type": 0,
+      "value": " GWh"
+    }
+  ],
+  "gigawatt-hour-display": [
+    {
+      "type": 0,
+      "value": "gigawatt-hours"
+    }
+  ],
   "gram": [
     {
       "type": 1,
