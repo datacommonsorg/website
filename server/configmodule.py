@@ -56,7 +56,7 @@ class AutopushConfig(Config):
     pass
 
 
-class AutopushSustainabilityConfig(StagingConfig):
+class AutopushSustainabilityConfig(AutopushConfig):
     SUSTAINABILITY = True
 
 
