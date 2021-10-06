@@ -23,7 +23,8 @@ export const placeExplorerCategories = [
   "education",
   "demographics",
   "housing",
-  "environment",
+  "climate",
+  "energy",
 ];
 
 function randDomId(): string {

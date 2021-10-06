@@ -196,6 +196,9 @@ msgstr "कैलिफ़ोर्निया की काउंटी के
 msgid "Scatter Plot Explorer"
 msgstr "स्कैटर प्लॉट एक्सप्लोरर"
 
+msgid "Scatter Plots"
+msgstr ""
+
 msgid "See API documentation."
 msgstr "एपीआई दस्तावेज़ देखें"
 
@@ -207,6 +210,9 @@ msgstr "संयुक्त राज्य अमेरिका के र�
 
 msgid "Terms and Conditions"
 msgstr "नियम और शर्तें"
+
+msgid "Timeline Charts"
+msgstr ""
 
 msgid "Timelines Explorer"
 msgstr "टाइमलाइन एक्सप्लोर करने वाला टूल"
@@ -244,6 +250,9 @@ msgstr "राज्य के हिसाब से"
 msgid "in United States"
 msgstr "संयुक्त राज्य अमेरिका में"
 
+msgid "CHART_TITLE-Air_quality_index"
+msgstr "Air quality index"
+
 msgid "CHART_TITLE-Alcohol_consumption_per_capita"
 msgstr "अल्कोहल की प्रति व्यक्ति खपत (सालाना)"
 
@@ -258,6 +267,9 @@ msgstr "लिंग के हिसाब से असोसिएट डि�
 
 msgid "CHART_TITLE-Bachelors_degree_rate_gender"
 msgstr "लिंग के हिसाब से ऐसे लोगों की दर जो स्नातक हैं"
+
+msgid "CHART_TITLE-CHART_CATEGORY-Climate"
+msgstr "Climate"
 
 msgid "CHART_TITLE-CHART_CATEGORY-Crime"
 msgstr "अपराध"
@@ -645,7 +657,4 @@ msgstr "कामकाजी व्यक्ति का औसत वेत�
 
 msgid "CHART_TITLE-Worker-vs-nonworker-population"
 msgstr "कामकाजी बनाम गैर-कामकाजी लोगों की जनसंख्या"
-
-msgid "CHART_TITLE-CHART_CATEGORY-Overview"
-msgstr "खास जानकारी"
 

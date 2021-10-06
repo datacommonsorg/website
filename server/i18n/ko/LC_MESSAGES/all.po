@@ -196,6 +196,9 @@ msgstr "캘리포니아 카운티 간 소득 격차"
 msgid "Scatter Plot Explorer"
 msgstr "분산형 차트 탐색기"
 
+msgid "Scatter Plots"
+msgstr ""
+
 msgid "See API documentation."
 msgstr "API 설명서 보기"
 
@@ -207,6 +210,9 @@ msgstr "주, 미국"
 
 msgid "Terms and Conditions"
 msgstr "이용약관"
+
+msgid "Timeline Charts"
+msgstr ""
 
 msgid "Timelines Explorer"
 msgstr "타임라인 탐색기"
@@ -244,6 +250,9 @@ msgstr "주별"
 msgid "in United States"
 msgstr "미국"
 
+msgid "CHART_TITLE-Air_quality_index"
+msgstr "Air quality index"
+
 msgid "CHART_TITLE-Alcohol_consumption_per_capita"
 msgstr "1인당 알코올 소비량(연간)"
 
@@ -258,6 +267,9 @@ msgstr "성별에 따른 2년제 학위 취득률"
 
 msgid "CHART_TITLE-Bachelors_degree_rate_gender"
 msgstr "성별에 따른 학사 학위 취득률"
+
+msgid "CHART_TITLE-CHART_CATEGORY-Climate"
+msgstr "Climate"
 
 msgid "CHART_TITLE-CHART_CATEGORY-Crime"
 msgstr "범죄"
@@ -645,7 +657,4 @@ msgstr "노동자 월급: 도시 및 농촌 비교"
 
 msgid "CHART_TITLE-Worker-vs-nonworker-population"
 msgstr "노동자 및 비노동자 인구 비교"
-
-msgid "CHART_TITLE-CHART_CATEGORY-Overview"
-msgstr "개요"
 

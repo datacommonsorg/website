@@ -1058,5 +1058,49 @@
   "indianCensus/Count_Person_Religion_Sikh": {
     "defaultMessage": "Population (Sikh)",
     "description": "Title for a page about a statistical variable. Variable describes a population that practice the relgion."
+  },
+  "AirQualityIndex_AirPollutant": {
+    "defaultMessage": "AQI",
+    "description": "Title for a page about a statistical variable. Variable describes the air quality index."
+  },
+  "DifferenceRelativeToBaseDate2006_Daily_Max_Temperature_RCP26": {
+    "defaultMessage": "Max Temperature Change (RCP 2.6, Base Year 2016)",
+    "description": "Title for a page about a statistical variable. Describes the relative daily max temperature change from year 2006, based on RCP 2.6."
+  },
+  "DifferenceRelativeToBaseDate2006_Daily_Max_Temperature_RCP45": {
+    "defaultMessage": "Max Temperature Change (RCP 4.5, Base Year 2016)",
+    "description": "Title for a page about a statistical variable. Describes the relative daily max temperature change from year 2006, based on RCP 4.5."
+  },
+  "DifferenceRelativeToBaseDate2006_Daily_Max_Temperature_RCP60": {
+    "defaultMessage": "Max Temperature Change (RCP 6.0, Base Year 2016)",
+    "description": "Title for a page about a statistical variable. Describes the relative daily max temperature change from year 2006, based on RCP 6.0."
+  },
+  "DifferenceRelativeToBaseDate2006_Daily_Max_Temperature_RCP85": {
+    "defaultMessage": "Max Temperature Change (RCP 8.5, Base Year 2016)",
+    "description": "Title for a page about a statistical variable. Describes the relative daily max temperature change from year 2006, based on RCP 8.5."
+  },
+  "Mean_Concentration_AirPollutant_PM2.5": {
+    "defaultMessage": "Mean PM2.5 Concentration",
+    "description": "Title for a page about a statistical variable. Describes the mean PM2.5 concentration."
+  },
+  "PalmerDroughtSeverityIndex_Atmosphere": {
+    "defaultMessage": "The Palmer Drought Severity Index",
+    "description": "Title for a page about a statistical variable. Describes the Palmer Drought Severity Index."
+  },
+  "Annual_Emissions_GreenhouseGas_NonBiogenic": {
+    "defaultMessage": "Annual Emissions of Greenhouse Gas (Non-Biogenic)",
+    "description": "Title for a page about a statistical variable. Describes the Annual Emissions of Greenhouse Gas (Non-Biogenic)."
+  },
+  "AirPollutant_Cancer_Risk": {
+    "defaultMessage": "Air Toxics Cancer Risk",
+    "description": "Title for a page about a statistical variable. Describes the probability of contracting cancer over a 70 year lifetime due to air pollutant exposure."
+  },
+  "Annual_Generation_Electricity": {
+    "defaultMessage": "Annual Electricity Generation",
+    "description": "Title for a page about a statistical variable. Describes the annual electricity generation from all fuels, all sectors."
+  },
+  "Annual_Average_RetailPrice_Electricity": {
+    "defaultMessage": "Annual Electricity Generation",
+    "description": "Title for a page about a statistical variable. Describes the annual average retail price of electricity, all sectors."
   }
 }

@@ -196,6 +196,9 @@ msgstr "Confronto tra contee californiane più ricche e quelle più povere"
 msgid "Scatter Plot Explorer"
 msgstr "Strumento di esplorazione dei grafici a dispersione"
 
+msgid "Scatter Plots"
+msgstr ""
+
 msgid "See API documentation."
 msgstr "Consulta la documentazione dell'API."
 
@@ -207,6 +210,9 @@ msgstr "Stati, Stati Uniti"
 
 msgid "Terms and Conditions"
 msgstr "Termini e condizioni"
+
+msgid "Timeline Charts"
+msgstr ""
 
 msgid "Timelines Explorer"
 msgstr "Timelines Explorer"
@@ -244,6 +250,9 @@ msgstr "per stato"
 msgid "in United States"
 msgstr "negli Stati Uniti"
 
+msgid "CHART_TITLE-Air_quality_index"
+msgstr "Air quality index"
+
 msgid "CHART_TITLE-Alcohol_consumption_per_capita"
 msgstr "Consumo di alcol pro capite (annuale)"
 
@@ -258,6 +267,9 @@ msgstr "Tasso di conseguimento di diplomi universitari per sesso"
 
 msgid "CHART_TITLE-Bachelors_degree_rate_gender"
 msgstr "Tasso di conseguimento della laurea per sesso"
+
+msgid "CHART_TITLE-CHART_CATEGORY-Climate"
+msgstr "Climate"
 
 msgid "CHART_TITLE-CHART_CATEGORY-Crime"
 msgstr "Criminalità"
@@ -645,7 +657,4 @@ msgstr "Retribuzioni dei lavoratori (mensili): popolazione urbana e rurale"
 
 msgid "CHART_TITLE-Worker-vs-nonworker-population"
 msgstr "Popolazione di lavoratori e non lavoratori"
-
-msgid "CHART_TITLE-CHART_CATEGORY-Overview"
-msgstr "Panoramica"
 

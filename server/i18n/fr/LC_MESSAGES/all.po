@@ -196,6 +196,9 @@ msgstr "Comparaison entre les comtés de Californie les plus riches et les plus 
 msgid "Scatter Plot Explorer"
 msgstr "Explorateur de graphiques à nuage de points"
 
+msgid "Scatter Plots"
+msgstr ""
+
 msgid "See API documentation."
 msgstr "Consultez la documentation de l'API."
 
@@ -207,6 +210,9 @@ msgstr "États des États-Unis"
 
 msgid "Terms and Conditions"
 msgstr "Conditions d'utilisation"
+
+msgid "Timeline Charts"
+msgstr ""
 
 msgid "Timelines Explorer"
 msgstr "Exploration chronologique"
@@ -244,6 +250,9 @@ msgstr "par État"
 msgid "in United States"
 msgstr "aux États-Unis"
 
+msgid "CHART_TITLE-Air_quality_index"
+msgstr "Air quality index"
+
 msgid "CHART_TITLE-Alcohol_consumption_per_capita"
 msgstr "Consommation annuelle d'alcool par habitant"
 
@@ -258,6 +267,9 @@ msgstr "Taux d'obtention d'un diplôme d'associé par sexe"
 
 msgid "CHART_TITLE-Bachelors_degree_rate_gender"
 msgstr "Taux d'obtention d'une licence par sexe"
+
+msgid "CHART_TITLE-CHART_CATEGORY-Climate"
+msgstr "Climate"
 
 msgid "CHART_TITLE-CHART_CATEGORY-Crime"
 msgstr "Crimes"
@@ -645,7 +657,4 @@ msgstr "Salaires des travailleurs (par mois) : zone urbaine et rurale"
 
 msgid "CHART_TITLE-Worker-vs-nonworker-population"
 msgstr "Population de personnes avec et sans emploi"
-
-msgid "CHART_TITLE-CHART_CATEGORY-Overview"
-msgstr "Aperçu"
 
