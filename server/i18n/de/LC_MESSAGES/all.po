@@ -208,6 +208,9 @@ msgstr "Beispiele für Python-Notebooks ansehen."
 msgid "States, United States"
 msgstr "Bundesstaaten, USA"
 
+msgid "Statistical Variable Explorer"
+msgstr ""
+
 msgid "Terms and Conditions"
 msgstr "Nutzungsbedingungen"
 
@@ -250,11 +253,17 @@ msgstr "nach Bundesstaat"
 msgid "in United States"
 msgstr "in den USA"
 
+msgid "CHART_TITLE-Air pollutant cancer risk"
+msgstr "Lifetime air toxics cancer risk"
+
 msgid "CHART_TITLE-Air_quality_index"
 msgstr "Air quality index"
 
 msgid "CHART_TITLE-Alcohol_consumption_per_capita"
 msgstr "Alkoholkonsum pro Kopf (jährlich)"
+
+msgid "CHART_TITLE-Annual_emissions_greenhouse_gas"
+msgstr "Annual greenhouse gas emissions from large facilities"
 
 msgid "CHART_TITLE-Arson"
 msgstr "Brandstiftung"
@@ -283,8 +292,8 @@ msgstr "Wirtschaft"
 msgid "CHART_TITLE-CHART_CATEGORY-Education"
 msgstr "Ausbildung"
 
-msgid "CHART_TITLE-CHART_CATEGORY-Environment"
-msgstr "Umwelt"
+msgid "CHART_TITLE-CHART_CATEGORY-Energy"
+msgstr "Energy"
 
 msgid "CHART_TITLE-CHART_CATEGORY-Equity"
 msgstr "Eigenkapital"
@@ -357,6 +366,12 @@ msgstr "Bildungsabschlüsse"
 
 msgid "CHART_TITLE-Electricity_consumption_per_capita"
 msgstr "Stromverbrauch pro Kopf"
+
+msgid "CHART_TITLE-Electricity_generation"
+msgstr "Electricity generation"
+
+msgid "CHART_TITLE-Electricity_price"
+msgstr "Electricity price"
 
 msgid "CHART_TITLE-Energy_use"
 msgstr "Energieverbrauch (kg des Öläquivalents pro Kopf)"
@@ -484,6 +499,9 @@ msgstr "Marktkapitalisierung der inländischen Unternehmen"
 msgid "CHART_TITLE-Market_capitalization_per_gdp"
 msgstr "Marktkapitalisierung inländischer Unternehmen (% des BIP)"
 
+msgid "CHART_TITLE-Mean_concentration_PM2.5"
+msgstr "Mean PM2.5 concentration"
+
 msgid "CHART_TITLE-Median_age"
 msgstr "Medianwert für das Alter"
 
@@ -513,6 +531,9 @@ msgstr "Todesfälle pro Kopf"
 
 msgid "CHART_TITLE-Outward_remittance_per_gdp"
 msgstr "Ausgehende Überweisungen"
+
+msgid "CHART_TITLE-Palmer_drought_severity_index"
+msgstr "Palmer drought severity index"
 
 msgid "CHART_TITLE-Percent_without_health_insurance_gender"
 msgstr "Anteil der Personen ohne Krankenversicherung nach Geschlecht"
@@ -582,6 +603,18 @@ msgstr "Verschriebene Arzneimittel (vierteljährlich)"
 
 msgid "CHART_TITLE-Prescribed_drugs_per_capita"
 msgstr "Verschriebene Arzneimittel pro Kopf (vierteljährlich)"
+
+msgid "CHART_TITLE-Projected_daily_temperature_change_under_rcp26_based_on_year_2006"
+msgstr "Projected max daily temperature change under RCP 2.6 (based on year 2006)"
+
+msgid "CHART_TITLE-Projected_daily_temperature_change_under_rcp45_based_on_year_2006"
+msgstr "Projected max daily temperature change under RCP 4.5 (based on year 2006)"
+
+msgid "CHART_TITLE-Projected_daily_temperature_change_under_rcp60_based_on_year_2006"
+msgstr "Projected max daily temperature change under RCP 6.0 (based on year 2006)"
+
+msgid "CHART_TITLE-Projected_daily_temperature_change_under_rcp85_based_on_year_2006"
+msgstr "Projected max daily temperature change under RCP 8.5 (based on year 2006)"
 
 msgid "CHART_TITLE-Property_crime"
 msgstr "Eigentumsdelikt"
@@ -657,4 +690,5 @@ msgstr "Arbeitsentgelt (monatlich): städtisch und ländlich im Vergleich"
 
 msgid "CHART_TITLE-Worker-vs-nonworker-population"
 msgstr "Arbeitende und nicht arbeitende Bevölkerung im Vergleich"
+
 

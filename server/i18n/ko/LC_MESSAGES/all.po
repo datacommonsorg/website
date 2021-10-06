@@ -208,6 +208,9 @@ msgstr "샘플 Python 메모장을 확인하세요."
 msgid "States, United States"
 msgstr "주, 미국"
 
+msgid "Statistical Variable Explorer"
+msgstr ""
+
 msgid "Terms and Conditions"
 msgstr "이용약관"
 
@@ -250,11 +253,17 @@ msgstr "주별"
 msgid "in United States"
 msgstr "미국"
 
+msgid "CHART_TITLE-Air pollutant cancer risk"
+msgstr "Lifetime air toxics cancer risk"
+
 msgid "CHART_TITLE-Air_quality_index"
 msgstr "Air quality index"
 
 msgid "CHART_TITLE-Alcohol_consumption_per_capita"
 msgstr "1인당 알코올 소비량(연간)"
+
+msgid "CHART_TITLE-Annual_emissions_greenhouse_gas"
+msgstr "Annual greenhouse gas emissions from large facilities"
 
 msgid "CHART_TITLE-Arson"
 msgstr "방화"
@@ -283,8 +292,8 @@ msgstr "경제학"
 msgid "CHART_TITLE-CHART_CATEGORY-Education"
 msgstr "교육"
 
-msgid "CHART_TITLE-CHART_CATEGORY-Environment"
-msgstr "환경"
+msgid "CHART_TITLE-CHART_CATEGORY-Energy"
+msgstr "Energy"
 
 msgid "CHART_TITLE-CHART_CATEGORY-Equity"
 msgstr "지분"
@@ -357,6 +366,12 @@ msgstr "교육 수료율"
 
 msgid "CHART_TITLE-Electricity_consumption_per_capita"
 msgstr "1인당 전기 소비량"
+
+msgid "CHART_TITLE-Electricity_generation"
+msgstr "Electricity generation"
+
+msgid "CHART_TITLE-Electricity_price"
+msgstr "Electricity price"
 
 msgid "CHART_TITLE-Energy_use"
 msgstr "에너지 사용(1인당 석유 환산량 kg당)"
@@ -484,6 +499,9 @@ msgstr "국내 기업 시가총액"
 msgid "CHART_TITLE-Market_capitalization_per_gdp"
 msgstr "국내 기업 시가총액(GDP 대비 %)"
 
+msgid "CHART_TITLE-Mean_concentration_PM2.5"
+msgstr "Mean PM2.5 concentration"
+
 msgid "CHART_TITLE-Median_age"
 msgstr "중위 연령"
 
@@ -513,6 +531,9 @@ msgstr "1인당 사망률"
 
 msgid "CHART_TITLE-Outward_remittance_per_gdp"
 msgstr "당발송금"
+
+msgid "CHART_TITLE-Palmer_drought_severity_index"
+msgstr "Palmer drought severity index"
 
 msgid "CHART_TITLE-Percent_without_health_insurance_gender"
 msgstr "성별에 따른 보험 비보유자 비율"
@@ -582,6 +603,18 @@ msgstr "처방 의약품(분기별)"
 
 msgid "CHART_TITLE-Prescribed_drugs_per_capita"
 msgstr "1인당 처방약(분기별)"
+
+msgid "CHART_TITLE-Projected_daily_temperature_change_under_rcp26_based_on_year_2006"
+msgstr "Projected max daily temperature change under RCP 2.6 (based on year 2006)"
+
+msgid "CHART_TITLE-Projected_daily_temperature_change_under_rcp45_based_on_year_2006"
+msgstr "Projected max daily temperature change under RCP 4.5 (based on year 2006)"
+
+msgid "CHART_TITLE-Projected_daily_temperature_change_under_rcp60_based_on_year_2006"
+msgstr "Projected max daily temperature change under RCP 6.0 (based on year 2006)"
+
+msgid "CHART_TITLE-Projected_daily_temperature_change_under_rcp85_based_on_year_2006"
+msgstr "Projected max daily temperature change under RCP 8.5 (based on year 2006)"
 
 msgid "CHART_TITLE-Property_crime"
 msgstr "재산범죄"
@@ -657,4 +690,5 @@ msgstr "노동자 월급: 도시 및 농촌 비교"
 
 msgid "CHART_TITLE-Worker-vs-nonworker-population"
 msgstr "노동자 및 비노동자 인구 비교"
+
 

@@ -1,4 +1,7 @@
 {
+  "AirPollutant_Cancer_Risk": {
+    "defaultMessage": "Air Toxics Cancer Risk"
+  },
   "AirQualityIndex_AirPollutant": {
     "defaultMessage": "AQI"
   },
@@ -55,6 +58,15 @@
   },
   "Amount_Stock_AsFractionOf_Amount_EconomicActivity_GrossDomesticProduction_Nominal": {
     "defaultMessage": "国内企業の時価総額（GDP 比）"
+  },
+  "Annual_Average_RetailPrice_Electricity": {
+    "defaultMessage": "Annual Electricity Generation"
+  },
+  "Annual_Emissions_GreenhouseGas_NonBiogenic": {
+    "defaultMessage": "Annual Emissions of Greenhouse Gas (Non-Biogenic)"
+  },
+  "Annual_Generation_Electricity": {
+    "defaultMessage": "Annual Electricity Generation"
   },
   "Count_CriminalActivities_Arson": {
     "defaultMessage": "犯罪件数（放火）"
@@ -596,6 +608,18 @@
   "CumulativeCount_MedicalConditionIncident_COVID_19_PatientDeceased": {
     "defaultMessage": "COVID-19（新型コロナウイルス感染症）の累積死亡者数"
   },
+  "DifferenceRelativeToBaseDate2006_Daily_Max_Temperature_RCP26": {
+    "defaultMessage": "Max Temperature Change (RCP 2.6, Base Year 2016)"
+  },
+  "DifferenceRelativeToBaseDate2006_Daily_Max_Temperature_RCP45": {
+    "defaultMessage": "Max Temperature Change (RCP 4.5, Base Year 2016)"
+  },
+  "DifferenceRelativeToBaseDate2006_Daily_Max_Temperature_RCP60": {
+    "defaultMessage": "Max Temperature Change (RCP 6.0, Base Year 2016)"
+  },
+  "DifferenceRelativeToBaseDate2006_Daily_Max_Temperature_RCP85": {
+    "defaultMessage": "Max Temperature Change (RCP 8.5, Base Year 2016)"
+  },
   "FertilityRate_Person_Female": {
     "defaultMessage": "出生率"
   },
@@ -610,6 +634,9 @@
   },
   "LifeExpectancy_Person": {
     "defaultMessage": "平均寿命"
+  },
+  "Mean_Concentration_AirPollutant_PM2.5": {
+    "defaultMessage": "Mean PM2.5 Concentration"
   },
   "Mean_WagesDaily_Worker": {
     "defaultMessage": "労働者の 1 日の賃金"
@@ -697,6 +724,9 @@
   },
   "Median_Income_Person_15OrMoreYears_Male_WithIncome": {
     "defaultMessage": "個人所得の中央値（男性）"
+  },
+  "PalmerDroughtSeverityIndex_Atmosphere": {
+    "defaultMessage": "The Palmer Drought Severity Index"
   },
   "Percent_Person_18To64Years_Female_NoHealthInsurance": {
     "defaultMessage": "健康保険未加入者の割合（女性）"

@@ -280,6 +280,10 @@ msgstr ""
 msgid "States, United States"
 msgstr ""
 
+#. The name of a tool that provides observation and import information about statistical variables.
+msgid "Statistical Variable Explorer"
+msgstr ""
+
 #. The label for a link to site terms and conditions.
 msgid "Terms and Conditions"
 msgstr ""
