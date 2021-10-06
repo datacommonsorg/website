@@ -1,4 +1,10 @@
 {
+  "AirPollutant_Cancer_Risk": [
+    {
+      "type": 0,
+      "value": "Air Toxics Cancer Risk"
+    }
+  ],
   "AirQualityIndex_AirPollutant": [
     {
       "type": 0,
@@ -111,6 +117,24 @@
     {
       "type": 0,
       "value": "Capitalización en el mercado de las empresas nacionales (% del PIB)"
+    }
+  ],
+  "Annual_Average_RetailPrice_Electricity": [
+    {
+      "type": 0,
+      "value": "Electricity Price"
+    }
+  ],
+  "Annual_Emissions_GreenhouseGas_NonBiogenic": [
+    {
+      "type": 0,
+      "value": "Greenhouse Gas (Non-biogenic)"
+    }
+  ],
+  "Annual_Generation_Electricity": [
+    {
+      "type": 0,
+      "value": "Annual Electricity Generation"
     }
   ],
   "Count_CriminalActivities_Arson": [
@@ -1193,6 +1217,30 @@
       "value": "Muertes acumuladas por COVID-19"
     }
   ],
+  "DifferenceRelativeToBaseDate2006_Daily_Max_Temperature_RCP26": [
+    {
+      "type": 0,
+      "value": "Max Temperature Change, Base Year 2006, RCP 2.6"
+    }
+  ],
+  "DifferenceRelativeToBaseDate2006_Daily_Max_Temperature_RCP45": [
+    {
+      "type": 0,
+      "value": "Max Temperature Change, Base Year 2006, RCP 4.5"
+    }
+  ],
+  "DifferenceRelativeToBaseDate2006_Daily_Max_Temperature_RCP60": [
+    {
+      "type": 0,
+      "value": "Max Temperature Change, Base Year 2006, RCP 6.0"
+    }
+  ],
+  "DifferenceRelativeToBaseDate2006_Daily_Max_Temperature_RCP85": [
+    {
+      "type": 0,
+      "value": "Max Temperature Change, Base Year 2006, RCP 8.5"
+    }
+  ],
   "FertilityRate_Person_Female": [
     {
       "type": 0,
@@ -1221,6 +1269,12 @@
     {
       "type": 0,
       "value": "Esperanza de vida"
+    }
+  ],
+  "Mean_Concentration_AirPollutant_PM2.5": [
+    {
+      "type": 0,
+      "value": "PM2.5"
     }
   ],
   "Mean_WagesDaily_Worker": [
@@ -1395,6 +1449,12 @@
     {
       "type": 0,
       "value": "Hombres"
+    }
+  ],
+  "PalmerDroughtSeverityIndex_Atmosphere": [
+    {
+      "type": 0,
+      "value": "PDSI"
     }
   ],
   "Percent_Person_18To64Years_Female_NoHealthInsurance": [

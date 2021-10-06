@@ -1,4 +1,7 @@
 {
+  "AirPollutant_Cancer_Risk": {
+    "defaultMessage": "Air Toxics Cancer Risk"
+  },
   "AirQualityIndex_AirPollutant": {
     "defaultMessage": "AQI"
   },
@@ -55,6 +58,15 @@
   },
   "Amount_Stock_AsFractionOf_Amount_EconomicActivity_GrossDomesticProduction_Nominal": {
     "defaultMessage": "घरेलू कंपनियों का बाज़ार पूंजीकरण (GDP के प्रतिशत के हिसाब से)"
+  },
+  "Annual_Average_RetailPrice_Electricity": {
+    "defaultMessage": "Annual Electricity Generation"
+  },
+  "Annual_Emissions_GreenhouseGas_NonBiogenic": {
+    "defaultMessage": "Annual Emissions of Greenhouse Gas (Non-Biogenic)"
+  },
+  "Annual_Generation_Electricity": {
+    "defaultMessage": "Annual Electricity Generation"
   },
   "Count_CriminalActivities_Arson": {
     "defaultMessage": "आपराधिक गतिविधियों की संख्या (आगज़नी)"
@@ -596,6 +608,18 @@
   "CumulativeCount_MedicalConditionIncident_COVID_19_PatientDeceased": {
     "defaultMessage": "COVID-19 की वजह से हुई मौतें"
   },
+  "DifferenceRelativeToBaseDate2006_Daily_Max_Temperature_RCP26": {
+    "defaultMessage": "Max Temperature Change (RCP 2.6, Base Year 2016)"
+  },
+  "DifferenceRelativeToBaseDate2006_Daily_Max_Temperature_RCP45": {
+    "defaultMessage": "Max Temperature Change (RCP 4.5, Base Year 2016)"
+  },
+  "DifferenceRelativeToBaseDate2006_Daily_Max_Temperature_RCP60": {
+    "defaultMessage": "Max Temperature Change (RCP 6.0, Base Year 2016)"
+  },
+  "DifferenceRelativeToBaseDate2006_Daily_Max_Temperature_RCP85": {
+    "defaultMessage": "Max Temperature Change (RCP 8.5, Base Year 2016)"
+  },
   "FertilityRate_Person_Female": {
     "defaultMessage": "प्रजनन दर"
   },
@@ -610,6 +634,9 @@
   },
   "LifeExpectancy_Person": {
     "defaultMessage": "औसत उम्र"
+  },
+  "Mean_Concentration_AirPollutant_PM2.5": {
+    "defaultMessage": "Mean PM2.5 Concentration"
   },
   "Mean_WagesDaily_Worker": {
     "defaultMessage": "कामकाजी व्यक्ति को हर दिन मिलने वाला वेतन"
@@ -697,6 +724,9 @@
   },
   "Median_Income_Person_15OrMoreYears_Male_WithIncome": {
     "defaultMessage": "औसत व्यक्तिगत आमदनी (पुरुष)"
+  },
+  "PalmerDroughtSeverityIndex_Atmosphere": {
+    "defaultMessage": "The Palmer Drought Severity Index"
   },
   "Percent_Person_18To64Years_Female_NoHealthInsurance": {
     "defaultMessage": "ऐसे लोगों का प्रतिशत जिनके पास स्वास्थ्य बीमा नहीं है (महिला)"

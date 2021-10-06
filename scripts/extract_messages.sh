@@ -18,8 +18,7 @@
 set -e
 
 # TODO: add support for pt-BR zh-CN;
-# Change back to "de en es fr hi it ja ko ru"
-LOCALES="en"
+LOCALES="de en es fr hi it ja ko ru"
 
 cd static
 npm list @formatjs/cli || npm install formatjs
