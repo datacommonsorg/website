@@ -444,11 +444,7 @@ class ChartBlock extends React.Component<ChartBlockPropType> {
         );
       }
     }
-    return (
-      <div className="row row-cols-xl-3 row-cols-md-2 row-cols-1">
-        {chartElements}
-      </div>
-    );
+    return <>{chartElements}</>;
   }
 }
 

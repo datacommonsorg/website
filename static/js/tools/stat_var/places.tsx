@@ -42,14 +42,14 @@ class Places extends Component<PlacesPropType, unknown> {
             <tr key="header">
               <th className="type-column">Type</th>
               <th className="number-column">Count</th>
-              <th>Examples</th>
+              <th>Example Places</th>
             </tr>
             {placeTypeSummaryList.map((element) => {
               return (
                 <tr key={element.placeType}>
                   <td className="type-column">{element.placeType}</td>
                   <td className="number-column">
-                    {formatNumber(element.summary.numPlaces)}
+                    {formatNumber(element.summary.numPlaces, undefined, true)}
                   </td>
                   <td>
                     {element.summary.topPlaces.map((place, index) => {

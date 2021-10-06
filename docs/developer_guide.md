@@ -263,7 +263,7 @@ the same region.
 
    ```bash
    ./scripts/extract_messages.sh
-   ./scripts/compiled_messages.sh
+   ./scripts/compile_messages.sh
    ```
 
 1. **IMPORTANT**: Manually restart the flask or minikube instance to reload the config and translations.

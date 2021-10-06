@@ -45,8 +45,7 @@ class StatVarChip extends Component<StatVarChipPropsType> {
         <span
           className="mdl-chip__text"
           onClick={() => {
-            // TODO(chejennifer): open stat var explorer page once that's ready.
-            window.open(`/browser/${this.props.statVar}`);
+            window.open(`/tools/statvar#${this.props.statVar}`);
           }}
         >
           {this.props.title}

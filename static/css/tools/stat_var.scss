@@ -15,9 +15,8 @@
  */
 @import "base_tools";
 @import "stat_var_widget";
-// TODO: Filter out shared css.
-@import "../browser";
 @import "../place/place";
+@import "../table";
 
 #main-pane #plot-container {
   background: #f8f8f8;
@@ -35,19 +34,38 @@
   text-transform: none;
 }
 
+#stat-var-explorer .description-text {
+  color: var(--secondary);
+  font-size: 1rem;
+  font-style: italic;
+  font-weight: 300;
+  line-height: 1.2rem;
+  margin-bottom: 0.5rem;
+  text-transform: none;
+}
+
 #stat-var-explorer .highlight-text {
   color: var(--secondary);
   font-size: 0.9rem;
   font-weight: 300;
-  line-height: 1.4rem;
-}
-
-#stat-var-explorer .type-column {
-  width: 30%;
+  margin-bottom: 0;
 }
 
 #stat-var-explorer .number-column {
   text-align: right;
+}
+
+#placeholder-container a {
+  color: var(--link-color);
+  text-decoration: none;
+}
+
+#placeholder-container a:hover {
+  text-decoration: underline;
+}
+
+#place-type-summary-section .type-column {
+  width: 30%;
 }
 
 #place-type-summary-section
@@ -57,7 +75,7 @@
 }
 
 #place-type-summary-section a {
-  color: #600;
+  color: var(--link-color);
   text-decoration: none;
 }
 
@@ -74,8 +92,12 @@
   margin: 0 0 5px;
 }
 
-#provenance-summary-section .series-key-column {
+#provenance-summary-section .type-column {
   width: 25%;
+}
+
+#provenance-summary-section .series-key-column {
+  width: 30%;
 }
 
 #provenance-summary-section .dc-aggregate {
@@ -83,7 +105,7 @@
 }
 
 #provenance-summary-section .detail-text {
-  font-size: 0.7rem;
+  font-size: 0.8rem;
 }
 
 #provenance-summary-section ul {
