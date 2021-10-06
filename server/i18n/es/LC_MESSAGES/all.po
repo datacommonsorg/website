@@ -352,9 +352,6 @@ msgstr "Delitos por 100.000 habitantes"
 msgid "CHART_TITLE-Cyclones"
 msgstr "Ciclones"
 
-msgid "CHART_TITLE-Disasters"
-msgstr "Desastres"
-
 msgid "CHART_TITLE-Earthquakes"
 msgstr "Terremotos"
 

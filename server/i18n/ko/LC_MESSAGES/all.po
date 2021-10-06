@@ -352,9 +352,6 @@ msgstr "10만 명당 범죄 수"
 msgid "CHART_TITLE-Cyclones"
 msgstr "사이클론"
 
-msgid "CHART_TITLE-Disasters"
-msgstr "재해"
-
 msgid "CHART_TITLE-Earthquakes"
 msgstr "지진"
 

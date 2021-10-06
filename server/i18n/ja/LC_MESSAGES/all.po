@@ -352,9 +352,6 @@ msgstr "犯罪件数（人口 100,000 人あたり）"
 msgid "CHART_TITLE-Cyclones"
 msgstr "サイクロン"
 
-msgid "CHART_TITLE-Disasters"
-msgstr "災害"
-
 msgid "CHART_TITLE-Earthquakes"
 msgstr "地震"
 

@@ -472,10 +472,6 @@ msgstr "Crimes per 100,000 people"
 msgid "CHART_TITLE-Cyclones"
 msgstr "Cyclones"
 
-#. Title of a place chart: Total number of disasters that occured, broken down by disaster type
-msgid "CHART_TITLE-Disasters"
-msgstr "Disasters"
-
 #. Title of a place chart: Total number of earthquakes that occured
 msgid "CHART_TITLE-Earthquakes"
 msgstr "Earthquakes"
@@ -926,4 +922,7 @@ msgstr "Worker vs nonworker population"
 
 #~ msgid "CHART_TITLE-CHART_CATEGORY-Environment"
 #~ msgstr "Environment"
+
+#~ msgid "CHART_TITLE-Disasters"
+#~ msgstr "Disasters"
 

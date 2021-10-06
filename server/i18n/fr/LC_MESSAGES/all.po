@@ -352,9 +352,6 @@ msgstr "Crimes par 100 000 habitants"
 msgid "CHART_TITLE-Cyclones"
 msgstr "Cyclones"
 
-msgid "CHART_TITLE-Disasters"
-msgstr "Catastrophes naturelles"
-
 msgid "CHART_TITLE-Earthquakes"
 msgstr "Séismes"
 

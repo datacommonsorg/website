@@ -352,9 +352,6 @@ msgstr "Straftaten pro 100.000 Einwohner"
 msgid "CHART_TITLE-Cyclones"
 msgstr "Zyklone"
 
-msgid "CHART_TITLE-Disasters"
-msgstr "Katastrophen"
-
 msgid "CHART_TITLE-Earthquakes"
 msgstr "Erdbeben"
 

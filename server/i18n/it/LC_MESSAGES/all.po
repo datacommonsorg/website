@@ -352,9 +352,6 @@ msgstr "Reati per 100.000 persone"
 msgid "CHART_TITLE-Cyclones"
 msgstr "Cicloni"
 
-msgid "CHART_TITLE-Disasters"
-msgstr "Catastrofi"
-
 msgid "CHART_TITLE-Earthquakes"
 msgstr "Terremoti"
 
