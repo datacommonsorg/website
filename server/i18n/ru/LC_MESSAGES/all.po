@@ -208,6 +208,9 @@ msgstr "Смотреть примеры документов на Python"
 msgid "States, United States"
 msgstr "Штаты в США"
 
+msgid "Statistical Variable Explorer"
+msgstr ""
+
 msgid "Terms and Conditions"
 msgstr "Условия использования"
 
@@ -250,11 +253,17 @@ msgstr "по штату"
 msgid "in United States"
 msgstr "в США"
 
+msgid "CHART_TITLE-Air pollutant cancer risk"
+msgstr "Lifetime air toxics cancer risk"
+
 msgid "CHART_TITLE-Air_quality_index"
 msgstr "Air quality index"
 
 msgid "CHART_TITLE-Alcohol_consumption_per_capita"
 msgstr "Потребление алкоголя на душу населения (в год)"
+
+msgid "CHART_TITLE-Annual_emissions_greenhouse_gas"
+msgstr "Annual greenhouse gas emissions from large facilities"
 
 msgid "CHART_TITLE-Arson"
 msgstr "Поджог"
@@ -283,8 +292,8 @@ msgstr "Экономика"
 msgid "CHART_TITLE-CHART_CATEGORY-Education"
 msgstr "Образование"
 
-msgid "CHART_TITLE-CHART_CATEGORY-Environment"
-msgstr "Окружающая среда"
+msgid "CHART_TITLE-CHART_CATEGORY-Energy"
+msgstr "Energy"
 
 msgid "CHART_TITLE-CHART_CATEGORY-Equity"
 msgstr "Собственный капитал"
@@ -357,6 +366,12 @@ msgstr "Процент получивших образование людей"
 
 msgid "CHART_TITLE-Electricity_consumption_per_capita"
 msgstr "Электропотребление на душу населения"
+
+msgid "CHART_TITLE-Electricity_generation"
+msgstr "Electricity generation"
+
+msgid "CHART_TITLE-Electricity_price"
+msgstr "Electricity price"
 
 msgid "CHART_TITLE-Energy_use"
 msgstr "Энергопотребление (кг нефтяного эквивалента на душу населения)"
@@ -484,6 +499,9 @@ msgstr "Рыночная капитализация отечественных �
 msgid "CHART_TITLE-Market_capitalization_per_gdp"
 msgstr "Рыночная капитализация отечественных компаний (в % от ВВП)"
 
+msgid "CHART_TITLE-Mean_concentration_PM2.5"
+msgstr "Mean PM2.5 concentration"
+
 msgid "CHART_TITLE-Median_age"
 msgstr "Медианный возраст"
 
@@ -513,6 +531,9 @@ msgstr "Смертельные случаи на душу населения"
 
 msgid "CHART_TITLE-Outward_remittance_per_gdp"
 msgstr "Переводы за рубеж"
+
+msgid "CHART_TITLE-Palmer_drought_severity_index"
+msgstr "Palmer drought severity index"
 
 msgid "CHART_TITLE-Percent_without_health_insurance_gender"
 msgstr "Процент людей без медицинской страховки по полу"
@@ -582,6 +603,18 @@ msgstr "Количество прописанных лекарств (за кв�
 
 msgid "CHART_TITLE-Prescribed_drugs_per_capita"
 msgstr "Количество прописанных лекарств на душу населения (за квартал)"
+
+msgid "CHART_TITLE-Projected_daily_temperature_change_under_rcp26_based_on_year_2006"
+msgstr "Projected max daily temperature change under RCP 2.6 (based on year 2006)"
+
+msgid "CHART_TITLE-Projected_daily_temperature_change_under_rcp45_based_on_year_2006"
+msgstr "Projected max daily temperature change under RCP 4.5 (based on year 2006)"
+
+msgid "CHART_TITLE-Projected_daily_temperature_change_under_rcp60_based_on_year_2006"
+msgstr "Projected max daily temperature change under RCP 6.0 (based on year 2006)"
+
+msgid "CHART_TITLE-Projected_daily_temperature_change_under_rcp85_based_on_year_2006"
+msgstr "Projected max daily temperature change under RCP 8.5 (based on year 2006)"
 
 msgid "CHART_TITLE-Property_crime"
 msgstr "Имущественные преступления"
@@ -657,4 +690,5 @@ msgstr "Заработок в месяц: город и сельская мес�
 
 msgid "CHART_TITLE-Worker-vs-nonworker-population"
 msgstr "Доля работающих и неработающих"
+
 
