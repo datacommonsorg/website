@@ -33,6 +33,8 @@ class Config:
         "PalmerDroughtSeverityIndex_Atmosphere",
         "Annual_Emissions_GreenhouseGas_NonBiogenic",
         "AirPollutant_Cancer_Risk",
+        "Annual_Generation_Electricity",
+        "Annual_Average_RetailPrice_Electricity",
     ]
     ENABLE_BLOCKLIST = False
     # If the deployment is a private instance

@@ -488,6 +488,14 @@ msgstr "Education attainment rate"
 msgid "CHART_TITLE-Electricity_consumption_per_capita"
 msgstr "Electricity consumption per capita"
 
+#. Title of a place chart: Annual net electricity generation, all fuels, all sectors
+msgid "CHART_TITLE-Electricity_generation"
+msgstr "Electricity generation"
+
+#. Title of a place chart: Annual average retail price of electricity, all sectors
+msgid "CHART_TITLE-Electricity_price"
+msgstr "Electricity price"
+
 #. Title of a place chart: Total amount of energy consumed per person, measured by kilogram of oil equivalent
 msgid "CHART_TITLE-Energy_use"
 msgstr "Energy use (kg of oil equivalent per capita)"

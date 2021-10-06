@@ -187,6 +187,10 @@ function formatNumber(value: number, unit?: string): string {
       shouldAddUnit = true;
       unitKey = "kilowatt-hour";
       break;
+    case "GWh":
+      shouldAddUnit = true;
+      unitKey = "gigawatt-hour";
+      break;
     case "g":
       shouldAddUnit = true;
       unitKey = "gram";
@@ -214,6 +218,10 @@ function formatNumber(value: number, unit?: string): string {
     case "per-million":
       shouldAddUnit = true;
       unitKey = "per-million";
+      break;
+    case "¢/kWh":
+      shouldAddUnit = true;
+      unitKey = "cent-per-kilowatt";
       break;
   }
   let returnText = Intl.NumberFormat(intl.locale, formatOptions).format(value);

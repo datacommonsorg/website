@@ -1094,5 +1094,13 @@
   "AirPollutant_Cancer_Risk": {
     "defaultMessage": "Air Toxics Cancer Risk",
     "description": "Title for a page about a statistical variable. Describes the probability of contracting cancer over a 70 year lifetime due to air pollutant exposure."
+  },
+  "Annual_Generation_Electricity": {
+    "defaultMessage": "Annual Electricity Generation",
+    "description": "Title for a page about a statistical variable. Describes the annual electricity generation from all fuels, all sectors."
+  },
+  "Annual_Average_RetailPrice_Electricity": {
+    "defaultMessage": "Annual Electricity Generation",
+    "description": "Title for a page about a statistical variable. Describes the annual average retail price of electricity, all sectors."
   }
 }

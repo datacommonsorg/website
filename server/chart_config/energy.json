@@ -1,6 +1,30 @@
 [
   {
     "category": "Energy",
+    "titleId": "CHART_TITLE-Electricity_price",
+    "title": "Electricity price",
+    "description": "Annual average retail price of electricity, all sectors",
+    "statsVars": ["Annual_Average_RetailPrice_Electricity"],
+    "unit": "¢/kWh",
+    "isOverview": true,
+    "relatedChart": {
+      "scale": false
+    }
+  },
+  {
+    "category": "Energy",
+    "titleId": "CHART_TITLE-Electricity_generation",
+    "title": "Electricity generation",
+    "description": "Annual net electricity generation, all fuels, all sectors",
+    "statsVars": ["Annual_Generation_Electricity"],
+    "unit": "GWh",
+    "isOverview": true,
+    "relatedChart": {
+      "scale": false
+    }
+  },
+  {
+    "category": "Energy",
     "titleId": "CHART_TITLE-Energy_use",
     "title": "Energy use (kg of oil equivalent per capita)",
     "description": "Total amount of energy consumed per person, measured by kilogram of oil equivalent",
