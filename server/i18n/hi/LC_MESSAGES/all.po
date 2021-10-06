@@ -352,9 +352,6 @@ msgstr "हर एक लाख लोगों में होने वाल
 msgid "CHART_TITLE-Cyclones"
 msgstr "चक्रवात"
 
-msgid "CHART_TITLE-Disasters"
-msgstr "आपदाएं"
-
 msgid "CHART_TITLE-Earthquakes"
 msgstr "भूकंपों की संख्या"
 

@@ -352,9 +352,6 @@ msgstr "Количество преступлений на 100 000 челове
 msgid "CHART_TITLE-Cyclones"
 msgstr "Циклоны"
 
-msgid "CHART_TITLE-Disasters"
-msgstr "Стихийные бедствия"
-
 msgid "CHART_TITLE-Earthquakes"
 msgstr "Землетрясения"
 
