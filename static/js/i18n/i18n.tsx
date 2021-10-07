@@ -194,6 +194,10 @@ function formatNumber(
       shouldAddUnit = true;
       unitKey = "kilowatt-hour";
       break;
+    case "GWh":
+      shouldAddUnit = true;
+      unitKey = "gigawatt-hour";
+      break;
     case "g":
       shouldAddUnit = true;
       unitKey = "gram";
@@ -205,6 +209,26 @@ function formatNumber(
     case "L":
       shouldAddUnit = true;
       unitKey = "liter";
+      break;
+    case "celsius":
+      shouldAddUnit = true;
+      unitKey = "celsius";
+      break;
+    case "μg/m³":
+      shouldAddUnit = true;
+      unitKey = "micro-gram-per-cubic-meter";
+      break;
+    case "MTCO2e":
+      shouldAddUnit = true;
+      unitKey = "metric-tons-of-co2";
+      break;
+    case "per-million":
+      shouldAddUnit = true;
+      unitKey = "per-million";
+      break;
+    case "¢/kWh":
+      shouldAddUnit = true;
+      unitKey = "cent-per-kilowatt";
       break;
   }
   let returnText = Intl.NumberFormat(intl.locale, formatOptions).format(value);

@@ -1,4 +1,10 @@
 {
+  "AirPollutant_Cancer_Risk": {
+    "defaultMessage": "Air Toxics Cancer Risk"
+  },
+  "AirQualityIndex_AirPollutant": {
+    "defaultMessage": "AQI"
+  },
   "Amount_Consumption_Alcohol_15OrMoreYears_AsFractionOf_Count_Person_15OrMoreYears": {
     "defaultMessage": "1인당 순수알코올 소비량(연간)"
   },
@@ -52,6 +58,15 @@
   },
   "Amount_Stock_AsFractionOf_Amount_EconomicActivity_GrossDomesticProduction_Nominal": {
     "defaultMessage": "국내 기업 시가총액(GDP 대비 백분율)"
+  },
+  "Annual_Average_RetailPrice_Electricity": {
+    "defaultMessage": "Annual Electricity Generation"
+  },
+  "Annual_Emissions_GreenhouseGas_NonBiogenic": {
+    "defaultMessage": "Annual Emissions of Greenhouse Gas (Non-Biogenic)"
+  },
+  "Annual_Generation_Electricity": {
+    "defaultMessage": "Annual Electricity Generation"
   },
   "Count_CriminalActivities_Arson": {
     "defaultMessage": "범죄 행위 수(방화)"
@@ -593,6 +608,18 @@
   "CumulativeCount_MedicalConditionIncident_COVID_19_PatientDeceased": {
     "defaultMessage": "코로나19 누적 사망자 수"
   },
+  "DifferenceRelativeToBaseDate2006_Daily_Max_Temperature_RCP26": {
+    "defaultMessage": "Max Temperature Change (RCP 2.6, Base Year 2016)"
+  },
+  "DifferenceRelativeToBaseDate2006_Daily_Max_Temperature_RCP45": {
+    "defaultMessage": "Max Temperature Change (RCP 4.5, Base Year 2016)"
+  },
+  "DifferenceRelativeToBaseDate2006_Daily_Max_Temperature_RCP60": {
+    "defaultMessage": "Max Temperature Change (RCP 6.0, Base Year 2016)"
+  },
+  "DifferenceRelativeToBaseDate2006_Daily_Max_Temperature_RCP85": {
+    "defaultMessage": "Max Temperature Change (RCP 8.5, Base Year 2016)"
+  },
   "FertilityRate_Person_Female": {
     "defaultMessage": "출산율"
   },
@@ -607,6 +634,9 @@
   },
   "LifeExpectancy_Person": {
     "defaultMessage": "기대수명"
+  },
+  "Mean_Concentration_AirPollutant_PM2.5": {
+    "defaultMessage": "Mean PM2.5 Concentration"
   },
   "Mean_WagesDaily_Worker": {
     "defaultMessage": "노동자 일당"
@@ -694,6 +724,9 @@
   },
   "Median_Income_Person_15OrMoreYears_Male_WithIncome": {
     "defaultMessage": "중위 개인 소득(남성)"
+  },
+  "PalmerDroughtSeverityIndex_Atmosphere": {
+    "defaultMessage": "The Palmer Drought Severity Index"
   },
   "Percent_Person_18To64Years_Female_NoHealthInsurance": {
     "defaultMessage": "건강 보험이 없는 인구 비율(여성)"

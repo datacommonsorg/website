@@ -17,11 +17,12 @@
 
 set -e
 
+LOCALES="de en es fr hi it ja ko ru"
+
 cd static
 npm list @formatjs/cli || npm install formatjs
 
-# for LOCALE in de en es fr hi it ja ko pt-BR ru zh-CN;
-for LOCALE in de en es fr hi it ja ko ru;
+for LOCALE in $LOCALES;
 do
   npm run compile -- js/i18n/strings/$LOCALE --ast js/i18n/compiled-lang/$LOCALE
 done
@@ -30,4 +31,7 @@ cd ..
 python3 -m venv .env
 source .env/bin/activate
 pip3 install -r server/requirements.txt -q
-.env/bin/pybabel compile -d server/i18n -f -D all
+for LOCALE in $LOCALES;
+do
+  .env/bin/pybabel compile -d server/i18n -f -D all -l $LOCALE
+done

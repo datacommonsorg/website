@@ -1,4 +1,10 @@
 {
+  "AirPollutant_Cancer_Risk": {
+    "defaultMessage": "Air Toxics Cancer Risk"
+  },
+  "AirQualityIndex_AirPollutant": {
+    "defaultMessage": "AQI"
+  },
   "Amount_Consumption_Alcohol_15OrMoreYears_AsFractionOf_Count_Person_15OrMoreYears": {
     "defaultMessage": "Consommation d'alcool pur"
   },
@@ -52,6 +58,15 @@
   },
   "Amount_Stock_AsFractionOf_Amount_EconomicActivity_GrossDomesticProduction_Nominal": {
     "defaultMessage": "Capitalisation boursière des entreprises nationales (% du PIB)"
+  },
+  "Annual_Average_RetailPrice_Electricity": {
+    "defaultMessage": "Electricity Price"
+  },
+  "Annual_Emissions_GreenhouseGas_NonBiogenic": {
+    "defaultMessage": "Greenhouse Gas (Non-biogenic)"
+  },
+  "Annual_Generation_Electricity": {
+    "defaultMessage": "Annual Electricity Generation"
   },
   "Count_CriminalActivities_Arson": {
     "defaultMessage": "Incendies"
@@ -593,6 +608,18 @@
   "CumulativeCount_MedicalConditionIncident_COVID_19_PatientDeceased": {
     "defaultMessage": "Nombre cumulé de décès de la COVID-19"
   },
+  "DifferenceRelativeToBaseDate2006_Daily_Max_Temperature_RCP26": {
+    "defaultMessage": "Max Temperature Change, Base Year 2006, RCP 2.6"
+  },
+  "DifferenceRelativeToBaseDate2006_Daily_Max_Temperature_RCP45": {
+    "defaultMessage": "Max Temperature Change, Base Year 2006, RCP 4.5"
+  },
+  "DifferenceRelativeToBaseDate2006_Daily_Max_Temperature_RCP60": {
+    "defaultMessage": "Max Temperature Change, Base Year 2006, RCP 6.0"
+  },
+  "DifferenceRelativeToBaseDate2006_Daily_Max_Temperature_RCP85": {
+    "defaultMessage": "Max Temperature Change, Base Year 2006, RCP 8.5"
+  },
   "FertilityRate_Person_Female": {
     "defaultMessage": "Taux de fécondité"
   },
@@ -607,6 +634,9 @@
   },
   "LifeExpectancy_Person": {
     "defaultMessage": "Espérance de vie"
+  },
+  "Mean_Concentration_AirPollutant_PM2.5": {
+    "defaultMessage": "PM2.5"
   },
   "Mean_WagesDaily_Worker": {
     "defaultMessage": "Salaire quotidien d'un travailleur"
@@ -694,6 +724,9 @@
   },
   "Median_Income_Person_15OrMoreYears_Male_WithIncome": {
     "defaultMessage": "Hommes"
+  },
+  "PalmerDroughtSeverityIndex_Atmosphere": {
+    "defaultMessage": "PDSI"
   },
   "Percent_Person_18To64Years_Female_NoHealthInsurance": {
     "defaultMessage": "Femmes"

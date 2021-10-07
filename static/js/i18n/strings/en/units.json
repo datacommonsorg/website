@@ -11,6 +11,12 @@
   "kilowatt-hour-display": {
     "defaultMessage": "kilowatt-hours"
   },
+  "gigawatt-hour": {
+    "defaultMessage": "{0} GWh"
+  },
+  "gigawatt-hour-display": {
+    "defaultMessage": "gigawatt-hours"
+  },
   "liter": {
     "defaultMessage": "{0} L"
   },
@@ -28,5 +34,36 @@
   },
   "gram-display": {
     "defaultMessage": "grams"
+  },
+  "celsius": {
+    "defaultMessage": "{0} °C"
+  },
+  "celsius-display": {
+    "defaultMessage": "°C"
+  },
+  "micro-gram-per-cubic-meter": {
+    "defaultMessage": "{0} μg/m³"
+  },
+  "micro-gram-per-cubic-meter-display": {
+    "defaultMessage": "μg/m³"
+  },
+  "metric-tons-of-co2": {
+    "defaultMessage": "{0} MTCO2e"
+  },
+  "metric-tons-of-co2-display": {
+    "defaultMessage": "MTCO2e"
+  },
+  "per-million": {
+    "defaultMessage": "{0}/million"
+  },
+  "per-million-display": {
+    "defaultMessage": "/million"
+  },
+
+  "cent-per-kilowatt": {
+    "defaultMessage": "{0} ¢/kWh"
+  },
+  "cent-per-kilowatt-display": {
+    "defaultMessage": " ¢/kWh"
   }
 }

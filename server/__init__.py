@@ -41,7 +41,8 @@ PLACE_EXPLORER_CATEGORIES = [
     "education",
     "demographics",
     "housing",
-    "environment",
+    "climate",
+    "energy",
 ]
 
 

@@ -1058,5 +1058,49 @@
   "indianCensus/Count_Person_Religion_Sikh": {
     "defaultMessage": "Sikh",
     "description": "Label used to describe statistical variables in chart legends, string should be short. Describes a population that practice the relgion."
+  },
+  "AirQualityIndex_AirPollutant": {
+    "defaultMessage": "AQI",
+    "description": "Label used to describe statistical variables in chart legends, string should be short. Describes the air quality index."
+  },
+  "DifferenceRelativeToBaseDate2006_Daily_Max_Temperature_RCP26": {
+    "defaultMessage": "Max Temperature Change, Base Year 2006, RCP 2.6",
+    "description": "Label used to describe statistical variables in chart legends, string should be short. Describes the relative daily max temperature change from year 2006, based on RCP 2.6."
+  },
+  "DifferenceRelativeToBaseDate2006_Daily_Max_Temperature_RCP45": {
+    "defaultMessage": "Max Temperature Change, Base Year 2006, RCP 4.5",
+    "description": "Label used to describe statistical variables in chart legends, string should be short. Describes the relative daily max temperature change from year 2006, based on RCP 4.5."
+  },
+  "DifferenceRelativeToBaseDate2006_Daily_Max_Temperature_RCP60": {
+    "defaultMessage": "Max Temperature Change, Base Year 2006, RCP 6.0",
+    "description": "Label used to describe statistical variables in chart legends, string should be short. Describes the relative daily max temperature change from year 2006, based on RCP 6.0."
+  },
+  "DifferenceRelativeToBaseDate2006_Daily_Max_Temperature_RCP85": {
+    "defaultMessage": "Max Temperature Change, Base Year 2006, RCP 8.5",
+    "description": "Label used to describe statistical variables in chart legends, string should be short. Describes the relative daily max temperature change from year 2006, based on RCP 8.5."
+  },
+  "Mean_Concentration_AirPollutant_PM2.5": {
+    "defaultMessage": "PM2.5",
+    "description": "Label used to describe statistical variables in chart legends, string should be short. Describes the mean PM2.5 concentration."
+  },
+  "PalmerDroughtSeverityIndex_Atmosphere": {
+    "defaultMessage": "PDSI",
+    "description": "Label used to describe statistical variables in chart legends, string should be short. Describes the Palmer drought severity index."
+  },
+  "Annual_Emissions_GreenhouseGas_NonBiogenic": {
+    "defaultMessage": "Greenhouse Gas (Non-biogenic)",
+    "description": "Label used to describe statistical variables in chart legends, string should be short. Describes the annual emissions of greenhouse gas (non-biogenic)."
+  },
+  "AirPollutant_Cancer_Risk": {
+    "defaultMessage": "Air Toxics Cancer Risk",
+    "description": "Label used to describe statistical variables in chart legends, string should be short. Describes the probability of contracting cancer over a 70 year lifetime due to air pollutant exposure."
+  },
+  "Annual_Generation_Electricity": {
+    "defaultMessage": "Annual Electricity Generation",
+    "description": "Label used to describe statistical variables in chart legends, string should be short. Describes the annual electricity generation from all fuels, all sectors."
+  },
+  "Annual_Average_RetailPrice_Electricity": {
+    "defaultMessage": "Electricity Price",
+    "description": "Label used to describe statistical variables in chart legends, string should be short. Describes the annual average retail price of electricity, all sectors."
   }
 }

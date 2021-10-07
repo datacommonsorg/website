@@ -196,6 +196,9 @@ msgstr "カリフォルニア州の最も富裕な郡と最も貧しい郡"
 msgid "Scatter Plot Explorer"
 msgstr "散布図エクスプローラ"
 
+msgid "Scatter Plots"
+msgstr ""
+
 msgid "See API documentation."
 msgstr "API ドキュメントをご覧ください。"
 
@@ -205,8 +208,14 @@ msgstr "サンプル Python ノートブックをご覧ください。"
 msgid "States, United States"
 msgstr "米国の州"
 
+msgid "Statistical Variable Explorer"
+msgstr ""
+
 msgid "Terms and Conditions"
 msgstr "利用規約"
+
+msgid "Timeline Charts"
+msgstr ""
 
 msgid "Timelines Explorer"
 msgstr "タイムライン エクスプローラ"
@@ -244,8 +253,17 @@ msgstr "州別"
 msgid "in United States"
 msgstr "米国内"
 
+msgid "CHART_TITLE-Air pollutant cancer risk"
+msgstr "Lifetime air toxics cancer risk"
+
+msgid "CHART_TITLE-Air_quality_index"
+msgstr "Air quality index"
+
 msgid "CHART_TITLE-Alcohol_consumption_per_capita"
 msgstr "1 人あたりのアルコール消費量（年間）"
+
+msgid "CHART_TITLE-Annual_emissions_greenhouse_gas"
+msgstr "Annual greenhouse gas emissions from large facilities"
 
 msgid "CHART_TITLE-Arson"
 msgstr "放火"
@@ -259,6 +277,9 @@ msgstr "準学士号の取得率（性別ごと）"
 msgid "CHART_TITLE-Bachelors_degree_rate_gender"
 msgstr "学士号の取得率（性別ごと）"
 
+msgid "CHART_TITLE-CHART_CATEGORY-Climate"
+msgstr "Climate"
+
 msgid "CHART_TITLE-CHART_CATEGORY-Crime"
 msgstr "犯罪"
 
@@ -271,8 +292,8 @@ msgstr "経済"
 msgid "CHART_TITLE-CHART_CATEGORY-Education"
 msgstr "学歴"
 
-msgid "CHART_TITLE-CHART_CATEGORY-Environment"
-msgstr "環境"
+msgid "CHART_TITLE-CHART_CATEGORY-Energy"
+msgstr "Energy"
 
 msgid "CHART_TITLE-CHART_CATEGORY-Equity"
 msgstr "資産"
@@ -331,9 +352,6 @@ msgstr "犯罪件数（人口 100,000 人あたり）"
 msgid "CHART_TITLE-Cyclones"
 msgstr "サイクロン"
 
-msgid "CHART_TITLE-Disasters"
-msgstr "災害"
-
 msgid "CHART_TITLE-Earthquakes"
 msgstr "地震"
 
@@ -345,6 +363,12 @@ msgstr "学歴取得率"
 
 msgid "CHART_TITLE-Electricity_consumption_per_capita"
 msgstr "1 人あたりの電力消費量"
+
+msgid "CHART_TITLE-Electricity_generation"
+msgstr "Electricity generation"
+
+msgid "CHART_TITLE-Electricity_price"
+msgstr "Electricity price"
 
 msgid "CHART_TITLE-Energy_use"
 msgstr "エネルギー使用量（1 人あたりの石油換算 kg）"
@@ -472,6 +496,9 @@ msgstr "国内企業の時価総額"
 msgid "CHART_TITLE-Market_capitalization_per_gdp"
 msgstr "国内企業の時価総額（GDP 比）"
 
+msgid "CHART_TITLE-Mean_concentration_PM2.5"
+msgstr "Mean PM2.5 concentration"
+
 msgid "CHART_TITLE-Median_age"
 msgstr "年齢の中央値"
 
@@ -501,6 +528,9 @@ msgstr "人口あたりの死亡者数"
 
 msgid "CHART_TITLE-Outward_remittance_per_gdp"
 msgstr "仕向送金"
+
+msgid "CHART_TITLE-Palmer_drought_severity_index"
+msgstr "Palmer drought severity index"
 
 msgid "CHART_TITLE-Percent_without_health_insurance_gender"
 msgstr "健康保険加入者の割合（性別ごと）"
@@ -570,6 +600,18 @@ msgstr "処方薬（四半期単位）"
 
 msgid "CHART_TITLE-Prescribed_drugs_per_capita"
 msgstr "1 人あたりの処方薬の量（四半期別）"
+
+msgid "CHART_TITLE-Projected_daily_temperature_change_under_rcp26_based_on_year_2006"
+msgstr "Projected max daily temperature change under RCP 2.6 (based on year 2006)"
+
+msgid "CHART_TITLE-Projected_daily_temperature_change_under_rcp45_based_on_year_2006"
+msgstr "Projected max daily temperature change under RCP 4.5 (based on year 2006)"
+
+msgid "CHART_TITLE-Projected_daily_temperature_change_under_rcp60_based_on_year_2006"
+msgstr "Projected max daily temperature change under RCP 6.0 (based on year 2006)"
+
+msgid "CHART_TITLE-Projected_daily_temperature_change_under_rcp85_based_on_year_2006"
+msgstr "Projected max daily temperature change under RCP 8.5 (based on year 2006)"
 
 msgid "CHART_TITLE-Property_crime"
 msgstr "窃盗"
@@ -646,6 +688,4 @@ msgstr "労働者の賃金（月単位）: 都市部と農村部の比較"
 msgid "CHART_TITLE-Worker-vs-nonworker-population"
 msgstr "労働者と非労働者の人口の比較"
 
-msgid "CHART_TITLE-CHART_CATEGORY-Overview"
-msgstr "概要"
 

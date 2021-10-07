@@ -190,11 +190,14 @@ class ChartBlock extends React.Component<ChartBlockPropType> {
         ></Chart>
       );
     }
+    const relatedChart = this.props.data.relatedChart;
+    if (!relatedChart) {
+      return <>{chartElements}</>;
+    }
 
     // Prepare parameters for related charts.
     let unit = this.props.data.unit;
     let scaling = this.props.data.scaling;
-    const relatedChart = this.props.data.relatedChart;
     if (relatedChart && relatedChart.scale) {
       unit = relatedChart.unit;
       scaling = relatedChart.scaling ? relatedChart.scaling : 1;

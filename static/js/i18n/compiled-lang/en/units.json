@@ -1,4 +1,52 @@
 {
+  "celsius": [
+    {
+      "type": 1,
+      "value": "0"
+    },
+    {
+      "type": 0,
+      "value": " °C"
+    }
+  ],
+  "celsius-display": [
+    {
+      "type": 0,
+      "value": "°C"
+    }
+  ],
+  "cent-per-kilowatt": [
+    {
+      "type": 1,
+      "value": "0"
+    },
+    {
+      "type": 0,
+      "value": " ¢/kWh"
+    }
+  ],
+  "cent-per-kilowatt-display": [
+    {
+      "type": 0,
+      "value": " ¢/kWh"
+    }
+  ],
+  "gigawatt-hour": [
+    {
+      "type": 1,
+      "value": "0"
+    },
+    {
+      "type": 0,
+      "value": " GWh"
+    }
+  ],
+  "gigawatt-hour-display": [
+    {
+      "type": 0,
+      "value": "gigawatt-hours"
+    }
+  ],
   "gram": [
     {
       "type": 1,
@@ -77,6 +125,54 @@
     {
       "type": 0,
       "value": "metric tons"
+    }
+  ],
+  "metric-tons-of-co2": [
+    {
+      "type": 1,
+      "value": "0"
+    },
+    {
+      "type": 0,
+      "value": " MTCO2e"
+    }
+  ],
+  "metric-tons-of-co2-display": [
+    {
+      "type": 0,
+      "value": "MTCO2e"
+    }
+  ],
+  "micro-gram-per-cubic-meter": [
+    {
+      "type": 1,
+      "value": "0"
+    },
+    {
+      "type": 0,
+      "value": " μg/m³"
+    }
+  ],
+  "micro-gram-per-cubic-meter-display": [
+    {
+      "type": 0,
+      "value": "μg/m³"
+    }
+  ],
+  "per-million": [
+    {
+      "type": 1,
+      "value": "0"
+    },
+    {
+      "type": 0,
+      "value": "/million"
+    }
+  ],
+  "per-million-display": [
+    {
+      "type": 0,
+      "value": "/million"
     }
   ]
 }
