@@ -24,14 +24,18 @@ import axios from "axios";
 import { Card, Container, CustomInput } from "reactstrap";
 import { Context, IsLoadingWrapper, PlaceInfoWrapper } from "./context";
 import { SearchBar } from "../timeline/search";
-import { USA_CHILD_PLACE_TYPES } from "./util";
+import { EARTH_NAMED_TYPED_PLACE, USA_CHILD_PLACE_TYPES } from "./util";
 
 export function PlaceOptions(): JSX.Element {
   const { placeInfo, isLoading } = useContext(Context);
-  const [enclosedPlaceTypes, setEnclosedPlaceTypes] = useState([]);
+  const [enclosedPlaceTypes, setEnclosedPlaceTypes] = useState(["Country"]);
   useEffect(() => {
     if (placeInfo.value.selectedPlace.dcid) {
-      updateEnclosedPlaceTypes(placeInfo, setEnclosedPlaceTypes);
+      if (placeInfo.value.selectedPlace.dcid === EARTH_NAMED_TYPED_PLACE.dcid) {
+        setEnclosedPlaceTypes(["Country"]);
+      } else {
+        updateEnclosedPlaceTypes(placeInfo, setEnclosedPlaceTypes);
+      }
     }
   }, [placeInfo.value.selectedPlace]);
   const placeInfoDeps = [
@@ -114,7 +118,16 @@ function selectEnclosedPlaceType(
   placeInfo: PlaceInfoWrapper,
   event: React.ChangeEvent<HTMLInputElement>
 ): void {
-  placeInfo.setEnclosedPlaceType(event.target.value);
+  const placeType = event.target.value;
+  if (placeType == "Country") {
+    placeInfo.set({
+      ...placeInfo.value,
+      enclosedPlaceType: placeType,
+      selectedPlace: EARTH_NAMED_TYPED_PLACE,
+    });
+  } else {
+    placeInfo.setEnclosedPlaceType(event.target.value);
+  }
 }
 
 /**
@@ -228,6 +241,9 @@ function loadParentPlaces(place: PlaceInfoWrapper): void {
       const parentPlaces = filteredParentsData.map((parent) => {
         return { dcid: parent.dcid, name: parent.name, types: parent.types };
       });
+      if (placeDcid !== EARTH_NAMED_TYPED_PLACE.dcid) {
+        parentPlaces.push(EARTH_NAMED_TYPED_PLACE);
+      }
       place.setParentPlaces(parentPlaces);
     })
     .catch(() => place.setParentPlaces([]));

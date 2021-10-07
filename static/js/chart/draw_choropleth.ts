@@ -20,6 +20,7 @@
 
 import * as d3 from "d3";
 import * as geo from "geo-albers-usa-territories";
+import { geoCylindricalEqualArea } from "d3-geo-projection";
 import _ from "lodash";
 import {
   GeoJsonData,
@@ -31,6 +32,7 @@ import { getColorFn } from "./base";
 import { getStatsVarLabel } from "../shared/stats_var_labels";
 import { formatNumber } from "../i18n/i18n";
 import { NamedPlace } from "../shared/types";
+import { EARTH_NAMED_TYPED_PLACE } from "../tools/map/util";
 
 const MISSING_DATA_COLOR = "#999";
 const DOT_COLOR = "black";
@@ -225,6 +227,7 @@ function drawChoropleth(
   getTooltipHtml: (place: NamedPlace) => string,
   shouldGenerateLegend: boolean,
   shouldShowBoundaryLines: boolean,
+  enclosingPlaceDcid: string,
   mapPoints?: Array<MapPoint>,
   mapPointValues?: { [placeDcid: string]: number },
   zoomDcid?: string,
@@ -247,7 +250,10 @@ function drawChoropleth(
     .selectAll("path")
     .data(geoJson.features);
 
-  const projection = geo.geoAlbersUsaTerritories();
+  const projection =
+    enclosingPlaceDcid == EARTH_NAMED_TYPED_PLACE.dcid
+      ? geoCylindricalEqualArea()
+      : geo.geoAlbersUsaTerritories();
   const geomap = d3.geoPath().projection(projection);
 
   if (shouldGenerateLegend) {
@@ -316,16 +322,22 @@ function drawChoropleth(
     .attr("id", (_, index) => {
       return "geoPath" + index;
     })
-    .on("mouseover", onMouseOver(domContainerId, canClick))
+    .on("mouseover", onMouseOver(enclosingPlaceDcid, domContainerId, canClick))
     .on("mouseout", onMouseOut(domContainerId))
-    .on("mousemove", onMouseMove(domContainerId, getTooltipHtml, canClick));
+    .on(
+      "mousemove",
+      onMouseMove(enclosingPlaceDcid, domContainerId, getTooltipHtml, canClick)
+    );
   if (shouldShowBoundaryLines) {
     mapObjects
       .attr("stroke-width", STROKE_WIDTH)
       .attr("stroke", GEO_STROKE_COLOR);
   }
   if (canClick) {
-    mapObjects.on("click", onMapClick(domContainerId, redirectAction));
+    mapObjects.on(
+      "click",
+      onMapClick(enclosingPlaceDcid, domContainerId, redirectAction)
+    );
   }
 
   // style highlighted region and bring to the front
@@ -367,9 +379,17 @@ function drawChoropleth(
         mapObjects
           .on(
             "mousemove",
-            onMouseMove(domContainerId, getTooltipHtml, canClick)
+            onMouseMove(
+              enclosingPlaceDcid,
+              domContainerId,
+              getTooltipHtml,
+              canClick
+            )
           )
-          .on("mouseover", onMouseOver(domContainerId, canClick));
+          .on(
+            "mouseover",
+            onMouseOver(enclosingPlaceDcid, domContainerId, canClick)
+          );
       });
     svg.call(zoom);
     if (zoomInButtonId) {
@@ -385,11 +405,18 @@ function drawChoropleth(
   }
 }
 
-const onMouseOver = (domContainerId: string, canClick: boolean) => (
-  _,
-  index
-): void => {
-  mouseHoverAction(domContainerId, index, canClick);
+const onMouseOver = (
+  enclosingPlaceDcid: string,
+  domContainerId: string,
+  canClick: boolean
+) => (e, index): void => {
+  const geoProperties = e["properties"];
+  mouseHoverAction(
+    domContainerId,
+    index,
+    canClick &&
+      !shouldDisableRegionClick(enclosingPlaceDcid, geoProperties.geoDcid)
+  );
 };
 
 const onMouseOut = (domContainerId: string) => (_, index): void => {
@@ -397,24 +424,36 @@ const onMouseOut = (domContainerId: string) => (_, index): void => {
 };
 
 const onMouseMove = (
+  enclosingPlaceDcid: string,
   domContainerId: string,
   getTooltipHtml: (place: NamedPlace) => string,
   canClick: boolean
 ) => (e, index) => {
-  mouseHoverAction(domContainerId, index, canClick);
   const geoProperties = e["properties"];
-  const placeName = geoProperties.name;
+  const placeDcid = geoProperties.geoDcid;
+  mouseHoverAction(
+    domContainerId,
+    index,
+    canClick && !shouldDisableRegionClick(enclosingPlaceDcid, placeDcid)
+  );
   const place = {
-    dcid: geoProperties.geoDcid,
-    name: placeName,
+    dcid: placeDcid,
+    name: geoProperties.name,
   };
   showTooltip(domContainerId, place, getTooltipHtml);
 };
 
 const onMapClick = (
+  enclosingPlaceDcid: string,
   domContainerId: string,
   redirectAction: (properties: GeoJsonFeatureProperties) => void
 ) => (geo: GeoJsonFeature, index) => {
+  if (
+    enclosingPlaceDcid === EARTH_NAMED_TYPED_PLACE.dcid &&
+    geo.properties.geoDcid !== "country/USA"
+  ) {
+    return;
+  }
   redirectAction(geo.properties);
   mouseOutAction(domContainerId, index);
 };
@@ -550,5 +589,15 @@ const genScaleImg = (
   }
   return canvas;
 };
+
+function shouldDisableRegionClick(
+  enclosingPlaceDcid: string,
+  placeDcid: string
+): boolean {
+  return (
+    enclosingPlaceDcid === EARTH_NAMED_TYPED_PLACE.dcid &&
+    placeDcid !== "country/USA"
+  );
+}
 
 export { drawChoropleth, getColorScale, generateLegendSvg };

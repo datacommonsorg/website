@@ -221,6 +221,7 @@ function draw(
       ),
       false,
       shouldShowBoundary(props.placeInfo),
+      props.placeInfo.enclosingPlace.dcid,
       props.mapPoints,
       props.mapPointValues,
       zoomDcid,

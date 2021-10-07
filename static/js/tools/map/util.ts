@@ -18,13 +18,14 @@
  * Utility functions shared across different components of map explorer.
  */
 
-import { StatVar, PlaceInfo } from "./context";
+import { StatVar, PlaceInfo, NamedTypedPlace } from "./context";
 import _ from "lodash";
 
 const USA_STATE_CHILD_TYPES = ["County"];
 const USA_COUNTRY_CHILD_TYPES = ["State", ...USA_STATE_CHILD_TYPES];
 
 export const USA_CHILD_PLACE_TYPES = {
+  World: ["Country"],
   Country: USA_COUNTRY_CHILD_TYPES,
   State: USA_STATE_CHILD_TYPES,
   County: ["County"],
@@ -32,6 +33,12 @@ export const USA_CHILD_PLACE_TYPES = {
 
 // list of place types in the US in the order of high to low granularity.
 export const USA_PLACE_HIERARCHY = ["Country", "State", "County"];
+
+export const EARTH_NAMED_TYPED_PLACE: NamedTypedPlace = {
+  dcid: "Earth",
+  name: "Earth",
+  types: ["World"],
+};
 
 const URL_PARAM_VALUE_SEPARATOR = "-";
 
