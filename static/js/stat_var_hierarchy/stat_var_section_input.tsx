@@ -30,7 +30,7 @@ import {
 } from "../shared/types";
 import { Context, ContextType } from "../shared/context";
 import { hideTooltip, SV_HIERARCHY_SECTION_ID, showTooltip } from "./util";
-import { USA_CHILD_PLACE_TYPES } from "../tools/map/util";
+import { CHILD_PLACE_TYPES } from "../tools/map/util";
 
 const TOOLTIP_TOP_OFFSET = 10;
 const TOOLTIP_RIGHT_MARGIN = 20;
@@ -170,7 +170,7 @@ export class StatVarSectionInput extends React.Component<
       this.props.summary.placeTypeSummary
     ).filter((placeType) => {
       if (this.context.statVarHierarchyType === StatVarHierarchyType.MAP) {
-        return placeType in USA_CHILD_PLACE_TYPES && placeType !== "Country";
+        return placeType in CHILD_PLACE_TYPES;
       }
       return ALLOWED_PLACE_TYPES.has(placeType);
     });

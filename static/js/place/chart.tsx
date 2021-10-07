@@ -403,15 +403,16 @@ class Chart extends React.Component<ChartPropType, ChartStateType> {
       );
       drawChoropleth(
         this.props.id,
+        this.props.dcid,
         this.state.geoJson,
         CHART_HEIGHT,
         elem.offsetWidth,
         this.state.choroplethDataGroup.data,
         this.props.unit,
         colorScale,
-        true,
         redirectAction,
         getTooltipHtml,
+        true,
         true,
         true
       );

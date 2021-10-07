@@ -16,16 +16,17 @@
 
 import { intl } from "../i18n/i18n";
 import { defineMessages } from "react-intl";
+import { USA_PLACE_DCID } from "../shared/constants";
 
 /**
  * Given a list of parent places, return true if the place is in USA.
  */
 export function isPlaceInUsa(dcid: string, parentPlaces: string[]): boolean {
-  if (dcid === "country/USA") {
+  if (dcid === USA_PLACE_DCID) {
     return true;
   }
   for (const parent of parentPlaces) {
-    if (parent === "country/USA") {
+    if (parent === USA_PLACE_DCID) {
       return true;
     }
   }

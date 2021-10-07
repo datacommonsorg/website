@@ -19,6 +19,7 @@ import services.datacommons as dc_service
 import routes.api.place as place_api
 import routes.api.landing_page as landing_page_api
 
+from geojson_rewind import rewind
 from cache import cache
 from flask import Blueprint, current_app, request, Response, g
 from routes.api.place import EQUIVALENT_PLACE_TYPES
@@ -35,6 +36,7 @@ CHOROPLETH_DISPLAY_LEVEL_MAP = {
 }
 # GeoJSON property to use, keyed by display level.
 CHOROPLETH_GEOJSON_PROPERTY_MAP = {
+    "Country": "geoJsonCoordinatesDP3",
     "State": "geoJsonCoordinatesDP3",
     "AdministrativeArea1": "geoJsonCoordinatesDP3",
     "County": "geoJsonCoordinatesDP1",
@@ -91,13 +93,15 @@ def get_choropleth_display_level(geoDcid):
         return geoDcid, display_level
 
 
-def coerce_geojson_to_righthand_rule(geoJsonCords, obj_type):
-    """Changes GeoJSON handedness to the right-hand rule.
+def reverse_geojson_righthand_rule(geoJsonCords, obj_type):
+    """Changes GeoJSON handedness to the reverse of the righthand_rule.
 
-    GeoJSON is stored in DataCommons in the reverse format of what D3
-    expects. This results in geographies geometry being inverted. This function
-    fixes these lists to be in the format expected by D3 and turns all polygons
-    into multipolygons for downstream consistency.
+    GeoJSON is stored in DataCommons following the right hand rule as per rfc 
+    spec (https://www.rfc-editor.org/rfc/rfc7946). However, d3 requires geoJSON
+    that violates the right hand rule (see explanation on d3 winding order here:
+    https://stackoverflow.com/a/49311635). This function fixes these lists to be
+    in the format expected by D3 and turns all polygons into multipolygons for
+    downstream consistency. 
         Args:
             geoJsonCords: Nested list of geojson.
             obj_type: Object feature type.
@@ -161,9 +165,14 @@ def geojson():
             if len(json_text) != 1:
                 continue
             geojson = json.loads(json_text[0])
+            # The geojson data for each country varies in whether it follows the
+            # righthand rule or not. We want to ensure geojsons for all countries
+            # does follow the righthand rule.
+            if place_type == "Country":
+                geojson = rewind(geojson)
             geo_feature['geometry']['coordinates'] = (
-                coerce_geojson_to_righthand_rule(geojson['coordinates'],
-                                                 geojson['type']))
+                reverse_geojson_righthand_rule(geojson['coordinates'],
+                                               geojson['type']))
             features.append(geo_feature)
     return Response(json.dumps({
         "type": "FeatureCollection",

@@ -31,6 +31,7 @@ import { getColorFn } from "./base";
 import { getStatsVarLabel } from "../shared/stats_var_labels";
 import { formatNumber } from "../i18n/i18n";
 import { NamedPlace } from "../shared/types";
+import { EARTH_NAMED_TYPED_PLACE, USA_PLACE_DCID } from "../shared/constants";
 
 const MISSING_DATA_COLOR = "#999";
 const DOT_COLOR = "black";
@@ -194,16 +195,18 @@ function addMapPoints(
 /** Draws a choropleth chart
  *
  * @param containerId id of the div to draw the choropleth in
+ * @param enclosingPlaceDcid dcid of the enclosing place we are drawing choropleth for
  * @param geoJson the geojson data for drawing choropleth
  * @param chartHeight height for the chart
  * @param chartWidth width for the chart
  * @param dataValues data values for plotting
  * @param unit the unit of measurement
  * @param colorScale the color scale to use for drawing the map and legend
- * @param canClick whether the regions on the map should be clickable
  * @param redirectAction function that runs when region on map is clicked
  * @param getTooltipHtml function to get the html content for the tooltip
+ * @param canClick whether the regions on the map should be clickable
  * @param shouldGenerateLegend whether legend needs to be generated
+ * @param shouldShowBoundaryLines whether each region should have boundary lines shown
  * @param mapPoints list of points to add onto the map
  * @param mapPointValues data values for the map points
  * @param zoomDcid the dcid of the region to zoom in on when drawing the chart
@@ -212,6 +215,7 @@ function addMapPoints(
  */
 function drawChoropleth(
   containerId: string,
+  enclosingPlaceDcid: string,
   geoJson: GeoJsonData,
   chartHeight: number,
   chartWidth: number,
@@ -220,9 +224,9 @@ function drawChoropleth(
   },
   unit: string,
   colorScale: d3.ScaleLinear<number, number>,
-  canClick: boolean,
   redirectAction: (geoDcid: GeoJsonFeatureProperties) => void,
   getTooltipHtml: (place: NamedPlace) => string,
+  canClick: boolean,
   shouldGenerateLegend: boolean,
   shouldShowBoundaryLines: boolean,
   mapPoints?: Array<MapPoint>,
@@ -247,7 +251,10 @@ function drawChoropleth(
     .selectAll("path")
     .data(geoJson.features);
 
-  const projection = geo.geoAlbersUsaTerritories();
+  const projection =
+    enclosingPlaceDcid == EARTH_NAMED_TYPED_PLACE.dcid
+      ? d3.geoEquirectangular()
+      : geo.geoAlbersUsaTerritories();
   const geomap = d3.geoPath().projection(projection);
 
   if (shouldGenerateLegend) {
@@ -316,16 +323,22 @@ function drawChoropleth(
     .attr("id", (_, index) => {
       return "geoPath" + index;
     })
-    .on("mouseover", onMouseOver(domContainerId, canClick))
+    .on("mouseover", onMouseOver(enclosingPlaceDcid, domContainerId, canClick))
     .on("mouseout", onMouseOut(domContainerId))
-    .on("mousemove", onMouseMove(domContainerId, getTooltipHtml, canClick));
+    .on(
+      "mousemove",
+      onMouseMove(enclosingPlaceDcid, domContainerId, getTooltipHtml, canClick)
+    );
   if (shouldShowBoundaryLines) {
     mapObjects
       .attr("stroke-width", STROKE_WIDTH)
       .attr("stroke", GEO_STROKE_COLOR);
   }
   if (canClick) {
-    mapObjects.on("click", onMapClick(domContainerId, redirectAction));
+    mapObjects.on(
+      "click",
+      onMapClick(enclosingPlaceDcid, domContainerId, redirectAction)
+    );
   }
 
   // style highlighted region and bring to the front
@@ -367,9 +380,17 @@ function drawChoropleth(
         mapObjects
           .on(
             "mousemove",
-            onMouseMove(domContainerId, getTooltipHtml, canClick)
+            onMouseMove(
+              enclosingPlaceDcid,
+              domContainerId,
+              getTooltipHtml,
+              canClick
+            )
           )
-          .on("mouseover", onMouseOver(domContainerId, canClick));
+          .on(
+            "mouseover",
+            onMouseOver(enclosingPlaceDcid, domContainerId, canClick)
+          );
       });
     svg.call(zoom);
     if (zoomInButtonId) {
@@ -385,11 +406,18 @@ function drawChoropleth(
   }
 }
 
-const onMouseOver = (domContainerId: string, canClick: boolean) => (
-  _,
-  index
-): void => {
-  mouseHoverAction(domContainerId, index, canClick);
+const onMouseOver = (
+  enclosingPlaceDcid: string,
+  domContainerId: string,
+  canClick: boolean
+) => (e, index): void => {
+  const geoProperties = e["properties"];
+  mouseHoverAction(
+    domContainerId,
+    index,
+    canClick &&
+      !shouldDisableRegionClick(enclosingPlaceDcid, geoProperties.geoDcid)
+  );
 };
 
 const onMouseOut = (domContainerId: string) => (_, index): void => {
@@ -397,24 +425,36 @@ const onMouseOut = (domContainerId: string) => (_, index): void => {
 };
 
 const onMouseMove = (
+  enclosingPlaceDcid: string,
   domContainerId: string,
   getTooltipHtml: (place: NamedPlace) => string,
   canClick: boolean
 ) => (e, index) => {
-  mouseHoverAction(domContainerId, index, canClick);
   const geoProperties = e["properties"];
-  const placeName = geoProperties.name;
+  const placeDcid = geoProperties.geoDcid;
+  mouseHoverAction(
+    domContainerId,
+    index,
+    canClick && !shouldDisableRegionClick(enclosingPlaceDcid, placeDcid)
+  );
   const place = {
-    dcid: geoProperties.geoDcid,
-    name: placeName,
+    dcid: placeDcid,
+    name: geoProperties.name,
   };
   showTooltip(domContainerId, place, getTooltipHtml);
 };
 
 const onMapClick = (
+  enclosingPlaceDcid: string,
   domContainerId: string,
   redirectAction: (properties: GeoJsonFeatureProperties) => void
 ) => (geo: GeoJsonFeature, index) => {
+  if (
+    enclosingPlaceDcid === EARTH_NAMED_TYPED_PLACE.dcid &&
+    geo.properties.geoDcid !== USA_PLACE_DCID
+  ) {
+    return;
+  }
   redirectAction(geo.properties);
   mouseOutAction(domContainerId, index);
 };
@@ -550,5 +590,15 @@ const genScaleImg = (
   }
   return canvas;
 };
+
+function shouldDisableRegionClick(
+  enclosingPlaceDcid: string,
+  placeDcid: string
+): boolean {
+  return (
+    enclosingPlaceDcid === EARTH_NAMED_TYPED_PLACE.dcid &&
+    placeDcid !== USA_PLACE_DCID
+  );
+}
 
 export { drawChoropleth, getColorScale, generateLegendSvg };

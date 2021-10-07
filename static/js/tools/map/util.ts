@@ -24,7 +24,8 @@ import _ from "lodash";
 const USA_STATE_CHILD_TYPES = ["County"];
 const USA_COUNTRY_CHILD_TYPES = ["State", ...USA_STATE_CHILD_TYPES];
 
-export const USA_CHILD_PLACE_TYPES = {
+export const CHILD_PLACE_TYPES = {
+  Planet: ["Country"],
   Country: USA_COUNTRY_CHILD_TYPES,
   State: USA_STATE_CHILD_TYPES,
   County: ["County"],

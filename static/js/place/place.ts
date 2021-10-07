@@ -30,6 +30,7 @@ import { initSearchAutocomplete } from "./search";
 import { loadLocaleData } from "../i18n/i18n";
 
 import { CachedChoroplethData, GeoJsonData, PageData } from "../chart/types";
+import { USA_PLACE_DCID } from "../shared/constants";
 
 // Window scroll position to start fixing the sidebar.
 let yScrollLimit = 0;
@@ -154,7 +155,7 @@ async function getLandingPageData(
 
 function shouldMakeChoroplethCalls(dcid: string, placeType: string): boolean {
   const isInUSA: boolean =
-    dcid.startsWith("geoId") || dcid.startsWith("country/USA");
+    dcid.startsWith("geoId") || dcid.startsWith(USA_PLACE_DCID);
   return isInUSA && placeTypesWithChoropleth.has(placeType);
 }
 

@@ -37,7 +37,7 @@ import {
   MAP_REDIRECT_PREFIX,
   updateHashPlaceInfo,
   updateHashStatVar,
-  USA_CHILD_PLACE_TYPES,
+  CHILD_PLACE_TYPES,
   USA_PLACE_HIERARCHY,
 } from "./util";
 import { urlToDomain } from "../../shared/util";
@@ -204,13 +204,13 @@ function draw(
     document.getElementById(MAP_CONTAINER_ID).innerHTML = "";
     drawChoropleth(
       MAP_CONTAINER_ID,
+      props.placeInfo.enclosingPlace.dcid,
       props.geoJsonData,
       height,
       width - legendWidth,
       props.mapDataValues,
       "",
       colorScale,
-      props.placeInfo.enclosedPlaceType in USA_CHILD_PLACE_TYPES,
       redirectAction,
       getTooltipHtml(
         props.metadata,
@@ -219,6 +219,7 @@ function draw(
         props.mapPointValues,
         props.unit
       ),
+      props.placeInfo.enclosedPlaceType in CHILD_PLACE_TYPES,
       false,
       shouldShowBoundary(props.placeInfo),
       props.mapPoints,
@@ -285,8 +286,7 @@ const getMapRedirectAction = (statVar: StatVar, placeInfo: PlaceInfo) => (
     name: geoProperties.name,
     types: [placeInfo.enclosedPlaceType],
   };
-  const enclosedPlaceType =
-    USA_CHILD_PLACE_TYPES[placeInfo.enclosedPlaceType][0];
+  const enclosedPlaceType = CHILD_PLACE_TYPES[placeInfo.enclosedPlaceType][0];
   hash = updateHashPlaceInfo(hash, {
     enclosingPlace: { dcid: "", name: "" },
     enclosedPlaces: [],
