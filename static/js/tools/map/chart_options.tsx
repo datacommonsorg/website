@@ -25,7 +25,7 @@ import { formatNumber } from "../../i18n/i18n";
 import {
   updateHashPlaceInfo,
   updateHashStatVar,
-  USA_CHILD_PLACE_TYPES,
+  CHILD_PLACE_TYPES,
   MAP_REDIRECT_PREFIX,
 } from "./util";
 import { DataPointMetadata } from "./chart_loader";
@@ -110,8 +110,8 @@ export function getRedirectLink(
   let hash = updateHashStatVar("", statVar);
   let enclosedPlaceType = "";
   for (const type of selectedPlace.types) {
-    if (type in USA_CHILD_PLACE_TYPES) {
-      enclosedPlaceType = USA_CHILD_PLACE_TYPES[type][0];
+    if (type in CHILD_PLACE_TYPES) {
+      enclosedPlaceType = CHILD_PLACE_TYPES[type][0];
       break;
     }
   }

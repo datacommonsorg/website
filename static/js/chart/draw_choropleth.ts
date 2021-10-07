@@ -32,7 +32,7 @@ import { getColorFn } from "./base";
 import { getStatsVarLabel } from "../shared/stats_var_labels";
 import { formatNumber } from "../i18n/i18n";
 import { NamedPlace } from "../shared/types";
-import { EARTH_NAMED_TYPED_PLACE } from "../tools/map/util";
+import { EARTH_NAMED_TYPED_PLACE } from "../shared/constants";
 
 const MISSING_DATA_COLOR = "#999";
 const DOT_COLOR = "black";
@@ -196,16 +196,18 @@ function addMapPoints(
 /** Draws a choropleth chart
  *
  * @param containerId id of the div to draw the choropleth in
+ * @param enclosingPlaceDcid dcid of the enclosing place we are drawing choropleth for
  * @param geoJson the geojson data for drawing choropleth
  * @param chartHeight height for the chart
  * @param chartWidth width for the chart
  * @param dataValues data values for plotting
  * @param unit the unit of measurement
  * @param colorScale the color scale to use for drawing the map and legend
- * @param canClick whether the regions on the map should be clickable
  * @param redirectAction function that runs when region on map is clicked
  * @param getTooltipHtml function to get the html content for the tooltip
+ * @param canClick whether the regions on the map should be clickable
  * @param shouldGenerateLegend whether legend needs to be generated
+ * @param shouldShowBoundaryLines whether each region should have boundary lines shown
  * @param mapPoints list of points to add onto the map
  * @param mapPointValues data values for the map points
  * @param zoomDcid the dcid of the region to zoom in on when drawing the chart
@@ -214,6 +216,7 @@ function addMapPoints(
  */
 function drawChoropleth(
   containerId: string,
+  enclosingPlaceDcid: string,
   geoJson: GeoJsonData,
   chartHeight: number,
   chartWidth: number,
@@ -222,12 +225,11 @@ function drawChoropleth(
   },
   unit: string,
   colorScale: d3.ScaleLinear<number, number>,
-  canClick: boolean,
   redirectAction: (geoDcid: GeoJsonFeatureProperties) => void,
   getTooltipHtml: (place: NamedPlace) => string,
+  canClick: boolean,
   shouldGenerateLegend: boolean,
   shouldShowBoundaryLines: boolean,
-  enclosingPlaceDcid: string,
   mapPoints?: Array<MapPoint>,
   mapPointValues?: { [placeDcid: string]: number },
   zoomDcid?: string,
