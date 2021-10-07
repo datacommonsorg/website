@@ -5,6 +5,4 @@ module.exports = {
   globals: {
     google: {},
   },
-  // d3-geo-projection needs to be transformed in order be parsed by jest.
-  transformIgnorePatterns: ["/node_modules/(?!(d3-geo-projection))"]
 };

@@ -31,7 +31,7 @@ import { getColorFn } from "./base";
 import { getStatsVarLabel } from "../shared/stats_var_labels";
 import { formatNumber } from "../i18n/i18n";
 import { NamedPlace } from "../shared/types";
-import { EARTH_NAMED_TYPED_PLACE } from "../shared/constants";
+import { EARTH_NAMED_TYPED_PLACE, USA_PLACE_DCID } from "../shared/constants";
 
 const MISSING_DATA_COLOR = "#999";
 const DOT_COLOR = "black";
@@ -451,7 +451,7 @@ const onMapClick = (
 ) => (geo: GeoJsonFeature, index) => {
   if (
     enclosingPlaceDcid === EARTH_NAMED_TYPED_PLACE.dcid &&
-    geo.properties.geoDcid !== "country/USA"
+    geo.properties.geoDcid !== USA_PLACE_DCID
   ) {
     return;
   }
@@ -597,7 +597,7 @@ function shouldDisableRegionClick(
 ): boolean {
   return (
     enclosingPlaceDcid === EARTH_NAMED_TYPED_PLACE.dcid &&
-    placeDcid !== "country/USA"
+    placeDcid !== USA_PLACE_DCID
   );
 }
 

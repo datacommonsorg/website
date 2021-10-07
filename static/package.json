@@ -35,7 +35,6 @@
     "css-loader": "^3.6.0",
     "d3": "^5.16.0",
     "d3-geo": "^2.0.1",
-    "d3-geo-projection": "^4.0.0",
     "file-loader": "^6.1.0",
     "geo-albers-usa-territories": "0.1.0",
     "html-webpack-plugin": "^4.4.1",
