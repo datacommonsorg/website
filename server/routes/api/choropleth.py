@@ -96,11 +96,12 @@ def get_choropleth_display_level(geoDcid):
 def reverse_geojson_righthand_rule(geoJsonCords, obj_type):
     """Changes GeoJSON handedness to the reverse of the righthand_rule.
 
-    GeoJSON is stored in DataCommons in the reverse format of what D3
-    expects. This results in geographies geometry being inverted (see
-    explanation on d3 winding order here: https://stackoverflow.com/a/49311635)
-    This function fixes these lists to be in the format expected by D3 and turns
-    all polygons into multipolygons for downstream consistency. 
+    GeoJSON is stored in DataCommons following the right hand rule as per rfc 
+    spec (https://www.rfc-editor.org/rfc/rfc7946). However, d3 requires geoJSON
+    that violates the right hand rule (see explanation on d3 winding order here:
+    https://stackoverflow.com/a/49311635). This function fixes these lists to be
+    in the format expected by D3 and turns all polygons into multipolygons for
+    downstream consistency. 
         Args:
             geoJsonCords: Nested list of geojson.
             obj_type: Object feature type.

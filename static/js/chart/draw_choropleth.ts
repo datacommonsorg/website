@@ -20,7 +20,6 @@
 
 import * as d3 from "d3";
 import * as geo from "geo-albers-usa-territories";
-import { geoCylindricalEqualArea } from "d3-geo-projection";
 import _ from "lodash";
 import {
   GeoJsonData,
@@ -254,7 +253,7 @@ function drawChoropleth(
 
   const projection =
     enclosingPlaceDcid == EARTH_NAMED_TYPED_PLACE.dcid
-      ? geoCylindricalEqualArea()
+      ? d3.geoEquirectangular()
       : geo.geoAlbersUsaTerritories();
   const geomap = d3.geoPath().projection(projection);
 
