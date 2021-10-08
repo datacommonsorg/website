@@ -113,7 +113,7 @@ const config = {
         { from: "fonts/*" },
         { from: "data/**/*" },
         { from: "sitemap/*.txt" },
-        { from: "favicon.ico" },
+        { from: "*favicon.ico" },
         { from: "robots.txt" },
       ],
     }),
