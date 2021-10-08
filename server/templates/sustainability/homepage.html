@@ -57,31 +57,56 @@
 <section class="container">
   {# TODO: Add click targets to the various charts featured here #}
   <h2>Showcase: Exploring data about <a href="place/geoId/06029">Kern County, CA</a></h2>
-  <div class="card-deck">
-    <div class="card">
-      <img class="card-img-top" src="{{ url_for('static', filename='images/home-kern_line.svg') }}" alt="Card image cap">
-      <div class="card-body">
-        <h5 class="card-title">Projected temperature under RCP 8.5, based off 2006</h5>
-        <p class="card-text">Projected maximum temperature under emissions scenario RCP 8.5, based off temperatures in 2006.</p>
-        <p class="card-text"><small class="text-muted">Source <a href="https://www.nccs.nasa.gov/services/data-collections/land-based-products/nex-dcp30">nccs.nasa.gov</a></small></p>
+  <div class="row row-cols-1 row-cols-lg-3">
+    <div class="col mb-3">
+      <div class="card">
+        <div class="row no-gutters mt-0">
+          <div class="col-5 col-lg-12">
+            <img class="card-img-top" src="{{ url_for('static', filename='images/home-kern_line.svg') }}" alt="Card image cap">
+          </div>
+          <div class="col-7 col-lg-12">
+            <div class="card-body">
+              <h5 class="card-title">Projected temperature under RCP 8.5, based off 2006</h5>
+              <p class="card-text">Projected maximum temperature under emissions scenario RCP 8.5, based off temperatures in 2006.</p>
+              <p class="card-text"><small class="text-muted">Source <a href="https://www.nccs.nasa.gov/services/data-collections/land-based-products/nex-dcp30">nccs.nasa.gov</a></small></p>
+            </div>
+          </div>
+        </div>
       </div>
     </div>
-    <div class="card">
-      <img class="card-img-top" src="{{ url_for('static', filename='images/home-kern_scatter.svg') }}" alt="Card image cap">
-      <div class="card-body">
-        <h5 class="card-title">Projected temperature under RCP 8.5 vs percentage of county population on food stamps</h5>
-        <p class="card-text">Projected maximum temperature under emissions scenario RCP 8.5, based off temperatures in 2006 vs Percentage of the population on food stamps, for counties in California.</p>
-        <p class="card-text"><small class="text-muted">Source <a href="https://www.nccs.nasa.gov/services/data-collections/land-based-products/nex-dcp30">nccs.nasa.gov</a> and <a href="https://www.census.gov/acs/www/data/data-tables-and-tools/subject-tables/">census.gov</a></small></p>
+    <div class="col mb-3">
+      <div class="card">
+        <div class="row no-gutters mt-0">
+          <div class="col-5 col-lg-12">
+            <img class="card-img-top" src="{{ url_for('static', filename='images/home-kern_scatter.svg') }}" alt="Card image cap">
+          </div>
+          <div class="col-7 col-lg-12">
+            <div class="card-body">
+              <h5 class="card-title">Projected temperature under RCP 8.5 vs percentage of county population on food stamps</h5>
+              <p class="card-text">Projected maximum temperature under emissions scenario RCP 8.5, based off temperatures in 2006 vs Percentage of the population on food stamps, for counties in California.</p>
+              <p class="card-text"><small class="text-muted">Source <a href="https://www.nccs.nasa.gov/services/data-collections/land-based-products/nex-dcp30">nccs.nasa.gov</a> and <a href="https://www.census.gov/acs/www/data/data-tables-and-tools/subject-tables/">census.gov</a></small></p>
+            </div>
+          </div>
+        </div>
       </div>
     </div>
-    <div class="card">
-      <img class="card-img-top" src="{{ url_for('static', filename='images/home-kern_aqi_map.png') }}" alt="Card image cap">
-      <div class="card-body">
-        <h5 class="card-title">Air Quality Index</h5>
-        <p class="card-text">Mean concentration of PM 2.5 for counties in California. Kern County's measurement in 2020 is 12 µg/m3, the 5th highest in the state (the highest is 15 µg/m3, measured in Tulare County).</p>
-        <p class="card-text"><small class="text-muted">Source <a href="https://gaftp.epa.gov/EJSCREEN/">epa.gov</a></small></p>
+    <div class="col mb-3">
+      <div class="card">
+        <div class="row no-gutters mt-0">
+          <div class="col-5 col-lg-12">
+            <img class="card-img-top" src="{{ url_for('static', filename='images/home-kern_aqi_map.png') }}" alt="Card image cap">
+          </div>
+          <div class="col-7 col-lg-12">
+            <div class="card-body">
+              <h5 class="card-title">Air Quality Index</h5>
+              <p class="card-text">Mean concentration of PM 2.5 for counties in California. Kern County's measurement in 2020 is 12 µg/m3, the 5th highest in the state (the highest is 15 µg/m3, measured in Tulare County).</p>
+              <p class="card-text"><small class="text-muted">Source <a href="https://gaftp.epa.gov/EJSCREEN/">epa.gov</a></small></p>
+            </div>
+          </div>
+        </div>
       </div>
     </div>
+  </div>
   </div>
 </section>
 
