@@ -72,9 +72,9 @@
                 <circle id="Oval" fill="#FFFFFF" cx="47.7150997" cy="47.7150997" r="47.7150997"></circle>
                 <circle id="Oval-Copy" fill="#FFFFFF" cx="120.837546" cy="47.7150997" r="47.7150997"></circle>
                 <circle id="Oval-Copy-2" fill="#FFFFFF" cx="86.8155194" cy="110.2849" r="47.7150997"></circle>
-                <circle id="Oval" fill-opacity="0.5" fill="#F4AC32" cx="47.7150997" cy="47.7150997" r="47.7150997"></circle>
                 <circle id="Oval-Copy" fill-opacity="0.5" fill="#8C4843" cx="120.837546" cy="47.7150997" r="47.7150997"></circle>
                 <circle id="Oval-Copy-2" fill-opacity="0.5" fill="#49416D" cx="86.8155194" cy="110.2849" r="47.7150997"></circle>
+                <circle id="Oval" fill-opacity="0.5" fill="#F4AC32" cx="47.7150997" cy="47.7150997" r="47.7150997"></circle>
                 <text id="Food" font-family="Roboto-Regular, Roboto" font-size="18" font-weight="normal" fill="#000000">
                     <tspan x="23.7763672" y="56">Food</tspan>
                 </text>
