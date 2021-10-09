@@ -77,9 +77,11 @@ function run_npm_build () {
 # Run test and check lint for Python code.
 function run_py_test {
   setup_python
-  export FLASK_ENV=test
   cd server
-  python3 -m pytest tests/**.py
+  export FLASK_ENV=test
+  python3 -m pytest tests/**.py --ignore=sustainability
+  export FLASK_ENV=test-sustainability
+  python3 -m pytest tests/sustainability/**.py
   cd ..
   echo -e "#### Checking Python style"
   if ! yapf --recursive --diff --style=google -p server/ tools/; then
