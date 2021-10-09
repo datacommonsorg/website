@@ -21,6 +21,13 @@ source .env/bin/activate
 PORT=8080
 ENV=local
 
+function help {
+  echo "Usage: $0 -ep"
+  echo "-e       Run with a specified environment. Options are: lite private sustainability. Default: local"
+  echo "-p       Run on a specified port. Default: 8080"
+  exit 1
+}
+
 while getopts ":e:p:" OPTION; do
   case $OPTION in
     e)
@@ -28,6 +35,9 @@ while getopts ":e:p:" OPTION; do
       ;;
     p)
       PORT=$OPTARG
+      ;;
+    *)
+      help
       ;;
   esac
 done
