@@ -13,7 +13,7 @@
  See the License for the specific language governing permissions and
  limitations under the License.
 #}
-{% extends 'base.html' %}
+{% extends BASE_HTML %}
 
 {% set main_id = 'feedback' %}
 {% set title = 'Feedback' %}
@@ -66,13 +66,5 @@
       using Data Commons, for improving documentation and more. Click
       <a href="https://docs.datacommons.org/contributing/">here for more details</a>.
     </p>
-  </section>
-  <section>
-    <h2>See also</h2>
-    <ul>
-      <li><a href="{{ url_for('static.datasets') }}">Data Sources</a>
-      <li><a href="{{ url_for('static.disclaimers') }}">Disclaimers</a>
-      <li><a href="{{ url_for('static.faq') }}">Frequently Asked Questions</a>
-    </ul>
   </section>
   {% endblock %}

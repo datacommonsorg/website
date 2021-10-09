@@ -56,6 +56,39 @@ def createMiddleWare(app, exporter):
     return middleware
 
 
+def register_main_app_routes(app):
+    # apply the blueprints for main and private app
+    from routes import (protein, browser, dev, factcheck, place, placelist,
+                        ranking, redirects, static, tools)
+    app.register_blueprint(protein.bp)
+    app.register_blueprint(browser.bp)
+    app.register_blueprint(dev.bp)
+    app.register_blueprint(place.bp)
+    app.register_blueprint(placelist.bp)
+    app.register_blueprint(ranking.bp)
+    app.register_blueprint(redirects.bp)
+    app.register_blueprint(static.bp)
+    app.register_blueprint(tools.bp)
+    from routes.api import (protein as protein_api, browser as browser_api,
+                            choropleth, place as place_api, landing_page,
+                            ranking as ranking_api, stats, translator)
+    app.register_blueprint(protein_api.bp)
+    app.register_blueprint(browser_api.bp)
+    app.register_blueprint(choropleth.bp)
+    app.register_blueprint(factcheck.bp)
+    app.register_blueprint(place_api.bp)
+    app.register_blueprint(landing_page.bp)
+    app.register_blueprint(ranking_api.bp)
+    app.register_blueprint(stats.bp)
+    app.register_blueprint(translator.bp)
+
+
+def register_sustainability_routes(app):
+    # apply the blueprints for sustainability app
+    from routes.sustainability import (static)
+    app.register_blueprint(static.bp)
+
+
 def create_app():
     app = Flask(__name__, static_folder="dist", static_url_path="")
 
@@ -79,30 +112,10 @@ def create_app():
     from cache import cache
     cache.init_app(app)
 
-    # apply the blueprints to the app
-    from routes import (protein, browser, dev, factcheck, place, placelist,
-                        ranking, redirects, static, tools)
-    app.register_blueprint(protein.bp)
-    app.register_blueprint(browser.bp)
-    app.register_blueprint(dev.bp)
-    app.register_blueprint(place.bp)
-    app.register_blueprint(placelist.bp)
-    app.register_blueprint(ranking.bp)
-    app.register_blueprint(redirects.bp)
-    app.register_blueprint(tools.bp)
-    from routes.api import (protein as protein_api, browser as browser_api,
-                            choropleth, place as place_api, landing_page,
-                            ranking as ranking_api, stats, translator)
-    app.register_blueprint(protein_api.bp)
-    app.register_blueprint(browser_api.bp)
-    app.register_blueprint(choropleth.bp)
-    app.register_blueprint(factcheck.bp)
-    app.register_blueprint(place_api.bp)
-    app.register_blueprint(landing_page.bp)
-    app.register_blueprint(ranking_api.bp)
-    app.register_blueprint(static.bp)
-    app.register_blueprint(stats.bp)
-    app.register_blueprint(translator.bp)
+    if not cfg.SUSTAINABILITY:
+        register_main_app_routes(app)
+    else:
+        register_sustainability_routes(app)
 
     # Load chart config
     chart_config = []
