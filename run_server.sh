@@ -18,18 +18,33 @@ set -e
 python3 -m venv .env
 source .env/bin/activate
 
+PORT=8080
+ENV=local
+
+while getopts ":e:p:" OPTION; do
+  case $OPTION in
+    e)
+      ENV=$OPTARG
+      ;;
+    p)
+      PORT=$OPTARG
+      ;;
+  esac
+done
+
 export GOOGLE_CLOUD_PROJECT=datcom-website-staging
-if [[ $1 == "lite" ]]; then
+if [[ $ENV == "lite" ]]; then
   export FLASK_ENV=local-lite
-elif [[ $1 == "private" ]]; then
+elif [[ $ENV == "private" ]]; then
   export FLASK_ENV=local-private
-elif [[ $1 == "sustainability" ]]; then
+elif [[ $ENV == "sustainability" ]]; then
   export FLASK_ENV=local-sustainability
 else
   export FLASK_ENV=local
 fi
+echo "Starting localhost with FLASK_ENV='$FLASK_ENV' on port='$PORT'"
 
 pip3 install -r server/requirements.txt -q
 cd server
-python3 main.py
+python3 main.py $PORT
 cd ..
