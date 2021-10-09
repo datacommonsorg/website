@@ -365,7 +365,7 @@ msgid "CHART_TITLE-Electricity_consumption_per_capita"
 msgstr "1 人あたりの電力消費量"
 
 msgid "CHART_TITLE-Electricity_generation"
-msgstr "Electricity generation"
+msgstr "Electricity generation per capita"
 
 msgid "CHART_TITLE-Electricity_price"
 msgstr "Electricity price"
@@ -687,5 +687,4 @@ msgstr "労働者の賃金（月単位）: 都市部と農村部の比較"
 
 msgid "CHART_TITLE-Worker-vs-nonworker-population"
 msgstr "労働者と非労働者の人口の比較"
-
 

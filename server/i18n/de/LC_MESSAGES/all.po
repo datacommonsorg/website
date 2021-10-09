@@ -365,7 +365,7 @@ msgid "CHART_TITLE-Electricity_consumption_per_capita"
 msgstr "Stromverbrauch pro Kopf"
 
 msgid "CHART_TITLE-Electricity_generation"
-msgstr "Electricity generation"
+msgstr "Electricity generation per capita"
 
 msgid "CHART_TITLE-Electricity_price"
 msgstr "Electricity price"
@@ -687,5 +687,4 @@ msgstr "Arbeitsentgelt (monatlich): städtisch und ländlich im Vergleich"
 
 msgid "CHART_TITLE-Worker-vs-nonworker-population"
 msgstr "Arbeitende und nicht arbeitende Bevölkerung im Vergleich"
-
 
