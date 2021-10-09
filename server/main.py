@@ -19,7 +19,6 @@ This module contains the request handler codes and the main app.
 import json
 import logging
 import os
-import sys
 
 import flask
 from flask import request
@@ -186,5 +185,4 @@ def version():
 if __name__ == '__main__':
     # This is used when running locally only. When deploying to GKE,
     # a webserver process such as Gunicorn will serve the app.
-    port = sys.argv[1] if len(sys.argv) >= 2 else 8080
-    app.run(host='127.0.0.1', port=port, debug=True)
+    app.run(host='127.0.0.1', port=8080, debug=True)
