@@ -37,7 +37,8 @@ app.jinja_env.globals['GA_ACCOUNT'] = app.config['GA_ACCOUNT']
 app.jinja_env.globals['PRIVATE'] = app.config['PRIVATE']
 app.jinja_env.globals['SUSTAINABILITY'] = app.config['SUSTAINABILITY']
 app.jinja_env.globals['NAME'] = app.config['NAME']
-app.jinja_env.globals['BASE_HTML'] = 'sustainability/base.html' if app.config['SUSTAINABILITY'] else 'base.html'
+app.jinja_env.globals['BASE_HTML'] = 'sustainability/base.html' if app.config[
+    'SUSTAINABILITY'] else 'base.html'
 
 GCS_BUCKET = app.config['GCS_BUCKET']
 _MAX_SEARCH_RESULTS = 1000
@@ -185,5 +186,5 @@ def version():
 if __name__ == '__main__':
     # This is used when running locally only. When deploying to GKE,
     # a webserver process such as Gunicorn will serve the app.
-    port=sys.argv[1] if len(sys.argv) >= 2 else 8080
+    port = sys.argv[1] if len(sys.argv) >= 2 else 8080
     app.run(host='127.0.0.1', port=port, debug=True)
