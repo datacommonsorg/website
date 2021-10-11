@@ -491,7 +491,7 @@ msgstr "Electricity consumption per capita"
 
 #. Title of a place chart: Annual net electricity generation, all fuels, all sectors
 msgid "CHART_TITLE-Electricity_generation"
-msgstr "Electricity generation"
+msgstr "Electricity generation per capita"
 
 #. Title of a place chart: Annual average retail price of electricity, all sectors
 msgid "CHART_TITLE-Electricity_price"
