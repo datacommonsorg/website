@@ -14,10 +14,12 @@
   {
     "category": "Energy",
     "titleId": "CHART_TITLE-Electricity_generation",
-    "title": "Electricity generation",
+    "title": "Electricity generation per capita",
     "description": "Annual net electricity generation, all fuels, all sectors",
     "statsVars": ["Annual_Generation_Electricity"],
-    "unit": "GWh",
+    "unit": "kWh",
+    "denominator": ["Count_Person"],
+    "scaling": 100,
     "isOverview": true,
     "relatedChart": {
       "scale": false
