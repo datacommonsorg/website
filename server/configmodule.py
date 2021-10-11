@@ -128,3 +128,7 @@ class TestConfig(Config):
     API_ROOT = 'api-root'
     GCS_BUCKET = 'gcs-bucket'
     SCHEME = 'http'
+
+
+class SustainabilityTestConfig(TestConfig):
+    SUSTAINABILITY = True
