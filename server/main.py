@@ -53,6 +53,7 @@ def before_request():
         return flask.redirect(url, code=code)
 
 
+# TODO(beets): Move this to a separate handler so it won't be installed on all apps.
 @cache.cached(timeout=3600 * 24)
 @app.route('/api/placeid2dcid/<path:placeid>')
 def api_placeid2dcid(placeid):
@@ -68,6 +69,7 @@ def api_placeid2dcid(placeid):
         flask.abort(404, 'dcid not found for %s' % placeid)
 
 
+# TODO(beets): Move this to a separate handler so it won't be installed on all apps.
 @app.route('/translator')
 def translator_handler():
     return flask.render_template('translator.html',
@@ -75,6 +77,7 @@ def translator_handler():
                                  sample_query=translator.SAMPLE_QUERY)
 
 
+# TODO(beets): Move this to a separate handler so it won't be installed on all apps.
 @app.route('/search')
 def search():
     return flask.render_template('search.html')
@@ -85,6 +88,7 @@ def healthz():
     return "very healthy"
 
 
+# TODO(beets): Move this to a separate handler so it won't be installed on all apps.
 @app.route('/search_dc')
 def search_dc():
     """Add DC API powered search for non-place searches temporarily"""
@@ -121,6 +125,7 @@ def search_dc():
                                  results=results)
 
 
+# TODO(beets): Move this to a separate handler so it won't be installed on all apps.
 @app.route('/weather')
 def get_weather():
     dcid = request.args.get('dcid')
@@ -168,6 +173,7 @@ def get_weather():
     return json.dumps(observations)
 
 
+# TODO(beets): Move this to a separate handler so it won't be installed on all apps.
 @app.route('/mcf_playground')
 def mcf_playground():
     return flask.render_template('mcf_playground.html')

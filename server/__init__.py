@@ -56,15 +56,20 @@ def createMiddleWare(app, exporter):
     return middleware
 
 
-def register_main_app_routes(app):
+def register_routes_common(app):
+    # apply the blueprints for all apps
+    pass
+
+
+def register_routes_main_app(app):
     # apply the blueprints for main and private app
     from routes import (protein, browser, dev, factcheck, place, placelist,
                         ranking, redirects, static, tools)
-    app.register_blueprint(protein.bp)
     app.register_blueprint(browser.bp)
     app.register_blueprint(dev.bp)
     app.register_blueprint(place.bp)
     app.register_blueprint(placelist.bp)
+    app.register_blueprint(protein.bp)
     app.register_blueprint(ranking.bp)
     app.register_blueprint(redirects.bp)
     app.register_blueprint(static.bp)
@@ -83,7 +88,7 @@ def register_main_app_routes(app):
     app.register_blueprint(translator.bp)
 
 
-def register_sustainability_routes(app):
+def register_routes_sustainability(app):
     # apply the blueprints for sustainability app
     from routes.sustainability import (static)
     app.register_blueprint(static.bp)
@@ -112,10 +117,11 @@ def create_app():
     from cache import cache
     cache.init_app(app)
 
-    if not cfg.SUSTAINABILITY:
-        register_main_app_routes(app)
+    register_routes_common(app)
+    if cfg.SUSTAINABILITY:
+        register_routes_sustainability(app)
     else:
-        register_sustainability_routes(app)
+        register_routes_main_app(app)
 
     # Load chart config
     chart_config = []
