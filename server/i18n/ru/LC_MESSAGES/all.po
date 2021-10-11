@@ -365,7 +365,7 @@ msgid "CHART_TITLE-Electricity_consumption_per_capita"
 msgstr "Электропотребление на душу населения"
 
 msgid "CHART_TITLE-Electricity_generation"
-msgstr "Electricity generation"
+msgstr "Electricity generation per capita"
 
 msgid "CHART_TITLE-Electricity_price"
 msgstr "Electricity price"
@@ -687,5 +687,4 @@ msgstr "Заработок в месяц: город и сельская мес�
 
 msgid "CHART_TITLE-Worker-vs-nonworker-population"
 msgstr "Доля работающих и неработающих"
-
 

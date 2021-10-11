@@ -31,3 +31,4 @@ git pull origin $(git describe --tags --abbrev=0)
 cd ..
 git add *
 git commit -m "Update mixer at $(cd mixer && git describe --tags --abbrev=0)"
+echo "Now you should push to your fork, and send a pull request."
