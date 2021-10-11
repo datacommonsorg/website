@@ -13,7 +13,7 @@
 # limitations under the License.
 """Data Commons static content routes for SUSTAINABILITY site."""
 
-from flask import Blueprint, render_template, current_app, g
+from flask import Blueprint, render_template
 
 bp = Blueprint('static', __name__)
 
