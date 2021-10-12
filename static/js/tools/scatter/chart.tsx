@@ -343,6 +343,8 @@ function addDensity(
   chartHeight: number,
   marginTop: number
 ) {
+  // Generate the multipolygons (contours) to group the dots into areas of
+  // varying densities (number of dots per pixel)
   const contours = d3
     .contourDensity<Point>()
     .size([chartWidth, chartHeight])
@@ -353,12 +355,16 @@ function addDensity(
       return yScale(d.yVal);
     })(dataPoints);
 
+  // Generate a color scale to determine what color the dots in each contour
+  // will display
   const densityColorScale = d3
     .scaleSequential((t) => d3.hsl(t * 240, 1, 0.5).toString())
     .domain([0, contours.length]);
 
+  // Add a legend to show what each color means
   addDensityLegend(svg, contours, densityColorScale, chartHeight, marginTop);
 
+  // color the dots according to which contour it's in
   dots
     .attr("class", "density-dot")
     .attr("fill", (point) => {
