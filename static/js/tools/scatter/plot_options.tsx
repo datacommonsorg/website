@@ -147,6 +147,19 @@ function PlotOptions(): JSX.Element {
               </Label>
             </FormGroup>
           </Col>
+          <Col sm="auto">
+            <FormGroup check>
+              <Label check>
+                <Input
+                  id="density"
+                  type="checkbox"
+                  checked={display.showDensity}
+                  onChange={(e) => checkDensity(display, e)}
+                />
+                Show density
+              </Label>
+            </FormGroup>
+          </Col>
         </Row>
         <Row className="plot-options-row centered-items-row">
           <Col sm={2} className="plot-options-label">
@@ -232,6 +245,16 @@ function checkLabels(
   event: React.ChangeEvent<HTMLInputElement>
 ): void {
   display.setLabels(event.target.checked);
+}
+
+/**
+ * Toggles whether to color dots by density of dots in that area.
+ */
+function checkDensity(
+  display: DisplayOptionsWrapper,
+  event: React.ChangeEvent<HTMLInputElement>
+): void {
+  display.setDensity(event.target.checked);
 }
 
 /**

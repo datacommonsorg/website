@@ -42,6 +42,7 @@ interface ChartPropsType {
   yUnits?: string;
   showQuadrants: boolean;
   showLabels: boolean;
+  showDensity: boolean;
 }
 
 const DOT_REDIRECT_PREFIX = "/tools/timeline";
@@ -53,6 +54,15 @@ const MARGINS = {
   top: 30,
 };
 const Y_AXIS_WIDTH = 30;
+const STROKE_WIDTH = 1.5;
+const DEFAULT_FILL = "#FFFFFF";
+const DENSITY_LEGEND_FONT_SIZE = "0.7rem";
+const DENSITY_LEGEND_TITLE_HEIGHT = 16;
+const DENSITY_LEGEND_IMAGE_WIDTH = 10;
+const DENSITY_LEGEND_WIDTH = 75;
+const DENSITY_LEGEND_MARGIN_RIGHT = 5;
+const AXIS_TEXT_FILL = "#2b2929";
+const AXIS_GRID_FILL = "#999";
 
 function Chart(props: ChartPropsType): JSX.Element {
   const svgRef = useRef<SVGSVGElement>();
@@ -226,6 +236,151 @@ function addXLabel(
 }
 
 /**
+ * Adds a legend for the density distribution
+ * @param svg svg to add the legend to
+ * @param contours the density contours to add legend for
+ * @param colorScale the color scale to use for the legend
+ * @param chartHeight the height of the chart
+ * @param marginTop top margin for the legend
+ */
+function addDensityLegend(
+  svg: d3.Selection<SVGElement, any, any, any>,
+  contours: d3.ContourMultiPolygon[],
+  colorScale: d3.ScaleSequential<string>,
+  chartHeight: number,
+  marginTop: number
+) {
+  const legend = svg
+    .append("g")
+    .attr("id", "density-legend")
+    .attr("width", DENSITY_LEGEND_WIDTH);
+  const legendHeight = chartHeight - MARGINS.top - MARGINS.bottom;
+
+  // add legend title
+  legend
+    .append("g")
+    .append("text")
+    .attr("dominant-baseline", "hanging")
+    .attr("font-size", DENSITY_LEGEND_FONT_SIZE)
+    .text("density");
+
+  // generate a scale image and append to legend
+  const canvas = document.createElement("canvas");
+  canvas.width = 1;
+  canvas.height = contours.length + 1;
+  const context = canvas.getContext("2d");
+  for (let i = 0; i <= contours.length; i++) {
+    context.fillStyle = colorScale(contours.length - i);
+    context.fillRect(0, i, 1, 1);
+  }
+  legend
+    .append("image")
+    .attr("id", "legend-img")
+    .attr("x", 0)
+    .attr("y", 0)
+    .attr("width", DENSITY_LEGEND_IMAGE_WIDTH)
+    .attr("height", legendHeight)
+    .attr("preserveAspectRatio", "none")
+    .attr("xlink:href", canvas.toDataURL())
+    .attr("transform", `translate(0, ${DENSITY_LEGEND_TITLE_HEIGHT})`);
+
+  // add the tick marks for the legend
+  const legendScale = d3
+    .scaleLinear()
+    .domain([-1, contours.length - 1])
+    .range([0, legendHeight]);
+  legend
+    .append("g")
+    .call(
+      d3.axisRight(legendScale).tickFormat((d) => {
+        if (d >= 0 && d < contours.length) {
+          return formatNumber(contours[d.valueOf()].value);
+        }
+      })
+    )
+    .call((g) =>
+      g
+        .selectAll(".tick line")
+        .attr("x2", DENSITY_LEGEND_IMAGE_WIDTH + DENSITY_LEGEND_MARGIN_RIGHT)
+        .attr("fill", AXIS_TEXT_FILL)
+        .attr("stroke", AXIS_GRID_FILL)
+    )
+    .call((g) =>
+      g
+        .selectAll(".tick text")
+        .attr("transform", `translate(${DENSITY_LEGEND_IMAGE_WIDTH}, 0)`)
+    )
+    .call((g) => g.select(".domain").remove())
+    .attr("transform", `translate(0, ${DENSITY_LEGEND_TITLE_HEIGHT})`);
+
+  const containerWidth = svg.node().getBoundingClientRect().width;
+  legend.attr(
+    "transform",
+    `translate(${containerWidth - DENSITY_LEGEND_WIDTH}, ${
+      marginTop + MARGINS.top
+    })`
+  );
+}
+
+/**
+ * Adds visualization of density of points in each area
+ * @param svg svg with the chart to show density for
+ * @param dots the dot elements to color according to density of the area
+ * @param xScale the scale to use to calculate x coordinate of data points
+ * @param yScale the scale to use to calculate y coordinate of data points
+ * @param dataPoints the set of data points to add density for
+ * @param chartWidth the width of the chart area
+ * @param chartHeight the height of the chart area
+ * @param marginTop margin between top of the chart area and the top of the container
+ */
+function addDensity(
+  svg: d3.Selection<SVGElement, any, any, any>,
+  dots: d3.Selection<SVGCircleElement, Point, SVGGElement, unknown>,
+  xScale: d3.ScaleLinear<number, number>,
+  yScale: d3.ScaleLinear<number, number>,
+  dataPoints: Array<Point>,
+  chartWidth: number,
+  chartHeight: number,
+  marginTop: number
+) {
+  const contours = d3
+    .contourDensity<Point>()
+    .size([chartWidth, chartHeight])
+    .x((d) => {
+      return xScale(d.xVal);
+    })
+    .y((d) => {
+      return yScale(d.yVal);
+    })(dataPoints);
+
+  const densityColorScale = d3
+    .scaleSequential((t) => d3.hsl(t * 240, 1, 0.5).toString())
+    .domain([0, contours.length]);
+
+  addDensityLegend(svg, contours, densityColorScale, chartHeight, marginTop);
+
+  dots
+    .attr("class", "density-dot")
+    .attr("fill", (point) => {
+      for (let i = contours.length - 1; i >= 0; i--) {
+        for (const coord of contours[i].coordinates) {
+          const polygon = coord as Array<[]>;
+          if (
+            d3.polygonContains(polygon[0], [
+              xScale(point.xVal),
+              yScale(point.yVal),
+            ])
+          ) {
+            return densityColorScale(contours.length - i - 1);
+          }
+        }
+      }
+      return densityColorScale(contours.length);
+    })
+    .attr("stroke-width", 0);
+}
+
+/**
  * Plots a scatter plot.
  * @param svg
  * @param tooltip
@@ -239,12 +394,16 @@ function plot(
 ): void {
   d3.select(svgRef.current).selectAll("*").remove();
   const svgContainerRealWidth = svgContainerRef.current.offsetWidth;
-  const svgContainerMaxWidth = window.innerHeight * 0.65;
+  const svgContainerMaxWidth = props.showDensity
+    ? window.innerHeight * 0.65 + DENSITY_LEGEND_WIDTH
+    : window.innerHeight * 0.65;
   const svgContainerWidth = Math.min(
     svgContainerRealWidth,
     svgContainerMaxWidth
   );
-  const svgContainerHeight = svgContainerWidth;
+  const svgContainerHeight = props.showDensity
+    ? svgContainerWidth - DENSITY_LEGEND_WIDTH
+    : svgContainerWidth;
   const svgXTranslation =
     svgContainerWidth < svgContainerRealWidth
       ? (svgContainerRealWidth - svgContainerWidth) / 2
@@ -278,7 +437,10 @@ function plot(
     props.yLabel,
     props.yUnits
   );
-  const width = svgContainerWidth - MARGINS.left - MARGINS.right - yAxisWidth;
+  let width = svgContainerWidth - MARGINS.left - MARGINS.right - yAxisWidth;
+  if (props.showDensity) {
+    width = width - DENSITY_LEGEND_WIDTH;
+  }
 
   const xAxisLabel = svg.append("g").attr("class", "x-axis-label");
   const xAxisHeight = addXLabel(
@@ -317,10 +479,26 @@ function plot(
     .attr("cx", (point) => xScale(point.xVal))
     .attr("cy", (point) => yScale(point.yVal))
     .attr("stroke", "rgb(147, 0, 0)")
-    .attr("stroke-width", 1.5)
-    .attr("fill", "#FFFFFF")
     .style("opacity", "0.7")
     .on("click", handleDotClick(props.xStatVar, props.yStatVar));
+
+  if (props.showDensity) {
+    addDensity(
+      svg,
+      dots,
+      xScale,
+      yScale,
+      props.points,
+      width,
+      height,
+      titleHeight + MARGINS.top
+    );
+  } else {
+    dots
+      .attr("class", "scatter-dot")
+      .attr("fill", DEFAULT_FILL)
+      .attr("stroke-width", STROKE_WIDTH);
+  }
 
   if (props.showLabels) {
     g.append("g")

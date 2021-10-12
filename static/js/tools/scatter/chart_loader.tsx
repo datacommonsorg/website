@@ -117,6 +117,7 @@ function ChartLoader(): JSX.Element {
                 yUnits={yUnits}
                 showQuadrants={display.showQuadrants}
                 showLabels={display.showLabels}
+                showDensity={display.showDensity}
               />
               <PlotOptions />
             </>

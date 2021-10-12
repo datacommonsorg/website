@@ -86,6 +86,9 @@ function applyHash(context: ContextType): void {
   context.display.setLabels(
     applyHashBoolean(params, FieldToAbbreviation.showLabels)
   );
+  context.display.setDensity(
+    applyHashBoolean(params, FieldToAbbreviation.showDensity)
+  );
 }
 
 /**
@@ -248,6 +251,9 @@ function updateHashDisplayOptions(
 
   val = display.showLabels ? "1" : "0";
   hash = appendEntry(hash, FieldToAbbreviation.showLabels, val);
+
+  val = display.showDensity ? "1" : "0";
+  hash = appendEntry(hash, FieldToAbbreviation.showDensity, val);
 
   return hash;
 }
