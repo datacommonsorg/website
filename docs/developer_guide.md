@@ -136,10 +136,25 @@ Start the flask webserver locally at localhost:8080
 If you don't have DataCommons GCP permissions, run
 
 ```bash
-./run_server.sh lite
+./run_server.sh -e lite
 ```
 
+Other options for -e are `private` for private data commons, or `sustainability`
+for sustainability data commons.
+
 This will bring up local website without place search functionality.
+
+There are now multiple environments for the server. To start multiple instances,
+bind each server instance to a different port. The following example will start
+localhost on port 8081. The default is 8080.
+
+```bash
+./run_server.sh -p 8081
+```
+
+Please note the strict syntax requirements for the script, and leave a space after the flag.
+So `./run_server.sh -p 8081` but not `./run_server.sh -p=8081`.
+
 
 ## Develop with local Kubernetes
 

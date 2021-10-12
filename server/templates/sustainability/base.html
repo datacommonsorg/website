@@ -17,13 +17,12 @@
   Required variables:
   title: page title
   main_id: DOM Element ID for the main content block
-  deployment: "private" or "public"
+  deployment: "sustainability"
 
   Optional variables:
   is_hide_full_footer: boolean, if true, hides the full expanded footer. Default false
   is_hide_sub_footer: boolean, if true, hides the sub footer. Default false
   subpage_title: string, if specified, will be displayed in the header next to Data Commons
-  hide_search: boolean, if true, will remove the nav header search box
 
   Blocks to override:
   head - additional head elements
@@ -37,7 +36,7 @@
   <title>{{ title }} - Sustainability Data Commons</title>
   <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-  <link rel="icon" href="/favicon.ico" type="image/x-icon">
+  <link rel="icon" href="/sustain_favicon.ico" type="image/x-icon">
   <link href="https://fonts.googleapis.com/css2?family=Public+Sans:wght@300;600&family=Roboto&display=swap"
     rel="stylesheet">
   {% block head %}
@@ -68,6 +67,7 @@
               <li class="nav-item">
                 <a class="nav-link" href="https://datacommons.org">Data Commons</a>
               </li>
+              {#- TODO: Add these back as each tool is modified for sustainability.
               <li class="nav-item dropdown">
                 <a class="nav-link dropdown-toggle" href="#" id="nav-explore-dropdown" role="button"
                   data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
@@ -80,10 +80,8 @@
                   <a class="dropdown-item" href="{{ url_for('tools.map') }}">Map Explorer</a>
                 </div>
               </li>
+              -#}
             </ul>
-            {%- if not hide_search -%}
-            <div class="gcse-searchbox-only" data-resultsUrl="/search"></div>
-            {%- endif -%}
           </div>
         </div>
       </nav>
@@ -98,6 +96,7 @@
       <div class="container">
         {% if not is_hide_full_footer %}
         <div class="row">
+          {#- TODO: Add these back as each tool is modified for sustainability.
           <section class="col-12 col-sm-6 col-md-4">
             <h6>Explore</h6>
             <a href="{{ url_for('place.place') }}">Place Explorer</a>
@@ -106,6 +105,7 @@
             <a href="{{ url_for('tools.scatter') }}">Scatter Plot Explorer</a>
             <a href="{{ url_for('tools.map') }}">Map Explorer</a>
           </section>
+          -#}
           <section class="col-12 col-sm-6 col-md-4">
             <h6>Documentation</h6>
             <a href="http://docs.datacommons.org">Documentation</a>
@@ -116,11 +116,15 @@
           </section>
           <section class="col-12 col-sm-6 col-md-4">
             <h6>Data Commons</h6>
+            {#- TODO: Modify to point to main site, or a modified version
             <a href="{{ url_for('static.about') }}">About Data Commons</a>
             <a href="https://docs.datacommons.org/blog.html">Blog</a>
             <a href="{{ url_for('static.datasets') }}">Data Sources</a>
+            -#}
             <a href="{{ url_for('static.feedback') }}">Feedback</a>
+            {#
             <a href="{{ url_for('static.faq') }}">Frequently Asked Questions</a>
+            #}
           </section>
         </div>
         {% endif %}
@@ -131,8 +135,8 @@
 
             <div class="float-md-right mt-2 mt-md-0">
               {% block subfooter_extra %}{% endblock %}
-              <a href="https://policies.google.com/terms">Terms and Conditions</a>
-              <a href="https://policies.google.com/privacy?hl=en-US">Privacy Policy</a>
+              <a href="https://policies.google.com/terms">Terms and Conditions</a> ·&nbsp;
+              <a href="https://policies.google.com/privacy?hl=en-US">Privacy Policy</a> ·&nbsp;
               <a href="{{ url_for('static.disclaimers') }}">Disclaimers</a>
             </div>
           </div>

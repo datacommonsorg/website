@@ -365,7 +365,7 @@ msgid "CHART_TITLE-Electricity_consumption_per_capita"
 msgstr "1인당 전기 소비량"
 
 msgid "CHART_TITLE-Electricity_generation"
-msgstr "Electricity generation"
+msgstr "Electricity generation per capita"
 
 msgid "CHART_TITLE-Electricity_price"
 msgstr "Electricity price"
@@ -687,5 +687,4 @@ msgstr "노동자 월급: 도시 및 농촌 비교"
 
 msgid "CHART_TITLE-Worker-vs-nonworker-population"
 msgstr "노동자 및 비노동자 인구 비교"
-
 

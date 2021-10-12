@@ -19,6 +19,7 @@ This module contains the request handler codes and the main app.
 import json
 import logging
 import os
+import sys
 
 import flask
 from flask import request
@@ -36,6 +37,8 @@ app.jinja_env.globals['GA_ACCOUNT'] = app.config['GA_ACCOUNT']
 app.jinja_env.globals['PRIVATE'] = app.config['PRIVATE']
 app.jinja_env.globals['SUSTAINABILITY'] = app.config['SUSTAINABILITY']
 app.jinja_env.globals['NAME'] = app.config['NAME']
+app.jinja_env.globals['BASE_HTML'] = 'sustainability/base.html' if app.config[
+    'SUSTAINABILITY'] else 'base.html'
 
 GCS_BUCKET = app.config['GCS_BUCKET']
 _MAX_SEARCH_RESULTS = 1000
@@ -50,6 +53,7 @@ def before_request():
         return flask.redirect(url, code=code)
 
 
+# TODO(beets): Move this to a separate handler so it won't be installed on all apps.
 @cache.cached(timeout=3600 * 24)
 @app.route('/api/placeid2dcid/<path:placeid>')
 def api_placeid2dcid(placeid):
@@ -65,6 +69,7 @@ def api_placeid2dcid(placeid):
         flask.abort(404, 'dcid not found for %s' % placeid)
 
 
+# TODO(beets): Move this to a separate handler so it won't be installed on all apps.
 @app.route('/translator')
 def translator_handler():
     return flask.render_template('translator.html',
@@ -72,6 +77,7 @@ def translator_handler():
                                  sample_query=translator.SAMPLE_QUERY)
 
 
+# TODO(beets): Move this to a separate handler so it won't be installed on all apps.
 @app.route('/search')
 def search():
     return flask.render_template('search.html')
@@ -82,6 +88,7 @@ def healthz():
     return "very healthy"
 
 
+# TODO(beets): Move this to a separate handler so it won't be installed on all apps.
 @app.route('/search_dc')
 def search_dc():
     """Add DC API powered search for non-place searches temporarily"""
@@ -118,6 +125,7 @@ def search_dc():
                                  results=results)
 
 
+# TODO(beets): Move this to a separate handler so it won't be installed on all apps.
 @app.route('/weather')
 def get_weather():
     dcid = request.args.get('dcid')
@@ -165,6 +173,7 @@ def get_weather():
     return json.dumps(observations)
 
 
+# TODO(beets): Move this to a separate handler so it won't be installed on all apps.
 @app.route('/mcf_playground')
 def mcf_playground():
     return flask.render_template('mcf_playground.html')
@@ -183,4 +192,5 @@ def version():
 if __name__ == '__main__':
     # This is used when running locally only. When deploying to GKE,
     # a webserver process such as Gunicorn will serve the app.
-    app.run(host='127.0.0.1', port=8080, debug=True)
+    port = sys.argv[1] if len(sys.argv) >= 2 else 8080
+    app.run(host='127.0.0.1', port=port, debug=True)

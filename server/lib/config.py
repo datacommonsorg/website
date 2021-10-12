@@ -34,12 +34,15 @@ def get_config():
     elif os.environ.get('FLASK_ENV') == 'autopush-sustainability':
         return import_string('configmodule.AutopushSustainabilityConfig')()
 
+    elif os.environ.get('FLASK_ENV') == 'test':
+        return import_string('configmodule.TestConfig')()
+    elif os.environ.get('FLASK_ENV') == 'test-sustainability':
+        return import_string('configmodule.SustainabilityTestConfig')()
+
     elif os.environ.get('FLASK_ENV') == 'dev':
         return import_string('configmodule.DevConfig')()
     elif os.environ.get('FLASK_ENV') == 'webdriver':
         return import_string('configmodule.WebdriverConfig')()
-    elif os.environ.get('FLASK_ENV') == 'test':
-        return import_string('configmodule.TestConfig')()
     elif os.environ.get('FLASK_ENV') == 'minikube':
         return import_string('configmodule.MinikubeConfig')()
 

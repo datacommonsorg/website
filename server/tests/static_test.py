@@ -43,6 +43,8 @@ class TestStaticPages(unittest.TestCase):
         assert b"Mountain View, CA" in response.data
         assert b"more ..." in response.data
 
+        assert not b"Sustainability Data Commons" in response.data
+
     @patch('routes.api.place.get_display_name')
     def test_homepage_i18n(self, mock_get_display_name):
         mock_get_display_name.return_value = {

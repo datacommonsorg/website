@@ -365,7 +365,7 @@ msgid "CHART_TITLE-Electricity_consumption_per_capita"
 msgstr "Consumo de electricidad per cápita"
 
 msgid "CHART_TITLE-Electricity_generation"
-msgstr "Electricity generation"
+msgstr "Electricity generation per capita"
 
 msgid "CHART_TITLE-Electricity_price"
 msgstr "Electricity price"
@@ -687,5 +687,4 @@ msgstr "Salario de las personas trabajadoras (mensual): comparación entre zonas
 
 msgid "CHART_TITLE-Worker-vs-nonworker-population"
 msgstr "Personas trabajadoras y no trabajadoras"
-
 
