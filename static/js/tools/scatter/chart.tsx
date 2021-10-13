@@ -247,7 +247,7 @@ function addDensityLegend(
   colorScale: d3.ScaleSequential<string>,
   chartHeight: number,
   marginTop: number
-) {
+): void {
   const legend = svg
     .append("g")
     .attr("id", "density-legend")
@@ -323,7 +323,7 @@ function addDensity(
   chartWidth: number,
   chartHeight: number,
   marginTop: number
-) {
+): void {
   // Generate the multipolygons (contours) to group the dots into areas of
   // varying densities (number of dots per pixel)
   const contours = d3
