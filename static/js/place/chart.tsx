@@ -42,7 +42,7 @@ import {
   localizeSearchParams,
   formatNumber,
 } from "../i18n/i18n";
-import { urlToDomain } from "../shared/util";
+import { urlToDomain, isDateTooFar } from "../shared/util";
 import { NamedPlace } from "../shared/types";
 
 const CHART_HEIGHT = 194;
@@ -449,6 +449,9 @@ class Chart extends React.Component<ChartPropType, ChartStateType> {
         for (const statVar in this.props.trend.series) {
           const dataPoints: DataPoint[] = [];
           for (const date in this.props.trend.series[statVar]) {
+            if (isDateTooFar(date)) {
+              continue;
+            }
             allDates.add(date);
             dataPoints.push({
               label: date,

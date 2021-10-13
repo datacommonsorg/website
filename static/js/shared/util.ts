@@ -14,6 +14,8 @@
  * limitations under the License.
  */
 
+import { MAX_YEAR } from "./constants";
+
 // This has to be in sync with server/__init__.py
 export const placeExplorerCategories = [
   "economics",
@@ -27,7 +29,7 @@ export const placeExplorerCategories = [
   "energy",
 ];
 
-function randDomId(): string {
+export function randDomId(): string {
   return Math.random()
     .toString(36)
     .replace(/[^a-z]+/g, "")
@@ -40,7 +42,7 @@ function randDomId(): string {
  * @param {contents} string
  * @return void
  */
-function saveToFile(filename: string, contents: string): void {
+export function saveToFile(filename: string, contents: string): void {
   let mimeType = "text/plan";
   if (filename.match(/\.csv$/i)) {
     mimeType = "text/csv;chartset=utf-8";
@@ -62,7 +64,7 @@ function saveToFile(filename: string, contents: string): void {
 /**
  * Get the domain from a url.
  */
-function urlToDomain(url: string): string {
+export function urlToDomain(url: string): string {
   if (!url) {
     return "";
   }
@@ -73,4 +75,10 @@ function urlToDomain(url: string): string {
     .split(/[/?#]/)[0];
 }
 
-export { randDomId, saveToFile, urlToDomain };
+export function isDateTooFar(date: string): boolean {
+  return date.slice(0, 4) > MAX_YEAR;
+}
+
+export function isStatVarDataTooFar(statVar: string): boolean {
+  return statVar.includes("_RCP");
+}

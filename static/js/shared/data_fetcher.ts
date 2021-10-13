@@ -18,6 +18,7 @@ import _ from "lodash";
 import axios from "axios";
 
 import { DataPoint, DataGroup } from "../chart/base";
+import { isDateTooFar } from "./util";
 
 const TOTAL_POPULATION_SV = "Count_Person";
 const ZERO_POPULATION = 0;
@@ -92,6 +93,9 @@ export class StatData {
       const timeSeries = this.data[place].data[statVar];
       if (timeSeries.val && Object.keys(timeSeries.val).length !== 0) {
         for (const date of this.dates) {
+          if (isDateTooFar(date)) {
+            continue;
+          }
           dataPoints.push({
             label: date,
             time: new Date(date).getTime(),

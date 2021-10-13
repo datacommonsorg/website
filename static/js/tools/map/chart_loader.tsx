@@ -27,6 +27,8 @@ import { Context, IsLoadingWrapper, PlaceInfo, StatVar } from "./context";
 import { Chart } from "./chart";
 import axios from "axios";
 import { StatApiResponse } from "../../shared/data_fetcher";
+import { MAX_DATE } from "../../shared/constants";
+import { isStatVarDataTooFar } from "../../shared/util";
 
 interface ChartRawData {
   geoJsonData: GeoJsonData;
@@ -140,10 +142,13 @@ function fetchData(
       `/api/choropleth/geojson?placeDcid=${placeInfo.enclosingPlace.dcid}&placeType=${placeInfo.enclosedPlaceType}`
     )
     .then((resp) => resp.data);
+  let statVarDataUrl = `/api/stats/within-place?parent_place=${placeInfo.enclosingPlace.dcid}&child_type=${placeInfo.enclosedPlaceType}&stat_vars=${statVar.dcid}`;
+  // Only cut the data for prediction data that extends to 2099
+  if (isStatVarDataTooFar(statVar.dcid)) {
+    statVarDataUrl += `&date=${MAX_DATE}`;
+  }
   const statVarDataPromise: Promise<PlacePointStat> = axios
-    .get(
-      `/api/stats/within-place?parent_place=${placeInfo.enclosingPlace.dcid}&child_type=${placeInfo.enclosedPlaceType}&stat_vars=${statVar.dcid}`
-    )
+    .get(statVarDataUrl)
     .then((resp) => resp.data[statVar.dcid]);
   const breadcrumbDataPromise: Promise<PlacePointStat> = axios
     .post("/api/stats/set", {
