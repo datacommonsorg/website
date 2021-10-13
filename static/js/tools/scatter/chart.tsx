@@ -57,12 +57,10 @@ const Y_AXIS_WIDTH = 30;
 const STROKE_WIDTH = 1.5;
 const DEFAULT_FILL = "#FFFFFF";
 const DENSITY_LEGEND_FONT_SIZE = "0.7rem";
-const DENSITY_LEGEND_TITLE_HEIGHT = 16;
+const DENSITY_LEGEND_TEXT_HEIGHT = 15;
+const DENSITY_LEGEND_TEXT_PADDING = 5;
 const DENSITY_LEGEND_IMAGE_WIDTH = 10;
 const DENSITY_LEGEND_WIDTH = 75;
-const DENSITY_LEGEND_MARGIN_RIGHT = 5;
-const AXIS_TEXT_FILL = "#2b2929";
-const AXIS_GRID_FILL = "#999";
 
 function Chart(props: ChartPropsType): JSX.Element {
   const svgRef = useRef<SVGSVGElement>();
@@ -254,7 +252,7 @@ function addDensityLegend(
     .append("g")
     .attr("id", "density-legend")
     .attr("width", DENSITY_LEGEND_WIDTH);
-  const legendHeight = chartHeight - MARGINS.top - MARGINS.bottom;
+  const legendHeight = chartHeight / 2;
 
   // add legend title
   legend
@@ -262,7 +260,20 @@ function addDensityLegend(
     .append("text")
     .attr("dominant-baseline", "hanging")
     .attr("font-size", DENSITY_LEGEND_FONT_SIZE)
-    .text("density");
+    .text("sparse");
+
+  legend
+    .append("g")
+    .append("text")
+    .attr("dominant-baseline", "hanging")
+    .attr("font-size", DENSITY_LEGEND_FONT_SIZE)
+    .text("dense")
+    .attr(
+      "transform",
+      `translate(0, ${
+        legendHeight - DENSITY_LEGEND_TEXT_HEIGHT + DENSITY_LEGEND_TEXT_PADDING
+      })`
+    );
 
   // generate a scale image and append to legend
   const canvas = document.createElement("canvas");
@@ -279,46 +290,16 @@ function addDensityLegend(
     .attr("x", 0)
     .attr("y", 0)
     .attr("width", DENSITY_LEGEND_IMAGE_WIDTH)
-    .attr("height", legendHeight)
+    .attr("height", legendHeight - 2 * DENSITY_LEGEND_TEXT_HEIGHT)
     .attr("preserveAspectRatio", "none")
     .attr("xlink:href", canvas.toDataURL())
-    .attr("transform", `translate(0, ${DENSITY_LEGEND_TITLE_HEIGHT})`);
-
-  // add the tick marks for the legend
-  const legendScale = d3
-    .scaleLinear()
-    .domain([-1, contours.length - 1])
-    .range([0, legendHeight]);
-  legend
-    .append("g")
-    .call(
-      d3.axisRight(legendScale).tickFormat((d) => {
-        if (d >= 0 && d < contours.length) {
-          return formatNumber(contours[d.valueOf()].value);
-        }
-      })
-    )
-    .call((g) =>
-      g
-        .selectAll(".tick line")
-        .attr("x2", DENSITY_LEGEND_IMAGE_WIDTH + DENSITY_LEGEND_MARGIN_RIGHT)
-        .attr("fill", AXIS_TEXT_FILL)
-        .attr("stroke", AXIS_GRID_FILL)
-    )
-    .call((g) =>
-      g
-        .selectAll(".tick text")
-        .attr("transform", `translate(${DENSITY_LEGEND_IMAGE_WIDTH}, 0)`)
-    )
-    .call((g) => g.select(".domain").remove())
-    .attr("transform", `translate(0, ${DENSITY_LEGEND_TITLE_HEIGHT})`);
+    .attr("transform", `translate(0, ${DENSITY_LEGEND_TEXT_HEIGHT})`);
 
   const containerWidth = svg.node().getBoundingClientRect().width;
+  const yPosition = chartHeight / 2 + marginTop - legendHeight / 2;
   legend.attr(
     "transform",
-    `translate(${containerWidth - DENSITY_LEGEND_WIDTH}, ${
-      marginTop + MARGINS.top
-    })`
+    `translate(${containerWidth - DENSITY_LEGEND_WIDTH}, ${yPosition})`
   );
 }
 
